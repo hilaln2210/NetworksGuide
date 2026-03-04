@@ -1,0 +1,26 @@
+.key-tip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), transparent);
+  border-right: 3px solid var(--accent-gold);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+
+.key-tip:hover {
+  background: rgba(245, 158, 11, 0.2);
+}
+
+.key-tip-icon {
+  flex-shrink: 0;
+}
+
+.key-tip-text {
+  font-weight: 500;
+}

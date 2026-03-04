@@ -1,0 +1,253 @@
+/* הדמיות אינטראקטיביות */
+.simulation-box {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(145deg, rgba(59, 130, 246, 0.08), rgba(16, 185, 129, 0.05));
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.simulation-box h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  color: var(--accent);
+}
+
+.sim-btn {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sim-btn:hover:not(:disabled) {
+  background: #2563eb;
+  transform: translateY(-1px);
+}
+
+.sim-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.sim-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+/* TCP Handshake */
+.tcp-handshake .sim-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.tcp-handshake .sim-node {
+  padding: 0.75rem 1.25rem;
+  background: var(--bg-elevated);
+  border-radius: 8px;
+  font-weight: 500;
+  min-width: 80px;
+  text-align: center;
+}
+
+.tcp-handshake .sim-pipe {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sim-msg {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 2px dashed transparent;
+  opacity: 0.4;
+  transition: all 0.4s;
+}
+
+.sim-msg.active {
+  opacity: 1;
+  border-color: var(--msg-color, var(--accent));
+  background: color-mix(in srgb, var(--msg-color, var(--accent)) 15%, transparent);
+}
+
+.msg-label {
+  font-weight: 700;
+  margin-left: 0.5rem;
+}
+
+.msg-desc {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.msg-placeholder {
+  color: var(--text-muted);
+}
+
+/* Encapsulation */
+.encaps-layers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin: 1rem 0;
+}
+
+.encaps-layer {
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0.35;
+  transition: all 0.35s;
+}
+
+.encaps-layer.active {
+  opacity: 1;
+  background: color-mix(in srgb, var(--layer-color) 25%, transparent);
+  border-right: 4px solid var(--layer-color);
+}
+
+.layer-name {
+  font-weight: 600;
+  color: var(--layer-color);
+}
+
+.layer-add {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* DNS Lookup */
+.dns-flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.dns-node {
+  padding: 0.75rem 1rem;
+  background: var(--bg-elevated);
+  border-radius: 8px;
+  min-width: 140px;
+  text-align: center;
+}
+
+.dns-node input {
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-dark);
+  color: var(--text);
+  font-family: inherit;
+}
+
+.dns-arrow {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+.dns-arrow.active {
+  opacity: 1;
+  color: var(--accent-green);
+}
+
+.dns-arrow .pulse {
+  animation: pulse 0.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.ip-result {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 1.1rem;
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+.thinking {
+  font-size: 0.9rem;
+  color: var(--accent-gold);
+}
+
+/* Packet Flow */
+.packet-flow {
+  position: relative;
+}
+
+.packet-path {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  gap: 0;
+}
+
+.path-segment {
+  display: flex;
+  align-items: center;
+}
+
+.path-node {
+  padding: 0.5rem 0.75rem;
+  background: var(--bg-elevated);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  min-width: 70px;
+  text-align: center;
+}
+
+.path-node.passed {
+  background: color-mix(in srgb, var(--accent-green) 25%, var(--bg-elevated));
+  border: 1px solid var(--accent-green);
+}
+
+.path-node.active {
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.path-line {
+  width: 30px;
+  height: 2px;
+  background: var(--border);
+  margin: 0 0.15rem;
+  transition: background 0.3s;
+}
+
+.path-line.passed {
+  background: var(--accent-green);
+}
+
+.packet-emoji {
+  display: block;
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+  animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}

@@ -134,12 +134,52 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
         `
       },
       {
+        type: "simulation",
+        title: "הדמיית DNS – תרגום דומיין ל־IP",
+        simId: "dnsLookup",
+        content: `<p>הדמי את תהליך ה־DNS: הכניסי דומיין (למשל google.com) ולחצי "חפשי IP" – המדריך מדגים את הזרימה.</p>`
+      },
+      {
+        type: "simulation",
+        title: "הדמיית מסלול חבילה ברשת",
+        simId: "packetFlow",
+        content: `<p>לחצי "הרץ מסלול" כדי לראות איך חבילה עוברת ממחשב דרך Switch ונתבים עד לשרת – כל צעד בנפרד.</p>`
+      },
+      {
         type: "explanation",
         title: "GeoIP – מיקום גיאוגרפי",
         content: `
           <p>ישנם מאגרי נתונים הכוללים מידע על המיקום הגיאוגרפי של כתובות IP. בהינתן כתובת IP, ניתן לדעת באיזו מדינה ועיר היא נמצאת.</p>
           <p>המיפוי אינו רשמי ולא מדויק, אך נותן מענה נכון ברוב המקרים. דוגמה: <a href="http://www.geoiptool.com" target="_blank">geoiptool.com</a></p>
         `
+      },
+      {
+        type: "thinkOutside",
+        title: "חשיבה מחוץ לקופסא – פרק 1",
+        intro: "<p>כדי להעמיק – שאלות מפתיעות ותשובות יצירתיות:</p>",
+        blocks: [
+          {
+            title: "למה דווקא 255? למה 65535 פורטים?",
+            icon: "🔢",
+            content: `
+              <p><strong>255</strong> = 2^8 − 1. בית אחד = 8 ביטים = 256 ערכים (0 עד 255). IPv4 = 4 בתים. <strong>65535</strong> = 2^16 − 1. פורט = 16 ביטים. המחשבה מחוץ לקופסא: הרשת בנויה על כוחו של הבינארי – כל ביט מכפיל את האפשרויות.</p>
+            `
+          },
+          {
+            title: "IP over Avian Carriers – אינטרנט עם יונים",
+            icon: "🕊️",
+            content: `
+              <p><strong>RFC 1149</strong> הוא תקן אמיתי (משנת 1990!) – "IP over Avian Carriers" – העברת חבילות IP באמצעות יונים. באפריל 2001 בוצע ניסוי בנורווגיה: 9 חבילות, 100% הצלחה. הבעיה: latency גבוה (בערך שעתיים) ו bandwidth נמוך. הרעיון: פרוטוקול הוא רק "שפה" – העברה פיזית יכולה להיות כל דבר. אפילו יונים.</p>
+            `
+          },
+          {
+            title: "מה קורה כשחבילה הולכת לאיבוד?",
+            icon: "❓",
+            content: `
+              <p>ב־<strong>TCP</strong> – השלוח לא מקבל ACK, מחכה timeout, ושולח שוב. ב־<strong>UDP</strong> – אף אחד לא שם לב. היישום אולי יבחין (סרטון "קפיצה", שיחה נקטעת) – או לא. חשיבה מחוץ לקופסא: הרשת לא "יודעת" מה חשוב – רק הפרוטוקולים והיישומים מחליטים.</p>
+            `
+          }
+        ]
       },
       {
         type: "summary",
@@ -158,6 +198,22 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
         `
       },
       {
+        type: "demo",
+        title: "המדריך מדגים: פלט של nslookup",
+        content: `
+          <p>כשרצים <code>nslookup www.google.com</code>, זה סוג הפלט:</p>
+          <div class="code-preview">
+            <pre><code>C:\&gt; nslookup www.google.com
+
+Non-authoritative answer:
+Name:    www.google.com
+Addresses:  142.250.185.46
+            2a00:1450:4010:c08::8b</code></pre>
+          </div>
+          <p class="demo-note">📋 הכתובת הראשונה היא IPv4, השנייה IPv6. "Non-authoritative" – תשובה משרת מטמון, לא משרת ה-DNS הראשי של הדומיין.</p>
+        `
+      },
+      {
         type: "questions",
         title: "שאלות הבנה - פרק 1",
         questions: [
@@ -168,6 +224,14 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
           {
             q: "איך נראה כתובת IP ומה המבנה שלה?",
             a: "כתובת IP מורכבת מארבעה מספרים (בתים) מופרדים בנקודות, כל מספר בטווח 0-255. דוגמאות: 192.168.1.1, 31.13.72.65."
+          },
+          {
+            q: "מה עושה traceroute ולמה הוא שימושי?",
+            a: "traceroute מציג את מסלול החבילות מהמחשב ליעד – כל נתב ושרת בדרך. שימושי לאבחון עיכובים, זיהוי מקום תקלה, והבנת איך הרשת בנויה."
+          },
+          {
+            q: "איך DNS עובד? למה הדפדפן לא יכול פשוט להשתמש בשם?",
+            a: "הרשת עובדת עם כתובות IP – מספרים. DNS הוא פנקס טלפונים שמתרגם שמות קריאים (www.google.com) למספרים. הדפדפן שולח שאילתה לשרת DNS, שמחזיר את ה-IP."
           }
         ]
       }
@@ -253,12 +317,27 @@ server_socket.close()</code></pre>
         `
       },
       {
+        type: "explanation",
+        title: "127.0.0.1 ו־0.0.0.0",
+        content: `
+          <p><strong>127.0.0.1</strong> (loopback) – כתובת שמפנה למחשב עצמו. להתחברות לשרת שרץ locally. <strong>0.0.0.0</strong> ב־bind – "האזן על כל הממשקים" – השרת מקבל חיבורים מכל כתובת IP של המחשב (כולל 127.0.0.1 וממשק הרשת).</p>
+        `
+      },
+      {
         type: "questions",
         title: "שאלות הבנה - פרק 2",
         questions: [
           {
             q: "מה תפקיד הפורט בהקשר של Socket?",
             a: "הפורט מזהה את התוכנה הספציפית על השרת. שרת אחד יכול להריץ כמה שירותים – אימייל, HTTP וכו'. כל שירות מאזין על פורט אחר, כך שהשרת יודע להפנות את הבקשה לתוכנה הנכונה."
+          },
+          {
+            q: "מה ההבדל בין bind ל־connect?",
+            a: "bind – קושר את ה-Socket לכתובת ופורט (לשרת – 'אני מאזין כאן'). connect – מתחבר לכתובת ופורט מרוחקים (ללקוח – 'אני מתחבר אליך')."
+          },
+          {
+            q: "למה recv ו-accept נקראים blocking?",
+            a: "הם עוצרים את הביצוע עד שמשהו קורה – accept עד שחיבור חדש מגיע, recv עד שמידע מגיע. אם לא יגיע כלום – התוכנה תישאר תקועה (עד timeout אם הוגדר)."
           }
         ]
       }
@@ -347,6 +426,12 @@ server_socket.close()</code></pre>
         `
       },
       {
+        type: "simulation",
+        title: "הדמיית Encapsulation / Decapsulation",
+        simId: "encapsulation",
+        content: `<p>לחצי על "Encapsulation" כדי לראות איך כל שכבה מוסיפה Header בשליחה. לחצי "Decapsulation" לראות איך מקלפים בקבלה.</p>`
+      },
+      {
         type: "explanation",
         title: "מבנה הפקטה – כל שכבה מוסיפה Header",
         content: `
@@ -375,6 +460,13 @@ server_socket.close()</code></pre>
         `
       },
       {
+        type: "demo",
+        title: "המדריך מדגים: שימוש ב־Wireshark",
+        content: `
+          <p>ב־Wireshark: בוחרים ממשק (כרטיס רשת), לוחצים Start. התעבורה מופיעה ברשימה. <strong>פילטר</strong> – בשדה Filter להקליד למשל: <code>http</code> (רק HTTP), <code>dns</code> (רק DNS), <code>ip.addr==192.168.1.1</code> (חבילות שמכילות את הכתובת). לוחצים Enter. כל שורה = חבילה. לחיצה על חבילה מציגה את המבנה לפי שכבות – Ethernet, IP, TCP, HTTP.</p>
+        `
+      },
+      {
         type: "questions",
         title: "שאלות הבנה - פרק 3",
         questions: [
@@ -385,6 +477,10 @@ server_socket.close()</code></pre>
           {
             q: "למה משתמשים בחמש שכבות ולא בשבע?",
             a: "מודל שבע השכבות (OSI) נוצר באופן תיאורטי. מודל חמש השכבות נוצר מתוך השימוש בפועל ברשת האינטרנט – שתי שכבות (הצגה וסשן) התגלו כמיותרות והושמטו."
+          },
+          {
+            q: "מה ההבדל בין Encapsulation ל-Decapsulation?",
+            a: "Encapsulation – בשליחה: כל שכבה מוסיפה Header (תחילית) לפקטה ומעבירה למטה. Decapsulation – בקבלה: כל שכבה מסירה את ה-Header שלה ומעבירה את השאר למעלה."
           }
         ]
       }
@@ -459,8 +555,8 @@ client.close()</code></pre>
         type: "explanation",
         title: "קודי HTTP ומבנה Headers",
         content: `
-          <p>קודי תגובה מוגדרים: 200 = הצלחה, 404 = המשאב לא נמצא, ועוד. רשימה מלאה: <a href="http://goo.gl/COC4J7" target="_blank">קודי HTTP</a></p>
-          <p>מעבר לשורת הבקשה/תגובה, יש <strong>Headers</strong> – שדות מידע (שם:ערך). למשל: Accept-Language: he (עברית), User-Agent (סוג הדפדפן).</p>
+          <p>קודי תגובה: <strong>200</strong> OK – הצלחה. <strong>301</strong> Moved Permanently – הפניה. <strong>404</strong> Not Found – לא נמצא. <strong>500</strong> Server Error – שגיאה בשרת. רשימה מלאה: <a href="http://goo.gl/COC4J7" target="_blank">קודי HTTP</a></p>
+          <p>מעבר לשורת הבקשה/תגובה, יש <strong>Headers</strong> – שדות מידע (שם:ערך). למשל: Accept-Language: he (עברית), User-Agent (סוג הדפדפן), Content-Length (גודל הגוף), Content-Type (סוג התוכן).</p>
         `
       },
       {
@@ -620,6 +716,10 @@ packets = sniff(count=10, lfilter=filter_dns)</code></pre>
           {
             q: "מה ההבדל בין Wireshark ל-Scapy?",
             a: "Wireshark הוא כלי צפייה – מסונף ומציג. Scapy מאפשר גם הסנפה, אבל בתוך קוד פייתון – אפשר לסנן, לעבד, לשמור, לשלוח חבילות ולבצע פעולות מורכבות על הנתונים."
+          },
+          {
+            q: "מה עושה האופרטור / ב-Scapy?",
+            a: "האופרטור / מחבר שכבות – השכבה הימנית נעטפת כ-payload של השמאלית. IP()/ICMP() יוצר חבילת ping. IP()/TCP(dport=80) יוצר חבילת TCP לפורט 80."
           }
         ]
       }
@@ -694,6 +794,12 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         `
       },
       {
+        type: "simulation",
+        title: "הדמיית TCP Handshake",
+        simId: "tcpHandshake",
+        content: `<p>לחצי "הרץ הדמיה" כדי לראות את שלושת השלבים בזרימה – SYN, SYN-ACK, ACK.</p>`
+      },
+      {
         type: "explanation",
         title: "Sequence number ו־Acknowledgment",
         content: `
@@ -714,6 +820,13 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
               <li>TCP = אמין, UDP = מהיר בלי ערבויות</li>
             </ul>
           </div>
+        `
+      },
+      {
+        type: "explanation",
+        title: "פורטים ידועים ו־Ephemeral",
+        content: `
+          <p><strong>פורטים ידועים</strong> (0–1023): 80=HTTP, 443=HTTPS, 25=SMTP, 53=DNS. השרת מאזין על אלה. <strong>Ephemeral</strong> (חולף) – פורטים דינמיים שהלקוח מקבל (למשל 49152–65535). בכל חיבור הלקוח משתמש בפורט מקור אקראי, השרת עונה לאותו פורט.</p>
         `
       },
       {
@@ -791,9 +904,31 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "ICMP, DHCP ו-NAT",
         content: `
-          <p><strong>ICMP</strong> – פרוטוקול לשגיאות והודעות (ping משתמש בו). <strong>DHCP</strong> – מחשב חדש ברשת שולח Discover, מקבל Offer עם IP, שרת מאשר – והמחשב מקבל IP, מסכת רשת, Default Gateway, שרת DNS.</p>
-          <p><strong>NAT</strong> – כתובות פרטיות (10.x, 172.16.x, 192.168.x) לא ניתנות לניתוב באינטרנט. הנתב מחליף כתובת מקור ל־IP הציבורי שלו – Google רואה רק את הנתב. בתשובה – מחליף חזרה את היעד לכתובת הפרטית.</p>
+          <p><strong>ICMP</strong> – פרוטוקול לשגיאות והודעות. ping שולח Echo Request, מקבל Echo Reply. TTL (Time To Live) – כל נתב מפחית; אם מגיע 0 החבילה נזרקת ו-ICMP Time Exceeded נשלח (traceroute משתמש בזה).</p>
+          <p><strong>DHCP</strong> – מחשב חדש: Discover (ברודקסט) → שרת שולח Offer (IP, Subnet, Gateway, DNS) → Request → Ack. המחשב מקבל הגדרות אוטומטית.</p>
+          <p><strong>NAT</strong> – כתובות פרטיות (10.x, 172.16.x, 192.168.x) לא ניתנות לניתוב. הנתב מחליף כתובת מקור + פורט מקור ל-IP הציבורי + פורט ייחודי (PAT). בתשובה – מחליף חזרה לפי טבלת התרגום.</p>
         `
+      },
+      {
+        type: "thinkOutside",
+        title: "חשיבה מחוץ לקופסא – שכבת הרשת",
+        intro: "<p>זוויות מפתיעות על רשתות:</p>",
+        blocks: [
+          {
+            title: "למה ה־IP נגמר? IPv4 vs IPv6",
+            icon: "🌐",
+            content: `
+              <p>IPv4 = 2^32 כתובות (~4.3 מיליארד). נראה הרבה – אבל האינטרנט גדל. IPv6 = 2^128 כתובות – מספיק לכל גרגר חול על כדור הארץ ועוד. החשיבה מחוץ לקופסא: NAT מאפשר למיליוני מחשבים "להסתדר" עם IP אחד – אבל זה מסתיר בעיה. IPv6 פותר את זה מהשורש.</p>
+            `
+          },
+          {
+            title: "האם אפשר לרשת את העולם בסיב אופטי אחד?",
+            icon: "📡",
+            content: `
+              <p>סיב אופטי יכול להעביר טרה-ביטים בשנייה. התאוריה: עם קידוד מתקדם, סיב אחד יכול לשאת את כל תעבורת האינטרנט העולמית. בפועל – מרחק, רעש, עלויות. אבל הרעיון: <strong>המגבלה היא לא הפיזיקה – אלא הארגון.</strong> הרשת בנויה ממיליוני רכיבים שמתקשרים – הבעיה היא תיאום, לא רוחב פס.</p>
+            `
+          }
+        ]
       },
       {
         type: "demo",
@@ -825,16 +960,27 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         `
       },
       {
+        type: "explanation",
+        title: "טבלת ניתוב (Routing Table)",
+        content: `
+          <p>לכל נתב <strong>טבלת ניתוב</strong> – רשימת יעדים ופעולות. למשל: "לכל כתובת ב־192.168.1.x – לשלוח לפורט 1 (רשת מקומית)". "כל השאר – לשלוח לנתב 10.0.0.1 (Default Gateway)". הנתב בודק את Destination IP, מחפש התאמה, ומעביר לחבר הבא.</p>
+        `
+      },
+      {
         type: "questions",
         title: "שאלות הבנה - פרק 7",
         questions: [
           {
             q: "מה ההבדל בין שכבת התעבורה לשכבת הרשת?",
-            a: "שכבת התעבורה מעבירה מידע מתהליך לתהליך (מחשב למחשב ברמת היישום). שכבת הרשת אחראית על ההעברה הפיזית של החבילות בין כל הרכיבים ברשת – נתבים, שרתים – עד שהחבילה מגיעה ליעדה."
+            a: "שכבת התעבורה מעבירה מידע מתהליך לתהליך (מחשב למחשב ברמת היישום). שכבת הרשת אחראית על ההעברה של החבילות בין כל הרכיבים – נתבים, שרתים – עד שהחבילה מגיעה ליעדה."
           },
           {
             q: "מהו נתב (Router)?",
             a: "נתב הוא רכיב רשת שמקבל חבילות ומעביר אותן הלאה. לכל נתב יש טבלת ניתוב (routing table) – מפה שאומרת 'לכתובת X לשלוח לנתב Y'. כך החבילה עוברת מרכיב לרכיב עד שהיא מגיעה ליעד."
+          },
+          {
+            q: "מה עושה TTL ולמה traceroute משתמש בו?",
+            a: "TTL (Time To Live) – כל נתב מפחית ב-1. אם מגיע 0 – החבילה נזרקת ונשלח ICMP Time Exceeded. traceroute שולח חבילות עם TTL 1, 2, 3... – כל נתב שמחזיר Time Exceeded מזוהה. כך בונים את המסלול."
           }
         ]
       }
@@ -885,7 +1031,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "פרוטוקול ARP",
         content: `
-          <p><strong>ARP</strong> ממיר IP ל־MAC. המחשב שולח Broadcast: "למי יש MAC עבור 5.5.0.1?" הנתב עונה. המיפוי נשמר ב־ARP Cache.</p>
+          <p><strong>ARP</strong> ממיר IP ל־MAC. המחשב רוצה לשלוח ל־192.168.1.1 – שולח <strong>ARP Request</strong> (ברודקסט – לכולם): "למי יש 192.168.1.1?" הנתב עונה ב־<strong>ARP Reply</strong> (unicast) עם ה-MAC שלו. המיפוי נשמר ב־<strong>ARP Cache</strong>. פקודת <code>arp -a</code> מציגה את הטבלה.</p>
         `
       },
       {
@@ -909,6 +1055,10 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           {
             q: "מה ההבדל בין MAC ל־IP?",
             a: "MAC – כתובת פיזית צרובה על כרטיס הרשת, משמשת ברשת המקומית (שכבת קו). IP – כתובת לוגית שמיועדת לניתוב ברשתות (שכבת רשת). ARP ממיר IP ל־MAC כשצריך לשלוח Frame."
+          },
+          {
+            q: "למה ARP משתמש ב-Broadcast?",
+            a: "המחשב לא יודע איזה מכשיר ברשת המקומית מחזיק את ה-IP המבוקש – הוא שואל את כולם. רק בעל ה-IP עונה. ברשתות גדולות יש טכניקות כמו Proxy ARP ו-ARP Cache לצמצום התעבורה."
           }
         ]
       }
@@ -973,6 +1123,10 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           {
             q: "למה Switch עדיף על Hub?",
             a: "Hub מעביר כל תעבורה לכל הפורטים – יוצר עומס והתנגשויות. Switch מכיר כתובות MAC ויודע לשלוח רק ליעד – חוסך רוחב פס ומפחית התנגשויות."
+          },
+          {
+            q: "מה ההבדל בין Switch ל-Router?",
+            a: "Switch עובד בשכבת הקו – משתמש ב-MAC, מעביר Frames באותה רשת. Router עובד בשכבת הרשת – משתמש ב-IP, מחבר רשתות שונות ומנתב חבילות ביניהן."
           }
         ]
       }
@@ -997,6 +1151,13 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         `
       },
       {
+        type: "explanation",
+        title: "רוחב פס ו־Latency",
+        content: `
+          <p><strong>רוחב פס (Bandwidth)</strong> – כמה ביטים לשנייה אפשר להעביר. נמדד ב־Mbps, Gbps. <strong>Latency</strong> (זמן תגובה) – כמה זמן לוקח לחבילה להגיע. סיב אופטי: רוחב פס גבוה, latency נמוך. לווין: latency גבוה (מרחק).</p>
+        `
+      },
+      {
         type: "summary",
         title: "סיכום פרק 10",
         content: `
@@ -1008,6 +1169,16 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             </ul>
           </div>
         `
+      },
+      {
+        type: "questions",
+        title: "שאלות הבנה - פרק 10",
+        questions: [
+          {
+            q: "מה ההבדל בין כבל נחושת לסיב אופטי?",
+            a: "נחושת – אותות חשמליים, מושפע מרעש, מרחק מוגבל. סיב אופטי – פולסי אור, כמעט ללא רעש, מרחקים ארוכים, רוחב פס גבוה."
+          }
+        ]
       }
     ]
   },
@@ -1019,8 +1190,14 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "הסיפור המלא – גלישה ל-Facebook",
         content: `
-          <p><strong>DHCP</strong> → המחשב מקבל IP, Subnet Mask, Default Gateway, שרת DNS. <strong>DNS</strong> → הדפדפן מבקש facebook.com, מקבל IP. בדיקת Subnet → האם היעד באותה רשת? לא → שולחים ל־Default Gateway. <strong>ARP</strong> → "למי יש MAC של הנתב?" – מקבלים כתובת. <strong>Switch</strong> מעביר Frame לפי MAC. <strong>נתבים</strong> מעבירים Packet בין רשתות. <strong>TCP Handshake</strong> – חיבור. <strong>HTTP GET</strong> – בקשת הדף.</p>
-          <p>כל פרוטוקול פותר בעיה – השכבות עובדות יחד מלמטה למעלה.</p>
+          <p><strong>שלב 1 – DHCP:</strong> המחשב מקבל IP, Subnet Mask, Default Gateway, שרת DNS. בלי זה – לא יכולים לגלוש.</p>
+          <p><strong>שלב 2 – DNS:</strong> הדפדפן מקליד facebook.com. צריך IP. שולח שאילתה לשרת DNS → מקבל 31.13.72.65.</p>
+          <p><strong>שלב 3 – Subnet:</strong> האם 31.13.72.65 ברשת שלנו (למשל 192.168.1.x)? לא. שולחים ל־Default Gateway (הנתב).</p>
+          <p><strong>שלב 4 – ARP:</strong> צריך MAC של הנתב. שולח ARP Request → מקבל MAC.</p>
+          <p><strong>שלב 5 – Switch:</strong> מעביר Frame עם ה-MAC של הנתב. הנתב מקבל.</p>
+          <p><strong>שלב 6 – נתבים:</strong> הנתב ומספר נתבים בדרך מעבירים את החבילה עד שרתי Facebook.</p>
+          <p><strong>שלב 7 – TCP Handshake:</strong> SYN, SYN-ACK, ACK. חיבור מוכן.</p>
+          <p><strong>שלב 8 – HTTP GET:</strong> בקשת הדף. השרת מחזיר HTML. הדפדפן מציג.</p>
         `
       },
       {
@@ -1042,6 +1219,16 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             </ul>
           </div>
         `
+      },
+      {
+        type: "questions",
+        title: "שאלות הבנה - פרק 11",
+        questions: [
+          {
+            q: "מה הסדר הנכון של הפעולות בגלישה לאתר?",
+            a: "DHCP (אם צריך IP) → DNS (תרגום שם ל-IP) → בדיקת Subnet (האם היעד ברשת מקומית?) → אם לא – ARP למען MAC של Gateway → שליחת Frame ל-Switch → נתבים מנתבים → TCP Handshake → HTTP GET."
+          }
+        ]
       }
     ]
   },
@@ -1064,6 +1251,25 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         `
       },
       {
+        type: "demo",
+        title: "המדריך מדגים: דוגמת select",
+        content: `
+          <p>קוד סכמטי ל־select:</p>
+          <div class="code-preview">
+            <pre><code>readable, _, _ = select.select([server_socket] + client_sockets, [], [], 0.1)
+for s in readable:
+    if s == server_socket:
+        client, addr = server_socket.accept()
+        client_sockets.append(client)
+    else:
+        data = s.recv(1024)
+        if data: process(s, data)
+        else: client_sockets.remove(s)</code></pre>
+          </div>
+          <p class="demo-note">📋 select מחזיר את ה-Sockets שמוכנים. אם server_socket – accept. אם client – recv. כך שרת אחד מטפל בהרבה לקוחות.</p>
+        `
+      },
+      {
         type: "summary",
         title: "סיכום פרק 12",
         content: `
@@ -1075,6 +1281,16 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             </ul>
           </div>
         `
+      },
+      {
+        type: "questions",
+        title: "שאלות הבנה - פרק 12",
+        questions: [
+          {
+            q: "מתי משתמשים ב-select במקום threading?",
+            a: "select מתאים כשיש הרבה חיבורים שקטים (מחכים) – מעט פעילות. threading מתאים כשיש עיבוד כבד לכל לקוח. select חסכוני במשאבים, threading פשוט לכתיבה."
+          }
+        ]
       }
     ]
   },
@@ -1101,8 +1317,24 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             <tr><td>Default Gateway</td><td>נתב ליציאה מרשת מקומית</td></tr>
             <tr><td>Port</td><td>מזהה תוכנה על שרת (0–65535)</td></tr>
             <tr><td>Socket</td><td>ממשק לתקשורת בין תהליכים ברשת</td></tr>
+            <tr><td>TCP</td><td>פרוטוקול תעבורה אמין – Handshake, ACK, סדר</td></tr>
+            <tr><td>UDP</td><td>פרוטוקול תעבורה לא אמין – מהיר, בלי ערבויות</td></tr>
+            <tr><td>HTTP/HTTPS</td><td>פרוטוקול אפליקציה. HTTPS = HTTP מעל TLS (מצופה)</td></tr>
+            <tr><td>Broadcast</td><td>שליחה לכולם ברשת מקומית</td></tr>
+            <tr><td>Unicast</td><td>שליחה ליעד אחד</td></tr>
+            <tr><td>TTL</td><td>Time To Live – מונע לולאות, משמש ל-traceroute</td></tr>
           </table>
         `
+      },
+      {
+        type: "questions",
+        title: "שאלות הבנה - פרק 13",
+        questions: [
+          {
+            q: "מה ההבדל בין Broadcast ל-Unicast?",
+            a: "Unicast – שליחה ליעד אחד (כתובת ספציפית). Broadcast – שליחה לכל המכשירים ברשת המקומית (למשל FF:FF:FF:FF:FF:FF ב-MAC). ARP Request הוא broadcast."
+          }
+        ]
       }
     ]
   },
@@ -1143,6 +1375,13 @@ Addresses: 142.250.185.46</code></pre>
         `
       },
       {
+        type: "explanation",
+        title: "פקודות נוספות",
+        content: `
+          <p><code>route print</code> (Win) / <code>ip route</code> (Lin) – טבלת ניתוב. <code>hostname</code> – שם המחשב. <code>telnet &lt;host&gt; &lt;port&gt;</code> – התחברות לפורט. <code>curl</code> – שליחת בקשת HTTP מ-command line.</p>
+        `
+      },
+      {
         type: "summary",
         title: "סיכום פרק 14",
         content: `
@@ -1150,11 +1389,21 @@ Addresses: 142.250.185.46</code></pre>
             <h3>נקודות מפתח:</h3>
             <ul>
               <li>ping, traceroute – בדיקה ומסלול. netstat – פורטים</li>
-              <li>ipconfig/ifconfig – הגדרות רשת. nslookup – DNS</li>
+              <li>ipconfig/ifconfig – הגדרות רשת. nslookup – DNS. arp -a – ARP</li>
               <li>Wireshark, Scapy – כלי ניתוח והסנפה</li>
             </ul>
           </div>
         `
+      },
+      {
+        type: "questions",
+        title: "שאלות הבנה - פרק 14",
+        questions: [
+          {
+            q: "איזו פקודה משתמשת לבדוק אם שרת מרוחק מגיב?",
+            a: "ping – שולח ICMP Echo Request. אם התשובה מגיעה, השרת חי ומחובר. אם לא – יכול להיות חסימה, כיבוי, או בעיית רשת."
+          }
+        ]
       }
     ]
   }

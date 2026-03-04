@@ -1,5 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { chapters } from './data/content'
+import { TCPHandshakeSim } from './components/TCPHandshakeSim'
+import { EncapsulationSim } from './components/EncapsulationSim'
+import { DnsLookupSim } from './components/DnsLookupSim'
+import { PacketFlowSim } from './components/PacketFlowSim'
+import { ThinkOutsideBox } from './components/ThinkOutsideBox'
+import { AskQuestion } from './components/AskQuestion'
+import { KeyTip } from './components/KeyTip'
 import './App.css'
 
 function App() {
@@ -37,6 +44,20 @@ function App() {
   const canGoNext = currentPage < totalPages - 1 || currentChapter < chapters.length - 1
   const canGoPrev = currentPage > 0 || currentChapter > 0
 
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.target.closest('input, textarea')) return
+      if (e.key === 'ArrowLeft' && canGoNext) goNext()
+      if (e.key === 'ArrowRight' && canGoPrev) goPrev()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [canGoNext, canGoPrev])
+
+  useEffect(() => {
+    document.querySelector('.content-area')?.scrollTo?.(0, 0)
+  }, [currentChapter, currentPage])
+
   if (!chapter || !page) return null
 
   return (
@@ -57,6 +78,7 @@ function App() {
       <div className="layout">
         <nav className="sidebar">
           <h3>תוכן העניינים</h3>
+          <p className="sidebar-hint">◀ → מקלדת לניווט</p>
           {chapters.map((ch, i) => (
             <button
               key={ch.id}
@@ -65,8 +87,10 @@ function App() {
             >
               <span className="chapter-num">פרק {ch.id}</span>
               <span className="chapter-title">{ch.title}</span>
+              <span className="chapter-pages">{ch.pages.length} עמודים</span>
             </button>
           ))}
+          <KeyTip />
           <div className="page-nav-mini">
             <span>עמוד {currentPage + 1} מתוך {totalPages}</span>
           </div>
@@ -81,6 +105,10 @@ function App() {
           <article className="page-content">
             {page.type === 'questions' ? (
               <QuestionsPage questions={page.questions} />
+            ) : page.type === 'simulation' ? (
+              <SimulationPage simId={page.simId} content={page.content} />
+            ) : page.type === 'thinkOutside' ? (
+              <ThinkOutsidePage page={page} />
             ) : (
               <div 
                 className="content-body"
@@ -88,6 +116,8 @@ function App() {
               />
             )}
           </article>
+
+          <AskQuestion />
 
           <nav className="page-navigation">
             <button 
@@ -119,30 +149,71 @@ function getPageTypeLabel(type) {
     explanation: '📖 הסבר',
     demo: '💡 הדגמה',
     summary: '📋 סיכום',
-    questions: '❓ שאלות הבנה'
+    questions: '❓ שאלות הבנה',
+    simulation: '🎮 הדמיה',
+    thinkOutside: '🧠 מחוץ לקופסא'
   }
   return labels[type] || type
 }
 
+function SimulationPage({ simId, content }) {
+  const sims = {
+    tcpHandshake: TCPHandshakeSim,
+    encapsulation: EncapsulationSim,
+    dnsLookup: DnsLookupSim,
+    packetFlow: PacketFlowSim
+  }
+  const SimComponent = sims[simId]
+  return (
+    <div className="content-body">
+      {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
+      {SimComponent ? <SimComponent /> : <p>הדמיה לא זמינה</p>}
+    </div>
+  )
+}
+
+function ThinkOutsidePage({ page }) {
+  return (
+    <div className="content-body">
+      {page.intro && <p dangerouslySetInnerHTML={{ __html: page.intro }} />}
+      {page.blocks?.map((block, i) => (
+        <ThinkOutsideBox key={i} title={block.title} icon={block.icon || '💡'}>
+          <div dangerouslySetInnerHTML={{ __html: block.content }} />
+        </ThinkOutsideBox>
+      ))}
+    </div>
+  )
+}
+
 function QuestionsPage({ questions }) {
   const [openIndex, setOpenIndex] = useState(null)
+  const allOpen = openIndex === 'all'
   
   return (
     <div className="questions-container">
       <p className="questions-intro">
         המדריך מציג את השאלות והתשובות - קראי, והמדריך מסביר:
       </p>
+      <div className="questions-actions">
+        <button
+          type="button"
+          className="questions-toggle-all"
+          onClick={() => setOpenIndex(allOpen ? null : 'all')}
+        >
+          {allOpen ? 'סגור כל התשובות' : 'פתח את כל התשובות'}
+        </button>
+      </div>
       {questions.map((item, i) => (
         <div key={i} className="question-block">
           <button 
             className="question-trigger"
-            onClick={() => setOpenIndex(openIndex === i ? null : i)}
+            onClick={() => setOpenIndex(openIndex === i ? null : allOpen ? null : i)}
           >
             <span className="q-number">שאלה {i + 1}</span>
             <span className="q-text">{item.q}</span>
-            <span className="expand-icon">{openIndex === i ? '▼' : '◀'}</span>
+            <span className="expand-icon">{(openIndex === i || allOpen) ? '▼' : '◀'}</span>
           </button>
-          {openIndex === i && (
+          {(openIndex === i || allOpen) && (
             <div className="answer-block">
               <h4>המדריך מסביר:</h4>
               <p>{item.a}</p>
