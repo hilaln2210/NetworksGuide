@@ -2,7 +2,7 @@
 
 > An interactive, self-paced learning guide for computer networks, based on IDF Cyber Unit course materials (רשתות מחשבים, מטה הסייבר הצה"לי v2.2).
 
-Built with **React 19 + Vite 7**, fully in Hebrew (RTL), with live simulations, comprehension exercises, and a chapter-by-chapter navigator.
+Built with **React 19 + Vite 7**, with live simulations, comprehension exercises, and a chapter-by-chapter navigator.
 
 © 2025 Hila · [MIT License](LICENSE)
 
@@ -47,20 +47,20 @@ Built with **React 19 + Vite 7**, fully in Hebrew (RTL), with live simulations, 
 
 | # | Title | Topic |
 |---|-------|-------|
-| 1 | תחילת מסע - איך עובד האינטרנט? | How the Internet works, IP addresses, DNS, HTTP |
-| 2 | תכנות ב-Sockets | Python socket programming, client-server model |
-| 3 | Wireshark ומודל חמש השכבות | Wireshark, five-layer model overview |
-| 4 | שכבת האפליקציה | Application layer: HTTP, DNS, FTP, SMTP |
-| 5 | Scapy | Packet crafting and analysis with Scapy |
-| 6 | שכבת התעבורה | Transport layer: TCP, UDP, ports, three-way handshake |
-| 7 | שכבת הרשת | Network layer: IP routing, ICMP, subnetting |
-| 8 | שכבת הקו | Data link layer: Ethernet, MAC addresses, ARP |
-| 9 | רכיבי רשת | Network devices: switches, routers, hubs |
-| 10 | השכבה הפיזית | Physical layer: cables, signals, encoding |
-| 11 | איך הכל מתחבר | End-to-end packet journey — putting it all together |
-| 12 | Sockets מתקדם | Advanced sockets: threading, multiplexing |
-| 13 | מילון מושגים | Glossary of key networking terms |
-| 14 | פקודות וכלים | CLI tools: ping, traceroute, nslookup, netstat, Wireshark |
+| 1 | How the Internet Works | IP addresses, DNS, HTTP |
+| 2 | Socket Programming | Python sockets, client-server model |
+| 3 | Wireshark & the Five-Layer Model | Traffic analysis, layer model overview |
+| 4 | Application Layer | HTTP, DNS, FTP, SMTP |
+| 5 | Scapy | Packet crafting and analysis |
+| 6 | Transport Layer | TCP, UDP, ports, three-way handshake |
+| 7 | Network Layer | IP routing, ICMP, subnetting |
+| 8 | Data Link Layer | Ethernet, MAC addresses, ARP |
+| 9 | Network Devices | Switches, routers, hubs |
+| 10 | Physical Layer | Cables, signals, encoding |
+| 11 | Putting It All Together | End-to-end packet journey |
+| 12 | Advanced Sockets | Threading, multiplexing |
+| 13 | Glossary | Key networking terms |
+| 14 | CLI Tools & Commands | ping, traceroute, nslookup, netstat, Wireshark |
 
 ---
 
@@ -143,88 +143,6 @@ MIT License — see [LICENSE](LICENSE).
 
 ---
 
-## 🇮🇱 תיעוד בעברית
+## 🇮🇱 בעברית
 
-### מה הפרויקט עושה
-
-**NetworksGuide** הוא מדריך לימוד אינטראקטיבי לרשתות מחשבים, מבוסס על חומרי הלימוד של קורס רשתות מחשבים של מטה הסייבר הצה"לי (גרסה 2.2). המדריך כתוב בעברית, בפריסת RTL, ומכיל 14 פרקים המכסים את מחסנית הפרוטוקולים המלאה של TCP/IP — מהשכבה הפיזית ועד שכבת האפליקציה.
-
-**תכונות עיקריות:**
-- **14 פרקים** המכסים את כל מחסנית TCP/IP — מ-HTTP ועד השכבה הפיזית
-- **ניווט עמוד-אחר-עמוד** — כפתורי קדימה/אחורה ומקשי חצים
-- **סרגל פרקים** — קפיצה ישירה לכל פרק
-- **סרגל התקדמות** — מעקב אחר קריאת כל התוכן
-- **סימולציות אינטראקטיביות** — DNS Lookup, TCP Handshake, Encapsulation, Packet Flow
-- **שאלות הבנה** — שאלות ותשובות מתרחבות בסוף כל פרק
-- **דמואים מעשיים** — קוד Python, Scapy, Wireshark, nslookup, ping, traceroute
-- **חשיבה מחוץ לקופסה** — שאלות העמקה מתקדמות
-- **חיפוש תוכן** — חיפוש טקסט מלא בכל חומר הלימוד
-- **ממשק עברי מלא** עם ערכת צבעים אפלה ופריסת RTL
-
-### פרקי המדריך
-
-| # | נושא | תוכן |
-|---|------|-------|
-| 1 | איך עובד האינטרנט? | כתובות IP, DNS, HTTP |
-| 2 | תכנות Sockets | Python, מודל לקוח-שרת |
-| 3 | Wireshark ומודל חמש השכבות | ניתוח תעבורה, מודל שכבות |
-| 4 | שכבת האפליקציה | HTTP, DNS, FTP, SMTP |
-| 5 | Scapy | יצירה וניתוח חבילות |
-| 6 | שכבת התעבורה | TCP, UDP, פורטים, three-way handshake |
-| 7 | שכבת הרשת | IP routing, ICMP, subnetting |
-| 8 | שכבת הקו | Ethernet, MAC, ARP |
-| 9 | רכיבי רשת | מתגים, נתבים, hubs |
-| 10 | השכבה הפיזית | כבלים, אותות, קידוד |
-| 11 | איך הכל מתחבר | מסע חבילה מקצה לקצה |
-| 12 | Sockets מתקדם | Threading, ריבוב |
-| 13 | מילון מושגים | מונחי רשתות מרכזיים |
-| 14 | פקודות וכלים | ping, traceroute, nslookup, netstat |
-
-### טכנולוגיות
-
-| שכבה | טכנולוגיה |
-|------|-----------|
-| Framework | React 19 + Vite 7 |
-| עיצוב | CSS טהור עם משתני CSS (ערכת צבעים אפלה, RTL) |
-| תלויות | אפס ספריות UI חיצוניות מעבר ל-React |
-| תוכן | כל 14 הפרקים ב-`src/data/content.js` — קל להרחבה |
-
-### הוראות התקנה והפעלה
-
-```bash
-git clone https://github.com/hilaln2210/NetworksGuide.git
-cd NetworksGuide
-npm install
-npm run dev
-```
-
-פתח את [http://localhost:5173](http://localhost:5173) בדפדפן.
-
-**בנייה לסביבת ייצור:**
-```bash
-npm run build
-# הפלט נמצא בתיקיית dist/
-```
-
-**מקור התוכן:** המדריך מבוסס על חוברת הקורס של מטה הסייבר הצה"לי — [networks.pdf](https://www.lamed-oti.com/school/oe/networks/networks.pdf). המדריך מוסיף פורמט אינטראקטיבי: הסברים, דמואים, סימולציות ושאלות הבנה.
-
-### מבנה הפרויקט
-
-```
-NetworksGuide/
-├── src/
-│   ├── components/
-│   │   ├── TCPHandshakeSim.jsx     # אנימציית TCP Handshake
-│   │   ├── DnsLookupSim.jsx        # סימולציית DNS Resolver
-│   │   ├── EncapsulationSim.jsx    # הדגמת Encapsulation בין שכבות
-│   │   ├── PacketFlowSim.jsx       # מסע חבילה מקצה לקצה
-│   │   ├── ThinkOutsideBox.jsx     # שאלות העמקה מתקדמות
-│   │   ├── AskQuestion.jsx         # חיפוש טקסט מלא בתוכן
-│   │   └── KeyTip.jsx              # תיבות טיפים מודגשות
-│   ├── data/
-│   │   └── content.js              # כל 14 פרקי חומר הלימוד
-│   └── App.jsx                     # אפליקציה ראשית: ניווט, פריסה, מצב
-├── screenshots/                    # צילומי מסך לתיעוד
-├── package.json
-└── README.md
-```
+מדריך לימוד אינטראקטיבי לרשתות מחשבים — מבוסס על חומרי קורס מטה הסייבר הצה"לי. 14 פרקים, סימולציות חיות ותרגילים. React + Vite.
