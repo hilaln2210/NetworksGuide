@@ -479,6 +479,334 @@ export const quizBank = {
       ],
       explanation: "nslookup google.com → 142.250.x.x. nslookup 8.8.8.8 → מחפש שם הפוך (PTR record). כלי דיאגנוסטיקה בסיסי לכל מי שעובד עם רשתות 🔍"
     }
+  ],
+
+  15: [
+    {
+      q: "מה ההבדל בין הצפנה סימטרית לאסימטרית?",
+      correct: "סימטרית: אותו מפתח להצפנה ופענוח. אסימטרית: זוג מפתחות ציבורי/פרטי",
+      choices: [
+        "סימטרית: אותו מפתח להצפנה ופענוח. אסימטרית: זוג מפתחות ציבורי/פרטי",
+        "סימטרית מהירה יותר ואסימטרית מאובטחת יותר תמיד",
+        "סימטרית לתעבורה, אסימטרית לאחסון",
+        "אין הבדל — שתיהן משתמשות ב-AES"
+      ],
+      explanation: "TLS משתמש בשתיהן: אסימטרית לחילוף מפתחות (Diffie-Hellman) — איטי אבל לא צריך לשתף סוד מראש. סימטרית (AES-256) לתעבורה — מהיר. הכי טוב משני עולמות! 🔑"
+    },
+    {
+      q: "מה TLS Handshake עושה?",
+      correct: "מסכים על גרסת TLS, מאמת Certificate, ומחליף מפתחות לסשן מוצפן",
+      choices: [
+        "מסכים על גרסת TLS, מאמת Certificate, ומחליף מפתחות לסשן מוצפן",
+        "פותח חיבור TCP ומצפין אותו באופן אוטומטי",
+        "מוריד את Certificate מ-CA ומתקין אותו",
+        "מבדיל בין HTTP לHTTPS"
+      ],
+      explanation: "TLS Handshake = לחיצת יד מוצפנת. Server מציג Certificate, Client מאמת מול CA, שניהם מחשבים session key. כל זה לפני שנשלח ביית אחד של נתונים! 🤝🔒"
+    },
+    {
+      q: "מה Certificate Authority (CA) עושה?",
+      correct: "חותמת דיגיטלית על Certificate של אתר — מאמתת שהאתר אכן שייך לבעלים הנכון",
+      choices: [
+        "חותמת דיגיטלית על Certificate של אתר — מאמתת שהאתר אכן שייך לבעלים הנכון",
+        "יוצרת את מפתחות ההצפנה לכל אתר",
+        "מריצה שרתי DNS לתרגום דומיינים",
+        "מנהלת את האישורים של כל משתמשי האינטרנט"
+      ],
+      explanation: "CA = נוטריון של האינטרנט. DigiCert, Let's Encrypt, Comodo — כולן CA. הדפדפן סומך על רשימת CA מוכרת. אם CA חתמה — הדפדפן סומך. ל-Let's Encrypt יש 300M+ certificates חינמיים! 📜"
+    }
+  ],
+
+  16: [
+    {
+      q: "מה ההבדל בין SMTP ל-IMAP?",
+      correct: "SMTP = שליחת מייל. IMAP = קריאת מייל (sync עם שרת)",
+      choices: [
+        "SMTP = שליחת מייל. IMAP = קריאת מייל (sync עם שרת)",
+        "SMTP = מוצפן, IMAP = לא מוצפן",
+        "SMTP לGmail, IMAP לOutlook",
+        "שניהם לשליחה, ההבדל הוא בפורט"
+      ],
+      explanation: "SMTP (פורט 587) = שולח. IMAP (פורט 993) = קורא ומסנכרן עם שרת — מייל נשאר בשרת. POP3 (פורט 995) = מוריד ומוחק מהשרת. היום IMAP > POP3 כי רוצים sync בין מכשירים 📧"
+    },
+    {
+      q: "מה SSH מאפשר לעשות?",
+      correct: "גישה מאובטחת ומוצפנת לשרת מרוחק דרך terminal",
+      choices: [
+        "גישה מאובטחת ומוצפנת לשרת מרוחק דרך terminal",
+        "העברת קבצים מהירה בין שרתים",
+        "ניהול כתובות IP בצורה מרכזית",
+        "הצפנת תעבורת HTTP לHTTPS"
+      ],
+      explanation: "SSH (Secure Shell, פורט 22) = טלנט מוצפן. כשאת כותבת ssh user@server.com — יוצרת terminal מוצפן לשרת. SCP ו-SFTP = העברת קבצים מעל SSH. DevOps חיים על SSH 💻"
+    },
+    {
+      q: "מה הפורט הסטנדרטי של SSH?",
+      correct: "22",
+      choices: ["22", "23", "443", "8080"],
+      explanation: "SSH=22, Telnet=23 (לא מוצפן!), HTTPS=443, HTTP=80. Admins לפעמים מעבירים SSH לפורט 2222 כדי להפחית bot scanning — security through obscurity, לא פתרון אמיתי 🔐"
+    }
+  ],
+
+  17: [
+    {
+      q: "מה /24 אומר בכתובת 192.168.1.0/24?",
+      correct: "24 ביטים לזיהוי הרשת, 8 ביטים לזיהוי מארח — 256 כתובות (254 שמישות)",
+      choices: [
+        "24 ביטים לזיהוי הרשת, 8 ביטים לזיהוי מארח — 256 כתובות (254 שמישות)",
+        "24 מחשבים מחוברים לרשת כרגע",
+        "הרשת מספר 24 בסדרה",
+        "24 נתבים בין המחשב לאינטרנט"
+      ],
+      explanation: "CIDR notation: /24 = subnet mask 255.255.255.0. 8 ביטים = 256 כתובות. מינוס network address ומינוס broadcast = 254 שמישות. /16 = 65,534 שמישות. /32 = כתובת בודדת 🎯"
+    },
+    {
+      q: "מה NAT מאפשר?",
+      correct: "מכשירים רבים עם IP פרטי לשתף IP ציבורי אחד",
+      choices: [
+        "מכשירים רבים עם IP פרטי לשתף IP ציבורי אחד",
+        "הצפנת כתובות IP פרטיות",
+        "הקצאת IP סטטי לכל מכשיר",
+        "הגנה מפני DDoS"
+      ],
+      explanation: "בבית: 10+ מכשירים עם 192.168.x.x, אבל IP ציבורי אחד לכולם. NAT ב-router עושה את ה-translation. זה הסיבה שIPv4 עדיין חי — NAT האריך את חייו בעשורים 🏠"
+    }
+  ],
+
+  18: [
+    {
+      q: "כמה ביטים בכתובת IPv6?",
+      correct: "128 ביטים — מספיק לכ-340 undecillion כתובות",
+      choices: [
+        "128 ביטים — מספיק לכ-340 undecillion כתובות",
+        "64 ביטים",
+        "32 ביטים (כמו IPv4)",
+        "256 ביטים"
+      ],
+      explanation: "IPv4 = 32 ביטים = ~4 מיליארד כתובות. IPv6 = 128 ביטים = 340 עם 36 אפסים אחריו. לכל אטום על פני כדור הארץ יכולנו לתת כמה מיליארד כתובות. המחסור ב-IPv4 הוא הסיבה ל-IPv6 🌐"
+    },
+    {
+      q: "מה ::1 אומר ב-IPv6?",
+      correct: "כתובת Loopback — כמו 127.0.0.1 ב-IPv4",
+      choices: [
+        "כתובת Loopback — כמו 127.0.0.1 ב-IPv4",
+        "כתובת Gateway ברירת מחדל",
+        "כתובת Broadcast",
+        "כתובת ריקה לא מוקצית"
+      ],
+      explanation: "::1 = 0000...0001 = localhost ב-IPv6. :: הוא קיצור לקבוצות אפסים רצופות. fe80::/10 = Link-local. 2001::/32 = Teredo tunneling. IPv6 יש לו הרבה טווחים מיוחדים 🔁"
+    }
+  ],
+
+  19: [
+    {
+      q: "מה ההבדל בין DNS Recursive Resolver לבין Authoritative Name Server?",
+      correct: "Recursive = שואל בשמך ומחפש התשובה. Authoritative = יודע את התשובה הסופית",
+      choices: [
+        "Recursive = שואל בשמך ומחפש התשובה. Authoritative = יודע את התשובה הסופית",
+        "Recursive = מהיר יותר, Authoritative = מאובטח יותר",
+        "Recursive של ה-ISP, Authoritative של גוגל",
+        "אין הבדל — שניהם עושים אותו דבר"
+      ],
+      explanation: "כשאת שואלת 8.8.8.8 (Google Recursive) על google.com — הוא שואל Root → .com TLD → Google Authoritative. Google Authoritative יודע 'google.com = 142.250.x.x'. Recursive עושה את כל העבודה בשבילך 🔍"
+    },
+    {
+      q: "מה DNS TTL קובע?",
+      correct: "כמה זמן (בשניות) DNS cache יכול להשתמש בתשובה לפני שאיל שוב",
+      choices: [
+        "כמה זמן (בשניות) DNS cache יכול להשתמש בתשובה לפני שאיל שוב",
+        "כמה זמן הדומיין רשום ל-registrar",
+        "מהירות העברת DNS query",
+        "מספר ה-Name Servers לדומיין"
+      ],
+      explanation: "TTL = Time To Live. google.com TTL=300 (5 דקות). אתר קטן יכול לשים TTL=86400 (יום) — פחות queries. לפני שינוי DNS, מומלץ להוריד TTL ל-60s מראש כדי שהשינוי יתפשט מהר 🕐"
+    },
+    {
+      q: "מה DNS over HTTPS (DoH) מוסיף?",
+      correct: "מצפין DNS queries כדי שה-ISP לא יוכל לראות מה מחפשים",
+      choices: [
+        "מצפין DNS queries כדי שה-ISP לא יוכל לראות מה מחפשים",
+        "מאיץ את ה-DNS resolution",
+        "מוסיף HTTPS לכל האתרים",
+        "מחליף את כתובות IP בשמות דומיין"
+      ],
+      explanation: "DNS רגיל = ב-plaintext. ISP רואה כל lookup. DoH = DNS query עובר כ-HTTPS לשרת כמו 1.1.1.1 או 8.8.8.8. ISP רואה חיבור ל-1.1.1.1 — לא מה שחיפשת. Firefox ו-Chrome תומכים ב-DoH כברירת מחדל 🔒"
+    }
+  ],
+
+  20: [
+    {
+      q: "מה Sliding Window ב-TCP?",
+      correct: "מאפשר לשלוח מספר segments ללא המתנה ל-ACK לכל אחד",
+      choices: [
+        "מאפשר לשלוח מספר segments ללא המתנה ל-ACK לכל אחד",
+        "חלון הזמן שבו TCP מחכה ל-ACK לפני retry",
+        "גודל ה-buffer של ה-socket",
+        "מספר החיבורים המקבילים ל-TCP"
+      ],
+      explanation: "בלי Sliding Window: שלח → המתן ACK → שלח → המתן. עם Window Size=10: שלח 10 segments → קבל ACKs → הזז חלון. Pipeline מלא = ניצול מלא של הרשת. Window Size גדל דינמית עם הזמן 📊"
+    },
+    {
+      q: "מה Slow Start ב-TCP Congestion Control?",
+      correct: "TCP מתחיל עם window קטן ומכפיל אותו בכל RTT — עד שמגיע לcongestion threshold",
+      choices: [
+        "TCP מתחיל עם window קטן ומכפיל אותו בכל RTT — עד שמגיע לcongestion threshold",
+        "TCP מאט את שליחת החבילות ב-router עמוס",
+        "הגדרה ידנית של מהירות הconnection",
+        "תהליך ה-handshake האיטי של TCP"
+      ],
+      explanation: "Slow Start: cwnd=1 → 2 → 4 → 8 (exponential). כשמגיע לssthresh — עובר ל-Congestion Avoidance (linear +1). כשיש loss — ssthresh=cwnd/2, cwnd=1, מתחיל מחדש. כמו לדרוך על גז ואז לבלום 🚗"
+    }
+  ],
+
+  21: [
+    {
+      q: "מה ההבדל בין IPsec Tunnel mode לTransport mode?",
+      correct: "Transport: מוצפן payload בלבד. Tunnel: כל הפקטה עטופה בפקטה חדשה",
+      choices: [
+        "Transport: מוצפן payload בלבד. Tunnel: כל הפקטה עטופה בפקטה חדשה",
+        "Transport ל-UDP, Tunnel ל-TCP",
+        "Transport מהיר יותר תמיד",
+        "אין הבדל — שניהם מצפינים הכל"
+      ],
+      explanation: "Transport mode: IP Header מקורי גלוי, payload מוצפן. לHost-to-Host. Tunnel mode: פקטה מלאה נעטפת — ה-IP החיצוני הוא של ה-VPN Gateway. Site-to-Site VPN = Tunnel mode. IKEv2 מועדף ליצירת security association 🔐"
+    },
+    {
+      q: "מה SYN Cookies ואיך הם פותרים SYN Flood?",
+      correct: "שרת לא מקצה state לSYN — מחזיר ISN מוצפן. רק ACK תקין מוכיח שהלקוח אמיתי",
+      choices: [
+        "שרת לא מקצה state לSYN — מחזיר ISN מוצפן. רק ACK תקין מוכיח שהלקוח אמיתי",
+        "cookies של browser שמאמתים משתמשים לגיטימיים",
+        "cache של SYN packets למניעת כפילויות",
+        "rate limiting על SYN packets בfirewall"
+      ],
+      explanation: "SYN Flood: תוקף שולח מיליוני SYN. שרת רגיל: מקצה state לכל אחד → מלא RAM. SYN Cookies: ISN = hash(src_ip, src_port, dst_port, timestamp, secret). שרת לא שומר state! רק ACK עם ISN+1 תקין מוכיח שהלקוח קיבל SYN-ACK 🛡️"
+    }
+  ],
+
+  22: [
+    {
+      q: "מה ההבדל בין CDN Cache HIT לCache MISS?",
+      correct: "HIT = הקובץ ב-PoP הקרוב, מוגש מיידית. MISS = PoP מביא מOrigin ואז מcache",
+      choices: [
+        "HIT = הקובץ ב-PoP הקרוב, מוגש מיידית. MISS = PoP מביא מOrigin ואז מcache",
+        "HIT = הצלחה בחיפוש, MISS = שגיאה",
+        "HIT לvideos, MISS לHTML",
+        "HIT = CDN עובד, MISS = CDN מנותק"
+      ],
+      explanation: "Cache HIT: 5-15ms מPoP קרוב. Cache MISS: 100-300ms מOrigin + PoP שומר לפעם הבאה. CDN cache ratio טוב = 90%+ hits. Netflix מגיע לכמעט 100% כי מcache מראש בלילה 🚀"
+    },
+    {
+      q: "מתי WebSockets עדיפים על REST?",
+      correct: "כששרת צריך לשלוח עדכונים ביוזמתו ללא שהלקוח יבקש — chat, gaming, live data",
+      choices: [
+        "כששרת צריך לשלוח עדכונים ביוזמתו ללא שהלקוח יבקש — chat, gaming, live data",
+        "כשצריך אבטחה גבוהה יותר",
+        "כשמדובר בbandwidth גבוה",
+        "כשהלקוח הוא מובייל"
+      ],
+      explanation: "REST = request-response. לchat — polling כל שנייה = 3600 requests/שעה. WebSocket = חיבור פתוח. שרת שולח מסר חדש מיידית. Discord, Slack, Trading platforms, Multiplayer games = WebSockets 🎮"
+    }
+  ],
+
+  23: [
+    {
+      q: "מה גרם לנפילת פייסבוק ב-2021 למשך 6 שעות?",
+      correct: "ביטול BGP prefix announcements — פייסבוק הסירה את עצמה ממפת האינטרנט",
+      choices: [
+        "ביטול BGP prefix announcements — פייסבוק הסירה את עצמה ממפת האינטרנט",
+        "מתקפת DDoS של 5 Tbps",
+        "כשל בmain database",
+        "DNS record שגוי"
+      ],
+      explanation: "config change שגוי ביטל BGP announcements. ה-router של פייסבוק הפסיק לספר לעולם 'אני כאן'. כשל אחד מחק מיליארדי דולרים בשווי שוק. ואז — כלי התיקון גם הם היו בפנים 🌐"
+    },
+    {
+      q: "מה blameless postmortem?",
+      correct: "ניתוח כשל שמחפש סיבות מערכתיות — לא מי אשם — כדי למנוע הישנות",
+      choices: [
+        "ניתוח כשל שמחפש סיבות מערכתיות — לא מי אשם — כדי למנוע הישנות",
+        "דוח שמסביר מי אחראי לכשל",
+        "נוהל לפיצוי לקוחות אחרי downtime",
+        "תיעוד של כל השינויים בקוד"
+      ],
+      explanation: "כשיש עונש — אנשים מסתירים מידע. בלי עונש — מדווחים בפתיחות, הלמידה עמוקה. Google SRE Book, Netflix — כולם מאמינים: 'המערכת כשלה, לא האדם'. Action items > punishment 📚"
+    }
+  ],
+
+  24: [
+    {
+      q: "מה Open Connect Appliance של Netflix?",
+      correct: "שרת cache שNetflix מספקת חינם לISPs — הvideo נשמר מקומית ברשת ה-ISP",
+      choices: [
+        "שרת cache שNetflix מספקת חינם לISPs — הvideo נשמר מקומית ברשת ה-ISP",
+        "שרת תוכן מרכזי של Netflix באמריקה",
+        "כלי monitoring לניטור ביצועי streaming",
+        "מנגנון הצפנה להגנה על תוכן"
+      ],
+      explanation: "Netflix שמה OCA בISPs בחינם. ה-ISP מקבל hardware, Netflix חוסכת transit ב-$M. בלילה Netflix מcache מראש content פופולרי. למחרת — הvideo מגיע מ-ISP עצמו, latency 5ms. גאוני 💡"
+    },
+    {
+      q: "מה Anycast routing?",
+      correct: "אותה כתובת IP מוכרזת ממאות מקומות — BGP מנתב לנקודה הקרובה ביותר",
+      choices: [
+        "אותה כתובת IP מוכרזת ממאות מקומות — BGP מנתב לנקודה הקרובה ביותר",
+        "חלוקת עומס בין שרתים לפי אלגוריתם Round Robin",
+        "שליחת packet לכל המכשירים ברשת",
+        "הצפנת routing information ב-BGP"
+      ],
+      explanation: "1.1.1.1 של Cloudflare = כתובת Anycast. BGP מנתב אותך ל-PoP הקרוב מ-300 מיקומים. DDoS? תנועה מתחלקת ל-300 PoPs — כל אחד ספג שבריר. Netflix, Google, Cloudflare כולם משתמשים 🌍"
+    }
+  ],
+
+  25: [
+    {
+      q: "מה ISP יכול לראות כשגולשים ב-HTTPS?",
+      correct: "DNS queries ו-TLS SNI (שם הדומיין) — לא את תוכן הדפים",
+      choices: [
+        "DNS queries ו-TLS SNI (שם הדומיין) — לא את תוכן הדפים",
+        "הכל, כולל סיסמאות וhistory",
+        "רק כתובת IP — לא יותר",
+        "כלום — HTTPS מוצפן לחלוטין"
+      ],
+      explanation: "HTTPS מצפין תוכן — אבל DNS query (מה ה-IP של google.com?) נשלח בplaintext. TLS SNI בחיבור = שם הדומיין בclear. ISP רואה timeline: 08:23 gmail.com, 09:17 bankofamerica.com. DoH+ECH = פתרון 👁️"
+    },
+    {
+      q: "מה Browser Fingerprinting?",
+      correct: "זיהוי ייחודי של דפדפן לפי canvas rendering, fonts, WebGL — ללא cookies",
+      choices: [
+        "זיהוי ייחודי של דפדפן לפי canvas rendering, fonts, WebGL — ללא cookies",
+        "בדיקת אמינות אתרים ע\"י הדפדפן",
+        "שמירת היסטוריית גלישה",
+        "הצגת fingerprint של SSL Certificate"
+      ],
+      explanation: "Canvas fingerprint: הדפדפן מצייר טקסט — הpixels שונים בכל GPU/OS. Fonts, WebGL, screen = כמות אינסופית של שילובים. ייחודי כמעט כמו DNA. Incognito לא עוזר! Tor Browser מרנדמז 🖐️"
+    }
+  ],
+
+  26: [
+    {
+      q: "מה ההבדל העיקרי בין HTTP/2 ל-HTTP/3?",
+      correct: "HTTP/2 על TCP (יש HOL blocking ב-transport), HTTP/3 על QUIC/UDP (streams עצמאיים)",
+      choices: [
+        "HTTP/2 על TCP (יש HOL blocking ב-transport), HTTP/3 על QUIC/UDP (streams עצמאיים)",
+        "HTTP/3 מהיר יותר כי משתמש בUDP שמהיר מTCP",
+        "HTTP/3 מוסיף הצפנה שלא הייתה בHTTP/2",
+        "HTTP/2 לdeskop, HTTP/3 למובייל"
+      ],
+      explanation: "HTTP/2 פתר HOL blocking ב-Application layer — אבל TCP עדיין בעיה. חבילה אחת אבודה = כל streams מחכים. QUIC: כל stream עצמאי גם ב-transport. אובדן חבילה = רק stream אחד מושפע. 25%+ מהאינטרנט כבר HTTP/3 🚀"
+    },
+    {
+      q: "מה eBPF מאפשר שלא היה אפשרי קודם?",
+      correct: "להריץ קוד בתוך Linux kernel — בזמן אמת, בלי kernel module, בלי reboot",
+      choices: [
+        "להריץ קוד בתוך Linux kernel — בזמן אמת, בלי kernel module, בלי reboot",
+        "לתכנת network cards ישירות",
+        "להריץ applications בmemory מוגן",
+        "לדבג kernel crashes בproduction"
+      ],
+      explanation: "eBPF = revolution. XDP: drop packets לפני ה-network stack — מיליוני pps. Cilium: מחליף iptables בKubernetes. Observability: trace כל syscall בproduction ללא overhead. Cloudflare, Meta, Google, Netflix = כולם eBPF 🔧"
+    }
   ]
 }
 

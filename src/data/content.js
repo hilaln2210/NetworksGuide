@@ -3489,5 +3489,814 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
         ]
       }
     ]
+  },
+  {
+    id: 23,
+    title: "כשל ואיתחול – סיפורי קריסות אינטרנט",
+    pages: [
+      {
+        type: "explanation",
+        title: "פייסבוק נפלה – 6 שעות של BGP כאוס",
+        content: `
+          <p><strong>4 באוקטובר 2021, 15:51 UTC.</strong> פייסבוק, אינסטגרם, ווטסאפ — כולם נעלמו מהאינטרנט בו-זמנית. 3.5 מיליארד משתמשים. 6 שעות.</p>
+          <p>מה קרה? בצעד תחזוקה שגרתי, מהנדס שינה הגדרות ב-BGP router. הפקודה השגויה <strong>ביטלה את כל ה-prefix announcements</strong> — פייסבוק פשוט "הסירה את עצמה" ממפת האינטרנט.</p>
+          <div class="diagram-container">
+            <svg viewBox="0 0 380 130" class="content-diagram">
+              <rect x="10" y="10" width="80" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="50" y="31" text-anchor="middle" font-size="9">ISP / רשת עולמית</text>
+              <rect x="150" y="10" width="80" height="35" rx="4" fill="#fee2e2" stroke="#f87171"/>
+              <text x="190" y="26" text-anchor="middle" font-size="9" fill="#dc2626">Facebook BGP</text>
+              <text x="190" y="38" text-anchor="middle" font-size="8" fill="#dc2626">WITHDREW ALL</text>
+              <rect x="290" y="10" width="80" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="330" y="31" text-anchor="middle" font-size="9">משתמשים</text>
+              <line x1="90" y1="27" x2="148" y2="27" stroke="#f87171" stroke-width="2" stroke-dasharray="5,3"/>
+              <text x="119" y="22" text-anchor="middle" font-size="8" fill="#dc2626">✗</text>
+              <line x1="232" y1="27" x2="288" y2="27" stroke="#f87171" stroke-width="2" stroke-dasharray="5,3"/>
+              <text x="260" y="22" text-anchor="middle" font-size="8" fill="#dc2626">✗</text>
+              <rect x="60" y="65" width="260" height="55" rx="6" fill="#fef3c7" stroke="#f59e0b"/>
+              <text x="190" y="82" text-anchor="middle" font-size="10" font-weight="bold" fill="#92400e">השלכות הקריסה</text>
+              <text x="190" y="96" text-anchor="middle" font-size="8" fill="#92400e">• DNS של facebook.com לא ענה (השרתים גם הם בתוך הרשת)</text>
+              <text x="190" y="108" text-anchor="middle" font-size="8" fill="#92400e">• עובדי פייסבוק לא יכלו להתחבר מרחוק לתקן</text>
+              <text x="190" y="120" text-anchor="middle" font-size="8" fill="#92400e">• הפסד: ~$60M הכנסות + $6B ירידה בשווי מניה</text>
+            </svg>
+          </div>
+          <p><strong>הבעיה העמוקה:</strong> הכלים לתיקון גם הם היו <em>בתוך</em> הרשת שנפלה. מהנדסים נאלצו לנסוע פיזית למרכז הנתונים ולהיכנס עם badge שלא עבד כי מערכת הגישה גם היא תלויה בפייסבוק.</p>
+          <p><strong>BGP — Border Gateway Protocol</strong>: הפרוטוקול שמנהל את "מפת האינטרנט". כל AS (Autonomous System) — חברה, ספקית אינטרנט, מדינה — מכריז על ה-prefixes שלה. בלי הכרזות? אף אחד לא יודע איפה פייסבוק.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "SQL Slammer – 376 בתים ששיתקו את האינטרנט",
+        content: `
+          <p><strong>25 בינואר 2003, 05:30 UTC.</strong> תוך 10 דקות, 75,000 שרתים נדבקו. תוך 30 דקות — אינטרנט של דרום קוריאה קרס לחלוטין.</p>
+          <p><strong>הנשק:</strong> червь (תולעת) בגודל 376 בתים בלבד. קטן מספיק להיכנס בחבילת UDP אחת. ניצלה חולשה ידועה ב-Microsoft SQL Server — שכבר קיים לה patch מזה 6 חודשים.</p>
+          <div class="diagram-container">
+            <svg viewBox="0 0 360 110" class="content-diagram">
+              <circle cx="180" cy="55" r="8" fill="#dc2626"/>
+              <text x="180" y="59" text-anchor="middle" font-size="7" fill="white">0</text>
+              <text x="180" y="75" text-anchor="middle" font-size="8">שרת נגוע</text>
+              <g opacity="0.8">
+                <circle cx="80" cy="30" r="6" fill="#f87171"/>
+                <circle cx="280" cy="30" r="6" fill="#f87171"/>
+                <circle cx="80" cy="80" r="6" fill="#f87171"/>
+                <circle cx="280" cy="80" r="6" fill="#f87171"/>
+                <circle cx="130" cy="15" r="5" fill="#fca5a5"/>
+                <circle cx="230" cy="15" r="5" fill="#fca5a5"/>
+                <circle cx="50" cy="55" r="5" fill="#fca5a5"/>
+                <circle cx="310" cy="55" r="5" fill="#fca5a5"/>
+              </g>
+              <line x1="180" y1="47" x2="85" y2="33" stroke="#f87171" stroke-width="1.5" opacity="0.6"/>
+              <line x1="180" y1="47" x2="275" y2="33" stroke="#f87171" stroke-width="1.5" opacity="0.6"/>
+              <line x1="180" y1="63" x2="85" y2="77" stroke="#f87171" stroke-width="1.5" opacity="0.6"/>
+              <line x1="180" y1="63" x2="275" y2="77" stroke="#f87171" stroke-width="1.5" opacity="0.6"/>
+              <text x="180" y="103" text-anchor="middle" font-size="8" fill="var(--text-muted)">כל שרת נגוע שולח לאלפי IP אקראיים — גדילה אקספוננציאלית</text>
+            </svg>
+          </div>
+          <p><strong>מה עשתה התולעת?</strong></p>
+          <ul>
+            <li>נכנסה דרך פורט UDP 1434 (SQL Server Resolution Service)</li>
+            <li>העתיקה את עצמה לזיכרון — <strong>לא לדיסק</strong>. ב-reboot — נעלמת</li>
+            <li>שלחה עותקים לכתובות IP אקראיות במהירות מקסימלית</li>
+            <li>כל שרת שלח UDP packets במהירות של network card — עד 50Mpps</li>
+          </ul>
+          <p><strong>הלקח:</strong> patch management. חולשה ידועה, patch זמין, אף אחד לא עדכן. בדיוק אותו תסריט קרה ב-2017 עם WannaCry.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "BGP Leaks – כשהניתוב הולך לאיבוד",
+        content: `
+          <p>BGP hijacking ו-BGP leaks הם בין האיומים הפחות מוכרים — ומסוכנים — לאינטרנט. <strong>BGP אין בו authentication מובנה</strong>. כל AS יכול להכריז על כל prefix. בטעות או בכוונה.</p>
+          <p><strong>2010 — China Telecom מנתב 15% מהאינטרנט דרך סין:</strong></p>
+          <ul>
+            <li>China Telecom הכריזה בטעות על ~50,000 prefixes — כולל כאלה של Dell, IBM, CNN, Army.mil</li>
+            <li>18 דקות — תנועה מרחבי העולם עברה דרך סין</li>
+            <li>המידע לא היה מוצפן. כל מי ששלט ב-routers יכל לקרוא</li>
+          </ul>
+          <p><strong>2019 — Cloudflare, Comcast, AWS מנותבים דרך ניגריה:</strong></p>
+          <ul>
+            <li>MainOne (ISP ניגרי) דלף routing ל-MTN ניגריה, שדלפה ל-China Telecom</li>
+            <li>שעה וחצי של תנועה מסוננת</li>
+          </ul>
+          <div class="diagram-container">
+            <svg viewBox="0 0 360 90" class="content-diagram">
+              <rect x="10" y="25" width="70" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="45" y="48" text-anchor="middle" font-size="9">משתמש</text>
+              <rect x="280" y="25" width="70" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="315" y="45" text-anchor="middle" font-size="9">Google</text>
+              <text x="315" y="57" text-anchor="middle" font-size="8">8.8.8.8</text>
+              <rect x="140" y="5" width="80" height="35" rx="4" fill="#fee2e2" stroke="#f87171"/>
+              <text x="180" y="20" text-anchor="middle" font-size="9" fill="#dc2626">🇨🇳 China Telecom</text>
+              <text x="180" y="32" text-anchor="middle" font-size="8" fill="#dc2626">"אני מכיר 8.8.8.8"</text>
+              <path d="M 80 45 Q 180 80 280 45" stroke="var(--accent-green)" stroke-width="2" fill="none" stroke-dasharray="6,3"/>
+              <text x="180" y="82" text-anchor="middle" font-size="8" fill="var(--text-muted)">מסלול תקין (BGP)</text>
+              <path d="M 80 42 L 142 22" stroke="#f87171" stroke-width="2" fill="none"/>
+              <path d="M 218 22 L 280 42" stroke="#f87171" stroke-width="2" fill="none"/>
+              <text x="180" y="18" text-anchor="middle" font-size="8" fill="#dc2626">מסלול שנחטף</text>
+            </svg>
+          </div>
+          <p><strong>הפתרון: RPKI</strong> (Resource Public Key Infrastructure) — מאפשר לבעלי IP לחתום קריפטוגרפית על הכרזות ה-BGP שלהם. אימוץ הולך וגדל אבל עדיין חלקי. האינטרנט עדיין פגיע.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "Postmortem – תרבות הלמידה מכשלים",
+        content: `
+          <p>בחברות הטכנולוגיה הגדולות — Google, Amazon, Netflix, Cloudflare — כשל הוא <strong>הזדמנות ללמוד</strong>, לא סיבה לפטר מישהו. זה נקרא "blameless postmortem culture".</p>
+          <p><strong>מבנה הפוסטמורטם:</strong></p>
+          <ul>
+            <li><strong>Timeline:</strong> מה קרה בדיוק, מתי, מי הבחין ראשון</li>
+            <li><strong>Root Cause Analysis:</strong> 5 Why's — מחפשים את הסיבה העמוקה, לא הסימפטום</li>
+            <li><strong>Impact:</strong> כמה משתמשים הושפעו, כמה הכנסות אבדו, SLA</li>
+            <li><strong>Action Items:</strong> מה נשנה — תהליך, קוד, מוניטורינג</li>
+            <li><strong>Prevention:</strong> איך למנוע הישנות</li>
+          </ul>
+          <div class="code-preview">
+            <pre><code>Postmortem: Database Outage — 2024-03-15
+Severity: P0 | Duration: 47 minutes
+Impact: 2.3M users, $180K revenue loss
+
+Timeline:
+14:23 — Deploy of config change (auto-approved)
+14:24 — Error rate spikes to 45%
+14:31 — On-call paged
+14:51 — Root cause found: missing index on new column
+15:10 — Rollback deployed, recovery complete
+
+Root Cause: config change added query without index review.
+5 Why: Why no index? → wasn't in schema migration.
+Why not? → code review checklist didn't include DB review.</code></pre>
+          </div>
+          <p><strong>Google SRE Book:</strong> "If a human operator needs to touch your system during normal operations, you have a bug." — זה הסטנדרט שגוגל בנתה את אמינות שירותיה עליו.</p>
+          <p><strong>Error Budget:</strong> SLA של 99.9% = מותר 8.7 שעות downtime לשנה. גוגל מתירה לעצמה לנצל את ה-budget הזה — כי אם לא תסתכן, לא תחדש.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "Chaos Engineering – שוברים בכוונה",
+        content: `
+          <p><strong>Netflix, 2011:</strong> "מה יקרה אם שרת ייפול אקראי בproduction?" במקום לחשוב — הם ניסו. נולד <strong>Chaos Monkey</strong>.</p>
+          <p>Chaos Engineering = <strong>הזרקת כשלים מבוקרת למערכת חיה</strong> כדי לגלות חולשות לפני שהמציאות מגלה אותן.</p>
+          <ul>
+            <li><strong>Chaos Monkey:</strong> מפיל instances אקראיים ב-AWS</li>
+            <li><strong>Latency Monkey:</strong> מוסיף עיכובים אקראיים לבקשות</li>
+            <li><strong>Chaos Gorilla:</strong> מפיל Availability Zone שלמה</li>
+            <li><strong>Chaos Kong:</strong> מדמה נפילת Region שלם של AWS</li>
+          </ul>
+          <div class="diagram-container">
+            <svg viewBox="0 0 360 100" class="content-diagram">
+              <rect x="10" y="20" width="75" height="60" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="47" y="48" text-anchor="middle" font-size="9">Service A</text>
+              <text x="47" y="60" text-anchor="middle" font-size="8" fill="var(--text-muted)">healthy</text>
+              <rect x="140" y="20" width="75" height="60" rx="6" fill="#fee2e2" stroke="#f87171"/>
+              <text x="177" y="48" text-anchor="middle" font-size="9" fill="#dc2626">Service B</text>
+              <text x="177" y="60" text-anchor="middle" font-size="8" fill="#dc2626">💀 killed</text>
+              <rect x="270" y="20" width="75" height="60" rx="6" fill="#d1fae5" stroke="#34d399"/>
+              <text x="307" y="44" text-anchor="middle" font-size="9" fill="#065f46">Service A</text>
+              <text x="307" y="56" text-anchor="middle" font-size="8" fill="#065f46">fallback ✓</text>
+              <text x="307" y="68" text-anchor="middle" font-size="8" fill="#065f46">cache used</text>
+              <path d="M 87 50 L 138 50" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrow)"/>
+              <path d="M 217 50 L 268 50" stroke="#34d399" stroke-width="2" marker-end="url(#arrow)"/>
+              <text x="180" y="95" text-anchor="middle" font-size="8" fill="var(--text-muted)">Chaos → כשל → fallback עובד = מערכת resilient</text>
+            </svg>
+          </div>
+          <p><strong>עיקרון:</strong> resilience לא נבנית בתכנון — היא נבדקת בפועל. Netflix מריצה Chaos Monkey בproduction מדי יום. הם יותר מוכנים לכשלים אמיתיים כי הם רגילים אליהם.</p>
+          <p><strong>GameDay:</strong> פרקטיקה של Amazon — ביום קבוע בוחרים תרחיש ("Region נפל") ומתרגלים תגובה. כמו תרגיל אש, אבל לresilient systems.</p>
+        `
+      },
+      {
+        type: "thinkOutside",
+        title: "חשיבה מחוץ לקופסא – הלקחים הגדולים",
+        intro: "<p>מה מלמדות הקריסות הגדולות על עיצוב מערכות?</p>",
+        blocks: [
+          {
+            title: "בלי single point of failure",
+            icon: "🔗",
+            content: `<p>כל מערכת שיש בה רכיב אחד שנפילתו מפילה הכל — היא מיקום כשל. פייסבוק שהסתמכה על BGP אחיד ללא fallback, Amazon שהריצה הכל ב-us-east-1 — <strong>redundancy היא לא תכונה, היא הישרדות</strong>. בניית מערכת כנגד הכשל של כל רכיב בה = chaos-by-design.</p>`
+          },
+          {
+            title: "הכשל היה בתהליך, לא בקוד",
+            icon: "📋",
+            content: `<p>ברוב הקריסות הגדולות — הקוד לא היה שגוי. ה-patch היה קיים. ה-backup היה שם. מה שנכשל: <strong>תהליך</strong> — deploy ללא peer review, config change ללא rollback plan, on-call שלא קיבל פאג'. ההשקעה ב-incident response, runbooks, ואוטומציה של deployments שווה יותר מ-1000 שורות קוד.</p>`
+          }
+        ]
+      },
+      {
+        type: "summary",
+        title: "סיכום פרק 23",
+        content: `
+          <div class="chapter-summary">
+            <h3>נקודות מפתח:</h3>
+            <ul>
+              <li>BGP = פרוטוקול "מפת האינטרנט". ביטול prefix → נעלמת מהרשת. אין authentication מובנה</li>
+              <li>SQL Slammer (2003): 376 בתים, 10 דקות, 75K שרתים נגועים. Patch היה קיים. לא עודכנו</li>
+              <li>BGP Leaks: כל AS יכול להכריז על כל prefix. RPKI = פתרון קריפטוגרפי חלקי</li>
+              <li>Postmortem: blameless, timeline, 5 Why's, action items. לא עונשים — לומדים</li>
+              <li>Chaos Engineering: מזריקים כשלים בכוונה לגלות חולשות. Netflix Chaos Monkey בproduction יומיומי</li>
+              <li>לקח עמוק: single point of failure = בעיה. redundancy + runbooks + testing = survival</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        type: "questions",
+        title: "שאלות הבנה - פרק 23",
+        questions: [
+          {
+            q: "למה כשפייסבוק ביטלה את ה-BGP announcements שלה, עובדיה לא יכלו להתחבר מרחוק לתקן?",
+            a: "כלי הניהול והגישה מרחוק של פייסבוק (SSH, VPN, כלי ניטור) כולם מתחברים לשרתי פייסבוק. כשפייסבוק הסירה את עצמה מהאינטרנט — גם הגישה הפנימית מרחוק נפלה. המהנדסים נאלצו לנסוע פיזית."
+          },
+          {
+            q: "מה ההבדל בין BGP Leak ל-BGP Hijacking?",
+            a: "BGP Leak = טעות לא מכוונת — AS מפיץ routing שהיה צריך להישאר פנימי. BGP Hijacking = פעולה זדונית — AS מכריז על prefix שאינו שלו כדי לנתב תנועה דרכו."
+          },
+          {
+            q: "מה עיקרון ה-'blameless postmortem' ולמה הוא חשוב?",
+            a: "לא מחפשים מי אשם אלא מה גרם לכשל. כשאנשים לא מפחדים מעונש — הם מדווחים בפתיחות, הפוסטמורטם מדויק יותר, הלמידה עמוקה יותר. תרבות של אשמה מביאה להסתרת מידע."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 24,
+    title: "מאחורי הקלעים – הרשתות של הענקיות",
+    pages: [
+      {
+        type: "explanation",
+        title: "Netflix Open Connect – CDN בתוך ה-ISP",
+        content: `
+          <p>Netflix אחראית על ~15% מתנועת האינטרנט בעולם בשעות הערב. איך הם עושים את זה בלי לשלם מיליארדים על bandwidth?</p>
+          <p><strong>Open Connect Appliance (OCA):</strong> Netflix בנתה שרתי קאש מיוחדים ו<strong>מציעה אותם בחינם לISPs</strong>. הISP מקבל hardware בחינם, Netflix חוסכת bandwidth. Win-win.</p>
+          <div class="diagram-container">
+            <svg viewBox="0 0 360 120" class="content-diagram">
+              <rect x="10" y="40" width="80" height="40" rx="4" fill="#fee2e2" stroke="#f87171"/>
+              <text x="50" y="57" text-anchor="middle" font-size="9">Netflix Origin</text>
+              <text x="50" y="69" text-anchor="middle" font-size="8" fill="var(--text-muted)">AWS + נתוני וידאו</text>
+              <rect x="140" y="20" width="80" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="180" y="37" text-anchor="middle" font-size="9">OCA בISP</text>
+              <text x="180" y="49" text-anchor="middle" font-size="8" fill="var(--text-muted)">Stranger Things 4K</text>
+              <rect x="140" y="65" width="80" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="180" y="82" text-anchor="middle" font-size="9">OCA בISP אחר</text>
+              <text x="180" y="94" text-anchor="middle" font-size="8" fill="var(--text-muted)">The Crown 4K</text>
+              <rect x="280" y="40" width="70" height="40" rx="4" fill="#d1fae5" stroke="#34d399"/>
+              <text x="315" y="57" text-anchor="middle" font-size="9" fill="#065f46">משתמשים</text>
+              <text x="315" y="69" text-anchor="middle" font-size="8" fill="#065f46">≤5ms RTT</text>
+              <line x1="90" y1="60" x2="138" y2="37" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="4,2"/>
+              <line x1="90" y1="60" x2="138" y2="82" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="4,2"/>
+              <line x1="220" y1="37" x2="278" y2="57" stroke="#34d399" stroke-width="2"/>
+              <line x1="220" y1="82" x2="278" y2="62" stroke="#34d399" stroke-width="2"/>
+              <text x="180" y="115" text-anchor="middle" font-size="8" fill="var(--text-muted)">הvideo מגיע מה-ISP עצמו, לא מAWS</text>
+            </svg>
+          </div>
+          <p><strong>מה ה-OCA שומר?</strong> Netflix יודעת מה פופולרי באזור כל ISP. בלילה, היא מעבירה pre-emptively לOCA את הסדרות הפופולריות. למחרת — הכל ב-cache מקומי.</p>
+          <p><strong>טכנולוגית:</strong> כל OCA = FreeBSD + nginx מותאם + כוננים NVMe. גודל: 100-250TB storage. מריצים ~300Gbps bandwidth לכל appliance.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "WhatsApp – מיליארד משתמשים עם 50 מהנדסים",
+        content: `
+          <p><strong>2014:</strong> WhatsApp נמכרת לפייסבוק ב-$19 מיליארד. 450 מיליון משתמשים פעילים. <strong>55 עובדים בסך הכל.</strong></p>
+          <p>איך? ארכיטקטורה שמינימליזציה היא עיקרה:</p>
+          <ul>
+            <li><strong>Erlang/OTP:</strong> שפת תכנות שנבנתה לtelecom, לניהול מיליוני חיבורים קונקורנטיים. כל חיבור = process קל משקל (לא thread OS)</li>
+            <li><strong>Single responsibility:</strong> WhatsApp לא עשתה stories, games, payments. <strong>רק הודעות</strong>. פחות פיצ'רים = פחות bugs = צוות קטן</li>
+            <li><strong>XMPP מותאם:</strong> פרוטוקול XML-based לhidden messaging שWhatsApp שינתה להיות binary — קטן פי 10</li>
+          </ul>
+          <div class="code-preview">
+            <pre><code># ארכיטקטורת WhatsApp בצורה פשוטה:
+Client → (TCP long-lived connection) → WhatsApp Server
+Server: Erlang process per connection (~2MB RAM each)
+2M connections × 2MB = 4GB RAM (!) בלבד
+vs. Python/Java thread: 8-512MB per thread
+
+1,000,000 concurrent users:
+  Erlang: ~2GB RAM, 1 server
+  Java threads: ~500GB RAM, 100 servers</code></pre>
+          </div>
+          <p><strong>Protocol פשוט = scale גדול:</strong> כל הודעה = מזהה ייחודי + timestamp + recipient + payload. שרת לא שומר הודעות — רק מנתב. ברגע שהתקבלה — נמחקת. זה גם פרטיות, זה גם scale.</p>
+          <p>לקח: <strong>בחירת טכנולוגיה נכונה לבעיה הנכונה</strong> שווה יותר ממאה מהנדסים נוספים.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "Google B4 – הרשת הפרטית של גוגל",
+        content: `
+          <p>גוגל לא סומכת על האינטרנט הציבורי לתנועה הפנימית שלה. ב-2013 פרסמה גוגל על <strong>B4</strong> — רשת WAN פרטית שמחברת את כל מרכזי הנתונים שלה.</p>
+          <p><strong>הסיבה:</strong> האינטרנט הציבורי = BGP. BGP מאוד sub-optimal — בוחר מסלול קצר, לא מסלול עם הכי פחות עומס. לגוגל שמעבירה ~PB ביום בין DCs — זה לא מספיק.</p>
+          <p><strong>B4 = Software-Defined WAN:</strong></p>
+          <ul>
+            <li>כל ה-hardware (switches, routers) מנוהל ע"י software מרכזי — <strong>OpenFlow controller</strong></li>
+            <li>ניתוב מבוסס תזמון ואופטימיזציה — Traffic Engineering בזמן אמת</li>
+            <li>bandwidth utilization: ~100% (vs. 30-40% ברשתות רגילות)</li>
+            <li>גוגל בנתה את ה-hardware שלה — Pluto switches — במקום Cisco/Juniper</li>
+          </ul>
+          <div class="diagram-container">
+            <svg viewBox="0 0 360 110" class="content-diagram">
+              <rect x="20" y="20" width="65" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="52" y="41" text-anchor="middle" font-size="9">DC אמריקה</text>
+              <rect x="145" y="10" width="65" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="177" y="31" text-anchor="middle" font-size="9">DC אירופה</text>
+              <rect x="270" y="20" width="65" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="302" y="41" text-anchor="middle" font-size="9">DC אסיה</text>
+              <rect x="145" y="70" width="65" height="30" rx="4" fill="#3b82f6" stroke="#1d4ed8"/>
+              <text x="177" y="86" text-anchor="middle" font-size="9" fill="white">SDN Controller</text>
+              <line x1="85" y1="37" x2="143" y2="27" stroke="#0891b2" stroke-width="2"/>
+              <line x1="210" y1="27" x2="268" y2="37" stroke="#0891b2" stroke-width="2"/>
+              <line x1="177" y1="55" x2="177" y2="68" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,2"/>
+              <line x1="52" y1="55" x2="177" y2="70" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,2"/>
+              <line x1="302" y1="55" x2="177" y2="70" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,2"/>
+              <text x="177" y="108" text-anchor="middle" font-size="8" fill="var(--text-muted)">controller מחליט ניתוב בזמן אמת לפי עומסים</text>
+            </svg>
+          </div>
+          <p><strong>מה גוגל הרוויחה:</strong> חסכה ~$1B+ בשנה על bandwidth חיצוני. ביצועי latency עדיפים. שליטה מוחלטת על מסלולי הנתונים שלה.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "כבלי הים – עמוד השדרה הנסתר של האינטרנט",
+        content: `
+          <p>~99% מהתנועה הבינלאומית עובר דרך <strong>כבלי תת-ים</strong>. לא לוויינים. כבלים. 400+ כבלים, 1.2 מיליון ק"מ, בקרקעית האוקיינוס.</p>
+          <p><strong>מה בתוך הכבל?</strong></p>
+          <ul>
+            <li>Fiber optic — בדרך כלל 8-16 זוגות סיבים</li>
+            <li>כל סיב = מספר ערוצי אור (wavelengths) — DWDM</li>
+            <li>כבל מודרני: 400+ Tbps (!)</li>
+            <li>עומד 25 שנה בלחץ אוקיאני, טמפרטורה קרה, מלח</li>
+          </ul>
+          <p><strong>מי מחזיק את הכבלים?</strong> עד לפני 10 שנים — קונסורציומי של טלקומים. היום — גוגל, פייסבוק, Amazon בנו כבלים <strong>פרטיים</strong>:</p>
+          <ul>
+            <li><strong>Dunant</strong> (Google) — US-France, 250Tbps</li>
+            <li><strong>2Africa</strong> (Meta) — מקיף את אפריקה, 180Tbps</li>
+            <li><strong>MAREA</strong> (Microsoft+Facebook) — US-Spain, 160Tbps</li>
+          </ul>
+          <p><strong>סכנות:</strong> עוגנים של ספינות גורמים ל-70% מהנזקים. ב-2008 — עוגן אחד בים התיכון חתך 3 כבלים → 75M אנשים באפריקה ואסיה ללא אינטרנט. יש ספינות תיקון ייעודיות שמחכות 24/7.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "Cloudflare – 300 ערים, אותה כתובת IP",
+        content: `
+          <p>Cloudflare מגינה על ~20% מאתרי האינטרנט. 300 נקודות נוכחות. ~1 מיליארד כתובות IP שמנהלת. עיקרון ההנדסה שלהם: <strong>Anycast</strong>.</p>
+          <p><strong>Anycast:</strong> <em>אותה</em> כתובת IP מוכרזת ממאות מקומות. BGP מנתב כל משתמש לנקודה הקרובה ביותר אוטומטית.</p>
+          <div class="diagram-container">
+            <svg viewBox="0 0 360 110" class="content-diagram">
+              <circle cx="180" cy="55" r="20" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4,2"/>
+              <text x="180" y="52" text-anchor="middle" font-size="8" fill="var(--accent)">1.1.1.1</text>
+              <text x="180" y="63" text-anchor="middle" font-size="7" fill="var(--text-muted)">Anycast</text>
+              <circle cx="50" cy="20" r="12" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="50" y="24" text-anchor="middle" font-size="7">NY PoP</text>
+              <circle cx="310" cy="20" r="12" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="310" y="24" text-anchor="middle" font-size="7">TLV PoP</text>
+              <circle cx="50" cy="90" r="12" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="50" y="94" text-anchor="middle" font-size="7">LON PoP</text>
+              <circle cx="310" cy="90" r="12" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="310" y="94" text-anchor="middle" font-size="7">TKY PoP</text>
+              <line x1="62" y1="26" x2="160" y2="46" stroke="var(--accent)" stroke-width="1.5"/>
+              <line x1="298" y1="26" x2="200" y2="46" stroke="var(--accent)" stroke-width="1.5"/>
+              <line x1="62" y1="84" x2="160" y2="64" stroke="var(--accent)" stroke-width="1.5"/>
+              <line x1="298" y1="84" x2="200" y2="64" stroke="var(--accent)" stroke-width="1.5"/>
+              <text x="180" y="105" text-anchor="middle" font-size="8" fill="var(--text-muted)">BGP מנתב כל משתמש לPoP הקרוב — אוטומטי</text>
+            </svg>
+          </div>
+          <p><strong>DDoS mitigation:</strong> Cloudflare ספגה ב-2024 מתקפת DDoS של <strong>5.6 Tbps</strong> — הגדולה שתועדה. איך? ה-traffic מחולק ל-300 PoPs. כל PoP ספג רק שבריר. לאחר filtering מקומי — תנועה נקייה עוברת ל-origin.</p>
+          <p><strong>Workers:</strong> Cloudflare אפשרה לרוץ JavaScript/WASM ב-300 מקומות בו-זמנית. Edge computing — הקוד רץ ליד המשתמש, לא בdata center רחוק.</p>
+        `
+      },
+      {
+        type: "thinkOutside",
+        title: "חשיבה מחוץ לקופסא – הרשת כמוצר",
+        intro: "<p>כמה תובנות על הכוח, הכלכלה, והגיאופוליטיקה של רשתות:</p>",
+        blocks: [
+          {
+            title: "מי שולט בכבלים — שולט בתוכן",
+            icon: "🌊",
+            content: `<p>כשHuawei הציעה לבנות כבלי ים לאפריקה במחיר הזול מהשוק — ממשלות מערביות חסמו. הסיבה: <strong>מי שבנה את הכבל, יכול לנטר את התנועה עליו</strong>. NSA כבר עשתה זאת על כבלים אמריקניים — מפרטות של Snowden. הרשת הפיזית היא פוליטיקה.</p>`
+          },
+          {
+            title: "ספקיות הענן ממציאות את הרשת מחדש",
+            icon: "☁️",
+            content: `<p>Google, AWS, Azure בנו רשתות שמגיעות לביצועים שטלקומים בנו דעצורים לעשות. BGP ב-2024 הוא עדיין פרוטוקול שנוצר ב-1989 "על מפיות בדינר". QUIC, HTTP/3, SD-WAN, eBPF — הטכנולוגיות שמחליפות את הרשת ישנה נוצרות בחברות הטכנולוגיה, לא בIETF בלבד.</p>`
+          }
+        ]
+      },
+      {
+        type: "summary",
+        title: "סיכום פרק 24",
+        content: `
+          <div class="chapter-summary">
+            <h3>נקודות מפתח:</h3>
+            <ul>
+              <li>Netflix Open Connect: OCA ב-ISPs — פריה ה-cache מתרחשת לפני הצפייה. ~100Gbps per appliance</li>
+              <li>WhatsApp: Erlang = מיליון חיבורים קונקורנטיים ב-2GB RAM. פחות פיצ'רים = scale גדול</li>
+              <li>Google B4: SD-WAN פרטי, OpenFlow controller, 100% bandwidth utilization, hardware מותאם</li>
+              <li>כבלי ים: 99% מהתנועה הבינלאומית. Google/Meta/Microsoft בנו כבלים פרטיים</li>
+              <li>Cloudflare Anycast: אותה IP ב-300 PoPs. BGP = ניתוב אוטומטי לקרוב ביותר. 5.6 Tbps DDoS ספוג</li>
+              <li>רשת = כוח גיאופוליטי. מי בונה = מי מנטר</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        type: "questions",
+        title: "שאלות הבנה - פרק 24",
+        questions: [
+          {
+            q: "מה ה-Open Connect Appliance של Netflix ואיזה יתרון הוא נותן לISP?",
+            a: "OCA = שרת cache שNetflix מספקת לISPs בחינם. ה-ISP מקבל hardware ללא עלות, ותנועת הvideo לא יוצאת מהרשת שלו (חוסך bandwidth יקר). Netflix חוסכת עלויות transit עצומות. Win-win."
+          },
+          {
+            q: "למה WhatsApp בחרה ב-Erlang ולא ב-Python או Java?",
+            a: "Erlang/OTP נבנתה לtelecom — ניהול מיליוני חיבורים קונקורנטיים. כל חיבור הוא process קל (ולא thread OS כבד). ב-Erlang: מיליון חיבורים ≈ 2GB RAM. ב-Java threads: עשרות GB. הבחירה הארכיטקטונית אפשרה צוות קטן לנהל scale ענק."
+          },
+          {
+            q: "מה Anycast ואיך Cloudflare משתמשת בו להגנה מDDoS?",
+            a: "Anycast = אותה כתובת IP מוכרזת ממאות מקומות. BGP מנתב כל משתמש לנקודה הקרובה. בDDoS: התנועה מחולקת ל-300 PoPs — כל PoP ספג שבריר. לאחר filtering מקומי, רק תנועה נקייה עוברת לorigin. Scale ו-distribution = resilience."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 25,
+    title: "פרטיות ומעקב – מה באמת רואים עלייך",
+    pages: [
+      {
+        type: "explanation",
+        title: "מה ה-ISP שלך רואה",
+        content: `
+          <p>ספקית האינטרנט שלך רואה <strong>כל</strong> DNS query שלך — גם אחרי שעברת ל-HTTPS. מדוע?</p>
+          <ul>
+            <li>HTTPS מצפין <em>תוכן</em> — לא את שם הדומיין</li>
+            <li>DNS query: "מה ה-IP של pornhub.com?" — נשלח בflat text לשרת DNS (בדרך כלל של ה-ISP) ללא הצפנה</li>
+            <li>TLS SNI (Server Name Indication): בחיבור HTTPS — שם הדומיין נשלח בclear text כחלק מה-TLS Handshake הראשוני</li>
+          </ul>
+          <div class="code-preview">
+            <pre><code># מה ISP רואה כשאת גולשת ל-gmail.com:
+DNS Query:  "מה ה-IP של gmail.com?" [גלוי]
+TLS SNI:    "מתחברת ל: gmail.com" [גלוי]
+IP address: 142.250.80.101 [גלוי]
+תוכן:       ENCRYPTED [מוצפן]
+
+# Timeline עם timestamps:
+08:23:41  DNS query → gmail.com
+08:23:41  TLS → gmail.com:443
+08:24:05  DNS query → youtube.com
+09:17:33  DNS query → bankofamerica.com</code></pre>
+          </div>
+          <p><strong>מה ה-ISP יכול לעשות עם זה:</strong> בארה"ב (post-2017) — ISPs מחויבים לשמור ויכולים למכור את נתוני הגלישה. ברשימת הלקוחות הפוטנציאליים: חברות ביטוח, מעסיקים, סוכנויות פרסום.</p>
+          <p><strong>הגנות:</strong> DoH (DNS over HTTPS) + ECH (Encrypted Client Hello, גרסת TLS 1.3 שמסתירה גם SNI) + VPN. אף אחד לבד לא מספיק.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "Browser Fingerprinting – זיהוי ללא Cookies",
+        content: `
+          <p>חשבת שIncognito מגן עלייך? Browser Fingerprinting לא צריך cookies. הוא מזהה אותך לפי <strong>מה שהדפדפן שלך הוא</strong>.</p>
+          <p><strong>מה נאסף לפינגרפרינט:</strong></p>
+          <ul>
+            <li><strong>User-Agent:</strong> Chrome 124 / Windows 11 / Intel</li>
+            <li><strong>Fonts מותקנים:</strong> האם יש Arial, Times New Roman, Calibri + 200 נוספות?</li>
+            <li><strong>Canvas fingerprint:</strong> הדפדפן מצייר טקסט — pixel rendering שונה בכל GPU/OS</li>
+            <li><strong>WebGL renderer:</strong> NVIDIA GeForce RTX 3070 (!)  </li>
+            <li><strong>Screen resolution + color depth + timezone</strong></li>
+            <li><strong>Audio context:</strong> כיצד הדפדפן מעבד audio — ייחודי לhardware</li>
+          </ul>
+          <div class="code-preview">
+            <pre><code">// Canvas fingerprinting — איך זה עובד:
+const canvas = document.createElement('canvas')
+const ctx = canvas.getContext('2d')
+ctx.font = '18px Arial'
+ctx.fillText('Hello, World! 🌍', 10, 50)
+// כל GPU/OS מצייר פיקסלים שונים מעט
+const fingerprint = canvas.toDataURL()
+// → hash ייחודי ≈ 99% ייחודיות</code></pre>
+          </div>
+          <p><strong>הנתון המבהיל:</strong> EFF's Panopticlick מצא שצירוף הפרמטרים הוא ייחודי ל-~1 מ-286,777 דפדפנים. אתה כמעט בלתי ניתן לזיהוי-שגוי.</p>
+          <p><strong>הגנה:</strong> Tor Browser randomizes fingerprint. Firefox Resist Fingerprinting mode. אחרת — קשה מאוד.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "כיצד Google ו-Meta עוקבות עלייך",
+        content: `
+          <p>כשאת גולשת לאתר שכולל <code>Facebook Like Button</code> או <code>Google Analytics</code> — Google ו-Meta יודעות שביקרת שם, גם אם לא לחצת על כלום.</p>
+          <p><strong>Third-party tracking pixel:</strong></p>
+          <ol>
+            <li>אתר X מכיל <code>&lt;img src="https://facebook.com/pixel?id=123"&gt;</code></li>
+            <li>הדפדפן שלך שולח request ל-facebook.com</li>
+            <li>Facebook מקבלת: כתובת IP שלך, Referer (= אתר X), timestamp, cookies של Facebook שלך</li>
+            <li>Facebook יודעת: היית באתר X בשעה Z</li>
+          </ol>
+          <div class="diagram-container">
+            <svg viewBox="0 0 360 100" class="content-diagram">
+              <rect x="10" y="20" width="70" height="55" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="45" y="42" text-anchor="middle" font-size="9">הדפדפן שלך</text>
+              <text x="45" y="57" text-anchor="middle" font-size="8" fill="var(--text-muted)">cookie: fb_uid=X</text>
+              <rect x="140" y="30" width="75" height="35" rx="4" fill="#f0f9ff" stroke="#0ea5e9"/>
+              <text x="177" y="47" text-anchor="middle" font-size="9">אתר חדשות</text>
+              <text x="177" y="59" text-anchor="middle" font-size="8" fill="var(--text-muted)">ynet.co.il</text>
+              <rect x="280" y="20" width="70" height="55" rx="4" fill="#eff6ff" stroke="#3b82f6"/>
+              <text x="315" y="42" text-anchor="middle" font-size="9" fill="#1d4ed8">Meta Pixel</text>
+              <text x="315" y="57" text-anchor="middle" font-size="8" fill="#1d4ed8">יודעת: X קרא</text>
+              <text x="315" y="69" text-anchor="middle" font-size="8" fill="#1d4ed8">חדשות ב-14:30</text>
+              <path d="M 80 47 L 138 47" stroke="var(--accent)" stroke-width="2" marker-end="url(#a)"/>
+              <path d="M 215 47 L 278 47" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,2"/>
+              <text x="246" y="43" font-size="8" fill="#3b82f6">pixel req</text>
+            </svg>
+          </div>
+          <p><strong>Graph of tracking:</strong> Meta Pixel נמצא ב-30%+ מאתרי האינטרנט. Google Analytics ב-50%+. גם בלי account — הם בונות פרופיל "phantom" לפי fingerprint + IP.</p>
+          <p><strong>הגנה:</strong> uBlock Origin מחסום trackers, Firefox Enhanced Tracking Protection, Privacy Badger. בלי extension — כמעט בלתי אפשרי להגן.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "TOR – בצל של אנונימיות",
+        content: `
+          <p><strong>Tor</strong> (The Onion Router) — פותח על ידי Navy Research Lab האמריקאי ב-1995. היום: ~2 מיליון משתמשים יומיים, מנוהל על ידי Tor Project (nonprofit).</p>
+          <p><strong>איך עובד Onion Routing:</strong></p>
+          <ol>
+            <li>הדפדפן בוחר 3 nodes: Guard (Entry) → Middle → Exit</li>
+            <li>מצפין את הנתונים בשלוש שכבות — כמו בצל</li>
+            <li>Guard node מסיר שכבה ראשונה: יודע מאיפה הגעת, לא לאן</li>
+            <li>Middle node מסיר שכבה שנייה: לא יודע מי שלח, לא לאן</li>
+            <li>Exit node מסיר שכבה שלישית: יודע לאן, לא מי</li>
+          </ol>
+          <div class="diagram-container">
+            <svg viewBox="0 0 380 90" class="content-diagram">
+              <rect x="5" y="28" width="55" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="32" y="48" text-anchor="middle" font-size="9">את</text>
+              <rect x="80" y="18" width="55" height="55" rx="4" fill="#fef3c7" stroke="#f59e0b"/>
+              <text x="107" y="42" text-anchor="middle" font-size="8">Guard</text>
+              <text x="107" y="54" text-anchor="middle" font-size="7" fill="#92400e">יודע: מי</text>
+              <text x="107" y="64" text-anchor="middle" font-size="7" fill="#92400e">לא יודע: לאן</text>
+              <rect x="160" y="18" width="55" height="55" rx="4" fill="#f0fdf4" stroke="#34d399"/>
+              <text x="187" y="42" text-anchor="middle" font-size="8">Middle</text>
+              <text x="187" y="54" text-anchor="middle" font-size="7" fill="#065f46">לא יודע</text>
+              <text x="187" y="64" text-anchor="middle" font-size="7" fill="#065f46">כלום</text>
+              <rect x="240" y="18" width="55" height="55" rx="4" fill="#fef2f2" stroke="#f87171"/>
+              <text x="267" y="42" text-anchor="middle" font-size="8">Exit</text>
+              <text x="267" y="54" text-anchor="middle" font-size="7" fill="#dc2626">יודע: לאן</text>
+              <text x="267" y="64" text-anchor="middle" font-size="7" fill="#dc2626">לא יודע: מי</text>
+              <rect x="320" y="28" width="55" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="347" y="48" text-anchor="middle" font-size="9">אתר</text>
+              <path d="M 60 45 L 78 45" stroke="var(--accent)" stroke-width="2"/>
+              <path d="M 135 45 L 158 45" stroke="var(--accent)" stroke-width="2"/>
+              <path d="M 215 45 L 238 45" stroke="var(--accent)" stroke-width="2"/>
+              <path d="M 295 45 L 318 45" stroke="var(--accent)" stroke-width="2"/>
+              <text x="190" y="85" text-anchor="middle" font-size="8" fill="var(--text-muted)">שום node אחד לא יודע הכל — זה Onion Routing</text>
+            </svg>
+          </div>
+          <p><strong>מגבלות Tor:</strong></p>
+          <ul>
+            <li>איטי (3 hops + encryption = latency גבוה)</li>
+            <li>Exit node יכול לקרוא תנועת HTTP (לא HTTPS)</li>
+            <li>אנונימיות פגיעה אם יש timing correlation — תוקף שרואה גם כניסה וגם יציאה</li>
+            <li>JavaScript יכול לחשוף IP — Tor Browser מגביל JS</li>
+          </ul>
+        `
+      },
+      {
+        type: "thinkOutside",
+        title: "חשיבה מחוץ לקופסא – האמת על פרטיות",
+        intro: "<p>כמה עובדות שמפתיעות רוב האנשים:</p>",
+        blocks: [
+          {
+            title: "Incognito Mode לא עושה מה שאת חושבת",
+            icon: "🕵️",
+            content: `<p>Incognito מוחק את ה<em>local</em> history — הדפדפן שלך. אבל: ה-ISP עדיין רואה הכל, גוגל רואה (אם logged in), ה-network admin של ה-WiFi רואה, וכל tracker שברשת רואה. Incognito = "לא ישמר על המחשב הזה". זה הכל. Google שילמה $5B בסכסוך קולקטיבי על טעיית הגדרה זו.</p>`
+          },
+          {
+            title: "Metadata גרוע יותר מ-Content",
+            icon: "📊",
+            content: `<p>"We kill people based on metadata" — Michael Hayden, ראש NSA לשעבר. Metadata = מי דיבר עם מי, מתי, ממה מיקום. לא תוכן השיחה. מ-metadata בלבד ניתן להסיק: יחסים, בריאות (שיחות לרופא), פוליטיקה, דת. HTTPS מסתיר content — לא metadata.</p>`
+          }
+        ]
+      },
+      {
+        type: "summary",
+        title: "סיכום פרק 25",
+        content: `
+          <div class="chapter-summary">
+            <h3>נקודות מפתח:</h3>
+            <ul>
+              <li>ISP רואה: כל DNS query, TLS SNI (שם הדומיין), IP addresses. לא את תוכן HTTPS</li>
+              <li>Browser Fingerprint: canvas, fonts, WebGL, screen = זיהוי ייחודי כמעט ללא cookies</li>
+              <li>Third-party tracking: Meta Pixel ב-30%+ אתרים. רואה אותך גם ללא לחיצה</li>
+              <li>Tor = Onion Routing: 3 nodes, שכבות הצפנה. שום node לא יודע הכל. איטי</li>
+              <li>Incognito = local only. ISP, Google, ISP Admin — עדיין רואים</li>
+              <li>Metadata גרוע מcontent. "מי דיבר עם מי" = תמונה מלאה ללא תוכן</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        type: "questions",
+        title: "שאלות הבנה - פרק 25",
+        questions: [
+          {
+            q: "גלשת ל-bank.com ב-HTTPS. מה ה-ISP יכול לראות?",
+            a: "ה-ISP רואה: DNS query לbank.com (מי ה-IP), ה-TLS SNI בחיבור (שם 'bank.com'), כתובת IP של שרת הבנק, גודל ותזמון החבילות. לא יכול לראות: שם משתמש, סיסמה, תוכן הדפים — כל זה מוצפן ב-HTTPS."
+          },
+          {
+            q: "מה Canvas Fingerprinting ולמה קשה להגן ממנו?",
+            a: "האתר מצייר טקסט/צורות ב-canvas HTML. כל GPU/OS/גרסת דפדפן מצייר פיקסלים מעט שונים. ה-hash של התמונה ייחודי לציוד שלך. קשה להגן כי: אין לדעת מתי אתר עושה זאת (JavaScript מוסתר), ומניעה דורשת randomization שמשבש פונקציות לגיטימיות."
+          },
+          {
+            q: "כיצד Onion Routing מבטיח ש-ISP שלך לא יודע לאיזה אתר גלשת?",
+            a: "מחשבך שולח לGuard node בלבד — encrypted לשלוש שכבות. ה-ISP רואה שיחה עם Guard node. Guard לא יודע מה בפנים. רק Exit node יכול לפתוח את היעד הסופי — אבל Exit לא יודע מי שלח. ISP רואה: 'התחברת ל-Tor'. לא מה ביקשת."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 26,
+    title: "העתיד כבר כאן – QUIC, eBPF ו-Edge",
+    pages: [
+      {
+        type: "explanation",
+        title: "QUIC – הפרוטוקול שהחליף TCP",
+        content: `
+          <p><strong>QUIC</strong> פותח ב-Google ב-2012, הפך לסטנדרט IETF (RFC 9000) ב-2021. הוא הבסיס ל-HTTP/3. היום: ~25% מתנועת האינטרנט רצה על QUIC.</p>
+          <p><strong>מה QUIC פותר?</strong></p>
+          <table class="content-table">
+            <tr><th>בעיה ב-TCP/TLS</th><th>פתרון QUIC</th></tr>
+            <tr><td>Handshake = 3-way TCP + TLS 1.3 = 2 round trips</td><td>0-RTT / 1-RTT — connection + crypto ב-round trip אחד</td></tr>
+            <tr><td>HOL Blocking: חבילה אחת אבודה עוצרת כולם</td><td>Streams עצמאיים — חבילה אבודה משפיעה רק על stream אחד</td></tr>
+            <tr><td>TCP ב-kernel — קשה לעדכן ולשנות</td><td>QUIC ב-userspace — Google עדכנה מהר ב-Chrome ובשרתים</td></tr>
+            <tr><td>Connection tied to IP:Port — מנותק בשינוי WiFi</td><td>Connection ID — נשאר connected גם אחרי שינוי IP (roaming)</td></tr>
+          </table>
+          <div class="diagram-container">
+            <svg viewBox="0 0 360 100" class="content-diagram">
+              <rect x="10" y="10" width="155" height="80" rx="6" fill="#fef2f2" stroke="#f87171"/>
+              <text x="87" y="28" text-anchor="middle" font-size="9" font-weight="bold" fill="#dc2626">TCP + TLS 1.3</text>
+              <text x="87" y="43" text-anchor="middle" font-size="8" fill="#dc2626">RTT 1: SYN → SYN-ACK</text>
+              <text x="87" y="55" text-anchor="middle" font-size="8" fill="#dc2626">RTT 2: TLS ClientHello</text>
+              <text x="87" y="67" text-anchor="middle" font-size="8" fill="#dc2626">RTT 3: TLS Finished</text>
+              <text x="87" y="82" text-anchor="middle" font-size="8" fill="#dc2626">→ 3 round trips</text>
+              <rect x="195" y="10" width="155" height="80" rx="6" fill="#d1fae5" stroke="#34d399"/>
+              <text x="272" y="28" text-anchor="middle" font-size="9" font-weight="bold" fill="#065f46">QUIC (HTTP/3)</text>
+              <text x="272" y="43" text-anchor="middle" font-size="8" fill="#065f46">RTT 1: QUIC Initial (crypto+data)</text>
+              <text x="272" y="55" text-anchor="middle" font-size="8" fill="#065f46">→ connection מוכן</text>
+              <text x="272" y="67" text-anchor="middle" font-size="8" fill="#065f46">0-RTT reconnect</text>
+              <text x="272" y="82" text-anchor="middle" font-size="8" fill="#065f46">→ 0-1 round trips</text>
+            </svg>
+          </div>
+          <p><strong>0-RTT:</strong> אם כבר שוחחת עם שרת — QUIC שומר session ticket. בבקשה הבאה, שולח נתונים כבר ב-packet הראשון. פותח דף web לפני TCP אפילו יצר חיבור.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "eBPF – תכנות ה-Kernel ללא תכנות Kernel",
+        content: `
+          <p><strong>eBPF</strong> (extended Berkeley Packet Filter) — אחד מהשינויים המהפכניים ביותר ב-Linux בעשור האחרון. מאפשר להריץ קוד <strong>בתוך</strong> Linux kernel — בלי לכתוב kernel module, בלי reboot, בבטיחות מוחלטת.</p>
+          <p><strong>הרעיון:</strong> BPF ישן (1992) — סינון packets ב-tcpdump. eBPF (2014+) — JIT-compiled bytecode שרץ ב-kernel בcontext של event: network packet, syscall, function call, timer.</p>
+          <p><strong>למה זה מהפכני לרשתות:</strong></p>
+          <ul>
+            <li><strong>XDP (eXpress Data Path):</strong> עיבוד packet <em>לפני</em> ה-kernel network stack — מיליוני pps</li>
+            <li><strong>Cilium:</strong> CNI לKubernetes שמחליף iptables בeBPF. תוצאה: 10x ביצועים, monitoring מובנה</li>
+            <li><strong>Cloudflare:</strong> DDoS mitigation שלהם רץ על eBPF/XDP — drop ב-line-rate ב-wire</li>
+          </ul>
+          <div class="code-preview">
+            <pre><code>// eBPF XDP program — drop כל UDP מ-IP מסוים:
+SEC("xdp")
+int block_udp(struct xdp_md *ctx) {
+    // גישה ישירה ל-packet ב-kernel
+    struct ethhdr *eth = data;
+    struct iphdr *ip = data + sizeof(*eth);
+    if (ip->protocol == IPPROTO_UDP &&
+        ip->saddr == htonl(0xC0A80101)) {
+        return XDP_DROP; // drop לפני kernel stack
+    }
+    return XDP_PASS;
+}</code></pre>
+          </div>
+          <p><strong>Meta, Google, Netflix, Cloudflare</strong> כולן השקיעו ב-eBPF. זה הבסיס לinfrastructure observability מודרנית — <strong>trace כל syscall, כל network call, בלי שינוי קוד</strong>.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "Starlink – אינטרנט מהחלל",
+        content: `
+          <p>SpaceX Starlink: ~6,000 לווינים ב-Low Earth Orbit (LEO, 550km), עם תוכנית ל-42,000. ה-constellation הגדולה ביותר בהיסטוריה.</p>
+          <p><strong>למה LEO ולא GEO?</strong></p>
+          <table class="content-table">
+            <tr><th></th><th>GEO (35,786km)</th><th>LEO (550km)</th></tr>
+            <tr><td>Latency</td><td>600ms+ RTT</td><td>20-40ms RTT</td></tr>
+            <tr><td>לווינים נדרשים</td><td>3 מכסים את כל כדור הארץ</td><td>אלפים (תמיד עצים)</td></tr>
+            <tr><td>bandwidth per user</td><td>נמוך יחסית</td><td>50-200 Mbps</td></tr>
+            <tr><td>גישה לאזורים נידחים</td><td>✓</td><td>✓</td></tr>
+          </table>
+          <p><strong>איך Starlink מנתב:</strong> ה-user terminal (dish) מתחבר ל-satellite שמעל. הlaser inter-satellite links (ISL) מנתבים בין לווינים כמו BGP בחלל. ה-traffic יורד ל-ground station ממנה עולה לאינטרנט.</p>
+          <div class="diagram-container">
+            <svg viewBox="0 0 360 100" class="content-diagram">
+              <ellipse cx="180" cy="90" rx="170" ry="15" fill="var(--accent-soft)" stroke="var(--accent)" opacity="0.5"/>
+              <text x="180" y="93" text-anchor="middle" font-size="8">כדור הארץ</text>
+              <circle cx="60" cy="30" r="8" fill="#0891b2" stroke="#0e7490"/>
+              <text x="60" y="18" text-anchor="middle" font-size="7" fill="#0e7490">LEO</text>
+              <circle cx="180" cy="15" r="8" fill="#0891b2" stroke="#0e7490"/>
+              <text x="180" y="8" text-anchor="middle" font-size="7" fill="#0e7490">LEO</text>
+              <circle cx="300" cy="30" r="8" fill="#0891b2" stroke="#0e7490"/>
+              <text x="300" y="18" text-anchor="middle" font-size="7" fill="#0e7490">LEO</text>
+              <line x1="68" y1="34" x2="172" y2="19" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="3,2"/>
+              <line x1="188" y1="19" x2="292" y2="34" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="3,2"/>
+              <line x1="60" y1="38" x2="80" y2="76" stroke="var(--accent)" stroke-width="1.5"/>
+              <rect x="70" y="75" width="25" height="10" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+              <text x="82" y="83" text-anchor="middle" font-size="7">dish</text>
+              <text x="180" y="60" text-anchor="middle" font-size="8" fill="var(--text-muted)">ISL: laser link בין לווינים</text>
+            </svg>
+          </div>
+          <p><strong>שימושים שמשנים חיים:</strong> כפרים ללא fiber, ספינות, מטוסים, אזורי אסון, אוקראינה במלחמה (Starlink = infrastructure קריטית). <strong>חסרון:</strong> גשם/עננות מפריע, עלות גבוהה, concerns על space debris ו-light pollution.</p>
+        `
+      },
+      {
+        type: "explanation",
+        title: "Service Mesh ו-Zero Trust בEnterprises",
+        content: `
+          <p>בעולם ה-microservices — לא מספיק לאבטח את ה-perimeter. כל service צריך לאמת כל request. זה <strong>Service Mesh</strong>.</p>
+          <p><strong>sidecar proxy pattern:</strong></p>
+          <ul>
+            <li>כל pod ב-Kubernetes מקבל sidecar container (לרוב Envoy proxy)</li>
+            <li>כל תנועה (in/out) עוברת דרך ה-sidecar</li>
+            <li>mTLS אוטומטי: כל שיחה בין services מוצפנת + authenticated</li>
+            <li>observability חינמית: metrics, traces, logs — בלי שינוי קוד</li>
+          </ul>
+          <div class="code-preview">
+            <pre><code># Istio Service Mesh — traffic policy:
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: payment-service
+spec:
+  host: payment-svc
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL  # mTLS אוטומטי
+  connectionPool:
+    tcp:
+      maxConnections: 100
+  outlierDetection:
+    consecutiveErrors: 3
+    interval: 30s
+    baseEjectionTime: 30s  # circuit breaker</code></pre>
+          </div>
+          <p><strong>Circuit Breaker pattern:</strong> אם service מחזיר errors — הmesh מפסיק לשלוח אליו ומחכה לrecovery. מונע cascading failures.</p>
+          <p><strong>Zero Trust שמשולב עם Service Mesh:</strong> כל service מחזיקה certificate, כל request נאמת, policy מנוהל centrally. אפילו attacker בתוך cluster לא יכול לנוע laterally בקלות.</p>
+        `
+      },
+      {
+        type: "thinkOutside",
+        title: "חשיבה מחוץ לקופסא – לאן הרשת הולכת",
+        intro: "<p>כמה תחומים שיעצבו את הרשת בעשור הבא:</p>",
+        blocks: [
+          {
+            title: "eBPF = מחליף iptables, routing, ועוד",
+            icon: "🔧",
+            content: `<p>iptables — הכלי שניהל את firewalls של Linux מ-1998 — מיועד לפנסיה. Cilium + eBPF מחליפים אותו בKubernetes. Meta מריצה <strong>Katran</strong> (load balancer מבוסס eBPF) שמטפל במאות מיליוני חיבורים. eBPF מאפשר observability שלא היה אפשרי — trace כל syscall בproduction בלי overhead. זה ה-TCP/IP של הדור הבא.</p>`
+          },
+          {
+            title: "האינטרנט של האינטרנט של הדברים",
+            icon: "📡",
+            content: `<p>IPv6 נוצר ל-2^128 כתובות — מספיק לכל אטום על פני כדור הארץ פי מיליון. IoT = ≈15 מיליארד מכשירים מחוברים ב-2024, ≈30B ב-2030. כל מקרר, מנורה, חיישן — IP משלו. Thread (Matter), Zigbee, LoRaWAN — פרוטוקולי mesh networking למכשירים קטנים. הרשת עוברת מחיבור <em>מחשבים</em> לחיבור <em>עולם פיזי</em>.</p>`
+          }
+        ]
+      },
+      {
+        type: "summary",
+        title: "סיכום פרק 26",
+        content: `
+          <div class="chapter-summary">
+            <h3>נקודות מפתח:</h3>
+            <ul>
+              <li>QUIC: UDP-based, 0-RTT, streams עצמאיים (אין HOL blocking), connection migration. בסיס HTTP/3</li>
+              <li>eBPF: קוד ב-kernel בלי kernel module. XDP = עיבוד packet לפני network stack. Cilium, Cloudflare DDoS</li>
+              <li>Starlink LEO: 550km, 20-40ms latency (vs. 600ms GEO). אלפי לווינים, ISL lasers בחלל</li>
+              <li>Service Mesh: sidecar proxy, mTLS אוטומטי, circuit breaker, Zero Trust per-service</li>
+              <li>eBPF מחליף iptables. IoT = 30B מכשירים ב-2030. הרשת מחברת עולם פיזי</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        type: "questions",
+        title: "שאלות הבנה - פרק 26",
+        questions: [
+          {
+            q: "מה ההבדל בין HTTP/2 ל-HTTP/3 מבחינת שכבת התעבורה?",
+            a: "HTTP/2 רץ על TCP. חבילה אחת שאבדה — כל ה-streams מחכים (HOL blocking ברמת TCP). HTTP/3 רץ על QUIC/UDP. כל stream עצמאי גם ברמת transport. חבילה שאבדה משפיעה רק על stream אחד."
+          },
+          {
+            q: "למה eBPF מהפכני לאבטחת רשתות?",
+            a: "eBPF מריץ קוד בתוך kernel ב-XDP context — לפני שהpacket מגיע לnetwork stack. זה מאפשר drop/filter ב-line rate של hardware (מיליוני pps). קוד דינמי שניתן לעדכן בלי reboot. Cloudflare משתמשת בזה לDDoS mitigation. בנוסף — full observability של כל syscall בproduction ללא overhead."
+          },
+          {
+            q: "מה בעיית HOL Blocking ב-TCP ואיך QUIC פותר אותה?",
+            a: "HOL Blocking = Head-of-Line Blocking. TCP הוא stream אחד, ordered. אם חבילה 5 אבדה — חבילות 6,7,8 שכבר הגיעו מחכות בbuffer. כל multiplexing שמעל TCP (HTTP/2) סובל מזה. QUIC: כל stream הוא flow עצמאי ב-UDP. אובדן חבילה בstream A לא עוצר stream B."
+          }
+        ]
+      }
+    ]
   }
 ];
