@@ -442,7 +442,154 @@ server_socket.close()</code></pre>
         type: "explanation",
         title: "פירוט כל שכבה – שירותים",
         content: `
-          <p><strong>שכבה 1 (פיזית)</strong> – מעבירה ביט (0 או 1). כבלים, סיבים, אוויר. <strong>שכבה 2 (קו)</strong> – ארגון במסגרות (Frames), מניעת התנגשויות, זיהוי שגיאות. <strong>שכבה 3 (רשת)</strong> – מסלול מלא, נתבים. <strong>שכבה 4 (תעבורה)</strong> – קישור אמין, סדר, טיפול באובדן. <strong>שכבה 5 (אפליקציה)</strong> – פרוטוקולי יישום.</p>
+          <div class="layers-detail">
+
+            <div class="layer-card lc-5">
+              <div class="lc-info">
+                <div class="lc-num">5</div>
+                <div class="lc-text">
+                  <strong>שכבת אפליקציה</strong>
+                  <span class="lc-proto">HTTP · HTTPS · DNS · FTP · SMTP</span>
+                  <p>הממשק הישיר עם המשתמש. האפליקציה בונה בקשה בשפה מובנת (HTTP GET), השרת מחזיר תגובה.</p>
+                </div>
+              </div>
+              <div class="lc-viz">
+                <svg viewBox="0 0 200 64" class="lc-svg">
+                  <rect x="4" y="14" width="54" height="36" rx="5" fill="rgba(8,145,178,0.1)" stroke="#0891b2" stroke-width="1.2"/>
+                  <text x="31" y="30" text-anchor="middle" font-size="7.5" fill="#0e7490" font-weight="bold">🌐 Browser</text>
+                  <text x="31" y="43" text-anchor="middle" font-size="6.5" fill="#0891b2">HTTP Client</text>
+                  <path d="M 60 27 L 128 27" stroke="#d97706" stroke-width="1.3" marker-end="url(#arr-a)"/>
+                  <text x="94" y="22" text-anchor="middle" font-size="6.5" fill="#d97706">GET /index.html</text>
+                  <path d="M 128 39 L 60 39" stroke="#059669" stroke-width="1.3" marker-end="url(#arr-b)"/>
+                  <text x="94" y="52" text-anchor="middle" font-size="6.5" fill="#059669">200 OK + HTML</text>
+                  <rect x="130" y="14" width="62" height="36" rx="5" fill="rgba(5,150,105,0.1)" stroke="#059669" stroke-width="1.2"/>
+                  <text x="161" y="30" text-anchor="middle" font-size="7.5" fill="#065f46" font-weight="bold">🖥 Server</text>
+                  <text x="161" y="43" text-anchor="middle" font-size="6.5" fill="#059669">nginx / Apache</text>
+                  <defs>
+                    <marker id="arr-a" markerWidth="5" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5z" fill="#d97706"/></marker>
+                    <marker id="arr-b" markerWidth="5" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5z" fill="#059669"/></marker>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+
+            <div class="layer-card lc-4">
+              <div class="lc-info">
+                <div class="lc-num">4</div>
+                <div class="lc-text">
+                  <strong>שכבת תעבורה</strong>
+                  <span class="lc-proto">TCP · UDP</span>
+                  <p>אחראית על העברה אמינה בין <em>תהליכים</em> (פורטים). TCP מבטיח סדר ואישור קבלה. UDP מהיר ללא אישור.</p>
+                </div>
+              </div>
+              <div class="lc-viz">
+                <svg viewBox="0 0 200 64" class="lc-svg">
+                  <rect x="4" y="10" width="58" height="44" rx="5" fill="rgba(124,58,237,0.08)" stroke="#7c3aed" stroke-width="1.2"/>
+                  <text x="33" y="26" text-anchor="middle" font-size="7" fill="#6d28d9" font-weight="bold">App Process</text>
+                  <text x="33" y="38" text-anchor="middle" font-size="9" fill="#7c3aed" font-weight="bold">:52341</text>
+                  <text x="33" y="49" text-anchor="middle" font-size="6" fill="#7c3aed">src port</text>
+                  <path d="M 65 32 L 130 32" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arr-t)"/>
+                  <rect x="73" y="22" width="54" height="18" rx="3" fill="rgba(124,58,237,0.08)" stroke="#7c3aed" stroke-width="0.8"/>
+                  <text x="100" y="34" text-anchor="middle" font-size="6.5" fill="#6d28d9">TCP Segment</text>
+                  <text x="100" y="53" text-anchor="middle" font-size="5.8" fill="rgba(15,23,42,0.45)">Seq# · Ack# · Flags</text>
+                  <rect x="133" y="10" width="60" height="44" rx="5" fill="rgba(124,58,237,0.08)" stroke="#7c3aed" stroke-width="1.2"/>
+                  <text x="163" y="26" text-anchor="middle" font-size="7" fill="#6d28d9" font-weight="bold">Web Server</text>
+                  <text x="163" y="38" text-anchor="middle" font-size="9" fill="#7c3aed" font-weight="bold">:443</text>
+                  <text x="163" y="49" text-anchor="middle" font-size="6" fill="#7c3aed">dst port</text>
+                  <defs><marker id="arr-t" markerWidth="5" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5z" fill="#7c3aed"/></marker></defs>
+                </svg>
+              </div>
+            </div>
+
+            <div class="layer-card lc-3">
+              <div class="lc-info">
+                <div class="lc-num">3</div>
+                <div class="lc-text">
+                  <strong>שכבת רשת</strong>
+                  <span class="lc-proto">IP · ICMP · OSPF · BGP</span>
+                  <p>ניתוב חבילות בין רשתות שונות ברחבי האינטרנט. הנתב (Router) מחליט את המסלול לפי כתובת IP.</p>
+                </div>
+              </div>
+              <div class="lc-viz">
+                <svg viewBox="0 0 200 64" class="lc-svg">
+                  <rect x="4" y="18" width="44" height="28" rx="4" fill="rgba(8,145,178,0.1)" stroke="#0891b2" stroke-width="1.1"/>
+                  <text x="26" y="31" text-anchor="middle" font-size="6.5" fill="#0e7490" font-weight="bold">PC</text>
+                  <text x="26" y="40" text-anchor="middle" font-size="5.8" fill="#0891b2">192.168.1.5</text>
+                  <path d="M 50 32 L 80 32" stroke="#0e7490" stroke-width="1.2" marker-end="url(#arr-n)"/>
+                  <circle cx="93" cy="32" r="13" fill="rgba(217,119,6,0.12)" stroke="#d97706" stroke-width="1.2"/>
+                  <text x="93" y="29" text-anchor="middle" font-size="8" fill="#b45309">⇄</text>
+                  <text x="93" y="39" text-anchor="middle" font-size="6" fill="#b45309">Router</text>
+                  <path d="M 108 32 L 138 32" stroke="#0e7490" stroke-width="1.2" marker-end="url(#arr-n)"/>
+                  <circle cx="151" cy="32" r="13" fill="rgba(217,119,6,0.12)" stroke="#d97706" stroke-width="1.2"/>
+                  <text x="151" y="29" text-anchor="middle" font-size="8" fill="#b45309">⇄</text>
+                  <text x="151" y="39" text-anchor="middle" font-size="6" fill="#b45309">Router</text>
+                  <path d="M 166 32 L 185 32" stroke="#0e7490" stroke-width="1.2" marker-end="url(#arr-n)"/>
+                  <text x="192" y="35" text-anchor="middle" font-size="10" fill="#0e7490">🌐</text>
+                  <defs><marker id="arr-n" markerWidth="5" markerHeight="5" refX="5" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5z" fill="#0e7490"/></marker></defs>
+                </svg>
+              </div>
+            </div>
+
+            <div class="layer-card lc-2">
+              <div class="lc-info">
+                <div class="lc-num">2</div>
+                <div class="lc-text">
+                  <strong>שכבת קו (Data Link)</strong>
+                  <span class="lc-proto">Ethernet · Wi-Fi · PPP</span>
+                  <p>אחראית על העברה בין שני <em>צמתים סמוכים</em>. מארגנת Frames עם כתובות MAC ובדיקת שגיאות (CRC).</p>
+                </div>
+              </div>
+              <div class="lc-viz">
+                <svg viewBox="0 0 200 64" class="lc-svg">
+                  <rect x="4" y="18" width="36" height="28" rx="3" fill="rgba(220,38,38,0.08)" stroke="#dc2626" stroke-width="1"/>
+                  <text x="22" y="30" text-anchor="middle" font-size="6" fill="#dc2626" font-weight="bold">Preamble</text>
+                  <text x="22" y="40" text-anchor="middle" font-size="5.5" fill="#dc2626">8 bytes</text>
+                  <rect x="42" y="18" width="38" height="28" rx="3" fill="rgba(217,119,6,0.1)" stroke="#d97706" stroke-width="1"/>
+                  <text x="61" y="30" text-anchor="middle" font-size="6" fill="#b45309" font-weight="bold">MAC dst</text>
+                  <text x="61" y="40" text-anchor="middle" font-size="5.5" fill="#b45309">6 bytes</text>
+                  <rect x="82" y="18" width="38" height="28" rx="3" fill="rgba(217,119,6,0.1)" stroke="#d97706" stroke-width="1"/>
+                  <text x="101" y="30" text-anchor="middle" font-size="6" fill="#b45309" font-weight="bold">MAC src</text>
+                  <text x="101" y="40" text-anchor="middle" font-size="5.5" fill="#b45309">6 bytes</text>
+                  <rect x="122" y="18" width="32" height="28" rx="3" fill="rgba(8,145,178,0.1)" stroke="#0891b2" stroke-width="1"/>
+                  <text x="138" y="30" text-anchor="middle" font-size="6" fill="#0e7490" font-weight="bold">Data</text>
+                  <text x="138" y="40" text-anchor="middle" font-size="5.5" fill="#0e7490">46-1500B</text>
+                  <rect x="156" y="18" width="38" height="28" rx="3" fill="rgba(5,150,105,0.1)" stroke="#059669" stroke-width="1"/>
+                  <text x="175" y="30" text-anchor="middle" font-size="6" fill="#059669" font-weight="bold">FCS/CRC</text>
+                  <text x="175" y="40" text-anchor="middle" font-size="5.5" fill="#059669">4 bytes</text>
+                  <text x="100" y="58" text-anchor="middle" font-size="6" fill="rgba(15,23,42,0.4)">Ethernet Frame</text>
+                </svg>
+              </div>
+            </div>
+
+            <div class="layer-card lc-1">
+              <div class="lc-info">
+                <div class="lc-num">1</div>
+                <div class="lc-text">
+                  <strong>שכבה פיזית</strong>
+                  <span class="lc-proto">Cat5e · Cat6 · Fiber · Wi-Fi · USB</span>
+                  <p>מעבירה <em>ביטים</em> (0/1) כאותות חשמליים, אורים, או גלי רדיו. אין לה מושג מה המשמעות — רק פיזיקה.</p>
+                </div>
+              </div>
+              <div class="lc-viz">
+                <svg viewBox="0 0 200 64" class="lc-svg">
+                  <line x1="14" y1="32" x2="186" y2="32" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
+                  <line x1="14" y1="32" x2="186" y2="32" stroke="rgba(8,145,178,0.35)" stroke-width="3" stroke-linecap="round"/>
+                  <circle cx="14" cy="32" r="7" fill="rgba(8,145,178,0.15)" stroke="#0891b2" stroke-width="1.2"/>
+                  <text x="14" y="35.5" text-anchor="middle" font-size="7" fill="#0e7490" font-weight="bold">TX</text>
+                  <circle cx="186" cy="32" r="7" fill="rgba(5,150,105,0.15)" stroke="#059669" stroke-width="1.2"/>
+                  <text x="186" y="35.5" text-anchor="middle" font-size="7" fill="#059669" font-weight="bold">RX</text>
+                  <text x="45" y="22" text-anchor="middle" font-size="11" font-family="monospace" fill="#0e7490" font-weight="bold">0</text>
+                  <text x="68" y="22" text-anchor="middle" font-size="11" font-family="monospace" fill="#0e7490" font-weight="bold">1</text>
+                  <text x="91" y="22" text-anchor="middle" font-size="11" font-family="monospace" fill="#0e7490" font-weight="bold">1</text>
+                  <text x="114" y="22" text-anchor="middle" font-size="11" font-family="monospace" fill="#0e7490" font-weight="bold">0</text>
+                  <text x="137" y="22" text-anchor="middle" font-size="11" font-family="monospace" fill="#0e7490" font-weight="bold">1</text>
+                  <text x="160" y="22" text-anchor="middle" font-size="11" font-family="monospace" fill="#0e7490" font-weight="bold">0</text>
+                  <text x="100" y="56" text-anchor="middle" font-size="6.5" fill="rgba(15,23,42,0.4)">אות חשמלי / אור / גל רדיו</text>
+                </svg>
+              </div>
+            </div>
+
+          </div>
         `
       },
       {

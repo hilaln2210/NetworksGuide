@@ -70,8 +70,9 @@ export function Quiz({ chapters, onXPGain, gender }) {
       }
     }
 
+    const isLast = current + 1 >= questions.length
     setTimeout(() => {
-      if (current + 1 >= questions.length) {
+      if (isLast) {
         const isPerfect = score + (isCorrect ? 1 : 0) === questions.length
         if (isPerfect) {
           const result = addXP(XP_QUIZ_BONUS)
@@ -86,7 +87,7 @@ export function Quiz({ chapters, onXPGain, gender }) {
         setPicked(null)
         setShowResult(false)
       }
-    }, isCorrect ? 900 : 1400)
+    }, isLast ? 2200 : (isCorrect ? 900 : 1400))
   }
 
   // ===== SCREEN: SELECT MODE =====
