@@ -147,10 +147,16 @@ function App() {
     }
   }
 
+  const contentAreaRef = useRef(null)
+
   const goToChapter = (chIndex) => {
     saveLastPosition(chIndex, 0)
     setCurrentChapter(chIndex)
     setCurrentPage(0)
+    // On mobile the layout is stacked — scroll the content area into view
+    setTimeout(() => {
+      contentAreaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 50)
   }
 
   const canGoNext = currentPage < totalPages - 1 || currentChapter < chapters.length - 1
@@ -298,7 +304,7 @@ function App() {
             </div>
           </nav>
 
-          <main className="content-area">
+          <main className="content-area" ref={contentAreaRef}>
             <div className="page-header">
               <span className="page-type-badge" style={getBadgeStyle(page.type)}>
                 {getPageTypeLabel(page.type)}
