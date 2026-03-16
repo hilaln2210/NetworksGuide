@@ -4324,7 +4324,1028 @@ spec:
     icon: '☁️',
     color: '#22c55e',
     level: 'בינוני–מתקדם',
-    chapters: [] // loaded separately
+    chapters: [
+  {
+    id: 201,
+    title: "ניהול Linux",
+    pages: [
+      {
+        type: "explanation",
+        title: "היררכיית מערכת הקבצים",
+        content: `<div dir="rtl">
+<h2>Filesystem Hierarchy Standard (FHS)</h2>
+<p>Linux משתמשת בעץ קבצים אחיד שמתחיל בשורש <code>/</code>. כל רכיב במערכת — דיסקים, מכשירים, תהליכים — מיוצג כקובץ.</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 120" class="content-diagram">
+  <text x="175" y="18" text-anchor="middle" font-size="13" fill="#e2e8f0" font-weight="bold">/</text>
+  <line x1="175" y1="22" x2="40" y2="45" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="175" y1="22" x2="105" y2="45" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="175" y1="22" x2="175" y2="45" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="175" y1="22" x2="245" y2="45" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="175" y1="22" x2="315" y2="45" stroke="#64748b" stroke-width="1.5"/>
+  <rect x="10" y="45" width="58" height="22" rx="4" fill="#1e3a5f"/>
+  <text x="39" y="60" text-anchor="middle" font-size="11" fill="#93c5fd">/bin</text>
+  <rect x="76" y="45" width="58" height="22" rx="4" fill="#1e3a5f"/>
+  <text x="105" y="60" text-anchor="middle" font-size="11" fill="#93c5fd">/etc</text>
+  <rect x="146" y="45" width="58" height="22" rx="4" fill="#1e3a5f"/>
+  <text x="175" y="60" text-anchor="middle" font-size="11" fill="#93c5fd">/home</text>
+  <rect x="216" y="45" width="58" height="22" rx="4" fill="#1e3a5f"/>
+  <text x="245" y="60" text-anchor="middle" font-size="11" fill="#93c5fd">/var</text>
+  <rect x="286" y="45" width="58" height="22" rx="4" fill="#1e3a5f"/>
+  <text x="315" y="60" text-anchor="middle" font-size="11" fill="#93c5fd">/proc</text>
+  <line x1="39" y1="67" x2="39" y2="88" stroke="#64748b" stroke-width="1"/>
+  <rect x="10" y="88" width="58" height="20" rx="3" fill="#0f2744"/>
+  <text x="39" y="101" text-anchor="middle" font-size="10" fill="#7dd3fc">קבצים הרצה</text>
+  <line x1="105" y1="67" x2="105" y2="88" stroke="#64748b" stroke-width="1"/>
+  <rect x="76" y="88" width="58" height="20" rx="3" fill="#0f2744"/>
+  <text x="105" y="101" text-anchor="middle" font-size="10" fill="#7dd3fc">הגדרות מערכת</text>
+  <line x1="175" y1="67" x2="175" y2="88" stroke="#64748b" stroke-width="1"/>
+  <rect x="146" y="88" width="58" height="20" rx="3" fill="#0f2744"/>
+  <text x="175" y="101" text-anchor="middle" font-size="10" fill="#7dd3fc">משתמשים</text>
+  <line x1="245" y1="67" x2="245" y2="88" stroke="#64748b" stroke-width="1"/>
+  <rect x="216" y="88" width="58" height="20" rx="3" fill="#0f2744"/>
+  <text x="245" y="101" text-anchor="middle" font-size="10" fill="#7dd3fc">לוגים/נתונים</text>
+  <line x1="315" y1="67" x2="315" y2="88" stroke="#64748b" stroke-width="1"/>
+  <rect x="286" y="88" width="58" height="20" rx="3" fill="#0f2744"/>
+  <text x="315" y="101" text-anchor="middle" font-size="10" fill="#7dd3fc">תהליכים חיים</text>
+</svg>
+</div>
+<table class="content-table">
+  <tr><th>נתיב</th><th>תוכן</th></tr>
+  <tr><td><code>/bin</code>, <code>/usr/bin</code></td><td>קבצי הרצה של המערכת והמשתמשים</td></tr>
+  <tr><td><code>/etc</code></td><td>קובצי הגדרות של כל השירותים</td></tr>
+  <tr><td><code>/var/log</code></td><td>לוגים של המערכת והאפליקציות</td></tr>
+  <tr><td><code>/proc</code>, <code>/sys</code></td><td>ממשק וירטואלי לגרעין Linux</td></tr>
+  <tr><td><code>/tmp</code></td><td>קבצים זמניים — נמחקים ברסטרט</td></tr>
+  <tr><td><code>/home/user</code></td><td>תיקיית הבית של כל משתמש</td></tr>
+</table>
+<p><strong>טיפ:</strong> <code>/proc/cpuinfo</code> הוא לא קובץ אמיתי — הגרעין יוצר אותו בזמן אמת כשקוראים אותו.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "פקודות חיוניות — ניפוי בעיות",
+        content: `<div dir="rtl">
+<h2>ארגז הכלים של ה-SysAdmin</h2>
+<p>כשמשהו משתבש בפרודקשן, 5 הפקודות האלו הן הראשונות שתפעיל:</p>
+<table class="content-table">
+  <tr><th>פקודה</th><th>מה היא עושה</th></tr>
+  <tr><td><code>ls -lah</code></td><td>רשימת קבצים עם הרשאות, גדלים ותאריכים</td></tr>
+  <tr><td><code>grep -r "error" /var/log/</code></td><td>חיפוש רקורסיבי בטקסט — מוצא שגיאות בלוגים</td></tr>
+  <tr><td><code>ps aux</code></td><td>כל התהליכים הרצים — CPU, memory, PID</td></tr>
+  <tr><td><code>ss -tulnp</code></td><td>פורטים פתוחים ואיזה תהליך מאזין לכל אחד</td></tr>
+  <tr><td><code>journalctl -u nginx -f</code></td><td>לוגים בזמן אמת לשירות ספציפי</td></tr>
+</table>
+<div class="code-preview"><pre><code># מי מאזין על פורט 80?
+ss -tulnp | grep :80
+
+# 50 שורות לוג אחרונות של שירות
+journalctl -u myapp --no-pager -n 50
+
+# תהליכים הכי כבדים על CPU
+ps aux --sort=-%cpu | head -10
+
+# חיפוש קובץ שמכיל "password" (זהירות!)
+grep -r --include="*.conf" "password" /etc/
+
+# שימוש בדיסק לכל תיקייה
+du -sh /var/log/* | sort -rh | head -10</code></pre></div>
+<p><strong>זרימת עבודה מומלצת לניפוי בעיות:</strong></p>
+<ol>
+  <li>בדוק לוגים: <code>journalctl -xe</code></li>
+  <li>בדוק תהליכים: <code>ps aux | grep appname</code></li>
+  <li>בדוק פורטים: <code>ss -tulnp | grep PORT</code></li>
+  <li>בדוק דיסק: <code>df -h</code> ו-<code>du -sh *</code></li>
+  <li>בדוק RAM: <code>free -h</code></li>
+</ol>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "הרשאות — chmod, chown",
+        content: `<div dir="rtl">
+<h2>מודל ההרשאות של Linux</h2>
+<p>כל קובץ שייך ל<strong>משתמש</strong> ול<strong>קבוצה</strong>, ויש לו 3 סטי הרשאות:</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 120" class="content-diagram">
+  <rect x="10" y="15" width="340" height="40" rx="6" fill="#1e293b"/>
+  <text x="20" y="40" font-size="16" fill="#f1f5f9" font-family="monospace">-  rwx  r-x  r--</text>
+  <text x="22" y="58" font-size="9" fill="#94a3b8">סוג</text>
+  <text x="50" y="58" font-size="9" fill="#86efac">בעלים</text>
+  <text x="100" y="58" font-size="9" fill="#fbbf24">קבוצה</text>
+  <text x="148" y="58" font-size="9" fill="#f87171">אחרים</text>
+  <rect x="10" y="72" width="100" height="38" rx="5" fill="#14532d"/>
+  <text x="60" y="87" text-anchor="middle" font-size="10" fill="#86efac" font-weight="bold">rwx = 7</text>
+  <text x="60" y="103" text-anchor="middle" font-size="9" fill="#86efac">r=4, w=2, x=1</text>
+  <rect x="120" y="72" width="100" height="38" rx="5" fill="#78350f"/>
+  <text x="170" y="87" text-anchor="middle" font-size="10" fill="#fbbf24" font-weight="bold">r-x = 5</text>
+  <text x="170" y="103" text-anchor="middle" font-size="9" fill="#fbbf24">קרא + הרץ</text>
+  <rect x="230" y="72" width="120" height="38" rx="5" fill="#450a0a"/>
+  <text x="290" y="87" text-anchor="middle" font-size="10" fill="#f87171" font-weight="bold">r-- = 4</text>
+  <text x="290" y="103" text-anchor="middle" font-size="9" fill="#f87171">קרא בלבד</text>
+</svg>
+</div>
+<div class="code-preview"><pre><code># הצג הרשאות
+ls -la /var/www/html/
+
+# chmod — שנה הרשאות (מספרי)
+chmod 755 script.sh     # rwxr-xr-x
+chmod 644 config.conf   # rw-r--r--
+chmod 600 private.key   # rw------- (מפתח SSH!)
+
+# chmod — symbolic
+chmod +x deploy.sh      # הוסף הרצה לכולם
+chmod u+w,g-w file.txt  # בעלים: הוסף כתיבה, קבוצה: הסר
+
+# chown — שנה בעלות
+chown www-data:www-data /var/www/html/
+chown -R ubuntu:ubuntu /home/ubuntu/app/
+
+# הרשאות מיוחדות — SUID, SGID, Sticky
+chmod +t /tmp           # Sticky bit — רק בעלים מוחק
+chmod u+s /usr/bin/sudo # SUID — רץ כבעלים</code></pre></div>
+<p><strong>כלל אצבע:</strong> קבצי הגדרה עם סיסמאות — <code>600</code> תמיד. ספריות אינטרנט — <code>755</code>. scripts — <code>755</code>.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "systemd — ניהול שירותים",
+        content: `<div dir="rtl">
+<h2>systemd: init מערכת מודרני</h2>
+<p>systemd הוא התהליך הראשון שרץ ב-Linux (PID 1). הוא מנהל את כל השירותים, ה-mount points, ה-timers, ועוד.</p>
+<table class="content-table">
+  <tr><th>פקודה</th><th>פעולה</th></tr>
+  <tr><td><code>systemctl status nginx</code></td><td>מצב שירות — רץ/עצר/שגיאה</td></tr>
+  <tr><td><code>systemctl start/stop/restart nginx</code></td><td>שלוט בשירות</td></tr>
+  <tr><td><code>systemctl enable nginx</code></td><td>הפעל אוטומטית בבוט</td></tr>
+  <tr><td><code>systemctl disable nginx</code></td><td>הסר הפעלה אוטומטית</td></tr>
+  <tr><td><code>systemctl list-units --failed</code></td><td>כל השירותים שנכשלו</td></tr>
+  <tr><td><code>journalctl -u nginx -since "1h ago"</code></td><td>לוגים של שעה אחרונה</td></tr>
+</table>
+<div class="code-preview"><pre><code># קובץ unit מותאם אישית
+# /etc/systemd/system/myapp.service
+[Unit]
+Description=My Python App
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/app
+ExecStart=/home/ubuntu/app/venv/bin/python -m uvicorn main:app
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
+# הפעלה
+sudo systemctl daemon-reload
+sudo systemctl enable myapp
+sudo systemctl start myapp</code></pre></div>
+<p><strong>יתרון גדול של systemd:</strong> <code>Restart=on-failure</code> — השירות שלך יקום אוטומטית אחרי קריסה, ללא cron או supervisor.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 202,
+    title: "Docker — קונטיינריזציה",
+    pages: [
+      {
+        type: "explanation",
+        title: "VM לעומת קונטיינר",
+        content: `<div dir="rtl">
+<h2>המהפכה של הקונטיינרים</h2>
+<p>לפני Docker, כל אפליקציה הצריכה Virtual Machine שלמה — גרעין, OS מלא, RAM נפרד. בזבוז עצום.</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 120" class="content-diagram">
+  <rect x="5" y="5" width="165" height="110" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="87" y="20" text-anchor="middle" font-size="10" fill="#94a3b8">Virtual Machines</text>
+  <rect x="12" y="25" width="70" height="55" rx="4" fill="#0f2744"/>
+  <text x="47" y="40" text-anchor="middle" font-size="8" fill="#7dd3fc">App A</text>
+  <rect x="15" y="43" width="64" height="14" rx="2" fill="#1e3a5f"/>
+  <text x="47" y="53" text-anchor="middle" font-size="7" fill="#93c5fd">Guest OS</text>
+  <rect x="15" y="58" width="64" height="14" rx="2" fill="#1e3a5f"/>
+  <text x="47" y="68" text-anchor="middle" font-size="7" fill="#93c5fd">Hypervisor</text>
+  <rect x="90" y="25" width="70" height="55" rx="4" fill="#0f2744"/>
+  <text x="125" y="40" text-anchor="middle" font-size="8" fill="#7dd3fc">App B</text>
+  <rect x="93" y="43" width="64" height="14" rx="2" fill="#1e3a5f"/>
+  <text x="125" y="53" text-anchor="middle" font-size="7" fill="#93c5fd">Guest OS</text>
+  <rect x="93" y="58" width="64" height="14" rx="2" fill="#1e3a5f"/>
+  <text x="125" y="68" text-anchor="middle" font-size="7" fill="#93c5fd">Hypervisor</text>
+  <rect x="12" y="83" width="148" height="25" rx="3" fill="#0c1a2e"/>
+  <text x="86" y="99" text-anchor="middle" font-size="8" fill="#60a5fa">Hardware</text>
+
+  <rect x="188" y="5" width="167" height="110" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="271" y="20" text-anchor="middle" font-size="10" fill="#94a3b8">Containers</text>
+  <rect x="195" y="25" width="68" height="30" rx="4" fill="#14532d"/>
+  <text x="229" y="44" text-anchor="middle" font-size="8" fill="#86efac">Container A</text>
+  <rect x="271" y="25" width="68" height="30" rx="4" fill="#14532d"/>
+  <text x="305" y="44" text-anchor="middle" font-size="8" fill="#86efac">Container B</text>
+  <rect x="195" y="60" width="144" height="15" rx="3" fill="#1e3a5f"/>
+  <text x="267" y="71" text-anchor="middle" font-size="7" fill="#93c5fd">Docker Engine (משתף גרעין)</text>
+  <rect x="195" y="78" width="144" height="30" rx="3" fill="#0c1a2e"/>
+  <text x="267" y="97" text-anchor="middle" font-size="8" fill="#60a5fa">Host OS + Hardware</text>
+</svg>
+</div>
+<table class="content-table">
+  <tr><th>מאפיין</th><th>VM</th><th>Container</th></tr>
+  <tr><td>גודל</td><td>GBs</td><td>MBs</td></tr>
+  <tr><td>זמן הפעלה</td><td>דקות</td><td>שניות / מילישניות</td></tr>
+  <tr><td>גרעין</td><td>נפרד לכל VM</td><td>משותף עם Host</td></tr>
+  <tr><td>בידוד</td><td>חזק מאוד</td><td>חזק (namespaces)</td></tr>
+  <tr><td>ביצועים</td><td>תקורה גבוהה</td><td>כמעט כמו native</td></tr>
+</table>
+<p>Docker משתמש ב-<strong>namespaces</strong> (בידוד) ו-<strong>cgroups</strong> (הגבלת משאבים) של Linux kernel.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Dockerfile — בניית image",
+        content: `<div dir="rtl">
+<h2>Dockerfile: הוראות הבנייה</h2>
+<p>Dockerfile הוא קובץ טקסט שמגדיר שכבה-אחר-שכבה איך לבנות image. כל פקודה = שכבה חדשה ב-filesystem.</p>
+<div class="code-preview"><pre><code># Dockerfile לאפליקציית Python/FastAPI
+FROM python:3.12-slim
+
+# מגדיר תיקיית עבודה בתוך הקונטיינר
+WORKDIR /app
+
+# מעתיק requirements תחילה (cache optimization!)
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# מעתיק שאר הקוד
+COPY . .
+
+# פורט שהאפליקציה מאזינה עליו (תיעוד בלבד)
+EXPOSE 8000
+
+# משתנה סביבה
+ENV PYTHONUNBUFFERED=1
+
+# הפקודה שתרוץ בהפעלת הקונטיינר
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre></div>
+<table class="content-table">
+  <tr><th>פקודה</th><th>תפקיד</th></tr>
+  <tr><td><code>FROM</code></td><td>image בסיס — מריץ מ-Docker Hub</td></tr>
+  <tr><td><code>RUN</code></td><td>מריץ פקודה shell בזמן בנייה → שכבה חדשה</td></tr>
+  <tr><td><code>COPY</code></td><td>מעתיק קבצים מה-host לתוך image</td></tr>
+  <tr><td><code>ENV</code></td><td>משתנה סביבה שנשאר ב-image</td></tr>
+  <tr><td><code>CMD</code></td><td>פקודה ברירת מחדל להרצה (ניתן לעקוף)</td></tr>
+  <tr><td><code>ENTRYPOINT</code></td><td>פקודה קבועה — לא ניתן לעקוף</td></tr>
+</table>
+<div class="code-preview"><pre><code># בנייה והרצה
+docker build -t myapp:latest .
+docker run -d -p 8000:8000 --name myapp myapp:latest
+
+# בדיקה
+docker logs myapp -f
+docker exec -it myapp bash</code></pre></div>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Docker Compose — multi-container",
+        content: `<div dir="rtl">
+<h2>Docker Compose: כמה שירותים יחד</h2>
+<p>בפרויקטים אמיתיים יש backend + database + cache + nginx. Compose מאפשר להגדיר הכל בקובץ YAML אחד.</p>
+<div class="code-preview"><pre><code># docker-compose.yml
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/mydb
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./data:/app/data
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: mydb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - web
+
+volumes:
+  postgres_data:</code></pre></div>
+<div class="code-preview"><pre><code># פקודות Compose
+docker compose up -d          # הפעל הכל ברקע
+docker compose down           # עצור והרס קונטיינרים
+docker compose logs web -f    # לוגים של שירות
+docker compose ps             # סטטוס
+docker compose exec db psql -U user mydb  # כנס ל-DB</code></pre></div>
+<p><strong>חשוב:</strong> שמות ה-services הם גם ה-DNS hostnames ברשת הפנימית — <code>web</code> מגיע ל-<code>db</code> פשוט בשם <code>db</code>.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Docker Networking",
+        content: `<div dir="rtl">
+<h2>רשתות Docker — Bridge, Host, Overlay</h2>
+<p>Docker יוצר רשתות וירטואליות שמאפשרות תקשורת בין קונטיינרים עם בידוד מלא מהחוץ.</p>
+<table class="content-table">
+  <tr><th>סוג רשת</th><th>שימוש</th><th>IP</th></tr>
+  <tr><td><strong>bridge</strong></td><td>ברירת מחדל — קונטיינרים על אותו host</td><td>172.17.0.x</td></tr>
+  <tr><td><strong>host</strong></td><td>קונטיינר משתמש ב-network של ה-host ישירות</td><td>כמו host</td></tr>
+  <tr><td><strong>none</strong></td><td>בידוד מלא — אין רשת</td><td>—</td></tr>
+  <tr><td><strong>overlay</strong></td><td>Swarm / K8s — תקשורת בין hosts שונים</td><td>10.0.x.x</td></tr>
+</table>
+<div class="code-preview"><pre><code># רשת מותאמת אישית — מומלץ תמיד!
+docker network create mynet
+
+docker run -d --name backend --network mynet myapp
+docker run -d --name db --network mynet postgres:16
+
+# backend יכול ל-ping db לפי שם:
+docker exec backend ping db  # עובד!
+
+# פתיחת פורט לעולם החיצוני
+docker run -p 8080:8000 myapp
+# host:8080 → container:8000
+
+# הצג כל הרשתות
+docker network ls
+docker network inspect mynet
+
+# Overlay ב-Docker Swarm
+docker network create --driver overlay --attachable prod-net</code></pre></div>
+<p><strong>כלל:</strong> תמיד צור user-defined bridge network — לא ב-default bridge. זה מאפשר DNS resolution לפי שם קונטיינר.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 203,
+    title: "Kubernetes — אורקסטרציה",
+    pages: [
+      {
+        type: "explanation",
+        title: "אובייקטים בסיסיים — Pod, Deployment, Service",
+        content: `<div dir="rtl">
+<h2>הבניים הבסיסיים של K8s</h2>
+<p>Kubernetes מנהל קונטיינרים בקנה מידה. במקום "הפעל קונטיינר", אתה מגדיר <strong>מצב רצוי</strong> — K8s דואג שזה תמיד יקרה.</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 120" class="content-diagram">
+  <rect x="5" y="5" width="350" height="110" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+  <text x="180" y="20" text-anchor="middle" font-size="10" fill="#94a3b8">Kubernetes Cluster</text>
+  <rect x="15" y="28" width="150" height="75" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="90" y="42" text-anchor="middle" font-size="9" fill="#7dd3fc">Node 1</text>
+  <rect x="22" y="48" width="60" height="48" rx="4" fill="#0f2744"/>
+  <text x="52" y="62" text-anchor="middle" font-size="8" fill="#93c5fd">Pod A</text>
+  <rect x="27" y="65" width="50" height="14" rx="2" fill="#1e3a5f"/>
+  <text x="52" y="75" text-anchor="middle" font-size="7" fill="#60a5fa">nginx:1.25</text>
+  <rect x="90" y="48" width="60" height="48" rx="4" fill="#0f2744"/>
+  <text x="120" y="62" text-anchor="middle" font-size="8" fill="#93c5fd">Pod B</text>
+  <rect x="95" y="65" width="50" height="14" rx="2" fill="#1e3a5f"/>
+  <text x="120" y="75" text-anchor="middle" font-size="7" fill="#60a5fa">nginx:1.25</text>
+
+  <rect x="175" y="28" width="175" height="75" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="262" y="42" text-anchor="middle" font-size="9" fill="#7dd3fc">Node 2</text>
+  <rect x="182" y="48" width="60" height="48" rx="4" fill="#0f2744"/>
+  <text x="212" y="62" text-anchor="middle" font-size="8" fill="#93c5fd">Pod C</text>
+  <rect x="187" y="65" width="50" height="14" rx="2" fill="#1e3a5f"/>
+  <text x="212" y="75" text-anchor="middle" font-size="7" fill="#60a5fa">nginx:1.25</text>
+  <rect x="252" y="28" width="90" height="75" rx="6" fill="#14532d" stroke="#166534" stroke-width="1"/>
+  <text x="297" y="48" text-anchor="middle" font-size="8" fill="#86efac">Service</text>
+  <text x="297" y="62" text-anchor="middle" font-size="7" fill="#4ade80">LoadBalancer</text>
+  <text x="297" y="76" text-anchor="middle" font-size="7" fill="#4ade80">80 → 8080</text>
+</svg>
+</div>
+<table class="content-table">
+  <tr><th>אובייקט</th><th>תפקיד</th></tr>
+  <tr><td><strong>Pod</strong></td><td>יחידה הקטנה ביותר — קונטיינר אחד או יותר עם IP משותף</td></tr>
+  <tr><td><strong>Deployment</strong></td><td>מנהל replicas של Pods — מבטיח שתמיד N עותקים רצים</td></tr>
+  <tr><td><strong>Service</strong></td><td>כתובת IP קבועה ו-load balancer פנימי ל-Pods</td></tr>
+  <tr><td><strong>Ingress</strong></td><td>HTTP routing חיצוני — נתב לפי hostname/path</td></tr>
+  <tr><td><strong>ConfigMap</strong></td><td>הגדרות non-secret כ-key-value</td></tr>
+  <tr><td><strong>Secret</strong></td><td>סיסמאות ו-tokens מוצפנים (base64)</td></tr>
+</table>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "YAML ו-kubectl — עבודה מעשית",
+        content: `<div dir="rtl">
+<h2>הגדרת משאבים ב-YAML</h2>
+<p>ב-K8s כל דבר מוגדר בקובץ YAML. אתה מגדיר "מה אתה רוצה" — K8s דואג להגיע לשם.</p>
+<div class="code-preview"><pre><code># deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  namespace: production
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: myapp:v2.1.0
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: password
+---
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-svc
+spec:
+  selector:
+    app: myapp
+  ports:
+  - port: 80
+    targetPort: 8000
+  type: ClusterIP</code></pre></div>
+<div class="code-preview"><pre><code># פקודות kubectl חיוניות
+kubectl apply -f deployment.yaml      # החל קובץ
+kubectl get pods -n production        # רשימת Pods
+kubectl describe pod myapp-abc123     # פרטים מלאים
+kubectl logs myapp-abc123 -f          # לוגים בזמן אמת
+kubectl exec -it myapp-abc123 -- bash # כניסה לקונטיינר
+kubectl rollout history deploy/myapp  # היסטוריית deploys</code></pre></div>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "HPA — Horizontal Pod Autoscaling",
+        content: `<div dir="rtl">
+<h2>סקיילינג אוטומטי לפי עומס</h2>
+<p>HPA מוסיף/מסיר Pods אוטומטית לפי מדדים — CPU, Memory, או מדדים מותאמים כמו בקשות לשנייה.</p>
+<table class="content-table">
+  <tr><th>מדד</th><th>טריגר</th><th>פעולה</th></tr>
+  <tr><td>CPU &gt; 70%</td><td>scale up</td><td>מוסיף Pods עד maxReplicas</td></tr>
+  <tr><td>CPU &lt; 20%</td><td>scale down</td><td>מסיר Pods עד minReplicas</td></tr>
+  <tr><td>Memory</td><td>מותאם</td><td>פחות נפוץ — תלוי workload</td></tr>
+  <tr><td>Custom metric</td><td>Prometheus</td><td>כמות requests/s וכו'</td></tr>
+</table>
+<div class="code-preview"><pre><code># hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: myapp-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: myapp
+  minReplicas: 2
+  maxReplicas: 20
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+
+# Rolling Update — zero downtime deploy
+kubectl set image deployment/myapp myapp=myapp:v2.2.0
+kubectl rollout status deployment/myapp
+
+# Rollback אם משהו השתבש
+kubectl rollout undo deployment/myapp</code></pre></div>
+<p><strong>Rolling Update:</strong> K8s מחליף Pods אחד-אחד. בכל רגע יש גם Pods ישנים וגם חדשים — אין downtime.</p>
+<p><strong>strategy.maxUnavailable:</strong> כמה Pods יכולים להיות unavailable בו-זמנית (ברירת מחדל: 25%).</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "K8s Networking — CNI, DNS, Ingress",
+        content: `<div dir="rtl">
+<h2>רשתות ב-Kubernetes</h2>
+<p>K8s יוצר רשת פלטה שבה כל Pod מקבל IP ייחודי ויכול לתקשר עם כל Pod אחר — גם על node אחר.</p>
+<table class="content-table">
+  <tr><th>רכיב</th><th>תפקיד</th></tr>
+  <tr><td><strong>CNI Plugin</strong></td><td>מימוש רשת — Calico/Flannel/Weave. מקצה IPs לPods.</td></tr>
+  <tr><td><strong>CoreDNS</strong></td><td>DNS פנימי — <code>myapp-svc.production.svc.cluster.local</code></td></tr>
+  <tr><td><strong>kube-proxy</strong></td><td>iptables rules לניתוב תעבורה ל-Services</td></tr>
+  <tr><td><strong>Ingress Controller</strong></td><td>nginx/Traefik — HTTP routing חיצוני</td></tr>
+</table>
+<div class="code-preview"><pre><code># ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: myapp.example.com
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: myapp-svc
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-svc
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - myapp.example.com
+    secretName: tls-secret</code></pre></div>
+<p><strong>DNS resolution:</strong> Pod ב-namespace <code>production</code> ניגש לשירות <code>db-svc</code> בשם <code>db-svc.production</code> — ללא IP מפורש.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 204,
+    title: "Cloud — AWS",
+    pages: [
+      {
+        type: "explanation",
+        title: "מודלי שירות — IaaS, PaaS, SaaS",
+        content: `<div dir="rtl">
+<h2>מה הענן בכלל מציע?</h2>
+<p>ספקי ענן (AWS, Azure, GCP) מציעים 3 רמות שירות. ככל שעולים, מקבלים פחות שליטה — אבל גם פחות עבודה.</p>
+<table class="content-table">
+  <tr><th>מודל</th><th>אתה מנהל</th><th>הספק מנהל</th><th>דוגמה ב-AWS</th></tr>
+  <tr><td><strong>IaaS</strong></td><td>OS, Runtime, App</td><td>חומרה, וירטואליזציה, רשת</td><td>EC2, EBS, VPC</td></tr>
+  <tr><td><strong>PaaS</strong></td><td>הקוד שלך בלבד</td><td>OS, Runtime, Scaling, DB</td><td>Elastic Beanstalk, RDS</td></tr>
+  <tr><td><strong>SaaS</strong></td><td>הגדרות משתמש</td><td>הכל</td><td>Gmail, Salesforce</td></tr>
+  <tr><td><strong>FaaS</strong></td><td>פונקציה בודדת</td><td>הכל כולל scaling</td><td>AWS Lambda</td></tr>
+</table>
+<p><strong>אנלוגיה — פיצה:</strong></p>
+<ul>
+  <li><strong>On-Premise:</strong> בישול בבית — אתה קונה הכל</li>
+  <li><strong>IaaS:</strong> קיבלת מטבח מצויד — אתה מבשל</li>
+  <li><strong>PaaS:</strong> הזמנת חומרי גלם — המסעדה מבשלת</li>
+  <li><strong>SaaS:</strong> הזמנת פיצה — אתה רק אוכל</li>
+</ul>
+<p><strong>מדוע עננים?</strong> Pay-as-you-go, Global reach, Elasticity, Managed security. Netflix מפעילה מיליוני שרתים ב-AWS ומשלמת רק על מה שמשתמשים.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "שירותי ליבה — EC2, S3, RDS",
+        content: `<div dir="rtl">
+<h2>הבלוקים הבסיסיים של AWS</h2>
+<table class="content-table">
+  <tr><th>שירות</th><th>מה זה</th><th>שימוש נפוץ</th></tr>
+  <tr><td><strong>EC2</strong></td><td>שרתים וירטואליים (Virtual Machines)</td><td>backend, web servers</td></tr>
+  <tr><td><strong>S3</strong></td><td>אחסון object — בלתי מוגבל</td><td>תמונות, backups, static site</td></tr>
+  <tr><td><strong>RDS</strong></td><td>DB מנוהל (Postgres/MySQL/Aurora)</td><td>מסד נתונים ראשי</td></tr>
+  <tr><td><strong>VPC</strong></td><td>רשת פרטית וירטואלית</td><td>בידוד ואבטחה</td></tr>
+  <tr><td><strong>Route 53</strong></td><td>DNS מנוהל + health checks</td><td>ניתוב תעבורה עולמית</td></tr>
+  <tr><td><strong>ALB</strong></td><td>Application Load Balancer</td><td>חלוקת עומסים, SSL termination</td></tr>
+  <tr><td><strong>ECS/EKS</strong></td><td>הרצת קונטיינרים / Kubernetes</td><td>microservices</td></tr>
+  <tr><td><strong>Lambda</strong></td><td>serverless functions</td><td>event-driven, batch jobs</td></tr>
+</table>
+<div class="code-preview"><pre><code># AWS CLI — דוגמאות
+# הפעל EC2 instance
+aws ec2 run-instances \
+  --image-id ami-0abcdef1234567890 \
+  --instance-type t3.micro \
+  --key-name my-keypair \
+  --subnet-id subnet-12345678
+
+# העלה קובץ ל-S3
+aws s3 cp myfile.zip s3://my-bucket/backups/
+
+# רשימת RDS instances
+aws rds describe-db-instances \
+  --query 'DBInstances[*].[DBInstanceIdentifier,DBInstanceStatus]'</code></pre></div>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "VPC — רשת פרטית וירטואלית",
+        content: `<div dir="rtl">
+<h2>VPC: הרשת שלך בענן</h2>
+<p>VPC (Virtual Private Cloud) הוא הרשת הפרטית שלך ב-AWS. כל דבר שתקים יהיה בתוכה. חשוב להבין את מבנה השכבות:</p>
+<table class="content-table">
+  <tr><th>רכיב VPC</th><th>תפקיד</th><th>CIDR לדוגמה</th></tr>
+  <tr><td><strong>VPC</strong></td><td>הרשת הראשית שלך</td><td>10.0.0.0/16</td></tr>
+  <tr><td><strong>Public Subnet</strong></td><td>גישה לאינטרנט — ALB, NAT GW</td><td>10.0.1.0/24</td></tr>
+  <tr><td><strong>Private Subnet</strong></td><td>שרתים פנימיים — EC2, RDS</td><td>10.0.2.0/24</td></tr>
+  <tr><td><strong>Internet Gateway</strong></td><td>שער לאינטרנט</td><td>—</td></tr>
+  <tr><td><strong>NAT Gateway</strong></td><td>Private Subnet יוצא לאינטרנט</td><td>—</td></tr>
+  <tr><td><strong>Security Group</strong></td><td>Firewall ברמת instance</td><td>—</td></tr>
+  <tr><td><strong>NACL</strong></td><td>Firewall ברמת subnet</td><td>—</td></tr>
+</table>
+<p><strong>כלל אצבע:</strong> Load Balancer ב-Public Subnet. EC2 + RDS ב-Private Subnet. הם יוצאים לאינטרנט דרך NAT Gateway — אבל אף אחד לא יכול להגיע אליהם ישירות מבחוץ.</p>
+<p>זה בדיוק כמו בית עם שומר בכניסה (ALB) שמעביר מבקרים לתוך — לא נותן לכולם להיכנס ישירות לחדר שינה (DB).</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Multi-AZ וסיפור ה-Chaos Monkey של Netflix",
+        content: `<div dir="rtl">
+<h2>High Availability: Multi-AZ Design</h2>
+<p>AWS מחלקת כל Region ל-Availability Zones (AZs) — מרכזי נתונים פיזיים נפרדים, מחוברים בסיבים מהירים.</p>
+<table class="content-table">
+  <tr><th>עיצוב</th><th>זמינות</th><th>עלות</th></tr>
+  <tr><td>Single-AZ</td><td>99.9%</td><td>זולה</td></tr>
+  <tr><td>Multi-AZ (Active-Passive)</td><td>99.99%</td><td>x2</td></tr>
+  <tr><td>Multi-Region</td><td>99.999%</td><td>x4-6</td></tr>
+</table>
+<p><strong>RDS Multi-AZ:</strong> Primary ב-AZ-1 + Standby ב-AZ-2. Failover אוטומטי תוך 60-120 שניות אם Primary נפל.</p>
+<h3>סיפור: Netflix Chaos Monkey</h3>
+<p>ב-2010 Netflix פיתחה כלי שנקרא <strong>Chaos Monkey</strong> — תוכנה שמכבה instance אקראי בפרודקשן, כל יום, בשעות העבודה.</p>
+<p>הרציונל: "אם נדע שהכל יכול ליפול בכל רגע, נבנה מערכת שמתמודדת עם זה". Chaos Monkey הפכה ל-<strong>Simian Army</strong> שכולל:</p>
+<ul>
+  <li><strong>Chaos Gorilla</strong> — מוריד AZ שלמה</li>
+  <li><strong>Latency Monkey</strong> — מוסיף latency לתגובות</li>
+  <li><strong>Conformity Monkey</strong> — מוצא instances שלא עומדים בסטנדרטים</li>
+</ul>
+<p>התוצאה: Netflix מריצה מיליוני streams בו-זמנית עם 99.99%+ uptime — כי הם <strong>תכננו לכישלון</strong>.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 205,
+    title: "CI/CD ו-IaC",
+    pages: [
+      {
+        type: "explanation",
+        title: "פילוסופיית DevOps",
+        content: `<div dir="rtl">
+<h2>DevOps: שבירת הקירות</h2>
+<p>לפני DevOps, Development ו-Operations היו צוותים נפרדים עם תמריצים מנוגדים: Dev רצה לשלוח code מהר, Ops רצה יציבות. התוצאה: deploy פעם בחודש, כאוס.</p>
+<table class="content-table">
+  <tr><th>עיקרון</th><th>משמעות</th></tr>
+  <tr><td><strong>Continuous Integration</strong></td><td>כל push → build + tests אוטומטיים</td></tr>
+  <tr><td><strong>Continuous Delivery</strong></td><td>כל commit מוכן לדפלוי בלחיצת כפתור</td></tr>
+  <tr><td><strong>Continuous Deployment</strong></td><td>כל commit עולה לפרודקשן אוטומטית</td></tr>
+  <tr><td><strong>Infrastructure as Code</strong></td><td>תשתית = קוד ב-Git, גרסאות, review</td></tr>
+  <tr><td><strong>Shift Left</strong></td><td>security ו-testing מוקדם בתהליך</td></tr>
+</table>
+<p><strong>מדדי DORA (מחקר Google 2019):</strong></p>
+<ul>
+  <li>Elite teams מדפלויים 973x יותר תכוף מ-low performers</li>
+  <li>זמן lead time: שעות לעומת חודשים</li>
+  <li>MTTR (זמן שיקום): שעה לעומת שבוע</li>
+</ul>
+<p>Amazon מדפלויים לפרודקשן כל <strong>11 שניות</strong>. זה אפשרי רק עם אוטומציה מלאה.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "GitHub Actions — CI/CD Pipeline",
+        content: `<div dir="rtl">
+<h2>GitHub Actions: אוטומציה בתוך GitHub</h2>
+<p>GitHub Actions מריצה workflows אוטומטיים על כל push, PR, או לפי לו"ז. ללא שרת CI נפרד.</p>
+<div class="code-preview"><pre><code># .github/workflows/deploy.yml
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install pytest
+
+    - name: Run tests
+      run: pytest tests/ -v --tb=short
+
+  build-and-push:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: \${{ secrets.DOCKER_USERNAME }}
+        password: \${{ secrets.DOCKER_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: myapp:\${{ github.sha }}
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to production
+      run: |
+        kubectl set image deployment/myapp \
+          myapp=myapp:\${{ github.sha }}</code></pre></div>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Terraform — Infrastructure as Code",
+        content: `<div dir="rtl">
+<h2>Terraform: תשתית כקוד</h2>
+<p>Terraform (HashiCorp) מאפשר להגדיר תשתית AWS/GCP/Azure בקבצי HCL. גרסאות ב-Git, review לפני apply, reproducible.</p>
+<div class="code-preview"><pre><code># main.tf — VPC + EC2 ב-AWS
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = "production-vpc"
+  }
+}
+
+resource "aws_subnet" "public" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.1.0/24"
+  availability_zone = "us-east-1a"
+}
+
+resource "aws_instance" "web" {
+  ami           = "ami-0abcdef1234567890"
+  instance_type = "t3.micro"
+  subnet_id     = aws_subnet.public.id
+  tags = {
+    Name = "web-server"
+  }
+}
+
+# Output
+output "instance_ip" {
+  value = aws_instance.web.public_ip
+}</code></pre></div>
+<div class="code-preview"><pre><code># מחזור חיים של Terraform
+terraform init    # הורדת providers
+terraform plan    # תצוגה מקדימה — מה ישתנה?
+terraform apply   # ביצוע השינויים
+terraform destroy # הריסה מבוקרת</code></pre></div>
+<p><strong>State file:</strong> Terraform שומר <code>terraform.tfstate</code> עם המצב הנוכחי. בצוות — שמרים ב-S3 עם DynamoDB לocking.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Ansible — Configuration Management",
+        content: `<div dir="rtl">
+<h2>Ansible: הגדרת שרתים בקנה מידה</h2>
+<p>Ansible מגדיר את מצב השרתים (packages, files, services) בצורה declarative. Agentless — עובד על SSH בלבד.</p>
+<table class="content-table">
+  <tr><th>כלי</th><th>תפקיד</th><th>שפה</th></tr>
+  <tr><td>Terraform</td><td>יצירת תשתית (provision)</td><td>HCL</td></tr>
+  <tr><td>Ansible</td><td>הגדרת תוכן שרתים (configure)</td><td>YAML</td></tr>
+  <tr><td>GitHub Actions</td><td>pipeline CI/CD</td><td>YAML</td></tr>
+</table>
+<div class="code-preview"><pre><code># playbook.yml — התקנת nginx על שרתים
+---
+- name: Setup web servers
+  hosts: webservers
+  become: yes  # sudo
+
+  vars:
+    app_port: 8000
+
+  tasks:
+  - name: Install nginx
+    apt:
+      name: nginx
+      state: present
+      update_cache: yes
+
+  - name: Copy nginx config
+    template:
+      src: nginx.conf.j2
+      dest: /etc/nginx/nginx.conf
+    notify: restart nginx
+
+  - name: Ensure nginx is running
+    service:
+      name: nginx
+      state: started
+      enabled: yes
+
+  handlers:
+  - name: restart nginx
+    service:
+      name: nginx
+      state: restarted</code></pre></div>
+<div class="code-preview"><pre><code"># inventory — רשימת שרתים
+[webservers]
+web1.example.com
+web2.example.com
+
+[databases]
+db1.example.com ansible_user=ubuntu
+
+# הרצה
+ansible-playbook -i inventory playbook.yml</code></pre></div>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 206,
+    title: "Monitoring & SRE",
+    pages: [
+      {
+        type: "explanation",
+        title: "3 עמודות האבסרוובביליטי",
+        content: `<div dir="rtl">
+<h2>Observability: לדעת מה קורה</h2>
+<p>מערכת מודרנית חייבת להיות observable — לא רק לעבוד, אלא לחשוף את מצבה הפנימי.</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 120" class="content-diagram">
+  <rect x="10" y="10" width="100" height="95" rx="8" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="60" y="35" text-anchor="middle" font-size="13" fill="#93c5fd">📊</text>
+  <text x="60" y="55" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">Metrics</text>
+  <text x="60" y="72" text-anchor="middle" font-size="8" fill="#94a3b8">מספרים לאורך זמן</text>
+  <text x="60" y="87" text-anchor="middle" font-size="8" fill="#94a3b8">CPU, latency, RPS</text>
+
+  <rect x="130" y="10" width="100" height="95" rx="8" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="180" y="35" text-anchor="middle" font-size="13" fill="#86efac">📋</text>
+  <text x="180" y="55" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">Logs</text>
+  <text x="180" y="72" text-anchor="middle" font-size="8" fill="#94a3b8">אירועים בטקסט</text>
+  <text x="180" y="87" text-anchor="middle" font-size="8" fill="#94a3b8">errors, debug, audit</text>
+
+  <rect x="250" y="10" width="100" height="95" rx="8" fill="#4c1d95" stroke="#a855f7" stroke-width="1.5"/>
+  <text x="300" y="35" text-anchor="middle" font-size="13" fill="#c4b5fd">🔍</text>
+  <text x="300" y="55" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">Traces</text>
+  <text x="300" y="72" text-anchor="middle" font-size="8" fill="#94a3b8">מסלול בקשה</text>
+  <text x="300" y="87" text-anchor="middle" font-size="8" fill="#94a3b8">microservices flow</text>
+</svg>
+</div>
+<table class="content-table">
+  <tr><th>עמוד</th><th>שאלה שעונה עליה</th><th>כלים</th></tr>
+  <tr><td><strong>Metrics</strong></td><td>"האם המערכת בריאה?"</td><td>Prometheus, Grafana, CloudWatch</td></tr>
+  <tr><td><strong>Logs</strong></td><td>"מה בדיוק קרה?"</td><td>ELK Stack, Loki, Splunk</td></tr>
+  <tr><td><strong>Traces</strong></td><td>"מה המסלול של הבקשה?"</td><td>Jaeger, Zipkin, X-Ray</td></tr>
+</table>
+<p><strong>כלל ה-3 השאלות:</strong> "יש לי בעיה" (alert מ-Metrics) → "מה הבעיה?" (Logs) → "איפה בדיוק?" (Traces).</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Prometheus + Grafana",
+        content: `<div dir="rtl">
+<h2>המחסנית הסטנדרטית לניטור</h2>
+<p>Prometheus אוסף מדדים בformatting מוגדר (scraping). Grafana מציגה dashboards. AlertManager שולח התראות.</p>
+<div class="code-preview"><pre><code"># prometheus.yml — הגדרת scraping
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'myapp'
+    static_configs:
+      - targets: ['myapp:8000']
+
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+
+# כלל התראה
+groups:
+- name: myapp
+  rules:
+  - alert: HighErrorRate
+    expr: |
+      rate(http_requests_total{status=~"5.."}[5m])
+      / rate(http_requests_total[5m]) > 0.05
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "שגיאות מעל 5% מהבקשות"</code></pre></div>
+<div class="code-preview"><pre><code"># Python — חשיפת metrics לPrometheus
+from prometheus_client import Counter, Histogram, start_http_server
+
+REQUEST_COUNT = Counter('http_requests_total',
+                        'Total requests', ['method', 'status'])
+REQUEST_LATENCY = Histogram('http_request_duration_seconds',
+                            'Request latency')
+
+@app.middleware("http")
+async def metrics_middleware(request, call_next):
+    with REQUEST_LATENCY.time():
+        response = await call_next(request)
+    REQUEST_COUNT.labels(request.method, response.status_code).inc()
+    return response</code></pre></div>
+<p><strong>PromQL מועיל:</strong> <code>rate(http_requests_total[5m])</code> — בקשות לשנייה. <code>histogram_quantile(0.99, ...)</code> — P99 latency.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "SLI, SLO, SLA — ניהול אמינות",
+        content: `<div dir="rtl">
+<h2>שפת האמינות של Google SRE</h2>
+<p>Google המציאה את תחום ה-SRE (Site Reliability Engineering) — גישה מהנדסית לניהול שירותים בפרודקשן.</p>
+<table class="content-table">
+  <tr><th>מושג</th><th>הגדרה</th><th>דוגמה</th></tr>
+  <tr><td><strong>SLI</strong> (Indicator)</td><td>המדד שמודדים</td><td>% בקשות שהחזירו תגובה תוך 200ms</td></tr>
+  <tr><td><strong>SLO</strong> (Objective)</td><td>היעד הפנימי</td><td>99.9% הבקשות מגיבות תוך 200ms</td></tr>
+  <tr><td><strong>SLA</strong> (Agreement)</td><td>הסכם עם לקוחות</td><td>99.5% — אחרת קרדיט כספי</td></tr>
+  <tr><td><strong>Error Budget</strong></td><td>מה מותר להיכשל</td><td>0.1% = 43.8 דקות/חודש downtime</td></tr>
+</table>
+<p><strong>Error Budget — הרעיון המפתח:</strong> SLO של 99.9% = 0.1% error budget לחודש. אם השתמשנו ב-50% מהתקציב → אפשר לדפלוי בזהירות. אם ניצלנו 100% → אסור לדפלוי עד שמשקמים.</p>
+<p>זה פותר את המתח Dev-Ops: שניהם עובדים עם אותו budget. Dev רוצה לדפלוי → צריך לשמור error budget. Ops לא "חוסם" — ה-math עושה את זה.</p>
+<div class="code-preview"><pre><code"># חישוב Error Budget
+slo = 99.9  # %
+minutes_per_month = 30 * 24 * 60  # = 43,200 דקות
+error_budget_minutes = minutes_per_month * (100 - slo) / 100
+# = 43.2 דקות downtime מותר בחודש</code></pre></div>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "ELK Stack ותרבות Postmortem",
+        content: `<div dir="rtl">
+<h2>ELK: ניהול לוגים בקנה מידה</h2>
+<p>ELK = Elasticsearch + Logstash + Kibana. אוסף, מאחסן ומציג מיליארדי שורות לוג מהיר.</p>
+<table class="content-table">
+  <tr><th>רכיב</th><th>תפקיד</th></tr>
+  <tr><td><strong>Elasticsearch</strong></td><td>מאגר נתונים לחיפוש מהיר — מאחסן לוגים</td></tr>
+  <tr><td><strong>Logstash</strong></td><td>מעבד ומפרמט לוגים מכל מקור</td></tr>
+  <tr><td><strong>Kibana</strong></td><td>UI לחיפוש, dashboards, alerts</td></tr>
+  <tr><td><strong>Filebeat</strong></td><td>agent קל על השרתים — שולח לוגים ל-ELK</td></tr>
+</table>
+<h3>תרבות Postmortem — ממוגלה ל-Google</h3>
+<p>כשמשהו נשבר בפרודקשן — מה עושים? חברות טובות כותבות <strong>Postmortem (blameless)</strong>:</p>
+<ol>
+  <li><strong>Timeline:</strong> מה קרה בדיוק, בכל דקה</li>
+  <li><strong>Root Cause:</strong> מה גרם לתקלה (לא מי!)</li>
+  <li><strong>Impact:</strong> כמה משתמשים נפגעו, כמה זמן</li>
+  <li><strong>Action Items:</strong> מה נשנה כדי שזה לא יקרה שוב</li>
+</ol>
+<p><strong>"Blameless":</strong> אנשים לא מפחדים לדווח על תקלות — כי המטרה היא ללמוד, לא להעניש. Google מפרסמת postmortems פנימיים בפומבי. <strong>כישלון שלא לומדים ממנו הוא הכישלון האמיתי.</strong></p>
+<p>Etsy המציאה את הגישה הזו ב-2012. היום זה standard ב-Netflix, Google, Amazon, ו-Cloudflare (שמפרסמת postmortems ציבוריים מפורסמים).</p>
+</div>`
+      }
+    ]
+  }
+]
   },
   {
     id: 'research',
