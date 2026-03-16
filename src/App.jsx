@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { chapters } from './data/content'
+import { tracks } from './data/content'
 import { TCPHandshakeSim } from './components/TCPHandshakeSim'
 import { EncapsulationSim } from './components/EncapsulationSim'
 import { DnsLookupSim } from './components/DnsLookupSim'
@@ -11,7 +11,7 @@ import { Quiz } from './components/Quiz'
 import { TroubleshootingTab } from './components/TroubleshootingTab'
 import { CreditsTab } from './components/CreditsTab'
 import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName } from './utils/xp'
-import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition } from './utils/progress'
+import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
 import './App.css'
 
@@ -22,6 +22,7 @@ const TABS = [
   { key: 'credits', label: '📋 קרדיטים' },
 ]
 
+// ===== Gender Picker =====
 function GenderPicker({ onSelect }) {
   return (
     <div className="gender-overlay">
@@ -44,7 +45,68 @@ function GenderPicker({ onSelect }) {
   )
 }
 
+// ===== Track Picker =====
+function TrackPicker({ tracks, onSelect }) {
+  return (
+    <div className="track-picker" dir="rtl">
+      <div className="track-picker-header">
+        <div className="track-picker-logo">🌐</div>
+        <h1 className="track-picker-title">מדריך IT האינטראקטיבי</h1>
+        <p className="track-picker-subtitle">בחר מסלול לימוד — כל מסלול עצמאי עם פרקים ותרגול משלו</p>
+      </div>
+      <div className="track-grid">
+        {tracks.map(track => {
+          const totalPages = track.chapters.reduce((s, c) => s + c.pages.length, 0)
+          const totalRead = track.chapters.reduce((s, c) =>
+            s + Object.keys(JSON.parse(localStorage.getItem('networks_read_pages') || '{}')[trackChapterId(track.id, c.id)] || {}).length
+          , 0)
+          const pct = totalPages > 0 ? Math.round((totalRead / totalPages) * 100) : 0
+          const hasProgress = pct > 0
+          const isEmpty = track.chapters.length === 0
+
+          return (
+            <button
+              key={track.id}
+              className={`track-card ${isEmpty ? 'track-card--soon' : ''}`}
+              onClick={() => !isEmpty && onSelect(track)}
+              disabled={isEmpty}
+              style={{ '--track-color': track.color }}
+            >
+              <div className="track-card-icon">{track.icon}</div>
+              <div className="track-card-body">
+                <div className="track-card-title">{track.title}</div>
+                <div className="track-card-subtitle">{track.subtitle}</div>
+                <div className="track-card-meta">
+                  <span className="track-card-level">{track.level}</span>
+                  {!isEmpty && <span className="track-card-chapters">{track.chapters.length} פרקים</span>}
+                  {isEmpty && <span className="track-card-soon">בקרוב</span>}
+                </div>
+                {hasProgress && (
+                  <div className="track-card-progress">
+                    <div className="track-card-prog-bar">
+                      <div className="track-card-prog-fill" style={{ width: `${pct}%` }} />
+                    </div>
+                    <span className="track-card-pct">{pct}%</span>
+                  </div>
+                )}
+              </div>
+              {hasProgress && <div className="track-card-continue">המשך ←</div>}
+              {!hasProgress && !isEmpty && <div className="track-card-start">התחל ←</div>}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+// ===== Main App =====
 function App() {
+  const [activeTrack, setActiveTrack] = useState(() => {
+    const pos = getLastPosition()
+    if (pos?.trackId) return tracks.find(t => t.id === pos.trackId) || null
+    return null
+  })
   const [activeTab, setActiveTab] = useState('learn')
   const [currentChapter, setCurrentChapter] = useState(() => {
     const pos = getLastPosition()
@@ -61,35 +123,37 @@ function App() {
   const [search, setSearch] = useState('')
   const [gender, setGenderState] = useState(getGender)
 
-  const chapter = chapters[currentChapter]
+  const trackChapters = activeTrack?.chapters || []
+  const chapter = trackChapters[currentChapter]
   const page = chapter?.pages[currentPage]
   const totalPages = chapter?.pages.length || 0
+
   const level = getLevel(xp)
   const nextLevel = getNextLevel(xp)
   const lvlProgress = getLevelProgress(xp)
   const levelName = getLevelName(level, gender)
   const nextLevelName = nextLevel ? getLevelName(nextLevel, gender) : null
 
-  const totalPagesAllChapters = chapters.reduce((s, c) => s + c.pages.length, 0)
-  const totalRead = getTotalRead()
-  const overallPct = Math.round((totalRead / totalPagesAllChapters) * 100)
+  const totalPagesAllChapters = trackChapters.reduce((s, c) => s + c.pages.length, 0)
+  const totalRead = activeTrack
+    ? trackChapters.reduce((s, c) => {
+        const all = JSON.parse(localStorage.getItem('networks_read_pages') || '{}')
+        const key = trackChapterId(activeTrack.id, c.id)
+        return s + Object.keys(all[key] || {}).length
+      }, 0)
+    : getTotalRead()
+  const overallPct = totalPagesAllChapters > 0 ? Math.round((totalRead / totalPagesAllChapters) * 100) : 0
 
-  // Filtered chapters for sidebar search
   const filteredChapters = search.trim()
-    ? chapters.map((ch, i) => ({ ch, i })).filter(({ ch }) =>
+    ? trackChapters.map((ch, i) => ({ ch, i })).filter(({ ch }) =>
         ch.title.includes(search) || String(ch.id).includes(search)
       )
-    : chapters.map((ch, i) => ({ ch, i }))
+    : trackChapters.map((ch, i) => ({ ch, i }))
 
-  const handleGenderSelect = (g) => {
-    setGender(g)
-    setGenderState(g)
-  }
-
+  const handleGenderSelect = (g) => { setGender(g); setGenderState(g) }
   const toggleGender = () => {
     const next = gender === 'male' ? 'female' : 'male'
-    setGender(next)
-    setGenderState(next)
+    setGender(next); setGenderState(next)
   }
 
   const refreshXP = useCallback((result) => {
@@ -100,14 +164,13 @@ function App() {
     }
   }, [])
 
-  const handleXPGain = useCallback((result) => {
-    refreshXP(result)
-  }, [refreshXP])
+  const handleXPGain = useCallback((result) => { refreshXP(result) }, [refreshXP])
 
-  // Mark page as read + give XP when navigating away
   const tryMarkRead = useCallback(() => {
-    if (!chapter || !page) return
-    const isNew = markPageRead(chapter.id, currentPage)
+    if (!chapter || !page || !activeTrack) return
+    const compositeId = trackChapterId(activeTrack.id, chapter.id)
+    // Use compositeId as the "chapterId" key in progress storage
+    const isNew = markPageRead(compositeId, currentPage)
     if (isNew) {
       const s = updateStreak()
       setStreak(s)
@@ -116,17 +179,17 @@ function App() {
       setXpFloat(`+${XP_PAGE_READ} XP`)
       setTimeout(() => setXpFloat(null), 1200)
     }
-  }, [chapter, page, currentPage])
+  }, [chapter, page, currentPage, activeTrack])
 
   const goNext = () => {
     tryMarkRead()
     if (currentPage < totalPages - 1) {
       const newPg = currentPage + 1
-      saveLastPosition(currentChapter, newPg)
+      saveLastPosition(currentChapter, newPg, activeTrack?.id)
       setCurrentPage(newPg)
-    } else if (currentChapter < chapters.length - 1) {
+    } else if (currentChapter < trackChapters.length - 1) {
       const newCh = currentChapter + 1
-      saveLastPosition(newCh, 0)
+      saveLastPosition(newCh, 0, activeTrack?.id)
       setCurrentChapter(newCh)
       setCurrentPage(0)
     }
@@ -135,13 +198,13 @@ function App() {
   const goPrev = () => {
     if (currentPage > 0) {
       const newPg = currentPage - 1
-      saveLastPosition(currentChapter, newPg)
+      saveLastPosition(currentChapter, newPg, activeTrack?.id)
       setCurrentPage(newPg)
     } else if (currentChapter > 0) {
       const newCh = currentChapter - 1
-      const prevLen = chapters[newCh].pages.length
+      const prevLen = trackChapters[newCh].pages.length
       const newPg = prevLen - 1
-      saveLastPosition(newCh, newPg)
+      saveLastPosition(newCh, newPg, activeTrack?.id)
       setCurrentChapter(newCh)
       setCurrentPage(newPg)
     }
@@ -150,18 +213,42 @@ function App() {
   const contentAreaRef = useRef(null)
 
   const goToChapter = (chIndex) => {
-    saveLastPosition(chIndex, 0)
+    saveLastPosition(chIndex, 0, activeTrack?.id)
     setCurrentChapter(chIndex)
     setCurrentPage(0)
-    // On mobile the layout is stacked — scroll the content area into view
     setTimeout(() => {
       contentAreaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }, 50)
   }
 
-  const canGoNext = currentPage < totalPages - 1 || currentChapter < chapters.length - 1
+  const handleSelectTrack = (track) => {
+    setActiveTrack(track)
+    setActiveTab('learn')
+    setSearch('')
+    // Restore last position within this track
+    const pos = getLastPosition()
+    if (pos?.trackId === track.id) {
+      setCurrentChapter(pos.chapterIdx ?? 0)
+      setCurrentPage(pos.pageIdx ?? 0)
+    } else {
+      setCurrentChapter(0)
+      setCurrentPage(0)
+    }
+  }
+
+  const handleBackToTracks = () => {
+    setActiveTrack(null)
+    setActiveTab('learn')
+  }
+
+  const canGoNext = currentPage < totalPages - 1 || currentChapter < trackChapters.length - 1
   const canGoPrev = currentPage > 0 || currentChapter > 0
-  const pageRead = chapter ? isPageRead(chapter.id, currentPage) : false
+
+  const pageRead = (() => {
+    if (!chapter || !activeTrack) return false
+    const compositeId = trackChapterId(activeTrack.id, chapter.id)
+    return isPageRead(compositeId, currentPage)
+  })()
 
   const goNextRef = useRef(goNext)
   const goPrevRef = useRef(goPrev)
@@ -171,38 +258,52 @@ function App() {
   useEffect(() => {
     const onKey = (e) => {
       if (e.target.closest('input, textarea')) return
-      if (activeTab !== 'learn') return
+      if (activeTab !== 'learn' || !activeTrack) return
       if (e.key === 'ArrowLeft' && canGoNext) goNextRef.current()
       if (e.key === 'ArrowRight' && canGoPrev) goPrevRef.current()
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [canGoNext, canGoPrev, activeTab])
+  }, [canGoNext, canGoPrev, activeTab, activeTrack])
 
   useEffect(() => {
     document.querySelector('.content-area')?.scrollTo?.(0, 0)
   }, [currentChapter, currentPage])
 
+  // ===== RENDER: Track Picker =====
+  if (!activeTrack) {
+    return (
+      <div className="app">
+        {!gender && <GenderPicker onSelect={handleGenderSelect} />}
+        <TrackPicker tracks={tracks} onSelect={handleSelectTrack} />
+        {xpFloat && <div className="xp-float-global">{xpFloat}</div>}
+      </div>
+    )
+  }
+
   if (!chapter || !page) return null
 
   return (
     <div className="app">
-      {/* ===== GENDER PICKER (first visit) ===== */}
       {!gender && <GenderPicker onSelect={handleGenderSelect} />}
 
       {/* ===== HEADER ===== */}
       <header className="header">
         <div className="header-top">
           <div className="header-title-wrap">
-            <h1>🌐 מדריך רשתות</h1>
-            <p className="subtitle">למידה אינטראקטיבית</p>
+            <button className="track-back-btn" onClick={handleBackToTracks} title="כל המסלולים">
+              ← כל המסלולים
+            </button>
+            <h1 style={{ color: activeTrack.color }}>
+              {activeTrack.icon} {activeTrack.title}
+            </h1>
           </div>
           <div className="header-stats">
             <div className="stat-chip">
               <span className="stat-num">{streak}</span>
               <span className="stat-label">🔥 ימים</span>
             </div>
-            <div className="stat-chip stat-progress" title={`${totalRead} מתוך ${totalPagesAllChapters} עמודים נקראו`}>
+            <div className="stat-chip stat-progress" title={`${totalRead} מתוך ${totalPagesAllChapters} עמודים`}>
               <span className="stat-num">{overallPct}%</span>
               <span className="stat-label">📖 התקדמות</span>
             </div>
@@ -253,13 +354,11 @@ function App() {
         </div>
       )}
 
-      {/* ===== MAIN CONTENT ===== */}
+      {/* ===== LEARN ===== */}
       {activeTab === 'learn' && (
         <div className="layout">
           <nav className="sidebar">
             <h3>תוכן העניינים</h3>
-
-            {/* Search */}
             <div className="sidebar-search-wrap">
               <input
                 type="text"
@@ -271,20 +370,19 @@ function App() {
                 dir="rtl"
               />
             </div>
-
             {filteredChapters.length === 0 && (
               <p className="sidebar-no-results">לא נמצאו פרקים</p>
             )}
-
             {filteredChapters.map(({ ch, i }) => {
-              const prog = getChapterProgress(ch.id, ch.pages.length)
+              const compositeId = trackChapterId(activeTrack.id, ch.id)
+              const prog = getChapterProgress(compositeId, ch.pages.length)
               return (
                 <button
                   key={ch.id}
                   className={`chapter-btn ${i === currentChapter ? 'active' : ''}`}
                   onClick={() => goToChapter(i)}
                 >
-                  <span className="chapter-num">פרק {ch.id}</span>
+                  <span className="chapter-num">פרק {i + 1}</span>
                   <span className="chapter-title">{ch.title}</span>
                   <div className="chapter-footer">
                     <span className="chapter-pages">{ch.pages.length} עמודים</span>
@@ -313,10 +411,7 @@ function App() {
               <h2>{page.title}</h2>
             </div>
 
-            <article
-              key={`${currentChapter}-${currentPage}`}
-              className="page-content"
-            >
+            <article key={`${currentChapter}-${currentPage}`} className="page-content">
               {page.type === 'questions' ? (
                 <QuestionsPage questions={page.questions} gender={gender} />
               ) : page.type === 'simulation' ? (
@@ -324,25 +419,16 @@ function App() {
               ) : page.type === 'thinkOutside' ? (
                 <ThinkOutsidePage page={page} />
               ) : (
-                <div
-                  className="content-body"
-                  dangerouslySetInnerHTML={{ __html: page.content }}
-                />
+                <div className="content-body" dangerouslySetInnerHTML={{ __html: page.content }} />
               )}
             </article>
 
             <AskQuestion />
 
             <nav className="page-navigation">
-              <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>
-                ← קודם
-              </button>
-              <span className="page-counter">
-                פרק {currentChapter + 1} | {currentPage + 1}/{totalPages}
-              </span>
-              <button className="nav-btn next" onClick={goNext} disabled={!canGoNext}>
-                הבא →
-              </button>
+              <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>← קודם</button>
+              <span className="page-counter">פרק {currentChapter + 1} | {currentPage + 1}/{totalPages}</span>
+              <button className="nav-btn next" onClick={goNext} disabled={!canGoNext}>הבא →</button>
             </nav>
           </main>
         </div>
@@ -350,7 +436,7 @@ function App() {
 
       {activeTab === 'quiz' && (
         <div className="tab-content">
-          <Quiz chapters={chapters} onXPGain={handleXPGain} gender={gender} />
+          <Quiz chapters={trackChapters} onXPGain={handleXPGain} gender={gender} />
         </div>
       )}
 

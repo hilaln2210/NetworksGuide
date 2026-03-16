@@ -1,5 +1,10 @@
 const KEY = 'networks_read_pages'
 
+// Track-aware helpers — prefix chapterId with trackId to avoid collisions
+export function trackChapterId(trackId, chapterId) {
+  return `${trackId}__${chapterId}`
+}
+
 export function getReadPages() {
   try { return JSON.parse(localStorage.getItem(KEY) || '{}') } catch { return {} }
 }
@@ -27,11 +32,11 @@ export function getTotalRead() {
   return Object.values(read).reduce((sum, ch) => sum + Object.keys(ch).length, 0)
 }
 
-// ===== Last Position =====
+// ===== Last Position (track-aware) =====
 const POSITION_KEY = 'networks_position'
 
-export function saveLastPosition(chapterIdx, pageIdx) {
-  localStorage.setItem(POSITION_KEY, JSON.stringify({ chapterIdx, pageIdx }))
+export function saveLastPosition(chapterIdx, pageIdx, trackId = 'networking') {
+  localStorage.setItem(POSITION_KEY, JSON.stringify({ trackId, chapterIdx, pageIdx }))
 }
 
 export function getLastPosition() {
