@@ -16,7 +16,7 @@ import './App.css'
 const TABS = [
   { key: 'learn', label: '📖 למידה' },
   { key: 'quiz', label: '🎯 חידון' },
-  { key: 'bugs', label: '🔧 תקלות' },
+  { key: 'bugs', label: '🔧 שאלות נפוצות' },
 ]
 
 function App() {

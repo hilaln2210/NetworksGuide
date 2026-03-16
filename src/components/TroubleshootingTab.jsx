@@ -19,7 +19,7 @@ export function TroubleshootingTab() {
         <button
           className={`trbl-tab ${tab === 'bugs' ? 'active' : ''}`}
           onClick={() => setTab('bugs')}
-        >🔧 תקלות נפוצות</button>
+        >🔧 שאלות נפוצות</button>
         <button
           className={`trbl-tab ${tab === 'stories' ? 'active' : ''}`}
           onClick={() => setTab('stories')}
