@@ -857,22 +857,23 @@ body {
 }
 
 .nav-btn {
-  padding: 0.65rem 1.4rem;
+  padding: 0.7rem 1.6rem;
   background: linear-gradient(135deg, var(--teal), var(--teal-bright));
   color: white;
   border: none;
   border-radius: var(--radius-md);
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(14, 116, 144, 0.35);
+  box-shadow: 0 4px 16px rgba(14, 116, 144, 0.4);
+  letter-spacing: 0.01em;
 }
 
 .nav-btn:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(14, 116, 144, 0.5);
-  filter: brightness(1.1);
+  box-shadow: 0 6px 22px rgba(14, 116, 144, 0.55);
+  filter: brightness(1.08);
 }
 
 .nav-btn:active:not(:disabled) {
@@ -880,10 +881,11 @@ body {
 }
 
 .nav-btn:disabled {
-  opacity: 0.3;
   cursor: not-allowed;
-  background: rgba(15, 23, 42, 0.1);
+  background: rgba(14, 116, 144, 0.1);
+  color: rgba(14, 116, 144, 0.45);
   box-shadow: none;
+  border: 1px solid rgba(14, 116, 144, 0.2);
 }
 
 .page-counter {
