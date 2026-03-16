@@ -28,7 +28,10 @@ export function Quiz({ chapters, onXPGain }) {
   const [streak, setStreak] = useState(0)
 
   const startQuiz = useCallback((qs) => {
-    setQuestions(shuffle(qs).slice(0, Math.min(qs.length, 10)))
+    setQuestions(shuffle(qs).slice(0, Math.min(qs.length, 10)).map(q => ({
+      ...q,
+      choices: shuffle(q.choices)
+    })))
     setCurrent(0)
     setPicked(null)
     setShowResult(false)
