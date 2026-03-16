@@ -9,6 +9,7 @@ import { AskQuestion } from './components/AskQuestion'
 import { KeyTip } from './components/KeyTip'
 import { Quiz } from './components/Quiz'
 import { TroubleshootingTab } from './components/TroubleshootingTab'
+import { CreditsTab } from './components/CreditsTab'
 import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName } from './utils/xp'
 import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
@@ -18,6 +19,7 @@ const TABS = [
   { key: 'learn', label: '📖 למידה' },
   { key: 'quiz', label: '🎯 חידון' },
   { key: 'bugs', label: '🔧 שאלות נפוצות' },
+  { key: 'credits', label: '📋 קרדיטים' },
 ]
 
 function GenderPicker({ onSelect }) {
@@ -349,6 +351,12 @@ function App() {
       {activeTab === 'bugs' && (
         <div className="tab-content">
           <TroubleshootingTab />
+        </div>
+      )}
+
+      {activeTab === 'credits' && (
+        <div className="tab-content">
+          <CreditsTab />
         </div>
       )}
     </div>

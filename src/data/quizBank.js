@@ -807,6 +807,41 @@ export const quizBank = {
       ],
       explanation: "eBPF = revolution. XDP: drop packets לפני ה-network stack — מיליוני pps. Cilium: מחליף iptables בKubernetes. Observability: trace כל syscall בproduction ללא overhead. Cloudflare, Meta, Google, Netflix = כולם eBPF 🔧"
     }
+  ],
+  27: [
+    {
+      q: "מה ההסמכה המרכזית ל-Network Engineer ברמת Entry/Mid?",
+      correct: "CCNA — Cisco Certified Network Associate",
+      choices: [
+        "CCNA — Cisco Certified Network Associate",
+        "OSCP — Offensive Security Certified Professional",
+        "AWS SAA — Solutions Architect Associate",
+        "CKA — Certified Kubernetes Administrator"
+      ],
+      explanation: "CCNA היא הסמכת הרשתות הנחשבת ביותר. מכסה VLAN, STP, OSPF, ACL, NAT, VPN. מעל CCNA: CCNP (מתקדם), CCIE (Expert — מהקשות בתעשייה). CompTIA Network+ היא נקודת כניסה קלה יותר לפני CCNA."
+    },
+    {
+      q: "מה ההבדל בין Penetration Tester לבין SOC Analyst?",
+      correct: "Pentester תוקף מערכות (בהרשאה) למציאת חולשות; SOC Analyst מנטר ומגיב לאיומים בזמן אמת",
+      choices: [
+        "Pentester תוקף מערכות (בהרשאה) למציאת חולשות; SOC Analyst מנטר ומגיב לאיומים בזמן אמת",
+        "Pentester עובד עם קוד; SOC Analyst עם חומרה",
+        "SOC Analyst מנהל firewalls; Pentester כותב malware",
+        "שניהם אותו תפקיד בשמות שונים"
+      ],
+      explanation: "Red Team (Pentester) = תוקף לגיטימי. מקבל scope, מחפש חולשות, כותב דוח. Blue Team (SOC) = מגן. מנטר SIEM, מנתח alerts, עוצר תקיפות. הסמכות: Pentester → CEH, OSCP. SOC → Security+, CySA+, GCIA."
+    },
+    {
+      q: "למה ידע ברשתות הכרחי לעבודה עם AWS/Cloud?",
+      correct: "AWS VPC = רשת וירטואלית עם subnets, routing tables, security groups — בדיוק כמו רשת פיזית",
+      choices: [
+        "AWS VPC = רשת וירטואלית עם subnets, routing tables, security groups — בדיוק כמו רשת פיזית",
+        "Cloud לא קשור לרשתות — הכל מנוהל אוטומטית",
+        "ידע ברשתות נדרש רק ל-on-premise, לא לCloud",
+        "AWS דורש CCNA כתנאי לשימוש"
+      ],
+      explanation: "AWS VPC דורש תכנון: CIDR allocation, Public vs Private subnets, Internet Gateway, NAT Gateway, route tables, security groups (stateful firewall), NACLs (stateless). Load Balancer: Layer 4 vs Layer 7. Kubernetes: CNI plugins, Pod networking, Ingress. כל אלה = רשתות."
+    }
   ]
 }
 

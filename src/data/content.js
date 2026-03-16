@@ -359,7 +359,7 @@ server_socket.close()</code></pre>
         type: "explanation",
         title: "למה צריך מודל שכבות?",
         content: `
-          <p>העברת מידע בין ישויות באינטרנט – מחשבים, שרתים, נתבים – היא משימה מורכבת. איך לארגן את כל זה?</p>
+          <p>העברת מידע בין רכיבי האינטרנט – מחשבים, שרתים, נתבים – היא משימה מורכבת. איך לארגן את כל זה?</p>
           <p>ארגון התקינה הבינלאומי (ISO) יצר את מודל שבע השכבות (OSI). בספר משתמשים ב־<strong>מודל חמש השכבות</strong> – דומה ל־OSI אך מוותר על שתי שכבות שהתגלו כמיותרות. המודל מנחה כיצד צריכה להיראות תקשורת, ללא תלות ביצרן החומרה.</p>
         `
       },
@@ -403,7 +403,7 @@ server_socket.close()</code></pre>
           <ul>
             <li><strong>5. אפליקציה</strong> – פרוטוקולי היישומים (HTTP, DNS וכו')</li>
             <li><strong>4. תעבורה</strong> – TCP, UDP – העברת מידע בין תהליכים</li>
-            <li><strong>3. רשת</strong> – IP – ניתוב חבילות בין ישויות</li>
+            <li><strong>3. רשת</strong> – IP – ניתוב חבילות בין רכיבי הרשת</li>
             <li><strong>2. קו</strong> – Ethernet וכו' – העברה מקומית בין צומתים</li>
             <li><strong>1. פיזית</strong> – אותות, כבלים, אותות אלחוטיים</li>
           </ul>
@@ -1141,8 +1141,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "תפקיד שכבת הקו",
         content: `
-          <p>שכבת הרשת אחראית על המסלול. <strong>שכבת הקו</strong> אחראית על תקשורת בין ישויות <strong>מחוברות ישירות</strong>. חיבור ישיר = כבל, WiFi, לווין.</p>
-          <p>שכבת הקו מספקת ממשק להעברת מידע בין ישויות צמודות. שכבת הרשת לא צריכה לדאוג לסוג החיבור.</p>
+          <p>שכבת הרשת אחראית על המסלול. <strong>שכבת הקו</strong> אחראית על תקשורת בין מכשירים <strong>מחוברים ישירות</strong>. חיבור ישיר = כבל, WiFi, לווין.</p>
+          <p>שכבת הקו מספקת ממשק להעברת מידע בין מכשירים צמודים. שכבת הרשת לא צריכה לדאוג לסוג החיבור.</p>
         `
       },
       {
@@ -1188,7 +1188,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>שכבת הקו = העברה בין ישויות מחוברות ישירות</li>
+              <li>שכבת הקו = העברה בין מכשירים מחוברים ישירות</li>
               <li>MAC = כתובת פיזית. מבנה Frame: Preamble, dst/src MAC, EtherType, Payload, FCS</li>
               <li>ARP = המרת IP ל־MAC. ipconfig/ifconfig – הצגת הגדרות</li>
             </ul>
@@ -2458,7 +2458,7 @@ ssh.close()</code></pre>
             <tr><td>172.16.0.0 – 172.31.255.255</td><td>172.16.0.0/12</td><td>1M</td><td>רשתות בינוניות</td></tr>
             <tr><td>192.168.0.0 – 192.168.255.255</td><td>192.168.0.0/16</td><td>65K</td><td>בית, משרדים קטנים</td></tr>
           </table>
-          <p>כתובות <strong>ציבוריות</strong> – שאר הטווחים. מוקצות על ידי IANA → RIR → ISP → לקוח.</p>
+          <p>כתובות <strong>ציבוריות</strong> – שאר הטווחים. מוקצות על ידי <span dir="ltr">IANA → RIR → ISP → לקוח</span>.</p>
           <p><strong>כתובות מיוחדות:</strong></p>
           <ul>
             <li><code>127.0.0.0/8</code> – Loopback (127.0.0.1 = localhost)</li>
@@ -4294,6 +4294,251 @@ spec:
           {
             q: "מה בעיית HOL Blocking ב-TCP ואיך QUIC פותר אותה?",
             a: "HOL Blocking = Head-of-Line Blocking. TCP הוא stream אחד, ordered. אם חבילה 5 אבדה — חבילות 6,7,8 שכבר הגיעו מחכות בbuffer. כל multiplexing שמעל TCP (HTTP/2) סובל מזה. QUIC: כל stream הוא flow עצמאי ב-UDP. אובדן חבילה בstream A לא עוצר stream B."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 27,
+    title: "מה הלאה? – מסלולי המשך",
+    pages: [
+      {
+        type: "explanation",
+        title: "אחרי הקורס — לאן ממשיכים?",
+        content: `<p>סיימת קורס רשתות. אתה יודע איך TCP עובד, מה זה BGP, למה DNS קריטי — ועכשיו אתה עומד בפני שאלה: <strong>לאן ממשיכים?</strong></p>
+          <p>הידע ברשתות הוא תשתית לכמעט כל תחום ב-IT. אין DevOps בלי DNS. אין Cyber בלי TCP/IP. אין Cloud בלי load balancer. אתה לא רק "למדת רשתות" — <strong>בנית בסיס לכל קריירת תוכנה/תשתית שתבחר</strong>.</p>
+          <div class="diagram-container">
+            <svg viewBox="0 0 360 160" class="content-diagram">
+              <rect x="130" y="10" width="100" height="36" rx="8" fill="rgba(8,145,178,0.18)" stroke="#0891b2" stroke-width="1.5"/>
+              <text x="180" y="33" text-anchor="middle" font-size="11" fill="#67e8f9" font-weight="600">קורס רשתות</text>
+              <line x1="180" y1="46" x2="60" y2="80" stroke="#0891b2" stroke-width="1.2" stroke-dasharray="4,2"/>
+              <line x1="180" y1="46" x2="140" y2="80" stroke="#0891b2" stroke-width="1.2" stroke-dasharray="4,2"/>
+              <line x1="180" y1="46" x2="220" y2="80" stroke="#0891b2" stroke-width="1.2" stroke-dasharray="4,2"/>
+              <line x1="180" y1="46" x2="300" y2="80" stroke="#0891b2" stroke-width="1.2" stroke-dasharray="4,2"/>
+              <rect x="10" y="80" width="100" height="32" rx="7" fill="rgba(99,102,241,0.15)" stroke="#6366f1" stroke-width="1.2"/>
+              <text x="60" y="101" text-anchor="middle" font-size="9.5" fill="#a5b4fc">רשתות מתקדמות</text>
+              <rect x="118" y="80" width="84" height="32" rx="7" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-width="1.2"/>
+              <text x="160" y="101" text-anchor="middle" font-size="9.5" fill="#fca5a5">Cyber / Security</text>
+              <rect x="208" y="80" width="84" height="32" rx="7" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-width="1.2"/>
+              <text x="250" y="101" text-anchor="middle" font-size="9.5" fill="#86efac">DevOps / Cloud</text>
+              <rect x="298" y="80" width="52" height="32" rx="7" fill="rgba(234,179,8,0.12)" stroke="#eab308" stroke-width="1.2"/>
+              <text x="324" y="101" text-anchor="middle" font-size="9.5" fill="#fde047">Research</text>
+              <text x="180" y="148" text-anchor="middle" font-size="9" fill="var(--text-muted)">4 מסלולים — בחר את שלך</text>
+            </svg>
+          </div>
+          <p>בפרק זה נסקור את 4 המסלולים המרכזיים, מה לומדים בכל אחד, מה הסמכות הרלוונטיות, ואיך קריירה אמיתית נראית.</p>`
+      },
+      {
+        type: "explanation",
+        title: "מסלול 1: רשתות מתקדמות — Network Engineer",
+        content: `<p><strong>Network Engineer</strong> הוא מי שבונה ומתחזק את עמוד השדרה של ארגונים — הרשת הפנימית, הקישורים לאינטרנט, VPN, routing בין סניפים, QoS לתעבורה קריטית.</p>
+          <p><strong>הסמכות מרכזיות:</strong></p>
+          <ul>
+            <li>🏅 <strong>CompTIA Network+</strong> — ההתחלה. מאמת ידע בסיסי. מוכר בתעשייה.</li>
+            <li>🥇 <strong>CCNA (Cisco)</strong> — הסמכת הרשתות הנחשבת ביותר. מכסה VLAN, STP, OSPF, ACL, NAT, VPN.</li>
+            <li>🏆 <strong>CCNP / CCIE</strong> — רמה מתקדמת / Expert. מעט אנשים בעולם מחזיקים CCIE.</li>
+            <li>📡 <strong>Juniper JNCIA/JNCIS</strong> — אלטרנטיבה ל-Cisco בארגונים גדולים.</li>
+          </ul>
+          <p><strong>מה עושה Network Engineer ביום עבודה?</strong></p>
+          <ul>
+            <li>מגדיר VLAN חדש עבור מחלקה שעברה קומה</li>
+            <li>מאבחן למה branch office לא מתקשר עם datacenter — מנתח routing table, BGP sessions</li>
+            <li>מפעיל QoS כדי שוועידות וידאו לא יסבלו מ-jitter גבוה</li>
+            <li>מתכנן upgrade לתשתית 10GbE בהול השרתים</li>
+          </ul>
+          <div class="diagram-container">
+            <svg viewBox="0 0 360 110" class="content-diagram">
+              <rect x="10" y="10" width="80" height="28" rx="6" fill="rgba(99,102,241,0.12)" stroke="#6366f1" stroke-width="1.2"/>
+              <text x="50" y="28" text-anchor="middle" font-size="9" fill="#a5b4fc">Network+</text>
+              <rect x="10" y="50" width="80" height="28" rx="6" fill="rgba(99,102,241,0.2)" stroke="#6366f1" stroke-width="1.4"/>
+              <text x="50" y="68" text-anchor="middle" font-size="9" fill="#a5b4fc">CCNA</text>
+              <rect x="10" y="90" width="80" height="18" rx="5" fill="rgba(99,102,241,0.3)" stroke="#6366f1" stroke-width="1.6"/>
+              <text x="50" y="103" text-anchor="middle" font-size="9" fill="#c7d2fe">CCNP / CCIE</text>
+              <text x="110" y="28" font-size="9" fill="var(--text-muted)">Entry Level (~1-2 שנים)</text>
+              <text x="110" y="68" font-size="9" fill="var(--text-muted)">Mid Level (~3-5 שנים)</text>
+              <text x="110" y="100" font-size="9" fill="var(--text-muted)">Senior / Expert</text>
+              <text x="110" y="112" font-size="8" fill="#6366f1">₪25K–45K+</text>
+            </svg>
+          </div>
+          <p><strong>כלים שצריך להכיר:</strong> Cisco IOS / NX-OS, Wireshark, GNS3 (סימולציית רשתות), SolarWinds, Zabbix לניטור.</p>`
+      },
+      {
+        type: "explanation",
+        title: "מסלול 2: אבטחת מידע — Cyber & Security",
+        content: `<p>ידע ברשתות הוא <strong>תנאי הכרחי</strong> לכל תפקיד Cyber. אי אפשר לנתח תקיפה בלי להבין TCP handshake. אי אפשר לבנות firewall rules בלי להבין IP/Port. בחרת ללמוד רשתות? — <em>כבר יצאת קדימה</em>.</p>
+          <p><strong>מסלולים ב-Cyber:</strong></p>
+          <table class="content-table">
+            <tr><th>תפקיד</th><th>מה עושים</th><th>הסמכה</th></tr>
+            <tr><td><strong>SOC Analyst</strong></td><td>ניטור alerts, SIEM, תגובה לאירועים</td><td>Security+, CySA+</td></tr>
+            <tr><td><strong>Penetration Tester</strong></td><td>תקיפה לגיטימית — מוצאים חולשות לפני אחרים</td><td>CEH, OSCP</td></tr>
+            <tr><td><strong>Blue Team</strong></td><td>הגנה, hardening, threat hunting</td><td>GCIH, GCFE</td></tr>
+            <tr><td><strong>Security Architect</strong></td><td>תכנון תשתית מאובטחת מאפס</td><td>CISSP, CISM</td></tr>
+          </table>
+          <p><strong>מה pentester עושה?</strong> מקבל הרשאה לתקוף ארגון ומוצא חולשות לפני שתוקף אמיתי ימצא. כלים: nmap לסריקה, Metasploit לניצול, Burp Suite ל-web, Wireshark לcapture. הדוח שלו שווה לארגון מיליונים בנזקים שנמנעו.</p>
+          <p><strong>Bug Bounty ו-CTF:</strong></p>
+          <ul>
+            <li>🏆 <strong>CTF (Capture The Flag)</strong> — תחרויות hacking לגיטימיות. PicoCTF, HackTheBox, TryHackMe. מתחילים משם.</li>
+            <li>💰 <strong>Bug Bounty</strong> — מוצאים bugs בחברות אמיתיות (Google, Meta, Apple) ומקבלים כסף. $300–$150,000 לbug. HackerOne, Bugcrowd הן הפלטפורמות.</li>
+          </ul>
+          <div class="code-preview"><pre><code># nmap scan — מציאת פורטים פתוחים
+nmap -sV -sC -p- 10.10.10.5
+
+# wireshark filter — רק TCP SYN packets
+tcp.flags.syn == 1 && tcp.flags.ack == 0
+
+# netcat listener — מחכים לחיבור נכנס
+nc -lvnp 4444</code></pre></div>
+          <p><strong>הסמכת OSCP</strong> (Offensive Security Certified Professional) נחשבת לסטנדרט הזהב לpentesters. 24 שעות של exam — פורצים מכונות אמיתיות. קשה מאוד, אבל מי שעובר — מוכיח יכולת אמיתית.</p>`
+      },
+      {
+        type: "explanation",
+        title: "מסלול 3: DevOps, Cloud & Infrastructure",
+        content: `<p>DevOps ו-Cloud Engineering הם ה<strong>תחום הצומח המהיר ביותר</strong> בעשור האחרון. כל חברה עוברת ל-Cloud — AWS, Azure, GCP — ואנשים שיודעים לבנות ולתפעל תשתיות ענן בביקוש עצום.</p>
+          <p><strong>למה ידע רשתות קריטי כאן?</strong></p>
+          <ul>
+            <li>AWS VPC = Virtual Private Cloud. בונים אותו כמו רשת רגילה — subnets, routing tables, security groups (≈ firewall rules), NAT Gateway</li>
+            <li>Kubernetes networking: כל Pod מקבל IP. CNI Plugin (Calico, Flannel) מנהל routing בין Pods. Ingress Controller = reverse proxy</li>
+            <li>Docker: bridge network, port mapping, DNS פנימי בין containers</li>
+            <li>Load Balancer: Layer 4 (TCP) vs Layer 7 (HTTP). Health checks. Sticky sessions.</li>
+          </ul>
+          <div class="diagram-container">
+            <svg viewBox="0 0 360 140" class="content-diagram">
+              <rect x="60" y="8" width="240" height="48" rx="8" fill="rgba(34,197,94,0.06)" stroke="#22c55e" stroke-width="1.2"/>
+              <text x="180" y="22" text-anchor="middle" font-size="9" fill="#86efac">AWS VPC (10.0.0.0/16)</text>
+              <rect x="72" y="28" width="96" height="22" rx="5" fill="rgba(34,197,94,0.12)" stroke="#22c55e" stroke-width="1"/>
+              <text x="120" y="43" text-anchor="middle" font-size="8.5" fill="#86efac">Public Subnet /24</text>
+              <rect x="192" y="28" width="96" height="22" rx="5" fill="rgba(34,197,94,0.08)" stroke="#22c55e" stroke-width="1"/>
+              <text x="240" y="43" text-anchor="middle" font-size="8.5" fill="#86efac">Private Subnet /24</text>
+              <rect x="100" y="68" width="64" height="22" rx="5" fill="rgba(8,145,178,0.15)" stroke="#0891b2" stroke-width="1"/>
+              <text x="132" y="83" text-anchor="middle" font-size="8.5" fill="#67e8f9">Load Balancer</text>
+              <rect x="72" y="100" width="52" height="22" rx="5" fill="rgba(8,145,178,0.1)" stroke="#0891b2" stroke-width="1"/>
+              <text x="98" y="115" text-anchor="middle" font-size="8" fill="#67e8f9">EC2</text>
+              <rect x="136" y="100" width="52" height="22" rx="5" fill="rgba(8,145,178,0.1)" stroke="#0891b2" stroke-width="1"/>
+              <text x="162" y="115" text-anchor="middle" font-size="8" fill="#67e8f9">EC2</text>
+              <rect x="212" y="100" width="52" height="22" rx="5" fill="rgba(99,102,241,0.1)" stroke="#6366f1" stroke-width="1"/>
+              <text x="238" y="115" text-anchor="middle" font-size="8" fill="#a5b4fc">RDS</text>
+              <line x1="132" y1="90" x2="98" y2="100" stroke="#0891b2" stroke-width="0.8"/>
+              <line x1="132" y1="90" x2="162" y2="100" stroke="#0891b2" stroke-width="0.8"/>
+              <text x="180" y="135" text-anchor="middle" font-size="8.5" fill="var(--text-muted)">ארכיטקטורת AWS בסיסית</text>
+            </svg>
+          </div>
+          <p><strong>הסמכות מרכזיות:</strong></p>
+          <ul>
+            <li>☁️ <strong>AWS SAA-C03</strong> (Solutions Architect Associate) — הסמכת ה-Cloud הנחשבת ביותר</li>
+            <li>🐧 <strong>Linux+</strong> / <strong>RHCSA</strong> — Red Hat Certified System Administrator</li>
+            <li>🐳 <strong>CKA</strong> (Certified Kubernetes Administrator)</li>
+            <li>🔧 <strong>HashiCorp Terraform</strong> — Infrastructure as Code</li>
+          </ul>
+          <div class="code-preview"><pre><code># Terraform — מגדיר VPC ב-AWS כקוד
+resource "aws_vpc" "main" {
+  cidr_block = "10.0.0.0/16"
+  tags = { Name = "production" }
+}
+
+resource "aws_subnet" "public" {
+  vpc_id     = aws_vpc.main.id
+  cidr_block = "10.0.1.0/24"
+}</code></pre></div>`
+      },
+      {
+        type: "explanation",
+        title: "מסלול 4: ניתוח פרוטוקולים ומחקר",
+        content: `<p>זהו המסלול הנישתי ביותר — אנשים שצוללים עמוק לתוך פרוטוקולים, מנתחים תעבורה, כותבים מחקרים, עובדים ב-IETF על תקנים עתידיים. פחות שכיח, אבל <strong>עם ערך עצום ושכר מהגבוהים בתעשייה</strong>.</p>
+          <p><strong>Wireshark — ברמה מתקדמת:</strong></p>
+          <p>רוב האנשים יודעים לפתוח Wireshark ולראות פקטות. מנתח מתקדם רואה דברים שאחרים מפספסים:</p>
+          <ul>
+            <li><strong>TCP Retransmission storms</strong> — רצף של ACKs שחסרים → ה-sender שולח שוב. מראה congestion או packet loss</li>
+            <li><strong>Window Scaling</strong> — TCP window size שמתכווץ ל-0 = receiver overwhelmed. צוואר בקבוק ב-application layer</li>
+            <li><strong>Round Trip Time</strong> — בgraph של TCP stream ניתן לראות latency של כל packet. בונים latency heatmap</li>
+            <li><strong>TLS Handshake timing</strong> — כמה זמן לקח Certificate verification? Server Hello Done? מזהים בעיות PKI</li>
+          </ul>
+          <div class="code-preview"><pre><code"># Wireshark display filters מתקדמים
+tcp.analysis.retransmission          # TCP retransmissions בלבד
+tcp.window_size < 1000               # TCP window קטן — bottleneck!
+http.response.code >= 400            # HTTP errors
+dns.time > 0.1                       # DNS איטי (>100ms)
+tls.handshake.type == 1              # TLS Client Hello בלבד
+
+# tshark — Wireshark מ-command line
+tshark -r capture.pcap \
+  -T fields -e frame.time \
+  -e ip.src -e ip.dst \
+  -e tcp.analysis.rtt \
+  'tcp.analysis.rtt > 0.05'</code></pre></div>
+          <p><strong>IETF ומחקר:</strong></p>
+          <ul>
+            <li>כל פרוטוקול אינטרנט נוצר דרך תהליך RFC ב-IETF. כל אחד יכול לכתוב Internet-Draft.</li>
+            <li>מחקר אקדמי: ניתוח עדכני של BGP hijacking, DNS amplification attacks, QUIC performance.</li>
+            <li>חברות כמו Cloudflare, Akamai, Google מפרסמות blog posts טכניים עמוקים — <em>זה "הספרות" של התחום</em>.</li>
+            <li>Bug bounty ב-protocols: מציאת implementation bugs ב-TCP stacks, DNS resolvers.</li>
+          </ul>`
+      },
+      {
+        type: "thinkOutside",
+        title: "בחירת המסלול — איך מחליטים?",
+        intro: "אין תשובה אחת נכונה. יש כמה שאלות שיעזרו לך להתמקד:",
+        blocks: [
+          {
+            title: "🤔 שאל את עצמך: מה שולח אותך לחקור?",
+            content: `<p>כשאתה פותח כתבה טכנית, מה גורם לך לשקוע בה?</p>
+              <ul>
+                <li>קראת על <strong>BGP hijacking</strong> ורצית לדעת יותר? → <strong>רשתות מתקדמות</strong></li>
+                <li>שמעת על <strong>SQL Injection</strong> או <strong>phishing</strong> ורצית להבין איך? → <strong>Cyber</strong></li>
+                <li>רצית שה-app שלך יגדל ל-million users? → <strong>DevOps / Cloud</strong></li>
+                <li>פתחת Wireshark ובזבזת 3 שעות מבלי להרגיש? → <strong>Protocol Research</strong></li>
+              </ul>
+              <p>המוטיבציה הפנימית חשובה יותר מהשכר. התחום שבו תשקיע שעות נוספות מסקרנות — שם תצטיין.</p>`
+          },
+          {
+            title: "💡 הידע ברשתות עוזר בכולם",
+            content: `<p>זה לא "או-או". Network Engineer שמבין Cyber יהיה עדיף על מישהו שלא. DevOps Engineer שמבין routing יבנה VPC טוב יותר. Protocol Researcher שיודע לכתוב קוד ינתח ביצועים יותר טוב.</p>
+              <p><strong>המסלולים חוצים זה את זה.</strong> הבסיס שבנית — TCP/IP, DNS, TLS, Subnetting — אף אחד לא יכול לקחת ממך אותו. הוא ישמש אותך בכל תפקיד שתבחר.</p>
+              <p>הצעד הבא: בחר אחת מהפלטפורמות הבאות ועשה יום אחד של ניסיון:</p>
+              <ul>
+                <li>🔧 <strong>TryHackMe</strong> — מסלולי Cyber מובנים למתחילים</li>
+                <li>☁️ <strong>AWS Free Tier</strong> — בנה VPC ראשון בחינם</li>
+                <li>🦈 <strong>Wireshark + pcap samples</strong> — פתח קובץ capture ונתח</li>
+                <li>📡 <strong>GNS3 / Packet Tracer</strong> — סמלץ רשת Cisco בחינם</li>
+              </ul>`
+          }
+        ]
+      },
+      {
+        type: "summary",
+        title: "סיכום — מה הלאה?",
+        content: `<p><strong>4 מסלולים, ידע בסיסי אחד:</strong></p>
+          <table class="content-table">
+            <tr><th>מסלול</th><th>הסמכה ראשונה</th><th>כלי מפתח</th><th>שכר ממוצע (ישראל)</th></tr>
+            <tr><td>🔵 Network Engineer</td><td>CCNA</td><td>Cisco IOS, Wireshark</td><td>₪20K–35K</td></tr>
+            <tr><td>🔴 Cyber / Pentesting</td><td>Security+ / OSCP</td><td>nmap, Metasploit, Burp</td><td>₪25K–50K+</td></tr>
+            <tr><td>🟢 DevOps / Cloud</td><td>AWS SAA / CKA</td><td>Terraform, K8s, Docker</td><td>₪28K–55K+</td></tr>
+            <tr><td>🟡 Protocol Research</td><td>GREM / אקדמיה</td><td>Wireshark, tshark, Python</td><td>₪35K–70K+</td></tr>
+          </table>
+          <p><strong>צעדים מיידיים:</strong></p>
+          <ul>
+            <li>בחר מסלול — לא לצמיתות, רק לשנה הקרובה</li>
+            <li>עשה חשבון בחינם ב-TryHackMe / HackTheBox / AWS Free Tier</li>
+            <li>הצטרף לקהילה — r/networking, r/netsec, Telegram groups בעברית</li>
+            <li>קרא blog של Cloudflare / Netflix Tech Blog / Google Security Blog</li>
+          </ul>
+          <p>הרשתות הן השפה שבה מחשבים מדברים. אתה כבר מבין אותה. עכשיו בחר איך להשתמש בה. 🚀</p>`
+      },
+      {
+        type: "questions",
+        title: "שאלות הבנה — פרק 27",
+        questions: [
+          {
+            q: "מה ההבדל המהותי בין תפקיד Network Engineer לתפקיד SOC Analyst, ואיך ידע ב-TCP/IP עוזר לשניהם?",
+            a: "Network Engineer בונה ומתחזק תשתיות — routing, switching, VPN, QoS. SOC Analyst מנטר ומגיב לאירועי אבטחה — מנתח logs, alerts, SIEM. שניהם צריכים TCP/IP: ה-NE להגדיר routing policies ו-ACLs; ה-SOC Analyst לזהות תעבורה חשודה, MITM, port scanning, lateral movement — כולם מתבטאים ברמת פרוטוקולים."
+          },
+          {
+            q: "למה AWS VPC דורש הבנה של subnetting ורשתות? תן דוגמה קונקרטית.",
+            a: "AWS VPC = Virtual Private Cloud — רשת וירטואלית שאתה מגדיר. צריך לתכנן CIDR (למשל 10.0.0.0/16), לחלק לsubnets (Public /24 לservers עם IP ציבורי, Private /24 לDB בלי גישה מחוץ), להגדיר route tables (Public subnet → Internet Gateway, Private → NAT Gateway), security groups (≈ firewall stateful). בלי subnetting אי אפשר לתכנן זאת. דוגמה: אם תגדיר את הDB ב-Public subnet — הוא חשוף לאינטרנט."
+          },
+          {
+            q: "מה זה CTF ולמה הוא דרך טובה להתחיל בCyber Security?",
+            a: "CTF (Capture The Flag) — תחרויות hacking לגיטימיות. מציאת 'דגלים' (strings מוסתרים) דרך פתרון אתגרי אבטחה: web exploitation, reverse engineering, cryptography, network forensics. CTF טוב כי: (1) סביבה חוקית לחלוטין — מותר לתקוף, (2) מדורג לפי קושי — מתחילים ממתחילים, (3) קהילה — writeups, פתרונות, לימוד הדדי, (4) מוכיח יכולת — ה-resume שלך עם writeups CTF שווה יותר מהסמכה. פלטפורמות: HackTheBox, TryHackMe, PicoCTF."
           }
         ]
       }
