@@ -13,7 +13,7 @@ function shuffle(arr) {
   return a
 }
 
-export function Quiz({ chapters, onXPGain }) {
+export function Quiz({ chapters, onXPGain, gender }) {
   const [mode, setMode] = useState(null) // 'chapter' | 'all'
   const [selectedChapter, setSelectedChapter] = useState(null)
   const [questions, setQuestions] = useState([])
@@ -96,7 +96,7 @@ export function Quiz({ chapters, onXPGain }) {
         <div className="quiz-select-header">
           <div className="quiz-hero-emoji">🎯</div>
           <h2>חידון רשתות</h2>
-          <p>בחרי פרק או התחילי חידון כללי</p>
+          <p>{gender === 'male' ? 'בחר פרק או התחל חידון כללי' : 'בחרי פרק או התחילי חידון כללי'}</p>
         </div>
         <div className="quiz-mode-cards">
           <button className="quiz-mode-card quiz-mode-all" onClick={() => {
@@ -148,6 +148,32 @@ export function Quiz({ chapters, onXPGain }) {
     const pct = Math.round((score / total) * 100)
     const isPerfect = score === total
     const emoji = isPerfect ? '🏆' : pct >= 70 ? '🎉' : pct >= 40 ? '😊' : '💪'
+    const isMale = gender === 'male'
+
+    const PERFECT_CHALLENGES = [
+      isMale
+        ? 'אחלה! אבל הגורו האמיתי לעולם לא מפסיק ללמוד. מה הלאה? 🚀'
+        : 'אחלה! אבל הגורו האמיתית לעולם לא מפסיקה ללמוד. מה הלאה? 🚀',
+      isMale
+        ? 'מושלם! עכשיו נסה פרק אחר — האתגר הבא מחכה לך 🔥'
+        : 'מושלם! עכשיו נסי פרק אחר — האתגר הבא מחכה לך 🔥',
+      isMale
+        ? '100%! אבל האם תצליח שוב? ורק בלי לחשוב יותר מדי... ⚡'
+        : '100%! אבל האם תצליחי שוב? ורק בלי לחשוב יותר מדי... ⚡',
+      isMale
+        ? 'כל הכבוד — אבל יש עוד 21 פרקים. הגאון האמיתי יודע הכל 🌐'
+        : 'כל הכבוד — אבל יש עוד 21 פרקים. הגאונית האמיתית יודעת הכל 🌐',
+    ]
+    const challengeMsg = PERFECT_CHALLENGES[Math.floor(Math.random() * PERFECT_CHALLENGES.length)]
+
+    const doneMsg = isPerfect
+      ? challengeMsg
+      : pct >= 70
+        ? isMale ? 'כל הכבוד! היית מצוין 💪' : 'כל הכבוד! היית מצוינת 💪'
+        : pct >= 40
+          ? isMale ? 'ממשיכים ללמוד — תחזור ותנסה שוב!' : 'ממשיכים ללמוד — תחזרי ותנסי שוב!'
+          : isMale ? 'קרא שוב את הפרק ואז תנסה שוב 📚' : 'קראי שוב את הפרק ואז תנסי שוב 📚'
+
     return (
       <div className="quiz-screen">
         <div className="quiz-done">
@@ -164,17 +190,14 @@ export function Quiz({ chapters, onXPGain }) {
               ✨ בונוס מושלם! +{XP_QUIZ_BONUS} XP ✨
             </div>
           )}
-          <p className="quiz-done-msg">
-            {isPerfect ? 'את גורו הרשתות! כל השאלות נכונות 🔥'
-              : pct >= 70 ? 'כל הכבוד! היית מצוינת 💪'
-              : pct >= 40 ? 'ממשיכים ללמוד — תחזרי ותנסי שוב!'
-              : 'קראי שוב את הפרק ואז תנסי שוב 📚'}
-          </p>
+          <p className="quiz-done-msg">{doneMsg}</p>
           <div className="quiz-done-btns">
             <button className="quiz-restart-btn" onClick={() => startQuiz(
               mode === 'all' ? getAllQuizQuestions() : getQuizForChapter(selectedChapter)
             )}>🔄 שוב</button>
-            <button className="quiz-back-btn" onClick={() => setMode(null)}>← בחרי פרק</button>
+            <button className="quiz-back-btn" onClick={() => setMode(null)}>
+              {isMale ? '← בחר פרק' : '← בחרי פרק'}
+            </button>
           </div>
         </div>
       </div>
@@ -183,17 +206,24 @@ export function Quiz({ chapters, onXPGain }) {
 
   // ===== SCREEN: GAME OVER =====
   if (gameOver) {
+    const isMale = gender === 'male'
     return (
       <div className="quiz-screen">
         <div className="quiz-done">
           <div className="quiz-done-emoji">💔</div>
           <h2 className="quiz-done-title">נגמרו הלבבות</h2>
-          <p className="quiz-done-msg">הגעת ל-{score} נקודות. רוצה לנסות שוב?</p>
+          <p className="quiz-done-msg">
+            {isMale
+              ? `הגעת ל-${score} נקודות. כל נפילה היא הזדמנות ללמוד — נסה שוב! 💪`
+              : `הגעת ל-${score} נקודות. כל נפילה היא הזדמנות ללמוד — נסי שוב! 💪`}
+          </p>
           <div className="quiz-done-btns">
             <button className="quiz-restart-btn" onClick={() => startQuiz(
               mode === 'all' ? getAllQuizQuestions() : getQuizForChapter(selectedChapter)
-            )}>🔄 נסי שוב</button>
-            <button className="quiz-back-btn" onClick={() => setMode(null)}>← בחירת פרק</button>
+            )}>{isMale ? '🔄 נסה שוב' : '🔄 נסי שוב'}</button>
+            <button className="quiz-back-btn" onClick={() => setMode(null)}>
+              {isMale ? '← בחירת פרק' : '← בחירת פרק'}
+            </button>
           </div>
         </div>
       </div>

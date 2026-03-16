@@ -9,8 +9,9 @@ import { AskQuestion } from './components/AskQuestion'
 import { KeyTip } from './components/KeyTip'
 import { Quiz } from './components/Quiz'
 import { TroubleshootingTab } from './components/TroubleshootingTab'
-import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ } from './utils/xp'
+import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName } from './utils/xp'
 import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition } from './utils/progress'
+import { getGender, setGender } from './utils/gender'
 import './App.css'
 
 const TABS = [
@@ -18,6 +19,28 @@ const TABS = [
   { key: 'quiz', label: '🎯 חידון' },
   { key: 'bugs', label: '🔧 שאלות נפוצות' },
 ]
+
+function GenderPicker({ onSelect }) {
+  return (
+    <div className="gender-overlay">
+      <div className="gender-modal">
+        <div className="gender-emoji">👋</div>
+        <h2>ברוכים הבאים!</h2>
+        <p>איך לפנות אליך?</p>
+        <div className="gender-btns">
+          <button className="gender-btn gender-btn-female" onClick={() => onSelect('female')}>
+            <span className="gender-btn-emoji">👩</span>
+            <span>בלשון נקבה</span>
+          </button>
+          <button className="gender-btn gender-btn-male" onClick={() => onSelect('male')}>
+            <span className="gender-btn-emoji">👨</span>
+            <span>בלשון זכר</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 function App() {
   const [activeTab, setActiveTab] = useState('learn')
@@ -34,6 +57,7 @@ function App() {
   const [xpFloat, setXpFloat] = useState(null)
   const [levelUp, setLevelUp] = useState(null)
   const [search, setSearch] = useState('')
+  const [gender, setGenderState] = useState(getGender)
 
   const chapter = chapters[currentChapter]
   const page = chapter?.pages[currentPage]
@@ -41,6 +65,8 @@ function App() {
   const level = getLevel(xp)
   const nextLevel = getNextLevel(xp)
   const lvlProgress = getLevelProgress(xp)
+  const levelName = getLevelName(level, gender)
+  const nextLevelName = nextLevel ? getLevelName(nextLevel, gender) : null
 
   const totalPagesAllChapters = chapters.reduce((s, c) => s + c.pages.length, 0)
   const totalRead = getTotalRead()
@@ -52,6 +78,17 @@ function App() {
         ch.title.includes(search) || String(ch.id).includes(search)
       )
     : chapters.map((ch, i) => ({ ch, i }))
+
+  const handleGenderSelect = (g) => {
+    setGender(g)
+    setGenderState(g)
+  }
+
+  const toggleGender = () => {
+    const next = gender === 'male' ? 'female' : 'male'
+    setGender(next)
+    setGenderState(next)
+  }
 
   const refreshXP = useCallback((result) => {
     setXp(result.after)
@@ -138,6 +175,9 @@ function App() {
 
   return (
     <div className="app">
+      {/* ===== GENDER PICKER (first visit) ===== */}
+      {!gender && <GenderPicker onSelect={handleGenderSelect} />}
+
       {/* ===== HEADER ===== */}
       <header className="header">
         <div className="header-top">
@@ -158,14 +198,19 @@ function App() {
               <span className="stat-num">{xp}</span>
               <span className="stat-label">{level.emoji} XP</span>
             </div>
+            {gender && (
+              <button className="gender-toggle-btn" onClick={toggleGender} title="החלף פנייה">
+                {gender === 'female' ? '👩' : '👨'}
+              </button>
+            )}
           </div>
         </div>
 
         {/* Level bar */}
         <div className="level-bar-wrap">
           <div className="level-label">
-            <span>{level.emoji} {level.name}</span>
-            {nextLevel && <span className="level-next">→ {nextLevel.name} ({nextLevel.min - xp} XP נותרו)</span>}
+            <span>{level.emoji} {levelName}</span>
+            {nextLevel && <span className="level-next">→ {nextLevelName} ({nextLevel.min - xp} XP נותרו)</span>}
           </div>
           <div className="level-bar">
             <div className="level-fill" style={{ width: `${lvlProgress}%` }} />
@@ -192,7 +237,7 @@ function App() {
       {/* ===== LEVEL UP ===== */}
       {levelUp && (
         <div className="levelup-toast">
-          {levelUp.emoji} עלית רמה! {levelUp.name}
+          {levelUp.emoji} עלית רמה! {getLevelName(levelUp, gender)}
         </div>
       )}
 
@@ -261,7 +306,7 @@ function App() {
               className="page-content"
             >
               {page.type === 'questions' ? (
-                <QuestionsPage questions={page.questions} />
+                <QuestionsPage questions={page.questions} gender={gender} />
               ) : page.type === 'simulation' ? (
                 <SimulationPage simId={page.simId} content={page.content} />
               ) : page.type === 'thinkOutside' ? (
@@ -293,7 +338,7 @@ function App() {
 
       {activeTab === 'quiz' && (
         <div className="tab-content">
-          <Quiz chapters={chapters} onXPGain={handleXPGain} />
+          <Quiz chapters={chapters} onXPGain={handleXPGain} gender={gender} />
         </div>
       )}
 
@@ -359,13 +404,14 @@ function ThinkOutsidePage({ page }) {
   )
 }
 
-function QuestionsPage({ questions }) {
+function QuestionsPage({ questions, gender }) {
   const [openIndex, setOpenIndex] = useState(null)
   const allOpen = openIndex === 'all'
+  const intro = gender === 'male' ? 'קרא, חשוב, ואז פתח את התשובה:' : 'קראי, חשבי, ואז פתחי את התשובה:'
 
   return (
     <div className="questions-container">
-      <p className="questions-intro">קראי, חשבי, ואז פתחי את התשובה:</p>
+      <p className="questions-intro">{intro}</p>
       <div className="questions-actions">
         <button
           type="button"
