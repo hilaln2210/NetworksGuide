@@ -90,8 +90,8 @@ function TrackPicker({ tracks, onSelect }) {
                   </div>
                 )}
               </div>
-              {hasProgress && <div className="track-card-continue">המשך ←</div>}
-              {!hasProgress && !isEmpty && <div className="track-card-start">התחל ←</div>}
+              {hasProgress && <div className="track-card-continue">→ המשך</div>}
+              {!hasProgress && !isEmpty && <div className="track-card-start">→ התחל</div>}
             </button>
           )
         })}
@@ -292,7 +292,7 @@ function App() {
         <div className="header-top">
           <div className="header-title-wrap">
             <button className="track-back-btn" onClick={handleBackToTracks} title="כל המסלולים">
-              ← כל המסלולים
+              כל המסלולים →
             </button>
             <h1 style={{ color: activeTrack.color }}>
               {activeTrack.icon} {activeTrack.title}
@@ -323,7 +323,7 @@ function App() {
         <div className="level-bar-wrap">
           <div className="level-label">
             <span>{level.emoji} {levelName}</span>
-            {nextLevel && <span className="level-next">→ {nextLevelName} ({nextLevel.min - xp} XP נותרו)</span>}
+            {nextLevel && <span className="level-next">← {nextLevelName} ({nextLevel.min - xp} XP נותרו)</span>}
           </div>
           <div className="level-bar">
             <div className="level-fill" style={{ width: `${lvlProgress}%` }} />
@@ -426,9 +426,9 @@ function App() {
             <AskQuestion />
 
             <nav className="page-navigation">
-              <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>← קודם</button>
+              <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>קודם →</button>
               <span className="page-counter">פרק {currentChapter + 1} | {currentPage + 1}/{totalPages}</span>
-              <button className="nav-btn next" onClick={goNext} disabled={!canGoNext}>הבא →</button>
+              <button className="nav-btn next" onClick={goNext} disabled={!canGoNext}>← הבא</button>
             </nav>
           </main>
         </div>
@@ -463,6 +463,9 @@ function getBadgeStyle(type) {
     questions: { background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.3)', color: '#dc2626' },
     simulation: { background: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.35)', color: '#7c3aed' },
     thinkOutside: { background: 'rgba(217,119,6,0.1)', border: '1px solid rgba(217,119,6,0.35)', color: '#b45309' },
+    story: { background: 'rgba(236,72,153,0.08)', border: '1px solid rgba(236,72,153,0.3)', color: '#db2777' },
+    diagram: { background: 'rgba(6,182,212,0.08)', border: '1px solid rgba(6,182,212,0.3)', color: '#0891b2' },
+    example: { background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.3)', color: '#059669' },
   }
   return styles[type] || styles.explanation
 }
@@ -474,9 +477,12 @@ function getPageTypeLabel(type) {
     summary: '📋 סיכום',
     questions: '❓ שאלות',
     simulation: '🎮 הדמיה',
-    thinkOutside: '🧠 מחוץ לקופסא'
+    thinkOutside: '🧠 מחוץ לקופסא',
+    story: '📰 סיפור אמיתי',
+    diagram: '📊 דיאגרמה',
+    example: '💻 דוגמה'
   }
-  return labels[type] || type
+  return labels[type] || '📖 הסבר'
 }
 
 function SimulationPage({ simId, content }) {
@@ -533,7 +539,7 @@ function QuestionsPage({ questions, gender }) {
           >
             <span className="q-number">שאלה {i + 1}</span>
             <span className="q-text">{item.q}</span>
-            <span className="expand-icon">{(openIndex === i || allOpen) ? '▼' : '◀'}</span>
+            <span className="expand-icon">{(openIndex === i || allOpen) ? '▼' : '▶'}</span>
           </button>
           {(openIndex === i || allOpen) && (
             <div className="answer-block">
