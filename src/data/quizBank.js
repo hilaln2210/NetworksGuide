@@ -1453,6 +1453,222 @@ export const quizBank = {
       ],
       explanation: "Kubernetes עם 1000 services = iptables עם אלפי rules = כל packet עובר O(n) חיפוש ליניארי. Cilium מחליף iptables בeBPF hash maps = O(1) בכל גודל. בנוסף: Cilium/Hubble מספקים observability מלאה (pod→pod traffic), security policies ברמת L7, וPerformance Training שwordpress לא תאמין."
     }
+  ],
+
+  207: [
+    {
+      q: "מה ההבדל בין Terraform apply לבין Terraform plan?",
+      correct: "plan מציג מה ישתנה (dry run), apply מבצע את השינויים בפועל",
+      choices: [
+        "plan מציג מה ישתנה (dry run), apply מבצע את השינויים בפועל",
+        "plan יוצר resources, apply מוחק אותם",
+        "שניהם מבצעים שינויים, ההבדל הוא מהירות בלבד",
+        "plan עובד ב-AWS בלבד, apply עובד בכל cloud"
+      ],
+      explanation: "terraform plan = dry run שמחשב את ה-diff בין ה-HCL לבין ה-state הנוכחי ומציג מה ייצור/ישנה/ימחק. terraform apply = מבצע את אותם שינויים בפועל. best practice: תמיד run plan ותעיין בoutput לפני apply בפרודקשן."
+    },
+    {
+      q: "מה זה Terraform State ולמה חשוב לשמור אותו ב-S3?",
+      correct: "State הוא המיפוי בין HCL לresources אמיתיים — ב-S3 כדי שהצוות כולו ישתמש באותו state",
+      choices: [
+        "State הוא המיפוי בין HCL לresources אמיתיים — ב-S3 כדי שהצוות כולו ישתמש באותו state",
+        "State הוא הגדרות הprovider — ב-S3 לbackup בלבד",
+        "State שומר את קוד ה-HCL המקומפל",
+        "State רלוונטי רק ל-multi-cloud deployments"
+      ],
+      explanation: "State הוא הלב של Terraform — מפה מי יצר מה. בלי state, Terraform לא יודע מה קיים. ב-S3+DynamoDB: S3 מאחסן את ה-tfstate, DynamoDB מספק locking כדי שלא שני אנשים יריצו apply במקביל (state corruption). remote state = must בצוות."
+    },
+    {
+      q: "מה ההבדל בין Cattle לבין Pets בהקשר של IaC?",
+      correct: "Pets = שרתים ייחודיים שמרפאים, Cattle = שרתים זהים שמחליפים — IaC מעדיף Cattle",
+      choices: [
+        "Pets = שרתים ייחודיים שמרפאים, Cattle = שרתים זהים שמחליפים — IaC מעדיף Cattle",
+        "Cattle = שרתים גדולים (scale-up), Pets = שרתים קטנים",
+        "Pets = cloud, Cattle = on-premise",
+        "ההבדל הוא בסוג הOS בלבד"
+      ],
+      explanation: "Netflix הציגה את המטפורה ב-2012. Pets = dev-01, big-iron — לכל אחד שם, ייחודי, ידנית מוגדר. Cattle = web-047, מספרים, זהים, immutable. Terraform + Auto Scaling = Cattle: instance מת? Auto Scaling מייצר אחד חדש מה-template. Chaos Monkey של Netflix הורג servers בפרודקשן ביזמה — כדי לוודא ה-architecture Cattle-ready."
+    }
+  ],
+
+  208: [
+    {
+      q: "מה ההבדל בין RED method לבין USE method בmonitoring?",
+      correct: "RED (Rate/Errors/Duration) למדידת services, USE (Utilization/Saturation/Errors) למדידת resources",
+      choices: [
+        "RED (Rate/Errors/Duration) למדידת services, USE (Utilization/Saturation/Errors) למדידת resources",
+        "RED לbackend, USE לfrontend",
+        "USE לKubernetes, RED לVM",
+        "שניהם מדדים זהים עם שמות שונים"
+      ],
+      explanation: "RED שואל: כמה requests לשנייה? כמה נכשלים? כמה זמן לוקח? — מתאים לmicroservices ולAPIs. USE שואל: כמה CPU/Memory בשימוש? האם יש queue buildup? יש errors בhardware? — מתאים לinfrastructure (servers, disks, network). Brendan Gregg (Netflix) פיתח את USE method."
+    },
+    {
+      q: "מה עושה הפקודה histogram_quantile(0.99, ...) ב-PromQL?",
+      correct: "מחשבת את הpercentile ה-99 של הlatency — ה-latency שמתחתיו 99% מהrequests",
+      choices: [
+        "מחשבת את הpercentile ה-99 של הlatency — ה-latency שמתחתיו 99% מהrequests",
+        "מחשבת ממוצע של 99 הנקודות האחרונות",
+        "מציגה את 99% מה-metrics ללא הoutliers",
+        "מגדירה alert אם הlatency עולה על 99ms"
+      ],
+      explanation: "histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) = P99 latency. פירוש: 99% מהrequests הסתיימו בזמן הזה או פחות. ה-1% הגרועים ביותר = הזנב. SLOs בגוגל מוגדרים בP99 כי ממוצע מסתיר latency spikes. rate() קודם על הbucket = חשוב לחישוב נכון."
+    },
+    {
+      q: "מה ה-pull model של Prometheus לעומת push model?",
+      correct: "Prometheus scrapes metrics מservices בעצמו (pull), לעומת Graphite/StatsD שservices דוחפים אליהם (push)",
+      choices: [
+        "Prometheus scrapes metrics מservices בעצמו (pull), לעומת Graphite/StatsD שservices דוחפים אליהם (push)",
+        "pull = real-time, push = batch",
+        "pull מהיר יותר כי לא צריך network",
+        "push model אבטחתי יותר"
+      ],
+      explanation: "Prometheus pull: מגדיר scrape_configs עם targets, Prometheus שולח GET /metrics כל 15s. יתרון: Prometheus שולט מי נסרק, קל לhealthcheck (אם scrape נכשל = service down). חיסרון: services חייבים לחשוף /metrics endpoint. Pushgateway קיים לjobs קצרים שלא חיים מספיק לscrape."
+    }
+  ],
+
+  209: [
+    {
+      q: "מה drift detection ב-ArgoCD?",
+      correct: "זיהוי הבדל בין state ב-Git לבין state הפועל בcluster — ArgoCD מתקן אוטומטית אם selfHeal מופעל",
+      choices: [
+        "זיהוי הבדל בין state ב-Git לבין state הפועל בcluster — ArgoCD מתקן אוטומטית אם selfHeal מופעל",
+        "ניטור של שינויי network בין pods",
+        "גילוי configuration drift בין staging לproduction",
+        "בדיקה שה-Git repo לא נמחק"
+      ],
+      explanation: "Drift = מישהו עשה kubectl edit/patch ישירות על cluster מחוץ לGit. ArgoCD מזהה את ה-diff ומציג status=OutOfSync. עם syncPolicy.automated.selfHeal=true — ArgoCD מחזיר לstate ב-Git אוטומטית תוך דקות. זה הלב של GitOps: Git הוא מקור האמת היחיד."
+    },
+    {
+      q: "מדוע GitOps pull model בטוח יותר מ-push deployment?",
+      correct: "בpull model, רק ה-controller בcluster צריך cluster access — ה-CI pipeline לא צריך kubectl credentials",
+      choices: [
+        "בpull model, רק ה-controller בcluster צריך cluster access — ה-CI pipeline לא צריך kubectl credentials",
+        "pull model מהיר יותר כי אין network latency",
+        "push model לא עובד עם Kubernetes",
+        "pull model מצפין את הmanifests אוטומטית"
+      ],
+      explanation: "בpush deployment: ל-CI pipeline (GitHub Actions, Jenkins) יש kubeconfig עם cluster admin — זה attack surface ענקי. אם CI נפרץ = cluster נפרץ. בGitOps pull: ArgoCD רץ בתוך ה-cluster, מסתכל על Git מבפנים. שום entity חיצוני לא צריך cluster credentials. זה security posture הרבה יותר טוב."
+    },
+    {
+      q: "מה הפתרון המועדף לניהול secrets ב-GitOps?",
+      correct: "Sealed Secrets (מוצפן בpublic key) או External Secrets Operator (מושך מ-Vault/AWS) — לא מאחסנים plaintext בGit",
+      choices: [
+        "Sealed Secrets (מוצפן בpublic key) או External Secrets Operator (מושך מ-Vault/AWS) — לא מאחסנים plaintext בGit",
+        "מאחסנים secrets ב-Git עם הרשאות read-only בלבד",
+        "מצפינים secrets בbase64 לפני push לGit",
+        "ArgoCD מנהל secrets אוטומטית ללא כלים נוספים"
+      ],
+      explanation: "base64 הוא לא הצפנה! Sealed Secrets: kubeseal מצפין עם public key של ה-cluster — רק ה-cluster יכול לפענח, בטוח לsave בGit. External Secrets: רץ בcluster, מושך מ-Vault/AWS Secrets Manager/GCP Secret Manager, יוצר Kubernetes Secret מקומי. שניהם פתרונות לגיטימיים. לעולם לא plaintext passwords ב-Git."
+    }
+  ],
+
+  306: [
+    {
+      q: "מה Forward Secrecy ב-TLS ולמה זה חשוב?",
+      correct: "גנן session key חדש לכל session (ECDHE) — גנב private key לא יוכל לפענח שיחות עבר",
+      choices: [
+        "גנן session key חדש לכל session (ECDHE) — גנב private key לא יוכל לפענח שיחות עבר",
+        "הצפנה של TLS קדימה לgenerations עתידיים",
+        "TLS 1.3 מצפין גם headers של HTTP",
+        "Forward Secrecy = TLS עם certificate pinning"
+      ],
+      explanation: "ב-RSA key exchange (TLS 1.2): הclient מצפין session key בpublic key של השרת. תוקף שהקליט traffic ב-2020 וגנב private key ב-2024 — יכול לפענח את ה-2020 traffic. ב-ECDHE (TLS 1.3 חובה): מפתחות ephemeral נוצרים per-session ונמחקים. אין מפתח ישן לgraceful. 'Ephemeral' = key חי רק לאותה session."
+    },
+    {
+      q: "למה RC4 ו-SHA-1 הוסרו מ-TLS 1.3?",
+      correct: "RC4 הוכח cryptographically broken ב-2013, SHA-1 collision הוכח ב-2017 (Google SHAttered)",
+      choices: [
+        "RC4 הוכח cryptographically broken ב-2013, SHA-1 collision הוכח ב-2017 (Google SHAttered)",
+        "RC4 ו-SHA-1 איטיים מדי לhardware מודרני",
+        "הוסרו רק כדי לפשט את הstandard, לא מסיבות אבטחה",
+        "RC4 תומך רק ב-IPv4"
+      ],
+      explanation: "RC4: AlFardan et al. 2013 הראו biases סטטיסטיים שמאפשרים לפענח HTTPS cookies אחרי ~2^26 connections. BEAST attack (2011) ניצל CBC ב-TLS 1.0. SHA-1: Google SHAttered 2017 — נמצאו שני PDF files שונים עם אותו SHA-1 hash, עם GPU cluster בעלות $110K. TLS 1.3 אפשר רק AEAD ciphers (AES-GCM, ChaCha20-Poly1305)."
+    },
+    {
+      q: "מה ההבדל ב-RTT בין TLS 1.2 לTLS 1.3?",
+      correct: "TLS 1.2 דורש 2-RTT לפני application data, TLS 1.3 דורש 1-RTT (ו-0-RTT לsession resumption)",
+      choices: [
+        "TLS 1.2 דורש 2-RTT לפני application data, TLS 1.3 דורש 1-RTT (ו-0-RTT לsession resumption)",
+        "TLS 1.2 מהיר יותר כי יש לו יותר cipher options",
+        "שניהם דורשים 2-RTT, ההבדל הוא בהצפנה בלבד",
+        "TLS 1.3 תמיד 0-RTT"
+      ],
+      explanation: "TLS 1.2: ClientHello → ServerHello+Cert → KeyExchange → Finished → Data = 2 full RTT. TLS 1.3: הclient שולח KeyShare כבר בClientHello הראשון. השרת עונה עם ServerHello+keys+Finished = 1 RTT. 0-RTT (Early Data): בsession resumption, הclient שולח data בround trip הראשון. אבל 0-RTT vulnerable לreplay attacks — להשתמש רק בGET."
+    }
+  ],
+
+  307: [
+    {
+      q: "כיצד Anycast מנתב traffic לPOP הקרוב ביותר?",
+      correct: "אותו IP prefix מפורסם מ-BGP ממקומות רבים — BGP בוחר shortest AS path = הPOP הקרוב",
+      choices: [
+        "אותו IP prefix מפורסם מ-BGP ממקומות רבים — BGP בוחר shortest AS path = הPOP הקרוב",
+        "DNS מחזיר IP שונה לפי geolocation",
+        "הlb מפנה לPOP הקרוב לפי latency",
+        "HTTP redirect לURL של הPOP הקרוב"
+      ],
+      explanation: "Anycast: Cloudflare מפרסמת 1.1.1.0/24 ב-BGP מ-300+ POPs. כשrouter בתל אביב מחפש 1.1.1.1 — הוא רואה כמה paths, בוחר הקצר ביותר (AS hops) = POP בתל אביב. שימוש: DNS root servers, CDN, DDoS mitigation. לא מתאים לTCP sessions ארוכים כי connection עלול לנדוד בין POPs."
+    },
+    {
+      q: "מה BGP hijacking וכיצד RPKI מונע אותו?",
+      correct: "BGP hijacking = AS מכריז על prefix שלא שייך לו. RPKI = ROAs חתומות cryptographically שמאמתות מי מורשה להכריז",
+      choices: [
+        "BGP hijacking = AS מכריז על prefix שלא שייך לו. RPKI = ROAs חתומות cryptographically שמאמתות מי מורשה להכריז",
+        "BGP hijacking = DDoS attack על routers. RPKI = firewall לBGP",
+        "BGP hijacking = man-in-the-middle ב-TCP. RPKI = TLS לBGP",
+        "BGP hijacking רלוונטי רק לIPv6"
+      ],
+      explanation: "Pakistan Telecom 2008: הכריזו על 208.65.153.0/24 (YouTube) — כל האינטרנט שלח traffic ל-Pakistan. BGP trust-based = כל AS יכול להכריז על כל prefix. RPKI: RIRs (RIPE, ARIN, APNIC) מפרסמים ROA (Route Origin Authorization) חתומה — 'AS13335 מורשה להכריז על 1.1.1.0/24'. Routers שמסננים לפי RPKI דוחים invalid routes. 40% מה-routes מוגנים נכון ל-2024."
+    },
+    {
+      q: "מדוע Anycast מצוין להגנה מDDoS?",
+      correct: "Attack traffic מחולק בין כל ה-POPs בעולם — כל POP סופג חלק קטן במקום שכולו יגיע לנקודה אחת",
+      choices: [
+        "Attack traffic מחולק בין כל ה-POPs בעולם — כל POP סופג חלק קטן במקום שכולו יגיע לנקודה אחת",
+        "Anycast מצפין traffic ולכן DDoS לא עובד",
+        "Anycast מסנן traffic זדוני לפי source IP",
+        "Anycast רלוונטי רק לUDP floods, לא לTCP SYN floods"
+      ],
+      explanation: "Cloudflare עם 300 POPs = 300 נקודות קליטה. DDoS של 2Tbps מחולק ל-~6.7Gbps לכל POP — ניתן לספוג בקלות. ב-unicast, כל ה-2Tbps היה פוגע בנקודה אחת. בנוסף, Anycast BGP failover אוטומטי: POP שנפל תחת load → מסיר את ה-prefix מBGP → traffic עובר לPOP הבא הקרוב. זו הסיבה ש-Cloudflare, Akamai, Amazon CloudFront — כולם Anycast."
+    }
+  ],
+
+  308: [
+    {
+      q: "מה veth pair ב-Linux networking?",
+      correct: "זוג virtual ethernet interfaces מחוברים — מה שנכנס לאחד יוצא מהשני, משמש לחיבור container לhost",
+      choices: [
+        "זוג virtual ethernet interfaces מחוברים — מה שנכנס לאחד יוצא מהשני, משמש לחיבור container לhost",
+        "virtual ethernet שמאפשר מספר VLANs על interface אחד",
+        "חיבור בין שני hosts פיזיים",
+        "שם אחר לloopback interface"
+      ],
+      explanation: "veth pair = כבל וירטואלי. Docker יוצר veth pair: קצה אחד (eth0) בnamespace של הcontainer, קצה שני (vethXXXXXX) בhost namespace ומחובר לbridge docker0. packet שנשלח מcontainer → eth0 → veth pair → vethXXX בhost → docker0 bridge → routing. ip link add veth0 type veth peer name veth1 יוצר את ה-pair."
+    },
+    {
+      q: "מה ההבדל בין Flannel לCalico כ-CNI plugins?",
+      correct: "Flannel משתמש ב-VXLAN overlay (encapsulation), Calico משתמש ב-BGP routing (L3, ללא encapsulation, מהיר יותר)",
+      choices: [
+        "Flannel משתמש ב-VXLAN overlay (encapsulation), Calico משתמש ב-BGP routing (L3, ללא encapsulation, מהיר יותר)",
+        "Flannel לpublic cloud, Calico לon-premise בלבד",
+        "Calico ישן יותר ולכן פחות מומלץ",
+        "שניהם זהים, ההבדל הוא בממשק הניהול בלבד"
+      ],
+      explanation: "Flannel VXLAN: packets בין nodes מוצפנים ב-UDP header (encapsulation). פשוט להתקנה אבל overhead. Calico BGP: כל Kubernetes node הוא BGP router שמפרסם את ה-podCIDR שלו. Packets עוברים ב-L3 ישירות ללא encapsulation = ביצועים גבוהים יותר. Calico מוסיף Network Policy. Cilium (eBPF): מחליף iptables, O(1) lookups, L7 visibility."
+    },
+    {
+      q: "כיצד pod-to-pod communication עובד בין שני nodes שונים ב-Kubernetes?",
+      correct: "תלוי ב-CNI: Flannel = VXLAN tunnel, Calico = BGP routes ישירות, Cilium = eBPF forwarding",
+      choices: [
+        "תלוי ב-CNI: Flannel = VXLAN tunnel, Calico = BGP routes ישירות, Cilium = eBPF forwarding",
+        "Kubernetes מספק NAT אוטומטי בין nodes",
+        "pods חייבים להיות באותו node לתקשורת ישירה",
+        "תמיד עובר דרך kube-proxy על ה-master node"
+      ],
+      explanation: "Kubernetes CNI contract: כל pod יכול לדבר עם כל pod ב-pod IP שלו, ללא NAT. אותו node = veth pair → bridge → L2 forwarding מהיר. בין nodes: CNI מממש. Flannel: מוסיף VXLAN header (UDP 8472) → underlay network → מסיר header ב-node היעד. Calico: node1 יודע ש-10.0.2.0/24 נמצא ב-node2 דרך BGP → route ישיר ב-IP layer. kube-proxy מנהל Service IPs, לא pod-to-pod."
+    }
   ]
 }
 

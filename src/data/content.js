@@ -5850,6 +5850,287 @@ error_budget_minutes = minutes_per_month * (100 - slo) / 100
 </div>`
       }
     ]
+  },
+  {
+    id: 207,
+    title: "Terraform ו-Infrastructure as Code",
+    pages: [
+      {
+        type: "explanation",
+        title: "מה זה Infrastructure as Code?",
+        content: `<div dir="rtl">
+<h2>תשתית כקוד — מדוע זה שינה הכל</h2>
+<p>פעם, להקים שרת חדש אמר: לפתוח ticket ל-Ops, לחכות שבוע, לצלצל, לחכות עוד. היום? מריצים קובץ — ותוך 3 דקות יש EC2 instance, VPC, security group, ו-DNS record — הכל אוטומטי.</p>
+<p><strong>Infrastructure as Code (IaC)</strong> אומר שהתשתית מוגדרת בקובצי טקסט המנוהלים ב-Git, בדיוק כמו קוד אפליקציה. יש לכם version history, code review, ו-CI/CD לתשתית.</p>
+<table class="content-table">
+  <tr><th>גישה ידנית</th><th>IaC</th></tr>
+  <tr><td>Click בconsole — לא ניתן לשחזר</td><td>קוד ב-Git — reproducible תמיד</td></tr>
+  <tr><td>Configuration drift — שרתים שונים</td><td>Idempotent — אותה תוצאה בכל הרצה</td></tr>
+  <tr><td>Snowflake servers — כל שרת ייחודי</td><td>Cattle not pets — שרתים זהים</td></tr>
+  <tr><td>Documentation מיושנת</td><td>הקוד הוא התיעוד</td></tr>
+</table>
+<p><strong>כלים מובילים:</strong> Terraform (cloud-agnostic), AWS CloudFormation (AWS בלבד), Pulumi (IaC בPython/TypeScript), Ansible (configuration management).</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Terraform HCL — שפת ההגדרה",
+        content: `<div dir="rtl">
+<h2>HashiCorp Configuration Language</h2>
+<p>Terraform משתמש ב-HCL — שפה declarative שמתארת מה אתם רוצים, לא איך לבנות אותו. אתם אומרים "אני רוצה EC2 instance מסוג t3.micro" — Terraform מחשב מה צריך ליצור, לשנות, או למחוק.</p>
+<pre><code>provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_instance" "web" {
+  ami           = "ami-0c02fb55956c7d316"
+  instance_type = "t3.micro"
+
+  tags = {
+    Name = "web-server"
+    Env  = "production"
+  }
+}
+
+output "public_ip" {
+  value = aws_instance.web.public_ip
+}</code></pre>
+<table class="content-table">
+  <tr><th>כלי IaC</th><th>Provider support</th><th>שפה</th><th>State</th></tr>
+  <tr><td><strong>Terraform</strong></td><td>700+ providers</td><td>HCL</td><td>tfstate file</td></tr>
+  <tr><td><strong>CloudFormation</strong></td><td>AWS בלבד</td><td>JSON/YAML</td><td>AWS managed</td></tr>
+  <tr><td><strong>Pulumi</strong></td><td>100+ providers</td><td>Python/TS/Go</td><td>Pulumi Cloud</td></tr>
+</table>
+<p><strong>הבסיס:</strong> provider מגדיר עם מי מדברים (AWS, Azure, GCP, Kubernetes), resource מגדיר מה יוצרים, output מייצא ערכים לשימוש חיצוני.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Terraform State — הזיכרון של התשתית",
+        content: `<div dir="rtl">
+<h2>State Management — terraform.tfstate</h2>
+<p>Terraform שומר <strong>state</strong> — מפה מפורטת בין קוד ה-HCL לבין המשאבים האמיתיים ב-cloud. בלי state, Terraform לא יודע מה כבר קיים ומה צריך ליצור.</p>
+<pre><code># הפקודות הבסיסיות
+terraform init     # הורדת providers
+terraform plan     # מה ישתנה (dry run)
+terraform apply    # מבצע שינויים
+terraform destroy  # מוחק הכל
+
+# state ב-S3 לצוות (remote backend)
+terraform {
+  backend "s3" {
+    bucket = "my-terraform-state"
+    key    = "prod/terraform.tfstate"
+    region = "us-east-1"
+  }
+}</code></pre>
+<p><strong>הכלל החשוב ביותר:</strong> לעולם אל תערכו state ידנית. אם משאב נוצר מחוץ ל-Terraform (click בconsole) — השתמשו ב-<code>terraform import</code> כדי להכניס אותו ל-state.</p>
+<p><strong>Remote state:</strong> בצוות, state חייב להיות בS3 + DynamoDB לocking, לא על המחשב האישי. אחרת שני אנשים שמריצים <code>apply</code> במקביל יגרמו corruption.</p>
+</div>`
+      },
+      {
+        type: "story",
+        title: "Cattle vs Pets — המטפורה שמסבירה IaC",
+        content: `<div dir="rtl">
+<h2>כשהשרת נפל — ואיש לא בכה</h2>
+<p>ב-2012, חברת Netflix הציגה מטפורה שהפכה לאחת הרעיונות המשפיעים ביותר בDevOps: <strong>Cattle vs Pets (בקר לעומת חיות מחמד)</strong>.</p>
+<p><strong>חיות מחמד (Pets):</strong> לשרתים יש שמות — "Big Iron", "dev-01". כשהם חולים, אנשי Ops עושים לילות לבנים כדי לרפא אותם. אם הם מתים — זו טרגדיה. כל שרת הוא ייחודי, ידנית מוגדר, ולא ניתן להחליפו בקלות.</p>
+<p><strong>בקר (Cattle):</strong> לשרתים יש מספרים — "web-047". כשהם חולים — שוחטים ומחליפים. Terraform מייצר instance חדש תוך דקות. Auto Scaling Group מגדיר מינימום 3 instances — אם אחד מת, AWS מייצר אחר אוטומטית.</p>
+<p>Netflix פיתחה את <strong>Chaos Monkey</strong> — כלי שמכבה שרתים פרודקשן אקראית במהלך שעות העבודה. כן, בכוונה. מדוע? כדי לוודא שהמערכת חוסנה לאירועים כאלה. אם זה מכאיב — תתקנו. אם לא — אתם Cattle-ready.</p>
+<p>התשתית ה-immutable (שלא משנים — רק מחליפים) היא הלב של IaC מודרני. Blue-green deployments, canary releases, zero-downtime updates — כולם מסתמכים על רעיון ה-Cattle.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 208,
+    title: "Prometheus ו-Grafana — ניטור כמו Google",
+    pages: [
+      {
+        type: "explanation",
+        title: "שלושת עמודי Observability",
+        content: `<div dir="rtl">
+<h2>Metrics, Logs, Traces — המשולש הקדוש</h2>
+<p>כשמשהו משתבש בפרודקשן, אתם צריכים שלושה סוגי מידע שונים כדי להבין מה קרה. Google קוראת לזה <strong>Observability</strong>.</p>
+<table class="content-table">
+  <tr><th>סוג</th><th>מה זה</th><th>שאלות שעונה</th><th>כלים</th></tr>
+  <tr><td><strong>Metrics</strong></td><td>מספרים לאורך זמן</td><td>"מה המצב עכשיו?"</td><td>Prometheus, Datadog</td></tr>
+  <tr><td><strong>Logs</strong></td><td>אירועים טקסטואליים</td><td>"מה בדיוק קרה?"</td><td>ELK, Loki</td></tr>
+  <tr><td><strong>Traces</strong></td><td>מסלול request בין services</td><td>"איפה הbottleneck?"</td><td>Jaeger, Zipkin</td></tr>
+</table>
+<p><strong>Prometheus</strong> הוא מערכת monitoring שנבנתה ב-SoundCloud ב-2012 ועכשיו standard בKubernetes. היא scrapes מכל service את ה-metrics (pull model) ושומרת אותם ב-time-series database.</p>
+<p><strong>מודל הנתונים:</strong> כל metric הוא שם + labels. למשל: <code>http_requests_total{method="GET", status="200", service="api"}</code>. הlabels מאפשרים filtering וaggregation עוצמתיים.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "PromQL — שפת השאילתות",
+        content: `<div dir="rtl">
+<h2>Prometheus Query Language</h2>
+<p>PromQL היא שפת שאילתות time-series — מחשבת rates, aggregations, ו-percentiles בזמן אמת.</p>
+<pre><code># Rate of HTTP requests per second (5 min window)
+rate(http_requests_total[5m])
+
+# 99th percentile latency
+histogram_quantile(0.99,
+  rate(http_request_duration_seconds_bucket[5m])
+)
+
+# Error rate
+rate(http_requests_total{status=~"5.."}[5m])
+  / rate(http_requests_total[5m])
+
+# Alert: error rate above 1%
+ALERT HighErrorRate
+  IF error_rate > 0.01
+  FOR 5m
+  LABELS { severity="critical" }
+  ANNOTATIONS { summary = "Error rate above 1%" }</code></pre>
+<table class="content-table">
+  <tr><th>Method</th><th>Metrics</th><th>שאלה</th></tr>
+  <tr><td>RED (שירותים)</td><td>Rate, Errors, Duration</td><td>כמה? כשל? כמה זמן?</td></tr>
+  <tr><td>USE (משאבים)</td><td>Utilization, Saturation, Errors</td><td>שימוש? קיבולת? שגיאות?</td></tr>
+</table>
+<p>RED שימושי ל-microservices: "כמה requests לשנייה? כמה נכשלים? מה הlatency?". USE שימושי לinfrastructure: "CPU usage? Queue depth? Disk errors?".</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Grafana Dashboards — הסיפור החזותי",
+        content: `<div dir="rtl">
+<h2>מנתונים ל-Insights ויזואליים</h2>
+<p>Grafana היא ה-visualization layer שמחבר ל-Prometheus (ועוד עשרות data sources). Dashboard טוב מספר סיפור: "כשה-deployment יצא בשעה 14:30, הlatency עלה ב-40%".</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 130" class="content-diagram">
+  <rect x="10" y="10" width="100" height="50" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="60" y="30" text-anchor="middle" font-size="10" fill="#93c5fd">Services</text>
+  <text x="60" y="46" text-anchor="middle" font-size="9" fill="#64748b">/metrics endpoint</text>
+  <rect x="130" y="10" width="100" height="50" rx="6" fill="#1e293b" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="180" y="30" text-anchor="middle" font-size="10" fill="#86efac">Prometheus</text>
+  <text x="180" y="46" text-anchor="middle" font-size="9" fill="#64748b">scrape + store</text>
+  <rect x="250" y="10" width="100" height="50" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="300" y="30" text-anchor="middle" font-size="10" fill="#fcd34d">Grafana</text>
+  <text x="300" y="46" text-anchor="middle" font-size="9" fill="#64748b">visualize + alert</text>
+  <line x1="110" y1="35" x2="130" y2="35" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arr-prom)"/>
+  <line x1="230" y1="35" x2="250" y2="35" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arr-prom)"/>
+  <rect x="10" y="80" width="340" height="38" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="180" y="97" text-anchor="middle" font-size="10" fill="#e2e8f0">AlertManager</text>
+  <text x="180" y="112" text-anchor="middle" font-size="9" fill="#64748b">PagerDuty / Slack / Email alerts</text>
+  <defs><marker id="arr-prom" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker></defs>
+</svg>
+</div>
+<p>Best practices לdashboard: <strong>Golden Signals בראש</strong> (latency, traffic, errors, saturation), <strong>drill-down</strong> מכלל לפרט, <strong>annotations</strong> לdeployments — כדי לראות correlation בין deploy לבין שינויים במטריקס.</p>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: Memory Leak שנתפס לפני שהשפיע",
+        content: `<div dir="rtl">
+<h2>כשהגרף הציל את הפרודקשן</h2>
+<p>סטארטאפ SaaS קטן. יום רגיל. ואז, Grafana שולח Slack alert: "Memory usage בservice X עולה בקצב קבוע של 2MB לשעה". לא alert קריטי — רק "warning".</p>
+<p>הצוות בדק. הקוד היה "clean". unit tests עברו. staging לא הראה שום דבר. אבל הגרף לא שיקר — קו ישר כלפי מעלה, מתחיל בדיוק עם הdeploy של שלשום.</p>
+<p>חיפשו ב-profiler. מצאו: Redis client שנוצר מחדש בכל request — ולא נסגר. connection pool עם 10,000 connections פתוחים. הfix: 3 שורות קוד. זמן תיקון: 45 דקות.</p>
+<p>ללא Prometheus: Service היה קורס אחרי 4 ימים, 02:00 לילה, בזמן spike בתנועה. עם Prometheus: הבעיה זוהתה ב-business hours, ב-staging, לפני שהשפיעה על משתמש אחד.</p>
+<p><strong>הלקח:</strong> Monitoring לא מיועד לגלות בעיות כשהן קורות — אלא <strong>לפני שהן קורות</strong>. Trending alerts (ערך עולה בקצב קבוע) שווים יותר מ-threshold alerts (ערך עבר גבול). Google קוראת לזה: <strong>"Alert on symptoms, not causes"</strong>.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 209,
+    title: "GitOps ו-ArgoCD",
+    pages: [
+      {
+        type: "explanation",
+        title: "GitOps — Git כמקור האמת היחיד",
+        content: `<div dir="rtl">
+<h2>GitOps: מה שב-Git הוא מה שב-Production</h2>
+<p>GitOps הוא פרקטיקה שבה <strong>כל מצב הפרודקשן מוגדר ב-Git</strong>. לא רק קוד האפליקציה — גם כל הKubernetes manifests, Helm values, ו-infrastructure config.</p>
+<p><strong>עקרונות GitOps:</strong></p>
+<ul>
+  <li><strong>Declarative:</strong> מתאר מה רוצים, לא איך לעשות</li>
+  <li><strong>Versioned:</strong> כל שינוי הוא commit — ניתן לrollback מיידי</li>
+  <li><strong>Automated:</strong> controller מסנכרן Git לcluster אוטומטית</li>
+  <li><strong>Continuous reconciliation:</strong> אם מישהו שינה משהו בcluster ידנית — Controller מחזיר למצב ב-Git</li>
+</ul>
+<table class="content-table">
+  <tr><th>מודל</th><th>Push Deployment</th><th>Pull (GitOps)</th></tr>
+  <tr><td>מי פועל</td><td>CI pipeline</td><td>Controller בcluster</td></tr>
+  <tr><td>הרשאות</td><td>CI צריך kubectl access</td><td>אין גישה חיצונית לcluster</td></tr>
+  <tr><td>Drift</td><td>לא מזוהה</td><td>מזוהה ותוקן אוטומטית</td></tr>
+  <tr><td>Rollback</td><td>ידני</td><td>git revert</td></tr>
+</table>
+</div>`
+      },
+      {
+        type: "diagram",
+        title: "GitOps Loop — מGit לKubernetes",
+        content: `<div dir="rtl">
+<h2>ArgoCD — GitOps Controller</h2>
+<div class="diagram-container">
+<svg viewBox="0 0 360 130" class="content-diagram">
+  <rect x="10" y="40" width="80" height="40" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="50" y="57" text-anchor="middle" font-size="10" fill="#fcd34d">Git Repo</text>
+  <text x="50" y="72" text-anchor="middle" font-size="9" fill="#64748b">manifests</text>
+  <rect x="140" y="40" width="80" height="40" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="180" y="57" text-anchor="middle" font-size="10" fill="#93c5fd">ArgoCD</text>
+  <text x="180" y="72" text-anchor="middle" font-size="9" fill="#64748b">sync + diff</text>
+  <rect x="270" y="40" width="80" height="40" rx="6" fill="#1e293b" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="310" y="57" text-anchor="middle" font-size="10" fill="#86efac">K8s Cluster</text>
+  <text x="310" y="72" text-anchor="middle" font-size="9" fill="#64748b">running state</text>
+  <line x1="90" y1="60" x2="140" y2="60" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-argo)"/>
+  <text x="115" y="54" text-anchor="middle" font-size="8" fill="#f59e0b">watch</text>
+  <line x1="220" y1="60" x2="270" y2="60" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arr-argo)"/>
+  <text x="245" y="54" text-anchor="middle" font-size="8" fill="#3b82f6">apply</text>
+  <path d="M310,80 Q310,110 180,110 Q50,110 50,80" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-argo-red)"/>
+  <text x="180" y="122" text-anchor="middle" font-size="8" fill="#ef4444">drift detected — auto-heal</text>
+  <defs>
+    <marker id="arr-argo" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker>
+    <marker id="arr-argo-red" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#ef4444"/></marker>
+  </defs>
+</svg>
+</div>
+<pre><code>apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/myorg/my-app
+    targetRevision: HEAD
+    path: k8s/
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  syncPolicy:
+    automated:
+      prune: true       # מוחק resources שנמחקו מGit
+      selfHeal: true    # מתקן drift אוטומטית</code></pre>
+<p>ArgoCD מסנכרן כל 3 דקות. שינוי ב-Git = deploy אוטומטי. שינוי ידני בcluster = תוקן אוטומטית לstate ב-Git. זו הבטחת GitOps.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Drift Detection — הביטחון של GitOps",
+        content: `<div dir="rtl">
+<h2>כשמישהו שינה משהו — ArgoCD יודע</h2>
+<p>הכוח הגדול ביותר של GitOps: <strong>drift detection</strong>. כל שינוי ב-cluster שלא מגיע מ-Git — ArgoCD מזהה ומדווח (ואם מוגדר selfHeal — מחזיר אוטומטית).</p>
+<pre><code># בדיקת סטטוס אפליקציות
+argocd app list
+
+# סנכרון ידני עם diff
+argocd app diff my-app
+argocd app sync my-app
+
+# Rollback לגרסה קודמת
+argocd app rollback my-app 3</code></pre>
+<p><strong>מתי GitOps לא מספיק?</strong> Secrets. לא מאחסנים passwords בGit. הפתרון: <strong>Sealed Secrets</strong> (מוצפן בpublic key, רק cluster יכול לפענח) או <strong>External Secrets Operator</strong> (מושך מ-Vault/AWS Secrets Manager).</p>
+<p><strong>ApplicationSet:</strong> תכונה מתקדמת שיוצרת Applications מרובות אוטומטית — למשל, אחת לכל namespace, לכל cluster, או לכל feature branch. מאפשר multi-cluster GitOps.</p>
+</div>`
+      }
+    ]
   }
 ]
   },
@@ -6332,6 +6613,323 @@ int mitigate_ddos(struct xdp_md *ctx) {
     return XDP_PASS; // legitimate traffic
 }</code></pre></div>
 <p><strong>הלקח:</strong> הגבול בין network ו-programming נמחק. eBPF מאפשר לבנות custom networking logic שפועל מהר יותר מכל hardware appliance — ישירות על commodity servers. זו הסיבה שכל חברה גדולה (Google, Meta, Netflix, Cloudflare) משקיעה כבד ב-eBPF.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 306,
+    title: "TLS 1.3 — מאפס ל-Handshake",
+    pages: [
+      {
+        type: "explanation",
+        title: "TLS 1.2 vs 1.3 — מה השתנה?",
+        content: `<div dir="rtl">
+<h2>למה TLS 1.3 שינה הכל</h2>
+<p>TLS 1.2 יצא ב-2008 — עידן אחר. הוא תמך ב-RC4, MD5, SHA-1, ואלגוריתמים שמאז הוכחו כשבורים. TLS 1.3 (RFC 8446, 2018) ניקה הכל וייעל מהיסוד.</p>
+<table class="content-table">
+  <tr><th>תכונה</th><th>TLS 1.2</th><th>TLS 1.3</th></tr>
+  <tr><td>Handshake RTT</td><td>2-RTT</td><td>1-RTT (0-RTT אפשרי)</td></tr>
+  <tr><td>Cipher suites</td><td>37 אפשרויות</td><td>5 בלבד (כולן חזקות)</td></tr>
+  <tr><td>Forward Secrecy</td><td>אופציונלי</td><td>חובה תמיד</td></tr>
+  <tr><td>RSA key exchange</td><td>נתמך</td><td>הוסר לחלוטין</td></tr>
+  <tr><td>SHA-1 / MD5</td><td>נתמכים</td><td>הוסרו לחלוטין</td></tr>
+  <tr><td>RC4</td><td>נתמך</td><td>הוסר לחלוטין</td></tr>
+</table>
+<p><strong>מדוע RC4/SHA-1/MD5 הוסרו?</strong> RC4: cryptographic biases מ-2013 מאפשרות לפענח 50% מה-traffic אחרי 2^26 connections. MD5 ו-SHA-1: collision attacks הוכחו (SHA-1 נשבר בפועל ב-2017 על ידי Google SHAttered project). TLS 1.3 מאפשר AES-GCM, ChaCha20-Poly1305 בלבד.</p>
+</div>`
+      },
+      {
+        type: "diagram",
+        title: "1-RTT Handshake — TLS 1.3",
+        content: `<div dir="rtl">
+<h2>TLS 1.2 (2-RTT) vs TLS 1.3 (1-RTT)</h2>
+<div class="diagram-container">
+<svg viewBox="0 0 360 130" class="content-diagram">
+  <text x="60" y="14" text-anchor="middle" font-size="10" fill="#93c5fd">TLS 1.2 — 2 RTT</text>
+  <text x="240" y="14" text-anchor="middle" font-size="10" fill="#86efac">TLS 1.3 — 1 RTT</text>
+  <line x1="20" y1="20" x2="20" y2="128" stroke="#475569" stroke-width="1"/>
+  <line x1="100" y1="20" x2="100" y2="128" stroke="#475569" stroke-width="1"/>
+  <text x="20" y="18" text-anchor="middle" font-size="8" fill="#94a3b8">C</text>
+  <text x="100" y="18" text-anchor="middle" font-size="8" fill="#94a3b8">S</text>
+  <line x1="20" y1="35" x2="100" y2="45" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arr-tls)"/>
+  <text x="60" y="34" text-anchor="middle" font-size="8" fill="#93c5fd">ClientHello</text>
+  <line x1="100" y1="55" x2="20" y2="65" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arr-tls)"/>
+  <text x="60" y="54" text-anchor="middle" font-size="8" fill="#86efac">ServerHello+Cert</text>
+  <line x1="20" y1="75" x2="100" y2="85" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arr-tls)"/>
+  <text x="60" y="74" text-anchor="middle" font-size="8" fill="#93c5fd">KeyExchange</text>
+  <line x1="100" y1="95" x2="20" y2="105" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arr-tls)"/>
+  <text x="60" y="94" text-anchor="middle" font-size="8" fill="#86efac">Finished</text>
+  <line x1="200" y1="20" x2="200" y2="128" stroke="#475569" stroke-width="1"/>
+  <line x1="280" y1="20" x2="280" y2="128" stroke="#475569" stroke-width="1"/>
+  <text x="200" y="18" text-anchor="middle" font-size="8" fill="#94a3b8">C</text>
+  <text x="280" y="18" text-anchor="middle" font-size="8" fill="#94a3b8">S</text>
+  <line x1="200" y1="40" x2="280" y2="55" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arr-tls)"/>
+  <text x="240" y="38" text-anchor="middle" font-size="8" fill="#93c5fd">ClientHello+KeyShare</text>
+  <line x1="280" y1="65" x2="200" y2="80" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arr-tls)"/>
+  <text x="240" y="63" text-anchor="middle" font-size="8" fill="#86efac">ServerHello+Finished</text>
+  <line x1="200" y1="90" x2="280" y2="100" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arr-tls)"/>
+  <text x="240" y="88" text-anchor="middle" font-size="8" fill="#fcd34d">Application Data</text>
+  <defs><marker id="arr-tls" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker></defs>
+</svg>
+</div>
+<p>ב-TLS 1.2, הclient צריך לחכות לServerHello לפני שיכול לשלוח את ה-KeyExchange — זה 2 round trips לפני שdata זורמת. ב-TLS 1.3, הclient שולח את ה-KeyShare כבר ב-ClientHello הראשון — רק RTT אחד!</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Forward Secrecy ו-0-RTT Resumption",
+        content: `<div dir="rtl">
+<h2>ECDHE ו-Perfect Forward Secrecy</h2>
+<p><strong>Forward Secrecy (PFS)</strong> אומר: אפילו אם התוקף מצליח לגנוב את ה-private key של השרת — הוא לא יכול לפענח שיחות עבר שהוקלטו.</p>
+<p>ב-TLS 1.2 עם RSA key exchange: הclient מצפין session key בpublic key של השרת. אם השרת נפרץ — כל השיחות ההיסטוריות ניתנות לפיענוח.</p>
+<p>ב-TLS 1.3, רק ECDHE (Elliptic Curve Diffie-Hellman Ephemeral) מותר. "Ephemeral" = המפתחות נוצרים מחדש לכל session ונמחקים אחרי. אין מפתח ישן שיכול לסייע לפיענוח.</p>
+<pre><code># בדיקת TLS של שרת
+openssl s_client -connect example.com:443 -tls1_3
+
+# מה לחפש בoutput:
+# Protocol  : TLSv1.3
+# Cipher    : TLS_AES_256_GCM_SHA384
+# Server Temp Key: X25519, 253 bits  (ECDHE!)
+
+# בדיקת certificate
+openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -text | grep -E "Subject:|Not After:|TLS"</code></pre>
+<p><strong>0-RTT (Early Data):</strong> ב-TLS 1.3 session resumption, הclient יכול לשלוח application data בround trip הראשון. מהיר מאוד — אבל attention: 0-RTT לא מגן מpreplay attacks. מתאים רק לGET requests, לא לPOST עם side effects.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Cipher Suites ב-TLS 1.3",
+        content: `<div dir="rtl">
+<h2>5 Cipher Suites שנשארו</h2>
+<p>TLS 1.2 תמך ב-37 cipher suites — רבים מהם שבורים או חלשים. TLS 1.3 מאפשר רק 5, כולם עם AEAD (Authenticated Encryption with Associated Data):</p>
+<ul>
+  <li><strong>TLS_AES_128_GCM_SHA256</strong> — הנפוץ ביותר, מהיר בhardware עם AES-NI</li>
+  <li><strong>TLS_AES_256_GCM_SHA384</strong> — אבטחה גבוהה, מומלץ לclassified data</li>
+  <li><strong>TLS_CHACHA20_POLY1305_SHA256</strong> — מהיר במכשירים ללא AES hardware (mobile)</li>
+  <li><strong>TLS_AES_128_CCM_SHA256</strong> — IoT devices</li>
+  <li><strong>TLS_AES_128_CCM_8_SHA256</strong> — IoT עם bandwidth מוגבל</li>
+</ul>
+<p><strong>AEAD</strong> = הצפנה + authentication באופרציה אחת. ב-TLS 1.2 עם CBC+HMAC, authentication היה שלב נפרד — גרם לvulnerabilities כמו BEAST ו-POODLE. עם GCM: אם מישהו שינה את ה-ciphertext, הdecryption נכשל מיידית.</p>
+<p><strong>ההשפעה בפועל:</strong> HTTPS עם TLS 1.3 לוקח 50-100ms פחות ל-first byte על connections חדשים בהשוואה לTLS 1.2. על מובייל, בlatency גבוה, ההבדל מורגש.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 307,
+    title: "Anycast ו-BGP Routing Security",
+    pages: [
+      {
+        type: "explanation",
+        title: "Anycast — כשאותה IP מגיעה ממקומות רבים",
+        content: `<div dir="rtl">
+<h2>Anycast: כיצד Cloudflare מגיש 1.1.1.1 מ-300 מקומות</h2>
+<p>כשאתם שולחים query ל-1.1.1.1 (Cloudflare DNS), הבקשה מגיעה לPOP (Point of Presence) הקרוב אליכם — בתל אביב, לונדון, או ניו יורק — כולם עם אותה כתובת IP. זה <strong>Anycast</strong>.</p>
+<p>כיצד? Cloudflare מפרסמת את הprefix 1.1.1.1/32 ב-BGP מ-300 מיקומים שונים. BGP routers בוחרים תמיד את ה-shortest AS path — כלומר הPOP הקרוב ביותר. Traffic אוטומטית מנותב לשרת הקרוב.</p>
+<table class="content-table">
+  <tr><th>Anycast יתרונות</th><th>פרטים</th></tr>
+  <tr><td>Latency</td><td>תמיד הPOP הקרוב — הפחתת 50-200ms</td></tr>
+  <tr><td>DDoS mitigation</td><td>Attack מחולק בין כל ה-POPs בעולם</td></tr>
+  <tr><td>Failover</td><td>POP שנפל — BGP מסיר את הprefix אוטומטית</td></tr>
+  <tr><td>Scalability</td><td>הוסף POP חדש = הוסף BGP peer</td></tr>
+</table>
+<p><strong>שימושים נפוצים:</strong> DNS (כל root nameservers הם Anycast), CDN, DDoS protection. <strong>לא מתאים ל:</strong> TCP sessions ארוכים (connection עלול לעבור לPOP אחר בין packets).</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "BGP Hijacking ו-RPKI",
+        content: `<div dir="rtl">
+<h2>Pakistan Telecom 2008 — כשהאינטרנט נשבר לשעה</h2>
+<p>פברואר 2008: Pakistan Telecom קיבלה הוראה מממשלה לחסום YouTube. הם הוסיפו route ל-BGP שאמר "אני מגיש את 208.65.153.0/24 (YouTube)". הבעיה: הroute הזה הופץ לכל האינטרנט. במשך שעה, traffic של YouTube מרחבי העולם הגיע ל-Pakistan Telecom — ונעלם.</p>
+<p>הסיבה: BGP מסורתי הוא <strong>trust-based</strong>. כל AS יכול להכריז על כל prefix. אין authentication. מספיק שrenter אחד "טעה" — והEX-PREFIX מגיע לכולם.</p>
+<p><strong>RPKI (Resource Public Key Infrastructure)</strong> היא הפתרון: מאגר cryptographically signed של "מי מורשה להכריז על איזה prefix".</p>
+<pre><code># ROA — Route Origin Authorization
+# "AS 13335 (Cloudflare) מורשה להכריז על 1.1.1.0/24"
+{
+  "asn": "AS13335",
+  "prefix": "1.1.1.0/24",
+  "maxLength": 24,
+  "ta": "RIPE NCC"
+}
+
+# בדיקת ROA
+curl https://stat.ripe.net/data/rpki-validation/data.json?resource=1.1.1.0/24
+
+# bgpq4 — filter routes based on RPKI
+bgpq4 -4 -A -J AS13335</code></pre>
+</div>`
+      },
+      {
+        type: "diagram",
+        title: "BGP Hijack Incidents — טבלה היסטורית",
+        content: `<div dir="rtl">
+<h2>אירועי BGP Hijacking מפורסמים</h2>
+<table class="content-table">
+  <tr><th>שנה</th><th>מי</th><th>מה קרה</th><th>השפעה</th></tr>
+  <tr><td>2008</td><td>Pakistan Telecom</td><td>Hijack YouTube prefix</td><td>YouTube down ~1 שעה עולמית</td></tr>
+  <tr><td>2010</td><td>China Telecom</td><td>18 min hijack של 15% מroutes</td><td>Traffic US gov/mil עבר דרך China</td></tr>
+  <tr><td>2018</td><td>eNet (AS10297)</td><td>Hijack Amazon Route53</td><td>MyEtherWallet phishing — $160K נגנב</td></tr>
+  <tr><td>2019</td><td>Swiss datacenter</td><td>Leak של Google routes</td><td>Gmail/YouTube פגוע בEurope</td></tr>
+  <tr><td>2021</td><td>Vodafone AS55410</td><td>Hijack Facebook prefixes</td><td>תרם לdown של Facebook אוקטובר 2021</td></tr>
+</table>
+<div class="diagram-container">
+<svg viewBox="0 0 360 130" class="content-diagram">
+  <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">RPKI Validation Flow</text>
+  <rect x="10" y="25" width="80" height="35" rx="5" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="50" y="40" text-anchor="middle" font-size="9" fill="#93c5fd">RIR (RIPE/ARIN)</text>
+  <text x="50" y="53" text-anchor="middle" font-size="8" fill="#64748b">signs ROAs</text>
+  <rect x="140" y="25" width="80" height="35" rx="5" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="180" y="40" text-anchor="middle" font-size="9" fill="#fcd34d">Router</text>
+  <text x="180" y="53" text-anchor="middle" font-size="8" fill="#64748b">validates ROA</text>
+  <rect x="270" y="25" width="80" height="35" rx="5" fill="#1e293b" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="310" y="40" text-anchor="middle" font-size="9" fill="#86efac">Valid route</text>
+  <text x="310" y="53" text-anchor="middle" font-size="8" fill="#64748b">accepted</text>
+  <rect x="270" y="80" width="80" height="35" rx="5" fill="#1e293b" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="310" y="95" text-anchor="middle" font-size="9" fill="#fca5a5">Invalid route</text>
+  <text x="310" y="108" text-anchor="middle" font-size="8" fill="#64748b">dropped</text>
+  <line x1="90" y1="42" x2="140" y2="42" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arr-rpki)"/>
+  <line x1="220" y1="36" x2="270" y2="36" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arr-rpki)"/>
+  <line x1="220" y1="52" x2="270" y2="88" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arr-rpki)"/>
+  <defs><marker id="arr-rpki" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker></defs>
+</svg>
+</div>
+<p>RPKI adoption: נכון ל-2024, כ-40% מה-BGP routes העולמיים מוגנים ב-RPKI. Cloudflare, AWS, Google — כולם sign את ה-ROAs שלהם. ISPs גדולים כבר מDropping invalid routes.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 308,
+    title: "Container Networking — כיצד Pods מדברים",
+    pages: [
+      {
+        type: "explanation",
+        title: "Linux Network Namespaces",
+        content: `<div dir="rtl">
+<h2>הבידוד שמאחורי Docker</h2>
+<p>כשמריצים container ב-Docker, הוא מקבל <strong>network namespace</strong> משלו — הפשטה של kernel שמאפשרת לcontainer לחשוב שיש לו network stack נפרד לחלוטין: interfaces משלו, routing table משלו, iptables rules משלו.</p>
+<pre><code># יצירת namespace ידנית (מה שDocker עושה אוטומטית)
+ip netns add container1
+
+# הרצת פקודה בnamespace
+ip netns exec container1 ip addr show
+
+# יצירת veth pair (virtual ethernet cable)
+ip link add veth0 type veth peer name veth1
+
+# העברת קצה אחד לnamespace
+ip link set veth1 netns container1
+
+# הוספה לbridge
+ip link set veth0 master docker0
+
+# הפעלה
+ip netns exec container1 ip link set veth1 up
+ip netns exec container1 ip addr add 172.17.0.2/16 dev veth1</code></pre>
+<p>כל container מקבל <strong>veth pair</strong> — "כבל וירטואלי" שמקשר בין ה-namespace לbrige ה-host. Bridge <code>docker0</code> הוא ה-switch הוירטואלי שמחבר את כל הcontainers.</p>
+</div>`
+      },
+      {
+        type: "diagram",
+        title: "Docker Networking Architecture",
+        content: `<div dir="rtl">
+<h2>veth pairs, Bridge, ו-NAT</h2>
+<div class="diagram-container">
+<svg viewBox="0 0 360 130" class="content-diagram">
+  <rect x="5" y="5" width="350" height="120" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="180" y="18" text-anchor="middle" font-size="9" fill="#64748b">Host Network Namespace</text>
+  <rect x="20" y="25" width="70" height="35" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="55" y="40" text-anchor="middle" font-size="8" fill="#93c5fd">Container 1</text>
+  <text x="55" y="52" text-anchor="middle" font-size="8" fill="#64748b">eth0: 172.17.0.2</text>
+  <rect x="140" y="25" width="70" height="35" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="175" y="40" text-anchor="middle" font-size="8" fill="#93c5fd">Container 2</text>
+  <text x="175" y="52" text-anchor="middle" font-size="8" fill="#64748b">eth0: 172.17.0.3</text>
+  <rect x="260" y="25" width="70" height="35" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="295" y="40" text-anchor="middle" font-size="8" fill="#93c5fd">Container 3</text>
+  <text x="295" y="52" text-anchor="middle" font-size="8" fill="#64748b">eth0: 172.17.0.4</text>
+  <rect x="80" y="80" width="200" height="28" rx="4" fill="#1e293b" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="180" y="92" text-anchor="middle" font-size="9" fill="#86efac">docker0 bridge (172.17.0.1)</text>
+  <text x="180" y="104" text-anchor="middle" font-size="8" fill="#64748b">virtual switch</text>
+  <line x1="55" y1="60" x2="100" y2="80" stroke="#475569" stroke-width="1.5"/>
+  <line x1="175" y1="60" x2="175" y2="80" stroke="#475569" stroke-width="1.5"/>
+  <line x1="295" y1="60" x2="260" y2="80" stroke="#475569" stroke-width="1.5"/>
+  <text x="55" y="73" text-anchor="middle" font-size="7" fill="#94a3b8">veth</text>
+  <text x="175" y="73" text-anchor="middle" font-size="7" fill="#94a3b8">veth</text>
+  <text x="295" y="73" text-anchor="middle" font-size="7" fill="#94a3b8">veth</text>
+</svg>
+</div>
+<p>כשContainer 1 שולח packet לContainer 2: <code>veth pair</code> מוציא את ה-packet לbridge <code>docker0</code>, הbridge מחפש את ה-MAC של היעד ב-forwarding table, ושולח לveth של Container 2. ל-external traffic: iptables MASQUERADE (NAT) מחליף את ה-source IP ב-IP של ה-host.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Kubernetes Pod Networking",
+        content: `<div dir="rtl">
+<h2>Pod-to-Pod: אותו Node vs Cross-Node</h2>
+<p>Kubernetes דורש שכל Pod יוכל לדבר עם כל Pod אחר — ללא NAT. זו ה-<strong>CNI contract</strong> (Container Network Interface).</p>
+<p><strong>אותו node:</strong> persis כמו Docker — veth pairs לbrige. Packets עוברים דרך bridge בL2.</p>
+<p><strong>Cross-node:</strong> כאן נכנסים CNI plugins:</p>
+<table class="content-table">
+  <tr><th>CNI Plugin</th><th>טכנולוגיה</th><th>יתרון</th><th>חיסרון</th></tr>
+  <tr><td><strong>Flannel</strong></td><td>VXLAN overlay</td><td>פשוט, עובד בכל מקום</td><td>overhead של encapsulation</td></tr>
+  <tr><td><strong>Calico</strong></td><td>BGP routing</td><td>ביצועים גבוהים, Network Policy</td><td>מורכב יותר להגדרה</td></tr>
+  <tr><td><strong>Cilium</strong></td><td>eBPF</td><td>L7 visibility, O(1) lookup</td><td>דורש kernel חדש</td></tr>
+</table>
+<pre><code># בדיקת interfaces ב-node
+ip link show type veth
+
+# Pod CIDR בkubernetes
+kubectl get nodes -o jsonpath='{.items[*].spec.podCIDR}'
+
+# Cilium connectivity check
+cilium connectivity test
+
+# tcpdump על veth של pod
+VETH=$(ip link | grep -o "vethABCDEF")
+tcpdump -i $VETH -n</code></pre>
+<p><strong>Flannel VXLAN:</strong> packets בין nodes מוצפנים ב-UDP port 8472. הCNI יוצר tunnel. <strong>Calico BGP:</strong> כל node הוא BGP router, מפרסם את ה-pod CIDR שלו. Packets עוברים ב-L3 ישירות, ללא encapsulation — מהיר יותר.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Cilium ו-eBPF Networking",
+        content: `<div dir="rtl">
+<h2>הדור הבא — eBPF מחליף iptables</h2>
+<p>iptables בKubernetes עם 1000 services = 50,000+ rules. כל packet עובר linear scan. זה O(n) — כל service חדש מאט את הnetworking.</p>
+<p>Cilium מחליף iptables ב-eBPF hash maps: כל lookup הוא O(1), ללא תלות בכמות הservices.</p>
+<pre><code># Hubble — observability layer של Cilium
+hubble observe --namespace production
+
+# ראיית כל TCP flows
+hubble observe --protocol TCP --verdict DROPPED
+
+# Layer 7 visibility (HTTP)
+hubble observe --http-status-code 500
+
+# Cilium Network Policy — L7 HTTP
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: allow-api
+spec:
+  endpointSelector:
+    matchLabels:
+      app: backend
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        app: frontend
+    toPorts:
+    - ports:
+      - port: "8080"
+        protocol: TCP
+      rules:
+        http:
+        - method: GET
+          path: "/api/.*"</code></pre>
+<p>Hubble מספקת real-time visibility: איזה pod מדבר עם איזה, HTTP status codes, latency — הכל בלי instrumentation של האפליקציה. זה <strong>service mesh ללא sidecar</strong>.</p>
 </div>`
       }
     ]
