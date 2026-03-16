@@ -386,13 +386,19 @@
 /* ===== EXPLANATION ===== */
 .quiz-explanation {
   display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
+  flex-direction: column;
+  gap: 0.65rem;
   padding: 1rem 1.25rem;
   border-radius: 14px;
   animation: slide-in 0.25s ease;
   font-size: 0.93rem;
   line-height: 1.6;
+}
+
+.quiz-explanation .exp-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
 }
 
 @keyframes slide-in {
@@ -422,6 +428,22 @@
   margin: 0;
   color: rgba(15,23,42,0.88);
 }
+
+.quiz-continue-btn {
+  align-self: flex-end;
+  margin-top: 0.25rem;
+  padding: 0.55rem 1.4rem;
+  background: linear-gradient(135deg, #0891b2, #0e7490);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  animation: slide-in 0.2s ease;
+  transition: opacity 0.15s;
+}
+.quiz-continue-btn:hover { opacity: 0.88; }
 
 /* ===== DONE SCREEN ===== */
 .quiz-done {

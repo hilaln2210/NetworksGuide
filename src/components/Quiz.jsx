@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { getQuizForChapter, getAllQuizQuestions } from '../data/quizBank'
 import { addXP, XP_QUIZ_CORRECT, XP_QUIZ_BONUS, getLevel } from '../utils/xp'
 import { saveQuizScore, getQuizScore } from '../utils/progress'
@@ -20,6 +20,8 @@ export function Quiz({ chapters, onXPGain, gender }) {
   const [current, setCurrent] = useState(0)
   const [picked, setPicked] = useState(null)
   const [showResult, setShowResult] = useState(false)
+  const [canContinue, setCanContinue] = useState(false)
+  const pendingAdvance = useRef(null) // stores { isCorrect, finalScore } for handleContinue
   const [hearts, setHearts] = useState(3)
   const [score, setScore] = useState(0)
   const [done, setDone] = useState(false)
@@ -41,19 +43,43 @@ export function Quiz({ chapters, onXPGain, gender }) {
     setGameOver(false)
     setStreak(0)
     setXpFloat(null)
+    setCanContinue(false)
+    pendingAdvance.current = null
   }, [])
+
+  const advanceQuiz = useCallback((isCorrect, finalScore) => {
+    const isLast = current + 1 >= questions.length
+    if (isLast) {
+      const isPerfect = finalScore === questions.length
+      if (isPerfect) {
+        const result = addXP(XP_QUIZ_BONUS)
+        if (onXPGain) onXPGain(result)
+      }
+      if (selectedChapter) {
+        saveQuizScore(selectedChapter, finalScore, questions.length)
+      }
+      setDone(true)
+    } else {
+      setCurrent(c => c + 1)
+      setPicked(null)
+      setShowResult(false)
+      setCanContinue(false)
+    }
+  }, [current, questions.length, selectedChapter, onXPGain])
 
   const handlePick = (choice) => {
     if (picked !== null) return
     setPicked(choice)
     setShowResult(true)
+    setCanContinue(false)
     const q = questions[current]
     const isCorrect = choice === q.correct
 
+    let finalScore = score
     if (isCorrect) {
-      const newScore = score + 1
+      finalScore = score + 1
       const newStreak = streak + 1
-      setScore(newScore)
+      setScore(finalScore)
       setStreak(newStreak)
       const xp = XP_QUIZ_CORRECT + (newStreak >= 3 ? 5 : 0)
       const result = addXP(xp)
@@ -65,29 +91,20 @@ export function Quiz({ chapters, onXPGain, gender }) {
       const newHearts = hearts - 1
       setHearts(newHearts)
       if (newHearts <= 0) {
-        setTimeout(() => setGameOver(true), 1200)
+        setTimeout(() => setGameOver(true), 2000)
         return
       }
     }
 
-    const isLast = current + 1 >= questions.length
-    setTimeout(() => {
-      if (isLast) {
-        const isPerfect = score + (isCorrect ? 1 : 0) === questions.length
-        if (isPerfect) {
-          const result = addXP(XP_QUIZ_BONUS)
-          if (onXPGain) onXPGain(result)
-        }
-        if (selectedChapter) {
-          saveQuizScore(selectedChapter, score + (isCorrect ? 1 : 0), questions.length)
-        }
-        setDone(true)
-      } else {
-        setCurrent(c => c + 1)
-        setPicked(null)
-        setShowResult(false)
-      }
-    }, isLast ? 2200 : (isCorrect ? 900 : 1400))
+    // Store advance params and show continue button after min reading time
+    pendingAdvance.current = { isCorrect, finalScore }
+    const minReadTime = isCorrect ? 1800 : 2500
+    setTimeout(() => setCanContinue(true), minReadTime)
+  }
+
+  const handleContinue = () => {
+    const { isCorrect, finalScore } = pendingAdvance.current || {}
+    advanceQuiz(isCorrect, finalScore ?? score)
   }
 
   // ===== SCREEN: SELECT MODE =====
@@ -284,11 +301,18 @@ export function Quiz({ chapters, onXPGain, gender }) {
         })}
       </div>
 
-      {/* Explanation */}
+      {/* Explanation + continue */}
       {showResult && picked && (
         <div className={`quiz-explanation ${picked === q.correct ? 'exp-correct' : 'exp-wrong'}`}>
-          <span className="exp-icon">{picked === q.correct ? '✅' : '❌'}</span>
-          <p>{q.explanation}</p>
+          <div className="exp-top">
+            <span className="exp-icon">{picked === q.correct ? '✅' : '❌'}</span>
+            <p>{q.explanation}</p>
+          </div>
+          {canContinue && (
+            <button className="quiz-continue-btn" onClick={handleContinue}>
+              {current + 1 >= questions.length ? 'סיום ←' : 'הבא ←'}
+            </button>
+          )}
         </div>
       )}
     </div>

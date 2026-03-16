@@ -146,7 +146,6 @@ function App() {
   }
 
   const goToChapter = (chIndex) => {
-    tryMarkRead()
     saveLastPosition(chIndex, 0)
     setCurrentChapter(chIndex)
     setCurrentPage(0)
