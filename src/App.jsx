@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { chapters } from './data/content'
 import { TCPHandshakeSim } from './components/TCPHandshakeSim'
 import { EncapsulationSim } from './components/EncapsulationSim'
@@ -156,12 +156,17 @@ function App() {
   const canGoPrev = currentPage > 0 || currentChapter > 0
   const pageRead = chapter ? isPageRead(chapter.id, currentPage) : false
 
+  const goNextRef = useRef(goNext)
+  const goPrevRef = useRef(goPrev)
+  useEffect(() => { goNextRef.current = goNext })
+  useEffect(() => { goPrevRef.current = goPrev })
+
   useEffect(() => {
     const onKey = (e) => {
       if (e.target.closest('input, textarea')) return
       if (activeTab !== 'learn') return
-      if (e.key === 'ArrowLeft' && canGoNext) goNext()
-      if (e.key === 'ArrowRight' && canGoPrev) goPrev()
+      if (e.key === 'ArrowLeft' && canGoNext) goNextRef.current()
+      if (e.key === 'ArrowRight' && canGoPrev) goPrevRef.current()
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -353,14 +358,14 @@ function App() {
 
 function getBadgeStyle(type) {
   const styles = {
-    explanation: { background: 'rgba(99,102,241,0.1)', borderColor: 'rgba(99,102,241,0.35)', color: '#4f46e5' },
-    demo: { background: 'rgba(5,150,105,0.1)', borderColor: 'rgba(5,150,105,0.35)', color: '#047857' },
-    summary: { background: 'rgba(217,119,6,0.1)', borderColor: 'rgba(217,119,6,0.35)', color: '#b45309' },
-    questions: { background: 'rgba(220,38,38,0.08)', borderColor: 'rgba(220,38,38,0.3)', color: '#dc2626' },
-    simulation: { background: 'rgba(124,58,237,0.1)', borderColor: 'rgba(124,58,237,0.35)', color: '#7c3aed' },
-    thinkOutside: { background: 'rgba(217,119,6,0.1)', borderColor: 'rgba(217,119,6,0.35)', color: '#b45309' },
+    explanation: { background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.35)', color: '#4f46e5' },
+    demo: { background: 'rgba(5,150,105,0.1)', border: '1px solid rgba(5,150,105,0.35)', color: '#047857' },
+    summary: { background: 'rgba(217,119,6,0.1)', border: '1px solid rgba(217,119,6,0.35)', color: '#b45309' },
+    questions: { background: 'rgba(220,38,38,0.08)', border: '1px solid rgba(220,38,38,0.3)', color: '#dc2626' },
+    simulation: { background: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.35)', color: '#7c3aed' },
+    thinkOutside: { background: 'rgba(217,119,6,0.1)', border: '1px solid rgba(217,119,6,0.35)', color: '#b45309' },
   }
-  return { ...(styles[type] || styles.explanation), border: '1px solid' }
+  return styles[type] || styles.explanation
 }
 
 function getPageTypeLabel(type) {

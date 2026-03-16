@@ -1134,8 +1134,17 @@ body {
 
   .chapter-btn {
     flex: 1;
-    min-width: 110px;
-    padding: 0.5rem 0.65rem;
+    min-width: 90px;
+    max-width: 140px;
+    padding: 0.4rem 0.5rem;
+  }
+
+  .chapter-title {
+    font-size: 0.72rem;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
 
   .content-area {
@@ -1150,5 +1159,58 @@ body {
 
   body {
     overflow-y: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0.65rem 1rem 0;
+  }
+
+  .header-title-wrap h1 {
+    font-size: 1.05rem;
+  }
+
+  .subtitle {
+    display: none;
+  }
+
+  .header-stats {
+    gap: 0.35rem;
+  }
+
+  .stat-chip {
+    padding: 0.3rem 0.5rem;
+  }
+
+  .stat-num {
+    font-size: 0.85rem;
+  }
+
+  .stat-label {
+    font-size: 0.6rem;
+  }
+
+  .app-tabs {
+    gap: 0.25rem;
+  }
+
+  .app-tab {
+    padding: 0.45rem 0.6rem;
+    font-size: 0.79rem;
+  }
+
+  .chapter-btn {
+    min-width: 75px;
+    max-width: 120px;
+    padding: 0.35rem 0.4rem;
+  }
+
+  .chapter-num {
+    font-size: 0.63rem;
+  }
+
+  .chapter-title {
+    font-size: 0.68rem;
   }
 }
