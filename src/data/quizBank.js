@@ -1061,6 +1061,115 @@ export const quizBank = {
     }
   ],
 
+  // ===== Cyber Track continued (107-109) =====
+  107: [
+    {
+      q: "מה ההבדל העיקרי בין הצפנה סימטרית לאסימטרית?",
+      correct: "סימטרית: אותו מפתח להצפנה ופענוח — מהירה. אסימטרית: זוג מפתחות (public/private) — מאובטח יותר לחילופי מפתחות",
+      choices: [
+        "סימטרית: אותו מפתח להצפנה ופענוח — מהירה. אסימטרית: זוג מפתחות (public/private) — מאובטח יותר לחילופי מפתחות",
+        "סימטרית לקבצים; אסימטרית לרשת בלבד",
+        "אסימטרית מהירה יותר, סימטרית מאובטחת יותר",
+        "שניהם זהים — ההבדל רק בשם"
+      ],
+      explanation: "AES = סימטרי, מהיר מאוד, משמש להצפנת payload. RSA = אסימטרי, איטי, משמש לחילופי מפתחות. TLS משלב: RSA להסכמה על מפתח AES, ואז AES להצפנת כל התקשורת. הטוב מכל העולמות!"
+    },
+    {
+      q: "מה קורה ב-TLS Handshake?",
+      correct: "הדפדפן ו-server מסכימים על cipher suite, מחליפים מפתחות (RSA/ECDH), ויוצרים session key סימטרי לתקשורת המשך",
+      choices: [
+        "הדפדפן ו-server מסכימים על cipher suite, מחליפים מפתחות (RSA/ECDH), ויוצרים session key סימטרי לתקשורת המשך",
+        "הדפדפן מצפין את כל הנתונים ב-RSA לכל אורך החיבור",
+        "ה-server שולח סיסמה מוצפנת שהדפדפן פותח",
+        "DNS מוודא שהcertificate תקף"
+      ],
+      explanation: "TLS Handshake: ClientHello → ServerHello+Certificate → Pre-Master Secret (encrypted RSA) → שני הצדדים גוזרים Session Key → Finished. מכאן: AES-256-GCM. RSA רק בhandshake, AES לכל השאר — מהיר ומאובטח."
+    },
+    {
+      q: "מה ה-Heartbleed bug (CVE-2014-0160)?",
+      correct: "Bug ב-OpenSSL שאיפשר לקרוא 64KB מה-memory של השרת כולל private keys וpasswords, דרך Heartbeat extension לא מאומת",
+      choices: [
+        "Bug ב-OpenSSL שאיפשר לקרוא 64KB מה-memory של השרת כולל private keys וpasswords, דרך Heartbeat extension לא מאומת",
+        "DDoS attack על שרתי TLS",
+        "SQL injection בcertificate validation",
+        "Buffer overflow ב-Apache HTTP server"
+      ],
+      explanation: "Heartbleed: הלקוח שולח heartbeat עם length שגוי. server מחזיר length שביקשת (עד 64KB) מה-memory — תוכן אקראי שיכול לכלול private keys, passwords, session tokens. 17% מהאינטרנט היה פגיע. Fix: upgrade OpenSSL + החלפת כל certificates."
+    }
+  ],
+
+  108: [
+    {
+      q: "מה ההבדל בין Phishing לSpear Phishing?",
+      correct: "Phishing = מיילים זהים למיליונים; Spear Phishing = מותאם אישית לאדם/ארגון ספציפי עם מידע אמיתי עליו",
+      choices: [
+        "Phishing = מיילים זהים למיליונים; Spear Phishing = מותאם אישית לאדם/ארגון ספציפי עם מידע אמיתי עליו",
+        "Spear Phishing = SMS; Phishing = מייל",
+        "Spear Phishing חוקי; Phishing לא",
+        "אותו דבר — שמות שונים"
+      ],
+      explanation: "Mass Phishing: 'Dear Customer' + generic. נשלח ל-10M, 0.1% לוחץ = 10,000 קורבנות. Spear Phishing: 'שלום דוד, ראיתי שהיית בכנס X ביום ג'. מחקר מLinkedIn, success rate גבוה בהרבה. Whaling = Spear Phishing נגד C-suite. Twitter 2020 hack = Vishing (לא Phishing כתוב)."
+    },
+    {
+      q: "בפרשת Twitter 2020, איך התוקפים השיגו גישה לAdmin Panel?",
+      correct: "Vishing — התקשרו לעובדי Twitter, התחזו לIT, ביקשו credentials לתיקון בעיה טכנית מדומה",
+      choices: [
+        "Vishing — התקשרו לעובדי Twitter, התחזו לIT, ביקשו credentials לתיקון בעיה טכנית מדומה",
+        "SQL injection ישיר על מסד הנתונים",
+        "Brute force על חשבונות admin",
+        "Zero-day ב-Twitter API"
+      ],
+      explanation: "Twitter 2020: Graham Clark בן 17 + שותפים. לא פרצו טכנולוגיה — פשוט התקשרו לעובדים, התחזו לIT support, וביקשו credentials. עובד אחד שיתף פעולה. Admin Panel = גישה לכל 330M חשבונות. $120K Bitcoin. לקח: MFA חזק + אימות זהות בצינור נפרד = קריטי."
+    },
+    {
+      q: "מה עיקרון Urgency בSocial Engineering?",
+      correct: "יצירת לחץ זמן מלאכותי שגורם לקורבן לפעול מהר ללא חשיבה ביקורתית — 'לחץ תוך 24 שעות או חשבונך יימחק'",
+      choices: [
+        "יצירת לחץ זמן מלאכותי שגורם לקורבן לפעול מהר ללא חשיבה ביקורתית — 'לחץ תוך 24 שעות או חשבונך יימחק'",
+        "שימוש בשפה דחופה ביותר בכותרת המייל",
+        "שליחת אותו מייל מספר פעמים",
+        "הגדרת read receipt על המייל"
+      ],
+      explanation: "Cialdini's 6 principles: Authority, Urgency, Social Proof, Liking, Reciprocity, Scarcity. Urgency מנטרל חשיבה ביקורתית — כשאנו בלחץ, לא מוודאים פרטים. Red flag: כל הודעה שמכריחה פעולה מיידית ללא זמן לאימות היא חשודה. ארגון לגיטימי יאפשר לך לוודא."
+    }
+  ],
+
+  109: [
+    {
+      q: "מה ההבדל בין Stateless לStateful Firewall?",
+      correct: "Stateless בודק כל packet בנפרד (IP/port); Stateful עוקב אחרי connection state ויודע אם packet שייך לsession קיים",
+      choices: [
+        "Stateless בודק כל packet בנפרד (IP/port); Stateful עוקב אחרי connection state ויודע אם packet שייך לsession קיים",
+        "Stateful מהיר יותר; Stateless מאובטח יותר",
+        "Stateless לUDP; Stateful לTCP",
+        "Stateful = software; Stateless = hardware"
+      ],
+      explanation: "Stateless (iptables -P): בודק src/dst IP + port + protocol. קל לעקוף עם spoofed packets. Stateful (conntrack): מבין SYN/ESTABLISHED/FIN — חבילות return traffic עוברות אוטומטית. NGFW (L7): מבין HTTP/DNS/TLS — יכול לחסום לפי content. iptables ברוב Linux distributions = stateful ב-default."
+    },
+    {
+      q: "מה מטרת ה-DMZ (Demilitarized Zone)?",
+      correct: "אזור ביניים שמכיל שרתים נגישים מהאינטרנט (Web/Mail/DNS) ומבודד אותם מהרשת הפנימית — פריצה לDMZ לא מעניקה גישה לDB הפנימי",
+      choices: [
+        "אזור ביניים שמכיל שרתים נגישים מהאינטרנט (Web/Mail/DNS) ומבודד אותם מהרשת הפנימית — פריצה לDMZ לא מעניקה גישה לDB הפנימי",
+        "Zone שבה כל התעבורה מוצפנת",
+        "אזור ללא הצפנה לביצועים מהירים",
+        "Subnet מיוחד לVPN connections"
+      ],
+      explanation: "DMZ = שכבת הגנה נוספת. Architecture: Internet → External FW → DMZ (Web/Mail/DNS) → Internal FW → Internal (DB/AD). גם אם תוקף פורץ לWeb Server ב-DMZ, Internal FW חוסם גישה ל-DB. Principle: Defense in Depth — כל שכבה מגינה על הבאה."
+    },
+    {
+      q: "כיצד Stuxnet הצליח לפגוע ברשת air-gapped?",
+      correct: "הופץ דרך USB drives — עובדים חיברו USB למחשבים air-gapped, התולעת עברה ממחשב למחשב עד שהגיעה לPLCs של Siemens",
+      choices: [
+        "הופץ דרך USB drives — עובדים חיברו USB למחשבים air-gapped, התולעת עברה ממחשב למחשב עד שהגיעה לPLCs של Siemens",
+        "פרץ דרך WiFi של המתקן",
+        "הוכנס ישירות על ידי mole בתוך המתקן",
+        "השתמש ב-zero-day ב-PLC firmware שנשלח over-the-air"
+      ],
+      explanation: "Stuxnet (2010, attributed to US+Israel): 4 zero-days. Air gap = ללא חיבור אינטרנט. הפתרון: USB infection chain. אחד מהמהנדסים חיבר USB נגוע — Stuxnet התפשט, חיכה לSiemens Step7 software, שינה תדרי צנטריפוגות תוך הסתרת הנתונים האמיתיים מהMonitoring. 1,000 צנטריפוגות הושמדו. לקח: אסור USB לא מבוקר ב-ICS environments."
+    }
+  ],
+
   // ===== DevOps & Cloud Track (201-206) =====
   201: [
     {

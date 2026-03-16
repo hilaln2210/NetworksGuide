@@ -4820,6 +4820,401 @@ index=windows EventCode=4624
 </div>`
       }
     ]
+  },
+  {
+    id: 107,
+    title: "קריפטוגרפיה — המדע שמגן על המידע",
+    pages: [
+      {
+        type: "explanation",
+        title: "הצפנה סימטרית ואסימטרית",
+        content: `<div dir="rtl">
+<h2>קריפטוגרפיה — הלב של אבטחת מידע מודרנית</h2>
+<p>קריפטוגרפיה היא המדע שמאפשר לשלוח מידע בצורה שרק הנמען יכול לקרוא. ישנן שתי גישות עיקריות:</p>
+<table class="content-table">
+  <tr><th>סוג</th><th>עיקרון</th><th>מפתחות</th><th>מהירות</th><th>שימוש</th></tr>
+  <tr><td><strong>סימטרי</strong></td><td>אותו מפתח להצפנה ופענוח</td><td>מפתח סודי אחד משותף</td><td>מהיר מאוד</td><td>הצפנת קבצים, HTTPS payload</td></tr>
+  <tr><td><strong>אסימטרי</strong></td><td>זוג מפתחות: ציבורי + פרטי</td><td>Public Key / Private Key</td><td>איטי יותר</td><td>חתימות, TLS handshake, SSH</td></tr>
+</table>
+<h3>AES — Advanced Encryption Standard</h3>
+<p>AES הוא תקן ההצפנה הסימטרית הנפוץ ביותר בעולם. אומץ ב-2001 על ידי NIST לאחר תחרות של 5 שנים. משמש: WhatsApp, Signal, BitLocker, WPA2, HTTPS.</p>
+<ul>
+<li><strong>AES-128</strong> — 128-bit key, 10 rounds. מהיר ומספיק לרוב השימושים</li>
+<li><strong>AES-256</strong> — 256-bit key, 14 rounds. משמש סיווג Top Secret בממשל האמריקאי</li>
+<li><strong>Modes:</strong> CBC (Cipher Block Chaining), GCM (Galois/Counter Mode — מומלץ כיום)</li>
+</ul>
+<h3>RSA — Rivest–Shamir–Adleman</h3>
+<p>RSA הוא אלגוריתם ההצפנה האסימטרית הנפוץ ביותר. בסיסו: קשה מאוד לפרק מספר גדול לגורמים ראשוניים. מפתח ציבורי מוצפן — רק המפתח הפרטי יכול לפענח.</p>
+<pre><code># הצפנה סימטרית ב-Python — AES-GCM
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+import os
+
+key = AESGCM.generate_key(bit_length=256)
+aesgcm = AESGCM(key)
+nonce = os.urandom(12)
+plaintext = b'secret data'
+ciphertext = aesgcm.encrypt(nonce, plaintext, None)
+recovered = aesgcm.decrypt(nonce, ciphertext, None)
+print(recovered)  # b'secret data'</code></pre>
+<p><strong>חשוב:</strong> לעולם לא להשתמש ב-ECB mode — הוא חושף patterns בנתונים! GCM מעניק גם הצפנה וגם אימות (authenticated encryption).</p>
+</div>`
+      },
+      {
+        type: "diagram",
+        title: "TLS Handshake — איך HTTPS עובד",
+        content: `<div dir="rtl">
+<h2>TLS Handshake — תהליך בניית ערוץ מאובטח</h2>
+<p>כשאתה פותח אתר עם HTTPS, דפדפן ושרת מבצעים "לחיצת יד" שמשלבת הצפנה אסימטרית לסיכום מפתחות, ואז סימטרית לתקשורת מהירה.</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 130" class="content-diagram">
+  <rect x="0" y="0" width="360" height="130" fill="#1e293b"/>
+  <rect x="10" y="10" width="70" height="25" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="45" y="27" text-anchor="middle" font-size="10" fill="#93c5fd" font-weight="bold">Browser</text>
+  <rect x="280" y="10" width="70" height="25" rx="4" fill="#14532d" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="315" y="27" text-anchor="middle" font-size="10" fill="#86efac" font-weight="bold">Server</text>
+  <line x1="45" y1="35" x2="45" y2="125" stroke="#3b82f6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="315" y1="35" x2="315" y2="125" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="45" y1="48" x2="315" y2="48" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrowTLS)"/>
+  <text x="180" y="44" text-anchor="middle" font-size="8" fill="#fcd34d">ClientHello (TLS version, cipher suites)</text>
+  <line x1="315" y1="62" x2="45" y2="62" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arrowTLS2)"/>
+  <text x="180" y="58" text-anchor="middle" font-size="8" fill="#86efac">ServerHello + Certificate (Public Key)</text>
+  <line x1="45" y1="78" x2="315" y2="78" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrowTLS)"/>
+  <text x="180" y="74" text-anchor="middle" font-size="8" fill="#93c5fd">Pre-Master Secret (encrypted RSA)</text>
+  <line x1="315" y1="94" x2="45" y2="94" stroke="#22c55e" stroke-width="1.5" marker-end="url(#arrowTLS2)"/>
+  <text x="180" y="90" text-anchor="middle" font-size="8" fill="#86efac">Finished (AES Session Key)</text>
+  <rect x="50" y="100" width="260" height="16" rx="3" fill="#14532d" stroke="#22c55e" stroke-width="1"/>
+  <text x="180" y="112" text-anchor="middle" font-size="8" fill="#86efac" font-weight="bold">Encrypted AES-256-GCM communication</text>
+  <defs>
+    <marker id="arrowTLS" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><polygon points="0 0, 5 3, 0 6" fill="#f59e0b"/></marker>
+    <marker id="arrowTLS2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><polygon points="0 0, 5 3, 0 6" fill="#22c55e"/></marker>
+  </defs>
+</svg>
+<p class="diagram-caption">TLS 1.2 Handshake — RSA Key Exchange ל-AES Session</p>
+</div>
+<h3>Certificate ו-CA — מי מאמת את הזהות?</h3>
+<p>הדפדפן מקבל certificate מהשרת שמכיל את ה-Public Key. <strong>Certificate Authority (CA)</strong> הוא גוף מהימן שחתם על הcertificate.</p>
+<ul>
+<li>Let's Encrypt — CA חינמי ואוטומטי, 300M+ certificates</li>
+<li>DigiCert, Sectigo — commercial CAs</li>
+<li>TLS 1.3 (2018) — מהיר יותר, מחייב Perfect Forward Secrecy</li>
+</ul>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "הצפנה בפועל — WhatsApp ו-HTTPS",
+        content: `<div dir="rtl">
+<h2>End-to-End Encryption — WhatsApp Signal Protocol</h2>
+<p>WhatsApp משתמשת ב-Signal Protocol — אחד הפרוטוקולים המאובטחים ביותר. כשאתה שולח הודעה:</p>
+<ol>
+<li>המכשיר מייצר זוג מפתחות ייחודי לכל שיחה (Double Ratchet Algorithm)</li>
+<li>ההודעה מוצפנת ב-AES-256 עם מפתח שרק הנמען יכול לפענח</li>
+<li>WhatsApp עצמה לא יכולה לקרוא את ההודעות</li>
+<li>המפתחות משתנים כל הודעה — Perfect Forward Secrecy</li>
+</ol>
+<h3>HTTPS בפועל — מה המנעול בדפדפן אומר</h3>
+<table class="content-table">
+  <tr><th>מה רואים</th><th>מה זה אומר</th></tr>
+  <tr><td>מנעול / HTTPS</td><td>התקשורת מוצפנת, Certificate תקף</td></tr>
+  <tr><td>Certificate Error</td><td>Certificate פג תוקף / שם דומיין שגוי / לא חתום ע"י CA מוכר</td></tr>
+  <tr><td>Mixed Content</td><td>דף HTTPS שטוען משאבים ב-HTTP</td></tr>
+  <tr><td>HSTS Header</td><td>הדפדפן מאלץ HTTPS לכל הבקשות לדומיין</td></tr>
+</table>
+<h3>RSA בPython (simplified)</h3>
+<pre><code>from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from cryptography.hazmat.primitives import hashes
+
+private_key = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+public_key = private_key.public_key()
+
+message = b'secret message'
+ciphertext = public_key.encrypt(message, padding.OAEP(
+    mgf=padding.MGF1(algorithm=hashes.SHA256()),
+    algorithm=hashes.SHA256(), label=None))
+
+plaintext = private_key.decrypt(ciphertext, padding.OAEP(
+    mgf=padding.MGF1(algorithm=hashes.SHA256()),
+    algorithm=hashes.SHA256(), label=None))
+print(plaintext)  # b'secret message'</code></pre>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: Heartbleed — הבאג שפגע בחצי האינטרנט",
+        content: `<div dir="rtl">
+<h2>Heartbleed 2014 — CVE-2014-0160</h2>
+<p>אפריל 2014: חוקרים מ-Google ו-Codenomicon מגלים בו-זמנית אחד מהבאגים הקריטיים ביותר — bug בOpenSSL, הספרייה שמפעילה TLS על 66% מהאינטרנט.</p>
+<p><strong>מה הבאג עשה:</strong> OpenSSL הכיל feature שנקרא "Heartbeat" — הלקוח שולח לשרת הודעה קטנה והשרת מחזיר אותה. לא בדקו שהגודל שהלקוח ביקש תואם לגודל האמיתי. תוקף יכול לשלוח heartbeat קטנה ולבקש תגובה של 64KB — השרת מחזיר 64KB מה-memory, כולל SSL keys ו-passwords.</p>
+<p><strong>ההשפעה:</strong> Yahoo, AWS, Cisco, Android 4.1 — כולם פגיעים. תוקף יכול לחלץ את ה-Private Key — כל ה-HTTPS כבר לא מאובטח. 500,000 servers ו-17% מהאינטרנט נפגעו.</p>
+<p><strong>הלקחים:</strong></p>
+<ul>
+<li>קוד קריטי לאבטחה חייב code review קפדני, fuzzing ו-formal verification</li>
+<li>Memory safety חשובה — Rust נכתב כדי למנוע בעיות כאלה</li>
+<li>גם אחרי patch, כל שרת היה חייב להחליף certificates</li>
+<li>FOSS קריטי צריך מימון מקצועי — OpenSSL Core Infrastructure Initiative</li>
+</ul>
+<p>Heartbleed שינה תפיסה: האינטרנט בנוי על open-source שנכתב על ידי volunteers. יש צורך בהשקעה מוסדית בבדיקות אבטחה.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 108,
+    title: "Social Engineering — האיום האנושי",
+    pages: [
+      {
+        type: "explanation",
+        title: "אנטומיה של מתקפת Phishing",
+        content: `<div dir="rtl">
+<h2>Social Engineering — לתקוף אנשים, לא מערכות</h2>
+<p>Kevin Mitnick, האקר המפורסם שנעצר ב-1995, אמר: "הדרך הכי קלה לפרוץ למערכת היא לבקש ממישהו את הסיסמה." Social Engineering מנצל את הנטיה האנושית לבטוח, לעזור, ולציית לסמכות.</p>
+<h3>Phishing — מניפולציה בהיקף</h3>
+<p>Phishing הוא שליחת הודעות מזויפות שנראות לגיטימיות כדי לגנוב credentials. אנטומיה של מייל phishing טיפוסי:</p>
+<table class="content-table">
+  <tr><th>אלמנט</th><th>הטכניקה</th><th>דגל אדום</th></tr>
+  <tr><td>שולח</td><td>support@paypa1.com (ספרה במקום l)</td><td>בדוק domain בדיוק</td></tr>
+  <tr><td>כותרת</td><td>"דחוף: חשבונך הוגבל"</td><td>יצירת בהילות מלאכותית</td></tr>
+  <tr><td>גוף</td><td>לוגו מקצועי, שפה רשמית</td><td>שגיאות כתיב, עברית מבושלת</td></tr>
+  <tr><td>קישור</td><td>paypal-security-update.com</td><td>Hover לפני לחיצה</td></tr>
+  <tr><td>CTA</td><td>"לחץ כאן תוך 24 שעות"</td><td>לחץ זמן מלאכותי</td></tr>
+  <tr><td>Attachment</td><td>Invoice.pdf.exe</td><td>extension כפולה</td></tr>
+</table>
+<h3>סוגי Phishing</h3>
+<ul>
+<li><strong>Mass Phishing</strong> — מיליוני מיילים זהים. Low effort, success rate 2-5%</li>
+<li><strong>Spear Phishing</strong> — מותאם אישית לאדם ספציפי עם מידע מLinkedIn</li>
+<li><strong>Whaling</strong> — Spear Phishing נגד CEO/CFO. לעתים: "שלח העברה דחופה"</li>
+<li><strong>Clone Phishing</strong> — העתק של מייל לגיטימי שנשלח בעבר, עם קישור זדוני</li>
+</ul>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Vishing, Smishing ו-Pretexting",
+        content: `<div dir="rtl">
+<h2>מעבר לאימייל — Vishing ו-Smishing</h2>
+<p>Social Engineering לא מסתכם במיילים. כל ערוץ תקשורת הוא וקטור תקיפה:</p>
+<table class="content-table">
+  <tr><th>שם</th><th>ערוץ</th><th>דוגמה</th><th>הגנה</th></tr>
+  <tr><td><strong>Vishing</strong></td><td>שיחת טלפון</td><td>"בנק לאומי — נחסמה הכרטיס שלך"</td><td>נתק וחזור לנהר הרשמי</td></tr>
+  <tr><td><strong>Smishing</strong></td><td>SMS</td><td>"חבילה ממתינה — לחץ לאימות"</td><td>אל תלחץ על קישורי SMS</td></tr>
+  <tr><td><strong>Pretexting</strong></td><td>כל ערוץ</td><td>מתחזה לIT support</td><td>אמת זהות בצינור נפרד</td></tr>
+  <tr><td><strong>Baiting</strong></td><td>פיזי</td><td>USB drive שנמצא בחניה</td><td>אל תחבר מדיה לא מוכרת</td></tr>
+  <tr><td><strong>Tailgating</strong></td><td>פיזי</td><td>כניסה לבניין מאחורי עובד</td><td>אל תחזיק דלת לזרים</td></tr>
+</table>
+<h3>עקרונות Cialdini — למה Social Engineering עובד</h3>
+<ul>
+<li><strong>Authority (סמכות)</strong> — "אני ה-CTO, צריך את הסיסמה עכשיו"</li>
+<li><strong>Urgency (דחיפות)</strong> — "תוך שעה המערכת תיסגר"</li>
+<li><strong>Social Proof</strong> — "הצוות שלך כבר עשה את זה"</li>
+<li><strong>Liking (חיבה)</strong> — ניהול שיחה חברותית לפני הבקשה</li>
+<li><strong>Reciprocity (הדדיות)</strong> — "עזרתי לך, עכשיו עזור לי"</li>
+<li><strong>Scarcity (נדירות)</strong> — "זהו הקישור האחרון הזמין"</li>
+</ul>
+<h3>דגלים אדומים — זיהוי phishing</h3>
+<ul>
+<li>בקשה לפעולה דחופה או איום בתוצאות</li>
+<li>בקשה לסיסמה, OTP, או פרטי כרטיס</li>
+<li>קישורים שלא תואמים לטקסט שמוצג</li>
+<li>דומיין שונה במקצת (paypa1, g00gle)</li>
+<li>Attachment לא מצופה</li>
+<li>שגיאות כתיב ודקדוק חריגות</li>
+</ul>
+</div>`
+      },
+      {
+        type: "story",
+        title: "המקרה: Twitter Hack 2020 — Vishing נגד עובדים",
+        content: `<div dir="rtl">
+<h2>Twitter 2020 — כיצד 3 נוער השתלטו על חשבונות Obama, Musk ו-Gates</h2>
+<p>יולי 2020: חשבונות Twitter של Barack Obama, Joe Biden, Elon Musk, Bill Gates, Apple, Uber — 130 חשבונות — פרסמו הודעות זהות: "Send Bitcoin to this address and we will double it."</p>
+<p><strong>האיך זה קרה — Vishing:</strong> התוקפים (Graham Clark בן 17, Mason Sheppard ו-Nima Fazeli) לא פרצו מערכות מחשב. הם התקשרו לעובדי Twitter, התחזו לעמיתים מה-IT department, ואמרו שיש בעיה טכנית — הם צריכים את פרטי הכניסה לפורטל הפנימי כדי לתקן.</p>
+<p>עובד אחד נפל לתרגיל. לתוקפים הייתה גישה ל-Twitter Admin Panel — מערכת שמאפשרת לאפס סיסמאות ולשנות email של כל חשבון. הם השתלטו תוך דקות.</p>
+<p><strong>הנזק:</strong> $120,000 ב-Bitcoin נגנבו בשעתיים. Twitter נאלצה להשבית יכולת פרסום לחשבונות מאומתים. שווי המניה ירד 3%.</p>
+<p><strong>המסקנות:</strong></p>
+<ul>
+<li>גישה ל-Admin tools חייבת MFA חזק — לא רק סיסמה</li>
+<li>עובדים חייבים לאמת זהות בבקשות רגישות דרך ערוץ נפרד</li>
+<li>Privileged access לכלים פנימיים צריך Zero Trust — least privilege, logging, anomaly detection</li>
+<li>Security awareness training הוא הגנה קריטית</li>
+</ul>
+<p>Clark גזר 3 שנות מאסר. הפרשה גרמה ל-Twitter לשנות לחלוטין את מדיניות הגישה לכלים פנימיים.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "הגנה מפני Social Engineering",
+        content: `<div dir="rtl">
+<h2>כיצד ארגונים מתגוננים מפני האיום האנושי</h2>
+<h3>Security Awareness Training</h3>
+<p>ההגנה הטובה ביותר היא חינוך. ארגונים מבצעים:</p>
+<ul>
+<li><strong>Phishing Simulations</strong> — שליחת phishing מזויף לעובדים ומדידת אחוזי לחיצה</li>
+<li><strong>Security Training</strong> — כיצד לזהות מניפולציה, מה לדווח</li>
+<li><strong>Tabletop Exercises</strong> — סימולציות תרחישי תקיפה עם ההנהלה</li>
+</ul>
+<h3>תהליכים טכניים</h3>
+<table class="content-table">
+  <tr><th>איום</th><th>הגנה טכנית</th></tr>
+  <tr><td>Email Phishing</td><td>SPF + DKIM + DMARC, Email Gateway, sandbox לattachments</td></tr>
+  <tr><td>Credential Theft</td><td>MFA חזק (FIDO2 / hardware token), Password Manager</td></tr>
+  <tr><td>Insider Threat</td><td>Least Privilege, DLP, User Behavior Analytics</td></tr>
+  <tr><td>CEO Fraud</td><td>Dual approval להעברות כספיות, אימות OOB</td></tr>
+</table>
+<h3>עיקרון ה-Zero Trust כהגנה</h3>
+<p>"Never Trust, Always Verify" — גם עובד פנימי מאמת זהות לפני גישה למשאבים. גם אם מישהו גונב credentials, MFA ו-Device Trust מקשים על ניצול.</p>
+<p><strong>הכלל הכי חשוב:</strong> אם בקשה נראית חשודה — נתק, אמת, ואז תגיב. ארגון לגיטימי לא ידרוש פעולה "עכשיו, ללא אימות".</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 109,
+    title: "הגנה על תשתיות — Firewalls ו-Zero Trust",
+    pages: [
+      {
+        type: "explanation",
+        title: "סוגי Firewalls — מ-Stateless ל-NGFW",
+        content: `<div dir="rtl">
+<h2>Firewall — שומר הסף של הרשת</h2>
+<p>Firewall מסנן תעבורת רשת לפי כללים. ישנם מספר דורות:</p>
+<table class="content-table">
+  <tr><th>סוג</th><th>שכבה (OSI)</th><th>מה בודק</th><th>יתרון</th><th>חיסרון</th></tr>
+  <tr><td><strong>Stateless</strong></td><td>L3/L4</td><td>IP src/dst, Port, Protocol</td><td>מהיר מאוד</td><td>לא מבין context</td></tr>
+  <tr><td><strong>Stateful</strong></td><td>L4</td><td>Connection state (SYN/ESTABLISHED)</td><td>מבין TCP sessions</td><td>לא מבין תוכן L7</td></tr>
+  <tr><td><strong>NGFW</strong></td><td>L7</td><td>HTTP content, DNS, TLS SNI</td><td>מבין פרוטוקולים</td><td>יקר, עומס CPU</td></tr>
+  <tr><td><strong>WAF</strong></td><td>L7 HTTP</td><td>SQL injection, XSS, OWASP Top 10</td><td>הגנה על web apps</td><td>מוגבל ל-HTTP</td></tr>
+</table>
+<h3>iptables — Stateless Firewall בLinux</h3>
+<pre><code># SSH רק מ-IP ספציפי
+iptables -A INPUT -p tcp --dport 22 -s 10.0.0.5 -j ACCEPT
+iptables -A INPUT -p tcp --dport 22 -j DROP
+
+# HTTPS ו-HTTP
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+
+# ברירת מחדל: חסום הכל
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+# הצג חוקים
+iptables -L -n -v --line-numbers</code></pre>
+<h3>Default Deny vs Default Allow</h3>
+<p><strong>Whitelist (Default Deny)</strong> — חסום הכל, פתח רק מה שנדרש. זה הפוך ממה שנראה אינטואיטיבי אבל הרבה יותר מאובטח.</p>
+</div>`
+      },
+      {
+        type: "diagram",
+        title: "ארכיטקטורת DMZ — 3 אזורים",
+        content: `<div dir="rtl">
+<h2>DMZ — Demilitarized Zone</h2>
+<p>DMZ היא אזור רשת ביניים שמפריד בין האינטרנט לרשת הפנימית. שרתים שצריכים להיות נגישים מהאינטרנט יושבים ב-DMZ — גם אם נפרצו, לא מגיעים לרשת הפנימית.</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 130" class="content-diagram">
+  <rect x="0" y="0" width="360" height="130" fill="#1e293b"/>
+  <rect x="5" y="15" width="78" height="100" rx="6" fill="#7f1d1d" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="44" y="35" text-anchor="middle" font-size="9" fill="#fca5a5" font-weight="bold">Internet</text>
+  <text x="44" y="50" text-anchor="middle" font-size="8" fill="#fca5a5">Untrusted</text>
+  <rect x="18" y="62" width="52" height="18" rx="3" fill="#3f1010" stroke="#ef4444" stroke-width="1"/>
+  <text x="44" y="75" text-anchor="middle" font-size="8" fill="#fca5a5">Attacker</text>
+  <rect x="90" y="38" width="26" height="54" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="103" y="61" text-anchor="middle" font-size="7" fill="#93c5fd">FW</text>
+  <text x="103" y="72" text-anchor="middle" font-size="7" fill="#93c5fd">Ext</text>
+  <rect x="124" y="15" width="92" height="100" rx="6" fill="#1a2e1a" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="170" y="34" text-anchor="middle" font-size="9" fill="#86efac" font-weight="bold">DMZ</text>
+  <rect x="134" y="42" width="72" height="17" rx="3" fill="#14532d" stroke="#22c55e" stroke-width="1"/>
+  <text x="170" y="54" text-anchor="middle" font-size="8" fill="#86efac">Web Server</text>
+  <rect x="134" y="65" width="72" height="17" rx="3" fill="#14532d" stroke="#22c55e" stroke-width="1"/>
+  <text x="170" y="77" text-anchor="middle" font-size="8" fill="#86efac">Mail Server</text>
+  <rect x="134" y="88" width="72" height="17" rx="3" fill="#14532d" stroke="#22c55e" stroke-width="1"/>
+  <text x="170" y="100" text-anchor="middle" font-size="8" fill="#86efac">DNS Server</text>
+  <rect x="224" y="38" width="26" height="54" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="237" y="61" text-anchor="middle" font-size="7" fill="#93c5fd">FW</text>
+  <text x="237" y="72" text-anchor="middle" font-size="7" fill="#93c5fd">Int</text>
+  <rect x="258" y="15" width="97" height="100" rx="6" fill="#1e1e3f" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="306" y="34" text-anchor="middle" font-size="9" fill="#fcd34d" font-weight="bold">Internal</text>
+  <text x="306" y="49" text-anchor="middle" font-size="8" fill="#fcd34d">Trusted</text>
+  <rect x="268" y="60" width="77" height="17" rx="3" fill="#2d2700" stroke="#f59e0b" stroke-width="1"/>
+  <text x="306" y="72" text-anchor="middle" font-size="8" fill="#fcd34d">DB / ERP</text>
+  <rect x="268" y="83" width="77" height="17" rx="3" fill="#2d2700" stroke="#f59e0b" stroke-width="1"/>
+  <text x="306" y="95" text-anchor="middle" font-size="8" fill="#fcd34d">AD / LDAP</text>
+  <line x1="85" y1="65" x2="89" y2="65" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrowDMZ)"/>
+  <line x1="117" y1="65" x2="122" y2="65" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrowDMZ)"/>
+  <line x1="217" y1="65" x2="222" y2="65" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrowDMZ)"/>
+  <line x1="251" y1="65" x2="256" y2="65" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrowDMZ2)"/>
+  <defs>
+    <marker id="arrowDMZ" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><polygon points="0 0, 5 3, 0 6" fill="#3b82f6"/></marker>
+    <marker id="arrowDMZ2" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><polygon points="0 0, 5 3, 0 6" fill="#f59e0b"/></marker>
+  </defs>
+</svg>
+<p class="diagram-caption">ארכיטקטורת DMZ — Internet / DMZ / Internal עם שני Firewalls</p>
+</div>
+<h3>כללי Firewall ל-DMZ</h3>
+<ul>
+<li><strong>External FW:</strong> Internet → DMZ Web 443/80 ALLOW | Internet → Internal BLOCK</li>
+<li><strong>Internal FW:</strong> DMZ → Internal DB:5432 ALLOW (רק מה שנחוץ) | DMZ → Internal אחר BLOCK</li>
+<li><strong>עיקרון:</strong> שרת DMZ שנפרץ לא יכול להגיע ישירות ל-DB</li>
+</ul>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Zero Trust — אל תאמין לאף אחד, תמיד אמת",
+        content: `<div dir="rtl">
+<h2>Zero Trust Network Architecture (ZTNA)</h2>
+<p>המודל המסורתי: "castle and moat" — חומה חזקה מבחוץ, אמון מוחלט בפנים. הבעיה: Lateral Movement — תוקף שפרץ פנימה נע חופשי בכל הרשת.</p>
+<p><strong>Zero Trust:</strong> "Never Trust, Always Verify" — כל בקשה מאומתת מחדש, ללא קשר למיקום.</p>
+<h3>עקרונות Zero Trust</h3>
+<table class="content-table">
+  <tr><th>עיקרון</th><th>מה זה אומר בפועל</th></tr>
+  <tr><td>Verify Explicitly</td><td>MFA, Device Posture Check, User Context — לכל גישה</td></tr>
+  <tr><td>Least Privilege</td><td>גישה מינימלית הנדרשת, Just-In-Time access</td></tr>
+  <tr><td>Assume Breach</td><td>תכנן כאילו התוקף כבר פנימה. Microsegmentation, Logging</td></tr>
+</table>
+<h3>Network Segmentation</h3>
+<ul>
+<li><strong>VLAN</strong> — בידוד ברמת L2. שרתי HR נפרדים מDevelopment</li>
+<li><strong>Microsegmentation</strong> — כל workload מבודד (VMware NSX, Cilium)</li>
+<li><strong>Software-Defined Perimeter</strong> — חיבורים נוצרים רק לפי בקשה מאומתת</li>
+</ul>
+<h3>כלים מודרניים</h3>
+<ul>
+<li><strong>Cloudflare Access / Zscaler</strong> — Zero Trust access לapps ללא VPN</li>
+<li><strong>CrowdStrike Falcon</strong> — EDR עם Zero Trust policy</li>
+<li><strong>Microsoft Entra ID</strong> — Conditional Access, MFA, Device Compliance</li>
+<li><strong>HashiCorp Vault</strong> — Dynamic secrets, Just-In-Time credentials</li>
+</ul>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: Stuxnet — כשסייבר פגש צנטריפוגות גרעיניות",
+        content: `<div dir="rtl">
+<h2>Stuxnet 2010 — הנשק הסייברי הראשון בהיסטוריה</h2>
+<p>2010: מומחי אבטחה מגלים תולעת שלא דומה לשום דבר — Stuxnet. מאות קילובייטים של קוד, 4 zero-day vulnerabilities בו-זמנית, ומשימה ספציפית מאוד.</p>
+<p><strong>המטרה:</strong> מתקן העשרת אורניום ב-Natanz, איראן. הצנטריפוגות הונעו על ידי PLCs — Programmable Logic Controllers של Siemens.</p>
+<p><strong>האיך זה עבד:</strong></p>
+<ol>
+<li>Stuxnet הופץ דרך USB drives (הרשת הייתה air-gapped)</li>
+<li>הגיע למחשבי Windows שמנהלים את הPLCs</li>
+<li>הסתיר את עצמו מ-SCADA monitoring — הציג ערכים "נורמליים"</li>
+<li>שינה את מהירות הצנטריפוגות — פעם מהר מדי, פעם לאט מדי</li>
+<li>כ-1,000 מתוך 5,000 הצנטריפוגות הושמדו</li>
+</ol>
+<p><strong>לקחים לאבטחת תשתיות ICS/SCADA:</strong></p>
+<ul>
+<li>Air Gap לא מספיק — USB הוא וקטור תקיפה</li>
+<li>OT/ICS networks חייבים Segmentation מוחלט מIT networks</li>
+<li>PLCs וציוד תעשייתי לא תוכננו עם security — הם vulnerable by design</li>
+<li>Network Monitoring ב-ICS חייב לכלול anomaly detection</li>
+<li>Defense in Depth: firewall, application whitelisting, patch management</li>
+</ul>
+<p>Stuxnet הוכיח שcode יכול לגרום לנזק פיזי. האחריות מיוחסת ל-US ו-Israel. מאז, מתקפות על תשתיות קריטיות — חשמל, מים, גז — הן מציאות.</p>
+</div>`
+      }
+    ]
   }
 ]
   },
