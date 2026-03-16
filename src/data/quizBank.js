@@ -83,7 +83,7 @@ export const quizBank = {
         "TCP לרשתות מקומיות, UDP לאינטרנט",
         "TCP לטקסט, UDP לוידאו בלבד"
       ],
-      explanation: "TCP = משלוח עם אישור קבלה. UDP = גלויה — שלחת ואתה מקווה שתגיע. Netflix משתמש ב-UDP — עדיף frame קפוץ מאשר buffering! 🎬"
+      explanation: "TCP = משלוח עם אישור קבלה. UDP = גלויה — שלחת ואתה מקווה שתגיע. Zoom, Discord, gaming משתמשים ב-UDP — עדיף frame חסר מאשר עיכוב. Netflix משתמש ב-TCP (DASH) — עדיף buffer קצר על שגיאות 🎬"
     },
     {
       q: "מה קורה ב-TCP Handshake?",
@@ -255,7 +255,7 @@ export const quizBank = {
         "TCP מוצפן, UDP גלוי",
         "TCP ישן, UDP מודרני"
       ],
-      explanation: "אנלוגיה: TCP = שליח עם חתימה ('קיבלת?') | UDP = עיתון שמושלך לדלת. Zoom, gaming = UDP. HTTP, SSH = TCP 🎮"
+      explanation: "אנלוגיה: TCP = שליח עם חתימה ('קיבלת?') | UDP = עיתון שמושלך לדלת. Zoom, Discord, gaming, DNS = UDP. HTTP, HTTPS, SSH, FTP = TCP 🎮"
     },
     {
       q: "מה זה Three-Way Handshake?",

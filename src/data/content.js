@@ -169,7 +169,7 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
             title: "IP over Avian Carriers – אינטרנט עם יונים",
             icon: "🕊️",
             content: `
-              <p><strong>RFC 1149</strong> הוא תקן אמיתי (משנת 1990!) – "IP over Avian Carriers" – העברת חבילות IP באמצעות יונים. באפריל 2001 בוצע ניסוי בנורווגיה: 9 חבילות, 100% הצלחה. הבעיה: latency גבוה (בערך שעתיים) ו bandwidth נמוך. הרעיון: פרוטוקול הוא רק "שפה" – העברה פיזית יכולה להיות כל דבר. אפילו יונים.</p>
+              <p><strong>RFC 1149</strong> הוא תקן אמיתי (משנת 1990!) – "IP over Avian Carriers" – העברת חבילות IP באמצעות יונים. באפריל 2001 בוצע ניסוי בנורווגיה (Bergen Linux User Group): שוגרו 9 יונות. 4 חבילות הגיעו, 5 אבדו (packet loss ~56%). Latency ממוצע: 3000 שניות (50 דקות!). הרעיון: פרוטוקול הוא רק "שפה" – העברה פיזית יכולה להיות כל דבר. אפילו יונים.</p>
             `
           },
           {
@@ -267,12 +267,12 @@ Addresses:  142.250.185.46
 
 my_socket = socket.socket()
 my_socket.connect(('1.2.3.4', 8820))
-my_socket.send('Omer')
+my_socket.send(b'Omer')          # bytes, לא string!
 data = my_socket.recv(1024)
-print 'The server sent: ' + data
+print('The server sent:', data.decode())
 my_socket.close()</code></pre>
           </div>
-          <p class="demo-note">📋 socket() יוצר אובייקט. connect() מתחבר ל־IP:Port. send() שולח, recv() מקבל (blocking – עוצר עד לקבלת מידע). close() משחרר משאבים. 127.0.0.1 = התחברות למחשב עצמו (loopback).</p>
+          <p class="demo-note">📋 socket() יוצר אובייקט. connect() מתחבר ל־IP:Port. send() שולח bytes (b'...'), recv() מקבל (blocking – עוצר עד לקבלת מידע). decode() ממיר bytes לטקסט. close() משחרר משאבים. 127.0.0.1 = התחברות למחשב עצמו (loopback).</p>
         `
       },
       {
@@ -287,12 +287,12 @@ server_socket = socket.socket()
 server_socket.bind(('0.0.0.0', 8820))
 server_socket.listen(1)
 (client_socket, client_address) = server_socket.accept()
-data = client_socket.recv(1024)
-client_socket.send('Hello ' + data)
+data = client_socket.recv(1024).decode()   # bytes → string
+client_socket.send(('Hello ' + data).encode())  # string → bytes
 client_socket.close()
 server_socket.close()</code></pre>
           </div>
-          <p class="demo-note">📋 bind() מקשיר את השרת ל־IP ולפורט. listen() מתחיל להאזין. accept() מחכה לחיבור (blocking) ומחזיר socket של הלקוח וכתובתו. recv() מקבל – אם החיבור התנתק מחזיר מחרוזת ריקה.</p>
+          <p class="demo-note">📋 bind() מקשיר את השרת ל־IP ולפורט. listen() מתחיל להאזין. accept() מחכה לחיבור (blocking) ומחזיר socket של הלקוח וכתובתו. recv() מחזיר bytes — decode() ממיר לטקסט. send() דורש bytes — encode() ממיר. recv() מחזיר b'' ריק אם הלקוח התנתק.</p>
         `
       },
       {
@@ -543,12 +543,12 @@ s = socket.socket()
 s.bind(('0.0.0.0', 8080))
 s.listen(1)
 (client, addr) = s.accept()
-data = client.recv(1024)  # הבקשה
-response = 'HTTP/1.1 200 OK\\r\\nContent-Type: text/html\\r\\n\\r\\n&lt;h1&gt;שלום!&lt;/h1&gt;'
-client.send(response)
+data = client.recv(1024)  # הבקשה (bytes)
+response = 'HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n&lt;h1&gt;שלום!&lt;/h1&gt;'
+client.send(response.encode())   # חייב bytes!
 client.close()</code></pre>
           </div>
-          <p class="demo-note">📋 השרת מאזין, מקבל בקשה, ומחזיר שורת תגובה + Headers + גוף HTML. <code>\\r\\n</code> מפריד בין השורות.</p>
+          <p class="demo-note">📋 השרת מאזין, מקבל בקשה, ומחזיר שורת תגובה + Headers + גוף HTML. <code>\r\n</code> מפריד בין השורות. <code>.encode()</code> ממיר את ה-string ל-bytes לפני שליחה.</p>
         `
       },
       {
@@ -782,7 +782,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         title: "TCP לעומת UDP",
         content: `
           <p><strong>TCP</strong> – פרוטוקול אמין. מבטיח שכל המידע יגיע, בסדר הנכון. דורש Handshake לפני שליחה. מתאים לדפדפן, אימייל, העברת קבצים.</p>
-          <p><strong>UDP</strong> – פרוטוקול קל ומהיר. בלי ערבויות – זורק חבילות ומקווה שיגיעו. מתאים לשיחות וידאו, משחקים, streaming.</p>
+          <p><strong>UDP</strong> – פרוטוקול קל ומהיר. בלי ערבויות – זורק חבילות ומקווה שיגיעו. מתאים לשיחות וידאו/קול (Zoom, Discord), משחקים מרובי משתתפים, ו-DNS. שימו לב: Netflix ו-YouTube משתמשים ב-TCP — עדיף buffer קצר על שגיאות. UDP מתאים כשעיכוב חשוב יותר משלמות הנתונים.</p>
         `
       },
       {
@@ -1734,7 +1734,7 @@ asyncio.run(main())</code></pre>
         content: `
           <table class="content-table">
             <tr><th>מונח</th><th>הסבר</th></tr>
-            <tr><td>FTP</td><td>File Transfer Protocol – העברת קבצים. פורט 21. SFTP = FTP מעל SSH</td></tr>
+            <tr><td>FTP</td><td>File Transfer Protocol – העברת קבצים. פורט 21. SFTP = SSH File Transfer Protocol (פרוטוקול נפרד מ-FTP שרץ מעל SSH, פורט 22)</td></tr>
             <tr><td>Full Duplex</td><td>שליחה וקבלה בו-זמנית. Switch מודרני. אין התנגשויות</td></tr>
             <tr><td>Half Duplex</td><td>כיוון אחד בכל פעם. Hub. גורם להתנגשויות → CSMA/CD</td></tr>
             <tr><td>Handshake</td><td>TCP: SYN→SYN-ACK→ACK. TLS: Client Hello → Certificate → Key Exchange → Finished</td></tr>
@@ -2147,7 +2147,7 @@ with open('file.txt', 'wb') as f:
 
 ftp.quit()</code></pre>
           </div>
-          <p><strong>SFTP</strong> – FTP מעל SSH (מוצפן, פורט 22). <strong>FTPS</strong> – FTP מעל TLS. FTP רגיל – נתונים כטקסט גלוי. <strong>לא להשתמש ב-FTP ישן ברשת ציבורית.</strong></p>
+          <p><strong>SFTP</strong> (SSH File Transfer Protocol) – פרוטוקול העברת קבצים <em>נפרד לחלוטין מ-FTP</em> שרץ מעל SSH (פורט 22). שם מטעה – לא קשור ל-FTP הישן. <strong>FTPS</strong> – FTP מקורי עם TLS מעליו. FTP רגיל – נתונים כטקסט גלוי. <strong>לא להשתמש ב-FTP ישן ברשת ציבורית.</strong></p>
         `
       },
       {
@@ -2840,7 +2840,7 @@ sudo dscacheutil -flushcache</code></pre>
             </svg>
             <p class="diagram-caption">Sliding Window – רק הנתונים בחלון צהוב בטיסה</p>
           </div>
-          <p><strong>Window Scaling</strong> (RFC 1323): שדה rwnd = 16 ביטים = מקס 65535 בתים. לא מספיק לחיבורים מהירים. Window Scale = מכפיל של עד 2^14. עם Scale=10: window מקס ≈ 64GB!</p>
+          <p><strong>Window Scaling</strong> (RFC 1323): שדה rwnd = 16 ביטים = מקס 65535 בתים. לא מספיק לחיבורים מהירים. Window Scale = מכפיל של עד 2^14. עם Scale=10: window מקס ≈ 64MB. עם Scale=14 (מקסימום): window מקס ≈ 1GB!</p>
           <p>אם <code>rwnd=0</code> – השולח מפסיק לשלוח ושולח Zero Window Probe כל כמה שניות עד שהמקבל יפתח.</p>
         `
       },
