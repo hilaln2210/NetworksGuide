@@ -27,6 +27,17 @@ export function getTotalRead() {
   return Object.values(read).reduce((sum, ch) => sum + Object.keys(ch).length, 0)
 }
 
+// ===== Last Position =====
+const POSITION_KEY = 'networks_position'
+
+export function saveLastPosition(chapterIdx, pageIdx) {
+  localStorage.setItem(POSITION_KEY, JSON.stringify({ chapterIdx, pageIdx }))
+}
+
+export function getLastPosition() {
+  try { return JSON.parse(localStorage.getItem(POSITION_KEY) || 'null') } catch { return null }
+}
+
 const QUIZ_KEY = 'networks_quiz_scores'
 
 export function saveQuizScore(chapterId, score, total) {

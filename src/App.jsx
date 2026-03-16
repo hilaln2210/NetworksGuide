@@ -10,7 +10,7 @@ import { KeyTip } from './components/KeyTip'
 import { Quiz } from './components/Quiz'
 import { TroubleshootingTab } from './components/TroubleshootingTab'
 import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ } from './utils/xp'
-import { markPageRead, isPageRead, getChapterProgress, getTotalRead } from './utils/progress'
+import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition } from './utils/progress'
 import './App.css'
 
 const TABS = [
@@ -21,12 +21,19 @@ const TABS = [
 
 function App() {
   const [activeTab, setActiveTab] = useState('learn')
-  const [currentChapter, setCurrentChapter] = useState(0)
-  const [currentPage, setCurrentPage] = useState(0)
+  const [currentChapter, setCurrentChapter] = useState(() => {
+    const pos = getLastPosition()
+    return pos?.chapterIdx ?? 0
+  })
+  const [currentPage, setCurrentPage] = useState(() => {
+    const pos = getLastPosition()
+    return pos?.pageIdx ?? 0
+  })
   const [xp, setXp] = useState(getXP())
   const [streak, setStreak] = useState(getStreak())
   const [xpFloat, setXpFloat] = useState(null)
   const [levelUp, setLevelUp] = useState(null)
+  const [search, setSearch] = useState('')
 
   const chapter = chapters[currentChapter]
   const page = chapter?.pages[currentPage]
@@ -34,6 +41,17 @@ function App() {
   const level = getLevel(xp)
   const nextLevel = getNextLevel(xp)
   const lvlProgress = getLevelProgress(xp)
+
+  const totalPagesAllChapters = chapters.reduce((s, c) => s + c.pages.length, 0)
+  const totalRead = getTotalRead()
+  const overallPct = Math.round((totalRead / totalPagesAllChapters) * 100)
+
+  // Filtered chapters for sidebar search
+  const filteredChapters = search.trim()
+    ? chapters.map((ch, i) => ({ ch, i })).filter(({ ch }) =>
+        ch.title.includes(search) || String(ch.id).includes(search)
+      )
+    : chapters.map((ch, i) => ({ ch, i }))
 
   const refreshXP = useCallback((result) => {
     setXp(result.after)
@@ -64,25 +82,35 @@ function App() {
   const goNext = () => {
     tryMarkRead()
     if (currentPage < totalPages - 1) {
-      setCurrentPage(p => p + 1)
+      const newPg = currentPage + 1
+      saveLastPosition(currentChapter, newPg)
+      setCurrentPage(newPg)
     } else if (currentChapter < chapters.length - 1) {
-      setCurrentChapter(c => c + 1)
+      const newCh = currentChapter + 1
+      saveLastPosition(newCh, 0)
+      setCurrentChapter(newCh)
       setCurrentPage(0)
     }
   }
 
   const goPrev = () => {
     if (currentPage > 0) {
-      setCurrentPage(p => p - 1)
+      const newPg = currentPage - 1
+      saveLastPosition(currentChapter, newPg)
+      setCurrentPage(newPg)
     } else if (currentChapter > 0) {
-      setCurrentChapter(c => c - 1)
-      const prev = chapters[currentChapter - 1].pages.length
-      setCurrentPage(prev - 1)
+      const newCh = currentChapter - 1
+      const prevLen = chapters[newCh].pages.length
+      const newPg = prevLen - 1
+      saveLastPosition(newCh, newPg)
+      setCurrentChapter(newCh)
+      setCurrentPage(newPg)
     }
   }
 
   const goToChapter = (chIndex) => {
     tryMarkRead()
+    saveLastPosition(chIndex, 0)
     setCurrentChapter(chIndex)
     setCurrentPage(0)
   }
@@ -108,9 +136,6 @@ function App() {
 
   if (!chapter || !page) return null
 
-  const totalPagesAllChapters = chapters.reduce((s, c) => s + c.pages.length, 0)
-  const totalRead = getTotalRead()
-
   return (
     <div className="app">
       {/* ===== HEADER ===== */}
@@ -125,9 +150,9 @@ function App() {
               <span className="stat-num">{streak}</span>
               <span className="stat-label">🔥 ימים</span>
             </div>
-            <div className="stat-chip">
-              <span className="stat-num">{totalRead}</span>
-              <span className="stat-label">📖 עמודים</span>
+            <div className="stat-chip stat-progress" title={`${totalRead} מתוך ${totalPagesAllChapters} עמודים נקראו`}>
+              <span className="stat-num">{overallPct}%</span>
+              <span className="stat-label">📖 התקדמות</span>
             </div>
             <div className="stat-chip stat-xp">
               <span className="stat-num">{xp}</span>
@@ -176,8 +201,25 @@ function App() {
         <div className="layout">
           <nav className="sidebar">
             <h3>תוכן העניינים</h3>
-            <p className="sidebar-hint">◀ ▶ ניווט מקלדת</p>
-            {chapters.map((ch, i) => {
+
+            {/* Search */}
+            <div className="sidebar-search-wrap">
+              <input
+                type="text"
+                className="sidebar-search"
+                placeholder="🔍 חיפוש פרק..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                onKeyDown={e => e.key === 'Escape' && setSearch('')}
+                dir="rtl"
+              />
+            </div>
+
+            {filteredChapters.length === 0 && (
+              <p className="sidebar-no-results">לא נמצאו פרקים</p>
+            )}
+
+            {filteredChapters.map(({ ch, i }) => {
               const prog = getChapterProgress(ch.id, ch.pages.length)
               return (
                 <button
@@ -214,7 +256,10 @@ function App() {
               <h2>{page.title}</h2>
             </div>
 
-            <article className="page-content">
+            <article
+              key={`${currentChapter}-${currentPage}`}
+              className="page-content"
+            >
               {page.type === 'questions' ? (
                 <QuestionsPage questions={page.questions} />
               ) : page.type === 'simulation' ? (
@@ -263,12 +308,12 @@ function App() {
 
 function getBadgeStyle(type) {
   const styles = {
-    explanation: { background: 'rgba(99,102,241,0.25)', borderColor: 'rgba(99,102,241,0.5)', color: '#a5b4fc' },
-    demo: { background: 'rgba(52,211,153,0.2)', borderColor: 'rgba(52,211,153,0.45)', color: '#6ee7b7' },
-    summary: { background: 'rgba(251,191,36,0.18)', borderColor: 'rgba(251,191,36,0.4)', color: '#fde68a' },
-    questions: { background: 'rgba(248,113,113,0.18)', borderColor: 'rgba(248,113,113,0.4)', color: '#fca5a5' },
-    simulation: { background: 'rgba(167,139,250,0.22)', borderColor: 'rgba(167,139,250,0.5)', color: '#c4b5fd' },
-    thinkOutside: { background: 'rgba(251,191,36,0.15)', borderColor: 'rgba(251,191,36,0.35)', color: '#fde68a' },
+    explanation: { background: 'rgba(99,102,241,0.1)', borderColor: 'rgba(99,102,241,0.35)', color: '#4f46e5' },
+    demo: { background: 'rgba(5,150,105,0.1)', borderColor: 'rgba(5,150,105,0.35)', color: '#047857' },
+    summary: { background: 'rgba(217,119,6,0.1)', borderColor: 'rgba(217,119,6,0.35)', color: '#b45309' },
+    questions: { background: 'rgba(220,38,38,0.08)', borderColor: 'rgba(220,38,38,0.3)', color: '#dc2626' },
+    simulation: { background: 'rgba(124,58,237,0.1)', borderColor: 'rgba(124,58,237,0.35)', color: '#7c3aed' },
+    thinkOutside: { background: 'rgba(217,119,6,0.1)', borderColor: 'rgba(217,119,6,0.35)', color: '#b45309' },
   }
   return { ...(styles[type] || styles.explanation), border: '1px solid' }
 }

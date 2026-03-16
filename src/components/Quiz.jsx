@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { getQuizForChapter, getAllQuizQuestions } from '../data/quizBank'
 import { addXP, XP_QUIZ_CORRECT, XP_QUIZ_BONUS, getLevel } from '../utils/xp'
-import { saveQuizScore } from '../utils/progress'
+import { saveQuizScore, getQuizScore } from '../utils/progress'
 import './Quiz.css'
 
 function shuffle(arr) {
@@ -110,6 +110,7 @@ export function Quiz({ chapters, onXPGain }) {
           {chapters.map(ch => {
             const qs = getQuizForChapter(ch.id)
             if (!qs.length) return null
+            const best = getQuizScore(ch.id)
             return (
               <button
                 key={ch.id}
@@ -122,7 +123,14 @@ export function Quiz({ chapters, onXPGain }) {
               >
                 <span className="qcb-num">פרק {ch.id}</span>
                 <span className="qcb-title">{ch.title}</span>
-                <span className="qcb-count">{qs.length} שאלות</span>
+                <div className="qcb-footer">
+                  <span className="qcb-count">{qs.length} שאלות</span>
+                  {best && (
+                    <span className={`qcb-best ${best.best === best.total ? 'qcb-best-perfect' : ''}`}>
+                      {best.best === best.total ? '🏆' : '⭐'} {best.best}/{best.total}
+                    </span>
+                  )}
+                </div>
               </button>
             )
           })}
