@@ -2,37 +2,45 @@
 .simulation-box {
   margin: 1.5rem 0;
   padding: 1.5rem;
-  background: linear-gradient(145deg, rgba(59, 130, 246, 0.08), rgba(16, 185, 129, 0.05));
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(14, 116, 144, 0.18);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(14,116,144,0.08);
 }
 
 .simulation-box h4 {
   margin: 0 0 1rem 0;
   font-size: 1rem;
-  color: var(--accent);
+  color: #0f172a;
 }
 
 .sim-btn {
   margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background: var(--accent);
+  padding: 0.55rem 1.1rem;
+  background: linear-gradient(135deg, #0e7490, #22d3ee);
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   font-family: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(14, 116, 144, 0.4);
 }
 
 .sim-btn:hover:not(:disabled) {
-  background: #2563eb;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(14, 116, 144, 0.5);
+  filter: brightness(1.1);
 }
 
 .sim-btn:disabled {
-  opacity: 0.7;
+  opacity: 0.5;
   cursor: wait;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
 }
 
 .sim-buttons {
@@ -52,11 +60,13 @@
 
 .tcp-handshake .sim-node {
   padding: 0.75rem 1.25rem;
-  background: var(--bg-elevated);
-  border-radius: 8px;
-  font-weight: 500;
+  background: rgba(14, 116, 144, 0.08);
+  border: 1px solid rgba(14, 116, 144, 0.2);
+  border-radius: 10px;
+  font-weight: 600;
   min-width: 80px;
   text-align: center;
+  color: #0f172a;
 }
 
 .tcp-handshake .sim-pipe {
@@ -141,21 +151,28 @@
 
 .dns-node {
   padding: 0.75rem 1rem;
-  background: var(--bg-elevated);
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(14, 116, 144, 0.2);
+  border-radius: 10px;
   min-width: 140px;
   text-align: center;
+  color: #0f172a;
 }
 
 .dns-node input {
   margin-top: 0.5rem;
   padding: 0.4rem 0.6rem;
   width: 100%;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(14, 116, 144, 0.25);
   border-radius: 6px;
-  background: var(--bg-dark);
-  color: var(--text);
+  background: white;
+  color: #0f172a;
   font-family: inherit;
+}
+
+.dns-node input:focus {
+  outline: none;
+  border-color: rgba(8, 145, 178, 0.5);
 }
 
 .dns-arrow {
@@ -211,12 +228,14 @@
 
 .path-node {
   padding: 0.5rem 0.75rem;
-  background: var(--bg-elevated);
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(14, 116, 144, 0.18);
+  border-radius: 10px;
   font-size: 0.9rem;
   transition: all 0.3s;
   min-width: 70px;
   text-align: center;
+  color: #0f172a;
 }
 
 .path-node.passed {
@@ -231,7 +250,7 @@
 .path-line {
   width: 30px;
   height: 2px;
-  background: var(--border);
+  background: rgba(14, 116, 144, 0.2);
   margin: 0 0.15rem;
   transition: background 0.3s;
 }

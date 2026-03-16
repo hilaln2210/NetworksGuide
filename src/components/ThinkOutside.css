@@ -1,24 +1,40 @@
-/* חשיבה מחוץ לקופסא */
+/* ===== THINK OUTSIDE THE BOX ===== */
 .think-outside {
   margin: 1.5rem 0;
-  border: 2px solid var(--accent-gold);
-  border-radius: 12px;
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  border-right: 3px solid #d97706;
+  border-radius: 14px;
   overflow: hidden;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), transparent);
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.06), rgba(217, 119, 6, 0.02));
   cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.think-outside:hover {
+  border-color: rgba(217, 119, 6, 0.5);
+  box-shadow: 0 4px 20px rgba(217, 119, 6, 0.1);
+  transform: translateY(-1px);
 }
 
 .think-header {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1rem 1.25rem;
-  font-weight: 600;
-  color: var(--accent-gold);
+  padding: 0.9rem 1.25rem;
+  font-weight: 700;
+  color: #92400e;
+  font-size: 0.95rem;
 }
 
 .think-icon {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
+  animation: think-bounce 4s ease-in-out infinite;
+}
+
+@keyframes think-bounce {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
 }
 
 .think-title {
@@ -26,19 +42,27 @@
 }
 
 .think-toggle {
-  color: var(--text-muted);
-  font-size: 0.9rem;
+  color: rgba(146, 64, 14, 0.4);
+  font-size: 0.8rem;
 }
 
 .think-content {
   padding: 1rem 1.25rem 1.25rem;
-  border-top: 1px solid rgba(245, 158, 11, 0.3);
-  background: rgba(15, 20, 25, 0.5);
+  border-top: 1px solid rgba(217, 119, 6, 0.15);
+  background: rgba(255, 255, 255, 0.5);
+  animation: slide-in 0.2s ease;
+}
+
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .think-content p {
   margin: 0 0 0.75rem 0;
-  line-height: 1.75;
+  line-height: 1.8;
+  font-size: 0.93rem;
+  color: rgba(15, 23, 42, 0.85);
 }
 
 .think-content p:last-child {
@@ -46,5 +70,5 @@
 }
 
 .think-content strong {
-  color: var(--accent-gold);
+  color: #92400e;
 }
