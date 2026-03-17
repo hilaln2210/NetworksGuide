@@ -518,10 +518,10 @@ function SimulationPage({ simId, content }) {
 function ThinkOutsidePage({ page }) {
   return (
     <div className="content-body">
-      {page.intro && <p dangerouslySetInnerHTML={{ __html: page.intro }} />}
+      {page.intro && <p dangerouslySetInnerHTML={{ __html: processHtmlBidi(page.intro) }} />}
       {page.blocks?.map((block, i) => (
         <ThinkOutsideBox key={i} title={block.title} icon={block.icon || '💡'}>
-          <div dangerouslySetInnerHTML={{ __html: block.content }} />
+          <div dangerouslySetInnerHTML={{ __html: processHtmlBidi(block.content) }} />
         </ThinkOutsideBox>
       ))}
     </div>
@@ -552,13 +552,13 @@ function QuestionsPage({ questions, gender }) {
             onClick={() => setOpenIndex(openIndex === i ? null : allOpen ? null : i)}
           >
             <span className="q-number">שאלה {i + 1}</span>
-            <span className="q-text" dir="rtl">{renderBidiText(item.q)}</span>
+            <span className="q-text" dir="auto">{renderBidiText(item.q)}</span>
             <span className="expand-icon">{(openIndex === i || allOpen) ? '▼' : '▶'}</span>
           </button>
           {(openIndex === i || allOpen) && (
             <div className="answer-block">
               <h4>💬 תשובה:</h4>
-              <p dir="rtl">{renderBidiText(item.a)}</p>
+              <p dir="auto">{renderBidiText(item.a)}</p>
             </div>
           )}
         </div>

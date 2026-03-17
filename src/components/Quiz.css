@@ -344,6 +344,16 @@
   line-height: 1.4;
 }
 
+.quiz-choice {
+  unicode-bidi: plaintext;
+}
+.choice-text {
+  unicode-bidi: plaintext;
+}
+.quiz-question-text {
+  unicode-bidi: plaintext;
+}
+
 .choice-correct {
   background: rgba(52, 211, 153, 0.15) !important;
   border-color: #34d399 !important;
