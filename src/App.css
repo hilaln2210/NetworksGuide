@@ -105,6 +105,30 @@ body {
   border-color: rgba(8, 145, 178, 0.3);
 }
 
+.stat-chip.stat-time {
+  background: linear-gradient(135deg, #0d47a1, #1565c0);
+  border-color: #1976d2;
+}
+
+.stat-chip.stat-chapters {
+  background: linear-gradient(135deg, #1b5e20, #2e7d32);
+  border-color: #388e3c;
+}
+
+.stat-chip.stat-pace {
+  background: linear-gradient(135deg, #4a148c, #6a1b9a);
+  border-color: #7b1fa2;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(25, 118, 210, 0.4); }
+  50%       { box-shadow: 0 0 0 5px rgba(25, 118, 210, 0); }
+}
+
+.stat-chip.stat-time.active {
+  animation: pulse-glow 2s infinite;
+}
+
 .stat-num {
   font-size: 1.1rem;
   font-weight: 800;
@@ -152,6 +176,47 @@ body {
   border-radius: 99px;
   transition: width 0.5s ease;
   box-shadow: 0 0 8px rgba(6, 182, 212, 0.5);
+}
+
+/* Daily goal bar */
+.daily-goal-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0 6px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.7);
+  direction: rtl;
+}
+
+.daily-goal-label {
+  white-space: nowrap;
+  font-weight: 600;
+  min-width: 90px;
+}
+
+.daily-goal-bar {
+  flex: 1;
+  height: 5px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.daily-goal-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #43a047, #66bb6a);
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.daily-goal-fill.goal-met {
+  background: linear-gradient(90deg, #f9a825, #fdd835);
+}
+
+.daily-goal-done {
+  color: #fdd835;
+  font-size: 1em;
 }
 
 /* ===== TABS ===== */

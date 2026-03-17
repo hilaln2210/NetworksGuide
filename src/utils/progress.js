@@ -76,3 +76,55 @@ export function resetAll() {
   localStorage.removeItem(POSITION_KEY)
   localStorage.removeItem(QUIZ_KEY)
 }
+
+// ===== Session Time (today's learning minutes) =====
+const SESSION_KEY = 'networks_session_today'
+
+export function getTodayMinutes() {
+  try {
+    const d = JSON.parse(localStorage.getItem(SESSION_KEY) || '{}')
+    const today = new Date().toDateString()
+    return d.date === today ? (d.minutes || 0) : 0
+  } catch { return 0 }
+}
+
+export function addSessionMinutes(n) {
+  try {
+    const today = new Date().toDateString()
+    const d = JSON.parse(localStorage.getItem(SESSION_KEY) || '{}')
+    const minutes = d.date === today ? (d.minutes || 0) + n : n
+    localStorage.setItem(SESSION_KEY, JSON.stringify({ date: today, minutes }))
+  } catch {}
+}
+
+export function formatMinutes(total) {
+  if (total < 1) return '< 1 ד\''
+  if (total < 60) return `${Math.round(total)} ד'`
+  const h = Math.floor(total / 60)
+  const m = Math.round(total % 60)
+  return m > 0 ? `${h}ש' ${m}ד'` : `${h} שעות`
+}
+
+// ===== Chapters Completed (all pages read) =====
+export function getCompletedChapters(chapters, trackId) {
+  const all = getReadPages()
+  return chapters.filter(ch => {
+    const key = trackId ? `${trackId}__${ch.id}` : String(ch.id)
+    const read = all[key] || {}
+    return ch.pages.length > 0 && Object.keys(read).length >= ch.pages.length
+  }).length
+}
+
+// ===== Total Quiz Questions Answered Correctly =====
+export function getTotalQuizCorrect() {
+  try {
+    const d = JSON.parse(localStorage.getItem(QUIZ_KEY) || '{}')
+    return Object.values(d).reduce((sum, v) => sum + (v.best || 0), 0)
+  } catch { return 0 }
+}
+
+// ===== Learning Pace (pages per day based on streak + totalRead) =====
+export function getLearningPace(totalRead, streak) {
+  if (!streak || !totalRead) return 0
+  return Math.round((totalRead / Math.max(streak, 1)) * 10) / 10
+}

@@ -10,7 +10,7 @@ import { Quiz } from './components/Quiz'
 import { TroubleshootingTab } from './components/TroubleshootingTab'
 import { CreditsTab } from './components/CreditsTab'
 import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName, resetXP } from './utils/xp'
-import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll } from './utils/progress'
+import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll, getTodayMinutes, addSessionMinutes, formatMinutes, getCompletedChapters, getTotalQuizCorrect, getLearningPace } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
 import { processHtmlBidi, renderBidiText } from './utils/bidi.jsx'
 import './App.css'
@@ -118,6 +118,7 @@ function App() {
   })
   const [xp, setXp] = useState(getXP())
   const [streak, setStreak] = useState(getStreak())
+  const [todayMinutes, setTodayMinutes] = useState(getTodayMinutes())
   const [xpFloat, setXpFloat] = useState(null)
   const [levelUp, setLevelUp] = useState(null)
   const [gender, setGenderState] = useState(getGender)
@@ -144,6 +145,12 @@ function App() {
       }, 0)
     : getTotalRead()
   const overallPct = totalPagesAllChapters > 0 ? Math.round((totalRead / totalPagesAllChapters) * 100) : 0
+  const completedChapters = activeTrack ? getCompletedChapters(trackChapters, activeTrack.id) : 0
+  const totalQuizCorrect = getTotalQuizCorrect()
+  const pace = getLearningPace(totalRead, streak)
+  const DAILY_GOAL_MIN = 15
+  const goalPct = Math.min(100, Math.round((todayMinutes / DAILY_GOAL_MIN) * 100))
+  const goalMet = todayMinutes >= DAILY_GOAL_MIN
 
   const handleGenderSelect = (g) => { setGender(g); setGenderState(g) }
   const toggleGender = () => {
@@ -268,6 +275,15 @@ function App() {
     document.querySelector('.content-area')?.scrollTo?.(0, 0)
   }, [currentChapter, currentPage])
 
+  // Session time tracker — ticks every 30s, adds 0.5 min
+  useEffect(() => {
+    const id = setInterval(() => {
+      addSessionMinutes(0.5)
+      setTodayMinutes(getTodayMinutes())
+    }, 30000)
+    return () => clearInterval(id)
+  }, [])
+
   // ===== RENDER: Track Picker =====
   if (!activeTrack) {
     return (
@@ -297,14 +313,28 @@ function App() {
             </h1>
           </div>
           <div className="header-stats">
-            <div className="stat-chip">
+            <div className="stat-chip" title={`רצף ${streak} ימי לימוד`}>
               <span className="stat-num">{streak}</span>
               <span className="stat-label">🔥 ימים</span>
+            </div>
+            <div className={`stat-chip stat-time${todayMinutes > 0 ? ' active' : ''}`} title="זמן לימוד היום">
+              <span className="stat-num">{formatMinutes(todayMinutes)}</span>
+              <span className="stat-label">⏱️ היום</span>
+            </div>
+            <div className="stat-chip stat-chapters" title={`${completedChapters} מתוך ${trackChapters.length} פרקים הושלמו`}>
+              <span className="stat-num">{completedChapters}/{trackChapters.length}</span>
+              <span className="stat-label">📚 פרקים</span>
             </div>
             <div className="stat-chip stat-progress" title={`${totalRead} מתוך ${totalPagesAllChapters} עמודים`}>
               <span className="stat-num">{overallPct}%</span>
               <span className="stat-label">📖 התקדמות</span>
             </div>
+            {totalQuizCorrect > 0 && (
+              <div className="stat-chip stat-pace" title={`${totalQuizCorrect} תשובות נכונות בחידון`}>
+                <span className="stat-num">{totalQuizCorrect}</span>
+                <span className="stat-label">✅ נכון</span>
+              </div>
+            )}
             <div className="stat-chip stat-xp">
               <span className="stat-num">{xp}</span>
               <span className="stat-label">{level.emoji} XP</span>
@@ -328,6 +358,17 @@ function App() {
           </div>
           <div className="level-bar">
             <div className="level-fill" style={{ width: `${lvlProgress}%` }} />
+          </div>
+        </div>
+
+        {/* Daily goal bar */}
+        <div className="daily-goal-wrap">
+          <span className="daily-goal-label">
+            {goalMet ? '🎯 מטרה יומית הושגה!' : `🎯 מטרה יומית: ${formatMinutes(todayMinutes)} / ${DAILY_GOAL_MIN} ד'`}
+            {goalMet && <span className="daily-goal-done"> 🏆</span>}
+          </span>
+          <div className="daily-goal-bar">
+            <div className={`daily-goal-fill${goalMet ? ' goal-met' : ''}`} style={{ width: `${goalPct}%` }} />
           </div>
         </div>
 
