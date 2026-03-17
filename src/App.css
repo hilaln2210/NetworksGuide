@@ -1108,6 +1108,67 @@ body {
   transform: scale(1.15);
 }
 
+/* ===== CODE DIRECTION — force LTR for all code blocks ===== */
+.content-body pre,
+.code-preview,
+.code-preview pre,
+.code-preview code {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+
+.content-body code {
+  direction: ltr;
+  unicode-bidi: embed;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.content-body pre {
+  direction: ltr;
+  text-align: left;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Answer block code */
+.answer-block code,
+.answer-block pre {
+  direction: ltr;
+  unicode-bidi: embed;
+  display: inline-block;
+}
+
+/* ===== MOBILE BACK BUTTON ===== */
+.mobile-menu-back-btn {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  .mobile-menu-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    background: rgba(14, 116, 144, 0.08);
+    border: 1px solid rgba(14, 116, 144, 0.25);
+    border-radius: var(--radius-md);
+    color: var(--teal);
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    direction: rtl;
+  }
+  .mobile-menu-back-btn:hover {
+    background: rgba(14, 116, 144, 0.15);
+    border-color: var(--teal);
+  }
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 800px) {
   .layout {
@@ -1124,6 +1185,11 @@ body {
     flex-wrap: wrap;
     padding: 0.75rem;
     height: auto;
+  }
+
+  /* Hide sidebar on mobile when lesson is open */
+  .sidebar--mobile-hidden {
+    display: none !important;
   }
 
   .sidebar h3,

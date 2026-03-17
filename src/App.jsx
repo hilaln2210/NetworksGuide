@@ -90,8 +90,8 @@ function TrackPicker({ tracks, onSelect }) {
                   </div>
                 )}
               </div>
-              {hasProgress && <div className="track-card-continue">→ המשך</div>}
-              {!hasProgress && !isEmpty && <div className="track-card-start">→ התחל</div>}
+              {hasProgress && <div className="track-card-continue">המשך ←</div>}
+              {!hasProgress && !isEmpty && <div className="track-card-start">התחל ←</div>}
             </button>
           )
         })}
@@ -122,6 +122,7 @@ function App() {
   const [levelUp, setLevelUp] = useState(null)
   const [search, setSearch] = useState('')
   const [gender, setGenderState] = useState(getGender)
+  const [mobileShowContent, setMobileShowContent] = useState(false)
 
   const trackChapters = activeTrack?.chapters || []
   const chapter = trackChapters[currentChapter]
@@ -193,6 +194,7 @@ function App() {
       setCurrentChapter(newCh)
       setCurrentPage(0)
     }
+    window.scrollTo(0, 0)
   }
 
   const goPrev = () => {
@@ -208,6 +210,7 @@ function App() {
       setCurrentChapter(newCh)
       setCurrentPage(newPg)
     }
+    window.scrollTo(0, 0)
   }
 
   const contentAreaRef = useRef(null)
@@ -216,7 +219,9 @@ function App() {
     saveLastPosition(chIndex, 0, activeTrack?.id)
     setCurrentChapter(chIndex)
     setCurrentPage(0)
+    setMobileShowContent(true)
     setTimeout(() => {
+      window.scrollTo(0, 0)
       contentAreaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }, 50)
   }
@@ -292,7 +297,7 @@ function App() {
         <div className="header-top">
           <div className="header-title-wrap">
             <button className="track-back-btn" onClick={handleBackToTracks} title="כל המסלולים">
-              כל המסלולים →
+              → כל המסלולים
             </button>
             <h1 style={{ color: activeTrack.color }}>
               {activeTrack.icon} {activeTrack.title}
@@ -323,7 +328,7 @@ function App() {
         <div className="level-bar-wrap">
           <div className="level-label">
             <span>{level.emoji} {levelName}</span>
-            {nextLevel && <span className="level-next">← {nextLevelName} ({nextLevel.min - xp} XP נותרו)</span>}
+            {nextLevel && <span className="level-next">{nextLevelName} ({nextLevel.min - xp} XP נותרו) ←</span>}
           </div>
           <div className="level-bar">
             <div className="level-fill" style={{ width: `${lvlProgress}%` }} />
@@ -357,7 +362,7 @@ function App() {
       {/* ===== LEARN ===== */}
       {activeTab === 'learn' && (
         <div className="layout">
-          <nav className="sidebar">
+          <nav className={`sidebar${mobileShowContent ? ' sidebar--mobile-hidden' : ''}`}>
             <h3>תוכן העניינים</h3>
             <div className="sidebar-search-wrap">
               <input
@@ -403,6 +408,12 @@ function App() {
           </nav>
 
           <main className="content-area" ref={contentAreaRef}>
+            <button
+              className="mobile-menu-back-btn"
+              onClick={() => setMobileShowContent(false)}
+            >
+              → רשימת פרקים
+            </button>
             <div className="page-header">
               <span className="page-type-badge" style={getBadgeStyle(page.type)}>
                 {getPageTypeLabel(page.type)}
@@ -426,9 +437,9 @@ function App() {
             <AskQuestion />
 
             <nav className="page-navigation">
-              <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>קודם →</button>
+              <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>→ קודם</button>
               <span className="page-counter">פרק {currentChapter + 1} | {currentPage + 1}/{totalPages}</span>
-              <button className="nav-btn next" onClick={goNext} disabled={!canGoNext}>← הבא</button>
+              <button className="nav-btn next" onClick={goNext} disabled={!canGoNext}>הבא ←</button>
             </nav>
           </main>
         </div>

@@ -280,7 +280,7 @@ export function Quiz({ chapters, onXPGain, gender }) {
       {/* Question */}
       <div className="quiz-question-card">
         <span className="quiz-q-num">שאלה {current + 1}</span>
-        <p className="quiz-question-text">{q.q}</p>
+        <p className="quiz-question-text" dir="auto">{q.q}</p>
       </div>
 
       {/* Choices */}
@@ -295,7 +295,7 @@ export function Quiz({ chapters, onXPGain, gender }) {
           return (
             <button key={i} className={cls} onClick={() => handlePick(choice)}>
               <span className="choice-letter">{['א', 'ב', 'ג', 'ד'][i]}</span>
-              <span className="choice-text">{choice}</span>
+              <span className="choice-text" dir="auto">{choice}</span>
             </button>
           )
         })}
@@ -306,7 +306,7 @@ export function Quiz({ chapters, onXPGain, gender }) {
         <div className={`quiz-explanation ${picked === q.correct ? 'exp-correct' : 'exp-wrong'}`}>
           <div className="exp-top">
             <span className="exp-icon">{picked === q.correct ? '✅' : '❌'}</span>
-            <p>{q.explanation}</p>
+            <p dir="auto">{q.explanation}</p>
           </div>
           {canContinue && (
             <button className="quiz-continue-btn" onClick={handleContinue}>
