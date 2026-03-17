@@ -2939,7 +2939,7 @@ export const quizBank = {
       correct: "\u200FAnycast: אותה כתובת IP מוכרזת מ-locations רבים — routing שולח traffic למיקום הקרוב ביותר. 13 Root IPs = מאות servers פיזיים עולמיים",
       choices: [
         "\u200FAnycast: אותה כתובת IP מוכרזת מ-locations רבים — routing שולח traffic למיקום הקרוב ביותר. 13 Root IPs = מאות servers פיזיים עולמיים",
-        "13 Root Servers = 13 מחשבים ענקיים הפרוסים בוושינגטון",
+        "\u200F13 Root Servers = 13 מחשבים ענקיים הפרוסים בוושינגטון",
         "\u200FAnycast = load balancer שמחלק traffic לפי round-robin",
         "\u200FRoot Servers משתמשים ב-BGP unicast עם anycast overlay"
       ],
@@ -2974,9 +2974,9 @@ export const quizBank = {
       correct: "בחיבור חוזר, ה-client שולח data עם ה-ClientHello הראשון — אפס round trips",
       choices: [
         "בחיבור חוזר, ה-client שולח data עם ה-ClientHello הראשון — אפס round trips",
-        "0-RTT = ללא latency בכלל",
+        "\u200F0-RTT = ללא latency בכלל",
         "\u200FQUIC תמיד מהיר יותר מTCP",
-        "0-RTT עובד רק בתוך אותה network"
+        "\u200F0-RTT עובד רק בתוך אותה network"
       ],
       explanation: "\u200FTCP + TLS = 1-3 RTT לפני data. QUIC עם session resumption: client שומר session ticket מחיבור קודם, שולח data מיד עם ה-first packet (0-RTT). מגבלה: 0-RTT data פגיע ל-replay attacks — לכן משתמשים בו רק לread-only requests."
     },
