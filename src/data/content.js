@@ -21,7 +21,13 @@ export const tracks = [
         title: "מה קורה כשאנו גולשים לאתר?",
         content: `
           <p>רובנו גלשנו ל־Facebook. אבל האם עצרנו לשאול – מה בעצם קורה מאחורי הקלעים כשגולשים? איך יתכן שאנו בבית, מקישים בדפדפן את הכתובת <code>www.facebook.com</code>, לוחצים Enter, ומקבלים את המידע?</p>
-          <p>אתר Facebook זקוק למספר דברים כדי לתפקד: <strong>אחסון</strong> (מקום לדפי האתר), <strong>עיצוב</strong> (לוגו, מיקום אלמנטים), <strong>אימות</strong> (זיהוי משתמשים), ו־<strong>תקשורת</strong> – דרך שתאפשר לאדם לתקשר עם האתר מכל מקום בעולם.</p>
+          <p>אתר Facebook זקוק למספר דברים כדי לתפקד:</p>
+          <ul>
+            <li><strong>אחסון</strong> — מקום לדפי האתר</li>
+            <li><strong>עיצוב</strong> — לוגו, מיקום אלמנטים</li>
+            <li><strong>אימות</strong> — זיהוי משתמשים</li>
+            <li><strong>תקשורת</strong> — דרך שתאפשר לתקשר עם האתר מכל מקום בעולם</li>
+          </ul>
           <p>ספר זה מתמקד בתקשורת – בדרך העברת המידע בין רכיבים אלקטרוניים.</p>
         `
       },
@@ -485,8 +491,11 @@ server_socket.close()</code></pre>
         type: "explanation",
         title: "Encapsulation ו-Decapsulation",
         content: `
-          <p>בשליחה: כל שכבה מקבלת מהשכבה שמעליה את הפקטה, מוסיפה <strong>Header</strong> (תחילית) בתחילתה, ומעבירה לשכבה שמתחת. זה <strong>Encapsulation</strong> (כימוס).</p>
-          <p>בקבלה: השכבה התחתונה מקבלת את הפקטה, מקלפת את ה־Header שלה, מעבירה את ה־Data לשכבה שמעל – <strong>Decapsulation</strong>. המידע שכל שכבה מוסיפה = Header – מכיל כתובת, בקרת שגיאות וכו'.</p>
+          <p><strong>Encapsulation (כימוס) — בשליחה:</strong></p>
+          <p>כל שכבה מקבלת מהשכבה שמעליה את הפקטה, מוסיפה <strong>Header</strong> (תחילית) בתחילתה, ומעבירה לשכבה שמתחת.</p>
+          <p><strong>Decapsulation — בקבלה:</strong></p>
+          <p>השכבה התחתונה מקבלת את הפקטה, מקלפת את ה־Header שלה, ומעבירה את ה-Data לשכבה שמעל.</p>
+          <p>ה-Header שכל שכבה מוסיפה מכיל: כתובת, בקרת שגיאות ועוד.</p>
         `
       },
       {
@@ -1229,7 +1238,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         content: `
           <p><strong>ICMP</strong></p>
           <p>פרוטוקול להודעות בקרה ושגיאות. הפקודה <code>ping</code> שולחת <code>Echo Request</code> ומקבלת <code>Echo Reply</code>.</p>
-          <p>שדה ה־TTL (Time To Live) מופחת בכל נתב. כשהוא מגיע ל־0 החבילה נזרקת, והנתב שולח הודעת <code>ICMP Time Exceeded</code>. הפקודה <code>traceroute</code> מנצלת התנהגות זו כדי לגלות את מסלול החבילה.</p>
+          <p>שדה ה־TTL (Time To Live) מופחת בכל נתב. כשהוא מגיע ל־0 — החבילה נזרקת, והנתב שולח הודעת <code>ICMP Time Exceeded</code>.</p>
+          <p>הפקודה <code>traceroute</code> מנצלת התנהגות זו כדי לגלות את מסלול החבילה.</p>
 
           <p><strong>DHCP</strong></p>
           <p>פרוטוקול שמאפשר למחשב חדש לקבל הגדרות רשת באופן אוטומטי. התהליך מורכב מארבעה שלבים:</p>
@@ -3058,7 +3068,8 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
             <li>מחשב לוקח את ה-prefix + מחשב suffix מה-MAC (EUI-64)</li>
             <li>כתובת מלאה: <code>2001:db8::d4be:d9ff:fed6:0c2a</code></li>
           </ol>
-          <p><strong>פרטיות:</strong> מכיוון ש-<code>SLAAC</code> מבוסס על כתובת <code>MAC</code> ידועה, ניתן לעקוב אחרי מכשירים. הפתרון: <code>Privacy Extensions</code> (RFC 4941) יוצרות סיומת אקראית שמשתנה מדי פעם.</p>
+          <p><strong>פרטיות:</strong> מכיוון ש-<code>SLAAC</code> מבוסס על כתובת <code>MAC</code> ידועה, ניתן לעקוב אחרי מכשירים.</p>
+          <p><strong>הפתרון:</strong> <code>Privacy Extensions</code> (RFC 4941) — יוצרות סיומת אקראית שמשתנה מדי פעם.</p>
         `
       },
       {
@@ -3213,7 +3224,8 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           </table>
           <p><strong>מגבלה חשובה:</strong> רשומת <code>CNAME</code> לא יכולה לשמש על דומיין ראשי (<code>apex</code>).</p>
           <p>למשל, <code>example.com</code> חייב להיות רשומת <code>A</code>, לא <code>CNAME</code>. זו הסיבה שאתרים רבים משתמשים ב-<code>www.example.com</code> כ-<code>CNAME</code>.</p>
-          <p><strong>עדיפות MX:</strong> מספר נמוך יותר מציין עדיפות גבוהה יותר. אם יש כמה רשומות <code>MX</code>, הדואר ינסה קודם את השרת עם המספר הנמוך ביותר. לשרת גיבוי מגדירים מספר גבוה יותר, למשל <code>MX 20</code>.</p>
+          <p><strong>עדיפות MX:</strong> מספר נמוך יותר = עדיפות גבוהה יותר.</p>
+          <p>אם יש כמה רשומות <code>MX</code>, הדואר ינסה קודם את השרת עם המספר הנמוך ביותר. לשרת גיבוי מגדירים מספר גבוה יותר, למשל <code>MX 20</code>.</p>
         `
       },
       {
@@ -3285,7 +3297,8 @@ sudo dscacheutil -flushcache</code></pre>
           <p><code>DNS</code> מסורתי עובד על <code>UDP</code> פורט 53 ומועבר כטקסט גלוי.</p>
           <p>כל מי שבדרך, כולל ספק האינטרנט ורשתות <code>WiFi</code> ציבוריות, יכול לראות לאיזה אתרים את גולשת.</p>
           <p><strong>DNS over HTTPS (DoH)</strong> – שאילתות <code>DNS</code> מוצפנות בתוך <code>HTTPS</code> על פורט 443. מבחוץ, לא ניתן להבדיל בינן לבין גלישה רגילה.</p>
-          <p><strong>DNS over TLS (DoT)</strong> – שאילתות <code>DNS</code> מוצפנות ב-<code>TLS</code> על פורט 853. התעבורה מוצפנת, אבל מכיוון שפורט 853 ייחודי ל-<code>DoT</code>, ניתן לזהות שמדובר בשאילתות <code>DNS</code>.</p>
+          <p><strong>DNS over TLS (DoT)</strong> – שאילתות DNS מוצפנות ב-<code>TLS</code> על פורט 853.</p>
+          <p>התעבורה מוצפנת, אבל מכיוון שפורט 853 ייחודי ל-<code>DoT</code> — ניתן לזהות שמדובר בשאילתות DNS.</p>
           <table class="content-table">
             <tr><th></th><th>DoH</th><th>DoT</th><th>DNS רגיל</th></tr>
             <tr><td>פורט</td><td>443</td><td>853</td><td>53</td></tr>
@@ -4044,7 +4057,8 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
               <text x="190" y="120" text-anchor="middle" font-size="8" fill="#92400e">• הפסד: ~$60M הכנסות + $6B ירידה בשווי מניה</text>
             </svg>
           </div>
-          <p><strong>הבעיה העמוקה:</strong> הכלים לתיקון גם הם היו <em>בתוך</em> הרשת שנפלה. מהנדסים נאלצו לנסוע פיזית למרכז הנתונים ולהיכנס עם badge שלא עבד כי מערכת הגישה גם היא תלויה בפייסבוק.</p>
+          <p><strong>הבעיה העמוקה:</strong> הכלים לתיקון גם הם היו <em>בתוך</em> הרשת שנפלה.</p>
+          <p>מהנדסים נאלצו לנסוע פיזית למרכז הנתונים — ולהיכנס עם badge שלא עבד, כי מערכת הגישה גם היא תלויה בפייסבוק.</p>
           <p><strong><code>BGP</code> — Border Gateway Protocol</strong> הוא הפרוטוקול שמנהל את "מפת האינטרנט".</p>
           <p>כל <code>AS</code> (Autonomous System) — חברה, ספקית אינטרנט, או מדינה — מכריז על ה-<code>prefixes</code> שלו. בלי הכרזות? אף אחד לא יודע איפה פייסבוק.</p>
         `
@@ -4503,7 +4517,8 @@ IP address: 142.250.80.101 [גלוי]
 08:24:05  DNS query → youtube.com
 09:17:33  DNS query → bankofamerica.com</code></pre>
           </div>
-          <p><strong>מה ה-<code>ISP</code> יכול לעשות עם זה:</strong> בארה"ב, מאז 2017, ספקיות אינטרנט רשאיות למכור את נתוני הגלישה שלך. בין הלקוחות הפוטנציאליים: חברות ביטוח, מעסיקים, וסוכנויות פרסום.</p>
+          <p><strong>מה ה-ISP יכול לעשות עם זה:</strong></p>
+          <p>בארה"ב, מאז 2017, ספקיות אינטרנט רשאיות למכור את נתוני הגלישה שלך. בין הלקוחות הפוטנציאליים: חברות ביטוח, מעסיקים, וסוכנויות פרסום.</p>
           <p><strong>הגנות:</strong></p>
           <ul>
             <li><code>DoH</code> — DNS over HTTPS: מצפין את שאילתות ה-<code>DNS</code></li>
@@ -4801,7 +4816,14 @@ int block_udp(struct xdp_md *ctx) {
               <text x="180" y="60" text-anchor="middle" font-size="8" fill="var(--text-muted)">ISL: laser link בין לווינים</text>
             </svg>
           </div>
-          <p><strong>שימושים שמשנים חיים:</strong> כפרים ללא fiber, ספינות, מטוסים, אזורי אסון, אוקראינה במלחמה (Starlink = infrastructure קריטית). <strong>חסרון:</strong> גשם/עננות מפריע, עלות גבוהה, concerns על space debris ו-light pollution.</p>
+          <p><strong>שימושים שמשנים חיים:</strong></p>
+          <ul>
+            <li>כפרים ללא fiber</li>
+            <li>ספינות ומטוסים</li>
+            <li>אזורי אסון</li>
+            <li>אוקראינה במלחמה — Starlink הפך ל-infrastructure קריטית</li>
+          </ul>
+          <p><strong>חסרונות:</strong> גשם/עננות מפריע, עלות גבוהה, concerns על space debris ו-light pollution.</p>
         `
       },
       {
