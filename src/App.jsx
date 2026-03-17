@@ -5,7 +5,6 @@ import { EncapsulationSim } from './components/EncapsulationSim'
 import { DnsLookupSim } from './components/DnsLookupSim'
 import { PacketFlowSim } from './components/PacketFlowSim'
 import { ThinkOutsideBox } from './components/ThinkOutsideBox'
-import { AskQuestion } from './components/AskQuestion'
 import { KeyTip } from './components/KeyTip'
 import { Quiz } from './components/Quiz'
 import { TroubleshootingTab } from './components/TroubleshootingTab'
@@ -431,8 +430,6 @@ function App() {
                 <div className="content-body" dangerouslySetInnerHTML={{ __html: processHtmlBidi(page.content) }} />
               )}
             </article>
-
-            <AskQuestion />
 
             <nav className="page-navigation">
               <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>→ קודם</button>
