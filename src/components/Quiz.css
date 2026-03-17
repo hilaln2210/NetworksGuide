@@ -440,10 +440,7 @@
   margin-bottom: 0.1rem;
   display: block;
   text-align: right;
-}
-.quiz-exp-text span[dir="ltr"] {
-  text-align: left;
-  direction: ltr;
+  direction: rtl;
 }
 
 .quiz-continue-btn {
