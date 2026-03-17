@@ -31,11 +31,20 @@ export function renderBidiText(text) {
   const pushNonHebrew = (seg, k) => {
     if (!seg) return
     if (/[A-Za-z0-9]/.test(seg)) {
+      // Trim leading/trailing spaces OUT of the LTR span.
+      // Keeping spaces inside causes them to appear on the wrong visual side
+      // when a lone Hebrew preposition (ל, ב, מ...) sits between two LTR spans.
+      const trimmed = seg.trimStart()
+      const leading = seg.slice(0, seg.length - trimmed.length)
+      const inner = trimmed.trimEnd()
+      const trailing = trimmed.slice(inner.length)
+      if (leading) parts.push(leading)
       parts.push(
         <span key={k} dir="ltr" style={{ unicodeBidi: 'isolate' }}>
-          {seg}
+          {inner}
         </span>
       )
+      if (trailing) parts.push(trailing)
     } else {
       parts.push(seg)
     }
@@ -78,7 +87,12 @@ export function processHtmlBidi(html) {
         /([\u0590-\u05ff\ufb1d-\ufb4f\u0600-\u06ff]+)|([^\u0590-\u05ff\ufb1d-\ufb4f\u0600-\u06ff]+)/g,
         (m, heb, ltr) => {
           if (heb) return heb
-          if (ltr && /[A-Za-z0-9]/.test(ltr)) return `<span dir="ltr">${ltr}</span>`
+          if (ltr && /[A-Za-z0-9]/.test(ltr)) {
+            const inner = ltr.trim()
+            const leading = ltr.slice(0, ltr.indexOf(inner[0]))
+            const trailing = ltr.slice(ltr.lastIndexOf(inner[inner.length - 1]) + 1)
+            return `${leading}<span dir="ltr">${inner}</span>${trailing}`
+          }
           return ltr || ''
         }
       )

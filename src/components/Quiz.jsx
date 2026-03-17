@@ -484,7 +484,7 @@ function ChapterModal({ chapter, chIdx, onClose }) {
             disabled={pageIdx === 0}
             onClick={() => setPageIdx(p => p - 1)}
           >→ קודם</button>
-          <span className="ch-modal-counter">{pageIdx + 1} / {total}</span>
+          <span className="ch-modal-counter" dir="ltr">{pageIdx + 1} / {total}</span>
           <button
             className="ch-modal-nav-btn"
             disabled={pageIdx === total - 1}
