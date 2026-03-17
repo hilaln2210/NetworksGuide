@@ -400,7 +400,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
               )}
               <div className="quiz-exp-text">
                 {q.explanation.split(/(?<=\.)\s+/).map((s, i) => (
-                  <span key={i} dir="rtl" style={{ display: 'block', textAlign: 'right', direction: 'rtl', marginBottom: '0.1rem' }}>{s}</span>
+                  <span key={i} dir="auto" style={{ display: 'block', textAlign: 'start', marginBottom: '0.1rem' }}>{s}</span>
                 ))}
               </div>
             </div>
