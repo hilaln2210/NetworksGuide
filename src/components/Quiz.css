@@ -437,6 +437,20 @@
 .quiz-explanation p {
   margin: 0;
   color: rgba(15,23,42,0.88);
+  text-align: right;
+  direction: rtl;
+  unicode-bidi: plaintext;
+  line-height: 1.7;
+}
+
+.choice-text {
+  text-align: right;
+  direction: rtl;
+}
+
+.quiz-question-text {
+  text-align: right;
+  line-height: 1.7;
 }
 
 .quiz-continue-btn {
