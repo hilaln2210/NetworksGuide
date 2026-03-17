@@ -1,12 +1,10 @@
 /**
  * bidi.jsx — RTL/LTR mixing utilities
  *
- * Strategy:
- * 1. Split text on Hebrew character runs.
- * 2. Wrap non-Hebrew ASCII segments in <span dir="ltr" unicode-bidi:embed>.
- * 3. After each LTR span, inject U+200F (RTL mark) to anchor trailing
- *    punctuation (". ", ": ", ", ") back into the RTL flow — preventing
- *    the classic reordering bug where "Segment. שכבת" renders as ". Segmentשכבת".
+ * Wraps non-Hebrew segments (that contain ASCII) as a SINGLE <span dir="ltr">.
+ * Splitting by Hebrew character runs prevents the bidi reordering bug where
+ * wrapping each word in a separate isolated span causes multi-word English
+ * phrases like "(Protocol Data Unit)" to display as "(Unit Data Protocol)".
  */
 
 // Hebrew + Arabic strong-RTL characters
@@ -14,7 +12,12 @@ const HEBREW_RE = /[\u0590-\u05ff\ufb1d-\ufb4f\u0600-\u06ff]+/g
 
 /**
  * renderBidiText(text) → React children array
- * Usage: <p dir="auto">{renderBidiText(someText)}</p>
+ *
+ * Splits text on Hebrew character runs. Non-Hebrew segments that contain
+ * at least one ASCII letter/digit are wrapped in a single <span dir="ltr">.
+ * This keeps multi-word English phrases like "(Protocol Data Unit)" intact.
+ *
+ * Usage: <p dir="rtl">{renderBidiText(someText)}</p>
  */
 export function renderBidiText(text) {
   if (!text || typeof text !== 'string') return text
@@ -28,13 +31,20 @@ export function renderBidiText(text) {
   const pushNonHebrew = (seg, k) => {
     if (!seg) return
     if (/[A-Za-z0-9]/.test(seg)) {
+      // Trim leading/trailing spaces OUT of the LTR span.
+      // Keeping spaces inside causes them to appear on the wrong visual side
+      // when a lone Hebrew preposition (ל, ב, מ...) sits between two LTR spans.
+      const trimmed = seg.trimStart()
+      const leading = seg.slice(0, seg.length - trimmed.length)
+      const inner = trimmed.trimEnd()
+      const trailing = trimmed.slice(inner.length)
+      if (leading) parts.push(leading)
       parts.push(
-        <span key={k} dir="ltr" style={{ unicodeBidi: 'embed' }}>
-          {seg}
+        <span key={k} dir="ltr" style={{ unicodeBidi: 'isolate' }}>
+          {inner}
         </span>
       )
-      // RTL mark after LTR span — keeps following punctuation in RTL flow
-      parts.push('\u200F')
+      if (trailing) parts.push(trailing)
     } else {
       parts.push(seg)
     }
@@ -52,17 +62,26 @@ export function renderBidiText(text) {
 
 /**
  * processHtmlBidi(html) → html string
+ *
  * Use for HTML strings rendered with dangerouslySetInnerHTML.
+ * Wraps English/number tokens in <span dir="ltr"> within text nodes,
+ * skipping content inside <pre>, <code>, and existing <span dir="ltr"> tags.
  */
 export function processHtmlBidi(html) {
   if (!html) return html
 
+  // We process text nodes between tags, but skip <pre>...</pre> and <code>...</code>
+  // Strategy: split on pre/code blocks, process the rest
   const SKIP_RE = /(<(?:pre|code)[^>]*>[\s\S]*?<\/(?:pre|code)>|<span\s+dir="ltr"[^>]*>[\s\S]*?<\/span>)/gi
+
   const segments = html.split(SKIP_RE)
 
   return segments.map((seg, i) => {
+    // Odd-indexed segments are the matched (skipped) blocks — leave as-is
     if (i % 2 === 1) return seg
 
+    // For text segments: split each text node on Hebrew runs,
+    // wrap non-Hebrew segments containing ASCII as a single <span dir="ltr">
     return seg.replace(/>([^<]+)</g, (full, textNode) => {
       const processed = textNode.replace(
         /([\u0590-\u05ff\ufb1d-\ufb4f\u0600-\u06ff]+)|([^\u0590-\u05ff\ufb1d-\ufb4f\u0600-\u06ff]+)/g,
@@ -72,8 +91,7 @@ export function processHtmlBidi(html) {
             const inner = ltr.trim()
             const leading = ltr.slice(0, ltr.indexOf(inner[0]))
             const trailing = ltr.slice(ltr.lastIndexOf(inner[inner.length - 1]) + 1)
-            // \u200F after closing span anchors following punctuation to RTL
-            return `${leading}<span dir="ltr" style="unicode-bidi:embed">${inner}</span>\u200F${trailing}`
+            return `${leading}<span dir="ltr">${inner}</span>${trailing}`
           }
           return ltr || ''
         }

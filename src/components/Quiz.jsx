@@ -321,7 +321,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
       {/* Question */}
       <div className="quiz-question-card">
         <span className="quiz-q-num">שאלה {current + 1}</span>
-        <p className="quiz-question-text" dir="auto">{renderBidiText(q.q)}</p>
+        <p className="quiz-question-text" dir="rtl">{renderBidiText(q.q)}</p>
         {/* Hint + chapter link row — only before answering */}
         {picked === null && (
           <div className="quiz-hint-row">
@@ -348,7 +348,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
               })()}
             </div>
             {hintVisible && (
-              <div className="quiz-hint-box" dir="auto">
+              <div className="quiz-hint-box" dir="rtl">
                 <span className="quiz-hint-label">💡 רמז:</span>
                 {renderBidiText(getHint(q.explanation, q.correct))}
               </div>
@@ -369,7 +369,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
           return (
             <button key={i} className={cls} onClick={() => handlePick(choice)}>
               <span className="choice-letter">{['א', 'ב', 'ג', 'ד'][i]}</span>
-              <span className="choice-text" dir="auto">{renderBidiText(choice)}</span>
+              <span className="choice-text" dir="rtl">{renderBidiText(choice)}</span>
             </button>
           )
         })}
@@ -382,11 +382,11 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
             <div className="exp-wrong-summary">
               <div className="exp-wrong-picked">
                 <span className="exp-label-wrong">❌ בחרת:</span>
-                <span dir="auto">{renderBidiText(picked)}</span>
+                <span dir="rtl">{renderBidiText(picked)}</span>
               </div>
               <div className="exp-correct-answer">
                 <span className="exp-label-correct">✅ הנכון:</span>
-                <span dir="auto">{renderBidiText(q.correct)}</span>
+                <span dir="rtl">{renderBidiText(q.correct)}</span>
               </div>
             </div>
           )}
@@ -398,7 +398,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
                   {gender === 'male' ? 'נכון! מעולה 🎉' : 'נכון! מעולה 🎉'}
                 </p>
               )}
-              <p dir="auto">{renderBidiText(q.explanation)}</p>
+              <p dir="rtl">{renderBidiText(q.explanation)}</p>
             </div>
           </div>
           {canContinue && (
@@ -438,8 +438,8 @@ function ChapterModal({ chapter, chIdx, onClose }) {
         <div className="ch-modal-qa-list">
           {p.questions.map((item, i) => (
             <details key={i} className="ch-modal-qa-item">
-              <summary className="ch-modal-qa-q" dir="auto">{renderBidiText(item.q)}</summary>
-              <p className="ch-modal-qa-a" dir="auto">{renderBidiText(item.a)}</p>
+              <summary className="ch-modal-qa-q" dir="rtl">{renderBidiText(item.q)}</summary>
+              <p className="ch-modal-qa-a" dir="rtl">{renderBidiText(item.a)}</p>
             </details>
           ))}
         </div>
@@ -452,7 +452,7 @@ function ChapterModal({ chapter, chIdx, onClose }) {
     return (
       <div
         className="ch-modal-content-body content-body"
-        dir="auto"
+        dir="rtl"
         dangerouslySetInnerHTML={{ __html: processHtmlBidi(html) }}
       />
     )

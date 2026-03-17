@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { troubleshootingContent, storiesContent } from '../data/troubleshooting'
-import { renderBidiText, processHtmlBidi } from '../utils/bidi.jsx'
 import './TroubleshootingTab.css'
 
 export function TroubleshootingTab() {
@@ -63,25 +62,25 @@ export function TroubleshootingTab() {
                   <div className="trbl-body">
                     <div className="trbl-story">
                       <span className="trbl-section-label">📋 הסיפור</span>
-                      <p dir="auto">{renderBidiText(item.story)}</p>
+                      <p>{item.story}</p>
                     </div>
 
                     <div className="trbl-causes">
                       <span className="trbl-section-label">❓ סיבות אפשריות</span>
                       <ul>
                         {item.causes.map((c, i) => (
-                          <li key={i} dir="auto">{renderBidiText(c)}</li>
+                          <li key={i}>{c}</li>
                         ))}
                       </ul>
                     </div>
 
                     <div className="trbl-solution">
                       <span className="trbl-section-label">✅ פתרון</span>
-                      <pre dir="ltr">{item.solution}</pre>
+                      <pre>{item.solution}</pre>
                     </div>
 
-                    <div className="trbl-tip" dir="auto">
-                      {renderBidiText(item.tip)}
+                    <div className="trbl-tip">
+                      {item.tip}
                     </div>
                   </div>
                 )}

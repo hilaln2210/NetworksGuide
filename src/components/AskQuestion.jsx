@@ -1,6 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
 import { chapters } from '../data/content'
-import { processHtmlBidi } from '../utils/bidi.jsx'
 import './AskQuestion.css'
 
 function buildSearchIndex() {
@@ -103,7 +102,7 @@ export function AskQuestion() {
           <span className="qs-result-title">{r.pageTitle}</span>
         </div>
         {snippetHtml && (
-          <p className="qs-result-snippet" dir="auto" dangerouslySetInnerHTML={{ __html: processHtmlBidi(snippetHtml) }} />
+          <p className="qs-result-snippet" dangerouslySetInnerHTML={{ __html: snippetHtml }} />
         )}
       </div>
     )
