@@ -293,7 +293,18 @@ data = my_socket.recv(1024)
 print('The server sent:', data.decode())
 my_socket.close()</code></pre>
           </div>
-          <p class="demo-note">📋 socket() יוצר אובייקט. connect() מתחבר ל־IP:Port. send() שולח bytes (b'...'), recv() מקבל (blocking – עוצר עד לקבלת מידע). decode() ממיר bytes לטקסט. close() משחרר משאבים. 127.0.0.1 = התחברות למחשב עצמו (loopback).</p>
+          <div class="demo-note">
+            <p>📋 <strong>הסבר הפונקציות:</strong></p>
+            <ul>
+              <li><code>socket()</code> — יוצר אובייקט socket</li>
+              <li><code>connect()</code> — מתחבר ל־IP:Port</li>
+              <li><code>send()</code> — שולח bytes (חובה <code>b'...'</code>, לא string)</li>
+              <li><code>recv()</code> — מקבל נתונים (blocking — עוצר עד לקבלת מידע)</li>
+              <li><code>decode()</code> — ממיר bytes לטקסט</li>
+              <li><code>close()</code> — משחרר משאבים</li>
+            </ul>
+            <p><code>127.0.0.1</code> = התחברות למחשב עצמו (loopback).</p>
+          </div>
         `
       },
       {
@@ -313,7 +324,16 @@ client_socket.send(('Hello ' + data).encode())  # string → bytes
 client_socket.close()
 server_socket.close()</code></pre>
           </div>
-          <p class="demo-note">📋 bind() מקשיר את השרת ל־IP ולפורט. listen() מתחיל להאזין. accept() מחכה לחיבור (blocking) ומחזיר socket של הלקוח וכתובתו. recv() מחזיר bytes — decode() ממיר לטקסט. send() דורש bytes — encode() ממיר. recv() מחזיר b'' ריק אם הלקוח התנתק.</p>
+          <div class="demo-note">
+            <p>📋 <strong>הסבר הפונקציות:</strong></p>
+            <ul>
+              <li><code>bind()</code> — מקשיר את השרת ל־IP ולפורט</li>
+              <li><code>listen()</code> — מתחיל להאזין לחיבורים</li>
+              <li><code>accept()</code> — מחכה לחיבור (blocking) ומחזיר socket של הלקוח וכתובתו</li>
+              <li><code>recv()</code> — מקבל bytes. <code>decode()</code> ממיר לטקסט. מחזיר <code>b''</code> ריק אם הלקוח התנתק</li>
+              <li><code>send()</code> — שולח bytes. <code>encode()</code> ממיר מטקסט ל־bytes</li>
+            </ul>
+          </div>
         `
       },
       {
@@ -798,15 +818,25 @@ client.close()</code></pre>
         type: "explanation",
         title: "משאבי רשת – URL מלא",
         content: `
-          <p><strong>URL</strong> (Uniform Resource Locator) מזהה משאב ברשת. מבנה: <code>פרוטוקול://דומיין:פורט/נתיב?שאילתה</code>. לדוגמה: <code>https://www.google.com/maps?q=תל+אביב</code> – פרוטוקול HTTPS, דומיין Google, נתיב maps, פרמטר q למקום.</p>
-          <p>כל משאב ברשת (דף, תמונה, API) מזוהה ב־URL ייחודי. מפות Google, סרטונים, טפסים – כולם נגישים דרך URLs.</p>
+          <p><strong>URL</strong> (Uniform Resource Locator) — מזהה משאב ברשת.</p>
+          <p><strong>מבנה:</strong> <code>פרוטוקול://דומיין:פורט/נתיב?שאילתה</code></p>
+          <p><strong>דוגמה:</strong> <code>https://www.google.com/maps?q=תל+אביב</code></p>
+          <ul>
+            <li><code>https</code> — פרוטוקול</li>
+            <li><code>www.google.com</code> — דומיין</li>
+            <li><code>/maps</code> — נתיב</li>
+            <li><code>?q=תל+אביב</code> — פרמטר חיפוש</li>
+          </ul>
+          <p>כל משאב ברשת — דף, תמונה, API — מזוהה ב־URL ייחודי.</p>
         `
       },
       {
         type: "explanation",
         title: "מפות Google – דוגמה למשאבי רשת",
         content: `
-          <p>כשפותחים מפות Google ומחפשים מקום – הדפדפן שולח בקשות HTTP לשרתי Google. ה־URL משתנה לפי החיפוש: <code>https://www.google.com/maps/search/...</code>. השרת מחזיר מפות, תמונות, נתונים. זוהי דוגמה לשכבת האפליקציה – פרוטוקול HTTP משרת את היישום (מפות) שמציג מידע למשתמש.</p>
+          <p>כשפותחים מפות Google ומחפשים מקום, הדפדפן שולח בקשות HTTP לשרתי Google.</p>
+          <p>ה־URL משתנה לפי החיפוש: <code>https://www.google.com/maps/search/...</code></p>
+          <p>השרת מחזיר מפות, תמונות ונתונים. זוהי דוגמה לשכבת האפליקציה — פרוטוקול HTTP משרת את היישום (מפות) שמציג מידע למשתמש.</p>
         `
       },
       {
@@ -853,8 +883,15 @@ client.close()</code></pre>
         type: "explanation",
         title: "מבוא ל-Scapy",
         content: `
-          <p><strong>Scapy</strong> היא ספרייה חיצונית לפייתון שמאפשרת הסנפה, שליחה וייצור חבילות רשת, וניתוח שדות – ברמת השכבות הנמוכות. בניגוד ל־Sockets שמשרת את שכבת האפליקציה, Scapy מאפשרת גישה לשכבות התעבורה, הרשת והקו.</p>
-          <p>באמצעות Scapy אפשר להסניף תעבורת HTTP ולשמור את כל הכתובות שאליהן הייתה גלישה, לסנן לפי תנאים, לראות תמונות שעברו, ולשלוח חבילות עם מבנה בשליטה מלאה.</p>
+          <p><strong>Scapy</strong> — ספרייה לפייתון לעבודה עם חבילות רשת ברמה נמוכה.</p>
+          <p>בניגוד ל־Sockets שעובד בשכבת האפליקציה, Scapy נותן גישה לשכבות התעבורה, הרשת והקו.</p>
+          <p><strong>מה אפשר לעשות עם Scapy:</strong></p>
+          <ul>
+            <li>להסניף תעבורת HTTP ולשמור כתובות שאליהן הייתה גלישה</li>
+            <li>לסנן חבילות לפי תנאים</li>
+            <li>לראות תמונות שעברו ברשת</li>
+            <li>לשלוח חבילות עם מבנה בשליטה מלאה</li>
+          </ul>
         `
       },
       {
@@ -1483,9 +1520,14 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         content: `
           <p><strong>Firewall</strong> הוא מנגנון שמסנן תעבורת רשת לפי חוקים – מחליט מה מותר לעבור ומה נחסם.</p>
           <h4>סוגי Firewall:</h4>
-          <p><strong>Stateless Firewall</strong> (<code>Packet Filter</code>) – בודק כל חבילה בנפרד לפי IP מקור/יעד, פורט ופרוטוקול. לא זוכר מצב של חיבורים קודמים. פשוט ומהיר, אבל פחות חכם.</p>
-          <p><strong>Stateful Firewall</strong> – עוקב אחר <em>חיבורים</em> באמצעות <code>State Table</code>. אם יצאה בקשה מהרשת הפנימית, התשובה מותרת לחזור אוטומטית. ניסיונות חיבור חיצוניים שלא קשורים לבקשה פנימית נחסמים.</p>
-          <p><strong>Application Layer Firewall (WAF)</strong> – מבין תוכן ה-HTTP, חוסם SQL Injection, XSS, ועוד.</p>
+          <p><strong>Stateless Firewall</strong> (<code>Packet Filter</code>)</p>
+          <p>בודק כל חבילה בנפרד לפי IP מקור/יעד, פורט ופרוטוקול. לא זוכר מצב של חיבורים קודמים. פשוט ומהיר, אבל פחות חכם.</p>
+
+          <p><strong>Stateful Firewall</strong></p>
+          <p>עוקב אחר <em>חיבורים</em> באמצעות <code>State Table</code>. אם יצאה בקשה מהרשת הפנימית — התשובה מותרת לחזור אוטומטית. ניסיונות חיבור חיצוניים שלא קשורים לבקשה פנימית נחסמים.</p>
+
+          <p><strong>Application Layer Firewall (WAF)</strong></p>
+          <p>מבין את תוכן ה־HTTP וחוסם התקפות כמו SQL Injection, XSS ועוד.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 340 80" class="content-diagram">
               <rect x="10" y="20" width="80" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -2455,12 +2497,22 @@ response = requests.get('https://self-signed.badssl.com', verify=False)</code></
           {
             title: "HTTPS מגן על התעבורה – לא על האתר",
             icon: "🔒",
-            content: `<p><code>HTTPS</code> מצפין את התקשורת בין הדפדפן לשרת, אבל אם האתר עצמו זדוני, ההצפנה לא עוזרת.</p><p>אתר פישינג יכול להיות <code>HTTPS</code> תקין לחלוטין עם סמל מנעול.</p><p><strong>הכלל:</strong> סמל המנעול אומר "החיבור מוצפן", לא "האתר אמין". תמיד לבדוק את כתובת הדומיין, לא רק את המנעול.</p>`
+            content: `
+              <p><code>HTTPS</code> מצפין את התקשורת בין הדפדפן לשרת — אבל אם האתר עצמו זדוני, ההצפנה לא עוזרת.</p>
+              <p>אתר פישינג יכול להיות <code>HTTPS</code> תקין לחלוטין עם סמל מנעול.</p>
+              <p><strong>הכלל:</strong> סמל המנעול אומר "החיבור מוצפן", לא "האתר אמין".</p>
+              <p>תמיד לבדוק את כתובת הדומיין, לא רק את המנעול.</p>
+            `
           },
           {
             title: "MITM Attack – איך TLS מונע?",
             icon: "👥",
-            content: `<p><strong>Man in the Middle</strong>: האקר יושב בין הדפדפן לשרת ומנסה לקרוא את כל התקשורת.</p><p>בלי <code>TLS</code> – הוא מצליח. עם <code>TLS</code>: האקר לא יכול לזייף את האישור של <code>GitHub.com</code> כי אין לו את המפתח הפרטי של השרת. הדפדפן יזהה אישור לא תואם ויחסום את החיבור.</p><p><strong>חריג:</strong> אם גוף CA נפרץ, האקר יכול לקבל אישור מזויף. זה קרה ב-2011 כשנפרצה חברת <code>DigiNotar</code>.</p>`
+            content: `
+              <p><strong>Man in the Middle</strong> — האקר יושב בין הדפדפן לשרת ומנסה לקרוא את כל התקשורת.</p>
+              <p><strong>בלי TLS</strong> — הוא מצליח.</p>
+              <p><strong>עם TLS</strong> — האקר לא יכול לזייף את האישור של <code>GitHub.com</code> כי אין לו את המפתח הפרטי של השרת. הדפדפן יזהה אישור לא תואם ויחסום את החיבור.</p>
+              <p><strong>חריג:</strong> אם גוף CA נפרץ, האקר יכול לקבל אישור מזויף. זה קרה ב-2011 כשנפרצה חברת <code>DigiNotar</code>.</p>
+            `
           }
         ]
       },
@@ -2838,12 +2890,25 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           {
             title: "ארכיטקטורת רשת של AWS",
             icon: "☁️",
-            content: `<p>ב-<code>AWS</code>, שירות <code>VPC</code> (Virtual Private Cloud) הוא רשת וירטואלית פרטית שלך. בוחרים <code>CIDR</code> בסיסי, למשל <code>10.0.0.0/16</code> שנותן 65K כתובות.</p><p>מתוכו יוצרים תת-רשתות:</p><ul><li><strong>Public Subnets</strong> – <code>10.0.1.0/24</code>, <code>10.0.2.0/24</code> – יש להן גישה לאינטרנט</li><li><strong>Private Subnets</strong> – <code>10.0.10.0/24</code>, <code>10.0.11.0/24</code> – ללא גישה ישירה</li></ul><p><code>Subnetting</code> מגדיר את הארכיטקטורה של הענן.</p>`
+            content: `
+              <p>ב-<code>AWS</code>, שירות <code>VPC</code> (Virtual Private Cloud) הוא רשת וירטואלית פרטית שלך.</p>
+              <p>בוחרים <code>CIDR</code> בסיסי, למשל <code>10.0.0.0/16</code> שנותן 65K כתובות. מתוכו יוצרים תת-רשתות:</p>
+              <ul>
+                <li><strong>Public Subnets</strong> — <code>10.0.1.0/24</code>, <code>10.0.2.0/24</code> — יש להן גישה לאינטרנט</li>
+                <li><strong>Private Subnets</strong> — <code>10.0.10.0/24</code>, <code>10.0.11.0/24</code> — ללא גישה ישירה</li>
+              </ul>
+              <p><code>Subnetting</code> מגדיר את הארכיטקטורה של הענן.</p>
+            `
           },
           {
             title: "האם 192.168.1.1 תמיד הנתב?",
             icon: "🤔",
-            content: `<p>לא! 192.168.1.1 הוא כתובת Default Gateway של הנתב – אבל זה רק מוסכמה. הנתב יכול להיות 192.168.1.254, 10.0.0.1, כל כתובת שהוגדרה. בפועל: ראוטרים ביתיים בחרו 192.168.1.1 כברירת מחדל מנוחות – זה הפך למוסכמה. את יכולה לראות את הנתב האמיתי ב-ipconfig תחת "Default Gateway".</p>`
+            content: `
+              <p>לא! <code>192.168.1.1</code> הוא כתובת Default Gateway של הנתב — אבל זו רק מוסכמה.</p>
+              <p>הנתב יכול להיות <code>192.168.1.254</code>, <code>10.0.0.1</code>, או כל כתובת שהוגדרה.</p>
+              <p>ראוטרים ביתיים בחרו <code>192.168.1.1</code> כברירת מחדל מנוחות — וזה הפך למוסכמה.</p>
+              <p>אפשר לראות את הנתב האמיתי ב-<code>ipconfig</code> תחת "Default Gateway".</p>
+            `
           }
         ]
       },
@@ -3024,12 +3089,21 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           {
             title: "אם לכל מכשיר יש IP ציבורי – מה עם אבטחה?",
             icon: "🛡️",
-            content: `<p>ב-<code>IPv4</code>, <code>NAT</code> סיפק הגנה בחינם: מחשב ברשת פרטית לא היה נגיש מבחוץ.</p><p>ב-<code>IPv6</code>, כל מכשיר יכול לקבל IP ציבורי ולהיות נגיש ישירות מהאינטרנט. <strong><code>Firewall</code> חיוני יותר מאי פעם ב-<code>IPv6</code>.</strong></p><p>מצד שני, <code>NAT</code> יצר בעיות רבות בחיבורים ישירים כמו <code>P2P</code>, <code>VoIP</code> ומשחקים. ב-<code>IPv6</code>, חיבורים ישירים חוזרים לעבוד כמו שצריך.</p>`
+            content: `
+              <p><strong>ב-IPv4:</strong> <code>NAT</code> סיפק הגנה בחינם — מחשב ברשת פרטית לא היה נגיש מבחוץ.</p>
+              <p><strong>ב-IPv6:</strong> כל מכשיר יכול לקבל IP ציבורי ולהיות נגיש ישירות מהאינטרנט. <code>Firewall</code> חיוני יותר מאי פעם.</p>
+              <p><strong>היתרון:</strong> <code>NAT</code> יצר בעיות רבות בחיבורים ישירים כמו <code>P2P</code>, <code>VoIP</code> ומשחקים. ב-<code>IPv6</code>, חיבורים ישירים חוזרים לעבוד כמו שצריך.</p>
+            `
           },
           {
             title: "IoT ו-IPv6 – כמה מכשירים?",
             icon: "🌐",
-            content: `<p>ב-2030 צפויים <strong>50 מיליארד</strong> מכשירי <code>IoT</code>.</p><p>ב-<code>IPv4</code>, כל המכשירים האלה חייבים לעבור דרך <code>NAT</code>, מה שיוצר סיבוכים רבים.</p><p>ב-<code>IPv6</code>, כל חיישן בשדה, כל נורה חכמה וכל רכב אוטונומי יקבל כתובת IP ייחודית גלובלית. ניהול, עדכון ואיתור תקלות הופכים ישירים ופשוטים.</p><p><code>IPv6</code> הוא התשתית שמאפשרת את עתיד ה-<code>IoT</code>.</p>`
+            content: `
+              <p>ב-2030 צפויים <strong>50 מיליארד</strong> מכשירי <code>IoT</code>.</p>
+              <p><strong>ב-IPv4:</strong> כל המכשירים חייבים לעבור דרך <code>NAT</code>, מה שיוצר סיבוכים רבים.</p>
+              <p><strong>ב-IPv6:</strong> כל חיישן, נורה חכמה ורכב אוטונומי יקבל כתובת IP ייחודית גלובלית. ניהול, עדכון ואיתור תקלות הופכים ישירים ופשוטים.</p>
+              <p><code>IPv6</code> הוא התשתית שמאפשרת את עתיד ה-<code>IoT</code>.</p>
+            `
           }
         ]
       },
@@ -3232,12 +3306,20 @@ sudo dscacheutil -flushcache</code></pre>
           {
             title: "DNS Hijacking – כשה-DNS עצמו מושחת",
             icon: "⚠️",
-            content: `<p>ספקי אינטרנט מסוימים "חוטפים" שאילתות <code>DNS</code> לדומיינים שלא קיימים. במקום להחזיר <code>NXDOMAIN</code>, הם מציגים דף פרסומות.</p><p>תקיפה חמורה יותר: <code>DNS Spoofing</code> / <code>Cache Poisoning</code>. תוקף מזהם את ה-<code>cache</code> של <code>Resolver</code> עם תשובות מזויפות, ומפנה משתמשים לאתר פישינג.</p><p><strong>DNSSEC</strong> (<code>DNS Security Extensions</code>) פותר זאת באמצעות חתימות קריפטוגרפיות על כל רשומה. הרשומה נחשבת אמיתית רק אם החתימה תקינה.</p>`
+            content: `
+              <p><strong>DNS Hijacking:</strong> ספקי אינטרנט מסוימים "חוטפים" שאילתות <code>DNS</code> לדומיינים שלא קיימים. במקום להחזיר <code>NXDOMAIN</code> — הם מציגים דף פרסומות.</p>
+              <p><strong>DNS Spoofing / Cache Poisoning:</strong> תקיפה חמורה יותר. תוקף מזהם את ה-<code>cache</code> של <code>Resolver</code> עם תשובות מזויפות, ומפנה משתמשים לאתר פישינג.</p>
+              <p><strong>DNSSEC</strong> (<code>DNS Security Extensions</code>) פותר זאת באמצעות חתימות קריפטוגרפיות על כל רשומה. הרשומה נחשבת אמיתית רק אם החתימה תקינה.</p>
+            `
           },
           {
             title: "DNS כ-Choke Point של האינטרנט",
             icon: "🌐",
-            content: `<p>ב-2016, התקפת <code>DDoS</code> ענקית על <code>Dyn</code> (ספקית <code>DNS</code> גדולה) הפילה את <code>Twitter</code>, <code>Netflix</code>, <code>GitHub</code> ו-<code>Reddit</code> לשעות.</p><p><strong>הסיבה:</strong> <code>DNS</code> הוא תשתית קריטית שכל האינטרנט תלוי בה.</p><p><strong>הפתרון:</strong> שימוש בכמה ספקי <code>DNS</code> שונים. כיום <code>Amazon Route53</code>, <code>Cloudflare</code> ו-<code>NS1</code> מציעים <code>Anycast</code> עם מאות נקודות נוכחות כדי לעמוד בהתקפות.</p>`
+            content: `
+              <p>ב-2016, התקפת <code>DDoS</code> ענקית על <code>Dyn</code> (ספקית DNS גדולה) הפילה את <code>Twitter</code>, <code>Netflix</code>, <code>GitHub</code> ו-<code>Reddit</code> לשעות.</p>
+              <p><strong>הסיבה:</strong> <code>DNS</code> הוא תשתית קריטית שכל האינטרנט תלוי בה.</p>
+              <p><strong>הפתרון:</strong> שימוש בכמה ספקי DNS שונים. כיום <code>Route53</code>, <code>Cloudflare</code> ו-<code>NS1</code> מציעים <code>Anycast</code> עם מאות נקודות נוכחות.</p>
+            `
           }
         ]
       },
@@ -3427,12 +3509,27 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
           {
             title: "TCP על קישורי לווין – BDP בעיה",
             icon: "🛰️",
-            content: `<p>לווין גיאוסטציונרי מייצר <code>RTT</code> של כ-600ms. ה-<code>BDP</code> = 100Mbps כפול 0.6 שניות = 7.5MB.</p><p>פרוטוקול <code>TCP</code> ישן עם חלון של 65KB ינצל רק 65KB/600ms = 0.87Mbps מתוך 100Mbps!</p><p><strong><code>BBR</code> ו-<code>Window Scaling</code></strong> פותרים את הבעיה. <code>Starlink</code> עם מסלול נמוך (<code>LEO</code>, RTT של 20ms) עוקפת אותה בצורה אחרת.</p><p><strong>המסקנה:</strong> הגדרות <code>TCP</code> חייבות להתאים לתנאי הרשת הפיזיים.</p>`
+            content: `
+              <p>לווין גיאוסטציונרי מייצר <code>RTT</code> של כ-600ms.</p>
+              <p><code>BDP</code> = 100Mbps × 0.6 שניות = <strong>7.5MB</strong>.</p>
+              <p><code>TCP</code> ישן עם חלון של 65KB ינצל רק 65KB/600ms = <strong>0.87Mbps</strong> מתוך 100Mbps!</p>
+              <p><strong>פתרונות:</strong></p>
+              <ul>
+                <li><code>BBR</code> ו-<code>Window Scaling</code> — מגדילים את חלון השליחה</li>
+                <li><code>Starlink</code> (מסלול <code>LEO</code>, RTT של 20ms) — עוקפת את הבעיה בגישה אחרת</li>
+              </ul>
+              <p><strong>המסקנה:</strong> הגדרות <code>TCP</code> חייבות להתאים לתנאי הרשת הפיזיים.</p>
+            `
           },
           {
             title: "Nagle's Algorithm – מיקרו-אופטימיזציה",
             icon: "⚡",
-            content: `<p><strong>Nagle's Algorithm</strong>: <code>TCP</code> מחכה עד שיש מספיק נתונים למילוי <code>MSS</code> לפני ששולח חבילה. זה מונע הצפת הרשת בחבילות זעירות.</p><p><strong>דוגמה:</strong> <code>SSH</code> שולח כל הקשת מקלדת כחבילה נפרדת. בלי Nagle, הרשת מוצפת בחבילות קטנטנות.</p><p><strong>הבעיה:</strong> באפליקציות <code>Real-Time</code> כמו משחקים ומסחר, ההמתנה מוסיפה השהיה.</p><p><strong>הפתרון:</strong> הדגל <code>TCP_NODELAY</code> מכבה את Nagle. כל גיימר וסוחר מהיר מכירים את הדגל הזה.</p>`
+            content: `
+              <p><strong>Nagle's Algorithm:</strong> <code>TCP</code> מחכה עד שיש מספיק נתונים למילוי <code>MSS</code> לפני ששולח חבילה. מונע הצפת הרשת בחבילות זעירות.</p>
+              <p><strong>דוגמה:</strong> <code>SSH</code> שולח כל הקשת מקלדת כחבילה נפרדת. בלי Nagle — הרשת מוצפת בחבילות קטנטנות.</p>
+              <p><strong>הבעיה:</strong> באפליקציות Real-Time כמו משחקים ומסחר, ההמתנה מוסיפה השהיה.</p>
+              <p><strong>הפתרון:</strong> הדגל <code>TCP_NODELAY</code> מכבה את Nagle. כל גיימר וסוחר מהיר מכירים אותו.</p>
+            `
           }
         ]
       },
@@ -3603,12 +3700,31 @@ Endpoint = peer.example.com:51820</code></pre>
           {
             title: "VPN לא עושה אותך 'אנונימי'",
             icon: "🕵️",
-            content: `<p><code>VPN</code> מסתיר את כתובת ה-IP שלך מהאתר, אבל זה לא מספיק לאנונימיות.</p><p>הדפדפן עדיין שולח <code>Fingerprint</code> (גודל מסך, גופנים, גרסת דפדפן, <code>WebRTC IP</code>), עוגיות עוקבות, וחשבונות <code>Google</code>/<code>Facebook</code> חושפים את הזהות.</p><p><strong>אנונימיות אמיתית</strong> דורשת <code>Tor</code> ותרגולים נוספים. <code>VPN</code> הוא שכבת פרטיות נוספת, לא כיסוי מושלם.</p>`
+            content: `
+              <p><code>VPN</code> מסתיר את כתובת ה-IP שלך מהאתר — אבל זה לא מספיק לאנונימיות.</p>
+              <p><strong>מה עדיין חושף אותך:</strong></p>
+              <ul>
+                <li><code>Fingerprint</code> — גודל מסך, גופנים, גרסת דפדפן, <code>WebRTC IP</code></li>
+                <li>עוגיות עוקבות</li>
+                <li>חשבונות <code>Google</code> / <code>Facebook</code></li>
+              </ul>
+              <p><strong>אנונימיות אמיתית</strong> דורשת <code>Tor</code> ותרגולים נוספים. VPN הוא שכבת פרטיות נוספת, לא כיסוי מושלם.</p>
+            `
           },
           {
             title: "Zero Trust – האמן לאף אחד",
             icon: "🔐",
-            content: `<p><strong>Zero Trust Architecture</strong> – הגישה המודרנית: "לעולם אל תאמין, תמיד אמת".</p><p>בניגוד לחשיבה ש-<code>VPN</code> פנימה שווה אמון, בגישת <code>Zero Trust</code> כל בקשה נבדקת מחדש: זהות, מצב המכשיר, והקשר. כל שירות מגן על עצמו בנפרד.</p><p><code>Google BeyondCorp</code> (2011) הייתה פורצת דרך: עובדים ניגשים ממסביב לעולם בלי <code>VPN</code> ארגוני. הכל מבוסס על זיהוי זהות.</p>`
+            content: `
+              <p><strong>Zero Trust Architecture</strong> — הגישה המודרנית: "לעולם אל תאמין, תמיד אמת".</p>
+              <p>בניגוד לחשיבה ש-<code>VPN</code> פנימה = אמון, בגישת Zero Trust כל בקשה נבדקת מחדש:</p>
+              <ul>
+                <li>זהות המשתמש</li>
+                <li>מצב המכשיר</li>
+                <li>הקשר הבקשה</li>
+              </ul>
+              <p>כל שירות מגן על עצמו בנפרד.</p>
+              <p><strong>דוגמה:</strong> <code>Google BeyondCorp</code> (2011) — עובדים ניגשים ממסביב לעולם בלי VPN ארגוני. הכל מבוסס על זיהוי זהות.</p>
+            `
           }
         ]
       },
@@ -3838,12 +3954,26 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
           {
             title: "Anycast – אותה כתובת, מיקומים שונים",
             icon: "🗺️",
-            content: `<p><code>Anycast</code> = אותה כתובת IP מוכרזת ב-<code>BGP</code> מכמה מקומות בעולם. הרשת מנתבת את התעבורה ל-<code>PoP</code> הקרוב ביותר.</p><p><code>1.1.1.1</code> של <code>Cloudflare</code> = אותה כתובת IP ב-300 מקומות ומעלה.</p><p><strong>הגנה מ-DDoS:</strong> התקפה של 1Tbps מתחלקת בין 300 נקודות, כך שכל <code>PoP</code> מקבל רק כ-3Gbps. זו הסיבה שרשתות כמו <code>Cloudflare</code> עמידות גם מול התקפות ענק.</p>`
+            content: `
+              <p><strong>Anycast</strong> — אותה כתובת IP מוכרזת ב-<code>BGP</code> מכמה מקומות בעולם. הרשת מנתבת את התעבורה ל-<code>PoP</code> הקרוב ביותר.</p>
+              <p><strong>דוגמה:</strong> <code>1.1.1.1</code> של Cloudflare = אותה כתובת IP ב-300+ מקומות.</p>
+              <p><strong>הגנה מ-DDoS:</strong> התקפה של 1Tbps מתחלקת בין 300 נקודות — כל <code>PoP</code> מקבל רק כ-3Gbps. זו הסיבה שרשתות כמו Cloudflare עמידות גם מול התקפות ענק.</p>
+            `
           },
           {
             title: "Edge Computing – חישוב ב-PoP",
             icon: "⚡",
-            content: `<p>נקודות ה-<code>PoP</code> של <code>CDN</code> הן לא רק מטמון. <strong>Edge Computing</strong> = הרצת קוד בשרת הקרוב ביותר למשתמש.</p><p>דוגמאות: <code>Cloudflare Workers</code>, <code>AWS Lambda@Edge</code> – פונקציות שרצות במרחק של כ-5ms מהמשתמש, במקום 150ms לשרת המקור.</p><p>שימושים: התאמה אישית בזמן אמת, <code>A/B testing</code>, אימות משתמשים – הכל ב-edge ללא השהיית <code>round-trip</code> לשרת המקור.</p>`
+            content: `
+              <p>נקודות ה-<code>PoP</code> של CDN הן לא רק מטמון. <strong>Edge Computing</strong> = הרצת קוד בשרת הקרוב ביותר למשתמש.</p>
+              <p><strong>דוגמאות:</strong> <code>Cloudflare Workers</code>, <code>AWS Lambda@Edge</code> — פונקציות שרצות במרחק של כ-5ms מהמשתמש, במקום 150ms לשרת המקור.</p>
+              <p><strong>שימושים:</strong></p>
+              <ul>
+                <li>התאמה אישית בזמן אמת</li>
+                <li><code>A/B testing</code></li>
+                <li>אימות משתמשים</li>
+              </ul>
+              <p>הכל ב-edge, ללא השהיית round-trip לשרת המקור.</p>
+            `
           }
         ]
       },
@@ -4496,12 +4626,12 @@ const fingerprint = canvas.toDataURL()
               <text x="190" y="85" text-anchor="middle" font-size="8" fill="var(--text-muted)">שום node אחד לא יודע הכל — זה Onion Routing</text>
             </svg>
           </div>
-          <p><strong>מגבלות Tor:</strong></p>
+          <p><strong>מגבלות <code>Tor</code>:</strong></p>
           <ul>
-            <li>איטי (3 hops + encryption = latency גבוה)</li>
-            <li>Exit node יכול לקרוא תנועת HTTP (לא HTTPS)</li>
-            <li>אנונימיות פגיעה אם יש timing correlation — תוקף שרואה גם כניסה וגם יציאה</li>
-            <li>JavaScript יכול לחשוף IP — Tor Browser מגביל JS</li>
+            <li>איטי — 3 קפיצות בתוספת הצפנה יוצרות <code>latency</code> גבוה</li>
+            <li><code>Exit node</code> יכול לקרוא תנועת <code>HTTP</code> רגילה, אך לא <code>HTTPS</code></li>
+            <li>אנונימיות פגיעה אם תוקף רואה גם כניסה וגם יציאה — מתקפת <code>timing correlation</code></li>
+            <li><code>JavaScript</code> עלול לחשוף כתובת <code>IP</code> — לכן <code>Tor Browser</code> מגביל אותו</li>
           </ul>
         `
       },
@@ -4513,12 +4643,27 @@ const fingerprint = canvas.toDataURL()
           {
             title: "Incognito Mode לא עושה מה שאת חושבת",
             icon: "🕵️",
-            content: `<p>Incognito מוחק את ה<em>local</em> history — הדפדפן שלך. אבל: ה-ISP עדיין רואה הכל, גוגל רואה (אם logged in), ה-network admin של ה-WiFi רואה, וכל tracker שברשת רואה. Incognito = "לא ישמר על המחשב הזה". זה הכל. Google שילמה $5B בסכסוך קולקטיבי על טעיית הגדרה זו.</p>`
+            content: `
+              <p>Incognito מוחק את ה-<em>local</em> history — את מה שנשמר בדפדפן שלך. זה הכל.</p>
+              <p><strong>מי עדיין רואה:</strong></p>
+              <ul>
+                <li>ה-ISP שלך</li>
+                <li>Google (אם מחוברים לחשבון)</li>
+                <li>מנהל הרשת של ה-WiFi</li>
+                <li>כל tracker שברשת</li>
+              </ul>
+              <p>Incognito = "לא ישמר על המחשב הזה". Google שילמה $5B בסכסוך קולקטיבי על הטעיה זו.</p>
+            `
           },
           {
             title: "Metadata גרוע יותר מ-Content",
             icon: "📊",
-            content: `<p>"We kill people based on metadata" — Michael Hayden, ראש NSA לשעבר. Metadata = מי דיבר עם מי, מתי, מאיזה מיקום. לא תוכן השיחה. מ-metadata בלבד ניתן להסיק: יחסים, בריאות (שיחות לרופא), פוליטיקה, דת. HTTPS מסתיר content — לא metadata.</p>`
+            content: `
+              <p><em>"We kill people based on metadata"</em> — Michael Hayden, ראש NSA לשעבר.</p>
+              <p><strong>Metadata</strong> = מי דיבר עם מי, מתי, מאיזה מיקום. לא תוכן השיחה.</p>
+              <p><strong>מ-metadata בלבד ניתן להסיק:</strong> יחסים, בריאות (שיחות לרופא), פוליטיקה, דת.</p>
+              <p><code>HTTPS</code> מסתיר content — לא metadata.</p>
+            `
           }
         ]
       },
@@ -4702,12 +4847,12 @@ spec:
           {
             title: "eBPF = מחליף iptables, routing, ועוד",
             icon: "🔧",
-            content: `<p>iptables — הכלי שניהל את firewalls של Linux מ-1998 — מיועד לפנסיה. Cilium + eBPF מחליפים אותו בKubernetes. Meta מריצה <strong>Katran</strong> (load balancer מבוסס eBPF) שמטפל במאות מיליוני חיבורים. eBPF מאפשר observability שלא היה אפשרי — trace כל syscall ב-production בלי overhead. זה ה-TCP/IP של הדור הבא.</p>`
+            content: `<p><code>iptables</code> — הכלי שניהל firewalls ב־Linux מ-1998 — מיועד לפנסיה.</p><p><code>Cilium</code> + <code>eBPF</code> מחליפים אותו ב-Kubernetes.</p><ul><li>Meta מריצה <strong>Katran</strong> — load balancer מבוסס eBPF שמטפל במאות מיליוני חיבורים</li><li><code>eBPF</code> מאפשר trace של כל syscall ב-production בלי overhead</li></ul><p>זה ה־TCP/IP של הדור הבא.</p>`
           },
           {
             title: "האינטרנט של הדברים",
             icon: "📡",
-            content: `<p>IPv6 נוצר ל-2^128 כתובות — מספיק לכל אטום על פני כדור הארץ פי מיליון. IoT = ≈15 מיליארד מכשירים מחוברים ב-2024, ≈30B ב-2030. כל מקרר, מנורה, חיישן — IP משלו. Thread (Matter), Zigbee, LoRaWAN — פרוטוקולי mesh networking למכשירים קטנים. הרשת עוברת מחיבור <em>מחשבים</em> לחיבור <em>עולם פיזי</em>.</p>`
+            content: `<p><code>IPv6</code> נוצר עם 2<sup>128</sup> כתובות — מספיק לכל אטום על פני כדור הארץ, פי מיליון.</p><p><strong>IoT במספרים:</strong></p><ul><li>כ־15 מיליארד מכשירים מחוברים ב-2024</li><li>צפי ל-30 מיליארד ב-2030</li><li>כל מקרר, מנורה וחיישן — IP משלו</li></ul><p><strong>פרוטוקולי mesh למכשירים קטנים:</strong> Thread (Matter), Zigbee, LoRaWAN.</p><p>הרשת עוברת מחיבור <em>מחשבים</em> לחיבור <em>עולם פיזי</em>.</p>`
           }
         ]
       },
@@ -6442,7 +6587,7 @@ chmod u+s /usr/bin/sudo # SUID — רץ כבעלים</code></pre></div>
         title: "systemd — ניהול שירותים",
         content: `<div dir="rtl">
 <h2>systemd: init מערכת מודרני</h2>
-<p>systemd הוא התהליך הראשון שרץ ב-Linux (PID 1). הוא מנהל את כל השירותים, ה-mount points, ה-timers, ועוד.</p>
+<p><code>systemd</code> הוא התהליך הראשון שרץ ב-<code>Linux</code> (<code>PID 1</code>). הוא מנהל את כל השירותים, ה-<code>mount points</code>, ה-<code>timers</code> ועוד.</p>
 <table class="content-table">
   <tr><th>פקודה</th><th>פעולה</th></tr>
   <tr><td><code>systemctl status nginx</code></td><td>מצב שירות — רץ/עצר/שגיאה</td></tr>
@@ -6527,7 +6672,11 @@ sudo systemctl start myapp</code></pre></div>
   <tr><td>בידוד</td><td>חזק מאוד</td><td>חזק (namespaces)</td></tr>
   <tr><td>ביצועים</td><td>תקורה גבוהה</td><td>כמעט כמו native</td></tr>
 </table>
-<p>Docker משתמש ב-<strong>namespaces</strong> (בידוד) ו-<strong>cgroups</strong> (הגבלת משאבים) של Linux kernel.</p>
+<p><code>Docker</code> משתמש בשני מנגנונים של <code>Linux kernel</code>:</p>
+<ul>
+<li><strong>namespaces</strong> — לבידוד בין containers</li>
+<li><strong>cgroups</strong> — להגבלת משאבים כמו <code>CPU</code> ו-<code>RAM</code></li>
+</ul>
 </div>`
       },
       {
@@ -6535,7 +6684,8 @@ sudo systemctl start myapp</code></pre></div>
         title: "Dockerfile — בניית image",
         content: `<div dir="rtl">
 <h2>Dockerfile: הוראות הבנייה</h2>
-<p>Dockerfile הוא קובץ טקסט שמגדיר שכבה-אחר-שכבה איך לבנות image. כל פקודה = שכבה חדשה ב-filesystem.</p>
+<p><code>Dockerfile</code> הוא קובץ טקסט שמגדיר שכבה-אחר-שכבה איך לבנות <code>image</code>.</p>
+<p>כל פקודה = שכבה חדשה ב-<code>filesystem</code>.</p>
 <div class="code-preview"><pre><code># Dockerfile לאפליקציית Python/FastAPI
 FROM python:3.12-slim
 
@@ -6580,7 +6730,8 @@ docker exec -it myapp bash</code></pre></div>
         title: "Docker Compose — multi-container",
         content: `<div dir="rtl">
 <h2>Docker Compose: כמה שירותים יחד</h2>
-<p>בפרויקטים אמיתיים יש backend + database + cache + nginx. Compose מאפשר להגדיר הכל בקובץ YAML אחד.</p>
+<p>בפרויקטים אמיתיים יש <code>backend</code> + <code>database</code> + <code>cache</code> + <code>nginx</code>.</p>
+<p><code>Compose</code> מאפשר להגדיר הכל בקובץ <code>YAML</code> אחד.</p>
 <div class="code-preview"><pre><code># docker-compose.yml
 version: '3.8'
 
@@ -6628,7 +6779,8 @@ docker compose down           # עצור והרס קונטיינרים
 docker compose logs web -f    # לוגים של שירות
 docker compose ps             # סטטוס
 docker compose exec db psql -U user mydb  # כנס ל-DB</code></pre></div>
-<p><strong>חשוב:</strong> שמות ה-services הם גם ה-DNS hostnames ברשת הפנימית — <code>web</code> מגיע ל-<code>db</code> פשוט בשם <code>db</code>.</p>
+<p><strong>חשוב:</strong> שמות ה-<code>services</code> הם גם ה-<code>DNS hostnames</code> ברשת הפנימית.</p>
+<p>לדוגמה, השירות <code>web</code> מגיע ל-<code>db</code> פשוט בשם <code>db</code> — ללא כתובת IP.</p>
 </div>`
       },
       {
@@ -6636,7 +6788,7 @@ docker compose exec db psql -U user mydb  # כנס ל-DB</code></pre></div>
         title: "Docker Networking",
         content: `<div dir="rtl">
 <h2>רשתות Docker — Bridge, Host, Overlay</h2>
-<p>Docker יוצר רשתות וירטואליות שמאפשרות תקשורת בין קונטיינרים עם בידוד מלא מהחוץ.</p>
+<p><code>Docker</code> יוצר רשתות וירטואליות שמאפשרות תקשורת בין <code>containers</code>, עם בידוד מלא מהעולם החיצוני.</p>
 <table class="content-table">
   <tr><th>סוג רשת</th><th>שימוש</th><th>IP</th></tr>
   <tr><td><strong>bridge</strong></td><td>ברירת מחדל — קונטיינרים על אותו host</td><td>172.17.0.x</td></tr>
@@ -6663,7 +6815,8 @@ docker network inspect mynet
 
 # Overlay ב-Docker Swarm
 docker network create --driver overlay --attachable prod-net</code></pre></div>
-<p><strong>כלל:</strong> תמיד צור user-defined bridge network — לא ב-default bridge. זה מאפשר DNS resolution לפי שם קונטיינר.</p>
+<p><strong>כלל:</strong> תמיד צרו <code>user-defined bridge network</code> — לא ב-<code>default bridge</code>.</p>
+<p>זה מאפשר <code>DNS resolution</code> לפי שם <code>container</code>.</p>
 </div>`
       }
     ]
@@ -6677,7 +6830,7 @@ docker network create --driver overlay --attachable prod-net</code></pre></div>
         title: "אובייקטים בסיסיים — Pod, Deployment, Service",
         content: `<div dir="rtl">
 <h2>הבניים הבסיסיים של K8s</h2>
-<p>Kubernetes מנהל קונטיינרים בקנה מידה. במקום "הפעל קונטיינר", אתה מגדיר <strong>מצב רצוי</strong> — K8s דואג שזה תמיד יקרה.</p>
+<p><code>Kubernetes</code> מנהל <code>containers</code> בקנה מידה. במקום "הפעל <code>container</code>", אתה מגדיר <strong>מצב רצוי</strong> — ו-<code>K8s</code> דואג שזה תמיד יקרה.</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 120" class="content-diagram">
   <rect x="5" y="5" width="350" height="110" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
@@ -6721,7 +6874,7 @@ docker network create --driver overlay --attachable prod-net</code></pre></div>
         title: "YAML ו-kubectl — עבודה מעשית",
         content: `<div dir="rtl">
 <h2>הגדרת משאבים ב-YAML</h2>
-<p>ב-K8s כל דבר מוגדר בקובץ YAML. אתה מגדיר "מה אתה רוצה" — K8s דואג להגיע לשם.</p>
+<p>ב-<code>K8s</code> כל דבר מוגדר בקובץ <code>YAML</code>. אתה מגדיר "מה אתה רוצה" — ו-<code>K8s</code> דואג להגיע לשם.</p>
 <div class="code-preview"><pre><code># deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -6783,7 +6936,7 @@ kubectl rollout history deploy/myapp  # היסטוריית deploys</code></pre><
         title: "HPA — Horizontal Pod Autoscaling",
         content: `<div dir="rtl">
 <h2>סקיילינג אוטומטי לפי עומס</h2>
-<p>HPA מוסיף/מסיר Pods אוטומטית לפי מדדים — CPU, Memory, או מדדים מותאמים כמו בקשות לשנייה.</p>
+<p><code>HPA</code> מוסיף או מסיר <code>Pods</code> אוטומטית לפי מדדים — <code>CPU</code>, <code>Memory</code>, או מדדים מותאמים כמו בקשות לשנייה.</p>
 <table class="content-table">
   <tr><th>מדד</th><th>טריגר</th><th>פעולה</th></tr>
   <tr><td>CPU &gt; 70%</td><td>scale up</td><td>מוסיף Pods עד maxReplicas</td></tr>
@@ -6826,7 +6979,7 @@ kubectl rollout undo deployment/myapp</code></pre></div>
         title: "K8s Networking — CNI, DNS, Ingress",
         content: `<div dir="rtl">
 <h2>רשתות ב-Kubernetes</h2>
-<p>K8s יוצר רשת פלטה שבה כל Pod מקבל IP ייחודי ויכול לתקשר עם כל Pod אחר — גם על node אחר.</p>
+<p><code>K8s</code> יוצר רשת שטוחה שבה כל <code>Pod</code> מקבל <code>IP</code> ייחודי ויכול לתקשר עם כל <code>Pod</code> אחר — גם על <code>node</code> אחר.</p>
 <table class="content-table">
   <tr><th>רכיב</th><th>תפקיד</th></tr>
   <tr><td><strong>CNI Plugin</strong></td><td>מימוש רשת — Calico/Flannel/Weave. מקצה IPs לPods.</td></tr>
@@ -6864,7 +7017,7 @@ spec:
   - hosts:
     - myapp.example.com
     secretName: tls-secret</code></pre></div>
-<p><strong>DNS resolution:</strong> Pod ב-namespace <code>production</code> ניגש לשירות <code>db-svc</code> בשם <code>db-svc.production</code> — ללא IP מפורש.</p>
+<p><strong>DNS resolution:</strong> <code>Pod</code> ב-<code>namespace production</code> ניגש לשירות <code>db-svc</code> פשוט בשם <code>db-svc.production</code> — ללא <code>IP</code> מפורש.</p>
 </div>`
       }
     ]
@@ -6878,7 +7031,7 @@ spec:
         title: "מודלי שירות — IaaS, PaaS, SaaS",
         content: `<div dir="rtl">
 <h2>מה הענן בכלל מציע?</h2>
-<p>ספקי ענן (AWS, Azure, GCP) מציעים 3 רמות שירות. ככל שעולים, מקבלים פחות שליטה — אבל גם פחות עבודה.</p>
+<p>ספקי ענן — <code>AWS</code>, <code>Azure</code>, <code>GCP</code> — מציעים 3 רמות שירות. ככל שעולים, מקבלים פחות שליטה — אבל גם פחות עבודה.</p>
 <table class="content-table">
   <tr><th>מודל</th><th>אתה מנהל</th><th>הספק מנהל</th><th>דוגמה ב-AWS</th></tr>
   <tr><td><strong>IaaS</strong></td><td>OS, Runtime, App</td><td>חומרה, וירטואליזציה, רשת</td><td>EC2, EBS, VPC</td></tr>
@@ -6893,7 +7046,14 @@ spec:
   <li><strong>PaaS:</strong> הזמנת חומרי גלם — המסעדה מבשלת</li>
   <li><strong>SaaS:</strong> הזמנת פיצה — אתה רק אוכל</li>
 </ul>
-<p><strong>מדוע עננים?</strong> Pay-as-you-go, Global reach, Elasticity, Managed security. Netflix מפעילה מיליוני שרתים ב-AWS ומשלמת רק על מה שמשתמשים.</p>
+<p><strong>מדוע ענן?</strong></p>
+<ul>
+<li><code>Pay-as-you-go</code> — תשלום רק על מה שצורכים</li>
+<li><code>Global reach</code> — נוכחות עולמית</li>
+<li><code>Elasticity</code> — גדילה וכיווץ אוטומטיים</li>
+<li><code>Managed security</code> — אבטחה מנוהלת</li>
+</ul>
+<p>Netflix מפעילה מיליוני שרתים ב-<code>AWS</code> ומשלמת רק על מה שנצרך.</p>
 </div>`
       },
       {
@@ -6933,7 +7093,8 @@ aws rds describe-db-instances \
         title: "VPC — רשת פרטית וירטואלית",
         content: `<div dir="rtl">
 <h2>VPC: הרשת שלך בענן</h2>
-<p>VPC (Virtual Private Cloud) הוא הרשת הפרטית שלך ב-AWS. כל דבר שתקים יהיה בתוכה. חשוב להבין את מבנה השכבות:</p>
+<p><code>VPC</code> — <code>Virtual Private Cloud</code> — הוא הרשת הפרטית שלך ב-<code>AWS</code>. כל דבר שתקים יהיה בתוכה.</p>
+<p>חשוב להבין את מבנה השכבות:</p>
 <table class="content-table">
   <tr><th>רכיב VPC</th><th>תפקיד</th><th>CIDR לדוגמה</th></tr>
   <tr><td><strong>VPC</strong></td><td>הרשת הראשית שלך</td><td>10.0.0.0/16</td></tr>
@@ -6944,8 +7105,13 @@ aws rds describe-db-instances \
   <tr><td><strong>Security Group</strong></td><td>Firewall ברמת instance</td><td>—</td></tr>
   <tr><td><strong>NACL</strong></td><td>Firewall ברמת subnet</td><td>—</td></tr>
 </table>
-<p><strong>כלל אצבע:</strong> Load Balancer ב-Public Subnet. EC2 + RDS ב-Private Subnet. הם יוצאים לאינטרנט דרך NAT Gateway — אבל אף אחד לא יכול להגיע אליהם ישירות מבחוץ.</p>
-<p>זה בדיוק כמו בית עם שומר בכניסה (ALB) שמעביר מבקרים לתוך — לא נותן לכולם להיכנס ישירות לחדר שינה (DB).</p>
+<p><strong>כלל אצבע:</strong></p>
+<ul>
+<li><code>Load Balancer</code> ב-<code>Public Subnet</code></li>
+<li><code>EC2</code> + <code>RDS</code> ב-<code>Private Subnet</code></li>
+</ul>
+<p>השרתים הפנימיים יוצאים לאינטרנט דרך <code>NAT Gateway</code> — אבל אף אחד לא יכול להגיע אליהם ישירות מבחוץ.</p>
+<p>זה בדיוק כמו בית עם שומר בכניסה (<code>ALB</code>) שמעביר מבקרים לתוך — לא נותן לכולם להיכנס ישירות לחדר השינה (<code>DB</code>).</p>
 </div>`
       },
       {
@@ -6960,16 +7126,17 @@ aws rds describe-db-instances \
   <tr><td>Multi-AZ (Active-Passive)</td><td>99.99%</td><td>x2</td></tr>
   <tr><td>Multi-Region</td><td>99.999%</td><td>x4-6</td></tr>
 </table>
-<p><strong>RDS Multi-AZ:</strong> Primary ב-AZ-1 + Standby ב-AZ-2. Failover אוטומטי תוך 60-120 שניות אם Primary נפל.</p>
+<p><strong>RDS Multi-AZ:</strong> <code>Primary</code> ב-<code>AZ-1</code> + <code>Standby</code> ב-<code>AZ-2</code>. <code>Failover</code> אוטומטי תוך 60-120 שניות אם ה-<code>Primary</code> נפל.</p>
 <h3>סיפור: Netflix Chaos Monkey</h3>
 <p>ב-2010 Netflix פיתחה כלי שנקרא <strong>Chaos Monkey</strong> — תוכנה שמכבה instance אקראי בפרודקשן, כל יום, בשעות העבודה.</p>
-<p>הרציונל: "אם נדע שהכל יכול ליפול בכל רגע, נבנה מערכת שמתמודדת עם זה". Chaos Monkey הפכה ל-<strong>Simian Army</strong> שכולל:</p>
+<p>הרציונל: "אם נדע שהכל יכול ליפול בכל רגע, נבנה מערכת שמתמודדת עם זה".</p>
+<p><code>Chaos Monkey</code> הפכה ל-<strong>Simian Army</strong> שכוללת:</p>
 <ul>
   <li><strong>Chaos Gorilla</strong> — מוריד AZ שלמה</li>
   <li><strong>Latency Monkey</strong> — מוסיף latency לתגובות</li>
   <li><strong>Conformity Monkey</strong> — מוצא instances שלא עומדים בסטנדרטים</li>
 </ul>
-<p>התוצאה: Netflix מריצה מיליוני streams בו-זמנית עם 99.99%+ uptime — כי הם <strong>תכננו לכישלון</strong>.</p>
+<p>התוצאה: Netflix מריצה מיליוני <code>streams</code> בו-זמנית עם 99.99%+ <code>uptime</code> — כי הם <strong>תכננו לכישלון</strong>.</p>
 </div>`
       }
     ]
@@ -6983,7 +7150,8 @@ aws rds describe-db-instances \
         title: "פילוסופיית DevOps",
         content: `<div dir="rtl">
 <h2>DevOps: שבירת הקירות</h2>
-<p>לפני DevOps, Development ו-Operations היו צוותים נפרדים עם תמריצים מנוגדים: Dev רצה לשלוח code מהר, Ops רצה יציבות. התוצאה: deploy פעם בחודש, כאוס.</p>
+<p>לפני <code>DevOps</code>, הצוותים <code>Development</code> ו-<code>Operations</code> היו נפרדים עם תמריצים מנוגדים: Dev רצה לשלוח קוד מהר, Ops רצה יציבות.</p>
+<p>התוצאה: <code>deploy</code> פעם בחודש, וכאוס.</p>
 <table class="content-table">
   <tr><th>עיקרון</th><th>משמעות</th></tr>
   <tr><td><strong>Continuous Integration</strong></td><td>כל push → build + tests אוטומטיים</td></tr>
@@ -7006,7 +7174,7 @@ aws rds describe-db-instances \
         title: "GitHub Actions — CI/CD Pipeline",
         content: `<div dir="rtl">
 <h2>GitHub Actions: אוטומציה בתוך GitHub</h2>
-<p>GitHub Actions מריצה workflows אוטומטיים על כל push, PR, או לפי לו"ז. ללא שרת CI נפרד.</p>
+<p><code>GitHub Actions</code> מריצה <code>workflows</code> אוטומטיים על כל <code>push</code>, <code>PR</code>, או לפי לוח זמנים — ללא שרת <code>CI</code> נפרד.</p>
 <div class="code-preview"><pre><code># .github/workflows/deploy.yml
 name: CI/CD Pipeline
 
@@ -7069,7 +7237,8 @@ jobs:
         title: "Terraform — Infrastructure as Code",
         content: `<div dir="rtl">
 <h2>Terraform: תשתית כקוד</h2>
-<p>Terraform (HashiCorp) מאפשר להגדיר תשתית AWS/GCP/Azure בקבצי HCL. גרסאות ב-Git, review לפני apply, reproducible.</p>
+<p><code>Terraform</code> מבית HashiCorp מאפשר להגדיר תשתית <code>AWS</code>/<code>GCP</code>/<code>Azure</code> בקבצי <code>HCL</code>.</p>
+<p>גרסאות ב-<code>Git</code>, <code>review</code> לפני <code>apply</code>, ותוצאה שניתנת לשחזור.</p>
 <div class="code-preview"><pre><code># main.tf — VPC + EC2 ב-AWS
 terraform {
   required_providers {
@@ -7115,7 +7284,8 @@ terraform init    # הורדת providers
 terraform plan    # תצוגה מקדימה — מה ישתנה?
 terraform apply   # ביצוע השינויים
 terraform destroy # הריסה מבוקרת</code></pre></div>
-<p><strong>State file:</strong> Terraform שומר <code>terraform.tfstate</code> עם המצב הנוכחי. בצוות — שומרים ב-S3 עם DynamoDB locking.</p>
+<p><strong>State file:</strong> <code>Terraform</code> שומר <code>terraform.tfstate</code> עם המצב הנוכחי.</p>
+<p>בצוות — שומרים ב-<code>S3</code> עם <code>DynamoDB locking</code>.</p>
 </div>`
       },
       {
@@ -7123,7 +7293,8 @@ terraform destroy # הריסה מבוקרת</code></pre></div>
         title: "Ansible — Configuration Management",
         content: `<div dir="rtl">
 <h2>Ansible: הגדרת שרתים בקנה מידה</h2>
-<p>Ansible מגדיר את מצב השרתים (packages, files, services) בצורה declarative. Agentless — עובד על SSH בלבד.</p>
+<p><code>Ansible</code> מגדיר את מצב השרתים — <code>packages</code>, <code>files</code>, <code>services</code> — בצורה דקלרטיבית.</p>
+<p>הוא <code>Agentless</code> — עובד על <code>SSH</code> בלבד, ללא התקנה על השרתים.</p>
 <table class="content-table">
   <tr><th>כלי</th><th>תפקיד</th><th>שפה</th></tr>
   <tr><td>Terraform</td><td>יצירת תשתית (provision)</td><td>HCL</td></tr>
@@ -7214,7 +7385,12 @@ ansible-playbook -i inventory playbook.yml</code></pre></div>
   <tr><td><strong>Logs</strong></td><td>"מה בדיוק קרה?"</td><td>ELK Stack, Loki, Splunk</td></tr>
   <tr><td><strong>Traces</strong></td><td>"מה המסלול של הבקשה?"</td><td>Jaeger, Zipkin, X-Ray</td></tr>
 </table>
-<p><strong>כלל ה-3 השאלות:</strong> "יש לי בעיה" (alert מ-Metrics) → "מה הבעיה?" (Logs) → "איפה בדיוק?" (Traces).</p>
+<p><strong>כלל ה-3 השאלות:</strong></p>
+<ol>
+<li>"יש לי בעיה" — <code>alert</code> מ-<code>Metrics</code></li>
+<li>"מה הבעיה?" — חיפוש ב-<code>Logs</code></li>
+<li>"איפה בדיוק?" — מעקב עם <code>Traces</code></li>
+</ol>
 </div>`
       },
       {
@@ -7222,7 +7398,9 @@ ansible-playbook -i inventory playbook.yml</code></pre></div>
         title: "Prometheus + Grafana",
         content: `<div dir="rtl">
 <h2>המחסנית הסטנדרטית לניטור</h2>
-<p>Prometheus אוסף מדדים בפורמט מוגדר (scraping). Grafana מציגה dashboards. AlertManager שולח התראות.</p>
+<p><code>Prometheus</code> אוסף מדדים בפורמט מוגדר באמצעות <code>scraping</code>.</p>
+<p><code>Grafana</code> מציגה <code>dashboards</code>.</p>
+<p><code>AlertManager</code> שולח התראות.</p>
 <div class="code-preview"><pre><code># prometheus.yml — הגדרת scraping
 global:
   scrape_interval: 15s
@@ -7263,7 +7441,11 @@ async def metrics_middleware(request, call_next):
         response = await call_next(request)
     REQUEST_COUNT.labels(request.method, response.status_code).inc()
     return response</code></pre></div>
-<p><strong>PromQL מועיל:</strong> <code>rate(http_requests_total[5m])</code> — בקשות לשנייה. <code>histogram_quantile(0.99, ...)</code> — P99 latency.</p>
+<p><strong>PromQL מועיל:</strong></p>
+<ul>
+<li><code>rate(http_requests_total[5m])</code> — בקשות לשנייה</li>
+<li><code>histogram_quantile(0.99, ...)</code> — <code>P99 latency</code></li>
+</ul>
 </div>`
       },
       {
@@ -7271,7 +7453,7 @@ async def metrics_middleware(request, call_next):
         title: "SLI, SLO, SLA — ניהול אמינות",
         content: `<div dir="rtl">
 <h2>שפת האמינות של Google SRE</h2>
-<p>Google המציאה את תחום ה-SRE (Site Reliability Engineering) — גישה מהנדסית לניהול שירותים בפרודקשן.</p>
+<p>Google המציאה את תחום ה-<code>SRE</code> — <code>Site Reliability Engineering</code> — גישה מהנדסית לניהול שירותים בפרודקשן.</p>
 <table class="content-table">
   <tr><th>מושג</th><th>הגדרה</th><th>דוגמה</th></tr>
   <tr><td><strong>SLI</strong> (Indicator)</td><td>המדד שמודדים</td><td>% בקשות שהחזירו תגובה תוך 200ms</td></tr>
@@ -7279,8 +7461,13 @@ async def metrics_middleware(request, call_next):
   <tr><td><strong>SLA</strong> (Agreement)</td><td>הסכם עם לקוחות</td><td>99.5% — אחרת קרדיט כספי</td></tr>
   <tr><td><strong>Error Budget</strong></td><td>מה מותר להיכשל</td><td>0.1% = 43.8 דקות/חודש downtime</td></tr>
 </table>
-<p><strong>Error Budget — הרעיון המפתח:</strong> SLO של 99.9% = 0.1% error budget לחודש. אם השתמשנו ב-50% מהתקציב → אפשר לדפלוי בזהירות. אם ניצלנו 100% → אסור לדפלוי עד שמשקמים.</p>
-<p>זה פותר את המתח Dev-Ops: שניהם עובדים עם אותו budget. Dev רוצה לדפלוי → צריך לשמור error budget. Ops לא "חוסם" — ה-math עושה את זה.</p>
+<p><strong>Error Budget — הרעיון המפתח:</strong></p>
+<ul>
+<li><code>SLO</code> של 99.9% = 0.1% <code>error budget</code> לחודש</li>
+<li>השתמשנו ב-50% מהתקציב? אפשר לדפלוי בזהירות</li>
+<li>ניצלנו 100%? אסור לדפלוי עד שמשקמים</li>
+</ul>
+<p>זה פותר את המתח בין Dev ל-Ops: שניהם עובדים עם אותו תקציב. Dev רוצה לדפלוי — צריך לשמור <code>error budget</code>. Ops לא "חוסם" — המתמטיקה עושה את זה.</p>
 <div class="code-preview"><pre><code># חישוב Error Budget
 slo = 99.9  # %
 minutes_per_month = 30 * 24 * 60  # = 43,200 דקות
@@ -7293,7 +7480,7 @@ error_budget_minutes = minutes_per_month * (100 - slo) / 100
         title: "ELK Stack ותרבות Postmortem",
         content: `<div dir="rtl">
 <h2>ELK: ניהול לוגים בקנה מידה</h2>
-<p>ELK = Elasticsearch + Logstash + Kibana. אוסף, מאחסן ומציג מיליארדי שורות לוג מהיר.</p>
+<p><code>ELK</code> = <code>Elasticsearch</code> + <code>Logstash</code> + <code>Kibana</code>. אוספת, מאחסנת ומציגה מיליארדי שורות לוג במהירות.</p>
 <table class="content-table">
   <tr><th>רכיב</th><th>תפקיד</th></tr>
   <tr><td><strong>Elasticsearch</strong></td><td>מאגר נתונים לחיפוש מהיר — מאחסן לוגים</td></tr>
@@ -7309,8 +7496,9 @@ error_budget_minutes = minutes_per_month * (100 - slo) / 100
   <li><strong>Impact:</strong> כמה משתמשים נפגעו, כמה זמן</li>
   <li><strong>Action Items:</strong> מה נשנה כדי שזה לא יקרה שוב</li>
 </ol>
-<p><strong>"Blameless":</strong> אנשים לא מפחדים לדווח על תקלות — כי המטרה היא ללמוד, לא להעניש. Google מפרסמת postmortems פנימיים בפומבי. <strong>כישלון שלא לומדים ממנו הוא הכישלון האמיתי.</strong></p>
-<p>Etsy המציאה את הגישה הזו ב-2012. היום זה standard ב-Netflix, Google, Amazon, ו-Cloudflare (שמפרסמת postmortems ציבוריים מפורסמים).</p>
+<p><strong>"Blameless":</strong> אנשים לא מפחדים לדווח על תקלות — כי המטרה היא ללמוד, לא להעניש. Google מפרסמת <code>postmortems</code> פנימיים בפומבי.</p>
+<p><strong>כישלון שלא לומדים ממנו הוא הכישלון האמיתי.</strong></p>
+<p>Etsy המציאה את הגישה הזו ב-2012. היום זה סטנדרט ב-Netflix, Google, Amazon ו-Cloudflare — שמפרסמת <code>postmortems</code> ציבוריים מפורסמים.</p>
 </div>`
       }
     ]
@@ -7324,8 +7512,14 @@ error_budget_minutes = minutes_per_month * (100 - slo) / 100
         title: "מה זה Infrastructure as Code?",
         content: `<div dir="rtl">
 <h2>תשתית כקוד — מדוע זה שינה הכל</h2>
-<p>פעם, להקים שרת חדש אמר: לפתוח ticket ל-Ops, לחכות שבוע, לצלצל, לחכות עוד. היום? מריצים קובץ — ותוך 3 דקות יש EC2 instance, VPC, security group, ו-DNS record — הכל אוטומטי.</p>
-<p><strong>Infrastructure as Code (IaC)</strong> אומר שהתשתית מוגדרת בקובצי טקסט המנוהלים ב-Git, בדיוק כמו קוד אפליקציה. יש לכם version history, code review, ו-CI/CD לתשתית.</p>
+<p>פעם, להקים שרת חדש אמר: לפתוח ticket ל-Ops, לחכות שבוע, לצלצל, לחכות עוד.</p>
+<p>היום? מריצים קובץ — ותוך 3 דקות יש <code>EC2 instance</code>, <code>VPC</code>, <code>Security Group</code> ו-<code>DNS record</code>. הכל אוטומטי.</p>
+<p><strong>Infrastructure as Code</strong> (בקיצור <code>IaC</code>) אומר שהתשתית מוגדרת בקובצי טקסט המנוהלים ב-<code>Git</code>, בדיוק כמו קוד אפליקציה. מה מקבלים?</p>
+<ul>
+<li><code>version history</code> — היסטוריית שינויים מלאה</li>
+<li><code>code review</code> — עמיתים בודקים שינויי תשתית</li>
+<li><code>CI/CD</code> — העלאה אוטומטית של תשתית</li>
+</ul>
 <table class="content-table">
   <tr><th>גישה ידנית</th><th>IaC</th></tr>
   <tr><td>Click בconsole — לא ניתן לשחזר</td><td>קוד ב-Git — reproducible תמיד</td></tr>
@@ -7333,7 +7527,13 @@ error_budget_minutes = minutes_per_month * (100 - slo) / 100
   <tr><td>Snowflake servers — כל שרת ייחודי</td><td>Cattle not pets — שרתים זהים</td></tr>
   <tr><td>Documentation מיושנת</td><td>הקוד הוא התיעוד</td></tr>
 </table>
-<p><strong>כלים מובילים:</strong> Terraform (cloud-agnostic), AWS CloudFormation (AWS בלבד), Pulumi (IaC בPython/TypeScript), Ansible (configuration management).</p>
+<p><strong>כלים מובילים:</strong></p>
+<ul>
+<li><code>Terraform</code> — תומך בכל ספק ענן</li>
+<li><code>AWS CloudFormation</code> — ל-AWS בלבד</li>
+<li><code>Pulumi</code> — כתיבת IaC ב-<code>Python</code> או <code>TypeScript</code></li>
+<li><code>Ansible</code> — ניהול הגדרות שרתים</li>
+</ul>
 </div>`
       },
       {
@@ -7341,7 +7541,8 @@ error_budget_minutes = minutes_per_month * (100 - slo) / 100
         title: "Terraform HCL — שפת ההגדרה",
         content: `<div dir="rtl">
 <h2>HashiCorp Configuration Language</h2>
-<p>Terraform משתמש ב-HCL — שפה declarative שמתארת מה אתם רוצים, לא איך לבנות אותו. אתם אומרים "אני רוצה EC2 instance מסוג t3.micro" — Terraform מחשב מה צריך ליצור, לשנות, או למחוק.</p>
+<p><code>Terraform</code> משתמש ב-<code>HCL</code> — שפה דקלרטיבית שמתארת מה אתם רוצים, לא איך לבנות אותו.</p>
+<p>לדוגמה, אתם אומרים "אני רוצה <code>EC2 instance</code> מסוג <code>t3.micro</code>" — ו-<code>Terraform</code> מחשב מה צריך ליצור, לשנות, או למחוק.</p>
 <pre><code>provider "aws" {
   region = "us-east-1"
 }
@@ -7365,7 +7566,12 @@ output "public_ip" {
   <tr><td><strong>CloudFormation</strong></td><td>AWS בלבד</td><td>JSON/YAML</td><td>AWS managed</td></tr>
   <tr><td><strong>Pulumi</strong></td><td>100+ providers</td><td>Python/TS/Go</td><td>Pulumi Cloud</td></tr>
 </table>
-<p><strong>הבסיס:</strong> provider מגדיר עם מי מדברים (AWS, Azure, GCP, Kubernetes), resource מגדיר מה יוצרים, output מייצא ערכים לשימוש חיצוני.</p>
+<p><strong>הבסיס — שלושה מרכיבים:</strong></p>
+<ul>
+<li><code>provider</code> — מגדיר עם מי מדברים: <code>AWS</code>, <code>Azure</code>, <code>GCP</code>, <code>Kubernetes</code></li>
+<li><code>resource</code> — מגדיר מה יוצרים</li>
+<li><code>output</code> — מייצא ערכים לשימוש חיצוני</li>
+</ul>
 </div>`
       },
       {
@@ -7373,7 +7579,8 @@ output "public_ip" {
         title: "Terraform State — הזיכרון של התשתית",
         content: `<div dir="rtl">
 <h2>State Management — terraform.tfstate</h2>
-<p>Terraform שומר <strong>state</strong> — מפה מפורטת בין קוד ה-HCL לבין המשאבים האמיתיים ב-cloud. בלי state, Terraform לא יודע מה כבר קיים ומה צריך ליצור.</p>
+<p><code>Terraform</code> שומר <strong>state</strong> — מפה מפורטת בין קוד ה-<code>HCL</code> לבין המשאבים האמיתיים בענן.</p>
+<p>בלי <code>state</code>, <code>Terraform</code> לא יודע מה כבר קיים ומה צריך ליצור.</p>
 <pre><code># הפקודות הבסיסיות
 terraform init     # הורדת providers
 terraform plan     # מה ישתנה (dry run)
@@ -7388,8 +7595,11 @@ terraform {
     region = "us-east-1"
   }
 }</code></pre>
-<p><strong>הכלל החשוב ביותר:</strong> לעולם אל תערכו state ידנית. אם משאב נוצר מחוץ ל-Terraform (click בconsole) — השתמשו ב-<code>terraform import</code> כדי להכניס אותו ל-state.</p>
-<p><strong>Remote state:</strong> בצוות, state חייב להיות ב-S3 + DynamoDB locking, לא על המחשב האישי. אחרת שני אנשים שמריצים <code>apply</code> במקביל יגרמו corruption.</p>
+<p><strong>הכלל החשוב ביותר:</strong> לעולם אל תערכו <code>state</code> ידנית.</p>
+<p>אם משאב נוצר מחוץ ל-<code>Terraform</code> בלחיצה ב-console — השתמשו ב-<code>terraform import</code> כדי להכניס אותו ל-<code>state</code>.</p>
+<p><strong>Remote state:</strong></p>
+<p>בצוות, ה-<code>state</code> חייב להיות ב-<code>S3</code> עם <code>DynamoDB locking</code>, לא על המחשב האישי.</p>
+<p>אחרת, שני אנשים שמריצים <code>apply</code> במקביל יגרמו לשחיתות נתונים.</p>
 </div>`
       },
       {
@@ -7397,11 +7607,30 @@ terraform {
         title: "Cattle vs Pets — המטפורה שמסבירה IaC",
         content: `<div dir="rtl">
 <h2>כשהשרת נפל — ואיש לא בכה</h2>
-<p>ב-2012, חברת Netflix הציגה מטפורה שהפכה לאחת הרעיונות המשפיעים ביותר בDevOps: <strong>Cattle vs Pets (בקר לעומת חיות מחמד)</strong>.</p>
-<p><strong>חיות מחמד (Pets):</strong> לשרתים יש שמות — "Big Iron", "dev-01". כשהם חולים, אנשי Ops עושים לילות לבנים כדי לרפא אותם. אם הם מתים — זו טרגדיה. כל שרת הוא ייחודי, ידנית מוגדר, ולא ניתן להחליפו בקלות.</p>
-<p><strong>בקר (Cattle):</strong> לשרתים יש מספרים — "web-047". כשהם חולים — שוחטים ומחליפים. Terraform מייצר instance חדש תוך דקות. Auto Scaling Group מגדיר מינימום 3 instances — אם אחד מת, AWS מייצר אחר אוטומטית.</p>
-<p>Netflix פיתחה את <strong>Chaos Monkey</strong> — כלי שמכבה שרתים פרודקשן אקראית במהלך שעות העבודה. כן, בכוונה. מדוע? כדי לוודא שהמערכת חוסנה לאירועים כאלה. אם זה מכאיב — תתקנו. אם לא — אתם Cattle-ready.</p>
-<p>התשתית ה-immutable (שלא משנים — רק מחליפים) היא הלב של IaC מודרני. Blue-green deployments, canary releases, zero-downtime updates — כולם מסתמכים על רעיון ה-Cattle.</p>
+<p>ב-2012, חברת Netflix הציגה מטפורה שהפכה לאחת הרעיונות המשפיעים ביותר ב-<code>DevOps</code>: <strong>Cattle vs Pets</strong> — בקר לעומת חיות מחמד.</p>
+<h3>חיות מחמד (Pets)</h3>
+<ul>
+<li>לשרתים יש שמות — "Big Iron", "dev-01"</li>
+<li>כשהם חולים, אנשי Ops עושים לילות לבנים כדי לרפא אותם</li>
+<li>אם הם מתים — זו טרגדיה</li>
+<li>כל שרת ייחודי, מוגדר ידנית, ולא ניתן להחליפו בקלות</li>
+</ul>
+
+<h3>בקר (Cattle)</h3>
+<ul>
+<li>לשרתים יש מספרים — "web-047"</li>
+<li>כשהם חולים — שוחטים ומחליפים</li>
+<li><code>Terraform</code> מייצר instance חדש תוך דקות</li>
+<li><code>Auto Scaling Group</code> — אם אחד מת, AWS מייצר אחר אוטומטית</li>
+</ul>
+
+<h3>Chaos Monkey</h3>
+<p>Netflix פיתחה כלי שמכבה שרתי פרודקשן אקראית במהלך שעות העבודה. כן, בכוונה.</p>
+<p>המטרה: לוודא שהמערכת עמידה. אם זה מכאיב — תתקנו. אם לא — אתם Cattle-ready.</p>
+
+<h3>תשתית Immutable</h3>
+<p>לא משנים, רק מחליפים. זה הלב של IaC מודרני.</p>
+<p>טכניקות שמסתמכות על הרעיון הזה: <code>blue-green deployments</code>, <code>canary releases</code>, <code>zero-downtime updates</code>.</p>
 </div>`
       }
     ]
@@ -7422,8 +7651,11 @@ terraform {
   <tr><td><strong>Logs</strong></td><td>אירועים טקסטואליים</td><td>"מה בדיוק קרה?"</td><td>ELK, Loki</td></tr>
   <tr><td><strong>Traces</strong></td><td>מסלול request בין services</td><td>"איפה הbottleneck?"</td><td>Jaeger, Zipkin</td></tr>
 </table>
-<p><strong>Prometheus</strong> הוא מערכת monitoring שנבנתה ב-SoundCloud ב-2012 ועכשיו standard בKubernetes. היא scrapes מכל service את ה-metrics (pull model) ושומרת אותם ב-time-series database.</p>
-<p><strong>מודל הנתונים:</strong> כל metric הוא שם + labels. למשל: <code>http_requests_total{method="GET", status="200", service="api"}</code>. הlabels מאפשרים filtering וaggregation עוצמתיים.</p>
+<p><strong>Prometheus</strong> הוא מערכת <code>monitoring</code> שנבנתה ב-SoundCloud ב-2012, והפכה לסטנדרט ב-<code>Kubernetes</code>.</p>
+<p>היא פועלת במודל <code>pull</code> — סורקת כל <code>service</code> ואוספת ממנו <code>metrics</code>, ושומרת אותם ב-<code>time-series database</code>.</p>
+<p><strong>מודל הנתונים:</strong> כל metric מורכב משם ו-<code>labels</code>. למשל:</p>
+<p><code>http_requests_total{method="GET", status="200", service="api"}</code></p>
+<p>ה-<code>labels</code> מאפשרים סינון וצבירה חזקים.</p>
 </div>`
       },
       {
@@ -7455,7 +7687,8 @@ ALERT HighErrorRate
   <tr><td>RED (שירותים)</td><td>Rate, Errors, Duration</td><td>כמה? כשל? כמה זמן?</td></tr>
   <tr><td>USE (משאבים)</td><td>Utilization, Saturation, Errors</td><td>שימוש? קיבולת? שגיאות?</td></tr>
 </table>
-<p>RED שימושי ל-microservices: "כמה requests לשנייה? כמה נכשלים? מה הlatency?". USE שימושי לinfrastructure: "CPU usage? Queue depth? Disk errors?".</p>
+<p><strong>RED</strong> שימושי ל-<code>microservices</code>: כמה בקשות לשנייה? כמה נכשלות? מה ה-<code>latency</code>?</p>
+<p><strong>USE</strong> שימושי לתשתית: מה צריכת ה-<code>CPU</code>? מה עומק התור? כמה שגיאות דיסק?</p>
 </div>`
       },
       {
@@ -7463,7 +7696,8 @@ ALERT HighErrorRate
         title: "Grafana Dashboards — הסיפור החזותי",
         content: `<div dir="rtl">
 <h2>מנתונים ל-Insights ויזואליים</h2>
-<p>Grafana היא ה-visualization layer שמחבר ל-Prometheus (ועוד עשרות data sources). Dashboard טוב מספר סיפור: "כשה-deployment יצא בשעה 14:30, הlatency עלה ב-40%".</p>
+<p><code>Grafana</code> היא שכבת הוויזואליזציה שמתחברת ל-<code>Prometheus</code> ולעשרות מקורות נתונים נוספים.</p>
+<p><code>Dashboard</code> טוב מספר סיפור: "כשה-<code>deployment</code> יצא בשעה 14:30, ה-<code>latency</code> עלה ב-40%".</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 130" class="content-diagram">
   <rect x="10" y="10" width="100" height="50" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
@@ -7483,7 +7717,12 @@ ALERT HighErrorRate
   <defs><marker id="arr-prom" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker></defs>
 </svg>
 </div>
-<p>Best practices לdashboard: <strong>Golden Signals בראש</strong> (latency, traffic, errors, saturation), <strong>drill-down</strong> מכלל לפרט, <strong>annotations</strong> לdeployments — כדי לראות correlation בין deploy לבין שינויים במטריקס.</p>
+<p><strong>Best practices ל-dashboard:</strong></p>
+<ul>
+<li><strong>Golden Signals בראש</strong> — <code>latency</code>, <code>traffic</code>, <code>errors</code>, <code>saturation</code></li>
+<li><strong>Drill-down</strong> — מהתמונה הכללית לפרטים</li>
+<li><strong>Annotations</strong> — סימון <code>deployments</code> על הגרף, כדי לראות קשר בין deploy לשינויי מדדים</li>
+</ul>
 </div>`
       },
       {
@@ -7491,11 +7730,14 @@ ALERT HighErrorRate
         title: "הסיפור: Memory Leak שנתפס לפני שהשפיע",
         content: `<div dir="rtl">
 <h2>כשהגרף הציל את הפרודקשן</h2>
-<p>סטארטאפ SaaS קטן. יום רגיל. ואז, Grafana שולח Slack alert: "Memory usage בservice X עולה בקצב קבוע של 2MB לשעה". לא alert קריטי — רק "warning".</p>
-<p>הצוות בדק. הקוד היה "clean". unit tests עברו. staging לא הראה שום דבר. אבל הגרף לא שיקר — קו ישר כלפי מעלה, מתחיל בדיוק עם הdeploy של שלשום.</p>
-<p>חיפשו ב-profiler. מצאו: Redis client שנוצר מחדש בכל request — ולא נסגר. connection pool עם 10,000 connections פתוחים. הfix: 3 שורות קוד. זמן תיקון: 45 דקות.</p>
-<p>ללא Prometheus: Service היה קורס אחרי 4 ימים, 02:00 לילה, בזמן spike בתנועה. עם Prometheus: הבעיה זוהתה ב-business hours, ב-staging, לפני שהשפיעה על משתמש אחד.</p>
-<p><strong>הלקח:</strong> Monitoring לא מיועד לגלות בעיות כשהן קורות — אלא <strong>לפני שהן קורות</strong>. Trending alerts (ערך עולה בקצב קבוע) שווים יותר מ-threshold alerts (ערך עבר גבול). Google קוראת לזה: <strong>"Alert on symptoms, not causes"</strong>.</p>
+<p>סטארטאפ SaaS קטן. יום רגיל. ואז, <code>Grafana</code> שולחת <code>Slack alert</code>: "Memory usage ב-<code>service X</code> עולה בקצב קבוע של 2MB לשעה". לא התראה קריטית — רק warning.</p>
+<p>הצוות בדק. הקוד היה "clean". ה-<code>unit tests</code> עברו. ה-<code>staging</code> לא הראה שום דבר. אבל הגרף לא שיקר — קו ישר כלפי מעלה, שמתחיל בדיוק עם ה-deploy של שלשום.</p>
+<p>חיפשו ב-<code>profiler</code>. מה שמצאו: <code>Redis client</code> שנוצר מחדש בכל request ולא נסגר. <code>connection pool</code> עם 10,000 חיבורים פתוחים.</p>
+<p>התיקון: 3 שורות קוד. זמן תיקון: 45 דקות.</p>
+<p>ללא <code>Prometheus</code>: השירות היה קורס אחרי 4 ימים, בשתיים בלילה, בזמן שיא תנועה.</p>
+<p>עם <code>Prometheus</code>: הבעיה זוהתה בשעות העבודה, לפני שהשפיעה על משתמש אחד.</p>
+<p><strong>הלקח:</strong> <code>Monitoring</code> לא מיועד לגלות בעיות כשהן קורות — אלא <strong>לפני שהן קורות</strong>.</p>
+<p><code>Trending alerts</code> — ערך שעולה בקצב קבוע — שווים יותר מ-<code>threshold alerts</code> — ערך שעבר גבול. Google קוראת לזה: <strong>"Alert on symptoms, not causes"</strong>.</p>
 </div>`
       }
     ]
@@ -7509,7 +7751,8 @@ ALERT HighErrorRate
         title: "GitOps — Git כמקור האמת היחיד",
         content: `<div dir="rtl">
 <h2>GitOps: מה שב-Git הוא מה שב-Production</h2>
-<p>GitOps הוא פרקטיקה שבה <strong>כל מצב הפרודקשן מוגדר ב-Git</strong>. לא רק קוד האפליקציה — גם כל הKubernetes manifests, Helm values, ו-infrastructure config.</p>
+<p><code>GitOps</code> הוא פרקטיקה שבה <strong>כל מצב הפרודקשן מוגדר ב-<code>Git</code></strong>.</p>
+<p>לא רק קוד האפליקציה — גם כל ה-<code>Kubernetes manifests</code>, ה-<code>Helm values</code> וה-<code>infrastructure config</code>.</p>
 <p><strong>עקרונות GitOps:</strong></p>
 <ul>
   <li><strong>Declarative:</strong> מתאר מה רוצים, לא איך לעשות</li>
@@ -7572,7 +7815,12 @@ spec:
     automated:
       prune: true       # מוחק resources שנמחקו מGit
       selfHeal: true    # מתקן drift אוטומטית</code></pre>
-<p>ArgoCD מסנכרן כל 3 דקות. שינוי ב-Git = deploy אוטומטי. שינוי ידני בcluster = תוקן אוטומטית לstate ב-Git. זו הבטחת GitOps.</p>
+<p><code>ArgoCD</code> מסנכרן כל 3 דקות:</p>
+<ul>
+<li>שינוי ב-<code>Git</code> = deploy אוטומטי</li>
+<li>שינוי ידני ב-<code>cluster</code> = תוקן אוטומטית למצב ב-<code>Git</code></li>
+</ul>
+<p>זו ההבטחה של <code>GitOps</code>.</p>
 </div>`
       },
       {
@@ -7580,7 +7828,8 @@ spec:
         title: "Drift Detection — הביטחון של GitOps",
         content: `<div dir="rtl">
 <h2>כשמישהו שינה משהו — ArgoCD יודע</h2>
-<p>הכוח הגדול ביותר של GitOps: <strong>drift detection</strong>. כל שינוי ב-cluster שלא מגיע מ-Git — ArgoCD מזהה ומדווח (ואם מוגדר selfHeal — מחזיר אוטומטית).</p>
+<p>הכוח הגדול ביותר של <code>GitOps</code>: <strong>drift detection</strong>.</p>
+<p>כל שינוי ב-<code>cluster</code> שלא מגיע מ-<code>Git</code> — <code>ArgoCD</code> מזהה ומדווח. אם מוגדר <code>selfHeal</code>, הוא מחזיר את המצב אוטומטית.</p>
 <pre><code># בדיקת סטטוס אפליקציות
 argocd app list
 
@@ -7590,8 +7839,13 @@ argocd app sync my-app
 
 # Rollback לגרסה קודמת
 argocd app rollback my-app 3</code></pre>
-<p><strong>מתי GitOps לא מספיק?</strong> Secrets. לא מאחסנים passwords בGit. הפתרון: <strong>Sealed Secrets</strong> (מוצפן בpublic key, רק cluster יכול לפענח) או <strong>External Secrets Operator</strong> (מושך מ-Vault/AWS Secrets Manager).</p>
-<p><strong>ApplicationSet:</strong> תכונה מתקדמת שיוצרת Applications מרובות אוטומטית — למשל, אחת לכל namespace, לכל cluster, או לכל feature branch. מאפשר multi-cluster GitOps.</p>
+<p><strong>מתי GitOps לא מספיק?</strong> כשמדובר ב-Secrets. לא מאחסנים סיסמאות ב-<code>Git</code>.</p>
+<p>הפתרונות:</p>
+<ul>
+<li><strong>Sealed Secrets</strong> — מוצפן ב-<code>public key</code>, רק ה-<code>cluster</code> יכול לפענח</li>
+<li><strong>External Secrets Operator</strong> — מושך סודות מ-<code>Vault</code> או <code>AWS Secrets Manager</code></li>
+</ul>
+<p><strong>ApplicationSet:</strong> תכונה מתקדמת שיוצרת <code>Applications</code> מרובות אוטומטית — למשל, אחת לכל <code>namespace</code>, לכל <code>cluster</code>, או לכל <code>feature branch</code>. מאפשרת ניהול <code>GitOps</code> מרובה אשכולות.</p>
 </div>`
       }
     ]
@@ -7707,7 +7961,8 @@ sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)</code></pre></div>
         title: "iBGP ו-eBGP — שתי מציאויות",
         content: `<div dir="rtl">
 <h2>BGP: הפרוטוקול שמחזיק את האינטרנט</h2>
-<p>BGP (Border Gateway Protocol) הוא ה-routing protocol היחיד שפועל בין Autonomous Systems — הארגונים, ISPים וחברות שמרכיבים את האינטרנט.</p>
+<p><code>BGP</code> — <code>Border Gateway Protocol</code> — הוא פרוטוקול הניתוב היחיד שפועל בין Autonomous Systems.</p>
+<p>אלו הארגונים, ספקי האינטרנט והחברות שמרכיבים יחד את האינטרנט.</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 140" class="content-diagram">
   <text x="180" y="15" text-anchor="middle" font-size="12" fill="#e2e8f0" font-weight="bold">iBGP vs eBGP</text>
@@ -7739,7 +7994,8 @@ sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)</code></pre></div>
   <tr><td>full mesh</td><td>נדרש (או Route Reflector)</td><td>לא נדרש</td></tr>
   <tr><td>עדכון</td><td>לא מפרסם ל-iBGP אחר</td><td>מפרסם הכל</td></tr>
 </table>
-<p><strong>Rule הכי חשוב:</strong> Router שקיבל מסלול מ-iBGP neighbor <em>לא</em> שולח אותו ל-iBGP אחר — זו הסיבה לdependency על full mesh או Route Reflectors.</p>
+<p><strong>הכלל החשוב ביותר:</strong> <code>Router</code> שקיבל מסלול מ-<code>iBGP neighbor</code> <em>לא</em> שולח אותו ל-<code>iBGP</code> אחר.</p>
+<p>זו הסיבה שצריך <code>full mesh</code> או <code>Route Reflectors</code>.</p>
 </div>`
       },
       {
@@ -7775,17 +8031,19 @@ route-map BACKUP_LINK permit 10
         title: "הסיפור: Pakistan Telecom 2008",
         content: `<div dir="rtl">
 <h2>כשPakistan תקפה את YouTube — בטעות</h2>
-<p>24 בפברואר 2008: Pakistan Telecom קיבלה הוראה מהממשלה לחסום YouTube. הפתרון שבחרו — להכניס route ל-BGP שמפנה את הtraffic של YouTube לblack hole מקומי.</p>
-<p><strong>מה שקרה:</strong> במקום לשמור את הroute פנימי (iBGP בלבד), הroute דלף ל-PCCW — ה-upstream ISP של Pakistan. PCCW הפיצה אותו לשאר העולם.</p>
-<p>כרגע שזה קרה: BGP בחר את הroute של Pakistan לכל טראפיק ל-YouTube — כי הוא היה ה-<em>ספציפי יותר</em>. YouTube פרסמה <code>208.65.153.0/22</code>; Pakistan פרסמה <code>208.65.153.0/24</code> — /24 ספציפי יותר מ-/22.</p>
-<p>תוך 2 דקות: 75% מטראפיק YouTube העולמי הופנה לPakistan. YouTube הייתה נגישה רק ל-25% מהמשתמשים. משך ההפסקה: כ-2 שעות.</p>
+<p>24 בפברואר 2008: Pakistan Telecom קיבלה הוראה מהממשלה לחסום YouTube. הפתרון שבחרו — להכניס <code>route</code> ל-<code>BGP</code> שמפנה את התעבורה של YouTube ל-<code>black hole</code> מקומי.</p>
+<p><strong>מה שקרה:</strong> במקום לשמור את ה-<code>route</code> פנימי ב-<code>iBGP</code> בלבד, הוא דלף ל-PCCW — ספק האינטרנט שמעל Pakistan. PCCW הפיצה אותו לשאר העולם.</p>
+<p>ברגע שזה קרה, <code>BGP</code> בחר את ה-<code>route</code> של Pakistan לכל התעבורה ל-YouTube — כי הוא היה <em>ספציפי יותר</em>. YouTube פרסמה <code>208.65.153.0/22</code>, ו-Pakistan פרסמה <code>208.65.153.0/24</code>.</p>
+<p>בעולם של <code>BGP</code>, <code>/24</code> ספציפי יותר מ-<code>/22</code> — ולכן מנצח תמיד.</p>
+<p>תוך 2 דקות: 75% מתעבורת YouTube העולמית הופנתה ל-Pakistan. YouTube הייתה נגישה רק ל-25% מהמשתמשים. ההפסקה נמשכה כשעתיים.</p>
 <div class="code-preview"><pre><code># הroute הבעייתי (רעיונית):
 # YouTube: 208.65.153.0/22 (AS 36561)
 # Pakistan: 208.65.153.0/24 (AS 17557) ← יותר ספציפי, ניצח!
 
 # BGP: Longest Prefix Match תמיד מנצח
 # /24 (256 כתובות) > /22 (1024 כתובות) מבחינת BGP</code></pre></div>
-<p><strong>הלקח:</strong> BGP הוא פרוטוקול של אמון. אין אימות מובנה — כל AS יכול לפרסם כל prefix. RPKI (Resource Public Key Infrastructure) נוצר בדיוק בגלל תקריות כאלו — קריפטוגרפית מאמתת ש-AS מורשה לפרסם prefix מסוים.</p>
+<p><strong>הלקח:</strong> <code>BGP</code> הוא פרוטוקול של אמון. אין אימות מובנה — כל <code>AS</code> יכול לפרסם כל <code>prefix</code>.</p>
+<p><code>RPKI</code> — <code>Resource Public Key Infrastructure</code> — נוצר בדיוק בגלל תקריות כאלו. הוא מאמת באמצעות קריפטוגרפיה ש-<code>AS</code> מורשה לפרסם <code>prefix</code> מסוים.</p>
 </div>`
       }
     ]
@@ -7846,7 +8104,7 @@ route-map BACKUP_LINK permit 10
         title: "DNSSEC, DoH, DoT — אבטחה",
         content: `<div dir="rtl">
 <h2>DNS: הפרוטוקול הכי פגיע ב-stack</h2>
-<p>DNS מקורי: UDP port 53, ללא הצפנה, ללא אימות. כל מי שבדרך יכול לזייף תשובות.</p>
+<p><code>DNS</code> מקורי עובד על <code>UDP port 53</code>, ללא הצפנה וללא אימות. כל מי שנמצא בדרך יכול לזייף תשובות.</p>
 <h3>DNSSEC — חתימות קריפטוגרפיות</h3>
 <p>כל record מלווה בחתימה דיגיטלית. ה-resolver מאמת את השרשרת מה-Root ועד ה-record.</p>
 <div class="code-preview"><pre><code># בדיקת DNSSEC עם dig
@@ -7866,7 +8124,7 @@ dig +dnssec cloudflare.com
   <tr><td>DoQ</td><td>853/UDP-QUIC</td><td>✅ QUIC</td><td>✅ מהיר יותר</td></tr>
 </table>
 <h3>Anycast — למה 8.8.8.8 מהיר מכל מקום בעולם</h3>
-<p>Google מפרסמת את 8.8.8.8 מעשרות מיקומים עם BGP Anycast. BGP תמיד מנתב ל"קרוב ביותר" — כך שאתה בישראל מדבר עם datacenter בישראל/אירופה, לא בארה"ב.</p>
+<p>Google מפרסמת את <code>8.8.8.8</code> מעשרות מיקומים עם <code>BGP Anycast</code>. <code>BGP</code> תמיד מנתב ל"קרוב ביותר" — כך שמישראל אתה מדבר עם <code>datacenter</code> בישראל או אירופה, לא בארה"ב.</p>
 </div>`
       },
       {
@@ -7874,16 +8132,17 @@ dig +dnssec cloudflare.com
         title: "הסיפור: DNS Hijacking של ISP",
         content: `<div dir="rtl">
 <h2>כשה-ISP שלך קורא את השאילתות שלך</h2>
-<p>שנת 2018: חוקר אבטחה גילה שISP ישראלי מפנה שאילתות DNS לשגיאה (NXDOMAIN) לדף ה-search שלו — גניבת תעבורה מדומיינים שגויים.</p>
-<p>זה לגיטימי? עמום. אבל זה הדגים: ה-ISP רואה הכל. כל domain שגלשת אליו — גלוי לחלוטין בDNS.</p>
+<p>שנת 2018: חוקר אבטחה גילה ש-ISP ישראלי מפנה שאילתות <code>DNS</code> שמחזירות שגיאה (<code>NXDOMAIN</code>) לדף החיפוש שלו — גניבת תעבורה מדומיינים שגויים.</p>
+<p>האם זה לגיטימי? לא ברור. אבל זה הדגים עובדה חשובה: ה-ISP רואה הכל. כל <code>domain</code> שגלשת אליו גלוי לחלוטין ב-<code>DNS</code>.</p>
 <p>מתקפות DNS אמיתיות יותר:</p>
 <ul>
 <li><strong>DNS Cache Poisoning</strong> (Kaminsky 2008): בגלל UDP, אפשר לנחש את ה-transaction ID ולהזריק תשובה מזויפת ל-cache של ה-resolver</li>
 <li><strong>DNS Hijacking</strong>: שינוי ה-DNS settings על ה-router (לרוב דרך default password) → כל הרשת מדברת עם resolvers זדוניים</li>
 <li><strong>NXNS Attack</strong>: גרום ל-recursive resolver לשלוח מיליוני שאילתות ל-victim NS → DDoS</li>
 </ul>
-<p><strong>הפתרון שהפך מקובל:</strong> Cloudflare 1.1.1.1 עם DoH. הISP שלך רואה HTTPS ל-1.1.1.1, לא DNS queries. חברות מאמצות DNS filtering (Cisco Umbrella) בתוך ה-VPN שלהן.</p>
-<p><strong>הלקח:</strong> DNS הוא ה-phonebook של האינטרנט. מי ששולט בו — שולט במה אתה מגיע אליו.</p>
+<p><strong>הפתרון שהפך מקובל:</strong> <code>Cloudflare 1.1.1.1</code> עם <code>DoH</code>. ה-ISP שלך רואה <code>HTTPS</code> ל-<code>1.1.1.1</code>, לא שאילתות <code>DNS</code>.</p>
+<p>חברות רבות מאמצות <code>DNS filtering</code> כמו <code>Cisco Umbrella</code> בתוך ה-VPN הארגוני.</p>
+<p><strong>הלקח:</strong> <code>DNS</code> הוא ספר הטלפונים של האינטרנט. מי ששולט בו — שולט במה שאתה מגיע אליו.</p>
 </div>`
       }
     ]
@@ -7922,8 +8181,9 @@ dig +dnssec cloudflare.com
   <text x="180" y="112" text-anchor="middle" font-size="9" fill="#64748b">אובדן חבילה ב-stream אחד לא חוסם שאר הstreams</text>
 </svg>
 </div>
-<p>ב-HTTP/2, אם packet אחד אובד, TCP מחכה להחזרתו — וכל 10 ה-streams שבאותו TCP connection <em>קפואים</em>. זה Head-of-Line (HOL) blocking ברמת TCP.</p>
-<p>QUIC בנה streams עצמאיים מעל UDP — אובדן packet ב-stream 2 חוסם רק את stream 2.</p>
+<p>ב-<code>HTTP/2</code>, אם <code>packet</code> אחד אובד, <code>TCP</code> מחכה להחזרתו — וכל 10 ה-<code>streams</code> שבאותו חיבור <em>קפואים</em>.</p>
+<p>זהו <code>Head-of-Line blocking</code> (בקיצור <code>HOL blocking</code>) ברמת <code>TCP</code>.</p>
+<p><code>QUIC</code> בנה <code>streams</code> עצמאיים מעל <code>UDP</code> — אובדן <code>packet</code> ב-<code>stream 2</code> חוסם רק את <code>stream 2</code>.</p>
 </div>`
       },
       {
@@ -7944,8 +8204,8 @@ QUIC 0-RTT (חיבור חוזר):
   ClientHello + נתונים →  (0 RTT!)
   ← Server response</code></pre></div>
 <h3>Connection Migration</h3>
-<p>TCP = זוהה על ידי (src IP, src port, dst IP, dst port). מעבר מWiFi לסלולרי → חיבור נשבר.</p>
-<p>QUIC = זוהה על ידי <strong>Connection ID</strong> אקראי. מעבר מWiFi לסלולרי → QUIC ממשיך בצורה שקופה. ה-stream לא נקטע.</p>
+<p><code>TCP</code> מזוהה לפי ארבעה שדות: <code>src IP</code>, <code>src port</code>, <code>dst IP</code>, <code>dst port</code>. מעבר מ-WiFi לסלולרי שובר את החיבור.</p>
+<p><code>QUIC</code> מזוהה לפי <strong>Connection ID</strong> אקראי. מעבר מ-WiFi לסלולרי? <code>QUIC</code> ממשיך בצורה שקופה — ה-<code>stream</code> לא נקטע.</p>
 <table class="content-table">
   <tr><th>תכונה</th><th>TCP+TLS</th><th>QUIC</th></tr>
   <tr><td>חיבור ראשוני</td><td>1-3 RTT</td><td>1 RTT</td></tr>
@@ -7962,12 +8222,13 @@ QUIC 0-RTT (חיבור חוזר):
         title: "הסיפור: Google QUIC לפני שהעולם ידע",
         content: `<div dir="rtl">
 <h2>איך Google בנתה QUIC בשקט ואז שינתה את האינטרנט</h2>
-<p>2012: Google שמה לב שTCP הוא bottleneck אמיתי — בעיקר על mobile networks עם packet loss גבוה. הפתרון של IETF יקח שנים. Google החליטה לפתור לבד.</p>
-<p>הם בנו QUIC תחילה כexperimental protocol, והפעילו אותו כברירת מחדל ב-Chrome ← Google Servers. המשתמשים לא ידעו — פשוט YouTube וChrome הרגישו מהירים יותר.</p>
-<p>2015: Google פרסמה ש-~50% מבקשות Chrome כבר הולכות על QUIC. הנתונים הראו: חיבורי QUIC מהירים ב-30% ב-tail latency (percentile 99) לעומת TCP.</p>
-<p>2018: Google הגישה QUIC ל-IETF לסטנדרטיזציה. אבל IETF שינתה הרבה — IETF QUIC שונה מGoogle QUIC. 2021: RFC 9000 — QUIC סטנדרטי, HTTP/3 (RFC 9114).</p>
-<p>2023: כ-30% מהwebsites הגדולים תומכים בHTTP/3. כל request ל-cloudflare.com, google.com, facebook.com — כבר QUIC.</p>
-<p><strong>הלקח:</strong> לפעמים הדרך לשנות סטנדרט היא לא לשכנע ועדה — אלא לבנות, לפרוס, לאסוף נתונים, ואז לבוא עם facts. Google שינתה את הinternet layer בשקט.</p>
+<p>2012: Google שמה לב ש-<code>TCP</code> הוא צוואר בקבוק אמיתי — בעיקר ברשתות סלולריות עם <code>packet loss</code> גבוה. הפתרון של IETF ייקח שנים. Google החליטה לפתור לבד.</p>
+<p>הם בנו <code>QUIC</code> תחילה כפרוטוקול ניסיוני, והפעילו אותו כברירת מחדל ב-Chrome מול שרתי Google. המשתמשים לא ידעו — פשוט YouTube ו-Chrome הרגישו מהירים יותר.</p>
+<p>2015: Google פרסמה שכ-50% מבקשות Chrome כבר עוברות על <code>QUIC</code>. הנתונים הראו: חיבורי <code>QUIC</code> מהירים ב-30% ב-<code>tail latency</code> (פרסנטיל 99) לעומת <code>TCP</code>.</p>
+<p>2018: Google הגישה את <code>QUIC</code> ל-IETF לסטנדרטיזציה. ה-IETF שינתה הרבה — <code>IETF QUIC</code> שונה מ-<code>Google QUIC</code>.</p>
+<p>2021: <code>RFC 9000</code> — <code>QUIC</code> סטנדרטי. <code>RFC 9114</code> — <code>HTTP/3</code>.</p>
+<p>2023: כ-30% מהאתרים הגדולים תומכים ב-<code>HTTP/3</code>. כל בקשה ל-<code>cloudflare.com</code>, <code>google.com</code>, <code>facebook.com</code> — כבר <code>QUIC</code>.</p>
+<p><strong>הלקח:</strong> לפעמים הדרך לשנות סטנדרט היא לא לשכנע ועדה — אלא לבנות, לפרוס, לאסוף נתונים, ואז לבוא עם עובדות. Google שינתה את שכבת האינטרנט בשקט.</p>
 </div>`
       }
     ]
@@ -7981,7 +8242,8 @@ QUIC 0-RTT (חיבור חוזר):
         title: "eBPF — תכנות הגרעין מבחוץ",
         content: `<div dir="rtl">
 <h2>eBPF: הטכנולוגיה שמשנה Linux networking</h2>
-<p>eBPF (extended Berkeley Packet Filter) מאפשר להריץ programs קטנים <em>בתוך</em> ה-Linux kernel — בלי לשנות קוד kernel ובלי module. הגרעין מריץ bytecode שעבר verification.</p>
+<p><code>eBPF</code> — <code>extended Berkeley Packet Filter</code> — מאפשר להריץ תוכניות קטנות <em>בתוך</em> ה-<code>Linux kernel</code>.</p>
+<p>לא צריך לשנות קוד גרעין ולא לטעון <code>module</code>. הגרעין מריץ <code>bytecode</code> שעבר אימות מוקדם.</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 140" class="content-diagram">
   <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">eBPF Architecture</text>
@@ -8001,7 +8263,12 @@ QUIC 0-RTT (חיבור חוזר):
   <text x="300" y="123" text-anchor="middle" font-size="9" fill="#86efac">Socket filter</text>
 </svg>
 </div>
-<p>eBPF programs מוכנסים ל-hooks בגרעין. הverifier מבטיח שהם לא יגרמו crash, לא ירוצו לנצח, ולא ייגשו לזיכרון לא מורשה.</p>
+<p>תוכניות <code>eBPF</code> מוכנסות ל-<code>hooks</code> בגרעין. ה-<code>verifier</code> מבטיח שלושה דברים:</p>
+<ul>
+<li>לא יגרמו קריסה</li>
+<li>לא ירוצו לנצח</li>
+<li>לא ייגשו לזיכרון לא מורשה</li>
+</ul>
 <h3>Maps — תקשורת kernel ↔ user space</h3>
 <div class="code-preview"><pre><code>// eBPF program (C)
 struct {
@@ -8034,7 +8301,8 @@ int count_packets(struct xdp_md *ctx) {
   <tr><td><code>XDP_REDIRECT</code></td><td>מפנה ל-interface אחר — load balancing מהיר</td></tr>
 </table>
 <h3>Cilium — Kubernetes Networking עם eBPF</h3>
-<p>Cilium מחליף iptables ב-Kubernetes לחלוטין. iptables = O(n) lookup, רשימות ענקיות. eBPF maps = O(1) hash lookup.</p>
+<p><code>Cilium</code> מחליף את <code>iptables</code> ב-<code>Kubernetes</code> לחלוטין.</p>
+<p><code>iptables</code> = חיפוש ליניארי <code>O(n)</code>, עם רשימות ענקיות. <code>eBPF maps</code> = חיפוש ב-<code>O(1)</code> עם <code>hash lookup</code>.</p>
 <div class="code-preview"><pre><code># בדיקה שCilium תקין
 cilium status
 cilium endpoint list
@@ -8056,9 +8324,10 @@ hubble observe --namespace production
         title: "הסיפור: Cloudflare עוצרת DDoS עם eBPF",
         content: `<div dir="rtl">
 <h2>כשגל של 800Gbps הגיע — ובכל זאת נשארנו online</h2>
-<p>ספטמבר 2022: Cloudflare דיווחה על DDoS attack של 2.5 ביליון packets לשנייה. בגישה הישנה (iptables), כל rule הוא scan ליניארי — 10,000 rules = 10,000 בדיקות לכל packet. בלתי אפשרי.</p>
-<p>Cloudflare בנתה מערכת XDP-based: כל traffic מנותח ב-eBPF עוד על ה-NIC. Fingerprint של DDoS traffic (TTL, IP options, packet size distribution) → XDP_DROP מיידי — הpacket לא נוגע ב-kernel כלל.</p>
-<p>הנתונים: תוך 20 שניות מזיהוי → 2.5B pps dropped לפני שנגעו ב-stack. תשתית Cloudflare המשיכה לשרת traffic לגיטימי ללא הפרעה.</p>
+<p>ספטמבר 2022: Cloudflare דיווחה על מתקפת <code>DDoS</code> של 2.5 מיליארד <code>packets</code> לשנייה.</p>
+<p>בגישה הישנה עם <code>iptables</code>, כל rule הוא סריקה ליניארית — 10,000 rules = 10,000 בדיקות לכל <code>packet</code>. בלתי אפשרי.</p>
+<p>Cloudflare בנתה מערכת מבוססת <code>XDP</code>: כל תעבורה מנותחת ב-<code>eBPF</code> עוד על כרטיס הרשת. טביעת אצבע של תעבורת <code>DDoS</code> — <code>TTL</code>, <code>IP options</code>, התפלגות גדלי <code>packets</code> — מזוהה מיד ומקבלת <code>XDP_DROP</code>. ה-<code>packet</code> לא נוגע בגרעין כלל.</p>
+<p>התוצאה: תוך 20 שניות מזיהוי — 2.5 מיליארד <code>packets</code> לשנייה נזרקו לפני שנגעו ב-<code>stack</code>. תשתית Cloudflare המשיכה לשרת תעבורה לגיטימית ללא הפרעה.</p>
 <div class="code-preview"><pre><code># pseudocode של Cloudflare XDP DDoS mitigation
 SEC("xdp")
 int mitigate_ddos(struct xdp_md *ctx) {
@@ -8076,7 +8345,8 @@ int mitigate_ddos(struct xdp_md *ctx) {
 
     return XDP_PASS; // legitimate traffic
 }</code></pre></div>
-<p><strong>הלקח:</strong> הגבול בין network ו-programming נמחק. eBPF מאפשר לבנות custom networking logic שפועל מהר יותר מכל hardware appliance — ישירות על commodity servers. זו הסיבה שכל חברה גדולה (Google, Meta, Netflix, Cloudflare) משקיעה כבד ב-eBPF.</p>
+<p><strong>הלקח:</strong> הגבול בין רשתות לתכנות נמחק. <code>eBPF</code> מאפשר לבנות לוגיקת רשת מותאמת אישית שפועלת מהר יותר מכל חומרה ייעודית — ישירות על שרתים רגילים.</p>
+<p>זו הסיבה שחברות כמו Google, Meta, Netflix ו-Cloudflare משקיעות בכבדות ב-<code>eBPF</code>.</p>
 </div>`
       }
     ]
@@ -8090,7 +8360,8 @@ int mitigate_ddos(struct xdp_md *ctx) {
         title: "TLS 1.2 vs 1.3 — מה השתנה?",
         content: `<div dir="rtl">
 <h2>למה TLS 1.3 שינה הכל</h2>
-<p>TLS 1.2 יצא ב-2008 — עידן אחר. הוא תמך ב-RC4, MD5, SHA-1, ואלגוריתמים שמאז הוכחו כשבורים. TLS 1.3 (RFC 8446, 2018) ניקה הכל וייעל מהיסוד.</p>
+<p><code>TLS 1.2</code> יצא ב-2008 — עידן אחר. הוא תמך ב-<code>RC4</code>, <code>MD5</code>, <code>SHA-1</code> ואלגוריתמים שמאז הוכחו כשבורים.</p>
+<p><code>TLS 1.3</code> (<code>RFC 8446</code>, 2018) ניקה הכל וייעל מהיסוד.</p>
 <table class="content-table">
   <tr><th>תכונה</th><th>TLS 1.2</th><th>TLS 1.3</th></tr>
   <tr><td>Handshake RTT</td><td>2-RTT</td><td>1-RTT (0-RTT אפשרי)</td></tr>
@@ -8100,7 +8371,12 @@ int mitigate_ddos(struct xdp_md *ctx) {
   <tr><td>SHA-1 / MD5</td><td>נתמכים</td><td>הוסרו לחלוטין</td></tr>
   <tr><td>RC4</td><td>נתמך</td><td>הוסר לחלוטין</td></tr>
 </table>
-<p><strong>מדוע RC4/SHA-1/MD5 הוסרו?</strong> RC4: cryptographic biases מ-2013 מאפשרות לפענח 50% מה-traffic אחרי 2^26 connections. MD5 ו-SHA-1: collision attacks הוכחו (SHA-1 נשבר בפועל ב-2017 על ידי Google SHAttered project). TLS 1.3 מאפשר AES-GCM, ChaCha20-Poly1305 בלבד.</p>
+<p><strong>מדוע הוסרו?</strong></p>
+<ul>
+<li><code>RC4</code> — חולשות קריפטוגרפיות מ-2013 מאפשרות לפענח 50% מהתעבורה אחרי 2^26 חיבורים</li>
+<li><code>MD5</code> ו-<code>SHA-1</code> — הוכחו מתקפות התנגשות. <code>SHA-1</code> נשבר בפועל ב-2017 בפרויקט <code>Google SHAttered</code></li>
+</ul>
+<p><code>TLS 1.3</code> מאפשר רק <code>AES-GCM</code> ו-<code>ChaCha20-Poly1305</code>.</p>
 </div>`
       },
       {
@@ -8137,7 +8413,8 @@ int mitigate_ddos(struct xdp_md *ctx) {
   <defs><marker id="arr-tls" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker></defs>
 </svg>
 </div>
-<p>ב-TLS 1.2, הclient צריך לחכות לServerHello לפני שיכול לשלוח את ה-KeyExchange — זה 2 round trips לפני שdata זורמת. ב-TLS 1.3, הclient שולח את ה-KeyShare כבר ב-ClientHello הראשון — רק RTT אחד!</p>
+<p>ב-<code>TLS 1.2</code>, ה-client צריך לחכות ל-<code>ServerHello</code> לפני שיכול לשלוח את ה-<code>KeyExchange</code> — זה 2 סיבובי הלוך-חזור לפני שנתונים זורמים.</p>
+<p>ב-<code>TLS 1.3</code>, ה-client שולח את ה-<code>KeyShare</code> כבר ב-<code>ClientHello</code> הראשון — רק <code>RTT</code> אחד.</p>
 </div>`
       },
       {
@@ -8145,9 +8422,10 @@ int mitigate_ddos(struct xdp_md *ctx) {
         title: "Forward Secrecy ו-0-RTT Resumption",
         content: `<div dir="rtl">
 <h2>ECDHE ו-Perfect Forward Secrecy</h2>
-<p><strong>Forward Secrecy (PFS)</strong> אומר: אפילו אם התוקף מצליח לגנוב את ה-private key של השרת — הוא לא יכול לפענח שיחות עבר שהוקלטו.</p>
-<p>ב-TLS 1.2 עם RSA key exchange: הclient מצפין session key בpublic key של השרת. אם השרת נפרץ — כל השיחות ההיסטוריות ניתנות לפיענוח.</p>
-<p>ב-TLS 1.3, רק ECDHE (Elliptic Curve Diffie-Hellman Ephemeral) מותר. "Ephemeral" = המפתחות נוצרים מחדש לכל session ונמחקים אחרי. אין מפתח ישן שיכול לסייע לפיענוח.</p>
+<p><strong>Forward Secrecy</strong> (בקיצור <code>PFS</code>) אומר: אפילו אם התוקף מצליח לגנוב את ה-<code>private key</code> של השרת — הוא לא יכול לפענח שיחות עבר שהוקלטו.</p>
+<p>ב-<code>TLS 1.2</code> עם <code>RSA key exchange</code>: ה-client מצפין <code>session key</code> ב-<code>public key</code> של השרת. אם השרת נפרץ — כל השיחות ההיסטוריות ניתנות לפיענוח.</p>
+<p>ב-<code>TLS 1.3</code>, רק <code>ECDHE</code> — <code>Elliptic Curve Diffie-Hellman Ephemeral</code> — מותר.</p>
+<p>המשמעות של <code>Ephemeral</code>: המפתחות נוצרים מחדש לכל <code>session</code> ונמחקים אחרי. אין מפתח ישן שיכול לסייע לפיענוח.</p>
 <pre><code># בדיקת TLS של שרת
 openssl s_client -connect example.com:443 -tls1_3
 
@@ -8158,7 +8436,8 @@ openssl s_client -connect example.com:443 -tls1_3
 
 # בדיקת certificate
 openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -text | grep -E "Subject:|Not After:|TLS"</code></pre>
-<p><strong>0-RTT (Early Data):</strong> ב-TLS 1.3 session resumption, הclient יכול לשלוח application data בround trip הראשון. מהיר מאוד — אבל attention: 0-RTT לא מגן מpreplay attacks. מתאים רק לGET requests, לא לPOST עם side effects.</p>
+<p><strong>0-RTT (Early Data):</strong> ב-<code>TLS 1.3 session resumption</code>, ה-client יכול לשלוח נתוני אפליקציה בסיבוב הראשון. מהיר מאוד.</p>
+<p><strong>זהירות:</strong> <code>0-RTT</code> לא מגן מפני מתקפות <code>replay</code>. מתאים רק לבקשות <code>GET</code>, לא ל-<code>POST</code> עם תופעות לוואי.</p>
 </div>`
       },
       {
@@ -8174,8 +8453,10 @@ openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -tex
   <li><strong>TLS_AES_128_CCM_SHA256</strong> — IoT devices</li>
   <li><strong>TLS_AES_128_CCM_8_SHA256</strong> — IoT עם bandwidth מוגבל</li>
 </ul>
-<p><strong>AEAD</strong> = הצפנה + authentication באופרציה אחת. ב-TLS 1.2 עם CBC+HMAC, authentication היה שלב נפרד — גרם לvulnerabilities כמו BEAST ו-POODLE. עם GCM: אם מישהו שינה את ה-ciphertext, הdecryption נכשל מיידית.</p>
-<p><strong>ההשפעה בפועל:</strong> HTTPS עם TLS 1.3 לוקח 50-100ms פחות ל-first byte על connections חדשים בהשוואה לTLS 1.2. על מובייל, בlatency גבוה, ההבדל מורגש.</p>
+<p><strong>AEAD</strong> = הצפנה ואימות באופרציה אחת.</p>
+<p>ב-<code>TLS 1.2</code> עם <code>CBC+HMAC</code>, האימות היה שלב נפרד — מה שגרם לפגיעויות כמו <code>BEAST</code> ו-<code>POODLE</code>. עם <code>GCM</code>: אם מישהו שינה את ה-<code>ciphertext</code>, הפענוח נכשל מיידית.</p>
+<p><strong>ההשפעה בפועל:</strong> <code>HTTPS</code> עם <code>TLS 1.3</code> לוקח 50-100ms פחות ל-<code>first byte</code> בחיבורים חדשים, לעומת <code>TLS 1.2</code>.</p>
+<p>על מובייל, עם <code>latency</code> גבוה, ההבדל מורגש בבירור.</p>
 </div>`
       }
     ]
@@ -8189,8 +8470,9 @@ openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -tex
         title: "Anycast — כשאותה IP מגיעה ממקומות רבים",
         content: `<div dir="rtl">
 <h2>Anycast: כיצד Cloudflare מגיש 1.1.1.1 מ-300 מקומות</h2>
-<p>כשאתם שולחים query ל-1.1.1.1 (Cloudflare DNS), הבקשה מגיעה לPOP (Point of Presence) הקרוב אליכם — בתל אביב, לונדון, או ניו יורק — כולם עם אותה כתובת IP. זה <strong>Anycast</strong>.</p>
-<p>כיצד? Cloudflare מפרסמת את הprefix 1.1.1.1/32 ב-BGP מ-300 מיקומים שונים. BGP routers בוחרים תמיד את ה-shortest AS path — כלומר הPOP הקרוב ביותר. Traffic אוטומטית מנותב לשרת הקרוב.</p>
+<p>כשאתם שולחים שאילתה ל-<code>1.1.1.1</code> (Cloudflare DNS), הבקשה מגיעה ל-<code>POP</code> (נקודת נוכחות) הקרוב אליכם — בתל אביב, לונדון, או ניו יורק. כולם עם אותה כתובת IP. זה <strong>Anycast</strong>.</p>
+<p>כיצד זה עובד? Cloudflare מפרסמת את ה-<code>prefix</code> <code>1.1.1.1/32</code> ב-<code>BGP</code> מ-300 מיקומים שונים.</p>
+<p><code>BGP routers</code> בוחרים תמיד את ה-<code>shortest AS path</code> — כלומר ה-<code>POP</code> הקרוב ביותר. התעבורה מנותבת אוטומטית לשרת הקרוב.</p>
 <table class="content-table">
   <tr><th>Anycast יתרונות</th><th>פרטים</th></tr>
   <tr><td>Latency</td><td>תמיד הPOP הקרוב — הפחתת 50-200ms</td></tr>
@@ -8198,7 +8480,13 @@ openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -tex
   <tr><td>Failover</td><td>POP שנפל — BGP מסיר את הprefix אוטומטית</td></tr>
   <tr><td>Scalability</td><td>הוסף POP חדש = הוסף BGP peer</td></tr>
 </table>
-<p><strong>שימושים נפוצים:</strong> DNS (כל root nameservers הם Anycast), CDN, DDoS protection. <strong>לא מתאים ל:</strong> TCP sessions ארוכים (connection עלול לעבור לPOP אחר בין packets).</p>
+<p><strong>שימושים נפוצים:</strong></p>
+<ul>
+<li><code>DNS</code> — כל ה-<code>root nameservers</code> הם <code>Anycast</code></li>
+<li><code>CDN</code> — הגשת תוכן מהמיקום הקרוב</li>
+<li><code>DDoS protection</code> — פיזור מתקפה בין כל ה-POPs</li>
+</ul>
+<p><strong>לא מתאים ל:</strong> חיבורי <code>TCP</code> ארוכים, כי החיבור עלול לעבור ל-<code>POP</code> אחר בין <code>packets</code>.</p>
 </div>`
       },
       {
@@ -8206,9 +8494,10 @@ openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -tex
         title: "BGP Hijacking ו-RPKI",
         content: `<div dir="rtl">
 <h2>Pakistan Telecom 2008 — כשהאינטרנט נשבר לשעה</h2>
-<p>פברואר 2008: Pakistan Telecom קיבלה הוראה מממשלה לחסום YouTube. הם הוסיפו route ל-BGP שאמר "אני מגיש את 208.65.153.0/24 (YouTube)". הבעיה: הroute הזה הופץ לכל האינטרנט. במשך שעה, traffic של YouTube מרחבי העולם הגיע ל-Pakistan Telecom — ונעלם.</p>
-<p>הסיבה: BGP מסורתי הוא <strong>trust-based</strong>. כל AS יכול להכריז על כל prefix. אין authentication. מספיק שrouter אחד "טעה" — והprefix השגוי מגיע לכולם.</p>
-<p><strong>RPKI (Resource Public Key Infrastructure)</strong> היא הפתרון: מאגר cryptographically signed של "מי מורשה להכריז על איזה prefix".</p>
+<p>פברואר 2008: Pakistan Telecom קיבלה הוראה מהממשלה לחסום YouTube. הם הוסיפו <code>route</code> ל-<code>BGP</code> שאמר "אני מגיש את <code>208.65.153.0/24</code>".</p>
+<p>הבעיה: ה-<code>route</code> הזה הופץ לכל האינטרנט. במשך שעה, תעבורת YouTube מרחבי העולם הגיעה ל-Pakistan Telecom — ונעלמה.</p>
+<p>הסיבה: <code>BGP</code> מסורתי הוא <strong>trust-based</strong>. כל <code>AS</code> יכול להכריז על כל <code>prefix</code>. אין אימות. מספיק ש-<code>router</code> אחד "טעה" — וה-<code>prefix</code> השגוי מגיע לכולם.</p>
+<p><strong>RPKI</strong> — <code>Resource Public Key Infrastructure</code> — היא הפתרון: מאגר חתום קריפטוגרפית של "מי מורשה להכריז על איזה <code>prefix</code>".</p>
 <pre><code># ROA — Route Origin Authorization
 # "AS 13335 (Cloudflare) מורשה להכריז על 1.1.1.0/24"
 {
@@ -8259,7 +8548,8 @@ bgpq4 -4 -A -J AS13335</code></pre>
   <defs><marker id="arr-rpki" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker></defs>
 </svg>
 </div>
-<p>RPKI adoption: נכון ל-2024, כ-40% מה-BGP routes העולמיים מוגנים ב-RPKI. Cloudflare, AWS, Google — כולם sign את ה-ROAs שלהם. ISPs גדולים כבר מDropping invalid routes.</p>
+<p><strong>אימוץ RPKI:</strong> נכון ל-2024, כ-40% מה-<code>BGP routes</code> העולמיים מוגנים ב-<code>RPKI</code>.</p>
+<p>Cloudflare, AWS ו-Google — כולם חותמים את ה-<code>ROAs</code> שלהם. ספקי אינטרנט גדולים כבר מסננים <code>routes</code> לא תקינים.</p>
 </div>`
       }
     ]
@@ -8273,7 +8563,12 @@ bgpq4 -4 -A -J AS13335</code></pre>
         title: "Linux Network Namespaces",
         content: `<div dir="rtl">
 <h2>הבידוד שמאחורי Docker</h2>
-<p>כשמריצים container ב-Docker, הוא מקבל <strong>network namespace</strong> משלו — הפשטה של kernel שמאפשרת לcontainer לחשוב שיש לו network stack נפרד לחלוטין: interfaces משלו, routing table משלו, iptables rules משלו.</p>
+<p>כשמריצים <code>container</code> ב-<code>Docker</code>, הוא מקבל <strong>network namespace</strong> משלו — הפשטה של הגרעין שמאפשרת ל-<code>container</code> לחשוב שיש לו מחסנית רשת נפרדת לחלוטין:</p>
+<ul>
+<li><code>interfaces</code> משלו</li>
+<li><code>routing table</code> משלו</li>
+<li><code>iptables rules</code> משלו</li>
+</ul>
 <pre><code># יצירת namespace ידנית (מה שDocker עושה אוטומטית)
 ip netns add container1
 
@@ -8292,7 +8587,8 @@ ip link set veth0 master docker0
 # הפעלה
 ip netns exec container1 ip link set veth1 up
 ip netns exec container1 ip addr add 172.17.0.2/16 dev veth1</code></pre>
-<p>כל container מקבל <strong>veth pair</strong> — "כבל וירטואלי" שמקשר בין ה-namespace לbridge של ה-host. Bridge <code>docker0</code> הוא ה-switch הווירטואלי שמחבר את כל הcontainers.</p>
+<p>כל <code>container</code> מקבל <strong>veth pair</strong> — "כבל וירטואלי" שמקשר בין ה-<code>namespace</code> ל-<code>bridge</code> של ה-<code>host</code>.</p>
+<p>ה-<code>bridge docker0</code> הוא ה-switch הווירטואלי שמחבר את כל ה-containers.</p>
 </div>`
       },
       {
@@ -8324,7 +8620,13 @@ ip netns exec container1 ip addr add 172.17.0.2/16 dev veth1</code></pre>
   <text x="295" y="73" text-anchor="middle" font-size="7" fill="#94a3b8">veth</text>
 </svg>
 </div>
-<p>כשContainer 1 שולח packet לContainer 2: <code>veth pair</code> מוציא את ה-packet לbridge <code>docker0</code>, הbridge מחפש את ה-MAC של היעד ב-forwarding table, ושולח לveth של Container 2. ל-external traffic: iptables MASQUERADE (NAT) מחליף את ה-source IP ב-IP של ה-host.</p>
+<p>כש-Container 1 שולח <code>packet</code> ל-Container 2:</p>
+<ol>
+<li>ה-<code>veth pair</code> מוציא את ה-<code>packet</code> ל-<code>bridge docker0</code></li>
+<li>ה-<code>bridge</code> מחפש את ה-<code>MAC</code> של היעד ב-<code>forwarding table</code></li>
+<li>ה-<code>bridge</code> שולח ל-<code>veth</code> של Container 2</li>
+</ol>
+<p>לתעבורה חיצונית: <code>iptables MASQUERADE</code> (כלומר <code>NAT</code>) מחליף את ה-<code>source IP</code> ב-IP של ה-<code>host</code>.</p>
 </div>`
       },
       {
@@ -8332,9 +8634,9 @@ ip netns exec container1 ip addr add 172.17.0.2/16 dev veth1</code></pre>
         title: "Kubernetes Pod Networking",
         content: `<div dir="rtl">
 <h2>Pod-to-Pod: אותו Node vs Cross-Node</h2>
-<p>Kubernetes דורש שכל Pod יוכל לדבר עם כל Pod אחר — ללא NAT. זו ה-<strong>CNI contract</strong> (Container Network Interface).</p>
-<p><strong>אותו node:</strong> בדיוק כמו Docker — veth pairs לbridge. Packets עוברים דרך bridge ב-L2.</p>
-<p><strong>Cross-node:</strong> כאן נכנסים CNI plugins:</p>
+<p><code>Kubernetes</code> דורש שכל <code>Pod</code> יוכל לדבר עם כל <code>Pod</code> אחר — ללא <code>NAT</code>. זו ה-<strong>CNI contract</strong> (<code>Container Network Interface</code>).</p>
+<p><strong>אותו node:</strong> בדיוק כמו <code>Docker</code> — <code>veth pairs</code> ל-<code>bridge</code>. ה-<code>packets</code> עוברים דרך ה-<code>bridge</code> ב-<code>L2</code>.</p>
+<p><strong>Cross-node:</strong> כאן נכנסים <code>CNI plugins</code>:</p>
 <table class="content-table">
   <tr><th>CNI Plugin</th><th>טכנולוגיה</th><th>יתרון</th><th>חיסרון</th></tr>
   <tr><td><strong>Flannel</strong></td><td>VXLAN overlay</td><td>פשוט, עובד בכל מקום</td><td>overhead של encapsulation</td></tr>
@@ -8353,7 +8655,8 @@ cilium connectivity test
 # tcpdump על veth של pod
 VETH=$(ip link | grep -o "vethABCDEF")
 tcpdump -i $VETH -n</code></pre>
-<p><strong>Flannel VXLAN:</strong> packets בין nodes מוצפנים ב-UDP port 8472. הCNI יוצר tunnel. <strong>Calico BGP:</strong> כל node הוא BGP router, מפרסם את ה-pod CIDR שלו. Packets עוברים ב-L3 ישירות, ללא encapsulation — מהיר יותר.</p>
+<p><strong>Flannel VXLAN:</strong> <code>packets</code> בין <code>nodes</code> עוטפו ב-<code>UDP port 8472</code>. ה-<code>CNI</code> יוצר מנהרה.</p>
+<p><strong>Calico BGP:</strong> כל <code>node</code> הוא <code>BGP router</code> שמפרסם את ה-<code>pod CIDR</code> שלו. ה-<code>packets</code> עוברים ב-<code>L3</code> ישירות, ללא עטיפה — מהיר יותר.</p>
 </div>`
       },
       {
@@ -8361,8 +8664,8 @@ tcpdump -i $VETH -n</code></pre>
         title: "Cilium ו-eBPF Networking",
         content: `<div dir="rtl">
 <h2>הדור הבא — eBPF מחליף iptables</h2>
-<p>iptables בKubernetes עם 1000 services = 50,000+ rules. כל packet עובר linear scan. זה O(n) — כל service חדש מאט את הnetworking.</p>
-<p>Cilium מחליף iptables ב-eBPF hash maps: כל lookup הוא O(1), ללא תלות בכמות הservices.</p>
+<p><code>iptables</code> ב-<code>Kubernetes</code> עם 1000 שירותים = יותר מ-50,000 rules. כל <code>packet</code> עובר סריקה ליניארית — <code>O(n)</code>. כל שירות חדש מאט את הרשת.</p>
+<p><code>Cilium</code> מחליף את <code>iptables</code> ב-<code>eBPF hash maps</code>: כל חיפוש הוא <code>O(1)</code>, ללא תלות בכמות השירותים.</p>
 <pre><code># Hubble — observability layer של Cilium
 hubble observe --namespace production
 
@@ -8393,7 +8696,13 @@ spec:
         http:
         - method: GET
           path: "/api/.*"</code></pre>
-<p>Hubble מספקת real-time visibility: איזה pod מדבר עם איזה, HTTP status codes, latency — הכל בלי instrumentation של האפליקציה. זה <strong>service mesh ללא sidecar</strong>.</p>
+<p><code>Hubble</code> מספקת נראות בזמן אמת:</p>
+<ul>
+<li>איזה <code>pod</code> מדבר עם איזה</li>
+<li><code>HTTP status codes</code></li>
+<li><code>latency</code></li>
+</ul>
+<p>הכל בלי <code>instrumentation</code> של האפליקציה. זה <strong>service mesh ללא sidecar</strong>.</p>
 </div>`
       }
     ]
