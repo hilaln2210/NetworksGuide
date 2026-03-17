@@ -321,7 +321,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
       {/* Question */}
       <div className="quiz-question-card">
         <span className="quiz-q-num">שאלה {current + 1}</span>
-        <p className="quiz-question-text" dir="rtl">{renderBidiText(q.q)}</p>
+        <p className="quiz-question-text" dir="rtl">{q.q}</p>
         {/* Hint + chapter link row — only before answering */}
         {picked === null && (
           <div className="quiz-hint-row">
@@ -350,7 +350,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
             {hintVisible && (
               <div className="quiz-hint-box" dir="rtl">
                 <span className="quiz-hint-label">💡 רמז:</span>
-                {renderBidiText(getHint(q.explanation, q.correct))}
+                {getHint(q.explanation, q.correct)}
               </div>
             )}
           </div>
@@ -369,7 +369,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
           return (
             <button key={i} className={cls} onClick={() => handlePick(choice)}>
               <span className="choice-letter">{['א', 'ב', 'ג', 'ד'][i]}</span>
-              <span className="choice-text" dir="rtl">{renderBidiText(choice)}</span>
+              <span className="choice-text" dir="rtl">{choice}</span>
             </button>
           )
         })}
@@ -382,11 +382,11 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
             <div className="exp-wrong-summary">
               <div className="exp-wrong-picked">
                 <span className="exp-label-wrong">❌ בחרת:</span>
-                <span dir="rtl">{renderBidiText(picked)}</span>
+                <span dir="rtl">{picked}</span>
               </div>
               <div className="exp-correct-answer">
                 <span className="exp-label-correct">✅ הנכון:</span>
-                <span dir="rtl">{renderBidiText(q.correct)}</span>
+                <span dir="rtl">{q.correct}</span>
               </div>
             </div>
           )}
@@ -400,7 +400,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
               )}
               <div className="quiz-exp-text">
                 {q.explanation.split(/(?<=\.)\s+/).map((s, i) => (
-                  <span key={i} dir="auto" style={{ display: 'block' }}>{s}</span>
+                  <span key={i} dir="rtl" style={{ display: 'block' }}>{s}</span>
                 ))}
               </div>
             </div>
