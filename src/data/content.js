@@ -5066,7 +5066,13 @@ sudo bettercap -iface eth0
         content: `<div dir="rtl">
 <h2>SYN Flood — ניצול TCP Handshake</h2>
 <p>בתהליך ה-<code>TCP three-way handshake</code>, השרת מקצה מקום בזיכרון עבור כל <code>SYN</code> שמגיע. זוהי מה שנקרא <code>half-open connection</code>.</p>
-<p>במתקפת <code>SYN Flood</code>, התוקף שולח מיליוני בקשות <code>SYN</code> עם כתובת <code>IP</code> מזויפת. השרת שומר מיליוני רשומות בזיכרון, ממתין ל-<code>ACK</code> שלעולם לא יגיע, עד שהתור מתמלא וחיבורים לגיטימיים נדחים.</p>
+<p>במתקפת <code>SYN Flood</code>:</p>
+<ul>
+<li>התוקף שולח מיליוני בקשות <code>SYN</code> עם כתובת IP מזויפת</li>
+<li>השרת שומר מיליוני רשומות בזיכרון</li>
+<li>ממתין ל-<code>ACK</code> שלעולם לא יגיע</li>
+<li>התור מתמלא — חיבורים לגיטימיים נדחים</li>
+</ul>
 <div class="code-preview"><pre><code># TCP stack: כשמגיע SYN
 1. הקצה memory לחיבור (Transmission Control Block)
 2. שלח SYN-ACK
@@ -5099,7 +5105,9 @@ sysctl net.ipv4.tcp_synack_retries
 <li><code>UDP Reflection</code> דרך <code>CLDAP</code>, <code>DNS</code>, <code>NTP</code> — התוקפים שולחים בקשה קטנה לשרתים ציבוריים, כשכתובת השולח מזויפת לכתובת הקורבן. השרתים מחזירים תגובה גדולה פי 100 ישירות לקורבן</li>
 <li><code>Amplification factor</code> של <code>DNS</code>: בקשה בגודל 40 bytes מייצרת תגובה של 3,000 bytes — הגברה של פי 75</li>
 </ul>
-<p><strong>מה Azure עשה:</strong> שירות <code>Azure DDoS Protection</code> מזהה ומנקה תעבורה זדונית ברמה של <code>network edge</code>, עוד לפני שהחבילות מגיעות לשרת. המערכת מסתמכת על <code>Anycast scrubbing centers</code> הפזורים ברחבי העולם.</p>
+<p><strong>מה Azure עשה:</strong></p>
+<p>שירות <code>Azure DDoS Protection</code> מזהה ומנקה תעבורה זדונית ב-<code>network edge</code> — עוד לפני שהחבילות מגיעות לשרת.</p>
+<p>המערכת מסתמכת על <code>Anycast scrubbing centers</code> הפזורים ברחבי העולם.</p>
 <p><strong>הלקח:</strong> מפני <code>DDoS</code> ניתן להתגונן רק בעזרת סקייל.</p>
 <p>אי אפשר "לבנות שרת גדול מספיק". הפתרון היחיד הוא תשתית מבוזרת לסינון תעבורה, כמו <code>Cloudflare</code>, <code>Azure DDoS Protection</code>, או <code>AWS Shield Advanced</code>. בלי שירות כזה, כל חברה פגיעה.</p>
 </div>`
@@ -5388,7 +5396,12 @@ index=windows EventCode=4624
 <p><strong>Containment (20 דקות):</strong> מיד ניתקה WS-0342 מהרשת. נחסמה הכניסה לחשבון. Forensic image של הדיסק לפני כל שינוי.</p>
 <p><strong>Investigation:</strong></p>
 <p>הנוזקה התקינה <code>backdoor</code> שלושה שבועות קודם לכן, באמצעות מייל <code>phishing</code> שלא זוהה בזמנו.</p>
-<p>במשך שלושה שבועות, התוקף ביצע <code>LDAP enumeration</code> ומיפוי עם <code>BloodHound</code> כדי להבין את מבנה ה-<code>Active Directory</code>. למזלו של הארגון, התוקף לא הספיק לבצע <code>Pivot</code> ל-<code>Domain Controller</code>.</p>
+<p>במשך שלושה שבועות, התוקף ביצע:</p>
+<ul>
+<li><code>LDAP enumeration</code> — מיפוי משתמשים וקבוצות</li>
+<li><code>BloodHound</code> — ניתוח מבנה ה-<code>Active Directory</code></li>
+</ul>
+<p>למזלו של הארגון, התוקף לא הספיק לבצע <code>Pivot</code> ל-<code>Domain Controller</code>.</p>
 <p><strong>הלקח:</strong> חוק <code>SIEM</code> פשוט שעוקב אחרי שאילתות <code>LDAP</code> חריגות עצר מתקפה שהייתה עלולה להיות הרסנית.</p>
 <p>מה שעשה את ההבדל היה ה-<code>detection</code>, לא ה-<code>prevention</code>.</p>
 </div>`
@@ -5609,7 +5622,8 @@ print(plaintext)  # b'secret message'</code></pre>
 <p>אפריל 2014: חוקרים מ-Google ו-Codenomicon מגלים בו-זמנית אחד מהבאגים הקריטיים ביותר — bug בOpenSSL, הספרייה שמפעילה TLS על 66% מהאינטרנט.</p>
 <p><strong>מה הבאג עשה:</strong></p>
 <p>ספריית <code>OpenSSL</code> הכילה תכונה שנקראת <code>Heartbeat</code> — הלקוח שולח לשרת הודעה קטנה, והשרת מחזיר אותה כאישור שהחיבור חי.</p>
-<p>הבעיה: לא נבדק שהגודל שהלקוח ביקש תואם לגודל ההודעה שנשלחה בפועל. תוקף יכול לשלוח <code>Heartbeat</code> קטנה ולבקש תגובה של 64KB — והשרת מחזיר 64KB מהזיכרון, כולל מפתחות <code>SSL</code> וסיסמאות.</p>
+<p><strong>הבעיה:</strong> לא נבדק שהגודל שהלקוח ביקש תואם לגודל ההודעה בפועל.</p>
+<p>תוקף יכול לשלוח <code>Heartbeat</code> קטנה ולבקש תגובה של 64KB — והשרת מחזיר 64KB מהזיכרון, כולל מפתחות SSL וסיסמאות.</p>
 <p><strong>ההשפעה:</strong></p>
 <ul>
 <li><code>Yahoo</code>, <code>AWS</code>, <code>Cisco</code>, <code>Android 4.1</code> — כולם היו פגיעים</li>
@@ -8348,7 +8362,14 @@ hubble observe --namespace production
 <h2>כשגל של 800Gbps הגיע — ובכל זאת נשארנו online</h2>
 <p>ספטמבר 2022: Cloudflare דיווחה על מתקפת <code>DDoS</code> של 2.5 מיליארד <code>packets</code> לשנייה.</p>
 <p>בגישה הישנה עם <code>iptables</code>, כל rule הוא סריקה ליניארית — 10,000 rules = 10,000 בדיקות לכל <code>packet</code>. בלתי אפשרי.</p>
-<p>Cloudflare בנתה מערכת מבוססת <code>XDP</code>: כל תעבורה מנותחת ב-<code>eBPF</code> עוד על כרטיס הרשת. טביעת אצבע של תעבורת <code>DDoS</code> — <code>TTL</code>, <code>IP options</code>, התפלגות גדלי <code>packets</code> — מזוהה מיד ומקבלת <code>XDP_DROP</code>. ה-<code>packet</code> לא נוגע בגרעין כלל.</p>
+<p>Cloudflare בנתה מערכת מבוססת <code>XDP</code>: כל תעבורה מנותחת ב-<code>eBPF</code> עוד על כרטיס הרשת.</p>
+<p>טביעת אצבע של תעבורת DDoS מזוהה מיד:</p>
+<ul>
+<li><code>TTL</code> חריג</li>
+<li><code>IP options</code> חשודים</li>
+<li>התפלגות גדלי packets לא טבעית</li>
+</ul>
+<p>התוצאה: <code>XDP_DROP</code> — ה-packet לא נוגע בגרעין כלל.</p>
 <p>התוצאה: תוך 20 שניות מזיהוי — 2.5 מיליארד <code>packets</code> לשנייה נזרקו לפני שנגעו ב-<code>stack</code>. תשתית Cloudflare המשיכה לשרת תעבורה לגיטימית ללא הפרעה.</p>
 <div class="code-preview"><pre><code># pseudocode של Cloudflare XDP DDoS mitigation
 SEC("xdp")
