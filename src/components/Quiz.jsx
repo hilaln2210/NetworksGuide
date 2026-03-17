@@ -378,18 +378,6 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
       {/* Explanation + continue */}
       {showResult && picked && (
         <div className={`quiz-explanation ${picked === q.correct ? 'exp-correct' : 'exp-wrong'}`}>
-          {picked !== q.correct && (
-            <div className="exp-wrong-summary">
-              <div className="exp-wrong-picked">
-                <span className="exp-label-wrong">❌ בחרת:</span>
-                <span dir="rtl">{picked}</span>
-              </div>
-              <div className="exp-correct-answer">
-                <span className="exp-label-correct">✅ הנכון:</span>
-                <span dir="rtl">{q.correct}</span>
-              </div>
-            </div>
-          )}
           <div className="exp-top">
             <span className="exp-icon">{picked === q.correct ? '✅' : '📖'}</span>
             <div className="exp-body">
