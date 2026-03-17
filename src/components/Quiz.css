@@ -691,3 +691,204 @@
   .quiz-screen { padding: 1rem; }
   .quiz-chapter-grid { grid-template-columns: 1fr; }
 }
+
+/* ===== CHAPTER REFERENCE MODAL ===== */
+.ch-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 900;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
+  backdrop-filter: blur(2px);
+  animation: fade-in 0.2s ease;
+}
+
+.ch-modal {
+  background: #fff;
+  border-radius: 18px;
+  width: min(680px, 96vw);
+  max-height: calc(100vh - 3rem);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+  animation: slide-up-modal 0.25s ease;
+  overflow: hidden;
+}
+
+.ch-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid rgba(15,23,42,0.08);
+  direction: rtl;
+  flex-shrink: 0;
+}
+
+.ch-modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.ch-modal-num {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0e7490;
+  background: rgba(14,116,144,0.1);
+  border: 1px solid rgba(14,116,144,0.25);
+  border-radius: 6px;
+  padding: 0.2rem 0.5rem;
+  white-space: nowrap;
+}
+
+.ch-modal-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: rgba(15,23,42,0.9);
+}
+
+.ch-modal-close {
+  background: rgba(15,23,42,0.06);
+  border: 1px solid rgba(15,23,42,0.12);
+  border-radius: 8px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.82rem;
+  font-family: inherit;
+  color: rgba(15,23,42,0.6);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ch-modal-close:hover {
+  background: rgba(220,38,38,0.07);
+  border-color: rgba(220,38,38,0.25);
+  color: #dc2626;
+}
+
+.ch-modal-page-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 1.25rem;
+  background: rgba(15,23,42,0.02);
+  border-bottom: 1px solid rgba(15,23,42,0.06);
+  direction: rtl;
+  flex-shrink: 0;
+}
+
+.ch-modal-type-badge {
+  font-size: 0.78rem;
+  color: rgba(15,23,42,0.45);
+}
+
+.ch-modal-page-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(15,23,42,0.7);
+}
+
+.ch-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem 1.5rem;
+  direction: rtl;
+}
+
+.ch-modal-content-body {
+  font-size: 0.93rem;
+  line-height: 1.75;
+}
+
+.ch-modal-qa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.ch-modal-qa-item {
+  border: 1px solid rgba(15,23,42,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ch-modal-qa-q {
+  padding: 0.65rem 0.9rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  background: rgba(15,23,42,0.03);
+  direction: rtl;
+}
+
+.ch-modal-qa-q:hover {
+  background: rgba(14,116,144,0.06);
+}
+
+.ch-modal-qa-a {
+  padding: 0.65rem 0.9rem;
+  font-size: 0.85rem;
+  color: rgba(15,23,42,0.75);
+  line-height: 1.6;
+  margin: 0;
+  border-top: 1px solid rgba(15,23,42,0.07);
+}
+
+.ch-modal-sim-note {
+  color: rgba(15,23,42,0.45);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.ch-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.25rem;
+  border-top: 1px solid rgba(15,23,42,0.08);
+  direction: rtl;
+  flex-shrink: 0;
+  background: rgba(15,23,42,0.02);
+}
+
+.ch-modal-nav-btn {
+  padding: 0.4rem 0.9rem;
+  background: white;
+  border: 1px solid rgba(15,23,42,0.15);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  color: rgba(15,23,42,0.7);
+}
+
+.ch-modal-nav-btn:hover:not(:disabled) {
+  background: rgba(14,116,144,0.07);
+  border-color: rgba(14,116,144,0.3);
+  color: #0e7490;
+}
+
+.ch-modal-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.ch-modal-counter {
+  font-size: 0.85rem;
+  color: rgba(15,23,42,0.45);
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .ch-modal-overlay { padding: 0; align-items: flex-end; }
+  .ch-modal { border-radius: 18px 18px 0 0; max-height: 88vh; width: 100%; }
+}

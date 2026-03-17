@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { getQuizForChapter, getAllQuizQuestions } from '../data/quizBank'
 import { addXP, XP_QUIZ_CORRECT, XP_QUIZ_BONUS, getLevel } from '../utils/xp'
 import { saveQuizScore, getQuizScore } from '../utils/progress'
-import { renderBidiText } from '../utils/bidi.jsx'
+import { renderBidiText, processHtmlBidi } from '../utils/bidi.jsx'
 import './Quiz.css'
 
 function shuffle(arr) {
@@ -30,6 +30,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
   const [xpFloat, setXpFloat] = useState(null)
   const [streak, setStreak] = useState(0)
   const [hintVisible, setHintVisible] = useState(false)
+  const [chapterModal, setChapterModal] = useState(null) // { chapter, chIdx }
 
   // Generate a hint: find the sentence with the lowest overlap with the correct answer
   function getHint(explanation, correct) {
@@ -334,15 +335,15 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
                 {renderBidiText(getHint(q.explanation, q.correct))}
               </div>
             )}
-            {q.chapterId != null && onGoToChapter && (() => {
+            {q.chapterId != null && (() => {
               const chIdx = chapters.findIndex(ch => String(ch.id) === String(q.chapterId))
               if (chIdx < 0) return null
               const ch = chapters[chIdx]
               return (
                 <button
                   className="quiz-chapter-link-btn"
-                  onClick={() => onGoToChapter(chIdx)}
-                  title={`עבור לפרק: ${ch.title}`}
+                  onClick={() => setChapterModal({ chapter: ch, chIdx })}
+                  title={ch.title}
                 >
                   📖 פרק {chIdx + 1}
                 </button>
@@ -403,6 +404,90 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
           )}
         </div>
       )}
+
+      {/* Chapter reference modal */}
+      {chapterModal && (
+        <ChapterModal
+          chapter={chapterModal.chapter}
+          chIdx={chapterModal.chIdx}
+          onClose={() => setChapterModal(null)}
+        />
+      )}
+    </div>
+  )
+}
+
+function ChapterModal({ chapter, chIdx, onClose }) {
+  const [pageIdx, setPageIdx] = useState(0)
+  const page = chapter.pages[pageIdx]
+  const total = chapter.pages.length
+
+  const PAGE_TYPE_LABELS = {
+    explanation: '📖 הסבר', demo: '💡 הדגמה', summary: '📋 סיכום',
+    questions: '❓ שאלות', story: '📰 סיפור', diagram: '📊 דיאגרמה',
+    example: '💻 דוגמה', thinkOutside: '🧠 מחוץ לקופסא', simulation: '🎮 הדמיה'
+  }
+
+  const renderPageContent = (p) => {
+    if (p.type === 'questions' && p.questions) {
+      return (
+        <div className="ch-modal-qa-list">
+          {p.questions.map((item, i) => (
+            <details key={i} className="ch-modal-qa-item">
+              <summary className="ch-modal-qa-q" dir="rtl">{renderBidiText(item.q)}</summary>
+              <p className="ch-modal-qa-a" dir="rtl">{renderBidiText(item.a)}</p>
+            </details>
+          ))}
+        </div>
+      )
+    }
+    if (p.type === 'simulation') {
+      return <p className="ch-modal-sim-note" dir="rtl">הדמיה זמינה בטאב הלמידה 🎮</p>
+    }
+    const html = p.content || p.intro || ''
+    return (
+      <div
+        className="ch-modal-content-body content-body"
+        dir="rtl"
+        dangerouslySetInnerHTML={{ __html: processHtmlBidi(html) }}
+      />
+    )
+  }
+
+  return (
+    <div className="ch-modal-overlay" onClick={onClose}>
+      <div className="ch-modal" onClick={e => e.stopPropagation()}>
+        <div className="ch-modal-header">
+          <div className="ch-modal-title-wrap">
+            <span className="ch-modal-num">פרק {chIdx + 1}</span>
+            <span className="ch-modal-title" dir="rtl">{chapter.title}</span>
+          </div>
+          <button className="ch-modal-close" onClick={onClose} title="חזור לחידון">✕ חזור לחידון</button>
+        </div>
+
+        <div className="ch-modal-page-header">
+          <span className="ch-modal-type-badge">{PAGE_TYPE_LABELS[page.type] || '📖'}</span>
+          <span className="ch-modal-page-title" dir="rtl">{page.title}</span>
+        </div>
+
+        <div className="ch-modal-body">
+          {renderPageContent(page)}
+        </div>
+
+        <div className="ch-modal-footer">
+          <button
+            className="ch-modal-nav-btn"
+            disabled={pageIdx === 0}
+            onClick={() => setPageIdx(p => p - 1)}
+          >→ קודם</button>
+          <span className="ch-modal-counter">{pageIdx + 1} / {total}</span>
+          <button
+            className="ch-modal-nav-btn"
+            disabled={pageIdx === total - 1}
+            onClick={() => setPageIdx(p => p + 1)}
+          >הבא ←</button>
+        </div>
+      </div>
     </div>
   )
 }
