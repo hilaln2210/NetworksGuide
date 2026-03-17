@@ -291,6 +291,7 @@
   line-height: 1.5;
   color: #0f172a;
   font-family: 'Rubik', sans-serif;
+  text-align: right;
 }
 
 /* ===== CHOICES ===== */
@@ -342,6 +343,7 @@
 .choice-text {
   flex: 1;
   line-height: 1.4;
+  text-align: right;
 }
 
 .choice-correct {
@@ -432,9 +434,16 @@
 .quiz-exp-text {
   color: rgba(15,23,42,0.88);
   line-height: 1.7;
+  text-align: right;
 }
 .quiz-exp-text span[dir] {
   margin-bottom: 0.1rem;
+  display: block;
+  text-align: right;
+}
+.quiz-exp-text span[dir="ltr"] {
+  text-align: left;
+  direction: ltr;
 }
 
 .quiz-continue-btn {
