@@ -400,7 +400,10 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
               )}
               <div className="quiz-exp-text">
                 {q.explanation.split(/(?<=\.)\s+/).map((s, i) => {
-                  const isRTL = /[\u0590-\u05ff\ufb1d-\ufb4f]/.test(s)
+                  // Only count Hebrew outside parenthetical expressions — prevents English sentences
+                  // with a Hebrew word in parens (e.g. "Active Mode: server (NAT שובר)") from going RTL
+                  const withoutParens = s.replace(/\([^)]*\)/g, '')
+                  const isRTL = /[\u0590-\u05ff\ufb1d-\ufb4f]/.test(withoutParens)
                   return (
                     <span key={i} dir={isRTL ? 'rtl' : 'ltr'} style={{ display: 'block', textAlign: isRTL ? 'right' : 'left', marginBottom: '0.1rem' }}>{s}</span>
                   )
