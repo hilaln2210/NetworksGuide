@@ -14,7 +14,7 @@ export function TroubleshootingTab() {
     : troubleshootingContent.filter(t => t.category === filter)
 
   return (
-    <div className="trbl-screen">
+    <div className="trbl-screen" dir="rtl">
       <div className="trbl-tabs">
         <button
           className={`trbl-tab ${tab === 'bugs' ? 'active' : ''}`}
@@ -60,12 +60,12 @@ export function TroubleshootingTab() {
 
                 {openId === item.id && (
                   <div className="trbl-body">
-                    <div className="trbl-story">
+                    <div className="trbl-story" dir="rtl">
                       <span className="trbl-section-label">📋 הסיפור</span>
                       <p>{item.story}</p>
                     </div>
 
-                    <div className="trbl-causes">
+                    <div className="trbl-causes" dir="rtl">
                       <span className="trbl-section-label">❓ סיבות אפשריות</span>
                       <ul>
                         {item.causes.map((c, i) => (
@@ -74,12 +74,12 @@ export function TroubleshootingTab() {
                       </ul>
                     </div>
 
-                    <div className="trbl-solution">
+                    <div className="trbl-solution" dir="rtl">
                       <span className="trbl-section-label">✅ פתרון</span>
-                      <pre>{item.solution}</pre>
+                      <pre dir="ltr" style={{ textAlign: 'left' }}>{item.solution}</pre>
                     </div>
 
-                    <div className="trbl-tip">
+                    <div className="trbl-tip" dir="rtl">
                       {item.tip}
                     </div>
                   </div>
@@ -101,7 +101,7 @@ export function TroubleshootingTab() {
                   <span className="story-category">{s.category}</span>
                 </div>
               </div>
-              <p className="story-content">{s.content}</p>
+              <p className="story-content" dir="rtl">{s.content}</p>
             </div>
           ))}
         </div>

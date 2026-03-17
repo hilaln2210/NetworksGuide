@@ -20,8 +20,9 @@ export function KeyTip() {
   return (
     <div
       className="key-tip"
+      dir="rtl"
       onClick={() => setI((i) => i + 1)}
-      title="לחצי להחליף"
+      title="לחצו להחלפה"
     >
       <span className="key-tip-icon">💡</span>
       <span className="key-tip-text">{tip}</span>

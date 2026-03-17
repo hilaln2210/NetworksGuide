@@ -20,7 +20,7 @@ export const troubleshootingContent = [
 3. ipconfig /release && ipconfig /renew — מרענן DHCP
 4. שנה DNS ל-8.8.8.8 ידנית
 5. הפעל מחדש router (60 שניות!)`,
-    tip: '💡 תמיד תחילי מ-ping. הוא יגיד לך בדיוק איפה השרשרת נשברת.'
+    tip: '💡 תמיד תתחילו מ-ping. הוא יגיד לכם בדיוק איפה השרשרת נשברת.'
   },
   {
     id: 2,
@@ -34,10 +34,10 @@ export const troubleshootingContent = [
       'WiFi channel עמוס — שכנים משתמשים באותו ערוץ',
       'ה-router שלך לא מתמודד עם QoS',
     ],
-    solution: `1. בדקי מהירות עם speedtest.net — בוקר vs ערב
-2. שני ערוץ WiFi ל-5GHz (פחות עומס, טווח קצר יותר)
-3. בגדרות router — הפעילי QoS ותייגי streaming כעדיפות גבוהה
-4. התקשרי ל-ISP ודרשי SLA על מהירות מינימום`,
+    solution: `1. בדקו מהירות עם speedtest.net — בוקר vs ערב
+2. שנו ערוץ WiFi ל-5GHz (פחות עומס, טווח קצר יותר)
+3. בהגדרות router — הפעילו QoS ותייגו streaming כעדיפות גבוהה
+4. התקשרו ל-ISP ודרשו SLA על מהירות מינימום`,
     tip: '💡 WiFi 5GHz מהיר יותר אבל חלש יותר. 2.4GHz = מרחק, 5GHz = מהירות.'
   },
   {
@@ -53,11 +53,11 @@ export const troubleshootingContent = [
       'הדפדפן שמר סיסמה ישנה ומילא אוטומטית',
       'האתר מחוץ לאוויר (500 Internal Server Error)',
     ],
-    solution: `1. פתחי כרטיסייה בגלישה פרטית (Incognito)
-2. בדקי מה קוד התשובה — F12 → Network → בקשת login
-3. אם 429 Too Many Requests — המתיני 15 דקות
-4. נסי איפוס סיסמה
-5. נסי דפדפן אחר — אולי localStorage מקולקל`,
+    solution: `1. פתחו כרטיסייה בגלישה פרטית (Incognito)
+2. בדקו מה קוד התשובה — F12 → Network → בקשת login
+3. אם 429 Too Many Requests — המתינו 15 דקות
+4. נסו איפוס סיסמה
+5. נסו דפדפן אחר — אולי localStorage מקולקל`,
     tip: '💡 F12 → Network הוא כלי הדיאגנוסטיקה הכי חשוב לבאגים של HTTP!'
   },
   {
@@ -68,14 +68,14 @@ export const troubleshootingContent = [
     story: 'ping 8.8.8.8 עובד מצוין, אבל chrome מראה "This site can\'t be reached". ה-IP עובד אבל ה-DNS שבור.',
     causes: [
       'שרת DNS לא מגיב או עמוס',
-      'DNS cache מקולקל — ישן DNS entry שגוי',
-      'ISP מחסום דומיין ספציפי',
+      'DNS cache מקולקל — רשומת DNS ישנה ושגויה נשמרה',
+      'ISP חוסם דומיין ספציפי',
       'hosts file ב-Windows עם override שגוי',
     ],
     solution: `1. ipconfig /flushdns — מנקה DNS cache
 2. nslookup google.com — בודק אם DNS עובד
 3. שנה DNS ל-1.1.1.1 (Cloudflare) או 8.8.8.8 (Google)
-4. בדקי hosts file: C:\\Windows\\System32\\drivers\\etc\\hosts`,
+4. בדקו hosts file: C:\\Windows\\System32\\drivers\\etc\\hosts`,
     tip: '💡 כשping לIP עובד אבל לדומיין לא — זו תמיד בעיית DNS. פשוט!'
   },
   {
@@ -88,11 +88,11 @@ export const troubleshootingContent = [
       'Router שולח RST packet אחרי idle timeout (בדרך כלל 5-30 דקות)',
       'NAT entry פג — הפורט שהוקצה לחיבור שלך נמחק',
       'Firewall סגר חיבור שנראה "חשוד"',
-      'חבילות הולכות לאיבוד (packet loss) וTCP לא מצליח להתאושש',
+      'חבילות הולכות לאיבוד (packet loss) ו-TCP לא מצליח להתאושש',
     ],
-    solution: `1. SSH: הוסיפי ServerAliveInterval 60 ב-~/.ssh/config
+    solution: `1. SSH: הוסיפו ServerAliveInterval 60 ב-~/.ssh/config
 2. TCP keepalive — מבקש מה-OS לשלוח keepalive packets
-3. בדקי packet loss עם: ping -n 100 8.8.8.8 (Windows) או ping -c 100 8.8.8.8
+3. בדקו packet loss עם: ping -n 100 8.8.8.8 (Windows) או ping -c 100 8.8.8.8
 4. WireGuard/VPN לחיבורים ארוכים חשובים`,
     tip: '💡 TCP Keepalive = שולח "עוד חי?" כל X שניות כדי לשמור NAT entry חי.'
   },
@@ -106,20 +106,20 @@ export const troubleshootingContent = [
       'שרת DHCP לא ענה (router כבוי, עמוס, תקלה)',
       'מחשב לא קיבל IP תוך 30 שניות — מקצה לעצמו APIPA',
       'כבל רשת לא מחובר כראוי',
-      'כרטיס הרשת תקלה',
+      'תקלה בכרטיס הרשת',
     ],
     solution: `1. ipconfig /release && ipconfig /renew
-2. בדקי שה-router פועל ושה-DHCP מופעל בו
-3. נסי IP סטטי ידנית: 192.168.1.100, mask 255.255.255.0, gateway 192.168.1.1
+2. בדקו שה-router פועל ושה-DHCP מופעל בו
+3. נסו IP סטטי ידנית: 192.168.1.100, mask 255.255.255.0, gateway 192.168.1.1
 4. Device Manager → Network adapters → Update driver`,
-    tip: '💡 169.254.x.x = APIPA (Automatic Private IP Addressing). תמיד סימן שDHCP נכשל!'
+    tip: '💡 169.254.x.x = APIPA (Automatic Private IP Addressing). תמיד סימן ש-DHCP נכשל!'
   },
   {
     id: 7,
     icon: '🔀',
     title: 'שתי בקשות TCP — למה?',
     category: 'TCP',
-    story: 'ב-Wireshark רואים שהאתר נפתח עם SYN, SYN-ACK, ACK אבל אחר כך עוד SYN. למה TCP פותח חיבור חדש?',
+    story: 'ב-Wireshark רואים שהאתר נפתח עם SYN, SYN-ACK, ACK, אבל אחר כך מופיע עוד SYN. למה TCP פותח חיבור חדש?',
     causes: [
       'HTTP/1.1 פותח חיבור לכל resource (קובץ CSS, תמונה וכו\')',
       'HTTP/2 מאחד הכל לחיבור אחד עם multiplexing',
@@ -127,7 +127,7 @@ export const troubleshootingContent = [
       'CDN endpoints שונים לתמונות vs HTML',
     ],
     solution: `זה נורמלי ב-HTTP/1.1! HTTP/2 פתר את זה.
-בדקי בDevTools → Network → Protocol עמודה:
+בדקו בDevTools → Network → Protocol עמודה:
 - h2 = HTTP/2 (חיבור אחד לכל)
 - http/1.1 = חיבור לכל resource`,
     tip: '💡 HTTP/2 הפחית latency בכ-50% בדפדפן. רוב האתרים המודרניים משתמשים בו.'
@@ -137,7 +137,7 @@ export const troubleshootingContent = [
     icon: '🛡️',
     title: 'CORS Error — "Cross-Origin Request Blocked"',
     category: 'HTTP/אבטחה',
-    story: 'כתבת JavaScript שמבצע fetch ל-API ואתה רואה בConsole שגיאה אדומה: CORS. מה זה ולמה?',
+    story: 'כתבת JavaScript שמבצע fetch ל-API ומופיעה ב-Console שגיאה אדומה: CORS. מה זה ולמה?',
     causes: [
       'הדפדפן חוסם בקשות מדומיין A לדומיין B (Same-Origin Policy)',
       'שרת ה-API לא מחזיר Access-Control-Allow-Origin header',
@@ -146,7 +146,7 @@ export const troubleshootingContent = [
     solution: `בשרת (Python Flask / Node.js):
 - Flask: flask-cors → CORS(app)
 - Express: cors() middleware
-- שלחי header: Access-Control-Allow-Origin: *
+- שלחו header: Access-Control-Allow-Origin: *
 
 זה בטיחות! הדפדפן מגן עלייך מ-cross-site attacks.`,
     tip: '💡 CORS = Cross-Origin Resource Sharing. זה feature, לא bug! הדפדפן מגן עלייך 🛡️'
@@ -156,36 +156,36 @@ export const troubleshootingContent = [
     icon: '📶',
     title: 'WiFi מחובר אבל signal חלש',
     category: 'פיזי/WiFi',
-    story: 'Signal חלש = latency גבוה ואינטרנט לא יציב. הבנת פיזיקת WiFi עוזרת!',
+    story: 'Signal חלש = latency גבוה ואינטרנט לא יציב. הבנת הפיזיקה של WiFi עוזרת לפתור!',
     causes: [
       'מחיצות, במיוחד בטון ומתכת, מחלישות אות',
       '2.4GHz מתחרה עם מיקרוגל, Bluetooth, שכנים',
       'Router ישן עם אנטנה חלשה',
       'מרחק פיזי גדול מה-router',
     ],
-    solution: `1. העבירי router לנקודה מרכזית בבית
-2. עברי ל-5GHz אם קרובה ל-router
+    solution: `1. העבירו את ה-router לנקודה מרכזית בבית
+2. עברו ל-5GHz אם קרובים ל-router
 3. Mesh WiFi לבית גדול (eero, Google Nest)
-4. WiFi Analyzer (Android) — ראי אילו channels עמוסים
+4. WiFi Analyzer (Android) — ראו אילו channels עמוסים
 5. Channel 1, 6 או 11 בלבד ל-2.4GHz (לא overlap)`,
-    tip: '💡 2.4GHz עובר דרך קירות טוב יותר. 5GHz מהיר יותר אבל מרחק קצר. בחרי לפי מיקום!'
+    tip: '💡 2.4GHz עובר דרך קירות טוב יותר. 5GHz מהיר יותר אבל מרחק קצר. בחרו לפי מיקום!'
   },
   {
     id: 10,
     icon: '⏱️',
     title: 'Latency גבוה בגיימינג',
     category: 'ביצועים',
-    story: 'Ping של 200ms = מוות בגיימינג. למה ולמה דווקא לשרת מסוים?',
+    story: 'Ping של 200ms = מוות בגיימינג. למה זה קורה, ולמה דווקא לשרת מסוים?',
     causes: [
       'שרת המשחק באירופה/אמריקה — פיזיקה = מרחק = זמן',
       'ISP routing לא יעיל — חבילה עוברת דרך 20 hops מיותרים',
       'WiFi מוסיף latency לעומת כבל',
       'Router עמוס עם QoS גרוע',
     ],
-    solution: `1. חברי כבל — WiFi מוסיף 5-30ms, כבל = אפס
-2. בחרי שרת קרוב גיאוגרפית (EU/IL)
-3. tracert לשרת המשחק — זיהי hops איטיים
-4. הפעילי QoS ב-router: Gaming > Streaming > Browsing
+    solution: `1. חברו כבל — WiFi מוסיף 5-30ms, כבל = אפס
+2. בחרו שרת קרוב גיאוגרפית (EU/IL)
+3. tracert לשרת המשחק — זהו hops איטיים
+4. הפעילו QoS ב-router: Gaming > Streaming > Browsing
 5. גיימינג VPN (Exitlag, NordVPN) — לפעמים שיפור משמעותי`,
     tip: '💡 כבל Ethernet אחד שווה 20ms חיסכון. השקעה של 20 שקל שמשנה חוויה!'
   },
@@ -198,7 +198,7 @@ export const troubleshootingContent = [
     causes: [
       'תהליך קודם לא נסגר כראוי ועדיין מחזיק את הפורט',
       'TIME_WAIT state — TCP מחכה 2 דקות לפני שחרור פורט',
-      'שני תהליכים מנסים לפתח את אותו פורט',
+      'שני תהליכים מנסים לפתוח את אותו פורט',
     ],
     solution: `Linux/Mac:
 lsof -i :8080 → רואים מי תופס
@@ -210,7 +210,7 @@ taskkill /PID <PID> /F
 
 או: שנה PORT ל-8081, 3001 וכו'
 בקוד: SO_REUSEADDR option`,
-    tip: '💡 SO_REUSEADDR = אמרי ל-OS "תן לי לפתוח פורט אפילו אם בTIME_WAIT". פתרון קסם!'
+    tip: '💡 SO_REUSEADDR = אומרים ל-OS "תן לי לפתוח פורט אפילו אם ב-TIME_WAIT". פתרון קסם!'
   },
   {
     id: 13,
@@ -224,10 +224,10 @@ taskkill /PID <PID> /F
       'העמוד הועבר לכתובת חדשה אבל ה-redirect לא הוגדר',
       'ה-router/nginx לא מצא handler מתאים לנתיב',
     ],
-    solution: `בדפדפן: בדקי את ה-URL שוב — אולי רווח מיותר, / חסר בסוף
-בשרת: בדקי שהקובץ/route קיים
+    solution: `בדפדפן: בדקו את ה-URL שוב — אולי רווח מיותר, / חסר בסוף
+בשרת: בדקו שהקובץ/route קיים
 nginx: location block לנתיב הזה
-בGoogle Search Console: ראי דפים עם 404 ותקני redirect
+בGoogle Search Console: ראו דפים עם 404 ותקנו redirect
 
 301 redirect:
 nginx: return 301 /new-path;
@@ -253,13 +253,13 @@ chmod 755 /var/www/html/
 chmod 644 /var/www/html/index.html
 chown www-data:www-data /var/www/html/ -R
 
-nginx — בדקי deny/allow rules:
+nginx — בדקו deny/allow rules:
 location / {
   allow 192.168.1.0/24;
   deny all;
 }
 
-אם זה API: בדקי שה-token בheader תקין ולא פג`,
+אם זה API: בדקו שה-token ב-header תקין ולא פג`,
     tip: '💡 403 = "Forbidden" — השרת יודע מי את אבל מחליט שאין לך גישה. שונה מ-401 (Unauthorized) שמבקש להתחבר.'
   },
   {
@@ -275,21 +275,21 @@ location / {
       'שגיאת syntax בקוד שהועלה לייצור',
       'disk full — השרת לא יכול לכתוב לקבצים',
     ],
-    solution: `1. פתחי server logs מיד:
+    solution: `1. פתחו את ה-server logs מיד:
 tail -f /var/log/nginx/error.log
 tail -f /var/log/apache2/error.log
 journalctl -u myapp -f
 
-2. בדקי application logs:
+2. בדקו application logs:
 Python: traceback ב-logs
 Node.js: console.error ב-logs
 
-3. בדקי disk:
-df -h → בדקי שאין 100% usage
+3. בדקו disk:
+df -h → בדקו שאין 100% usage
 
-4. בדקי DB connection:
+4. בדקו DB connection:
 psql -h localhost -U user -d db`,
-    tip: '💡 500 = השרת לא ספר לך מה הבעיה, אבל היא רשומה ב-logs. תמיד תחפשי שם!'
+    tip: '💡 500 = השרת לא סיפר לך מה הבעיה, אבל היא רשומה ב-logs. תמיד חפשו שם!'
   },
   {
     id: 16,
@@ -303,19 +303,19 @@ psql -h localhost -U user -d db`,
       'timeout הוגדר קצר מדי ב-nginx (default: 60s)',
       'שרת מאחורי load balancer לא בריא',
     ],
-    solution: `nginx — הגדלת timeout:
+    solution: `nginx — הגדילו timeout:
 proxy_connect_timeout 300;
 proxy_read_timeout 300;
 proxy_send_timeout 300;
 
-בדקי שהאפליקציה רצה:
+בדקו שהאפליקציה רצה:
 systemctl status myapp
 ps aux | grep python
 
-בדקי DB slow queries:
+בדקו DB slow queries:
 SHOW PROCESSLIST; (MySQL)
 SELECT * FROM pg_stat_activity; (Postgres)`,
-    tip: '💡 504 = נגמר הזמן להמתנה. 503 = השרת לא זמין בכלל. 502 = השרת ענה שגיאה לproxy.'
+    tip: '💡 504 = נגמר הזמן להמתנה. 503 = השרת לא זמין בכלל. 502 = השרת ענה שגיאה ל-proxy.'
   },
   {
     id: 17,
@@ -326,11 +326,11 @@ SELECT * FROM pg_stat_activity; (Postgres)`,
     causes: [
       'HTTPS redirect + HTTP server שניהם מגדירים redirect אחד לשני',
       'www ↔ non-www redirect loop בהגדרות nginx',
-      'WordPress: Site URL הוגדר לא נכון בDB',
+      'WordPress: Site URL הוגדר לא נכון ב-DB',
       'CDN מוסיף redirect שמתנגש עם redirect בשרת',
     ],
-    solution: `1. פתחי DevTools → Network → ראי את ה-redirects
-2. בדקי nginx/apache config — שרק צד אחד מגדיר redirect
+    solution: `1. פתחו DevTools → Network → ראו את ה-redirects
+2. בדקו nginx/apache config — שרק צד אחד מגדיר redirect
 
 nginx (נכון):
 server {
@@ -342,7 +342,7 @@ server {
   # אין redirect כאן
 }
 
-WordPress: בDB שנה siteurl/home ל-https`,
+WordPress: ב-DB שנו siteurl/home ל-https`,
     tip: '💡 הדפדפן מרשה מקסימום 20 redirects לפני שהוא מפסיק ומציג שגיאה.'
   },
   {
@@ -362,11 +362,11 @@ WordPress: בDB שנה siteurl/home ל-https`,
 ב-API:
 curl -H "Authorization: Bearer YOUR_TOKEN" https://api.example.com/data
 
-בדקי expiry ב-JWT:
-// פתחי jwt.io ובדקי ה-exp field
+בדקו expiry ב-JWT:
+// פתחו jwt.io ובדקו את ה-exp field
 // הוא Unix timestamp — המר עם new Date(exp*1000)
 
-אם token פג: בצעי refresh token flow`,
+אם token פג: בצעו refresh token flow`,
     tip: '💡 401 = "Who are you?" | 403 = "I know you, but NO" | 404 = "What you want doesn\'t exist"'
   },
   {
@@ -381,15 +381,15 @@ curl -H "Authorization: Bearer YOUR_TOKEN" https://api.example.com/data
       'Firewall חוסם את הפורט',
       'שרת קרס בשקט — process מת',
     ],
-    solution: `1. בדקי שהשרת רץ:
+    solution: `1. בדקו שהשרת רץ:
 ps aux | grep node (או python, php וכו')
 netstat -tlnp | grep 3000
 
-2. ודאי שהפורט נכון:
+2. ודאו שהפורט נכון:
 http://localhost:3000 ← פורט 3000
 http://localhost:8080 ← פורט 8080
 
-3. הפעילי שוב:
+3. הפעילו שוב:
 npm start / python app.py / etc.
 
 4. Firewall:
@@ -403,10 +403,10 @@ sudo ufw allow 3000`,
     category: 'HTTP שגיאות',
     story: 'מנסה להיכנס לאתר ב-HTTPS ומקבלת שגיאת SSL. הגרסה הנפוצה: תעודת SSL פגה או לא תואמת.',
     causes: [
-      'תעודת SSL (certificate) פגה — Let\'s Encrypt חודשיים',
-      'תעודה לדומיין אחר — אחסון מארח כמה אתרים',
+      'תעודת SSL (certificate) פגה — Let\'s Encrypt מתחדשת כל 90 יום',
+      'תעודה לדומיין אחר — שרת אחסון מארח כמה אתרים',
       'שעון המחשב שגוי — TLS תלוי בזמן מדויק',
-      'TLS version ישנה — שרת מישן לא תומך ב-TLS 1.3',
+      'גרסת TLS ישנה — שרת ישן שלא תומך ב-TLS 1.3',
       'HSTS — הדפדפן זכר שהאתר צריך HTTPS אבל עכשיו אין',
     ],
     solution: `בדיקת תעודה:
@@ -419,9 +419,9 @@ certbot certonly --webroot -d example.com
 שעון:
 timedatectl set-ntp true
 
-לניקוי HSTS בChrome:
+לניקוי HSTS ב-Chrome:
 chrome://net-internals/#hsts → Delete domain`,
-    tip: '💡 Let\'s Encrypt חינמי ואוטומטי! הגדרי cronjob: certbot renew ירוץ כל יום ויחדש לפני שיפוג.'
+    tip: '💡 Let\'s Encrypt חינמי ואוטומטי! הגדירו cronjob: certbot renew ירוץ כל יום ויחדש לפני שיפוג.'
   },
   {
     id: 21,
@@ -436,13 +436,13 @@ chrome://net-internals/#hsts → Delete domain`,
       'iframe שמטעין דף HTTP',
       'CSS background-image עם URL של http://',
     ],
-    solution: `1. פתחי DevTools → Console — תראי אזהרות Mixed Content
-2. DevTools → Network → סנני "mixed" או "blocked"
+    solution: `1. פתחו DevTools → Console — תראו אזהרות Mixed Content
+2. DevTools → Network → סננו "mixed" או "blocked"
 
 תיקון:
-- שני כל http:// ל-https:// בקוד
-- תמונות: העלי ל-CDN שלך (HTTPS) או שיני src
-- API: ודאי שכל endpoint שלך תומך HTTPS
+- שנו כל http:// ל-https:// בקוד
+- תמונות: העלו ל-CDN שלכם (HTTPS) או שנו src
+- API: ודאו שכל endpoint תומך HTTPS
 
 Nginx — הפניה אוטומטית HTTP→HTTPS:
 server {
@@ -456,7 +456,7 @@ server {
     icon: '📜',
     title: 'Certificate Chain Error — שגיאת שרשרת אמון',
     category: 'SSL/אבטחה',
-    story: 'Chrome מציג "NET::ERR_CERT_AUTHORITY_INVALID" גם כשהתעודה חדשה ותקינה. הסיבה הנפוצה: intermediate certificate חסר. ה-TLS handshake שובר!',
+    story: 'Chrome מציג "NET::ERR_CERT_AUTHORITY_INVALID" גם כשהתעודה חדשה ותקינה. הסיבה הנפוצה: intermediate certificate חסר. ה-TLS handshake נשבר!',
     causes: [
       'חסר intermediate certificate בהגדרות nginx/Apache',
       'תעודה self-signed — הדפדפן לא סומך עליה (CA לא ידועה)',
@@ -474,38 +474,38 @@ ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
 ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
 
 Let's Encrypt — fullchain.pem כוללת הכל אוטומטית!
-self-signed → בארגון: הוסיפי ל-trust store`,
-    tip: '💡 ssllabs.com/ssltest נותן ציון A-F לאבטחת SSL שלך. קבלי A+ = הגדרי HSTS + עדכני cipher list!'
+self-signed → בארגון: הוסיפו ל-trust store`,
+    tip: '💡 ssllabs.com/ssltest נותן ציון A-F לאבטחת SSL שלכם. לקבל A+ = הגדירו HSTS + עדכנו cipher list!'
   },
   {
     id: 23,
     icon: '⏳',
     title: 'HSTS — דפדפן לא נותן להיכנס ב-HTTP',
     category: 'SSL/אבטחה',
-    story: 'ניסית להיכנס ל-http://example.com ומקבלת "שגיאת HSTS". הדפדפן בעצמו חסם — גם אם השרת עבד! HSTS אומר "לא, רק HTTPS, אני זוכר".',
+    story: 'ניסית להיכנס ל-http://example.com ומופיעה "שגיאת HSTS". הדפדפן בעצמו חסם — גם אם השרת עבד! HSTS אומר "לא, רק HTTPS, אני זוכר".',
     causes: [
       'האתר שלח Strict-Transport-Security header בעבר',
       'max-age הוגדר ל-שנה/שנתיים — הדפדפן "זוכר" לזמן הזה',
       'האתר עכשיו ב-HTTP בלבד (הורדת SSL) — הדפדפן מסרב',
       'includeSubDomains — כל subdomain חסום גם הוא',
     ],
-    solution: `ניקוי HSTS בChrome:
-1. פתחי chrome://net-internals/#hsts
-2. בקטע "Delete domain security policies" הכניסי דומיין
-3. לחצי Delete
+    solution: `ניקוי HSTS ב-Chrome:
+1. פתחו chrome://net-internals/#hsts
+2. בקטע "Delete domain security policies" הכניסו דומיין
+3. לחצו Delete
 
 Firefox: about:config → network.stricttransportsecurity.preloadlist
 
-אם זה dev/test: השתמשי ב-localhost (אין HSTS) או דומיין שונה
-בProduction: לא תורידי HSTS — זה Feature, לא Bug!`,
-    tip: '💡 HSTS Preload List = אתרים שהדפדפן מכיר "מהמפעל". גוגל, פייסבוק — Chrome לעולם לא יכנס אליהם ב-HTTP.'
+אם זה dev/test: השתמשו ב-localhost (אין HSTS) או דומיין שונה
+ב-Production: לא להוריד HSTS — זה Feature, לא Bug!`,
+    tip: '💡 HSTS Preload List = רשימת אתרים שהדפדפן מכיר "מהמפעל". גוגל, פייסבוק — Chrome לעולם לא ייכנס אליהם ב-HTTP.'
   },
   {
     id: 24,
     icon: '🔑',
     title: 'JWT Token בעיות — Authentication נשבר',
     category: 'SSL/אבטחה',
-    story: 'המשתמש מחובר ופתאום "session expired" אחרי דקה. או: API מחזיר 401 כל הזמן למרות token תקין. JWT הוא נפוץ — ובעיות JWT עוד יותר!',
+    story: 'המשתמש מחובר ופתאום "session expired" אחרי דקה. או: API מחזיר 401 כל הזמן למרות token תקין. JWT הוא נפוץ — ובעיות עם JWT עוד יותר!',
     causes: [
       'exp (expiry) הוגדר קצר מדי — 15 דקות זה קצר!',
       'Secret key שונה בין server instances (load balancer)',
@@ -514,7 +514,7 @@ Firefox: about:config → network.stricttransportsecurity.preloadlist
       'Token לא נשלח ב-header הנכון',
     ],
     solution: `בדיקת JWT:
-// פתחי jwt.io — הדביקי את הtoken ותראי decoded payload
+// פתחו jwt.io — הדביקו את ה-token ותראו decoded payload
 // exp = Unix timestamp: new Date(exp*1000)
 
 שליחה נכונה:
@@ -523,11 +523,11 @@ Authorization: Bearer eyJhbGc...
 נפוצה: refresh token flow:
 - Access token: 15 דקות
 - Refresh token: 7 ימים
-- לפני פקיעה: רקעי בשקט עם refresh
+- לפני פקיעה: חדשו ברקע בשקט עם refresh
 
 Next.js/Express:
 const token = jwt.verify(tokenStr, process.env.JWT_SECRET)`,
-    tip: '💡 אל תשמרי JWT ב-localStorage! XSS יכול לגנוב אותו. השתמשי ב-httpOnly cookie — JavaScript לא מגיע אליה.'
+    tip: '💡 אל תשמרו JWT ב-localStorage! XSS יכול לגנוב אותו. השתמשו ב-httpOnly cookie — JavaScript לא מגיע אליו.'
   },
   {
     id: 25,
@@ -555,16 +555,16 @@ app.add_middleware(CORSMiddleware,
   allow_headers=["*"]
 )
 
-עם cookies — חייבת גם:
+עם cookies — חייבים גם:
 fetch(url, { credentials: 'include' })`,
-    tip: '💡 CORS הוא הגנת דפדפן בלבד! בPostman/curl לא תראי את השגיאה — כי הם לא דפדפן. השרת לא חוסם, הדפדפן חוסם!'
+    tip: '💡 CORS הוא הגנת דפדפן בלבד! ב-Postman/curl לא תראו את השגיאה — כי הם לא דפדפן. השרת לא חוסם, הדפדפן חוסם!'
   },
   {
     id: 26,
     icon: '🛡️',
     title: 'Security Headers חסרים — CSP, X-Frame',
     category: 'SSL/אבטחה',
-    story: 'האתר "עובד" — אבל Mozilla Observatory נותן ציון F. Headers שמגנים מ-XSS, clickjacking, MIME sniffing — כולם חסרים. תוקפים אוהבים אתרים כאלה.',
+    story: 'האתר "עובד" — אבל Mozilla Observatory נותן ציון F. כותרות (headers) שמגנים מ-XSS, clickjacking, MIME sniffing — כולם חסרים. תוקפים אוהבים אתרים כאלה.',
     causes: [
       'Content-Security-Policy (CSP) חסר — מאפשר XSS injection',
       'X-Frame-Options חסר — מאפשר clickjacking (iframe malicious)',
@@ -572,7 +572,7 @@ fetch(url, { credentials: 'include' })`,
       'Referrer-Policy לא הוגדר — דולף מידע ל-third parties',
       'Permissions-Policy חסר — כל website יכול לבקש מיקום/מצלמה',
     ],
-    solution: `nginx — הוסיפי לblock server:
+    solution: `nginx — הוסיפו ל-server block:
 add_header X-Frame-Options "SAMEORIGIN";
 add_header X-Content-Type-Options "nosniff";
 add_header X-XSS-Protection "1; mode=block";
@@ -581,7 +581,7 @@ add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsaf
 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
 
 בדיקה: observatory.mozilla.org`,
-    tip: '💡 CSP הוא הכי חזק — אמרי לדפדפן "רק scripts מהדומיין שלי". מונע XSS גם אם תוקף הזריק קוד!'
+    tip: '💡 CSP הוא הכי חזק — אומרים לדפדפן "רק scripts מהדומיין שלי". מונע XSS גם אם תוקף הזריק קוד!'
   },
   {
     id: 12,
@@ -594,13 +594,13 @@ add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
       'WiFi interference — הרבה רשתות על אותו channel',
       'ISP תקלה — בעיית routing',
       'Switch/Router עמוס — drops חבילות',
-      'מכשיר network card ישן',
+      'כרטיס רשת (network card) ישן',
     ],
     solution: `1. ping -t 8.8.8.8 — רצי 5 דקות, ספרי כמה % loss
 2. פחות מ-1% = נורמלי. יותר מ-3% = בעיה
-3. נסי כבל אחר — כבל רשת זול = בעיות
-4. בWireshark חפשי TCP Retransmission — סימן ל-loss
-5. Contact ISP — ייתכן בעיה בצד שלהם`,
+3. נסו כבל אחר — כבל רשת זול = בעיות
+4. ב-Wireshark חפשו TCP Retransmission — סימן ל-loss
+5. פנו ל-ISP — ייתכן שיש בעיה בצד שלהם`,
     tip: '💡 אפילו 1% packet loss הורס שיחות VoIP ו-gaming. 0% loss = חוויה מושלמת!'
   }
 ]

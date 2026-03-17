@@ -29,8 +29,8 @@ export function TCPHandshakeSim() {
   }
 
   return (
-    <div className="simulation-box tcp-handshake">
-      <h4>הדמיית TCP Handshake – לחיצה להפעלה</h4>
+    <div className="simulation-box tcp-handshake" dir="rtl">
+      <h4>הדמיית TCP Handshake – לחצו להפעלה</h4>
       <div className="sim-row">
         <div className="sim-node client">
           <span>לקוח</span>
@@ -62,7 +62,7 @@ export function TCPHandshakeSim() {
         onClick={runAnimation}
         disabled={playing}
       >
-        {playing ? '▶ מתנגן...' : '▶ הרץ הדמיה'}
+        {playing ? '▶ מריץ...' : '▶ הרצת הדמיה'}
       </button>
     </div>
   )

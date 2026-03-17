@@ -31,14 +31,14 @@ export function DnsLookupSim() {
   }
 
   return (
-    <div className="simulation-box dns-lookup">
-      <h4>הדמיית DNS – תרגום שם ל־IP</h4>
+    <div className="simulation-box dns-lookup" dir="rtl">
+      <h4>הדמיית DNS – תרגום שם ל-IP</h4>
       <div className="dns-flow">
         <div className="dns-node">
           <span>דפדפן</span>
           <input
             type="text"
-            placeholder="הכנסי דומיין (למשל google.com)"
+            placeholder="הכניסו דומיין (למשל google.com)"
             value={domain}
             onChange={(e) => setDomain(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleLookup()}
@@ -60,7 +60,7 @@ export function DnsLookupSim() {
         </div>
       </div>
       <button className="sim-btn" onClick={handleLookup}>
-        🔍 חפשי IP
+        🔍 חפש IP
       </button>
     </div>
   )

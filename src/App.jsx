@@ -52,7 +52,7 @@ function TrackPicker({ tracks, onSelect }) {
       <div className="track-picker-header">
         <div className="track-picker-logo">🌐</div>
         <h1 className="track-picker-title">מדריך IT האינטראקטיבי</h1>
-        <p className="track-picker-subtitle">בחר מסלול לימוד — כל מסלול עצמאי עם פרקים ותרגול משלו</p>
+        <p className="track-picker-subtitle">בחרו מסלול לימוד — כל מסלול עצמאי עם פרקים ותרגול משלו</p>
       </div>
       <div className="track-grid">
         {tracks.map(track => {
@@ -90,8 +90,8 @@ function TrackPicker({ tracks, onSelect }) {
                   </div>
                 )}
               </div>
-              {hasProgress && <div className="track-card-continue">המשך ←</div>}
-              {!hasProgress && !isEmpty && <div className="track-card-start">התחל ←</div>}
+              {hasProgress && <div className="track-card-continue">← המשך</div>}
+              {!hasProgress && !isEmpty && <div className="track-card-start">← התחל</div>}
             </button>
           )
         })}
@@ -306,7 +306,7 @@ function App() {
         <div className="header-top">
           <div className="header-title-wrap">
             <button className="track-back-btn" onClick={handleBackToTracks} title="כל המסלולים">
-              → כל המסלולים
+              כל המסלולים →
             </button>
             <h1 style={{ color: activeTrack.color }}>
               {activeTrack.icon} {activeTrack.title}
@@ -344,7 +344,7 @@ function App() {
         <div className="level-bar-wrap">
           <div className="level-label">
             <span>{level.emoji} {levelName}</span>
-            {nextLevel && <span className="level-next">{nextLevelName} ({nextLevel.min - xp} XP נותרו) ←</span>}
+            {nextLevel && <span className="level-next">← {nextLevelName} ({nextLevel.min - xp} XP נותרו)</span>}
           </div>
           <div className="level-bar">
             <div className="level-fill" style={{ width: `${lvlProgress}%` }} />
@@ -440,7 +440,7 @@ function App() {
               className="mobile-menu-back-btn"
               onClick={() => setMobileShowContent(false)}
             >
-              → רשימת פרקים
+              רשימת פרקים →
             </button>
             <div className="page-header">
               <span className="page-type-badge" style={getBadgeStyle(page.type)}>
@@ -463,9 +463,9 @@ function App() {
             </article>
 
             <nav className="page-navigation">
-              <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>→ קודם</button>
+              <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>הקודם →</button>
               <span className="page-counter">פרק {currentChapter + 1} | {currentPage + 1}/{totalPages}</span>
-              <button className="nav-btn next" onClick={goNext} disabled={!canGoNext}>הבא ←</button>
+              <button className="nav-btn next" onClick={goNext} disabled={!canGoNext}>← הבא</button>
             </nav>
           </main>
         </div>

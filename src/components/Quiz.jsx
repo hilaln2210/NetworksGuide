@@ -167,7 +167,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
             <span className="qmc-sub">שאלות מכל הפרקים</span>
           </button>
         </div>
-        <p className="quiz-chapter-label">או בחרי פרק:</p>
+        <p className="quiz-chapter-label">{gender === 'male' ? 'או בחר פרק:' : 'או בחרי פרק:'}</p>
         <div className="quiz-chapter-grid">
           {chapters.map(ch => {
             const qs = getQuizForChapter(ch.id)
@@ -255,7 +255,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
               mode === 'all' ? getAllQuizQuestions() : getQuizForChapter(selectedChapter)
             )}>🔄 שוב</button>
             <button className="quiz-back-btn" onClick={() => setMode(null)}>
-              {isMale ? '← בחר פרק' : '← בחרי פרק'}
+              {isMale ? 'בחר פרק →' : 'בחרי פרק →'}
             </button>
           </div>
         </div>
@@ -281,7 +281,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
               mode === 'all' ? getAllQuizQuestions() : getQuizForChapter(selectedChapter)
             )}>{isMale ? '🔄 נסה שוב' : '🔄 נסי שוב'}</button>
             <button className="quiz-back-btn" onClick={() => setMode(null)}>
-              {isMale ? '← בחירת פרק' : '← בחירת פרק'}
+              בחירת פרק →
             </button>
           </div>
         </div>
@@ -413,7 +413,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
           </div>
           {canContinue && (
             <button className="quiz-continue-btn" onClick={handleContinue}>
-              {current + 1 >= questions.length ? 'סיום ←' : 'הבא ←'}
+              {current + 1 >= questions.length ? '← סיום' : '← הבא'}
             </button>
           )}
         </div>
@@ -493,13 +493,13 @@ function ChapterModal({ chapter, chIdx, onClose }) {
             className="ch-modal-nav-btn"
             disabled={pageIdx === 0}
             onClick={() => setPageIdx(p => p - 1)}
-          >→ קודם</button>
+          >הקודם →</button>
           <span className="ch-modal-counter" dir="ltr">{pageIdx + 1} / {total}</span>
           <button
             className="ch-modal-nav-btn"
             disabled={pageIdx === total - 1}
             onClick={() => setPageIdx(p => p + 1)}
-          >הבא ←</button>
+          >← הבא</button>
         </div>
       </div>
     </div>

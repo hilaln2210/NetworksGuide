@@ -26,7 +26,7 @@ export function PacketFlowSim() {
   }
 
   return (
-    <div className="simulation-box packet-flow">
+    <div className="simulation-box packet-flow" dir="rtl">
       <h4>מסלול חבילה ברשת</h4>
       <div className="packet-path">
         {NODES.map((node, i) => (

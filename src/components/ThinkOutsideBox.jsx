@@ -7,7 +7,7 @@ import './ThinkOutside.css'
 export function ThinkOutsideBox({ title, children, icon = '💡' }) {
   const [collapsed, setCollapsed] = useState(false)
   return (
-    <div className="think-outside" onClick={() => setCollapsed(!collapsed)}>
+    <div className="think-outside" dir="rtl" onClick={() => setCollapsed(!collapsed)}>
       <div className="think-header">
         <span className="think-icon">{icon}</span>
         <span className="think-title">{title}</span>

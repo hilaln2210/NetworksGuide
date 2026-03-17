@@ -42,8 +42,8 @@ export function EncapsulationSim() {
   const layers = direction === 'down' ? LAYERS : [...LAYERS].reverse()
 
   return (
-    <div className="simulation-box encapsulation">
-      <h4>Encapsulation / Decapsulation</h4>
+    <div className="simulation-box encapsulation" dir="rtl">
+      <h4>Encapsulation / Decapsulation – עטיפה וקילוף שכבות</h4>
       <div className={`encaps-layers ${direction}`}>
         {layers.map((layer, i) => {
           const isActive = direction === 'down'

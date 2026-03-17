@@ -102,14 +102,14 @@ export function AskQuestion() {
           <span className="qs-result-title">{r.pageTitle}</span>
         </div>
         {snippetHtml && (
-          <p className="qs-result-snippet" dangerouslySetInnerHTML={{ __html: snippetHtml }} />
+          <p className="qs-result-snippet" dir="rtl" dangerouslySetInnerHTML={{ __html: snippetHtml }} />
         )}
       </div>
     )
   }
 
   return (
-    <div className="quick-search">
+    <div className="quick-search" dir="rtl">
       <div className="qs-header">
         <span className="qs-icon">🔍</span>
         <span className="qs-title">חיפוש מהיר במדריך</span>
@@ -145,7 +145,7 @@ export function AskQuestion() {
       )}
 
       {showResults && results.length === 0 && query.trim().length > 1 && (
-        <p className="qs-no-results">לא נמצאו תוצאות. נסה מונחים אחרים: IP, TCP, DNS, HTTP, NAT</p>
+        <p className="qs-no-results" dir="rtl">לא נמצאו תוצאות. נסו מונחים אחרים: IP, TCP, DNS, HTTP, NAT</p>
       )}
     </div>
   )

@@ -144,7 +144,7 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
         type: "simulation",
         title: "הדמיית DNS – תרגום דומיין ל־IP",
         simId: "dnsLookup",
-        content: `<p>הדמי את תהליך ה־DNS: הכניסו דומיין (למשל google.com) ולחצו "חפש IP" – המדריך מדגים את הזרימה.</p>`
+        content: `<p>הדמיה של תהליך ה־DNS: הכניסו דומיין (למשל google.com) ולחצו "חפש IP" – המדריך מדגים את הזרימה.</p>`
       },
       {
         type: "simulation",
@@ -2387,7 +2387,7 @@ ssh.close()</code></pre>
         title: "שאלות הבנה - פרק 16",
         questions: [
           {
-            q: "מה ההבדל בין IMAP לPOP3?",
+            q: "מה ההבדל בין IMAP ל-POP3?",
             a: "IMAP – הודעות נשמרות בשרת, מסונכרן בין כל המכשירים. POP3 – מוריד הודעות למחשב ומוחק מהשרת. IMAP מתאים כשמשתמשים בכמה מכשירים. POP3 – כשרוצים הכל במחשב אחד."
           },
           {
@@ -2528,7 +2528,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           {
             title: "ארכיטקטורת רשת של AWS",
             icon: "☁️",
-            content: `<p>ב-AWS, VPC (Virtual Private Cloud) = רשת וירטואלית פרטית שלך. בוחרים CIDR בסיסי למשל <code>10.0.0.0/16</code> (65K כתובות). מתוכו יוצרים Subnets: Public (<code>10.0.1.0/24</code>, <code>10.0.2.0/24</code>) וPrivate (<code>10.0.10.0/24</code>, <code>10.0.11.0/24</code>). Public = יש גישה לאינטרנט. Private = ללא. Subnetting מגדיר את הארכיטקטורה של ה-Cloud.</p>`
+            content: `<p>ב-AWS, VPC (Virtual Private Cloud) = רשת וירטואלית פרטית שלך. בוחרים CIDR בסיסי למשל <code>10.0.0.0/16</code> (65K כתובות). מתוכו יוצרים Subnets: Public (<code>10.0.1.0/24</code>, <code>10.0.2.0/24</code>) ו-Private (<code>10.0.10.0/24</code>, <code>10.0.11.0/24</code>). Public = יש גישה לאינטרנט. Private = ללא. Subnetting מגדיר את הארכיטקטורה של ה-Cloud.</p>`
           },
           {
             title: "האם 192.168.1.1 תמיד הנתב?",
@@ -3041,7 +3041,7 @@ sudo dscacheutil -flushcache</code></pre>
           <p><strong>שיטה 1 – Timeout (RTO)</strong>: לא הגיע ACK בזמן:</p>
           <ul>
             <li>ssthresh = cwnd / 2</li>
-            <li>cwnd = 1 MSS (חזרה לSlow Start מהתחלה!)</li>
+            <li>cwnd = 1 MSS (חזרה ל-Slow Start מהתחלה!)</li>
             <li>RTO מוכפל (Exponential Backoff)</li>
           </ul>
           <p><strong>שיטה 2 – 3 Duplicate ACKs (Fast Retransmit)</strong>: 3 ACKs לאותו sequence = חבילה אחת אבדה:</p>
@@ -3292,11 +3292,11 @@ Endpoint = peer.example.com:51820</code></pre>
         questions: [
           {
             q: "מה ההבדל בין IPsec Tunnel mode ל-Transport mode?",
-            a: "Transport mode: מוצפן רק ה-payload, IP Header המקורי גלוי. לתקשורת Host-to-Host. Tunnel mode: כל הפקטה המקורית (כולל IP Header) נעטפת בפקטה חדשה עם IP של ה-Gateway. לVPN Site-to-Site."
+            a: "Transport mode: מוצפן רק ה-payload, IP Header המקורי גלוי. לתקשורת Host-to-Host. Tunnel mode: כל הפקטה המקורית (כולל IP Header) נעטפת בפקטה חדשה עם IP של ה-Gateway. ל-VPN Site-to-Site."
           },
           {
             q: "למה WireGuard בוחרת cryptography קבוע ולא negotiable?",
-            a: "Cipher agility = יותר קוד, יותר surface להתקפה, ניתן לכפות downgrade לאלגוריתם חלש. WireGuard בוחר: אנחנו משתמשים בChaCha20+Curve25519 כי הם הכי טובים היום. פחות קוד = פחות bugs. נקרא Cryptographic Opinionation."
+            a: "Cipher agility = יותר קוד, יותר surface להתקפה, ניתן לכפות downgrade לאלגוריתם חלש. WireGuard בוחר: אנחנו משתמשים ב-ChaCha20+Curve25519 כי הם הכי טובים היום. פחות קוד = פחות bugs. נקרא Cryptographic Opinionation."
           },
           {
             q: "מה SYN Flood ואיך SYN Cookies פותר?",
@@ -3408,7 +3408,7 @@ Endpoint = peer.example.com:51820</code></pre>
           <p>Response בדרך כלל JSON. Status codes: 200 (OK), 201 (Created), 400 (Bad Request), 401 (Unauthorized), 403 (Forbidden), 404 (Not Found), 500 (Server Error).</p>
           <p><strong>WebSockets</strong> – חיבור דו-כיווני מתמשך מעל HTTP. Upgrade request: HTTP → WebSocket. אחרי Upgrade – ניתן לשלוח ולקבל בחופשיות ללא Request-Response overhead. מתאים ל: Chat, Real-time games, Trading, Live dashboards.</p>
           <div class="code-preview">
-            <pre><code>// לקוח WebSocket בJavaScript
+            <pre><code>// לקוח WebSocket ב-JavaScript
 const ws = new WebSocket('wss://chat.example.com/ws')
 ws.onopen = () => ws.send(JSON.stringify({msg: 'שלום!'}))
 ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
@@ -3451,7 +3451,7 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
           {
             title: "Anycast – אותה כתובת, מיקומים שונים",
             icon: "🗺️",
-            content: `<p>Anycast = אותה IP ב-BGP מכמה מקומות בעולם. הרשת מנתבת ל-PoP הקרוב. 1.1.1.1 של Cloudflare = אותה IP ב-300+ מקומות. Cloudflare משתמש בזה גם לDDoS mitigation: 1Tbps DDoS מתחלק בין 300 PoPs → כל PoP מקבל רק 3Gbps → לא בעיה. זאת למה CDN ורשתות כמו Cloudflare "לא נופלות" גם בהתקפות ענק.</p>`
+            content: `<p>Anycast = אותה IP ב-BGP מכמה מקומות בעולם. הרשת מנתבת ל-PoP הקרוב. 1.1.1.1 של Cloudflare = אותה IP ב-300+ מקומות. Cloudflare משתמש בזה גם ל-DDoS mitigation: 1Tbps DDoS מתחלק בין 300 PoPs → כל PoP מקבל רק 3Gbps → לא בעיה. זאת למה CDN ורשתות כמו Cloudflare "לא נופלות" גם בהתקפות ענק.</p>`
           },
           {
             title: "Edge Computing – חישוב ב-PoP",
@@ -3734,7 +3734,7 @@ Why not? → code review checklist didn't include DB review.</code></pre>
         title: "Netflix Open Connect – CDN בתוך ה-ISP",
         content: `
           <p>Netflix אחראית על ~15% מתנועת האינטרנט בעולם בשעות הערב. איך הם עושים את זה בלי לשלם מיליארדים על bandwidth?</p>
-          <p><strong>Open Connect Appliance (OCA):</strong> Netflix בנתה שרתי קאש מיוחדים ו<strong>מציעה אותם בחינם ל-ISPs</strong>. הISP מקבל hardware בחינם, Netflix חוסכת bandwidth. Win-win.</p>
+          <p><strong>Open Connect Appliance (OCA):</strong> Netflix בנתה שרתי קאש מיוחדים ו<strong>מציעה אותם בחינם ל-ISPs</strong>. ה-ISP מקבל hardware בחינם, Netflix חוסכת bandwidth. Win-win.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 360 120" class="content-diagram">
               <rect x="10" y="40" width="80" height="40" rx="4" fill="#fee2e2" stroke="#f87171"/>
@@ -3753,7 +3753,7 @@ Why not? → code review checklist didn't include DB review.</code></pre>
               <line x1="90" y1="60" x2="138" y2="82" stroke="var(--text-muted)" stroke-width="1.5" stroke-dasharray="4,2"/>
               <line x1="220" y1="37" x2="278" y2="57" stroke="#34d399" stroke-width="2"/>
               <line x1="220" y1="82" x2="278" y2="62" stroke="#34d399" stroke-width="2"/>
-              <text x="180" y="115" text-anchor="middle" font-size="8" fill="var(--text-muted)">הvideo מגיע מה-ISP עצמו, לא מAWS</text>
+              <text x="180" y="115" text-anchor="middle" font-size="8" fill="var(--text-muted)">הvideo מגיע מה-ISP עצמו, לא מ-AWS</text>
             </svg>
           </div>
           <p><strong>מה ה-OCA שומר?</strong> Netflix יודעת מה פופולרי באזור כל ISP. בלילה, היא מעבירה pre-emptively ל-OCA את הסדרות הפופולריות. למחרת — הכל ב-cache מקומי.</p>
@@ -3864,7 +3864,7 @@ vs. Python/Java thread: 8-512MB per thread
               <line x1="298" y1="26" x2="200" y2="46" stroke="var(--accent)" stroke-width="1.5"/>
               <line x1="62" y1="84" x2="160" y2="64" stroke="var(--accent)" stroke-width="1.5"/>
               <line x1="298" y1="84" x2="200" y2="64" stroke="var(--accent)" stroke-width="1.5"/>
-              <text x="180" y="105" text-anchor="middle" font-size="8" fill="var(--text-muted)">BGP מנתב כל משתמש לPoP הקרוב — אוטומטי</text>
+              <text x="180" y="105" text-anchor="middle" font-size="8" fill="var(--text-muted)">BGP מנתב כל משתמש ל-PoP הקרוב — אוטומטי</text>
             </svg>
           </div>
           <p><strong>DDoS mitigation:</strong> Cloudflare ספגה ב-2024 מתקפת DDoS של <strong>5.6 Tbps</strong> — הגדולה שתועדה. איך? ה-traffic מחולק ל-300 PoPs. כל PoP ספג רק שבריר. לאחר filtering מקומי — תנועה נקייה עוברת ל-origin.</p>
@@ -3879,12 +3879,12 @@ vs. Python/Java thread: 8-512MB per thread
           {
             title: "מי שולט בכבלים — שולט בתוכן",
             icon: "🌊",
-            content: `<p>כשHuawei הציעה לבנות כבלי ים לאפריקה במחיר הזול מהשוק — ממשלות מערביות חסמו. הסיבה: <strong>מי שבנה את הכבל, יכול לנטר את התנועה עליו</strong>. NSA כבר עשתה זאת על כבלים אמריקניים — מפרטות של Snowden. הרשת הפיזית היא פוליטיקה.</p>`
+            content: `<p>כש-Huawei הציעה לבנות כבלי ים לאפריקה במחיר הזול מהשוק — ממשלות מערביות חסמו. הסיבה: <strong>מי שבנה את הכבל, יכול לנטר את התנועה עליו</strong>. NSA כבר עשתה זאת על כבלים אמריקניים — מפרטות של Snowden. הרשת הפיזית היא פוליטיקה.</p>`
           },
           {
             title: "ספקיות הענן ממציאות את הרשת מחדש",
             icon: "☁️",
-            content: `<p>Google, AWS, Azure בנו רשתות שמגיעות לביצועים שטלקומים לא הצליחו לעשות. BGP ב-2024 הוא עדיין פרוטוקול שנוצר ב-1989 "על מפיות בדינר". QUIC, HTTP/3, SD-WAN, eBPF — הטכנולוגיות שמחליפות את הרשת ישנה נוצרות בחברות הטכנולוגיה, לא בIETF בלבד.</p>`
+            content: `<p>Google, AWS, Azure בנו רשתות שמגיעות לביצועים שטלקומים לא הצליחו לעשות. BGP ב-2024 הוא עדיין פרוטוקול שנוצר ב-1989 "על מפיות בדינר". QUIC, HTTP/3, SD-WAN, eBPF — הטכנולוגיות שמחליפות את הרשת ישנה נוצרות בחברות הטכנולוגיה, לא ב-IETF בלבד.</p>`
           }
         ]
       },
@@ -3910,16 +3910,16 @@ vs. Python/Java thread: 8-512MB per thread
         title: "שאלות הבנה - פרק 24",
         questions: [
           {
-            q: "מה ה-Open Connect Appliance של Netflix ואיזה יתרון הוא נותן לISP?",
-            a: "OCA = שרת cache שNetflix מספקת ל-ISPs בחינם. ה-ISP מקבל hardware ללא עלות, ותנועת הvideo לא יוצאת מהרשת שלו (חוסך bandwidth יקר). Netflix חוסכת עלויות transit עצומות. Win-win."
+            q: "מה ה-Open Connect Appliance של Netflix ואיזה יתרון הוא נותן ל-ISP?",
+            a: "OCA = שרת cache ש-Netflix מספקת ל-ISPs בחינם. ה-ISP מקבל hardware ללא עלות, ותנועת הvideo לא יוצאת מהרשת שלו (חוסך bandwidth יקר). Netflix חוסכת עלויות transit עצומות. Win-win."
           },
           {
             q: "למה WhatsApp בחרה ב-Erlang ולא ב-Python או Java?",
             a: "Erlang/OTP נבנתה ל-telecom — ניהול מיליוני חיבורים קונקורנטיים. כל חיבור הוא process קל (ולא thread OS כבד). ב-Erlang: מיליון חיבורים ≈ 2GB RAM. ב-Java threads: עשרות GB. הבחירה הארכיטקטונית אפשרה צוות קטן לנהל scale ענק."
           },
           {
-            q: "מה Anycast ואיך Cloudflare משתמשת בו להגנה מDDoS?",
-            a: "Anycast = אותה כתובת IP מוכרזת ממאות מקומות. BGP מנתב כל משתמש לנקודה הקרובה. בDDoS: התנועה מחולקת ל-300 PoPs — כל PoP ספג שבריר. לאחר filtering מקומי, רק תנועה נקייה עוברת לorigin. Scale ו-distribution = resilience."
+            q: "מה Anycast ואיך Cloudflare משתמשת בו להגנה מ-DDoS?",
+            a: "Anycast = אותה כתובת IP מוכרזת ממאות מקומות. BGP מנתב כל משתמש לנקודה הקרובה. ב-DDoS: התנועה מחולקת ל-300 PoPs — כל PoP ספג שבריר. לאחר filtering מקומי, רק תנועה נקייה עוברת לorigin. Scale ו-distribution = resilience."
           }
         ]
       }
@@ -3960,7 +3960,7 @@ IP address: 142.250.80.101 [גלוי]
         type: "explanation",
         title: "Browser Fingerprinting – זיהוי ללא Cookies",
         content: `
-          <p>חשבת שIncognito מגן עלייך? Browser Fingerprinting לא צריך cookies. הוא מזהה אותך לפי <strong>מה שהדפדפן שלך הוא</strong>.</p>
+          <p>חשבת ש-Incognito מגן עלייך? Browser Fingerprinting לא צריך cookies. הוא מזהה אותך לפי <strong>מה שהדפדפן שלך הוא</strong>.</p>
           <p><strong>מה נאסף לפינגרפרינט:</strong></p>
           <ul>
             <li><strong>User-Agent:</strong> Chrome 124 / Windows 11 / Intel</li>
@@ -3980,7 +3980,7 @@ ctx.fillText('Hello, World! 🌍', 10, 50)
 const fingerprint = canvas.toDataURL()
 // → hash ייחודי ≈ 99% ייחודיות</code></pre>
           </div>
-          <p><strong>הנתון המבהיל:</strong> EFF's Panopticlick מצא שצירוף הפרמטרים הוא ייחודי ל-~1 מ-286,777 דפדפנים. את כמעט בלתי ניתנת לזיהוי שגוי.</p>
+          <p><strong>הנתון המבהיל:</strong> EFF's Panopticlick מצא שצירוף הפרמטרים הוא ייחודי ל-~1 מ-286,777 דפדפנים. המשתמש כמעט בלתי ניתן לזיהוי שגוי.</p>
           <p><strong>הגנה:</strong> Tor Browser randomizes fingerprint. Firefox Resist Fingerprinting mode. אחרת — קשה מאוד.</p>
         `
       },
@@ -4296,7 +4296,7 @@ spec:
           },
           {
             q: "למה eBPF מהפכני לאבטחת רשתות?",
-            a: "eBPF מריץ קוד בתוך kernel ב-XDP context — לפני שהpacket מגיע לnetwork stack. זה מאפשר drop/filter ב-line rate של hardware (מיליוני pps). קוד דינמי שניתן לעדכן בלי reboot. Cloudflare משתמשת בזה לDDoS mitigation. בנוסף — full observability של כל syscall ב-production ללא overhead."
+            a: "eBPF מריץ קוד בתוך kernel ב-XDP context — לפני שהpacket מגיע לnetwork stack. זה מאפשר drop/filter ב-line rate של hardware (מיליוני pps). קוד דינמי שניתן לעדכן בלי reboot. Cloudflare משתמשת בזה ל-DDoS mitigation. בנוסף — full observability של כל syscall ב-production ללא overhead."
           },
           {
             q: "מה בעיית HOL Blocking ב-TCP ואיך QUIC פותר אותה?",
