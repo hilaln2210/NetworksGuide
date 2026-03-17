@@ -147,7 +147,7 @@ export const quizBank = {
         "לנהל כתובות IP ברשת מקומית",
         "להגן על הרשת מפני פריצות"
       ],
-      explanation: "‏Wireshark הוא 'מיקרוסקופ' של הרשת — תופס כל חבילה ומציגה בפירוט מלא. מפסיקות הצגה של כל שכבה, כל header, כל byte 🔬"
+      explanation: "‏Wireshark הוא 'מיקרוסקופ' של הרשת — תופס כל חבילה ומציגה בפירוט מלא. מפרק ומציג כל שכבה, כל header, כל byte 🔬"
     },
     {
       q: "מה זה Encapsulation ‎(אנקפסולציה)‎?",
@@ -369,14 +369,14 @@ export const quizBank = {
     },
     {
       q: "מה זה Flow Control ב-TCP?",
-      correct: "מנגנון שמונע ממפלט לשלוח נתונים מהר מדי ולהציף את המקלט",
+      correct: "מנגנון שמונע מהשולח לשלוח נתונים מהר מדי ולהציף את המקלט",
       choices: [
-        "מנגנון שמונע ממפלט לשלוח נתונים מהר מדי ולהציף את המקלט",
+        "מנגנון שמונע מהשולח לשלוח נתונים מהר מדי ולהציף את המקלט",
         "מנגנון הצפנת נתונים בזמן שליחה",
         "מנגנון ניתוב חבילות בין נתבים",
         "מנגנון זיהוי שגיאות בנתונים"
       ],
-      explanation: "‏Flow Control = 'רגע, אני לא מספיקה לעבד!' הנמען מודיע למפלט מה ה-Window Size שלו. כמו שאת אומרת לשיחה 'דברי לאט יותר' 🐌"
+      explanation: "‏Flow Control = 'רגע, אני לא מספיקה לעבד!' הנמען מודיע לשולח מה ה-Window Size שלו. כמו שאת אומרת למישהי בשיחה 'דברי לאט יותר' 🐌"
     },
     {
       q: "למה TCP גדול יותר ב-overhead מ-UDP?",
@@ -561,7 +561,7 @@ export const quizBank = {
         "פרוטוקול לניתוב בין רשתות",
         "פרוטוקול לגיבוי נתוני רשת"
       ],
-      explanation: "‏DHCP = שרת ה-'יצירת חשבון אוטומטית'. כשאת מתחברת ל-WiFi — DHCP מקצה לך IP, mask, gateway ו-DNS. אחרת הייית צריכה להגדיר ידנית! 🎰"
+      explanation: "‏DHCP = שרת ה-'יצירת חשבון אוטומטית'. כשאת מתחברת ל-WiFi — DHCP מקצה לך IP, mask, gateway ו-DNS. אחרת היית צריכה להגדיר ידנית! 🎰"
     },
     {
       q: "מה זה subnet mask?",
@@ -661,9 +661,9 @@ export const quizBank = {
         "מחשב מקצה לעצמו IP מ-169.254.0.0/16 (APIPA/link-local) — מאפשר תקשורת מקומית אבל ללא גישה לאינטרנט",
         "מחשב מחכה לנצח עד שמגיע DHCP server",
         "מחשב משתמש ב-127.0.0.1",
-        "הmחשב כותב שגיאה ומשבית את הrשת"
+        "המחשב כותב שגיאה ומשבית את הרשת"
       ],
-      explanation: "‏APIPA (Automatic Private IP Addressing): Windows, Mac, Linux. ‏Range: 169.254.0.0/16. ‏Client בוחר IP אקראי וoverify-ated ב-ARP. אם 169.254.x.x = DHCP נכשל. ‏RFC 3927 (IPv4 Link-Local). ‏IPv6: link-local addresses = fe80::/10, תמיד מוקצות אוטומטית. ‏Zeroconf/Bonjour משתמש ב-link-local."
+      explanation: "‏APIPA (Automatic Private IP Addressing): Windows, Mac, Linux. ‏Range: 169.254.0.0/16. ‏Client בוחר IP אקראי ומאמת אותו ב-ARP. אם 169.254.x.x = DHCP נכשל. ‏RFC 3927 (IPv4 Link-Local). ‏IPv6: link-local addresses = fe80::/10, תמיד מוקצות אוטומטית. ‏Zeroconf/Bonjour משתמש ב-link-local."
     }
   ],
 
@@ -741,7 +741,7 @@ export const quizBank = {
       q: "מה VLAN ואיך הוא מפריד תעבורה בסוויץ' פיזי אחד?",
       correct: "‏Virtual LAN — מפריד broadcast domains ב-software. תעבורה בין VLANs דורשת routing (Layer 3)",
       choices: [
-        "‏Virtual LAN — מפריד broadcast domains ב-software. תעבורה בין VLANs דורשט routing (Layer 3)",
+        "‏Virtual LAN — מפריד broadcast domains ב-software. תעבורה בין VLANs דורשת routing (Layer 3)",
         "‏VLAN = חיבור בין switchים שונים",
         "‏VLAN = הצפנת תעבורה בתוך switch",
         "‏VLAN = VLAN Access Layer Network"
@@ -830,7 +830,7 @@ export const quizBank = {
     },
     {
       q: "מה PortFast ב-STP ולמה מסוכן לhostים?",
-      correct: "‏PortFast: קופץ ישירות ל-Forwarding ללא STP states. לgלPCs בלבד — אם מחבר switch, יגרום ל-loop",
+      correct: "‏PortFast: קופץ ישירות ל-Forwarding ללא STP states. לPCs בלבד — אם מחבר switch, יגרום ל-loop",
       choices: [
         "‏PortFast: קופץ ישירות ל-Forwarding ללא STP states. לPCs בלבד — אם מחבר switch, יגרום ל-loop",
         "‏PortFast = fast STP convergence בין switches",
@@ -1079,9 +1079,9 @@ export const quizBank = {
     },
     {
       q: "כיצד מחלקים 192.168.1.0/24 ל-4 subnets שווים?",
-      correct: "לקחים 2 bits נוספים: /26. כל subnet = 64 כתובות. .0/26, .64/26, .128/26, .192/26",
+      correct: "לוקחים 2 bits נוספים: /26. כל subnet = 64 כתובות. .0/26, .64/26, .128/26, .192/26",
       choices: [
-        "לקחים 2 bits נוספים: /26. כל subnet = 64 כתובות. .0/26, .64/26, .128/26, .192/26",
+        "לוקחים 2 bits נוספים: /26. כל subnet = 64 כתובות. .0/26, .64/26, .128/26, .192/26",
         "/24 לארבעה /25 subnets",
         "/28 = 4 subnets מ-/24",
         "2^4=16 subnets מ-/24 עם /28"
@@ -1173,9 +1173,9 @@ export const quizBank = {
     },
     {
       q: "מה DNS TTL קובע?",
-      correct: "כמה זמן ‎(בשניות)‎ DNS cache יכול להשתמש בתשובה לפני שאיל שוב",
+      correct: "כמה זמן ‎(בשניות)‎ DNS cache יכול להשתמש בתשובה לפני שישאל שוב",
       choices: [
-        "כמה זמן ‎(בשניות)‎ DNS cache יכול להשתמש בתשובה לפני שאיל שוב",
+        "כמה זמן ‎(בשניות)‎ DNS cache יכול להשתמש בתשובה לפני שישאל שוב",
         "כמה זמן הדומיין רשום ל-registrar",
         "מהירות העברת DNS query",
         "מספר ה-Name Servers לדומיין"
@@ -1390,10 +1390,10 @@ export const quizBank = {
       explanation: "‏L4 LB: AWS NLB, HAProxy TCP mode. ‏NAT-based: שומר TCP state. ‏Fast: millions pps. ‏L7 LB: AWS ALB, nginx, Traefik. ‏HTTP-aware: URL routing (/api → backend1, /static → CDN), header manipulation, session affinity (sticky sessions via cookie), SSL offloading. ‏Health checks: L4=TCP connect, L7=HTTP 200. ‏Algorithms: Round Robin, Least Connections, IP Hash."
     },
     {
-      q: "מה HTTP/2 Server Push ואיך מחליט מה לdush?",
+      q: "מה HTTP/2 Server Push ואיך מחליט מה לpush?",
       correct: "‏Server שולח resources (CSS/JS) לפני שclient ביקש — מפחית round trips. מבוסס על Link header או קוד server",
       choices: [
-        "‏Server שולח resources (CSS/JS) לפני שclient ביקש — מפחית round trips. מבוסס על Link header או קד server",
+        "‏Server שולח resources (CSS/JS) לפני שclient ביקש — מפחית round trips. מבוסס על Link header או קוד server",
         "‏Server Push = WebSocket",
         "‏Server Push = Server-Sent Events",
         "‏Server Push לא קיים ב-HTTP/2"
@@ -1438,14 +1438,14 @@ export const quizBank = {
     },
     {
       q: "מה Internet Exchange Point (IXP) ולמה חשוב?",
-      correct: "‏IXP = מרכז ח physical שבו ISPs/CDNs מחברים ישירות ומחליפים BGP routes ללא עלות transit",
+      correct: "‏IXP = מרכז פיזי שבו ISPs/CDNs מחברים ישירות ומחליפים BGP routes ללא עלות transit",
       choices: [
         "‏IXP = מרכז physical שבו ISPs/CDNs מחברים ישירות ומחליפים BGP routes ללא עלות transit",
         "‏IXP = ISP מרכזי שמנהל כל ה-routing",
         "‏IXP = Internet extension protocol",
         "‏IXP = חיבור בין IPv4 ל-IPv6"
       ],
-      explanation: "‏IXP ב-ישראל: ILIX. גדולים: AMS-IX (Amsterdam), DE-CIX (Frankfurt), LINX (London). ‏Peering: חיבור ישיר בין 2 AS ללא תשלום (settlement-free). ‏Transit: תשלום ל-upstream ISP לrauting כללי. ‏Hot potato routing: שלח traffic ל-peer מוקדם ככל האפשר. ‏Cold potato routing: שמור traffic ב-רשת שלך כמה שאפשר. ‏Route server: מנהל BGP sessions לכל משתתפי IXP."
+      explanation: "‏IXP ב-ישראל: ILIX. גדולים: AMS-IX (Amsterdam), DE-CIX (Frankfurt), LINX (London). ‏Peering: חיבור ישיר בין 2 AS ללא תשלום (settlement-free). ‏Transit: תשלום ל-upstream ISP לrouting כללי. ‏Hot potato routing: שלח traffic ל-peer מוקדם ככל האפשר. ‏Cold potato routing: שמור traffic ב-רשת שלך כמה שאפשר. ‏Route server: מנהל BGP sessions לכל משתתפי IXP."
     },
     {
       q: "מה Submarine Cable ואיך אינטרנט עובד תחת האוקיינוס?",
@@ -1454,7 +1454,7 @@ export const quizBank = {
         "כבלים פיזיים בתחתית האוקיינוס = 95% מתעבורת הdata הבינלאומית. Latency: ~100ms לחצות האוקיינוס האטלנטי",
         "אינטרנט בינלאומי = לוויינים בעיקר",
         "‏Latency לחצות אוקיינוס = 5ms",
-        "כבלי תת-ים = 50% מהtraffc בלבד"
+        "כבלי תת-ים = 50% מה-traffic בלבד"
       ],
       explanation: "‏Submarine cables: אלומת fiber optic, הגנות מכניות. ‏Repeaters כל 50-100km. ‏Capacity: terabits/sec. ‏Break: שיטפונות, עוגנים, כרישים. ‏Repair ships: 3-6 שבועות. ‏Starlink/LEO: ~20ms latency ‎(לחשב)‎ — יתרון על כבלים. ‏TeleGeography: mapa מעודכנת. ‏Microsoft/Google/Facebook: מחזיקים כבלים פרטיים (Azure, Equiano, MAREA)."
     }
@@ -1960,7 +1960,7 @@ export const quizBank = {
       correct: "‏White Box: לtester יש מלוא המידע (code, architecture); Black Box: לtester אין מידע מוקדם — מדמה תוקף חיצוני",
       choices: [
         "‏White Box: לtester יש מלוא המידע (code, architecture); Black Box: לtester אין מידע מוקדם — מדמה תוקף חיצוני",
-        "‏White Box בודק רק frontned; Black Box בודק backend",
+        "‏White Box בודק רק frontend; Black Box בודק backend",
         "‏White Box מבוצע במשרד; Black Box מרחוק",
         "‏White Box בודק רשת; Black Box בודק אפליקציות"
       ],
@@ -1982,14 +1982,14 @@ export const quizBank = {
   105: [
     {
       q: "למה AES-ECB מסוכן למרות שAES עצמו חזק?",
-      correct: "‏ECB מצפין כל block בנפרד — blocks זהים מייצרים ciphertext זהה, חושף patterns בnתונים",
+      correct: "‏ECB מצפין כל block בנפרד — blocks זהים מייצרים ciphertext זהה, חושף patterns בנתונים",
       choices: [
         "‏ECB מצפין כל block בנפרד — blocks זהים מייצרים ciphertext זהה, חושף patterns בנתונים",
         "‏ECB לא תומך ב-256 bit keys",
         "‏ECB פגיע ל-brute force כי המפתח קצר",
         "‏ECB איטי מדי לשימוש מעשי"
       ],
-      explanation: "‏AES-ECB: כל 16 bytes מוצפנים באופן עצמאי. אם יש בimage שתי אזורים עם אותו צבע → ciphertext זהה → pattern נראה. הדגמה קלאסית: הצפנת תמונת Linux penguin בECB — הצלל עדיין נראה! הפיתרון: AES-CBC/GCM — IV + chaining מונע patterns."
+      explanation: "‏AES-ECB: כל 16 bytes מוצפנים באופן עצמאי. אם יש בimage שני אזורים עם אותו צבע → ciphertext זהה → pattern נראה. הדגמה קלאסית: הצפנת תמונת Linux penguin ב-ECB — הצללית עדיין נראית! הפתרון: AES-CBC/GCM — IV + chaining מונע patterns."
     },
     {
       q: "מה 0-RTT ב-TLS 1.3 / QUIC ומה הסיכון?",
@@ -2050,7 +2050,7 @@ export const quizBank = {
 
   106: [
     {
-      q: "מה SSRF ולמה הוא מסוכן בcloudcloud environments?",
+      q: "מה SSRF ולמה הוא מסוכן ב-cloud environments?",
       correct: "‏Server-Side Request Forgery — שרת עושה request לכתובת פנימית שהתוקף בחר, כולל metadata endpoint של AWS",
       choices: [
         "‏Server-Side Request Forgery — שרת עושה request לכתובת פנימית שהתוקף בחר, כולל metadata endpoint של AWS",
@@ -2197,7 +2197,7 @@ export const quizBank = {
         "‏Spear Phishing חוקי; Phishing לא",
         "אותו דבר — שמות שונים"
       ],
-      explanation: "‏Mass Phishing: 'Dear Customer' + generic. נשלח ל-10M, 0.1% לוחץ = 10,000 קורבנות. ‏Spear Phishing: 'שלום דוד, ראיתי שהיית בכנס X ביום ג'. מחקר מLinkedIn, success rate גבוה בהרבה. ‏Whaling = Spear Phishing נגד C-suite. ‏Twitter 2020 hack = Vishing ‎(לא Phishing כתוב)‎."
+      explanation: "‏Mass Phishing: 'Dear Customer' + generic. נשלח ל-10M, 0.1% לוחץ = 10,000 קורבנות. ‏Spear Phishing: 'שלום דוד, ראיתי שהיית בכנס X ביום ג'. מחקר מLinkedIn, success rate גבוה בהרבה. ‏Whaling = Spear Phishing נגד C-suite. ‏Twitter 2020 hack = Vishing ‎(שיחות טלפון, לא Phishing במייל)‎."
     },
     {
       q: "בפרשת Twitter 2020, איך התוקפים השיגו גישה לAdmin Panel?",
@@ -2388,7 +2388,7 @@ export const quizBank = {
       choices: [
         "‏Owner: read+write+execute (7); Group: read+execute (5); Others: read+execute (5)",
         "‏Owner: read+write (6); Group: read+execute+write (5); Others: execute (5)",
-        "כולם יכולים לקרוא וto execute; רק owner יכול לכתוב",
+        "כולם יכולים לקרוא ולהריץ; רק owner יכול לכתוב",
         "‏Owner: full permissions; Group ו-Others: read only"
       ],
       explanation: "‏Octal permissions: r=4, w=2, x=1. ‏7=4+2+1=rwx, 5=4+0+1=r-x, 6=4+2+0=rw-. chmod 755 = -rwxr-xr-x. שימושי לscripts שכולם צריכים להריץ אבל רק owner יכול לערוך. chmod 644 (-rw-r--r--) לקבצי config. chmod 600 (-rw-------) למפתחות SSH. chown user:group file לשינוי בעלות. ‏Sticky bit (chmod +t /tmp): רק owner יכול למחוק קבצים שלו."
@@ -2409,7 +2409,7 @@ export const quizBank = {
     },
     {
       q: "מה Multi-stage build ב-Docker ולמה להשתמש בזה?",
-      correct: "בנייה בshלבים — stage ראשון לcompile, stage שני רק עם artifacts — image קטן ב-10x",
+      correct: "בנייה בשלבים — stage ראשון לcompile, stage שני רק עם artifacts — image קטן ב-10x",
       choices: [
         "בנייה בשלבים — stage ראשון לcompile, stage שני רק עם artifacts — image קטן ב-10x",
         "בניית כמה images במקביל",
@@ -2449,7 +2449,7 @@ export const quizBank = {
         "שימוש בCOPY במקום ADD בלבד",
         "הגדרת WORKDIR = /tmp לחיסכון בזיכרון"
       ],
-      explanation: "‏Multi-stage: FROM golang:1.21 AS builder; RUN go build; FROM alpine:3.18; COPY --from=builder /app /app — image סופי ללא Go compiler! Alpine linux: 5MB vs Ubuntu 72MB. מיזוג: RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/* ‎(נקה cache ב-אותה שכבה!)‎. .dockerignore: node_modules, .git, *.log לא נכנסים לbuild context. ‏Layer caching: העתק package.json לפני COPY . כדי לnפמג npm install."
+      explanation: "‏Multi-stage: FROM golang:1.21 AS builder; RUN go build; FROM alpine:3.18; COPY --from=builder /app /app — image סופי ללא Go compiler! Alpine linux: 5MB vs Ubuntu 72MB. מיזוג: RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/* ‎(נקה cache ב-אותה שכבה!)‎. .dockerignore: node_modules, .git, *.log לא נכנסים לbuild context. ‏Layer caching: העתק package.json לפני COPY . כדי למנף cache של npm install."
     },
         {
       q: "מה ההבדל בין ENTRYPOINT לבין CMD ב-Dockerfile?",
@@ -2489,9 +2489,9 @@ export const quizBank = {
     },
     {
       q: "מה liveness probe לעומת readiness probe ב-Kubernetes?",
-      correct: "‏Liveness: האם container חי? ‎(restart אם לא)‎. Readiness: האם מוכן לtrafic? ‎(הסר מService אם לא)‎",
+      correct: "‏Liveness: האם container חי? ‎(restart אם לא)‎. Readiness: האם מוכן לtraffic? ‎(הסר מService אם לא)‎",
       choices: [
-        "‏Liveness: האם container חי? ‎(restart אם לא)‎. Readiness: האם מוכן לtrafic? ‎(הסר מService אם לא)‎",
+        "‏Liveness: האם container חי? ‎(restart אם לא)‎. Readiness: האם מוכן לtraffic? ‎(הסר מService אם לא)‎",
         "שניהם בודקים אותו דבר — redness לdb, liveness לweb",
         "‏Liveness בstaging; Readiness בproduction",
         "‏Liveness לHTTP; Readiness לTCP"
@@ -2547,7 +2547,7 @@ export const quizBank = {
     },
     {
       q: "מה IAM Role ומתי עדיף על Access Key?",
-      correct: "‏IAM Role = הרשאות זמניות שניתן לhassume — עדיף לEC2/Lambda כי לא דורש hardcoded credentials",
+      correct: "‏IAM Role = הרשאות זמניות שניתן לassume — עדיף לEC2/Lambda כי לא דורש hardcoded credentials",
       choices: [
         "‏IAM Role = הרשאות זמניות שניתן לassume — עדיף לEC2/Lambda כי לא דורש hardcoded credentials",
         "‏Role לadmins; Access Key לdevelopers",
@@ -2634,7 +2634,7 @@ export const quizBank = {
         "קובץ הגדרות ה-pipeline",
         "‏test coverage report"
       ],
-      explanation: "‏Artifact = מה שנבנה. ‏Docker image → pushed לregistry (ECR, GCR, Docker Hub). ‏JAR → Nexus/Artifactory. npm → registry. immutable artifacts: אחד שnבנה מ-commit מסוים = deploy לstaging ואחר כך production. לא בונים מחדש! 'Build once, deploy anywhere.' Artifact versioning: semver או git SHA. retention policy חוסכת עלויות."
+      explanation: "‏Artifact = מה שנבנה. ‏Docker image → pushed לregistry (ECR, GCR, Docker Hub). ‏JAR → Nexus/Artifactory. npm → registry. immutable artifacts: אחד שנבנה מ-commit מסוים = deploy לstaging ואחר כך production. לא בונים מחדש! 'Build once, deploy anywhere.' Artifact versioning: semver או git SHA. retention policy חוסכת עלויות."
     },
         {
       q: "מה ההבדל בין Continuous Integration לבין Continuous Deployment?",
@@ -2763,7 +2763,7 @@ export const quizBank = {
         "אובדן חבילות ברשת",
         "ה-sender לא שולח נתונים"
       ],
-      explanation: "‏Zero Window Window הוא כשה-receiver מכריז שאין לו buffer פנוי (window size=0). ה-sender חייב להפסיק לשלוח. בדרך כלל סימן שה-application לא קורא מ-socket מהר מספיק — בעיית CPU או כניסה לקוד."
+      explanation: "‏Zero Window הוא כשה-receiver מכריז שאין לו buffer פנוי (window size=0). ה-sender חייב להפסיק לשלוח. בדרך כלל סימן שה-application לא קורא מ-socket מהר מספיק — בעיית CPU או כניסה לקוד."
     },
     {
       q: "מה Statistics → TCP Stream Graph מראה ב-Wireshark?",
@@ -3046,19 +3046,19 @@ export const quizBank = {
         "‏iptables לא עובד ב-containers",
         "‏Cilium מהיר כי כותב ב-Go"
       ],
-      explanation: "‏Kubernetes עם 1000 services = iptables עם אלפי rules = כל packet עובר O(n) חיפוש ליניארי. ‏Cilium מחליף iptables בeBPF hash maps = O(1) בכל גודל. בנוסף: Cilium/Hubble מספקים observability מלאה (pod→pod traffic), security policies ברמת L7, וPerformance Training שwordpress לא תאמין."
+      explanation: "‏Kubernetes עם 1000 services = iptables עם אלפי rules = כל packet עובר O(n) חיפוש ליניארי. ‏Cilium מחליף iptables בeBPF hash maps = O(1) בכל גודל. בנוסף: Cilium/Hubble מספקים observability מלאה (pod→pod traffic), security policies ברמת L7, וביצועים שלא תאמין."
     }
 ,
     {
       q: "מה eBPF map ואיזה types נפוצים?",
-      correct: "מבנה נתונים shared בין eBPF programs לbין kernel/userspace; types: BPF_MAP_TYPE_HASH, ARRAY, RINGBUF, PERF_EVENT_ARRAY",
+      correct: "מבנה נתונים shared בין eBPF programs לבין kernel/userspace; types: BPF_MAP_TYPE_HASH, ARRAY, RINGBUF, PERF_EVENT_ARRAY",
       choices: [
-        "מבנה נתונים shared בין eBPF programs לbין kernel/userspace; types: BPF_MAP_TYPE_HASH, ARRAY, RINGBUF, PERF_EVENT_ARRAY",
+        "מבנה נתונים shared בין eBPF programs לבין kernel/userspace; types: BPF_MAP_TYPE_HASH, ARRAY, RINGBUF, PERF_EVENT_ARRAY",
         "‏eBPF map = מיפוי kernel addresses לvirtual addresses",
-        "רשימה של eBPF programs שphoaded ב-kernel",
+        "רשימה של eBPF programs שloaded ב-kernel",
         "‏eBPF map = file במערכת קבצים /sys/fs/bpf"
       ],
-      explanation: "‏eBPF maps: IPC mechanism בין eBPF programs לuser-space tools. ‏HASH_MAP: key-value store. ‏ARRAY: fixed-size indexed. ‏LRU_HASH: evicts least recently used. ‏RINGBUF: efficient ring buffer לstreaming events לuserspace ‎(מחליף PERF_EVENT_ARRAY)‎. ‏PERCPU variants: lock-free per-CPU storage. בpr: בpinning לpath (/sys/fs/bpf/my_map) ניתן לshare בין processes. libbpf API: bpf_map_lookup_elem, bpf_map_update_elem. ‏Cilium: maps לtrack connections, policies, endpoints."
+      explanation: "‏eBPF maps: IPC mechanism בין eBPF programs לuser-space tools. ‏HASH_MAP: key-value store. ‏ARRAY: fixed-size indexed. ‏LRU_HASH: evicts least recently used. ‏RINGBUF: efficient ring buffer לstreaming events לuserspace ‎(מחליף PERF_EVENT_ARRAY)‎. ‏PERCPU variants: lock-free per-CPU storage. בpinning לpath (/sys/fs/bpf/my_map) ניתן לshare בין processes. libbpf API: bpf_map_lookup_elem, bpf_map_update_elem. ‏Cilium: maps לtrack connections, policies, endpoints."
     },
     {
       q: "מה ההבדל בין eBPF tracepoints לבין kprobes?",
@@ -3142,9 +3142,9 @@ export const quizBank = {
     },
         {
       q: "מה Terraform Module ולמה משתמשים בהם?",
-      correct: "קבצי .tf מקובצים לyunit לוגי לשימוש חוזר — מאפשרים DRY, encapsulation, versioning וsharing של infrastructure patterns",
+      correct: "קבצי .tf מקובצים ליחידה לוגית לשימוש חוזר — מאפשרים DRY, encapsulation, versioning וsharing של infrastructure patterns",
       choices: [
-        "קבצי .tf מקובצים לyunit לוגי לשימוש חוזר — מאפשרים DRY, encapsulation, versioning וsharing של infrastructure patterns",
+        "קבצי .tf מקובצים ליחידה לוגית לשימוש חוזר — מאפשרים DRY, encapsulation, versioning וsharing של infrastructure patterns",
         "‏Terraform plugin שמוריד providers",
         "ממשק גרפי לניהול Terraform plans",
         "‏Module = workspace נפרד ב-Terraform Cloud"
@@ -3334,7 +3334,7 @@ export const quizBank = {
       explanation: "בעיה: Kubernetes Secrets = base64 בלבד ‎(לא encryption)‎. ‏Git = ציבורי = לא לsecrets. ‏Sealed Secrets (Bitnami): kubeseal מצפין עם public key של cluster. רק controller בcluster יכול לפרק. ‏External Secrets: ESO sync מ-AWS Secrets Manager, HashiCorp Vault, GCP Secret Manager. ‏Sops + Age/GPG: מצפין קבצים YAML בGit. ‏Vault Agent Injector: inject secrets ל-Pod environment."
     },
     {
-      q: "מה ProgKessive Delivery ב-GitOps context?",
+      q: "מה Progressive Delivery ב-GitOps context?",
       correct: "‏Argo Rollouts / Flagger: canary deployments, blue/green, A/B testing — שינוי מדורג עם rollback אוטומטי אם metrics נכשלים",
       choices: [
         "‏Argo Rollouts / Flagger: canary deployments, blue/green, A/B testing — שינוי מדורג עם rollback אוטומטי אם metrics נכשלים",
@@ -3349,9 +3349,9 @@ export const quizBank = {
   306: [
     {
       q: "מה Forward Secrecy ב-TLS ולמה זה חשוב?",
-      correct: "גנן session key חדש לכל session (ECDHE) — גנב private key לא יוכל לפענח שיחות עבר",
+      correct: "מייצר session key חדש לכל session (ECDHE) — גנב private key לא יוכל לפענח שיחות עבר",
       choices: [
-        "גנן session key חדש לכל session (ECDHE) — גנב private key לא יוכל לפענח שיחות עבר",
+        "מייצר session key חדש לכל session (ECDHE) — גנב private key לא יוכל לפענח שיחות עבר",
         "הצפנה של TLS קדימה לgenerations עתידיים",
         "‏TLS 1.3 מצפין גם headers של HTTP",
         "‏Forward Secrecy = TLS עם certificate pinning"
@@ -3422,7 +3422,7 @@ export const quizBank = {
       choices: [
         "אותו IP prefix מפורסם מ-BGP ממקומות רבים — BGP בוחר shortest AS path = הPOP הקרוב",
         "‏DNS מחזיר IP שונה לפי geolocation",
-        "הlb מפנה לPOP הקרוב לפי latency",
+        "ה-LB מפנה לPOP הקרוב לפי latency",
         "‏HTTP redirect לURL של הPOP הקרוב"
       ],
       explanation: "‏Anycast: Cloudflare מפרסמת 1.1.1.0/24 ב-BGP מ-300+ POPs. כשrouter בתל אביב מחפש 1.1.1.1 — הוא רואה כמה paths, בוחר הקצר ביותר (AS hops) = POP בתל אביב. שימוש: DNS root servers, CDN, DDoS mitigation. לא מתאים לTCP sessions ארוכים כי connection עלול לנדוד בין POPs."
@@ -3472,7 +3472,7 @@ export const quizBank = {
       explanation: "‏RPKI/ROA: validates 'AS64501 is legitimate originator of 192.0.2.0/24'. אבל: AS Path: 64501→64502→64503. ‏AS64502 יכול לשנות path! BGPsec (RFC 8205): כל AS שמעביר UPDATE מוסיף חתימה קריפטוגרפית. ‏Receiver מאמת שכל hop בAS path חתם. מגן מ-path manipulation attacks. חסרון: performance overhead משמעותי, כל router צריך לחשב signatures. ‏Adoption: מאוד נמוכה בpractice בגלל complexity. ‏RPKI/ROV = פרקטי ונפוץ הרבה יותר."
     },
         {
-      q: "מה incidentia Cloudflare 2019 ב-BGP routing ומה הלקח?",
+      q: "מה קרה בתקרית Cloudflare 2019 ב-BGP routing ומה הלקח?",
       correct: "‏MainOne ‎(ניגריה)‎ דרכה Verizon הכריזה paths חשובים → traffic ממשתמשי Cloudflare עבר דרך AS קטן בלתי מסוגל — קריסה 1.5 שעות; לקח: RPKI filtering חובה אצל large providers",
       choices: [
         "‏MainOne ‎(ניגריה)‎ דרכה Verizon הכריזה paths חשובים → traffic ממשתמשי Cloudflare עבר דרך AS קטן בלתי מסוגל — קריסה 1.5 שעות; לקח: RPKI filtering חובה אצל large providers",
@@ -3570,7 +3570,7 @@ export const quizBank = {
       correct: "מקמפלים שאילתת SQL לפני הכנסת נתונים — נתונים אינם יכולים לשנות את מבנה השאילתה",
       choices: [
         "מקמפלים שאילתת SQL לפני הכנסת נתונים — נתונים אינם יכולים לשנות את מבנה השאילתה",
-        "מצפינים את הnתונים לפני שמירה ב-database",
+        "מצפינים את הנתונים לפני שמירה ב-database",
         "בודקים שאין תווים מיוחדים בinput לפני שמירה",
         "מגבילים את אורך ה-input של המשתמש"
       ],
@@ -3585,7 +3585,7 @@ export const quizBank = {
         "‏Reflected XSS יותר מסוכן כי הוא בלתי נראה",
         "אין הבדל — שניהם רצים פעם אחת בלבד"
       ],
-      explanation: "‏Reflected: <script> ב-URL → חוזר ב-response ← רץ רק אצל מי שלוחץ על ה-URL. ‏Stored: תוקף כותב <script> בshדה comment → נשמר ב-DB → כל visitor לעמוד מקבל ומריץ. לדוגמה: XSS ב-forum post = כל מי שקורא גנוב session."
+      explanation: "‏Reflected: <script> ב-URL → חוזר ב-response ← רץ רק אצל מי שלוחץ על ה-URL. ‏Stored: תוקף כותב <script> בשדה comment → נשמר ב-DB → כל visitor לעמוד מקבל ומריץ. לדוגמה: XSS ב-forum post = כל מי שקורא גנוב session."
     },
     {
       q: "מה HttpOnly Cookie ואיך הוא מגן מXSS?",
@@ -3632,10 +3632,10 @@ export const quizBank = {
         "שניהם זהים — שניהם בודקים סיסמה",
         "‏Authentication = HTTPS, Authorization = HTTP"
       ],
-      explanation: "‏AuthN (Authentication): מי אתה? Login עם username+password, biometric, certificate. ‏AuthZ (Authorization): מה מותר לך? RBAC, ACL, permissions. טעות נפוצה: IDOR (Insecure Direct Object Reference) = בעיית AuthZ — משתמש מורשה ניגש לreource של אחר ע\"י שינוי ID."
+      explanation: "‏AuthN (Authentication): מי אתה? Login עם username+password, biometric, certificate. ‏AuthZ (Authorization): מה מותר לך? RBAC, ACL, permissions. טעות נפוצה: IDOR (Insecure Direct Object Reference) = בעיית AuthZ — משתמש מורשה ניגש לresource של אחר ע\"י שינוי ID."
     },
     {
-      q: "למה bcrypt עדיף על SHA256 לhashinig סיסמאות?",
+      q: "למה bcrypt עדיף על SHA256 לhashing סיסמאות?",
       correct: "‏bcrypt מכוון להיות איטי (work factor) — brute-force לוקח הרבה יותר זמן. SHA256 מהיר מדי לGPU cracking",
       choices: [
         "‏bcrypt מכוון להיות איטי (work factor) — brute-force לוקח הרבה יותר זמן. SHA256 מהיר מדי לGPU cracking",
@@ -3668,13 +3668,13 @@ export const quizBank = {
       explanation: "גורמי Authentication: 1) Knowledge: סיסמה, PIN. ‏2) Possession: TOTP app, SMS, hardware key (YubiKey). ‏3) Inherence: biometric (fingerprint, face). ‏MFA = שילוב 2+. ‏Phishing עוקב סיסמה ← אבל לא TOTP code ‎(תוקף ב-AitM יכול לעקוף TOTP)‎. ‏WebAuthn/FIDO2 = phishing-resistant."
     },
     {
-      q: "מה Salt בhashinig סיסמאות?",
+      q: "מה Salt בhashing סיסמאות?",
       correct: "ערך אקראי ייחודי שמוסיפים לכל סיסמה לפני hash — מונע rainbow tables ומחייב brute-force נפרד לכל user",
       choices: [
         "ערך אקראי ייחודי שמוסיפים לכל סיסמה לפני hash — מונע rainbow tables ומחייב brute-force נפרד לכל user",
         "מפתח הצפנה סודי שמאחסנים ב-DB",
         "חלק נוסף מהסיסמה שהuser מזין",
-        "‏pepper מוסיף ל-DB, salt מוסיף לqode"
+        "‏pepper מוסיף ל-DB, salt מוסיף לcode"
       ],
       explanation: "ללא salt: hash('password123') = abc123 — כל user עם אותה סיסמה מקבל אותו hash. ‏Rainbow table: מיפוי hash→plaintext מחושב מראש. עם salt: hash('password123' + random_salt_xyz) — כל user hash שונה. ‏Brute-force חייב לחשב מחדש לכל user. bcrypt/Argon2 מייצרים salt אוטומטית ושומרים אותו ב-hash string."
     }
@@ -3705,10 +3705,10 @@ export const quizBank = {
     },
     {
       q: "מה CSRF ואיך SameSite=Strict מגן עליו?",
-      correct: "‏CSRF גורם לדפדפן לשלוח בקשה לsite X מ-evil.com עם cookies של X. SameSite=Strict מונע שליחת cookie בbקשות cross-site",
+      correct: "‏CSRF גורם לדפדפן לשלוח בקשה לsite X מ-evil.com עם cookies של X. SameSite=Strict מונע שליחת cookie בבקשות cross-site",
       choices: [
-        "‏CSRF גורם לדפדפן לשלוח בקשה לsite X מ-evil.com עם cookies של X. SameSite=Strict מונע שליחת cookie בbקשות cross-site",
-        "‏CSRF גונב cookies ישירות מdפדפן",
+        "‏CSRF גורם לדפדפן לשלוח בקשה לsite X מ-evil.com עם cookies של X. SameSite=Strict מונע שליחת cookie בבקשות cross-site",
+        "‏CSRF גונב cookies ישירות מדפדפן",
         "‏CSRF = Cross-Site Request Filter — מסנן requests",
         "‏SameSite מצפין cookies בין sites"
       ],
@@ -3759,7 +3759,7 @@ export const quizBank = {
         "‏Passive = איטי, Active = מהיר",
         "‏Passive = ללא כלים. Active = עם כלי automation"
       ],
-      explanation: "‏Passive Recon: Shodan ‎(scan שנעשה ע\"י שלישי)‎, WHOIS, Google Dorks, LinkedIn, theHarvester — target לא רואה traffic. ‏Active Recon: nmap, ping sweep, dir busting — logs מהipline. בחיים האמיתיים: Pentest scope מגדיר מה מותר. ‏Bug Bounty: בדרך כלל passive בלבד לתחילת reconnaissance."
+      explanation: "‏Passive Recon: Shodan ‎(scan שנעשה ע\"י שלישי)‎, WHOIS, Google Dorks, LinkedIn, theHarvester — target לא רואה traffic. ‏Active Recon: nmap, ping sweep, dir busting — נרשם ב-logs של ה-target. בחיים האמיתיים: Pentest scope מגדיר מה מותר. ‏Bug Bounty: בדרך כלל passive בלבד לתחילת reconnaissance."
     },
     {
       q: "מה Shodan ואיזה מידע ניתן למצוא בו?",
@@ -3853,7 +3853,7 @@ export const quizBank = {
         "רק /etc/crontab ו-/etc/systemd",
         "‏Browser extensions ו-Chrome plugins בלבד"
       ],
-      explanation: "‏Windows Persistence: 1) HKCU/HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run. ‏2) Scheduled Tasks: schtasks /create. ‏3) Services: sc create. ‏4) DLL Hijacking: malicious DLL בpath לפני הlegitimate. ‏5) WMI subscriptions. ‏6) Boot/Pre-OS: bootkit. ‏IR: AutoRuns (Sysinternals) מציג כל persistence mechanisms. כל startup entry צריך לידיים לוידא."
+      explanation: "‏Windows Persistence: 1) HKCU/HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run. ‏2) Scheduled Tasks: schtasks /create. ‏3) Services: sc create. ‏4) DLL Hijacking: malicious DLL בpath לפני הlegitimate. ‏5) WMI subscriptions. ‏6) Boot/Pre-OS: bootkit. ‏IR: AutoRuns (Sysinternals) מציג כל persistence mechanisms. כל startup entry צריך לוודא ידנית."
     },
     {
       q: "מה C2 (Command and Control) ב-malware?",
