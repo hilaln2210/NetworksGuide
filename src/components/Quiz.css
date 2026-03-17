@@ -434,13 +434,11 @@
 .quiz-exp-text {
   color: rgba(15,23,42,0.88);
   line-height: 1.7;
-  text-align: right;
 }
-.quiz-exp-text span[dir] {
+.quiz-exp-text span[dir="auto"] {
   margin-bottom: 0.1rem;
   display: block;
-  text-align: right;
-  direction: rtl;
+  text-align: start;
 }
 
 .quiz-continue-btn {
