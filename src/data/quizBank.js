@@ -3881,10 +3881,11 @@ export const quizBank = {
 }
 
 export function getQuizForChapter(chapterId) {
-  return quizBank[chapterId] || []
+  return (quizBank[chapterId] || []).map(q => ({ ...q, chapterId }))
 }
 
-
 export function getAllQuizQuestions() {
-  return Object.values(quizBank).flat()
+  return Object.entries(quizBank).flatMap(([id, qs]) =>
+    qs.map(q => ({ ...q, chapterId: id }))
+  )
 }

@@ -576,9 +576,13 @@
   background: rgba(15,23,42,0.1);
 }
 
-/* ===== HINT ===== */
+/* ===== HINT + CHAPTER LINK ===== */
 .quiz-hint-row {
   margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.5rem;
 }
 
 .quiz-hint-btn {
@@ -595,6 +599,24 @@
 
 .quiz-hint-btn:hover {
   background: rgba(217,119,6,0.15);
+}
+
+.quiz-chapter-link-btn {
+  padding: 0.35rem 0.85rem;
+  background: rgba(14,116,144,0.07);
+  border: 1px solid rgba(14,116,144,0.25);
+  border-radius: 8px;
+  color: #0e7490;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.quiz-chapter-link-btn:hover {
+  background: rgba(14,116,144,0.15);
+  border-color: rgba(14,116,144,0.4);
 }
 
 .quiz-hint-box {

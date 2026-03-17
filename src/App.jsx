@@ -442,7 +442,15 @@ function App() {
 
       {activeTab === 'quiz' && (
         <div className="tab-content">
-          <Quiz chapters={trackChapters} onXPGain={handleXPGain} gender={gender} />
+          <Quiz
+            chapters={trackChapters}
+            onXPGain={handleXPGain}
+            gender={gender}
+            onGoToChapter={(chIdx) => {
+              goToChapter(chIdx)
+              setActiveTab('learn')
+            }}
+          />
         </div>
       )}
 

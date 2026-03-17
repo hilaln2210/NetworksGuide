@@ -14,7 +14,7 @@ function shuffle(arr) {
   return a
 }
 
-export function Quiz({ chapters, onXPGain, gender }) {
+export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
   const [mode, setMode] = useState(null) // 'chapter' | 'all'
   const [selectedChapter, setSelectedChapter] = useState(null)
   const [questions, setQuestions] = useState([])
@@ -321,7 +321,7 @@ export function Quiz({ chapters, onXPGain, gender }) {
       <div className="quiz-question-card">
         <span className="quiz-q-num">שאלה {current + 1}</span>
         <p className="quiz-question-text" dir="rtl">{renderBidiText(q.q)}</p>
-        {/* Hint button — only before answering */}
+        {/* Hint + chapter link row — only before answering */}
         {picked === null && (
           <div className="quiz-hint-row">
             {!hintVisible ? (
@@ -334,6 +334,20 @@ export function Quiz({ chapters, onXPGain, gender }) {
                 {renderBidiText(getHint(q.explanation, q.correct))}
               </div>
             )}
+            {q.chapterId != null && onGoToChapter && (() => {
+              const chIdx = chapters.findIndex(ch => String(ch.id) === String(q.chapterId))
+              if (chIdx < 0) return null
+              const ch = chapters[chIdx]
+              return (
+                <button
+                  className="quiz-chapter-link-btn"
+                  onClick={() => onGoToChapter(chIdx)}
+                  title={`עבור לפרק: ${ch.title}`}
+                >
+                  📖 פרק {chIdx + 1}
+                </button>
+              )
+            })()}
           </div>
         )}
       </div>
