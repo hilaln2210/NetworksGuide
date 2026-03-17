@@ -10,8 +10,8 @@ import { KeyTip } from './components/KeyTip'
 import { Quiz } from './components/Quiz'
 import { TroubleshootingTab } from './components/TroubleshootingTab'
 import { CreditsTab } from './components/CreditsTab'
-import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName } from './utils/xp'
-import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId } from './utils/progress'
+import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName, resetXP } from './utils/xp'
+import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
 import { processHtmlBidi, renderBidiText } from './utils/bidi.jsx'
 import './App.css'
@@ -121,8 +121,8 @@ function App() {
   const [streak, setStreak] = useState(getStreak())
   const [xpFloat, setXpFloat] = useState(null)
   const [levelUp, setLevelUp] = useState(null)
-  const [search, setSearch] = useState('')
   const [gender, setGenderState] = useState(getGender)
+  const [showResetModal, setShowResetModal] = useState(false)
   const [mobileShowContent, setMobileShowContent] = useState(false)
 
   const trackChapters = activeTrack?.chapters || []
@@ -145,12 +145,6 @@ function App() {
       }, 0)
     : getTotalRead()
   const overallPct = totalPagesAllChapters > 0 ? Math.round((totalRead / totalPagesAllChapters) * 100) : 0
-
-  const filteredChapters = search.trim()
-    ? trackChapters.map((ch, i) => ({ ch, i })).filter(({ ch }) =>
-        ch.title.includes(search) || String(ch.id).includes(search)
-      )
-    : trackChapters.map((ch, i) => ({ ch, i }))
 
   const handleGenderSelect = (g) => { setGender(g); setGenderState(g) }
   const toggleGender = () => {
@@ -230,7 +224,6 @@ function App() {
   const handleSelectTrack = (track) => {
     setActiveTrack(track)
     setActiveTab('learn')
-    setSearch('')
     // Restore last position within this track
     const pos = getLastPosition()
     if (pos?.trackId === track.id) {
@@ -322,6 +315,9 @@ function App() {
                 {gender === 'female' ? '👩' : '👨'}
               </button>
             )}
+            <button className="reset-settings-btn" onClick={() => setShowResetModal(true)} title="הגדרות ואיפוס">
+              ⚙️
+            </button>
           </div>
         </div>
 
@@ -360,26 +356,27 @@ function App() {
         </div>
       )}
 
+      {/* ===== RESET MODAL ===== */}
+      {showResetModal && (
+        <ResetModal
+          onClose={() => setShowResetModal(false)}
+          onReset={(type) => {
+            if (type === 'xp') { resetXP(); setXp(getXP()) }
+            else if (type === 'progress') { resetProgress() }
+            else if (type === 'quiz') { resetQuizScores() }
+            else if (type === 'all') { resetAll(); resetXP(); setXp(getXP()) }
+            setShowResetModal(false)
+          }}
+          gender={gender}
+        />
+      )}
+
       {/* ===== LEARN ===== */}
       {activeTab === 'learn' && (
         <div className="layout">
           <nav className={`sidebar${mobileShowContent ? ' sidebar--mobile-hidden' : ''}`}>
             <h3>תוכן העניינים</h3>
-            <div className="sidebar-search-wrap">
-              <input
-                type="text"
-                className="sidebar-search"
-                placeholder="🔍 חיפוש פרק..."
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                onKeyDown={e => e.key === 'Escape' && setSearch('')}
-                dir="rtl"
-              />
-            </div>
-            {filteredChapters.length === 0 && (
-              <p className="sidebar-no-results">לא נמצאו פרקים</p>
-            )}
-            {filteredChapters.map(({ ch, i }) => {
+            {trackChapters.map((ch, i) => {
               const compositeId = trackChapterId(activeTrack.id, ch.id)
               const prog = getChapterProgress(compositeId, ch.pages.length)
               return (
@@ -561,6 +558,58 @@ function QuestionsPage({ questions, gender }) {
           )}
         </div>
       ))}
+    </div>
+  )
+}
+
+function ResetModal({ onClose, onReset, gender }) {
+  const isMale = gender === 'male'
+  return (
+    <div className="reset-overlay" onClick={onClose}>
+      <div className="reset-modal" onClick={e => e.stopPropagation()}>
+        <div className="reset-modal-header">
+          <span className="reset-modal-icon">⚙️</span>
+          <h3>הגדרות ואיפוס</h3>
+          <button className="reset-modal-close" onClick={onClose}>✕</button>
+        </div>
+        <p className="reset-modal-desc" dir="rtl">
+          {isMale ? 'בחר מה לאפס:' : 'בחרי מה לאפס:'}
+        </p>
+        <div className="reset-options">
+          <button className="reset-option-btn" onClick={() => onReset('xp')}>
+            <span className="reset-opt-icon">⭐</span>
+            <div>
+              <div className="reset-opt-title">XP ורמה</div>
+              <div className="reset-opt-sub">מאפס ניקוד ורמה בלבד</div>
+            </div>
+          </button>
+          <button className="reset-option-btn" onClick={() => onReset('progress')}>
+            <span className="reset-opt-icon">📖</span>
+            <div>
+              <div className="reset-opt-title">התקדמות קריאה</div>
+              <div className="reset-opt-sub">מאפס עמודים שנקראו</div>
+            </div>
+          </button>
+          <button className="reset-option-btn" onClick={() => onReset('quiz')}>
+            <span className="reset-opt-icon">🎯</span>
+            <div>
+              <div className="reset-opt-title">ניקודי חידון</div>
+              <div className="reset-opt-sub">מאפס תוצאות חידונים</div>
+            </div>
+          </button>
+          <button className="reset-option-btn reset-option-all" onClick={() => {
+            if (window.confirm(isMale ? 'לאפס הכל? הפעולה בלתי הפיכה.' : 'לאפס הכל? הפעולה בלתי הפיכה.')) {
+              onReset('all')
+            }
+          }}>
+            <span className="reset-opt-icon">🔄</span>
+            <div>
+              <div className="reset-opt-title">איפוס מלא</div>
+              <div className="reset-opt-sub">מאפס הכל — XP, קריאה וחידונים</div>
+            </div>
+          </button>
+        </div>
+      </div>
     </div>
   )
 }

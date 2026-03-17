@@ -77,3 +77,8 @@ export function updateStreak() {
     return d.streak
   } catch { return 0 }
 }
+
+export function resetXP() {
+  localStorage.removeItem(XP_KEY)
+  localStorage.removeItem(STREAK_KEY)
+}

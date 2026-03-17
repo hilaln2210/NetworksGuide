@@ -61,3 +61,18 @@ export function getQuizScore(chapterId) {
     return d[chapterId] || null
   } catch { return null }
 }
+
+export function resetProgress() {
+  localStorage.removeItem(KEY)
+  localStorage.removeItem(POSITION_KEY)
+}
+
+export function resetQuizScores() {
+  localStorage.removeItem(QUIZ_KEY)
+}
+
+export function resetAll() {
+  localStorage.removeItem(KEY)
+  localStorage.removeItem(POSITION_KEY)
+  localStorage.removeItem(QUIZ_KEY)
+}

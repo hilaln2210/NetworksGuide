@@ -29,6 +29,17 @@ export function Quiz({ chapters, onXPGain, gender }) {
   const [gameOver, setGameOver] = useState(false)
   const [xpFloat, setXpFloat] = useState(null)
   const [streak, setStreak] = useState(0)
+  const [hintVisible, setHintVisible] = useState(false)
+
+  // Generate a partial hint from the explanation — shows context without fully revealing answer
+  function getHint(explanation) {
+    const text = explanation.replace(/<[^>]+>/g, '')
+    // Take words from the SECOND half — usually contains context rather than the direct answer
+    const words = text.trim().split(/\s+/)
+    const from = Math.floor(words.length * 0.45)
+    const hint = words.slice(from, from + 18).join(' ')
+    return hint ? hint + '...' : text.slice(0, 90) + '...'
+  }
 
   const startQuiz = useCallback((qs) => {
     setQuestions(shuffle(qs).slice(0, Math.min(qs.length, 10)).map(q => ({
@@ -45,6 +56,7 @@ export function Quiz({ chapters, onXPGain, gender }) {
     setStreak(0)
     setXpFloat(null)
     setCanContinue(false)
+    setHintVisible(false)
     pendingAdvance.current = null
   }, [])
 
@@ -65,6 +77,7 @@ export function Quiz({ chapters, onXPGain, gender }) {
       setPicked(null)
       setShowResult(false)
       setCanContinue(false)
+      setHintVisible(false)
     }
   }, [current, questions.length, selectedChapter, onXPGain])
 
@@ -282,6 +295,21 @@ export function Quiz({ chapters, onXPGain, gender }) {
       <div className="quiz-question-card">
         <span className="quiz-q-num">שאלה {current + 1}</span>
         <p className="quiz-question-text" dir="rtl">{renderBidiText(q.q)}</p>
+        {/* Hint button — only before answering */}
+        {picked === null && (
+          <div className="quiz-hint-row">
+            {!hintVisible ? (
+              <button className="quiz-hint-btn" onClick={() => setHintVisible(true)}>
+                💡 רמז
+              </button>
+            ) : (
+              <div className="quiz-hint-box" dir="rtl">
+                <span className="quiz-hint-label">💡 רמז:</span>
+                {renderBidiText(getHint(q.explanation))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Choices */}
@@ -305,9 +333,28 @@ export function Quiz({ chapters, onXPGain, gender }) {
       {/* Explanation + continue */}
       {showResult && picked && (
         <div className={`quiz-explanation ${picked === q.correct ? 'exp-correct' : 'exp-wrong'}`}>
+          {picked !== q.correct && (
+            <div className="exp-wrong-summary">
+              <div className="exp-wrong-picked">
+                <span className="exp-label-wrong">❌ בחרת:</span>
+                <span dir="rtl">{renderBidiText(picked)}</span>
+              </div>
+              <div className="exp-correct-answer">
+                <span className="exp-label-correct">✅ הנכון:</span>
+                <span dir="rtl">{renderBidiText(q.correct)}</span>
+              </div>
+            </div>
+          )}
           <div className="exp-top">
-            <span className="exp-icon">{picked === q.correct ? '✅' : '❌'}</span>
-            <p dir="rtl">{renderBidiText(q.explanation)}</p>
+            <span className="exp-icon">{picked === q.correct ? '✅' : '📖'}</span>
+            <div className="exp-body">
+              {picked === q.correct && (
+                <p className="exp-correct-msg" dir="rtl">
+                  {gender === 'male' ? 'נכון! מעולה 🎉' : 'נכון! מעולה 🎉'}
+                </p>
+              )}
+              <p dir="rtl">{renderBidiText(q.explanation)}</p>
+            </div>
           </div>
           {canContinue && (
             <button className="quiz-continue-btn" onClick={handleContinue}>
