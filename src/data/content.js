@@ -129,15 +129,18 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
         type: "explanation",
         title: "traceroute – מסלול ההודעה",
         content: `
-          <p>כלי <strong>traceroute</strong> מציג את הדרך שעוברת הודעה מהמחשב שלנו אל יעד (למשל Facebook). כל שורה בפלט = רכיב אחד (נתב/שרת) שהחבילה עברה דרכו – "hop" אחד.</p>
-          <p>כלי ויזואלי: Visual Traceroute (yougetsignal.com/tools/visual-tracert) מציג את המסלול על מפת העולם.</p>
+          <p>הכלי <strong>traceroute</strong> מציג את הדרך שעוברת הודעה מהמחשב שלנו אל היעד.</p>
+          <p>כל שורה בפלט מייצגת רכיב אחד (נתב או שרת) שהחבילה עברה דרכו — מה שנקרא <code>hop</code>.</p>
+          <p>כלי ויזואלי: Visual Traceroute באתר <a href="http://yougetsignal.com/tools/visual-tracert" target="_blank">yougetsignal.com</a> מציג את המסלול על מפת העולם.</p>
         `
       },
       {
         type: "explanation",
         title: "DNS – מתרגם שם ל-IP",
         content: `
-          <p>יש צורך בתרגום בין שמות דומיין (כמו <code>www.facebook.com</code>) לכתובות IP. מערכת <strong>DNS</strong> (Domain Name System) מבצעת זאת. פקודת <code>nslookup www.facebook.com</code> שולחת שאילתת DNS ומציגה את כתובת ה־IP.</p>
+          <p>יש צורך בתרגום בין שמות דומיין לכתובות IP. מערכת <strong>DNS</strong> (Domain Name System) מבצעת את התרגום הזה.</p>
+          <p>דוגמה: השם <code>www.facebook.com</code> מתורגם לכתובת IP מספרית.</p>
+          <p>הפקודה <code>nslookup www.facebook.com</code> שולחת שאילתת DNS ומציגה את כתובת ה־IP.</p>
         `
       },
       {
@@ -169,21 +172,32 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
             title: "למה דווקא 255? למה 65535 פורטים?",
             icon: "🔢",
             content: `
-              <p><strong>255</strong> = 2^8 − 1. בית אחד = 8 ביטים = 256 ערכים (0 עד 255). IPv4 = 4 בתים. <strong>65535</strong> = 2^16 − 1. פורט = 16 ביטים. המחשבה מחוץ לקופסא: הרשת בנויה על כוחו של הבינארי – כל ביט מכפיל את האפשרויות.</p>
+              <p><strong>255</strong> = 2^8 − 1. בית אחד מכיל 8 ביטים, כלומר 256 ערכים אפשריים (0 עד 255). כתובת IPv4 מורכבת מ־4 בתים.</p>
+              <p><strong>65535</strong> = 2^16 − 1. מספר פורט מיוצג על ידי 16 ביטים, ולכן הטווח הוא 0 עד 65535.</p>
+              <p>הרשת בנויה על כוחו של הבינארי — כל ביט מכפיל את מספר האפשרויות.</p>
             `
           },
           {
             title: "IP over Avian Carriers – אינטרנט עם יונים",
             icon: "🕊️",
             content: `
-              <p><strong>RFC 1149</strong> הוא תקן אמיתי (משנת 1990!) – "IP over Avian Carriers" – העברת חבילות IP באמצעות יונים. באפריל 2001 בוצע ניסוי בנורווגיה (Bergen Linux User Group): שוגרו 9 יונות. 4 חבילות הגיעו, 5 אבדו (packet loss ~56%). Latency ממוצע: 3000 שניות (50 דקות!). הרעיון: פרוטוקול הוא רק "שפה" – העברה פיזית יכולה להיות כל דבר. אפילו יונים.</p>
+              <p><strong>RFC 1149</strong> הוא תקן אמיתי משנת 1990 בשם "IP over Avian Carriers" — העברת חבילות IP באמצעות יונים.</p>
+              <p>באפריל 2001 בוצע ניסוי אמיתי בנורווגיה על ידי Bergen Linux User Group:</p>
+              <ul>
+                <li>שוגרו 9 יונות</li>
+                <li>4 חבילות הגיעו, 5 אבדו — <code>packet loss</code> של כ־56%</li>
+                <li>זמן תגובה ממוצע: 3,000 שניות (כ־50 דקות)</li>
+              </ul>
+              <p>המסקנה: פרוטוקול הוא רק "שפה" — ההעברה הפיזית יכולה להיות כל דבר. אפילו יונים.</p>
             `
           },
           {
             title: "מה קורה כשחבילה הולכת לאיבוד?",
             icon: "❓",
             content: `
-              <p>ב־<strong>TCP</strong> – השלוח לא מקבל ACK, מחכה timeout, ושולח שוב. ב־<strong>UDP</strong> – אף אחד לא שם לב. היישום אולי יבחין (סרטון "קפיצה", שיחה נקטעת) – או לא. חשיבה מחוץ לקופסא: הרשת לא "יודעת" מה חשוב – רק הפרוטוקולים והיישומים מחליטים.</p>
+              <p><strong>ב־TCP</strong> — השולח לא מקבל <code>ACK</code>, מחכה עד שפג הזמן (<code>timeout</code>), ושולח שוב.</p>
+              <p><strong>ב־UDP</strong> — אף אחד לא שם לב. היישום אולי יבחין בבעיה (סרטון שקופץ, שיחה שנקטעת) — ואולי לא.</p>
+              <p>הרשת לא "יודעת" מה חשוב — רק הפרוטוקולים והיישומים מחליטים.</p>
             `
           }
         ]
@@ -306,7 +320,24 @@ server_socket.close()</code></pre>
         type: "explanation",
         title: "שרת הדים ושרת פקודות",
         content: `
-          <p><strong>שרת הדים (Echo)</strong> – מחזיר ללקוח בדיוק מה שקיבל. שרת שמקבל שם (למשל "Omer") ומחזיר "Hello Omer". <strong>שרת פקודות</strong> – מקבל פקודה (למשל "SCREENSHOT") ומבצע פעולה בהתאם. השרת מטפל בלקוח אחד – accept עוצר until חיבור חדש, recv עוצר until מידע.</p>
+          <p><strong>שרת הדים (Echo)</strong></p>
+          <p>מחזיר ללקוח בדיוק את ההודעה שקיבל.</p>
+          <p>דוגמה: הלקוח שולח <code>"Omer"</code> — השרת מחזיר <code>"Omer"</code>.</p>
+
+          <p><strong>שרת שם + ברכה</strong></p>
+          <p>מקבל שם מהלקוח ומחזיר ברכה.</p>
+          <p>דוגמה: הלקוח שולח <code>"Omer"</code> — השרת מחזיר <code>"Hello Omer"</code>.</p>
+
+          <p><strong>שרת פקודות</strong></p>
+          <p>מקבל פקודה מהלקוח ומבצע פעולה בהתאם.</p>
+          <p>דוגמה: הלקוח שולח <code>"SCREENSHOT"</code> — השרת מצלם מסך ומחזיר את התוצאה.</p>
+
+          <p><strong>אופן העבודה</strong></p>
+          <p>השרת מטפל בלקוח אחד בכל פעם:</p>
+          <ul>
+            <li><code>accept</code> — עוצר ומחכה עד שמגיע חיבור חדש</li>
+            <li><code>recv</code> — עוצר ומחכה עד שמגיע מידע מהלקוח</li>
+          </ul>
         `
       },
       {
@@ -327,7 +358,11 @@ server_socket.close()</code></pre>
         type: "explanation",
         title: "127.0.0.1 ו־0.0.0.0",
         content: `
-          <p><strong>127.0.0.1</strong> (loopback) – כתובת שמפנה למחשב עצמו. להתחברות לשרת שרץ locally. <strong>0.0.0.0</strong> ב־bind – "האזן על כל הממשקים" – השרת מקבל חיבורים מכל כתובת IP של המחשב (כולל 127.0.0.1 וממשק הרשת).</p>
+          <p><strong>127.0.0.1</strong> (loopback)</p>
+          <p>כתובת שמפנה למחשב עצמו. משמשת להתחברות לשרת שרץ על אותו מחשב.</p>
+
+          <p><strong>0.0.0.0</strong> בפקודת <code>bind</code></p>
+          <p>משמעות: "האזן על כל הממשקים". השרת מקבל חיבורים מכל כתובת IP של המחשב, כולל <code>127.0.0.1</code> וממשק הרשת החיצוני.</p>
         `
       },
       {
@@ -421,7 +456,9 @@ server_socket.close()</code></pre>
         type: "explanation",
         title: "פרוטוקול – הגדרה",
         content: `
-          <p><strong>פרוטוקול</strong> (תקן) = סט חוקים שמונה כיצד צריכה להיראות התקשורת. כמו שפה – קובעת כללי תחביר ואוצר מילים. בלי פרוטוקולים כל רכיב ידבר "שפה" משלו – מגדל בבל. HTTP קובע איך הדפדפן ידבר עם השרת.</p>
+          <p><strong>פרוטוקול</strong> (תקן) הוא סט חוקים שמגדיר כיצד צריכה להיראות התקשורת.</p>
+          <p>אפשר לחשוב על פרוטוקול כמו שפה — הוא קובע כללי תחביר ואוצר מילים. בלי פרוטוקולים, כל רכיב ידבר "שפה" משלו — כמו מגדל בבל.</p>
+          <p>דוגמה: <code>HTTP</code> קובע איך הדפדפן ידבר עם השרת.</p>
         `
       },
       {
@@ -442,7 +479,11 @@ server_socket.close()</code></pre>
         type: "explanation",
         title: "מבנה הפקטה – כל שכבה מוסיפה Header",
         content: `
-          <p>הפקטה בנויה משכבות: Ethernet Header + IP Header + TCP Header + Data. ה־Data של שכבה n = הפקטה המלאה של שכבה n+1 (כולל ה־Header שלה). בשכבת הקו יש גם Trailer בסוף המסגרת. Wireshark מציג את המבנה – מסננים כמו "http", "dns" לסנן לפי פרוטוקול.</p>
+          <p>הפקטה בנויה משכבות, כל אחת עוטפת את הקודמת:</p>
+          <p><code>Ethernet Header</code> + <code>IP Header</code> + <code>TCP Header</code> + <code>Data</code></p>
+          <p>ה־Data של שכבה n הוא הפקטה המלאה של שכבה n+1, כולל ה־Header שלה.</p>
+          <p>בשכבת הקו יש גם <code>Trailer</code> בסוף המסגרת.</p>
+          <p><code>Wireshark</code> מציג את המבנה הזה. אפשר להשתמש במסננים כמו <code>http</code> או <code>dns</code> כדי לסנן לפי פרוטוקול.</p>
         `
       },
       {
@@ -617,7 +658,14 @@ server_socket.close()</code></pre>
         type: "demo",
         title: "המדריך מדגים: שימוש ב־Wireshark",
         content: `
-          <p>ב־Wireshark: בוחרים ממשק (כרטיס רשת), לוחצים Start. התעבורה מופיעה ברשימה. <strong>פילטר</strong> – בשדה Filter להקליד למשל: <code>http</code> (רק HTTP), <code>dns</code> (רק DNS), <code>ip.addr==192.168.1.1</code> (חבילות שמכילות את הכתובת). לוחצים Enter. כל שורה = חבילה. לחיצה על חבילה מציגה את המבנה לפי שכבות – Ethernet, IP, TCP, HTTP.</p>
+          <p><strong>התחלת הסנפה:</strong> בוחרים ממשק (כרטיס רשת) ולוחצים Start. התעבורה מופיעה ברשימה.</p>
+          <p><strong>סינון:</strong> בשדה Filter מקלידים ביטוי סינון ולוחצים Enter. דוגמאות:</p>
+          <ul>
+            <li><code>http</code> — רק תעבורת HTTP</li>
+            <li><code>dns</code> — רק שאילתות DNS</li>
+            <li><code>ip.addr==192.168.1.1</code> — חבילות שמכילות כתובת מסוימת</li>
+          </ul>
+          <p><strong>צפייה בחבילה:</strong> כל שורה ברשימה היא חבילה אחת. לחיצה על חבילה מציגה את המבנה לפי שכבות — Ethernet, IP, TCP, HTTP.</p>
         `
       },
       {
@@ -709,15 +757,31 @@ client.close()</code></pre>
         type: "explanation",
         title: "קודי HTTP ומבנה Headers",
         content: `
-          <p>קודי תגובה: <strong>200</strong> OK – הצלחה. <strong>301</strong> Moved Permanently – הפניה. <strong>404</strong> Not Found – לא נמצא. <strong>500</strong> Server Error – שגיאה בשרת. רשימה מלאה: <a href="http://goo.gl/COC4J7" target="_blank">קודי HTTP</a></p>
-          <p>מעבר לשורת הבקשה/תגובה, יש <strong>Headers</strong> – שדות מידע (שם:ערך). למשל: Accept-Language: he (עברית), User-Agent (סוג הדפדפן), Content-Length (גודל הגוף), Content-Type (סוג התוכן).</p>
+          <p><strong>קודי תגובה נפוצים:</strong></p>
+          <ul>
+            <li><strong>200</strong> OK — הצלחה</li>
+            <li><strong>301</strong> Moved Permanently — הפניה לכתובת חדשה</li>
+            <li><strong>404</strong> Not Found — המשאב לא נמצא</li>
+            <li><strong>500</strong> Server Error — שגיאה בשרת</li>
+          </ul>
+          <p>רשימה מלאה: <a href="http://goo.gl/COC4J7" target="_blank">קודי HTTP</a></p>
+
+          <p><strong>Headers</strong></p>
+          <p>מעבר לשורת הבקשה או התגובה, יש שדות מידע בפורמט <code>שם: ערך</code>. דוגמאות:</p>
+          <ul>
+            <li><code>Accept-Language: he</code> — שפה מועדפת (עברית)</li>
+            <li><code>User-Agent</code> — סוג הדפדפן</li>
+            <li><code>Content-Length</code> — גודל הגוף בבתים</li>
+            <li><code>Content-Type</code> — סוג התוכן (HTML, JSON וכו׳)</li>
+          </ul>
         `
       },
       {
         type: "explanation",
         title: "פרוטוקול DNS",
         content: `
-          <p><strong>DNS</strong> (Domain Name System) ממיר שמות כמו <code>www.google.com</code> לכתובות IP. הדפדפן לא יודע איך לפנות ל־"google.com" – צריך IP. שרת ה־DNS (שכתובתו מתקבלת מ־DHCP) עונה על שאילתות ומחזיר את ה־IP.</p>
+          <p><strong>DNS</strong> (Domain Name System) ממיר שמות דומיין לכתובות IP.</p>
+          <p>הדפדפן לא יודע איך לפנות ל־<code>google.com</code> — הוא צריך כתובת IP מספרית. שרת ה־DNS, שכתובתו מתקבלת דרך <code>DHCP</code>, עונה על שאילתות ומחזיר את כתובת ה־IP המתאימה.</p>
           <p>פקודת <code>nslookup www.google.com</code> מבצעת שאילתת DNS ומציגה את הכתובת.</p>
         `
       },
@@ -725,7 +789,9 @@ client.close()</code></pre>
         type: "explanation",
         title: "בקשות GET ו-POST",
         content: `
-          <p><strong>GET</strong> – הבאת מידע, הפרמטרים ב־URL. <strong>POST</strong> – שליחת מידע (טופס, תמונה), התוכן בגוף הבקשה. אורך URL מוגבל (~2000 תווים) – לכן העלאת תמונה לא אפשרית ב־GET.</p>
+          <p><strong>GET</strong> — משמש להבאת מידע מהשרת. הפרמטרים נשלחים כחלק מה־URL.</p>
+          <p><strong>POST</strong> — משמש לשליחת מידע לשרת, כמו טופס או תמונה. התוכן נשלח בגוף הבקשה.</p>
+          <p>אורך URL מוגבל לכ־2,000 תווים, ולכן העלאת קבצים אפשרית רק דרך POST.</p>
         `
       },
       {
@@ -824,8 +890,20 @@ packets = sniff(count=10, lfilter=filter_dns)</code></pre>
         type: "explanation",
         title: "בניית חבילות – IPv4, TCP, ICMP",
         content: `
-          <p>Scapy מאפשר לבנות חבילות משכבות שונות. כל שכבה = קלאס: <code>IP()</code>, <code>TCP()</code>, <code>ICMP()</code>, <code>Ether()</code>. מחברים בשכבתיות: <code>p = IP(dst="8.8.8.8")/ICMP()</code> – חבילת ping. <code>/</code> מציין "השכבה הבאה היא payload של הקודמת".</p>
-          <p>אפשר לקבוע שדות: <code>IP(dst="1.2.3.4", ttl=5)</code>, <code>TCP(dport=80, flags="S")</code> (S = SYN).</p>
+          <p>Scapy מאפשר לבנות חבילות משכבות שונות. כל שכבה מיוצגת על ידי מחלקה:</p>
+          <ul>
+            <li><code>IP()</code> — שכבת רשת</li>
+            <li><code>TCP()</code> — שכבת תעבורה</li>
+            <li><code>ICMP()</code> — הודעות בקרה</li>
+            <li><code>Ether()</code> — שכבת קו</li>
+          </ul>
+          <p>האופרטור <code>/</code> מחבר שכבות — השכבה הימנית נעטפת כ־payload של השמאלית.</p>
+          <p>דוגמה: <code>p = IP(dst="8.8.8.8")/ICMP()</code> — יוצר חבילת ping.</p>
+          <p>אפשר לקבוע שדות ספציפיים:</p>
+          <ul>
+            <li><code>IP(dst="1.2.3.4", ttl=5)</code></li>
+            <li><code>TCP(dport=80, flags="S")</code> — דגל SYN</li>
+          </ul>
         `
       },
       {
@@ -845,7 +923,15 @@ packets = sniff(count=10, lfilter=filter_dns)</code></pre>
         type: "explanation",
         title: "הסנפה מתקדמת – פרטי שדות",
         content: `
-          <p>לאחר sniff, כל חבילה מכילה שדות של כל שכבה: <code>p[IP].src</code>, <code>p[IP].dst</code>, <code>p[TCP].sport</code>, <code>p[TCP].dport</code>, <code>p.haslayer(DNS)</code>. אפשר לחלץ URL מ־חבילות HTTP, כתובות DNS, ונתונים נוספים לניתוח.</p>
+          <p>לאחר <code>sniff</code>, כל חבילה מכילה שדות של כל שכבה. דוגמאות לגישה לשדות:</p>
+          <ul>
+            <li><code>p[IP].src</code> — כתובת IP מקור</li>
+            <li><code>p[IP].dst</code> — כתובת IP יעד</li>
+            <li><code>p[TCP].sport</code> — פורט מקור</li>
+            <li><code>p[TCP].dport</code> — פורט יעד</li>
+            <li><code>p.haslayer(DNS)</code> — בודק אם החבילה מכילה שכבת DNS</li>
+          </ul>
+          <p>כך אפשר לחלץ כתובות URL מחבילות HTTP, כתובות DNS, ונתונים נוספים לניתוח.</p>
         `
       },
       {
@@ -935,16 +1021,37 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "TCP לעומת UDP",
         content: `
-          <p><strong>TCP</strong> – פרוטוקול אמין. מבטיח שכל המידע יגיע, בסדר הנכון. דורש Handshake לפני שליחה. מתאים לדפדפן, אימייל, העברת קבצים.</p>
-          <p><strong>UDP</strong> – פרוטוקול קל ומהיר. בלי ערבויות – זורק חבילות ומקווה שיגיעו. מתאים לשיחות וידאו/קול (Zoom, Discord), משחקים מרובי משתתפים, ו-DNS. שימו לב: Netflix ו-YouTube משתמשים ב-TCP — עדיף buffer קצר על שגיאות. UDP מתאים כשעיכוב חשוב יותר משלמות הנתונים.</p>
+          <p><strong>TCP</strong> — פרוטוקול אמין</p>
+          <p>מבטיח שכל המידע יגיע, בסדר הנכון. דורש <code>Handshake</code> לפני שליחה.</p>
+          <p>מתאים ל: דפדפן, אימייל, העברת קבצים.</p>
+
+          <p><strong>UDP</strong> — פרוטוקול קל ומהיר</p>
+          <p>שולח חבילות בלי לוודא שהגיעו. אין ערבויות על סדר או שלמות.</p>
+          <p>מתאים ל: שיחות וידאו וקול (Zoom, Discord), משחקים מרובי משתתפים, ושאילתות DNS.</p>
+
+          <p><strong>שימו לב:</strong> Netflix ו־YouTube משתמשים דווקא ב־TCP — עדיף עיכוב קצר מאשר שגיאות בתמונה. UDP מתאים כשזמן תגובה חשוב יותר משלמות הנתונים.</p>
         `
       },
       {
         type: "explanation",
         title: "TCP Handshake – שלושת השלבים",
         content: `
-          <p>לפני העברת מידע, TCP מבצע <strong>Handshake</strong> בן שלושה שלבים: (1) לקוח שולח <strong>SYN</strong> – "אני רוצה להתחבר". (2) שרת עונה <strong>SYN-ACK</strong> – "מאושר, מתחברים". (3) לקוח שולח <strong>ACK</strong> – "קיבלתי". רק אז מתחילה העברת המידע. סגירה: FIN או RST.</p>
-          <p><strong>דגלים (Flags)</strong>: SYN, ACK, FIN, RST, PSH. כל דגל = ביט שמפעיל התנהגות.</p>
+          <p>לפני העברת מידע, TCP מבצע <strong>Handshake</strong> בן שלושה שלבים:</p>
+          <ol>
+            <li>הלקוח שולח <strong>SYN</strong> — "אני רוצה להתחבר"</li>
+            <li>השרת עונה <strong>SYN-ACK</strong> — "מאושר, מתחברים"</li>
+            <li>הלקוח שולח <strong>ACK</strong> — "קיבלתי"</li>
+          </ol>
+          <p>רק אחרי שלושת השלבים האלה מתחילה העברת המידע. לסגירת החיבור משתמשים בדגל <code>FIN</code> או <code>RST</code>.</p>
+          <p><strong>דגלים (Flags)</strong></p>
+          <p>כל דגל הוא ביט בודד שמפעיל התנהגות מסוימת:</p>
+          <ul>
+            <li><code>SYN</code> — בקשת חיבור</li>
+            <li><code>ACK</code> — אישור קבלה</li>
+            <li><code>FIN</code> — סגירת חיבור</li>
+            <li><code>RST</code> — איפוס חיבור</li>
+            <li><code>PSH</code> — דחיפת נתונים מיידית</li>
+          </ul>
         `
       },
       {
@@ -957,7 +1064,11 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "Sequence number ו־Acknowledgment",
         content: `
-          <p><strong>Sequence Number</strong> – מזהה את סדר הבייטים ששולחים. כל צד מתחיל מספר אקראי ומספר כל בייט שנשלח. <strong>Acknowledgment</strong> – "קיבלתי עד X, שלח את הבא". כך TCP מאשר קבלה ומזהה אובדן – אם ACK לא מגיע, שולחים שוב.</p>
+          <p><strong>Sequence Number</strong></p>
+          <p>מזהה את סדר הבייטים ששולחים. כל צד מתחיל ממספר אקראי ומוסיף 1 לכל בייט שנשלח.</p>
+          <p><strong>Acknowledgment</strong></p>
+          <p>הצד המקבל שולח: "קיבלתי עד בייט X, שלח את הבא."</p>
+          <p>כך TCP מאשר קבלה ומזהה אובדן — אם <code>ACK</code> לא חוזר בזמן, השולח שולח שוב.</p>
         `
       },
       {
@@ -980,7 +1091,16 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "פורטים ידועים ו־Ephemeral",
         content: `
-          <p><strong>פורטים ידועים</strong> (0–1023): 80=HTTP, 443=HTTPS, 25=SMTP, 53=DNS. השרת מאזין על אלה. <strong>Ephemeral</strong> (חולף) – פורטים דינמיים שהלקוח מקבל (למשל 49152–65535). בכל חיבור הלקוח משתמש בפורט מקור אקראי, השרת עונה לאותו פורט.</p>
+          <p><strong>פורטים ידועים</strong> (טווח 0–1023)</p>
+          <p>פורטים שמורים לשירותים מוכרים. השרת מאזין עליהם:</p>
+          <ul>
+            <li><code>80</code> — HTTP</li>
+            <li><code>443</code> — HTTPS</li>
+            <li><code>25</code> — SMTP (אימייל)</li>
+            <li><code>53</code> — DNS</li>
+          </ul>
+          <p><strong>פורטים חולפים (Ephemeral)</strong></p>
+          <p>פורטים דינמיים בטווח 49152–65535. בכל חיבור חדש, הלקוח מקבל פורט מקור אקראי מהטווח הזה. השרת עונה לאותו פורט.</p>
         `
       },
       {
@@ -1044,23 +1164,48 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "מבנה חבילת IP – Header ושדות",
         content: `
-          <p>חבילת IP כוללת <strong>IP Header</strong> + Data. ה־Header מכיל: <strong>Source IP</strong>, <strong>Destination IP</strong>, TTL (Time To Live – מפחית בכל hop, מונע לולאות), Protocol (TCP=6, UDP=17, ICMP=1), Checksum, ועוד. הגודל המינימלי של Header = 20 בתים.</p>
+          <p>חבילת IP כוללת <strong>IP Header</strong> ולאחריו Data. הגודל המינימלי של ה־Header הוא 20 בתים.</p>
+          <p>שדות עיקריים ב־Header:</p>
+          <ul>
+            <li><strong>Source IP</strong> — כתובת השולח</li>
+            <li><strong>Destination IP</strong> — כתובת היעד</li>
+            <li><strong>TTL</strong> (Time To Live) — מונה שמפחית בכל נתב. כשמגיע ל־0 החבילה נזרקת, מה שמונע לולאות אינסופיות</li>
+            <li><strong>Protocol</strong> — מזהה את פרוטוקול השכבה הבאה: TCP=6, UDP=17, ICMP=1</li>
+            <li><strong>Checksum</strong> — בדיקת שלמות הנתונים</li>
+          </ul>
         `
       },
       {
         type: "explanation",
         title: "מסכת רשת (Subnet Mask) ו־Default Gateway",
         content: `
-          <p><strong>Subnet Mask</strong> (למשל 255.255.255.0) קובע אילו ביטים ב־IP שייכים לרשת המקומית. ב־AND לוגי עם ה־IP מתקבלת כתובת הרשת. כתובת ב־רשת אחרת = שולחים ל־<strong>Default Gateway</strong> – הנתב המקומי שמחבר לרשתות אחרות. בלי Default Gateway אין יציאה לאינטרנט.</p>
+          <p><strong>Subnet Mask</strong> קובע אילו ביטים בכתובת IP שייכים לרשת המקומית.</p>
+          <p>דוגמה: מסכה <code>255.255.255.0</code> אומרת ש־3 הבתים הראשונים הם כתובת הרשת, והבית האחרון מזהה את המחשב ברשת.</p>
+          <p>כדי לחשב את כתובת הרשת, מבצעים פעולת AND לוגי בין ה־IP למסכה.</p>
+          <p><strong>Default Gateway</strong></p>
+          <p>כשהיעד נמצא ברשת אחרת, המחשב שולח את החבילה ל־Default Gateway — הנתב המקומי שמחבר לרשתות אחרות. בלי Default Gateway אין יציאה לאינטרנט.</p>
         `
       },
       {
         type: "explanation",
         title: "ICMP, DHCP ו-NAT",
         content: `
-          <p><strong>ICMP</strong> – פרוטוקול לשגיאות והודעות. ping שולח Echo Request, מקבל Echo Reply. TTL (Time To Live) – כל נתב מפחית; אם מגיע 0 החבילה נזרקת ו-ICMP Time Exceeded נשלח (traceroute משתמש בזה).</p>
-          <p><strong>DHCP</strong> – מחשב חדש: Discover (ברודקסט) → שרת שולח Offer (IP, Subnet, Gateway, DNS) → Request → Ack. המחשב מקבל הגדרות אוטומטית.</p>
-          <p><strong>NAT</strong> – כתובות פרטיות (10.x, 172.16.x, 192.168.x) לא ניתנות לניתוב. הנתב מחליף כתובת מקור + פורט מקור ל-IP הציבורי + פורט ייחודי (PAT). בתשובה – מחליף חזרה לפי טבלת התרגום.</p>
+          <p><strong>ICMP</strong></p>
+          <p>פרוטוקול להודעות בקרה ושגיאות. הפקודה <code>ping</code> שולחת <code>Echo Request</code> ומקבלת <code>Echo Reply</code>.</p>
+          <p>שדה ה־TTL (Time To Live) מופחת בכל נתב. כשהוא מגיע ל־0 החבילה נזרקת, והנתב שולח הודעת <code>ICMP Time Exceeded</code>. הפקודה <code>traceroute</code> מנצלת התנהגות זו כדי לגלות את מסלול החבילה.</p>
+
+          <p><strong>DHCP</strong></p>
+          <p>פרוטוקול שמאפשר למחשב חדש לקבל הגדרות רשת באופן אוטומטי. התהליך מורכב מארבעה שלבים:</p>
+          <ol>
+            <li><strong>Discover</strong> — המחשב שולח שידור כללי (broadcast): "מי שרת ה־DHCP?"</li>
+            <li><strong>Offer</strong> — השרת מציע הגדרות: כתובת IP, מסכת רשת, Gateway, שרת DNS</li>
+            <li><strong>Request</strong> — המחשב מאשר שהוא רוצה את ההצעה</li>
+            <li><strong>Ack</strong> — השרת מאשר סופית</li>
+          </ol>
+
+          <p><strong>NAT</strong></p>
+          <p>כתובות פרטיות (כמו <code>10.x</code>, <code>172.16.x</code>, <code>192.168.x</code>) לא ניתנות לניתוב באינטרנט.</p>
+          <p>הנתב מבצע תרגום: מחליף את כתובת המקור והפורט לכתובת IP ציבורית ופורט ייחודי (טכניקה שנקראת PAT). בתגובה שחוזרת — הנתב מחליף חזרה לפי טבלת התרגום שלו.</p>
         `
       },
       {
@@ -3528,7 +3673,8 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
             </svg>
           </div>
           <p><strong>הבעיה העמוקה:</strong> הכלים לתיקון גם הם היו <em>בתוך</em> הרשת שנפלה. מהנדסים נאלצו לנסוע פיזית למרכז הנתונים ולהיכנס עם badge שלא עבד כי מערכת הגישה גם היא תלויה בפייסבוק.</p>
-          <p><strong>BGP — Border Gateway Protocol</strong>: הפרוטוקול שמנהל את "מפת האינטרנט". כל AS (Autonomous System) — חברה, ספקית אינטרנט, מדינה — מכריז על ה-prefixes שלה. בלי הכרזות? אף אחד לא יודע איפה פייסבוק.</p>
+          <p><strong><code>BGP</code> — Border Gateway Protocol</strong> הוא הפרוטוקול שמנהל את "מפת האינטרנט".</p>
+          <p>כל <code>AS</code> (Autonomous System) — חברה, ספקית אינטרנט, או מדינה — מכריז על ה-<code>prefixes</code> שלו. בלי הכרזות? אף אחד לא יודע איפה פייסבוק.</p>
         `
       },
       {
@@ -3573,7 +3719,8 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
         type: "explanation",
         title: "BGP Leaks – כשהניתוב הולך לאיבוד",
         content: `
-          <p>BGP hijacking ו-BGP leaks הם בין האיומים הפחות מוכרים — ומסוכנים — לאינטרנט. <strong>BGP אין בו authentication מובנה</strong>. כל AS יכול להכריז על כל prefix. בטעות או בכוונה.</p>
+          <p><code>BGP hijacking</code> ו-<code>BGP leaks</code> הם בין האיומים הפחות מוכרים, אך המסוכנים ביותר, לאינטרנט.</p>
+          <p>ל-<code>BGP</code> <strong>אין authentication מובנה</strong>. כל <code>AS</code> יכול להכריז על כל <code>prefix</code> — בטעות או בכוונה.</p>
           <p><strong>2010 — China Telecom מנתב 15% מהאינטרנט דרך סין:</strong></p>
           <ul>
             <li>China Telecom הכריזה בטעות על ~50,000 prefixes — כולל כאלה של Dell, IBM, CNN, Army.mil</li>
@@ -3602,7 +3749,8 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
               <text x="180" y="18" text-anchor="middle" font-size="8" fill="#dc2626">מסלול שנחטף</text>
             </svg>
           </div>
-          <p><strong>הפתרון: RPKI</strong> (Resource Public Key Infrastructure) — מאפשר לבעלי IP לחתום קריפטוגרפית על הכרזות ה-BGP שלהם. אימוץ הולך וגדל אבל עדיין חלקי. האינטרנט עדיין פגיע.</p>
+          <p><strong>הפתרון: <code>RPKI</code></strong> — Resource Public Key Infrastructure. מאפשר לבעלי <code>IP</code> לחתום קריפטוגרפית על הכרזות ה-<code>BGP</code> שלהם.</p>
+          <p>האימוץ הולך וגדל, אך עדיין חלקי. האינטרנט עדיין פגיע.</p>
         `
       },
       {
@@ -3634,16 +3782,17 @@ Root Cause: config change added query without index review.
 5 Why: Why no index? → wasn't in schema migration.
 Why not? → code review checklist didn't include DB review.</code></pre>
           </div>
-          <p><strong>Google SRE Book:</strong> "If a human operator needs to touch your system during normal operations, you have a bug." — זה הסטנדרט שגוגל בנתה את אמינות שירותיה עליו.</p>
-          <p><strong>Error Budget:</strong> SLA של 99.9% = מותר 8.7 שעות downtime לשנה. גוגל מתירה לעצמה לנצל את ה-budget הזה — כי אם לא תסתכן, לא תחדש.</p>
+          <p><strong>Google SRE Book:</strong> "If a human operator needs to touch your system during normal operations, you have a bug."</p>
+          <p>זה הסטנדרט שגוגל בנתה את אמינות שירותיה עליו.</p>
+          <p><strong>Error Budget:</strong> <code>SLA</code> של 99.9% פירושו שמותר 8.7 שעות <code>downtime</code> לשנה. גוגל מתירה לעצמה לנצל את ה-budget הזה — כי ללא סיכון, אין חדשנות.</p>
         `
       },
       {
         type: "explanation",
         title: "Chaos Engineering – שוברים בכוונה",
         content: `
-          <p><strong>Netflix, 2011:</strong> "מה יקרה אם שרת ייפול אקראי ב-production?" במקום לחשוב — הם ניסו. נולד <strong>Chaos Monkey</strong>.</p>
-          <p>Chaos Engineering = <strong>הזרקת כשלים מבוקרת למערכת חיה</strong> כדי לגלות חולשות לפני שהמציאות מגלה אותן.</p>
+          <p><strong>Netflix, 2011:</strong> "מה יקרה אם שרת ייפול אקראי ב-<code>production</code>?" במקום לחשוב — הם ניסו. כך נולד <strong>Chaos Monkey</strong>.</p>
+          <p><code>Chaos Engineering</code> = <strong>הזרקת כשלים מבוקרת למערכת חיה</strong>, כדי לגלות חולשות לפני שהמציאות מגלה אותן.</p>
           <ul>
             <li><strong>Chaos Monkey:</strong> מפיל instances אקראיים ב-AWS</li>
             <li><strong>Latency Monkey:</strong> מוסיף עיכובים אקראיים לבקשות</li>
@@ -3667,8 +3816,8 @@ Why not? → code review checklist didn't include DB review.</code></pre>
               <text x="180" y="95" text-anchor="middle" font-size="8" fill="var(--text-muted)">Chaos → כשל → fallback עובד = מערכת resilient</text>
             </svg>
           </div>
-          <p><strong>עיקרון:</strong> resilience לא נבנית בתכנון — היא נבדקת בפועל. Netflix מריצה Chaos Monkey ב-production מדי יום. הם יותר מוכנים לכשלים אמיתיים כי הם רגילים אליהם.</p>
-          <p><strong>GameDay:</strong> פרקטיקה של Amazon — ביום קבוע בוחרים תרחיש ("Region נפל") ומתרגלים תגובה. כמו תרגיל אש, אבל ל-resilient systems.</p>
+          <p><strong>עיקרון:</strong> <code>resilience</code> לא נבנית בתכנון — היא נבדקת בפועל. Netflix מריצה <code>Chaos Monkey</code> ב-<code>production</code> מדי יום. הם מוכנים יותר לכשלים אמיתיים כי הם רגילים אליהם.</p>
+          <p><strong>GameDay:</strong> פרקטיקה של Amazon — ביום קבוע בוחרים תרחיש כמו "Region נפל" ומתרגלים תגובה. כמו תרגיל אש, אבל למערכות מחשב.</p>
         `
       },
       {
@@ -3679,12 +3828,21 @@ Why not? → code review checklist didn't include DB review.</code></pre>
           {
             title: "בלי single point of failure",
             icon: "🔗",
-            content: `<p>כל מערכת שיש בה רכיב אחד שנפילתו מפילה הכל — היא מיקום כשל. פייסבוק שהסתמכה על BGP אחיד ללא fallback, Amazon שהריצה הכל ב-us-east-1 — <strong>redundancy היא לא תכונה, היא הישרדות</strong>. בניית מערכת כנגד הכשל של כל רכיב בה = chaos-by-design.</p>`
+            content: `<p>כל מערכת שיש בה רכיב אחד שנפילתו מפילה הכל — סובלת מ-<code>single point of failure</code>.</p>
+              <p>פייסבוק הסתמכה על <code>BGP</code> אחיד ללא <code>fallback</code>. Amazon הריצה הכל ב-<code>us-east-1</code>.</p>
+              <p><strong><code>Redundancy</code> היא לא תכונה — היא הישרדות.</strong> בניית מערכת שמוכנה לכשל של כל רכיב בה נקראת <code>chaos-by-design</code>.</p>`
           },
           {
             title: "הכשל היה בתהליך, לא בקוד",
             icon: "📋",
-            content: `<p>ברוב הקריסות הגדולות — הקוד לא היה שגוי. ה-patch היה קיים. ה-backup היה שם. מה שנכשל: <strong>תהליך</strong> — deploy ללא peer review, config change ללא rollback plan, on-call שלא קיבל פאג'. ההשקעה ב-incident response, runbooks, ואוטומציה של deployments שווה יותר מ-1000 שורות קוד.</p>`
+            content: `<p>ברוב הקריסות הגדולות — הקוד לא היה שגוי. ה-<code>patch</code> היה קיים. ה-<code>backup</code> היה שם.</p>
+              <p>מה שנכשל היה ה<strong>תהליך</strong>:</p>
+              <ul>
+                <li><code>deploy</code> ללא <code>peer review</code></li>
+                <li><code>config change</code> ללא <code>rollback plan</code></li>
+                <li><code>on-call</code> שלא קיבל התראה</li>
+              </ul>
+              <p>ההשקעה ב-<code>incident response</code>, <code>runbooks</code>, ואוטומציה של <code>deployments</code> שווה יותר מ-1,000 שורות קוד.</p>`
           }
         ]
       },
@@ -3734,7 +3892,8 @@ Why not? → code review checklist didn't include DB review.</code></pre>
         title: "Netflix Open Connect – CDN בתוך ה-ISP",
         content: `
           <p>Netflix אחראית על ~15% מתנועת האינטרנט בעולם בשעות הערב. איך הם עושים את זה בלי לשלם מיליארדים על bandwidth?</p>
-          <p><strong>Open Connect Appliance (OCA):</strong> Netflix בנתה שרתי קאש מיוחדים ו<strong>מציעה אותם בחינם ל-ISPs</strong>. ה-ISP מקבל hardware בחינם, Netflix חוסכת bandwidth. Win-win.</p>
+          <p><strong>Open Connect Appliance (<code>OCA</code>):</strong> Netflix בנתה שרתי <code>cache</code> מיוחדים ו<strong>מציעה אותם בחינם לספקיות אינטרנט</strong>.</p>
+          <p>ה-<code>ISP</code> מקבל <code>hardware</code> בחינם, ו-Netflix חוסכת <code>bandwidth</code>. שני הצדדים מרוויחים.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 360 120" class="content-diagram">
               <rect x="10" y="40" width="80" height="40" rx="4" fill="#fee2e2" stroke="#f87171"/>
@@ -3756,8 +3915,13 @@ Why not? → code review checklist didn't include DB review.</code></pre>
               <text x="180" y="115" text-anchor="middle" font-size="8" fill="var(--text-muted)">הvideo מגיע מה-ISP עצמו, לא מ-AWS</text>
             </svg>
           </div>
-          <p><strong>מה ה-OCA שומר?</strong> Netflix יודעת מה פופולרי באזור כל ISP. בלילה, היא מעבירה pre-emptively ל-OCA את הסדרות הפופולריות. למחרת — הכל ב-cache מקומי.</p>
-          <p><strong>טכנולוגית:</strong> כל OCA = FreeBSD + nginx מותאם + כוננים NVMe. גודל: 100-250TB storage. מריצים ~300Gbps bandwidth לכל appliance.</p>
+          <p><strong>מה ה-<code>OCA</code> שומר?</strong> Netflix יודעת מה פופולרי באזור כל <code>ISP</code>. בלילה, היא מעבירה מראש ל-<code>OCA</code> את הסדרות הפופולריות. למחרת — הכל ב-<code>cache</code> מקומי.</p>
+          <p><strong>טכנולוגית:</strong> כל <code>OCA</code> מורכב מ:</p>
+          <ul>
+            <li><code>FreeBSD</code> + <code>nginx</code> מותאם + כוננים <code>NVMe</code></li>
+            <li>נפח אחסון: 100-250TB</li>
+            <li>רוחב פס: עד 300Gbps לכל יחידה</li>
+          </ul>
         `
       },
       {
@@ -3767,9 +3931,9 @@ Why not? → code review checklist didn't include DB review.</code></pre>
           <p><strong>2014:</strong> WhatsApp נמכרת לפייסבוק ב-$19 מיליארד. 450 מיליון משתמשים פעילים. <strong>55 עובדים בסך הכל.</strong></p>
           <p>איך? ארכיטקטורה שמינימליזציה היא עיקרה:</p>
           <ul>
-            <li><strong>Erlang/OTP:</strong> שפת תכנות שנבנתה ל-telecom, לניהול מיליוני חיבורים קונקורנטיים. כל חיבור = process קל משקל (לא thread OS)</li>
-            <li><strong>Single responsibility:</strong> WhatsApp לא עשתה stories, games, payments. <strong>רק הודעות</strong>. פחות פיצ'רים = פחות bugs = צוות קטן</li>
-            <li><strong>XMPP מותאם:</strong> פרוטוקול XML-based ל-instant messaging ש-WhatsApp שינתה להיות binary — קטן פי 10</li>
+            <li><strong><code>Erlang/OTP</code>:</strong> שפת תכנות שנבנתה ל-<code>telecom</code>, לניהול מיליוני חיבורים קונקורנטיים. כל חיבור הוא <code>process</code> קל משקל, ולא <code>thread</code> של מערכת ההפעלה</li>
+            <li><strong>Single responsibility:</strong> WhatsApp לא עשתה stories, games או payments. <strong>רק הודעות</strong>. פחות פיצ'רים, פחות באגים, צוות קטן</li>
+            <li><strong><code>XMPP</code> מותאם:</strong> פרוטוקול מבוסס <code>XML</code> להודעות מיידיות, ש-WhatsApp הסבה לפורמט <code>binary</code> — קטן פי 10</li>
           </ul>
           <div class="code-preview">
             <pre><code># ארכיטקטורת WhatsApp בצורה פשוטה:
@@ -3782,22 +3946,24 @@ vs. Python/Java thread: 8-512MB per thread
   Erlang: ~2GB RAM, 1 server
   Java threads: ~500GB RAM, 100 servers</code></pre>
           </div>
-          <p><strong>Protocol פשוט = scale גדול:</strong> כל הודעה = מזהה ייחודי + timestamp + recipient + payload. שרת לא שומר הודעות — רק מנתב. ברגע שהתקבלה — נמחקת. זה גם פרטיות, זה גם scale.</p>
-          <p>לקח: <strong>בחירת טכנולוגיה נכונה לבעיה הנכונה</strong> שווה יותר ממאה מהנדסים נוספים.</p>
+          <p><strong>פרוטוקול פשוט = סקייל גדול:</strong> כל הודעה מכילה מזהה ייחודי, <code>timestamp</code>, נמען, ותוכן.</p>
+          <p>השרת לא שומר הודעות — רק מנתב. ברגע שההודעה התקבלה, היא נמחקת. הגישה הזו משרתת גם פרטיות וגם יכולת הרחבה.</p>
+          <p><strong>הלקח:</strong> בחירת טכנולוגיה נכונה לבעיה הנכונה שווה יותר ממאה מהנדסים נוספים.</p>
         `
       },
       {
         type: "explanation",
         title: "Google B4 – הרשת הפרטית של גוגל",
         content: `
-          <p>גוגל לא סומכת על האינטרנט הציבורי לתנועה הפנימית שלה. ב-2013 פרסמה גוגל על <strong>B4</strong> — רשת WAN פרטית שמחברת את כל מרכזי הנתונים שלה.</p>
-          <p><strong>הסיבה:</strong> האינטרנט הציבורי = BGP. BGP מאוד sub-optimal — בוחר מסלול קצר, לא מסלול עם הכי פחות עומס. לגוגל שמעבירה ~PB ביום בין DCs — זה לא מספיק.</p>
-          <p><strong>B4 = Software-Defined WAN:</strong></p>
+          <p>גוגל לא סומכת על האינטרנט הציבורי לתנועה הפנימית שלה. ב-2013 פרסמה גוגל על <strong>B4</strong> — רשת <code>WAN</code> פרטית שמחברת את כל מרכזי הנתונים שלה.</p>
+          <p><strong>הסיבה:</strong> האינטרנט הציבורי מבוסס על <code>BGP</code>, שבוחר מסלול קצר — לא בהכרח מסלול עם הכי פחות עומס.</p>
+          <p>לגוגל, שמעבירה פטהבייטים ביום בין מרכזי נתונים, ניתוב כזה לא מספיק טוב.</p>
+          <p><strong>B4 = <code>Software-Defined WAN</code>:</strong></p>
           <ul>
-            <li>כל ה-hardware (switches, routers) מנוהל ע"י software מרכזי — <strong>OpenFlow controller</strong></li>
-            <li>ניתוב מבוסס תזמון ואופטימיזציה — Traffic Engineering בזמן אמת</li>
-            <li>bandwidth utilization: ~100% (vs. 30-40% ברשתות רגילות)</li>
-            <li>גוגל בנתה את ה-hardware שלה — Pluto switches — במקום Cisco/Juniper</li>
+            <li>כל ה-<code>hardware</code> מנוהל על ידי תוכנה מרכזית — <strong><code>OpenFlow controller</code></strong></li>
+            <li>ניתוב מבוסס אופטימיזציה בזמן אמת — <code>Traffic Engineering</code></li>
+            <li>ניצולת רוחב פס: כ-100%, לעומת 30-40% ברשתות רגילות</li>
+            <li>גוגל בנתה <code>hardware</code> משלה — <code>Pluto switches</code> — במקום Cisco או Juniper</li>
           </ul>
           <div class="diagram-container">
             <svg viewBox="0 0 360 110" class="content-diagram">
@@ -3817,20 +3983,26 @@ vs. Python/Java thread: 8-512MB per thread
               <text x="177" y="108" text-anchor="middle" font-size="8" fill="var(--text-muted)">controller מחליט ניתוב בזמן אמת לפי עומסים</text>
             </svg>
           </div>
-          <p><strong>מה גוגל הרוויחה:</strong> חסכה ~$1B+ בשנה על bandwidth חיצוני. ביצועי latency עדיפים. שליטה מוחלטת על מסלולי הנתונים שלה.</p>
+          <p><strong>מה גוגל הרוויחה:</strong></p>
+          <ul>
+            <li>חיסכון של מעל מיליארד דולר בשנה על <code>bandwidth</code> חיצוני</li>
+            <li>ביצועי <code>latency</code> עדיפים</li>
+            <li>שליטה מוחלטת על מסלולי הנתונים שלה</li>
+          </ul>
         `
       },
       {
         type: "explanation",
         title: "כבלי הים – עמוד השדרה הנסתר של האינטרנט",
         content: `
-          <p>~99% מהתנועה הבינלאומית עובר דרך <strong>כבלי תת-ים</strong>. לא לוויינים. כבלים. 400+ כבלים, 1.2 מיליון ק"מ, בקרקעית האוקיינוס.</p>
+          <p>כ-99% מהתנועה הבינלאומית עוברת דרך <strong>כבלי תת-ים</strong>. לא לוויינים — כבלים.</p>
+          <p>מעל 400 כבלים, 1.2 מיליון ק"מ, בקרקעית האוקיינוס.</p>
           <p><strong>מה בתוך הכבל?</strong></p>
           <ul>
-            <li>Fiber optic — בדרך כלל 8-16 זוגות סיבים</li>
-            <li>כל סיב = מספר ערוצי אור (wavelengths) — DWDM</li>
-            <li>כבל מודרני: 400+ Tbps (!)</li>
-            <li>עומד 25 שנה בלחץ אוקיאני, טמפרטורה קרה, מלח</li>
+            <li><code>Fiber optic</code> — בדרך כלל 8-16 זוגות סיבים</li>
+            <li>כל סיב מכיל מספר ערוצי אור בטכנולוגיית <code>DWDM</code></li>
+            <li>כבל מודרני מעביר מעל 400 Tbps</li>
+            <li>מחזיק מעמד 25 שנה בלחץ אוקיאני, טמפרטורה קרה ומלח</li>
           </ul>
           <p><strong>מי מחזיק את הכבלים?</strong> עד לפני 10 שנים — קונסורציומים של טלקומים. היום — גוגל, פייסבוק, Amazon בנו כבלים <strong>פרטיים</strong>:</p>
           <ul>
@@ -3838,15 +4010,17 @@ vs. Python/Java thread: 8-512MB per thread
             <li><strong>2Africa</strong> (Meta) — מקיף את אפריקה, 180Tbps</li>
             <li><strong>MAREA</strong> (Microsoft+Facebook) — US-Spain, 160Tbps</li>
           </ul>
-          <p><strong>סכנות:</strong> עוגנים של ספינות גורמים ל-70% מהנזקים. ב-2008 — עוגן אחד בים התיכון חתך 3 כבלים → 75M אנשים באפריקה ואסיה ללא אינטרנט. יש ספינות תיקון ייעודיות שמחכות 24/7.</p>
+          <p><strong>סכנות:</strong> עוגנים של ספינות גורמים ל-70% מהנזקים.</p>
+          <p>ב-2008, עוגן אחד בים התיכון חתך 3 כבלים — ו-75 מיליון אנשים באפריקה ואסיה נותרו ללא אינטרנט. ספינות תיקון ייעודיות ממתינות 24/7 לאירועים כאלה.</p>
         `
       },
       {
         type: "explanation",
         title: "Cloudflare – 300 ערים, אותה כתובת IP",
         content: `
-          <p>Cloudflare מגינה על ~20% מאתרי האינטרנט. 300 נקודות נוכחות. ~1 מיליארד כתובות IP שמנהלת. עיקרון ההנדסה שלהם: <strong>Anycast</strong>.</p>
-          <p><strong>Anycast:</strong> <em>אותה</em> כתובת IP מוכרזת ממאות מקומות. BGP מנתב כל משתמש לנקודה הקרובה ביותר אוטומטית.</p>
+          <p>Cloudflare מגינה על כ-20% מאתרי האינטרנט, עם 300 נקודות נוכחות וכמיליארד כתובות <code>IP</code> בניהולה.</p>
+          <p>עיקרון ההנדסה המרכזי שלהם: <strong><code>Anycast</code></strong>.</p>
+          <p><strong>מה זה <code>Anycast</code>?</strong> <em>אותה</em> כתובת <code>IP</code> מוכרזת ממאות מקומות שונים. <code>BGP</code> מנתב כל משתמש לנקודה הקרובה ביותר — אוטומטית.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 360 110" class="content-diagram">
               <circle cx="180" cy="55" r="20" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4,2"/>
@@ -3867,8 +4041,9 @@ vs. Python/Java thread: 8-512MB per thread
               <text x="180" y="105" text-anchor="middle" font-size="8" fill="var(--text-muted)">BGP מנתב כל משתמש ל-PoP הקרוב — אוטומטי</text>
             </svg>
           </div>
-          <p><strong>DDoS mitigation:</strong> Cloudflare ספגה ב-2024 מתקפת DDoS של <strong>5.6 Tbps</strong> — הגדולה שתועדה. איך? ה-traffic מחולק ל-300 PoPs. כל PoP ספג רק שבריר. לאחר filtering מקומי — תנועה נקייה עוברת ל-origin.</p>
-          <p><strong>Workers:</strong> Cloudflare אפשרה לרוץ JavaScript/WASM ב-300 מקומות בו-זמנית. Edge computing — הקוד רץ ליד המשתמש, לא בdata center רחוק.</p>
+          <p><strong><code>DDoS mitigation</code>:</strong> ב-2024 ספגה Cloudflare מתקפת <code>DDoS</code> של <strong>5.6 Tbps</strong> — הגדולה שתועדה.</p>
+          <p>איך? התנועה מחולקת ל-300 נקודות <code>PoP</code>. כל נקודה סופגת רק שבריר מהעומס. לאחר סינון מקומי, רק תנועה נקייה עוברת ל-<code>origin</code>.</p>
+          <p><strong><code>Workers</code>:</strong> Cloudflare מאפשרת להריץ <code>JavaScript</code> ו-<code>WASM</code> ב-300 מקומות בו-זמנית. זה <code>Edge Computing</code> — הקוד רץ ליד המשתמש, לא במרכז נתונים רחוק.</p>
         `
       },
       {
@@ -3879,12 +4054,16 @@ vs. Python/Java thread: 8-512MB per thread
           {
             title: "מי שולט בכבלים — שולט בתוכן",
             icon: "🌊",
-            content: `<p>כש-Huawei הציעה לבנות כבלי ים לאפריקה במחיר הזול מהשוק — ממשלות מערביות חסמו. הסיבה: <strong>מי שבנה את הכבל, יכול לנטר את התנועה עליו</strong>. NSA כבר עשתה זאת על כבלים אמריקניים — מפרטות של Snowden. הרשת הפיזית היא פוליטיקה.</p>`
+            content: `<p>כש-Huawei הציעה לבנות כבלי ים לאפריקה במחיר הזול מהשוק, ממשלות מערביות חסמו את העסקה.</p>
+              <p>הסיבה: <strong>מי שבנה את הכבל, יכול לנטר את התנועה עליו</strong>. ה-<code>NSA</code> כבר עשתה זאת על כבלים אמריקניים, כפי שנחשף בפרטות של Snowden.</p>
+              <p>הרשת הפיזית היא פוליטיקה.</p>`
           },
           {
             title: "ספקיות הענן ממציאות את הרשת מחדש",
             icon: "☁️",
-            content: `<p>Google, AWS, Azure בנו רשתות שמגיעות לביצועים שטלקומים לא הצליחו לעשות. BGP ב-2024 הוא עדיין פרוטוקול שנוצר ב-1989 "על מפיות בדינר". QUIC, HTTP/3, SD-WAN, eBPF — הטכנולוגיות שמחליפות את הרשת ישנה נוצרות בחברות הטכנולוגיה, לא ב-IETF בלבד.</p>`
+            content: `<p>Google, AWS ו-Azure בנו רשתות שמגיעות לביצועים שחברות טלקום לא הצליחו להשיג.</p>
+              <p><code>BGP</code> הוא עדיין פרוטוקול שנוצר ב-1989 "על מפיות בארוחת ערב".</p>
+              <p><code>QUIC</code>, <code>HTTP/3</code>, <code>SD-WAN</code>, <code>eBPF</code> — הטכנולוגיות שמחליפות את הרשת הישנה נולדות בחברות הטכנולוגיה, לא רק ב-<code>IETF</code>.</p>`
           }
         ]
       },
@@ -3935,9 +4114,9 @@ vs. Python/Java thread: 8-512MB per thread
         content: `
           <p>ספקית האינטרנט שלך רואה <strong>כל</strong> DNS query שלך — גם אחרי שעברת ל-HTTPS. מדוע?</p>
           <ul>
-            <li>HTTPS מצפין <em>תוכן</em> — לא את שם הדומיין</li>
-            <li>DNS query: "מה ה-IP של pornhub.com?" — נשלח ב-plain text לשרת DNS (בדרך כלל של ה-ISP) ללא הצפנה</li>
-            <li>TLS SNI (Server Name Indication): בחיבור HTTPS — שם הדומיין נשלח בclear text כחלק מה-TLS Handshake הראשוני</li>
+            <li><code>HTTPS</code> מצפין <em>תוכן</em> — לא את שם הדומיין</li>
+            <li>שאילתת <code>DNS</code> — למשל "מה ה-IP של pornhub.com?" — נשלחת ב-<code>plain text</code> לשרת <code>DNS</code>, בדרך כלל של ספקית האינטרנט, ללא הצפנה</li>
+            <li><code>TLS SNI</code> — Server Name Indication: בחיבור <code>HTTPS</code>, שם הדומיין נשלח בטקסט גלוי כחלק מה-<code>TLS Handshake</code> הראשוני</li>
           </ul>
           <div class="code-preview">
             <pre><code># מה ISP רואה כשאת גולשת ל-gmail.com:
