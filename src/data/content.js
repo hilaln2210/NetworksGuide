@@ -20,8 +20,9 @@ export const tracks = [
         type: "explanation",
         title: "מה קורה כשאנו גולשים לאתר?",
         content: `
-          <p>רובנו גלשנו ל־Facebook. אבל מה בעצם קורה מאחורי הקלעים?</p>
-          <p>מקישים בדפדפן את הכתובת <code>www.facebook.com</code>, לוחצים Enter — ומקבלים את המידע. איך זה עובד?</p>
+          <p>רובנו גלשנו ל־<code>Facebook</code>.</p>
+          <p>אבל מה בעצם קורה מאחורי הקלעים?</p>
+          <p>מקישים בדפדפן את הכתובת <code>www.facebook.com</code>, לוחצים Enter — ומקבלים את המידע.</p>
           <p><strong>אתר זקוק לארבעה דברים כדי לתפקד:</strong></p>
           <ul>
             <li><strong>אחסון</strong> — מקום לדפי האתר</li>
@@ -29,17 +30,21 @@ export const tracks = [
             <li><strong>אימות</strong> — זיהוי משתמשים</li>
             <li><strong>תקשורת</strong> — דרך לתקשר עם האתר מכל מקום בעולם</li>
           </ul>
-          <p>ספר זה מתמקד בתקשורת — בדרך העברת המידע בין רכיבים אלקטרוניים.</p>
+          <p>ספר זה מתמקד בתקשורת.</p>
+          <p>נלמד כיצד מידע עובר בין רכיבים אלקטרוניים.</p>
         `
       },
       {
         type: "explanation",
         title: "WWW – World Wide Web",
         content: `
-          <p>כשאנו אומרים "אינטרנט", אנו מתכוונים בדרך כלל ל־<strong>WWW</strong> (World Wide Web) — אוסף עמודי האינטרנט אליהם גולשים בדפדפן.</p>
-          <p>המילה Web משמעה רשת — עמודי האינטרנט מקושרים זה לזה כמו קורי עכביש.</p>
-          <p>כדי שהדפדפן יציג עמוד, הוא שולח <strong>בקשה (Request)</strong> אל השרת — "שלח לי את המידע הנדרש".</p>
-          <p>השרת משיב ב־<strong>תגובה (Response)</strong> שמכילה את המידע הדרוש.</p>
+          <p><strong>WWW</strong> — <code>World Wide Web</code></p>
+          <p>כשאנו אומרים "אינטרנט", אנו מתכוונים בדרך כלל לאוסף עמודי האינטרנט אליהם גולשים בדפדפן.</p>
+          <p>המילה <code>Web</code> משמעה רשת — עמודי האינטרנט מקושרים זה לזה כמו קורי עכביש.</p>
+          <p><strong>בקשה</strong> — <code>Request</code></p>
+          <p>הדפדפן שולח בקשה אל השרת — "שלח לי את המידע הנדרש".</p>
+          <p><strong>תגובה</strong> — <code>Response</code></p>
+          <p>השרת משיב בתגובה שמכילה את המידע הדרוש.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 400 140" class="content-diagram">
               <rect x="30" y="20" width="90" height="60" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
@@ -1492,8 +1497,9 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "תפקיד שכבת הקו",
         content: `
-          <p>שכבת הרשת אחראית על המסלול. <strong>שכבת הקו</strong> אחראית על תקשורת בין מכשירים <strong>מחוברים ישירות</strong>.</p>
-          <p>חיבור ישיר = כבל, WiFi, או לווין.</p>
+          <p><strong>שכבת הקו</strong></p>
+          <p>שכבת הרשת אחראית על המסלול. שכבת הקו אחראית על תקשורת בין מכשירים <strong>מחוברים ישירות</strong>.</p>
+          <p>חיבור ישיר = כבל, <code>WiFi</code>, או לווין.</p>
           <p>שכבת הקו מספקת ממשק להעברת מידע בין מכשירים צמודים.</p>
           <p>שכבת הרשת לא צריכה לדאוג לסוג החיבור — זה תפקיד שכבת הקו.</p>
         `
@@ -1502,10 +1508,11 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "Ethernet וכתובות MAC",
         content: `
-          <p>כתובות <strong>MAC</strong> הן כתובות פיזיות, צרובות על כרטיס הרשת.</p>
-          <p>הפורמט: 6 בתים בהקסדצימלי.</p>
+          <p><strong>כתובות MAC</strong></p>
+          <p>כתובות פיזיות, צרובות על כרטיס הרשת.</p>
+          <p>הפורמט — 6 בתים בהקסדצימלי.</p>
           <p><strong>דוגמה:</strong> <code>d4:be:d9:d6:0c:2a</code></p>
-          <p>במסגרת <code>Ethernet</code> יש שני שדות MAC:</p>
+          <p>במסגרת <code>Ethernet</code> יש שני שדות <code>MAC</code>:</p>
           <ul>
             <li><code>dst</code> — כתובת היעד</li>
             <li><code>src</code> — כתובת המקור</li>
@@ -1518,21 +1525,22 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         content: `
           <p>מסגרת <code>Ethernet</code> מורכבת מהשדות הבאים:</p>
           <ul>
-            <li><strong>Preamble</strong> – סינכרון בין השולח למקבל</li>
-            <li><strong>Destination MAC</strong> (6 בתים) – כתובת היעד</li>
-            <li><strong>Source MAC</strong> (6 בתים) – כתובת המקור</li>
-            <li><strong>EtherType</strong> – סוג הפרוטוקול שבפנים (למשל IPv4, ARP)</li>
-            <li><strong>Payload</strong> – החבילה משכבת הרשת</li>
-            <li><strong>FCS</strong> (<code>Frame Check Sequence</code>) – בדיקת שגיאות באמצעות CRC</li>
+            <li><strong>Preamble</strong> — סינכרון בין השולח למקבל</li>
+            <li><strong>Destination MAC</strong> — 6 בתים — כתובת היעד</li>
+            <li><strong>Source MAC</strong> — 6 בתים — כתובת המקור</li>
+            <li><strong>EtherType</strong> — סוג הפרוטוקול שבפנים — למשל <code>IPv4</code>, <code>ARP</code></li>
+            <li><strong>Payload</strong> — החבילה משכבת הרשת</li>
+            <li><strong>FCS</strong> — <code>Frame Check Sequence</code> — בדיקת שגיאות באמצעות <code>CRC</code></li>
           </ul>
-          <p>גודל מינימלי: 64 בתים. גודל מקסימלי: 1518 בתים.</p>
+          <p>גודל מינימלי — 64 בתים.</p>
+          <p>גודל מקסימלי — 1518 בתים.</p>
         `
       },
       {
         type: "demo",
         title: "המדריך מדגים: פלט של ipconfig",
         content: `
-          <p>כשרצים <code>ipconfig</code> (Windows) או <code>ifconfig</code> (Linux/Mac), מתקבל מידע על הממשקים:</p>
+          <p>כשמריצים <code>ipconfig</code> — ב-Windows — או <code>ifconfig</code> — ב-Linux/Mac — מתקבל מידע על הממשקים:</p>
           <div class="code-preview">
             <pre><code>Ethernet adapter Ethernet:
    IPv4 Address: 192.168.1.105
@@ -1553,15 +1561,16 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "פרוטוקול ARP",
         content: `
-          <p><strong>ARP</strong> ממיר כתובת IP לכתובת MAC.</p>
+          <p><strong>ARP</strong> — <code>Address Resolution Protocol</code></p>
+          <p>ממיר כתובת <code>IP</code> לכתובת <code>MAC</code>.</p>
           <p>התהליך עובד כך:</p>
           <ol>
-            <li>המחשב רוצה לשלוח ל-<code>192.168.1.1</code> אבל לא יודע את כתובת ה-MAC שלו</li>
-            <li>שולח <strong>ARP Request</strong> ב-<code>Broadcast</code> לכל הרשת: "למי יש <code>192.168.1.1</code>?"</li>
-            <li>הנתב עונה ב-<strong>ARP Reply</strong> (<code>Unicast</code>) עם כתובת ה-MAC שלו</li>
+            <li>המחשב רוצה לשלוח ל-<code>192.168.1.1</code> אבל לא יודע את כתובת ה-<code>MAC</code> שלו</li>
+            <li>שולח <strong>ARP Request</strong> ב-<code>Broadcast</code> לכל הרשת — "למי יש <code>192.168.1.1</code>?"</li>
+            <li>הנתב עונה ב-<strong>ARP Reply</strong> — <code>Unicast</code> — עם כתובת ה-<code>MAC</code> שלו</li>
             <li>המיפוי נשמר ב-<strong>ARP Cache</strong> לשימוש עתידי</li>
           </ol>
-          <p>הפקודה <code>arp -a</code> מציגה את טבלת ה-ARP Cache.</p>
+          <p>הפקודה <code>arp -a</code> מציגה את טבלת ה-<code>ARP Cache</code>.</p>
         `
       },
       {
@@ -1572,8 +1581,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             <h3>נקודות מפתח:</h3>
             <ul>
               <li>שכבת הקו = העברה בין מכשירים מחוברים ישירות</li>
-              <li>MAC = כתובת פיזית. מבנה Frame: Preamble, dst/src MAC, EtherType, Payload, FCS</li>
-              <li>ARP = המרת IP ל־MAC. ipconfig/ifconfig – הצגת הגדרות</li>
+              <li><code>MAC</code> = כתובת פיזית. מבנה <code>Frame</code> — <code>Preamble</code>, <code>dst/src MAC</code>, <code>EtherType</code>, <code>Payload</code>, <code>FCS</code></li>
+              <li><code>ARP</code> = המרת <code>IP</code> ל-<code>MAC</code>. <code>ipconfig</code>/<code>ifconfig</code> — הצגת הגדרות</li>
             </ul>
           </div>
         `
@@ -1624,7 +1633,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p><code>Hub</code> מקבל ביטים מפורט אחד ומשכפל אותם לכל שאר הפורטים.</p>
           <p>אין בו שום אינטליגנציה — הוא לא יודע לאן לשלוח.</p>
           <p>כתוצאה, כל מחשב ברשת מקבל את כל התעבורה.</p>
-          <p>זה יוצר התנגשויות (<code>Collisions</code>) וגורם לשיתוף רוחב הפס בין כולם.</p>
+          <p>זה יוצר התנגשויות — <code>Collisions</code> — וגורם לשיתוף רוחב הפס בין כולם.</p>
           <p>כיום כמעט לא בשימוש — הוחלף ב-<code>Switch</code>.</p>
         `
       },
@@ -1635,7 +1644,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p><code>Switch</code> לומד את טבלת ה-MAC (מיפוי כתובת לפורט) מהתעבורה שעוברת דרכו.</p>
           <p>כשמגיע <code>Frame</code>, ה-Switch בודק את <code>Destination MAC</code> ושולח רק לפורט המתאים.</p>
           <p>כך הוא מפחית התנגשויות ומנצל את רוחב הפס בצורה טובה יותר.</p>
-          <p><strong>Switch חכם</strong> (<code>Managed Switch</code>) מאפשר גם חלוקה ל-<code>VLANs</code> וניהול מתקדם.</p>
+          <p><strong>Switch חכם</strong> — <code>Managed Switch</code></p>
+          <p>מאפשר גם חלוקה ל-<code>VLANs</code> וניהול מתקדם.</p>
         `
       },
       {
@@ -1657,10 +1667,11 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "VLAN – רשת מקומית וירטואלית",
         content: `
-          <p><strong>VLAN</strong> (<code>Virtual LAN</code>) מאפשר לחלק <code>Switch</code> פיזי אחד לכמה רשתות לוגיות נפרדות.</p>
-          <p>כל פורט ב-Switch משויך ל-VLAN מסוים.</p>
-          <p>מחשבים באותו VLAN מתקשרים ביניהם.</p>
-          <p>מחשבים ב-VLANs שונים לא יכולים לתקשר ישירות.</p>
+          <p><strong>VLAN</strong> — <code>Virtual LAN</code></p>
+          <p>מאפשר לחלק <code>Switch</code> פיזי אחד לכמה רשתות לוגיות נפרדות.</p>
+          <p>כל פורט ב-<code>Switch</code> משויך ל-<code>VLAN</code> מסוים.</p>
+          <p>מחשבים באותו <code>VLAN</code> מתקשרים ביניהם.</p>
+          <p>מחשבים ב-<code>VLAN</code>-ים שונים לא יכולים לתקשר ישירות.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 320 140" class="content-diagram">
               <rect x="100" y="60" width="120" height="50" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -1685,28 +1696,31 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           </div>
           <p><strong>יתרונות VLAN:</strong></p>
           <ul>
-            <li><strong>אבטחה</strong> – מחלקת IT נפרדת ממחלקת הנהלה, למשל</li>
-            <li><strong>ביצועים</strong> – broadcast מוגבל ל-VLAN אחד, לא מציף את כולם</li>
-            <li><strong>גמישות</strong> – שינוי VLAN בתוכנה, לא צריך לחבר כבלים מחדש</li>
+            <li><strong>אבטחה</strong> — מחלקת IT נפרדת ממחלקת הנהלה, למשל</li>
+            <li><strong>ביצועים</strong> — <code>Broadcast</code> מוגבל ל-<code>VLAN</code> אחד, לא מציף את כולם</li>
+            <li><strong>גמישות</strong> — שינוי <code>VLAN</code> בתוכנה, לא צריך לחבר כבלים מחדש</li>
           </ul>
           <p><strong>תקשורת בין VLANs</strong></p>
           <p>מחייבת <code>Router</code> או <code>L3 Switch</code> — כי מדובר ברשתות IP שונות.</p>
 
           <p><strong>Trunk</strong></p>
-          <p>פורט ב-Switch שנושא תעבורת כמה VLANs בו-זמנית.</p>
-          <p>משמש לחיבור בין Switchים.</p>
-          <p>כל <code>Frame</code> שעובר דרך Trunk מקבל תג VLAN לפי תקן <code>802.1Q</code>, כך שה-Switch השני יודע לאיזה VLAN הוא שייך.</p>
+          <p>פורט ב-<code>Switch</code> שנושא תעבורת כמה <code>VLAN</code>-ים בו-זמנית.</p>
+          <p>משמש לחיבור בין <code>Switch</code>-ים.</p>
+          <p>כל <code>Frame</code> שעובר דרך <code>Trunk</code> מקבל תג <code>VLAN</code> לפי תקן <code>802.1Q</code>.</p>
+          <p>כך ה-<code>Switch</code> השני יודע לאיזה <code>VLAN</code> הוא שייך.</p>
         `
       },
       {
         type: "explanation",
         title: "Firewall – חומת אש",
         content: `
-          <p><strong>Firewall</strong> הוא מנגנון שמסנן תעבורת רשת לפי חוקים — מחליט מה מותר לעבור ומה נחסם.</p>
+          <p><strong>Firewall</strong> — חומת אש</p>
+          <p>מנגנון שמסנן תעבורת רשת לפי חוקים.</p>
+          <p>מחליט מה מותר לעבור ומה נחסם.</p>
 
           <p><strong>סוגי Firewall:</strong></p>
 
-          <p><strong>Stateless Firewall</strong> (<code>Packet Filter</code>)</p>
+          <p><strong>Stateless Firewall</strong> — <code>Packet Filter</code></p>
           <p>בודק כל חבילה בנפרד לפי IP מקור/יעד, פורט ופרוטוקול.</p>
           <p>לא זוכר מצב של חיבורים קודמים.</p>
           <p>פשוט ומהיר, אבל פחות חכם.</p>
@@ -1716,9 +1730,9 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>אם יצאה בקשה מהרשת הפנימית — התשובה מותרת לחזור אוטומטית.</p>
           <p>ניסיונות חיבור חיצוניים שלא קשורים לבקשה פנימית — נחסמים.</p>
 
-          <p><strong>Application Layer Firewall (WAF)</strong></p>
-          <p>מבין את תוכן ה־HTTP.</p>
-          <p>חוסם התקפות כמו SQL Injection, XSS ועוד.</p>
+          <p><strong>Application Layer Firewall</strong> — <code>WAF</code></p>
+          <p>מבין את תוכן ה-<code>HTTP</code>.</p>
+          <p>חוסם התקפות כמו <code>SQL Injection</code>, <code>XSS</code> ועוד.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 340 80" class="content-diagram">
               <rect x="10" y="20" width="80" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -1734,17 +1748,19 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             </svg>
             <p class="diagram-caption">Firewall יושב בין הרשת הפנימית לאינטרנט</p>
           </div>
-          <p><strong>ACL</strong> (<code>Access Control List</code>) — רשימת חוקי סינון.</p>
+          <p><strong>ACL</strong> — <code>Access Control List</code></p>
+          <p>רשימת חוקי סינון.</p>
           <p><strong>דוגמה:</strong></p>
           <ul>
-            <li>"אפשר TCP פורט 443 מכל מקום"</li>
-            <li>"חסום UDP פורט 53 מבחוץ"</li>
+            <li>"אפשר <code>TCP</code> פורט 443 מכל מקום"</li>
+            <li>"חסום <code>UDP</code> פורט 53 מבחוץ"</li>
           </ul>
           <p>הסדר חשוב: הכלל הראשון שמתאים לחבילה הוא זה שקובע.</p>
 
-          <p><strong>DMZ</strong> (<code>Demilitarized Zone</code>)</p>
-          <p>אזור רשת נפרד המיועד לשרתים ציבוריים — כמו שרת Web ושרת Email.</p>
-          <p>ה-DMZ לא נמצא ברשת הפנימית ולא חשוף ישירות לאינטרנט — מוגן משני הצדדים.</p>
+          <p><strong>DMZ</strong> — <code>Demilitarized Zone</code></p>
+          <p>אזור רשת נפרד המיועד לשרתים ציבוריים — כמו שרת <code>Web</code> ושרת <code>Email</code>.</p>
+          <p>ה-<code>DMZ</code> לא נמצא ברשת הפנימית ולא חשוף ישירות לאינטרנט.</p>
+          <p>מוגן משני הצדדים.</p>
         `
       },
       {
@@ -1755,8 +1771,10 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           {
             title: "מה ההבדל בין Router ביתי לתעשייתי?",
             icon: "🏭",
-            content: `<p><strong>Router ביתי</strong> (כמו של ספק האינטרנט) משלב הכל בקופסה אחת: <code>Router</code> + <code>Switch</code> + <code>WiFi AP</code> + <code>NAT</code> + <code>DHCP</code> + <code>Firewall</code> בסיסי.</p>
-              <p><strong>Router תעשייתי</strong> (Cisco, Juniper) – לכל פונקציה מכשיר נפרד: Router נפרד, <code>Managed Switch</code> נפרד, Firewall נפרד, AP נפרד.</p>
+            content: `<p><strong>Router ביתי</strong> — כמו של ספק האינטרנט</p>
+              <p>משלב הכל בקופסה אחת: <code>Router</code> + <code>Switch</code> + <code>WiFi AP</code> + <code>NAT</code> + <code>DHCP</code> + <code>Firewall</code> בסיסי.</p>
+              <p><strong>Router תעשייתי</strong> — <code>Cisco</code>, <code>Juniper</code></p>
+              <p>לכל פונקציה מכשיר נפרד: <code>Router</code> נפרד, <code>Managed Switch</code> נפרד, <code>Firewall</code> נפרד, <code>AP</code> נפרד.</p>
               <p><strong>החשיבה:</strong> בבית, פשטות חשובה יותר מביצועים. בחברה, כל רכיב מתמחה, מנוהל בנפרד, ומוחלף בלי להשפיע על האחרים.</p>`
           },
           {
@@ -1776,11 +1794,11 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>Hub – שכבת 1, משכפל לכולם, ללא כתובות</li>
-              <li>Switch – שכבת 2, לומד MAC, מעביר רק ליעד. VLAN – חלוקה לוגית של Switch</li>
-              <li>Router – שכבת 3, טבלת ניתוב, מחבר רשתות</li>
-              <li>Firewall – מסנן תעבורה. Stateless (חבילה בחבילה), Stateful (מעקב חיבורים)</li>
-              <li>DMZ – אזור מוגן לשרתים ציבוריים. ACL – רשימת חוקי סינון</li>
+              <li><code>Hub</code> — שכבה 1, משכפל לכולם, ללא כתובות</li>
+              <li><code>Switch</code> — שכבה 2, לומד <code>MAC</code>, מעביר רק ליעד. <code>VLAN</code> — חלוקה לוגית של <code>Switch</code></li>
+              <li><code>Router</code> — שכבה 3, טבלת ניתוב, מחבר רשתות</li>
+              <li><code>Firewall</code> — מסנן תעבורה. <code>Stateless</code> — חבילה בחבילה. <code>Stateful</code> — מעקב חיבורים</li>
+              <li><code>DMZ</code> — אזור מוגן לשרתים ציבוריים. <code>ACL</code> — רשימת חוקי סינון</li>
             </ul>
           </div>
         `
@@ -1829,12 +1847,12 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         content: `
           <p>טכנולוגיות שכבה פיזית נפוצות:</p>
           <ul>
-            <li><strong>כבל נחושת</strong> (<code>Ethernet</code>) – אותות חשמליים</li>
-            <li><strong>סיב אופטי</strong> – פולסים של אור</li>
-            <li><strong>ADSL</strong> – תקשורת דרך קו טלפון</li>
-            <li><strong>WiFi</strong> – גלי רדיו</li>
-            <li><strong>לווין</strong> – אותות אלקטרומגנטיים</li>
-            <li><strong>סלולר</strong> (<code>4G/5G</code>) – רשתות אלחוטיות</li>
+            <li><strong>כבל נחושת</strong> — <code>Ethernet</code> — אותות חשמליים</li>
+            <li><strong>סיב אופטי</strong> — פולסים של אור</li>
+            <li><strong>ADSL</strong> — תקשורת דרך קו טלפון</li>
+            <li><strong>WiFi</strong> — גלי רדיו</li>
+            <li><strong>לווין</strong> — אותות אלקטרומגנטיים</li>
+            <li><strong>סלולר</strong> — <code>4G/5G</code> — רשתות אלחוטיות</li>
           </ul>
           <p>כל טכנולוגיה מגדירה תדר, עוצמה, וצורת קידוד.</p>
           <p>כלומר: כל מדיום מגדיר בעצמו כיצד 0 ו-1 מיוצגים פיזית.</p>
@@ -1850,7 +1868,11 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
 
           <p><strong>Latency — זמן תגובה</strong></p>
           <p>כמה זמן לוקח לחבילה להגיע מהמקור ליעד.</p>
-          <p><strong>דוגמה:</strong> סיב אופטי — רוחב פס גבוה וזמן תגובה נמוך. לווין — רוחב פס סביר אבל זמן תגובה גבוה בגלל המרחק.</p>
+          <p><strong>דוגמה:</strong></p>
+          <ul>
+            <li>סיב אופטי — רוחב פס גבוה וזמן תגובה נמוך</li>
+            <li>לווין — רוחב פס סביר אבל זמן תגובה גבוה בגלל המרחק</li>
+          </ul>
 
           <p><strong>Throughput — קצב בפועל</strong></p>
           <p>קצב ההעברה האמיתי. תמיד נמוך מה-<code>Bandwidth</code> התאורטי.</p>
@@ -1858,8 +1880,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <ul>
             <li>עומס ברשת</li>
             <li>אובדן חבילות</li>
-            <li>שליחה מחדש (<code>Re-transmission</code>)</li>
-            <li>תקורה של פרוטוקולים (<code>Overhead</code>)</li>
+            <li>שליחה מחדש — <code>Re-transmission</code></li>
+            <li>תקורה של פרוטוקולים — <code>Overhead</code></li>
           </ul>
 
           <p><strong>Jitter</strong></p>
@@ -1871,7 +1893,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "כבלים – סוגים ותקנים",
         content: `
-          <p>כבלי Ethernet מסוג <strong>UTP</strong> (Unshielded Twisted Pair) – זוגות חוטים מפותלים:</p>
+          <p><strong>UTP</strong> — <code>Unshielded Twisted Pair</code></p>
+          <p>כבלי <code>Ethernet</code> מזוגות חוטים מפותלים:</p>
           <table class="content-table">
             <tr><th>קטגוריה</th><th>מהירות</th><th>שימוש</th></tr>
             <tr><td>Cat5e</td><td>1 Gbps עד 100m</td><td>רשתות ביתיות/משרדיות</td></tr>
@@ -1881,8 +1904,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           </table>
           <p><strong>סיב אופטי</strong> – קיימים שני סוגים:</p>
           <ul>
-            <li><strong>Single-mode</strong> – ליבה דקה, מתאים למרחקים ארוכים עד 100 ק"מ</li>
-            <li><strong>Multi-mode</strong> – ליבה רחבה, מתאים עד 2 ק"מ, זול יותר</li>
+            <li><strong>Single-mode</strong> — ליבה דקה, מתאים למרחקים ארוכים עד 100 ק"מ</li>
+            <li><strong>Multi-mode</strong> — ליבה רחבה, מתאים עד 2 ק"מ, זול יותר</li>
           </ul>
           <p><strong>קונקטורים נפוצים:</strong></p>
           <ul>
@@ -1905,20 +1928,23 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           </table>
           <p><strong>דורות WiFi:</strong></p>
           <ul>
-            <li><strong>WiFi 4</strong> — <code>802.11n</code> — עד 600 Mbps, תדרי 2.4+5 GHz</li>
-            <li><strong>WiFi 5</strong> — <code>802.11ac</code> — עד 3.5 Gbps, תדר 5 GHz</li>
-            <li><strong>WiFi 6</strong> — <code>802.11ax</code> — עד 9.6 Gbps, תדרי 2.4+5 GHz. <code>OFDMA</code> — יותר מכשירים בו-זמנית</li>
+            <li><strong>WiFi 4</strong> — <code>802.11n</code> — עד 600 Mbps — תדרי 2.4+5 GHz</li>
+            <li><strong>WiFi 5</strong> — <code>802.11ac</code> — עד 3.5 Gbps — תדר 5 GHz</li>
+            <li><strong>WiFi 6</strong> — <code>802.11ax</code> — עד 9.6 Gbps — תדרי 2.4+5 GHz</li>
+            <li><code>OFDMA</code> — מאפשר יותר מכשירים בו-זמנית</li>
           </ul>
           <p><strong>CSMA/CA</strong> — <code>Collision Avoidance</code></p>
-          <p>ב-WiFi לא ניתן לזהות התנגשויות כמו ב-Ethernet, ולכן משתמשים בשיטת מניעה:</p>
+          <p>ב-<code>WiFi</code> לא ניתן לזהות התנגשויות כמו ב-<code>Ethernet</code>.</p>
+          <p>לכן משתמשים בשיטת מניעה:</p>
           <ol>
             <li>כל תחנה מחכה שהאוויר יהיה פנוי</li>
             <li>מוסיפה זמן המתנה אקראי לפני השידור</li>
             <li>אם הגיע <code>ACK</code> מהצד השני – השידור הצליח</li>
           </ol>
-          <p><strong>SSID</strong> – שם הרשת האלחוטית שמוצג למשתמש.</p>
-          <p><strong>BSSID</strong> – כתובת ה-MAC של נקודת הגישה (<code>Access Point</code>).</p>
-          <p>ניתן לחבר כמה נקודות גישה עם אותו SSID כדי ליצור רשת אחת גדולה שתומכת ב-<code>Roaming</code> – מעבר חלק בין נקודות גישה.</p>
+          <p><strong>SSID</strong> — שם הרשת האלחוטית שמוצג למשתמש.</p>
+          <p><strong>BSSID</strong> — כתובת ה-<code>MAC</code> של נקודת הגישה — <code>Access Point</code>.</p>
+          <p>ניתן לחבר כמה נקודות גישה עם אותו <code>SSID</code> כדי ליצור רשת אחת גדולה.</p>
+          <p>תומכת ב-<code>Roaming</code> — מעבר חלק בין נקודות גישה.</p>
         `
       },
       {
@@ -1926,25 +1952,26 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         title: "קידוד – ייצוג ביטים כאותות",
         content: `
           <p>איך מייצגים 0 ו-1 פיזית? כל מדיום מגדיר <strong>שיטת קידוד</strong> שונה.</p>
-          <p><str<p><strong>NRZ</strong> (Non-Return to Zero)</p>
+          <p><strong>NRZ</strong> — <code>Non-Return to Zero</code></p>
           <p>1 = מתח גבוה, 0 = מתח נמוך.</p>
           <p>פשוט, אבל בעייתי ברצפים ארוכים של 0 או 1 — קשה לסנכרון.</p>
 
           <p><strong>Manchester Encoding</strong></p>
-          <p>כל ביט = מעבר: 1 = מנמוך לגבוה באמצע הביט, 0 = מגבוה לנמוך.</p>
-          <p>מאפשר סנכרון מובנה. Ethernet ישן (10 Mbps) השתמש בשיטה זו.</p>
+          <p>כל ביט = מעבר. 1 = מנמוך לגבוה באמצע הביט. 0 = מגבוה לנמוך.</p>
+          <p>מאפשר סנכרון מובנה.</p>
+          <p><code>Ethernet</code> ישן — 10 Mbps — השתמש בשיטה זו.</p>
 
           <p><strong>4B/5B</strong></p>
           <p>כל 4 ביטים מקודדים כ-5 ביטים שמבטיחים מינימום מעברים לסנכרון.</p>
-          <p>בשימוש ב-Fast Ethernet (100 Mbps).</p>
+          <p>בשימוש ב-<code>Fast Ethernet</code> — 100 Mbps.</p>
 
-          <p><strong>PAM4</strong> (Pulse Amplitude Modulation)</p>
-          <p>4 רמות מתח (00, 01, 10, 11) — מכפיל את כמות הנתונים.</p>
-          <p>400 Gbps Ethernet משתמש בשיטה זו.</p>
+          <p><strong>PAM4</strong> — <code>Pulse Amplitude Modulation</code></p>
+          <p>4 רמות מתח — 00, 01, 10, 11 — מכפיל את כמות הנתונים.</p>
+          <p><code>400 Gbps Ethernet</code> משתמש בשיטה זו.</p>
 
           <p><strong>סיב אופטי</strong></p>
-          <p>ON/OFF של אור (<code>OOK</code>) לקידוד בסיסי.</p>
-          <p>מד של פאזה (<code>QPSK</code>, <code>QAM</code>) לנפחים גדולים.</p>        `
+          <p><code>ON/OFF</code> של אור — <code>OOK</code> — לקידוד בסיסי.</p>
+          <p>מדידת פאזה — <code>QPSK</code>, <code>QAM</code> — לנפחים גדולים.</p>        `
       },
       {
         type: "explanation",
@@ -1953,15 +1980,15 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p><strong>Half Duplex</strong></p>
           <p>תקשורת בכיוון אחד בלבד בכל רגע נתון.</p>
           <p><code>Hub</code> עובד במצב <code>Half Duplex</code>.</p>
-          <p>כששתי תחנות שולחות בו-זמנית, הסיגנלים מתנגשים — זו <strong>התנגשות</strong> (<code>Collision</code>).</p>
+          <p>כששתי תחנות שולחות בו-זמנית, הסיגנלים מתנגשים — זו <strong>התנגשות</strong> — <code>Collision</code>.</p>
 
-          <p><strong>CSMA/CD</strong> (Carrier Sense Multiple Access / Collision Detection)</p>
-          <p>אלגוריתם לטיפול בהתנגשויות ב-Ethernet ישן:</p>
+          <p><strong>CSMA/CD</strong> — <code>Carrier Sense Multiple Access / Collision Detection</code></p>
+          <p>אלגוריתם לטיפול בהתנגשויות ב-<code>Ethernet</code> ישן:</p>
           <ol>
-            <li>האזן לפני שאתה שולח (Carrier Sense)</li>
+            <li>האזן לפני שאתה שולח — <code>Carrier Sense</code></li>
             <li>שלח אם הקו פנוי</li>
-            <li>אם זוהתה התנגשות — עצור, שלח signal jam</li>
-            <li>המתן זמן אקראי (Backoff), נסה שוב</li>
+            <li>אם זוהתה התנגשות — עצור, שלח <code>Signal Jam</code></li>
+            <li>המתן זמן אקראי — <code>Backoff</code> — ונסה שוב</li>
           </ol>
 
           <p><strong>Full Duplex</strong></p>
@@ -1970,7 +1997,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>זה המצב הנפוץ כיום.</p>
 
           <p><strong>Auto-Negotiation</strong></p>
-          <p>מסדר באופן אוטומטי את המהירות ומצב ה-<code>Duplex</code> בין שני הצדדים של החיבור.</p>
+          <p>מסדר באופן אוטומטי את המהירות ומצב ה-<code>Duplex</code> בין שני הצדדים.</p>
         `
       },
       {
@@ -1990,7 +2017,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           {
             title: "Power over Ethernet – חשמל דרך כבל רשת",
             icon: "⚡",
-            content: `<p><strong>PoE</strong> — <code>Power over Ethernet</code></p><p>מעביר חשמל ונתונים על אותו כבל <code>Cat5e/Cat6</code>.</p>
+            content: `<p><strong>PoE</strong> — <code>Power over Ethernet</code></p>
+              <p>מעביר חשמל ונתונים על אותו כבל <code>Cat5e</code>/<code>Cat6</code>.</p>
               <p>מכשירים כמו נקודות WiFi, טלפוני IP ומצלמות אבטחה יכולים לקבל חשמל ישירות מה-Switch, ללא חיבור חשמל נפרד.</p>
               <p>סוגי PoE:</p>
               <ul>
@@ -2008,11 +2036,11 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>שכבה פיזית = העברת ביט (0/1). כבלים: Cat5e/Cat6 (נחושת), Single/Multi-mode (סיב)</li>
-              <li>WiFi 802.11: 2.4GHz (טווח) vs 5GHz (מהירות). CSMA/CA – מניעת התנגשויות אלחוטיות</li>
-              <li>Bandwidth = קצב תיאורטי. Throughput = בפועל. Latency = זמן תגובה. Jitter = שינוי latency</li>
-              <li>Full Duplex = שליחה + קבלה בו-זמנית (Switch מודרני). Half Duplex = Hub, CSMA/CD</li>
-              <li>קידוד: NRZ, Manchester, 4B/5B – ייצוג ביטים כאותות פיזיים</li>
+              <li>שכבה פיזית = העברת ביט — 0/1. כבלים: <code>Cat5e</code>/<code>Cat6</code> — נחושת. <code>Single</code>/<code>Multi-mode</code> — סיב</li>
+              <li><code>WiFi 802.11</code> — 2.4GHz — טווח. 5GHz — מהירות. <code>CSMA/CA</code> — מניעת התנגשויות אלחוטיות</li>
+              <li><code>Bandwidth</code> = קצב תיאורטי. <code>Throughput</code> = בפועל. <code>Latency</code> = זמן תגובה. <code>Jitter</code> = שינוי <code>Latency</code></li>
+              <li><code>Full Duplex</code> = שליחה + קבלה בו-זמנית — <code>Switch</code> מודרני. <code>Half Duplex</code> = <code>Hub</code>, <code>CSMA/CD</code></li>
+              <li>קידוד: <code>NRZ</code>, <code>Manchester</code>, <code>4B/5B</code> — ייצוג ביטים כאותות פיזיים</li>
             </ul>
           </div>
         `
@@ -2756,9 +2784,10 @@ Addresses: 142.250.185.46</code></pre>
             <li>שם הדומיין</li>
             <li>המפתח הציבורי של השרת</li>
             <li>תוקף</li>
-            <li>גוף שחתם (<code>CA</code>)</li>
+            <li>גוף שחתם — <code>CA</code></li>
           </ul>
-          <p><strong>CA</strong> (<code>Certificate Authority</code>) — גוף מהימן שחותם על אישורים דיגיטליים.</p>
+          <p><strong>CA</strong> — <code>Certificate Authority</code></p>
+          <p>גוף מהימן שחותם על אישורים דיגיטליים.</p>
           <p>דוגמאות: <code>DigiCert</code>, <code>Let's Encrypt</code>, <code>Comodo</code>.</p>
           <p>הדפדפן סומך עליהם כי הם מובנים מראש במערכת ההפעלה ובדפדפן.</p>
           <p><strong>שרשרת אמון:</strong></p>
@@ -2784,7 +2813,7 @@ Addresses: 142.250.185.46</code></pre>
       },
       {
         type: "demo",
-        title: "המדריך מדגים: HTTPS בפייתון (requests)",
+        title: "המדריך מדגים: HTTPS בפייתון — requests",
         content: `
           <p>ספריית <code>requests</code> בפייתון מטפלת ב-TLS אוטומטית:</p>
           <div class="code-preview">
@@ -2848,7 +2877,7 @@ response = requests.get('https://self-signed.badssl.com', verify=False)</code></
             <h3>נקודות מפתח:</h3>
             <ul>
               <li>HTTPS = HTTP over TLS. פורט 443. מוצפן end-to-end</li>
-              <li>הצפנה סימטרית (AES) – מהירה, מפתח משותף. אסימטרית (RSA/ECC) – לחילופי מפתח</li>
+              <li>הצפנה סימטרית — AES — מהירה, מפתח משותף. אסימטרית — RSA/ECC — לחילופי מפתח</li>
               <li>TLS Handshake: Hello → Certificate → Key Exchange → Finished → AES</li>
               <li>Certificate מאמת שהשרת הוא מי שהוא טוען. CA חותם על האישור</li>
               <li>Let's Encrypt – CA חינמי. Self-Signed – לא מהימן לדפדפן</li>
@@ -2888,9 +2917,9 @@ response = requests.get('https://self-signed.badssl.com', verify=False)</code></
           <p>דואר אלקטרוני משתמש בשלושה פרוטוקולים נפרדים, כל אחד לתפקיד שונה.</p>
           <table class="content-table">
             <tr><th>פרוטוקול</th><th>פורט</th><th>תפקיד</th></tr>
-            <tr><td>SMTP</td><td>25 / 587</td><td>שליחת אימייל (Send)</td></tr>
-            <tr><td>IMAP</td><td>143 / 993</td><td>קריאת אימייל – מסנכרן (ממשיך בשרת)</td></tr>
-            <tr><td>POP3</td><td>110 / 995</td><td>קריאת אימייל – מוריד ומוחק מהשרת</td></tr>
+            <tr><td>SMTP</td><td>25 / 587</td><td>שליחת אימייל</td></tr>
+            <tr><td>IMAP</td><td>143 / 993</td><td>קריאת אימייל — מסנכרן, ממשיך בשרת</td></tr>
+            <tr><td>POP3</td><td>110 / 995</td><td>קריאת אימייל — מוריד ומוחק מהשרת</td></tr>
           </table>
           <div class="diagram-container">
             <svg viewBox="0 0 380 100" class="content-diagram">
@@ -2965,12 +2994,13 @@ with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
         type: "explanation",
         title: "FTP – העברת קבצים",
         content: `
-          <p><strong>FTP</strong> (<code>File Transfer Protocol</code>) — פרוטוקול להעברת קבצים בין מחשבים.</p>
-          <p>פועל על פורט 21 (פקודות) + פורט 20 (נתונים).</p>
+          <p><strong>FTP</strong> — <code>File Transfer Protocol</code></p>
+          <p>פרוטוקול להעברת קבצים בין מחשבים.</p>
+          <p>פועל על פורט 21 — פקודות, ופורט 20 — נתונים.</p>
           <p><strong>שני מצבי העברה:</strong></p>
           <ul>
-            <li><strong>Active mode</strong> – הלקוח פותח פורט, השרת מתחבר אליו (בעייתי עם Firewall)</li>
-            <li><strong>Passive mode</strong> – השרת פותח פורט, הלקוח מתחבר (עובד עם Firewall – מומלץ)</li>
+            <li><strong>Active mode</strong> — הלקוח פותח פורט, השרת מתחבר אליו. בעייתי עם <code>Firewall</code></li>
+            <li><strong>Passive mode</strong> — השרת פותח פורט, הלקוח מתחבר. עובד עם <code>Firewall</code> — מומלץ</li>
           </ul>
           <p><strong>פקודות FTP נפוצות:</strong></p>
           <ul>
@@ -2996,7 +3026,7 @@ ftp.quit()</code></pre>
           </div>
           <p><strong>גרסאות מאובטחות:</strong></p>
           <ul>
-            <li><strong>SFTP</strong> (<code>SSH File Transfer Protocol</code>) — פרוטוקול נפרד לחלוטין מ-<code>FTP</code>, שרץ מעל <code>SSH</code> בפורט 22. למרות השם הדומה, אינו קשור ל-<code>FTP</code> הישן.</li>
+            <li><strong>SFTP</strong> — <code>SSH File Transfer Protocol</code>. פרוטוקול נפרד לחלוטין מ-<code>FTP</code>, שרץ מעל <code>SSH</code> בפורט 22. למרות השם הדומה, אינו קשור ל-<code>FTP</code> הישן</li>
             <li><strong>FTPS</strong> — <code>FTP</code> המקורי עם שכבת <code>TLS</code> מעליו.</li>
           </ul>
           <p><code>FTP</code> רגיל מעביר נתונים כטקסט גלוי.</p>
@@ -3007,8 +3037,9 @@ ftp.quit()</code></pre>
         type: "explanation",
         title: "SSH – גישה מרוחקת מאובטחת",
         content: `
-          <p><strong>SSH</strong> (<code>Secure Shell</code>) — פרוטוקול לגישה מרוחקת מוצפנת.</p>
-          <p>פורט 22. מחליף את <code>Telnet</code> (לא מוצפן) לחלוטין.</p>
+          <p><strong>SSH</strong> — <code>Secure Shell</code></p>
+          <p>פרוטוקול לגישה מרוחקת מוצפנת.</p>
+          <p>פורט 22. מחליף את <code>Telnet</code> — לא מוצפן — לחלוטין.</p>
           <p><strong>מה אפשר לעשות ב-SSH:</strong></p>
           <ul>
             <li><strong>Terminal מרוחק</strong> – פתיחת shell על שרת מרוחק</li>
@@ -3054,21 +3085,21 @@ ssh.close()</code></pre>
         type: "explanation",
         title: "פורטים ידועים – טבלה מלאה",
         content: `
-          <p>פורטים ידועים (0–1023) מוקצים ל-Well-Known Services:</p>
+          <p>פורטים ידועים — 0 עד 1023 — מוקצים ל-<code>Well-Known Services</code>:</p>
           <table class="content-table">
             <tr><th>פורט</th><th>פרוטוקול</th><th>שכבה</th><th>שימוש</th></tr>
             <tr><td>20/21</td><td>FTP</td><td>TCP</td><td>העברת קבצים</td></tr>
             <tr><td>22</td><td>SSH</td><td>TCP</td><td>גישה מרוחקת מאובטחת</td></tr>
-            <tr><td>23</td><td>Telnet</td><td>TCP</td><td>גישה מרוחקת (לא מוצפן!) ❌</td></tr>
+            <tr><td>23</td><td>Telnet</td><td>TCP</td><td>גישה מרוחקת — לא מוצפן!</td></tr>
             <tr><td>25</td><td>SMTP</td><td>TCP</td><td>שליחת אימייל</td></tr>
             <tr><td>53</td><td>DNS</td><td>UDP/TCP</td><td>מיפוי דומיין ל-IP</td></tr>
             <tr><td>67/68</td><td>DHCP</td><td>UDP</td><td>הקצאת IP אוטומטית</td></tr>
             <tr><td>80</td><td>HTTP</td><td>TCP</td><td>גלישה (לא מוצפן)</td></tr>
             <tr><td>110</td><td>POP3</td><td>TCP</td><td>קריאת אימייל</td></tr>
             <tr><td>143</td><td>IMAP</td><td>TCP</td><td>קריאת אימייל (מסונכרן)</td></tr>
-            <tr><td>443</td><td>HTTPS</td><td>TCP</td><td>גלישה מוצפנת (TLS)</td></tr>
+            <tr><td>443</td><td>HTTPS</td><td>TCP</td><td>גלישה מוצפנת — TLS</td></tr>
             <tr><td>993</td><td>IMAPS</td><td>TCP</td><td>IMAP מוצפן</td></tr>
-            <tr><td>3389</td><td>RDP</td><td>TCP</td><td>Remote Desktop (Windows)</td></tr>
+            <tr><td>3389</td><td>RDP</td><td>TCP</td><td>Remote Desktop — Windows</td></tr>
           </table>
         `
       },
@@ -3116,14 +3147,15 @@ ssh.close()</code></pre>
         type: "explanation",
         title: "מה זה Subnetting?",
         content: `
-          <p><strong>Subnetting</strong> (חלוקת תת-רשתות) – חלוקת רשת IP גדולה לרשתות קטנות יותר.</p>
+          <p><strong>Subnetting</strong> — חלוקת תת-רשתות</p>
+          <p>חלוקת רשת IP גדולה לרשתות קטנות יותר.</p>
           <p><strong>למה מחלקים לתת-רשתות?</strong></p>
           <ul>
-            <li><strong>אבטחה</strong> – הפרדה בין מחלקות (HR, Development, Guest)</li>
+            <li><strong>אבטחה</strong> — הפרדה בין מחלקות — HR, Development, Guest</li>
             <li><strong>ביצועים</strong> – <code>Broadcast</code> מוגבל לרשת הקטנה</li>
             <li><strong>ארגון</strong> – כל מחלקה או אתר מקבל טווח IP נפרד</li>
           </ul>
-          <p>כל כתובת IP מורכבת מ-<strong>חלק רשת</strong> (Network part) ו-<strong>חלק מארח</strong> (Host part).</p>
+          <p>כל כתובת IP מורכבת מ-<strong>חלק רשת</strong> — <code>Network part</code>, ו-<strong>חלק מארח</strong> — <code>Host part</code>.</p>
           <p>ה-<code>Subnet Mask</code> קובע את הגבול בין שני החלקים.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 340 60" class="content-diagram">
@@ -3142,7 +3174,8 @@ ssh.close()</code></pre>
         type: "explanation",
         title: "CIDR – Classless Inter-Domain Routing",
         content: `
-          <p><strong>CIDR</strong> (Classless Inter-Domain Routing) – סימון <code>/prefix</code>.</p>
+          <p><strong>CIDR</strong> — <code>Classless Inter-Domain Routing</code></p>
+          <p>סימון <code>/prefix</code>.</p>
           <p>במקום לכתוב <code>Subnet Mask</code> מלא, כותבים רק את מספר ביטי הרשת:</p>
           <table class="content-table">
             <tr><th>CIDR</th><th>Subnet Mask</th><th>מספר כתובות</th><th>שימוש</th></tr>
@@ -3153,7 +3186,7 @@ ssh.close()</code></pre>
             <tr><td>/30</td><td>255.255.255.252</td><td>2</td><td>קישור P2P בין נתבים</td></tr>
             <tr><td>/32</td><td>255.255.255.255</td><td>1</td><td>מארח בודד</td></tr>
           </table>
-          <p><strong>נוסחת חישוב:</strong> מספר כתובות = 2^(32-prefix).</p>
+          <p><strong>נוסחת חישוב:</strong> מספר כתובות = 2 בחזקת 32 פחות ה-prefix.</p>
           <p>מספר מארחים = כתובות פחות 2 — כתובת הרשת וכתובת ה-<code>Broadcast</code> אינן ניתנות להקצאה.</p>
           <p><strong>דוגמה:</strong></p>
           <p>רשת <code>192.168.1.0/24</code>:</p>
@@ -3169,7 +3202,8 @@ ssh.close()</code></pre>
         type: "explanation",
         title: "כתובות IP פרטיות וציבוריות",
         content: `
-          <p>ב-<code>RFC 1918</code> הוגדרו טווחי IP <strong>פרטיים</strong> — לא ניתן לנתב אותם באינטרנט:</p>
+          <p>ב-<code>RFC 1918</code> הוגדרו טווחי IP <strong>פרטיים</strong>.</p>
+          <p>לא ניתן לנתב אותם באינטרנט:</p>
           <table class="content-table">
             <tr><th>טווח</th><th>CIDR</th><th>מספר כתובות</th><th>שימוש</th></tr>
             <tr><td>10.0.0.0 – 10.255.255.255</td><td>10.0.0.0/8</td><td>16M</td><td>רשתות ארגוניות גדולות</td></tr>
@@ -3180,10 +3214,10 @@ ssh.close()</code></pre>
           <p>הן מוקצות על ידי <span dir="ltr">IANA → RIR → ISP → לקוח</span>.</p>
           <p><strong>כתובות מיוחדות נוספות:</strong></p>
           <ul>
-            <li><code>127.0.0.0/8</code> – Loopback (127.0.0.1 = localhost)</li>
-            <li><code>169.254.0.0/16</code> – APIPA – נוצרת אוטומטית כשאין שרת <code>DHCP</code> זמין</li>
-            <li><code>0.0.0.0</code> – כל הכתובות (bind לכל ממשקים)</li>
-            <li><code>255.255.255.255</code> – Limited Broadcast (לכל ברשת המקומית)</li>
+            <li><code>127.0.0.0/8</code> — Loopback — 127.0.0.1 = localhost</li>
+            <li><code>169.254.0.0/16</code> — <code>APIPA</code> — נוצרת אוטומטית כשאין שרת <code>DHCP</code> זמין</li>
+            <li><code>0.0.0.0</code> — כל הכתובות — <code>bind</code> לכל ממשקים</li>
+            <li><code>255.255.255.255</code> — <code>Limited Broadcast</code> — לכל ברשת המקומית</li>
           </ul>
         `
       },
@@ -3191,7 +3225,8 @@ ssh.close()</code></pre>
         type: "explanation",
         title: "חישוב Subnetting – דוגמה מעשית",
         content: `
-          <p>רשת <code>192.168.10.0/24</code> (254 מארחים) — רוצים לחלק ל-4 תת-רשתות שוות.</p>
+          <p>רשת <code>192.168.10.0/24</code> — 254 מארחים.</p>
+          <p>רוצים לחלק ל-4 תת-רשתות שוות.</p>
           <p><strong>חישוב:</strong></p>
           <ul>
             <li>254 ÷ 4 = 63.5 → צריך לפחות 64 מארחים לכל רשת</li>
@@ -3254,7 +3289,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
             title: "ארכיטקטורת רשת של AWS",
             icon: "☁️",
             content: `
-              <p>ב-<code>AWS</code>, שירות <code>VPC</code> (Virtual Private Cloud) הוא רשת וירטואלית פרטית שלך.</p>
+              <p>ב-<code>AWS</code>, שירות <code>VPC</code> — <code>Virtual Private Cloud</code> — הוא רשת וירטואלית פרטית שלך.</p>
               <p>בוחרים <code>CIDR</code> בסיסי, למשל <code>10.0.0.0/16</code> שנותן 65K כתובות. מתוכו יוצרים תת-רשתות:</p>
               <ul>
                 <li><strong>Public Subnets</strong> — <code>10.0.1.0/24</code>, <code>10.0.2.0/24</code> — יש להן גישה לאינטרנט</li>
@@ -3283,7 +3318,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
             <h3>נקודות מפתח:</h3>
             <ul>
               <li>Subnetting = חלוקת רשת גדולה לרשתות קטנות. IP = חלק רשת + חלק מארח</li>
-              <li>CIDR /prefix: /24 = 254 מארחים, /25 = 126, /30 = 2. כתובות = 2^(32-prefix) - 2</li>
+              <li>CIDR /prefix: /24 = 254 מארחים, /25 = 126, /30 = 2. כתובות = 2 בחזקת 32 פחות prefix, פחות 2</li>
               <li>כתובות פרטיות: 10.x.x.x, 172.16-31.x.x, 192.168.x.x – לא ניתנות לניתוב</li>
               <li>127.0.0.1 = loopback. 0.0.0.0 = כל ממשקים. 255.255.255.255 = Broadcast</li>
               <li>חישוב: prefix /26 = block size 64. כל תת-רשת מתחילה במכפלה של block size</li>
@@ -3402,9 +3437,9 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           <p>Header פשוט יותר מאפשר לנתבים לעבד חבילות מהר יותר.</p>
           <p><strong>שינויים עיקריים ב-IPv6 Header:</strong></p>
           <ul>
-            <li><strong>אין Checksum</strong> – מוריד עומס מנתבים (<code>TCP</code>/<code>UDP</code> כבר בודקים)</li>
+            <li><strong>אין Checksum</strong> — מוריד עומס מנתבים. <code>TCP</code>/<code>UDP</code> כבר בודקים</li>
             <li><strong>אין Fragmentation בנתבים</strong> – רק המקור מפצל. נתבים מחזירים <code>ICMPv6 "Packet Too Big"</code> אם החבילה גדולה מדי</li>
-            <li><strong>Flow Label</strong> – שדה 20-bit לזיהוי זרם תעבורה (QoS, load balancing)</li>
+            <li><strong>Flow Label</strong> — שדה 20-bit לזיהוי זרם תעבורה — <code>QoS</code>, <code>load balancing</code></li>
             <li><strong>Hop Limit</strong> – כמו TTL, מפחית ב-1 בכל hop</li>
             <li><strong>Extension Headers</strong> – אפשרויות הועברו ל-headers נוספים מחוץ ל-header הבסיסי</li>
           </ul>
@@ -3414,17 +3449,19 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
         type: "explanation",
         title: "NDP – מחליף ARP",
         content: `
-          <p><strong>NDP</strong> (Neighbor Discovery Protocol) מחליף את <code>ARP</code> לגמרי ב-IPv6.</p>
+          <p><strong>NDP</strong> — <code>Neighbor Discovery Protocol</code></p>
+          <p>מחליף את <code>ARP</code> לגמרי ב-<code>IPv6</code>.</p>
           <p>עובד דרך <strong>ICMPv6</strong> ו-<code>Multicast</code> — לא <code>Broadcast</code>.</p>
           <p><strong>הודעות NDP עיקריות:</strong></p>
           <table class="content-table">
             <tr><th>הודעה</th><th>כמו ב-IPv4</th><th>תפקיד</th></tr>
-            <tr><td>Router Solicitation (RS)</td><td>DHCP Discover</td><td>מחשב שואל "יש נתב?"</td></tr>
-            <tr><td>Router Advertisement (RA)</td><td>DHCP Offer</td><td>נתב מכריז prefix, gateway, MTU</td></tr>
-            <tr><td>Neighbor Solicitation (NS)</td><td>ARP Request</td><td>"מי מחזיק כתובת X?"</td></tr>
-            <tr><td>Neighbor Advertisement (NA)</td><td>ARP Reply</td><td>"אני! הנה ה-MAC שלי"</td></tr>
+            <tr><td>Router Solicitation — RS</td><td>DHCP Discover</td><td>מחשב שואל "יש נתב?"</td></tr>
+            <tr><td>Router Advertisement — RA</td><td>DHCP Offer</td><td>נתב מכריז prefix, gateway, MTU</td></tr>
+            <tr><td>Neighbor Solicitation — NS</td><td>ARP Request</td><td>"מי מחזיק כתובת X?"</td></tr>
+            <tr><td>Neighbor Advertisement — NA</td><td>ARP Reply</td><td>"אני! הנה ה-MAC שלי"</td></tr>
           </table>
-          <p><strong>SLAAC</strong> (Stateless Address Autoconfiguration) – מחשב יכול לקבוע לעצמו כתובת <code>IPv6</code> ציבורית, <em>ללא DHCP</em>.</p>
+          <p><strong>SLAAC</strong> — <code>Stateless Address Autoconfiguration</code></p>
+          <p>מחשב יכול לקבוע לעצמו כתובת <code>IPv6</code> ציבורית, <em>ללא DHCP</em>.</p>
           <p><strong>שלבי SLAAC:</strong></p>
           <ol>
             <li>נתב שולח <code>RA</code> עם prefix, למשל <code>2001:db8::/64</code></li>
@@ -3432,7 +3469,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
             <li>כתובת מלאה נוצרת: <code>2001:db8::d4be:d9ff:fed6:0c2a</code></li>
           </ol>
           <p><strong>בעיית פרטיות:</strong> <code>SLAAC</code> מבוסס על כתובת <code>MAC</code> קבועה — ניתן לעקוב אחרי מכשירים.</p>
-          <p><strong>הפתרון:</strong> <code>Privacy Extensions</code> (RFC 4941) — יוצרות סיומת אקראית שמשתנה מדי פעם.</p>
+          <p><strong>הפתרון:</strong> <code>Privacy Extensions</code> — <code>RFC 4941</code> — יוצרות סיומת אקראית שמשתנה מדי פעם.</p>
         `
       },
       {
@@ -3440,7 +3477,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
         title: "Dual-Stack ומנגנוני מעבר",
         content: `
           <p>העולם לא עבר ל-<code>IPv6</code> ביום אחד. קיימים מנגנוני מעבר שמאפשרים שילוב של שתי הגרסאות.</p>
-          <p><strong>Dual-Stack</strong> – הגישה המועדפת.</p>
+          <p><strong>Dual-Stack</strong> — הגישה המועדפת.</p>
           <p>המחשב או הנתב מריץ <code>IPv4</code> ו-<code>IPv6</code> במקביל.</p>
           <p>כשיש תמיכה ב-<code>IPv6</code> — הוא משמש. כשאין — המערכת חוזרת ל-<code>IPv4</code>.</p>
           <p>כך עובדות רוב הרשתות היום.</p>
@@ -3492,9 +3529,9 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
             <ul>
               <li>IPv6 = 128 ביטים, 2<sup>128</sup> כתובות. כתיבה: 8 קבוצות hex מופרדות ב-:</li>
               <li>קיצורים: השמטת אפסים מובילים, :: לקבוצות אפסים רצופות</li>
-              <li>סוגים: Global Unicast, Link-Local (fe80::), Unique Local, Multicast (ff00::). אין Broadcast!</li>
+              <li>סוגים: Global Unicast, Link-Local — fe80::, Unique Local, Multicast — ff00::. אין Broadcast!</li>
               <li>Header קבוע 40B. אין checksum. אין fragmentation בנתבים. Flow Label</li>
-              <li>NDP מחליף ARP (Multicast, לא Broadcast). SLAAC – IP אוטומטי ללא DHCP</li>
+              <li>NDP מחליף ARP — Multicast, לא Broadcast. SLAAC — IP אוטומטי ללא DHCP</li>
               <li>Dual-Stack = IPv4+IPv6 במקביל. NAT64+DNS64 = IPv6-only ↔ IPv4</li>
             </ul>
           </div>
@@ -3545,7 +3582,8 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
               <line x1="280" y1="35" x2="280" y2="55" stroke="var(--text-muted)" stroke-dasharray="3,3"/>
             </svg>
           </div>
-          <p><strong>Root Nameservers</strong> – 13 כתובות לוגיות (A עד M), המופעלות על ידי 12 ארגונים שונים.</p>
+          <p><strong>Root Nameservers</strong> — 13 כתובות לוגיות — A עד M.</p>
+          <p>מופעלות על ידי 12 ארגונים שונים.</p>
           <p>כל כתובת מגובה על ידי מאות שרתים פיזיים ברחבי העולם, באמצעות <code>Anycast</code>.</p>
           <p>שרתי ה-Root לא יודעים כתובות סופיות — רק לאיזה שרת <code>TLD</code> לפנות.</p>
           <p><strong>TLD Nameservers</strong> – אחראיים על סיומת הדומיין.</p>
@@ -3563,7 +3601,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           <div class="demo-flow">
             <ol class="demo-steps">
               <li><strong>Cache מקומי</strong> – ה-OS בודק ב-cache מקומי ובקובץ <code>/etc/hosts</code>. אם יש תשובה — מחזיר מיד</li>
-              <li><strong>Recursive Resolver</strong> – בדרך כלל שרת ה-DNS של הספק או הארגון (כגון <code>1.1.1.1</code> של Cloudflare, <code>8.8.8.8</code> של Google). גם הוא בודק cache</li>
+              <li><strong>Recursive Resolver</strong> — בדרך כלל שרת ה-DNS של הספק או הארגון — כגון <code>1.1.1.1</code> של Cloudflare, <code>8.8.8.8</code> של Google. גם הוא בודק cache</li>
               <li><strong>Root Query</strong> – Resolver שואל Root: "מי מטפל ב-<code>.com</code>?"</li>
               <li><strong>TLD Query</strong> – Root מחזיר כתובת TLD. Resolver שואל TLD: "מי מטפל ב-<code>example.com</code>?"</li>
               <li><strong>Authoritative Query</strong> – TLD מחזיר Authoritative. Resolver שואל: "מה ה-IP של <code>www.example.com</code>?"</li>
@@ -3586,12 +3624,12 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
             <tr><td><strong>MX</strong></td><td>שרת Mail + עדיפות</td><td>example.com MX 10 mail.example.com</td></tr>
             <tr><td><strong>TXT</strong></td><td>טקסט חופשי – SPF, DKIM, אימות</td><td>"v=spf1 include:_spf.google.com ~all"</td></tr>
             <tr><td><strong>NS</strong></td><td>Nameservers מוסמכים לזון</td><td>example.com NS ns1.cloudflare.com</td></tr>
-            <tr><td><strong>PTR</strong></td><td>IP → שם (Reverse DNS)</td><td>34.216.184.93.in-addr.arpa → example.com</td></tr>
+            <tr><td><strong>PTR</strong></td><td>IP → שם — Reverse DNS</td><td>34.216.184.93.in-addr.arpa → example.com</td></tr>
             <tr><td><strong>SOA</strong></td><td>Start of Authority – מטא-נתוני הזון</td><td>Serial, Refresh, Retry, Expire, Min-TTL</td></tr>
             <tr><td><strong>SRV</strong></td><td>שירות מסוים – host:port</td><td>_sip._tcp.example.com → 5060 sip.example.com</td></tr>
             <tr><td><strong>CAA</strong></td><td>איזה CA רשאי להנפיק אישור?</td><td>example.com CAA 0 issue "letsencrypt.org"</td></tr>
           </table>
-          <p><strong>מגבלת CNAME:</strong> רשומת <code>CNAME</code> לא יכולה לשמש על דומיין ראשי (<code>apex</code>).</p>
+          <p><strong>מגבלת CNAME:</strong> רשומת <code>CNAME</code> לא יכולה לשמש על דומיין ראשי — <code>apex</code>.</p>
           <p>לדוגמה, <code>example.com</code> חייב להיות רשומת <code>A</code>, לא <code>CNAME</code>.</p>
           <p>זו הסיבה שאתרים רבים משתמשים ב-<code>www.example.com</code> כ-<code>CNAME</code>.</p>
           <p><strong>עדיפות MX:</strong> מספר נמוך יותר = עדיפות גבוהה יותר.</p>
@@ -3603,7 +3641,8 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
         type: "demo",
         title: "המדריך מדגים: dig – שאילתות DNS מתקדמות",
         content: `
-          <p><code>dig</code> הוא הכלי המקצועי לשאילתות DNS (נפוץ ב-Linux/Mac):</p>
+          <p><code>dig</code> הוא הכלי המקצועי לשאילתות DNS.</p>
+          <p>נפוץ ב-<code>Linux</code> ו-<code>Mac</code>:</p>
           <div class="code-preview">
             <pre><code># שאילתת A record
 $ dig www.google.com
@@ -3638,24 +3677,26 @@ $ dig +trace www.example.com</code></pre>
         type: "explanation",
         title: "DNS Caching ו-TTL",
         content: `
-          <p>כל record DNS מכיל <strong>TTL</strong> (Time To Live) בשניות — כמה זמן ה-resolver שומר ב-cache.</p>
-          <p><strong>TTL נמוך</strong> (300s = 5 דקות):</p>
+          <p>כל record DNS מכיל <strong>TTL</strong> — <code>Time To Live</code> — בשניות.</p>
+          <p>קובע כמה זמן ה-resolver שומר ב-cache.</p>
+          <p><strong>TTL נמוך</strong> — 300 שניות = 5 דקות:</p>
           <ul>
             <li>שינויים מתפשטים מהר</li>
             <li>הרבה שאילתות — עומס על ה-Authoritative</li>
           </ul>
-          <p><strong>TTL גבוה</strong> (86400s = 24 שעות):</p>
+          <p><strong>TTL גבוה</strong> — 86,400 שניות = 24 שעות:</p>
           <ul>
             <li>ביצועים טובים, מעט שאילתות</li>
             <li>שינויים לוקחים זמן להתפשט</li>
           </ul>
-          <p><strong>Negative Caching:</strong> גם תשובות שליליות (<code>NXDOMAIN</code>) נשמרות ב-<code>cache</code>, לפי ה-<code>TTL</code> המינימלי ברשומת ה-<code>SOA</code>.</p>
+          <p><strong>Negative Caching</strong></p>
+          <p>גם תשובות שליליות — <code>NXDOMAIN</code> — נשמרות ב-<code>cache</code>, לפי ה-<code>TTL</code> המינימלי ברשומת ה-<code>SOA</code>.</p>
           <p>מנגנון זה מונע הצפה של שרתי <code>DNS</code> בשאילתות חוזרות לדומיינים שגויים.</p>
           <p><strong>שכבות cache:</strong></p>
           <ol>
-            <li>Cache של הדפדפן (Chrome: chrome://net-internals/#dns)</li>
+            <li>Cache של הדפדפן — ב-Chrome: <code>chrome://net-internals/#dns</code></li>
             <li>Cache של מערכת ההפעלה</li>
-            <li>Cache של ה-Recursive Resolver (ISP / 1.1.1.1)</li>
+            <li>Cache של ה-Recursive Resolver — ISP או <code>1.1.1.1</code></li>
           </ol>
           <p>כלים לניקוי cache:</p>
           <div class="code-preview">
@@ -3672,22 +3713,24 @@ sudo dscacheutil -flushcache</code></pre>
       },
       {
         type: "explanation",
-        title: "DNS over HTTPS (DoH) ו-DNS over TLS (DoT)",
+        title: "DNS over HTTPS — DoH ו-DNS over TLS — DoT",
         content: `
           <p><code>DNS</code> מסורתי עובד על <code>UDP</code> פורט 53 ומועבר כטקסט גלוי.</p>
           <p>כל מי שנמצא בדרך — ספק האינטרנט, רשת WiFi ציבורית — יכול לראות לאיזה אתרים גולשים.</p>
-          <p><strong>DNS over HTTPS (DoH)</strong> – שאילתות <code>DNS</code> מוצפנות בתוך <code>HTTPS</code> על פורט 443.</p>
+          <p><strong>DNS over HTTPS</strong> — <code>DoH</code></p>
+          <p>שאילתות <code>DNS</code> מוצפנות בתוך <code>HTTPS</code> על פורט 443.</p>
           <p>מבחוץ לא ניתן להבדיל בינן לבין גלישה רגילה.</p>
-          <p><strong>DNS over TLS (DoT)</strong> – שאילתות DNS מוצפנות ב-<code>TLS</code> על פורט 853.</p>
+          <p><strong>DNS over TLS</strong> — <code>DoT</code></p>
+          <p>שאילתות DNS מוצפנות ב-<code>TLS</code> על פורט 853.</p>
           <p>התעבורה מוצפנת, אבל מכיוון שפורט 853 ייחודי ל-<code>DoT</code> — ניתן לזהות שמדובר בשאילתות DNS.</p>
           <table class="content-table">
             <tr><th></th><th>DoH</th><th>DoT</th><th>DNS רגיל</th></tr>
             <tr><td>פורט</td><td>443</td><td>853</td><td>53</td></tr>
             <tr><td>הצפנה</td><td>✅</td><td>✅</td><td>❌</td></tr>
-            <tr><td>ניתן לחסום בפורט</td><td>קשה (443 = הכל)</td><td>קל (853)</td><td>קל (53)</td></tr>
+            <tr><td>ניתן לחסום בפורט</td><td>קשה — 443 = הכל</td><td>קל — 853</td><td>קל — 53</td></tr>
             <tr><td>Firefox, Chrome</td><td>✅ מובנה</td><td>לא</td><td>ברירת מחדל</td></tr>
           </table>
-          <p>Cloudflare (<code>1.1.1.1</code>), Google (<code>8.8.8.8</code>), ו-Mozilla — כולם מספקים <code>DoH</code>.</p>
+          <p><code>Cloudflare</code> — <code>1.1.1.1</code>, <code>Google</code> — <code>8.8.8.8</code>, ו-<code>Mozilla</code> — כולם מספקים <code>DoH</code>.</p>
           <p><strong>מחלוקת:</strong> <code>DoH</code> ריכז שאילתות <code>DNS</code> בידי כמה ספקים גדולים בלבד.</p>
           <p>ארגונים מודאגים ש-<code>DoH</code> יעקוף את ה-<code>Firewall</code> הארגוני ויחשוף נתוני גלישה של עובדים.</p>
         `
@@ -3703,14 +3746,14 @@ sudo dscacheutil -flushcache</code></pre>
             content: `
               <p><strong>DNS Hijacking:</strong> ספקי אינטרנט מסוימים "חוטפים" שאילתות <code>DNS</code> לדומיינים שלא קיימים. במקום להחזיר <code>NXDOMAIN</code> — הם מציגים דף פרסומות.</p>
               <p><strong>DNS Spoofing / Cache Poisoning:</strong> תקיפה חמורה יותר. תוקף מזהם את ה-<code>cache</code> של <code>Resolver</code> עם תשובות מזויפות, ומפנה משתמשים לאתר פישינג.</p>
-              <p><strong>DNSSEC</strong> (<code>DNS Security Extensions</code>) פותר זאת באמצעות חתימות קריפטוגרפיות על כל רשומה. הרשומה נחשבת אמיתית רק אם החתימה תקינה.</p>
+              <p><strong>DNSSEC</strong> — <code>DNS Security Extensions</code> — פותר זאת באמצעות חתימות קריפטוגרפיות על כל רשומה. הרשומה נחשבת אמיתית רק אם החתימה תקינה.</p>
             `
           },
           {
             title: "DNS כ-Choke Point של האינטרנט",
             icon: "🌐",
             content: `
-              <p>ב-2016, התקפת <code>DDoS</code> ענקית על <code>Dyn</code> (ספקית DNS גדולה) הפילה את <code>Twitter</code>, <code>Netflix</code>, <code>GitHub</code> ו-<code>Reddit</code> לשעות.</p>
+              <p>ב-2016, התקפת <code>DDoS</code> ענקית על <code>Dyn</code> — ספקית DNS גדולה — הפילה את <code>Twitter</code>, <code>Netflix</code>, <code>GitHub</code> ו-<code>Reddit</code> לשעות.</p>
               <p><strong>הסיבה:</strong> <code>DNS</code> הוא תשתית קריטית שכל האינטרנט תלוי בה.</p>
               <p><strong>הפתרון:</strong> שימוש בכמה ספקי DNS שונים. כיום <code>Route53</code>, <code>Cloudflare</code> ו-<code>NS1</code> מציעים <code>Anycast</code> עם מאות נקודות נוכחות.</p>
             `
@@ -3724,9 +3767,9 @@ sudo dscacheutil -flushcache</code></pre>
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>היררכיה: Root (13 לוגיים) → TLD (.com) → Authoritative (הרשומות האמיתיות)</li>
+              <li>היררכיה: Root — 13 לוגיים → TLD — .com → Authoritative — הרשומות האמיתיות</li>
               <li>Recursive Resolver עושה את כל העבודה עבור הלקוח. Cache על TTL</li>
-              <li>Records: A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), TXT (SPF/DKIM), NS, PTR (reverse), SOA, CAA</li>
+              <li>Records: A — IPv4, AAAA — IPv6, CNAME — alias, MX — mail, TXT — SPF/DKIM, NS, PTR — reverse, SOA, CAA</li>
               <li>TTL גבוה = מהיר, איטי להשתנות. TTL נמוך = גמיש, עמוס</li>
               <li><code>DoH</code> — פורט 443, <code>DoT</code> — פורט 853. DNS מוצפן להגנת פרטיות</li>
               <li>dig = כלי מקצועי. dig +trace = מסלול מלא. ipconfig /flushdns = ניקוי cache</li>
@@ -3776,7 +3819,7 @@ sudo dscacheutil -flushcache</code></pre>
         title: "Sliding Window – Flow Control",
         content: `
           <p><strong>Flow Control</strong> מונע ממחשב מהיר להציף מחשב איטי.</p>
-          <p>הפתרון: <strong>Receive Window (<code>rwnd</code>)</strong>.</p>
+          <p>הפתרון: <strong>Receive Window</strong> — <code>rwnd</code>.</p>
           <p>בכל <code>ACK</code>, המקבל מודיע: "יש לי <code>rwnd</code> בתים מקום ב-buffer — שלח עד כאן".</p>
           <p>השולח לא שולח יותר מ-<code>rwnd</code> בתים בכל רגע.</p>
           <div class="diagram-container">
@@ -3794,7 +3837,8 @@ sudo dscacheutil -flushcache</code></pre>
             </svg>
             <p class="diagram-caption">Sliding Window – רק הנתונים בחלון צהוב בטיסה</p>
           </div>
-          <p><strong>Window Scaling</strong> (RFC 1323): שדה <code>rwnd</code> הוא 16 ביטים בלבד, המגביל את החלון ל-65,535 בתים.</p>
+          <p><strong>Window Scaling</strong> — <code>RFC 1323</code></p>
+          <p>שדה <code>rwnd</code> הוא 16 ביטים בלבד, המגביל את החלון ל-65,535 בתים.</p>
           <p>זה לא מספיק לחיבורים מהירים.</p>
           <p><code>Window Scale</code> הוא מכפיל של עד 2^14:</p>
           <ul>
@@ -3809,14 +3853,14 @@ sudo dscacheutil -flushcache</code></pre>
         title: "Congestion Control – Slow Start",
         content: `
           <p><strong>Congestion Control</strong> מונע מכולם להציף את הרשת.</p>
-          <p>השולח מנהל <strong>Congestion Window (<code>cwnd</code>)</strong>.</p>
-          <p>הכלל: מספר הבתים בטיסה ≤ <strong>min(cwnd, rwnd)</strong>.</p>
+          <p>השולח מנהל <strong>Congestion Window</strong> — <code>cwnd</code>.</p>
+          <p>הכלל: מספר הבתים בטיסה ≤ הערך הנמוך מבין <code>cwnd</code> ו-<code>rwnd</code>.</p>
           <p><strong>Slow Start</strong> – בפתיחת חיבור, <code>cwnd</code> מתחיל קטן ומתגדל במהירות:</p>
           <ul>
-            <li>cwnd מתחיל ב-1–10 MSS (Maximum Segment Size ≈ 1460 בתים)</li>
+            <li><code>cwnd</code> מתחיל ב-1 עד 10 MSS — <code>Maximum Segment Size</code> ≈ 1460 בתים</li>
             <li>כל ACK שמגיע → cwnd += 1 MSS</li>
             <li>כל RTT → cwnd מכפיל (גידול אקספוננציאלי)</li>
-            <li>ממשיך עד שמגיע ל-<strong>ssthresh</strong> (Slow Start Threshold)</li>
+            <li>ממשיך עד שמגיע ל-<strong>ssthresh</strong> — <code>Slow Start Threshold</code></li>
           </ul>
           <div class="diagram-container">
             <svg viewBox="0 0 300 120" class="content-diagram">
@@ -3842,16 +3886,16 @@ sudo dscacheutil -flushcache</code></pre>
           <p>לאחר שמגיע ל-<code>ssthresh</code>, TCP עובר ל-<strong>Congestion Avoidance</strong>:</p>
           <ul>
             <li>גידול לינארי: כל RTT → cwnd += 1 MSS</li>
-            <li>האלגוריתם: <strong>AIMD</strong> (Additive Increase, Multiplicative Decrease)</li>
+            <li>האלגוריתם: <strong>AIMD</strong> — <code>Additive Increase, Multiplicative Decrease</code></li>
           </ul>
-          <p><strong>זיהוי אובדן (Loss Detection):</strong></p>
-          <p><strong>שיטה 1 – Timeout (RTO)</strong>: לא הגיע ACK בזמן:</p>
+          <p><strong>זיהוי אובדן</strong> — <code>Loss Detection</code>:</p>
+          <p><strong>שיטה 1 — Timeout</strong> — <code>RTO</code>: לא הגיע ACK בזמן:</p>
           <ul>
             <li>ssthresh = cwnd / 2</li>
-            <li>cwnd = 1 MSS (חזרה ל-Slow Start מהתחלה)</li>
+            <li><code>cwnd</code> = 1 MSS — חזרה ל-Slow Start מהתחלה</li>
             <li>RTO מוכפל — Exponential Backoff</li>
           </ul>
-          <p><strong>שיטה 2 – 3 Duplicate ACKs (Fast Retransmit)</strong>: 3 ACKs לאותו sequence = חבילה אחת אבדה:</p>
+          <p><strong>שיטה 2 — 3 Duplicate ACKs</strong> — <code>Fast Retransmit</code>: 3 ACKs לאותו sequence = חבילה אחת אבדה:</p>
           <ul>
             <li>שולח מיד — לא מחכה ל-timeout</li>
             <li>ssthresh = cwnd / 2; cwnd = ssthresh + 3 MSS</li>
@@ -3866,8 +3910,9 @@ sudo dscacheutil -flushcache</code></pre>
         title: "RTT ו-RTO – חישוב Timeout",
         content: `
           <p>כמה זמן לחכות לפני Timeout?</p>
-          <p><code>TCP</code> מחשב <strong>RTO</strong> (Retransmission Timeout) דינמית:</p>
-          <p><strong>SRTT</strong> (Smoothed RTT) – ממוצע משוקלל של מדידות ה-RTT:</p>
+          <p><code>TCP</code> מחשב <strong>RTO</strong> — <code>Retransmission Timeout</code> — באופן דינמי:</p>
+          <p><strong>SRTT</strong> — <code>Smoothed RTT</code></p>
+          <p>ממוצע משוקלל של מדידות ה-RTT:</p>
           <div class="code-preview">
             <pre><code>α = 0.125
 SRTT = (1 - α) × SRTT + α × RTT_sample</code></pre>
@@ -3883,7 +3928,7 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
           </div>
           <p><strong>Karn's Algorithm:</strong> לא מחשבים דגימת <code>RTT</code> מחבילה ששודרה מחדש.</p>
           <p>הסיבה: אי אפשר לדעת אם ה-<code>ACK</code> שייך לשליחה הראשונה או לשנייה.</p>
-          <p><code>RTO</code> מוכפל עם כל <code>timeout</code> עוקב (Exponential Backoff), עד מגבלה של 60–120 שניות.</p>
+          <p><code>RTO</code> מוכפל עם כל <code>timeout</code> עוקב — <code>Exponential Backoff</code> — עד מגבלה של 60 עד 120 שניות.</p>
         `
       },
       {
@@ -3894,10 +3939,11 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
             <tr><th>אלגוריתם</th><th>הגישה</th><th>שימוש</th></tr>
             <tr><td><strong>TCP Reno</strong></td><td>AIMD קלאסי, מגיב לאובדן</td><td>היסטורי, ברירת מחדל ישנה</td></tr>
             <tr><td><strong>TCP CUBIC</strong></td><td>פונקציה קוביקית של הזמן מאז האובדן האחרון. אגרסיבי יותר ב-high-BDP</td><td>Linux ברירת מחדל</td></tr>
-            <tr><td><strong>BBR (Google)</strong></td><td>Bottleneck Bandwidth + RTT. מודד רוחב פס ולא מסתמך על אובדן כסימן</td><td>YouTube, Google Cloud. מצוין ב-WiFi ולוויין</td></tr>
+            <tr><td><strong>BBR</strong> — Google</td><td>Bottleneck Bandwidth + RTT. מודד רוחב פס ולא מסתמך על אובדן כסימן</td><td>YouTube, Google Cloud. מצוין ב-WiFi ולווין</td></tr>
             <tr><td><strong>QUIC/HTTP3</strong></td><td>UDP עם congestion control מובנה + TLS 1.3. מנגנון נפרד לכל stream</td><td>Google (60% תעבורה), HTTP/3</td></tr>
           </table>
-          <p><strong>BDP</strong> (<code>Bandwidth-Delay Product</code>) = רוחב פס כפול זמן ה-<code>RTT</code>.</p>
+          <p><strong>BDP</strong> — <code>Bandwidth-Delay Product</code></p>
+          <p>רוחב פס כפול זמן ה-<code>RTT</code>.</p>
           <p>זהו מספר הבתים שנמצאים "בטיסה" ברשת בכל רגע נתון.</p>
           <p><strong>דוגמה:</strong></p>
           <p>חיבור של 1Gbps עם RTT של 100ms → BDP = 12.5MB.</p>
@@ -3919,7 +3965,7 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
               <p><strong>פתרונות:</strong></p>
               <ul>
                 <li><code>BBR</code> ו-<code>Window Scaling</code> — מגדילים את חלון השליחה</li>
-                <li><code>Starlink</code> (מסלול <code>LEO</code>, RTT של 20ms) — עוקפת את הבעיה בגישה אחרת</li>
+                <li><code>Starlink</code> — מסלול <code>LEO</code>, RTT של 20ms — עוקפת את הבעיה בגישה אחרת</li>
               </ul>
               <p><strong>המסקנה:</strong> הגדרות <code>TCP</code> חייבות להתאים לתנאי הרשת הפיזיים.</p>
             `
@@ -3945,10 +3991,10 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
             <ul>
               <li>Flow Control: rwnd – המקבל מודיע כמה מקום יש. שולח לא שולח יותר</li>
               <li>Congestion Control: cwnd – שולח מנהל עצמו לפי עומס רשת</li>
-              <li>Slow Start: גידול אקספוננציאלי. Congestion Avoidance (AIMD): לינארי</li>
-              <li>Loss: Timeout → cwnd=1. 3 Dup-ACKs → Fast Retransmit + Fast Recovery (cwnd=ssthresh)</li>
+              <li>Slow Start: גידול אקספוננציאלי. Congestion Avoidance — AIMD: לינארי</li>
+              <li>Loss: Timeout → cwnd=1. 3 Dup-ACKs → Fast Retransmit + Fast Recovery — cwnd=ssthresh</li>
               <li>RTO = SRTT + 4×RTTVAR. Karn's Algorithm. Exponential Backoff</li>
-              <li>CUBIC (Linux), BBR (Google), QUIC/HTTP3 – אלגוריתמים מודרניים</li>
+              <li>CUBIC — Linux, BBR — Google, QUIC/HTTP3 — אלגוריתמים מודרניים</li>
             </ul>
           </div>
         `
@@ -3981,7 +4027,8 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
         type: "explanation",
         title: "מה זה VPN?",
         content: `
-          <p><strong>VPN</strong> (Virtual Private Network) – יוצר "מנהרה" מוצפנת בין שתי נקודות דרך רשת ציבורית.</p>
+          <p><strong>VPN</strong> — <code>Virtual Private Network</code></p>
+          <p>יוצר "מנהרה" מוצפנת בין שתי נקודות דרך רשת ציבורית.</p>
           <p>החיבור נראה כאילו הוא פרטי וישיר, גם אם הוא עובר דרך האינטרנט.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 340 100" class="content-diagram">
@@ -4008,12 +4055,12 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
         type: "explanation",
         title: "IPsec – VPN ברמת Layer 3",
         content: `
-          <p><strong>IPsec</strong> פועל בשכבת הרשת (Layer 3).</p>
+          <p><strong>IPsec</strong> פועל בשכבת הרשת — Layer 3.</p>
           <p>מספק: אימות, שלמות, הצפנה, ומניעת replay.</p>
           <p><strong>שני פרוטוקולים:</strong></p>
           <ul>
-            <li><strong>AH</strong> (Authentication Header) – אימות ושלמות בלבד, ללא הצפנה. פרוטוקול 51</li>
-            <li><strong>ESP</strong> (Encapsulating Security Payload) – הצפנה + אימות + שלמות. פרוטוקול 50. <strong>זה מה שמשתמשים בפועל</strong></li>
+            <li><strong>AH</strong> — <code>Authentication Header</code>. אימות ושלמות בלבד, ללא הצפנה. פרוטוקול 51</li>
+            <li><strong>ESP</strong> — <code>Encapsulating Security Payload</code>. הצפנה + אימות + שלמות. פרוטוקול 50. <strong>זה מה שמשתמשים בפועל</strong></li>
           </ul>
           <p><strong>שני מצבים:</strong></p>
           <table class="content-table">
@@ -4021,16 +4068,17 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
             <tr><td>Transport</td><td>Payload בלבד, IP Header גלוי</td><td>Host-to-Host</td></tr>
             <tr><td>Tunnel</td><td>כל הפקטה המקורית עטופה בפקטה חדשה</td><td>VPN Gateways, Site-to-Site</td></tr>
           </table>
-          <p><strong>IKE</strong> (Internet Key Exchange) – שלב חילופי המפתחות, <code>UDP</code> פורט 500:</p>
+          <p><strong>IKE</strong> — <code>Internet Key Exchange</code></p>
+          <p>שלב חילופי המפתחות, <code>UDP</code> פורט 500:</p>
           <ul>
-            <li><strong>IKEv1</strong> – שני שלבים (Phase 1 + Phase 2). גרסה ישנה</li>
-            <li><strong>IKEv2</strong> (מועדף) – יעיל יותר, NAT Traversal מובנה (UDP 4500), תמיכה ב-MOBIKE</li>
+            <li><strong>IKEv1</strong> — שני שלבים — Phase 1 + Phase 2. גרסה ישנה</li>
+            <li><strong>IKEv2</strong> — מועדף. יעיל יותר, <code>NAT Traversal</code> מובנה — <code>UDP</code> 4500, תמיכה ב-<code>MOBIKE</code></li>
           </ul>
           <p><strong>קריפטוגרפיה:</strong></p>
           <ul>
             <li>הצפנה: <code>AES-256-GCM</code></li>
             <li>אימות: <code>HMAC-SHA256</code></li>
-            <li>חילופי מפתחות: Diffie-Hellman (DH group 14 = 2048bit, או 19/20 = ECDH)</li>
+            <li>חילופי מפתחות: <code>Diffie-Hellman</code> — DH group 14 = 2048bit, או 19/20 = ECDH</li>
           </ul>
         `
       },
@@ -4039,11 +4087,12 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
         title: "WireGuard – VPN מודרני ומינימליסטי",
         content: `
           <p><strong>WireGuard</strong> – פרוטוקול VPN מודרני.</p>
-          <p>~4,000 שורות קוד (לעומת OpenVPN ~600,000). מובנה ב-Linux kernel מגרסה 5.6.</p>
+          <p>כ-4,000 שורות קוד — לעומת <code>OpenVPN</code> עם כ-600,000.</p>
+          <p>מובנה ב-<code>Linux kernel</code> מגרסה 5.6.</p>
           <p><strong>עקרונות מרכזיים:</strong></p>
           <ul>
             <li><strong>UDP בלבד</strong> – אין overhead של TCP. מתחבר מחדש שקטית אחרי שינוי רשת (רואמינג)</li>
-            <li><strong>Cryptography קבוע</strong> – אין negotiation, אין cipher agility: תמיד Curve25519 (ECDH) + ChaCha20-Poly1305 + BLAKE2s</li>
+            <li><strong>Cryptography קבוע</strong> — אין negotiation, אין cipher agility: תמיד <code>Curve25519</code> — ECDH + <code>ChaCha20-Poly1305</code> + <code>BLAKE2s</code></li>
             <li><strong>Public/Private Keys</strong> – אין certificates, אין PKI. כל peer מוגדר ע"י מפתח ציבורי</li>
             <li><strong>Cryptokey Routing</strong> – כל peer מוגדר עם allowed-IPs: "רשת X מגיעה דרך peer Y"</li>
           </ul>
@@ -4106,12 +4155,12 @@ Endpoint = peer.example.com:51820</code></pre>
           <p>כלי כמו <code>nmap</code> שולח חבילות <code>SYN</code> לכל הפורטים ומזהה אילו פתוחים.</p>
           <p>זהו חלק בסיסי מכל בדיקת חדירה.</p>
           <p><strong>הגנה:</strong> <code>Firewall</code> עם מדיניות <code>default-deny</code> ומינימום פורטים פתוחים.</p>
-          <p><strong>Man-in-the-Middle (MITM)</strong></p>
+          <p><strong>Man-in-the-Middle</strong> — <code>MITM</code></p>
           <p>תוקף ממקם את עצמו בין שני צדדים מתקשרים ומסנף או משנה את התעבורה.</p>
           <p><strong>הגנה:</strong></p>
           <ul>
             <li><code>HTTPS</code> עם <code>Certificate Pinning</code></li>
-            <li><code>HSTS</code> (<code>HTTP Strict Transport Security</code>) — מונע נפילה ל-<code>HTTP</code> לא מוצפן</li>
+            <li><code>HSTS</code> — <code>HTTP Strict Transport Security</code> — מונע נפילה ל-<code>HTTP</code> לא מוצפן</li>
           </ul>
         `
       },
@@ -4197,7 +4246,8 @@ Endpoint = peer.example.com:51820</code></pre>
         title: "CDN – רשת הפצת תוכן",
         content: `
           <p>כשגולשים ל-Netflix מישראל — הסרטון לא מגיע מאמריקה כל פעם.</p>
-          <p><strong>CDN</strong> (Content Delivery Network) = רשת שרתי "קצה" מפוזרת גלובלית שמגישה תוכן ממקום קרוב.</p>
+          <p><strong>CDN</strong> — <code>Content Delivery Network</code></p>
+          <p>רשת שרתי "קצה" מפוזרת גלובלית שמגישה תוכן ממקום קרוב.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 340 120" class="content-diagram">
               <circle cx="170" cy="60" r="25" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
@@ -4224,11 +4274,11 @@ Endpoint = peer.example.com:51820</code></pre>
           </div>
           <p><strong>איך CDN עובד:</strong></p>
           <ol>
-            <li>DNS מחזיר IP של ה-PoP הקרוב (via Anycast)</li>
-            <li>PoP בודק cache: Cache HIT — מגיש מיידית (~5ms). Cache MISS — מביא מ-Origin, שומר, ומגיש</li>
-            <li>תוכן סטטי (תמונות, JS, CSS) — נשמר זמן רב. תוכן דינמי — עובר ישר ל-Origin</li>
+            <li><code>DNS</code> מחזיר IP של ה-<code>PoP</code> הקרוב — באמצעות <code>Anycast</code></li>
+            <li><code>PoP</code> בודק cache: <code>Cache HIT</code> — מגיש מיידית, כ-5ms. <code>Cache MISS</code> — מביא מ-Origin, שומר, ומגיש</li>
+            <li>תוכן סטטי — תמונות, JS, CSS — נשמר זמן רב. תוכן דינמי — עובר ישר ל-Origin</li>
           </ol>
-          <p>CDN גדולים: Cloudflare (300+ PoPs), Akamai (4,000+ PoPs), AWS CloudFront, Fastly.</p>
+          <p>CDN גדולים: <code>Cloudflare</code> — מעל 300 PoPs, <code>Akamai</code> — מעל 4,000 PoPs, <code>AWS CloudFront</code>, <code>Fastly</code>.</p>
           <p><strong>יתרונות נוספים של CDN:</strong></p>
           <ul>
             <li><strong>TLS Termination בקצה</strong> – ה-<code>Handshake</code> מתבצע עם שרת קרוב, מה שמוריד השהיה משמעותית</li>
@@ -4248,34 +4298,38 @@ Endpoint = peer.example.com:51820</code></pre>
             <tr><th>אלגוריתם</th><th>הגיון</th><th>מתאים ל</th></tr>
             <tr><td>Round Robin</td><td>בתור מחזורי</td><td>בקשות שוות זמן עיבוד</td></tr>
             <tr><td>Least Connections</td><td>לשרת עם הכי פחות חיבורים פעילים</td><td>בקשות שונות זמן עיבוד</td></tr>
-            <tr><td>IP Hash</td><td>hash(client_IP) → תמיד אותו שרת</td><td>Session affinity (עגינה)</td></tr>
+            <tr><td>IP Hash</td><td>hash של IP הלקוח → תמיד אותו שרת</td><td>Session affinity — עגינה</td></tr>
             <tr><td>Weighted</td><td>שרתים חזקים מקבלים יותר</td><td>שרתים בעלי חומרה שונה</td></tr>
           </table>
           <p><strong>שכבות:</strong></p>
           <ul>
-            <li><strong>L4 Load Balancer</strong> – פועל על TCP/UDP. מהיר, אבל לא "רואה" HTTP — לא יכול לנתב לפי URL</li>
-            <li><strong>L7 Load Balancer</strong> – מבין HTTP. יכול לנתב לפי path: <code>/api</code> → שרתי API, <code>/static</code> → שרתי CDN. מאפשר SSL termination, header injection, health checks</li>
+            <li><strong>L4 Load Balancer</strong> — פועל על <code>TCP</code>/<code>UDP</code>. מהיר, אבל לא "רואה" HTTP — לא יכול לנתב לפי URL</li>
+            <li><strong>L7 Load Balancer</strong> — מבין <code>HTTP</code>. יכול לנתב לפי path: <code>/api</code> → שרתי API, <code>/static</code> → שרתי CDN. מאפשר <code>SSL termination</code>, <code>header injection</code>, <code>health checks</code></li>
           </ul>
           <p><strong>Health Checks:</strong> ה-Load Balancer שולח בקשות בדיקה לכל שרת.</p>
           <p>שרת שלא עונה מוצא מהמחזור אוטומטית.</p>
-          <p><strong>High Availability (HA):</strong> זוג Load Balancers — ראשי וגיבוי (Primary + Standby) עם מעבר אוטומטי בתקלה (Failover).</p>
+          <p><strong>High Availability</strong> — <code>HA</code></p>
+          <p>זוג Load Balancers — ראשי וגיבוי — Primary + Standby — עם מעבר אוטומטי בתקלה — <code>Failover</code>.</p>
         `
       },
       {
         type: "explanation",
         title: "HTTP/2 ו-HTTP/3 – הדורות הבאים",
         content: `
-          <p><strong>HTTP/1.1</strong> (1997): עובד במודל בקשה-תגובה. כל חיבור מטפל בבקשה אחת בכל פעם.</p>
-          <p>הבעיה המרכזית: <code>Head-of-Line Blocking</code> (HOL) — בקשה שתקועה חוסמת את כל הבקשות שאחריה.</p>
-          <p><strong>HTTP/2</strong> (2015) – שיפורים עיקריים:</p>
+          <p><strong>HTTP/1.1</strong> — 1997</p>
+          <p>עובד במודל בקשה-תגובה.</p>
+          <p>כל חיבור מטפל בבקשה אחת בכל פעם.</p>
+          <p>הבעיה המרכזית: <code>Head-of-Line Blocking</code> — HOL.</p>
+          <p>בקשה שתקועה חוסמת את כל הבקשות שאחריה.</p>
+          <p><strong>HTTP/2</strong> — 2015. שיפורים עיקריים:</p>
           <ul>
             <li><strong>Multiplexing</strong> – כמה בקשות על חיבור TCP אחד בו-זמנית. פותר HOL blocking ב-Application layer</li>
             <li><strong>Binary Protocol</strong> – לא טקסט. יעיל יותר לניתוח</li>
-            <li><strong>Header Compression (HPACK)</strong> – Headers חוזרים נשלחים רק פעם אחת</li>
-            <li><strong>Server Push</strong> – שרת יכול לשלוח resources לפני שהלקוח ביקש (CSS יחד עם HTML)</li>
+            <li><strong>Header Compression</strong> — <code>HPACK</code>. Headers חוזרים נשלחים רק פעם אחת</li>
+            <li><strong>Server Push</strong> — שרת יכול לשלוח resources לפני שהלקוח ביקש — CSS יחד עם HTML</li>
             <li><strong>Stream Priority</strong> – בקשות ניתנות לתעדוף</li>
           </ul>
-          <p><strong>HTTP/3</strong> (2022) – מעל <code>QUIC</code> (UDP):</p>
+          <p><strong>HTTP/3</strong> — 2022. מעל <code>QUIC</code> — <code>UDP</code>:</p>
           <ul>
             <li><strong>QUIC</strong> – UDP עם congestion control + TLS 1.3 מובנה. תומך ב-0-RTT Handshake</li>
             <li><strong>אין HOL Blocking גם ב-TCP level</strong> – כל stream עצמאי. ב-HTTP/2, חבילת TCP אבודה חוסמת את כל ה-streams</li>
@@ -4289,7 +4343,8 @@ Endpoint = peer.example.com:51820</code></pre>
         type: "explanation",
         title: "REST API ו-WebSockets",
         content: `
-          <p><strong>REST API</strong> (Representational State Transfer) – ארכיטקטורת API על HTTP.</p>
+          <p><strong>REST API</strong> — <code>Representational State Transfer</code></p>
+          <p>ארכיטקטורת API על <code>HTTP</code>.</p>
           <p>כל משאב = URL. פעולות = HTTP Methods:</p>
           <table class="content-table">
             <tr><th>Method</th><th>פעולה</th><th>דוגמה</th></tr>
@@ -4302,13 +4357,13 @@ Endpoint = peer.example.com:51820</code></pre>
           <p>התגובה מגיעה בדרך כלל בפורמט <code>JSON</code>.</p>
           <p><strong>קודי סטטוס HTTP נפוצים:</strong></p>
           <ul>
-            <li><code>200</code> – OK</li>
-            <li><code>201</code> – Created (נוצר)</li>
-            <li><code>400</code> – Bad Request (בקשה שגויה)</li>
-            <li><code>401</code> – Unauthorized (לא מאומת)</li>
-            <li><code>403</code> – Forbidden (אין הרשאה)</li>
-            <li><code>404</code> – Not Found (לא נמצא)</li>
-            <li><code>500</code> – Server Error (שגיאת שרת)</li>
+            <li><code>200</code> — OK</li>
+            <li><code>201</code> — Created — נוצר</li>
+            <li><code>400</code> — Bad Request — בקשה שגויה</li>
+            <li><code>401</code> — Unauthorized — לא מאומת</li>
+            <li><code>403</code> — Forbidden — אין הרשאה</li>
+            <li><code>404</code> — Not Found — לא נמצא</li>
+            <li><code>500</code> — Server Error — שגיאת שרת</li>
           </ul>
           <p><strong>WebSockets</strong> – חיבור דו-כיווני מתמשך מעל <code>HTTP</code>.</p>
           <p>החיבור מתחיל בבקשת <code>Upgrade</code> מ-HTTP ל-WebSocket.</p>
@@ -4334,8 +4389,8 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
         content: `
           <p><strong>Monolith לעומת Microservices:</strong></p>
           <ul>
-            <li><strong>Monolith</strong> – כל הקוד ביישום אחד גדול. פשוט לפתח, קשה להרחיב</li>
-            <li><strong>Microservices</strong> – כל פיצ'ר הוא שירות עצמאי. שירותים מתקשרים ביניהם דרך <code>HTTP</code> או <code>gRPC</code></li>
+            <li><strong>Monolith</strong> — כל הקוד ביישום אחד גדול. פשוט לפתח, קשה להרחיב</li>
+            <li><strong>Microservices</strong> — כל פיצ'ר הוא שירות עצמאי. שירותים מתקשרים ביניהם דרך <code>HTTP</code> או <code>gRPC</code></li>
           </ul>
           <div class="diagram-container">
             <svg viewBox="0 0 340 100" class="content-diagram">
@@ -4356,7 +4411,7 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
               <text x="305" y="78" text-anchor="middle" font-size="8">Search</text>
             </svg>
           </div>
-          <p><strong>Service Mesh</strong> (<code>Istio</code>, <code>Linkerd</code>):</p>
+          <p><strong>Service Mesh</strong> — <code>Istio</code>, <code>Linkerd</code>:</p>
           <p>בארכיטקטורת microservices, כל שירות מתקשר עם עשרות שירותים אחרים.</p>
           <p>Service Mesh מוסיף <code>sidecar proxy</code> ליד כל שירות, שמטפל אוטומטית ב:</p>
           <ul>
@@ -4369,10 +4424,10 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
           <p><strong>API Gateway</strong> – נקודת כניסה אחת לכל ה-microservices.</p>
           <p>מטפל ב:</p>
           <ul>
-            <li>אימות (<code>Auth</code>)</li>
-            <li>הגבלת קצב (<code>Rate Limiting</code>)</li>
-            <li>ניתוב (<code>Routing</code>)</li>
-            <li>רישום לוגים (<code>Logging</code>)</li>
+            <li>אימות — <code>Auth</code></li>
+            <li>הגבלת קצב — <code>Rate Limiting</code></li>
+            <li>ניתוב — <code>Routing</code></li>
+            <li>רישום לוגים — <code>Logging</code></li>
           </ul>
           <p>מוצרים נפוצים: <code>AWS API Gateway</code>, <code>Kong</code>, <code>Nginx</code>.</p>
         `
@@ -4416,8 +4471,8 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
             <h3>נקודות מפתח:</h3>
             <ul>
               <li>CDN: PoPs גלובליים + Anycast. Cache HIT = מהיר. Cache MISS = מ-Origin. מגן מ-DDoS</li>
-              <li>Load Balancer: L4 (TCP) / L7 (HTTP). Round Robin, Least Connections, IP Hash. Health Checks</li>
-              <li>HTTP/2: Multiplexing, Binary, HPACK, Server Push. HTTP/3: QUIC (UDP), 0-RTT, Connection Migration</li>
+              <li>Load Balancer: L4 — TCP / L7 — HTTP. Round Robin, Least Connections, IP Hash. Health Checks</li>
+              <li>HTTP/2: Multiplexing, Binary, HPACK, Server Push. HTTP/3: QUIC — UDP, 0-RTT, Connection Migration</li>
               <li>REST: GET/POST/PUT/PATCH/DELETE על URLs. JSON. WebSockets: חיבור דו-כיווני מתמשך</li>
               <li>Microservices: שירותים עצמאיים. Service Mesh: sidecar proxy. API Gateway: כניסה אחת</li>
               <li>Anycast = אותה IP במקומות רבים. Edge Computing = קוד ב-PoP הקרוב</li>
@@ -7031,8 +7086,10 @@ echo "LD_PRELOAD=/tmp/malicious.so" >> /etc/environment</code></pre></div>
         type: "explanation",
         title: "היררכיית מערכת הקבצים",
         content: `<div dir="rtl">
-<h2>Filesystem Hierarchy Standard (FHS)</h2>
-<p>Linux משתמשת בעץ קבצים אחיד שמתחיל בשורש <code>/</code>.</p>
+<h2>Filesystem Hierarchy Standard — FHS</h2>
+<p><strong>FHS</strong> — <code>Filesystem Hierarchy Standard</code></p>
+<p>תקן שמגדיר את מבנה עץ הקבצים של <code>Linux</code>.</p>
+<p>העץ כולו מתחיל בשורש אחד — <code>/</code>.</p>
 <p>כל רכיב במערכת — דיסקים, מכשירים, תהליכים — מיוצג כקובץ.</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 120" class="content-diagram">
@@ -7074,11 +7131,12 @@ echo "LD_PRELOAD=/tmp/malicious.so" >> /etc/environment</code></pre></div>
   <tr><td><code>/bin</code>, <code>/usr/bin</code></td><td>קבצי הרצה של המערכת והמשתמשים</td></tr>
   <tr><td><code>/etc</code></td><td>קובצי הגדרות של כל השירותים</td></tr>
   <tr><td><code>/var/log</code></td><td>לוגים של המערכת והאפליקציות</td></tr>
-  <tr><td><code>/proc</code>, <code>/sys</code></td><td>ממשק וירטואלי לגרעין Linux</td></tr>
+  <tr><td><code>/proc</code>, <code>/sys</code></td><td>ממשק וירטואלי לגרעין <code>Linux</code></td></tr>
   <tr><td><code>/tmp</code></td><td>קבצים זמניים — נמחקים ברסטרט</td></tr>
   <tr><td><code>/home/user</code></td><td>תיקיית הבית של כל משתמש</td></tr>
 </table>
-<p><strong>טיפ:</strong> <code>/proc/cpuinfo</code> אינו קובץ אמיתי.</p>
+<p><strong>טיפ</strong></p>
+<p><code>/proc/cpuinfo</code> אינו קובץ אמיתי.</p>
 <p>הגרעין יוצר אותו בזמן אמת בכל פעם שקוראים אותו.</p>
 </div>`
       },
@@ -7087,7 +7145,8 @@ echo "LD_PRELOAD=/tmp/malicious.so" >> /etc/environment</code></pre></div>
         title: "פקודות חיוניות — ניפוי בעיות",
         content: `<div dir="rtl">
 <h2>ארגז הכלים של ה-SysAdmin</h2>
-<p>כשמשהו משתבש בפרודקשן, אלו 5 הפקודות הראשונות שתפעיל:</p>
+<p><strong>5 הפקודות הראשונות לניפוי בעיות</strong></p>
+<p>כשמשהו משתבש בפרודקשן, אלו הפקודות שתפעיל ראשונות:</p>
 <table class="content-table">
   <tr><th>פקודה</th><th>מה היא עושה</th></tr>
   <tr><td><code>ls -lah</code></td><td>רשימת קבצים עם הרשאות, גדלים ותאריכים</td></tr>
@@ -7110,7 +7169,7 @@ grep -r --include="*.conf" "password" /etc/
 
 # שימוש בדיסק לכל תיקייה
 du -sh /var/log/* | sort -rh | head -10</code></pre></div>
-<p><strong>זרימת עבודה מומלצת לניפוי בעיות:</strong></p>
+<p><strong>זרימת עבודה מומלצת לניפוי בעיות</strong></p>
 <ol>
   <li>בדוק לוגים: <code>journalctl -xe</code></li>
   <li>בדוק תהליכים: <code>ps aux | grep appname</code></li>
@@ -7125,7 +7184,8 @@ du -sh /var/log/* | sort -rh | head -10</code></pre></div>
         title: "הרשאות — chmod, chown",
         content: `<div dir="rtl">
 <h2>מודל ההרשאות של Linux</h2>
-<p>כל קובץ שייך ל<strong>משתמש</strong> ול<strong>קבוצה</strong>, ויש לו 3 סטי הרשאות:</p>
+<p>כל קובץ שייך ל<strong>משתמש</strong> ול<strong>קבוצה</strong>.</p>
+<p>לכל קובץ יש 3 סטי הרשאות:</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 120" class="content-diagram">
   <rect x="10" y="15" width="340" height="40" rx="6" fill="#1e293b"/>
@@ -7164,7 +7224,7 @@ chown -R ubuntu:ubuntu /home/ubuntu/app/
 # הרשאות מיוחדות — SUID, SGID, Sticky
 chmod +t /tmp           # Sticky bit — רק בעלים מוחק
 chmod u+s /usr/bin/sudo # SUID — רץ כבעלים</code></pre></div>
-<p><strong>כלל אצבע:</strong></p>
+<p><strong>כלל אצבע</strong></p>
 <ul>
 <li>קבצי הגדרה עם סיסמאות — <code>600</code> תמיד</li>
 <li>ספריות אינטרנט — <code>755</code></li>
@@ -7176,9 +7236,9 @@ chmod u+s /usr/bin/sudo # SUID — רץ כבעלים</code></pre></div>
         type: "explanation",
         title: "systemd — ניהול שירותים",
         content: `<div dir="rtl">
-<h2>systemd: init מערכת מודרני</h2>
-<p><code>systemd</code> הוא התהליך הראשון שרץ ב-<code>Linux</code> (<code>PID 1</code>).</p>
-<p>הוא מנהל את כל השירותים, ה-<code>mount points</code>, ה-<code>timers</code> ועוד.</p>
+<h2>systemd — init מערכת מודרני</h2>
+<p><strong>systemd</strong> — התהליך הראשון שרץ ב-<code>Linux</code> — <code>PID 1</code></p>
+<p>מנהל את כל השירותים, ה-<code>mount points</code> וה-<code>timers</code>.</p>
 <table class="content-table">
   <tr><th>פקודה</th><th>פעולה</th></tr>
   <tr><td><code>systemctl status nginx</code></td><td>מצב שירות — רץ/עצר/שגיאה</td></tr>
@@ -7209,7 +7269,8 @@ WantedBy=multi-user.target
 sudo systemctl daemon-reload
 sudo systemctl enable myapp
 sudo systemctl start myapp</code></pre></div>
-<p><strong>יתרון גדול של systemd:</strong> <code>Restart=on-failure</code> — השירות יקום אוטומטית אחרי קריסה.</p>
+<p><strong>יתרון גדול של systemd</strong></p>
+<p><code>Restart=on-failure</code> — השירות יקום אוטומטית אחרי קריסה.</p>
 <p>אין צורך ב-<code>cron</code> או <code>supervisor</code> חיצוני.</p>
 </div>`
       }
@@ -7224,7 +7285,8 @@ sudo systemctl start myapp</code></pre></div>
         title: "VM לעומת קונטיינר",
         content: `<div dir="rtl">
 <h2>המהפכה של הקונטיינרים</h2>
-<p>לפני Docker, כל אפליקציה הצריכה Virtual Machine שלמה — גרעין, OS מלא, RAM נפרד.</p>
+<p><strong>VM</strong> — <code>Virtual Machine</code></p>
+<p>לפני <code>Docker</code>, כל אפליקציה הצריכה <code>VM</code> שלמה — גרעין, <code>OS</code> מלא, <code>RAM</code> נפרד.</p>
 <p>הבזבוז היה עצום.</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 120" class="content-diagram">
@@ -7265,10 +7327,10 @@ sudo systemctl start myapp</code></pre></div>
   <tr><td>בידוד</td><td>חזק מאוד</td><td>חזק (namespaces)</td></tr>
   <tr><td>ביצועים</td><td>תקורה גבוהה</td><td>כמעט כמו native</td></tr>
 </table>
-<p><strong>Docker</strong> משתמש בשני מנגנונים של <code>Linux kernel</code>:</p>
+<p><strong>Docker</strong> — משתמש בשני מנגנונים של <code>Linux kernel</code>:</p>
 <ul>
-<li><strong>namespaces</strong> — לבידוד בין containers</li>
-<li><strong>cgroups</strong> — להגבלת משאבים כמו <code>CPU</code> ו-<code>RAM</code></li>
+<li><strong>namespaces</strong> — בידוד בין <code>containers</code></li>
+<li><strong>cgroups</strong> — הגבלת משאבים כמו <code>CPU</code> ו-<code>RAM</code></li>
 </ul>
 </div>`
       },
@@ -7276,8 +7338,9 @@ sudo systemctl start myapp</code></pre></div>
         type: "explanation",
         title: "Dockerfile — בניית image",
         content: `<div dir="rtl">
-<h2>Dockerfile: הוראות הבנייה</h2>
-<p><code>Dockerfile</code> הוא קובץ טקסט שמגדיר שכבה-אחר-שכבה איך לבנות <code>image</code>.</p>
+<h2>Dockerfile — הוראות הבנייה</h2>
+<p><strong>Dockerfile</strong></p>
+<p>קובץ טקסט שמגדיר שכבה-אחר-שכבה איך לבנות <code>image</code>.</p>
 <p>כל פקודה יוצרת שכבה חדשה ב-<code>filesystem</code>.</p>
 <div class="code-preview"><pre><code># Dockerfile לאפליקציית Python/FastAPI
 FROM python:3.12-slim
@@ -7302,11 +7365,11 @@ ENV PYTHONUNBUFFERED=1
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre></div>
 <table class="content-table">
   <tr><th>פקודה</th><th>תפקיד</th></tr>
-  <tr><td><code>FROM</code></td><td>image בסיס — מריץ מ-Docker Hub</td></tr>
-  <tr><td><code>RUN</code></td><td>מריץ פקודה shell בזמן בנייה → שכבה חדשה</td></tr>
-  <tr><td><code>COPY</code></td><td>מעתיק קבצים מה-host לתוך image</td></tr>
-  <tr><td><code>ENV</code></td><td>משתנה סביבה שנשאר ב-image</td></tr>
-  <tr><td><code>CMD</code></td><td>פקודה ברירת מחדל להרצה (ניתן לעקוף)</td></tr>
+  <tr><td><code>FROM</code></td><td><code>image</code> בסיס — מריץ מ-<code>Docker Hub</code></td></tr>
+  <tr><td><code>RUN</code></td><td>מריץ פקודת <code>shell</code> בזמן בנייה — יוצר שכבה חדשה</td></tr>
+  <tr><td><code>COPY</code></td><td>מעתיק קבצים מה-<code>host</code> לתוך <code>image</code></td></tr>
+  <tr><td><code>ENV</code></td><td>משתנה סביבה שנשאר ב-<code>image</code></td></tr>
+  <tr><td><code>CMD</code></td><td>פקודה ברירת מחדל להרצה — ניתן לעקוף</td></tr>
   <tr><td><code>ENTRYPOINT</code></td><td>פקודה קבועה — לא ניתן לעקוף</td></tr>
 </table>
 <div class="code-preview"><pre><code># בנייה והרצה
@@ -7322,7 +7385,8 @@ docker exec -it myapp bash</code></pre></div>
         type: "explanation",
         title: "Docker Compose — multi-container",
         content: `<div dir="rtl">
-<h2>Docker Compose: כמה שירותים יחד</h2>
+<h2>Docker Compose — כמה שירותים יחד</h2>
+<p><strong>Docker Compose</strong></p>
 <p>בפרויקטים אמיתיים יש <code>backend</code> + <code>database</code> + <code>cache</code> + <code>nginx</code>.</p>
 <p><code>Compose</code> מאפשר להגדיר את כל השירותים בקובץ <code>YAML</code> אחד.</p>
 <div class="code-preview"><pre><code># docker-compose.yml
@@ -7372,9 +7436,10 @@ docker compose down           # עצור והרס קונטיינרים
 docker compose logs web -f    # לוגים של שירות
 docker compose ps             # סטטוס
 docker compose exec db psql -U user mydb  # כנס ל-DB</code></pre></div>
-<p><strong>חשוב:</strong> שמות ה-<code>services</code> הם גם ה-<code>DNS hostnames</code> ברשת הפנימית.</p>
-<p><strong>דוגמה:</strong></p>
-<p>השירות <code>web</code> מגיע ל-<code>db</code> פשוט בשם <code>db</code> — ללא כתובת IP.</p>
+<p><strong>חשוב</strong></p>
+<p>שמות ה-<code>services</code> הם גם ה-<code>DNS hostnames</code> ברשת הפנימית.</p>
+<p><strong>דוגמה</strong></p>
+<p>השירות <code>web</code> מגיע ל-<code>db</code> פשוט בשם <code>db</code> — ללא כתובת <code>IP</code>.</p>
 </div>`
       },
       {
@@ -7382,8 +7447,9 @@ docker compose exec db psql -U user mydb  # כנס ל-DB</code></pre></div>
         title: "Docker Networking",
         content: `<div dir="rtl">
 <h2>רשתות Docker — Bridge, Host, Overlay</h2>
+<p><strong>רשתות Docker</strong></p>
 <p><code>Docker</code> יוצר רשתות וירטואליות שמאפשרות תקשורת בין <code>containers</code>.</p>
-<p>הרשתות מבודדות מלא מהעולם החיצוני.</p>
+<p>הרשתות מבודדות לחלוטין מהעולם החיצוני.</p>
 <table class="content-table">
   <tr><th>סוג רשת</th><th>שימוש</th><th>IP</th></tr>
   <tr><td><strong>bridge</strong></td><td>ברירת מחדל — קונטיינרים על אותו host</td><td>172.17.0.x</td></tr>
@@ -7410,7 +7476,8 @@ docker network inspect mynet
 
 # Overlay ב-Docker Swarm
 docker network create --driver overlay --attachable prod-net</code></pre></div>
-<p><strong>כלל:</strong> תמיד צרו <code>user-defined bridge network</code> — לא ב-<code>default bridge</code>.</p>
+<p><strong>כלל</strong></p>
+<p>תמיד צרו <code>user-defined bridge network</code> — לא ב-<code>default bridge</code>.</p>
 <p>כך מתאפשר <code>DNS resolution</code> לפי שם ה-<code>container</code>.</p>
 </div>`
       }
@@ -7425,8 +7492,10 @@ docker network create --driver overlay --attachable prod-net</code></pre></div>
         title: "אובייקטים בסיסיים — Pod, Deployment, Service",
         content: `<div dir="rtl">
 <h2>הבניים הבסיסיים של K8s</h2>
-<p><code>Kubernetes</code> מנהל <code>containers</code> בקנה מידה.</p>
-<p>במקום "הפעל <code>container</code>", אתה מגדיר <strong>מצב רצוי</strong> — ו-<code>K8s</code> דואג שזה תמיד יקרה.</p>
+<p><strong>Kubernetes</strong> — <code>K8s</code></p>
+<p>מנהל <code>containers</code> בקנה מידה.</p>
+<p>במקום "הפעל <code>container</code>", אתה מגדיר <strong>מצב רצוי</strong>.</p>
+<p><code>K8s</code> דואג שהמצב הזה תמיד יתקיים.</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 120" class="content-diagram">
   <rect x="5" y="5" width="350" height="110" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
@@ -7456,12 +7525,12 @@ docker network create --driver overlay --attachable prod-net</code></pre></div>
 </div>
 <table class="content-table">
   <tr><th>אובייקט</th><th>תפקיד</th></tr>
-  <tr><td><strong>Pod</strong></td><td>יחידה הקטנה ביותר — קונטיינר אחד או יותר עם IP משותף</td></tr>
-  <tr><td><strong>Deployment</strong></td><td>מנהל replicas של Pods — מבטיח שתמיד N עותקים רצים</td></tr>
-  <tr><td><strong>Service</strong></td><td>כתובת IP קבועה ו-load balancer פנימי ל-Pods</td></tr>
-  <tr><td><strong>Ingress</strong></td><td>HTTP routing חיצוני — נתב לפי hostname/path</td></tr>
-  <tr><td><strong>ConfigMap</strong></td><td>הגדרות non-secret כ-key-value</td></tr>
-  <tr><td><strong>Secret</strong></td><td>סיסמאות ו-tokens מוצפנים (base64)</td></tr>
+  <tr><td><strong>Pod</strong></td><td>יחידה הקטנה ביותר — קונטיינר אחד או יותר עם <code>IP</code> משותף</td></tr>
+  <tr><td><strong>Deployment</strong></td><td>מנהל <code>replicas</code> של <code>Pods</code> — מבטיח שתמיד N עותקים רצים</td></tr>
+  <tr><td><strong>Service</strong></td><td>כתובת <code>IP</code> קבועה ו-<code>load balancer</code> פנימי ל-<code>Pods</code></td></tr>
+  <tr><td><strong>Ingress</strong></td><td><code>HTTP routing</code> חיצוני — ניתוב לפי <code>hostname</code> או <code>path</code></td></tr>
+  <tr><td><strong>ConfigMap</strong></td><td>הגדרות לא-סודיות כ-<code>key-value</code></td></tr>
+  <tr><td><strong>Secret</strong></td><td>סיסמאות ו-<code>tokens</code> מוצפנים — <code>base64</code></td></tr>
 </table>
 </div>`
       },
@@ -7470,6 +7539,7 @@ docker network create --driver overlay --attachable prod-net</code></pre></div>
         title: "YAML ו-kubectl — עבודה מעשית",
         content: `<div dir="rtl">
 <h2>הגדרת משאבים ב-YAML</h2>
+<p><strong>גישה דקלרטיבית</strong></p>
 <p>ב-<code>K8s</code> כל דבר מוגדר בקובץ <code>YAML</code>.</p>
 <p>אתה מגדיר "מה אתה רוצה" — ו-<code>K8s</code> דואג להגיע לשם.</p>
 <div class="code-preview"><pre><code># deployment.yaml
@@ -7533,8 +7603,9 @@ kubectl rollout history deploy/myapp  # היסטוריית deploys</code></pre><
         title: "HPA — Horizontal Pod Autoscaling",
         content: `<div dir="rtl">
 <h2>סקיילינג אוטומטי לפי עומס</h2>
-<p><code>HPA</code> מוסיף או מסיר <code>Pods</code> אוטומטית לפי מדדים.</p>
-<p>המדדים הנתמכים: <code>CPU</code>, <code>Memory</code>, ומדדים מותאמים כמו בקשות לשנייה.</p>
+<p><strong>HPA</strong> — <code>Horizontal Pod Autoscaler</code></p>
+<p>מוסיף או מסיר <code>Pods</code> אוטומטית לפי מדדים.</p>
+<p>מדדים נתמכים: <code>CPU</code>, <code>Memory</code>, ומדדים מותאמים כמו בקשות לשנייה.</p>
 <table class="content-table">
   <tr><th>מדד</th><th>טריגר</th><th>פעולה</th></tr>
   <tr><td>CPU &gt; 70%</td><td>scale up</td><td>מוסיף Pods עד maxReplicas</td></tr>
@@ -7568,9 +7639,11 @@ kubectl rollout status deployment/myapp
 
 # Rollback אם משהו השתבש
 kubectl rollout undo deployment/myapp</code></pre></div>
-<p><strong>Rolling Update:</strong> K8s מחליף Pods אחד-אחד.</p>
-<p>בכל רגע יש גם Pods ישנים וגם חדשים — אין downtime.</p>
-<p><strong>strategy.maxUnavailable</strong> — כמה Pods יכולים להיות unavailable בו-זמנית (ברירת מחדל: 25%).</p>
+<p><strong>Rolling Update</strong></p>
+<p><code>K8s</code> מחליף <code>Pods</code> אחד-אחד.</p>
+<p>בכל רגע יש גם <code>Pods</code> ישנים וגם חדשים — אין <code>downtime</code>.</p>
+<p><strong>strategy.maxUnavailable</strong></p>
+<p>כמה <code>Pods</code> יכולים להיות <code>unavailable</code> בו-זמנית — ברירת מחדל: 25%.</p>
 </div>`
       },
       {
@@ -7578,14 +7651,15 @@ kubectl rollout undo deployment/myapp</code></pre></div>
         title: "K8s Networking — CNI, DNS, Ingress",
         content: `<div dir="rtl">
 <h2>רשתות ב-Kubernetes</h2>
-<p><code>K8s</code> יוצר רשת שטוחה שבה כל <code>Pod</code> מקבל <code>IP</code> ייחודי.</p>
+<p><strong>רשת שטוחה</strong></p>
+<p><code>K8s</code> יוצר רשת שבה כל <code>Pod</code> מקבל <code>IP</code> ייחודי.</p>
 <p>כל <code>Pod</code> יכול לתקשר עם כל <code>Pod</code> אחר — גם על <code>node</code> אחר.</p>
 <table class="content-table">
   <tr><th>רכיב</th><th>תפקיד</th></tr>
-  <tr><td><strong>CNI Plugin</strong></td><td>מימוש רשת — Calico/Flannel/Weave. מקצה IPs לPods.</td></tr>
+  <tr><td><strong>CNI Plugin</strong></td><td>מימוש רשת — <code>Calico</code> / <code>Flannel</code> / <code>Weave</code>. מקצה <code>IPs</code> ל-<code>Pods</code></td></tr>
   <tr><td><strong>CoreDNS</strong></td><td>DNS פנימי — <code>myapp-svc.production.svc.cluster.local</code></td></tr>
-  <tr><td><strong>kube-proxy</strong></td><td>iptables rules לניתוב תעבורה ל-Services</td></tr>
-  <tr><td><strong>Ingress Controller</strong></td><td>nginx/Traefik — HTTP routing חיצוני</td></tr>
+  <tr><td><strong>kube-proxy</strong></td><td><code>iptables rules</code> לניתוב תעבורה ל-<code>Services</code></td></tr>
+  <tr><td><strong>Ingress Controller</strong></td><td><code>nginx</code> / <code>Traefik</code> — <code>HTTP routing</code> חיצוני</td></tr>
 </table>
 <div class="code-preview"><pre><code># ingress.yaml
 apiVersion: networking.k8s.io/v1
@@ -7617,7 +7691,8 @@ spec:
   - hosts:
     - myapp.example.com
     secretName: tls-secret</code></pre></div>
-<p><strong>DNS resolution:</strong> <code>Pod</code> ב-<code>namespace production</code> ניגש לשירות <code>db-svc</code> פשוט בשם <code>db-svc.production</code>.</p>
+<p><strong>DNS resolution</strong></p>
+<p><code>Pod</code> ב-<code>namespace production</code> ניגש לשירות <code>db-svc</code> פשוט בשם <code>db-svc.production</code>.</p>
 <p>אין צורך לציין <code>IP</code> מפורש.</p>
 </div>`
       }
@@ -8520,8 +8595,9 @@ argocd app rollback my-app 3</code></pre>
         title: "קריאת TCP State Machine",
         content: `<div dir="rtl">
 <h2>Wireshark — מעבר לצבעים</h2>
-<p>רוב האנשים פותחים Wireshark ורואים גל של חבילות צבעוניות.</p>
-<p>אנליסטים מקצועיים קוראים <strong>סיפורים</strong> — מה קרה, מתי, ולמה.</p>
+<p>רוב האנשים פותחים <code>Wireshark</code> ורואים גל של חבילות צבעוניות.</p>
+<p>אנליסטים מקצועיים קוראים <strong>סיפורים</strong>.</p>
+<p>מה קרה, מתי, ולמה.</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 130" class="content-diagram">
   <text x="180" y="16" text-anchor="middle" font-size="12" fill="#e2e8f0" font-weight="bold">TCP State Machine — החיים של חיבור</text>
@@ -8550,20 +8626,22 @@ argocd app rollback my-app 3</code></pre>
 </div>
 <table class="content-table">
   <tr><th>State</th><th>משמעות</th><th>מה לחפש</th></tr>
-  <tr><td><code>SYN_SENT</code></td><td>לקוח שלח SYN, מחכה לתגובה</td><td>אם נתקע — השרת/firewall חוסם</td></tr>
-  <tr><td><code>ESTABLISHED</code></td><td>חיבור פעיל, נתונים זורמים</td><td>RTT, window size, retransmissions</td></tr>
-  <tr><td><code>TIME_WAIT</code></td><td>חיבור נסגר, ממתין 2×MSL</td><td>המון TIME_WAIT = בעיית port exhaustion</td></tr>
-  <tr><td><code>CLOSE_WAIT</code></td><td>הצד הרחוק סגר, צד שלנו לא</td><td>bug ב-application — לא סוגר socket</td></tr>
+  <tr><td><code>SYN_SENT</code></td><td>לקוח שלח <code>SYN</code>, מחכה לתגובה</td><td>אם נתקע — השרת או ה-<code>firewall</code> חוסם</td></tr>
+  <tr><td><code>ESTABLISHED</code></td><td>חיבור פעיל, נתונים זורמים</td><td><code>RTT</code>, <code>window size</code>, <code>retransmissions</code></td></tr>
+  <tr><td><code>TIME_WAIT</code></td><td>חיבור נסגר, ממתין 2 כפול <code>MSL</code></td><td>הרבה <code>TIME_WAIT</code> = בעיית <code>port exhaustion</code></td></tr>
+  <tr><td><code>CLOSE_WAIT</code></td><td>הצד הרחוק סגר, הצד שלנו לא</td><td>באג באפליקציה — לא סוגר <code>socket</code></td></tr>
 </table>
-<p><strong>Filter שימושי:</strong> <code>tcp.flags.syn == 1 && tcp.flags.ack == 0</code> — רואה כל ניסיון חיבור חדש.</p>
+<p><strong>Filter שימושי</strong></p>
+<p><code>tcp.flags.syn == 1 && tcp.flags.ack == 0</code></p>
+<p>רואה כל ניסיון חיבור חדש.</p>
 </div>`
       },
       {
         type: "explanation",
         title: "Retransmissions ו-CWND",
         content: `<div dir="rtl">
-<h2>TCP Congestion Control — הסיפור שמתרחש מתחת לפני</h2>
-<p>כל <code>retransmission</code> ב-Wireshark הוא צעקה: <em>"משהו השתבש!"</em></p>
+<h2>TCP Congestion Control — מתחת לפני השטח</h2>
+<p>כל <code>retransmission</code> ב-<code>Wireshark</code> הוא צעקה — משהו השתבש.</p>
 <p>להבין מה בדיוק — זו האמנות.</p>
 <div class="code-preview"><pre><code># Wireshark display filters לניפוי TCP
 tcp.analysis.retransmission          # חבילות שנשלחו מחדש
@@ -8577,31 +8655,37 @@ tcp.analysis.out_of_order            # הגיע לא בסדר (jitter/reorder)
 tcp.analysis.ack_rtt</code></pre></div>
 <table class="content-table">
   <tr><th>ממצא</th><th>סיבה אפשרית</th><th>פתרון</th></tr>
-  <tr><td>הרבה Retransmissions</td><td>אובדן חבילות, רשת עמוסה</td><td>בדוק interface errors, שדרג קו</td></tr>
-  <tr><td>Zero Window</td><td>Application לא קורא מהיר מספיק</td><td>tune TCP buffers, בדוק CPU</td></tr>
-  <tr><td>RTT גבוה בעקביות</td><td>נתיב ארוך, סאטלייט, congestion</td><td>CDN, BBR congestion algorithm</td></tr>
-  <tr><td>Fast Retransmit</td><td>חבילה אחת אבדה, הבאות הגיעו</td><td>בדוק מיקום — לרוב בשכבה הפיזית</td></tr>
+  <tr><td>הרבה <code>Retransmissions</code></td><td>אובדן חבילות, רשת עמוסה</td><td>בדוק <code>interface errors</code>, שדרג קו</td></tr>
+  <tr><td><code>Zero Window</code></td><td>האפליקציה לא קוראת מהיר מספיק</td><td>כוונן <code>TCP buffers</code>, בדוק <code>CPU</code></td></tr>
+  <tr><td><code>RTT</code> גבוה בעקביות</td><td>נתיב ארוך, לוויין, עומס</td><td><code>CDN</code>, אלגוריתם <code>BBR</code></td></tr>
+  <tr><td><code>Fast Retransmit</code></td><td>חבילה אחת אבדה, הבאות הגיעו</td><td>בדוק מיקום — לרוב בשכבה הפיזית</td></tr>
 </table>
-<p><strong>כלי מובנה:</strong> Statistics → TCP Stream Graphs → Time-Sequence Graph.</p>
-<p>הגרף מציג את CWND לאורך זמן — drops מופיעים כצניחות חדות.</p>
+<p><strong>כלי מובנה</strong></p>
+<p><code>Statistics → TCP Stream Graphs → Time-Sequence Graph</code></p>
+<p>הגרף מציג את <code>CWND</code> לאורך זמן.</p>
+<p>ירידות מופיעות כצניחות חדות.</p>
 </div>`
       },
       {
         type: "story",
         title: "הסיפור: 3 שניות שעלו $2M",
         content: `<div dir="rtl">
-<h2>כשlatency הורס עסקאות</h2>
-<p>חברת fintech ביקשה לנתח תקרית: כל יום בדיוק ב-9:30 בבוקר, עסקאות מניות נכשלות למשך 3 שניות.</p>
-<p>בשלושת הדקות הראשונות של המסחר — $2M הפסד ביום.</p>
-<p><strong>הניתוח:</strong> פתחו Wireshark על הממשק בין שרת ה-trading לבורסה.</p>
+<h2>כש-<code>latency</code> הורס עסקאות</h2>
+<p>חברת <code>fintech</code> ביקשה לנתח תקרית.</p>
+<p>כל יום בדיוק ב-9:30 בבוקר, עסקאות מניות נכשלות למשך 3 שניות.</p>
+<p>בשלושת הדקות הראשונות של המסחר — הפסד של 2 מיליון דולר ביום.</p>
+<p><strong>הניתוח</strong></p>
+<p>פתחו <code>Wireshark</code> על הממשק בין שרת ה-<code>trading</code> לבורסה.</p>
 <p>Filter: <code>tcp.analysis.retransmission || tcp.analysis.zero_window</code></p>
-<p><strong>הממצא:</strong> ב-9:30:00 בדיוק — גל של Zero Window ממשרתי הבורסה.</p>
-<p>לא אובדן חבילות — <code>receiver buffer</code> מלא. הבורסה עצמה נחנקת בנפח פתיחת יום.</p>
-<p><strong>הפתרון:</strong></p>
+<p><strong>הממצא</strong></p>
+<p>ב-9:30:00 בדיוק — גל של <code>Zero Window</code> משרתי הבורסה.</p>
+<p>לא אובדן חבילות — ה-<code>receiver buffer</code> מלא.</p>
+<p>הבורסה עצמה נחנקת בנפח פתיחת יום.</p>
+<p><strong>הפתרון</strong></p>
 <ul>
-<li>שינוי ב-TCP buffer sizing</li>
-<li>connection pooling</li>
-<li>staggered reconnect (לא כולם מתחברים מחדש בו-זמנית)</li>
+<li>שינוי ב-<code>TCP buffer sizing</code></li>
+<li><code>connection pooling</code></li>
+<li><code>staggered reconnect</code> — לא כולם מתחברים מחדש בו-זמנית</li>
 </ul>
 <p>בשלושה שינויי קוד — הבעיה נעלמה.</p>
 <div class="code-preview"><pre><code># Python socket tuning שנוסף
@@ -8610,9 +8694,10 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 4 * 1024 * 1024)
 sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 4 * 1024 * 1024)
 sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)</code></pre></div>
-<p><strong>הלקח:</strong> Wireshark לא מוצא bugs — הוא חושף <em>מציאות</em>.</p>
+<p><strong>הלקח</strong></p>
+<p><code>Wireshark</code> לא מוצא באגים — הוא חושף <em>מציאות</em>.</p>
 <p>הבעיה לא הייתה בקוד שלנו, אלא בהתנהגות הרשת תחת עומס.</p>
-<p>בלי packet capture — הייתם מחפשים שבועות.</p>
+<p>בלי <code>packet capture</code> — הייתם מחפשים שבועות.</p>
 </div>`
       }
     ]
@@ -8625,9 +8710,10 @@ sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)</code></pre></div>
         type: "explanation",
         title: "iBGP ו-eBGP — שתי מציאויות",
         content: `<div dir="rtl">
-<h2>BGP: הפרוטוקול שמחזיק את האינטרנט</h2>
-<p><code>BGP</code> — <code>Border Gateway Protocol</code> — הוא פרוטוקול הניתוב היחיד שפועל בין Autonomous Systems.</p>
-<p>ה-Autonomous Systems הם הארגונים, ספקי האינטרנט והחברות שמרכיבים יחד את האינטרנט.</p>
+<h2>BGP — הפרוטוקול שמחזיק את האינטרנט</h2>
+<p><strong>BGP</strong> — <code>Border Gateway Protocol</code></p>
+<p>פרוטוקול הניתוב היחיד שפועל בין <code>Autonomous Systems</code>.</p>
+<p>ה-<code>Autonomous Systems</code> הם הארגונים, ספקי האינטרנט והחברות שמרכיבים יחד את האינטרנט.</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 140" class="content-diagram">
   <text x="180" y="15" text-anchor="middle" font-size="12" fill="#e2e8f0" font-weight="bold">iBGP vs eBGP</text>
@@ -8653,13 +8739,14 @@ sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)</code></pre></div>
 </div>
 <table class="content-table">
   <tr><th>פרמטר</th><th>iBGP</th><th>eBGP</th></tr>
-  <tr><td>היכן פועל</td><td>בתוך AS אחד</td><td>בין ASים שונים</td></tr>
-  <tr><td>TTL</td><td>255 (כל מסלול)</td><td>1 (חייב שכן ישיר)</td></tr>
-  <tr><td>next-hop</td><td>לא משתנה כברירת מחדל</td><td>משתנה לכתובת ה-peer</td></tr>
-  <tr><td>full mesh</td><td>נדרש (או Route Reflector)</td><td>לא נדרש</td></tr>
-  <tr><td>עדכון</td><td>לא מפרסם ל-iBGP אחר</td><td>מפרסם הכל</td></tr>
+  <tr><td>היכן פועל</td><td>בתוך <code>AS</code> אחד</td><td>בין <code>AS</code>-ים שונים</td></tr>
+  <tr><td><code>TTL</code></td><td>255 — כל מסלול</td><td>1 — חייב שכן ישיר</td></tr>
+  <tr><td><code>next-hop</code></td><td>לא משתנה כברירת מחדל</td><td>משתנה לכתובת ה-<code>peer</code></td></tr>
+  <tr><td><code>full mesh</code></td><td>נדרש — או <code>Route Reflector</code></td><td>לא נדרש</td></tr>
+  <tr><td>עדכון</td><td>לא מפרסם ל-<code>iBGP</code> אחר</td><td>מפרסם הכל</td></tr>
 </table>
-<p><strong>הכלל החשוב ביותר:</strong> <code>Router</code> שקיבל מסלול מ-<code>iBGP neighbor</code> <em>לא</em> שולח אותו ל-<code>iBGP</code> אחר.</p>
+<p><strong>הכלל החשוב ביותר</strong></p>
+<p><code>Router</code> שקיבל מסלול מ-<code>iBGP neighbor</code> <em>לא</em> שולח אותו ל-<code>iBGP</code> אחר.</p>
 <p>לכן נדרש <code>full mesh</code> — או <code>Route Reflectors</code> כחלופה.</p>
 </div>`
       },
@@ -8668,21 +8755,22 @@ sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)</code></pre></div>
         title: "Path Selection — 13 הכללים",
         content: `<div dir="rtl">
 <h2>כיצד BGP בוחר את המסלול הטוב ביותר</h2>
-<p>כשה-router מקבל את אותו prefix מכמה שכנים, הוא עובר על 13 קריטריונים לפי הסדר.</p>
-<p>הקריטריון הראשון שמבדיל בין המועמדים — מנצח:</p>
+<p>כשה-<code>router</code> מקבל את אותו <code>prefix</code> מכמה שכנים, הוא עובר על 13 קריטריונים לפי הסדר.</p>
+<p>הקריטריון הראשון שמבדיל בין המועמדים — מנצח.</p>
 <table class="content-table">
   <tr><th>#</th><th>קריטריון</th><th>גבוה = עדיף</th></tr>
-  <tr><td>1</td><td>Weight (Cisco proprietary)</td><td>✅ גבוה</td></tr>
-  <tr><td>2</td><td>Local Preference</td><td>✅ גבוה (100 = ברירת מחדל)</td></tr>
-  <tr><td>3</td><td>Locally originated (network/aggregate)</td><td>✅ עדיפות לנתיבים שלנו</td></tr>
-  <tr><td>4</td><td>AS Path Length (קצר יותר = עדיף)</td><td>❌ קצר</td></tr>
-  <tr><td>5</td><td>Origin (IGP > EGP > ?)</td><td>✅ IGP עדיף</td></tr>
-  <tr><td>6</td><td>MED (Multi-Exit Discriminator)</td><td>❌ נמוך</td></tr>
-  <tr><td>7</td><td>eBGP > iBGP</td><td>✅ eBGP עדיף</td></tr>
-  <tr><td>8</td><td>IGP metric to next-hop</td><td>❌ נמוך</td></tr>
-  <tr><td>9-13</td><td>BGP Router ID, cluster-list, neighbor IP</td><td>tiebreakers</td></tr>
+  <tr><td>1</td><td><code>Weight</code> — ייחודי ל-Cisco</td><td>גבוה יותר עדיף</td></tr>
+  <tr><td>2</td><td><code>Local Preference</code></td><td>גבוה יותר עדיף — ברירת מחדל 100</td></tr>
+  <tr><td>3</td><td>נתיב מקומי — <code>network</code> / <code>aggregate</code></td><td>עדיפות לנתיבים שלנו</td></tr>
+  <tr><td>4</td><td><code>AS Path Length</code></td><td>קצר יותר עדיף</td></tr>
+  <tr><td>5</td><td><code>Origin</code> — <code>IGP</code> עדיף על <code>EGP</code> עדיף על <code>?</code></td><td><code>IGP</code> עדיף</td></tr>
+  <tr><td>6</td><td><code>MED</code> — <code>Multi-Exit Discriminator</code></td><td>נמוך יותר עדיף</td></tr>
+  <tr><td>7</td><td><code>eBGP</code> מול <code>iBGP</code></td><td><code>eBGP</code> עדיף</td></tr>
+  <tr><td>8</td><td><code>IGP metric</code> ל-<code>next-hop</code></td><td>נמוך יותר עדיף</td></tr>
+  <tr><td>9-13</td><td><code>BGP Router ID</code>, <code>cluster-list</code>, <code>neighbor IP</code></td><td>שוברי שוויון</td></tr>
 </table>
-<p><strong>בפועל</strong>, 90% מה-BGP engineering מסתכם בשינוי Local Preference ו-AS Path prepending.</p>
+<p><strong>בפועל</strong></p>
+<p>90% מה-<code>BGP engineering</code> מסתכם בשינוי <code>Local Preference</code> ו-<code>AS Path prepending</code>.</p>
 <div class="code-preview"><pre><code># Cisco IOS — העדף ISP A על ISP B
 route-map PREFER_ISPA permit 10
   set local-preference 200
@@ -8696,26 +8784,33 @@ route-map BACKUP_LINK permit 10
         type: "story",
         title: "הסיפור: Pakistan Telecom 2008",
         content: `<div dir="rtl">
-<h2>כשPakistan תקפה את YouTube — בטעות</h2>
-<p>24 בפברואר 2008: Pakistan Telecom קיבלה הוראה לחסום YouTube.</p>
-<p>הפתרון שבחרו: להכניס <code>route</code> ל-<code>BGP</code> שמפנה את תעבורת YouTube ל-<code>black hole</code> מקומי.</p>
-<p><strong>מה שקרה:</strong> במקום לשמור את ה-<code>route</code> פנימי ב-<code>iBGP</code>, הוא דלף ל-PCCW — ספק האינטרנט שמעל Pakistan.</p>
-<p>PCCW הפיצה אותו לשאר העולם.</p>
-<p>ברגע שזה קרה, <code>BGP</code> בחר את ה-<code>route</code> של Pakistan לכל התעבורה ל-YouTube.</p>
-<p>הסיבה: הוא היה <em>ספציפי יותר</em> — YouTube פרסמה <code>208.65.153.0/22</code>, ו-Pakistan פרסמה <code>208.65.153.0/24</code>.</p>
+<h2>כש-Pakistan תקפה את YouTube — בטעות</h2>
+<p>24 בפברואר 2008.</p>
+<p><code>Pakistan Telecom</code> קיבלה הוראה לחסום <code>YouTube</code>.</p>
+<p>הפתרון שבחרו — להכניס <code>route</code> ל-<code>BGP</code> שמפנה את תעבורת <code>YouTube</code> ל-<code>black hole</code> מקומי.</p>
+<p><strong>מה שקרה</strong></p>
+<p>במקום לשמור את ה-<code>route</code> פנימי ב-<code>iBGP</code>, הוא דלף ל-<code>PCCW</code> — ספק האינטרנט שמעל Pakistan.</p>
+<p><code>PCCW</code> הפיצה אותו לשאר העולם.</p>
+<p>ברגע שזה קרה, <code>BGP</code> בחר את ה-<code>route</code> של Pakistan לכל התעבורה ל-<code>YouTube</code>.</p>
+<p>הסיבה — הוא היה <em>ספציפי יותר</em>.</p>
+<p><code>YouTube</code> פרסמה <code>208.65.153.0/22</code>.</p>
+<p>Pakistan פרסמה <code>208.65.153.0/24</code>.</p>
 <p>ב-<code>BGP</code>, <code>/24</code> ספציפי יותר מ-<code>/22</code> — ולכן מנצח תמיד.</p>
-<p>תוך 2 דקות: 75% מתעבורת YouTube העולמית הופנתה ל-Pakistan.</p>
-<p>YouTube הייתה נגישה רק ל-25% מהמשתמשים. ההפסקה נמשכה כשעתיים.</p>
+<p>תוך 2 דקות — 75% מתעבורת <code>YouTube</code> העולמית הופנתה ל-Pakistan.</p>
+<p><code>YouTube</code> הייתה נגישה רק ל-25% מהמשתמשים.</p>
+<p>ההפסקה נמשכה כשעתיים.</p>
 <div class="code-preview"><pre><code># הroute הבעייתי (רעיונית):
 # YouTube: 208.65.153.0/22 (AS 36561)
 # Pakistan: 208.65.153.0/24 (AS 17557) ← יותר ספציפי, ניצח!
 
 # BGP: Longest Prefix Match תמיד מנצח
 # /24 (256 כתובות) > /22 (1024 כתובות) מבחינת BGP</code></pre></div>
-<p><strong>הלקח:</strong> <code>BGP</code> הוא פרוטוקול של אמון.</p>
+<p><strong>הלקח</strong></p>
+<p><code>BGP</code> הוא פרוטוקול של אמון.</p>
 <p>אין אימות מובנה — כל <code>AS</code> יכול לפרסם כל <code>prefix</code>.</p>
-<p><code>RPKI</code> — <code>Resource Public Key Infrastructure</code> — נוצר בדיוק בגלל תקריות כאלו.</p>
-<p>הוא מאמת קריפטוגרפית ש-<code>AS</code> מורשה לפרסם <code>prefix</code> מסוים.</p>
+<p><strong>RPKI</strong> — <code>Resource Public Key Infrastructure</code></p>
+<p>נוצר בדיוק בגלל תקריות כאלו.</p>
+<p>מאמת קריפטוגרפית ש-<code>AS</code> מורשה לפרסם <code>prefix</code> מסוים.</p>
 </div>`
       }
     ]
@@ -8729,8 +8824,8 @@ route-map BACKUP_LINK permit 10
         title: "Recursive Resolution — כל צעד",
         content: `<div dir="rtl">
 <h2>מה קורה כשאתה מקליד google.com</h2>
-<p>DNS resolution נראה פשוט.</p>
-<p>בפועל זה ריקוד מדויק בין 5 שחקנים שונים:</p>
+<p><code>DNS resolution</code> נראה פשוט.</p>
+<p>בפועל זה ריקוד מדויק בין 5 שחקנים שונים.</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 155" class="content-diagram">
   <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">DNS Full Resolution Flow</text>
@@ -8764,11 +8859,11 @@ route-map BACKUP_LINK permit 10
 </div>
 <table class="content-table">
   <tr><th>שחקן</th><th>תפקיד</th><th>דוגמה</th></tr>
-  <tr><td>Client</td><td>שולח שאילתה ל-resolver</td><td>דפדפן שלך</td></tr>
-  <tr><td>Recursive Resolver</td><td>עושה את כל העבודה בשבילך</td><td>8.8.8.8 (Google), 1.1.1.1 (CF)</td></tr>
-  <tr><td>Root Nameserver</td><td>יודע רק מי אחראי על TLD</td><td>13 clusters (a-m.root-servers.net)</td></tr>
-  <tr><td>TLD Nameserver</td><td>יודע מי אחראי על domain</td><td>Verisign לכל .com</td></tr>
-  <tr><td>Authoritative NS</td><td>יודע את ה-IP האמיתי</td><td>ns1.google.com</td></tr>
+  <tr><td><code>Client</code></td><td>שולח שאילתה ל-<code>resolver</code></td><td>הדפדפן שלך</td></tr>
+  <tr><td><code>Recursive Resolver</code></td><td>עושה את כל העבודה בשבילך</td><td><code>8.8.8.8</code> — Google, <code>1.1.1.1</code> — Cloudflare</td></tr>
+  <tr><td><code>Root Nameserver</code></td><td>יודע רק מי אחראי על <code>TLD</code></td><td>13 אשכולות — <code>a-m.root-servers.net</code></td></tr>
+  <tr><td><code>TLD Nameserver</code></td><td>יודע מי אחראי על <code>domain</code></td><td><code>Verisign</code> לכל <code>.com</code></td></tr>
+  <tr><td><code>Authoritative NS</code></td><td>יודע את ה-<code>IP</code> האמיתי</td><td><code>ns1.google.com</code></td></tr>
 </table>
 </div>`
       },
@@ -8776,12 +8871,13 @@ route-map BACKUP_LINK permit 10
         type: "explanation",
         title: "DNSSEC, DoH, DoT — אבטחה",
         content: `<div dir="rtl">
-<h2>DNS: הפרוטוקול הכי פגיע ב-stack</h2>
-<p><code>DNS</code> מקורי עובד על <code>UDP port 53</code>, ללא הצפנה וללא אימות.</p>
+<h2>DNS — הפרוטוקול הכי פגיע ב-stack</h2>
+<p><code>DNS</code> מקורי עובד על <code>UDP</code> פורט 53.</p>
+<p>ללא הצפנה וללא אימות.</p>
 <p>כל מי שנמצא בדרך יכול לזייף תשובות.</p>
 <h3>DNSSEC — חתימות קריפטוגרפיות</h3>
-<p>כל record מלווה בחתימה דיגיטלית.</p>
-<p>ה-resolver מאמת את שרשרת האמון מה-Root ועד ה-record.</p>
+<p>כל <code>record</code> מלווה בחתימה דיגיטלית.</p>
+<p>ה-<code>resolver</code> מאמת את שרשרת האמון מה-<code>Root</code> ועד ה-<code>record</code>.</p>
 <div class="code-preview"><pre><code># בדיקת DNSSEC עם dig
 dig +dnssec cloudflare.com
 
@@ -8790,17 +8886,19 @@ dig +dnssec cloudflare.com
 # DNSKEY — המפתח הציבורי
 # DS — Delegation Signer (שרשרת אמון)
 # NSEC/NSEC3 — הוכחת אי-קיום domain</code></pre></div>
-<h3>DNS-over-HTTPS (DoH) ו-DNS-over-TLS (DoT)</h3>
+<h3>DNS-over-HTTPS ו-DNS-over-TLS</h3>
+<p><code>DoH</code> ו-<code>DoT</code> — שתי גישות להצפנת שאילתות <code>DNS</code>.</p>
 <table class="content-table">
   <tr><th>פרוטוקול</th><th>פורט</th><th>הצפנה</th><th>פרטיות מ-ISP</th></tr>
-  <tr><td>DNS רגיל</td><td>53/UDP</td><td>❌ ללא</td><td>❌ גלוי</td></tr>
-  <tr><td>DoT</td><td>853/TCP</td><td>✅ TLS</td><td>✅ מוצפן</td></tr>
-  <tr><td>DoH</td><td>443/HTTPS</td><td>✅ TLS</td><td>✅ מוצפן + נראה כHTTPS</td></tr>
-  <tr><td>DoQ</td><td>853/UDP-QUIC</td><td>✅ QUIC</td><td>✅ מהיר יותר</td></tr>
+  <tr><td><code>DNS</code> רגיל</td><td>53 / <code>UDP</code></td><td>ללא</td><td>גלוי</td></tr>
+  <tr><td><code>DoT</code></td><td>853 / <code>TCP</code></td><td><code>TLS</code></td><td>מוצפן</td></tr>
+  <tr><td><code>DoH</code></td><td>443 / <code>HTTPS</code></td><td><code>TLS</code></td><td>מוצפן + נראה כ-<code>HTTPS</code> רגיל</td></tr>
+  <tr><td><code>DoQ</code></td><td>853 / <code>QUIC</code></td><td><code>QUIC</code></td><td>מוצפן + מהיר יותר</td></tr>
 </table>
-<h3>Anycast — למה 8.8.8.8 מהיר מכל מקום בעולם</h3>
-<p>Google מפרסמת את <code>8.8.8.8</code> מעשרות מיקומים עם <code>BGP Anycast</code>.</p>
-<p><code>BGP</code> תמיד מנתב ל"קרוב ביותר" — כך שמישראל אתה מדבר עם <code>datacenter</code> בישראל או אירופה, לא בארה"ב.</p>
+<h3>Anycast — למה 8.8.8.8 מהיר מכל מקום</h3>
+<p><code>Google</code> מפרסמת את <code>8.8.8.8</code> מעשרות מיקומים עם <code>BGP Anycast</code>.</p>
+<p><code>BGP</code> תמיד מנתב ל-<code>POP</code> הקרוב ביותר.</p>
+<p>מישראל אתה מדבר עם <code>datacenter</code> בישראל או אירופה — לא בארה"ב.</p>
 </div>`
       },
       {
@@ -8808,20 +8906,24 @@ dig +dnssec cloudflare.com
         title: "הסיפור: DNS Hijacking של ISP",
         content: `<div dir="rtl">
 <h2>כשה-ISP שלך קורא את השאילתות שלך</h2>
-<p>שנת 2018: חוקר אבטחה גילה ש-ISP ישראלי מפנה שאילתות <code>DNS</code> שמחזירות שגיאה (<code>NXDOMAIN</code>) לדף החיפוש שלו.</p>
+<p>שנת 2018.</p>
+<p>חוקר אבטחה גילה ש-<code>ISP</code> ישראלי מפנה שאילתות <code>DNS</code> שמחזירות שגיאה — <code>NXDOMAIN</code> — לדף החיפוש שלו.</p>
 <p>זוהי גניבת תעבורה מדומיינים שגויים.</p>
-<p>האם זה לגיטימי? לא ברור. אבל זה הדגים עובדה חשובה: ה-ISP רואה הכל.</p>
+<p>האם זה לגיטימי? לא ברור.</p>
+<p>אבל זה הדגים עובדה חשובה — ה-<code>ISP</code> רואה הכל.</p>
 <p>כל <code>domain</code> שגלשת אליו גלוי לחלוטין ב-<code>DNS</code> הרגיל.</p>
-<p><strong>מתקפות DNS אמיתיות:</strong></p>
+<p><strong>מתקפות DNS אמיתיות</strong></p>
 <ul>
-<li><strong>DNS Cache Poisoning</strong> (Kaminsky 2008): בגלל UDP, אפשר לנחש את ה-transaction ID ולהזריק תשובה מזויפת ל-cache של ה-resolver</li>
-<li><strong>DNS Hijacking</strong>: שינוי ה-DNS settings על ה-router (לרוב דרך default password) → כל הרשת מדברת עם resolvers זדוניים</li>
-<li><strong>NXNS Attack</strong>: גרום ל-recursive resolver לשלוח מיליוני שאילתות ל-victim NS → DDoS</li>
+<li><strong>DNS Cache Poisoning</strong> — Kaminsky 2008 — בגלל <code>UDP</code>, אפשר לנחש את ה-<code>transaction ID</code> ולהזריק תשובה מזויפת ל-<code>cache</code> של ה-<code>resolver</code></li>
+<li><strong>DNS Hijacking</strong> — שינוי הגדרות <code>DNS</code> על ה-<code>router</code> דרך סיסמת ברירת מחדל. כל הרשת מדברת עם <code>resolvers</code> זדוניים</li>
+<li><strong>NXNS Attack</strong> — גורם ל-<code>recursive resolver</code> לשלוח מיליוני שאילתות ל-<code>NS</code> של הקורבן — <code>DDoS</code></li>
 </ul>
-<p><strong>הפתרון שהפך מקובל:</strong> <code>Cloudflare 1.1.1.1</code> עם <code>DoH</code>.</p>
-<p>ה-ISP רואה רק <code>HTTPS</code> ל-<code>1.1.1.1</code> — לא שאילתות <code>DNS</code>.</p>
-<p>חברות רבות מאמצות <code>DNS filtering</code> כמו <code>Cisco Umbrella</code> בתוך ה-VPN הארגוני.</p>
-<p><strong>הלקח:</strong> <code>DNS</code> הוא ספר הטלפונים של האינטרנט.</p>
+<p><strong>הפתרון שהפך מקובל</strong></p>
+<p><code>Cloudflare 1.1.1.1</code> עם <code>DoH</code>.</p>
+<p>ה-<code>ISP</code> רואה רק <code>HTTPS</code> ל-<code>1.1.1.1</code> — לא שאילתות <code>DNS</code>.</p>
+<p>חברות רבות מאמצות <code>DNS filtering</code> כמו <code>Cisco Umbrella</code> בתוך ה-<code>VPN</code> הארגוני.</p>
+<p><strong>הלקח</strong></p>
+<p><code>DNS</code> הוא ספר הטלפונים של האינטרנט.</p>
 <p>מי ששולט בו — שולט במה שאתה מגיע אליו.</p>
 </div>`
       }
@@ -8836,8 +8938,8 @@ dig +dnssec cloudflare.com
         title: "בעיית HOL Blocking שHTTP/2 לא פתר",
         content: `<div dir="rtl">
 <h2>למה HTTP/2 לא מספיק</h2>
-<p>HTTP/2 הביא multiplexing — שליחת מספר streams בחיבור TCP אחד.</p>
-<p>אבל TCP לא יודע שיש כמה streams...</p>
+<p><code>HTTP/2</code> הביא <code>multiplexing</code> — שליחת מספר <code>streams</code> בחיבור <code>TCP</code> אחד.</p>
+<p>אבל <code>TCP</code> לא יודע שיש כמה <code>streams</code>.</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 130" class="content-diagram">
   <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">HOL Blocking — HTTP/2 vs HTTP/3</text>
@@ -8862,10 +8964,12 @@ dig +dnssec cloudflare.com
   <text x="180" y="112" text-anchor="middle" font-size="9" fill="#64748b">אובדן חבילה ב-stream אחד לא חוסם שאר הstreams</text>
 </svg>
 </div>
-<p>ב-<code>HTTP/2</code>, אם <code>packet</code> אחד אובד, <code>TCP</code> מחכה להחזרתו.</p>
-<p>כל 10 ה-<code>streams</code> שבאותו חיבור <em>קפואים</em> — זהו <code>Head-of-Line blocking</code> (<code>HOL blocking</code>) ברמת <code>TCP</code>.</p>
+<p>ב-<code>HTTP/2</code>, אם <code>packet</code> אחד אובד — <code>TCP</code> מחכה להחזרתו.</p>
+<p>כל 10 ה-<code>streams</code> שבאותו חיבור <em>קפואים</em>.</p>
+<p>זהו <strong>Head-of-Line blocking</strong> — <code>HOL blocking</code> — ברמת <code>TCP</code>.</p>
 <p><code>QUIC</code> בנה <code>streams</code> עצמאיים מעל <code>UDP</code>.</p>
-<p>אובדן <code>packet</code> ב-<code>stream 2</code> חוסם רק את <code>stream 2</code> — שאר ה-streams ממשיכים.</p>
+<p>אובדן <code>packet</code> ב-<code>stream 2</code> חוסם רק את <code>stream 2</code>.</p>
+<p>שאר ה-<code>streams</code> ממשיכים.</p>
 </div>`
       },
       {
