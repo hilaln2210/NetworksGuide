@@ -158,7 +158,7 @@ export const quizBank = {
         "תהליך חלוקת הנתונים לחבילות קטנות",
         "תהליך דחיסת הנתונים לחסכון ברוחב פס"
       ],
-      explanation: "כמו מכתב: תוכן → מעטפה → שק דואר → משאית. כל שכבה 'עוטפת' את של שכבת מעליה. Decapsulation = לפתוח שכבות בהגעה 📦"
+      explanation: "כמו מכתב: תוכן בתוך מעטפה, בתוך שק דואר, בתוך משאית. כל שכבה 'עוטפת' את של שכבת מעליה. Decapsulation = לפתוח שכבות בהגעה 📦"
     },
     {
       q: "איזה header מוסיפה שכבת הרשת?",
@@ -169,16 +169,16 @@ export const quizBank = {
         "פורטים מקור ויעד",
         "שם דומיין מקור ויעד"
       ],
-      explanation: "כל שכבה מוסיפה את ה-header שלה: שכבת תעבורה → פורטים | שכבת רשת → IP | שכבת קו → MAC. כל שכבה 'דואגת' לתחום שלה 🎯"
+      explanation: "כל שכבה מוסיפה את ה-header שלה: שכבת תעבורה: פורטים | שכבת רשת: IP | שכבת קו: MAC. כל שכבה 'דואגת' לתחום שלה 🎯"
     },
     {
-      q: "מה ההבדל בין PDU בשכבת התעבורה לבין שכבת הרשת?",
+      q: "מה שמות החבילות בכל שכבה? (Segment, Packet, Frame...)",
       correct: "שכבת תעבורה: Segment. שכבת רשת: Packet. שכבת קו: Frame. שכבה פיזית: Bit",
       choices: [
         "שכבת תעבורה: Segment. שכבת רשת: Packet. שכבת קו: Frame. שכבה פיזית: Bit",
         "כולן נקראות Packet",
         "שכבת תעבורה: Frame, שכבת רשת: Segment",
-        "PDU הוא מונח שקיים רק ב-OSI, לא במודל חמש שכבות"
+        "Segment ו-Packet זהים — שניהם שמות ל-Encapsulated data"
       ],
       explanation: "PDU (Protocol Data Unit): שם ה'חבילה' בכל שכבה. 5-Application: Message/Data. 4-Transport: Segment (TCP) / Datagram (UDP). 3-Network: Packet. 2-Data Link: Frame. 1-Physical: Bit/Symbol. Encapsulation: כל שכבה עוטפת את ה-PDU של שכבה מעליה עם header משלה."
     },
@@ -670,14 +670,14 @@ export const quizBank = {
   11: [
     {
       q: "מה קורה כשמחשב שולח HTTP request?",
-      correct: "כל שכבה מוסיפה header → נשלח כ-bits → הצד השני מסיר headers שכבה-שכבה",
+      correct: "כל שכבה מוסיפה header, נשלח כ-bits, הצד השני מסיר headers שכבה-שכבה",
       choices: [
-        "כל שכבה מוסיפה header → נשלח כ-bits → הצד השני מסיר headers שכבה-שכבה",
+        "כל שכבה מוסיפה header, נשלח כ-bits, הצד השני מסיר headers שכבה-שכבה",
         "הבקשה נשלחת כטקסט ישירות ללא עיבוד",
         "רק שכבות הרשת והתעבורה מעבדות את הבקשה",
         "ה-header נשלח קודם ואז הנתונים בנפרד"
       ],
-      explanation: "הדרך המלאה: App → (HTTP) → Transport → (TCP) → Network → (IP) → Link → (MAC) → Physical → סיביות ברשת! כל שכבה 'אחראית על עצמה' 🎂"
+      explanation: "הדרך המלאה: App ▸ HTTP ▸ Transport (TCP) ▸ Network (IP) ▸ Link (MAC) ▸ Physical ▸ סיביות ברשת! כל שכבה 'אחראית על עצמה' 🎂"
     },
     {
       q: "מה NAT ואיזו בעיה הוא פתר בשנות ה-90?",
