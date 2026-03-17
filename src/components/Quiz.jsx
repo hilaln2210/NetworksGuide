@@ -31,14 +31,40 @@ export function Quiz({ chapters, onXPGain, gender }) {
   const [streak, setStreak] = useState(0)
   const [hintVisible, setHintVisible] = useState(false)
 
-  // Generate a partial hint from the explanation — shows context without fully revealing answer
-  function getHint(explanation) {
-    const text = explanation.replace(/<[^>]+>/g, '')
-    // Take words from the SECOND half — usually contains context rather than the direct answer
-    const words = text.trim().split(/\s+/)
-    const from = Math.floor(words.length * 0.45)
-    const hint = words.slice(from, from + 18).join(' ')
-    return hint ? hint + '...' : text.slice(0, 90) + '...'
+  // Generate a hint: find the sentence with the lowest overlap with the correct answer
+  function getHint(explanation, correct) {
+    const text = explanation.replace(/<[^>]+>/g, '').trim()
+
+    // Split into sentences
+    const sentences = text.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 10)
+    if (sentences.length <= 1) {
+      // Short explanation — return second half of the text
+      const words = text.split(/\s+/)
+      const half = words.slice(Math.floor(words.length * 0.5))
+      return (half.join(' ') || text.slice(0, 80)).trim() + '...'
+    }
+
+    // Score sentences: count how many words from the correct answer appear in each sentence
+    const correctWords = (correct || '')
+      .toLowerCase()
+      .replace(/[^\w\u0590-\u05ff\s]/g, ' ')
+      .split(/\s+/)
+      .filter(w => w.length > 2)
+
+    const scored = sentences.map((s, idx) => {
+      const sLower = s.toLowerCase()
+      const overlap = correctWords.filter(w => sLower.includes(w)).length
+      return { s, overlap, idx }
+    })
+
+    // Prefer sentences from the second half of the explanation (more context, less direct answer)
+    const mid = Math.floor(sentences.length / 2)
+    const secondHalf = scored.filter(x => x.idx >= mid)
+    const pool = secondHalf.length > 0 ? secondHalf : scored
+
+    // Pick the sentence with the fewest correct-answer words (least revealing)
+    pool.sort((a, b) => a.overlap - b.overlap)
+    return pool[0].s.trim()
   }
 
   const startQuiz = useCallback((qs) => {
@@ -305,7 +331,7 @@ export function Quiz({ chapters, onXPGain, gender }) {
             ) : (
               <div className="quiz-hint-box" dir="rtl">
                 <span className="quiz-hint-label">💡 רמז:</span>
-                {renderBidiText(getHint(q.explanation))}
+                {renderBidiText(getHint(q.explanation, q.correct))}
               </div>
             )}
           </div>
