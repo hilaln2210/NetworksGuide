@@ -398,7 +398,11 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
                   {gender === 'male' ? 'נכון! מעולה 🎉' : 'נכון! מעולה 🎉'}
                 </p>
               )}
-              <p dir="auto">{q.explanation}</p>
+              <div className="quiz-exp-text">
+                {q.explanation.split(/(?<=\.)\s+/).map((s, i) => (
+                  <span key={i} dir="auto" style={{ display: 'block' }}>{s}</span>
+                ))}
+              </div>
             </div>
           </div>
           {canContinue && (

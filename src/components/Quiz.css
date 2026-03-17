@@ -429,6 +429,14 @@
   color: rgba(15,23,42,0.88);
 }
 
+.quiz-exp-text {
+  color: rgba(15,23,42,0.88);
+  line-height: 1.7;
+}
+.quiz-exp-text span[dir] {
+  margin-bottom: 0.1rem;
+}
+
 .quiz-continue-btn {
   align-self: flex-end;
   margin-top: 0.25rem;
