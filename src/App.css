@@ -183,22 +183,22 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 4px 0 6px;
-  font-size: 0.75rem;
-  color: rgba(255,255,255,0.7);
+  padding: 3px 0 8px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
   direction: rtl;
 }
 
 .daily-goal-label {
   white-space: nowrap;
   font-weight: 600;
-  min-width: 90px;
+  color: var(--text-muted);
 }
 
 .daily-goal-bar {
   flex: 1;
   height: 5px;
-  background: rgba(255,255,255,0.15);
+  background: rgba(14, 116, 144, 0.12);
   border-radius: 3px;
   overflow: hidden;
 }
@@ -215,7 +215,7 @@ body {
 }
 
 .daily-goal-done {
-  color: #fdd835;
+  color: #e65100;
   font-size: 1em;
 }
 

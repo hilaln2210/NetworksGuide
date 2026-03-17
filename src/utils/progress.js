@@ -98,7 +98,7 @@ export function addSessionMinutes(n) {
 }
 
 export function formatMinutes(total) {
-  if (total < 1) return '< 1 ד\''
+  if (total < 1) return "0 ד'"
   if (total < 60) return `${Math.round(total)} ד'`
   const h = Math.floor(total / 60)
   const m = Math.round(total % 60)

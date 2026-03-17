@@ -313,31 +313,21 @@ function App() {
             </h1>
           </div>
           <div className="header-stats">
-            <div className="stat-chip" title={`רצף ${streak} ימי לימוד`}>
-              <span className="stat-num">{streak}</span>
-              <span className="stat-label">🔥 ימים</span>
-            </div>
-            <div className={`stat-chip stat-time${todayMinutes > 0 ? ' active' : ''}`} title="זמן לימוד היום">
-              <span className="stat-num">{formatMinutes(todayMinutes)}</span>
-              <span className="stat-label">⏱️ היום</span>
-            </div>
-            <div className="stat-chip stat-chapters" title={`${completedChapters} מתוך ${trackChapters.length} פרקים הושלמו`}>
-              <span className="stat-num">{completedChapters}/{trackChapters.length}</span>
-              <span className="stat-label">📚 פרקים</span>
-            </div>
-            <div className="stat-chip stat-progress" title={`${totalRead} מתוך ${totalPagesAllChapters} עמודים`}>
-              <span className="stat-num">{overallPct}%</span>
-              <span className="stat-label">📖 התקדמות</span>
-            </div>
-            {totalQuizCorrect > 0 && (
-              <div className="stat-chip stat-pace" title={`${totalQuizCorrect} תשובות נכונות בחידון`}>
-                <span className="stat-num">{totalQuizCorrect}</span>
-                <span className="stat-label">✅ נכון</span>
-              </div>
-            )}
             <div className="stat-chip stat-xp">
               <span className="stat-num">{xp}</span>
               <span className="stat-label">{level.emoji} XP</span>
+            </div>
+            <div className="stat-chip stat-progress" title={`${totalRead} מתוך ${totalPagesAllChapters} עמודים · ${completedChapters}/${trackChapters.length} פרקים`}>
+              <span className="stat-num">{overallPct}%</span>
+              <span className="stat-label">📖 התקדמות</span>
+            </div>
+            <div className={`stat-chip stat-time${todayMinutes > 0 ? ' active' : ''}`} title="זמן לימוד היום">
+              <span className="stat-num" dir="ltr">{formatMinutes(todayMinutes)}</span>
+              <span className="stat-label">⏱️ היום</span>
+            </div>
+            <div className="stat-chip" title={`רצף ${streak} ימי לימוד`}>
+              <span className="stat-num">{streak}</span>
+              <span className="stat-label">🔥 ימים</span>
             </div>
             {gender && (
               <button className="gender-toggle-btn" onClick={toggleGender} title="החלף פנייה">
