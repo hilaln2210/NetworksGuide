@@ -1,20 +1,21 @@
 /**
- * bidi.js — RTL/LTR mixing utilities
+ * bidi.jsx — RTL/LTR mixing utilities
  *
- * Wraps English/digit sequences in <span dir="ltr"> so that they
- * render correctly inside Hebrew (RTL) paragraphs, preventing
- * bidi reordering of mixed text like "HTTP = 80, HTTPS = 443".
+ * Wraps non-Hebrew segments (that contain ASCII) as a SINGLE <span dir="ltr">.
+ * Splitting by Hebrew character runs prevents the bidi reordering bug where
+ * wrapping each word in a separate isolated span causes multi-word English
+ * phrases like "(Protocol Data Unit)" to display as "(Unit Data Protocol)".
  */
 
-// Matches runs of ASCII letters, digits, and common technical chars
-// (excluding trailing spaces/punctuation)
-const LTR_RE = /[A-Za-z0-9][A-Za-z0-9\-_.:/@#!%+()=,*\\[\]{}|&^~`'?]*[A-Za-z0-9]|[A-Za-z0-9]/g
+// Hebrew + Arabic strong-RTL characters
+const HEBREW_RE = /[\u0590-\u05ff\ufb1d-\ufb4f\u0600-\u06ff]+/g
 
 /**
  * renderBidiText(text) → React children array
  *
- * Use in JSX where text is a plain string (quiz questions, choices, explanations).
- * Wraps English/number tokens in <span dir="ltr"> for correct visual ordering.
+ * Splits text on Hebrew character runs. Non-Hebrew segments that contain
+ * at least one ASCII letter/digit are wrapped in a single <span dir="ltr">.
+ * This keeps multi-word English phrases like "(Protocol Data Unit)" intact.
  *
  * Usage: <p dir="rtl">{renderBidiText(someText)}</p>
  */
@@ -23,22 +24,30 @@ export function renderBidiText(text) {
 
   const parts = []
   let last = 0
+  let key = 0
+  const re = new RegExp(HEBREW_RE.source, 'g')
   let match
-  const re = new RegExp(LTR_RE.source, 'g')
 
-  while ((match = re.exec(text)) !== null) {
-    if (match.index > last) {
-      parts.push(text.slice(last, match.index))
+  const pushNonHebrew = (seg, k) => {
+    if (!seg) return
+    if (/[A-Za-z0-9]/.test(seg)) {
+      parts.push(
+        <span key={k} dir="ltr" style={{ unicodeBidi: 'isolate' }}>
+          {seg}
+        </span>
+      )
+    } else {
+      parts.push(seg)
     }
-    parts.push(
-      <span key={match.index} dir="ltr" style={{ display: 'inline', unicodeBidi: 'isolate' }}>
-        {match[0]}
-      </span>
-    )
-    last = match.index + match[0].length
   }
 
-  if (last < text.length) parts.push(text.slice(last))
+  while ((match = re.exec(text)) !== null) {
+    pushNonHebrew(text.slice(last, match.index), key++)
+    parts.push(match[0])
+    last = match.index + match[0].length
+  }
+  pushNonHebrew(text.slice(last), key++)
+
   return parts.length > 0 ? parts : text
 }
 
@@ -62,12 +71,16 @@ export function processHtmlBidi(html) {
     // Odd-indexed segments are the matched (skipped) blocks — leave as-is
     if (i % 2 === 1) return seg
 
-    // For text segments: wrap English/number sequences in text nodes
-    // Text nodes are content between > and < that doesn't start/end a tag
+    // For text segments: split each text node on Hebrew runs,
+    // wrap non-Hebrew segments containing ASCII as a single <span dir="ltr">
     return seg.replace(/>([^<]+)</g, (full, textNode) => {
       const processed = textNode.replace(
-        /[A-Za-z0-9][A-Za-z0-9\-_.:/@#!%+()=,*[\]{}|&^~`'?]*[A-Za-z0-9]|[A-Za-z0-9]/g,
-        (m) => `<span dir="ltr">${m}</span>`
+        /([\u0590-\u05ff\ufb1d-\ufb4f\u0600-\u06ff]+)|([^\u0590-\u05ff\ufb1d-\ufb4f\u0600-\u06ff]+)/g,
+        (m, heb, ltr) => {
+          if (heb) return heb
+          if (ltr && /[A-Za-z0-9]/.test(ltr)) return `<span dir="ltr">${ltr}</span>`
+          return ltr || ''
+        }
       )
       return `>${processed}<`
     })
