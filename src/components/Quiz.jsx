@@ -325,30 +325,34 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
         {/* Hint + chapter link row — only before answering */}
         {picked === null && (
           <div className="quiz-hint-row">
-            {!hintVisible ? (
-              <button className="quiz-hint-btn" onClick={() => setHintVisible(true)}>
-                💡 רמז
+            <div className="quiz-hint-actions">
+              <button
+                className={`quiz-hint-btn${hintVisible ? ' quiz-hint-btn--active' : ''}`}
+                onClick={() => setHintVisible(v => !v)}
+              >
+                💡 {hintVisible ? 'הסתר רמז' : 'רמז'}
               </button>
-            ) : (
+              {q.chapterId != null && (() => {
+                const chIdx = chapters.findIndex(ch => String(ch.id) === String(q.chapterId))
+                if (chIdx < 0) return null
+                const ch = chapters[chIdx]
+                return (
+                  <button
+                    className="quiz-chapter-link-btn"
+                    onClick={() => setChapterModal({ chapter: ch, chIdx })}
+                    title={ch.title}
+                  >
+                    📖 פרק {chIdx + 1} — {ch.title}
+                  </button>
+                )
+              })()}
+            </div>
+            {hintVisible && (
               <div className="quiz-hint-box" dir="rtl">
                 <span className="quiz-hint-label">💡 רמז:</span>
                 {renderBidiText(getHint(q.explanation, q.correct))}
               </div>
             )}
-            {q.chapterId != null && (() => {
-              const chIdx = chapters.findIndex(ch => String(ch.id) === String(q.chapterId))
-              if (chIdx < 0) return null
-              const ch = chapters[chIdx]
-              return (
-                <button
-                  className="quiz-chapter-link-btn"
-                  onClick={() => setChapterModal({ chapter: ch, chIdx })}
-                  title={ch.title}
-                >
-                  📖 פרק {chIdx + 1}
-                </button>
-              )
-            })()}
           </div>
         )}
       </div>

@@ -580,9 +580,15 @@
 .quiz-hint-row {
   margin-top: 0.75rem;
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 0.5rem;
+}
+
+.quiz-hint-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .quiz-hint-btn {
@@ -599,6 +605,11 @@
 
 .quiz-hint-btn:hover {
   background: rgba(217,119,6,0.15);
+}
+
+.quiz-hint-btn--active {
+  background: rgba(217,119,6,0.15);
+  border-color: rgba(217,119,6,0.5);
 }
 
 .quiz-chapter-link-btn {
