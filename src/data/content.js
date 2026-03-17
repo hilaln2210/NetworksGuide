@@ -1259,7 +1259,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "פורטים ידועים ו־Ephemeral",
         content: `
-          <p><strong>פורטים ידועים</strong> (טווח 0–1023)</p>
+          <p><strong>פורטים ידועים</strong> — טווח 0 עד 1023</p>
           <p>פורטים שמורים לשירותים מוכרים. השרת מאזין עליהם:</p>
           <ul>
             <li><code>80</code> — HTTP</li>
@@ -1603,9 +1603,12 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         title: "Hub, Switch, Router",
         content: `
           <p>שלושה רכיבי רשת מרכזיים, כל אחד עובד בשכבה אחרת:</p>
-          <p><strong>Hub</strong> (שכבה 1) – לא מכיר כתובות. מעביר כל מידע לכל המכשירים המחוברים.</p>
-          <p><strong>Switch</strong> (שכבה 2) – מכיר כתובות MAC. מעביר מידע רק ליעד הנכון.</p>
-          <p><strong>Router</strong> (שכבה 3) – מכיר כתובות IP. מנתב חבילות בין רשתות שונות.</p>
+          <p><strong>Hub</strong> — שכבה 1</p>
+          <p>לא מכיר כתובות. מעביר כל מידע לכל המכשירים המחוברים.</p>
+          <p><strong>Switch</strong> — שכבה 2</p>
+          <p>מכיר כתובות <code>MAC</code>. מעביר מידע רק ליעד הנכון.</p>
+          <p><strong>Router</strong> — שכבה 3</p>
+          <p>מכיר כתובות <code>IP</code>. מנתב חבילות בין רשתות שונות.</p>
           <table class="content-table">
             <tr><th>רכיב</th><th>שכבה</th><th>כתובות</th></tr>
             <tr><td>Hub</td><td>פיזית</td><td>לא מכיר</td></tr>
@@ -1687,7 +1690,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             <li><strong>גמישות</strong> – שינוי VLAN בתוכנה, לא צריך לחבר כבלים מחדש</li>
           </ul>
           <p><strong>תקשורת בין VLANs</strong></p>
-          <p>מחייבת Router (או L3 Switch) — כי מדובר ברשתות IP שונות.</p>
+          <p>מחייבת <code>Router</code> או <code>L3 Switch</code> — כי מדובר ברשתות IP שונות.</p>
 
           <p><strong>Trunk</strong></p>
           <p>פורט ב-Switch שנושא תעבורת כמה VLANs בו-זמנית.</p>
@@ -1759,7 +1762,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           {
             title: "מה זה SDN – רשת מוגדרת בתוכנה?",
             icon: "💻",
-            content: `<p><strong>SDN</strong> (<code>Software Defined Networking</code>) – הפרדה בין ה-<code>Control Plane</code> (שמקבל החלטות ניתוב) ל-<code>Data Plane</code> (שמעביר נתונים בפועל).</p>
+            content: `<p><strong>SDN</strong> — <code>Software Defined Networking</code></p>
+              <p>הפרדה בין ה-<code>Control Plane</code> שמקבל החלטות ניתוב, ל-<code>Data Plane</code> שמעביר נתונים בפועל.</p>
               <p>במקום שכל נתב יחליט בעצמו, מרכז SDN אחד שולח הוראות לכל הנתבים – כמו GPS מרכזי שמנחה את כל הנהגים.</p>
               <p>Google ו-Facebook משתמשים ב-SDN לניהול מרכזי של רשתות ענק.</p>`
           }
@@ -1901,11 +1905,12 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           </table>
           <p><strong>דורות WiFi:</strong></p>
           <ul>
-            <li><strong>WiFi 4</strong> (802.11n) – 600 Mbps, 2.4+5 GHz</li>
-            <li><strong>WiFi 5</strong> (802.11ac) – 3.5 Gbps, 5 GHz</li>
-            <li><strong>WiFi 6</strong> (802.11ax) – 9.6 Gbps, 2.4+5 GHz, OFDMA (יותר מכשירים בו-זמנית)</li>
+            <li><strong>WiFi 4</strong> — <code>802.11n</code> — עד 600 Mbps, תדרי 2.4+5 GHz</li>
+            <li><strong>WiFi 5</strong> — <code>802.11ac</code> — עד 3.5 Gbps, תדר 5 GHz</li>
+            <li><strong>WiFi 6</strong> — <code>802.11ax</code> — עד 9.6 Gbps, תדרי 2.4+5 GHz. <code>OFDMA</code> — יותר מכשירים בו-זמנית</li>
           </ul>
-          <p><strong>CSMA/CA</strong> (<code>Collision Avoidance</code>) – ב-WiFi לא ניתן לזהות התנגשויות כמו ב-Ethernet, ולכן משתמשים בשיטת מניעה:</p>
+          <p><strong>CSMA/CA</strong> — <code>Collision Avoidance</code></p>
+          <p>ב-WiFi לא ניתן לזהות התנגשויות כמו ב-Ethernet, ולכן משתמשים בשיטת מניעה:</p>
           <ol>
             <li>כל תחנה מחכה שהאוויר יהיה פנוי</li>
             <li>מוסיפה זמן המתנה אקראי לפני השידור</li>
@@ -1976,14 +1981,16 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           {
             title: "כמה מהר נוסע האור בסיב אופטי?",
             icon: "💡",
-            content: `<p>מהירות האור בוואקום: 300,000 ק"מ לשנייה. בסיב זכוכית: כ-200,000 ק"מ לשנייה (בגלל מקדם שבירה של כ-1.5).</p>
-              <p>מישראל לארה"ב (כ-9,000 ק"מ) = כ-45ms במהירות האור. בפועל: 100-150ms, בגלל נתבים, נתיבים עקיפים ועיכוב עיבוד.</p>
+            content: `<p>מהירות האור בוואקום: 300,000 ק"מ לשנייה.</p>
+              <p>בסיב זכוכית: כ-200,000 ק"מ לשנייה — בגלל מקדם שבירה של כ-1.5.</p>
+              <p>מישראל לארה"ב, כ-9,000 ק"מ = כ-45ms במהירות האור.</p>
+              <p>בפועל: 100–150ms, בגלל נתבים, נתיבים עקיפים ועיכוב עיבוד.</p>
               <p><strong>החשיבה:</strong> הפיזיקה קובעת תקרה ל-<code>Latency</code> – גם עם רשת מושלמת, לא נוכל לרדת מתחת ל-45ms לארה"ב.</p>`
           },
           {
             title: "Power over Ethernet – חשמל דרך כבל רשת",
             icon: "⚡",
-            content: `<p><strong>PoE</strong> (<code>Power over Ethernet</code>) – מעביר חשמל ונתונים על אותו כבל <code>Cat5e/Cat6</code>.</p>
+            content: `<p><strong>PoE</strong> — <code>Power over Ethernet</code></p><p>מעביר חשמל ונתונים על אותו כבל <code>Cat5e/Cat6</code>.</p>
               <p>מכשירים כמו נקודות WiFi, טלפוני IP ומצלמות אבטחה יכולים לקבל חשמל ישירות מה-Switch, ללא חיבור חשמל נפרד.</p>
               <p>סוגי PoE:</p>
               <ul>
@@ -3072,8 +3079,8 @@ ssh.close()</code></pre>
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>Email: SMTP (שליחה :25/:587), IMAP (קריאה מסונכרנת :143), POP3 (הורדה :110)</li>
-              <li>FTP: פורט 21 (פקודות), 20 (נתונים). Passive mode עם Firewall. SFTP = FTP מעל SSH</li>
+              <li>Email: <code>SMTP</code> — שליחה, פורט 25/587. <code>IMAP</code> — קריאה מסונכרנת, פורט 143. <code>POP3</code> — הורדה, פורט 110</li>
+              <li>FTP: פורט 21 — פקודות, פורט 20 — נתונים. <code>Passive mode</code> עם Firewall. <code>SFTP</code> = FTP מעל SSH</li>
               <li>SSH: פורט 22. מוצפן. Terminal מרוחק, SCP, SFTP, Port Forwarding</li>
               <li>SSH Keys: אימות חזק ללא סיסמה. Paramiko – SSH מפייתון</li>
               <li>Telnet – לא מוצפן – לא להשתמש! SSH מחליף אותו</li>
@@ -3421,7 +3428,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           <p><strong>שלבי SLAAC:</strong></p>
           <ol>
             <li>נתב שולח <code>RA</code> עם prefix, למשל <code>2001:db8::/64</code></li>
-            <li>מחשב לוקח את ה-prefix ומחשב suffix מה-<code>MAC</code> (שיטת EUI-64)</li>
+            <li>מחשב לוקח את ה-prefix ומחשב suffix מה-<code>MAC</code> בשיטת <code>EUI-64</code></li>
             <li>כתובת מלאה נוצרת: <code>2001:db8::d4be:d9ff:fed6:0c2a</code></li>
           </ol>
           <p><strong>בעיית פרטיות:</strong> <code>SLAAC</code> מבוסס על כתובת <code>MAC</code> קבועה — ניתן לעקוב אחרי מכשירים.</p>
@@ -3721,7 +3728,7 @@ sudo dscacheutil -flushcache</code></pre>
               <li>Recursive Resolver עושה את כל העבודה עבור הלקוח. Cache על TTL</li>
               <li>Records: A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), TXT (SPF/DKIM), NS, PTR (reverse), SOA, CAA</li>
               <li>TTL גבוה = מהיר, איטי להשתנות. TTL נמוך = גמיש, עמוס</li>
-              <li>DoH (פורט 443) ו-DoT (פורט 853) – DNS מוצפן. הגנת פרטיות</li>
+              <li><code>DoH</code> — פורט 443, <code>DoT</code> — פורט 853. DNS מוצפן להגנת פרטיות</li>
               <li>dig = כלי מקצועי. dig +trace = מסלול מלא. ipconfig /flushdns = ניקוי cache</li>
             </ul>
           </div>
