@@ -398,7 +398,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
                   {gender === 'male' ? 'נכון! מעולה 🎉' : 'נכון! מעולה 🎉'}
                 </p>
               )}
-              <p dir="rtl">{renderBidiText(q.explanation)}</p>
+              <p dir="auto">{q.explanation}</p>
             </div>
           </div>
           {canContinue && (
