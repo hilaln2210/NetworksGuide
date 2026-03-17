@@ -13,6 +13,7 @@ import { CreditsTab } from './components/CreditsTab'
 import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName } from './utils/xp'
 import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
+import { processHtmlBidi, renderBidiText } from './utils/bidi.jsx'
 import './App.css'
 
 const TABS = [
@@ -430,7 +431,7 @@ function App() {
               ) : page.type === 'thinkOutside' ? (
                 <ThinkOutsidePage page={page} />
               ) : (
-                <div className="content-body" dangerouslySetInnerHTML={{ __html: page.content }} />
+                <div className="content-body" dangerouslySetInnerHTML={{ __html: processHtmlBidi(page.content) }} />
               )}
             </article>
 
@@ -549,13 +550,13 @@ function QuestionsPage({ questions, gender }) {
             onClick={() => setOpenIndex(openIndex === i ? null : allOpen ? null : i)}
           >
             <span className="q-number">שאלה {i + 1}</span>
-            <span className="q-text">{item.q}</span>
+            <span className="q-text" dir="rtl">{renderBidiText(item.q)}</span>
             <span className="expand-icon">{(openIndex === i || allOpen) ? '▼' : '▶'}</span>
           </button>
           {(openIndex === i || allOpen) && (
             <div className="answer-block">
               <h4>💬 תשובה:</h4>
-              <p>{item.a}</p>
+              <p dir="rtl">{renderBidiText(item.a)}</p>
             </div>
           )}
         </div>
