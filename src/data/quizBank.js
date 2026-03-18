@@ -3468,165 +3468,165 @@ export const quizBank = {
 
   113: [
     {
-      q: "מה IoC? תן 3 דוגמאות.",
-      correct: "סימן לפריצה (Indicator of Compromise) — עדות שמערכת נפרצה. דוגמאות: כתובת IP של שרת שליטה, hash של קובץ נוזקה, דומיין זדוני",
+      q: "\u200Fמה IoC? תן 3 דוגמאות.",
+      correct: "\u200Fסימן לפריצה (Indicator of Compromise)\nעדות שמערכת נפרצה\nדוגמאות: כתובת IP של שרת שליטה, hash של קובץ נוזקה, דומיין זדוני",
       choices: [
-        "סימן לפריצה (Indicator of Compromise) — עדות שמערכת נפרצה. דוגמאות: כתובת IP של שרת שליטה, hash של קובץ נוזקה, דומיין זדוני",
-        "ראשי תיבות של Internet of Cybersecurity — מכשירי IoT עם אבטחה",
-        "מדד פריצה (Index of Compromise) — דירוג רמת הפריצה",
-        "מרכז תפעול פנימי (Internal Operations Center)",
+        "\u200Fסימן לפריצה (Indicator of Compromise)\nעדות שמערכת נפרצה\nדוגמאות: כתובת IP של שרת שליטה, hash של קובץ נוזקה, דומיין זדוני",
+        "\u200Fראשי תיבות של Internet of Cybersecurity — מכשירי IoT עם אבטחה",
+        "\u200Fמדד פריצה (Index of Compromise) — דירוג רמת הפריצה",
+        "\u200Fמרכז תפעול פנימי (Internal Operations Center)",
       ],
-      explanation: "סימני פריצה כוללים: כתובות IP, hash של קבצים (MD5/SHA256), דומיינים, כתובות URL, נושאי אימייל, מפתחות registry ושמות mutex. מקורות: VirusTotal, AlienVault OTX, MISP, Shodan. סימני פריצה מתיישנים מהר — כתובת IP או דומיין מתחלפים תוך ימים.",
+      explanation: "\u200F🔍 סימני פריצה כוללים\n• כתובות IP\n• hash של קבצים (MD5/SHA256)\n• דומיינים\n• כתובות URL\n• נושאי אימייל\n• מפתחות registry ושמות mutex\n\n📡 מקורות\n• VirusTotal\n• AlienVault OTX\n• MISP\n• Shodan\n\n⏳ סימני פריצה מתיישנים מהר\n• כתובת IP או דומיין מתחלפים תוך ימים",
       explanationEn: "IoCs (Indicators of Compromise): IP addresses (C2 servers), file hashes (MD5/SHA256 of malware), domains (phishing/C2), URLs (payload delivery), email subjects/senders, registry keys (persistence), mutex names (malware fingerprints). IoC sources: VirusTotal, AlienVault OTX, MISP, Shodan. IoCs go stale quickly — IPs/domains rotate within days."
     },
     {
-      q: "מה MITRE ATT&CK?",
-      correct: "מסגרת פתוחה עם 14 טקטיקות ומאות טכניקות של קבוצות תקיפה — ממפה שיטות תקיפה ומקשרת להגנות",
+      q: "\u200Fמה MITRE ATT&CK?",
+      correct: "\u200Fמסגרת פתוחה עם 14 טקטיקות\nומאות טכניקות של קבוצות תקיפה\nממפה שיטות תקיפה ומקשרת להגנות",
       choices: [
-        "מסגרת פתוחה עם 14 טקטיקות ומאות טכניקות של קבוצות תקיפה — ממפה שיטות תקיפה ומקשרת להגנות",
-        "תקן הצפנה לנתוני מודיעין איומים",
-        "חברת אבטחה שמזהה חתימות נוזקה",
-        "פרוטוקול לשיתוף סימני פריצה בין ארגונים"
+        "\u200Fמסגרת פתוחה עם 14 טקטיקות\nומאות טכניקות של קבוצות תקיפה\nממפה שיטות תקיפה ומקשרת להגנות",
+        "\u200Fתקן הצפנה לנתוני מודיעין איומים",
+        "\u200Fחברת אבטחה שמזהה חתימות נוזקה",
+        "\u200Fפרוטוקול לשיתוף סימני פריצה בין ארגונים"
       ],
-      explanation: "המסגרת כוללת 14 טקטיקות (מה מנסה התוקף): סיור, גישה ראשונית, הרצה, עמידות, הסלמת הרשאות, התחמקות, גניבת הרשאות, גילוי, תנועה רוחבית, איסוף, שליטה ובקרה (C2), חילוץ נתונים, ופגיעה. כל טקטיקה כוללת טכניקות ותת-טכניקות. ‏Navigator מציג ויזואליזציה של כיסוי.",
+      explanation: "\u200F📋 14 טקטיקות (מה מנסה התוקף)\n• סיור\n• גישה ראשונית\n• הרצה\n• עמידות\n• הסלמת הרשאות\n• התחמקות\n• גניבת הרשאות\n• גילוי\n• תנועה רוחבית\n• איסוף\n• שליטה ובקרה (C2)\n• חילוץ נתונים\n• פגיעה\n\n🔧 מבנה\n• כל טקטיקה כוללת טכניקות ותת-טכניקות\n\n🗺️ Navigator\n• מציג ויזואליזציה של כיסוי",
       explanationEn: "MITRE ATT&CK has 14 Tactics (what the attacker is trying to do): Reconnaissance, Initial Access, Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, Command & Control, Exfiltration, Impact. Each Tactic contains Techniques (T1566 = Phishing) and Sub-techniques. Navigator provides coverage visualization. Purple teaming: Red team attacks, Blue team detects."
     },
     {
-      q: "מה ההבדל בין סיור פסיבי (Passive) לאקטיבי (Active) ב-OSINT?",
-      correct: "סיור פסיבי: מקורות ציבוריים בלי לגעת ביעד (Shodan, WHOIS). סיור אקטיבי: שליחת בקשות ישירות ליעד (nmap) — ניתן לגילוי",
+      q: "\u200Fמה ההבדל בין סיור פסיבי (Passive) לאקטיבי (Active) ב-OSINT?",
+      correct: "\u200Fסיור פסיבי: מקורות ציבוריים בלי לגעת ביעד (Shodan, WHOIS)\nסיור אקטיבי: שליחת בקשות ישירות ליעד (nmap)\nניתן לגילוי",
       choices: [
-        "סיור פסיבי: מקורות ציבוריים בלי לגעת ביעד (Shodan, WHOIS). סיור אקטיבי: שליחת בקשות ישירות ליעד (nmap) — ניתן לגילוי",
-        "פסיבי = ניטור ב-SOC, אקטיבי = צוות אדום",
-        "פסיבי = איטי, אקטיבי = מהיר",
-        "פסיבי = ללא כלים, אקטיבי = עם כלי אוטומציה"
+        "\u200Fסיור פסיבי: מקורות ציבוריים בלי לגעת ביעד (Shodan, WHOIS)\nסיור אקטיבי: שליחת בקשות ישירות ליעד (nmap)\nניתן לגילוי",
+        "\u200Fפסיבי = ניטור ב-SOC, אקטיבי = צוות אדום",
+        "\u200Fפסיבי = איטי, אקטיבי = מהיר",
+        "\u200Fפסיבי = ללא כלים, אקטיבי = עם כלי אוטומציה"
       ],
-      explanation: "סיור פסיבי: Shodan (סריקה שנעשתה על ידי צד שלישי), WHOIS, Google Dorks, LinkedIn — היעד לא רואה תעבורה. סיור אקטיבי: nmap, סריקת פינג, סריקת תיקיות — נרשם בלוגים של היעד. בעולם האמיתי: הגדרת ה-scope קובעת מה מותר. ב-Bug Bounty: בדרך כלל פסיבי בלבד בהתחלה.",
+      explanation: "\u200F👁️ סיור פסיבי\n• Shodan (סריקה שנעשתה על ידי צד שלישי)\n• WHOIS\n• Google Dorks\n• LinkedIn\n• היעד לא רואה תעבורה\n\n🎯 סיור אקטיבי\n• nmap\n• סריקת פינג\n• סריקת תיקיות\n• נרשם בלוגים של היעד\n\n📌 בעולם האמיתי\n• הגדרת ה-scope קובעת מה מותר\n• ב-Bug Bounty: בדרך כלל פסיבי בלבד בהתחלה",
       explanationEn: "Passive Recon: Shodan (scans done by a third party), WHOIS, Google Dorks, LinkedIn, theHarvester — the target sees no traffic from you. Active Recon: nmap, ping sweep, directory busting — gets logged by the target. In practice: pentest scope defines what is allowed. Bug Bounty: typically passive-only for initial reconnaissance."
     },
     {
-      q: "מה Shodan ואיזה מידע ניתן למצוא בו?",
-      correct: "מנוע חיפוש למכשירים המחוברים לאינטרנט — מציג פורטים פתוחים, באנרים, תעודות ושירותים פגיעים",
+      q: "\u200Fמה Shodan ואיזה מידע ניתן למצוא בו?",
+      correct: "\u200Fמנוע חיפוש למכשירים המחוברים לאינטרנט\nמציג פורטים פתוחים, באנרים, תעודות ושירותים פגיעים",
       choices: [
-        "מנוע חיפוש למכשירים המחוברים לאינטרנט — מציג פורטים פתוחים, באנרים, תעודות ושירותים פגיעים",
-        "מנוע חיפוש לתוספים זדוניים במחשב",
-        "כלי לניתוח נוזקה של חברת Shodan",
-        "שרת DNS שמפרסם מודיעין איומים"
+        "\u200Fמנוע חיפוש למכשירים המחוברים לאינטרנט\nמציג פורטים פתוחים, באנרים, תעודות ושירותים פגיעים",
+        "\u200Fמנוע חיפוש לתוספים זדוניים במחשב",
+        "\u200Fכלי לניתוח נוזקה של חברת Shodan",
+        "\u200Fשרת DNS שמפרסם מודיעין איומים"
       ],
-      explanation: "‏Shodan סורק את כל כתובות IPv4 ושומר באנרים. חיפוש לפי hostname, פורט, מוצר, מדינה או פגיעות ספציפית. למשל: מציאת שרתי Redis חשופים (לרוב ללא אימות), או מכשירים פגיעים לפגם מסוים. ‏Censys דומה ל-Shodan, ו-Zoomeye הוא הגרסה הסינית.",
+      explanation: "\u200F🌐 Shodan\n• סורק את כל כתובות IPv4 ושומר באנרים\n• חיפוש לפי hostname, פורט, מוצר, מדינה או פגיעות ספציפית\n\n🔍 דוגמאות\n• מציאת שרתי Redis חשופים (לרוב ללא אימות)\n• מכשירים פגיעים לפגם מסוים\n\n📌 כלים דומים\n• Censys דומה ל-Shodan\n• Zoomeye הוא הגרסה הסינית",
       explanationEn: "Shodan scans all of IPv4 and stores banners. Search examples: hostname:example.com port:22 finds exposed SSH. product:Redis finds Redis instances (often without authentication). country:IL vuln:CVE-2017-0144 finds EternalBlue-vulnerable systems. org:'Company Name' finds all their assets. Censys is similar to Shodan. ZoomEye is the Chinese equivalent."
     }
   ],
 
   114: [
     {
-      q: "מה 6 שלבי תגובה לאירוע (Incident Response) לפי NIST?",
-      correct: "‏Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned",
+      q: "\u200Fמה 6 שלבי תגובה לאירוע לפי NIST?",
+      correct: "\u200Fהכנה → זיהוי → בלימה → חיסול → שחזור → לקחים",
       choices: [
-        "‏Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned",
-        "‏Detection → Analysis → Mitigation → Reporting → Recovery → Review",
-        "‏Alert → Triage → Isolate → Fix → Monitor → Close",
-        "‏Discovery → Escalation → Response → Patch → Test → Deploy"
+        "\u200Fהכנה → זיהוי → בלימה → חיסול → שחזור → לקחים",
+        "\u200Fגילוי → ניתוח → מיתון → דיווח → שחזור → סקירה",
+        "\u200Fהתרעה → מיון → בידוד → תיקון → ניטור → סגירה",
+        "\u200Fגילוי → הסלמה → תגובה → טלאי → בדיקה → פריסה"
       ],
-      explanation: "מחזור חיי תגובה לאירוע (NIST SP 800-61): 1) הכנה — נהלים, כלים, הדרכות. 2) זיהוי — התרעה ממערכת SOC/EDR או דיווח משתמש. 3) בלימה — בידוד מיידי + טלאי ארוך טווח. 4) חיסול — הסרת נוזקה, איפוס הרשאות. 5) שחזור — החזרת שירותים עם ניטור מוגבר. 6) לקחים — סקירה תוך שבועיים.",
+      explanation: "\u200F📋 מחזור חיי תגובה לאירוע (NIST SP 800-61)\n\n1️⃣ הכנה\n• נהלים, כלים, הדרכות\n\n2️⃣ זיהוי\n• התרעה ממערכת SOC/EDR או דיווח משתמש\n\n3️⃣ בלימה\n• בידוד מיידי + טלאי ארוך טווח\n\n4️⃣ חיסול\n• הסרת נוזקה, איפוס הרשאות\n\n5️⃣ שחזור\n• החזרת שירותים עם ניטור מוגבר\n\n6️⃣ לקחים\n• סקירה תוך שבועיים",
       explanationEn: "IR Lifecycle (NIST SP 800-61): 1) Preparation: runbooks, tools, training. 2) Identification: alert from SOC, EDR, or user report. 3) Containment: short-term (isolate) + long-term (patch). 4) Eradication: remove malware, reset credentials. 5) Recovery: restore services, enhanced monitoring. 6) Lessons Learned: post-mortem within two weeks."
     },
     {
-      q: "מה התקפת שרשרת אספקה (Supply Chain Attack)? תן דוגמה ידועה.",
-      correct: "תקיפה דרך ספק או תוכנה מהימנה שהארגון משתמש בה. SolarWinds: דלת אחורית בעדכון Orion שהתפשטה ל-18,000 לקוחות",
+      q: "\u200Fמה התקפת שרשרת אספקה? תן דוגמה ידועה.",
+      correct: "\u200Fתקיפה דרך ספק או תוכנה מהימנה שהארגון משתמש בה\nSolarWinds: דלת אחורית בעדכון Orion\nשהתפשטה ל-18,000 לקוחות",
       choices: [
-        "תקיפה דרך ספק או תוכנה מהימנה שהארגון משתמש בה. SolarWinds: דלת אחורית בעדכון Orion שהתפשטה ל-18,000 לקוחות",
-        "תקיפה על שרשרת לוגיסטיקה פיזית",
-        "תקיפת הזרקת SQL על מערכת ניהול שרשרת אספקה",
-        "תקיפה על עובדי חברה דרך אימייל פישינג"
+        "\u200Fתקיפה דרך ספק או תוכנה מהימנה שהארגון משתמש בה\nSolarWinds: דלת אחורית בעדכון Orion\nשהתפשטה ל-18,000 לקוחות",
+        "\u200Fתקיפה על שרשרת לוגיסטיקה פיזית",
+        "\u200Fתקיפת הזרקת SQL על מערכת ניהול שרשרת אספקה",
+        "\u200Fתקיפה על עובדי חברה דרך אימייל פישינג"
       ],
-      explanation: "דוגמאות להתקפות שרשרת אספקה: 1) SolarWinds SUNBURST 2020 — דלת אחורית ב-DLL שהגיעה ל-18,000 לקוחות. 2) XZ Utils 2024 — דלת אחורית בספריית דחיסה. 3) חבילות npm זדוניות. 4) פריצת Codecov דרך סקריפט CI/CD. הגנה: רשימת רכיבים (SBOM), חתימת קוד, בניה מבודדת, סריקת תלויות.",
+      explanation: "\u200F🔗 דוגמאות להתקפות שרשרת אספקה\n\n• SolarWinds SUNBURST 2020\n  דלת אחורית ב-DLL → 18,000 לקוחות\n• XZ Utils 2024\n  דלת אחורית בספריית דחיסה\n• חבילות npm זדוניות\n• פריצת Codecov דרך סקריפט CI/CD\n\n🛡️ הגנה\n• רשימת רכיבים (SBOM)\n• חתימת קוד\n• בניה מבודדת\n• סריקת תלויות",
       explanationEn: "Supply Chain Attack examples: 1) SolarWinds SUNBURST 2020 — a backdoor in a DLL spread to 18,000 customers. 2) XZ Utils 2024 — backdoor in a compression library. 3) npm malicious packages. 4) Codecov breach — CI/CD script was compromised. Defense: SBOM (Software Bill of Materials), code signing, isolated build processes, dependency scanning (Snyk, Dependabot)."
     },
     {
-      q: "מה Volatility ולמה משתמשים בו בתגובה לאירועים?",
-      correct: "כלי לניתוח תמונות זיכרון (memory dumps) — מזהה תהליכים, חיבורי רשת ונוזקה מוסתרת בזיכרון",
+      q: "\u200Fמה Volatility ולמה משתמשים בו בתגובה לאירועים?",
+      correct: "\u200Fכלי לניתוח תמונות זיכרון (memory dumps)\nמזהה תהליכים, חיבורי רשת\nונוזקה מוסתרת בזיכרון",
       choices: [
-        "כלי לניתוח תמונות זיכרון (memory dumps) — מזהה תהליכים, חיבורי רשת ונוזקה מוסתרת בזיכרון",
-        "כלי לניהול אחסון נדיף בענן",
-        "מערכת SIEM לניתוח לוגים בזמן אמת",
-        "כלי לסימולציה של התקפות APT"
+        "\u200Fכלי לניתוח תמונות זיכרון (memory dumps)\nמזהה תהליכים, חיבורי רשת\nונוזקה מוסתרת בזיכרון",
+        "\u200Fכלי לניהול אחסון נדיף בענן",
+        "\u200Fמערכת SIEM לניתוח לוגים בזמן אמת",
+        "\u200Fכלי לסימולציה של התקפות APT"
       ],
-      explanation: "נוזקה שרצה בזיכרון בלבד (fileless) לא כותבת לדיסק — Volatility מגלה אותה. פקודות מועילות: pslist (תהליכים), netscan (חיבורים), malfind (הזרקת DLL), cmdline (פרמטרים של תהליכים), hashdump (סיסמאות Windows). כלי לכידת זיכרון: WinPMem, Magnet RAM Capture, VMware snapshot.",
+      explanation: "\u200F🔬 למה Volatility?\n• נוזקה ללא קבצים (fileless) רצה רק בזיכרון\n• אנטי-וירוס רגיל לא מוצא אותה\n\n⚙️ פקודות מועילות\n• pslist — תהליכים\n• netscan — חיבורים\n• malfind — הזרקת DLL\n• cmdline — פרמטרים\n• hashdump — סיסמאות Windows\n\n📦 כלי לכידת זיכרון\n• WinPMem\n• Magnet RAM Capture\n• VMware snapshot",
       explanationEn: "Memory forensics: malware that runs only in RAM (fileless malware) never writes to disk — only memory analysis tools like Volatility can detect it. Useful commands: pslist (processes), netscan (connections), malfind (DLL injection, hollowing), cmdline (process arguments), hashdump (Windows password hashes). Memory capture tools: WinPMem, Magnet RAM Capture, VMware snapshots."
     },
     {
-      q: "מה תנועה רוחבית (Lateral Movement) בתגובה לאירועים?",
-      correct: "מעבר התוקף בין מכשירים ברשת לאחר גישה ראשונית — באמצעות RDP, SMB, SSH, או Pass-the-Hash",
+      q: "\u200Fמה תנועה רוחבית (Lateral Movement)?",
+      correct: "\u200Fמעבר התוקף בין מכשירים ברשת\nלאחר גישה ראשונית\nבאמצעות RDP, SMB, SSH או Pass-the-Hash",
       choices: [
-        "מעבר התוקף בין מכשירים ברשת לאחר גישה ראשונית — באמצעות RDP, SMB, SSH, או Pass-the-Hash",
-        "העברת נתונים מהרשת לשרת חיצוני",
-        "עלייה בהרשאות ממשתמש רגיל למנהל",
-        "שינוי כיוון תנועת תעבורה ברשת"
+        "\u200Fמעבר התוקף בין מכשירים ברשת\nלאחר גישה ראשונית\nבאמצעות RDP, SMB, SSH או Pass-the-Hash",
+        "\u200Fהעברת נתונים מהרשת לשרת חיצוני",
+        "\u200Fעלייה בהרשאות ממשתמש רגיל למנהל",
+        "\u200Fשינוי כיוון תנועת תעבורה ברשת"
       ],
-      explanation: "טכניקות תנועה רוחבית: Pass-the-Hash — שימוש ב-hash של NTLM ישירות ללא סיסמה. Pass-the-Ticket — כרטיס Kerberos גנוב. ‏RDP לגישת GUI בפורט 3389. ‏SMB עם כלים כמו psexec ו-wmiexec. בלימה: פילוח רשת, מחיקת sessions, ואיפוס אמון ב-Active Directory.",
+      explanation: "\u200F🔀 טכניקות תנועה רוחבית\n• Pass-the-Hash — שימוש ב-hash ישירות ללא סיסמה\n• Pass-the-Ticket — כרטיס Kerberos גנוב\n• RDP — גישת GUI בפורט 3389\n• SMB — כלים כמו psexec ו-wmiexec\n\n🛡️ בלימה\n• פילוח רשת\n• מחיקת sessions\n• איפוס אמון ב-Active Directory",
       explanationEn: "Lateral Movement Techniques (MITRE ATT&CK T1550+): Pass-the-Hash (PtH) uses an NTLM hash directly without the password. Pass-the-Ticket uses a stolen Kerberos ticket. RDP: port 3389 for GUI access. SMB: psexec, wmiexec. SSH key propagation. Containment: network segmentation, session termination, resetting Active Directory trusts."
     }
   ],
 
   115: [
     {
-      q: "מה ההבדל בין ניתוח נוזקה סטטי (Static) לדינמי (Dynamic)?",
-      correct: "סטטי: בוחנים קובץ ללא הרצה (מחרוזות, ייבואים). דינמי: מריצים בסביבה מבודדת (sandbox) ובוחנים התנהגות",
+      q: "\u200Fמה ההבדל בין ניתוח נוזקה סטטי לדינמי?",
+      correct: "\u200Fסטטי: בוחנים קובץ ללא הרצה\n(מחרוזות, ייבואים)\nדינמי: מריצים בסביבה מבודדת\nובוחנים התנהגות",
       choices: [
-        "סטטי: בוחנים קובץ ללא הרצה (מחרוזות, ייבואים). דינמי: מריצים בסביבה מבודדת (sandbox) ובוחנים התנהגות",
-        "סטטי = ניתוח בזמן אמת, דינמי = ניתוח לאחר פריצה",
-        "סטטי = במכונה וירטואלית, דינמי = על חומרה פיזית",
-        "סטטי = כלי Linux, דינמי = כלי Windows"
+        "\u200Fסטטי: בוחנים קובץ ללא הרצה\n(מחרוזות, ייבואים)\nדינמי: מריצים בסביבה מבודדת\nובוחנים התנהגות",
+        "\u200Fסטטי = ניתוח בזמן אמת\nדינמי = ניתוח לאחר פריצה",
+        "\u200Fסטטי = במכונה וירטואלית\nדינמי = על חומרה פיזית",
+        "\u200Fסטטי = כלי Linux\nדינמי = כלי Windows"
       ],
-      explanation: "ניתוח סטטי: כלים כמו strings, PEStudio, Ghidra. מגלה מחרוזות קריאות (כתובות URL, IP), ספריות מיובאות, חריגות בכותרת PE. מוגבל על ידי ערפול (obfuscation). ניתוח דינמי: Cuckoo Sandbox, Process Monitor, Wireshark. מגלה שינויי registry, קבצים שנוצרו, חיבורי C2, הזרקת תהליכים. שילוב שניהם = ניתוח מלא.",
+      explanation: "\u200F🔍 ניתוח סטטי\n• כלים: strings, PEStudio, Ghidra\n• מגלה מחרוזות קריאות (URL, IP)\n• ספריות מיובאות, חריגות בכותרת PE\n• מוגבל ע״י ערפול (obfuscation)\n\n🏃 ניתוח דינמי\n• כלים: Cuckoo Sandbox, Process Monitor, Wireshark\n• מגלה שינויי registry, קבצים שנוצרו\n• חיבורי C2, הזרקת תהליכים\n\n💡 שילוב שניהם = ניתוח מלא",
       explanationEn: "Static analysis: tools like strings, PEStudio, Ghidra. Reveals: readable strings (URLs, IPs), imported DLLs, PE header anomalies. Limited by obfuscation/packing. Dynamic analysis: Cuckoo Sandbox, Process Monitor, Wireshark. Reveals: registry changes, file drops, C2 connections, process injection. Combining both provides full analysis."
     },
     {
-      q: "מה Ransomware ואיך מתגוננים?",
-      correct: "נוזקה שמצפינה קבצים ודורשת כופר. הגנה: גיבויים מנותקים, עדכוני אבטחה, סינון אימייל, פילוח רשת",
+      q: "\u200Fמה כופרה (Ransomware) ואיך מתגוננים?",
+      correct: "\u200Fנוזקה שמצפינה קבצים ודורשת כופר\nהגנה: גיבויים מנותקים, עדכוני אבטחה\nסינון אימייל, פילוח רשת",
       choices: [
-        "נוזקה שמצפינה קבצים ודורשת כופר. הגנה: גיבויים מנותקים, עדכוני אבטחה, סינון אימייל, פילוח רשת",
-        "נוזקה שגונבת נתונים ומוכרת לדארקנט",
-        "כלי לגיטימי להצפנת קבצים לאבטחה",
-        "וירוס שמשתמש במעבד לכריית מטבעות"
+        "\u200Fנוזקה שמצפינה קבצים ודורשת כופר\nהגנה: גיבויים מנותקים, עדכוני אבטחה\nסינון אימייל, פילוח רשת",
+        "\u200Fנוזקה שגונבת נתונים ומוכרת לדארקנט",
+        "\u200Fכלי לגיטימי להצפנת קבצים לאבטחה",
+        "\u200Fוירוס שמשתמש במעבד לכריית מטבעות"
       ],
-      explanation: "שרשרת ההתקפה של כופרה: פישינג, גישה ראשונית, הסלמת הרשאות, תנועה רוחבית, חילוץ נתונים, הצפנה. כופרה כשירות (RaaS): LockBit, BlackCat. הגנה: כלל 3-2-1 (3 עותקים, 2 סוגי מדיה, 1 מנותק), גיבויים בלתי-ניתנים לשינוי, מערכת EDR, וסינון באימייל.",
+      explanation: "\u200F🔒 שרשרת ההתקפה\n• פישינג → גישה ראשונית\n• הסלמת הרשאות → תנועה רוחבית\n• חילוץ נתונים → הצפנה\n\n💰 כופרה כשירות (RaaS)\n• LockBit, BlackCat\n\n🛡️ הגנה — כלל 3-2-1\n• 3 עותקים\n• 2 סוגי מדיה\n• 1 מנותק\n• גיבויים בלתי-ניתנים לשינוי\n• מערכת EDR + סינון אימייל",
       explanationEn: "Ransomware kill chain: Phishing > Initial Access > Privilege Escalation > Lateral Movement > Data Exfiltration > Encryption. RaaS (Ransomware-as-a-Service): LockBit, BlackCat. Defense: 3-2-1 backup rule (3 copies, 2 media types, 1 offsite/offline), immutable backups (Veeam, Azure Immutable), Endpoint Detection & Response (EDR), and email gateway filtering."
     },
     {
-      q: "מהם מנגנוני עמידות (Persistence) נפוצים ב-Windows?",
-      correct: "מפתחות Run ב-Registry, משימות מתוזמנות, שירותים, תיקיית Startup, חטיפת DLL — נוזקה שרצה אחרי אתחול",
+      q: "\u200Fמהם מנגנוני עמידות (Persistence) נפוצים ב-Windows?",
+      correct: "\u200Fמפתחות Run ב-Registry\nמשימות מתוזמנות, שירותים\nתיקיית Startup, חטיפת DLL\nנוזקה שרצה אחרי אתחול",
       choices: [
-        "מפתחות Run ב-Registry, משימות מתוזמנות, שירותים, תיקיית Startup, חטיפת DLL — נוזקה שרצה אחרי אתחול",
-        "‏WMI Events, DCOM ו-BITS Jobs בלבד",
-        "רק crontab ו-systemd (של Linux)",
-        "תוספי דפדפן בלבד"
+        "\u200Fמפתחות Run ב-Registry\nמשימות מתוזמנות, שירותים\nתיקיית Startup, חטיפת DLL\nנוזקה שרצה אחרי אתחול",
+        "\u200FWMI Events, DCOM ו-BITS Jobs בלבד",
+        "\u200Fרק crontab ו-systemd (של Linux)",
+        "\u200Fתוספי דפדפן בלבד"
       ],
-      explanation: "מנגנוני עמידות ב-Windows: 1) מפתחות Run ב-Registry. 2) משימות מתוזמנות (schtasks). 3) שירותים (sc create). 4) חטיפת DLL — ספרייה זדונית בנתיב לפני הלגיטימית. 5) מנויי WMI. 6) ברמת האתחול: bootkit. הכלי AutoRuns (Sysinternals) מציג את כל מנגנוני העמידות. כל רשומת startup צריכה אימות ידני.",
+      explanation: "\u200F🔄 מנגנוני עמידות ב-Windows\n• מפתחות Run ב-Registry\n• משימות מתוזמנות (schtasks)\n• שירותים (sc create)\n• חטיפת DLL — ספרייה זדונית בנתיב לפני הלגיטימית\n• מנויי WMI\n• ברמת האתחול: bootkit\n\n🔧 כלי זיהוי\n• AutoRuns (Sysinternals)\n• מציג את כל מנגנוני העמידות\n• כל רשומת startup צריכה אימות ידני",
       explanationEn: "Windows Persistence mechanisms: 1) Registry Run Keys (HKCU/HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run). 2) Scheduled Tasks: schtasks /create. 3) Services: sc create. 4) DLL Hijacking: placing a malicious DLL in the path before the legitimate one. 5) WMI subscriptions. 6) Boot/Pre-OS: bootkit. For IR: AutoRuns (Sysinternals) displays all persistence mechanisms."
     },
     {
-      q: "מה C2 (שליטה ובקרה) בנוזקה?",
-      correct: "תשתית תקשורת בין הנוזקה לתוקף — מאפשרת שליחת פקודות, גניבת נתונים ועדכוני נוזקה",
+      q: "\u200Fמה C2 (שליטה ובקרה) בנוזקה?",
+      correct: "\u200Fתשתית תקשורת בין הנוזקה לתוקף\nמאפשרת שליחת פקודות\nגניבת נתונים ועדכוני נוזקה",
       choices: [
-        "תשתית תקשורת בין הנוזקה לתוקף — מאפשרת שליחת פקודות, גניבת נתונים ועדכוני נוזקה",
-        "שליטה ובקרה = ניהול מנהל מערכת",
-        "תוכנה לשליטה בתהליכי CI/CD",
-        "חומת אש שמנתבת חבילות"
+        "\u200Fתשתית תקשורת בין הנוזקה לתוקף\nמאפשרת שליחת פקודות\nגניבת נתונים ועדכוני נוזקה",
+        "\u200Fשליטה ובקרה = ניהול מנהל מערכת",
+        "\u200Fתוכנה לשליטה בתהליכי CI/CD",
+        "\u200Fחומת אש שמנתבת חבילות"
       ],
-      explanation: "ערוצי C2 נפוצים: HTTP/HTTPS (מתחזה לתעבורת רשת רגילה), DNS (ערוץ חשאי בשאילתות DNS), ICMP, רשתות חברתיות. זיהוי: מרווחי beacon חשודים (הנוזקה מתקשרת בקביעות), דומיינים נדירים, אלגוריתם DGA (הנוזקה מייצרת שמות דומיין אקראיים). כלי C2 ידועים: Cobalt Strike, Covenant, Brute Ratel.",
+      explanation: "\u200F📡 ערוצי C2 נפוצים\n• HTTP/HTTPS — מתחזה לתעבורה רגילה\n• DNS — ערוץ חשאי בשאילתות\n• ICMP\n• רשתות חברתיות\n\n🔍 זיהוי\n• מרווחי beacon חשודים\n• דומיינים נדירים\n• אלגוריתם DGA — שמות דומיין אקראיים\n\n⚔️ כלי C2 ידועים\n• Cobalt Strike\n• Covenant\n• Brute Ratel",
       explanationEn: "C2 (Command and Control) channels: HTTP/HTTPS (camouflaged as web traffic), DNS (covert channel in DNS queries), ICMP, Twitter/Slack (social media C2). Detection: suspicious beacon intervals (malware phones home every X seconds), rare domains, DNS DGA (Domain Generation Algorithm — malware generates random domain names). Tools: Cobalt Strike, Covenant, Brute Ratel."
     },
     {
-      q: "מה נוזקה ללא קבצים (fileless malware) ולמה קשה לאתר אותה?",
-      correct: "נוזקה שרצה רק בזיכרון ולא כותבת לדיסק — אנטי-וירוס שסורק קבצים לא מוצא אותה, רק חקירת זיכרון מגלה",
+      q: "\u200Fמה נוזקה ללא קבצים (fileless) ולמה קשה לאתר?",
+      correct: "\u200Fנוזקה שרצה רק בזיכרון ולא כותבת לדיסק\nאנטי-וירוס שסורק קבצים לא מוצא אותה\nרק חקירת זיכרון מגלה",
       choices: [
-        "נוזקה שרצה רק בזיכרון ולא כותבת לדיסק — אנטי-וירוס שסורק קבצים לא מוצא אותה, רק חקירת זיכרון מגלה",
-        "נוזקה שמוחקת את עצמה אחרי ריצה",
-        "נוזקה שמסתירה את הסיומת של הקובץ שלה",
-        "נוזקה שפועלת בהרשאות נמוכות ללא מנהל"
+        "\u200Fנוזקה שרצה רק בזיכרון ולא כותבת לדיסק\nאנטי-וירוס שסורק קבצים לא מוצא אותה\nרק חקירת זיכרון מגלה",
+        "\u200Fנוזקה שמוחקת את עצמה אחרי ריצה",
+        "\u200Fנוזקה שמסתירה את הסיומת של הקובץ שלה",
+        "\u200Fנוזקה שפועלת בהרשאות נמוכות ללא מנהל"
       ],
-      explanation: "טכניקות: PowerShell (טעינת קוד רפלקטיבית), WMI, החלפת תהליך (Process Hollowing), הזרקת DLL. דוגמה: PowerShell מריץ payload מקודד ישירות בזיכרון. זיהוי: מערכת EDR בודקת התנהגות ולא רק קבצים. ‏AMSI סורק סקריפטים של PowerShell. חקירת זיכרון עם Volatility מגלה קוד מוזרק.",
+      explanation: "\u200F👻 טכניקות\n• PowerShell — טעינת קוד רפלקטיבית\n• WMI\n• החלפת תהליך (Process Hollowing)\n• הזרקת DLL\n\n🔍 זיהוי\n• מערכת EDR בודקת התנהגות, לא רק קבצים\n• AMSI סורק סקריפטים של PowerShell\n• חקירת זיכרון עם Volatility מגלה קוד מוזרק",
       explanationEn: "Fileless malware techniques: PowerShell (reflective loading), WMI, Process Hollowing (replacing a legitimate process with malware), DLL Injection. Example: PowerShell -EncodedCommand <base64> executes a payload directly in RAM. Detection: EDR checks behavior, not just files. AMSI (Antimalware Scan Interface) scans PowerShell scripts. Memory forensics (Volatility) discovers injected code."
     }
   ]
