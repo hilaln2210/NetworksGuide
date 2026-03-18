@@ -124,6 +124,7 @@ function App() {
   const [gender, setGenderState] = useState(getGender)
   const [showResetModal, setShowResetModal] = useState(false)
   const [mobileShowContent, setMobileShowContent] = useState(false)
+  const [quizAutoStart, setQuizAutoStart] = useState(null) // { chapterId, ts }
 
   const trackChapters = activeTrack?.chapters || []
   const chapter = trackChapters[currentChapter]
@@ -368,7 +369,7 @@ function App() {
             <button
               key={t.key}
               className={`app-tab ${activeTab === t.key ? 'active' : ''}`}
-              onClick={() => setActiveTab(t.key)}
+              onClick={() => { setActiveTab(t.key); if (t.key !== 'quiz') setQuizAutoStart(null) }}
             >
               {t.label}
             </button>
@@ -462,6 +463,20 @@ function App() {
               )}
             </article>
 
+            {currentPage === totalPages - 1 && (
+              <div className="go-to-quiz-wrap">
+                <button
+                  className="go-to-quiz-btn"
+                  onClick={() => {
+                    setQuizAutoStart({ chapterId: chapter.id, ts: Date.now() })
+                    setActiveTab('quiz')
+                  }}
+                >
+                  🎯 עבור לחידון של הפרק
+                </button>
+              </div>
+            )}
+
             <nav className="page-navigation">
               <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>הקודם →</button>
               <span className="page-counter">פרק {currentChapter + 1} | {currentPage + 1}/{totalPages}</span>
@@ -481,6 +496,8 @@ function App() {
               goToChapter(chIdx)
               setActiveTab('learn')
             }}
+            autoStartChapterId={quizAutoStart?.chapterId}
+            autoStartKey={quizAutoStart?.ts}
           />
         </div>
       )}

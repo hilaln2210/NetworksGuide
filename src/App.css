@@ -667,6 +667,7 @@ body {
 
 /* ===== DIAGRAMS ===== */
 .diagram-container {
+  direction: ltr;
   margin: 1.5rem 0;
   padding: 1.25rem;
   background: rgba(240, 249, 255, 0.8);
@@ -1734,4 +1735,39 @@ body {
 
 .reset-option-all .reset-opt-title {
   color: #dc2626;
+}
+
+/* ===== GO TO QUIZ BUTTON ===== */
+.go-to-quiz-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0 0.5rem;
+}
+
+.go-to-quiz-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 2rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: var(--font-rubik);
+  color: #fff;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--teal-bright) 100%);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(14, 116, 144, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  direction: rtl;
+}
+
+.go-to-quiz-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(14, 116, 144, 0.4);
+}
+
+.go-to-quiz-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(14, 116, 144, 0.25);
 }

