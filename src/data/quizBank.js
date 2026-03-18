@@ -1382,59 +1382,59 @@ export const quizBank = {
 
   23: [
     {
-      q: "מה גרם לנפילת פייסבוק ב-2021 למשך 6 שעות?",
-      correct: "ביטול BGP prefix announcements — פייסבוק הסירה את עצמה ממפת האינטרנט",
+      q: "\u200Fמה גרם לנפילת פייסבוק ב-2021 למשך 6 שעות?",
+      correct: "\u200Fביטול BGP prefix announcements\n— פייסבוק הסירה את עצמה ממפת האינטרנט",
       choices: [
-        "ביטול BGP prefix announcements — פייסבוק הסירה את עצמה ממפת האינטרנט",
-        "מתקפת DDoS של 5 Tbps",
-        "כשל בmain database",
-        "‏DNS record שגוי"
+        "\u200Fביטול BGP prefix announcements\n— פייסבוק הסירה את עצמה ממפת האינטרנט",
+        "\u200Fמתקפת DDoS של 5 Tbps",
+        "\u200Fכשל ב-main database",
+        "\u200FDNS record שגוי"
       ],
-      explanation: "‏config change שגוי ביטל BGP announcements. ה-router של פייסבוק הפסיק לספר לעולם 'אני כאן'. כשל אחד מחק מיליארדי דולרים בשווי שוק. ואז — כלי התיקון גם הם היו בפנים 🌐"
+      explanation: "\u200F💥 מה קרה?\n• config change שגוי ביטל BGP announcements\n• ה-router של פייסבוק הפסיק לספר לעולם ״אני כאן״\n\n📉 ההשלכות\n• כשל אחד מחק מיליארדי דולרים בשווי שוק\n• כלי התיקון גם הם היו בפנים\n• נדרשו 6 שעות להחזיר הכל"
     },
     {
-      q: "מה blameless postmortem?",
-      correct: "ניתוח כשל שמחפש סיבות מערכתיות — לא מי אשם — כדי למנוע הישנות",
+      q: "\u200Fמה blameless postmortem?",
+      correct: "\u200Fניתוח כשל שמחפש סיבות מערכתיות\n— לא מי אשם —\nכדי למנוע הישנות",
       choices: [
-        "ניתוח כשל שמחפש סיבות מערכתיות — לא מי אשם — כדי למנוע הישנות",
-        "דוח שמסביר מי אחראי לכשל",
-        "נוהל לפיצוי לקוחות אחרי downtime",
-        "תיעוד של כל השינויים בקוד"
+        "\u200Fניתוח כשל שמחפש סיבות מערכתיות\n— לא מי אשם —\nכדי למנוע הישנות",
+        "\u200Fדוח שמסביר מי אחראי לכשל",
+        "\u200Fנוהל לפיצוי לקוחות אחרי downtime",
+        "\u200Fתיעוד של כל השינויים בקוד"
       ],
-      explanation: "כשיש עונש — אנשים מסתירים מידע. בלי עונש — מדווחים בפתיחות, הלמידה עמוקה. ‏Google SRE Book, Netflix — כולם מאמינים: 'המערכת כשלה, לא האדם'. ‏Action items > punishment 📚"
+      explanation: "\u200F📖 העיקרון\n• כשיש עונש — אנשים מסתירים מידע\n• בלי עונש — מדווחים בפתיחות\n• הלמידה עמוקה יותר\n\n🏢 מי מאמין בזה?\n• Google SRE Book\n• Netflix\n• הפילוסופיה: ״המערכת כשלה, לא האדם״\n• Action items > punishment"
     },
     {
-      q: "מה BGP Hijacking ואיך RPKI מגן?",
-      correct: "‏BGP Hijacking: AS מפרסם prefix שלא שלו. RPKI: ROA (Route Origin Authorization) — certificate שמאמת 'AS X מורשה לפרסם prefix Y'",
+      q: "\u200Fמה BGP Hijacking ואיך RPKI מגן?",
+      correct: "\u200FBGP Hijacking: AS מפרסם prefix שלא שלו\nRPKI: ROA — certificate שמאמת\n״AS X מורשה לפרסם prefix Y״",
       choices: [
-        "‏BGP Hijacking: AS מפרסם prefix שלא שלו. RPKI: ROA (Route Origin Authorization) — certificate שמאמת 'AS X מורשה לפרסם prefix Y'",
-        "‏BGP Hijacking = DDoS על BGP routers",
-        "‏RPKI = הצפנת BGP updates",
-        "‏BGP אינו ניתן לhijacking כי מאומת"
+        "\u200FBGP Hijacking: AS מפרסם prefix שלא שלו\nRPKI: ROA — certificate שמאמת\n״AS X מורשה לפרסם prefix Y״",
+        "\u200FBGP Hijacking = DDoS על BGP routers",
+        "\u200FRPKI = הצפנת BGP updates",
+        "\u200FBGP אינו ניתן ל-hijacking כי מאומת"
       ],
-      explanation: "‏Pakistan Telecom 2008: הזריק 208.65.153.0/24 (vs YouTube /22). ‏Longest prefix match → 75% YouTube traffic ל-Pakistan. ‏RPKI: CA hierarchy (IANA → RIR → LIR → customer). ‏ROA: AS Number + Prefix + max length. ‏Validator: מוריד RPKI repository, בודק routes. ‏INVALID routes: filtered by rpki-filtered policy. ‏BGPsec: חותם כל hop ‎(מורכב, נדיר)‎."
+      explanation: "\u200F🚨 דוגמה — Pakistan Telecom 2008\n• הזריק 208.65.153.0/24 (vs YouTube /22)\n• Longest prefix match → 75% YouTube traffic לפקיסטן\n\n🔐 RPKI — ההגנה\n• CA hierarchy: IANA → RIR → LIR → customer\n• ROA: AS Number + Prefix + max length\n• Validator: מוריד RPKI repository, בודק routes\n• INVALID routes: מסוננות\n\n🔗 BGPsec\n• חותם כל hop\n• מורכב ונדיר בשימוש"
     },
     {
-      q: "מה Internet Exchange Point (IXP) ולמה חשוב?",
-      correct: "‏IXP = מרכז פיזי שבו ISPs/CDNs מחברים ישירות ומחליפים BGP routes ללא עלות transit",
+      q: "\u200Fמה Internet Exchange Point (IXP) ולמה חשוב?",
+      correct: "\u200FIXP = מרכז פיזי שבו ISPs/CDNs\nמחברים ישירות ומחליפים BGP routes\nללא עלות transit",
       choices: [
-        "‏IXP = מרכז פיזי שבו ISPs/CDNs מחברים ישירות ומחליפים BGP routes ללא עלות transit",
-        "‏IXP = ISP מרכזי שמנהל כל ה-routing",
-        "‏IXP = Internet extension protocol",
-        "‏IXP = חיבור בין IPv4 ל-IPv6"
+        "\u200FIXP = מרכז פיזי שבו ISPs/CDNs\nמחברים ישירות ומחליפים BGP routes\nללא עלות transit",
+        "\u200FIXP = ISP מרכזי שמנהל כל ה-routing",
+        "\u200FIXP = Internet extension protocol",
+        "\u200FIXP = חיבור בין IPv4 ל-IPv6"
       ],
-      explanation: "‏IXP ב-ישראל: ILIX. גדולים: AMS-IX (Amsterdam), DE-CIX (Frankfurt), LINX (London). ‏Peering: חיבור ישיר בין 2 AS ללא תשלום (settlement-free). ‏Transit: תשלום ל-upstream ISP לrouting כללי. ‏Hot potato routing: שלח traffic ל-peer מוקדם ככל האפשר. ‏Cold potato routing: שמור traffic ב-רשת שלך כמה שאפשר. ‏Route server: מנהל BGP sessions לכל משתתפי IXP."
+      explanation: "\u200F🌍 IXP בעולם\n• ישראל: ILIX\n• AMS-IX (Amsterdam)\n• DE-CIX (Frankfurt)\n• LINX (London)\n\n🤝 Peering vs Transit\n• Peering: חיבור ישיר בין 2 AS ללא תשלום\n• Transit: תשלום ל-upstream ISP ל-routing כללי\n\n🔀 שיטות Routing\n• Hot potato: שלח traffic ל-peer מוקדם ככל האפשר\n• Cold potato: שמור traffic ברשת שלך כמה שאפשר\n• Route server: מנהל BGP sessions לכל משתתפי IXP"
     },
     {
-      q: "מה Submarine Cable ואיך אינטרנט עובד תחת האוקיינוס?",
-      correct: "כבלים פיזיים בתחתית האוקיינוס = 95% מתעבורת הdata הבינלאומית. Latency: ~100ms לחצות האוקיינוס האטלנטי",
+      q: "\u200Fמה Submarine Cable ואיך אינטרנט עובד תחת האוקיינוס?",
+      correct: "\u200Fכבלים פיזיים בתחתית האוקיינוס\n= 95% מתעבורת ה-data הבינלאומית\nLatency: ~100ms לחצות האטלנטי",
       choices: [
-        "כבלים פיזיים בתחתית האוקיינוס = 95% מתעבורת הdata הבינלאומית. Latency: ~100ms לחצות האוקיינוס האטלנטי",
-        "אינטרנט בינלאומי = לוויינים בעיקר",
-        "‏Latency לחצות אוקיינוס = 5ms",
-        "כבלי תת-ים = 50% מה-traffic בלבד"
+        "\u200Fכבלים פיזיים בתחתית האוקיינוס\n= 95% מתעבורת ה-data הבינלאומית\nLatency: ~100ms לחצות האטלנטי",
+        "\u200Fאינטרנט בינלאומי = לוויינים בעיקר",
+        "\u200FLatency לחצות אוקיינוס = 5ms",
+        "\u200Fכבלי תת-ים = 50% מה-traffic בלבד"
       ],
-      explanation: "‏Submarine cables: אלומת fiber optic, הגנות מכניות. ‏Repeaters כל 50-100km. ‏Capacity: terabits/sec. ‏Break: שיטפונות, עוגנים, כרישים. ‏Repair ships: 3-6 שבועות. ‏Starlink/LEO: ~20ms latency ‎(לחשב)‎ — יתרון על כבלים. ‏TeleGeography: mapa מעודכנת. ‏Microsoft/Google/Facebook: מחזיקים כבלים פרטיים (Azure, Equiano, MAREA)."
+      explanation: "\u200F🌊 Submarine Cables\n• אלומת fiber optic עם הגנות מכניות\n• Repeaters כל 50-100km\n• Capacity: terabits/sec\n\n⚠️ סיכונים\n• שיטפונות, עוגנים, כרישים\n• Repair ships: 3-6 שבועות\n\n🛰️ חלופות\n• Starlink/LEO: ~20ms latency — יתרון על כבלים\n\n🏢 כבלים פרטיים\n• Microsoft: Azure\n• Google: Equiano\n• Facebook: MAREA"
     }
   ],
 
