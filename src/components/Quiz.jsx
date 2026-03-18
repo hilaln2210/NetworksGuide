@@ -321,7 +321,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
       {/* Question */}
       <div className="quiz-question-card">
         <span className="quiz-q-num">שאלה {current + 1}</span>
-        <p className="quiz-question-text" dir="rtl">{q.q}</p>
+        <p className="quiz-question-text" dir="rtl">{renderBidiText(q.q)}</p>
         {/* Hint + chapter link row — only before answering */}
         {picked === null && (
           <div className="quiz-hint-row">
@@ -369,7 +369,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
           return (
             <button key={i} className={cls} onClick={() => handlePick(choice)}>
               <span className="choice-letter">{['א', 'ב', 'ג', 'ד'][i]}</span>
-              <span className="choice-text" dir="rtl">{choice}</span>
+              <span className="choice-text" dir="rtl">{renderBidiText(choice)}</span>
             </button>
           )
         })}
@@ -393,7 +393,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter }) {
                   const withoutParens = s.replace(/\([^)]*\)/g, '')
                   const isRTL = /[\u0590-\u05ff\ufb1d-\ufb4f]/.test(withoutParens)
                   return (
-                    <span key={i} dir={isRTL ? 'rtl' : 'ltr'} style={{ display: 'block', textAlign: isRTL ? 'right' : 'left', marginBottom: '0.1rem' }}>{s}</span>
+                    <span key={i} dir={isRTL ? 'rtl' : 'ltr'} style={{ display: 'block', textAlign: isRTL ? 'right' : 'left', marginBottom: '0.1rem' }}>{renderBidiText(s)}</span>
                   )
                 })}
               </div>
