@@ -227,6 +227,42 @@ html {
   font-size: 1em;
 }
 
+/* ===== HEADER COLLAPSE TOGGLE (mobile only) ===== */
+.header-collapse-toggle {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .header-collapse-toggle {
+    display: block;
+    position: absolute;
+    top: 0.45rem;
+    left: 0.6rem;
+    z-index: 2;
+    background: rgba(14, 116, 144, 0.08);
+    border: 1px solid rgba(14, 116, 144, 0.2);
+    border-radius: 6px;
+    padding: 0.15rem 0.45rem;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    line-height: 1;
+    transition: background 0.15s;
+  }
+
+  .header-collapse-toggle:hover {
+    background: rgba(14, 116, 144, 0.15);
+  }
+
+  .header {
+    position: relative;
+  }
+
+  .header--collapsed .header-collapsible {
+    display: none;
+  }
+}
+
 /* ===== TABS ===== */
 .app-tabs {
   display: flex;

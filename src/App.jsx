@@ -138,6 +138,9 @@ function App() {
   })
   const [quizAutoStart, setQuizAutoStart] = useState(null) // { chapterId, ts }
   const [quizContext, setQuizContext] = useState(null) // { chapterId, questionNum, totalQuestions }
+  const [headerCollapsed, setHeaderCollapsed] = useState(() => {
+    try { return localStorage.getItem('ng_header_collapsed') === '1' } catch { return false }
+  })
 
   // Persist active tab and mobile view across refreshes
   useEffect(() => {
@@ -146,6 +149,9 @@ function App() {
   useEffect(() => {
     try { localStorage.setItem('ng_mobile_content', mobileShowContent ? '1' : '0') } catch {}
   }, [mobileShowContent])
+  useEffect(() => {
+    try { localStorage.setItem('ng_header_collapsed', headerCollapsed ? '1' : '0') } catch {}
+  }, [headerCollapsed])
 
   const trackChapters = activeTrack?.chapters || []
   const chapter = trackChapters[currentChapter]
@@ -331,63 +337,73 @@ function App() {
       {!gender && <GenderPicker onSelect={handleGenderSelect} />}
 
       {/* ===== HEADER ===== */}
-      <header className="header">
-        <div className="header-top">
-          <div className="header-title-wrap">
-            <button className="track-back-btn" onClick={handleBackToTracks} title="כל המסלולים">
-              כל המסלולים →
-            </button>
-            <h1 style={{ color: activeTrack.color }}>
-              {activeTrack.icon} {activeTrack.title}
-            </h1>
-          </div>
-          <div className="header-stats">
-            <div className="stat-chip stat-xp">
-              <span className="stat-num">{xp}</span>
-              <span className="stat-label">{level.emoji} XP</span>
-            </div>
-            <div className="stat-chip stat-progress" title={`${totalRead} מתוך ${totalPagesAllChapters} עמודים · ${completedChapters}/${trackChapters.length} פרקים`}>
-              <span className="stat-num">{overallPct}%</span>
-              <span className="stat-label">📖 התקדמות</span>
-            </div>
-            <div className={`stat-chip stat-time${todayMinutes > 0 ? ' active' : ''}`} title="זמן לימוד היום">
-              <span className="stat-num" dir="ltr">{formatMinutes(todayMinutes)}</span>
-              <span className="stat-label">⏱️ היום</span>
-            </div>
-            <div className="stat-chip" title={`רצף ${streak} ימי לימוד`}>
-              <span className="stat-num">{streak}</span>
-              <span className="stat-label">🔥 ימים</span>
-            </div>
-            {gender && (
-              <button className="gender-toggle-btn" onClick={toggleGender} title="החלף פנייה">
-                {gender === 'female' ? '👩' : '👨'}
+      <header className={`header${headerCollapsed ? ' header--collapsed' : ''}`}>
+        <button
+          className="header-collapse-toggle"
+          onClick={() => setHeaderCollapsed(c => !c)}
+          title={headerCollapsed ? 'הרחב כותרת' : 'כווץ כותרת'}
+        >
+          {headerCollapsed ? '\u25BC' : '\u25B2'}
+        </button>
+
+        <div className="header-collapsible">
+          <div className="header-top">
+            <div className="header-title-wrap">
+              <button className="track-back-btn" onClick={handleBackToTracks} title="כל המסלולים">
+                כל המסלולים →
               </button>
-            )}
-            <button className="reset-settings-btn" onClick={() => setShowResetModal(true)} title="הגדרות ואיפוס">
-              ⚙️
-            </button>
+              <h1 style={{ color: activeTrack.color }}>
+                {activeTrack.icon} {activeTrack.title}
+              </h1>
+            </div>
+            <div className="header-stats">
+              <div className="stat-chip stat-xp">
+                <span className="stat-num">{xp}</span>
+                <span className="stat-label">{level.emoji} XP</span>
+              </div>
+              <div className="stat-chip stat-progress" title={`${totalRead} מתוך ${totalPagesAllChapters} עמודים · ${completedChapters}/${trackChapters.length} פרקים`}>
+                <span className="stat-num">{overallPct}%</span>
+                <span className="stat-label">📖 התקדמות</span>
+              </div>
+              <div className={`stat-chip stat-time${todayMinutes > 0 ? ' active' : ''}`} title="זמן לימוד היום">
+                <span className="stat-num" dir="ltr">{formatMinutes(todayMinutes)}</span>
+                <span className="stat-label">⏱️ היום</span>
+              </div>
+              <div className="stat-chip" title={`רצף ${streak} ימי לימוד`}>
+                <span className="stat-num">{streak}</span>
+                <span className="stat-label">🔥 ימים</span>
+              </div>
+              {gender && (
+                <button className="gender-toggle-btn" onClick={toggleGender} title="החלף פנייה">
+                  {gender === 'female' ? '👩' : '👨'}
+                </button>
+              )}
+              <button className="reset-settings-btn" onClick={() => setShowResetModal(true)} title="הגדרות ואיפוס">
+                ⚙️
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Level bar */}
-        <div className="level-bar-wrap">
-          <div className="level-label">
-            <span>{level.emoji} {levelName}</span>
-            {nextLevel && <span className="level-next">← {nextLevelName} ({nextLevel.min - xp} XP נותרו)</span>}
+          {/* Level bar */}
+          <div className="level-bar-wrap">
+            <div className="level-label">
+              <span>{level.emoji} {levelName}</span>
+              {nextLevel && <span className="level-next">← {nextLevelName} ({nextLevel.min - xp} XP נותרו)</span>}
+            </div>
+            <div className="level-bar">
+              <div className="level-fill" style={{ width: `${lvlProgress}%` }} />
+            </div>
           </div>
-          <div className="level-bar">
-            <div className="level-fill" style={{ width: `${lvlProgress}%` }} />
-          </div>
-        </div>
 
-        {/* Daily goal bar */}
-        <div className="daily-goal-wrap">
-          <span className="daily-goal-label">
-            {goalMet ? '🎯 מטרה יומית הושגה!' : `🎯 מטרה יומית: ${formatMinutes(todayMinutes)} / ${DAILY_GOAL_MIN} ד'`}
-            {goalMet && <span className="daily-goal-done"> 🏆</span>}
-          </span>
-          <div className="daily-goal-bar">
-            <div className={`daily-goal-fill${goalMet ? ' goal-met' : ''}`} style={{ width: `${goalPct}%` }} />
+          {/* Daily goal bar */}
+          <div className="daily-goal-wrap">
+            <span className="daily-goal-label">
+              {goalMet ? '🎯 מטרה יומית הושגה!' : `🎯 מטרה יומית: ${formatMinutes(todayMinutes)} / ${DAILY_GOAL_MIN} ד'`}
+              {goalMet && <span className="daily-goal-done"> 🏆</span>}
+            </span>
+            <div className="daily-goal-bar">
+              <div className={`daily-goal-fill${goalMet ? ' goal-met' : ''}`} style={{ width: `${goalPct}%` }} />
+            </div>
           </div>
         </div>
 
