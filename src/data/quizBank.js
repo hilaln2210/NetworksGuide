@@ -564,37 +564,37 @@ export const quizBank = {
       explanation: "\u200F🎭 Subnet Mask — ״ציר ה-IP״\n• 255.255.255.0 = 24 ביטים לרשת, 8 ביטים למארח\n\n📊 דוגמה:\n• /24 = 256 כתובות (254 שמישות)\n• CIDR: 192.168.1.0/24\n• כתובת רשת: 192.168.1.0\n• Broadcast: 192.168.1.255"
     },
     {
-      q: "מה Gratuitous ARP ולמה הוא גם שימושי וגם מסוכן?",
-      correct: "‏ARP reply שנשלח ללא בקשה — שימושי לעדכון cache אחרי failover, מסוכן כי תוקף יכול לשלוח ולהרעיל ARP tables",
+      q: "\u200Fמה Gratuitous ARP ולמה הוא גם שימושי וגם מסוכן?",
+      correct: "\u200FARP reply שנשלח ללא בקשה\nשימושי לעדכון cache אחרי failover\nמסוכן כי תוקף יכול להרעיל ARP tables",
       choices: [
-        "‏ARP reply שנשלח ללא בקשה — שימושי לעדכון cache אחרי failover, מסוכן כי תוקף יכול לשלוח ולהרעיל ARP tables",
-        "‏ARP ל-IP שאינו קיים ברשת",
-        "‏ARP request לבדיקת זמינות",
-        "‏ARP עם TTL גבוה במיוחד"
+        "\u200FARP reply שנשלח ללא בקשה\nשימושי לעדכון cache אחרי failover\nמסוכן כי תוקף יכול להרעיל ARP tables",
+        "\u200FARP ל-IP שאינו קיים ברשת",
+        "\u200FARP request לבדיקת זמינות",
+        "\u200FARP עם TTL גבוה במיוחד"
       ],
-      explanation: "‏Gratuitous ARP: device שולח ARP reply עם ה-IP שלו עצמו, ללא שנשאלה שאלה. שימוש לגיטימי: HSRP/VRRP failover ‎(gateway חדש מכריז על עצמו)‎, IP conflict detection, עדכון switches. שימוש זדוני: ARP Poisoning — שולח GARP עם IP של gateway אבל MAC של תוקף. ‏DAI (Dynamic ARP Inspection) ב-switches מונע זאת."
+      explanation: "\u200F📡 Gratuitous ARP:\n• device שולח ARP reply עם ה-IP שלו עצמו\n• ללא שנשאלה שאלה\n\n✅ שימוש לגיטימי:\n• HSRP/VRRP failover — gateway חדש מכריז על עצמו\n• IP conflict detection\n• עדכון switches\n\n🚨 שימוש זדוני:\n• ARP Poisoning — שולח GARP עם IP של gateway\n  אבל MAC של תוקף\n• DAI (Dynamic ARP Inspection) ב-switches מונע זאת"
     },
     {
-      q: "מה ההבדל בין ARP ל-RARP?",
-      correct: "‏ARP: IP → MAC ‎(המשמש כיום)‎. RARP ‎(מיושן)‎: MAC → IP — לפני DHCP, diskless stations ביקשו IP לפי MAC שלהם",
+      q: "\u200Fמה ההבדל בין ARP ל-RARP?",
+      correct: "\u200FARP: IP → MAC (המשמש כיום)\nRARP (מיושן): MAC → IP\nלפני DHCP, diskless stations ביקשו IP לפי MAC",
       choices: [
-        "‏ARP: IP → MAC ‎(המשמש כיום)‎. RARP ‎(מיושן)‎: MAC → IP — לפני DHCP, diskless stations ביקשו IP לפי MAC שלהם",
-        "‏ARP ל-IPv4, RARP ל-IPv6",
-        "‏RARP = Reverse ARP = ARP להפסקת connection",
-        "אין הבדל — RARP הוא שם ישן ל-ARP"
+        "\u200FARP: IP → MAC (המשמש כיום)\nRARP (מיושן): MAC → IP\nלפני DHCP, diskless stations ביקשו IP לפי MAC",
+        "\u200FARP ל-IPv4\nRARP ל-IPv6",
+        "\u200FRARP = Reverse ARP\n= ARP להפסקת connection",
+        "\u200Fאין הבדל — RARP הוא שם ישן ל-ARP"
       ],
-      explanation: "‏ARP (RFC 826, 1982): Who has IP X? Tell me your MAC. ‏RARP (RFC 903, 1984): I'm MAC X, what's my IP? מיושן — הוחלף ע\\\"י BOOTP ואחר כך DHCP. ‏IPv6 משתמש ב-NDP (Neighbor Discovery Protocol) במקום ARP — multicast, לא broadcast, ושולב עם ICMPv6."
+      explanation: "\u200F📤 ARP (RFC 826, 1982):\n• Who has IP X? Tell me your MAC\n• משמש כיום בכל רשת\n\n📥 RARP (RFC 903, 1984):\n• I'm MAC X, what's my IP?\n• מיושן — הוחלף ע\"י BOOTP ואח\"כ DHCP\n\n🔄 IPv6:\n• משתמש ב-NDP (Neighbor Discovery Protocol)\n• multicast, לא broadcast\n• משולב עם ICMPv6"
     },
     {
-      q: "כמה זמן ARP cache נשמר ו-מה קורה כשהוא מתרענן?",
-      correct: "‏Linux: 60 שניות idle, 20 שניות stale לאחר מכן re-resolve. Windows: 15-45 שניות. TTL קצר = overhead, ארוך = פגיעות לshifting IPs",
+      q: "\u200Fכמה זמן ARP cache נשמר\nומה קורה כשהוא מתרענן?",
+      correct: "\u200FLinux: 60 שניות idle, 20 שניות stale\nWindows: 15-45 שניות\nTTL קצר = overhead, ארוך = פגיעות",
       choices: [
-        "‏Linux: 60 שניות idle, 20 שניות stale לאחר מכן re-resolve. Windows: 15-45 שניות. TTL קצר = overhead, ארוך = פגיעות לshifting IPs",
-        "‏ARP cache לעולם לא מתרענן — נמחק רק ב-reboot",
-        "כל הרשומות נמחקות כל 5 שניות",
-        "‏ARP cache = 24 שעות כמו DNS TTL"
+        "\u200FLinux: 60 שניות idle, 20 שניות stale\nWindows: 15-45 שניות\nTTL קצר = overhead, ארוך = פגיעות",
+        "\u200FARP cache לעולם לא מתרענן\nנמחק רק ב-reboot",
+        "\u200Fכל הרשומות נמחקות כל 5 שניות",
+        "\u200FARP cache = 24 שעות כמו DNS TTL"
       ],
-      explanation: "‏Linux: ip neigh show לצפייה. ip neigh flush all למחיקה. ‏State: REACHABLE (verified), STALE ‎(לא verified)‎, DELAY ‎(בדיקה)‎, PROBE ‎(שולח ARP)‎, FAILED. ‏ARP poisoning עובד כי cache מתקבל ממי שמגיב ראשון. arp -n (Linux/Mac), arp -a (Windows)."
+      explanation: "\u200F🖥️ פקודות צפייה:\n• Linux: ip neigh show\n• Linux: ip neigh flush all (מחיקה)\n• Linux/Mac: arp -n\n• Windows: arp -a\n\n📊 מצבי ARP cache:\n• REACHABLE — verified\n• STALE — לא verified\n• DELAY — בדיקה\n• PROBE — שולח ARP\n• FAILED — נכשל\n\n⚠️ ARP poisoning עובד כי:\n• cache מתקבל ממי שמגיב ראשון"
     }
   ],
 
@@ -774,48 +774,48 @@ export const quizBank = {
 
   13: [
     {
-      q: "מה ההבדל בין latency ל-bandwidth?",
-      correct: "‏Latency = זמן שלוקח לחבילה להגיע, Bandwidth = כמות נתונים לשנייה",
+      q: "\u200Fמה ההבדל בין latency ל-bandwidth?",
+      correct: "\u200FLatency = זמן שלוקח לחבילה להגיע\nBandwidth = כמות נתונים לשנייה",
       choices: [
-        "‏Latency = זמן שלוקח לחבילה להגיע, Bandwidth = כמות נתונים לשנייה",
-        "‏Latency = רוחב הפס, Bandwidth = זמן התגובה",
-        "שניהם מדידות של מהירות הרשת",
-        "‏Latency לרשת מקומית, Bandwidth לאינטרנט"
+        "\u200FLatency = זמן שלוקח לחבילה להגיע\nBandwidth = כמות נתונים לשנייה",
+        "\u200FLatency = רוחב הפס\nBandwidth = זמן התגובה",
+        "\u200Fשניהם מדידות של מהירות הרשת",
+        "\u200FLatency לרשת מקומית\nBandwidth לאינטרנט"
       ],
-      explanation: "אנלוגיה: צינור מים. ‏Bandwidth = קוטר הצינור ‎(כמה עובר)‎. ‏Latency = כמה זמן לטיפה להגיע. ‏YouTube אוהב Bandwidth, gaming אוהב Latency נמוכה 🎮"
+      explanation: "\u200F🚰 אנלוגיה — צינור מים:\n• Bandwidth = קוטר הצינור (כמה עובר)\n• Latency = כמה זמן לטיפה להגיע\n\n🎮 מי אוהב מה:\n• YouTube אוהב Bandwidth\n• Gaming אוהב Latency נמוכה"
     },
     {
-      q: "מה Spanning Tree Protocol ואיזו בעיה הוא פותר?",
-      correct: "‏STP מונע Broadcast Storm הנוצר מלולאות פיזיות בין switchים — חוסם פורטים מיותרים ומשאיר עץ ללא לולאות",
+      q: "\u200Fמה Spanning Tree Protocol ואיזו בעיה הוא פותר?",
+      correct: "\u200FSTP מונע Broadcast Storm מלולאות בין switchים\nחוסם פורטים מיותרים ומשאיר עץ ללא לולאות",
       choices: [
-        "‏STP מונע Broadcast Storm הנוצר מלולאות פיזיות בין switchים — חוסם פורטים מיותרים ומשאיר עץ ללא לולאות",
-        "‏STP מגדיר VLAN routing",
-        "‏STP = Secure Transmission Protocol",
-        "‏STP מונע ARP attacks"
+        "\u200FSTP מונע Broadcast Storm מלולאות בין switchים\nחוסם פורטים מיותרים ומשאיר עץ ללא לולאות",
+        "\u200FSTP מגדיר VLAN routing",
+        "\u200FSTP = Secure Transmission Protocol",
+        "\u200FSTP מונע ARP attacks"
       ],
-      explanation: "‏Broadcast Storm: frame יוצא מswitch A → B → A → B → אינסוף. ‏STP (802.1D): בוחר Root Bridge ‎(הנמוך BID = Bridge Priority + MAC)‎. כל switch בוחר Root Port ‎(הנמוך cost לroot)‎. ‏Blocked ports = לא מעבירים data. ‏Convergence = 30-50 שניות. ‏RSTP (802.1w) = תוך 1-2 שניות. ‏MSTP (802.1s) = STP per-VLAN group."
+      explanation: "\u200F🌀 Broadcast Storm:\n• frame יוצא מ-switch A → B → A → B → אינסוף\n\n🌳 STP (802.1D):\n• בוחר Root Bridge (הנמוך BID = Priority + MAC)\n• כל switch בוחר Root Port (הנמוך cost ל-root)\n• Blocked ports = לא מעבירים data\n\n⚡ גרסאות מתקדמות:\n• Convergence = 30-50 שניות\n• RSTP (802.1w) = תוך 1-2 שניות\n• MSTP (802.1s) = STP per-VLAN group"
     },
     {
-      q: "מה ה-BPDU ואיך STP בוחר Root Bridge?",
-      correct: "‏Bridge Protocol Data Unit — הודעת STP שכוללת BID (priority + MAC). Root Bridge = switch עם BID הנמוך ביותר ‎(priority ראשון, אחר כך MAC)‎",
+      q: "\u200Fמה ה-BPDU ואיך STP בוחר Root Bridge?",
+      correct: "\u200FBridge Protocol Data Unit — הודעת STP עם BID (priority + MAC)\nRoot Bridge = switch עם BID הנמוך ביותר\n(priority ראשון, אחר כך MAC)",
       choices: [
-        "‏Bridge Protocol Data Unit — הודעת STP שכוללת BID (priority + MAC). Root Bridge = switch עם BID הנמוך ביותר ‎(priority ראשון, אחר כך MAC)‎",
-        "‏Root Bridge = switch עם MAC הגבוה ביותר",
-        "‏BPDU = Broadcast PDU שנשלח לכל VLANs",
-        "‏Root Bridge נבחר ע\"י admin בלבד"
+        "\u200FBridge Protocol Data Unit — הודעת STP עם BID (priority + MAC)\nRoot Bridge = switch עם BID הנמוך ביותר\n(priority ראשון, אחר כך MAC)",
+        "\u200FRoot Bridge = switch עם MAC הגבוה ביותר",
+        "\u200FBPDU = Broadcast PDU שנשלח לכל VLANs",
+        "\u200FRoot Bridge נבחר ע\"י admin בלבד"
       ],
-      explanation: "‏BID (Bridge ID): 2 bytes Priority ‎(ברירת מחדל 32768)‎ + 6 bytes MAC. ‏Bridge עם BID הנמוך ביותר = Root Bridge. ניתן לכפות root: spanning-tree vlan 1 priority 0 (Cisco). ‏Root Port: port עם הנמוך Root Path Cost. ‏Designated Port: port שמעביר לroot. ‏Blocked Port: לא מעביר data ‎(רק BPDU)‎. ‏BPDU Guard: מבטל port שמקבל BPDU בפורט של endpoint."
+      explanation: "\u200F🆔 BID (Bridge ID):\n• 2 bytes Priority (ברירת מחדל 32768)\n• 6 bytes MAC\n• Bridge עם BID הנמוך = Root Bridge\n• ניתן לכפות: spanning-tree vlan 1 priority 0\n\n🔌 סוגי Ports:\n• Root Port: port עם הנמוך Root Path Cost\n• Designated Port: port שמעביר ל-root\n• Blocked Port: לא מעביר data (רק BPDU)\n\n🛡️ BPDU Guard:\n• מבטל port שמקבל BPDU בפורט של endpoint"
     },
     {
-      q: "מה PortFast ו-BPDU Guard ב-STP?",
-      correct: "‏PortFast: מקפיץ access port ישירות ל-Forwarding ללא 30 שניות המתנה — לPCs בלבד. BPDU Guard: מבטל port שמקבל BPDU ‎(מגן מswitch לא מורשה)‎",
+      q: "\u200Fמה PortFast ו-BPDU Guard ב-STP?",
+      correct: "\u200FPortFast: מקפיץ access port ישירות ל-Forwarding\nללא 30 שניות המתנה — ל-PCs בלבד\nBPDU Guard: מבטל port שמקבל BPDU (מגן מ-switch לא מורשה)",
       choices: [
-        "‏PortFast: מקפיץ access port ישירות ל-Forwarding ללא 30 שניות המתנה — לPCs בלבד. BPDU Guard: מבטל port שמקבל BPDU ‎(מגן מswitch לא מורשה)‎",
-        "‏PortFast = מאיץ STP convergence בין switchים",
-        "‏BPDU Guard = הצפנת BPDU",
-        "שניהם פוגעים ב-stability"
+        "\u200FPortFast: מקפיץ access port ישירות ל-Forwarding\nללא 30 שניות המתנה — ל-PCs בלבד\nBPDU Guard: מבטל port שמקבל BPDU (מגן מ-switch לא מורשה)",
+        "\u200FPortFast = מאיץ STP convergence בין switchים",
+        "\u200FBPDU Guard = הצפנת BPDU",
+        "\u200Fשניהם פוגעים ב-stability"
       ],
-      explanation: "‏STP States: Disabled → Blocking → Listening (15s) → Learning (15s) → Forwarding. ‏PortFast: מדלג ישירות ל-Forwarding. רק לaccess ports לPCs/servers — לא בין switchים! BPDU Guard: אם PortFast port מקבל BPDU = err-disabled. ‏Loop Guard: מבטל port שהפסיק לקבל BPDUs ‎(מגן מone-way failure)‎. ‏Root Guard: מונע אובדן root bridge."
+      explanation: "\u200F🔄 STP States:\n• Disabled → Blocking → Listening (15s)\n• → Learning (15s) → Forwarding\n\n⚡ PortFast:\n• מדלג ישירות ל-Forwarding\n• רק ל-access ports ל-PCs/servers\n• לא בין switchים!\n\n🛡️ Guards:\n• BPDU Guard: PortFast port מקבל BPDU = err-disabled\n• Loop Guard: מבטל port שהפסיק לקבל BPDUs\n• Root Guard: מונע אובדן root bridge"
     },
   ],
 
