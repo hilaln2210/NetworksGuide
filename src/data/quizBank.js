@@ -1991,7 +1991,7 @@ export const quizBank = {
         "‏מצב ECB פגיע לפיצוח בכוח כי המפתח קצר",
         "‏מצב ECB איטי מדי לשימוש מעשי"
       ],
-      explanation: "‏במצב AES-ECB כל 16 בתים מוצפנים באופן עצמאי. אם בתמונה יש שני אזורים באותו צבע — הטקסט המוצפן זהה והדפוס נראה. הדגמה קלאסית: הצפנת תמונת הפינגווין של לינוקס במצב ECB — הצללית עדיין נראית! הפתרון: מצבי שרשור בלוקים (AES-CBC) או הצפנה מאומתת (AES-GCM) שמשתמשים בוקטור אתחול (IV) ושרשור למניעת דפוסים.",
+      explanation: "‏🐧 הבעיה עם AES-ECB\n• כל 16 בתים מוצפנים באופן עצמאי\n• שני אזורים באותו צבע = טקסט מוצפן זהה\n• הדפוס נראה!\n\n🎨 הדגמה קלאסית\n• הצפנת תמונת הפינגווין של לינוקס במצב ECB\n• הצללית עדיין נראית!\n\n🔐 הפתרון\n• מצבי שרשור בלוקים (AES-CBC)\n• הצפנה מאומתת (AES-GCM)\n• שימוש בוקטור אתחול (IV) ושרשור למניעת דפוסים",
       explanationEn: "AES-ECB encrypts each 16-byte block independently. If an image has two regions with the same color, they produce identical ciphertext, revealing the pattern. Classic demo: encrypting the Linux penguin image with ECB — the silhouette is still visible! Solution: AES-CBC/GCM — an IV plus chaining prevents patterns."
     },
     {
@@ -2003,7 +2003,7 @@ export const quizBank = {
         "‏שמירת הפעלה על הדיסק בין חיבורים",
         "‏שימוש ב-HTTP/1.1 כחלופה"
       ],
-      explanation: "‏במנגנון 0-RTT הלקוח שולח נתוני אפליקציה כבר בחבילה הראשונה (באמצעות כרטיס הפעלה מחיבור קודם), וחוסך 1-2 זמני הלוך-חזור. הסיכון: תוקף יכול לשלוח שוב את נתוני ה-0-RTT (מתקפת השחזור — Replay Attack). לכן 0-RTT מוגבל לבקשות שאינן משנות מצב (GET, לא POST עם תשלום). פרוטוקול TLS 1.3 תומך ב-0-RTT, גרסה 1.2 לא.",
+      explanation: "‏⚡ מנגנון 0-RTT\n• הלקוח שולח נתוני אפליקציה כבר בחבילה הראשונה\n• באמצעות כרטיס הפעלה מחיבור קודם\n• חוסך 1-2 זמני הלוך-חזור\n\n⚠️ הסיכון\n• תוקף יכול לשלוח שוב את נתוני ה-0-RTT\n• מתקפת השחזור — Replay Attack\n\n📌 ההגבלה\n• 0-RTT מוגבל לבקשות שאינן משנות מצב (GET)\n• לא POST עם תשלום\n• TLS 1.3 תומך, גרסה 1.2 לא",
       explanationEn: "0-RTT: the client sends application data in the very first packet (using a session ticket from a previous connection), saving 1-2 round trips. Risk: Replay attack — an attacker can resend the 0-RTT data. Therefore, 0-RTT is restricted to idempotent requests (GET, not POST with payment). TLS 1.3 supports 0-RTT; TLS 1.2 does not."
     },
     {
@@ -2015,7 +2015,7 @@ export const quizBank = {
         "‏פרוטוקול החלפת מפתחות עם חולשה מתמטית",
         "‏פונקציית גיבוב עם התנגשות ידועה"
       ],
-      explanation: "‏מחולל Dual EC DRBG נכנס לתקן NIST ב-2006. חשיפת סנודן (2013) גילתה שה-NSA שילמה 10 מיליון דולר לחברת RSA Security כדי להפוך אותו לברירת מחדל. הבעיה: שתי נקודות על העקום האליפטי (P ו-Q) נבחרו על ידי ה-NSA — מי שיודע את הקשר ביניהן יכול לחזות את כל הפלט. דלת אחורית מתמטית מושלמת.",
+      explanation: "‏🕵️ הרקע\n• מחולל Dual EC DRBG נכנס לתקן NIST ב-2006\n• חשיפת סנודן (2013) גילתה:\n• ה-NSA שילמה 10 מיליון דולר לחברת RSA Security\n• כדי להפוך אותו לברירת מחדל\n\n🔓 הבעיה\n• שתי נקודות על העקום האליפטי (P ו-Q) נבחרו על ידי ה-NSA\n• מי שיודע את הקשר ביניהן יכול לחזות את כל הפלט\n\n💀 המסקנה\n• דלת אחורית מתמטית מושלמת",
       explanationEn: "Dual EC DRBG entered the NIST standard in 2006. Snowden 2013 revealed: the NSA paid RSA Security $10M to use it as the default in BSafe. The problem: two points on the Elliptic Curve (P, Q) were chosen by the NSA — anyone who knows log_P(Q) can predict all output. A mathematically perfect backdoor."
     },
         {
@@ -2027,7 +2027,7 @@ export const quizBank = {
         "‏מערכת זיהוי חדירות מתקדמת שחוסמת תעבורה חשודה",
         "‏פלטפורמת גיבוי לקובצי לוגים של שרתים"
       ],
-      explanation: "‏מערכת SIEM היא מנוע מתאמים. מקבלת: לוגי חומת אש, התרעות EDR, שאילתות DNS, לוגי אירועים של Windows, לוגי ביקורת ענן. שימושים: זיהוי ניסיונות פיצוח בכוח (כשלים רבים בדקה מאותו כתובת IP), תנועה רוחבית (כניסות מ-3 מדינות בשעה), הברחת מידע (העלאה חריגה). שפת שאילתות של Splunk (SPL) מאפשרת ניתוח מתקדם. מערכת SIEM לבדה לא מספיקה — צריך אנליסטים לנתח התרעות.",
+      explanation: "‏🔧 מערכת SIEM — מנוע מתאמים\n• מקבלת: לוגי חומת אש, התרעות EDR\n• שאילתות DNS, לוגי אירועים של Windows\n• לוגי ביקורת ענן\n\n🔍 שימושים\n• זיהוי פיצוח בכוח — כשלים רבים בדקה מאותו IP\n• תנועה רוחבית — כניסות מ-3 מדינות בשעה\n• הברחת מידע — העלאה חריגה\n\n📌 חשוב לדעת\n• שפת SPL (Splunk) מאפשרת ניתוח מתקדם\n• SIEM לבדה לא מספיקה — צריך אנליסטים לנתח התרעות",
       explanationEn: "SIEM = correlation engine. Ingests: firewall logs, EDR alerts, DNS queries, Windows Event Logs, cloud audit logs. Use cases: detecting brute-force (X failures/minute from one IP), lateral movement (user logins from 3 countries in 1 hour), data exfiltration (unusual uploads). SPL (Splunk Processing Language): index=windows EventCode=4625 | stats count by src_ip | where count > 50. SIEM alone is not enough — analysts must investigate alerts."
     },
         {
@@ -2039,7 +2039,7 @@ export const quizBank = {
         "‏התרעה, תיעדוף, תיקון — תהליך מרכז תפעול אבטחה (SOC) סטנדרטי",
         "‏סריקה, איתור, תיקון, בדיקה — מחזור ניהול פגיעויות"
       ],
-      explanation: "‏לפי תקן NIST SP 800-61 (ראשי תיבות PICERL): 1) הכנה — נהלים, כלים והדרכות מוכנים מראש. 2) זיהוי — הבנה שמשהו קרה וקביעת היקף. 3) בלימה — בידוד המכונות הנגועות (ניתוק מהרשת). 4) מיגור — מחיקת תוכנה זדונית ועדכון. 5) שחזור — החזרת שירותים וניטור מוגבר. 6) לקחים — מה קרה? איך? מה נשפר? ניתוח שורש הבעיה (RCA). בחברות גדולות קיימים צוותי תגובה ייעודיים (CIRT, CSIRT, CERT).",
+      explanation: "‏📋 PICERL — NIST SP 800-61\n• 1) הכנה — נהלים, כלים והדרכות מוכנים מראש\n• 2) זיהוי — הבנה שמשהו קרה וקביעת היקף\n• 3) בלימה — בידוד המכונות הנגועות (ניתוק מהרשת)\n• 4) מיגור — מחיקת תוכנה זדונית ועדכון\n• 5) שחזור — החזרת שירותים וניטור מוגבר\n• 6) לקחים — מה קרה? איך? מה נשפר? (RCA)\n\n🏢 בחברות גדולות\n• קיימים צוותי תגובה ייעודיים (CIRT, CSIRT, CERT)",
       explanationEn: "PICERL (NIST SP 800-61): 1) Preparation — playbooks, tools, and training ready. 2) Identification — recognize that something happened, determine scope. 3) Containment — isolate infected machines (network isolation). 4) Eradication — remove malware, apply patches. 5) Recovery — restore services, increase monitoring. 6) Post-Incident — what happened? How? What to improve? Root Cause Analysis (RCA). Large organizations use CIRT, CSIRT, or CERT teams."
     },
         {
@@ -2051,7 +2051,7 @@ export const quizBank = {
         "‏מערכת מניעת חדירות (IPS) מהירה יותר כי לא כותבת לוגים — מערכת זיהוי (IDS) כותבת לוגים",
         "‏אין הבדל — מדובר באותו מוצר עם שמות שונים"
       ],
-      explanation: "‏מערכת זיהוי חדירות (IDS) פסיבית — מנתחת תעבורה ומייצרת התרעות (כמו מצלמת אבטחה), ללא חסימה. מערכת מניעת חדירות (IPS) יושבת בתוך נתיב התעבורה ויכולה לחסום חבילות מיידית. זיהוי שגוי (False Positive) במערכת IPS פירושו חסימת תעבורה לגיטימית! לכן מתחילים במצב זיהוי (למידה), מכיילים, ואז עוברים למצב מניעה. קיימות גרסאות מבוססות רשת (NIDS/NIPS) ומבוססות מארח (HIDS/HIPS). כלים פופולריים בקוד פתוח: Snort ו-Suricata.",
+      explanation: "‏📷 IDS — פסיבית\n• מנתחת תעבורה ומייצרת התרעות\n• כמו מצלמת אבטחה — ללא חסימה\n\n🚧 IPS — אקטיבית\n• יושבת בתוך נתיב התעבורה\n• חוסמת חבילות מיידית\n\n⚠️ False Positive ב-IPS\n• פירושו חסימת תעבורה לגיטימית!\n• לכן מתחילים במצב זיהוי (למידה)\n• מכיילים ואז עוברים למצב מניעה\n\n🛠️ גרסאות\n• מבוססות רשת: NIDS/NIPS\n• מבוססות מארח: HIDS/HIPS\n• כלים פופולריים: Snort ו-Suricata",
       explanationEn: "IDS: passive — analyzes traffic and generates alerts (like a security camera). No blocking. IPS: inline — sits in the traffic path, can block packets with zero latency. A false positive on IPS = blocked legitimate traffic! Therefore: start in IDS mode (learning), calibrate, then go inline. Network-based (NIDS/NIPS) vs Host-based (HIDS/HIPS). Snort and Suricata are popular open-source IDS/IPS tools."
     }
   ],
@@ -3354,63 +3354,63 @@ export const quizBank = {
 
   111: [
     {
-      q: "מה ההבדל בין Authentication ל-Authorization?",
-      correct: "‏Authentication = זיהוי ‎(מי אתה?)‎. ‏Authorization = הרשאות ‎(מה מותר לך לעשות?)‎",
+      q: "\u200Fמה ההבדל בין Authentication ל-Authorization?",
+      correct: "\u200FAuthentication = זיהוי (מי אתה?)\nAuthorization = הרשאות (מה מותר לך לעשות?)",
       choices: [
-        "‏Authentication = זיהוי ‎(מי אתה?)‎. ‏Authorization = הרשאות ‎(מה מותר לך לעשות?)‎",
-        "‏Authentication = הרשאות, Authorization = זיהוי",
-        "שניהם זהים — שניהם בודקים סיסמה",
-        "‏Authentication = HTTPS, Authorization = HTTP"
+        "\u200FAuthentication = זיהוי (מי אתה?)\nAuthorization = הרשאות (מה מותר לך לעשות?)",
+        "\u200FAuthentication = הרשאות\nAuthorization = זיהוי",
+        "\u200Fשניהם זהים\nשניהם בודקים סיסמה",
+        "\u200FAuthentication = HTTPS\nAuthorization = HTTP"
       ],
-      explanation: "‏Authentication (אימות): מי אתה? התחברות עם סיסמה, ביומטריה או תעודה דיגיטלית. ‏Authorization (הרשאה): מה מותר לך? מנגנוני RBAC, ACL, הרשאות. טעות נפוצה: IDOR — משתמש מורשה ניגש למשאב של אחר על ידי שינוי מזהה בכתובת.",
+      explanation: "\u200F🔐 Authentication (אימות) — מי אתה?\n• התחברות עם סיסמה\n• ביומטריה או תעודה דיגיטלית\n\n🛡️ Authorization (הרשאה) — מה מותר לך?\n• מנגנוני RBAC, ACL, הרשאות\n\n⚠️ טעות נפוצה:\n• IDOR — משתמש מורשה ניגש למשאב של אחר\n• על ידי שינוי מזהה בכתובת",
       explanationEn: "AuthN (Authentication): who are you? Login with username+password, biometrics, or certificate. AuthZ (Authorization): what are you allowed to do? RBAC, ACL, permissions. Common mistake: IDOR (Insecure Direct Object Reference) = an AuthZ problem — an authenticated user accesses another user's resource by changing an ID in the URL."
     },
     {
-      q: "למה bcrypt עדיף על SHA256 לגיבוב סיסמאות?",
-      correct: "‏bcrypt מתוכנן להיות איטי בכוונה (בזכות מנגנון ה-work factor) — פיצוח בכוח לוקח הרבה יותר זמן. ‏SHA256 מהיר מדי וכרטיס מסך שובר אותו בשניות",
+      q: "\u200Fלמה bcrypt עדיף על SHA256 לגיבוב סיסמאות?",
+      correct: "\u200Fbcrypt מתוכנן להיות איטי בכוונה\n(בזכות מנגנון ה-work factor)\nSHA256 מהיר מדי — כרטיס מסך שובר אותו בשניות",
       choices: [
-        "‏bcrypt מתוכנן להיות איטי בכוונה (בזכות מנגנון ה-work factor) — פיצוח בכוח לוקח הרבה יותר זמן. ‏SHA256 מהיר מדי וכרטיס מסך שובר אותו בשניות",
-        "‏bcrypt מצפין, SHA256 רק מבצע גיבוב",
-        "‏SHA256 עדיף כי הוא חדש יותר",
-        "‏bcrypt מאובטח כי הוא קצר יותר"
+        "\u200Fbcrypt מתוכנן להיות איטי בכוונה\n(בזכות מנגנון ה-work factor)\nSHA256 מהיר מדי — כרטיס מסך שובר אותו בשניות",
+        "\u200Fbcrypt מצפין\nSHA256 רק מבצע גיבוב",
+        "\u200FSHA256 עדיף כי הוא חדש יותר",
+        "\u200Fbcrypt מאובטח כי הוא קצר יותר"
       ],
-      explanation: "כרטיס מסך (GPU) מודרני מחשב 10 מיליארד SHA256 hashes בשנייה. לעומת זאת, bcrypt עם cost=12 מחשב רק כ-300 בשנייה. פיצוח סיסמה של 8 תווים: ב-SHA256 לוקח שניות, ב-bcrypt לוקח שנים. ‏Argon2id עוד טוב יותר — דורש זיכרון (memory-hard) ומאט גם חומרה ייעודית.",
+      explanation: "\u200F⚡ מהירות גיבוב — ההבדל הקריטי\n• GPU מודרני: 10 מיליארד SHA256/שנייה\n• bcrypt cost=12: רק ~300/שנייה\n\n🔓 פיצוח סיסמה של 8 תווים:\n• SHA256 — שניות\n• bcrypt — שנים\n\n🏆 Argon2id עוד טוב יותר:\n• דורש זיכרון (memory-hard)\n• מאט גם חומרה ייעודית",
       explanationEn: "SHA256: a modern GPU computes 10 billion hashes/second. bcrypt cost=12: ~300 hashes/second per GPU. Brute-forcing 8 lowercase characters = 200 billion combinations. With SHA256: seconds. With bcrypt cost=12: years. Argon2id is memory-hard — even ASICs/GPUs are slowed because they need gigabytes of RAM."
     },
     {
-      q: "מה פגיעות alg=none ב-JWT?",
-      correct: "שרת שמקבל alg=none מאמת טוקן ללא חתימה — תוקף יכול לזייף כל תוכן (למשל user=admin)",
+      q: "\u200Fמה פגיעות alg=none ב-JWT?",
+      correct: "\u200Fשרת שמקבל alg=none מאמת טוקן ללא חתימה\nתוקף יכול לזייף כל תוכן (למשל user=admin)",
       choices: [
-        "שרת שמקבל alg=none מאמת טוקן ללא חתימה — תוקף יכול לזייף כל תוכן (למשל user=admin)",
-        "‏JWT עם alg=none מהיר יותר לעיבוד",
-        "‏alg=none מצפין עם מפתח סימטרי",
-        "‏alg=none נדרש לאפליקציות מובייל"
+        "\u200Fשרת שמקבל alg=none מאמת טוקן ללא חתימה\nתוקף יכול לזייף כל תוכן (למשל user=admin)",
+        "\u200FJWT עם alg=none מהיר יותר לעיבוד",
+        "\u200Falg=none מצפין עם מפתח סימטרי",
+        "\u200Falg=none נדרש לאפליקציות מובייל"
       ],
-      explanation: "כותרת JWT מכילה את האלגוריתם (למשל HS256) + תוכן + חתימה. אם תוקף משנה את האלגוריתם ל-none וחותך את החתימה — שרת פגיע מקבל את הטוקן. התיקון: רשימת אלגוריתמים מותרים בצד שרת בלבד (HS256/RS256). אסור לתת למשתמש לבחור אלגוריתם!",
+      explanation: "\u200F🎫 מבנה JWT:\n• כותרת (אלגוריתם כמו HS256)\n• תוכן (payload)\n• חתימה (signature)\n\n💥 ההתקפה:\n• תוקף משנה אלגוריתם ל-none\n• חותך את החתימה\n• שרת פגיע מקבל את הטוקן\n\n🔧 התיקון:\n• רשימת אלגוריתמים מותרים בצד שרת בלבד\n• HS256/RS256 — אסור לתת למשתמש לבחור!",
       explanationEn: "JWT header contains the algorithm (e.g., HS256) + payload + signature. If an attacker changes the header to alg=none and removes the signature, a vulnerable server accepts the unsigned token. Fix: whitelist algorithms on the server side (reject anything other than HS256/RS256). Never let the user choose the algorithm!"
     },
     {
-      q: "מה MFA ולמה הוא מגן גם אם סיסמה נגנבה?",
-      correct: "אימות רב-שלבי (MFA) מחייב 2+ גורמים: משהו שיודע + משהו שיש לך/שאתה — גנב הסיסמה חסר את הגורם השני",
+      q: "\u200Fמה MFA ולמה הוא מגן גם אם סיסמה נגנבה?",
+      correct: "\u200Fאימות רב-שלבי (MFA) מחייב 2+ גורמים:\nמשהו שיודע + משהו שיש לך/שאתה\nגנב הסיסמה חסר את הגורם השני",
       choices: [
-        "אימות רב-שלבי (MFA) מחייב 2+ גורמים: משהו שיודע + משהו שיש לך/שאתה — גנב הסיסמה חסר את הגורם השני",
-        "‏MFA = שתי סיסמאות שונות",
-        "‏MFA מצפין את הסיסמה פעמיים",
-        "‏MFA = סיסמה ארוכה יותר מ-12 תווים"
+        "\u200Fאימות רב-שלבי (MFA) מחייב 2+ גורמים:\nמשהו שיודע + משהו שיש לך/שאתה\nגנב הסיסמה חסר את הגורם השני",
+        "\u200FMFA = שתי סיסמאות שונות",
+        "\u200FMFA מצפין את הסיסמה פעמיים",
+        "\u200FMFA = סיסמה ארוכה יותר מ-12 תווים"
       ],
-      explanation: "שלושת גורמי האימות: 1) ידע — סיסמה, PIN. 2) חזקה — אפליקציית TOTP, SMS, מפתח חומרה (YubiKey). 3) ביומטריה — טביעת אצבע, זיהוי פנים. MFA משלב 2 גורמים ומעלה. פישינג גונב סיסמה אבל לא קוד TOTP (תוקף ב-AitM יכול לעקוף TOTP). ‏WebAuthn/FIDO2 עמיד לפישינג.",
+      explanation: "\u200F🔑 שלושת גורמי האימות:\n• ידע — סיסמה, PIN\n• חזקה — אפליקציית TOTP, SMS, מפתח חומרה (YubiKey)\n• ביומטריה — טביעת אצבע, זיהוי פנים\n\n🛡️ MFA משלב 2 גורמים ומעלה:\n• פישינג גונב סיסמה אבל לא קוד TOTP\n• תוקף ב-AitM יכול לעקוף TOTP\n• WebAuthn/FIDO2 עמיד לפישינג",
       explanationEn: "Authentication factors: 1) Knowledge: password, PIN. 2) Possession: TOTP app, SMS, hardware key (YubiKey). 3) Inherence: biometric (fingerprint, face). MFA = combining 2+ factors. Phishing can steal a password, but not a TOTP code (though Adversary-in-the-Middle attacks can intercept TOTP). WebAuthn/FIDO2 = phishing-resistant authentication."
     },
     {
-      q: "מה Salt בגיבוב סיסמאות?",
-      correct: "ערך אקראי ייחודי שמוסיפים לכל סיסמה לפני גיבוב — מונע טבלאות קשת ומחייב פיצוח נפרד לכל משתמש",
+      q: "\u200Fמה Salt בגיבוב סיסמאות?",
+      correct: "\u200Fערך אקראי ייחודי שמוסיפים לכל סיסמה לפני גיבוב\nמונע טבלאות קשת ומחייב פיצוח נפרד לכל משתמש",
       choices: [
-        "ערך אקראי ייחודי שמוסיפים לכל סיסמה לפני גיבוב — מונע טבלאות קשת ומחייב פיצוח נפרד לכל משתמש",
-        "מפתח הצפנה סודי שמאחסנים במסד הנתונים",
-        "חלק נוסף מהסיסמה שהמשתמש מזין",
-        "‏pepper מוסיפים למסד, salt מוסיפים לקוד"
+        "\u200Fערך אקראי ייחודי שמוסיפים לכל סיסמה לפני גיבוב\nמונע טבלאות קשת ומחייב פיצוח נפרד לכל משתמש",
+        "\u200Fמפתח הצפנה סודי שמאחסנים במסד הנתונים",
+        "\u200Fחלק נוסף מהסיסמה שהמשתמש מזין",
+        "\u200Fpepper מוסיפים למסד\nsalt מוסיפים לקוד"
       ],
-      explanation: "ללא salt: כל משתמשים עם אותה סיסמה מקבלים אותו hash. טבלת קשת (rainbow table) ממפה hash לסיסמה מראש. עם salt: מוסיפים ערך אקראי לכל סיסמה — כל משתמש מקבל hash שונה. פיצוח חייב לחשב מחדש לכל משתמש בנפרד. ‏bcrypt ו-Argon2 מייצרים salt אוטומטית.",
+      explanation: "\u200F🧂 ללא Salt:\n• כל משתמשים עם אותה סיסמה = אותו hash\n• טבלת קשת (rainbow table) ממפה hash לסיסמה מראש\n\n✅ עם Salt:\n• מוסיפים ערך אקראי לכל סיסמה\n• כל משתמש מקבל hash שונה\n• פיצוח חייב לחשב מחדש לכל משתמש בנפרד\n\n🔧 bcrypt ו-Argon2 מייצרים salt אוטומטית",
       explanationEn: "Without salt: every user with the same password gets the same hash. A rainbow table is a precomputed mapping of hash to plaintext. With salt: hash('password123' + random_salt) — each user's hash is different. Brute-force must recompute for each user. bcrypt/Argon2 generate a salt automatically and store it within the hash string."
     }
   ],
