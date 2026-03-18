@@ -1841,7 +1841,7 @@ export const quizBank = {
         "‏XSS מוחזר חמור יותר כי מסוגל לגנוב סיסמאות",
         "שניהם זהים — רק שמות שונים"
       ],
-      explanation: "‏XSS מאוחסן (Stored/Persistent): סקריפט נשמר במסד הנתונים (למשל תגובה בפורום) ומורץ אצל כל מי שצופה. XSS מוחזר (Reflected): סקריפט בכתובת URL, נשלח למשתמש ומורץ מיד. XSS מבוסס DOM: רץ בצד הלקוח ללא מעורבות השרת. המאוחסן הוא המסוכן ביותר בגלל ההיקף. הגנה: קידוד פלט (output encoding) וכותרות CSP.",
+      explanation: "‏💾 XSS מאוחסן (Stored/Persistent)\n• סקריפט נשמר במסד הנתונים (למשל תגובה בפורום)\n• מורץ אצל כל מי שצופה\n\n🪞 XSS מוחזר (Reflected)\n• סקריפט בכתובת URL\n• נשלח למשתמש ומורץ מיד\n\n🌐 XSS מבוסס DOM\n• רץ בצד הלקוח ללא מעורבות השרת\n\n⚠️ המסוכן ביותר: המאוחסן — בגלל ההיקף\n\n🛡️ הגנה\n• קידוד פלט (output encoding)\n• כותרות CSP",
       explanationEn: "Stored (Persistent) XSS: a script is saved in the database (e.g., a forum comment) and executes for every visitor. Reflected: a script in a URL is sent to a user and executes immediately. DOM-based: runs in client-side JS without server involvement. Stored is the most dangerous (affects all visitors). Defense: output encoding, CSP headers."
     },
     {
@@ -1853,7 +1853,7 @@ export const quizBank = {
         "‏בינוני (Medium) — פגיעות בינונית עם השפעה מוגבלת",
         "תלוי בסוג המערכת"
       ],
-      explanation: "סולם CVSS v3: אפס=ללא, 0.1-3.9=נמוך, 4.0-6.9=בינוני, 7.0-8.9=גבוה, 9.0-10.0=קריטי. ציון 9.8 פירושו הרצת קוד מרחוק (RCE) ללא אימות ונגיש מהרשת. פגיעויות Heartbleed ו-Log4Shell קיבלו ציון 9.8 ומעלה. כל פגיעות קריטית דורשת טלאי תוך 24-48 שעות.",
+      explanation: "‏📊 סולם CVSS v3\n• 0 = ללא\n• 0.1-3.9 = נמוך\n• 4.0-6.9 = בינוני\n• 7.0-8.9 = גבוה\n• 9.0-10.0 = קריטי\n\n🔴 מה ציון 9.8 אומר?\n• הרצת קוד מרחוק (RCE) ללא אימות\n• נגיש מהרשת\n• Heartbleed ו-Log4Shell קיבלו 9.8 ומעלה\n\n⏰ כלל ברזל\n• כל פגיעות קריטית דורשת טלאי תוך 24-48 שעות",
       explanationEn: "CVSS v3 scale: 0.0=None, 0.1-3.9=Low, 4.0-6.9=Medium, 7.0-8.9=High, 9.0-10.0=Critical. A score of 9.8 means Remote Code Execution (RCE) without authentication, network-accessible. Heartbleed and Log4Shell received CVSS 9.8+. Every Critical vulnerability needs patching within 24-48 hours."
     },
     {
@@ -1865,43 +1865,43 @@ export const quizBank = {
         "‏הזרקת SQL במסד הנתונים של OpenSSL",
         "חיבור TLS לא מוצפן שאפשר האזנה"
       ],
-      explanation: "תוסף ה-Heartbeat ב-OpenSSL: הלקוח שולח 'החזר לי X בתים'. השרת מחזיר X בתים מבלי לוודא שנשלחו כל כך הרבה. הבאג: אם ביקשת 64KB אבל שלחת בית אחד, השרת מחזיר 64KB מהזיכרון — שעלול להכיל מפתחות פרטיים, אסימוני הפעלה וסיסמאות. הפגיעות הייתה חשופה שנתיים (2012-2014).",
+      explanation: "‏💔 תוסף ה-Heartbeat ב-OpenSSL\n• הלקוח שולח 'החזר לי X בתים'\n• השרת מחזיר X בתים מבלי לוודא שנשלחו כל כך הרבה\n\n🐛 הבאג\n• ביקשת 64KB אבל שלחת בית אחד\n• השרת מחזיר 64KB מהזיכרון\n• עלול להכיל מפתחות פרטיים, אסימוני הפעלה וסיסמאות\n\n⏳ היקף\n• הפגיעות הייתה חשופה שנתיים (2012-2014)",
       explanationEn: "OpenSSL Heartbeat extension: the client sends 'return X bytes to me'. The server returns X bytes without verifying that X bytes were actually sent. Bug: if you request 64K but send 1 byte, the server returns 64K from RAM — which may contain private keys, session tokens, and passwords. The vulnerability was exposed for 2 years (2012-2014)."
     },
         {
       q: "‏מהי הזרקת SQL (SQL Injection) ואיך שאילתות מוכנות (Prepared Statements) מונעות אותה?",
-      correct: "הזרקת קוד SQL דרך קלט משתמש — שאילתות מוכנות (Prepared Statements) מפרידות קוד מנתונים כך שהפרמטרים מטופלים כטקסט בלבד",
+      correct: "‏הזרקת קוד SQL דרך קלט משתמש\nשאילתות מוכנות (Prepared Statements)\nמפרידות קוד מנתונים כך שהפרמטרים מטופלים כטקסט בלבד",
       choices: [
-        "הזרקת קוד SQL דרך קלט משתמש — שאילתות מוכנות (Prepared Statements) מפרידות קוד מנתונים כך שהפרמטרים מטופלים כטקסט בלבד",
+        "‏הזרקת קוד SQL דרך קלט משתמש\nשאילתות מוכנות (Prepared Statements)\nמפרידות קוד מנתונים כך שהפרמטרים מטופלים כטקסט בלבד",
         "‏מתקפה על שרת מסד הנתונים הפיזי — הפתרון: עדכון שרת",
         "‏הצפנת שאילתות SQL לפני שליחה למסד הנתונים",
-        "שאילתות מוכנות מהירות יותר — זו הסיבה העיקרית להשתמש בהן"
+        "‏שאילתות מוכנות מהירות יותר — זו הסיבה העיקרית להשתמש בהן"
       ],
-      explanation: "דוגמה קלאסית להזרקת SQL: שם משתמש עם ' OR '1'='1 יוצר שאילתה שתמיד מחזירה true ועוקף את ההתחברות. שאילתה מוכנה (Prepared Statement) משתמשת בסימן ? כמציין מקום — מסד הנתונים מטפל בערך כטקסט בלבד ולא כקוד. כלל ברזל: לעולם אל תשלב קלט משתמש ישירות במחרוזת SQL!",
+      explanation: "‏💉 דוגמה קלאסית\n• שם משתמש עם ' OR '1'='1\n• יוצר שאילתה שתמיד מחזירה true\n• עוקף את ההתחברות\n\n🛡️ שאילתה מוכנה — Prepared Statement\n• משתמשת בסימן ? כמציין מקום\n• מסד הנתונים מטפל בערך כטקסט בלבד ולא כקוד\n\n📌 כלל ברזל\n• לעולם אל תשלב קלט משתמש ישירות במחרוזת SQL!",
       explanationEn: "Classic SQLi: username=' OR '1'='1 turns the query into SELECT * FROM users WHERE name='' OR '1'='1' — always true, bypasses login! Prepared Statement: $stmt = $pdo->prepare('SELECT * FROM users WHERE name = ?'); $stmt->execute([$username]); — the ? is a placeholder, the DB treats the value as a string, not code. Never concatenate user input directly into SQL strings!"
     },
         {
       q: "‏מהו זיוף בקשה בין אתרים (CSRF) ואיך אסימון נגד CSRF מגן?",
-      correct: "זיוף בקשה בין אתרים (CSRF) — אתר זדוני גורם לדפדפן לשלוח בקשות לאתר אחר שבו המשתמש מחובר. אסימון ייחודי בכל טופס מונע זאת",
+      correct: "‏זיוף בקשה בין אתרים (CSRF)\nאתר זדוני גורם לדפדפן לשלוח בקשות\nלאתר אחר שבו המשתמש מחובר\nאסימון ייחודי בכל טופס מונע זאת",
       choices: [
-        "זיוף בקשה בין אתרים (CSRF) — אתר זדוני גורם לדפדפן לשלוח בקשות לאתר אחר שבו המשתמש מחובר. אסימון ייחודי בכל טופס מונע זאת",
+        "‏זיוף בקשה בין אתרים (CSRF)\nאתר זדוני גורם לדפדפן לשלוח בקשות\nלאתר אחר שבו המשתמש מחובר\nאסימון ייחודי בכל טופס מונע זאת",
         "‏מתקפה שמזייפת עוגיות של משתמש באמצעות XSS",
         "‏גניבת כותרות CSRF מבקשת HTTP",
         "‏כניסה לחשבון בעזרת סיסמה גנובה"
       ],
-      explanation: "תרחיש: אליס מחוברת לאתר הבנק. היא מבקרת באתר זדוני שמכיל תג תמונה עם כתובת לפעולת העברה בבנק. הדפדפן שולח את הבקשה עם העוגיות של אליס! אסימון נגד CSRF: השרת מוסיף אסימון נסתר לכל טופס, ובעת שליחה מוודא שהאסימון תואם את ההפעלה. אתר זדוני לא יכול לקרוא את האסימון בזכות מדיניות Same-Origin Policy.",
+      explanation: "‏🎭 תרחיש CSRF\n• אליס מחוברת לאתר הבנק\n• מבקרת באתר זדוני עם תג תמונה\n• הכתובת מפנה לפעולת העברה בבנק\n• הדפדפן שולח את הבקשה עם העוגיות של אליס!\n\n🛡️ אסימון נגד CSRF\n• השרת מוסיף אסימון נסתר לכל טופס\n• בעת שליחה מוודא שהאסימון תואם את ההפעלה\n• אתר זדוני לא יכול לקרוא את האסימון\n• בזכות מדיניות Same-Origin Policy",
       explanationEn: "Scenario: Alice is logged into bank.com. She visits evil.com which contains an image tag pointing to bank.com/transfer. The browser sends the request with Alice's cookies! Anti-CSRF Token: the server adds a hidden token to every form, the token is sent in the body, and the server verifies it matches the session. The attacker's site cannot read the token due to Same-Origin Policy."
     },
         {
       q: "‏מהי רשימת OWASP Top 10 ואיזו פגיעות בדרך כלל תופסת מקום ראשון?",
-      correct: "רשימת 10 סיכוני האבטחה הנפוצים ביותר באפליקציות ווב — בקרת גישה לקויה (Broken Access Control) במקום 1 מאז 2021",
+      correct: "‏רשימת 10 סיכוני האבטחה הנפוצים ביותר\nבאפליקציות ווב — בקרת גישה לקויה\n(Broken Access Control) במקום 1 מאז 2021",
       choices: [
-        "רשימת 10 סיכוני האבטחה הנפוצים ביותר באפליקציות ווב — בקרת גישה לקויה (Broken Access Control) במקום 1 מאז 2021",
+        "‏רשימת 10 סיכוני האבטחה הנפוצים ביותר\nבאפליקציות ווב — בקרת גישה לקויה\n(Broken Access Control) במקום 1 מאז 2021",
         "רשימת 10 הכלים הטובים ביותר לבדיקות חדירה — הזרקת SQL במקום 1",
         "10 פגיעויות שנתגלו בשנת 2021 בלבד",
         "‏תקן ISO המגדיר אבטחת ווב — XSS במקום 1 תמיד"
       ],
-      explanation: "רשימת OWASP Top 10 לשנת 2021: בקרת גישה לקויה (A01), כשלים קריפטוגרפיים (A02), הזרקות SQL/LDAP/OS (A03), תכנון לא מאובטח (A04), תצורת אבטחה שגויה (A05), רכיבים פגיעים (A06), כשלי אימות (A07), כשלי שלמות (A08), כשלי תיעוד (A09), זיוף בקשות בצד השרת — SSRF (A10). לא חוק אלא מדריך שיטות עבודה מומלצות לצוותי פיתוח. מתעדכן כל 4 שנים בערך.",
+      explanation: "‏📋 OWASP Top 10 — 2021\n• A01 — בקרת גישה לקויה\n• A02 — כשלים קריפטוגרפיים\n• A03 — הזרקות SQL/LDAP/OS\n• A04 — תכנון לא מאובטח\n• A05 — תצורת אבטחה שגויה\n• A06 — רכיבים פגיעים\n• A07 — כשלי אימות\n• A08 — כשלי שלמות\n• A09 — כשלי תיעוד\n• A10 — זיוף בקשות בצד השרת (SSRF)\n\n📌 חשוב לדעת\n• לא חוק אלא מדריך שיטות עבודה מומלצות\n• מתעדכן כל 4 שנים בערך",
       explanationEn: "OWASP Top 10 (2021): A01:Broken Access Control (user can access another's resources), A02:Cryptographic Failures, A03:Injection (SQL/LDAP/OS), A04:Insecure Design, A05:Security Misconfiguration, A06:Vulnerable Components, A07:Auth Failures, A08:Integrity Failures, A09:Logging Failures, A10:SSRF. Not a law — a best practice guide for dev teams. Updated roughly every 4 years."
     }
   ],
