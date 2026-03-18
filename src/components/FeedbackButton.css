@@ -1,0 +1,228 @@
+/* ===== Feedback Button ===== */
+.feedback-fab {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 9999;
+  background: linear-gradient(135deg, #0d9488, #14b8a6);
+  color: #fff;
+  border: none;
+  border-radius: 28px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(13, 148, 136, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  direction: rtl;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.feedback-fab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(13, 148, 136, 0.5);
+}
+
+.feedback-fab.pulse {
+  animation: feedback-pulse 2s ease-in-out 3;
+}
+
+@keyframes feedback-pulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(13, 148, 136, 0.4); }
+  50% { box-shadow: 0 4px 24px rgba(13, 148, 136, 0.7), 0 0 0 8px rgba(13, 148, 136, 0.15); }
+}
+
+/* ===== Feedback Overlay ===== */
+.feedback-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  animation: feedback-overlay-in 0.2s ease-out;
+}
+
+@keyframes feedback-overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ===== Feedback Popup ===== */
+.feedback-popup {
+  direction: rtl;
+  width: 380px;
+  max-width: calc(100vw - 40px);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  animation: feedback-slide-up 0.3s ease-out;
+  color: #e2e8f0;
+  font-family: inherit;
+}
+
+@keyframes feedback-slide-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.feedback-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.feedback-popup-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #14b8a6;
+}
+
+.feedback-close-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+  line-height: 1;
+}
+
+.feedback-close-btn:hover {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Type selector */
+.feedback-types {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.feedback-type-btn {
+  flex: 1;
+  padding: 8px 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
+  font-size: 0.85rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+
+.feedback-type-btn:hover {
+  background: rgba(20, 184, 166, 0.1);
+  border-color: rgba(20, 184, 166, 0.3);
+}
+
+.feedback-type-btn.active {
+  background: rgba(20, 184, 166, 0.2);
+  border-color: #14b8a6;
+  color: #14b8a6;
+  font-weight: 600;
+}
+
+/* Textarea */
+.feedback-textarea {
+  width: 100%;
+  min-height: 100px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  color: #e2e8f0;
+  padding: 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  resize: vertical;
+  direction: rtl;
+  margin-bottom: 14px;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.feedback-textarea::placeholder {
+  color: #64748b;
+}
+
+.feedback-textarea:focus {
+  outline: none;
+  border-color: #14b8a6;
+}
+
+/* Send button */
+.feedback-send-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #0d9488, #14b8a6);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.feedback-send-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.feedback-send-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Thank you state */
+.feedback-thanks {
+  text-align: center;
+  padding: 30px 0;
+  font-size: 1.1rem;
+  color: #14b8a6;
+}
+
+.feedback-thanks-emoji {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 600px) {
+  .feedback-overlay {
+    padding: 10px;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .feedback-popup {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 16px 16px 8px 8px;
+  }
+
+  .feedback-fab {
+    bottom: 12px;
+    left: 12px;
+    padding: 8px 14px;
+    font-size: 0.85rem;
+  }
+}

@@ -16,6 +16,7 @@ import { KeyTip } from './components/KeyTip'
 import { Quiz } from './components/Quiz'
 import { TroubleshootingTab } from './components/TroubleshootingTab'
 import { CreditsTab } from './components/CreditsTab'
+import { FeedbackButton } from './components/FeedbackButton'
 import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName, resetXP } from './utils/xp'
 import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll, getTodayMinutes, addSessionMinutes, formatMinutes, getCompletedChapters, getTotalQuizCorrect, getLearningPace } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
@@ -301,6 +302,7 @@ function App() {
         {!gender && <GenderPicker onSelect={handleGenderSelect} />}
         <TrackPicker tracks={tracks} onSelect={handleSelectTrack} />
         {xpFloat && <div className="xp-float-global">{xpFloat}</div>}
+        <FeedbackButton context={{}} />
       </div>
     )
   }
@@ -521,6 +523,8 @@ function App() {
           <CreditsTab />
         </div>
       )}
+
+      <FeedbackButton context={{ trackTitle: activeTrack?.title, chapterId: chapter?.id, pageTitle: page?.title }} />
     </div>
   )
 }
