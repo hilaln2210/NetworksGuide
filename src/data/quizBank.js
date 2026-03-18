@@ -2273,62 +2273,62 @@ export const quizBank = {
   109: [
     {
       q: "‏מה ההבדל בין חומת אש חסרת מצב (Stateless) לחומת אש מודעת מצב (Stateful)?",
-      correct: "‏חסרת מצב (Stateless) בודקת כל חבילה בנפרד (IP/פורט) — מודעת מצב (Stateful) עוקבת אחרי מצב החיבור ויודעת אם חבילה שייכת לשיחה קיימת",
+      correct: "‏חסרת מצב (Stateless) בודקת כל חבילה בנפרד\nמודעת מצב (Stateful) עוקבת אחרי מצב החיבור\nויודעת אם חבילה שייכת לשיחה קיימת",
       choices: [
-        "‏חסרת מצב (Stateless) בודקת כל חבילה בנפרד (IP/פורט) — מודעת מצב (Stateful) עוקבת אחרי מצב החיבור ויודעת אם חבילה שייכת לשיחה קיימת",
+        "‏חסרת מצב (Stateless) בודקת כל חבילה בנפרד\nמודעת מצב (Stateful) עוקבת אחרי מצב החיבור\nויודעת אם חבילה שייכת לשיחה קיימת",
         "‏מודעת מצב (Stateful) מהירה יותר — חסרת מצב (Stateless) מאובטחת יותר",
         "‏חסרת מצב ל-UDP — מודעת מצב ל-TCP",
         "‏מודעת מצב = תוכנה — חסרת מצב = חומרה"
       ],
-      explanation: "‏חסרת מצב (Stateless, למשל iptables -P): בודקת כתובת מקור/יעד + פורט + פרוטוקול. קל לעקוף עם חבילות מזויפות (Spoofed Packets). מודעת מצב (Stateful, באמצעות conntrack): מבינה SYN/ESTABLISHED/FIN — חבילות תעבורת חזרה עוברות אוטומטית. חומת אש מהדור הבא (NGFW, שכבה 7): מבינה HTTP/DNS/TLS — יכולה לחסום לפי תוכן. iptables ברוב הפצות לינוקס = מודעת מצב כברירת מחדל.",
+      explanation: "‏🔓 חסרת מצב — Stateless\n• בודקת כתובת מקור/יעד + פורט + פרוטוקול\n• קל לעקוף עם חבילות מזויפות (Spoofed Packets)\n\n🔒 מודעת מצב — Stateful (conntrack)\n• מבינה SYN/ESTABLISHED/FIN\n• חבילות תעבורת חזרה עוברות אוטומטית\n\n🚀 חומת אש מהדור הבא — NGFW (שכבה 7)\n• מבינה HTTP/DNS/TLS\n• יכולה לחסום לפי תוכן\n\n📌 iptables ברוב הפצות לינוקס = מודעת מצב כברירת מחדל",
       explanationEn: "Stateless firewall (iptables -P): checks src/dst IP + port + protocol. Easy to bypass with spoofed packets. Stateful (conntrack): understands SYN/ESTABLISHED/FIN — return traffic passes automatically. NGFW (L7): understands HTTP/DNS/TLS — can block by content. iptables on most Linux distributions is stateful by default."
     },
     {
       q: "‏מה מטרת האזור המפורז (DMZ)?",
-      correct: "‏אזור ביניים שמכיל שרתים נגישים מהאינטרנט (Web/Mail/DNS) ומבודד אותם מהרשת הפנימית — פריצה לאזור המפורז (DMZ) לא מעניקה גישה למסד הנתונים הפנימי",
+      correct: "‏אזור ביניים שמכיל שרתים נגישים מהאינטרנט\n(Web/Mail/DNS) ומבודד אותם מהרשת הפנימית\nפריצה ל-DMZ לא מעניקה גישה למסד הנתונים",
       choices: [
-        "‏אזור ביניים שמכיל שרתים נגישים מהאינטרנט (Web/Mail/DNS) ומבודד אותם מהרשת הפנימית — פריצה לאזור המפורז (DMZ) לא מעניקה גישה למסד הנתונים הפנימי",
+        "‏אזור ביניים שמכיל שרתים נגישים מהאינטרנט\n(Web/Mail/DNS) ומבודד אותם מהרשת הפנימית\nפריצה ל-DMZ לא מעניקה גישה למסד הנתונים",
         "‏אזור שבו כל התעבורה מוצפנת",
         "‏אזור ללא הצפנה לביצועים מהירים",
         "‏רשת משנה (Subnet) מיוחדת לחיבורי VPN"
       ],
-      explanation: "‏אזור מפורז (DMZ) = שכבת הגנה נוספת. ארכיטקטורה: אינטרנט → חומת אש חיצונית → אזור מפורז (Web/Mail/DNS) → חומת אש פנימית → רשת פנימית (מסד נתונים/AD). גם אם תוקף פורץ לשרת ה-Web באזור המפורז, חומת האש הפנימית חוסמת גישה למסד הנתונים. עיקרון: הגנה לעומק (Defense in Depth) — כל שכבה מגינה על הבאה.",
+      explanation: "‏🏗️ ארכיטקטורת DMZ\n• אינטרנט → חומת אש חיצונית\n• → אזור מפורז (Web/Mail/DNS)\n• → חומת אש פנימית\n• → רשת פנימית (מסד נתונים/AD)\n\n🛡️ למה זה עובד?\n• גם אם תוקף פורץ לשרת ה-Web באזור המפורז\n• חומת האש הפנימית חוסמת גישה למסד הנתונים\n\n📌 העיקרון\n• הגנה לעומק (Defense in Depth)\n• כל שכבה מגינה על הבאה",
       explanationEn: "DMZ = an additional defense layer. Architecture: Internet > External Firewall > DMZ (Web/Mail/DNS) > Internal Firewall > Internal Network (DB/AD). Even if an attacker compromises the Web Server in the DMZ, the Internal Firewall blocks access to the database. Principle: Defense in Depth — each layer protects the next."
     },
     {
       q: "‏כיצד התולעת Stuxnet הצליחה לפגוע ברשת מנותקת (Air-Gapped)?",
-      correct: "‏הופצה דרך כונני USB — עובדים חיברו USB למחשבים מנותקים, התולעת עברה ממחשב למחשב עד שהגיעה לבקרים תעשייתיים (PLCs) של Siemens",
+      correct: "‏הופצה דרך כונני USB\nעובדים חיברו USB למחשבים מנותקים\nהתולעת הגיעה לבקרים תעשייתיים (PLCs) של Siemens",
       choices: [
-        "‏הופצה דרך כונני USB — עובדים חיברו USB למחשבים מנותקים, התולעת עברה ממחשב למחשב עד שהגיעה לבקרים תעשייתיים (PLCs) של Siemens",
+        "‏הופצה דרך כונני USB\nעובדים חיברו USB למחשבים מנותקים\nהתולעת הגיעה לבקרים תעשייתיים (PLCs) של Siemens",
         "‏פרצה דרך רשת אלחוטית (WiFi) של המתקן",
         "‏הוכנסה ישירות על ידי סוכן פנימי (Mole) בתוך המתקן",
         "‏השתמשה בפגיעות יום-אפס (Zero-Day) בקושחת PLC שנשלחה באוויר"
       ],
-      explanation: "‏תולעת Stuxnet (2010, מיוחסת לארה\"ב+ישראל): 4 פגיעות יום-אפס (Zero-Days). רשת מנותקת (Air Gap) = ללא חיבור אינטרנט. הפתרון: שרשרת הדבקה בכונני USB. אחד מהמהנדסים חיבר USB נגוע — Stuxnet התפשטה, חיכתה לתוכנת Siemens Step7, שינתה תדרי צנטריפוגות תוך הסתרת הנתונים האמיתיים מהמעקב (Monitoring). ‏1,000 צנטריפוגות הושמדו. לקח: חובה לאסור כונני USB לא מבוקרים בסביבות בקרה תעשייתית (ICS).",
+      explanation: "‏🐛 תולעת Stuxnet — 2010\n• מיוחסת לארה\"ב+ישראל\n• 4 פגיעות יום-אפס (Zero-Days)\n\n🔌 איך עקפה Air Gap?\n• שרשרת הדבקה בכונני USB\n• מהנדס חיבר USB נגוע\n• Stuxnet התפשטה, חיכתה לתוכנת Siemens Step7\n• שינתה תדרי צנטריפוגות\n• הסתירה את הנתונים האמיתיים מהמעקב\n\n💥 התוצאה\n• 1,000 צנטריפוגות הושמדו\n\n📌 הלקח\n• חובה לאסור כונני USB לא מבוקרים בסביבות ICS",
       explanationEn: "Stuxnet (2010, attributed to US+Israel): used 4 zero-days. Air gap = no internet connection. Solution: USB infection chain. An engineer connected an infected USB — Stuxnet spread, waited for Siemens Step7 software, changed centrifuge frequencies while hiding real data from monitoring. 1,000 centrifuges were destroyed. Lesson: uncontrolled USB drives must be banned in ICS environments."
     },
         {
       q: "‏מהו כלל iptables שחוסם כל גישה נכנסת חוץ מ-SSH (פורט 22)?",
-      correct: "‏iptables -P INPUT DROP — iptables -A INPUT -p tcp --dport 22 -j ACCEPT — iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT",
+      correct: "‏iptables -P INPUT DROP\niptables -A INPUT -p tcp --dport 22 -j ACCEPT\niptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT",
       choices: [
-        "‏iptables -P INPUT DROP — iptables -A INPUT -p tcp --dport 22 -j ACCEPT — iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT",
+        "‏iptables -P INPUT DROP\niptables -A INPUT -p tcp --dport 22 -j ACCEPT\niptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT",
         "‏iptables -A INPUT -p tcp --dport 22 -j ACCEPT",
         "‏iptables --block-all — iptables --allow 22",
         "‏iptables -P INPUT REJECT — iptables -A SSH -j ALLOW"
       ],
-      explanation: "‏שלבים: 1) מדיניות ברירת מחדל (DEFAULT POLICY) = חסום הכל (DROP). ‏2) אשר פורט 22. ‏3) אשר חיבורים מבוססים (ESTABLISHED) — בלי זה גם תגובות לתעבורה היוצאת ייחסמו! חשוב לשמור עם iptables-save > /etc/iptables/rules.v4, אחרת הכללים נמחקים באתחול מחדש (Reboot). nftables = המחליף המודרני של iptables. ufw ‏(Ubuntu) = ממשק נוח: ufw default deny incoming; ufw allow 22/tcp.",
+      explanation: "‏📋 שלושת הכללים\n• 1) DEFAULT POLICY = חסום הכל (DROP)\n• 2) אשר פורט 22 (SSH)\n• 3) אשר חיבורים מבוססים (ESTABLISHED)\n• בלי זה — גם תגובות לתעבורה היוצאת ייחסמו!\n\n💾 חשוב לשמור\n• iptables-save > /etc/iptables/rules.v4\n• אחרת הכללים נמחקים באתחול מחדש (Reboot)\n\n🛠️ חלופות\n• nftables = המחליף המודרני של iptables\n• ufw (Ubuntu) = ממשק נוח: ufw default deny incoming; ufw allow 22/tcp",
       explanationEn: "Steps: 1) DEFAULT POLICY = DROP (block everything). 2) ACCEPT port 22 (SSH). 3) ACCEPT established connections (without this, responses to outgoing traffic would also be blocked!). Important: save rules with iptables-save > /etc/iptables/rules.v4, otherwise rules are lost on reboot. nftables is the modern successor to iptables. ufw (Ubuntu) is a convenient front-end: ufw default deny incoming; ufw allow 22/tcp."
     },
         {
       q: "‏מהי ארכיטקטורת אפס אמון (Zero Trust Architecture) ועל איזה עיקרון היא מבוססת?",
-      correct: "‏ארכיטקטורה שלא סומכת על אף ישות כברירת מחדל — 'לעולם אל תסמוך, תמיד אמת' (Never Trust, Always Verify). כל גישה מחייבת אימות גם בתוך הרשת הארגונית",
+      correct: "‏ארכיטקטורה שלא סומכת על אף ישות כברירת מחדל\n'לעולם אל תסמוך, תמיד אמת'\n(Never Trust, Always Verify)",
       choices: [
-        "‏ארכיטקטורה שלא סומכת על אף ישות כברירת מחדל — 'לעולם אל תסמוך, תמיד אמת' (Never Trust, Always Verify). כל גישה מחייבת אימות גם בתוך הרשת הארגונית",
+        "‏ארכיטקטורה שלא סומכת על אף ישות כברירת מחדל\n'לעולם אל תסמוך, תמיד אמת'\n(Never Trust, Always Verify)",
         "‏ארכיטקטורה ללא חומת אש — סומכים על כל משתמש מאומת",
         "‏גישה שמבוססת על פגיעויות יום-אפס (Zero-Day)",
         "‏מודל שבו רק מנהלי מערכת מהאזור המפורז (DMZ) יכולים לגשת למשאבים"
       ],
-      explanation: "‏ארכיטקטורת אפס אמון (Zero Trust, ג'ון קינדרבאג, Forrester 2010): בארכיטקטורה מסורתית — 'טירה וחפיר' (Castle and Moat): סומכים על כל מה שבפנים. אחרי פריצה = תנועה רוחבית (Lateral Movement) חופשית. אפס אמון: 1) אמת במפורש — אימות רב-שלבי (MFA) + תקינות מכשיר + מיקום בכל בקשה. ‏2) הרשאת מינימום (Least Privilege). ‏3) הנח שנפרצת (Assume Breach) — פלח את הרשת, עקוב אחר כל התעבורה. ‏NIST SP 800-207. מימוש: BeyondCorp ‏(Google), Zscaler, Cloudflare Access.",
+      explanation: "‏🏰 ארכיטקטורה מסורתית — 'טירה וחפיר'\n• סומכים על כל מה שבפנים\n• אחרי פריצה = תנועה רוחבית חופשית\n\n🔐 אפס אמון — Zero Trust\n• 1) אמת במפורש — MFA + תקינות מכשיר + מיקום בכל בקשה\n• 2) הרשאת מינימום (Least Privilege)\n• 3) הנח שנפרצת (Assume Breach) — פלח את הרשת\n\n📋 תקן: NIST SP 800-207\n\n🛠️ מימוש\n• BeyondCorp (Google)\n• Zscaler\n• Cloudflare Access",
       explanationEn: "Zero Trust (John Kindervag, Forrester 2010): traditional architecture uses a 'castle and moat' model — trust everything inside. After a breach, lateral movement is unrestricted. Zero Trust: 1) Verify explicitly — MFA + device health + location on every request. 2) Least privilege access. 3) Assume breach — segment the network, monitor all traffic. NIST SP 800-207. Implementations: BeyondCorp (Google), Zscaler, Cloudflare Access."
     }
   ],
