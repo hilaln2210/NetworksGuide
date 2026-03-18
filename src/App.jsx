@@ -4,6 +4,13 @@ import { TCPHandshakeSim } from './components/TCPHandshakeSim'
 import { EncapsulationSim } from './components/EncapsulationSim'
 import { DnsLookupSim } from './components/DnsLookupSim'
 import { PacketFlowSim } from './components/PacketFlowSim'
+import { SubnetCalcSim } from './components/SubnetCalcSim'
+import { TLSHandshakeSim } from './components/TLSHandshakeSim'
+import { DHCPSim } from './components/DHCPSim'
+import { ARPSim } from './components/ARPSim'
+import { FirewallSim } from './components/FirewallSim'
+import { HTTPRequestSim } from './components/HTTPRequestSim'
+import { PingSim } from './components/PingSim'
 import { ThinkOutsideBox } from './components/ThinkOutsideBox'
 import { KeyTip } from './components/KeyTip'
 import { Quiz } from './components/Quiz'
@@ -553,7 +560,14 @@ function SimulationPage({ simId, content }) {
     tcpHandshake: TCPHandshakeSim,
     encapsulation: EncapsulationSim,
     dnsLookup: DnsLookupSim,
-    packetFlow: PacketFlowSim
+    packetFlow: PacketFlowSim,
+    subnetCalc: SubnetCalcSim,
+    tlsHandshake: TLSHandshakeSim,
+    dhcp: DHCPSim,
+    arp: ARPSim,
+    firewall: FirewallSim,
+    httpRequest: HTTPRequestSim,
+    ping: PingSim
   }
   const SimComponent = sims[simId]
   return (
