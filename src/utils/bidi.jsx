@@ -31,19 +31,31 @@ export function renderBidiText(text) {
   const pushNonHebrew = (seg, k) => {
     if (!seg) return
     if (/[A-Za-z0-9]/.test(seg)) {
-      // Trim leading/trailing spaces OUT of the LTR span.
+      // Trim leading/trailing spaces and punctuation OUT of the LTR span.
       // Keeping spaces inside causes them to appear on the wrong visual side
       // when a lone Hebrew preposition (ל, ב, מ...) sits between two LTR spans.
+      // Trailing punctuation (?!.,;:) must stay outside so RTL context places it correctly.
       const trimmed = seg.trimStart()
       const leading = seg.slice(0, seg.length - trimmed.length)
       const inner = trimmed.trimEnd()
       const trailing = trimmed.slice(inner.length)
+      // Strip leading/trailing punctuation from inner, push outside span
+      const leadPuncMatch = inner.match(/^([?!.,;:]+)/)
+      const leadPunc = leadPuncMatch ? leadPuncMatch[1] : ''
+      const afterLeadPunc = leadPunc ? inner.slice(leadPunc.length) : inner
+      const puncMatch = afterLeadPunc.match(/([?!.,;:]+)$/)
+      const coreLtr = puncMatch ? afterLeadPunc.slice(0, -puncMatch[1].length) : afterLeadPunc
+      const trailingPunc = puncMatch ? puncMatch[1] : ''
       if (leading) parts.push(leading)
-      parts.push(
-        <span key={k} dir="ltr" style={{ unicodeBidi: 'isolate' }}>
-          {inner}
-        </span>
-      )
+      if (leadPunc) parts.push(leadPunc)
+      if (coreLtr) {
+        parts.push(
+          <span key={k} dir="ltr" style={{ unicodeBidi: 'isolate' }}>
+            {coreLtr}
+          </span>
+        )
+      }
+      if (trailingPunc) parts.push(trailingPunc)
       if (trailing) parts.push(trailing)
     } else {
       parts.push(seg)
