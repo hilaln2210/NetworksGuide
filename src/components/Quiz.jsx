@@ -14,7 +14,7 @@ function shuffle(arr) {
   return a
 }
 
-export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapterId, autoStartKey }) {
+export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapterId, autoStartKey, onContextChange }) {
   const [mode, setMode] = useState(null) // 'chapter' | 'all'
   const [selectedChapter, setSelectedChapter] = useState(null)
   const [questions, setQuestions] = useState([])
@@ -87,6 +87,17 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
     setHintVisible(false)
     pendingAdvance.current = null
   }, [])
+
+  // Report quiz context to parent for feedback button
+  useEffect(() => {
+    if (onContextChange) {
+      if (mode && questions.length > 0) {
+        onContextChange({ chapterId: selectedChapter, questionNum: current + 1, totalQuestions: questions.length })
+      } else {
+        onContextChange(null)
+      }
+    }
+  }, [mode, selectedChapter, current, questions.length, onContextChange])
 
   // Auto-start a specific chapter's quiz when triggered from the learn tab
   useEffect(() => {

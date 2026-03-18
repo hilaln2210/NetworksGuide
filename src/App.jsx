@@ -133,6 +133,7 @@ function App() {
   const [showResetModal, setShowResetModal] = useState(false)
   const [mobileShowContent, setMobileShowContent] = useState(false)
   const [quizAutoStart, setQuizAutoStart] = useState(null) // { chapterId, ts }
+  const [quizContext, setQuizContext] = useState(null) // { chapterId, questionNum, totalQuestions }
 
   const trackChapters = activeTrack?.chapters || []
   const chapter = trackChapters[currentChapter]
@@ -508,6 +509,7 @@ function App() {
             }}
             autoStartChapterId={quizAutoStart?.chapterId}
             autoStartKey={quizAutoStart?.ts}
+            onContextChange={setQuizContext}
           />
         </div>
       )}
@@ -527,8 +529,8 @@ function App() {
       <FeedbackButton context={{
         trackTitle: activeTrack?.title,
         activeTab,
-        chapterId: activeTab === 'learn' ? chapter?.id : undefined,
-        pageTitle: activeTab === 'learn' ? page?.title : `טאב: ${TABS.find(t => t.key === activeTab)?.label || activeTab}`,
+        chapterId: activeTab === 'learn' ? chapter?.id : activeTab === 'quiz' ? quizContext?.chapterId : undefined,
+        pageTitle: activeTab === 'learn' ? page?.title : activeTab === 'quiz' && quizContext ? `חידון פרק ${quizContext.chapterId} — שאלה ${quizContext.questionNum}/${quizContext.totalQuestions}` : `טאב: ${TABS.find(t => t.key === activeTab)?.label || activeTab}`,
         pageIndex: activeTab === 'learn' ? currentPage : undefined,
         totalPages: activeTab === 'learn' ? totalPages : undefined,
       }} />
