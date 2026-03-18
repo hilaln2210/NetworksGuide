@@ -2593,48 +2593,48 @@ export const quizBank = {
 
   206: [
     {
-      q: "מה SLO, SLA, ו-SLI — ומה ההבדל?",
-      correct: "‏SLI = מדידה (latency, availability). SLO = יעד פנימי (99.9%). SLA = הסכם מול לקוח עם קנסות",
+      q: "\u200Fמה SLO, SLA, ו-SLI — ומה ההבדל?",
+      correct: "\u200FSLI = מדידה (latency, availability)\nSLO = יעד פנימי (99.9%)\nSLA = הסכם מול לקוח עם קנסות",
       choices: [
-        "‏SLI = מדידה (latency, availability). SLO = יעד פנימי (99.9%). SLA = הסכם מול לקוח עם קנסות",
-        "כולם זהים — מונחים שונים לאותו דבר",
-        "‏SLO לdevelopers, SLA לoperations, SLI לlegal",
-        "‏SLA חינמי, SLO בתשלום"
+        "\u200FSLI = מדידה (latency, availability)\nSLO = יעד פנימי (99.9%)\nSLA = הסכם מול לקוח עם קנסות",
+        "\u200Fכולם זהים — מונחים שונים לאותו דבר",
+        "\u200FSLO ל-developers, SLA ל-operations, SLI ל-legal",
+        "\u200FSLA חינמי, SLO בתשלום"
       ],
-      explanation: "‏SLI (Service Level Indicator): מה אתה מודד. latency_p99 = 120ms. availability = 99.94%. ‏SLO (Objective): היעד שלך. latency_p99 < 200ms, availability > 99.9%. ‏Error Budget: 0.1% downtime = 43.8 דקות לחודש. ‏SLA (Agreement): חוזה עם לקוח. אחרי פריצת SLA → credit/refund. ‏Google Cloud: 99.9% SLA לGCE. ‏Google בפנים עובד ב-99.99% SLO."
+      explanation: "\u200F📊 SLI — Service Level Indicator\n• מה אתה מודד\n• latency_p99 = 120ms\n• availability = 99.94%\n\n🎯 SLO — Service Level Objective\n• היעד שלך\n• latency_p99 < 200ms\n• availability > 99.9%\n• Error Budget: 0.1% downtime = 43.8 דקות לחודש\n\n📝 SLA — Service Level Agreement\n• חוזה מול לקוח\n• אחרי פריצת SLA → credit/refund\n• Google Cloud: 99.9% SLA ל-GCE\n• Google בפנים עובד ב-99.99% SLO"
     },
     {
-      q: "מה Chaos Engineering ולמה Netflix המציאה אותו?",
-      correct: "הזרקת כשלים בכוונה לproduction לגילוי חולשות לפני שכשל אמיתי קורה",
+      q: "\u200Fמה Chaos Engineering ולמה Netflix המציאה אותו?",
+      correct: "\u200Fהזרקת כשלים בכוונה ל-production\nלגילוי חולשות לפני שכשל אמיתי קורה",
       choices: [
-        "הזרקת כשלים בכוונה לproduction לגילוי חולשות לפני שכשל אמיתי קורה",
-        "בדיקת ביצועים תחת load קיצוני",
-        "‏penetration testing לאפליקציות",
-        "‏A/B testing לfeature flags"
+        "\u200Fהזרקת כשלים בכוונה ל-production\nלגילוי חולשות לפני שכשל אמיתי קורה",
+        "\u200Fבדיקת ביצועים תחת load קיצוני",
+        "\u200Fpenetration testing לאפליקציות",
+        "\u200FA/B testing ל-feature flags"
       ],
-      explanation: "‏Netflix עברה לcloud ב-2008. ‏AWS outage 2011 הפיל אותם. תגובה: Chaos Monkey — tool שמכבה VMs אקראיות בproduction. ‏Simian Army: Chaos Gorilla (AZ failure), Latency Monkey (network delays). עיקרון: 'אם כשלים קורים בכל מקרה — עדיף לגלות חולשות כשאתה מוכן'. 'Netflix knows about failures before their customers do.' GameDay = chaos experiment מתוכנן."
+      explanation: "\u200F📖 הרקע\n• Netflix עברה ל-cloud ב-2008\n• AWS outage 2011 הפיל אותם\n\n🐒 Chaos Monkey\n• tool שמכבה VMs אקראיות ב-production\n• Simian Army: Chaos Gorilla (AZ failure), Latency Monkey (network delays)\n\n💡 העיקרון\n• אם כשלים קורים בכל מקרה — עדיף לגלות חולשות כשאתה מוכן\n• Netflix knows about failures before their customers do\n\n📌 GameDay\n• chaos experiment מתוכנן"
     },
     {
-      q: "מה Postmortem blameless ולמה חשוב?",
-      correct: "ניתוח incident ללא האשמת אנשים — מחפש כשלי מערכת, לא שגיאות אנושיות, כדי לשפר תהליכים",
+      q: "\u200Fמה Postmortem blameless ולמה חשוב?",
+      correct: "\u200Fניתוח incident ללא האשמת אנשים\nמחפש כשלי מערכת, לא שגיאות אנושיות\nכדי לשפר תהליכים",
       choices: [
-        "ניתוח incident ללא האשמת אנשים — מחפש כשלי מערכת, לא שגיאות אנושיות, כדי לשפר תהליכים",
-        "דוח שמגן על חברה מתביעות משפטיות",
-        "ניתוח ביצועים שבועי",
-        "‏review קוד אחרי deploy לפרודקשן"
+        "\u200Fניתוח incident ללא האשמת אנשים\nמחפש כשלי מערכת, לא שגיאות אנושיות\nכדי לשפר תהליכים",
+        "\u200Fדוח שמגן על חברה מתביעות משפטיות",
+        "\u200Fניתוח ביצועים שבועי",
+        "\u200Freview קוד אחרי deploy לפרודקשן"
       ],
-      explanation: "‏Blameless: אנשים לא מקבלים עונש → מוכנים לדווח על בעיות → ארגון לומד. ‏Google SRE: 'If a human error caused the outage, the system design failed.' 5 Whys: Why did DB go down? → disk full → Why? → log rotation broke → Why? → deploy changed config → root cause. ‏Action items: automation, monitoring, runbooks. ללא postmortem = אותה תקלה שוב."
+      explanation: "\u200F🤝 Blameless Culture\n• אנשים לא מקבלים עונש\n• → מוכנים לדווח על בעיות\n• → ארגון לומד\n\n📖 Google SRE\n• If a human error caused the outage, the system design failed\n\n🔍 5 Whys\n• Why did DB go down? → disk full\n• Why? → log rotation broke\n• Why? → deploy changed config → root cause\n\n📌 Action Items\n• automation, monitoring, runbooks\n• ללא postmortem = אותה תקלה שוב"
     },
     {
-      q: "מה Error Budget ב-SRE ואיך משפיע על velocity של פיתוח?",
-      correct: "‏Error Budget = 100% - SLO target. אם SLO = 99.9%, error budget = 0.1% ‎(43.8 דקות/חודש)‎. כשה-budget אוזל — מאטים deployments עד לחידוש",
+      q: "\u200Fמה Error Budget ב-SRE ואיך משפיע על velocity של פיתוח?",
+      correct: "\u200FError Budget = 100% - SLO target\nאם SLO = 99.9%, error budget = 0.1%\n(43.8 דקות/חודש)\nכשה-budget אוזל — מאטים deployments",
       choices: [
-        "‏Error Budget = 100% - SLO target. אם SLO = 99.9%, error budget = 0.1% ‎(43.8 דקות/חודש)‎. כשה-budget אוזל — מאטים deployments עד לחידוש",
-        "‏Error Budget = מספר ה-bugs המותרים בrelease",
-        "‏Error Budget = זמן שמהנדסים מקדישים לbug fixes",
-        "‏Error Budget תמיד 5% ללא קשר ל-SLO"
+        "\u200FError Budget = 100% - SLO target\nאם SLO = 99.9%, error budget = 0.1%\n(43.8 דקות/חודש)\nכשה-budget אוזל — מאטים deployments",
+        "\u200FError Budget = מספר ה-bugs המותרים ב-release",
+        "\u200FError Budget = זמן שמהנדסים מקדישים ל-bug fixes",
+        "\u200FError Budget תמיד 5% ללא קשר ל-SLO"
       ],
-      explanation: "‏SRE philosophy: reliability vs feature velocity. ‏Error budget = זמן downtime מותר לפי SLO. אם SLO=99.9%: 43.8 min/month budget. ‏Incident גרמה ל-20 min downtime = שרפת 46% מהbudget. ‏Policy: budget > 50% → deploy בחופשיות. budget 0-50% → זהירות. budget מאופס → freeze deployments, רק reliability work. זה מיישר תמריצים: Dev רוצים לdeploy מהר = אינטרס גם בreliability."
+      explanation: "\u200F⚖️ SRE Philosophy\n• reliability vs feature velocity\n• Error budget = זמן downtime מותר לפי SLO\n\n📊 חישוב\n• SLO=99.9%: 43.8 min/month budget\n• Incident גרמה ל-20 min downtime = שרפת 46% מה-budget\n\n📋 Policy\n• budget > 50% → deploy בחופשיות\n• budget 0-50% → זהירות\n• budget מאופס → freeze deployments, רק reliability work\n\n📌 התמריץ\n• Dev רוצים ל-deploy מהר = אינטרס גם ב-reliability"
     },
   ],
 
