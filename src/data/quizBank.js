@@ -1462,37 +1462,37 @@ export const quizBank = {
       explanation: "\u200F🌍 Anycast בפעולה\n• 1.1.1.1 של Cloudflare = כתובת Anycast\n• BGP מנתב אותך ל-PoP הקרוב מ-300 מיקומים\n\n🛡️ יתרון נגד DDoS\n• תנועה מתחלקת ל-300 PoPs\n• כל אחד סופג שבריר\n\n🏢 מי משתמש?\n• Netflix\n• Google\n• Cloudflare"
     },
     {
-      q: "מה DPI (Deep Packet Inspection) ואיך ISPs משתמשים בו?",
-      correct: "‏DPI: ניתוח תוכן packets מעבר לheaders — ISPs יכולים לזהות BitTorrent, Netflix, לחסום sites, לבצע traffic shaping",
+      q: "\u200Fמה DPI (Deep Packet Inspection) ואיך ISPs משתמשים בו?",
+      correct: "\u200FDPI: ניתוח תוכן packets מעבר ל-headers\nISPs יכולים לזהות BitTorrent, Netflix\nלחסום sites, לבצע traffic shaping",
       choices: [
-        "‏DPI: ניתוח תוכן packets מעבר לheaders — ISPs יכולים לזהות BitTorrent, Netflix, לחסום sites, לבצע traffic shaping",
-        "‏DPI = DNS Privacy Inspector",
-        "‏DPI עובד רק על unencrypted traffic",
-        "‏DPI = הצפנת packets ב-router"
+        "\u200FDPI: ניתוח תוכן packets מעבר ל-headers\nISPs יכולים לזהות BitTorrent, Netflix\nלחסום sites, לבצע traffic shaping",
+        "\u200FDPI = DNS Privacy Inspector",
+        "\u200FDPI עובד רק על unencrypted traffic",
+        "\u200FDPI = הצפנת packets ב-router"
       ],
-      explanation: "‏DPI vs SPI: SPI = stateful inspection (L3/L4). ‏DPI = L7 payload analysis. שימושים: ISP throttling (YouTube QoS), censorship (Great Firewall), malware detection, lawful interception. ‏HTTPS: DPI לא יכול לקרוא תוכן ‎(מוצפן)‎. ‏ESNI/ECH: מסתיר SNI (hostname) — מסכל DPI-based blocking. ‏Net Neutrality: מניעת DPI-based discrimination."
+      explanation: "\u200F🔬 DPI vs SPI\n• SPI = stateful inspection (L3/L4)\n• DPI = L7 payload analysis\n\n📋 שימושים\n• ISP throttling (YouTube QoS)\n• Censorship (Great Firewall)\n• Malware detection\n• Lawful interception\n\n🔒 הגנות\n• HTTPS — DPI לא יכול לקרוא תוכן מוצפן\n• ESNI/ECH — מסתיר SNI (hostname)\n• Net Neutrality — מניעת DPI-based discrimination"
     },
     {
-      q: "מה Data Center topology ו-Spine-Leaf Architecture?",
-      correct: "‏Spine-Leaf: 2 שכבות — Leaf (ToR switches) מחוברים לכל Spine. Equal latency בין כל servers. מחליף traditional 3-tier (Core/Dist/Access)",
+      q: "\u200Fמה Data Center topology ו-Spine-Leaf Architecture?",
+      correct: "\u200FSpine-Leaf: 2 שכבות\nLeaf (ToR switches) מחוברים לכל Spine\nEqual latency בין כל servers\nמחליף traditional 3-tier",
       choices: [
-        "‏Spine-Leaf: 2 שכבות — Leaf (ToR switches) מחוברים לכל Spine. Equal latency בין כל servers. מחליף traditional 3-tier (Core/Dist/Access)",
-        "‏Spine-Leaf = Spanning Tree topology",
-        "‏Spine = core routers, Leaf = servers בלבד",
-        "‏Spine-Leaf משתמש ב-STP"
+        "\u200FSpine-Leaf: 2 שכבות\nLeaf (ToR switches) מחוברים לכל Spine\nEqual latency בין כל servers\nמחליף traditional 3-tier",
+        "\u200FSpine-Leaf = Spanning Tree topology",
+        "\u200FSpine = core routers\nLeaf = servers בלבד",
+        "\u200FSpine-Leaf משתמש ב-STP"
       ],
-      explanation: "‏ארכיטקטורה מסורתית ‎Traditional 3-tier‏: ליבה ‎Core (L3)‏ → הפצה ‎Distribution (L3)‏ → גישה ‎Access (L2)‏. צוואר בקבוק ב-aggregation. ‎Spine-Leaf‏: כל ‎Leaf‏ מחובר לכל ‎Spine‏. תעבורה מזרח-מערב ‎= 1 hop‏. ‎BGP/ECMP‏: ללא ‎STP‏. ‎ToR (Top of Rack)‏: switch בתוך rack. רשת ‎Clos (Bell Labs, 1950s)‏. מרכזי נתונים ‎Facebook/Google‏: silicon מותאם ‎(Arista, Broadcom)‏. ‎eBGP‏ במרכז הנתונים: ‎RFC 7938‏."
+      explanation: "\u200F🏗️ ארכיטקטורה מסורתית — Traditional 3-tier\n• Core (L3) → Distribution (L3) → Access (L2)\n• צוואר בקבוק ב-aggregation\n\n⚡ Spine-Leaf\n• כל Leaf מחובר לכל Spine\n• תעבורה מזרח-מערב = 1 hop\n• BGP/ECMP — ללא STP\n• ToR (Top of Rack): switch בתוך rack\n\n🏢 מי משתמש?\n• Facebook/Google — silicon מותאם (Arista, Broadcom)\n• רשת Clos (Bell Labs, 1950s)\n• eBGP במרכז הנתונים: RFC 7938"
     },
     {
-      q: "מה Latency לעומת Bandwidth ולמה latency חשוב יותר בinteractive apps?",
-      correct: "‏Bandwidth = כמה data/שנייה. Latency = כמה זמן לpacket להגיע. Interactive (gaming/VoIP/WebRTC): latency קריטי. Bulk transfer: bandwidth קריטי",
+      q: "\u200Fמה Latency לעומת Bandwidth ולמה latency חשוב יותר ב-interactive apps?",
+      correct: "\u200FBandwidth = כמה data/שנייה\nLatency = כמה זמן ל-packet להגיע\nInteractive: latency קריטי\nBulk transfer: bandwidth קריטי",
       choices: [
-        "‏Bandwidth = כמה data/שנייה. Latency = כמה זמן לpacket להגיע. Interactive (gaming/VoIP/WebRTC): latency קריטי. Bulk transfer: bandwidth קריטי",
-        "‏Bandwidth ו-Latency אותו דבר",
-        "‏Bandwidth תמיד חשוב יותר",
-        "‏Latency = Round Trip Time + Bandwidth"
+        "\u200FBandwidth = כמה data/שנייה\nLatency = כמה זמן ל-packet להגיע\nInteractive: latency קריטי\nBulk transfer: bandwidth קריטי",
+        "\u200FBandwidth ו-Latency אותו דבר",
+        "\u200FBandwidth תמיד חשוב יותר",
+        "\u200FLatency = Round Trip Time + Bandwidth"
       ],
-      explanation: "‏מושגי זמן תגובה: ‎RTT (Round Trip Time)‏ נמדד ב-ping. כיוון אחד: ‎RTT/2‏. מקורות ללטנסי: קידום ‎(propagation, speed of light ~200km/ms fiber)‏, שידור ‎(transmission, packet size / bandwidth)‏, עיבוד ‎(processing, router forwarding)‏, תור ‎(queuing, buffer)‏. מכפלת רוחב-סרט-עיכוב: בתים בדרך ‎= bandwidth x RTT‏. ‎100Mbps x 100ms = 1.25MB‏ בדרך. כיוונון TCP buffer: ‎net.core.rmem_max‏. גיימינג: ‎>100ms‏ = לא ניתן לשחק. ‎Jitter‏ = שונות בלטנסי = גורם איכות ב-VoIP."
+      explanation: "\u200F⏱️ RTT — Round Trip Time\n• נמדד ב-ping\n• כיוון אחד: RTT/2\n\n📡 מקורות ל-latency\n• Propagation — speed of light ~200km/ms fiber\n• Transmission — packet size / bandwidth\n• Processing — router forwarding\n• Queuing — buffer\n\n📊 Bandwidth-Delay Product\n• בתים בדרך = bandwidth x RTT\n• 100Mbps x 100ms = 1.25MB בדרך\n• כיוונון TCP buffer: net.core.rmem_max\n\n🎮 בפועל\n• גיימינג: >100ms = לא ניתן לשחק\n• Jitter = שונות ב-latency = גורם איכות ב-VoIP"
     }
   ],
 
