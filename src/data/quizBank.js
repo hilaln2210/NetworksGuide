@@ -393,37 +393,37 @@ export const quizBank = {
 
   7: [
     {
-      q: "מה תפקיד שכבת הרשת?",
-      correct: "ניתוב (routing) חבילות בין רשתות שונות לפי כתובות IP",
+      q: "\u200Fמה תפקיד שכבת הרשת?",
+      correct: "\u200Fניתוב (routing) חבילות בין רשתות שונות\nלפי כתובות IP",
       choices: [
-        "ניתוב (routing) חבילות בין רשתות שונות לפי כתובות IP",
-        "העברת frames בין מחשבים ברשת מקומית לפי MAC",
-        "ניהול חיבורים אמינים בין יישומים",
-        "המרת אותות דיגיטליים לאנלוגיים"
+        "\u200Fניתוב (routing) חבילות בין רשתות שונות\nלפי כתובות IP",
+        "\u200Fהעברת frames בין מחשבים ברשת מקומית\nלפי MAC",
+        "\u200Fניהול חיבורים אמינים בין יישומים",
+        "\u200Fהמרת אותות דיגיטליים לאנלוגיים"
       ],
-      explanation: "שכבת הרשת = 'הנווט' — היא מחליטה דרך איזה נתב לשלוח. ‏IP הוא הפרוטוקול הכי מפורסם כאן. נתבים (Routers) פועלים בשכבה זו 🗺️"
+      explanation: "\u200F🗺️ שכבת הרשת — ״הנווט״:\n• מחליטה דרך איזה נתב לשלוח\n• IP הוא הפרוטוקול המרכזי בשכבה זו\n\n🔌 מכשירים בשכבה זו:\n• נתבים (Routers) פועלים כאן\n• מבצעים routing בין רשתות שונות"
     },
     {
-      q: "מה זה NAT?",
-      correct: "‏Network Address Translation – מאפשר למחשבים רבים לשתף כתובת IP אחת ציבורית",
+      q: "\u200Fמה זה NAT?",
+      correct: "\u200FNetwork Address Translation\nמאפשר למחשבים רבים לשתף\nכתובת IP אחת ציבורית",
       choices: [
-        "‏Network Address Translation – מאפשר למחשבים רבים לשתף כתובת IP אחת ציבורית",
-        "‏Network Access Token – אסימון גישה לרשת",
-        "‏New Address Table – טבלת ניתוב דינמית",
-        "‏Node Authentication Technology – אימות מכשירים"
+        "\u200FNetwork Address Translation\nמאפשר למחשבים רבים לשתף\nכתובת IP אחת ציבורית",
+        "\u200FNetwork Access Token\nאסימון גישה לרשת",
+        "\u200FNew Address Table\nטבלת ניתוב דינמית",
+        "\u200FNode Authentication Technology\nאימות מכשירים"
       ],
-      explanation: "בבית יש לך IP פנימי (192.168.x.x) וIP ציבורי אחד. ‏NAT ב-router 'מתרגם' — מאחד לרבים ובחזרה. זה למה אין מספיק IPv4! 🏠"
+      explanation: "\u200F🏠 NAT — תרגום כתובות רשת:\n• בבית יש לך IP פנימי (192.168.x.x)\n• ו-IP ציבורי אחד\n\n🔄 איך זה עובד:\n• NAT ב-router ״מתרגם״\n• מאחד לרבים ובחזרה\n\n🌍 למה צריך NAT:\n• אין מספיק כתובות IPv4 בעולם\n• NAT מאפשר לחלוק כתובת אחת"
     },
     {
-      q: "מה ההבדל בין IP פנימי לציבורי?",
-      correct: "‏IP פנימי (192.168.x.x) לרשת מקומית, ציבורי — ייחודי באינטרנט",
+      q: "\u200Fמה ההבדל בין IP פנימי לציבורי?",
+      correct: "\u200FIP פנימי (192.168.x.x) לרשת מקומית\nציבורי — ייחודי באינטרנט",
       choices: [
-        "‏IP פנימי (192.168.x.x) לרשת מקומית, ציבורי — ייחודי באינטרנט",
-        "‏IP פנימי מוצפן, ציבורי גלוי",
-        "‏IP פנימי לשרתים, ציבורי למחשבים אישיים",
-        "‏IP פנימי קבוע, ציבורי משתנה"
+        "\u200FIP פנימי (192.168.x.x) לרשת מקומית\nציבורי — ייחודי באינטרנט",
+        "\u200FIP פנימי מוצפן\nציבורי גלוי",
+        "\u200FIP פנימי לשרתים\nציבורי למחשבים אישיים",
+        "\u200FIP פנימי קבוע\nציבורי משתנה"
       ],
-      explanation: "כשאת שולחת בקשה לגוגל — ה-router שם את הIP הציבורי שלו. גוגל לא יודעת שיש לך IP 192.168.1.5. הפרטיות היחידה שיש לנו 🕵️"
+      explanation: "\u200F🕵️ IP פנימי vs ציבורי:\n• כשאת שולחת בקשה לגוגל\n• ה-router שם את ה-IP הציבורי שלו\n• גוגל לא יודעת שיש לך IP 192.168.1.5\n\n🏠 טווחי IP פנימיים:\n• 10.0.0.0/8\n• 172.16.0.0/12\n• 192.168.0.0/16"
     },
     {
       q: "איזה כתובת IP היא 'ברדקאסט' (broadcast) ברשת?",
@@ -1023,59 +1023,59 @@ export const quizBank = {
 
   17: [
     {
-      q: "מה /24 אומר בכתובת 192.168.1.0/24?",
-      correct: "24 ביטים לזיהוי הרשת, 8 ביטים לזיהוי מארח — 256 כתובות ‎(254 שמישות)‎",
+      q: "\u200Fמה /24 אומר בכתובת 192.168.1.0/24?",
+      correct: "\u200F24 ביטים לזיהוי הרשת\n8 ביטים לזיהוי מארח\n256 כתובות (254 שמישות)",
       choices: [
-        "24 ביטים לזיהוי הרשת, 8 ביטים לזיהוי מארח — 256 כתובות ‎(254 שמישות)‎",
-        "24 מחשבים מחוברים לרשת כרגע",
-        "הרשת מספר 24 בסדרה",
-        "24 נתבים בין המחשב לאינטרנט"
+        "\u200F24 ביטים לזיהוי הרשת\n8 ביטים לזיהוי מארח\n256 כתובות (254 שמישות)",
+        "\u200F24 מחשבים מחוברים לרשת כרגע",
+        "\u200Fהרשת מספר 24 בסדרה",
+        "\u200F24 נתבים בין המחשב לאינטרנט"
       ],
-      explanation: "‏CIDR notation: /24 = subnet mask 255.255.255.0. ‏8 ביטים = 256 כתובות. מינוס network address ומינוס broadcast = 254 שמישות. /16 = 65,534 שמישות. /32 = כתובת בודדת 🎯"
+      explanation: "\u200F🎯 CIDR notation:\n• /24 = subnet mask 255.255.255.0\n• 8 ביטים = 256 כתובות\n• מינוס network address ומינוס broadcast = 254 שמישות\n\n📊 דוגמאות נוספות:\n• /16 = 65,534 שמישות\n• /32 = כתובת בודדת"
     },
     {
-      q: "מה NAT מאפשר?",
-      correct: "מכשירים רבים עם IP פרטי לשתף IP ציבורי אחד",
+      q: "\u200Fמה NAT מאפשר?",
+      correct: "\u200Fמכשירים רבים עם IP פרטי\nלשתף IP ציבורי אחד",
       choices: [
-        "מכשירים רבים עם IP פרטי לשתף IP ציבורי אחד",
-        "הצפנת כתובות IP פרטיות",
-        "הקצאת IP סטטי לכל מכשיר",
-        "הגנה מפני DDoS"
+        "\u200Fמכשירים רבים עם IP פרטי\nלשתף IP ציבורי אחד",
+        "\u200Fהצפנת כתובות IP פרטיות",
+        "\u200Fהקצאת IP סטטי לכל מכשיר",
+        "\u200Fהגנה מפני DDoS"
       ],
-      explanation: "בבית: 10+ מכשירים עם 192.168.x.x, אבל IP ציבורי אחד לכולם. ‏NAT ב-router עושה את ה-translation. זה הסיבה שIPv4 עדיין חי — NAT האריך את חייו בעשורים 🏠"
+      explanation: "\u200F🏠 NAT — דוגמה מהבית:\n• 10+ מכשירים עם 192.168.x.x\n• אבל IP ציבורי אחד לכולם\n• NAT ב-router עושה את ה-translation\n\n🌍 למה זה חשוב:\n• זו הסיבה ש-IPv4 עדיין חי\n• NAT האריך את חייו בעשורים"
     },
     {
-      q: "מה ה-CIDR notation /24 ומה ה-subnet mask שלו?",
-      correct: "/24 = 255.255.255.0 = 256 כתובות, 254 usable hosts ‎(פחות network ו-broadcast)‎",
+      q: "\u200Fמה ה-CIDR notation /24 ומה ה-subnet mask שלו?",
+      correct: "\u200F/24 = 255.255.255.0\n256 כתובות, 254 usable hosts\n(פחות network ו-broadcast)",
       choices: [
-        "/24 = 255.255.255.0 = 256 כתובות, 254 usable hosts ‎(פחות network ו-broadcast)‎",
-        "/24 = 24 hosts בלבד",
-        "/24 = 255.255.255.255",
-        "/24 = class B network"
+        "\u200F/24 = 255.255.255.0\n256 כתובות, 254 usable hosts\n(פחות network ו-broadcast)",
+        "\u200F/24 = 24 hosts בלבד",
+        "\u200F/24 = 255.255.255.255",
+        "\u200F/24 = class B network"
       ],
-      explanation: "‏CIDR (Classless Inter-Domain Routing): /prefix = מספר bits ב-network. /24: 2^8=256 כתובות. /23: 2^9=512. /16: 65536. /32: host אחד. ‏Subnet mask: /24=255.255.255.0, /16=255.255.0.0, /8=255.0.0.0. ‏Network address: כל host bits=0. ‏Broadcast: כל host bits=1. ‏Usable: 256-2=254. ‏VLSM: חלוקה לא שווה של subnets."
+      explanation: "\u200F📐 CIDR (Classless Inter-Domain Routing):\n• /prefix = מספר bits ב-network\n• /24: 2^8=256 כתובות\n• /23: 2^9=512\n• /16: 65536\n• /32: host אחד\n\n🔢 Subnet masks:\n• /24 = 255.255.255.0\n• /16 = 255.255.0.0\n• /8 = 255.0.0.0\n\n📌 חישוב:\n• Network address — כל host bits=0\n• Broadcast — כל host bits=1\n• Usable: 256-2=254\n• VLSM — חלוקה לא שווה של subnets"
     },
     {
-      q: "כיצד מחלקים 192.168.1.0/24 ל-4 subnets שווים?",
-      correct: "לוקחים 2 bits נוספים: /26. כל subnet = 64 כתובות. .0/26, .64/26, .128/26, .192/26",
+      q: "\u200Fכיצד מחלקים 192.168.1.0/24 ל-4 subnets שווים?",
+      correct: "\u200Fלוקחים 2 bits נוספים: /26\nכל subnet = 64 כתובות\n.0/26, .64/26, .128/26, .192/26",
       choices: [
-        "לוקחים 2 bits נוספים: /26. כל subnet = 64 כתובות. .0/26, .64/26, .128/26, .192/26",
-        "/24 לארבעה /25 subnets",
-        "/28 = 4 subnets מ-/24",
-        "2^4=16 subnets מ-/24 עם /28"
+        "\u200Fלוקחים 2 bits נוספים: /26\nכל subnet = 64 כתובות\n.0/26, .64/26, .128/26, .192/26",
+        "\u200F/24 לארבעה /25 subnets",
+        "\u200F/28 = 4 subnets מ-/24",
+        "\u200F2^4=16 subnets מ-/24 עם /28"
       ],
-      explanation: "4 subnets: 2^2=4 → לוקחים 2 bits → /26. כל /26 = 64 כתובות (62 usable). .0/26: range .0-.63, hosts .1-.62. .64/26: .64-.127, hosts .65-.126. .128/26: .128-.191, .192/26: .192-.255. ‏Binary: 192.168.1.0 = 11000000.10101000.00000001.00|000000. הbit ה-25 ו-26 הפכו network bits."
+      explanation: "\u200F🧮 חישוב:\n• 4 subnets: 2^2=4 → לוקחים 2 bits → /26\n• כל /26 = 64 כתובות (62 usable)\n\n📋 ה-subnets:\n• .0/26: range .0-.63, hosts .1-.62\n• .64/26: range .64-.127, hosts .65-.126\n• .128/26: range .128-.191\n• .192/26: range .192-.255\n\n💡 בינארי:\n• 192.168.1.0 = 11000000.10101000.00000001.00|000000\n• ה-bit ה-25 ו-26 הפכו network bits"
     },
     {
-      q: "מה Supernetting (Route Summarization)?",
-      correct: "איחוד מספר networks רצופים לrepresentation אחד קטן יותר ב-routing table — /24 + /24 = /23",
+      q: "\u200Fמה Supernetting (Route Summarization)?",
+      correct: "\u200Fאיחוד מספר networks רצופים\nל-representation אחד קטן יותר ב-routing table\n/24 + /24 = /23",
       choices: [
-        "איחוד מספר networks רצופים לrepresentation אחד קטן יותר ב-routing table — /24 + /24 = /23",
-        "‏Supernetting = Subnetting הפוך בלבד",
-        "לא ניתן לאחד networks",
-        "‏Supernetting = IPv6 transition mechanism"
+        "\u200Fאיחוד מספר networks רצופים\nל-representation אחד קטן יותר ב-routing table\n/24 + /24 = /23",
+        "\u200FSupernetting = Subnetting הפוך בלבד",
+        "\u200Fלא ניתן לאחד networks",
+        "\u200FSupernetting = IPv6 transition mechanism"
       ],
-      explanation: "‏Route summarization: 192.168.0.0/24 + 192.168.1.0/24 → 192.168.0.0/23. תנאי: networks חייבים להיות contiguous ולחלוק prefix. יתרונות: routing table קטן יותר, פחות BGP updates, convergence מהיר. ‏ISP: 100 /24 prefixes → 1 /16 summary. ‏BGP aggregation: reduce routing table size. ‏Internet full routing table: ~900K vs ~60K ב-2000."
+      explanation: "\u200F🔗 Route summarization:\n• 192.168.0.0/24 + 192.168.1.0/24 → 192.168.0.0/23\n• תנאי: networks חייבים להיות contiguous ולחלוק prefix\n\n📈 יתרונות:\n• routing table קטן יותר\n• פחות BGP updates\n• convergence מהיר\n\n🌐 בפועל:\n• ISP: 100 /24 prefixes → 1 /16 summary\n• BGP aggregation — reduce routing table size\n• Internet full routing table: ~900K vs ~60K ב-2000"
     }
   ],
 
