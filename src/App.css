@@ -1217,6 +1217,35 @@ html {
   font-size: 2rem;
 }
 
+/* ===== Language toggle ===== */
+.lang-toggle-btn {
+  background: var(--accent-soft);
+  border: 1px solid var(--teal-light);
+  border-radius: 99px;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1.2;
+  color: var(--teal);
+  letter-spacing: 0.02em;
+}
+.lang-toggle-btn:hover {
+  background: var(--teal-light);
+  color: #fff;
+  transform: scale(1.08);
+}
+.lang-toggle-picker {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+[dir="ltr"] .lang-toggle-picker {
+  right: auto;
+  left: 1rem;
+}
+
 .gender-toggle-btn {
   background: transparent;
   border: 1px solid var(--glass-border);

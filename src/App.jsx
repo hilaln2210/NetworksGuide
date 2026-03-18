@@ -21,31 +21,34 @@ import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, upda
 import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll, getTodayMinutes, addSessionMinutes, formatMinutes, getCompletedChapters, getTotalQuizCorrect, getLearningPace } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
 import { processHtmlBidi, renderBidiText } from './utils/bidi.jsx'
+import { useLang } from './utils/language.jsx'
 import './App.css'
 
-const TABS = [
-  { key: 'learn', label: '📖 למידה' },
-  { key: 'quiz', label: '🎯 חידון' },
-  { key: 'bugs', label: '🔧 שאלות נפוצות' },
-  { key: 'credits', label: '📋 קרדיטים' },
-]
+const TAB_KEYS = ['learn', 'quiz', 'bugs', 'credits']
+const TAB_I18N = {
+  learn: 'tab_learn',
+  quiz: 'tab_quiz',
+  bugs: 'tab_faq',
+  credits: 'tab_credits',
+}
 
 // ===== Gender Picker =====
 function GenderPicker({ onSelect }) {
+  const { t } = useLang()
   return (
     <div className="gender-overlay">
       <div className="gender-modal">
         <div className="gender-emoji">👋</div>
-        <h2>ברוכים הבאים!</h2>
-        <p>איך לפנות אליך?</p>
+        <h2>{t('welcome')}</h2>
+        <p>{t('gender_prompt')}</p>
         <div className="gender-btns">
           <button className="gender-btn gender-btn-female" onClick={() => onSelect('female')}>
             <span className="gender-btn-emoji">👩</span>
-            <span>בלשון נקבה</span>
+            <span>{t('gender_female')}</span>
           </button>
           <button className="gender-btn gender-btn-male" onClick={() => onSelect('male')}>
             <span className="gender-btn-emoji">👨</span>
-            <span>בלשון זכר</span>
+            <span>{t('gender_male')}</span>
           </button>
         </div>
       </div>
@@ -53,14 +56,30 @@ function GenderPicker({ onSelect }) {
   )
 }
 
+// ===== Track i18n helper =====
+const trackI18n = (track, field, t, lang) => {
+  const key = `track_${track.id}_${field}`
+  const val = t(key)
+  return val !== key ? val : track[field]
+}
+
 // ===== Track Picker =====
 function TrackPicker({ tracks, onSelect }) {
+  const { lang, setLang, t } = useLang()
+  const isEn = lang === 'en'
   return (
-    <div className="track-picker" dir="rtl">
+    <div className="track-picker" dir={isEn ? 'ltr' : 'rtl'}>
       <div className="track-picker-header">
+        <button
+          className="lang-toggle-btn lang-toggle-picker"
+          onClick={() => setLang(isEn ? 'he' : 'en')}
+          title={isEn ? t('lang_tooltip_en') : t('lang_tooltip_he')}
+        >
+          {t('lang_toggle')}
+        </button>
         <div className="track-picker-logo">🌐</div>
-        <h1 className="track-picker-title">מדריך IT האינטראקטיבי</h1>
-        <p className="track-picker-subtitle">בחרו מסלול לימוד — כל מסלול עצמאי עם פרקים ותרגול משלו</p>
+        <h1 className="track-picker-title">{t('app_title')}</h1>
+        <p className="track-picker-subtitle">{t('pick_track')}</p>
       </div>
       <div className="track-grid">
         {tracks.map(track => {
@@ -82,12 +101,12 @@ function TrackPicker({ tracks, onSelect }) {
             >
               <div className="track-card-icon">{track.icon}</div>
               <div className="track-card-body">
-                <div className="track-card-title">{track.title}</div>
-                <div className="track-card-subtitle">{track.subtitle}</div>
+                <div className="track-card-title">{trackI18n(track, 'title', t, lang)}</div>
+                <div className="track-card-subtitle">{trackI18n(track, 'subtitle', t, lang)}</div>
                 <div className="track-card-meta">
-                  <span className="track-card-level">{track.level}</span>
-                  {!isEmpty && <span className="track-card-chapters">{track.chapters.length} פרקים</span>}
-                  {isEmpty && <span className="track-card-soon">בקרוב</span>}
+                  <span className="track-card-level">{trackI18n(track, 'level', t, lang)}</span>
+                  {!isEmpty && <span className="track-card-chapters">{track.chapters.length} {t('chapters_count')}</span>}
+                  {isEmpty && <span className="track-card-soon">{t('coming_soon')}</span>}
                 </div>
                 {hasProgress && (
                   <div className="track-card-progress">
@@ -98,14 +117,23 @@ function TrackPicker({ tracks, onSelect }) {
                   </div>
                 )}
               </div>
-              {hasProgress && <div className="track-card-continue">← המשך</div>}
-              {!hasProgress && !isEmpty && <div className="track-card-start">← התחל</div>}
+              {hasProgress && <div className="track-card-continue">{t('continue')}</div>}
+              {!hasProgress && !isEmpty && <div className="track-card-start">{t('start')}</div>}
             </button>
           )
         })}
       </div>
     </div>
   )
+}
+
+// ===== Content i18n helper: returns English content if available, otherwise Hebrew =====
+function usePageContent(page, lang) {
+  if (!page) return { title: '', content: '' }
+  if (lang === 'en' && page.titleEn) {
+    return { title: page.titleEn, content: page.contentEn || page.content }
+  }
+  return { title: page.title, content: page.content }
 }
 
 // ===== Main App =====
@@ -179,6 +207,9 @@ function App() {
   const DAILY_GOAL_MIN = 15
   const goalPct = Math.min(100, Math.round((todayMinutes / DAILY_GOAL_MIN) * 100))
   const goalMet = todayMinutes >= DAILY_GOAL_MIN
+
+  const { lang, setLang, t } = useLang()
+  const isEn = lang === 'en'
 
   const handleGenderSelect = (g) => { setGender(g); setGenderState(g) }
   const toggleGender = () => {
@@ -337,11 +368,11 @@ function App() {
       {!gender && <GenderPicker onSelect={handleGenderSelect} />}
 
       {/* ===== HEADER ===== */}
-      <header className={`header${headerCollapsed ? ' header--collapsed' : ''}`}>
+      <header className={`header${headerCollapsed ? ' header--collapsed' : ''}`} dir={isEn ? 'ltr' : 'rtl'}>
         <button
           className="header-collapse-toggle"
           onClick={() => setHeaderCollapsed(c => !c)}
-          title={headerCollapsed ? 'הרחב כותרת' : 'כווץ כותרת'}
+          title={headerCollapsed ? t('expand_header') : t('collapse_header')}
         >
           {headerCollapsed ? '\u25BC' : '\u25B2'}
         </button>
@@ -349,11 +380,11 @@ function App() {
         <div className="header-collapsible">
           <div className="header-top">
             <div className="header-title-wrap">
-              <button className="track-back-btn" onClick={handleBackToTracks} title="כל המסלולים">
-                כל המסלולים →
+              <button className="track-back-btn" onClick={handleBackToTracks} title={t('all_tracks')}>
+                {t('all_tracks')}
               </button>
               <h1 style={{ color: activeTrack.color }}>
-                {activeTrack.icon} {activeTrack.title}
+                {activeTrack.icon} {trackI18n(activeTrack, 'title', t, lang)}
               </h1>
             </div>
             <div className="header-stats">
@@ -361,24 +392,31 @@ function App() {
                 <span className="stat-num">{xp}</span>
                 <span className="stat-label">{level.emoji} XP</span>
               </div>
-              <div className="stat-chip stat-progress" title={`${totalRead} מתוך ${totalPagesAllChapters} עמודים · ${completedChapters}/${trackChapters.length} פרקים`}>
+              <div className="stat-chip stat-progress" title={`${totalRead} ${t('pages_of')} ${totalPagesAllChapters}`}>
                 <span className="stat-num">{overallPct}%</span>
-                <span className="stat-label">📖 התקדמות</span>
+                <span className="stat-label">{t('stat_progress')}</span>
               </div>
-              <div className={`stat-chip stat-time${todayMinutes > 0 ? ' active' : ''}`} title="זמן לימוד היום">
+              <div className={`stat-chip stat-time${todayMinutes > 0 ? ' active' : ''}`}>
                 <span className="stat-num" dir="ltr">{formatMinutes(todayMinutes)}</span>
-                <span className="stat-label">⏱️ היום</span>
+                <span className="stat-label">{t('stat_today')}</span>
               </div>
-              <div className="stat-chip" title={`רצף ${streak} ימי לימוד`}>
+              <div className="stat-chip">
                 <span className="stat-num">{streak}</span>
-                <span className="stat-label">🔥 ימים</span>
+                <span className="stat-label">{t('stat_streak')}</span>
               </div>
+              <button
+                className="lang-toggle-btn"
+                onClick={() => setLang(isEn ? 'he' : 'en')}
+                title={isEn ? t('lang_tooltip_en') : t('lang_tooltip_he')}
+              >
+                {t('lang_toggle')}
+              </button>
               {gender && (
-                <button className="gender-toggle-btn" onClick={toggleGender} title="החלף פנייה">
+                <button className="gender-toggle-btn" onClick={toggleGender} title={t('toggle_gender')}>
                   {gender === 'female' ? '👩' : '👨'}
                 </button>
               )}
-              <button className="reset-settings-btn" onClick={() => setShowResetModal(true)} title="הגדרות ואיפוס">
+              <button className="reset-settings-btn" onClick={() => setShowResetModal(true)} title={t('settings')}>
                 ⚙️
               </button>
             </div>
@@ -388,7 +426,7 @@ function App() {
           <div className="level-bar-wrap">
             <div className="level-label">
               <span>{level.emoji} {levelName}</span>
-              {nextLevel && <span className="level-next">← {nextLevelName} ({nextLevel.min - xp} XP נותרו)</span>}
+              {nextLevel && <span className="level-next">{isEn ? '→' : '←'} {nextLevelName} ({nextLevel.min - xp} {t('xp_remaining')})</span>}
             </div>
             <div className="level-bar">
               <div className="level-fill" style={{ width: `${lvlProgress}%` }} />
@@ -398,7 +436,7 @@ function App() {
           {/* Daily goal bar */}
           <div className="daily-goal-wrap">
             <span className="daily-goal-label">
-              {goalMet ? '🎯 מטרה יומית הושגה!' : `🎯 מטרה יומית: ${formatMinutes(todayMinutes)} / ${DAILY_GOAL_MIN} ד'`}
+              {goalMet ? t('daily_goal_met') : `${t('daily_goal_pre')} ${formatMinutes(todayMinutes)} / ${DAILY_GOAL_MIN}m`}
               {goalMet && <span className="daily-goal-done"> 🏆</span>}
             </span>
             <div className="daily-goal-bar">
@@ -409,13 +447,13 @@ function App() {
 
         {/* Tab navigation */}
         <div className="app-tabs">
-          {TABS.map(t => (
+          {TAB_KEYS.map(key => (
             <button
-              key={t.key}
-              className={`app-tab ${activeTab === t.key ? 'active' : ''}`}
-              onClick={() => { setActiveTab(t.key); if (t.key !== 'quiz') setQuizAutoStart(null) }}
+              key={key}
+              className={`app-tab ${activeTab === key ? 'active' : ''}`}
+              onClick={() => { setActiveTab(key); if (key !== 'quiz') setQuizAutoStart(null) }}
             >
-              {t.label}
+              {t(TAB_I18N[key])}
             </button>
           ))}
         </div>
@@ -427,7 +465,7 @@ function App() {
       {/* ===== LEVEL UP ===== */}
       {levelUp && (
         <div className="levelup-toast">
-          {levelUp.emoji} עלית רמה! {getLevelName(levelUp, gender)}
+          {levelUp.emoji} {t('level_up')} {getLevelName(levelUp, gender)}
         </div>
       )}
 
@@ -447,10 +485,13 @@ function App() {
       )}
 
       {/* ===== LEARN ===== */}
-      {activeTab === 'learn' && (
-        <div className="layout">
+      {activeTab === 'learn' && (() => {
+        const pc = usePageContent(page, lang)
+        const chTitle = isEn && chapter?.titleEn ? chapter.titleEn : chapter?.title
+        return (
+        <div className="layout" dir={isEn ? 'ltr' : 'rtl'}>
           <nav className={`sidebar${mobileShowContent ? ' sidebar--mobile-hidden' : ''}`}>
-            <h3>תוכן העניינים</h3>
+            <h3>{t('table_of_contents')}</h3>
             {trackChapters.map((ch, i) => {
               const compositeId = trackChapterId(activeTrack.id, ch.id)
               const prog = getChapterProgress(compositeId, ch.pages.length)
@@ -460,10 +501,10 @@ function App() {
                   className={`chapter-btn ${i === currentChapter ? 'active' : ''}`}
                   onClick={() => goToChapter(i)}
                 >
-                  <span className="chapter-num">פרק {i + 1}</span>
-                  <span className="chapter-title">{ch.title}</span>
+                  <span className="chapter-num">{t('chapter')} {i + 1}</span>
+                  <span className="chapter-title">{isEn && ch.titleEn ? ch.titleEn : ch.title}</span>
                   <div className="chapter-footer">
-                    <span className="chapter-pages">{ch.pages.length} עמודים</span>
+                    <span className="chapter-pages">{ch.pages.length} {t('pages')}</span>
                     {prog > 0 && (
                       <div className="chapter-prog-bar">
                         <div className="chapter-prog-fill" style={{ width: `${prog}%` }} />
@@ -475,7 +516,7 @@ function App() {
               )
             })}
             <div className="page-nav-mini">
-              עמוד {currentPage + 1} מתוך {totalPages}
+              {t('page_word')} {currentPage + 1} {t('page_of')} {totalPages}
             </div>
           </nav>
 
@@ -484,25 +525,25 @@ function App() {
               className="mobile-menu-back-btn"
               onClick={() => setMobileShowContent(false)}
             >
-              רשימת פרקים →
+              {t('chapter_list')}
             </button>
             <div className="page-header">
               <span className="page-type-badge" style={getBadgeStyle(page.type)}>
-                {getPageTypeLabel(page.type)}
+                {getPageTypeLabel(page.type, t)}
               </span>
-              {pageRead && <span className="page-read-badge">✅ נקרא</span>}
-              <h2>{page.title}</h2>
+              {pageRead && <span className="page-read-badge">{t('page_read')}</span>}
+              <h2>{pc.title}</h2>
             </div>
 
             <article key={`${currentChapter}-${currentPage}`} className="page-content">
               {page.type === 'questions' ? (
-                <QuestionsPage questions={page.questions} gender={gender} />
+                <QuestionsPage questions={page.questions} gender={gender} lang={lang} t={t} />
               ) : page.type === 'simulation' ? (
-                <SimulationPage simId={page.simId} content={page.content} />
+                <SimulationPage simId={page.simId} content={pc.content} t={t} />
               ) : page.type === 'thinkOutside' ? (
-                <ThinkOutsidePage page={page} />
+                <ThinkOutsidePage page={page} lang={lang} />
               ) : (
-                <div className="content-body" dangerouslySetInnerHTML={{ __html: processHtmlBidi(page.content) }} />
+                <div className="content-body" dangerouslySetInnerHTML={{ __html: isEn && page.contentEn ? page.contentEn : processHtmlBidi(page.content) }} />
               )}
             </article>
 
@@ -515,19 +556,20 @@ function App() {
                     setActiveTab('quiz')
                   }}
                 >
-                  🎯 עבור לחידון של הפרק
+                  {t('go_to_quiz')}
                 </button>
               </div>
             )}
 
             <nav className="page-navigation">
-              <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>הקודם →</button>
-              <span className="page-counter">פרק {currentChapter + 1} | {currentPage + 1}/{totalPages}</span>
-              <button className="nav-btn next" onClick={goNext} disabled={!canGoNext}>← הבא</button>
+              <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>{t('prev_btn')}</button>
+              <span className="page-counter">{t('chapter')} {currentChapter + 1} | {currentPage + 1}/{totalPages}</span>
+              <button className="nav-btn next" onClick={goNext} disabled={!canGoNext}>{t('next_btn')}</button>
             </nav>
           </main>
         </div>
-      )}
+        )
+      })()}
 
       {activeTab === 'quiz' && (
         <div className="tab-content">
@@ -585,7 +627,12 @@ function getBadgeStyle(type) {
   return styles[type] || styles.explanation
 }
 
-function getPageTypeLabel(type) {
+function getPageTypeLabel(type, t) {
+  if (t) {
+    const key = `type_${type}`
+    const val = t(key)
+    if (val !== key) return val
+  }
   const labels = {
     explanation: '📖 הסבר',
     demo: '💡 הדגמה',
@@ -600,7 +647,7 @@ function getPageTypeLabel(type) {
   return labels[type] || '📖 הסבר'
 }
 
-function SimulationPage({ simId, content }) {
+function SimulationPage({ simId, content, t }) {
   const sims = {
     tcpHandshake: TCPHandshakeSim,
     encapsulation: EncapsulationSim,
@@ -618,7 +665,7 @@ function SimulationPage({ simId, content }) {
   return (
     <div className="content-body">
       {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
-      {SimComponent ? <SimComponent /> : <p>הדמיה לא זמינה</p>}
+      {SimComponent ? <SimComponent /> : <p>{t ? t('sim_unavailable') : 'Simulation not available'}</p>}
     </div>
   )
 }
@@ -636,10 +683,13 @@ function ThinkOutsidePage({ page }) {
   )
 }
 
-function QuestionsPage({ questions, gender }) {
+function QuestionsPage({ questions, gender, lang, t: tProp }) {
+  const langCtx = useLang()
+  const t = tProp || langCtx.t
+  const isEn = (lang || langCtx.lang) === 'en'
   const [openIndex, setOpenIndex] = useState(null)
   const allOpen = openIndex === 'all'
-  const intro = gender === 'male' ? 'קרא, חשוב, ואז פתח את התשובה:' : 'קראי, חשבי, ואז פתחי את התשובה:'
+  const intro = isEn ? t('questions_intro_male') : (gender === 'male' ? t('questions_intro_male') : t('questions_intro_female'))
 
   return (
     <div className="questions-container">
@@ -650,7 +700,7 @@ function QuestionsPage({ questions, gender }) {
           className="questions-toggle-all"
           onClick={() => setOpenIndex(allOpen ? null : 'all')}
         >
-          {allOpen ? '🔼 סגור הכל' : '🔽 פתח הכל'}
+          {allOpen ? t('close_all') : t('open_all')}
         </button>
       </div>
       {questions.map((item, i) => (
@@ -659,14 +709,14 @@ function QuestionsPage({ questions, gender }) {
             className="question-trigger"
             onClick={() => setOpenIndex(openIndex === i ? null : allOpen ? null : i)}
           >
-            <span className="q-number">שאלה {i + 1}</span>
-            <span className="q-text" dir="rtl">{renderBidiText(item.q)}</span>
+            <span className="q-number">{t('question')} {i + 1}</span>
+            <span className="q-text" dir={isEn ? 'ltr' : 'rtl'}>{isEn && item.qEn ? item.qEn : renderBidiText(item.q)}</span>
             <span className="expand-icon">{(openIndex === i || allOpen) ? '▼' : '▶'}</span>
           </button>
           {(openIndex === i || allOpen) && (
             <div className="answer-block">
-              <h4>💬 תשובה:</h4>
-              <p dir="rtl">{renderBidiText(item.a)}</p>
+              <h4>{t('answer')}</h4>
+              <p dir={isEn ? 'ltr' : 'rtl'}>{isEn && item.aEn ? item.aEn : renderBidiText(item.a)}</p>
             </div>
           )}
         </div>
@@ -676,49 +726,50 @@ function QuestionsPage({ questions, gender }) {
 }
 
 function ResetModal({ onClose, onReset, gender }) {
+  const { t } = useLang()
   const isMale = gender === 'male'
   return (
     <div className="reset-overlay" onClick={onClose}>
       <div className="reset-modal" onClick={e => e.stopPropagation()}>
         <div className="reset-modal-header">
           <span className="reset-modal-icon">⚙️</span>
-          <h3>הגדרות ואיפוס</h3>
+          <h3>{t('reset_title')}</h3>
           <button className="reset-modal-close" onClick={onClose}>✕</button>
         </div>
-        <p className="reset-modal-desc" dir="rtl">
-          {isMale ? 'בחר מה לאפס:' : 'בחרי מה לאפס:'}
+        <p className="reset-modal-desc">
+          {isMale ? t('reset_prompt_male') : t('reset_prompt_female')}
         </p>
         <div className="reset-options">
           <button className="reset-option-btn" onClick={() => onReset('xp')}>
             <span className="reset-opt-icon">⭐</span>
             <div>
-              <div className="reset-opt-title">XP ורמה</div>
-              <div className="reset-opt-sub">מאפס ניקוד ורמה בלבד</div>
+              <div className="reset-opt-title">{t('reset_xp_title')}</div>
+              <div className="reset-opt-sub">{t('reset_xp_sub')}</div>
             </div>
           </button>
           <button className="reset-option-btn" onClick={() => onReset('progress')}>
             <span className="reset-opt-icon">📖</span>
             <div>
-              <div className="reset-opt-title">התקדמות קריאה</div>
-              <div className="reset-opt-sub">מאפס עמודים שנקראו</div>
+              <div className="reset-opt-title">{t('reset_progress_title')}</div>
+              <div className="reset-opt-sub">{t('reset_progress_sub')}</div>
             </div>
           </button>
           <button className="reset-option-btn" onClick={() => onReset('quiz')}>
             <span className="reset-opt-icon">🎯</span>
             <div>
-              <div className="reset-opt-title">ניקודי חידון</div>
-              <div className="reset-opt-sub">מאפס תוצאות חידונים</div>
+              <div className="reset-opt-title">{t('reset_quiz_title')}</div>
+              <div className="reset-opt-sub">{t('reset_quiz_sub')}</div>
             </div>
           </button>
           <button className="reset-option-btn reset-option-all" onClick={() => {
-            if (window.confirm(isMale ? 'לאפס הכל? הפעולה בלתי הפיכה.' : 'לאפס הכל? הפעולה בלתי הפיכה.')) {
+            if (window.confirm(isMale ? t('reset_confirm_male') : t('reset_confirm_female'))) {
               onReset('all')
             }
           }}>
             <span className="reset-opt-icon">🔄</span>
             <div>
-              <div className="reset-opt-title">איפוס מלא</div>
-              <div className="reset-opt-sub">מאפס הכל — XP, קריאה וחידונים</div>
+              <div className="reset-opt-title">{t('reset_all_title')}</div>
+              <div className="reset-opt-sub">{t('reset_all_sub')}</div>
             </div>
           </button>
         </div>
