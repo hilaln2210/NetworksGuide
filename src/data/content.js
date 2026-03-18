@@ -1588,12 +1588,12 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p><strong>מסגרת <code>Ethernet</code></strong> — <code>Ethernet Frame</code></p>
           <p>מורכבת מהשדות הבאים:</p>
           <ul>
-            <li><strong>Preamble</strong> — סינכרון בין השולח למקבל</li>
-            <li><strong>Destination MAC</strong> — 6 בתים — כתובת היעד</li>
-            <li><strong>Source MAC</strong> — 6 בתים — כתובת המקור</li>
-            <li><strong>EtherType</strong> — סוג הפרוטוקול שבפנים — למשל <code>IPv4</code>, <code>ARP</code></li>
-            <li><strong>Payload</strong> — החבילה משכבת הרשת</li>
-            <li><strong>FCS</strong> — <code>Frame Check Sequence</code> — בדיקת שגיאות באמצעות <code>CRC</code></li>
+            <li><strong><code>Preamble</code></strong> — סינכרון בין השולח למקבל</li>
+            <li><strong><code>Destination MAC</code></strong> — 6 בתים — כתובת היעד</li>
+            <li><strong><code>Source MAC</code></strong> — 6 בתים — כתובת המקור</li>
+            <li><strong><code>EtherType</code></strong> — סוג הפרוטוקול שבפנים — למשל <code>IPv4</code>, <code>ARP</code></li>
+            <li><strong><code>Payload</code></strong> — החבילה משכבת הרשת</li>
+            <li><strong><code>FCS</code></strong> — <code>Frame Check Sequence</code> — בדיקת שגיאות באמצעות <code>CRC</code></li>
           </ul>
           <p>גודל מינימלי — 64 בתים.</p>
           <p>גודל מקסימלי — 1518 בתים.</p>
@@ -1613,10 +1613,10 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           </div>
           <p class="demo-note">📋 פירוש השדות:</p>
           <ul>
-            <li><strong>IPv4</strong> — כתובת המחשב ברשת.</li>
-            <li><strong>Subnet Mask</strong> — גבול הרשת המקומית.</li>
-            <li><strong>Default Gateway</strong> — הנתב שמחבר לאינטרנט.</li>
-            <li><strong>Physical Address</strong> — כתובת ה־MAC של כרטיס הרשת.</li>
+            <li><strong><code>IPv4</code></strong> — כתובת המחשב ברשת.</li>
+            <li><strong><code>Subnet Mask</code></strong> — גבול הרשת המקומית.</li>
+            <li><strong><code>Default Gateway</code></strong> — הנתב שמחבר לאינטרנט.</li>
+            <li><strong><code>Physical Address</code></strong> — כתובת ה־<code>MAC</code> של כרטיס הרשת.</li>
           </ul>
         `
       },
@@ -1624,14 +1624,14 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "פרוטוקול ARP",
         content: `
-          <p><strong>ARP</strong> — <code>Address Resolution Protocol</code></p>
+          <p><strong><code>ARP</code></strong> — <code>Address Resolution Protocol</code></p>
           <p>ממיר כתובת <code>IP</code> לכתובת <code>MAC</code>.</p>
           <p>התהליך עובד כך:</p>
           <ol>
             <li>המחשב רוצה לשלוח ל-<code>192.168.1.1</code> אבל לא יודע את כתובת ה-<code>MAC</code> שלו</li>
-            <li>שולח <strong>ARP Request</strong> ב-<code>Broadcast</code> לכל הרשת — "למי יש <code>192.168.1.1</code>?"</li>
-            <li>הנתב עונה ב-<strong>ARP Reply</strong> — <code>Unicast</code> — עם כתובת ה-<code>MAC</code> שלו</li>
-            <li>המיפוי נשמר ב-<strong>ARP Cache</strong> לשימוש עתידי</li>
+            <li>שולח <strong><code>ARP Request</code></strong> ב-<code>Broadcast</code> לכל הרשת — "למי יש <code>192.168.1.1</code>?"</li>
+            <li>הנתב עונה ב-<strong><code>ARP Reply</code></strong> — <code>Unicast</code> — עם כתובת ה-<code>MAC</code> שלו</li>
+            <li>המיפוי נשמר ב-<strong><code>ARP Cache</code></strong> לשימוש עתידי</li>
           </ol>
           <p>הפקודה <code>arp -a</code> מציגה את טבלת ה-<code>ARP Cache</code>.</p>
         `
@@ -1675,17 +1675,17 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         title: "Hub, Switch, Router",
         content: `
           <p>שלושה רכיבי רשת מרכזיים, כל אחד עובד בשכבה אחרת:</p>
-          <p><strong>Hub</strong> — שכבה 1</p>
+          <p><strong><code>Hub</code></strong> — שכבה 1</p>
           <p>לא מכיר כתובות. מעביר כל מידע לכל המכשירים המחוברים.</p>
-          <p><strong>Switch</strong> — שכבה 2</p>
+          <p><strong><code>Switch</code></strong> — שכבה 2</p>
           <p>מכיר כתובות <code>MAC</code>. מעביר מידע רק ליעד הנכון.</p>
-          <p><strong>Router</strong> — שכבה 3</p>
+          <p><strong><code>Router</code></strong> — שכבה 3</p>
           <p>מכיר כתובות <code>IP</code>. מנתב חבילות בין רשתות שונות.</p>
           <table class="content-table">
             <tr><th>רכיב</th><th>שכבה</th><th>כתובות</th></tr>
-            <tr><td>Hub</td><td>פיזית</td><td>לא מכיר</td></tr>
-            <tr><td>Switch</td><td>קו</td><td>MAC</td></tr>
-            <tr><td>Router</td><td>רשת</td><td>IP</td></tr>
+            <tr><td><code>Hub</code></td><td>פיזית</td><td>לא מכיר</td></tr>
+            <tr><td><code>Switch</code></td><td>קו</td><td><code>MAC</code></td></tr>
+            <tr><td><code>Router</code></td><td>רשת</td><td><code>IP</code></td></tr>
           </table>
         `
       },
@@ -1722,7 +1722,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>יש לו טבלת ניתוב שמגדירה לכל יעד לאן לשלוח.</p>
           <p><strong>תהליך העבודה:</strong></p>
           <ol>
-            <li>ה-Router מקבל חבילת IP</li>
+            <li>ה-<code>Router</code> מקבל חבילת <code>IP</code></li>
             <li>בודק את <code>Destination IP</code></li>
             <li>מחפש התאמה בטבלת הניתוב</li>
             <li>מעביר לנתב הבא או למחשב ברשת המקומית</li>
@@ -1733,7 +1733,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "VLAN – רשת מקומית וירטואלית",
         content: `
-          <p><strong>VLAN</strong> — <code>Virtual LAN</code></p>
+          <p><strong><code>VLAN</code></strong> — <code>Virtual LAN</code></p>
           <p>מאפשר לחלק <code>Switch</code> פיזי אחד לכמה רשתות לוגיות נפרדות.</p>
           <p>כל פורט ב-<code>Switch</code> משויך ל-<code>VLAN</code> מסוים.</p>
           <p>מחשבים באותו <code>VLAN</code> מתקשרים ביניהם.</p>
@@ -1760,16 +1760,16 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             </svg>
             <p class="diagram-caption">Switch אחד, שתי רשתות לוגיות – לא מדברים בינהן</p>
           </div>
-          <p><strong>יתרונות VLAN:</strong></p>
+          <p><strong>יתרונות <code>VLAN</code>:</strong></p>
           <ul>
             <li><strong>אבטחה</strong> — מחלקת IT נפרדת ממחלקת הנהלה, למשל</li>
             <li><strong>ביצועים</strong> — <code>Broadcast</code> מוגבל ל-<code>VLAN</code> אחד, לא מציף את כולם</li>
             <li><strong>גמישות</strong> — שינוי <code>VLAN</code> בתוכנה, לא צריך לחבר כבלים מחדש</li>
           </ul>
-          <p><strong>תקשורת בין VLANs</strong></p>
+          <p><strong>תקשורת בין <code>VLAN</code>s</strong></p>
           <p>מחייבת <code>Router</code> או <code>L3 Switch</code> — כי מדובר ברשתות IP שונות.</p>
 
-          <p><strong>Trunk</strong></p>
+          <p><strong><code>Trunk</code></strong></p>
           <p>פורט ב-<code>Switch</code> שנושא תעבורת כמה <code>VLAN</code>-ים בו-זמנית.</p>
           <p>משמש לחיבור בין <code>Switch</code>-ים.</p>
           <p>כל <code>Frame</code> שעובר דרך <code>Trunk</code> מקבל תג <code>VLAN</code> לפי תקן <code>802.1Q</code>.</p>
@@ -1780,23 +1780,23 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "Firewall – חומת אש",
         content: `
-          <p><strong>Firewall</strong> — חומת אש</p>
+          <p><strong><code>Firewall</code></strong> — חומת אש</p>
           <p>מנגנון שמסנן תעבורת רשת לפי חוקים.</p>
           <p>מחליט מה מותר לעבור ומה נחסם.</p>
 
-          <p><strong>סוגי Firewall:</strong></p>
+          <p><strong>סוגי <code>Firewall</code>:</strong></p>
 
-          <p><strong>Stateless Firewall</strong> — <code>Packet Filter</code></p>
+          <p><strong><code>Stateless Firewall</code></strong> — <code>Packet Filter</code></p>
           <p>בודק כל חבילה בנפרד לפי <code>IP</code> מקור/יעד, פורט ופרוטוקול.</p>
           <p>לא זוכר מצב של חיבורים קודמים.</p>
           <p>פשוט ומהיר, אבל פחות חכם.</p>
 
-          <p><strong>Stateful Firewall</strong></p>
+          <p><strong><code>Stateful Firewall</code></strong></p>
           <p>עוקב אחר חיבורים באמצעות <code>State Table</code>.</p>
           <p>אם יצאה בקשה מהרשת הפנימית — התשובה מותרת לחזור אוטומטית.</p>
           <p>ניסיונות חיבור חיצוניים שלא קשורים לבקשה פנימית — נחסמים.</p>
 
-          <p><strong>Application Layer Firewall</strong> — <code>WAF</code></p>
+          <p><strong><code>Application Layer Firewall</code></strong> — <code>WAF</code></p>
           <p>מבין את תוכן ה-<code>HTTP</code>.</p>
           <p>חוסם התקפות כמו <code>SQL Injection</code>, <code>XSS</code> ועוד.</p>
           <div class="diagram-container">
@@ -1814,7 +1814,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             </svg>
             <p class="diagram-caption">Firewall יושב בין הרשת הפנימית לאינטרנט</p>
           </div>
-          <p><strong>ACL</strong> — <code>Access Control List</code></p>
+          <p><strong><code>ACL</code></strong> — <code>Access Control List</code></p>
           <p>רשימת חוקי סינון.</p>
           <p><strong>דוגמה:</strong></p>
           <ul>
@@ -1823,7 +1823,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           </ul>
           <p>הסדר חשוב: הכלל הראשון שמתאים לחבילה הוא זה שקובע.</p>
 
-          <p><strong>DMZ</strong> — <code>Demilitarized Zone</code></p>
+          <p><strong><code>DMZ</code></strong> — <code>Demilitarized Zone</code></p>
           <p>אזור רשת נפרד המיועד לשרתים ציבוריים — כמו שרת <code>Web</code> ושרת <code>Email</code>.</p>
           <p>ה-<code>DMZ</code> לא נמצא ברשת הפנימית ולא חשוף ישירות לאינטרנט.</p>
           <p>מוגן משני הצדדים.</p>
@@ -2339,13 +2339,13 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         content: `
           <p><strong>ריבוי לקוחות</strong></p>
           <p>שרת בסיסי מטפל בלקוח אחד בלבד.</p>
-          <p>הסיבה — הפונקציות <code>accept()</code> ו-<code>recv()</code> הן <strong>blocking</strong>.</p>
+          <p>הסיבה — הפונקציות <code>accept()</code> ו-<code>recv()</code> הן <strong><code>blocking</code></strong>.</p>
           <p>הן עוצרות את התוכנית עד שמגיע מידע.</p>
           <p><strong>פתרונות לטיפול בכמה לקוחות בו-זמנית</strong></p>
           <ul>
-            <li><strong>select</strong> — בודק כמה <code>Sockets</code> ומחזיר את אלה שמוכנים לפעולה</li>
-            <li><strong>threading</strong> — יוצר תהליך נפרד לכל לקוח</li>
-            <li><strong>asyncio</strong> — תכנות אסינכרוני עם <code>event loop</code> אחד</li>
+            <li><strong><code>select</code></strong> — בודק כמה <code>Sockets</code> ומחזיר את אלה שמוכנים לפעולה</li>
+            <li><strong><code>threading</code></strong> — יוצר תהליך נפרד לכל לקוח</li>
+            <li><strong><code>asyncio</code></strong> — תכנות אסינכרוני עם <code>event loop</code> אחד</li>
           </ul>
         `
       },
@@ -2358,8 +2358,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>כך שרת אחד יכול להאזין ל-<code>accept</code> על <code>Socket</code> אחד ובמקביל לקבל מידע מלקוחות קיימים — בלי לחסום.</p>
           <p><strong>אלטרנטיבות</strong></p>
           <ul>
-            <li><strong>threading</strong> — <code>Thread</code> נפרד לכל לקוח</li>
-            <li><strong>asyncio</strong> — תכנות אסינכרוני עם <code>event loop</code> אחד</li>
+            <li><strong><code>threading</code></strong> — <code>Thread</code> נפרד לכל לקוח</li>
+            <li><strong><code>asyncio</code></strong> — תכנות אסינכרוני עם <code>event loop</code> אחד</li>
           </ul>
         `
       },
@@ -2428,7 +2428,7 @@ while True:
         type: "explanation",
         title: "Python 3 – Encoding וBytes",
         content: `
-          <p>ב-<code>Python 3</code>, הפונקציות <code>send()</code> ו-<code>recv()</code> עובדות עם <strong>bytes</strong> — לא מחרוזות.</p>
+          <p>ב-<code>Python 3</code>, הפונקציות <code>send()</code> ו-<code>recv()</code> עובדות עם <strong><code>bytes</code></strong> — לא מחרוזות.</p>
           <p>כל טקסט חייב להיות מקודד לפני שליחה ומפוענח אחרי קבלה.</p>
           <div class="code-preview">
             <pre><code># שליחה – המרת string ל-bytes
@@ -2584,28 +2584,28 @@ asyncio.run(main())</code></pre>
         content: `
           <table class="content-table">
             <tr><th>מונח</th><th>הסבר</th></tr>
-            <tr><td>ACK</td><td>Acknowledgment — אישור קבלת נתונים ב-TCP</td></tr>
-            <tr><td>Anycast</td><td>אותה IP ב-BGP ממקומות רבים — נתב ל-PoP הקרוב. CDN, DNS</td></tr>
-            <tr><td>API Gateway</td><td>נקודת כניסה אחת לכל ה-microservices — Auth, routing, rate limiting</td></tr>
-            <tr><td>ARP</td><td>Address Resolution Protocol — המרת IP ל-MAC ברשת מקומית</td></tr>
-            <tr><td>Bandwidth</td><td>קצב העברה מקסימלי תיאורטי — Mbps, Gbps</td></tr>
-            <tr><td>BBR</td><td>TCP Congestion algorithm של Google — מדד bandwidth ולא אובדן</td></tr>
-            <tr><td>BGP</td><td>Border Gateway Protocol — פרוטוקול ניתוב בין AS-ים באינטרנט</td></tr>
-            <tr><td>Broadcast</td><td>שליחה לכולם ברשת. MAC: FF:FF:FF:FF:FF:FF. IPv6: אין — יש Multicast</td></tr>
-            <tr><td>CA</td><td>Certificate Authority — גוף שחותם על אישורי TLS — DigiCert, Let's Encrypt</td></tr>
-            <tr><td>CDN</td><td>Content Delivery Network — רשת Edge Nodes גלובלית לתוכן קרוב למשתמש</td></tr>
-            <tr><td>CIDR</td><td>Classless Inter-Domain Routing — סימון /prefix לרשתות — 192.168.1.0/24</td></tr>
-            <tr><td>CNAME</td><td>DNS Record — alias — שם → שם. www.x.com → x.com</td></tr>
-            <tr><td>Congestion Window — cwnd</td><td>ב-TCP — כמה בתים השולח שולח ללא ACK בהתאם לעומס רשת</td></tr>
-            <tr><td>Default Gateway</td><td>IP של הנתב המקומי – היעד לכל תעבורה מחוץ לרשת</td></tr>
-            <tr><td>DHCP</td><td>Dynamic Host Configuration Protocol — הקצאת IP, Subnet, Gateway, DNS אוטומטית</td></tr>
-            <tr><td>DMZ</td><td>Demilitarized Zone — אזור רשת מוגן לשרתים ציבוריים — Web, Email</td></tr>
-            <tr><td>DNS</td><td>Domain Name System — מיפוי שם דומיין ל-IP. היררכי: Root → TLD → Authoritative</td></tr>
-            <tr><td>DoH</td><td>DNS over HTTPS — DNS מוצפן על פורט 443</td></tr>
-            <tr><td>DoT</td><td>DNS over TLS — DNS מוצפן על פורט 853</td></tr>
-            <tr><td>Dual-Stack</td><td>הפעלת IPv4 ו-IPv6 בו-זמנית על אותו ממשק</td></tr>
-            <tr><td>Encapsulation</td><td>הוספת Header של שכבה — כל שכבה עוטפת את מעלה</td></tr>
-            <tr><td>ESP</td><td>Encapsulating Security Payload — הצפנה + אימות ב-IPsec</td></tr>
+            <tr><td><code>ACK</code></td><td>Acknowledgment — אישור קבלת נתונים ב-TCP</td></tr>
+            <tr><td><code>Anycast</code></td><td>אותה IP ב-BGP ממקומות רבים — נתב ל-PoP הקרוב. CDN, DNS</td></tr>
+            <tr><td><code>API Gateway</code></td><td>נקודת כניסה אחת לכל ה-microservices — Auth, routing, rate limiting</td></tr>
+            <tr><td><code>ARP</code></td><td>Address Resolution Protocol — המרת IP ל-MAC ברשת מקומית</td></tr>
+            <tr><td><code>Bandwidth</code></td><td>קצב העברה מקסימלי תיאורטי — Mbps, Gbps</td></tr>
+            <tr><td><code>BBR</code></td><td>TCP Congestion algorithm של Google — מדד bandwidth ולא אובדן</td></tr>
+            <tr><td><code>BGP</code></td><td>Border Gateway Protocol — פרוטוקול ניתוב בין AS-ים באינטרנט</td></tr>
+            <tr><td><code>Broadcast</code></td><td>שליחה לכולם ברשת. MAC: FF:FF:FF:FF:FF:FF. IPv6: אין — יש Multicast</td></tr>
+            <tr><td><code>CA</code></td><td>Certificate Authority — גוף שחותם על אישורי TLS — DigiCert, Let's Encrypt</td></tr>
+            <tr><td><code>CDN</code></td><td>Content Delivery Network — רשת Edge Nodes גלובלית לתוכן קרוב למשתמש</td></tr>
+            <tr><td><code>CIDR</code></td><td>Classless Inter-Domain Routing — סימון /prefix לרשתות — 192.168.1.0/24</td></tr>
+            <tr><td><code>CNAME</code></td><td>DNS Record — alias — שם → שם. www.x.com → x.com</td></tr>
+            <tr><td><code>Congestion Window — cwnd</code></td><td>ב-TCP — כמה בתים השולח שולח ללא ACK בהתאם לעומס רשת</td></tr>
+            <tr><td><code>Default Gateway</code></td><td>IP של הנתב המקומי – היעד לכל תעבורה מחוץ לרשת</td></tr>
+            <tr><td><code>DHCP</code></td><td>Dynamic Host Configuration Protocol — הקצאת IP, Subnet, Gateway, DNS אוטומטית</td></tr>
+            <tr><td><code>DMZ</code></td><td>Demilitarized Zone — אזור רשת מוגן לשרתים ציבוריים — Web, Email</td></tr>
+            <tr><td><code>DNS</code></td><td>Domain Name System — מיפוי שם דומיין ל-IP. היררכי: Root → TLD → Authoritative</td></tr>
+            <tr><td><code>DoH</code></td><td>DNS over HTTPS — DNS מוצפן על פורט 443</td></tr>
+            <tr><td><code>DoT</code></td><td>DNS over TLS — DNS מוצפן על פורט 853</td></tr>
+            <tr><td><code>Dual-Stack</code></td><td>הפעלת IPv4 ו-IPv6 בו-זמנית על אותו ממשק</td></tr>
+            <tr><td><code>Encapsulation</code></td><td>הוספת Header של שכבה — כל שכבה עוטפת את מעלה</td></tr>
+            <tr><td><code>ESP</code></td><td>Encapsulating Security Payload — הצפנה + אימות ב-IPsec</td></tr>
           </table>
         `
       },
@@ -2615,25 +2615,25 @@ asyncio.run(main())</code></pre>
         content: `
           <table class="content-table">
             <tr><th>מונח</th><th>הסבר</th></tr>
-            <tr><td>FTP</td><td>File Transfer Protocol — העברת קבצים. פורט 21. SFTP = SSH File Transfer Protocol — פרוטוקול נפרד מ-FTP שרץ מעל SSH, פורט 22</td></tr>
-            <tr><td>Full Duplex</td><td>שליחה וקבלה בו-זמנית. Switch מודרני. ללא התנגשויות</td></tr>
-            <tr><td>Half Duplex</td><td>כיוון אחד בכל פעם. Hub. גורם להתנגשויות — CSMA/CD</td></tr>
-            <tr><td>Handshake</td><td>TCP: SYN→SYN-ACK→ACK. TLS: Client Hello → Certificate → Key Exchange → Finished</td></tr>
-            <tr><td>HTTP/2</td><td>Multiplexing, Binary, HPACK compression — עדיין על TCP</td></tr>
-            <tr><td>HTTP/3</td><td>HTTP מעל QUIC — UDP. 0-RTT, Connection Migration, ללא HOL Blocking</td></tr>
-            <tr><td>HTTPS</td><td>HTTP over TLS. פורט 443. כל התוכן מוצפן</td></tr>
-            <tr><td>IKE</td><td>Internet Key Exchange — חילופי מפתחות ב-IPsec. UDP פורט 500</td></tr>
-            <tr><td>IMAP</td><td>Internet Message Access Protocol — קריאת מייל מסונכרנת. פורט 143/993</td></tr>
-            <tr><td>IP Fragmentation</td><td>פיצול פקטה גדולה לקטעים לפי MTU. IPv4 בנתבים. IPv6 רק במקור</td></tr>
-            <tr><td>IPsec</td><td>Internet Protocol Security — הצפנה ברמת Layer 3. Tunnel/Transport mode</td></tr>
-            <tr><td>Jitter</td><td>שינוי ב-Latency — חבילות מגיעות בזמנים לא אחידים. בעיה ל-VoIP/Video</td></tr>
-            <tr><td>Latency</td><td>זמן תגובה — כמה זמן לחבילה להגיע. נמדד ב-ms</td></tr>
-            <tr><td>Link-Local</td><td>IPv6 — fe80::/10. אוטומטי על כל ממשק. לא ניתב</td></tr>
-            <tr><td>Load Balancer</td><td>מפנה בקשות לכמה שרתים. L4 — TCP, L7 — HTTP. Round Robin, Least Connections</td></tr>
-            <tr><td>MAC</td><td>Media Access Control — כתובת פיזית 48-bit על כרטיס רשת. d4:be:d9:d6:0c:2a</td></tr>
-            <tr><td>Multicast</td><td>שליחה לקבוצה. IPv6 ff02::1 = כולם. ff02::2 = נתבים. מחליף Broadcast</td></tr>
-            <tr><td>MTU</td><td>Maximum Transmission Unit — גודל מקסימלי של Frame. Ethernet = 1500 בתים</td></tr>
-            <tr><td>MX Record</td><td>DNS Mail Exchange — מפנה מייל לשרת עם עדיפות</td></tr>
+            <tr><td><code>FTP</code></td><td>File Transfer Protocol — העברת קבצים. פורט 21. SFTP = SSH File Transfer Protocol — פרוטוקול נפרד מ-FTP שרץ מעל SSH, פורט 22</td></tr>
+            <tr><td><code>Full Duplex</code></td><td>שליחה וקבלה בו-זמנית. Switch מודרני. ללא התנגשויות</td></tr>
+            <tr><td><code>Half Duplex</code></td><td>כיוון אחד בכל פעם. Hub. גורם להתנגשויות — CSMA/CD</td></tr>
+            <tr><td><code>Handshake</code></td><td>TCP: SYN→SYN-ACK→ACK. TLS: Client Hello → Certificate → Key Exchange → Finished</td></tr>
+            <tr><td><code>HTTP/2</code></td><td>Multiplexing, Binary, HPACK compression — עדיין על TCP</td></tr>
+            <tr><td><code>HTTP/3</code></td><td>HTTP מעל QUIC — UDP. 0-RTT, Connection Migration, ללא HOL Blocking</td></tr>
+            <tr><td><code>HTTPS</code></td><td>HTTP over TLS. פורט 443. כל התוכן מוצפן</td></tr>
+            <tr><td><code>IKE</code></td><td>Internet Key Exchange — חילופי מפתחות ב-IPsec. UDP פורט 500</td></tr>
+            <tr><td><code>IMAP</code></td><td>Internet Message Access Protocol — קריאת מייל מסונכרנת. פורט 143/993</td></tr>
+            <tr><td><code>IP Fragmentation</code></td><td>פיצול פקטה גדולה לקטעים לפי MTU. IPv4 בנתבים. IPv6 רק במקור</td></tr>
+            <tr><td><code>IPsec</code></td><td>Internet Protocol Security — הצפנה ברמת Layer 3. Tunnel/Transport mode</td></tr>
+            <tr><td><code>Jitter</code></td><td>שינוי ב-Latency — חבילות מגיעות בזמנים לא אחידים. בעיה ל-VoIP/Video</td></tr>
+            <tr><td><code>Latency</code></td><td>זמן תגובה — כמה זמן לחבילה להגיע. נמדד ב-ms</td></tr>
+            <tr><td><code>Link-Local</code></td><td>IPv6 — fe80::/10. אוטומטי על כל ממשק. לא ניתב</td></tr>
+            <tr><td><code>Load Balancer</code></td><td>מפנה בקשות לכמה שרתים. L4 — TCP, L7 — HTTP. Round Robin, Least Connections</td></tr>
+            <tr><td><code>MAC</code></td><td>Media Access Control — כתובת פיזית 48-bit על כרטיס רשת. d4:be:d9:d6:0c:2a</td></tr>
+            <tr><td><code>Multicast</code></td><td>שליחה לקבוצה. IPv6 ff02::1 = כולם. ff02::2 = נתבים. מחליף Broadcast</td></tr>
+            <tr><td><code>MTU</code></td><td>Maximum Transmission Unit — גודל מקסימלי של Frame. Ethernet = 1500 בתים</td></tr>
+            <tr><td><code>MX Record</code></td><td>DNS Mail Exchange — מפנה מייל לשרת עם עדיפות</td></tr>
           </table>
         `
       },
@@ -2643,35 +2643,35 @@ asyncio.run(main())</code></pre>
         content: `
           <table class="content-table">
             <tr><th>מונח</th><th>הסבר</th></tr>
-            <tr><td>NAT</td><td>Network Address Translation — IP פרטי → ציבורי. PAT = עם פורטים</td></tr>
-            <tr><td>NAT64</td><td>תרגום IPv6 → IPv4. עם DNS64 לגישה לשרתים IPv4-only מ-IPv6-only clients</td></tr>
-            <tr><td>NDP</td><td>Neighbor Discovery Protocol — מחליף ARP ב-IPv6. NS/NA/RS/RA</td></tr>
-            <tr><td>Packet</td><td>יחידת מידע בשכבת הרשת — Layer 3. IP Packet</td></tr>
-            <tr><td>Port</td><td>0–65535. מזהה תוכנה. ידועים: 80=HTTP, 443=HTTPS, 22=SSH, 53=DNS</td></tr>
-            <tr><td>PoP</td><td>Point of Presence — מיקום פיזי של CDN. מאות בעולם</td></tr>
-            <tr><td>PTR Record</td><td>Reverse DNS — IP → שם. 8.8.8.8 → dns.google</td></tr>
-            <tr><td>QUIC</td><td>UDP-based transport. TLS 1.3 מובנה. Connection Migration. בסיס HTTP/3</td></tr>
-            <tr><td>Receive Window — rwnd</td><td>TCP Flow Control – כמה בתים המקבל יכול לקבל. מודיע בכל ACK</td></tr>
-            <tr><td>REST</td><td>API ארכיטקטורה מעל HTTP. GET/POST/PUT/PATCH/DELETE על URLs</td></tr>
-            <tr><td>RTO</td><td>Retransmission Timeout. RTO = SRTT + 4×RTTVAR. מוכפל עם כל timeout</td></tr>
-            <tr><td>SLAAC</td><td>Stateless Address Autoconfiguration – IPv6 IP מ-prefix+MAC. ללא DHCP</td></tr>
-            <tr><td>SMTP</td><td>Simple Mail Transfer Protocol — שליחת מייל. פורט 25/587</td></tr>
-            <tr><td>SOA Record</td><td>Start of Authority — מטא-נתוני זון DNS — Serial, Refresh, Retry, Expire</td></tr>
-            <tr><td>SSH</td><td>Secure Shell — גישה מרוחקת מוצפנת. פורט 22. מחליף Telnet</td></tr>
-            <tr><td>SSL/TLS</td><td>Secure Sockets Layer / Transport Layer Security — הצפנת תקשורת. HTTPS</td></tr>
-            <tr><td>Subnet Mask</td><td>מגדיר גבול רשת. /24 = 255.255.255.0 — /prefix = CIDR</td></tr>
-            <tr><td>TCP</td><td>Transmission Control Protocol — אמין, Handshake, ACK, Congestion Control</td></tr>
-            <tr><td>Throughput</td><td>קצב העברה בפועל — נמוך מ-Bandwidth בגלל overhead ואובדן</td></tr>
-            <tr><td>TLS</td><td>Transport Layer Security — הצפנה. Handshake, Certificate, AES Session Key</td></tr>
-            <tr><td>TTL</td><td>Time To Live — ב-IP: מונע לולאות — traceroute. ב-DNS: כמה זמן לcache</td></tr>
-            <tr><td>TXT Record</td><td>DNS Text Record — SPF, DKIM, אימות דומיין</td></tr>
-            <tr><td>UDP</td><td>User Datagram Protocol — מהיר, ללא ערבויות. DNS, VoIP, Games, QUIC</td></tr>
-            <tr><td>Unicast</td><td>שליחה ליעד אחד ספציפי</td></tr>
-            <tr><td>VLAN</td><td>Virtual LAN — חלוקה לוגית של Switch. Broadcast Domain נפרד</td></tr>
-            <tr><td>VPN</td><td>Virtual Private Network — מנהרה מוצפנת. IPsec, WireGuard, OpenVPN</td></tr>
-            <tr><td>WebSocket</td><td>חיבור HTTP שמתשדרג לדו-כיווני מתמשך. Chat, Real-time</td></tr>
-            <tr><td>WireGuard</td><td>VPN מינימליסטי. UDP. ChaCha20+Curve25519. Linux kernel 5.6+</td></tr>
-            <tr><td>Zero Trust</td><td>אל תאמין, תמיד אמת. כל בקשה מאומתת – גם מרשת פנימית</td></tr>
+            <tr><td><code>NAT</code></td><td>Network Address Translation — IP פרטי → ציבורי. PAT = עם פורטים</td></tr>
+            <tr><td><code>NAT64</code></td><td>תרגום IPv6 → IPv4. עם DNS64 לגישה לשרתים IPv4-only מ-IPv6-only clients</td></tr>
+            <tr><td><code>NDP</code></td><td>Neighbor Discovery Protocol — מחליף ARP ב-IPv6. NS/NA/RS/RA</td></tr>
+            <tr><td><code>Packet</code></td><td>יחידת מידע בשכבת הרשת — Layer 3. IP Packet</td></tr>
+            <tr><td><code>Port</code></td><td>0–65535. מזהה תוכנה. ידועים: 80=HTTP, 443=HTTPS, 22=SSH, 53=DNS</td></tr>
+            <tr><td><code>PoP</code></td><td>Point of Presence — מיקום פיזי של CDN. מאות בעולם</td></tr>
+            <tr><td><code>PTR Record</code></td><td>Reverse DNS — IP → שם. 8.8.8.8 → dns.google</td></tr>
+            <tr><td><code>QUIC</code></td><td>UDP-based transport. TLS 1.3 מובנה. Connection Migration. בסיס HTTP/3</td></tr>
+            <tr><td><code>Receive Window — rwnd</code></td><td>TCP Flow Control – כמה בתים המקבל יכול לקבל. מודיע בכל ACK</td></tr>
+            <tr><td><code>REST</code></td><td>API ארכיטקטורה מעל HTTP. GET/POST/PUT/PATCH/DELETE על URLs</td></tr>
+            <tr><td><code>RTO</code></td><td>Retransmission Timeout. RTO = SRTT + 4×RTTVAR. מוכפל עם כל timeout</td></tr>
+            <tr><td><code>SLAAC</code></td><td>Stateless Address Autoconfiguration – IPv6 IP מ-prefix+MAC. ללא DHCP</td></tr>
+            <tr><td><code>SMTP</code></td><td>Simple Mail Transfer Protocol — שליחת מייל. פורט 25/587</td></tr>
+            <tr><td><code>SOA Record</code></td><td>Start of Authority — מטא-נתוני זון DNS — Serial, Refresh, Retry, Expire</td></tr>
+            <tr><td><code>SSH</code></td><td>Secure Shell — גישה מרוחקת מוצפנת. פורט 22. מחליף Telnet</td></tr>
+            <tr><td><code>SSL/TLS</code></td><td>Secure Sockets Layer / Transport Layer Security — הצפנת תקשורת. HTTPS</td></tr>
+            <tr><td><code>Subnet Mask</code></td><td>מגדיר גבול רשת. /24 = 255.255.255.0 — /prefix = CIDR</td></tr>
+            <tr><td><code>TCP</code></td><td>Transmission Control Protocol — אמין, Handshake, ACK, Congestion Control</td></tr>
+            <tr><td><code>Throughput</code></td><td>קצב העברה בפועל — נמוך מ-Bandwidth בגלל overhead ואובדן</td></tr>
+            <tr><td><code>TLS</code></td><td>Transport Layer Security — הצפנה. Handshake, Certificate, AES Session Key</td></tr>
+            <tr><td><code>TTL</code></td><td>Time To Live — ב-IP: מונע לולאות — traceroute. ב-DNS: כמה זמן לcache</td></tr>
+            <tr><td><code>TXT Record</code></td><td>DNS Text Record — SPF, DKIM, אימות דומיין</td></tr>
+            <tr><td><code>UDP</code></td><td>User Datagram Protocol — מהיר, ללא ערבויות. DNS, VoIP, Games, QUIC</td></tr>
+            <tr><td><code>Unicast</code></td><td>שליחה ליעד אחד ספציפי</td></tr>
+            <tr><td><code>VLAN</code></td><td>Virtual LAN — חלוקה לוגית של Switch. Broadcast Domain נפרד</td></tr>
+            <tr><td><code>VPN</code></td><td>Virtual Private Network — מנהרה מוצפנת. IPsec, WireGuard, OpenVPN</td></tr>
+            <tr><td><code>WebSocket</code></td><td>חיבור HTTP שמתשדרג לדו-כיווני מתמשך. Chat, Real-time</td></tr>
+            <tr><td><code>WireGuard</code></td><td>VPN מינימליסטי. UDP. ChaCha20+Curve25519. Linux kernel 5.6+</td></tr>
+            <tr><td><code>Zero Trust</code></td><td>אל תאמין, תמיד אמת. כל בקשה מאומתת – גם מרשת פנימית</td></tr>
           </table>
         `
       },
@@ -2736,13 +2736,13 @@ Addresses: 142.250.185.46</code></pre>
         type: "explanation",
         title: "כלים",
         content: `
-          <p><strong>Wireshark</strong></p>
+          <p><strong><code>Wireshark</code></strong></p>
           <p>כלי להסנפה וניתוח תעבורת רשת.</p>
           <p>מאפשר לראות כל חבילה שעוברת.</p>
           <p>שימושי לאבחון ולמידה.</p>
-          <p><strong>Scapy</strong></p>
+          <p><strong><code>Scapy</code></strong></p>
           <p>ספריית <code>Python</code> להסנפה, לבנייה ולשליחה של חבילות רשת.</p>
-          <p><strong>telnet</strong></p>
+          <p><strong><code>telnet</code></strong></p>
           <p>התחברות ידנית לפורט ספציפי.</p>
           <p>שימושי לבדיקת שירותים כמו <code>HTTP</code>.</p>
         `
@@ -2802,7 +2802,7 @@ Addresses: 142.250.185.46</code></pre>
             <li>פרטי כרטיס אשראי</li>
             <li>כל תוכן הדף</li>
           </ul>
-          <p><strong>HTTPS</strong> = <code>HTTP</code> מעל <code>TLS</code>.</p>
+          <p><strong><code>HTTPS</code></strong> = <code>HTTP</code> מעל <code>TLS</code>.</p>
           <p>כל התקשורת מוצפנת מקצה לקצה.</p>
           <p>גם אם מישהו מסנף את הנתונים ברשת, הוא רואה רק מידע מוצפן חסר משמעות.</p>
           <div class="diagram-container">
@@ -2856,17 +2856,17 @@ Addresses: 142.250.185.46</code></pre>
         type: "explanation",
         title: "TLS Handshake – שלבי ה-HTTPS",
         content: `
-          <p>לפני שמגיע אפילו בייט HTTP אחד, <code>TLS</code> מבצע Handshake.</p>
+          <p>לפני שמגיע אפילו בייט HTTP אחד, <code>TLS</code> מבצע <code>Handshake</code>.</p>
           <div class="demo-flow">
             <ol class="demo-steps">
               <li><strong>Client Hello</strong> — הדפדפן שולח גרסת <code>TLS</code> נתמכת, רשימת <code>cipher suites</code> ו-<code>Client Random</code>.</li>
               <li><strong>Server Hello + Certificate</strong> — השרת בוחר <code>cipher suite</code>, שולח <code>Server Random</code>, ושולח את האישור שלו.</li>
               <li><strong>אימות האישור</strong> — הדפדפן בודק שהאישור חתום על ידי <code>CA</code> מהימן, שהדומיין תואם, ושהתוקף לא פג.</li>
               <li><strong>Key Exchange</strong> — מחשבים <code>Session Key</code> מ-<code>Client Random</code> + <code>Server Random</code> + <code>Pre-Master Secret</code>. בגרסאות מודרניות מתבצע ב-<code>Diffie-Hellman</code>.</li>
-              <li><strong>Finished</strong> — שני הצדדים מאשרים שה-Handshake הצליח. מכאן ואילך כל תקשורת מוצפנת ב-<code>AES</code>.</li>
+              <li><strong>Finished</strong> — שני הצדדים מאשרים שה-<code>Handshake</code> הצליח. מכאן ואילך כל תקשורת מוצפנת ב-<code>AES</code>.</li>
             </ol>
           </div>
-          <p><code>TLS 1.3</code> מבצע Handshake ב-1 Round Trip בלבד במקום 2 — מהיר יותר.</p>
+          <p><code>TLS 1.3</code> מבצע <code>Handshake</code> ב-1 <code>Round Trip</code> בלבד במקום 2 — מהיר יותר.</p>
         `
       },
       {
