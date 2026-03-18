@@ -436,7 +436,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
                 </button>
               )}
               <div className="quiz-exp-text">
-                {(explLang === 'en' && q.explanationEn ? q.explanationEn : q.explanation).split(/(?<=\.)\s+/).map((s, i) => {
+                {(explLang === 'en' && q.explanationEn ? q.explanationEn : q.explanation).split(/\n|(?<=\.)\s+/).map((s, i) => {
                   const showEnglish = explLang === 'en' && q.explanationEn
                   // Only count Hebrew outside parenthetical expressions — prevents English sentences
                   // with a Hebrew word in parens (e.g. "Active Mode: server (NAT שובר)") from going RTL

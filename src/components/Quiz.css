@@ -342,8 +342,9 @@
 
 .choice-text {
   flex: 1;
-  line-height: 1.4;
+  line-height: 1.5;
   text-align: right;
+  white-space: pre-line;
 }
 
 .choice-correct {
