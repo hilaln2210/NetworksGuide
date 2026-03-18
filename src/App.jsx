@@ -430,7 +430,6 @@ function App() {
                 </button>
               )
             })}
-            <KeyTip />
             <div className="page-nav-mini">
               עמוד {currentPage + 1} מתוך {totalPages}
             </div>
