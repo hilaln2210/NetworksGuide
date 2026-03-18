@@ -13,6 +13,7 @@ export function FeedbackButton({ context = {} }) {
   const [open, setOpen] = useState(false)
   const [type, setType] = useState('bug')
   const [message, setMessage] = useState('')
+  const [sending, setSending] = useState(false)
   const [thanks, setThanks] = useState(false)
   const [showPulse, setShowPulse] = useState(false)
 
@@ -27,35 +28,43 @@ export function FeedbackButton({ context = {} }) {
     }
   }, [])
 
-  const handleSend = () => {
+  const handleSend = async () => {
     const { trackTitle, chapterId, pageTitle, pageIndex, totalPages } = context
     const typeLabel = TYPE_LABELS[type] || type
-    const subject = encodeURIComponent(`[NetworksGuide ${typeLabel}] ${trackTitle || 'כללי'} > פרק ${chapterId || '?'} > ${pageTitle || ''}`)
 
-    const bodyParts = [
-      message,
-      '',
-      '── פרטי מיקום ──',
-      `מסלול: ${trackTitle || 'לא ידוע'}`,
-      `פרק: ${chapterId || 'לא ידוע'}`,
-      `עמוד: ${pageTitle || 'לא ידוע'}`,
-      pageIndex != null && totalPages ? `עמוד ${pageIndex + 1} מתוך ${totalPages}` : '',
-      `URL: ${window.location.href}`,
-      `מכשיר: ${navigator.userAgent}`,
-      `מסך: ${window.innerWidth}x${window.innerHeight}`,
-      `תאריך: ${new Date().toLocaleString('he-IL')}`,
-    ].filter(Boolean)
-    const body = encodeURIComponent(bodyParts.join('\n'))
+    setSending(true)
+    try {
+      const formData = new FormData()
+      formData.append('סוג', typeLabel)
+      formData.append('הודעה', message)
+      formData.append('מסלול', trackTitle || 'לא ידוע')
+      formData.append('פרק', chapterId || 'לא ידוע')
+      formData.append('עמוד', pageTitle || 'לא ידוע')
+      formData.append('מספר עמוד', pageIndex != null && totalPages ? `${pageIndex + 1} מתוך ${totalPages}` : 'לא ידוע')
+      formData.append('מסך', `${window.innerWidth}x${window.innerHeight}`)
+      formData.append('מכשיר', navigator.userAgent)
+      formData.append('תאריך', new Date().toLocaleString('he-IL'))
+      formData.append('_subject', `[NetworksGuide ${typeLabel}] ${trackTitle || 'כללי'} > פרק ${chapterId || '?'} > ${pageTitle || ''}`)
+      formData.append('_template', 'table')
 
-    window.location.href = `mailto:hilaaa90@gmail.com?subject=${subject}&body=${body}`
+      await fetch('https://formsubmit.co/ajax/hilaaa90@gmail.com', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' },
+      })
 
-    setThanks(true)
-    setTimeout(() => {
-      setThanks(false)
-      setOpen(false)
-      setMessage('')
-      setType('bug')
-    }, 2000)
+      setThanks(true)
+      setTimeout(() => {
+        setThanks(false)
+        setOpen(false)
+        setMessage('')
+        setType('bug')
+      }, 2000)
+    } catch {
+      alert('שגיאה בשליחה, נסו שוב')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -65,7 +74,7 @@ export function FeedbackButton({ context = {} }) {
         onClick={() => { setOpen(true); setShowPulse(false) }}
         aria-label="משוב"
       >
-        🐛 משוב
+        📝 משוב
       </button>
 
       {open && (
@@ -74,7 +83,7 @@ export function FeedbackButton({ context = {} }) {
             {thanks ? (
               <div className="feedback-thanks">
                 <span className="feedback-thanks-emoji">🙏</span>
-                תודה!
+                תודה! המשוב נשלח
               </div>
             ) : (
               <>
@@ -106,9 +115,9 @@ export function FeedbackButton({ context = {} }) {
                 <button
                   className="feedback-send-btn"
                   onClick={handleSend}
-                  disabled={!message.trim()}
+                  disabled={!message.trim() || sending}
                 >
-                  שלח
+                  {sending ? 'שולח...' : 'שלח'}
                 </button>
               </>
             )}
