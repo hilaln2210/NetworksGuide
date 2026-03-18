@@ -277,59 +277,59 @@ export const quizBank = {
 
   5: [
     {
-      q: "מה מיוחד ב-Scapy?",
-      correct: "ספריית Python שמאפשרת לבנות ולשלוח חבילות רשת מותאמות אישית",
+      q: "\u200Fמה מיוחד ב-Scapy?",
+      correct: "\u200Fספריית Python שמאפשרת לבנות\nולשלוח חבילות רשת מותאמות אישית",
       choices: [
-        "ספריית Python שמאפשרת לבנות ולשלוח חבילות רשת מותאמות אישית",
-        "כלי ויזואלי לניתוח חבילות כמו Wireshark",
-        "שרת DNS שרץ על Python",
-        "ספריית הצפנה לאבטחת תקשורת"
+        "\u200Fספריית Python שמאפשרת לבנות\nולשלוח חבילות רשת מותאמות אישית",
+        "\u200Fכלי ויזואלי לניתוח חבילות\nכמו Wireshark",
+        "\u200Fשרת DNS שרץ על Python",
+        "\u200Fספריית הצפנה לאבטחת תקשורת"
       ],
-      explanation: "‏Scapy = 'לגו של רשתות'. אפשר לבנות חבילה שכבה-שכבה: IP()/TCP()/Raw('hello'). מדהים לבדיקות ולהבנת פרוטוקולים 🧱"
+      explanation: "\u200F🧱 Scapy — ״לגו של רשתות״\n• ספריית Python לבניית חבילות שכבה-שכבה\n• דוגמה: IP()/TCP()/Raw('hello')\n\n🔧 שימושים:\n• בדיקות חדירה (penetration testing)\n• הבנת פרוטוקולים\n• מחקר רשתות"
     },
     {
-      q: "מה עושה Scapy בפקודה: IP(dst='8.8.8.8')/ICMP()?",
-      correct: "בונה חבילת ICMP (ping) עם כתובת יעד 8.8.8.8",
+      q: "\u200Fמה עושה Scapy בפקודה:\nIP(dst='8.8.8.8')/ICMP()?",
+      correct: "\u200Fבונה חבילת ICMP (ping)\nעם כתובת יעד 8.8.8.8",
       choices: [
-        "בונה חבילת ICMP (ping) עם כתובת יעד 8.8.8.8",
-        "שולח DNS query לשרת 8.8.8.8",
-        "פותחת חיבור TCP לשרת Google",
-        "מבצעת traceroute לכתובת 8.8.8.8"
+        "\u200Fבונה חבילת ICMP (ping)\nעם כתובת יעד 8.8.8.8",
+        "\u200Fשולח DNS query לשרת 8.8.8.8",
+        "\u200Fפותחת חיבור TCP לשרת Google",
+        "\u200Fמבצעת traceroute לכתובת 8.8.8.8"
       ],
-      explanation: "8.8.8.8 = DNS הציבורי של Google. header שכבת רשת = ‎IP(dst=...). פרוטוקול ping = ICMP. /, כמו קו-נטה = 'שכב מעל' 🏗️"
+      explanation: "\u200F🏗️ פירוק הפקודה:\n• IP(dst='8.8.8.8') = שכבת רשת — כתובת יעד\n• ICMP() = פרוטוקול ping\n• / = ״שכב מעל״ — חיבור שכבות\n\n🌐 מידע נוסף:\n• 8.8.8.8 = DNS הציבורי של Google\n• ICMP = הפרוטוקול שמאחורי ping"
     },
     {
-      q: "מה Scapy ומה יתרונו על Wireshark?",
-      correct: "‏Scapy = Python library לבניה ושליחה של packets. Wireshark רק מנתח, Scapy גם יוצר ושולח",
+      q: "\u200Fמה Scapy ומה יתרונו על Wireshark?",
+      correct: "\u200FScapy = Python library לבניה ושליחה של packets\nWireshark רק מנתח, Scapy גם יוצר ושולח",
       choices: [
-        "‏Scapy = Python library לבניה ושליחה של packets. Wireshark רק מנתח, Scapy גם יוצר ושולח",
-        "‏Scapy הוא GUI, Wireshark CLI",
-        "‏Scapy עובד רק על Linux",
-        "‏Scapy הוא replacement ל-Wireshark"
+        "\u200FScapy = Python library לבניה ושליחה של packets\nWireshark רק מנתח, Scapy גם יוצר ושולח",
+        "\u200FScapy הוא GUI\nWireshark הוא CLI",
+        "\u200FScapy עובד רק על Linux",
+        "\u200FScapy הוא replacement ל-Wireshark"
       ],
-      explanation: "‏Scapy: Python library שמאפשרת: 1) בניית packets שכבה-שכבה (Ether/IP/TCP/'data'), 2) שליחה (send/sendp), 3) sniffing (sniff), 4) בדיקת תגובות (sr1). שימושים: penetration testing, network research, פרוטוקולים חדשים. ‏Wireshark = passive sniffer בלבד. ‏Scapy = active tool."
+      explanation: "\u200F🐍 Scapy — יכולות:\n• בניית packets שכבה-שכבה: Ether/IP/TCP/'data'\n• שליחה: send() / sendp()\n• sniffing: sniff()\n• בדיקת תגובות: sr1()\n\n🔬 Wireshark לעומתו:\n• passive sniffer בלבד\n• לא יכול ליצור או לשלוח packets\n\n💡 שימושי Scapy:\n• penetration testing\n• network research\n• פיתוח פרוטוקולים חדשים"
     },
     {
-      q: "כיצד בונים TCP SYN packet ב-Scapy?",
-      correct: "‏IP(dst='target')/TCP(dport=80, flags='S')",
+      q: "\u200Fכיצד בונים TCP SYN packet ב-Scapy?",
+      correct: "\u200FIP(dst='target')/TCP(dport=80, flags='S')",
       choices: [
-        "‏IP(dst='target')/TCP(dport=80, flags='S')",
-        "‏Packet(TCP, SYN, dst='target', port=80)",
-        "‏scapy.send(SYN, dst='target', port=80)",
-        "‏TCP.syn(dst='target', dport=80)"
+        "\u200FIP(dst='target')/TCP(dport=80, flags='S')",
+        "\u200FPacket(TCP, SYN, dst='target', port=80)",
+        "\u200Fscapy.send(SYN, dst='target', port=80)",
+        "\u200FTCP.syn(dst='target', dport=80)"
       ],
-      explanation: "‏Scapy syntax: שכבות מחוברות עם /. ‏Layer 3 = ‎IP(dst=...). ‏SYN flag = ‎TCP(flags='S'). ‏SYN-ACK = ‎flags='SA'. ‏ACK = ‎flags='A'. ‏RST = ‎flags='R'. ‏FIN = ‎flags='F'. שולח ומקבל תגובה: ‎sr1(). מלכד 10 packets: ‎sniff(filter='tcp port 80', count=10)."
+      explanation: "\u200F🔗 תחביר Scapy:\n• שכבות מחוברות עם /\n• Layer 3 = IP(dst=...)\n\n🚩 TCP Flags:\n• SYN = flags='S'\n• SYN-ACK = flags='SA'\n• ACK = flags='A'\n• RST = flags='R'\n• FIN = flags='F'\n\n📡 פקודות שימושיות:\n• sr1() = שולח ומקבל תגובה\n• sniff(filter='tcp port 80', count=10) = מלכד 10 packets"
     },
     {
-      q: "מה lfilter ב-sniff של Scapy?",
-      correct: "פונקציה Python לסינון packets בזמן real-time — רק packets שהפונקציה מחזירה True נשמרות",
+      q: "\u200Fמה lfilter ב-sniff של Scapy?",
+      correct: "\u200Fפונקציה Python לסינון packets בזמן real-time\nרק packets שהפונקציה מחזירה True נשמרות",
       choices: [
-        "פונקציה Python לסינון packets בזמן real-time — רק packets שהפונקציה מחזירה True נשמרות",
-        "‏BPF filter string כמו ב-tcpdump",
-        "מספר ה-packets לצלם",
-        "שם ה-interface לנטר"
+        "\u200Fפונקציה Python לסינון packets בזמן real-time\nרק packets שהפונקציה מחזירה True נשמרות",
+        "\u200FBPF filter string כמו ב-tcpdump",
+        "\u200Fמספר ה-packets לצלם",
+        "\u200Fשם ה-interface לנטר"
       ],
-      explanation: "מלכד רק TCP SYN: ‎sniff(lfilter=lambda p: p.haslayer(TCP) and p[TCP].flags == 'S'). ‎BPF filter ‎(filter='tcp')‎ נשלח לkernel, ‎lfilter רץ ב-Python. ‏BPF מהיר יותר לסינון בסיסי, ‎lfilter מאפשר לוגיקה מורכבת."
+      explanation: "\u200F🔍 lfilter — סינון ברמת Python:\n• דוגמה: sniff(lfilter=lambda p: p.haslayer(TCP) and p[TCP].flags == 'S')\n• מלכד רק TCP SYN packets\n\n⚡ ההבדל מ-BPF filter:\n• BPF (filter='tcp') = נשלח ל-kernel — מהיר יותר\n• lfilter = רץ ב-Python — מאפשר לוגיקה מורכבת\n• BPF לסינון בסיסי, lfilter ללוגיקה מתקדמת"
     }
   ],
 
