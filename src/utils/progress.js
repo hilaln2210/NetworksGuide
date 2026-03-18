@@ -98,11 +98,12 @@ export function addSessionMinutes(n) {
 }
 
 export function formatMinutes(total) {
-  if (total < 1) return "0 ד'"
-  if (total < 60) return `${Math.round(total)} ד'`
+  if (total < 1) return '0 דק׳'
   const h = Math.floor(total / 60)
   const m = Math.round(total % 60)
-  return m > 0 ? `${h}ש' ${m}ד'` : `${h} שעות`
+  if (h === 0) return `${m} דק׳`
+  if (m === 0) return `${h} שע׳`
+  return `${h}:${String(m).padStart(2, '0')} שע׳`
 }
 
 // ===== Chapters Completed (all pages read) =====

@@ -273,13 +273,18 @@ function App() {
     document.querySelector('.content-area')?.scrollTo?.(0, 0)
   }, [currentChapter, currentPage])
 
-  // Session time tracker — ticks every 30s, adds 0.5 min
+  // Session time tracker — ticks every 30s, pauses when tab is hidden
   useEffect(() => {
-    const id = setInterval(() => {
-      addSessionMinutes(0.5)
-      setTodayMinutes(getTodayMinutes())
-    }, 30000)
-    return () => clearInterval(id)
+    const tick = () => {
+      if (!document.hidden) {
+        addSessionMinutes(0.5)
+        setTodayMinutes(getTodayMinutes())
+      }
+    }
+    const id = setInterval(tick, 30000)
+    const onVisible = () => setTodayMinutes(getTodayMinutes())
+    document.addEventListener('visibilitychange', onVisible)
+    return () => { clearInterval(id); document.removeEventListener('visibilitychange', onVisible) }
   }, [])
 
   // ===== RENDER: Track Picker =====
