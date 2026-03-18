@@ -1657,26 +1657,26 @@ export const quizBank = {
       explanation: "\u200F🖥️ NOC — Network Operations Center\n• ניטור uptime, BGP routes, bandwidth, latency\n• Hardware failures\n• כלים: Nagios, Zabbix, PRTG, SolarWinds\n\n🛡️ SOC — Security Operations Center\n• SIEM alerts, threat hunting, incident response\n• כלים: Splunk, Sentinel, CrowdStrike\n\n📈 מסלולי קריירה\n• NOC → Network Engineer → CCIE / Cloud Architect\n• SOC → Security Analyst → Pentester → CISSP → CISO"
     },
     {
-      q: "מה Cloud native networking לעומת traditional networking?",
-      correct: "‏Cloud Native: overlay networks, software-defined, ephemeral IPs, service mesh. Traditional: physical switches, static IPs, VLAN-based segmentation",
+      q: "\u200Fמה Cloud native networking לעומת traditional networking?",
+      correct: "\u200FCloud Native: overlay networks,\nsoftware-defined, ephemeral IPs, service mesh\nTraditional: physical switches,\nstatic IPs, VLAN-based segmentation",
       choices: [
-        "‏Cloud Native: overlay networks, software-defined, ephemeral IPs, service mesh. Traditional: physical switches, static IPs, VLAN-based segmentation",
-        "‏Cloud Native = traditional networking על AWS",
-        "‏Traditional = ישן ולא בשימוש",
-        "‏Cloud Native משתמש רק ב-IPv6"
+        "\u200FCloud Native: overlay networks,\nsoftware-defined, ephemeral IPs, service mesh\nTraditional: physical switches,\nstatic IPs, VLAN-based segmentation",
+        "\u200FCloud Native = traditional networking על AWS",
+        "\u200FTraditional = ישן ולא בשימוש",
+        "\u200FCloud Native משתמש רק ב-IPv6"
       ],
-      explanation: "‏Cloud Native: VPC (virtual switches/routers), Security Groups (stateful firewall API), ENI (virtual NIC). ‏K8s: Pod IPs ephemeral ‎(חיים כזמן Pod)‎. ‏Service: stable virtual IP (ClusterIP). ‏Ingress: L7 load balancer. ‏Service Mesh (Istio, Linkerd): mTLS בין services, observability, traffic policies. ‏Overlay: VXLAN/Geneve (UDP encapsulation). ‏Traditional: VLANs, static routing, physical hardware lifecycle."
+      explanation: "\u200F\u2601\uFE0F Cloud Native\n\u2022 VPC (virtual switches/routers)\n\u2022 Security Groups (stateful firewall API)\n\u2022 ENI (virtual NIC)\n\n\uD83D\uDC33 Kubernetes\n\u2022 Pod IPs ephemeral \u2014 \u05D7\u05D9\u05D9\u05DD \u05DB\u05D6\u05DE\u05DF Pod\n\u2022 Service: stable virtual IP (ClusterIP)\n\u2022 Ingress: L7 load balancer\n\n\uD83D\uDD17 Service Mesh\n\u2022 Istio, Linkerd\n\u2022 mTLS \u05D1\u05D9\u05DF services\n\u2022 Observability, traffic policies\n\u2022 Overlay: VXLAN/Geneve (UDP encapsulation)\n\n\uD83C\uDFE2 Traditional\n\u2022 VLANs, static routing\n\u2022 Physical hardware lifecycle"
     },
     {
-      q: "מה Software Defined Networking (SDN)?",
-      correct: "‏SDN: הפרדת Control Plane מ-Data Plane. Controller מרכזי (OpenFlow) מתכנת forwarding tables של כל switches",
+      q: "\u200Fמה Software Defined Networking (SDN)?",
+      correct: "\u200FSDN: הפרדת Control Plane מ-Data Plane\nController מרכזי (OpenFlow)\nמתכנת forwarding tables של כל switches",
       choices: [
-        "‏SDN: הפרדת Control Plane מ-Data Plane. Controller מרכזי (OpenFlow) מתכנת forwarding tables של כל switches",
-        "‏SDN = networking ללא hardware",
-        "‏SDN = IPv6",
-        "‏SDN = Software Defined Network = VPN"
+        "\u200FSDN: הפרדת Control Plane מ-Data Plane\nController מרכזי (OpenFlow)\nמתכנת forwarding tables של כל switches",
+        "\u200FSDN = networking ללא hardware",
+        "\u200FSDN = IPv6",
+        "\u200FSDN = Software Defined Network = VPN"
       ],
-      explanation: "‏Traditional: כל switch מחזיק control plane + data plane. ‏SDN: Controller (ONOS, OpenDaylight) = control plane centralized. ‏Switch = dumb forwarding only. ‏OpenFlow: protocol בין controller לswitch. ‏NFV: software replaces hardware functions. ‏SD-WAN: SDN לWAN links, policy-based routing. ‏Intent-based networking (IBN): מגדירים מה רוצים, לא איך להשיג. ‏Cisco DNA Center, Juniper Apstra."
+      explanation: "\u200F🏗️ Traditional\n• כל switch מחזיק control plane + data plane\n\n🧠 SDN — הפרדה\n• Controller (ONOS, OpenDaylight) = control plane centralized\n• Switch = dumb forwarding only\n• OpenFlow: protocol בין controller ל-switch\n\n📋 טכנולוגיות קשורות\n• NFV: software replaces hardware functions\n• SD-WAN: SDN ל-WAN links, policy-based routing\n\n🎯 Intent-based networking (IBN)\n• מגדירים מה רוצים, לא איך להשיג\n• Cisco DNA Center, Juniper Apstra"
     }
   ],
 
