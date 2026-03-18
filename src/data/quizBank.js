@@ -1440,26 +1440,26 @@ export const quizBank = {
 
   24: [
     {
-      q: "מה Open Connect Appliance של Netflix?",
-      correct: "שרת cache שNetflix מספקת חינם לISPs — הvideo נשמר מקומית ברשת ה-ISP",
+      q: "\u200Fמה Open Connect Appliance של Netflix?",
+      correct: "\u200Fשרת cache ש-Netflix מספקת חינם ל-ISPs\n— ה-video נשמר מקומית ברשת ה-ISP",
       choices: [
-        "שרת cache שNetflix מספקת חינם לISPs — הvideo נשמר מקומית ברשת ה-ISP",
-        "שרת תוכן מרכזי של Netflix באמריקה",
-        "כלי monitoring לניטור ביצועי streaming",
-        "מנגנון הצפנה להגנה על תוכן"
+        "\u200Fשרת cache ש-Netflix מספקת חינם ל-ISPs\n— ה-video נשמר מקומית ברשת ה-ISP",
+        "\u200Fשרת תוכן מרכזי של Netflix באמריקה",
+        "\u200Fכלי monitoring לניטור ביצועי streaming",
+        "\u200Fמנגנון הצפנה להגנה על תוכן"
       ],
-      explanation: "‏Netflix שמה OCA בISPs בחינם. ה-ISP מקבל hardware, Netflix חוסכת transit ב-$M. בלילה Netflix מcache מראש content פופולרי. למחרת — הvideo מגיע מ-ISP עצמו, latency 5ms. גאוני 💡"
+      explanation: "\u200F💡 OCA — Open Connect Appliance\n• Netflix שמה שרת cache ב-ISPs בחינם\n• ה-ISP מקבל hardware\n• Netflix חוסכת transit ב-$M\n\n🌙 איך זה עובד?\n• בלילה — Netflix מ-cache מראש content פופולרי\n• למחרת — ה-video מגיע מ-ISP עצמו\n• Latency: 5ms בלבד"
     },
     {
-      q: "מה Anycast routing?",
-      correct: "אותה כתובת IP מוכרזת ממאות מקומות — BGP מנתב לנקודה הקרובה ביותר",
+      q: "\u200Fמה Anycast routing?",
+      correct: "\u200Fאותה כתובת IP מוכרזת ממאות מקומות\n— BGP מנתב לנקודה הקרובה ביותר",
       choices: [
-        "אותה כתובת IP מוכרזת ממאות מקומות — BGP מנתב לנקודה הקרובה ביותר",
-        "חלוקת עומס בין שרתים לפי אלגוריתם Round Robin",
-        "שליחת packet לכל המכשירים ברשת",
-        "הצפנת routing information ב-BGP"
+        "\u200Fאותה כתובת IP מוכרזת ממאות מקומות\n— BGP מנתב לנקודה הקרובה ביותר",
+        "\u200Fחלוקת עומס בין שרתים\nלפי אלגוריתם Round Robin",
+        "\u200Fשליחת packet לכל המכשירים ברשת",
+        "\u200Fהצפנת routing information ב-BGP"
       ],
-      explanation: "1.1.1.1 של Cloudflare = כתובת Anycast. ‏BGP מנתב אותך ל-PoP הקרוב מ-300 מיקומים. ‏DDoS? תנועה מתחלקת ל-300 PoPs — כל אחד ספג שבריר. ‏Netflix, Google, Cloudflare כולם משתמשים 🌍"
+      explanation: "\u200F🌍 Anycast בפעולה\n• 1.1.1.1 של Cloudflare = כתובת Anycast\n• BGP מנתב אותך ל-PoP הקרוב מ-300 מיקומים\n\n🛡️ יתרון נגד DDoS\n• תנועה מתחלקת ל-300 PoPs\n• כל אחד סופג שבריר\n\n🏢 מי משתמש?\n• Netflix\n• Google\n• Cloudflare"
     },
     {
       q: "מה DPI (Deep Packet Inspection) ואיך ISPs משתמשים בו?",
@@ -1916,7 +1916,7 @@ export const quizBank = {
         "‏הצפנת כל הנתונים במסד הנתונים",
         "‏גיבוי יומי לכל המערכות"
       ],
-      explanation: "‏הגנה לעומק כוללת שכבות: היקף (חומת אש, WAF), רשת (מערכות זיהוי/מניעת חדירה — IDS/IPS, הפרדת רשתות), תחנות קצה (אנטי-וירוס, EDR, עדכונים), אפליקציה (אימות, הרשאות, בדיקת קלט), נתונים (הצפנה, מניעת דליפה — DLP) ואנושי (הדרכה, סימולציות פישינג). כל שכבה מניחה שהשכבה החיצונית תיכשל.",
+      explanation: "‏🏰 הגנה לעומק — שכבות\n• היקף — חומת אש, WAF\n• רשת — IDS/IPS, הפרדת רשתות\n• תחנות קצה — אנטי-וירוס, EDR, עדכונים\n• אפליקציה — אימות, הרשאות, בדיקת קלט\n• נתונים — הצפנה, מניעת דליפה (DLP)\n• אנושי — הדרכה, סימולציות פישינג\n\n📌 העיקרון\n• כל שכבה מניחה שהשכבה החיצונית תיכשל",
       explanationEn: "Defense in Depth layers: Perimeter (Firewall, WAF) > Network (IDS/IPS, Segmentation) > Endpoint (AV, EDR, Patch) > Application (Auth, RBAC, Input validation) > Data (Encryption, DLP) > Human (Training, Phishing simulation). Each layer assumes the outer layer will fail."
     },
     {
@@ -1928,7 +1928,7 @@ export const quizBank = {
         "‏ניטור → חסימה → ניקוי → גיבוי (Monitor → Block → Clean → Backup)",
         "‏זיהוי → תגובה → שחזור → שיפור (Detect → Respond → Recover → Improve)"
       ],
-      explanation: "‏לפי תקן NIST SP 800-61: הכנה (כלים, נהלים, צוות), זיהוי וניתוח (איתור סממני פריצה — IOCs), בלימה (בידוד — קצר טווח ואז ארוך טווח), מיגור (הסרת תוכנה זדונית, עדכון), שחזור (החזרת שירותים), ולקחים נלמדים (תחקיר תוך שבועיים). המחזור חוזר תמיד על עצמו.",
+      explanation: "‏📋 NIST SP 800-61 — ששת השלבים\n• הכנה — כלים, נהלים, צוות\n• זיהוי וניתוח — איתור סממני פריצה (IOCs)\n• בלימה — בידוד קצר טווח ואז ארוך טווח\n• מיגור — הסרת תוכנה זדונית, עדכון\n• שחזור — החזרת שירותים\n• לקחים נלמדים — תחקיר תוך שבועיים\n\n🔄 העיקרון\n• המחזור חוזר תמיד על עצמו",
       explanationEn: "NIST SP 800-61: Preparation (tools, playbooks, team). Detection & Analysis (identify IOCs). Containment (isolate — short-term then long-term). Eradication (remove malware, patch). Recovery (restore services). Lessons Learned (post-mortem within 2 weeks). The cycle always repeats."
     },
     {
@@ -1940,7 +1940,7 @@ export const quizBank = {
         "‏מחליפה חומת אש ומערכת זיהוי חדירות (IDS)",
         "‏שולחת התרעות רק על פגיעויות (CVE) ידועות"
       ],
-      explanation: "‏מערכת SIEM (ניהול מידע ואירועי אבטחה) אוספת ממקורות: Active Directory, חומת אש, EDR, פרוקסי ווב, DNS. דוגמה לזיהוי מתאמים: 3 כשלי התחברות (ניסיון פיצוח בכוח?) ואז הצלחה + גישה לשרת רגיש = התרעה. כלים נפוצים: Splunk, IBM QRadar, Microsoft Sentinel. אנליסט מרכז תפעול אבטחה (SOC) מבלה 70% מזמנו במערכת SIEM.",
+      explanation: "‏📊 מערכת SIEM — מקורות\n• Active Directory\n• חומת אש\n• EDR\n• פרוקסי ווב\n• DNS\n\n🔍 דוגמה לזיהוי מתאמים\n• 3 כשלי התחברות (ניסיון פיצוח בכוח?)\n• ואז הצלחה + גישה לשרת רגיש = התרעה\n\n🛠️ כלים נפוצים\n• Splunk, IBM QRadar, Microsoft Sentinel\n• אנליסט SOC מבלה 70% מזמנו במערכת SIEM",
       explanationEn: "SIEM = Security Information and Event Management. Sources: AD, Firewall, EDR, Web proxy, DNS. Correlation example: 3 login failures (brute force?) + success + access to sensitive server = alert. Tools: Splunk, IBM QRadar, Microsoft Sentinel, ELK Stack. SOC analysts spend 70% of their time in the SIEM."
     },
         {
@@ -1952,7 +1952,7 @@ export const quizBank = {
         "‏מודיעין ממקורות פתוחים (OSINT), Nmap, Metasploit, מעבר רוחבי, יציאה",
         "‏גילוי, מיפוי, הסלמת הרשאות, תנועה רוחבית, ניקוי (Discovery, Enumeration, Privilege Escalation, Lateral Movement, Cleanup)"
       ],
-      explanation: "‏שלבי בדיקת חדירה: 1) איסוף מודיעין — מקורות פתוחים (OSINT), סריקת DNS. 2) סריקה — באמצעות Nmap, Nikto, Shodan. 3) ניצול — באמצעות Metasploit וניצול פגיעויות (CVE). 4) לאחר הניצול — הסלמת הרשאות, תנועה רוחבית, השגת אחיזה, הברחת מידע. 5) דו\"ח — תקציר מנהלים, פרטים טכניים, ציוני חומרה (CVSS) והמלצות. חשוב: הסכמה בכתב על היקף הבדיקה לפני ההתחלה!",
+      explanation: "‏🔎 5 שלבי בדיקת חדירה\n• 1) איסוף מודיעין — OSINT, סריקת DNS\n• 2) סריקה — Nmap, Nikto, Shodan\n• 3) ניצול — Metasploit וניצול פגיעויות (CVE)\n• 4) לאחר הניצול — הסלמת הרשאות, תנועה רוחבית, אחיזה, הברחת מידע\n• 5) דו\"ח — תקציר מנהלים, פרטים טכניים, ציוני CVSS והמלצות\n\n⚠️ חשוב\n• הסכמה בכתב על היקף הבדיקה לפני ההתחלה!",
       explanationEn: "Pentest phases: 1) Reconnaissance — OSINT, DNS enumeration, Google dorking. 2) Scanning — Nmap, Nikto, Shodan. 3) Exploitation — Metasploit, custom exploits, CVE exploitation. 4) Post-Exploitation — privilege escalation, lateral movement, persistence, data exfiltration. 5) Reporting — executive summary + technical details + CVSS scores + recommendations. Important: written scope agreement before starting!"
     },
         {
@@ -1964,7 +1964,7 @@ export const quizBank = {
         "‏קופסה לבנה מבוצעת במשרד — קופסה שחורה מרחוק",
         "‏קופסה לבנה בודקת רשת — קופסה שחורה בודקת אפליקציות"
       ],
-      explanation: "‏בבדיקת קופסה לבנה (Crystal Box) הבודק מקבל קוד מקור, הרשאות ותרשימי ארכיטקטורה — יעיל ויסודי יותר. קופסה אפורה (Gray Box): ידע חלקי, הרשאות בלבד. קופסה שחורה (Black Box): מדמה תוקף אמיתי. צוות אדום (Red Team) הוא קופסה שחורה מורחבת עם הנדסה חברתית וטכניקות פיזיות. קופסה לבנה עדיפה לסקירת קוד; קופסה שחורה לאיתור בעיות שרק תוקף חיצוני ימצא.",
+      explanation: "‏⬜ קופסה לבנה (Crystal Box)\n• הבודק מקבל קוד מקור, הרשאות ותרשימי ארכיטקטורה\n• יעיל ויסודי יותר\n• עדיפה לסקירת קוד\n\n🔘 קופסה אפורה (Gray Box)\n• ידע חלקי — הרשאות בלבד\n\n⬛ קופסה שחורה (Black Box)\n• מדמה תוקף אמיתי\n• לאיתור בעיות שרק תוקף חיצוני ימצא\n\n🔴 צוות אדום (Red Team)\n• קופסה שחורה מורחבת\n• עם הנדסה חברתית וטכניקות פיזיות",
       explanationEn: "White Box (Crystal Box): tester receives source code, credentials, and architecture diagrams. More thorough, finds more issues. Gray Box: partial knowledge — credentials only. Black Box: simulates a real attacker. Red Team = extended Black Box with social engineering and physical techniques. White Box is better for Code Review; Black Box for finding issues only an external attacker would discover."
     },
         {
@@ -1976,7 +1976,7 @@ export const quizBank = {
         "‏כלי Metasploit הוא מערכת SIEM — ו-Meterpreter הוא כלי ניתוח לוגים",
         "‏כלי Metasploit הוא כלי הצפנה — Meterpreter הוא כלי לפיצוח סיסמאות"
       ],
-      explanation: "‏מסגרת Metasploit (של חברת Rapid7): פותחים את msfconsole, מחפשים ניצול, בוחרים מטען ומריצים. מעטפת Meterpreter (מפרש-על) רצה בזיכרון התהליך שנוצל — אין קובץ בדיסק, מוצפנת ב-TLS. פקודות נפוצות: שליפת גיבובי סיסמאות, הסלמת הרשאות, צילום מסך, מעבר לתהליך אחר. התחמקות: מטענים פולימורפיים וקידוד באמצעות msfvenom.",
+      explanation: "‏🛠️ מסגרת Metasploit — Rapid7\n• פותחים את msfconsole\n• מחפשים ניצול, בוחרים מטען ומריצים\n\n🐚 מעטפת Meterpreter — מפרש-על\n• רצה בזיכרון התהליך שנוצל\n• אין קובץ בדיסק, מוצפנת ב-TLS\n\n⚡ פקודות נפוצות\n• שליפת גיבובי סיסמאות\n• הסלמת הרשאות\n• צילום מסך\n• מעבר לתהליך אחר\n\n🥷 התחמקות\n• מטענים פולימורפיים וקידוד באמצעות msfvenom",
       explanationEn: "Metasploit (Rapid7): msfconsole > search exploit > use exploit/windows/smb/ms17_010_eternalblue > set RHOSTS > set PAYLOAD > run. Meterpreter = meta-interpreter: runs in the exploited process's memory, not as an exe file, encrypted with TLS. Commands: hashdump, getsystem (priv esc), screenshot, migrate (to a different process). Evasion: polymorphic payloads, msfvenom encoding."
     }
   ],
