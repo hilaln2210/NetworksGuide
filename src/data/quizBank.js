@@ -335,59 +335,59 @@ export const quizBank = {
 
   6: [
     {
-      q: "מה ההבדל בין TCP לUDP בשכבת התעבורה?",
-      correct: "‏TCP = אמין + סדר, UDP = מהיר + ללא הבטחה",
+      q: "\u200Fמה ההבדל בין TCP ל-UDP בשכבת התעבורה?",
+      correct: "\u200FTCP = אמין + סדר\nUDP = מהיר + ללא הבטחה",
       choices: [
-        "‏TCP = אמין + סדר, UDP = מהיר + ללא הבטחה",
-        "‏TCP לשרתים, UDP לנייד",
-        "‏TCP מוצפן, UDP גלוי",
-        "‏TCP ישן, UDP מודרני"
+        "\u200FTCP = אמין + סדר\nUDP = מהיר + ללא הבטחה",
+        "\u200FTCP לשרתים\nUDP לנייד",
+        "\u200FTCP מוצפן\nUDP גלוי",
+        "\u200FTCP ישן\nUDP מודרני"
       ],
-      explanation: "אנלוגיה: TCP = שליח עם חתימה ‎('קיבלת?')‎ | UDP = עיתון שמושלך לדלת. ‏Zoom, Discord, gaming, DNS = UDP. ‏HTTP, HTTPS, SSH, FTP = TCP 🎮"
+      explanation: "\u200F📦 TCP — שליח עם חתימה:\n• ״קיבלת? אשר לי!״\n• HTTP, HTTPS, SSH, FTP\n\n✉️ UDP — עיתון שמושלך לדלת:\n• מהיר, בלי אישור קבלה\n• Zoom, Discord, gaming, DNS\n• עדיף פריים חסר מאשר עיכוב"
     },
     {
-      q: "מה זה Three-Way Handshake?",
-      correct: "תהליך פתיחת חיבור TCP: SYN → SYN-ACK → ACK",
+      q: "\u200Fמה זה Three-Way Handshake?",
+      correct: "\u200Fתהליך פתיחת חיבור TCP:\nSYN → SYN-ACK → ACK",
       choices: [
-        "תהליך פתיחת חיבור TCP: SYN → SYN-ACK → ACK",
-        "תהליך סגירת חיבור TCP: FIN → FIN-ACK → RST",
-        "תהליך אימות זהות בפרוטוקול HTTPS",
-        "תהליך קביעת גודל חבילה מיטבי"
+        "\u200Fתהליך פתיחת חיבור TCP:\nSYN → SYN-ACK → ACK",
+        "\u200Fתהליך סגירת חיבור TCP:\nFIN → FIN-ACK → RST",
+        "\u200Fתהליך אימות זהות בפרוטוקול HTTPS",
+        "\u200Fתהליך קביעת גודל חבילה מיטבי"
       ],
-      explanation: "3-way handshake = לחיצת יד של שלושה שלבים. אחרי זה — החיבור פתוח ואפשר לשלוח נתונים. סגירה גם מורכבת: FIN → ACK → FIN → ACK 🤝"
+      explanation: "\u200F🤝 לחיצת יד בשלושה שלבים:\n• SYN = ״היי, אפשר לדבר?״\n• SYN-ACK = ״כן, ואני גם רוצה!״\n• ACK = ״אחלה, נתחיל!״\n\n🔒 אחרי 3 הצעדים — החיבור פתוח\n\n👋 סגירה גם מורכבת:\n• FIN → ACK → FIN → ACK"
     },
     {
-      q: "מה זה Flow Control ב-TCP?",
-      correct: "מנגנון שמונע מהשולח לשלוח נתונים מהר מדי ולהציף את המקלט",
+      q: "\u200Fמה זה Flow Control ב-TCP?",
+      correct: "\u200Fמנגנון שמונע מהשולח לשלוח נתונים\nמהר מדי ולהציף את המקלט",
       choices: [
-        "מנגנון שמונע מהשולח לשלוח נתונים מהר מדי ולהציף את המקלט",
-        "מנגנון הצפנת נתונים בזמן שליחה",
-        "מנגנון ניתוב חבילות בין נתבים",
-        "מנגנון זיהוי שגיאות בנתונים"
+        "\u200Fמנגנון שמונע מהשולח לשלוח נתונים\nמהר מדי ולהציף את המקלט",
+        "\u200Fמנגנון הצפנת נתונים בזמן שליחה",
+        "\u200Fמנגנון ניתוב חבילות בין נתבים",
+        "\u200Fמנגנון זיהוי שגיאות בנתונים"
       ],
-      explanation: "‏Flow Control = 'רגע, אני לא מספיקה לעבד!' הנמען מודיע לשולח מה ה-Window Size שלו. כמו שאת אומרת למישהי בשיחה 'דברי לאט יותר' 🐌"
+      explanation: "\u200F🐌 Flow Control — ״רגע, אני לא מספיקה לעבד!״\n• הנמען מודיע לשולח מה ה-Window Size שלו\n• כמו לומר למישהי ״דברי לאט יותר״\n\n📊 איך זה עובד:\n• Window Size גדול = שולח הרבה בבת אחת\n• Window Size קטן = מאט את השליחה\n• Window Size = 0 → עצור לגמרי!"
     },
     {
-      q: "למה TCP גדול יותר ב-overhead מ-UDP?",
-      correct: "‏TCP header = 20-60 bytes, UDP = 8 bytes. TCP שומר state, ACK, sequencing — UDP שולח ושוכח",
+      q: "\u200Fלמה TCP גדול יותר ב-overhead מ-UDP?",
+      correct: "\u200FTCP header = 20-60 bytes, UDP = 8 bytes\nTCP שומר state, ACK, sequencing\nUDP שולח ושוכח",
       choices: [
-        "‏TCP header = 20-60 bytes, UDP = 8 bytes. TCP שומר state, ACK, sequencing — UDP שולח ושוכח",
-        "‏TCP מוצפן, UDP לא — לכן גדול יותר",
-        "‏TCP ו-UDP בגודל זהה",
-        "‏UDP גדול יותר מ-TCP"
+        "\u200FTCP header = 20-60 bytes, UDP = 8 bytes\nTCP שומר state, ACK, sequencing\nUDP שולח ושוכח",
+        "\u200FTCP מוצפן, UDP לא\nלכן גדול יותר",
+        "\u200FTCP ו-UDP בגודל זהה",
+        "\u200FUDP גדול יותר מ-TCP"
       ],
-      explanation: "מבנה TCP header ‎(20 bytes minimum)‎: ‎Src/Dst port (4), Sequence (4), Acknowledgment (4), Flags+Window (4), Checksum+Urgent (4), Options ‎(עד 40)‎. מבנה UDP header: ‎Src port (2), Dst port (2), Length (2), Checksum (2) = 8 bytes. שימוש ב-UDP: streaming, DNS, gaming, VoIP — כי latency חשוב יותר מdeadline. ‏TCP overhead = ~25% של packet קטן."
+      explanation: "\u200F📋 TCP header — 20 bytes מינימום:\n• Src/Dst port (4B)\n• Sequence (4B)\n• Acknowledgment (4B)\n• Flags + Window (4B)\n• Checksum + Urgent (4B)\n• Options — עד 40B נוספים\n\n📋 UDP header — 8 bytes בלבד:\n• Src port (2B)\n• Dst port (2B)\n• Length (2B)\n• Checksum (2B)\n\n⚡ UDP עדיף כש-latency חשוב:\n• streaming, DNS, gaming, VoIP"
     },
     {
-      q: "מה TIME_WAIT state ב-TCP?",
-      correct: "לאחר FIN-ACK, connection עדיין פתוח 2×MSL ‎(2 דקות)‎ כדי שpackets מאוחרים לא יבלבלו connection חדש",
+      q: "\u200Fמה TIME_WAIT state ב-TCP?",
+      correct: "\u200Fלאחר FIN-ACK, connection עדיין פתוח 2×MSL\n(2 דקות) כדי ש-packets מאוחרים\nלא יבלבלו connection חדש",
       choices: [
-        "לאחר FIN-ACK, connection עדיין פתוח 2×MSL ‎(2 דקות)‎ כדי שpackets מאוחרים לא יבלבלו connection חדש",
-        "‏TCP מחכה ל-ACK אחרון לפני שולח FIN",
-        "שרת בעיכוב גבוה נכנס ל-TIME_WAIT",
-        "‏TIME_WAIT = חיבור שנכשל"
+        "\u200Fלאחר FIN-ACK, connection עדיין פתוח 2×MSL\n(2 דקות) כדי ש-packets מאוחרים\nלא יבלבלו connection חדש",
+        "\u200FTCP מחכה ל-ACK אחרון לפני שולח FIN",
+        "\u200Fשרת בעיכוב גבוה נכנס ל-TIME_WAIT",
+        "\u200FTIME_WAIT = חיבור שנכשל"
       ],
-      explanation: "מצבי TCP: ‎LISTEN → SYN_RCVD → ESTABLISHED → FIN_WAIT_1 → FIN_WAIT_2 → TIME_WAIT → CLOSED. ‎TIME_WAIT: 2×MSL ‎(Maximum Segment Lifetime = 60-120 שניות)‎. בעיה: שרת עם אלפי connections יכול לתגמר ports. פתרון: ‎SO_REUSEADDR socket option, TCP_QUICKACK, kernel tuning."
+      explanation: "\u200F⏳ מצבי TCP לאורך חיי חיבור:\n• LISTEN → SYN_RCVD → ESTABLISHED\n• FIN_WAIT_1 → FIN_WAIT_2 → TIME_WAIT → CLOSED\n\n🕐 TIME_WAIT:\n• 2×MSL = Maximum Segment Lifetime\n• 60-120 שניות\n\n⚠️ בעיה:\n• שרת עם אלפי connections יכול לתגמר ports\n\n🔧 פתרון:\n• SO_REUSEADDR socket option\n• TCP_QUICKACK\n• kernel tuning"
     }
   ],
 
