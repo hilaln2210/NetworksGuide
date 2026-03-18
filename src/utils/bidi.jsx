@@ -103,7 +103,17 @@ export function processHtmlBidi(html) {
             const inner = ltr.trim()
             const leading = ltr.slice(0, ltr.indexOf(inner[0]))
             const trailing = ltr.slice(ltr.lastIndexOf(inner[inner.length - 1]) + 1)
-            return `${leading}<span dir="ltr">${inner}</span>${trailing}`
+            // Strip leading/trailing punctuation from LTR span so RTL places them correctly
+            const leadPunc = inner.match(/^([?!.,;:]+)/)
+            const afterLead = leadPunc ? inner.slice(leadPunc[1].length) : inner
+            const trailPunc = afterLead.match(/([?!.,;:]+)$/)
+            const core = trailPunc ? afterLead.slice(0, -trailPunc[1].length) : afterLead
+            const lp = leadPunc ? leadPunc[1] : ''
+            const tp = trailPunc ? trailPunc[1] : ''
+            if (core) {
+              return `${leading}${lp}<span dir="ltr">${core}</span>${tp}${trailing}`
+            }
+            return ltr || ''
           }
           return ltr || ''
         }
