@@ -6726,10 +6726,10 @@ Set-Cookie: session=xyz; HttpOnly; Secure; SameSite=Strict</code></pre></div>
         type: "questions",
         title: "שאלות — SQLi ו-XSS",
         questions: [
-          { q: "מה ההבדל בין SQL Injection ל-XSS?", a: "SQLi תוקפת את מסד הנתונים בצד השרת. XSS תוקפת את הדפדפן של משתמש אחר — מריצה JS בהקשר של האתר. SQLi = server-side. XSS = client-side." },
-          { q: "מה Prepared Statements ולמה הם פותרים SQLi?", a: "Prepared Statements מקמפלים את שאילתת ה-SQL לפני הכנסת הנתונים. הנתונים מוכנסים כפרמטרים, לא כטקסט — כך הם לא יכולים לשנות את מבנה השאילתה." },
-          { q: "למה HttpOnly cookie מגן מ-XSS?", a: "HttpOnly Cookie לא נגיש ל-JavaScript (document.cookie מחזיר ריק). גם אם יש XSS, התוקף לא יכול לגנוב את ה-session cookie." },
-          { q: "מה Time-based Blind SQLi?", a: "כאשר אין output גלוי מהשאילתה, ניתן לשלוח SLEEP(5) — אם השרת מגיב אחרי 5 שניות, הקוד רץ. כך אפשר לחלץ נתונים ביט-ביט לפי זמני תגובה." }
+          { q: "מה ההבדל בין SQL Injection ל-XSS?", a: "הזרקת SQL תוקפת את מסד הנתונים בצד השרת, ואילו XSS תוקפת את הדפדפן של משתמש אחר ומריצה קוד בהקשר של האתר. בקצרה: הזרקת SQL פועלת בצד השרת, ו-XSS בצד הלקוח." },
+          { q: "מה Prepared Statements ולמה הם פותרים SQLi?", a: "שאילתות מוכנות (Prepared Statements) מקמפלות את שאילתת ה-SQL לפני הכנסת הנתונים. הנתונים מוכנסים כפרמטרים ולא כטקסט חופשי — כך הם לא יכולים לשנות את מבנה השאילתה." },
+          { q: "למה HttpOnly cookie מגן מ-XSS?", a: "עוגייה עם דגל HttpOnly לא נגישה לקוד JavaScript בדפדפן. גם אם יש פגיעות XSS באתר, התוקף לא יכול לגנוב את עוגיית ההפעלה (session cookie)." },
+          { q: "מה Time-based Blind SQLi?", a: "כאשר אין פלט גלוי מהשאילתה, התוקף שולח פקודת השהייה (למשל SLEEP) — אם השרת מגיב באיחור, הקוד רץ. כך אפשר לחלץ נתונים ביט-ביט לפי זמני תגובה." }
         ]
       }
     ]
@@ -6817,9 +6817,9 @@ ph.verify(hash, password)  # מחזיר True/False</code></pre></div>
         type: "questions",
         title: "שאלות — Auth",
         questions: [
-          { q: "מה ההבדל בין Authentication ל-Authorization?", a: "Authentication = זיהוי (מי אתה?). Authorization = הרשאות (מה מותר לך?). Login הוא AuthN. בדיקת permission להגיע לעמוד admin הוא AuthZ." },
-          { q: "למה bcrypt עדיף על SHA256 לסיסמאות?", a: "bcrypt מכיל work factor מכוון שהופך אותו לאיטי — brute-force לוקח הרבה יותר זמן. גם salt מובנה. SHA256 מהיר מדי — GPU יכול לנסות מיליארדי ניחושים בשנייה." },
-          { q: "מה JWT alg=none attack?", a: "JWT קובע את אלגוריתם החתימה ב-header. שרת פגיע שמקבל alg=none מאמת טוקן ללא חתימה כלל — תוקף יכול לזייף כל payload (למשל role=admin)." }
+          { q: "מה ההבדל בין Authentication ל-Authorization?", a: "אימות (Authentication) = מי אתה? הרשאה (Authorization) = מה מותר לך? כניסה למערכת היא אימות, ובדיקת הרשאות גישה לעמוד ניהול היא הרשאה." },
+          { q: "למה bcrypt עדיף על SHA256 לסיסמאות?", a: "אלגוריתם bcrypt מכיל גורם עומס (work factor) מכוון שהופך אותו לאיטי בכוונה — ניסיון פריצה בכוח (brute-force) לוקח הרבה יותר זמן. בנוסף יש בו מלח (salt) מובנה. לעומתו SHA256 מהיר מדי — כרטיס מסך יכול לנסות מיליארדי ניחושים בשנייה." },
+          { q: "מה JWT alg=none attack?", a: "טוקן JWT קובע את אלגוריתם החתימה בכותרת שלו. שרת פגיע שמקבל ערך none באלגוריתם מאמת טוקן ללא חתימה כלל — תוקף יכול לזייף כל תוכן (למשל להפוך את עצמו למנהל)." }
         ]
       }
     ]
@@ -6901,9 +6901,9 @@ Set-Cookie: session=xyz; SameSite=Strict; Secure; HttpOnly
         type: "questions",
         title: "שאלות — Web Security Headers",
         questions: [
-          { q: "מה Content-Security-Policy עושה?", a: "CSP מנחה את הדפדפן מאילו מקורות מותר לטעון JS, CSS, תמונות וכו'. מגביל XSS בכך שחוסם הרצת inline JS ו-JS ממקורות לא מורשים." },
-          { q: "מה CSRF ואיך SameSite Cookie פותר אותו?", a: "CSRF גורם לדפדפן לשלוח בקשה לאתר X בזמן שהמשתמש נמצא ב-evil.com, עם cookies של X. SameSite=Strict מונע שליחת ה-cookie בבקשות cross-site — כך הבקשה הזדונית תישלח ללא session." },
-          { q: "מה HSTS ולמה הוא מגן מ-SSL Stripping?", a: "HSTS אומר לדפדפן לתמיד להשתמש ב-HTTPS לדומיין זה. SSL Stripping תוקפת ע\"י downgrade ל-HTTP. עם HSTS, הדפדפן מסרב לחיבור HTTP — כך המתקפה נכשלת." }
+          { q: "מה Content-Security-Policy עושה?", a: "כותרת CSP מנחה את הדפדפן מאילו מקורות מותר לטעון סקריפטים, עיצוב, תמונות וכדומה. זה מגביל מתקפות XSS בכך שהדפדפן חוסם הרצת קוד משובץ בדף וקוד ממקורות לא מורשים." },
+          { q: "מה CSRF ואיך SameSite Cookie פותר אותו?", a: "זיוף בקשות (CSRF) גורם לדפדפן לשלוח בקשה לאתר מסוים בזמן שהמשתמש גולש באתר זדוני, תוך צירוף העוגיות אוטומטית. הגדרת עוגייה עם SameSite בערך Strict מונעת שליחת העוגייה בבקשות חוצות-אתר — כך הבקשה הזדונית נשלחת ללא הפעלה פעילה." },
+          { q: "מה HSTS ולמה הוא מגן מ-SSL Stripping?", a: "כותרת HSTS אומרת לדפדפן להשתמש תמיד בחיבור מוצפן (HTTPS) לדומיין זה. מתקפת הורדת הצפנה (SSL Stripping) מנסה לשדרג לאחור לחיבור לא מוצפן. עם HSTS הדפדפן מסרב לחיבור לא מוצפן — כך המתקפה נכשלת." }
         ]
       }
     ]
@@ -6988,9 +6988,9 @@ org:"Target Company" product:"Apache"     # Apache servers</code></pre></div>
         type: "questions",
         title: "שאלות — TI ו-OSINT",
         questions: [
-          { q: "מה IoC ותן 3 דוגמאות?", a: "IoC = Indicator of Compromise — עדות לפריצה. דוגמאות: IP address של שרת C2, hash של malware file, domain זדוני של phishing site." },
-          { q: "מה MITRE ATT&CK?", a: "מסגרת פתוחה עם 14 Tactics (שלבי מתקפה) ומאות Techniques. מאפשרת לסווג TTPs של APTs ולמפות מנגנוני הגנה. משמשת ל-Red Team planning ו-Blue Team detection engineering." },
-          { q: "מה ההבדל בין Passive ל-Active Reconnaissance?", a: "Passive Recon: איסוף מידע ממקורות ציבוריים (Shodan, WHOIS, Google) — אין traffic ישיר ל-target, לא ניתן לזהות. Active Recon: שליחת requests ישירות (nmap, ping) — ניתן לזהות, ועלול להיות בלתי חוקי ללא אישור." }
+          { q: "מה IoC ותן 3 דוגמאות?", a: "מזהה פריצה (IoC) הוא עדות לכך שמערכת נפרצה. דוגמאות: כתובת IP של שרת שליטה ובקרה (C2), חתימת hash של קובץ נוזקה, ודומיין זדוני המשמש להתחזות (phishing)." },
+          { q: "מה MITRE ATT&CK?", a: "מסגרת פתוחה הכוללת 14 טקטיקות (שלבי מתקפה) ומאות טכניקות. מאפשרת לסווג שיטות תקיפה (TTPs) של קבוצות תקיפה מתקדמות ולמפות מנגנוני הגנה מתאימים. משמשת גם לצוותי תקיפה וגם לצוותי הגנה." },
+          { q: "מה ההבדל בין Passive ל-Active Reconnaissance?", a: "סיור פסיבי: איסוף מידע ממקורות ציבוריים (כמו Shodan, WHOIS, גוגל) — ללא תעבורה ישירה ליעד, לא ניתן לזהות את הסורק. סיור אקטיבי: שליחת בקשות ישירות ליעד (כמו nmap, ping) — ניתן לזהות, ועלול להיות בלתי חוקי ללא אישור." }
         ]
       }
     ]
@@ -7065,9 +7065,9 @@ Get-ScheduledTask | Where-Object State -eq 'Ready'  # scheduled tasks</code></pr
         type: "questions",
         title: "שאלות — Incident Response",
         questions: [
-          { q: "מה 6 שלבי Incident Response?", a: "Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned. שלב ה-Containment קריטי — צמצום נזק מיידי. Lessons Learned — מונע הישנות." },
-          { q: "מה Supply Chain Attack? תן דוגמה.", a: "תקיפת שרשרת אספקה — פרצה לתוכנה של ספק שאתה סומך עליה. SolarWinds: תוקפים הזריקו malware ל-update חתום של Orion → 18,000 ארגונים התקינו וולונטרית." },
-          { q: "מה volatility ולמה משתמשים בו ב-IR?", a: "Volatility היא framework לניתוח memory dumps. ב-IR משתמשים בה לזיהוי תהליכים זדוניים, חיבורי רשת בזמן הפריצה, והסתרת תהליכים (process injection) — מידע שלא נשמר בדיסק." }
+          { q: "מה 6 שלבי Incident Response?", a: "ששת השלבים: הכנה, זיהוי, בלימה, מיגור, שחזור, והפקת לקחים. שלב הבלימה (Containment) קריטי לצמצום נזק מיידי, ושלב הפקת הלקחים (Lessons Learned) מונע הישנות." },
+          { q: "מה Supply Chain Attack? תן דוגמה.", a: "תקיפת שרשרת אספקה — פריצה לתוכנה של ספק שאתה סומך עליה. בדוגמת SolarWinds: תוקפים הזריקו נוזקה לעדכון חתום של מוצר Orion, ו-18,000 ארגונים התקינו אותו מרצון." },
+          { q: "מה volatility ולמה משתמשים בו ב-IR?", a: "Volatility הוא כלי לניתוח תמונות זיכרון (memory dumps). בתגובה לאירוע משתמשים בו לזיהוי תהליכים זדוניים, חיבורי רשת בזמן הפריצה, והזרקת קוד לתהליכים — מידע שלא נשמר בדיסק." }
         ]
       }
     ]
@@ -7162,9 +7162,9 @@ echo "LD_PRELOAD=/tmp/malicious.so" >> /etc/environment</code></pre></div>
         type: "questions",
         title: "שאלות — Malware Analysis",
         questions: [
-          { q: "מה ההבדל בין Static ל-Dynamic Analysis?", a: "Static: בוחנים את הקובץ עצמו ללא הרצה — strings, imports, code. Dynamic: מריצים ב-sandbox ובוחנים התנהגות — API calls, network traffic, file changes. Dynamic מגלה obfuscated code שStatic מחמיץ." },
-          { q: "מה Persistence ולמה זה חשוב ל-IR?", a: "Persistence = מנגנון שמאפשר ל-malware לרוץ אחרי reboot. ב-IR חייבים לנקות את כל מנגנוני ה-Persistence — Registry Run Keys, Scheduled Tasks, Services, Cron — לפני שחזור המערכת." },
-          { q: "מה Ransomware וכיצד ניתן למנוע אותו?", a: "Ransomware מצפין קבצים ודורש כופר לפענוח. מניעה: 1) Backups מנותקים (offline/immutable), 2) Patch management, 3) Email filtering, 4) Endpoint protection, 5) Network segmentation למנוע lateral movement." }
+          { q: "מה ההבדל בין Static ל-Dynamic Analysis?", a: "ניתוח סטטי בוחן את הקובץ עצמו ללא הרצה — מחרוזות, ייבואים, קוד. ניתוח דינמי מריץ את הקובץ בסביבה מבודדת (sandbox) ובוחן התנהגות — קריאות מערכת, תעבורת רשת, שינויי קבצים. ניתוח דינמי מגלה קוד מוסווה (obfuscated) שניתוח סטטי מחמיץ." },
+          { q: "מה Persistence ולמה זה חשוב ל-IR?", a: "התמדה (Persistence) היא מנגנון שמאפשר לנוזקה לרוץ שוב אחרי אתחול מחדש. בתגובה לאירוע חובה לנקות את כל מנגנוני ההתמדה — מפתחות רישום, משימות מתוזמנות, שירותים, משימות Cron — לפני שחזור המערכת." },
+          { q: "מה Ransomware וכיצד ניתן למנוע אותו?", a: "תוכנת כופר (Ransomware) מצפינה קבצים ודורשת תשלום לפענוח. מניעה: 1) גיבויים מנותקים מהרשת, 2) עדכוני אבטחה שוטפים, 3) סינון דואר אלקטרוני, 4) הגנת נקודות קצה, 5) פילוח רשת למניעת תנועה רוחבית של התוקף." }
         ]
       }
     ]
