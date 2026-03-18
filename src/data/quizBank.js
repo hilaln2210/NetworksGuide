@@ -1139,70 +1139,70 @@ export const quizBank = {
 
   19: [
     {
-      q: "מה ההבדל בין DNS Recursive Resolver לבין Authoritative Name Server?",
-      correct: "‏Recursive = שואל בשמך ומחפש התשובה. Authoritative = יודע את התשובה הסופית",
+      q: "\u200Fמה ההבדל בין DNS Recursive Resolver לבין Authoritative Name Server?",
+      correct: "\u200FRecursive = שואל בשמך ומחפש התשובה\nAuthoritative = יודע את התשובה הסופית",
       choices: [
-        "‏Recursive = שואל בשמך ומחפש התשובה. Authoritative = יודע את התשובה הסופית",
-        "‏Recursive = מהיר יותר, Authoritative = מאובטח יותר",
-        "‏Recursive של ה-ISP, Authoritative של גוגל",
-        "אין הבדל — שניהם עושים אותו דבר"
+        "\u200FRecursive = שואל בשמך ומחפש התשובה\nAuthoritative = יודע את התשובה הסופית",
+        "\u200FRecursive = מהיר יותר\nAuthoritative = מאובטח יותר",
+        "\u200FRecursive של ה-ISP\nAuthoritative של גוגל",
+        "\u200Fאין הבדל — שניהם עושים אותו דבר"
       ],
-      explanation: "כשאת שואלת 8.8.8.8 (Google Recursive) על google.com — הוא שואל Root → .com TLD → Google Authoritative. ‏Google Authoritative יודע 'google.com = 142.250.x.x'. ‏Recursive עושה את כל העבודה בשבילך 🔍"
+      explanation: "\u200F🔍 תהליך DNS query:\n• שואלת 8.8.8.8 (Google Recursive) על google.com\n• הוא שואל Root → .com TLD → Google Authoritative\n\n📌 חלוקת תפקידים:\n• Google Authoritative יודע google.com = 142.250.x.x\n• Recursive עושה את כל העבודה בשבילך"
     },
     {
-      q: "מה DNS TTL קובע?",
-      correct: "כמה זמן ‎(בשניות)‎ DNS cache יכול להשתמש בתשובה לפני שישאל שוב",
+      q: "\u200Fמה DNS TTL קובע?",
+      correct: "\u200Fכמה זמן (בשניות) DNS cache\nיכול להשתמש בתשובה\nלפני שישאל שוב",
       choices: [
-        "כמה זמן ‎(בשניות)‎ DNS cache יכול להשתמש בתשובה לפני שישאל שוב",
-        "כמה זמן הדומיין רשום ל-registrar",
-        "מהירות העברת DNS query",
-        "מספר ה-Name Servers לדומיין"
+        "\u200Fכמה זמן (בשניות) DNS cache\nיכול להשתמש בתשובה\nלפני שישאל שוב",
+        "\u200Fכמה זמן הדומיין רשום ל-registrar",
+        "\u200Fמהירות העברת DNS query",
+        "\u200Fמספר ה-Name Servers לדומיין"
       ],
-      explanation: "‏TTL = Time To Live. google.com TTL=300 ‎(5 דקות)‎. אתר קטן יכול לשים TTL=86400 ‎(יום)‎ — פחות queries. לפני שינוי DNS, מומלץ להוריד TTL ל-60s מראש כדי שהשינוי יתפשט מהר 🕐"
+      explanation: "\u200F🕐 TTL = Time To Live:\n• google.com TTL=300 (5 דקות)\n• אתר קטן יכול לשים TTL=86400 (יום) — פחות queries\n\n💡 טיפ חשוב:\n• לפני שינוי DNS — הורד TTL ל-60s מראש\n• כדי שהשינוי יתפשט מהר"
     },
     {
-      q: "מה DNS over HTTPS (DoH) מוסיף?",
-      correct: "מצפין DNS queries כדי שה-ISP לא יוכל לראות מה מחפשים",
+      q: "\u200Fמה DNS over HTTPS (DoH) מוסיף?",
+      correct: "\u200Fמצפין DNS queries\nכדי שה-ISP לא יוכל לראות מה מחפשים",
       choices: [
-        "מצפין DNS queries כדי שה-ISP לא יוכל לראות מה מחפשים",
-        "מאיץ את ה-DNS resolution",
-        "מוסיף HTTPS לכל האתרים",
-        "מחליף את כתובות IP בשמות דומיין"
+        "\u200Fמצפין DNS queries\nכדי שה-ISP לא יוכל לראות מה מחפשים",
+        "\u200Fמאיץ את ה-DNS resolution",
+        "\u200Fמוסיף HTTPS לכל האתרים",
+        "\u200Fמחליף את כתובות IP בשמות דומיין"
       ],
-      explanation: "‏DNS רגיל = ב-plaintext. ‏ISP רואה כל lookup. ‏DoH = DNS query עובר כ-HTTPS לשרת כמו 1.1.1.1 או 8.8.8.8. ‏ISP רואה חיבור ל-1.1.1.1 — לא מה שחיפשת. ‏Firefox ו-Chrome תומכים ב-DoH כברירת מחדל 🔒"
+      explanation: "\u200F🔒 הבעיה:\n• DNS רגיל = ב-plaintext\n• ISP רואה כל lookup\n\n🛡️ הפתרון — DoH:\n• DNS query עובר כ-HTTPS\n• לשרת כמו 1.1.1.1 או 8.8.8.8\n• ISP רואה חיבור ל-1.1.1.1 — לא מה שחיפשת\n• Firefox ו-Chrome תומכים ב-DoH כברירת מחדל"
     },
     {
-      q: "מה DNS TTL ואיך משפיע על תפוצה של שינויים?",
-      correct: "‏TTL = כמה שניות record נשמר ב-cache. TTL נמוך = שינויים מהירים ‎(אבל יותר queries)‎. TTL גבוה = performance אבל שינוי אטי",
+      q: "\u200Fמה DNS TTL ואיך משפיע על תפוצה של שינויים?",
+      correct: "\u200FTTL = כמה שניות record נשמר ב-cache\nTTL נמוך = שינויים מהירים (אבל יותר queries)\nTTL גבוה = performance אבל שינוי אטי",
       choices: [
-        "‏TTL = כמה שניות record נשמר ב-cache. TTL נמוך = שינויים מהירים ‎(אבל יותר queries)‎. TTL גבוה = performance אבל שינוי אטי",
-        "‏TTL = כמה DNS servers זוכרים את הrecord",
-        "‏TTL רק ל-MX records",
-        "‏TTL קבוע = 24 שעות לכולם"
+        "\u200FTTL = כמה שניות record נשמר ב-cache\nTTL נמוך = שינויים מהירים (אבל יותר queries)\nTTL גבוה = performance אבל שינוי אטי",
+        "\u200FTTL = כמה DNS servers זוכרים את ה-record",
+        "\u200FTTL רק ל-MX records",
+        "\u200FTTL קבוע = 24 שעות לכולם"
       ],
-      explanation: "‏Before migration: הפחת TTL ל-300s (5 min) 24-48 שעות מראש. ‏Migration: שנה IP. ‏Old TTL: עד 24 שעות cache נשמר. עם TTL=300: 5 דקות. ‏After: החזר TTL ל-3600+ לperformance. ‏DNS record types: A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), TXT (SPF/DKIM/verification), NS (nameserver), SOA (authority), PTR (reverse), SRV (services)."
+      explanation: "\u200F🔄 תהליך migration:\n• Before: הפחת TTL ל-300s (5 min) 24-48 שעות מראש\n• Migration: שנה IP\n• Old TTL: עד 24 שעות cache נשמר\n• עם TTL=300: רק 5 דקות\n• After: החזר TTL ל-3600+ ל-performance\n\n📋 DNS record types:\n• A (IPv4), AAAA (IPv6), CNAME (alias)\n• MX (mail), TXT (SPF/DKIM/verification)\n• NS (nameserver), SOA (authority)\n• PTR (reverse), SRV (services)"
     },
     {
-      q: "מה ההבדל בין Authoritative DNS לבין Recursive Resolver?",
-      correct: "‏Authoritative: המקור הסמכותי לdomain (ns1.google.com). Recursive: עושה את כל הpipeline בשביל client (8.8.8.8)",
+      q: "\u200Fמה ההבדל בין Authoritative DNS לבין Recursive Resolver?",
+      correct: "\u200FAuthoritative: המקור הסמכותי ל-domain (ns1.google.com)\nRecursive: עושה את כל ה-pipeline\nבשביל client (8.8.8.8)",
       choices: [
-        "‏Authoritative: המקור הסמכותי לdomain (ns1.google.com). Recursive: עושה את כל הpipeline בשביל client (8.8.8.8)",
-        "שניהם זהים",
-        "‏Authoritative = DNS פרטי, Recursive = ציבורי",
-        "‏Recursive = Root DNS server"
+        "\u200FAuthoritative: המקור הסמכותי ל-domain (ns1.google.com)\nRecursive: עושה את כל ה-pipeline\nבשביל client (8.8.8.8)",
+        "\u200Fשניהם זהים",
+        "\u200FAuthoritative = DNS פרטי\nRecursive = ציבורי",
+        "\u200FRecursive = Root DNS server"
       ],
-      explanation: "‏Recursive Resolver (8.8.8.8, 1.1.1.1): שואל Root → TLD → Authoritative ומחזיר ל-client. מחזיק cache. ‏Authoritative NS (Route 53, Cloudflare DNS): מחזיק zone file עם כל records. ‏Root servers: 13 logical (a-m.root-servers.net) = Anycast = מאות servers. ‏TLD: .com (Verisign), .il (ISOC-IL). ‏Delegation: NS records ב-parent zone מפנים לchild authoritative."
+      explanation: "\u200F🔄 Recursive Resolver (8.8.8.8, 1.1.1.1):\n• שואל Root → TLD → Authoritative ומחזיר ל-client\n• מחזיק cache\n\n📁 Authoritative NS (Route 53, Cloudflare DNS):\n• מחזיק zone file עם כל records\n\n🌍 היררכיה:\n• Root servers: 13 logical (a-m.root-servers.net) = Anycast = מאות servers\n• TLD: .com (Verisign), .il (ISOC-IL)\n• Delegation: NS records ב-parent zone מפנים ל-child authoritative"
     },
     {
-      q: "מה DNS Cache Poisoning ואיך DNSSEC מגן?",
-      correct: "‏Poisoning: תוקף שולח DNS responses מזויפים לcache resolver לפני תגובה אמיתית. DNSSEC: חתימות קריפטוגרפיות על records",
+      q: "\u200Fמה DNS Cache Poisoning ואיך DNSSEC מגן?",
+      correct: "\u200FPoisoning: תוקף שולח DNS responses מזויפים\nל-cache resolver לפני תגובה אמיתית\nDNSSEC: חתימות קריפטוגרפיות על records",
       choices: [
-        "‏Poisoning: תוקף שולח DNS responses מזויפים לcache resolver לפני תגובה אמיתית. DNSSEC: חתימות קריפטוגרפיות על records",
-        "‏DNS Poisoning = שינוי /etc/hosts",
-        "‏DNSSEC = TLS לDNS",
-        "‏DNS Poisoning עובד רק ב-IPv4"
+        "\u200FPoisoning: תוקף שולח DNS responses מזויפים\nל-cache resolver לפני תגובה אמיתית\nDNSSEC: חתימות קריפטוגרפיות על records",
+        "\u200FDNS Poisoning = שינוי /etc/hosts",
+        "\u200FDNSSEC = TLS ל-DNS",
+        "\u200FDNS Poisoning עובד רק ב-IPv4"
       ],
-      explanation: "‏Kaminsky Attack (2008): ניחוש Transaction ID + source port → race condition → poison cache. ‏DNSSEC: Zone Signing Key + Key Signing Key. ‏RRSIG: חתימה על כל record. ‏DS record: hash של child zone key ב-parent. ‏Chain of trust: Root → TLD → domain. ‏DNSSEC לא מצפין ‎(DoT/DoH לזה)‎. ‏Resolver: dig +dnssec google.com."
+      explanation: "\u200F☠️ Kaminsky Attack (2008):\n• ניחוש Transaction ID + source port\n• race condition → poison cache\n\n🛡️ DNSSEC — הגנה:\n• Zone Signing Key + Key Signing Key\n• RRSIG — חתימה על כל record\n• DS record — hash של child zone key ב-parent\n• Chain of trust: Root → TLD → domain\n\n📌 חשוב לדעת:\n• DNSSEC לא מצפין (DoT/DoH לזה)\n• בדיקה: dig +dnssec google.com"
     }
   ],
 
