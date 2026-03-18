@@ -959,65 +959,65 @@ export const quizBank = {
 
   16: [
     {
-      q: "מה ההבדל בין SMTP ל-IMAP?",
-      correct: "‏SMTP = שליחת מייל. IMAP = קריאת מייל ‎(sync עם שרת)‎",
+      q: "\u200Fמה ההבדל בין SMTP ל-IMAP?",
+      correct: "\u200FSMTP = שליחת מייל\nIMAP = קריאת מייל (sync עם שרת)",
       choices: [
-        "‏SMTP = שליחת מייל. IMAP = קריאת מייל ‎(sync עם שרת)‎",
-        "‏SMTP = מוצפן, IMAP = לא מוצפן",
-        "‏SMTP לGmail, IMAP לOutlook",
-        "שניהם לשליחה, ההבדל הוא בפורט"
+        "\u200FSMTP = שליחת מייל\nIMAP = קריאת מייל (sync עם שרת)",
+        "\u200FSMTP = מוצפן\nIMAP = לא מוצפן",
+        "\u200FSMTP לGmail\nIMAP לOutlook",
+        "\u200Fשניהם לשליחה\nההבדל הוא בפורט"
       ],
-      explanation: "‏SMTP ‎(פורט 587)‎ = שולח. ‏IMAP ‎(פורט 993)‎ = קורא ומסנכרן עם שרת — מייל נשאר בשרת. ‏POP3 ‎(פורט 995)‎ = מוריד ומוחק מהשרת. היום IMAP > POP3 כי רוצים sync בין מכשירים 📧"
+      explanation: "\u200F📧 פרוטוקולי מייל:\n• SMTP (פורט 587) = שולח\n• IMAP (פורט 993) = קורא ומסנכרן עם שרת\n• מייל נשאר בשרת\n\n📥 POP3 (פורט 995):\n• מוריד ומוחק מהשרת\n• היום IMAP > POP3\n• כי רוצים sync בין מכשירים"
     },
     {
-      q: "מה SSH מאפשר לעשות?",
-      correct: "גישה מאובטחת ומוצפנת לשרת מרוחק דרך terminal",
+      q: "\u200Fמה SSH מאפשר לעשות?",
+      correct: "\u200Fגישה מאובטחת ומוצפנת\nלשרת מרוחק דרך terminal",
       choices: [
-        "גישה מאובטחת ומוצפנת לשרת מרוחק דרך terminal",
-        "העברת קבצים מהירה בין שרתים",
-        "ניהול כתובות IP בצורה מרכזית",
-        "הצפנת תעבורת HTTP לHTTPS"
+        "\u200Fגישה מאובטחת ומוצפנת\nלשרת מרוחק דרך terminal",
+        "\u200Fהעברת קבצים מהירה בין שרתים",
+        "\u200Fניהול כתובות IP בצורה מרכזית",
+        "\u200Fהצפנת תעבורת HTTP לHTTPS"
       ],
-      explanation: "‏SSH ‎(Secure Shell, פורט 22)‎ = טלנט מוצפן. כשאת כותבת ssh user@server.com — יוצרת terminal מוצפן לשרת. ‏SCP ו-SFTP = העברת קבצים מעל SSH. ‏DevOps חיים על SSH 💻"
+      explanation: "\u200F🔐 SSH — Secure Shell (פורט 22):\n• טלנט מוצפן\n• כותבת ssh user@server.com\n• יוצרת terminal מוצפן לשרת\n\n📂 העברת קבצים מעל SSH:\n• SCP — העתקה מוצפנת\n• SFTP — ניהול קבצים מוצפן\n• DevOps חיים על SSH"
     },
     {
-      q: "מה הפורט הסטנדרטי של SSH?",
-      correct: "22",
-      choices: ["22", "23", "443", "8080"],
-      explanation: "‏SSH=22, Telnet=23 ‎(לא מוצפן!)‎, HTTPS=443, HTTP=80. ‏Admins לפעמים מעבירים SSH לפורט 2222 כדי להפחית bot scanning — security through obscurity, לא פתרון אמיתי 🔐"
+      q: "\u200Fמה הפורט הסטנדרטי של SSH?",
+      correct: "\u200F22",
+      choices: ["\u200F22", "\u200F23", "\u200F443", "\u200F8080"],
+      explanation: "\u200F🔢 פורטים חשובים:\n• SSH = 22\n• Telnet = 23 (לא מוצפן!)\n• HTTPS = 443\n• HTTP = 80\n\n🛡️ טיפ אבטחה:\n• Admins לפעמים מעבירים SSH לפורט 2222\n• כדי להפחית bot scanning\n• security through obscurity — לא פתרון אמיתי"
     },
     {
-      q: "מה ההבדל בין POP3 לבין IMAP?",
-      correct: "‏POP3: מוריד emails למחשב ומוחק מהשרת. IMAP: מסנכרן — emails נשארים בשרת, ניתן לגשת ממכשירים מרובים",
+      q: "\u200Fמה ההבדל בין POP3 לבין IMAP?",
+      correct: "\u200FPOP3: מוריד emails למחשב ומוחק מהשרת\nIMAP: מסנכרן — emails נשארים בשרת\nניתן לגשת ממכשירים מרובים",
       choices: [
-        "‏POP3: מוריד emails למחשב ומוחק מהשרת. IMAP: מסנכרן — emails נשארים בשרת, ניתן לגשת ממכשירים מרובים",
-        "‏POP3 = email חדש, IMAP = email ישן",
-        "שניהם זהים — רק ports שונים",
-        "‏IMAP = הצפנה, POP3 = ללא הצפנה"
+        "\u200FPOP3: מוריד emails למחשב ומוחק מהשרת\nIMAP: מסנכרן — emails נשארים בשרת\nניתן לגשת ממכשירים מרובים",
+        "\u200FPOP3 = email חדש\nIMAP = email ישן",
+        "\u200Fשניהם זהים — רק ports שונים",
+        "\u200FIMAP = הצפנה\nPOP3 = ללא הצפנה"
       ],
-      explanation: "‏POP3 (port 110, SSL 995): Post Office Protocol v3. ‏IMAP (port 143, SSL 993): Internet Message Access Protocol. ‏SMTP (port 25/587): שליחת email. ‏SMTP relay: server-to-server. ‏SPF: מאמת IP מורשה לשלוח מ-domain. ‏DKIM: חותם דיגיטלי על email. ‏DMARC: מדיניות SPF+DKIM failure. ‏Email spoofing: ניתן לשלוח מ-any domain ללא SPF/DKIM."
+      explanation: "\u200F📬 פרוטוקולי קריאת מייל:\n• POP3 (port 110, SSL 995) — Post Office Protocol v3\n• IMAP (port 143, SSL 993) — Internet Message Access Protocol\n• SMTP (port 25/587) — שליחת email\n\n🔒 אבטחת מייל:\n• SPF — מאמת IP מורשה לשלוח מ-domain\n• DKIM — חותם דיגיטלי על email\n• DMARC — מדיניות SPF+DKIM failure\n• Email spoofing — ניתן לשלוח מ-any domain ללא SPF/DKIM"
     },
     {
-      q: "מה SSH ולמה הוא עדיף על Telnet?",
-      correct: "‏SSH (port 22) מצפין את כל התקשורת כולל passwords. Telnet (port 23) שולח הכל בplaintext — ניתן ליירוט עם Wireshark",
+      q: "\u200Fמה SSH ולמה הוא עדיף על Telnet?",
+      correct: "\u200FSSH (port 22) מצפין את כל התקשורת כולל passwords\nTelnet (port 23) שולח הכל ב-plaintext\nניתן ליירוט עם Wireshark",
       choices: [
-        "‏SSH (port 22) מצפין את כל התקשורת כולל passwords. Telnet (port 23) שולח הכל בplaintext — ניתן ליירוט עם Wireshark",
-        "‏SSH ו-Telnet זהים — רק שמות שונים",
-        "‏SSH מהיר יותר מ-Telnet",
-        "‏Telnet מוצפן ב-IPv6"
+        "\u200FSSH (port 22) מצפין את כל התקשורת כולל passwords\nTelnet (port 23) שולח הכל ב-plaintext\nניתן ליירוט עם Wireshark",
+        "\u200FSSH ו-Telnet זהים — רק שמות שונים",
+        "\u200FSSH מהיר יותר מ-Telnet",
+        "\u200FTelnet מוצפן ב-IPv6"
       ],
-      explanation: "‏SSH (RFC 4253): asymmetric לhandshake + symmetric לsession. ‏Key-based auth: id_rsa (private), id_rsa.pub (public). authorized_keys: SSH login ללא password. ‏Port forwarding: ssh -L 8080:internal:80. ‏SCP/SFTP: file transfer מוצפן. ‏SSH tunneling: הברחת traffic מוצפן דרך port 22 ‎(לניצחון firewalls)‎. known_hosts: fingerprint verification."
+      explanation: "\u200F🔐 SSH (RFC 4253):\n• asymmetric ל-handshake + symmetric ל-session\n• Key-based auth: id_rsa (private), id_rsa.pub (public)\n• authorized_keys — SSH login ללא password\n\n🚇 יכולות מתקדמות:\n• Port forwarding: ssh -L 8080:internal:80\n• SCP/SFTP — file transfer מוצפן\n• SSH tunneling — הברחת traffic מוצפן דרך port 22\n• known_hosts — fingerprint verification"
     },
     {
-      q: "מה FTP Active Mode לעומת Passive Mode?",
-      correct: "‏Active: server מתחבר חזרה לclient על port גבוה ‎(בעיה עם NAT/firewall)‎. Passive: client מתחבר לserver על port גבוה שהשרת מאשר",
+      q: "\u200Fמה FTP Active Mode לעומת Passive Mode?",
+      correct: "\u200FActive: server מתחבר חזרה ל-client\nעל port גבוה (בעיה עם NAT/firewall)\nPassive: client מתחבר ל-server\nעל port גבוה שהשרת מאשר",
       choices: [
-        "‏Active: server מתחבר חזרה לclient על port גבוה ‎(בעיה עם NAT/firewall)‎. Passive: client מתחבר לserver על port גבוה שהשרת מאשר",
-        "‏Active מהיר יותר, Passive מאובטח יותר",
-        "ההבדל רק ב-ports: 20 ו-21",
-        "‏Passive = FTPS (encrypted FTP)"
+        "\u200FActive: server מתחבר חזרה ל-client\nעל port גבוה (בעיה עם NAT/firewall)\nPassive: client מתחבר ל-server\nעל port גבוה שהשרת מאשר",
+        "\u200FActive מהיר יותר\nPassive מאובטח יותר",
+        "\u200Fההבדל רק ב-ports: 20 ו-21",
+        "\u200FPassive = FTPS (encrypted FTP)"
       ],
-      explanation: "‏FTP: port 21 = control, port 20 = data. ‏Active Mode: server → client:random port ‎(NAT שובר)‎. ‏Passive Mode: client → server:random port (NAT-friendly). ‏FTPS: FTP over TLS (explicit/implicit). ‏SFTP: SSH File Transfer Protocol ‎(אחר לגמרי, port 22)‎. ‏FTP plaintext — לא לשימוש ללא TLS. ‏Alternatives: SFTP, SCP, rsync over SSH, S3."
+      explanation: "\u200F📁 FTP — פורטים:\n• port 21 = control\n• port 20 = data\n\n🔄 מצבי עבודה:\n• Active Mode — server מתחבר ל-client:random port (NAT שובר)\n• Passive Mode — client מתחבר ל-server:random port (NAT-friendly)\n\n🔒 חלופות מאובטחות:\n• FTPS — FTP over TLS (explicit/implicit)\n• SFTP — SSH File Transfer Protocol (port 22, אחר לגמרי)\n• FTP plaintext — לא לשימוש ללא TLS\n• חלופות: SFTP, SCP, rsync over SSH, S3"
     }
   ],
 
