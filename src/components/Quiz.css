@@ -470,6 +470,30 @@
 }
 .quiz-continue-btn:hover { opacity: 0.88; }
 
+.quiz-nav-btns {
+  display: flex;
+  gap: 0.5rem;
+  align-self: flex-end;
+  margin-top: 0.25rem;
+}
+
+.quiz-prev-btn {
+  padding: 0.55rem 1.4rem;
+  background: rgba(15,23,42,0.06);
+  border: 1px solid rgba(15,23,42,0.15);
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgba(15,23,42,0.65);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  animation: slide-in 0.2s ease;
+}
+.quiz-prev-btn:hover {
+  background: rgba(15,23,42,0.1);
+}
+
 /* ===== DONE SCREEN ===== */
 .quiz-done {
   text-align: center;
@@ -599,6 +623,25 @@
 
 .quiz-back-btn:hover {
   background: rgba(15,23,42,0.1);
+}
+
+.quiz-learn-btn {
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
+}
+
+.quiz-learn-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
 }
 
 .quiz-next-btn {

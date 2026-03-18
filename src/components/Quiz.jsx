@@ -291,6 +291,17 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
                 <button className="quiz-back-btn" onClick={() => setMode(null)}>
                   📋 כל הפרקים
                 </button>
+                {mode === 'chapter' && (() => {
+                  const learnChIdx = chapters.findIndex(c => c.id === selectedChapter)
+                  if (learnChIdx >= 0 && learnChIdx < chapters.length - 1) {
+                    return (
+                      <button className="quiz-learn-btn" onClick={() => onGoToChapter(learnChIdx + 1)}>
+                        📖 המשך ללמוד פרק הבא
+                      </button>
+                    )
+                  }
+                  return null
+                })()}
               </div>
             )
           })()}
@@ -364,7 +375,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
 
       {/* Question */}
       <div className="quiz-question-card">
-        <span className="quiz-q-num">שאלה {current + 1}</span>
+        <span className="quiz-q-num">שאלה {current + 1} מתוך {questions.length}</span>
         <p className="quiz-question-text" dir="rtl">{renderBidiText(q.q)}</p>
         {/* Hint + chapter link row — only before answering */}
         {picked === null && (
@@ -450,9 +461,20 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
             </div>
           </div>
           {canContinue && (
-            <button className="quiz-continue-btn" onClick={handleContinue}>
-              {current + 1 >= questions.length ? '← סיום' : '← הבא'}
-            </button>
+            <div className="quiz-nav-btns">
+              {current > 0 && (
+                <button className="quiz-prev-btn" onClick={() => {
+                  setCurrent(current - 1)
+                  setPicked(null)
+                  setShowResult(false)
+                  setCanContinue(false)
+                  setHintVisible(false)
+                }}>הקודם →</button>
+              )}
+              <button className="quiz-continue-btn" onClick={handleContinue}>
+                {current + 1 >= questions.length ? '← סיום' : '← הבא'}
+              </button>
+            </div>
           )}
         </div>
       )}
