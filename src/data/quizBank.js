@@ -1266,59 +1266,59 @@ export const quizBank = {
 
   21: [
     {
-      q: "מה ההבדל בין IPsec Tunnel mode לTransport mode?",
-      correct: "‏Transport: מוצפן payload בלבד. Tunnel: כל הפקטה עטופה בפקטה חדשה",
+      q: "\u200Fמה ההבדל בין IPsec Tunnel mode ל-Transport mode?",
+      correct: "\u200FTransport: מוצפן payload בלבד\nTunnel: כל הפקטה עטופה בפקטה חדשה",
       choices: [
-        "‏Transport: מוצפן payload בלבד. Tunnel: כל הפקטה עטופה בפקטה חדשה",
-        "‏Transport ל-UDP, Tunnel ל-TCP",
-        "‏Transport מהיר יותר תמיד",
-        "אין הבדל — שניהם מצפינים הכל"
+        "\u200FTransport: מוצפן payload בלבד\nTunnel: כל הפקטה עטופה בפקטה חדשה",
+        "\u200FTransport ל-UDP\nTunnel ל-TCP",
+        "\u200FTransport מהיר יותר תמיד",
+        "\u200Fאין הבדל — שניהם מצפינים הכל"
       ],
-      explanation: "‏Transport mode: IP Header מקורי גלוי, payload מוצפן. לHost-to-Host. ‏Tunnel mode: פקטה מלאה נעטפת — ה-IP החיצוני הוא של ה-VPN Gateway. ‏Site-to-Site VPN = Tunnel mode. ‏IKEv2 מועדף ליצירת security association 🔐"
+      explanation: "\u200F🔐 Transport mode:\n• IP Header מקורי גלוי, payload מוצפן\n• ל-Host-to-Host\n\n🚇 Tunnel mode:\n• פקטה מלאה נעטפת\n• ה-IP החיצוני הוא של ה-VPN Gateway\n• Site-to-Site VPN = Tunnel mode\n• IKEv2 מועדף ליצירת security association"
     },
     {
-      q: "מה SYN Cookies ואיך הם פותרים SYN Flood?",
-      correct: "שרת לא מקצה state לSYN — מחזיר ISN מוצפן. רק ACK תקין מוכיח שהלקוח אמיתי",
+      q: "\u200Fמה SYN Cookies ואיך הם פותרים SYN Flood?",
+      correct: "\u200Fשרת לא מקצה state ל-SYN\nמחזיר ISN מוצפן\nרק ACK תקין מוכיח שהלקוח אמיתי",
       choices: [
-        "שרת לא מקצה state לSYN — מחזיר ISN מוצפן. רק ACK תקין מוכיח שהלקוח אמיתי",
-        "‏cookies של browser שמאמתים משתמשים לגיטימיים",
-        "‏cache של SYN packets למניעת כפילויות",
-        "‏rate limiting על SYN packets בfirewall"
+        "\u200Fשרת לא מקצה state ל-SYN\nמחזיר ISN מוצפן\nרק ACK תקין מוכיח שהלקוח אמיתי",
+        "\u200Fcookies של browser שמאמתים משתמשים לגיטימיים",
+        "\u200Fcache של SYN packets למניעת כפילויות",
+        "\u200Frate limiting על SYN packets ב-firewall"
       ],
-      explanation: "‏SYN Flood: תוקף שולח מיליוני SYN. שרת רגיל: מקצה state לכל אחד → מלא RAM. ‏SYN Cookies: ISN = hash(src_ip, src_port, dst_port, timestamp, secret). שרת לא שומר state! רק ACK עם ISN+1 תקין מוכיח שהלקוח קיבל SYN-ACK 🛡️"
+      explanation: "\u200F☠️ SYN Flood — הבעיה:\n• תוקף שולח מיליוני SYN\n• שרת רגיל: מקצה state לכל אחד → מלא RAM\n\n🛡️ SYN Cookies — הפתרון:\n• ISN = hash(src_ip, src_port, dst_port, timestamp, secret)\n• שרת לא שומר state!\n• רק ACK עם ISN+1 תקין\n• מוכיח שהלקוח קיבל SYN-ACK"
     },
     {
-      q: "מה ההבדל בין VPN site-to-site לבין remote access VPN?",
-      correct: "‏Site-to-site: מחבר רשתות שלמות (office A ↔ office B). Remote access: user בודד מתחבר לרשת ארגונית",
+      q: "\u200Fמה ההבדל בין VPN site-to-site לבין remote access VPN?",
+      correct: "\u200FSite-to-site: מחבר רשתות שלמות\n(office A ↔ office B)\nRemote access: user בודד מתחבר לרשת ארגונית",
       choices: [
-        "‏Site-to-site: מחבר רשתות שלמות (office A ↔ office B). Remote access: user בודד מתחבר לרשת ארגונית",
-        "אין הבדל — שני הסוגים זהים",
-        "‏Site-to-site = IPsec, Remote access = SSL בלבד",
-        "‏Remote access VPN פחות מאובטח מsite-to-site"
+        "\u200FSite-to-site: מחבר רשתות שלמות\n(office A ↔ office B)\nRemote access: user בודד מתחבר לרשת ארגונית",
+        "\u200Fאין הבדל — שני הסוגים זהים",
+        "\u200FSite-to-site = IPsec\nRemote access = SSL בלבד",
+        "\u200FRemote access VPN פחות מאובטח מ-site-to-site"
       ],
-      explanation: "‏Site-to-site: IPsec בין 2 routers/firewalls. שקוף למשתמשים. ‏Remote access: OpenVPN, WireGuard, Cisco AnyConnect, IKEv2. ‏Split tunneling: רק traffic ארגוני דרך VPN ‎(שאר ישירות)‎. ‏Full tunnel: הכל דרך VPN. ‏Zero Trust Network Access (ZTNA) = VPN עם identity-aware policies. ‏WireGuard: חדש, מהיר, קוד קצר ‎(4K lines vs 70K ב-OpenVPN)‎."
+      explanation: "\u200F🏢 Site-to-site:\n• IPsec בין 2 routers/firewalls\n• שקוף למשתמשים\n\n👤 Remote access:\n• OpenVPN, WireGuard, Cisco AnyConnect, IKEv2\n\n🔀 מצבי tunneling:\n• Split tunneling — רק traffic ארגוני דרך VPN (שאר ישירות)\n• Full tunnel — הכל דרך VPN\n• ZTNA (Zero Trust) — VPN עם identity-aware policies\n• WireGuard — חדש, מהיר, קוד קצר (4K lines vs 70K ב-OpenVPN)"
     },
     {
-      q: "מה IPsec ואיזה שני מצבים קיימים?",
-      correct: "‏IPsec: Transport Mode ‎(L4+ מוצפן, IP header גלוי)‎ ו-Tunnel Mode ‎(כל packet מוצפן + IP header חדש — VPN site-to-site)‎",
+      q: "\u200Fמה IPsec ואיזה שני מצבים קיימים?",
+      correct: "\u200FIPsec: Transport Mode (L4+ מוצפן, IP header גלוי)\nו-Tunnel Mode (כל packet מוצפן\n+ IP header חדש — VPN site-to-site)",
       choices: [
-        "‏IPsec: Transport Mode ‎(L4+ מוצפן, IP header גלוי)‎ ו-Tunnel Mode ‎(כל packet מוצפן + IP header חדש — VPN site-to-site)‎",
-        "‏IPsec = רק TLS עם IP features",
-        "‏Transport Mode לsite-to-site, Tunnel ל-remote access",
-        "‏IPsec מצפין רק UDP"
+        "\u200FIPsec: Transport Mode (L4+ מוצפן, IP header גלוי)\nו-Tunnel Mode (כל packet מוצפן\n+ IP header חדש — VPN site-to-site)",
+        "\u200FIPsec = רק TLS עם IP features",
+        "\u200FTransport Mode ל-site-to-site\nTunnel ל-remote access",
+        "\u200FIPsec מצפין רק UDP"
       ],
-      explanation: "‏IPsec components: IKE (Internet Key Exchange) v2 לkey negotiation. ‏ESP (Encapsulating Security Payload): encryption + authentication. ‏AH (Authentication Header): authentication only ‎(ללא encryption)‎. ‏Transport Mode: host-to-host (end devices). ‏Tunnel Mode: gateway-to-gateway (routers). ‏IKE SA: negotiates master key. ‏Child SA: מפיק session keys. ‏DH (Diffie-Hellman) group: key agreement."
+      explanation: "\u200F🔧 IPsec components:\n• IKE (Internet Key Exchange) v2 — ל-key negotiation\n• ESP (Encapsulating Security Payload) — encryption + authentication\n• AH (Authentication Header) — authentication only (ללא encryption)\n\n📋 מצבים:\n• Transport Mode — host-to-host (end devices)\n• Tunnel Mode — gateway-to-gateway (routers)\n\n🔑 ניהול מפתחות:\n• IKE SA — negotiates master key\n• Child SA — מפיק session keys\n• DH (Diffie-Hellman) group — key agreement"
     },
     {
-      q: "מה WireGuard ולמה נחשב טוב יותר מ-OpenVPN?",
-      correct: "‏WireGuard: ~4K lines vs ~70K ב-OpenVPN. UDP, fast handshake, kernel module. אבל: לא stealth ‎(זיהוי בtraffic analysis)‎",
+      q: "\u200Fמה WireGuard ולמה נחשב טוב יותר מ-OpenVPN?",
+      correct: "\u200FWireGuard: ~4K lines vs ~70K ב-OpenVPN\nUDP, fast handshake, kernel module\nאבל: לא stealth (זיהוי ב-traffic analysis)",
       choices: [
-        "‏WireGuard: ~4K lines vs ~70K ב-OpenVPN. UDP, fast handshake, kernel module. אבל: לא stealth ‎(זיהוי בtraffic analysis)‎",
-        "‏WireGuard מהיר יותר אבל פחות מאובטח",
-        "‏OpenVPN תמיד עדיף כי ישן יותר",
-        "‏WireGuard = OpenVPN v3"
+        "\u200FWireGuard: ~4K lines vs ~70K ב-OpenVPN\nUDP, fast handshake, kernel module\nאבל: לא stealth (זיהוי ב-traffic analysis)",
+        "\u200FWireGuard מהיר יותר אבל פחות מאובטח",
+        "\u200FOpenVPN תמיד עדיף כי ישן יותר",
+        "\u200FWireGuard = OpenVPN v3"
       ],
-      explanation: "‏WireGuard: נכלל ב-Linux kernel 5.6+. ‏Noise protocol framework. ‏ChaCha20-Poly1305. ‏25519 ECDH. ‏Stateless לנקודת מבט firewall. ‏Peer = public key + allowed IPs. ‏Connection migration: IP משתנה, session נשמרת. מגבלות: לא TCP ‎(חוסם firewalls)‎, אין obfuscation. ‏AmneziaVPN/MASQ: WireGuard עם obfuscation. ‏Tailscale/NetBird: WireGuard mesh VPN."
+      explanation: "\u200F🚀 יתרונות WireGuard:\n• נכלל ב-Linux kernel 5.6+\n• Noise protocol framework\n• ChaCha20-Poly1305\n• 25519 ECDH\n• Peer = public key + allowed IPs\n• Connection migration — IP משתנה, session נשמרת\n\n⚠️ מגבלות:\n• לא TCP (חוסם firewalls)\n• אין obfuscation\n\n🔗 פתרונות:\n• AmneziaVPN/MASQ — WireGuard עם obfuscation\n• Tailscale/NetBird — WireGuard mesh VPN"
     }
   ],
 
