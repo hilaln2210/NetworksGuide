@@ -29,7 +29,7 @@ export function FeedbackButton({ context = {} }) {
   }, [])
 
   const handleSend = async () => {
-    const { trackTitle, chapterId, pageTitle, pageIndex, totalPages } = context
+    const { trackTitle, activeTab, chapterId, pageTitle, pageIndex, totalPages } = context
     const typeLabel = TYPE_LABELS[type] || type
 
     setSending(true)
@@ -38,13 +38,14 @@ export function FeedbackButton({ context = {} }) {
       formData.append('סוג', typeLabel)
       formData.append('הודעה', message)
       formData.append('מסלול', trackTitle || 'לא ידוע')
-      formData.append('פרק', chapterId || 'לא ידוע')
+      formData.append('טאב', activeTab || 'לא ידוע')
+      if (chapterId) formData.append('פרק', chapterId)
       formData.append('עמוד', pageTitle || 'לא ידוע')
-      formData.append('מספר עמוד', pageIndex != null && totalPages ? `${pageIndex + 1} מתוך ${totalPages}` : 'לא ידוע')
+      if (pageIndex != null && totalPages) formData.append('מספר_עמוד', `${pageIndex + 1} מתוך ${totalPages}`)
       formData.append('מסך', `${window.innerWidth}x${window.innerHeight}`)
       formData.append('מכשיר', navigator.userAgent)
       formData.append('תאריך', new Date().toLocaleString('he-IL'))
-      formData.append('_subject', `[NetworksGuide ${typeLabel}] ${trackTitle || 'כללי'} > פרק ${chapterId || '?'} > ${pageTitle || ''}`)
+      formData.append('_subject', `[NetworksGuide ${typeLabel}] ${activeTab || ''} | ${trackTitle || 'כללי'} > ${pageTitle || ''}`)
       formData.append('_template', 'table')
 
       await fetch('https://formsubmit.co/ajax/hilaaa90@gmail.com', {

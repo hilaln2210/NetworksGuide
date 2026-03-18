@@ -524,7 +524,14 @@ function App() {
         </div>
       )}
 
-      <FeedbackButton context={{ trackTitle: activeTrack?.title, chapterId: chapter?.id, pageTitle: page?.title, pageIndex: currentPage, totalPages }} />
+      <FeedbackButton context={{
+        trackTitle: activeTrack?.title,
+        activeTab,
+        chapterId: activeTab === 'learn' ? chapter?.id : undefined,
+        pageTitle: activeTab === 'learn' ? page?.title : `טאב: ${TABS.find(t => t.key === activeTab)?.label || activeTab}`,
+        pageIndex: activeTab === 'learn' ? currentPage : undefined,
+        totalPages: activeTab === 'learn' ? totalPages : undefined,
+      }} />
     </div>
   )
 }
