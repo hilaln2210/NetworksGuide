@@ -115,7 +115,9 @@ function App() {
     if (pos?.trackId) return tracks.find(t => t.id === pos.trackId) || null
     return null
   })
-  const [activeTab, setActiveTab] = useState('learn')
+  const [activeTab, setActiveTab] = useState(() => {
+    try { return localStorage.getItem('ng_active_tab') || 'learn' } catch { return 'learn' }
+  })
   const [currentChapter, setCurrentChapter] = useState(() => {
     const pos = getLastPosition()
     return pos?.chapterIdx ?? 0
@@ -131,9 +133,19 @@ function App() {
   const [levelUp, setLevelUp] = useState(null)
   const [gender, setGenderState] = useState(getGender)
   const [showResetModal, setShowResetModal] = useState(false)
-  const [mobileShowContent, setMobileShowContent] = useState(false)
+  const [mobileShowContent, setMobileShowContent] = useState(() => {
+    try { return localStorage.getItem('ng_mobile_content') === '1' } catch { return false }
+  })
   const [quizAutoStart, setQuizAutoStart] = useState(null) // { chapterId, ts }
   const [quizContext, setQuizContext] = useState(null) // { chapterId, questionNum, totalQuestions }
+
+  // Persist active tab and mobile view across refreshes
+  useEffect(() => {
+    try { localStorage.setItem('ng_active_tab', activeTab) } catch {}
+  }, [activeTab])
+  useEffect(() => {
+    try { localStorage.setItem('ng_mobile_content', mobileShowContent ? '1' : '0') } catch {}
+  }, [mobileShowContent])
 
   const trackChapters = activeTrack?.chapters || []
   const chapter = trackChapters[currentChapter]
