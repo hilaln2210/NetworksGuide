@@ -28,23 +28,26 @@ export function FeedbackButton({ context = {} }) {
   }, [])
 
   const handleSend = () => {
-    const { trackTitle, chapterId, pageTitle } = context
+    const { trackTitle, chapterId, pageTitle, pageIndex, totalPages } = context
     const typeLabel = TYPE_LABELS[type] || type
-    const subject = encodeURIComponent(`[NetworksGuide ${typeLabel}] ${trackTitle || 'כללי'} > פרק ${chapterId || '?'}`)
+    const subject = encodeURIComponent(`[NetworksGuide ${typeLabel}] ${trackTitle || 'כללי'} > פרק ${chapterId || '?'} > ${pageTitle || ''}`)
 
     const bodyParts = [
       message,
       '',
-      '---',
+      '── פרטי מיקום ──',
       `מסלול: ${trackTitle || 'לא ידוע'}`,
       `פרק: ${chapterId || 'לא ידוע'}`,
       `עמוד: ${pageTitle || 'לא ידוע'}`,
+      pageIndex != null && totalPages ? `עמוד ${pageIndex + 1} מתוך ${totalPages}` : '',
       `URL: ${window.location.href}`,
-      `User-Agent: ${navigator.userAgent}`,
-    ]
+      `מכשיר: ${navigator.userAgent}`,
+      `מסך: ${window.innerWidth}x${window.innerHeight}`,
+      `תאריך: ${new Date().toLocaleString('he-IL')}`,
+    ].filter(Boolean)
     const body = encodeURIComponent(bodyParts.join('\n'))
 
-    window.location.href = `mailto:feedback@networksguide.app?subject=${subject}&body=${body}`
+    window.location.href = `mailto:hilaaa90@gmail.com?subject=${subject}&body=${body}`
 
     setThanks(true)
     setTimeout(() => {

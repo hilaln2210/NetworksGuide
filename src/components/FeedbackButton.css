@@ -220,9 +220,11 @@
   }
 
   .feedback-fab {
-    bottom: 12px;
+    bottom: auto;
+    top: 12px;
     left: 12px;
-    padding: 8px 14px;
-    font-size: 0.85rem;
+    padding: 7px 12px;
+    font-size: 0.8rem;
+    opacity: 0.85;
   }
 }
