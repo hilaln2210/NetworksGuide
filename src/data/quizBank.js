@@ -1578,37 +1578,37 @@ export const quizBank = {
       explanation: "\u200F🔧 eBPF — מהפכה\n• XDP: drop packets לפני ה-network stack\n• מיליוני pps\n\n🔌 שימושים\n• Cilium: מחליף iptables ב-Kubernetes\n• Observability: trace כל syscall ב-production ללא overhead\n\n🏢 מי משתמש?\n• Cloudflare\n• Meta\n• Google\n• Netflix"
     },
     {
-      q: "מה eBPF ואיך הוא שינה Linux networking?",
-      correct: "‏eBPF: תוכניות verified רצות ב-kernel ללא module loading. XDP: drop packets לפני network stack. TC: traffic shaping. Kprobes: tracing",
+      q: "\u200Fמה eBPF ואיך הוא שינה Linux networking?",
+      correct: "\u200FeBPF: תוכניות verified רצות ב-kernel\nללא module loading\nXDP: drop packets לפני network stack\nTC: traffic shaping / Kprobes: tracing",
       choices: [
-        "‏eBPF: תוכניות verified רצות ב-kernel ללא module loading. XDP: drop packets לפני network stack. TC: traffic shaping. Kprobes: tracing",
-        "‏eBPF = encryption protocol",
-        "‏eBPF = kernel module loading",
-        "‏eBPF פועל ב-userspace בלבד"
+        "\u200FeBPF: תוכניות verified רצות ב-kernel\nללא module loading\nXDP: drop packets לפני network stack\nTC: traffic shaping / Kprobes: tracing",
+        "\u200FeBPF = encryption protocol",
+        "\u200FeBPF = kernel module loading",
+        "\u200FeBPF פועל ב-userspace בלבד"
       ],
-      explanation: "‏eBPF programs: bytecode → Verifier (safety) → JIT compiled → runs in kernel context. ‏Hook points: XDP (NIC driver level), TC (traffic control), socket filters, kprobe/tracepoint (observability). ‏Use cases: Cilium (K8s networking), Katran (Facebook LB), Falco (security), bpftrace (debugging). ‏Performance: XDP drop = 26M pps vs iptables = 3M pps."
+      explanation: "\u200F\u2699\uFE0F eBPF \u2014 איך עובד?\n\u2022 bytecode \u2192 Verifier (safety) \u2192 JIT compiled\n\u2022 רץ ב-kernel context\n\n\uD83D\uDD17 Hook points\n\u2022 XDP \u2014 NIC driver level\n\u2022 TC \u2014 traffic control\n\u2022 Socket filters\n\u2022 kprobe/tracepoint \u2014 observability\n\n\uD83D\uDCCB שימושים\n\u2022 Cilium \u2014 K8s networking\n\u2022 Katran \u2014 Facebook LB\n\u2022 Falco \u2014 security\n\u2022 bpftrace \u2014 debugging\n\n\uD83D\uDCCA ביצועים\n\u2022 XDP drop = 26M pps\n\u2022 iptables = 3M pps"
     },
     {
-      q: "מה QUIC ואיך HTTP/3 מתמודד עם Head-of-Line Blocking?",
-      correct: "‏QUIC: UDP-based, כל stream עצמאי. אובדן packet בstream A לא חוסם stream B. HTTP/2 על TCP: loss חוסם כל ה-streams",
+      q: "\u200Fמה QUIC ואיך HTTP/3 מתמודד עם Head-of-Line Blocking?",
+      correct: "\u200FQUIC: UDP-based, כל stream עצמאי\nאובדן packet ב-stream A לא חוסם stream B\nHTTP/2 על TCP: loss חוסם כל ה-streams",
       choices: [
-        "‏QUIC: UDP-based, כל stream עצמאי. אובדן packet בstream A לא חוסם stream B. HTTP/2 על TCP: loss חוסם כל ה-streams",
-        "‏QUIC פותר HOL Blocking לחלוטין גם ב-TCP",
-        "‏HTTP/3 = HTTP/2 על TLS 1.3",
-        "‏QUIC = UDP עם TCP header"
+        "\u200FQUIC: UDP-based, כל stream עצמאי\nאובדן packet ב-stream A לא חוסם stream B\nHTTP/2 על TCP: loss חוסם כל ה-streams",
+        "\u200FQUIC פותר HOL Blocking\nלחלוטין גם ב-TCP",
+        "\u200FHTTP/3 = HTTP/2 על TLS 1.3",
+        "\u200FQUIC = UDP עם TCP header"
       ],
-      explanation: "‏HTTP/2 HOL: TCP חייב לשמור על סדר bytes. ‏Loss → NACK → retransmit → כל streams מחכים. ‏QUIC: UDP, כל stream מנוהל בנפרד. ‏Loss בstream 1 לא עוצר stream 2. ‏Connection ID: מאפשר migration (WiFi → 4G). ‏0-RTT: connection resumption בלי handshake. ‏TLS 1.3 מובנה. ‏Chrome, YouTube, Facebook: ~30% QUIC."
+      explanation: "\u200F🚫 HTTP/2 HOL — הבעיה\n• TCP חייב לשמור על סדר bytes\n• Loss → NACK → retransmit\n• כל streams מחכים\n\n⚡ QUIC — הפתרון\n• UDP, כל stream מנוהל בנפרד\n• Loss ב-stream 1 לא עוצר stream 2\n\n🔑 יתרונות נוספים\n• Connection ID: מאפשר migration (WiFi → 4G)\n• 0-RTT: connection resumption בלי handshake\n• TLS 1.3 מובנה\n\n📊 אימוץ\n• Chrome, YouTube, Facebook: ~30% QUIC"
     },
     {
-      q: "מה DPDK ואיזה שימושים של networking ב-userspace?",
-      correct: "‏DPDK (Data Plane Development Kit): מעקף kernel, direct NIC access מ-userspace. מאפשר >40Mpps. שימוש: 5G, software routers, NFV",
+      q: "\u200Fמה DPDK ואיזה שימושים של networking ב-userspace?",
+      correct: "\u200FDPDK (Data Plane Development Kit):\nמעקף kernel, direct NIC access מ-userspace\nמאפשר >40Mpps\nשימוש: 5G, software routers, NFV",
       choices: [
-        "‏DPDK (Data Plane Development Kit): מעקף kernel, direct NIC access מ-userspace. מאפשר >40Mpps. שימוש: 5G, software routers, NFV",
-        "‏DPDK = Docker networking plugin",
-        "‏DPDK = תקן לencryption",
-        "‏DPDK מאיט networking"
+        "\u200FDPDK (Data Plane Development Kit):\nמעקף kernel, direct NIC access מ-userspace\nמאפשר >40Mpps\nשימוש: 5G, software routers, NFV",
+        "\u200FDPDK = Docker networking plugin",
+        "\u200FDPDK = תקן ל-encryption",
+        "\u200FDPDK מאיט networking"
       ],
-      explanation: "‏Kernel networking: interrupt-driven, system call overhead. ‏DPDK: polling mode driver, huge pages, lockless rings. ‏VPP (Vector Packet Processing): Cisco open-source, DPDK-based, hundreds Gbps. ‏SRIOV: physical NIC → virtual functions → VM direct access. ‏NFV (Network Functions Virtualization): firewall, LB, router ב-software. ‏Intel DPDK: 10-100Gbps on commodity hardware."
+      explanation: "\u200F🐢 Kernel networking — למה איטי?\n• Interrupt-driven\n• System call overhead\n\n🚀 DPDK — הפתרון\n• Polling mode driver\n• Huge pages\n• Lockless rings\n\n📋 טכנולוגיות קשורות\n• VPP (Vector Packet Processing): Cisco open-source, DPDK-based\n• SRIOV: physical NIC → virtual functions → VM direct access\n• NFV: firewall, LB, router ב-software\n\n📊 ביצועים\n• Intel DPDK: 10-100Gbps on commodity hardware"
     }
   ],
   27: [
@@ -2217,7 +2217,7 @@ export const quizBank = {
         "‏דיוג ממוקד חוקי — דיוג רגיל לא",
         "‏אותו דבר — שמות שונים"
       ],
-      explanation: "‏דיוג המוני (Phishing): 'לקוח יקר' — גנרי. נשלח ל-10 מיליון, 0.1% לוחצים = 10,000 קורבנות. דיוג ממוקד (Spear Phishing): 'שלום דוד, ראיתי שהיית בכנס X ביום ג''. מבוסס על מחקר מלינקדאין, אחוז הצלחה גבוה בהרבה. ציד לוויתנים (Whaling) = דיוג ממוקד נגד מנהלים בכירים. פריצת טוויטר 2020 = דיוג קולי (Vishing) בשיחות טלפון ולא בדוא\"ל.",
+      explanation: "‏📧 דיוג המוני — Phishing\n• 'לקוח יקר' — גנרי\n• נשלח ל-10 מיליון, 0.1% לוחצים = 10,000 קורבנות\n\n🎯 דיוג ממוקד — Spear Phishing\n• 'שלום דוד, ראיתי שהיית בכנס X ביום ג''\n• מבוסס על מחקר מלינקדאין\n• אחוז הצלחה גבוה בהרבה\n\n🐳 ציד לוויתנים (Whaling)\n• דיוג ממוקד נגד מנהלים בכירים\n\n📞 פריצת טוויטר 2020\n• דיוג קולי (Vishing) — בשיחות טלפון ולא בדוא\"ל",
       explanationEn: "Mass Phishing: 'Dear Customer' + generic content. Sent to 10M people, 0.1% click = 10,000 victims. Spear Phishing: 'Hi David, I saw you were at conference X on Tuesday.' Researched via LinkedIn, much higher success rate. Whaling = Spear Phishing targeting C-suite executives. Twitter 2020 hack = Vishing (phone calls, not email Phishing)."
     },
     {
@@ -2229,7 +2229,7 @@ export const quizBank = {
         "‏פיצוח בכוח (Brute Force) על חשבונות מנהלים",
         "‏פגיעות יום-אפס (Zero-Day) ב-API של טוויטר"
       ],
-      explanation: "‏פרשת טוויטר 2020: גרהם קלארק בן 17 עם שותפים. לא פרצו טכנולוגיה — פשוט התקשרו לעובדים, התחזו לתמיכה טכנית וביקשו פרטי גישה. עובד אחד שיתף פעולה. לוח הניהול נתן גישה לכל 330 מיליון החשבונות. נגנבו 120 אלף דולר בביטקוין. הלקח: אימות רב-שלבי (MFA) חזק ואימות זהות בערוץ נפרד = קריטי.",
+      explanation: "‏🐦 פרשת טוויטר 2020\n• גרהם קלארק בן 17 עם שותפים\n• לא פרצו טכנולוגיה\n• פשוט התקשרו לעובדים, התחזו לתמיכה טכנית\n• וביקשו פרטי גישה — עובד אחד שיתף פעולה\n\n💥 התוצאה\n• לוח הניהול נתן גישה לכל 330 מיליון החשבונות\n• נגנבו 120 אלף דולר בביטקוין\n\n📌 הלקח\n• אימות רב-שלבי (MFA) חזק = קריטי\n• אימות זהות בערוץ נפרד = קריטי",
       explanationEn: "Twitter 2020: Graham Clark, age 17, plus accomplices. They did not hack technology — they simply called employees, impersonated IT support, and asked for credentials. One employee complied. The Admin Panel provided access to all 330M accounts. $120K in Bitcoin was stolen. Lesson: strong MFA + identity verification through a separate channel = critical."
     },
     {
@@ -2241,7 +2241,7 @@ export const quizBank = {
         "‏שליחת אותו דוא\"ל מספר פעמים",
         "‏הגדרת אישור קריאה (Read Receipt) על הדוא\"ל"
       ],
-      explanation: "‏ששת עקרונות ההשפעה של צ'יאלדיני: סמכות, דחיפות, הוכחה חברתית, חיבה, הדדיות ומחסור. דחיפות (Urgency) מנטרלת חשיבה ביקורתית — כשאנו בלחץ זמן, לא מוודאים פרטים. דגל אדום: כל הודעה שמכריחה פעולה מיידית ללא זמן לאימות היא חשודה. ארגון לגיטימי תמיד יאפשר לך לוודא.",
+      explanation: "‏🧠 ששת עקרונות ההשפעה — צ'יאלדיני\n• סמכות\n• דחיפות\n• הוכחה חברתית\n• חיבה\n• הדדיות\n• מחסור\n\n⏰ למה דחיפות עובדת?\n• מנטרלת חשיבה ביקורתית\n• כשאנו בלחץ זמן, לא מוודאים פרטים\n\n🚩 דגל אדום\n• כל הודעה שמכריחה פעולה מיידית ללא זמן לאימות = חשודה\n• ארגון לגיטימי תמיד יאפשר לך לוודא",
       explanationEn: "Cialdini's 6 principles of influence: Authority, Urgency, Social Proof, Liking, Reciprocity, Scarcity. Urgency disables critical thinking — when under pressure, people skip verification. Red flag: any message that forces immediate action without time to verify is suspicious. A legitimate organization will always allow you to verify."
     },
         {
@@ -2253,7 +2253,7 @@ export const quizBank = {
         "‏ניחוש סיסמה בפיצוח בכוח (Brute Force)",
         "‏התקנת מקליד מקשים (Keylogger) על מחשב הקורבן"
       ],
-      explanation: "‏תסריט מוכן (Pretexting): 'שלום, אני דן מה-IT, יש לנו בעיה קריטית עם השרת. אני צריך את הסיסמה שלך לבדיקה דחופה.' דחיפות (Urgency) + סמכות (Authority) = ציות. מפורסם: קווין מיטניק (Kevin Mitnick) השתמש בתסריט מוכן כדי לקבל מידע סודי מחברות תקשורת. הגנה: לעולם אל תשתף סיסמאות! צוות IT לעולם לא יבקש סיסמה. אמת מתקשרים בשיחה חוזרת למספר רשמי.",
+      explanation: "‏🎭 דוגמה לתסריט מוכן\n• 'שלום, אני דן מה-IT'\n• 'יש לנו בעיה קריטית עם השרת'\n• 'אני צריך את הסיסמה שלך לבדיקה דחופה'\n• דחיפות (Urgency) + סמכות (Authority) = ציות\n\n🕵️ מקרה מפורסם\n• קווין מיטניק (Kevin Mitnick)\n• השתמש בתסריט מוכן לקבל מידע סודי מחברות תקשורת\n\n🛡️ הגנה\n• לעולם אל תשתף סיסמאות!\n• צוות IT לעולם לא יבקש סיסמה\n• אמת מתקשרים בשיחה חוזרת למספר רשמי",
       explanationEn: "Pretexting = a prepared scenario: 'Hi, I'm Dan from IT, we have a critical server issue. I need your password for an urgent check.' Urgency + Authority = compliance. Famous case: Kevin Mitnick used pretexting to obtain classified information from telecom companies. Defense: never share passwords! IT will never ask for your password. Always verify callers by calling back on an official number."
     },
         {
@@ -2265,7 +2265,7 @@ export const quizBank = {
         "‏שניהם תתי-סוגים של דיוג ממוקד (Spear Phishing) בלבד",
         "‏דיוג קולי ודיוג בהודעות פחות מסוכנים מדיוג רגיל כי קל לזהות"
       ],
-      explanation: "‏דיוג קולי (Vishing): 'מדבר עם נציג בנק לאומי, יש חשד לפעולה חשודה בחשבון. לאימות זהות צריך ספרות מהכרטיס.' קשה לאמת תקינות שיחה. שכפול קול בבינה מלאכותית (AI Voice Cloning) = הרמה הבאה של דיוג קולי. דיוג בהודעות (Smishing): 'חבילה ממתינה לך, עדכן כתובת: [קישור-מזויף].com' — שיעור לחיצה גבוה מדוא\"ל. דיוג בקוד QR ‏(Quishing) = קודי QR שמובילים לאתר דיוג. הגנה: אל תשתף קוד חד-פעמי (OTP), תמיד פנה ישירות לחברה.",
+      explanation: "‏📞 דיוג קולי — Vishing\n• 'מדבר עם נציג בנק לאומי, יש חשד לפעולה חשודה'\n• 'לאימות זהות צריך ספרות מהכרטיס'\n• קשה לאמת תקינות שיחה\n• AI Voice Cloning = הרמה הבאה\n\n📱 דיוג בהודעות — Smishing\n• 'חבילה ממתינה לך, עדכן כתובת: [קישור-מזויף].com'\n• שיעור לחיצה גבוה מדוא\"ל\n\n📷 דיוג בקוד QR — Quishing\n• קודי QR שמובילים לאתר דיוג\n\n🛡️ הגנה\n• אל תשתף קוד חד-פעמי (OTP)\n• תמיד פנה ישירות לחברה",
       explanationEn: "Vishing: 'This is a bank representative, there is suspicious activity on your account. For verification, I need digits from your card.' Hard to verify a phone call's legitimacy. AI Voice Cloning = next-level vishing. Smishing: 'A package is waiting for you, update your address: [fake-tracking-link].com' — higher click rate than email. QR Code Phishing (Quishing) = QR codes leading to phishing sites. Defense: never share OTPs, always contact the company directly."
     }
   ],
