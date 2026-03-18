@@ -1743,15 +1743,15 @@ export const quizBank = {
       explanationEn: "Threat modeling frameworks (STRIDE, PASTA, DREAD): Ask yourself — who will attack? How? What gets damaged? Fixing a bug at design stage costs $1, at testing $10, and in production $100. Microsoft requires threat modeling before every new feature. Output: data flow diagram, threat list, and mitigation strategies."
     },
         {
-      q: "‏מהו שטח תקיפה (Attack Surface) ואיך מצמצמים אותו?",
-      correct: "סך כל נקודות הכניסה האפשריות למערכת — מצמצמים על ידי כיבוי שירותים מיותרים, עדכוני אבטחה ועקרון ההרשאה המינימלית",
+      q: "\u200Fמהו שטח תקיפה (Attack Surface) ואיך מצמצמים אותו?",
+      correct: "\u200Fסך כל נקודות הכניסה האפשריות למערכת\nמצמצמים על ידי כיבוי שירותים מיותרים,\nעדכוני אבטחה ועקרון ההרשאה המינימלית",
       choices: [
-        "סך כל נקודות הכניסה האפשריות למערכת — מצמצמים על ידי כיבוי שירותים מיותרים, עדכוני אבטחה ועקרון ההרשאה המינימלית",
-        "שטח הפנים הפיזי של שרת — מצמצמים על ידי התקנה בחדר סגור",
-        "מספר המשתמשים עם גישה לאינטרנט",
-        "מספר הפורטים הפתוחים — מצמצמים על ידי חומת אש"
+        "\u200Fסך כל נקודות הכניסה האפשריות למערכת\nמצמצמים על ידי כיבוי שירותים מיותרים,\nעדכוני אבטחה ועקרון ההרשאה המינימלית",
+        "\u200Fשטח הפנים הפיזי של שרת\nמצמצמים על ידי התקנה בחדר סגור",
+        "\u200Fמספר המשתמשים עם גישה לאינטרנט",
+        "\u200Fמספר הפורטים הפתוחים\nמצמצמים על ידי חומת אש"
       ],
-      explanation: "שטח התקיפה (Attack Surface) כולל כל ממשק, נקודת גישה, שירות, משתמש ו-API שתוקף יכול לנצל. כדי לצמצם: כבה שירותים שאינם בשימוש (למשל FTP), הסר תוכנות מיותרות, הפעל עקרון הרשאה מינימלית (Least Privilege), עדכן טלאי אבטחה והגבל גישת רשת בחוקי חומת אש. שטח קטן יותר = פחות מקומות לתקוף.",
+      explanation: "\u200F🎯 שטח תקיפה — Attack Surface\n• כולל כל ממשק, נקודת גישה, שירות, משתמש ו-API\n• שתוקף יכול לנצל\n\n🛡️ איך מצמצמים?\n• כבה שירותים שאינם בשימוש (למשל FTP)\n• הסר תוכנות מיותרות\n• הפעל עקרון הרשאה מינימלית (Least Privilege)\n• עדכן טלאי אבטחה\n• הגבל גישת רשת בחוקי חומת אש\n\n📌 הכלל\n• שטח קטן יותר = פחות מקומות לתקוף",
       explanationEn: "The Attack Surface includes every interface, access point, service, user, and API an attacker can exploit. To reduce it: disable unused services (e.g., FTP), remove unnecessary software, apply Least Privilege, patch security updates, and restrict network access with firewall rules. Smaller surface = fewer attack opportunities."
     }
   ],
