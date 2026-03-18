@@ -29,6 +29,44 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
   const [gameOver, setGameOver] = useState(false)
   const [xpFloat, setXpFloat] = useState(null)
   const [streak, setStreak] = useState(0)
+  const [hintVisible, setHintVisible] = useState(false)
+  const [chapterModal, setChapterModal] = useState(null) // { chapter, chIdx }
+
+  // Generate a hint: find the sentence with the lowest overlap with the correct answer
+  function getHint(explanation, correct) {
+    const text = explanation.replace(/<[^>]+>/g, '').trim()
+
+    // Split into sentences
+    const sentences = text.split(/[.!?]+/).map(s => s.trim()).filter(s => s.length > 10)
+    if (sentences.length <= 1) {
+      // Short explanation — return second half of the text
+      const words = text.split(/\s+/)
+      const half = words.slice(Math.floor(words.length * 0.5))
+      return (half.join(' ') || text.slice(0, 80)).trim() + '...'
+    }
+
+    // Score sentences: count how many words from the correct answer appear in each sentence
+    const correctWords = (correct || '')
+      .toLowerCase()
+      .replace(/[^\w\u0590-\u05ff\s]/g, ' ')
+      .split(/\s+/)
+      .filter(w => w.length > 2)
+
+    const scored = sentences.map((s, idx) => {
+      const sLower = s.toLowerCase()
+      const overlap = correctWords.filter(w => sLower.includes(w)).length
+      return { s, overlap, idx }
+    })
+
+    // Prefer sentences from the second half of the explanation (more context, less direct answer)
+    const mid = Math.floor(sentences.length / 2)
+    const secondHalf = scored.filter(x => x.idx >= mid)
+    const pool = secondHalf.length > 0 ? secondHalf : scored
+
+    // Pick the sentence with the fewest correct-answer words (least revealing)
+    pool.sort((a, b) => a.overlap - b.overlap)
+    return pool[0].s.trim()
+  }
 
   const startQuiz = useCallback((qs) => {
     setQuestions(shuffle(qs).slice(0, Math.min(qs.length, 10)).map(q => ({
@@ -45,7 +83,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
     setStreak(0)
     setXpFloat(null)
     setCanContinue(false)
-
+    setHintVisible(false)
     pendingAdvance.current = null
   }, [])
 
@@ -78,7 +116,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
       setPicked(null)
       setShowResult(false)
       setCanContinue(false)
-  
+      setHintVisible(false)
     }
   }, [current, questions.length, selectedChapter, onXPGain])
 
@@ -296,6 +334,39 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
       <div className="quiz-question-card">
         <span className="quiz-q-num">שאלה {current + 1}</span>
         <p className="quiz-question-text" dir="rtl">{renderBidiText(q.q)}</p>
+        {/* Hint + chapter link row — only before answering */}
+        {picked === null && (
+          <div className="quiz-hint-row">
+            <div className="quiz-hint-actions">
+              <button
+                className={`quiz-hint-btn${hintVisible ? ' quiz-hint-btn--active' : ''}`}
+                onClick={() => setHintVisible(v => !v)}
+              >
+                💡 {hintVisible ? 'הסתר רמז' : 'רמז'}
+              </button>
+              {q.chapterId != null && (() => {
+                const chIdx = chapters.findIndex(ch => String(ch.id) === String(q.chapterId))
+                if (chIdx < 0) return null
+                const ch = chapters[chIdx]
+                return (
+                  <button
+                    className="quiz-chapter-link-btn"
+                    onClick={() => setChapterModal({ chapter: ch, chIdx })}
+                    title={ch.title}
+                  >
+                    📖 פרק {chIdx + 1} — {ch.title}
+                  </button>
+                )
+              })()}
+            </div>
+            {hintVisible && (
+              <div className="quiz-hint-box" dir="rtl">
+                <span className="quiz-hint-label">💡 רמז:</span>
+                {getHint(q.explanation, q.correct)}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Choices */}
@@ -348,7 +419,89 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
         </div>
       )}
 
+      {/* Chapter reference modal */}
+      {chapterModal && (
+        <ChapterModal
+          chapter={chapterModal.chapter}
+          chIdx={chapterModal.chIdx}
+          onClose={() => setChapterModal(null)}
+        />
+      )}
     </div>
   )
 }
 
+function ChapterModal({ chapter, chIdx, onClose }) {
+  const [pageIdx, setPageIdx] = useState(0)
+  const page = chapter.pages[pageIdx]
+  const total = chapter.pages.length
+
+  const PAGE_TYPE_LABELS = {
+    explanation: '📖 הסבר', demo: '💡 הדגמה', summary: '📋 סיכום',
+    questions: '❓ שאלות', story: '📰 סיפור', diagram: '📊 דיאגרמה',
+    example: '💻 דוגמה', thinkOutside: '🧠 מחוץ לקופסא', simulation: '🎮 הדמיה'
+  }
+
+  const renderPageContent = (p) => {
+    if (p.type === 'questions' && p.questions) {
+      return (
+        <div className="ch-modal-qa-list">
+          {p.questions.map((item, i) => (
+            <details key={i} className="ch-modal-qa-item">
+              <summary className="ch-modal-qa-q" dir="rtl">{renderBidiText(item.q)}</summary>
+              <p className="ch-modal-qa-a" dir="rtl">{renderBidiText(item.a)}</p>
+            </details>
+          ))}
+        </div>
+      )
+    }
+    if (p.type === 'simulation') {
+      return <p className="ch-modal-sim-note" dir="rtl">הדמיה זמינה בטאב הלמידה 🎮</p>
+    }
+    const html = p.content || p.intro || ''
+    return (
+      <div
+        className="ch-modal-content-body content-body"
+        dir="rtl"
+        dangerouslySetInnerHTML={{ __html: processHtmlBidi(html) }}
+      />
+    )
+  }
+
+  return (
+    <div className="ch-modal-overlay" onClick={onClose}>
+      <div className="ch-modal" onClick={e => e.stopPropagation()}>
+        <div className="ch-modal-header">
+          <div className="ch-modal-title-wrap">
+            <span className="ch-modal-num">פרק {chIdx + 1}</span>
+            <span className="ch-modal-title" dir="rtl">{chapter.title}</span>
+          </div>
+          <button className="ch-modal-close" onClick={onClose} title="חזור לחידון">✕ חזור לחידון</button>
+        </div>
+
+        <div className="ch-modal-page-header">
+          <span className="ch-modal-type-badge">{PAGE_TYPE_LABELS[page.type] || '📖'}</span>
+          <span className="ch-modal-page-title" dir="rtl">{page.title}</span>
+        </div>
+
+        <div className="ch-modal-body">
+          {renderPageContent(page)}
+        </div>
+
+        <div className="ch-modal-footer">
+          <button
+            className="ch-modal-nav-btn"
+            disabled={pageIdx === 0}
+            onClick={() => setPageIdx(p => p - 1)}
+          >הקודם →</button>
+          <span className="ch-modal-counter" dir="ltr">{pageIdx + 1} / {total}</span>
+          <button
+            className="ch-modal-nav-btn"
+            disabled={pageIdx === total - 1}
+            onClick={() => setPageIdx(p => p + 1)}
+          >← הבא</button>
+        </div>
+      </div>
+    </div>
+  )
+}
