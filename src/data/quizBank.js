@@ -542,26 +542,26 @@ export const quizBank = {
 
   9: [
     {
-      q: "מה זה DHCP?",
-      correct: "פרוטוקול שמקצה כתובות IP אוטומטית למכשירים ברשת",
+      q: "\u200Fמה זה DHCP?",
+      correct: "\u200Fפרוטוקול שמקצה כתובות IP אוטומטית\nלמכשירים ברשת",
       choices: [
-        "פרוטוקול שמקצה כתובות IP אוטומטית למכשירים ברשת",
-        "פרוטוקול הצפנה לתקשורת מאובטחת",
-        "פרוטוקול לניתוב בין רשתות",
-        "פרוטוקול לגיבוי נתוני רשת"
+        "\u200Fפרוטוקול שמקצה כתובות IP אוטומטית\nלמכשירים ברשת",
+        "\u200Fפרוטוקול הצפנה לתקשורת מאובטחת",
+        "\u200Fפרוטוקול לניתוב בין רשתות",
+        "\u200Fפרוטוקול לגיבוי נתוני רשת"
       ],
-      explanation: "‏DHCP = שרת ה-'יצירת חשבון אוטומטית'. כשאת מתחברת ל-WiFi — DHCP מקצה לך IP, mask, gateway ו-DNS. אחרת היית צריכה להגדיר ידנית! 🎰"
+      explanation: "\u200F🎰 DHCP — ״יצירת חשבון אוטומטית״\n• כשאת מתחברת ל-WiFi\n• DHCP מקצה לך אוטומטית:\n\n📋 מה מקבלים:\n• כתובת IP\n• Subnet Mask\n• Default Gateway\n• שרת DNS\n\n💡 בלי DHCP — היית צריכה להגדיר ידנית!"
     },
     {
-      q: "מה זה subnet mask?",
-      correct: "מספר שמגדיר איזה חלק של כתובת IP הוא 'כתובת הרשת' ואיזה 'כתובת המארח'",
+      q: "\u200Fמה זה subnet mask?",
+      correct: "\u200Fמספר שמגדיר איזה חלק של כתובת IP\nהוא ״כתובת הרשת״ ואיזה ״כתובת המארח״",
       choices: [
-        "מספר שמגדיר איזה חלק של כתובת IP הוא 'כתובת הרשת' ואיזה 'כתובת המארח'",
-        "סיסמה לאבטחת הרשת האלחוטית",
-        "טווח הכתובות הזמינות ב-DHCP",
-        "כתובת ה-gateway של הרשת"
+        "\u200Fמספר שמגדיר איזה חלק של כתובת IP\nהוא ״כתובת הרשת״ ואיזה ״כתובת המארח״",
+        "\u200Fסיסמה לאבטחת הרשת האלחוטית",
+        "\u200Fטווח הכתובות הזמינות ב-DHCP",
+        "\u200Fכתובת ה-gateway של הרשת"
       ],
-      explanation: "255.255.255.0 = 24 ביטים לרשת, 8 ביטים למארח. /24 = 256 כתובות ‎(254 שמישות)‎. ‏CIDR: 192.168.1.0/24. ציר ה-IP! 🎭"
+      explanation: "\u200F🎭 Subnet Mask — ״ציר ה-IP״\n• 255.255.255.0 = 24 ביטים לרשת, 8 ביטים למארח\n\n📊 דוגמה:\n• /24 = 256 כתובות (254 שמישות)\n• CIDR: 192.168.1.0/24\n• כתובת רשת: 192.168.1.0\n• Broadcast: 192.168.1.255"
     },
     {
       q: "מה Gratuitous ARP ולמה הוא גם שימושי וגם מסוכן?",
@@ -1208,59 +1208,59 @@ export const quizBank = {
 
   20: [
     {
-      q: "מה Sliding Window ב-TCP?",
-      correct: "מאפשר לשלוח מספר segments ללא המתנה ל-ACK לכל אחד",
+      q: "\u200Fמה Sliding Window ב-TCP?",
+      correct: "\u200Fמאפשר לשלוח מספר segments\nללא המתנה ל-ACK לכל אחד",
       choices: [
-        "מאפשר לשלוח מספר segments ללא המתנה ל-ACK לכל אחד",
-        "חלון הזמן שבו TCP מחכה ל-ACK לפני retry",
-        "גודל ה-buffer של ה-socket",
-        "מספר החיבורים המקבילים ל-TCP"
+        "\u200Fמאפשר לשלוח מספר segments\nללא המתנה ל-ACK לכל אחד",
+        "\u200Fחלון הזמן שבו TCP מחכה ל-ACK לפני retry",
+        "\u200Fגודל ה-buffer של ה-socket",
+        "\u200Fמספר החיבורים המקבילים ל-TCP"
       ],
-      explanation: "בלי Sliding Window: שלח → המתן ACK → שלח → המתן. עם Window Size=10: שלח 10 segments → קבל ACKs → הזז חלון. ‏Pipeline מלא = ניצול מלא של הרשת. ‏Window Size גדל דינמית עם הזמן 📊"
+      explanation: "\u200F📊 בלי Sliding Window:\n• שלח → המתן ACK → שלח → המתן\n\n🚀 עם Window Size=10:\n• שלח 10 segments → קבל ACKs → הזז חלון\n• Pipeline מלא = ניצול מלא של הרשת\n• Window Size גדל דינמית עם הזמן"
     },
     {
-      q: "מה Slow Start ב-TCP Congestion Control?",
-      correct: "‏TCP מתחיל עם window קטן ומכפיל אותו בכל RTT — עד שמגיע לcongestion threshold",
+      q: "\u200Fמה Slow Start ב-TCP Congestion Control?",
+      correct: "\u200FTCP מתחיל עם window קטן\nומכפיל אותו בכל RTT\nעד שמגיע ל-congestion threshold",
       choices: [
-        "‏TCP מתחיל עם window קטן ומכפיל אותו בכל RTT — עד שמגיע לcongestion threshold",
-        "‏TCP מאט את שליחת החבילות ב-router עמוס",
-        "הגדרה ידנית של מהירות הconnection",
-        "תהליך ה-handshake האיטי של TCP"
+        "\u200FTCP מתחיל עם window קטן\nומכפיל אותו בכל RTT\nעד שמגיע ל-congestion threshold",
+        "\u200FTCP מאט את שליחת החבילות ב-router עמוס",
+        "\u200Fהגדרה ידנית של מהירות ה-connection",
+        "\u200Fתהליך ה-handshake האיטי של TCP"
       ],
-      explanation: "‏Slow Start: cwnd=1 → 2 → 4 → 8 (exponential). כשמגיע לssthresh — עובר ל-Congestion Avoidance (linear +1). כשיש loss — ssthresh=cwnd/2, cwnd=1, מתחיל מחדש. כמו לדרוך על גז ואז לבלום 🚗"
+      explanation: "\u200F🚗 Slow Start — כמו לדרוך על גז ואז לבלום:\n• cwnd=1 → 2 → 4 → 8 (exponential)\n• כשמגיע ל-ssthresh — עובר ל-Congestion Avoidance (linear +1)\n• כשיש loss — ssthresh=cwnd/2, cwnd=1\n• מתחיל מחדש"
     },
     {
-      q: "מה TCP Slow Start ואיך Congestion Control עובד?",
-      correct: "‏Slow Start: מתחיל עם cwnd=1, מכפיל בכל RTT עד ssthresh. Congestion Avoidance: מוסיף 1 בכל RTT. Loss = חזרה לslow start",
+      q: "\u200Fמה TCP Slow Start ואיך Congestion Control עובד?",
+      correct: "\u200FSlow Start: מתחיל עם cwnd=1\nמכפיל בכל RTT עד ssthresh\nCongestion Avoidance: מוסיף 1 בכל RTT\nLoss = חזרה ל-slow start",
       choices: [
-        "‏Slow Start: מתחיל עם cwnd=1, מכפיל בכל RTT עד ssthresh. Congestion Avoidance: מוסיף 1 בכל RTT. Loss = חזרה לslow start",
-        "‏TCP שולח בקצב קבוע מההתחלה",
-        "‏Congestion Control = Flow Control — זהה",
-        "‏cwnd לא משתנה לאחר ביסוס חיבור"
+        "\u200FSlow Start: מתחיל עם cwnd=1\nמכפיל בכל RTT עד ssthresh\nCongestion Avoidance: מוסיף 1 בכל RTT\nLoss = חזרה ל-slow start",
+        "\u200FTCP שולח בקצב קבוע מההתחלה",
+        "\u200FCongestion Control = Flow Control — זהה",
+        "\u200Fcwnd לא משתנה לאחר ביסוס חיבור"
       ],
-      explanation: "‏TCP Congestion Control ‎(CUBIC ב-Linux, BBR של Google)‎: cwnd (congestion window). ‏Phases: Slow Start (exponential), Congestion Avoidance (linear), Fast Retransmit (3 dup-ACKs → retransmit), Fast Recovery ‎(ssthresh=cwnd/2, לא איפוס מלא)‎. ‏BBR: מבוסס על bandwidth + RTT, לא רק loss. ‏QUIC/HTTP3: congestion control ב-userspace."
+      explanation: "\u200F⚙️ TCP Congestion Control (CUBIC ב-Linux, BBR של Google):\n• cwnd = congestion window\n\n📈 שלבים:\n• Slow Start — exponential\n• Congestion Avoidance — linear\n• Fast Retransmit — 3 dup-ACKs → retransmit\n• Fast Recovery — ssthresh=cwnd/2, לא איפוס מלא\n\n🔬 אלגוריתמים מתקדמים:\n• BBR — מבוסס על bandwidth + RTT, לא רק loss\n• QUIC/HTTP3 — congestion control ב-userspace"
     },
     {
-      q: "מה TCP Window Size ומה Receive Buffer?",
-      correct: "‏Window Size: כמה bytes sender יכול לשלוח לפני ACK. Receive Buffer: מה שOS מקצה לקריאת נתונים. Zero Window = buffer מלא",
+      q: "\u200Fמה TCP Window Size ומה Receive Buffer?",
+      correct: "\u200FWindow Size: כמה bytes sender יכול לשלוח לפני ACK\nReceive Buffer: מה ש-OS מקצה לקריאת נתונים\nZero Window = buffer מלא",
       choices: [
-        "‏Window Size: כמה bytes sender יכול לשלוח לפני ACK. Receive Buffer: מה שOS מקצה לקריאת נתונים. Zero Window = buffer מלא",
-        "‏Window = MTU size",
-        "‏Receive Buffer = Congestion Window",
-        "‏Window Size קבוע ולא משתנה"
+        "\u200FWindow Size: כמה bytes sender יכול לשלוח לפני ACK\nReceive Buffer: מה ש-OS מקצה לקריאת נתונים\nZero Window = buffer מלא",
+        "\u200FWindow = MTU size",
+        "\u200FReceive Buffer = Congestion Window",
+        "\u200FWindow Size קבוע ולא משתנה"
       ],
-      explanation: "‏TCP Flow Control: receiver מכריז window size. ‏Sender לא שולח יותר. ‏Window Scaling (RFC 7323): window עד 1GB ‎(מ-65535 bytes)‎. ‏Zero Window: buffer מלא. ‏Sender שולח ZWPs (Zero Window Probes) כל 5-60 שניות. ‏Application לא קוראת → TCP slow → sender slow → backpressure. ss -tn לראות window sizes."
+      explanation: "\u200F📐 TCP Flow Control:\n• Receiver מכריז window size\n• Sender לא שולח יותר\n• Window Scaling (RFC 7323) — window עד 1GB (מ-65535 bytes)\n\n⚠️ Zero Window:\n• Buffer מלא\n• Sender שולח ZWPs (Zero Window Probes) כל 5-60 שניות\n• Application לא קוראת → TCP slow → sender slow → backpressure\n• ss -tn לראות window sizes"
     },
     {
-      q: "מה Nagle's Algorithm ומתי כדאי להשבית?",
-      correct: "מצבר TCP segments קטנים לpacket גדול יותר (efficiency). להשבית עם TCP_NODELAY בapplications real-time: gaming, SSH, database",
+      q: "\u200Fמה Nagle's Algorithm ומתי כדאי להשבית?",
+      correct: "\u200Fמצבר TCP segments קטנים ל-packet גדול יותר (efficiency)\nלהשבית עם TCP_NODELAY\nב-applications real-time: gaming, SSH, database",
       choices: [
-        "מצבר TCP segments קטנים לpacket גדול יותר (efficiency). להשבית עם TCP_NODELAY בapplications real-time: gaming, SSH, database",
-        "‏Nagle = congestion control algorithm",
-        "‏TCP_NODELAY מאט את החיבור",
-        "‏Nagle פעיל רק ב-UDP"
+        "\u200Fמצבר TCP segments קטנים ל-packet גדול יותר (efficiency)\nלהשבית עם TCP_NODELAY\nב-applications real-time: gaming, SSH, database",
+        "\u200FNagle = congestion control algorithm",
+        "\u200FTCP_NODELAY מאט את החיבור",
+        "\u200FNagle פעיל רק ב-UDP"
       ],
-      explanation: "‏Nagle (RFC 896): אם יש unACKed data — חכה לACK לפני שולח segment קטן. מטרה: לא לבזבז bandwidth על packets של byte אחד (VT100 terminals). בעיה: latency גבוה לapplications אינטראקטיביות. ‏TCP_NODELAY=1: disable Nagle. ‏SSH, RDP, gaming, databases: כולם מכבים. ‏HTTP/1.1 persistent connections: לפעמים כדאי Nagle."
+      explanation: "\u200F📦 Nagle (RFC 896):\n• אם יש unACKed data — חכה ל-ACK לפני שולח segment קטן\n• מטרה: לא לבזבז bandwidth על packets של byte אחד\n\n⚡ מתי להשבית (TCP_NODELAY=1):\n• SSH, RDP, gaming, databases — כולם מכבים\n• בעיה: latency גבוה ל-applications אינטראקטיביות\n\n💡 חריג:\n• HTTP/1.1 persistent connections — לפעמים כדאי Nagle"
     }
   ],
 
