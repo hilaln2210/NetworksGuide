@@ -1613,48 +1613,48 @@ export const quizBank = {
   ],
   27: [
     {
-      q: "מה ההסמכה המרכזית ל-Network Engineer ברמת Entry/Mid?",
-      correct: "‏CCNA — Cisco Certified Network Associate",
+      q: "\u200Fמה ההסמכה המרכזית ל-Network Engineer ברמת Entry/Mid?",
+      correct: "\u200FCCNA — Cisco Certified Network Associate",
       choices: [
-        "‏CCNA — Cisco Certified Network Associate",
-        "‏OSCP — Offensive Security Certified Professional",
-        "‏AWS SAA — Solutions Architect Associate",
-        "‏CKA — Certified Kubernetes Administrator"
+        "\u200FCCNA — Cisco Certified Network Associate",
+        "\u200FOSCP — Offensive Security Certified Professional",
+        "\u200FAWS SAA — Solutions Architect Associate",
+        "\u200FCKA — Certified Kubernetes Administrator"
       ],
-      explanation: "‏CCNA היא הסמכת הרשתות הנחשבת ביותר. מכסה VLAN, STP, OSPF, ACL, NAT, VPN. מעל CCNA: CCNP ‎(מתקדם)‎, CCIE ‎(Expert — מהקשות בתעשייה)‎. ‏CompTIA Network+ היא נקודת כניסה קלה יותר לפני CCNA."
+      explanation: "\u200F📜 CCNA — ההסמכה הנחשבת ביותר\n• מכסה: VLAN, STP, OSPF, ACL, NAT, VPN\n\n📈 מסלול התקדמות\n• CCNP — מתקדם\n• CCIE — Expert, מהקשות בתעשייה\n\n🚪 נקודת כניסה\n• CompTIA Network+ — קלה יותר לפני CCNA"
     },
     {
-      q: "מה ההבדל בין Penetration Tester לבין SOC Analyst?",
-      correct: "‏Pentester תוקף מערכות ‎(בהרשאה)‎ למציאת חולשות — SOC Analyst מנטר ומגיב לאיומים בזמן אמת",
+      q: "\u200Fמה ההבדל בין Penetration Tester לבין SOC Analyst?",
+      correct: "\u200FPentester תוקף מערכות (בהרשאה) למציאת חולשות\nSOC Analyst מנטר ומגיב לאיומים בזמן אמת",
       choices: [
-        "‏Pentester תוקף מערכות ‎(בהרשאה)‎ למציאת חולשות — SOC Analyst מנטר ומגיב לאיומים בזמן אמת",
-        "‏Pentester עובד עם קוד — SOC Analyst עם חומרה",
-        "‏SOC Analyst מנהל firewalls — Pentester כותב malware",
-        "שניהם אותו תפקיד בשמות שונים"
+        "\u200FPentester תוקף מערכות (בהרשאה) למציאת חולשות\nSOC Analyst מנטר ומגיב לאיומים בזמן אמת",
+        "\u200FPentester עובד עם קוד\nSOC Analyst עם חומרה",
+        "\u200FSOC Analyst מנהל firewalls\nPentester כותב malware",
+        "\u200Fשניהם אותו תפקיד בשמות שונים"
       ],
-      explanation: "‏Red Team (Pentester) = תוקף לגיטימי. מקבל scope, מחפש חולשות, כותב דוח. ‏Blue Team (SOC) = מגן. מנטר SIEM, מנתח alerts, עוצר תקיפות. הסמכות: Pentester → CEH, OSCP. ‏SOC → Security+, CySA+, GCIA."
+      explanation: "\u200F🔴 Red Team — Pentester\n• תוקף לגיטימי\n• מקבל scope, מחפש חולשות, כותב דוח\n• הסמכות: CEH, OSCP\n\n🔵 Blue Team — SOC\n• מגן\n• מנטר SIEM, מנתח alerts, עוצר תקיפות\n• הסמכות: Security+, CySA+, GCIA"
     },
     {
-      q: "למה ידע ברשתות הכרחי לעבודה עם AWS/Cloud?",
-      correct: "‏AWS VPC = רשת וירטואלית עם subnets, routing tables, security groups — בדיוק כמו רשת פיזית",
+      q: "\u200Fלמה ידע ברשתות הכרחי לעבודה עם AWS/Cloud?",
+      correct: "\u200FAWS VPC = רשת וירטואלית\nעם subnets, routing tables, security groups\n— בדיוק כמו רשת פיזית",
       choices: [
-        "‏AWS VPC = רשת וירטואלית עם subnets, routing tables, security groups — בדיוק כמו רשת פיזית",
-        "‏Cloud לא קשור לרשתות — הכל מנוהל אוטומטית",
-        "ידע ברשתות נדרש רק ל-on-premise, לא לCloud",
-        "‏AWS דורש CCNA כתנאי לשימוש"
+        "\u200FAWS VPC = רשת וירטואלית\nעם subnets, routing tables, security groups\n— בדיוק כמו רשת פיזית",
+        "\u200FCloud לא קשור לרשתות\n— הכל מנוהל אוטומטית",
+        "\u200Fידע ברשתות נדרש רק ל-on-premise\nלא ל-Cloud",
+        "\u200FAWS דורש CCNA כתנאי לשימוש"
       ],
-      explanation: "‏AWS VPC דורש תכנון: CIDR allocation, Public vs Private subnets, Internet Gateway, NAT Gateway, route tables, security groups (stateful firewall), NACLs (stateless). ‏Load Balancer: Layer 4 vs Layer 7. ‏Kubernetes: CNI plugins, Pod networking, Ingress. כל אלה = רשתות."
+      explanation: "\u200F☁️ AWS VPC דורש תכנון\n• CIDR allocation\n• Public vs Private subnets\n• Internet Gateway, NAT Gateway\n• Route tables\n• Security groups (stateful firewall)\n• NACLs (stateless)\n\n⚖️ Load Balancer\n• Layer 4 vs Layer 7\n\n🐳 Kubernetes\n• CNI plugins\n• Pod networking\n• Ingress\n\n💡 כל אלה = רשתות!"
     },
     {
-      q: "מה ההבדל בין NOC לבין SOC?",
-      correct: "‏NOC: Network Operations Center — זמינות ו-performance. SOC: Security Operations Center — threats ו-incidents. לעיתים מאוחדים ב-Unified Operations Center",
+      q: "\u200Fמה ההבדל בין NOC לבין SOC?",
+      correct: "\u200FNOC: Network Operations Center\n— זמינות ו-performance\nSOC: Security Operations Center\n— threats ו-incidents",
       choices: [
-        "‏NOC: Network Operations Center — זמינות ו-performance. SOC: Security Operations Center — threats ו-incidents. לעיתים מאוחדים ב-Unified Operations Center",
-        "‏NOC ו-SOC זהים",
-        "‏SOC = Network Operations Center",
-        "‏NOC = Security, SOC = Performance"
+        "\u200FNOC: Network Operations Center\n— זמינות ו-performance\nSOC: Security Operations Center\n— threats ו-incidents",
+        "\u200FNOC ו-SOC זהים",
+        "\u200FSOC = Network Operations Center",
+        "\u200FNOC = Security\nSOC = Performance"
       ],
-      explanation: "‏NOC: ניטור uptime, BGP routes, bandwidth, latency, hardware failures. ‏Tools: Nagios, Zabbix, PRTG, SolarWinds. ‏SOC: SIEM alerts, threat hunting, incident response. ‏Tools: Splunk, Sentinel, CrowdStrike. ‏Career paths diverge: NOC → Network Engineer → CCIE / Cloud Architect. ‏SOC → Security Analyst → Pentester → CISSP → CISO."
+      explanation: "\u200F🖥️ NOC — Network Operations Center\n• ניטור uptime, BGP routes, bandwidth, latency\n• Hardware failures\n• כלים: Nagios, Zabbix, PRTG, SolarWinds\n\n🛡️ SOC — Security Operations Center\n• SIEM alerts, threat hunting, incident response\n• כלים: Splunk, Sentinel, CrowdStrike\n\n📈 מסלולי קריירה\n• NOC → Network Engineer → CCIE / Cloud Architect\n• SOC → Security Analyst → Pentester → CISSP → CISO"
     },
     {
       q: "מה Cloud native networking לעומת traditional networking?",
@@ -2210,10 +2210,10 @@ export const quizBank = {
   108: [
     {
       q: "‏מה ההבדל בין דיוג (Phishing) לדיוג ממוקד (Spear Phishing)?",
-      correct: "‏דיוג רגיל = הודעות דוא\"ל זהות למיליונים — דיוג ממוקד (Spear Phishing) = מותאם אישית לאדם או ארגון ספציפי עם מידע אמיתי",
+      correct: "‏דיוג רגיל = הודעות דוא\"ל זהות למיליונים\nדיוג ממוקד (Spear Phishing) = מותאם אישית\nלאדם או ארגון ספציפי עם מידע אמיתי",
       choices: [
-        "‏דיוג רגיל = הודעות דוא\"ל זהות למיליונים — דיוג ממוקד (Spear Phishing) = מותאם אישית לאדם או ארגון ספציפי עם מידע אמיתי",
-        "‏דיוג ממוקד = הודעות SMS — דיוג רגיל = דוא\"ל",
+        "‏דיוג רגיל = הודעות דוא\"ל זהות למיליונים\nדיוג ממוקד (Spear Phishing) = מותאם אישית\nלאדם או ארגון ספציפי עם מידע אמיתי",
+        "‏דיוג ממוקד = הודעות SMS\nדיוג רגיל = דוא\"ל",
         "‏דיוג ממוקד חוקי — דיוג רגיל לא",
         "‏אותו דבר — שמות שונים"
       ],
@@ -2222,9 +2222,9 @@ export const quizBank = {
     },
     {
       q: "‏בפרשת טוויטר 2020, איך התוקפים השיגו גישה ללוח הניהול (Admin Panel)?",
-      correct: "‏דיוג קולי (Vishing) — התקשרו לעובדי טוויטר, התחזו לצוות IT, וביקשו פרטי גישה לתיקון בעיה טכנית מדומה",
+      correct: "‏דיוג קולי (Vishing) — התקשרו לעובדי טוויטר\nהתחזו לצוות IT\nוביקשו פרטי גישה לתיקון בעיה טכנית מדומה",
       choices: [
-        "‏דיוג קולי (Vishing) — התקשרו לעובדי טוויטר, התחזו לצוות IT, וביקשו פרטי גישה לתיקון בעיה טכנית מדומה",
+        "‏דיוג קולי (Vishing) — התקשרו לעובדי טוויטר\nהתחזו לצוות IT\nוביקשו פרטי גישה לתיקון בעיה טכנית מדומה",
         "‏הזרקת SQL ישירה על מסד הנתונים",
         "‏פיצוח בכוח (Brute Force) על חשבונות מנהלים",
         "‏פגיעות יום-אפס (Zero-Day) ב-API של טוויטר"
@@ -2234,9 +2234,9 @@ export const quizBank = {
     },
     {
       q: "‏מהו עיקרון הדחיפות (Urgency) בהנדסה חברתית (Social Engineering)?",
-      correct: "‏יצירת לחץ זמן מלאכותי שגורם לקורבן לפעול מהר ללא חשיבה ביקורתית — 'לחץ תוך 24 שעות או חשבונך יימחק'",
+      correct: "‏יצירת לחץ זמן מלאכותי\nשגורם לקורבן לפעול מהר ללא חשיבה ביקורתית\n'לחץ תוך 24 שעות או חשבונך יימחק'",
       choices: [
-        "‏יצירת לחץ זמן מלאכותי שגורם לקורבן לפעול מהר ללא חשיבה ביקורתית — 'לחץ תוך 24 שעות או חשבונך יימחק'",
+        "‏יצירת לחץ זמן מלאכותי\nשגורם לקורבן לפעול מהר ללא חשיבה ביקורתית\n'לחץ תוך 24 שעות או חשבונך יימחק'",
         "‏שימוש בשפה דחופה ביותר בכותרת הדוא\"ל",
         "‏שליחת אותו דוא\"ל מספר פעמים",
         "‏הגדרת אישור קריאה (Read Receipt) על הדוא\"ל"
@@ -2246,9 +2246,9 @@ export const quizBank = {
     },
         {
       q: "‏מהו תסריט מוכן (Pretexting) בהנדסה חברתית (Social Engineering)? תן דוגמה.",
-      correct: "‏יצירת תרחיש בדוי (Pretexting) להשגת מידע — למשל: התחזות לתמיכה טכנית (IT) ובקשת סיסמה לפתרון 'בעיה דחופה'",
+      correct: "‏יצירת תרחיש בדוי (Pretexting) להשגת מידע\nלמשל: התחזות לתמיכה טכנית (IT)\nובקשת סיסמה לפתרון 'בעיה דחופה'",
       choices: [
-        "‏יצירת תרחיש בדוי (Pretexting) להשגת מידע — למשל: התחזות לתמיכה טכנית (IT) ובקשת סיסמה לפתרון 'בעיה דחופה'",
+        "‏יצירת תרחיש בדוי (Pretexting) להשגת מידע\nלמשל: התחזות לתמיכה טכנית (IT)\nובקשת סיסמה לפתרון 'בעיה דחופה'",
         "‏שליחת הודעות דוא\"ל עם קישורים זדוניים",
         "‏ניחוש סיסמה בפיצוח בכוח (Brute Force)",
         "‏התקנת מקליד מקשים (Keylogger) על מחשב הקורבן"
@@ -2258,9 +2258,9 @@ export const quizBank = {
     },
         {
       q: "‏מהם דיוג קולי (Vishing) ודיוג בהודעות (Smishing), ואיך הם שונים מדיוג רגיל (Phishing)?",
-      correct: "‏דיוג קולי (Vishing) = דיוג בשיחות טלפון — דיוג בהודעות (Smishing) = דיוג ב-SMS — שניהם הנדסה חברתית (Social Engineering) בערוצים שונים מדוא\"ל",
+      correct: "‏דיוג קולי (Vishing) = דיוג בשיחות טלפון\nדיוג בהודעות (Smishing) = דיוג ב-SMS\nשניהם הנדסה חברתית בערוצים שונים מדוא\"ל",
       choices: [
-        "‏דיוג קולי (Vishing) = דיוג בשיחות טלפון — דיוג בהודעות (Smishing) = דיוג ב-SMS — שניהם הנדסה חברתית (Social Engineering) בערוצים שונים מדוא\"ל",
+        "‏דיוג קולי (Vishing) = דיוג בשיחות טלפון\nדיוג בהודעות (Smishing) = דיוג ב-SMS\nשניהם הנדסה חברתית בערוצים שונים מדוא\"ל",
         "‏דיוג קולי (Vishing) = דיוג בווידאו — דיוג בהודעות (Smishing) = דיוג ברשתות חברתיות",
         "‏שניהם תתי-סוגים של דיוג ממוקד (Spear Phishing) בלבד",
         "‏דיוג קולי ודיוג בהודעות פחות מסוכנים מדיוג רגיל כי קל לזהות"
