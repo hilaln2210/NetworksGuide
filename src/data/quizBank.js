@@ -2336,258 +2336,258 @@ export const quizBank = {
   // ===== DevOps & Cloud Track (201-206) =====
   201: [
     {
-      q: "איך Linux מייצג פורטים פתוחים בצורה היעילה ביותר לניפוי בעיות?",
-      correct: "‏ss -tulnp — מראה TCP/UDP, listening, port number, PID ושם תהליך",
+      q: "\u200Fאיך Linux מייצג פורטים פתוחים בצורה היעילה ביותר לניפוי בעיות?",
+      correct: "\u200Fss -tulnp — מראה TCP/UDP, listening,\nport number, PID ושם תהליך",
       choices: [
-        "‏ss -tulnp — מראה TCP/UDP, listening, port number, PID ושם תהליך",
-        "‏netstat -a",
-        "‏ifconfig --ports",
-        "‏lsof /dev/net"
+        "\u200Fss -tulnp — מראה TCP/UDP, listening,\nport number, PID ושם תהליך",
+        "\u200Fnetstat -a",
+        "\u200Fifconfig --ports",
+        "\u200Flsof /dev/net"
       ],
-      explanation: "‏ss החליף את netstat (deprecated). ‏-t=TCP, -u=UDP, -l=listening, -n=numeric ‎(לא resolve שמות)‎, -p=PID. תוצאה: LISTEN 0 128 0.0.0.0:80 0.0.0.0:* users:(('nginx',pid=1234)). ידע זה קריטי לכל troubleshooting. journalctl -u service -f = logs בזמן אמת."
+      explanation: "\u200F🔧 ss — Socket Statistics\n• החליף את netstat (deprecated)\n• -t=TCP, -u=UDP, -l=listening\n• -n=numeric (לא resolve שמות)\n• -p=PID\n\n📋 תוצאה לדוגמה\n• LISTEN 0 128 0.0.0.0:80 0.0.0.0:*\n• users:(('nginx',pid=1234))\n\n📌 חשוב\n• ידע זה קריטי לכל troubleshooting\n• journalctl -u service -f = logs בזמן אמת"
     },
     {
-      q: "מה ההבדל בין hard link לsoft link ב-Linux?",
-      correct: "‏Hard link: מצביע לאותו inode — נשמר גם אחרי מחיקת המקור. Soft link: מצביע לpath — נשבר אם המקור נמחק",
+      q: "\u200Fמה ההבדל בין hard link לsoft link ב-Linux?",
+      correct: "\u200FHard link: מצביע לאותו inode\nנשמר גם אחרי מחיקת המקור\nSoft link: מצביע ל-path\nנשבר אם המקור נמחק",
       choices: [
-        "‏Hard link: מצביע לאותו inode — נשמר גם אחרי מחיקת המקור. Soft link: מצביע לpath — נשבר אם המקור נמחק",
-        "‏Hard link לקבצים — Soft link לתיקיות",
-        "‏Hard link מהיר יותר — Soft link חוצה filesystems",
-        "אין הבדל מעשי"
+        "\u200FHard link: מצביע לאותו inode\nנשמר גם אחרי מחיקת המקור\nSoft link: מצביע ל-path\nנשבר אם המקור נמחק",
+        "\u200FHard link לקבצים — Soft link לתיקיות",
+        "\u200FHard link מהיר יותר\nSoft link חוצה filesystems",
+        "\u200Fאין הבדל מעשי"
       ],
-      explanation: "‏inode = metadata של קובץ (permissions, timestamps, blocks). ‏Hard link = שם נוסף לאותו inode. הקובץ נמחק רק כשlinkcount=0. ln file hardlink. ‏Soft link (symlink): ln -s /path/file link. יכול לחצות filesystems ותיקיות. נשבר אם target נמחק. ls -la מראה → target."
+      explanation: "\u200F📁 inode\n• metadata של קובץ (permissions, timestamps, blocks)\n\n🔗 Hard link\n• שם נוסף לאותו inode\n• הקובץ נמחק רק כש-linkcount=0\n• ln file hardlink\n\n🔗 Soft link (symlink)\n• ln -s /path/file link\n• יכול לחצות filesystems ותיקיות\n• נשבר אם target נמחק\n• ls -la מראה → target"
     },
     {
-      q: "מה המשמעות של chmod 755?",
-      correct: "‏Owner: rwx (7), Group: r-x (5), Others: r-x (5) — קריאה+הרצה לכולם, כתיבה רק ל-owner",
+      q: "\u200Fמה המשמעות של chmod 755?",
+      correct: "\u200FOwner: rwx (7), Group: r-x (5), Others: r-x (5)\nקריאה+הרצה לכולם, כתיבה רק ל-owner",
       choices: [
-        "‏Owner: rwx (7), Group: r-x (5), Others: r-x (5) — קריאה+הרצה לכולם, כתיבה רק ל-owner",
-        "‏Read-only לכל המשתמשים",
-        "‏Full permissions לכולם",
-        "‏Owner: rw, Group: r, Others: x"
+        "\u200FOwner: rwx (7), Group: r-x (5), Others: r-x (5)\nקריאה+הרצה לכולם, כתיבה רק ל-owner",
+        "\u200FRead-only לכל המשתמשים",
+        "\u200FFull permissions לכולם",
+        "\u200FOwner: rw, Group: r, Others: x"
       ],
-      explanation: "‏r=4, w=2, x=1. ‏7=4+2+1=rwx, 5=4+0+1=r-x, 4=r--. chmod 755 = executable scripts/directories. chmod 644 = files (owner rw, others r). chmod 600 = private keys (owner only). ‏SUID (4755): הקובץ רץ עם הרשאות ה-owner, לא המשתמש הרץ. find / -perm -4000 = מוצא SUID files."
+      explanation: "\u200F🔢 חישוב הרשאות\n• r=4, w=2, x=1\n• 7=4+2+1=rwx\n• 5=4+0+1=r-x\n• 4=r--\n\n📋 דוגמאות נפוצות\n• chmod 755 = executable scripts/directories\n• chmod 644 = files (owner rw, others r)\n• chmod 600 = private keys (owner only)\n\n⚠️ SUID (4755)\n• הקובץ רץ עם הרשאות ה-owner, לא המשתמש הרץ\n• find / -perm -4000 = מוצא SUID files"
     },
-        {
-      q: "מה הפקודה למציאת processes שמאזינים על פורט 8080?",
-      correct: "‏ss -tlnp | grep 8080 ‎(או lsof -i :8080)‎",
+    {
+      q: "\u200Fמה הפקודה למציאת processes שמאזינים על פורט 8080?",
+      correct: "\u200Fss -tlnp | grep 8080\n(או lsof -i :8080)",
       choices: [
-        "‏ss -tlnp | grep 8080 ‎(או lsof -i :8080)‎",
-        "‏netstat --port 8080",
-        "‏ps aux | grep 8080",
-        "‏find /proc -name '8080'"
+        "\u200Fss -tlnp | grep 8080\n(או lsof -i :8080)",
+        "\u200Fnetstat --port 8080",
+        "\u200Fps aux | grep 8080",
+        "\u200Ffind /proc -name '8080'"
       ],
-      explanation: "‏ss ‎(socket statistics, מחליף netstat)‎: -t TCP, -l listening, -n numeric ‎(לא resolve names)‎, -p show process. ss -tlnp: מציג כל TCP listening sockets עם PID. lsof -i :8080: כל files/sockets פתוחים על port 8080. netstat -tlnp | grep 8080 עובד גם אבל ss מהיר יותר. kill -9 $(lsof -ti :8080) = kill process שמאזין על port."
+      explanation: "\u200F🔧 ss (socket statistics)\n• -t TCP, -l listening\n• -n numeric (לא resolve names)\n• -p show process\n\n📋 פקודות שימושיות\n• ss -tlnp: מציג כל TCP listening sockets עם PID\n• lsof -i :8080: כל files/sockets פתוחים על port 8080\n• netstat -tlnp | grep 8080 עובד גם אבל ss מהיר יותר\n\n💡 טיפ\n• kill -9 $(lsof -ti :8080) = kill process שמאזין על port"
     },
   ],
 
   202: [
     {
-      q: "מה ההבדל בין Docker image לבין Docker container?",
-      correct: "‏Image = תבנית read-only שכבתית — Container = instance רץ של image עם writable layer",
+      q: "\u200Fמה ההבדל בין Docker image לבין Docker container?",
+      correct: "\u200FImage = תבנית read-only שכבתית\nContainer = instance רץ של image עם writable layer",
       choices: [
-        "‏Image = תבנית read-only שכבתית — Container = instance רץ של image עם writable layer",
-        "‏Image שמור על disk — Container בmemory",
-        "‏Container גדול יותר מimage",
-        "‏Image מכיל קוד — Container מכיל data"
+        "\u200FImage = תבנית read-only שכבתית\nContainer = instance רץ של image עם writable layer",
+        "\u200FImage שמור על disk — Container ב-memory",
+        "\u200FContainer גדול יותר מ-image",
+        "\u200FImage מכיל קוד — Container מכיל data"
       ],
-      explanation: "‏Docker image: Union filesystem — layers. כל RUN/COPY/ADD בDockerfile = layer חדש. שכבות shared בין containers. ‏Container: image layers (read-only) + writable layer בראש. כשcontainer נמחק — writable layer נמחק. ‏Data persistence: Volumes. docker images = רשימת images. docker ps = containers רצים."
+      explanation: "\u200F🐳 Docker Image\n• Union filesystem — layers\n• כל RUN/COPY/ADD ב-Dockerfile = layer חדש\n• שכבות shared בין containers\n\n📦 Container\n• image layers (read-only) + writable layer בראש\n• כש-container נמחק — writable layer נמחק\n\n💾 Data persistence\n• Volumes\n• docker images = רשימת images\n• docker ps = containers רצים"
     },
     {
-      q: "מה Multi-stage build ב-Docker ולמה להשתמש בזה?",
-      correct: "בנייה בשלבים — stage ראשון לcompile, stage שני רק עם artifacts — image קטן ב-10x",
+      q: "\u200Fמה Multi-stage build ב-Docker ולמה להשתמש בזה?",
+      correct: "\u200Fבנייה בשלבים — stage ראשון ל-compile\nstage שני רק עם artifacts\nimage קטן ב-10x",
       choices: [
-        "בנייה בשלבים — stage ראשון לcompile, stage שני רק עם artifacts — image קטן ב-10x",
-        "בניית כמה images במקביל",
-        "שימוש בbase images שונים לenv שונים",
-        "‏caching של layers בין builds"
+        "\u200Fבנייה בשלבים — stage ראשון ל-compile\nstage שני רק עם artifacts\nimage קטן ב-10x",
+        "\u200Fבניית כמה images במקביל",
+        "\u200Fשימוש ב-base images שונים ל-env שונים",
+        "\u200Fcaching של layers בין builds"
       ],
-      explanation: "בלי multi-stage: image Go מכיל compiler, source, dependencies = 1.2GB. עם multi-stage: FROM golang:1.21 AS builder / RUN go build / FROM scratch / COPY --from=builder /app/binary . = image של 8MB. רק binary! ללא compiler, ללא source. אבטחה + מהירות. ‏Node.js: stage עם devDependencies, stage עם רק production deps."
+      explanation: "\u200F❌ בלי multi-stage\n• image Go מכיל compiler, source, dependencies = 1.2GB\n\n✅ עם multi-stage\n• FROM golang:1.21 AS builder\n• RUN go build\n• FROM scratch\n• COPY --from=builder /app/binary .\n• image של 8MB בלבד!\n\n📌 יתרונות\n• רק binary — ללא compiler, ללא source\n• אבטחה + מהירות\n• Node.js: stage עם devDependencies, stage עם רק production deps"
     },
     {
-      q: "מה ה-ENTRYPOINT לעומת CMD ב-Dockerfile?",
-      correct: "‏ENTRYPOINT = תמיד רץ — CMD = default args שאפשר לoverride בdocker run",
+      q: "\u200Fמה ה-ENTRYPOINT לעומת CMD ב-Dockerfile?",
+      correct: "\u200FENTRYPOINT = תמיד רץ\nCMD = default args שאפשר לoverride ב-docker run",
       choices: [
-        "‏ENTRYPOINT = תמיד רץ — CMD = default args שאפשר לoverride בdocker run",
-        "‏CMD רץ בbuild — ENTRYPOINT ב-run",
-        "שניהם זהים — אחד לlinux אחד לwindows",
-        "‏ENTRYPOINT לwebserver — CMD לbatch jobs"
+        "\u200FENTRYPOINT = תמיד רץ\nCMD = default args שאפשר לoverride ב-docker run",
+        "\u200FCMD רץ ב-build — ENTRYPOINT ב-run",
+        "\u200Fשניהם זהים — אחד ל-linux אחד ל-windows",
+        "\u200FENTRYPOINT ל-webserver — CMD ל-batch jobs"
       ],
-      explanation: "‏ENTRYPOINT ['nginx', '-g', 'daemon off;'] — לא ניתן לoverride ב-docker run. ‏CMD ['--worker-processes=4'] — default args, ניתן לoverride. שניהם יחד: ENTRYPOINT ריץ תמיד, CMD מספק default args. docker run myimage --worker-processes=8 = מחליף CMD. best practice: ENTRYPOINT לbinary, CMD לdefault flags."
+      explanation: "\u200F🚀 ENTRYPOINT\n• ENTRYPOINT ['nginx', '-g', 'daemon off;']\n• לא ניתן ל-override ב-docker run\n\n⚙️ CMD\n• CMD ['--worker-processes=4']\n• default args, ניתן ל-override\n\n🔗 שניהם יחד\n• ENTRYPOINT רץ תמיד, CMD מספק default args\n• docker run myimage --worker-processes=8 = מחליף CMD\n\n📌 best practice\n• ENTRYPOINT ל-binary, CMD ל-default flags"
     },
-        {
-      q: "מה best practice לכתיבת Dockerfile — מה מקטין image size?",
-      correct: "‏Multi-stage builds, שימוש בbase images קטנים (alpine), מיזוג RUN commands, ניקוי cache ב-apt, הוספת .dockerignore",
+    {
+      q: "\u200Fמה best practice לכתיבת Dockerfile — מה מקטין image size?",
+      correct: "\u200FMulti-stage builds, base images קטנים (alpine),\nמיזוג RUN commands, ניקוי cache ב-apt,\nהוספת .dockerignore",
       choices: [
-        "‏Multi-stage builds, שימוש בbase images קטנים (alpine), מיזוג RUN commands, ניקוי cache ב-apt, הוספת .dockerignore",
-        "הוספת COMPRESS=true ב-Dockerfile",
-        "שימוש בCOPY במקום ADD בלבד",
-        "הגדרת WORKDIR = /tmp לחיסכון בזיכרון"
+        "\u200FMulti-stage builds, base images קטנים (alpine),\nמיזוג RUN commands, ניקוי cache ב-apt,\nהוספת .dockerignore",
+        "\u200Fהוספת COMPRESS=true ב-Dockerfile",
+        "\u200Fשימוש ב-COPY במקום ADD בלבד",
+        "\u200Fהגדרת WORKDIR = /tmp לחיסכון בזיכרון"
       ],
-      explanation: "‏Multi-stage: FROM golang:1.21 AS builder; RUN go build; FROM alpine:3.18; COPY --from=builder /app /app — image סופי ללא Go compiler! Alpine linux: 5MB vs Ubuntu 72MB. מיזוג: RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/* ‎(נקה cache ב-אותה שכבה!)‎. .dockerignore: node_modules, .git, *.log לא נכנסים לbuild context. ‏Layer caching: העתק package.json לפני COPY . כדי למנף cache של npm install."
+      explanation: "\u200F🏗️ Multi-stage\n• FROM golang:1.21 AS builder; RUN go build\n• FROM alpine:3.18; COPY --from=builder /app /app\n• image סופי ללא Go compiler!\n\n📦 Alpine Linux\n• 5MB vs Ubuntu 72MB\n\n🔧 מיזוג\n• RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*\n• נקה cache באותה שכבה!\n\n📋 .dockerignore\n• node_modules, .git, *.log לא נכנסים ל-build context\n\n💡 Layer caching\n• העתק package.json לפני COPY . כדי למנף cache של npm install"
     },
   ],
 
   203: [
     {
-      q: "מה ההבדל בין Deployment לבין StatefulSet ב-Kubernetes?",
-      correct: "‏Deployment לאפליקציות stateless — StatefulSet לDatabases — שומר identity קבועה, persistent storage, ו-ordered rollout",
+      q: "\u200Fמה ההבדל בין Deployment לבין StatefulSet ב-Kubernetes?",
+      correct: "\u200FDeployment לאפליקציות stateless\nStatefulSet ל-Databases — שומר identity קבועה,\npersistent storage, ו-ordered rollout",
       choices: [
-        "‏Deployment לאפליקציות stateless — StatefulSet לDatabases — שומר identity קבועה, persistent storage, ו-ordered rollout",
-        "‏StatefulSet ישן יותר ומיועד להחלפה",
-        "‏Deployment לcontainers בודדים — StatefulSet לcluster",
-        "אין הבדל מעשי — רק naming convention"
+        "\u200FDeployment לאפליקציות stateless\nStatefulSet ל-Databases — שומר identity קבועה,\npersistent storage, ו-ordered rollout",
+        "\u200FStatefulSet ישן יותר ומיועד להחלפה",
+        "\u200FDeployment ל-containers בודדים\nStatefulSet ל-cluster",
+        "\u200Fאין הבדל מעשי — רק naming convention"
       ],
-      explanation: "‏Deployment: pods ב-web server = interchangeable. מת pod-abc, נולד pod-xyz. ‏StatefulSet: pod-0, pod-1, pod-2 — שמות קבועים. pod-0 במסד הנתונים = primary always. כל pod מקבל PVC (Persistent Volume Claim) עצמאי. ‏Rollout: pod-2 מת → pod-2 קם → pod-1 מת → ordered. ‏MySQL, Kafka, ZooKeeper = StatefulSet."
+      explanation: "\u200F🔄 Deployment\n• pods ב-web server = interchangeable\n• מת pod-abc, נולד pod-xyz\n\n💾 StatefulSet\n• pod-0, pod-1, pod-2 — שמות קבועים\n• pod-0 במסד הנתונים = primary always\n• כל pod מקבל PVC (Persistent Volume Claim) עצמאי\n\n📋 Rollout\n• pod-2 מת → pod-2 קם → pod-1 מת → ordered\n• MySQL, Kafka, ZooKeeper = StatefulSet"
     },
     {
-      q: "מה Service ב-Kubernetes עושה שPod IP לא יכול לעשות?",
-      correct: "מספק IP קבוע וDNS שלא משתנה — גם כשPods מוחלפים או מוגדלים",
+      q: "\u200Fמה Service ב-Kubernetes עושה ש-Pod IP לא יכול לעשות?",
+      correct: "\u200Fמספק IP קבוע ו-DNS שלא משתנה\nגם כש-Pods מוחלפים או מוגדלים",
       choices: [
-        "מספק IP קבוע וDNS שלא משתנה — גם כשPods מוחלפים או מוגדלים",
-        "מוסיף TLS encryption לתעבורה",
-        "מנהל resource limits לcpu ומemory",
-        "מאפשר inter-namespace communication"
+        "\u200Fמספק IP קבוע ו-DNS שלא משתנה\nגם כש-Pods מוחלפים או מוגדלים",
+        "\u200Fמוסיף TLS encryption לתעבורה",
+        "\u200Fמנהל resource limits ל-cpu ול-memory",
+        "\u200Fמאפשר inter-namespace communication"
       ],
-      explanation: "‏Pod IP: ephemeral — Pod מת = IP חדש. ‏Service: ClusterIP קבוע + DNS: my-service.namespace.svc.cluster.local. kube-proxy מנהל iptables/ipvs rules לforward לPods הנכונים. ‏Types: ClusterIP ‎(פנימי)‎, NodePort ‎(פורט על node)‎, LoadBalancer (cloud LB), ExternalName (DNS alias). ‏Endpoints object מכיל IPs עדכניות."
+      explanation: "\u200F📡 Pod IP\n• ephemeral — Pod מת = IP חדש\n\n🔗 Service\n• ClusterIP קבוע + DNS: my-service.namespace.svc.cluster.local\n• kube-proxy מנהל iptables/ipvs rules ל-forward ל-Pods הנכונים\n\n📋 Types\n• ClusterIP (פנימי)\n• NodePort (פורט על node)\n• LoadBalancer (cloud LB)\n• ExternalName (DNS alias)\n\n📌 Endpoints object מכיל IPs עדכניות"
     },
     {
-      q: "מה liveness probe לעומת readiness probe ב-Kubernetes?",
-      correct: "‏Liveness: האם container חי? ‎(restart אם לא)‎. Readiness: האם מוכן לtraffic? ‎(הסר מService אם לא)‎",
+      q: "\u200Fמה liveness probe לעומת readiness probe ב-Kubernetes?",
+      correct: "\u200FLiveness: האם container חי? (restart אם לא)\nReadiness: האם מוכן ל-traffic? (הסר מ-Service אם לא)",
       choices: [
-        "‏Liveness: האם container חי? ‎(restart אם לא)‎. Readiness: האם מוכן לtraffic? ‎(הסר מService אם לא)‎",
-        "שניהם בודקים אותו דבר — redness לdb, liveness לweb",
-        "‏Liveness בstaging — Readiness בproduction",
-        "‏Liveness לHTTP — Readiness לTCP"
+        "\u200FLiveness: האם container חי? (restart אם לא)\nReadiness: האם מוכן ל-traffic? (הסר מ-Service אם לא)",
+        "\u200Fשניהם בודקים אותו דבר\nredness ל-db, liveness ל-web",
+        "\u200FLiveness ב-staging — Readiness ב-production",
+        "\u200FLiveness ל-HTTP — Readiness ל-TCP"
       ],
-      explanation: "‏Liveness probe נכשל: Kubernetes מבצע restart לcontainer. ‏Readiness probe נכשל: Pod מוסר מService endpoints — לא מקבל traffic, אבל לא restarted. ‏Startup probe: חדש ב-K8s 1.16 — לאפליקציות עם slow startup. ‏HTTP/TCP/exec probes. initialDelaySeconds, periodSeconds, failureThreshold. בלי readiness = traffic לPod שעדיין מאתחל."
+      explanation: "\u200F💓 Liveness probe נכשל\n• Kubernetes מבצע restart ל-container\n\n✅ Readiness probe נכשל\n• Pod מוסר מ-Service endpoints\n• לא מקבל traffic, אבל לא restarted\n\n🚀 Startup probe\n• חדש ב-K8s 1.16\n• לאפליקציות עם slow startup\n\n📋 הגדרות\n• HTTP/TCP/exec probes\n• initialDelaySeconds, periodSeconds, failureThreshold\n• בלי readiness = traffic ל-Pod שעדיין מאתחל"
     },
-        {
-      q: "מה ConfigMap ומה Secret ב-Kubernetes ומתי לא להשתמש ב-Secret?",
-      correct: "‏ConfigMap לconfig לא-סודי (env vars, files) — Secret לdata סודי (passwords, tokens) — אך base64 בלבד, לא הצפנה! יש לנהל עם Vault/Sealed Secrets",
+    {
+      q: "\u200Fמה ConfigMap ומה Secret ב-Kubernetes ומתי לא להשתמש ב-Secret?",
+      correct: "\u200FConfigMap ל-config לא-סודי (env vars, files)\nSecret ל-data סודי (passwords, tokens)\nאך base64 בלבד, לא הצפנה!\nיש לנהל עם Vault/Sealed Secrets",
       choices: [
-        "‏ConfigMap לconfig לא-סודי (env vars, files) — Secret לdata סודי (passwords, tokens) — אך base64 בלבד, לא הצפנה! יש לנהל עם Vault/Sealed Secrets",
-        "‏ConfigMap לfiles — Secret לenv vars בלבד",
-        "‏Secret מוצפן AES-256 אוטומטית על ידי Kubernetes",
-        "‏ConfigMap ו-Secret זהים — ההבדל הוא רק סמנטי"
+        "\u200FConfigMap ל-config לא-סודי (env vars, files)\nSecret ל-data סודי (passwords, tokens)\nאך base64 בלבד, לא הצפנה!\nיש לנהל עם Vault/Sealed Secrets",
+        "\u200FConfigMap ל-files — Secret ל-env vars בלבד",
+        "\u200FSecret מוצפן AES-256 אוטומטית על ידי Kubernetes",
+        "\u200FConfigMap ו-Secret זהים — ההבדל הוא רק סמנטי"
       ],
-      explanation: "‏ConfigMap: kubectl create configmap app-config --from-file=config.yaml. ‏Secret: kubectl create secret generic db-secret --from-literal=password=s3cr3t → מאוחסן כ-base64 ב-etcd. אחסון ב-etcd לא מוצפן כברירת מחדל! הפתרון: Encryption at Rest לetcd + External secrets (HashiCorp Vault, AWS Secrets Manager, Sealed Secrets). במשאב: spec.containers.env.valueFrom.secretKeyRef או mount כvolume. etcd = 'brain' של cluster — חייב להיות מאובטח."
+      explanation: "\u200F📋 ConfigMap\n• kubectl create configmap app-config --from-file=config.yaml\n\n🔒 Secret\n• kubectl create secret generic db-secret --from-literal=password=s3cr3t\n• מאוחסן כ-base64 ב-etcd\n• אחסון ב-etcd לא מוצפן כברירת מחדל!\n\n🛡️ הפתרון\n• Encryption at Rest ל-etcd\n• External secrets (HashiCorp Vault, AWS Secrets Manager, Sealed Secrets)\n\n📌 שימוש\n• spec.containers.env.valueFrom.secretKeyRef או mount כ-volume\n• etcd = 'brain' של cluster — חייב להיות מאובטח"
     },
-        {
-      q: "מה Resource Requests ו-Limits ב-Kubernetes ולמה חשוב להגדיר אותם?",
-      correct: "‏Requests: מינימום משאבים שה-scheduler מבטיח לpod — Limits: מקסימום שהpod יכול לצרוך — בלי Limits, pod אחד יכול להרעיב את כל ה-node",
+    {
+      q: "\u200Fמה Resource Requests ו-Limits ב-Kubernetes ולמה חשוב להגדיר אותם?",
+      correct: "\u200FRequests: מינימום משאבים שה-scheduler מבטיח ל-pod\nLimits: מקסימום שה-pod יכול לצרוך\nבלי Limits, pod אחד יכול להרעיב את כל ה-node",
       choices: [
-        "‏Requests: מינימום משאבים שה-scheduler מבטיח לpod — Limits: מקסימום שהpod יכול לצרוך — בלי Limits, pod אחד יכול להרעיב את כל ה-node",
-        "‏Requests ו-Limits שניהם מגדירים maximum — ההבדל הוא בadmission controller",
-        "‏Limits חלים רק על CPU — Requests על Memory",
-        "בלי Requests, pods לא יתחילו לרוץ"
+        "\u200FRequests: מינימום משאבים שה-scheduler מבטיח ל-pod\nLimits: מקסימום שה-pod יכול לצרוך\nבלי Limits, pod אחד יכול להרעיב את כל ה-node",
+        "\u200FRequests ו-Limits שניהם מגדירים maximum\nההבדל הוא ב-admission controller",
+        "\u200FLimits חלים רק על CPU — Requests על Memory",
+        "\u200Fבלי Requests, pods לא יתחילו לרוץ"
       ],
-      explanation: "‏resources: requests: cpu: '250m' memory: '128Mi' limits: cpu: '500m' memory: '256Mi'. ‏Scheduler: מחפש node עם מספיק requests available. ‏CPU throttling: אם pod עובר Limit → throttled ‎(איטי, לא killed)‎. ‏Memory OOMKilled: אם pod עובר memory Limit → KILLED! QoS classes: Guaranteed (req=limit), Burstable (req<limit), BestEffort ‎(ללא req/limit)‎. ‏LimitRange לnamespace defaults. ‏ResourceQuota לlimits בnamespace."
+      explanation: "\u200F⚙️ הגדרה\n• requests: cpu: '250m' memory: '128Mi'\n• limits: cpu: '500m' memory: '256Mi'\n\n📋 Scheduler\n• מחפש node עם מספיק requests available\n\n⚠️ חריגה\n• CPU throttling: pod עובר Limit → throttled (איטי, לא killed)\n• Memory OOMKilled: pod עובר memory Limit → KILLED!\n\n📊 QoS classes\n• Guaranteed (req=limit)\n• Burstable (req<limit)\n• BestEffort (ללא req/limit)\n\n📌 LimitRange ל-namespace defaults, ResourceQuota ל-limits ב-namespace"
     }
   ],
 
   204: [
     {
-      q: "מה ההבדל בין AWS Security Group לבין NACL?",
-      correct: "‏Security Group: stateful ‎(זוכר connection)‎, ברמת ENI. NACL: stateless, ברמת subnet — חייב לפתוח inbound וoutbound בנפרד",
+      q: "\u200Fמה ההבדל בין AWS Security Group לבין NACL?",
+      correct: "\u200FSecurity Group: stateful (זוכר connection), ברמת ENI\nNACL: stateless, ברמת subnet\nחייב לפתוח inbound ו-outbound בנפרד",
       choices: [
-        "‏Security Group: stateful ‎(זוכר connection)‎, ברמת ENI. NACL: stateless, ברמת subnet — חייב לפתוח inbound וoutbound בנפרד",
-        "‏Security Group לEC2 — NACL ל-S3",
-        "‏NACL מהיר יותר — Security Group גמיש יותר",
-        "‏Security Group חינמי — NACL בתשלום"
+        "\u200FSecurity Group: stateful (זוכר connection), ברמת ENI\nNACL: stateless, ברמת subnet\nחייב לפתוח inbound ו-outbound בנפרד",
+        "\u200FSecurity Group ל-EC2 — NACL ל-S3",
+        "\u200FNACL מהיר יותר — Security Group גמיש יותר",
+        "\u200FSecurity Group חינמי — NACL בתשלום"
       ],
-      explanation: "‏Security Group: stateful — אם פתחת port 443 inbound, response יוצא אוטומטית. ‏Rules רק allow ‎(אין deny)‎. ‏NACL: stateless — חייב rule inbound לport 443 AND rule outbound לephemeral ports 1024-65535. ‏NACL גם allow וגם deny. נוסף על security group. ‏Defense in depth: Security Group לinstance, NACL לsubnet."
+      explanation: "\u200F🛡️ Security Group\n• stateful — אם פתחת port 443 inbound, response יוצא אוטומטית\n• rules רק allow (אין deny)\n\n🔒 NACL\n• stateless — חייב rule inbound ל-port 443\n• AND rule outbound ל-ephemeral ports 1024-65535\n• גם allow וגם deny\n• נוסף על security group\n\n📌 Defense in depth\n• Security Group ל-instance, NACL ל-subnet"
     },
     {
-      q: "מה IAM Role ומתי עדיף על Access Key?",
-      correct: "‏IAM Role = הרשאות זמניות שניתן לassume — עדיף לEC2/Lambda כי לא דורש hardcoded credentials",
+      q: "\u200Fמה IAM Role ומתי עדיף על Access Key?",
+      correct: "\u200FIAM Role = הרשאות זמניות שניתן ל-assume\nעדיף ל-EC2/Lambda כי לא דורש hardcoded credentials",
       choices: [
-        "‏IAM Role = הרשאות זמניות שניתן לassume — עדיף לEC2/Lambda כי לא דורש hardcoded credentials",
-        "‏Role לadmins — Access Key לdevelopers",
-        "‏Access Key מאובטח יותר כי ניתן לrotate",
-        "‏Role רק לcross-account access"
+        "\u200FIAM Role = הרשאות זמניות שניתן ל-assume\nעדיף ל-EC2/Lambda כי לא דורש hardcoded credentials",
+        "\u200FRole ל-admins — Access Key ל-developers",
+        "\u200FAccess Key מאובטח יותר כי ניתן ל-rotate",
+        "\u200FRole רק ל-cross-account access"
       ],
-      explanation: "‏Access Key = long-term credentials = סכנת דליפה (git push, logs). ‏IAM Role: EC2 instance profile = temporary credentials שמתחלפות אוטומטית כל שעה. ‏Lambda execution role. ‏AssumeRole מ-STS. ‏IRSA בEKS: pod-level IAM roles. ‏Least Privilege: כל service = role נפרדת עם minimum permissions. ‏AWS Cost Explorer + CloudTrail לaudit."
+      explanation: "\u200F⚠️ Access Key\n• long-term credentials = סכנת דליפה (git push, logs)\n\n✅ IAM Role\n• EC2 instance profile = temporary credentials שמתחלפות אוטומטית כל שעה\n• Lambda execution role\n• AssumeRole מ-STS\n• IRSA ב-EKS: pod-level IAM roles\n\n📌 Least Privilege\n• כל service = role נפרדת עם minimum permissions\n• AWS Cost Explorer + CloudTrail ל-audit"
     },
     {
-      q: "מה AWS VPC Peering לעומת Transit Gateway?",
-      correct: "‏Peering: חיבור 1:1 בין 2 VPCs. Transit Gateway: hub מרכזי — N VPCs מתחברים לTGW = N connections לעומת N*(N-1)/2 בpeering",
+      q: "\u200Fמה AWS VPC Peering לעומת Transit Gateway?",
+      correct: "\u200FPeering: חיבור 1:1 בין 2 VPCs\nTransit Gateway: hub מרכזי\nN VPCs מתחברים ל-TGW = N connections\nלעומת N*(N-1)/2 ב-peering",
       choices: [
-        "‏Peering: חיבור 1:1 בין 2 VPCs. Transit Gateway: hub מרכזי — N VPCs מתחברים לTGW = N connections לעומת N*(N-1)/2 בpeering",
-        "‏Peering יקר יותר — Transit Gateway חינמי",
-        "‏Peering בין regions — TGW בתוך region",
-        "‏TGW מהיר יותר — Peering מאובטח יותר"
+        "\u200FPeering: חיבור 1:1 בין 2 VPCs\nTransit Gateway: hub מרכזי\nN VPCs מתחברים ל-TGW = N connections\nלעומת N*(N-1)/2 ב-peering",
+        "\u200FPeering יקר יותר — Transit Gateway חינמי",
+        "\u200FPeering בין regions — TGW בתוך region",
+        "\u200FTGW מהיר יותר — Peering מאובטח יותר"
       ],
-      explanation: "‏עם 10 VPCs ב-peering full mesh: 45 חיבורים. עם TGW: 10 חיבורים. ‎TGW‏ גם תומך ב-VPN, Direct Connect, multi-region. ‏Peering: ללא encryption נוסף, ללא bandwidth limit, זול. ‎TGW: $0.05/GB‏ data processed. נקודת מכירה ארכיטקטונית: ‎TGW = spoke-and-hub‏. ‎Peering = point-to-point‏. פחות מ-5 VPCs? peering מספיק."
+      explanation: "\u200F📊 השוואה\n• עם 10 VPCs ב-peering full mesh: 45 חיבורים\n• עם TGW: 10 חיבורים\n\n🔗 TGW\n• תומך ב-VPN, Direct Connect, multi-region\n• $0.05/GB data processed\n• spoke-and-hub architecture\n\n🔗 Peering\n• ללא encryption נוסף, ללא bandwidth limit, זול\n• point-to-point\n\n📌 פחות מ-5 VPCs? peering מספיק"
     },
-        {
-      q: "מה ה-Shared Responsibility Model ב-AWS ואיזה אחריות על הלקוח?",
-      correct: "‏AWS אחראית על security OF the cloud (hardware, facilities, hypervisor) — לקוח אחראי על security IN the cloud (OS, data, IAM, network config)",
+    {
+      q: "\u200Fמה ה-Shared Responsibility Model ב-AWS ואיזה אחריות על הלקוח?",
+      correct: "\u200FAWS אחראית על security OF the cloud\n(hardware, facilities, hypervisor)\nלקוח אחראי על security IN the cloud\n(OS, data, IAM, network config)",
       choices: [
-        "‏AWS אחראית על security OF the cloud (hardware, facilities, hypervisor) — לקוח אחראי על security IN the cloud (OS, data, IAM, network config)",
-        "‏AWS אחראית על הכל — לקוח רק על application code",
-        "הלקוח אחראי על הכל כי הוא משלם",
-        "האחריות חלוקה שווה 50/50 על כל דבר"
+        "\u200FAWS אחראית על security OF the cloud\n(hardware, facilities, hypervisor)\nלקוח אחראי על security IN the cloud\n(OS, data, IAM, network config)",
+        "\u200FAWS אחראית על הכל — לקוח רק על application code",
+        "\u200Fהלקוח אחראי על הכל כי הוא משלם",
+        "\u200Fהאחריות חלוקה שווה 50/50 על כל דבר"
       ],
-      explanation: "‏AWS Shared Responsibility: AWS: physical security, hardware, networking, hypervisor, managed services infrastructure. ‏Customer: EC2 OS patching, Security Groups config, S3 bucket policies ‎(לא לפתוח public!)‎, IAM configuration, encryption of data, application security. בServerless (Lambda): AWS גם מנהלת OS. ‏RDS: AWS מנהלת DB engine patching, לקוח מנהל access control ו-data. ‏AWS Config, Security Hub, GuardDuty = tools לmonitoring compliance."
+      explanation: "\u200F☁️ AWS\n• physical security, hardware, networking\n• hypervisor, managed services infrastructure\n\n👤 Customer\n• EC2 OS patching\n• Security Groups config\n• S3 bucket policies (לא לפתוח public!)\n• IAM configuration, encryption of data, application security\n\n📋 Serverless (Lambda)\n• AWS גם מנהלת OS\n• RDS: AWS מנהלת DB engine patching, לקוח מנהל access control ו-data\n\n📌 AWS Config, Security Hub, GuardDuty = tools ל-monitoring compliance"
     },
   ],
 
   205: [
     {
-      q: "מה ההבדל בין CI לבין CD ב-CI/CD pipeline?",
-      correct: "‏CI: בדיקת קוד אוטומטית בכל push. CD: Deploy אוטומטי לאחר CI מוצלח (Delivery=staging, Deployment=production)",
+      q: "\u200Fמה ההבדל בין CI לבין CD ב-CI/CD pipeline?",
+      correct: "\u200FCI: בדיקת קוד אוטומטית בכל push\nCD: Deploy אוטומטי לאחר CI מוצלח\n(Delivery=staging, Deployment=production)",
       choices: [
-        "‏CI: בדיקת קוד אוטומטית בכל push. CD: Deploy אוטומטי לאחר CI מוצלח (Delivery=staging, Deployment=production)",
-        "‏CI לdevelopers — CD לoperations",
-        "‏CI בcloud — CD on-premise",
-        "אין הבדל — זה שם כולל לautomation"
+        "\u200FCI: בדיקת קוד אוטומטית בכל push\nCD: Deploy אוטומטי לאחר CI מוצלח\n(Delivery=staging, Deployment=production)",
+        "\u200FCI ל-developers — CD ל-operations",
+        "\u200FCI ב-cloud — CD on-premise",
+        "\u200Fאין הבדל — זה שם כולל ל-automation"
       ],
-      explanation: "‏CI (Continuous Integration): כל push → build + unit tests + lint + security scan. מוצא bugs מוקדם. ‏CD Delivery: אחרי CI → deploy לstaging automatically. ‏CD Deployment: אחרי staging approval → production automatically (fully automated). ‏Tools: GitHub Actions, Jenkins, GitLab CI, CircleCI. ‏Best practice: branch protection + required CI status checks."
+      explanation: "\u200F🔄 CI (Continuous Integration)\n• כל push → build + unit tests + lint + security scan\n• מוצא bugs מוקדם\n\n🚀 CD Delivery\n• אחרי CI → deploy ל-staging automatically\n\n🚀 CD Deployment\n• אחרי staging approval → production automatically (fully automated)\n\n🔧 Tools\n• GitHub Actions, Jenkins, GitLab CI, CircleCI\n\n📌 Best practice\n• branch protection + required CI status checks"
     },
     {
-      q: "מה Blue-Green Deployment?",
-      correct: "שתי environments זהות — Blue (production) ו-Green (new version). Switch traffic בבת אחת. Rollback = switch חזרה",
+      q: "\u200Fמה Blue-Green Deployment?",
+      correct: "\u200Fשתי environments זהות\nBlue (production) ו-Green (new version)\nSwitch traffic בבת אחת\nRollback = switch חזרה",
       choices: [
-        "שתי environments זהות — Blue (production) ו-Green (new version). Switch traffic בבת אחת. Rollback = switch חזרה",
-        "‏Deploy לservers כחולים בתחילה, ירוקים אחר כך",
-        "‏Blue לEurope, Green לUS — geo deployment",
-        "‏Canary deployment עם color coding"
+        "\u200Fשתי environments זהות\nBlue (production) ו-Green (new version)\nSwitch traffic בבת אחת\nRollback = switch חזרה",
+        "\u200FDeploy ל-servers כחולים בתחילה, ירוקים אחר כך",
+        "\u200FBlue ל-Europe, Green ל-US — geo deployment",
+        "\u200FCanary deployment עם color coding"
       ],
-      explanation: "‏Blue-Green: zero-downtime deployment. ‏Blue = current production. ‏Green = new version, tested בparallel. ‏Switch: load balancer מפנה מBlue לGreen בשנייה. ‏Rollback מיידי: switch חזרה. עלות: כפל infrastructure. מתאים לdeployments עם DB migrations ‎(אך מורכב)‎. ‏Canary = הדרגתי (5% → 25% → 100%). ‏Feature flags = code-level canary."
+      explanation: "\u200F🔵 Blue-Green\n• zero-downtime deployment\n• Blue = current production\n• Green = new version, tested ב-parallel\n\n🔄 Switch\n• load balancer מפנה מ-Blue ל-Green בשנייה\n• Rollback מיידי: switch חזרה\n• עלות: כפל infrastructure\n\n📌 השוואה\n• Canary = הדרגתי (5% → 25% → 100%)\n• Feature flags = code-level canary"
     },
     {
-      q: "מה Artifact ב-CI/CD pipeline?",
-      correct: "‏Output של build step — Docker image, JAR, binary, npm package — שמאוחסן ומשמש לdeploy",
+      q: "\u200Fמה Artifact ב-CI/CD pipeline?",
+      correct: "\u200FOutput של build step\nDocker image, JAR, binary, npm package\nשמאוחסן ומשמש ל-deploy",
       choices: [
-        "‏Output של build step — Docker image, JAR, binary, npm package — שמאוחסן ומשמש לdeploy",
-        "לוג הריצה של ה-pipeline",
-        "קובץ הגדרות ה-pipeline",
-        "‏test coverage report"
+        "\u200FOutput של build step\nDocker image, JAR, binary, npm package\nשמאוחסן ומשמש ל-deploy",
+        "\u200Fלוג הריצה של ה-pipeline",
+        "\u200Fקובץ הגדרות ה-pipeline",
+        "\u200Ftest coverage report"
       ],
-      explanation: "‏Artifact = מה שנבנה. ‏Docker image → pushed לregistry (ECR, GCR, Docker Hub). ‏JAR → Nexus/Artifactory. npm → registry. immutable artifacts: אחד שנבנה מ-commit מסוים = deploy לstaging ואחר כך production. לא בונים מחדש! 'Build once, deploy anywhere.' Artifact versioning: semver או git SHA. retention policy חוסכת עלויות."
+      explanation: "\u200F📦 Artifact = מה שנבנה\n• Docker image → pushed ל-registry (ECR, GCR, Docker Hub)\n• JAR → Nexus/Artifactory\n• npm → registry\n\n🔒 Immutable artifacts\n• אחד שנבנה מ-commit מסוים = deploy ל-staging ואחר כך production\n• לא בונים מחדש!\n• 'Build once, deploy anywhere'\n\n📌 Versioning\n• semver או git SHA\n• retention policy חוסכת עלויות"
     },
-        {
-      q: "מה GitHub Actions workflow ואיך מגדירים environment secrets?",
-      correct: "‏YAML ב-.github/workflows/ שמגדיר triggers, jobs ו-steps — Secrets מוגדרים ב-Repository Settings ומוזרקים כenv vars: ${{ secrets.MY_SECRET }}",
+    {
+      q: "\u200Fמה GitHub Actions workflow ואיך מגדירים environment secrets?",
+      correct: "\u200FYAML ב-.github/workflows/ שמגדיר triggers, jobs ו-steps\nSecrets מוגדרים ב-Repository Settings\nומוזרקים כ-env vars: ${{ secrets.MY_SECRET }}",
       choices: [
-        "‏YAML ב-.github/workflows/ שמגדיר triggers, jobs ו-steps — Secrets מוגדרים ב-Repository Settings ומוזרקים כenv vars: ${{ secrets.MY_SECRET }}",
-        "‏Workflow מוגדר ב-.gitlab-ci.yml ב-root",
-        "‏Secrets נכתבים ישירות בYAML מוצפן",
-        "‏GitHub Actions הוא שם של CLI tool שמריץ pipelines"
+        "\u200FYAML ב-.github/workflows/ שמגדיר triggers, jobs ו-steps\nSecrets מוגדרים ב-Repository Settings\nומוזרקים כ-env vars: ${{ secrets.MY_SECRET }}",
+        "\u200FWorkflow מוגדר ב-.gitlab-ci.yml ב-root",
+        "\u200FSecrets נכתבים ישירות ב-YAML מוצפן",
+        "\u200FGitHub Actions הוא שם של CLI tool שמריץ pipelines"
       ],
-      explanation: "‏workflow file: on: [push, pull_request]; jobs: build: runs-on: ubuntu-latest; steps: uses: actions/checkout@v3; run: npm test. ‏Secrets: Settings → Secrets and variables → Actions → New secret. בstep: env: AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}. ‏Environments (prod/staging) יכולים לדרוש approval. ‏GitHub Marketplace: אלפי pre-built actions. ‏Self-hosted runners לprivate networks. ‏OIDC: GitHub Actions → AWS IAM Role ללא static keys!"
+      explanation: "\u200F📋 workflow file\n• on: [push, pull_request]\n• jobs: build: runs-on: ubuntu-latest\n• steps: uses: actions/checkout@v3; run: npm test\n\n🔒 Secrets\n• Settings → Secrets and variables → Actions → New secret\n• ב-step: env: AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}\n\n🌍 Environments\n• prod/staging יכולים לדרוש approval\n\n📌 נוסף\n• GitHub Marketplace: אלפי pre-built actions\n• Self-hosted runners ל-private networks\n• OIDC: GitHub Actions → AWS IAM Role ללא static keys!"
     },
-        {
-      q: "מה Shift Left Testing ולמה זה חוסך כסף?",
-      correct: "הזזת testing שמאלה ב-pipeline — בדיקות מוקדמות יותר ב-development lifecycle — bug שמתגלה בdesign עולה פחות מbug בproduction",
+    {
+      q: "\u200Fמה Shift Left Testing ולמה זה חוסך כסף?",
+      correct: "\u200Fהזזת testing שמאלה ב-pipeline\nבדיקות מוקדמות יותר ב-development lifecycle\nbug שמתגלה ב-design עולה פחות מ-bug ב-production",
       choices: [
-        "הזזת testing שמאלה ב-pipeline — בדיקות מוקדמות יותר ב-development lifecycle — bug שמתגלה בdesign עולה פחות מbug בproduction",
-        "כלי שמזיז test cases לסוף pipeline למהירות",
-        "מתודולוגיה שמחליפה QA engineers באוטומציה",
-        "בדיקות שנעשות על ה-left side של cluster"
+        "\u200Fהזזת testing שמאלה ב-pipeline\nבדיקות מוקדמות יותר ב-development lifecycle\nbug שמתגלה ב-design עולה פחות מ-bug ב-production",
+        "\u200Fכלי שמזיז test cases לסוף pipeline למהירות",
+        "\u200Fמתודולוגיה שמחליפה QA engineers באוטומציה",
+        "\u200Fבדיקות שנעשות על ה-left side של cluster"
       ],
-      explanation: "‏Rule of 10 (IBM): bug בdesign = $1, בdevelopment = $10, ב-QA = $100, בproduction = $1,000+. ‏Shift Left: unit tests בIDE (pre-commit), SAST (static analysis) בPR, integration tests בCI, security scanning (Snyk, Trivy) בbuild. ‏TDD (Test Driven Development) = extreme shift left. ‏DevSecOps = security shift left. ‏Pre-commit hooks (Husky) מונעים commit של code שעובר lint/test."
+      explanation: "\u200F💰 Rule of 10 (IBM)\n• bug ב-design = $1\n• ב-development = $10\n• ב-QA = $100\n• ב-production = $1,000+\n\n⬅️ Shift Left\n• unit tests ב-IDE (pre-commit)\n• SAST (static analysis) ב-PR\n• integration tests ב-CI\n• security scanning (Snyk, Trivy) ב-build\n\n📌 גישות\n• TDD (Test Driven Development) = extreme shift left\n• DevSecOps = security shift left\n• Pre-commit hooks (Husky) מונעים commit של code שעובר lint/test"
     }
   ],
 
@@ -2941,70 +2941,70 @@ export const quizBank = {
 
   208: [
     {
-      q: "מה ההבדל בין RED method לבין USE method בmonitoring?",
-      correct: "‏RED (Rate/Errors/Duration) למדידת services, USE (Utilization/Saturation/Errors) למדידת resources",
+      q: "\u200Fמה ההבדל בין RED method לבין USE method ב-monitoring?",
+      correct: "\u200FRED (Rate/Errors/Duration) למדידת services\nUSE (Utilization/Saturation/Errors) למדידת resources",
       choices: [
-        "‏RED (Rate/Errors/Duration) למדידת services, USE (Utilization/Saturation/Errors) למדידת resources",
-        "‏RED לbackend, USE לfrontend",
-        "‏USE לKubernetes, RED לVM",
-        "שניהם מדדים זהים עם שמות שונים"
+        "\u200FRED (Rate/Errors/Duration) למדידת services\nUSE (Utilization/Saturation/Errors) למדידת resources",
+        "\u200FRED ל-backend, USE ל-frontend",
+        "\u200FUSE ל-Kubernetes, RED ל-VM",
+        "\u200Fשניהם מדדים זהים עם שמות שונים"
       ],
-      explanation: "‏RED שואל: כמה requests לשנייה? כמה נכשלים? כמה זמן לוקח? — מתאים לmicroservices ולAPIs. ‏USE שואל: כמה CPU/Memory בשימוש? האם יש queue buildup? יש errors בhardware? — מתאים לinfrastructure (servers, disks, network). ‏Brendan Gregg (Netflix) פיתח את USE method."
+      explanation: "\u200F🔴 RED שואל\n• כמה requests לשנייה?\n• כמה נכשלים?\n• כמה זמן לוקח?\n• מתאים ל-microservices ול-APIs\n\n🔧 USE שואל\n• כמה CPU/Memory בשימוש?\n• האם יש queue buildup?\n• יש errors ב-hardware?\n• מתאים ל-infrastructure (servers, disks, network)\n\n📌 Brendan Gregg (Netflix) פיתח את USE method"
     },
     {
-      q: "מה עושה הפקודה histogram_quantile(0.99, ...) ב-PromQL?",
-      correct: "מחשבת את הpercentile ה-99 של הlatency — ה-latency שמתחתיו 99% מהrequests",
+      q: "\u200Fמה עושה הפקודה histogram_quantile(0.99, ...) ב-PromQL?",
+      correct: "\u200Fמחשבת את ה-percentile ה-99 של ה-latency\nה-latency שמתחתיו 99% מה-requests",
       choices: [
-        "מחשבת את הpercentile ה-99 של הlatency — ה-latency שמתחתיו 99% מהrequests",
-        "מחשבת ממוצע של 99 הנקודות האחרונות",
-        "מציגה את 99% מה-metrics ללא הoutliers",
-        "מגדירה alert אם הlatency עולה על 99ms"
+        "\u200Fמחשבת את ה-percentile ה-99 של ה-latency\nה-latency שמתחתיו 99% מה-requests",
+        "\u200Fמחשבת ממוצע של 99 הנקודות האחרונות",
+        "\u200Fמציגה את 99% מה-metrics ללא ה-outliers",
+        "\u200Fמגדירה alert אם ה-latency עולה על 99ms"
       ],
-      explanation: "‏histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) = P99 latency. פירוש: 99% מהrequests הסתיימו בזמן הזה או פחות. ה-1% הגרועים ביותר = הזנב. ‏SLOs בגוגל מוגדרים בP99 כי ממוצע מסתיר latency spikes. rate() קודם על הbucket = חשוב לחישוב נכון."
+      explanation: "\u200F📊 P99 Latency\n• histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))\n• פירוש: 99% מה-requests הסתיימו בזמן הזה או פחות\n• ה-1% הגרועים ביותר = הזנב\n\n🎯 למה P99?\n• SLOs בגוגל מוגדרים ב-P99\n• ממוצע מסתיר latency spikes\n\n📌 rate() קודם על ה-bucket = חשוב לחישוב נכון"
     },
     {
-      q: "מה ה-pull model של Prometheus לעומת push model?",
-      correct: "‏Prometheus scrapes metrics מservices בעצמו (pull), לעומת Graphite/StatsD שservices דוחפים אליהם (push)",
+      q: "\u200Fמה ה-pull model של Prometheus לעומת push model?",
+      correct: "\u200FPrometheus scrapes metrics מ-services בעצמו (pull)\nלעומת Graphite/StatsD ש-services דוחפים אליהם (push)",
       choices: [
-        "‏Prometheus scrapes metrics מservices בעצמו (pull), לעומת Graphite/StatsD שservices דוחפים אליהם (push)",
-        "‏pull = real-time, push = batch",
-        "‏pull מהיר יותר כי לא צריך network",
-        "‏push model אבטחתי יותר"
+        "\u200FPrometheus scrapes metrics מ-services בעצמו (pull)\nלעומת Graphite/StatsD ש-services דוחפים אליהם (push)",
+        "\u200Fpull = real-time, push = batch",
+        "\u200Fpull מהיר יותר כי לא צריך network",
+        "\u200Fpush model אבטחתי יותר"
       ],
-      explanation: "‏Prometheus pull: מגדיר scrape_configs עם targets, Prometheus שולח GET /metrics כל 15s. יתרון: Prometheus שולט מי נסרק, קל לhealthcheck ‎(אם scrape נכשל = service down)‎. חיסרון: services חייבים לחשוף /metrics endpoint. ‏Pushgateway קיים לjobs קצרים שלא חיים מספיק לscrape."
+      explanation: "\u200F📡 Prometheus pull\n• מגדיר scrape_configs עם targets\n• Prometheus שולח GET /metrics כל 15s\n\n✅ יתרון\n• Prometheus שולט מי נסרק\n• קל ל-healthcheck (אם scrape נכשל = service down)\n\n❌ חיסרון\n• services חייבים לחשוף /metrics endpoint\n\n📌 Pushgateway קיים ל-jobs קצרים שלא חיים מספיק ל-scrape"
     },
-        {
-      q: "מה PromQL query שמחשב request rate ב-5 דקות האחרונות?",
-      correct: "‏rate(http_requests_total[5m]) — מחשב שיעור שינוי per-second של counter בחלון זמן של 5 דקות",
+    {
+      q: "\u200Fמה PromQL query שמחשב request rate ב-5 דקות האחרונות?",
+      correct: "\u200Frate(http_requests_total[5m])\nמחשב שיעור שינוי per-second של counter\nבחלון זמן של 5 דקות",
       choices: [
-        "‏rate(http_requests_total[5m]) — מחשב שיעור שינוי per-second של counter בחלון זמן של 5 דקות",
-        "‏avg(http_requests_total, 5m)",
-        "‏count(http_requests[5m])",
-        "‏sum(requests) over 5m"
+        "\u200Frate(http_requests_total[5m])\nמחשב שיעור שינוי per-second של counter\nבחלון זמן של 5 דקות",
+        "\u200Favg(http_requests_total, 5m)",
+        "\u200Fcount(http_requests[5m])",
+        "\u200Fsum(requests) over 5m"
       ],
-      explanation: "‏rate() vs irate(): rate([5m]) = average rate over window ‎(stable, לalerts)‎. irate([5m]) = instant rate ‎(2 last samples, volatile, לgraphs)‎. increase(counter[1h]) = עליה מוחלטת בשעה. sum(rate(http_requests_total[5m])) by (status_code): breakdown לפי status. avg_over_time(gauge[1h]): ממוצע של gauge בשעה. histogram_quantile(0.99, rate(request_duration_bucket[5m])): P99 latency. החוק: רק rate() על counters ‎(לא gauges)‎."
+      explanation: "\u200F📊 rate() vs irate()\n• rate([5m]) = average rate over window (stable, ל-alerts)\n• irate([5m]) = instant rate (2 last samples, volatile, ל-graphs)\n\n🔧 פונקציות נוספות\n• increase(counter[1h]) = עליה מוחלטת בשעה\n• sum(rate(http_requests_total[5m])) by (status_code): breakdown לפי status\n• avg_over_time(gauge[1h]): ממוצע של gauge בשעה\n• histogram_quantile(0.99, rate(request_duration_bucket[5m])): P99 latency\n\n📌 החוק: רק rate() על counters (לא gauges)"
     },
-        {
-      q: "מה RED Method ב-SRE ומה מדדים בודקים?",
-      correct: "‏Rate ‎(בקשות/שנייה)‎, Errors ‎(שיעור שגיאות)‎, Duration (latency) — שלושת המדדים הבסיסיים לבריאות שירות",
+    {
+      q: "\u200Fמה RED Method ב-SRE ומה מדדים בודקים?",
+      correct: "\u200FRate (בקשות/שנייה)\nErrors (שיעור שגיאות)\nDuration (latency)\nשלושת המדדים הבסיסיים לבריאות שירות",
       choices: [
-        "‏Rate ‎(בקשות/שנייה)‎, Errors ‎(שיעור שגיאות)‎, Duration (latency) — שלושת המדדים הבסיסיים לבריאות שירות",
-        "‏Reliability, Efficiency, Durability",
-        "‏Requests, Errors, Downtime",
-        "‏Response time, Error budget, Deployment frequency"
+        "\u200FRate (בקשות/שנייה)\nErrors (שיעור שגיאות)\nDuration (latency)\nשלושת המדדים הבסיסיים לבריאות שירות",
+        "\u200FReliability, Efficiency, Durability",
+        "\u200FRequests, Errors, Downtime",
+        "\u200FResponse time, Error budget, Deployment frequency"
       ],
-      explanation: "‏RED Method (Tom Wilkie, Weave Works) לmicroservices: Rate = rate(requests_total[1m]). ‏Error = rate(requests_total{status='error'}[1m]) / rate(requests_total[1m]). ‏Duration = histogram_quantile(0.95, rate(request_duration_bucket[1m])). ‏USE Method (Brendan Gregg) לresources: Utilization (CPU%), Saturation (queue depth), Errors. ‏RED = user perspective, USE = resource perspective. ‏Golden Signals (Google SRE Book): Latency, Traffic, Errors, Saturation (RED + Saturation)."
+      explanation: "\u200F🔴 RED Method (Tom Wilkie, Weave Works)\n• Rate = rate(requests_total[1m])\n• Error = rate(requests_total{status='error'}[1m]) / rate(requests_total[1m])\n• Duration = histogram_quantile(0.95, rate(request_duration_bucket[1m]))\n\n🔧 USE Method (Brendan Gregg)\n• Utilization (CPU%)\n• Saturation (queue depth)\n• Errors\n\n📌 השוואה\n• RED = user perspective\n• USE = resource perspective\n• Golden Signals (Google SRE Book): Latency, Traffic, Errors, Saturation"
     },
-        {
-      q: "מה ההבדל בין Grafana Dashboard לבין Grafana Alert?",
-      correct: "‏Dashboard: ויזואליזציה של metrics לצפייה — Alert: rule שמוערך periodically ושולח notification כשthreshold מופר",
+    {
+      q: "\u200Fמה ההבדל בין Grafana Dashboard לבין Grafana Alert?",
+      correct: "\u200FDashboard: ויזואליזציה של metrics לצפייה\nAlert: rule שמוערך periodically\nושולח notification כש-threshold מופר",
       choices: [
-        "‏Dashboard: ויזואליזציה של metrics לצפייה — Alert: rule שמוערך periodically ושולח notification כשthreshold מופר",
-        "‏Dashboard לprod — Alert לdev/staging",
-        "‏Alert הוא dashboard מיוחד עם רקע אדום",
-        "‏Grafana עושה רק visualization — Alerting דרך Prometheus בלבד"
+        "\u200FDashboard: ויזואליזציה של metrics לצפייה\nAlert: rule שמוערך periodically\nושולח notification כש-threshold מופר",
+        "\u200FDashboard ל-prod — Alert ל-dev/staging",
+        "\u200FAlert הוא dashboard מיוחד עם רקע אדום",
+        "\u200FGrafana עושה רק visualization\nAlerting דרך Prometheus בלבד"
       ],
-      explanation: "‏Grafana Alerting (Unified Alerting): Alert Rule → Evaluation Group ‎(כל 1m)‎ → Contact Point (Slack/PagerDuty/Email) → Notification Policy. ‏Alert states: Normal, Pending ‎(threshold הופר אך לא עבר for duration)‎, Firing, No Data, Error. ‏Alert Rule בPromQL: avg_over_time(up[5m]) < 0.5 ‎(שירות down >50% מהזמן ב-5 דקות)‎. ‏Alertmanager: deduplication, grouping, routing, silencing. ‏Runbook URL: קישור לprocedure לאחר alert."
+      explanation: "\u200F🔔 Grafana Alerting (Unified Alerting)\n• Alert Rule → Evaluation Group (כל 1m)\n• → Contact Point (Slack/PagerDuty/Email)\n• → Notification Policy\n\n📊 Alert states\n• Normal, Pending (threshold הופר אך לא עבר for duration)\n• Firing, No Data, Error\n\n📋 דוגמה\n• avg_over_time(up[5m]) < 0.5 (שירות down >50% ב-5 דקות)\n\n📌 Alertmanager\n• deduplication, grouping, routing, silencing\n• Runbook URL: קישור ל-procedure לאחר alert"
     }
   ],
 
