@@ -1558,8 +1558,9 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "תפקיד שכבת הקו",
         content: `
-          <p><strong>שכבת הקו</strong></p>
-          <p>שכבת הרשת אחראית על המסלול. שכבת הקו אחראית על תקשורת בין מכשירים <strong>מחוברים ישירות</strong>.</p>
+          <p><strong>שכבת הקו</strong> — <code>Data Link Layer</code></p>
+          <p>שכבת הרשת אחראית על המסלול.</p>
+          <p>שכבת הקו אחראית על תקשורת בין מכשירים <strong>מחוברים ישירות</strong>.</p>
           <p>חיבור ישיר = כבל, <code>WiFi</code>, או לווין.</p>
           <p>שכבת הקו מספקת ממשק להעברת מידע בין מכשירים צמודים.</p>
           <p>שכבת הרשת לא צריכה לדאוג לסוג החיבור — זה תפקיד שכבת הקו.</p>
@@ -1569,7 +1570,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "Ethernet וכתובות MAC",
         content: `
-          <p><strong>כתובות MAC</strong></p>
+          <p><strong>כתובות <code>MAC</code></strong> — <code>Media Access Control</code></p>
           <p>כתובות פיזיות, צרובות על כרטיס הרשת.</p>
           <p>הפורמט — 6 בתים בהקסדצימלי.</p>
           <p><strong>דוגמה:</strong> <code>d4:be:d9:d6:0c:2a</code></p>
@@ -1584,7 +1585,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "מבנה מסגרת Ethernet — Frame",
         content: `
-          <p>מסגרת <code>Ethernet</code> מורכבת מהשדות הבאים:</p>
+          <p><strong>מסגרת <code>Ethernet</code></strong> — <code>Ethernet Frame</code></p>
+          <p>מורכבת מהשדות הבאים:</p>
           <ul>
             <li><strong>Preamble</strong> — סינכרון בין השולח למקבל</li>
             <li><strong>Destination MAC</strong> — 6 בתים — כתובת היעד</li>
@@ -1601,7 +1603,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "demo",
         title: "המדריך מדגים: פלט של ipconfig",
         content: `
-          <p>כשמריצים <code>ipconfig</code> — ב-Windows — או <code>ifconfig</code> — ב-Linux/Mac — מתקבל מידע על הממשקים:</p>
+          <p>כשמריצים <code>ipconfig</code> — ב-Windows — או <code>ifconfig</code> — ב-Linux/Mac — מתקבל מידע על ממשקי הרשת.</p>
           <div class="code-preview">
             <pre><code>Ethernet adapter Ethernet:
    IPv4 Address: 192.168.1.105
@@ -1654,7 +1656,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         questions: [
           {
             q: "מה ההבדל בין MAC ל־IP?",
-            a: "MAC – כתובת פיזית צרובה על כרטיס הרשת, משמשת ברשת המקומית (שכבת קו). IP – כתובת לוגית שמיועדת לניתוב ברשתות (שכבת רשת). ARP ממיר IP ל־MAC כשצריך לשלוח Frame."
+            a: "MAC — כתובת פיזית צרובה על כרטיס הרשת, משמשת ברשת המקומית — שכבת קו. IP — כתובת לוגית שמיועדת לניתוב ברשתות — שכבת רשת. ARP ממיר IP ל־MAC כשצריך לשלוח Frame."
           },
           {
             q: "למה ARP משתמש ב-Broadcast?",
@@ -1691,7 +1693,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "Hub – שכבת פיזית",
         content: `
-          <p><code>Hub</code> מקבל ביטים מפורט אחד ומשכפל אותם לכל שאר הפורטים.</p>
+          <p><strong><code>Hub</code></strong> — שכבה 1</p>
+          <p>מקבל ביטים מפורט אחד ומשכפל אותם לכל שאר הפורטים.</p>
           <p>אין בו שום אינטליגנציה — הוא לא יודע לאן לשלוח.</p>
           <p>כתוצאה, כל מחשב ברשת מקבל את כל התעבורה.</p>
           <p>זה יוצר התנגשויות — <code>Collisions</code> — וגורם לשיתוף רוחב הפס בין כולם.</p>
@@ -1702,8 +1705,9 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "Switch – שכבת קו",
         content: `
-          <p><code>Switch</code> לומד את טבלת ה-MAC (מיפוי כתובת לפורט) מהתעבורה שעוברת דרכו.</p>
-          <p>כשמגיע <code>Frame</code>, ה-Switch בודק את <code>Destination MAC</code> ושולח רק לפורט המתאים.</p>
+          <p><strong><code>Switch</code></strong> — שכבה 2</p>
+          <p>לומד את טבלת ה-<code>MAC</code> — מיפוי כתובת לפורט — מהתעבורה שעוברת דרכו.</p>
+          <p>כשמגיע <code>Frame</code>, ה-<code>Switch</code> בודק את <code>Destination MAC</code> ושולח רק לפורט המתאים.</p>
           <p>כך הוא מפחית התנגשויות ומנצל את רוחב הפס בצורה טובה יותר.</p>
           <p><strong>Switch חכם</strong> — <code>Managed Switch</code></p>
           <p>מאפשר גם חלוקה ל-<code>VLANs</code> וניהול מתקדם.</p>
@@ -1713,7 +1717,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "Router – שכבת רשת",
         content: `
-          <p><code>Router</code> מחבר בין רשתות IP שונות.</p>
+          <p><strong><code>Router</code></strong> — שכבה 3</p>
+          <p>מחבר בין רשתות <code>IP</code> שונות.</p>
           <p>יש לו טבלת ניתוב שמגדירה לכל יעד לאן לשלוח.</p>
           <p><strong>תהליך העבודה:</strong></p>
           <ol>
@@ -1782,7 +1787,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p><strong>סוגי Firewall:</strong></p>
 
           <p><strong>Stateless Firewall</strong> — <code>Packet Filter</code></p>
-          <p>בודק כל חבילה בנפרד לפי IP מקור/יעד, פורט ופרוטוקול.</p>
+          <p>בודק כל חבילה בנפרד לפי <code>IP</code> מקור/יעד, פורט ופרוטוקול.</p>
           <p>לא זוכר מצב של חיבורים קודמים.</p>
           <p>פשוט ומהיר, אבל פחות חכם.</p>
 
@@ -1836,15 +1841,18 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
               <p>משלב הכל בקופסה אחת: <code>Router</code> + <code>Switch</code> + <code>WiFi AP</code> + <code>NAT</code> + <code>DHCP</code> + <code>Firewall</code> בסיסי.</p>
               <p><strong>Router תעשייתי</strong> — <code>Cisco</code>, <code>Juniper</code></p>
               <p>לכל פונקציה מכשיר נפרד: <code>Router</code> נפרד, <code>Managed Switch</code> נפרד, <code>Firewall</code> נפרד, <code>AP</code> נפרד.</p>
-              <p><strong>החשיבה:</strong> בבית, פשטות חשובה יותר מביצועים. בחברה, כל רכיב מתמחה, מנוהל בנפרד, ומוחלף בלי להשפיע על האחרים.</p>`
+              <p><strong>החשיבה:</strong></p>
+              <p>בבית — פשטות חשובה יותר מביצועים.</p>
+              <p>בחברה — כל רכיב מתמחה, מנוהל בנפרד, ומוחלף בלי להשפיע על האחרים.</p>`
           },
           {
             title: "מה זה SDN – רשת מוגדרת בתוכנה?",
             icon: "💻",
             content: `<p><strong>SDN</strong> — <code>Software Defined Networking</code></p>
-              <p>הפרדה בין ה-<code>Control Plane</code> שמקבל החלטות ניתוב, ל-<code>Data Plane</code> שמעביר נתונים בפועל.</p>
-              <p>במקום שכל נתב יחליט בעצמו, מרכז SDN אחד שולח הוראות לכל הנתבים – כמו GPS מרכזי שמנחה את כל הנהגים.</p>
-              <p>Google ו-Facebook משתמשים ב-SDN לניהול מרכזי של רשתות ענק.</p>`
+              <p>הפרדה בין ה-<code>Control Plane</code> — שמקבל החלטות ניתוב — ל-<code>Data Plane</code> — שמעביר נתונים בפועל.</p>
+              <p>במקום שכל נתב יחליט בעצמו, מרכז <code>SDN</code> אחד שולח הוראות לכל הנתבים.</p>
+              <p>כמו <code>GPS</code> מרכזי שמנחה את כל הנהגים.</p>
+              <p><code>Google</code> ו-<code>Facebook</code> משתמשים ב-<code>SDN</code> לניהול מרכזי של רשתות ענק.</p>`
           }
         ]
       },
@@ -1896,7 +1904,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "מטרת השכבה הפיזית",
         content: `
-          <p>תפקיד השכבה הפיזית הוא העברת <strong>ביט</strong> בודד — 0 או 1 — בין רכיבים.</p>
+          <p><strong>השכבה הפיזית</strong> — <code>Physical Layer</code></p>
+          <p>תפקידה הוא העברת <strong>ביט</strong> בודד — 0 או 1 — בין רכיבים.</p>
           <p>כל השכבות שמעליה מניחות שאפשר להעביר ביטים.</p>
           <p>בשכבה הזו אין מושג של "הודעה" או "חבילה" — רק זרם ביטים.</p>
           <p>השכבה לא יודעת מה תוכן הנתונים שהיא מעבירה.</p>
@@ -1923,11 +1932,11 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "רוחב פס ו־Latency",
         content: `
-          <p><strong>Bandwidth — רוחב פס</strong></p>
+          <p><strong><code>Bandwidth</code></strong> — רוחב פס</p>
           <p>כמה ביטים אפשר להעביר בשנייה.</p>
           <p>נמדד ב-<code>Mbps</code> או <code>Gbps</code>.</p>
 
-          <p><strong>Latency — זמן תגובה</strong></p>
+          <p><strong><code>Latency</code></strong> — זמן תגובה</p>
           <p>כמה זמן לוקח לחבילה להגיע מהמקור ליעד.</p>
           <p><strong>דוגמה:</strong></p>
           <ul>
@@ -1935,8 +1944,9 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             <li>לווין — רוחב פס סביר אבל זמן תגובה גבוה בגלל המרחק</li>
           </ul>
 
-          <p><strong>Throughput — קצב בפועל</strong></p>
-          <p>קצב ההעברה האמיתי. תמיד נמוך מה-<code>Bandwidth</code> התאורטי.</p>
+          <p><strong><code>Throughput</code></strong> — קצב בפועל</p>
+          <p>קצב ההעברה האמיתי.</p>
+          <p>תמיד נמוך מה-<code>Bandwidth</code> התאורטי.</p>
           <p><strong>גורמים שמפחיתים Throughput:</strong></p>
           <ul>
             <li>עומס ברשת</li>
@@ -1945,9 +1955,10 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             <li>תקורה של פרוטוקולים — <code>Overhead</code></li>
           </ul>
 
-          <p><strong>Jitter</strong></p>
-          <p>שינויים ב-<code>Latency</code> בין חבילות — חבילות מגיעות בזמנים לא אחידים.</p>
-          <p>בעיה קריטית עבור שמע ווידאו בזמן אמת, כמו <code>VoIP</code> ושיחות Zoom.</p>
+          <p><strong><code>Jitter</code></strong></p>
+          <p>שינויים ב-<code>Latency</code> בין חבילות.</p>
+          <p>חבילות מגיעות בזמנים לא אחידים.</p>
+          <p>בעיה קריטית עבור שמע ווידאו בזמן אמת — כמו <code>VoIP</code> ושיחות <code>Zoom</code>.</p>
         `
       },
       {
@@ -1963,7 +1974,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             <tr><td>Cat6a</td><td>10 Gbps עד 100m</td><td>מרכזי נתונים מודרניים</td></tr>
             <tr><td>Cat8</td><td>40 Gbps עד 30m</td><td>בין שרתים</td></tr>
           </table>
-          <p><strong>סיב אופטי</strong> – קיימים שני סוגים:</p>
+          <p><strong>סיב אופטי</strong> — <code>Fiber Optic</code></p>
+          <p>קיימים שני סוגים:</p>
           <ul>
             <li><strong>Single-mode</strong> — ליבה דקה, מתאים למרחקים ארוכים עד 100 ק"מ</li>
             <li><strong>Multi-mode</strong> — ליבה רחבה, מתאים עד 2 ק"מ, זול יותר</li>
@@ -1980,7 +1992,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "WiFi – 802.11 אלחוטי",
         content: `
-          <p>WiFi מבוסס על תקן <strong>IEEE 802.11</strong>. שני תדרים עיקריים:</p>
+          <p><strong><code>WiFi</code></strong> — תקן <code>IEEE 802.11</code></p>
+          <p>שני תדרים עיקריים:</p>
           <table class="content-table">
             <tr><th>תדר</th><th>טווח</th><th>מהירות</th><th>חסרון</th></tr>
             <tr><td>2.4 GHz</td><td>ארוך יותר</td><td>נמוכה יותר</td><td>עומס – מיקרוגל, Bluetooth</td></tr>
@@ -2002,8 +2015,10 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             <li>מוסיפה זמן המתנה אקראי לפני השידור</li>
             <li>אם הגיע <code>ACK</code> מהצד השני – השידור הצליח</li>
           </ol>
-          <p><strong>SSID</strong> — שם הרשת האלחוטית שמוצג למשתמש.</p>
-          <p><strong>BSSID</strong> — כתובת ה-<code>MAC</code> של נקודת הגישה — <code>Access Point</code>.</p>
+          <p><strong><code>SSID</code></strong></p>
+          <p>שם הרשת האלחוטית שמוצג למשתמש.</p>
+          <p><strong><code>BSSID</code></strong></p>
+          <p>כתובת ה-<code>MAC</code> של נקודת הגישה — <code>Access Point</code>.</p>
           <p>ניתן לחבר כמה נקודות גישה עם אותו <code>SSID</code> כדי ליצור רשת אחת גדולה.</p>
           <p>תומכת ב-<code>Roaming</code> — מעבר חלק בין נקודות גישה.</p>
         `
@@ -2012,13 +2027,16 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "קידוד – ייצוג ביטים כאותות",
         content: `
-          <p>איך מייצגים 0 ו-1 פיזית? כל מדיום מגדיר <strong>שיטת קידוד</strong> שונה.</p>
+          <p>איך מייצגים 0 ו-1 פיזית?</p>
+          <p>כל מדיום מגדיר <strong>שיטת קידוד</strong> שונה.</p>
           <p><strong>NRZ</strong> — <code>Non-Return to Zero</code></p>
           <p>1 = מתח גבוה, 0 = מתח נמוך.</p>
           <p>פשוט, אבל בעייתי ברצפים ארוכים של 0 או 1 — קשה לסנכרון.</p>
 
           <p><strong>Manchester Encoding</strong></p>
-          <p>כל ביט = מעבר. 1 = מנמוך לגבוה באמצע הביט. 0 = מגבוה לנמוך.</p>
+          <p>כל ביט = מעבר.</p>
+          <p>1 = מנמוך לגבוה באמצע הביט.</p>
+          <p>0 = מגבוה לנמוך.</p>
           <p>מאפשר סנכרון מובנה.</p>
           <p><code>Ethernet</code> ישן — 10 Mbps — השתמש בשיטה זו.</p>
 
@@ -2116,7 +2134,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           },
           {
             q: "למה WiFi ב-5GHz מהיר יותר אבל מגיע פחות רחוק?",
-            a: "תדר גבוה יותר = גלים קצרים יותר = נחלשים מהר יותר בחומה ובמרחק. אבל תדר גבוה = יותר 'מקום' להעביר נתונים ויותר ערוצים לא חופפים. זה tradeoff פיזיקלי."
+            a: "תדר גבוה יותר = גלים קצרים יותר = נחלשים מהר יותר בחומה ובמרחק. אבל תדר גבוה = יותר 'מקום' להעביר נתונים ויותר ערוצים לא חופפים. זה פשרה פיזיקלית — <code>Trade-off</code>."
           },
           {
             q: "מה ההבדל בין Bandwidth ל-Throughput?",
@@ -2143,7 +2161,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>שולח שאילתה לשרת <code>DNS</code> ומקבל בחזרה <code>31.13.72.65</code>.</p>
           <p><strong>שלב 3 – בדיקת Subnet</strong></p>
           <p>האם <code>31.13.72.65</code> נמצא ברשת שלנו — למשל <code>192.168.1.x</code>?</p>
-          <p>לא — שולחים את החבילה ל-<code>Default Gateway</code> (הנתב).</p>
+          <p>לא — שולחים את החבילה ל-<code>Default Gateway</code> — הנתב.</p>
           <p><strong>שלב 4 – ARP</strong></p>
           <p>צריך את כתובת ה-<code>MAC</code> של הנתב.</p>
           <p>שולחים <code>ARP Request</code> ומקבלים את ה-<code>MAC</code> בחזרה.</p>
@@ -2162,7 +2180,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "Wireshark – צפייה בסיפור המלא",
         content: `
-          <p>כשפותחים Wireshark ומבצעים גלישה ל-facebook.com, רואים את כל הפרוטוקולים בתור:</p>
+          <p><strong><code>Wireshark</code></strong></p>
+          <p>כשפותחים <code>Wireshark</code> ומבצעים גלישה ל-<code>facebook.com</code>, רואים את כל הפרוטוקולים ברצף.</p>
           <div class="code-preview">
             <pre><code>1  0.000  DHCP Discover (192.168.1.255)  — אם צריך IP
 2  0.001  DHCP Offer                     — שרת מציע IP
@@ -2221,20 +2240,20 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         title: "מה קורה כשהשרת מאחורי CDN",
         content: `
           <p><strong>CDN</strong> — <code>Content Delivery Network</code></p>
-          <p>Facebook, Google, Netflix — לא ניגשים ישירות לשרת <code>Origin</code>.</p>
+          <p><code>Facebook</code>, <code>Google</code>, <code>Netflix</code> — לא ניגשים ישירות לשרת <code>Origin</code>.</p>
           <ol>
             <li><strong>DNS</strong> — <code>facebook.com</code> מתרגם ל-<code>IP</code> של <code>CDN Edge Node</code> הקרוב — <code>Anycast</code></li>
             <li><strong>TLS Handshake</strong> — מתבצע מול ה-<code>Edge Node</code>, לא מול <code>Origin</code>. זמן תגובה קצר!</li>
-            <li><strong>HTTP GET</strong> — ה-Edge בודק cache:
+            <li><strong>HTTP GET</strong> — ה-<code>Edge</code> בודק <code>cache</code>:
               <ul>
                 <li><strong>Cache HIT</strong> — מגיש מיידית</li>
-                <li><strong>Cache MISS</strong> — מביא מ-Origin, שומר, ואז מגיש</li>
+                <li><strong>Cache MISS</strong> — מביא מ-<code>Origin</code>, שומר, ואז מגיש</li>
               </ul>
             </li>
-            <li><strong>תמונות, JS, CSS</strong> — מגיעים מה-Edge</li>
-            <li><strong>HTML דינמי</strong> — עשוי לעבור ל-Origin</li>
+            <li><strong>תמונות, JS, CSS</strong> — מגיעים מה-<code>Edge</code></li>
+            <li><strong>HTML דינמי</strong> — עשוי לעבור ל-<code>Origin</code></li>
           </ol>
-          <p>זו הסיבה ש-Facebook נטען תוך 200ms מישראל, למרות שהשרתים הראשיים באמריקה.</p>
+          <p>זו הסיבה ש-<code>Facebook</code> נטען תוך 200ms מישראל, למרות שהשרתים הראשיים באמריקה.</p>
           <p>שרת <code>CDN Edge</code> בתל אביב או קפריסין מגיש את רוב התוכן.</p>
         `
       },
@@ -2318,10 +2337,11 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "ריבוי לקוחות",
         content: `
+          <p><strong>ריבוי לקוחות</strong></p>
           <p>שרת בסיסי מטפל בלקוח אחד בלבד.</p>
-          <p>הסיבה: הפונקציות <code>accept()</code> ו-<code>recv()</code> הן <strong>blocking</strong>.</p>
+          <p>הסיבה — הפונקציות <code>accept()</code> ו-<code>recv()</code> הן <strong>blocking</strong>.</p>
           <p>הן עוצרות את התוכנית עד שמגיע מידע.</p>
-          <p><strong>פתרונות לטיפול בכמה לקוחות בו-זמנית:</strong></p>
+          <p><strong>פתרונות לטיפול בכמה לקוחות בו-זמנית</strong></p>
           <ul>
             <li><strong>select</strong> — בודק כמה <code>Sockets</code> ומחזיר את אלה שמוכנים לפעולה</li>
             <li><strong>threading</strong> — יוצר תהליך נפרד לכל לקוח</li>
@@ -2333,12 +2353,13 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "explanation",
         title: "select – המתנה ליותר מ־Socket אחד",
         content: `
-          <p>הפונקציה <code>select.select(read_list, write_list, error_list, timeout)</code> מחזירה את ה-Sockets שמוכנים לפעולה.</p>
-          <p>כך שרת אחד יכול להאזין ל-<code>accept</code> על Socket אחד ובמקביל לקבל מידע מלקוחות קיימים — בלי לחסום.</p>
-          <p><strong>אלטרנטיבות:</strong></p>
+          <p><strong><code>select</code></strong></p>
+          <p>הפונקציה <code>select.select(read_list, write_list, error_list, timeout)</code> מחזירה את ה-<code>Sockets</code> שמוכנים לפעולה.</p>
+          <p>כך שרת אחד יכול להאזין ל-<code>accept</code> על <code>Socket</code> אחד ובמקביל לקבל מידע מלקוחות קיימים — בלי לחסום.</p>
+          <p><strong>אלטרנטיבות</strong></p>
           <ul>
-            <li><strong>threading</strong> — Thread נפרד לכל לקוח.</li>
-            <li><strong>asyncio</strong> — תכנות אסינכרוני עם <code>event loop</code> אחד.</li>
+            <li><strong>threading</strong> — <code>Thread</code> נפרד לכל לקוח</li>
+            <li><strong>asyncio</strong> — תכנות אסינכרוני עם <code>event loop</code> אחד</li>
           </ul>
         `
       },
@@ -2346,7 +2367,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
         type: "demo",
         title: "המדריך מדגים: דוגמת select",
         content: `
-          <p>קוד סכמטי ל־select:</p>
+          <p>קוד סכמטי ל-<code>select</code>:</p>
           <div class="code-preview">
             <pre><code>readable, _, _ = select.select([server_socket] + client_sockets, [], [], 0.1)
 for s in readable:
@@ -2359,10 +2380,10 @@ for s in readable:
         else: client_sockets.remove(s)</code></pre>
           </div>
           <ul>
-            <li><code>select</code> מחזיר את ה-Sockets שמוכנים לפעולה.</li>
-            <li>אם <code>server_socket</code> מוכן — מבצעים <code>accept</code>.</li>
-            <li>אם socket של לקוח מוכן — מבצעים <code>recv</code>.</li>
-            <li>כך שרת אחד מטפל בהרבה לקוחות ללא blocking.</li>
+            <li><code>select</code> מחזיר את ה-<code>Sockets</code> שמוכנים לפעולה</li>
+            <li>אם <code>server_socket</code> מוכן — מבצעים <code>accept</code></li>
+            <li>אם <code>Socket</code> של לקוח מוכן — מבצעים <code>recv</code></li>
+            <li>כך שרת אחד מטפל בהרבה לקוחות ללא <code>blocking</code></li>
           </ul>
         `
       },
@@ -2370,7 +2391,7 @@ for s in readable:
         type: "demo",
         title: "המדריך מדגים: שרת עם Threading",
         content: `
-          <p>כל לקוח מקבל Thread נפרד – עיבוד מקבילי:</p>
+          <p>כל לקוח מקבל <code>Thread</code> נפרד — עיבוד מקבילי:</p>
           <div class="code-preview">
             <pre><code>import socket
 import threading
@@ -2396,10 +2417,10 @@ while True:
     t.start()</code></pre>
           </div>
           <ul>
-            <li>כל <code>accept()</code> יוצר Thread חדש שמריץ את <code>handle_client</code>.</li>
-            <li><code>daemon=True</code> — ה-Thread יסתיים אוטומטית כשהתוכנה הראשית תסתיים.</li>
-            <li>חסרון: הרבה לקוחות = הרבה Threads = צריכת זיכרון גבוהה.</li>
-            <li>פתרון: השתמש ב-<code>Thread Pool</code> להגבלת מספר ה-Threads.</li>
+            <li>כל <code>accept()</code> יוצר <code>Thread</code> חדש שמריץ את <code>handle_client</code></li>
+            <li><code>daemon=True</code> — ה-<code>Thread</code> יסתיים אוטומטית כשהתוכנה הראשית תסתיים</li>
+            <li>חיסרון — הרבה לקוחות = הרבה <code>Threads</code> = צריכת זיכרון גבוהה</li>
+            <li>פתרון — <code>Thread Pool</code> להגבלת מספר ה-<code>Threads</code></li>
           </ul>
         `
       },
@@ -2407,8 +2428,8 @@ while True:
         type: "explanation",
         title: "Python 3 – Encoding וBytes",
         content: `
-          <p>ב-Python 3, <code>send()</code> ו-<code>recv()</code> עובדים עם <strong>bytes</strong> — לא מחרוזות.</p>
-          <p>כל טקסט חייב להיות מקודד לפני שליחה ומפוענח אחרי קבלה:</p>
+          <p>ב-<code>Python 3</code>, הפונקציות <code>send()</code> ו-<code>recv()</code> עובדות עם <strong>bytes</strong> — לא מחרוזות.</p>
+          <p>כל טקסט חייב להיות מקודד לפני שליחה ומפוענח אחרי קבלה.</p>
           <div class="code-preview">
             <pre><code># שליחה – המרת string ל-bytes
 message = "שלום"
@@ -2422,13 +2443,14 @@ print(text)</code></pre>
           <p><code>encode('utf-8')</code> — ממיר <code>string</code> ל-<code>bytes</code>.</p>
           <p><code>decode('utf-8')</code> — ממיר <code>bytes</code> ל-<code>string</code>.</p>
           <p><code>UTF-8</code> תומך בעברית ובכל תווי יוניקוד.</p>
-          <p><strong>בעיית recv</strong></p>
+          <p><strong>בעיית <code>recv</code></strong></p>
           <p>הפונקציה <code>recv(1024)</code> לא מבטיחה קבלת בדיוק 1024 בתים.</p>
           <p>המסר עשוי להגיע בחלקים נפרדים — <code>chunks</code>.</p>
-          <p><strong>פתרון:</strong> קרא בלולאה עד שמקבלים מסר שלם.</p>
+          <p><strong>פתרון</strong></p>
+          <p>קרא בלולאה עד שמקבלים מסר שלם.</p>
           <ul>
-            <li>שורה שמסתיימת ב-<code>\\n</code>.</li>
-            <li>קידומת שמציינת את גודל המסר — <code>Length Prefix</code>.</li>
+            <li>שורה שמסתיימת ב-<code>\\n</code></li>
+            <li>קידומת שמציינת את גודל המסר — <code>Length Prefix</code></li>
           </ul>
         `
       },
@@ -2436,12 +2458,12 @@ print(text)</code></pre>
         type: "explanation",
         title: "פרוטוקול תקשורת – Length Prefix",
         content: `
-          <p>אחת הבעיות ב-<code>Sockets</code>: איך יודע המקבל שהמסר הסתיים?</p>
-          <p><code>recv()</code> יכול להחזיר חלק מהמסר.</p>
-          <p><strong>פתרון 1 — Delimiter</strong></p>
+          <p>אחת הבעיות ב-<code>Sockets</code> — איך יודע המקבל שהמסר הסתיים?</p>
+          <p><code>recv()</code> יכול להחזיר חלק מהמסר בלבד.</p>
+          <p><strong>פתרון 1 — <code>Delimiter</code></strong></p>
           <p>שולחים <code>\\n</code> בסוף כל מסר. מקבלים עד ה-<code>\\n</code>.</p>
-          <p><strong>פתרון 2 — Length Prefix</strong></p>
-          <p>שולחים קודם את גודל המסר — 4 בתים — ואחר כך את המסר עצמו:</p>
+          <p><strong>פתרון 2 — <code>Length Prefix</code></strong></p>
+          <p>שולחים קודם את גודל המסר — 4 בתים — ואחר כך את המסר עצמו.</p>
           <div class="code-preview">
             <pre><code>import struct
 
@@ -2467,9 +2489,9 @@ def recv_exact(sock, n):
     return buf</code></pre>
           </div>
           <ul>
-            <li><code>struct.pack</code> מקודד מספר שלם לבתים.</li>
-            <li><code>recv_exact</code> מבטיח קבלת בדיוק <code>n</code> בתים לפני שממשיכים.</li>
-            <li>זוהי שיטה עמידה לבניית פרוטוקול תקשורת אמין.</li>
+            <li><code>struct.pack</code> — מקודד מספר שלם לבתים</li>
+            <li><code>recv_exact</code> — מבטיח קבלת בדיוק <code>n</code> בתים לפני שממשיכים</li>
+            <li>שיטה עמידה לבניית פרוטוקול תקשורת אמין</li>
           </ul>
         `
       },
@@ -2477,9 +2499,9 @@ def recv_exact(sock, n):
         type: "explanation",
         title: "asyncio – תכנות אסינכרוני",
         content: `
-          <p><strong>asyncio</strong> הוא מודל תכנות אסינכרוני ב-Python 3.</p>
+          <p><strong><code>asyncio</code></strong> — תכנות אסינכרוני ב-<code>Python 3</code></p>
           <p>בניגוד ל-<code>threading</code> שמריץ כמה <code>Threads</code> במקביל, <code>asyncio</code> משתמש ב-<code>event loop</code> אחד.</p>
-          <p>מחליף הקשר ביעילות.</p>
+          <p>מחליף הקשר ביעילות — ללא תקורה של מערכת ההפעלה.</p>
           <div class="code-preview">
             <pre><code>import asyncio
 
@@ -2503,7 +2525,8 @@ async def main():
 
 asyncio.run(main())</code></pre>
           </div>
-          <p><strong>async/await</strong> — מסמן שפונקציה היא אסינכרונית.</p>
+          <p><strong><code>async/await</code></strong></p>
+          <p>מסמן שפונקציה היא אסינכרונית.</p>
           <p><code>await</code> מחזיר שליטה ל-<code>event loop</code> — מאפשר לטפל בלקוחות אחרים בזמן ההמתנה.</p>
           <p><strong>יתרון</strong></p>
           <ul>
@@ -2537,7 +2560,7 @@ asyncio.run(main())</code></pre>
         questions: [
           {
             q: "מתי משתמשים ב-select במקום threading?",
-            a: "select מתאים כשיש הרבה חיבורים שקטים (מחכים) – מעט פעילות. threading מתאים כשיש עיבוד כבד לכל לקוח. select חסכוני במשאבים, threading פשוט לכתיבה."
+            a: "select מתאים כשיש הרבה חיבורים שקטים — מחכים — מעט פעילות. threading מתאים כשיש עיבוד כבד לכל לקוח. select חסכוני במשאבים, threading פשוט לכתיבה."
           },
           {
             q: "למה recv(1024) לא מספיק לקריאת מסר שלם?",
@@ -2545,7 +2568,7 @@ asyncio.run(main())</code></pre>
           },
           {
             q: "מה ההבדל בין threading לasyncio?",
-            a: "threading – מספר Threads מקבילים, OS מחליף ביניהם. asyncio – Thread אחד עם event loop, Python מחליף הקשר ב-await. threading מתאים לעיבוד CPU-bound, asyncio מתאים ל-I/O-bound (רשת, קבצים). asyncio עם אלפי חיבורים יותר יעיל."
+            a: "threading – מספר Threads מקבילים, OS מחליף ביניהם. asyncio – Thread אחד עם event loop, Python מחליף הקשר ב-await. threading מתאים לעיבוד CPU-bound, asyncio מתאים ל-I/O-bound — רשת, קבצים. asyncio עם אלפי חיבורים יותר יעיל."
           }
         ]
       }
@@ -2572,7 +2595,7 @@ asyncio.run(main())</code></pre>
             <tr><td>CA</td><td>Certificate Authority — גוף שחותם על אישורי TLS — DigiCert, Let's Encrypt</td></tr>
             <tr><td>CDN</td><td>Content Delivery Network — רשת Edge Nodes גלובלית לתוכן קרוב למשתמש</td></tr>
             <tr><td>CIDR</td><td>Classless Inter-Domain Routing — סימון /prefix לרשתות — 192.168.1.0/24</td></tr>
-            <tr><td>CNAME</td><td>DNS Record — alias (שם → שם). www.x.com → x.com</td></tr>
+            <tr><td>CNAME</td><td>DNS Record — alias — שם → שם. www.x.com → x.com</td></tr>
             <tr><td>Congestion Window — cwnd</td><td>ב-TCP — כמה בתים השולח שולח ללא ACK בהתאם לעומס רשת</td></tr>
             <tr><td>Default Gateway</td><td>IP של הנתב המקומי – היעד לכל תעבורה מחוץ לרשת</td></tr>
             <tr><td>DHCP</td><td>Dynamic Host Configuration Protocol — הקצאת IP, Subnet, Gateway, DNS אוטומטית</td></tr>
@@ -2666,7 +2689,7 @@ asyncio.run(main())</code></pre>
           },
           {
             q: "מה ההבדל בין Bandwidth ל-Throughput ל-Latency?",
-            a: "Bandwidth = קצב מקסימלי תיאורטי של הקישור — 1Gbps. Throughput = מה עובר בפועל — תמיד נמוך — overhead, אובדן. Latency = זמן מקור לייעד — ms. אפשר bandwidth גבוה + latency גבוה (לווין). קו 100Mbps עם 500ms latency = גרוע לgames, טוב ל-backup."
+            a: "Bandwidth = קצב מקסימלי תיאורטי של הקישור — 1Gbps. Throughput = מה עובר בפועל — תמיד נמוך — overhead, אובדן. Latency = זמן מקור לייעד — ms. אפשר bandwidth גבוה + latency גבוה — לווין. קו 100Mbps עם 500ms latency = גרוע לgames, טוב ל-backup."
           }
         ]
       }
@@ -2680,6 +2703,7 @@ asyncio.run(main())</code></pre>
         type: "explanation",
         title: "פקודות נפוצות",
         content: `
+          <p><strong>פקודות אבחון רשת</strong></p>
           <ul>
             <li><code>ping &lt;יעד&gt;</code> — בדיקת חיבור באמצעות <code>ICMP Echo</code></li>
             <li><code>tracert</code> — Windows / <code>traceroute</code> — Linux — הצגת מסלול החבילות ברשת</li>
@@ -2727,6 +2751,7 @@ Addresses: 142.250.185.46</code></pre>
         type: "explanation",
         title: "פקודות נוספות",
         content: `
+          <p><strong>פקודות נוספות</strong></p>
           <ul>
             <li><code>route print</code> — Windows / <code>ip route</code> — Linux — הצגת טבלת הניתוב</li>
             <li><code>hostname</code> — הצגת שם המחשב</li>
@@ -8717,8 +8742,7 @@ argocd app rollback my-app 3</code></pre>
         content: `<div dir="rtl">
 <h2>Wireshark — מעבר לצבעים</h2>
 <p>רוב האנשים פותחים <code>Wireshark</code> ורואים גל של חבילות צבעוניות.</p>
-<p>אנליסטים מקצועיים קוראים <strong>סיפורים</strong>.</p>
-<p>מה קרה, מתי, ולמה.</p>
+<p>אנליסטים מקצועיים קוראים <strong>סיפורים</strong> — מה קרה, מתי, ולמה.</p>
 <div class="diagram-container">
 <svg viewBox="0 0 360 130" class="content-diagram">
   <text x="180" y="16" text-anchor="middle" font-size="12" fill="#e2e8f0" font-weight="bold">TCP State Machine — החיים של חיבור</text>
@@ -8747,10 +8771,10 @@ argocd app rollback my-app 3</code></pre>
 </div>
 <table class="content-table">
   <tr><th>State</th><th>משמעות</th><th>מה לחפש</th></tr>
-  <tr><td><code>SYN_SENT</code></td><td>לקוח שלח <code>SYN</code>, מחכה לתגובה</td><td>אם נתקע — השרת או ה-<code>firewall</code> חוסם</td></tr>
-  <tr><td><code>ESTABLISHED</code></td><td>חיבור פעיל, נתונים זורמים</td><td><code>RTT</code>, <code>window size</code>, <code>retransmissions</code></td></tr>
-  <tr><td><code>TIME_WAIT</code></td><td>חיבור נסגר, ממתין 2 כפול <code>MSL</code></td><td>הרבה <code>TIME_WAIT</code> = בעיית <code>port exhaustion</code></td></tr>
-  <tr><td><code>CLOSE_WAIT</code></td><td>הצד הרחוק סגר, הצד שלנו לא</td><td>באג באפליקציה — לא סוגר <code>socket</code></td></tr>
+  <tr><td><code>SYN_SENT</code></td><td>הלקוח שלח <code>SYN</code>, מחכה לתגובה</td><td>אם נתקע — השרת או ה-<code>firewall</code> חוסם</td></tr>
+  <tr><td><code>ESTABLISHED</code></td><td>חיבור פעיל, נתונים זורמים</td><td>בדוק <code>RTT</code>, <code>window size</code>, <code>retransmissions</code></td></tr>
+  <tr><td><code>TIME_WAIT</code></td><td>חיבור נסגר, ממתין 2 כפול <code>MSL</code></td><td>ריבוי <code>TIME_WAIT</code> = בעיית <code>port exhaustion</code></td></tr>
+  <tr><td><code>CLOSE_WAIT</code></td><td>הצד הרחוק סגר, הצד המקומי לא</td><td>באג באפליקציה — לא סוגר <code>socket</code></td></tr>
 </table>
 <p><strong>Filter שימושי</strong></p>
 <p><code>tcp.flags.syn == 1 && tcp.flags.ack == 0</code></p>
@@ -8762,8 +8786,8 @@ argocd app rollback my-app 3</code></pre>
         title: "Retransmissions ו-CWND",
         content: `<div dir="rtl">
 <h2>TCP Congestion Control — מתחת לפני השטח</h2>
-<p>כל <code>retransmission</code> ב-<code>Wireshark</code> הוא צעקה — משהו השתבש.</p>
-<p>להבין מה בדיוק — זו האמנות.</p>
+<p>כל <code>retransmission</code> ב-<code>Wireshark</code> הוא סימן — משהו השתבש.</p>
+<p>להבין מה בדיוק קרה — זו האמנות.</p>
 <div class="code-preview"><pre><code># Wireshark display filters לניפוי TCP
 tcp.analysis.retransmission          # חבילות שנשלחו מחדש
 tcp.analysis.fast_retransmission     # fast retransmit (3 dup-ACK)
@@ -8776,10 +8800,10 @@ tcp.analysis.out_of_order            # הגיע לא בסדר (jitter/reorder)
 tcp.analysis.ack_rtt</code></pre></div>
 <table class="content-table">
   <tr><th>ממצא</th><th>סיבה אפשרית</th><th>פתרון</th></tr>
-  <tr><td>הרבה <code>Retransmissions</code></td><td>אובדן חבילות, רשת עמוסה</td><td>בדוק <code>interface errors</code>, שדרג קו</td></tr>
-  <tr><td><code>Zero Window</code></td><td>האפליקציה לא קוראת מהיר מספיק</td><td>כוונן <code>TCP buffers</code>, בדוק <code>CPU</code></td></tr>
-  <tr><td><code>RTT</code> גבוה בעקביות</td><td>נתיב ארוך, לוויין, עומס</td><td><code>CDN</code>, אלגוריתם <code>BBR</code></td></tr>
-  <tr><td><code>Fast Retransmit</code></td><td>חבילה אחת אבדה, הבאות הגיעו</td><td>בדוק מיקום — לרוב בשכבה הפיזית</td></tr>
+  <tr><td>ריבוי <code>Retransmissions</code></td><td>אובדן חבילות, רשת עמוסה</td><td>בדוק <code>interface errors</code>, שדרג קו</td></tr>
+  <tr><td><code>Zero Window</code></td><td>האפליקציה לא קוראת מהר מספיק</td><td>כוונן <code>TCP buffers</code>, בדוק עומס <code>CPU</code></td></tr>
+  <tr><td><code>RTT</code> גבוה בעקביות</td><td>נתיב ארוך, לוויין, עומס</td><td>השתמש ב-<code>CDN</code> או אלגוריתם <code>BBR</code></td></tr>
+  <tr><td><code>Fast Retransmit</code></td><td>חבילה אחת אבדה, הבאות הגיעו</td><td>בדוק מיקום הבעיה — לרוב בשכבה הפיזית</td></tr>
 </table>
 <p><strong>כלי מובנה</strong></p>
 <p><code>Statistics → TCP Stream Graphs → Time-Sequence Graph</code></p>
@@ -8793,8 +8817,8 @@ tcp.analysis.ack_rtt</code></pre></div>
         content: `<div dir="rtl">
 <h2>כש-<code>latency</code> הורס עסקאות</h2>
 <p>חברת <code>fintech</code> ביקשה לנתח תקרית.</p>
-<p>כל יום בדיוק ב-9:30 בבוקר, עסקאות מניות נכשלות למשך 3 שניות.</p>
-<p>בשלושת הדקות הראשונות של המסחר — הפסד של 2 מיליון דולר ביום.</p>
+<p>כל יום בדיוק ב-9:30 בבוקר — עסקאות מניות נכשלות למשך 3 שניות.</p>
+<p>בשלוש הדקות הראשונות של המסחר — הפסד של 2 מיליון דולר ביום.</p>
 <p><strong>הניתוח</strong></p>
 <p>פתחו <code>Wireshark</code> על הממשק בין שרת ה-<code>trading</code> לבורסה.</p>
 <p>Filter: <code>tcp.analysis.retransmission || tcp.analysis.zero_window</code></p>
@@ -9255,7 +9279,8 @@ hubble observe --namespace production
 <p>ספטמבר 2022.</p>
 <p><code>Cloudflare</code> דיווחה על מתקפת <code>DDoS</code> של 2.5 מיליארד <code>packets</code> לשנייה.</p>
 <p>בגישה הישנה עם <code>iptables</code>, כל <code>rule</code> הוא סריקה ליניארית.</p>
-<p>10,000 כללים = 10,000 בדיקות לכל <code>packet</code>. בלתי אפשרי.</p>
+<p>10,000 כללים = 10,000 בדיקות לכל <code>packet</code>.</p>
+<p>בלתי אפשרי בקנה מידה כזה.</p>
 <p><code>Cloudflare</code> בנתה מערכת מבוססת <code>XDP</code>.</p>
 <p>כל תעבורה מנותחת ב-<code>eBPF</code> עוד על כרטיס הרשת.</p>
 <p><strong>טביעת אצבע של תעבורת DDoS מזוהה מיד</strong></p>
@@ -9376,7 +9401,7 @@ int mitigate_ddos(struct xdp_md *ctx) {
 <p>אם השרת נפרץ — כל השיחות ההיסטוריות ניתנות לפיענוח.</p>
 <p><strong>הפתרון ב-TLS 1.3</strong></p>
 <p>רק <code>ECDHE</code> — <code>Elliptic Curve Diffie-Hellman Ephemeral</code> — מותר.</p>
-<p><code>Ephemeral</code> = המפתחות נוצרים מחדש לכל <code>session</code> ונמחקים אחרי.</p>
+<p><code>Ephemeral</code> — המפתחות נוצרים מחדש לכל <code>session</code> ונמחקים אחריה.</p>
 <p>אין מפתח ישן לניצול.</p>
 <pre><code># בדיקת TLS של שרת
 openssl s_client -connect example.com:443 -tls1_3
@@ -9410,9 +9435,9 @@ openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -tex
   <li><code>TLS_AES_128_CCM_SHA256</code> — מכשירי <code>IoT</code></li>
   <li><code>TLS_AES_128_CCM_8_SHA256</code> — <code>IoT</code> עם רוחב פס מוגבל</li>
 </ul>
-<p><strong>AEAD</strong> = הצפנה ואימות באופרציה אחת.</p>
+<p><strong>AEAD</strong> — הצפנה ואימות באופרציה אחת</p>
 <p>ב-<code>TLS 1.2</code> עם <code>CBC+HMAC</code>, האימות היה שלב נפרד.</p>
-<p>זה גרם לפגיעויות כמו <code>BEAST</code> ו-<code>POODLE</code>.</p>
+<p>הפרדה זו גרמה לפגיעויות כמו <code>BEAST</code> ו-<code>POODLE</code>.</p>
 <p>עם <code>GCM</code> — אם מישהו שינה את ה-<code>ciphertext</code>, הפענוח נכשל מיידית.</p>
 <p><strong>ההשפעה בפועל</strong></p>
 <p><code>HTTPS</code> עם <code>TLS 1.3</code> לוקח 50-100 מילישניות פחות ל-<code>first byte</code> בחיבורים חדשים.</p>
@@ -9451,9 +9476,9 @@ openssl s_client -connect example.com:443 2>/dev/null | openssl x509 -noout -tex
 <li><code>CDN</code> — הגשת תוכן מהמיקום הקרוב</li>
 <li>הגנת <code>DDoS</code> — פיזור מתקפה בין כל ה-<code>POPs</code></li>
 </ul>
-<p><strong>לא מתאים ל-</strong> חיבורי <code>TCP</code> ארוכים.</p>
-<p>החיבור עלול לעבור ל-<code>POP</code> אחר בין <code>packets</code>.</p>
-<p>זה ישבור את החיבור.</p>
+<p><strong>מגבלה</strong></p>
+<p>לא מתאים לחיבורי <code>TCP</code> ארוכים.</p>
+<p>החיבור עלול לעבור ל-<code>POP</code> אחר בין <code>packets</code> — וזה ישבור את החיבור.</p>
 </div>`
       },
       {
@@ -9541,7 +9566,7 @@ bgpq4 -4 -A -J AS13335</code></pre>
         content: `<div dir="rtl">
 <h2>הבידוד שמאחורי Docker</h2>
 <p>כשמריצים <code>container</code> ב-<code>Docker</code>, הוא מקבל <strong>network namespace</strong> משלו.</p>
-<p>זוהי הפשטה של הגרעין.</p>
+<p>זוהי מנגנון בידוד של הגרעין.</p>
 <p>ה-<code>container</code> חושב שיש לו מחסנית רשת נפרדת לחלוטין.</p>
 <ul>
 <li><code>interfaces</code> משלו</li>
@@ -9689,13 +9714,14 @@ spec:
         - method: GET
           path: "/api/.*"</code></pre>
 <p><strong>Hubble</strong> — נראות בזמן אמת</p>
+<p>מציג את כל התעבורה בין <code>pods</code>:</p>
 <ul>
 <li>איזה <code>pod</code> מדבר עם איזה</li>
 <li><code>HTTP status codes</code></li>
 <li><code>latency</code></li>
 </ul>
 <p>הכל בלי <code>instrumentation</code> של האפליקציה.</p>
-<p>זה <strong>service mesh</strong> ללא <code>sidecar</code>.</p>
+<p>זהו <strong>service mesh</strong> ללא <code>sidecar</code>.</p>
 </div>`
       }
     ]
