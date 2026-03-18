@@ -3417,51 +3417,51 @@ export const quizBank = {
 
   112: [
     {
-      q: "מה CSP (Content-Security-Policy) עושה?",
-      correct: "מנחה את הדפדפן מאילו מקורות לטעון סקריפטים, סגנונות ותמונות — מגן מ-XSS על ידי חסימת קוד inline ומקורות זרים",
+      q: "\u200Fמה CSP (Content-Security-Policy) עושה?",
+      correct: "\u200Fמנחה את הדפדפן מאילו מקורות לטעון\nסקריפטים, סגנונות ותמונות\nמגן מ-XSS על ידי חסימת קוד inline ומקורות זרים",
       choices: [
-        "מנחה את הדפדפן מאילו מקורות לטעון סקריפטים, סגנונות ותמונות — מגן מ-XSS על ידי חסימת קוד inline ומקורות זרים",
-        "מצפין תוכן בין לקוח לשרת",
-        "מסנן תוכן זדוני בצד השרת",
-        "מגביל גישה לנקודות API לפי כתובת IP"
+        "\u200Fמנחה את הדפדפן מאילו מקורות לטעון\nסקריפטים, סגנונות ותמונות\nמגן מ-XSS על ידי חסימת קוד inline ומקורות זרים",
+        "\u200Fמצפין תוכן בין לקוח לשרת",
+        "\u200Fמסנן תוכן זדוני בצד השרת",
+        "\u200Fמגביל גישה לנקודות API לפי כתובת IP"
       ],
-      explanation: "כותרת CSP מורה לדפדפן לחסום: JavaScript ממקורות לא מאושרים, סקריפטים inline, וקריאות eval. מנגנון nonce מייצר מזהה אקראי לכל טעינת דף — רק סקריפט עם nonce נכון מורשה לרוץ. מצב Report-Only מדווח על חסימות בלי לחסום בפועל.",
+      explanation: "\u200F🛡️ כותרת CSP\n• מורה לדפדפן לחסום JavaScript ממקורות לא מאושרים\n• חוסמת סקריפטים inline\n• חוסמת קריאות eval\n\n🔑 מנגנון nonce\n• מייצר מזהה אקראי לכל טעינת דף\n• רק סקריפט עם nonce נכון מורשה לרוץ\n\n📋 מצב Report-Only\n• מדווח על חסימות בלי לחסום בפועל",
       explanationEn: "CSP header instructs the browser to block: JS from unapproved sources, inline script tags, and eval(). Nonce: each page load receives a random nonce — only scripts with the matching nonce are allowed. Report-Only mode reports violations without blocking. This is a powerful defense against XSS attacks."
     },
     {
-      q: "מה HSTS ולמה הוא מגן מהתקפת SSL Stripping?",
-      correct: "כותרת HTTP שמכריחה את הדפדפן לעבוד רק ב-HTTPS — ניסיון לשדרג לאחור ל-HTTP נכשל",
+      q: "\u200Fמה HSTS ולמה הוא מגן מהתקפת SSL Stripping?",
+      correct: "\u200Fכותרת HTTP שמכריחה את הדפדפן לעבוד רק ב-HTTPS\nניסיון לשדרג לאחור ל-HTTP נכשל",
       choices: [
-        "כותרת HTTP שמכריחה את הדפדפן לעבוד רק ב-HTTPS — ניסיון לשדרג לאחור ל-HTTP נכשל",
-        "מאמת תעודת שרת ומסרב לרשויות לא מהימנות",
-        "מצפין עוגיות אוטומטית",
-        "מגביל חיבורי TLS לגרסה 1.3 בלבד"
+        "\u200Fכותרת HTTP שמכריחה את הדפדפן לעבוד רק ב-HTTPS\nניסיון לשדרג לאחור ל-HTTP נכשל",
+        "\u200Fמאמת תעודת שרת ומסרב לרשויות לא מהימנות",
+        "\u200Fמצפין עוגיות אוטומטית",
+        "\u200Fמגביל חיבורי TLS לגרסה 1.3 בלבד"
       ],
-      explanation: "בהתקפת SSL Stripping, תוקף באמצע (MITM) מקבל HTTPS מהשרת אבל משדרג לאחור ל-HTTP עם הלקוח. כותרת HSTS גורמת לדפדפן לזכור: תמיד HTTPS לאתר הזה, גם אם המשתמש כותב http. מצב Preload מוסיף את האתר לרשימה קבועה בדפדפן — מגן גם בביקור ראשון.",
+      explanation: "\u200F⚠️ התקפת SSL Stripping\n• תוקף באמצע (MITM) מקבל HTTPS מהשרת\n• אבל משדרג לאחור ל-HTTP עם הלקוח\n\n🔒 כותרת HSTS\n• גורמת לדפדפן לזכור: תמיד HTTPS לאתר הזה\n• גם אם המשתמש כותב http\n\n📌 מצב Preload\n• מוסיף את האתר לרשימה קבועה בדפדפן\n• מגן גם בביקור ראשון",
       explanationEn: "SSL Stripping (Moxie Marlinspike 2009): a MITM attacker receives HTTPS from the server but downgrades to HTTP with the client. HSTS: Strict-Transport-Security: max-age=31536000. The browser remembers: always use HTTPS for this site, even if the user types http://. Preload: added to the browser's hardcoded list — protects even the first visit. includeSubDomains is required for preload."
     },
     {
-      q: "מה CSRF ואיך SameSite=Strict מגן ממנו?",
-      correct: "התקפת CSRF גורמת לדפדפן לשלוח בקשה לאתר X מאתר זדוני עם העוגיות של X. דגל SameSite=Strict מונע שליחת עוגיות בבקשות חוצות-אתרים",
+      q: "\u200Fמה CSRF ואיך SameSite=Strict מגן ממנו?",
+      correct: "\u200Fהתקפת CSRF גורמת לדפדפן לשלוח בקשה לאתר X\nמאתר זדוני עם העוגיות של X\nדגל SameSite=Strict מונע שליחת עוגיות בבקשות חוצות-אתרים",
       choices: [
-        "התקפת CSRF גורמת לדפדפן לשלוח בקשה לאתר X מאתר זדוני עם העוגיות של X. דגל SameSite=Strict מונע שליחת עוגיות בבקשות חוצות-אתרים",
-        "‏CSRF גונבת עוגיות ישירות מהדפדפן",
-        "‏CSRF = מסנן בקשות חוצות-אתרים",
-        "‏SameSite מצפין עוגיות בין אתרים"
+        "\u200Fהתקפת CSRF גורמת לדפדפן לשלוח בקשה לאתר X\nמאתר זדוני עם העוגיות של X\nדגל SameSite=Strict מונע שליחת עוגיות בבקשות חוצות-אתרים",
+        "\u200FCSRF גונבת עוגיות ישירות מהדפדפן",
+        "\u200FCSRF = מסנן בקשות חוצות-אתרים",
+        "\u200FSameSite מצפין עוגיות בין אתרים"
       ],
-      explanation: "באתר זדוני, תגית תמונה עם כתובת של הבנק גורמת לדפדפן לשלוח בקשה עם העוגיות של הבנק (כי הדפדפן מוסיף עוגיות אוטומטית). ‏SameSite=Strict: עוגייה נשלחת רק לבקשות מאותו אתר. Lax: רק בניווט. טוקן CSRF: שדה חבוי עם ערך שהשרת יצר — אתר זדוני לא יכול לדעת אותו.",
+      explanation: "\u200F🎯 איך CSRF עובד?\n• באתר זדוני, תגית תמונה עם כתובת של הבנק\n• הדפדפן שולח בקשה עם העוגיות של הבנק\n• כי הדפדפן מוסיף עוגיות אוטומטית\n\n🛡️ הגנות\n• SameSite=Strict — עוגייה נשלחת רק לבקשות מאותו אתר\n• Lax — רק בניווט\n\n🔑 טוקן CSRF\n• שדה חבוי עם ערך שהשרת יצר\n• אתר זדוני לא יכול לדעת אותו",
       explanationEn: "In CSRF: a malicious site embeds a request to bank.com, and the browser sends it with the user's cookies (because browsers attach cookies automatically). SameSite=Strict: cookie is sent only for same-site requests. Lax: only for top-level navigation. None: all cross-site (legacy). CSRF token: a hidden field with a server-generated token that the attacker's site cannot know."
     },
     {
-      q: "מה X-Frame-Options ולמה חשוב?",
-      correct: "מונע טעינת האתר ב-iframe — מגן מהתקפת Clickjacking שבה אתר זדוני מסתיר iframe על כפתור שהמשתמש לוחץ",
+      q: "\u200Fמה X-Frame-Options ולמה חשוב?",
+      correct: "\u200Fמונע טעינת האתר ב-iframe\nמגן מהתקפת Clickjacking שבה אתר זדוני\nמסתיר iframe על כפתור שהמשתמש לוחץ",
       choices: [
-        "מונע טעינת האתר ב-iframe — מגן מהתקפת Clickjacking שבה אתר זדוני מסתיר iframe על כפתור שהמשתמש לוחץ",
-        "מגביל קצב פריימים של הדפדפן לחיסכון בחשמל",
-        "מצפין כותרות X בבקשת HTTP",
-        "מסיר כותרות X מהתגובה לצמצום דליפת מידע"
+        "\u200Fמונע טעינת האתר ב-iframe\nמגן מהתקפת Clickjacking שבה אתר זדוני\nמסתיר iframe על כפתור שהמשתמש לוחץ",
+        "\u200Fמגביל קצב פריימים של הדפדפן לחיסכון בחשמל",
+        "\u200Fמצפין כותרות X בבקשת HTTP",
+        "\u200Fמסיר כותרות X מהתגובה לצמצום דליפת מידע"
       ],
-      explanation: "בהתקפת Clickjacking: אתר זדוני כולל iframe מוסתר של אתר הבנק, עם כפתור מעליו. המשתמש לוחץ על 'זכה בפרס!' אבל בפועל לוחץ על 'העבר כסף'. ‏X-Frame-Options עם DENY אוסר iframe לחלוטין. SAMEORIGIN מתיר רק מאותו מקור. הגישה המודרנית: CSP frame-ancestors.",
+      explanation: "\u200F🖱️ התקפת Clickjacking\n• אתר זדוני כולל iframe מוסתר של אתר הבנק\n• עם כפתור מעליו\n• המשתמש לוחץ על 'זכה בפרס!'\n• אבל בפועל לוחץ על 'העבר כסף'\n\n🛡️ X-Frame-Options\n• DENY — אוסר iframe לחלוטין\n• SAMEORIGIN — מתיר רק מאותו מקור\n\n📌 הגישה המודרנית\n• CSP frame-ancestors",
       explanationEn: "Clickjacking: a malicious site embeds the target site in a hidden iframe with a button overlay. The user clicks 'Win a Prize!' but actually clicks 'Transfer Money' on the hidden iframe. X-Frame-Options: DENY — never allow framing. SAMEORIGIN — allow only from same origin. Modern alternative: CSP frame-ancestors 'none'. Facebook Like button hijacking was a classic example."
     }
   ],
