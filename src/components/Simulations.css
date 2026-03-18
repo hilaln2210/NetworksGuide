@@ -270,3 +270,218 @@
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.2); }
 }
+
+/* ── Subnet Calculator ── */
+.subnet-calc {
+  direction: rtl;
+}
+
+.subnet-input-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.subnet-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.subnet-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.subnet-field input[type="text"] {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid rgba(14, 116, 144, 0.25);
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  background: white;
+  color: #0f172a;
+  width: 170px;
+  text-align: center;
+}
+
+.subnet-field input[type="text"]:focus {
+  outline: none;
+  border-color: #0e7490;
+  box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.12);
+}
+
+.subnet-slider-field {
+  min-width: 180px;
+  flex: 1;
+}
+
+.subnet-cidr-label {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  color: #0e7490;
+  font-size: 1rem;
+}
+
+.subnet-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #059669, #22d3ee, #dc2626);
+  outline: none;
+  cursor: pointer;
+}
+
+.subnet-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0e7490;
+  border: 3px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.subnet-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #0e7490;
+  border: 3px solid white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+.subnet-slider-range {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #94a3b8;
+  direction: ltr;
+}
+
+.subnet-error {
+  color: #dc2626;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  background: rgba(220, 38, 38, 0.08);
+  border-radius: 8px;
+}
+
+/* Binary mask visualization */
+.subnet-binary-section {
+  margin: 1rem 0;
+}
+
+.subnet-binary-section > label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.subnet-binary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  position: relative;
+  direction: ltr;
+  padding: 0.5rem;
+  background: rgba(15, 23, 42, 0.04);
+  border-radius: 10px;
+}
+
+.subnet-bit {
+  width: 22px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  transition: background 0.2s;
+}
+
+.subnet-bit.bit-one {
+  background: #059669;
+}
+
+.subnet-bit.bit-zero {
+  background: #dc2626;
+}
+
+.subnet-divider {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  width: 2px;
+  background: #0f172a;
+  pointer-events: none;
+}
+
+.subnet-binary-legend {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  direction: ltr;
+}
+
+.legend-net {
+  color: #059669;
+}
+
+.legend-host {
+  color: #dc2626;
+}
+
+/* Results grid */
+.subnet-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.subnet-result-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.85rem 1rem;
+  background: rgba(14, 116, 144, 0.06);
+  border: 1px solid rgba(14, 116, 144, 0.15);
+  border-radius: 12px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.subnet-result-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(14, 116, 144, 0.12);
+}
+
+.result-label {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.result-value {
+  font-family: 'Courier New', monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0e7490;
+}
