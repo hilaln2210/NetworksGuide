@@ -1498,37 +1498,37 @@ export const quizBank = {
 
   25: [
     {
-      q: "מה ISP יכול לראות כשגולשים ב-HTTPS?",
-      correct: "‏DNS queries ו-TLS SNI ‎(שם הדומיין)‎ — לא את תוכן הדפים",
+      q: "\u200Fמה ISP יכול לראות כשגולשים ב-HTTPS?",
+      correct: "\u200FDNS queries ו-TLS SNI (שם הדומיין)\n— לא את תוכן הדפים",
       choices: [
-        "‏DNS queries ו-TLS SNI ‎(שם הדומיין)‎ — לא את תוכן הדפים",
-        "הכל, כולל סיסמאות וhistory",
-        "רק כתובת IP — לא יותר",
-        "כלום — HTTPS מוצפן לחלוטין"
+        "\u200FDNS queries ו-TLS SNI (שם הדומיין)\n— לא את תוכן הדפים",
+        "\u200Fהכל, כולל סיסמאות ו-history",
+        "\u200Fרק כתובת IP — לא יותר",
+        "\u200Fכלום — HTTPS מוצפן לחלוטין"
       ],
-      explanation: "‏HTTPS מצפין תוכן — אבל DNS query ‎(מה ה-IP של google.com?)‎ נשלח בplaintext. ‏TLS SNI בחיבור = שם הדומיין בclear. ‏ISP רואה timeline: 08:23 gmail.com, 09:17 bankofamerica.com. ‏DoH+ECH = פתרון 👁️"
+      explanation: "\u200F🔒 HTTPS מצפין תוכן — אבל...\n• DNS query (מה ה-IP של google.com?) נשלח ב-plaintext\n• TLS SNI בחיבור = שם הדומיין ב-clear\n\n👁️ מה ISP רואה?\n• timeline: 08:23 gmail.com\n• 09:17 bankofamerica.com\n\n🛡️ הפתרון\n• DoH — DNS over HTTPS\n• ECH — Encrypted Client Hello"
     },
     {
-      q: "מה Browser Fingerprinting?",
-      correct: "זיהוי ייחודי של דפדפן לפי canvas rendering, fonts, WebGL — ללא cookies",
+      q: "\u200Fמה Browser Fingerprinting?",
+      correct: "\u200Fזיהוי ייחודי של דפדפן\nלפי canvas rendering, fonts, WebGL\n— ללא cookies",
       choices: [
-        "זיהוי ייחודי של דפדפן לפי canvas rendering, fonts, WebGL — ללא cookies",
-        "בדיקת אמינות אתרים ע\"י הדפדפן",
-        "שמירת היסטוריית גלישה",
-        "הצגת fingerprint של SSL Certificate"
+        "\u200Fזיהוי ייחודי של דפדפן\nלפי canvas rendering, fonts, WebGL\n— ללא cookies",
+        "\u200Fבדיקת אמינות אתרים ע\"י הדפדפן",
+        "\u200Fשמירת היסטוריית גלישה",
+        "\u200Fהצגת fingerprint של SSL Certificate"
       ],
-      explanation: "‏Canvas fingerprint: הדפדפן מצייר טקסט — הpixels שונים בכל GPU/OS. ‏Fonts, WebGL, screen = כמות אינסופית של שילובים. ייחודי כמעט כמו DNA. ‏Incognito לא עוזר! Tor Browser מרנדמז 🖐️"
+      explanation: "\u200F🖐️ Canvas Fingerprint\n• הדפדפן מצייר טקסט\n• ה-pixels שונים בכל GPU/OS\n\n🧬 מה נכלל?\n• Fonts, WebGL, screen\n• כמות אינסופית של שילובים\n• ייחודי כמעט כמו DNA\n\n⚠️ הגנה\n• Incognito לא עוזר!\n• Tor Browser מרנדמז את ה-fingerprint"
     },
     {
-      q: "מה SNI (Server Name Indication) ואיך TLS מכריז על הdomain?",
-      correct: "‏SNI: ClientHello כולל hostname בplaintext ‎(לפני הצפנה)‎. מאפשר virtual hosting של HTTPS. ECH מסתיר SNI",
+      q: "\u200Fמה SNI (Server Name Indication) ואיך TLS מכריז על ה-domain?",
+      correct: "\u200FSNI: ClientHello כולל hostname ב-plaintext\n(לפני הצפנה)\nמאפשר virtual hosting של HTTPS\nECH מסתיר SNI",
       choices: [
-        "‏SNI: ClientHello כולל hostname בplaintext ‎(לפני הצפנה)‎. מאפשר virtual hosting של HTTPS. ECH מסתיר SNI",
-        "‏SNI = SSL certificate של server",
-        "‏SNI = DNS record ל-HTTPS",
-        "‏SNI מוצפן מהרגע הראשון"
+        "\u200FSNI: ClientHello כולל hostname ב-plaintext\n(לפני הצפנה)\nמאפשר virtual hosting של HTTPS\nECH מסתיר SNI",
+        "\u200FSNI = SSL certificate של server",
+        "\u200FSNI = DNS record ל-HTTPS",
+        "\u200FSNI מוצפן מהרגע הראשון"
       ],
-      explanation: "ללא SNI: server אחד = IP אחד = certificate אחד. עם SNI: מאות domains על IP אחד. ‏ClientHello: server_name extension = hostname. ‏ISP/firewall: יכול לראות ולחסום לפי SNI ‎(גם ב-HTTPS)‎. ‏ESNI (deprecated): encrypted SNI. ‏ECH (Encrypted Client Hello): encrypted כל ClientHello, כולל SNI. ‏Cloudflare: תומך ECH. הסתרת SNI = קשה יותר לcensorship."
+      explanation: "\u200F🔓 ללא SNI\n• server אחד = IP אחד = certificate אחד\n\n🌐 עם SNI\n• מאות domains על IP אחד\n• ClientHello: server_name extension = hostname\n\n👁️ הבעיה\n• ISP/firewall יכול לראות ולחסום לפי SNI\n• גם ב-HTTPS!\n\n🔐 הפתרונות\n• ESNI (deprecated): encrypted SNI\n• ECH (Encrypted Client Hello): מצפין כל ClientHello\n• Cloudflare: תומך ECH\n• הסתרת SNI = קשה יותר ל-censorship"
     },
     {
       q: "מה Browser Fingerprinting וכיצד websites עוקבות ללא cookies?",
@@ -2066,7 +2066,7 @@ export const quizBank = {
         "‏סקריפטים חוצי-אתרים (XSS) בממשק הענן",
         "‏חיבור לא מאובטח בין שירותי-זעיר (Microservices)"
       ],
-      explanation: "‏במתקפת זיוף בקשות בצד השרת (SSRF), האפליקציה מקבלת כתובת URL מהמשתמש ומבצעת בקשה אליה. התוקף שולח כתובת פנימית של נקודת מטא-דאטה של AWS — ומקבל הרשאות זמניות! בפרשת Capital One (2019) תוקף ניצל SSRF דרך חומת אש אפליקטיבית (WAF) שהוגדרה לא נכון, השיג הרשאות IAM וגנב 100 מיליון רשומות. מתקפת SSRF בענן נחשבת קריטית.",
+      explanation: "‏🎯 איך SSRF עובד?\n• האפליקציה מקבלת כתובת URL מהמשתמש ומבצעת בקשה אליה\n• התוקף שולח כתובת פנימית של נקודת מטא-דאטה של AWS\n• ומקבל הרשאות זמניות!\n\n💥 פרשת Capital One — 2019\n• תוקף ניצל SSRF דרך WAF שהוגדרה לא נכון\n• השיג הרשאות IAM\n• גנב 100 מיליון רשומות\n\n🔴 מתקפת SSRF בענן נחשבת קריטית",
       explanationEn: "SSRF: an application accepts a URL from a user and makes a request to it. An attacker sends: http://169.254.169.254/latest/meta-data/iam/security-credentials/ — the AWS metadata endpoint. This returns temporary AWS credentials! Capital One 2019: SSRF through a misconfigured WAF led to IAM credentials and 100M records stolen. Cloud SSRF = critical severity."
     },
     {
@@ -2078,7 +2078,7 @@ export const quizBank = {
         "‏פיצוח בכוח של סוד ה-HMAC",
         "‏מתקפת השחזור (Replay Attack) על אסימון JWT שפג תוקפו"
       ],
-      explanation: "‏אסימון JWT מורכב משלושה חלקים: כותרת, מטען ייעודי וחתימה. הכותרת מכילה את סוג האלגוריתם. התוקף משנה את האלגוריתם ל-none ומסיר את החתימה. שרת ישן מקבל את האסימון ללא בדיקה. הפתרון: רשימה לבנה של אלגוריתמים בצד השרת — לעולם לא לקבל את סוג האלגוריתם מהאסימון עצמו. קיימת גם מתקפת RS256 ל-HS256: שרת שמצפה ל-RSA משתמש במפתח הציבורי כסוד HMAC.",
+      explanation: "‏🔑 מבנה JWT\n• כותרת, מטען ייעודי וחתימה\n• הכותרת מכילה את סוג האלגוריתם\n\n💀 המתקפה\n• התוקף משנה את האלגוריתם ל-none\n• מסיר את החתימה\n• שרת ישן מקבל את האסימון ללא בדיקה\n\n🛡️ הפתרון\n• רשימה לבנה של אלגוריתמים בצד השרת\n• לעולם לא לקבל את סוג האלגוריתם מהאסימון עצמו\n\n⚠️ מתקפה נוספת: RS256 ל-HS256\n• שרת שמצפה ל-RSA משתמש במפתח הציבורי כסוד HMAC",
       explanationEn: "JWT structure: header.payload.signature. The header contains the algorithm (alg). An attacker changes alg to 'none' and removes the signature. A vulnerable server sees alg=none and skips verification. Fix: server-side whitelist of algorithms — never accept alg from the token itself. Also: RS256 to HS256 attack — a server expecting RSA may use the public key as HMAC secret."
     },
     {
@@ -2102,7 +2102,7 @@ export const quizBank = {
         "‏הזרקת SQL, סקריפטים חוצי-אתרים (XSS), גלישת חוצץ (Buffer Overflow), פיצוח סיסמאות",
         "‏צוות אדום (Red Team), צוות כחול (Blue Team), צוות סגול (Purple Team), צוות לבן (White Team)"
       ],
-      explanation: "‏קטגוריות לכידת הדגל (CTF): ווב (הזרקת SQL, סקריפטים חוצי-אתרים — XSS, זיוף בקשות בצד השרת — SSRF, הכללת קבצים, הרצת קוד מרחוק — RCE), ניצול בינארי (גלישת חוצץ, ניצול ערימה, שרשראות ROP), הנדסה לאחור (פירוק קבצים בינאריים עם Ghidra או IDA, הבנת אלגוריתמים), קריפטוגרפיה (פיצוח הצפנות חלשות), פורנזיקה (ניתוח לכידות רשת, קבצים, סטגנוגרפיה), ושונות. פלטפורמות: HackTheBox, TryHackMe, PicoCTF.",
+      explanation: "‏🌐 ווב\n• הזרקת SQL, XSS, SSRF, הכללת קבצים, RCE\n\n💥 ניצול בינארי (Pwn)\n• גלישת חוצץ, ניצול ערימה, שרשראות ROP\n\n🔄 הנדסה לאחור (Rev)\n• פירוק קבצים בינאריים עם Ghidra או IDA\n• הבנת אלגוריתמים\n\n🔐 קריפטוגרפיה\n• פיצוח הצפנות חלשות\n\n🔎 פורנזיקה\n• ניתוח לכידות רשת, קבצים, סטגנוגרפיה\n\n🛠️ פלטפורמות\n• HackTheBox, TryHackMe, PicoCTF",
       explanationEn: "CTF Categories: Web (SQLi, XSS, SSRF, LFI, RCE on websites), Pwn/Binary (buffer overflow, heap exploits, ROP chains on binaries), Rev (disassembling binaries with Ghidra/IDA, understanding algorithms), Crypto (breaking weak encryption, RSA, AES ECB), Forensics (pcap analysis, file carving, steganography), Misc. Platforms: HackTheBox, TryHackMe, PicoCTF, CTFtime.org."
     },
         {
@@ -2126,7 +2126,7 @@ export const quizBank = {
         "‏רק ניסיון מעשי חשוב — הסמכות לא שוות כלום",
         "‏הסמכות ענן בלבד: AWS Security Specialty ו-GCP Security"
       ],
-      explanation: "‏מפת הסמכות: רמת כניסה — CompTIA A+ ואז Network+ ואז Security+. התקפי — eJPT ואז האקר אתי מוסמך (CEH) ואז OSCP (מבחן מעשי של 24 שעות, קשה מאוד!). הגנתי — אנליסט מרכז תפעול אבטחה (SOC) ואז CySA+ ואז GCIH. ניהולי — CISSP (דורש 5 שנות ניסיון). ענן — AWS Security Specialty ו-GCP Security. תרגול מעשי בתחרויות לכידת הדגל (CTF) ובפלטפורמות כמו HackTheBox חשוב לא פחות מהסמכות.",
+      explanation: "‏🎓 רמת כניסה\n• CompTIA A+ → Network+ → Security+\n\n⚔️ התקפי\n• eJPT → CEH → OSCP (מבחן מעשי 24 שעות, קשה מאוד!)\n\n🛡️ הגנתי\n• אנליסט SOC → CySA+ → GCIH\n\n👔 ניהולי\n• CISSP (דורש 5 שנות ניסיון)\n\n☁️ ענן\n• AWS Security Specialty, GCP Security\n\n📌 חשוב\n• תרגול מעשי ב-CTF ו-HackTheBox חשוב לא פחות מהסמכות",
       explanationEn: "Certification Roadmap: Entry level: CompTIA A+ > Network+ > Security+. Offensive: eJPT (eLearnSecurity) > CEH > OSCP (OffSec — 24h practical exam, very challenging!). Defensive: SOC Analyst > CySA+ > GCIH. Management: CISSP (requires 5 years of experience). Cloud: AWS Security Specialty, GCP Security. CTF and HackTheBox/TryHackMe = hands-on practice equally important as certifications."
     }
   ],
