@@ -528,15 +528,15 @@ export const quizBank = {
       explanation: "\u200F📦 Ethernet II Frame:\n• Preamble (8B) — לסנכרון\n• Dest MAC (6B)\n• Src MAC (6B)\n• EtherType (2B)\n\n🏷️ ערכי EtherType נפוצים:\n• 0x0800 = IPv4\n• 0x0806 = ARP\n• 0x86DD = IPv6\n\n📏 Payload + סיום:\n• Payload: 46-1500 bytes\n• FCS (4B) = CRC checksum\n• MTU = 1500 bytes\n• Jumbo frames = 9000 bytes (datacenter)\n• VLAN tag (802.1Q) = 4 bytes נוספים"
     },
     {
-      q: "מה ה-Broadcast Domain ומה Collision Domain?",
-      correct: "‏Broadcast Domain: כל מי שמקבל ARP request / broadcast. Switch לא מפריד. Router כן. Collision Domain: כל מי שיכול להתנגש — Switch מפריד לפי port",
+      q: "\u200Fמה ה-Broadcast Domain ומה Collision Domain?",
+      correct: "\u200FBroadcast Domain: כל מי שמקבל broadcast\nSwitch לא מפריד, Router כן\nCollision Domain: Switch מפריד לפי port",
       choices: [
-        "‏Broadcast Domain: כל מי שמקבל ARP request / broadcast. Switch לא מפריד. Router כן. Collision Domain: כל מי שיכול להתנגש — Switch מפריד לפי port",
-        "שניהם זהים",
-        "‏Hub מפריד broadcast, Switch לא",
-        "‏Router לא מפריד broadcast domains"
+        "\u200FBroadcast Domain: כל מי שמקבל broadcast\nSwitch לא מפריד, Router כן\nCollision Domain: Switch מפריד לפי port",
+        "\u200Fשניהם זהים",
+        "\u200FHub מפריד broadcast\nSwitch לא",
+        "\u200FRouter לא מפריד broadcast domains"
       ],
-      explanation: "‏Collision Domain: HUB = domain אחד. ‏Switch = כל port = domain נפרד (Full Duplex). ‏Broadcast Domain: Switch = domain אחד ‎(כל הפורטים)‎. ‏Router = מפריד. ‏VLAN = מפריד ב-software. רשת גדולה ללא VLANs = broadcast storm. טיפ: 1000 מכשירים בbroadcast domain אחד = CPU high מ-ARP floods."
+      explanation: "\u200F💥 Collision Domain:\n• Hub = domain אחד (כולם מתנגשים)\n• Switch = כל port = domain נפרד (Full Duplex)\n\n📢 Broadcast Domain:\n• Switch = domain אחד (כל הפורטים)\n• Router = מפריד\n• VLAN = מפריד ב-software\n\n⚠️ בעיה:\n• רשת גדולה ללא VLANs = broadcast storm\n• 1000 מכשירים ב-broadcast domain אחד\n  = CPU high מ-ARP floods"
     }
   ],
 
@@ -716,59 +716,59 @@ export const quizBank = {
 
   12: [
     {
-      q: "מה זה non-blocking socket?",
-      correct: "‏socket שלא 'מקפיא' את התוכנית בזמן המתנה לנתונים",
+      q: "\u200Fמה זה non-blocking socket?",
+      correct: "\u200Fsocket שלא 'מקפיא' את התוכנית\nבזמן המתנה לנתונים",
       choices: [
-        "‏socket שלא 'מקפיא' את התוכנית בזמן המתנה לנתונים",
-        "‏socket מוצפן שחוסם כניסות לא מורשות",
-        "‏socket לתקשורת חד-כיוונית בלבד",
-        "‏socket שמסנן חבילות לא תקינות"
+        "\u200Fsocket שלא 'מקפיא' את התוכנית\nבזמן המתנה לנתונים",
+        "\u200Fsocket מוצפן שחוסם כניסות לא מורשות",
+        "\u200Fsocket לתקשורת חד-כיוונית בלבד",
+        "\u200Fsocket שמסנן חבילות לא תקינות"
       ],
-      explanation: "‏Blocking = 'אני מחכה ולא עושה כלום'. ‏Non-blocking = 'בדקתי, אין עדיין? בסדר, אעשה דברים אחרים'. שרת שמטפל בהרבה לקוחות = חייב non-blocking 🔄"
+      explanation: "\u200F🔄 Blocking vs Non-blocking:\n• Blocking = 'אני מחכה ולא עושה כלום'\n• Non-blocking = 'בדקתי, אין עדיין?\n  בסדר, אעשה דברים אחרים'\n\n🖥️ למה חשוב:\n• שרת שמטפל בהרבה לקוחות\n• חייב non-blocking"
     },
     {
-      q: "מה VLAN ואיך הוא מפריד תעבורה בסוויץ' פיזי אחד?",
-      correct: "‏Virtual LAN — מפריד broadcast domains ב-software. תעבורה בין VLANs דורשת routing (Layer 3)",
+      q: "\u200Fמה VLAN ואיך הוא מפריד תעבורה בסוויץ' פיזי אחד?",
+      correct: "\u200FVirtual LAN — מפריד broadcast domains ב-software\nתעבורה בין VLANs דורשת routing (Layer 3)",
       choices: [
-        "‏Virtual LAN — מפריד broadcast domains ב-software. תעבורה בין VLANs דורשת routing (Layer 3)",
-        "‏VLAN = חיבור בין switchים שונים",
-        "‏VLAN = הצפנת תעבורה בתוך switch",
-        "‏VLAN = VLAN Access Layer Network"
+        "\u200FVirtual LAN — מפריד broadcast domains ב-software\nתעבורה בין VLANs דורשת routing (Layer 3)",
+        "\u200FVLAN = חיבור בין switchים שונים",
+        "\u200FVLAN = הצפנת תעבורה בתוך switch",
+        "\u200FVLAN = VLAN Access Layer Network"
       ],
-      explanation: "802.1Q VLAN tagging: מוסיף 4 bytes לEthernet frame: TPID (0x8100) + PCP (priority) + VLAN ID (12 bits = 4094 VLANs). ‏Access port: port שמשתמש רואה, untag. ‏Trunk port: בין switchים, מוביל מספר VLANs עם tags. ‏Native VLAN = VLAN default ב-trunk port ‎(ללא tag)‎. ‏Inter-VLAN routing: router-on-a-stick (sub-interfaces) או Layer 3 switch."
+      explanation: "\u200F🏷️ 802.1Q VLAN tagging:\n• מוסיף 4 bytes ל-Ethernet frame\n• TPID (0x8100) + PCP (priority) + VLAN ID\n• 12 bits = 4094 VLANs\n\n🔌 סוגי ports:\n• Access port: port שמשתמש רואה, untag\n• Trunk port: בין switchים, מרובה VLANs עם tags\n• Native VLAN = default ב-trunk (ללא tag)\n\n🔀 Inter-VLAN routing:\n• router-on-a-stick (sub-interfaces)\n• או Layer 3 switch"
     },
     {
-      q: "מה Trunk Port לעומת Access Port ב-VLANs?",
-      correct: "‏Access Port: מכשיר קצה, VLAN אחד, ללא tag. Trunk Port: בין switchים/router, מרובה VLANs, עם 802.1Q tag",
+      q: "\u200Fמה Trunk Port לעומת Access Port ב-VLANs?",
+      correct: "\u200FAccess Port: מכשיר קצה, VLAN אחד, ללא tag\nTrunk Port: בין switchים/router, מרובה VLANs, עם 802.1Q tag",
       choices: [
-        "‏Access Port: מכשיר קצה, VLAN אחד, ללא tag. Trunk Port: בין switchים/router, מרובה VLANs, עם 802.1Q tag",
-        "‏Trunk = מהיר יותר מ-Access",
-        "‏Access Port = IPv6, Trunk = IPv4",
-        "‏Trunk = encrypted, Access = unencrypted"
+        "\u200FAccess Port: מכשיר קצה, VLAN אחד, ללא tag\nTrunk Port: בין switchים/router, מרובה VLANs, עם 802.1Q tag",
+        "\u200FTrunk = מהיר יותר מ-Access",
+        "\u200FAccess Port = IPv6, Trunk = IPv4",
+        "\u200FTrunk = encrypted, Access = unencrypted"
       ],
-      explanation: "‏Access: PC/printer/server מחוברים. ‏Switch tag-ים frames פנימית עם VLAN ID. ‏Trunk: switch-to-switch, switch-to-router. ‏802.1Q tag: 4 bytes נוספים. ‏DTP (Dynamic Trunking Protocol): Cisco protocol לניהול trunk אוטומטי. ‏VLANs 1 (default), 1002-1005 (reserved). ‏Native VLAN: VLAN שנשלח untagged בtrunk — security risk אם שונה מVLAN 1."
+      explanation: "\u200F🔌 Access port:\n• PC/printer/server מחוברים\n• Switch tag-ים frames פנימית עם VLAN ID\n\n🔗 Trunk port:\n• switch-to-switch, switch-to-router\n• 802.1Q tag: 4 bytes נוספים\n• DTP: Cisco protocol לניהול trunk אוטומטי\n\n📋 VLANs מיוחדים:\n• VLAN 1 (default), 1002-1005 (reserved)\n• Native VLAN: untagged ב-trunk — security risk"
     },
     {
-      q: "מה VLAN Hopping attack ואיך מגנים?",
-      correct: "‏Switch Spoofing: תוקף מדמה switch → trunk mode → גישה לכל VLANs. Double Tagging: 2 VLAN tags → קופץ ל-VLAN אחר. הגנה: disable DTP, שנה native VLAN ל-unused",
+      q: "\u200Fמה VLAN Hopping attack ואיך מגנים?",
+      correct: "\u200FSwitch Spoofing: תוקף מדמה switch → trunk → גישה לכל VLANs\nDouble Tagging: 2 tags → קופץ ל-VLAN אחר\nהגנה: disable DTP, שנה native VLAN",
       choices: [
-        "‏Switch Spoofing: תוקף מדמה switch → trunk mode → גישה לכל VLANs. Double Tagging: 2 VLAN tags → קופץ ל-VLAN אחר. הגנה: disable DTP, שנה native VLAN ל-unused",
-        "‏VLAN Hopping = ניצול IPv6 ב-VLAN",
-        "לא ניתן לתקוף VLANs",
-        "הגנה: הצפנה בלבד"
+        "\u200FSwitch Spoofing: תוקף מדמה switch → trunk → גישה לכל VLANs\nDouble Tagging: 2 tags → קופץ ל-VLAN אחר\nהגנה: disable DTP, שנה native VLAN",
+        "\u200FVLAN Hopping = ניצול IPv6 ב-VLAN",
+        "\u200Fלא ניתן לתקוף VLANs",
+        "\u200Fהגנה: הצפנה בלבד"
       ],
-      explanation: "‏Switch Spoofing: מחשב שולח DTP frames → switch פותח trunk → גישה לכל VLANs. ‏Double Tagging: tag ראשוני = native VLAN ‎(מוסר)‎, tag שני = VLAN יעד. ‏Works only for native VLAN. הגנה: (1) switchport mode access ‎(השבתת DTP)‎, (2) native VLAN ≠ כל VLAN משתמש, (3) PVLAN (Private VLAN), (4) port-security."
+      explanation: "\u200F🚨 Switch Spoofing:\n• מחשב שולח DTP frames\n• switch פותח trunk → גישה לכל VLANs\n\n🏷️ Double Tagging:\n• tag ראשוני = native VLAN (מוסר)\n• tag שני = VLAN יעד\n• עובד רק עבור native VLAN\n\n🛡️ הגנה:\n• switchport mode access (השבתת DTP)\n• native VLAN ≠ כל VLAN משתמש\n• PVLAN (Private VLAN)\n• port-security"
     },
     {
-      q: "מה Private VLAN (PVLAN)?",
-      correct: "מחלק VLAN לsub-VLANs: Isolated ‎(לא מדבר עם אף port אחר)‎, Community ‎(מדבר בקבוצה)‎, Promiscuous ‎(מדבר עם כולם = gateway)‎",
+      q: "\u200Fמה Private VLAN (PVLAN)?",
+      correct: "\u200Fמחלק VLAN ל-sub-VLANs:\nIsolated (לא מדבר עם אף port אחר)\nCommunity (מדבר בקבוצה)\nPromiscuous (מדבר עם כולם = gateway)",
       choices: [
-        "מחלק VLAN לsub-VLANs: Isolated ‎(לא מדבר עם אף port אחר)‎, Community ‎(מדבר בקבוצה)‎, Promiscuous ‎(מדבר עם כולם = gateway)‎",
-        "‏PVLAN = VLAN מוצפן",
-        "‏PVLAN = VLAN לניהול בלבד",
-        "‏PVLAN = switch private ל-vendor אחד"
+        "\u200Fמחלק VLAN ל-sub-VLANs:\nIsolated (לא מדבר עם אף port אחר)\nCommunity (מדבר בקבוצה)\nPromiscuous (מדבר עם כולם = gateway)",
+        "\u200FPVLAN = VLAN מוצפן",
+        "\u200FPVLAN = VLAN לניהול בלבד",
+        "\u200FPVLAN = switch private ל-vendor אחד"
       ],
-      explanation: "‏PVLAN שימושי ב-hosting: כל לקוח isolated מהשני, כולם עם גישה לgateway. ‏Isolated ports: לא מדברים זה עם זה ‎(אפילו לא ARP)‎. ‏Community: קבוצות שמדברות ביניהן. ‏Promiscuous: router/firewall שמדבר עם כולם. מגביל lateral movement גם אם תוקף פרץ לserver אחד."
+      explanation: "\u200F🏢 PVLAN שימושי ב-hosting:\n• כל לקוח isolated מהשני\n• כולם עם גישה ל-gateway\n\n🔒 סוגי ports:\n• Isolated: לא מדברים זה עם זה (אפילו לא ARP)\n• Community: קבוצות שמדברות ביניהן\n• Promiscuous: router/firewall שמדבר עם כולם\n\n🛡️ יתרון אבטחה:\n• מגביל lateral movement\n• גם אם תוקף פרץ ל-server אחד"
     }
   ],
 
