@@ -821,70 +821,70 @@ export const quizBank = {
 
   14: [
     {
-      q: "מה עושה הפקודה netstat?",
-      correct: "מציגה חיבורי רשת פעילים, פורטים מאזינים ומידע על socket",
+      q: "\u200Fמה עושה הפקודה netstat?",
+      correct: "\u200Fמציגה חיבורי רשת פעילים\nפורטים מאזינים ומידע על socket",
       choices: [
-        "מציגה חיבורי רשת פעילים, פורטים מאזינים ומידע על socket",
-        "בודקת זמינות שרת ומציגה זמן תגובה",
-        "מציגה את טבלת הניתוב של המכשיר",
-        "מאפסת הגדרות כרטיס הרשת"
+        "\u200Fמציגה חיבורי רשת פעילים\nפורטים מאזינים ומידע על socket",
+        "\u200Fבודקת זמינות שרת ומציגה זמן תגובה",
+        "\u200Fמציגה את טבלת הניתוב של המכשיר",
+        "\u200Fמאפסת הגדרות כרטיס הרשת"
       ],
-      explanation: "‏netstat -an מציגה את כל החיבורים הפתוחים. תוכל לראות שהדפדפן שלך מחובר ל-443 (HTTPS) של גוגל וYouTube. כמו לפתוח חלון למה שקורה ברשת 🕵️"
+      explanation: "\u200F🕵️ netstat -an:\n• מציגה את כל החיבורים הפתוחים\n• תוכל לראות שהדפדפן שלך מחובר\n  ל-443 (HTTPS) של גוגל ו-YouTube\n\n🔎 כמו לפתוח חלון:\n• למה שקורה ברשת כרגע"
     },
     {
-      q: "מה עושה הפקודה nslookup?",
-      correct: "שולחת שאילתת DNS ומציגה את כתובת ה-IP של דומיין",
+      q: "\u200Fמה עושה הפקודה nslookup?",
+      correct: "\u200Fשולחת שאילתת DNS\nומציגה את כתובת ה-IP של דומיין",
       choices: [
-        "שולחת שאילתת DNS ומציגה את כתובת ה-IP של דומיין",
-        "בודקת פורטים פתוחים בשרת מרוחק",
-        "מציגה את ה-ARP cache של המכשיר",
-        "מנתחת עומס על הרשת"
+        "\u200Fשולחת שאילתת DNS\nומציגה את כתובת ה-IP של דומיין",
+        "\u200Fבודקת פורטים פתוחים בשרת מרוחק",
+        "\u200Fמציגה את ה-ARP cache של המכשיר",
+        "\u200Fמנתחת עומס על הרשת"
       ],
-      explanation: "‏nslookup google.com → 142.250.x.x. nslookup 8.8.8.8 → מחפש שם הפוך (PTR record). כלי דיאגנוסטיקה בסיסי לכל מי שעובד עם רשתות 🔍"
+      explanation: "\u200F🔍 דוגמאות שימוש:\n• nslookup google.com → 142.250.x.x\n• nslookup 8.8.8.8 → מחפש שם הפוך (PTR record)\n\n🛠️ כלי דיאגנוסטיקה בסיסי:\n• לכל מי שעובד עם רשתות"
     },
     {
-      q: "מה ההבדל בין distance-vector לבין link-state routing protocols?",
-      correct: "‏Distance-vector (RIP): שולח routing table לשכנים. Link-state (OSPF): שולח topology מלאה, כל router מחשב SPF בעצמו",
+      q: "\u200Fמה ההבדל בין distance-vector לבין link-state routing protocols?",
+      correct: "\u200FDistance-vector (RIP): שולח routing table לשכנים\nLink-state (OSPF): שולח topology מלאה\nכל router מחשב SPF בעצמו",
       choices: [
-        "‏Distance-vector (RIP): שולח routing table לשכנים. Link-state (OSPF): שולח topology מלאה, כל router מחשב SPF בעצמו",
-        "אין הבדל — שתיהן RIP",
-        "‏OSPF שולח רק שינויים, RIP שולח הכל",
-        "‏Link-state = ל-IPv6 בלבד"
+        "\u200FDistance-vector (RIP): שולח routing table לשכנים\nLink-state (OSPF): שולח topology מלאה\nכל router מחשב SPF בעצמו",
+        "\u200Fאין הבדל — שתיהן RIP",
+        "\u200FOSPF שולח רק שינויים, RIP שולח הכל",
+        "\u200FLink-state = ל-IPv6 בלבד"
       ],
-      explanation: "‏RIP: Bellman-Ford. מדד = hop count ‎(מקסימום 15 hops)‎. עדכון כל 30 שניות. בעיה: counting to infinity, slow convergence. ‏OSPF: Dijkstra's SPF. מדד = cost (=100/bandwidth Mbps). ‏LSA flooding. ‏Area hierarchy (backbone area 0). ‏EIGRP (Cisco): hybrid — distance vector עם rapid convergence. ‏BGP: path vector — מדיניות, לא מהירות."
+      explanation: "\u200F📡 RIP (Distance-vector):\n• Bellman-Ford algorithm\n• מדד = hop count (מקסימום 15 hops)\n• עדכון כל 30 שניות\n• בעיה: counting to infinity, slow convergence\n\n🗺️ OSPF (Link-state):\n• Dijkstra's SPF algorithm\n• מדד = cost (100/bandwidth Mbps)\n• LSA flooding\n• Area hierarchy (backbone area 0)\n\n📋 עוד פרוטוקולים:\n• EIGRP (Cisco): hybrid — distance vector עם rapid convergence\n• BGP: path vector — מדיניות, לא מהירות"
     },
     {
-      q: "מה BGP ומה תפקידו באינטרנט?",
-      correct: "‏Border Gateway Protocol — ה-routing protocol של האינטרנט. מנהל routing בין Autonomous Systems (AS) — ISPs, חברות גדולות",
+      q: "\u200Fמה BGP ומה תפקידו באינטרנט?",
+      correct: "\u200FBorder Gateway Protocol — ה-routing protocol של האינטרנט\nמנהל routing בין Autonomous Systems (AS)\nISPs, חברות גדולות",
       choices: [
-        "‏Border Gateway Protocol — ה-routing protocol של האינטרנט. מנהל routing בין Autonomous Systems (AS) — ISPs, חברות גדולות",
-        "‏BGP = Border Gateway Port — פרוטוקול לVPN",
-        "‏BGP עובד רק בתוך ארגון אחד",
-        "‏BGP = הגרסה המתקדמת של OSPF"
+        "\u200FBorder Gateway Protocol — ה-routing protocol של האינטרנט\nמנהל routing בין Autonomous Systems (AS)\nISPs, חברות גדולות",
+        "\u200FBGP = Border Gateway Port — פרוטוקול ל-VPN",
+        "\u200FBGP עובד רק בתוך ארגון אחד",
+        "\u200FBGP = הגרסה המתקדמת של OSPF"
       ],
-      explanation: "‏BGP (RFC 4271): Path Vector protocol. ‏AS (Autonomous System): ארגון עם ASN (AS Number). ‏IANA מקצה ASNs (16bit: 1-64511, 32bit: 131072+). eBGP: בין ASים שונים. iBGP: בתוך AS. ‏BGP attributes: AS-Path (loop prevention), Next-Hop, Local-Preference, MED, Community. ‏Full Internet routing table: ~900K prefixes IPv4 + 200K IPv6."
+      explanation: "\u200F🌐 BGP (RFC 4271) — Path Vector protocol:\n• AS = ארגון עם ASN (AS Number)\n• IANA מקצה ASNs (16bit: 1-64511, 32bit: 131072+)\n\n🔀 סוגי BGP:\n• eBGP: בין ASים שונים\n• iBGP: בתוך AS\n\n📋 BGP attributes:\n• AS-Path (loop prevention)\n• Next-Hop, Local-Preference, MED, Community\n• Full Internet routing table:\n  ~900K prefixes IPv4 + 200K IPv6"
     },
     {
-      q: "מה OSPF DR/BDR ולמה חשוב?",
-      correct: "‏Designated Router/Backup — על multiaccess network (Ethernet), DR מרכז LSA flooding כדי להפחית overhead. DR נבחר לפי Router ID",
+      q: "\u200Fמה OSPF DR/BDR ולמה חשוב?",
+      correct: "\u200FDesignated Router/Backup — על multiaccess network\nDR מרכז LSA flooding כדי להפחית overhead\nDR נבחר לפי Router ID",
       choices: [
-        "‏Designated Router/Backup — על multiaccess network (Ethernet), DR מרכז LSA flooding כדי להפחית overhead. DR נבחר לפי Router ID",
-        "‏DR = Default Route ב-OSPF",
-        "‏DR נבחר רק ב-WAN links",
-        "‏BDR = Backup Default Route"
+        "\u200FDesignated Router/Backup — על multiaccess network\nDR מרכז LSA flooding כדי להפחית overhead\nDR נבחר לפי Router ID",
+        "\u200FDR = Default Route ב-OSPF",
+        "\u200FDR נבחר רק ב-WAN links",
+        "\u200FBDR = Backup Default Route"
       ],
-      explanation: "‏OSPF רגיל: N routers = N×(N-1)/2 adjacencies = O(N²) LSAs. עם DR: כל router adjacency עם DR בלבד = O(N). ‏DR Priority: ניתן להגדיר ‎(ברירת מחדל = 1, 0 = לא eligible)‎. ‏Router ID: IP גבוה ביותר של Loopback. ‏OSPF Areas: Area 0 (backbone) חייב לחבר כל area אחרת. ‏ABR (Area Border Router) = router בין areas."
+      explanation: "\u200F📊 הבעיה ללא DR:\n• N routers = N×(N-1)/2 adjacencies = O(N²) LSAs\n• עם DR: כל router adjacency עם DR בלבד = O(N)\n\n⚙️ DR Priority:\n• ניתן להגדיר (ברירת מחדל = 1, 0 = לא eligible)\n• Router ID: IP גבוה ביותר של Loopback\n\n🗺️ OSPF Areas:\n• Area 0 (backbone) חייב לחבר כל area אחרת\n• ABR (Area Border Router) = router בין areas"
     },
     {
-      q: "מה ECMP ואיך routers מאזנים עומס?",
-      correct: "‏Equal Cost Multi-Path: מספר routes בעלות שווה לאותו יעד — router מחלק traffic ביניהם (per-flow hash)",
+      q: "\u200Fמה ECMP ואיך routers מאזנים עומס?",
+      correct: "\u200FEqual Cost Multi-Path: מספר routes בעלות שווה לאותו יעד\nrouter מחלק traffic ביניהם (per-flow hash)",
       choices: [
-        "‏Equal Cost Multi-Path: מספר routes בעלות שווה לאותו יעד — router מחלק traffic ביניהם (per-flow hash)",
-        "‏ECMP = encrypted BGP",
-        "‏Router תמיד בוחר route אחד בלבד",
-        "‏ECMP = External Cost Measurement Protocol"
+        "\u200FEqual Cost Multi-Path: מספר routes בעלות שווה לאותו יעד\nrouter מחלק traffic ביניהם (per-flow hash)",
+        "\u200FECMP = encrypted BGP",
+        "\u200FRouter תמיד בוחר route אחד בלבד",
+        "\u200FECMP = External Cost Measurement Protocol"
       ],
-      explanation: "‏ECMP: Linux מאזן per-flow (hash src+dst IP+port). ‏Cisco per-destination ברירת מחדל. ‏Maximum-paths: OSPF 16 paths, BGP 2-16. מגביל: כל flow הולך לpath אחד (consistency). ‏LACP (Link Aggregation): Layer 2, bundle ports פיזיים. ‏ECMP: Layer 3, routes שונים. ‏LAG/bonding: Linux bond0, EtherChannel (Cisco)."
+      explanation: "\u200F🔀 ECMP — איזון עומס:\n• Linux מאזן per-flow (hash src+dst IP+port)\n• Cisco per-destination ברירת מחדל\n• Maximum-paths: OSPF 16 paths, BGP 2-16\n• כל flow הולך ל-path אחד (consistency)\n\n🔗 Layer 2 — Link Aggregation:\n• LACP: bundle ports פיזיים\n• LAG/bonding: Linux bond0\n• EtherChannel (Cisco)"
     }
   ],
 
