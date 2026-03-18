@@ -222,10 +222,7 @@ function App() {
     setCurrentChapter(chIndex)
     setCurrentPage(0)
     setMobileShowContent(true)
-    setTimeout(() => {
-      window.scrollTo(0, 0)
-      contentAreaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }, 50)
+    window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   const handleSelectTrack = (track) => {
