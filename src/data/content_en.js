@@ -1441,16 +1441,1325 @@ eth0: flags=4163  mtu 1500
     ]
   },
 
-  // ========== CHAPTERS 9-26: titles only for now ==========
-  9: { titleEn: "Network Devices", pages: [] },
-  10: { titleEn: "The Physical Layer", pages: [] },
-  11: { titleEn: "How It All Connects", pages: [] },
-  12: { titleEn: "Advanced Socket Programming", pages: [] },
-  13: { titleEn: "Glossary of Terms", pages: [] },
-  14: { titleEn: "Commands and Tools", pages: [] },
-  15: { titleEn: "HTTPS and TLS — Encrypted Communication", pages: [] },
-  16: { titleEn: "Application Protocols — Email, FTP, SSH", pages: [] },
-  17: { titleEn: "Subnetting and CIDR — Network Division", pages: [] },
+  // ========== CHAPTER 9 ==========
+  9: {
+    titleEn: "Network Devices",
+    pages: [
+      {
+        // Page 0: Hub
+        titleEn: "Hub — The Simplest Device",
+        contentEn: `
+          <p>A <strong>Hub</strong> is the simplest network device.</p>
+          <p>It receives a signal on one port and <strong>sends it to all other ports</strong>.</p>
+          <ul>
+            <li>Works at <strong>Layer 1</strong> (Physical Layer)</li>
+            <li>Does not read addresses — just copies the signal</li>
+            <li>All devices share the same bandwidth</li>
+            <li>Creates <strong>collisions</strong> when two devices send at the same time</li>
+          </ul>
+          <p>Hubs are almost never used today. Switches replaced them.</p>
+        `
+      },
+      {
+        // Page 1: Switch
+        titleEn: "Switch — Smart Forwarding",
+        contentEn: `
+          <p>A <strong>Switch</strong> is smarter than a hub.</p>
+          <p>It learns which device is connected to which port using <strong>MAC addresses</strong>.</p>
+          <ul>
+            <li>Works at <strong>Layer 2</strong> (Data Link Layer)</li>
+            <li>Keeps a <strong>MAC address table</strong> — maps each MAC to a port</li>
+            <li>Sends frames <strong>only to the correct port</strong>, not to all ports</li>
+            <li>Each port gets its own bandwidth — no collisions</li>
+          </ul>
+          <p><strong>How does the switch learn?</strong></p>
+          <ul>
+            <li>When a frame arrives, the switch reads the <strong>source MAC</strong> and saves it</li>
+            <li>If it does not know the destination MAC, it floods to all ports (like a hub)</li>
+            <li>Over time, the table fills up and traffic is efficient</li>
+          </ul>
+        `
+      },
+      {
+        // Page 2: Router
+        titleEn: "Router — Connecting Different Networks",
+        contentEn: `
+          <p>A <strong>Router</strong> connects different networks together.</p>
+          <p>It reads <strong>IP addresses</strong> and decides the best path for each packet.</p>
+          <ul>
+            <li>Works at <strong>Layer 3</strong> (Network Layer)</li>
+            <li>Has a <strong>routing table</strong> — tells it where to send each packet</li>
+            <li>Connects your home network to the Internet</li>
+            <li>Can connect networks with different technologies (WiFi to Ethernet)</li>
+          </ul>
+          <p><strong>Key difference from a switch:</strong></p>
+          <ul>
+            <li>Switch uses MAC addresses (Layer 2) — works inside one network</li>
+            <li>Router uses IP addresses (Layer 3) — works between networks</li>
+          </ul>
+        `
+      },
+      {
+        // Page 3: Comparison table
+        titleEn: "Hub vs Switch vs Router",
+        contentEn: `
+          <p>Let's compare the three devices:</p>
+          <table>
+            <thead>
+              <tr><th>Feature</th><th>Hub</th><th>Switch</th><th>Router</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>OSI Layer</td><td>1 (Physical)</td><td>2 (Data Link)</td><td>3 (Network)</td></tr>
+              <tr><td>Uses</td><td>Electrical signal</td><td>MAC addresses</td><td>IP addresses</td></tr>
+              <tr><td>Sends to</td><td>All ports</td><td>Correct port only</td><td>Next hop router</td></tr>
+              <tr><td>Collisions</td><td>Yes</td><td>No</td><td>No</td></tr>
+              <tr><td>Connects</td><td>Devices in one LAN</td><td>Devices in one LAN</td><td>Different networks</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Remember:</strong> Hub = dumb, Switch = smart inside a network, Router = connects networks.</p>
+        `
+      },
+      {
+        // Page 4: VLAN
+        titleEn: "VLAN — Virtual LAN",
+        contentEn: `
+          <p>A <strong>VLAN</strong> (Virtual LAN) splits one physical switch into separate logical networks.</p>
+          <ul>
+            <li>Devices in the same VLAN can talk to each other</li>
+            <li>Devices in different VLANs <strong>cannot</strong> talk without a router</li>
+            <li>This improves <strong>security</strong> and <strong>performance</strong></li>
+          </ul>
+          <p><strong>Example:</strong></p>
+          <ul>
+            <li>VLAN 10 = Accounting department</li>
+            <li>VLAN 20 = Engineering department</li>
+            <li>Both use the same switch, but they are isolated</li>
+          </ul>
+          <p><strong>Trunk port:</strong> A special port that carries traffic from multiple VLANs between switches. It adds a <strong>VLAN tag</strong> (802.1Q) to each frame.</p>
+        `
+      },
+      {
+        // Page 5: Firewall
+        titleEn: "Firewall — Network Security Guard",
+        contentEn: `
+          <p>A <strong>Firewall</strong> filters network traffic based on rules.</p>
+          <p>It decides what traffic is <strong>allowed in</strong> and what is <strong>blocked</strong>.</p>
+          <ul>
+            <li><strong>Packet filter</strong> — checks IP addresses and ports (Layer 3-4)</li>
+            <li><strong>Stateful firewall</strong> — tracks connections, allows replies to outgoing requests</li>
+            <li><strong>Application firewall (WAF)</strong> — inspects HTTP content (Layer 7)</li>
+          </ul>
+          <p><strong>Example rules:</strong></p>
+          <ul>
+            <li>Allow incoming traffic on port 443 (HTTPS) — ✅</li>
+            <li>Block incoming traffic on port 23 (Telnet) — ❌</li>
+            <li>Allow outgoing traffic to any destination — ✅</li>
+          </ul>
+          <p>Most home routers have a built-in firewall.</p>
+        `
+      },
+      {
+        // Page 6: thinkOutside — SKIP
+        titleEn: "Think Outside the Box",
+      },
+      {
+        // Page 7: Summary
+        titleEn: "Chapter Summary",
+        contentEn: `
+          <p><strong>Key points from this chapter:</strong></p>
+          <ul>
+            <li><strong>Hub</strong> — Layer 1, sends to all ports, causes collisions</li>
+            <li><strong>Switch</strong> — Layer 2, learns MAC addresses, sends to correct port only</li>
+            <li><strong>Router</strong> — Layer 3, uses IP addresses, connects different networks</li>
+            <li><strong>VLAN</strong> — splits one switch into separate virtual networks</li>
+            <li><strong>Firewall</strong> — filters traffic with allow/block rules</li>
+          </ul>
+          <p>Each device works at a different layer and solves a different problem.</p>
+        `
+      },
+      {
+        // Page 8: questions — SKIP
+        titleEn: "Questions",
+      },
+    ]
+  },
+
+  // ========== CHAPTER 10 ==========
+  10: {
+    titleEn: "The Physical Layer",
+    pages: [
+      {
+        // Page 0: Purpose
+        titleEn: "What Does the Physical Layer Do?",
+        contentEn: `
+          <p>The <strong>Physical Layer</strong> (Layer 1) is the bottom of the OSI model.</p>
+          <p>Its job is simple: <strong>move bits</strong> (0s and 1s) from one device to another.</p>
+          <ul>
+            <li>It does not understand addresses, packets, or protocols</li>
+            <li>It only deals with <strong>electrical signals</strong>, <strong>light</strong>, or <strong>radio waves</strong></li>
+            <li>It defines cables, connectors, voltages, and frequencies</li>
+          </ul>
+          <p><strong>Without the Physical Layer, no data can move at all.</strong></p>
+        `
+      },
+      {
+        // Page 1: Technologies
+        titleEn: "Physical Layer Technologies",
+        contentEn: `
+          <p>There are three main ways to transmit bits:</p>
+          <ul>
+            <li><strong>Copper cables</strong> — electrical signals travel through metal wires</li>
+            <li><strong>Fiber optic</strong> — light pulses travel through thin glass</li>
+            <li><strong>Wireless (WiFi)</strong> — radio waves travel through the air</li>
+          </ul>
+          <table>
+            <thead>
+              <tr><th>Technology</th><th>Medium</th><th>Speed</th><th>Distance</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Copper (Cat5e)</td><td>Electrical</td><td>1 Gbps</td><td>100m</td></tr>
+              <tr><td>Fiber optic</td><td>Light</td><td>100+ Gbps</td><td>Kilometers</td></tr>
+              <tr><td>WiFi 6</td><td>Radio</td><td>~1 Gbps</td><td>~30m indoors</td></tr>
+            </tbody>
+          </table>
+        `
+      },
+      {
+        // Page 2: Bandwidth and Latency
+        titleEn: "Bandwidth and Latency",
+        contentEn: `
+          <p>Two important terms for network speed:</p>
+          <p><strong>Bandwidth</strong> — how much data can flow per second.</p>
+          <ul>
+            <li>Measured in <strong>bps</strong> (bits per second)</li>
+            <li>Like the width of a pipe — wider pipe = more water</li>
+            <li>Example: 100 Mbps = 100 million bits per second</li>
+          </ul>
+          <p><strong>Latency</strong> — how long it takes for data to arrive.</p>
+          <ul>
+            <li>Measured in <strong>milliseconds (ms)</strong></li>
+            <li>Like the length of the pipe — longer pipe = more delay</li>
+            <li>Example: 20 ms latency to a server in your country</li>
+          </ul>
+          <p><strong>Important:</strong> High bandwidth does not mean low latency. A satellite link has high bandwidth but high latency (~600 ms).</p>
+        `
+      },
+      {
+        // Page 3: Cables and Standards
+        titleEn: "Cables and Standards",
+        contentEn: `
+          <p><strong>Ethernet cables</strong> (twisted pair) are the most common:</p>
+          <ul>
+            <li><strong>Cat5e</strong> — up to 1 Gbps, 100 meters max</li>
+            <li><strong>Cat6</strong> — up to 10 Gbps (short distances)</li>
+            <li><strong>Cat6a</strong> — up to 10 Gbps at 100 meters</li>
+          </ul>
+          <p><strong>Connectors:</strong></p>
+          <ul>
+            <li><strong>RJ-45</strong> — standard Ethernet connector (8 pins)</li>
+            <li><strong>Straight-through cable</strong> — connects different devices (PC to switch)</li>
+            <li><strong>Crossover cable</strong> — connects same devices (PC to PC)</li>
+          </ul>
+          <p><strong>Fiber optic types:</strong></p>
+          <ul>
+            <li><strong>Single-mode (SMF)</strong> — one light path, very long distance</li>
+            <li><strong>Multi-mode (MMF)</strong> — multiple light paths, shorter distance, cheaper</li>
+          </ul>
+        `
+      },
+      {
+        // Page 4: WiFi 802.11
+        titleEn: "WiFi — 802.11 Standards",
+        contentEn: `
+          <p><strong>WiFi</strong> uses radio waves to transmit data wirelessly.</p>
+          <p>The standard is called <strong>IEEE 802.11</strong>.</p>
+          <table>
+            <thead>
+              <tr><th>Standard</th><th>Name</th><th>Frequency</th><th>Max Speed</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>802.11n</td><td>WiFi 4</td><td>2.4 / 5 GHz</td><td>600 Mbps</td></tr>
+              <tr><td>802.11ac</td><td>WiFi 5</td><td>5 GHz</td><td>3.5 Gbps</td></tr>
+              <tr><td>802.11ax</td><td>WiFi 6</td><td>2.4 / 5 / 6 GHz</td><td>9.6 Gbps</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Key concepts:</strong></p>
+          <ul>
+            <li><strong>2.4 GHz</strong> — longer range, slower, more interference</li>
+            <li><strong>5 GHz</strong> — shorter range, faster, less interference</li>
+            <li><strong>SSID</strong> — the name of the WiFi network</li>
+            <li><strong>WPA3</strong> — the latest WiFi security standard</li>
+          </ul>
+        `
+      },
+      {
+        // Page 5: Encoding NRZ / Manchester
+        titleEn: "Signal Encoding — NRZ and Manchester",
+        contentEn: `
+          <p>How do we represent 0s and 1s as electrical signals?</p>
+          <p><strong>NRZ (Non-Return to Zero):</strong></p>
+          <ul>
+            <li>High voltage = 1, Low voltage = 0</li>
+            <li>Simple, but has a problem: long runs of 1s or 0s lose synchronization</li>
+          </ul>
+          <p><strong>Manchester Encoding:</strong></p>
+          <ul>
+            <li>Each bit has a <strong>transition</strong> in the middle of the clock period</li>
+            <li>Low→High = 1, High→Low = 0</li>
+            <li>The transition acts as a built-in clock signal</li>
+            <li>Used in 10BASE-T Ethernet</li>
+          </ul>
+          <p><strong>Why does this matter?</strong> The receiver needs to know when each bit starts and ends. Manchester encoding solves this by always changing the signal.</p>
+        `
+      },
+      {
+        // Page 6: Full/Half Duplex + CSMA/CD
+        titleEn: "Duplex Modes and CSMA/CD",
+        contentEn: `
+          <p><strong>Half Duplex</strong> — only one side can send at a time.</p>
+          <ul>
+            <li>Like a walkie-talkie — you talk OR you listen</li>
+            <li>Used with hubs</li>
+          </ul>
+          <p><strong>Full Duplex</strong> — both sides can send and receive at the same time.</p>
+          <ul>
+            <li>Like a phone call — both people can talk</li>
+            <li>Used with switches — each port is full duplex</li>
+          </ul>
+          <p><strong>CSMA/CD</strong> (Carrier Sense Multiple Access / Collision Detection):</p>
+          <ul>
+            <li>Used in half-duplex Ethernet</li>
+            <li><strong>Listen</strong> before sending — is the wire busy?</li>
+            <li>If two devices send at the same time → <strong>collision</strong></li>
+            <li>Both stop, wait a <strong>random time</strong>, then try again</li>
+          </ul>
+          <p>With full-duplex switches, CSMA/CD is not needed anymore.</p>
+        `
+      },
+      {
+        // Page 7: thinkOutside — SKIP
+        titleEn: "Think Outside the Box",
+      },
+      {
+        // Page 8: Summary
+        titleEn: "Chapter Summary",
+        contentEn: `
+          <p><strong>Key points from this chapter:</strong></p>
+          <ul>
+            <li>The Physical Layer moves <strong>raw bits</strong> using electrical, light, or radio signals</li>
+            <li><strong>Bandwidth</strong> = how much data per second; <strong>Latency</strong> = how long the delay</li>
+            <li><strong>Copper, Fiber, WiFi</strong> — three main transmission technologies</li>
+            <li><strong>Cat5e/Cat6</strong> cables with <strong>RJ-45</strong> connectors are most common</li>
+            <li><strong>WiFi 802.11</strong> — versions n/ac/ax, frequencies 2.4 and 5 GHz</li>
+            <li><strong>Manchester encoding</strong> solves clock synchronization</li>
+            <li><strong>Full duplex</strong> (switches) replaced <strong>half duplex + CSMA/CD</strong> (hubs)</li>
+          </ul>
+        `
+      },
+      {
+        // Page 9: questions — SKIP
+        titleEn: "Questions",
+      },
+    ]
+  },
+
+  // ========== CHAPTER 11 ==========
+  11: {
+    titleEn: "How It All Connects",
+    pages: [
+      {
+        // Page 0: Full browsing story
+        titleEn: "The Full Journey — From URL to Web Page",
+        contentEn: `
+          <p>What happens when you type <code>https://www.example.com</code> and press Enter?</p>
+          <p><strong>8 steps happen behind the scenes:</strong></p>
+          <ol>
+            <li><strong>DHCP</strong> — Your computer already got an IP address from the router when it connected</li>
+            <li><strong>DNS query</strong> — Browser asks "What is the IP of www.example.com?" → gets <code>93.184.216.34</code></li>
+            <li><strong>ARP</strong> — Computer needs the router's MAC address to send the packet out</li>
+            <li><strong>TCP handshake</strong> — Three-way handshake (SYN → SYN-ACK → ACK) opens a connection</li>
+            <li><strong>TLS handshake</strong> — Client and server agree on encryption keys (because HTTPS)</li>
+            <li><strong>HTTP GET</strong> — Browser sends <code>GET /index.html</code> inside the encrypted tunnel</li>
+            <li><strong>Server responds</strong> — Server sends back the HTML page</li>
+            <li><strong>Browser renders</strong> — The HTML is parsed and displayed on screen</li>
+          </ol>
+          <p>All of this happens in <strong>less than one second</strong>.</p>
+        `
+      },
+      {
+        // Page 1: Wireshark view
+        titleEn: "Seeing the Flow in Wireshark",
+        contentEn: `
+          <p>If we capture the traffic with <strong>Wireshark</strong>, we see the packets in order:</p>
+          <table>
+            <thead>
+              <tr><th>#</th><th>Protocol</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>DNS</td><td>Query: "What is the IP of www.example.com?"</td></tr>
+              <tr><td>2</td><td>DNS</td><td>Response: 93.184.216.34</td></tr>
+              <tr><td>3</td><td>TCP</td><td>SYN → (start of three-way handshake)</td></tr>
+              <tr><td>4</td><td>TCP</td><td>SYN-ACK ←</td></tr>
+              <tr><td>5</td><td>TCP</td><td>ACK →</td></tr>
+              <tr><td>6-9</td><td>TLS</td><td>ClientHello, ServerHello, certificates, keys</td></tr>
+              <tr><td>10</td><td>HTTP</td><td>GET /index.html (encrypted inside TLS)</td></tr>
+              <tr><td>11</td><td>HTTP</td><td>200 OK + HTML content</td></tr>
+            </tbody>
+          </table>
+          <p>Each line is a real packet that traveled through the network.</p>
+        `
+      },
+      {
+        // Page 2: Encapsulation order
+        titleEn: "Encapsulation — Each Layer Adds a Header",
+        contentEn: `
+          <p>Data moves <strong>from top to bottom</strong> through the layers. Each layer <strong>wraps</strong> the data with its own header.</p>
+          <ul>
+            <li><strong>Application Layer</strong> — creates the HTTP request (e.g., GET /index.html)</li>
+            <li><strong>Transport Layer</strong> — adds TCP header (source port, destination port, sequence number)</li>
+            <li><strong>Network Layer</strong> — adds IP header (source IP, destination IP)</li>
+            <li><strong>Data Link Layer</strong> — adds Ethernet header (source MAC, destination MAC) + trailer</li>
+            <li><strong>Physical Layer</strong> — converts everything to bits on the wire</li>
+          </ul>
+          <p><strong>The result:</strong></p>
+          <p><code>[Ethernet Header | IP Header | TCP Header | HTTP Data | Ethernet Trailer]</code></p>
+          <p>On the other side, the layers <strong>unwrap</strong> the headers from bottom to top.</p>
+        `
+      },
+      {
+        // Page 3: CDN
+        titleEn: "CDN — Content Delivery Network",
+        contentEn: `
+          <p>What happens when the server is behind a <strong>CDN</strong>?</p>
+          <p>A CDN is a network of servers around the world that <strong>cache copies</strong> of website content.</p>
+          <ul>
+            <li>You type <code>www.example.com</code> in your browser</li>
+            <li>DNS resolves to the <strong>nearest CDN server</strong>, not the original server</li>
+            <li>If the CDN has a cached copy → it responds directly (<strong>cache hit</strong>)</li>
+            <li>If not → the CDN fetches from the origin server, caches it, then responds (<strong>cache miss</strong>)</li>
+          </ul>
+          <p><strong>Benefits of CDN:</strong></p>
+          <ul>
+            <li><strong>Lower latency</strong> — the server is closer to the user</li>
+            <li><strong>Less load</strong> — the origin server handles fewer requests</li>
+            <li><strong>DDoS protection</strong> — CDN absorbs attack traffic</li>
+          </ul>
+          <p>Popular CDNs: <strong>Cloudflare</strong>, <strong>Akamai</strong>, <strong>AWS CloudFront</strong>.</p>
+        `
+      },
+      {
+        // Page 4: thinkOutside — SKIP
+        titleEn: "Think Outside the Box",
+      },
+      {
+        // Page 5: Summary
+        titleEn: "Chapter Summary",
+        contentEn: `
+          <p><strong>Key points from this chapter:</strong></p>
+          <ul>
+            <li>Browsing a website involves <strong>8 steps</strong>: DHCP, DNS, ARP, TCP, TLS, HTTP, response, render</li>
+            <li>Wireshark lets you see every packet in the flow</li>
+            <li><strong>Encapsulation</strong> — each layer adds its own header around the data</li>
+            <li><strong>CDN</strong> caches content on servers close to users for faster loading</li>
+            <li>All layers work together to deliver a web page in under one second</li>
+          </ul>
+        `
+      },
+      {
+        // Page 6: questions — SKIP
+        titleEn: "Questions",
+      },
+    ]
+  },
+
+  // ========== CHAPTER 12 ==========
+  12: {
+    titleEn: "Advanced Socket Programming",
+    pages: [
+      {
+        // Page 0: Multiple clients problem
+        titleEn: "The Problem — Handling Multiple Clients",
+        contentEn: `
+          <p>In basic socket programming, the server handles <strong>one client at a time</strong>.</p>
+          <p>While talking to Client A, Client B has to <strong>wait</strong>.</p>
+          <p><strong>Why is this a problem?</strong></p>
+          <ul>
+            <li>A web server needs to handle hundreds of users at once</li>
+            <li>A chat server must receive and send messages to many users</li>
+            <li>Blocking on one client = all others are stuck</li>
+          </ul>
+          <p><strong>Three solutions:</strong></p>
+          <ol>
+            <li><strong>select()</strong> — check multiple sockets at once</li>
+            <li><strong>Threading</strong> — create a new thread for each client</li>
+            <li><strong>asyncio</strong> — modern async/await approach</li>
+          </ol>
+        `
+      },
+      {
+        // Page 1: select()
+        titleEn: "select() — Monitoring Multiple Sockets",
+        contentEn: `
+          <p><code>select()</code> lets you watch multiple sockets and know which ones are <strong>ready to read</strong>.</p>
+          <ul>
+            <li>You give it a list of sockets</li>
+            <li>It blocks until at least one socket has data</li>
+            <li>Then you handle only the ready sockets</li>
+          </ul>
+          <p><strong>How it works:</strong></p>
+          <ol>
+            <li>Create a list of sockets to monitor</li>
+            <li>Call <code>select.select(read_list, write_list, error_list)</code></li>
+            <li>It returns which sockets are ready</li>
+            <li>If the server socket is ready → accept a new client</li>
+            <li>If a client socket is ready → read the message</li>
+          </ol>
+          <p><strong>Advantage:</strong> one thread handles many clients. <strong>Disadvantage:</strong> the code can be complex.</p>
+        `
+      },
+      {
+        // Page 2: select() demo code
+        titleEn: "Demo — select() Server",
+        contentEn: `
+          <p>A simple chat server using <code>select()</code>:</p>
+<pre><code>import socket, select
+
+server = socket.socket()
+server.bind(("0.0.0.0", 9000))
+server.listen(5)
+
+sockets_list = [server]
+clients = {}
+
+while True:
+    ready, _, _ = select.select(sockets_list, [], [])
+    for s in ready:
+        if s is server:
+            client, addr = server.accept()
+            sockets_list.append(client)
+            clients[client] = addr
+            print(f"New client: {addr}")
+        else:
+            data = s.recv(1024)
+            if not data:
+                sockets_list.remove(s)
+                del clients[s]
+                s.close()
+            else:
+                print(f"{clients[s]}: {data.decode()}")
+</code></pre>
+          <p>This server handles many clients in a <strong>single thread</strong>.</p>
+        `
+      },
+      {
+        // Page 3: Threading demo code
+        titleEn: "Demo — Threading Server",
+        contentEn: `
+          <p>Another approach: create a <strong>new thread</strong> for each client.</p>
+<pre><code>import socket
+import threading
+
+def handle_client(client, addr):
+    while True:
+        data = client.recv(1024)
+        if not data:
+            break
+        print(f"{addr}: {data.decode()}")
+    client.close()
+
+server = socket.socket()
+server.bind(("0.0.0.0", 9000))
+server.listen(5)
+
+while True:
+    client, addr = server.accept()
+    t = threading.Thread(target=handle_client,
+                         args=(client, addr))
+    t.start()
+</code></pre>
+          <p><strong>Advantage:</strong> simple code, each client runs independently.</p>
+          <p><strong>Disadvantage:</strong> many threads use a lot of memory. Not good for thousands of clients.</p>
+        `
+      },
+      {
+        // Page 4: Python 3 encoding/bytes
+        titleEn: "Python 3 — Strings vs Bytes",
+        contentEn: `
+          <p>In Python 3, <strong>strings</strong> and <strong>bytes</strong> are different types.</p>
+          <ul>
+            <li><code>"hello"</code> — a string (text, Unicode)</li>
+            <li><code>b"hello"</code> — bytes (raw data)</li>
+          </ul>
+          <p><strong>Sockets send and receive bytes, not strings.</strong></p>
+          <p>You must convert between them:</p>
+<pre><code># String → Bytes (encoding)
+text = "Hello!"
+data = text.encode("utf-8")  # b"Hello!"
+
+# Bytes → String (decoding)
+data = b"Hello!"
+text = data.decode("utf-8")  # "Hello!"
+</code></pre>
+          <p><strong>Common mistake:</strong> sending a string without <code>.encode()</code> → <code>TypeError</code>.</p>
+          <p><strong>Tip:</strong> Always use <code>utf-8</code> encoding. It supports all languages.</p>
+        `
+      },
+      {
+        // Page 5: Length prefix protocol
+        titleEn: "Length Prefix Protocol",
+        contentEn: `
+          <p>TCP is a <strong>stream</strong> — it does not have message boundaries.</p>
+          <p>If you send "Hello" then "World", the receiver might get "HelloWorld" in one read.</p>
+          <p><strong>Solution: Length prefix</strong></p>
+          <ul>
+            <li>Before each message, send its <strong>length as a fixed-size header</strong></li>
+            <li>The receiver first reads the length, then reads exactly that many bytes</li>
+          </ul>
+<pre><code># Sender
+msg = "Hello!".encode()
+length = len(msg).to_bytes(4, "big")  # 4-byte header
+sock.send(length + msg)
+
+# Receiver
+raw_len = sock.recv(4)
+msg_len = int.from_bytes(raw_len, "big")
+data = sock.recv(msg_len)
+print(data.decode())  # "Hello!"
+</code></pre>
+          <p>This pattern is used in many real protocols.</p>
+        `
+      },
+      {
+        // Page 6: asyncio
+        titleEn: "asyncio — Modern Async Programming",
+        contentEn: `
+          <p><strong>asyncio</strong> is Python's built-in library for asynchronous programming.</p>
+          <ul>
+            <li>Uses <code>async</code> and <code>await</code> keywords</li>
+            <li>One thread, but switches between tasks while waiting for I/O</li>
+            <li>Can handle thousands of connections efficiently</li>
+          </ul>
+<pre><code>import asyncio
+
+async def handle_client(reader, writer):
+    data = await reader.read(1024)
+    message = data.decode()
+    print(f"Received: {message}")
+    writer.write(b"Got it!")
+    await writer.drain()
+    writer.close()
+
+async def main():
+    server = await asyncio.start_server(
+        handle_client, "0.0.0.0", 9000)
+    async with server:
+        await server.serve_forever()
+
+asyncio.run(main())
+</code></pre>
+          <p><strong>asyncio</strong> is the recommended approach for modern Python servers.</p>
+        `
+      },
+      {
+        // Page 7: Summary
+        titleEn: "Chapter Summary",
+        contentEn: `
+          <p><strong>Key points from this chapter:</strong></p>
+          <ul>
+            <li>A basic server can only handle <strong>one client at a time</strong> — not useful in practice</li>
+            <li><strong>select()</strong> — monitors multiple sockets in one thread</li>
+            <li><strong>Threading</strong> — one thread per client, simple but uses more memory</li>
+            <li><strong>asyncio</strong> — modern async/await, handles thousands of clients efficiently</li>
+            <li>Python 3: sockets use <strong>bytes</strong>, not strings — use <code>.encode()</code> and <code>.decode()</code></li>
+            <li><strong>Length prefix</strong> solves TCP's stream problem — send the message length before the message</li>
+          </ul>
+        `
+      },
+      {
+        // Page 8: questions — SKIP
+        titleEn: "Questions",
+      },
+    ]
+  },
+
+  // ========== CHAPTER 13 ==========
+  13: {
+    titleEn: "Glossary of Terms",
+    pages: [
+      {
+        // Page 0: A-F
+        titleEn: "Glossary: A – F",
+        contentEn: `
+          <table>
+            <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ACK</strong></td><td>Acknowledgment — a message confirming data was received</td></tr>
+              <tr><td><strong>ARP</strong></td><td>Address Resolution Protocol — finds the MAC address for a given IP</td></tr>
+              <tr><td><strong>Bandwidth</strong></td><td>Maximum amount of data that can travel per second (bps)</td></tr>
+              <tr><td><strong>Broadcast</strong></td><td>Sending a message to all devices on the network</td></tr>
+              <tr><td><strong>CDN</strong></td><td>Content Delivery Network — servers around the world that cache content</td></tr>
+              <tr><td><strong>CIDR</strong></td><td>Classless Inter-Domain Routing — flexible way to define network size (e.g., /24)</td></tr>
+              <tr><td><strong>Client</strong></td><td>A device or program that requests a service from a server</td></tr>
+              <tr><td><strong>CSMA/CD</strong></td><td>Collision detection method used in half-duplex Ethernet</td></tr>
+              <tr><td><strong>DHCP</strong></td><td>Dynamic Host Configuration Protocol — automatically gives IP addresses to devices</td></tr>
+              <tr><td><strong>DNS</strong></td><td>Domain Name System — translates domain names to IP addresses</td></tr>
+              <tr><td><strong>Encapsulation</strong></td><td>Each layer wraps data with its own header before sending</td></tr>
+              <tr><td><strong>Ethernet</strong></td><td>The most common wired LAN technology (IEEE 802.3)</td></tr>
+              <tr><td><strong>Firewall</strong></td><td>Filters network traffic based on allow/block rules</td></tr>
+              <tr><td><strong>FTP</strong></td><td>File Transfer Protocol — sends files between computers (port 21)</td></tr>
+              <tr><td><strong>Full Duplex</strong></td><td>Both sides can send and receive at the same time</td></tr>
+            </tbody>
+          </table>
+        `
+      },
+      {
+        // Page 1: G-M
+        titleEn: "Glossary: G – M",
+        contentEn: `
+          <table>
+            <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Gateway</strong></td><td>A device that connects two different networks (usually the router)</td></tr>
+              <tr><td><strong>HTTP</strong></td><td>HyperText Transfer Protocol — the protocol for web pages (port 80)</td></tr>
+              <tr><td><strong>HTTPS</strong></td><td>HTTP over TLS — encrypted web traffic (port 443)</td></tr>
+              <tr><td><strong>Hub</strong></td><td>Layer 1 device that sends data to all ports</td></tr>
+              <tr><td><strong>ICMP</strong></td><td>Internet Control Message Protocol — used by ping and traceroute</td></tr>
+              <tr><td><strong>IP Address</strong></td><td>A unique number that identifies a device on a network (e.g., 192.168.1.1)</td></tr>
+              <tr><td><strong>IPv4</strong></td><td>IP version 4 — 32-bit addresses (4.3 billion possible)</td></tr>
+              <tr><td><strong>IPv6</strong></td><td>IP version 6 — 128-bit addresses (practically unlimited)</td></tr>
+              <tr><td><strong>ISP</strong></td><td>Internet Service Provider — the company that gives you Internet access</td></tr>
+              <tr><td><strong>LAN</strong></td><td>Local Area Network — a small network (home, office)</td></tr>
+              <tr><td><strong>Latency</strong></td><td>The time delay for data to travel from source to destination</td></tr>
+              <tr><td><strong>MAC Address</strong></td><td>Media Access Control — a unique hardware address for each network card</td></tr>
+              <tr><td><strong>MTU</strong></td><td>Maximum Transmission Unit — largest packet size allowed (usually 1500 bytes)</td></tr>
+            </tbody>
+          </table>
+        `
+      },
+      {
+        // Page 2: N-T
+        titleEn: "Glossary: N – T",
+        contentEn: `
+          <table>
+            <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+            <tbody>
+              <tr><td><strong>NAT</strong></td><td>Network Address Translation — maps private IPs to one public IP</td></tr>
+              <tr><td><strong>OSI Model</strong></td><td>7-layer reference model for networking (Physical → Application)</td></tr>
+              <tr><td><strong>Packet</strong></td><td>A small piece of data sent over a network</td></tr>
+              <tr><td><strong>Ping</strong></td><td>A tool that sends ICMP echo requests to test connectivity</td></tr>
+              <tr><td><strong>Port</strong></td><td>A number (0–65535) that identifies a specific service on a device</td></tr>
+              <tr><td><strong>Protocol</strong></td><td>A set of rules for how devices communicate</td></tr>
+              <tr><td><strong>Router</strong></td><td>Layer 3 device that forwards packets between networks using IP addresses</td></tr>
+              <tr><td><strong>Server</strong></td><td>A device or program that provides services to clients</td></tr>
+              <tr><td><strong>SMTP</strong></td><td>Simple Mail Transfer Protocol — sends email (port 25/587)</td></tr>
+              <tr><td><strong>SSH</strong></td><td>Secure Shell — encrypted remote access (port 22)</td></tr>
+              <tr><td><strong>Subnet Mask</strong></td><td>Defines which part of an IP is the network and which is the host</td></tr>
+              <tr><td><strong>Switch</strong></td><td>Layer 2 device that forwards frames based on MAC addresses</td></tr>
+              <tr><td><strong>TCP</strong></td><td>Transmission Control Protocol — reliable, ordered delivery (connection-based)</td></tr>
+              <tr><td><strong>TLS</strong></td><td>Transport Layer Security — encrypts data in transit (used by HTTPS)</td></tr>
+              <tr><td><strong>TTL</strong></td><td>Time to Live — limits how many hops a packet can take</td></tr>
+            </tbody>
+          </table>
+        `
+      },
+      {
+        // Page 3: questions — SKIP
+        titleEn: "Questions",
+      },
+    ]
+  },
+
+  // ========== CHAPTER 14 ==========
+  14: {
+    titleEn: "Commands and Tools",
+    pages: [
+      {
+        // Page 0: Common commands
+        titleEn: "Essential Network Commands",
+        contentEn: `
+          <p>These commands help you check and troubleshoot networks:</p>
+          <table>
+            <thead><tr><th>Command</th><th>What it does</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><code>ping</code></td><td>Tests if a host is reachable</td><td><code>ping google.com</code></td></tr>
+              <tr><td><code>tracert</code> / <code>traceroute</code></td><td>Shows the path packets take to a destination</td><td><code>tracert google.com</code></td></tr>
+              <tr><td><code>netstat</code></td><td>Shows active connections and open ports</td><td><code>netstat -an</code></td></tr>
+              <tr><td><code>ipconfig</code> / <code>ifconfig</code></td><td>Shows your IP address and network settings</td><td><code>ipconfig /all</code></td></tr>
+              <tr><td><code>nslookup</code></td><td>Queries DNS — finds the IP of a domain</td><td><code>nslookup google.com</code></td></tr>
+              <tr><td><code>arp -a</code></td><td>Shows the ARP table (IP → MAC mappings)</td><td><code>arp -a</code></td></tr>
+            </tbody>
+          </table>
+          <p><strong>Tip:</strong> Windows uses <code>ipconfig</code> and <code>tracert</code>. Linux/Mac uses <code>ifconfig</code> and <code>traceroute</code>.</p>
+        `
+      },
+      {
+        // Page 1: Demo output examples
+        titleEn: "Demo — Command Output Examples",
+        contentEn: `
+          <p><strong>ping google.com:</strong></p>
+<pre><code>Pinging google.com [142.250.74.46] with 32 bytes of data:
+Reply from 142.250.74.46: bytes=32 time=12ms TTL=118
+Reply from 142.250.74.46: bytes=32 time=11ms TTL=118
+</code></pre>
+          <p>→ The server is reachable, latency is ~12 ms.</p>
+
+          <p><strong>nslookup google.com:</strong></p>
+<pre><code>Server:   192.168.1.1
+Address:  192.168.1.1#53
+
+Name:     google.com
+Address:  142.250.74.46
+</code></pre>
+          <p>→ DNS resolved google.com to 142.250.74.46.</p>
+
+          <p><strong>netstat -an (partial):</strong></p>
+<pre><code>Proto  Local Address     Foreign Address    State
+TCP    192.168.1.5:54321  142.250.74.46:443  ESTABLISHED
+TCP    192.168.1.5:54322  52.6.120.34:80     TIME_WAIT
+</code></pre>
+          <p>→ Shows active connections to remote servers.</p>
+        `
+      },
+      {
+        // Page 2: Tools
+        titleEn: "Network Tools — Wireshark, Scapy, Telnet",
+        contentEn: `
+          <p><strong>Wireshark</strong></p>
+          <ul>
+            <li>A GUI tool that <strong>captures and analyzes</strong> network packets</li>
+            <li>Shows every packet in detail — headers, payload, timing</li>
+            <li>Filters: <code>http</code>, <code>tcp.port == 443</code>, <code>ip.addr == 192.168.1.5</code></li>
+            <li>Essential for debugging network problems</li>
+          </ul>
+          <p><strong>Scapy</strong></p>
+          <ul>
+            <li>A Python library for <strong>creating and sending</strong> custom packets</li>
+            <li>Can build packets from scratch — any protocol, any field</li>
+            <li>Used for testing, security research, and learning</li>
+          </ul>
+          <p><strong>Telnet</strong></p>
+          <ul>
+            <li>A simple tool to connect to a port and send text</li>
+            <li>Example: <code>telnet google.com 80</code> then type <code>GET / HTTP/1.1</code></li>
+            <li><strong>Not encrypted</strong> — do not use for real logins</li>
+          </ul>
+        `
+      },
+      {
+        // Page 3: More commands
+        titleEn: "More Useful Commands",
+        contentEn: `
+          <table>
+            <thead><tr><th>Command</th><th>What it does</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><code>route print</code> / <code>ip route</code></td><td>Shows the routing table</td><td><code>route print</code> (Windows)</td></tr>
+              <tr><td><code>hostname</code></td><td>Shows the computer's name</td><td><code>hostname</code></td></tr>
+              <tr><td><code>curl</code></td><td>Sends HTTP requests from the command line</td><td><code>curl https://api.example.com</code></td></tr>
+              <tr><td><code>dig</code></td><td>Advanced DNS query tool (Linux)</td><td><code>dig google.com MX</code></td></tr>
+              <tr><td><code>ss</code></td><td>Modern replacement for netstat (Linux)</td><td><code>ss -tuln</code></td></tr>
+            </tbody>
+          </table>
+          <p><strong>curl</strong> is especially useful for testing APIs:</p>
+<pre><code>curl -v https://www.google.com
+# Shows the full HTTP request and response headers
+</code></pre>
+        `
+      },
+      {
+        // Page 4: Summary
+        titleEn: "Chapter Summary",
+        contentEn: `
+          <p><strong>Key points from this chapter:</strong></p>
+          <ul>
+            <li><code>ping</code> — tests if a host is reachable</li>
+            <li><code>tracert</code> — shows the path to a destination</li>
+            <li><code>netstat</code> / <code>ss</code> — shows active connections</li>
+            <li><code>ipconfig</code> / <code>ifconfig</code> — shows network settings</li>
+            <li><code>nslookup</code> / <code>dig</code> — queries DNS</li>
+            <li><code>arp -a</code> — shows IP to MAC mappings</li>
+            <li><strong>Wireshark</strong> — captures and analyzes packets (GUI)</li>
+            <li><strong>Scapy</strong> — creates custom packets (Python)</li>
+            <li><code>curl</code> — sends HTTP requests from the terminal</li>
+          </ul>
+        `
+      },
+      {
+        // Page 5: questions — SKIP
+        titleEn: "Questions",
+      },
+    ]
+  },
+
+  // ========== CHAPTER 15 ==========
+  15: {
+    titleEn: "HTTPS and TLS — Encrypted Communication",
+    pages: [
+      {
+        // Page 0: Why encryption
+        titleEn: "Why Do We Need Encryption?",
+        contentEn: `
+          <p>Without encryption, anyone on the network can <strong>read your data</strong>.</p>
+          <ul>
+            <li>On public WiFi, an attacker can capture all traffic</li>
+            <li>Your passwords, messages, and credit card numbers are visible</li>
+            <li>This is called a <strong>Man-in-the-Middle (MITM)</strong> attack</li>
+          </ul>
+          <p><strong>HTTP</strong> (port 80) sends everything in <strong>plain text</strong>.</p>
+          <p><strong>HTTPS</strong> (port 443) encrypts everything using <strong>TLS</strong>.</p>
+          <ul>
+            <li>Even if someone captures your traffic, they see only random bytes</li>
+            <li>Today, over <strong>95%</strong> of web traffic uses HTTPS</li>
+            <li>Browsers show a 🔒 lock icon for HTTPS sites</li>
+          </ul>
+        `
+      },
+      {
+        // Page 1: Symmetric vs Asymmetric
+        titleEn: "Symmetric vs Asymmetric Encryption",
+        contentEn: `
+          <p><strong>Symmetric encryption</strong> — one key for both sides.</p>
+          <ul>
+            <li>Same key encrypts and decrypts</li>
+            <li>Fast — used for the actual data</li>
+            <li>Problem: how do you share the key safely?</li>
+            <li>Examples: <strong>AES</strong>, <strong>ChaCha20</strong></li>
+          </ul>
+          <p><strong>Asymmetric encryption</strong> — two keys: public + private.</p>
+          <ul>
+            <li><strong>Public key</strong> — anyone can have it, used to encrypt</li>
+            <li><strong>Private key</strong> — kept secret, used to decrypt</li>
+            <li>Slow — used only to exchange the symmetric key</li>
+            <li>Examples: <strong>RSA</strong>, <strong>ECDHE</strong></li>
+          </ul>
+          <p><strong>TLS uses both:</strong> asymmetric to exchange a key, then symmetric for the data.</p>
+        `
+      },
+      {
+        // Page 2: TLS Handshake
+        titleEn: "TLS Handshake — Step by Step",
+        contentEn: `
+          <p>Before encrypted data can flow, client and server do a <strong>TLS handshake</strong>:</p>
+          <ol>
+            <li><strong>ClientHello</strong> — client sends: supported TLS versions, cipher suites, random number</li>
+            <li><strong>ServerHello</strong> — server picks a TLS version and cipher suite, sends its random number</li>
+            <li><strong>Certificate</strong> — server sends its certificate (contains the public key)</li>
+            <li><strong>Key Exchange</strong> — both sides generate a shared secret using ECDHE</li>
+            <li><strong>Finished</strong> — both sides confirm the handshake, switch to encrypted communication</li>
+          </ol>
+          <p><strong>After the handshake:</strong></p>
+          <ul>
+            <li>Both sides have the same <strong>session key</strong> (symmetric)</li>
+            <li>All data is encrypted with this key</li>
+            <li>The handshake takes 1-2 round trips (~50-100 ms)</li>
+          </ul>
+        `
+      },
+      {
+        // Page 3: Certificates and CA
+        titleEn: "Certificates and Chain of Trust",
+        contentEn: `
+          <p>How does your browser know the server is really google.com?</p>
+          <p><strong>Certificates</strong> prove identity. A certificate contains:</p>
+          <ul>
+            <li>The domain name (e.g., google.com)</li>
+            <li>The public key</li>
+            <li>Who issued it (the CA)</li>
+            <li>Expiration date</li>
+          </ul>
+          <p><strong>CA (Certificate Authority)</strong> — a trusted organization that signs certificates.</p>
+          <p><strong>Chain of trust:</strong></p>
+          <ol>
+            <li><strong>Root CA</strong> — built into your browser/OS (e.g., DigiCert, Let's Encrypt)</li>
+            <li><strong>Intermediate CA</strong> — signed by the Root CA</li>
+            <li><strong>Server certificate</strong> — signed by the Intermediate CA</li>
+          </ol>
+          <p>The browser checks the chain: server cert → intermediate → root. If the root is trusted, the connection is safe.</p>
+          <p><strong>Let's Encrypt</strong> provides free certificates — most websites use it today.</p>
+        `
+      },
+      {
+        // Page 4: Demo Python HTTPS
+        titleEn: "Demo — Python HTTPS Request",
+        contentEn: `
+          <p>Making an HTTPS request in Python is simple with the <code>requests</code> library:</p>
+<pre><code>import requests
+
+# Simple HTTPS GET request
+response = requests.get("https://api.github.com")
+print(response.status_code)   # 200
+print(response.json())        # JSON response
+
+# Check the certificate
+print(response.url)           # https://api.github.com/
+</code></pre>
+          <p><strong>What happens behind the scenes:</strong></p>
+          <ul>
+            <li>Python does the full TLS handshake automatically</li>
+            <li>It verifies the server certificate against known CAs</li>
+            <li>All data is encrypted — safe to send passwords and tokens</li>
+          </ul>
+<pre><code># You can also check certificate details:
+import ssl, socket
+
+ctx = ssl.create_default_context()
+with ctx.wrap_socket(socket.socket(),
+                     server_hostname="google.com") as s:
+    s.connect(("google.com", 443))
+    cert = s.getpeercert()
+    print(cert["subject"])
+</code></pre>
+        `
+      },
+      {
+        // Page 5: thinkOutside — SKIP
+        titleEn: "Think Outside the Box",
+      },
+      {
+        // Page 6: Summary
+        titleEn: "Chapter Summary",
+        contentEn: `
+          <p><strong>Key points from this chapter:</strong></p>
+          <ul>
+            <li><strong>HTTP</strong> is plain text — anyone can read it. <strong>HTTPS</strong> encrypts everything</li>
+            <li><strong>Symmetric</strong> encryption (AES) is fast — used for data</li>
+            <li><strong>Asymmetric</strong> encryption (RSA/ECDHE) — used to exchange the symmetric key</li>
+            <li>The <strong>TLS handshake</strong> establishes a secure connection in 5 steps</li>
+            <li><strong>Certificates</strong> prove the server's identity — signed by a trusted CA</li>
+            <li><strong>Chain of trust</strong>: server cert → intermediate CA → root CA</li>
+            <li>Python's <code>requests</code> library handles TLS automatically</li>
+          </ul>
+        `
+      },
+      {
+        // Page 7: simulation — SKIP
+        titleEn: "Simulation",
+      },
+      {
+        // Page 8: questions — SKIP
+        titleEn: "Questions",
+      },
+    ]
+  },
+
+  // ========== CHAPTER 16 ==========
+  16: {
+    titleEn: "Application Protocols — Email, FTP, SSH",
+    pages: [
+      {
+        // Page 0: Email protocols
+        titleEn: "Email — SMTP, IMAP, POP3",
+        contentEn: `
+          <p>Email uses three protocols:</p>
+          <p><strong>SMTP</strong> (Simple Mail Transfer Protocol) — <strong>sends</strong> email.</p>
+          <ul>
+            <li>Port 25 (server-to-server) or 587 (client-to-server, with TLS)</li>
+            <li>Your email client uses SMTP to send a message to your mail server</li>
+            <li>Your mail server uses SMTP to deliver it to the recipient's server</li>
+          </ul>
+          <p><strong>IMAP</strong> (Internet Message Access Protocol) — <strong>reads</strong> email.</p>
+          <ul>
+            <li>Port 993 (with TLS)</li>
+            <li>Email stays on the server — you can read it from multiple devices</li>
+            <li>Supports folders, search, and flags</li>
+          </ul>
+          <p><strong>POP3</strong> (Post Office Protocol) — <strong>downloads</strong> email.</p>
+          <ul>
+            <li>Port 995 (with TLS)</li>
+            <li>Downloads email to your device and <strong>deletes it from the server</strong></li>
+            <li>Simple but only works on one device</li>
+          </ul>
+        `
+      },
+      {
+        // Page 1: Demo Python SMTP
+        titleEn: "Demo — Sending Email with Python",
+        contentEn: `
+          <p>Python can send email using the built-in <code>smtplib</code> module:</p>
+<pre><code>import smtplib
+from email.mime.text import MIMEText
+
+# Create the message
+msg = MIMEText("Hello! This is a test email.")
+msg["Subject"] = "Test Email"
+msg["From"] = "sender@example.com"
+msg["To"] = "recipient@example.com"
+
+# Connect to SMTP server and send
+with smtplib.SMTP("smtp.gmail.com", 587) as server:
+    server.starttls()  # Upgrade to encrypted connection
+    server.login("sender@example.com", "app_password")
+    server.send_message(msg)
+    print("Email sent!")
+</code></pre>
+          <p><strong>Important notes:</strong></p>
+          <ul>
+            <li><code>starttls()</code> — upgrades the connection to TLS encryption</li>
+            <li>Gmail requires an <strong>App Password</strong> (not your regular password)</li>
+            <li><code>MIMEText</code> creates a properly formatted email message</li>
+          </ul>
+        `
+      },
+      {
+        // Page 2: FTP
+        titleEn: "FTP — File Transfer Protocol",
+        contentEn: `
+          <p><strong>FTP</strong> transfers files between computers. It uses <strong>two connections</strong>:</p>
+          <ul>
+            <li><strong>Control connection</strong> (port 21) — sends commands (LIST, GET, PUT)</li>
+            <li><strong>Data connection</strong> (port 20 or random) — transfers the actual file data</li>
+          </ul>
+          <p><strong>Active mode:</strong></p>
+          <ul>
+            <li>The client tells the server "connect to me on port X"</li>
+            <li>The server opens a connection back to the client</li>
+            <li>Problem: firewalls often block incoming connections</li>
+          </ul>
+          <p><strong>Passive mode:</strong></p>
+          <ul>
+            <li>The client asks the server "give me a port to connect to"</li>
+            <li>The client opens the data connection to the server</li>
+            <li>Works better with firewalls — most FTP clients use this</li>
+          </ul>
+          <p><strong>SFTP</strong> (SSH File Transfer Protocol) is the secure alternative — runs over SSH, encrypted.</p>
+        `
+      },
+      {
+        // Page 3: SSH
+        titleEn: "SSH — Secure Shell (Port 22)",
+        contentEn: `
+          <p><strong>SSH</strong> gives you a secure, encrypted connection to a remote computer.</p>
+          <ul>
+            <li>Default port: <strong>22</strong></li>
+            <li>Replaces Telnet (which was not encrypted)</li>
+            <li>Used to manage servers, run commands remotely</li>
+          </ul>
+          <p><strong>Authentication methods:</strong></p>
+          <ul>
+            <li><strong>Password</strong> — simple but less secure</li>
+            <li><strong>SSH keys</strong> — public/private key pair, much more secure</li>
+          </ul>
+          <p><strong>Common uses:</strong></p>
+          <ul>
+            <li><code>ssh user@server.com</code> — connect to a remote server</li>
+            <li><code>scp file.txt user@server:/path/</code> — copy a file securely</li>
+            <li><strong>SSH tunnel</strong> — forward a local port through an encrypted connection</li>
+          </ul>
+          <p><strong>SSH key setup:</strong></p>
+<pre><code>ssh-keygen -t ed25519         # Generate a key pair
+ssh-copy-id user@server.com   # Copy public key to server
+ssh user@server.com           # Login without password
+</code></pre>
+        `
+      },
+      {
+        // Page 4: Well-known ports
+        titleEn: "Well-Known Ports",
+        contentEn: `
+          <p>Each service has a default port number. Here are the most important ones:</p>
+          <table>
+            <thead><tr><th>Port</th><th>Protocol</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td>20-21</td><td>FTP</td><td>File Transfer (data + control)</td></tr>
+              <tr><td>22</td><td>SSH</td><td>Secure Shell — encrypted remote access</td></tr>
+              <tr><td>23</td><td>Telnet</td><td>Remote access — NOT encrypted (avoid!)</td></tr>
+              <tr><td>25</td><td>SMTP</td><td>Sending email (server-to-server)</td></tr>
+              <tr><td>53</td><td>DNS</td><td>Domain name resolution</td></tr>
+              <tr><td>67-68</td><td>DHCP</td><td>Automatic IP address assignment</td></tr>
+              <tr><td>80</td><td>HTTP</td><td>Web — not encrypted</td></tr>
+              <tr><td>443</td><td>HTTPS</td><td>Web — encrypted with TLS</td></tr>
+              <tr><td>587</td><td>SMTP</td><td>Sending email (client, with TLS)</td></tr>
+              <tr><td>993</td><td>IMAP</td><td>Reading email (with TLS)</td></tr>
+              <tr><td>995</td><td>POP3</td><td>Downloading email (with TLS)</td></tr>
+              <tr><td>3306</td><td>MySQL</td><td>MySQL database</td></tr>
+              <tr><td>3389</td><td>RDP</td><td>Remote Desktop (Windows)</td></tr>
+            </tbody>
+          </table>
+          <p>Ports 0–1023 are <strong>well-known ports</strong> (reserved for standard services).</p>
+        `
+      },
+      {
+        // Page 5: Summary
+        titleEn: "Chapter Summary",
+        contentEn: `
+          <p><strong>Key points from this chapter:</strong></p>
+          <ul>
+            <li><strong>SMTP</strong> sends email (port 587), <strong>IMAP</strong> reads email (port 993), <strong>POP3</strong> downloads email (port 995)</li>
+            <li>Python's <code>smtplib</code> can send email programmatically</li>
+            <li><strong>FTP</strong> uses two connections — control (port 21) and data (port 20)</li>
+            <li>FTP has <strong>active</strong> and <strong>passive</strong> modes — passive works better with firewalls</li>
+            <li><strong>SSH</strong> (port 22) provides encrypted remote access — replaced Telnet</li>
+            <li>SSH keys are more secure than passwords</li>
+            <li>Ports 0–1023 are <strong>well-known ports</strong> for standard services</li>
+          </ul>
+        `
+      },
+      {
+        // Page 6: questions — SKIP
+        titleEn: "Questions",
+      },
+    ]
+  },
+
+  // ========== CHAPTER 17 ==========
+  17: {
+    titleEn: "Subnetting and CIDR — Network Division",
+    pages: [
+      {
+        // Page 0: What is subnetting
+        titleEn: "What Is Subnetting?",
+        contentEn: `
+          <p><strong>Subnetting</strong> means dividing a large network into smaller networks.</p>
+          <p><strong>Why do we need it?</strong></p>
+          <ul>
+            <li><strong>Organization</strong> — separate departments, floors, or buildings</li>
+            <li><strong>Security</strong> — isolate sensitive networks</li>
+            <li><strong>Performance</strong> — reduce broadcast traffic</li>
+          </ul>
+          <p>An IP address has two parts:</p>
+          <ul>
+            <li><strong>Network part</strong> — identifies which network</li>
+            <li><strong>Host part</strong> — identifies which device on that network</li>
+          </ul>
+          <p>The <strong>subnet mask</strong> tells us where to split:</p>
+          <ul>
+            <li><code>255.255.255.0</code> — first 24 bits = network, last 8 bits = host</li>
+            <li>This gives us 254 usable host addresses (256 − 2)</li>
+          </ul>
+        `
+      },
+      {
+        // Page 1: CIDR notation
+        titleEn: "CIDR Notation",
+        contentEn: `
+          <p><strong>CIDR</strong> (Classless Inter-Domain Routing) is a short way to write the subnet mask.</p>
+          <p>Instead of <code>255.255.255.0</code>, we write <code>/24</code>.</p>
+          <p>The number after the slash = how many bits are the <strong>network part</strong>.</p>
+          <table>
+            <thead><tr><th>CIDR</th><th>Subnet Mask</th><th>Hosts</th><th>Use Case</th></tr></thead>
+            <tbody>
+              <tr><td>/8</td><td>255.0.0.0</td><td>16,777,214</td><td>Very large network</td></tr>
+              <tr><td>/16</td><td>255.255.0.0</td><td>65,534</td><td>Large organization</td></tr>
+              <tr><td>/24</td><td>255.255.255.0</td><td>254</td><td>Typical LAN</td></tr>
+              <tr><td>/28</td><td>255.255.255.240</td><td>14</td><td>Small subnet</td></tr>
+              <tr><td>/30</td><td>255.255.255.252</td><td>2</td><td>Point-to-point link</td></tr>
+              <tr><td>/32</td><td>255.255.255.255</td><td>1</td><td>Single host</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Example:</strong> <code>192.168.1.0/24</code> means network 192.168.1.x with 254 usable hosts.</p>
+        `
+      },
+      {
+        // Page 2: Private vs Public IPs
+        titleEn: "Private vs Public IP Addresses",
+        contentEn: `
+          <p>Not all IP addresses are visible on the Internet.</p>
+          <p><strong>Private IPs</strong> — used inside local networks (not routed on the Internet):</p>
+          <table>
+            <thead><tr><th>Range</th><th>CIDR</th><th>Common Use</th></tr></thead>
+            <tbody>
+              <tr><td>10.0.0.0 – 10.255.255.255</td><td>10.0.0.0/8</td><td>Large companies</td></tr>
+              <tr><td>172.16.0.0 – 172.31.255.255</td><td>172.16.0.0/12</td><td>Medium networks</td></tr>
+              <tr><td>192.168.0.0 – 192.168.255.255</td><td>192.168.0.0/16</td><td>Home networks</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Public IPs</strong> — unique addresses on the Internet.</p>
+          <ul>
+            <li>Assigned by your ISP</li>
+            <li>Every website has a public IP</li>
+          </ul>
+          <p><strong>NAT</strong> (Network Address Translation) lets many private IPs share one public IP. Your home router does this — all your devices use private IPs, but the router translates them to one public IP.</p>
+        `
+      },
+      {
+        // Page 3: Subnetting calculation
+        titleEn: "Subnetting Calculation Example",
+        contentEn: `
+          <p><strong>Problem:</strong> You have the network <code>192.168.10.0/24</code>. Divide it into 4 subnets.</p>
+          <p><strong>Step 1:</strong> How many bits do we need to borrow?</p>
+          <ul>
+            <li>4 subnets → 2 bits (2² = 4)</li>
+            <li>New mask: /24 + 2 = <strong>/26</strong></li>
+            <li>Subnet mask: 255.255.255.192</li>
+          </ul>
+          <p><strong>Step 2:</strong> Calculate the subnets.</p>
+          <ul>
+            <li>Each subnet has 2⁶ = 64 addresses (62 usable)</li>
+          </ul>
+          <table>
+            <thead><tr><th>Subnet</th><th>Range</th><th>Broadcast</th><th>Usable Hosts</th></tr></thead>
+            <tbody>
+              <tr><td>192.168.10.0/26</td><td>.1 – .62</td><td>.63</td><td>62</td></tr>
+              <tr><td>192.168.10.64/26</td><td>.65 – .126</td><td>.127</td><td>62</td></tr>
+              <tr><td>192.168.10.128/26</td><td>.129 – .190</td><td>.191</td><td>62</td></tr>
+              <tr><td>192.168.10.192/26</td><td>.193 – .254</td><td>.255</td><td>62</td></tr>
+            </tbody>
+          </table>
+          <p><strong>Remember:</strong> First address = network address, last address = broadcast. Both are not usable.</p>
+        `
+      },
+      {
+        // Page 4: Demo Python ipaddress
+        titleEn: "Demo — Python ipaddress Module",
+        contentEn: `
+          <p>Python has a built-in module for working with IP addresses and subnets:</p>
+<pre><code>import ipaddress
+
+# Create a network
+net = ipaddress.ip_network("192.168.10.0/24")
+print(net.network_address)   # 192.168.10.0
+print(net.broadcast_address) # 192.168.10.255
+print(net.num_addresses)     # 256
+print(net.netmask)           # 255.255.255.0
+
+# List all usable hosts
+for host in net.hosts():
+    print(host)  # 192.168.10.1 ... 192.168.10.254
+
+# Divide into 4 subnets
+subnets = list(net.subnets(prefixlen_diff=2))
+for s in subnets:
+    print(f"{s} → {s.num_addresses} addresses")
+# 192.168.10.0/26   → 64 addresses
+# 192.168.10.64/26  → 64 addresses
+# 192.168.10.128/26 → 64 addresses
+# 192.168.10.192/26 → 64 addresses
+
+# Check if an IP is in a network
+ip = ipaddress.ip_address("192.168.10.50")
+print(ip in net)  # True
+</code></pre>
+        `
+      },
+      {
+        // Page 5: thinkOutside — SKIP
+        titleEn: "Think Outside the Box",
+      },
+      {
+        // Page 6: Summary
+        titleEn: "Chapter Summary",
+        contentEn: `
+          <p><strong>Key points from this chapter:</strong></p>
+          <ul>
+            <li><strong>Subnetting</strong> divides a large network into smaller, isolated networks</li>
+            <li><strong>CIDR notation</strong> (/24, /26, etc.) shows how many bits are the network part</li>
+            <li><strong>Private IPs</strong> (10.x, 172.16-31.x, 192.168.x) are used inside local networks</li>
+            <li><strong>NAT</strong> lets many private IPs share one public IP</li>
+            <li>To subnet: borrow bits from the host part → more subnets, fewer hosts each</li>
+            <li>First address = network, last address = broadcast (both not usable)</li>
+            <li>Python's <code>ipaddress</code> module makes subnet calculations easy</li>
+          </ul>
+        `
+      },
+      {
+        // Page 7: simulation — SKIP
+        titleEn: "Simulation",
+      },
+      {
+        // Page 8: questions — SKIP
+        titleEn: "Questions",
+      },
+    ]
+  },
   18: { titleEn: "IPv6 — The New Internet Version", pages: [] },
   19: { titleEn: "DNS in Depth — Hierarchy, Records, and DoH", pages: [] },
   20: { titleEn: "TCP in Depth — Flow Control, Congestion, Sliding Window", pages: [] },
