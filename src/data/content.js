@@ -995,6 +995,7 @@ client.close()</code></pre>
           </div>
         `
       },
+      { type: "simulation", title: "הדמיית בקשת HTTP", simId: "httpRequest", content: "<p>נסו לשלוח בקשות HTTP שונות וראו איך השרת מגיב.</p>" },
       {
         type: "questions",
         title: "שאלות הבנה - פרק 4",
@@ -1530,6 +1531,8 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>הוא מחפש התאמה בטבלה ומעביר לרכיב הבא במסלול.</p>
         `
       },
+      { type: "simulation", title: "הדמיית Ping ו-Traceroute", simId: "ping", content: "<p>שלחו חבילות ICMP וראו את המסלול שהן עוברות.</p>" },
+      { type: "simulation", title: "הדמיית DHCP", simId: "dhcp", content: "<p>ראו את ארבעת השלבים של קבלת כתובת IP אוטומטית.</p>" },
       {
         type: "questions",
         title: "שאלות הבנה - פרק 7",
@@ -1636,6 +1639,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p>הפקודה <code>arp -a</code> מציגה את טבלת ה-<code>ARP Cache</code>.</p>
         `
       },
+      { type: "simulation", title: "הדמיית ARP", simId: "arp", content: "<p>ראו איך מכשיר מגלה כתובת MAC של מכשיר אחר ברשת.</p>" },
       {
         type: "summary",
         title: "סיכום פרק 8",
@@ -2980,6 +2984,7 @@ response = requests.get('https://self-signed.badssl.com', verify=False)</code></
           </div>
         `
       },
+      { type: "simulation", title: "הדמיית TLS Handshake", simId: "tlsHandshake", content: "<p>ראו איך נוצר חיבור מוצפן בין דפדפן לשרת.</p>" },
       {
         type: "questions",
         title: "שאלות הבנה - פרק 15",
@@ -3421,6 +3426,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
           </div>
         `
       },
+      { type: "simulation", title: "מחשבון Subnet", simId: "subnetCalc", content: "<p>הכניסו כתובת IP ומסכה — וראו את חלוקת הרשת.</p>" },
       {
         type: "questions",
         title: "שאלות הבנה - פרק 17",
@@ -6574,6 +6580,7 @@ iptables -L -n -v --line-numbers</code></pre>
 </ul>
 </div>`
       },
+      { type: "simulation", title: "הדמיית Firewall", simId: "firewall", content: "<p>שלחו חבילות לקיר האש וראו אילו חוקים חלים.</p>" },
       {
         type: "story",
         title: "הסיפור: Stuxnet — כשסייבר פגש צנטריפוגות גרעיניות",
