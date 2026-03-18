@@ -600,59 +600,59 @@ export const quizBank = {
 
   10: [
     {
-      q: "מה קורה בשכבה הפיזית?",
-      correct: "המרת bits לאותות פיזיים ‎(חשמל, אור, רדיו)‎ ובחזרה",
+      q: "\u200Fמה קורה בשכבה הפיזית?",
+      correct: "\u200Fהמרת bits לאותות פיזיים\n(חשמל, אור, רדיו) ובחזרה",
       choices: [
-        "המרת bits לאותות פיזיים ‎(חשמל, אור, רדיו)‎ ובחזרה",
-        "הוספת header עם כתובות MAC",
-        "הוספת header עם כתובות IP",
-        "בדיקת שגיאות בנתונים"
+        "\u200Fהמרת bits לאותות פיזיים\n(חשמל, אור, רדיו) ובחזרה",
+        "\u200Fהוספת header עם כתובות MAC",
+        "\u200Fהוספת header עם כתובות IP",
+        "\u200Fבדיקת שגיאות בנתונים"
       ],
-      explanation: "השכבה הפיזית לא מבינה 'packets' — היא רק מעבירה 0 ו-1 כאותות. ‏Ethernet = מתח חשמל | Fiber = פולסים של אור | WiFi = גלי רדיו ⚡"
+      explanation: "\u200F⚡ השכבה הפיזית:\n• לא מבינה 'packets'\n• רק מעבירה 0 ו-1 כאותות\n\n🔌 סוגי אותות:\n• Ethernet = מתח חשמל\n• Fiber = פולסים של אור\n• WiFi = גלי רדיו"
     },
     {
-      q: "מה ההבדל בין fiber optic לכבל נחושת?",
-      correct: "‏Fiber = אור, נחושת = חשמל. Fiber מהיר יותר ועמיד להתערבות",
+      q: "\u200Fמה ההבדל בין fiber optic לכבל נחושת?",
+      correct: "\u200FFiber = אור, נחושת = חשמל\nFiber מהיר יותר ועמיד להתערבות",
       choices: [
-        "‏Fiber = אור, נחושת = חשמל. Fiber מהיר יותר ועמיד להתערבות",
-        "‏Fiber זול יותר ולכן נפוץ יותר",
-        "‏Fiber לתקשורת ים, נחושת ליבשה בלבד",
-        "אין הבדל משמעותי בביצועים"
+        "\u200FFiber = אור, נחושת = חשמל\nFiber מהיר יותר ועמיד להתערבות",
+        "\u200FFiber זול יותר ולכן נפוץ יותר",
+        "\u200FFiber לתקשורת ים, נחושת ליבשה בלבד",
+        "\u200Fאין הבדל משמעותי בביצועים"
       ],
-      explanation: "‏Fiber העובד במהירות האור (!) יכול להגיע לTerabits/sec. לא מושפע מ-EMI. הרבה יקר יותר להתקנה. כבלי ים-בינלאומיים = כולם fiber 🌊"
+      explanation: "\u200F💡 Fiber Optic:\n• עובד במהירות האור\n• יכול להגיע ל-Terabits/sec\n• לא מושפע מ-EMI\n• הרבה יקר יותר להתקנה\n\n🌊 כבלי ים בינלאומיים:\n• כולם fiber"
     },
     {
-      q: "מה תהליך DHCP DORA?",
-      correct: "‏Discover (broadcast) → Offer (server) → Request (client) → Acknowledge (server) — מעניק IP, subnet, gateway, DNS",
+      q: "\u200Fמה תהליך DHCP DORA?",
+      correct: "\u200FDiscover → Offer → Request → Acknowledge\nמעניק IP, subnet, gateway, DNS",
       choices: [
-        "‏Discover (broadcast) → Offer (server) → Request (client) → Acknowledge (server) — מעניק IP, subnet, gateway, DNS",
-        "‏DNS → OFFER → REQUEST → ACK",
-        "‏Discover → Relay → Access → Gateway",
-        "‏request → reply בלבד"
+        "\u200FDiscover → Offer → Request → Acknowledge\nמעניק IP, subnet, gateway, DNS",
+        "\u200FDNS → OFFER → REQUEST → ACK",
+        "\u200FDiscover → Relay → Access → Gateway",
+        "\u200Frequest → reply בלבד"
       ],
-      explanation: "‏DHCP DORA: 1) DISCOVER: client שולח broadcast (0.0.0.0 → 255.255.255.255) UDP port 67. ‏2) OFFER: server מציע IP + lease time. ‏3) REQUEST: client מבקש את ה-IP המוצע. ‏4) ACK: server מאשר ומעניק. ‏DHCP Lease: IP ניתן לתקופה ‎(1-24 שעות)‎. ‏Renewal ב-50% מה-lease. ‏DHCP server מזהה client לפי MAC address."
+      explanation: "\u200F📡 DHCP DORA — 4 שלבים:\n• DISCOVER: client שולח broadcast\n  (0.0.0.0 → 255.255.255.255) UDP port 67\n• OFFER: server מציע IP + lease time\n• REQUEST: client מבקש את ה-IP המוצע\n• ACK: server מאשר ומעניק\n\n⏱️ Lease:\n• IP ניתן לתקופה (1-24 שעות)\n• Renewal ב-50% מה-lease\n• DHCP server מזהה client לפי MAC address"
     },
     {
-      q: "מה DHCP Snooping ואיזו בעיה הוא פותר?",
-      correct: "‏Feature ב-switch שחוסם DHCP servers לא מורשים — מונע Rogue DHCP server שמעניק IPs ומסיט traffic",
+      q: "\u200Fמה DHCP Snooping ואיזו בעיה הוא פותר?",
+      correct: "\u200FFeature ב-switch שחוסם DHCP servers לא מורשים\nמונע Rogue DHCP server שמעניק IPs ומסיט traffic",
       choices: [
-        "‏Feature ב-switch שחוסם DHCP servers לא מורשים — מונע Rogue DHCP server שמעניק IPs ומסיט traffic",
-        "הצפנת DHCP traffic",
-        "מגביל מספר IPs לclient",
-        "‏DHCP ב-IPv6 בלבד"
+        "\u200FFeature ב-switch שחוסם DHCP servers לא מורשים\nמונע Rogue DHCP server שמעניק IPs ומסיט traffic",
+        "\u200Fהצפנת DHCP traffic",
+        "\u200Fמגביל מספר IPs ל-client",
+        "\u200FDHCP ב-IPv6 בלבד"
       ],
-      explanation: "‏Rogue DHCP Server attack: תוקף מפעיל DHCP server משלו, מקדים לענות על DISCOVER, מעניק IPs עם default gateway = IP שלו = MITM. ‏DHCP Snooping: Trusted ports (uplink) = מאושר. ‏Untrusted (clients) = DHCP replies נחסמות. ‏Binding table: MAC+IP+VLAN+PORT — משמש גם ל-DAI (Dynamic ARP Inspection)."
+      explanation: "\u200F🚨 Rogue DHCP Server attack:\n• תוקף מפעיל DHCP server משלו\n• מקדים לענות על DISCOVER\n• מעניק IPs עם default gateway = IP שלו = MITM\n\n🛡️ DHCP Snooping:\n• Trusted ports (uplink) = מאושר\n• Untrusted (clients) = DHCP replies נחסמות\n• Binding table: MAC+IP+VLAN+PORT\n  — משמש גם ל-DAI (Dynamic ARP Inspection)"
     },
     {
-      q: "כיצד APIPA עובד כשאין DHCP server?",
-      correct: "מחשב מקצה לעצמו IP מ-169.254.0.0/16 (APIPA/link-local) — מאפשר תקשורת מקומית אבל ללא גישה לאינטרנט",
+      q: "\u200Fכיצד APIPA עובד כשאין DHCP server?",
+      correct: "\u200Fמחשב מקצה לעצמו IP מ-169.254.0.0/16\n(APIPA/link-local) — תקשורת מקומית בלבד",
       choices: [
-        "מחשב מקצה לעצמו IP מ-169.254.0.0/16 (APIPA/link-local) — מאפשר תקשורת מקומית אבל ללא גישה לאינטרנט",
-        "מחשב מחכה לנצח עד שמגיע DHCP server",
-        "מחשב משתמש ב-127.0.0.1",
-        "המחשב כותב שגיאה ומשבית את הרשת"
+        "\u200Fמחשב מקצה לעצמו IP מ-169.254.0.0/16\n(APIPA/link-local) — תקשורת מקומית בלבד",
+        "\u200Fמחשב מחכה לנצח עד שמגיע DHCP server",
+        "\u200Fמחשב משתמש ב-127.0.0.1",
+        "\u200Fהמחשב כותב שגיאה ומשבית את הרשת"
       ],
-      explanation: "‏APIPA (Automatic Private IP Addressing): Windows, Mac, Linux. ‏Range: 169.254.0.0/16. ‏Client בוחר IP אקראי ומאמת אותו ב-ARP. אם 169.254.x.x = DHCP נכשל. ‏RFC 3927 (IPv4 Link-Local). ‏IPv6: link-local addresses = fe80::/10, תמיד מוקצות אוטומטית. ‏Zeroconf/Bonjour משתמש ב-link-local."
+      explanation: "\u200F🔄 APIPA (Automatic Private IP Addressing):\n• נתמך ב-Windows, Mac, Linux\n• Range: 169.254.0.0/16\n• Client בוחר IP אקראי ומאמת ב-ARP\n• אם רואים 169.254.x.x = DHCP נכשל\n\n📋 פרוטוקולים קשורים:\n• RFC 3927 (IPv4 Link-Local)\n• IPv6: link-local = fe80::/10, תמיד אוטומטי\n• Zeroconf/Bonjour משתמש ב-link-local"
     }
   ],
 
