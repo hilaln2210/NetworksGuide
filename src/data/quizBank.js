@@ -1766,7 +1766,8 @@ export const quizBank = {
         "‏סריקת Connect דורשת הרשאות root",
         "אין הבדל — שניהם עושים אותו דבר"
       ],
-      explanation: "סריקת SYN (חצי-פתוחה): שולחת SYN, מקבלת SYN-ACK, שולחת RST. לא משלימה חיבור ולכן לא נרשמת בלוגים של האפליקציה. דורשת root. סריקת Connect משלימה לחיצת יד מלאה (TCP handshake) — נרשמת בלוגים אך לא דורשת root. הדגל sS- מועדף בבדיקות חדירה, sT- לסביבות ללא root."
+      explanation: "סריקת SYN (חצי-פתוחה): שולחת SYN, מקבלת SYN-ACK, שולחת RST. לא משלימה חיבור ולכן לא נרשמת בלוגים של האפליקציה. דורשת root. סריקת Connect משלימה לחיצת יד מלאה (TCP handshake) — נרשמת בלוגים אך לא דורשת root. הדגל sS- מועדף בבדיקות חדירה, sT- לסביבות ללא root.",
+      explanationEn: "SYN scan (Half-open): sends SYN, receives SYN-ACK, sends RST. Does not complete a connection, so it is not logged by the application. Requires root. Connect scan: completes a full TCP handshake — gets logged, but does not require root. -sS is preferred for pentesting. -sT for non-root environments."
     },
     {
       q: "מה פקודת Nmap שסורקת כל הפורטים עם זיהוי שירות ומערכת הפעלה?",
@@ -1801,7 +1802,8 @@ export const quizBank = {
         "תוקף מחליף את כתובות IP בחבילות UDP",
         "תוקף מנצל חולשה בפרוטוקול DNS"
       ],
-      explanation: "לפרוטוקול ARP אין מנגנון אימות — כל אחד יכול לשלוח תגובת ARP. התוקף שולח: 'כתובת ה-IP של השער היא כתובת ה-MAC שלי!' הקורבן מעדכן את טבלת ה-ARP וכל התעבורה עוברת דרך התוקף. הגנה: בדיקת ARP דינמית (DAI) בסוויצ'ים, רשומות ARP קבועות, וכלי ניטור כמו ARPwatch."
+      explanation: "לפרוטוקול ARP אין מנגנון אימות — כל אחד יכול לשלוח תגובת ARP. התוקף שולח: 'כתובת ה-IP של השער היא כתובת ה-MAC שלי!' הקורבן מעדכן את טבלת ה-ARP וכל התעבורה עוברת דרך התוקף. הגנה: בדיקת ARP דינמית (DAI) בסוויצ'ים, רשומות ARP קבועות, וכלי ניטור כמו ARPwatch.",
+      explanationEn: "ARP has no authentication — anyone can send an ARP reply. The attacker sends: 'The gateway IP maps to MY MAC address!' The victim updates its ARP cache, and all traffic flows through the attacker. Defenses: Dynamic ARP Inspection (DAI) on switches, static ARP entries, and monitoring tools like ARPwatch."
     },
         {
       q: "מה ההבדל בין Volumetric DDoS לבין Application Layer DDoS (L7)?",
@@ -1812,7 +1814,8 @@ export const quizBank = {
         "‏מתקפת שכבה 7 קלה יותר לחסימה כי השרת רואה את ה-IP",
         "אין הבדל — שניהם מרוקנים bandwidth"
       ],
-      explanation: "מתקפה נפחית (שכבות 3/4): מציפה את הצינור בג'יגה-ביט של נתונים — הצפת UDP, ICMP, SYN. קל לזהות (תעבורה חריגה) אך קשה לעצור ללא סינון ברמת ספק האינטרנט. מתקפת שכבה 7: כלי Slowloris מחזיק חיבורי HTTP פתוחים, הצפת HTTP — הבקשות נראות לגיטימיות וקשה להבחין בהן. מחייב חומת אש אפליקטיבית (WAF), הגבלת קצב ואתגרי CAPTCHA."
+      explanation: "מתקפה נפחית (שכבות 3/4): מציפה את הצינור בג'יגה-ביט של נתונים — הצפת UDP, ICMP, SYN. קל לזהות (תעבורה חריגה) אך קשה לעצור ללא סינון ברמת ספק האינטרנט. מתקפת שכבה 7: כלי Slowloris מחזיק חיבורי HTTP פתוחים, הצפת HTTP — הבקשות נראות לגיטימיות וקשה להבחין בהן. מחייב חומת אש אפליקטיבית (WAF), הגבלת קצב ואתגרי CAPTCHA.",
+      explanationEn: "Volumetric (L3/L4): floods the pipe with gigabits of data — UDP flood, ICMP flood, SYN flood. Easy to detect (abnormal traffic) but hard to stop without ISP-level scrubbing. Application L7: Slowloris holds HTTP connections open, HTTP flood looks legitimate and is hard to distinguish from real traffic. Requires WAF, rate limiting, and challenge-response (CAPTCHA)."
     },
         {
       q: "מהי מתקפת Replay Attack ואיך TLS מונע אותה?",
@@ -1823,7 +1826,8 @@ export const quizBank = {
         "תוקף מקליט שיחת קול ומשחזר אותה לאחר שיחה",
         "פרוטוקול TLS לא מגן מפני מתקפת השחזור — נדרש אימות נוסף"
       ],
-      explanation: "מתקפת השחזור (Replay Attack): התוקפת מיירטת אסימון אימות תקני של המשתמשת ושולחת אותו שוב לשרת כדי להתחזות אליה. בפרוטוקול TLS 1.3 כל חיבור מקבל ערך ייחודי (nonce) ומספרים סידוריים. אסימוני JWT כוללים תפוגה (exp) ומזהה חד-פעמי (jti). בפרוטוקולים ישנים כמו Kerberos, מתקפת השחזור הייתה בעיה קריטית. סנכרון שעונים (NTP) חשוב למניעה."
+      explanation: "מתקפת השחזור (Replay Attack): התוקפת מיירטת אסימון אימות תקני של המשתמשת ושולחת אותו שוב לשרת כדי להתחזות אליה. בפרוטוקול TLS 1.3 כל חיבור מקבל ערך ייחודי (nonce) ומספרים סידוריים. אסימוני JWT כוללים תפוגה (exp) ומזהה חד-פעמי (jti). בפרוטוקולים ישנים כמו Kerberos, מתקפת השחזור הייתה בעיה קריטית. סנכרון שעונים (NTP) חשוב למניעה.",
+      explanationEn: "Replay Attack: an attacker intercepts a valid authentication token from Alice and resends it to the server to impersonate her. TLS 1.3: each connection gets a unique nonce + sequence numbers. Token-based: JWT includes exp (expiration) + jti (unique JWT ID). In older protocols (old Kerberos), replay was a critical vulnerability. NTP sync is important for prevention."
     }
   ],
 
@@ -1837,7 +1841,8 @@ export const quizBank = {
         "‏XSS מוחזר חמור יותר כי מסוגל לגנוב סיסמאות",
         "שניהם זהים — רק שמות שונים"
       ],
-      explanation: "‏XSS מאוחסן (Stored/Persistent): סקריפט נשמר במסד הנתונים (למשל תגובה בפורום) ומורץ אצל כל מי שצופה. XSS מוחזר (Reflected): סקריפט בכתובת URL, נשלח למשתמש ומורץ מיד. XSS מבוסס DOM: רץ בצד הלקוח ללא מעורבות השרת. המאוחסן הוא המסוכן ביותר בגלל ההיקף. הגנה: קידוד פלט (output encoding) וכותרות CSP."
+      explanation: "‏XSS מאוחסן (Stored/Persistent): סקריפט נשמר במסד הנתונים (למשל תגובה בפורום) ומורץ אצל כל מי שצופה. XSS מוחזר (Reflected): סקריפט בכתובת URL, נשלח למשתמש ומורץ מיד. XSS מבוסס DOM: רץ בצד הלקוח ללא מעורבות השרת. המאוחסן הוא המסוכן ביותר בגלל ההיקף. הגנה: קידוד פלט (output encoding) וכותרות CSP.",
+      explanationEn: "Stored (Persistent) XSS: a script is saved in the database (e.g., a forum comment) and executes for every visitor. Reflected: a script in a URL is sent to a user and executes immediately. DOM-based: runs in client-side JS without server involvement. Stored is the most dangerous (affects all visitors). Defense: output encoding, CSP headers."
     },
     {
       q: "מה CVSS score של 9.8 מייצג?",
@@ -1848,7 +1853,8 @@ export const quizBank = {
         "‏Medium — פגיעות בינונית עם השפעה מוגבלת",
         "תלוי בסוג המערכת"
       ],
-      explanation: "סולם CVSS v3: אפס=ללא, 0.1-3.9=נמוך, 4.0-6.9=בינוני, 7.0-8.9=גבוה, 9.0-10.0=קריטי. ציון 9.8 פירושו הרצת קוד מרחוק (RCE) ללא אימות ונגיש מהרשת. פגיעויות Heartbleed ו-Log4Shell קיבלו ציון 9.8 ומעלה. כל פגיעות קריטית דורשת טלאי תוך 24-48 שעות."
+      explanation: "סולם CVSS v3: אפס=ללא, 0.1-3.9=נמוך, 4.0-6.9=בינוני, 7.0-8.9=גבוה, 9.0-10.0=קריטי. ציון 9.8 פירושו הרצת קוד מרחוק (RCE) ללא אימות ונגיש מהרשת. פגיעויות Heartbleed ו-Log4Shell קיבלו ציון 9.8 ומעלה. כל פגיעות קריטית דורשת טלאי תוך 24-48 שעות.",
+      explanationEn: "CVSS v3 scale: 0.0=None, 0.1-3.9=Low, 4.0-6.9=Medium, 7.0-8.9=High, 9.0-10.0=Critical. A score of 9.8 means Remote Code Execution (RCE) without authentication, network-accessible. Heartbleed and Log4Shell received CVSS 9.8+. Every Critical vulnerability needs patching within 24-48 hours."
     },
     {
       q: "איך Heartbleed עבד טכנית?",
@@ -1859,7 +1865,8 @@ export const quizBank = {
         "‏SQL injection במסד הנתונים של OpenSSL",
         "חיבור TLS לא מוצפן שאפשר האזנה"
       ],
-      explanation: "תוסף ה-Heartbeat ב-OpenSSL: הלקוח שולח 'החזר לי X בתים'. השרת מחזיר X בתים מבלי לוודא שנשלחו כל כך הרבה. הבאג: אם ביקשת 64KB אבל שלחת בית אחד, השרת מחזיר 64KB מהזיכרון — שעלול להכיל מפתחות פרטיים, אסימוני הפעלה וסיסמאות. הפגיעות הייתה חשופה שנתיים (2012-2014)."
+      explanation: "תוסף ה-Heartbeat ב-OpenSSL: הלקוח שולח 'החזר לי X בתים'. השרת מחזיר X בתים מבלי לוודא שנשלחו כל כך הרבה. הבאג: אם ביקשת 64KB אבל שלחת בית אחד, השרת מחזיר 64KB מהזיכרון — שעלול להכיל מפתחות פרטיים, אסימוני הפעלה וסיסמאות. הפגיעות הייתה חשופה שנתיים (2012-2014).",
+      explanationEn: "OpenSSL Heartbeat extension: the client sends 'return X bytes to me'. The server returns X bytes without verifying that X bytes were actually sent. Bug: if you request 64K but send 1 byte, the server returns 64K from RAM — which may contain private keys, session tokens, and passwords. The vulnerability was exposed for 2 years (2012-2014)."
     },
         {
       q: "מה SQL Injection ואיך prepared statements מונעים אותה?",
@@ -1870,7 +1877,8 @@ export const quizBank = {
         "הצפנת שאילתות SQL לפני שליחה למסד הנתונים",
         "שאילתות מוכנות מהירות יותר — זו הסיבה העיקרית להשתמש בהן"
       ],
-      explanation: "דוגמה קלאסית להזרקת SQL: שם משתמש עם ' OR '1'='1 יוצר שאילתה שתמיד מחזירה true ועוקף את ההתחברות. שאילתה מוכנה (Prepared Statement) משתמשת בסימן ? כמציין מקום — מסד הנתונים מטפל בערך כטקסט בלבד ולא כקוד. כלל ברזל: לעולם אל תשלב קלט משתמש ישירות במחרוזת SQL!"
+      explanation: "דוגמה קלאסית להזרקת SQL: שם משתמש עם ' OR '1'='1 יוצר שאילתה שתמיד מחזירה true ועוקף את ההתחברות. שאילתה מוכנה (Prepared Statement) משתמשת בסימן ? כמציין מקום — מסד הנתונים מטפל בערך כטקסט בלבד ולא כקוד. כלל ברזל: לעולם אל תשלב קלט משתמש ישירות במחרוזת SQL!",
+      explanationEn: "Classic SQLi: username=' OR '1'='1 turns the query into SELECT * FROM users WHERE name='' OR '1'='1' — always true, bypasses login! Prepared Statement: $stmt = $pdo->prepare('SELECT * FROM users WHERE name = ?'); $stmt->execute([$username]); — the ? is a placeholder, the DB treats the value as a string, not code. Never concatenate user input directly into SQL strings!"
     },
         {
       q: "מה CSRF ואיך Anti-CSRF Token מגן?",
@@ -1881,7 +1889,8 @@ export const quizBank = {
         "גניבת כותרות CSRF מבקשת HTTP",
         "כניסה לחשבון בעזרת סיסמה גנובה"
       ],
-      explanation: "תרחיש: אליס מחוברת לאתר הבנק. היא מבקרת באתר זדוני שמכיל תג תמונה עם כתובת לפעולת העברה בבנק. הדפדפן שולח את הבקשה עם העוגיות של אליס! אסימון נגד CSRF: השרת מוסיף אסימון נסתר לכל טופס, ובעת שליחה מוודא שהאסימון תואם את ההפעלה. אתר זדוני לא יכול לקרוא את האסימון בזכות מדיניות Same-Origin Policy."
+      explanation: "תרחיש: אליס מחוברת לאתר הבנק. היא מבקרת באתר זדוני שמכיל תג תמונה עם כתובת לפעולת העברה בבנק. הדפדפן שולח את הבקשה עם העוגיות של אליס! אסימון נגד CSRF: השרת מוסיף אסימון נסתר לכל טופס, ובעת שליחה מוודא שהאסימון תואם את ההפעלה. אתר זדוני לא יכול לקרוא את האסימון בזכות מדיניות Same-Origin Policy.",
+      explanationEn: "Scenario: Alice is logged into bank.com. She visits evil.com which contains an image tag pointing to bank.com/transfer. The browser sends the request with Alice's cookies! Anti-CSRF Token: the server adds a hidden token to every form, the token is sent in the body, and the server verifies it matches the session. The attacker's site cannot read the token due to Same-Origin Policy."
     },
         {
       q: "מה OWASP Top 10 ואיזה vulnerability בדרך כלל תופס מקום ראשון?",
@@ -1892,7 +1901,8 @@ export const quizBank = {
         "10 פגיעויות שנתגלו בשנת 2021 בלבד",
         "תקן ISO המגדיר אבטחת ווב — XSS במקום 1 תמיד"
       ],
-      explanation: "רשימת OWASP Top 10 לשנת 2021: בקרת גישה לקויה (A01), כשלים קריפטוגרפיים (A02), הזרקות SQL/LDAP/OS (A03), תכנון לא מאובטח (A04), תצורת אבטחה שגויה (A05), רכיבים פגיעים (A06), כשלי אימות (A07), כשלי שלמות (A08), כשלי תיעוד (A09), זיוף בקשות בצד השרת — SSRF (A10). לא חוק אלא מדריך שיטות עבודה מומלצות לצוותי פיתוח. מתעדכן כל 4 שנים בערך."
+      explanation: "רשימת OWASP Top 10 לשנת 2021: בקרת גישה לקויה (A01), כשלים קריפטוגרפיים (A02), הזרקות SQL/LDAP/OS (A03), תכנון לא מאובטח (A04), תצורת אבטחה שגויה (A05), רכיבים פגיעים (A06), כשלי אימות (A07), כשלי שלמות (A08), כשלי תיעוד (A09), זיוף בקשות בצד השרת — SSRF (A10). לא חוק אלא מדריך שיטות עבודה מומלצות לצוותי פיתוח. מתעדכן כל 4 שנים בערך.",
+      explanationEn: "OWASP Top 10 (2021): A01:Broken Access Control (user can access another's resources), A02:Cryptographic Failures, A03:Injection (SQL/LDAP/OS), A04:Insecure Design, A05:Security Misconfiguration, A06:Vulnerable Components, A07:Auth Failures, A08:Integrity Failures, A09:Logging Failures, A10:SSRF. Not a law — a best practice guide for dev teams. Updated roughly every 4 years."
     }
   ],
 
@@ -1906,7 +1916,8 @@ export const quizBank = {
         "הצפנת כל הנתונים במסד הנתונים",
         "גיבוי יומי לכל המערכות"
       ],
-      explanation: "הגנה לעומק כוללת שכבות: היקף (חומת אש, WAF), רשת (מערכות זיהוי/מניעת חדירה, הפרדת רשתות), תחנות קצה (אנטי-וירוס, EDR, עדכונים), אפליקציה (אימות, הרשאות, בדיקת קלט), נתונים (הצפנה, מניעת דליפה) ואנושי (הדרכה, סימולציות פישינג). כל שכבה מניחה שהשכבה החיצונית תיכשל."
+      explanation: "הגנה לעומק כוללת שכבות: היקף (חומת אש, WAF), רשת (מערכות זיהוי/מניעת חדירה, הפרדת רשתות), תחנות קצה (אנטי-וירוס, EDR, עדכונים), אפליקציה (אימות, הרשאות, בדיקת קלט), נתונים (הצפנה, מניעת דליפה) ואנושי (הדרכה, סימולציות פישינג). כל שכבה מניחה שהשכבה החיצונית תיכשל.",
+      explanationEn: "Defense in Depth layers: Perimeter (Firewall, WAF) > Network (IDS/IPS, Segmentation) > Endpoint (AV, EDR, Patch) > Application (Auth, RBAC, Input validation) > Data (Encryption, DLP) > Human (Training, Phishing simulation). Each layer assumes the outer layer will fail."
     },
     {
       q: "מה ה-Incident Response lifecycle לפי NIST?",
@@ -1917,7 +1928,8 @@ export const quizBank = {
         "‏Monitor → Block → Clean → Backup",
         "‏Detect → Respond → Recover → Improve"
       ],
-      explanation: "לפי תקן NIST SP 800-61: הכנה (כלים, נהלים, צוות), זיהוי וניתוח (איתור סממני פריצה), בלימה (בידוד — קצר טווח ואז ארוך טווח), מיגור (הסרת תוכנה זדונית, עדכון), שחזור (החזרת שירותים), ולקחים נלמדים (תחקיר תוך שבועיים). המחזור חוזר תמיד על עצמו."
+      explanation: "לפי תקן NIST SP 800-61: הכנה (כלים, נהלים, צוות), זיהוי וניתוח (איתור סממני פריצה), בלימה (בידוד — קצר טווח ואז ארוך טווח), מיגור (הסרת תוכנה זדונית, עדכון), שחזור (החזרת שירותים), ולקחים נלמדים (תחקיר תוך שבועיים). המחזור חוזר תמיד על עצמו.",
+      explanationEn: "NIST SP 800-61: Preparation (tools, playbooks, team). Detection & Analysis (identify IOCs). Containment (isolate — short-term then long-term). Eradication (remove malware, patch). Recovery (restore services). Lessons Learned (post-mortem within 2 weeks). The cycle always repeats."
     },
     {
       q: "מה SIEM עושה שאי אפשר לעשות עם logs פשוטים?",
@@ -1928,7 +1940,8 @@ export const quizBank = {
         "מחליף חומת אש ומערכת זיהוי חדירות",
         "שולח התרעות רק על פגיעויות CVE ידועות"
       ],
-      explanation: "מערכת SIEM (ניהול מידע ואירועי אבטחה) אוספת ממקורות: Active Directory, חומת אש, EDR, פרוקסי ווב, DNS. דוגמה לזיהוי מתאמים: 3 כשלי התחברות (ניסיון פריצה?) ואז הצלחה + גישה לשרת רגיש = התרעה. כלים נפוצים: Splunk, IBM QRadar, Microsoft Sentinel. אנליסט SOC מבלה 70% מזמנו במערכת SIEM."
+      explanation: "מערכת SIEM (ניהול מידע ואירועי אבטחה) אוספת ממקורות: Active Directory, חומת אש, EDR, פרוקסי ווב, DNS. דוגמה לזיהוי מתאמים: 3 כשלי התחברות (ניסיון פריצה?) ואז הצלחה + גישה לשרת רגיש = התרעה. כלים נפוצים: Splunk, IBM QRadar, Microsoft Sentinel. אנליסט SOC מבלה 70% מזמנו במערכת SIEM.",
+      explanationEn: "SIEM = Security Information and Event Management. Sources: AD, Firewall, EDR, Web proxy, DNS. Correlation example: 3 login failures (brute force?) + success + access to sensitive server = alert. Tools: Splunk, IBM QRadar, Microsoft Sentinel, ELK Stack. SOC analysts spend 70% of their time in the SIEM."
     },
         {
       q: "מה 5 שלבי Penetration Testing המקובלים?",
@@ -1939,7 +1952,8 @@ export const quizBank = {
         "‏OSINT, Nmap, Metasploit, Pivot, Exit",
         "‏Discovery, Enumeration, Privilege Escalation, Lateral Movement, Cleanup"
       ],
-      explanation: "שלבי בדיקת חדירה: 1) איסוף מודיעין — מקורות פתוחים (OSINT), סריקת DNS. 2) סריקה — באמצעות Nmap, Nikto, Shodan. 3) ניצול — באמצעות Metasploit וניצול פגיעויות CVE. 4) לאחר הניצול — הסלמת הרשאות, תנועה רוחבית, השגת אחיזה, הברחת מידע. 5) דו\"ח — תקציר מנהלים, פרטים טכניים, ציוני CVSS והמלצות. חשוב: הסכמה בכתב על היקף הבדיקה לפני ההתחלה!"
+      explanation: "שלבי בדיקת חדירה: 1) איסוף מודיעין — מקורות פתוחים (OSINT), סריקת DNS. 2) סריקה — באמצעות Nmap, Nikto, Shodan. 3) ניצול — באמצעות Metasploit וניצול פגיעויות CVE. 4) לאחר הניצול — הסלמת הרשאות, תנועה רוחבית, השגת אחיזה, הברחת מידע. 5) דו\"ח — תקציר מנהלים, פרטים טכניים, ציוני CVSS והמלצות. חשוב: הסכמה בכתב על היקף הבדיקה לפני ההתחלה!",
+      explanationEn: "Pentest phases: 1) Reconnaissance — OSINT, DNS enumeration, Google dorking. 2) Scanning — Nmap, Nikto, Shodan. 3) Exploitation — Metasploit, custom exploits, CVE exploitation. 4) Post-Exploitation — privilege escalation, lateral movement, persistence, data exfiltration. 5) Reporting — executive summary + technical details + CVSS scores + recommendations. Important: written scope agreement before starting!"
     },
         {
       q: "מה ההבדל בין White Box לבין Black Box Penetration Testing?",
@@ -1950,7 +1964,8 @@ export const quizBank = {
         "קופסה לבנה מבוצעת במשרד — קופסה שחורה מרחוק",
         "קופסה לבנה בודקת רשת — קופסה שחורה בודקת אפליקציות"
       ],
-      explanation: "בבדיקת קופסה לבנה (Crystal Box) הבודק מקבל קוד מקור, הרשאות ותרשימי ארכיטקטורה — יעיל ויסודי יותר. קופסה אפורה (Gray Box): ידע חלקי, הרשאות בלבד. קופסה שחורה (Black Box): מדמה תוקף אמיתי. צוות אדום (Red Team) הוא קופסה שחורה מורחבת עם הנדסה חברתית וטכניקות פיזיות. קופסה לבנה עדיפה לסקירת קוד; קופסה שחורה לאיתור בעיות שרק תוקף חיצוני ימצא."
+      explanation: "בבדיקת קופסה לבנה (Crystal Box) הבודק מקבל קוד מקור, הרשאות ותרשימי ארכיטקטורה — יעיל ויסודי יותר. קופסה אפורה (Gray Box): ידע חלקי, הרשאות בלבד. קופסה שחורה (Black Box): מדמה תוקף אמיתי. צוות אדום (Red Team) הוא קופסה שחורה מורחבת עם הנדסה חברתית וטכניקות פיזיות. קופסה לבנה עדיפה לסקירת קוד; קופסה שחורה לאיתור בעיות שרק תוקף חיצוני ימצא.",
+      explanationEn: "White Box (Crystal Box): tester receives source code, credentials, and architecture diagrams. More thorough, finds more issues. Gray Box: partial knowledge — credentials only. Black Box: simulates a real attacker. Red Team = extended Black Box with social engineering and physical techniques. White Box is better for Code Review; Black Box for finding issues only an external attacker would discover."
     },
         {
       q: "מה Metasploit Framework ומה זה Meterpreter shell?",
@@ -1961,81 +1976,82 @@ export const quizBank = {
         "‏Metasploit הוא כלי SIEM — ו-Meterpreter הוא כלי ניתוח לוגים",
         "‏Metasploit הוא כלי הצפנה — Meterpreter הוא כלי לפיצוח סיסמאות"
       ],
-      explanation: "‏Metasploit (של חברת Rapid7): פותחים את msfconsole, מחפשים ניצול, בוחרים מטען ומריצים. Meterpreter (מפרש-על) רץ בזיכרון התהליך שנוצל — אין קובץ בדיסק, מוצפן ב-TLS. פקודות נפוצות: שליפת גיבובי סיסמאות, הסלמת הרשאות, צילום מסך, מעבר לתהליך אחר. התחמקות: מטענים פולימורפיים וקידוד באמצעות msfvenom."
+      explanation: "‏Metasploit (של חברת Rapid7): פותחים את msfconsole, מחפשים ניצול, בוחרים מטען ומריצים. Meterpreter (מפרש-על) רץ בזיכרון התהליך שנוצל — אין קובץ בדיסק, מוצפן ב-TLS. פקודות נפוצות: שליפת גיבובי סיסמאות, הסלמת הרשאות, צילום מסך, מעבר לתהליך אחר. התחמקות: מטענים פולימורפיים וקידוד באמצעות msfvenom.",
+      explanationEn: "Metasploit (Rapid7): msfconsole > search exploit > use exploit/windows/smb/ms17_010_eternalblue > set RHOSTS > set PAYLOAD > run. Meterpreter = meta-interpreter: runs in the exploited process's memory, not as an exe file, encrypted with TLS. Commands: hashdump, getsystem (priv esc), screenshot, migrate (to a different process). Evasion: polymorphic payloads, msfvenom encoding."
     }
   ],
 
   105: [
     {
       q: "למה AES-ECB מסוכן למרות ש-AES עצמו חזק?",
-      correct: "ECB מצפין כל block בנפרד — blocks זהים מייצרים ciphertext זהה וחושף patterns",
+      correct: "מצב ECB מצפין כל בלוק בנפרד — בלוקים זהים מייצרים טקסט מוצפן זהה וחושפים דפוסים",
       choices: [
-        "ECB מצפין כל block בנפרד — blocks זהים מייצרים ciphertext זהה וחושף patterns",
-        "ECB לא תומך במפתחות של 256 bit",
-        "ECB פגיע ל-brute force כי המפתח קצר",
-        "ECB איטי מדי לשימוש מעשי"
+        "מצב ECB מצפין כל בלוק בנפרד — בלוקים זהים מייצרים טקסט מוצפן זהה וחושפים דפוסים",
+        "מצב ECB לא תומך במפתחות של 256 סיביות",
+        "מצב ECB פגיע לכוח גס כי המפתח קצר",
+        "מצב ECB איטי מדי לשימוש מעשי"
       ],
-      explanation: "‏AES-ECB: כל 16 bytes מוצפנים באופן עצמאי. אם יש בimage שני אזורים עם אותו צבע → ciphertext זהה → pattern נראה. הדגמה קלאסית: הצפנת תמונת Linux penguin ב-ECB — הצללית עדיין נראית! הפתרון: AES-CBC/GCM — IV + chaining מונע patterns.",
+      explanation: "במצב AES-ECB כל 16 בתים מוצפנים באופן עצמאי. אם בתמונה יש שני אזורים באותו צבע — הטקסט המוצפן זהה והדפוס נראה. הדגמה קלאסית: הצפנת תמונת הפינגווין של לינוקס במצב ECB — הצללית עדיין נראית! הפתרון: מצבי AES-CBC או AES-GCM שמשתמשים בוקטור אתחול ושרשור למניעת דפוסים.",
       explanationEn: "AES-ECB encrypts each 16-byte block independently. If an image has two regions with the same color, they produce identical ciphertext, revealing the pattern. Classic demo: encrypting the Linux penguin image with ECB — the silhouette is still visible! Solution: AES-CBC/GCM — an IV plus chaining prevents patterns."
     },
     {
       q: "מה 0-RTT ב-TLS 1.3 / QUIC ומה הסיכון?",
-      correct: "שליחת data בpacket ראשון בלי handshake — חוסך RTT, אך data זה פגיע לreplay attacks",
+      correct: "שליחת נתונים בחבילה הראשונה בלי לחיצת יד — חוסכת זמן הלוך-חזור, אך נתונים אלו פגיעים למתקפת השחזור",
       choices: [
-        "שליחת data בpacket ראשון בלי handshake — חוסך RTT, אך data זה פגיע לreplay attacks",
+        "שליחת נתונים בחבילה הראשונה בלי לחיצת יד — חוסכת זמן הלוך-חזור, אך נתונים אלו פגיעים למתקפת השחזור",
         "חיבור TLS ללא הצפנה לשיפור מהירות",
-        "שמירת session על הדיסק בין חיבורים",
-        "שימוש ב-HTTP/1.1 כ-fallback"
+        "שמירת הפעלה על הדיסק בין חיבורים",
+        "‏שימוש ב-HTTP/1.1 כחלופה"
       ],
-      explanation: "‏0-RTT: ה-Client שולח application data בpacket הראשון ‎(עם session ticket מחיבור קודם)‎‏. חוסך ‎1-2 RTT‏. סיכון: Replay attack — תוקף יכול לשלוח את ה-0-RTT data שוב. לכן: 0-RTT מוגבל לrequests idempotent ‎(GET, לא POST עם payment)‎‏. ‎TLS 1.3‏ תומך ב-0-RTT, ‎TLS 1.2‏ לא.",
+      explanation: "במנגנון 0-RTT הלקוח שולח נתוני אפליקציה כבר בחבילה הראשונה (באמצעות כרטיס הפעלה מחיבור קודם), וחוסך 1-2 זמני הלוך-חזור. הסיכון: תוקף יכול לשלוח שוב את נתוני ה-0-RTT (מתקפת השחזור). לכן 0-RTT מוגבל לבקשות שאינן משנות מצב (GET, לא POST עם תשלום). פרוטוקול TLS 1.3 תומך ב-0-RTT, גרסה 1.2 לא.",
       explanationEn: "0-RTT: the client sends application data in the very first packet (using a session ticket from a previous connection), saving 1-2 round trips. Risk: Replay attack — an attacker can resend the 0-RTT data. Therefore, 0-RTT is restricted to idempotent requests (GET, not POST with payment). TLS 1.3 supports 0-RTT; TLS 1.2 does not."
     },
     {
       q: "מה הייחודיות של Dual EC DRBG?",
-      correct: "‏CSPRNG שה-NSA הכניסה אליו backdoor — constants מוגדרים מראש שמאפשרים למי שיודע את הסוד לחזות output",
+      correct: "מחולל מספרים אקראיים קריפטוגרפי שה-NSA הטמינה בו דלת אחורית — קבועים מוגדרים מראש שמאפשרים למי שמכיר את הסוד לחזות את הפלט",
       choices: [
-        "‏CSPRNG שה-NSA הכניסה אליו backdoor — constants מוגדרים מראש שמאפשרים למי שיודע את הסוד לחזות output",
-        "אלגוריתם הצפנה שנשבר בbrute force",
-        "פרוטוקול key exchange עם חולשה מתמטית",
-        "‏hash function עם collision ידועה"
+        "מחולל מספרים אקראיים קריפטוגרפי שה-NSA הטמינה בו דלת אחורית — קבועים מוגדרים מראש שמאפשרים למי שמכיר את הסוד לחזות את הפלט",
+        "אלגוריתם הצפנה שנשבר בכוח גס",
+        "פרוטוקול החלפת מפתחות עם חולשה מתמטית",
+        "פונקציית גיבוב עם התנגשות ידועה"
       ],
-      explanation: "‏Dual EC DRBG: נכנס לstandard NIST ב-2006. ‏Snowden 2013: NSA שילמה לRSA Security $10M להשתמש בו כdefault ב-BSafe. הבעיה: 2 נקודות על Elliptic Curve (P,Q) נבחרו על ידי NSA — מי שיודע log_P(Q) יכול לחזות את כל output. זה backdoor מתמטי מושלם.",
+      explanation: "‏Dual EC DRBG נכנס לתקן NIST ב-2006. חשיפת סנודן (2013) גילתה שה-NSA שילמה 10 מיליון דולר לחברת RSA Security כדי להפוך אותו לברירת מחדל. הבעיה: שתי נקודות על העקום האליפטי (P ו-Q) נבחרו על ידי ה-NSA — מי שיודע את הקשר ביניהן יכול לחזות את כל הפלט. דלת אחורית מתמטית מושלמת.",
       explanationEn: "Dual EC DRBG entered the NIST standard in 2006. Snowden 2013 revealed: the NSA paid RSA Security $10M to use it as the default in BSafe. The problem: two points on the Elliptic Curve (P, Q) were chosen by the NSA — anyone who knows log_P(Q) can predict all output. A mathematically perfect backdoor."
     },
         {
       q: "מה SIEM ואיזה מוצרים נפוצים בתעשייה?",
-      correct: "‏Security Information and Event Management — אוסף logs ממקורות רבים, מנתח ומתריע על anomalies — ספלנק, IBM QRadar, Microsoft Sentinel",
+      correct: "מערכת SIEM (ניהול מידע ואירועי אבטחה) — אוספת לוגים ממקורות רבים, מנתחת ומתריעה על חריגות. כלים נפוצים: Splunk, IBM QRadar, Microsoft Sentinel",
       choices: [
-        "‏Security Information and Event Management — אוסף logs ממקורות רבים, מנתח ומתריע על anomalies — ספלנק, IBM QRadar, Microsoft Sentinel",
-        "כלי לניהול passwords וMFA בארגון",
-        "‏Intrusion Detection System מתקדם שחוסם תעבורה חשודה",
-        "פלטפורמת backup לlog files של שרתים"
+        "מערכת SIEM (ניהול מידע ואירועי אבטחה) — אוספת לוגים ממקורות רבים, מנתחת ומתריעה על חריגות. כלים נפוצים: Splunk, IBM QRadar, Microsoft Sentinel",
+        "כלי לניהול סיסמאות ואימות רב-שלבי בארגון",
+        "מערכת זיהוי חדירות מתקדמת שחוסמת תעבורה חשודה",
+        "פלטפורמת גיבוי לקובצי לוגים של שרתים"
       ],
-      explanation: "‏SIEM = correlation engine. מקבל: firewall logs, EDR alerts, DNS queries, Windows Event Logs, cloud audit logs. ‏Use cases: זיהוי brute-force ‎(X failures/minute מאותו IP)‎, lateral movement ‎(user login מ-3 מדינות ב-1 שעה)‎, data exfiltration ‎(upload חריג)‎. ‏SPL (Splunk Processing Language): index=windows EventCode=4625 | stats count by src_ip | where count > 50. ‏SIEM לבד לא מספיק — צריך analysts לנתח alerts.",
+      explanation: "מערכת SIEM היא מנוע מתאמים. מקבלת: לוגי חומת אש, התרעות EDR, שאילתות DNS, לוגי אירועים של Windows, לוגי ביקורת ענן. שימושים: זיהוי ניסיונות כוח גס (כשלים רבים בדקה מאותו IP), תנועה רוחבית (כניסות מ-3 מדינות בשעה), הברחת מידע (העלאה חריגה). שפת שאילתות של Splunk (SPL) מאפשרת ניתוח מתקדם. מערכת SIEM לבדה לא מספיקה — צריך אנליסטים לנתח התרעות.",
       explanationEn: "SIEM = correlation engine. Ingests: firewall logs, EDR alerts, DNS queries, Windows Event Logs, cloud audit logs. Use cases: detecting brute-force (X failures/minute from one IP), lateral movement (user logins from 3 countries in 1 hour), data exfiltration (unusual uploads). SPL (Splunk Processing Language): index=windows EventCode=4625 | stats count by src_ip | where count > 50. SIEM alone is not enough — analysts must investigate alerts."
     },
         {
       q: "מה תהליך Incident Response (IR) ומה 6 שלביו?",
-      correct: "‏Preparation, Identification, Containment, Eradication, Recovery, Lessons Learned — תהליך מובנה לטיפול בתקרית אבטחה",
+      correct: "הכנה, זיהוי, בלימה, מיגור, שחזור, לקחים נלמדים (PICERL) — תהליך מובנה לטיפול בתקרית אבטחה",
       choices: [
-        "‏Preparation, Identification, Containment, Eradication, Recovery, Lessons Learned — תהליך מובנה לטיפול בתקרית אבטחה",
-        "‏Detection, Analysis, Reporting — תהליך 3 שלבים",
-        "‏Alert, Triage, Remediate — תהליך SOC סטנדרטי",
-        "‏Scan, Find, Fix, Test — מחזור ניהול פגיעויות"
+        "הכנה, זיהוי, בלימה, מיגור, שחזור, לקחים נלמדים (PICERL) — תהליך מובנה לטיפול בתקרית אבטחה",
+        "זיהוי, ניתוח, דיווח — תהליך בן 3 שלבים",
+        "התרעה, תיעדוף, תיקון — תהליך SOC סטנדרטי",
+        "סריקה, איתור, תיקון, בדיקה — מחזור ניהול פגיעויות"
       ],
-      explanation: "‏PICERL (NIST SP 800-61): 1) Preparation — playbooks, tools, training מוכנים. ‏2) Identification — זיהוי שמשהו קרה, scope. ‏3) Containment — בידוד המכונות הנגועות (network isolation). ‏4) Eradication — מחיקת malware, patch. ‏5) Recovery — החזרת שירות, monitoring מוגבר. ‏6) Post-Incident — מה קרה? איך? מה נשפר? RCA (Root Cause Analysis). בחברות גדולות: CIRT, CSIRT, CERT.",
+      explanation: "לפי תקן NIST SP 800-61 (ראשי תיבות PICERL): 1) הכנה — נהלים, כלים והדרכות מוכנים מראש. 2) זיהוי — הבנה שמשהו קרה וקביעת היקף. 3) בלימה — בידוד המכונות הנגועות (ניתוק מהרשת). 4) מיגור — מחיקת תוכנה זדונית ועדכון. 5) שחזור — החזרת שירותים וניטור מוגבר. 6) לקחים — מה קרה? איך? מה נשפר? ניתוח שורש הבעיה (RCA). בחברות גדולות קיימים צוותי תגובה ייעודיים (CIRT, CSIRT, CERT).",
       explanationEn: "PICERL (NIST SP 800-61): 1) Preparation — playbooks, tools, and training ready. 2) Identification — recognize that something happened, determine scope. 3) Containment — isolate infected machines (network isolation). 4) Eradication — remove malware, apply patches. 5) Recovery — restore services, increase monitoring. 6) Post-Incident — what happened? How? What to improve? Root Cause Analysis (RCA). Large organizations use CIRT, CSIRT, or CERT teams."
     },
         {
       q: "מה ההבדל בין IDS לבין IPS?",
-      correct: "‏IDS (Intrusion Detection System) מזהה ומתריע בלבד — IPS (Intrusion Prevention System) מזהה וגם חוסם אוטומטית",
+      correct: "מערכת זיהוי חדירות (IDS) מזהה ומתריעה בלבד — מערכת מניעת חדירות (IPS) מזהה וגם חוסמת אוטומטית",
       choices: [
-        "‏IDS (Intrusion Detection System) מזהה ומתריע בלבד — IPS (Intrusion Prevention System) מזהה וגם חוסם אוטומטית",
-        "‏IDS לרשתות — IPS לאפליקציות",
-        "‏IPS מהיר יותר כי לא כותב logs — IDS כותב logs",
+        "מערכת זיהוי חדירות (IDS) מזהה ומתריעה בלבד — מערכת מניעת חדירות (IPS) מזהה וגם חוסמת אוטומטית",
+        "מערכת IDS לרשתות — מערכת IPS לאפליקציות",
+        "מערכת IPS מהירה יותר כי לא כותבת לוגים — IDS כותבת לוגים",
         "אין הבדל — מדובר באותו מוצר עם שמות שונים"
       ],
-      explanation: "‏IDS: passive — מנתח traffic ומייצר alerts ‎(כמו מצלמת אבטחה)‎. אין חסימה. ‏IPS: inline — נמצא בנתיב ה-traffic, יכול לחסום packets בzero-latency. ‏False positive ב-IPS = חסם traffic לגיטימי! לכן: מתחילים במצב IDS (learning mode), calibrate, אז inline. ‏Network-based (NIDS/NIPS) vs Host-based (HIDS/HIPS). ‏Snort ו-Suricata: open-source IDS/IPS פופולריים.",
+      explanation: "מערכת IDS פסיבית — מנתחת תעבורה ומייצרת התרעות (כמו מצלמת אבטחה), ללא חסימה. מערכת IPS יושבת בתוך נתיב התעבורה ויכולה לחסום חבילות מיידית. זיהוי שגוי (false positive) במערכת IPS פירושו חסימת תעבורה לגיטימית! לכן מתחילים במצב זיהוי (למידה), מכיילים, ואז עוברים למצב מניעה. קיימות גרסאות מבוססות רשת (NIDS/NIPS) ומבוססות מארח (HIDS/HIPS). כלים פופולריים בקוד פתוח: Snort ו-Suricata.",
       explanationEn: "IDS: passive — analyzes traffic and generates alerts (like a security camera). No blocking. IPS: inline — sits in the traffic path, can block packets with zero latency. A false positive on IPS = blocked legitimate traffic! Therefore: start in IDS mode (learning), calibrate, then go inline. Network-based (NIDS/NIPS) vs Host-based (HIDS/HIPS). Snort and Suricata are popular open-source IDS/IPS tools."
     }
   ],
@@ -3346,7 +3362,8 @@ export const quizBank = {
         "שניהם זהים — שניהם בודקים סיסמה",
         "‏Authentication = HTTPS, Authorization = HTTP"
       ],
-      explanation: "‏Authentication (אימות): מי אתה? התחברות עם סיסמה, ביומטריה או תעודה דיגיטלית. ‏Authorization (הרשאה): מה מותר לך? מנגנוני RBAC, ACL, הרשאות. טעות נפוצה: IDOR — משתמש מורשה ניגש למשאב של אחר על ידי שינוי מזהה בכתובת."
+      explanation: "‏Authentication (אימות): מי אתה? התחברות עם סיסמה, ביומטריה או תעודה דיגיטלית. ‏Authorization (הרשאה): מה מותר לך? מנגנוני RBAC, ACL, הרשאות. טעות נפוצה: IDOR — משתמש מורשה ניגש למשאב של אחר על ידי שינוי מזהה בכתובת.",
+      explanationEn: "AuthN (Authentication): who are you? Login with username+password, biometrics, or certificate. AuthZ (Authorization): what are you allowed to do? RBAC, ACL, permissions. Common mistake: IDOR (Insecure Direct Object Reference) = an AuthZ problem — an authenticated user accesses another user's resource by changing an ID in the URL."
     },
     {
       q: "למה bcrypt עדיף על SHA256 לגיבוב סיסמאות?",
@@ -3357,7 +3374,8 @@ export const quizBank = {
         "‏SHA256 עדיף כי הוא חדש יותר",
         "‏bcrypt מאובטח כי הוא קצר יותר"
       ],
-      explanation: "כרטיס מסך (GPU) מודרני מחשב 10 מיליארד SHA256 hashes בשנייה. לעומת זאת, bcrypt עם cost=12 מחשב רק כ-300 בשנייה. פיצוח סיסמה של 8 תווים: ב-SHA256 לוקח שניות, ב-bcrypt לוקח שנים. ‏Argon2id עוד טוב יותר — דורש זיכרון (memory-hard) ומאט גם חומרה ייעודית."
+      explanation: "כרטיס מסך (GPU) מודרני מחשב 10 מיליארד SHA256 hashes בשנייה. לעומת זאת, bcrypt עם cost=12 מחשב רק כ-300 בשנייה. פיצוח סיסמה של 8 תווים: ב-SHA256 לוקח שניות, ב-bcrypt לוקח שנים. ‏Argon2id עוד טוב יותר — דורש זיכרון (memory-hard) ומאט גם חומרה ייעודית.",
+      explanationEn: "SHA256: a modern GPU computes 10 billion hashes/second. bcrypt cost=12: ~300 hashes/second per GPU. Brute-forcing 8 lowercase characters = 200 billion combinations. With SHA256: seconds. With bcrypt cost=12: years. Argon2id is memory-hard — even ASICs/GPUs are slowed because they need gigabytes of RAM."
     },
     {
       q: "מה פגיעות alg=none ב-JWT?",
@@ -3368,7 +3386,8 @@ export const quizBank = {
         "‏alg=none מצפין עם מפתח סימטרי",
         "‏alg=none נדרש לאפליקציות מובייל"
       ],
-      explanation: "כותרת JWT מכילה את האלגוריתם (למשל HS256) + תוכן + חתימה. אם תוקף משנה את האלגוריתם ל-none וחותך את החתימה — שרת פגיע מקבל את הטוקן. התיקון: רשימת אלגוריתמים מותרים בצד שרת בלבד (HS256/RS256). אסור לתת למשתמש לבחור אלגוריתם!"
+      explanation: "כותרת JWT מכילה את האלגוריתם (למשל HS256) + תוכן + חתימה. אם תוקף משנה את האלגוריתם ל-none וחותך את החתימה — שרת פגיע מקבל את הטוקן. התיקון: רשימת אלגוריתמים מותרים בצד שרת בלבד (HS256/RS256). אסור לתת למשתמש לבחור אלגוריתם!",
+      explanationEn: "JWT header contains the algorithm (e.g., HS256) + payload + signature. If an attacker changes the header to alg=none and removes the signature, a vulnerable server accepts the unsigned token. Fix: whitelist algorithms on the server side (reject anything other than HS256/RS256). Never let the user choose the algorithm!"
     },
     {
       q: "מה MFA ולמה הוא מגן גם אם סיסמה נגנבה?",
@@ -3379,7 +3398,8 @@ export const quizBank = {
         "‏MFA מצפין את הסיסמה פעמיים",
         "‏MFA = סיסמה ארוכה יותר מ-12 תווים"
       ],
-      explanation: "שלושת גורמי האימות: 1) ידע — סיסמה, PIN. 2) חזקה — אפליקציית TOTP, SMS, מפתח חומרה (YubiKey). 3) ביומטריה — טביעת אצבע, זיהוי פנים. MFA משלב 2 גורמים ומעלה. פישינג גונב סיסמה אבל לא קוד TOTP (תוקף ב-AitM יכול לעקוף TOTP). ‏WebAuthn/FIDO2 עמיד לפישינג."
+      explanation: "שלושת גורמי האימות: 1) ידע — סיסמה, PIN. 2) חזקה — אפליקציית TOTP, SMS, מפתח חומרה (YubiKey). 3) ביומטריה — טביעת אצבע, זיהוי פנים. MFA משלב 2 גורמים ומעלה. פישינג גונב סיסמה אבל לא קוד TOTP (תוקף ב-AitM יכול לעקוף TOTP). ‏WebAuthn/FIDO2 עמיד לפישינג.",
+      explanationEn: "Authentication factors: 1) Knowledge: password, PIN. 2) Possession: TOTP app, SMS, hardware key (YubiKey). 3) Inherence: biometric (fingerprint, face). MFA = combining 2+ factors. Phishing can steal a password, but not a TOTP code (though Adversary-in-the-Middle attacks can intercept TOTP). WebAuthn/FIDO2 = phishing-resistant authentication."
     },
     {
       q: "מה Salt בגיבוב סיסמאות?",
@@ -3390,7 +3410,8 @@ export const quizBank = {
         "חלק נוסף מהסיסמה שהמשתמש מזין",
         "‏pepper מוסיפים למסד, salt מוסיפים לקוד"
       ],
-      explanation: "ללא salt: כל משתמשים עם אותה סיסמה מקבלים אותו hash. טבלת קשת (rainbow table) ממפה hash לסיסמה מראש. עם salt: מוסיפים ערך אקראי לכל סיסמה — כל משתמש מקבל hash שונה. פיצוח חייב לחשב מחדש לכל משתמש בנפרד. ‏bcrypt ו-Argon2 מייצרים salt אוטומטית."
+      explanation: "ללא salt: כל משתמשים עם אותה סיסמה מקבלים אותו hash. טבלת קשת (rainbow table) ממפה hash לסיסמה מראש. עם salt: מוסיפים ערך אקראי לכל סיסמה — כל משתמש מקבל hash שונה. פיצוח חייב לחשב מחדש לכל משתמש בנפרד. ‏bcrypt ו-Argon2 מייצרים salt אוטומטית.",
+      explanationEn: "Without salt: every user with the same password gets the same hash. A rainbow table is a precomputed mapping of hash to plaintext. With salt: hash('password123' + random_salt) — each user's hash is different. Brute-force must recompute for each user. bcrypt/Argon2 generate a salt automatically and store it within the hash string."
     }
   ],
 
@@ -3404,7 +3425,8 @@ export const quizBank = {
         "מסנן תוכן זדוני בצד השרת",
         "מגביל גישה לנקודות API לפי כתובת IP"
       ],
-      explanation: "כותרת CSP מורה לדפדפן לחסום: JavaScript ממקורות לא מאושרים, סקריפטים inline, וקריאות eval. מנגנון nonce מייצר מזהה אקראי לכל טעינת דף — רק סקריפט עם nonce נכון מורשה לרוץ. מצב Report-Only מדווח על חסימות בלי לחסום בפועל."
+      explanation: "כותרת CSP מורה לדפדפן לחסום: JavaScript ממקורות לא מאושרים, סקריפטים inline, וקריאות eval. מנגנון nonce מייצר מזהה אקראי לכל טעינת דף — רק סקריפט עם nonce נכון מורשה לרוץ. מצב Report-Only מדווח על חסימות בלי לחסום בפועל.",
+      explanationEn: "CSP header instructs the browser to block: JS from unapproved sources, inline script tags, and eval(). Nonce: each page load receives a random nonce — only scripts with the matching nonce are allowed. Report-Only mode reports violations without blocking. This is a powerful defense against XSS attacks."
     },
     {
       q: "מה HSTS ולמה הוא מגן מהתקפת SSL Stripping?",
@@ -3415,7 +3437,8 @@ export const quizBank = {
         "מצפין עוגיות אוטומטית",
         "מגביל חיבורי TLS לגרסה 1.3 בלבד"
       ],
-      explanation: "בהתקפת SSL Stripping, תוקף באמצע (MITM) מקבל HTTPS מהשרת אבל משדרג לאחור ל-HTTP עם הלקוח. כותרת HSTS גורמת לדפדפן לזכור: תמיד HTTPS לאתר הזה, גם אם המשתמש כותב http. מצב Preload מוסיף את האתר לרשימה קבועה בדפדפן — מגן גם בביקור ראשון."
+      explanation: "בהתקפת SSL Stripping, תוקף באמצע (MITM) מקבל HTTPS מהשרת אבל משדרג לאחור ל-HTTP עם הלקוח. כותרת HSTS גורמת לדפדפן לזכור: תמיד HTTPS לאתר הזה, גם אם המשתמש כותב http. מצב Preload מוסיף את האתר לרשימה קבועה בדפדפן — מגן גם בביקור ראשון.",
+      explanationEn: "SSL Stripping (Moxie Marlinspike 2009): a MITM attacker receives HTTPS from the server but downgrades to HTTP with the client. HSTS: Strict-Transport-Security: max-age=31536000. The browser remembers: always use HTTPS for this site, even if the user types http://. Preload: added to the browser's hardcoded list — protects even the first visit. includeSubDomains is required for preload."
     },
     {
       q: "מה CSRF ואיך SameSite=Strict מגן ממנו?",
@@ -3426,7 +3449,8 @@ export const quizBank = {
         "‏CSRF = מסנן בקשות חוצות-אתרים",
         "‏SameSite מצפין עוגיות בין אתרים"
       ],
-      explanation: "באתר זדוני, תגית תמונה עם כתובת של הבנק גורמת לדפדפן לשלוח בקשה עם העוגיות של הבנק (כי הדפדפן מוסיף עוגיות אוטומטית). ‏SameSite=Strict: עוגייה נשלחת רק לבקשות מאותו אתר. Lax: רק בניווט. טוקן CSRF: שדה חבוי עם ערך שהשרת יצר — אתר זדוני לא יכול לדעת אותו."
+      explanation: "באתר זדוני, תגית תמונה עם כתובת של הבנק גורמת לדפדפן לשלוח בקשה עם העוגיות של הבנק (כי הדפדפן מוסיף עוגיות אוטומטית). ‏SameSite=Strict: עוגייה נשלחת רק לבקשות מאותו אתר. Lax: רק בניווט. טוקן CSRF: שדה חבוי עם ערך שהשרת יצר — אתר זדוני לא יכול לדעת אותו.",
+      explanationEn: "In CSRF: a malicious site embeds a request to bank.com, and the browser sends it with the user's cookies (because browsers attach cookies automatically). SameSite=Strict: cookie is sent only for same-site requests. Lax: only for top-level navigation. None: all cross-site (legacy). CSRF token: a hidden field with a server-generated token that the attacker's site cannot know."
     },
     {
       q: "מה X-Frame-Options ולמה חשוב?",
@@ -3437,7 +3461,8 @@ export const quizBank = {
         "מצפין כותרות X בבקשת HTTP",
         "מסיר כותרות X מהתגובה לצמצום דליפת מידע"
       ],
-      explanation: "בהתקפת Clickjacking: אתר זדוני כולל iframe מוסתר של אתר הבנק, עם כפתור מעליו. המשתמש לוחץ על 'זכה בפרס!' אבל בפועל לוחץ על 'העבר כסף'. ‏X-Frame-Options עם DENY אוסר iframe לחלוטין. SAMEORIGIN מתיר רק מאותו מקור. הגישה המודרנית: CSP frame-ancestors."
+      explanation: "בהתקפת Clickjacking: אתר זדוני כולל iframe מוסתר של אתר הבנק, עם כפתור מעליו. המשתמש לוחץ על 'זכה בפרס!' אבל בפועל לוחץ על 'העבר כסף'. ‏X-Frame-Options עם DENY אוסר iframe לחלוטין. SAMEORIGIN מתיר רק מאותו מקור. הגישה המודרנית: CSP frame-ancestors.",
+      explanationEn: "Clickjacking: a malicious site embeds the target site in a hidden iframe with a button overlay. The user clicks 'Win a Prize!' but actually clicks 'Transfer Money' on the hidden iframe. X-Frame-Options: DENY — never allow framing. SAMEORIGIN — allow only from same origin. Modern alternative: CSP frame-ancestors 'none'. Facebook Like button hijacking was a classic example."
     }
   ],
 
@@ -3451,7 +3476,8 @@ export const quizBank = {
         "מדד פריצה (Index of Compromise) — דירוג רמת הפריצה",
         "מרכז תפעול פנימי (Internal Operations Center)",
       ],
-      explanation: "סימני פריצה כוללים: כתובות IP, hash של קבצים (MD5/SHA256), דומיינים, כתובות URL, נושאי אימייל, מפתחות registry ושמות mutex. מקורות: VirusTotal, AlienVault OTX, MISP, Shodan. סימני פריצה מתיישנים מהר — כתובת IP או דומיין מתחלפים תוך ימים."
+      explanation: "סימני פריצה כוללים: כתובות IP, hash של קבצים (MD5/SHA256), דומיינים, כתובות URL, נושאי אימייל, מפתחות registry ושמות mutex. מקורות: VirusTotal, AlienVault OTX, MISP, Shodan. סימני פריצה מתיישנים מהר — כתובת IP או דומיין מתחלפים תוך ימים.",
+      explanationEn: "IoCs (Indicators of Compromise): IP addresses (C2 servers), file hashes (MD5/SHA256 of malware), domains (phishing/C2), URLs (payload delivery), email subjects/senders, registry keys (persistence), mutex names (malware fingerprints). IoC sources: VirusTotal, AlienVault OTX, MISP, Shodan. IoCs go stale quickly — IPs/domains rotate within days."
     },
     {
       q: "מה MITRE ATT&CK?",
@@ -3462,7 +3488,8 @@ export const quizBank = {
         "חברת אבטחה שמזהה חתימות נוזקה",
         "פרוטוקול לשיתוף סימני פריצה בין ארגונים"
       ],
-      explanation: "המסגרת כוללת 14 טקטיקות (מה מנסה התוקף): סיור, גישה ראשונית, הרצה, עמידות, הסלמת הרשאות, התחמקות, גניבת הרשאות, גילוי, תנועה רוחבית, איסוף, שליטה ובקרה (C2), חילוץ נתונים, ופגיעה. כל טקטיקה כוללת טכניקות ותת-טכניקות. ‏Navigator מציג ויזואליזציה של כיסוי."
+      explanation: "המסגרת כוללת 14 טקטיקות (מה מנסה התוקף): סיור, גישה ראשונית, הרצה, עמידות, הסלמת הרשאות, התחמקות, גניבת הרשאות, גילוי, תנועה רוחבית, איסוף, שליטה ובקרה (C2), חילוץ נתונים, ופגיעה. כל טקטיקה כוללת טכניקות ותת-טכניקות. ‏Navigator מציג ויזואליזציה של כיסוי.",
+      explanationEn: "MITRE ATT&CK has 14 Tactics (what the attacker is trying to do): Reconnaissance, Initial Access, Execution, Persistence, Privilege Escalation, Defense Evasion, Credential Access, Discovery, Lateral Movement, Collection, Command & Control, Exfiltration, Impact. Each Tactic contains Techniques (T1566 = Phishing) and Sub-techniques. Navigator provides coverage visualization. Purple teaming: Red team attacks, Blue team detects."
     },
     {
       q: "מה ההבדל בין סיור פסיבי (Passive) לאקטיבי (Active) ב-OSINT?",
@@ -3473,7 +3500,8 @@ export const quizBank = {
         "פסיבי = איטי, אקטיבי = מהיר",
         "פסיבי = ללא כלים, אקטיבי = עם כלי אוטומציה"
       ],
-      explanation: "סיור פסיבי: Shodan (סריקה שנעשתה על ידי צד שלישי), WHOIS, Google Dorks, LinkedIn — היעד לא רואה תעבורה. סיור אקטיבי: nmap, סריקת פינג, סריקת תיקיות — נרשם בלוגים של היעד. בעולם האמיתי: הגדרת ה-scope קובעת מה מותר. ב-Bug Bounty: בדרך כלל פסיבי בלבד בהתחלה."
+      explanation: "סיור פסיבי: Shodan (סריקה שנעשתה על ידי צד שלישי), WHOIS, Google Dorks, LinkedIn — היעד לא רואה תעבורה. סיור אקטיבי: nmap, סריקת פינג, סריקת תיקיות — נרשם בלוגים של היעד. בעולם האמיתי: הגדרת ה-scope קובעת מה מותר. ב-Bug Bounty: בדרך כלל פסיבי בלבד בהתחלה.",
+      explanationEn: "Passive Recon: Shodan (scans done by a third party), WHOIS, Google Dorks, LinkedIn, theHarvester — the target sees no traffic from you. Active Recon: nmap, ping sweep, directory busting — gets logged by the target. In practice: pentest scope defines what is allowed. Bug Bounty: typically passive-only for initial reconnaissance."
     },
     {
       q: "מה Shodan ואיזה מידע ניתן למצוא בו?",
@@ -3484,7 +3512,8 @@ export const quizBank = {
         "כלי לניתוח נוזקה של חברת Shodan",
         "שרת DNS שמפרסם מודיעין איומים"
       ],
-      explanation: "‏Shodan סורק את כל כתובות IPv4 ושומר באנרים. חיפוש לפי hostname, פורט, מוצר, מדינה או פגיעות ספציפית. למשל: מציאת שרתי Redis חשופים (לרוב ללא אימות), או מכשירים פגיעים לפגם מסוים. ‏Censys דומה ל-Shodan, ו-Zoomeye הוא הגרסה הסינית."
+      explanation: "‏Shodan סורק את כל כתובות IPv4 ושומר באנרים. חיפוש לפי hostname, פורט, מוצר, מדינה או פגיעות ספציפית. למשל: מציאת שרתי Redis חשופים (לרוב ללא אימות), או מכשירים פגיעים לפגם מסוים. ‏Censys דומה ל-Shodan, ו-Zoomeye הוא הגרסה הסינית.",
+      explanationEn: "Shodan scans all of IPv4 and stores banners. Search examples: hostname:example.com port:22 finds exposed SSH. product:Redis finds Redis instances (often without authentication). country:IL vuln:CVE-2017-0144 finds EternalBlue-vulnerable systems. org:'Company Name' finds all their assets. Censys is similar to Shodan. ZoomEye is the Chinese equivalent."
     }
   ],
 
@@ -3498,7 +3527,8 @@ export const quizBank = {
         "‏Alert → Triage → Isolate → Fix → Monitor → Close",
         "‏Discovery → Escalation → Response → Patch → Test → Deploy"
       ],
-      explanation: "מחזור חיי תגובה לאירוע (NIST SP 800-61): 1) הכנה — נהלים, כלים, הדרכות. 2) זיהוי — התרעה ממערכת SOC/EDR או דיווח משתמש. 3) בלימה — בידוד מיידי + טלאי ארוך טווח. 4) חיסול — הסרת נוזקה, איפוס הרשאות. 5) שחזור — החזרת שירותים עם ניטור מוגבר. 6) לקחים — סקירה תוך שבועיים."
+      explanation: "מחזור חיי תגובה לאירוע (NIST SP 800-61): 1) הכנה — נהלים, כלים, הדרכות. 2) זיהוי — התרעה ממערכת SOC/EDR או דיווח משתמש. 3) בלימה — בידוד מיידי + טלאי ארוך טווח. 4) חיסול — הסרת נוזקה, איפוס הרשאות. 5) שחזור — החזרת שירותים עם ניטור מוגבר. 6) לקחים — סקירה תוך שבועיים.",
+      explanationEn: "IR Lifecycle (NIST SP 800-61): 1) Preparation: runbooks, tools, training. 2) Identification: alert from SOC, EDR, or user report. 3) Containment: short-term (isolate) + long-term (patch). 4) Eradication: remove malware, reset credentials. 5) Recovery: restore services, enhanced monitoring. 6) Lessons Learned: post-mortem within two weeks."
     },
     {
       q: "מה התקפת שרשרת אספקה (Supply Chain Attack)? תן דוגמה ידועה.",
@@ -3509,7 +3539,8 @@ export const quizBank = {
         "תקיפת הזרקת SQL על מערכת ניהול שרשרת אספקה",
         "תקיפה על עובדי חברה דרך אימייל פישינג"
       ],
-      explanation: "דוגמאות להתקפות שרשרת אספקה: 1) SolarWinds SUNBURST 2020 — דלת אחורית ב-DLL שהגיעה ל-18,000 לקוחות. 2) XZ Utils 2024 — דלת אחורית בספריית דחיסה. 3) חבילות npm זדוניות. 4) פריצת Codecov דרך סקריפט CI/CD. הגנה: רשימת רכיבים (SBOM), חתימת קוד, בניה מבודדת, סריקת תלויות."
+      explanation: "דוגמאות להתקפות שרשרת אספקה: 1) SolarWinds SUNBURST 2020 — דלת אחורית ב-DLL שהגיעה ל-18,000 לקוחות. 2) XZ Utils 2024 — דלת אחורית בספריית דחיסה. 3) חבילות npm זדוניות. 4) פריצת Codecov דרך סקריפט CI/CD. הגנה: רשימת רכיבים (SBOM), חתימת קוד, בניה מבודדת, סריקת תלויות.",
+      explanationEn: "Supply Chain Attack examples: 1) SolarWinds SUNBURST 2020 — a backdoor in a DLL spread to 18,000 customers. 2) XZ Utils 2024 — backdoor in a compression library. 3) npm malicious packages. 4) Codecov breach — CI/CD script was compromised. Defense: SBOM (Software Bill of Materials), code signing, isolated build processes, dependency scanning (Snyk, Dependabot)."
     },
     {
       q: "מה Volatility ולמה משתמשים בו בתגובה לאירועים?",
@@ -3520,7 +3551,8 @@ export const quizBank = {
         "מערכת SIEM לניתוח לוגים בזמן אמת",
         "כלי לסימולציה של התקפות APT"
       ],
-      explanation: "נוזקה שרצה בזיכרון בלבד (fileless) לא כותבת לדיסק — Volatility מגלה אותה. פקודות מועילות: pslist (תהליכים), netscan (חיבורים), malfind (הזרקת DLL), cmdline (פרמטרים של תהליכים), hashdump (סיסמאות Windows). כלי לכידת זיכרון: WinPMem, Magnet RAM Capture, VMware snapshot."
+      explanation: "נוזקה שרצה בזיכרון בלבד (fileless) לא כותבת לדיסק — Volatility מגלה אותה. פקודות מועילות: pslist (תהליכים), netscan (חיבורים), malfind (הזרקת DLL), cmdline (פרמטרים של תהליכים), hashdump (סיסמאות Windows). כלי לכידת זיכרון: WinPMem, Magnet RAM Capture, VMware snapshot.",
+      explanationEn: "Memory forensics: malware that runs only in RAM (fileless malware) never writes to disk — only memory analysis tools like Volatility can detect it. Useful commands: pslist (processes), netscan (connections), malfind (DLL injection, hollowing), cmdline (process arguments), hashdump (Windows password hashes). Memory capture tools: WinPMem, Magnet RAM Capture, VMware snapshots."
     },
     {
       q: "מה תנועה רוחבית (Lateral Movement) בתגובה לאירועים?",
@@ -3531,7 +3563,8 @@ export const quizBank = {
         "עלייה בהרשאות ממשתמש רגיל למנהל",
         "שינוי כיוון תנועת תעבורה ברשת"
       ],
-      explanation: "טכניקות תנועה רוחבית: Pass-the-Hash — שימוש ב-hash של NTLM ישירות ללא סיסמה. Pass-the-Ticket — כרטיס Kerberos גנוב. ‏RDP לגישת GUI בפורט 3389. ‏SMB עם כלים כמו psexec ו-wmiexec. בלימה: פילוח רשת, מחיקת sessions, ואיפוס אמון ב-Active Directory."
+      explanation: "טכניקות תנועה רוחבית: Pass-the-Hash — שימוש ב-hash של NTLM ישירות ללא סיסמה. Pass-the-Ticket — כרטיס Kerberos גנוב. ‏RDP לגישת GUI בפורט 3389. ‏SMB עם כלים כמו psexec ו-wmiexec. בלימה: פילוח רשת, מחיקת sessions, ואיפוס אמון ב-Active Directory.",
+      explanationEn: "Lateral Movement Techniques (MITRE ATT&CK T1550+): Pass-the-Hash (PtH) uses an NTLM hash directly without the password. Pass-the-Ticket uses a stolen Kerberos ticket. RDP: port 3389 for GUI access. SMB: psexec, wmiexec. SSH key propagation. Containment: network segmentation, session termination, resetting Active Directory trusts."
     }
   ],
 
@@ -3545,7 +3578,8 @@ export const quizBank = {
         "סטטי = במכונה וירטואלית, דינמי = על חומרה פיזית",
         "סטטי = כלי Linux, דינמי = כלי Windows"
       ],
-      explanation: "ניתוח סטטי: כלים כמו strings, PEStudio, Ghidra. מגלה מחרוזות קריאות (כתובות URL, IP), ספריות מיובאות, חריגות בכותרת PE. מוגבל על ידי ערפול (obfuscation). ניתוח דינמי: Cuckoo Sandbox, Process Monitor, Wireshark. מגלה שינויי registry, קבצים שנוצרו, חיבורי C2, הזרקת תהליכים. שילוב שניהם = ניתוח מלא."
+      explanation: "ניתוח סטטי: כלים כמו strings, PEStudio, Ghidra. מגלה מחרוזות קריאות (כתובות URL, IP), ספריות מיובאות, חריגות בכותרת PE. מוגבל על ידי ערפול (obfuscation). ניתוח דינמי: Cuckoo Sandbox, Process Monitor, Wireshark. מגלה שינויי registry, קבצים שנוצרו, חיבורי C2, הזרקת תהליכים. שילוב שניהם = ניתוח מלא.",
+      explanationEn: "Static analysis: tools like strings, PEStudio, Ghidra. Reveals: readable strings (URLs, IPs), imported DLLs, PE header anomalies. Limited by obfuscation/packing. Dynamic analysis: Cuckoo Sandbox, Process Monitor, Wireshark. Reveals: registry changes, file drops, C2 connections, process injection. Combining both provides full analysis."
     },
     {
       q: "מה Ransomware ואיך מתגוננים?",
@@ -3556,7 +3590,8 @@ export const quizBank = {
         "כלי לגיטימי להצפנת קבצים לאבטחה",
         "וירוס שמשתמש במעבד לכריית מטבעות"
       ],
-      explanation: "שרשרת ההתקפה של כופרה: פישינג, גישה ראשונית, הסלמת הרשאות, תנועה רוחבית, חילוץ נתונים, הצפנה. כופרה כשירות (RaaS): LockBit, BlackCat. הגנה: כלל 3-2-1 (3 עותקים, 2 סוגי מדיה, 1 מנותק), גיבויים בלתי-ניתנים לשינוי, מערכת EDR, וסינון באימייל."
+      explanation: "שרשרת ההתקפה של כופרה: פישינג, גישה ראשונית, הסלמת הרשאות, תנועה רוחבית, חילוץ נתונים, הצפנה. כופרה כשירות (RaaS): LockBit, BlackCat. הגנה: כלל 3-2-1 (3 עותקים, 2 סוגי מדיה, 1 מנותק), גיבויים בלתי-ניתנים לשינוי, מערכת EDR, וסינון באימייל.",
+      explanationEn: "Ransomware kill chain: Phishing > Initial Access > Privilege Escalation > Lateral Movement > Data Exfiltration > Encryption. RaaS (Ransomware-as-a-Service): LockBit, BlackCat. Defense: 3-2-1 backup rule (3 copies, 2 media types, 1 offsite/offline), immutable backups (Veeam, Azure Immutable), Endpoint Detection & Response (EDR), and email gateway filtering."
     },
     {
       q: "מהם מנגנוני עמידות (Persistence) נפוצים ב-Windows?",
@@ -3567,7 +3602,8 @@ export const quizBank = {
         "רק crontab ו-systemd (של Linux)",
         "תוספי דפדפן בלבד"
       ],
-      explanation: "מנגנוני עמידות ב-Windows: 1) מפתחות Run ב-Registry. 2) משימות מתוזמנות (schtasks). 3) שירותים (sc create). 4) חטיפת DLL — ספרייה זדונית בנתיב לפני הלגיטימית. 5) מנויי WMI. 6) ברמת האתחול: bootkit. הכלי AutoRuns (Sysinternals) מציג את כל מנגנוני העמידות. כל רשומת startup צריכה אימות ידני."
+      explanation: "מנגנוני עמידות ב-Windows: 1) מפתחות Run ב-Registry. 2) משימות מתוזמנות (schtasks). 3) שירותים (sc create). 4) חטיפת DLL — ספרייה זדונית בנתיב לפני הלגיטימית. 5) מנויי WMI. 6) ברמת האתחול: bootkit. הכלי AutoRuns (Sysinternals) מציג את כל מנגנוני העמידות. כל רשומת startup צריכה אימות ידני.",
+      explanationEn: "Windows Persistence mechanisms: 1) Registry Run Keys (HKCU/HKLM\\\\Software\\\\Microsoft\\\\Windows\\\\CurrentVersion\\\\Run). 2) Scheduled Tasks: schtasks /create. 3) Services: sc create. 4) DLL Hijacking: placing a malicious DLL in the path before the legitimate one. 5) WMI subscriptions. 6) Boot/Pre-OS: bootkit. For IR: AutoRuns (Sysinternals) displays all persistence mechanisms."
     },
     {
       q: "מה C2 (שליטה ובקרה) בנוזקה?",
@@ -3578,7 +3614,8 @@ export const quizBank = {
         "תוכנה לשליטה בתהליכי CI/CD",
         "חומת אש שמנתבת חבילות"
       ],
-      explanation: "ערוצי C2 נפוצים: HTTP/HTTPS (מתחזה לתעבורת רשת רגילה), DNS (ערוץ חשאי בשאילתות DNS), ICMP, רשתות חברתיות. זיהוי: מרווחי beacon חשודים (הנוזקה מתקשרת בקביעות), דומיינים נדירים, אלגוריתם DGA (הנוזקה מייצרת שמות דומיין אקראיים). כלי C2 ידועים: Cobalt Strike, Covenant, Brute Ratel."
+      explanation: "ערוצי C2 נפוצים: HTTP/HTTPS (מתחזה לתעבורת רשת רגילה), DNS (ערוץ חשאי בשאילתות DNS), ICMP, רשתות חברתיות. זיהוי: מרווחי beacon חשודים (הנוזקה מתקשרת בקביעות), דומיינים נדירים, אלגוריתם DGA (הנוזקה מייצרת שמות דומיין אקראיים). כלי C2 ידועים: Cobalt Strike, Covenant, Brute Ratel.",
+      explanationEn: "C2 (Command and Control) channels: HTTP/HTTPS (camouflaged as web traffic), DNS (covert channel in DNS queries), ICMP, Twitter/Slack (social media C2). Detection: suspicious beacon intervals (malware phones home every X seconds), rare domains, DNS DGA (Domain Generation Algorithm — malware generates random domain names). Tools: Cobalt Strike, Covenant, Brute Ratel."
     },
     {
       q: "מה נוזקה ללא קבצים (fileless malware) ולמה קשה לאתר אותה?",
@@ -3589,7 +3626,8 @@ export const quizBank = {
         "נוזקה שמסתירה את הסיומת של הקובץ שלה",
         "נוזקה שפועלת בהרשאות נמוכות ללא מנהל"
       ],
-      explanation: "טכניקות: PowerShell (טעינת קוד רפלקטיבית), WMI, החלפת תהליך (Process Hollowing), הזרקת DLL. דוגמה: PowerShell מריץ payload מקודד ישירות בזיכרון. זיהוי: מערכת EDR בודקת התנהגות ולא רק קבצים. ‏AMSI סורק סקריפטים של PowerShell. חקירת זיכרון עם Volatility מגלה קוד מוזרק."
+      explanation: "טכניקות: PowerShell (טעינת קוד רפלקטיבית), WMI, החלפת תהליך (Process Hollowing), הזרקת DLL. דוגמה: PowerShell מריץ payload מקודד ישירות בזיכרון. זיהוי: מערכת EDR בודקת התנהגות ולא רק קבצים. ‏AMSI סורק סקריפטים של PowerShell. חקירת זיכרון עם Volatility מגלה קוד מוזרק.",
+      explanationEn: "Fileless malware techniques: PowerShell (reflective loading), WMI, Process Hollowing (replacing a legitimate process with malware), DLL Injection. Example: PowerShell -EncodedCommand <base64> executes a payload directly in RAM. Detection: EDR checks behavior, not just files. AMSI (Antimalware Scan Interface) scans PowerShell scripts. Memory forensics (Volatility) discovers injected code."
     }
   ]
 }

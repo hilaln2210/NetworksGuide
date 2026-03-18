@@ -30,6 +30,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
   const [xpFloat, setXpFloat] = useState(null)
   const [streak, setStreak] = useState(0)
   const [hintVisible, setHintVisible] = useState(false)
+  const [explLang, setExplLang] = useState('he')
   const [chapterModal, setChapterModal] = useState(null) // { chapter, chIdx }
 
   // Generate a hint: find the sentence with the lowest overlap with the correct answer
@@ -398,12 +399,18 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
                   {gender === 'male' ? 'נכון! מעולה 🎉' : 'נכון! מעולה 🎉'}
                 </p>
               )}
+              {q.explanationEn && (
+                <button className="quiz-lang-toggle" onClick={() => setExplLang(l => l === 'he' ? 'en' : 'he')}>
+                  {explLang === 'he' ? '🇬🇧 English' : '🇮🇱 עברית'}
+                </button>
+              )}
               <div className="quiz-exp-text">
-                {q.explanation.split(/(?<=\.)\s+/).map((s, i) => {
+                {(explLang === 'en' && q.explanationEn ? q.explanationEn : q.explanation).split(/(?<=\.)\s+/).map((s, i) => {
+                  const showEnglish = explLang === 'en' && q.explanationEn
                   // Only count Hebrew outside parenthetical expressions — prevents English sentences
                   // with a Hebrew word in parens (e.g. "Active Mode: server (NAT שובר)") from going RTL
                   const withoutParens = s.replace(/\([^)]*\)/g, '')
-                  const isRTL = /[\u0590-\u05ff\ufb1d-\ufb4f]/.test(withoutParens)
+                  const isRTL = !showEnglish && /[\u0590-\u05ff\ufb1d-\ufb4f]/.test(withoutParens)
                   return (
                     <span key={i} dir={isRTL ? 'rtl' : 'ltr'} style={{ display: 'block', textAlign: isRTL ? 'right' : 'left', marginBottom: '0.1rem' }}>{s}</span>
                   )
