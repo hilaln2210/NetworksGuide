@@ -82,9 +82,9 @@ export function renderBidiText(text) {
 export function processHtmlBidi(html) {
   if (!html) return html
 
-  // We process text nodes between tags, but skip <pre>...</pre> and <code>...</code>
-  // Strategy: split on pre/code blocks, process the rest
-  const SKIP_RE = /(<(?:pre|code)[^>]*>[\s\S]*?<\/(?:pre|code)>|<span\s+dir="ltr"[^>]*>[\s\S]*?<\/span>)/gi
+  // We process text nodes between tags, but skip <pre>, <code>, <svg>, and existing dir="ltr" spans.
+  // <span> inside SVG <text> is invalid and breaks rendering entirely.
+  const SKIP_RE = /(<(?:pre|code|svg)[^>]*>[\s\S]*?<\/(?:pre|code|svg)>|<span\s+dir="ltr"[^>]*>[\s\S]*?<\/span>)/gi
 
   const segments = html.split(SKIP_RE)
 
