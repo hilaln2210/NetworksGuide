@@ -1531,26 +1531,26 @@ export const quizBank = {
       explanation: "\u200F🔓 ללא SNI\n• server אחד = IP אחד = certificate אחד\n\n🌐 עם SNI\n• מאות domains על IP אחד\n• ClientHello: server_name extension = hostname\n\n👁️ הבעיה\n• ISP/firewall יכול לראות ולחסום לפי SNI\n• גם ב-HTTPS!\n\n🔐 הפתרונות\n• ESNI (deprecated): encrypted SNI\n• ECH (Encrypted Client Hello): מצפין כל ClientHello\n• Cloudflare: תומך ECH\n• הסתרת SNI = קשה יותר ל-censorship"
     },
     {
-      q: "מה Browser Fingerprinting וכיצד websites עוקבות ללא cookies?",
-      correct: "‏Browser Fingerprint: שילוב Canvas, WebGL, fonts, plugins, screen, timezone = ID כמעט ייחודי. לא ניתן למחיקה כמו cookies",
+      q: "\u200Fמה Browser Fingerprinting וכיצד websites עוקבות ללא cookies?",
+      correct: "\u200FBrowser Fingerprint: שילוב Canvas, WebGL,\nfonts, plugins, screen, timezone\n= ID כמעט ייחודי\nלא ניתן למחיקה כמו cookies",
       choices: [
-        "‏Browser Fingerprint: שילוב Canvas, WebGL, fonts, plugins, screen, timezone = ID כמעט ייחודי. לא ניתן למחיקה כמו cookies",
-        "‏Fingerprinting = cookies מוצפנים",
-        "‏Browser Fingerprint = IP address בלבד",
-        "‏Fingerprinting עובד רק ב-Chrome"
+        "\u200FBrowser Fingerprint: שילוב Canvas, WebGL,\nfonts, plugins, screen, timezone\n= ID כמעט ייחודי\nלא ניתן למחיקה כמו cookies",
+        "\u200FFingerprinting = cookies מוצפנים",
+        "\u200FBrowser Fingerprint = IP address בלבד",
+        "\u200FFingerprinting עובד רק ב-Chrome"
       ],
-      explanation: "‏Canvas fingerprint: מצייר text/shape ← GPU rendering שונה לכל GPU+driver = ייחודי. ‏AudioContext, WebGL, font enumeration, screen resolution, timezone, language, plugins, Do Not Track. ‏EFF Panopticlick/Cover Your Tracks. ‏Firefox: resistFingerprinting=true. ‏Brave: randomizes fingerprint per session. ‏Tor Browser: identical fingerprint לכל users (protection by uniformity)."
+      explanation: "\u200F🎨 Canvas Fingerprint\n• מצייר text/shape\n• GPU rendering שונה לכל GPU+driver = ייחודי\n\n📋 מה עוד נאסף?\n• AudioContext, WebGL\n• Font enumeration, screen resolution\n• Timezone, language, plugins\n• Do Not Track\n\n🛡️ הגנות\n• EFF Panopticlick/Cover Your Tracks — בדיקה\n• Firefox: resistFingerprinting=true\n• Brave: randomizes fingerprint per session\n• Tor Browser: identical fingerprint לכל users"
     },
     {
-      q: "מה Traffic Analysis ומה VPN לא מגן עליו?",
-      correct: "‏Traffic Analysis: גם עם VPN ניתן לזהות volume, timing, patterns — Netflix vs gaming vs Tor שונים. VPN מסתיר תוכן, לא behavior",
+      q: "\u200Fמה Traffic Analysis ומה VPN לא מגן עליו?",
+      correct: "\u200FTraffic Analysis: גם עם VPN ניתן לזהות\nvolume, timing, patterns\nNetflix vs gaming vs Tor שונים\nVPN מסתיר תוכן, לא behavior",
       choices: [
-        "‏Traffic Analysis: גם עם VPN ניתן לזהות volume, timing, patterns — Netflix vs gaming vs Tor שונים. VPN מסתיר תוכן, לא behavior",
-        "‏VPN מגן מפני כל סוגי ניטור",
-        "‏Traffic Analysis = DPI — VPN מגן לחלוטין",
-        "‏Traffic Analysis עובד רק ב-HTTP"
+        "\u200FTraffic Analysis: גם עם VPN ניתן לזהות\nvolume, timing, patterns\nNetflix vs gaming vs Tor שונים\nVPN מסתיר תוכן, לא behavior",
+        "\u200FVPN מגן מפני כל סוגי ניטור",
+        "\u200FTraffic Analysis = DPI\n— VPN מגן לחלוטין",
+        "\u200FTraffic Analysis עובד רק ב-HTTP"
       ],
-      explanation: "‏Traffic Analysis: NSA/Tor research. ‏Packet timing, size distribution, inter-arrival time → identify application. ‏Netflix: big constant streams. ‏Gaming: small bidirectional 60-100pps. ‏Video call: ~1-3 Mbps, symmetric. ‏Correlation attack: adversary ב-exit + entry = deanonymize Tor. ‏Website fingerprinting: ML על timing/size → identify site via Tor. ‏Defense: obfs4, meek (mimics HTTPS/CDN)."
+      explanation: "\u200F🔍 Traffic Analysis\n• מחקר NSA/Tor\n• Packet timing, size distribution, inter-arrival time\n• מזהה אפליקציה לפי דפוסים\n\n📊 דפוסים מזהים\n• Netflix: big constant streams\n• Gaming: small bidirectional 60-100pps\n• Video call: ~1-3 Mbps, symmetric\n\n⚠️ התקפות\n• Correlation attack: adversary ב-exit + entry = deanonymize Tor\n• Website fingerprinting: ML על timing/size\n\n🛡️ הגנות\n• obfs4, meek (mimics HTTPS/CDN)"
     }
   ],
 
