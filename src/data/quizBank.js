@@ -426,48 +426,48 @@ export const quizBank = {
       explanation: "\u200F🕵️ IP פנימי vs ציבורי:\n• כשאת שולחת בקשה לגוגל\n• ה-router שם את ה-IP הציבורי שלו\n• גוגל לא יודעת שיש לך IP 192.168.1.5\n\n🏠 טווחי IP פנימיים:\n• 10.0.0.0/8\n• 172.16.0.0/12\n• 192.168.0.0/16"
     },
     {
-      q: "איזה כתובת IP היא 'ברדקאסט' (broadcast) ברשת?",
-      correct: "כתובת שמסתיימת ב-255 בחלק המארח, למשל 192.168.1.255",
+      q: "\u200Fאיזה כתובת IP היא ״ברדקאסט״ (broadcast) ברשת?",
+      correct: "\u200Fכתובת שמסתיימת ב-255 בחלק המארח\nלמשל 192.168.1.255",
       choices: [
-        "כתובת שמסתיימת ב-255 בחלק המארח, למשל 192.168.1.255",
-        "127.0.0.1 — כתובת loopback",
-        "0.0.0.0 — כתובת ברירת מחדל",
-        "255.0.0.0 — כתובת הרשת"
+        "\u200Fכתובת שמסתיימת ב-255 בחלק המארח\nלמשל 192.168.1.255",
+        "\u200F127.0.0.1 — כתובת loopback",
+        "\u200F0.0.0.0 — כתובת ברירת מחדל",
+        "\u200F255.0.0.0 — כתובת הרשת"
       ],
-      explanation: "‏Broadcast = שולח לכולם! 192.168.1.255 מגיעה לכל מכשיר ברשת 192.168.1.x. ‏127.0.0.1 = localhost = 'שלח לעצמי' 🔊"
+      explanation: "\u200F🔊 Broadcast — שולח לכולם!\n• 192.168.1.255 מגיעה לכל מכשיר ברשת 192.168.1.x\n\n📌 כתובות מיוחדות נוספות:\n• 127.0.0.1 = localhost = ״שלח לעצמי״\n• 0.0.0.0 = כל הכתובות / ברירת מחדל\n• 255.255.255.255 = broadcast גלובלי"
     },
     {
-      q: "מה ההבדל בין Router לבין Switch?",
-      correct: "‏Router = L3, מנתב בין רשתות שונות לפי IP. Switch = L2, מעביר פריימים בתוך אותה רשת לפי MAC",
+      q: "\u200Fמה ההבדל בין Router לבין Switch?",
+      correct: "\u200FRouter = L3, מנתב בין רשתות שונות לפי IP\nSwitch = L2, מעביר פריימים בתוך אותה רשת לפי MAC",
       choices: [
-        "‏Router = L3, מנתב בין רשתות שונות לפי IP. Switch = L2, מעביר פריימים בתוך אותה רשת לפי MAC",
-        "‏Router מהיר יותר מ-Switch",
-        "‏Switch מחבר רשתות, Router מחבר מכשירים",
-        "אין הבדל — מונחים שונים לאותו דבר"
+        "\u200FRouter = L3, מנתב בין רשתות שונות לפי IP\nSwitch = L2, מעביר פריימים בתוך אותה רשת לפי MAC",
+        "\u200FRouter מהיר יותר מ-Switch",
+        "\u200FSwitch מחבר רשתות\nRouter מחבר מכשירים",
+        "\u200Fאין הבדל — מונחים שונים לאותו דבר"
       ],
-      explanation: "‏Switch L2: לומד MAC addresses, מעביר frames בתוך VLAN. ‏Router L3: מחזיק routing table, מבצע IP routing בין subnets. ‏Layer 3 switch: שניהם — routing בין VLANs. ‏Hub ‎(מיושן)‎: L1, broadcast לכולם. ‏Firewall: L3-L7, security policies. ‏Default Gateway = ה-router שהמחשב שולח דרכו ל-outside world."
+      explanation: "\u200F🔀 Switch — Layer 2:\n• לומד MAC addresses\n• מעביר frames בתוך VLAN\n\n🌐 Router — Layer 3:\n• מחזיק routing table\n• מבצע IP routing בין subnets\n\n📦 מכשירים נוספים:\n• Layer 3 Switch = שניהם — routing בין VLANs\n• Hub (מיושן) = L1, broadcast לכולם\n• Firewall = L3-L7, security policies\n• Default Gateway = ה-router ל-outside world"
     },
     {
-      q: "מה TTL ב-IP ואיך הוא מונע routing loops?",
-      correct: "‏Time to Live — כל router מוריד ב-1. כשמגיע ל-0, packet נזרק ונשלח ICMP Time Exceeded",
+      q: "\u200Fמה TTL ב-IP ואיך הוא מונע routing loops?",
+      correct: "\u200FTime to Live — כל router מוריד ב-1\nכשמגיע ל-0, packet נזרק\nונשלח ICMP Time Exceeded",
       choices: [
-        "‏Time to Live — כל router מוריד ב-1. כשמגיע ל-0, packet נזרק ונשלח ICMP Time Exceeded",
-        "‏TTL = כמה שניות החבילה תקפה",
-        "‏TTL נקבע ע\"י היעד, לא ה-sender",
-        "‏TTL = Transport Transfer Layer"
+        "\u200FTime to Live — כל router מוריד ב-1\nכשמגיע ל-0, packet נזרק\nונשלח ICMP Time Exceeded",
+        "\u200FTTL = כמה שניות החבילה תקפה",
+        "\u200FTTL נקבע ע\"י היעד, לא ה-sender",
+        "\u200FTTL = Transport Transfer Layer"
       ],
-      explanation: "‏TTL נוצר כדי למנוע routing loops. ‏Linux default = 64, Windows = 128, Cisco = 255. ‎traceroute/tracert משתמש ב-TTL: שולח packet עם TTL=1, מקבל ICMP, TTL=2, וכו'. כל hop מחזיר ICMP Time Exceeded עם כתובת ה-IP שלו — כך רואים מסלול."
+      explanation: "\u200F🛡️ TTL — נוצר כדי למנוע routing loops\n\n📊 ערכי ברירת מחדל:\n• Linux = 64\n• Windows = 128\n• Cisco = 255\n\n🔍 traceroute משתמש ב-TTL:\n• שולח packet עם TTL=1 → מקבל ICMP\n• TTL=2 → מקבל ICMP מה-hop הבא\n• כל hop מחזיר ICMP Time Exceeded\n  עם כתובת ה-IP שלו — כך רואים מסלול"
     },
     {
-      q: "מה Longest Prefix Match ב-IP routing?",
-      correct: "‏Router בוחר את ה-route הספציפי ביותר — /24 מנצח /16 גם אם שניהם מכסים את ה-destination IP",
+      q: "\u200Fמה Longest Prefix Match ב-IP routing?",
+      correct: "\u200FRouter בוחר את ה-route הספציפי ביותר\n/24 מנצח /16 גם אם שניהם\nמכסים את ה-destination IP",
       choices: [
-        "‏Router בוחר את ה-route הספציפי ביותר — /24 מנצח /16 גם אם שניהם מכסים את ה-destination IP",
-        "‏Router בוחר את ה-route עם המשקל הנמוך ביותר",
-        "‏Router בוחר לפי סדר ה-routing table",
-        "כל routes שווים — בוחרים בrandom"
+        "\u200FRouter בוחר את ה-route הספציפי ביותר\n/24 מנצח /16 גם אם שניהם\nמכסים את ה-destination IP",
+        "\u200FRouter בוחר את ה-route עם המשקל הנמוך ביותר",
+        "\u200FRouter בוחר לפי סדר ה-routing table",
+        "\u200Fכל routes שווים — בוחרים ב-random"
       ],
-      explanation: "‏Longest Prefix Match: destination 192.168.1.50. ‏Routing table: 192.168.0.0/16 ‎(via Router A)‎, 192.168.1.0/24 ‎(via Router B)‎, 0.0.0.0/0 ‎(default, via Router C)‎. ‏Router בוחר /24 כי הוא הכי ספציפי. דוגמה היסטורית — Pakistan Telecom 2008: הזריק /24 → ניצח את ה-/22 המקורי של YouTube → routing hijack."
+      explanation: "\u200F🎯 דוגמה — destination: 192.168.1.50\n\n📋 Routing table:\n• 192.168.0.0/16 → via Router A\n• 192.168.1.0/24 → via Router B\n• 0.0.0.0/0 → default, via Router C\n\n✅ Router בוחר /24 כי הוא הכי ספציפי\n\n⚠️ דוגמה היסטורית:\n• Pakistan Telecom 2008\n• הזריק /24 → ניצח את ה-/22 של YouTube\n• routing hijack עולמי"
     }
   ],
 
