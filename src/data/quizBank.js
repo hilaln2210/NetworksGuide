@@ -1683,19 +1683,19 @@ export const quizBank = {
   // ===== Cyber Security Track (101-106) =====
   101: [
     {
-      q: "מה מייצגת ה-'I' ב-CIA Triad?",
-      correct: "‏Integrity — הנתונים לא שונו ולא זויפו",
+      q: "‏מה מייצגת האות 'I' בשלישיית האבטחה (CIA Triad)?",
+      correct: "‏שלמות (Integrity) — הנתונים לא שונו ולא זויפו",
       choices: [
-        "‏Integrity — הנתונים לא שונו ולא זויפו",
-        "‏Identification — זיהוי המשתמש",
-        "‏Infrastructure — תשתית מאובטחת",
-        "‏Intrusion — זיהוי חדירה"
+        "‏שלמות (Integrity) — הנתונים לא שונו ולא זויפו",
+        "‏זיהוי (Identification) — זיהוי המשתמש",
+        "‏תשתית (Infrastructure) — תשתית מאובטחת",
+        "‏זיהוי חדירה (Intrusion) — גילוי פריצות"
       ],
-      explanation: "‏שלישיית CIA Triad מורכבת מ: סודיות (Confidentiality) — רק מורשים רואים, שלמות (Integrity) — הנתון לא שונה, וזמינות (Availability) — המערכת עובדת. שלמות הנתונים מוגנת באמצעות גיבוב (SHA-256), חתימות דיגיטליות ובדיקות שלמות (checksums).",
+      explanation: "‏שלישיית האבטחה (CIA Triad) מורכבת מ: סודיות (Confidentiality) — רק מורשים רואים, שלמות (Integrity) — הנתון לא שונה, וזמינות (Availability) — המערכת עובדת. שלמות הנתונים מוגנת באמצעות גיבוב (SHA-256), חתימות דיגיטליות ובדיקות שלמות (checksums).",
       explanationEn: "The CIA Triad consists of: Confidentiality (only authorized users can access data), Integrity (data has not been altered or tampered with), and Availability (systems are accessible when needed). Integrity is protected using hashing (SHA-256), digital signatures, and checksums."
     },
     {
-      q: "מהו STRIDE ב-Threat Modeling?",
+      q: "‏מהו STRIDE במסגרת ניתוח איומים (Threat Modeling)?",
       correct: "מסגרת לזיהוי איומים לפי שש קטגוריות: התחזות, זיוף, הכחשה, דליפת מידע, מניעת שירות, הסלמת הרשאות",
       choices: [
         "מסגרת לזיהוי איומים לפי שש קטגוריות: התחזות, זיוף, הכחשה, דליפת מידע, מניעת שירות, הסלמת הרשאות",
@@ -1712,14 +1712,14 @@ export const quizBank = {
       choices: [
         "גישה לרשת Target דרך ספק HVAC שהיה מחובר לאותה רשת כמו מערכות הקופה",
         "פריצה ישירה לשרתי Target מהאינטרנט",
-        "‏SQL Injection על אתר Target",
+        "‏הזרקת SQL על אתר Target",
         "סיסמה חלשה של מנהל IT בכיר"
       ],
       explanation: "ספק מיזוג אוויר (HVAC) קיבל גישה לרשת Target לניהול מרחוק. הפורצים פרצו לספק, ביצעו תנועה רוחבית (pivoting) לרשת Target, והגיעו למערכות הקופה (Point-of-Sale). נגנבו 40 מיליון כרטיסי אשראי. הלקח: הפרדת רשתות (Network Segmentation) — ספקים חיצוניים חייבים להיות ברשת נפרדת.",
       explanationEn: "An HVAC vendor had remote access to Target's network. Attackers breached the vendor, performed lateral movement (pivoting) into Target's network, and reached Point-of-Sale systems. 40 million credit cards were stolen. Lesson: Network Segmentation is critical — external vendors must be on a separate network."
     },
         {
-      q: "מה ההבדל בין Confidentiality לבין Privacy ב-אבטחת מידע?",
+      q: "‏מה ההבדל בין סודיות (Confidentiality) לבין פרטיות (Privacy) באבטחת מידע?",
       correct: "סודיות (Confidentiality) מגנה על נתוני ארגון מפני גישה לא מורשית — פרטיות (Privacy) מגנה על נתונים אישיים של אנשים",
       choices: [
         "סודיות (Confidentiality) מגנה על נתוני ארגון מפני גישה לא מורשית — פרטיות (Privacy) מגנה על נתונים אישיים של אנשים",
@@ -1731,11 +1731,11 @@ export const quizBank = {
       explanationEn: "Confidentiality prevents unauthorized access to data (e.g., a company's classified document). Privacy is an individual's right over their personal data (per GDPR, CCPA regulations). They overlap, but privacy can be violated without breaching confidentiality — e.g., an authorized employee selling customer data to a third party."
     },
         {
-      q: "מה תהליך Threat Modeling ולמה עושים אותו לפני כתיבת קוד?",
+      q: "‏מה תהליך ניתוח איומים (Threat Modeling) ולמה עושים אותו לפני כתיבת קוד?",
       correct: "תהליך זיהוי איומים פוטנציאליים על המערכת לפני פיתוח — זול יותר לתקן בשלב התכנון מאשר בסביבת הייצור",
       choices: [
         "תהליך זיהוי איומים פוטנציאליים על המערכת לפני פיתוח — זול יותר לתקן בשלב התכנון מאשר בסביבת הייצור",
-        "בדיקת חדירה שמבוצעת לאחר deployment",
+        "‏בדיקת חדירה שמבוצעת לאחר פריסה (deployment)",
         "כלי אוטומטי שסורק קוד לפגיעויות",
         "תהליך הצפנת מסד הנתונים לפני העלייה לאוויר"
       ],
@@ -1743,7 +1743,7 @@ export const quizBank = {
       explanationEn: "Threat modeling frameworks (STRIDE, PASTA, DREAD): Ask yourself — who will attack? How? What gets damaged? Fixing a bug at design stage costs $1, at testing $10, and in production $100. Microsoft requires threat modeling before every new feature. Output: data flow diagram, threat list, and mitigation strategies."
     },
         {
-      q: "מה זה Attack Surface ואיך מצמצמים אותו?",
+      q: "‏מהו שטח תקיפה (Attack Surface) ואיך מצמצמים אותו?",
       correct: "סך כל נקודות הכניסה האפשריות למערכת — מצמצמים על ידי כיבוי שירותים מיותרים, עדכוני אבטחה ועקרון ההרשאה המינימלית",
       choices: [
         "סך כל נקודות הכניסה האפשריות למערכת — מצמצמים על ידי כיבוי שירותים מיותרים, עדכוני אבטחה ועקרון ההרשאה המינימלית",
@@ -1758,12 +1758,12 @@ export const quizBank = {
 
   102: [
     {
-      q: "מה ההבדל בין SYN scan (-sS) לבין Connect scan (-sT) ב-Nmap?",
-      correct: "‏סריקת SYN שולחת רק חבילת SYN בלי להשלים את ה-handshake — שקטה יותר ולא נרשמת בלוגי האפליקציה",
+      q: "‏מה ההבדל בין סריקת SYN (sS-) לבין סריקת חיבור (sT-) ב-Nmap?",
+      correct: "‏סריקת SYN שולחת רק חבילת SYN בלי להשלים את לחיצת היד (handshake) — שקטה יותר ולא נרשמת ביומני האפליקציה",
       choices: [
-        "‏סריקת SYN שולחת רק חבילת SYN בלי להשלים את ה-handshake — שקטה יותר ולא נרשמת בלוגי האפליקציה",
+        "‏סריקת SYN שולחת רק חבילת SYN בלי להשלים את לחיצת היד (handshake) — שקטה יותר ולא נרשמת ביומני האפליקציה",
         "‏סריקת SYN מהירה יותר כי משתמשת ב-UDP",
-        "‏סריקת Connect דורשת הרשאות root",
+        "‏סריקת חיבור (Connect) דורשת הרשאות root",
         "אין הבדל — שניהם עושים אותו דבר"
       ],
       explanation: "סריקת SYN (חצי-פתוחה): שולחת SYN, מקבלת SYN-ACK, שולחת RST. לא משלימה חיבור ולכן לא נרשמת בלוגים של האפליקציה. דורשת root. סריקת Connect משלימה לחיצת יד מלאה (TCP handshake) — נרשמת בלוגים אך לא דורשת root. הדגל sS- מועדף בבדיקות חדירה, sT- לסביבות ללא root.",
@@ -1782,19 +1782,19 @@ export const quizBank = {
       explanationEn: "The flags: -sS for SYN scan. -sV for service version detection (what runs on the port). -O for OS detection. -p- for all 65,535 ports (not just the top 1,000). You can combine them: nmap -A -p- target (-A = -sV -O --script=default). Runtime: 10-30 minutes for a full port scan."
     },
     {
-      q: "מה הסימן הראשון שיש open port ב-Nmap output?",
-      correct: "‏STATE: open — הפורט מחזיר SYN-ACK לבקשת SYN",
+      q: "‏מה הסימן הראשון לפורט פתוח (open port) בפלט Nmap?",
+      correct: "‏מצב פתוח (STATE: open) — הפורט מחזיר SYN-ACK לבקשת SYN",
       choices: [
-        "‏STATE: open — הפורט מחזיר SYN-ACK לבקשת SYN",
+        "‏מצב פתוח (STATE: open) — הפורט מחזיר SYN-ACK לבקשת SYN",
         "‏STATE: active",
         "‏RESPONSE: 200 OK",
         "‏PORT: listening"
       ],
-      explanation: "‏Nmap מדווח שלושה מצבים: open (מקבל חיבורים), closed (אין שירות — הפורט מגיב RST), ו-filtered (חומת אש חוסמת — אין תגובה). המצב open/filtered מופיע כשלא ברור האם חומת אש חוסמת או שהפורט פתוח.",
+      explanation: "‏Nmap מדווח שלושה מצבים: פתוח (open) — מקבל חיבורים, סגור (closed) — אין שירות והפורט מגיב RST, ומסונן (filtered) — חומת אש חוסמת ואין תגובה. המצב open/filtered מופיע כשלא ברור האם חומת אש חוסמת או שהפורט פתוח.",
       explanationEn: "Nmap reports 3 states: open (accepting connections), closed (no service — responds with RST), and filtered (firewall blocks — no response or ICMP unreachable). open/filtered means it is unclear whether a firewall is blocking or the port is open."
     },
         {
-      q: "מה קורה ב-ARP Spoofing ואיך תוקף מנצל אותו?",
+      q: "‏מה קורה בזיוף ARP (ARP Spoofing) ואיך תוקף מנצל אותו?",
       correct: "תוקף שולח תגובות ARP מזויפות כדי לשייך את כתובת ה-MAC שלו לכתובת IP של הקורבן — כל התעבורה עוברת דרכו (התקפת אדם-באמצע)",
       choices: [
         "תוקף שולח תגובות ARP מזויפות כדי לשייך את כתובת ה-MAC שלו לכתובת IP של הקורבן — כל התעבורה עוברת דרכו (התקפת אדם-באמצע)",
@@ -1806,19 +1806,19 @@ export const quizBank = {
       explanationEn: "ARP has no authentication — anyone can send an ARP reply. The attacker sends: 'The gateway IP maps to MY MAC address!' The victim updates its ARP cache, and all traffic flows through the attacker. Defenses: Dynamic ARP Inspection (DAI) on switches, static ARP entries, and monitoring tools like ARPwatch."
     },
         {
-      q: "מה ההבדל בין Volumetric DDoS לבין Application Layer DDoS (L7)?",
+      q: "‏מה ההבדל בין מתקפת מניעת שירות נפחית (Volumetric DDoS) לבין מתקפת שכבת אפליקציה (L7 DDoS)?",
       correct: "‏מתקפה נפחית (Volumetric) מציפה את רוחב הפס בג'יגה-ביט של UDP/ICMP — מתקפת שכבה 7 שולחת בקשות HTTP שנראות לגיטימיות ומרוקנות משאבי שרת",
       choices: [
         "‏מתקפה נפחית (Volumetric) מציפה את רוחב הפס בג'יגה-ביט של UDP/ICMP — מתקפת שכבה 7 שולחת בקשות HTTP שנראות לגיטימיות ומרוקנות משאבי שרת",
         "‏מתקפה נפחית תוקפת שרתי DNS — שכבה 7 תוקפת רק שרתי web",
         "‏מתקפת שכבה 7 קלה יותר לחסימה כי השרת רואה את ה-IP",
-        "אין הבדל — שניהם מרוקנים bandwidth"
+        "‏אין הבדל — שניהם מרוקנים רוחב פס"
       ],
       explanation: "מתקפה נפחית (שכבות 3/4): מציפה את הצינור בג'יגה-ביט של נתונים — הצפת UDP, ICMP, SYN. קל לזהות (תעבורה חריגה) אך קשה לעצור ללא סינון ברמת ספק האינטרנט. מתקפת שכבה 7: כלי Slowloris מחזיק חיבורי HTTP פתוחים, הצפת HTTP — הבקשות נראות לגיטימיות וקשה להבחין בהן. מחייב חומת אש אפליקטיבית (WAF), הגבלת קצב ואתגרי CAPTCHA.",
       explanationEn: "Volumetric (L3/L4): floods the pipe with gigabits of data — UDP flood, ICMP flood, SYN flood. Easy to detect (abnormal traffic) but hard to stop without ISP-level scrubbing. Application L7: Slowloris holds HTTP connections open, HTTP flood looks legitimate and is hard to distinguish from real traffic. Requires WAF, rate limiting, and challenge-response (CAPTCHA)."
     },
         {
-      q: "מהי מתקפת Replay Attack ואיך TLS מונע אותה?",
+      q: "‏מהי מתקפת השחזור (Replay Attack) ואיך TLS מונע אותה?",
       correct: "תוקף מיירט ומשחזר חבילה חוקית — פרוטוקול TLS מונע זאת באמצעות מספרים סידוריים ואסימוני הפעלה חד-פעמיים",
       choices: [
         "תוקף מיירט ומשחזר חבילה חוקית — פרוטוקול TLS מונע זאת באמצעות מספרים סידוריים ואסימוני הפעלה חד-פעמיים",
@@ -1833,7 +1833,7 @@ export const quizBank = {
 
   103: [
     {
-      q: "מה ההבדל בין Stored XSS לבין Reflected XSS?",
+      q: "‏מה ההבדל בין סקריפטינג מאוחסן (Stored XSS) לבין סקריפטינג מוחזר (Reflected XSS)?",
       correct: "‏XSS מאוחסן (Stored) נשמר במסד הנתונים ומורץ לכל מבקר — XSS מוחזר (Reflected) חוזר מהשרת רק למי ששלח את הכתובת הזדונית",
       choices: [
         "‏XSS מאוחסן (Stored) נשמר במסד הנתונים ומורץ לכל מבקר — XSS מוחזר (Reflected) חוזר מהשרת רק למי ששלח את הכתובת הזדונית",
@@ -1845,12 +1845,12 @@ export const quizBank = {
       explanationEn: "Stored (Persistent) XSS: a script is saved in the database (e.g., a forum comment) and executes for every visitor. Reflected: a script in a URL is sent to a user and executes immediately. DOM-based: runs in client-side JS without server involvement. Stored is the most dangerous (affects all visitors). Defense: output encoding, CSP headers."
     },
     {
-      q: "מה CVSS score של 9.8 מייצג?",
-      correct: "‏Critical — פגיעות חמורה מאוד הניתנת לניצול מרחוק ללא אימות",
+      q: "‏מה מייצג ציון 9.8 בסולם הפגיעויות (CVSS)?",
+      correct: "‏קריטי (Critical) — פגיעות חמורה מאוד הניתנת לניצול מרחוק ללא אימות",
       choices: [
-        "‏Critical — פגיעות חמורה מאוד הניתנת לניצול מרחוק ללא אימות",
-        "‏High — פגיעות קשה אך דורשת גישה פיזית",
-        "‏Medium — פגיעות בינונית עם השפעה מוגבלת",
+        "‏קריטי (Critical) — פגיעות חמורה מאוד הניתנת לניצול מרחוק ללא אימות",
+        "‏גבוה (High) — פגיעות קשה אך דורשת גישה פיזית",
+        "‏בינוני (Medium) — פגיעות בינונית עם השפעה מוגבלת",
         "תלוי בסוג המערכת"
       ],
       explanation: "סולם CVSS v3: אפס=ללא, 0.1-3.9=נמוך, 4.0-6.9=בינוני, 7.0-8.9=גבוה, 9.0-10.0=קריטי. ציון 9.8 פירושו הרצת קוד מרחוק (RCE) ללא אימות ונגיש מהרשת. פגיעויות Heartbleed ו-Log4Shell קיבלו ציון 9.8 ומעלה. כל פגיעות קריטית דורשת טלאי תוך 24-48 שעות.",
@@ -1858,48 +1858,48 @@ export const quizBank = {
     },
     {
       q: "איך Heartbleed עבד טכנית?",
-      correct: "בקשת heartbeat עם length שגויה — שרת החזיר זיכרון מעבר לבקשה, כולל private keys וסיסמות",
+      correct: "‏בקשת heartbeat עם אורך (length) שגוי — השרת החזיר זיכרון מעבר לבקשה, כולל מפתחות פרטיים וסיסמות",
       choices: [
-        "בקשת heartbeat עם length שגויה — שרת החזיר זיכרון מעבר לבקשה, כולל private keys וסיסמות",
-        "‏Buffer overflow שמאפשר הרצת קוד שרירותי",
-        "‏SQL injection במסד הנתונים של OpenSSL",
+        "‏בקשת heartbeat עם אורך (length) שגוי — השרת החזיר זיכרון מעבר לבקשה, כולל מפתחות פרטיים וסיסמות",
+        "‏גלישת מאגר (Buffer overflow) שמאפשרת הרצת קוד שרירותי",
+        "‏הזרקת SQL במסד הנתונים של OpenSSL",
         "חיבור TLS לא מוצפן שאפשר האזנה"
       ],
       explanation: "תוסף ה-Heartbeat ב-OpenSSL: הלקוח שולח 'החזר לי X בתים'. השרת מחזיר X בתים מבלי לוודא שנשלחו כל כך הרבה. הבאג: אם ביקשת 64KB אבל שלחת בית אחד, השרת מחזיר 64KB מהזיכרון — שעלול להכיל מפתחות פרטיים, אסימוני הפעלה וסיסמאות. הפגיעות הייתה חשופה שנתיים (2012-2014).",
       explanationEn: "OpenSSL Heartbeat extension: the client sends 'return X bytes to me'. The server returns X bytes without verifying that X bytes were actually sent. Bug: if you request 64K but send 1 byte, the server returns 64K from RAM — which may contain private keys, session tokens, and passwords. The vulnerability was exposed for 2 years (2012-2014)."
     },
         {
-      q: "מה SQL Injection ואיך prepared statements מונעים אותה?",
+      q: "‏מהי הזרקת SQL (SQL Injection) ואיך שאילתות מוכנות (Prepared Statements) מונעות אותה?",
       correct: "הזרקת קוד SQL דרך קלט משתמש — שאילתות מוכנות (Prepared Statements) מפרידות קוד מנתונים כך שהפרמטרים מטופלים כטקסט בלבד",
       choices: [
         "הזרקת קוד SQL דרך קלט משתמש — שאילתות מוכנות (Prepared Statements) מפרידות קוד מנתונים כך שהפרמטרים מטופלים כטקסט בלבד",
-        "מתקפה על שרת ה-SQL הפיזי — הפתרון: עדכון שרת",
-        "הצפנת שאילתות SQL לפני שליחה למסד הנתונים",
+        "‏מתקפה על שרת מסד הנתונים הפיזי — הפתרון: עדכון שרת",
+        "‏הצפנת שאילתות SQL לפני שליחה למסד הנתונים",
         "שאילתות מוכנות מהירות יותר — זו הסיבה העיקרית להשתמש בהן"
       ],
       explanation: "דוגמה קלאסית להזרקת SQL: שם משתמש עם ' OR '1'='1 יוצר שאילתה שתמיד מחזירה true ועוקף את ההתחברות. שאילתה מוכנה (Prepared Statement) משתמשת בסימן ? כמציין מקום — מסד הנתונים מטפל בערך כטקסט בלבד ולא כקוד. כלל ברזל: לעולם אל תשלב קלט משתמש ישירות במחרוזת SQL!",
       explanationEn: "Classic SQLi: username=' OR '1'='1 turns the query into SELECT * FROM users WHERE name='' OR '1'='1' — always true, bypasses login! Prepared Statement: $stmt = $pdo->prepare('SELECT * FROM users WHERE name = ?'); $stmt->execute([$username]); — the ? is a placeholder, the DB treats the value as a string, not code. Never concatenate user input directly into SQL strings!"
     },
         {
-      q: "מה CSRF ואיך Anti-CSRF Token מגן?",
+      q: "‏מהו זיוף בקשה בין אתרים (CSRF) ואיך אסימון נגד CSRF מגן?",
       correct: "זיוף בקשה בין אתרים (CSRF) — אתר זדוני גורם לדפדפן לשלוח בקשות לאתר אחר שבו המשתמש מחובר. אסימון ייחודי בכל טופס מונע זאת",
       choices: [
         "זיוף בקשה בין אתרים (CSRF) — אתר זדוני גורם לדפדפן לשלוח בקשות לאתר אחר שבו המשתמש מחובר. אסימון ייחודי בכל טופס מונע זאת",
-        "מתקפה שמזייפת עוגיות של משתמש באמצעות XSS",
-        "גניבת כותרות CSRF מבקשת HTTP",
-        "כניסה לחשבון בעזרת סיסמה גנובה"
+        "‏מתקפה שמזייפת עוגיות של משתמש באמצעות XSS",
+        "‏גניבת כותרות CSRF מבקשת HTTP",
+        "‏כניסה לחשבון בעזרת סיסמה גנובה"
       ],
       explanation: "תרחיש: אליס מחוברת לאתר הבנק. היא מבקרת באתר זדוני שמכיל תג תמונה עם כתובת לפעולת העברה בבנק. הדפדפן שולח את הבקשה עם העוגיות של אליס! אסימון נגד CSRF: השרת מוסיף אסימון נסתר לכל טופס, ובעת שליחה מוודא שהאסימון תואם את ההפעלה. אתר זדוני לא יכול לקרוא את האסימון בזכות מדיניות Same-Origin Policy.",
       explanationEn: "Scenario: Alice is logged into bank.com. She visits evil.com which contains an image tag pointing to bank.com/transfer. The browser sends the request with Alice's cookies! Anti-CSRF Token: the server adds a hidden token to every form, the token is sent in the body, and the server verifies it matches the session. The attacker's site cannot read the token due to Same-Origin Policy."
     },
         {
-      q: "מה OWASP Top 10 ואיזה vulnerability בדרך כלל תופס מקום ראשון?",
+      q: "‏מהי רשימת OWASP Top 10 ואיזו פגיעות בדרך כלל תופסת מקום ראשון?",
       correct: "רשימת 10 סיכוני האבטחה הנפוצים ביותר באפליקציות ווב — בקרת גישה לקויה (Broken Access Control) במקום 1 מאז 2021",
       choices: [
         "רשימת 10 סיכוני האבטחה הנפוצים ביותר באפליקציות ווב — בקרת גישה לקויה (Broken Access Control) במקום 1 מאז 2021",
         "רשימת 10 הכלים הטובים ביותר לבדיקות חדירה — הזרקת SQL במקום 1",
         "10 פגיעויות שנתגלו בשנת 2021 בלבד",
-        "תקן ISO המגדיר אבטחת ווב — XSS במקום 1 תמיד"
+        "‏תקן ISO המגדיר אבטחת ווב — XSS במקום 1 תמיד"
       ],
       explanation: "רשימת OWASP Top 10 לשנת 2021: בקרת גישה לקויה (A01), כשלים קריפטוגרפיים (A02), הזרקות SQL/LDAP/OS (A03), תכנון לא מאובטח (A04), תצורת אבטחה שגויה (A05), רכיבים פגיעים (A06), כשלי אימות (A07), כשלי שלמות (A08), כשלי תיעוד (A09), זיוף בקשות בצד השרת — SSRF (A10). לא חוק אלא מדריך שיטות עבודה מומלצות לצוותי פיתוח. מתעדכן כל 4 שנים בערך.",
       explanationEn: "OWASP Top 10 (2021): A01:Broken Access Control (user can access another's resources), A02:Cryptographic Failures, A03:Injection (SQL/LDAP/OS), A04:Insecure Design, A05:Security Misconfiguration, A06:Vulnerable Components, A07:Auth Failures, A08:Integrity Failures, A09:Logging Failures, A10:SSRF. Not a law — a best practice guide for dev teams. Updated roughly every 4 years."
@@ -1908,225 +1908,225 @@ export const quizBank = {
 
   104: [
     {
-      q: "מה Defense in Depth?",
-      correct: "שכבות הגנה מרובות — כך שפריצת שכבה אחת לא מספיקה להגיע לנכס",
+      q: "‏מהי הגנה לעומק (Defense in Depth)?",
+      correct: "‏שכבות הגנה מרובות — כך שפריצת שכבה אחת לא מספיקה להגיע לנכס",
       choices: [
-        "שכבות הגנה מרובות — כך שפריצת שכבה אחת לא מספיקה להגיע לנכס",
-        "חומת אש חזקה מאוד בכניסה לרשת",
-        "הצפנת כל הנתונים במסד הנתונים",
-        "גיבוי יומי לכל המערכות"
+        "‏שכבות הגנה מרובות — כך שפריצת שכבה אחת לא מספיקה להגיע לנכס",
+        "‏חומת אש חזקה מאוד בכניסה לרשת",
+        "‏הצפנת כל הנתונים במסד הנתונים",
+        "‏גיבוי יומי לכל המערכות"
       ],
-      explanation: "הגנה לעומק כוללת שכבות: היקף (חומת אש, WAF), רשת (מערכות זיהוי/מניעת חדירה, הפרדת רשתות), תחנות קצה (אנטי-וירוס, EDR, עדכונים), אפליקציה (אימות, הרשאות, בדיקת קלט), נתונים (הצפנה, מניעת דליפה) ואנושי (הדרכה, סימולציות פישינג). כל שכבה מניחה שהשכבה החיצונית תיכשל.",
+      explanation: "‏הגנה לעומק כוללת שכבות: היקף (חומת אש, WAF), רשת (מערכות זיהוי/מניעת חדירה — IDS/IPS, הפרדת רשתות), תחנות קצה (אנטי-וירוס, EDR, עדכונים), אפליקציה (אימות, הרשאות, בדיקת קלט), נתונים (הצפנה, מניעת דליפה — DLP) ואנושי (הדרכה, סימולציות פישינג). כל שכבה מניחה שהשכבה החיצונית תיכשל.",
       explanationEn: "Defense in Depth layers: Perimeter (Firewall, WAF) > Network (IDS/IPS, Segmentation) > Endpoint (AV, EDR, Patch) > Application (Auth, RBAC, Input validation) > Data (Encryption, DLP) > Human (Training, Phishing simulation). Each layer assumes the outer layer will fail."
     },
     {
-      q: "מה ה-Incident Response lifecycle לפי NIST?",
-      correct: "‏Preparation → Detection → Containment → Eradication → Recovery → Lessons Learned",
+      q: "‏מהו מחזור החיים של טיפול בתקריות (Incident Response) לפי NIST?",
+      correct: "‏הכנה → זיהוי → בלימה → מיגור → שחזור → לקחים נלמדים (Preparation → Detection → Containment → Eradication → Recovery → Lessons Learned)",
       choices: [
-        "‏Preparation → Detection → Containment → Eradication → Recovery → Lessons Learned",
-        "‏Alert → Triage → Patch → Report",
-        "‏Monitor → Block → Clean → Backup",
-        "‏Detect → Respond → Recover → Improve"
+        "‏הכנה → זיהוי → בלימה → מיגור → שחזור → לקחים נלמדים (Preparation → Detection → Containment → Eradication → Recovery → Lessons Learned)",
+        "‏התרעה → תיעדוף → תיקון → דיווח (Alert → Triage → Patch → Report)",
+        "‏ניטור → חסימה → ניקוי → גיבוי (Monitor → Block → Clean → Backup)",
+        "‏זיהוי → תגובה → שחזור → שיפור (Detect → Respond → Recover → Improve)"
       ],
-      explanation: "לפי תקן NIST SP 800-61: הכנה (כלים, נהלים, צוות), זיהוי וניתוח (איתור סממני פריצה), בלימה (בידוד — קצר טווח ואז ארוך טווח), מיגור (הסרת תוכנה זדונית, עדכון), שחזור (החזרת שירותים), ולקחים נלמדים (תחקיר תוך שבועיים). המחזור חוזר תמיד על עצמו.",
+      explanation: "‏לפי תקן NIST SP 800-61: הכנה (כלים, נהלים, צוות), זיהוי וניתוח (איתור סממני פריצה — IOCs), בלימה (בידוד — קצר טווח ואז ארוך טווח), מיגור (הסרת תוכנה זדונית, עדכון), שחזור (החזרת שירותים), ולקחים נלמדים (תחקיר תוך שבועיים). המחזור חוזר תמיד על עצמו.",
       explanationEn: "NIST SP 800-61: Preparation (tools, playbooks, team). Detection & Analysis (identify IOCs). Containment (isolate — short-term then long-term). Eradication (remove malware, patch). Recovery (restore services). Lessons Learned (post-mortem within 2 weeks). The cycle always repeats."
     },
     {
-      q: "מה SIEM עושה שאי אפשר לעשות עם logs פשוטים?",
-      correct: "מאחד לוגים ממקורות שונים ומחפש מתאמים — למשל: כשל התחברות + תנועה רוחבית + הברחת מידע תוך 10 דקות",
+      q: "‏מה מערכת ניהול מידע ואירועי אבטחה (SIEM) עושה שאי אפשר לעשות עם לוגים פשוטים?",
+      correct: "‏מאחדת לוגים ממקורות שונים ומחפשת מתאמים — למשל: כשל התחברות + תנועה רוחבית + הברחת מידע תוך 10 דקות",
       choices: [
-        "מאחד לוגים ממקורות שונים ומחפש מתאמים — למשל: כשל התחברות + תנועה רוחבית + הברחת מידע תוך 10 דקות",
-        "מצפין לוגים כדי שלא ייגנבו",
-        "מחליף חומת אש ומערכת זיהוי חדירות",
-        "שולח התרעות רק על פגיעויות CVE ידועות"
+        "‏מאחדת לוגים ממקורות שונים ומחפשת מתאמים — למשל: כשל התחברות + תנועה רוחבית + הברחת מידע תוך 10 דקות",
+        "‏מצפינה לוגים כדי שלא ייגנבו",
+        "‏מחליפה חומת אש ומערכת זיהוי חדירות (IDS)",
+        "‏שולחת התרעות רק על פגיעויות (CVE) ידועות"
       ],
-      explanation: "מערכת SIEM (ניהול מידע ואירועי אבטחה) אוספת ממקורות: Active Directory, חומת אש, EDR, פרוקסי ווב, DNS. דוגמה לזיהוי מתאמים: 3 כשלי התחברות (ניסיון פריצה?) ואז הצלחה + גישה לשרת רגיש = התרעה. כלים נפוצים: Splunk, IBM QRadar, Microsoft Sentinel. אנליסט SOC מבלה 70% מזמנו במערכת SIEM.",
+      explanation: "‏מערכת SIEM (ניהול מידע ואירועי אבטחה) אוספת ממקורות: Active Directory, חומת אש, EDR, פרוקסי ווב, DNS. דוגמה לזיהוי מתאמים: 3 כשלי התחברות (ניסיון פיצוח בכוח?) ואז הצלחה + גישה לשרת רגיש = התרעה. כלים נפוצים: Splunk, IBM QRadar, Microsoft Sentinel. אנליסט מרכז תפעול אבטחה (SOC) מבלה 70% מזמנו במערכת SIEM.",
       explanationEn: "SIEM = Security Information and Event Management. Sources: AD, Firewall, EDR, Web proxy, DNS. Correlation example: 3 login failures (brute force?) + success + access to sensitive server = alert. Tools: Splunk, IBM QRadar, Microsoft Sentinel, ELK Stack. SOC analysts spend 70% of their time in the SIEM."
     },
         {
-      q: "מה 5 שלבי Penetration Testing המקובלים?",
-      correct: "‏Reconnaissance, Scanning, Exploitation, Post-Exploitation, Reporting",
+      q: "‏מהם 5 שלבי בדיקת חדירה (Penetration Testing) המקובלים?",
+      correct: "‏איסוף מודיעין, סריקה, ניצול, לאחר הניצול, דיווח (Reconnaissance, Scanning, Exploitation, Post-Exploitation, Reporting)",
       choices: [
-        "‏Reconnaissance, Scanning, Exploitation, Post-Exploitation, Reporting",
-        "‏Planning, Attack, Defend, Recover, Document",
-        "‏OSINT, Nmap, Metasploit, Pivot, Exit",
-        "‏Discovery, Enumeration, Privilege Escalation, Lateral Movement, Cleanup"
+        "‏איסוף מודיעין, סריקה, ניצול, לאחר הניצול, דיווח (Reconnaissance, Scanning, Exploitation, Post-Exploitation, Reporting)",
+        "‏תכנון, תקיפה, הגנה, שחזור, תיעוד (Planning, Attack, Defend, Recover, Document)",
+        "‏מודיעין ממקורות פתוחים (OSINT), Nmap, Metasploit, מעבר רוחבי, יציאה",
+        "‏גילוי, מיפוי, הסלמת הרשאות, תנועה רוחבית, ניקוי (Discovery, Enumeration, Privilege Escalation, Lateral Movement, Cleanup)"
       ],
-      explanation: "שלבי בדיקת חדירה: 1) איסוף מודיעין — מקורות פתוחים (OSINT), סריקת DNS. 2) סריקה — באמצעות Nmap, Nikto, Shodan. 3) ניצול — באמצעות Metasploit וניצול פגיעויות CVE. 4) לאחר הניצול — הסלמת הרשאות, תנועה רוחבית, השגת אחיזה, הברחת מידע. 5) דו\"ח — תקציר מנהלים, פרטים טכניים, ציוני CVSS והמלצות. חשוב: הסכמה בכתב על היקף הבדיקה לפני ההתחלה!",
+      explanation: "‏שלבי בדיקת חדירה: 1) איסוף מודיעין — מקורות פתוחים (OSINT), סריקת DNS. 2) סריקה — באמצעות Nmap, Nikto, Shodan. 3) ניצול — באמצעות Metasploit וניצול פגיעויות (CVE). 4) לאחר הניצול — הסלמת הרשאות, תנועה רוחבית, השגת אחיזה, הברחת מידע. 5) דו\"ח — תקציר מנהלים, פרטים טכניים, ציוני חומרה (CVSS) והמלצות. חשוב: הסכמה בכתב על היקף הבדיקה לפני ההתחלה!",
       explanationEn: "Pentest phases: 1) Reconnaissance — OSINT, DNS enumeration, Google dorking. 2) Scanning — Nmap, Nikto, Shodan. 3) Exploitation — Metasploit, custom exploits, CVE exploitation. 4) Post-Exploitation — privilege escalation, lateral movement, persistence, data exfiltration. 5) Reporting — executive summary + technical details + CVSS scores + recommendations. Important: written scope agreement before starting!"
     },
         {
-      q: "מה ההבדל בין White Box לבין Black Box Penetration Testing?",
-      correct: "בדיקת קופסה לבנה (White Box): לבודק יש מלוא המידע (קוד, ארכיטקטורה) — קופסה שחורה (Black Box): לבודק אין מידע מוקדם, מדמה תוקף חיצוני",
+      q: "‏מה ההבדל בין בדיקת קופסה לבנה (White Box) לבין קופסה שחורה (Black Box) בבדיקת חדירה?",
+      correct: "‏קופסה לבנה (White Box): לבודק יש מלוא המידע (קוד, ארכיטקטורה) — קופסה שחורה (Black Box): לבודק אין מידע מוקדם, מדמה תוקף חיצוני",
       choices: [
-        "בדיקת קופסה לבנה (White Box): לבודק יש מלוא המידע (קוד, ארכיטקטורה) — קופסה שחורה (Black Box): לבודק אין מידע מוקדם, מדמה תוקף חיצוני",
-        "קופסה לבנה בודקת רק צד לקוח — קופסה שחורה בודקת צד שרת",
-        "קופסה לבנה מבוצעת במשרד — קופסה שחורה מרחוק",
-        "קופסה לבנה בודקת רשת — קופסה שחורה בודקת אפליקציות"
+        "‏קופסה לבנה (White Box): לבודק יש מלוא המידע (קוד, ארכיטקטורה) — קופסה שחורה (Black Box): לבודק אין מידע מוקדם, מדמה תוקף חיצוני",
+        "‏קופסה לבנה בודקת רק צד לקוח — קופסה שחורה בודקת צד שרת",
+        "‏קופסה לבנה מבוצעת במשרד — קופסה שחורה מרחוק",
+        "‏קופסה לבנה בודקת רשת — קופסה שחורה בודקת אפליקציות"
       ],
-      explanation: "בבדיקת קופסה לבנה (Crystal Box) הבודק מקבל קוד מקור, הרשאות ותרשימי ארכיטקטורה — יעיל ויסודי יותר. קופסה אפורה (Gray Box): ידע חלקי, הרשאות בלבד. קופסה שחורה (Black Box): מדמה תוקף אמיתי. צוות אדום (Red Team) הוא קופסה שחורה מורחבת עם הנדסה חברתית וטכניקות פיזיות. קופסה לבנה עדיפה לסקירת קוד; קופסה שחורה לאיתור בעיות שרק תוקף חיצוני ימצא.",
+      explanation: "‏בבדיקת קופסה לבנה (Crystal Box) הבודק מקבל קוד מקור, הרשאות ותרשימי ארכיטקטורה — יעיל ויסודי יותר. קופסה אפורה (Gray Box): ידע חלקי, הרשאות בלבד. קופסה שחורה (Black Box): מדמה תוקף אמיתי. צוות אדום (Red Team) הוא קופסה שחורה מורחבת עם הנדסה חברתית וטכניקות פיזיות. קופסה לבנה עדיפה לסקירת קוד; קופסה שחורה לאיתור בעיות שרק תוקף חיצוני ימצא.",
       explanationEn: "White Box (Crystal Box): tester receives source code, credentials, and architecture diagrams. More thorough, finds more issues. Gray Box: partial knowledge — credentials only. Black Box: simulates a real attacker. Red Team = extended Black Box with social engineering and physical techniques. White Box is better for Code Review; Black Box for finding issues only an external attacker would discover."
     },
         {
-      q: "מה Metasploit Framework ומה זה Meterpreter shell?",
-      correct: "‏Metasploit הוא מסגרת לניצול פגיעויות — Meterpreter הוא מטען מתקדם שרץ בזיכרון בלבד, לא כותב לדיסק, עם יכולות כמו צילום מסך ומעקב מקלדת",
+      q: "‏מהי מסגרת הניצול Metasploit ומהי מעטפת Meterpreter?",
+      correct: "‏מסגרת Metasploit משמשת לניצול פגיעויות — מעטפת Meterpreter היא מטען מתקדם שרץ בזיכרון בלבד, לא כותב לדיסק, עם יכולות כמו צילום מסך ומעקב מקלדת",
       choices: [
-        "‏Metasploit הוא מסגרת לניצול פגיעויות — Meterpreter הוא מטען מתקדם שרץ בזיכרון בלבד, לא כותב לדיסק, עם יכולות כמו צילום מסך ומעקב מקלדת",
-        "‏Metasploit הוא סורק פורטים — Meterpreter הוא מעטפת הפוכה פשוטה",
-        "‏Metasploit הוא כלי SIEM — ו-Meterpreter הוא כלי ניתוח לוגים",
-        "‏Metasploit הוא כלי הצפנה — Meterpreter הוא כלי לפיצוח סיסמאות"
+        "‏מסגרת Metasploit משמשת לניצול פגיעויות — מעטפת Meterpreter היא מטען מתקדם שרץ בזיכרון בלבד, לא כותב לדיסק, עם יכולות כמו צילום מסך ומעקב מקלדת",
+        "‏כלי Metasploit הוא סורק פורטים — מעטפת Meterpreter היא מעטפת הפוכה פשוטה",
+        "‏כלי Metasploit הוא מערכת SIEM — ו-Meterpreter הוא כלי ניתוח לוגים",
+        "‏כלי Metasploit הוא כלי הצפנה — Meterpreter הוא כלי לפיצוח סיסמאות"
       ],
-      explanation: "‏Metasploit (של חברת Rapid7): פותחים את msfconsole, מחפשים ניצול, בוחרים מטען ומריצים. Meterpreter (מפרש-על) רץ בזיכרון התהליך שנוצל — אין קובץ בדיסק, מוצפן ב-TLS. פקודות נפוצות: שליפת גיבובי סיסמאות, הסלמת הרשאות, צילום מסך, מעבר לתהליך אחר. התחמקות: מטענים פולימורפיים וקידוד באמצעות msfvenom.",
+      explanation: "‏מסגרת Metasploit (של חברת Rapid7): פותחים את msfconsole, מחפשים ניצול, בוחרים מטען ומריצים. מעטפת Meterpreter (מפרש-על) רצה בזיכרון התהליך שנוצל — אין קובץ בדיסק, מוצפנת ב-TLS. פקודות נפוצות: שליפת גיבובי סיסמאות, הסלמת הרשאות, צילום מסך, מעבר לתהליך אחר. התחמקות: מטענים פולימורפיים וקידוד באמצעות msfvenom.",
       explanationEn: "Metasploit (Rapid7): msfconsole > search exploit > use exploit/windows/smb/ms17_010_eternalblue > set RHOSTS > set PAYLOAD > run. Meterpreter = meta-interpreter: runs in the exploited process's memory, not as an exe file, encrypted with TLS. Commands: hashdump, getsystem (priv esc), screenshot, migrate (to a different process). Evasion: polymorphic payloads, msfvenom encoding."
     }
   ],
 
   105: [
     {
-      q: "למה AES-ECB מסוכן למרות ש-AES עצמו חזק?",
-      correct: "מצב ECB מצפין כל בלוק בנפרד — בלוקים זהים מייצרים טקסט מוצפן זהה וחושפים דפוסים",
+      q: "‏למה מצב ספר הקודים האלקטרוני (AES-ECB) מסוכן למרות שהצפנת AES עצמה חזקה?",
+      correct: "‏מצב ECB מצפין כל בלוק בנפרד — בלוקים זהים מייצרים טקסט מוצפן זהה וחושפים דפוסים",
       choices: [
-        "מצב ECB מצפין כל בלוק בנפרד — בלוקים זהים מייצרים טקסט מוצפן זהה וחושפים דפוסים",
-        "מצב ECB לא תומך במפתחות של 256 סיביות",
-        "מצב ECB פגיע לכוח גס כי המפתח קצר",
-        "מצב ECB איטי מדי לשימוש מעשי"
+        "‏מצב ECB מצפין כל בלוק בנפרד — בלוקים זהים מייצרים טקסט מוצפן זהה וחושפים דפוסים",
+        "‏מצב ECB לא תומך במפתחות של 256 סיביות",
+        "‏מצב ECB פגיע לפיצוח בכוח כי המפתח קצר",
+        "‏מצב ECB איטי מדי לשימוש מעשי"
       ],
-      explanation: "במצב AES-ECB כל 16 בתים מוצפנים באופן עצמאי. אם בתמונה יש שני אזורים באותו צבע — הטקסט המוצפן זהה והדפוס נראה. הדגמה קלאסית: הצפנת תמונת הפינגווין של לינוקס במצב ECB — הצללית עדיין נראית! הפתרון: מצבי AES-CBC או AES-GCM שמשתמשים בוקטור אתחול ושרשור למניעת דפוסים.",
+      explanation: "‏במצב AES-ECB כל 16 בתים מוצפנים באופן עצמאי. אם בתמונה יש שני אזורים באותו צבע — הטקסט המוצפן זהה והדפוס נראה. הדגמה קלאסית: הצפנת תמונת הפינגווין של לינוקס במצב ECB — הצללית עדיין נראית! הפתרון: מצבי שרשור בלוקים (AES-CBC) או הצפנה מאומתת (AES-GCM) שמשתמשים בוקטור אתחול (IV) ושרשור למניעת דפוסים.",
       explanationEn: "AES-ECB encrypts each 16-byte block independently. If an image has two regions with the same color, they produce identical ciphertext, revealing the pattern. Classic demo: encrypting the Linux penguin image with ECB — the silhouette is still visible! Solution: AES-CBC/GCM — an IV plus chaining prevents patterns."
     },
     {
-      q: "מה 0-RTT ב-TLS 1.3 / QUIC ומה הסיכון?",
-      correct: "שליחת נתונים בחבילה הראשונה בלי לחיצת יד — חוסכת זמן הלוך-חזור, אך נתונים אלו פגיעים למתקפת השחזור",
+      q: "‏מהו מנגנון אפס זמני הלוך-חזור (0-RTT) בפרוטוקול TLS 1.3 / QUIC ומה הסיכון?",
+      correct: "‏שליחת נתונים בחבילה הראשונה בלי לחיצת יד — חוסכת זמן הלוך-חזור, אך נתונים אלו פגיעים למתקפת השחזור (Replay Attack)",
       choices: [
-        "שליחת נתונים בחבילה הראשונה בלי לחיצת יד — חוסכת זמן הלוך-חזור, אך נתונים אלו פגיעים למתקפת השחזור",
-        "חיבור TLS ללא הצפנה לשיפור מהירות",
-        "שמירת הפעלה על הדיסק בין חיבורים",
+        "‏שליחת נתונים בחבילה הראשונה בלי לחיצת יד — חוסכת זמן הלוך-חזור, אך נתונים אלו פגיעים למתקפת השחזור (Replay Attack)",
+        "‏חיבור TLS ללא הצפנה לשיפור מהירות",
+        "‏שמירת הפעלה על הדיסק בין חיבורים",
         "‏שימוש ב-HTTP/1.1 כחלופה"
       ],
-      explanation: "במנגנון 0-RTT הלקוח שולח נתוני אפליקציה כבר בחבילה הראשונה (באמצעות כרטיס הפעלה מחיבור קודם), וחוסך 1-2 זמני הלוך-חזור. הסיכון: תוקף יכול לשלוח שוב את נתוני ה-0-RTT (מתקפת השחזור). לכן 0-RTT מוגבל לבקשות שאינן משנות מצב (GET, לא POST עם תשלום). פרוטוקול TLS 1.3 תומך ב-0-RTT, גרסה 1.2 לא.",
+      explanation: "‏במנגנון 0-RTT הלקוח שולח נתוני אפליקציה כבר בחבילה הראשונה (באמצעות כרטיס הפעלה מחיבור קודם), וחוסך 1-2 זמני הלוך-חזור. הסיכון: תוקף יכול לשלוח שוב את נתוני ה-0-RTT (מתקפת השחזור — Replay Attack). לכן 0-RTT מוגבל לבקשות שאינן משנות מצב (GET, לא POST עם תשלום). פרוטוקול TLS 1.3 תומך ב-0-RTT, גרסה 1.2 לא.",
       explanationEn: "0-RTT: the client sends application data in the very first packet (using a session ticket from a previous connection), saving 1-2 round trips. Risk: Replay attack — an attacker can resend the 0-RTT data. Therefore, 0-RTT is restricted to idempotent requests (GET, not POST with payment). TLS 1.3 supports 0-RTT; TLS 1.2 does not."
     },
     {
-      q: "מה הייחודיות של Dual EC DRBG?",
-      correct: "מחולל מספרים אקראיים קריפטוגרפי שה-NSA הטמינה בו דלת אחורית — קבועים מוגדרים מראש שמאפשרים למי שמכיר את הסוד לחזות את הפלט",
+      q: "‏מה הייחודיות של מחולל המספרים האקראיים Dual EC DRBG?",
+      correct: "‏מחולל מספרים אקראיים קריפטוגרפי שה-NSA הטמינה בו דלת אחורית — קבועים מוגדרים מראש שמאפשרים למי שמכיר את הסוד לחזות את הפלט",
       choices: [
-        "מחולל מספרים אקראיים קריפטוגרפי שה-NSA הטמינה בו דלת אחורית — קבועים מוגדרים מראש שמאפשרים למי שמכיר את הסוד לחזות את הפלט",
-        "אלגוריתם הצפנה שנשבר בכוח גס",
-        "פרוטוקול החלפת מפתחות עם חולשה מתמטית",
-        "פונקציית גיבוב עם התנגשות ידועה"
+        "‏מחולל מספרים אקראיים קריפטוגרפי שה-NSA הטמינה בו דלת אחורית — קבועים מוגדרים מראש שמאפשרים למי שמכיר את הסוד לחזות את הפלט",
+        "‏אלגוריתם הצפנה שנשבר בפיצוח בכוח",
+        "‏פרוטוקול החלפת מפתחות עם חולשה מתמטית",
+        "‏פונקציית גיבוב עם התנגשות ידועה"
       ],
-      explanation: "‏Dual EC DRBG נכנס לתקן NIST ב-2006. חשיפת סנודן (2013) גילתה שה-NSA שילמה 10 מיליון דולר לחברת RSA Security כדי להפוך אותו לברירת מחדל. הבעיה: שתי נקודות על העקום האליפטי (P ו-Q) נבחרו על ידי ה-NSA — מי שיודע את הקשר ביניהן יכול לחזות את כל הפלט. דלת אחורית מתמטית מושלמת.",
+      explanation: "‏מחולל Dual EC DRBG נכנס לתקן NIST ב-2006. חשיפת סנודן (2013) גילתה שה-NSA שילמה 10 מיליון דולר לחברת RSA Security כדי להפוך אותו לברירת מחדל. הבעיה: שתי נקודות על העקום האליפטי (P ו-Q) נבחרו על ידי ה-NSA — מי שיודע את הקשר ביניהן יכול לחזות את כל הפלט. דלת אחורית מתמטית מושלמת.",
       explanationEn: "Dual EC DRBG entered the NIST standard in 2006. Snowden 2013 revealed: the NSA paid RSA Security $10M to use it as the default in BSafe. The problem: two points on the Elliptic Curve (P, Q) were chosen by the NSA — anyone who knows log_P(Q) can predict all output. A mathematically perfect backdoor."
     },
         {
-      q: "מה SIEM ואיזה מוצרים נפוצים בתעשייה?",
-      correct: "מערכת SIEM (ניהול מידע ואירועי אבטחה) — אוספת לוגים ממקורות רבים, מנתחת ומתריעה על חריגות. כלים נפוצים: Splunk, IBM QRadar, Microsoft Sentinel",
+      q: "‏מהי מערכת ניהול מידע ואירועי אבטחה (SIEM) ואילו מוצרים נפוצים בתעשייה?",
+      correct: "‏מערכת SIEM (ניהול מידע ואירועי אבטחה) — אוספת לוגים ממקורות רבים, מנתחת ומתריעה על חריגות. כלים נפוצים: Splunk, IBM QRadar, Microsoft Sentinel",
       choices: [
-        "מערכת SIEM (ניהול מידע ואירועי אבטחה) — אוספת לוגים ממקורות רבים, מנתחת ומתריעה על חריגות. כלים נפוצים: Splunk, IBM QRadar, Microsoft Sentinel",
-        "כלי לניהול סיסמאות ואימות רב-שלבי בארגון",
-        "מערכת זיהוי חדירות מתקדמת שחוסמת תעבורה חשודה",
-        "פלטפורמת גיבוי לקובצי לוגים של שרתים"
+        "‏מערכת SIEM (ניהול מידע ואירועי אבטחה) — אוספת לוגים ממקורות רבים, מנתחת ומתריעה על חריגות. כלים נפוצים: Splunk, IBM QRadar, Microsoft Sentinel",
+        "‏כלי לניהול סיסמאות ואימות רב-שלבי בארגון",
+        "‏מערכת זיהוי חדירות מתקדמת שחוסמת תעבורה חשודה",
+        "‏פלטפורמת גיבוי לקובצי לוגים של שרתים"
       ],
-      explanation: "מערכת SIEM היא מנוע מתאמים. מקבלת: לוגי חומת אש, התרעות EDR, שאילתות DNS, לוגי אירועים של Windows, לוגי ביקורת ענן. שימושים: זיהוי ניסיונות כוח גס (כשלים רבים בדקה מאותו IP), תנועה רוחבית (כניסות מ-3 מדינות בשעה), הברחת מידע (העלאה חריגה). שפת שאילתות של Splunk (SPL) מאפשרת ניתוח מתקדם. מערכת SIEM לבדה לא מספיקה — צריך אנליסטים לנתח התרעות.",
+      explanation: "‏מערכת SIEM היא מנוע מתאמים. מקבלת: לוגי חומת אש, התרעות EDR, שאילתות DNS, לוגי אירועים של Windows, לוגי ביקורת ענן. שימושים: זיהוי ניסיונות פיצוח בכוח (כשלים רבים בדקה מאותו כתובת IP), תנועה רוחבית (כניסות מ-3 מדינות בשעה), הברחת מידע (העלאה חריגה). שפת שאילתות של Splunk (SPL) מאפשרת ניתוח מתקדם. מערכת SIEM לבדה לא מספיקה — צריך אנליסטים לנתח התרעות.",
       explanationEn: "SIEM = correlation engine. Ingests: firewall logs, EDR alerts, DNS queries, Windows Event Logs, cloud audit logs. Use cases: detecting brute-force (X failures/minute from one IP), lateral movement (user logins from 3 countries in 1 hour), data exfiltration (unusual uploads). SPL (Splunk Processing Language): index=windows EventCode=4625 | stats count by src_ip | where count > 50. SIEM alone is not enough — analysts must investigate alerts."
     },
         {
-      q: "מה תהליך Incident Response (IR) ומה 6 שלביו?",
-      correct: "הכנה, זיהוי, בלימה, מיגור, שחזור, לקחים נלמדים (PICERL) — תהליך מובנה לטיפול בתקרית אבטחה",
+      q: "‏מהו תהליך טיפול בתקריות אבטחה (Incident Response — IR) ומה 6 שלביו?",
+      correct: "‏הכנה, זיהוי, בלימה, מיגור, שחזור, לקחים נלמדים (PICERL) — תהליך מובנה לטיפול בתקרית אבטחה",
       choices: [
-        "הכנה, זיהוי, בלימה, מיגור, שחזור, לקחים נלמדים (PICERL) — תהליך מובנה לטיפול בתקרית אבטחה",
-        "זיהוי, ניתוח, דיווח — תהליך בן 3 שלבים",
-        "התרעה, תיעדוף, תיקון — תהליך SOC סטנדרטי",
-        "סריקה, איתור, תיקון, בדיקה — מחזור ניהול פגיעויות"
+        "‏הכנה, זיהוי, בלימה, מיגור, שחזור, לקחים נלמדים (PICERL) — תהליך מובנה לטיפול בתקרית אבטחה",
+        "‏זיהוי, ניתוח, דיווח — תהליך בן 3 שלבים",
+        "‏התרעה, תיעדוף, תיקון — תהליך מרכז תפעול אבטחה (SOC) סטנדרטי",
+        "‏סריקה, איתור, תיקון, בדיקה — מחזור ניהול פגיעויות"
       ],
-      explanation: "לפי תקן NIST SP 800-61 (ראשי תיבות PICERL): 1) הכנה — נהלים, כלים והדרכות מוכנים מראש. 2) זיהוי — הבנה שמשהו קרה וקביעת היקף. 3) בלימה — בידוד המכונות הנגועות (ניתוק מהרשת). 4) מיגור — מחיקת תוכנה זדונית ועדכון. 5) שחזור — החזרת שירותים וניטור מוגבר. 6) לקחים — מה קרה? איך? מה נשפר? ניתוח שורש הבעיה (RCA). בחברות גדולות קיימים צוותי תגובה ייעודיים (CIRT, CSIRT, CERT).",
+      explanation: "‏לפי תקן NIST SP 800-61 (ראשי תיבות PICERL): 1) הכנה — נהלים, כלים והדרכות מוכנים מראש. 2) זיהוי — הבנה שמשהו קרה וקביעת היקף. 3) בלימה — בידוד המכונות הנגועות (ניתוק מהרשת). 4) מיגור — מחיקת תוכנה זדונית ועדכון. 5) שחזור — החזרת שירותים וניטור מוגבר. 6) לקחים — מה קרה? איך? מה נשפר? ניתוח שורש הבעיה (RCA). בחברות גדולות קיימים צוותי תגובה ייעודיים (CIRT, CSIRT, CERT).",
       explanationEn: "PICERL (NIST SP 800-61): 1) Preparation — playbooks, tools, and training ready. 2) Identification — recognize that something happened, determine scope. 3) Containment — isolate infected machines (network isolation). 4) Eradication — remove malware, apply patches. 5) Recovery — restore services, increase monitoring. 6) Post-Incident — what happened? How? What to improve? Root Cause Analysis (RCA). Large organizations use CIRT, CSIRT, or CERT teams."
     },
         {
-      q: "מה ההבדל בין IDS לבין IPS?",
-      correct: "מערכת זיהוי חדירות (IDS) מזהה ומתריעה בלבד — מערכת מניעת חדירות (IPS) מזהה וגם חוסמת אוטומטית",
+      q: "‏מה ההבדל בין מערכת זיהוי חדירות (IDS) לבין מערכת מניעת חדירות (IPS)?",
+      correct: "‏מערכת זיהוי חדירות (IDS) מזהה ומתריעה בלבד — מערכת מניעת חדירות (IPS) מזהה וגם חוסמת אוטומטית",
       choices: [
-        "מערכת זיהוי חדירות (IDS) מזהה ומתריעה בלבד — מערכת מניעת חדירות (IPS) מזהה וגם חוסמת אוטומטית",
-        "מערכת IDS לרשתות — מערכת IPS לאפליקציות",
-        "מערכת IPS מהירה יותר כי לא כותבת לוגים — IDS כותבת לוגים",
-        "אין הבדל — מדובר באותו מוצר עם שמות שונים"
+        "‏מערכת זיהוי חדירות (IDS) מזהה ומתריעה בלבד — מערכת מניעת חדירות (IPS) מזהה וגם חוסמת אוטומטית",
+        "‏מערכת זיהוי חדירות (IDS) לרשתות — מערכת מניעת חדירות (IPS) לאפליקציות",
+        "‏מערכת מניעת חדירות (IPS) מהירה יותר כי לא כותבת לוגים — מערכת זיהוי (IDS) כותבת לוגים",
+        "‏אין הבדל — מדובר באותו מוצר עם שמות שונים"
       ],
-      explanation: "מערכת IDS פסיבית — מנתחת תעבורה ומייצרת התרעות (כמו מצלמת אבטחה), ללא חסימה. מערכת IPS יושבת בתוך נתיב התעבורה ויכולה לחסום חבילות מיידית. זיהוי שגוי (false positive) במערכת IPS פירושו חסימת תעבורה לגיטימית! לכן מתחילים במצב זיהוי (למידה), מכיילים, ואז עוברים למצב מניעה. קיימות גרסאות מבוססות רשת (NIDS/NIPS) ומבוססות מארח (HIDS/HIPS). כלים פופולריים בקוד פתוח: Snort ו-Suricata.",
+      explanation: "‏מערכת זיהוי חדירות (IDS) פסיבית — מנתחת תעבורה ומייצרת התרעות (כמו מצלמת אבטחה), ללא חסימה. מערכת מניעת חדירות (IPS) יושבת בתוך נתיב התעבורה ויכולה לחסום חבילות מיידית. זיהוי שגוי (False Positive) במערכת IPS פירושו חסימת תעבורה לגיטימית! לכן מתחילים במצב זיהוי (למידה), מכיילים, ואז עוברים למצב מניעה. קיימות גרסאות מבוססות רשת (NIDS/NIPS) ומבוססות מארח (HIDS/HIPS). כלים פופולריים בקוד פתוח: Snort ו-Suricata.",
       explanationEn: "IDS: passive — analyzes traffic and generates alerts (like a security camera). No blocking. IPS: inline — sits in the traffic path, can block packets with zero latency. A false positive on IPS = blocked legitimate traffic! Therefore: start in IDS mode (learning), calibrate, then go inline. Network-based (NIDS/NIPS) vs Host-based (HIDS/HIPS). Snort and Suricata are popular open-source IDS/IPS tools."
     }
   ],
 
   106: [
     {
-      q: "מה SSRF ולמה הוא מסוכן ב-cloud environments?",
-      correct: "‏Server-Side Request Forgery — שרת עושה request לכתובת פנימית שהתוקף בחר, כולל metadata endpoint של AWS",
+      q: "‏מהו זיוף בקשות בצד השרת (SSRF) ולמה הוא מסוכן בסביבות ענן?",
+      correct: "‏זיוף בקשות בצד השרת (SSRF) — השרת מבצע בקשה לכתובת פנימית שהתוקף בחר, כולל נקודת גישה למטא-דאטה של AWS",
       choices: [
-        "‏Server-Side Request Forgery — שרת עושה request לכתובת פנימית שהתוקף בחר, כולל metadata endpoint של AWS",
-        "‏SQL injection בstorage של cloud",
-        "‏Cross-site scripting בממשק ה-cloud",
-        "חיבור לא מאובטח בין microservices"
+        "‏זיוף בקשות בצד השרת (SSRF) — השרת מבצע בקשה לכתובת פנימית שהתוקף בחר, כולל נקודת גישה למטא-דאטה של AWS",
+        "‏הזרקת SQL באחסון ענן",
+        "‏סקריפטים חוצי-אתרים (XSS) בממשק הענן",
+        "‏חיבור לא מאובטח בין שירותי-זעיר (Microservices)"
       ],
-      explanation: "‏SSRF: אפליקציה מקבלת URL ממשתמש ועושה request אליו. תוקף שולח: http://169.254.169.254/latest/meta-data/iam/security-credentials/ — AWS metadata endpoint. מחזיר temporary AWS credentials! Capital One 2019: SSRF דרך WAF מוגדר לא נכון → IAM credentials → 100M רשומות. ‏Cloud SSRF = critical.",
+      explanation: "‏במתקפת זיוף בקשות בצד השרת (SSRF), האפליקציה מקבלת כתובת URL מהמשתמש ומבצעת בקשה אליה. התוקף שולח כתובת פנימית של נקודת מטא-דאטה של AWS — ומקבל הרשאות זמניות! בפרשת Capital One (2019) תוקף ניצל SSRF דרך חומת אש אפליקטיבית (WAF) שהוגדרה לא נכון, השיג הרשאות IAM וגנב 100 מיליון רשומות. מתקפת SSRF בענן נחשבת קריטית.",
       explanationEn: "SSRF: an application accepts a URL from a user and makes a request to it. An attacker sends: http://169.254.169.254/latest/meta-data/iam/security-credentials/ — the AWS metadata endpoint. This returns temporary AWS credentials! Capital One 2019: SSRF through a misconfigured WAF led to IAM credentials and 100M records stolen. Cloud SSRF = critical severity."
     },
     {
-      q: "מה JWT 'none' algorithm attack?",
-      correct: "שינוי algorithm בheader ל-'none' — השרת שמקבל unsigned token מאמת אותו בלי signature",
+      q: "‏מהי מתקפת אלגוריתם 'none' על אסימוני JWT?",
+      correct: "‏שינוי שדה האלגוריתם בכותרת ל-none — שרת פגיע מקבל אסימון בלי חתימה ומאמת אותו",
       choices: [
-        "שינוי algorithm בheader ל-'none' — השרת שמקבל unsigned token מאמת אותו בלי signature",
-        "גניבת JWT מlocalStorage דרך XSS",
-        "‏brute force על HMAC secret",
-        "‏replay attack על JWT שפג תוקפו"
+        "‏שינוי שדה האלגוריתם בכותרת ל-none — שרת פגיע מקבל אסימון בלי חתימה ומאמת אותו",
+        "‏גניבת אסימון JWT מאחסון הדפדפן באמצעות סקריפטים חוצי-אתרים (XSS)",
+        "‏פיצוח בכוח של סוד ה-HMAC",
+        "‏מתקפת השחזור (Replay Attack) על אסימון JWT שפג תוקפו"
       ],
-      explanation: "‏JWT: header.payload.signature. ‏Header מכיל alg. תוקף: שינוי alg ל-'none', הסרת signature. שרת ישן: 'alg=none? אין בעיה, אין צורך בverification'. ‏Fix: server-side whitelist של algorithms — אף פעם לא לקבל alg מה-token עצמו. גם RS256 → HS256 attack: שרת שמצפה ל-RSA מסתמך על public key כ-HMAC secret.",
+      explanation: "‏אסימון JWT מורכב משלושה חלקים: כותרת, מטען ייעודי וחתימה. הכותרת מכילה את סוג האלגוריתם. התוקף משנה את האלגוריתם ל-none ומסיר את החתימה. שרת ישן מקבל את האסימון ללא בדיקה. הפתרון: רשימה לבנה של אלגוריתמים בצד השרת — לעולם לא לקבל את סוג האלגוריתם מהאסימון עצמו. קיימת גם מתקפת RS256 ל-HS256: שרת שמצפה ל-RSA משתמש במפתח הציבורי כסוד HMAC.",
       explanationEn: "JWT structure: header.payload.signature. The header contains the algorithm (alg). An attacker changes alg to 'none' and removes the signature. A vulnerable server sees alg=none and skips verification. Fix: server-side whitelist of algorithms — never accept alg from the token itself. Also: RS256 to HS256 attack — a server expecting RSA may use the public key as HMAC secret."
     },
     {
-      q: "מה ההבדל בין CTF לבין Bug Bounty?",
-      correct: "‏CTF = תחרות עם challenges סגורים — Bug Bounty = מציאת bugs אמיתיים בproducts אמיתיים ותגמול כספי",
+      q: "‏מה ההבדל בין תחרות לכידת הדגל (CTF) לבין תוכנית ציד באגים (Bug Bounty)?",
+      correct: "‏תחרות לכידת הדגל (CTF) היא אתגרים סגורים ללמידה — תוכנית ציד באגים (Bug Bounty) היא מציאת באגים אמיתיים במוצרים אמיתיים תמורת תגמול כספי",
       choices: [
-        "‏CTF = תחרות עם challenges סגורים — Bug Bounty = מציאת bugs אמיתיים בproducts אמיתיים ותגמול כספי",
-        "‏CTF לאנשי SOC — Bug Bounty לpentesters",
-        "‏Bug Bounty חוקי — CTF לא חוקי",
-        "שניהם אותו דבר רק שמות שונים"
+        "‏תחרות לכידת הדגל (CTF) היא אתגרים סגורים ללמידה — תוכנית ציד באגים (Bug Bounty) היא מציאת באגים אמיתיים במוצרים אמיתיים תמורת תגמול כספי",
+        "‏תחרויות CTF לאנשי מרכז תפעול אבטחה (SOC) — ציד באגים לבודקי חדירה",
+        "‏ציד באגים (Bug Bounty) חוקי — תחרויות CTF לא חוקיות",
+        "‏שניהם אותו דבר רק שמות שונים"
       ],
-      explanation: "‏CTF: Jeopardy (web/crypto/pwn/forensics/reverse) או Attack-Defense. לימוד מובנה, ללא אחריות. ‏HackTheBox, TryHackMe, PicoCTF. ‏Bug Bounty: HackerOne, Bugcrowd, Intigriti. ‏Scope מוגדר. ‏Payout: $100-$1M+ לפי חומרה. ‏Responsible disclosure process. ‏Facebook ו-Google משלמים מיליוני דולרים בשנה. ‏CTF → Bug Bounty → Pentest career path.",
+      explanation: "‏תחרויות לכידת הדגל (CTF): פורמט ג'פרדי (ווב, קריפטו, ניצול בינארי, פורנזיקה, הנדסה לאחור) או התקפה-הגנה. למידה מובנית ללא אחריות. פלטפורמות: HackTheBox, TryHackMe, PicoCTF. תוכניות ציד באגים (Bug Bounty): דרך HackerOne, Bugcrowd, Intigriti. היקף מוגדר מראש. תגמול: 100$-1M$+ לפי חומרה. פייסבוק וגוגל משלמים מיליוני דולרים בשנה. מסלול קריירה טיפוסי: CTF ואז ציד באגים ואז בדיקות חדירה.",
       explanationEn: "CTF: Jeopardy format (web/crypto/pwn/forensics/reverse) or Attack-Defense. Structured learning, no liability. Platforms: HackTheBox, TryHackMe, PicoCTF. Bug Bounty: HackerOne, Bugcrowd, Intigriti. Defined scope. Payouts: $100-$1M+ by severity. Responsible disclosure process. Facebook and Google pay millions annually. Typical career path: CTF > Bug Bounty > Pentest."
     },
         {
-      q: "מה ה-4 קטגוריות העיקריות ב-CTF (Capture The Flag)?",
-      correct: "‏Web Exploitation, Binary Exploitation (Pwn), Reverse Engineering, Cryptography — פלוס Forensics ו-OSINT",
+      q: "‏מה 4 הקטגוריות העיקריות בתחרויות לכידת הדגל (CTF)?",
+      correct: "‏ניצול ווב, ניצול בינארי (Pwn), הנדסה לאחור (Reverse Engineering), קריפטוגרפיה — בתוספת פורנזיקה ומודיעין ממקורות פתוחים (OSINT)",
       choices: [
-        "‏Web Exploitation, Binary Exploitation (Pwn), Reverse Engineering, Cryptography — פלוס Forensics ו-OSINT",
-        "‏Hacking, Defense, OSINT, Networking — 4 תחומים שווים",
-        "‏SQL, XSS, Buffer Overflow, Password Cracking",
-        "‏Red Team, Blue Team, Purple Team, White Team"
+        "‏ניצול ווב, ניצול בינארי (Pwn), הנדסה לאחור (Reverse Engineering), קריפטוגרפיה — בתוספת פורנזיקה ומודיעין ממקורות פתוחים (OSINT)",
+        "‏פריצה, הגנה, מודיעין ממקורות פתוחים (OSINT), רשתות — 4 תחומים שווים",
+        "‏הזרקת SQL, סקריפטים חוצי-אתרים (XSS), גלישת חוצץ (Buffer Overflow), פיצוח סיסמאות",
+        "‏צוות אדום (Red Team), צוות כחול (Blue Team), צוות סגול (Purple Team), צוות לבן (White Team)"
       ],
-      explanation: "‏CTF Categories: Web ‎(SQLi, XSS, SSRF, LFI, RCE על אתרים)‎, Pwn/Binary ‎(buffer overflow, heap exploits, ROP chains על binaries)‎, Rev ‎(פירוק binary עם Ghidra/IDA, הבנת אלגוריתם)‎, Crypto ‎(פיצוח הצפנה חלשה, RSA, AES ECB)‎, Forensics ‎(ניתוח pcap, קבצים, stego)‎, Misc. פלטפורמות: HackTheBox, TryHackMe, PicoCTF, CTFtime.org.",
+      explanation: "‏קטגוריות לכידת הדגל (CTF): ווב (הזרקת SQL, סקריפטים חוצי-אתרים — XSS, זיוף בקשות בצד השרת — SSRF, הכללת קבצים, הרצת קוד מרחוק — RCE), ניצול בינארי (גלישת חוצץ, ניצול ערימה, שרשראות ROP), הנדסה לאחור (פירוק קבצים בינאריים עם Ghidra או IDA, הבנת אלגוריתמים), קריפטוגרפיה (פיצוח הצפנות חלשות), פורנזיקה (ניתוח לכידות רשת, קבצים, סטגנוגרפיה), ושונות. פלטפורמות: HackTheBox, TryHackMe, PicoCTF.",
       explanationEn: "CTF Categories: Web (SQLi, XSS, SSRF, LFI, RCE on websites), Pwn/Binary (buffer overflow, heap exploits, ROP chains on binaries), Rev (disassembling binaries with Ghidra/IDA, understanding algorithms), Crypto (breaking weak encryption, RSA, AES ECB), Forensics (pcap analysis, file carving, steganography), Misc. Platforms: HackTheBox, TryHackMe, PicoCTF, CTFtime.org."
     },
         {
-      q: "מה Responsible Disclosure ומה ההבדל בינו לבין Full Disclosure?",
-      correct: "‏Responsible Disclosure: מדווח לחברה תחילה, נותן זמן לתיקון ‎(90 יום)‎, אז מפרסם — Full Disclosure: מפרסם פגיעות מיד לציבור",
+      q: "‏מהי חשיפה אחראית (Responsible Disclosure) ומה ההבדל בינה לבין חשיפה מלאה (Full Disclosure)?",
+      correct: "‏חשיפה אחראית (Responsible Disclosure): מדווח לחברה תחילה, נותן 90 יום לתיקון, אז מפרסם — חשיפה מלאה (Full Disclosure): מפרסם מיד לציבור",
       choices: [
-        "‏Responsible Disclosure: מדווח לחברה תחילה, נותן זמן לתיקון ‎(90 יום)‎, אז מפרסם — Full Disclosure: מפרסם פגיעות מיד לציבור",
-        "‏Responsible Disclosure = Bug Bounty — Full Disclosure = CVE",
-        "‏Responsible: פגיעויות בinternational companies — Full: פגיעויות בחברות ישראליות",
-        "‏Responsible Disclosure מיושן — כולם עברו לFull Disclosure"
+        "‏חשיפה אחראית (Responsible Disclosure): מדווח לחברה תחילה, נותן 90 יום לתיקון, אז מפרסם — חשיפה מלאה (Full Disclosure): מפרסם מיד לציבור",
+        "‏חשיפה אחראית = תוכנית ציד באגים (Bug Bounty) — חשיפה מלאה = רישום פגיעויות (CVE)",
+        "‏חשיפה אחראית לחברות בינלאומיות — חשיפה מלאה לחברות ישראליות",
+        "‏חשיפה אחראית מיושנת — כולם עברו לחשיפה מלאה"
       ],
-      explanation: "‏Coordinated Disclosure (=Responsible): 1) מגלה פגיעות 2) מיידע vendor בsecurity channel 3) vendor מתקן ‎(SLA: בד\\\"כ 90 יום — Google Project Zero standard)‎ 4) חוקר מפרסם writeup. ‏Full Disclosure: מפרסם מיד — לחץ על vendor לתקן מהר, אבל מאפשר exploitation לפני patch. ‏Zero-Day = פגיעות ש-vendor לא יודע עליה. ‏Bug Bounty: תשלום על disclosure.",
+      explanation: "‏חשיפה מתואמת (= אחראית): 1) מגלה פגיעות 2) מיידע את היצרן בערוץ אבטחה 3) היצרן מתקן (בד\\\"כ 90 יום — תקן Google Project Zero) 4) החוקר מפרסם כתבה. חשיפה מלאה: מפרסם מיד — לוחץ על היצרן לתקן מהר, אך מאפשר ניצול לפני הטלאי. פגיעות יום-אפס (Zero-Day) = פגיעות שהיצרן לא יודע עליה. תוכנית ציד באגים (Bug Bounty): תשלום על חשיפה אחראית.",
       explanationEn: "Coordinated Disclosure (= Responsible): 1) Discover vulnerability. 2) Notify vendor via security channel. 3) Vendor patches (SLA: typically 90 days — Google Project Zero standard). 4) Researcher publishes writeup. Full Disclosure: publish immediately — pressures vendor to fix fast, but enables exploitation before the patch. Zero-Day = vulnerability the vendor does not know about. Bug Bounty: payment for disclosure."
     },
         {
-      q: "אילו certifications מומלצות להתחיל קריירה בסייבר?",
-      correct: "‏CompTIA Security+ (entry level), CEH (Certified Ethical Hacker), OSCP (offensive, hands-on) — לפי רמת ניסיון",
+      q: "‏אילו הסמכות מקצועיות מומלצות להתחלת קריירה בסייבר?",
+      correct: "‏הסמכת CompTIA Security+ (רמת כניסה), האקר אתי מוסמך (CEH), הסמכת התקפה מעשית (OSCP) — לפי רמת ניסיון",
       choices: [
-        "‏CompTIA Security+ (entry level), CEH (Certified Ethical Hacker), OSCP (offensive, hands-on) — לפי רמת ניסיון",
-        "‏CISSP ו-CISM — הטובות ביותר לכולם",
-        "רק ניסיון מעשי חשוב — certifications לא שוות כלום",
-        "‏AWS Security Specialty ו-GCP Security — cloud בלבד"
+        "‏הסמכת CompTIA Security+ (רמת כניסה), האקר אתי מוסמך (CEH), הסמכת התקפה מעשית (OSCP) — לפי רמת ניסיון",
+        "‏הסמכות CISSP ו-CISM — הטובות ביותר לכולם",
+        "‏רק ניסיון מעשי חשוב — הסמכות לא שוות כלום",
+        "‏הסמכות ענן בלבד: AWS Security Specialty ו-GCP Security"
       ],
-      explanation: "‏Certification Roadmap: Entry: CompTIA A+ → Network+ → Security+. ‏Offensive: eJPT (eLearnSecurity) → CEH → OSCP ‎(OffSec — 24h practical exam, קשה!)‎. ‏Defensive: SOC Analyst → CySA+ → GCIH. ‏Management: CISSP ‎(5 שנות ניסיון נדרשות)‎. ‏Cloud: AWS Security Specialty, GCP Security. ‏CTF ו-HackTheBox/TryHackMe = hands-on practice חשוב לא פחות מcerts.",
+      explanation: "‏מפת הסמכות: רמת כניסה — CompTIA A+ ואז Network+ ואז Security+. התקפי — eJPT ואז האקר אתי מוסמך (CEH) ואז OSCP (מבחן מעשי של 24 שעות, קשה מאוד!). הגנתי — אנליסט מרכז תפעול אבטחה (SOC) ואז CySA+ ואז GCIH. ניהולי — CISSP (דורש 5 שנות ניסיון). ענן — AWS Security Specialty ו-GCP Security. תרגול מעשי בתחרויות לכידת הדגל (CTF) ובפלטפורמות כמו HackTheBox חשוב לא פחות מהסמכות.",
       explanationEn: "Certification Roadmap: Entry level: CompTIA A+ > Network+ > Security+. Offensive: eJPT (eLearnSecurity) > CEH > OSCP (OffSec — 24h practical exam, very challenging!). Defensive: SOC Analyst > CySA+ > GCIH. Management: CISSP (requires 5 years of experience). Cloud: AWS Security Specialty, GCP Security. CTF and HackTheBox/TryHackMe = hands-on practice equally important as certifications."
     }
   ],
@@ -2134,181 +2134,181 @@ export const quizBank = {
   // ===== Cyber Track continued (107-109) =====
   107: [
     {
-      q: "מה ההבדל העיקרי בין הצפנה סימטרית לאסימטרית?",
-      correct: "סימטרית: אותו מפתח להצפנה ופענוח — מהירה. אסימטרית: זוג מפתחות (public/private) — מאובטח יותר לחילופי מפתחות",
+      q: "‏מה ההבדל העיקרי בין הצפנה סימטרית להצפנה אסימטרית?",
+      correct: "‏הצפנה סימטרית: אותו מפתח להצפנה ופענוח — מהירה. הצפנה אסימטרית: זוג מפתחות (ציבורי ופרטי) — מאובטחת יותר לחילופי מפתחות",
       choices: [
-        "סימטרית: אותו מפתח להצפנה ופענוח — מהירה. אסימטרית: זוג מפתחות (public/private) — מאובטח יותר לחילופי מפתחות",
-        "סימטרית לקבצים — אסימטרית לרשת בלבד",
-        "אסימטרית מהירה יותר, סימטרית מאובטחת יותר",
-        "שניהם זהים — ההבדל רק בשם"
+        "‏הצפנה סימטרית: אותו מפתח להצפנה ופענוח — מהירה. הצפנה אסימטרית: זוג מפתחות (ציבורי ופרטי) — מאובטחת יותר לחילופי מפתחות",
+        "‏הצפנה סימטרית לקבצים — הצפנה אסימטרית לרשת בלבד",
+        "‏הצפנה אסימטרית מהירה יותר, סימטרית מאובטחת יותר",
+        "‏שניהם זהים — ההבדל רק בשם"
       ],
-      explanation: "‏AES = סימטרי, מהיר מאוד, משמש להצפנת payload. ‏RSA = אסימטרי, איטי, משמש לחילופי מפתחות. ‏TLS משלב: RSA להסכמה על מפתח AES, ואז AES להצפנת כל התקשורת. הטוב מכל העולמות!",
+      explanation: "‏אלגוריתם הצפנה סימטרית (AES) — מהיר מאוד, משמש להצפנת הנתונים. אלגוריתם אסימטרי (RSA) — איטי, משמש לחילופי מפתחות. פרוטוקול TLS משלב את שניהם: RSA להסכמה על מפתח AES, ואז AES להצפנת כל התקשורת. הטוב מכל העולמות!",
       explanationEn: "AES = symmetric, very fast, used for encrypting payloads. RSA = asymmetric, slow, used for key exchange. TLS combines both: RSA to agree on an AES key, then AES to encrypt all communication. The best of both worlds!"
     },
     {
-      q: "מה קורה ב-TLS Handshake?",
-      correct: "הדפדפן ו-server מסכימים על cipher suite, מחליפים מפתחות (RSA/ECDH), ויוצרים session key סימטרי לתקשורת המשך",
+      q: "‏מה קורה בלחיצת היד של TLS (TLS Handshake)?",
+      correct: "‏הדפדפן והשרת מסכימים על חבילת צפנים, מחליפים מפתחות (RSA/ECDH), ויוצרים מפתח הפעלה סימטרי לתקשורת ההמשך",
       choices: [
-        "הדפדפן ו-server מסכימים על cipher suite, מחליפים מפתחות (RSA/ECDH), ויוצרים session key סימטרי לתקשורת המשך",
-        "הדפדפן מצפין את כל הנתונים ב-RSA לכל אורך החיבור",
-        "ה-server שולח סיסמה מוצפנת שהדפדפן פותח",
-        "‏DNS מוודא שהcertificate תקף"
+        "‏הדפדפן והשרת מסכימים על חבילת צפנים, מחליפים מפתחות (RSA/ECDH), ויוצרים מפתח הפעלה סימטרי לתקשורת ההמשך",
+        "‏הדפדפן מצפין את כל הנתונים ב-RSA לכל אורך החיבור",
+        "‏השרת שולח סיסמה מוצפנת שהדפדפן פותח",
+        "‏שרת DNS מוודא שהתעודה הדיגיטלית תקפה"
       ],
-      explanation: "‏TLS Handshake: ClientHello → ServerHello+Certificate → Pre-Master Secret (encrypted RSA) → שני הצדדים גוזרים Session Key → Finished. מכאן: AES-256-GCM. ‏RSA רק בhandshake, AES לכל השאר — מהיר ומאובטח.",
+      explanation: "‏לחיצת יד (TLS Handshake): הלקוח שולח ClientHello, השרת משיב עם ServerHello ותעודה דיגיטלית, מוחלף סוד ראשוני מוצפן ב-RSA, שני הצדדים גוזרים מפתח הפעלה, וסיום. מכאן ואילך: הצפנת AES-256-GCM. אלגוריתם RSA משמש רק בלחיצת היד, AES לכל השאר — מהיר ומאובטח.",
       explanationEn: "TLS Handshake: ClientHello > ServerHello+Certificate > Pre-Master Secret (encrypted with RSA) > both sides derive Session Key > Finished. From here on: AES-256-GCM. RSA is used only during the handshake; AES handles the rest — fast and secure."
     },
     {
-      q: "מה ה-Heartbleed bug (CVE-2014-0160)?",
-      correct: "‏Bug ב-OpenSSL שאיפשר לקרוא 64KB מה-memory של השרת כולל private keys וpasswords, דרך Heartbeat extension לא מאומת",
+      q: "‏מהו באג Heartbleed ‏(CVE-2014-0160)?",
+      correct: "‏באג ב-OpenSSL שאיפשר לקרוא 64KB מזיכרון השרת, כולל מפתחות פרטיים וסיסמאות, דרך תוסף פעימה (Heartbeat) ללא אימות",
       choices: [
-        "‏Bug ב-OpenSSL שאיפשר לקרוא 64KB מה-memory של השרת כולל private keys וpasswords, דרך Heartbeat extension לא מאומת",
-        "‏DDoS attack על שרתי TLS",
-        "‏SQL injection בcertificate validation",
-        "‏Buffer overflow ב-Apache HTTP server"
+        "‏באג ב-OpenSSL שאיפשר לקרוא 64KB מזיכרון השרת, כולל מפתחות פרטיים וסיסמאות, דרך תוסף פעימה (Heartbeat) ללא אימות",
+        "‏מתקפת מניעת שירות (DoS) על שרתי TLS",
+        "‏הזרקת SQL באימות תעודות דיגיטליות",
+        "‏גלישת חוצץ (Buffer Overflow) בשרת Apache HTTP"
       ],
-      explanation: "‏Heartbleed: הלקוח שולח heartbeat עם length שגוי. server מחזיר length שביקשת ‎(עד 64KB)‎ מה-memory — תוכן אקראי שיכול לכלול private keys, passwords, session tokens. ‏17% מהאינטרנט היה פגיע. ‏Fix: upgrade OpenSSL + החלפת כל certificates.",
+      explanation: "‏באג Heartbleed: הלקוח שולח בקשת פעימה (Heartbeat) עם אורך שגוי. השרת מחזיר את האורך שביקשת (עד 64KB) מהזיכרון — תוכן אקראי שעלול לכלול מפתחות פרטיים, סיסמאות ואסימוני הפעלה (Session Tokens). ‏17% מהאינטרנט היה פגיע. הפתרון: שדרוג OpenSSL והחלפת כל התעודות הדיגיטליות.",
       explanationEn: "Heartbleed: the client sends a heartbeat with an incorrect length. The server returns the requested number of bytes (up to 64KB) from memory — random content that may include private keys, passwords, and session tokens. 17% of the internet was vulnerable. Fix: upgrade OpenSSL + replace all certificates."
     },
         {
-      q: "מה ההבדל בין Symmetric לבין Asymmetric encryption?",
-      correct: "‏Symmetric: אותו מפתח להצפנה ופיענוח (AES) — Asymmetric: מפתח ציבורי להצפנה, מפתח פרטי לפיענוח (RSA)",
+      q: "‏מה ההבדל בין הצפנה סימטרית (Symmetric) להצפנה אסימטרית (Asymmetric)?",
+      correct: "‏סימטרית (AES): אותו מפתח להצפנה ופיענוח — אסימטרית (RSA): מפתח ציבורי להצפנה, מפתח פרטי לפיענוח",
       choices: [
-        "‏Symmetric: אותו מפתח להצפנה ופיענוח (AES) — Asymmetric: מפתח ציבורי להצפנה, מפתח פרטי לפיענוח (RSA)",
-        "‏Symmetric מוצפן יותר — Asymmetric מהיר יותר",
-        "‏Symmetric לרשתות — Asymmetric לקבצים",
-        "‏AES הוא Asymmetric כי מפתחותיו ארוכים יותר"
+        "‏סימטרית (AES): אותו מפתח להצפנה ופיענוח — אסימטרית (RSA): מפתח ציבורי להצפנה, מפתח פרטי לפיענוח",
+        "‏סימטרית מוצפנת יותר — אסימטרית מהירה יותר",
+        "‏סימטרית לרשתות — אסימטרית לקבצים",
+        "‏אלגוריתם AES הוא אסימטרי כי מפתחותיו ארוכים יותר"
       ],
-      explanation: "‏Symmetric (AES, ChaCha20): מהיר, מתאים לdata בulk. בעיה: key exchange — איך שולחים את המפתח? Asymmetric (RSA, ECDH): איטי אך מאפשר key exchange מאובטח. ‏Public key = נעילה, Private key = פתיחה. ‏TLS משלב: Asymmetric לhandshake ‎(חילוף session key)‎, Symmetric לdata transfer — Best of both worlds. ‏RSA 2048-bit = עדיין מאובטח, RSA 1024 = שבור!",
+      explanation: "‏הצפנה סימטרית (AES, ChaCha20): מהירה, מתאימה לכמויות גדולות של נתונים. הבעיה: איך מעבירים את המפתח בצורה מאובטחת? הצפנה אסימטרית (RSA, ECDH): איטית אך מאפשרת חילוף מפתחות מאובטח. מפתח ציבורי = נעילה, מפתח פרטי = פתיחה. פרוטוקול TLS משלב: אסימטרית ללחיצת היד (חילוף מפתח הפעלה), סימטרית להעברת נתונים. RSA עם 2048 סיביות עדיין מאובטח, אך 1024 סיביות שבור!",
       explanationEn: "Symmetric (AES, ChaCha20): fast, suitable for bulk data. Problem: key exchange — how do you send the key securely? Asymmetric (RSA, ECDH): slow but enables secure key exchange. Public key = lock, Private key = unlock. TLS combines: Asymmetric for handshake (exchange session key), Symmetric for data transfer — best of both worlds. RSA 2048-bit is still secure; RSA 1024 is broken!"
     },
         {
-      q: "מה Forward Secrecy (Perfect Forward Secrecy) ולמה TLS 1.3 מחייב אותו?",
-      correct: "כל session מקבל מפתחות ephemeral ייחודיים — גם אם המפתח הפרטי של השרת נגנב, שיחות עבר לא ניתנות לפיענוח",
+      q: "‏מהי סודיות קדימה מושלמת (Perfect Forward Secrecy) ולמה TLS 1.3 מחייב אותה?",
+      correct: "‏כל הפעלה מקבלת מפתחות זמניים ייחודיים — גם אם המפתח הפרטי של השרת ייגנב, שיחות עבר לא ניתנות לפיענוח",
       choices: [
-        "כל session מקבל מפתחות ephemeral ייחודיים — גם אם המפתח הפרטי של השרת נגנב, שיחות עבר לא ניתנות לפיענוח",
-        "הצפנה שפועלת גם ב-forward proxy",
-        "מנגנון שמקדים את תהליך ה-TLS handshake",
-        "‏Forward Secrecy = TLS 1.3 — אותו דבר"
+        "‏כל הפעלה מקבלת מפתחות זמניים ייחודיים — גם אם המפתח הפרטי של השרת ייגנב, שיחות עבר לא ניתנות לפיענוח",
+        "‏הצפנה שפועלת גם בפרוקסי קדמי (Forward Proxy)",
+        "‏מנגנון שמקדים את תהליך לחיצת היד של TLS",
+        "‏סודיות קדימה ו-TLS 1.3 הם אותו דבר"
       ],
-      explanation: "בלי PFS: תוקף מקליט encrypted traffic היום. בעוד 5 שנים גונב private key של השרת → מפענח את כל השיחות שהקליט! עם PFS (ECDHE — Elliptic Curve Diffie-Hellman Ephemeral): מפתח ה-session נגזר מparameters זמניים שנמחקים מיד. גם עם גניבת private key — שיחות עבר מוצפנות. ‏TLS 1.3 הסיר RSA key exchange ומחייב ECDHE.",
+      explanation: "‏ללא סודיות קדימה מושלמת (PFS): תוקף מקליט תעבורה מוצפנת היום, ובעוד 5 שנים גונב את המפתח הפרטי של השרת ומפענח הכל! עם PFS (באמצעות ECDHE — עקום אליפטי של דיפי-הלמן עם מפתחות זמניים): מפתח ההפעלה נגזר מפרמטרים זמניים שנמחקים מיד. גם עם גניבת המפתח הפרטי — שיחות עבר נשארות מוצפנות. פרוטוקול TLS 1.3 מחייב ECDHE והסיר את חילוף המפתחות באמצעות RSA.",
       explanationEn: "Without PFS: an attacker records encrypted traffic today. In 5 years, they steal the server's private key and decrypt all recorded sessions! With PFS (ECDHE — Elliptic Curve Diffie-Hellman Ephemeral): session keys are derived from temporary parameters that are immediately deleted. Even with a stolen private key, past sessions remain encrypted. TLS 1.3 removed RSA key exchange and requires ECDHE."
     },
         {
-      q: "מה SHA-256 ואיזה תכונות חשובות יש לפונקציית hash קריפטוגרפית?",
-      correct: "‏One-way function שמייצרת fingerprint 256-bit — תכונות: deterministic, avalanche effect, collision resistance, pre-image resistance",
+      q: "‏מהו SHA-256 ואיזה תכונות חשובות יש לפונקציית גיבוב (Hash) קריפטוגרפית?",
+      correct: "‏פונקציה חד-כיוונית שמייצרת טביעת אצבע של 256 סיביות — תכונות: דטרמיניסטית, אפקט מפולת, עמידות להתנגשויות ועמידות לפענוח הפוך",
       choices: [
-        "‏One-way function שמייצרת fingerprint 256-bit — תכונות: deterministic, avalanche effect, collision resistance, pre-image resistance",
-        "אלגוריתם הצפנה סימטרי עם מפתח 256-bit",
-        "פרוטוקול handshake של TLS 1.3",
-        "שיטה להחלפת מפתחות קריפטוגרפיים"
+        "‏פונקציה חד-כיוונית שמייצרת טביעת אצבע של 256 סיביות — תכונות: דטרמיניסטית, אפקט מפולת, עמידות להתנגשויות ועמידות לפענוח הפוך",
+        "‏אלגוריתם הצפנה סימטרי עם מפתח של 256 סיביות",
+        "‏פרוטוקול לחיצת יד של TLS 1.3",
+        "‏שיטה להחלפת מפתחות קריפטוגרפיים"
       ],
-      explanation: "‏Hash properties: Deterministic ‎(אותו input = אותו output תמיד)‎, One-way ‎(לא ניתן להפוך)‎, Avalanche effect ‎(שינוי 1 bit בinput = שינוי ~50% מהoutput)‎, Collision resistance ‎(קשה מאוד למצוא x≠y כך שH(x)‎=H(y)). ‏SHA-256: output 256 bits = 2^256 אפשרויות. שימושים: password hashing ‎(bcrypt/Argon2 עדיפים!)‎, digital signatures, certificate fingerprints, Git commit IDs, blockchain. ‏MD5/SHA-1 = שבורים לsignatures!",
+      explanation: "‏תכונות פונקציית גיבוב (Hash): דטרמיניסטית (אותו קלט = אותו פלט תמיד), חד-כיוונית (לא ניתן להפוך), אפקט מפולת (שינוי סיבית אחת בקלט משנה כ-50% מהפלט), עמידות להתנגשויות (קשה מאוד למצוא שני קלטים שונים עם אותו פלט). SHA-256: פלט של 256 סיביות. שימושים: גיבוב סיסמאות (bcrypt ו-Argon2 עדיפים!), חתימות דיגיטליות, טביעות אצבע של תעודות, זיהוי קומיטים ב-Git ובלוקצ'יין. אלגוריתמי MD5 ו-SHA-1 שבורים לחתימות!",
       explanationEn: "Hash properties: Deterministic (same input = same output always), One-way (cannot be reversed), Avalanche effect (changing 1 bit in input changes ~50% of output), Collision resistance (extremely hard to find x!=y where H(x)=H(y)). SHA-256 outputs 256 bits = 2^256 possibilities. Uses: password hashing (bcrypt/Argon2 are better!), digital signatures, certificate fingerprints, Git commit IDs, blockchain. MD5/SHA-1 are broken for signatures!"
     }
   ],
 
   108: [
     {
-      q: "מה ההבדל בין Phishing לSpear Phishing?",
-      correct: "‏Phishing = מיילים זהים למיליונים — Spear Phishing = מותאם אישית לאדם/ארגון ספציפי עם מידע אמיתי עליו",
+      q: "‏מה ההבדל בין דיוג (Phishing) לדיוג ממוקד (Spear Phishing)?",
+      correct: "‏דיוג רגיל = הודעות דוא\"ל זהות למיליונים — דיוג ממוקד (Spear Phishing) = מותאם אישית לאדם או ארגון ספציפי עם מידע אמיתי",
       choices: [
-        "‏Phishing = מיילים זהים למיליונים — Spear Phishing = מותאם אישית לאדם/ארגון ספציפי עם מידע אמיתי עליו",
-        "‏Spear Phishing = SMS — Phishing = מייל",
-        "‏Spear Phishing חוקי — Phishing לא",
-        "אותו דבר — שמות שונים"
+        "‏דיוג רגיל = הודעות דוא\"ל זהות למיליונים — דיוג ממוקד (Spear Phishing) = מותאם אישית לאדם או ארגון ספציפי עם מידע אמיתי",
+        "‏דיוג ממוקד = הודעות SMS — דיוג רגיל = דוא\"ל",
+        "‏דיוג ממוקד חוקי — דיוג רגיל לא",
+        "‏אותו דבר — שמות שונים"
       ],
-      explanation: "‏Mass Phishing: 'Dear Customer' + generic. נשלח ל-10M, 0.1% לוחץ = 10,000 קורבנות. ‏Spear Phishing: 'שלום דוד, ראיתי שהיית בכנס X ביום ג'. מחקר מLinkedIn, success rate גבוה בהרבה. ‏Whaling = Spear Phishing נגד C-suite. ‏Twitter 2020 hack = Vishing ‎(שיחות טלפון, לא Phishing במייל)‎.",
+      explanation: "‏דיוג המוני (Phishing): 'לקוח יקר' — גנרי. נשלח ל-10 מיליון, 0.1% לוחצים = 10,000 קורבנות. דיוג ממוקד (Spear Phishing): 'שלום דוד, ראיתי שהיית בכנס X ביום ג''. מבוסס על מחקר מלינקדאין, אחוז הצלחה גבוה בהרבה. ציד לוויתנים (Whaling) = דיוג ממוקד נגד מנהלים בכירים. פריצת טוויטר 2020 = דיוג קולי (Vishing) בשיחות טלפון ולא בדוא\"ל.",
       explanationEn: "Mass Phishing: 'Dear Customer' + generic content. Sent to 10M people, 0.1% click = 10,000 victims. Spear Phishing: 'Hi David, I saw you were at conference X on Tuesday.' Researched via LinkedIn, much higher success rate. Whaling = Spear Phishing targeting C-suite executives. Twitter 2020 hack = Vishing (phone calls, not email Phishing)."
     },
     {
-      q: "בפרשת Twitter 2020, איך התוקפים השיגו גישה לAdmin Panel?",
-      correct: "‏Vishing — התקשרו לעובדי Twitter, התחזו לIT, ביקשו credentials לתיקון בעיה טכנית מדומה",
+      q: "‏בפרשת טוויטר 2020, איך התוקפים השיגו גישה ללוח הניהול (Admin Panel)?",
+      correct: "‏דיוג קולי (Vishing) — התקשרו לעובדי טוויטר, התחזו לצוות IT, וביקשו פרטי גישה לתיקון בעיה טכנית מדומה",
       choices: [
-        "‏Vishing — התקשרו לעובדי Twitter, התחזו לIT, ביקשו credentials לתיקון בעיה טכנית מדומה",
-        "‏SQL injection ישיר על מסד הנתונים",
-        "‏Brute force על חשבונות admin",
-        "‏Zero-day ב-Twitter API"
+        "‏דיוג קולי (Vishing) — התקשרו לעובדי טוויטר, התחזו לצוות IT, וביקשו פרטי גישה לתיקון בעיה טכנית מדומה",
+        "‏הזרקת SQL ישירה על מסד הנתונים",
+        "‏פיצוח בכוח (Brute Force) על חשבונות מנהלים",
+        "‏פגיעות יום-אפס (Zero-Day) ב-API של טוויטר"
       ],
-      explanation: "‏Twitter 2020: Graham Clark בן 17 + שותפים. לא פרצו טכנולוגיה — פשוט התקשרו לעובדים, התחזו לIT support, וביקשו credentials. עובד אחד שיתף פעולה. ‏Admin Panel = גישה לכל 330M חשבונות. $120K Bitcoin. לקח: MFA חזק + אימות זהות בצינור נפרד = קריטי.",
+      explanation: "‏פרשת טוויטר 2020: גרהם קלארק בן 17 עם שותפים. לא פרצו טכנולוגיה — פשוט התקשרו לעובדים, התחזו לתמיכה טכנית וביקשו פרטי גישה. עובד אחד שיתף פעולה. לוח הניהול נתן גישה לכל 330 מיליון החשבונות. נגנבו 120 אלף דולר בביטקוין. הלקח: אימות רב-שלבי (MFA) חזק ואימות זהות בערוץ נפרד = קריטי.",
       explanationEn: "Twitter 2020: Graham Clark, age 17, plus accomplices. They did not hack technology — they simply called employees, impersonated IT support, and asked for credentials. One employee complied. The Admin Panel provided access to all 330M accounts. $120K in Bitcoin was stolen. Lesson: strong MFA + identity verification through a separate channel = critical."
     },
     {
-      q: "מה עיקרון Urgency בSocial Engineering?",
-      correct: "יצירת לחץ זמן מלאכותי שגורם לקורבן לפעול מהר ללא חשיבה ביקורתית — 'לחץ תוך 24 שעות או חשבונך יימחק'",
+      q: "‏מהו עיקרון הדחיפות (Urgency) בהנדסה חברתית (Social Engineering)?",
+      correct: "‏יצירת לחץ זמן מלאכותי שגורם לקורבן לפעול מהר ללא חשיבה ביקורתית — 'לחץ תוך 24 שעות או חשבונך יימחק'",
       choices: [
-        "יצירת לחץ זמן מלאכותי שגורם לקורבן לפעול מהר ללא חשיבה ביקורתית — 'לחץ תוך 24 שעות או חשבונך יימחק'",
-        "שימוש בשפה דחופה ביותר בכותרת המייל",
-        "שליחת אותו מייל מספר פעמים",
-        "הגדרת read receipt על המייל"
+        "‏יצירת לחץ זמן מלאכותי שגורם לקורבן לפעול מהר ללא חשיבה ביקורתית — 'לחץ תוך 24 שעות או חשבונך יימחק'",
+        "‏שימוש בשפה דחופה ביותר בכותרת הדוא\"ל",
+        "‏שליחת אותו דוא\"ל מספר פעמים",
+        "‏הגדרת אישור קריאה (Read Receipt) על הדוא\"ל"
       ],
-      explanation: "‏Cialdini's 6 principles: Authority, Urgency, Social Proof, Liking, Reciprocity, Scarcity. ‏Urgency מנטרל חשיבה ביקורתית — כשאנו בלחץ, לא מוודאים פרטים. ‏Red flag: כל הודעה שמכריחה פעולה מיידית ללא זמן לאימות היא חשודה. ארגון לגיטימי יאפשר לך לוודא.",
+      explanation: "‏ששת עקרונות ההשפעה של צ'יאלדיני: סמכות, דחיפות, הוכחה חברתית, חיבה, הדדיות ומחסור. דחיפות (Urgency) מנטרלת חשיבה ביקורתית — כשאנו בלחץ זמן, לא מוודאים פרטים. דגל אדום: כל הודעה שמכריחה פעולה מיידית ללא זמן לאימות היא חשודה. ארגון לגיטימי תמיד יאפשר לך לוודא.",
       explanationEn: "Cialdini's 6 principles of influence: Authority, Urgency, Social Proof, Liking, Reciprocity, Scarcity. Urgency disables critical thinking — when under pressure, people skip verification. Red flag: any message that forces immediate action without time to verify is suspicious. A legitimate organization will always allow you to verify."
     },
         {
-      q: "מה Pretexting ב-Social Engineering ותן דוגמה?",
-      correct: "יצירת תרחיש בדוי (pretext) להשגת מידע — למשל: התחזות לIT support ובקשת סיסמה לפתרון 'בעיה דחופה'",
+      q: "‏מהו תסריט מוכן (Pretexting) בהנדסה חברתית (Social Engineering)? תן דוגמה.",
+      correct: "‏יצירת תרחיש בדוי (Pretexting) להשגת מידע — למשל: התחזות לתמיכה טכנית (IT) ובקשת סיסמה לפתרון 'בעיה דחופה'",
       choices: [
-        "יצירת תרחיש בדוי (pretext) להשגת מידע — למשל: התחזות לIT support ובקשת סיסמה לפתרון 'בעיה דחופה'",
-        "שליחת מיילים עם links זדוניים",
-        "ניחוש סיסמה בbrute force",
-        "התקנת keylogger על מחשב קורבן"
+        "‏יצירת תרחיש בדוי (Pretexting) להשגת מידע — למשל: התחזות לתמיכה טכנית (IT) ובקשת סיסמה לפתרון 'בעיה דחופה'",
+        "‏שליחת הודעות דוא\"ל עם קישורים זדוניים",
+        "‏ניחוש סיסמה בפיצוח בכוח (Brute Force)",
+        "‏התקנת מקליד מקשים (Keylogger) על מחשב הקורבן"
       ],
-      explanation: "‏Pretexting = תסריט מוכן: 'שלום, אני דן מה-IT, יש לנו בעיה קריטית עם השרת. אני צריך את הסיסמה שלך לבדיקה דחופה.' Urgency + Authority = compliance. מפורסם: Kevin Mitnick השתמש בpretexting כדי לקבל מידע סודי מTeleCommunications. הגנה: Never share passwords! IT לעולם לא יבקש סיסמה. ‏Verify מתקשרים ב-callback לנumber רשמי. ‏Callback verification protocol.",
+      explanation: "‏תסריט מוכן (Pretexting): 'שלום, אני דן מה-IT, יש לנו בעיה קריטית עם השרת. אני צריך את הסיסמה שלך לבדיקה דחופה.' דחיפות (Urgency) + סמכות (Authority) = ציות. מפורסם: קווין מיטניק (Kevin Mitnick) השתמש בתסריט מוכן כדי לקבל מידע סודי מחברות תקשורת. הגנה: לעולם אל תשתף סיסמאות! צוות IT לעולם לא יבקש סיסמה. אמת מתקשרים בשיחה חוזרת למספר רשמי.",
       explanationEn: "Pretexting = a prepared scenario: 'Hi, I'm Dan from IT, we have a critical server issue. I need your password for an urgent check.' Urgency + Authority = compliance. Famous case: Kevin Mitnick used pretexting to obtain classified information from telecom companies. Defense: never share passwords! IT will never ask for your password. Always verify callers by calling back on an official number."
     },
         {
-      q: "מה Vishing ומה Smishing ואיך שונים מPhishing?",
-      correct: "‏Vishing = Voice Phishing ‎(שיחות טלפון)‎ — Smishing = SMS Phishing — שניהם Social Engineering בערוצים שונים ממייל",
+      q: "‏מהם דיוג קולי (Vishing) ודיוג בהודעות (Smishing), ואיך הם שונים מדיוג רגיל (Phishing)?",
+      correct: "‏דיוג קולי (Vishing) = דיוג בשיחות טלפון — דיוג בהודעות (Smishing) = דיוג ב-SMS — שניהם הנדסה חברתית (Social Engineering) בערוצים שונים מדוא\"ל",
       choices: [
-        "‏Vishing = Voice Phishing ‎(שיחות טלפון)‎ — Smishing = SMS Phishing — שניהם Social Engineering בערוצים שונים ממייל",
-        "‏Vishing = Video Phishing — Smishing = Social Media Phishing",
-        "שניהם תתי-סוגים של Spear Phishing בלבד",
-        "‏Vishing ו-Smishing פחות מסוכנים מPhishing כי קל לזהות"
+        "‏דיוג קולי (Vishing) = דיוג בשיחות טלפון — דיוג בהודעות (Smishing) = דיוג ב-SMS — שניהם הנדסה חברתית (Social Engineering) בערוצים שונים מדוא\"ל",
+        "‏דיוג קולי (Vishing) = דיוג בווידאו — דיוג בהודעות (Smishing) = דיוג ברשתות חברתיות",
+        "‏שניהם תתי-סוגים של דיוג ממוקד (Spear Phishing) בלבד",
+        "‏דיוג קולי ודיוג בהודעות פחות מסוכנים מדיוג רגיל כי קל לזהות"
       ],
-      explanation: "‏Vishing: 'מדבר עם נציג בנק לאומי, יש חשד לפעולה חשודה בחשבון. לאימות זהות צריך ספרות מהכרטיס.' קשה לאמת תקינות שיחה. ‏AI Voice Cloning = next level vishing. ‏Smishing: 'חבילה ממתינה לך, עדכן כתובת: [fake-tracking-link].com' — click rate גבוה ממייל. ‏QR Code Phishing (Quishing) = QR codes שמובילים לphishing site. הגנה: אל תשתף OTP, תמיד contact ישיר לחברה.",
+      explanation: "‏דיוג קולי (Vishing): 'מדבר עם נציג בנק לאומי, יש חשד לפעולה חשודה בחשבון. לאימות זהות צריך ספרות מהכרטיס.' קשה לאמת תקינות שיחה. שכפול קול בבינה מלאכותית (AI Voice Cloning) = הרמה הבאה של דיוג קולי. דיוג בהודעות (Smishing): 'חבילה ממתינה לך, עדכן כתובת: [קישור-מזויף].com' — שיעור לחיצה גבוה מדוא\"ל. דיוג בקוד QR ‏(Quishing) = קודי QR שמובילים לאתר דיוג. הגנה: אל תשתף קוד חד-פעמי (OTP), תמיד פנה ישירות לחברה.",
       explanationEn: "Vishing: 'This is a bank representative, there is suspicious activity on your account. For verification, I need digits from your card.' Hard to verify a phone call's legitimacy. AI Voice Cloning = next-level vishing. Smishing: 'A package is waiting for you, update your address: [fake-tracking-link].com' — higher click rate than email. QR Code Phishing (Quishing) = QR codes leading to phishing sites. Defense: never share OTPs, always contact the company directly."
     }
   ],
 
   109: [
     {
-      q: "מה ההבדל בין Stateless לStateful Firewall?",
-      correct: "‏Stateless בודק כל packet בנפרד (IP/port) — Stateful עוקב אחרי connection state ויודע אם packet שייך לsession קיים",
+      q: "‏מה ההבדל בין חומת אש חסרת מצב (Stateless) לחומת אש מודעת מצב (Stateful)?",
+      correct: "‏חסרת מצב (Stateless) בודקת כל חבילה בנפרד (IP/פורט) — מודעת מצב (Stateful) עוקבת אחרי מצב החיבור ויודעת אם חבילה שייכת לשיחה קיימת",
       choices: [
-        "‏Stateless בודק כל packet בנפרד (IP/port) — Stateful עוקב אחרי connection state ויודע אם packet שייך לsession קיים",
-        "‏Stateful מהיר יותר — Stateless מאובטח יותר",
-        "‏Stateless לUDP — Stateful לTCP",
-        "‏Stateful = software — Stateless = hardware"
+        "‏חסרת מצב (Stateless) בודקת כל חבילה בנפרד (IP/פורט) — מודעת מצב (Stateful) עוקבת אחרי מצב החיבור ויודעת אם חבילה שייכת לשיחה קיימת",
+        "‏מודעת מצב (Stateful) מהירה יותר — חסרת מצב (Stateless) מאובטחת יותר",
+        "‏חסרת מצב ל-UDP — מודעת מצב ל-TCP",
+        "‏מודעת מצב = תוכנה — חסרת מצב = חומרה"
       ],
-      explanation: "‏Stateless (iptables -P): בודק src/dst IP + port + protocol. קל לעקוף עם spoofed packets. ‏Stateful (conntrack): מבין SYN/ESTABLISHED/FIN — חבילות return traffic עוברות אוטומטית. ‏NGFW (L7): מבין HTTP/DNS/TLS — יכול לחסום לפי content. iptables ברוב Linux distributions = stateful ב-default.",
+      explanation: "‏חסרת מצב (Stateless, למשל iptables -P): בודקת כתובת מקור/יעד + פורט + פרוטוקול. קל לעקוף עם חבילות מזויפות (Spoofed Packets). מודעת מצב (Stateful, באמצעות conntrack): מבינה SYN/ESTABLISHED/FIN — חבילות תעבורת חזרה עוברות אוטומטית. חומת אש מהדור הבא (NGFW, שכבה 7): מבינה HTTP/DNS/TLS — יכולה לחסום לפי תוכן. iptables ברוב הפצות לינוקס = מודעת מצב כברירת מחדל.",
       explanationEn: "Stateless firewall (iptables -P): checks src/dst IP + port + protocol. Easy to bypass with spoofed packets. Stateful (conntrack): understands SYN/ESTABLISHED/FIN — return traffic passes automatically. NGFW (L7): understands HTTP/DNS/TLS — can block by content. iptables on most Linux distributions is stateful by default."
     },
     {
-      q: "מה מטרת ה-DMZ (Demilitarized Zone)?",
-      correct: "אזור ביניים שמכיל שרתים נגישים מהאינטרנט (Web/Mail/DNS) ומבודד אותם מהרשת הפנימית — פריצה לDMZ לא מעניקה גישה לDB הפנימי",
+      q: "‏מה מטרת האזור המפורז (DMZ)?",
+      correct: "‏אזור ביניים שמכיל שרתים נגישים מהאינטרנט (Web/Mail/DNS) ומבודד אותם מהרשת הפנימית — פריצה לאזור המפורז (DMZ) לא מעניקה גישה למסד הנתונים הפנימי",
       choices: [
-        "אזור ביניים שמכיל שרתים נגישים מהאינטרנט (Web/Mail/DNS) ומבודד אותם מהרשת הפנימית — פריצה לDMZ לא מעניקה גישה לDB הפנימי",
-        "‏Zone שבה כל התעבורה מוצפנת",
-        "אזור ללא הצפנה לביצועים מהירים",
-        "‏Subnet מיוחד לVPN connections"
+        "‏אזור ביניים שמכיל שרתים נגישים מהאינטרנט (Web/Mail/DNS) ומבודד אותם מהרשת הפנימית — פריצה לאזור המפורז (DMZ) לא מעניקה גישה למסד הנתונים הפנימי",
+        "‏אזור שבו כל התעבורה מוצפנת",
+        "‏אזור ללא הצפנה לביצועים מהירים",
+        "‏רשת משנה (Subnet) מיוחדת לחיבורי VPN"
       ],
-      explanation: "‏DMZ = שכבת הגנה נוספת. ‏Architecture: Internet → External FW → DMZ (Web/Mail/DNS) → Internal FW → Internal (DB/AD). גם אם תוקף פורץ לWeb Server ב-DMZ, Internal FW חוסם גישה ל-DB. ‏Principle: Defense in Depth — כל שכבה מגינה על הבאה.",
+      explanation: "‏אזור מפורז (DMZ) = שכבת הגנה נוספת. ארכיטקטורה: אינטרנט → חומת אש חיצונית → אזור מפורז (Web/Mail/DNS) → חומת אש פנימית → רשת פנימית (מסד נתונים/AD). גם אם תוקף פורץ לשרת ה-Web באזור המפורז, חומת האש הפנימית חוסמת גישה למסד הנתונים. עיקרון: הגנה לעומק (Defense in Depth) — כל שכבה מגינה על הבאה.",
       explanationEn: "DMZ = an additional defense layer. Architecture: Internet > External Firewall > DMZ (Web/Mail/DNS) > Internal Firewall > Internal Network (DB/AD). Even if an attacker compromises the Web Server in the DMZ, the Internal Firewall blocks access to the database. Principle: Defense in Depth — each layer protects the next."
     },
     {
-      q: "כיצד Stuxnet הצליח לפגוע ברשת air-gapped?",
-      correct: "הופץ דרך USB drives — עובדים חיברו USB למחשבים air-gapped, התולעת עברה ממחשב למחשב עד שהגיעה לPLCs של Siemens",
+      q: "‏כיצד התולעת Stuxnet הצליחה לפגוע ברשת מנותקת (Air-Gapped)?",
+      correct: "‏הופצה דרך כונני USB — עובדים חיברו USB למחשבים מנותקים, התולעת עברה ממחשב למחשב עד שהגיעה לבקרים תעשייתיים (PLCs) של Siemens",
       choices: [
-        "הופץ דרך USB drives — עובדים חיברו USB למחשבים air-gapped, התולעת עברה ממחשב למחשב עד שהגיעה לPLCs של Siemens",
-        "פרץ דרך WiFi של המתקן",
-        "הוכנס ישירות על ידי mole בתוך המתקן",
-        "השתמש ב-zero-day ב-PLC firmware שנשלח over-the-air"
+        "‏הופצה דרך כונני USB — עובדים חיברו USB למחשבים מנותקים, התולעת עברה ממחשב למחשב עד שהגיעה לבקרים תעשייתיים (PLCs) של Siemens",
+        "‏פרצה דרך רשת אלחוטית (WiFi) של המתקן",
+        "‏הוכנסה ישירות על ידי סוכן פנימי (Mole) בתוך המתקן",
+        "‏השתמשה בפגיעות יום-אפס (Zero-Day) בקושחת PLC שנשלחה באוויר"
       ],
-      explanation: "‏Stuxnet (2010, attributed to US+Israel): 4 zero-days. ‏Air gap = ללא חיבור אינטרנט. הפתרון: USB infection chain. אחד מהמהנדסים חיבר USB נגוע — Stuxnet התפשט, חיכה לSiemens Step7 software, שינה תדרי צנטריפוגות תוך הסתרת הנתונים האמיתיים מהMonitoring. ‏1,000 צנטריפוגות הושמדו. לקח: אסור USB לא מבוקר ב-ICS environments.",
+      explanation: "‏תולעת Stuxnet (2010, מיוחסת לארה\"ב+ישראל): 4 פגיעות יום-אפס (Zero-Days). רשת מנותקת (Air Gap) = ללא חיבור אינטרנט. הפתרון: שרשרת הדבקה בכונני USB. אחד מהמהנדסים חיבר USB נגוע — Stuxnet התפשטה, חיכתה לתוכנת Siemens Step7, שינתה תדרי צנטריפוגות תוך הסתרת הנתונים האמיתיים מהמעקב (Monitoring). ‏1,000 צנטריפוגות הושמדו. לקח: חובה לאסור כונני USB לא מבוקרים בסביבות בקרה תעשייתית (ICS).",
       explanationEn: "Stuxnet (2010, attributed to US+Israel): used 4 zero-days. Air gap = no internet connection. Solution: USB infection chain. An engineer connected an infected USB — Stuxnet spread, waited for Siemens Step7 software, changed centrifuge frequencies while hiding real data from monitoring. 1,000 centrifuges were destroyed. Lesson: uncontrolled USB drives must be banned in ICS environments."
     },
         {
-      q: "מה iptables rule שחוסם כל גישה נכנסת לחוץ מ-SSH (port 22)?",
+      q: "‏מהו כלל iptables שחוסם כל גישה נכנסת חוץ מ-SSH (פורט 22)?",
       correct: "‏iptables -P INPUT DROP — iptables -A INPUT -p tcp --dport 22 -j ACCEPT — iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT",
       choices: [
         "‏iptables -P INPUT DROP — iptables -A INPUT -p tcp --dport 22 -j ACCEPT — iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT",
@@ -2316,19 +2316,19 @@ export const quizBank = {
         "‏iptables --block-all — iptables --allow 22",
         "‏iptables -P INPUT REJECT — iptables -A SSH -j ALLOW"
       ],
-      explanation: "שלבים: 1) DEFAULT POLICY = DROP ‎(חסום הכל)‎. ‏2) ACCEPT port 22. ‏3) ACCEPT established connections ‎(בלי זה — גם responses לתעבורה היוצאת יחסמו!)‎. חשוב לשמור iptables-save > /etc/iptables/rules.v4 אחרת rules נמחקים ב-reboot. nftables = ה-successor המודרני לiptables. ufw (Ubuntu) = front-end נוח: ufw default deny incoming; ufw allow 22/tcp.",
+      explanation: "‏שלבים: 1) מדיניות ברירת מחדל (DEFAULT POLICY) = חסום הכל (DROP). ‏2) אשר פורט 22. ‏3) אשר חיבורים מבוססים (ESTABLISHED) — בלי זה גם תגובות לתעבורה היוצאת ייחסמו! חשוב לשמור עם iptables-save > /etc/iptables/rules.v4, אחרת הכללים נמחקים באתחול מחדש (Reboot). nftables = המחליף המודרני של iptables. ufw ‏(Ubuntu) = ממשק נוח: ufw default deny incoming; ufw allow 22/tcp.",
       explanationEn: "Steps: 1) DEFAULT POLICY = DROP (block everything). 2) ACCEPT port 22 (SSH). 3) ACCEPT established connections (without this, responses to outgoing traffic would also be blocked!). Important: save rules with iptables-save > /etc/iptables/rules.v4, otherwise rules are lost on reboot. nftables is the modern successor to iptables. ufw (Ubuntu) is a convenient front-end: ufw default deny incoming; ufw allow 22/tcp."
     },
         {
-      q: "מה Zero Trust Architecture ועל איזה עיקרון היא מבוססת?",
-      correct: "ארכיטקטורה שלא סומכת על אף entity כברירת מחדל — 'Never trust, always verify'. כל גישה מחייבת אימות גם בתוך הרשת הארגונית",
+      q: "‏מהי ארכיטקטורת אפס אמון (Zero Trust Architecture) ועל איזה עיקרון היא מבוססת?",
+      correct: "‏ארכיטקטורה שלא סומכת על אף ישות כברירת מחדל — 'לעולם אל תסמוך, תמיד אמת' (Never Trust, Always Verify). כל גישה מחייבת אימות גם בתוך הרשת הארגונית",
       choices: [
-        "ארכיטקטורה שלא סומכת על אף entity כברירת מחדל — 'Never trust, always verify'. כל גישה מחייבת אימות גם בתוך הרשת הארגונית",
-        "ארכיטקטורה ללא firewall — סומכים על כל משתמש מאומת",
-        "גישה שמבוססת על Zero-Day vulnerabilities",
-        "מודל שבו רק administrators מרשת ה-DMZ יכולים לגשת למשאבים"
+        "‏ארכיטקטורה שלא סומכת על אף ישות כברירת מחדל — 'לעולם אל תסמוך, תמיד אמת' (Never Trust, Always Verify). כל גישה מחייבת אימות גם בתוך הרשת הארגונית",
+        "‏ארכיטקטורה ללא חומת אש — סומכים על כל משתמש מאומת",
+        "‏גישה שמבוססת על פגיעויות יום-אפס (Zero-Day)",
+        "‏מודל שבו רק מנהלי מערכת מהאזור המפורז (DMZ) יכולים לגשת למשאבים"
       ],
-      explanation: "‏Zero Trust (John Kindervag, Forrester 2010): בארכיטקטורה מסורתית — 'castle and moat': סומכים על כל מה שבפנים. אחרי breach = פרצה חופשית lateral movement. ‏Zero Trust: 1) Verify explicitly — MFA + device health + location בכל בקשה. ‏2) Least privilege access. ‏3) Assume breach — segment network, monitor all traffic. ‏NIST SP 800-207. מימוש: BeyondCorp (Google), Zscaler, Cloudflare Access.",
+      explanation: "‏ארכיטקטורת אפס אמון (Zero Trust, ג'ון קינדרבאג, Forrester 2010): בארכיטקטורה מסורתית — 'טירה וחפיר' (Castle and Moat): סומכים על כל מה שבפנים. אחרי פריצה = תנועה רוחבית (Lateral Movement) חופשית. אפס אמון: 1) אמת במפורש — אימות רב-שלבי (MFA) + תקינות מכשיר + מיקום בכל בקשה. ‏2) הרשאת מינימום (Least Privilege). ‏3) הנח שנפרצת (Assume Breach) — פלח את הרשת, עקוב אחר כל התעבורה. ‏NIST SP 800-207. מימוש: BeyondCorp ‏(Google), Zscaler, Cloudflare Access.",
       explanationEn: "Zero Trust (John Kindervag, Forrester 2010): traditional architecture uses a 'castle and moat' model — trust everything inside. After a breach, lateral movement is unrestricted. Zero Trust: 1) Verify explicitly — MFA + device health + location on every request. 2) Least privilege access. 3) Assume breach — segment the network, monitor all traffic. NIST SP 800-207. Implementations: BeyondCorp (Google), Zscaler, Cloudflare Access."
     }
   ],
