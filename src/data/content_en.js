@@ -2760,15 +2760,1360 @@ print(ip in net)  # True
       },
     ]
   },
-  18: { titleEn: "IPv6 — The New Internet Version", pages: [] },
-  19: { titleEn: "DNS in Depth — Hierarchy, Records, and DoH", pages: [] },
-  20: { titleEn: "TCP in Depth — Flow Control, Congestion, Sliding Window", pages: [] },
-  21: { titleEn: "VPN and Network Security", pages: [] },
-  22: { titleEn: "Modern Internet Architecture — CDN, Load Balancer, HTTP/2", pages: [] },
-  23: { titleEn: "Failures and Recovery — Internet Crash Stories", pages: [] },
-  24: { titleEn: "Behind the Scenes — Networks of the Giants", pages: [] },
-  25: { titleEn: "Privacy and Tracking — What They Really See About You", pages: [] },
-  26: { titleEn: "The Future Is Here — QUIC, eBPF, and Edge", pages: [] },
+  18: {
+    titleEn: "IPv6 — The New Internet Address",
+    pages: [
+      {
+        titleEn: "Why Do We Need IPv6?",
+        contentEn: `<p>IPv4 gives us about 4.3 billion addresses. That sounds like a lot, but:</p>
+<ul>
+<li>The world has 8 billion people</li>
+<li>Each person may have a phone, laptop, tablet, smart watch</li>
+<li>IoT devices (cameras, sensors, fridges) need addresses too</li>
+</ul>
+<p>We ran out of IPv4 addresses in 2011. Since then, we use workarounds like NAT. But NAT has problems:</p>
+<ul>
+<li>Breaks direct device-to-device connections</li>
+<li>Makes peer-to-peer apps harder</li>
+<li>Adds complexity to every network</li>
+</ul>
+<p><strong>IPv6 solves this.</strong> It provides 340 undecillion addresses (3.4 x 10^38). That is enough to give every grain of sand on Earth its own address — billions of times over.</p>`
+      },
+      {
+        titleEn: "IPv6 Address Format",
+        contentEn: `<p>An IPv6 address is <strong>128 bits</strong> long (IPv4 is only 32 bits).</p>
+<p>It is written as <strong>8 groups of 4 hex digits</strong>, separated by colons:</p>
+<pre>2001:0db8:85a3:0000:0000:8a2e:0370:7334</pre>
+<p><strong>Shortening rules:</strong></p>
+<ul>
+<li>Drop leading zeros in each group: <code>0db8</code> becomes <code>db8</code></li>
+<li>Replace one sequence of all-zero groups with <code>::</code> (only once)</li>
+</ul>
+<p>Example:</p>
+<pre>2001:0db8:0000:0000:0000:0000:0000:0001
+2001:db8::1</pre>
+<p>Both are the same address. The <code>::</code> replaces six groups of zeros.</p>
+<p><strong>Key difference from IPv4:</strong></p>
+<ul>
+<li>IPv4: <code>192.168.1.1</code> (decimal, dots)</li>
+<li>IPv6: <code>2001:db8::1</code> (hex, colons)</li>
+</ul>`
+      },
+      {
+        titleEn: "IPv6 Address Types",
+        contentEn: `<p>IPv6 has several address types:</p>
+<h3>Global Unicast</h3>
+<ul>
+<li>Start with <code>2000::/3</code> (addresses beginning with 2 or 3)</li>
+<li>Like a public IPv4 address — routable on the internet</li>
+<li>Every device can have its own global address. No NAT needed!</li>
+</ul>
+<h3>Link-Local</h3>
+<ul>
+<li>Start with <code>fe80::/10</code></li>
+<li>Work only on the local network segment</li>
+<li>Every IPv6 device creates one automatically</li>
+<li>Used for neighbor discovery and local communication</li>
+</ul>
+<h3>Loopback</h3>
+<ul>
+<li><code>::1</code> — the device talks to itself</li>
+<li>Same idea as <code>127.0.0.1</code> in IPv4</li>
+</ul>
+<h3>Multicast</h3>
+<ul>
+<li>Start with <code>ff00::/8</code></li>
+<li>Send one packet to a group of devices</li>
+<li>IPv6 has no broadcast. Multicast replaces it</li>
+<li>Example: <code>ff02::1</code> = all nodes on the link</li>
+</ul>`
+      },
+      {
+        titleEn: "IPv6 Header — Simple and Fixed",
+        contentEn: `<p>The IPv6 header is <strong>40 bytes</strong>, always fixed size. The IPv4 header is 20-60 bytes (variable).</p>
+<p><strong>IPv6 header fields:</strong></p>
+<ul>
+<li><strong>Version</strong> (4 bits): always 6</li>
+<li><strong>Traffic Class</strong> (8 bits): priority of the packet (like QoS)</li>
+<li><strong>Flow Label</strong> (20 bits): identifies a flow of packets (new in IPv6)</li>
+<li><strong>Payload Length</strong> (16 bits): size of the data after the header</li>
+<li><strong>Next Header</strong> (8 bits): what comes after this header (TCP, UDP, or extension header)</li>
+<li><strong>Hop Limit</strong> (8 bits): same as TTL in IPv4 — decreases by 1 at each router</li>
+<li><strong>Source Address</strong> (128 bits): sender</li>
+<li><strong>Destination Address</strong> (128 bits): receiver</li>
+</ul>
+<p><strong>What IPv6 removed:</strong></p>
+<ul>
+<li>No header checksum — layers above (TCP/UDP) handle error checking</li>
+<li>No fragmentation fields — only the sender can fragment in IPv6</li>
+</ul>
+<p>Fixed size = routers process packets faster.</p>`
+      },
+      {
+        titleEn: "NDP — Neighbor Discovery Protocol",
+        contentEn: `<p>IPv4 uses ARP to find MAC addresses. IPv6 replaces ARP with <strong>NDP</strong> (Neighbor Discovery Protocol).</p>
+<p><strong>NDP does several things:</strong></p>
+<ul>
+<li><strong>Address resolution:</strong> "Who has this IPv6 address? Tell me your MAC." (Like ARP)</li>
+<li><strong>Router discovery:</strong> devices find routers on the network automatically</li>
+<li><strong>Auto-configuration (SLAAC):</strong> devices create their own IPv6 address without DHCP</li>
+<li><strong>Duplicate address detection:</strong> checks if an address is already in use</li>
+</ul>
+<p><strong>How address resolution works:</strong></p>
+<ol>
+<li>Device A sends a <strong>Neighbor Solicitation</strong> (NS) to a multicast address</li>
+<li>Device B replies with a <strong>Neighbor Advertisement</strong> (NA) containing its MAC</li>
+</ol>
+<p><strong>SLAAC (Stateless Auto-Configuration):</strong></p>
+<ol>
+<li>Router sends a Router Advertisement (RA) with the network prefix</li>
+<li>Device takes the prefix + generates a host part from its MAC address</li>
+<li>Device now has a full IPv6 address — no DHCP server needed</li>
+</ol>`
+      },
+      {
+        titleEn: "Transition: IPv4 to IPv6",
+        contentEn: `<p>We cannot switch the whole internet to IPv6 overnight. Both protocols must work together during the transition.</p>
+<h3>Dual Stack</h3>
+<ul>
+<li>Devices run both IPv4 and IPv6 at the same time</li>
+<li>If the destination supports IPv6, use IPv6. Otherwise, use IPv4</li>
+<li>Most modern operating systems support dual stack</li>
+<li>This is the most common approach today</li>
+</ul>
+<h3>Tunneling (6in4, 6to4)</h3>
+<ul>
+<li>Wrap IPv6 packets inside IPv4 packets</li>
+<li>IPv6 traffic travels through IPv4 networks</li>
+<li>Like putting a letter inside another envelope</li>
+<li>Used when the path between two IPv6 networks is IPv4-only</li>
+</ul>
+<h3>NAT64 / DNS64</h3>
+<ul>
+<li>Translates between IPv6 and IPv4</li>
+<li>IPv6-only devices can reach IPv4-only servers</li>
+<li>Used by mobile carriers (T-Mobile, for example)</li>
+</ul>
+<p><strong>Current status:</strong> About 40% of Google traffic is IPv6 (2024). Full transition will take many more years.</p>`
+      },
+      {
+        titleEn: "Think Outside the Network",
+        type: "thinkOutside",
+        contentEn: `{}`
+      },
+      {
+        titleEn: "Chapter Summary",
+        contentEn: `<ul>
+<li>IPv4 has only 4.3 billion addresses — not enough for today's world</li>
+<li>IPv6 uses 128-bit addresses (8 groups of hex), providing practically unlimited addresses</li>
+<li>Address types: global unicast (public), link-local (local only), loopback (::1), multicast</li>
+<li>IPv6 header is fixed 40 bytes — simpler and faster than IPv4</li>
+<li>NDP replaces ARP, and adds auto-configuration (SLAAC) — no DHCP needed</li>
+<li>Transition uses dual stack (both protocols), tunneling, or NAT64 translation</li>
+<li>About 40% of internet traffic is already IPv6</li>
+</ul>`
+      },
+      {
+        titleEn: "Test Your Knowledge",
+        type: "questions",
+        contentEn: `{}`
+      }
+    ]
+  },
+
+  19: {
+    titleEn: "DNS in Depth",
+    pages: [
+      {
+        titleEn: "The DNS Hierarchy",
+        contentEn: `<p>DNS is like a phone book for the internet. It turns names (google.com) into IP addresses (142.250.80.46).</p>
+<p>DNS is organized as a <strong>tree</strong> with three levels:</p>
+<h3>Root Servers</h3>
+<ul>
+<li>13 root server groups (A through M), run by different organizations</li>
+<li>They do not know every domain. They know where to find TLD servers</li>
+<li>There are actually hundreds of copies worldwide (anycast)</li>
+</ul>
+<h3>TLD Servers (Top-Level Domain)</h3>
+<ul>
+<li>Handle <code>.com</code>, <code>.org</code>, <code>.net</code>, <code>.il</code>, etc.</li>
+<li>Verisign runs <code>.com</code> — the biggest TLD</li>
+<li>They know which authoritative server handles each domain</li>
+</ul>
+<h3>Authoritative Servers</h3>
+<ul>
+<li>The final answer. They hold the actual DNS records for a domain</li>
+<li>Example: Cloudflare's servers are authoritative for millions of domains</li>
+<li>The domain owner controls what records are stored here</li>
+</ul>`
+      },
+      {
+        titleEn: "Recursive Resolution — Step by Step",
+        contentEn: `<p>When you type <code>www.example.com</code> in your browser, here is what happens:</p>
+<ol>
+<li><strong>Browser cache:</strong> Did I look this up recently? If yes, use the cached answer</li>
+<li><strong>OS cache:</strong> The operating system checks its own DNS cache</li>
+<li><strong>Recursive resolver:</strong> Your ISP's DNS server (or 8.8.8.8, 1.1.1.1) takes over</li>
+<li><strong>Root server:</strong> Resolver asks a root server: "Where is .com?" Root answers with TLD server address</li>
+<li><strong>TLD server:</strong> Resolver asks the .com TLD: "Where is example.com?" TLD answers with the authoritative server</li>
+<li><strong>Authoritative server:</strong> Resolver asks: "What is the IP of www.example.com?" Gets the final answer</li>
+<li><strong>Response:</strong> Resolver sends the IP back to your computer. Browser connects</li>
+</ol>
+<p>This full process takes about <strong>50-200 ms</strong> the first time. After that, the answer is cached and takes less than 1 ms.</p>
+<p>The recursive resolver does all the hard work. Your device only sends one query and gets one answer.</p>`
+      },
+      {
+        titleEn: "DNS Record Types",
+        contentEn: `<p>A domain can have many types of records:</p>
+<ul>
+<li><strong>A</strong> — Maps a name to an IPv4 address. <code>example.com → 93.184.216.34</code></li>
+<li><strong>AAAA</strong> — Maps a name to an IPv6 address. <code>example.com → 2606:2800:220:1:...</code></li>
+<li><strong>CNAME</strong> — Alias. Points one name to another. <code>www.example.com → example.com</code></li>
+<li><strong>MX</strong> — Mail server. Tells email where to go. <code>example.com → mail.example.com (priority 10)</code></li>
+<li><strong>NS</strong> — Name server. Which DNS server is authoritative for this domain</li>
+<li><strong>TXT</strong> — Text data. Used for email security (SPF, DKIM, DMARC) and domain verification</li>
+<li><strong>SOA</strong> — Start of Authority. Contains the primary name server, admin email, serial number, and timing values</li>
+<li><strong>PTR</strong> — Reverse lookup. Maps an IP address back to a name. Used for email verification</li>
+</ul>
+<p><strong>A single domain often has many records.</strong> For example, google.com has A, AAAA, MX, NS, TXT, and SOA records.</p>`
+      },
+      {
+        titleEn: "Demo: The dig Command",
+        type: "simulation",
+        contentEn: `<p>The <code>dig</code> command lets you query DNS servers directly from the terminal.</p>
+<h3>Basic query:</h3>
+<pre>$ dig example.com
+
+;; ANSWER SECTION:
+example.com.    3600    IN    A    93.184.216.34</pre>
+<p>This shows: the name, TTL (3600 seconds = 1 hour), record class (IN = Internet), type (A), and the IP address.</p>
+<h3>Query a specific record type:</h3>
+<pre>$ dig example.com MX
+
+;; ANSWER SECTION:
+example.com.    3600    IN    MX    10 mail.example.com.</pre>
+<h3>Trace the full resolution path:</h3>
+<pre>$ dig +trace example.com</pre>
+<p>This shows every step: root → TLD → authoritative. Very useful for debugging DNS problems.</p>
+<h3>Query a specific DNS server:</h3>
+<pre>$ dig @8.8.8.8 example.com</pre>
+<p>This asks Google's DNS server directly instead of your default resolver.</p>`
+      },
+      {
+        titleEn: "DNS Caching and TTL",
+        contentEn: `<p>Without caching, every website visit would need 4+ DNS queries. That would be slow and overload DNS servers.</p>
+<h3>TTL (Time to Live)</h3>
+<ul>
+<li>Every DNS record has a TTL value in seconds</li>
+<li>TTL = how long the answer can be cached</li>
+<li>After TTL expires, the resolver must ask again</li>
+</ul>
+<p><strong>Common TTL values:</strong></p>
+<ul>
+<li><strong>300 (5 minutes):</strong> Common for websites that change servers often (CDN, failover)</li>
+<li><strong>3600 (1 hour):</strong> Standard for most websites</li>
+<li><strong>86400 (24 hours):</strong> Stable records that rarely change</li>
+</ul>
+<h3>Where caching happens:</h3>
+<ul>
+<li><strong>Browser:</strong> Keeps its own DNS cache (Chrome: <code>chrome://net-internals/#dns</code>)</li>
+<li><strong>Operating system:</strong> System-level DNS cache</li>
+<li><strong>Recursive resolver:</strong> ISP or public resolver caches for all users</li>
+</ul>
+<p><strong>Tradeoff:</strong> Long TTL = faster but slow to update. Short TTL = always fresh but more DNS traffic.</p>`
+      },
+      {
+        titleEn: "Encrypted DNS: DoH and DoT",
+        contentEn: `<p>Traditional DNS sends queries in <strong>plain text</strong>. Anyone on the network can see which websites you visit.</p>
+<h3>DNS over HTTPS (DoH)</h3>
+<ul>
+<li>DNS queries travel inside HTTPS (port 443)</li>
+<li>Looks like normal web traffic — hard to block</li>
+<li>Used by Firefox, Chrome, Edge by default</li>
+<li>Providers: Cloudflare (1.1.1.1), Google (8.8.8.8)</li>
+</ul>
+<h3>DNS over TLS (DoT)</h3>
+<ul>
+<li>DNS queries are encrypted with TLS (port 853)</li>
+<li>Dedicated port makes it easy to identify (and block)</li>
+<li>Used more by Android and network-level setups</li>
+</ul>
+<h3>Why does this matter?</h3>
+<ul>
+<li>Your ISP cannot see which sites you look up (with DoH/DoT)</li>
+<li>Public Wi-Fi attackers cannot spy on your DNS</li>
+<li>Prevents DNS hijacking by middlemen</li>
+</ul>
+<p><strong>Note:</strong> Encrypted DNS hides your queries from the network, but the DNS provider (Cloudflare, Google) still sees them.</p>`
+      },
+      {
+        titleEn: "Think Outside the Network",
+        type: "thinkOutside",
+        contentEn: `{}`
+      },
+      {
+        titleEn: "Chapter Summary",
+        contentEn: `<ul>
+<li>DNS is a hierarchy: root servers → TLD servers → authoritative servers</li>
+<li>Recursive resolvers do the work: they walk the tree and cache the answers</li>
+<li>Key record types: A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), NS (name server), TXT, SOA, PTR</li>
+<li>The <code>dig</code> command lets you query DNS and trace resolution paths</li>
+<li>TTL controls how long answers are cached — balances speed vs freshness</li>
+<li>DoH (HTTPS, port 443) and DoT (TLS, port 853) encrypt DNS to protect privacy</li>
+</ul>`
+      },
+      {
+        titleEn: "Test Your Knowledge",
+        type: "questions",
+        contentEn: `{}`
+      }
+    ]
+  },
+
+  20: {
+    titleEn: "TCP in Depth",
+    pages: [
+      {
+        titleEn: "What Problems Does TCP Solve?",
+        contentEn: `<p>The internet is unreliable. Packets can be lost, arrive out of order, or flood a slow receiver. TCP solves three main problems:</p>
+<h3>1. Packet Loss</h3>
+<ul>
+<li>Routers drop packets when they are overloaded</li>
+<li>Wireless links lose packets to interference</li>
+<li>TCP detects lost packets and retransmits them</li>
+</ul>
+<h3>2. Flow Control</h3>
+<ul>
+<li>A fast sender can overwhelm a slow receiver</li>
+<li>The receiver tells the sender: "I have room for X bytes"</li>
+<li>The sender never sends more than the receiver can handle</li>
+</ul>
+<h3>3. Congestion Control</h3>
+<ul>
+<li>Too many senders can flood the network</li>
+<li>TCP detects congestion (packet loss, delay) and slows down</li>
+<li>All TCP connections share the network fairly</li>
+</ul>
+<p>TCP uses <strong>sequence numbers</strong> and <strong>acknowledgments</strong> (ACKs) to track every byte. If an ACK does not arrive in time, TCP assumes the packet was lost and sends it again.</p>`
+      },
+      {
+        titleEn: "Sliding Window and Flow Control",
+        contentEn: `<p>TCP uses a <strong>sliding window</strong> to control how much data is sent before waiting for an ACK.</p>
+<h3>Receive Window (rwnd)</h3>
+<ul>
+<li>The receiver advertises how much buffer space it has</li>
+<li>This value is sent in every ACK packet</li>
+<li>The sender will not send more than <code>rwnd</code> bytes without an ACK</li>
+</ul>
+<h3>How it works:</h3>
+<ol>
+<li>Receiver says: "My window is 16 KB" (I can accept 16 KB of data)</li>
+<li>Sender sends 16 KB of data in multiple packets</li>
+<li>Receiver processes some data, frees buffer space</li>
+<li>Receiver ACKs: "Got everything up to byte 16000, window is now 8 KB"</li>
+<li>Sender can send 8 KB more</li>
+</ol>
+<p><strong>Window = 0:</strong> The receiver is full. The sender must stop and wait. It sends small "probe" packets to check when space opens up.</p>
+<p>The window slides forward as data is acknowledged. That is why it is called a "sliding window."</p>`
+      },
+      {
+        titleEn: "Congestion Control — Slow Start",
+        contentEn: `<p>Flow control protects the receiver. <strong>Congestion control</strong> protects the network.</p>
+<h3>Congestion Window (cwnd)</h3>
+<ul>
+<li>The sender keeps its own limit: the congestion window</li>
+<li>The actual sending rate = minimum of rwnd and cwnd</li>
+<li>cwnd starts small and grows as the connection succeeds</li>
+</ul>
+<h3>Slow Start</h3>
+<ol>
+<li>Connection begins with <code>cwnd = 1 MSS</code> (one packet, about 1460 bytes)</li>
+<li>For every ACK received, cwnd increases by 1 MSS</li>
+<li>This means cwnd <strong>doubles</strong> every round-trip time (RTT)</li>
+<li>1 → 2 → 4 → 8 → 16 → 32 packets... exponential growth</li>
+</ol>
+<p><strong>When does slow start stop?</strong></p>
+<ul>
+<li>When cwnd reaches <code>ssthresh</code> (slow start threshold) → switch to congestion avoidance</li>
+<li>When a packet is lost → congestion detected, cut cwnd</li>
+</ul>
+<p>The name "slow start" is misleading. It grows exponentially — it is actually quite fast. But it starts from 1, not from the maximum.</p>`
+      },
+      {
+        titleEn: "Congestion Avoidance — AIMD",
+        contentEn: `<p>After slow start reaches <code>ssthresh</code>, TCP switches to <strong>congestion avoidance</strong>.</p>
+<h3>AIMD: Additive Increase, Multiplicative Decrease</h3>
+<ul>
+<li><strong>Additive Increase:</strong> cwnd grows by 1 MSS per RTT (linear, not exponential)</li>
+<li><strong>Multiplicative Decrease:</strong> On packet loss, cwnd is cut in half</li>
+</ul>
+<h3>Why AIMD works:</h3>
+<ul>
+<li>Slow increase probes for available bandwidth carefully</li>
+<li>Fast decrease reacts quickly to congestion</li>
+<li>The "sawtooth" pattern: cwnd grows slowly, drops fast, grows again</li>
+<li>Over time, all connections converge to a fair share of bandwidth</li>
+</ul>
+<h3>Two types of loss detection:</h3>
+<ul>
+<li><strong>Triple duplicate ACK:</strong> Mild congestion. cwnd = cwnd / 2 (fast recovery)</li>
+<li><strong>Timeout:</strong> Severe congestion. cwnd = 1 MSS, start over from slow start</li>
+</ul>
+<p>Triple duplicate ACK means some packets still get through. Timeout means nothing is getting through — the situation is worse.</p>`
+      },
+      {
+        titleEn: "RTT and Timeout Calculation",
+        contentEn: `<p>TCP needs to know when a packet is "lost." It uses a <strong>timeout</strong> (RTO). If no ACK arrives within RTO, retransmit.</p>
+<h3>RTT (Round Trip Time)</h3>
+<ul>
+<li>Time from sending a packet to receiving its ACK</li>
+<li>RTT changes constantly — network conditions vary</li>
+<li>TCP measures RTT for each acknowledged packet</li>
+</ul>
+<h3>Calculating RTO:</h3>
+<ul>
+<li><strong>SRTT</strong> (Smoothed RTT): weighted average of recent RTT measurements</li>
+<li><strong>RTTVAR</strong>: how much RTT varies (the jitter)</li>
+<li><strong>RTO = SRTT + 4 x RTTVAR</strong></li>
+</ul>
+<p>Example:</p>
+<ul>
+<li>SRTT = 100 ms, RTTVAR = 20 ms</li>
+<li>RTO = 100 + 4 x 20 = <strong>180 ms</strong></li>
+</ul>
+<h3>Important rules:</h3>
+<ul>
+<li>Minimum RTO is usually 200 ms (even if RTT is 1 ms)</li>
+<li>If a timeout happens, RTO doubles (exponential backoff): 200 → 400 → 800 ms</li>
+<li>This prevents a flood of retransmissions during congestion</li>
+</ul>`
+      },
+      {
+        titleEn: "Modern Congestion Algorithms",
+        contentEn: `<p>The original TCP algorithm (Tahoe/Reno) was designed in 1988. Modern networks need better algorithms.</p>
+<h3>TCP Reno (1990)</h3>
+<ul>
+<li>Added "fast recovery" — do not go back to slow start on triple duplicate ACK</li>
+<li>Cut cwnd in half and continue from there</li>
+<li>Still the baseline that others are compared to</li>
+</ul>
+<h3>TCP CUBIC (2006)</h3>
+<ul>
+<li>Default in Linux since 2006</li>
+<li>Uses a cubic function to grow cwnd, not linear</li>
+<li>Grows fast when far from the last loss point, slows down near it</li>
+<li>Better for high-bandwidth, high-latency links (long fat pipes)</li>
+</ul>
+<h3>BBR — Bottleneck Bandwidth and RTT (Google, 2016)</h3>
+<ul>
+<li>Does not use packet loss as a congestion signal</li>
+<li>Instead, it measures the actual bottleneck bandwidth and minimum RTT</li>
+<li>Tries to send at exactly the right rate — not too fast, not too slow</li>
+<li>Used by Google, YouTube, and many CDNs</li>
+<li>Works much better on lossy networks (wireless, long distance)</li>
+</ul>
+<p>BBR is a big shift in thinking. Traditional TCP: "loss = congestion." BBR: "let me measure the real capacity."</p>`
+      },
+      {
+        titleEn: "Think Outside the Network",
+        type: "thinkOutside",
+        contentEn: `{}`
+      },
+      {
+        titleEn: "Chapter Summary",
+        contentEn: `<ul>
+<li>TCP solves three problems: packet loss (retransmission), flow control (receiver protection), congestion control (network protection)</li>
+<li>The receive window (rwnd) is a sliding window — the receiver advertises how much data it can accept</li>
+<li>Congestion window (cwnd) starts at 1 MSS and doubles each RTT (slow start), then grows linearly (congestion avoidance)</li>
+<li>AIMD: increase slowly, decrease fast. Creates a sawtooth pattern that converges to fairness</li>
+<li>RTO = SRTT + 4 x RTTVAR. Timeout doubles on each retry (exponential backoff)</li>
+<li>Modern algorithms: Reno (fast recovery), CUBIC (cubic growth, Linux default), BBR (measures real bandwidth, no loss-based signals)</li>
+</ul>`
+      },
+      {
+        titleEn: "Test Your Knowledge",
+        type: "questions",
+        contentEn: `{}`
+      }
+    ]
+  },
+
+  21: {
+    titleEn: "VPN and Network Security",
+    pages: [
+      {
+        titleEn: "What Is a VPN?",
+        contentEn: `<p>A <strong>VPN</strong> (Virtual Private Network) creates an encrypted tunnel between your device and a VPN server.</p>
+<h3>Without VPN:</h3>
+<ul>
+<li>Your traffic goes directly to the internet</li>
+<li>Your ISP sees every website you visit</li>
+<li>Websites see your real IP address</li>
+</ul>
+<h3>With VPN:</h3>
+<ul>
+<li>All traffic is encrypted and sent to the VPN server first</li>
+<li>The VPN server forwards it to the destination</li>
+<li>Your ISP sees only encrypted traffic to one IP (the VPN server)</li>
+<li>Websites see the VPN server's IP, not yours</li>
+</ul>
+<h3>Common uses:</h3>
+<ul>
+<li><strong>Privacy:</strong> Hide your browsing from your ISP</li>
+<li><strong>Remote work:</strong> Access company network from home securely</li>
+<li><strong>Bypass restrictions:</strong> Access content blocked in your country</li>
+<li><strong>Public Wi-Fi safety:</strong> Encrypt traffic on untrusted networks</li>
+</ul>
+<p>A VPN does <strong>not</strong> make you anonymous. The VPN provider can still see your traffic.</p>`
+      },
+      {
+        titleEn: "IPsec — The Classic VPN Protocol",
+        contentEn: `<p><strong>IPsec</strong> operates at the network layer (Layer 3). It is built into most operating systems and routers.</p>
+<h3>Two protocols:</h3>
+<ul>
+<li><strong>ESP (Encapsulating Security Payload):</strong> Encrypts and authenticates data. Used in almost all IPsec VPNs</li>
+<li><strong>AH (Authentication Header):</strong> Only authenticates, no encryption. Rarely used alone</li>
+</ul>
+<h3>Two modes:</h3>
+<ul>
+<li><strong>Tunnel mode:</strong> The entire original packet is encrypted and wrapped in a new IP header. Used for site-to-site VPNs (connect two offices)</li>
+<li><strong>Transport mode:</strong> Only the payload is encrypted, the original IP header stays. Used for host-to-host communication</li>
+</ul>
+<h3>IKE (Internet Key Exchange):</h3>
+<ul>
+<li>Sets up the secure connection before data flows</li>
+<li>Negotiates encryption algorithms, exchanges keys</li>
+<li>Two phases: authenticate peers, then create the tunnel</li>
+</ul>
+<p>IPsec is powerful but complex. Configuration can be difficult. That is why simpler alternatives like WireGuard became popular.</p>`
+      },
+      {
+        titleEn: "WireGuard — Modern and Simple",
+        contentEn: `<p><strong>WireGuard</strong> is a modern VPN protocol created in 2018. It is fast, simple, and secure.</p>
+<h3>Why WireGuard is different:</h3>
+<ul>
+<li><strong>~4,000 lines of code</strong> (IPsec has hundreds of thousands). Less code = fewer bugs</li>
+<li>Uses modern cryptography only: ChaCha20, Curve25519, BLAKE2</li>
+<li>No negotiation of algorithms — one fixed set. Simpler and safer</li>
+<li>Runs in the Linux kernel — very fast</li>
+</ul>
+<h3>How it works:</h3>
+<ul>
+<li>Each peer has a public/private key pair (like SSH)</li>
+<li>Configuration is a simple text file: your key, peer's key, allowed IPs</li>
+<li>Uses UDP (not TCP) — avoids the TCP-in-TCP problem</li>
+<li>Silent when idle — sends no keepalive packets unless configured</li>
+</ul>
+<h3>Simple config example:</h3>
+<pre>[Interface]
+PrivateKey = your_private_key
+Address = 10.0.0.1/24
+
+[Peer]
+PublicKey = peer_public_key
+Endpoint = vpn.example.com:51820
+AllowedIPs = 0.0.0.0/0</pre>
+<p>WireGuard is now built into Linux, Android, iOS, Windows, and macOS.</p>`
+      },
+      {
+        titleEn: "OpenVPN and Split Tunneling",
+        contentEn: `<p><strong>OpenVPN</strong> is an older but very popular open-source VPN. It has been around since 2001.</p>
+<h3>OpenVPN features:</h3>
+<ul>
+<li>Uses TLS/SSL for encryption (same as HTTPS)</li>
+<li>Runs on TCP or UDP (UDP is faster, TCP works through more firewalls)</li>
+<li>Works on almost every platform</li>
+<li>Can run on any port — hard to block</li>
+<li>Large codebase (~100,000 lines) — more complex than WireGuard</li>
+</ul>
+<h3>Split Tunneling</h3>
+<p>Not all traffic needs to go through the VPN:</p>
+<ul>
+<li><strong>Full tunnel:</strong> All traffic goes through the VPN. Maximum privacy but slower</li>
+<li><strong>Split tunnel:</strong> Only specific traffic goes through the VPN. The rest goes direct</li>
+</ul>
+<p><strong>Example split tunnel setup:</strong></p>
+<ul>
+<li>Work apps (email, internal tools) → through VPN</li>
+<li>YouTube, Netflix, gaming → direct internet (faster)</li>
+</ul>
+<p><strong>Why split tunnel?</strong></p>
+<ul>
+<li>Saves VPN bandwidth</li>
+<li>Lower latency for non-work traffic</li>
+<li>Local devices (printers, smart home) stay accessible</li>
+</ul>`
+      },
+      {
+        titleEn: "Network Security Threats",
+        contentEn: `<p>Networks face many types of attacks. Here are three common ones:</p>
+<h3>ARP Spoofing (Man-in-the-Middle)</h3>
+<ul>
+<li>Attacker sends fake ARP replies on a local network</li>
+<li>Tricks devices into sending traffic through the attacker's machine</li>
+<li>Attacker can read, modify, or drop packets</li>
+<li><strong>Defense:</strong> Use HTTPS, dynamic ARP inspection on switches, VPN</li>
+</ul>
+<h3>SYN Flood (Denial of Service)</h3>
+<ul>
+<li>Attacker sends thousands of TCP SYN packets with fake source IPs</li>
+<li>Server creates half-open connections for each one, filling its memory</li>
+<li>Real users cannot connect — server is too busy</li>
+<li><strong>Defense:</strong> SYN cookies (server does not store state until handshake completes)</li>
+</ul>
+<h3>DDoS (Distributed Denial of Service)</h3>
+<ul>
+<li>Thousands of machines (botnet) flood a target at the same time</li>
+<li>Can reach terabits per second of traffic</li>
+<li>Largest attacks use DNS amplification or NTP reflection</li>
+<li><strong>Defense:</strong> CDN/Cloudflare absorbs traffic, rate limiting, traffic scrubbing</li>
+</ul>
+<p>Security is layers. No single defense is enough. Use encryption + firewalls + monitoring together.</p>`
+      },
+      {
+        titleEn: "Think Outside the Network",
+        type: "thinkOutside",
+        contentEn: `{}`
+      },
+      {
+        titleEn: "Chapter Summary",
+        contentEn: `<ul>
+<li>A VPN creates an encrypted tunnel — hides traffic from your ISP and network</li>
+<li>IPsec uses ESP (encrypt) and AH (authenticate) in tunnel mode (site-to-site) or transport mode (host-to-host)</li>
+<li>WireGuard: modern, ~4,000 lines of code, fast, simple configuration with public/private keys</li>
+<li>OpenVPN: older, uses TLS, works on TCP or UDP, very widely supported</li>
+<li>Split tunneling sends only some traffic through the VPN — saves bandwidth and reduces latency</li>
+<li>Common threats: ARP spoofing (MITM), SYN flood (exhaust server), DDoS (distributed flood)</li>
+<li>Defense is layered: encryption + firewall + monitoring + CDN protection</li>
+</ul>`
+      },
+      {
+        titleEn: "Test Your Knowledge",
+        type: "questions",
+        contentEn: `{}`
+      }
+    ]
+  },
+
+  22: {
+    titleEn: "Modern Internet Architecture",
+    pages: [
+      {
+        titleEn: "CDN — Content Delivery Network",
+        contentEn: `<p>A <strong>CDN</strong> puts copies of content on servers close to users. Instead of one server far away, hundreds of servers worldwide.</p>
+<h3>How a CDN works:</h3>
+<ul>
+<li><strong>Origin server:</strong> The original server with your content (your data center)</li>
+<li><strong>Edge servers:</strong> CDN servers in cities around the world</li>
+<li><strong>Cache:</strong> Edge servers store copies of popular content</li>
+</ul>
+<h3>When a user requests a page:</h3>
+<ol>
+<li>DNS directs the user to the nearest edge server</li>
+<li>If the edge server has the content cached → serve it immediately (cache hit)</li>
+<li>If not → edge server fetches from origin, caches it, then serves (cache miss)</li>
+</ol>
+<h3>Benefits:</h3>
+<ul>
+<li><strong>Speed:</strong> Content is physically closer to the user (lower latency)</li>
+<li><strong>Reliability:</strong> If one edge server fails, others take over</li>
+<li><strong>DDoS protection:</strong> Attack traffic is spread across many servers</li>
+<li><strong>Lower origin load:</strong> Most requests never reach your server</li>
+</ul>
+<p><strong>Major CDNs:</strong> Cloudflare, Akamai, AWS CloudFront, Fastly. About 50% of all web traffic goes through CDNs.</p>`
+      },
+      {
+        titleEn: "Load Balancer — L4 vs L7",
+        contentEn: `<p>A <strong>load balancer</strong> distributes traffic across multiple servers. If one server fails, traffic goes to others.</p>
+<h3>Layer 4 (L4) Load Balancer</h3>
+<ul>
+<li>Works at the transport layer (TCP/UDP)</li>
+<li>Sees only IP addresses and port numbers</li>
+<li>Very fast — just forwards packets without reading content</li>
+<li>Cannot make decisions based on URL, cookies, or headers</li>
+</ul>
+<h3>Layer 7 (L7) Load Balancer</h3>
+<ul>
+<li>Works at the application layer (HTTP/HTTPS)</li>
+<li>Reads the full request: URL, headers, cookies, body</li>
+<li>Can route based on content: <code>/api</code> → API servers, <code>/images</code> → media servers</li>
+<li>Can add/remove headers, rewrite URLs, terminate SSL</li>
+<li>Slower than L4 but much more flexible</li>
+</ul>
+<h3>Common algorithms:</h3>
+<ul>
+<li><strong>Round robin:</strong> Each server gets requests in turn (1, 2, 3, 1, 2, 3...)</li>
+<li><strong>Least connections:</strong> Send to the server with fewest active connections</li>
+<li><strong>IP hash:</strong> Same client IP always goes to the same server (sticky sessions)</li>
+</ul>
+<p><strong>Tools:</strong> Nginx, HAProxy, AWS ALB/NLB, Google Cloud Load Balancer.</p>`
+      },
+      {
+        titleEn: "HTTP/2 and HTTP/3 (QUIC)",
+        contentEn: `<p>HTTP/1.1 (1997) has a big problem: <strong>head-of-line blocking</strong>. Only one request at a time per TCP connection.</p>
+<h3>HTTP/2 (2015)</h3>
+<ul>
+<li><strong>Multiplexing:</strong> Many requests and responses on one TCP connection at the same time</li>
+<li><strong>Binary protocol:</strong> Not text like HTTP/1.1 — faster to parse</li>
+<li><strong>Header compression (HPACK):</strong> Reduces repeated header data</li>
+<li><strong>Server push:</strong> Server can send files before the browser asks (CSS, JS)</li>
+<li>Still uses TCP — so TCP-level head-of-line blocking remains</li>
+</ul>
+<h3>HTTP/3 (2022) — Built on QUIC</h3>
+<ul>
+<li><strong>QUIC</strong> runs on UDP instead of TCP</li>
+<li>Each stream is independent — one lost packet does not block others</li>
+<li><strong>0-RTT connection:</strong> Returning visitors can send data immediately (no handshake delay)</li>
+<li>Built-in encryption (TLS 1.3) — always encrypted, no option to disable</li>
+<li>Connection migration: Switch from Wi-Fi to cellular without dropping the connection</li>
+</ul>
+<p>About 30% of web traffic uses HTTP/3 today. Google, Facebook, and Cloudflare are major adopters.</p>`
+      },
+      {
+        titleEn: "REST API and WebSockets",
+        contentEn: `<p>Modern web apps need to communicate between frontend and backend. Two main patterns:</p>
+<h3>REST API</h3>
+<ul>
+<li>Uses standard HTTP methods: GET (read), POST (create), PUT (update), DELETE (remove)</li>
+<li><strong>Stateless:</strong> Each request contains all information needed. Server does not remember previous requests</li>
+<li>Data format: usually JSON</li>
+<li>Example: <code>GET /api/users/42</code> returns user with ID 42</li>
+</ul>
+<p><strong>REST is great for:</strong> CRUD operations, mobile apps, third-party integrations.</p>
+<h3>WebSockets</h3>
+<ul>
+<li>Starts as an HTTP request, then <strong>upgrades</strong> to a persistent two-way connection</li>
+<li>Both client and server can send messages at any time</li>
+<li>No need to poll — server pushes updates instantly</li>
+</ul>
+<p><strong>WebSockets are great for:</strong> Chat apps, live stock prices, multiplayer games, real-time dashboards.</p>
+<h3>When to use which:</h3>
+<ul>
+<li>Need to fetch data once? → REST</li>
+<li>Need real-time updates pushed to the client? → WebSocket</li>
+<li>Many apps use both: REST for regular operations + WebSocket for live updates</li>
+</ul>`
+      },
+      {
+        titleEn: "Microservices and Service Mesh",
+        contentEn: `<p>Traditional apps are <strong>monoliths</strong>: one big program that does everything. Microservices split the app into small, independent services.</p>
+<h3>Microservices:</h3>
+<ul>
+<li>Each service does one thing: auth service, payment service, email service</li>
+<li>Services communicate over the network (HTTP, gRPC, message queues)</li>
+<li>Each service can be deployed, scaled, and updated independently</li>
+<li>Different services can use different programming languages</li>
+</ul>
+<h3>Challenges:</h3>
+<ul>
+<li>Many network calls between services — latency adds up</li>
+<li>Hard to debug: a request may touch 10 services</li>
+<li>Need service discovery: how does Service A find Service B?</li>
+<li>Need to handle failures: what if one service is down?</li>
+</ul>
+<h3>Service Mesh (Istio, Linkerd)</h3>
+<ul>
+<li>A dedicated infrastructure layer for service-to-service communication</li>
+<li>Each service gets a <strong>sidecar proxy</strong> (like Envoy) that handles networking</li>
+<li>The mesh provides: load balancing, encryption (mTLS), retries, timeouts, observability</li>
+<li>Developers write business logic. The mesh handles networking</li>
+</ul>
+<p><strong>Result:</strong> Every service-to-service call is encrypted, monitored, and resilient — without changing application code.</p>`
+      },
+      {
+        titleEn: "Think Outside the Network",
+        type: "thinkOutside",
+        contentEn: `{}`
+      },
+      {
+        titleEn: "Chapter Summary",
+        contentEn: `<ul>
+<li>CDNs place content on edge servers worldwide — faster delivery, DDoS protection, lower origin load</li>
+<li>L4 load balancers forward packets by IP/port (fast). L7 load balancers read HTTP content (flexible)</li>
+<li>HTTP/2: multiplexing on one TCP connection. HTTP/3 (QUIC): UDP-based, 0-RTT, no head-of-line blocking</li>
+<li>REST: stateless HTTP requests (GET/POST/PUT/DELETE). WebSockets: persistent two-way real-time connection</li>
+<li>Microservices split apps into small services. Service mesh (Istio/Linkerd) handles networking between them with sidecar proxies</li>
+</ul>`
+      },
+      {
+        titleEn: "Test Your Knowledge",
+        type: "questions",
+        contentEn: `{}`
+      }
+    ]
+  },
+
+  23: {
+    titleEn: "Failures and Recovery",
+    pages: [
+      {
+        titleEn: "Facebook Outage — October 2021",
+        contentEn: `<p>On October 4, 2021, Facebook, Instagram, and WhatsApp went down for <strong>6 hours</strong>. 3.5 billion users were affected.</p>
+<h3>What happened:</h3>
+<ol>
+<li>A routine maintenance command was issued to check BGP router capacity</li>
+<li>The command had a bug — it withdrew all BGP route announcements</li>
+<li>Every Facebook server disappeared from the internet in seconds</li>
+<li>DNS servers for facebook.com became unreachable</li>
+<li>The cascading failure also took down internal tools</li>
+</ol>
+<h3>Why recovery took 6 hours:</h3>
+<ul>
+<li>Engineers could not access internal systems (they were down too)</li>
+<li>Remote access tools depended on Facebook's own network</li>
+<li>Physical access to data centers required badge systems — also down</li>
+<li>Engineers had to physically go to data centers and manually fix routers</li>
+</ul>
+<h3>Lessons:</h3>
+<ul>
+<li>Do not depend on your own network for recovery tools</li>
+<li>Out-of-band management access is critical (a separate path that works when everything else is down)</li>
+<li>Test disaster recovery procedures regularly</li>
+<li>One bad command can take down a global service</li>
+</ul>
+<p>Estimated cost: over $100 million in lost revenue.</p>`
+      },
+      {
+        titleEn: "SQL Slammer — 376 Bytes That Shook the Internet",
+        contentEn: `<p>On January 25, 2003, a worm called <strong>SQL Slammer</strong> spread across the internet in <strong>10 minutes</strong>.</p>
+<h3>How it worked:</h3>
+<ul>
+<li>Exploited a known vulnerability in Microsoft SQL Server (patch was available for 6 months)</li>
+<li>The entire worm fit in <strong>one UDP packet — 376 bytes</strong></li>
+<li>No file was written to disk. It lived only in memory</li>
+<li>Each infected server scanned random IPs and sent the worm to them</li>
+<li>Exponential spread: doubled every 8.5 seconds</li>
+</ul>
+<h3>Impact:</h3>
+<ul>
+<li>75,000 servers infected in 10 minutes</li>
+<li>South Korea lost most of its internet for hours</li>
+<li>ATMs, airline systems, and 911 services went down in the US</li>
+<li>Internet backbone routers were overloaded with scanning traffic</li>
+</ul>
+<h3>Lessons:</h3>
+<ul>
+<li><strong>Patch your systems.</strong> The fix existed 6 months before the attack</li>
+<li>One tiny packet can cause massive damage</li>
+<li>UDP-based attacks spread faster than TCP (no handshake needed)</li>
+<li>Internet infrastructure is more fragile than we think</li>
+</ul>`
+      },
+      {
+        titleEn: "BGP Hijacking and Route Leaks",
+        contentEn: `<p>BGP (Border Gateway Protocol) is how internet providers share routing information. It is based on <strong>trust</strong> — and that is a problem.</p>
+<h3>BGP Hijacking:</h3>
+<ul>
+<li>Any network can announce: "I own IP range 1.2.3.0/24"</li>
+<li>BGP has <strong>no built-in authentication</strong> — routers believe the announcement</li>
+<li>An attacker can redirect traffic meant for another network to their own</li>
+</ul>
+<h3>Famous incidents:</h3>
+<ul>
+<li><strong>2008 — Pakistan/YouTube:</strong> Pakistan Telecom tried to block YouTube locally but accidentally announced YouTube's IP range to the world. YouTube was unreachable globally for 2 hours</li>
+<li><strong>2018 — Crypto theft:</strong> Attackers hijacked Amazon DNS server IPs, redirected crypto wallet users, stole $150,000</li>
+<li><strong>2019 — China Telecom:</strong> Accidentally rerouted European traffic through China for 2 hours</li>
+</ul>
+<h3>Why is this still possible?</h3>
+<ul>
+<li>BGP was designed in 1989, when the internet was small and trusted</li>
+<li><strong>RPKI</strong> (Resource Public Key Infrastructure) is the fix — cryptographic signing of route announcements</li>
+<li>Adoption is slow: about 40% of routes are RPKI-protected (2024)</li>
+</ul>`
+      },
+      {
+        titleEn: "Blameless Postmortem Culture",
+        contentEn: `<p>When systems fail, the natural response is: "Who made the mistake?" But blame makes things worse.</p>
+<h3>Blameless Postmortem:</h3>
+<ul>
+<li>Focus on <strong>what</strong> happened and <strong>why</strong>, not <strong>who</strong></li>
+<li>The person who made the error often has the best information about what went wrong</li>
+<li>If people fear punishment, they hide mistakes. Hidden mistakes become bigger failures</li>
+</ul>
+<h3>Structure of a good postmortem:</h3>
+<ol>
+<li><strong>Timeline:</strong> Exact sequence of events with timestamps</li>
+<li><strong>Impact:</strong> How many users affected, for how long, revenue lost</li>
+<li><strong>Root cause:</strong> The real underlying reason (not "human error")</li>
+<li><strong>What went well:</strong> Things that helped during recovery</li>
+<li><strong>Action items:</strong> Concrete changes to prevent recurrence</li>
+</ol>
+<h3>Key principle:</h3>
+<p>"The system allowed this failure to happen. Fix the system, not the person."</p>
+<ul>
+<li>If one command can take down production, the problem is missing safeguards</li>
+<li>Add confirmation prompts, canary deployments, automated rollbacks</li>
+<li>Google, Netflix, and Etsy publish their postmortems publicly — transparency builds trust</li>
+</ul>`
+      },
+      {
+        titleEn: "Chaos Engineering — Breaking Things on Purpose",
+        contentEn: `<p>If you do not test failures, you will not be ready when real failures happen. <strong>Chaos engineering</strong> means breaking your system on purpose to find weaknesses.</p>
+<h3>Netflix Chaos Monkey (2011):</h3>
+<ul>
+<li>Randomly kills virtual machines in production during work hours</li>
+<li>Forces engineers to build services that survive server failures</li>
+<li>If a service cannot handle a lost server, they find out before users do</li>
+</ul>
+<h3>Netflix Simian Army (expanded tools):</h3>
+<ul>
+<li><strong>Chaos Monkey:</strong> Kills random instances</li>
+<li><strong>Chaos Kong:</strong> Simulates an entire AWS region going down</li>
+<li><strong>Latency Monkey:</strong> Adds artificial delays to network calls</li>
+</ul>
+<h3>Principles of chaos engineering:</h3>
+<ol>
+<li><strong>Start with a hypothesis:</strong> "If server X dies, users should not notice"</li>
+<li><strong>Run in production:</strong> Staging environments do not show real problems</li>
+<li><strong>Minimize blast radius:</strong> Start small (one server), expand gradually</li>
+<li><strong>Automate:</strong> Run chaos experiments continuously, not just once</li>
+</ol>
+<p><strong>Other tools:</strong> Gremlin, LitmusChaos, AWS Fault Injection Service.</p>
+<p>Companies that practice chaos engineering have fewer and shorter outages. You cannot prevent all failures, but you can be ready for them.</p>`
+      },
+      {
+        titleEn: "Think Outside the Network",
+        type: "thinkOutside",
+        contentEn: `{}`
+      },
+      {
+        titleEn: "Chapter Summary",
+        contentEn: `<ul>
+<li>Facebook 2021: one bad BGP command took down 3.5 billion users for 6 hours. Recovery tools depended on the broken network</li>
+<li>SQL Slammer (2003): 376-byte worm infected 75,000 servers in 10 minutes using an unpatched vulnerability</li>
+<li>BGP has no authentication — anyone can announce any route. RPKI adds cryptographic verification but adoption is slow</li>
+<li>Blameless postmortems focus on fixing systems, not blaming people. Timeline, root cause, and action items</li>
+<li>Chaos engineering (Netflix Chaos Monkey) breaks systems on purpose to find weaknesses before real failures happen</li>
+</ul>`
+      },
+      {
+        titleEn: "Test Your Knowledge",
+        type: "questions",
+        contentEn: `{}`
+      }
+    ]
+  },
+
+  24: {
+    titleEn: "Behind the Scenes — How Big Services Work",
+    pages: [
+      {
+        titleEn: "Netflix Open Connect",
+        contentEn: `<p>Netflix is about 15% of all internet traffic worldwide. How do they deliver so much video without breaking the internet?</p>
+<h3>Open Connect Appliances (OCA):</h3>
+<ul>
+<li>Netflix builds custom servers and places them <strong>inside ISPs</strong></li>
+<li>Over 17,000 OCA servers in 6,000+ locations worldwide</li>
+<li>Each OCA can serve 100+ Gbps of video</li>
+<li>The ISP hosts them for free — it saves the ISP money on external bandwidth</li>
+</ul>
+<h3>How it works:</h3>
+<ol>
+<li>At night (off-peak), Netflix fills OCAs with popular content for the region</li>
+<li>When you press play, DNS routes you to the nearest OCA</li>
+<li>Your video streams from a server inside your own ISP's network</li>
+<li>The data never crosses the internet backbone — it is already local</li>
+</ol>
+<h3>Why this is smart:</h3>
+<ul>
+<li>Lower latency — the server is in your city, maybe your building</li>
+<li>No buffering even during peak hours</li>
+<li>ISP saves on transit costs (does not pay to receive Netflix traffic)</li>
+<li>Netflix saves on CDN costs (does not pay Akamai or Cloudflare)</li>
+</ul>
+<p>Netflix is its own CDN. Open Connect is one of the largest content delivery networks in the world.</p>`
+      },
+      {
+        titleEn: "WhatsApp — 50 Engineers, 2 Billion Users",
+        contentEn: `<p>When Facebook bought WhatsApp in 2014 for $19 billion, it had <strong>50 engineers</strong> serving 450 million users.</p>
+<h3>The secret: Erlang</h3>
+<ul>
+<li>WhatsApp's backend is written in <strong>Erlang</strong>, a language designed for telecom systems</li>
+<li>Erlang was built for millions of concurrent connections</li>
+<li>Each user session is a lightweight Erlang process (not a thread)</li>
+<li>One server can handle <strong>2 million connections</strong></li>
+</ul>
+<h3>Architecture choices:</h3>
+<ul>
+<li><strong>No complex microservices:</strong> Simple, focused architecture</li>
+<li><strong>Messages stored only until delivered:</strong> No long-term message storage (at that time)</li>
+<li><strong>End-to-end encryption:</strong> Servers cannot read messages</li>
+<li><strong>No ads, no tracking:</strong> Less infrastructure needed for analytics</li>
+</ul>
+<h3>Scaling lessons:</h3>
+<ul>
+<li>Choose the right tool: Erlang was perfect for this workload</li>
+<li>Keep it simple: Fewer features = fewer servers needed</li>
+<li>Optimize per connection: 2M connections per server is extraordinary</li>
+</ul>
+<p>Today WhatsApp serves 2+ billion users. The engineering team is still small compared to the user base.</p>`
+      },
+      {
+        titleEn: "Google B4 — Private Software-Defined WAN",
+        contentEn: `<p>Google has data centers on every continent. They need to move huge amounts of data between them. Public internet is not good enough.</p>
+<h3>B4 — Google's private WAN:</h3>
+<ul>
+<li>A <strong>private network</strong> connecting all Google data centers</li>
+<li>Uses <strong>SDN (Software-Defined Networking)</strong> — a central controller decides all routing</li>
+<li>Traditional routers make independent decisions. B4's controller sees the whole network</li>
+</ul>
+<h3>How B4 optimizes:</h3>
+<ul>
+<li>Knows all traffic demands in advance (backup jobs, replication, search index updates)</li>
+<li>Schedules traffic to fill links to nearly <strong>100% capacity</strong> (normal networks aim for 30-40%)</li>
+<li>Prioritizes: user-facing traffic > replication > batch jobs</li>
+<li>Reroutes traffic in seconds when a link fails</li>
+</ul>
+<h3>Why SDN works here:</h3>
+<ul>
+<li>Google controls both endpoints — no need to negotiate with other networks</li>
+<li>Traffic is predictable (internal, not random user traffic)</li>
+<li>Central control + global view = much better optimization than distributed routing</li>
+</ul>
+<p>B4 was one of the first large-scale SDN deployments. It proved that SDN works in production at massive scale.</p>`
+      },
+      {
+        titleEn: "Submarine Cables — 99% of International Data",
+        contentEn: `<p><strong>99% of international data</strong> travels through cables on the ocean floor. Not satellites.</p>
+<h3>Key facts:</h3>
+<ul>
+<li>Over 550 submarine cables worldwide, total length 1.4 million km</li>
+<li>Cables are about the thickness of a garden hose (with armor)</li>
+<li>They contain fiber optic strands — data travels as light pulses</li>
+<li>One modern cable can carry 250+ Tbps (terabits per second)</li>
+<li>Cables last about 25 years</li>
+</ul>
+<h3>Who owns them?</h3>
+<ul>
+<li>Historically: telecom companies (like AT&T, NTT)</li>
+<li>Today: Google, Meta, Microsoft, and Amazon are the biggest investors</li>
+<li>Google alone owns or co-owns 20+ submarine cables</li>
+</ul>
+<h3>Risks:</h3>
+<ul>
+<li><strong>Anchors and fishing:</strong> Cause about 70% of cable damage</li>
+<li><strong>Earthquakes:</strong> Can break multiple cables at once (like Taiwan 2006)</li>
+<li><strong>Sharks:</strong> Occasionally bite cables (Google added Kevlar protection)</li>
+<li><strong>Sabotage:</strong> Cutting cables can isolate entire countries</li>
+</ul>
+<p>Repair ships take days to weeks to fix a broken cable. Redundancy (multiple cables on different paths) is the main protection.</p>`
+      },
+      {
+        titleEn: "Cloudflare — 300+ Points of Presence",
+        contentEn: `<p><strong>Cloudflare</strong> is one of the largest networks in the world, operating in 300+ cities across 100+ countries.</p>
+<h3>What Cloudflare does:</h3>
+<ul>
+<li><strong>CDN:</strong> Caches and delivers website content from edge servers</li>
+<li><strong>DDoS protection:</strong> Absorbs massive attacks (has handled 71 million requests/second)</li>
+<li><strong>DNS:</strong> Runs 1.1.1.1, one of the fastest public DNS resolvers</li>
+<li><strong>Zero Trust:</strong> Replaces VPN for enterprise access</li>
+<li><strong>Workers:</strong> Run code at the edge (serverless on 300+ locations)</li>
+</ul>
+<h3>Anycast architecture:</h3>
+<ul>
+<li>Every Cloudflare data center announces the <strong>same IP addresses</strong></li>
+<li>BGP routes users to the nearest data center automatically</li>
+<li>If one location goes down, traffic flows to the next nearest</li>
+<li>No single point of failure</li>
+</ul>
+<h3>Scale:</h3>
+<ul>
+<li>Handles about 20% of all web traffic</li>
+<li>Protects over 30 million websites</li>
+<li>Capacity: 248+ Tbps — larger than any recorded DDoS attack</li>
+</ul>
+<p>Cloudflare is an example of the "edge computing" model: instead of centralizing in a few big data centers, spread compute everywhere.</p>`
+      },
+      {
+        titleEn: "Think Outside the Network",
+        type: "thinkOutside",
+        contentEn: `{}`
+      },
+      {
+        titleEn: "Chapter Summary",
+        contentEn: `<ul>
+<li>Netflix Open Connect: 17,000+ custom servers inside ISPs. Your video comes from your own ISP's network</li>
+<li>WhatsApp: Erlang handles 2M connections per server. 50 engineers served 450M users. Right tool for the job</li>
+<li>Google B4: Private SDN WAN between data centers, runs links at ~100% capacity with central traffic engineering</li>
+<li>Submarine cables carry 99% of international data. Over 550 cables, 1.4 million km, increasingly owned by tech giants</li>
+<li>Cloudflare: 300+ locations, anycast routing, 20% of web traffic. CDN + DDoS + DNS + edge compute in one network</li>
+</ul>`
+      },
+      {
+        titleEn: "Test Your Knowledge",
+        type: "questions",
+        contentEn: `{}`
+      }
+    ]
+  },
+
+  25: {
+    titleEn: "Privacy and Tracking on the Internet",
+    pages: [
+      {
+        titleEn: "What Your ISP Can See",
+        contentEn: `<p>Your ISP (Internet Service Provider) is the first hop for all your traffic. What can they see?</p>
+<h3>Without encryption:</h3>
+<ul>
+<li>Everything: URLs, content, search queries, emails</li>
+<li>This is rare today — most sites use HTTPS</li>
+</ul>
+<h3>With HTTPS (most traffic today):</h3>
+<ul>
+<li><strong>DNS queries:</strong> Your ISP sees every domain you look up (unless you use DoH/DoT)</li>
+<li><strong>SNI (Server Name Indication):</strong> When your browser starts a TLS connection, it sends the domain name in plain text</li>
+<li><strong>IP addresses:</strong> Your ISP sees which server IPs you connect to</li>
+<li><strong>Traffic volume and timing:</strong> When you connect, how much data, how long</li>
+</ul>
+<h3>What HTTPS hides:</h3>
+<ul>
+<li>The actual content: page text, images, form data</li>
+<li>The specific URL path (only the domain is visible, not <code>/search?q=cats</code>)</li>
+</ul>
+<h3>ECH (Encrypted Client Hello):</h3>
+<ul>
+<li>New technology that encrypts SNI too</li>
+<li>With DoH + ECH, your ISP sees only the IP address you connect to</li>
+<li>Still in early adoption (Cloudflare supports it)</li>
+</ul>
+<p>In many countries, ISPs are required by law to log your connections. A VPN moves this visibility from your ISP to the VPN provider.</p>`
+      },
+      {
+        titleEn: "Browser Fingerprinting",
+        contentEn: `<p>Even without cookies, websites can identify you using <strong>browser fingerprinting</strong>. Your browser reveals a lot of unique information.</p>
+<h3>What makes your fingerprint:</h3>
+<ul>
+<li><strong>Canvas fingerprinting:</strong> Drawing an invisible image. Each device renders it slightly differently due to GPU, drivers, fonts</li>
+<li><strong>Installed fonts:</strong> The list of fonts on your system is surprisingly unique</li>
+<li><strong>Screen resolution and color depth</strong></li>
+<li><strong>Browser plugins and extensions</strong></li>
+<li><strong>Time zone and language settings</strong></li>
+<li><strong>WebGL renderer:</strong> Reveals your exact GPU model</li>
+<li><strong>Audio fingerprinting:</strong> Processing an audio signal — each device produces a slightly different output</li>
+</ul>
+<h3>How unique is your fingerprint?</h3>
+<ul>
+<li>Studies show 80-95% of browsers have a unique combination</li>
+<li>Even in "private browsing" mode, your fingerprint stays the same</li>
+<li>Changing one thing (like user agent) can make you MORE unique</li>
+</ul>
+<h3>Protection:</h3>
+<ul>
+<li>Brave and Firefox block known fingerprinting scripts</li>
+<li>Tor Browser makes all users look the same (same window size, fonts, etc.)</li>
+<li>There is no perfect solution — it is a cat-and-mouse game</li>
+</ul>`
+      },
+      {
+        titleEn: "How Google and Meta Track You",
+        contentEn: `<p>The biggest trackers on the internet are advertising companies. Google and Meta (Facebook) track you across millions of websites.</p>
+<h3>Tracking Pixels:</h3>
+<ul>
+<li>A 1x1 invisible image loaded from the tracker's server</li>
+<li>When your browser loads it, the tracker gets: your IP, cookies, referrer page, time</li>
+<li>Facebook Pixel is on millions of websites — it sees your browsing even when you are not on Facebook</li>
+</ul>
+<h3>Third-Party Cookies:</h3>
+<ul>
+<li>A cookie set by a domain different from the one you are visiting</li>
+<li>Example: You visit news.com, but Google Ads sets a cookie. You visit shop.com, and Google Ads reads the same cookie. Now Google knows you visited both sites</li>
+<li><strong>Dying technology:</strong> Safari and Firefox block third-party cookies. Chrome is phasing them out</li>
+</ul>
+<h3>What they build:</h3>
+<ul>
+<li>A detailed profile: interests, purchases, location history, relationships</li>
+<li>Google sees you on: Search, YouTube, Gmail, Maps, Android, Google Ads on other sites</li>
+<li>Meta sees you on: Facebook, Instagram, WhatsApp, Meta Pixel on other sites</li>
+</ul>
+<h3>Replacements for cookies:</h3>
+<ul>
+<li>Google Topics API: Browser categorizes your interests locally, shares only topics</li>
+<li>First-party data: Websites collect data directly from logged-in users</li>
+</ul>`
+      },
+      {
+        titleEn: "Tor — Onion Routing",
+        contentEn: `<p><strong>Tor</strong> (The Onion Router) provides strong anonymity by routing traffic through <strong>three random nodes</strong>.</p>
+<h3>How Tor works:</h3>
+<ol>
+<li><strong>Guard node (entry):</strong> Knows your real IP, but not your destination</li>
+<li><strong>Middle node (relay):</strong> Knows neither your IP nor your destination</li>
+<li><strong>Exit node:</strong> Knows the destination, but not your real IP</li>
+</ol>
+<p>Each layer of encryption is removed at each node — like peeling an onion. No single node knows the full picture.</p>
+<h3>Tor provides:</h3>
+<ul>
+<li><strong>Anonymity:</strong> The destination cannot find your real IP</li>
+<li><strong>Censorship resistance:</strong> Hard to block (bridges, pluggable transports)</li>
+<li><strong>.onion sites:</strong> Hidden services that exist only within the Tor network</li>
+</ul>
+<h3>Limitations:</h3>
+<ul>
+<li><strong>Slow:</strong> Traffic goes through 3 extra hops. Expect 2-10x slower speeds</li>
+<li><strong>Exit node risk:</strong> Unencrypted traffic (HTTP) can be read by the exit node</li>
+<li><strong>Not for large downloads or streaming:</strong> Too slow and puts strain on the network</li>
+<li><strong>Timing attacks:</strong> A powerful attacker watching both entry and exit could correlate traffic</li>
+</ul>
+<p>Tor is used by journalists, activists, whistleblowers, and privacy-conscious users. It is also used for illegal purposes, which gives it a mixed reputation.</p>`
+      },
+      {
+        titleEn: "Think Outside the Network",
+        type: "thinkOutside",
+        contentEn: `{}`
+      },
+      {
+        titleEn: "Chapter Summary",
+        contentEn: `<ul>
+<li>Your ISP sees DNS queries and SNI (domain names) even with HTTPS. DoH and ECH can hide these</li>
+<li>Browser fingerprinting identifies you without cookies — canvas, fonts, GPU, screen, and more make a unique combination</li>
+<li>Google and Meta track you across the web using tracking pixels and third-party cookies. They build detailed interest profiles</li>
+<li>Tor routes traffic through 3 nodes (guard, middle, exit) — no single node knows both your identity and destination</li>
+<li>Privacy is a spectrum: HTTPS → DoH → VPN → Tor. Each adds protection but also complexity and speed cost</li>
+</ul>`
+      },
+      {
+        titleEn: "Test Your Knowledge",
+        type: "questions",
+        contentEn: `{}`
+      }
+    ]
+  },
+
+  26: {
+    titleEn: "The Future of Networking",
+    pages: [
+      {
+        titleEn: "QUIC Protocol — 0-RTT and HTTP/3",
+        contentEn: `<p><strong>QUIC</strong> is the biggest change in internet transport since TCP. Built by Google, now an IETF standard (RFC 9000, 2021).</p>
+<h3>Why QUIC was created:</h3>
+<ul>
+<li>TCP + TLS handshake takes 2-3 round trips before any data flows</li>
+<li>TCP head-of-line blocking: one lost packet blocks all streams</li>
+<li>Changing TCP is nearly impossible — too many middleboxes depend on it</li>
+<li>Solution: build a new protocol on top of UDP</li>
+</ul>
+<h3>Key features:</h3>
+<ul>
+<li><strong>0-RTT connection:</strong> For returning visitors, data can be sent with the very first packet. No waiting</li>
+<li><strong>Independent streams:</strong> Loss on stream A does not block stream B</li>
+<li><strong>Built-in TLS 1.3:</strong> Always encrypted, encryption is not optional</li>
+<li><strong>Connection migration:</strong> If your IP changes (Wi-Fi to cellular), the connection continues. QUIC uses connection IDs, not IP+port tuples</li>
+</ul>
+<h3>HTTP/3 = HTTP over QUIC:</h3>
+<ul>
+<li>HTTP/1.1 → HTTP/2: multiplexing on TCP</li>
+<li>HTTP/2 → HTTP/3: multiplexing on QUIC (UDP). No more TCP limitations</li>
+<li>Used by Google, YouTube, Facebook, Cloudflare</li>
+<li>About 30% of web traffic (2024)</li>
+</ul>
+<p>QUIC will likely become the dominant transport protocol for the web within the next decade.</p>`
+      },
+      {
+        titleEn: "eBPF — Programmable Kernel",
+        contentEn: `<p><strong>eBPF</strong> (extended Berkeley Packet Filter) lets you run custom programs inside the Linux kernel — without changing the kernel itself.</p>
+<h3>Why this matters:</h3>
+<ul>
+<li>Traditionally, adding features to the kernel meant writing kernel modules — risky, complex, could crash the system</li>
+<li>eBPF programs run in a safe sandbox inside the kernel</li>
+<li>They are verified before running — cannot crash the kernel or access unauthorized memory</li>
+</ul>
+<h3>Networking use cases:</h3>
+<ul>
+<li><strong>High-speed packet processing:</strong> Handle millions of packets per second without leaving the kernel</li>
+<li><strong>Load balancing:</strong> Facebook uses eBPF (Katran) for L4 load balancing. Much faster than iptables</li>
+<li><strong>Firewalls:</strong> Cloudflare uses eBPF for DDoS mitigation at wire speed</li>
+<li><strong>Observability:</strong> Trace every network call, measure latency, detect anomalies — with almost zero overhead</li>
+</ul>
+<h3>Beyond networking:</h3>
+<ul>
+<li>Security monitoring (Cilium, Falco)</li>
+<li>Performance profiling</li>
+<li>Custom system call tracing</li>
+</ul>
+<p>eBPF is called "the biggest change in Linux networking in decades." It makes the kernel programmable without the risks of kernel development.</p>`
+      },
+      {
+        titleEn: "Starlink — Internet from Space",
+        contentEn: `<p><strong>Starlink</strong> (SpaceX) puts thousands of satellites in Low Earth Orbit (LEO) to provide internet everywhere.</p>
+<h3>Traditional satellites vs Starlink:</h3>
+<ul>
+<li><strong>Geostationary (GEO):</strong> 35,786 km altitude. Latency: 600+ ms round trip. Too slow for real-time use</li>
+<li><strong>Starlink (LEO):</strong> 550 km altitude. Latency: 20-60 ms. Comparable to ground-based internet</li>
+</ul>
+<h3>How it works:</h3>
+<ul>
+<li>6,000+ satellites in orbit (planned: 12,000-42,000)</li>
+<li>Satellites communicate with ground terminals (dish antennas)</li>
+<li>Laser links between satellites allow traffic to hop between them without touching the ground</li>
+<li>Speeds: 50-250 Mbps download (depends on location and congestion)</li>
+</ul>
+<h3>Why it matters for networking:</h3>
+<ul>
+<li><strong>Rural areas:</strong> Internet where no cable or fiber exists</li>
+<li><strong>Disaster recovery:</strong> Deployed in Ukraine, natural disaster zones</li>
+<li><strong>Maritime and aviation:</strong> Internet on ships and planes</li>
+<li><strong>Potentially faster than fiber for long distances:</strong> Light travels faster in vacuum than in glass. Laser links between satellites could beat undersea cables for intercontinental traffic</li>
+</ul>
+<h3>Challenges:</h3>
+<ul>
+<li>Space debris and orbital congestion</li>
+<li>Limited capacity per area (shared bandwidth)</li>
+<li>Astronomy impact (light pollution)</li>
+</ul>`
+      },
+      {
+        titleEn: "Service Mesh and Zero Trust",
+        contentEn: `<p>The old security model: trust everything inside the corporate network. The new model: <strong>trust nothing, verify everything</strong>.</p>
+<h3>Why the old model broke:</h3>
+<ul>
+<li>Remote work: employees are not inside the office network</li>
+<li>Cloud services: data is not in your data center</li>
+<li>Once an attacker gets inside the perimeter, they can move freely</li>
+</ul>
+<h3>Zero Trust principles:</h3>
+<ul>
+<li><strong>Verify every request:</strong> Identity, device health, location, behavior — every time</li>
+<li><strong>Least privilege:</strong> Give the minimum access needed, nothing more</li>
+<li><strong>Assume breach:</strong> Design as if an attacker is already inside</li>
+<li><strong>Encrypt everything:</strong> Even internal traffic between services</li>
+</ul>
+<h3>Service Mesh enables Zero Trust:</h3>
+<ul>
+<li><strong>mTLS (mutual TLS):</strong> Both sides of every connection prove their identity</li>
+<li><strong>Fine-grained policies:</strong> Service A can talk to Service B, but not Service C</li>
+<li><strong>Automatic certificate rotation:</strong> Keys change regularly, limiting breach impact</li>
+<li><strong>Observability:</strong> Every request is logged, traced, and measured</li>
+</ul>
+<h3>Tools:</h3>
+<ul>
+<li><strong>Istio:</strong> Most popular service mesh, uses Envoy proxy sidecars</li>
+<li><strong>Cilium:</strong> eBPF-based, no sidecars needed, faster</li>
+<li><strong>Cloudflare Zero Trust:</strong> Replaces VPN for remote access</li>
+</ul>
+<p>Zero Trust is not a product. It is an architecture that assumes the network is always hostile.</p>`
+      },
+      {
+        titleEn: "Think Outside the Network",
+        type: "thinkOutside",
+        contentEn: `{}`
+      },
+      {
+        titleEn: "Chapter Summary",
+        contentEn: `<ul>
+<li>QUIC: UDP-based transport with 0-RTT, independent streams, built-in encryption, and connection migration. Powers HTTP/3</li>
+<li>eBPF: Run custom programs safely inside the Linux kernel. Enables high-speed packet processing, load balancing, and observability</li>
+<li>Starlink: 6,000+ LEO satellites at 550 km. Latency 20-60 ms. Brings internet to areas without cables. Laser inter-satellite links</li>
+<li>Zero Trust: Trust nothing, verify everything. Service mesh (Istio, Cilium) enforces mTLS, policies, and observability between services</li>
+<li>These technologies are reshaping how networks are built, secured, and delivered</li>
+</ul>`
+      },
+      {
+        titleEn: "Test Your Knowledge",
+        type: "questions",
+        contentEn: `{}`
+      }
+    ]
+  },
 
   // ========== CYBER TRACK (101-115) — titles only ==========
   101: { titleEn: "Information Security Fundamentals", pages: [] },
