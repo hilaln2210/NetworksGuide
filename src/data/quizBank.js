@@ -1647,11 +1647,11 @@ export const quizBank = {
     },
     {
       q: "מה ההבדל בין Penetration Tester לבין SOC Analyst?",
-      correct: "‏Pentester תוקף מערכות ‎(בהרשאה)‎ למציאת חולשות; SOC Analyst מנטר ומגיב לאיומים בזמן אמת",
+      correct: "‏Pentester תוקף מערכות ‎(בהרשאה)‎ למציאת חולשות — SOC Analyst מנטר ומגיב לאיומים בזמן אמת",
       choices: [
-        "‏Pentester תוקף מערכות ‎(בהרשאה)‎ למציאת חולשות; SOC Analyst מנטר ומגיב לאיומים בזמן אמת",
-        "‏Pentester עובד עם קוד; SOC Analyst עם חומרה",
-        "‏SOC Analyst מנהל firewalls; Pentester כותב malware",
+        "‏Pentester תוקף מערכות ‎(בהרשאה)‎ למציאת חולשות — SOC Analyst מנטר ומגיב לאיומים בזמן אמת",
+        "‏Pentester עובד עם קוד — SOC Analyst עם חומרה",
+        "‏SOC Analyst מנהל firewalls — Pentester כותב malware",
         "שניהם אותו תפקיד בשמות שונים"
       ],
       explanation: "‏Red Team (Pentester) = תוקף לגיטימי. מקבל scope, מחפש חולשות, כותב דוח. ‏Blue Team (SOC) = מגן. מנטר SIEM, מנתח alerts, עוצר תקיפות. הסמכות: Pentester → CEH, OSCP. ‏SOC → Security+, CySA+, GCIA."
@@ -1739,9 +1739,9 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין Confidentiality לבין Privacy ב-אבטחת מידע?",
-      correct: "‏Confidentiality מגן על נתוני ארגון מפני גישה לא מורשית; Privacy מגן על נתונים אישיים של פרטים",
+      correct: "‏Confidentiality מגן על נתוני ארגון מפני גישה לא מורשית — Privacy מגן על נתונים אישיים של פרטים",
       choices: [
-        "‏Confidentiality מגן על נתוני ארגון מפני גישה לא מורשית; Privacy מגן על נתונים אישיים של פרטים",
+        "‏Confidentiality מגן על נתוני ארגון מפני גישה לא מורשית — Privacy מגן על נתונים אישיים של פרטים",
         "הם מילים נרדפות — שניהם אותו דבר",
         "‏Privacy חזקה יותר מ-Confidentiality",
         "‏Confidentiality מוגן בהצפנה, Privacy מוגן בסיסמאות בלבד"
@@ -1819,10 +1819,10 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין Volumetric DDoS לבין Application Layer DDoS (L7)?",
-      correct: "‏Volumetric מציף bandwidth ‎(Gbps של UDP/ICMP)‎; L7 שולח בקשות HTTP לגיטימיות לאיטיות שמרוקנות resources של שרת",
+      correct: "‏Volumetric מציף bandwidth ‎(Gbps של UDP/ICMP)‎ — L7 שולח בקשות HTTP לגיטימיות לאיטיות שמרוקנות resources של שרת",
       choices: [
-        "‏Volumetric מציף bandwidth ‎(Gbps של UDP/ICMP)‎; L7 שולח בקשות HTTP לגיטימיות לאיטיות שמרוקנות resources של שרת",
-        "‏Volumetric תוקף שרתי DNS; L7 תוקף רק שרתי web",
+        "‏Volumetric מציף bandwidth ‎(Gbps של UDP/ICMP)‎ — L7 שולח בקשות HTTP לגיטימיות לאיטיות שמרוקנות resources של שרת",
+        "‏Volumetric תוקף שרתי DNS — L7 תוקף רק שרתי web",
         "‏L7 יותר קל לחסום כי השרת רואה את ה-IP",
         "אין הבדל — שניהם מרוקנים bandwidth"
       ],
@@ -1844,10 +1844,10 @@ export const quizBank = {
   103: [
     {
       q: "מה ההבדל בין Stored XSS לבין Reflected XSS?",
-      correct: "‏Stored XSS נשמר בDB ומורץ לכל מבקר; Reflected XSS חוזר מהשרת רק למי ששלח את ה-URL הזדוני",
+      correct: "‏Stored XSS נשמר בDB ומורץ לכל מבקר — Reflected XSS חוזר מהשרת רק למי ששלח את ה-URL הזדוני",
       choices: [
-        "‏Stored XSS נשמר בDB ומורץ לכל מבקר; Reflected XSS חוזר מהשרת רק למי ששלח את ה-URL הזדוני",
-        "‏Stored XSS על שרתי Windows; Reflected XSS על Linux",
+        "‏Stored XSS נשמר בDB ומורץ לכל מבקר — Reflected XSS חוזר מהשרת רק למי ששלח את ה-URL הזדוני",
+        "‏Stored XSS על שרתי Windows — Reflected XSS על Linux",
         "‏Reflected XSS חמור יותר כי מסוגל לגנוב סיסמות",
         "שניהם זהים — רק שמות שונים"
       ],
@@ -1877,10 +1877,10 @@ export const quizBank = {
     },
         {
       q: "מה SQL Injection ואיך prepared statements מונעים אותה?",
-      correct: "הזרקת SQL code דרך input משתמש; Prepared Statements מפרידים קוד מנתונים — הפרמטרים מטופלים כ-data בלבד",
+      correct: "הזרקת SQL code דרך input משתמש — Prepared Statements מפרידים קוד מנתונים — הפרמטרים מטופלים כ-data בלבד",
       choices: [
-        "הזרקת SQL code דרך input משתמש; Prepared Statements מפרידים קוד מנתונים — הפרמטרים מטופלים כ-data בלבד",
-        "מתקפה על שרת ה-SQL Server הפיזי; FixIT: עדכון שרת",
+        "הזרקת SQL code דרך input משתמש — Prepared Statements מפרידים קוד מנתונים — הפרמטרים מטופלים כ-data בלבד",
+        "מתקפה על שרת ה-SQL Server הפיזי — FixIT: עדכון שרת",
         "הצפנת שאילתות SQL לפני שליחה לDB",
         "‏Prepared Statements מהירים יותר — זו הסיבה העיקרית להשתמש בהם"
       ],
@@ -1888,9 +1888,9 @@ export const quizBank = {
     },
         {
       q: "מה CSRF ואיך Anti-CSRF Token מגן?",
-      correct: "‏Cross-Site Request Forgery: אתר זדוני גורם לדפדפן לשלוח בקשות לאתר אחר שבו המשתמש מחובר; Token ייחודי בכל form מונע זאת",
+      correct: "Cross-Site Request Forgery — אתר זדוני גורם לדפדפן לשלוח בקשות לאתר אחר שבו המשתמש מחובר. Token ייחודי בכל form מונע זאת",
       choices: [
-        "‏Cross-Site Request Forgery: אתר זדוני גורם לדפדפן לשלוח בקשות לאתר אחר שבו המשתמש מחובר; Token ייחודי בכל form מונע זאת",
+        "Cross-Site Request Forgery — אתר זדוני גורם לדפדפן לשלוח בקשות לאתר אחר שבו המשתמש מחובר. Token ייחודי בכל form מונע זאת",
         "מתקפה שמזייפת cookies של משתמש על ידי XSS",
         "גניבת CSRF headers מ-HTTP request",
         "כניסה לחשבון בעזרת סיסמה גנובה"
@@ -1899,12 +1899,12 @@ export const quizBank = {
     },
         {
       q: "מה OWASP Top 10 ואיזה vulnerability בדרך כלל תופס מקום ראשון?",
-      correct: "רשימת 10 סיכוני האבטחה הנפוצים ביותר בweb applications; Broken Access Control תופס מקום 1 מאז 2021",
+      correct: "רשימת 10 סיכוני האבטחה הנפוצים ביותר ב-web applications — Broken Access Control תופס מקום 1 מאז 2021",
       choices: [
-        "רשימת 10 סיכוני האבטחה הנפוצים ביותר בweb applications; Broken Access Control תופס מקום 1 מאז 2021",
-        "רשימת 10 הכלים הטובים ביותר לבדיקות חדירה; SQLi במקום 1",
+        "רשימת 10 סיכוני האבטחה הנפוצים ביותר ב-web applications — Broken Access Control תופס מקום 1 מאז 2021",
+        "רשימת 10 הכלים הטובים ביותר לבדיקות חדירה — SQLi במקום 1",
         "10 פגיעויות שנתגלו בשנת 2021 בלבד",
-        "תקן ISO המגדיר אבטחת web; XSS במקום 1 תמיד"
+        "תקן ISO המגדיר אבטחת web — XSS במקום 1 תמיד"
       ],
       explanation: "‏OWASP Top 10 (2021): A01:Broken Access Control ‎(משתמש יכול לגשת לresource של אחר)‎, A02:Cryptographic Failures, A03:Injection (SQL/LDAP/OS), A04:Insecure Design, A05:Security Misconfiguration, A06:Vulnerable Components, A07:Auth Failures, A08:Integrity Failures, A09:Logging Failures, A10:SSRF. לא חוק — best practice guide לdev teams. מתעדכן כל ~4 שנים."
     }
@@ -1957,23 +1957,23 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין White Box לבין Black Box Penetration Testing?",
-      correct: "‏White Box: לtester יש מלוא המידע (code, architecture); Black Box: לtester אין מידע מוקדם — מדמה תוקף חיצוני",
+      correct: "‏White Box: לtester יש מלוא המידע (code, architecture) — Black Box: לtester אין מידע מוקדם — מדמה תוקף חיצוני",
       choices: [
-        "‏White Box: לtester יש מלוא המידע (code, architecture); Black Box: לtester אין מידע מוקדם — מדמה תוקף חיצוני",
-        "‏White Box בודק רק frontend; Black Box בודק backend",
-        "‏White Box מבוצע במשרד; Black Box מרחוק",
-        "‏White Box בודק רשת; Black Box בודק אפליקציות"
+        "‏White Box: לtester יש מלוא המידע (code, architecture) — Black Box: לtester אין מידע מוקדם — מדמה תוקף חיצוני",
+        "‏White Box בודק רק frontend — Black Box בודק backend",
+        "‏White Box מבוצע במשרד — Black Box מרחוק",
+        "‏White Box בודק רשת — Black Box בודק אפליקציות"
       ],
       explanation: "‏White Box (Crystal Box): tester מקבל source code, credentials, architecture diagrams. יעיל ויסודי יותר, מוצא יותר בעיות. ‏Gray Box: partial knowledge — credentials בלבד. ‏Black Box: מדמה real attacker. ‏Red Team = Black Box מורחב עם טכניקות social engineering ופיזיות. ‏White Box עדיף לCode Review; Black Box לאיתור בעיות שרק תוקף חיצוני ימצא."
     },
         {
       q: "מה Metasploit Framework ומה זה Meterpreter shell?",
-      correct: "‏Metasploit: framework לניצול פגיעויות; Meterpreter: payload מתקדם שרץ in-memory, לא כותב לdisk, עם capabilities כמו screenshot ו-keylogging",
+      correct: "‏Metasploit: framework לניצול פגיעויות — Meterpreter: payload מתקדם שרץ in-memory, לא כותב לdisk, עם capabilities כמו screenshot ו-keylogging",
       choices: [
-        "‏Metasploit: framework לניצול פגיעויות; Meterpreter: payload מתקדם שרץ in-memory, לא כותב לdisk, עם capabilities כמו screenshot ו-keylogging",
-        "‏Metasploit: port scanner; Meterpreter: reverse shell פשוט",
-        "‏Metasploit: SIEM tool; Meterpreter: log analysis tool",
-        "‏Metasploit: כלי הצפנה; Meterpreter: כלי לפיצוח סיסמאות"
+        "‏Metasploit: framework לניצול פגיעויות — Meterpreter: payload מתקדם שרץ in-memory, לא כותב לdisk, עם capabilities כמו screenshot ו-keylogging",
+        "‏Metasploit: port scanner — Meterpreter: reverse shell פשוט",
+        "‏Metasploit: SIEM tool — Meterpreter: log analysis tool",
+        "‏Metasploit: כלי הצפנה — Meterpreter: כלי לפיצוח סיסמאות"
       ],
       explanation: "‏Metasploit (Rapid7): msfconsole → search exploit → use exploit/windows/smb/ms17_010_eternalblue → set RHOSTS → set PAYLOAD → run. ‏Meterpreter = meta-interpreter: רץ בזיכרון התהליך שנוצל, לא קובץ exe, מוצפן TLS. ‏Commands: hashdump, getsystem (priv esc), screenshot, migrate ‎(לdifferent process)‎. ‏Evasion: polymorphic payloads, msfvenom encoding."
     }
@@ -1981,13 +1981,13 @@ export const quizBank = {
 
   105: [
     {
-      q: "למה AES-ECB מסוכן למרות שAES עצמו חזק?",
-      correct: "‏ECB מצפין כל block בנפרד — blocks זהים מייצרים ciphertext זהה, חושף patterns בנתונים",
+      q: "למה AES-ECB מסוכן למרות ש-AES עצמו חזק?",
+      correct: "ECB מצפין כל block בנפרד — blocks זהים מייצרים ciphertext זהה וחושף patterns",
       choices: [
-        "‏ECB מצפין כל block בנפרד — blocks זהים מייצרים ciphertext זהה, חושף patterns בנתונים",
-        "‏ECB לא תומך ב-256 bit keys",
-        "‏ECB פגיע ל-brute force כי המפתח קצר",
-        "‏ECB איטי מדי לשימוש מעשי"
+        "ECB מצפין כל block בנפרד — blocks זהים מייצרים ciphertext זהה וחושף patterns",
+        "ECB לא תומך במפתחות של 256 bit",
+        "ECB פגיע ל-brute force כי המפתח קצר",
+        "ECB איטי מדי לשימוש מעשי"
       ],
       explanation: "‏AES-ECB: כל 16 bytes מוצפנים באופן עצמאי. אם יש בimage שני אזורים עם אותו צבע → ciphertext זהה → pattern נראה. הדגמה קלאסית: הצפנת תמונת Linux penguin ב-ECB — הצללית עדיין נראית! הפתרון: AES-CBC/GCM — IV + chaining מונע patterns."
     },
@@ -2015,9 +2015,9 @@ export const quizBank = {
     },
         {
       q: "מה SIEM ואיזה מוצרים נפוצים בתעשייה?",
-      correct: "‏Security Information and Event Management — אוסף logs ממקורות רבים, מנתח ומתריע על anomalies; ספלנק, IBM QRadar, Microsoft Sentinel",
+      correct: "‏Security Information and Event Management — אוסף logs ממקורות רבים, מנתח ומתריע על anomalies — ספלנק, IBM QRadar, Microsoft Sentinel",
       choices: [
-        "‏Security Information and Event Management — אוסף logs ממקורות רבים, מנתח ומתריע על anomalies; ספלנק, IBM QRadar, Microsoft Sentinel",
+        "‏Security Information and Event Management — אוסף logs ממקורות רבים, מנתח ומתריע על anomalies — ספלנק, IBM QRadar, Microsoft Sentinel",
         "כלי לניהול passwords וMFA בארגון",
         "‏Intrusion Detection System מתקדם שחוסם תעבורה חשודה",
         "פלטפורמת backup לlog files של שרתים"
@@ -2037,11 +2037,11 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין IDS לבין IPS?",
-      correct: "‏IDS (Intrusion Detection System) מזהה ומתריע בלבד; IPS (Intrusion Prevention System) מזהה וגם חוסם אוטומטית",
+      correct: "‏IDS (Intrusion Detection System) מזהה ומתריע בלבד — IPS (Intrusion Prevention System) מזהה וגם חוסם אוטומטית",
       choices: [
-        "‏IDS (Intrusion Detection System) מזהה ומתריע בלבד; IPS (Intrusion Prevention System) מזהה וגם חוסם אוטומטית",
-        "‏IDS לרשתות; IPS לאפליקציות",
-        "‏IPS מהיר יותר כי לא כותב logs; IDS כותב logs",
+        "‏IDS (Intrusion Detection System) מזהה ומתריע בלבד — IPS (Intrusion Prevention System) מזהה וגם חוסם אוטומטית",
+        "‏IDS לרשתות — IPS לאפליקציות",
+        "‏IPS מהיר יותר כי לא כותב logs — IDS כותב logs",
         "אין הבדל — מדובר באותו מוצר עם שמות שונים"
       ],
       explanation: "‏IDS: passive — מנתח traffic ומייצר alerts ‎(כמו מצלמת אבטחה)‎. אין חסימה. ‏IPS: inline — נמצא בנתיב ה-traffic, יכול לחסום packets בzero-latency. ‏False positive ב-IPS = חסם traffic לגיטימי! לכן: מתחילים במצב IDS (learning mode), calibrate, אז inline. ‏Network-based (NIDS/NIPS) vs Host-based (HIDS/HIPS). ‏Snort ו-Suricata: open-source IDS/IPS פופולריים."
@@ -2073,11 +2073,11 @@ export const quizBank = {
     },
     {
       q: "מה ההבדל בין CTF לבין Bug Bounty?",
-      correct: "‏CTF = תחרות עם challenges סגורים; Bug Bounty = מציאת bugs אמיתיים בproducts אמיתיים ותגמול כספי",
+      correct: "‏CTF = תחרות עם challenges סגורים — Bug Bounty = מציאת bugs אמיתיים בproducts אמיתיים ותגמול כספי",
       choices: [
-        "‏CTF = תחרות עם challenges סגורים; Bug Bounty = מציאת bugs אמיתיים בproducts אמיתיים ותגמול כספי",
-        "‏CTF לאנשי SOC; Bug Bounty לpentesters",
-        "‏Bug Bounty חוקי; CTF לא חוקי",
+        "‏CTF = תחרות עם challenges סגורים — Bug Bounty = מציאת bugs אמיתיים בproducts אמיתיים ותגמול כספי",
+        "‏CTF לאנשי SOC — Bug Bounty לpentesters",
+        "‏Bug Bounty חוקי — CTF לא חוקי",
         "שניהם אותו דבר רק שמות שונים"
       ],
       explanation: "‏CTF: Jeopardy (web/crypto/pwn/forensics/reverse) או Attack-Defense. לימוד מובנה, ללא אחריות. ‏HackTheBox, TryHackMe, PicoCTF. ‏Bug Bounty: HackerOne, Bugcrowd, Intigriti. ‏Scope מוגדר. ‏Payout: $100-$1M+ לפי חומרה. ‏Responsible disclosure process. ‏Facebook ו-Google משלמים מיליוני דולרים בשנה. ‏CTF → Bug Bounty → Pentest career path."
@@ -2095,11 +2095,11 @@ export const quizBank = {
     },
         {
       q: "מה Responsible Disclosure ומה ההבדל בינו לבין Full Disclosure?",
-      correct: "‏Responsible Disclosure: מדווח לחברה תחילה, נותן זמן לתיקון ‎(90 יום)‎, אז מפרסם; Full Disclosure: מפרסם פגיעות מיד לציבור",
+      correct: "‏Responsible Disclosure: מדווח לחברה תחילה, נותן זמן לתיקון ‎(90 יום)‎, אז מפרסם — Full Disclosure: מפרסם פגיעות מיד לציבור",
       choices: [
-        "‏Responsible Disclosure: מדווח לחברה תחילה, נותן זמן לתיקון ‎(90 יום)‎, אז מפרסם; Full Disclosure: מפרסם פגיעות מיד לציבור",
-        "‏Responsible Disclosure = Bug Bounty; Full Disclosure = CVE",
-        "‏Responsible: פגיעויות בinternational companies; Full: פגיעויות בחברות ישראליות",
+        "‏Responsible Disclosure: מדווח לחברה תחילה, נותן זמן לתיקון ‎(90 יום)‎, אז מפרסם — Full Disclosure: מפרסם פגיעות מיד לציבור",
+        "‏Responsible Disclosure = Bug Bounty — Full Disclosure = CVE",
+        "‏Responsible: פגיעויות בinternational companies — Full: פגיעויות בחברות ישראליות",
         "‏Responsible Disclosure מיושן — כולם עברו לFull Disclosure"
       ],
       explanation: "‏Coordinated Disclosure (=Responsible): 1) מגלה פגיעות 2) מיידע vendor בsecurity channel 3) vendor מתקן ‎(SLA: בד\\\"כ 90 יום — Google Project Zero standard)‎ 4) חוקר מפרסם writeup. ‏Full Disclosure: מפרסם מיד — לחץ על vendor לתקן מהר, אבל מאפשר exploitation לפני patch. ‏Zero-Day = פגיעות ש-vendor לא יודע עליה. ‏Bug Bounty: תשלום על disclosure."
@@ -2124,7 +2124,7 @@ export const quizBank = {
       correct: "סימטרית: אותו מפתח להצפנה ופענוח — מהירה. אסימטרית: זוג מפתחות (public/private) — מאובטח יותר לחילופי מפתחות",
       choices: [
         "סימטרית: אותו מפתח להצפנה ופענוח — מהירה. אסימטרית: זוג מפתחות (public/private) — מאובטח יותר לחילופי מפתחות",
-        "סימטרית לקבצים; אסימטרית לרשת בלבד",
+        "סימטרית לקבצים — אסימטרית לרשת בלבד",
         "אסימטרית מהירה יותר, סימטרית מאובטחת יותר",
         "שניהם זהים — ההבדל רק בשם"
       ],
@@ -2154,11 +2154,11 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין Symmetric לבין Asymmetric encryption?",
-      correct: "‏Symmetric: אותו מפתח להצפנה ופיענוח (AES); Asymmetric: מפתח ציבורי להצפנה, מפתח פרטי לפיענוח (RSA)",
+      correct: "‏Symmetric: אותו מפתח להצפנה ופיענוח (AES) — Asymmetric: מפתח ציבורי להצפנה, מפתח פרטי לפיענוח (RSA)",
       choices: [
-        "‏Symmetric: אותו מפתח להצפנה ופיענוח (AES); Asymmetric: מפתח ציבורי להצפנה, מפתח פרטי לפיענוח (RSA)",
-        "‏Symmetric מוצפן יותר; Asymmetric מהיר יותר",
-        "‏Symmetric לרשתות; Asymmetric לקבצים",
+        "‏Symmetric: אותו מפתח להצפנה ופיענוח (AES) — Asymmetric: מפתח ציבורי להצפנה, מפתח פרטי לפיענוח (RSA)",
+        "‏Symmetric מוצפן יותר — Asymmetric מהיר יותר",
+        "‏Symmetric לרשתות — Asymmetric לקבצים",
         "‏AES הוא Asymmetric כי מפתחותיו ארוכים יותר"
       ],
       explanation: "‏Symmetric (AES, ChaCha20): מהיר, מתאים לdata בulk. בעיה: key exchange — איך שולחים את המפתח? Asymmetric (RSA, ECDH): איטי אך מאפשר key exchange מאובטח. ‏Public key = נעילה, Private key = פתיחה. ‏TLS משלב: Asymmetric לhandshake ‎(חילוף session key)‎, Symmetric לdata transfer — Best of both worlds. ‏RSA 2048-bit = עדיין מאובטח, RSA 1024 = שבור!"
@@ -2176,9 +2176,9 @@ export const quizBank = {
     },
         {
       q: "מה SHA-256 ואיזה תכונות חשובות יש לפונקציית hash קריפטוגרפית?",
-      correct: "‏One-way function שמייצרת fingerprint 256-bit; תכונות: deterministic, avalanche effect, collision resistance, pre-image resistance",
+      correct: "‏One-way function שמייצרת fingerprint 256-bit — תכונות: deterministic, avalanche effect, collision resistance, pre-image resistance",
       choices: [
-        "‏One-way function שמייצרת fingerprint 256-bit; תכונות: deterministic, avalanche effect, collision resistance, pre-image resistance",
+        "‏One-way function שמייצרת fingerprint 256-bit — תכונות: deterministic, avalanche effect, collision resistance, pre-image resistance",
         "אלגוריתם הצפנה סימטרי עם מפתח 256-bit",
         "פרוטוקול handshake של TLS 1.3",
         "שיטה להחלפת מפתחות קריפטוגרפיים"
@@ -2190,11 +2190,11 @@ export const quizBank = {
   108: [
     {
       q: "מה ההבדל בין Phishing לSpear Phishing?",
-      correct: "‏Phishing = מיילים זהים למיליונים; Spear Phishing = מותאם אישית לאדם/ארגון ספציפי עם מידע אמיתי עליו",
+      correct: "‏Phishing = מיילים זהים למיליונים — Spear Phishing = מותאם אישית לאדם/ארגון ספציפי עם מידע אמיתי עליו",
       choices: [
-        "‏Phishing = מיילים זהים למיליונים; Spear Phishing = מותאם אישית לאדם/ארגון ספציפי עם מידע אמיתי עליו",
-        "‏Spear Phishing = SMS; Phishing = מייל",
-        "‏Spear Phishing חוקי; Phishing לא",
+        "‏Phishing = מיילים זהים למיליונים — Spear Phishing = מותאם אישית לאדם/ארגון ספציפי עם מידע אמיתי עליו",
+        "‏Spear Phishing = SMS — Phishing = מייל",
+        "‏Spear Phishing חוקי — Phishing לא",
         "אותו דבר — שמות שונים"
       ],
       explanation: "‏Mass Phishing: 'Dear Customer' + generic. נשלח ל-10M, 0.1% לוחץ = 10,000 קורבנות. ‏Spear Phishing: 'שלום דוד, ראיתי שהיית בכנס X ביום ג'. מחקר מLinkedIn, success rate גבוה בהרבה. ‏Whaling = Spear Phishing נגד C-suite. ‏Twitter 2020 hack = Vishing ‎(שיחות טלפון, לא Phishing במייל)‎."
@@ -2223,12 +2223,12 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין Phishing לבין Spear Phishing?",
-      correct: "‏Phishing שולח מיילים זהים לכולם; Spear Phishing ממוקד לאדם/ארגון ספציפי עם מידע אישי שמגביר את אמינות ההודעה",
+      correct: "‏Phishing שולח מיילים זהים לכולם — Spear Phishing ממוקד לאדם/ארגון ספציפי עם מידע אישי שמגביר את אמינות ההודעה",
       choices: [
-        "‏Phishing שולח מיילים זהים לכולם; Spear Phishing ממוקד לאדם/ארגון ספציפי עם מידע אישי שמגביר את אמינות ההודעה",
-        "‏Phishing דרך מייל; Spear Phishing דרך SMS",
+        "‏Phishing שולח מיילים זהים לכולם — Spear Phishing ממוקד לאדם/ארגון ספציפי עם מידע אישי שמגביר את אמינות ההודעה",
+        "‏Phishing דרך מייל — Spear Phishing דרך SMS",
         "‏Spear Phishing תוקף רק C-level executives",
-        "‏Phishing גונב סיסמאות; Spear Phishing מתקין malware"
+        "‏Phishing גונב סיסמאות — Spear Phishing מתקין malware"
       ],
       explanation: "‏Phishing: 'לכבוד הלקוח, חשבונך הוקפא. לחץ כאן.' — mass campaign. ‏Spear Phishing: 'שלום יעל, ראיתי שעבדת עם דוד בפרויקט Q3. בקובץ המצורף — עדכון לתקציב.' OSINT מ-LinkedIn + Facebook + חדשות חברה. ‏Whaling = Spear Phishing לCEO/CFO. ‏BEC (Business Email Compromise) = spoofing כCEO → wire transfer. הגנה: awareness training, DMARC/DKIM/SPF, MFA."
     },
@@ -2245,10 +2245,10 @@ export const quizBank = {
     },
         {
       q: "מה Vishing ומה Smishing ואיך שונים מPhishing?",
-      correct: "‏Vishing = Voice Phishing ‎(שיחות טלפון)‎; Smishing = SMS Phishing; שניהם Social Engineering בערוצים שונים ממייל",
+      correct: "‏Vishing = Voice Phishing ‎(שיחות טלפון)‎ — Smishing = SMS Phishing — שניהם Social Engineering בערוצים שונים ממייל",
       choices: [
-        "‏Vishing = Voice Phishing ‎(שיחות טלפון)‎; Smishing = SMS Phishing; שניהם Social Engineering בערוצים שונים ממייל",
-        "‏Vishing = Video Phishing; Smishing = Social Media Phishing",
+        "‏Vishing = Voice Phishing ‎(שיחות טלפון)‎ — Smishing = SMS Phishing — שניהם Social Engineering בערוצים שונים ממייל",
+        "‏Vishing = Video Phishing — Smishing = Social Media Phishing",
         "שניהם תתי-סוגים של Spear Phishing בלבד",
         "‏Vishing ו-Smishing פחות מסוכנים מPhishing כי קל לזהות"
       ],
@@ -2259,12 +2259,12 @@ export const quizBank = {
   109: [
     {
       q: "מה ההבדל בין Stateless לStateful Firewall?",
-      correct: "‏Stateless בודק כל packet בנפרד (IP/port); Stateful עוקב אחרי connection state ויודע אם packet שייך לsession קיים",
+      correct: "‏Stateless בודק כל packet בנפרד (IP/port) — Stateful עוקב אחרי connection state ויודע אם packet שייך לsession קיים",
       choices: [
-        "‏Stateless בודק כל packet בנפרד (IP/port); Stateful עוקב אחרי connection state ויודע אם packet שייך לsession קיים",
-        "‏Stateful מהיר יותר; Stateless מאובטח יותר",
-        "‏Stateless לUDP; Stateful לTCP",
-        "‏Stateful = software; Stateless = hardware"
+        "‏Stateless בודק כל packet בנפרד (IP/port) — Stateful עוקב אחרי connection state ויודע אם packet שייך לsession קיים",
+        "‏Stateful מהיר יותר — Stateless מאובטח יותר",
+        "‏Stateless לUDP — Stateful לTCP",
+        "‏Stateful = software — Stateless = hardware"
       ],
       explanation: "‏Stateless (iptables -P): בודק src/dst IP + port + protocol. קל לעקוף עם spoofed packets. ‏Stateful (conntrack): מבין SYN/ESTABLISHED/FIN — חבילות return traffic עוברות אוטומטית. ‏NGFW (L7): מבין HTTP/DNS/TLS — יכול לחסום לפי content. iptables ברוב Linux distributions = stateful ב-default."
     },
@@ -2292,23 +2292,23 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין Stateless Firewall לבין Stateful Firewall?",
-      correct: "‏Stateless בודק כל packet בנפרד לפי IP/Port; Stateful עוקב אחרי connections ומאפשר return traffic אוטומטית",
+      correct: "‏Stateless בודק כל packet בנפרד לפי IP/Port — Stateful עוקב אחרי connections ומאפשר return traffic אוטומטית",
       choices: [
-        "‏Stateless בודק כל packet בנפרד לפי IP/Port; Stateful עוקב אחרי connections ומאפשר return traffic אוטומטית",
+        "‏Stateless בודק כל packet בנפרד לפי IP/Port — Stateful עוקב אחרי connections ומאפשר return traffic אוטומטית",
         "‏Stateless מהיר יותר ומאובטח יותר בכל מקרה",
-        "‏Stateful בודק רק TCP; Stateless בודק UDP",
+        "‏Stateful בודק רק TCP — Stateless בודק UDP",
         "אין הבדל מעשי בביצועים ואבטחה"
       ],
       explanation: "‏Stateless (ACL): rule: ALLOW TCP src any dst 10.0.0.1 port 443. אבל צריך גם rule להחזרת traffic: ALLOW TCP src 10.0.0.1 dst any port >1024. מסורבל ומסוכן. ‏Stateful: Connection Table — SYN → מוסיף entry, SYN-ACK וACK מותרים אוטומטית כי שייכים לconnection קיים. ‏Return traffic = implicit allow. עדיף לאבטחה. ‏NGFW = Stateful + DPI + Application Awareness + IPS."
     },
         {
       q: "מה iptables rule שחוסם כל גישה נכנסת לחוץ מ-SSH (port 22)?",
-      correct: "‏iptables -P INPUT DROP; iptables -A INPUT -p tcp --dport 22 -j ACCEPT; iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT",
+      correct: "‏iptables -P INPUT DROP — iptables -A INPUT -p tcp --dport 22 -j ACCEPT — iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT",
       choices: [
-        "‏iptables -P INPUT DROP; iptables -A INPUT -p tcp --dport 22 -j ACCEPT; iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT",
+        "‏iptables -P INPUT DROP — iptables -A INPUT -p tcp --dport 22 -j ACCEPT — iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT",
         "‏iptables -A INPUT -p tcp --dport 22 -j ACCEPT",
-        "‏iptables --block-all; iptables --allow 22",
-        "‏iptables -P INPUT REJECT; iptables -A SSH -j ALLOW"
+        "‏iptables --block-all — iptables --allow 22",
+        "‏iptables -P INPUT REJECT — iptables -A SSH -j ALLOW"
       ],
       explanation: "שלבים: 1) DEFAULT POLICY = DROP ‎(חסום הכל)‎. ‏2) ACCEPT port 22. ‏3) ACCEPT established connections ‎(בלי זה — גם responses לתעבורה היוצאת יחסמו!)‎. חשוב לשמור iptables-save > /etc/iptables/rules.v4 אחרת rules נמחקים ב-reboot. nftables = ה-successor המודרני לiptables. ufw (Ubuntu) = front-end נוח: ufw default deny incoming; ufw allow 22/tcp."
     },
@@ -2343,8 +2343,8 @@ export const quizBank = {
       correct: "‏Hard link: מצביע לאותו inode — נשמר גם אחרי מחיקת המקור. Soft link: מצביע לpath — נשבר אם המקור נמחק",
       choices: [
         "‏Hard link: מצביע לאותו inode — נשמר גם אחרי מחיקת המקור. Soft link: מצביע לpath — נשבר אם המקור נמחק",
-        "‏Hard link לקבצים; Soft link לתיקיות",
-        "‏Hard link מהיר יותר; Soft link חוצה filesystems",
+        "‏Hard link לקבצים — Soft link לתיקיות",
+        "‏Hard link מהיר יותר — Soft link חוצה filesystems",
         "אין הבדל מעשי"
       ],
       explanation: "‏inode = metadata של קובץ (permissions, timestamps, blocks). ‏Hard link = שם נוסף לאותו inode. הקובץ נמחק רק כשlinkcount=0. ln file hardlink. ‏Soft link (symlink): ln -s /path/file link. יכול לחצות filesystems ותיקיות. נשבר אם target נמחק. ls -la מראה → target."
@@ -2362,10 +2362,10 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין hard link לבין symbolic link ב-Linux?",
-      correct: "‏Hard link: שם נוסף לאותו inode ‎(נתונים)‎; Symbolic link: קובץ נפרד שמצביע על שם קובץ — נשבר אם המקור נמחק",
+      correct: "‏Hard link: שם נוסף לאותו inode ‎(נתונים)‎ — Symbolic link: קובץ נפרד שמצביע על שם קובץ — נשבר אם המקור נמחק",
       choices: [
-        "‏Hard link: שם נוסף לאותו inode ‎(נתונים)‎; Symbolic link: קובץ נפרד שמצביע על שם קובץ — נשבר אם המקור נמחק",
-        "‏Hard link לקבצים; Symbolic link לתיקיות בלבד",
+        "‏Hard link: שם נוסף לאותו inode ‎(נתונים)‎ — Symbolic link: קובץ נפרד שמצביע על שם קובץ — נשבר אם המקור נמחק",
+        "‏Hard link לקבצים — Symbolic link לתיקיות בלבד",
         "שניהם זהים פרט לsyntax שונה בפקודת ln",
         "‏Symbolic link גדול יותר בdisk כי שומר עותק של הנתונים"
       ],
@@ -2384,12 +2384,12 @@ export const quizBank = {
     },
         {
       q: "מה chmod 755 עושה לקובץ?",
-      correct: "‏Owner: read+write+execute (7); Group: read+execute (5); Others: read+execute (5)",
+      correct: "‏Owner: read+write+execute (7) — Group: read+execute (5) — Others: read+execute (5)",
       choices: [
-        "‏Owner: read+write+execute (7); Group: read+execute (5); Others: read+execute (5)",
-        "‏Owner: read+write (6); Group: read+execute+write (5); Others: execute (5)",
-        "כולם יכולים לקרוא ולהריץ; רק owner יכול לכתוב",
-        "‏Owner: full permissions; Group ו-Others: read only"
+        "‏Owner: read+write+execute (7) — Group: read+execute (5) — Others: read+execute (5)",
+        "‏Owner: read+write (6) — Group: read+execute+write (5) — Others: execute (5)",
+        "כולם יכולים לקרוא ולהריץ — רק owner יכול לכתוב",
+        "‏Owner: full permissions — Group ו-Others: read only"
       ],
       explanation: "‏Octal permissions: r=4, w=2, x=1. ‏7=4+2+1=rwx, 5=4+0+1=r-x, 6=4+2+0=rw-. chmod 755 = -rwxr-xr-x. שימושי לscripts שכולם צריכים להריץ אבל רק owner יכול לערוך. chmod 644 (-rw-r--r--) לקבצי config. chmod 600 (-rw-------) למפתחות SSH. chown user:group file לשינוי בעלות. ‏Sticky bit (chmod +t /tmp): רק owner יכול למחוק קבצים שלו."
     }
@@ -2398,12 +2398,12 @@ export const quizBank = {
   202: [
     {
       q: "מה ההבדל בין Docker image לבין Docker container?",
-      correct: "‏Image = תבנית read-only שכבתית; Container = instance רץ של image עם writable layer",
+      correct: "‏Image = תבנית read-only שכבתית — Container = instance רץ של image עם writable layer",
       choices: [
-        "‏Image = תבנית read-only שכבתית; Container = instance רץ של image עם writable layer",
-        "‏Image שמור על disk; Container בmemory",
+        "‏Image = תבנית read-only שכבתית — Container = instance רץ של image עם writable layer",
+        "‏Image שמור על disk — Container בmemory",
         "‏Container גדול יותר מimage",
-        "‏Image מכיל קוד; Container מכיל data"
+        "‏Image מכיל קוד — Container מכיל data"
       ],
       explanation: "‏Docker image: Union filesystem — layers. כל RUN/COPY/ADD בDockerfile = layer חדש. שכבות shared בין containers. ‏Container: image layers (read-only) + writable layer בראש. כשcontainer נמחק — writable layer נמחק. ‏Data persistence: Volumes. docker images = רשימת images. docker ps = containers רצים."
     },
@@ -2420,23 +2420,23 @@ export const quizBank = {
     },
     {
       q: "מה ה-ENTRYPOINT לעומת CMD ב-Dockerfile?",
-      correct: "‏ENTRYPOINT = תמיד רץ; CMD = default args שאפשר לoverride בdocker run",
+      correct: "‏ENTRYPOINT = תמיד רץ — CMD = default args שאפשר לoverride בdocker run",
       choices: [
-        "‏ENTRYPOINT = תמיד רץ; CMD = default args שאפשר לoverride בdocker run",
-        "‏CMD רץ בbuild; ENTRYPOINT ב-run",
+        "‏ENTRYPOINT = תמיד רץ — CMD = default args שאפשר לoverride בdocker run",
+        "‏CMD רץ בbuild — ENTRYPOINT ב-run",
         "שניהם זהים — אחד לlinux אחד לwindows",
-        "‏ENTRYPOINT לwebserver; CMD לbatch jobs"
+        "‏ENTRYPOINT לwebserver — CMD לbatch jobs"
       ],
       explanation: "‏ENTRYPOINT ['nginx', '-g', 'daemon off;'] — לא ניתן לoverride ב-docker run. ‏CMD ['--worker-processes=4'] — default args, ניתן לoverride. שניהם יחד: ENTRYPOINT ריץ תמיד, CMD מספק default args. docker run myimage --worker-processes=8 = מחליף CMD. best practice: ENTRYPOINT לbinary, CMD לdefault flags."
     },
         {
       q: "מה ההבדל בין Docker image לבין Docker container?",
-      correct: "‏Image = תבנית read-only של filesystem + metadata; Container = instance רץ של image עם writable layer זמני",
+      correct: "‏Image = תבנית read-only של filesystem + metadata — Container = instance רץ של image עם writable layer זמני",
       choices: [
-        "‏Image = תבנית read-only של filesystem + metadata; Container = instance רץ של image עם writable layer זמני",
-        "‏Image הוא קובץ zip; Container הוא VM שרץ",
-        "‏Image נשמר בDocker Hub; Container נשמר locally בלבד",
-        "‏Image לprivate use; Container לproduction"
+        "‏Image = תבנית read-only של filesystem + metadata — Container = instance רץ של image עם writable layer זמני",
+        "‏Image הוא קובץ zip — Container הוא VM שרץ",
+        "‏Image נשמר בDocker Hub — Container נשמר locally בלבד",
+        "‏Image לprivate use — Container לproduction"
       ],
       explanation: "‏Image layers (Union FS): Base (ubuntu:22.04) + apt install python3 + COPY app + CMD. כל שכבה immutable, cached. ‏Container = image + thin writable layer on top. docker run ubuntu → יוצר container, לא משנה את ה-image. docker commit → הופך container לimage חדש. docker ps (running), docker ps -a (all). docker rm (container), docker rmi (image). ‏Images אחסון: Registry (Docker Hub, ECR, GCR)."
     },
@@ -2453,11 +2453,11 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין ENTRYPOINT לבין CMD ב-Dockerfile?",
-      correct: "‏ENTRYPOINT מגדיר הפקודה הקבועה של container; CMD מגדיר ברירת מחדל שניתן לדרוס בהפעלה",
+      correct: "‏ENTRYPOINT מגדיר הפקודה הקבועה של container — CMD מגדיר ברירת מחדל שניתן לדרוס בהפעלה",
       choices: [
-        "‏ENTRYPOINT מגדיר הפקודה הקבועה של container; CMD מגדיר ברירת מחדל שניתן לדרוס בהפעלה",
-        "‏CMD מריץ פקודות בbuild time; ENTRYPOINT בrun time",
-        "‏ENTRYPOINT לscripts; CMD לprocess ראשי",
+        "‏ENTRYPOINT מגדיר הפקודה הקבועה של container — CMD מגדיר ברירת מחדל שניתן לדרוס בהפעלה",
+        "‏CMD מריץ פקודות בbuild time — ENTRYPOINT בrun time",
+        "‏ENTRYPOINT לscripts — CMD לprocess ראשי",
         "אין הבדל — שניהם מגדירים פקודת הפעלה"
       ],
       explanation: "‏ENTRYPOINT ['/app/server']: docker run myimage --port 8080 → מריץ /app/server --port 8080. ‏CMD ['--port', '3000']: ברירת מחדל שנדרסת. ביחד: ENTRYPOINT ['/app/server'] + CMD ['--port', '3000'] → ניתן לdocker run myimage --port 8080 לדרוס CMD. docker run --entrypoint bash myimage לדרוס ENTRYPOINT. ‏Exec form ['cmd', 'arg'] עדיף על Shell form ‎(מאפשר signal handling)‎. ‏PID 1 = process ב-container חייב לטפל בsignals (SIGTERM)."
@@ -2467,11 +2467,11 @@ export const quizBank = {
   203: [
     {
       q: "מה ההבדל בין Deployment לבין StatefulSet ב-Kubernetes?",
-      correct: "‏Deployment לאפליקציות stateless; StatefulSet לDatabases — שומר identity קבועה, persistent storage, ו-ordered rollout",
+      correct: "‏Deployment לאפליקציות stateless — StatefulSet לDatabases — שומר identity קבועה, persistent storage, ו-ordered rollout",
       choices: [
-        "‏Deployment לאפליקציות stateless; StatefulSet לDatabases — שומר identity קבועה, persistent storage, ו-ordered rollout",
+        "‏Deployment לאפליקציות stateless — StatefulSet לDatabases — שומר identity קבועה, persistent storage, ו-ordered rollout",
         "‏StatefulSet ישן יותר ומיועד להחלפה",
-        "‏Deployment לcontainers בודדים; StatefulSet לcluster",
+        "‏Deployment לcontainers בודדים — StatefulSet לcluster",
         "אין הבדל מעשי — רק naming convention"
       ],
       explanation: "‏Deployment: pods ב-web server = interchangeable. מת pod-abc, נולד pod-xyz. ‏StatefulSet: pod-0, pod-1, pod-2 — שמות קבועים. pod-0 במסד הנתונים = primary always. כל pod מקבל PVC (Persistent Volume Claim) עצמאי. ‏Rollout: pod-2 מת → pod-2 קם → pod-1 מת → ordered. ‏MySQL, Kafka, ZooKeeper = StatefulSet."
@@ -2493,28 +2493,28 @@ export const quizBank = {
       choices: [
         "‏Liveness: האם container חי? ‎(restart אם לא)‎. Readiness: האם מוכן לtraffic? ‎(הסר מService אם לא)‎",
         "שניהם בודקים אותו דבר — redness לdb, liveness לweb",
-        "‏Liveness בstaging; Readiness בproduction",
-        "‏Liveness לHTTP; Readiness לTCP"
+        "‏Liveness בstaging — Readiness בproduction",
+        "‏Liveness לHTTP — Readiness לTCP"
       ],
       explanation: "‏Liveness probe נכשל: Kubernetes מבצע restart לcontainer. ‏Readiness probe נכשל: Pod מוסר מService endpoints — לא מקבל traffic, אבל לא restarted. ‏Startup probe: חדש ב-K8s 1.16 — לאפליקציות עם slow startup. ‏HTTP/TCP/exec probes. initialDelaySeconds, periodSeconds, failureThreshold. בלי readiness = traffic לPod שעדיין מאתחל."
     },
         {
       q: "מה ההבדל בין Deployment לבין StatefulSet ב-Kubernetes?",
-      correct: "‏Deployment לstateless apps עם pods חלופיים; StatefulSet לstateful apps עם pod identity קבוע, אחסון מתמיד, וסדר deployment מוגדר",
+      correct: "‏Deployment לstateless apps עם pods חלופיים — StatefulSet לstateful apps עם pod identity קבוע, אחסון מתמיד, וסדר deployment מוגדר",
       choices: [
-        "‏Deployment לstateless apps עם pods חלופיים; StatefulSet לstateful apps עם pod identity קבוע, אחסון מתמיד, וסדר deployment מוגדר",
+        "‏Deployment לstateless apps עם pods חלופיים — StatefulSet לstateful apps עם pod identity קבוע, אחסון מתמיד, וסדר deployment מוגדר",
         "‏StatefulSet חזק יותר — תמיד להשתמש בו",
-        "‏Deployment לcontainers בודדים; StatefulSet למספר containers",
+        "‏Deployment לcontainers בודדים — StatefulSet למספר containers",
         "אין הבדל — רק שם שונה"
       ],
       explanation: "‏Deployment: pods-0, pods-abc123, pods-xyz789 — שמות אקראיים, interchangeable. ‏Scale up/down = כל pod שווה. ‏StatefulSet: db-0, db-1, db-2 — שמות סדרתיים קבועים. ‏Pod db-0 תמיד יקבל את אותו PVC. ‏Scale down: מוחק מהסוף ‎(db-2 ראשון)‎. ‏Scale up: db-3 חייב לחכות לdb-2 healthy. שימוש: MySQL, PostgreSQL, Kafka, Elasticsearch, Redis Cluster. ‏DaemonSet = pod אחד על כל node (log collector, monitoring agent)."
     },
         {
       q: "מה ConfigMap ומה Secret ב-Kubernetes ומתי לא להשתמש ב-Secret?",
-      correct: "‏ConfigMap לconfig לא-סודי (env vars, files); Secret לdata סודי (passwords, tokens) — אך base64 בלבד, לא הצפנה! יש לנהל עם Vault/Sealed Secrets",
+      correct: "‏ConfigMap לconfig לא-סודי (env vars, files) — Secret לdata סודי (passwords, tokens) — אך base64 בלבד, לא הצפנה! יש לנהל עם Vault/Sealed Secrets",
       choices: [
-        "‏ConfigMap לconfig לא-סודי (env vars, files); Secret לdata סודי (passwords, tokens) — אך base64 בלבד, לא הצפנה! יש לנהל עם Vault/Sealed Secrets",
-        "‏ConfigMap לfiles; Secret לenv vars בלבד",
+        "‏ConfigMap לconfig לא-סודי (env vars, files) — Secret לdata סודי (passwords, tokens) — אך base64 בלבד, לא הצפנה! יש לנהל עם Vault/Sealed Secrets",
+        "‏ConfigMap לfiles — Secret לenv vars בלבד",
         "‏Secret מוצפן AES-256 אוטומטית על ידי Kubernetes",
         "‏ConfigMap ו-Secret זהים — ההבדל הוא רק סמנטי"
       ],
@@ -2522,11 +2522,11 @@ export const quizBank = {
     },
         {
       q: "מה Resource Requests ו-Limits ב-Kubernetes ולמה חשוב להגדיר אותם?",
-      correct: "‏Requests: מינימום משאבים שה-scheduler מבטיח לpod; Limits: מקסימום שהpod יכול לצרוך — בלי Limits, pod אחד יכול להרעיב את כל ה-node",
+      correct: "‏Requests: מינימום משאבים שה-scheduler מבטיח לpod — Limits: מקסימום שהpod יכול לצרוך — בלי Limits, pod אחד יכול להרעיב את כל ה-node",
       choices: [
-        "‏Requests: מינימום משאבים שה-scheduler מבטיח לpod; Limits: מקסימום שהpod יכול לצרוך — בלי Limits, pod אחד יכול להרעיב את כל ה-node",
+        "‏Requests: מינימום משאבים שה-scheduler מבטיח לpod — Limits: מקסימום שהpod יכול לצרוך — בלי Limits, pod אחד יכול להרעיב את כל ה-node",
         "‏Requests ו-Limits שניהם מגדירים maximum — ההבדל הוא בadmission controller",
-        "‏Limits חלים רק על CPU; Requests על Memory",
+        "‏Limits חלים רק על CPU — Requests על Memory",
         "בלי Requests, pods לא יתחילו לרוץ"
       ],
       explanation: "‏resources: requests: cpu: '250m' memory: '128Mi' limits: cpu: '500m' memory: '256Mi'. ‏Scheduler: מחפש node עם מספיק requests available. ‏CPU throttling: אם pod עובר Limit → throttled ‎(איטי, לא killed)‎. ‏Memory OOMKilled: אם pod עובר memory Limit → KILLED! QoS classes: Guaranteed (req=limit), Burstable (req<limit), BestEffort ‎(ללא req/limit)‎. ‏LimitRange לnamespace defaults. ‏ResourceQuota לlimits בnamespace."
@@ -2539,9 +2539,9 @@ export const quizBank = {
       correct: "‏Security Group: stateful ‎(זוכר connection)‎, ברמת ENI. NACL: stateless, ברמת subnet — חייב לפתוח inbound וoutbound בנפרד",
       choices: [
         "‏Security Group: stateful ‎(זוכר connection)‎, ברמת ENI. NACL: stateless, ברמת subnet — חייב לפתוח inbound וoutbound בנפרד",
-        "‏Security Group לEC2; NACL ל-S3",
-        "‏NACL מהיר יותר; Security Group גמיש יותר",
-        "‏Security Group חינמי; NACL בתשלום"
+        "‏Security Group לEC2 — NACL ל-S3",
+        "‏NACL מהיר יותר — Security Group גמיש יותר",
+        "‏Security Group חינמי — NACL בתשלום"
       ],
       explanation: "‏Security Group: stateful — אם פתחת port 443 inbound, response יוצא אוטומטית. ‏Rules רק allow ‎(אין deny)‎. ‏NACL: stateless — חייב rule inbound לport 443 AND rule outbound לephemeral ports 1024-65535. ‏NACL גם allow וגם deny. נוסף על security group. ‏Defense in depth: Security Group לinstance, NACL לsubnet."
     },
@@ -2550,7 +2550,7 @@ export const quizBank = {
       correct: "‏IAM Role = הרשאות זמניות שניתן לassume — עדיף לEC2/Lambda כי לא דורש hardcoded credentials",
       choices: [
         "‏IAM Role = הרשאות זמניות שניתן לassume — עדיף לEC2/Lambda כי לא דורש hardcoded credentials",
-        "‏Role לadmins; Access Key לdevelopers",
+        "‏Role לadmins — Access Key לdevelopers",
         "‏Access Key מאובטח יותר כי ניתן לrotate",
         "‏Role רק לcross-account access"
       ],
@@ -2561,17 +2561,17 @@ export const quizBank = {
       correct: "‏Peering: חיבור 1:1 בין 2 VPCs. Transit Gateway: hub מרכזי — N VPCs מתחברים לTGW = N connections לעומת N*(N-1)/2 בpeering",
       choices: [
         "‏Peering: חיבור 1:1 בין 2 VPCs. Transit Gateway: hub מרכזי — N VPCs מתחברים לTGW = N connections לעומת N*(N-1)/2 בpeering",
-        "‏Peering יקר יותר; Transit Gateway חינמי",
-        "‏Peering בין regions; TGW בתוך region",
-        "‏TGW מהיר יותר; Peering מאובטח יותר"
+        "‏Peering יקר יותר — Transit Gateway חינמי",
+        "‏Peering בין regions — TGW בתוך region",
+        "‏TGW מהיר יותר — Peering מאובטח יותר"
       ],
       explanation: "‏עם 10 VPCs ב-peering full mesh: 45 חיבורים. עם TGW: 10 חיבורים. ‎TGW‏ גם תומך ב-VPN, Direct Connect, multi-region. ‏Peering: ללא encryption נוסף, ללא bandwidth limit, זול. ‎TGW: $0.05/GB‏ data processed. נקודת מכירה ארכיטקטונית: ‎TGW = spoke-and-hub‏. ‎Peering = point-to-point‏. פחות מ-5 VPCs? peering מספיק."
     },
         {
       q: "מה ה-Shared Responsibility Model ב-AWS ואיזה אחריות על הלקוח?",
-      correct: "‏AWS אחראית על security OF the cloud (hardware, facilities, hypervisor); לקוח אחראי על security IN the cloud (OS, data, IAM, network config)",
+      correct: "‏AWS אחראית על security OF the cloud (hardware, facilities, hypervisor) — לקוח אחראי על security IN the cloud (OS, data, IAM, network config)",
       choices: [
-        "‏AWS אחראית על security OF the cloud (hardware, facilities, hypervisor); לקוח אחראי על security IN the cloud (OS, data, IAM, network config)",
+        "‏AWS אחראית על security OF the cloud (hardware, facilities, hypervisor) — לקוח אחראי על security IN the cloud (OS, data, IAM, network config)",
         "‏AWS אחראית על הכל — לקוח רק על application code",
         "הלקוח אחראי על הכל כי הוא משלם",
         "האחריות חלוקה שווה 50/50 על כל דבר"
@@ -2580,21 +2580,21 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין Security Group לבין Network ACL ב-AWS?",
-      correct: "‏Security Group: stateful, ברמת instance, allow-only rules; Network ACL: stateless, ברמת subnet, allow ו-deny rules",
+      correct: "‏Security Group: stateful, ברמת instance, allow-only rules — Network ACL: stateless, ברמת subnet, allow ו-deny rules",
       choices: [
-        "‏Security Group: stateful, ברמת instance, allow-only rules; Network ACL: stateless, ברמת subnet, allow ו-deny rules",
-        "‏Security Group לEC2 בלבד; Network ACL לRDS בלבד",
+        "‏Security Group: stateful, ברמת instance, allow-only rules — Network ACL: stateless, ברמת subnet, allow ו-deny rules",
+        "‏Security Group לEC2 בלבד — Network ACL לRDS בלבד",
         "‏Network ACL חזקה יותר ולכן לא צריך Security Groups",
-        "‏Security Group: deny-only; Network ACL: allow-only"
+        "‏Security Group: deny-only — Network ACL: allow-only"
       ],
       explanation: "‏Security Group (SG): attached לENI (network interface), stateful ‎(return traffic אוטומטי)‎, רק ALLOW rules, evaluated collectively. ‏NACL: attached לsubnet, stateless ‎(חייב explicit rule לinbound ולoutbound)‎, rules מספרים (priority), גם ALLOW וגם DENY. ‏Defense in depth: NACL = exterior wall, SG = interior doors. כלל אצבע: הגבל SGs ל-minimum ports, השתמש בNACL לblock explicit malicious IPs/ranges."
     },
         {
       q: "מה IAM Role ב-AWS ולמה עדיף על IAM User עם static credentials?",
-      correct: "‏IAM Role: זהות זמנית עם temporary credentials (STS); אין סיסמה קבועה, credentials מתחדשים — לא ניתן לגנוב long-term keys",
+      correct: "‏IAM Role: זהות זמנית עם temporary credentials (STS) — אין סיסמה קבועה, credentials מתחדשים — לא ניתן לגנוב long-term keys",
       choices: [
-        "‏IAM Role: זהות זמנית עם temporary credentials (STS); אין סיסמה קבועה, credentials מתחדשים — לא ניתן לגנוב long-term keys",
-        "‏IAM Role לשירותים בלבד; IAM User לאנשים — אין הבדל אבטחתי",
+        "‏IAM Role: זהות זמנית עם temporary credentials (STS) — אין סיסמה קבועה, credentials מתחדשים — לא ניתן לגנוב long-term keys",
+        "‏IAM Role לשירותים בלבד — IAM User לאנשים — אין הבדל אבטחתי",
         "‏IAM Role מהיר יותר כי אין authentication",
         "‏IAM User מאובטח יותר כי יש MFA"
       ],
@@ -2608,8 +2608,8 @@ export const quizBank = {
       correct: "‏CI: בדיקת קוד אוטומטית בכל push. CD: Deploy אוטומטי לאחר CI מוצלח (Delivery=staging, Deployment=production)",
       choices: [
         "‏CI: בדיקת קוד אוטומטית בכל push. CD: Deploy אוטומטי לאחר CI מוצלח (Delivery=staging, Deployment=production)",
-        "‏CI לdevelopers; CD לoperations",
-        "‏CI בcloud; CD on-premise",
+        "‏CI לdevelopers — CD לoperations",
+        "‏CI בcloud — CD on-premise",
         "אין הבדל — זה שם כולל לautomation"
       ],
       explanation: "‏CI (Continuous Integration): כל push → build + unit tests + lint + security scan. מוצא bugs מוקדם. ‏CD Delivery: אחרי CI → deploy לstaging automatically. ‏CD Deployment: אחרי staging approval → production automatically (fully automated). ‏Tools: GitHub Actions, Jenkins, GitLab CI, CircleCI. ‏Best practice: branch protection + required CI status checks."
@@ -2638,20 +2638,20 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין Continuous Integration לבין Continuous Deployment?",
-      correct: "‏CI: merge code לmain branch אוטומטי עם tests; CD (Delivery): artifact מוכן לdeploy ידני; CD (Deployment): deploy אוטומטי לproduction",
+      correct: "‏CI: merge code לmain branch אוטומטי עם tests — CD (Delivery): artifact מוכן לdeploy ידני — CD (Deployment): deploy אוטומטי לproduction",
       choices: [
-        "‏CI: merge code לmain branch אוטומטי עם tests; CD (Delivery): artifact מוכן לdeploy ידני; CD (Deployment): deploy אוטומטי לproduction",
-        "‏CI = build בלבד; CD = test בלבד",
-        "‏CI לdevelopers; CD לops engineers",
-        "‏CI לbackend; CD לfrontend"
+        "‏CI: merge code לmain branch אוטומטי עם tests — CD (Delivery): artifact מוכן לdeploy ידני — CD (Deployment): deploy אוטומטי לproduction",
+        "‏CI = build בלבד — CD = test בלבד",
+        "‏CI לdevelopers — CD לops engineers",
+        "‏CI לbackend — CD לfrontend"
       ],
       explanation: "‏CI pipeline: code push → lint → unit tests → integration tests → build artifact (Docker image/jar). מטרה: גילוי bugs מוקדם, main branch תמיד buildable. ‏Continuous Delivery: artifact עובר עוד tests (e2e, security scan, performance) → ready for manual approval to prod. ‏Continuous Deployment: no manual gate → deploy אוטומטי לprod עם כל merge לmain. ‏Netflix, Google = full CD. ארגונים מוסדרים (banking, medical) = Delivery + human gate. ‏Feature flags מאפשרים deploy ללא release."
     },
         {
       q: "מה GitHub Actions workflow ואיך מגדירים environment secrets?",
-      correct: "‏YAML ב-.github/workflows/ שמגדיר triggers, jobs ו-steps; Secrets מוגדרים ב-Repository Settings ומוזרקים כenv vars: ${{ secrets.MY_SECRET }}",
+      correct: "‏YAML ב-.github/workflows/ שמגדיר triggers, jobs ו-steps — Secrets מוגדרים ב-Repository Settings ומוזרקים כenv vars: ${{ secrets.MY_SECRET }}",
       choices: [
-        "‏YAML ב-.github/workflows/ שמגדיר triggers, jobs ו-steps; Secrets מוגדרים ב-Repository Settings ומוזרקים כenv vars: ${{ secrets.MY_SECRET }}",
+        "‏YAML ב-.github/workflows/ שמגדיר triggers, jobs ו-steps — Secrets מוגדרים ב-Repository Settings ומוזרקים כenv vars: ${{ secrets.MY_SECRET }}",
         "‏Workflow מוגדר ב-.gitlab-ci.yml ב-root",
         "‏Secrets נכתבים ישירות בYAML מוצפן",
         "‏GitHub Actions הוא שם של CLI tool שמריץ pipelines"
@@ -2660,9 +2660,9 @@ export const quizBank = {
     },
         {
       q: "מה Shift Left Testing ולמה זה חוסך כסף?",
-      correct: "הזזת testing שמאלה ב-pipeline — בדיקות מוקדמות יותר ב-development lifecycle; bug שמתגלה בdesign עולה פחות מbug בproduction",
+      correct: "הזזת testing שמאלה ב-pipeline — בדיקות מוקדמות יותר ב-development lifecycle — bug שמתגלה בdesign עולה פחות מbug בproduction",
       choices: [
-        "הזזת testing שמאלה ב-pipeline — בדיקות מוקדמות יותר ב-development lifecycle; bug שמתגלה בdesign עולה פחות מbug בproduction",
+        "הזזת testing שמאלה ב-pipeline — בדיקות מוקדמות יותר ב-development lifecycle — bug שמתגלה בdesign עולה פחות מbug בproduction",
         "כלי שמזיז test cases לסוף pipeline למהירות",
         "מתודולוגיה שמחליפה QA engineers באוטומציה",
         "בדיקות שנעשות על ה-left side של cluster"
@@ -2719,9 +2719,9 @@ export const quizBank = {
     },
     {
       q: "מה Chaos Engineering ומה הכלי הנפוץ ביותר?",
-      correct: "הזרקת כשלים מכוונים לproduction כדי לגלות חולשות לפני שמשתמשים יפגעו; Netflix Chaos Monkey הוא הכלי הידוע ביותר",
+      correct: "הזרקת כשלים מכוונים לproduction כדי לגלות חולשות לפני שמשתמשים יפגעו — Netflix Chaos Monkey הוא הכלי הידוע ביותר",
       choices: [
-        "הזרקת כשלים מכוונים לproduction כדי לגלות חולשות לפני שמשתמשים יפגעו; Netflix Chaos Monkey הוא הכלי הידוע ביותר",
+        "הזרקת כשלים מכוונים לproduction כדי לגלות חולשות לפני שמשתמשים יפגעו — Netflix Chaos Monkey הוא הכלי הידוע ביותר",
         "בדיקות load שמריצים בstaging בלבד",
         "כלי לsimulation של network failures בdevelopment",
         "תהליך של פיתוח בלי tests כדי לקדם מהר"
@@ -2789,9 +2789,9 @@ export const quizBank = {
     },
         {
       q: "מה TCP Retransmission ומה Wireshark filter לזיהויה?",
-      correct: "‏Retransmission = שליחה חוזרת של segment שלא אושר בזמן (ACK timeout); filter: tcp.analysis.retransmission",
+      correct: "‏Retransmission = שליחה חוזרת של segment שלא אושר בזמן (ACK timeout) — filter: tcp.analysis.retransmission",
       choices: [
-        "‏Retransmission = שליחה חוזרת של segment שלא אושר בזמן (ACK timeout); filter: tcp.analysis.retransmission",
+        "‏Retransmission = שליחה חוזרת של segment שלא אושר בזמן (ACK timeout) — filter: tcp.analysis.retransmission",
         "‏Retransmission = packet שהגיע out-of-order",
         "‏Retransmission = חיבור TCP חדש לאחר disconnect",
         "‏filter: tcp.flags.retransmit == 1"
@@ -2800,9 +2800,9 @@ export const quizBank = {
     },
         {
       q: "מה TLS handshake נראה ב-Wireshark ואיזה packet ראשון?",
-      correct: "‏ClientHello הוא הpacket הראשון — מכיל TLS version, cipher suites, וSNI ‎(שם הדומיין)‎; filter: tls.handshake.type == 1",
+      correct: "‏ClientHello הוא הpacket הראשון — מכיל TLS version, cipher suites, וSNI ‎(שם הדומיין)‎ — filter: tls.handshake.type == 1",
       choices: [
-        "‏ClientHello הוא הpacket הראשון — מכיל TLS version, cipher suites, וSNI ‎(שם הדומיין)‎; filter: tls.handshake.type == 1",
+        "‏ClientHello הוא הpacket הראשון — מכיל TLS version, cipher suites, וSNI ‎(שם הדומיין)‎ — filter: tls.handshake.type == 1",
         "‏ServerHello ראשון — השרת מתחיל negotiation",
         "‏Certificate ראשון — השרת שולח תעודה לפני הכל",
         "‏TCP SYN הוא ה-TLS handshake הראשון"
@@ -2846,9 +2846,9 @@ export const quizBank = {
     },
         {
       q: "מה BGP AS Path ואיך הוא מונע routing loops?",
-      correct: "‏AS Path = רשימת AS numbers שהmessage עבר; כל router שרואה את ה-ASN שלו ב-Path — דוחה את ה-route",
+      correct: "‏AS Path = רשימת AS numbers שהmessage עבר — כל router שרואה את ה-ASN שלו ב-Path — דוחה את ה-route",
       choices: [
-        "‏AS Path = רשימת AS numbers שהmessage עבר; כל router שרואה את ה-ASN שלו ב-Path — דוחה את ה-route",
+        "‏AS Path = רשימת AS numbers שהmessage עבר — כל router שרואה את ה-ASN שלו ב-Path — דוחה את ה-route",
         "‏AS Path הוא metric לבחירת route הטוב ביותר",
         "‏AS Path מגן מפני DDoS attacks על ה-routing",
         "‏AS Path מוצפן ב-BGPsec לאבטחה"
@@ -2868,11 +2868,11 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין iBGP לבין eBGP ו-full mesh דרישה?",
-      correct: "‏eBGP: בין ASes שונים; iBGP: בתוך אותו AS. iBGP דורש full mesh (n*(n-1)/2 peers) או Route Reflectors כי iBGP לא מעביר routes שקיבל מiBGP peer",
+      correct: "‏eBGP: בין ASes שונים — iBGP: בתוך אותו AS. iBGP דורש full mesh (n*(n-1)/2 peers) או Route Reflectors כי iBGP לא מעביר routes שקיבל מiBGP peer",
       choices: [
-        "‏eBGP: בין ASes שונים; iBGP: בתוך אותו AS. iBGP דורש full mesh (n*(n-1)/2 peers) או Route Reflectors כי iBGP לא מעביר routes שקיבל מiBGP peer",
-        "‏iBGP לrouters פיזיים; eBGP לvirtual routers",
-        "‏eBGP בתוך data center; iBGP לinternet connectivity",
+        "‏eBGP: בין ASes שונים — iBGP: בתוך אותו AS. iBGP דורש full mesh (n*(n-1)/2 peers) או Route Reflectors כי iBGP לא מעביר routes שקיבל מiBGP peer",
+        "‏iBGP לrouters פיזיים — eBGP לvirtual routers",
+        "‏eBGP בתוך data center — iBGP לinternet connectivity",
         "אין הבדל פרקטי — רק administrative distinction"
       ],
       explanation: "‏iBGP split-horizon: router לא מעביר routes שלמד מiBGP peer לiBGP peer אחר ‎(מניעת loops בתוך AS)‎. לכן: full mesh בין כל iBGP routers. ‏AS עם 10 routers = 45 sessions! פתרון: Route Reflector (RR): router מיוחד שמעביר iBGP routes. ‏RR cluster: RR + clients. ‏Confederation: AS מתחלק ל-sub-ASes. eBGP: next-hop נשמר; iBGP: next-hop ממשיך להיות IP של eBGP neighbor — חשוב ל-next-hop reachability."
@@ -2881,9 +2881,9 @@ export const quizBank = {
   303: [
     {
       q: "מה ההבדל בין Recursive Resolver ל-Authoritative Nameserver?",
-      correct: "‏Recursive Resolver עושה את כל חקירת השרשרת; Authoritative NS מחזיר את ה-IP האמיתי",
+      correct: "‏Recursive Resolver עושה את כל חקירת השרשרת — Authoritative NS מחזיר את ה-IP האמיתי",
       choices: [
-        "‏Recursive Resolver עושה את כל חקירת השרשרת; Authoritative NS מחזיר את ה-IP האמיתי",
+        "‏Recursive Resolver עושה את כל חקירת השרשרת — Authoritative NS מחזיר את ה-IP האמיתי",
         "‏Recursive Resolver הוא Root Server",
         "‏Authoritative NS מחזיר רק NXDOMAIN",
         "אין הבדל — שניהם אותה תפקיד"
@@ -2914,20 +2914,20 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין DNS Recursive Resolver לבין Authoritative Name Server?",
-      correct: "‏Recursive Resolver שואל בשם הלקוח ומאחסן תשובות (ISP/8.8.8.8); Authoritative NS מכיר את התשובה הסופית לdomain ספציפי",
+      correct: "‏Recursive Resolver שואל בשם הלקוח ומאחסן תשובות (ISP/8.8.8.8) — Authoritative NS מכיר את התשובה הסופית לdomain ספציפי",
       choices: [
-        "‏Recursive Resolver שואל בשם הלקוח ומאחסן תשובות (ISP/8.8.8.8); Authoritative NS מכיר את התשובה הסופית לdomain ספציפי",
+        "‏Recursive Resolver שואל בשם הלקוח ומאחסן תשובות (ISP/8.8.8.8) — Authoritative NS מכיר את התשובה הסופית לdomain ספציפי",
         "שניהם זהים — כל DNS server עושה הכל",
-        "‏Recursive = בתשלום; Authoritative = חינם",
-        "‏Authoritative שואל את ה-Root Servers; Recursive עונה ללקוחות"
+        "‏Recursive = בתשלום — Authoritative = חינם",
+        "‏Authoritative שואל את ה-Root Servers — Recursive עונה ללקוחות"
       ],
       explanation: "‏DNS Resolution chain: stub resolver (OS) → Recursive Resolver (8.8.8.8) → Root Server (13 clusters) → TLD NS (.com, .io) → Authoritative NS (ns1.cloudflare.com). ‏Recursive Resolver caches כל תשובה לפי TTL. ‏Authoritative NS: Zone file עם A, AAAA, CNAME, MX, TXT records. ‏Primary vs Secondary NS: secondary מבצע zone transfer מprimary. ‏DNS cache poisoning: תוקף מאחסן record מזויף ב-recursive resolver → כל הלקוחות מושפעים. ‏DNSSEC: digital signatures לauthentication."
     },
         {
       q: "מה DNS over HTTPS (DoH) ומה היתרון שלו על DNS רגיל?",
-      correct: "‏DoH שולח DNS queries בתוך HTTPS (port 443) — מונע ISP ממעקב אחרי queries ומקשה על censorship; חסרון: ISP לא יכול לבלוק malicious domains",
+      correct: "‏DoH שולח DNS queries בתוך HTTPS (port 443) — מונע ISP ממעקב אחרי queries ומקשה על censorship — חסרון: ISP לא יכול לבלוק malicious domains",
       choices: [
-        "‏DoH שולח DNS queries בתוך HTTPS (port 443) — מונע ISP ממעקב אחרי queries ומקשה על censorship; חסרון: ISP לא יכול לבלוק malicious domains",
+        "‏DoH שולח DNS queries בתוך HTTPS (port 443) — מונע ISP ממעקב אחרי queries ומקשה על censorship — חסרון: ISP לא יכול לבלוק malicious domains",
         "‏DoH מהיר יותר מDNS רגיל בגלל HTTP/2",
         "‏DoH מוצפן AES-256 בניגוד ל-DNS רגיל שלא מוצפן",
         "‏DoH פועל רק בbrowsers, DoT לapplications"
@@ -2985,7 +2985,7 @@ export const quizBank = {
       correct: "‏HTTP/2 multiplexes streams על TCP אחד — packet loss אחד חוסם כל ה-streams. QUIC מריץ streams בנפרד ב-UDP — packet loss חוסם stream אחד בלבד",
       choices: [
         "‏HTTP/2 multiplexes streams על TCP אחד — packet loss אחד חוסם כל ה-streams. QUIC מריץ streams בנפרד ב-UDP — packet loss חוסם stream אחד בלבד",
-        "‏HOL Blocking ב-HTTP/1.1 בלבד; HTTP/2 ו-HTTP/3 פותרים אותו לחלוטין",
+        "‏HOL Blocking ב-HTTP/1.1 בלבד — HTTP/2 ו-HTTP/3 פותרים אותו לחלוטין",
         "‏QUIC פותר HOL Blocking על ידי compression טוב יותר",
         "‏HTTP/3 משתמש ב-TCP עם QUIC extension layer"
       ],
@@ -2993,9 +2993,9 @@ export const quizBank = {
     },
         {
       q: "מה QUIC 0-RTT ומה security tradeoff?",
-      correct: "‏0-RTT: client שביקר קודם שולח data בpacket הראשון ללא handshake; חסרון: חשיפה ל-Replay Attacks על ה-0-RTT data",
+      correct: "‏0-RTT: client שביקר קודם שולח data בpacket הראשון ללא handshake — חסרון: חשיפה ל-Replay Attacks על ה-0-RTT data",
       choices: [
-        "‏0-RTT: client שביקר קודם שולח data בpacket הראשון ללא handshake; חסרון: חשיפה ל-Replay Attacks על ה-0-RTT data",
+        "‏0-RTT: client שביקר קודם שולח data בpacket הראשון ללא handshake — חסרון: חשיפה ל-Replay Attacks על ה-0-RTT data",
         "‏0-RTT = connection ללא הצפנה לביצועים",
         "‏0-RTT אפשרי רק בHTTP/3 עם TLS 1.2",
         "‏0-RTT בטוח לחלוטין כי QUIC מכיל anti-replay מובנה"
@@ -3004,9 +3004,9 @@ export const quizBank = {
     },
         {
       q: "מה HPACK ב-HTTP/2 ו-QPACK ב-HTTP/3 ולמה פותחו?",
-      correct: "אלגוריתמי דחיסת headers — HTTP/1.1 שולח headers כtext חוזר בכל request ‎(כולל cookies גדולים)‎; HPACK/QPACK מקודדים headers בindex table לחיסכון bandwidth",
+      correct: "אלגוריתמי דחיסת headers — HTTP/1.1 שולח headers כtext חוזר בכל request ‎(כולל cookies גדולים)‎ — HPACK/QPACK מקודדים headers בindex table לחיסכון bandwidth",
       choices: [
-        "אלגוריתמי דחיסת headers — HTTP/1.1 שולח headers כtext חוזר בכל request ‎(כולל cookies גדולים)‎; HPACK/QPACK מקודדים headers בindex table לחיסכון bandwidth",
+        "אלגוריתמי דחיסת headers — HTTP/1.1 שולח headers כtext חוזר בכל request ‎(כולל cookies גדולים)‎ — HPACK/QPACK מקודדים headers בindex table לחיסכון bandwidth",
         "‏HPACK = encryption layer של HTTP/2",
         "‏QPACK = QUIC Packet compression",
         "שניהם מדחסים HTTP body, לא headers"
@@ -3051,9 +3051,9 @@ export const quizBank = {
 ,
     {
       q: "מה eBPF map ואיזה types נפוצים?",
-      correct: "מבנה נתונים shared בין eBPF programs לבין kernel/userspace; types: BPF_MAP_TYPE_HASH, ARRAY, RINGBUF, PERF_EVENT_ARRAY",
+      correct: "מבנה נתונים shared בין eBPF programs לבין kernel/userspace — types: BPF_MAP_TYPE_HASH, ARRAY, RINGBUF, PERF_EVENT_ARRAY",
       choices: [
-        "מבנה נתונים shared בין eBPF programs לבין kernel/userspace; types: BPF_MAP_TYPE_HASH, ARRAY, RINGBUF, PERF_EVENT_ARRAY",
+        "מבנה נתונים shared בין eBPF programs לבין kernel/userspace — types: BPF_MAP_TYPE_HASH, ARRAY, RINGBUF, PERF_EVENT_ARRAY",
         "‏eBPF map = מיפוי kernel addresses לvirtual addresses",
         "רשימה של eBPF programs שloaded ב-kernel",
         "‏eBPF map = file במערכת קבצים /sys/fs/bpf"
@@ -3062,11 +3062,11 @@ export const quizBank = {
     },
     {
       q: "מה ההבדל בין eBPF tracepoints לבין kprobes?",
-      correct: "‏Tracepoints: hook points סטטיים מוגדרים ב-kernel code (stable ABI); kprobes: attach לכל kernel function address ‎(דינמי, עלול להשתנות בין kernel versions)‎",
+      correct: "‏Tracepoints: hook points סטטיים מוגדרים ב-kernel code (stable ABI) — kprobes: attach לכל kernel function address ‎(דינמי, עלול להשתנות בין kernel versions)‎",
       choices: [
-        "‏Tracepoints: hook points סטטיים מוגדרים ב-kernel code (stable ABI); kprobes: attach לכל kernel function address ‎(דינמי, עלול להשתנות בין kernel versions)‎",
-        "‏kprobes מהירים יותר; tracepoints מאובטחים יותר",
-        "‏Tracepoints לuserspace; kprobes לkernel בלבד",
+        "‏Tracepoints: hook points סטטיים מוגדרים ב-kernel code (stable ABI) — kprobes: attach לכל kernel function address ‎(דינמי, עלול להשתנות בין kernel versions)‎",
+        "‏kprobes מהירים יותר — tracepoints מאובטחים יותר",
+        "‏Tracepoints לuserspace — kprobes לkernel בלבד",
         "אין הבדל מעשי — שניהם attach לאותם מקומות"
       ],
       explanation: "‏Tracepoints (sys_enter/sys_exit, net:netif_rx, sched:sched_switch): מוגדרים בmacro TRACE_EVENT בkernel source. ‏Stable: נשמרים בין kernel versions. uprobes: כמו kprobes אבל לuserspace functions. ‏Perf events: hardware counters (CPU cycles, cache misses). bpftrace one-liner: bpftrace -e 'tracepoint:syscalls:sys_enter_read { printf(\\\"%s read %d bytes\\n\\\", comm, args->count); }'. libbpf skeleton: generate C bindings מBTF."
@@ -3120,20 +3120,20 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין terraform plan לבין terraform apply?",
-      correct: "‏plan: מחשב ומציג שינויים צפויים ללא ביצוע; apply: מבצע את השינויים על ה-infrastructure בפועל",
+      correct: "‏plan: מחשב ומציג שינויים צפויים ללא ביצוע — apply: מבצע את השינויים על ה-infrastructure בפועל",
       choices: [
-        "‏plan: מחשב ומציג שינויים צפויים ללא ביצוע; apply: מבצע את השינויים על ה-infrastructure בפועל",
-        "‏plan מהיר; apply מפעיל validation בלבד",
-        "‏plan לlocal environment; apply לproduction",
+        "‏plan: מחשב ומציג שינויים צפויים ללא ביצוע — apply: מבצע את השינויים על ה-infrastructure בפועל",
+        "‏plan מהיר — apply מפעיל validation בלבד",
+        "‏plan לlocal environment — apply לproduction",
         "‏plan ו-apply זהים — רק syntax שונה"
       ],
       explanation: "‏terraform plan: קורא current state (tfstate), קורא desired state (tf files), מחשב diff. output: + להוסיף, - למחוק, ~ לשנות, -/+ לdelete+recreate. שמירת plan: terraform plan -out=tfplan → terraform apply tfplan ‎(גרסה deterministic)‎. terraform apply -auto-approve בCI ‎(עם הגנות!)‎. terraform destroy = מחיקת כל ה-infrastructure. חשוב: review ה-plan לפני apply, במיוחד לresources עם ~ ו--/+."
     },
         {
       q: "מה Terraform State ולמה חשוב לאחסן אותו ב-Remote Backend?",
-      correct: "‏State file (terraform.tfstate) מעקב אחרי resources שנוצרו; remote backend (S3+DynamoDB) מאפשר collaboration, locking, ומונע state corruption",
+      correct: "‏State file (terraform.tfstate) מעקב אחרי resources שנוצרו — remote backend (S3+DynamoDB) מאפשר collaboration, locking, ומונע state corruption",
       choices: [
-        "‏State file (terraform.tfstate) מעקב אחרי resources שנוצרו; remote backend (S3+DynamoDB) מאפשר collaboration, locking, ומונע state corruption",
+        "‏State file (terraform.tfstate) מעקב אחרי resources שנוצרו — remote backend (S3+DynamoDB) מאפשר collaboration, locking, ומונע state corruption",
         "‏State file הוא Terraform plan שנשמר לreuse",
         "‏Remote backend הוא שרת Terraform Enterprise בלבד",
         "‏State לא חשוב — Terraform תמיד query ל-provider"
@@ -3211,10 +3211,10 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין Grafana Dashboard לבין Grafana Alert?",
-      correct: "‏Dashboard: ויזואליזציה של metrics לצפייה; Alert: rule שמוערך periodically ושולח notification כשthreshold מופר",
+      correct: "‏Dashboard: ויזואליזציה של metrics לצפייה — Alert: rule שמוערך periodically ושולח notification כשthreshold מופר",
       choices: [
-        "‏Dashboard: ויזואליזציה של metrics לצפייה; Alert: rule שמוערך periodically ושולח notification כשthreshold מופר",
-        "‏Dashboard לprod; Alert לdev/staging",
+        "‏Dashboard: ויזואליזציה של metrics לצפייה — Alert: rule שמוערך periodically ושולח notification כשthreshold מופר",
+        "‏Dashboard לprod — Alert לdev/staging",
         "‏Alert הוא dashboard מיוחד עם רקע אדום",
         "‏Grafana עושה רק visualization — Alerting דרך Prometheus בלבד"
       ],
@@ -3258,9 +3258,9 @@ export const quizBank = {
     },
         {
       q: "מה ArgoCD Application manifest ומה syncPolicy.automated?",
-      correct: "‏Application CRD שמגדיר source (Git repo + path), destination (cluster + namespace), ו-syncPolicy; automated = ArgoCD sync אוטומטי עם כל שינוי ב-Git",
+      correct: "‏Application CRD שמגדיר source (Git repo + path), destination (cluster + namespace), ו-syncPolicy — automated = ArgoCD sync אוטומטי עם כל שינוי ב-Git",
       choices: [
-        "‏Application CRD שמגדיר source (Git repo + path), destination (cluster + namespace), ו-syncPolicy; automated = ArgoCD sync אוטומטי עם כל שינוי ב-Git",
+        "‏Application CRD שמגדיר source (Git repo + path), destination (cluster + namespace), ו-syncPolicy — automated = ArgoCD sync אוטומטי עם כל שינוי ב-Git",
         "‏Kubernetes Deployment שמריץ ArgoCD server",
         "‏Helm chart מיוחד לdeploy applications",
         "‏CI/CD pipeline YAML ב-.github/workflows/"
@@ -3269,9 +3269,9 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין Argo Rollouts Progressive Delivery לבין Rolling Update רגיל?",
-      correct: "‏Rolling Update מחליף pods בהדרגה ללא בקרה; Argo Rollouts מאפשר Canary ‎(% traffic לגרסה חדשה)‎ ו-Blue/Green עם analysis אוטומטי ו-rollback",
+      correct: "‏Rolling Update מחליף pods בהדרגה ללא בקרה — Argo Rollouts מאפשר Canary ‎(% traffic לגרסה חדשה)‎ ו-Blue/Green עם analysis אוטומטי ו-rollback",
       choices: [
-        "‏Rolling Update מחליף pods בהדרגה ללא בקרה; Argo Rollouts מאפשר Canary ‎(% traffic לגרסה חדשה)‎ ו-Blue/Green עם analysis אוטומטי ו-rollback",
+        "‏Rolling Update מחליף pods בהדרגה ללא בקרה — Argo Rollouts מאפשר Canary ‎(% traffic לגרסה חדשה)‎ ו-Blue/Green עם analysis אוטומטי ו-rollback",
         "‏Argo Rollouts = Argo CD עם תכונות נוספות בלבד",
         "‏Canary deployment = deploy לcanary server בלבד",
         "‏Progressive Delivery אפשרי רק עם Istio service mesh"
@@ -3280,12 +3280,12 @@ export const quizBank = {
     },
         {
       q: "מה Fluxcd ואיך שונה מArgoCD?",
-      correct: "שניהם GitOps controllers; Flux: CLI-centric, operator per component (source-controller, kustomize-controller); Argo: UI חזקה, Application CRD, monolithic approach",
+      correct: "שניהם GitOps controllers — Flux: CLI-centric, operator per component (source-controller, kustomize-controller) — Argo: UI חזקה, Application CRD, monolithic approach",
       choices: [
-        "שניהם GitOps controllers; Flux: CLI-centric, operator per component (source-controller, kustomize-controller); Argo: UI חזקה, Application CRD, monolithic approach",
-        "‏Flux לAWS בלבד; ArgoCD לGCP ו-Azure",
+        "שניהם GitOps controllers — Flux: CLI-centric, operator per component (source-controller, kustomize-controller) — Argo: UI חזקה, Application CRD, monolithic approach",
+        "‏Flux לAWS בלבד — ArgoCD לGCP ו-Azure",
         "‏FluxCD מיושן — ArgoCD החליף אותו לחלוטין",
-        "‏Flux לsmall clusters; ArgoCD לenterprise בלבד"
+        "‏Flux לsmall clusters — ArgoCD לenterprise בלבד"
       ],
       explanation: "‏Flux v2 (CNCF Graduated): GitRepository CR → מצביע על repo; Kustomization CR → מיישם path. ‏Multi-tenancy טוב. ‏Notification Controller לSlack/Teams. ‏Image Automation: מעדכן Git אוטומטית עם tag חדש מRegistry! ArgoCD: UI מנצחת לvisibility, ApplicationSet לmulti-cluster/multi-app patterns. ‏App of Apps. ‏RBAC מובנה. בחירה: Argo אם רוצים UI ו-visibility. ‏Flux אם GitOps-first, CLI-driven, multi-tenant setup. שניהם CNCF projects."
     },
@@ -3382,11 +3382,11 @@ export const quizBank = {
     },
         {
       q: "מה ההבדל בין TLS 1.2 לבין TLS 1.3 ב-handshake efficiency?",
-      correct: "‏TLS 1.2: 2-RTT handshake לפני שליחת data; TLS 1.3: 1-RTT ‎(עם 0-RTT לsession resumption)‎ — הסיר cipher suites חלשות",
+      correct: "‏TLS 1.2: 2-RTT handshake לפני שליחת data — TLS 1.3: 1-RTT ‎(עם 0-RTT לsession resumption)‎ — הסיר cipher suites חלשות",
       choices: [
-        "‏TLS 1.2: 2-RTT handshake לפני שליחת data; TLS 1.3: 1-RTT ‎(עם 0-RTT לsession resumption)‎ — הסיר cipher suites חלשות",
+        "‏TLS 1.2: 2-RTT handshake לפני שליחת data — TLS 1.3: 1-RTT ‎(עם 0-RTT לsession resumption)‎ — הסיר cipher suites חלשות",
         "‏TLS 1.3 מהיר פי 10 בגלל הצפנה חזקה יותר",
-        "‏TLS 1.2 תומך ב-0-RTT; TLS 1.3 רק 1-RTT",
+        "‏TLS 1.2 תומך ב-0-RTT — TLS 1.3 רק 1-RTT",
         "אין הבדל ב-RTT — רק crypto algorithms שונים"
       ],
       explanation: "‏TLS 1.2 Handshake: SYN/ACK (1 RTT) → ClientHello/ServerHello/Certificate/ServerHelloDone (1 RTT) → ClientKeyExchange/ChangeCipherSpec (1 RTT) = 2 RTTs לפני HTTP. ‏TLS 1.3: ServerHello כולל key_share מיד (ECDHE params) → לקוח יכול לשלוח Finished + HTTP request כבר ב-1 RTT. הוסר: RSA key exchange, DH static, RC4, 3DES, MD5/SHA-1. ‏Mandatory: ECDHE forward secrecy. ‏Encrypted extensions: Certificate מוצפן ב-TLS 1.3 ‎(לא visible)‎."
@@ -3404,9 +3404,9 @@ export const quizBank = {
     },
         {
       q: "מה Certificate Transparency (CT) ואיך מגן מפני rogue certificates?",
-      correct: "‏CT Logs: append-only public logs של כל TLS certificates שהונפקו; browsers מאמתים שcert נכלל ב-CT log — CA סורר לא יכול להנפיק certificate בסתר",
+      correct: "‏CT Logs: append-only public logs של כל TLS certificates שהונפקו — browsers מאמתים שcert נכלל ב-CT log — CA סורר לא יכול להנפיק certificate בסתר",
       choices: [
-        "‏CT Logs: append-only public logs של כל TLS certificates שהונפקו; browsers מאמתים שcert נכלל ב-CT log — CA סורר לא יכול להנפיק certificate בסתר",
+        "‏CT Logs: append-only public logs של כל TLS certificates שהונפקו — browsers מאמתים שcert נכלל ב-CT log — CA סורר לא יכול להנפיק certificate בסתר",
         "‏Certificate Transparency = certificate pinning בdomain",
         "‏CT הוא שם אחר ל-HSTS preloading",
         "‏CT logs מוצפנים ונגישים רק לbrowsers"
@@ -3462,20 +3462,20 @@ export const quizBank = {
     },
         {
       q: "מה BGPsec ואיך שונה מRPKI?",
-      correct: "‏RPKI מוודא את origin AS בלבד; BGPsec חותם כל hop בAS Path — מגן גם מ-path manipulation לא רק origin hijacking",
+      correct: "‏RPKI מוודא את origin AS בלבד — BGPsec חותם כל hop בAS Path — מגן גם מ-path manipulation לא רק origin hijacking",
       choices: [
-        "‏RPKI מוודא את origin AS בלבד; BGPsec חותם כל hop בAS Path — מגן גם מ-path manipulation לא רק origin hijacking",
+        "‏RPKI מוודא את origin AS בלבד — BGPsec חותם כל hop בAS Path — מגן גם מ-path manipulation לא רק origin hijacking",
         "‏BGPsec = RPKI 2.0 — ההבדל רק בגרסה",
-        "‏RPKI לIPv6; BGPsec לIPv4",
-        "‏BGPsec מוצפן; RPKI רק signed"
+        "‏RPKI לIPv6 — BGPsec לIPv4",
+        "‏BGPsec מוצפן — RPKI רק signed"
       ],
       explanation: "‏RPKI/ROA: validates 'AS64501 is legitimate originator of 192.0.2.0/24'. אבל: AS Path: 64501 → 64502 → 64503. ‏AS64502 יכול לשנות path! BGPsec (RFC 8205): כל AS שמעביר UPDATE מוסיף חתימה קריפטוגרפית. ‏Receiver מאמת שכל hop בAS path חתם. מגן מ-path manipulation attacks. חסרון: performance overhead משמעותי, כל router צריך לחשב signatures. ‏Adoption: מאוד נמוכה בpractice בגלל complexity. ‏RPKI/ROV = פרקטי ונפוץ הרבה יותר."
     },
         {
       q: "מה קרה בתקרית Cloudflare 2019 ב-BGP routing ומה הלקח?",
-      correct: "‏MainOne ‎(ניגריה)‎ דרכה Verizon הכריזה paths חשובים → traffic ממשתמשי Cloudflare עבר דרך AS קטן בלתי מסוגל — קריסה 1.5 שעות; לקח: RPKI filtering חובה אצל large providers",
+      correct: "‏MainOne ‎(ניגריה)‎ דרכה Verizon הכריזה paths חשובים → traffic ממשתמשי Cloudflare עבר דרך AS קטן בלתי מסוגל — קריסה 1.5 שעות — לקח: RPKI filtering חובה אצל large providers",
       choices: [
-        "‏MainOne ‎(ניגריה)‎ דרכה Verizon הכריזה paths חשובים → traffic ממשתמשי Cloudflare עבר דרך AS קטן בלתי מסוגל — קריסה 1.5 שעות; לקח: RPKI filtering חובה אצל large providers",
+        "‏MainOne ‎(ניגריה)‎ דרכה Verizon הכריזה paths חשובים → traffic ממשתמשי Cloudflare עבר דרך AS קטן בלתי מסוגל — קריסה 1.5 שעות — לקח: RPKI filtering חובה אצל large providers",
         "‏Cloudflare עצמה גרמה לhijack על ידי שגיאת routing config",
         "‏BGP attack ממוקד על Cloudflare DNS servers בלבד",
         "‏Cloudflare 2019 = פרסום accidental של IPv6 prefixes"
@@ -3521,9 +3521,9 @@ export const quizBank = {
 ,
     {
       q: "מה network namespace ב-Linux ואיך Docker משתמש בו?",
-      correct: "‏Network namespace מבודד stack רשת שלם (interfaces, routing, iptables); כל Docker container מקבל namespace נפרד — containers לא רואים את interface של אחד מהשני",
+      correct: "‏Network namespace מבודד stack רשת שלם (interfaces, routing, iptables) — כל Docker container מקבל namespace נפרד — containers לא רואים את interface של אחד מהשני",
       choices: [
-        "‏Network namespace מבודד stack רשת שלם (interfaces, routing, iptables); כל Docker container מקבל namespace נפרד — containers לא רואים את interface של אחד מהשני",
+        "‏Network namespace מבודד stack רשת שלם (interfaces, routing, iptables) — כל Docker container מקבל namespace נפרד — containers לא רואים את interface של אחד מהשני",
         "‏Network namespace = VLAN ב-Docker",
         "‏Network namespace מגביל bandwidth לcontainer",
         "כל containers בhost משתפים network namespace"
@@ -3532,10 +3532,10 @@ export const quizBank = {
     },
     {
       q: "מה ההבדל בין bridge network mode לבין host network mode ב-Docker?",
-      correct: "‏bridge: container מקבל namespace נפרד, IP private מdocker0 bridge, NAT לחוץ; host: container משתף network namespace של host — ביצועים גבוהים אך אין בידוד",
+      correct: "‏bridge: container מקבל namespace נפרד, IP private מdocker0 bridge, NAT לחוץ — host: container משתף network namespace של host — ביצועים גבוהים אך אין בידוד",
       choices: [
-        "‏bridge: container מקבל namespace נפרד, IP private מdocker0 bridge, NAT לחוץ; host: container משתף network namespace של host — ביצועים גבוהים אך אין בידוד",
-        "‏bridge לproduction; host לdevelopment בלבד",
+        "‏bridge: container מקבל namespace נפרד, IP private מdocker0 bridge, NAT לחוץ — host: container משתף network namespace של host — ביצועים גבוהים אך אין בידוד",
+        "‏bridge לproduction — host לdevelopment בלבד",
         "‏host mode מהיר פי 10 — תמיד להשתמש בו",
         "‏bridge ו-host זהים ב-Kubernetes"
       ],
