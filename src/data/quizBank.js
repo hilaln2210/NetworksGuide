@@ -2894,48 +2894,48 @@ export const quizBank = {
 
   207: [
     {
-      q: "מה ההבדל בין Terraform apply לבין Terraform plan?",
-      correct: "‏plan מציג מה ישתנה (dry run), apply מבצע את השינויים בפועל",
+      q: "\u200Fמה ההבדל בין Terraform apply לבין Terraform plan?",
+      correct: "\u200Fplan מציג מה ישתנה (dry run)\napply מבצע את השינויים בפועל",
       choices: [
-        "‏plan מציג מה ישתנה (dry run), apply מבצע את השינויים בפועל",
-        "‏plan יוצר resources, apply מוחק אותם",
-        "שניהם מבצעים שינויים, ההבדל הוא מהירות בלבד",
-        "‏plan עובד ב-AWS בלבד, apply עובד בכל cloud"
+        "\u200Fplan מציג מה ישתנה (dry run)\napply מבצע את השינויים בפועל",
+        "\u200Fplan יוצר resources, apply מוחק אותם",
+        "\u200Fשניהם מבצעים שינויים, ההבדל הוא מהירות בלבד",
+        "\u200Fplan עובד ב-AWS בלבד, apply עובד בכל cloud"
       ],
-      explanation: "‏terraform plan = dry run שמחשב את ה-diff בין ה-HCL לבין ה-state הנוכחי ומציג מה ייצור/ישנה/ימחק. terraform apply = מבצע את אותם שינויים בפועל. best practice: תמיד run plan ותעיין בoutput לפני apply בפרודקשן."
+      explanation: "\u200F📋 terraform plan\n• dry run שמחשב את ה-diff\n• בין ה-HCL לבין ה-state הנוכחי\n• מציג מה ייצור/ישנה/ימחק\n\n🚀 terraform apply\n• מבצע את אותם שינויים בפועל\n\n📌 Best Practice\n• תמיד run plan ותעיין ב-output\n• לפני apply בפרודקשן"
     },
     {
-      q: "מה זה Terraform State ולמה חשוב לשמור אותו ב-S3?",
-      correct: "‏State הוא המיפוי בין HCL לresources אמיתיים — ב-S3 כדי שהצוות כולו ישתמש באותו state",
+      q: "\u200Fמה זה Terraform State ולמה חשוב לשמור אותו ב-S3?",
+      correct: "\u200FState הוא המיפוי בין HCL ל-resources אמיתיים\nב-S3 כדי שהצוות כולו ישתמש באותו state",
       choices: [
-        "‏State הוא המיפוי בין HCL לresources אמיתיים — ב-S3 כדי שהצוות כולו ישתמש באותו state",
-        "‏State הוא הגדרות הprovider — ב-S3 לbackup בלבד",
-        "‏State שומר את קוד ה-HCL המקומפל",
-        "‏State רלוונטי רק ל-multi-cloud deployments"
+        "\u200FState הוא המיפוי בין HCL ל-resources אמיתיים\nב-S3 כדי שהצוות כולו ישתמש באותו state",
+        "\u200FState הוא הגדרות ה-provider — ב-S3 ל-backup בלבד",
+        "\u200FState שומר את קוד ה-HCL המקומפל",
+        "\u200FState רלוונטי רק ל-multi-cloud deployments"
       ],
-      explanation: "‏State הוא הלב של Terraform — מפה מי יצר מה. בלי state, Terraform לא יודע מה קיים. ב-S3+DynamoDB: S3 מאחסן את ה-tfstate, DynamoDB מספק locking כדי שלא שני אנשים יריצו apply במקביל (state corruption). remote state = must בצוות."
+      explanation: "\u200F💾 State — הלב של Terraform\n• מפה מי יצר מה\n• בלי state, Terraform לא יודע מה קיים\n\n☁️ S3 + DynamoDB\n• S3 מאחסן את ה-tfstate\n• DynamoDB מספק locking\n• כדי שלא שני אנשים יריצו apply במקביל (state corruption)\n\n📌 remote state = must בצוות"
     },
     {
-      q: "מה ההבדל בין Cattle לבין Pets בהקשר של IaC?",
-      correct: "‏Pets = שרתים ייחודיים שמרפאים, Cattle = שרתים זהים שמחליפים — IaC מעדיף Cattle",
+      q: "\u200Fמה ההבדל בין Cattle לבין Pets בהקשר של IaC?",
+      correct: "\u200FPets = שרתים ייחודיים שמרפאים\nCattle = שרתים זהים שמחליפים\nIaC מעדיף Cattle",
       choices: [
-        "‏Pets = שרתים ייחודיים שמרפאים, Cattle = שרתים זהים שמחליפים — IaC מעדיף Cattle",
-        "‏Cattle = שרתים גדולים (scale-up), Pets = שרתים קטנים",
-        "‏Pets = cloud, Cattle = on-premise",
-        "ההבדל הוא בסוג הOS בלבד"
+        "\u200FPets = שרתים ייחודיים שמרפאים\nCattle = שרתים זהים שמחליפים\nIaC מעדיף Cattle",
+        "\u200FCattle = שרתים גדולים (scale-up), Pets = שרתים קטנים",
+        "\u200FPets = cloud, Cattle = on-premise",
+        "\u200Fההבדל הוא בסוג ה-OS בלבד"
       ],
-      explanation: "‏Netflix הציגה את המטפורה ב-2012. ‏Pets = dev-01, big-iron — לכל אחד שם, ייחודי, ידנית מוגדר. ‏Cattle = web-047, מספרים, זהים, immutable. ‏Terraform + Auto Scaling = Cattle: instance מת? Auto Scaling מייצר אחד חדש מה-template. ‏Chaos Monkey של Netflix הורג servers בפרודקשן ביזמה — כדי לוודא ה-architecture Cattle-ready."
+      explanation: "\u200F📖 Netflix הציגה את המטפורה ב-2012\n\n🐱 Pets\n• dev-01, big-iron\n• לכל אחד שם, ייחודי, ידנית מוגדר\n\n🐄 Cattle\n• web-047, מספרים, זהים, immutable\n• Terraform + Auto Scaling = Cattle\n• instance מת? Auto Scaling מייצר אחד חדש מה-template\n\n📌 Chaos Monkey\n• Netflix הורג servers בפרודקשן ביזמה\n• כדי לוודא ה-architecture Cattle-ready"
     },
-        {
-      q: "מה Terraform Module ולמה משתמשים בהם?",
-      correct: "קבצי .tf מקובצים ליחידה לוגית לשימוש חוזר — מאפשרים DRY, encapsulation, versioning וsharing של infrastructure patterns",
+    {
+      q: "\u200Fמה Terraform Module ולמה משתמשים בהם?",
+      correct: "\u200Fקבצי .tf מקובצים ליחידה לוגית לשימוש חוזר\nמאפשרים DRY, encapsulation,\nversioning ו-sharing של infrastructure patterns",
       choices: [
-        "קבצי .tf מקובצים ליחידה לוגית לשימוש חוזר — מאפשרים DRY, encapsulation, versioning וsharing של infrastructure patterns",
-        "‏Terraform plugin שמוריד providers",
-        "ממשק גרפי לניהול Terraform plans",
-        "‏Module = workspace נפרד ב-Terraform Cloud"
+        "\u200Fקבצי .tf מקובצים ליחידה לוגית לשימוש חוזר\nמאפשרים DRY, encapsulation,\nversioning ו-sharing של infrastructure patterns",
+        "\u200FTerraform plugin שמוריד providers",
+        "\u200Fממשק גרפי לניהול Terraform plans",
+        "\u200FModule = workspace נפרד ב-Terraform Cloud"
       ],
-      explanation: "‏Module structure: modules/vpc/main.tf + variables.tf + outputs.tf. ‏Usage: module 'prod-vpc' { source = './modules/vpc'; cidr = '10.0.0.0/16'; azs = ['us-east-1a', 'us-east-1b'] }. ‏Terraform Registry: hashicorp/vpc/aws — modules מוכנים מהcommunity. version = '~> 5.0' לpin version. outputs.tf: output 'vpc_id' { value = aws_vpc.main.id } → module.prod-vpc.vpc_id במשאבים אחרים. ‏DRY: same module לdev/staging/prod עם variables שונים."
+      explanation: "\u200F📁 Module Structure\n• modules/vpc/main.tf + variables.tf + outputs.tf\n\n🔧 Usage\n• module 'prod-vpc' { source = './modules/vpc' }\n• cidr = '10.0.0.0/16'\n• azs = ['us-east-1a', 'us-east-1b']\n\n📦 Terraform Registry\n• hashicorp/vpc/aws — modules מוכנים מה-community\n• version = '~> 5.0' ל-pin version\n\n📌 DRY\n• same module ל-dev/staging/prod עם variables שונים"
     }
   ],
 
