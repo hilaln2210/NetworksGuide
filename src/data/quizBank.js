@@ -1759,18 +1759,18 @@ export const quizBank = {
   102: [
     {
       q: "‏מה ההבדל בין סריקת SYN (sS-) לבין סריקת חיבור (sT-) ב-Nmap?",
-      correct: "‏סריקת SYN שולחת רק חבילת SYN בלי להשלים את לחיצת היד (handshake) — שקטה יותר ולא נרשמת ביומני האפליקציה",
+      correct: "‏סריקת SYN שולחת רק חבילת SYN\nבלי להשלים את לחיצת היד (handshake)\nשקטה יותר ולא נרשמת ביומני האפליקציה",
       choices: [
-        "‏סריקת SYN שולחת רק חבילת SYN בלי להשלים את לחיצת היד (handshake) — שקטה יותר ולא נרשמת ביומני האפליקציה",
+        "‏סריקת SYN שולחת רק חבילת SYN\nבלי להשלים את לחיצת היד (handshake)\nשקטה יותר ולא נרשמת ביומני האפליקציה",
         "‏סריקת SYN מהירה יותר כי משתמשת ב-UDP",
         "‏סריקת חיבור (Connect) דורשת הרשאות root",
-        "אין הבדל — שניהם עושים אותו דבר"
+        "‏אין הבדל — שניהם עושים אותו דבר"
       ],
-      explanation: "סריקת SYN (חצי-פתוחה): שולחת SYN, מקבלת SYN-ACK, שולחת RST. לא משלימה חיבור ולכן לא נרשמת בלוגים של האפליקציה. דורשת root. סריקת Connect משלימה לחיצת יד מלאה (TCP handshake) — נרשמת בלוגים אך לא דורשת root. הדגל sS- מועדף בבדיקות חדירה, sT- לסביבות ללא root.",
+      explanation: "‏🔍 סריקת SYN — חצי-פתוחה\n• שולחת SYN, מקבלת SYN-ACK, שולחת RST\n• לא משלימה חיבור → לא נרשמת בלוגים\n• דורשת root\n\n🔗 סריקת Connect\n• משלימה לחיצת יד מלאה (TCP handshake)\n• נרשמת בלוגים אך לא דורשת root\n\n📌 מתי להשתמש?\n• sS- מועדף בבדיקות חדירה\n• sT- לסביבות ללא root",
       explanationEn: "SYN scan (Half-open): sends SYN, receives SYN-ACK, sends RST. Does not complete a connection, so it is not logged by the application. Requires root. Connect scan: completes a full TCP handshake — gets logged, but does not require root. -sS is preferred for pentesting. -sT for non-root environments."
     },
     {
-      q: "מה פקודת Nmap שסורקת כל הפורטים עם זיהוי שירות ומערכת הפעלה?",
+      q: "‏מה פקודת Nmap שסורקת כל הפורטים עם זיהוי שירות ומערכת הפעלה?",
       correct: "‏nmap -sS -sV -O -p- target",
       choices: [
         "‏nmap -sS -sV -O -p- target",
@@ -1778,7 +1778,7 @@ export const quizBank = {
         "‏nmap -a -all target",
         "‏nmap -sU -complete target"
       ],
-      explanation: "הדגלים: sS- לסריקת SYN, sV- לזיהוי גרסת שירות על הפורט, O- לזיהוי מערכת הפעלה, p-- לכל 65,535 הפורטים (לא רק 1,000 הנפוצים). אפשר לקצר עם הדגל A- שכולל את sV- ו-O- יחד עם סקריפטים. זמן ריצה: 10-30 דקות על כל הפורטים.",
+      explanation: "‏🏷️ הדגלים\n• sS- לסריקת SYN\n• sV- לזיהוי גרסת שירות על הפורט\n• O- לזיהוי מערכת הפעלה\n• p-- לכל 65,535 הפורטים (לא רק 1,000 הנפוצים)\n\n⚡ קיצור\n• הדגל A- כולל את sV- ו-O- יחד עם סקריפטים\n• זמן ריצה: 10-30 דקות על כל הפורטים",
       explanationEn: "The flags: -sS for SYN scan. -sV for service version detection (what runs on the port). -O for OS detection. -p- for all 65,535 ports (not just the top 1,000). You can combine them: nmap -A -p- target (-A = -sV -O --script=default). Runtime: 10-30 minutes for a full port scan."
     },
     {
@@ -1790,43 +1790,43 @@ export const quizBank = {
         "‏RESPONSE: 200 OK",
         "‏PORT: listening"
       ],
-      explanation: "‏Nmap מדווח שלושה מצבים: פתוח (open) — מקבל חיבורים, סגור (closed) — אין שירות והפורט מגיב RST, ומסונן (filtered) — חומת אש חוסמת ואין תגובה. המצב open/filtered מופיע כשלא ברור האם חומת אש חוסמת או שהפורט פתוח.",
+      explanation: "‏📡 שלושת המצבים של Nmap\n• פתוח (open) — מקבל חיבורים\n• סגור (closed) — אין שירות, הפורט מגיב RST\n• מסונן (filtered) — חומת אש חוסמת, אין תגובה\n\n❓ מצב מיוחד\n• open/filtered — לא ברור האם חומת אש חוסמת או שהפורט פתוח",
       explanationEn: "Nmap reports 3 states: open (accepting connections), closed (no service — responds with RST), and filtered (firewall blocks — no response or ICMP unreachable). open/filtered means it is unclear whether a firewall is blocking or the port is open."
     },
         {
       q: "‏מה קורה בזיוף ARP (ARP Spoofing) ואיך תוקף מנצל אותו?",
-      correct: "תוקף שולח תגובות ARP מזויפות כדי לשייך את כתובת ה-MAC שלו לכתובת IP של הקורבן — כל התעבורה עוברת דרכו (התקפת אדם-באמצע)",
+      correct: "‏תוקף שולח תגובות ARP מזויפות\nכדי לשייך את כתובת ה-MAC שלו\nלכתובת IP של הקורבן — כל התעבורה עוברת דרכו",
       choices: [
-        "תוקף שולח תגובות ARP מזויפות כדי לשייך את כתובת ה-MAC שלו לכתובת IP של הקורבן — כל התעבורה עוברת דרכו (התקפת אדם-באמצע)",
-        "תוקף מציף את הרשת בחבילות ARP כדי להפיל שרות",
-        "תוקף מחליף את כתובות IP בחבילות UDP",
-        "תוקף מנצל חולשה בפרוטוקול DNS"
+        "‏תוקף שולח תגובות ARP מזויפות\nכדי לשייך את כתובת ה-MAC שלו\nלכתובת IP של הקורבן — כל התעבורה עוברת דרכו",
+        "‏תוקף מציף את הרשת בחבילות ARP כדי להפיל שרות",
+        "‏תוקף מחליף את כתובות IP בחבילות UDP",
+        "‏תוקף מנצל חולשה בפרוטוקול DNS"
       ],
-      explanation: "לפרוטוקול ARP אין מנגנון אימות — כל אחד יכול לשלוח תגובת ARP. התוקף שולח: 'כתובת ה-IP של השער היא כתובת ה-MAC שלי!' הקורבן מעדכן את טבלת ה-ARP וכל התעבורה עוברת דרך התוקף. הגנה: בדיקת ARP דינמית (DAI) בסוויצ'ים, רשומות ARP קבועות, וכלי ניטור כמו ARPwatch.",
+      explanation: "‏⚠️ הבעיה\n• לפרוטוקול ARP אין מנגנון אימות\n• כל אחד יכול לשלוח תגובת ARP\n\n🕵️ איך זה עובד?\n• התוקף שולח: 'כתובת ה-IP של השער היא כתובת ה-MAC שלי!'\n• הקורבן מעדכן את טבלת ה-ARP\n• כל התעבורה עוברת דרך התוקף (אדם-באמצע)\n\n🛡️ הגנה\n• בדיקת ARP דינמית (DAI) בסוויצ'ים\n• רשומות ARP קבועות\n• כלי ניטור כמו ARPwatch",
       explanationEn: "ARP has no authentication — anyone can send an ARP reply. The attacker sends: 'The gateway IP maps to MY MAC address!' The victim updates its ARP cache, and all traffic flows through the attacker. Defenses: Dynamic ARP Inspection (DAI) on switches, static ARP entries, and monitoring tools like ARPwatch."
     },
         {
       q: "‏מה ההבדל בין מתקפת מניעת שירות נפחית (Volumetric DDoS) לבין מתקפת שכבת אפליקציה (L7 DDoS)?",
-      correct: "‏מתקפה נפחית (Volumetric) מציפה את רוחב הפס בג'יגה-ביט של UDP/ICMP — מתקפת שכבה 7 שולחת בקשות HTTP שנראות לגיטימיות ומרוקנות משאבי שרת",
+      correct: "‏מתקפה נפחית (Volumetric) מציפה את רוחב הפס\nבג'יגה-ביט של UDP/ICMP\nמתקפת שכבה 7 שולחת בקשות HTTP\nשנראות לגיטימיות ומרוקנות משאבי שרת",
       choices: [
-        "‏מתקפה נפחית (Volumetric) מציפה את רוחב הפס בג'יגה-ביט של UDP/ICMP — מתקפת שכבה 7 שולחת בקשות HTTP שנראות לגיטימיות ומרוקנות משאבי שרת",
+        "‏מתקפה נפחית (Volumetric) מציפה את רוחב הפס\nבג'יגה-ביט של UDP/ICMP\nמתקפת שכבה 7 שולחת בקשות HTTP\nשנראות לגיטימיות ומרוקנות משאבי שרת",
         "‏מתקפה נפחית תוקפת שרתי DNS — שכבה 7 תוקפת רק שרתי web",
         "‏מתקפת שכבה 7 קלה יותר לחסימה כי השרת רואה את ה-IP",
         "‏אין הבדל — שניהם מרוקנים רוחב פס"
       ],
-      explanation: "מתקפה נפחית (שכבות 3/4): מציפה את הצינור בג'יגה-ביט של נתונים — הצפת UDP, ICMP, SYN. קל לזהות (תעבורה חריגה) אך קשה לעצור ללא סינון ברמת ספק האינטרנט. מתקפת שכבה 7: כלי Slowloris מחזיק חיבורי HTTP פתוחים, הצפת HTTP — הבקשות נראות לגיטימיות וקשה להבחין בהן. מחייב חומת אש אפליקטיבית (WAF), הגבלת קצב ואתגרי CAPTCHA.",
+      explanation: "‏🌊 מתקפה נפחית — שכבות 3/4\n• מציפה את הצינור בג'יגה-ביט של נתונים\n• הצפת UDP, ICMP, SYN\n• קל לזהות (תעבורה חריגה) אך קשה לעצור\n• דורשת סינון ברמת ספק האינטרנט\n\n🎯 מתקפת שכבה 7\n• כלי Slowloris מחזיק חיבורי HTTP פתוחים\n• הצפת HTTP — הבקשות נראות לגיטימיות\n• קשה להבחין בתעבורה אמיתית\n\n🛡️ הגנה\n• חומת אש אפליקטיבית (WAF)\n• הגבלת קצב ואתגרי CAPTCHA",
       explanationEn: "Volumetric (L3/L4): floods the pipe with gigabits of data — UDP flood, ICMP flood, SYN flood. Easy to detect (abnormal traffic) but hard to stop without ISP-level scrubbing. Application L7: Slowloris holds HTTP connections open, HTTP flood looks legitimate and is hard to distinguish from real traffic. Requires WAF, rate limiting, and challenge-response (CAPTCHA)."
     },
         {
       q: "‏מהי מתקפת השחזור (Replay Attack) ואיך TLS מונע אותה?",
-      correct: "תוקף מיירט ומשחזר חבילה חוקית — פרוטוקול TLS מונע זאת באמצעות מספרים סידוריים ואסימוני הפעלה חד-פעמיים",
+      correct: "‏תוקף מיירט ומשחזר חבילה חוקית\nפרוטוקול TLS מונע זאת באמצעות\nמספרים סידוריים ואסימוני הפעלה חד-פעמיים",
       choices: [
-        "תוקף מיירט ומשחזר חבילה חוקית — פרוטוקול TLS מונע זאת באמצעות מספרים סידוריים ואסימוני הפעלה חד-פעמיים",
-        "תוקף שולח אותה בקשה פעמיים לגרום לעיבוד כפול",
-        "תוקף מקליט שיחת קול ומשחזר אותה לאחר שיחה",
-        "פרוטוקול TLS לא מגן מפני מתקפת השחזור — נדרש אימות נוסף"
+        "‏תוקף מיירט ומשחזר חבילה חוקית\nפרוטוקול TLS מונע זאת באמצעות\nמספרים סידוריים ואסימוני הפעלה חד-פעמיים",
+        "‏תוקף שולח אותה בקשה פעמיים לגרום לעיבוד כפול",
+        "‏תוקף מקליט שיחת קול ומשחזר אותה לאחר שיחה",
+        "‏פרוטוקול TLS לא מגן מפני מתקפת השחזור — נדרש אימות נוסף"
       ],
-      explanation: "מתקפת השחזור (Replay Attack): התוקפת מיירטת אסימון אימות תקני של המשתמשת ושולחת אותו שוב לשרת כדי להתחזות אליה. בפרוטוקול TLS 1.3 כל חיבור מקבל ערך ייחודי (nonce) ומספרים סידוריים. אסימוני JWT כוללים תפוגה (exp) ומזהה חד-פעמי (jti). בפרוטוקולים ישנים כמו Kerberos, מתקפת השחזור הייתה בעיה קריטית. סנכרון שעונים (NTP) חשוב למניעה.",
+      explanation: "‏🔁 מתקפת השחזור — Replay Attack\n• התוקפת מיירטת אסימון אימות תקני\n• שולחת אותו שוב לשרת כדי להתחזות\n\n🔐 איך TLS 1.3 מגן?\n• כל חיבור מקבל ערך ייחודי (nonce)\n• מספרים סידוריים\n\n🎫 הגנות נוספות\n• אסימוני JWT כוללים תפוגה (exp) ומזהה חד-פעמי (jti)\n• בפרוטוקולים ישנים כמו Kerberos — הייתה בעיה קריטית\n• סנכרון שעונים (NTP) חשוב למניעה",
       explanationEn: "Replay Attack: an attacker intercepts a valid authentication token from Alice and resends it to the server to impersonate her. TLS 1.3: each connection gets a unique nonce + sequence numbers. Token-based: JWT includes exp (expiration) + jti (unique JWT ID). In older protocols (old Kerberos), replay was a critical vulnerability. NTP sync is important for prevention."
     }
   ],
