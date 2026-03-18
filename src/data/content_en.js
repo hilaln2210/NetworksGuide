@@ -6966,13 +6966,1164 @@ The correct approach:
     ]
   },
 
-  // ========== RESEARCH TRACK (301-308) — titles only ==========
-  301: { titleEn: "Wireshark Analysis", pages: [] },
-  302: { titleEn: "BGP Routing", pages: [] },
-  303: { titleEn: "DNS Deep Dive", pages: [] },
-  304: { titleEn: "HTTP/2 and QUIC", pages: [] },
-  305: { titleEn: "eBPF", pages: [] },
-  306: { titleEn: "TLS and Cryptography", pages: [] },
-  307: { titleEn: "Network Infrastructure", pages: [] },
-  308: { titleEn: "Container Networking", pages: [] },
+  // ========== RESEARCH TRACK (301-308) ==========
+  301: {
+    titleEn: "Advanced Wireshark",
+    pages: [
+      {
+        titleEn: "TCP State Machine — Reading the Wire",
+        contentEn: `Every TCP connection goes through **states**. Wireshark shows them all.
+
+**TCP State Machine (simplified):**
+- **CLOSED** → SYN sent → **SYN_SENT**
+- SYN+ACK received → **ESTABLISHED**
+- FIN sent → **FIN_WAIT_1** → ACK → **FIN_WAIT_2** → FIN → **TIME_WAIT**
+- Other side: FIN received → **CLOSE_WAIT** → FIN sent → **LAST_ACK** → CLOSED
+
+**What to look for in Wireshark:**
+- **[TCP Retransmission]** — a packet was lost, sender tries again
+- **[TCP Dup ACK]** — receiver says "I got packet 5, but I'm still waiting for packet 3"
+- **[TCP Window Full]** — receiver's buffer is full, sender must stop
+- **[TCP Zero Window]** — receiver says "stop sending, I need time"
+
+**CWND (Congestion Window) analysis:**
+- CWND = how many bytes the sender can send before waiting for ACK
+- Starts small (Slow Start), grows fast (doubles each RTT)
+- Packet loss → CWND drops to half (Congestion Avoidance)
+- Wireshark → Statistics → TCP Stream Graphs → Window Scaling
+
+**Key filters:**
+- \`tcp.analysis.retransmission\` — show only retransmissions
+- \`tcp.analysis.duplicate_ack\` — show duplicate ACKs
+- \`tcp.analysis.zero_window\` — show zero window events
+- \`tcp.time_delta > 0.5\` — show packets with > 500ms delay`
+      },
+      {
+        titleEn: "Retransmissions, RTT, and Performance",
+        contentEn: `**Retransmissions kill performance.** Here's why:
+
+**Types of retransmission:**
+- **Fast Retransmit** — 3 duplicate ACKs trigger immediate resend (good, fast recovery)
+- **RTO Retransmit** — timeout expires, no ACKs at all (bad, slow recovery)
+- **Spurious Retransmit** — packet wasn't really lost, just delayed (wastes bandwidth)
+
+**Measuring RTT in Wireshark:**
+- Filter: \`tcp.analysis.ack_rtt\`
+- Statistics → TCP Stream Graphs → Round Trip Time
+- Normal LAN: 0.1–1ms | Same city: 1–5ms | Cross-continent: 50–150ms
+
+**The math of latency:**
+- 1 retransmission at 200ms RTT = 200ms added delay
+- With RTO backoff: 1st retry 200ms, 2nd retry 400ms, 3rd retry 800ms
+- 1% packet loss on 100ms RTT link → throughput drops by ~30%
+
+**Practical Wireshark workflow:**
+1. Capture traffic on the slow connection
+2. Filter to the specific TCP stream: \`tcp.stream eq 5\`
+3. Check for retransmissions and high RTT
+4. Look at CWND graph — is it sawtoothing (congestion) or flat (application limit)?
+5. Check TIME_WAIT states — too many means connection reuse is broken`
+      },
+      {
+        titleEn: "Story: $2 Million in Latency",
+        contentEn: `{story}
+
+**The $2 Million Latency Bug**
+
+A trading company noticed their order execution was 50ms slower than competitors. In high-frequency trading, 50ms is an eternity.
+
+**The investigation:**
+- Network team said "the network is fine" — ping was 2ms
+- Application team said "the app is fine" — logs showed fast processing
+- Everyone blamed everyone else
+
+**A Wireshark capture revealed the truth:**
+- TCP connections were being established fresh for every trade
+- Each TCP handshake = 3 packets = 1.5 RTT = 3ms
+- But TLS handshake on top = 2 more RTT = 4ms
+- Plus TCP Slow Start meant first few packets were throttled
+- Total overhead per trade: ~15ms
+- Under load, retransmissions added another 20-35ms
+
+**The fix:**
+- Connection pooling — reuse TCP connections (saved 7ms)
+- TLS session resumption — skip full handshake (saved 4ms)
+- TCP tuning — larger initial CWND (saved 4ms)
+- Total saving: ~15ms per trade
+
+**The cost before the fix:**
+- 50ms slower × 40,000 trades/day × average $1 missed profit = ~$2M/year
+
+**Lesson:** Wireshark doesn't lie. When everyone says "it's not my problem," capture the packets. The truth is always in the wire.
+
+{thinkOutside}
+You have a web app that loads slowly. Users complain about 3-second page loads. The server processes requests in 50ms. Where would you capture packets, and what would you look for?`
+      }
+    ]
+  },
+
+  302: {
+    titleEn: "BGP — The Internet's Routing Protocol",
+    pages: [
+      {
+        titleEn: "iBGP vs eBGP — How the Internet Routes",
+        contentEn: `**BGP (Border Gateway Protocol)** is how the internet works. Every ISP, cloud provider, and large company uses it.
+
+**Two types:**
+
+| Feature | iBGP | eBGP |
+|---|---|---|
+| Between | Routers in SAME AS | Routers in DIFFERENT AS |
+| AS = | Autonomous System (one organization) | — |
+| TTL | 255 (multihop OK) | 1 (direct neighbor only, unless multihop set) |
+| Next-hop | Does NOT change | Changes to peer's address |
+| Full mesh? | Required (or use Route Reflector) | No, just peer with neighbor |
+| AD value | 200 (less trusted) | 20 (more trusted) |
+
+**AS (Autonomous System):**
+- Every ISP/org gets an AS Number (ASN)
+- Example: Google = AS15169, Cloudflare = AS13335
+- AS numbers are assigned by IANA → RIRs (ARIN, RIPE, etc.)
+
+**BGP is a path-vector protocol:**
+- Each route carries the full AS path: "to reach 8.8.8.0/24, go through AS3356 → AS15169"
+- Loop prevention: if a router sees its own ASN in the path, it drops the route
+- No automatic discovery — you manually configure each neighbor
+
+**BGP messages:**
+- **OPEN** — start session, exchange AS numbers and capabilities
+- **UPDATE** — announce new routes or withdraw old ones
+- **KEEPALIVE** — "I'm still here" (every 60 seconds)
+- **NOTIFICATION** — error, session will close`
+      },
+      {
+        titleEn: "Path Selection — 13 Criteria",
+        contentEn: `When BGP has multiple paths to the same destination, it picks the best one. The selection follows a strict order — first match wins.
+
+**BGP Best Path Selection (in order):**
+
+| # | Criteria | Higher or Lower wins? | Who controls it? |
+|---|---|---|---|
+| 1 | **Weight** | Higher wins | Local router only (Cisco proprietary) |
+| 2 | **Local Preference** | Higher wins | Your AS (iBGP) |
+| 3 | **Locally originated** | Self-originated wins | Local router |
+| 4 | **AS Path length** | Shorter wins | All ASes in path |
+| 5 | **Origin type** | IGP < EGP < Incomplete | Origin AS |
+| 6 | **MED** (Multi-Exit Discriminator) | Lower wins | Neighbor AS (suggestion) |
+| 7 | **eBGP over iBGP** | eBGP wins | Topology |
+| 8 | **Lowest IGP metric** | Lower wins | Internal routing |
+| 9 | **Oldest route** | Older wins | Stability |
+| 10 | **Lowest Router ID** | Lower wins | Router config |
+| 11 | **Shortest cluster list** | Shorter wins | Route Reflectors |
+| 12 | **Lowest neighbor address** | Lower wins | Peer IP |
+| 13 | **Lowest peer Router ID** | Lower wins | Peer config |
+
+**The ones that matter most (daily use):**
+- **Weight** — override everything locally (lab/emergency)
+- **Local Preference** — "our AS prefers this path" (most common tuning)
+- **AS Path** — prepend your ASN multiple times to make a path look longer (traffic engineering)
+- **MED** — "dear neighbor, please enter our network through this link"
+
+**Example:**
+- You have two ISPs: ISP-A (cheap) and ISP-B (fast)
+- Set Local Preference 200 for ISP-B routes → all outbound traffic uses ISP-B
+- Prepend your ASN on ISP-A announcements → inbound traffic prefers ISP-B`
+      },
+      {
+        titleEn: "Story: Pakistan Took Down YouTube (2008)",
+        contentEn: `{story}
+
+**February 24, 2008 — Pakistan Telecom hijacks YouTube**
+
+The Pakistan government ordered ISPs to block YouTube (over a controversial video).
+
+**What Pakistan Telecom did:**
+- YouTube's IP range: 208.65.153.0/24
+- Pakistan Telecom announced a MORE SPECIFIC route: 208.65.153.0/25
+- BGP rule: more specific prefix always wins (a /25 beats a /24)
+
+**What happened next:**
+- Pakistan Telecom's route leaked to their upstream provider (PCCW, AS3491)
+- PCCW accepted it and announced it to the entire internet
+- Within 2 minutes, most of the world's traffic to YouTube went to Pakistan
+- Pakistan Telecom had no YouTube servers → black hole
+- **YouTube was down worldwide for about 2 hours**
+
+**The fix (manual):**
+- YouTube announced even more specific routes: two /25s covering their /24
+- Engineers contacted PCCW to filter the fake route
+- Service restored after ~2 hours
+
+**Why BGP allowed this:**
+- BGP is built on **trust** — there was no verification in 2008
+- Any AS could announce any prefix
+- No one checked if Pakistan Telecom actually owned 208.65.153.0/24
+
+**What changed after:**
+- **RPKI (Resource Public Key Infrastructure)** — cryptographic proof of prefix ownership
+- **IRR (Internet Routing Registry)** — databases of who owns what
+- **BGP communities** — signal intent ("don't export this route")
+- But adoption is still slow — in 2024, only ~50% of routes are RPKI-signed
+
+{questions}
+1. Why does a /25 route win over a /24 for the same IP space?
+2. If you run an AS and want to protect against hijacking, what two things should you set up?
+3. Why can't BGP just reject routes from ASes that don't own the prefix?`
+      }
+    ]
+  },
+
+  303: {
+    titleEn: "DNS Deep Dive",
+    pages: [
+      {
+        titleEn: "Recursive Resolution — Every Step",
+        contentEn: `When you type **www.example.com** in your browser, here is exactly what happens.
+
+**The 5 actors:**
+1. **Your computer** (stub resolver) — asks, doesn't resolve itself
+2. **Recursive resolver** (ISP or 8.8.8.8) — does all the work
+3. **Root nameserver** — knows where .com/.org/.net live (13 root server clusters)
+4. **TLD nameserver** — knows where example.com's nameserver is
+5. **Authoritative nameserver** — has the actual answer
+
+**Step by step — resolving www.example.com:**
+
+\`\`\`
+1. Browser → OS cache → not found
+2. OS → Recursive resolver (e.g., 8.8.8.8): "what is www.example.com?"
+3. Resolver checks its cache → not found
+4. Resolver → Root server (a.root-servers.net): "what is www.example.com?"
+   Root says: "I don't know, but .com is handled by a.gtld-servers.net"
+5. Resolver → TLD server (a.gtld-servers.net): "what is www.example.com?"
+   TLD says: "example.com uses ns1.example.com (93.184.216.34)"
+6. Resolver → Authoritative (ns1.example.com): "what is www.example.com?"
+   Auth says: "www.example.com = 93.184.216.34, TTL=3600"
+7. Resolver caches the answer for 3600 seconds
+8. Resolver → Your computer: "93.184.216.34"
+9. Browser connects to 93.184.216.34
+\`\`\`
+
+**Record types:**
+- **A** — domain → IPv4 address
+- **AAAA** — domain → IPv6 address
+- **CNAME** — domain → another domain (alias)
+- **MX** — domain → mail server
+- **NS** — domain → nameserver
+- **TXT** — arbitrary text (SPF, DKIM, verification)
+- **SOA** — zone metadata (serial, refresh, retry, expire)`
+      },
+      {
+        titleEn: "DNS Security — DNSSEC, DoH, DoT",
+        contentEn: `**DNS was designed without security.** Everything is plaintext. Anyone can forge responses.
+
+**Three security layers:**
+
+**1. DNSSEC (DNS Security Extensions):**
+- Adds **digital signatures** to DNS responses
+- Chain of trust: Root → .com → example.com (each signs the next)
+- New record types: RRSIG (signature), DNSKEY (public key), DS (delegation signer)
+- Protects against: **forged responses** (cache poisoning)
+- Does NOT encrypt — queries are still visible
+- Does NOT protect against: snooping on your queries
+
+**2. DoH (DNS over HTTPS):**
+- DNS queries inside normal HTTPS (port 443)
+- Looks like regular web traffic — hard to block or snoop
+- Used by: Firefox (Cloudflare), Chrome (Google), browsers
+- Protects against: **ISP snooping**, network-level blocking
+- Controversy: bypasses corporate/parental DNS filters
+
+**3. DoT (DNS over TLS):**
+- DNS queries encrypted with TLS (port 853)
+- Dedicated port — easy to identify and block
+- Used by: Android (Private DNS), system-level resolvers
+- Protects against: **snooping** (same as DoH)
+- Easier for admins to manage than DoH
+
+**Comparison:**
+
+| Feature | Plain DNS | DNSSEC | DoH | DoT |
+|---|---|---|---|---|
+| Encrypted? | No | No | Yes | Yes |
+| Verified? | No | Yes | No* | No* |
+| Port | 53 | 53 | 443 | 853 |
+| Blockable? | Yes | Yes | Hard | Easy |
+
+*DoH/DoT can use DNSSEC too — they're complementary.`
+      },
+      {
+        titleEn: "Story: ISP DNS Hijacking",
+        contentEn: `{story}
+
+**How ISPs Secretly Redirected Your Web Traffic**
+
+In the late 2000s, many ISPs discovered a way to make money from your typos.
+
+**Normal behavior:**
+- You type "gogle.com" (typo) in browser
+- DNS resolver returns NXDOMAIN (domain not found)
+- Browser shows error page
+
+**What ISPs did:**
+- Instead of returning NXDOMAIN, they returned their OWN IP address
+- Your browser loaded the ISP's search page — full of ads
+- ISP earned ad revenue from your mistakes
+- Some ISPs did this for ALL failed DNS queries
+
+**It got worse:**
+- Some ISPs injected ads into ANY HTTP page (not just errors)
+- They modified DNS responses to redirect through their proxy
+- The proxy added ad banners to pages you visited
+- This broke many applications that relied on NXDOMAIN responses
+
+**Real examples:**
+- **Comcast (2009)** — redirected NXDOMAIN to search pages
+- **Charter (2008)** — injected JavaScript ads into non-customer pages
+- **Multiple ISPs in Asia** — full DNS hijacking for ad injection
+
+**Why it worked:**
+- DNS is plaintext on port 53
+- ISP controls the recursive resolver
+- Most users use their ISP's default DNS
+
+**How users fought back:**
+- Switched to 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare)
+- Enabled DoH/DoT — ISP can't modify encrypted DNS
+- DNSSEC adoption increased — forged responses are rejected
+
+**The bigger lesson:**
+- Your ISP can see and modify ALL your plaintext DNS queries
+- This is why encrypted DNS (DoH/DoT) matters
+- "If you don't control your DNS, you don't control your internet"
+
+{simulation}
+You are a network admin. A user reports that typing any non-existent domain shows a strange search page instead of an error. The user is using the company DNS server (192.168.1.1). What steps do you take to diagnose this? What could cause it?`
+      }
+    ]
+  },
+
+  304: {
+    titleEn: "QUIC and HTTP/3",
+    pages: [
+      {
+        titleEn: "The Problem HTTP/2 Didn't Solve",
+        contentEn: `**HTTP/2 fixed many things. But one critical problem remained: Head-of-Line (HOL) blocking at the TCP layer.**
+
+**What HTTP/2 gave us:**
+- Multiplexing — multiple requests on one TCP connection
+- Header compression (HPACK)
+- Server push
+- Stream prioritization
+
+**The HOL blocking problem:**
+
+\`\`\`
+HTTP/2 multiplexes streams over ONE TCP connection:
+
+Stream 1: [packet A] [packet B] [packet C]
+Stream 2: [packet D] [packet E] [packet F]
+Stream 3: [packet G] [packet H] [packet I]
+
+All mixed into one TCP byte stream:
+TCP: [A][D][G][B][E][H][C][F][I]
+
+If packet D is lost:
+TCP: [A][ ? ][G][B][E][H][C][F][I]
+              ↑ TCP stops HERE — waits for D to be retransmitted
+              Streams 1 and 3 are BLOCKED even though their packets arrived fine
+\`\`\`
+
+**Why this happens:**
+- TCP guarantees **in-order delivery** of bytes
+- TCP doesn't know about HTTP/2 streams
+- One lost packet blocks ALL streams on that connection
+- On lossy networks (mobile, Wi-Fi), this happens often
+
+**The irony:**
+- HTTP/1.1 used 6 parallel TCP connections → loss on one didn't block others
+- HTTP/2 uses 1 TCP connection → loss blocks everything
+- On lossy networks, HTTP/2 can be SLOWER than HTTP/1.1
+
+**This is why QUIC was created:**
+- QUIC runs over UDP (not TCP)
+- Each stream is independent — loss in one stream doesn't block others
+- QUIC handles reliability per-stream, not per-connection`
+      },
+      {
+        titleEn: "QUIC — 0-RTT and Connection Migration",
+        contentEn: `**QUIC = UDP + reliability + encryption + multiplexing. All built-in.**
+
+**Key features:**
+
+**1. 0-RTT Connection Setup:**
+\`\`\`
+TCP + TLS 1.3:          QUIC (first time):       QUIC (repeat):
+Client → SYN            Client → Initial         Client → 0-RTT data
+Server → SYN+ACK        (crypto + data combined)  (send data immediately!)
+Client → ACK            Server → Handshake        Server → response
+Client → ClientHello    Client → ready
+Server → ServerHello    = 1 RTT total             = 0 RTT total
+Client → ready
+= 3 RTT total
+\`\`\`
+
+- First connection: 1 RTT (TLS handshake + transport setup combined)
+- Repeat connection: 0 RTT (send data in the first packet!)
+- TCP+TLS needs 2-3 RTT before sending any data
+
+**2. No HOL Blocking:**
+- Each QUIC stream has its own sequence numbers
+- Lost packet in Stream 2 → only Stream 2 waits
+- Streams 1 and 3 continue without delay
+
+**3. Connection Migration:**
+- TCP connection = (source IP, source port, dest IP, dest port)
+- Change Wi-Fi → 4G? New IP = new TCP connection = start over
+- QUIC uses a **Connection ID** instead
+- Switch networks → same Connection ID → connection continues
+- Your video call doesn't drop when you walk from Wi-Fi to cellular
+
+**4. Always Encrypted:**
+- TLS 1.3 is built into QUIC — not optional
+- Even packet headers are partially encrypted
+- Middleboxes (firewalls, NATs) can't inspect or modify QUIC traffic
+
+**QUIC vs TCP comparison:**
+
+| Feature | TCP + TLS | QUIC |
+|---|---|---|
+| Transport | TCP (kernel) | UDP (userspace) |
+| Encryption | Optional (TLS on top) | Built-in (always TLS 1.3) |
+| Handshake | 2-3 RTT | 1 RTT (0 RTT repeat) |
+| HOL blocking | Yes (connection level) | No (stream level) |
+| Connection migration | No | Yes (Connection ID) |
+| Deployed by | OS kernel update | Application update |`
+      },
+      {
+        titleEn: "Story: Google Built QUIC Quietly",
+        contentEn: `{story}
+
+**How Google Shipped a New Internet Protocol Without Anyone Noticing**
+
+In 2012, Google had a problem. TCP was too slow for their services, especially on mobile networks. But changing TCP meant changing every operating system kernel in the world.
+
+**Google's clever solution:**
+- Build a new protocol on top of **UDP**
+- UDP is simple — the kernel just passes packets through
+- All the logic lives in **userspace** (Chrome browser + Google servers)
+- No kernel changes needed. No OS updates needed.
+
+**The timeline:**
+- **2012** — Jim Roskind at Google starts QUIC experiment
+- **2013** — QUIC enabled in Chrome (hidden, experimental)
+- **2014** — Google silently routes Chrome → Google services over QUIC
+- By 2015, **~50% of Chrome-to-Google traffic** used QUIC
+- Most users had no idea they were using a new protocol
+
+**Why no one noticed:**
+- QUIC uses UDP port 443 — firewalls already allow it
+- If QUIC fails, Chrome falls back to TCP automatically
+- Pages loaded faster — users just thought "Google is fast"
+- No installation, no configuration, no user action needed
+
+**The results:**
+- Search: 8% faster page loads
+- YouTube: 15% fewer rebuffers (buffering events)
+- On lossy mobile networks: 30% faster than TCP
+- Google proved QUIC worked at scale with billions of users
+
+**From Google experiment to internet standard:**
+- **2016** — IETF starts standardizing QUIC (based on Google's design)
+- **2021** — RFC 9000: QUIC is an official internet standard
+- **2022** — RFC 9114: HTTP/3 (HTTP over QUIC) is standardized
+- Today: ~30% of all web traffic uses QUIC/HTTP3
+
+**Lesson:** Sometimes the best way to change the internet is to ship it inside a browser update and let users discover the speed improvement on their own.
+
+{thinkOutside}
+QUIC runs over UDP. Many corporate firewalls block all UDP except DNS (port 53). How would you handle deploying HTTP/3 in an enterprise environment where UDP 443 might be blocked?`
+      }
+    ]
+  },
+
+  305: {
+    titleEn: "eBPF — Programming the Kernel from Outside",
+    pages: [
+      {
+        titleEn: "What is eBPF?",
+        contentEn: `**eBPF (extended Berkeley Packet Filter)** lets you run custom programs inside the Linux kernel — safely, without modifying kernel code.
+
+**The problem eBPF solves:**
+- Want to add a firewall rule? Modify kernel module → recompile → reboot
+- Want to trace a function? Load a kernel module → risk crashing the system
+- Want custom networking? Write kernel code → wait years for it to ship in a distro
+
+**eBPF approach:**
+- Write a small program in C (or Rust)
+- Compile it to eBPF bytecode
+- Load it into the kernel at runtime — no reboot, no kernel rebuild
+
+**The safety model — Verifier + JIT:**
+
+\`\`\`
+Your eBPF program
+       ↓
+   [Verifier] — checks BEFORE loading:
+   ✓ No infinite loops (bounded loops only)
+   ✓ No out-of-bounds memory access
+   ✓ No null pointer dereference
+   ✓ Program terminates (max instruction count)
+   ✓ Only allowed kernel functions (helpers)
+       ↓
+   [JIT Compiler] — converts bytecode to native machine code
+       ↓
+   Runs at kernel speed (not interpreted)
+\`\`\`
+
+**Where can eBPF programs attach?**
+- **Network** — XDP (packet arrives at NIC), TC (traffic control), socket
+- **Tracing** — kprobes (any kernel function), tracepoints, uprobes (userspace)
+- **Security** — LSM hooks (file access, process execution)
+- **Scheduling** — CPU scheduler (Linux 6.6+)
+
+**eBPF Maps — shared data:**
+- Key-value stores shared between eBPF programs and userspace
+- Types: hash map, array, ring buffer, LRU cache, per-CPU arrays
+- Example: count packets per IP → eBPF program updates map → userspace reads map`
+      },
+      {
+        titleEn: "XDP and Cilium — Real Use Cases",
+        contentEn: `**XDP (eXpress Data Path)** — process packets at the earliest possible point.
+
+**How XDP works:**
+\`\`\`
+Packet arrives at NIC
+       ↓
+   [XDP program runs HERE] ← before kernel networking stack
+       ↓
+   Decision:
+   XDP_PASS  → continue to kernel stack (normal processing)
+   XDP_DROP  → drop packet immediately (never enters kernel)
+   XDP_TX    → send packet back out same NIC (bounce)
+   XDP_REDIRECT → send to different NIC or CPU
+\`\`\`
+
+**Why XDP is so fast:**
+- Runs before memory allocation for the packet (no sk_buff)
+- Runs before any kernel networking code
+- Can process **millions of packets per second per CPU core**
+- 10x faster than iptables for packet filtering
+
+**Cilium — Kubernetes networking with eBPF:**
+
+Traditional K8s networking:
+\`\`\`
+Pod A → veth → bridge → iptables (100s of rules) → bridge → veth → Pod B
+\`\`\`
+
+Cilium with eBPF:
+\`\`\`
+Pod A → eBPF program → Pod B  (direct, no iptables)
+\`\`\`
+
+**What Cilium provides:**
+- **Networking** — pod-to-pod, service load balancing (replaces kube-proxy)
+- **Security** — L3/L4/L7 network policies (can filter by HTTP path!)
+- **Observability** — Hubble: network flow logs without sidecar proxies
+- **Encryption** — transparent WireGuard encryption between nodes
+
+**The iptables problem Cilium solves:**
+- 1000 Kubernetes services = ~20,000 iptables rules
+- iptables is O(n) — checks rules one by one
+- eBPF hash maps are O(1) — direct lookup
+- At scale: 10x–100x faster than iptables`
+      },
+      {
+        titleEn: "Story: Cloudflare Stops 800 Gbps DDoS with eBPF",
+        contentEn: `{story}
+
+**How Cloudflare Uses eBPF to Block Massive DDoS Attacks**
+
+Cloudflare handles some of the largest DDoS attacks in history. Their secret weapon? XDP + eBPF.
+
+**The challenge:**
+- DDoS attacks can be 500 Gbps – 2+ Tbps
+- Traditional firewalls can't process packets fast enough
+- iptables at this scale = 100% CPU usage = server dies
+- You need to drop bad packets BEFORE they consume resources
+
+**Cloudflare's architecture:**
+1. **XDP programs** run at the NIC driver level
+2. Each packet is checked against eBPF maps containing attack signatures
+3. Bad packets are dropped with XDP_DROP — never enter the kernel
+4. Good packets pass through to the application
+5. Attack patterns are updated in real-time (no restart needed)
+
+**Real incident — 800 Gbps attack:**
+- Attack: UDP flood from ~300,000 source IPs
+- XDP program checked each packet against a Bloom filter in eBPF map
+- Dropped 99.7% of attack traffic at line speed
+- Server CPU stayed under 10%
+- Legitimate users noticed nothing
+
+**Why eBPF was the right tool:**
+- **Speed** — XDP processes before kernel allocates memory for the packet
+- **Flexibility** — update attack rules without restarting anything
+- **Safety** — verifier ensures eBPF programs can't crash the kernel
+- **Programmable** — can match complex patterns (not just IP/port)
+
+**Their tool: xdpcap**
+- Like tcpdump but for XDP
+- Captures packets that XDP programs are dropping
+- Useful for debugging: "why is this packet being dropped?"
+
+**Scale:**
+- Cloudflare runs eBPF on every server in 300+ data centers
+- Each server can drop 10M+ packets/second with XDP
+- Combined capacity: can absorb multi-Tbps attacks
+
+{questions}
+1. Why is XDP faster than iptables for dropping packets?
+2. What is the role of the eBPF verifier? Why is it critical for security?
+3. A company uses 5000 iptables rules for firewall. How would migrating to eBPF improve performance?`
+      }
+    ]
+  },
+
+  306: {
+    titleEn: "TLS 1.3 — Modern Encryption",
+    pages: [
+      {
+        titleEn: "TLS 1.2 vs 1.3 — What Changed",
+        contentEn: `**TLS 1.3 (RFC 8446, 2018) removed everything that was broken or slow in TLS 1.2.**
+
+**Removed from TLS 1.3:**
+- RSA key exchange (no forward secrecy)
+- CBC mode ciphers (BEAST, Lucky13 attacks)
+- RC4, DES, 3DES (weak ciphers)
+- SHA-1 (broken hash)
+- Compression (CRIME attack)
+- Renegotiation (complexity, attack surface)
+- Custom DHE groups (weak parameters possible)
+- Static RSA/DH (no forward secrecy)
+- ChangeCipherSpec message (unnecessary)
+
+**TLS 1.2 had ~37 cipher suites. TLS 1.3 has only 5:**
+
+| Cipher Suite | Encryption | Hash |
+|---|---|---|
+| TLS_AES_256_GCM_SHA384 | AES-256-GCM | SHA-384 |
+| TLS_AES_128_GCM_SHA256 | AES-128-GCM | SHA-256 |
+| TLS_CHACHA20_POLY1305_SHA256 | ChaCha20-Poly1305 | SHA-256 |
+| TLS_AES_128_CCM_SHA256 | AES-128-CCM | SHA-256 |
+| TLS_AES_128_CCM_8_SHA256 | AES-128-CCM-8 | SHA-256 |
+
+**Key differences:**
+- All TLS 1.3 ciphers use **AEAD** (Authenticated Encryption with Associated Data)
+- Key exchange is ALWAYS Diffie-Hellman (ECDHE or DHE) — RSA key exchange removed
+- This means **forward secrecy is mandatory** — not optional like in TLS 1.2
+- Fewer choices = fewer configuration mistakes = more secure by default
+
+**Why removing RSA key exchange matters:**
+- TLS 1.2 with RSA: server's private key decrypts ALL past sessions
+- Steal the key → decrypt years of recorded traffic
+- TLS 1.3 with ECDHE: each session has unique keys
+- Steal the key → can't decrypt past sessions (forward secrecy)`
+      },
+      {
+        titleEn: "1-RTT Handshake — How It Works",
+        contentEn: `**TLS 1.3 combines the TLS and key exchange into a single round trip.**
+
+**TLS 1.2 Handshake (2-RTT):**
+\`\`\`
+Client                              Server
+  |--- ClientHello ------------------->|  RTT 1
+  |<-- ServerHello + Certificate ------|
+  |--- Key Exchange + Finished ------->|  RTT 2
+  |<-- Finished -----------------------|
+  |--- Application Data ------------->|  RTT 3 (first data!)
+\`\`\`
+
+**TLS 1.3 Handshake (1-RTT):**
+\`\`\`
+Client                              Server
+  |--- ClientHello ------------------>|
+  |    + key_share (ECDHE public key) |
+  |    + supported_versions (1.3)     |  RTT 1
+  |<-- ServerHello -------------------|
+  |    + key_share (ECDHE public key) |
+  |    + {Certificate}               |
+  |    + {CertificateVerify}         |
+  |    + {Finished}                  |
+  |--- {Finished} ------------------->|
+  |--- Application Data ------------>|  RTT 1 (first data!)
+\`\`\`
+{} = encrypted
+
+**Why it's faster:**
+- Client sends its ECDHE key share in the FIRST message (guesses the curve)
+- Server responds with everything at once: its key, certificate, and finished
+- Both sides can compute the shared secret after 1 round trip
+- Application data can flow immediately after
+
+**ECDHE (Elliptic Curve Diffie-Hellman Ephemeral):**
+- Client generates random private key → computes public key on the curve
+- Server generates random private key → computes public key on the curve
+- Both compute the same shared secret (math magic of elliptic curves)
+- **Ephemeral** = new keys every session → forward secrecy
+- Common curves: X25519 (fast, safe), P-256 (widely supported)`
+      },
+      {
+        titleEn: "Forward Secrecy and 0-RTT Resumption",
+        contentEn: `**Forward secrecy means: compromise today doesn't reveal yesterday.**
+
+**How forward secrecy works in TLS 1.3:**
+\`\`\`
+Session 1: Client key = random_A, Server key = random_B → shared secret_1
+Session 2: Client key = random_C, Server key = random_D → shared secret_2
+Session 3: Client key = random_E, Server key = random_F → shared secret_3
+
+Each session uses NEW random keys.
+Crack session 2? You only get session 2's data.
+Sessions 1 and 3 are safe.
+\`\`\`
+
+**0-RTT Resumption (PSK):**
+- After a successful TLS 1.3 handshake, server sends a **session ticket**
+- Next connection: client sends the ticket + application data in the FIRST packet
+- Server decrypts and responds immediately — **zero round trips** of latency
+
+\`\`\`
+Client                              Server
+  |--- ClientHello ------------------>|
+  |    + pre_shared_key (ticket)      |
+  |    + early_data (0-RTT)           |  0 RTT — data sent immediately!
+  |<-- ServerHello + Finished --------|
+  |--- Finished --------------------->|
+\`\`\`
+
+**The 0-RTT security tradeoff:**
+- 0-RTT data is **replayable** — an attacker can capture and resend it
+- Safe for: GET requests (reading data)
+- Dangerous for: POST requests (creating orders, transferring money)
+- Servers must implement **anti-replay** mechanisms
+- Many servers disable 0-RTT for non-idempotent requests
+
+**Practical impact:**
+- TLS 1.2 → 1.3: saves ~100ms on first connection (one less RTT)
+- 0-RTT resumption: saves ~200ms on repeat connections
+- On mobile networks (150ms RTT): this is very noticeable`
+      },
+      {
+        titleEn: "Practice — TLS 1.3 Deep Dive",
+        contentEn: `{questions}
+
+**Concept check:**
+
+1. TLS 1.2 allowed RSA key exchange. TLS 1.3 removed it. Explain why in terms of forward secrecy.
+
+2. TLS 1.3 has only 5 cipher suites, while TLS 1.2 had ~37. Why is fewer actually more secure?
+
+3. Draw the TLS 1.3 1-RTT handshake from memory. Mark which messages are encrypted.
+
+4. A banking website enables 0-RTT resumption for all requests. What is the security risk? What kind of requests should NOT use 0-RTT?
+
+5. Explain ECDHE in simple terms: why does "ephemeral" matter?
+
+{simulation}
+
+**Scenario:** You are a security engineer. Your company's web server supports both TLS 1.2 and TLS 1.3. The CEO asks: "Why should we disable TLS 1.2? Everything works fine."
+
+Write a brief explanation covering:
+- What attacks are possible with TLS 1.2 that are impossible with TLS 1.3?
+- What is the performance benefit?
+- What might break if you disable TLS 1.2? (think about old clients)
+- What is your recommendation?
+
+{thinkOutside}
+
+An attacker records all encrypted TLS 1.3 traffic between a user and a bank for 5 years. Then they steal the server's private RSA key. Can they decrypt the recorded traffic? Why or why not? What if it was TLS 1.2 with RSA key exchange?`
+      }
+    ]
+  },
+
+  307: {
+    titleEn: "Anycast, BGP Hijacking, and RPKI",
+    pages: [
+      {
+        titleEn: "Anycast Routing via BGP",
+        contentEn: `**Anycast = one IP address, many servers around the world. BGP picks the closest one.**
+
+**How it works:**
+\`\`\`
+Cloudflare DNS: 1.1.1.1
+
+Server in London announces via BGP: "I have route to 1.1.1.1"
+Server in Tokyo announces via BGP: "I have route to 1.1.1.1"
+Server in New York announces via BGP: "I have route to 1.1.1.1"
+
+User in Paris → BGP picks shortest AS path → routes to London
+User in Seoul → BGP picks shortest AS path → routes to Tokyo
+\`\`\`
+
+**Why anycast works:**
+- BGP naturally routes to the "closest" announcement (shortest AS path)
+- No special protocol needed — just announce the same prefix from multiple locations
+- Users are automatically sent to the nearest server
+
+**Use cases:**
+- **DNS** — all root servers use anycast (13 addresses, 1000+ actual servers)
+- **CDN** — Cloudflare, AWS CloudFront, Google serve content via anycast
+- **DDoS protection** — attack traffic is spread across all locations
+
+**Anycast + DDoS:**
+\`\`\`
+Without anycast:           With anycast:
+All attack traffic →       Attack traffic spread →
+[Single server] 💀         [London] 15% of attack
+                           [Tokyo] 10% of attack
+                           [NYC] 20% of attack
+                           [São Paulo] 15% of attack
+                           ... each location handles a small portion
+\`\`\`
+
+**Limitations:**
+- Works great for UDP (DNS) — each packet is independent
+- TCP with anycast needs care — if BGP route changes mid-connection, packets go to a different server
+- Solutions: ECMP pinning, QUIC Connection ID, flow-aware load balancing`
+      },
+      {
+        titleEn: "BGP Hijacking and RPKI Protection",
+        contentEn: `**BGP hijacking = announcing someone else's IP prefix as your own.**
+
+**Types of BGP hijacking:**
+
+| Type | Method | Effect |
+|---|---|---|
+| **Prefix hijack** | Announce exact same prefix | Traffic splits (some goes to attacker) |
+| **Sub-prefix hijack** | Announce more specific prefix (/25 vs /24) | All traffic goes to attacker (longest match wins) |
+| **AS path poisoning** | Fake shorter AS path | Traffic prefers attacker's "shorter" path |
+| **Route leak** | Accidentally share internal routes externally | Traffic takes wrong path |
+
+**What attackers can do with hijacked traffic:**
+- **Black hole** — drop all traffic (denial of service)
+- **Intercept** — read traffic, then forward to real destination (man-in-the-middle)
+- **Impersonate** — serve fake content (phishing, malware)
+
+**RPKI (Resource Public Key Infrastructure):**
+
+\`\`\`
+RPKI chain:
+IANA → RIR (ARIN/RIPE) → ISP → signs ROA
+
+ROA (Route Origin Authorization):
+"AS13335 is authorized to announce 1.1.1.0/24"
+  ↓ signed by ARIN's certificate
+
+Router with RPKI validation:
+- Receives BGP announcement: "AS9999 has route to 1.1.1.0/24"
+- Checks RPKI: ROA says only AS13335 can announce this
+- Result: INVALID → route rejected
+\`\`\`
+
+**RPKI validation states:**
+- **Valid** — ROA exists and matches (accept)
+- **Invalid** — ROA exists but doesn't match (reject)
+- **Not Found** — no ROA exists (accept, but less trusted)
+
+**Current adoption (2025):**
+- ~55% of routes have ROAs
+- ~35% of networks perform RPKI validation
+- Growing fast — major incidents push adoption`
+      },
+      {
+        titleEn: "Historical BGP Incidents",
+        contentEn: `**Major BGP incidents that shaped internet routing security:**
+
+| Year | Incident | What Happened | Impact | Duration |
+|---|---|---|---|---|
+| **2004** | TTNet (Turkey) | Announced 0.0.0.0/0 (default route) — "I'm the entire internet" | Internet disruption in parts of Europe | Hours |
+| **2008** | Pakistan Telecom / YouTube | Announced YouTube's /25 to block it locally — leaked globally | YouTube down worldwide | ~2 hours |
+| **2010** | China Telecom | Announced ~37,000 prefixes belonging to others | 15% of internet routed through China for 18 minutes | 18 min |
+| **2017** | Google (accidental) | Leaked Japanese network prefixes to global BGP | Major internet outage in Japan | 1 hour |
+| **2018** | eNet / Amazon DNS | Hijacked Route53 DNS IPs → redirected MyEtherWallet users | ~$150K cryptocurrency stolen | 2 hours |
+| **2019** | China Telecom | Rerouted European mobile traffic through China | Potential interception of millions of users | 2 hours |
+| **2020** | Rostelecom (Russia) | Hijacked prefixes of Google, Amazon, Cloudflare, Akamai | Traffic rerouted through Russia | 1 hour |
+| **2022** | Russian ISPs | Multiple BGP hijacks during Ukraine conflict | Traffic interception attempts | Ongoing |
+| **2024** | Orange Spain | Attacker gained RIPE account access, created bad ROAs | Major ISP routing disruption | Hours |
+
+**Patterns in BGP incidents:**
+- Most hijacks are **accidental** (configuration mistakes, route leaks)
+- Intentional hijacks are often by **state actors** or for **financial gain**
+- Impact is always fast (minutes) because BGP propagates quickly
+- Recovery is slow (hours) because it requires manual intervention
+
+**Defenses today:**
+- **RPKI/ROA** — proves who owns a prefix
+- **BGP communities** — signal "don't export" to prevent leaks
+- **ASPA (AS Provider Authorization)** — new, proves AS relationships
+- **BGP Flowspec** — distribute filtering rules via BGP
+- **Monitoring** — RIPE RIS, BGPStream, Cloudflare Radar detect anomalies
+
+{questions}
+1. The 2008 Pakistan/YouTube incident used a sub-prefix hijack (/25 vs /24). Why does this always win in BGP routing?
+2. The 2018 MyEtherWallet hijack combined BGP hijacking with DNS. Explain the attack chain.
+3. If RPKI was fully deployed, which incidents in the table would it have prevented? Which would it NOT prevent?`
+      }
+    ]
+  },
+
+  308: {
+    titleEn: "Container Networking",
+    pages: [
+      {
+        titleEn: "Linux Network Namespaces",
+        contentEn: `**Containers use Linux namespaces for isolation. Network namespaces give each container its own network stack.**
+
+**What a network namespace provides:**
+- Own network interfaces (eth0, lo)
+- Own routing table
+- Own iptables/nftables rules
+- Own /proc/net
+- Completely separate from the host and other namespaces
+
+**Hands-on with network namespaces:**
+\`\`\`bash
+# Create two namespaces
+ip netns add red
+ip netns add blue
+
+# Each has its own loopback (lo), nothing else
+ip netns exec red ip link list   # only lo
+
+# Create a veth pair (virtual ethernet — like a cable)
+ip link add veth-red type veth peer name veth-blue
+
+# Move each end to a namespace
+ip link set veth-red netns red
+ip link set veth-blue netns blue
+
+# Assign IPs
+ip netns exec red ip addr add 10.0.0.1/24 dev veth-red
+ip netns exec blue ip addr add 10.0.0.2/24 dev veth-blue
+
+# Bring interfaces up
+ip netns exec red ip link set veth-red up
+ip netns exec blue ip link set veth-blue up
+
+# Now they can communicate
+ip netns exec red ping 10.0.0.2   # works!
+\`\`\`
+
+**veth pairs:**
+- Virtual ethernet cable — two ends, connected together
+- Packets in one end come out the other
+- Like a network cable between two virtual machines
+- This is how containers connect to the host network
+
+**The 6 Linux namespaces used by containers:**
+| Namespace | Isolates |
+|---|---|
+| **Network** | Network interfaces, routes, iptables |
+| **PID** | Process IDs (container sees PID 1) |
+| **Mount** | Filesystem mounts |
+| **UTS** | Hostname |
+| **IPC** | Shared memory, semaphores |
+| **User** | User/group IDs |`
+      },
+      {
+        titleEn: "Docker Networking — Bridge, veth, NAT",
+        contentEn: `**Docker's default networking uses a Linux bridge + veth pairs + NAT.**
+
+**Architecture diagram:**
+\`\`\`
+Host Machine
+┌─────────────────────────────────────────────────┐
+│                                                 │
+│  Container A          Container B               │
+│  ┌──────────┐        ┌──────────┐              │
+│  │ eth0     │        │ eth0     │              │
+│  │ 172.17.  │        │ 172.17.  │              │
+│  │ 0.2      │        │ 0.3      │              │
+│  └────┬─────┘        └────┬─────┘              │
+│       │ veth-A            │ veth-B              │
+│       │                   │                     │
+│  ┌────┴───────────────────┴─────┐              │
+│  │        docker0 bridge         │              │
+│  │        172.17.0.1             │              │
+│  └──────────────┬───────────────┘              │
+│                 │                               │
+│            iptables NAT                         │
+│          (MASQUERADE)                           │
+│                 │                               │
+│  ┌──────────────┴───────────────┐              │
+│  │           eth0 (host)         │              │
+│  │        192.168.1.100          │              │
+│  └──────────────────────────────┘              │
+└─────────────────────────────────────────────────┘
+\`\`\`
+
+**How it works step by step:**
+1. Docker creates the **docker0** bridge (like a virtual switch)
+2. Each container gets a **veth pair** — one end in container (eth0), one end on bridge
+3. Containers on the same bridge can talk to each other directly (Layer 2)
+4. To reach the internet: **iptables NAT** translates container IP → host IP
+
+**Docker network types:**
+| Type | Use Case | Isolation |
+|---|---|---|
+| **bridge** (default) | Container ↔ container on same host | Good |
+| **host** | Container uses host's network directly | None |
+| **none** | No networking at all | Full |
+| **overlay** | Container ↔ container across hosts (Swarm) | Good |
+| **macvlan** | Container gets real MAC/IP on physical network | Good |
+
+**Port mapping (bridge mode):**
+\`\`\`bash
+docker run -p 8080:80 nginx
+# iptables DNAT rule created:
+# Host:8080 → Container:80
+\`\`\``
+      },
+      {
+        titleEn: "Kubernetes Pod Networking",
+        contentEn: `**K8s networking rule: every Pod gets a real IP. Pods can reach any other Pod without NAT.**
+
+**Same node — Pod to Pod:**
+\`\`\`
+Node 1 (10.0.1.0/24)
+┌─────────────────────────────────────┐
+│  Pod A (10.0.1.2)    Pod B (10.0.1.3)│
+│  ┌────────┐         ┌────────┐      │
+│  │  eth0  │         │  eth0  │      │
+│  └───┬────┘         └───┬────┘      │
+│      │ veth              │ veth      │
+│  ┌───┴──────────────────┴───┐       │
+│  │       cbr0 bridge         │       │
+│  └───────────────────────────┘       │
+└─────────────────────────────────────┘
+
+Pod A → bridge → Pod B (direct, Layer 2)
+\`\`\`
+
+**Cross node — Pod to Pod on different nodes:**
+\`\`\`
+Node 1 (10.0.1.0/24)              Node 2 (10.0.2.0/24)
+┌──────────────────┐              ┌──────────────────┐
+│  Pod A (10.0.1.2)│              │  Pod C (10.0.2.5)│
+│  ┌────────┐      │              │  ┌────────┐      │
+│  │  eth0  │      │              │  │  eth0  │      │
+│  └───┬────┘      │              │  └───┬────┘      │
+│      │ veth      │              │      │ veth      │
+│  ┌───┴────┐      │              │  ┌───┴────┐      │
+│  │ bridge │      │              │  │ bridge │      │
+│  └───┬────┘      │              │  └───┬────┘      │
+│      │           │              │      │           │
+│  [eth0/tunnel]   │              │  [eth0/tunnel]   │
+└──────┬───────────┘              └──────┬───────────┘
+       │        Overlay / Routing        │
+       └────────────────────────────────┘
+\`\`\`
+
+**Cross-node solutions (CNI plugins):**
+| Plugin | Method | Speed |
+|---|---|---|
+| **Flannel** | VXLAN overlay (encapsulation) | Good |
+| **Calico** | BGP routing (no overlay) | Fast |
+| **Cilium** | eBPF (replaces iptables + kube-proxy) | Fastest |
+| **Weave** | Encrypted overlay | Good |
+
+**K8s Service networking:**
+- **ClusterIP** — virtual IP, load balances to Pod IPs (kube-proxy / eBPF)
+- **NodePort** — exposes on every node's IP:port (30000-32767)
+- **LoadBalancer** — cloud provider provisions external LB
+- **Ingress** — L7 routing (host/path rules → Services)`
+      },
+      {
+        titleEn: "Cilium — eBPF Replaces iptables",
+        contentEn: `**Cilium uses eBPF to replace kube-proxy and iptables entirely.**
+
+**The iptables problem in Kubernetes:**
+\`\`\`
+With kube-proxy + iptables:
+
+Each Service creates ~8 iptables rules
+1000 Services = ~8000 rules
+Each rule = linear scan (O(n))
+
+Pod sends packet → iptables checks rule 1 → no match
+                 → checks rule 2 → no match
+                 → ...
+                 → checks rule 5847 → match! → forward
+
+Time: O(n) per packet, n = number of rules
+Update: full iptables rewrite on any Service change
+\`\`\`
+
+**Cilium's eBPF approach:**
+\`\`\`
+With Cilium:
+
+All Services stored in eBPF hash map
+Lookup = O(1) regardless of number of Services
+
+Pod sends packet → eBPF program → hash lookup → forward
+
+Time: O(1) per packet
+Update: single map entry update (no full rewrite)
+\`\`\`
+
+**Cilium features beyond basic networking:**
+
+**L7 Network Policies:**
+\`\`\`yaml
+# Traditional K8s NetworkPolicy: L3/L4 only
+# "Pod A can talk to Pod B on port 80"
+
+# Cilium CiliumNetworkPolicy: L7 aware
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+spec:
+  endpointSelector:
+    matchLabels:
+      app: api-server
+  ingress:
+  - fromEndpoints:
+    - matchLabels:
+        app: frontend
+    toPorts:
+    - ports:
+      - port: "80"
+      rules:
+        http:
+        - method: "GET"    # Allow GET
+          path: "/api/.*"
+        - method: "POST"   # Deny POST to /admin
+          path: "/admin"
+          # not listed = denied
+\`\`\`
+
+**Hubble — network observability:**
+- Captures all network flows using eBPF
+- No sidecar proxy needed (unlike Istio/Envoy)
+- Shows: source pod → destination pod, protocol, verdict (allow/deny), latency
+- UI: real-time service dependency map
+
+**Performance comparison:**
+
+| Metric | kube-proxy + iptables | Cilium eBPF |
+|---|---|---|
+| Service lookup | O(n) | O(1) |
+| Rule update | Full rewrite | Single entry |
+| Latency (1K services) | ~1ms | ~0.1ms |
+| CPU at 10K services | High | Low |
+| L7 policy | Not possible | Yes (HTTP, gRPC, Kafka) |
+| Observability | External tools | Built-in (Hubble) |
+
+{thinkOutside}
+Your company runs 500 microservices in Kubernetes. Currently using Flannel (VXLAN overlay) + kube-proxy (iptables). Users report latency spikes during deployments. What would you recommend changing, and why?`
+      }
+    ]
+  }
 }
