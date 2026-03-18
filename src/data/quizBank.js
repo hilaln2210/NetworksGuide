@@ -473,15 +473,15 @@ export const quizBank = {
 
   8: [
     {
-      q: "מה ההבדל בין Switch לבין Hub?",
-      correct: "‏Switch שולח frame ליעד הספציפי לפי MAC, Hub מפיץ לכולם",
+      q: "\u200Fמה ההבדל בין Switch לבין Hub?",
+      correct: "\u200FSwitch שולח frame ליעד הספציפי לפי MAC\nHub מפיץ לכולם",
       choices: [
-        "‏Switch שולח frame ליעד הספציפי לפי MAC, Hub מפיץ לכולם",
-        "‏Switch עובד בשכבת הרשת, Hub בשכבת הקו",
-        "‏Switch אלחוטי, Hub קווי",
-        "‏Switch מהיר יותר רק כי יקר יותר"
+        "\u200FSwitch שולח frame ליעד הספציפי לפי MAC\nHub מפיץ לכולם",
+        "\u200FSwitch עובד בשכבת הרשת\nHub בשכבת הקו",
+        "\u200FSwitch אלחוטי, Hub קווי",
+        "\u200FSwitch מהיר יותר רק כי יקר יותר"
       ],
-      explanation: "‏Hub = צועק לכולם בחדר. ‏Switch = שולח מכתב ספציפי לאדם הנכון. ב-2024 אין כמעט Hub — הוא הרג את הביצועים 🎯"
+      explanation: "\u200F🎯 Switch — שולח מכתב ספציפי לאדם הנכון\n• יודע לפי MAC לאן לשלוח\n\n📢 Hub — צועק לכולם בחדר\n• כל frame נשלח לכל הפורטים\n• הורג ביצועים\n\n💡 כיום אין כמעט Hub — הוחלף לגמרי ע״י Switch"
     },
     {
       q: "מה זה כתובת MAC?",
@@ -1081,59 +1081,59 @@ export const quizBank = {
 
   18: [
     {
-      q: "כמה ביטים בכתובת IPv6?",
-      correct: "128 ביטים — מספיק לכ-340 undecillion כתובות",
+      q: "\u200Fכמה ביטים בכתובת IPv6?",
+      correct: "\u200F128 ביטים\nמספיק לכ-340 undecillion כתובות",
       choices: [
-        "128 ביטים — מספיק לכ-340 undecillion כתובות",
-        "64 ביטים",
-        "32 ביטים ‎(כמו IPv4)‎",
-        "256 ביטים"
+        "\u200F128 ביטים\nמספיק לכ-340 undecillion כתובות",
+        "\u200F64 ביטים",
+        "\u200F32 ביטים (כמו IPv4)",
+        "\u200F256 ביטים"
       ],
-      explanation: "‏IPv4 = 32 ביטים = ~4 מיליארד כתובות. ‏IPv6 = 128 ביטים = 340 עם 36 אפסים אחריו. לכל אטום על פני כדור הארץ יכולנו לתת כמה מיליארד כתובות. המחסור ב-IPv4 הוא הסיבה ל-IPv6 🌐"
+      explanation: "\u200F🌐 השוואת גרסאות:\n• IPv4 = 32 ביטים = ~4 מיליארד כתובות\n• IPv6 = 128 ביטים = 340 עם 36 אפסים אחריו\n\n💡 פרספקטיבה:\n• לכל אטום על פני כדור הארץ\n• יכולנו לתת כמה מיליארד כתובות\n• המחסור ב-IPv4 הוא הסיבה ל-IPv6"
     },
     {
-      q: "מה ::1 אומר ב-IPv6?",
-      correct: "כתובת Loopback — כמו 127.0.0.1 ב-IPv4",
+      q: "\u200Fמה ::1 אומר ב-IPv6?",
+      correct: "\u200Fכתובת Loopback\nכמו 127.0.0.1 ב-IPv4",
       choices: [
-        "כתובת Loopback — כמו 127.0.0.1 ב-IPv4",
-        "כתובת Gateway ברירת מחדל",
-        "כתובת Broadcast",
-        "כתובת ריקה לא מוקצית"
+        "\u200Fכתובת Loopback\nכמו 127.0.0.1 ב-IPv4",
+        "\u200Fכתובת Gateway ברירת מחדל",
+        "\u200Fכתובת Broadcast",
+        "\u200Fכתובת ריקה לא מוקצית"
       ],
-      explanation: "::1 = 0000...0001 = localhost ב-IPv6. :: הוא קיצור לקבוצות אפסים רצופות. fe80::/10 = Link-local. ‏2001::/32 = Teredo tunneling. ‏IPv6 יש לו הרבה טווחים מיוחדים 🔁"
+      explanation: "\u200F🔁 כתובות מיוחדות ב-IPv6:\n• ::1 = 0000...0001 = localhost\n• :: הוא קיצור לקבוצות אפסים רצופות\n\n📋 טווחים חשובים:\n• fe80::/10 = Link-local\n• 2001::/32 = Teredo tunneling\n• IPv6 יש לו הרבה טווחים מיוחדים"
     },
     {
-      q: "מה ההבדל בין IPv4 ל-IPv6 header?",
-      correct: "‏IPv6 header קבוע 40 bytes ‎(פשוט יותר)‎, ללא checksum, ללא fragmentation בrouter, addresses 128 bit",
+      q: "\u200Fמה ההבדל בין IPv4 ל-IPv6 header?",
+      correct: "\u200FIPv6 header קבוע 40 bytes (פשוט יותר)\nללא checksum, ללא fragmentation ב-router\naddresses 128 bit",
       choices: [
-        "‏IPv6 header קבוע 40 bytes ‎(פשוט יותר)‎, ללא checksum, ללא fragmentation בrouter, addresses 128 bit",
-        "‏IPv6 = IPv4 עם addresses גדולים יותר בלבד",
-        "‏IPv6 header גדול יותר ומכיל יותר fields",
-        "ההבדל רק בגודל address"
+        "\u200FIPv6 header קבוע 40 bytes (פשוט יותר)\nללא checksum, ללא fragmentation ב-router\naddresses 128 bit",
+        "\u200FIPv6 = IPv4 עם addresses גדולים יותר בלבד",
+        "\u200FIPv6 header גדול יותר ומכיל יותר fields",
+        "\u200Fההבדל רק בגודל address"
       ],
-      explanation: "‏IPv4 header: 20-60 bytes, variable. ‏IPv6 header: fixed 40 bytes. הוסר: Header Checksum ‎(כי L2/L4 עושים checksum)‎, Fragmentation fields ‎(router לא מפרגמנט — source עושה PMTUD)‎, IHL ‎(קבוע)‎. הוסף: Flow Label (QoS). ‏Extension headers: כל אחד מוסיף functionality (Hop-by-Hop, Routing, Fragment, Auth). ‏Routers מעבדים header קבוע מהר יותר."
+      explanation: "\u200F📦 גודל header:\n• IPv4 header: 20-60 bytes, variable\n• IPv6 header: fixed 40 bytes\n\n🗑️ מה הוסר:\n• Header Checksum (כי L2/L4 עושים checksum)\n• Fragmentation fields (router לא מפרגמנט — source עושה PMTUD)\n• IHL (קבוע)\n\n➕ מה הוסף:\n• Flow Label (QoS)\n• Extension headers — כל אחד מוסיף functionality\n• Routers מעבדים header קבוע מהר יותר"
     },
     {
-      q: "מה SLAAC ב-IPv6?",
-      correct: "‏Stateless Address Autoconfiguration — device יוצר IPv6 address אוטומטית: prefix מ-RA + interface ID מ-EUI-64 ‎(מ-MAC)‎",
+      q: "\u200Fמה SLAAC ב-IPv6?",
+      correct: "\u200FStateless Address Autoconfiguration\ndevice יוצר IPv6 address אוטומטית:\nprefix מ-RA + interface ID מ-EUI-64 (מ-MAC)",
       choices: [
-        "‏Stateless Address Autoconfiguration — device יוצר IPv6 address אוטומטית: prefix מ-RA + interface ID מ-EUI-64 ‎(מ-MAC)‎",
-        "‏SLAAC = DHCPv6 בשם אחר",
-        "‏SLAAC = Static address ב-IPv6",
-        "‏SLAAC עובד רק ב-enterprise networks"
+        "\u200FStateless Address Autoconfiguration\ndevice יוצר IPv6 address אוטומטית:\nprefix מ-RA + interface ID מ-EUI-64 (מ-MAC)",
+        "\u200FSLAAC = DHCPv6 בשם אחר",
+        "\u200FSLAAC = Static address ב-IPv6",
+        "\u200FSLAAC עובד רק ב-enterprise networks"
       ],
-      explanation: "‏SLAAC: router שולח RA (Router Advertisement) עם prefix. ‏Device: EUI-64 = MAC 48bit → 64bit ‎(מוסיף FF:FE באמצע + flip bit)‎. אחר כך: prefix + EUI-64 = /128 IPv6. בעיה: privacy — MAC ב-address. ‏Privacy Extensions (RFC 4941): random interface ID שמשתנה. ‏DHCPv6: stateful ‎(כמו DHCPv4)‎, עם/ללא SLAAC. ‏NDP (Neighbor Discovery) = IPv6 equivalent ל-ARP."
+      explanation: "\u200F🔧 תהליך SLAAC:\n• Router שולח RA (Router Advertisement) עם prefix\n• Device: EUI-64 = MAC 48bit → 64bit\n• מוסיף FF:FE באמצע + flip bit\n• prefix + EUI-64 = /128 IPv6\n\n🔒 בעיית פרטיות:\n• MAC חשוף ב-address\n• Privacy Extensions (RFC 4941) — random interface ID שמשתנה\n\n📡 חלופות:\n• DHCPv6 — stateful (כמו DHCPv4), עם/ללא SLAAC\n• NDP (Neighbor Discovery) = IPv6 equivalent ל-ARP"
     },
     {
-      q: "מה כתובות Multicast ב-IPv6 ולמה הן מחליפות broadcast?",
-      correct: "‏IPv6 אין broadcast. Multicast: ff00::/8. ff02::1 = all nodes, ff02::2 = all routers, ff02::1:ffXX:XX = Solicited-Node ‎(לNDP)‎",
+      q: "\u200Fמה כתובות Multicast ב-IPv6 ולמה הן מחליפות broadcast?",
+      correct: "\u200FIPv6 אין broadcast\nMulticast: ff00::/8\nff02::1 = all nodes\nff02::2 = all routers",
       choices: [
-        "‏IPv6 אין broadcast. Multicast: ff00::/8. ff02::1 = all nodes, ff02::2 = all routers, ff02::1:ffXX:XX = Solicited-Node ‎(לNDP)‎",
-        "‏IPv6 משתמש ב-broadcast כמו IPv4",
-        "‏Multicast = Anycast ב-IPv6",
-        "‏ff00::/8 = private range ב-IPv6"
+        "\u200FIPv6 אין broadcast\nMulticast: ff00::/8\nff02::1 = all nodes\nff02::2 = all routers",
+        "\u200FIPv6 משתמש ב-broadcast כמו IPv4",
+        "\u200FMulticast = Anycast ב-IPv6",
+        "\u200Fff00::/8 = private range ב-IPv6"
       ],
-      explanation: "‏IPv6 types: Unicast (global 2000::/3, link-local fe80::/10, unique-local fc00::/7), Multicast (ff00::/8), Anycast (same address = multiple hosts). ‏Solicited-Node multicast: ff02::1:ff + last 24 bits of target IP. ‏NDP משתמש בזה במקום ARP broadcast. ‏Link-local fe80:: חייב על כל interface — לא routable, לNDP/RA."
+      explanation: "\u200F📡 סוגי כתובות IPv6:\n• Unicast — global 2000::/3, link-local fe80::/10, unique-local fc00::/7\n• Multicast — ff00::/8\n• Anycast — same address = multiple hosts\n\n🔍 Solicited-Node multicast:\n• ff02::1:ff + last 24 bits of target IP\n• NDP משתמש בזה במקום ARP broadcast\n• Link-local fe80:: חייב על כל interface\n• לא routable, ל-NDP/RA"
     }
   ],
 
