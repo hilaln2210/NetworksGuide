@@ -366,7 +366,7 @@ function App() {
   // ===== RENDER: Track Picker =====
   if (!activeTrack) {
     return (
-      <div className="app">
+      <div className="app" dir={isEn ? 'ltr' : 'rtl'}>
         {!gender && <GenderPicker onSelect={handleGenderSelect} />}
         <TrackPicker tracks={tracks} onSelect={handleSelectTrack} />
         {xpFloat && <div className="xp-float-global">{xpFloat}</div>}
@@ -378,11 +378,11 @@ function App() {
   if (!chapter || !page) return null
 
   return (
-    <div className="app">
+    <div className="app" dir={isEn ? 'ltr' : 'rtl'}>
       {!gender && <GenderPicker onSelect={handleGenderSelect} />}
 
       {/* ===== HEADER ===== */}
-      <header className={`header${headerCollapsed ? ' header--collapsed' : ''}`} dir={isEn ? 'ltr' : 'rtl'}>
+      <header className={`header${headerCollapsed ? ' header--collapsed' : ''}`}>
         <button
           className="header-collapse-toggle"
           onClick={() => setHeaderCollapsed(c => !c)}
@@ -503,7 +503,7 @@ function App() {
         const pc = usePageContent(page, lang, chapter?.id, currentPage)
         const chTitle = isEn ? (getEnChapterTitle(chapter?.id) || chapter?.title) : chapter?.title
         return (
-        <div className="layout" dir={isEn ? 'ltr' : 'rtl'}>
+        <div className="layout">
           <nav className={`sidebar${mobileShowContent ? ' sidebar--mobile-hidden' : ''}`}>
             <h3>{t('table_of_contents')}</h3>
             {trackChapters.map((ch, i) => {

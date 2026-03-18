@@ -35,7 +35,6 @@ body {
   background: linear-gradient(160deg, #f0f9ff 0%, #e0f2fe 40%, #f8fafc 100%);
   background-attachment: fixed;
   color: var(--text);
-  direction: rtl;
   min-height: 100vh;
   overflow-x: hidden;
   max-width: 100vw;
@@ -194,7 +193,7 @@ html {
   padding: 3px 0 8px;
   font-size: 0.72rem;
   color: var(--text-muted);
-  direction: rtl;
+  /* direction: inherited from dir attr */
 }
 
 .daily-goal-label {
@@ -413,7 +412,7 @@ html {
   font-family: inherit;
   font-size: 0.82rem;
   color: var(--text);
-  direction: rtl;
+  /* direction: inherited from dir attr */
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -532,7 +531,7 @@ html {
   color: var(--text);
   cursor: pointer;
   transition: all 0.2s ease;
-  text-align: right;
+  text-align: start;
   position: relative;
   overflow: hidden;
 }
@@ -809,7 +808,7 @@ html {
 .content-table td {
   padding: 0.75rem 1rem;
   border: 1px solid rgba(14, 116, 144, 0.12);
-  text-align: right;
+  text-align: start;
 }
 
 .content-table th {
@@ -907,7 +906,7 @@ html {
   border: none;
   color: var(--text);
   font-size: 0.95rem;
-  text-align: right;
+  text-align: start;
   cursor: pointer;
   transition: background 0.2s;
 }
@@ -1316,7 +1315,7 @@ html {
     font-family: inherit;
     cursor: pointer;
     transition: all 0.2s;
-    direction: rtl;
+    /* direction: inherited from dir attr */
   }
   .mobile-menu-back-btn:hover {
     background: rgba(14, 116, 144, 0.15);
@@ -1444,7 +1443,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  direction: rtl;
+  /* direction: inherited from dir attr */
 }
 
 .track-picker-header {
@@ -1506,7 +1505,7 @@ html {
   border: 1.5px solid var(--glass-border, rgba(255,255,255,0.08));
   border-radius: 18px;
   cursor: pointer;
-  text-align: right;
+  text-align: start;
   transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s, background 0.18s;
   position: relative;
   overflow: hidden;
@@ -1709,7 +1708,7 @@ html {
   width: min(420px, 92vw);
   box-shadow: 0 20px 60px rgba(0,0,0,0.2);
   animation: slide-up-modal 0.25s ease;
-  direction: rtl;
+  /* direction: inherited from dir attr */
 }
 
 @keyframes slide-up-modal {
@@ -1774,9 +1773,9 @@ html {
   border-radius: 12px;
   cursor: pointer;
   font-family: inherit;
-  text-align: right;
+  text-align: start;
   transition: all 0.15s;
-  direction: rtl;
+  /* direction: inherited from dir attr */
 }
 
 .reset-option-btn:hover {
@@ -1837,7 +1836,7 @@ html {
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(14, 116, 144, 0.3);
   transition: transform 0.2s, box-shadow 0.2s;
-  direction: rtl;
+  /* direction: inherited from dir attr */
 }
 
 .go-to-quiz-btn:hover {
@@ -1848,4 +1847,68 @@ html {
 .go-to-quiz-btn:active {
   transform: translateY(0);
   box-shadow: 0 2px 8px rgba(14, 116, 144, 0.25);
+}
+
+/* ===== LTR (English) OVERRIDES ===== */
+[dir="ltr"] .app,
+[dir="ltr"] .content-body,
+[dir="ltr"] .page-content,
+[dir="ltr"] .chapter-summary,
+[dir="ltr"] .questions-container,
+[dir="ltr"] .answer-block,
+[dir="ltr"] .demo-note {
+  text-align: left;
+  direction: ltr;
+}
+
+[dir="ltr"] .content-body p,
+[dir="ltr"] .content-body li,
+[dir="ltr"] .content-body h2,
+[dir="ltr"] .content-body h3,
+[dir="ltr"] .content-body h4 {
+  text-align: left;
+  direction: ltr;
+}
+
+[dir="ltr"] .sidebar {
+  text-align: left;
+}
+
+[dir="ltr"] .chapter-btn {
+  text-align: left;
+}
+
+[dir="ltr"] .page-header h2 {
+  text-align: left;
+}
+
+[dir="ltr"] .header-title-wrap {
+  text-align: left;
+}
+
+[dir="ltr"] .track-card-body {
+  text-align: left;
+}
+
+[dir="ltr"] .quiz-chapter-btn {
+  text-align: left;
+}
+
+[dir="ltr"] .reset-modal {
+  text-align: left;
+}
+
+[dir="ltr"] .reset-option-btn {
+  text-align: left;
+}
+
+/* Fix font for English — use sans-serif instead of Hebrew font */
+[dir="ltr"] .app {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+[dir="ltr"] .app code,
+[dir="ltr"] .app pre {
+  direction: ltr;
+  text-align: left;
 }

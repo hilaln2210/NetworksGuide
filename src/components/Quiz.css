@@ -101,7 +101,7 @@
   border-radius: 14px;
   cursor: pointer;
   transition: all 0.18s;
-  text-align: right;
+  text-align: start;
   color: #0f172a;
   font-family: inherit;
 }
@@ -291,7 +291,7 @@
   line-height: 1.5;
   color: #0f172a;
   font-family: 'Rubik', sans-serif;
-  text-align: right;
+  text-align: start;
 }
 
 /* ===== CHOICES ===== */
@@ -312,7 +312,7 @@
   border-radius: 14px;
   cursor: pointer;
   transition: all 0.18s;
-  text-align: right;
+  text-align: start;
   color: #0f172a;
   font-family: inherit;
   font-size: 0.95rem;
@@ -343,7 +343,7 @@
 .choice-text {
   flex: 1;
   line-height: 1.5;
-  text-align: right;
+  text-align: start;
   white-space: pre-line;
 }
 
@@ -725,7 +725,7 @@
   font-size: 0.88rem;
   color: rgba(15,23,42,0.75);
   line-height: 1.5;
-  direction: rtl;
+  /* direction: inherited from dir attr */
 }
 
 .quiz-hint-label {
@@ -752,7 +752,7 @@
   align-items: flex-start;
   gap: 0.5rem;
   font-size: 0.9rem;
-  direction: rtl;
+  /* direction: inherited from dir attr */
 }
 
 .exp-label-wrong {
@@ -823,7 +823,7 @@
   justify-content: space-between;
   padding: 1rem 1.25rem 0.75rem;
   border-bottom: 1px solid rgba(15,23,42,0.08);
-  direction: rtl;
+  /* direction: inherited from dir attr */
   flex-shrink: 0;
 }
 
@@ -877,7 +877,7 @@
   padding: 0.6rem 1.25rem;
   background: rgba(15,23,42,0.02);
   border-bottom: 1px solid rgba(15,23,42,0.06);
-  direction: rtl;
+  /* direction: inherited from dir attr */
   flex-shrink: 0;
 }
 
@@ -896,7 +896,7 @@
   flex: 1;
   overflow-y: auto;
   padding: 1.25rem 1.5rem;
-  direction: rtl;
+  /* direction: inherited from dir attr */
 }
 
 .ch-modal-content-body {
@@ -923,7 +923,7 @@
   cursor: pointer;
   list-style: none;
   background: rgba(15,23,42,0.03);
-  direction: rtl;
+  /* direction: inherited from dir attr */
 }
 
 .ch-modal-qa-q:hover {
@@ -963,7 +963,7 @@
   justify-content: space-between;
   padding: 0.75rem 1.25rem;
   border-top: 1px solid rgba(15,23,42,0.08);
-  direction: rtl;
+  /* direction: inherited from dir attr */
   flex-shrink: 0;
   background: rgba(15,23,42,0.02);
 }
@@ -1024,4 +1024,16 @@
   background: rgba(14,116,144,0.13);
   border-color: rgba(14,116,144,0.4);
   transform: scale(1.03);
+}
+
+/* ===== LTR (English) OVERRIDES ===== */
+[dir="ltr"] .quiz-screen,
+[dir="ltr"] .quiz-select-header,
+[dir="ltr"] .quiz-done,
+[dir="ltr"] .quiz-chapter-btn,
+[dir="ltr"] .quiz-question-wrap,
+[dir="ltr"] .quiz-choice-text,
+[dir="ltr"] .quiz-explanation {
+  text-align: left;
+  direction: ltr;
 }
