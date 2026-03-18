@@ -3027,7 +3027,7 @@ export const quizBank = {
       q: "מה GitOps ואיך שונה מ-CI/CD רגיל?",
       correct: "‏GitOps: Git הוא source of truth לinfrastructure. שינוי ב-Git → agent (ArgoCD) מזהה drift ו-syncs. CI/CD רגיל: pipeline דוחפת לcluster",
       choices: [
-        "‏GitOps: Git הוא source of truth לinfrastructure. שינוי ב-Git → agent מזהה drift ו-syncs. CI/CD רגיל: pipeline דוחפת לcluster",
+        "‏GitOps: Git הוא source of truth לinfrastructure. שינוי ב-Git → agent (ArgoCD) מזהה drift ו-syncs. CI/CD רגיל: pipeline דוחפת לcluster",
         "‏GitOps = CI/CD עם Git בלבד",
         "‏GitOps ו-CI/CD זהים",
         "‏GitOps עובד רק עם Kubernetes"

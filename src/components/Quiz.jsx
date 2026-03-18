@@ -32,18 +32,6 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
   const [hintVisible, setHintVisible] = useState(false)
   const [chapterModal, setChapterModal] = useState(null) // { chapter, chIdx }
 
-  // Auto-start a specific chapter's quiz when triggered from the learn tab
-  useEffect(() => {
-    if (autoStartChapterId != null && autoStartKey != null) {
-      const qs = getQuizForChapter(autoStartChapterId)
-      if (qs.length) {
-        setMode('chapter')
-        setSelectedChapter(autoStartChapterId)
-        startQuiz(qs)
-      }
-    }
-  }, [autoStartChapterId, autoStartKey, startQuiz])
-
   // Generate a hint: find the sentence with the lowest overlap with the correct answer
   function getHint(explanation, correct) {
     const text = explanation.replace(/<[^>]+>/g, '').trim()
@@ -98,6 +86,18 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
     setHintVisible(false)
     pendingAdvance.current = null
   }, [])
+
+  // Auto-start a specific chapter's quiz when triggered from the learn tab
+  useEffect(() => {
+    if (autoStartChapterId != null && autoStartKey != null) {
+      const qs = getQuizForChapter(autoStartChapterId)
+      if (qs.length) {
+        setMode('chapter')
+        setSelectedChapter(autoStartChapterId)
+        startQuiz(qs)
+      }
+    }
+  }, [autoStartChapterId, autoStartKey, startQuiz])
 
   const advanceQuiz = useCallback((isCorrect, finalScore) => {
     const isLast = current + 1 >= questions.length
