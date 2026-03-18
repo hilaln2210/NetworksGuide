@@ -1556,26 +1556,26 @@ export const quizBank = {
 
   26: [
     {
-      q: "מה ההבדל העיקרי בין HTTP/2 ל-HTTP/3?",
-      correct: "‏HTTP/2 על TCP ‎(יש HOL blocking ב-transport)‎, HTTP/3 על QUIC/UDP ‎(streams עצמאיים)‎",
+      q: "\u200Fמה ההבדל העיקרי בין HTTP/2 ל-HTTP/3?",
+      correct: "\u200FHTTP/2 על TCP\n(יש HOL blocking ב-transport)\nHTTP/3 על QUIC/UDP\n(streams עצמאיים)",
       choices: [
-        "‏HTTP/2 על TCP ‎(יש HOL blocking ב-transport)‎, HTTP/3 על QUIC/UDP ‎(streams עצמאיים)‎",
-        "‏HTTP/3 מהיר יותר כי משתמש בUDP שמהיר מTCP",
-        "‏HTTP/3 מוסיף הצפנה שלא הייתה בHTTP/2",
-        "‏HTTP/2 לdesktop, HTTP/3 למובייל"
+        "\u200FHTTP/2 על TCP\n(יש HOL blocking ב-transport)\nHTTP/3 על QUIC/UDP\n(streams עצמאיים)",
+        "\u200FHTTP/3 מהיר יותר כי משתמש ב-UDP\nש-UDP מהיר מ-TCP",
+        "\u200FHTTP/3 מוסיף הצפנה\nשלא הייתה ב-HTTP/2",
+        "\u200FHTTP/2 ל-desktop\nHTTP/3 למובייל"
       ],
-      explanation: "‏HTTP/2 פתר HOL blocking ב-Application layer — אבל TCP עדיין בעיה. חבילה אחת אבודה = כל streams מחכים. ‏QUIC: כל stream עצמאי גם ב-transport. אובדן חבילה = רק stream אחד מושפע. ‏25%+ מהאינטרנט כבר HTTP/3 🚀"
+      explanation: "\u200F🔄 HTTP/2 — הבעיה\n• פתר HOL blocking ב-Application layer\n• אבל TCP עדיין בעיה\n• חבילה אחת אבודה = כל streams מחכים\n\n⚡ QUIC — הפתרון\n• כל stream עצמאי גם ב-transport\n• אובדן חבילה = רק stream אחד מושפע\n\n📊 אימוץ\n• 25%+ מהאינטרנט כבר HTTP/3"
     },
     {
-      q: "מה eBPF מאפשר שלא היה אפשרי קודם?",
-      correct: "להריץ קוד בתוך Linux kernel — בזמן אמת, בלי kernel module, בלי reboot",
+      q: "\u200Fמה eBPF מאפשר שלא היה אפשרי קודם?",
+      correct: "\u200Fלהריץ קוד בתוך Linux kernel\n— בזמן אמת, בלי kernel module, בלי reboot",
       choices: [
-        "להריץ קוד בתוך Linux kernel — בזמן אמת, בלי kernel module, בלי reboot",
-        "לתכנת network cards ישירות",
-        "להריץ applications בmemory מוגן",
-        "לדבג kernel crashes בproduction"
+        "\u200Fלהריץ קוד בתוך Linux kernel\n— בזמן אמת, בלי kernel module, בלי reboot",
+        "\u200Fלתכנת network cards ישירות",
+        "\u200Fלהריץ applications ב-memory מוגן",
+        "\u200Fלדבג kernel crashes ב-production"
       ],
-      explanation: "‏eBPF = revolution. ‏XDP: drop packets לפני ה-network stack — מיליוני pps. ‏Cilium: מחליף iptables בKubernetes. ‏Observability: trace כל syscall בproduction ללא overhead. ‏Cloudflare, Meta, Google, Netflix = כולם eBPF 🔧"
+      explanation: "\u200F🔧 eBPF — מהפכה\n• XDP: drop packets לפני ה-network stack\n• מיליוני pps\n\n🔌 שימושים\n• Cilium: מחליף iptables ב-Kubernetes\n• Observability: trace כל syscall ב-production ללא overhead\n\n🏢 מי משתמש?\n• Cloudflare\n• Meta\n• Google\n• Netflix"
     },
     {
       q: "מה eBPF ואיך הוא שינה Linux networking?",
@@ -2142,7 +2142,7 @@ export const quizBank = {
         "‏הצפנה אסימטרית מהירה יותר, סימטרית מאובטחת יותר",
         "‏שניהם זהים — ההבדל רק בשם"
       ],
-      explanation: "‏אלגוריתם הצפנה סימטרית (AES) — מהיר מאוד, משמש להצפנת הנתונים. אלגוריתם אסימטרי (RSA) — איטי, משמש לחילופי מפתחות. פרוטוקול TLS משלב את שניהם: RSA להסכמה על מפתח AES, ואז AES להצפנת כל התקשורת. הטוב מכל העולמות!",
+      explanation: "‏🔑 הצפנה סימטרית (AES)\n• מהירה מאוד\n• משמשת להצפנת הנתונים\n\n🔐 הצפנה אסימטרית (RSA)\n• איטית\n• משמשת לחילופי מפתחות\n\n🤝 פרוטוקול TLS — הטוב מכל העולמות\n• RSA להסכמה על מפתח AES\n• ואז AES להצפנת כל התקשורת",
       explanationEn: "AES = symmetric, very fast, used for encrypting payloads. RSA = asymmetric, slow, used for key exchange. TLS combines both: RSA to agree on an AES key, then AES to encrypt all communication. The best of both worlds!"
     },
     {
@@ -2154,7 +2154,7 @@ export const quizBank = {
         "‏השרת שולח סיסמה מוצפנת שהדפדפן פותח",
         "‏שרת DNS מוודא שהתעודה הדיגיטלית תקפה"
       ],
-      explanation: "‏לחיצת יד (TLS Handshake): הלקוח שולח ClientHello, השרת משיב עם ServerHello ותעודה דיגיטלית, מוחלף סוד ראשוני מוצפן ב-RSA, שני הצדדים גוזרים מפתח הפעלה, וסיום. מכאן ואילך: הצפנת AES-256-GCM. אלגוריתם RSA משמש רק בלחיצת היד, AES לכל השאר — מהיר ומאובטח.",
+      explanation: "‏🤝 לחיצת יד — TLS Handshake\n• הלקוח שולח ClientHello\n• השרת משיב עם ServerHello ותעודה דיגיטלית\n• מוחלף סוד ראשוני מוצפן ב-RSA\n• שני הצדדים גוזרים מפתח הפעלה\n• סיום\n\n🔒 מכאן ואילך\n• הצפנת AES-256-GCM\n• RSA משמש רק בלחיצת היד\n• AES לכל השאר — מהיר ומאובטח",
       explanationEn: "TLS Handshake: ClientHello > ServerHello+Certificate > Pre-Master Secret (encrypted with RSA) > both sides derive Session Key > Finished. From here on: AES-256-GCM. RSA is used only during the handshake; AES handles the rest — fast and secure."
     },
     {
@@ -2166,7 +2166,7 @@ export const quizBank = {
         "‏הזרקת SQL באימות תעודות דיגיטליות",
         "‏גלישת חוצץ (Buffer Overflow) בשרת Apache HTTP"
       ],
-      explanation: "‏באג Heartbleed: הלקוח שולח בקשת פעימה (Heartbeat) עם אורך שגוי. השרת מחזיר את האורך שביקשת (עד 64KB) מהזיכרון — תוכן אקראי שעלול לכלול מפתחות פרטיים, סיסמאות ואסימוני הפעלה (Session Tokens). ‏17% מהאינטרנט היה פגיע. הפתרון: שדרוג OpenSSL והחלפת כל התעודות הדיגיטליות.",
+      explanation: "‏💔 באג Heartbleed\n• הלקוח שולח בקשת פעימה (Heartbeat) עם אורך שגוי\n• השרת מחזיר עד 64KB מהזיכרון\n\n☠️ מה דלף?\n• תוכן אקראי — מפתחות פרטיים\n• סיסמאות ואסימוני הפעלה (Session Tokens)\n• 17% מהאינטרנט היה פגיע\n\n🔧 הפתרון\n• שדרוג OpenSSL\n• החלפת כל התעודות הדיגיטליות",
       explanationEn: "Heartbleed: the client sends a heartbeat with an incorrect length. The server returns the requested number of bytes (up to 64KB) from memory — random content that may include private keys, passwords, and session tokens. 17% of the internet was vulnerable. Fix: upgrade OpenSSL + replace all certificates."
     },
         {
@@ -2178,7 +2178,7 @@ export const quizBank = {
         "‏סימטרית לרשתות — אסימטרית לקבצים",
         "‏אלגוריתם AES הוא אסימטרי כי מפתחותיו ארוכים יותר"
       ],
-      explanation: "‏הצפנה סימטרית (AES, ChaCha20): מהירה, מתאימה לכמויות גדולות של נתונים. הבעיה: איך מעבירים את המפתח בצורה מאובטחת? הצפנה אסימטרית (RSA, ECDH): איטית אך מאפשרת חילוף מפתחות מאובטח. מפתח ציבורי = נעילה, מפתח פרטי = פתיחה. פרוטוקול TLS משלב: אסימטרית ללחיצת היד (חילוף מפתח הפעלה), סימטרית להעברת נתונים. RSA עם 2048 סיביות עדיין מאובטח, אך 1024 סיביות שבור!",
+      explanation: "‏🔑 הצפנה סימטרית (AES, ChaCha20)\n• מהירה, מתאימה לכמויות גדולות של נתונים\n• הבעיה: איך מעבירים את המפתח בצורה מאובטחת?\n\n🔐 הצפנה אסימטרית (RSA, ECDH)\n• איטית אך מאפשרת חילוף מפתחות מאובטח\n• מפתח ציבורי = נעילה\n• מפתח פרטי = פתיחה\n\n🤝 פרוטוקול TLS משלב\n• אסימטרית ללחיצת היד (חילוף מפתח הפעלה)\n• סימטרית להעברת נתונים\n\n⚠️ RSA 2048 סיביות עדיין מאובטח — 1024 סיביות שבור!",
       explanationEn: "Symmetric (AES, ChaCha20): fast, suitable for bulk data. Problem: key exchange — how do you send the key securely? Asymmetric (RSA, ECDH): slow but enables secure key exchange. Public key = lock, Private key = unlock. TLS combines: Asymmetric for handshake (exchange session key), Symmetric for data transfer — best of both worlds. RSA 2048-bit is still secure; RSA 1024 is broken!"
     },
         {
@@ -2190,7 +2190,7 @@ export const quizBank = {
         "‏מנגנון שמקדים את תהליך לחיצת היד של TLS",
         "‏סודיות קדימה ו-TLS 1.3 הם אותו דבר"
       ],
-      explanation: "‏ללא סודיות קדימה מושלמת (PFS): תוקף מקליט תעבורה מוצפנת היום, ובעוד 5 שנים גונב את המפתח הפרטי של השרת ומפענח הכל! עם PFS (באמצעות ECDHE — עקום אליפטי של דיפי-הלמן עם מפתחות זמניים): מפתח ההפעלה נגזר מפרמטרים זמניים שנמחקים מיד. גם עם גניבת המפתח הפרטי — שיחות עבר נשארות מוצפנות. פרוטוקול TLS 1.3 מחייב ECDHE והסיר את חילוף המפתחות באמצעות RSA.",
+      explanation: "‏⚠️ ללא PFS\n• תוקף מקליט תעבורה מוצפנת היום\n• בעוד 5 שנים גונב את המפתח הפרטי\n• מפענח הכל!\n\n🛡️ עם PFS (באמצעות ECDHE)\n• מפתח ההפעלה נגזר מפרמטרים זמניים\n• הפרמטרים נמחקים מיד\n• גם עם גניבת המפתח הפרטי — שיחות עבר מוצפנות\n\n📌 TLS 1.3\n• מחייב ECDHE\n• הסיר את חילוף המפתחות באמצעות RSA",
       explanationEn: "Without PFS: an attacker records encrypted traffic today. In 5 years, they steal the server's private key and decrypt all recorded sessions! With PFS (ECDHE — Elliptic Curve Diffie-Hellman Ephemeral): session keys are derived from temporary parameters that are immediately deleted. Even with a stolen private key, past sessions remain encrypted. TLS 1.3 removed RSA key exchange and requires ECDHE."
     },
         {
@@ -2202,7 +2202,7 @@ export const quizBank = {
         "‏פרוטוקול לחיצת יד של TLS 1.3",
         "‏שיטה להחלפת מפתחות קריפטוגרפיים"
       ],
-      explanation: "‏תכונות פונקציית גיבוב (Hash): דטרמיניסטית (אותו קלט = אותו פלט תמיד), חד-כיוונית (לא ניתן להפוך), אפקט מפולת (שינוי סיבית אחת בקלט משנה כ-50% מהפלט), עמידות להתנגשויות (קשה מאוד למצוא שני קלטים שונים עם אותו פלט). SHA-256: פלט של 256 סיביות. שימושים: גיבוב סיסמאות (bcrypt ו-Argon2 עדיפים!), חתימות דיגיטליות, טביעות אצבע של תעודות, זיהוי קומיטים ב-Git ובלוקצ'יין. אלגוריתמי MD5 ו-SHA-1 שבורים לחתימות!",
+      explanation: "‏🔢 תכונות פונקציית גיבוב (Hash)\n• דטרמיניסטית — אותו קלט = אותו פלט תמיד\n• חד-כיוונית — לא ניתן להפוך\n• אפקט מפולת — שינוי סיבית אחת משנה כ-50% מהפלט\n• עמידות להתנגשויות — קשה מאוד למצוא שני קלטים עם אותו פלט\n\n📐 SHA-256\n• פלט של 256 סיביות\n\n🛠️ שימושים\n• גיבוב סיסמאות (bcrypt ו-Argon2 עדיפים!)\n• חתימות דיגיטליות\n• טביעות אצבע של תעודות\n• זיהוי קומיטים ב-Git ובלוקצ'יין\n\n⚠️ MD5 ו-SHA-1 שבורים לחתימות!",
       explanationEn: "Hash properties: Deterministic (same input = same output always), One-way (cannot be reversed), Avalanche effect (changing 1 bit in input changes ~50% of output), Collision resistance (extremely hard to find x!=y where H(x)=H(y)). SHA-256 outputs 256 bits = 2^256 possibilities. Uses: password hashing (bcrypt/Argon2 are better!), digital signatures, certificate fingerprints, Git commit IDs, blockchain. MD5/SHA-1 are broken for signatures!"
     }
   ],
