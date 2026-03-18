@@ -8588,22 +8588,23 @@ ALERT HighErrorRate
         type: "explanation",
         title: "GitOps — Git כמקור האמת היחיד",
         content: `<div dir="rtl">
-<h2>GitOps: מה שב-Git הוא מה שב-Production</h2>
-<p><code>GitOps</code> היא פרקטיקה שבה <strong>כל מצב הפרודקשן מוגדר ב-<code>Git</code></strong>.</p>
+<h2>GitOps — מה שב-Git הוא מה שב-Production</h2>
+<p><strong>GitOps</strong></p>
+<p>פרקטיקה שבה <strong>כל מצב הפרודקשן מוגדר ב-<code>Git</code></strong>.</p>
 <p>לא רק קוד האפליקציה — אלא גם כל ה-<code>Kubernetes manifests</code>, ה-<code>Helm values</code> וה-<code>infrastructure config</code>.</p>
-<p><strong>עקרונות GitOps:</strong></p>
+<p><strong>עקרונות GitOps</strong></p>
 <ul>
-  <li><strong>Declarative:</strong> מתאר מה רוצים, לא איך לעשות</li>
-  <li><strong>Versioned:</strong> כל שינוי הוא commit — ניתן לrollback מיידי</li>
-  <li><strong>Automated:</strong> controller מסנכרן Git לcluster אוטומטית</li>
-  <li><strong>Continuous reconciliation:</strong> אם מישהו שינה משהו בcluster ידנית — Controller מחזיר למצב ב-Git</li>
+  <li><strong>Declarative</strong> — מתאר מה רוצים, לא איך לעשות</li>
+  <li><strong>Versioned</strong> — כל שינוי הוא <code>commit</code> — ניתן ל-<code>rollback</code> מיידי</li>
+  <li><strong>Automated</strong> — <code>controller</code> מסנכרן <code>Git</code> ל-<code>cluster</code> אוטומטית</li>
+  <li><strong>Continuous reconciliation</strong> — אם מישהו שינה משהו ב-<code>cluster</code> ידנית — <code>Controller</code> מחזיר למצב ב-<code>Git</code></li>
 </ul>
 <table class="content-table">
   <tr><th>מודל</th><th>Push Deployment</th><th>Pull (GitOps)</th></tr>
-  <tr><td>מי פועל</td><td>CI pipeline</td><td>Controller בcluster</td></tr>
-  <tr><td>הרשאות</td><td>CI צריך kubectl access</td><td>אין גישה חיצונית לcluster</td></tr>
-  <tr><td>Drift</td><td>לא מזוהה</td><td>מזוהה ותוקן אוטומטית</td></tr>
-  <tr><td>Rollback</td><td>ידני</td><td>git revert</td></tr>
+  <tr><td>מי פועל</td><td><code>CI pipeline</code></td><td><code>Controller</code> ב-<code>cluster</code></td></tr>
+  <tr><td>הרשאות</td><td><code>CI</code> צריך <code>kubectl access</code></td><td>אין גישה חיצונית ל-<code>cluster</code></td></tr>
+  <tr><td><code>Drift</code></td><td>לא מזוהה</td><td>מזוהה ותוקן אוטומטית</td></tr>
+  <tr><td><code>Rollback</code></td><td>ידני</td><td><code>git revert</code></td></tr>
 </table>
 </div>`
       },
@@ -8653,10 +8654,11 @@ spec:
     automated:
       prune: true       # מוחק resources שנמחקו מGit
       selfHeal: true    # מתקן drift אוטומטית</code></pre>
-<p><code>ArgoCD</code> מסנכרן כל 3 דקות:</p>
+<p><strong>ArgoCD</strong></p>
+<p>מסנכרן כל 3 דקות:</p>
 <ul>
-<li>שינוי ב-<code>Git</code> → deploy אוטומטי</li>
-<li>שינוי ידני ב-<code>cluster</code> → מתוקן אוטומטית למצב ב-<code>Git</code></li>
+<li>שינוי ב-<code>Git</code> — <code>deploy</code> אוטומטי</li>
+<li>שינוי ידני ב-<code>cluster</code> — מתוקן אוטומטית למצב ב-<code>Git</code></li>
 </ul>
 <p>זו ההבטחה של <code>GitOps</code>.</p>
 </div>`
@@ -8666,7 +8668,8 @@ spec:
         title: "Drift Detection — הביטחון של GitOps",
         content: `<div dir="rtl">
 <h2>כשמישהו שינה משהו — ArgoCD יודע</h2>
-<p>הכוח הגדול ביותר של <code>GitOps</code>: <strong>drift detection</strong>.</p>
+<p><strong>Drift Detection</strong></p>
+<p>הכוח הגדול ביותר של <code>GitOps</code>.</p>
 <p>כל שינוי ב-<code>cluster</code> שלא מגיע מ-<code>Git</code> — <code>ArgoCD</code> מזהה ומדווח.</p>
 <p>אם מוגדר <code>selfHeal</code>, הוא מחזיר את המצב אוטומטית.</p>
 <pre><code># בדיקת סטטוס אפליקציות
@@ -8678,14 +8681,16 @@ argocd app sync my-app
 
 # Rollback לגרסה קודמת
 argocd app rollback my-app 3</code></pre>
-<p><strong>מתי GitOps לא מספיק?</strong> כשמדובר ב-Secrets.</p>
+<p><strong>מתי GitOps לא מספיק?</strong></p>
+<p>כשמדובר ב-<code>Secrets</code>.</p>
 <p>לעולם לא מאחסנים סיסמאות ב-<code>Git</code>.</p>
-<p><strong>הפתרונות:</strong></p>
+<p><strong>הפתרונות</strong></p>
 <ul>
-<li><strong>Sealed Secrets</strong> — מוצפן ב-<code>public key</code>, רק ה-<code>cluster</code> יכול לפענח</li>
+<li><strong>Sealed Secrets</strong> — מוצפן ב-<code>public key</code>. רק ה-<code>cluster</code> יכול לפענח</li>
 <li><strong>External Secrets Operator</strong> — מושך סודות מ-<code>Vault</code> או <code>AWS Secrets Manager</code></li>
 </ul>
-<p><strong>ApplicationSet</strong> — תכונה מתקדמת שיוצרת <code>Applications</code> מרובות אוטומטית.</p>
+<p><strong>ApplicationSet</strong></p>
+<p>תכונה מתקדמת שיוצרת <code>Applications</code> מרובות אוטומטית.</p>
 <p>ניתן לייצר אחת לכל <code>namespace</code>, לכל <code>cluster</code>, או לכל <code>feature branch</code>.</p>
 <p>מאפשרת ניהול <code>GitOps</code> במרובה אשכולות.</p>
 </div>`
@@ -9491,11 +9496,11 @@ bgpq4 -4 -A -J AS13335</code></pre>
 <h2>אירועי BGP Hijacking מפורסמים</h2>
 <table class="content-table">
   <tr><th>שנה</th><th>מי</th><th>מה קרה</th><th>השפעה</th></tr>
-  <tr><td>2008</td><td>Pakistan Telecom</td><td>Hijack YouTube prefix</td><td>YouTube down ~1 שעה עולמית</td></tr>
-  <tr><td>2010</td><td>China Telecom</td><td>18 min hijack של 15% מroutes</td><td>Traffic US gov/mil עבר דרך China</td></tr>
-  <tr><td>2018</td><td>eNet (AS10297)</td><td>Hijack Amazon Route53</td><td>MyEtherWallet phishing — $160K נגנב</td></tr>
-  <tr><td>2019</td><td>Swiss datacenter</td><td>Leak של Google routes</td><td>Gmail/YouTube פגוע בEurope</td></tr>
-  <tr><td>2021</td><td>Vodafone AS55410</td><td>Hijack Facebook prefixes</td><td>תרם לdown של Facebook אוקטובר 2021</td></tr>
+  <tr><td>2008</td><td><code>Pakistan Telecom</code></td><td>חטיפת <code>prefix</code> של <code>YouTube</code></td><td><code>YouTube</code> נפל לשעה — ברחבי העולם</td></tr>
+  <tr><td>2010</td><td><code>China Telecom</code></td><td>חטיפת 15% מה-<code>routes</code> למשך 18 דקות</td><td>תעבורת ממשל וצבא ארה"ב עברה דרך סין</td></tr>
+  <tr><td>2018</td><td><code>eNet</code> — <code>AS10297</code></td><td>חטיפת <code>Amazon Route53</code></td><td>פישינג של <code>MyEtherWallet</code> — 160 אלף דולר נגנבו</td></tr>
+  <tr><td>2019</td><td>מרכז נתונים שוויצרי</td><td>דליפת <code>routes</code> של <code>Google</code></td><td><code>Gmail</code> ו-<code>YouTube</code> נפגעו באירופה</td></tr>
+  <tr><td>2021</td><td><code>Vodafone AS55410</code></td><td>חטיפת <code>prefixes</code> של <code>Facebook</code></td><td>תרם לנפילת <code>Facebook</code> באוקטובר 2021</td></tr>
 </table>
 <div class="diagram-container">
 <svg viewBox="0 0 360 130" class="content-diagram">
@@ -9518,8 +9523,9 @@ bgpq4 -4 -A -J AS13335</code></pre>
   <defs><marker id="arr-rpki" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#94a3b8"/></marker></defs>
 </svg>
 </div>
-<p><strong>אימוץ RPKI:</strong> נכון ל-2024, כ-40% מה-<code>BGP routes</code> העולמיים מוגנים ב-<code>RPKI</code>.</p>
-<p>Cloudflare, AWS ו-Google — כולם חותמים את ה-<code>ROAs</code> שלהם.</p>
+<p><strong>אימוץ RPKI</strong></p>
+<p>נכון ל-2024, כ-40% מה-<code>BGP routes</code> העולמיים מוגנים ב-<code>RPKI</code>.</p>
+<p><code>Cloudflare</code>, <code>AWS</code> ו-<code>Google</code> — כולם חותמים את ה-<code>ROAs</code> שלהם.</p>
 <p>ספקי אינטרנט גדולים כבר מסננים <code>routes</code> לא תקינים.</p>
 </div>`
       }
@@ -9535,11 +9541,12 @@ bgpq4 -4 -A -J AS13335</code></pre>
         content: `<div dir="rtl">
 <h2>הבידוד שמאחורי Docker</h2>
 <p>כשמריצים <code>container</code> ב-<code>Docker</code>, הוא מקבל <strong>network namespace</strong> משלו.</p>
-<p>זוהי הפשטה של הגרעין שמאפשרת ל-<code>container</code> לחשוב שיש לו מחסנית רשת נפרדת לחלוטין:</p>
+<p>זוהי הפשטה של הגרעין.</p>
+<p>ה-<code>container</code> חושב שיש לו מחסנית רשת נפרדת לחלוטין.</p>
 <ul>
 <li><code>interfaces</code> משלו</li>
 <li><code>routing table</code> משלו</li>
-<li><code>iptables rules</code> משלו</li>
+<li>כללי <code>iptables</code> משלו</li>
 </ul>
 <pre><code># יצירת namespace ידנית (מה שDocker עושה אוטומטית)
 ip netns add container1
@@ -9559,15 +9566,16 @@ ip link set veth0 master docker0
 # הפעלה
 ip netns exec container1 ip link set veth1 up
 ip netns exec container1 ip addr add 172.17.0.2/16 dev veth1</code></pre>
-<p>כל <code>container</code> מקבל <strong>veth pair</strong> — "כבל וירטואלי" שמקשר בין ה-<code>namespace</code> ל-<code>bridge</code> של ה-<code>host</code>.</p>
-<p>ה-<code>bridge docker0</code> הוא ה-switch הווירטואלי שמחבר את כל ה-containers ביחד.</p>
+<p><strong>veth pair</strong></p>
+<p>כל <code>container</code> מקבל <code>veth pair</code> — כבל וירטואלי שמקשר בין ה-<code>namespace</code> ל-<code>bridge</code> של ה-<code>host</code>.</p>
+<p>ה-<code>bridge docker0</code> הוא ה-<code>switch</code> הווירטואלי שמחבר את כל ה-<code>containers</code> ביחד.</p>
 </div>`
       },
       {
         type: "diagram",
         title: "Docker Networking Architecture",
         content: `<div dir="rtl">
-<h2>veth pairs, Bridge, ו-NAT</h2>
+<h2>veth pairs, Bridge ו-NAT</h2>
 <div class="diagram-container">
 <svg viewBox="0 0 360 130" class="content-diagram">
   <rect x="5" y="5" width="350" height="120" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1"/>
@@ -9592,29 +9600,33 @@ ip netns exec container1 ip addr add 172.17.0.2/16 dev veth1</code></pre>
   <text x="295" y="73" text-anchor="middle" font-size="7" fill="#94a3b8">veth</text>
 </svg>
 </div>
-<p>כש-Container 1 שולח <code>packet</code> ל-Container 2:</p>
+<p>כש-<code>Container 1</code> שולח <code>packet</code> ל-<code>Container 2</code>:</p>
 <ol>
 <li>ה-<code>veth pair</code> מוציא את ה-<code>packet</code> ל-<code>bridge docker0</code></li>
 <li>ה-<code>bridge</code> מחפש את ה-<code>MAC</code> של היעד ב-<code>forwarding table</code></li>
-<li>ה-<code>bridge</code> שולח ל-<code>veth</code> של Container 2</li>
+<li>ה-<code>bridge</code> שולח ל-<code>veth</code> של <code>Container 2</code></li>
 </ol>
-<p><strong>לתעבורה חיצונית:</strong> <code>iptables MASQUERADE</code> (כלומר <code>NAT</code>) מחליף את ה-<code>source IP</code> ב-IP של ה-<code>host</code>.</p>
+<p><strong>לתעבורה חיצונית</strong></p>
+<p><code>iptables MASQUERADE</code> — כלומר <code>NAT</code> — מחליף את ה-<code>source IP</code> ב-<code>IP</code> של ה-<code>host</code>.</p>
 </div>`
       },
       {
         type: "explanation",
         title: "Kubernetes Pod Networking",
         content: `<div dir="rtl">
-<h2>Pod-to-Pod: אותו Node vs Cross-Node</h2>
+<h2>Pod-to-Pod — אותו Node מול Cross-Node</h2>
 <p><code>Kubernetes</code> דורש שכל <code>Pod</code> יוכל לדבר עם כל <code>Pod</code> אחר — ללא <code>NAT</code>.</p>
-<p>זו ה-<strong>CNI contract</strong> (<code>Container Network Interface</code>).</p>
-<p><strong>אותו node:</strong> בדיוק כמו <code>Docker</code> — <code>veth pairs</code> ל-<code>bridge</code>. ה-<code>packets</code> עוברים דרך ה-<code>bridge</code> ב-<code>L2</code>.</p>
-<p><strong>Cross-node:</strong> כאן נכנסים <code>CNI plugins</code>:</p>
+<p>זו ה-<strong>CNI contract</strong> — <code>Container Network Interface</code>.</p>
+<p><strong>אותו node</strong></p>
+<p>בדיוק כמו <code>Docker</code> — <code>veth pairs</code> ל-<code>bridge</code>.</p>
+<p>ה-<code>packets</code> עוברים דרך ה-<code>bridge</code> ב-<code>L2</code>.</p>
+<p><strong>Cross-node</strong></p>
+<p>כאן נכנסים <code>CNI plugins</code>.</p>
 <table class="content-table">
   <tr><th>CNI Plugin</th><th>טכנולוגיה</th><th>יתרון</th><th>חיסרון</th></tr>
-  <tr><td><strong>Flannel</strong></td><td>VXLAN overlay</td><td>פשוט, עובד בכל מקום</td><td>overhead של encapsulation</td></tr>
-  <tr><td><strong>Calico</strong></td><td>BGP routing</td><td>ביצועים גבוהים, Network Policy</td><td>מורכב יותר להגדרה</td></tr>
-  <tr><td><strong>Cilium</strong></td><td>eBPF</td><td>L7 visibility, O(1) lookup</td><td>דורש kernel חדש</td></tr>
+  <tr><td><code>Flannel</code></td><td><code>VXLAN overlay</code></td><td>פשוט, עובד בכל מקום</td><td><code>overhead</code> של עטיפה</td></tr>
+  <tr><td><code>Calico</code></td><td><code>BGP routing</code></td><td>ביצועים גבוהים, <code>Network Policy</code></td><td>מורכב יותר להגדרה</td></tr>
+  <tr><td><code>Cilium</code></td><td><code>eBPF</code></td><td>נראות <code>L7</code>, חיפוש <code>O(1)</code></td><td>דורש <code>kernel</code> חדש</td></tr>
 </table>
 <pre><code># בדיקת interfaces ב-node
 ip link show type veth
@@ -9628,9 +9640,12 @@ cilium connectivity test
 # tcpdump על veth של pod
 VETH=$(ip link | grep -o "vethABCDEF")
 tcpdump -i $VETH -n</code></pre>
-<p><strong>Flannel VXLAN:</strong> packets בין nodes עוטפים ב-<code>UDP port 8472</code>. ה-CNI יוצר מנהרה.</p>
-<p><strong>Calico BGP:</strong> כל node הוא <code>BGP router</code> שמפרסם את ה-<code>pod CIDR</code> שלו.</p>
-<p>ה-packets עוברים ב-L3 ישירות, ללא עטיפה — מהיר יותר.</p>
+<p><strong>Flannel VXLAN</strong></p>
+<p><code>packets</code> בין <code>nodes</code> עוטפים ב-<code>UDP</code> פורט 8472.</p>
+<p>ה-<code>CNI</code> יוצר מנהרה.</p>
+<p><strong>Calico BGP</strong></p>
+<p>כל <code>node</code> הוא <code>BGP router</code> שמפרסם את ה-<code>pod CIDR</code> שלו.</p>
+<p>ה-<code>packets</code> עוברים ב-<code>L3</code> ישירות, ללא עטיפה — מהיר יותר.</p>
 </div>`
       },
       {
@@ -9638,9 +9653,11 @@ tcpdump -i $VETH -n</code></pre>
         title: "Cilium ו-eBPF Networking",
         content: `<div dir="rtl">
 <h2>הדור הבא — eBPF מחליף iptables</h2>
-<p><code>iptables</code> ב-<code>Kubernetes</code> עם 1000 שירותים = יותר מ-50,000 rules.</p>
-<p>כל packet עובר סריקה ליניארית — <code>O(n)</code>. כל שירות חדש מאט את הרשת.</p>
-<p><code>Cilium</code> מחליף את <code>iptables</code> ב-<code>eBPF hash maps</code>: כל חיפוש הוא <code>O(1)</code>, ללא תלות בכמות השירותים.</p>
+<p><code>iptables</code> ב-<code>Kubernetes</code> עם 1000 שירותים = יותר מ-50,000 כללים.</p>
+<p>כל <code>packet</code> עובר סריקה ליניארית — <code>O(n)</code>.</p>
+<p>כל שירות חדש מאט את הרשת.</p>
+<p><code>Cilium</code> מחליף את <code>iptables</code> ב-<code>eBPF hash maps</code>.</p>
+<p>כל חיפוש הוא <code>O(1)</code>, ללא תלות בכמות השירותים.</p>
 <pre><code># Hubble — observability layer של Cilium
 hubble observe --namespace production
 
@@ -9671,14 +9688,14 @@ spec:
         http:
         - method: GET
           path: "/api/.*"</code></pre>
-<p><strong>Hubble</strong> מספקת נראות בזמן אמת:</p>
+<p><strong>Hubble</strong> — נראות בזמן אמת</p>
 <ul>
 <li>איזה <code>pod</code> מדבר עם איזה</li>
 <li><code>HTTP status codes</code></li>
 <li><code>latency</code></li>
 </ul>
-<p>הכל בלי instrumentation של האפליקציה.</p>
-<p>זה <strong>service mesh ללא sidecar</strong>.</p>
+<p>הכל בלי <code>instrumentation</code> של האפליקציה.</p>
+<p>זה <strong>service mesh</strong> ללא <code>sidecar</code>.</p>
 </div>`
       }
     ]
