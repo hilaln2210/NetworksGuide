@@ -890,70 +890,70 @@ export const quizBank = {
 
   15: [
     {
-      q: "מה ההבדל בין הצפנה סימטרית לאסימטרית?",
-      correct: "סימטרית: אותו מפתח להצפנה ופענוח. אסימטרית: זוג מפתחות ציבורי/פרטי",
+      q: "\u200Fמה ההבדל בין הצפנה סימטרית לאסימטרית?",
+      correct: "\u200Fסימטרית: אותו מפתח להצפנה ופענוח\nאסימטרית: זוג מפתחות ציבורי/פרטי",
       choices: [
-        "סימטרית: אותו מפתח להצפנה ופענוח. אסימטרית: זוג מפתחות ציבורי/פרטי",
-        "סימטרית מהירה יותר ואסימטרית מאובטחת יותר תמיד",
-        "סימטרית לתעבורה, אסימטרית לאחסון",
-        "אין הבדל — שתיהן משתמשות ב-AES"
+        "\u200Fסימטרית: אותו מפתח להצפנה ופענוח\nאסימטרית: זוג מפתחות ציבורי/פרטי",
+        "\u200Fסימטרית מהירה יותר\nואסימטרית מאובטחת יותר תמיד",
+        "\u200Fסימטרית לתעבורה\nאסימטרית לאחסון",
+        "\u200Fאין הבדל — שתיהן משתמשות ב-AES"
       ],
-      explanation: "‏TLS משתמש בשתיהן: אסימטרית לחילוף מפתחות (Diffie-Hellman) — איטי אבל לא צריך לשתף סוד מראש. סימטרית (AES-256) לתעבורה — מהיר. הכי טוב משני עולמות! 🔑"
+      explanation: "\u200F🔑 TLS משתמש בשתיהן:\n• אסימטרית לחילוף מפתחות (Diffie-Hellman)\n  — איטי אבל לא צריך לשתף סוד מראש\n• סימטרית (AES-256) לתעבורה\n  — מהיר\n\n🏆 הכי טוב משני עולמות!"
     },
     {
-      q: "מה TLS Handshake עושה?",
-      correct: "מסכים על גרסת TLS, מאמת Certificate, ומחליף מפתחות לסשן מוצפן",
+      q: "\u200Fמה TLS Handshake עושה?",
+      correct: "\u200Fמסכים על גרסת TLS\nמאמת Certificate\nומחליף מפתחות לסשן מוצפן",
       choices: [
-        "מסכים על גרסת TLS, מאמת Certificate, ומחליף מפתחות לסשן מוצפן",
-        "פותח חיבור TCP ומצפין אותו באופן אוטומטי",
-        "מוריד את Certificate מ-CA ומתקין אותו",
-        "מבדיל בין HTTP לHTTPS"
+        "\u200Fמסכים על גרסת TLS\nמאמת Certificate\nומחליף מפתחות לסשן מוצפן",
+        "\u200Fפותח חיבור TCP ומצפין אותו באופן אוטומטי",
+        "\u200Fמוריד את Certificate מ-CA ומתקין אותו",
+        "\u200Fמבדיל בין HTTP ל-HTTPS"
       ],
-      explanation: "‏TLS Handshake = לחיצת יד מוצפנת. ‏Server מציג Certificate, Client מאמת מול CA, שניהם מחשבים session key. כל זה לפני שנשלח ביית אחד של נתונים! 🤝🔒"
+      explanation: "\u200F🤝 TLS Handshake — לחיצת יד מוצפנת:\n• Server מציג Certificate\n• Client מאמת מול CA\n• שניהם מחשבים session key\n\n⚡ כל זה לפני:\n• שנשלח ביית אחד של נתונים!"
     },
     {
-      q: "מה Certificate Authority (CA) עושה?",
-      correct: "חותמת דיגיטלית על Certificate של אתר — מאמתת שהאתר אכן שייך לבעלים הנכון",
+      q: "\u200Fמה Certificate Authority (CA) עושה?",
+      correct: "\u200Fחותמת דיגיטלית על Certificate של אתר\nמאמתת שהאתר אכן שייך לבעלים הנכון",
       choices: [
-        "חותמת דיגיטלית על Certificate של אתר — מאמתת שהאתר אכן שייך לבעלים הנכון",
-        "יוצרת את מפתחות ההצפנה לכל אתר",
-        "מריצה שרתי DNS לתרגום דומיינים",
-        "מנהלת את האישורים של כל משתמשי האינטרנט"
+        "\u200Fחותמת דיגיטלית על Certificate של אתר\nמאמתת שהאתר אכן שייך לבעלים הנכון",
+        "\u200Fיוצרת את מפתחות ההצפנה לכל אתר",
+        "\u200Fמריצה שרתי DNS לתרגום דומיינים",
+        "\u200Fמנהלת את האישורים של כל משתמשי האינטרנט"
       ],
-      explanation: "‏CA = נוטריון של האינטרנט. ‏DigiCert, Let's Encrypt, Comodo — כולן CA. הדפדפן סומך על רשימת CA מוכרת. אם CA חתמה — הדפדפן סומך. ל-Let's Encrypt יש 300M+ certificates חינמיים! 📜"
+      explanation: "\u200F📜 CA = נוטריון של האינטרנט:\n• DigiCert, Let's Encrypt, Comodo — כולן CA\n• הדפדפן סומך על רשימת CA מוכרת\n• אם CA חתמה — הדפדפן סומך\n\n🆓 Let's Encrypt:\n• 300M+ certificates חינמיים!"
     },
     {
-      q: "מה ה-TLS handshake ואיזה שלבים כולל?",
-      correct: "‏ClientHello → ServerHello + Certificate → Client key exchange → Finished ‎(שני הצדדים)‎ — מסתיים עם symmetric key מוסכם",
+      q: "\u200Fמה ה-TLS handshake ואיזה שלבים כולל?",
+      correct: "\u200FClientHello → ServerHello + Certificate\n→ Client key exchange → Finished (שני הצדדים)\nמסתיים עם symmetric key מוסכם",
       choices: [
-        "‏ClientHello → ServerHello + Certificate → Client key exchange → Finished ‎(שני הצדדים)‎ — מסתיים עם symmetric key מוסכם",
-        "‏TLS = TCP handshake עם הצפנה",
-        "השלבים: SYN → SYN-ACK → ACK + certificate",
-        "‏TLS handshake = רק חיבור TCP"
+        "\u200FClientHello → ServerHello + Certificate\n→ Client key exchange → Finished (שני הצדדים)\nמסתיים עם symmetric key מוסכם",
+        "\u200FTLS = TCP handshake עם הצפנה",
+        "\u200Fהשלבים: SYN → SYN-ACK → ACK + certificate",
+        "\u200FTLS handshake = רק חיבור TCP"
       ],
-      explanation: "‏TLS 1.2: 2 RTT. ‏ClientHello: cipher suites, random, SNI. ‏ServerHello: chosen cipher, certificate. ‏Server Key Exchange (ECDHE). ‏Client Key Exchange: pre-master secret. ‏Change Cipher Spec. ‏Finished: HMAC אימות. ‏TLS 1.3: 1 RTT ‎(0-RTT אפשרי)‎. ‏Certificate Pinning: app מאמת certificate ספציפי ‎(לא רק CA)‎."
+      explanation: "\u200F🔐 TLS 1.2 — 2 RTT:\n• ClientHello: cipher suites, random, SNI\n• ServerHello: chosen cipher, certificate\n• Server Key Exchange (ECDHE)\n• Client Key Exchange: pre-master secret\n• Change Cipher Spec\n• Finished: HMAC אימות\n\n⚡ TLS 1.3 — 1 RTT:\n• 0-RTT אפשרי\n\n📌 Certificate Pinning:\n• app מאמת certificate ספציפי (לא רק CA)"
     },
     {
-      q: "מה Certificate Authority ואיך browsers סומכים על HTTPS?",
-      correct: "‏CA = גוף שמוציא certificates חתומים. Browser כולל 'trust store' עם root CAs. שרשרת אמון: Root CA → Intermediate CA → Server Certificate",
+      q: "\u200Fמה Certificate Authority ואיך browsers סומכים על HTTPS?",
+      correct: "\u200FCA = גוף שמוציא certificates חתומים\nBrowser כולל trust store עם root CAs\nשרשרת אמון: Root CA → Intermediate CA → Server Certificate",
       choices: [
-        "‏CA = גוף שמוציא certificates חתומים. Browser כולל 'trust store' עם root CAs. שרשרת אמון: Root CA → Intermediate CA → Server Certificate",
-        "‏Browser בודק certificate ב-database מרכזי",
-        "כל certificate תקף אוטומטית ב-HTTPS",
-        "‏CA = שרת DNS שמאמת certificates"
+        "\u200FCA = גוף שמוציא certificates חתומים\nBrowser כולל trust store עם root CAs\nשרשרת אמון: Root CA → Intermediate CA → Server Certificate",
+        "\u200FBrowser בודק certificate ב-database מרכזי",
+        "\u200Fכל certificate תקף אוטומטית ב-HTTPS",
+        "\u200FCA = שרת DNS שמאמת certificates"
       ],
-      explanation: "‏PKI (Public Key Infrastructure): Root CA ‎(trust anchor, offline, מוגן מאוד)‎, Intermediate CA ‎(online, חותמת certificates)‎, Leaf Certificate (domain). ‏Self-signed: browser מזהיר אבל לא חוסם. ‏Let's Encrypt: CA חינמי, 90-day certificates, ACME protocol לautomation. ‏Certificate Transparency: log ציבורי של certificates. ‏CRL/OCSP: ביטול certificates."
+      explanation: "\u200F🔗 PKI (Public Key Infrastructure):\n• Root CA: trust anchor, offline, מוגן מאוד\n• Intermediate CA: online, חותמת certificates\n• Leaf Certificate: domain\n\n⚠️ Self-signed:\n• browser מזהיר אבל לא חוסם\n\n🆓 Let's Encrypt:\n• CA חינמי, 90-day certificates\n• ACME protocol ל-automation\n\n📋 ביטול certificates:\n• Certificate Transparency: log ציבורי\n• CRL/OCSP: ביטול certificates"
     },
     {
-      q: "מה Perfect Forward Secrecy ולמה חשוב?",
-      correct: "‏PFS: session key חדש לכל connection (ECDHE). אפילו אם private key נחשף עתידית — sessions עבר לא ניתנים לפענוח",
+      q: "\u200Fמה Perfect Forward Secrecy ולמה חשוב?",
+      correct: "\u200FPFS: session key חדש לכל connection (ECDHE)\nאפילו אם private key נחשף עתידית\nsessions עבר לא ניתנים לפענוח",
       choices: [
-        "‏PFS: session key חדש לכל connection (ECDHE). אפילו אם private key נחשף עתידית — sessions עבר לא ניתנים לפענוח",
-        "‏PFS = הצפנת passwords בbrowser",
-        "‏PFS = פרוטוקול לשיתוף keys בין CAs",
-        "‏PFS עובד רק ב-TLS 1.3"
+        "\u200FPFS: session key חדש לכל connection (ECDHE)\nאפילו אם private key נחשף עתידית\nsessions עבר לא ניתנים לפענוח",
+        "\u200FPFS = הצפנת passwords ב-browser",
+        "\u200FPFS = פרוטוקול לשיתוף keys בין CAs",
+        "\u200FPFS עובד רק ב-TLS 1.3"
       ],
-      explanation: "‏Without PFS (RSA key exchange): NSA/attacker שומר encrypted traffic. לאחר שנים: private key נחשף → מפענחים הכל רטרואקטיבית. עם ECDHE: key ephemeral — נוצר רק ל-session ונמחק. ‏TLS 1.3 חייב ECDHE. ‏Cipher suites עם PFS: ECDHE-RSA-AES128-GCM-SHA256. ללא PFS: RSA-AES128-SHA (deprecated)."
+      explanation: "\u200F🚨 ללא PFS (RSA key exchange):\n• NSA/attacker שומר encrypted traffic\n• לאחר שנים: private key נחשף\n• → מפענחים הכל רטרואקטיבית\n\n🛡️ עם ECDHE:\n• key ephemeral — נוצר רק ל-session ונמחק\n• TLS 1.3 חייב ECDHE\n\n📋 Cipher suites:\n• עם PFS: ECDHE-RSA-AES128-GCM-SHA256\n• ללא PFS: RSA-AES128-SHA (deprecated)"
     }
   ],
 
@@ -1707,39 +1707,39 @@ export const quizBank = {
       explanationEn: "The STRIDE framework was developed by Microsoft for security design. The six categories are: Spoofing (impersonation), Tampering (data modification), Repudiation (denying actions), Information Disclosure (data leaks), Denial of Service (disrupting availability), and Elevation of Privilege (gaining unauthorized access levels)."
     },
     {
-      q: "מה אפשרה פריצת Target ב-2013?",
-      correct: "גישה לרשת Target דרך ספק HVAC שהיה מחובר לאותה רשת כמו מערכות הקופה",
+      q: "\u200Fמה אפשרה פריצת Target ב-2013?",
+      correct: "\u200Fגישה לרשת Target\nדרך ספק HVAC שהיה מחובר\nלאותה רשת כמו מערכות הקופה",
       choices: [
-        "גישה לרשת Target דרך ספק HVAC שהיה מחובר לאותה רשת כמו מערכות הקופה",
-        "פריצה ישירה לשרתי Target מהאינטרנט",
-        "‏הזרקת SQL על אתר Target",
-        "סיסמה חלשה של מנהל IT בכיר"
+        "\u200Fגישה לרשת Target\nדרך ספק HVAC שהיה מחובר\nלאותה רשת כמו מערכות הקופה",
+        "\u200Fפריצה ישירה לשרתי Target מהאינטרנט",
+        "\u200Fהזרקת SQL על אתר Target",
+        "\u200Fסיסמה חלשה של מנהל IT בכיר"
       ],
-      explanation: "ספק מיזוג אוויר (HVAC) קיבל גישה לרשת Target לניהול מרחוק. הפורצים פרצו לספק, ביצעו תנועה רוחבית (pivoting) לרשת Target, והגיעו למערכות הקופה (Point-of-Sale). נגנבו 40 מיליון כרטיסי אשראי. הלקח: הפרדת רשתות (Network Segmentation) — ספקים חיצוניים חייבים להיות ברשת נפרדת.",
+      explanation: "\u200F🎯 פריצת Target — 2013\n• ספק מיזוג אוויר (HVAC) קיבל גישה לרשת Target לניהול מרחוק\n• הפורצים פרצו לספק\n• ביצעו תנועה רוחבית (pivoting) לרשת Target\n• הגיעו למערכות הקופה (Point-of-Sale)\n\n💳 התוצאה\n• נגנבו 40 מיליון כרטיסי אשראי\n\n📌 הלקח\n• הפרדת רשתות (Network Segmentation)\n• ספקים חיצוניים חייבים להיות ברשת נפרדת",
       explanationEn: "An HVAC vendor had remote access to Target's network. Attackers breached the vendor, performed lateral movement (pivoting) into Target's network, and reached Point-of-Sale systems. 40 million credit cards were stolen. Lesson: Network Segmentation is critical — external vendors must be on a separate network."
     },
         {
-      q: "‏מה ההבדל בין סודיות (Confidentiality) לבין פרטיות (Privacy) באבטחת מידע?",
-      correct: "סודיות (Confidentiality) מגנה על נתוני ארגון מפני גישה לא מורשית — פרטיות (Privacy) מגנה על נתונים אישיים של אנשים",
+      q: "\u200Fמה ההבדל בין סודיות (Confidentiality) לבין פרטיות (Privacy) באבטחת מידע?",
+      correct: "\u200Fסודיות (Confidentiality) מגנה על נתוני ארגון\nמפני גישה לא מורשית\nפרטיות (Privacy) מגנה על נתונים אישיים של אנשים",
       choices: [
-        "סודיות (Confidentiality) מגנה על נתוני ארגון מפני גישה לא מורשית — פרטיות (Privacy) מגנה על נתונים אישיים של אנשים",
-        "הם מילים נרדפות — שניהם אותו דבר",
-        "פרטיות (Privacy) חזקה יותר מסודיות (Confidentiality)",
-        "סודיות מוגנת בהצפנה, פרטיות מוגנת בסיסמאות בלבד"
+        "\u200Fסודיות (Confidentiality) מגנה על נתוני ארגון\nמפני גישה לא מורשית\nפרטיות (Privacy) מגנה על נתונים אישיים של אנשים",
+        "\u200Fהם מילים נרדפות — שניהם אותו דבר",
+        "\u200Fפרטיות (Privacy) חזקה יותר מסודיות (Confidentiality)",
+        "\u200Fסודיות מוגנת בהצפנה\nפרטיות מוגנת בסיסמאות בלבד"
       ],
-      explanation: "סודיות (Confidentiality) מונעת חשיפת נתונים לגורמים לא מורשים (למשל מסמך סודי של חברה). פרטיות (Privacy) היא זכות הפרט על נתוניו האישיים (לפי תקנות GDPR ו-CCPA). יש חפיפה, אך ניתן להפר פרטיות בלי לפגוע בסודיות — למשל: עובד מורשה שמוכר נתוני לקוחות לצד שלישי.",
+      explanation: "\u200F🔒 סודיות (Confidentiality)\n• מונעת חשיפת נתונים לגורמים לא מורשים\n• למשל: מסמך סודי של חברה\n\n👤 פרטיות (Privacy)\n• זכות הפרט על נתוניו האישיים\n• לפי תקנות GDPR ו-CCPA\n\n⚠️ ההבדל המפתיע\n• יש חפיפה, אך ניתן להפר פרטיות בלי לפגוע בסודיות\n• למשל: עובד מורשה שמוכר נתוני לקוחות לצד שלישי",
       explanationEn: "Confidentiality prevents unauthorized access to data (e.g., a company's classified document). Privacy is an individual's right over their personal data (per GDPR, CCPA regulations). They overlap, but privacy can be violated without breaching confidentiality — e.g., an authorized employee selling customer data to a third party."
     },
         {
-      q: "‏מה תהליך ניתוח איומים (Threat Modeling) ולמה עושים אותו לפני כתיבת קוד?",
-      correct: "תהליך זיהוי איומים פוטנציאליים על המערכת לפני פיתוח — זול יותר לתקן בשלב התכנון מאשר בסביבת הייצור",
+      q: "\u200Fמה תהליך ניתוח איומים (Threat Modeling) ולמה עושים אותו לפני כתיבת קוד?",
+      correct: "\u200Fתהליך זיהוי איומים פוטנציאליים על המערכת\nלפני פיתוח — זול יותר לתקן\nבשלב התכנון מאשר בסביבת הייצור",
       choices: [
-        "תהליך זיהוי איומים פוטנציאליים על המערכת לפני פיתוח — זול יותר לתקן בשלב התכנון מאשר בסביבת הייצור",
-        "‏בדיקת חדירה שמבוצעת לאחר פריסה (deployment)",
-        "כלי אוטומטי שסורק קוד לפגיעויות",
-        "תהליך הצפנת מסד הנתונים לפני העלייה לאוויר"
+        "\u200Fתהליך זיהוי איומים פוטנציאליים על המערכת\nלפני פיתוח — זול יותר לתקן\nבשלב התכנון מאשר בסביבת הייצור",
+        "\u200Fבדיקת חדירה שמבוצעת לאחר פריסה (deployment)",
+        "\u200Fכלי אוטומטי שסורק קוד לפגיעויות",
+        "\u200Fתהליך הצפנת מסד הנתונים לפני העלייה לאוויר"
       ],
-      explanation: "מודלים לניתוח איומים (STRIDE, PASTA, DREAD): שאל את עצמך — מי יתקוף? איך? מה ייפגע? תיקון באג בשלב התכנון עולה $1, בשלב הבדיקות $10, ובסביבת ייצור $100. מיקרוסופט מחייבת ניתוח איומים לפני כל פיצ'ר חדש. הפלט: תרשים זרימת נתונים, רשימת איומים ודרכי מיטיגציה.",
+      explanation: "\u200F🧠 ניתוח איומים — Threat Modeling\n• מודלים: STRIDE, PASTA, DREAD\n• שאל את עצמך — מי יתקוף? איך? מה ייפגע?\n\n💰 עלות תיקון\n• בשלב התכנון: $1\n• בשלב הבדיקות: $10\n• בסביבת ייצור: $100\n\n📋 הפלט\n• תרשים זרימת נתונים\n• רשימת איומים ודרכי מיטיגציה\n• מיקרוסופט מחייבת ניתוח איומים לפני כל פיצ'ר חדש",
       explanationEn: "Threat modeling frameworks (STRIDE, PASTA, DREAD): Ask yourself — who will attack? How? What gets damaged? Fixing a bug at design stage costs $1, at testing $10, and in production $100. Microsoft requires threat modeling before every new feature. Output: data flow diagram, threat list, and mitigation strategies."
     },
         {
