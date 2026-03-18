@@ -484,48 +484,48 @@ export const quizBank = {
       explanation: "\u200F🎯 Switch — שולח מכתב ספציפי לאדם הנכון\n• יודע לפי MAC לאן לשלוח\n\n📢 Hub — צועק לכולם בחדר\n• כל frame נשלח לכל הפורטים\n• הורג ביצועים\n\n💡 כיום אין כמעט Hub — הוחלף לגמרי ע״י Switch"
     },
     {
-      q: "מה זה כתובת MAC?",
-      correct: "כתובת פיזית ייחודית שמזהה כרטיס רשת, בן 6 בתים בהקס",
+      q: "\u200Fמה זה כתובת MAC?",
+      correct: "\u200Fכתובת פיזית ייחודית שמזהה כרטיס רשת\nבן 6 בתים בהקס",
       choices: [
-        "כתובת פיזית ייחודית שמזהה כרטיס רשת, בן 6 בתים בהקס",
-        "כתובת לוגית שמוקצית על ידי DHCP",
-        "כתובת של שרת ה-DNS הראשי",
-        "כתובת של המחשב ברשת הציבורית"
+        "\u200Fכתובת פיזית ייחודית שמזהה כרטיס רשת\nבן 6 בתים בהקס",
+        "\u200Fכתובת לוגית שמוקצית על ידי DHCP",
+        "\u200Fכתובת של שרת ה-DNS הראשי",
+        "\u200Fכתובת של המחשב ברשת הציבורית"
       ],
-      explanation: "‏MAC = Media Access Control. נראית כך: AA:BB:CC:DD:EE:FF. שרופה ב-hardware, אבל ניתן לזייף (MAC spoofing)! אבא+אמא של הכתובות 🖥️"
+      explanation: "\u200F🖥️ MAC = Media Access Control\n• נראית כך: AA:BB:CC:DD:EE:FF\n• שרופה ב-hardware של כרטיס הרשת\n\n⚠️ MAC spoofing:\n• ניתן לזייף בתוכנה\n• למרות שהיא ״קבועה״ ב-hardware"
     },
     {
-      q: "מה תפקיד ה-ARP?",
-      correct: "מוצא כתובת MAC של מכשיר בהינתן כתובת IP שלו",
+      q: "\u200Fמה תפקיד ה-ARP?",
+      correct: "\u200Fמוצא כתובת MAC של מכשיר\nבהינתן כתובת IP שלו",
       choices: [
-        "מוצא כתובת MAC של מכשיר בהינתן כתובת IP שלו",
-        "מקצה כתובות IP אוטומטית למכשירים",
-        "מתרגם שמות דומיין לכתובות IP",
-        "מאמת זהות משתמש ברשת"
+        "\u200Fמוצא כתובת MAC של מכשיר\nבהינתן כתובת IP שלו",
+        "\u200Fמקצה כתובות IP אוטומטית למכשירים",
+        "\u200Fמתרגם שמות דומיין לכתובות IP",
+        "\u200Fמאמת זהות משתמש ברשת"
       ],
-      explanation: "‏ARP = Address Resolution Protocol. שואל: 'מי בעל IP 192.168.1.5?' — כולם שומעים, הנכון עונה עם ה-MAC שלו. ‏ARP cache שומר את הטבלה 📋"
+      explanation: "\u200F📋 ARP = Address Resolution Protocol\n• שואל: ״מי בעל IP 192.168.1.5?״\n• כולם שומעים (broadcast)\n• הנכון עונה עם ה-MAC שלו\n\n💾 ARP cache:\n• שומר את הטבלה IP → MAC\n• חוסך שאילתות חוזרות"
     },
     {
-      q: "מה MAC address ומה שונה אותו מ-IP?",
-      correct: "‏MAC = Layer 2, מזהה hardware ייחודי של NIC (48 bit). IP = Layer 3, כתובת לוגית שמשתנה לפי רשת",
+      q: "\u200Fמה MAC address ומה שונה אותו מ-IP?",
+      correct: "\u200FMAC = Layer 2, מזהה hardware ייחודי של NIC (48 bit)\nIP = Layer 3, כתובת לוגית שמשתנה לפי רשת",
       choices: [
-        "‏MAC = Layer 2, מזהה hardware ייחודי של NIC (48 bit). IP = Layer 3, כתובת לוגית שמשתנה לפי רשת",
-        "‏MAC ו-IP זהים — רק פורמט שונה",
-        "‏MAC משתנה בכל חיבור, IP קבוע",
-        "‏MAC = IPv6, IP = IPv4"
+        "\u200FMAC = Layer 2, מזהה hardware ייחודי של NIC (48 bit)\nIP = Layer 3, כתובת לוגית שמשתנה לפי רשת",
+        "\u200FMAC ו-IP זהים — רק פורמט שונה",
+        "\u200FMAC משתנה בכל חיבור\nIP קבוע",
+        "\u200FMAC = IPv6\nIP = IPv4"
       ],
-      explanation: "‏MAC (Media Access Control): 48 bits, XX:XX:XX:XX:XX:XX. ‏24 bits = OUI (Organizationally Unique Identifier) של יצרן (Intel, Cisco). ‏24 bits = מספר סידורי. ‏MAC spoofing: ניתן לשנות בתוכנה. ‏ARP: ממפה IP → MAC. ‏Broadcast MAC: FF:FF:FF:FF:FF:FF. ‏IP אדרסינג = logical ‎(משתנה לפי רשת)‎, MAC = physical ‎(קבוע ב-hardware)‎."
+      explanation: "\u200F🔤 MAC — Media Access Control:\n• 48 bits: XX:XX:XX:XX:XX:XX\n• 24 bits = OUI (מזהה יצרן — Intel, Cisco)\n• 24 bits = מספר סידורי\n\n🔄 MAC spoofing:\n• ניתן לשנות בתוכנה\n\n📌 כתובות מיוחדות:\n• Broadcast MAC: FF:FF:FF:FF:FF:FF\n• ARP: ממפה IP → MAC\n\n⚖️ ההבדל:\n• IP = logical (משתנה לפי רשת)\n• MAC = physical (קבוע ב-hardware)"
     },
     {
-      q: "מה Ethernet Frame structure?",
-      correct: "‏Preamble | Dest MAC | Src MAC | EtherType | Payload (46-1500 bytes) | FCS",
+      q: "\u200Fמה Ethernet Frame structure?",
+      correct: "\u200FPreamble | Dest MAC | Src MAC | EtherType\n| Payload (46-1500 bytes) | FCS",
       choices: [
-        "‏Preamble | Dest MAC | Src MAC | EtherType | Payload (46-1500 bytes) | FCS",
-        "‏Header | Data | Checksum בלבד",
-        "‏Src IP | Dst IP | Src Port | Dst Port | Data",
-        "‏Start | MAC | IP | TCP | Data | End"
+        "\u200FPreamble | Dest MAC | Src MAC | EtherType\n| Payload (46-1500 bytes) | FCS",
+        "\u200FHeader | Data | Checksum בלבד",
+        "\u200FSrc IP | Dst IP | Src Port | Dst Port | Data",
+        "\u200FStart | MAC | IP | TCP | Data | End"
       ],
-      explanation: "‏Ethernet II Frame: Preamble (8B) לסנכרון, Dest MAC (6B), Src MAC (6B), EtherType (2B) — 0x0800=IPv4, 0x0806=ARP, 0x86DD=IPv6, Payload (46-1500 bytes), FCS (4B) CRC checksum. ‏MTU=1500 bytes payload. ‏Jumbo frames=9000 bytes (datacenter). ‏VLAN tag (802.1Q) = 4 bytes נוספים."
+      explanation: "\u200F📦 Ethernet II Frame:\n• Preamble (8B) — לסנכרון\n• Dest MAC (6B)\n• Src MAC (6B)\n• EtherType (2B)\n\n🏷️ ערכי EtherType נפוצים:\n• 0x0800 = IPv4\n• 0x0806 = ARP\n• 0x86DD = IPv6\n\n📏 Payload + סיום:\n• Payload: 46-1500 bytes\n• FCS (4B) = CRC checksum\n• MTU = 1500 bytes\n• Jumbo frames = 9000 bytes (datacenter)\n• VLAN tag (802.1Q) = 4 bytes נוספים"
     },
     {
       q: "מה ה-Broadcast Domain ומה Collision Domain?",
@@ -658,59 +658,59 @@ export const quizBank = {
 
   11: [
     {
-      q: "מה קורה כשמחשב שולח HTTP request?",
-      correct: "כל שכבה מוסיפה header, נשלח כ-bits, הצד השני מסיר headers שכבה-שכבה",
+      q: "\u200Fמה קורה כשמחשב שולח HTTP request?",
+      correct: "\u200Fכל שכבה מוסיפה header, נשלח כ-bits\nהצד השני מסיר headers שכבה-שכבה",
       choices: [
-        "כל שכבה מוסיפה header, נשלח כ-bits, הצד השני מסיר headers שכבה-שכבה",
-        "הבקשה נשלחת כטקסט ישירות ללא עיבוד",
-        "רק שכבות הרשת והתעבורה מעבדות את הבקשה",
-        "ה-header נשלח קודם ואז הנתונים בנפרד"
+        "\u200Fכל שכבה מוסיפה header, נשלח כ-bits\nהצד השני מסיר headers שכבה-שכבה",
+        "\u200Fהבקשה נשלחת כטקסט ישירות ללא עיבוד",
+        "\u200Fרק שכבות הרשת והתעבורה מעבדות את הבקשה",
+        "\u200Fה-header נשלח קודם ואז הנתונים בנפרד"
       ],
-      explanation: "הדרך המלאה: App ▸ HTTP ▸ Transport (TCP) ▸ Network (IP) ▸ Link (MAC) ▸ Physical ▸ סיביות ברשת! כל שכבה 'אחראית על עצמה' 🎂"
+      explanation: "\u200F🎂 הדרך המלאה של בקשת HTTP:\n• App → HTTP\n• Transport → TCP\n• Network → IP\n• Link → MAC\n• Physical → סיביות ברשת\n\n📦 עיקרון מפתח:\n• כל שכבה 'אחראית על עצמה'\n• מוסיפה header בשליחה\n• מסירה header בקבלה"
     },
     {
-      q: "מה NAT ואיזו בעיה הוא פתר בשנות ה-90?",
-      correct: "‏Network Address Translation — מאפשר לרשתות פנימיות עם IPs פרטיים לצאת לאינטרנט עם IP ציבורי אחד. פתר מחסור ב-IPv4",
+      q: "\u200Fמה NAT ואיזו בעיה הוא פתר בשנות ה-90?",
+      correct: "\u200FNetwork Address Translation — מאפשר לרשתות פנימיות\nעם IPs פרטיים לצאת לאינטרנט עם IP ציבורי אחד\nפתר מחסור ב-IPv4",
       choices: [
-        "‏Network Address Translation — מאפשר לרשתות פנימיות עם IPs פרטיים לצאת לאינטרנט עם IP ציבורי אחד. פתר מחסור ב-IPv4",
-        "‏NAT = הצפנת תעבורת הרשת",
-        "‏NAT מאיץ את התקשורת על ידי caching",
-        "‏NAT = פרוטוקול לניתוב BGP"
+        "\u200FNetwork Address Translation — מאפשר לרשתות פנימיות\nעם IPs פרטיים לצאת לאינטרנט עם IP ציבורי אחד\nפתר מחסור ב-IPv4",
+        "\u200FNAT = הצפנת תעבורת הרשת",
+        "\u200FNAT מאיץ את התקשורת על ידי caching",
+        "\u200FNAT = פרוטוקול לניתוב BGP"
       ],
-      explanation: "‏IPv4: 4.3 מיליארד כתובות. כבר ב-1990 ברור שלא יספיקו. ‏NAT (RFC 3022): Private ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. ה-router שומר NAT table: internal IP:port ↔ external IP:port. ‏PAT (Port Address Translation) = עשרות אלפי connections דרך IP אחד. ‏IPv6 אמור לבטל צורך ב-NAT ‎(אבל NAT עדיין קיים בארגונים)‎."
+      explanation: "\u200F🌐 הבעיה:\n• IPv4: 4.3 מיליארד כתובות\n• כבר ב-1990 ברור שלא יספיקו\n\n🔄 NAT (RFC 3022):\n• Private ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16\n• ה-router שומר NAT table:\n  internal IP:port ↔ external IP:port\n• PAT = עשרות אלפי connections דרך IP אחד\n\n📋 IPv6 אמור לבטל צורך ב-NAT\n(אבל NAT עדיין קיים בארגונים)"
     },
     {
-      q: "מה ההבדל בין Static NAT לבין Dynamic NAT לבין PAT?",
-      correct: "‏Static: IP פנימי קבוע → IP ציבורי קבוע (1:1). Dynamic: pool של IPs ציבוריים. PAT (Masquerade): כל הclients → IP ציבורי אחד + ports שונים",
+      q: "\u200Fמה ההבדל בין Static NAT לבין Dynamic NAT לבין PAT?",
+      correct: "\u200FStatic: IP פנימי → IP ציבורי קבוע (1:1)\nDynamic: pool של IPs ציבוריים\nPAT: כל ה-clients → IP ציבורי אחד + ports שונים",
       choices: [
-        "‏Static: IP פנימי קבוע → IP ציבורי קבוע (1:1). Dynamic: pool של IPs ציבוריים. PAT (Masquerade): כל הclients → IP ציבורי אחד + ports שונים",
-        "כולם זהים",
-        "‏Static = IPv6, Dynamic = IPv4",
-        "‏PAT = הסוג הכי ישן"
+        "\u200FStatic: IP פנימי → IP ציבורי קבוע (1:1)\nDynamic: pool של IPs ציבוריים\nPAT: כל ה-clients → IP ציבורי אחד + ports שונים",
+        "\u200Fכולם זהים",
+        "\u200FStatic = IPv6, Dynamic = IPv4",
+        "\u200FPAT = הסוג הכי ישן"
       ],
-      explanation: "‏Static NAT: שרת פנימי שצריך להיות נגיש מחוץ (1:1 mapping). ‏Dynamic NAT: pool של IPs ציבוריים. ‏PAT/Overload ‎(הנפוץ ביותר)‎: 192.168.1.5:1234 → 203.0.113.1:54321. ‏NAT table entry: 5 טיפלות (src_ip, src_port, dst_ip, dst_port, protocol). iptables: MASQUERADE = dynamic PAT."
+      explanation: "\u200F🔀 שלושה סוגי NAT:\n• Static NAT: שרת פנימי נגיש מבחוץ (1:1 mapping)\n• Dynamic NAT: pool של IPs ציבוריים\n• PAT/Overload (הנפוץ ביותר):\n  192.168.1.5:1234 → 203.0.113.1:54321\n\n📋 NAT table entry:\n• 5 טיפלות: src_ip, src_port, dst_ip, dst_port, protocol\n• iptables: MASQUERADE = dynamic PAT"
     },
     {
-      q: "למה NAT שובר end-to-end connectivity ומה הפתרונות?",
-      correct: "מחשב מאחורי NAT לא ניתן לחיבור ישיר מבחוץ — פתרונות: UPnP, STUN (WebRTC), Port Forwarding, IPv6, VPN",
+      q: "\u200Fלמה NAT שובר end-to-end connectivity ומה הפתרונות?",
+      correct: "\u200Fמחשב מאחורי NAT לא ניתן לחיבור ישיר מבחוץ\nפתרונות: UPnP, STUN, Port Forwarding, IPv6, VPN",
       choices: [
-        "מחשב מאחורי NAT לא ניתן לחיבור ישיר מבחוץ — פתרונות: UPnP, STUN (WebRTC), Port Forwarding, IPv6, VPN",
-        "‏NAT לא שובר connectivity — הכל שקוף",
-        "הפתרון היחיד הוא IPv6",
-        "‏Port Forwarding לא עובד עם NAT"
+        "\u200Fמחשב מאחורי NAT לא ניתן לחיבור ישיר מבחוץ\nפתרונות: UPnP, STUN, Port Forwarding, IPv6, VPN",
+        "\u200FNAT לא שובר connectivity — הכל שקוף",
+        "\u200Fהפתרון היחיד הוא IPv6",
+        "\u200FPort Forwarding לא עובד עם NAT"
       ],
-      explanation: "‏NAT traversal: STUN (Session Traversal Utilities for NAT) — WebRTC, VoIP. ‏ICE (Interactive Connectivity Establishment) = STUN + TURN. ‏TURN = relay server כשSTUN נכשל. ‏UPnP: device ביקשת port forwarding אוטומטי. ‏BitTorrent/P2P: hole punching. ‏Port Forwarding: external port → internal IP:port (SSH, gaming servers)."
+      explanation: "\u200F🔧 NAT traversal — פתרונות:\n• STUN (Session Traversal Utilities for NAT)\n  — WebRTC, VoIP\n• ICE = STUN + TURN\n• TURN = relay server כש-STUN נכשל\n• UPnP: port forwarding אוטומטי\n• BitTorrent/P2P: hole punching\n\n🖥️ Port Forwarding:\n• external port → internal IP:port\n• SSH, gaming servers"
     },
     {
-      q: "מה כתובות IP פרטיות ולמה לא ניתן לנתב אותן באינטרנט?",
-      correct: "‏RFC 1918: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 — routers ב-Internet פשוט זורקים packets לכתובות אלה",
+      q: "\u200Fמה כתובות IP פרטיות ולמה לא ניתן לנתב אותן באינטרנט?",
+      correct: "\u200FRFC 1918: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16\nrouters באינטרנט פשוט זורקים packets לכתובות אלה",
       choices: [
-        "‏RFC 1918: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 — routers ב-Internet פשוט זורקים packets לכתובות אלה",
-        "כתובות פרטיות מוצפנות אוטומטית",
-        "ניתן לנתב אותן — רק ISP לא מאפשר",
-        "רק 192.168.x.x הן פרטיות"
+        "\u200FRFC 1918: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16\nrouters באינטרנט פשוט זורקים packets לכתובות אלה",
+        "\u200Fכתובות פרטיות מוצפנות אוטומטית",
+        "\u200Fניתן לנתב אותן — רק ISP לא מאפשר",
+        "\u200Fרק 192.168.x.x הן פרטיות"
       ],
-      explanation: "‏RFC 1918 private ranges: 10.0.0.0/8 (16M addresses), 172.16.0.0/12 (1M), 192.168.0.0/16 (64K). ‏ISPs מגדירים bogon filters — חוסמים routing לכתובות אלה. ‏IANA גם הקצתה: 127.0.0.0/8 (loopback), 169.254.0.0/16 (link-local), 100.64.0.0/10 (Carrier-Grade NAT — ISPs)"
+      explanation: "\u200F🏠 RFC 1918 private ranges:\n• 10.0.0.0/8 (16M addresses)\n• 172.16.0.0/12 (1M)\n• 192.168.0.0/16 (64K)\n\n🚫 ISPs מגדירים bogon filters:\n• חוסמים routing לכתובות אלה\n\n📋 IANA גם הקצתה:\n• 127.0.0.0/8 (loopback)\n• 169.254.0.0/16 (link-local)\n• 100.64.0.0/10 (Carrier-Grade NAT — ISPs)"
     }
   ],
 
