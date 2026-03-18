@@ -274,14 +274,26 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
             </div>
           )}
           <p className="quiz-done-msg">{doneMsg}</p>
-          <div className="quiz-done-btns">
-            <button className="quiz-restart-btn" onClick={() => startQuiz(
-              mode === 'all' ? getAllQuizQuestions() : getQuizForChapter(selectedChapter)
-            )}>🔄 שוב</button>
-            <button className="quiz-back-btn" onClick={() => setMode(null)}>
-              {isMale ? 'בחר פרק →' : 'בחרי פרק →'}
-            </button>
-          </div>
+          {(() => {
+            const chIdx = mode === 'chapter' ? chapters.findIndex(c => c.id === selectedChapter) : -1
+            const nextCh = chIdx >= 0 ? chapters.slice(chIdx + 1).find(c => getQuizForChapter(c.id).length > 0) : null
+            return (
+              <div className="quiz-done-btns">
+                <button className="quiz-restart-btn" onClick={() => startQuiz(
+                  mode === 'all' ? getAllQuizQuestions() : getQuizForChapter(selectedChapter)
+                )}>🔄 שוב</button>
+                {nextCh && (
+                  <button className="quiz-next-btn" onClick={() => {
+                    setSelectedChapter(nextCh.id)
+                    startQuiz(getQuizForChapter(nextCh.id))
+                  }}>← הפרק הבא</button>
+                )}
+                <button className="quiz-back-btn" onClick={() => setMode(null)}>
+                  📋 כל הפרקים
+                </button>
+              </div>
+            )
+          })()}
         </div>
       </div>
     )
@@ -290,6 +302,8 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
   // ===== SCREEN: GAME OVER =====
   if (gameOver) {
     const isMale = gender === 'male'
+    const chIdx = mode === 'chapter' ? chapters.findIndex(c => c.id === selectedChapter) : -1
+    const nextCh = chIdx >= 0 ? chapters.slice(chIdx + 1).find(c => getQuizForChapter(c.id).length > 0) : null
     return (
       <div className="quiz-screen">
         <div className="quiz-done">
@@ -304,8 +318,14 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
             <button className="quiz-restart-btn" onClick={() => startQuiz(
               mode === 'all' ? getAllQuizQuestions() : getQuizForChapter(selectedChapter)
             )}>{isMale ? '🔄 נסה שוב' : '🔄 נסי שוב'}</button>
+            {nextCh && (
+              <button className="quiz-next-btn" onClick={() => {
+                setSelectedChapter(nextCh.id)
+                startQuiz(getQuizForChapter(nextCh.id))
+              }}>← הפרק הבא</button>
+            )}
             <button className="quiz-back-btn" onClick={() => setMode(null)}>
-              בחירת פרק →
+              📋 כל הפרקים
             </button>
           </div>
         </div>

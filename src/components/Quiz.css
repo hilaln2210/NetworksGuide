@@ -600,6 +600,25 @@
   background: rgba(15,23,42,0.1);
 }
 
+.quiz-next-btn {
+  padding: 0.75rem 1.25rem;
+  background: linear-gradient(135deg, #0d9488, #14b8a6);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.4);
+}
+
+.quiz-next-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.5);
+}
+
 /* ===== HINT + CHAPTER LINK ===== */
 .quiz-hint-row {
   margin-top: 0.75rem;
