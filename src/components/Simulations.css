@@ -485,3 +485,240 @@
   font-weight: 700;
   color: #0e7490;
 }
+
+/* ========== TLS 1.3 Handshake ========== */
+.tls-handshake {
+  overflow: hidden;
+}
+
+.tls-stage {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 1.5rem 0 1rem;
+  min-height: 220px;
+}
+
+.tls-endpoint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.25rem;
+  background: rgba(14, 116, 144, 0.06);
+  border: 2px solid rgba(14, 116, 144, 0.18);
+  border-radius: 14px;
+  min-width: 90px;
+  gap: 0.5rem;
+}
+
+.tls-endpoint-icon {
+  font-size: 2rem;
+}
+
+.tls-endpoint-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #0f172a;
+  text-align: center;
+}
+
+.tls-middle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.tls-msg-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  background: rgba(14, 116, 144, 0.03);
+  border: 1px dashed rgba(14, 116, 144, 0.12);
+  opacity: 0.35;
+  transition: all 0.4s ease;
+  min-height: 36px;
+}
+
+.tls-msg-row.active {
+  opacity: 1;
+  background: rgba(14, 116, 144, 0.06);
+  border-style: solid;
+}
+
+.tls-msg-row.current {
+  box-shadow: 0 0 12px rgba(14, 116, 144, 0.15);
+}
+
+.tls-msg-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  white-space: nowrap;
+  min-width: 80px;
+  transition: color 0.3s;
+}
+
+.tls-arrow {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.tls-arrow-line {
+  flex: 1;
+  height: 3px;
+  background: var(--arrow-color, #3b82f6);
+  border-radius: 2px;
+  animation: tls-line-grow 0.5s ease-out;
+}
+
+.tls-arrow-head {
+  color: var(--arrow-color, #3b82f6);
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.tls-arrow-right {
+  animation: tls-slide-right 0.6s ease-out;
+}
+
+.tls-arrow-left {
+  animation: tls-slide-left 0.6s ease-out;
+}
+
+.tls-arrow-both .tls-arrow-line {
+  animation: tls-line-pulse 1s ease-in-out infinite;
+}
+
+@keyframes tls-slide-right {
+  from { transform: translateX(-40px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes tls-slide-left {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes tls-line-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes tls-line-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.tls-tunnel {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  animation: tls-tunnel-appear 0.6s ease-out;
+}
+
+.tls-tunnel-lock {
+  font-size: 1.3rem;
+  animation: tls-lock-bounce 0.6s ease;
+}
+
+.tls-tunnel-bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #059669, #10b981, #34d399, #10b981, #059669);
+  background-size: 200% 100%;
+  animation: tls-tunnel-shimmer 2s linear infinite;
+}
+
+.tls-tunnel-text {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #059669;
+}
+
+@keyframes tls-tunnel-appear {
+  from { opacity: 0; transform: scaleX(0.3); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+
+@keyframes tls-lock-bounce {
+  0%   { transform: scale(0); }
+  50%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+@keyframes tls-tunnel-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.tls-description {
+  margin: 1rem 0 0.5rem;
+  padding: 0.85rem 1rem;
+  background: rgba(14, 116, 144, 0.04);
+  border-radius: 10px;
+  border-right: 3px solid rgba(14, 116, 144, 0.2);
+  min-height: 70px;
+  transition: border-color 0.3s;
+}
+
+.tls-desc-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+
+.tls-desc-text {
+  font-size: 0.88rem;
+  color: #334155;
+  line-height: 1.6;
+}
+
+.tls-desc-detail {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-top: 0.25rem;
+  font-family: monospace;
+  direction: ltr;
+  text-align: left;
+}
+
+.tls-desc-placeholder {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.tls-progress {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.tls-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(14, 116, 144, 0.15);
+  border: 2px solid rgba(14, 116, 144, 0.2);
+  transition: all 0.3s;
+}
+
+.tls-dot.filled {
+  background: var(--dot-color, #0e7490);
+  border-color: var(--dot-color, #0e7490);
+}
+
+.tls-dot.current {
+  transform: scale(1.3);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--dot-color, #0e7490) 50%, transparent);
+}
