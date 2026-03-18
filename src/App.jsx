@@ -248,13 +248,13 @@ function App() {
 
   const handleSelectTrack = (track) => {
     setActiveTrack(track)
-    setActiveTab('learn')
     // Restore last position within this track
     const pos = getLastPosition()
     if (pos?.trackId === track.id) {
       setCurrentChapter(pos.chapterIdx ?? 0)
       setCurrentPage(pos.pageIdx ?? 0)
     } else {
+      setActiveTab('learn')
       setCurrentChapter(0)
       setCurrentPage(0)
     }
@@ -290,9 +290,13 @@ function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [canGoNext, canGoPrev, activeTab, activeTrack])
 
+  // Persist position on every chapter/page change (ensures refresh restores correctly)
   useEffect(() => {
+    if (activeTrack) {
+      saveLastPosition(currentChapter, currentPage, activeTrack.id)
+    }
     document.querySelector('.content-area')?.scrollTo?.(0, 0)
-  }, [currentChapter, currentPage])
+  }, [currentChapter, currentPage, activeTrack])
 
   // Session time tracker — ticks every 30s, pauses when tab is hidden
   useEffect(() => {
