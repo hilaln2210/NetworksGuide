@@ -525,7 +525,7 @@ export const quizBank = {
         "‏MAC משתנה בכל חיבור, IP קבוע",
         "‏MAC = IPv6, IP = IPv4"
       ],
-      explanation: "‏MAC (Media Access Control): 48 bits, XX:XX:XX:XX:XX:XX. ‏24 bits = OUI (Organizationally Unique Identifier) של יצרן (Intel, Cisco). ‏24 bits = מספר סידורי. ‏MAC spoofing: ניתן לשנות בתוכנה. ‏ARP: ממפה IP→MAC. ‏Broadcast MAC: FF:FF:FF:FF:FF:FF. ‏IP אדרסינג = logical ‎(משתנה לפי רשת)‎, MAC = physical ‎(קבוע ב-hardware)‎."
+      explanation: "‏MAC (Media Access Control): 48 bits, XX:XX:XX:XX:XX:XX. ‏24 bits = OUI (Organizationally Unique Identifier) של יצרן (Intel, Cisco). ‏24 bits = מספר סידורי. ‏MAC spoofing: ניתן לשנות בתוכנה. ‏ARP: ממפה IP → MAC. ‏Broadcast MAC: FF:FF:FF:FF:FF:FF. ‏IP אדרסינג = logical ‎(משתנה לפי רשת)‎, MAC = physical ‎(קבוע ב-hardware)‎."
     },
     {
       q: "מה Ethernet Frame structure?",
@@ -2069,7 +2069,7 @@ export const quizBank = {
         "‏brute force על HMAC secret",
         "‏replay attack על JWT שפג תוקפו"
       ],
-      explanation: "‏JWT: header.payload.signature. ‏Header מכיל alg. תוקף: שינוי alg ל-'none', הסרת signature. שרת ישן: 'alg=none? אין בעיה, אין צורך בverification'. ‏Fix: server-side whitelist של algorithms — אף פעם לא לקבל alg מה-token עצמו. גם RS256→HS256 attack: שרת שמצפה ל-RSA מסתמך על public key כ-HMAC secret."
+      explanation: "‏JWT: header.payload.signature. ‏Header מכיל alg. תוקף: שינוי alg ל-'none', הסרת signature. שרת ישן: 'alg=none? אין בעיה, אין צורך בverification'. ‏Fix: server-side whitelist של algorithms — אף פעם לא לקבל alg מה-token עצמו. גם RS256 → HS256 attack: שרת שמצפה ל-RSA מסתמך על public key כ-HMAC secret."
     },
     {
       q: "מה ההבדל בין CTF לבין Bug Bounty?",
@@ -2967,7 +2967,7 @@ export const quizBank = {
         "כפילות חיבורים לredundancy",
         "‏migration בין servers שונים"
       ],
-      explanation: "‏TCP זוהה לפי tuple (src IP, src port, dst IP, dst port). מעבר WiFi→סלולרי = IP חדש = חיבור נשבר. ‏QUIC זוהה לפי Connection ID אקראי — ה-server ממשיך לדעת מי אתה גם אחרי שינוי IP. ‏TLS 1.3 session resumption מאפשר המשך ללא re-handshake."
+      explanation: "‏TCP זוהה לפי tuple (src IP, src port, dst IP, dst port). מעבר WiFi → סלולרי = IP חדש = חיבור נשבר. ‏QUIC זוהה לפי Connection ID אקראי — ה-server ממשיך לדעת מי אתה גם אחרי שינוי IP. ‏TLS 1.3 session resumption מאפשר המשך ללא re-handshake."
     },
     {
       q: "מה יתרון 0-RTT ב-QUIC?",
@@ -3046,7 +3046,7 @@ export const quizBank = {
         "‏iptables לא עובד ב-containers",
         "‏Cilium מהיר כי כותב ב-Go"
       ],
-      explanation: "‏Kubernetes עם 1000 services = iptables עם אלפי rules = כל packet עובר O(n) חיפוש ליניארי. ‏Cilium מחליף iptables בeBPF hash maps = O(1) בכל גודל. בנוסף: Cilium/Hubble מספקים observability מלאה (pod→pod traffic), security policies ברמת L7, וביצועים שלא תאמין."
+      explanation: "‏Kubernetes עם 1000 services = iptables עם אלפי rules = כל packet עובר O(n) חיפוש ליניארי. ‏Cilium מחליף iptables בeBPF hash maps = O(1) בכל גודל. בנוסף: Cilium/Hubble מספקים observability מלאה (pod → pod traffic), security policies ברמת L7, וביצועים שלא תאמין."
     }
 ,
     {
@@ -3469,7 +3469,7 @@ export const quizBank = {
         "‏RPKI לIPv6; BGPsec לIPv4",
         "‏BGPsec מוצפן; RPKI רק signed"
       ],
-      explanation: "‏RPKI/ROA: validates 'AS64501 is legitimate originator of 192.0.2.0/24'. אבל: AS Path: 64501→64502→64503. ‏AS64502 יכול לשנות path! BGPsec (RFC 8205): כל AS שמעביר UPDATE מוסיף חתימה קריפטוגרפית. ‏Receiver מאמת שכל hop בAS path חתם. מגן מ-path manipulation attacks. חסרון: performance overhead משמעותי, כל router צריך לחשב signatures. ‏Adoption: מאוד נמוכה בpractice בגלל complexity. ‏RPKI/ROV = פרקטי ונפוץ הרבה יותר."
+      explanation: "‏RPKI/ROA: validates 'AS64501 is legitimate originator of 192.0.2.0/24'. אבל: AS Path: 64501 → 64502 → 64503. ‏AS64502 יכול לשנות path! BGPsec (RFC 8205): כל AS שמעביר UPDATE מוסיף חתימה קריפטוגרפית. ‏Receiver מאמת שכל hop בAS path חתם. מגן מ-path manipulation attacks. חסרון: performance overhead משמעותי, כל router צריך לחשב signatures. ‏Adoption: מאוד נמוכה בpractice בגלל complexity. ‏RPKI/ROV = פרקטי ונפוץ הרבה יותר."
     },
         {
       q: "מה קרה בתקרית Cloudflare 2019 ב-BGP routing ומה הלקח?",
@@ -3676,7 +3676,7 @@ export const quizBank = {
         "חלק נוסף מהסיסמה שהuser מזין",
         "‏pepper מוסיף ל-DB, salt מוסיף לcode"
       ],
-      explanation: "ללא salt: hash('password123') = abc123 — כל user עם אותה סיסמה מקבל אותו hash. ‏Rainbow table: מיפוי hash→plaintext מחושב מראש. עם salt: hash('password123' + random_salt_xyz) — כל user hash שונה. ‏Brute-force חייב לחשב מחדש לכל user. bcrypt/Argon2 מייצרים salt אוטומטית ושומרים אותו ב-hash string."
+      explanation: "ללא salt: hash('password123') = abc123 — כל user עם אותה סיסמה מקבל אותו hash. ‏Rainbow table: מיפוי hash → plaintext מחושב מראש. עם salt: hash('password123' + random_salt_xyz) — כל user hash שונה. ‏Brute-force חייב לחשב מחדש לכל user. bcrypt/Argon2 מייצרים salt אוטומטית ושומרים אותו ב-hash string."
     }
   ],
 

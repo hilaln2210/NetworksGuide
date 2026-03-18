@@ -3637,7 +3637,7 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
         questions: [
           {
             q: "מה ייצוג קצר של 2001:0db8:0000:0000:0000:0000:1234:5678?",
-            a: "2001:db8::1234:5678. כללים: מוחקים אפסים מובילים (0db8→db8, 1234 נשאר). קבוצות האפסים הרצופות (:0000:0000:0000:0000:) מוחלפות פעם אחת ב-::."
+            a: "2001:db8::1234:5678. כללים: מוחקים אפסים מובילים (0db8 → db8, 1234 נשאר). קבוצות האפסים הרצופות (:0000:0000:0000:0000:) מוחלפות פעם אחת ב-::."
           },
           {
             q: "מה SLAAC ולמה הוא שימושי?",
@@ -5543,7 +5543,7 @@ spec:
           },
           {
             q: "מה בעיית HOL Blocking ב-TCP ואיך QUIC פותר אותה?",
-            a: "HOL Blocking = Head-of-Line Blocking. TCP הוא stream אחד, ordered. אם חבילה 5 אבדה — חבילות 6,7,8 שכבר הגיעו מחכות בbuffer. כל multiplexing שמעל TCP (HTTP/2) סובל מזה. QUIC: כל stream הוא flow עצמאי ב-UDP. אובדן חבילה בstream A לא עוצר stream B."
+            a: "HOL Blocking = Head-of-Line Blocking. TCP הוא stream אחד, ordered. אם חבילה 5 אבדה — חבילות 6, 7, 8 שכבר הגיעו מחכות בbuffer. כל multiplexing שמעל TCP (HTTP/2) סובל מזה. QUIC: כל stream הוא flow עצמאי ב-UDP. אובדן חבילה בstream A לא עוצר stream B."
           }
         ]
       }
