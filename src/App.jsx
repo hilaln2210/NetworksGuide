@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { tracks } from './data/content'
+import { contentEn } from './data/content_en'
 import { TCPHandshakeSim } from './components/TCPHandshakeSim'
 import { EncapsulationSim } from './components/EncapsulationSim'
 import { DnsLookupSim } from './components/DnsLookupSim'
@@ -128,10 +129,23 @@ function TrackPicker({ tracks, onSelect }) {
 }
 
 // ===== Content i18n helper: returns English content if available, otherwise Hebrew =====
-function usePageContent(page, lang) {
+function getEnPage(chapterId, pageIdx) {
+  const chEn = contentEn[chapterId]
+  if (!chEn || !chEn.pages || !chEn.pages[pageIdx]) return null
+  return chEn.pages[pageIdx]
+}
+
+function getEnChapterTitle(chapterId) {
+  return contentEn[chapterId]?.titleEn || null
+}
+
+function usePageContent(page, lang, chapterId, pageIdx) {
   if (!page) return { title: '', content: '' }
-  if (lang === 'en' && page.titleEn) {
-    return { title: page.titleEn, content: page.contentEn || page.content }
+  if (lang === 'en') {
+    const en = getEnPage(chapterId, pageIdx)
+    if (en?.titleEn) {
+      return { title: en.titleEn, content: en.contentEn || page.content }
+    }
   }
   return { title: page.title, content: page.content }
 }
@@ -486,8 +500,8 @@ function App() {
 
       {/* ===== LEARN ===== */}
       {activeTab === 'learn' && (() => {
-        const pc = usePageContent(page, lang)
-        const chTitle = isEn && chapter?.titleEn ? chapter.titleEn : chapter?.title
+        const pc = usePageContent(page, lang, chapter?.id, currentPage)
+        const chTitle = isEn ? (getEnChapterTitle(chapter?.id) || chapter?.title) : chapter?.title
         return (
         <div className="layout" dir={isEn ? 'ltr' : 'rtl'}>
           <nav className={`sidebar${mobileShowContent ? ' sidebar--mobile-hidden' : ''}`}>
@@ -502,7 +516,7 @@ function App() {
                   onClick={() => goToChapter(i)}
                 >
                   <span className="chapter-num">{t('chapter')} {i + 1}</span>
-                  <span className="chapter-title">{isEn && ch.titleEn ? ch.titleEn : ch.title}</span>
+                  <span className="chapter-title">{isEn ? (getEnChapterTitle(ch.id) || ch.title) : ch.title}</span>
                   <div className="chapter-footer">
                     <span className="chapter-pages">{ch.pages.length} {t('pages')}</span>
                     {prog > 0 && (
@@ -543,7 +557,7 @@ function App() {
               ) : page.type === 'thinkOutside' ? (
                 <ThinkOutsidePage page={page} lang={lang} />
               ) : (
-                <div className="content-body" dangerouslySetInnerHTML={{ __html: isEn && page.contentEn ? page.contentEn : processHtmlBidi(page.content) }} />
+                <div className="content-body" dangerouslySetInnerHTML={{ __html: isEn && pc.content !== page.content ? pc.content : processHtmlBidi(page.content) }} />
               )}
             </article>
 
