@@ -1324,59 +1324,59 @@ export const quizBank = {
 
   22: [
     {
-      q: "מה ההבדל בין CDN Cache HIT לCache MISS?",
-      correct: "‏HIT = הקובץ ב-PoP הקרוב, מוגש מיידית. MISS = PoP מביא מOrigin ואז מcache",
+      q: "\u200Fמה ההבדל בין CDN Cache HIT לCache MISS?",
+      correct: "\u200FHIT = הקובץ ב-PoP הקרוב, מוגש מיידית\nMISS = PoP מביא מ-Origin ואז שומר ב-cache",
       choices: [
-        "‏HIT = הקובץ ב-PoP הקרוב, מוגש מיידית. MISS = PoP מביא מOrigin ואז מcache",
-        "‏HIT = הצלחה בחיפוש, MISS = שגיאה",
-        "‏HIT לvideos, MISS לHTML",
-        "‏HIT = CDN עובד, MISS = CDN מנותק"
+        "\u200FHIT = הקובץ ב-PoP הקרוב, מוגש מיידית\nMISS = PoP מביא מ-Origin ואז שומר ב-cache",
+        "\u200FHIT = הצלחה בחיפוש\nMISS = שגיאה",
+        "\u200FHIT ל-videos\nMISS ל-HTML",
+        "\u200FHIT = CDN עובד\nMISS = CDN מנותק"
       ],
-      explanation: "‏Cache HIT: 5-15ms מPoP קרוב. ‏Cache MISS: 100-300ms מOrigin + PoP שומר לפעם הבאה. ‏CDN cache ratio טוב = 90%+ hits. ‏Netflix מגיע לכמעט 100% כי מcache מראש בלילה 🚀"
+      explanation: "\u200F\u26A1 Cache HIT\n\u2022 5-15ms מ-PoP קרוב\n\u2022 הקובץ כבר שמור מקומית\n\n\uD83D\uDD04 Cache MISS\n\u2022 100-300ms מ-Origin\n\u2022 PoP שומר לפעם הבאה\n\n\uD83D\uDCCA יחס cache טוב\n\u2022 90%+ hits\n\u2022 Netflix מגיע לכמעט 100%\n\u2022 מ-cache מראש בלילה"
     },
     {
-      q: "מתי WebSockets עדיפים על REST?",
-      correct: "כששרת צריך לשלוח עדכונים ביוזמתו ללא שהלקוח יבקש — chat, gaming, live data",
+      q: "\u200Fמתי WebSockets עדיפים על REST?",
+      correct: "\u200Fכששרת צריך לשלוח עדכונים ביוזמתו\nללא שהלקוח יבקש\n— chat, gaming, live data",
       choices: [
-        "כששרת צריך לשלוח עדכונים ביוזמתו ללא שהלקוח יבקש — chat, gaming, live data",
-        "כשצריך אבטחה גבוהה יותר",
-        "כשמדובר בbandwidth גבוה",
-        "כשהלקוח הוא מובייל"
+        "\u200Fכששרת צריך לשלוח עדכונים ביוזמתו\nללא שהלקוח יבקש\n— chat, gaming, live data",
+        "\u200Fכשצריך אבטחה גבוהה יותר",
+        "\u200Fכשמדובר ב-bandwidth גבוה",
+        "\u200Fכשהלקוח הוא מובייל"
       ],
-      explanation: "‏REST = request-response. לchat — polling כל שנייה = 3600 requests/שעה. ‏WebSocket = חיבור פתוח. שרת שולח מסר חדש מיידית. ‏Discord, Slack, Trading platforms, Multiplayer games = WebSockets 🎮"
+      explanation: "\u200F📡 REST — בקשה ותגובה\n• ל-chat — polling כל שנייה\n• 3,600 requests לשעה\n\n🔌 WebSocket — חיבור פתוח\n• שרת שולח מסר חדש מיידית\n• ללא צורך בבקשה מהלקוח\n\n🎮 מי משתמש ב-WebSockets?\n• Discord, Slack\n• Trading platforms\n• Multiplayer games"
     },
     {
-      q: "מה ה-Anycast CDN ואיך Cloudflare/Akamai מנצלים BGP?",
-      correct: "‏Anycast: אותה IP ממספר POPs ‎(נקודות נוכחות)‎. BGP מנתב לPOP הקרוב. Content cached לocally — latency נמוך",
+      q: "\u200Fמה ה-Anycast CDN ואיך Cloudflare/Akamai מנצלים BGP?",
+      correct: "\u200FAnycast: אותה IP ממספר POPs\nBGP מנתב ל-POP הקרוב\nContent cached locally — latency נמוך",
       choices: [
-        "‏Anycast: אותה IP ממספר POPs ‎(נקודות נוכחות)‎. BGP מנתב לPOP הקרוב. Content cached לocally — latency נמוך",
-        "‏CDN = DNS load balancing בלבד",
-        "‏Anycast = random routing בין servers",
-        "‏CDN עובד רק ב-TCP"
+        "\u200FAnycast: אותה IP ממספר POPs\nBGP מנתב ל-POP הקרוב\nContent cached locally — latency נמוך",
+        "\u200FCDN = DNS load balancing בלבד",
+        "\u200FAnycast = random routing בין servers",
+        "\u200FCDN עובד רק ב-TCP"
       ],
-      explanation: "‏CDN (Content Delivery Network): Cloudflare (290+ cities), Akamai (4000+ servers). ‏Cache hierarchy: origin → edge → PoP. ‏Cache-Control headers: max-age, s-maxage, no-cache. ‏Cache hit: 200ms → 5ms. ‏Cache miss: origin fetch. ‏Purge: API לnuke cache. ‏Edge Functions (Cloudflare Workers): JavaScript ב-edge, 0ms cold start."
+      explanation: "\u200F🌐 CDN — Content Delivery Network\n• Cloudflare: 290+ ערים\n• Akamai: 4,000+ שרתים\n\n📦 Cache hierarchy\n• origin → edge → PoP\n• Cache-Control headers: max-age, s-maxage, no-cache\n\n⚡ ביצועים\n• Cache hit: 200ms → 5ms\n• Cache miss: origin fetch\n• Purge: API לניקוי cache\n\n🔧 Edge Functions\n• Cloudflare Workers\n• JavaScript ב-edge\n• 0ms cold start"
     },
     {
-      q: "מה Load Balancer Layer 4 לעומת Layer 7?",
-      correct: "‏L4 (TCP/UDP): מהיר, לא מבין HTTP. L7 (HTTP): מבין URLs/headers/cookies, יכול לנתב לפי content, SSL termination",
+      q: "\u200Fמה Load Balancer Layer 4 לעומת Layer 7?",
+      correct: "\u200FL4 (TCP/UDP): מהיר, לא מבין HTTP\nL7 (HTTP): מבין URLs/headers/cookies\nיכול לנתב לפי content, SSL termination",
       choices: [
-        "‏L4 (TCP/UDP): מהיר, לא מבין HTTP. L7 (HTTP): מבין URLs/headers/cookies, יכול לנתב לפי content, SSL termination",
-        "‏L4 יותר מאובטח מ-L7",
-        "‏L7 מהיר יותר מ-L4",
-        "אין הבדל — L4 ו-L7 LB זהים"
+        "\u200FL4 (TCP/UDP): מהיר, לא מבין HTTP\nL7 (HTTP): מבין URLs/headers/cookies\nיכול לנתב לפי content, SSL termination",
+        "\u200FL4 יותר מאובטח מ-L7",
+        "\u200FL7 מהיר יותר מ-L4",
+        "\u200Fאין הבדל — L4 ו-L7 LB זהים"
       ],
-      explanation: "‏L4 LB: AWS NLB, HAProxy TCP mode. ‏NAT-based: שומר TCP state. ‏Fast: millions pps. ‏L7 LB: AWS ALB, nginx, Traefik. ‏HTTP-aware: URL routing (/api → backend1, /static → CDN), header manipulation, session affinity (sticky sessions via cookie), SSL offloading. ‏Health checks: L4=TCP connect, L7=HTTP 200. ‏Algorithms: Round Robin, Least Connections, IP Hash."
+      explanation: "\u200F⚙️ L4 LB — שכבת Transport\n• AWS NLB, HAProxy TCP mode\n• NAT-based: שומר TCP state\n• מהיר: millions pps\n\n🌐 L7 LB — שכבת Application\n• AWS ALB, nginx, Traefik\n• URL routing: /api → backend1, /static → CDN\n• Header manipulation\n• Session affinity (sticky sessions via cookie)\n• SSL offloading\n\n🔍 Health checks\n• L4 = TCP connect\n• L7 = HTTP 200\n\n📊 אלגוריתמים\n• Round Robin\n• Least Connections\n• IP Hash"
     },
     {
-      q: "מה HTTP/2 Server Push ואיך מחליט מה לpush?",
-      correct: "‏Server שולח resources (CSS/JS) לפני שclient ביקש — מפחית round trips. מבוסס על Link header או קוד server",
+      q: "\u200Fמה HTTP/2 Server Push ואיך מחליט מה לpush?",
+      correct: "\u200FServer שולח resources (CSS/JS)\nלפני שclient ביקש — מפחית round trips\nמבוסס על Link header או קוד server",
       choices: [
-        "‏Server שולח resources (CSS/JS) לפני שclient ביקש — מפחית round trips. מבוסס על Link header או קוד server",
-        "‏Server Push = WebSocket",
-        "‏Server Push = Server-Sent Events",
-        "‏Server Push לא קיים ב-HTTP/2"
+        "\u200FServer שולח resources (CSS/JS)\nלפני שclient ביקש — מפחית round trips\nמבוסס על Link header או קוד server",
+        "\u200FServer Push = WebSocket",
+        "\u200FServer Push = Server-Sent Events",
+        "\u200FServer Push לא קיים ב-HTTP/2"
       ],
-      explanation: "‏Server Push: שרת יודע שHTML דורש style.css → דוחף לפני שclient ביקש. ‏Link preload header: Link: </style.css>; rel=preload; as=style. בעיה: over-pushing ‎(cache לא נלקח בחשבון)‎. ‏HTTP/2 Push deprecated בChrome. ‏Replaced by 103 Early Hints: שרת שולח hints לפני תגובה מלאה. ‏HTTP/3 (QUIC): אין Server Push ‎(הוסר)‎."
+      explanation: "\u200F📤 Server Push\n• שרת יודע ש-HTML דורש style.css\n• דוחף לפני שclient ביקש\n• Link preload header:\n  Link: </style.css>; rel=preload; as=style\n\n⚠️ בעיות\n• Over-pushing — cache לא נלקח בחשבון\n• HTTP/2 Push deprecated ב-Chrome\n\n🔄 מה מחליף?\n• 103 Early Hints — שרת שולח hints לפני תגובה מלאה\n• HTTP/3 (QUIC) — אין Server Push כלל (הוסר)"
     }
   ],
 
