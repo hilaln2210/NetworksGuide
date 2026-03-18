@@ -375,7 +375,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
 
       {/* Question */}
       <div className="quiz-question-card">
-        <span className="quiz-q-num">שאלה {current + 1} מתוך {questions.length}</span>
+        <span className="quiz-q-num">{mode === 'chapter' && selectedChapter != null && (() => { const ch = chapters.find(c => c.id === selectedChapter); return ch ? `פרק ${ch.id}: ${ch.title} • ` : '' })()}שאלה {current + 1} מתוך {questions.length}</span>
         <p className="quiz-question-text" dir="rtl">{renderBidiText(q.q)}</p>
         {/* Hint + chapter link row — only before answering */}
         {picked === null && (
