@@ -37,6 +37,27 @@ export const uiStrings = {
   track_research_subtitle: { he: 'Wireshark, BGP, DNS, HTTP/2, eBPF, TLS, Container Networking', en: 'Wireshark, BGP, DNS, HTTP/2, eBPF, TLS, Container Networking' },
   track_research_level: { he: 'מתקדם', en: 'Advanced' },
 
+  // ===== New tracks =====
+  track_linux_title: { he: 'מערכות ולינוקס', en: 'System & Linux' },
+  track_linux_subtitle: { he: 'פקודות, הרשאות, Bash, כלי רשת ופתרון תקלות — הבסיס לכל איש IT', en: 'Commands, permissions, Bash, network tools & troubleshooting — the IT foundation' },
+  track_linux_level: { he: 'מתחיל–בינוני', en: 'Beginner–Intermediate' },
+
+  track_webapi_title: { he: 'Web ו-APIs', en: 'Web & APIs' },
+  track_webapi_subtitle: { he: 'HTTP/HTTPS, REST APIs, JWT, דפדפנים וכלים — הבנה מעמיקה של הווב', en: 'HTTP/HTTPS, REST APIs, JWT, browsers & tools — deep understanding of the web' },
+  track_webapi_level: { he: 'מתחיל–בינוני', en: 'Beginner–Intermediate' },
+
+  track_redteam_title: { he: 'Red Team — פריצה אתית', en: 'Red Team — Ethical Hacking' },
+  track_redteam_subtitle: { he: 'Kali Linux, XSS, SQLi, סריקה ופריצה אתית — מהבסיס לתרגול', en: 'Kali Linux, XSS, SQLi, scanning & ethical hacking — from basics to practice' },
+  track_redteam_level: { he: 'בינוני–מתקדם', en: 'Intermediate–Advanced' },
+
+  track_secdev_title: { he: 'פיתוח מאובטח ו-AI Security', en: 'Secure Development & AI Security' },
+  track_secdev_subtitle: { he: 'OWASP Top 10, Secure Coding, API Security, Prompt Injection — פיתוח בטוח', en: 'OWASP Top 10, Secure Coding, API Security, Prompt Injection — build safe' },
+  track_secdev_level: { he: 'בינוני', en: 'Intermediate' },
+
+  track_darkweb_title: { he: 'Dark Web ופרטיות', en: 'Dark Web & Privacy' },
+  track_darkweb_subtitle: { he: 'Tor, Onion Routing, פרטיות ברשת — מבט על עולם הרשת האפלה', en: 'Tor, Onion Routing, online privacy — a look at the dark side of the web' },
+  track_darkweb_level: { he: 'בונוס', en: 'Bonus' },
+
   // ===== Header =====
   all_tracks: { he: 'כל המסלולים →', en: '→ All tracks' },
   expand_header: { he: 'הרחב כותרת', en: 'Expand header' },

@@ -8125,5 +8125,37 @@ spec:
 Your company runs 500 microservices in Kubernetes. Currently using Flannel (VXLAN overlay) + kube-proxy (iptables). Users report latency spikes during deployments. What would you recommend changing, and why?`
       }
     ]
-  }
+  },
+
+  // ===== System & Linux (401-410) =====
+  401: { titleEn: "Introduction to Linux", pages: [] },
+  402: { titleEn: "Essential Commands", pages: [] },
+  403: { titleEn: "Permissions & Users", pages: [] },
+  404: { titleEn: "Networking Tools", pages: [] },
+  405: { titleEn: "Bash Scripting", pages: [] },
+  406: { titleEn: "Process Management", pages: [] },
+  407: { titleEn: "Package Management", pages: [] },
+  408: { titleEn: "Storage & File Systems", pages: [] },
+  409: { titleEn: "Troubleshooting", pages: [] },
+  410: { titleEn: "Linux Security Basics", pages: [] },
+
+  // ===== Web & APIs (501-508) =====
+  501: { titleEn: "How the Web Works", pages: [] },
+  502: { titleEn: "HTTP in Depth", pages: [] },
+  503: { titleEn: "REST APIs", pages: [] },
+  504: { titleEn: "Authentication & Authorization", pages: [] },
+  505: { titleEn: "Browser Internals", pages: [] },
+  506: { titleEn: "API Security", pages: [] },
+  507: { titleEn: "Tools — Postman, curl, DevTools", pages: [] },
+  508: { titleEn: "Real-World Patterns", pages: [] },
+
+  // ===== Red Team (601-608) =====
+  601: { titleEn: "Introduction to Ethical Hacking", pages: [] },
+  602: { titleEn: "Kali Linux Setup", pages: [] },
+  603: { titleEn: "Reconnaissance", pages: [] },
+  604: { titleEn: "Scanning & Enumeration", pages: [] },
+  605: { titleEn: "Web Vulnerabilities", pages: [] },
+  606: { titleEn: "Exploitation Basics", pages: [] },
+  607: { titleEn: "Password Attacks", pages: [] },
+  608: { titleEn: "Report Writing", pages: [] },
 }
