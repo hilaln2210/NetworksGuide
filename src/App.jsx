@@ -555,7 +555,7 @@ function App() {
               ) : page.type === 'simulation' ? (
                 <SimulationPage simId={page.simId} content={pc.content} t={t} />
               ) : page.type === 'thinkOutside' ? (
-                <ThinkOutsidePage page={page} lang={lang} />
+                <ThinkOutsidePage page={page} lang={lang} chapterId={chapter?.id} pageIdx={currentPage} />
               ) : (
                 <div className="content-body" dangerouslySetInnerHTML={{ __html: isEn && pc.content !== page.content ? pc.content : processHtmlBidi(page.content) }} />
               )}
@@ -684,7 +684,15 @@ function SimulationPage({ simId, content, t }) {
   )
 }
 
-function ThinkOutsidePage({ page }) {
+function ThinkOutsidePage({ page, lang, chapterId, pageIdx }) {
+  const isEn = lang === 'en'
+  // Check if content_en has a flat contentEn for this page
+  const enPage = isEn ? getEnPage(chapterId, pageIdx) : null
+  if (isEn && enPage?.contentEn) {
+    return (
+      <div className="content-body" dangerouslySetInnerHTML={{ __html: enPage.contentEn }} />
+    )
+  }
   return (
     <div className="content-body">
       {page.intro && <p dangerouslySetInnerHTML={{ __html: page.intro }} />}

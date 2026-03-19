@@ -1,29 +1,32 @@
 import { useState } from 'react'
 import { troubleshootingContent, storiesContent } from '../data/troubleshooting'
+import { useLang } from '../utils/language.jsx'
 import './TroubleshootingTab.css'
 
 export function TroubleshootingTab() {
+  const { lang } = useLang()
+  const isEn = lang === 'en'
   const [tab, setTab] = useState('bugs')
   const [openId, setOpenId] = useState(null)
   const [filter, setFilter] = useState('all')
 
-  const categories = ['all', ...new Set(troubleshootingContent.map(t => t.category))]
+  const categories = ['all', ...new Set(troubleshootingContent.map(t => isEn ? (t.categoryEn || t.category) : t.category))]
 
   const filtered = filter === 'all'
     ? troubleshootingContent
-    : troubleshootingContent.filter(t => t.category === filter)
+    : troubleshootingContent.filter(t => (isEn ? (t.categoryEn || t.category) : t.category) === filter)
 
   return (
-    <div className="trbl-screen" dir="rtl">
+    <div className="trbl-screen" dir={isEn ? 'ltr' : 'rtl'}>
       <div className="trbl-tabs">
         <button
           className={`trbl-tab ${tab === 'bugs' ? 'active' : ''}`}
           onClick={() => setTab('bugs')}
-        >🔧 שאלות נפוצות</button>
+        >{isEn ? '🔧 FAQ' : '🔧 שאלות נפוצות'}</button>
         <button
           className={`trbl-tab ${tab === 'stories' ? 'active' : ''}`}
           onClick={() => setTab('stories')}
-        >📖 סיפורים</button>
+        >{isEn ? '📖 Stories' : '📖 סיפורים'}</button>
       </div>
 
       {tab === 'bugs' && (
@@ -35,7 +38,7 @@ export function TroubleshootingTab() {
                 className={`trbl-filter-btn ${filter === cat ? 'active' : ''}`}
                 onClick={() => setFilter(cat)}
               >
-                {cat === 'all' ? 'הכל' : cat}
+                {cat === 'all' ? (isEn ? 'All' : 'הכל') : cat}
               </button>
             ))}
           </div>
@@ -52,35 +55,35 @@ export function TroubleshootingTab() {
                 >
                   <span className="trbl-icon">{item.icon}</span>
                   <div className="trbl-title-wrap">
-                    <span className="trbl-title">{item.title}</span>
-                    <span className="trbl-category">{item.category}</span>
+                    <span className="trbl-title">{isEn ? (item.titleEn || item.title) : item.title}</span>
+                    <span className="trbl-category">{isEn ? (item.categoryEn || item.category) : item.category}</span>
                   </div>
-                  <span className="trbl-chevron">{openId === item.id ? '▼' : '◀'}</span>
+                  <span className="trbl-chevron">{openId === item.id ? '▼' : (isEn ? '▶' : '◀')}</span>
                 </button>
 
                 {openId === item.id && (
                   <div className="trbl-body">
-                    <div className="trbl-story" dir="rtl">
-                      <span className="trbl-section-label">📋 הסיפור</span>
-                      <p>{item.story}</p>
+                    <div className="trbl-story" dir={isEn ? 'ltr' : 'rtl'}>
+                      <span className="trbl-section-label">{isEn ? '📋 The Story' : '📋 הסיפור'}</span>
+                      <p>{isEn ? (item.storyEn || item.story) : item.story}</p>
                     </div>
 
-                    <div className="trbl-causes" dir="rtl">
-                      <span className="trbl-section-label">❓ סיבות אפשריות</span>
+                    <div className="trbl-causes" dir={isEn ? 'ltr' : 'rtl'}>
+                      <span className="trbl-section-label">{isEn ? '❓ Possible Causes' : '❓ סיבות אפשריות'}</span>
                       <ul>
-                        {item.causes.map((c, i) => (
+                        {(isEn ? (item.causesEn || item.causes) : item.causes).map((c, i) => (
                           <li key={i}>{c}</li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="trbl-solution" dir="rtl">
-                      <span className="trbl-section-label">✅ פתרון</span>
-                      <pre dir="ltr" style={{ textAlign: 'left' }}>{item.solution}</pre>
+                    <div className="trbl-solution" dir={isEn ? 'ltr' : 'rtl'}>
+                      <span className="trbl-section-label">{isEn ? '✅ Solution' : '✅ פתרון'}</span>
+                      <pre dir="ltr" style={{ textAlign: 'left' }}>{isEn ? (item.solutionEn || item.solution) : item.solution}</pre>
                     </div>
 
-                    <div className="trbl-tip" dir="rtl">
-                      {item.tip}
+                    <div className="trbl-tip" dir={isEn ? 'ltr' : 'rtl'}>
+                      {isEn ? (item.tipEn || item.tip) : item.tip}
                     </div>
                   </div>
                 )}
@@ -97,11 +100,11 @@ export function TroubleshootingTab() {
               <div className="story-header">
                 <span className="story-icon">{s.icon}</span>
                 <div>
-                  <h3 className="story-title">{s.title}</h3>
-                  <span className="story-category">{s.category}</span>
+                  <h3 className="story-title">{isEn ? (s.titleEn || s.title) : s.title}</h3>
+                  <span className="story-category">{isEn ? (s.categoryEn || s.category) : s.category}</span>
                 </div>
               </div>
-              <p className="story-content" dir="rtl">{s.content}</p>
+              <p className="story-content" dir={isEn ? 'ltr' : 'rtl'}>{isEn ? (s.contentEn || s.content) : s.content}</p>
             </div>
           ))}
         </div>
