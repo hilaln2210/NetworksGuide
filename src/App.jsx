@@ -18,6 +18,7 @@ import { Quiz } from './components/Quiz'
 import { TroubleshootingTab } from './components/TroubleshootingTab'
 import { CreditsTab } from './components/CreditsTab'
 import { FeedbackButton } from './components/FeedbackButton'
+import { AdminHighlight } from './components/AdminHighlight'
 import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName, resetXP } from './utils/xp'
 import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll, getTodayMinutes, addSessionMinutes, formatMinutes, getCompletedChapters, getTotalQuizCorrect, getLearningPace } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
@@ -371,6 +372,7 @@ function App() {
         <TrackPicker tracks={tracks} onSelect={handleSelectTrack} />
         {xpFloat && <div className="xp-float-global">{xpFloat}</div>}
         <FeedbackButton context={{}} />
+        <AdminHighlight context={{}} />
       </div>
     )
   }
@@ -621,6 +623,12 @@ function App() {
         pageTitle: activeTab === 'learn' ? page?.title : activeTab === 'quiz' && quizContext ? `${t('quiz_question_counter')} ${quizContext.questionNum}/${quizContext.totalQuestions}` : t(TAB_I18N[activeTab] || 'tab_learn'),
         pageIndex: activeTab === 'learn' ? currentPage : undefined,
         totalPages: activeTab === 'learn' ? totalPages : undefined,
+      }} />
+      <AdminHighlight context={{
+        trackTitle: activeTrack?.title,
+        activeTab,
+        chapterId: activeTab === 'learn' ? chapter?.id : undefined,
+        pageTitle: activeTab === 'learn' ? page?.title : undefined,
       }} />
     </div>
   )
