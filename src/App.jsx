@@ -269,7 +269,7 @@ function App() {
       setCurrentChapter(newCh)
       setCurrentPage(0)
     }
-    window.scrollTo(0, 0)
+    scrollToTop()
   }
 
   const goPrev = () => {
@@ -285,17 +285,25 @@ function App() {
       setCurrentChapter(newCh)
       setCurrentPage(newPg)
     }
-    window.scrollTo(0, 0)
+    scrollToTop()
   }
 
   const contentAreaRef = useRef(null)
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+    document.querySelector('.content-area')?.scrollTo({ top: 0, behavior: 'instant' })
+    document.querySelector('.sidebar')?.scrollTo({ top: 0, behavior: 'instant' })
+  }
 
   const goToChapter = (chIndex) => {
     saveLastPosition(chIndex, 0, activeTrack?.id)
     setCurrentChapter(chIndex)
     setCurrentPage(0)
     setMobileShowContent(true)
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    scrollToTop()
+    // Backup scroll after React re-render
+    setTimeout(scrollToTop, 50)
   }
 
   const handleSelectTrack = (track) => {
@@ -347,7 +355,8 @@ function App() {
     if (activeTrack) {
       saveLastPosition(currentChapter, currentPage, activeTrack.id)
     }
-    document.querySelector('.content-area')?.scrollTo?.(0, 0)
+    scrollToTop()
+    setTimeout(scrollToTop, 80)
   }, [currentChapter, currentPage, activeTrack])
 
   // Session time tracker — ticks every 30s, pauses when tab is hidden
