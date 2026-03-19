@@ -6738,6 +6738,7 @@ iptables -L -n -v --line-numbers</code></pre>
       {
         type: "explanation",
         title: "Zero Trust — אל תאמין לאף אחד, תמיד אמת",
+        titleEn: "Zero Trust — Trust No One, Always Verify",
         content: `<div dir="rtl">
 <p><strong>Zero Trust Network Architecture (ZTNA)</strong></p>
 <p>המודל המסורתי נקרא "castle and moat" — חומה חזקה מבחוץ, אמון מוחלט בפנים.</p>
