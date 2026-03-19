@@ -5651,7 +5651,15 @@ export const quizBank = {
         "‏XSS תוקפת מסד נתונים, ו-SQLi תוקפת דפדפן",
         "‏SQLi מריצה Python ו-XSS מריצה JavaScript"
       ],
-      explanation: "‏SQLi היא התקפה בצד השרת — התוקף משנה שאילתת SQL ומשיג גישה למסד הנתונים. ‏XSS היא התקפה בצד הלקוח — התוקף מזריק JavaScript שרץ בדפדפן הקורבן. המטרה של SQLi היא נתונים, ושל XSS היא גניבת session, עוגיות ופעולות משתמש."
+      explanation: "‏SQLi היא התקפה בצד השרת — התוקף משנה שאילתת SQL ומשיג גישה למסד הנתונים. ‏XSS היא התקפה בצד הלקוח — התוקף מזריק JavaScript שרץ בדפדפן הקורבן. המטרה של SQLi היא נתונים, ושל XSS היא גניבת session, עוגיות ופעולות משתמש.",
+      qEn: "What is the difference between SQLi and XSS?",
+      correctEn: "SQLi attacks the database on the server side.\nXSS runs malicious code in another user's browser",
+      choicesEn: [
+        "SQLi attacks the database on the server side.\nXSS runs malicious code in another user's browser",
+        "Both attacks are the same — both inject SQL queries",
+        "XSS attacks databases, SQLi attacks browsers",
+        "SQLi runs Python and XSS runs JavaScript"
+      ]
     },
     {
       q: "מה Prepared Statements ולמה הם מגנים מ-SQLi?",
@@ -5662,7 +5670,15 @@ export const quizBank = {
         "בודקים שאין תווים מיוחדים בקלט לפני שמירה",
         "מגבילים את אורך הקלט של המשתמש"
       ],
-      explanation: "‏Prepared Statement מקמפל את מקומות ה-placeholder לפני הזנת הנתונים. קלט כמו 'admin OR 1=1' יישמר כטקסט רגיל ולא יפורש כ-SQL. לעומת זאת, שרשור מחרוזות (string concatenation) מאפשר הזרקה כי הנתונים הופכים לחלק מהשאילתה."
+      explanation: "‏Prepared Statement מקמפל את מקומות ה-placeholder לפני הזנת הנתונים. קלט כמו 'admin OR 1=1' יישמר כטקסט רגיל ולא יפורש כ-SQL. לעומת זאת, שרשור מחרוזות (string concatenation) מאפשר הזרקה כי הנתונים הופכים לחלק מהשאילתה.",
+      qEn: "What are Prepared Statements and why do they protect from SQLi?",
+      correctEn: "They compile the SQL query before inserting data — the data cannot change the query structure",
+      choicesEn: [
+        "They compile the SQL query before inserting data — the data cannot change the query structure",
+        "They encrypt the data before saving to the database",
+        "They check for special characters in the input before saving",
+        "They limit the length of the user's input"
+      ]
     },
     {
       q: "מה Stored XSS ולמה הוא מסוכן יותר מ-Reflected?",
@@ -5673,7 +5689,15 @@ export const quizBank = {
         "‏Reflected XSS יותר מסוכן כי הוא בלתי נראה",
         "אין הבדל — שניהם רצים פעם אחת בלבד"
       ],
-      explanation: "‏Reflected: סקריפט בכתובת URL חוזר בתגובה ורץ רק אצל מי שלוחץ. ‏Stored: תוקף כותב סקריפט בשדה תגובה, הוא נשמר במסד, וכל מבקר בעמוד מקבל ומריץ אותו. לדוגמה: XSS בפוסט בפורום — כל מי שקורא נגנב לו ה-session."
+      explanation: "‏Reflected: סקריפט בכתובת URL חוזר בתגובה ורץ רק אצל מי שלוחץ. ‏Stored: תוקף כותב סקריפט בשדה תגובה, הוא נשמר במסד, וכל מבקר בעמוד מקבל ומריץ אותו. לדוגמה: XSS בפוסט בפורום — כל מי שקורא נגנב לו ה-session.",
+      qEn: "What is Stored XSS and why is it more dangerous than Reflected?",
+      correctEn: "Stored XSS is saved in the database and runs on every visitor.\nReflected XSS only affects those who click a malicious link",
+      choicesEn: [
+        "Stored XSS is saved in the database and runs on every visitor.\nReflected XSS only affects those who click a malicious link",
+        "Stored XSS is less dangerous because it is saved in a database",
+        "Reflected XSS is more dangerous because it is invisible",
+        "No difference — both run only once"
+      ]
     },
     {
       q: "מה HttpOnly Cookie ואיך הוא מגן מ-XSS?",
@@ -5684,7 +5708,15 @@ export const quizBank = {
         "עוגייה עם תפוגה קצרה לצורכי אבטחה",
         "עוגייה שמוצפנת בצד השרת"
       ],
-      explanation: "כשמגדירים HttpOnly בעוגייה, הדפדפן מסרב לחשוף אותה ל-JavaScript. בקשות רשת עדיין שולחות אותה אוטומטית. דגל Secure מגביל ל-HTTPS בלבד. דגל SameSite=Strict מונע שליחה בבקשות חוצות-אתרים (מגן מ-CSRF)."
+      explanation: "כשמגדירים HttpOnly בעוגייה, הדפדפן מסרב לחשוף אותה ל-JavaScript. בקשות רשת עדיין שולחות אותה אוטומטית. דגל Secure מגביל ל-HTTPS בלבד. דגל SameSite=Strict מונע שליחה בבקשות חוצות-אתרים (מגן מ-CSRF).",
+      qEn: "What is an HttpOnly Cookie and how does it protect from XSS?",
+      correctEn: "A cookie that JavaScript cannot access — even with XSS, malicious code cannot read it",
+      choicesEn: [
+        "A cookie that JavaScript cannot access — even with XSS, malicious code cannot read it",
+        "A cookie that is only sent over HTTPS",
+        "A cookie with short expiration for security",
+        "A cookie encrypted on the server side"
+      ]
     },
     {
       q: "מה UNION-based SQL Injection?",
@@ -5695,7 +5727,15 @@ export const quizBank = {
         "הרצת UNION כדי לסגור את החיבור למסד",
         "שימוש ב-UNION לעדכון נתונים בטבלאות"
       ],
-      explanation: "פקודת UNION SELECT מאחדת תוצאות משתי שאילתות. בהזרקת SQL, התוקף מוסיף שורות מטבלה אחרת (למשל טבלת משתמשים) לתוצאה המקורית. הדרישה: אותו מספר עמודות וסוגים תואמים. טבלת information_schema.tables מכילה את כל שמות הטבלאות במסד."
+      explanation: "פקודת UNION SELECT מאחדת תוצאות משתי שאילתות. בהזרקת SQL, התוקף מוסיף שורות מטבלה אחרת (למשל טבלת משתמשים) לתוצאה המקורית. הדרישה: אותו מספר עמודות וסוגים תואמים. טבלת information_schema.tables מכילה את כל שמות הטבלאות במסד.",
+      qEn: "What is UNION-based SQL Injection?",
+      correctEn: "Running a UNION SELECT query to add rows from other tables to the original result",
+      choicesEn: [
+        "Running a UNION SELECT query to add rows from other tables to the original result",
+        "Combining malicious database servers",
+        "Running UNION to close the database connection",
+        "Using UNION to update data in tables"
+      ]
     },
     {
       q: "מה CSP (Content-Security-Policy) ואיך מגן מ-XSS?",
@@ -5706,7 +5746,15 @@ export const quizBank = {
         "הצפנת תוכן בין לקוח לשרת",
         "ביטול גישה ל-DOM עבור JavaScript"
       ],
-      explanation: "‏CSP מנחה את הדפדפן לחסום: 1) סקריפטים inline, 2) JavaScript ממקורות לא מאושרים, 3) שימוש ב-eval. מנגנון nonce מאפשר רק סקריפטים עם מזהה אקראי תואם. מצב Report-Only מדווח על חסימות בלי לחסום בפועל."
+      explanation: "‏CSP מנחה את הדפדפן לחסום: 1) סקריפטים inline, 2) JavaScript ממקורות לא מאושרים, 3) שימוש ב-eval. מנגנון nonce מאפשר רק סקריפטים עם מזהה אקראי תואם. מצב Report-Only מדווח על חסימות בלי לחסום בפועל.",
+      qEn: "What is CSP (Content-Security-Policy) and how does it protect from XSS?",
+      correctEn: "An HTTP header that limits which sources can load scripts — blocks inline code and foreign sources",
+      choicesEn: [
+        "An HTTP header that limits which sources can load scripts — blocks inline code and foreign sources",
+        "Server-side XSS filtering before saving",
+        "Encryption of content between client and server",
+        "Disabling DOM access for JavaScript"
+      ]
     }
   ],
 

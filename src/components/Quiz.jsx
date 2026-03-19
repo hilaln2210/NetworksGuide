@@ -73,10 +73,16 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
   }
 
   const startQuiz = useCallback((qs) => {
-    setQuestions(shuffle(qs).slice(0, Math.min(qs.length, 10)).map(q => ({
-      ...q,
-      choices: shuffle(q.choices)
-    })))
+    setQuestions(shuffle(qs).slice(0, Math.min(qs.length, 10)).map(q => {
+      // Shuffle choices + choicesEn with the same permutation
+      const indices = q.choices.map((_, i) => i)
+      const shuffledIdx = shuffle(indices)
+      return {
+        ...q,
+        choices: shuffledIdx.map(i => q.choices[i]),
+        choicesEn: q.choicesEn ? shuffledIdx.map(i => q.choicesEn[i]) : undefined,
+      }
+    }))
     setCurrent(0)
     setPicked(null)
     setShowResult(false)
@@ -356,8 +362,14 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
   if (!q) return null
 
   // Get the right text based on language
-  const qText = isEn && q.explanationEn ? q.q : q.q // questions are in Hebrew (quiz shows Hebrew q always, or English if available)
+  const qText = isEn && q.qEn ? q.qEn : q.q
   const hintExpl = isEn && q.explanationEn ? q.explanationEn : q.explanation
+  // Build display choices: English text if available, Hebrew otherwise
+  // We keep a map from display text back to original choice for comparison
+  const displayChoices = q.choices.map((choice, i) => ({
+    original: choice, // always Hebrew — used for correct/picked comparison
+    display: isEn && q.choicesEn && q.choicesEn[i] ? q.choicesEn[i] : choice,
+  }))
 
   return (
     <div className="quiz-screen">
@@ -396,7 +408,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
           })()}
           {t('quiz_question_counter')} {current + 1} {t('quiz_of')} {questions.length}
         </span>
-        <p className="quiz-question-text" dir={isEn ? 'ltr' : 'rtl'}>{renderBidiText(q.q)}</p>
+        <p className="quiz-question-text" dir={isEn && q.qEn ? 'ltr' : 'rtl'}>{isEn && q.qEn ? q.qEn : renderBidiText(q.q)}</p>
         {/* Hint + chapter link row */}
         {picked === null && (
           <div className="quiz-hint-row">
@@ -434,17 +446,18 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
 
       {/* Choices */}
       <div className="quiz-choices">
-        {q.choices.map((choice, i) => {
+        {displayChoices.map((dc, i) => {
           let cls = 'quiz-choice'
           if (picked !== null) {
-            if (choice === q.correct) cls += ' choice-correct'
-            else if (choice === picked) cls += ' choice-wrong'
+            if (dc.original === q.correct) cls += ' choice-correct'
+            else if (dc.original === picked) cls += ' choice-wrong'
             else cls += ' choice-dim'
           }
+          const showEn = isEn && q.choicesEn
           return (
-            <button key={i} className={cls} onClick={() => handlePick(choice)}>
+            <button key={i} className={cls} onClick={() => handlePick(dc.original)}>
               <span className="choice-letter">{choiceLetters[i]}</span>
-              <span className="choice-text" dir={isEn ? 'ltr' : 'rtl'}>{renderBidiText(choice)}</span>
+              <span className="choice-text" dir={showEn ? 'ltr' : 'rtl'}>{showEn ? dc.display : renderBidiText(dc.original)}</span>
             </button>
           )
         })}
