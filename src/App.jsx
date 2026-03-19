@@ -618,7 +618,7 @@ function App() {
         trackTitle: activeTrack?.title,
         activeTab,
         chapterId: activeTab === 'learn' ? chapter?.id : activeTab === 'quiz' ? quizContext?.chapterId : undefined,
-        pageTitle: activeTab === 'learn' ? page?.title : activeTab === 'quiz' && quizContext ? `חידון פרק ${quizContext.chapterId} — שאלה ${quizContext.questionNum}/${quizContext.totalQuestions}` : `טאב: ${TABS.find(t => t.key === activeTab)?.label || activeTab}`,
+        pageTitle: activeTab === 'learn' ? page?.title : activeTab === 'quiz' && quizContext ? `${t('quiz_question_counter')} ${quizContext.questionNum}/${quizContext.totalQuestions}` : t(TAB_I18N[activeTab] || 'tab_learn'),
         pageIndex: activeTab === 'learn' ? currentPage : undefined,
         totalPages: activeTab === 'learn' ? totalPages : undefined,
       }} />
