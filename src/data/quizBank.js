@@ -8831,6 +8831,825 @@ export const quizBank = {
         "USA and Canada"
       ]
     }
+  ],
+
+  // ===== RED TEAM (601-608) =====
+
+  601: [
+    {
+      q: "\u200Fמה ההבדל בין White Hat ל-Black Hat?",
+      correct: "\u200FWhite Hat פועל עם אישור כתוב ומדווח על ממצאים\nBlack Hat פועל ללא אישור ובכוונה זדונית",
+      choices: [
+        "\u200FWhite Hat פועל עם אישור כתוב ומדווח על ממצאים\nBlack Hat פועל ללא אישור ובכוונה זדונית",
+        "\u200FWhite Hat תוקף רק Windows\nBlack Hat תוקף רק Linux",
+        "\u200Fשניהם פועלים ללא אישור\nההבדל הוא ברמת המיומנות",
+        "\u200FWhite Hat עובד רק עם Kali Linux\nBlack Hat עובד עם כל מערכת"
+      ],
+      explanation: "\u200Fההבדל המרכזי הוא שלושה דברים: אישור כתוב, כוונה טובה (להגן), ודיווח מלא על הממצאים. Grey Hat פועל ללא אישור מפורש אבל לא בכוונה זדונית — עדיין לא חוקי.",
+      explanationEn: "The key difference is three things: written permission, good intent (to protect), and full disclosure of findings. Grey Hat acts without explicit permission but not maliciously — still illegal.",
+      qEn: "What is the difference between White Hat and Black Hat?",
+      correctEn: "White Hat acts with written permission and reports findings\nBlack Hat acts without permission and with malicious intent",
+      choicesEn: [
+        "White Hat acts with written permission and reports findings\nBlack Hat acts without permission and with malicious intent",
+        "White Hat only attacks Windows\nBlack Hat only attacks Linux",
+        "Both act without permission\nThe difference is skill level",
+        "White Hat only works with Kali Linux\nBlack Hat works with any system"
+      ]
+    },
+    {
+      q: "\u200Fמהם 5 השלבים של בדיקת חדירה (Penetration Testing)?",
+      correct: "\u200FReconnaissance, Scanning, Exploitation, Post-Exploitation, Reporting",
+      choices: [
+        "\u200FReconnaissance, Scanning, Exploitation, Post-Exploitation, Reporting",
+        "\u200FPlanning, Coding, Testing, Deployment, Maintenance",
+        "\u200FInstall, Configure, Scan, Attack, Delete",
+        "\u200FLogin, Upload, Execute, Download, Logout"
+      ],
+      explanation: "\u200Fכל בדיקת חדירה מקצועית עוקבת אחרי 5 שלבים: איסוף מידע (Recon), סריקה ומיפוי (Scanning), ניצול חולשות (Exploitation), מה עושים עם הגישה (Post-Exploitation), ולבסוף דוח מפורט (Reporting).",
+      explanationEn: "Every professional penetration test follows 5 phases: information gathering (Recon), scanning and mapping (Scanning), exploiting vulnerabilities (Exploitation), what to do with access (Post-Exploitation), and finally a detailed report (Reporting).",
+      qEn: "What are the 5 phases of a Penetration Test?",
+      correctEn: "Reconnaissance, Scanning, Exploitation, Post-Exploitation, Reporting",
+      choicesEn: [
+        "Reconnaissance, Scanning, Exploitation, Post-Exploitation, Reporting",
+        "Planning, Coding, Testing, Deployment, Maintenance",
+        "Install, Configure, Scan, Attack, Delete",
+        "Login, Upload, Execute, Download, Logout"
+      ]
+    },
+    {
+      q: "\u200Fמהו Responsible Disclosure ומהו זמן הסטנדרט לתיקון?",
+      correct: "\u200Fדיווח ישיר לחברה, מתן זמן לתיקון (90 יום סטנדרט)\nורק אחרי שתוקן — פרסום פומבי",
+      choices: [
+        "\u200Fדיווח ישיר לחברה, מתן זמן לתיקון (90 יום סטנדרט)\nורק אחרי שתוקן — פרסום פומבי",
+        "\u200Fפרסום מיידי ברשתות חברתיות\nללא הודעה לחברה",
+        "\u200Fדיווח למשטרה בלבד\nללא פרסום כלל",
+        "\u200Fמכירת החולשה לצד שלישי\nתוך 30 יום"
+      ],
+      explanation: "\u200FResponsible Disclosure (גילוי אחראי): מדווחים ישירות לצוות האבטחה, נותנים 90 יום לתיקון (הסטנדרט של Google Project Zero), ורק אחרי שתוקן מותר לפרסם בתיאום.",
+      explanationEn: "Responsible Disclosure: report directly to the security team, give 90 days to fix (Google Project Zero standard), and only after it's fixed can you publish in coordination.",
+      qEn: "What is Responsible Disclosure and what is the standard fix timeline?",
+      correctEn: "Report directly to the company, give time to fix (90 days standard)\nand only after fixed — publish publicly",
+      choicesEn: [
+        "Report directly to the company, give time to fix (90 days standard)\nand only after fixed — publish publicly",
+        "Immediately publish on social media\nwithout notifying the company",
+        "Report to police only\nno publishing at all",
+        "Sell the vulnerability to a third party\nwithin 30 days"
+      ]
+    },
+    {
+      q: "\u200Fמהו CVE ומה מטרתו?",
+      correct: "\u200FCommon Vulnerabilities and Exposures — מזהה ייחודי\nלכל חולשת אבטחה שפורסמה (לדוגמה CVE-2021-44228)",
+      choices: [
+        "\u200FCommon Vulnerabilities and Exposures — מזהה ייחודי\nלכל חולשת אבטחה שפורסמה (לדוגמה CVE-2021-44228)",
+        "\u200Fתוכנה לסריקת חולשות\nשמותקנת על Kali Linux",
+        "\u200Fסוג של התקפת סייבר\nשמכוונת לשרתי ווב בלבד",
+        "\u200Fפרוטוקול הצפנה\nלתקשורת מאובטחת"
+      ],
+      explanation: "\u200FCVE (Common Vulnerabilities and Exposures) הוא מערכת מזהים ייחודיים לחולשות אבטחה מפורסמות. לדוגמה: CVE-2021-44228 היא חולשת Log4Shell, אחת מהחולשות הגדולות בהיסטוריה.",
+      explanationEn: "CVE (Common Vulnerabilities and Exposures) is a system of unique identifiers for published security vulnerabilities. For example: CVE-2021-44228 is the Log4Shell vulnerability, one of the biggest in history.",
+      qEn: "What is CVE and what is its purpose?",
+      correctEn: "Common Vulnerabilities and Exposures — a unique identifier\nfor each published security vulnerability (e.g. CVE-2021-44228)",
+      choicesEn: [
+        "Common Vulnerabilities and Exposures — a unique identifier\nfor each published security vulnerability (e.g. CVE-2021-44228)",
+        "Software for scanning vulnerabilities\ninstalled on Kali Linux",
+        "A type of cyber attack\ntargeting web servers only",
+        "An encryption protocol\nfor secure communication"
+      ]
+    },
+    {
+      q: "\u200Fמהי תוכנית Bug Bounty?",
+      correct: "\u200Fתוכנית שבה חברה מציעה פרסים כספיים\nלמי שמוצא ומדווח על חולשות אבטחה",
+      choices: [
+        "\u200Fתוכנית שבה חברה מציעה פרסים כספיים\nלמי שמוצא ומדווח על חולשות אבטחה",
+        "\u200Fתוכנה שמוצאת באגים אוטומטית\nבזמן פיתוח",
+        "\u200Fקורס הכשרה לבודקי חדירה\nשניתן אונליין בחינם",
+        "\u200Fביטוח סייבר שחברות קונות\nמפני פריצות"
+      ],
+      explanation: "\u200Fתוכניות Bug Bounty (כמו HackerOne ו-Bugcrowd) מאפשרות להאקרים אתיים לחפש חולשות עם אישור רשמי ולקבל פרס. לדוגמה: PayPal שילם $15,300 לחוקר שמצא חולשה קריטית.",
+      explanationEn: "Bug Bounty programs (like HackerOne and Bugcrowd) allow ethical hackers to search for vulnerabilities with official permission and receive rewards. For example: PayPal paid $15,300 to a researcher who found a critical vulnerability.",
+      qEn: "What is a Bug Bounty program?",
+      correctEn: "A program where a company offers monetary rewards\nto those who find and report security vulnerabilities",
+      choicesEn: [
+        "A program where a company offers monetary rewards\nto those who find and report security vulnerabilities",
+        "Software that automatically finds bugs\nduring development",
+        "A training course for penetration testers\navailable online for free",
+        "Cyber insurance that companies buy\nagainst breaches"
+      ]
+    }
+  ],
+  602: [
+    {
+      q: "\u200Fמה היתרון המרכזי של התקנת Kali Linux על VirtualBox?",
+      correct: "\u200Fסביבה מבודדת ובטוחה — אם משהו משתבש\nלא נפגעת מערכת ההפעלה הראשית",
+      choices: [
+        "\u200Fסביבה מבודדת ובטוחה — אם משהו משתבש\nלא נפגעת מערכת ההפעלה הראשית",
+        "\u200Fביצועים טובים יותר\nמכל שיטת התקנה אחרת",
+        "\u200Fלא צריך חיבור לאינטרנט\nבזמן ההתקנה",
+        "\u200Fמגיע עם יותר כלים\nמאשר התקנה רגילה"
+      ],
+      explanation: "\u200FVirtualBox מספק סביבה מבודדת (sandbox) — אפשר לעשות Snapshot לפני ניסויים ולשחזר בקלות. Dual Boot מספק ביצועים מלאים אבל טעות יכולה למחוק את Windows.",
+      explanationEn: "VirtualBox provides an isolated environment (sandbox) — you can take snapshots before experiments and restore easily. Dual Boot provides full performance but a mistake could wipe Windows.",
+      qEn: "What is the main advantage of installing Kali Linux on VirtualBox?",
+      correctEn: "Isolated and safe environment — if something goes wrong\nthe host operating system is not affected",
+      choicesEn: [
+        "Isolated and safe environment — if something goes wrong\nthe host operating system is not affected",
+        "Better performance\nthan any other installation method",
+        "No internet connection needed\nduring installation",
+        "Comes with more tools\nthan a regular installation"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין מצבי רשת NAT ל-Bridged ב-VirtualBox?",
+      correct: "\u200FNAT — VM מבודד מהרשת עם IP פרטי מ-VirtualBox\nBridged — VM מקבל IP ישיר ברשת המקומית",
+      choices: [
+        "\u200FNAT — VM מבודד מהרשת עם IP פרטי מ-VirtualBox\nBridged — VM מקבל IP ישיר ברשת המקומית",
+        "\u200FNAT מהיר יותר\nBridged בטוח יותר",
+        "\u200FNAT לא מאפשר גישה לאינטרנט\nBridged כן",
+        "\u200Fשניהם זהים\nההבדל הוא רק בשם"
+      ],
+      explanation: "\u200FNAT — ה-VM מקבל IP פרטי מ-VirtualBox ויכול לצאת לאינטרנט אבל מבודד. Bridged — ה-VM מקבל IP ברשת המקומית, נדרש לסריקת מכונות ברשת. Host-Only — רק תקשורת בין Host ל-VM.",
+      explanationEn: "NAT — the VM gets a private IP from VirtualBox and can access internet but is isolated. Bridged — the VM gets an IP on the local network, needed for scanning network machines. Host-Only — only communication between Host and VM.",
+      qEn: "What is the difference between NAT and Bridged network modes in VirtualBox?",
+      correctEn: "NAT — VM is isolated with a private IP from VirtualBox\nBridged — VM gets a direct IP on the local network",
+      choicesEn: [
+        "NAT — VM is isolated with a private IP from VirtualBox\nBridged — VM gets a direct IP on the local network",
+        "NAT is faster\nBridged is safer",
+        "NAT doesn't allow internet access\nBridged does",
+        "Both are identical\nthe difference is only in name"
+      ]
+    },
+    {
+      q: "\u200Fמה פרטי הכניסה ברירת המחדל ב-Kali Linux?",
+      correct: "\u200Fשם משתמש: kali\nסיסמה: kali",
+      choices: [
+        "\u200Fשם משתמש: kali\nסיסמה: kali",
+        "\u200Fשם משתמש: root\nסיסמה: toor",
+        "\u200Fשם משתמש: admin\nסיסמה: admin",
+        "\u200Fשם משתמש: user\nסיסמה: password"
+      ],
+      explanation: "\u200Fמאז 2020, ברירת המחדל ב-Kali היא kali/kali (לא root/toor כמו פעם). חשוב לשנות את הסיסמה מיד עם הפקודה passwd kali.",
+      explanationEn: "Since 2020, the default in Kali is kali/kali (not root/toor as before). It's important to change the password immediately with the command passwd kali.",
+      qEn: "What are the default login credentials in Kali Linux?",
+      correctEn: "Username: kali\nPassword: kali",
+      choicesEn: [
+        "Username: kali\nPassword: kali",
+        "Username: root\nPassword: toor",
+        "Username: admin\nPassword: admin",
+        "Username: user\nPassword: password"
+      ]
+    },
+    {
+      q: "\u200Fאיזו פקודה מעדכנת את כל חבילות Kali Linux?",
+      correct: "\u200Fsudo apt update && sudo apt full-upgrade -y",
+      choices: [
+        "\u200Fsudo apt update && sudo apt full-upgrade -y",
+        "\u200Fsudo yum update -y",
+        "\u200Fkali-update --all",
+        "\u200Fsudo apt install kali -y"
+      ],
+      explanation: "\u200Fapt update מרענן את רשימת החבילות הזמינות, ו-apt full-upgrade משדרג את כל החבילות המותקנות כולל שינויי תלויות. הדגל -y מאשר אוטומטית.",
+      explanationEn: "apt update refreshes the list of available packages, and apt full-upgrade upgrades all installed packages including dependency changes. The -y flag auto-confirms.",
+      qEn: "Which command updates all Kali Linux packages?",
+      correctEn: "sudo apt update && sudo apt full-upgrade -y",
+      choicesEn: [
+        "sudo apt update && sudo apt full-upgrade -y",
+        "sudo yum update -y",
+        "kali-update --all",
+        "sudo apt install kali -y"
+      ]
+    },
+    {
+      q: "\u200Fמהי DVWA ולמה משתמשים בה?",
+      correct: "\u200FDamn Vulnerable Web Application — אפליקציה שנבנתה בכוונה\nעם חולשות אבטחה לתרגול בסביבה בטוחה",
+      choices: [
+        "\u200FDamn Vulnerable Web Application — אפליקציה שנבנתה בכוונה\nעם חולשות אבטחה לתרגול בסביבה בטוחה",
+        "\u200Fכלי סריקת חולשות אוטומטי\nשמותקן על Kali",
+        "\u200Fפלטפורמת Bug Bounty\nלדיווח על חולשות",
+        "\u200Fאנטי-וירוס מתקדם\nלהגנה על שרתי ווב"
+      ],
+      explanation: "\u200FDVWA (Damn Vulnerable Web Application) היא אפליקציית ווב שנבנתה בכוונה עם חולשות כמו XSS, SQLi, ועוד — כדי לתרגל תקיפה בסביבה חוקית ובטוחה. פלטפורמות תרגול נוספות: HackTheBox, TryHackMe, VulnHub.",
+      explanationEn: "DVWA (Damn Vulnerable Web Application) is a web app intentionally built with vulnerabilities like XSS, SQLi, and more — for practicing attacks in a legal, safe environment. Other platforms: HackTheBox, TryHackMe, VulnHub.",
+      qEn: "What is DVWA and what is it used for?",
+      correctEn: "Damn Vulnerable Web Application — an app intentionally built\nwith security vulnerabilities for practice in a safe environment",
+      choicesEn: [
+        "Damn Vulnerable Web Application — an app intentionally built\nwith security vulnerabilities for practice in a safe environment",
+        "An automated vulnerability scanner\ninstalled on Kali",
+        "A Bug Bounty platform\nfor reporting vulnerabilities",
+        "An advanced antivirus\nfor protecting web servers"
+      ]
+    }
+  ],
+  603: [
+    {
+      q: "\u200Fמה ההבדל בין Passive Recon ל-Active Recon?",
+      correct: "\u200FPassive — איסוף מידע ללא מגע ישיר עם המטרה\nActive — מגע ישיר שעלול להירשם בלוגים",
+      choices: [
+        "\u200FPassive — איסוף מידע ללא מגע ישיר עם המטרה\nActive — מגע ישיר שעלול להירשם בלוגים",
+        "\u200FPassive — סריקת פורטים\nActive — הזרקת SQL",
+        "\u200FPassive — תקיפה שקטה\nActive — תקיפה רועשת",
+        "\u200Fשניהם דורשים מגע ישיר\nההבדל הוא במהירות"
+      ],
+      explanation: "\u200FPassive Recon: חיפוש Google, Whois, רשתות חברתיות — המטרה לא יודעת שחוקרים אותה. Active Recon: סריקת פורטים, DNS queries ישירים — נרשם בלוגים של המטרה.",
+      explanationEn: "Passive Recon: Google search, Whois, social media — the target doesn't know it's being researched. Active Recon: port scanning, direct DNS queries — gets logged by the target.",
+      qEn: "What is the difference between Passive Recon and Active Recon?",
+      correctEn: "Passive — gathering info without direct contact with target\nActive — direct contact that may be logged",
+      choicesEn: [
+        "Passive — gathering info without direct contact with target\nActive — direct contact that may be logged",
+        "Passive — port scanning\nActive — SQL injection",
+        "Passive — quiet attack\nActive — noisy attack",
+        "Both require direct contact\nthe difference is speed"
+      ]
+    },
+    {
+      q: "\u200Fמהי Google Dork ואיך מוצאים קבצי PDF באתר ספציפי?",
+      correct: "\u200Fשימוש באופרטורים מתקדמים בגוגל\nלדוגמה: site:example.com filetype:pdf",
+      choices: [
+        "\u200Fשימוש באופרטורים מתקדמים בגוגל\nלדוגמה: site:example.com filetype:pdf",
+        "\u200Fתוכנה חיצונית שסורקת אתרים\nומורידה קבצים אוטומטית",
+        "\u200Fהתקנת תוסף בדפדפן\nשמחפש קבצים מוסתרים",
+        "\u200Fפריצה לשרת\nוהורדת כל הקבצים"
+      ],
+      explanation: "\u200FGoogle Dorking הוא שימוש באופרטורים כמו site:, filetype:, inurl:, intitle: לחיפוש ממוקד. לדוגמה: site:example.com filetype:sql יכול לחשוף מסדי נתונים שדלפו. זה חוקי (חיפוש גוגל) אבל שימוש במידע ללא אישור — לא.",
+      explanationEn: "Google Dorking uses operators like site:, filetype:, inurl:, intitle: for targeted searches. For example: site:example.com filetype:sql could reveal leaked databases. This is legal (Google search) but using found info without permission — isn't.",
+      qEn: "What is a Google Dork and how do you find PDF files on a specific site?",
+      correctEn: "Using advanced Google operators\nfor example: site:example.com filetype:pdf",
+      choicesEn: [
+        "Using advanced Google operators\nfor example: site:example.com filetype:pdf",
+        "External software that scans websites\nand downloads files automatically",
+        "Installing a browser extension\nthat searches for hidden files",
+        "Hacking into the server\nand downloading all files"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה Shodan ובמה הוא שונה מגוגל?",
+      correct: "\u200FShodan סורק מכשירים מחוברים לאינטרנט (שרתים, IoT)\nגוגל מאנדקס דפי ווב בלבד",
+      choices: [
+        "\u200FShodan סורק מכשירים מחוברים לאינטרנט (שרתים, IoT)\nגוגל מאנדקס דפי ווב בלבד",
+        "\u200FShodan מהיר יותר מגוגל\nאבל עם פחות תוצאות",
+        "\u200FShodan מחפש רק ב-Dark Web\nגוגל מחפש ב-Surface Web",
+        "\u200Fשניהם מחפשים דפי ווב\nההבדל הוא בממשק"
+      ],
+      explanation: "\u200FShodan הוא 'מנוע חיפוש ל-IoT' — סורק את כל האינטרנט ומאנדקס מכשירים מחוברים לפי פורטים ושירותים (שרתים, מצלמות, ראוטרים, SCADA). פילטרים: port:, country:, org:, vuln:.",
+      explanationEn: "Shodan is a 'search engine for IoT' — scans the entire internet and indexes connected devices by ports and services (servers, cameras, routers, SCADA). Filters: port:, country:, org:, vuln:.",
+      qEn: "What does Shodan do and how is it different from Google?",
+      correctEn: "Shodan scans internet-connected devices (servers, IoT)\nGoogle indexes web pages only",
+      choicesEn: [
+        "Shodan scans internet-connected devices (servers, IoT)\nGoogle indexes web pages only",
+        "Shodan is faster than Google\nbut with fewer results",
+        "Shodan searches only the Dark Web\nGoogle searches the Surface Web",
+        "Both search web pages\nthe difference is the interface"
+      ]
+    },
+    {
+      q: "\u200Fמהו Phishing ומה הטכניקה שבבסיסו?",
+      correct: "\u200Fשליחת דוא\"ל/הודעה מזויפת שנראית לגיטימית\nכדי לגנוב credentials — מנצל אמון אנושי",
+      choices: [
+        "\u200Fשליחת דוא\"ל/הודעה מזויפת שנראית לגיטימית\nכדי לגנוב credentials — מנצל אמון אנושי",
+        "\u200Fסריקת פורטים פתוחים\nבשרת מרוחק",
+        "\u200Fהזרקת קוד JavaScript\nלדף ווב פגיע",
+        "\u200Fפריצת סיסמה\nבשיטת brute force"
+      ],
+      explanation: "\u200FPhishing היא טכניקת הנדסה חברתית (Social Engineering) שמנצלת אמון ודחיפות — 'חשבונך ייחסם תוך 24 שעות'. טכניקות נוספות: Pretexting (התחזות), Baiting (USB נגוע), Tailgating (כניסה פיזית אחרי עובד).",
+      explanationEn: "Phishing is a Social Engineering technique that exploits trust and urgency — 'Your account will be blocked in 24 hours'. Other techniques: Pretexting (impersonation), Baiting (infected USB), Tailgating (physical entry behind an employee).",
+      qEn: "What is Phishing and what technique is it based on?",
+      correctEn: "Sending a fake email/message that looks legitimate\nto steal credentials — exploits human trust",
+      choicesEn: [
+        "Sending a fake email/message that looks legitimate\nto steal credentials — exploits human trust",
+        "Scanning open ports\non a remote server",
+        "Injecting JavaScript code\ninto a vulnerable web page",
+        "Cracking a password\nusing brute force"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה DNS Zone Transfer ולמה הוא מסוכן?",
+      correct: "\u200Fמעביר את כל רשומות ה-DNS של דומיין — חושף\nסאב-דומיינים, שרתים פנימיים ומבנה הרשת",
+      choices: [
+        "\u200Fמעביר את כל רשומות ה-DNS של דומיין — חושף\nסאב-דומיינים, שרתים פנימיים ומבנה הרשת",
+        "\u200Fמשנה את כתובת ה-DNS של הדומיין\nלשרת אחר",
+        "\u200Fמוחק את כל רשומות ה-DNS\nשל הדומיין",
+        "\u200Fמצפין את תעבורת ה-DNS\nלמניעת האזנה"
+      ],
+      explanation: "\u200FDNS Zone Transfer (AXFR) מעביר את כל רשומות ה-DNS מהשרת — אם השרת לא מוגן, התוקף מקבל מפה מלאה של כל הסאב-דומיינים והשרתים. פקודה: dig axfr @ns1.example.com example.com",
+      explanationEn: "DNS Zone Transfer (AXFR) transfers all DNS records from the server — if the server is unprotected, the attacker gets a full map of all subdomains and servers. Command: dig axfr @ns1.example.com example.com",
+      qEn: "What does DNS Zone Transfer do and why is it dangerous?",
+      correctEn: "Transfers all DNS records for a domain — exposes\nsubdomains, internal servers and network structure",
+      choicesEn: [
+        "Transfers all DNS records for a domain — exposes\nsubdomains, internal servers and network structure",
+        "Changes the DNS address of the domain\nto another server",
+        "Deletes all DNS records\nof the domain",
+        "Encrypts DNS traffic\nto prevent eavesdropping"
+      ]
+    }
+  ],
+  604: [
+    {
+      q: "\u200Fמה ההבדל בין SYN Scan (-sS) ל-TCP Connect Scan (-sT)?",
+      correct: "\u200FSYN Scan לא משלים handshake (פחות עקבות, צריך root)\nTCP Connect משלים handshake מלא (יותר גלוי, לא צריך root)",
+      choices: [
+        "\u200FSYN Scan לא משלים handshake (פחות עקבות, צריך root)\nTCP Connect משלים handshake מלא (יותר גלוי, לא צריך root)",
+        "\u200FSYN Scan סורק UDP\nTCP Connect סורק TCP",
+        "\u200FSYN Scan איטי יותר אבל מדויק\nTCP Connect מהיר אבל לא מדויק",
+        "\u200Fשניהם זהים\nההבדל הוא רק בשם"
+      ],
+      explanation: "\u200FSYN Scan (חצי-פתוח): שולח SYN, מקבל SYN-ACK אם פתוח, שולח RST במקום ACK — לא משלים handshake, פחות רישום בלוגים, דורש root. TCP Connect: משלים 3-way handshake מלא — יותר גלוי אבל לא צריך root.",
+      explanationEn: "SYN Scan (half-open): sends SYN, gets SYN-ACK if open, sends RST instead of ACK — doesn't complete handshake, less logging, requires root. TCP Connect: completes full 3-way handshake — more visible but doesn't require root.",
+      qEn: "What is the difference between SYN Scan (-sS) and TCP Connect Scan (-sT)?",
+      correctEn: "SYN Scan doesn't complete handshake (less traces, needs root)\nTCP Connect completes full handshake (more visible, no root needed)",
+      choicesEn: [
+        "SYN Scan doesn't complete handshake (less traces, needs root)\nTCP Connect completes full handshake (more visible, no root needed)",
+        "SYN Scan scans UDP\nTCP Connect scans TCP",
+        "SYN Scan is slower but accurate\nTCP Connect is fast but inaccurate",
+        "Both are identical\nthe difference is only in name"
+      ]
+    },
+    {
+      q: "\u200Fמה המשמעות של PORT STATE 'filtered' בתוצאות Nmap?",
+      correct: "\u200Ffirewall או מנגנון סינון חוסם את הפורט\nNmap לא יכול לקבוע אם הפורט פתוח או סגור",
+      choices: [
+        "\u200Ffirewall או מנגנון סינון חוסם את הפורט\nNmap לא יכול לקבוע אם הפורט פתוח או סגור",
+        "\u200Fהפורט פתוח אבל מוגן בסיסמה\nצריך credentials כדי להתחבר",
+        "\u200Fהפורט סגור לצמיתות\nולא ניתן לפתוח אותו",
+        "\u200Fהפורט פתוח רק לכתובות IP מסוימות\nאבל לא לכולם"
+      ],
+      explanation: "\u200Fשלושת המצבים של פורט ב-Nmap: open (פתוח, שירות מקשיב), closed (סגור, אין שירות), filtered (firewall חוסם — לא מגיעה תשובה, לא ניתן לדעת אם פתוח או סגור).",
+      explanationEn: "Three port states in Nmap: open (service is listening), closed (no service), filtered (firewall is blocking — no response, cannot determine if open or closed).",
+      qEn: "What does PORT STATE 'filtered' mean in Nmap results?",
+      correctEn: "A firewall or filtering mechanism is blocking the port\nNmap cannot determine if the port is open or closed",
+      choicesEn: [
+        "A firewall or filtering mechanism is blocking the port\nNmap cannot determine if the port is open or closed",
+        "The port is open but password protected\ncredentials are needed to connect",
+        "The port is permanently closed\nand cannot be opened",
+        "The port is open only for certain IP addresses\nbut not for everyone"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה Nmap NSE (Nmap Scripting Engine)?",
+      correct: "\u200Fמריץ סקריפטים מובנים לגילוי חולשות ומידע נוסף\nלדוגמה: --script vuln לסריקת חולשות",
+      choices: [
+        "\u200Fמריץ סקריפטים מובנים לגילוי חולשות ומידע נוסף\nלדוגמה: --script vuln לסריקת חולשות",
+        "\u200Fמצפין את תוצאות הסריקה\nלשמירה מאובטחת",
+        "\u200Fמאיץ את הסריקה\nבעזרת חישוב מקבילי",
+        "\u200Fמייצר דוחות PDF אוטומטיים\nמתוצאות הסריקה"
+      ],
+      explanation: "\u200FNmap Scripting Engine (NSE) כולל מאות סקריפטים מובנים: --script vuln (חולשות נפוצות), --script smb-vuln* (חולשות SMB), --script http-headers (בדיקת headers), --script safe (כל הסקריפטים הבטוחים).",
+      explanationEn: "Nmap Scripting Engine (NSE) includes hundreds of built-in scripts: --script vuln (common vulnerabilities), --script smb-vuln* (SMB vulnerabilities), --script http-headers (check headers), --script safe (all safe scripts).",
+      qEn: "What does Nmap NSE (Nmap Scripting Engine) do?",
+      correctEn: "Runs built-in scripts to discover vulnerabilities and additional info\nfor example: --script vuln for vulnerability scanning",
+      choicesEn: [
+        "Runs built-in scripts to discover vulnerabilities and additional info\nfor example: --script vuln for vulnerability scanning",
+        "Encrypts scan results\nfor secure storage",
+        "Speeds up the scan\nusing parallel computation",
+        "Generates automatic PDF reports\nfrom scan results"
+      ]
+    },
+    {
+      q: "\u200Fלמה חשוב לסרוק גם פורטי UDP ולא רק TCP?",
+      correct: "\u200Fשירותים חשובים כמו DNS (53), SNMP (161), DHCP (67/68)\nרצים על UDP — התעלמות מהם מפספסת חולשות",
+      choices: [
+        "\u200Fשירותים חשובים כמו DNS (53), SNMP (161), DHCP (67/68)\nרצים על UDP — התעלמות מהם מפספסת חולשות",
+        "\u200FUDP מהיר יותר לסריקה\nולכן חוסך זמן",
+        "\u200Fפורטי UDP תמיד פתוחים\nולכן קל יותר לנצל אותם",
+        "\u200FFirewall לא חוסם UDP\nולכן הסריקה תמיד מצליחה"
+      ],
+      explanation: "\u200Fסריקת UDP (-sU) חשובה כי שירותים קריטיים רצים עליו: DNS (53), SNMP (161) — שיכול לחשוף מידע רגיש עם community string 'public', DHCP (67/68). סריקת UDP איטית יותר אבל הכרחית.",
+      explanationEn: "UDP scanning (-sU) is important because critical services run on it: DNS (53), SNMP (161) — which can expose sensitive info with community string 'public', DHCP (67/68). UDP scanning is slower but essential.",
+      qEn: "Why is it important to also scan UDP ports, not just TCP?",
+      correctEn: "Important services like DNS (53), SNMP (161), DHCP (67/68)\nrun on UDP — ignoring them misses vulnerabilities",
+      choicesEn: [
+        "Important services like DNS (53), SNMP (161), DHCP (67/68)\nrun on UDP — ignoring them misses vulnerabilities",
+        "UDP is faster to scan\nso it saves time",
+        "UDP ports are always open\nso they're easier to exploit",
+        "Firewalls don't block UDP\nso scanning always succeeds"
+      ]
+    },
+    {
+      q: "\u200Fמה עושים Dirb ו-Gobuster?",
+      correct: "\u200Fסורקים ספריות וקבצים נסתרים בשרת ווב\nבעזרת wordlist (רשימת שמות נפוצים)",
+      choices: [
+        "\u200Fסורקים ספריות וקבצים נסתרים בשרת ווב\nבעזרת wordlist (רשימת שמות נפוצים)",
+        "\u200Fסורקים פורטים פתוחים\nבמכונה מרוחקת",
+        "\u200Fפורצים סיסמאות של משתמשים\nבשרת",
+        "\u200Fמגנים על שרת ווב\nמפני התקפות"
+      ],
+      explanation: "\u200FDirb ו-Gobuster הם כלי Directory Brute Force — מנסים שמות ספריות וקבצים מ-wordlist ובודקים אם הם קיימים (200/301/403). Gobuster מהיר יותר (כתוב ב-Go, multi-threaded) ותומך גם ב-DNS ו-VHost scanning.",
+      explanationEn: "Dirb and Gobuster are Directory Brute Force tools — they try directory and file names from a wordlist and check if they exist (200/301/403). Gobuster is faster (written in Go, multi-threaded) and also supports DNS and VHost scanning.",
+      qEn: "What do Dirb and Gobuster do?",
+      correctEn: "Scan for hidden directories and files on a web server\nusing a wordlist (list of common names)",
+      choicesEn: [
+        "Scan for hidden directories and files on a web server\nusing a wordlist (list of common names)",
+        "Scan for open ports\non a remote machine",
+        "Crack user passwords\non a server",
+        "Protect a web server\nfrom attacks"
+      ]
+    }
+  ],
+  605: [
+    {
+      q: "\u200Fמה ההבדל בין Reflected XSS ל-Stored XSS?",
+      correct: "\u200FReflected — סקריפט מגיע מה-URL ודורש לחיצה על לינק\nStored — סקריפט נשמר ב-DB ופוגע בכל מבקר",
+      choices: [
+        "\u200FReflected — סקריפט מגיע מה-URL ודורש לחיצה על לינק\nStored — סקריפט נשמר ב-DB ופוגע בכל מבקר",
+        "\u200FReflected פוגע רק בשרת\nStored פוגע רק בלקוח",
+        "\u200FReflected הוא התקפת רשת\nStored הוא התקפת מסד נתונים",
+        "\u200Fשניהם זהים\nההבדל הוא רק בשם"
+      ],
+      explanation: "\u200FReflected XSS: הסקריפט מגיע כחלק מה-URL ומוחזר מיידית בתגובה — חומרה בינונית. Stored XSS: הסקריפט נשמר במסד הנתונים (כמו בתגובה בפורום) ומוצג לכל מבקר — חומרה גבוהה. DOM-based: רץ בצד לקוח בלבד.",
+      explanationEn: "Reflected XSS: script comes from the URL and is immediately returned in the response — medium severity. Stored XSS: script is saved in the database (like a forum comment) and shown to every visitor — high severity. DOM-based: runs client-side only.",
+      qEn: "What is the difference between Reflected XSS and Stored XSS?",
+      correctEn: "Reflected — script comes from URL and requires clicking a link\nStored — script is saved in DB and affects every visitor",
+      choicesEn: [
+        "Reflected — script comes from URL and requires clicking a link\nStored — script is saved in DB and affects every visitor",
+        "Reflected only affects the server\nStored only affects the client",
+        "Reflected is a network attack\nStored is a database attack",
+        "Both are identical\nthe difference is only in name"
+      ]
+    },
+    {
+      q: "\u200Fמהי SQL Injection ומה ה-payload הקלאסי לעקיפת לוגין?",
+      correct: "\u200Fהזרקת שאילתות SQL דרך קלט המשתמש\nPayload: admin' -- (מבטל את תנאי הסיסמה)",
+      choices: [
+        "\u200Fהזרקת שאילתות SQL דרך קלט המשתמש\nPayload: admin' -- (מבטל את תנאי הסיסמה)",
+        "\u200Fמחיקת מסד הנתונים\nדרך ממשק הניהול",
+        "\u200Fהזרקת JavaScript\nלדף ווב פגיע",
+        "\u200Fשליחת בקשות HTTP מרובות\nלהפלת השרת"
+      ],
+      explanation: "\u200FSQL Injection: הקלט admin' -- הופך את השאילתה ל-SELECT * FROM users WHERE username='admin'--' AND password='' — ה-comment (--) מבטל את בדיקת הסיסמה. הגנה: Prepared Statements.",
+      explanationEn: "SQL Injection: the input admin' -- turns the query into SELECT * FROM users WHERE username='admin'--' AND password='' — the comment (--) cancels the password check. Defense: Prepared Statements.",
+      qEn: "What is SQL Injection and what is the classic login bypass payload?",
+      correctEn: "Injecting SQL queries through user input\nPayload: admin' -- (cancels the password condition)",
+      choicesEn: [
+        "Injecting SQL queries through user input\nPayload: admin' -- (cancels the password condition)",
+        "Deleting the database\nthrough the admin interface",
+        "Injecting JavaScript\ninto a vulnerable web page",
+        "Sending multiple HTTP requests\nto crash the server"
+      ]
+    },
+    {
+      q: "\u200Fמהי ההגנה הטובה ביותר מפני SQL Injection?",
+      correct: "\u200FPrepared Statements (Parameterized Queries)\nמפרידים בין הקוד SQL לנתונים",
+      choices: [
+        "\u200FPrepared Statements (Parameterized Queries)\nמפרידים בין הקוד SQL לנתונים",
+        "\u200Fהגבלת אורך הקלט\nל-50 תווים",
+        "\u200Fהוספת CAPTCHA\nלטופס הלוגין",
+        "\u200Fשימוש ב-HTTPS\nבמקום HTTP"
+      ],
+      explanation: "\u200FPrepared Statements מפרידים בין הקוד לנתונים: cursor.execute('SELECT * FROM users WHERE id = %s', (user_id,)). הנתונים לעולם לא מתפרשים כקוד SQL. סינון קלט ו-WAF הם שכבות נוספות אבל לא תחליף.",
+      explanationEn: "Prepared Statements separate code from data: cursor.execute('SELECT * FROM users WHERE id = %s', (user_id,)). Data is never interpreted as SQL code. Input filtering and WAF are additional layers but not a replacement.",
+      qEn: "What is the best defense against SQL Injection?",
+      correctEn: "Prepared Statements (Parameterized Queries)\nseparate SQL code from data",
+      choicesEn: [
+        "Prepared Statements (Parameterized Queries)\nseparate SQL code from data",
+        "Limiting input length\nto 50 characters",
+        "Adding CAPTCHA\nto the login form",
+        "Using HTTPS\ninstead of HTTP"
+      ]
+    },
+    {
+      q: "\u200Fמהי SSRF ובמה היא שונה מ-CSRF?",
+      correct: "\u200FSSRF — תוקף מאלץ את השרת לבצע בקשות לשרתים פנימיים\nCSRF — תוקף מאלץ את הדפדפן של המשתמש לבצע פעולות",
+      choices: [
+        "\u200FSSRF — תוקף מאלץ את השרת לבצע בקשות לשרתים פנימיים\nCSRF — תוקף מאלץ את הדפדפן של המשתמש לבצע פעולות",
+        "\u200FSSRF ו-CSRF הם אותו דבר\nרק שם שונה",
+        "\u200FSSRF תוקף את הדפדפן\nCSRF תוקף את השרת",
+        "\u200FSSRF קשור ל-SQL\nCSRF קשור ל-XSS"
+      ],
+      explanation: "\u200FSSRF (Server-Side Request Forgery): השרת הוא הקורבן — מאלצים אותו לבצע בקשות לשרתים פנימיים (למשל AWS metadata). CSRF (Cross-Site Request Forgery): המשתמש הוא הקורבן — מאלצים את הדפדפן שלו לבצע פעולות (כמו העברת כסף).",
+      explanationEn: "SSRF (Server-Side Request Forgery): the server is the victim — forcing it to make requests to internal servers (e.g. AWS metadata). CSRF (Cross-Site Request Forgery): the user is the victim — forcing their browser to perform actions (like transferring money).",
+      qEn: "What is SSRF and how is it different from CSRF?",
+      correctEn: "SSRF — attacker forces the server to make requests to internal servers\nCSRF — attacker forces the user's browser to perform actions",
+      choicesEn: [
+        "SSRF — attacker forces the server to make requests to internal servers\nCSRF — attacker forces the user's browser to perform actions",
+        "SSRF and CSRF are the same thing\njust different names",
+        "SSRF attacks the browser\nCSRF attacks the server",
+        "SSRF is related to SQL\nCSRF is related to XSS"
+      ]
+    },
+    {
+      q: "\u200Fמה תפקידו של Burp Suite בבדיקת חדירה?",
+      correct: "\u200FProxy שיושב בין הדפדפן לשרת — מיירט, משנה\nומשחזר בקשות HTTP/HTTPS",
+      choices: [
+        "\u200FProxy שיושב בין הדפדפן לשרת — מיירט, משנה\nומשחזר בקשות HTTP/HTTPS",
+        "\u200Fכלי לסריקת פורטים\nבדומה ל-Nmap",
+        "\u200Fמערכת הפעלה\nלבדיקות חדירה",
+        "\u200Fכלי לפריצת סיסמאות\nבדומה ל-Hashcat"
+      ],
+      explanation: "\u200FBurp Suite הוא כלי הבדיקה המרכזי לאפליקציות ווב. מרכיבים: Proxy (יירוט בקשות), Repeater (שליחה חוזרת עם שינויים), Intruder (brute force/fuzzing), Scanner (סריקת חולשות — Pro), Decoder (המרת קידודים).",
+      explanationEn: "Burp Suite is the main testing tool for web applications. Components: Proxy (intercept requests), Repeater (resend with modifications), Intruder (brute force/fuzzing), Scanner (vulnerability scanning — Pro), Decoder (encoding conversion).",
+      qEn: "What is the role of Burp Suite in penetration testing?",
+      correctEn: "A proxy between browser and server — intercepts, modifies\nand replays HTTP/HTTPS requests",
+      choicesEn: [
+        "A proxy between browser and server — intercepts, modifies\nand replays HTTP/HTTPS requests",
+        "A port scanning tool\nsimilar to Nmap",
+        "An operating system\nfor penetration testing",
+        "A password cracking tool\nsimilar to Hashcat"
+      ]
+    }
+  ],
+  606: [
+    {
+      q: "\u200Fמהו Reverse Shell ולמה הוא עדיף על Bind Shell?",
+      correct: "\u200FReverse Shell — המטרה מתחברת בחזרה לתוקף\nעדיף כי עוקף firewalls שחוסמים חיבורים נכנסים",
+      choices: [
+        "\u200FReverse Shell — המטרה מתחברת בחזרה לתוקף\nעדיף כי עוקף firewalls שחוסמים חיבורים נכנסים",
+        "\u200FReverse Shell מהיר יותר\nBind Shell בטוח יותר",
+        "\u200FReverse Shell עובד רק על Linux\nBind Shell עובד רק על Windows",
+        "\u200Fשניהם זהים\nההבדל הוא רק בשם הכלי"
+      ],
+      explanation: "\u200FBind Shell: פותח פורט על המטרה ומחכה לחיבור — בדרך כלל חסום על ידי firewall. Reverse Shell: המטרה יוזמת חיבור החוצה לתוקף — עוקף firewalls כי חיבורים יוצאים בדרך כלל מותרים. הפקודה nc -lvnp 4444 מקשיבה בצד התוקף.",
+      explanationEn: "Bind Shell: opens a port on the target and waits for connection — usually blocked by firewall. Reverse Shell: the target initiates an outbound connection to the attacker — bypasses firewalls since outgoing connections are usually allowed. Command nc -lvnp 4444 listens on the attacker's side.",
+      qEn: "What is a Reverse Shell and why is it preferred over Bind Shell?",
+      correctEn: "Reverse Shell — the target connects back to the attacker\npreferred because it bypasses firewalls blocking incoming connections",
+      choicesEn: [
+        "Reverse Shell — the target connects back to the attacker\npreferred because it bypasses firewalls blocking incoming connections",
+        "Reverse Shell is faster\nBind Shell is safer",
+        "Reverse Shell works only on Linux\nBind Shell works only on Windows",
+        "Both are identical\nthe difference is only in the tool name"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין Exploit ל-Payload ב-Metasploit?",
+      correct: "\u200FExploit — קוד שמנצל חולשה (כמו buffer overflow)\nPayload — מה שקורה אחרי הניצול (כמו reverse shell)",
+      choices: [
+        "\u200FExploit — קוד שמנצל חולשה (כמו buffer overflow)\nPayload — מה שקורה אחרי הניצול (כמו reverse shell)",
+        "\u200FExploit ו-Payload הם אותו דבר\nרק שם שונה",
+        "\u200FExploit הוא כלי הגנה\nPayload הוא כלי תקיפה",
+        "\u200FExploit עובד על שרתים\nPayload עובד על מחשבים אישיים"
+      ],
+      explanation: "\u200Fב-Metasploit: Exploit = הקוד שמנצל חולשה ספציפית (buffer overflow, RCE). Payload = מה שקורה אחרי ניצול מוצלח (reverse shell, Meterpreter). Auxiliary = כלי עזר (סורקים). Encoders = הסוואה מפני אנטי-וירוס.",
+      explanationEn: "In Metasploit: Exploit = code that exploits a specific vulnerability (buffer overflow, RCE). Payload = what happens after successful exploitation (reverse shell, Meterpreter). Auxiliary = helper tools (scanners). Encoders = evasion from antivirus.",
+      qEn: "What is the difference between Exploit and Payload in Metasploit?",
+      correctEn: "Exploit — code that exploits a vulnerability (like buffer overflow)\nPayload — what happens after exploitation (like reverse shell)",
+      choicesEn: [
+        "Exploit — code that exploits a vulnerability (like buffer overflow)\nPayload — what happens after exploitation (like reverse shell)",
+        "Exploit and Payload are the same thing\njust different names",
+        "Exploit is a defense tool\nPayload is an attack tool",
+        "Exploit works on servers\nPayload works on personal computers"
+      ]
+    },
+    {
+      q: "\u200Fמהו SUID ואיך הוא מנוצל ל-Privilege Escalation?",
+      correct: "\u200FSUID גורם לתוכנית לרוץ עם הרשאות הבעלים (לרוב root)\nאם יש תוכנית SUID שמאפשרת הרצת פקודות — shell כ-root",
+      choices: [
+        "\u200FSUID גורם לתוכנית לרוץ עם הרשאות הבעלים (לרוב root)\nאם יש תוכנית SUID שמאפשרת הרצת פקודות — shell כ-root",
+        "\u200FSUID הוא סוג של סיסמה\nלגישה למערכת",
+        "\u200FSUID מצפין קבצים\nבמערכת הקבצים",
+        "\u200FSUID הוא פרוטוקול רשת\nלתקשורת מאובטחת"
+      ],
+      explanation: "\u200FSUID (Set User ID): הרשאה שגורמת לתוכנית לרוץ עם ההרשאות של הבעלים. מוצאים עם: find / -perm -4000. אם למשל python3 עם SUID: python3 -c 'import os; os.setuid(0); os.system(\"/bin/bash\")' = root shell. מאגר GTFOBins מפרט טכניקות ניצול.",
+      explanationEn: "SUID (Set User ID): permission that makes a program run with the owner's privileges. Find with: find / -perm -4000. If python3 has SUID: python3 -c 'import os; os.setuid(0); os.system(\"/bin/bash\")' = root shell. GTFOBins database lists exploitation techniques.",
+      qEn: "What is SUID and how is it exploited for Privilege Escalation?",
+      correctEn: "SUID makes a program run with owner's permissions (usually root)\nif a SUID program allows command execution — root shell",
+      choicesEn: [
+        "SUID makes a program run with owner's permissions (usually root)\nif a SUID program allows command execution — root shell",
+        "SUID is a type of password\nfor system access",
+        "SUID encrypts files\nin the filesystem",
+        "SUID is a network protocol\nfor secure communication"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה הפקודה sudo -l ולמה היא חשובה ב-Privilege Escalation?",
+      correct: "\u200Fמציגה אילו פקודות המשתמש רשאי להריץ עם sudo\nאם מותר vim/python/bash עם sudo — אפשר לקבל root shell",
+      choices: [
+        "\u200Fמציגה אילו פקודות המשתמש רשאי להריץ עם sudo\nאם מותר vim/python/bash עם sudo — אפשר לקבל root shell",
+        "\u200Fמציגה את כל המשתמשים במערכת\nעם ההרשאות שלהם",
+        "\u200Fנועלת את חשבון המשתמש\nלאחר ניסיונות כושלים",
+        "\u200Fמוחקת את היסטוריית הפקודות\nשל המשתמש"
+      ],
+      explanation: "\u200Fsudo -l מציגה מה מותר לך להריץ כ-root. אם כתוב: (ALL) NOPASSWD: /usr/bin/vim — אפשר: sudo vim -c ':!/bin/bash' ולקבל shell כ-root. כלים כמו LinPEAS ו-WinPEAS מאתרים כאלה הזדמנויות אוטומטית.",
+      explanationEn: "sudo -l shows what you're allowed to run as root. If it says: (ALL) NOPASSWD: /usr/bin/vim — you can: sudo vim -c ':!/bin/bash' to get a root shell. Tools like LinPEAS and WinPEAS find such opportunities automatically.",
+      qEn: "What does the command sudo -l do and why is it important for Privilege Escalation?",
+      correctEn: "Shows which commands the user can run with sudo\nif vim/python/bash is allowed with sudo — root shell is possible",
+      choicesEn: [
+        "Shows which commands the user can run with sudo\nif vim/python/bash is allowed with sudo — root shell is possible",
+        "Shows all users in the system\nwith their permissions",
+        "Locks the user account\nafter failed attempts",
+        "Deletes the user's command history"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה Meterpreter ומה היתרון שלו על shell רגיל?",
+      correct: "\u200FPayload מתקדם של Metasploit עם יכולות מובנות:\nscreenshot, keylogger, hashdump, העלאת/הורדת קבצים",
+      choices: [
+        "\u200FPayload מתקדם של Metasploit עם יכולות מובנות:\nscreenshot, keylogger, hashdump, העלאת/הורדת קבצים",
+        "\u200Fגרסה חדשה של Metasploit\nשמחליפה את msfconsole",
+        "\u200Fכלי הגנה שמזהה תוקפים\nברשת הפנימית",
+        "\u200Fפרוטוקול תקשורת מוצפן\nבין שני מחשבים"
+      ],
+      explanation: "\u200FMeterpreter הוא payload מתקדם שרץ בזיכרון (לא על הדיסק). יכולות: sysinfo, getuid (מי אנחנו), screenshot, keyscan_start/dump (keylogger), hashdump (חילוץ hashes), upload/download קבצים, getsystem (escalation), ותנועה לרוחב הרשת.",
+      explanationEn: "Meterpreter is an advanced payload that runs in memory (not on disk). Capabilities: sysinfo, getuid (who are we), screenshot, keyscan_start/dump (keylogger), hashdump (extract hashes), upload/download files, getsystem (escalation), and lateral movement.",
+      qEn: "What does Meterpreter do and what is its advantage over a regular shell?",
+      correctEn: "Advanced Metasploit payload with built-in capabilities:\nscreenshot, keylogger, hashdump, file upload/download",
+      choicesEn: [
+        "Advanced Metasploit payload with built-in capabilities:\nscreenshot, keylogger, hashdump, file upload/download",
+        "A new version of Metasploit\nthat replaces msfconsole",
+        "A defense tool that detects attackers\non the internal network",
+        "An encrypted communication protocol\nbetween two computers"
+      ]
+    }
+  ],
+  607: [
+    {
+      q: "\u200Fמה ההבדל בין Brute Force ל-Dictionary Attack?",
+      correct: "\u200FBrute Force — מנסה כל צירוף אפשרי (איטי אבל מקיף)\nDictionary — מנסה סיסמאות מרשימה מוכנה (מהיר יותר)",
+      choices: [
+        "\u200FBrute Force — מנסה כל צירוף אפשרי (איטי אבל מקיף)\nDictionary — מנסה סיסמאות מרשימה מוכנה (מהיר יותר)",
+        "\u200FBrute Force עובד רק אונליין\nDictionary עובד רק אופליין",
+        "\u200FBrute Force פורץ רק MD5\nDictionary פורץ רק SHA",
+        "\u200Fשניהם מנסים את אותן סיסמאות\nבסדר שונה"
+      ],
+      explanation: "\u200FBrute Force מנסה כל צירוף (aaaa, aaab...) — סיסמה של 8 תווים = ~6.6 טריליון צירופים. Dictionary Attack משתמש ברשימות כמו rockyou.txt (14 מיליון סיסמאות נפוצות) — הרבה יותר יעיל כי רוב האנשים משתמשים בסיסמאות נפוצות.",
+      explanationEn: "Brute Force tries every combination (aaaa, aaab...) — 8-char password = ~6.6 trillion combinations. Dictionary Attack uses lists like rockyou.txt (14 million common passwords) — much more efficient since most people use common passwords.",
+      qEn: "What is the difference between Brute Force and Dictionary Attack?",
+      correctEn: "Brute Force — tries every possible combination (slow but thorough)\nDictionary — tries passwords from a prepared list (faster)",
+      choicesEn: [
+        "Brute Force — tries every possible combination (slow but thorough)\nDictionary — tries passwords from a prepared list (faster)",
+        "Brute Force only works online\nDictionary only works offline",
+        "Brute Force only cracks MD5\nDictionary only cracks SHA",
+        "Both try the same passwords\nin different order"
+      ]
+    },
+    {
+      q: "\u200Fמהי Rainbow Table ומה ההגנה מפניה?",
+      correct: "\u200Fטבלה מחושבת מראש של hash → סיסמה\nההגנה: Salt — מחרוזת אקראית שונה לכל משתמש",
+      choices: [
+        "\u200Fטבלה מחושבת מראש של hash → סיסמה\nההגנה: Salt — מחרוזת אקראית שונה לכל משתמש",
+        "\u200Fרשימת סיסמאות נפוצות\nההגנה: סיסמה ארוכה יותר",
+        "\u200Fכלי לפריצת WiFi\nההגנה: שינוי סיסמת הראוטר",
+        "\u200Fסוג של התקפת רשת\nההגנה: Firewall"
+      ],
+      explanation: "\u200FRainbow Table: טבלה מחושבת מראש — מחפשים hash ומקבלים סיסמה מיידית. Salt: מוסיפים מחרוזת אקראית לכל סיסמה לפני hashing — אותה סיסמה מייצרת hash שונה לכל משתמש, מה שהופך Rainbow Tables לחסרות תועלת.",
+      explanationEn: "Rainbow Table: precomputed table — look up a hash and get the password instantly. Salt: add a random string to each password before hashing — same password produces different hash for each user, making Rainbow Tables useless.",
+      qEn: "What is a Rainbow Table and what is the defense against it?",
+      correctEn: "A precomputed table of hash → password\nDefense: Salt — a different random string for each user",
+      choicesEn: [
+        "A precomputed table of hash → password\nDefense: Salt — a different random string for each user",
+        "A list of common passwords\nDefense: a longer password",
+        "A WiFi cracking tool\nDefense: changing the router password",
+        "A type of network attack\nDefense: Firewall"
+      ]
+    },
+    {
+      q: "\u200Fלמה bcrypt עדיף על MD5 לאחסון סיסמאות?",
+      correct: "\u200Fbcrypt איטי בכוונה (work factor) + salt מובנה\nMD5 מהיר מדי (10 מיליארד/שנייה ב-GPU) וללא salt",
+      choices: [
+        "\u200Fbcrypt איטי בכוונה (work factor) + salt מובנה\nMD5 מהיר מדי (10 מיליארד/שנייה ב-GPU) וללא salt",
+        "\u200Fbcrypt יוצר hash קצר יותר\nולכן חוסך מקום באחסון",
+        "\u200Fbcrypt עובד רק על Linux\nMD5 עובד רק על Windows",
+        "\u200Fאין הבדל משמעותי\nשניהם בטוחים באותה מידה"
+      ],
+      explanation: "\u200FMD5: ~10 מיליארד ניסיונות/שנייה ב-GPU — לא בטוח לסיסמאות. bcrypt: איטי בכוונה (work factor מתכוונן), salt מובנה, ~10,000-100,000 ניסיונות/שנייה. אלגוריתמים מודרניים נוספים: Argon2 (מנצח PHC), scrypt (דורש CPU + RAM).",
+      explanationEn: "MD5: ~10 billion attempts/sec on GPU — not safe for passwords. bcrypt: intentionally slow (adjustable work factor), built-in salt, ~10,000-100,000 attempts/sec. Other modern algorithms: Argon2 (PHC winner), scrypt (requires CPU + RAM).",
+      qEn: "Why is bcrypt better than MD5 for storing passwords?",
+      correctEn: "bcrypt is intentionally slow (work factor) + built-in salt\nMD5 is too fast (10 billion/sec on GPU) and has no salt",
+      choicesEn: [
+        "bcrypt is intentionally slow (work factor) + built-in salt\nMD5 is too fast (10 billion/sec on GPU) and has no salt",
+        "bcrypt produces shorter hashes\nand saves storage space",
+        "bcrypt only works on Linux\nMD5 only works on Windows",
+        "No significant difference\nboth are equally secure"
+      ]
+    },
+    {
+      q: "\u200Fמהי Password Spraying ולמה היא אפקטיבית?",
+      correct: "\u200Fניסיון סיסמה נפוצה אחת נגד הרבה חשבונות\nאפקטיבית כי לא גורמת נעילה ותמיד מישהו עם סיסמה חלשה",
+      choices: [
+        "\u200Fניסיון סיסמה נפוצה אחת נגד הרבה חשבונות\nאפקטיבית כי לא גורמת נעילה ותמיד מישהו עם סיסמה חלשה",
+        "\u200Fניסיון הרבה סיסמאות על חשבון אחד\nבזמן קצר",
+        "\u200Fהפצת סיסמאות גנובות ברשת\nלמי שמעוניין",
+        "\u200Fשינוי סיסמאות אוטומטי\nלכל המשתמשים"
+      ],
+      explanation: "\u200FPassword Spraying: סיסמה אחת (כמו Company2024!) נגד מאות חשבונות — ניסיון אחד לחשבון לא מפעיל נעילה. Credential Stuffing: credentials שדלפו מאתר אחד → ניסיון באתרים אחרים (מנצל שימוש חוזר בסיסמאות).",
+      explanationEn: "Password Spraying: one password (like Company2024!) against hundreds of accounts — one attempt per account doesn't trigger lockout. Credential Stuffing: leaked credentials from one site → tried on other sites (exploits password reuse).",
+      qEn: "What is Password Spraying and why is it effective?",
+      correctEn: "Trying one common password against many accounts\neffective because it doesn't cause lockout and someone always has a weak password",
+      choicesEn: [
+        "Trying one common password against many accounts\neffective because it doesn't cause lockout and someone always has a weak password",
+        "Trying many passwords on one account\nin a short time",
+        "Spreading stolen passwords online\nfor anyone interested",
+        "Automatic password changes\nfor all users"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה Hydra ובמה הוא שונה מ-Hashcat?",
+      correct: "\u200FHydra — brute force אונליין (SSH, HTTP, FTP בזמן אמת)\nHashcat — פריצת hash אופליין (קובץ hashes מקומי, GPU)",
+      choices: [
+        "\u200FHydra — brute force אונליין (SSH, HTTP, FTP בזמן אמת)\nHashcat — פריצת hash אופליין (קובץ hashes מקומי, GPU)",
+        "\u200FHydra פורץ רק WiFi\nHashcat פורץ רק סיסמאות ווב",
+        "\u200FHydra עובד רק על Windows\nHashcat עובד רק על Linux",
+        "\u200Fשניהם עושים את אותו דבר\nרק בממשק שונה"
+      ],
+      explanation: "\u200FHydra: brute force אונליין — מתחבר בזמן אמת לשירותים (SSH, FTP, HTTP POST, RDP) ומנסה credentials. Hashcat: פריצה אופליין — מקבל קובץ hashes ומנסה למצוא את הסיסמאות באמצעות GPU. Hashcat מהיר הרבה יותר כי לא מוגבל לרשת.",
+      explanationEn: "Hydra: online brute force — connects in real-time to services (SSH, FTP, HTTP POST, RDP) and tries credentials. Hashcat: offline cracking — gets a hash file and tries to find passwords using GPU. Hashcat is much faster since it's not network-limited.",
+      qEn: "What does Hydra do and how is it different from Hashcat?",
+      correctEn: "Hydra — online brute force (SSH, HTTP, FTP in real-time)\nHashcat — offline hash cracking (local hash file, GPU)",
+      choicesEn: [
+        "Hydra — online brute force (SSH, HTTP, FTP in real-time)\nHashcat — offline hash cracking (local hash file, GPU)",
+        "Hydra only cracks WiFi\nHashcat only cracks web passwords",
+        "Hydra only works on Windows\nHashcat only works on Linux",
+        "Both do the same thing\njust with different interfaces"
+      ]
+    }
+  ],
+  608: [
+    {
+      q: "\u200Fמהם שלושת קהלי היעד של דוח בדיקת חדירה?",
+      correct: "\u200Fהנהלה (Executive Summary), צוות טכני (פרטים מלאים)\nוצוות משפטי/רגולטורי (ציות לתקנים)",
+      choices: [
+        "\u200Fהנהלה (Executive Summary), צוות טכני (פרטים מלאים)\nוצוות משפטי/רגולטורי (ציות לתקנים)",
+        "\u200Fלקוחות, ספקים ומתחרים",
+        "\u200Fמפתחים, מעצבים ובודקי QA",
+        "\u200Fרק צוות אבטחת המידע\nהדוח חסוי לחלוטין"
+      ],
+      explanation: "\u200Fהנהלה רוצה לדעת: 'כמה אנחנו בסכנה? כמה זה עולה לתקן?' צוות טכני רוצה: 'מה הבעיה? איך מתקנים?' צוות משפטי רוצה: הוכחות לציות לתקנים (PCI-DSS, ISO 27001, GDPR).",
+      explanationEn: "Management wants to know: 'How much danger are we in? How much does it cost to fix?' Technical team wants: 'What's the problem? How do we fix it?' Legal team wants: proof of compliance with standards (PCI-DSS, ISO 27001, GDPR).",
+      qEn: "What are the three target audiences of a penetration test report?",
+      correctEn: "Management (Executive Summary), technical team (full details)\nand legal/regulatory team (compliance)",
+      choicesEn: [
+        "Management (Executive Summary), technical team (full details)\nand legal/regulatory team (compliance)",
+        "Customers, suppliers and competitors",
+        "Developers, designers and QA testers",
+        "Only the security team\nthe report is completely confidential"
+      ]
+    },
+    {
+      q: "\u200Fמהו CVSS ומה טווח הציונים שלו?",
+      correct: "\u200FCommon Vulnerability Scoring System — דירוג חומרה\n0-3.9 Low, 4.0-6.9 Medium, 7.0-8.9 High, 9.0-10.0 Critical",
+      choices: [
+        "\u200FCommon Vulnerability Scoring System — דירוג חומרה\n0-3.9 Low, 4.0-6.9 Medium, 7.0-8.9 High, 9.0-10.0 Critical",
+        "\u200Fמערכת קידוד לחולשות\nעם ציונים מ-1 עד 5",
+        "\u200Fכלי סריקה אוטומטי\nשמוצא חולשות בשרתים",
+        "\u200Fסטנדרט להצפנת נתונים\nעם רמות אבטחה שונות"
+      ],
+      explanation: "\u200FCVSS v3.1 מעריך חולשות לפי: Attack Vector (Network/Local), Attack Complexity (Low/High), Privileges Required (None/Low/High), User Interaction (None/Required), והשפעה על Confidentiality, Integrity, Availability. SQL Injection ללא אימות = 9.8 Critical.",
+      explanationEn: "CVSS v3.1 evaluates vulnerabilities by: Attack Vector (Network/Local), Attack Complexity (Low/High), Privileges Required (None/Low/High), User Interaction (None/Required), and impact on Confidentiality, Integrity, Availability. Unauthenticated SQL Injection = 9.8 Critical.",
+      qEn: "What is CVSS and what is its score range?",
+      correctEn: "Common Vulnerability Scoring System — severity rating\n0-3.9 Low, 4.0-6.9 Medium, 7.0-8.9 High, 9.0-10.0 Critical",
+      choicesEn: [
+        "Common Vulnerability Scoring System — severity rating\n0-3.9 Low, 4.0-6.9 Medium, 7.0-8.9 High, 9.0-10.0 Critical",
+        "A vulnerability coding system\nwith scores from 1 to 5",
+        "An automated scanning tool\nthat finds server vulnerabilities",
+        "A data encryption standard\nwith different security levels"
+      ]
+    },
+    {
+      q: "\u200Fמהם המרכיבים החיוניים של Finding בדוח?",
+      correct: "\u200FSeverity (CVSS), Description, Steps to Reproduce\nEvidence, Impact, Recommendation",
+      choices: [
+        "\u200FSeverity (CVSS), Description, Steps to Reproduce\nEvidence, Impact, Recommendation",
+        "\u200Fרק שם החולשה וציון CVSS\nללא פרטים נוספים",
+        "\u200Fקוד ה-exploit בלבד\nללא הסבר",
+        "\u200Fצילום מסך אחד\nוהמלצה כללית"
+      ],
+      explanation: "\u200Fכל Finding חייב לכלול: Severity/CVSS (חומרה), Description (תיאור), Steps to Reproduce (שלבי שחזור — כדי שהצוות יוכל לאמת), Evidence (הוכחות — screenshots, logs), Impact (השפעה), Recommendation (המלצה לתיקון), References (CWE, OWASP).",
+      explanationEn: "Every Finding must include: Severity/CVSS, Description, Steps to Reproduce (so the team can verify), Evidence (screenshots, logs), Impact, Recommendation, References (CWE, OWASP).",
+      qEn: "What are the essential components of a Finding in a report?",
+      correctEn: "Severity (CVSS), Description, Steps to Reproduce\nEvidence, Impact, Recommendation",
+      choicesEn: [
+        "Severity (CVSS), Description, Steps to Reproduce\nEvidence, Impact, Recommendation",
+        "Only the vulnerability name and CVSS score\nno additional details",
+        "Only the exploit code\nno explanation",
+        "One screenshot\nand a general recommendation"
+      ]
+    },
+    {
+      q: "\u200Fמהו הזמן המומלץ לתיקון חולשה ברמת Critical?",
+      correct: "\u200F0-7 ימים — חולשות Critical ניתנות לניצול מיידי\nודורשות פעולה מידית",
+      choices: [
+        "\u200F0-7 ימים — חולשות Critical ניתנות לניצול מיידי\nודורשות פעולה מידית",
+        "\u200F1-3 חודשים\nעם תכנון מסודר",
+        "\u200F6-12 חודשים\nבמסגרת תקציב שנתי",
+        "\u200Fאין דחיפות\nלפי נוחות הצוות"
+      ],
+      explanation: "\u200Fסדר עדיפויות: Critical (0-7 ימים) — ניצול מיידי. High (1-4 שבועות) — דורש תנאים. Medium (1-3 חודשים) — השפעה מוגבלת. Low (3-6 חודשים) — שיפורי best practices.",
+      explanationEn: "Priority order: Critical (0-7 days) — immediate exploitation. High (1-4 weeks) — requires conditions. Medium (1-3 months) — limited impact. Low (3-6 months) — best practice improvements.",
+      qEn: "What is the recommended time to fix a Critical severity vulnerability?",
+      correctEn: "0-7 days — Critical vulnerabilities can be exploited immediately\nand require immediate action",
+      choicesEn: [
+        "0-7 days — Critical vulnerabilities can be exploited immediately\nand require immediate action",
+        "1-3 months\nwith orderly planning",
+        "6-12 months\nwithin annual budget",
+        "No urgency\nat the team's convenience"
+      ]
+    },
+    {
+      q: "\u200Fמהם המרכיבים העיקריים של Executive Summary?",
+      correct: "\u200Fסיכום ממצאים לפי חומרה, רמת סיכון כוללת\nוהמלצות מיידיות — ללא ז'רגון טכני",
+      choices: [
+        "\u200Fסיכום ממצאים לפי חומרה, רמת סיכון כוללת\nוהמלצות מיידיות — ללא ז'רגון טכני",
+        "\u200Fרשימת כל הכלים שהשתמשנו בהם\nעם הפקודות",
+        "\u200Fקוד ה-exploit המלא\nלכל חולשה שנמצאה",
+        "\u200Fרק גרף עוגה\nעם אחוז החולשות"
+      ],
+      explanation: "\u200FExecutive Summary נכתב להנהלה — ללא ז'רגון טכני. כולל: מה נבדק ומתי, מספר ממצאים לפי חומרה (Critical/High/Medium/Low), רמת סיכון כוללת, השפעה עסקית (כמה רשומות בסכנה, קנסות רגולטוריים), ופעולות מיידיות נדרשות.",
+      explanationEn: "Executive Summary is written for management — no technical jargon. Includes: what was tested and when, number of findings by severity (Critical/High/Medium/Low), overall risk level, business impact (records at risk, regulatory fines), and immediate actions required.",
+      qEn: "What are the main components of an Executive Summary?",
+      correctEn: "Summary of findings by severity, overall risk level\nand immediate recommendations — without technical jargon",
+      choicesEn: [
+        "Summary of findings by severity, overall risk level\nand immediate recommendations — without technical jargon",
+        "List of all tools used\nwith commands",
+        "Full exploit code\nfor every vulnerability found",
+        "Just a pie chart\nwith vulnerability percentages"
+      ]
+    }
   ]
 }
 
