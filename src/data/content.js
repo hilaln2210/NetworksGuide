@@ -13465,6 +13465,7 @@ $ curl "https://api.example.com/data?api_key=sk_live_abc123def456"</code></pre>
               <li><strong>שלב 5:</strong> האפליקציה משתמשת ב-Access Token כדי לגשת ל-API של Google בשמך</li>
             </ul>
             <p><strong>למה לא לשלוח את הטוקן ישירות?</strong> כי ה-Authorization Code עובר דרך הדפדפן (פחות בטוח). הטוקן מועבר server-to-server (יותר בטוח).</p>
+            <p><strong>PKCE (Proof Key for Code Exchange)</strong> — הרחבה קריטית ל-OAuth 2.0 עבור public clients (mobile apps, SPAs). במקום client_secret (שלא ניתן לשמור בטוח בclient), משתמשים ב-code_verifier + code_challenge. מומלץ לכל OAuth 2.0 flow מודרני.</p>
           `
         },
         {
@@ -14345,6 +14346,7 @@ POST /graphql
               <li><strong>REST</strong> — פשוט, cache קל, מתאים ל-CRUD פשוט</li>
               <li><strong>GraphQL</strong> — גמיש, חוסך בקשות, מתאים למערכות מורכבות עם יחסים רבים</li>
             </ul>
+            <p><strong>N+1 Problem</strong> — שאילתת GraphQL שמבקשת users + posts יכולה לייצר N שאילתות DB נפרדות (אחת לכל user). פתרון: DataLoader — batching של שאילתות. במקום N שאילתות, שאילתה אחת עם WHERE id IN (...).</p>
           `
         },
         {
@@ -14484,6 +14486,7 @@ GET /api/products?sort=category,-price   # category עולה, price יורד</co
   <li><strong>CFAA (ארה"ב)</strong> — Computer Fraud and Abuse Act — עונשים חמורים על גישה לא מורשית</li>
   <li><strong>GDPR (אירופה)</strong> — חשיפת מידע אישי = קנסות ענק</li>
 </ul>
+<p>חוק המחשבים הישראלי (1995), עם תיקונים ב-2002 ו-2017. העונש המקסימלי: עד 5 שנות מאסר על חדירה לחומר מחשב.</p>
 <p><strong>מה הופך פריצה לחוקית?</strong></p>
 <ul>
   <li>✅ הסכם כתוב (Scope of Work / Rules of Engagement)</li>
@@ -14884,6 +14887,7 @@ shodan search "redis_version port:6379"</code></pre></div>
   <li><strong>Baiting</strong> — השארת USB נגוע בחניון של חברה</li>
   <li><strong>Tailgating</strong> — כניסה פיזית אחרי עובד לגיטימי דרך דלת מאובטחת</li>
 </ul>
+<p><strong>הערה:</strong> Baiting (למשל USB נגוע) הוא גם טכניקת Recon (איסוף מידע על הקורבן) וגם וקטור Initial Access (כניסה ראשונית למערכת).</p>
 <p><strong>OSINT על אנשים:</strong></p>
 <ul>
   <li><strong>LinkedIn</strong> — מציאת עובדים, תפקידים, טכנולוגיות שבשימוש</li>
@@ -15570,6 +15574,7 @@ mimikatz.exe
 sekurlsa::logonpasswords      # סיסמאות בטקסט חופשי!</code></pre></div>
 
 <p><strong>חשוב לזכור:</strong> בבדיקת חדירה אמיתית, כל פעולה מתועדת. בשום מצב לא מוחקים לוגים או משאירים backdoors — זו לא תקיפה אמיתית!</p>
+<p><strong>Anti-Forensics — ניקוי עקבות:</strong> <code>wevtutil cl System</code> (Windows Event Log), <code>history -c</code> (Linux Bash history), מחיקת log files. חשוב: בפריצה אתית — תמיד מתעדים מה עשיתם ומשאירים את ה-logs.</p>
 `
         },
         {
@@ -16111,7 +16116,8 @@ Layer 1 (Guard key):   encrypt(Layer 2 + "send to Middle")
 <li>הפעלת Exit Node היא מסוכנת יותר — תעבורה לא חוקית "יוצאת" מהכתובת שלו</li>
 </ul>
 <h3>Directory Authorities</h3>
-<p>קבוצה של <strong>עשרה שרתים מהימנים</strong> שמנהלת את רשימת כל ה-nodes ברשת Tor. הם מצביעים על ה"קונצנזוס" — רשימה מאושרת של nodes, הדגלים שלהם (Guard, Exit, Stable), ורוחב הפס. דפדפן Tor מוריד את הקונצנזוס ובוחר nodes ממנו.</p>`
+<p>קבוצה של <strong>עשרה שרתים מהימנים</strong> שמנהלת את רשימת כל ה-nodes ברשת Tor. הם מצביעים על ה"קונצנזוס" — רשימה מאושרת של nodes, הדגלים שלהם (Guard, Exit, Stable), ורוחב הפס. דפדפן Tor מוריד את הקונצנזוס ובוחר nodes ממנו.</p>
+<p>ה-Directory Authorities מפוזרים גיאוגרפית — ברובם בארה"ב ובאירופה. הפיזור מבטיח שממשלה אחת לא יכולה לסגור את כולם.</p>`
                 },
                 {
                     type: 'explanation',
@@ -16381,7 +16387,8 @@ Layer 1 (Guard key):   encrypt(Layer 2 + "send to Middle")
 <li><strong>ExifTool:</strong> צפייה והסרת EXIF מתמונות</li>
 <li><strong>Tor:</strong> מסתיר metadata של תעבורת רשת</li>
 <li><strong>Signal:</strong> מסירה EXIF מתמונות לפני שליחה ושומרת מינימום metadata</li>
-</ul>`
+</ul>
+<p><strong>Monero (XMR)</strong> — מטבע קריפטו שמדגיש אנונימיות אמיתית. בניגוד ל-Bitcoin שבו כל העברה ציבורית, Monero משתמש ב-Ring Signatures ו-Stealth Addresses כדי להסתיר שולח, מקבל וסכום.</p>`
                 },
                 {
                     type: 'summary',
@@ -16626,7 +16633,7 @@ Layer 1 (Guard key):   encrypt(Layer 2 + "send to Middle")
                 {
                     type: 'explanation',
                     title: 'Multi-Factor Authentication (MFA)',
-                    content: '<p><strong>MFA</strong> דורש שני גורמי זיהוי או יותר:</p><ul><li><strong>Something you know</strong> — סיסמה, PIN</li><li><strong>Something you have</strong> — טלפון, מפתח חומרה (YubiKey)</li><li><strong>Something you are</strong> — טביעת אצבע, זיהוי פנים</li></ul><p><strong>שיטות MFA לפי רמת אבטחה:</strong></p><ol><li><strong>SMS OTP</strong> — חלש, פגיע ל-SIM swapping</li><li><strong>TOTP</strong> (Google Authenticator) — טוב, מבוסס זמן</li><li><strong>Push Notification</strong> — טוב, אבל פגיע ל-MFA fatigue</li><li><strong>FIDO2/WebAuthn</strong> — הכי בטוח, מפתח חומרה</li></ol><pre><code>// TOTP verification with speakeasy\nconst speakeasy = require(\'speakeasy\')\nconst verified = speakeasy.totp.verify({\n  secret: user.totpSecret,\n  encoding: \'base32\',\n  token: userProvidedCode,\n  window: 1  // allow 30s drift\n})</code></pre>'
+                    content: '<p><strong>MFA</strong> דורש שני גורמי זיהוי או יותר:</p><ul><li><strong>Something you know</strong> — סיסמה, PIN</li><li><strong>Something you have</strong> — טלפון, מפתח חומרה (YubiKey)</li><li><strong>Something you are</strong> — טביעת אצבע, זיהוי פנים</li></ul><p><strong>שיטות MFA לפי רמת אבטחה:</strong></p><ol><li><strong>SMS OTP</strong> — חלש, פגיע ל-SIM swapping</li><li><strong>TOTP</strong> (Google Authenticator) — טוב, מבוסס זמן</li><li><strong>Push Notification</strong> — טוב, אבל פגיע ל-MFA fatigue</li><li><strong>FIDO2/WebAuthn</strong> — הכי בטוח, מפתח חומרה</li></ol><p>FIDO2/WebAuthn — הכי בטוח מכל שיטות ה-MFA, ה-adoption הולך וגדל (Google, Microsoft, Apple תומכים). Passkeys הם היישום הצרכני של FIDO2.</p><pre><code>// TOTP verification with speakeasy\nconst speakeasy = require(\'speakeasy\')\nconst verified = speakeasy.totp.verify({\n  secret: user.totpSecret,\n  encoding: \'base32\',\n  token: userProvidedCode,\n  window: 1  // allow 30s drift\n})</code></pre>'
                 },
                 {
                     type: 'explanation',
@@ -16729,7 +16736,7 @@ Layer 1 (Guard key):   encrypt(Layer 2 + "send to Middle")
                 {
                     type: 'explanation',
                     title: 'סיכום - API Security',
-                    content: '<p><strong>סיכום אבטחת API:</strong></p><ul><li><strong>BOLA</strong> — בדיקת בעלות על כל אובייקט בכל endpoint</li><li><strong>Rate Limiting</strong> — הגבלת בקשות לפי IP/user, גבולות שונים לendpoints רגישים</li><li><strong>Input Validation</strong> — schema validation עם Joi/Zod, allowlist, payload size limit</li><li><strong>Authentication</strong> — JWT עם secret חזק, expiration קצר, refresh tokens</li><li><strong>Output Filtering</strong> — לא להחזיר שדות רגישים (password, tokens, internal IDs)</li></ul><p><strong>Best Practices נוספים:</strong></p><ul><li>HTTPS תמיד, HSTS header</li><li>CORS מצומצם — לא <code>*</code></li><li>Versioning — <code>/api/v1/</code></li><li>Logging — תיעוד כל הבקשות עם context</li><li>API Gateway — ריכוז auth, rate limiting, monitoring</li></ul>'
+                    content: '<p><strong>סיכום אבטחת API:</strong></p><ul><li><strong>BOLA</strong> — בדיקת בעלות על כל אובייקט בכל endpoint</li><li><strong>Rate Limiting</strong> — הגבלת בקשות לפי IP/user, גבולות שונים לendpoints רגישים</li><li><strong>Input Validation</strong> — schema validation עם Joi/Zod, allowlist, payload size limit</li><li><strong>Authentication</strong> — JWT עם secret חזק, expiration קצר, refresh tokens</li><li><strong>Output Filtering</strong> — לא להחזיר שדות רגישים (password, tokens, internal IDs)</li></ul><p><strong>Best Practices נוספים:</strong></p><ul><li>HTTPS תמיד, HSTS header</li><li>CORS מצומצם — לא <code>*</code></li><li>Versioning — <code>/api/v1/</code></li><li>Logging — תיעוד כל הבקשות עם context</li><li>API Gateway — ריכוז auth, rate limiting, monitoring</li></ul><p><strong>Mass Assignment</strong> — חולשה שבה ה-API מקבל שדות שלא צריך. דוגמה: POST /api/users עם {name: "test", role: "admin"} — אם השרת לא מסנן, התוקף הפך לadmin. הגנה: allowlist (whitelist) של שדות מורשים בלבד.</p>'
                 },
                 {
                     type: 'questions',
@@ -16806,7 +16813,7 @@ Layer 1 (Guard key):   encrypt(Layer 2 + "send to Middle")
                 {
                     type: 'explanation',
                     title: 'Guardrails ושכבות הגנה',
-                    content: '<p>אין פתרון אחד ל-prompt injection. צריך <strong>Defense in Depth</strong>:</p><p><strong>1. Input Guardrails:</strong></p><pre><code>// Filter known attack patterns\nfunction sanitizeInput(input) {\n  const patterns = [\n    /ignore\\s+(all\\s+)?previous\\s+instructions/i,\n    /system\\s*prompt/i,\n    /you\\s+are\\s+now/i\n  ]\n  for (const p of patterns) {\n    if (p.test(input)) {\n      return { blocked: true, reason: \'Suspicious input\' }\n    }\n  }\n  return { blocked: false, text: input }\n}</code></pre><p><strong>2. Output Guardrails:</strong></p><ul><li>סינון תשובות שמכילות מידע רגיש (PII, secrets)</li><li>בדיקה שהתשובה רלוונטית לנושא</li><li>Human-in-the-loop לפעולות קריטיות</li></ul><p><strong>3. Architecture:</strong></p><ul><li>Least Privilege — ל-LLM גישה מינימלית לכלים ונתונים</li><li>Sandboxing — הרצה בסביבה מבודדת</li><li>Separation — הפרדה בין system prompt לuser input</li><li>Confirmation — אישור אנושי לפעולות מסוכנות (שליחת מייל, מחיקה)</li></ul>'
+                    content: '<p>אין פתרון אחד ל-prompt injection. צריך <strong>Defense in Depth</strong>:</p><p><strong>1. Input Guardrails:</strong></p><pre><code>// Filter known attack patterns\nfunction sanitizeInput(input) {\n  const patterns = [\n    /ignore\\s+(all\\s+)?previous\\s+instructions/i,\n    /system\\s*prompt/i,\n    /you\\s+are\\s+now/i\n  ]\n  for (const p of patterns) {\n    if (p.test(input)) {\n      return { blocked: true, reason: \'Suspicious input\' }\n    }\n  }\n  return { blocked: false, text: input }\n}</code></pre><p><strong>2. Output Guardrails:</strong></p><ul><li>סינון תשובות שמכילות מידע רגיש (PII, secrets)</li><li>בדיקה שהתשובה רלוונטית לנושא</li><li>Human-in-the-loop לפעולות קריטיות</li></ul><p><strong>3. Architecture:</strong></p><ul><li>Least Privilege — ל-LLM גישה מינימלית לכלים ונתונים</li><li>Sandboxing — הרצה בסביבה מבודדת</li><li>Separation — הפרדה בין system prompt לuser input</li><li>Confirmation — אישור אנושי לפעולות מסוכנות (שליחת מייל, מחיקה)</li></ul><p><strong>חשוב:</strong> Denylist-based filtering (חסימת מילים כמו "ignore instructions") ניתן לעקיפה בקלות — Unicode tricks, typos, שפות אחרות. ארכיטקטורה מועדפת: Privilege Separation — ה-LLM לא מקבל גישה ישירה לנתונים רגישים, ומערכת חיצונית מאמתת כל פעולה.</p>'
                 },
                 {
                     type: 'explanation',
