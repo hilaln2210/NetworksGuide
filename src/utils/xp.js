@@ -5,23 +5,24 @@ export const XP_PAGE_READ = 5
 export const XP_QUIZ_CORRECT = 15
 export const XP_QUIZ_BONUS = 50
 
-// nameF = נקבה, nameM = זכר
+// nameF = נקבה, nameM = זכר, nameEn = English
 export const LEVELS = [
-  { level: 1,  nameF: 'מתחילה',           nameM: 'מתחיל',           emoji: '🌱',  min: 0 },
-  { level: 2,  nameF: 'סטודנטית',          nameM: 'סטודנט',          emoji: '📚',  min: 60 },
-  { level: 3,  nameF: 'טכנאית',            nameM: 'טכנאי',           emoji: '🔧',  min: 180 },
-  { level: 4,  nameF: 'מהנדסת',            nameM: 'מהנדס',           emoji: '⚙️',  min: 360 },
-  { level: 5,  nameF: 'מומחית',            nameM: 'מומחה',           emoji: '🏆',  min: 600 },
-  { level: 6,  nameF: 'גורו רשתות',        nameM: 'גורו רשתות',      emoji: '🔮',  min: 900 },
-  { level: 7,  nameF: 'ארכיטקטית רשתות',  nameM: 'ארכיטקט רשתות',  emoji: '🏗️', min: 1500 },
-  { level: 8,  nameF: 'מנהלת תשתיות',     nameM: 'מנהל תשתיות',    emoji: '🌐',  min: 2500 },
-  { level: 9,  nameF: 'מומחית אבטחה',     nameM: 'מומחה אבטחה',    emoji: '🔐',  min: 4000 },
-  { level: 10, nameF: 'CTO',               nameM: 'CTO',             emoji: '🚀',  min: 6500 },
-  { level: 11, nameF: 'אגדת הרשתות',      nameM: 'אגדת הרשתות',    emoji: '⚡',  min: 10000 },
-  { level: 12, nameF: 'אל הרשתות',        nameM: 'אל הרשתות',      emoji: '🌌',  min: 15000 },
+  { level: 1,  nameF: 'מתחילה',           nameM: 'מתחיל',           nameEn: 'Beginner',           emoji: '🌱',  min: 0 },
+  { level: 2,  nameF: 'סטודנטית',          nameM: 'סטודנט',          nameEn: 'Student',            emoji: '📚',  min: 60 },
+  { level: 3,  nameF: 'טכנאית',            nameM: 'טכנאי',           nameEn: 'Technician',         emoji: '🔧',  min: 180 },
+  { level: 4,  nameF: 'מהנדסת',            nameM: 'מהנדס',           nameEn: 'Engineer',           emoji: '⚙️',  min: 360 },
+  { level: 5,  nameF: 'מומחית',            nameM: 'מומחה',           nameEn: 'Expert',             emoji: '🏆',  min: 600 },
+  { level: 6,  nameF: 'גורו רשתות',        nameM: 'גורו רשתות',      nameEn: 'Network Guru',       emoji: '🔮',  min: 900 },
+  { level: 7,  nameF: 'ארכיטקטית רשתות',  nameM: 'ארכיטקט רשתות',  nameEn: 'Network Architect',  emoji: '🏗️', min: 1500 },
+  { level: 8,  nameF: 'מנהלת תשתיות',     nameM: 'מנהל תשתיות',    nameEn: 'Infra Manager',      emoji: '🌐',  min: 2500 },
+  { level: 9,  nameF: 'מומחית אבטחה',     nameM: 'מומחה אבטחה',    nameEn: 'Security Expert',    emoji: '🔐',  min: 4000 },
+  { level: 10, nameF: 'CTO',               nameM: 'CTO',             nameEn: 'CTO',                emoji: '🚀',  min: 6500 },
+  { level: 11, nameF: 'אגדת הרשתות',      nameM: 'אגדת הרשתות',    nameEn: 'Network Legend',     emoji: '⚡',  min: 10000 },
+  { level: 12, nameF: 'אל הרשתות',        nameM: 'אל הרשתות',      nameEn: 'Network God',        emoji: '🌌',  min: 15000 },
 ]
 
-export function getLevelName(levelObj, gender) {
+export function getLevelName(levelObj, gender, lang) {
+  if (lang === 'en') return levelObj.nameEn
   return gender === 'male' ? levelObj.nameM : levelObj.nameF
 }
 

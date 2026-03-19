@@ -97,13 +97,15 @@ export function addSessionMinutes(n) {
   } catch {}
 }
 
-export function formatMinutes(total) {
-  if (total < 1) return '0 דק׳'
+export function formatMinutes(total, lang) {
+  const min = lang === 'en' ? 'min' : 'דק׳'
+  const hr = lang === 'en' ? 'hr' : 'שע׳'
+  if (total < 1) return `0 ${min}`
   const h = Math.floor(total / 60)
   const m = Math.round(total % 60)
-  if (h === 0) return `${m} דק׳`
-  if (m === 0) return `${h} שע׳`
-  return `${h}:${String(m).padStart(2, '0')} שע׳`
+  if (h === 0) return `${m} ${min}`
+  if (m === 0) return `${h} ${hr}`
+  return `${h}:${String(m).padStart(2, '0')} ${hr}`
 }
 
 // ===== Chapters Completed (all pages read) =====

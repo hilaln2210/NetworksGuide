@@ -195,6 +195,9 @@ function App() {
     try { localStorage.setItem('ng_header_collapsed', headerCollapsed ? '1' : '0') } catch {}
   }, [headerCollapsed])
 
+  const { lang, setLang, t } = useLang()
+  const isEn = lang === 'en'
+
   const trackChapters = activeTrack?.chapters || []
   const chapter = trackChapters[currentChapter]
   const page = chapter?.pages[currentPage]
@@ -203,8 +206,8 @@ function App() {
   const level = getLevel(xp)
   const nextLevel = getNextLevel(xp)
   const lvlProgress = getLevelProgress(xp)
-  const levelName = getLevelName(level, gender)
-  const nextLevelName = nextLevel ? getLevelName(nextLevel, gender) : null
+  const levelName = getLevelName(level, gender, lang)
+  const nextLevelName = nextLevel ? getLevelName(nextLevel, gender, lang) : null
 
   const totalPagesAllChapters = trackChapters.reduce((s, c) => s + c.pages.length, 0)
   const totalRead = activeTrack
@@ -221,9 +224,6 @@ function App() {
   const DAILY_GOAL_MIN = 15
   const goalPct = Math.min(100, Math.round((todayMinutes / DAILY_GOAL_MIN) * 100))
   const goalMet = todayMinutes >= DAILY_GOAL_MIN
-
-  const { lang, setLang, t } = useLang()
-  const isEn = lang === 'en'
 
   const handleGenderSelect = (g) => { setGender(g); setGenderState(g) }
   const toggleGender = () => {
@@ -411,7 +411,7 @@ function App() {
                 <span className="stat-label">{t('stat_progress')}</span>
               </div>
               <div className={`stat-chip stat-time${todayMinutes > 0 ? ' active' : ''}`}>
-                <span className="stat-num" dir="ltr">{formatMinutes(todayMinutes)}</span>
+                <span className="stat-num" dir="ltr">{formatMinutes(todayMinutes, lang)}</span>
                 <span className="stat-label">{t('stat_today')}</span>
               </div>
               <div className="stat-chip">
@@ -450,7 +450,7 @@ function App() {
           {/* Daily goal bar */}
           <div className="daily-goal-wrap">
             <span className="daily-goal-label">
-              {goalMet ? t('daily_goal_met') : `${t('daily_goal_pre')} ${formatMinutes(todayMinutes)} / ${DAILY_GOAL_MIN}m`}
+              {goalMet ? t('daily_goal_met') : `${t('daily_goal_pre')} ${formatMinutes(todayMinutes, lang)} / ${DAILY_GOAL_MIN}m`}
               {goalMet && <span className="daily-goal-done"> 🏆</span>}
             </span>
             <div className="daily-goal-bar">
@@ -479,7 +479,7 @@ function App() {
       {/* ===== LEVEL UP ===== */}
       {levelUp && (
         <div className="levelup-toast">
-          {levelUp.emoji} {t('level_up')} {getLevelName(levelUp, gender)}
+          {levelUp.emoji} {t('level_up')} {getLevelName(levelUp, gender, lang)}
         </div>
       )}
 
