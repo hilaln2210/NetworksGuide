@@ -55,12 +55,17 @@ export function FeedbackButton({ context = {} }) {
       formData.append('lang', lang)
       formData.append('_subject', `[NetworksGuide ${typeLabel}] ${activeTab || ''} | ${trackTitle || 'general'} > ${pageTitle || ''}`)
       formData.append('_template', 'table')
+      formData.append('_captcha', 'false')
 
-      await fetch('https://formsubmit.co/ajax/hilaaa90@gmail.com', {
+      const resp = await fetch('https://formsubmit.co/ajax/hilaaa90@gmail.com', {
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' },
       })
+      const result = await resp.json().catch(() => ({}))
+      if (!resp.ok || result.success === false) {
+        throw new Error(result.message || 'Failed')
+      }
 
       setThanks(true)
       setTimeout(() => {

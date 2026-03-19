@@ -101,12 +101,17 @@ export function AdminHighlight({ context = {} }) {
       formData.append('date', new Date().toLocaleString('en-US'))
       formData.append('_subject', `[Admin ${action}] "${selection.text.substring(0, 40)}..."`)
       formData.append('_template', 'table')
+      formData.append('_captcha', 'false')
 
-      await fetch('https://formsubmit.co/ajax/hilaaa90@gmail.com', {
+      const resp = await fetch('https://formsubmit.co/ajax/hilaaa90@gmail.com', {
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' },
       })
+      const result = await resp.json().catch(() => ({}))
+      if (!resp.ok || result.success === false) {
+        throw new Error(result.message || 'Failed')
+      }
 
       setThanks(true)
       setTimeout(() => {
