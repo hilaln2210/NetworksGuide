@@ -702,7 +702,15 @@ export const quizBank = {
         "\u200FNew Address Table\nטבלת ניתוב דינמית",
         "\u200FNode Authentication Technology\nאימות מכשירים"
       ],
-      explanation: "\u200F🏠 NAT — תרגום כתובות רשת:\n• בבית יש לך IP פנימי (192.168.x.x)\n• ו-IP ציבורי אחד\n\n🔄 איך זה עובד:\n• NAT ב-router ״מתרגם״\n• מאחד לרבים ובחזרה\n\n🌍 למה צריך NAT:\n• אין מספיק כתובות IPv4 בעולם\n• NAT מאפשר לחלוק כתובת אחת"
+      explanation: "\u200F🏠 NAT — תרגום כתובות רשת:\n• בבית יש לך IP פנימי (192.168.x.x)\n• ו-IP ציבורי אחד\n\n🔄 איך זה עובד:\n• NAT ב-router ״מתרגם״\n• מאחד לרבים ובחזרה\n\n🌍 למה צריך NAT:\n• אין מספיק כתובות IPv4 בעולם\n• NAT מאפשר לחלוק כתובת אחת",
+      qEn: "What is NAT?",
+      correctEn: "Network Address Translation\nAllows many computers to share\none public IP address",
+      choicesEn: [
+        "Network Address Translation\nAllows many computers to share\none public IP address",
+        "Network Access Token\nA token for network access",
+        "New Address Table\nA dynamic routing table",
+        "Node Authentication Technology\nDevice authentication"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין IP פנימי לציבורי?",
@@ -713,7 +721,15 @@ export const quizBank = {
         "\u200FIP פנימי לשרתים\nציבורי למחשבים אישיים",
         "\u200FIP פנימי קבוע\nציבורי משתנה"
       ],
-      explanation: "\u200F🕵️ IP פנימי vs ציבורי:\n• כשאת שולחת בקשה לגוגל\n• ה-router שם את ה-IP הציבורי שלו\n• גוגל לא יודעת שיש לך IP 192.168.1.5\n\n🏠 טווחי IP פנימיים:\n• 10.0.0.0/8\n• 172.16.0.0/12\n• 192.168.0.0/16"
+      explanation: "\u200F🕵️ IP פנימי vs ציבורי:\n• כשאת שולחת בקשה לגוגל\n• ה-router שם את ה-IP הציבורי שלו\n• גוגל לא יודעת שיש לך IP 192.168.1.5\n\n🏠 טווחי IP פנימיים:\n• 10.0.0.0/8\n• 172.16.0.0/12\n• 192.168.0.0/16",
+      qEn: "What is the difference between private and public IP?",
+      correctEn: "Private IP (192.168.x.x) for local network\nPublic — unique on the internet",
+      choicesEn: [
+        "Private IP (192.168.x.x) for local network\nPublic — unique on the internet",
+        "Private IP is encrypted\nPublic is visible",
+        "Private IP for servers\nPublic for personal computers",
+        "Private IP is fixed\nPublic changes"
+      ]
     },
     {
       q: "\u200Fאיזה כתובת IP היא ״ברדקאסט״ (broadcast) ברשת?",
@@ -724,7 +740,15 @@ export const quizBank = {
         "\u200F0.0.0.0 — כתובת ברירת מחדל",
         "\u200F255.0.0.0 — כתובת הרשת"
       ],
-      explanation: "\u200F🔊 Broadcast — שולח לכולם!\n• 192.168.1.255 מגיעה לכל מכשיר ברשת 192.168.1.x\n\n📌 כתובות מיוחדות נוספות:\n• 127.0.0.1 = localhost = ״שלח לעצמי״\n• 0.0.0.0 = כל הכתובות / ברירת מחדל\n• 255.255.255.255 = broadcast גלובלי"
+      explanation: "\u200F🔊 Broadcast — שולח לכולם!\n• 192.168.1.255 מגיעה לכל מכשיר ברשת 192.168.1.x\n\n📌 כתובות מיוחדות נוספות:\n• 127.0.0.1 = localhost = ״שלח לעצמי״\n• 0.0.0.0 = כל הכתובות / ברירת מחדל\n• 255.255.255.255 = broadcast גלובלי",
+      qEn: "Which IP address is a \"broadcast\" address on the network?",
+      correctEn: "An address ending in 255 in the host part\nfor example 192.168.1.255",
+      choicesEn: [
+        "An address ending in 255 in the host part\nfor example 192.168.1.255",
+        "127.0.0.1 — loopback address",
+        "0.0.0.0 — default address",
+        "255.0.0.0 — network address"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין Router לבין Switch?",
@@ -735,7 +759,15 @@ export const quizBank = {
         "\u200FSwitch מחבר רשתות\nRouter מחבר מכשירים",
         "\u200Fאין הבדל — מונחים שונים לאותו דבר"
       ],
-      explanation: "\u200F🔀 Switch — Layer 2:\n• לומד MAC addresses\n• מעביר frames בתוך VLAN\n\n🌐 Router — Layer 3:\n• מחזיק routing table\n• מבצע IP routing בין subnets\n\n📦 מכשירים נוספים:\n• Layer 3 Switch = שניהם — routing בין VLANs\n• Hub (מיושן) = L1, broadcast לכולם\n• Firewall = L3-L7, security policies\n• Default Gateway = ה-router ל-outside world"
+      explanation: "\u200F🔀 Switch — Layer 2:\n• לומד MAC addresses\n• מעביר frames בתוך VLAN\n\n🌐 Router — Layer 3:\n• מחזיק routing table\n• מבצע IP routing בין subnets\n\n📦 מכשירים נוספים:\n• Layer 3 Switch = שניהם — routing בין VLANs\n• Hub (מיושן) = L1, broadcast לכולם\n• Firewall = L3-L7, security policies\n• Default Gateway = ה-router ל-outside world",
+      qEn: "What is the difference between a Router and a Switch?",
+      correctEn: "Router = L3, routes between different networks using IP\nSwitch = L2, forwards frames within the same network using MAC",
+      choicesEn: [
+        "Router = L3, routes between different networks using IP\nSwitch = L2, forwards frames within the same network using MAC",
+        "Router is faster than Switch",
+        "Switch connects networks\nRouter connects devices",
+        "No difference — different names for the same thing"
+      ]
     },
     {
       q: "\u200Fמה TTL ב-IP ואיך הוא מונע routing loops?",
@@ -746,7 +778,15 @@ export const quizBank = {
         "\u200FTTL נקבע ע\"י היעד, לא ה-sender",
         "\u200FTTL = Transport Transfer Layer"
       ],
-      explanation: "\u200F🛡️ TTL — נוצר כדי למנוע routing loops\n\n📊 ערכי ברירת מחדל:\n• Linux = 64\n• Windows = 128\n• Cisco = 255\n\n🔍 traceroute משתמש ב-TTL:\n• שולח packet עם TTL=1 → מקבל ICMP\n• TTL=2 → מקבל ICMP מה-hop הבא\n• כל hop מחזיר ICMP Time Exceeded\n  עם כתובת ה-IP שלו — כך רואים מסלול"
+      explanation: "\u200F🛡️ TTL — נוצר כדי למנוע routing loops\n\n📊 ערכי ברירת מחדל:\n• Linux = 64\n• Windows = 128\n• Cisco = 255\n\n🔍 traceroute משתמש ב-TTL:\n• שולח packet עם TTL=1 → מקבל ICMP\n• TTL=2 → מקבל ICMP מה-hop הבא\n• כל hop מחזיר ICMP Time Exceeded\n  עם כתובת ה-IP שלו — כך רואים מסלול",
+      qEn: "What is TTL in IP and how does it prevent routing loops?",
+      correctEn: "Time to Live — each router decreases by 1\nWhen it reaches 0, the packet is dropped\nand ICMP Time Exceeded is sent",
+      choicesEn: [
+        "Time to Live — each router decreases by 1\nWhen it reaches 0, the packet is dropped\nand ICMP Time Exceeded is sent",
+        "TTL = how many seconds the packet is valid",
+        "TTL is set by the destination, not the sender",
+        "TTL = Transport Transfer Layer"
+      ]
     },
     {
       q: "\u200Fמה Longest Prefix Match ב-IP routing?",
@@ -757,7 +797,15 @@ export const quizBank = {
         "\u200FRouter בוחר לפי סדר ה-routing table",
         "\u200Fכל routes שווים — בוחרים ב-random"
       ],
-      explanation: "\u200F🎯 דוגמה — destination: 192.168.1.50\n\n📋 Routing table:\n• 192.168.0.0/16 → via Router A\n• 192.168.1.0/24 → via Router B\n• 0.0.0.0/0 → default, via Router C\n\n✅ Router בוחר /24 כי הוא הכי ספציפי\n\n⚠️ דוגמה היסטורית:\n• Pakistan Telecom 2008\n• הזריק /24 → ניצח את ה-/22 של YouTube\n• routing hijack עולמי"
+      explanation: "\u200F🎯 דוגמה — destination: 192.168.1.50\n\n📋 Routing table:\n• 192.168.0.0/16 → via Router A\n• 192.168.1.0/24 → via Router B\n• 0.0.0.0/0 → default, via Router C\n\n✅ Router בוחר /24 כי הוא הכי ספציפי\n\n⚠️ דוגמה היסטורית:\n• Pakistan Telecom 2008\n• הזריק /24 → ניצח את ה-/22 של YouTube\n• routing hijack עולמי",
+      qEn: "What is Longest Prefix Match in IP routing?",
+      correctEn: "Router picks the most specific route\n/24 wins over /16 even if both\ncover the destination IP",
+      choicesEn: [
+        "Router picks the most specific route\n/24 wins over /16 even if both\ncover the destination IP",
+        "Router picks the route with the lowest weight",
+        "Router picks based on routing table order",
+        "All routes are equal — chosen at random"
+      ]
     }
   ],
 
@@ -771,7 +819,15 @@ export const quizBank = {
         "\u200FSwitch אלחוטי, Hub קווי",
         "\u200FSwitch מהיר יותר רק כי יקר יותר"
       ],
-      explanation: "\u200F🎯 Switch — שולח מכתב ספציפי לאדם הנכון\n• יודע לפי MAC לאן לשלוח\n\n📢 Hub — צועק לכולם בחדר\n• כל frame נשלח לכל הפורטים\n• הורג ביצועים\n\n💡 כיום אין כמעט Hub — הוחלף לגמרי ע״י Switch"
+      explanation: "\u200F🎯 Switch — שולח מכתב ספציפי לאדם הנכון\n• יודע לפי MAC לאן לשלוח\n\n📢 Hub — צועק לכולם בחדר\n• כל frame נשלח לכל הפורטים\n• הורג ביצועים\n\n💡 כיום אין כמעט Hub — הוחלף לגמרי ע״י Switch",
+      qEn: "What is the difference between a Switch and a Hub?",
+      correctEn: "Switch sends a frame to the specific destination by MAC\nHub broadcasts to everyone",
+      choicesEn: [
+        "Switch sends a frame to the specific destination by MAC\nHub broadcasts to everyone",
+        "Switch works on the Network layer\nHub on the Link layer",
+        "Switch is wireless, Hub is wired",
+        "Switch is faster only because it is more expensive"
+      ]
     },
     {
       q: "\u200Fמה זה כתובת MAC?",
@@ -3677,7 +3733,7 @@ export const quizBank = {
         "\u200Flsof /dev/net"
       ],
       explanation: "\u200F🔧 ss — Socket Statistics\n• החליף את netstat (deprecated)\n• -t=TCP, -u=UDP, -l=listening\n• -n=numeric (לא resolve שמות)\n• -p=PID\n\n📋 תוצאה לדוגמה\n• LISTEN 0 128 0.0.0.0:80 0.0.0.0:*\n• users:(('nginx',pid=1234))\n\n📌 חשוב\n• ידע זה קריטי לכל troubleshooting\n• journalctl -u service -f = logs בזמן אמת",
-      explanationEn: "ss (Socket Statistics) replaced netstat (deprecated). Flags: -t=TCP, -u=UDP, -l=listening, -n=numeric (no name resolution), -p=show PID. Example output: LISTEN 0 128 0.0.0.0:80 users:(('nginx',pid=1234)). This knowledge is critical for all network troubleshooting. journalctl -u service -f shows real-time logs."
+      explanationEn: "ss (Socket Statistics) replaced netstat (deprecated). Flags: -t=TCP, -u=UDP, -l=listening, -n=numeric (no name resolution), -p=show PID. Example output: LISTEN 0 128 0.0.0.0:80 users:(('nginx',pid=1234)). This knowledge is critical for all network troubleshooting. journalctl -u service -f shows real-time logs.",
       qEn: "How does Linux show open ports most efficiently for troubleshooting?",
       correctEn: "ss -tulnp — shows TCP/UDP, listening,\nport number, PID and process name",
       choicesEn: [
@@ -3697,7 +3753,7 @@ export const quizBank = {
         "\u200Fאין הבדל מעשי"
       ],
       explanation: "\u200F📁 inode\n• metadata של קובץ (permissions, timestamps, blocks)\n\n🔗 Hard link\n• שם נוסף לאותו inode\n• הקובץ נמחק רק כש-linkcount=0\n• ln file hardlink\n\n🔗 Soft link (symlink)\n• ln -s /path/file link\n• יכול לחצות filesystems ותיקיות\n• נשבר אם target נמחק\n• ls -la מראה → target",
-      explanationEn: "An inode stores file metadata (permissions, timestamps, blocks). Hard link: another name pointing to the same inode — file is deleted only when link count reaches 0 (ln file hardlink). Soft link (symlink): ln -s /path/file link — can cross filesystems and directories, breaks if target is deleted. ls -la shows the target."
+      explanationEn: "An inode stores file metadata (permissions, timestamps, blocks). Hard link: another name pointing to the same inode — file is deleted only when link count reaches 0 (ln file hardlink). Soft link (symlink): ln -s /path/file link — can cross filesystems and directories, breaks if target is deleted. ls -la shows the target.",
       qEn: "What is the difference between hard link and soft link in Linux?",
       correctEn: "Hard link: points to the same inode\nstays even after deleting the original\nSoft link: points to the path\nbreaks if the original is deleted",
       choicesEn: [
@@ -3717,7 +3773,7 @@ export const quizBank = {
         "\u200FOwner: rw, Group: r, Others: x"
       ],
       explanation: "\u200F🔢 חישוב הרשאות\n• r=4, w=2, x=1\n• 7=4+2+1=rwx\n• 5=4+0+1=r-x\n• 4=r--\n\n📋 דוגמאות נפוצות\n• chmod 755 = executable scripts/directories\n• chmod 644 = files (owner rw, others r)\n• chmod 600 = private keys (owner only)\n\n⚠️ SUID (4755)\n• הקובץ רץ עם הרשאות ה-owner, לא המשתמש הרץ\n• find / -perm -4000 = מוצא SUID files",
-      explanationEn: "Permission calculation: r=4, w=2, x=1. 7=4+2+1=rwx, 5=4+0+1=r-x, 4=r--. Common examples: chmod 755 for executable scripts/directories, chmod 644 for files (owner rw, others r), chmod 600 for private keys (owner only). SUID (4755): file runs with owner's permissions, not the executing user's. find / -perm -4000 finds SUID files."
+      explanationEn: "Permission calculation: r=4, w=2, x=1. 7=4+2+1=rwx, 5=4+0+1=r-x, 4=r--. Common examples: chmod 755 for executable scripts/directories, chmod 644 for files (owner rw, others r), chmod 600 for private keys (owner only). SUID (4755): file runs with owner's permissions, not the executing user's. find / -perm -4000 finds SUID files.",
       qEn: "What does chmod 755 mean?",
       correctEn: "Owner: rwx (7), Group: r-x (5), Others: r-x (5)\nRead+execute for all, write only for owner",
       choicesEn: [
@@ -3737,7 +3793,7 @@ export const quizBank = {
         "\u200Ffind /proc -name '8080'"
       ],
       explanation: "\u200F🔧 ss (socket statistics)\n• -t TCP, -l listening\n• -n numeric (לא resolve names)\n• -p show process\n\n📋 פקודות שימושיות\n• ss -tlnp: מציג כל TCP listening sockets עם PID\n• lsof -i :8080: כל files/sockets פתוחים על port 8080\n• netstat -tlnp | grep 8080 עובד גם אבל ss מהיר יותר\n\n💡 טיפ\n• kill -9 $(lsof -ti :8080) = kill process שמאזין על port",
-      explanationEn: "ss (socket statistics): -t TCP, -l listening, -n numeric, -p show process. ss -tlnp shows all TCP listening sockets with PID. lsof -i :8080 shows all open files/sockets on port 8080. netstat -tlnp | grep 8080 also works but ss is faster. Tip: kill -9 $(lsof -ti :8080) kills the process listening on the port."
+      explanationEn: "ss (socket statistics): -t TCP, -l listening, -n numeric, -p show process. ss -tlnp shows all TCP listening sockets with PID. lsof -i :8080 shows all open files/sockets on port 8080. netstat -tlnp | grep 8080 also works but ss is faster. Tip: kill -9 $(lsof -ti :8080) kills the process listening on the port.",
       qEn: "What command finds processes listening on port 8080?",
       correctEn: "ss -tlnp | grep 8080\n(or lsof -i :8080)",
       choicesEn: [
@@ -3760,7 +3816,7 @@ export const quizBank = {
         "\u200FImage מכיל קוד — Container מכיל data"
       ],
       explanation: "\u200F🐳 Docker Image\n• Union filesystem — layers\n• כל RUN/COPY/ADD ב-Dockerfile = layer חדש\n• שכבות shared בין containers\n\n📦 Container\n• image layers (read-only) + writable layer בראש\n• כש-container נמחק — writable layer נמחק\n\n💾 Data persistence\n• Volumes\n• docker images = רשימת images\n• docker ps = containers רצים",
-      explanationEn: "Docker Image uses a Union filesystem with layers. Each RUN/COPY/ADD in Dockerfile creates a new layer. Layers are shared between containers. Container = image layers (read-only) + writable layer on top. When container is deleted, the writable layer is deleted. Data persistence via Volumes. docker images lists images, docker ps lists running containers."
+      explanationEn: "Docker Image uses a Union filesystem with layers. Each RUN/COPY/ADD in Dockerfile creates a new layer. Layers are shared between containers. Container = image layers (read-only) + writable layer on top. When container is deleted, the writable layer is deleted. Data persistence via Volumes. docker images lists images, docker ps lists running containers.",
       qEn: "What is the difference between a Docker image and a Docker container?",
       correctEn: "Image = read-only layered template\nContainer = running instance of image with writable layer",
       choicesEn: [
@@ -3780,7 +3836,7 @@ export const quizBank = {
         "\u200Fcaching של layers בין builds"
       ],
       explanation: "\u200F❌ בלי multi-stage\n• image Go מכיל compiler, source, dependencies = 1.2GB\n\n✅ עם multi-stage\n• FROM golang:1.21 AS builder\n• RUN go build\n• FROM scratch\n• COPY --from=builder /app/binary .\n• image של 8MB בלבד!\n\n📌 יתרונות\n• רק binary — ללא compiler, ללא source\n• אבטחה + מהירות\n• Node.js: stage עם devDependencies, stage עם רק production deps",
-      explanationEn: "Without multi-stage: a Go image contains compiler, source, dependencies = 1.2GB. With multi-stage: FROM golang:1.21 AS builder; RUN go build; FROM scratch; COPY --from=builder /app/binary . Results in an 8MB image! Only binary — no compiler, no source. Better security + speed. For Node.js: one stage with devDependencies, final stage with production deps only."
+      explanationEn: "Without multi-stage: a Go image contains compiler, source, dependencies = 1.2GB. With multi-stage: FROM golang:1.21 AS builder; RUN go build; FROM scratch; COPY --from=builder /app/binary . Results in an 8MB image! Only binary — no compiler, no source. Better security + speed. For Node.js: one stage with devDependencies, final stage with production deps only.",
       qEn: "What is Multi-stage build in Docker and why use it?",
       correctEn: "Build in stages — first stage for compile\nsecond stage with artifacts only\nimage 10x smaller",
       choicesEn: [
@@ -3800,7 +3856,7 @@ export const quizBank = {
         "\u200FENTRYPOINT ל-webserver — CMD ל-batch jobs"
       ],
       explanation: "\u200F🚀 ENTRYPOINT\n• ENTRYPOINT ['nginx', '-g', 'daemon off;']\n• לא ניתן ל-override ב-docker run\n\n⚙️ CMD\n• CMD ['--worker-processes=4']\n• default args, ניתן ל-override\n\n🔗 שניהם יחד\n• ENTRYPOINT רץ תמיד, CMD מספק default args\n• docker run myimage --worker-processes=8 = מחליף CMD\n\n📌 best practice\n• ENTRYPOINT ל-binary, CMD ל-default flags",
-      explanationEn: "ENTRYPOINT always runs and cannot be overridden by docker run. CMD provides default arguments that can be overridden. Together: ENTRYPOINT runs always, CMD supplies default args. docker run myimage --worker-processes=8 replaces CMD. Best practice: ENTRYPOINT for the binary, CMD for default flags."
+      explanationEn: "ENTRYPOINT always runs and cannot be overridden by docker run. CMD provides default arguments that can be overridden. Together: ENTRYPOINT runs always, CMD supplies default args. docker run myimage --worker-processes=8 replaces CMD. Best practice: ENTRYPOINT for the binary, CMD for default flags.",
       qEn: "What is ENTRYPOINT vs CMD in Dockerfile?",
       correctEn: "ENTRYPOINT = always runs\nCMD = default args that can be overridden in docker run",
       choicesEn: [
@@ -3820,7 +3876,7 @@ export const quizBank = {
         "\u200Fהגדרת WORKDIR = /tmp לחיסכון בזיכרון"
       ],
       explanation: "\u200F🏗️ Multi-stage\n• FROM golang:1.21 AS builder; RUN go build\n• FROM alpine:3.18; COPY --from=builder /app /app\n• image סופי ללא Go compiler!\n\n📦 Alpine Linux\n• 5MB vs Ubuntu 72MB\n\n🔧 מיזוג\n• RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*\n• נקה cache באותה שכבה!\n\n📋 .dockerignore\n• node_modules, .git, *.log לא נכנסים ל-build context\n\n💡 Layer caching\n• העתק package.json לפני COPY . כדי למנף cache של npm install",
-      explanationEn: "Multi-stage: FROM golang:1.21 AS builder; RUN go build; FROM alpine:3.18; COPY --from=builder /app /app — final image without Go compiler! Alpine Linux is 5MB vs Ubuntu 72MB. Merge RUN commands and clean cache in the same layer: RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*. .dockerignore excludes node_modules, .git, *.log from build context. Copy package.json before COPY . to leverage npm install cache."
+      explanationEn: "Multi-stage: FROM golang:1.21 AS builder; RUN go build; FROM alpine:3.18; COPY --from=builder /app /app — final image without Go compiler! Alpine Linux is 5MB vs Ubuntu 72MB. Merge RUN commands and clean cache in the same layer: RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*. .dockerignore excludes node_modules, .git, *.log from build context. Copy package.json before COPY . to leverage npm install cache.",
       qEn: "What is best practice for writing a Dockerfile — what reduces image size?",
       correctEn: "Multi-stage builds, small base images (alpine),\nmerge RUN commands, clean apt cache,\nadd .dockerignore",
       choicesEn: [
@@ -3843,7 +3899,7 @@ export const quizBank = {
         "\u200Fאין הבדל מעשי — רק naming convention"
       ],
       explanation: "\u200F🔄 Deployment\n• pods ב-web server = interchangeable\n• מת pod-abc, נולד pod-xyz\n\n💾 StatefulSet\n• pod-0, pod-1, pod-2 — שמות קבועים\n• pod-0 במסד הנתונים = primary always\n• כל pod מקבל PVC (Persistent Volume Claim) עצמאי\n\n📋 Rollout\n• pod-2 מת → pod-2 קם → pod-1 מת → ordered\n• MySQL, Kafka, ZooKeeper = StatefulSet",
-      explanationEn: "Deployment: web server pods are interchangeable — pod-abc dies, pod-xyz is born. StatefulSet: pod-0, pod-1, pod-2 have fixed names. pod-0 in database = always primary. Each pod gets its own PVC (Persistent Volume Claim). Rollout is ordered: pod-2 dies, pod-2 comes up, then pod-1 dies. Used for MySQL, Kafka, ZooKeeper."
+      explanationEn: "Deployment: web server pods are interchangeable — pod-abc dies, pod-xyz is born. StatefulSet: pod-0, pod-1, pod-2 have fixed names. pod-0 in database = always primary. Each pod gets its own PVC (Persistent Volume Claim). Rollout is ordered: pod-2 dies, pod-2 comes up, then pod-1 dies. Used for MySQL, Kafka, ZooKeeper.",
       qEn: "What is the difference between Deployment and StatefulSet in Kubernetes?",
       correctEn: "Deployment for stateless apps\nStatefulSet for Databases — keeps fixed identity,\npersistent storage, and ordered rollout",
       choicesEn: [
@@ -3863,7 +3919,7 @@ export const quizBank = {
         "\u200Fמאפשר inter-namespace communication"
       ],
       explanation: "\u200F📡 Pod IP\n• ephemeral — Pod מת = IP חדש\n\n🔗 Service\n• ClusterIP קבוע + DNS: my-service.namespace.svc.cluster.local\n• kube-proxy מנהל iptables/ipvs rules ל-forward ל-Pods הנכונים\n\n📋 Types\n• ClusterIP (פנימי)\n• NodePort (פורט על node)\n• LoadBalancer (cloud LB)\n• ExternalName (DNS alias)\n\n📌 Endpoints object מכיל IPs עדכניות",
-      explanationEn: "Pod IP is ephemeral — pod dies, new IP assigned. Service provides a stable ClusterIP + DNS: my-service.namespace.svc.cluster.local. kube-proxy manages iptables/ipvs rules to forward to correct Pods. Types: ClusterIP (internal), NodePort (port on node), LoadBalancer (cloud LB), ExternalName (DNS alias). Endpoints object contains current IPs."
+      explanationEn: "Pod IP is ephemeral — pod dies, new IP assigned. Service provides a stable ClusterIP + DNS: my-service.namespace.svc.cluster.local. kube-proxy manages iptables/ipvs rules to forward to correct Pods. Types: ClusterIP (internal), NodePort (port on node), LoadBalancer (cloud LB), ExternalName (DNS alias). Endpoints object contains current IPs.",
       qEn: "What does a Service in Kubernetes do that a Pod IP cannot?",
       correctEn: "Provides a stable IP and DNS that does not change\neven when Pods are replaced or scaled",
       choicesEn: [
@@ -3883,7 +3939,7 @@ export const quizBank = {
         "\u200FLiveness ל-HTTP — Readiness ל-TCP"
       ],
       explanation: "\u200F💓 Liveness probe נכשל\n• Kubernetes מבצע restart ל-container\n\n✅ Readiness probe נכשל\n• Pod מוסר מ-Service endpoints\n• לא מקבל traffic, אבל לא restarted\n\n🚀 Startup probe\n• חדש ב-K8s 1.16\n• לאפליקציות עם slow startup\n\n📋 הגדרות\n• HTTP/TCP/exec probes\n• initialDelaySeconds, periodSeconds, failureThreshold\n• בלי readiness = traffic ל-Pod שעדיין מאתחל",
-      explanationEn: "Liveness probe fails: Kubernetes restarts the container. Readiness probe fails: Pod is removed from Service endpoints — no traffic, but not restarted. Startup probe (K8s 1.16+): for apps with slow startup. Configuration: HTTP/TCP/exec probes with initialDelaySeconds, periodSeconds, failureThreshold. Without readiness probe, traffic goes to pods still initializing."
+      explanationEn: "Liveness probe fails: Kubernetes restarts the container. Readiness probe fails: Pod is removed from Service endpoints — no traffic, but not restarted. Startup probe (K8s 1.16+): for apps with slow startup. Configuration: HTTP/TCP/exec probes with initialDelaySeconds, periodSeconds, failureThreshold. Without readiness probe, traffic goes to pods still initializing.",
       qEn: "What is liveness probe vs readiness probe in Kubernetes?",
       correctEn: "Liveness: is the container alive? (restart if not)\nReadiness: is it ready for traffic? (remove from Service if not)",
       choicesEn: [
@@ -3903,7 +3959,7 @@ export const quizBank = {
         "\u200FConfigMap ו-Secret זהים — ההבדל הוא רק סמנטי"
       ],
       explanation: "\u200F📋 ConfigMap\n• kubectl create configmap app-config --from-file=config.yaml\n\n🔒 Secret\n• kubectl create secret generic db-secret --from-literal=password=s3cr3t\n• מאוחסן כ-base64 ב-etcd\n• אחסון ב-etcd לא מוצפן כברירת מחדל!\n\n🛡️ הפתרון\n• Encryption at Rest ל-etcd\n• External secrets (HashiCorp Vault, AWS Secrets Manager, Sealed Secrets)\n\n📌 שימוש\n• spec.containers.env.valueFrom.secretKeyRef או mount כ-volume\n• etcd = 'brain' של cluster — חייב להיות מאובטח",
-      explanationEn: "ConfigMap: kubectl create configmap app-config --from-file=config.yaml. Secret: kubectl create secret generic db-secret --from-literal=password=s3cr3t — stored as base64 in etcd, NOT encrypted by default! Solution: Encryption at Rest for etcd, External secrets (HashiCorp Vault, AWS Secrets Manager, Sealed Secrets). Usage: spec.containers.env.valueFrom.secretKeyRef or mount as volume. etcd is the cluster's brain and must be secured."
+      explanationEn: "ConfigMap: kubectl create configmap app-config --from-file=config.yaml. Secret: kubectl create secret generic db-secret --from-literal=password=s3cr3t — stored as base64 in etcd, NOT encrypted by default! Solution: Encryption at Rest for etcd, External secrets (HashiCorp Vault, AWS Secrets Manager, Sealed Secrets). Usage: spec.containers.env.valueFrom.secretKeyRef or mount as volume. etcd is the cluster's brain and must be secured.",
       qEn: "What are ConfigMap and Secret in Kubernetes, and when not to use Secret?",
       correctEn: "ConfigMap for non-secret config (env vars, files)\nSecret for sensitive data (passwords, tokens)\nbut base64 only, not encryption!\nUse Vault/Sealed Secrets instead",
       choicesEn: [
@@ -3923,7 +3979,7 @@ export const quizBank = {
         "\u200Fבלי Requests, pods לא יתחילו לרוץ"
       ],
       explanation: "\u200F⚙️ הגדרה\n• requests: cpu: '250m' memory: '128Mi'\n• limits: cpu: '500m' memory: '256Mi'\n\n📋 Scheduler\n• מחפש node עם מספיק requests available\n\n⚠️ חריגה\n• CPU throttling: pod עובר Limit → throttled (איטי, לא killed)\n• Memory OOMKilled: pod עובר memory Limit → KILLED!\n\n📊 QoS classes\n• Guaranteed (req=limit)\n• Burstable (req<limit)\n• BestEffort (ללא req/limit)\n\n📌 LimitRange ל-namespace defaults, ResourceQuota ל-limits ב-namespace",
-      explanationEn: "Requests: cpu: 250m, memory: 128Mi. Limits: cpu: 500m, memory: 256Mi. Scheduler finds a node with enough available requests. CPU over limit = throttled (slow, not killed). Memory over limit = OOMKilled! QoS classes: Guaranteed (req=limit), Burstable (req<limit), BestEffort (no req/limit). LimitRange for namespace defaults, ResourceQuota for namespace limits."
+      explanationEn: "Requests: cpu: 250m, memory: 128Mi. Limits: cpu: 500m, memory: 256Mi. Scheduler finds a node with enough available requests. CPU over limit = throttled (slow, not killed). Memory over limit = OOMKilled! QoS classes: Guaranteed (req=limit), Burstable (req<limit), BestEffort (no req/limit). LimitRange for namespace defaults, ResourceQuota for namespace limits.",
       qEn: "What are Resource Requests and Limits in Kubernetes and why set them?",
       correctEn: "Requests: minimum resources the scheduler guarantees to the pod\nLimits: maximum the pod can use\nWithout Limits, one pod can starve the whole node",
       choicesEn: [
@@ -3946,7 +4002,7 @@ export const quizBank = {
         "\u200FSecurity Group חינמי — NACL בתשלום"
       ],
       explanation: "\u200F🛡️ Security Group\n• stateful — אם פתחת port 443 inbound, response יוצא אוטומטית\n• rules רק allow (אין deny)\n\n🔒 NACL\n• stateless — חייב rule inbound ל-port 443\n• AND rule outbound ל-ephemeral ports 1024-65535\n• גם allow וגם deny\n• נוסף על security group\n\n📌 Defense in depth\n• Security Group ל-instance, NACL ל-subnet",
-      explanationEn: "Security Group: stateful — if you open port 443 inbound, response goes out automatically. Rules are allow-only (no deny). NACL: stateless — need inbound rule for port 443 AND outbound rule for ephemeral ports 1024-65535. Supports both allow and deny rules. Added on top of security groups. Defense in depth: Security Group for instance, NACL for subnet."
+      explanationEn: "Security Group: stateful — if you open port 443 inbound, response goes out automatically. Rules are allow-only (no deny). NACL: stateless — need inbound rule for port 443 AND outbound rule for ephemeral ports 1024-65535. Supports both allow and deny rules. Added on top of security groups. Defense in depth: Security Group for instance, NACL for subnet.",
       qEn: "What is the difference between AWS Security Group and NACL?",
       correctEn: "Security Group: stateful (remembers connection), at ENI level\nNACL: stateless, at subnet level\nmust open inbound and outbound separately",
       choicesEn: [
@@ -3966,7 +4022,7 @@ export const quizBank = {
         "\u200FRole רק ל-cross-account access"
       ],
       explanation: "\u200F⚠️ Access Key\n• long-term credentials = סכנת דליפה (git push, logs)\n\n✅ IAM Role\n• EC2 instance profile = temporary credentials שמתחלפות אוטומטית כל שעה\n• Lambda execution role\n• AssumeRole מ-STS\n• IRSA ב-EKS: pod-level IAM roles\n\n📌 Least Privilege\n• כל service = role נפרדת עם minimum permissions\n• AWS Cost Explorer + CloudTrail ל-audit",
-      explanationEn: "Access Key: long-term credentials with leak risk (git push, logs). IAM Role: EC2 instance profile provides temporary credentials that rotate automatically every hour. Lambda execution role. AssumeRole from STS. IRSA in EKS: pod-level IAM roles. Least Privilege: each service gets a separate role with minimum permissions. AWS Cost Explorer + CloudTrail for audit."
+      explanationEn: "Access Key: long-term credentials with leak risk (git push, logs). IAM Role: EC2 instance profile provides temporary credentials that rotate automatically every hour. Lambda execution role. AssumeRole from STS. IRSA in EKS: pod-level IAM roles. Least Privilege: each service gets a separate role with minimum permissions. AWS Cost Explorer + CloudTrail for audit.",
       qEn: "What is IAM Role and when is it better than Access Key?",
       correctEn: "IAM Role = temporary permissions you can assume\nBetter for EC2/Lambda because no hardcoded credentials needed",
       choicesEn: [
@@ -3986,7 +4042,7 @@ export const quizBank = {
         "\u200FTGW מהיר יותר — Peering מאובטח יותר"
       ],
       explanation: "\u200F📊 השוואה\n• עם 10 VPCs ב-peering full mesh: 45 חיבורים\n• עם TGW: 10 חיבורים\n\n🔗 TGW\n• תומך ב-VPN, Direct Connect, multi-region\n• $0.05/GB data processed\n• spoke-and-hub architecture\n\n🔗 Peering\n• ללא encryption נוסף, ללא bandwidth limit, זול\n• point-to-point\n\n📌 פחות מ-5 VPCs? peering מספיק",
-      explanationEn: "With 10 VPCs in full mesh peering: 45 connections. With TGW: 10 connections. TGW supports VPN, Direct Connect, multi-region. $0.05/GB data processed. Spoke-and-hub architecture. Peering: no extra encryption, no bandwidth limit, cheaper. Point-to-point. Less than 5 VPCs? Peering is sufficient."
+      explanationEn: "With 10 VPCs in full mesh peering: 45 connections. With TGW: 10 connections. TGW supports VPN, Direct Connect, multi-region. $0.05/GB data processed. Spoke-and-hub architecture. Peering: no extra encryption, no bandwidth limit, cheaper. Point-to-point. Less than 5 VPCs? Peering is sufficient.",
       qEn: "What is AWS VPC Peering vs Transit Gateway?",
       correctEn: "Peering: 1:1 connection between 2 VPCs\nTransit Gateway: central hub\nN VPCs connect to TGW = N connections\nvs N*(N-1)/2 with peering",
       choicesEn: [
@@ -4006,7 +4062,7 @@ export const quizBank = {
         "\u200Fהאחריות חלוקה שווה 50/50 על כל דבר"
       ],
       explanation: "\u200F☁️ AWS\n• physical security, hardware, networking\n• hypervisor, managed services infrastructure\n\n👤 Customer\n• EC2 OS patching\n• Security Groups config\n• S3 bucket policies (לא לפתוח public!)\n• IAM configuration, encryption of data, application security\n\n📋 Serverless (Lambda)\n• AWS גם מנהלת OS\n• RDS: AWS מנהלת DB engine patching, לקוח מנהל access control ו-data\n\n📌 AWS Config, Security Hub, GuardDuty = tools ל-monitoring compliance",
-      explanationEn: "AWS: physical security, hardware, networking, hypervisor, managed services infrastructure. Customer: EC2 OS patching, Security Groups config, S3 bucket policies (don't open public!), IAM configuration, encryption of data, application security. Serverless (Lambda): AWS also manages OS. RDS: AWS manages DB engine patching, customer manages access control and data. AWS Config, Security Hub, GuardDuty for monitoring compliance."
+      explanationEn: "AWS: physical security, hardware, networking, hypervisor, managed services infrastructure. Customer: EC2 OS patching, Security Groups config, S3 bucket policies (don't open public!), IAM configuration, encryption of data, application security. Serverless (Lambda): AWS also manages OS. RDS: AWS manages DB engine patching, customer manages access control and data. AWS Config, Security Hub, GuardDuty for monitoring compliance.",
       qEn: "What is the Shared Responsibility Model in AWS and what is the customer responsible for?",
       correctEn: "AWS is responsible for security OF the cloud\n(hardware, facilities, hypervisor)\nCustomer is responsible for security IN the cloud\n(OS, data, IAM, network config)",
       choicesEn: [
@@ -4029,7 +4085,7 @@ export const quizBank = {
         "\u200Fאין הבדל — זה שם כולל ל-automation"
       ],
       explanation: "\u200F🔄 CI (Continuous Integration)\n• כל push → build + unit tests + lint + security scan\n• מוצא bugs מוקדם\n\n🚀 CD Delivery\n• אחרי CI → deploy ל-staging automatically\n\n🚀 CD Deployment\n• אחרי staging approval → production automatically (fully automated)\n\n🔧 Tools\n• GitHub Actions, Jenkins, GitLab CI, CircleCI\n\n📌 Best practice\n• branch protection + required CI status checks",
-      explanationEn: "CI (Continuous Integration): every push triggers build + unit tests + lint + security scan. Catches bugs early. CD Delivery: after CI, deploy to staging automatically. CD Deployment: after staging approval, deploy to production automatically (fully automated). Tools: GitHub Actions, Jenkins, GitLab CI, CircleCI. Best practice: branch protection + required CI status checks."
+      explanationEn: "CI (Continuous Integration): every push triggers build + unit tests + lint + security scan. Catches bugs early. CD Delivery: after CI, deploy to staging automatically. CD Deployment: after staging approval, deploy to production automatically (fully automated). Tools: GitHub Actions, Jenkins, GitLab CI, CircleCI. Best practice: branch protection + required CI status checks.",
       qEn: "What is the difference between CI and CD in a CI/CD pipeline?",
       correctEn: "CI: automatic code testing on every push\nCD: automatic deploy after successful CI\n(Delivery=staging, Deployment=production)",
       choicesEn: [
@@ -4049,7 +4105,7 @@ export const quizBank = {
         "\u200FCanary deployment עם color coding"
       ],
       explanation: "\u200F🔵 Blue-Green\n• zero-downtime deployment\n• Blue = current production\n• Green = new version, tested ב-parallel\n\n🔄 Switch\n• load balancer מפנה מ-Blue ל-Green בשנייה\n• Rollback מיידי: switch חזרה\n• עלות: כפל infrastructure\n\n📌 השוואה\n• Canary = הדרגתי (5% → 25% → 100%)\n• Feature flags = code-level canary",
-      explanationEn: "Blue-Green: zero-downtime deployment. Blue = current production. Green = new version, tested in parallel. Switch: load balancer redirects from Blue to Green instantly. Instant rollback: switch back. Cost: double infrastructure. Comparison: Canary = gradual (5% to 25% to 100%). Feature flags = code-level canary."
+      explanationEn: "Blue-Green: zero-downtime deployment. Blue = current production. Green = new version, tested in parallel. Switch: load balancer redirects from Blue to Green instantly. Instant rollback: switch back. Cost: double infrastructure. Comparison: Canary = gradual (5% to 25% to 100%). Feature flags = code-level canary.",
       qEn: "What is Blue-Green Deployment?",
       correctEn: "Two identical environments\nBlue (production) and Green (new version)\nSwitch traffic at once\nRollback = switch back",
       choicesEn: [
@@ -4069,7 +4125,7 @@ export const quizBank = {
         "\u200Ftest coverage report"
       ],
       explanation: "\u200F📦 Artifact = מה שנבנה\n• Docker image → pushed ל-registry (ECR, GCR, Docker Hub)\n• JAR → Nexus/Artifactory\n• npm → registry\n\n🔒 Immutable artifacts\n• אחד שנבנה מ-commit מסוים = deploy ל-staging ואחר כך production\n• לא בונים מחדש!\n• 'Build once, deploy anywhere'\n\n📌 Versioning\n• semver או git SHA\n• retention policy חוסכת עלויות",
-      explanationEn: "Artifact = build output. Docker image pushed to registry (ECR, GCR, Docker Hub). JAR to Nexus/Artifactory. npm to registry. Immutable artifacts: built from a specific commit, deployed to staging then production. Don't rebuild! 'Build once, deploy anywhere.' Versioning: semver or git SHA. Retention policy saves costs."
+      explanationEn: "Artifact = build output. Docker image pushed to registry (ECR, GCR, Docker Hub). JAR to Nexus/Artifactory. npm to registry. Immutable artifacts: built from a specific commit, deployed to staging then production. Don't rebuild! 'Build once, deploy anywhere.' Versioning: semver or git SHA. Retention policy saves costs.",
       qEn: "What is an Artifact in a CI/CD pipeline?",
       correctEn: "Output of the build step\nDocker image, JAR, binary, npm package\nstored and used for deploy",
       choicesEn: [
@@ -4089,7 +4145,7 @@ export const quizBank = {
         "\u200FGitHub Actions הוא שם של CLI tool שמריץ pipelines"
       ],
       explanation: "\u200F📋 workflow file\n• on: [push, pull_request]\n• jobs: build: runs-on: ubuntu-latest\n• steps: uses: actions/checkout@v3; run: npm test\n\n🔒 Secrets\n• Settings → Secrets and variables → Actions → New secret\n• ב-step: env: AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}\n\n🌍 Environments\n• prod/staging יכולים לדרוש approval\n\n📌 נוסף\n• GitHub Marketplace: אלפי pre-built actions\n• Self-hosted runners ל-private networks\n• OIDC: GitHub Actions → AWS IAM Role ללא static keys!",
-      explanationEn: "Workflow file: on: [push, pull_request]; jobs: build: runs-on: ubuntu-latest; steps: uses: actions/checkout@v3; run: npm test. Secrets: Settings, Secrets and variables, Actions, New secret. In step: env: AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}. Environments (prod/staging) can require approval. GitHub Marketplace has thousands of pre-built actions. Self-hosted runners for private networks. OIDC: GitHub Actions to AWS IAM Role without static keys!"
+      explanationEn: "Workflow file: on: [push, pull_request]; jobs: build: runs-on: ubuntu-latest; steps: uses: actions/checkout@v3; run: npm test. Secrets: Settings, Secrets and variables, Actions, New secret. In step: env: AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}. Environments (prod/staging) can require approval. GitHub Marketplace has thousands of pre-built actions. Self-hosted runners for private networks. OIDC: GitHub Actions to AWS IAM Role without static keys!",
       qEn: "What is a GitHub Actions workflow and how to set environment secrets?",
       correctEn: "YAML in .github/workflows/ that defines triggers, jobs and steps\nSecrets are set in Repository Settings\nand injected as env vars: ${{ secrets.MY_SECRET }}",
       choicesEn: [
@@ -4109,7 +4165,7 @@ export const quizBank = {
         "\u200Fבדיקות שנעשות על ה-left side של cluster"
       ],
       explanation: "\u200F💰 Rule of 10 (IBM)\n• bug ב-design = $1\n• ב-development = $10\n• ב-QA = $100\n• ב-production = $1,000+\n\n⬅️ Shift Left\n• unit tests ב-IDE (pre-commit)\n• SAST (static analysis) ב-PR\n• integration tests ב-CI\n• security scanning (Snyk, Trivy) ב-build\n\n📌 גישות\n• TDD (Test Driven Development) = extreme shift left\n• DevSecOps = security shift left\n• Pre-commit hooks (Husky) מונעים commit של code שעובר lint/test",
-      explanationEn: "Rule of 10 (IBM): bug at design = $1, development = $10, QA = $100, production = $1,000+. Shift Left: unit tests in IDE (pre-commit), SAST (static analysis) in PR, integration tests in CI, security scanning (Snyk, Trivy) in build. Approaches: TDD (Test Driven Development) = extreme shift left. DevSecOps = security shift left. Pre-commit hooks (Husky) prevent committing code that fails lint/test."
+      explanationEn: "Rule of 10 (IBM): bug at design = $1, development = $10, QA = $100, production = $1,000+. Shift Left: unit tests in IDE (pre-commit), SAST (static analysis) in PR, integration tests in CI, security scanning (Snyk, Trivy) in build. Approaches: TDD (Test Driven Development) = extreme shift left. DevSecOps = security shift left. Pre-commit hooks (Husky) prevent committing code that fails lint/test.",
       qEn: "What is Shift Left Testing and why does it save money?",
       correctEn: "Moving testing left in the pipeline\nEarlier tests in the development lifecycle\nA bug found at design costs less than a bug in production",
       choicesEn: [
@@ -4132,7 +4188,7 @@ export const quizBank = {
         "\u200FSLA חינמי, SLO בתשלום"
       ],
       explanation: "\u200F📊 SLI — Service Level Indicator\n• מה אתה מודד\n• latency_p99 = 120ms\n• availability = 99.94%\n\n🎯 SLO — Service Level Objective\n• היעד שלך\n• latency_p99 < 200ms\n• availability > 99.9%\n• Error Budget: 0.1% downtime = 43.8 דקות לחודש\n\n📝 SLA — Service Level Agreement\n• חוזה מול לקוח\n• אחרי פריצת SLA → credit/refund\n• Google Cloud: 99.9% SLA ל-GCE\n• Google בפנים עובד ב-99.99% SLO",
-      explanationEn: "SLI (Service Level Indicator): what you measure — latency_p99 = 120ms, availability = 99.94%. SLO (Service Level Objective): your target — latency_p99 < 200ms, availability > 99.9%. Error Budget: 0.1% downtime = 43.8 minutes per month. SLA (Service Level Agreement): contract with customer — after breaching SLA, credit/refund. Google Cloud: 99.9% SLA for GCE. Internally Google targets 99.99% SLO."
+      explanationEn: "SLI (Service Level Indicator): what you measure — latency_p99 = 120ms, availability = 99.94%. SLO (Service Level Objective): your target — latency_p99 < 200ms, availability > 99.9%. Error Budget: 0.1% downtime = 43.8 minutes per month. SLA (Service Level Agreement): contract with customer — after breaching SLA, credit/refund. Google Cloud: 99.9% SLA for GCE. Internally Google targets 99.99% SLO.",
       qEn: "What are SLO, SLA, and SLI — and what is the difference?",
       correctEn: "SLI = measurement (latency, availability)\nSLO = internal target (99.9%)\nSLA = agreement with customer with penalties",
       choicesEn: [
@@ -4152,7 +4208,7 @@ export const quizBank = {
         "\u200FA/B testing ל-feature flags"
       ],
       explanation: "\u200F📖 הרקע\n• Netflix עברה ל-cloud ב-2008\n• AWS outage 2011 הפיל אותם\n\n🐒 Chaos Monkey\n• tool שמכבה VMs אקראיות ב-production\n• Simian Army: Chaos Gorilla (AZ failure), Latency Monkey (network delays)\n\n💡 העיקרון\n• אם כשלים קורים בכל מקרה — עדיף לגלות חולשות כשאתה מוכן\n• Netflix knows about failures before their customers do\n\n📌 GameDay\n• chaos experiment מתוכנן",
-      explanationEn: "Background: Netflix migrated to cloud in 2008. AWS outage in 2011 brought them down. Chaos Monkey: tool that randomly kills VMs in production. Simian Army: Chaos Gorilla (AZ failure), Latency Monkey (network delays). The principle: failures happen anyway — better to discover weaknesses when you're prepared. Netflix knows about failures before their customers do. GameDay: planned chaos experiment."
+      explanationEn: "Background: Netflix migrated to cloud in 2008. AWS outage in 2011 brought them down. Chaos Monkey: tool that randomly kills VMs in production. Simian Army: Chaos Gorilla (AZ failure), Latency Monkey (network delays). The principle: failures happen anyway — better to discover weaknesses when you're prepared. Netflix knows about failures before their customers do. GameDay: planned chaos experiment.",
       qEn: "What is Chaos Engineering and why did Netflix create it?",
       correctEn: "Injecting failures on purpose into production\nto find weaknesses before a real failure happens",
       choicesEn: [
@@ -4172,7 +4228,7 @@ export const quizBank = {
         "\u200Freview קוד אחרי deploy לפרודקשן"
       ],
       explanation: "\u200F🤝 Blameless Culture\n• אנשים לא מקבלים עונש\n• → מוכנים לדווח על בעיות\n• → ארגון לומד\n\n📖 Google SRE\n• If a human error caused the outage, the system design failed\n\n🔍 5 Whys\n• Why did DB go down? → disk full\n• Why? → log rotation broke\n• Why? → deploy changed config → root cause\n\n📌 Action Items\n• automation, monitoring, runbooks\n• ללא postmortem = אותה תקלה שוב",
-      explanationEn: "Blameless Culture: people aren't punished, so they're willing to report issues, and the organization learns. Google SRE: 'If a human error caused the outage, the system design failed.' 5 Whys: Why did DB go down? disk full. Why? log rotation broke. Why? deploy changed config = root cause. Action Items: automation, monitoring, runbooks. Without postmortem = same incident again."
+      explanationEn: "Blameless Culture: people aren't punished, so they're willing to report issues, and the organization learns. Google SRE: 'If a human error caused the outage, the system design failed.' 5 Whys: Why did DB go down? disk full. Why? log rotation broke. Why? deploy changed config = root cause. Action Items: automation, monitoring, runbooks. Without postmortem = same incident again.",
       qEn: "What is a blameless Postmortem and why is it important?",
       correctEn: "Analyzing an incident without blaming people\nLooking for system failures, not human mistakes\nTo improve processes",
       choicesEn: [
@@ -4192,7 +4248,7 @@ export const quizBank = {
         "\u200FError Budget תמיד 5% ללא קשר ל-SLO"
       ],
       explanation: "\u200F⚖️ SRE Philosophy\n• reliability vs feature velocity\n• Error budget = זמן downtime מותר לפי SLO\n\n📊 חישוב\n• SLO=99.9%: 43.8 min/month budget\n• Incident גרמה ל-20 min downtime = שרפת 46% מה-budget\n\n📋 Policy\n• budget > 50% → deploy בחופשיות\n• budget 0-50% → זהירות\n• budget מאופס → freeze deployments, רק reliability work\n\n📌 התמריץ\n• Dev רוצים ל-deploy מהר = אינטרס גם ב-reliability",
-      explanationEn: "SRE Philosophy: reliability vs feature velocity. Error budget = allowed downtime per SLO. Calculation: SLO=99.9%: 43.8 min/month budget. Incident caused 20 min downtime = burned 46% of budget. Policy: budget > 50% = deploy freely; budget 0-50% = caution; budget depleted = freeze deployments, only reliability work. Incentive: devs want to deploy fast = also interested in reliability."
+      explanationEn: "SRE Philosophy: reliability vs feature velocity. Error budget = allowed downtime per SLO. Calculation: SLO=99.9%: 43.8 min/month budget. Incident caused 20 min downtime = burned 46% of budget. Policy: budget > 50% = deploy freely; budget 0-50% = caution; budget depleted = freeze deployments, only reliability work. Incentive: devs want to deploy fast = also interested in reliability.",
       qEn: "What is Error Budget in SRE and how does it affect development velocity?",
       correctEn: "Error Budget = 100% - SLO target\nIf SLO = 99.9%, error budget = 0.1%\n(43.8 minutes/month)\nWhen the budget runs out — slow down deployments",
       choicesEn: [
@@ -4216,7 +4272,7 @@ export const quizBank = {
         "‏tcp.retransmit == true"
       ],
       explanation: "‏tcp.analysis.retransmission מסנן חבילות שה-TCP stack זיהה כretransmissions. tcp.analysis.fast_retransmission מסנן fast retransmits ‎(אחרי 3 dup-ACKs)‎. tcp.analysis.duplicate_ack מציג ACKים כפולים שמסמנים אובדן.",
-      explanationEn: "tcp.analysis.retransmission filters packets that the TCP stack identified as retransmissions. tcp.analysis.fast_retransmission filters fast retransmits (after 3 dup-ACKs). tcp.analysis.duplicate_ack shows duplicate ACKs that signal packet loss."
+      explanationEn: "tcp.analysis.retransmission filters packets that the TCP stack identified as retransmissions. tcp.analysis.fast_retransmission filters fast retransmits (after 3 dup-ACKs). tcp.analysis.duplicate_ack shows duplicate ACKs that signal packet loss.",
       qEn: "What is the Wireshark filter to see only retransmitted packets?",
       correctEn: "tcp.analysis.retransmission",
       choicesEn: [
@@ -4236,7 +4292,7 @@ export const quizBank = {
         "ה-sender לא שולח נתונים"
       ],
       explanation: "‏Zero Window הוא כשה-receiver מכריז שאין לו buffer פנוי (window size=0). ה-sender חייב להפסיק לשלוח. בדרך כלל סימן שה-application לא קורא מ-socket מהר מספיק — בעיית CPU או כניסה לקוד.",
-      explanationEn: "Zero Window occurs when the receiver announces no available buffer (window size=0). The sender must stop sending. Usually indicates the application is not reading from the socket fast enough — a CPU issue or code blocking."
+      explanationEn: "Zero Window occurs when the receiver announces no available buffer (window size=0). The sender must stop sending. Usually indicates the application is not reading from the socket fast enough — a CPU issue or code blocking.",
       qEn: "What does TCP Zero Window state indicate?",
       correctEn: "The receiver buffer is full — the application is not reading data fast enough",
       choicesEn: [
@@ -4256,7 +4312,7 @@ export const quizBank = {
         "ממשק לסינון packets לפי port"
       ],
       explanation: "‏TCP Stream Graphs ב-Wireshark כוללים: Time-Sequence (CWND), Throughput, Round-trip Time, Window Scaling. הגרף הכי שימושי לניפוי: Time-Sequence — כל retransmission מופיע כנקודה שנוחתת ב-Y נמוך יותר, ו-CWND צניחה.",
-      explanationEn: "TCP Stream Graphs in Wireshark include: Time-Sequence (CWND), Throughput, Round-trip Time, Window Scaling. The most useful for troubleshooting: Time-Sequence — every retransmission appears as a dot dropping to a lower Y value, and CWND drops."
+      explanationEn: "TCP Stream Graphs in Wireshark include: Time-Sequence (CWND), Throughput, Round-trip Time, Window Scaling. The most useful for troubleshooting: Time-Sequence — every retransmission appears as a dot dropping to a lower Y value, and CWND drops.",
       qEn: "What does Statistics > TCP Stream Graph show in Wireshark?",
       correctEn: "A Time-Sequence graph showing CWND and RTT over time — drops appear as dips",
       choicesEn: [
@@ -4276,7 +4332,7 @@ export const quizBank = {
         "‏tcp.payload contains 'GET'"
       ],
       explanation: "‏Wireshark display filters (≠ capture filters!): http.request.method == 'GET'. ‏Capture filter (BPF syntax): host 192.168.1.1 and port 80. שימושיים: ip.src == 10.0.0.1, tcp.port == 443, dns.qry.name contains 'google', tls.handshake.type == 1 (ClientHello), http.response.code >= 400. tcp.analysis.retransmission לבעיות רשת. ‏Statistics → Protocol Hierarchy להבנת composition. ‏Follow → TCP Stream לראות full conversation בקריאה.",
-      explanationEn: "Wireshark display filters (not capture filters!): http.request.method == 'GET'. Capture filter (BPF syntax): host 192.168.1.1 and port 80. Useful filters: ip.src == 10.0.0.1, tcp.port == 443, dns.qry.name contains 'google', tls.handshake.type == 1 (ClientHello), http.response.code >= 400. tcp.analysis.retransmission for network issues. Statistics, Protocol Hierarchy for composition. Follow, TCP Stream for full conversation."
+      explanationEn: "Wireshark display filters (not capture filters!): http.request.method == 'GET'. Capture filter (BPF syntax): host 192.168.1.1 and port 80. Useful filters: ip.src == 10.0.0.1, tcp.port == 443, dns.qry.name contains 'google', tls.handshake.type == 1 (ClientHello), http.response.code >= 400. tcp.analysis.retransmission for network issues. Statistics, Protocol Hierarchy for composition. Follow, TCP Stream for full conversation.",
       qEn: "What Wireshark display filter shows only HTTP GET requests?",
       correctEn: "http.request.method == 'GET'",
       choicesEn: [
@@ -4296,7 +4352,7 @@ export const quizBank = {
         "‏TCP SYN הוא ה-TLS handshake הראשון"
       ],
       explanation: "‏TLS 1.3 Handshake ב-Wireshark: 1) TCP SYN/SYN-ACK/ACK (TCP layer). ‏2) ClientHello (TLS record type 22, handshake type 1): TLS version, random, session ID, cipher suites, extensions (SNI, ALPN, supported_groups). ‏3) ServerHello + {Encrypted Extensions + Certificate + CertificateVerify + Finished} ‎(מוצפן!)‎. ‏4) Client {Finished}. ‏5) Application Data. ‏TLS 1.3 = 1-RTT vs TLS 1.2 = 2-RTT. לפענוח: Wireshark → Preferences → TLS → (Pre)-Master-Secret log file.",
-      explanationEn: "TLS 1.3 Handshake in Wireshark: 1) TCP SYN/SYN-ACK/ACK (TCP layer). 2) ClientHello (TLS record type 22, handshake type 1): TLS version, random, session ID, cipher suites, extensions (SNI, ALPN, supported_groups). 3) ServerHello + encrypted extensions, certificate, verify, and finished. 4) Client finished. 5) Application Data. TLS 1.3 = 1-RTT vs TLS 1.2 = 2-RTT. To decrypt: Wireshark Preferences, TLS, (Pre)-Master-Secret log file."
+      explanationEn: "TLS 1.3 Handshake in Wireshark: 1) TCP SYN/SYN-ACK/ACK (TCP layer). 2) ClientHello (TLS record type 22, handshake type 1): TLS version, random, session ID, cipher suites, extensions (SNI, ALPN, supported_groups). 3) ServerHello + encrypted extensions, certificate, verify, and finished. 4) Client finished. 5) Application Data. TLS 1.3 = 1-RTT vs TLS 1.2 = 2-RTT. To decrypt: Wireshark Preferences, TLS, (Pre)-Master-Secret log file.",
       qEn: "What does a TLS handshake look like in Wireshark and which packet is first?",
       correctEn: "ClientHello is the first packet — contains TLS version, cipher suites, and SNI (domain name) — filter: tls.handshake.type == 1",
       choicesEn: [
@@ -4318,7 +4374,7 @@ export const quizBank = {
         "‏iBGP דורש חיבור ישיר, eBGP לא"
       ],
       explanation: "‏iBGP = Internal BGP, בתוך אותו AS. eBGP = External BGP, בין ASים שונים. ההבדלים הטכניים: TTL (iBGP=255, eBGP=1), next-hop behavior, ו-loop prevention rule ‎(iBGP router לא מפרסם מסלול iBGP לiBGP אחר ← חייב full mesh או Route Reflectors)‎.",
-      explanationEn: "iBGP = Internal BGP, within the same AS. eBGP = External BGP, between different ASes. Technical differences: TTL (iBGP=255, eBGP=1), next-hop behavior, and loop prevention rule (iBGP router won't advertise an iBGP route to another iBGP peer — requires full mesh or Route Reflectors)."
+      explanationEn: "iBGP = Internal BGP, within the same AS. eBGP = External BGP, between different ASes. Technical differences: TTL (iBGP=255, eBGP=1), next-hop behavior, and loop prevention rule (iBGP router won't advertise an iBGP route to another iBGP peer — requires full mesh or Route Reflectors).",
       qEn: "What is the main difference between iBGP and eBGP?",
       correctEn: "iBGP works within one AS, eBGP works between different ASes",
       choicesEn: [
@@ -4338,7 +4394,7 @@ export const quizBank = {
         "‏MED — ערך נמוך יותר מנצח"
       ],
       explanation: "סדר path selection ב-BGP: 1) Weight (Cisco), 2) Local Preference, 3) Locally originated, 4) AS Path Length ‎(קצר יותר)‎, 5) Origin, 6) MED ‎(נמוך יותר)‎, 7) eBGP > iBGP, 8) IGP metric. ברוב הRFC implementations, Local Preference הוא הראשון ‎(Weight הוא Cisco proprietary)‎.",
-      explanationEn: "BGP path selection order: 1) Weight (Cisco), 2) Local Preference, 3) Locally originated, 4) AS Path Length (shorter wins), 5) Origin, 6) MED (lower wins), 7) eBGP > iBGP, 8) IGP metric. In most RFC implementations, Local Preference is first (Weight is Cisco proprietary)."
+      explanationEn: "BGP path selection order: 1) Weight (Cisco), 2) Local Preference, 3) Locally originated, 4) AS Path Length (shorter wins), 5) Origin, 6) MED (lower wins), 7) eBGP > iBGP, 8) IGP metric. In most RFC implementations, Local Preference is first (Weight is Cisco proprietary).",
       qEn: "In BGP path selection, which criterion is checked first?",
       correctEn: "Weight (Cisco) — higher value wins",
       choicesEn: [
@@ -4358,7 +4414,7 @@ export const quizBank = {
         "שגיאה ב-DNS הפנתה לservers שגויים"
       ],
       explanation: "‏BGP Longest Prefix Match: /24 תמיד מנצח /22 כי הוא ספציפי יותר. ‏Pakistan פרסמה 208.65.153.0/24 ←  route ספציפי יותר מ-208.65.153.0/22 של YouTube. ‏ISPים בכל העולם העדיפו אותו. ‏75% מטראפיק YouTube הופנה ל-Pakistan תוך דקות. ‏RPKI נוצר בדיוק כדי למנוע זאת.",
-      explanationEn: "BGP Longest Prefix Match: /24 always wins over /22 because it is more specific. Pakistan announced 208.65.153.0/24 — a more specific route than YouTube's 208.65.153.0/22. ISPs worldwide preferred it. 75% of YouTube traffic was redirected to Pakistan within minutes. RPKI was created precisely to prevent this."
+      explanationEn: "BGP Longest Prefix Match: /24 always wins over /22 because it is more specific. Pakistan announced 208.65.153.0/24 — a more specific route than YouTube's 208.65.153.0/22. ISPs worldwide preferred it. 75% of YouTube traffic was redirected to Pakistan within minutes. RPKI was created precisely to prevent this.",
       qEn: "What caused the Pakistan Telecom 2008 incident with YouTube?",
       correctEn: "Pakistan announced a more specific /24 than YouTube's /22 — BGP Longest Prefix Match won",
       choicesEn: [
@@ -4378,7 +4434,7 @@ export const quizBank = {
         "‏AS Path מוצפן ב-BGPsec לאבטחה"
       ],
       explanation: "‏AS Path Loop Prevention: router מקבל UPDATE עם AS_PATH: [64501, 64502, 64503]. אם ה-ASN שלו (64501) מופיע בpath → DISCARD (loop!). ‏AS Path גם משמש כroute selection attribute ‎(קצר יותר = מועדף ברירת מחדל)‎. ‏AS Path Prepending: מוסיפים ASN שלנו מספר פעמים → נראה ארוך יותר → route פחות מועדף (traffic engineering). ‏ASPATH regex filter: ip as-path access-list 10 permit ^64501_.",
-      explanationEn: "AS Path Loop Prevention: router receives UPDATE with AS_PATH: [64501, 64502, 64503]. If its own ASN (64501) appears in the path, it discards the route (loop!). AS Path also serves as a route selection attribute (shorter = preferred by default). AS Path Prepending: adding your ASN multiple times makes the route appear longer and less preferred (traffic engineering)."
+      explanationEn: "AS Path Loop Prevention: router receives UPDATE with AS_PATH: [64501, 64502, 64503]. If its own ASN (64501) appears in the path, it discards the route (loop!). AS Path also serves as a route selection attribute (shorter = preferred by default). AS Path Prepending: adding your ASN multiple times makes the route appear longer and less preferred (traffic engineering).",
       qEn: "What is BGP AS Path and how does it prevent routing loops?",
       correctEn: "AS Path = list of AS numbers the message passed through — any router that sees its own ASN in the Path rejects the route",
       choicesEn: [
@@ -4400,7 +4456,7 @@ export const quizBank = {
         "אין הבדל — שניהם אותה תפקיד"
       ],
       explanation: "‏Recursive Resolver (8.8.8.8, 1.1.1.1) שואל את Root → TLD → Auth בשביל הclient ומחזיר תוצאה מcache. ‏Authoritative NS (ns1.google.com) הוא המקור הסמכותי לdomain ספציפי — רק הוא יודע את ה-IP האמיתי.",
-      explanationEn: "Recursive Resolver (8.8.8.8, 1.1.1.1) queries Root, TLD, then Authoritative on behalf of the client and returns results from cache. Authoritative NS (ns1.google.com) is the authoritative source for a specific domain — only it knows the real IP."
+      explanationEn: "Recursive Resolver (8.8.8.8, 1.1.1.1) queries Root, TLD, then Authoritative on behalf of the client and returns results from cache. Authoritative NS (ns1.google.com) is the authoritative source for a specific domain — only it knows the real IP.",
       qEn: "What is the difference between Recursive Resolver and Authoritative Nameserver?",
       correctEn: "Recursive Resolver does all the chain queries — Authoritative NS returns the real IP",
       choicesEn: [
@@ -4420,7 +4476,7 @@ export const quizBank = {
         "אימות קריפטוגרפי של תשובות DNS"
       ],
       explanation: "‏DoH שולח DNS queries מוצפנות על HTTPS (port 443) — ה-ISP רואה HTTPS traffic לCloudflare/Google, לא את הdomains שאתה מבקר. ‏DNSSEC מספק אימות קריפטוגרפי ‎(שאלה נפרדת)‎. ‏DoT (port 853) הוא אלטרנטיבה — DNS over TLS.",
-      explanationEn: "DoH sends encrypted DNS queries over HTTPS (port 443) — the ISP sees HTTPS traffic to Cloudflare/Google, not which domains you are visiting. DNSSEC provides cryptographic authentication (separate concern). DoT (port 853) is an alternative — DNS over TLS."
+      explanationEn: "DoH sends encrypted DNS queries over HTTPS (port 443) — the ISP sees HTTPS traffic to Cloudflare/Google, not which domains you are visiting. DNSSEC provides cryptographic authentication (separate concern). DoT (port 853) is an alternative — DNS over TLS.",
       qEn: "What does DNS-over-HTTPS (DoH) provide that regular DNS does not?",
       correctEn: "Encryption of DNS queries — the ISP sees HTTPS to the resolver and not specific DNS queries",
       choicesEn: [
@@ -4440,7 +4496,7 @@ export const quizBank = {
         "‏CDN מפנה requests לפי Geo-IP"
       ],
       explanation: "‏Anycast: אותה כתובת IP מפורסמת ממספר locations ב-BGP. ‏BGP always routes to the closest/best path. תוצאה: משתמש בישראל מגיע לdatacenter באירופה/ישראל, לא ב-US. ‏8.8.8.8 רץ מ-dozens of locations — RTT נמוך מכל מקום בעולם.",
-      explanationEn: "Anycast: the same IP address is advertised from multiple locations via BGP. BGP always routes to the closest/best path. Result: a user in Israel reaches a datacenter in Europe/Israel, not in the US. 8.8.8.8 runs from dozens of locations — low RTT from anywhere in the world."
+      explanationEn: "Anycast: the same IP address is advertised from multiple locations via BGP. BGP always routes to the closest/best path. Result: a user in Israel reaches a datacenter in Europe/Israel, not in the US. 8.8.8.8 runs from dozens of locations — low RTT from anywhere in the world.",
       qEn: "How does Anycast work with Google's 8.8.8.8?",
       correctEn: "Google advertises 8.8.8.8 from multiple locations via BGP — BGP routes to the closest point",
       choicesEn: [
@@ -4462,7 +4518,7 @@ export const quizBank = {
         "ה-server לא יכול לשלוח data לפני שה-client ביקש"
       ],
       explanation: "‏HTTP/2 הביא multiplexing ‎(מספר streams בחיבור אחד)‎, אבל TCP מטפל בstream כbyte stream אחד רציף. אובדן packet → TCP מחכה לretransmission → כל ה-streams קפואים. ‏HTTP/3 על QUIC פותר זאת: כל stream עצמאי, אובדן ב-stream אחד לא חוסם אחרים.",
-      explanationEn: "HTTP/2 introduced multiplexing (multiple streams in one connection), but TCP treats the connection as a single sequential byte stream. Packet loss causes TCP to wait for retransmission, freezing all streams. HTTP/3 on QUIC solves this: each stream is independent, loss in one stream does not block others."
+      explanationEn: "HTTP/2 introduced multiplexing (multiple streams in one connection), but TCP treats the connection as a single sequential byte stream. Packet loss causes TCP to wait for retransmission, freezing all streams. HTTP/3 on QUIC solves this: each stream is independent, loss in one stream does not block others.",
       qEn: "What is HOL Blocking that HTTP/2 still suffers from?",
       correctEn: "Losing one TCP packet freezes all streams in the connection — TCP does not know about separate streams",
       choicesEn: [
@@ -4482,7 +4538,7 @@ export const quizBank = {
         "‏migration בין servers שונים"
       ],
       explanation: "‏TCP זוהה לפי tuple (src IP, src port, dst IP, dst port). מעבר WiFi → סלולרי = IP חדש = חיבור נשבר. ‏QUIC זוהה לפי Connection ID אקראי — ה-server ממשיך לדעת מי אתה גם אחרי שינוי IP. ‏TLS 1.3 session resumption מאפשר המשך ללא re-handshake.",
-      explanationEn: "TCP is identified by tuple (src IP, src port, dst IP, dst port). WiFi to cellular transition = new IP = broken connection. QUIC is identified by a random Connection ID — the server continues to know who you are even after IP change. TLS 1.3 session resumption allows continuation without re-handshake."
+      explanationEn: "TCP is identified by tuple (src IP, src port, dst IP, dst port). WiFi to cellular transition = new IP = broken connection. QUIC is identified by a random Connection ID — the server continues to know who you are even after IP change. TLS 1.3 session resumption allows continuation without re-handshake.",
       qEn: "What does QUIC Connection Migration provide?",
       correctEn: "Switching between WiFi and cellular without disconnecting — Connection ID keeps the identity, not IP:port",
       choicesEn: [
@@ -4502,7 +4558,7 @@ export const quizBank = {
         "‏0-RTT עובד רק בתוך אותה network"
       ],
       explanation: "‏TCP + TLS = 1-3 RTT לפני data. ‏QUIC עם session resumption: client שומר session ticket מחיבור קודם, שולח data מיד עם ה-first packet (0-RTT). מגבלה: 0-RTT data פגיע ל-replay attacks — לכן משתמשים בו רק לread-only requests.",
-      explanationEn: "TCP + TLS = 1-3 RTT before data. QUIC with session resumption: client saves session ticket from previous connection, sends data immediately with the first packet (0-RTT). Limitation: 0-RTT data is vulnerable to replay attacks — therefore used only for read-only requests."
+      explanationEn: "TCP + TLS = 1-3 RTT before data. QUIC with session resumption: client saves session ticket from previous connection, sends data immediately with the first packet (0-RTT). Limitation: 0-RTT data is vulnerable to replay attacks — therefore used only for read-only requests.",
       qEn: "What is the advantage of 0-RTT in QUIC?",
       correctEn: "On a returning connection, the client sends data with the first ClientHello — zero round trips",
       choicesEn: [
@@ -4522,7 +4578,7 @@ export const quizBank = {
         "שניהם מדחסים HTTP body, לא headers"
       ],
       explanation: "‏HTTP/1.1: כל request שולח User-Agent, Accept, Cookie מחדש — headers גדולים כ-1-2KB. ‏HPACK (RFC 7541): Static table (61 common headers), Dynamic table ‎(headers שנראו ב-session)‎. 'GET /index.html' → index 2 ‎(1 byte במקום 20 bytes!)‎. ‏CRIME/BREACH attacks: ניצלו TLS+gzip compression לחשיפת secrets. ‏HPACK: header-only, לא body → נמנע CRIME. ‏QPACK (HTTP/3): HPACK for QUIC — מותאם לmultiplexing ללא blocking.",
-      explanationEn: "HTTP/1.1: every request resends User-Agent, Accept, Cookie — headers can be 1-2KB. HPACK (RFC 7541): Static table (61 common headers), Dynamic table (headers seen in session). 'GET /index.html' becomes index 2 (1 byte instead of 20!). CRIME/BREACH attacks exploited TLS+gzip compression to reveal secrets. HPACK: header-only, not body, prevents CRIME. QPACK (HTTP/3): HPACK adapted for QUIC — handles multiplexing without blocking."
+      explanationEn: "HTTP/1.1: every request resends User-Agent, Accept, Cookie — headers can be 1-2KB. HPACK (RFC 7541): Static table (61 common headers), Dynamic table (headers seen in session). 'GET /index.html' becomes index 2 (1 byte instead of 20!). CRIME/BREACH attacks exploited TLS+gzip compression to reveal secrets. HPACK: header-only, not body, prevents CRIME. QPACK (HTTP/3): HPACK adapted for QUIC — handles multiplexing without blocking.",
       qEn: "What are HPACK in HTTP/2 and QPACK in HTTP/3 and why were they developed?",
       correctEn: "Header compression algorithms — HTTP/1.1 sends headers as repeated text in every request (including large cookies) — HPACK/QPACK encode headers in an index table to save bandwidth",
       choicesEn: [
@@ -4544,7 +4600,7 @@ export const quizBank = {
         "ה-program תואם לכל גרסאות Linux"
       ],
       explanation: "‏eBPF Verifier בודק: 1) No unbounded loops — ה-program חייב לסיים, 2) No out-of-bounds memory access, 3) No uninitialized reads, 4) Return codes חוקיים. רק אחרי verification מוצלח ה-kernel מריץ את ה-bytecode (JIT compiled). זה ה-key feature שמאפשר run code in kernel safely.",
-      explanationEn: "eBPF Verifier checks: 1) No unbounded loops — program must terminate, 2) No out-of-bounds memory access, 3) No uninitialized reads, 4) Valid return codes. Only after successful verification does the kernel run the bytecode (JIT compiled). This is the key feature enabling safe code execution in the kernel."
+      explanationEn: "eBPF Verifier checks: 1) No unbounded loops — program must terminate, 2) No out-of-bounds memory access, 3) No uninitialized reads, 4) Valid return codes. Only after successful verification does the kernel run the bytecode (JIT compiled). This is the key feature enabling safe code execution in the kernel.",
       qEn: "What does the eBPF Verifier ensure before a program runs in the kernel?",
       correctEn: "The program will not crash, will not run forever, and will not access unauthorized memory",
       choicesEn: [
@@ -4564,7 +4620,7 @@ export const quizBank = {
         "מוסיף את החבילה לqueue לעיבוד איטי"
       ],
       explanation: "‏XDP (eXpress Data Path) פועל ב-NIC driver level, לפני ה-kernel network stack. ‏XDP_DROP = drop מיידי, אפס overhead של kernel. ‏XDP_PASS = עובר ל-kernel רגיל. ‏XDP_TX = שולח בחזרה (hairpin). ‏XDP_REDIRECT = מפנה. זו הסיבה שCloudflare יכולה לבלוע 2.5B pps של DDoS.",
-      explanationEn: "XDP (eXpress Data Path) operates at NIC driver level, before the kernel network stack. XDP_DROP = immediate drop, zero kernel overhead. XDP_PASS = passes to normal kernel. XDP_TX = sends back (hairpin). XDP_REDIRECT = redirects. This is why Cloudflare can absorb 2.5 billion packets per second of DDoS."
+      explanationEn: "XDP (eXpress Data Path) operates at NIC driver level, before the kernel network stack. XDP_DROP = immediate drop, zero kernel overhead. XDP_PASS = passes to normal kernel. XDP_TX = sends back (hairpin). XDP_REDIRECT = redirects. This is why Cloudflare can absorb 2.5 billion packets per second of DDoS.",
       qEn: "What does XDP_DROP do to a packet in eBPF?",
       correctEn: "Drops the packet before it reaches the kernel network stack — effective for DDoS mitigation",
       choicesEn: [
@@ -4584,7 +4640,7 @@ export const quizBank = {
         "‏Cilium מהיר כי כותב ב-Go"
       ],
       explanation: "‏Kubernetes עם 1000 services = iptables עם אלפי rules = כל packet עובר O(n) חיפוש ליניארי. ‏Cilium מחליף iptables בeBPF hash maps = O(1) בכל גודל. בנוסף: Cilium/Hubble מספקים observability מלאה (pod → pod traffic), security policies ברמת L7, וביצועים שלא תאמין.",
-      explanationEn: "Kubernetes with 1000 services = iptables with thousands of rules = every packet goes through O(n) linear search. Cilium replaces iptables with eBPF hash maps = O(1) at any size. Additionally: Cilium/Hubble provides full observability (pod to pod traffic), L7 security policies, and incredible performance."
+      explanationEn: "Kubernetes with 1000 services = iptables with thousands of rules = every packet goes through O(n) linear search. Cilium replaces iptables with eBPF hash maps = O(1) at any size. Additionally: Cilium/Hubble provides full observability (pod to pod traffic), L7 security policies, and incredible performance.",
       qEn: "What is the advantage of Cilium over iptables in Kubernetes?",
       correctEn: "eBPF maps = O(1) lookup vs iptables = O(n) in Kubernetes with thousands of rules",
       choicesEn: [
@@ -4604,7 +4660,7 @@ export const quizBank = {
         "‏eBPF map = file במערכת קבצים /sys/fs/bpf"
       ],
       explanation: "‏eBPF maps: IPC mechanism בין eBPF programs לuser-space tools. ‏HASH_MAP: key-value store. ‏ARRAY: fixed-size indexed. ‏LRU_HASH: evicts least recently used. ‏RINGBUF: efficient ring buffer לstreaming events לuserspace ‎(מחליף PERF_EVENT_ARRAY)‎. ‏PERCPU variants: lock-free per-CPU storage. בpinning לpath (/sys/fs/bpf/my_map) ניתן לshare בין processes. libbpf API: bpf_map_lookup_elem, bpf_map_update_elem. ‏Cilium: maps לtrack connections, policies, endpoints.",
-      explanationEn: "eBPF maps: IPC mechanism between eBPF programs and user-space tools. HASH_MAP: key-value store. ARRAY: fixed-size indexed. LRU_HASH: evicts least recently used. RINGBUF: efficient ring buffer for streaming events to userspace (replaces PERF_EVENT_ARRAY). PERCPU variants: lock-free per-CPU storage. Pinning to path (/sys/fs/bpf/my_map) enables sharing between processes. Cilium uses maps to track connections, policies, endpoints."
+      explanationEn: "eBPF maps: IPC mechanism between eBPF programs and user-space tools. HASH_MAP: key-value store. ARRAY: fixed-size indexed. LRU_HASH: evicts least recently used. RINGBUF: efficient ring buffer for streaming events to userspace (replaces PERF_EVENT_ARRAY). PERCPU variants: lock-free per-CPU storage. Pinning to path (/sys/fs/bpf/my_map) enables sharing between processes. Cilium uses maps to track connections, policies, endpoints.",
       qEn: "What is an eBPF map and what are common types?",
       correctEn: "A shared data structure between eBPF programs and kernel/userspace — types: BPF_MAP_TYPE_HASH, ARRAY, RINGBUF, PERF_EVENT_ARRAY",
       choicesEn: [
@@ -4624,7 +4680,7 @@ export const quizBank = {
         "אין הבדל מעשי — שניהם attach לאותם מקומות"
       ],
       explanation: "‏Tracepoints (sys_enter/sys_exit, net:netif_rx, sched:sched_switch): מוגדרים בmacro TRACE_EVENT בkernel source. ‏Stable: נשמרים בין kernel versions. uprobes: כמו kprobes אבל לuserspace functions. ‏Perf events: hardware counters (CPU cycles, cache misses). bpftrace one-liner: bpftrace -e 'tracepoint:syscalls:sys_enter_read { printf(\\\"%s read %d bytes\\n\\\", comm, args->count); }'. libbpf skeleton: generate C bindings מBTF.",
-      explanationEn: "Tracepoints (sys_enter/sys_exit, net:netif_rx, sched:sched_switch): defined with TRACE_EVENT macro in kernel source. Stable: preserved between kernel versions. uprobes: like kprobes but for userspace functions. Perf events: hardware counters (CPU cycles, cache misses). bpftrace example: tracepoint:syscalls:sys_enter_read prints process name and bytes read. libbpf skeleton generates C bindings from BTF."
+      explanationEn: "Tracepoints (sys_enter/sys_exit, net:netif_rx, sched:sched_switch): defined with TRACE_EVENT macro in kernel source. Stable: preserved between kernel versions. uprobes: like kprobes but for userspace functions. Perf events: hardware counters (CPU cycles, cache misses). bpftrace example: tracepoint:syscalls:sys_enter_read prints process name and bytes read. libbpf skeleton generates C bindings from BTF.",
       qEn: "What is the difference between eBPF tracepoints and kprobes?",
       correctEn: "Tracepoints: static hook points defined in kernel code (stable ABI) — kprobes: attach to any kernel function address (dynamic, may change between kernel versions)",
       choicesEn: [
@@ -4644,7 +4700,7 @@ export const quizBank = {
         "‏Cilium = service mesh המחליף Istio"
       ],
       explanation: "‏Cilium eBPF CNI: kube-proxy replacement ‎(eBPF LB במקום iptables)‎, Network Policies (L3/L4/L7), transparent encryption (WireGuard), Hubble (observability — flow visibility per pod, DNS, HTTP). iptables bottleneck: 10,000 services = 10,000 rules, linear scan. eBPF hash maps: O(1). ‏Cilium בBenchmark: 20-40% better throughput vs kube-proxy. ‏CNCF Graduated project. ‏Service Mesh via Sidecar-free (eBPF replaces Envoy sidecars in Cilium Service Mesh).",
-      explanationEn: "Cilium eBPF CNI: kube-proxy replacement (eBPF LB instead of iptables), Network Policies (L3/L4/L7), transparent encryption (WireGuard), Hubble (observability — flow visibility per pod, DNS, HTTP). iptables bottleneck: 10,000 services = 10,000 rules, linear scan. eBPF hash maps: O(1). Cilium benchmark: 20-40% better throughput vs kube-proxy. CNCF Graduated project. Service Mesh via Sidecar-free (eBPF replaces Envoy sidecars)."
+      explanationEn: "Cilium eBPF CNI: kube-proxy replacement (eBPF LB instead of iptables), Network Policies (L3/L4/L7), transparent encryption (WireGuard), Hubble (observability — flow visibility per pod, DNS, HTTP). iptables bottleneck: 10,000 services = 10,000 rules, linear scan. eBPF hash maps: O(1). Cilium benchmark: 20-40% better throughput vs kube-proxy. CNCF Graduated project. Service Mesh via Sidecar-free (eBPF replaces Envoy sidecars).",
       qEn: "What is Cilium and how does it use eBPF for CNI?",
       correctEn: "CNI plugin that replaces iptables with eBPF — O(1) policy lookup instead of O(n) iptables rules, L7 visibility, Hubble observability",
       choicesEn: [
@@ -4667,7 +4723,7 @@ export const quizBank = {
         "\u200Fplan עובד ב-AWS בלבד, apply עובד בכל cloud"
       ],
       explanation: "\u200F📋 terraform plan\n• dry run שמחשב את ה-diff\n• בין ה-HCL לבין ה-state הנוכחי\n• מציג מה ייצור/ישנה/ימחק\n\n🚀 terraform apply\n• מבצע את אותם שינויים בפועל\n\n📌 Best Practice\n• תמיד run plan ותעיין ב-output\n• לפני apply בפרודקשן",
-      explanationEn: "terraform plan: dry run that calculates the diff between HCL and current state. Shows what will be created/changed/deleted. terraform apply: executes those changes. Best practice: always run plan and review output before apply in production."
+      explanationEn: "terraform plan: dry run that calculates the diff between HCL and current state. Shows what will be created/changed/deleted. terraform apply: executes those changes. Best practice: always run plan and review output before apply in production.",
       qEn: "What is the difference between Terraform apply and Terraform plan?",
       correctEn: "plan shows what will change (dry run)\napply makes the changes for real",
       choicesEn: [
@@ -4687,7 +4743,7 @@ export const quizBank = {
         "\u200FState רלוונטי רק ל-multi-cloud deployments"
       ],
       explanation: "\u200F💾 State — הלב של Terraform\n• מפה מי יצר מה\n• בלי state, Terraform לא יודע מה קיים\n\n☁️ S3 + DynamoDB\n• S3 מאחסן את ה-tfstate\n• DynamoDB מספק locking\n• כדי שלא שני אנשים יריצו apply במקביל (state corruption)\n\n📌 remote state = must בצוות",
-      explanationEn: "State is the heart of Terraform — maps who created what. Without state, Terraform doesn't know what exists. S3 + DynamoDB: S3 stores the tfstate, DynamoDB provides locking to prevent two people running apply simultaneously (state corruption). Remote state is a must for teams."
+      explanationEn: "State is the heart of Terraform — maps who created what. Without state, Terraform doesn't know what exists. S3 + DynamoDB: S3 stores the tfstate, DynamoDB provides locking to prevent two people running apply simultaneously (state corruption). Remote state is a must for teams.",
       qEn: "What is Terraform State and why store it in S3?",
       correctEn: "State is the mapping between HCL and real resources\nIn S3 so the whole team uses the same state",
       choicesEn: [
@@ -4707,7 +4763,7 @@ export const quizBank = {
         "\u200Fההבדל הוא בסוג ה-OS בלבד"
       ],
       explanation: "\u200F📖 Netflix הציגה את המטפורה ב-2012\n\n🐱 Pets\n• dev-01, big-iron\n• לכל אחד שם, ייחודי, ידנית מוגדר\n\n🐄 Cattle\n• web-047, מספרים, זהים, immutable\n• Terraform + Auto Scaling = Cattle\n• instance מת? Auto Scaling מייצר אחד חדש מה-template\n\n📌 Chaos Monkey\n• Netflix הורג servers בפרודקשן ביזמה\n• כדי לוודא ה-architecture Cattle-ready",
-      explanationEn: "Netflix introduced this metaphor in 2012. Pets: dev-01, big-iron — each has a name, unique, manually configured. Cattle: web-047, numbered, identical, immutable. Terraform + Auto Scaling = Cattle. Instance dies? Auto Scaling creates a new one from the template. Chaos Monkey: Netflix kills servers in production intentionally to verify the architecture is Cattle-ready."
+      explanationEn: "Netflix introduced this metaphor in 2012. Pets: dev-01, big-iron — each has a name, unique, manually configured. Cattle: web-047, numbered, identical, immutable. Terraform + Auto Scaling = Cattle. Instance dies? Auto Scaling creates a new one from the template. Chaos Monkey: Netflix kills servers in production intentionally to verify the architecture is Cattle-ready.",
       qEn: "What is the difference between Cattle and Pets in the context of IaC?",
       correctEn: "Pets = unique servers you heal\nCattle = identical servers you replace\nIaC prefers Cattle",
       choicesEn: [
@@ -4727,7 +4783,7 @@ export const quizBank = {
         "\u200FModule = workspace נפרד ב-Terraform Cloud"
       ],
       explanation: "\u200F📁 Module Structure\n• modules/vpc/main.tf + variables.tf + outputs.tf\n\n🔧 Usage\n• module 'prod-vpc' { source = './modules/vpc' }\n• cidr = '10.0.0.0/16'\n• azs = ['us-east-1a', 'us-east-1b']\n\n📦 Terraform Registry\n• hashicorp/vpc/aws — modules מוכנים מה-community\n• version = '~> 5.0' ל-pin version\n\n📌 DRY\n• same module ל-dev/staging/prod עם variables שונים",
-      explanationEn: "Module Structure: modules/vpc/main.tf + variables.tf + outputs.tf. Usage: module 'prod-vpc' { source = './modules/vpc' }; cidr = '10.0.0.0/16'; azs = ['us-east-1a', 'us-east-1b']. Terraform Registry: hashicorp/vpc/aws — community-ready modules. version = '~> 5.0' for version pinning. DRY: same module for dev/staging/prod with different variables."
+      explanationEn: "Module Structure: modules/vpc/main.tf + variables.tf + outputs.tf. Usage: module 'prod-vpc' { source = './modules/vpc' }; cidr = '10.0.0.0/16'; azs = ['us-east-1a', 'us-east-1b']. Terraform Registry: hashicorp/vpc/aws — community-ready modules. version = '~> 5.0' for version pinning. DRY: same module for dev/staging/prod with different variables.",
       qEn: "What is a Terraform Module and why use them?",
       correctEn: ".tf files grouped into a reusable logical unit\nEnabling DRY, encapsulation,\nversioning and sharing of infrastructure patterns",
       choicesEn: [
@@ -4750,7 +4806,7 @@ export const quizBank = {
         "\u200Fשניהם מדדים זהים עם שמות שונים"
       ],
       explanation: "\u200F🔴 RED שואל\n• כמה requests לשנייה?\n• כמה נכשלים?\n• כמה זמן לוקח?\n• מתאים ל-microservices ול-APIs\n\n🔧 USE שואל\n• כמה CPU/Memory בשימוש?\n• האם יש queue buildup?\n• יש errors ב-hardware?\n• מתאים ל-infrastructure (servers, disks, network)\n\n📌 Brendan Gregg (Netflix) פיתח את USE method",
-      explanationEn: "RED asks: How many requests per second? How many fail? How long do they take? Suitable for microservices and APIs. USE asks: How much CPU/Memory is in use? Is there queue buildup? Are there hardware errors? Suitable for infrastructure (servers, disks, network). Brendan Gregg (Netflix) developed the USE method."
+      explanationEn: "RED asks: How many requests per second? How many fail? How long do they take? Suitable for microservices and APIs. USE asks: How much CPU/Memory is in use? Is there queue buildup? Are there hardware errors? Suitable for infrastructure (servers, disks, network). Brendan Gregg (Netflix) developed the USE method.",
       qEn: "What is the difference between RED method and USE method in monitoring?",
       correctEn: "RED (Rate/Errors/Duration) for measuring services\nUSE (Utilization/Saturation/Errors) for measuring resources",
       choicesEn: [
@@ -4770,7 +4826,7 @@ export const quizBank = {
         "\u200Fמגדירה alert אם ה-latency עולה על 99ms"
       ],
       explanation: "\u200F📊 P99 Latency\n• histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))\n• פירוש: 99% מה-requests הסתיימו בזמן הזה או פחות\n• ה-1% הגרועים ביותר = הזנב\n\n🎯 למה P99?\n• SLOs בגוגל מוגדרים ב-P99\n• ממוצע מסתיר latency spikes\n\n📌 rate() קודם על ה-bucket = חשוב לחישוב נכון",
-      explanationEn: "P99 Latency: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])). Meaning: 99% of requests completed in this time or less. The worst 1% = the tail. Why P99? Google SLOs are defined at P99. Averages hide latency spikes. Important: rate() must be applied to the bucket first for correct calculation."
+      explanationEn: "P99 Latency: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])). Meaning: 99% of requests completed in this time or less. The worst 1% = the tail. Why P99? Google SLOs are defined at P99. Averages hide latency spikes. Important: rate() must be applied to the bucket first for correct calculation.",
       qEn: "What does the command histogram_quantile(0.99, ...) do in PromQL?",
       correctEn: "Calculates the 99th percentile of latency\nThe latency below which 99% of requests fall",
       choicesEn: [
@@ -4790,7 +4846,7 @@ export const quizBank = {
         "\u200Fpush model אבטחתי יותר"
       ],
       explanation: "\u200F📡 Prometheus pull\n• מגדיר scrape_configs עם targets\n• Prometheus שולח GET /metrics כל 15s\n\n✅ יתרון\n• Prometheus שולט מי נסרק\n• קל ל-healthcheck (אם scrape נכשל = service down)\n\n❌ חיסרון\n• services חייבים לחשוף /metrics endpoint\n\n📌 Pushgateway קיים ל-jobs קצרים שלא חיים מספיק ל-scrape",
-      explanationEn: "Prometheus pull: configures scrape_configs with targets. Prometheus sends GET /metrics every 15s. Advantage: Prometheus controls who is scraped. Easy healthcheck (if scrape fails = service down). Disadvantage: services must expose /metrics endpoint. Pushgateway exists for short-lived jobs that don't live long enough for scraping."
+      explanationEn: "Prometheus pull: configures scrape_configs with targets. Prometheus sends GET /metrics every 15s. Advantage: Prometheus controls who is scraped. Easy healthcheck (if scrape fails = service down). Disadvantage: services must expose /metrics endpoint. Pushgateway exists for short-lived jobs that don't live long enough for scraping.",
       qEn: "What is the pull model of Prometheus vs push model?",
       correctEn: "Prometheus scrapes metrics from services itself (pull)\nvs Graphite/StatsD where services push to them (push)",
       choicesEn: [
@@ -4810,7 +4866,7 @@ export const quizBank = {
         "\u200Fsum(requests) over 5m"
       ],
       explanation: "\u200F📊 rate() vs irate()\n• rate([5m]) = average rate over window (stable, ל-alerts)\n• irate([5m]) = instant rate (2 last samples, volatile, ל-graphs)\n\n🔧 פונקציות נוספות\n• increase(counter[1h]) = עליה מוחלטת בשעה\n• sum(rate(http_requests_total[5m])) by (status_code): breakdown לפי status\n• avg_over_time(gauge[1h]): ממוצע של gauge בשעה\n• histogram_quantile(0.99, rate(request_duration_bucket[5m])): P99 latency\n\n📌 החוק: רק rate() על counters (לא gauges)",
-      explanationEn: "rate() vs irate(): rate([5m]) = average rate over window (stable, for alerts). irate([5m]) = instant rate (2 last samples, volatile, for graphs). Additional functions: increase(counter[1h]) = absolute increase in an hour. sum(rate(http_requests_total[5m])) by (status_code) for breakdown. avg_over_time(gauge[1h]) for gauge average. Rule: only use rate() on counters (not gauges)."
+      explanationEn: "rate() vs irate(): rate([5m]) = average rate over window (stable, for alerts). irate([5m]) = instant rate (2 last samples, volatile, for graphs). Additional functions: increase(counter[1h]) = absolute increase in an hour. sum(rate(http_requests_total[5m])) by (status_code) for breakdown. avg_over_time(gauge[1h]) for gauge average. Rule: only use rate() on counters (not gauges).",
       qEn: "What PromQL query calculates request rate in the last 5 minutes?",
       correctEn: "rate(http_requests_total[5m])\nCalculates per-second change rate of a counter\nin a 5-minute time window",
       choicesEn: [
@@ -4830,7 +4886,7 @@ export const quizBank = {
         "\u200FResponse time, Error budget, Deployment frequency"
       ],
       explanation: "\u200F🔴 RED Method (Tom Wilkie, Weave Works)\n• Rate = rate(requests_total[1m])\n• Error = rate(requests_total{status='error'}[1m]) / rate(requests_total[1m])\n• Duration = histogram_quantile(0.95, rate(request_duration_bucket[1m]))\n\n🔧 USE Method (Brendan Gregg)\n• Utilization (CPU%)\n• Saturation (queue depth)\n• Errors\n\n📌 השוואה\n• RED = user perspective\n• USE = resource perspective\n• Golden Signals (Google SRE Book): Latency, Traffic, Errors, Saturation",
-      explanationEn: "RED Method (Tom Wilkie, Weave Works): Rate = rate(requests_total[1m]), Error = rate(requests_total{status='error'}[1m]) / rate(requests_total[1m]), Duration = histogram_quantile(0.95, rate(request_duration_bucket[1m])). USE Method (Brendan Gregg): Utilization (CPU%), Saturation (queue depth), Errors. Comparison: RED = user perspective, USE = resource perspective. Golden Signals (Google SRE Book): Latency, Traffic, Errors, Saturation."
+      explanationEn: "RED Method (Tom Wilkie, Weave Works): Rate = rate(requests_total[1m]), Error = rate(requests_total{status='error'}[1m]) / rate(requests_total[1m]), Duration = histogram_quantile(0.95, rate(request_duration_bucket[1m])). USE Method (Brendan Gregg): Utilization (CPU%), Saturation (queue depth), Errors. Comparison: RED = user perspective, USE = resource perspective. Golden Signals (Google SRE Book): Latency, Traffic, Errors, Saturation.",
       qEn: "What is the RED Method in SRE and what metrics are checked?",
       correctEn: "Rate (requests/second)\nErrors (error rate)\nDuration (latency)\nThe three basic metrics for service health",
       choicesEn: [
@@ -4850,7 +4906,7 @@ export const quizBank = {
         "\u200FGrafana עושה רק visualization\nAlerting דרך Prometheus בלבד"
       ],
       explanation: "\u200F🔔 Grafana Alerting (Unified Alerting)\n• Alert Rule → Evaluation Group (כל 1m)\n• → Contact Point (Slack/PagerDuty/Email)\n• → Notification Policy\n\n📊 Alert states\n• Normal, Pending (threshold הופר אך לא עבר for duration)\n• Firing, No Data, Error\n\n📋 דוגמה\n• avg_over_time(up[5m]) < 0.5 (שירות down >50% ב-5 דקות)\n\n📌 Alertmanager\n• deduplication, grouping, routing, silencing\n• Runbook URL: קישור ל-procedure לאחר alert",
-      explanationEn: "Grafana Alerting (Unified Alerting): Alert Rule evaluated by Evaluation Group (every 1m), sent to Contact Point (Slack/PagerDuty/Email) via Notification Policy. Alert states: Normal, Pending (threshold breached but duration not met), Firing, No Data, Error. Example: avg_over_time(up[5m]) < 0.5 (service down >50% in 5 minutes). Alertmanager: deduplication, grouping, routing, silencing. Runbook URL: link to procedure after alert."
+      explanationEn: "Grafana Alerting (Unified Alerting): Alert Rule evaluated by Evaluation Group (every 1m), sent to Contact Point (Slack/PagerDuty/Email) via Notification Policy. Alert states: Normal, Pending (threshold breached but duration not met), Firing, No Data, Error. Example: avg_over_time(up[5m]) < 0.5 (service down >50% in 5 minutes). Alertmanager: deduplication, grouping, routing, silencing. Runbook URL: link to procedure after alert.",
       qEn: "What is the difference between Grafana Dashboard and Grafana Alert?",
       correctEn: "Dashboard: visualization of metrics for viewing\nAlert: rule evaluated periodically\nthat sends notification when threshold is breached",
       choicesEn: [
@@ -4873,7 +4929,7 @@ export const quizBank = {
         "בדיקה שה-Git repo לא נמחק"
       ],
       explanation: "‏Drift = מישהו עשה kubectl edit/patch ישירות על cluster מחוץ לGit. ‏ArgoCD מזהה את ה-diff ומציג status=OutOfSync. עם syncPolicy.automated.selfHeal=true — ArgoCD מחזיר לstate ב-Git אוטומטית תוך דקות. זה הלב של GitOps: Git הוא מקור האמת היחיד.",
-      explanationEn: "Drift = someone did kubectl edit/patch directly on cluster outside of Git. ArgoCD detects the diff and shows status=OutOfSync. With syncPolicy.automated.selfHeal=true, ArgoCD reverts to the Git state automatically within minutes. This is the heart of GitOps: Git is the single source of truth."
+      explanationEn: "Drift = someone did kubectl edit/patch directly on cluster outside of Git. ArgoCD detects the diff and shows status=OutOfSync. With syncPolicy.automated.selfHeal=true, ArgoCD reverts to the Git state automatically within minutes. This is the heart of GitOps: Git is the single source of truth.",
       qEn: "What is drift detection in ArgoCD?",
       correctEn: "Detecting a difference between Git state and running state in the cluster — ArgoCD fixes it automatically if selfHeal is enabled",
       choicesEn: [
@@ -4893,7 +4949,7 @@ export const quizBank = {
         "‏pull model מצפין את הmanifests אוטומטית"
       ],
       explanation: "בpush deployment: ל-CI pipeline (GitHub Actions, Jenkins) יש kubeconfig עם cluster admin — זה attack surface ענקי. אם CI נפרץ = cluster נפרץ. בGitOps pull: ArgoCD רץ בתוך ה-cluster, מסתכל על Git מבפנים. שום entity חיצוני לא צריך cluster credentials. זה security posture הרבה יותר טוב.",
-      explanationEn: "In push deployment: CI pipeline (GitHub Actions, Jenkins) has kubeconfig with cluster admin — huge attack surface. If CI is breached = cluster is breached. In GitOps pull: ArgoCD runs inside the cluster, watches Git from within. No external entity needs cluster credentials. This is a much better security posture."
+      explanationEn: "In push deployment: CI pipeline (GitHub Actions, Jenkins) has kubeconfig with cluster admin — huge attack surface. If CI is breached = cluster is breached. In GitOps pull: ArgoCD runs inside the cluster, watches Git from within. No external entity needs cluster credentials. This is a much better security posture.",
       qEn: "Why is GitOps pull model safer than push deployment?",
       correctEn: "In pull model, only the controller in the cluster needs cluster access — the CI pipeline does not need kubectl credentials",
       choicesEn: [
@@ -4913,7 +4969,7 @@ export const quizBank = {
         "‏ArgoCD מנהל secrets אוטומטית ללא כלים נוספים"
       ],
       explanation: "‏base64 הוא לא הצפנה! Sealed Secrets: kubeseal מצפין עם public key של ה-cluster — רק ה-cluster יכול לפענח, בטוח לsave בGit. ‏External Secrets: רץ בcluster, מושך מ-Vault/AWS Secrets Manager/GCP Secret Manager, יוצר Kubernetes Secret מקומי. שניהם פתרונות לגיטימיים. לעולם לא plaintext passwords ב-Git.",
-      explanationEn: "base64 is NOT encryption! Sealed Secrets: kubeseal encrypts with the cluster's public key — only the cluster can decrypt, safe to store in Git. External Secrets: runs in cluster, pulls from Vault/AWS Secrets Manager/GCP Secret Manager, creates local Kubernetes Secret. Both are legitimate solutions. Never store plaintext passwords in Git."
+      explanationEn: "base64 is NOT encryption! Sealed Secrets: kubeseal encrypts with the cluster's public key — only the cluster can decrypt, safe to store in Git. External Secrets: runs in cluster, pulls from Vault/AWS Secrets Manager/GCP Secret Manager, creates local Kubernetes Secret. Both are legitimate solutions. Never store plaintext passwords in Git.",
       qEn: "What is the preferred solution for managing secrets in GitOps?",
       correctEn: "Sealed Secrets (encrypted with public key) or External Secrets Operator (pulls from Vault/AWS) — do not store plaintext in Git",
       choicesEn: [
@@ -4933,7 +4989,7 @@ export const quizBank = {
         "‏CI/CD pipeline YAML ב-.github/workflows/"
       ],
       explanation: "‏Application manifest: apiVersion: argoproj.io/v1alpha1; kind: Application; spec.source: repoURL + path + targetRevision (branch/tag/commit); spec.destination: server (cluster API URL) + namespace; syncPolicy.automated: prune: true ‎(מוחק resources שנמחקו מGit)‎, selfHeal: true ‎(תוקן אם מישהו שינה ישירות בcluster)‎. ‏ArgoCD poll Git כל 3 דקות ברירת מחדל, webhook = מיידי. ‏App of Apps pattern: Application שמנהלת Applications אחרות.",
-      explanationEn: "Application manifest: apiVersion: argoproj.io/v1alpha1; kind: Application; spec.source: repoURL + path + targetRevision (branch/tag/commit); spec.destination: server (cluster API URL) + namespace; syncPolicy.automated: prune: true (deletes resources removed from Git), selfHeal: true (fixes direct cluster changes). ArgoCD polls Git every 3 minutes by default, webhook for immediate sync. App of Apps pattern: Application managing other Applications."
+      explanationEn: "Application manifest: apiVersion: argoproj.io/v1alpha1; kind: Application; spec.source: repoURL + path + targetRevision (branch/tag/commit); spec.destination: server (cluster API URL) + namespace; syncPolicy.automated: prune: true (deletes resources removed from Git), selfHeal: true (fixes direct cluster changes). ArgoCD polls Git every 3 minutes by default, webhook for immediate sync. App of Apps pattern: Application managing other Applications.",
       qEn: "What is an ArgoCD Application manifest and what is syncPolicy.automated?",
       correctEn: "Application CRD that defines source (Git repo + path), destination (cluster + namespace), and syncPolicy — automated = ArgoCD syncs automatically with every Git change",
       choicesEn: [
@@ -4953,7 +5009,7 @@ export const quizBank = {
         "‏Progressive Delivery אפשרי רק עם Istio service mesh"
       ],
       explanation: "‏Rolling Update: maxSurge=1, maxUnavailable=0 → pods מוחלפים אחד-אחד, אין visibility לmetrics. ‏Argo Rollouts Canary: steps: setWeight 10% → pause 5m → analysis (error rate < 1%?) → setWeight 50% → analysis → setWeight 100%. אם analysis נכשל → automatic rollback! Blue/Green: שתי סביבות מלאות, traffic switch רגעי. ‏AnalysisTemplate: query Prometheus, Datadog, CloudWatch לvalidation אוטומטי.",
-      explanationEn: "Rolling Update: replaces pods gradually without control — maxSurge=1, maxUnavailable=0, no metrics visibility. Argo Rollouts Canary: steps: setWeight 10%, pause 5m, analysis (error rate < 1%?), setWeight 50%, analysis, setWeight 100%. If analysis fails = automatic rollback! Blue/Green: two full environments, instant traffic switch. AnalysisTemplate: query Prometheus, Datadog, CloudWatch for automatic validation."
+      explanationEn: "Rolling Update: replaces pods gradually without control — maxSurge=1, maxUnavailable=0, no metrics visibility. Argo Rollouts Canary: steps: setWeight 10%, pause 5m, analysis (error rate < 1%?), setWeight 50%, analysis, setWeight 100%. If analysis fails = automatic rollback! Blue/Green: two full environments, instant traffic switch. AnalysisTemplate: query Prometheus, Datadog, CloudWatch for automatic validation.",
       qEn: "What is the difference between Argo Rollouts Progressive Delivery and a regular Rolling Update?",
       correctEn: "Rolling Update replaces pods gradually without control — Argo Rollouts enables Canary (% traffic to new version) and Blue/Green with automatic analysis and rollback",
       choicesEn: [
@@ -4973,7 +5029,7 @@ export const quizBank = {
         "‏Flux לsmall clusters — ArgoCD לenterprise בלבד"
       ],
       explanation: "‏Flux v2 (CNCF Graduated): GitRepository CR → מצביע על repo; Kustomization CR → מיישם path. ‏Multi-tenancy טוב. ‏Notification Controller לSlack/Teams. ‏Image Automation: מעדכן Git אוטומטית עם tag חדש מRegistry! ArgoCD: UI מנצחת לvisibility, ApplicationSet לmulti-cluster/multi-app patterns. ‏App of Apps. ‏RBAC מובנה. בחירה: Argo אם רוצים UI ו-visibility. ‏Flux אם GitOps-first, CLI-driven, multi-tenant setup. שניהם CNCF projects.",
-      explanationEn: "Flux v2 (CNCF Graduated): GitRepository CR points to repo; Kustomization CR applies path. Good multi-tenancy. Notification Controller for Slack/Teams. Image Automation: updates Git automatically with new tag from Registry! ArgoCD: winning UI for visibility, ApplicationSet for multi-cluster/multi-app patterns. App of Apps. Built-in RBAC. Choice: Argo for UI and visibility. Flux for GitOps-first, CLI-driven, multi-tenant setup. Both are CNCF projects."
+      explanationEn: "Flux v2 (CNCF Graduated): GitRepository CR points to repo; Kustomization CR applies path. Good multi-tenancy. Notification Controller for Slack/Teams. Image Automation: updates Git automatically with new tag from Registry! ArgoCD: winning UI for visibility, ApplicationSet for multi-cluster/multi-app patterns. App of Apps. Built-in RBAC. Choice: Argo for UI and visibility. Flux for GitOps-first, CLI-driven, multi-tenant setup. Both are CNCF projects.",
       qEn: "What is Fluxcd and how is it different from ArgoCD?",
       correctEn: "Both are GitOps controllers — Flux: CLI-centric, operator per component (source-controller, kustomize-controller) — Argo: strong UI, Application CRD, monolithic approach",
       choicesEn: [
@@ -4993,7 +5049,7 @@ export const quizBank = {
         "‏GitOps עובד רק עם Kubernetes"
       ],
       explanation: "‏GitOps principles (Weaveworks): 1) Declarative: כל infra כ-code. ‏2) Versioned: Git כsingle source of truth. ‏3) Automatic: approved changes מיושמות אוטומטית. ‏4) Continuously reconciled: agent מזהה ומתקן drift. ‏Pull vs Push: CI/CD pushes → cluster. ‏GitOps agent pulls from Git. ‏Benefits: audit log (git log), rollback (git revert), consistency.",
-      explanationEn: "GitOps principles (Weaveworks): 1) Declarative: all infra as code. 2) Versioned: Git as single source of truth. 3) Automatic: approved changes applied automatically. 4) Continuously reconciled: agent detects and fixes drift. Pull vs Push: CI/CD pushes to cluster. GitOps agent pulls from Git. Benefits: audit log (git log), rollback (git revert), consistency."
+      explanationEn: "GitOps principles (Weaveworks): 1) Declarative: all infra as code. 2) Versioned: Git as single source of truth. 3) Automatic: approved changes applied automatically. 4) Continuously reconciled: agent detects and fixes drift. Pull vs Push: CI/CD pushes to cluster. GitOps agent pulls from Git. Benefits: audit log (git log), rollback (git revert), consistency.",
       qEn: "What is GitOps and how is it different from regular CI/CD?",
       correctEn: "GitOps: Git is the source of truth for infrastructure. Change in Git leads to agent (ArgoCD) detecting drift and syncing. Regular CI/CD: pipeline pushes to cluster",
       choicesEn: [
@@ -5013,7 +5069,7 @@ export const quizBank = {
         "‏Progressive = deploying לmost servers ראשון"
       ],
       explanation: "‏Argo Rollouts: CRD שמחליף Deployment. ‏Strategy: canary (5% → 20% → 50% → 100%), blueGreen (preview + active). ‏Analysis: Prometheus queries. אם error rate > 5% → automatic rollback. ‏Flagger: Istio/NGINX integration. ‏Feature Flags (LaunchDarkly, Unleash): הפרדת deployment מrelease. ‏Ship dark = deploy without enabling feature.",
-      explanationEn: "Argo Rollouts: CRD replacing Deployment. Strategy: canary (5% to 20% to 50% to 100%), blueGreen (preview + active). Analysis: Prometheus queries. If error rate > 5% = automatic rollback. Flagger: Istio/NGINX integration. Feature Flags (LaunchDarkly, Unleash): separate deployment from release. Ship dark = deploy without enabling feature."
+      explanationEn: "Argo Rollouts: CRD replacing Deployment. Strategy: canary (5% to 20% to 50% to 100%), blueGreen (preview + active). Analysis: Prometheus queries. If error rate > 5% = automatic rollback. Flagger: Istio/NGINX integration. Feature Flags (LaunchDarkly, Unleash): separate deployment from release. Ship dark = deploy without enabling feature.",
       qEn: "What is Progressive Delivery in a GitOps context?",
       correctEn: "Argo Rollouts / Flagger: canary deployments, blue/green, A/B testing — gradual change with automatic rollback if metrics fail",
       choicesEn: [
@@ -5036,7 +5092,7 @@ export const quizBank = {
         "‏Forward Secrecy = TLS עם certificate pinning"
       ],
       explanation: "ב-RSA key exchange (TLS 1.2): הclient מצפין session key בpublic key של השרת. תוקף שהקליט traffic ב-2020 וגנב private key ב-2024 — יכול לפענח את ה-2020 traffic. ב-ECDHE ‎(TLS 1.3 חובה)‎: מפתחות ephemeral נוצרים per-session ונמחקים. אין מפתח ישן לgraceful. 'Ephemeral' = key חי רק לאותה session.",
-      explanationEn: "In RSA key exchange (TLS 1.2): client encrypts session key with server's public key. Attacker who recorded traffic in 2020 and stole private key in 2024 can decrypt the 2020 traffic. In ECDHE (mandatory in TLS 1.3): ephemeral keys are generated per-session and deleted. No old key to exploit. 'Ephemeral' = key lives only for that session."
+      explanationEn: "In RSA key exchange (TLS 1.2): client encrypts session key with server's public key. Attacker who recorded traffic in 2020 and stole private key in 2024 can decrypt the 2020 traffic. In ECDHE (mandatory in TLS 1.3): ephemeral keys are generated per-session and deleted. No old key to exploit. 'Ephemeral' = key lives only for that session.",
       qEn: "What is Forward Secrecy in TLS and why is it important?",
       correctEn: "Creates a new session key for each session (ECDHE) — someone who steals the private key cannot decrypt past conversations",
       choicesEn: [
@@ -5056,7 +5112,7 @@ export const quizBank = {
         "‏RC4 תומך רק ב-IPv4"
       ],
       explanation: "‏RC4: AlFardan et al. ‏2013 הראו biases סטטיסטיים שמאפשרים לפענח HTTPS cookies אחרי ~2^26 connections. ‏BEAST attack (2011) ניצל CBC ב-TLS 1.0. ‏SHA-1: Google SHAttered 2017 — נמצאו שני PDF files שונים עם אותו SHA-1 hash, עם GPU cluster בעלות $110K. ‏TLS 1.3 אפשר רק AEAD ciphers (AES-GCM, ChaCha20-Poly1305).",
-      explanationEn: "RC4: AlFardan et al. 2013 showed statistical biases enabling HTTPS cookie decryption after ~2^26 connections. BEAST attack (2011) exploited CBC in TLS 1.0. SHA-1: Google SHAttered 2017 — two different PDF files with the same SHA-1 hash, produced with a GPU cluster costing $110K. TLS 1.3 only allows AEAD ciphers (AES-GCM, ChaCha20-Poly1305)."
+      explanationEn: "RC4: AlFardan et al. 2013 showed statistical biases enabling HTTPS cookie decryption after ~2^26 connections. BEAST attack (2011) exploited CBC in TLS 1.0. SHA-1: Google SHAttered 2017 — two different PDF files with the same SHA-1 hash, produced with a GPU cluster costing $110K. TLS 1.3 only allows AEAD ciphers (AES-GCM, ChaCha20-Poly1305).",
       qEn: "Why were RC4 and SHA-1 removed from TLS 1.3?",
       correctEn: "RC4 was proven cryptographically broken in 2013, SHA-1 collision was proven in 2017 (Google SHAttered)",
       choicesEn: [
@@ -5076,7 +5132,7 @@ export const quizBank = {
         "‏TLS 1.3 תמיד 0-RTT"
       ],
       explanation: "‏TLS 1.2: ClientHello → ServerHello+Cert → KeyExchange → Finished → Data = 2 full RTT. ‏TLS 1.3: הclient שולח KeyShare כבר בClientHello הראשון. השרת עונה עם ServerHello+keys+Finished = 1 RTT. ‏0-RTT (Early Data): בsession resumption, הclient שולח data בround trip הראשון. אבל 0-RTT vulnerable לreplay attacks — להשתמש רק בGET.",
-      explanationEn: "TLS 1.2: ClientHello, ServerHello+Cert, KeyExchange, Finished, Data = 2 full RTT. TLS 1.3: client sends KeyShare already in the first ClientHello. Server responds with ServerHello+keys+Finished = 1 RTT. 0-RTT (Early Data): in session resumption, client sends data in the first round trip. But 0-RTT is vulnerable to replay attacks — use only for GET requests."
+      explanationEn: "TLS 1.2: ClientHello, ServerHello+Cert, KeyExchange, Finished, Data = 2 full RTT. TLS 1.3: client sends KeyShare already in the first ClientHello. Server responds with ServerHello+keys+Finished = 1 RTT. 0-RTT (Early Data): in session resumption, client sends data in the first round trip. But 0-RTT is vulnerable to replay attacks — use only for GET requests.",
       qEn: "What is the RTT difference between TLS 1.2 and TLS 1.3?",
       correctEn: "TLS 1.2 requires 2-RTT before application data, TLS 1.3 requires 1-RTT (and 0-RTT for session resumption)",
       choicesEn: [
@@ -5096,7 +5152,7 @@ export const quizBank = {
         "‏ECDHE מאפשר authentication ללא certificates"
       ],
       explanation: "‏Diffie-Hellman: שני צדדים חולקים public numbers g^a mod p ו-g^b mod p → מחשבים g^ab mod p (shared secret) ללא שליחת a או b. ‏Elliptic Curve: g^a → נקודת עקומה אליפטית — יעיל יותר (256-bit EC = 3072-bit RSA security). ‏Ephemeral: מפתחות חדשים לכל session, נמחקים אחרי. גם אם תוקף שבר את ה-EC discrete log בעוד 10 שנים — sessions ישנות לא מפוענחות. ‏Curve25519 (X25519) = curve הנפוצה ב-TLS 1.3.",
-      explanationEn: "Diffie-Hellman: two parties share public numbers g^a mod p and g^b mod p, compute g^ab mod p (shared secret) without sending a or b. Elliptic Curve: uses elliptic curve points — more efficient (256-bit EC = 3072-bit RSA security). Ephemeral: new keys per session, deleted after. Even if an attacker breaks EC discrete log in 10 years — old sessions cannot be decrypted. Curve25519 (X25519) is the common curve in TLS 1.3."
+      explanationEn: "Diffie-Hellman: two parties share public numbers g^a mod p and g^b mod p, compute g^ab mod p (shared secret) without sending a or b. Elliptic Curve: uses elliptic curve points — more efficient (256-bit EC = 3072-bit RSA security). Ephemeral: new keys per session, deleted after. Even if an attacker breaks EC discrete log in 10 years — old sessions cannot be decrypted. Curve25519 (X25519) is the common curve in TLS 1.3.",
       qEn: "What is ECDHE in TLS and how does it enable Perfect Forward Secrecy?",
       correctEn: "Elliptic Curve Diffie-Hellman Ephemeral: both sides generate temporary key pairs, compute shared secret, and immediately delete private keys — future exploit has no value for old traffic",
       choicesEn: [
@@ -5116,7 +5172,7 @@ export const quizBank = {
         "‏CT logs מוצפנים ונגישים רק לbrowsers"
       ],
       explanation: "בעיה: DigiNotar 2011 הנפיקה wildcard cert של *.google.com ל-MITM by Iranian government. ‏CT (RFC 6962): כל CA חייב לsubmit כל cert לCT logs (Google Argon, Cloudflare Nimbus). ‏Signed Certificate Timestamp (SCT): proof שcert הוגש. ‏Browsers (Chrome 2018+): דוחים certs ללא valid SCT. domain owner יכול לmonitor CT logs לcerts unauthorised לdomain שלו (crt.sh). ‏Merkle tree structure = tamper-evident log.",
-      explanationEn: "Problem: DigiNotar 2011 issued a wildcard cert for *.google.com for MITM by Iranian government. CT (RFC 6962): every CA must submit every cert to CT logs (Google Argon, Cloudflare Nimbus). Signed Certificate Timestamp (SCT): proof that cert was submitted. Browsers (Chrome 2018+): reject certs without valid SCT. Domain owners can monitor CT logs for unauthorized certs via crt.sh. Merkle tree structure = tamper-evident log."
+      explanationEn: "Problem: DigiNotar 2011 issued a wildcard cert for *.google.com for MITM by Iranian government. CT (RFC 6962): every CA must submit every cert to CT logs (Google Argon, Cloudflare Nimbus). Signed Certificate Timestamp (SCT): proof that cert was submitted. Browsers (Chrome 2018+): reject certs without valid SCT. Domain owners can monitor CT logs for unauthorized certs via crt.sh. Merkle tree structure = tamper-evident log.",
       qEn: "What is Certificate Transparency (CT) and how does it protect against rogue certificates?",
       correctEn: "CT Logs: append-only public logs of all issued TLS certificates — browsers verify that a cert is in a CT log — a rogue CA cannot issue a certificate secretly",
       choicesEn: [
@@ -5139,7 +5195,7 @@ export const quizBank = {
         "‏HTTP redirect לURL של הPOP הקרוב"
       ],
       explanation: "‏Anycast: Cloudflare מפרסמת 1.1.1.0/24 ב-BGP מ-300+ POPs. כשrouter בתל אביב מחפש 1.1.1.1 — הוא רואה כמה paths, בוחר הקצר ביותר (AS hops) = POP בתל אביב. שימוש: DNS root servers, CDN, DDoS mitigation. לא מתאים לTCP sessions ארוכים כי connection עלול לנדוד בין POPs.",
-      explanationEn: "Anycast: Cloudflare advertises 1.1.1.0/24 via BGP from 300+ POPs. When a router in Tel Aviv looks up 1.1.1.1, it sees multiple paths and chooses the shortest (AS hops) = POP in Tel Aviv. Uses: DNS root servers, CDN, DDoS mitigation. Not suitable for long TCP sessions as connection may migrate between POPs."
+      explanationEn: "Anycast: Cloudflare advertises 1.1.1.0/24 via BGP from 300+ POPs. When a router in Tel Aviv looks up 1.1.1.1, it sees multiple paths and chooses the shortest (AS hops) = POP in Tel Aviv. Uses: DNS root servers, CDN, DDoS mitigation. Not suitable for long TCP sessions as connection may migrate between POPs.",
       qEn: "How does Anycast route traffic to the closest POP?",
       correctEn: "The same IP prefix is advertised via BGP from many locations — BGP chooses the shortest AS path = closest POP",
       choicesEn: [
@@ -5159,7 +5215,7 @@ export const quizBank = {
         "‏BGP hijacking רלוונטי רק לIPv6"
       ],
       explanation: "‏Pakistan Telecom 2008: הכריזו על 208.65.153.0/24 (YouTube) — כל האינטרנט שלח traffic ל-Pakistan. ‏BGP trust-based = כל AS יכול להכריז על כל prefix. ‏RPKI: RIRs (RIPE, ARIN, APNIC) מפרסמים ROA (Route Origin Authorization) חתומה — 'AS13335 מורשה להכריז על 1.1.1.0/24'. ‏Routers שמסננים לפי RPKI דוחים invalid routes. ‏40% מה-routes מוגנים נכון ל-2024.",
-      explanationEn: "Pakistan Telecom 2008: announced 208.65.153.0/24 (YouTube) — the entire internet sent traffic to Pakistan. BGP is trust-based = any AS can announce any prefix. RPKI: RIRs (RIPE, ARIN, APNIC) publish ROA (Route Origin Authorization) signed — 'AS13335 is authorized to announce 1.1.1.0/24'. Routers filtering by RPKI reject invalid routes. About 40% of routes are protected as of 2024."
+      explanationEn: "Pakistan Telecom 2008: announced 208.65.153.0/24 (YouTube) — the entire internet sent traffic to Pakistan. BGP is trust-based = any AS can announce any prefix. RPKI: RIRs (RIPE, ARIN, APNIC) publish ROA (Route Origin Authorization) signed — 'AS13335 is authorized to announce 1.1.1.0/24'. Routers filtering by RPKI reject invalid routes. About 40% of routes are protected as of 2024.",
       qEn: "What is BGP hijacking and how does RPKI prevent it?",
       correctEn: "BGP hijacking = an AS announces a prefix it does not own. RPKI = ROAs signed cryptographically that verify who is authorized to announce",
       choicesEn: [
@@ -5179,7 +5235,7 @@ export const quizBank = {
         "‏Anycast רלוונטי רק לUDP floods, לא לTCP SYN floods"
       ],
       explanation: "‏Cloudflare עם 300 POPs = 300 נקודות קליטה. ‏DDoS של 2Tbps מחולק ל-~6.7Gbps לכל POP — ניתן לספוג בקלות. ב-unicast, כל ה-2Tbps היה פוגע בנקודה אחת. בנוסף, Anycast BGP failover אוטומטי: POP שנפל תחת load → מסיר את ה-prefix מBGP → traffic עובר לPOP הבא הקרוב. זו הסיבה ש-Cloudflare, Akamai, Amazon CloudFront — כולם Anycast.",
-      explanationEn: "Cloudflare with 300 POPs = 300 absorption points. A 2Tbps DDoS is split to ~6.7Gbps per POP — easily absorbed. With unicast, all 2Tbps would hit a single point. Additionally, Anycast BGP failover is automatic: POP under load removes its prefix from BGP, traffic shifts to nearest POP. This is why Cloudflare, Akamai, and Amazon CloudFront all use Anycast."
+      explanationEn: "Cloudflare with 300 POPs = 300 absorption points. A 2Tbps DDoS is split to ~6.7Gbps per POP — easily absorbed. With unicast, all 2Tbps would hit a single point. Additionally, Anycast BGP failover is automatic: POP under load removes its prefix from BGP, traffic shifts to nearest POP. This is why Cloudflare, Akamai, and Amazon CloudFront all use Anycast.",
       qEn: "Why is Anycast great for DDoS protection?",
       correctEn: "Attack traffic is split between all POPs worldwide — each POP absorbs a small part instead of all hitting one point",
       choicesEn: [
@@ -5199,7 +5255,7 @@ export const quizBank = {
         "‏BGPsec מוצפן — RPKI רק signed"
       ],
       explanation: "‏RPKI/ROA: validates 'AS64501 is legitimate originator of 192.0.2.0/24'. אבל: AS Path: 64501 → 64502 → 64503. ‏AS64502 יכול לשנות path! BGPsec (RFC 8205): כל AS שמעביר UPDATE מוסיף חתימה קריפטוגרפית. ‏Receiver מאמת שכל hop בAS path חתם. מגן מ-path manipulation attacks. חסרון: performance overhead משמעותי, כל router צריך לחשב signatures. ‏Adoption: מאוד נמוכה בpractice בגלל complexity. ‏RPKI/ROV = פרקטי ונפוץ הרבה יותר.",
-      explanationEn: "RPKI/ROA: validates that an AS is the legitimate originator of a prefix. But AS Path can still be manipulated. BGPsec (RFC 8205): each AS forwarding an UPDATE adds a cryptographic signature. Receiver validates every hop in the AS path was signed. Protects against path manipulation attacks. Downside: significant performance overhead, every router must compute signatures. Adoption is very low in practice due to complexity. RPKI/ROV is far more practical and widespread."
+      explanationEn: "RPKI/ROA: validates that an AS is the legitimate originator of a prefix. But AS Path can still be manipulated. BGPsec (RFC 8205): each AS forwarding an UPDATE adds a cryptographic signature. Receiver validates every hop in the AS path was signed. Protects against path manipulation attacks. Downside: significant performance overhead, every router must compute signatures. Adoption is very low in practice due to complexity. RPKI/ROV is far more practical and widespread.",
       qEn: "What is BGPsec and how is it different from RPKI?",
       correctEn: "RPKI validates only the origin AS — BGPsec signs every hop in the AS Path — protects against path manipulation not just origin hijacking",
       choicesEn: [
@@ -5219,7 +5275,7 @@ export const quizBank = {
         "‏Cloudflare 2019 = פרסום accidental של IPv6 prefixes"
       ],
       explanation: "2019-06-24: DQE Communications (PA) שלחה routes שגויים לMainOne (Nigeria) שלחה לVerizon. ‏Verizon (AS701) = Tier-1 — לא filter! הכריזה ל-internet. ‏Cloudflare prefixes הוסטו דרך path ארוך ועמוס. ‏DQE קיבלה traffic ממשתמשים עולמיים לCFLR → collapse. ‏RPKI Invalid היה אמור לחסום. ‏AWS, Linode גם הושפעו. ‏Cloudflare פרסמה: 'Verizon צריכה לfilter את לקוחותיה.' IRR (Internet Routing Registry) + RPKI = שכבות הגנה שהיו מונעות זאת.",
-      explanationEn: "2019-06-24: DQE Communications (PA) sent wrong routes to MainOne (Nigeria), which forwarded to Verizon. Verizon (AS701) = Tier-1 — did not filter! Announced to the internet. Cloudflare prefixes were routed through a long, overloaded path. DQE received global traffic meant for Cloudflare causing collapse. RPKI Invalid should have blocked it. AWS and Linode were also affected. Lesson: IRR + RPKI are defense layers that would have prevented this."
+      explanationEn: "2019-06-24: DQE Communications (PA) sent wrong routes to MainOne (Nigeria), which forwarded to Verizon. Verizon (AS701) = Tier-1 — did not filter! Announced to the internet. Cloudflare prefixes were routed through a long, overloaded path. DQE received global traffic meant for Cloudflare causing collapse. RPKI Invalid should have blocked it. AWS and Linode were also affected. Lesson: IRR + RPKI are defense layers that would have prevented this.",
       qEn: "What happened in the Cloudflare 2019 BGP routing incident and what was the lesson?",
       correctEn: "MainOne (Nigeria) through Verizon announced important paths — traffic from Cloudflare users went through a small incapable AS — 1.5 hour outage — lesson: RPKI filtering is a must for large providers",
       choicesEn: [
@@ -5242,7 +5298,7 @@ export const quizBank = {
         "שם אחר לloopback interface"
       ],
       explanation: "‏veth pair = כבל וירטואלי. ‏Docker יוצר veth pair: קצה אחד (eth0) בnamespace של הcontainer, קצה שני (vethXXXXXX) בhost namespace ומחובר לbridge docker0. packet שנשלח מcontainer → eth0 → veth pair → vethXXX בhost → docker0 bridge → routing. ip link add veth0 type veth peer name veth1 יוצר את ה-pair.",
-      explanationEn: "veth pair = virtual cable. Docker creates a veth pair: one end (eth0) in the container's namespace, the other end (vethXXXXXX) in the host namespace connected to the docker0 bridge. Packet flow from container: eth0, veth pair, vethXXX on host, docker0 bridge, routing. ip link add veth0 type veth peer name veth1 creates the pair."
+      explanationEn: "veth pair = virtual cable. Docker creates a veth pair: one end (eth0) in the container's namespace, the other end (vethXXXXXX) in the host namespace connected to the docker0 bridge. Packet flow from container: eth0, veth pair, vethXXX on host, docker0 bridge, routing. ip link add veth0 type veth peer name veth1 creates the pair.",
       qEn: "What is a veth pair in Linux networking?",
       correctEn: "A pair of connected virtual ethernet interfaces — what enters one exits the other, used to connect container to host",
       choicesEn: [
@@ -5262,7 +5318,7 @@ export const quizBank = {
         "שניהם זהים, ההבדל הוא בממשק הניהול בלבד"
       ],
       explanation: "‏Flannel VXLAN: packets בין nodes מוצפנים ב-UDP header (encapsulation). פשוט להתקנה אבל overhead. ‏Calico BGP: כל Kubernetes node הוא BGP router שמפרסם את ה-podCIDR שלו. ‏Packets עוברים ב-L3 ישירות ללא encapsulation = ביצועים גבוהים יותר. ‏Calico מוסיף Network Policy. ‏Cilium (eBPF): מחליף iptables, O(1) lookups, L7 visibility.",
-      explanationEn: "Flannel VXLAN: packets between nodes are encapsulated in UDP header. Simple to install but has overhead. Calico BGP: every Kubernetes node is a BGP router advertising its podCIDR. Packets travel at L3 directly without encapsulation = higher performance. Calico adds Network Policy support. Cilium (eBPF): replaces iptables, O(1) lookups, L7 visibility."
+      explanationEn: "Flannel VXLAN: packets between nodes are encapsulated in UDP header. Simple to install but has overhead. Calico BGP: every Kubernetes node is a BGP router advertising its podCIDR. Packets travel at L3 directly without encapsulation = higher performance. Calico adds Network Policy support. Cilium (eBPF): replaces iptables, O(1) lookups, L7 visibility.",
       qEn: "What is the difference between Flannel and Calico as CNI plugins?",
       correctEn: "Flannel uses VXLAN overlay (encapsulation), Calico uses BGP routing (L3, no encapsulation, faster)",
       choicesEn: [
@@ -5282,7 +5338,7 @@ export const quizBank = {
         "תמיד עובר דרך kube-proxy על ה-master node"
       ],
       explanation: "‏Kubernetes CNI contract: כל pod יכול לדבר עם כל pod ב-pod IP שלו, ללא NAT. אותו node = veth pair → bridge → L2 forwarding מהיר. בין nodes: CNI מממש. ‏Flannel: מוסיף VXLAN header (UDP 8472) → underlay network → מסיר header ב-node היעד. ‏Calico: node1 יודע ש-10.0.2.0/24 נמצא ב-node2 דרך BGP → route ישיר ב-IP layer. kube-proxy מנהל Service IPs, לא pod-to-pod.",
-      explanationEn: "Kubernetes CNI contract: every pod can talk to every pod using its pod IP, without NAT. Same node = veth pair to bridge to fast L2 forwarding. Between nodes: CNI implements. Flannel: adds VXLAN header (UDP 8472), underlay network, removes header at destination node. Calico: node1 knows 10.0.2.0/24 is on node2 via BGP, direct IP layer route. kube-proxy manages Service IPs, not pod-to-pod."
+      explanationEn: "Kubernetes CNI contract: every pod can talk to every pod using its pod IP, without NAT. Same node = veth pair to bridge to fast L2 forwarding. Between nodes: CNI implements. Flannel: adds VXLAN header (UDP 8472), underlay network, removes header at destination node. Calico: node1 knows 10.0.2.0/24 is on node2 via BGP, direct IP layer route. kube-proxy manages Service IPs, not pod-to-pod.",
       qEn: "How does pod-to-pod communication work between two different nodes in Kubernetes?",
       correctEn: "Depends on CNI: Flannel = VXLAN tunnel, Calico = direct BGP routes, Cilium = eBPF forwarding",
       choicesEn: [
@@ -5302,7 +5358,7 @@ export const quizBank = {
         "כל containers בhost משתפים network namespace"
       ],
       explanation: "‏Linux Namespaces: network, PID, mount, UTS, IPC, user, cgroup. ‏Network namespace: ip netns add mynet → namespace חדש עם lo בלבד. ip link add veth0 type veth peer name veth1 → pair. ip link set veth1 netns mynet → veth1 עובר לnamespace. ip netns exec mynet ip addr show → רואה רק veth1 ו-lo. ‏Docker: בkubernetes — כל pod = namespace אחד ‎(containers בpod משתפים network namespace → localhost!)‎.",
-      explanationEn: "Linux Namespaces: network, PID, mount, UTS, IPC, user, cgroup. Network namespace: ip netns add mynet creates a new namespace with lo only. ip link add veth0 type veth peer name veth1 creates a pair. ip link set veth1 netns mynet moves veth1 to the namespace. ip netns exec mynet ip addr show sees only veth1 and lo. Docker: in Kubernetes, each pod = one namespace (containers in pod share network namespace and communicate via localhost!)."
+      explanationEn: "Linux Namespaces: network, PID, mount, UTS, IPC, user, cgroup. Network namespace: ip netns add mynet creates a new namespace with lo only. ip link add veth0 type veth peer name veth1 creates a pair. ip link set veth1 netns mynet moves veth1 to the namespace. ip netns exec mynet ip addr show sees only veth1 and lo. Docker: in Kubernetes, each pod = one namespace (containers in pod share network namespace and communicate via localhost!).",
       qEn: "What is a network namespace in Linux and how does Docker use it?",
       correctEn: "Network namespace isolates a full network stack (interfaces, routing, iptables) — each Docker container gets a separate namespace — containers cannot see each other's interfaces",
       choicesEn: [
@@ -5322,7 +5378,7 @@ export const quizBank = {
         "‏bridge ו-host זהים ב-Kubernetes"
       ],
       explanation: "‏Bridge (default): docker0 bridge IP 172.17.0.1. container מקבל 172.17.0.2. docker run -p 8080:80: iptables DNAT rule. ‏Host mode: docker run --network host nginx → nginx שומע על port 80 של host ישירות, ללא NAT. ביצועים טובים ‎(אין overhead)‎. סיכון: container רואה כל interfaces של host, port conflicts. ‏None: docker run --network none → container ללא network (air-gapped). ‏Macvlan: container מקבל MAC address ישיר ב-physical network.",
-      explanationEn: "Bridge (default): docker0 bridge IP 172.17.0.1. Container gets 172.17.0.2. docker run -p 8080:80 creates iptables DNAT rule. Host mode: docker run --network host nginx listens on host's port 80 directly, no NAT. Good performance (no overhead). Risk: container sees all host interfaces, port conflicts. None: docker run --network none creates container with no network (air-gapped). Macvlan: container gets MAC address directly on physical network."
+      explanationEn: "Bridge (default): docker0 bridge IP 172.17.0.1. Container gets 172.17.0.2. docker run -p 8080:80 creates iptables DNAT rule. Host mode: docker run --network host nginx listens on host's port 80 directly, no NAT. Good performance (no overhead). Risk: container sees all host interfaces, port conflicts. None: docker run --network none creates container with no network (air-gapped). Macvlan: container gets MAC address directly on physical network.",
       qEn: "What is the difference between bridge network mode and host network mode in Docker?",
       correctEn: "bridge: container gets a separate namespace, private IP from docker0 bridge, NAT outbound — host: container shares the host network namespace — high performance but no isolation",
       choicesEn: [
@@ -5342,7 +5398,7 @@ export const quizBank = {
         "מממש NetworkPolicy לסינון traffic בין pods"
       ],
       explanation: "‏Service ClusterIP (למשל: 10.96.0.1) לא קיימת כ-real interface! kube-proxy: מקשיב ל-Kubernetes API, כשService נוצרת → מוסיף iptables rules: DNAT 10.96.0.1:80 → בחר רנדומלי pod מEndpoints. ‏IPVS mode: L4 load balancer kernel module, יעיל יותר מiptables ל-cluster גדול. ‏Cilium יכול להחליף kube-proxy בeBPF: O(1) lookups במקום O(n) iptables rules. ‏CoreDNS עושה DNS resolution ‎(לא kube-proxy)‎.",
-      explanationEn: "Service ClusterIP (e.g., 10.96.0.1) does not exist as a real interface! kube-proxy: watches Kubernetes API, when Service is created it adds iptables rules: DNAT 10.96.0.1:80 randomly selects pod from Endpoints. IPVS mode: L4 load balancer kernel module, more efficient than iptables for large clusters. Cilium can replace kube-proxy with eBPF: O(1) lookups instead of O(n) iptables rules. CoreDNS handles DNS resolution (not kube-proxy)."
+      explanationEn: "Service ClusterIP (e.g., 10.96.0.1) does not exist as a real interface! kube-proxy: watches Kubernetes API, when Service is created it adds iptables rules: DNAT 10.96.0.1:80 randomly selects pod from Endpoints. IPVS mode: L4 load balancer kernel module, more efficient than iptables for large clusters. Cilium can replace kube-proxy with eBPF: O(1) lookups instead of O(n) iptables rules. CoreDNS handles DNS resolution (not kube-proxy).",
       qEn: "What is the role of kube-proxy in Kubernetes networking?",
       correctEn: "Manages iptables/IPVS rules on every node to route traffic from Service ClusterIP to the relevant pods",
       choicesEn: [
