@@ -694,7 +694,6 @@ function SimulationPage({ simId, content, t, lang }) {
   const SimComponent = sims[simId]
   return (
     <div className="content-body">
-      {lang === 'en' && <div className="sim-lang-notice">🇮🇱 This simulation is in Hebrew</div>}
       {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
       {SimComponent ? <SimComponent /> : <p>{t ? t('sim_unavailable') : 'Simulation not available'}</p>}
     </div>
