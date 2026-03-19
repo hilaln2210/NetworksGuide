@@ -6432,6 +6432,1888 @@ export const quizBank = {
         "Malware that runs with low privileges without admin"
       ]
     }
+  ],
+
+  // ============================================================
+  // Linux Track — Chapters 401-410
+  // ============================================================
+
+  401: [
+    {
+      q: "\u200Fמה תפקיד ה-Kernel (גרעין) במערכת לינוקס?",
+      correct: "\u200Fמנהל חומרה, זיכרון, תהליכים ורשת\nהוא הלב של מערכת ההפעלה",
+      choices: [
+        "\u200Fמנהל חומרה, זיכרון, תהליכים ורשת\nהוא הלב של מערכת ההפעלה",
+        "\u200Fמספק ממשק גרפי למשתמש",
+        "\u200Fמנהל חבילות ותוכנות מותקנות",
+        "\u200Fמספק שורת פקודה בלבד"
+      ],
+      explanation: "\u200Fה-Kernel הוא גרעין מערכת ההפעלה — השכבה שיושבת בין האפליקציות לחומרה. הוא מנהל את כל המשאבים: CPU, זיכרון, דיסקים, רשת.",
+      explanationEn: "The Kernel is the core of the OS — it sits between applications and hardware, managing all resources: CPU, memory, disks, and network.",
+      qEn: "What is the role of the Kernel in a Linux system?",
+      correctEn: "Manages hardware, memory, processes, and network\nIt is the heart of the operating system",
+      choicesEn: [
+        "Manages hardware, memory, processes, and network\nIt is the heart of the operating system",
+        "Provides a graphical user interface",
+        "Manages packages and installed software",
+        "Provides only a command-line interface"
+      ]
+    },
+    {
+      q: "\u200Fאיזו הפצת לינוקס מומלצת לבדיקות חדירה ואבטחת מידע?",
+      correct: "\u200FKali Linux — מגיעה עם מאות כלי האקינג מותקנים",
+      choices: [
+        "\u200FKali Linux — מגיעה עם מאות כלי האקינג מותקנים",
+        "\u200FUbuntu — ההפצה הפופולרית ביותר",
+        "\u200FFedora — מעבדת הניסויים של Red Hat",
+        "\u200FDebian — ההפצה היציבה ביותר"
+      ],
+      explanation: "\u200FKali Linux היא הפצה ייעודית ל-Penetration Testing. מגיעה עם כלים כמו Nmap, Wireshark, Metasploit ועוד מאות כלי אבטחה מותקנים.",
+      explanationEn: "Kali Linux is a distribution dedicated to penetration testing. It comes with tools like Nmap, Wireshark, Metasploit, and hundreds of other pre-installed security tools.",
+      qEn: "Which Linux distribution is recommended for penetration testing and security?",
+      correctEn: "Kali Linux — comes with hundreds of pre-installed hacking tools",
+      choicesEn: [
+        "Kali Linux — comes with hundreds of pre-installed hacking tools",
+        "Ubuntu — the most popular distribution",
+        "Fedora — Red Hat's experimental lab",
+        "Debian — the most stable distribution"
+      ]
+    },
+    {
+      q: "\u200Fמה נמצא בתיקיית /etc בלינוקס?",
+      correct: "\u200Fקבצי הגדרות של המערכת — רשת, סיסמאות, שירותים",
+      choices: [
+        "\u200Fקבצי הגדרות של המערכת — רשת, סיסמאות, שירותים",
+        "\u200Fקבצים זמניים שנמחקים בהפעלה מחדש",
+        "\u200Fתיקיות הבית של המשתמשים",
+        "\u200Fתוכנות ופקודות בסיסיות"
+      ],
+      explanation: "\u200F/etc מכילה את קבצי ההגדרות (configuration) של המערכת — כמו /etc/passwd (משתמשים), /etc/hosts (רשת), /etc/ssh/sshd_config (SSH).",
+      explanationEn: "/etc contains system configuration files — like /etc/passwd (users), /etc/hosts (network), /etc/ssh/sshd_config (SSH).",
+      qEn: "What is stored in the /etc directory in Linux?",
+      correctEn: "System configuration files — network, passwords, services",
+      choicesEn: [
+        "System configuration files — network, passwords, services",
+        "Temporary files deleted on reboot",
+        "User home directories",
+        "Basic programs and commands"
+      ]
+    },
+    {
+      q: "\u200Fלמה שרתי ייצור בלינוקס בדרך כלל לא מתקינים ממשק גרפי (GUI)?",
+      correct: "\u200FGUI צורך משאבים מיותרים, מגדיל שטח התקפה\nושרתים מנוהלים דרך SSH ו-Terminal",
+      choices: [
+        "\u200FGUI צורך משאבים מיותרים, מגדיל שטח התקפה\nושרתים מנוהלים דרך SSH ו-Terminal",
+        "\u200Fלינוקס לא תומך בממשק גרפי",
+        "\u200Fממשק גרפי לא עובד דרך רשת",
+        "\u200Fהממשק הגרפי בלינוקס לא יציב"
+      ],
+      explanation: "\u200Fשרתים לא צריכים מסך — מנהלים אותם מרחוק עם SSH. GUI צורך CPU וזיכרון שעדיפים לשירותים. בנוסף, פחות תוכנות = פחות פגיעויות אבטחה.",
+      explanationEn: "Servers don't need a screen — they're managed remotely via SSH. GUI consumes CPU and memory better used for services. Also, fewer programs = fewer security vulnerabilities.",
+      qEn: "Why don't production Linux servers usually install a GUI?",
+      correctEn: "GUI wastes resources, increases attack surface\nand servers are managed via SSH and Terminal",
+      choicesEn: [
+        "GUI wastes resources, increases attack surface\nand servers are managed via SSH and Terminal",
+        "Linux doesn't support graphical interfaces",
+        "Graphical interfaces don't work over network",
+        "The Linux GUI is not stable"
+      ]
+    },
+    {
+      q: "\u200Fמה מסמל הסימן $ בשורת הפקודה לעומת #?",
+      correct: "\u200F$ = משתמש רגיל\n# = root (מנהל מערכת)",
+      choices: [
+        "\u200F$ = משתמש רגיל\n# = root (מנהל מערכת)",
+        "\u200F$ = root\n# = הערה בסקריפט",
+        "\u200Fשניהם מסמלים את אותו הדבר",
+        "\u200F$ = פקודה חדשה\n# = המשך פקודה קודמת"
+      ],
+      explanation: "\u200Fה-prompt בלינוקס מציג $ למשתמש רגיל ו-# ל-root. עבודה כ-root מסוכנת — תמיד עדיף לעבוד כמשתמש רגיל ולהשתמש ב-sudo כשצריך.",
+      explanationEn: "The Linux prompt shows $ for a regular user and # for root. Working as root is dangerous — always work as a regular user and use sudo when needed.",
+      qEn: "What does the $ symbol mean in the command prompt compared to #?",
+      correctEn: "$ = regular user\n# = root (system administrator)",
+      choicesEn: [
+        "$ = regular user\n# = root (system administrator)",
+        "$ = root\n# = comment in script",
+        "Both mean the same thing",
+        "$ = new command\n# = continuation of previous command"
+      ]
+    }
+  ],
+
+  402: [
+    {
+      q: "\u200Fמה ההבדל בין > לבין >> בהפניית פלט?",
+      correct: "\u200F> מוחק את תוכן הקובץ וכותב מחדש\n>> מוסיף לסוף הקובץ בלי למחוק",
+      choices: [
+        "\u200F> מוחק את תוכן הקובץ וכותב מחדש\n>> מוסיף לסוף הקובץ בלי למחוק",
+        "\u200F> מוסיף לקובץ\n>> מוחק וכותב מחדש",
+        "\u200F> כותב לקובץ\n>> כותב לשני קבצים",
+        "\u200F> עובד עם טקסט\n>> עובד עם בינארי"
+      ],
+      explanation: "\u200Fלדוגמה: echo 'hello' > file.txt ימחק את התוכן הקיים וישים רק 'hello'. echo 'world' >> file.txt יוסיף 'world' אחרי 'hello'.",
+      explanationEn: "For example: echo 'hello' > file.txt erases existing content and puts only 'hello'. echo 'world' >> file.txt appends 'world' after 'hello'.",
+      qEn: "What is the difference between > and >> in output redirection?",
+      correctEn: "> overwrites the file content\n>> appends to the end without deleting",
+      choicesEn: [
+        "> overwrites the file content\n>> appends to the end without deleting",
+        "> appends to file\n>> overwrites",
+        "> writes to file\n>> writes to two files",
+        "> works with text\n>> works with binary"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה הדגל -r בפקודת grep?",
+      correct: "\u200Fמחפש רקורסיבית בכל הקבצים בתיקייה ותת-תיקיות",
+      choices: [
+        "\u200Fמחפש רקורסיבית בכל הקבצים בתיקייה ותת-תיקיות",
+        "\u200Fמחפש בסדר הפוך מסוף הקובץ",
+        "\u200Fמציג את השורות שלא מתאימות",
+        "\u200Fמחפש ביטוי רגולרי מורחב"
+      ],
+      explanation: "\u200Fgrep -r 'error' /var/log/ יחפש את המילה 'error' בכל הקבצים תחת /var/log/ כולל תת-תיקיות.",
+      explanationEn: "grep -r 'error' /var/log/ searches for 'error' in all files under /var/log/ including subdirectories.",
+      qEn: "What does the -r flag do in the grep command?",
+      correctEn: "Searches recursively in all files in directory and subdirectories",
+      choicesEn: [
+        "Searches recursively in all files in directory and subdirectories",
+        "Searches in reverse order from end of file",
+        "Shows lines that don't match",
+        "Searches with extended regular expressions"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה הסימן | (pipe) בלינוקס?",
+      correct: "\u200Fמעביר את הפלט של פקודה אחת כקלט לפקודה הבאה",
+      choices: [
+        "\u200Fמעביר את הפלט של פקודה אחת כקלט לפקודה הבאה",
+        "\u200Fמריץ שתי פקודות במקביל",
+        "\u200Fכותב פלט לקובץ",
+        "\u200Fמפריד בין שני נתיבים"
+      ],
+      explanation: "\u200Fלדוגמה: ps aux | grep nginx — הפלט של ps aux (כל התהליכים) עובר לgrep שמסנן רק שורות עם nginx.",
+      explanationEn: "For example: ps aux | grep nginx — the output of ps aux (all processes) is passed to grep which filters only lines containing nginx.",
+      qEn: "What does the | (pipe) symbol do in Linux?",
+      correctEn: "Passes the output of one command as input to the next command",
+      choicesEn: [
+        "Passes the output of one command as input to the next command",
+        "Runs two commands in parallel",
+        "Writes output to a file",
+        "Separates two paths"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין find לבין locate?",
+      correct: "\u200Ffind מחפש בזמן אמת (איטי אבל מעודכן)\nlocate מחפש במאגר מאונדקס (מהיר אבל צריך updatedb)",
+      choices: [
+        "\u200Ffind מחפש בזמן אמת (איטי אבל מעודכן)\nlocate מחפש במאגר מאונדקס (מהיר אבל צריך updatedb)",
+        "\u200Ffind מחפש טקסט בקבצים\nlocate מחפש שמות קבצים",
+        "\u200Ffind עובד רק על קבצים\nlocate עובד גם על תיקיות",
+        "\u200Fאין הבדל — שתיהן זהות"
+      ],
+      explanation: "\u200Ffind סורק את מערכת הקבצים בזמן אמת — איטי אבל תמיד מעודכן. locate מחפש במאגר שנבנה עם sudo updatedb — מהיר מאוד אבל יכול להחזיר תוצאות לא עדכניות.",
+      explanationEn: "find scans the filesystem in real-time — slow but always current. locate searches a database built with sudo updatedb — very fast but may return outdated results.",
+      qEn: "What is the difference between find and locate?",
+      correctEn: "find searches in real-time (slow but current)\nlocate searches an indexed database (fast but needs updatedb)",
+      choicesEn: [
+        "find searches in real-time (slow but current)\nlocate searches an indexed database (fast but needs updatedb)",
+        "find searches text inside files\nlocate searches file names",
+        "find works only on files\nlocate works on directories too",
+        "No difference — both are identical"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה הפקודה mkdir -p projects/web/frontend?",
+      correct: "\u200Fיוצרת את כל שרשרת התיקיות — כולל תיקיות אב שלא קיימות",
+      choices: [
+        "\u200Fיוצרת את כל שרשרת התיקיות — כולל תיקיות אב שלא קיימות",
+        "\u200Fיוצרת רק את התיקייה האחרונה (frontend)",
+        "\u200Fמוחקת תיקיות קיימות ויוצרת חדשות",
+        "\u200Fיוצרת תיקייה עם הרשאות מיוחדות"
+      ],
+      explanation: "\u200Fהדגל -p (parents) אומר ל-mkdir ליצור גם תיקיות אב שלא קיימות. בלי -p, אם projects לא קיימת, הפקודה תיכשל.",
+      explanationEn: "The -p (parents) flag tells mkdir to also create parent directories that don't exist. Without -p, if projects doesn't exist, the command fails.",
+      qEn: "What does mkdir -p projects/web/frontend do?",
+      correctEn: "Creates the entire directory chain — including parent directories that don't exist",
+      choicesEn: [
+        "Creates the entire directory chain — including parent directories that don't exist",
+        "Creates only the last directory (frontend)",
+        "Deletes existing directories and creates new ones",
+        "Creates a directory with special permissions"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה הפקודה wc -l /var/log/syslog?",
+      correct: "\u200Fמציגה את מספר השורות בקובץ syslog",
+      choices: [
+        "\u200Fמציגה את מספר השורות בקובץ syslog",
+        "\u200Fמציגה את מספר המילים בקובץ",
+        "\u200Fמציגה את גודל הקובץ בבתים",
+        "\u200Fמציגה את 10 השורות האחרונות"
+      ],
+      explanation: "\u200Fwc = Word Count. הדגל -l סופר שורות בלבד. בלי דגלים, wc מציג שורות, מילים ותווים.",
+      explanationEn: "wc = Word Count. The -l flag counts lines only. Without flags, wc shows lines, words, and characters.",
+      qEn: "What does the command wc -l /var/log/syslog do?",
+      correctEn: "Displays the number of lines in the syslog file",
+      choicesEn: [
+        "Displays the number of lines in the syslog file",
+        "Displays the number of words in the file",
+        "Displays the file size in bytes",
+        "Displays the last 10 lines"
+      ]
+    }
+  ],
+
+  403: [
+    {
+      q: "\u200Fמה מייצג הערך 755 בפקודת chmod?",
+      correct: "\u200Fבעלים: קריאה+כתיבה+הרצה (7)\nקבוצה ואחרים: קריאה+הרצה (5)",
+      choices: [
+        "\u200Fבעלים: קריאה+כתיבה+הרצה (7)\nקבוצה ואחרים: קריאה+הרצה (5)",
+        "\u200Fכולם יכולים לקרוא, לכתוב ולהריץ",
+        "\u200Fרק הבעלים יכול לגשת לקובץ",
+        "\u200Fקריאה בלבד לכולם"
+      ],
+      explanation: "\u200Fבשיטה המספרית: r=4, w=2, x=1. אז 7=rwx, 5=r-x. הסדר: בעלים|קבוצה|אחרים. 755 נפוץ לסקריפטים ותיקיות.",
+      explanationEn: "In octal notation: r=4, w=2, x=1. So 7=rwx, 5=r-x. Order: owner|group|others. 755 is common for scripts and directories.",
+      qEn: "What does the value 755 represent in chmod?",
+      correctEn: "Owner: read+write+execute (7)\nGroup and others: read+execute (5)",
+      choicesEn: [
+        "Owner: read+write+execute (7)\nGroup and others: read+execute (5)",
+        "Everyone can read, write, and execute",
+        "Only the owner can access the file",
+        "Read-only for everyone"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה SUID ולמה הוא עלול להיות מסוכן?",
+      correct: "\u200Fגורם לקובץ לרוץ עם הרשאות הבעלים שלו\nמסוכן כי פגיעות בתוכנה עם SUID של root = הרשאות root לתוקף",
+      choices: [
+        "\u200Fגורם לקובץ לרוץ עם הרשאות הבעלים שלו\nמסוכן כי פגיעות בתוכנה עם SUID של root = הרשאות root לתוקף",
+        "\u200Fמסתיר קובץ מפני משתמשים רגילים",
+        "\u200Fמונע מחיקה של קובץ על ידי אחרים",
+        "\u200Fמצפין את תוכן הקובץ"
+      ],
+      explanation: "\u200Fדוגמה: /usr/bin/passwd שייך ל-root ויש לו SUID — כך כל משתמש יכול לשנות את הסיסמה שלו. אם תוקף ימצא באג בתוכנה כזו — הוא מקבל root.",
+      explanationEn: "Example: /usr/bin/passwd is owned by root with SUID — so any user can change their password. If an attacker finds a bug in such a program, they get root access.",
+      qEn: "What does SUID do and why can it be dangerous?",
+      correctEn: "Makes a file run with its owner's permissions\nDangerous because a vulnerability in a SUID root program = root access for attacker",
+      choicesEn: [
+        "Makes a file run with its owner's permissions\nDangerous because a vulnerability in a SUID root program = root access for attacker",
+        "Hides a file from regular users",
+        "Prevents deletion of a file by others",
+        "Encrypts the file content"
+      ]
+    },
+    {
+      q: "\u200Fלמה חשוב להשתמש ב-visudo ולא לערוך ישירות את /etc/sudoers?",
+      correct: "\u200Fvisudo בודק שגיאות תחביר לפני שמירה\nשגיאה ב-sudoers יכולה לנעול אתכם מחוץ למערכת",
+      choices: [
+        "\u200Fvisudo בודק שגיאות תחביר לפני שמירה\nשגיאה ב-sudoers יכולה לנעול אתכם מחוץ למערכת",
+        "\u200Fvisudo מצפין את הקובץ",
+        "\u200Fvisudo יוצר גיבוי אוטומטי",
+        "\u200Fvisudo מאפשר עריכה מרובת משתמשים"
+      ],
+      explanation: "\u200Fאם עורכים sudoers ישירות ויש שגיאת תחביר — sudo יפסיק לעבוד. לא תוכלו לתקן כי צריך sudo כדי לערוך את הקובץ. visudo מונע מצב כזה.",
+      explanationEn: "If you edit sudoers directly and there's a syntax error, sudo stops working. You can't fix it because you need sudo to edit the file. visudo prevents this situation.",
+      qEn: "Why is it important to use visudo instead of editing /etc/sudoers directly?",
+      correctEn: "visudo checks for syntax errors before saving\nAn error in sudoers can lock you out of the system",
+      choicesEn: [
+        "visudo checks for syntax errors before saving\nAn error in sudoers can lock you out of the system",
+        "visudo encrypts the file",
+        "visudo creates an automatic backup",
+        "visudo allows multi-user editing"
+      ]
+    },
+    {
+      q: "\u200Fמה תפקיד Sticky Bit ואיפה רואים אותו בפועל?",
+      correct: "\u200Fרק בעלים של קובץ (או root) יכול למחוק אותו\nדוגמה: /tmp — כולם כותבים אבל לא מוחקים של אחרים",
+      choices: [
+        "\u200Fרק בעלים של קובץ (או root) יכול למחוק אותו\nדוגמה: /tmp — כולם כותבים אבל לא מוחקים של אחרים",
+        "\u200Fמונע שינוי הרשאות על קובץ",
+        "\u200Fמסתיר קובץ מתוך ls",
+        "\u200Fגורם לקובץ להישאר בזיכרון"
+      ],
+      explanation: "\u200Fב-/tmp יש Sticky Bit (מסומן ב-t): drwxrwxrwt. כולם יכולים ליצור קבצים שם, אבל רק הבעלים (או root) יכול למחוק קובץ שלו.",
+      explanationEn: "In /tmp there's a Sticky Bit (marked with t): drwxrwxrwt. Everyone can create files there, but only the owner (or root) can delete their own files.",
+      qEn: "What is the purpose of Sticky Bit and where is it used in practice?",
+      correctEn: "Only the file owner (or root) can delete it\nExample: /tmp — everyone writes but can't delete others' files",
+      choicesEn: [
+        "Only the file owner (or root) can delete it\nExample: /tmp — everyone writes but can't delete others' files",
+        "Prevents changing permissions on a file",
+        "Hides a file from ls",
+        "Keeps a file in memory"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין UID 0 לבין UID 1000?",
+      correct: "\u200FUID 0 = root (מנהל מערכת)\nUID 1000+ = משתמשים רגילים",
+      choices: [
+        "\u200FUID 0 = root (מנהל מערכת)\nUID 1000+ = משתמשים רגילים",
+        "\u200FUID 0 = משתמש ראשון שנוצר\nUID 1000 = משתמש אלף",
+        "\u200Fאין הבדל — שניהם משתמשים רגילים",
+        "\u200FUID 0 = שירותי מערכת\nUID 1000 = root"
+      ],
+      explanation: "\u200FUID 0 שמור ל-root — מנהל המערכת עם הרשאות מלאות. UIDs 1-999 לשירותי מערכת (daemon, www-data). UIDs 1000+ למשתמשים רגילים.",
+      explanationEn: "UID 0 is reserved for root — the system administrator with full permissions. UIDs 1-999 are for system services (daemon, www-data). UIDs 1000+ are for regular users.",
+      qEn: "What is the difference between UID 0 and UID 1000?",
+      correctEn: "UID 0 = root (system administrator)\nUID 1000+ = regular users",
+      choicesEn: [
+        "UID 0 = root (system administrator)\nUID 1000+ = regular users",
+        "UID 0 = first user created\nUID 1000 = user number thousand",
+        "No difference — both are regular users",
+        "UID 0 = system services\nUID 1000 = root"
+      ]
+    }
+  ],
+
+  404: [
+    {
+      q: "\u200Fאיזו פקודה מציגה את כל חיבורי הרשת הפעילים ואת התהליך שמשתמש בהם?",
+      correct: "\u200Fsudo ss -tulnp",
+      choices: [
+        "\u200Fsudo ss -tulnp",
+        "\u200Fip addr show",
+        "\u200Fping -c 4 localhost",
+        "\u200Ftraceroute localhost"
+      ],
+      explanation: "\u200Fss -tulnp: -t=TCP, -u=UDP, -l=LISTEN, -n=מספרי, -p=תהליך. sudo נדרש כדי לראות תהליכים של משתמשים אחרים.",
+      explanationEn: "ss -tulnp: -t=TCP, -u=UDP, -l=LISTEN, -n=numeric, -p=process. sudo is needed to see other users' processes.",
+      qEn: "Which command shows all active network connections and the process using them?",
+      correctEn: "sudo ss -tulnp",
+      choicesEn: [
+        "sudo ss -tulnp",
+        "ip addr show",
+        "ping -c 4 localhost",
+        "traceroute localhost"
+      ]
+    },
+    {
+      q: "\u200Fמה היתרון של אימות SSH מבוסס מפתח על פני סיסמה?",
+      correct: "\u200Fבטוח יותר — אי אפשר לנחש ב-brute force\nנוח יותר — לא צריך להקליד סיסמה",
+      choices: [
+        "\u200Fבטוח יותר — אי אפשר לנחש ב-brute force\nנוח יותר — לא צריך להקליד סיסמה",
+        "\u200Fמפתח מהיר יותר מסיסמה",
+        "\u200Fמפתח עובד רק ברשת מקומית",
+        "\u200Fסיסמה בטוחה יותר ממפתח"
+      ],
+      explanation: "\u200Fמפתח SSH הוא מחרוזת ארוכה מאוד שאי אפשר לנחש. אפשר גם להגביל מי יכול להתחבר על ידי ניהול המפתחות הציבוריים בשרת.",
+      explanationEn: "An SSH key is a very long string that cannot be guessed. You can also control who can connect by managing public keys on the server.",
+      qEn: "What is the advantage of SSH key-based authentication over passwords?",
+      correctEn: "More secure — cannot be brute-forced\nMore convenient — no need to type a password",
+      choicesEn: [
+        "More secure — cannot be brute-forced\nMore convenient — no need to type a password",
+        "Key is faster than password",
+        "Key only works on local network",
+        "Password is more secure than key"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין curl לבין wget?",
+      correct: "\u200Fcurl — כלי רב-תכליתי לבקשות HTTP (GET, POST, PUT)\nwget — מתמחה בהורדות, תומך בהמשך הורדה ו-mirroring",
+      choices: [
+        "\u200Fcurl — כלי רב-תכליתי לבקשות HTTP (GET, POST, PUT)\nwget — מתמחה בהורדות, תומך בהמשך הורדה ו-mirroring",
+        "\u200Fשניהם זהים לחלוטין",
+        "\u200Fcurl עובד רק עם HTTPS\nwget עובד עם HTTP",
+        "\u200Fcurl להורדות\nwget לבקשות API"
+      ],
+      explanation: "\u200Fcurl גמיש יותר — תומך בשיטות HTTP שונות, headers, authentication ועוד. wget מתמחה בהורדות — תומך ב-wget -c (המשך הורדה) ו-wget -r (mirroring).",
+      explanationEn: "curl is more flexible — supports different HTTP methods, headers, authentication, etc. wget specializes in downloads — supports wget -c (resume) and wget -r (mirroring).",
+      qEn: "What is the difference between curl and wget?",
+      correctEn: "curl — versatile tool for HTTP requests (GET, POST, PUT)\nwget — specializes in downloads, supports resume and mirroring",
+      choicesEn: [
+        "curl — versatile tool for HTTP requests (GET, POST, PUT)\nwget — specializes in downloads, supports resume and mirroring",
+        "Both are completely identical",
+        "curl works only with HTTPS\nwget works with HTTP",
+        "curl for downloads\nwget for API requests"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה הפקודה dig google.com?",
+      correct: "\u200Fשולחת שאילתת DNS ומציגה את כתובת ה-IP של google.com\nכולל פרטים מלאים על הרשומה",
+      choices: [
+        "\u200Fשולחת שאילתת DNS ומציגה את כתובת ה-IP של google.com\nכולל פרטים מלאים על הרשומה",
+        "\u200Fבודקת אם google.com זמין",
+        "\u200Fמציגה את מסלול החבילות ל-google.com",
+        "\u200Fמורידה את דף הבית של google.com"
+      ],
+      explanation: "\u200Fdig (Domain Information Groper) שולח שאילתת DNS ומחזיר את כתובת ה-IP, TTL, סוג הרשומה ועוד. dig @8.8.8.8 example.com משתמש ב-DNS server ספציפי.",
+      explanationEn: "dig (Domain Information Groper) sends a DNS query and returns the IP address, TTL, record type, and more. dig @8.8.8.8 example.com uses a specific DNS server.",
+      qEn: "What does the command dig google.com do?",
+      correctEn: "Sends a DNS query and shows google.com's IP address\nincluding full record details",
+      choicesEn: [
+        "Sends a DNS query and shows google.com's IP address\nincluding full record details",
+        "Checks if google.com is available",
+        "Shows the packet route to google.com",
+        "Downloads google.com's homepage"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה הפקודה ip route show?",
+      correct: "\u200Fמציגה את טבלת הניתוב — לאן המערכת שולחת חבילות רשת",
+      choices: [
+        "\u200Fמציגה את טבלת הניתוב — לאן המערכת שולחת חבילות רשת",
+        "\u200Fמציגה את כל כתובות ה-IP במערכת",
+        "\u200Fמציגה את מהירות חיבור הרשת",
+        "\u200Fמציגה את היסטוריית החיבורים"
+      ],
+      explanation: "\u200Fip route show מציגה את טבלת הניתוב, כולל default gateway — הנתב שדרכו יוצאים לאינטרנט. שורה כמו 'default via 192.168.1.1' אומרת שכל תעבורה לא-מקומית יוצאת דרך 192.168.1.1.",
+      explanationEn: "ip route show displays the routing table, including the default gateway — the router through which you reach the internet. A line like 'default via 192.168.1.1' means all non-local traffic goes through 192.168.1.1.",
+      qEn: "What does the command ip route show do?",
+      correctEn: "Shows the routing table — where the system sends network packets",
+      choicesEn: [
+        "Shows the routing table — where the system sends network packets",
+        "Shows all IP addresses on the system",
+        "Shows the network connection speed",
+        "Shows the connection history"
+      ]
+    }
+  ],
+
+  405: [
+    {
+      q: "\u200Fמה תפקיד שורת ה-Shebang (#!/bin/bash) בסקריפט?",
+      correct: "\u200Fאומרת למערכת ההפעלה באיזה מפרש להריץ את הסקריפט",
+      choices: [
+        "\u200Fאומרת למערכת ההפעלה באיזה מפרש להריץ את הסקריפט",
+        "\u200Fהערה שמתארת את מטרת הסקריפט",
+        "\u200Fמגדירה משתנה סביבה",
+        "\u200Fמפעילה מצב דיבוג"
+      ],
+      explanation: "\u200F#!/bin/bash אומר למערכת: 'הרץ את הסקריפט הזה עם Bash'. אפשר גם #!/usr/bin/python3 לסקריפט פייתון, או #!/bin/sh ל-shell בסיסי.",
+      explanationEn: "#!/bin/bash tells the system: 'Run this script with Bash'. You can also use #!/usr/bin/python3 for Python scripts, or #!/bin/sh for basic shell.",
+      qEn: "What is the purpose of the Shebang line (#!/bin/bash) in a script?",
+      correctEn: "Tells the operating system which interpreter to use to run the script",
+      choicesEn: [
+        "Tells the operating system which interpreter to use to run the script",
+        "A comment describing the script's purpose",
+        "Defines an environment variable",
+        "Enables debug mode"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין $@ לבין $# בסקריפט Bash?",
+      correct: "\u200F$@ = כל הארגומנטים שהועברו\n$# = מספר הארגומנטים",
+      choices: [
+        "\u200F$@ = כל הארגומנטים שהועברו\n$# = מספר הארגומנטים",
+        "\u200F$@ = מספר הארגומנטים\n$# = כל הארגומנטים",
+        "\u200F$@ = שם הסקריפט\n$# = קוד החזרה",
+        "\u200Fשניהם מציגים את כל הארגומנטים"
+      ],
+      explanation: "\u200Fאם מריצים ./script.sh a b c: $@ = 'a b c', $# = 3, $1 = 'a', $0 = './script.sh'.",
+      explanationEn: "If running ./script.sh a b c: $@ = 'a b c', $# = 3, $1 = 'a', $0 = './script.sh'.",
+      qEn: "What is the difference between $@ and $# in a Bash script?",
+      correctEn: "$@ = all arguments passed\n$# = number of arguments",
+      choicesEn: [
+        "$@ = all arguments passed\n$# = number of arguments",
+        "$@ = number of arguments\n$# = all arguments",
+        "$@ = script name\n$# = return code",
+        "Both display all arguments"
+      ]
+    },
+    {
+      q: "\u200Fמה בודק הדגל -f בתנאי [[ -f \"$FILE\" ]]?",
+      correct: "\u200Fשהנתיב קיים והוא קובץ רגיל (לא תיקייה)",
+      choices: [
+        "\u200Fשהנתיב קיים והוא קובץ רגיל (לא תיקייה)",
+        "\u200Fשהקובץ ריק",
+        "\u200Fשהקובץ ניתן להרצה",
+        "\u200Fשהקובץ שונה לאחרונה"
+      ],
+      explanation: "\u200F-f בודק שהנתיב קיים וזה קובץ רגיל. -d לתיקייה, -e לקיום כלשהו, -s שלא ריק, -r שקריא, -x שניתן להרצה.",
+      explanationEn: "-f checks that the path exists and is a regular file. -d for directory, -e for any existence, -s for non-empty, -r for readable, -x for executable.",
+      qEn: "What does the -f flag check in the condition [[ -f \"$FILE\" ]]?",
+      correctEn: "That the path exists and is a regular file (not a directory)",
+      choicesEn: [
+        "That the path exists and is a regular file (not a directory)",
+        "That the file is empty",
+        "That the file is executable",
+        "That the file was recently modified"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה המילה local בתוך פונקציה ב-Bash?",
+      correct: "\u200Fמגדירה משתנה מקומי לפונקציה\nבלי local — המשתנה גלובלי ונגיש מכל מקום",
+      choices: [
+        "\u200Fמגדירה משתנה מקומי לפונקציה\nבלי local — המשתנה גלובלי ונגיש מכל מקום",
+        "\u200Fמגדירה משתנה קבוע שלא ניתן לשינוי",
+        "\u200Fמייצאת משתנה לסביבה",
+        "\u200Fמוחקת משתנה"
+      ],
+      explanation: "\u200Fבלי local, משתנה שנוצר בפונקציה נגיש מכל מקום בסקריפט ויכול לדרוס משתנים אחרים. עם local — קיים רק בתוך הפונקציה.",
+      explanationEn: "Without local, a variable created in a function is accessible everywhere in the script and can overwrite other variables. With local — it exists only inside the function.",
+      qEn: "What does the 'local' keyword do inside a Bash function?",
+      correctEn: "Defines a variable local to the function\nWithout local — the variable is global and accessible everywhere",
+      choicesEn: [
+        "Defines a variable local to the function\nWithout local — the variable is global and accessible everywhere",
+        "Defines a constant variable that cannot be changed",
+        "Exports a variable to the environment",
+        "Deletes a variable"
+      ]
+    },
+    {
+      q: "\u200Fמה מחזיר $? אחרי הרצת פקודה?",
+      correct: "\u200Fאת קוד החזרה של הפקודה האחרונה\n0 = הצלחה, כל ערך אחר = כישלון",
+      choices: [
+        "\u200Fאת קוד החזרה של הפקודה האחרונה\n0 = הצלחה, כל ערך אחר = כישלון",
+        "\u200Fאת ה-PID של הפקודה האחרונה",
+        "\u200Fאת הפלט של הפקודה האחרונה",
+        "\u200Fאת שם הפקודה האחרונה"
+      ],
+      explanation: "\u200Fלאחר כל פקודה, $? מכיל את קוד היציאה. 0 = הצלחה. למשל: grep 'text' file.txt; echo $? — אם נמצא מחזיר 0, אם לא — 1.",
+      explanationEn: "After every command, $? contains the exit code. 0 = success. For example: grep 'text' file.txt; echo $? — returns 0 if found, 1 if not.",
+      qEn: "What does $? return after running a command?",
+      correctEn: "The exit code of the last command\n0 = success, any other value = failure",
+      choicesEn: [
+        "The exit code of the last command\n0 = success, any other value = failure",
+        "The PID of the last command",
+        "The output of the last command",
+        "The name of the last command"
+      ]
+    }
+  ],
+
+  406: [
+    {
+      q: "\u200Fמה ההבדל בין SIGTERM (15) לבין SIGKILL (9)?",
+      correct: "\u200FSIGTERM מבקש מהתהליך להסתיים בסדר (יכול לנקות)\nSIGKILL הורג מיידית (בלי אפשרות לנקות)",
+      choices: [
+        "\u200FSIGTERM מבקש מהתהליך להסתיים בסדר (יכול לנקות)\nSIGKILL הורג מיידית (בלי אפשרות לנקות)",
+        "\u200FSIGTERM הורג מיידית\nSIGKILL מבקש בעדינות",
+        "\u200Fשניהם עושים את אותו הדבר",
+        "\u200FSIGTERM לתהליכי מערכת\nSIGKILL למשתמש"
+      ],
+      explanation: "\u200Fתמיד נסו kill PID (SIGTERM) קודם — נותן לתהליך לסגור חיבורים ולשמור נתונים. רק אם לא מגיב — kill -9 PID (SIGKILL).",
+      explanationEn: "Always try kill PID (SIGTERM) first — lets the process close connections and save data. Only if unresponsive — kill -9 PID (SIGKILL).",
+      qEn: "What is the difference between SIGTERM (15) and SIGKILL (9)?",
+      correctEn: "SIGTERM asks the process to terminate gracefully (can clean up)\nSIGKILL kills immediately (no chance to clean up)",
+      choicesEn: [
+        "SIGTERM asks the process to terminate gracefully (can clean up)\nSIGKILL kills immediately (no chance to clean up)",
+        "SIGTERM kills immediately\nSIGKILL asks gently",
+        "Both do the same thing",
+        "SIGTERM for system processes\nSIGKILL for user processes"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה nohup ולמה צריך אותו?",
+      correct: "\u200Fמונע מתהליך ברקע להיהרג כשסוגרים Terminal\nבלעדיו, התהליך מקבל SIGHUP ומסתיים",
+      choices: [
+        "\u200Fמונע מתהליך ברקע להיהרג כשסוגרים Terminal\nבלעדיו, התהליך מקבל SIGHUP ומסתיים",
+        "\u200Fמריץ תהליך בעדיפות גבוהה",
+        "\u200Fמגביל את צריכת הזיכרון של תהליך",
+        "\u200Fמונע מתהליך לכתוב לדיסק"
+      ],
+      explanation: "\u200Fnohup python script.py > log.txt 2>&1 & — ירוץ ברקע וימשיך גם אחרי התנתקות מ-SSH. הפלט נשמר ב-log.txt.",
+      explanationEn: "nohup python script.py > log.txt 2>&1 & — runs in background and continues even after SSH disconnect. Output is saved to log.txt.",
+      qEn: "What does nohup do and why is it needed?",
+      correctEn: "Prevents a background process from being killed when Terminal closes\nWithout it, the process receives SIGHUP and terminates",
+      choicesEn: [
+        "Prevents a background process from being killed when Terminal closes\nWithout it, the process receives SIGHUP and terminates",
+        "Runs a process with high priority",
+        "Limits a process's memory usage",
+        "Prevents a process from writing to disk"
+      ]
+    },
+    {
+      q: "\u200Fאיך מגדירים שירות שיעלה אוטומטית בעליית המערכת?",
+      correct: "\u200Fsudo systemctl enable service-name",
+      choices: [
+        "\u200Fsudo systemctl enable service-name",
+        "\u200Fsudo systemctl start service-name",
+        "\u200Fsudo systemctl restart service-name",
+        "\u200Fsudo systemctl reload service-name"
+      ],
+      explanation: "\u200Fenable יוצר symlink שגורם ל-systemd להפעיל את השירות אוטומטית ב-boot. start מפעיל עכשיו (לא שומר ל-boot). disable מבטל את ההפעלה האוטומטית.",
+      explanationEn: "enable creates a symlink that causes systemd to start the service automatically at boot. start launches now (doesn't persist). disable cancels auto-start.",
+      qEn: "How do you configure a service to start automatically on system boot?",
+      correctEn: "sudo systemctl enable service-name",
+      choicesEn: [
+        "sudo systemctl enable service-name",
+        "sudo systemctl start service-name",
+        "sudo systemctl restart service-name",
+        "sudo systemctl reload service-name"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה הפקודה journalctl -u nginx -f?",
+      correct: "\u200Fמציגה את הלוגים של שירות nginx במעקב חי (real-time)",
+      choices: [
+        "\u200Fמציגה את הלוגים של שירות nginx במעקב חי (real-time)",
+        "\u200Fמפעילה מחדש את שירות nginx",
+        "\u200Fמציגה את קובץ ההגדרות של nginx",
+        "\u200Fמוחקת את הלוגים של nginx"
+      ],
+      explanation: "\u200Fjournalctl -u nginx מסנן לוגים של nginx בלבד. -f (follow) מציג שורות חדשות בזמן אמת — כמו tail -f. שימושי לדיבוג בעיות בשירותים.",
+      explanationEn: "journalctl -u nginx filters logs for nginx only. -f (follow) shows new lines in real-time — like tail -f. Useful for debugging service issues.",
+      qEn: "What does the command journalctl -u nginx -f do?",
+      correctEn: "Shows nginx service logs in real-time (live follow)",
+      choicesEn: [
+        "Shows nginx service logs in real-time (live follow)",
+        "Restarts the nginx service",
+        "Shows the nginx configuration file",
+        "Deletes nginx logs"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין Ctrl+Z לבין Ctrl+C?",
+      correct: "\u200FCtrl+Z מקפיא (suspend) את התהליך\nCtrl+C שולח SIGINT ועוצר אותו",
+      choices: [
+        "\u200FCtrl+Z מקפיא (suspend) את התהליך\nCtrl+C שולח SIGINT ועוצר אותו",
+        "\u200Fשניהם עוצרים את התהליך",
+        "\u200FCtrl+Z עוצר\nCtrl+C מקפיא",
+        "\u200FCtrl+Z סוגר Terminal\nCtrl+C מנקה מסך"
+      ],
+      explanation: "\u200FCtrl+Z שולח SIGSTOP — התהליך מוקפא אבל עדיין קיים. אפשר להחזיר אותו עם fg (חזית) או bg (רקע). Ctrl+C שולח SIGINT — בדרך כלל מסיים את התהליך.",
+      explanationEn: "Ctrl+Z sends SIGSTOP — the process is frozen but still exists. You can resume with fg (foreground) or bg (background). Ctrl+C sends SIGINT — usually terminates the process.",
+      qEn: "What is the difference between Ctrl+Z and Ctrl+C?",
+      correctEn: "Ctrl+Z suspends (freezes) the process\nCtrl+C sends SIGINT and stops it",
+      choicesEn: [
+        "Ctrl+Z suspends (freezes) the process\nCtrl+C sends SIGINT and stops it",
+        "Both stop the process",
+        "Ctrl+Z stops\nCtrl+C freezes",
+        "Ctrl+Z closes Terminal\nCtrl+C clears screen"
+      ]
+    }
+  ],
+
+  407: [
+    {
+      q: "\u200Fמה ההבדל בין apt update לבין apt upgrade?",
+      correct: "\u200Fapt update מעדכן את רשימת החבילות הזמינות\napt upgrade מתקין גרסאות חדשות של חבילות מותקנות",
+      choices: [
+        "\u200Fapt update מעדכן את רשימת החבילות הזמינות\napt upgrade מתקין גרסאות חדשות של חבילות מותקנות",
+        "\u200Fשניהם מתקינים עדכונים",
+        "\u200Fapt update מתקין חבילות\napt upgrade מעדכן רשימות",
+        "\u200Fapt update לחבילות חדשות\napt upgrade למערכת ההפעלה"
+      ],
+      explanation: "\u200Fapt update מוריד את רשימת החבילות העדכנית מהמאגרים — לא מתקין כלום. apt upgrade משתמש ברשימה הזו כדי לשדרג חבילות שכבר מותקנות.",
+      explanationEn: "apt update downloads the latest package list from repositories — installs nothing. apt upgrade uses that list to upgrade already installed packages.",
+      qEn: "What is the difference between apt update and apt upgrade?",
+      correctEn: "apt update refreshes the list of available packages\napt upgrade installs new versions of installed packages",
+      choicesEn: [
+        "apt update refreshes the list of available packages\napt upgrade installs new versions of installed packages",
+        "Both install updates",
+        "apt update installs packages\napt upgrade refreshes lists",
+        "apt update for new packages\napt upgrade for the OS"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין apt remove לבין apt purge?",
+      correct: "\u200Fremove מסיר את התוכנה\npurge מסיר גם את קבצי ההגדרות",
+      choices: [
+        "\u200Fremove מסיר את התוכנה\npurge מסיר גם את קבצי ההגדרות",
+        "\u200Fשניהם מסירים הכל",
+        "\u200Fremove מסיר את ההגדרות\npurge מסיר את התוכנה",
+        "\u200Fremove לחבילות קטנות\npurge לחבילות גדולות"
+      ],
+      explanation: "\u200Fapt remove nginx מסיר את nginx אבל משאיר קבצי הגדרות ב-/etc/nginx. apt purge nginx מסיר גם את ההגדרות — התקנה נקייה אחר כך.",
+      explanationEn: "apt remove nginx removes nginx but leaves config files in /etc/nginx. apt purge nginx removes configs too — for a clean reinstall later.",
+      qEn: "What is the difference between apt remove and apt purge?",
+      correctEn: "remove removes the software\npurge also removes configuration files",
+      choicesEn: [
+        "remove removes the software\npurge also removes configuration files",
+        "Both remove everything",
+        "remove removes configs\npurge removes the software",
+        "remove for small packages\npurge for large packages"
+      ]
+    },
+    {
+      q: "\u200Fמה היתרון של snap/flatpak על פני apt/dnf?",
+      correct: "\u200Fחבילות אוניברסליות שעובדות על כל הפצה\nכל חבילה כוללת את כל ה-dependencies — בלי קונפליקטים",
+      choices: [
+        "\u200Fחבילות אוניברסליות שעובדות על כל הפצה\nכל חבילה כוללת את כל ה-dependencies — בלי קונפליקטים",
+        "\u200Fקטנות יותר וצורכות פחות זיכרון",
+        "\u200Fמהירות יותר להתקנה",
+        "\u200Fבטוחות יותר מחבילות רגילות"
+      ],
+      explanation: "\u200Fsnap ו-flatpak עובדות על Ubuntu, Fedora, Debian ועוד — ללא תלות בהפצה. החיסרון: גודל גדול יותר וצריכת זיכרון גבוהה כי כל חבילה כוללת את כל מה שהיא צריכה.",
+      explanationEn: "snap and flatpak work on Ubuntu, Fedora, Debian, and more — independent of distribution. Downside: larger size and higher memory usage because each package includes everything it needs.",
+      qEn: "What is the advantage of snap/flatpak over apt/dnf?",
+      correctEn: "Universal packages that work on any distribution\nEach package includes all dependencies — no conflicts",
+      choicesEn: [
+        "Universal packages that work on any distribution\nEach package includes all dependencies — no conflicts",
+        "Smaller and use less memory",
+        "Faster to install",
+        "More secure than regular packages"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה ./configure בתהליך בנייה מקוד מקור?",
+      correct: "\u200Fבודק שהמערכת מכילה את כל ה-dependencies\nויוצר Makefile מותאם למערכת הנוכחית",
+      choices: [
+        "\u200Fבודק שהמערכת מכילה את כל ה-dependencies\nויוצר Makefile מותאם למערכת הנוכחית",
+        "\u200Fמקמפל את הקוד",
+        "\u200Fמתקין את התוכנה",
+        "\u200Fמוריד את קוד המקור"
+      ],
+      explanation: "\u200F./configure → make → sudo make install. configure בודק dependencies ויוצר Makefile. make מקמפל. make install מעתיק קבצים מקומפלים למערכת.",
+      explanationEn: "./configure → make → sudo make install. configure checks dependencies and creates Makefile. make compiles. make install copies compiled files to the system.",
+      qEn: "What does ./configure do in the source build process?",
+      correctEn: "Checks that the system has all dependencies\nand creates a Makefile tailored to the current system",
+      choicesEn: [
+        "Checks that the system has all dependencies\nand creates a Makefile tailored to the current system",
+        "Compiles the code",
+        "Installs the software",
+        "Downloads the source code"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין פורמט .deb לבין .rpm?",
+      correct: "\u200F.deb = חבילות של Debian/Ubuntu (apt)\n.rpm = חבילות של Red Hat/CentOS (dnf/yum)",
+      choices: [
+        "\u200F.deb = חבילות של Debian/Ubuntu (apt)\n.rpm = חבילות של Red Hat/CentOS (dnf/yum)",
+        "\u200F.deb לתוכנות גדולות\n.rpm לתוכנות קטנות",
+        "\u200F.deb חדש יותר מ-.rpm",
+        "\u200Fשניהם עובדים על כל הפצה"
+      ],
+      explanation: "\u200Fהפורמטים לא תואמים — חבילת .deb לא תעבוד על CentOS ולהפך. לכן snap ו-flatpak נוצרו כפתרון אוניברסלי.",
+      explanationEn: "The formats are incompatible — a .deb package won't work on CentOS and vice versa. That's why snap and flatpak were created as universal solutions.",
+      qEn: "What is the difference between .deb and .rpm formats?",
+      correctEn: ".deb = Debian/Ubuntu packages (apt)\n.rpm = Red Hat/CentOS packages (dnf/yum)",
+      choicesEn: [
+        ".deb = Debian/Ubuntu packages (apt)\n.rpm = Red Hat/CentOS packages (dnf/yum)",
+        ".deb for large software\n.rpm for small software",
+        ".deb is newer than .rpm",
+        "Both work on any distribution"
+      ]
+    }
+  ],
+
+  408: [
+    {
+      q: "\u200Fמה ההבדל בין df לבין du?",
+      correct: "\u200Fdf מציג שטח פנוי בכל מערכת קבצים (תמונה כללית)\ndu מציג כמה שטח תיקייה ספציפית תופסת",
+      choices: [
+        "\u200Fdf מציג שטח פנוי בכל מערכת קבצים (תמונה כללית)\ndu מציג כמה שטח תיקייה ספציפית תופסת",
+        "\u200Fdf לקבצים\ndu לתיקיות",
+        "\u200Fdf מציג גדלים ב-GB\ndu מציג ב-bytes",
+        "\u200Fשניהם מציגים את אותו מידע"
+      ],
+      explanation: "\u200Fdf -h מראה את כל ה-mount points וכמה שטח תפוס/פנוי בכל אחד. du -sh /var/log מראה כמה /var/log תופס בדיוק.",
+      explanationEn: "df -h shows all mount points and how much space is used/free on each. du -sh /var/log shows exactly how much /var/log occupies.",
+      qEn: "What is the difference between df and du?",
+      correctEn: "df shows free space on every filesystem (overview)\ndu shows how much space a specific directory occupies",
+      choicesEn: [
+        "df shows free space on every filesystem (overview)\ndu shows how much space a specific directory occupies",
+        "df for files\ndu for directories",
+        "df shows sizes in GB\ndu shows in bytes",
+        "Both show the same information"
+      ]
+    },
+    {
+      q: "\u200Fלמה עדיף להשתמש ב-UUID ולא ב-/dev/sda1 בקובץ fstab?",
+      correct: "\u200FUUID לא משתנה גם אם סדר הדיסקים משתנה\n/dev/sdX יכול להתחלף בהוספת דיסק",
+      choices: [
+        "\u200FUUID לא משתנה גם אם סדר הדיסקים משתנה\n/dev/sdX יכול להתחלף בהוספת דיסק",
+        "\u200FUUID מהיר יותר",
+        "\u200FUUID קצר יותר לכתיבה",
+        "\u200F/dev/sda1 לא נתמך ב-fstab"
+      ],
+      explanation: "\u200Fאם מוסיפים דיסק חדש, /dev/sda יכול להפוך ל-/dev/sdb. UUID ייחודי ולא משתנה — כך המערכת תמיד עוגנת את הדיסק הנכון. blkid מציג UUIDs.",
+      explanationEn: "If a new disk is added, /dev/sda can become /dev/sdb. UUID is unique and doesn't change — so the system always mounts the correct disk. blkid shows UUIDs.",
+      qEn: "Why is it better to use UUID instead of /dev/sda1 in fstab?",
+      correctEn: "UUID doesn't change even if disk order changes\n/dev/sdX can swap when adding a disk",
+      choicesEn: [
+        "UUID doesn't change even if disk order changes\n/dev/sdX can swap when adding a disk",
+        "UUID is faster",
+        "UUID is shorter to type",
+        "/dev/sda1 is not supported in fstab"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין ext4 לבין xfs?",
+      correct: "\u200Fext4 — ברירת מחדל יציבה, טוב לשימוש כללי\nxfs — ביצועים גבוהים עם קבצים גדולים ומסדי נתונים",
+      choices: [
+        "\u200Fext4 — ברירת מחדל יציבה, טוב לשימוש כללי\nxfs — ביצועים גבוהים עם קבצים גדולים ומסדי נתונים",
+        "\u200Fext4 חדש יותר מ-xfs",
+        "\u200Fxfs תומך ב-journaling ו-ext4 לא",
+        "\u200Fאין הבדל מעשי ביניהם"
+      ],
+      explanation: "\u200Fext4 יציב ונתמך בכל מקום — מתאים לשימוש כללי. xfs מצטיין בכתיבה מקבילית ובנפחים גדולים — מתאים למסדי נתונים ומדיה. שניהם תומכים ב-journaling.",
+      explanationEn: "ext4 is stable and supported everywhere — good for general use. xfs excels at parallel writing and large volumes — good for databases and media. Both support journaling.",
+      qEn: "What is the difference between ext4 and xfs?",
+      correctEn: "ext4 — stable default, good for general use\nxfs — high performance with large files and databases",
+      choicesEn: [
+        "ext4 — stable default, good for general use\nxfs — high performance with large files and databases",
+        "ext4 is newer than xfs",
+        "xfs supports journaling and ext4 doesn't",
+        "No practical difference between them"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה הפקודה mount -a?",
+      correct: "\u200Fעוגנת את כל מערכות הקבצים שמוגדרות ב-/etc/fstab",
+      choices: [
+        "\u200Fעוגנת את כל מערכות הקבצים שמוגדרות ב-/etc/fstab",
+        "\u200Fמנתקת את כל מערכות הקבצים",
+        "\u200Fמציגה את כל ה-mounts הפעילים",
+        "\u200Fיוצרת מערכת קבצים חדשה"
+      ],
+      explanation: "\u200Fmount -a קוראת את /etc/fstab ועוגנת כל מה שלא עגון עדיין. שימושי לבדיקה אחרי עריכת fstab — בלי reboot.",
+      explanationEn: "mount -a reads /etc/fstab and mounts everything not yet mounted. Useful for testing after editing fstab — without rebooting.",
+      qEn: "What does the command mount -a do?",
+      correctEn: "Mounts all filesystems defined in /etc/fstab",
+      choicesEn: [
+        "Mounts all filesystems defined in /etc/fstab",
+        "Unmounts all filesystems",
+        "Shows all active mounts",
+        "Creates a new filesystem"
+      ]
+    },
+    {
+      q: "\u200Fמה מיוחד במערכת קבצים btrfs לעומת ext4?",
+      correct: "\u200Ftbtrfs תומך ב-snapshots, דחיסה מובנית ו-RAID מובנה",
+      choices: [
+        "\u200Ftbtrfs תומך ב-snapshots, דחיסה מובנית ו-RAID מובנה",
+        "\u200Fbtrfs מהיר יותר בהרבה",
+        "\u200Fbtrfs תומך בקבצים גדולים יותר",
+        "\u200Fbtrfs יציב יותר"
+      ],
+      explanation: "\u200Fbtrfs מספק snapshots — תמונות מצב שאפשר לחזור אליהן, דחיסה שחוסכת מקום, ו-RAID בלי כלים נוספים. מתאים ל-Homelab ו-NAS.",
+      explanationEn: "btrfs provides snapshots — state images you can roll back to, compression that saves space, and RAID without additional tools. Suitable for Homelab and NAS.",
+      qEn: "What is special about the btrfs filesystem compared to ext4?",
+      correctEn: "btrfs supports snapshots, built-in compression, and built-in RAID",
+      choicesEn: [
+        "btrfs supports snapshots, built-in compression, and built-in RAID",
+        "btrfs is much faster",
+        "btrfs supports larger files",
+        "btrfs is more stable"
+      ]
+    }
+  ],
+
+  409: [
+    {
+      q: "\u200Fמה הצעד הראשון בפתרון תקלה בלינוקס?",
+      correct: "\u200Fלבדוק את הלוגים — journalctl או /var/log/syslog",
+      choices: [
+        "\u200Fלבדוק את הלוגים — journalctl או /var/log/syslog",
+        "\u200Fלהפעיל מחדש את השרת",
+        "\u200Fלהתקין מחדש את התוכנה",
+        "\u200Fלשנות הרשאות קבצים"
+      ],
+      explanation: "\u200Fהמתודולוגיה: הגדר בעיה → בדוק לוגים → בדוק רשת → בדוק דיסק → בדוק תהליכים. הלוגים הם המקור הראשון למידע.",
+      explanationEn: "The methodology: define problem → check logs → check network → check disk → check processes. Logs are the first source of information.",
+      qEn: "What is the first step in troubleshooting a Linux issue?",
+      correctEn: "Check the logs — journalctl or /var/log/syslog",
+      choicesEn: [
+        "Check the logs — journalctl or /var/log/syslog",
+        "Restart the server",
+        "Reinstall the software",
+        "Change file permissions"
+      ]
+    },
+    {
+      q: "\u200Fמה מציין load average של 8.0 על שרת עם 4 ליבות?",
+      correct: "\u200Fהשרת עמוס פי 2 מהקיבולת שלו\nיש 4 תהליכים שמחכים בתור",
+      choices: [
+        "\u200Fהשרת עמוס פי 2 מהקיבולת שלו\nיש 4 תהליכים שמחכים בתור",
+        "\u200Fהשרת בניצול של 80%",
+        "\u200F8 משתמשים מחוברים",
+        "\u200F8 GB זיכרון בשימוש"
+      ],
+      explanation: "\u200Fload average מייצג מספר תהליכים שמחכים ל-CPU. על 4 ליבות, load 4.0 = 100%. load 8.0 = עומס כפול. צריך לזהות את הגורם עם top.",
+      explanationEn: "Load average represents processes waiting for CPU. On 4 cores, load 4.0 = 100%. Load 8.0 = double capacity. Need to identify the cause with top.",
+      qEn: "What does a load average of 8.0 mean on a server with 4 cores?",
+      correctEn: "The server is at 2x its capacity\n4 processes are waiting in queue",
+      choicesEn: [
+        "The server is at 2x its capacity\n4 processes are waiting in queue",
+        "The server is at 80% utilization",
+        "8 users are connected",
+        "8 GB of memory in use"
+      ]
+    },
+    {
+      q: "\u200Fהפקודה dmesg מציגה הודעות של:",
+      correct: "\u200Fגרעין המערכת (Kernel) — חומרה, דרייברים, boot",
+      choices: [
+        "\u200Fגרעין המערכת (Kernel) — חומרה, דרייברים, boot",
+        "\u200Fכל השירותים הפעילים",
+        "\u200Fהתחברויות SSH לשרת",
+        "\u200Fשגיאות של אפליקציות"
+      ],
+      explanation: "\u200Fdmesg מציג הודעות kernel — זיהוי דיסקים חדשים, USB, שגיאות חומרה, טעינת דרייברים. שימושי לאבחון בעיות חומרה. dmesg --level=err,warn מסנן שגיאות.",
+      explanationEn: "dmesg shows kernel messages — new disk detection, USB, hardware errors, driver loading. Useful for hardware troubleshooting. dmesg --level=err,warn filters errors.",
+      qEn: "The dmesg command shows messages from:",
+      correctEn: "The system kernel — hardware, drivers, boot",
+      choicesEn: [
+        "The system kernel — hardware, drivers, boot",
+        "All active services",
+        "SSH connections to the server",
+        "Application errors"
+      ]
+    },
+    {
+      q: "\u200Fשרת מראה 'No space left on device'. איך מוצאים מה תופס מקום?",
+      correct: "\u200Fdf -h לראות איזו מחיצה מלאה\ndu -h --max-depth=1 / | sort -rh | head לצלול פנימה",
+      choices: [
+        "\u200Fdf -h לראות איזו מחיצה מלאה\ndu -h --max-depth=1 / | sort -rh | head לצלול פנימה",
+        "\u200Fls -la / לראות את כל הקבצים",
+        "\u200Ftop לראות צריכת דיסק",
+        "\u200Fping localhost לבדוק את השרת"
+      ],
+      explanation: "\u200Fdf -h מראה איזו מחיצה ב-100%. du --max-depth=1 מוצא את התיקייה הגדולה. ממשיכים לצלול עד שמוצאים את הקבצים הגדולים. פתרונות נפוצים: ניקוי לוגים, apt clean, מחיקת /tmp.",
+      explanationEn: "df -h shows which partition is at 100%. du --max-depth=1 finds the large directory. Keep drilling until you find the large files. Common fixes: clean logs, apt clean, delete /tmp.",
+      qEn: "A server shows 'No space left on device'. How do you find what's taking space?",
+      correctEn: "df -h to see which partition is full\ndu -h --max-depth=1 / | sort -rh | head to drill down",
+      choicesEn: [
+        "df -h to see which partition is full\ndu -h --max-depth=1 / | sort -rh | head to drill down",
+        "ls -la / to see all files",
+        "top to see disk usage",
+        "ping localhost to check the server"
+      ]
+    },
+    {
+      q: "\u200Fמה מציין שימוש גבוה ב-swap בפלט free -m?",
+      correct: "\u200Fחסר זיכרון RAM — המערכת משתמשת בדיסק כזיכרון\nזה מאט את המערכת משמעותית",
+      choices: [
+        "\u200Fחסר זיכרון RAM — המערכת משתמשת בדיסק כזיכרון\nזה מאט את המערכת משמעותית",
+        "\u200Fהדיסק מלא",
+        "\u200Fיש בעיית רשת",
+        "\u200Fהמעבד עמוס"
+      ],
+      explanation: "\u200Fswap הוא שטח דיסק שמשמש כזיכרון כשה-RAM מלא. דיסק איטי הרבה יותר מ-RAM, לכן swap גבוה = מערכת איטית. הפתרון: הוסיפו RAM או צמצמו תהליכים שאוכלים זיכרון.",
+      explanationEn: "Swap is disk space used as memory when RAM is full. Disk is much slower than RAM, so high swap = slow system. Solution: add RAM or reduce memory-hungry processes.",
+      qEn: "What does high swap usage in free -m output indicate?",
+      correctEn: "Not enough RAM — the system uses disk as memory\nThis significantly slows the system",
+      choicesEn: [
+        "Not enough RAM — the system uses disk as memory\nThis significantly slows the system",
+        "The disk is full",
+        "There's a network issue",
+        "The CPU is overloaded"
+      ]
+    }
+  ],
+
+  410: [
+    {
+      q: "\u200Fמה העיקרון הבסיסי של firewall?",
+      correct: "\u200Fחסום הכל כברירת מחדל\nפתח רק מה שצריך",
+      choices: [
+        "\u200Fחסום הכל כברירת מחדל\nפתח רק מה שצריך",
+        "\u200Fפתח הכל וחסום מה שמסוכן",
+        "\u200Fחסום רק פורטים מוכרים",
+        "\u200Fאפשר גישה רק מ-IP מקומי"
+      ],
+      explanation: "\u200Fב-ufw: sudo ufw default deny incoming, ואז פותחים פורטים ספציפיים: sudo ufw allow 22 (SSH), sudo ufw allow 80 (HTTP), sudo ufw allow 443 (HTTPS).",
+      explanationEn: "In ufw: sudo ufw default deny incoming, then open specific ports: sudo ufw allow 22 (SSH), sudo ufw allow 80 (HTTP), sudo ufw allow 443 (HTTPS).",
+      qEn: "What is the basic principle of a firewall?",
+      correctEn: "Block everything by default\nOpen only what's needed",
+      choicesEn: [
+        "Block everything by default\nOpen only what's needed",
+        "Open everything and block what's dangerous",
+        "Block only well-known ports",
+        "Allow access only from local IP"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה fail2ban ואיך הוא מגן על SSH?",
+      correct: "\u200Fעוקב אחרי לוגים וחוסם אוטומטית IPs\nשמנסים brute force (אחרי מספר כישלונות מוגדר)",
+      choices: [
+        "\u200Fעוקב אחרי לוגים וחוסם אוטומטית IPs\nשמנסים brute force (אחרי מספר כישלונות מוגדר)",
+        "\u200Fמצפין את חיבור SSH",
+        "\u200Fמשנה את פורט SSH אוטומטית",
+        "\u200Fמגביל את מהירות הרשת"
+      ],
+      explanation: "\u200Ffail2ban עוקב אחרי /var/log/auth.log. אחרי maxretry ניסיונות כושלים בתוך findtime — חוסם את ה-IP עם iptables למשך bantime.",
+      explanationEn: "fail2ban monitors /var/log/auth.log. After maxretry failed attempts within findtime — blocks the IP with iptables for bantime duration.",
+      qEn: "What does fail2ban do and how does it protect SSH?",
+      correctEn: "Monitors logs and automatically blocks IPs\nthat attempt brute force (after defined number of failures)",
+      choicesEn: [
+        "Monitors logs and automatically blocks IPs\nthat attempt brute force (after defined number of failures)",
+        "Encrypts the SSH connection",
+        "Automatically changes the SSH port",
+        "Limits network speed"
+      ]
+    },
+    {
+      q: "\u200Fלמה חשוב לבדוק שחיבור SSH חדש עובד לפני שסוגרים את הנוכחי?",
+      correct: "\u200Fאם ביטלתם סיסמאות בלי מפתח עובד\nתינעלו מחוץ לשרת ולא תוכלו להתחבר",
+      choices: [
+        "\u200Fאם ביטלתם סיסמאות בלי מפתח עובד\nתינעלו מחוץ לשרת ולא תוכלו להתחבר",
+        "\u200Fכדי לא לאבד את היסטוריית הפקודות",
+        "\u200Fכדי לחסוך ברוחב פס",
+        "\u200Fאין סיבה מיוחדת — זה רק המלצה"
+      ],
+      explanation: "\u200Fסדר נכון: צור משתמש → העתק מפתח SSH → בדוק חיבור מטרמינל שני → רק אז שנה sshd_config → restart SSH → בדוק שוב. אל תסגור את הטרמינל הנוכחי!",
+      explanationEn: "Correct order: create user → copy SSH key → test connection from second terminal → only then change sshd_config → restart SSH → test again. Don't close the current terminal!",
+      qEn: "Why is it important to verify a new SSH connection works before closing the current one?",
+      correctEn: "If you disabled passwords without a working key\nyou'll be locked out of the server with no way to connect",
+      choicesEn: [
+        "If you disabled passwords without a working key\nyou'll be locked out of the server with no way to connect",
+        "To not lose command history",
+        "To save bandwidth",
+        "No special reason — it's just a recommendation"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה sha256sum ולמה הוא חשוב?",
+      correct: "\u200Fיוצר חתימה דיגיטלית (hash) של קובץ\nכל שינוי בקובץ — גם ביט אחד — משנה את ה-hash לגמרי",
+      choices: [
+        "\u200Fיוצר חתימה דיגיטלית (hash) של קובץ\nכל שינוי בקובץ — גם ביט אחד — משנה את ה-hash לגמרי",
+        "\u200Fמצפין קובץ עם סיסמה",
+        "\u200Fדוחס קובץ לגודל קטן",
+        "\u200Fמעתיק קובץ בצורה בטוחה"
+      ],
+      explanation: "\u200Fsha256sum משמש לאימות שלמות — לוודא שקובץ שהורדנו לא פגום או זויף. גם לזיהוי שינויים בקבצי מערכת (פריצה?). sha256sum --check checksums.txt בודק אם משהו השתנה.",
+      explanationEn: "sha256sum is used for integrity verification — ensuring a downloaded file isn't corrupted or tampered with. Also for detecting changes to system files (breach?). sha256sum --check checksums.txt checks if anything changed.",
+      qEn: "What does sha256sum do and why is it important?",
+      correctEn: "Creates a digital signature (hash) of a file\nAny change to the file — even one bit — completely changes the hash",
+      choicesEn: [
+        "Creates a digital signature (hash) of a file\nAny change to the file — even one bit — completely changes the hash",
+        "Encrypts a file with a password",
+        "Compresses a file to smaller size",
+        "Copies a file securely"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין ufw לבין iptables?",
+      correct: "\u200Fufw — ממשק פשוט ונוח (Uncomplicated Firewall)\niptables — כלי מסורתי חזק יותר אבל מורכב יותר",
+      choices: [
+        "\u200Fufw — ממשק פשוט ונוח (Uncomplicated Firewall)\niptables — כלי מסורתי חזק יותר אבל מורכב יותר",
+        "\u200Fufw חזק יותר מ-iptables",
+        "\u200Fiptables עובד רק על Ubuntu",
+        "\u200Fshניהם זהים — רק שמות שונים"
+      ],
+      explanation: "\u200Fufw הוא בעצם ממשק ידידותי מעל iptables. הוא מתרגם פקודות פשוטות כמו 'ufw allow 80' לחוקי iptables מורכבים. לשימוש בסיסי — ufw מספיק. למקרים מתקדמים — iptables.",
+      explanationEn: "ufw is actually a friendly interface on top of iptables. It translates simple commands like 'ufw allow 80' to complex iptables rules. For basic use — ufw is enough. For advanced cases — iptables.",
+      qEn: "What is the difference between ufw and iptables?",
+      correctEn: "ufw — simple and convenient interface (Uncomplicated Firewall)\niptables — traditional tool, more powerful but more complex",
+      choicesEn: [
+        "ufw — simple and convenient interface (Uncomplicated Firewall)\niptables — traditional tool, more powerful but more complex",
+        "ufw is more powerful than iptables",
+        "iptables only works on Ubuntu",
+        "Both are identical — just different names"
+      ]
+    }
+  ],
+
+  // ============================================================
+  // Web & APIs Track — Chapters 501-508
+  // ============================================================
+
+  501: [
+    {
+      q: "\u200Fמה ההבדל בין Query String ל-Fragment ב-URL?",
+      correct: "\u200FQuery String (?key=val) נשלח לשרת\nFragment (#section) לא נשלח — רק לדפדפן",
+      choices: [
+        "\u200FQuery String (?key=val) נשלח לשרת\nFragment (#section) לא נשלח — רק לדפדפן",
+        "\u200Fשניהם נשלחים לשרת",
+        "\u200FFragment נשלח לשרת\nQuery String לא",
+        "\u200Fאין הבדל — שניהם זהים"
+      ],
+      explanation: "\u200FQuery String (?color=red&size=42) מועבר לשרת ומשמש לסינון/חיפוש. Fragment (#reviews) משמש רק את הדפדפן — לגלילה לחלק מסוים בדף. השרת אף פעם לא רואה את ה-Fragment.",
+      explanationEn: "Query String (?color=red&size=42) is sent to the server for filtering/search. Fragment (#reviews) is only used by the browser — for scrolling to a page section. The server never sees the Fragment.",
+      qEn: "What is the difference between Query String and Fragment in a URL?",
+      correctEn: "Query String (?key=val) is sent to the server\nFragment (#section) is not sent — browser only",
+      choicesEn: [
+        "Query String (?key=val) is sent to the server\nFragment (#section) is not sent — browser only",
+        "Both are sent to the server",
+        "Fragment is sent to the server\nQuery String is not",
+        "No difference — both are identical"
+      ]
+    },
+    {
+      q: "\u200Fמהם שלושת השלבים של TCP Three-Way Handshake?",
+      correct: "\u200FSYN → SYN-ACK → ACK",
+      choices: [
+        "\u200FSYN → SYN-ACK → ACK",
+        "\u200FACK → SYN → SYN-ACK",
+        "\u200FHELLO → OK → START",
+        "\u200FGET → POST → PUT"
+      ],
+      explanation: "\u200Fהלקוח שולח SYN (רוצה להתחבר), השרת עונה SYN-ACK (מוכן), הלקוח מאשר ACK (מתחילים). שלושה שלבים כדי ששני הצדדים ידעו שהחיבור עובד בשני הכיוונים.",
+      explanationEn: "Client sends SYN (want to connect), server replies SYN-ACK (ready), client confirms ACK (let's start). Three steps so both sides know the connection works in both directions.",
+      qEn: "What are the three steps of the TCP Three-Way Handshake?",
+      correctEn: "SYN → SYN-ACK → ACK",
+      choicesEn: [
+        "SYN → SYN-ACK → ACK",
+        "ACK → SYN → SYN-ACK",
+        "HELLO → OK → START",
+        "GET → POST → PUT"
+      ]
+    },
+    {
+      q: "\u200Fמה תפקיד ה-TLS Handshake?",
+      correct: "\u200Fהצפנת החיבור — אימות השרת עם תעודה דיגיטלית\nוהסכמה על מפתח הצפנה משותף",
+      choices: [
+        "\u200Fהצפנת החיבור — אימות השרת עם תעודה דיגיטלית\nוהסכמה על מפתח הצפנה משותף",
+        "\u200Fתרגום שם דומיין לכתובת IP",
+        "\u200Fיצירת חיבור TCP",
+        "\u200Fשליחת בקשת HTTP לשרת"
+      ],
+      explanation: "\u200FTLS Handshake מתבצע אחרי TCP Handshake. הלקוח מוודא שהתעודה הדיגיטלית של השרת חתומה ע\"י CA מוכר, ושני הצדדים מסכימים על מפתח הצפנה. מכאן כל התקשורת מוצפנת.",
+      explanationEn: "TLS Handshake happens after TCP Handshake. The client verifies the server's digital certificate is signed by a trusted CA, and both sides agree on an encryption key. From here all communication is encrypted.",
+      qEn: "What is the purpose of the TLS Handshake?",
+      correctEn: "Encrypting the connection — authenticating the server with a digital certificate\nand agreeing on a shared encryption key",
+      choicesEn: [
+        "Encrypting the connection — authenticating the server with a digital certificate\nand agreeing on a shared encryption key",
+        "Translating a domain name to an IP address",
+        "Creating a TCP connection",
+        "Sending an HTTP request to the server"
+      ]
+    },
+    {
+      q: "\u200Fמה מסמן TTL בהקשר של DNS?",
+      correct: "\u200FTime To Live — כמה זמן (בשניות) תוצאת DNS נשמרת ב-cache",
+      choices: [
+        "\u200FTime To Live — כמה זמן (בשניות) תוצאת DNS נשמרת ב-cache",
+        "\u200Fמספר הקפיצות המקסימלי של חבילה",
+        "\u200Fזמן שהשרת לוקח לענות",
+        "\u200Fגודל חבילת ה-DNS"
+      ],
+      explanation: "\u200FTTL גבוה (למשל 3600 שניות = שעה) מפחית עומס על שרתי DNS אבל מאט עדכון שינויים. TTL נמוך (60 שניות) מאפשר עדכון מהיר אבל יוצר יותר שאילתות DNS.",
+      explanationEn: "High TTL (e.g., 3600 seconds = 1 hour) reduces load on DNS servers but slows change propagation. Low TTL (60 seconds) enables quick updates but generates more DNS queries.",
+      qEn: "What does TTL mean in the context of DNS?",
+      correctEn: "Time To Live — how long (in seconds) a DNS result is cached",
+      choicesEn: [
+        "Time To Live — how long (in seconds) a DNS result is cached",
+        "Maximum number of hops for a packet",
+        "Time the server takes to respond",
+        "Size of the DNS packet"
+      ]
+    },
+    {
+      q: "\u200Fבמודל לקוח-שרת, מי יוזם את התקשורת?",
+      correct: "\u200Fהלקוח (הדפדפן) תמיד יוזם — השרת רק מגיב",
+      choices: [
+        "\u200Fהלקוח (הדפדפן) תמיד יוזם — השרת רק מגיב",
+        "\u200Fהשרת יוזם — הלקוח מגיב",
+        "\u200Fשניהם יכולים ליזום בכל רגע",
+        "\u200Fתלוי בסוג הפרוטוקול"
+      ],
+      explanation: "\u200Fב-HTTP, הלקוח תמיד שולח בקשה (Request) והשרת מחזיר תגובה (Response). זה שונה מ-WebSockets, שם שני הצדדים יכולים לשלוח הודעות.",
+      explanationEn: "In HTTP, the client always sends a Request and the server returns a Response. This differs from WebSockets, where both sides can send messages.",
+      qEn: "In the client-server model, who initiates communication?",
+      correctEn: "The client (browser) always initiates — the server only responds",
+      choicesEn: [
+        "The client (browser) always initiates — the server only responds",
+        "The server initiates — the client responds",
+        "Both can initiate at any time",
+        "Depends on the protocol type"
+      ]
+    }
+  ],
+
+  502: [
+    {
+      q: "\u200Fמה הבעיה העיקרית של HTTP/1.1 ש-HTTP/2 פותר?",
+      correct: "\u200FHead-of-Line Blocking — בקשה אחת שתקועה חוסמת את כל השאר\nHTTP/2 מאפשר multiplexing",
+      choices: [
+        "\u200FHead-of-Line Blocking — בקשה אחת שתקועה חוסמת את כל השאר\nHTTP/2 מאפשר multiplexing",
+        "\u200FHTTP/1.1 לא תומך בהצפנה",
+        "\u200FHTTP/1.1 לא תומך ב-cookies",
+        "\u200FHTTP/1.1 לא יכול לשלוח תמונות"
+      ],
+      explanation: "\u200Fב-HTTP/1.1 כל חיבור TCP טופל בקשה אחת. HTTP/2 מוסיף multiplexing — הרבה בקשות ותגובות במקביל על חיבור אחד, + דחיסת headers (HPACK).",
+      explanationEn: "In HTTP/1.1 each TCP connection handled one request. HTTP/2 adds multiplexing — many requests and responses in parallel on one connection, + header compression (HPACK).",
+      qEn: "What is the main problem of HTTP/1.1 that HTTP/2 solves?",
+      correctEn: "Head-of-Line Blocking — one stuck request blocks all others\nHTTP/2 enables multiplexing",
+      choicesEn: [
+        "Head-of-Line Blocking — one stuck request blocks all others\nHTTP/2 enables multiplexing",
+        "HTTP/1.1 doesn't support encryption",
+        "HTTP/1.1 doesn't support cookies",
+        "HTTP/1.1 can't send images"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין קוד 401 לבין 403?",
+      correct: "\u200F401 = לא מזוהה (Authentication — שכחת טוקן)\n403 = מזוהה אבל אין הרשאה (Authorization)",
+      choices: [
+        "\u200F401 = לא מזוהה (Authentication — שכחת טוקן)\n403 = מזוהה אבל אין הרשאה (Authorization)",
+        "\u200F401 = אין הרשאה\n403 = לא מזוהה",
+        "\u200F401 = שגיאת שרת\n403 = שגיאת לקוח",
+        "\u200Fשניהם אומרים את אותו הדבר"
+      ],
+      explanation: "\u200F401 — לא שלחת טוקן, או שהטוקן פג תוקף. 403 — השרת יודע מי אתה, אבל אתה לא מורשה. למשל: משתמש רגיל מנסה לגשת לפאנל admin.",
+      explanationEn: "401 — you didn't send a token, or the token expired. 403 — the server knows who you are, but you're not authorized. Example: regular user trying to access admin panel.",
+      qEn: "What is the difference between status code 401 and 403?",
+      correctEn: "401 = not identified (Authentication — forgot token)\n403 = identified but no permission (Authorization)",
+      choicesEn: [
+        "401 = not identified (Authentication — forgot token)\n403 = identified but no permission (Authorization)",
+        "401 = no permission\n403 = not identified",
+        "401 = server error\n403 = client error",
+        "Both mean the same thing"
+      ]
+    },
+    {
+      q: "\u200Fלמה חשוב לסמן cookie כ-HttpOnly?",
+      correct: "\u200Fמונע מ-JavaScript לגשת ל-cookie\nמגן מפני התקפות XSS שגונבות session tokens",
+      choices: [
+        "\u200Fמונע מ-JavaScript לגשת ל-cookie\nמגן מפני התקפות XSS שגונבות session tokens",
+        "\u200Fמצפין את ה-cookie",
+        "\u200Fשולח cookie רק ב-HTTP (לא HTTPS)",
+        "\u200Fמגביל את גודל ה-cookie"
+      ],
+      explanation: "\u200Fבלי HttpOnly, סקריפט זדוני (XSS) יכול לקרוא document.cookie ולגנוב את ה-session. עם HttpOnly — JavaScript לא יכול לגשת ל-cookie כלל, גם אם הצליח להזריק קוד.",
+      explanationEn: "Without HttpOnly, a malicious script (XSS) can read document.cookie and steal the session. With HttpOnly — JavaScript cannot access the cookie at all, even if code injection succeeded.",
+      qEn: "Why is it important to mark a cookie as HttpOnly?",
+      correctEn: "Prevents JavaScript from accessing the cookie\nProtects against XSS attacks that steal session tokens",
+      choicesEn: [
+        "Prevents JavaScript from accessing the cookie\nProtects against XSS attacks that steal session tokens",
+        "Encrypts the cookie",
+        "Sends cookie only over HTTP (not HTTPS)",
+        "Limits the cookie size"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין Cache-Control: no-cache לבין no-store?",
+      correct: "\u200Fno-cache — שומר עותק אבל בודק עם השרת לפני שימוש\nno-store — לא שומר בכלל (למידע רגיש)",
+      choices: [
+        "\u200Fno-cache — שומר עותק אבל בודק עם השרת לפני שימוש\nno-store — לא שומר בכלל (למידע רגיש)",
+        "\u200Fno-cache = לא שומר\nno-store = שומר",
+        "\u200Fשניהם לא שומרים cache",
+        "\u200Fno-cache לתמונות\nno-store לטקסט"
+      ],
+      explanation: "\u200Fno-cache — הדפדפן שומר עותק אבל שואל את השרת 'זה עדיין עדכני?' לפני שימוש. no-store — אסור לשמור כלל, אפילו לא זמנית. משתמשים ב-no-store למידע רגיש כמו פרטי בנק.",
+      explanationEn: "no-cache — the browser keeps a copy but asks the server 'is this still current?' before use. no-store — must not store at all, not even temporarily. Use no-store for sensitive data like banking details.",
+      qEn: "What is the difference between Cache-Control: no-cache and no-store?",
+      correctEn: "no-cache — keeps a copy but checks with server before use\nno-store — doesn't store at all (for sensitive data)",
+      choicesEn: [
+        "no-cache — keeps a copy but checks with server before use\nno-store — doesn't store at all (for sensitive data)",
+        "no-cache = don't store\nno-store = store",
+        "Both don't store cache",
+        "no-cache for images\nno-store for text"
+      ]
+    },
+    {
+      q: "\u200Fעל מה מבוסס HTTP/3?",
+      correct: "\u200Fעל פרוטוקול QUIC מעל UDP — במקום TCP\nחיבור מהיר יותר וללא Head-of-Line Blocking ברמת ה-transport",
+      choices: [
+        "\u200Fעל פרוטוקול QUIC מעל UDP — במקום TCP\nחיבור מהיר יותר וללא Head-of-Line Blocking ברמת ה-transport",
+        "\u200Fעל TCP עם דחיסה משופרת",
+        "\u200Fעל WebSockets",
+        "\u200Fעל IP ישירות בלי שכבת transport"
+      ],
+      explanation: "\u200FHTTP/3 משתמש ב-QUIC (פרוטוקול של Google) מעל UDP. TLS + transport בלחיצת יד אחת. כל stream עצמאי — אם חבילה אחת אבדה, היא לא חוסמת streams אחרים.",
+      explanationEn: "HTTP/3 uses QUIC (a Google protocol) over UDP. TLS + transport in one handshake. Each stream is independent — if one packet is lost, it doesn't block other streams.",
+      qEn: "What is HTTP/3 based on?",
+      correctEn: "The QUIC protocol over UDP — instead of TCP\nFaster connection and no transport-level Head-of-Line Blocking",
+      choicesEn: [
+        "The QUIC protocol over UDP — instead of TCP\nFaster connection and no transport-level Head-of-Line Blocking",
+        "TCP with improved compression",
+        "WebSockets",
+        "IP directly without a transport layer"
+      ]
+    }
+  ],
+
+  503: [
+    {
+      q: "\u200Fמה ההבדל בין PUT לבין PATCH?",
+      correct: "\u200FPUT מחליף את כל המשאב — צריך לשלוח את כל השדות\nPATCH מעדכן רק שדות ספציפיים",
+      choices: [
+        "\u200FPUT מחליף את כל המשאב — צריך לשלוח את כל השדות\nPATCH מעדכן רק שדות ספציפיים",
+        "\u200FPUT ליצירה\nPATCH למחיקה",
+        "\u200FPUT לקריאה\nPATCH לכתיבה",
+        "\u200Fאין הבדל — שניהם זהים"
+      ],
+      explanation: "\u200Fלדוגמה: אם רוצים לשנות רק את האימייל של משתמש — PATCH /api/users/5 {\"email\": \"new@e.com\"} מספיק. PUT ידרוש לשלוח את כל פרטי המשתמש מחדש.",
+      explanationEn: "For example: to change only a user's email — PATCH /api/users/5 {\"email\": \"new@e.com\"} is enough. PUT would require sending all user details again.",
+      qEn: "What is the difference between PUT and PATCH?",
+      correctEn: "PUT replaces the entire resource — must send all fields\nPATCH updates only specific fields",
+      choicesEn: [
+        "PUT replaces the entire resource — must send all fields\nPATCH updates only specific fields",
+        "PUT for creation\nPATCH for deletion",
+        "PUT for reading\nPATCH for writing",
+        "No difference — both are identical"
+      ]
+    },
+    {
+      q: "\u200Fמה מחזיר שרת REST אחרי בקשת POST מוצלחת?",
+      correct: "\u200Fקוד 201 Created + המשאב שנוצר בגוף התגובה\nכולל שדות שהשרת יצר (כמו id)",
+      choices: [
+        "\u200Fקוד 201 Created + המשאב שנוצר בגוף התגובה\nכולל שדות שהשרת יצר (כמו id)",
+        "\u200Fקוד 200 OK בלבד",
+        "\u200Fקוד 204 No Content",
+        "\u200Fקוד 301 Redirect"
+      ],
+      explanation: "\u200Fאחרי POST מוצלח, השרת מחזיר 201 Created עם המשאב שנוצר — כולל id ייחודי, created_at, ושדות נוספים שהשרת מייצר. לעתים גם כותרת Location עם ה-URL החדש.",
+      explanationEn: "After a successful POST, the server returns 201 Created with the created resource — including unique id, created_at, and other server-generated fields. Sometimes also a Location header with the new URL.",
+      qEn: "What does a REST server return after a successful POST request?",
+      correctEn: "Status 201 Created + the created resource in response body\nincluding server-generated fields (like id)",
+      choicesEn: [
+        "Status 201 Created + the created resource in response body\nincluding server-generated fields (like id)",
+        "Status 200 OK only",
+        "Status 204 No Content",
+        "Status 301 Redirect"
+      ]
+    },
+    {
+      q: "\u200Fמתי משתמשים ב-Path Parameter ומתי ב-Query Parameter?",
+      correct: "\u200FPath Parameter לזיהוי משאב (/users/42)\nQuery Parameter לסינון/מיון (?role=admin)",
+      choices: [
+        "\u200FPath Parameter לזיהוי משאב (/users/42)\nQuery Parameter לסינון/מיון (?role=admin)",
+        "\u200FPath תמיד אופציונלי\nQuery תמיד חובה",
+        "\u200FPath למספרים\nQuery לטקסט",
+        "\u200Fאין כלל — שניהם מתחלפים"
+      ],
+      explanation: "\u200FPath Parameters הם חלק מהנתיב ובדרך כלל חובה — /users/42 מזהה משתמש ספציפי. Query Parameters אופציונליים — /users?role=admin&sort=name מסנן וממיין.",
+      explanationEn: "Path Parameters are part of the path and usually required — /users/42 identifies a specific user. Query Parameters are optional — /users?role=admin&sort=name filters and sorts.",
+      qEn: "When do you use Path Parameter vs Query Parameter?",
+      correctEn: "Path Parameter to identify a resource (/users/42)\nQuery Parameter for filtering/sorting (?role=admin)",
+      choicesEn: [
+        "Path Parameter to identify a resource (/users/42)\nQuery Parameter for filtering/sorting (?role=admin)",
+        "Path is always optional\nQuery is always required",
+        "Path for numbers\nQuery for text",
+        "No rule — both are interchangeable"
+      ]
+    },
+    {
+      q: "\u200Fמהו CRUD ואיך הוא ממופה לשיטות HTTP?",
+      correct: "\u200FCreate=POST, Read=GET, Update=PUT/PATCH, Delete=DELETE",
+      choices: [
+        "\u200FCreate=POST, Read=GET, Update=PUT/PATCH, Delete=DELETE",
+        "\u200FCreate=GET, Read=POST, Update=DELETE, Delete=PUT",
+        "\u200FCreate=PUT, Read=POST, Update=GET, Delete=PATCH",
+        "\u200FCRUD לא קשור ל-HTTP"
+      ],
+      explanation: "\u200FCRUD = ארבע הפעולות הבסיסיות על מידע. ב-REST API: POST ליצירה, GET לקריאה, PUT/PATCH לעדכון, DELETE למחיקה. זה הבסיס של כל API.",
+      explanationEn: "CRUD = the four basic data operations. In REST API: POST for create, GET for read, PUT/PATCH for update, DELETE for delete. This is the foundation of every API.",
+      qEn: "What is CRUD and how does it map to HTTP methods?",
+      correctEn: "Create=POST, Read=GET, Update=PUT/PATCH, Delete=DELETE",
+      choicesEn: [
+        "Create=POST, Read=GET, Update=PUT/PATCH, Delete=DELETE",
+        "Create=GET, Read=POST, Update=DELETE, Delete=PUT",
+        "Create=PUT, Read=POST, Update=GET, Delete=PATCH",
+        "CRUD is not related to HTTP"
+      ]
+    },
+    {
+      q: "\u200Fלמה API צריך versioning?",
+      correct: "\u200Fכדי שלקוחות ישנים ימשיכו לעבוד\nכששינוי ב-API שובר תאימות",
+      choices: [
+        "\u200Fכדי שלקוחות ישנים ימשיכו לעבוד\nכששינוי ב-API שובר תאימות",
+        "\u200Fכדי לשפר ביצועים",
+        "\u200Fכדי להוסיף אבטחה",
+        "\u200Fזה לא באמת צריך"
+      ],
+      explanation: "\u200Fכשמשנים מבנה תגובה או מוחקים שדה, לקוחות ישנים יישברו. /api/v1/users ו-/api/v2/users רצים במקביל — לקוחות ישנים משתמשים ב-v1, חדשים ב-v2.",
+      explanationEn: "When response structure changes or a field is deleted, old clients break. /api/v1/users and /api/v2/users run in parallel — old clients use v1, new ones use v2.",
+      qEn: "Why does an API need versioning?",
+      correctEn: "So old clients continue working\nwhen API changes break compatibility",
+      choicesEn: [
+        "So old clients continue working\nwhen API changes break compatibility",
+        "To improve performance",
+        "To add security",
+        "It's not really needed"
+      ]
+    }
+  ],
+
+  504: [
+    {
+      q: "\u200Fמה ההבדל בין Authentication לבין Authorization?",
+      correct: "\u200FAuthentication = 'מי אתה?' (זיהוי)\nAuthorization = 'מה מותר לך?' (הרשאות)",
+      choices: [
+        "\u200FAuthentication = 'מי אתה?' (זיהוי)\nAuthorization = 'מה מותר לך?' (הרשאות)",
+        "\u200Fשניהם עוסקים בזיהוי",
+        "\u200FAuthentication = הרשאות\nAuthorization = זיהוי",
+        "\u200Fאין הבדל — מילים נרדפות"
+      ],
+      explanation: "\u200Fאנלוגיה: Authentication = תעודת זהות בכניסה (מי אתה?). Authorization = צמיד VIP (מה מותר לך?). ב-HTTP: 401 = בעיית Authentication, 403 = בעיית Authorization.",
+      explanationEn: "Analogy: Authentication = ID at the entrance (who are you?). Authorization = VIP bracelet (what are you allowed?). In HTTP: 401 = Authentication problem, 403 = Authorization problem.",
+      qEn: "What is the difference between Authentication and Authorization?",
+      correctEn: "Authentication = 'Who are you?' (identification)\nAuthorization = 'What are you allowed?' (permissions)",
+      choicesEn: [
+        "Authentication = 'Who are you?' (identification)\nAuthorization = 'What are you allowed?' (permissions)",
+        "Both deal with identification",
+        "Authentication = permissions\nAuthorization = identification",
+        "No difference — they are synonyms"
+      ]
+    },
+    {
+      q: "\u200FJWT מורכב משלושה חלקים. מה הם?",
+      correct: "\u200FHeader (אלגוריתם) + Payload (מידע) + Signature (חתימה)",
+      choices: [
+        "\u200FHeader (אלגוריתם) + Payload (מידע) + Signature (חתימה)",
+        "\u200FUsername + Password + Token",
+        "\u200FPublic Key + Private Key + Certificate",
+        "\u200FURL + Method + Body"
+      ],
+      explanation: "\u200FHeader מכיל את אלגוריתם החתימה. Payload מכיל נתונים (user_id, role, exp). Signature מוודאת שלא שינו את התוכן. שלושתם מקודדים ב-Base64 ומופרדים בנקודות.",
+      explanationEn: "Header contains the signing algorithm. Payload contains data (user_id, role, exp). Signature ensures content wasn't tampered with. All three are Base64-encoded and separated by dots.",
+      qEn: "JWT consists of three parts. What are they?",
+      correctEn: "Header (algorithm) + Payload (data) + Signature (signature)",
+      choicesEn: [
+        "Header (algorithm) + Payload (data) + Signature (signature)",
+        "Username + Password + Token",
+        "Public Key + Private Key + Certificate",
+        "URL + Method + Body"
+      ]
+    },
+    {
+      q: "\u200Fלמה OAuth 2.0 לא שולח Access Token ישירות לדפדפן?",
+      correct: "\u200Fכי הדפדפן פחות בטוח (URL נשמר בהיסטוריה)\nלכן שולחים Authorization Code, והטוקן מועבר server-to-server",
+      choices: [
+        "\u200Fכי הדפדפן פחות בטוח (URL נשמר בהיסטוריה)\nלכן שולחים Authorization Code, והטוקן מועבר server-to-server",
+        "\u200Fכי הדפדפן לא תומך בטוקנים",
+        "\u200Fכי הטוקן גדול מדי",
+        "\u200Fכי OAuth לא עובד בדפדפן"
+      ],
+      explanation: "\u200Fה-Authorization Code עובר דרך ה-redirect URL בדפדפן (פחות בטוח — יכול להישמר ב-logs, היסטוריה). הקוד הזה חד-פעמי. החלפה לטוקן מתבצעת server-to-server — ערוץ מאובטח.",
+      explanationEn: "The Authorization Code passes through the browser's redirect URL (less secure — can be saved in logs, history). This code is one-time use. Exchange for token happens server-to-server — a secure channel.",
+      qEn: "Why doesn't OAuth 2.0 send the Access Token directly to the browser?",
+      correctEn: "Because the browser is less secure (URL saved in history)\nSo it sends Authorization Code, and the token is transferred server-to-server",
+      choicesEn: [
+        "Because the browser is less secure (URL saved in history)\nSo it sends Authorization Code, and the token is transferred server-to-server",
+        "Because the browser doesn't support tokens",
+        "Because the token is too large",
+        "Because OAuth doesn't work in browsers"
+      ]
+    },
+    {
+      q: "\u200Fמתי עדיף Sessions על JWT?",
+      correct: "\u200Fכשצריך אפשרות לנתק משתמש מיידית\nב-Sessions פשוט מוחקים מהשרת, ב-JWT אי אפשר לבטל טוקן",
+      choices: [
+        "\u200Fכשצריך אפשרות לנתק משתמש מיידית\nב-Sessions פשוט מוחקים מהשרת, ב-JWT אי אפשר לבטל טוקן",
+        "\u200Fתמיד עדיף JWT",
+        "\u200Fרק כשאין מסד נתונים",
+        "\u200Fכשרוצים מערכת מבוזרת"
+      ],
+      explanation: "\u200FSession ניתן לביטול מיידי (מוחקים מהשרת/Redis). JWT תקף עד שפג תוקפו — גם אם נגנב. לכן: אתר רגיל → Sessions. API מבוזר → JWT קצר + Refresh Token.",
+      explanationEn: "Sessions can be revoked immediately (delete from server/Redis). JWT is valid until expiry — even if stolen. So: regular website → Sessions. Distributed API → short JWT + Refresh Token.",
+      qEn: "When are Sessions better than JWT?",
+      correctEn: "When you need the ability to disconnect a user immediately\nWith Sessions you just delete from server, JWT can't be revoked",
+      choicesEn: [
+        "When you need the ability to disconnect a user immediately\nWith Sessions you just delete from server, JWT can't be revoked",
+        "JWT is always better",
+        "Only when there's no database",
+        "When building a distributed system"
+      ]
+    },
+    {
+      q: "\u200FBase64 שמשמש ב-Basic Auth הוא הצפנה?",
+      correct: "\u200Fלא — Base64 הוא קידוד, לא הצפנה\nכל אחד יכול לפענח. לכן חובה HTTPS",
+      choices: [
+        "\u200Fלא — Base64 הוא קידוד, לא הצפנה\nכל אחד יכול לפענח. לכן חובה HTTPS",
+        "\u200Fכן — Base64 מצפין את הסיסמה",
+        "\u200FBase64 הוא hash חד-כיווני",
+        "\u200FBase64 משתמש במפתח סודי"
+      ],
+      explanation: "\u200FBase64 רק ממיר בינארי לטקסט ASCII — אין שום אבטחה. כל אחד יכול לפענח: echo 'dXNlcjpwYXNz' | base64 -d = 'user:pass'. לכן Basic Auth חייב לעבוד מעל HTTPS.",
+      explanationEn: "Base64 just converts binary to ASCII text — there's no security. Anyone can decode: echo 'dXNlcjpwYXNz' | base64 -d = 'user:pass'. That's why Basic Auth must work over HTTPS.",
+      qEn: "Is the Base64 used in Basic Auth encryption?",
+      correctEn: "No — Base64 is encoding, not encryption\nAnyone can decode it. HTTPS is mandatory",
+      choicesEn: [
+        "No — Base64 is encoding, not encryption\nAnyone can decode it. HTTPS is mandatory",
+        "Yes — Base64 encrypts the password",
+        "Base64 is a one-way hash",
+        "Base64 uses a secret key"
+      ]
+    }
+  ],
+
+  505: [
+    {
+      q: "\u200Fמה סדר שלבי הרינדור בדפדפן?",
+      correct: "\u200FHTML→DOM, CSS→CSSOM, שילוב→Render Tree\nLayout→Paint→Composite",
+      choices: [
+        "\u200FHTML→DOM, CSS→CSSOM, שילוב→Render Tree\nLayout→Paint→Composite",
+        "\u200FCSS→HTML→JavaScript→Display",
+        "\u200FDownload→Parse→Execute→Show",
+        "\u200FServer→Client→Browser→Screen"
+      ],
+      explanation: "\u200Fהדפדפן בונה DOM מ-HTML ו-CSSOM מ-CSS. משלב אותם ל-Render Tree (רק אלמנטים נראים). מחשב Layout (מיקומים וגדלים), צובע (Paint) ומרכיב שכבות (Composite).",
+      explanationEn: "The browser builds DOM from HTML and CSSOM from CSS. Combines them into Render Tree (visible elements only). Calculates Layout (positions and sizes), paints (Paint), and composites layers (Composite).",
+      qEn: "What is the order of rendering steps in the browser?",
+      correctEn: "HTML→DOM, CSS→CSSOM, combine→Render Tree\nLayout→Paint→Composite",
+      choicesEn: [
+        "HTML→DOM, CSS→CSSOM, combine→Render Tree\nLayout→Paint→Composite",
+        "CSS→HTML→JavaScript→Display",
+        "Download→Parse→Execute→Show",
+        "Server→Client→Browser→Screen"
+      ]
+    },
+    {
+      q: "\u200Fמה עושה ה-Event Loop ב-JavaScript?",
+      correct: "\u200Fמעביר callbacks מה-queue ל-Call Stack\nכשה-stack ריק — כך JS מטפל בפעולות א-סינכרוניות",
+      choices: [
+        "\u200Fמעביר callbacks מה-queue ל-Call Stack\nכשה-stack ריק — כך JS מטפל בפעולות א-סינכרוניות",
+        "\u200Fמריץ קוד במקביל על כמה threads",
+        "\u200Fמרענן את הדף כל שנייה",
+        "\u200Fמנהל את זיכרון הדפדפן"
+      ],
+      explanation: "\u200FJavaScript רץ על thread יחיד. פעולות ארוכות (fetch, setTimeout) מועברות ל-Web APIs. כשמסתיימות, ה-callback נכנס ל-queue. ה-Event Loop בודק: Call Stack ריק? מעביר את ה-callback הבא.",
+      explanationEn: "JavaScript runs on a single thread. Long operations (fetch, setTimeout) are passed to Web APIs. When done, the callback enters the queue. Event Loop checks: Call Stack empty? Moves the next callback.",
+      qEn: "What does the Event Loop do in JavaScript?",
+      correctEn: "Moves callbacks from the queue to the Call Stack\nwhen the stack is empty — this is how JS handles async operations",
+      choicesEn: [
+        "Moves callbacks from the queue to the Call Stack\nwhen the stack is empty — this is how JS handles async operations",
+        "Runs code in parallel on multiple threads",
+        "Refreshes the page every second",
+        "Manages browser memory"
+      ]
+    },
+    {
+      q: "\u200Fמה מגדיר Same-Origin ב-Same-Origin Policy?",
+      correct: "\u200FOrigin = scheme + host + port\nשינוי באחד מהם = origin שונה",
+      choices: [
+        "\u200FOrigin = scheme + host + port\nשינוי באחד מהם = origin שונה",
+        "\u200FOrigin = שם הדומיין בלבד",
+        "\u200FOrigin = כתובת IP",
+        "\u200FOrigin = הנתיב (path) ב-URL"
+      ],
+      explanation: "\u200Fhttps://example.com:443 הוא ה-origin. שינוי ב-scheme (http://), host (api.example.com), או port (:8080) = origin שונה. הדפדפן חוסם גישה בין origins שונים.",
+      explanationEn: "https://example.com:443 is the origin. Changing the scheme (http://), host (api.example.com), or port (:8080) = different origin. The browser blocks access between different origins.",
+      qEn: "What defines Same-Origin in Same-Origin Policy?",
+      correctEn: "Origin = scheme + host + port\nChanging any one of them = different origin",
+      choicesEn: [
+        "Origin = scheme + host + port\nChanging any one of them = different origin",
+        "Origin = domain name only",
+        "Origin = IP address",
+        "Origin = the path in the URL"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין localStorage ל-sessionStorage?",
+      correct: "\u200FlocalStorage נשמר לצמיתות (גם אחרי סגירת הדפדפן)\nsessionStorage נמחק כשסוגרים את הטאב",
+      choices: [
+        "\u200FlocalStorage נשמר לצמיתות (גם אחרי סגירת הדפדפן)\nsessionStorage נמחק כשסוגרים את הטאב",
+        "\u200FlocalStorage נשלח לשרת\nsessionStorage לא",
+        "\u200FlocalStorage קטן יותר מ-sessionStorage",
+        "\u200Fאין הבדל — שניהם זהים"
+      ],
+      explanation: "\u200Fשניהם מאחסנים עד ~5-10MB, לא נשלחים לשרת. ההבדל: localStorage נשאר לנצח (עד שמוחקים). sessionStorage ספציפי לטאב ונמחק בסגירתו. שניהם חשופים ל-XSS.",
+      explanationEn: "Both store up to ~5-10MB, not sent to server. Difference: localStorage persists forever (until deleted). sessionStorage is tab-specific and deleted when closed. Both are vulnerable to XSS.",
+      qEn: "What is the difference between localStorage and sessionStorage?",
+      correctEn: "localStorage persists permanently (even after closing browser)\nsessionStorage is deleted when the tab closes",
+      choicesEn: [
+        "localStorage persists permanently (even after closing browser)\nsessionStorage is deleted when the tab closes",
+        "localStorage is sent to server\nsessionStorage is not",
+        "localStorage is smaller than sessionStorage",
+        "No difference — both are identical"
+      ]
+    },
+    {
+      q: "\u200Fאיך מעתיקים בקשת API מהדפדפן כפקודת curl?",
+      correct: "\u200FDevTools → Network → Right-click על הבקשה → Copy → Copy as cURL",
+      choices: [
+        "\u200FDevTools → Network → Right-click על הבקשה → Copy → Copy as cURL",
+        "\u200FDevTools → Console → copy(request)",
+        "\u200FDevTools → Elements → Export",
+        "\u200Fלא ניתן לעשות זאת מהדפדפן"
+      ],
+      explanation: "\u200Fזה מייצר פקודת curl מלאה כולל headers, cookies, ו-body — מאוד שימושי לדיבוג. אפשר להדביק את הפקודה בטרמינל ולהריץ מיד.",
+      explanationEn: "This generates a complete curl command including headers, cookies, and body — very useful for debugging. You can paste the command in a terminal and run it immediately.",
+      qEn: "How do you copy an API request from the browser as a curl command?",
+      correctEn: "DevTools → Network → Right-click the request → Copy → Copy as cURL",
+      choicesEn: [
+        "DevTools → Network → Right-click the request → Copy → Copy as cURL",
+        "DevTools → Console → copy(request)",
+        "DevTools → Elements → Export",
+        "This cannot be done from the browser"
+      ]
+    }
+  ],
+
+  506: [
+    {
+      q: "\u200Fמהי התקפת BOLA/IDOR?",
+      correct: "\u200Fתוקף משנה ID ב-URL ומקבל גישה למידע של משתמש אחר\nהחולשה מספר 1 ב-OWASP API Security",
+      choices: [
+        "\u200Fתוקף משנה ID ב-URL ומקבל גישה למידע של משתמש אחר\nהחולשה מספר 1 ב-OWASP API Security",
+        "\u200Fתוקף מציף את השרת בבקשות",
+        "\u200Fתוקף מזריק SQL לבסיס הנתונים",
+        "\u200Fתוקף גונב cookies מהדפדפן"
+      ],
+      explanation: "\u200Fדוגמה: GET /api/orders/123 (ההזמנה שלך) → שנה ל-/api/orders/124 (הזמנה של מישהו אחר). הבעיה: השרת בודק authentication (מי אתה) אבל לא authorization (זו ההזמנה שלך?).",
+      explanationEn: "Example: GET /api/orders/123 (your order) → change to /api/orders/124 (someone else's order). The problem: server checks authentication (who are you) but not authorization (is this your order?).",
+      qEn: "What is a BOLA/IDOR attack?",
+      correctEn: "Attacker changes ID in URL and gains access to another user's data\nThe #1 vulnerability in OWASP API Security",
+      choicesEn: [
+        "Attacker changes ID in URL and gains access to another user's data\nThe #1 vulnerability in OWASP API Security",
+        "Attacker floods the server with requests",
+        "Attacker injects SQL into the database",
+        "Attacker steals cookies from the browser"
+      ]
+    },
+    {
+      q: "\u200Fמה מחזיר שרת כשלקוח חורג מ-Rate Limit?",
+      correct: "\u200Fקוד 429 Too Many Requests\nעם כותרת Retry-After שאומרת מתי לנסות שוב",
+      choices: [
+        "\u200Fקוד 429 Too Many Requests\nעם כותרת Retry-After שאומרת מתי לנסות שוב",
+        "\u200Fקוד 403 Forbidden",
+        "\u200Fקוד 500 Internal Server Error",
+        "\u200Fקוד 503 Service Unavailable"
+      ],
+      explanation: "\u200Fהשרת מחזיר 429 + כותרות: X-RateLimit-Limit (מכסה), X-RateLimit-Remaining (נותר), X-RateLimit-Reset (מתאפס), Retry-After (מתי לנסות).",
+      explanationEn: "The server returns 429 + headers: X-RateLimit-Limit (quota), X-RateLimit-Remaining (left), X-RateLimit-Reset (resets), Retry-After (when to retry).",
+      qEn: "What does a server return when a client exceeds the Rate Limit?",
+      correctEn: "Status 429 Too Many Requests\nwith Retry-After header telling when to try again",
+      choicesEn: [
+        "Status 429 Too Many Requests\nwith Retry-After header telling when to try again",
+        "Status 403 Forbidden",
+        "Status 500 Internal Server Error",
+        "Status 503 Service Unavailable"
+      ]
+    },
+    {
+      q: "\u200Fלמה ולידציה ב-frontend לא מספיקה לאבטחה?",
+      correct: "\u200Fתוקף יכול לעקוף את ה-frontend ולשלוח בקשות ישירות\nעם curl או Postman — ולידציה חייבת להיות בצד שרת",
+      choices: [
+        "\u200Fתוקף יכול לעקוף את ה-frontend ולשלוח בקשות ישירות\nעם curl או Postman — ולידציה חייבת להיות בצד שרת",
+        "\u200Fולידציה ב-frontend מספיקה לחלוטין",
+        "\u200Fכי ה-frontend איטי",
+        "\u200Fכי JavaScript לא יכול לבדוק נתונים"
+      ],
+      explanation: "\u200Fולידציה ב-frontend משפרת UX (חוויית משתמש). אבל לאבטחה — כל בדיקה חייבת להתבצע גם בצד שרת. Parameterized queries נגד SQL Injection, sanitization נגד XSS.",
+      explanationEn: "Frontend validation improves UX (user experience). But for security — every check must also be done server-side. Parameterized queries against SQL Injection, sanitization against XSS.",
+      qEn: "Why is frontend validation not enough for security?",
+      correctEn: "An attacker can bypass the frontend and send requests directly\nwith curl or Postman — validation must be server-side",
+      choicesEn: [
+        "An attacker can bypass the frontend and send requests directly\nwith curl or Postman — validation must be server-side",
+        "Frontend validation is completely sufficient",
+        "Because the frontend is slow",
+        "Because JavaScript can't validate data"
+      ]
+    },
+    {
+      q: "\u200Fלמה HTTPS חיוני ו-HTTP מסוכן?",
+      correct: "\u200FHTTP שולח הכל כטקסט גלוי — כל מי שמאזין רואה סיסמאות ו-cookies\nHTTPS מצפין את כל התקשורת",
+      choices: [
+        "\u200FHTTP שולח הכל כטקסט גלוי — כל מי שמאזין רואה סיסמאות ו-cookies\nHTTPS מצפין את כל התקשורת",
+        "\u200FHTTP איטי יותר מ-HTTPS",
+        "\u200FHTTP לא תומך ב-cookies",
+        "\u200Fאין הבדל אבטחתי ביניהם"
+      ],
+      explanation: "\u200Fב-WiFi ציבורי, כל מי שנמצא ברשת יכול לקרוא תעבורת HTTP — סיסמאות, session tokens, תוכן. HTTPS (HTTP+TLS) מצפין הכל. Let's Encrypt מספק תעודות SSL חינם.",
+      explanationEn: "On public WiFi, anyone on the network can read HTTP traffic — passwords, session tokens, content. HTTPS (HTTP+TLS) encrypts everything. Let's Encrypt provides free SSL certificates.",
+      qEn: "Why is HTTPS essential and HTTP dangerous?",
+      correctEn: "HTTP sends everything as plaintext — anyone listening sees passwords and cookies\nHTTPS encrypts all communication",
+      choicesEn: [
+        "HTTP sends everything as plaintext — anyone listening sees passwords and cookies\nHTTPS encrypts all communication",
+        "HTTP is slower than HTTPS",
+        "HTTP doesn't support cookies",
+        "No security difference between them"
+      ]
+    },
+    {
+      q: "\u200Fלמה אסור להגדיר Access-Control-Allow-Origin: * עם credentials?",
+      correct: "\u200Fכי זה מאפשר לכל אתר בעולם לגשת ל-API עם cookies\nצריך להגדיר origins ספציפיים",
+      choices: [
+        "\u200Fכי זה מאפשר לכל אתר בעולם לגשת ל-API עם cookies\nצריך להגדיר origins ספציפיים",
+        "\u200Fכי * לא עובד בכלל",
+        "\u200Fכי זה מאט את הביצועים",
+        "\u200Fמותר לחלוטין — זה בטוח"
+      ],
+      explanation: "\u200F* + Allow-Credentials: true = כל אתר יכול לגשת ל-API בשם המשתמש (cookies נשלחים). דפדפנים חוסמים שילוב זה. הפתרון: רשימת origins מותרים ספציפית.",
+      explanationEn: "* + Allow-Credentials: true = any website can access the API on behalf of the user (cookies are sent). Browsers block this combination. Solution: a specific list of allowed origins.",
+      qEn: "Why is it forbidden to set Access-Control-Allow-Origin: * with credentials?",
+      correctEn: "Because it allows any website in the world to access the API with cookies\nYou must set specific origins",
+      choicesEn: [
+        "Because it allows any website in the world to access the API with cookies\nYou must set specific origins",
+        "Because * doesn't work at all",
+        "Because it slows performance",
+        "It's perfectly fine — it's secure"
+      ]
+    }
+  ],
+
+  507: [
+    {
+      q: "\u200Fמה היתרון של Postman על curl לעבודה עם APIs?",
+      correct: "\u200Fממשק גרפי, היסטוריה, Collections, Environment Variables\nובדיקות אוטומטיות — נוח לעבודה שוטפת",
+      choices: [
+        "\u200Fממשק גרפי, היסטוריה, Collections, Environment Variables\nובדיקות אוטומטיות — נוח לעבודה שוטפת",
+        "\u200FPostman מהיר יותר מ-curl",
+        "\u200FPostman עובד בלי אינטרנט",
+        "\u200Fcurl עדיף תמיד"
+      ],
+      explanation: "\u200FPostman מציע ממשק ויזואלי, שמירת בקשות ב-Collections, משתני סביבה {{token}} שמשתנים בין dev/prod, ובדיקות אוטומטיות. curl מתאים יותר לסקריפטים ואוטומציה.",
+      explanationEn: "Postman offers a visual interface, saving requests in Collections, environment variables {{token}} that change between dev/prod, and automated tests. curl is better suited for scripts and automation.",
+      qEn: "What is the advantage of Postman over curl for working with APIs?",
+      correctEn: "GUI, history, Collections, Environment Variables\nand automated tests — convenient for daily work",
+      choicesEn: [
+        "GUI, history, Collections, Environment Variables\nand automated tests — convenient for daily work",
+        "Postman is faster than curl",
+        "Postman works offline",
+        "curl is always better"
+      ]
+    },
+    {
+      q: "\u200Fמה הדגל -v עושה ב-curl?",
+      correct: "\u200Fverbose — מציג את כל התקשורת: headers, TLS, request ו-response מלאים",
+      choices: [
+        "\u200Fverbose — מציג את כל התקשורת: headers, TLS, request ו-response מלאים",
+        "\u200Fמפעיל מצב וידאו",
+        "\u200Fמגדיר גרסת HTTP",
+        "\u200Fמוודא SSL"
+      ],
+      explanation: "\u200Fcurl -v https://api.example.com מציג את כל שלבי התקשורת: DNS, TCP handshake, TLS negotiation, request headers, response headers, ו-body. שימושי מאוד לדיבוג.",
+      explanationEn: "curl -v https://api.example.com shows all communication steps: DNS, TCP handshake, TLS negotiation, request headers, response headers, and body. Very useful for debugging.",
+      qEn: "What does the -v flag do in curl?",
+      correctEn: "verbose — shows all communication: headers, TLS, full request and response",
+      choicesEn: [
+        "verbose — shows all communication: headers, TLS, full request and response",
+        "Enables video mode",
+        "Sets HTTP version",
+        "Verifies SSL"
+      ]
+    },
+    {
+      q: "\u200Fמה מסמל סמל מנעול ליד endpoint בתיעוד Swagger?",
+      correct: "\u200Fשה-endpoint דורש אימות (authentication)\nצריך לשלוח token בכותרת Authorization",
+      choices: [
+        "\u200Fשה-endpoint דורש אימות (authentication)\nצריך לשלוח token בכותרת Authorization",
+        "\u200Fשה-endpoint מוצפן",
+        "\u200Fשה-endpoint לא פעיל",
+        "\u200Fשה-endpoint למנהלים בלבד"
+      ],
+      explanation: "\u200Fב-Swagger UI, מנעול אומר שצריך אימות. לחצו על 'Authorize' בראש הדף והזינו את הטוקן. מכאן כל הבקשות ישלחו אותו אוטומטית.",
+      explanationEn: "In Swagger UI, a lock means authentication is required. Click 'Authorize' at the top and enter your token. From then on, all requests will send it automatically.",
+      qEn: "What does a lock icon next to an endpoint in Swagger documentation mean?",
+      correctEn: "The endpoint requires authentication\nYou need to send a token in the Authorization header",
+      choicesEn: [
+        "The endpoint requires authentication\nYou need to send a token in the Authorization header",
+        "The endpoint is encrypted",
+        "The endpoint is inactive",
+        "The endpoint is for admins only"
+      ]
+    },
+    {
+      q: "\u200Fמה מציג טאב Network ב-DevTools לכל בקשה?",
+      correct: "\u200FHeaders (כותרות), Payload (body), Response (תגובה)\nTiming (זמנים: DNS, TCP, TTFB)",
+      choices: [
+        "\u200FHeaders (כותרות), Payload (body), Response (תגובה)\nTiming (זמנים: DNS, TCP, TTFB)",
+        "\u200Fרק את קוד הסטטוס",
+        "\u200Fרק את גוף התגובה",
+        "\u200Fרק את כתובת ה-URL"
+      ],
+      explanation: "\u200Fלחיצה על בקשה בטאב Network מציגה: request/response headers, body ששנשלח (Payload), תגובת השרת (Preview/Response), וזמנים מפורטים (Timing) — DNS, TCP, TLS, TTFB, Download.",
+      explanationEn: "Clicking a request in the Network tab shows: request/response headers, sent body (Payload), server response (Preview/Response), and detailed timing — DNS, TCP, TLS, TTFB, Download.",
+      qEn: "What does the Network tab in DevTools show for each request?",
+      correctEn: "Headers, Payload (body), Response\nTiming (DNS, TCP, TTFB)",
+      choicesEn: [
+        "Headers, Payload (body), Response\nTiming (DNS, TCP, TTFB)",
+        "Only the status code",
+        "Only the response body",
+        "Only the URL"
+      ]
+    },
+    {
+      q: "\u200Fאיך בודקים התנהגות אפליקציה ברשת איטית ב-DevTools?",
+      correct: "\u200Fטאב Network → Throttling → בחירת 'Slow 3G'\nלבדיקת loading, timeouts, וטיפול בשגיאות",
+      choices: [
+        "\u200Fטאב Network → Throttling → בחירת 'Slow 3G'\nלבדיקת loading, timeouts, וטיפול בשגיאות",
+        "\u200Fלא ניתן לדמות רשת איטית בדפדפן",
+        "\u200Fצריך להתנתק מהאינטרנט",
+        "\u200Fמשנים את הגדרות ה-WiFi"
+      ],
+      explanation: "\u200FThrottling ב-DevTools מדמה רשת איטית ללא שינוי החיבור האמיתי. מאפשר לבדוק: האם יש מסך loading? האם יש טיפול ב-timeouts? האם הדף עדיין שמיש?",
+      explanationEn: "Throttling in DevTools simulates a slow network without changing the actual connection. Allows testing: Is there a loading screen? Is there timeout handling? Is the page still usable?",
+      qEn: "How do you test app behavior on a slow network in DevTools?",
+      correctEn: "Network tab → Throttling → select 'Slow 3G'\nTo test loading, timeouts, and error handling",
+      choicesEn: [
+        "Network tab → Throttling → select 'Slow 3G'\nTo test loading, timeouts, and error handling",
+        "Cannot simulate slow network in browser",
+        "Need to disconnect from internet",
+        "Change WiFi settings"
+      ]
+    }
+  ],
+
+  508: [
+    {
+      q: "\u200Fמה ההבדל בין Webhooks לבין Polling?",
+      correct: "\u200FWebhook — השרת שולח POST כשקורה אירוע (Push, יעיל)\nPolling — הלקוח שואל שוב ושוב (Pull, בזבזני)",
+      choices: [
+        "\u200FWebhook — השרת שולח POST כשקורה אירוע (Push, יעיל)\nPolling — הלקוח שואל שוב ושוב (Pull, בזבזני)",
+        "\u200FPolling יעיל יותר מ-Webhooks",
+        "\u200FWebhooks דורשים WebSocket",
+        "\u200Fאין הבדל — שניהם זהים"
+      ],
+      explanation: "\u200FPolling: GET /api/updates כל 5 שניות — רוב הבקשות חוזרות ריקות. Webhook: השרת שולח POST ל-URL שלכם רק כשקורה משהו. דוגמאות: GitHub push, Stripe payment, Slack notification.",
+      explanationEn: "Polling: GET /api/updates every 5 seconds — most requests return empty. Webhook: server sends POST to your URL only when something happens. Examples: GitHub push, Stripe payment, Slack notification.",
+      qEn: "What is the difference between Webhooks and Polling?",
+      correctEn: "Webhook — server sends POST when event occurs (Push, efficient)\nPolling — client asks repeatedly (Pull, wasteful)",
+      choicesEn: [
+        "Webhook — server sends POST when event occurs (Push, efficient)\nPolling — client asks repeatedly (Pull, wasteful)",
+        "Polling is more efficient than Webhooks",
+        "Webhooks require WebSocket",
+        "No difference — both are identical"
+      ]
+    },
+    {
+      q: "\u200Fמה מיוחד ב-WebSocket לעומת HTTP רגיל?",
+      correct: "\u200Fחיבור קבוע דו-כיווני — שני הצדדים יכולים לשלוח הודעות בכל רגע\nמתאים לצ'אט, נתונים חיים, משחקים",
+      choices: [
+        "\u200Fחיבור קבוע דו-כיווני — שני הצדדים יכולים לשלוח הודעות בכל רגע\nמתאים לצ'אט, נתונים חיים, משחקים",
+        "\u200FWebSocket מהיר יותר מ-HTTP",
+        "\u200FWebSocket מוצפן יותר",
+        "\u200FWebSocket עובד בלי אינטרנט"
+      ],
+      explanation: "\u200FHTTP: בקשה → תגובה → סוף. WebSocket: חיבור נפתח (HTTP Upgrade) ונשאר פתוח — שני הצדדים שולחים הודעות בכל רגע. wss:// = WebSocket מוצפן. שימושים: צ'אט, מניות חיות, משחקים.",
+      explanationEn: "HTTP: request → response → done. WebSocket: connection opens (HTTP Upgrade) and stays open — both sides send messages anytime. wss:// = encrypted WebSocket. Uses: chat, live stocks, games.",
+      qEn: "What is special about WebSocket compared to regular HTTP?",
+      correctEn: "Persistent bidirectional connection — both sides can send messages anytime\nSuitable for chat, live data, games",
+      choicesEn: [
+        "Persistent bidirectional connection — both sides can send messages anytime\nSuitable for chat, live data, games",
+        "WebSocket is faster than HTTP",
+        "WebSocket is more encrypted",
+        "WebSocket works without internet"
+      ]
+    },
+    {
+      q: "\u200Fאיזו בעיה של REST פותר GraphQL?",
+      correct: "\u200FOver-fetching (מקבלים יותר מדי) ו-Under-fetching (צריך כמה בקשות)\nב-GraphQL הלקוח מגדיר בדיוק מה הוא רוצה",
+      choices: [
+        "\u200FOver-fetching (מקבלים יותר מדי) ו-Under-fetching (צריך כמה בקשות)\nב-GraphQL הלקוח מגדיר בדיוק מה הוא רוצה",
+        "\u200FGraphQL מהיר יותר מ-REST",
+        "\u200FGraphQL מאובטח יותר",
+        "\u200FGraphQL לא צריך שרת"
+      ],
+      explanation: "\u200Fב-REST: GET /users/42 מחזיר 20 שדות כשצריכים 3 (over-fetching), או צריך 3 בקשות לדף אחד (under-fetching). ב-GraphQL: בקשה אחת שמגדירה בדיוק אילו שדות להחזיר.",
+      explanationEn: "In REST: GET /users/42 returns 20 fields when you need 3 (over-fetching), or you need 3 requests for one page (under-fetching). In GraphQL: one request that defines exactly which fields to return.",
+      qEn: "What REST problem does GraphQL solve?",
+      correctEn: "Over-fetching (getting too much) and Under-fetching (needing multiple requests)\nIn GraphQL the client defines exactly what it wants",
+      choicesEn: [
+        "Over-fetching (getting too much) and Under-fetching (needing multiple requests)\nIn GraphQL the client defines exactly what it wants",
+        "GraphQL is faster than REST",
+        "GraphQL is more secure",
+        "GraphQL doesn't need a server"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין Offset-based ל-Cursor-based pagination?",
+      correct: "\u200FOffset: page=3&limit=20 (פשוט אבל לא יעיל בנתונים גדולים)\nCursor: after=xyz&limit=20 (יעיל, לא מדלג על רשומות)",
+      choices: [
+        "\u200FOffset: page=3&limit=20 (פשוט אבל לא יעיל בנתונים גדולים)\nCursor: after=xyz&limit=20 (יעיל, לא מדלג על רשומות)",
+        "\u200Fשניהם זהים",
+        "\u200FOffset ליעיל יותר",
+        "\u200FCursor עובד רק עם SQL"
+      ],
+      explanation: "\u200FOffset-based: הולך ל-page 3 על ידי דילוג על 40 רשומות — איטי בטבלאות גדולות. Cursor-based: ממשיך מהנקודה האחרונה — יעיל ולא מפספס רשומות שנוספו תוך כדי.",
+      explanationEn: "Offset-based: goes to page 3 by skipping 40 records — slow on large tables. Cursor-based: continues from the last point — efficient and doesn't miss records added in between.",
+      qEn: "What is the difference between Offset-based and Cursor-based pagination?",
+      correctEn: "Offset: page=3&limit=20 (simple but inefficient for large data)\nCursor: after=xyz&limit=20 (efficient, doesn't skip records)",
+      choicesEn: [
+        "Offset: page=3&limit=20 (simple but inefficient for large data)\nCursor: after=xyz&limit=20 (efficient, doesn't skip records)",
+        "Both are identical",
+        "Offset is more efficient",
+        "Cursor only works with SQL"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין REST לבין GraphQL מבחינת cache?",
+      correct: "\u200FREST — cache קל כי כל endpoint הוא URL ייחודי\nGraphQL — cache מורכב כי כל הבקשות הולכות לendpoint אחד (/graphql)",
+      choices: [
+        "\u200FREST — cache קל כי כל endpoint הוא URL ייחודי\nGraphQL — cache מורכב כי כל הבקשות הולכות לendpoint אחד (/graphql)",
+        "\u200FGraphQL עם cache טוב יותר",
+        "\u200Fשניהם ללא cache",
+        "\u200FREST לא תומך ב-cache"
+      ],
+      explanation: "\u200Fב-REST: GET /users/42 → URL ייחודי → cache פשוט (HTTP caching). ב-GraphQL: POST /graphql עם query body שונה בכל פעם → צריך cache חכם ברמת client (Apollo, Relay).",
+      explanationEn: "In REST: GET /users/42 → unique URL → simple caching (HTTP caching). In GraphQL: POST /graphql with different query body each time → needs smart client-level caching (Apollo, Relay).",
+      qEn: "What is the difference between REST and GraphQL regarding caching?",
+      correctEn: "REST — easy caching because each endpoint is a unique URL\nGraphQL — complex caching because all requests go to one endpoint (/graphql)",
+      choicesEn: [
+        "REST — easy caching because each endpoint is a unique URL\nGraphQL — complex caching because all requests go to one endpoint (/graphql)",
+        "GraphQL has better caching",
+        "Neither supports caching",
+        "REST doesn't support caching"
+      ]
+    }
   ]
 }
 
