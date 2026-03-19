@@ -1688,6 +1688,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
             <li>המיפוי נשמר ב-<strong><code>ARP Cache</code></strong> לשימוש עתידי</li>
           </ol>
           <p>הפקודה <code>arp -a</code> מציגה את טבלת ה-<code>ARP Cache</code>.</p>
+          <p><strong>Gratuitous ARP</strong> — שליחת ARP broadcast ללא שאלה. המכשיר מכריז "אני IP X עם MAC Y". שימושים: עדכון טבלאות ARP של שכנים, גילוי כפילויות IP. סכנה: תוקף יכול לשלוח Gratuitous ARP עם MAC שלו כדי לבצע ARP Spoofing.</p>
         `
       },
       { type: "simulation", title: "הדמיית ARP", simId: "arp", content: "<p>ראו איך מכשיר מגלה כתובת MAC של מכשיר אחר ברשת.</p>" },
@@ -4348,6 +4349,7 @@ Endpoint = peer.example.com:51820</code></pre>
           </div>
           <p><strong>ביצועים:</strong> WireGuard מהיר ב-50–100% מ-OpenVPN, קרוב ל-IPsec.</p>
           <p>מצוין ל-mobile — reconnect אחרי מעבר <code>WiFi</code>↔<code>Cellular</code> מהיר וחלק.</p>
+          <p><strong>חשוב:</strong> WireGuard עובד על UDP בלבד — DPI (Deep Packet Inspection) מזהה אותו בקלות. OpenVPN יכול לעבוד על TCP 443 ולהיראות כמו HTTPS רגיל. לכן WireGuard לא מתאים למדינות שחוסמות VPN.</p>
         `
       },
       {
@@ -6227,6 +6229,7 @@ index=windows EventCode=4624
 | stats count by src_ip, dest_ip, user
 | where count > 10
 | sort -count</code></pre></div>
+<p><strong>SOAR</strong> — Security Orchestration, Automation and Response. משלים את ה-SIEM באוטומציה של תגובות. דוגמאות: Splunk SOAR, Cortex XSOAR, TheHive. מאפשר playbooks אוטומטיים — למשל: חסום IP אוטומטית כשמתגלה IOC.</p>
 </div>`
       },
       {
@@ -6507,6 +6510,8 @@ print(plaintext)  # b'secret message'</code></pre>
 </ul>
 <p><code>Heartbleed</code> שינה תפיסות: האינטרנט בנוי על קוד <code>open-source</code> שנכתב לעתים על ידי מתנדבים.</p>
 <p>המסקנה: נדרשת השקעה מוסדית ומקצועית בבדיקות אבטחה של תשתיות קריטיות.</p>
+<p><strong>קריפטוגרפיה פוסט-קוונטית (PQC)</strong> — NIST סיים תקנון ב-2024. האלגוריתמים החדשים: CRYSTALS-Kyber (החלפת מפתחות), CRYSTALS-Dilithium (חתימות). ה-harvest now, decrypt later threat מחייב מעבר עוד לפני שמחשבים קוונטיים מוכנים.</p>
+<p><strong>Avalanche Effect</strong> — שינוי של ביט אחד בקלט משנה ~50% מהפלט. זו תכונה חיונית של hash functions טובות. בלי Avalanche Effect — תוקף יכול לנחש את הקלט לפי דמיון בפלט.</p>
 </div>`
       }
     ]
