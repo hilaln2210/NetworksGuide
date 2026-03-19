@@ -687,18 +687,18 @@ export const quizBank = {
     },
     {
       q: "\u200Fמה TIME_WAIT state ב-TCP?",
-      correct: "\u200Fלאחר FIN-ACK, connection עדיין פתוח 2×MSL\n(2 דקות) כדי ש-packets מאוחרים\nלא יבלבלו connection חדש",
+      correct: "\u200Fלאחר FIN-ACK, connection עדיין פתוח 2×MSL\n— ב-Linux בדרך כלל 60 שניות\n(RFC: MSL=2 דקות, Linux: MSL=30s → 2×30=60s)\nכדי ש-packets מאוחרים לא יבלבלו connection חדש",
       choices: [
-        "\u200Fלאחר FIN-ACK, connection עדיין פתוח 2×MSL\n(2 דקות) כדי ש-packets מאוחרים\nלא יבלבלו connection חדש",
+        "\u200Fלאחר FIN-ACK, connection עדיין פתוח 2×MSL\n— ב-Linux בדרך כלל 60 שניות\n(RFC: MSL=2 דקות, Linux: MSL=30s → 2×30=60s)\nכדי ש-packets מאוחרים לא יבלבלו connection חדש",
         "\u200FTCP מחכה ל-ACK אחרון לפני שולח FIN",
         "\u200Fשרת בעיכוב גבוה נכנס ל-TIME_WAIT",
         "\u200FTIME_WAIT = חיבור שנכשל"
       ],
-      explanation: "\u200F⏳ מצבי TCP לאורך חיי חיבור:\n• LISTEN → SYN_RCVD → ESTABLISHED\n• FIN_WAIT_1 → FIN_WAIT_2 → TIME_WAIT → CLOSED\n\n🕐 TIME_WAIT:\n• 2×MSL = Maximum Segment Lifetime\n• 60-120 שניות\n\n⚠️ בעיה:\n• שרת עם אלפי connections יכול לתגמר ports\n\n🔧 פתרון:\n• SO_REUSEADDR socket option\n• TCP_QUICKACK\n• kernel tuning",
+      explanation: "\u200F⏳ מצבי TCP לאורך חיי חיבור:\n• LISTEN → SYN_RCVD → ESTABLISHED\n• FIN_WAIT_1 → FIN_WAIT_2 → TIME_WAIT → CLOSED\n\n🕐 TIME_WAIT:\n• 2×MSL = Maximum Segment Lifetime\n• RFC מגדיר MSL=2 דקות, אבל Linux משתמש ב-MSL=30 שניות → 2×30=60s\n\n⚠️ בעיה:\n• שרת עם אלפי connections יכול לתגמר ports\n\n🔧 פתרון:\n• SO_REUSEADDR socket option\n• TCP_QUICKACK\n• kernel tuning",
       qEn: "What is TIME_WAIT state in TCP?",
-      correctEn: "After FIN-ACK, connection stays open for 2xMSL\n(2 minutes) so that late packets\ndo not confuse a new connection",
+      correctEn: "After FIN-ACK, connection stays open for 2xMSL\n— on Linux usually 60 seconds\n(RFC: MSL=2 min, Linux: MSL=30s → 2×30=60s)\nso late packets do not confuse a new connection",
       choicesEn: [
-        "After FIN-ACK, connection stays open for 2xMSL\n(2 minutes) so that late packets\ndo not confuse a new connection",
+        "After FIN-ACK, connection stays open for 2xMSL\n— on Linux usually 60 seconds\n(RFC: MSL=2 min, Linux: MSL=30s → 2×30=60s)\nso late packets do not confuse a new connection",
         "TCP waits for last ACK before sending FIN",
         "A server with high latency enters TIME_WAIT",
         "TIME_WAIT = a failed connection"

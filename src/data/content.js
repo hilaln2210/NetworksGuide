@@ -1330,6 +1330,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           <p><strong><code>Acknowledgment</code></strong> — אישור קבלה</p>
           <p>הצד המקבל שולח: "קיבלתי עד בייט X, שלח את הבא."</p>
           <p>כך <code>TCP</code> מאשר קבלה ומזהה אובדן — אם <code>ACK</code> לא חוזר בזמן, השולח שולח שוב.
+          <p><strong>ACK מצטבר (Cumulative ACK)</strong> — כש-ACK=N, זה אומר: "קיבלתי הכל עד בייט N-1". זה מאפשר ל-TCP לאשר קבלה של מספר segments בבת אחת.</p>
         `
       },
       {
@@ -1571,6 +1572,7 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
           </ul>
           <p>הנתב בודק את <code>Destination IP</code> של כל חבילה.</p>
           <p>הוא מחפש התאמה בטבלה ומעביר לרכיב הבא במסלול.</p>
+          <p><strong>Default Route</strong> — <code>0.0.0.0/0</code> = "שלח לכאן כשאין match ספציפי". ה-Default Gateway הוא ה-next hop של ה-Default Route.</p>
         `
       },
       { type: "simulation", title: "הדמיית Ping ו-Traceroute", simId: "ping", content: "<p>שלחו חבילות ICMP וראו את המסלול שהן עוברות.</p>" },
