@@ -838,7 +838,15 @@ export const quizBank = {
         "\u200Fכתובת של שרת ה-DNS הראשי",
         "\u200Fכתובת של המחשב ברשת הציבורית"
       ],
-      explanation: "\u200F🖥️ MAC = Media Access Control\n• נראית כך: AA:BB:CC:DD:EE:FF\n• שרופה ב-hardware של כרטיס הרשת\n\n⚠️ MAC spoofing:\n• ניתן לזייף בתוכנה\n• למרות שהיא ״קבועה״ ב-hardware"
+      explanation: "\u200F🖥️ MAC = Media Access Control\n• נראית כך: AA:BB:CC:DD:EE:FF\n• שרופה ב-hardware של כרטיס הרשת\n\n⚠️ MAC spoofing:\n• ניתן לזייף בתוכנה\n• למרות שהיא ״קבועה״ ב-hardware",
+      qEn: "What is a MAC address?",
+      correctEn: "A unique physical address that identifies a network card\n6 bytes in hexadecimal",
+      choicesEn: [
+        "A unique physical address that identifies a network card\n6 bytes in hexadecimal",
+        "A logical address assigned by DHCP",
+        "The address of the main DNS server",
+        "The address of the computer on the public network"
+      ]
     },
     {
       q: "\u200Fמה תפקיד ה-ARP?",
@@ -849,7 +857,15 @@ export const quizBank = {
         "\u200Fמתרגם שמות דומיין לכתובות IP",
         "\u200Fמאמת זהות משתמש ברשת"
       ],
-      explanation: "\u200F📋 ARP = Address Resolution Protocol\n• שואל: ״מי בעל IP 192.168.1.5?״\n• כולם שומעים (broadcast)\n• הנכון עונה עם ה-MAC שלו\n\n💾 ARP cache:\n• שומר את הטבלה IP → MAC\n• חוסך שאילתות חוזרות"
+      explanation: "\u200F📋 ARP = Address Resolution Protocol\n• שואל: ״מי בעל IP 192.168.1.5?״\n• כולם שומעים (broadcast)\n• הנכון עונה עם ה-MAC שלו\n\n💾 ARP cache:\n• שומר את הטבלה IP → MAC\n• חוסך שאילתות חוזרות",
+      qEn: "What is the role of ARP?",
+      correctEn: "Finds the MAC address of a device\ngiven its IP address",
+      choicesEn: [
+        "Finds the MAC address of a device\ngiven its IP address",
+        "Automatically assigns IP addresses to devices",
+        "Translates domain names to IP addresses",
+        "Verifies user identity on the network"
+      ]
     },
     {
       q: "\u200Fמה MAC address ומה שונה אותו מ-IP?",
@@ -860,7 +876,15 @@ export const quizBank = {
         "\u200FMAC משתנה בכל חיבור\nIP קבוע",
         "\u200FMAC = IPv6\nIP = IPv4"
       ],
-      explanation: "\u200F🔤 MAC — Media Access Control:\n• 48 bits: XX:XX:XX:XX:XX:XX\n• 24 bits = OUI (מזהה יצרן — Intel, Cisco)\n• 24 bits = מספר סידורי\n\n🔄 MAC spoofing:\n• ניתן לשנות בתוכנה\n\n📌 כתובות מיוחדות:\n• Broadcast MAC: FF:FF:FF:FF:FF:FF\n• ARP: ממפה IP → MAC\n\n⚖️ ההבדל:\n• IP = logical (משתנה לפי רשת)\n• MAC = physical (קבוע ב-hardware)"
+      explanation: "\u200F🔤 MAC — Media Access Control:\n• 48 bits: XX:XX:XX:XX:XX:XX\n• 24 bits = OUI (מזהה יצרן — Intel, Cisco)\n• 24 bits = מספר סידורי\n\n🔄 MAC spoofing:\n• ניתן לשנות בתוכנה\n\n📌 כתובות מיוחדות:\n• Broadcast MAC: FF:FF:FF:FF:FF:FF\n• ARP: ממפה IP → MAC\n\n⚖️ ההבדל:\n• IP = logical (משתנה לפי רשת)\n• MAC = physical (קבוע ב-hardware)",
+      qEn: "What is a MAC address and how is it different from IP?",
+      correctEn: "MAC = Layer 2, unique hardware ID of NIC (48 bit)\nIP = Layer 3, logical address that changes by network",
+      choicesEn: [
+        "MAC = Layer 2, unique hardware ID of NIC (48 bit)\nIP = Layer 3, logical address that changes by network",
+        "MAC and IP are the same — just different format",
+        "MAC changes on every connection\nIP is fixed",
+        "MAC = IPv6\nIP = IPv4"
+      ]
     },
     {
       q: "\u200Fמה Ethernet Frame structure?",
@@ -871,7 +895,15 @@ export const quizBank = {
         "\u200FSrc IP | Dst IP | Src Port | Dst Port | Data",
         "\u200FStart | MAC | IP | TCP | Data | End"
       ],
-      explanation: "\u200F📦 Ethernet II Frame:\n• Preamble (8B) — לסנכרון\n• Dest MAC (6B)\n• Src MAC (6B)\n• EtherType (2B)\n\n🏷️ ערכי EtherType נפוצים:\n• 0x0800 = IPv4\n• 0x0806 = ARP\n• 0x86DD = IPv6\n\n📏 Payload + סיום:\n• Payload: 46-1500 bytes\n• FCS (4B) = CRC checksum\n• MTU = 1500 bytes\n• Jumbo frames = 9000 bytes (datacenter)\n• VLAN tag (802.1Q) = 4 bytes נוספים"
+      explanation: "\u200F📦 Ethernet II Frame:\n• Preamble (8B) — לסנכרון\n• Dest MAC (6B)\n• Src MAC (6B)\n• EtherType (2B)\n\n🏷️ ערכי EtherType נפוצים:\n• 0x0800 = IPv4\n• 0x0806 = ARP\n• 0x86DD = IPv6\n\n📏 Payload + סיום:\n• Payload: 46-1500 bytes\n• FCS (4B) = CRC checksum\n• MTU = 1500 bytes\n• Jumbo frames = 9000 bytes (datacenter)\n• VLAN tag (802.1Q) = 4 bytes נוספים",
+      qEn: "What is the Ethernet Frame structure?",
+      correctEn: "Preamble | Dest MAC | Src MAC | EtherType\n| Payload (46-1500 bytes) | FCS",
+      choicesEn: [
+        "Preamble | Dest MAC | Src MAC | EtherType\n| Payload (46-1500 bytes) | FCS",
+        "Header | Data | Checksum only",
+        "Src IP | Dst IP | Src Port | Dst Port | Data",
+        "Start | MAC | IP | TCP | Data | End"
+      ]
     },
     {
       q: "\u200Fמה ה-Broadcast Domain ומה Collision Domain?",
@@ -882,7 +914,15 @@ export const quizBank = {
         "\u200FHub מפריד broadcast\nSwitch לא",
         "\u200FRouter לא מפריד broadcast domains"
       ],
-      explanation: "\u200F💥 Collision Domain:\n• Hub = domain אחד (כולם מתנגשים)\n• Switch = כל port = domain נפרד (Full Duplex)\n\n📢 Broadcast Domain:\n• Switch = domain אחד (כל הפורטים)\n• Router = מפריד\n• VLAN = מפריד ב-software\n\n⚠️ בעיה:\n• רשת גדולה ללא VLANs = broadcast storm\n• 1000 מכשירים ב-broadcast domain אחד\n  = CPU high מ-ARP floods"
+      explanation: "\u200F💥 Collision Domain:\n• Hub = domain אחד (כולם מתנגשים)\n• Switch = כל port = domain נפרד (Full Duplex)\n\n📢 Broadcast Domain:\n• Switch = domain אחד (כל הפורטים)\n• Router = מפריד\n• VLAN = מפריד ב-software\n\n⚠️ בעיה:\n• רשת גדולה ללא VLANs = broadcast storm\n• 1000 מכשירים ב-broadcast domain אחד\n  = CPU high מ-ARP floods",
+      qEn: "What is a Broadcast Domain and what is a Collision Domain?",
+      correctEn: "Broadcast Domain: everyone who receives broadcast\nSwitch does not separate, Router does\nCollision Domain: Switch separates per port",
+      choicesEn: [
+        "Broadcast Domain: everyone who receives broadcast\nSwitch does not separate, Router does\nCollision Domain: Switch separates per port",
+        "Both are the same",
+        "Hub separates broadcast\nSwitch does not",
+        "Router does not separate broadcast domains"
+      ]
     }
   ],
 
@@ -897,7 +937,15 @@ export const quizBank = {
         "\u200FHub לרשת ביתית, Switch לארגון, Router לאינטרנט"
       ],
       explanation: "\u200F📡 Hub (שכבה 1 — פיזית):\n• מקבל frame, משדר לכל הפורטים\n• אין אינטליגנציה — collision domain אחד\n\n🔀 Switch (שכבה 2 — קו):\n• לומד כתובות MAC\n• MAC Address Table: MAC → Port\n• שולח frame רק לפורט הנכון\n\n🌐 Router (שכבה 3 — רשת):\n• מחבר בין רשתות שונות\n• משתמש ב-IP ו-Routing Table\n• Default Gateway של הרשת המקומית",
-      explanationEn: "Hub (Layer 1): receives frame, broadcasts to all ports. No intelligence — single collision domain. Switch (Layer 2): learns MAC addresses, maintains MAC Address Table (MAC to Port), sends frame only to correct port. Router (Layer 3): connects different networks, uses IP and Routing Table, serves as Default Gateway for local network."
+      explanationEn: "Hub (Layer 1): receives frame, broadcasts to all ports. No intelligence — single collision domain. Switch (Layer 2): learns MAC addresses, maintains MAC Address Table (MAC to Port), sends frame only to correct port. Router (Layer 3): connects different networks, uses IP and Routing Table, serves as Default Gateway for local network.",
+      qEn: "What is the difference between Hub, Switch and Router?",
+      correctEn: "Hub: Layer 1, broadcasts to everyone\nSwitch: Layer 2, sends by MAC\nRouter: Layer 3, routes by IP between networks",
+      choicesEn: [
+        "Hub: Layer 1, broadcasts to everyone\nSwitch: Layer 2, sends by MAC\nRouter: Layer 3, routes by IP between networks",
+        "Hub = old Switch, Router = smart Switch",
+        "All three do the same thing — just different names",
+        "Hub for home, Switch for business, Router for internet"
+      ]
     },
     {
       q: "\u200Fמה VLAN ולמה משתמשים בו?",
@@ -909,7 +957,15 @@ export const quizBank = {
         "\u200FVLAN עובד רק עם WiFi, לא עם כבלים"
       ],
       explanation: "\u200F🏢 דוגמה:\n• Switch אחד עם 24 פורטים\n• VLAN 10: מחלקת כספים (פורטים 1-8)\n• VLAN 20: מחלקת שיווק (פורטים 9-16)\n• VLAN 30: אורחים (פורטים 17-24)\n\n🔒 יתרונות:\n• בידוד — כספים לא רואים traffic של שיווק\n• אבטחה — פחות attack surface\n• ביצועים — broadcast מוגבל ל-VLAN\n\n📌 802.1Q:\n• Tag של 12 ביט ב-Ethernet frame\n• עד 4094 VLANs",
-      explanationEn: "VLAN divides a physical Switch into separate logical networks. Example: one 24-port switch split into Finance (VLAN 10, ports 1-8), Marketing (VLAN 20, ports 9-16), Guests (VLAN 30, ports 17-24). Benefits: isolation, security (less attack surface), performance (broadcast limited to VLAN). 802.1Q adds a 12-bit tag to Ethernet frame, supporting up to 4094 VLANs."
+      explanationEn: "VLAN divides a physical Switch into separate logical networks. Example: one 24-port switch split into Finance (VLAN 10, ports 1-8), Marketing (VLAN 20, ports 9-16), Guests (VLAN 30, ports 17-24). Benefits: isolation, security (less attack surface), performance (broadcast limited to VLAN). 802.1Q adds a 12-bit tag to Ethernet frame, supporting up to 4094 VLANs.",
+      qEn: "What is VLAN and why is it used?",
+      correctEn: "A virtual local network — divides a physical Switch\ninto separate logical networks\nIsolates traffic and improves security",
+      choicesEn: [
+        "A virtual local network — divides a physical Switch\ninto separate logical networks\nIsolates traffic and improves security",
+        "VLAN = VPN for local network",
+        "VLAN replaces Router between networks",
+        "VLAN works only with WiFi, not cables"
+      ]
     },
     {
       q: "\u200Fמה תפקיד חומת האש (Firewall)?",
@@ -921,7 +977,15 @@ export const quizBank = {
         "\u200FFirewall מנתב חבילות בין רשתות"
       ],
       explanation: "\u200F🛡️ סוגי Firewall:\n• Packet Filter: בודק L3/L4 (IP, port)\n• Stateful: עוקב אחרי connections\n• Application (WAF): בודק L7 (HTTP content)\n\n📋 חוקים לדוגמה:\n• ALLOW TCP from any to 10.0.0.5:443 (HTTPS)\n• DENY TCP from any to 10.0.0.5:22 (SSH)\n• DENY ALL — ברירת מחדל\n\n📌 חוקים נבדקים מלמעלה למטה:\n• First match wins\n• Default policy: בדרך כלל DENY",
-      explanationEn: "Firewall types: Packet Filter checks L3/L4 (IP, port), Stateful tracks connections, Application Firewall (WAF) inspects L7 content. Rules example: ALLOW TCP to port 443, DENY TCP to port 22, DENY ALL as default. Rules are evaluated top-to-bottom, first match wins. Default policy is usually DENY."
+      explanationEn: "Firewall types: Packet Filter checks L3/L4 (IP, port), Stateful tracks connections, Application Firewall (WAF) inspects L7 content. Rules example: ALLOW TCP to port 443, DENY TCP to port 22, DENY ALL as default. Rules are evaluated top-to-bottom, first match wins. Default policy is usually DENY.",
+      qEn: "What is the role of a Firewall?",
+      correctEn: "Filters network traffic by rules\nChecks source, destination, port and protocol\nand decides to allow or block",
+      choicesEn: [
+        "Filters network traffic by rules\nChecks source, destination, port and protocol\nand decides to allow or block",
+        "Firewall encrypts all traffic",
+        "Firewall prevents viruses only",
+        "Firewall routes packets between networks"
+      ]
     },
     {
       q: "\u200Fמה SDN (Software Defined Networking)?",
@@ -933,7 +997,15 @@ export const quizBank = {
         "\u200FSDN = VPN לארגונים"
       ],
       explanation: "\u200F🧠 Control Plane (מוח):\n• מחליט לאן לנתב\n• ב-SDN: controller מרכזי (כמו OpenFlow)\n\n⚡ Data Plane (שרירים):\n• מעביר חבילות לפי ההחלטות\n• Switches פשוטים שמקבלים הוראות\n\n📌 יתרונות:\n• ניהול מרכזי — שינוי אחד משפיע על כל הרשת\n• אוטומציה — APIs לניהול\n• גמישות — שינוי routing בתוכנה\n\n🌐 דוגמאות:\n• Google B4 — WAN מבוסס SDN\n• OpenFlow — פרוטוקול SDN",
-      explanationEn: "SDN separates Control Plane (brain — decides where to route) from Data Plane (muscles — forwards packets). In SDN: a central controller (like OpenFlow) manages simple switches that receive instructions. Benefits: centralized management, automation via APIs, flexibility in software. Examples: Google B4 (SDN-based WAN), OpenFlow protocol."
+      explanationEn: "SDN separates Control Plane (brain — decides where to route) from Data Plane (muscles — forwards packets). In SDN: a central controller (like OpenFlow) manages simple switches that receive instructions. Benefits: centralized management, automation via APIs, flexibility in software. Examples: Google B4 (SDN-based WAN), OpenFlow protocol.",
+      qEn: "What is SDN (Software Defined Networking)?",
+      correctEn: "Separating the Control Plane\nfrom the Data Plane\nCentralized network management in software",
+      choicesEn: [
+        "Separating the Control Plane\nfrom the Data Plane\nCentralized network management in software",
+        "SDN = an advanced wireless network",
+        "SDN = a Switch with more ports",
+        "SDN = VPN for organizations"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין Router ביתי לתעשייתי?",
@@ -945,7 +1017,15 @@ export const quizBank = {
         "\u200Fאין הבדל מהותי — רק מחיר"
       ],
       explanation: "\u200F🏠 Router ביתי:\n• All-in-one: Router + Switch + WiFi AP + Firewall + NAT + DHCP\n• ממשק ניהול פשוט (GUI)\n• עד ~50 מכשירים\n\n🏢 Router תעשייתי (Cisco, Juniper):\n• רכיבים נפרדים — כל אחד ייעודי\n• CLI לניהול (IOS, JunOS)\n• BGP, OSPF, MPLS\n• אלפי-מיליוני routes\n• redundancy ו-failover\n\n📌 Switch תעשייתי:\n• 48+ פורטים, PoE, VLAN, STP\n• stacking — מספר switches כיחידה אחת",
-      explanationEn: "Home Router: all-in-one device combining Router, Switch, WiFi AP, Firewall, NAT, DHCP. Simple GUI management, supports ~50 devices. Enterprise Router (Cisco, Juniper): separate dedicated components, CLI management (IOS, JunOS), supports BGP, OSPF, MPLS, thousands to millions of routes, redundancy and failover. Enterprise Switch: 48+ ports, PoE, VLAN, STP, stacking."
+      explanationEn: "Home Router: all-in-one device combining Router, Switch, WiFi AP, Firewall, NAT, DHCP. Simple GUI management, supports ~50 devices. Enterprise Router (Cisco, Juniper): separate dedicated components, CLI management (IOS, JunOS), supports BGP, OSPF, MPLS, thousands to millions of routes, redundancy and failover. Enterprise Switch: 48+ ports, PoE, VLAN, STP, stacking.",
+      qEn: "What is the difference between a home Router and an enterprise Router?",
+      correctEn: "Home Router combines Router, Switch, AP and Firewall\nEnterprise Router separates each component\nwith higher performance and control",
+      choicesEn: [
+        "Home Router combines Router, Switch, AP and Firewall\nEnterprise Router separates each component\nwith higher performance and control",
+        "Home Router works only with WiFi",
+        "Enterprise Router supports only IPv6",
+        "No real difference — just price"
+      ]
     }
   ],
 
@@ -959,7 +1039,15 @@ export const quizBank = {
         "\u200Fהוספת header עם כתובות IP",
         "\u200Fבדיקת שגיאות בנתונים"
       ],
-      explanation: "\u200F⚡ השכבה הפיזית:\n• לא מבינה 'packets'\n• רק מעבירה 0 ו-1 כאותות\n\n🔌 סוגי אותות:\n• Ethernet = מתח חשמל\n• Fiber = פולסים של אור\n• WiFi = גלי רדיו"
+      explanation: "\u200F⚡ השכבה הפיזית:\n• לא מבינה 'packets'\n• רק מעבירה 0 ו-1 כאותות\n\n🔌 סוגי אותות:\n• Ethernet = מתח חשמל\n• Fiber = פולסים של אור\n• WiFi = גלי רדיו",
+      qEn: "What happens at the Physical layer?",
+      correctEn: "Converting bits to physical signals\n(electricity, light, radio) and back",
+      choicesEn: [
+        "Converting bits to physical signals\n(electricity, light, radio) and back",
+        "Adding a header with MAC addresses",
+        "Adding a header with IP addresses",
+        "Checking data for errors"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין fiber optic לכבל נחושת?",
@@ -970,7 +1058,15 @@ export const quizBank = {
         "\u200FFiber לתקשורת ים, נחושת ליבשה בלבד",
         "\u200Fאין הבדל משמעותי בביצועים"
       ],
-      explanation: "\u200F💡 Fiber Optic:\n• עובד במהירות האור\n• יכול להגיע ל-Terabits/sec\n• לא מושפע מ-EMI\n• הרבה יקר יותר להתקנה\n\n🌊 כבלי ים בינלאומיים:\n• כולם fiber"
+      explanation: "\u200F💡 Fiber Optic:\n• עובד במהירות האור\n• יכול להגיע ל-Terabits/sec\n• לא מושפע מ-EMI\n• הרבה יקר יותר להתקנה\n\n🌊 כבלי ים בינלאומיים:\n• כולם fiber",
+      qEn: "What is the difference between fiber optic and copper cable?",
+      correctEn: "Fiber = light, copper = electricity\nFiber is faster and resistant to interference",
+      choicesEn: [
+        "Fiber = light, copper = electricity\nFiber is faster and resistant to interference",
+        "Fiber is cheaper so it is more common",
+        "Fiber for undersea cables, copper for land only",
+        "No significant difference in performance"
+      ]
     },
     {
       q: "\u200Fמה Full Duplex לעומת Half Duplex?",
@@ -982,7 +1078,15 @@ export const quizBank = {
         "\u200FFull Duplex רק בכבל fiber"
       ],
       explanation: "\u200F📡 Half Duplex (Hub):\n• רק אחד מדבר בכל רגע\n• CSMA/CD: מאזין → שולח → התנגשות? → backoff אקראי\n• Collision Domain = כל ההתקנים על ה-Hub\n\n🔄 Full Duplex (Switch):\n• שליחה וקבלה במקביל\n• אין התנגשויות!\n• Switch מפריד Collision Domains\n• 100Mbps FD = 100Mbps שליחה + 100Mbps קבלה\n\n📌 WiFi = Half Duplex:\n• CSMA/CA (לא CD) — מונע התנגשויות מראש",
-      explanationEn: "Half Duplex (Hub): only one device transmits at a time. CSMA/CD: listen, send, collision detected, random backoff. Collision Domain = all devices on Hub. Full Duplex (Switch): send and receive simultaneously, no collisions. Switch separates Collision Domains. 100Mbps FD = 100Mbps send + 100Mbps receive. WiFi is Half Duplex using CSMA/CA."
+      explanationEn: "Half Duplex (Hub): only one device transmits at a time. CSMA/CD: listen, send, collision detected, random backoff. Collision Domain = all devices on Hub. Full Duplex (Switch): send and receive simultaneously, no collisions. Switch separates Collision Domains. 100Mbps FD = 100Mbps send + 100Mbps receive. WiFi is Half Duplex using CSMA/CA.",
+      qEn: "What is Full Duplex vs Half Duplex?",
+      correctEn: "Full Duplex: send and receive at the same time (Switch)\nHalf Duplex: only one at a time (Hub)\nCSMA/CD solves collisions in Half Duplex",
+      choicesEn: [
+        "Full Duplex: send and receive at the same time (Switch)\nHalf Duplex: only one at a time (Hub)\nCSMA/CD solves collisions in Half Duplex",
+        "Full Duplex = double speed",
+        "Half Duplex = half the ports",
+        "Full Duplex only with fiber cable"
+      ]
     },
     {
       q: "\u200Fמה WiFi (802.11) ואיזה תקנים נפוצים?",
@@ -994,7 +1098,15 @@ export const quizBank = {
         "\u200FWiFi 6 עובד רק ב-6GHz"
       ],
       explanation: "\u200F📶 תקנים:\n• 802.11b (1999): 11Mbps, 2.4GHz\n• 802.11n (WiFi 4): 600Mbps, 2.4+5GHz\n• 802.11ac (WiFi 5): 3.5Gbps, 5GHz, MIMO\n• 802.11ax (WiFi 6): 9.6Gbps, OFDMA, MU-MIMO\n\n📡 2.4GHz vs 5GHz:\n• 2.4GHz: טווח ארוך, חודר קירות, עמוס\n• 5GHz: מהיר יותר, טווח קצר, פחות הפרעות\n\n📌 WiFi = Half Duplex\n• בניגוד ל-Ethernet שהוא Full Duplex",
-      explanationEn: "WiFi standards: 802.11b (1999, 11Mbps, 2.4GHz), 802.11n/WiFi 4 (600Mbps, 2.4+5GHz), 802.11ac/WiFi 5 (3.5Gbps, 5GHz, MIMO), 802.11ax/WiFi 6 (9.6Gbps, OFDMA, MU-MIMO). 2.4GHz: longer range, penetrates walls, crowded. 5GHz: faster, shorter range, less interference. WiFi is Half Duplex unlike Full Duplex Ethernet."
+      explanationEn: "WiFi standards: 802.11b (1999, 11Mbps, 2.4GHz), 802.11n/WiFi 4 (600Mbps, 2.4+5GHz), 802.11ac/WiFi 5 (3.5Gbps, 5GHz, MIMO), 802.11ax/WiFi 6 (9.6Gbps, OFDMA, MU-MIMO). 2.4GHz: longer range, penetrates walls, crowded. 5GHz: faster, shorter range, less interference. WiFi is Half Duplex unlike Full Duplex Ethernet.",
+      qEn: "What is WiFi (802.11) and which standards are common?",
+      correctEn: "A wireless network standard\n802.11ac (WiFi 5): up to 3.5Gbps on 5GHz\n802.11ax (WiFi 6): up to 9.6Gbps, OFDMA",
+      choicesEn: [
+        "A wireless network standard\n802.11ac (WiFi 5): up to 3.5Gbps on 5GHz\n802.11ax (WiFi 6): up to 9.6Gbps, OFDMA",
+        "WiFi = Wireless Firewall Interface",
+        "WiFi is always faster than Ethernet cable",
+        "WiFi 6 works only on 6GHz"
+      ]
     },
     {
       q: "\u200Fמה PoE (Power over Ethernet)?",
@@ -1006,7 +1118,15 @@ export const quizBank = {
         "\u200FPoE עובד רק עם כבל fiber"
       ],
       explanation: "\u200F⚡ Power over Ethernet:\n• IEEE 802.3af: עד 15.4W\n• IEEE 802.3at (PoE+): עד 30W\n• IEEE 802.3bt (PoE++): עד 90W\n\n📋 שימושים:\n• מצלמות IP — מיקום ללא שקע חשמל\n• WiFi Access Points — על התקרה\n• IP טלפונים — כבל אחד לשולחן\n\n📌 יתרון:\n• כבל אחד לנתונים + חשמל\n• UPS על ה-Switch = כל ההתקנים מוגנים",
-      explanationEn: "PoE supplies electrical power through Ethernet cable. Standards: 802.3af (15.4W), 802.3at/PoE+ (30W), 802.3bt/PoE++ (90W). Uses: IP cameras (no power outlet needed), WiFi APs (ceiling mount), IP phones (one cable to desk). Benefit: one cable for data + power. UPS on the Switch protects all connected devices."
+      explanationEn: "PoE supplies electrical power through Ethernet cable. Standards: 802.3af (15.4W), 802.3at/PoE+ (30W), 802.3bt/PoE++ (90W). Uses: IP cameras (no power outlet needed), WiFi APs (ceiling mount), IP phones (one cable to desk). Benefit: one cable for data + power. UPS on the Switch protects all connected devices.",
+      qEn: "What is PoE (Power over Ethernet)?",
+      correctEn: "Supplying power through the Ethernet cable\nAllows cameras, APs and IP phones to run\nwithout a separate power cable",
+      choicesEn: [
+        "Supplying power through the Ethernet cable\nAllows cameras, APs and IP phones to run\nwithout a separate power cable",
+        "PoE = Protocol over Ethernet",
+        "PoE increases network speed",
+        "PoE works only with fiber cable"
+      ]
     }
   ],
 
@@ -1020,7 +1140,15 @@ export const quizBank = {
         "\u200Fרק שכבות הרשת והתעבורה מעבדות את הבקשה",
         "\u200Fה-header נשלח קודם ואז הנתונים בנפרד"
       ],
-      explanation: "\u200F🎂 הדרך המלאה של בקשת HTTP:\n• App → HTTP\n• Transport → TCP\n• Network → IP\n• Link → MAC\n• Physical → סיביות ברשת\n\n📦 עיקרון מפתח:\n• כל שכבה 'אחראית על עצמה'\n• מוסיפה header בשליחה\n• מסירה header בקבלה"
+      explanation: "\u200F🎂 הדרך המלאה של בקשת HTTP:\n• App → HTTP\n• Transport → TCP\n• Network → IP\n• Link → MAC\n• Physical → סיביות ברשת\n\n📦 עיקרון מפתח:\n• כל שכבה 'אחראית על עצמה'\n• מוסיפה header בשליחה\n• מסירה header בקבלה",
+      qEn: "What happens when a computer sends an HTTP request?",
+      correctEn: "Each layer adds a header, sent as bits\nThe other side removes headers layer by layer",
+      choicesEn: [
+        "Each layer adds a header, sent as bits\nThe other side removes headers layer by layer",
+        "The request is sent as plain text without any processing",
+        "Only the Network and Transport layers process the request",
+        "The header is sent first and then the data separately"
+      ]
     },
     {
       q: "\u200Fמה סדר הפעולות המלא כשמקלידים URL בדפדפן?",
@@ -1032,7 +1160,15 @@ export const quizBank = {
         "\u200FTCP → HTTP → DNS → תצוגה"
       ],
       explanation: "\u200F🌐 הסדר המלא:\n1. DNS: שם → IP (cache → recursive resolver → root → TLD → auth)\n2. ARP: IP → MAC (אם ברשת מקומית)\n3. TCP: SYN → SYN-ACK → ACK\n4. TLS: ClientHello → ServerHello → keys (אם HTTPS)\n5. HTTP: GET /page HTTP/1.1\n6. Server: מחזיר HTML (200 OK)\n7. Browser: parsing → DOM → render\n8. בקשות נוספות: CSS, JS, images\n\n📌 כל זה קורה ב-milliseconds!",
-      explanationEn: "Full sequence: 1) DNS: name to IP (cache, recursive resolver, root, TLD, authoritative), 2) ARP: IP to MAC (if on local network), 3) TCP: SYN, SYN-ACK, ACK, 4) TLS: ClientHello, ServerHello, keys (if HTTPS), 5) HTTP: GET /page, 6) Server: returns HTML (200 OK), 7) Browser: parsing, DOM, render, 8) Additional requests: CSS, JS, images. All happens in milliseconds!"
+      explanationEn: "Full sequence: 1) DNS: name to IP (cache, recursive resolver, root, TLD, authoritative), 2) ARP: IP to MAC (if on local network), 3) TCP: SYN, SYN-ACK, ACK, 4) TLS: ClientHello, ServerHello, keys (if HTTPS), 5) HTTP: GET /page, 6) Server: returns HTML (200 OK), 7) Browser: parsing, DOM, render, 8) Additional requests: CSS, JS, images. All happens in milliseconds!",
+      qEn: "What is the full order of steps when you type a URL in the browser?",
+      correctEn: "DNS lookup -> TCP handshake -> TLS handshake\n-> HTTP request -> Server response\n-> Browser rendering",
+      choicesEn: [
+        "DNS lookup -> TCP handshake -> TLS handshake\n-> HTTP request -> Server response\n-> Browser rendering",
+        "HTTP request -> DNS -> TCP -> display",
+        "ARP -> MAC lookup -> HTTP -> DNS",
+        "TCP -> HTTP -> DNS -> display"
+      ]
     },
     {
       q: "\u200Fמה תפקיד ה-CDN כשגולשים לאתר?",
@@ -1044,7 +1180,15 @@ export const quizBank = {
         "\u200FCDN שומר רק קבצי וידאו, לא HTML"
       ],
       explanation: "\u200F🌍 CDN — Content Delivery Network:\n• שרתי edge בעשרות ערים\n• Request → CDN POP הקרוב\n\n📋 Cache HIT:\n• התוכן נמצא ב-cache → מוגש מיידית\n• Latency: 5-20ms במקום 200ms\n\n📋 Cache MISS:\n• CDN פונה ל-origin server\n• שומר ב-cache לפעם הבאה\n\n📌 מה CDN שומר?\n• HTML, CSS, JS, images, video\n• Headers קובעים: Cache-Control, ETag",
-      explanationEn: "CDN (Content Delivery Network): edge servers in dozens of cities. Request goes to nearest CDN POP. Cache HIT: content found in cache, served immediately (5-20ms instead of 200ms). Cache MISS: CDN fetches from origin server, stores for next time. CDN caches HTML, CSS, JS, images, video. Headers determine caching: Cache-Control, ETag."
+      explanationEn: "CDN (Content Delivery Network): edge servers in dozens of cities. Request goes to nearest CDN POP. Cache HIT: content found in cache, served immediately (5-20ms instead of 200ms). Cache MISS: CDN fetches from origin server, stores for next time. CDN caches HTML, CSS, JS, images, video. Headers determine caching: Cache-Control, ETag.",
+      qEn: "What is the role of a CDN when browsing a website?",
+      correctEn: "CDN serves content from a cache on a nearby server\nReduces latency and load on the origin server",
+      choicesEn: [
+        "CDN serves content from a cache on a nearby server\nReduces latency and load on the origin server",
+        "CDN encrypts traffic instead of TLS",
+        "CDN replaces DNS and routes directly",
+        "CDN stores only video files, not HTML"
+      ]
     },
     {
       q: "\u200Fמה קורה אם שרת ה-DNS שלך לא עובד?",
@@ -1056,7 +1200,15 @@ export const quizBank = {
         "\u200FDNS fallback עובר ל-ARP במקום"
       ],
       explanation: "\u200F🔴 כש-DNS לא עובד:\n• http://google.com → ERROR\n• http://142.250.185.78 → עובד!\n• כי DNS רק מתרגם שמות ל-IP\n\n🔧 פתרונות:\n• שנה DNS ידנית: 8.8.8.8 (Google), 1.1.1.1 (Cloudflare)\n• בדוק עם nslookup google.com\n• נקה DNS cache: ipconfig /flushdns\n\n📌 DNS cache מקומי:\n• אתרים שכבר ביקרת בהם עדיין עובדים\n• עד שה-TTL פג",
-      explanationEn: "When DNS is down: http://google.com fails with ERROR, but http://142.250.185.78 still works — DNS only translates names to IPs. Solutions: change DNS manually to 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare), test with nslookup, clear DNS cache (ipconfig /flushdns). Previously visited sites still work from local cache until TTL expires."
+      explanationEn: "When DNS is down: http://google.com fails with ERROR, but http://142.250.185.78 still works — DNS only translates names to IPs. Solutions: change DNS manually to 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare), test with nslookup, clear DNS cache (ipconfig /flushdns). Previously visited sites still work from local cache until TTL expires.",
+      qEn: "What happens if your DNS server is down?",
+      correctEn: "No translation of names to IP addresses\nThe browser does not know where to go\nBut direct access to an IP address still works",
+      choicesEn: [
+        "No translation of names to IP addresses\nThe browser does not know where to go\nBut direct access to an IP address still works",
+        "The internet stops working completely",
+        "The browser uses IP automatically",
+        "DNS fallback switches to ARP instead"
+      ]
     },
     {
       q: "\u200Fכמה פקטות בערך נשלחות בגלישה לדף אחד?",
@@ -1068,7 +1220,15 @@ export const quizBank = {
         "\u200Fאלפי פקטות לכל דף"
       ],
       explanation: "\u200F📊 פירוט לדוגמה:\n• DNS query + response: 2 פקטות\n• TCP handshake: 3 פקטות\n• TLS handshake: ~4 פקטות\n• HTTP request + response: תלוי בגודל\n\n📋 דף ממוצע (2MB):\n• ~20 HTTP requests (HTML, CSS, JS, images)\n• HTTP/2: multiplexing = connection אחד!\n• סה\"כ: 50-200 פקטות\n\n📌 ב-Wireshark:\n• Statistics → Protocol Hierarchy\n• רואים את ההתפלגות המלאה",
-      explanationEn: "Example breakdown: DNS query+response (2 packets), TCP handshake (3 packets), TLS handshake (~4 packets), HTTP request+response (depends on size). Average page (2MB): ~20 HTTP requests (HTML, CSS, JS, images). HTTP/2 multiplexing uses one connection. Total: 50-200 packets. In Wireshark: Statistics, Protocol Hierarchy shows full breakdown."
+      explanationEn: "Example breakdown: DNS query+response (2 packets), TCP handshake (3 packets), TLS handshake (~4 packets), HTTP request+response (depends on size). Average page (2MB): ~20 HTTP requests (HTML, CSS, JS, images). HTTP/2 multiplexing uses one connection. Total: 50-200 packets. In Wireshark: Statistics, Protocol Hierarchy shows full breakdown.",
+      qEn: "About how many packets are sent when browsing one page?",
+      correctEn: "Tens to hundreds of packets\nDNS + TCP handshake + TLS + HTTP + content\nEach image, CSS and JS = extra requests",
+      choicesEn: [
+        "Tens to hundreds of packets\nDNS + TCP handshake + TLS + HTTP + content\nEach image, CSS and JS = extra requests",
+        "One packet — the whole page in one request",
+        "Exactly 3 — SYN, HTTP, Response",
+        "Thousands of packets for each page"
+      ]
     }
   ],
 
@@ -1082,7 +1242,15 @@ export const quizBank = {
         "\u200Fsocket לתקשורת חד-כיוונית בלבד",
         "\u200Fsocket שמסנן חבילות לא תקינות"
       ],
-      explanation: "\u200F🔄 Blocking vs Non-blocking:\n• Blocking = 'אני מחכה ולא עושה כלום'\n• Non-blocking = 'בדקתי, אין עדיין?\n  בסדר, אעשה דברים אחרים'\n\n🖥️ למה חשוב:\n• שרת שמטפל בהרבה לקוחות\n• חייב non-blocking"
+      explanation: "\u200F🔄 Blocking vs Non-blocking:\n• Blocking = 'אני מחכה ולא עושה כלום'\n• Non-blocking = 'בדקתי, אין עדיין?\n  בסדר, אעשה דברים אחרים'\n\n🖥️ למה חשוב:\n• שרת שמטפל בהרבה לקוחות\n• חייב non-blocking",
+      qEn: "What is a non-blocking socket?",
+      correctEn: "A socket that does not 'freeze' the program\nwhile waiting for data",
+      choicesEn: [
+        "A socket that does not 'freeze' the program\nwhile waiting for data",
+        "An encrypted socket that blocks unauthorized access",
+        "A socket for one-way communication only",
+        "A socket that filters invalid packets"
+      ]
     },
     {
       q: "\u200Fמה select() ולמה משתמשים בו בשרתי רשת?",
@@ -1094,7 +1262,15 @@ export const quizBank = {
         "\u200Fselect() עובדת רק עם UDP"
       ],
       explanation: "\u200F🔄 הבעיה:\n• recv() חוסם — ממתין עד שמגיע data\n• אם יש 10 לקוחות, איך מטפלים בכולם?\n\n✅ select(read_sockets, write_sockets, error_sockets, timeout):\n• מחזירה רשימת sockets שמוכנים\n• שרת קורא רק מ-sockets עם data\n\n📌 חלופות מודרניות:\n• poll(), epoll() (Linux)\n• asyncio (Python 3)",
-      explanationEn: "Problem: recv() blocks — waits until data arrives. With 10 clients, how to handle all? select(read_sockets, write_sockets, error_sockets, timeout): returns list of ready sockets. Server reads only from sockets with data. Modern alternatives: poll(), epoll() (Linux), asyncio (Python 3)."
+      explanationEn: "Problem: recv() blocks — waits until data arrives. With 10 clients, how to handle all? select(read_sockets, write_sockets, error_sockets, timeout): returns list of ready sockets. Server reads only from sockets with data. Modern alternatives: poll(), epoll() (Linux), asyncio (Python 3).",
+      qEn: "What is select() and why is it used in network servers?",
+      correctEn: "A function that waits for events on multiple Sockets\nInstead of blocking on one recv()\nAllows a server with many clients without threads",
+      choicesEn: [
+        "A function that waits for events on multiple Sockets\nInstead of blocking on one recv()\nAllows a server with many clients without threads",
+        "select() picks the fastest Socket",
+        "select() replaces connect() on the client",
+        "select() works only with UDP"
+      ]
     },
     {
       q: "\u200Fמה Threading בשרת רשת ומה היתרון על select()?",
@@ -1106,7 +1282,15 @@ export const quizBank = {
         "\u200FThread אחד תמיד מספיק לכל הלקוחות"
       ],
       explanation: "\u200F🧵 Thread per client:\n• conn, addr = server.accept()\n• threading.Thread(target=handle, args=(conn,)).start()\n• כל thread מריץ recv() חוסם — בסדר!\n\n✅ יתרונות: קוד פשוט, קל לדיבוג\n\n❌ חסרונות:\n• 10,000 threads = הרבה זיכרון\n• GIL בפייתון מגביל CPU parallelism\n• Context switching overhead\n\n📌 פתרון: Thread Pool או asyncio",
-      explanationEn: "Thread per client: after accept(), create threading.Thread(target=handle, args=(conn,)). Each thread runs blocking recv() independently. Advantages: simple code, easy to debug. Disadvantages: 10,000 threads = high memory, Python GIL limits CPU parallelism, context switching overhead. Solution: Thread Pool or asyncio."
+      explanationEn: "Thread per client: after accept(), create threading.Thread(target=handle, args=(conn,)). Each thread runs blocking recv() independently. Advantages: simple code, easy to debug. Disadvantages: 10,000 threads = high memory, Python GIL limits CPU parallelism, context switching overhead. Solution: Thread Pool or asyncio.",
+      qEn: "What is Threading in a network server and what is its advantage over select()?",
+      correctEn: "Each client is handled in a separate thread\nSimpler code — each thread blocks on its own\nBut expensive in memory with many clients",
+      choicesEn: [
+        "Each client is handled in a separate thread\nSimpler code — each thread blocks on its own\nBut expensive in memory with many clients",
+        "Threading speeds up the network",
+        "Threading is required in every Python server",
+        "One thread is always enough for all clients"
+      ]
     },
     {
       q: "\u200Fמה Length Prefix Protocol ולמה צריך אותו ב-TCP?",
@@ -1118,7 +1302,15 @@ export const quizBank = {
         "\u200FLength Prefix רלוונטי רק ל-UDP"
       ],
       explanation: "\u200F⚠️ הבעיה:\n• send('Hello') + send('World')\n• recv() יכול להחזיר: 'HelloWorld' או 'Hel' ואז 'loWorld'\n• TCP = byte stream, לא message stream!\n\n✅ הפתרון — Length Prefix:\n• שולח: [5]Hello[5]World\n• מקבל: קורא 4 bytes (אורך) → קורא N bytes\n\n📌 חלופות:\n• Delimiter: הודעות מופרדות ב-newline\n• Fixed size: כל הודעה באורך קבוע",
-      explanationEn: "Problem: send('Hello') + send('World') — recv() might return 'HelloWorld' or 'Hel' then 'loWorld'. TCP is a byte stream, not message stream! Solution — Length Prefix: sender sends [5]Hello[5]World. Receiver reads 4 bytes (length), then reads N bytes. Alternatives: Delimiter (messages separated by newline), Fixed size (constant message length)."
+      explanationEn: "Problem: send('Hello') + send('World') — recv() might return 'HelloWorld' or 'Hel' then 'loWorld'. TCP is a byte stream, not message stream! Solution — Length Prefix: sender sends [5]Hello[5]World. Receiver reads 4 bytes (length), then reads N bytes. Alternatives: Delimiter (messages separated by newline), Fixed size (constant message length).",
+      qEn: "What is Length Prefix Protocol and why is it needed in TCP?",
+      correctEn: "Sending the message length before the message itself\nBecause TCP is a byte stream — no message boundaries\nThe receiver needs to know how many bytes to read",
+      choicesEn: [
+        "Sending the message length before the message itself\nBecause TCP is a byte stream — no message boundaries\nThe receiver needs to know how many bytes to read",
+        "Length Prefix = encrypting the message before sending",
+        "TCP always sends complete messages — no prefix needed",
+        "Length Prefix is only for UDP"
+      ]
     },
     {
       q: "\u200Fמה asyncio בפייתון ואיך שונה מ-Threading?",
@@ -1130,7 +1322,15 @@ export const quizBank = {
         "\u200Fasyncio מריץ קוד על מספר CPU cores"
       ],
       explanation: "\u200F🔄 Event Loop:\n• async def handle(reader, writer):\n•     data = await reader.read(1024)\n•     writer.write(data)\n\n📋 ההבדל מ-Threading:\n• Thread: OS מחליף בין threads (preemptive)\n• asyncio: הקוד מחליף בנקודות await (cooperative)\n\n✅ יתרונות:\n• thread אחד = פחות זיכרון\n• אין race conditions\n• אלפי connections ב-thread אחד\n\n📌 asyncio.start_server() = שרת TCP אסינכרוני מובנה",
-      explanationEn: "asyncio: asynchronous programming in single thread using event loop and coroutines. Difference from Threading: threads use preemptive switching (OS decides), asyncio uses cooperative switching (code yields at await points). Advantages: single thread = less memory, no race conditions, thousands of connections in one thread. asyncio.start_server() provides built-in async TCP server."
+      explanationEn: "asyncio: asynchronous programming in single thread using event loop and coroutines. Difference from Threading: threads use preemptive switching (OS decides), asyncio uses cooperative switching (code yields at await points). Advantages: single thread = less memory, no race conditions, thousands of connections in one thread. asyncio.start_server() provides built-in async TCP server.",
+      qEn: "What is asyncio in Python and how is it different from Threading?",
+      correctEn: "Asynchronous programming in a single thread\nUses event loop and coroutines\nMore efficient than threads for heavy I/O",
+      choicesEn: [
+        "Asynchronous programming in a single thread\nUses event loop and coroutines\nMore efficient than threads for heavy I/O",
+        "asyncio = Threading with a different name",
+        "asyncio works only with HTTP, not sockets",
+        "asyncio runs code on multiple CPU cores"
+      ]
     }
   ],
 
@@ -1144,7 +1344,15 @@ export const quizBank = {
         "\u200Fשניהם מדידות של מהירות הרשת",
         "\u200FLatency לרשת מקומית\nBandwidth לאינטרנט"
       ],
-      explanation: "\u200F🚰 אנלוגיה — צינור מים:\n• Bandwidth = קוטר הצינור (כמה עובר)\n• Latency = כמה זמן לטיפה להגיע\n\n🎮 מי אוהב מה:\n• YouTube אוהב Bandwidth\n• Gaming אוהב Latency נמוכה"
+      explanation: "\u200F🚰 אנלוגיה — צינור מים:\n• Bandwidth = קוטר הצינור (כמה עובר)\n• Latency = כמה זמן לטיפה להגיע\n\n🎮 מי אוהב מה:\n• YouTube אוהב Bandwidth\n• Gaming אוהב Latency נמוכה",
+      qEn: "What is the difference between latency and bandwidth?",
+      correctEn: "Latency = time it takes for a packet to arrive\nBandwidth = amount of data per second",
+      choicesEn: [
+        "Latency = time it takes for a packet to arrive\nBandwidth = amount of data per second",
+        "Latency = bandwidth\nBandwidth = response time",
+        "Both are measures of network speed",
+        "Latency for local network\nBandwidth for internet"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין throughput ל-bandwidth?",
@@ -1156,7 +1364,15 @@ export const quizBank = {
         "\u200FThroughput תמיד גבוה מ-bandwidth"
       ],
       explanation: "\u200F📡 Bandwidth:\n• קיבולת מקסימלית: 100Mbps\n• כמו רוחב הכביש\n\n📊 Throughput:\n• מה שבאמת עובר: 85Mbps\n• כמו מספר מכוניות שעוברות\n\n❓ למה יש פער?\n• Protocol overhead (headers)\n• Congestion (עומס)\n• Latency\n• Packet loss\n\n📌 Goodput: throughput מינוס overhead",
-      explanationEn: "Bandwidth: maximum theoretical capacity (e.g., 100Mbps) — like road width. Throughput: actual data transferred (e.g., 85Mbps) — like cars actually passing. Gap caused by: protocol overhead (headers), congestion, latency, packet loss. Goodput: throughput minus overhead — only useful data."
+      explanationEn: "Bandwidth: maximum theoretical capacity (e.g., 100Mbps) — like road width. Throughput: actual data transferred (e.g., 85Mbps) — like cars actually passing. Gap caused by: protocol overhead (headers), congestion, latency, packet loss. Goodput: throughput minus overhead — only useful data.",
+      qEn: "What is the difference between throughput and bandwidth?",
+      correctEn: "Bandwidth: maximum theoretical capacity of the line\nThroughput: amount of data that actually passes\nThroughput is always lower than bandwidth",
+      choicesEn: [
+        "Bandwidth: maximum theoretical capacity of the line\nThroughput: amount of data that actually passes\nThroughput is always lower than bandwidth",
+        "Both are the same — synonyms",
+        "Bandwidth = upload, Throughput = download",
+        "Throughput is always higher than bandwidth"
+      ]
     },
     {
       q: "\u200Fמה Proxy Server?",
@@ -1168,7 +1384,15 @@ export const quizBank = {
         "\u200FProxy עובד רק עם HTTP"
       ],
       explanation: "\u200F🔀 Forward Proxy:\n• Client → Proxy → Internet\n• מסתיר IP של הלקוח\n• cache — חוסך bandwidth\n• סינון תוכן (ארגונים, בתי ספר)\n\n🔀 Reverse Proxy:\n• Internet → Reverse Proxy → Servers\n• Nginx, HAProxy\n• Load balancing, SSL termination\n• הגנה על servers מאחורי ה-proxy\n\n📌 דוגמאות:\n• Squid (forward), Nginx (reverse), Cloudflare (reverse + CDN)",
-      explanationEn: "Forward Proxy: Client to Proxy to Internet. Hides client IP, provides cache, content filtering. Reverse Proxy: Internet to Reverse Proxy to Servers. Used for load balancing, SSL termination, protecting backend servers. Examples: Squid (forward proxy), Nginx (reverse proxy), Cloudflare (reverse proxy + CDN)."
+      explanationEn: "Forward Proxy: Client to Proxy to Internet. Hides client IP, provides cache, content filtering. Reverse Proxy: Internet to Reverse Proxy to Servers. Used for load balancing, SSL termination, protecting backend servers. Examples: Squid (forward proxy), Nginx (reverse proxy), Cloudflare (reverse proxy + CDN).",
+      qEn: "What is a Proxy Server?",
+      correctEn: "A middle server that receives requests from clients\nand forwards them to the target server\nHides the client identity and allows caching",
+      choicesEn: [
+        "A middle server that receives requests from clients\nand forwards them to the target server\nHides the client identity and allows caching",
+        "Proxy = VPN for anonymous browsing",
+        "Proxy = advanced Firewall",
+        "Proxy works only with HTTP"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין LAN ל-WAN?",
@@ -1180,7 +1404,15 @@ export const quizBank = {
         "\u200FLAN ו-WAN זהים — רק גודל שונה"
       ],
       explanation: "\u200F🏢 LAN (Local Area Network):\n• משרד, בית, קומה\n• Ethernet, WiFi\n• מהירות: 1-10 Gbps\n• בבעלות הארגון\n\n🌍 WAN (Wide Area Network):\n• מדינות, יבשות\n• האינטרנט = ה-WAN הגדול\n• MPLS, VPN, leased lines\n• ISP מספק חיבור\n\n📌 SD-WAN:\n• WAN מנוהל בתוכנה\n• מחליף קווים שכורים יקרים",
-      explanationEn: "LAN (Local Area Network): office, home, floor. Ethernet/WiFi, 1-10 Gbps, owned by organization. WAN (Wide Area Network): countries, continents. Internet is the largest WAN. Uses MPLS, VPN, leased lines. ISP provides connectivity. SD-WAN: software-managed WAN replacing expensive leased lines."
+      explanationEn: "LAN (Local Area Network): office, home, floor. Ethernet/WiFi, 1-10 Gbps, owned by organization. WAN (Wide Area Network): countries, continents. Internet is the largest WAN. Uses MPLS, VPN, leased lines. ISP provides connectivity. SD-WAN: software-managed WAN replacing expensive leased lines.",
+      qEn: "What is the difference between LAN and WAN?",
+      correctEn: "LAN: local network (building/office)\nWAN: wide network (between cities/countries)\nThe internet is the biggest WAN",
+      choicesEn: [
+        "LAN: local network (building/office)\nWAN: wide network (between cities/countries)\nThe internet is the biggest WAN",
+        "LAN = wireless, WAN = cables",
+        "WAN is faster than LAN",
+        "LAN and WAN are the same — just different size"
+      ]
     }
   ],
 
