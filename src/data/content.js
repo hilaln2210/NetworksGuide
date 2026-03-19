@@ -304,22 +304,31 @@ Addresses:  142.250.185.46
       {
         type: "questions",
         title: "שאלות הבנה - פרק 1",
+        titleEn: "Chapter 1 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין לקוח לשרת?",
-            a: "הלקוח — Client — שולח בקשות, למשל הדפדפן שמבקש דף אינטרנט. השרת — Server — מקבל את הבקשות ומחזיר תגובות, למשל אתר Facebook ששולח את תוכן הדף."
+            a: "הלקוח — Client — שולח בקשות, למשל הדפדפן שמבקש דף אינטרנט. השרת — Server — מקבל את הבקשות ומחזיר תגובות, למשל אתר Facebook ששולח את תוכן הדף.",
+            qEn: "What is the difference between a client and a server?",
+            aEn: "The client sends requests, for example a browser asking for a web page. The server receives requests and sends back responses, for example Facebook sending the page content."
           },
           {
             q: "איך נראה כתובת IP ומה המבנה שלה?",
-            a: "כתובת IP מורכבת מארבעה מספרים — בתים — מופרדים בנקודות. כל מספר בטווח 0–255. דוגמאות: 192.168.1.1, 31.13.72.65."
+            a: "כתובת IP מורכבת מארבעה מספרים — בתים — מופרדים בנקודות. כל מספר בטווח 0–255. דוגמאות: 192.168.1.1, 31.13.72.65.",
+            qEn: "What does an IP address look like and what is its structure?",
+            aEn: "An IP address is made of four numbers (bytes) separated by dots. Each number is in the range 0-255. Examples: 192.168.1.1, 31.13.72.65."
           },
           {
             q: "מה עושה traceroute ולמה הוא שימושי?",
-            a: "traceroute מציג את מסלול החבילות מהמחשב ליעד – כל נתב ושרת בדרך. שימושי לאבחון עיכובים, זיהוי מקום תקלה, והבנת איך הרשת בנויה."
+            a: "traceroute מציג את מסלול החבילות מהמחשב ליעד – כל נתב ושרת בדרך. שימושי לאבחון עיכובים, זיהוי מקום תקלה, והבנת איך הרשת בנויה.",
+            qEn: "What does traceroute do and why is it useful?",
+            aEn: "traceroute shows the path of packets from your computer to the destination — every router and server along the way. It is useful for diagnosing delays, finding where a problem is, and understanding how the network is built."
           },
           {
             q: "איך DNS עובד? למה הדפדפן לא יכול פשוט להשתמש בשם?",
-            a: "הרשת עובדת עם כתובות IP – מספרים. DNS הוא פנקס טלפונים שמתרגם שמות קריאים (www.google.com) למספרים. הדפדפן שולח שאילתה לשרת DNS, שמחזיר את ה-IP."
+            a: "הרשת עובדת עם כתובות IP – מספרים. DNS הוא פנקס טלפונים שמתרגם שמות קריאים (www.google.com) למספרים. הדפדפן שולח שאילתה לשרת DNS, שמחזיר את ה-IP.",
+            qEn: "How does DNS work? Why can't the browser just use the name?",
+            aEn: "The network works with IP addresses — numbers. DNS is a phone book that translates readable names (www.google.com) to numbers. The browser sends a query to a DNS server, which returns the IP."
           }
         ]
       }
@@ -463,18 +472,25 @@ server_socket.close()</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 2",
+        titleEn: "Chapter 2 — Comprehension Questions",
         questions: [
           {
             q: "מה תפקיד הפורט בהקשר של Socket?",
-            a: "הפורט מזהה את התוכנה הספציפית על השרת. שרת אחד יכול להריץ כמה שירותים – אימייל, HTTP וכו'. כל שירות מאזין על פורט אחר, כך שהשרת יודע להפנות את הבקשה לתוכנה הנכונה."
+            a: "הפורט מזהה את התוכנה הספציפית על השרת. שרת אחד יכול להריץ כמה שירותים – אימייל, HTTP וכו'. כל שירות מאזין על פורט אחר, כך שהשרת יודע להפנות את הבקשה לתוכנה הנכונה.",
+            qEn: "What is the role of a port in the context of a Socket?",
+            aEn: "The port identifies the specific program on the server. One server can run multiple services — email, HTTP, etc. Each service listens on a different port, so the server knows which program should handle the request."
           },
           {
             q: "מה ההבדל בין bind ל־connect?",
-            a: "bind — קושר את ה־Socket לכתובת ופורט — לשרת — 'אני מאזין כאן'. connect — מתחבר לכתובת ופורט מרוחקים — ללקוח — 'אני מתחבר אליך'."
+            a: "bind — קושר את ה־Socket לכתובת ופורט — לשרת — 'אני מאזין כאן'. connect — מתחבר לכתובת ופורט מרוחקים — ללקוח — 'אני מתחבר אליך'.",
+            qEn: "What is the difference between bind and connect?",
+            aEn: "bind ties the Socket to an address and port — used by the server — 'I am listening here'. connect connects to a remote address and port — used by the client — 'I am connecting to you'."
           },
           {
             q: "למה recv ו-accept נקראים blocking?",
-            a: "הם עוצרים את הביצוע עד שמשהו קורה — accept עד שחיבור חדש מגיע, recv עד שמידע מגיע. אם לא יגיע כלום — התוכנה תישאר תקועה — עד timeout אם הוגדר."
+            a: "הם עוצרים את הביצוע עד שמשהו קורה — accept עד שחיבור חדש מגיע, recv עד שמידע מגיע. אם לא יגיע כלום — התוכנה תישאר תקועה — עד timeout אם הוגדר.",
+            qEn: "Why are recv and accept called blocking?",
+            aEn: "They stop the program until something happens — accept waits until a new connection arrives, recv waits until data arrives. If nothing comes, the program stays stuck — until a timeout if one was set."
           }
         ]
       }
@@ -790,18 +806,25 @@ server_socket.close()</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 3",
+        titleEn: "Chapter 3 — Comprehension Questions",
         questions: [
           {
             q: "מה היתרון של מודל השכבות?",
-            a: "כל שכבה אינה תלויה במימוש של שכבה אחרת. אם ישנו כבל, תוכנה, או פרוטוקול בשכבה אחת – השאר לא מושפע. זה מאפשר עדכונים והתפתחות ללא שבירת כל המערכת."
+            a: "כל שכבה אינה תלויה במימוש של שכבה אחרת. אם ישנו כבל, תוכנה, או פרוטוקול בשכבה אחת – השאר לא מושפע. זה מאפשר עדכונים והתפתחות ללא שבירת כל המערכת.",
+            qEn: "What is the advantage of the layered model?",
+            aEn: "Each layer does not depend on how other layers are built. If you change a cable, software, or protocol in one layer, the rest is not affected. This allows updates and growth without breaking the whole system."
           },
           {
             q: "למה משתמשים בחמש שכבות ולא בשבע?",
-            a: "מודל שבע השכבות — OSI — נוצר באופן תיאורטי. מודל חמש השכבות נוצר מתוך השימוש בפועל ברשת האינטרנט — שתי שכבות — הצגה וסשן — התגלו כמיותרות והושמטו."
+            a: "מודל שבע השכבות — OSI — נוצר באופן תיאורטי. מודל חמש השכבות נוצר מתוך השימוש בפועל ברשת האינטרנט — שתי שכבות — הצגה וסשן — התגלו כמיותרות והושמטו.",
+            qEn: "Why do we use five layers instead of seven?",
+            aEn: "The seven-layer OSI model was created in theory. The five-layer model came from real-world use of the Internet. Two layers — presentation and session — turned out to be unnecessary and were removed."
           },
           {
             q: "מה ההבדל בין Encapsulation ל-Decapsulation?",
-            a: "Encapsulation — בשליחה: כל שכבה מוסיפה Header לפקטה ומעבירה למטה. Decapsulation — בקבלה: כל שכבה מסירה את ה־Header שלה ומעבירה את השאר למעלה."
+            a: "Encapsulation — בשליחה: כל שכבה מוסיפה Header לפקטה ומעבירה למטה. Decapsulation — בקבלה: כל שכבה מסירה את ה־Header שלה ומעבירה את השאר למעלה.",
+            qEn: "What is the difference between Encapsulation and Decapsulation?",
+            aEn: "Encapsulation — when sending: each layer adds a Header to the packet and passes it down. Decapsulation — when receiving: each layer removes its Header and passes the rest up."
           }
         ]
       }
@@ -999,18 +1022,25 @@ client.close()</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 4",
+        titleEn: "Chapter 4 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין בקשת GET לבקשת אחרת?",
-            a: "GET נועדה להביא פריט מידע מהשרת — בדרך כלל דף אינטרנט. אין תוכן בגוף הבקשה. בקשות אחרות — כמו POST — משמשות לשליחת מידע לשרת, למשל טופס התחברות."
+            a: "GET נועדה להביא פריט מידע מהשרת — בדרך כלל דף אינטרנט. אין תוכן בגוף הבקשה. בקשות אחרות — כמו POST — משמשות לשליחת מידע לשרת, למשל טופס התחברות.",
+            qEn: "What is the difference between a GET request and other requests?",
+            aEn: "GET is used to fetch data from the server — usually a web page. There is no content in the request body. Other requests — like POST — are used to send data to the server, for example a login form."
           },
           {
             q: "מה אומר קוד 404?",
-            a: "404 Not Found — המשאב המבוקש — דף, קובץ — לא נמצא בשרת. זה הקוד המפורסם שמציגים כשנכנסים לכתובת שלא קיימת."
+            a: "404 Not Found — המשאב המבוקש — דף, קובץ — לא נמצא בשרת. זה הקוד המפורסם שמציגים כשנכנסים לכתובת שלא קיימת.",
+            qEn: "What does status code 404 mean?",
+            aEn: "404 Not Found — the requested resource (page, file) was not found on the server. This is the famous code shown when you visit a URL that does not exist."
           },
           {
             q: "למה צריך \\r\\n בהודעות HTTP?",
-            a: "HTTP מוגדר כפרוטוקול טקסט. שורות מופרדות ב־CRLF — \\r\\n. שורה ריקה מסמנת סוף ה־Headers ותחילת הגוף. זה מאפשר לשרת וללקוח לפרסר את ההודעה בצורה אחידה."
+            a: "HTTP מוגדר כפרוטוקול טקסט. שורות מופרדות ב־CRLF — \\r\\n. שורה ריקה מסמנת סוף ה־Headers ותחילת הגוף. זה מאפשר לשרת וללקוח לפרסר את ההודעה בצורה אחידה.",
+            qEn: "Why do HTTP messages need \\r\\n?",
+            aEn: "HTTP is a text protocol. Lines are separated by CRLF — \\r\\n. An empty line marks the end of the Headers and the start of the body. This lets the server and client parse the message in a consistent way."
           }
         ]
       }
@@ -1151,14 +1181,19 @@ packets = sniff(count=10, lfilter=filter_dns)</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק Scapy",
+        titleEn: "Scapy — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין Wireshark ל-Scapy?",
-            a: "Wireshark הוא כלי צפייה — מסניף ומציג. Scapy מאפשר גם הסנפה, אבל בתוך קוד פייתון — אפשר לסנן, לעבד, לשמור, לשלוח חבילות ולבצע פעולות מורכבות על הנתונים."
+            a: "Wireshark הוא כלי צפייה — מסניף ומציג. Scapy מאפשר גם הסנפה, אבל בתוך קוד פייתון — אפשר לסנן, לעבד, לשמור, לשלוח חבילות ולבצע פעולות מורכבות על הנתונים.",
+            qEn: "What is the difference between Wireshark and Scapy?",
+            aEn: "Wireshark is a viewing tool — it sniffs and displays. Scapy also allows sniffing, but inside Python code — you can filter, process, save, send packets and do complex operations on the data."
           },
           {
             q: "מה עושה האופרטור / ב-Scapy?",
-            a: "האופרטור / מחבר שכבות — השכבה הימנית נעטפת כ־payload של השמאלית. IP()/ICMP() יוצר חבילת ping. IP()/TCP(dport=80) יוצר חבילת TCP לפורט 80."
+            a: "האופרטור / מחבר שכבות — השכבה הימנית נעטפת כ־payload של השמאלית. IP()/ICMP() יוצר חבילת ping. IP()/TCP(dport=80) יוצר חבילת TCP לפורט 80.",
+            qEn: "What does the / operator do in Scapy?",
+            aEn: "The / operator connects layers — the right layer becomes the payload of the left one. IP()/ICMP() creates a ping packet. IP()/TCP(dport=80) creates a TCP packet to port 80."
           }
         ]
       }
@@ -1336,18 +1371,25 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 6",
+        titleEn: "Chapter 6 — Comprehension Questions",
         questions: [
           {
             q: "למה צריך פורטים אם יש כבר כתובת IP?",
-            a: "כתובת IP מזהה את המחשב. אבל שרת אחד יכול להריץ שירות אימייל, שירות HTTP, שירות FTP ועוד. כל שירות מאזין על פורט שונה. בלעדי הפורט, השרת לא היה יודע לאיזו תוכנה להפנות את הבקשה."
+            a: "כתובת IP מזהה את המחשב. אבל שרת אחד יכול להריץ שירות אימייל, שירות HTTP, שירות FTP ועוד. כל שירות מאזין על פורט שונה. בלעדי הפורט, השרת לא היה יודע לאיזו תוכנה להפנות את הבקשה.",
+            qEn: "Why do we need ports if we already have an IP address?",
+            aEn: "The IP address identifies the computer. But one server can run email, HTTP, FTP and more. Each service listens on a different port. Without ports, the server would not know which program should handle the request."
           },
           {
             q: "מתי נבחר TCP ומתי UDP?",
-            a: "TCP כשצריך שכל המידע יגיע בדיוק — דפים, קבצים, אימייל. UDP כשזמנים אמיתיים חשובים יותר מהשלמות — שיחת וידאו שעדיף פריים חסר מאשר עיכוב."
+            a: "TCP כשצריך שכל המידע יגיע בדיוק — דפים, קבצים, אימייל. UDP כשזמנים אמיתיים חשובים יותר מהשלמות — שיחת וידאו שעדיף פריים חסר מאשר עיכוב.",
+            qEn: "When do we choose TCP and when UDP?",
+            aEn: "TCP when all data must arrive exactly — web pages, files, email. UDP when real-time speed matters more than completeness — a video call where a missing frame is better than a delay."
           },
           {
             q: "מה תפקיד ה־Handshake ב־TCP?",
-            a: "ה־Handshake — SYN, SYN-ACK, ACK — יוצר חיבור אמין לפני העברת מידע. שני הצדדים מאשרים שהם מוכנים לתקשורת. בלי Handshake, אי אפשר לדעת אם הצד השני קלט את החבילות."
+            a: "ה־Handshake — SYN, SYN-ACK, ACK — יוצר חיבור אמין לפני העברת מידע. שני הצדדים מאשרים שהם מוכנים לתקשורת. בלי Handshake, אי אפשר לדעת אם הצד השני קלט את החבילות.",
+            qEn: "What is the role of the TCP Handshake?",
+            aEn: "The Handshake — SYN, SYN-ACK, ACK — creates a reliable connection before sending data. Both sides confirm they are ready to communicate. Without a Handshake, you cannot know if the other side received the packets."
           }
         ]
       }
@@ -1536,18 +1578,25 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 7",
+        titleEn: "Chapter 7 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין שכבת התעבורה לשכבת הרשת?",
-            a: "שכבת התעבורה מעבירה מידע מתהליך לתהליך (מחשב למחשב ברמת היישום). שכבת הרשת אחראית על ההעברה של החבילות בין כל הרכיבים – נתבים, שרתים – עד שהחבילה מגיעה ליעדה."
+            a: "שכבת התעבורה מעבירה מידע מתהליך לתהליך (מחשב למחשב ברמת היישום). שכבת הרשת אחראית על ההעברה של החבילות בין כל הרכיבים – נתבים, שרתים – עד שהחבילה מגיעה ליעדה.",
+            qEn: "What is the difference between the Transport layer and the Network layer?",
+            aEn: "The Transport layer moves data from process to process (application level). The Network layer is responsible for moving packets between all devices — routers, servers — until the packet reaches its destination."
           },
           {
             q: "מהו נתב (Router)?",
-            a: "נתב הוא רכיב רשת שמקבל חבילות ומעביר אותן הלאה. לכל נתב יש טבלת ניתוב — routing table — מפה שאומרת 'לכתובת X לשלוח לנתב Y'. כך החבילה עוברת מרכיב לרכיב עד שמגיעה ליעד."
+            a: "נתב הוא רכיב רשת שמקבל חבילות ומעביר אותן הלאה. לכל נתב יש טבלת ניתוב — routing table — מפה שאומרת 'לכתובת X לשלוח לנתב Y'. כך החבילה עוברת מרכיב לרכיב עד שמגיעה ליעד.",
+            qEn: "What is a Router?",
+            aEn: "A router is a network device that receives packets and forwards them. Each router has a routing table — a map that says 'for address X, send to router Y'. This way the packet moves from device to device until it reaches the destination."
           },
           {
             q: "מה עושה TTL ולמה traceroute משתמש בו?",
-            a: "TTL — Time To Live — כל נתב מפחית ב־1. אם מגיע 0 — החבילה נזרקת ונשלח ICMP Time Exceeded. traceroute שולח חבילות עם TTL 1, 2, 3... — כל נתב שמחזיר Time Exceeded מזוהה. כך בונים את המסלול."
+            a: "TTL — Time To Live — כל נתב מפחית ב־1. אם מגיע 0 — החבילה נזרקת ונשלח ICMP Time Exceeded. traceroute שולח חבילות עם TTL 1, 2, 3... — כל נתב שמחזיר Time Exceeded מזוהה. כך בונים את המסלול.",
+            qEn: "What does TTL do and why does traceroute use it?",
+            aEn: "TTL — Time To Live — each router decreases it by 1. When it reaches 0, the packet is dropped and an ICMP Time Exceeded is sent. traceroute sends packets with TTL 1, 2, 3... — each router that returns Time Exceeded is identified. This builds the route map."
           }
         ]
       }
@@ -1657,14 +1706,19 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 8",
+        titleEn: "Chapter 8 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין MAC ל־IP?",
-            a: "MAC — כתובת פיזית צרובה על כרטיס הרשת, משמשת ברשת המקומית — שכבת קו. IP — כתובת לוגית שמיועדת לניתוב ברשתות — שכבת רשת. ARP ממיר IP ל־MAC כשצריך לשלוח Frame."
+            a: "MAC — כתובת פיזית צרובה על כרטיס הרשת, משמשת ברשת המקומית — שכבת קו. IP — כתובת לוגית שמיועדת לניתוב ברשתות — שכבת רשת. ARP ממיר IP ל־MAC כשצריך לשלוח Frame.",
+            qEn: "What is the difference between MAC and IP?",
+            aEn: "MAC is a physical address burned into the network card, used in the local network — Data Link layer. IP is a logical address used for routing between networks — Network layer. ARP converts IP to MAC when you need to send a Frame."
           },
           {
             q: "למה ARP משתמש ב-Broadcast?",
-            a: "המחשב לא יודע איזה מכשיר ברשת המקומית מחזיק את ה-IP המבוקש – הוא שואל את כולם. רק בעל ה-IP עונה. ברשתות גדולות יש טכניקות כמו Proxy ARP ו-ARP Cache לצמצום התעבורה."
+            a: "המחשב לא יודע איזה מכשיר ברשת המקומית מחזיק את ה-IP המבוקש – הוא שואל את כולם. רק בעל ה-IP עונה. ברשתות גדולות יש טכניקות כמו Proxy ARP ו-ARP Cache לצמצום התעבורה.",
+            qEn: "Why does ARP use Broadcast?",
+            aEn: "The computer does not know which device on the local network has the requested IP — so it asks everyone. Only the owner of the IP responds. In large networks, techniques like Proxy ARP and ARP Cache reduce this traffic."
           }
         ]
       }
@@ -1879,22 +1933,31 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 9",
+        titleEn: "Chapter 9 — Comprehension Questions",
         questions: [
           {
             q: "למה Switch עדיף על Hub?",
-            a: "Hub מעביר כל תעבורה לכל הפורטים – יוצר עומס והתנגשויות. Switch מכיר כתובות MAC ויודע לשלוח רק ליעד – חוסך רוחב פס ומפחית התנגשויות."
+            a: "Hub מעביר כל תעבורה לכל הפורטים – יוצר עומס והתנגשויות. Switch מכיר כתובות MAC ויודע לשלוח רק ליעד – חוסך רוחב פס ומפחית התנגשויות.",
+            qEn: "Why is a Switch better than a Hub?",
+            aEn: "A Hub sends all traffic to all ports — this creates load and collisions. A Switch knows MAC addresses and sends only to the right destination — saving bandwidth and reducing collisions."
           },
           {
             q: "מה ההבדל בין Switch ל-Router?",
-            a: "Switch עובד בשכבת הקו – משתמש ב-MAC, מעביר Frames באותה רשת. Router עובד בשכבת הרשת – משתמש ב-IP, מחבר רשתות שונות ומנתב חבילות ביניהן."
+            a: "Switch עובד בשכבת הקו – משתמש ב-MAC, מעביר Frames באותה רשת. Router עובד בשכבת הרשת – משתמש ב-IP, מחבר רשתות שונות ומנתב חבילות ביניהן.",
+            qEn: "What is the difference between a Switch and a Router?",
+            aEn: "A Switch works at the Data Link layer — uses MAC addresses, forwards Frames within the same network. A Router works at the Network layer — uses IP addresses, connects different networks and routes packets between them."
           },
           {
             q: "מה VLAN פותר ולמה לא מספיק רק Firewall?",
-            a: "VLAN מפריד ברמת שכבת הקו – broadcast לא חוצה VLANs, מחשב לא יכול אפילו לשלוח Frame לVLAN אחר. Firewall מסנן ברמת IP/TCP אבל broadcast עדיין עובר. VLAN + Firewall = הגנה בשתי שכבות."
+            a: "VLAN מפריד ברמת שכבת הקו – broadcast לא חוצה VLANs, מחשב לא יכול אפילו לשלוח Frame לVLAN אחר. Firewall מסנן ברמת IP/TCP אבל broadcast עדיין עובר. VLAN + Firewall = הגנה בשתי שכבות.",
+            qEn: "What problem does VLAN solve, and why is a Firewall alone not enough?",
+            aEn: "VLAN separates at the Data Link layer — broadcast does not cross VLANs, a computer cannot even send a Frame to another VLAN. A Firewall filters at the IP/TCP level but broadcast still passes through. VLAN + Firewall = protection at two layers."
           },
           {
             q: "מה ההבדל בין Stateless לStateful Firewall?",
-            a: "Stateless בודק כל חבילה בנפרד לפי IP/פורט – לא זוכר מצב. Stateful עוקב אחר חיבורים – אם פתחת חיבור פנימה, תשובות מחוץ מותרות אוטומטית. Stateful הרבה יותר חכם – חוסם ניסיונות חיבור חיצוניים לא מורשים."
+            a: "Stateless בודק כל חבילה בנפרד לפי IP/פורט – לא זוכר מצב. Stateful עוקב אחר חיבורים – אם פתחת חיבור פנימה, תשובות מחוץ מותרות אוטומטית. Stateful הרבה יותר חכם – חוסם ניסיונות חיבור חיצוניים לא מורשים.",
+            qEn: "What is the difference between a Stateless and a Stateful Firewall?",
+            aEn: "Stateless checks each packet separately by IP/port — it does not remember state. Stateful tracks connections — if you opened a connection from inside, replies from outside are allowed automatically. Stateful is much smarter — it blocks unauthorized external connection attempts."
           }
         ]
       }
@@ -2131,18 +2194,25 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 10",
+        titleEn: "Chapter 10 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין כבל נחושת לסיב אופטי?",
-            a: "נחושת — אותות חשמליים, מושפע מרעש, מרחק מוגבל — כ-100 מטר ל-Ethernet. סיב אופטי — פולסי אור, כמעט ללא רעש, מרחקים ארוכים — Single-mode עד 100 ק'מ — רוחב פס גבוה הרבה יותר."
+            a: "נחושת — אותות חשמליים, מושפע מרעש, מרחק מוגבל — כ-100 מטר ל-Ethernet. סיב אופטי — פולסי אור, כמעט ללא רעש, מרחקים ארוכים — Single-mode עד 100 ק'מ — רוחב פס גבוה הרבה יותר.",
+            qEn: "What is the difference between copper cable and fiber optic?",
+            aEn: "Copper uses electrical signals, is affected by noise, and has limited distance — about 100 meters for Ethernet. Fiber optic uses light pulses, almost no noise, long distances — Single-mode up to 100 km — and much higher bandwidth."
           },
           {
             q: "למה WiFi ב-5GHz מהיר יותר אבל מגיע פחות רחוק?",
-            a: "תדר גבוה יותר = גלים קצרים יותר = נחלשים מהר יותר בחומה ובמרחק. אבל תדר גבוה = יותר 'מקום' להעביר נתונים ויותר ערוצים לא חופפים. זה פשרה פיזיקלית — <code>Trade-off</code>."
+            a: "תדר גבוה יותר = גלים קצרים יותר = נחלשים מהר יותר בחומה ובמרחק. אבל תדר גבוה = יותר 'מקום' להעביר נתונים ויותר ערוצים לא חופפים. זה פשרה פיזיקלית — <code>Trade-off</code>.",
+            qEn: "Why is 5GHz WiFi faster but has shorter range?",
+            aEn: "Higher frequency means shorter waves that weaken faster through walls and distance. But higher frequency also means more room to carry data and more non-overlapping channels. This is a physical trade-off."
           },
           {
             q: "מה ההבדל בין Bandwidth ל-Throughput?",
-            a: "Bandwidth = הקצב המקסימלי התיאורטי של הקישור — למשל 1Gbps. Throughput = מה שעובר בפועל — תמיד נמוך בגלל overhead של פרוטוקולים, אובדן חבילות, re-transmission, עומס."
+            a: "Bandwidth = הקצב המקסימלי התיאורטי של הקישור — למשל 1Gbps. Throughput = מה שעובר בפועל — תמיד נמוך בגלל overhead של פרוטוקולים, אובדן חבילות, re-transmission, עומס.",
+            qEn: "What is the difference between Bandwidth and Throughput?",
+            aEn: "Bandwidth is the maximum theoretical speed of the link — for example 1Gbps. Throughput is what actually passes through — always lower because of protocol overhead, packet loss, retransmission, and load."
           }
         ]
       }
@@ -2316,18 +2386,25 @@ TCP        192.168.1.5:49160    users-pc:8820      מחובר</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 11",
+        titleEn: "Chapter 11 — Comprehension Questions",
         questions: [
           {
             q: "מה הסדר הנכון של הפעולות בגלישה לאתר?",
-            a: "DHCP — אם צריך IP — → DNS — תרגום שם ל-IP — → בדיקת Subnet — האם היעד ברשת מקומית? → אם לא – ARP למען MAC של Gateway → שליחת Frame ל-Switch → נתבים מנתבים → TCP Handshake → TLS Handshake — HTTPS — → HTTP GET."
+            a: "DHCP — אם צריך IP — → DNS — תרגום שם ל-IP — → בדיקת Subnet — האם היעד ברשת מקומית? → אם לא – ARP למען MAC של Gateway → שליחת Frame ל-Switch → נתבים מנתבים → TCP Handshake → TLS Handshake — HTTPS — → HTTP GET.",
+            qEn: "What is the correct order of actions when browsing to a website?",
+            aEn: "DHCP (if IP is needed) -> DNS (translate name to IP) -> Subnet check (is the destination on the local network?) -> if not, ARP to get the Gateway MAC -> send Frame to Switch -> routers forward the packet -> TCP Handshake -> TLS Handshake (HTTPS) -> HTTP GET."
           },
           {
             q: "למה ping 8.8.8.8 עובד אבל ping google.com לא?",
-            a: "ping 8.8.8.8 = שולח ICMP לIP ישיר – לא צריך DNS. ping google.com = צריך תרגום שם לIP תחילה. אם DNS לא עובד – תרגום נכשל ולכן ה-ping נכשל. האינטרנט עצמו עובד, DNS לא."
+            a: "ping 8.8.8.8 = שולח ICMP לIP ישיר – לא צריך DNS. ping google.com = צריך תרגום שם לIP תחילה. אם DNS לא עובד – תרגום נכשל ולכן ה-ping נכשל. האינטרנט עצמו עובד, DNS לא.",
+            qEn: "Why does ping 8.8.8.8 work but ping google.com does not?",
+            aEn: "ping 8.8.8.8 sends ICMP directly to an IP — no DNS needed. ping google.com needs to translate the name to an IP first. If DNS is not working, the translation fails and the ping fails. The Internet itself works, but DNS does not."
           },
           {
             q: "מה ה-TLS Handshake מוסיף לתהליך ולמה הוא שווה את זה?",
-            a: "TLS Handshake מוסיף RTT אחד — 1.3 — לפני שאפשר לשלוח HTTP. עלות: 20–100ms. תמורה: כל התקשורת מוצפנת. גם אם מישהו מסנן את הרשת — WiFi ציבורי, ISP – רואה רק 'שטות' מוצפנת. סיסמה, cookies, תוכן – הכל מוגן."
+            a: "TLS Handshake מוסיף RTT אחד — 1.3 — לפני שאפשר לשלוח HTTP. עלות: 20–100ms. תמורה: כל התקשורת מוצפנת. גם אם מישהו מסנן את הרשת — WiFi ציבורי, ISP – רואה רק 'שטות' מוצפנת. סיסמה, cookies, תוכן – הכל מוגן.",
+            qEn: "What does the TLS Handshake add to the process and why is it worth it?",
+            aEn: "The TLS Handshake adds one RTT (in TLS 1.3) before HTTP data can be sent. Cost: 20-100ms. Benefit: all communication is encrypted. Even if someone sniffs the network — public WiFi, ISP — they see only encrypted nonsense. Passwords, cookies, content — all protected."
           }
         ]
       }
@@ -2561,18 +2638,25 @@ asyncio.run(main())</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 12",
+        titleEn: "Chapter 12 — Comprehension Questions",
         questions: [
           {
             q: "מתי משתמשים ב-select במקום threading?",
-            a: "select מתאים כשיש הרבה חיבורים שקטים — מחכים — מעט פעילות. threading מתאים כשיש עיבוד כבד לכל לקוח. select חסכוני במשאבים, threading פשוט לכתיבה."
+            a: "select מתאים כשיש הרבה חיבורים שקטים — מחכים — מעט פעילות. threading מתאים כשיש עיבוד כבד לכל לקוח. select חסכוני במשאבים, threading פשוט לכתיבה.",
+            qEn: "When do we use select instead of threading?",
+            aEn: "select is good when there are many quiet connections — waiting — with little activity. threading is good when there is heavy processing per client. select saves resources, threading is simpler to write."
           },
           {
             q: "למה recv(1024) לא מספיק לקריאת מסר שלם?",
-            a: "TCP הוא stream – המסר יכול להגיע ב-chunks. recv(1024) מחזיר כמה שיש בbuffer – יכול להיות פחות. צריך לקרוא בלולאה עד שמקבלים את כל הנתונים. Length Prefix פותר זאת: קוראים 4 בתים עם הגודל, ואז קוראים בדיוק אותו מספר בתים."
+            a: "TCP הוא stream – המסר יכול להגיע ב-chunks. recv(1024) מחזיר כמה שיש בbuffer – יכול להיות פחות. צריך לקרוא בלולאה עד שמקבלים את כל הנתונים. Length Prefix פותר זאת: קוראים 4 בתים עם הגודל, ואז קוראים בדיוק אותו מספר בתים.",
+            qEn: "Why is recv(1024) not enough to read a complete message?",
+            aEn: "TCP is a stream — the message can arrive in chunks. recv(1024) returns whatever is in the buffer — it can be less. You need to read in a loop until you get all the data. Length Prefix solves this: read 4 bytes with the size, then read exactly that many bytes."
           },
           {
             q: "מה ההבדל בין threading לasyncio?",
-            a: "threading – מספר Threads מקבילים, OS מחליף ביניהם. asyncio – Thread אחד עם event loop, Python מחליף הקשר ב-await. threading מתאים לעיבוד CPU-bound, asyncio מתאים ל-I/O-bound — רשת, קבצים. asyncio עם אלפי חיבורים יותר יעיל."
+            a: "threading – מספר Threads מקבילים, OS מחליף ביניהם. asyncio – Thread אחד עם event loop, Python מחליף הקשר ב-await. threading מתאים לעיבוד CPU-bound, asyncio מתאים ל-I/O-bound — רשת, קבצים. asyncio עם אלפי חיבורים יותר יעיל.",
+            qEn: "What is the difference between threading and asyncio?",
+            aEn: "threading — multiple parallel Threads, the OS switches between them. asyncio — one Thread with an event loop, Python switches context at await. threading fits CPU-bound work, asyncio fits I/O-bound work — network, files. asyncio is more efficient with thousands of connections."
           }
         ]
       }
@@ -2682,18 +2766,25 @@ asyncio.run(main())</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 13",
+        titleEn: "Chapter 13 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין Broadcast ל-Unicast ל-Multicast?",
-            a: "Unicast – שליחה ליעד אחד — כתובת ספציפית. Broadcast — שליחה לכל המכשירים ברשת המקומית — MAC: FF:FF:FF:FF:FF:FF. Multicast — שליחה לקבוצה מוגדרת — ff02::1 = כל IPv6, קבוצות IGMP ב-IPv4. IPv6 ביטל Broadcast לטובת Multicast."
+            a: "Unicast – שליחה ליעד אחד — כתובת ספציפית. Broadcast — שליחה לכל המכשירים ברשת המקומית — MAC: FF:FF:FF:FF:FF:FF. Multicast — שליחה לקבוצה מוגדרת — ff02::1 = כל IPv6, קבוצות IGMP ב-IPv4. IPv6 ביטל Broadcast לטובת Multicast.",
+            qEn: "What is the difference between Broadcast, Unicast, and Multicast?",
+            aEn: "Unicast — sending to one destination with a specific address. Broadcast — sending to all devices on the local network (MAC: FF:FF:FF:FF:FF:FF). Multicast — sending to a defined group. IPv6 removed Broadcast and uses Multicast instead."
           },
           {
             q: "מה ההבדל בין TTL ב-IP ל-TTL ב-DNS?",
-            a: "TTL ב-IP — Time To Live – מספר hop-ים שנותרו. כל נתב מפחית ב-1. מגיע ל-0 → נזרק + ICMP Time Exceeded. traceroute משתמש בזה. TTL ב-DNS – כמה שניות ה-Resolver ישמור record ב-cache. לא קשור לנתבים."
+            a: "TTL ב-IP — Time To Live – מספר hop-ים שנותרו. כל נתב מפחית ב-1. מגיע ל-0 → נזרק + ICMP Time Exceeded. traceroute משתמש בזה. TTL ב-DNS – כמה שניות ה-Resolver ישמור record ב-cache. לא קשור לנתבים.",
+            qEn: "What is the difference between TTL in IP and TTL in DNS?",
+            aEn: "TTL in IP — Time To Live — the number of hops remaining. Each router decreases it by 1. When it reaches 0, the packet is dropped and ICMP Time Exceeded is sent. traceroute uses this. TTL in DNS — how many seconds the Resolver will keep a record in cache. Not related to routers."
           },
           {
             q: "מה ההבדל בין Bandwidth ל-Throughput ל-Latency?",
-            a: "Bandwidth = קצב מקסימלי תיאורטי של הקישור — 1Gbps. Throughput = מה עובר בפועל — תמיד נמוך — overhead, אובדן. Latency = זמן מקור לייעד — ms. אפשר bandwidth גבוה + latency גבוה — לווין. קו 100Mbps עם 500ms latency = גרוע לgames, טוב ל-backup."
+            a: "Bandwidth = קצב מקסימלי תיאורטי של הקישור — 1Gbps. Throughput = מה עובר בפועל — תמיד נמוך — overhead, אובדן. Latency = זמן מקור לייעד — ms. אפשר bandwidth גבוה + latency גבוה — לווין. קו 100Mbps עם 500ms latency = גרוע לgames, טוב ל-backup.",
+            qEn: "What is the difference between Bandwidth, Throughput, and Latency?",
+            aEn: "Bandwidth is the maximum theoretical speed of the link — 1Gbps. Throughput is what actually passes — always lower due to overhead and loss. Latency is the time from source to destination in ms. You can have high bandwidth with high latency — like satellite. A 100Mbps line with 500ms latency is bad for games but fine for backup."
           }
         ]
       }
@@ -2781,10 +2872,13 @@ Addresses: 142.250.185.46</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 14",
+        titleEn: "Chapter 14 — Comprehension Questions",
         questions: [
           {
             q: "באיזו פקודה משתמשים כדי לבדוק אם שרת מרוחק מגיב?",
-            a: "ping – שולח ICMP Echo Request. אם התשובה מגיעה, השרת חי ומחובר. אם לא – יכול להיות חסימה, כיבוי, או בעיית רשת."
+            a: "ping – שולח ICMP Echo Request. אם התשובה מגיעה, השרת חי ומחובר. אם לא – יכול להיות חסימה, כיבוי, או בעיית רשת.",
+            qEn: "Which command is used to check if a remote server is responding?",
+            aEn: "ping — it sends an ICMP Echo Request. If the reply comes back, the server is alive and connected. If not — there may be a block, shutdown, or network problem."
           }
         ]
       }
@@ -2988,18 +3082,25 @@ response = requests.get('https://self-signed.badssl.com', verify=False)</code></
       {
         type: "questions",
         title: "שאלות הבנה - פרק 15",
+        titleEn: "Chapter 15 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין HTTP ל-HTTPS?",
-            a: "HTTP – טקסט גלוי, כל אחד שמסנן את הרשת יכול לקרוא. HTTPS – HTTP עטוף ב-TLS, כל התוכן מוצפן. תוקף, סיסמאות, פרטי כרטיס אשראי – לא נראים."
+            a: "HTTP – טקסט גלוי, כל אחד שמסנן את הרשת יכול לקרוא. HTTPS – HTTP עטוף ב-TLS, כל התוכן מוצפן. תוקף, סיסמאות, פרטי כרטיס אשראי – לא נראים.",
+            qEn: "What is the difference between HTTP and HTTPS?",
+            aEn: "HTTP sends plain text — anyone sniffing the network can read it. HTTPS wraps HTTP in TLS — all content is encrypted. Passwords, credit card details — not visible to attackers."
           },
           {
             q: "למה TLS משתמש ב-AES ולא ב-RSA לכל ההצפנה?",
-            a: "RSA/ECC (אסימטרי) איטיים מאוד – מאות פעמים יותר מ-AES. TLS משתמש ב-RSA רק לחילופי מפתח (Handshake), ואז עובר ל-AES לכל שאר השיחה. זה פשרה בין אבטחה לביצועים."
+            a: "RSA/ECC (אסימטרי) איטיים מאוד – מאות פעמים יותר מ-AES. TLS משתמש ב-RSA רק לחילופי מפתח (Handshake), ואז עובר ל-AES לכל שאר השיחה. זה פשרה בין אבטחה לביצועים.",
+            qEn: "Why does TLS use AES and not RSA for all encryption?",
+            aEn: "RSA/ECC (asymmetric) are very slow — hundreds of times slower than AES. TLS uses RSA only for key exchange (Handshake), then switches to AES for the rest of the session. This is a trade-off between security and performance."
           },
           {
             q: "מה CA ולמה צריך אותו?",
-            a: "CA = גוף מהימן שחותם על אישורים. ללא CA, כל שרת היה יכול לטעון 'אני Google'. CA מאמת שהגוף שביקש אישור ל-google.com אכן שולט ב-google.com. הדפדפן סומך על CA-ים מסוימים שמובנים ב-OS."
+            a: "CA = גוף מהימן שחותם על אישורים. ללא CA, כל שרת היה יכול לטעון 'אני Google'. CA מאמת שהגוף שביקש אישור ל-google.com אכן שולט ב-google.com. הדפדפן סומך על CA-ים מסוימים שמובנים ב-OS.",
+            qEn: "What is a CA and why do we need it?",
+            aEn: "CA is a trusted body that signs certificates. Without a CA, any server could claim 'I am Google'. The CA verifies that the entity requesting a certificate for google.com actually controls google.com. The browser trusts certain CAs that are built into the OS."
           }
         ]
       }
@@ -3221,18 +3322,25 @@ ssh.close()</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 16",
+        titleEn: "Chapter 16 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין IMAP ל-POP3?",
-            a: "IMAP – הודעות נשמרות בשרת, מסונכרן בין כל המכשירים. POP3 – מוריד הודעות למחשב ומוחק מהשרת. IMAP מתאים כשמשתמשים בכמה מכשירים. POP3 – כשרוצים הכל במחשב אחד."
+            a: "IMAP – הודעות נשמרות בשרת, מסונכרן בין כל המכשירים. POP3 – מוריד הודעות למחשב ומוחק מהשרת. IMAP מתאים כשמשתמשים בכמה מכשירים. POP3 – כשרוצים הכל במחשב אחד.",
+            qEn: "What is the difference between IMAP and POP3?",
+            aEn: "IMAP keeps messages on the server and syncs across all devices. POP3 downloads messages to the computer and deletes them from the server. IMAP is good when using multiple devices. POP3 is for keeping everything on one computer."
           },
           {
             q: "למה SSH עדיף על Telnet?",
-            a: "Telnet שולח הכל כטקסט גלוי – סיסמאות, פקודות, פלט. SSH מצפין את כל התקשורת. Telnet = שיחה בשידור חי שכולם שומעים. SSH = שיחה מוצפנת."
+            a: "Telnet שולח הכל כטקסט גלוי – סיסמאות, פקודות, פלט. SSH מצפין את כל התקשורת. Telnet = שיחה בשידור חי שכולם שומעים. SSH = שיחה מוצפנת.",
+            qEn: "Why is SSH better than Telnet?",
+            aEn: "Telnet sends everything as plain text — passwords, commands, output. SSH encrypts all communication. Telnet is like a public conversation everyone can hear. SSH is an encrypted conversation."
           },
           {
             q: "מה SSH Port Forwarding עושה?",
-            a: "מאפשר לגשת לשירות ברשת מרוחקת דרך הצינור המוצפן. למשל: שרת DB שמאזין רק ל-localhost בשרת מרוחק – Port Forwarding מאפשר לגשת אליו מהמחשב המקומי דרך SSH."
+            a: "מאפשר לגשת לשירות ברשת מרוחקת דרך הצינור המוצפן. למשל: שרת DB שמאזין רק ל-localhost בשרת מרוחק – Port Forwarding מאפשר לגשת אליו מהמחשב המקומי דרך SSH.",
+            qEn: "What does SSH Port Forwarding do?",
+            aEn: "It allows access to a service on a remote network through the encrypted tunnel. For example: a DB server that listens only on localhost on a remote server — Port Forwarding lets you access it from your local computer through SSH."
           }
         ]
       }
@@ -3430,18 +3538,25 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 17",
+        titleEn: "Chapter 17 — Comprehension Questions",
         questions: [
           {
             q: "כמה מארחים יש ברשת 10.0.0.0/20?",
-            a: "/20 = 32-20 = 12 ביטים למארחים. 2^12 = 4096 כתובות. מארחים = 4096 - 2 = 4094 (מוחסרים כתובת רשת ו-broadcast). הטווח: 10.0.0.1 עד 10.0.15.254."
+            a: "/20 = 32-20 = 12 ביטים למארחים. 2^12 = 4096 כתובות. מארחים = 4096 - 2 = 4094 (מוחסרים כתובת רשת ו-broadcast). הטווח: 10.0.0.1 עד 10.0.15.254.",
+            qEn: "How many hosts are in the network 10.0.0.0/20?",
+            aEn: "/20 means 32-20 = 12 bits for hosts. 2^12 = 4096 addresses. Hosts = 4096 - 2 = 4094 (minus network address and broadcast). Range: 10.0.0.1 to 10.0.15.254."
           },
           {
             q: "מה ההבדל בין כתובת פרטית לציבורית?",
-            a: "כתובת פרטית (10.x.x.x, 172.16-31.x.x, 192.168.x.x) – לא ניתנת לניתוב באינטרנט. כתובת ציבורית – ניתנת לניתוב, ייחודית בעולם. NAT מאפשר למחשבים עם IP פרטי לגשת לאינטרנט דרך IP ציבורי אחד."
+            a: "כתובת פרטית (10.x.x.x, 172.16-31.x.x, 192.168.x.x) – לא ניתנת לניתוב באינטרנט. כתובת ציבורית – ניתנת לניתוב, ייחודית בעולם. NAT מאפשר למחשבים עם IP פרטי לגשת לאינטרנט דרך IP ציבורי אחד.",
+            qEn: "What is the difference between a private and a public address?",
+            aEn: "A private address (10.x.x.x, 172.16-31.x.x, 192.168.x.x) cannot be routed on the Internet. A public address can be routed and is unique in the world. NAT allows computers with private IPs to access the Internet through one public IP."
           },
           {
             q: "למה /30 משמש לקישורים בין נתבים?",
-            a: "/30 = 4 כתובות, 2 מארחים. בקישור P2P בין שני נתבים צריך בדיוק 2 כתובות. /30 חוסך כתובות – /24 לקישור כזה יהיה בזבוז של 252 כתובות."
+            a: "/30 = 4 כתובות, 2 מארחים. בקישור P2P בין שני נתבים צריך בדיוק 2 כתובות. /30 חוסך כתובות – /24 לקישור כזה יהיה בזבוז של 252 כתובות.",
+            qEn: "Why is /30 used for links between routers?",
+            aEn: "/30 gives 4 addresses, 2 usable hosts. A point-to-point link between two routers needs exactly 2 addresses. /30 saves addresses — using /24 for such a link would waste 252 addresses."
           }
         ]
       }
@@ -3640,18 +3755,25 @@ print(net.supernet())  # 192.168.0.0/23</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 18",
+        titleEn: "Chapter 18 — Comprehension Questions",
         questions: [
           {
             q: "מה ייצוג קצר של 2001:0db8:0000:0000:0000:0000:1234:5678?",
-            a: "2001:db8::1234:5678. כללים: מוחקים אפסים מובילים (0db8 → db8, 1234 נשאר). קבוצות האפסים הרצופות (:0000:0000:0000:0000:) מוחלפות פעם אחת ב-::."
+            a: "2001:db8::1234:5678. כללים: מוחקים אפסים מובילים (0db8 → db8, 1234 נשאר). קבוצות האפסים הרצופות (:0000:0000:0000:0000:) מוחלפות פעם אחת ב-::.",
+            qEn: "What is the short form of 2001:0db8:0000:0000:0000:0000:1234:5678?",
+            aEn: "2001:db8::1234:5678. Rules: remove leading zeros (0db8 becomes db8). Consecutive groups of zeros (:0000:0000:0000:0000:) are replaced once with ::."
           },
           {
             q: "מה SLAAC ולמה הוא שימושי?",
-            a: "SLAAC מאפשר למחשב לבנות כתובת IPv6 בעצמו מתוך prefix שהנתב מכריז + suffix מה-MAC. אין צורך ב-DHCP server. כל מכשיר שמתחבר לרשת מקבל כתובת אוטומטית. פשוט, מהיר, ומתאים ל-IoT."
+            a: "SLAAC מאפשר למחשב לבנות כתובת IPv6 בעצמו מתוך prefix שהנתב מכריז + suffix מה-MAC. אין צורך ב-DHCP server. כל מכשיר שמתחבר לרשת מקבל כתובת אוטומטית. פשוט, מהיר, ומתאים ל-IoT.",
+            qEn: "What is SLAAC and why is it useful?",
+            aEn: "SLAAC lets a computer build its own IPv6 address from the prefix announced by the router plus a suffix from the MAC address. No DHCP server is needed. Every device that connects to the network gets an address automatically. Simple, fast, and good for IoT."
           },
           {
             q: "למה IPv6 לא צריך NAT?",
-            a: "NAT קיים ב-IPv4 כי נגמרו הכתובות – צריך לשתף IP אחד בין הרבה מכשירים. IPv6 יש מספיק כתובות לכל מכשיר ב-IP ציבורי ייחודי. אין צורך לתרגם כתובות. כל מכשיר מתקשר ישירות."
+            a: "NAT קיים ב-IPv4 כי נגמרו הכתובות – צריך לשתף IP אחד בין הרבה מכשירים. IPv6 יש מספיק כתובות לכל מכשיר ב-IP ציבורי ייחודי. אין צורך לתרגם כתובות. כל מכשיר מתקשר ישירות.",
+            qEn: "Why does IPv6 not need NAT?",
+            aEn: "NAT exists in IPv4 because addresses ran out — many devices must share one IP. IPv6 has enough addresses for every device to have its own unique public IP. No need to translate addresses. Every device communicates directly."
           }
         ]
       }
@@ -3880,18 +4002,25 @@ sudo dscacheutil -flushcache</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 19",
+        titleEn: "Chapter 19 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין Recursive Resolver ל-Authoritative Nameserver?",
-            a: "Recursive Resolver = שרת שפועל בשם הלקוח, מריץ queries לכל השרתים בהיררכיה עד שמגיע לתשובה. לרוב מנוהל ע\"י ISP או ספק (1.1.1.1). Authoritative = המקור האמיתי לדומיין ספציפי – מחזיר תשובה סופית ללא delegation נוסף."
+            a: "Recursive Resolver = שרת שפועל בשם הלקוח, מריץ queries לכל השרתים בהיררכיה עד שמגיע לתשובה. לרוב מנוהל ע\"י ISP או ספק (1.1.1.1). Authoritative = המקור האמיתי לדומיין ספציפי – מחזיר תשובה סופית ללא delegation נוסף.",
+            qEn: "What is the difference between a Recursive Resolver and an Authoritative Nameserver?",
+            aEn: "A Recursive Resolver works on behalf of the client, running queries to all servers in the hierarchy until it gets an answer. Usually managed by an ISP or provider (1.1.1.1). An Authoritative Nameserver is the real source for a specific domain — it returns a final answer with no further delegation."
           },
           {
             q: "למה צריך CNAME ולא רק A record?",
-            a: "CNAME מאפשר לכמה שמות לכוון לאותו שרת בלי כפילות. אם ה-IP משתנה, מספיק לשנות A record אחד – כל ה-CNAMEs עוקבים אוטומטית. דוגמה: blog.example.com, shop.example.com שניהם CNAME ל-example.com."
+            a: "CNAME מאפשר לכמה שמות לכוון לאותו שרת בלי כפילות. אם ה-IP משתנה, מספיק לשנות A record אחד – כל ה-CNAMEs עוקבים אוטומטית. דוגמה: blog.example.com, shop.example.com שניהם CNAME ל-example.com.",
+            qEn: "Why do we need CNAME and not just A records?",
+            aEn: "CNAME lets multiple names point to the same server without duplication. If the IP changes, you only update one A record — all CNAMEs follow automatically. Example: blog.example.com and shop.example.com both CNAME to example.com."
           },
           {
             q: "מה TXT record ולמה הוא שימושי?",
-            a: "TXT record מכיל טקסט חופשי. שימושים: SPF (מי רשאי לשלוח מייל מהדומיין), DKIM (חתימה על מיילים), DMARC (מדיניות אימות מייל), אימות בעלות על הדומיין (Google Search Console, SSL cert). מגן מפני זיוף מיילים (email spoofing)."
+            a: "TXT record מכיל טקסט חופשי. שימושים: SPF (מי רשאי לשלוח מייל מהדומיין), DKIM (חתימה על מיילים), DMARC (מדיניות אימות מייל), אימות בעלות על הדומיין (Google Search Console, SSL cert). מגן מפני זיוף מיילים (email spoofing).",
+            qEn: "What is a TXT record and why is it useful?",
+            aEn: "A TXT record holds free text. Uses: SPF (who can send email from this domain), DKIM (email signing), DMARC (email authentication policy), domain ownership verification (Google Search Console, SSL cert). It protects against email spoofing."
           }
         ]
       }
@@ -4102,18 +4231,25 @@ RTTVAR = (1 - β) × RTTVAR + β × |SRTT - RTT_sample|</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 20",
+        titleEn: "Chapter 20 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין Flow Control ל-Congestion Control?",
-            a: "Flow Control מגן על המקבל – rwnd קובע כמה אפשר לשלוח לפי ה-buffer של המקבל. Congestion Control מגן על הרשת – cwnd קובע כמה אפשר לשלוח לפי עומס הרשת. אפקטיבי: min(cwnd, rwnd)."
+            a: "Flow Control מגן על המקבל – rwnd קובע כמה אפשר לשלוח לפי ה-buffer של המקבל. Congestion Control מגן על הרשת – cwnd קובע כמה אפשר לשלוח לפי עומס הרשת. אפקטיבי: min(cwnd, rwnd).",
+            qEn: "What is the difference between Flow Control and Congestion Control?",
+            aEn: "Flow Control protects the receiver — rwnd sets how much can be sent based on the receiver's buffer. Congestion Control protects the network — cwnd sets how much can be sent based on network load. Effective window: min(cwnd, rwnd)."
           },
           {
             q: "למה Slow Start מתחיל איטי אבל מאיץ מהיר?",
-            a: "Slow Start מתחיל ב-1 MSS כדי לא להציף רשת שמצב לא ידוע. אבל גידול אקספוננציאלי (מכפיל כל RTT) אומר שב-10 RTT כבר מגיע ל-1024 MSS ≈ 1.5MB. זה 'איטי' רק ביחס לפתיחה ב-מהירות מלאה, אבל בפועל מהיר מאוד."
+            a: "Slow Start מתחיל ב-1 MSS כדי לא להציף רשת שמצב לא ידוע. אבל גידול אקספוננציאלי (מכפיל כל RTT) אומר שב-10 RTT כבר מגיע ל-1024 MSS ≈ 1.5MB. זה 'איטי' רק ביחס לפתיחה ב-מהירות מלאה, אבל בפועל מהיר מאוד.",
+            qEn: "Why does Slow Start begin slow but speed up fast?",
+            aEn: "Slow Start begins with 1 MSS to avoid flooding a network whose state is unknown. But exponential growth (doubling every RTT) means that in 10 RTTs it already reaches 1024 MSS (about 1.5MB). It is 'slow' only compared to starting at full speed, but in practice it is very fast."
           },
           {
             q: "מה Fast Retransmit ולמה הוא עדיף על Timeout?",
-            a: "3 Duplicate ACKs = צד אחד קיבל חבילות אחרי החסרה, אז הוא שולח ACKs חוזרים ל-seq האחרון שקיבל. Fast Retransmit שולח מיד ולא מחכה ל-RTO (שיכול להיות שניות). Fast Recovery לא מחזיר ל-Slow Start – cwnd נשאר גבוה. הרשת עדיין עובדת, רק חבילה אחת אבדה."
+            a: "3 Duplicate ACKs = צד אחד קיבל חבילות אחרי החסרה, אז הוא שולח ACKs חוזרים ל-seq האחרון שקיבל. Fast Retransmit שולח מיד ולא מחכה ל-RTO (שיכול להיות שניות). Fast Recovery לא מחזיר ל-Slow Start – cwnd נשאר גבוה. הרשת עדיין עובדת, רק חבילה אחת אבדה.",
+            qEn: "What is Fast Retransmit and why is it better than Timeout?",
+            aEn: "3 Duplicate ACKs mean one side received packets after the missing one, so it sends repeated ACKs for the last sequence it got. Fast Retransmit resends immediately instead of waiting for RTO (which can take seconds). Fast Recovery does not go back to Slow Start — cwnd stays high. The network still works, only one packet was lost."
           }
         ]
       }
@@ -4320,18 +4456,25 @@ Endpoint = peer.example.com:51820</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 21",
+        titleEn: "Chapter 21 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין IPsec Tunnel mode ל-Transport mode?",
-            a: "Transport mode: מוצפן רק ה-payload, IP Header המקורי גלוי. לתקשורת Host-to-Host. Tunnel mode: כל הפקטה המקורית (כולל IP Header) נעטפת בפקטה חדשה עם IP של ה-Gateway. ל-VPN Site-to-Site."
+            a: "Transport mode: מוצפן רק ה-payload, IP Header המקורי גלוי. לתקשורת Host-to-Host. Tunnel mode: כל הפקטה המקורית (כולל IP Header) נעטפת בפקטה חדשה עם IP של ה-Gateway. ל-VPN Site-to-Site.",
+            qEn: "What is the difference between IPsec Tunnel mode and Transport mode?",
+            aEn: "Transport mode: only the payload is encrypted, the original IP Header is visible. Used for Host-to-Host. Tunnel mode: the entire original packet (including IP Header) is wrapped in a new packet with the Gateway IP. Used for Site-to-Site VPN."
           },
           {
             q: "למה WireGuard בוחרת cryptography קבוע ולא negotiable?",
-            a: "Cipher agility = יותר קוד, יותר surface להתקפה, ניתן לכפות downgrade לאלגוריתם חלש. WireGuard בוחר: אנחנו משתמשים ב-ChaCha20+Curve25519 כי הם הכי טובים היום. פחות קוד = פחות bugs. נקרא Cryptographic Opinionation."
+            a: "Cipher agility = יותר קוד, יותר surface להתקפה, ניתן לכפות downgrade לאלגוריתם חלש. WireGuard בוחר: אנחנו משתמשים ב-ChaCha20+Curve25519 כי הם הכי טובים היום. פחות קוד = פחות bugs. נקרא Cryptographic Opinionation.",
+            qEn: "Why does WireGuard choose fixed cryptography instead of negotiable?",
+            aEn: "Cipher agility means more code, more attack surface, and the ability to force a downgrade to a weak algorithm. WireGuard chooses ChaCha20+Curve25519 because they are the best today. Less code means fewer bugs. This is called Cryptographic Opinionation."
           },
           {
             q: "מה SYN Flood ואיך SYN Cookies פותר?",
-            a: "SYN Flood: תוקף שולח מיליוני SYN עם IP מזויף. שרת מקצה state לכל SYN ועומד להיחנק. SYN Cookies: שרת לא מקצה state – במקום זאת מחזיר SYN-ACK עם ISN שמוצפן מה-IP/Port/timestamp. רק ACK תקין מוכיח שהלקוח אמיתי."
+            a: "SYN Flood: תוקף שולח מיליוני SYN עם IP מזויף. שרת מקצה state לכל SYN ועומד להיחנק. SYN Cookies: שרת לא מקצה state – במקום זאת מחזיר SYN-ACK עם ISN שמוצפן מה-IP/Port/timestamp. רק ACK תקין מוכיח שהלקוח אמיתי.",
+            qEn: "What is SYN Flood and how does SYN Cookies solve it?",
+            aEn: "SYN Flood: an attacker sends millions of SYN packets with fake IPs. The server allocates state for each SYN and runs out of resources. SYN Cookies: the server does not allocate state — instead it returns a SYN-ACK with an ISN encoded from the IP/Port/timestamp. Only a valid ACK proves the client is real."
           }
         ]
       }
@@ -4583,18 +4726,25 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 22",
+        titleEn: "Chapter 22 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין Cache HIT ל-Cache MISS ב-CDN?",
-            a: "Cache HIT: הקובץ המבוקש קיים ב-PoP הקרוב ועדיין בתוקף → מוגש מיידית (5–15ms). Cache MISS: הקובץ לא ב-PoP → PoP מביא מ-Origin Server (~150ms) → שומר ב-cache → מגיש. לבקשות הבאות לאותו PoP → HIT."
+            a: "Cache HIT: הקובץ המבוקש קיים ב-PoP הקרוב ועדיין בתוקף → מוגש מיידית (5–15ms). Cache MISS: הקובץ לא ב-PoP → PoP מביא מ-Origin Server (~150ms) → שומר ב-cache → מגיש. לבקשות הבאות לאותו PoP → HIT.",
+            qEn: "What is the difference between Cache HIT and Cache MISS in a CDN?",
+            aEn: "Cache HIT: the requested file exists in the nearby PoP and is still valid — served immediately (5-15ms). Cache MISS: the file is not in the PoP — the PoP fetches it from the Origin Server (~150ms), saves it in cache, and serves it. Future requests to the same PoP will be a HIT."
           },
           {
             q: "מה הפתרון של HTTP/3 לבעיה של HTTP/2?",
-            a: "HTTP/2 עם Multiplexing פתר HOL Blocking ב-Application Layer – אבל TCP עדיין בעיה: חבילה אחת אבודה = כל ה-streams מחכים (HOL Blocking ברמת TCP). HTTP/3 מעל QUIC (UDP): כל stream עצמאי גם ב-transport layer. אובדן חבילה = רק stream אחד מושפע."
+            a: "HTTP/2 עם Multiplexing פתר HOL Blocking ב-Application Layer – אבל TCP עדיין בעיה: חבילה אחת אבודה = כל ה-streams מחכים (HOL Blocking ברמת TCP). HTTP/3 מעל QUIC (UDP): כל stream עצמאי גם ב-transport layer. אובדן חבילה = רק stream אחד מושפע.",
+            qEn: "What is HTTP/3's solution to the HTTP/2 problem?",
+            aEn: "HTTP/2 with Multiplexing solved HOL Blocking at the Application Layer — but TCP is still a problem: one lost packet means all streams wait (HOL Blocking at TCP level). HTTP/3 runs on QUIC (UDP): each stream is independent at the transport layer too. A lost packet affects only one stream."
           },
           {
             q: "מתי WebSockets עדיפים על REST API רגיל?",
-            a: "REST = Request-Response. כל עדכון = round-trip. לתוכן שמשתנה תכופות (chat, game, trading, live dashboard) – polling = overhead עצום. WebSocket = חיבור פתוח. שרת שולח עדכון מיידי ללא שהלקוח יבקש. כשצריך real-time עם latency מינימלי."
+            a: "REST = Request-Response. כל עדכון = round-trip. לתוכן שמשתנה תכופות (chat, game, trading, live dashboard) – polling = overhead עצום. WebSocket = חיבור פתוח. שרת שולח עדכון מיידי ללא שהלקוח יבקש. כשצריך real-time עם latency מינימלי.",
+            qEn: "When are WebSockets better than a regular REST API?",
+            aEn: "REST is Request-Response. Every update needs a round-trip. For content that changes often (chat, games, trading, live dashboards) polling creates huge overhead. WebSocket keeps an open connection. The server sends updates immediately without the client asking. Use it when you need real-time with minimal latency."
           }
         ]
       }
@@ -4841,18 +4991,25 @@ Why not? → code review checklist didn't include DB review.</code></pre>
       {
         type: "questions",
         title: "שאלות הבנה - פרק 23",
+        titleEn: "Chapter 23 — Comprehension Questions",
         questions: [
           {
             q: "למה כשפייסבוק ביטלה את ה-BGP announcements שלה, עובדיה לא יכלו להתחבר מרחוק לתקן?",
-            a: "כלי הניהול והגישה מרחוק של פייסבוק (SSH, VPN, כלי ניטור) כולם מתחברים לשרתי פייסבוק. כשפייסבוק הסירה את עצמה מהאינטרנט — גם הגישה הפנימית מרחוק נפלה. המהנדסים נאלצו לנסוע פיזית."
+            a: "כלי הניהול והגישה מרחוק של פייסבוק (SSH, VPN, כלי ניטור) כולם מתחברים לשרתי פייסבוק. כשפייסבוק הסירה את עצמה מהאינטרנט — גם הגישה הפנימית מרחוק נפלה. המהנדסים נאלצו לנסוע פיזית.",
+            qEn: "Why could Facebook employees not connect remotely to fix the issue when BGP announcements were withdrawn?",
+            aEn: "Facebook's remote management tools (SSH, VPN, monitoring) all connect to Facebook's servers. When Facebook removed itself from the Internet, internal remote access also went down. Engineers had to physically drive to the data center."
           },
           {
             q: "מה ההבדל בין BGP Leak ל-BGP Hijacking?",
-            a: "BGP Leak = טעות לא מכוונת — AS מפיץ routing שהיה צריך להישאר פנימי. BGP Hijacking = פעולה זדונית — AS מכריז על prefix שאינו שלו כדי לנתב תנועה דרכו."
+            a: "BGP Leak = טעות לא מכוונת — AS מפיץ routing שהיה צריך להישאר פנימי. BGP Hijacking = פעולה זדונית — AS מכריז על prefix שאינו שלו כדי לנתב תנועה דרכו.",
+            qEn: "What is the difference between a BGP Leak and BGP Hijacking?",
+            aEn: "BGP Leak is an unintentional mistake — an AS spreads routing info that should have stayed internal. BGP Hijacking is a malicious action — an AS announces a prefix that is not its own to route traffic through itself."
           },
           {
             q: "מה עיקרון ה-'blameless postmortem' ולמה הוא חשוב?",
-            a: "לא מחפשים מי אשם אלא מה גרם לכשל. כשאנשים לא מפחדים מעונש — הם מדווחים בפתיחות, הפוסטמורטם מדויק יותר, הלמידה עמוקה יותר. תרבות של אשמה מביאה להסתרת מידע."
+            a: "לא מחפשים מי אשם אלא מה גרם לכשל. כשאנשים לא מפחדים מעונש — הם מדווחים בפתיחות, הפוסטמורטם מדויק יותר, הלמידה עמוקה יותר. תרבות של אשמה מביאה להסתרת מידע.",
+            qEn: "What is the 'blameless postmortem' principle and why is it important?",
+            aEn: "Instead of looking for who is to blame, you look for what caused the failure. When people are not afraid of punishment, they report openly, the postmortem is more accurate, and learning is deeper. A blame culture leads to hiding information."
           }
         ]
       }
@@ -5077,18 +5234,25 @@ vs. Python/Java thread: 8-512MB per thread
       {
         type: "questions",
         title: "שאלות הבנה - פרק 24",
+        titleEn: "Chapter 24 — Comprehension Questions",
         questions: [
           {
             q: "מה ה-Open Connect Appliance של Netflix ואיזה יתרון הוא נותן ל-ISP?",
-            a: "OCA = שרת cache ש-Netflix מספקת ל-ISPs בחינם. ה-ISP מקבל hardware ללא עלות, ותנועת הvideo לא יוצאת מהרשת שלו (חוסך bandwidth יקר). Netflix חוסכת עלויות transit עצומות. Win-win."
+            a: "OCA = שרת cache ש-Netflix מספקת ל-ISPs בחינם. ה-ISP מקבל hardware ללא עלות, ותנועת הvideo לא יוצאת מהרשת שלו (חוסך bandwidth יקר). Netflix חוסכת עלויות transit עצומות. Win-win.",
+            qEn: "What is Netflix's Open Connect Appliance and what advantage does it give the ISP?",
+            aEn: "OCA is a cache server that Netflix provides to ISPs for free. The ISP gets hardware at no cost, and video traffic stays inside its own network (saving expensive bandwidth). Netflix saves huge transit costs. Win-win."
           },
           {
             q: "למה WhatsApp בחרה ב-Erlang ולא ב-Python או Java?",
-            a: "Erlang/OTP נבנתה ל-telecom — ניהול מיליוני חיבורים קונקורנטיים. כל חיבור הוא process קל (ולא thread OS כבד). ב-Erlang: מיליון חיבורים ≈ 2GB RAM. ב-Java threads: עשרות GB. הבחירה הארכיטקטונית אפשרה צוות קטן לנהל scale ענק."
+            a: "Erlang/OTP נבנתה ל-telecom — ניהול מיליוני חיבורים קונקורנטיים. כל חיבור הוא process קל (ולא thread OS כבד). ב-Erlang: מיליון חיבורים ≈ 2GB RAM. ב-Java threads: עשרות GB. הבחירה הארכיטקטונית אפשרה צוות קטן לנהל scale ענק.",
+            qEn: "Why did WhatsApp choose Erlang instead of Python or Java?",
+            aEn: "Erlang/OTP was built for telecom — managing millions of concurrent connections. Each connection is a lightweight process (not a heavy OS thread). In Erlang: one million connections use about 2GB RAM. With Java threads: tens of GB. This architecture choice let a small team handle huge scale."
           },
           {
             q: "מה Anycast ואיך Cloudflare משתמשת בו להגנה מ-DDoS?",
-            a: "Anycast = אותה כתובת IP מוכרזת ממאות מקומות. BGP מנתב כל משתמש לנקודה הקרובה. ב-DDoS: התנועה מחולקת ל-300 PoPs — כל PoP ספג שבריר. לאחר filtering מקומי, רק תנועה נקייה עוברת לorigin. Scale ו-distribution = resilience."
+            a: "Anycast = אותה כתובת IP מוכרזת ממאות מקומות. BGP מנתב כל משתמש לנקודה הקרובה. ב-DDoS: התנועה מחולקת ל-300 PoPs — כל PoP ספג שבריר. לאחר filtering מקומי, רק תנועה נקייה עוברת לorigin. Scale ו-distribution = resilience.",
+            qEn: "What is Anycast and how does Cloudflare use it for DDoS protection?",
+            aEn: "Anycast means the same IP address is announced from hundreds of locations. BGP routes each user to the nearest point. During DDoS: traffic is split across 300 PoPs — each PoP absorbs a fraction. After local filtering, only clean traffic passes to the origin. Scale and distribution equals resilience."
           }
         ]
       }
@@ -5315,18 +5479,25 @@ const fingerprint = canvas.toDataURL()
       {
         type: "questions",
         title: "שאלות הבנה - פרק 25",
+        titleEn: "Chapter 25 — Comprehension Questions",
         questions: [
           {
             q: "גלשת ל-bank.com ב-HTTPS. מה ה-ISP יכול לראות?",
-            a: "ה-ISP רואה: DNS query לbank.com (מי ה-IP), ה-TLS SNI בחיבור (שם 'bank.com'), כתובת IP של שרת הבנק, גודל ותזמון החבילות. לא יכול לראות: שם משתמש, סיסמה, תוכן הדפים — כל זה מוצפן ב-HTTPS."
+            a: "ה-ISP רואה: DNS query לbank.com (מי ה-IP), ה-TLS SNI בחיבור (שם 'bank.com'), כתובת IP של שרת הבנק, גודל ותזמון החבילות. לא יכול לראות: שם משתמש, סיסמה, תוכן הדפים — כל זה מוצפן ב-HTTPS.",
+            qEn: "You browsed to bank.com using HTTPS. What can the ISP see?",
+            aEn: "The ISP can see: DNS query for bank.com, the TLS SNI (the name 'bank.com'), the IP address of the bank server, and packet sizes and timing. It cannot see: username, password, or page content — all of that is encrypted by HTTPS."
           },
           {
             q: "מה Canvas Fingerprinting ולמה קשה להגן ממנו?",
-            a: "האתר מצייר טקסט/צורות ב-canvas HTML. כל GPU/OS/גרסת דפדפן מצייר פיקסלים מעט שונים. ה-hash של התמונה ייחודי לציוד שלך. קשה להגן כי: אין לדעת מתי אתר עושה זאת (JavaScript מוסתר), ומניעה דורשת randomization שמשבש פונקציות לגיטימיות."
+            a: "האתר מצייר טקסט/צורות ב-canvas HTML. כל GPU/OS/גרסת דפדפן מצייר פיקסלים מעט שונים. ה-hash של התמונה ייחודי לציוד שלך. קשה להגן כי: אין לדעת מתי אתר עושה זאת (JavaScript מוסתר), ומניעה דורשת randomization שמשבש פונקציות לגיטימיות.",
+            qEn: "What is Canvas Fingerprinting and why is it hard to defend against?",
+            aEn: "The website draws text and shapes on an HTML canvas. Each GPU, OS, and browser version draws pixels slightly differently. The hash of the image is unique to your hardware. It is hard to defend against because you cannot tell when a site does this (hidden JavaScript), and blocking it requires randomization that breaks legitimate features."
           },
           {
             q: "כיצד Onion Routing מבטיח ש-ISP שלך לא יודע לאיזה אתר גלשת?",
-            a: "מחשבך שולח לGuard node בלבד — encrypted לשלוש שכבות. ה-ISP רואה שיחה עם Guard node. Guard לא יודע מה בפנים. רק Exit node יכול לפתוח את היעד הסופי — אבל Exit לא יודע מי שלח. ISP רואה: 'התחברת ל-Tor'. לא מה ביקשת."
+            a: "מחשבך שולח לGuard node בלבד — encrypted לשלוש שכבות. ה-ISP רואה שיחה עם Guard node. Guard לא יודע מה בפנים. רק Exit node יכול לפתוח את היעד הסופי — אבל Exit לא יודע מי שלח. ISP רואה: 'התחברת ל-Tor'. לא מה ביקשת.",
+            qEn: "How does Onion Routing make sure your ISP does not know which site you visited?",
+            aEn: "Your computer sends only to the Guard node — encrypted in three layers. The ISP sees a conversation with the Guard node. The Guard does not know what is inside. Only the Exit node can see the final destination — but the Exit does not know who sent it. The ISP sees: 'you connected to Tor'. Not what you asked for."
           }
         ]
       }
@@ -5538,18 +5709,25 @@ spec:
       {
         type: "questions",
         title: "שאלות הבנה - פרק 26",
+        titleEn: "Chapter 26 — Comprehension Questions",
         questions: [
           {
             q: "מה ההבדל בין HTTP/2 ל-HTTP/3 מבחינת שכבת התעבורה?",
-            a: "HTTP/2 רץ על TCP. חבילה אחת שאבדה — כל ה-streams מחכים (HOL blocking ברמת TCP). HTTP/3 רץ על QUIC/UDP. כל stream עצמאי גם ברמת transport. חבילה שאבדה משפיעה רק על stream אחד."
+            a: "HTTP/2 רץ על TCP. חבילה אחת שאבדה — כל ה-streams מחכים (HOL blocking ברמת TCP). HTTP/3 רץ על QUIC/UDP. כל stream עצמאי גם ברמת transport. חבילה שאבדה משפיעה רק על stream אחד.",
+            qEn: "What is the difference between HTTP/2 and HTTP/3 at the transport layer?",
+            aEn: "HTTP/2 runs on TCP. One lost packet makes all streams wait (HOL blocking at TCP level). HTTP/3 runs on QUIC/UDP. Each stream is independent at the transport level too. A lost packet affects only one stream."
           },
           {
             q: "למה eBPF מהפכני לאבטחת רשתות?",
-            a: "eBPF מריץ קוד בתוך kernel ב-XDP context — לפני שהpacket מגיע לnetwork stack. זה מאפשר drop/filter ב-line rate של hardware (מיליוני pps). קוד דינמי שניתן לעדכן בלי reboot. Cloudflare משתמשת בזה ל-DDoS mitigation. בנוסף — full observability של כל syscall ב-production ללא overhead."
+            a: "eBPF מריץ קוד בתוך kernel ב-XDP context — לפני שהpacket מגיע לnetwork stack. זה מאפשר drop/filter ב-line rate של hardware (מיליוני pps). קוד דינמי שניתן לעדכן בלי reboot. Cloudflare משתמשת בזה ל-DDoS mitigation. בנוסף — full observability של כל syscall ב-production ללא overhead.",
+            qEn: "Why is eBPF revolutionary for network security?",
+            aEn: "eBPF runs code inside the kernel at the XDP level — before the packet reaches the network stack. This allows drop/filter at hardware line rate (millions of packets per second). The code is dynamic and can be updated without reboot. Cloudflare uses it for DDoS mitigation. It also gives full observability of every syscall in production with no overhead."
           },
           {
             q: "מה בעיית HOL Blocking ב-TCP ואיך QUIC פותר אותה?",
-            a: "HOL Blocking = Head-of-Line Blocking. TCP הוא stream אחד, ordered. אם חבילה 5 אבדה — חבילות 6, 7, 8 שכבר הגיעו מחכות בbuffer. כל multiplexing שמעל TCP (HTTP/2) סובל מזה. QUIC: כל stream הוא flow עצמאי ב-UDP. אובדן חבילה בstream A לא עוצר stream B."
+            a: "HOL Blocking = Head-of-Line Blocking. TCP הוא stream אחד, ordered. אם חבילה 5 אבדה — חבילות 6, 7, 8 שכבר הגיעו מחכות בbuffer. כל multiplexing שמעל TCP (HTTP/2) סובל מזה. QUIC: כל stream הוא flow עצמאי ב-UDP. אובדן חבילה בstream A לא עוצר stream B.",
+            qEn: "What is the HOL Blocking problem in TCP and how does QUIC solve it?",
+            aEn: "HOL Blocking means Head-of-Line Blocking. TCP is one ordered stream. If packet 5 is lost, packets 6, 7, 8 that already arrived wait in the buffer. Any multiplexing on top of TCP (HTTP/2) suffers from this. QUIC: each stream is an independent flow over UDP. A lost packet in stream A does not stop stream B."
           }
         ]
       }
@@ -6725,11 +6903,12 @@ Set-Cookie: session=xyz; HttpOnly; Secure; SameSite=Strict</code></pre></div>
       {
         type: "questions",
         title: "שאלות — SQLi ו-XSS",
+        titleEn: "SQLi & XSS — Comprehension Questions",
         questions: [
-          { q: "מה ההבדל בין SQL Injection ל-XSS?", a: "הזרקת SQL תוקפת את מסד הנתונים בצד השרת, ואילו XSS תוקפת את הדפדפן של משתמש אחר ומריצה קוד בהקשר של האתר. בקצרה: הזרקת SQL פועלת בצד השרת, ו-XSS בצד הלקוח." },
-          { q: "מה Prepared Statements ולמה הם פותרים SQLi?", a: "שאילתות מוכנות (Prepared Statements) מקמפלות את שאילתת ה-SQL לפני הכנסת הנתונים. הנתונים מוכנסים כפרמטרים ולא כטקסט חופשי — כך הם לא יכולים לשנות את מבנה השאילתה." },
-          { q: "למה HttpOnly cookie מגן מ-XSS?", a: "עוגייה עם דגל HttpOnly לא נגישה לקוד JavaScript בדפדפן. גם אם יש פגיעות XSS באתר, התוקף לא יכול לגנוב את עוגיית ההפעלה (session cookie)." },
-          { q: "מה Time-based Blind SQLi?", a: "כאשר אין פלט גלוי מהשאילתה, התוקף שולח פקודת השהייה (למשל SLEEP) — אם השרת מגיב באיחור, הקוד רץ. כך אפשר לחלץ נתונים ביט-ביט לפי זמני תגובה." }
+          { q: "מה ההבדל בין SQL Injection ל-XSS?", a: "הזרקת SQL תוקפת את מסד הנתונים בצד השרת, ואילו XSS תוקפת את הדפדפן של משתמש אחר ומריצה קוד בהקשר של האתר. בקצרה: הזרקת SQL פועלת בצד השרת, ו-XSS בצד הלקוח.", qEn: "What is the difference between SQL Injection and XSS?", aEn: "SQL Injection attacks the database on the server side. XSS attacks another user's browser and runs code in the context of the website. In short: SQL Injection works on the server, XSS works on the client." },
+          { q: "מה Prepared Statements ולמה הם פותרים SQLi?", a: "שאילתות מוכנות (Prepared Statements) מקמפלות את שאילתת ה-SQL לפני הכנסת הנתונים. הנתונים מוכנסים כפרמטרים ולא כטקסט חופשי — כך הם לא יכולים לשנות את מבנה השאילתה.", qEn: "What are Prepared Statements and why do they prevent SQLi?", aEn: "Prepared Statements compile the SQL query before inserting the data. The data is inserted as parameters, not as free text — so it cannot change the structure of the query." },
+          { q: "למה HttpOnly cookie מגן מ-XSS?", a: "עוגייה עם דגל HttpOnly לא נגישה לקוד JavaScript בדפדפן. גם אם יש פגיעות XSS באתר, התוקף לא יכול לגנוב את עוגיית ההפעלה (session cookie).", qEn: "Why does an HttpOnly cookie protect against XSS?", aEn: "A cookie with the HttpOnly flag is not accessible to JavaScript code in the browser. Even if the site has an XSS vulnerability, the attacker cannot steal the session cookie." },
+          { q: "מה Time-based Blind SQLi?", a: "כאשר אין פלט גלוי מהשאילתה, התוקף שולח פקודת השהייה (למשל SLEEP) — אם השרת מגיב באיחור, הקוד רץ. כך אפשר לחלץ נתונים ביט-ביט לפי זמני תגובה.", qEn: "What is Time-based Blind SQLi?", aEn: "When there is no visible output from the query, the attacker sends a delay command (like SLEEP). If the server responds late, the code ran. This way you can extract data bit by bit based on response times." }
         ]
       }
     ]
@@ -6816,10 +6995,11 @@ ph.verify(hash, password)  # מחזיר True/False</code></pre></div>
       {
         type: "questions",
         title: "שאלות — Auth",
+        titleEn: "Authentication — Comprehension Questions",
         questions: [
-          { q: "מה ההבדל בין Authentication ל-Authorization?", a: "אימות (Authentication) = מי אתה? הרשאה (Authorization) = מה מותר לך? כניסה למערכת היא אימות, ובדיקת הרשאות גישה לעמוד ניהול היא הרשאה." },
-          { q: "למה bcrypt עדיף על SHA256 לסיסמאות?", a: "אלגוריתם bcrypt מכיל גורם עומס (work factor) מכוון שהופך אותו לאיטי בכוונה — ניסיון פריצה בכוח (brute-force) לוקח הרבה יותר זמן. בנוסף יש בו מלח (salt) מובנה. לעומתו SHA256 מהיר מדי — כרטיס מסך יכול לנסות מיליארדי ניחושים בשנייה." },
-          { q: "מה JWT alg=none attack?", a: "טוקן JWT קובע את אלגוריתם החתימה בכותרת שלו. שרת פגיע שמקבל ערך none באלגוריתם מאמת טוקן ללא חתימה כלל — תוקף יכול לזייף כל תוכן (למשל להפוך את עצמו למנהל)." }
+          { q: "מה ההבדל בין Authentication ל-Authorization?", a: "אימות (Authentication) = מי אתה? הרשאה (Authorization) = מה מותר לך? כניסה למערכת היא אימות, ובדיקת הרשאות גישה לעמוד ניהול היא הרשאה.", qEn: "What is the difference between Authentication and Authorization?", aEn: "Authentication means 'who are you?' Authorization means 'what are you allowed to do?' Logging in is authentication. Checking if you can access the admin page is authorization." },
+          { q: "למה bcrypt עדיף על SHA256 לסיסמאות?", a: "אלגוריתם bcrypt מכיל גורם עומס (work factor) מכוון שהופך אותו לאיטי בכוונה — ניסיון פריצה בכוח (brute-force) לוקח הרבה יותר זמן. בנוסף יש בו מלח (salt) מובנה. לעומתו SHA256 מהיר מדי — כרטיס מסך יכול לנסות מיליארדי ניחושים בשנייה.", qEn: "Why is bcrypt better than SHA256 for passwords?", aEn: "bcrypt has a work factor that makes it intentionally slow — brute-force attacks take much longer. It also has a built-in salt. SHA256 is too fast — a GPU can try billions of guesses per second." },
+          { q: "מה JWT alg=none attack?", a: "טוקן JWT קובע את אלגוריתם החתימה בכותרת שלו. שרת פגיע שמקבל ערך none באלגוריתם מאמת טוקן ללא חתימה כלל — תוקף יכול לזייף כל תוכן (למשל להפוך את עצמו למנהל).", qEn: "What is the JWT alg=none attack?", aEn: "A JWT token sets its signing algorithm in the header. A vulnerable server that accepts 'none' as the algorithm verifies the token without any signature — an attacker can forge any content (for example, make themselves admin)." }
         ]
       }
     ]
@@ -6900,10 +7080,11 @@ Set-Cookie: session=xyz; SameSite=Strict; Secure; HttpOnly
       {
         type: "questions",
         title: "שאלות — Web Security Headers",
+        titleEn: "Web Security Headers — Comprehension Questions",
         questions: [
-          { q: "מה Content-Security-Policy עושה?", a: "כותרת CSP מנחה את הדפדפן מאילו מקורות מותר לטעון סקריפטים, עיצוב, תמונות וכדומה. זה מגביל מתקפות XSS בכך שהדפדפן חוסם הרצת קוד משובץ בדף וקוד ממקורות לא מורשים." },
-          { q: "מה CSRF ואיך SameSite Cookie פותר אותו?", a: "זיוף בקשות (CSRF) גורם לדפדפן לשלוח בקשה לאתר מסוים בזמן שהמשתמש גולש באתר זדוני, תוך צירוף העוגיות אוטומטית. הגדרת עוגייה עם SameSite בערך Strict מונעת שליחת העוגייה בבקשות חוצות-אתר — כך הבקשה הזדונית נשלחת ללא הפעלה פעילה." },
-          { q: "מה HSTS ולמה הוא מגן מ-SSL Stripping?", a: "כותרת HSTS אומרת לדפדפן להשתמש תמיד בחיבור מוצפן (HTTPS) לדומיין זה. מתקפת הורדת הצפנה (SSL Stripping) מנסה לשדרג לאחור לחיבור לא מוצפן. עם HSTS הדפדפן מסרב לחיבור לא מוצפן — כך המתקפה נכשלת." }
+          { q: "מה Content-Security-Policy עושה?", a: "כותרת CSP מנחה את הדפדפן מאילו מקורות מותר לטעון סקריפטים, עיצוב, תמונות וכדומה. זה מגביל מתקפות XSS בכך שהדפדפן חוסם הרצת קוד משובץ בדף וקוד ממקורות לא מורשים.", qEn: "What does Content-Security-Policy do?", aEn: "The CSP header tells the browser which sources are allowed to load scripts, styles, images, etc. It limits XSS attacks by blocking inline code and code from unauthorized sources." },
+          { q: "מה CSRF ואיך SameSite Cookie פותר אותו?", a: "זיוף בקשות (CSRF) גורם לדפדפן לשלוח בקשה לאתר מסוים בזמן שהמשתמש גולש באתר זדוני, תוך צירוף העוגיות אוטומטית. הגדרת עוגייה עם SameSite בערך Strict מונעת שליחת העוגייה בבקשות חוצות-אתר — כך הבקשה הזדונית נשלחת ללא הפעלה פעילה.", qEn: "What is CSRF and how does SameSite Cookie solve it?", aEn: "CSRF makes the browser send a request to a site while the user is on a malicious site, attaching cookies automatically. Setting a cookie with SameSite=Strict prevents the cookie from being sent in cross-site requests — so the malicious request is sent without an active session." },
+          { q: "מה HSTS ולמה הוא מגן מ-SSL Stripping?", a: "כותרת HSTS אומרת לדפדפן להשתמש תמיד בחיבור מוצפן (HTTPS) לדומיין זה. מתקפת הורדת הצפנה (SSL Stripping) מנסה לשדרג לאחור לחיבור לא מוצפן. עם HSTS הדפדפן מסרב לחיבור לא מוצפן — כך המתקפה נכשלת.", qEn: "What is HSTS and why does it protect against SSL Stripping?", aEn: "The HSTS header tells the browser to always use HTTPS for this domain. SSL Stripping tries to downgrade to an unencrypted connection. With HSTS, the browser refuses unencrypted connections — so the attack fails." }
         ]
       }
     ]
@@ -6987,10 +7168,11 @@ org:"Target Company" product:"Apache"     # Apache servers</code></pre></div>
       {
         type: "questions",
         title: "שאלות — TI ו-OSINT",
+        titleEn: "Threat Intelligence & OSINT — Comprehension Questions",
         questions: [
-          { q: "מה IoC ותן 3 דוגמאות?", a: "מזהה פריצה (IoC) הוא עדות לכך שמערכת נפרצה. דוגמאות: כתובת IP של שרת שליטה ובקרה (C2), חתימת hash של קובץ נוזקה, ודומיין זדוני המשמש להתחזות (phishing)." },
-          { q: "מה MITRE ATT&CK?", a: "מסגרת פתוחה הכוללת 14 טקטיקות (שלבי מתקפה) ומאות טכניקות. מאפשרת לסווג שיטות תקיפה (TTPs) של קבוצות תקיפה מתקדמות ולמפות מנגנוני הגנה מתאימים. משמשת גם לצוותי תקיפה וגם לצוותי הגנה." },
-          { q: "מה ההבדל בין Passive ל-Active Reconnaissance?", a: "סיור פסיבי: איסוף מידע ממקורות ציבוריים (כמו Shodan, WHOIS, גוגל) — ללא תעבורה ישירה ליעד, לא ניתן לזהות את הסורק. סיור אקטיבי: שליחת בקשות ישירות ליעד (כמו nmap, ping) — ניתן לזהות, ועלול להיות בלתי חוקי ללא אישור." }
+          { q: "מה IoC ותן 3 דוגמאות?", a: "מזהה פריצה (IoC) הוא עדות לכך שמערכת נפרצה. דוגמאות: כתובת IP של שרת שליטה ובקרה (C2), חתימת hash של קובץ נוזקה, ודומיין זדוני המשמש להתחזות (phishing).", qEn: "What is an IoC? Give 3 examples.", aEn: "An IoC (Indicator of Compromise) is evidence that a system was breached. Examples: IP address of a C2 (Command & Control) server, hash signature of a malware file, and a malicious domain used for phishing." },
+          { q: "מה MITRE ATT&CK?", a: "מסגרת פתוחה הכוללת 14 טקטיקות (שלבי מתקפה) ומאות טכניקות. מאפשרת לסווג שיטות תקיפה (TTPs) של קבוצות תקיפה מתקדמות ולמפות מנגנוני הגנה מתאימים. משמשת גם לצוותי תקיפה וגם לצוותי הגנה.", qEn: "What is MITRE ATT&CK?", aEn: "An open framework with 14 tactics (attack stages) and hundreds of techniques. It allows classifying attack methods (TTPs) of advanced threat groups and mapping matching defenses. Used by both attack teams and defense teams." },
+          { q: "מה ההבדל בין Passive ל-Active Reconnaissance?", a: "סיור פסיבי: איסוף מידע ממקורות ציבוריים (כמו Shodan, WHOIS, גוגל) — ללא תעבורה ישירה ליעד, לא ניתן לזהות את הסורק. סיור אקטיבי: שליחת בקשות ישירות ליעד (כמו nmap, ping) — ניתן לזהות, ועלול להיות בלתי חוקי ללא אישור.", qEn: "What is the difference between Passive and Active Reconnaissance?", aEn: "Passive recon: gathering info from public sources (Shodan, WHOIS, Google) — no direct traffic to the target, the scanner cannot be detected. Active recon: sending requests directly to the target (nmap, ping) — can be detected, and may be illegal without permission." }
         ]
       }
     ]
@@ -7064,10 +7246,11 @@ Get-ScheduledTask | Where-Object State -eq 'Ready'  # scheduled tasks</code></pr
       {
         type: "questions",
         title: "שאלות — Incident Response",
+        titleEn: "Incident Response — Comprehension Questions",
         questions: [
-          { q: "מה 6 שלבי Incident Response?", a: "ששת השלבים: הכנה, זיהוי, בלימה, מיגור, שחזור, והפקת לקחים. שלב הבלימה (Containment) קריטי לצמצום נזק מיידי, ושלב הפקת הלקחים (Lessons Learned) מונע הישנות." },
-          { q: "מה Supply Chain Attack? תן דוגמה.", a: "תקיפת שרשרת אספקה — פריצה לתוכנה של ספק שאתה סומך עליה. בדוגמת SolarWinds: תוקפים הזריקו נוזקה לעדכון חתום של מוצר Orion, ו-18,000 ארגונים התקינו אותו מרצון." },
-          { q: "מה volatility ולמה משתמשים בו ב-IR?", a: "Volatility הוא כלי לניתוח תמונות זיכרון (memory dumps). בתגובה לאירוע משתמשים בו לזיהוי תהליכים זדוניים, חיבורי רשת בזמן הפריצה, והזרקת קוד לתהליכים — מידע שלא נשמר בדיסק." }
+          { q: "מה 6 שלבי Incident Response?", a: "ששת השלבים: הכנה, זיהוי, בלימה, מיגור, שחזור, והפקת לקחים. שלב הבלימה (Containment) קריטי לצמצום נזק מיידי, ושלב הפקת הלקחים (Lessons Learned) מונע הישנות.", qEn: "What are the 6 stages of Incident Response?", aEn: "The six stages are: Preparation, Identification, Containment, Eradication, Recovery, and Lessons Learned. Containment is critical for reducing immediate damage. Lessons Learned prevents it from happening again." },
+          { q: "מה Supply Chain Attack? תן דוגמה.", a: "תקיפת שרשרת אספקה — פריצה לתוכנה של ספק שאתה סומך עליה. בדוגמת SolarWinds: תוקפים הזריקו נוזקה לעדכון חתום של מוצר Orion, ו-18,000 ארגונים התקינו אותו מרצון.", qEn: "What is a Supply Chain Attack? Give an example.", aEn: "A supply chain attack means breaking into software from a vendor you trust. In the SolarWinds example: attackers injected malware into a signed update of the Orion product, and 18,000 organizations installed it willingly." },
+          { q: "מה volatility ולמה משתמשים בו ב-IR?", a: "Volatility הוא כלי לניתוח תמונות זיכרון (memory dumps). בתגובה לאירוע משתמשים בו לזיהוי תהליכים זדוניים, חיבורי רשת בזמן הפריצה, והזרקת קוד לתהליכים — מידע שלא נשמר בדיסק.", qEn: "What is Volatility and why is it used in IR?", aEn: "Volatility is a tool for analyzing memory dumps. During incident response, it is used to find malicious processes, network connections at the time of the breach, and code injection into processes — information that is not saved on disk." }
         ]
       }
     ]
@@ -7161,10 +7344,11 @@ echo "LD_PRELOAD=/tmp/malicious.so" >> /etc/environment</code></pre></div>
       {
         type: "questions",
         title: "שאלות — Malware Analysis",
+        titleEn: "Malware Analysis — Comprehension Questions",
         questions: [
-          { q: "מה ההבדל בין Static ל-Dynamic Analysis?", a: "ניתוח סטטי בוחן את הקובץ עצמו ללא הרצה — מחרוזות, ייבואים, קוד. ניתוח דינמי מריץ את הקובץ בסביבה מבודדת (sandbox) ובוחן התנהגות — קריאות מערכת, תעבורת רשת, שינויי קבצים. ניתוח דינמי מגלה קוד מוסווה (obfuscated) שניתוח סטטי מחמיץ." },
-          { q: "מה Persistence ולמה זה חשוב ל-IR?", a: "התמדה (Persistence) היא מנגנון שמאפשר לנוזקה לרוץ שוב אחרי אתחול מחדש. בתגובה לאירוע חובה לנקות את כל מנגנוני ההתמדה — מפתחות רישום, משימות מתוזמנות, שירותים, משימות Cron — לפני שחזור המערכת." },
-          { q: "מה Ransomware וכיצד ניתן למנוע אותו?", a: "תוכנת כופר (Ransomware) מצפינה קבצים ודורשת תשלום לפענוח. מניעה: 1) גיבויים מנותקים מהרשת, 2) עדכוני אבטחה שוטפים, 3) סינון דואר אלקטרוני, 4) הגנת נקודות קצה, 5) פילוח רשת למניעת תנועה רוחבית של התוקף." }
+          { q: "מה ההבדל בין Static ל-Dynamic Analysis?", a: "ניתוח סטטי בוחן את הקובץ עצמו ללא הרצה — מחרוזות, ייבואים, קוד. ניתוח דינמי מריץ את הקובץ בסביבה מבודדת (sandbox) ובוחן התנהגות — קריאות מערכת, תעבורת רשת, שינויי קבצים. ניתוח דינמי מגלה קוד מוסווה (obfuscated) שניתוח סטטי מחמיץ.", qEn: "What is the difference between Static and Dynamic Analysis?", aEn: "Static analysis examines the file itself without running it — strings, imports, code. Dynamic analysis runs the file in an isolated environment (sandbox) and observes behavior — system calls, network traffic, file changes. Dynamic analysis reveals obfuscated code that static analysis misses." },
+          { q: "מה Persistence ולמה זה חשוב ל-IR?", a: "התמדה (Persistence) היא מנגנון שמאפשר לנוזקה לרוץ שוב אחרי אתחול מחדש. בתגובה לאירוע חובה לנקות את כל מנגנוני ההתמדה — מפתחות רישום, משימות מתוזמנות, שירותים, משימות Cron — לפני שחזור המערכת.", qEn: "What is Persistence and why is it important for IR?", aEn: "Persistence is a mechanism that lets malware run again after a reboot. During incident response, you must clean all persistence mechanisms — registry keys, scheduled tasks, services, cron jobs — before restoring the system." },
+          { q: "מה Ransomware וכיצד ניתן למנוע אותו?", a: "תוכנת כופר (Ransomware) מצפינה קבצים ודורשת תשלום לפענוח. מניעה: 1) גיבויים מנותקים מהרשת, 2) עדכוני אבטחה שוטפים, 3) סינון דואר אלקטרוני, 4) הגנת נקודות קצה, 5) פילוח רשת למניעת תנועה רוחבית של התוקף.", qEn: "What is Ransomware and how can you prevent it?", aEn: "Ransomware encrypts files and demands payment for decryption. Prevention: 1) offline backups, 2) regular security updates, 3) email filtering, 4) endpoint protection, 5) network segmentation to prevent lateral movement by the attacker." }
         ]
       }
     ]
