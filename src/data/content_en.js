@@ -8165,4 +8165,14 @@ Your company runs 500 microservices in Kubernetes. Currently using Flannel (VXLA
   803: { titleEn: "Hidden Services (.onion)", pages: [] },
   804: { titleEn: "Privacy Tools", pages: [] },
   805: { titleEn: "Ethics & Law", pages: [] },
+
+  // ===== Secure Development (701-708) =====
+  701: { titleEn: "OWASP Top 10", pages: [] },
+  702: { titleEn: "Injection Attacks", pages: [] },
+  703: { titleEn: "Authentication Security", pages: [] },
+  704: { titleEn: "XSS Prevention", pages: [] },
+  705: { titleEn: "API Security", pages: [] },
+  706: { titleEn: "Secure Coding Practices", pages: [] },
+  707: { titleEn: "AI Security & Prompt Injection", pages: [] },
+  708: { titleEn: "Security in CI/CD", pages: [] },
 }
