@@ -8314,6 +8314,523 @@ export const quizBank = {
         "REST doesn't support caching"
       ]
     }
+  ],
+
+  // ===== DARK WEB (801-805) =====
+
+  801: [
+    {
+      q: "\u200Fמה ההבדל בין Deep Web ל-Dark Web?",
+      correct: "\u200FDeep Web — תוכן שמנועי חיפוש לא מאנדקסים (90-95% מהאינטרנט)\nDark Web — תת-קבוצה קטנה שדורשת תוכנות מיוחדות כמו Tor",
+      choices: [
+        "\u200FDeep Web — תוכן שמנועי חיפוש לא מאנדקסים (90-95% מהאינטרנט)\nDark Web — תת-קבוצה קטנה שדורשת תוכנות מיוחדות כמו Tor",
+        "\u200Fשניהם אותו דבר בדיוק",
+        "\u200FDark Web הוא 90% מהאינטרנט",
+        "\u200FDeep Web דורש Tor ו-Dark Web לא"
+      ],
+      explanation: "\u200FDeep Web כולל מיילים, חשבונות בנק, מסדי נתונים — תוכן לגיטימי שדורש הרשאה. Dark Web הוא חלק זעיר שדורש תוכנות מיוחדות ומספק אנונימיות.",
+      explanationEn: "Deep Web includes emails, bank accounts, databases — legitimate content requiring authorization. Dark Web is a tiny subset requiring special software and providing anonymity.",
+      qEn: "What is the difference between Deep Web and Dark Web?",
+      correctEn: "Deep Web — content not indexed by search engines (90-95% of the internet)\nDark Web — a small subset requiring special software like Tor",
+      choicesEn: [
+        "Deep Web — content not indexed by search engines (90-95% of the internet)\nDark Web — a small subset requiring special software like Tor",
+        "They are exactly the same thing",
+        "Dark Web is 90% of the internet",
+        "Deep Web requires Tor and Dark Web does not"
+      ]
+    },
+    {
+      q: "\u200Fכמה אחוז מהאינטרנט מהווה ה-Surface Web?",
+      correct: "\u200Fכ-5-10% בלבד — רק מה שמנועי חיפוש כמו Google מאנדקסים",
+      choices: [
+        "\u200Fכ-5-10% בלבד — רק מה שמנועי חיפוש כמו Google מאנדקסים",
+        "\u200Fכ-90% מהאינטרנט",
+        "\u200Fכ-50% מהאינטרנט",
+        "\u200Fכ-1% בלבד"
+      ],
+      explanation: "\u200Fלמרות שגוגל מאנדקס מיליארדי דפים, זה רק 5-10% מכלל התוכן. רוב האינטרנט (90-95%) הוא Deep Web — תוכן מוגן בסיסמאות או לא נגיש לסורקים.",
+      explanationEn: "Even though Google indexes billions of pages, that's only 5-10% of all content. Most of the internet (90-95%) is Deep Web — content protected by passwords or inaccessible to crawlers.",
+      qEn: "What percentage of the internet does the Surface Web constitute?",
+      correctEn: "Only about 5-10% — only what search engines like Google can index",
+      choicesEn: [
+        "Only about 5-10% — only what search engines like Google can index",
+        "About 90% of the internet",
+        "About 50% of the internet",
+        "Only about 1%"
+      ]
+    },
+    {
+      q: "\u200Fאיזה סיומת כתובת משמשת אתרים ב-Dark Web?",
+      correct: "\u200F.onion — כתובות ייחודיות שנגישות רק דרך דפדפן Tor",
+      choices: [
+        "\u200F.onion — כתובות ייחודיות שנגישות רק דרך דפדפן Tor",
+        "\u200F.dark — כתובות מוצפנות",
+        "\u200F.deep — כתובות מוסתרות",
+        "\u200F.tor — כתובות אנונימיות"
+      ],
+      explanation: "\u200Fאתרים ב-Dark Web משתמשים בכתובות .onion שנגזרות ממפתח הצפנה ציבורי. הן נגישות רק דרך דפדפן Tor ומספקות אנונימיות דו-כיוונית.",
+      explanationEn: "Dark Web sites use .onion addresses derived from a public encryption key. They are accessible only through the Tor browser and provide two-way anonymity.",
+      qEn: "What address extension is used by Dark Web sites?",
+      correctEn: ".onion — unique addresses accessible only through the Tor browser",
+      choicesEn: [
+        ".onion — unique addresses accessible only through the Tor browser",
+        ".dark — encrypted addresses",
+        ".deep — hidden addresses",
+        ".tor — anonymous addresses"
+      ]
+    },
+    {
+      q: "\u200Fמה מתוך הבאים הוא דוגמה ל-Deep Web ולא ל-Dark Web?",
+      correct: "\u200Fתיבת המייל שלכם וחשבון הבנק — תוכן לגיטימי שדורש הרשאה",
+      choices: [
+        "\u200Fתיבת המייל שלכם וחשבון הבנק — תוכן לגיטימי שדורש הרשאה",
+        "\u200Fאתר עם כתובת .onion",
+        "\u200Fאתר חדשות כמו CNN",
+        "\u200Fפורום אנונימי שנגיש רק דרך Tor"
+      ],
+      explanation: "\u200Fתיבת מייל וחשבון בנק הם Deep Web — תוכן שמנועי חיפוש לא יכולים לגשת אליו כי הוא מוגן בסיסמה, אבל לא צריך תוכנות מיוחדות. CNN הוא Surface Web.",
+      explanationEn: "Email and bank accounts are Deep Web — content that search engines can't access because it's password-protected, but doesn't require special software. CNN is Surface Web.",
+      qEn: "Which of the following is an example of Deep Web and not Dark Web?",
+      correctEn: "Your email inbox and bank account — legitimate content requiring authorization",
+      choicesEn: [
+        "Your email inbox and bank account — legitimate content requiring authorization",
+        "A site with a .onion address",
+        "A news site like CNN",
+        "An anonymous forum accessible only through Tor"
+      ]
+    },
+    {
+      q: "\u200Fהאם כל הפעילות ב-Dark Web היא לא חוקית?",
+      correct: "\u200Fלא — יש שימושים לגיטימיים רבים כמו עיתונאות, פעילות זכויות אדם ושמירה על פרטיות",
+      choices: [
+        "\u200Fלא — יש שימושים לגיטימיים רבים כמו עיתונאות, פעילות זכויות אדם ושמירה על פרטיות",
+        "\u200Fכן — כל פעילות ב-Dark Web אסורה בחוק",
+        "\u200Fכן — זו רשת של פושעים בלבד",
+        "\u200Fלא — אבל רק ממשלות משתמשות בה לגיטימית"
+      ],
+      explanation: "\u200Fארגונים כמו BBC ו-Facebook מפעילים אתרי .onion. עיתונאים משתמשים ב-SecureDrop, ופעילי זכויות אדם משתמשים ב-Tor כדי לגשת למידע במדינות עם צנזורה.",
+      explanationEn: "Organizations like BBC and Facebook operate .onion sites. Journalists use SecureDrop, and human rights activists use Tor to access information in countries with censorship.",
+      qEn: "Is all activity on the Dark Web illegal?",
+      correctEn: "No — there are many legitimate uses like journalism, human rights activism, and privacy protection",
+      choicesEn: [
+        "No — there are many legitimate uses like journalism, human rights activism, and privacy protection",
+        "Yes — all Dark Web activity is illegal",
+        "Yes — it's a network only for criminals",
+        "No — but only governments use it legitimately"
+      ]
+    }
+  ],
+
+  802: [
+    {
+      q: "\u200Fדרך כמה nodes (שרתים) עוברת תעבורה ברשת Tor?",
+      correct: "\u200F3 nodes — Guard (כניסה), Middle (ממסר), ו-Exit (יציאה)",
+      choices: [
+        "\u200F3 nodes — Guard (כניסה), Middle (ממסר), ו-Exit (יציאה)",
+        "\u200F2 nodes — כניסה ויציאה",
+        "\u200F5 nodes לאבטחה מקסימלית",
+        "\u200Fnode אחד מוצפן"
+      ],
+      explanation: "\u200FTor מנתב תעבורה דרך שלושה nodes: Guard יודע מי אתם אבל לא לאן, Middle לא יודע כלום, Exit יודע לאן אבל לא מי. כך אף node לא מחזיק את כל המידע.",
+      explanationEn: "Tor routes traffic through three nodes: Guard knows who you are but not where you're going, Middle knows nothing, Exit knows where but not who. No single node has the full picture.",
+      qEn: "Through how many nodes does Tor traffic pass?",
+      correctEn: "3 nodes — Guard (entry), Middle (relay), and Exit",
+      choicesEn: [
+        "3 nodes — Guard (entry), Middle (relay), and Exit",
+        "2 nodes — entry and exit",
+        "5 nodes for maximum security",
+        "A single encrypted node"
+      ]
+    },
+    {
+      q: "\u200Fלמה ההצפנה ב-Tor נקראת Onion Routing?",
+      correct: "\u200Fכי ההודעה מוצפנת בשכבות כמו בצל — כל node מקלף שכבה אחת",
+      choices: [
+        "\u200Fכי ההודעה מוצפנת בשכבות כמו בצל — כל node מקלף שכבה אחת",
+        "\u200Fכי הלוגו של Tor הוא בצל",
+        "\u200Fכי האלגוריתם נקרא ONION",
+        "\u200Fכי השרתים מסודרים בצורת בצל"
+      ],
+      explanation: "\u200Fלפני השליחה, ההודעה מוצפנת 3 פעמים (שכבה לכל node). כל node מקלף שכבת הצפנה אחת ורואה רק לאן לשלוח הלאה — בדיוק כמו קילוף שכבות של בצל.",
+      explanationEn: "Before sending, the message is encrypted 3 times (one layer per node). Each node peels off one encryption layer and sees only where to forward next — just like peeling onion layers.",
+      qEn: "Why is Tor's encryption called Onion Routing?",
+      correctEn: "Because the message is encrypted in layers like an onion — each node peels off one layer",
+      choicesEn: [
+        "Because the message is encrypted in layers like an onion — each node peels off one layer",
+        "Because Tor's logo is an onion",
+        "Because the algorithm is called ONION",
+        "Because the servers are arranged in an onion shape"
+      ]
+    },
+    {
+      q: "\u200Fמה יודע ה-Guard Node על המשתמש?",
+      correct: "\u200Fיודע את ה-IP של המשתמש אבל לא יודע לאיזה אתר הוא גולש",
+      choices: [
+        "\u200Fיודע את ה-IP של המשתמש אבל לא יודע לאיזה אתר הוא גולש",
+        "\u200Fיודע הכל — גם מי וגם לאן",
+        "\u200Fלא יודע כלום על המשתמש",
+        "\u200Fיודע לאיזה אתר גולשים אבל לא את ה-IP"
+      ],
+      explanation: "\u200Fה-Guard Node הוא התחנה הראשונה. הוא רואה את ה-IP האמיתי של המשתמש, אבל ההודעה עדיין עטופה בשתי שכבות הצפנה — אז הוא לא יודע מה היעד הסופי.",
+      explanationEn: "The Guard Node is the first stop. It sees the user's real IP, but the message is still wrapped in two encryption layers — so it doesn't know the final destination.",
+      qEn: "What does the Guard Node know about the user?",
+      correctEn: "Knows the user's IP but not which website they are browsing",
+      choicesEn: [
+        "Knows the user's IP but not which website they are browsing",
+        "Knows everything — both who and where",
+        "Knows nothing about the user",
+        "Knows which website but not the IP"
+      ]
+    },
+    {
+      q: "\u200Fמהי מתקפת Timing ב-Tor ומתי היא אפשרית?",
+      correct: "\u200Fכשתוקף שולט גם ב-Guard וגם ב-Exit — הוא יכול לקשר בין תזמון ונפח תעבורה ולחשוף את המשתמש",
+      choices: [
+        "\u200Fכשתוקף שולט גם ב-Guard וגם ב-Exit — הוא יכול לקשר בין תזמון ונפח תעבורה ולחשוף את המשתמש",
+        "\u200Fמספיק לשלוט ב-node אחד כדי לפרוץ",
+        "\u200Fמתקפה שמאטה את הרשת עד שהיא קורסת",
+        "\u200Fמתקפה שפורצת את ההצפנה ישירות"
+      ],
+      explanation: "\u200Fאם תוקף שולט ב-Guard (רואה מי) וב-Exit (רואה לאן), הוא יכול להשוות תזמון ונפח תעבורה בשני הקצוות ולקשר ביניהם. לכן Tor שומר Guard קבוע — כדי להקטין סיכוי לפגוש Guard זדוני.",
+      explanationEn: "If an attacker controls both Guard (sees who) and Exit (sees where), they can correlate timing and traffic volume at both ends. That's why Tor keeps a persistent Guard — to reduce the chance of hitting a malicious one.",
+      qEn: "What is a Timing attack in Tor and when is it possible?",
+      correctEn: "When an attacker controls both Guard and Exit — they can correlate timing and traffic volume to identify the user",
+      choicesEn: [
+        "When an attacker controls both Guard and Exit — they can correlate timing and traffic volume to identify the user",
+        "Controlling one node is enough to break in",
+        "An attack that slows the network until it crashes",
+        "An attack that directly breaks the encryption"
+      ]
+    },
+    {
+      q: "\u200Fמה תפקידם של ה-Directory Authorities ב-Tor?",
+      correct: "\u200F10 שרתים מהימנים שמנהלים את רשימת כל ה-nodes ומפרסמים קונצנזוס עם דגלים ורוחב פס",
+      choices: [
+        "\u200F10 שרתים מהימנים שמנהלים את רשימת כל ה-nodes ומפרסמים קונצנזוס עם דגלים ורוחב פס",
+        "\u200Fשרתים שמצפינים את התעבורה",
+        "\u200Fשרתים שמאחסנים את כל ההודעות",
+        "\u200Fשרתים שמנתבים את התעבורה במקום ה-nodes"
+      ],
+      explanation: "\u200Fה-Directory Authorities הם 10 שרתים מהימנים שמצביעים על 'קונצנזוס' — רשימה מאושרת של nodes עם דגלים (Guard, Exit, Stable) ורוחב פס. דפדפן Tor מוריד את הרשימה ובוחר nodes ממנה.",
+      explanationEn: "Directory Authorities are 10 trusted servers that vote on a 'consensus' — an approved list of nodes with flags (Guard, Exit, Stable) and bandwidth. The Tor browser downloads this list and selects nodes from it.",
+      qEn: "What is the role of Directory Authorities in Tor?",
+      correctEn: "10 trusted servers that manage the list of all nodes and publish a consensus with flags and bandwidth",
+      choicesEn: [
+        "10 trusted servers that manage the list of all nodes and publish a consensus with flags and bandwidth",
+        "Servers that encrypt the traffic",
+        "Servers that store all messages",
+        "Servers that route traffic instead of nodes"
+      ]
+    }
+  ],
+
+  803: [
+    {
+      q: "\u200Fמה ההבדל בין גלישה רגילה דרך Tor לבין גישה ל-Hidden Service?",
+      correct: "\u200Fבגלישה רגילה התעבורה יוצאת דרך Exit Node לאינטרנט הפתוח\nב-Hidden Service כל התעבורה נשארת בתוך רשת Tor",
+      choices: [
+        "\u200Fבגלישה רגילה התעבורה יוצאת דרך Exit Node לאינטרנט הפתוח\nב-Hidden Service כל התעבורה נשארת בתוך רשת Tor",
+        "\u200Fאין הבדל — שניהם עובדים אותו דבר",
+        "\u200FHidden Service מהיר יותר",
+        "\u200FHidden Service לא משתמש בהצפנה"
+      ],
+      explanation: "\u200Fבגלישה רגילה דרך Tor, רק המשתמש אנונימי — התעבורה יוצאת דרך Exit Node. ב-Hidden Service, גם המשתמש וגם השרת אנונימיים, אין Exit Node, וההצפנה היא מקצה לקצה.",
+      explanationEn: "In regular Tor browsing, only the user is anonymous — traffic exits through an Exit Node. With Hidden Services, both user and server are anonymous, there's no Exit Node, and encryption is end-to-end.",
+      qEn: "What is the difference between regular Tor browsing and accessing a Hidden Service?",
+      correctEn: "In regular browsing, traffic exits through an Exit Node to the open internet\nWith Hidden Services, all traffic stays within the Tor network",
+      choicesEn: [
+        "In regular browsing, traffic exits through an Exit Node to the open internet\nWith Hidden Services, all traffic stays within the Tor network",
+        "No difference — both work the same way",
+        "Hidden Service is faster",
+        "Hidden Service doesn't use encryption"
+      ]
+    },
+    {
+      q: "\u200Fמה תפקידו של ה-Rendezvous Point בחיבור ל-Hidden Service?",
+      correct: "\u200Fנקודת מפגש שמחברת את מעגל ה-Tor של המשתמש למעגל של השרת — בלי שאף צד יודע מי השני",
+      choices: [
+        "\u200Fנקודת מפגש שמחברת את מעגל ה-Tor של המשתמש למעגל של השרת — בלי שאף צד יודע מי השני",
+        "\u200Fשרת שמאחסן את תוכן האתר",
+        "\u200Fשרת שמפענח את ההצפנה",
+        "\u200Fשרת שמאמת את זהות המשתמש"
+      ],
+      explanation: "\u200Fה-Rendezvous Point הוא node ניטרלי. המשתמש בונה מעגל Tor אליו (3 nodes), השרת בונה מעגל נפרד אליו (3 nodes), וה-RP מחבר ביניהם — סה\"כ 6 nodes. הוא רואה רק תעבורה מוצפנת.",
+      explanationEn: "The Rendezvous Point is a neutral node. The user builds a Tor circuit to it (3 nodes), the server builds a separate circuit to it (3 nodes), and the RP connects them — 6 nodes total. It only sees encrypted traffic.",
+      qEn: "What is the role of the Rendezvous Point in connecting to a Hidden Service?",
+      correctEn: "A meeting point that connects the user's Tor circuit to the server's circuit — without either side knowing who the other is",
+      choicesEn: [
+        "A meeting point that connects the user's Tor circuit to the server's circuit — without either side knowing who the other is",
+        "A server that stores the site's content",
+        "A server that decrypts the encryption",
+        "A server that verifies the user's identity"
+      ]
+    },
+    {
+      q: "\u200Fאיך כתובת .onion נוצרת?",
+      correct: "\u200Fנגזרת מהמפתח הציבורי של השרת — בגרסה v3 היא בת 56 תווים עם הצפנת ed25519",
+      choices: [
+        "\u200Fנגזרת מהמפתח הציבורי של השרת — בגרסה v3 היא בת 56 תווים עם הצפנת ed25519",
+        "\u200Fנבחרת אקראית על ידי Tor",
+        "\u200Fנרשמת כמו דומיין רגיל",
+        "\u200Fמוגדרת ידנית על ידי מפעיל האתר"
+      ],
+      explanation: "\u200Fכתובת .onion נגזרת ממפתח ההצפנה הציבורי של השרת. זה אומר שהכתובת עצמה היא הוכחת זהות — מי שמגיע לכתובת הנכונה בהכרח מתחבר לשרת הנכון.",
+      explanationEn: "The .onion address is derived from the server's public encryption key. This means the address itself is proof of identity — reaching the correct address guarantees connecting to the correct server.",
+      qEn: "How is a .onion address created?",
+      correctEn: "Derived from the server's public key — in v3 it's 56 characters long using ed25519 encryption",
+      choicesEn: [
+        "Derived from the server's public key — in v3 it's 56 characters long using ed25519 encryption",
+        "Randomly chosen by Tor",
+        "Registered like a regular domain",
+        "Manually set by the site operator"
+      ]
+    },
+    {
+      q: "\u200Fמה תפקידם של Introduction Points בתהליך חיבור ל-Hidden Service?",
+      correct: "\u200Fנקודות קבועות שהשרת מחזיק חיבור אליהן — דרכן המשתמש שולח בקשה ראשונית להתחבר",
+      choices: [
+        "\u200Fנקודות קבועות שהשרת מחזיק חיבור אליהן — דרכן המשתמש שולח בקשה ראשונית להתחבר",
+        "\u200Fנקודות שמאחסנות את תוכן האתר",
+        "\u200Fנקודות שמבצעות את ההצפנה",
+        "\u200Fנקודות שמאמתות סיסמאות"
+      ],
+      explanation: "\u200Fהשרת בוחר Introduction Points ושומר עליהם חיבור קבוע דרך מעגלי Tor. כשמשתמש רוצה להתחבר, הוא שולח הודעה דרך ה-IP ומציע Rendezvous Point. רשימת ה-IPs מפורסמת ב-DHT.",
+      explanationEn: "The server selects Introduction Points and maintains a persistent connection to them through Tor circuits. When a user wants to connect, they send a message through the IP proposing a Rendezvous Point. The IP list is published in the DHT.",
+      qEn: "What is the role of Introduction Points in connecting to a Hidden Service?",
+      correctEn: "Persistent points the server maintains connections to — through which users send initial connection requests",
+      choicesEn: [
+        "Persistent points the server maintains connections to — through which users send initial connection requests",
+        "Points that store the site's content",
+        "Points that perform the encryption",
+        "Points that verify passwords"
+      ]
+    },
+    {
+      q: "\u200Fמה הוא SecureDrop ומי משתמש בו?",
+      correct: "\u200Fפלטפורמה שרצה כ-Hidden Service ומאפשרת למקורות לשלוח מסמכים לעיתונאים באנונימיות",
+      choices: [
+        "\u200Fפלטפורמה שרצה כ-Hidden Service ומאפשרת למקורות לשלוח מסמכים לעיתונאים באנונימיות",
+        "\u200Fתוכנת אנטי-וירוס ל-Dark Web",
+        "\u200Fשירות אחסון ענן מוצפן",
+        "\u200Fמנוע חיפוש ל-Dark Web"
+      ],
+      explanation: "\u200FSecureDrop היא פלטפורמה של Freedom of the Press Foundation. היא משמשת יותר מ-70 ארגוני חדשות (The Guardian, NYT, Washington Post) ומאפשרת למקורות לחשוף שחיתות בלי לסכן את חייהם.",
+      explanationEn: "SecureDrop is a platform by the Freedom of the Press Foundation. It's used by over 70 news organizations (The Guardian, NYT, Washington Post) allowing sources to expose corruption without risking their lives.",
+      qEn: "What is SecureDrop and who uses it?",
+      correctEn: "A platform running as a Hidden Service that allows sources to send documents to journalists anonymously",
+      choicesEn: [
+        "A platform running as a Hidden Service that allows sources to send documents to journalists anonymously",
+        "An antivirus for the Dark Web",
+        "An encrypted cloud storage service",
+        "A search engine for the Dark Web"
+      ]
+    }
+  ],
+
+  804: [
+    {
+      q: "\u200Fמה החולשה המרכזית של VPN בהשוואה ל-Tor?",
+      correct: "\u200Fספק ה-VPN רואה את כל התעבורה שלכם — אתם חייבים לסמוך עליו לחלוטין",
+      choices: [
+        "\u200Fספק ה-VPN רואה את כל התעבורה שלכם — אתם חייבים לסמוך עליו לחלוטין",
+        "\u200FVPN לא מצפין בכלל",
+        "\u200FVPN איטי יותר מ-Tor",
+        "\u200FVPN לא מסתיר את ה-IP"
+      ],
+      explanation: "\u200FVPN מנתב את כל התעבורה דרך שרת אחד של הספק — הספק רואה הכל. ב-Tor, שלושה nodes אקראיים מתחלקים במידע ואף אחד לא רואה את כל התמונה. VPN מהיר יותר אבל דורש אמון.",
+      explanationEn: "VPN routes all traffic through one provider server — the provider sees everything. In Tor, three random nodes share the information and none sees the full picture. VPN is faster but requires trust.",
+      qEn: "What is the main weakness of VPN compared to Tor?",
+      correctEn: "The VPN provider sees all your traffic — you must trust them completely",
+      choicesEn: [
+        "The VPN provider sees all your traffic — you must trust them completely",
+        "VPN doesn't encrypt at all",
+        "VPN is slower than Tor",
+        "VPN doesn't hide your IP"
+      ]
+    },
+    {
+      q: "\u200Fמה מיוחד ב-Tails OS מבחינת אבטחה?",
+      correct: "\u200Fרצה מ-USB, מנתבת הכל דרך Tor, ומוחקת הכל בכיבוי — לא נשארים עקבות",
+      choices: [
+        "\u200Fרצה מ-USB, מנתבת הכל דרך Tor, ומוחקת הכל בכיבוי — לא נשארים עקבות",
+        "\u200Fמערכת הפעלה רגילה עם אנטי-וירוס מובנה",
+        "\u200Fמערכת שחוסמת אתרים מסוכנים",
+        "\u200Fמערכת שמצפינה רק קבצים"
+      ],
+      explanation: "\u200FTails (The Amnesic Incognito Live System) היא אמנזית — הכל נמחק בכיבוי. כל התעבורה עוברת דרך Tor אוטומטית ואפליקציות לא יכולות לעקוף. היא לא נוגעת בדיסק הקשיח של המחשב.",
+      explanationEn: "Tails (The Amnesic Incognito Live System) is amnesic — everything is wiped on shutdown. All traffic goes through Tor automatically and applications cannot bypass it. It doesn't touch the computer's hard drive.",
+      qEn: "What makes Tails OS special in terms of security?",
+      correctEn: "Runs from USB, routes everything through Tor, and erases everything on shutdown — no traces left",
+      choicesEn: [
+        "Runs from USB, routes everything through Tor, and erases everything on shutdown — no traces left",
+        "A regular OS with built-in antivirus",
+        "A system that blocks dangerous websites",
+        "A system that only encrypts files"
+      ]
+    },
+    {
+      q: "\u200Fמהו Perfect Forward Secrecy ב-Signal?",
+      correct: "\u200Fכל הודעה מוצפנת במפתח שונה — פריצת מפתח אחד לא חושפת הודעות אחרות",
+      choices: [
+        "\u200Fכל הודעה מוצפנת במפתח שונה — פריצת מפתח אחד לא חושפת הודעות אחרות",
+        "\u200Fהודעות נמחקות אוטומטית אחרי קריאה",
+        "\u200Fההצפנה מתחזקת עם הזמן",
+        "\u200Fרק השולח יכול לקרוא את ההודעה"
+      ],
+      explanation: "\u200FPerfect Forward Secrecy אומר שכל הודעה מוצפנת במפתח ייחודי. גם אם תוקף פורץ מפתח של הודעה אחת, כל שאר ההודעות (עבר ועתיד) נשארות מוגנות. זה שונה ממערכות עם מפתח אחד לכל השיחה.",
+      explanationEn: "Perfect Forward Secrecy means each message is encrypted with a unique key. Even if an attacker cracks one message's key, all other messages (past and future) remain protected. This differs from systems using one key for an entire conversation.",
+      qEn: "What is Perfect Forward Secrecy in Signal?",
+      correctEn: "Each message is encrypted with a different key — cracking one key doesn't expose other messages",
+      choicesEn: [
+        "Each message is encrypted with a different key — cracking one key doesn't expose other messages",
+        "Messages are automatically deleted after reading",
+        "Encryption strengthens over time",
+        "Only the sender can read the message"
+      ]
+    },
+    {
+      q: "\u200Fמהו Metadata ולמה הוא מסוכן גם כשהתוכן מוצפן?",
+      correct: "\u200FMetadata הוא מידע על המידע (מי, מתי, למי, כמה זמן) — חושף דפוסים גם בלי לקרוא תוכן",
+      choices: [
+        "\u200FMetadata הוא מידע על המידע (מי, מתי, למי, כמה זמן) — חושף דפוסים גם בלי לקרוא תוכן",
+        "\u200FMetadata הוא וירוס שמוסתר בקבצים",
+        "\u200FMetadata הוא סוג של הצפנה חלשה",
+        "\u200FMetadata הוא שם לתוכן שנמחק"
+      ],
+      explanation: "\u200Fגם בלי לקרוא תוכן, Metadata חושף: מי דיבר עם מי, מתי, כמה זמן, מאיזה מיקום. למשל, שיחות למרפאה + לרופא + לביטוח חושפות מצב רפואי. כלים כמו MAT2 מסירים metadata מקבצים.",
+      explanationEn: "Even without reading content, Metadata reveals: who talked to whom, when, for how long, from where. For example, calls to a clinic + doctor + insurance reveal medical condition. Tools like MAT2 remove metadata from files.",
+      qEn: "What is Metadata and why is it dangerous even when content is encrypted?",
+      correctEn: "Metadata is information about information (who, when, to whom, how long) — reveals patterns without reading content",
+      choicesEn: [
+        "Metadata is information about information (who, when, to whom, how long) — reveals patterns without reading content",
+        "Metadata is a virus hidden in files",
+        "Metadata is a type of weak encryption",
+        "Metadata is a name for deleted content"
+      ]
+    },
+    {
+      q: "\u200Fמה ההבדל בין PGP ל-Signal מבחינת שימוש?",
+      correct: "\u200FSignal מוצפנת אוטומטית ופשוטה לשימוש\nPGP דורש הגדרה ידנית וניהול מפתחות אבל לא תלוי בשירות ספציפי",
+      choices: [
+        "\u200FSignal מוצפנת אוטומטית ופשוטה לשימוש\nPGP דורש הגדרה ידנית וניהול מפתחות אבל לא תלוי בשירות ספציפי",
+        "\u200FPGP בטוח יותר מ-Signal",
+        "\u200FSignal עובדת רק עם מיילים",
+        "\u200Fאין הבדל — שניהם עובדים אותו דבר"
+      ],
+      explanation: "\u200FSignal מספקת הצפנה אוטומטית וקלה לשימוש אבל תלויה באפליקציה ובשרתים שלה. PGP עובד עם מייל רגיל ולא תלוי בשירות מרכזי, אבל דורש ניהול מפתחות ידני — ציבורי לשיתוף ופרטי לפענוח.",
+      explanationEn: "Signal provides automatic encryption that's easy to use but depends on its app and servers. PGP works with regular email and doesn't depend on a central service, but requires manual key management — public for sharing and private for decryption.",
+      qEn: "What is the difference between PGP and Signal in terms of usage?",
+      correctEn: "Signal is automatically encrypted and simple to use\nPGP requires manual setup and key management but doesn't depend on a specific service",
+      choicesEn: [
+        "Signal is automatically encrypted and simple to use\nPGP requires manual setup and key management but doesn't depend on a specific service",
+        "PGP is more secure than Signal",
+        "Signal only works with emails",
+        "No difference — both work the same way"
+      ]
+    }
+  ],
+
+  805: [
+    {
+      q: "\u200Fהאם שימוש ב-Tor חוקי בישראל?",
+      correct: "\u200Fכן, חוקי לחלוטין — אין חוק שאוסר הצפנה או אנונימיות ברשת. הפעולות שמבוצעות קובעות את החוקיות",
+      choices: [
+        "\u200Fכן, חוקי לחלוטין — אין חוק שאוסר הצפנה או אנונימיות ברשת. הפעולות שמבוצעות קובעות את החוקיות",
+        "\u200Fלא, Tor אסור בישראל",
+        "\u200Fחוקי רק לממשלה ולצבא",
+        "\u200Fחוקי רק עם אישור מיוחד"
+      ],
+      explanation: "\u200Fבישראל ובמרבית המדינות המערביות, Tor חוקי לחלוטין. הכלי עצמו הוא ניטרלי — מה שקובע את החוקיות הוא מה עושים איתו. רכישת סמים אסורה עם או בלי Tor.",
+      explanationEn: "In Israel and most Western countries, Tor is completely legal. The tool itself is neutral — legality is determined by what you do with it. Buying drugs is illegal with or without Tor.",
+      qEn: "Is using Tor legal in Israel?",
+      correctEn: "Yes, completely legal — there's no law prohibiting encryption or anonymity online. The actions performed determine legality",
+      choicesEn: [
+        "Yes, completely legal — there's no law prohibiting encryption or anonymity online. The actions performed determine legality",
+        "No, Tor is banned in Israel",
+        "Legal only for government and military",
+        "Legal only with special permission"
+      ]
+    },
+    {
+      q: "\u200Fאיך נתפס מפעיל Silk Road (רוס אולבריכט)?",
+      correct: "\u200Fטעויות אופרציוניות — פרסם עם שם אמיתי בפורום והזמין זהויות מזויפות לכתובת האמיתית שלו",
+      choices: [
+        "\u200Fטעויות אופרציוניות — פרסם עם שם אמיתי בפורום והזמין זהויות מזויפות לכתובת האמיתית שלו",
+        "\u200Fפריצת הצפנת Tor",
+        "\u200Fמעקב GPS",
+        "\u200Fדליפת כתובת IP מהשרת"
+      ],
+      explanation: "\u200Fרוב המעצרים ב-Dark Web נובעים מטעויות אנושיות, לא מפריצת Tor. אולבריכט השתמש בשם אמיתי בפורום מוקדם, הזמין זהויות מזויפות לכתובתו, ועוד שגיאות שאפשרו ל-FBI לזהות אותו.",
+      explanationEn: "Most Dark Web arrests result from human errors, not breaking Tor. Ulbricht used his real name on an early forum, ordered fake IDs to his address, and other mistakes that let the FBI identify him.",
+      qEn: "How was the Silk Road operator (Ross Ulbricht) caught?",
+      correctEn: "Operational mistakes — posted with his real name on a forum and ordered fake IDs to his real address",
+      choicesEn: [
+        "Operational mistakes — posted with his real name on a forum and ordered fake IDs to his real address",
+        "Breaking Tor's encryption",
+        "GPS tracking",
+        "IP address leak from the server"
+      ]
+    },
+    {
+      q: "\u200Fלמה Bitcoin אינו באמת אנונימי?",
+      correct: "\u200FBitcoin הוא פסאודונימי — כל העסקאות גלויות ב-blockchain וניתוח דפוסים יכול לחשוף זהויות",
+      choices: [
+        "\u200FBitcoin הוא פסאודונימי — כל העסקאות גלויות ב-blockchain וניתוח דפוסים יכול לחשוף זהויות",
+        "\u200FBitcoin שומר את השם האמיתי של כל משתמש",
+        "\u200FBitcoin דורש תעודת זהות לכל עסקה",
+        "\u200FBitcoin לא מאפשר עסקאות כלל ב-Dark Web"
+      ],
+      explanation: "\u200FBitcoin הוא פסאודונימי — כל עסקה נרשמת ב-blockchain ציבורי. ניתוח blockchain חושף דפוסי עסקאות ומוביל לזיהוי. כך נתפסו מפעילי Welcome to Video (2019) — מעקב אחר עסקאות Bitcoin הוביל ל-337 מעצרים ב-23 מדינות.",
+      explanationEn: "Bitcoin is pseudonymous — every transaction is recorded on a public blockchain. Blockchain analysis reveals transaction patterns leading to identification. That's how Welcome to Video operators were caught (2019) — Bitcoin tracing led to 337 arrests in 23 countries.",
+      qEn: "Why isn't Bitcoin truly anonymous?",
+      correctEn: "Bitcoin is pseudonymous — all transactions are visible on the blockchain and pattern analysis can reveal identities",
+      choicesEn: [
+        "Bitcoin is pseudonymous — all transactions are visible on the blockchain and pattern analysis can reveal identities",
+        "Bitcoin stores every user's real name",
+        "Bitcoin requires ID for every transaction",
+        "Bitcoin doesn't allow Dark Web transactions at all"
+      ]
+    },
+    {
+      q: "\u200Fמהו מבצע Operation Bayonet ומה המיוחד בו?",
+      correct: "\u200Fה-FBI סגר את AlphaBay והמשטרה ההולנדית השתלטה על Hansa בסתר — משתמשים שברחו ל-Hansa נתפסו",
+      choices: [
+        "\u200Fה-FBI סגר את AlphaBay והמשטרה ההולנדית השתלטה על Hansa בסתר — משתמשים שברחו ל-Hansa נתפסו",
+        "\u200Fמבצע לפריצת הצפנת Tor",
+        "\u200Fמבצע לחסימת Tor ברוסיה",
+        "\u200Fמבצע להשבתת Bitcoin"
+      ],
+      explanation: "\u200Fב-2017, ה-FBI סגר את AlphaBay (שוק Dark Web גדול). במקביל, המשטרה ההולנדית כבר השתלטה על Hansa בסתר. משתמשי AlphaBay שברחו ל-Hansa לא ידעו שהוא נשלט על ידי המשטרה — ונתפסו. מלכודת דבש מתוחכמת.",
+      explanationEn: "In 2017, the FBI shut down AlphaBay (a major Dark Web market). Meanwhile, Dutch police had secretly taken over Hansa. AlphaBay users who fled to Hansa didn't know it was controlled by police — and were caught. A sophisticated honeypot.",
+      qEn: "What was Operation Bayonet and what was special about it?",
+      correctEn: "FBI shut down AlphaBay and Dutch police secretly took over Hansa — users who fled to Hansa were caught",
+      choicesEn: [
+        "FBI shut down AlphaBay and Dutch police secretly took over Hansa — users who fled to Hansa were caught",
+        "An operation to break Tor's encryption",
+        "An operation to block Tor in Russia",
+        "An operation to shut down Bitcoin"
+      ]
+    },
+    {
+      q: "\u200Fאיזה מדינות חוסמות או אוסרות שימוש ב-Tor?",
+      correct: "\u200Fסין, רוסיה, איראן, בלארוס וטורקמניסטן — מדינות אוטוריטריות שחוסמות כלי פרטיות",
+      choices: [
+        "\u200Fסין, רוסיה, איראן, בלארוס וטורקמניסטן — מדינות אוטוריטריות שחוסמות כלי פרטיות",
+        "\u200Fרק צפון קוריאה",
+        "\u200Fכל מדינות האיחוד האירופי",
+        "\u200Fארה\"ב וקנדה"
+      ],
+      explanation: "\u200Fמדינות אוטוריטריות חוסמות Tor כחלק ממדיניות שליטה במידע. סין משתמשת ב-Great Firewall, רוסיה חוסמת מ-2021. Tor מציע Bridges — נקודות כניסה לא פומביות שקשה יותר לחסום.",
+      explanationEn: "Authoritarian countries block Tor as part of information control policy. China uses the Great Firewall, Russia blocks since 2021. Tor offers Bridges — non-public entry points that are harder to block.",
+      qEn: "Which countries block or prohibit the use of Tor?",
+      correctEn: "China, Russia, Iran, Belarus, and Turkmenistan — authoritarian countries that block privacy tools",
+      choicesEn: [
+        "China, Russia, Iran, Belarus, and Turkmenistan — authoritarian countries that block privacy tools",
+        "Only North Korea",
+        "All European Union countries",
+        "USA and Canada"
+      ]
+    }
   ]
 }
 
