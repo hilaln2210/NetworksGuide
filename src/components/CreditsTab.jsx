@@ -66,9 +66,9 @@ const SOURCES = [
 
 const TECHS = [
   { icon: '⚛️', label: 'React + Vite' },
-  { icon: '🎨', label: 'CSS Modules' },
+  { icon: '🎨', label: 'CSS (Component Stylesheets)' },
   { icon: '📐', label: 'SVG Diagrams (Inline)' },
-  { icon: '🤖', label: 'Puppeteer (QA)' },
+  { icon: '🤖', label: 'Claude AI (Content QA)' },
   { icon: '🔤', label: 'Rubik Font' },
 ]
 

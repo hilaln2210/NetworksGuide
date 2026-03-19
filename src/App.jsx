@@ -555,7 +555,7 @@ function App() {
               {page.type === 'questions' ? (
                 <QuestionsPage questions={page.questions} gender={gender} lang={lang} t={t} />
               ) : page.type === 'simulation' ? (
-                <SimulationPage simId={page.simId} content={pc.content} t={t} />
+                <SimulationPage simId={page.simId} content={pc.content} t={t} lang={lang} />
               ) : page.type === 'thinkOutside' ? (
                 <ThinkOutsidePage page={page} lang={lang} chapterId={chapter?.id} pageIdx={currentPage} />
               ) : (
@@ -669,7 +669,7 @@ function getPageTypeLabel(type, t) {
   return labels[type] || '📖 הסבר'
 }
 
-function SimulationPage({ simId, content, t }) {
+function SimulationPage({ simId, content, t, lang }) {
   const sims = {
     tcpHandshake: TCPHandshakeSim,
     encapsulation: EncapsulationSim,
@@ -686,6 +686,7 @@ function SimulationPage({ simId, content, t }) {
   const SimComponent = sims[simId]
   return (
     <div className="content-body">
+      {lang === 'en' && <div className="sim-lang-notice">🇮🇱 This simulation is in Hebrew</div>}
       {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
       {SimComponent ? <SimComponent /> : <p>{t ? t('sim_unavailable') : 'Simulation not available'}</p>}
     </div>

