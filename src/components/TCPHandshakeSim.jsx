@@ -3,15 +3,17 @@
  * מדגימה את 3 השלבים: SYN, SYN-ACK, ACK
  */
 import { useState } from 'react'
+import { useLang } from '../utils/language.jsx'
 import './Simulations.css'
 
 export function TCPHandshakeSim() {
+  const { lang } = useLang(); const isEn = lang === 'en'
   const [step, setStep] = useState(-1)
   const [playing, setPlaying] = useState(false)
   const steps = [
-    { from: 'client', to: 'server', msg: 'SYN', desc: 'לקוח: "אני רוצה להתחבר!"', color: '#3b82f6' },
-    { from: 'server', to: 'client', msg: 'SYN-ACK', desc: 'שרת: "מאושר! מתחברים."', color: '#10b981' },
-    { from: 'client', to: 'server', msg: 'ACK', desc: 'לקוח: "קיבלתי. מתחילים."', color: '#f59e0b' }
+    { from: 'client', to: 'server', msg: 'SYN', desc: isEn ? 'Client: "I want to connect!"' : 'לקוח: "אני רוצה להתחבר!"', color: '#3b82f6' },
+    { from: 'server', to: 'client', msg: 'SYN-ACK', desc: isEn ? 'Server: "Approved! Connecting."' : 'שרת: "מאושר! מתחברים."', color: '#10b981' },
+    { from: 'client', to: 'server', msg: 'ACK', desc: isEn ? 'Client: "Received. Let\'s start."' : 'לקוח: "קיבלתי. מתחילים."', color: '#f59e0b' }
   ]
 
   const runAnimation = () => {
@@ -29,11 +31,11 @@ export function TCPHandshakeSim() {
   }
 
   return (
-    <div className="simulation-box tcp-handshake" dir="rtl">
-      <h4>הדמיית TCP Handshake – לחצו להפעלה</h4>
+    <div className="simulation-box tcp-handshake" dir={isEn ? 'ltr' : 'rtl'}>
+      <h4>{isEn ? 'TCP Handshake Simulation – Click to Start' : 'הדמיית TCP Handshake – לחצו להפעלה'}</h4>
       <div className="sim-row">
         <div className="sim-node client">
-          <span>לקוח</span>
+          <span>{isEn ? 'Client' : 'לקוח'}</span>
         </div>
         <div className="sim-pipe">
           {steps.map((s, i) => (
@@ -54,7 +56,7 @@ export function TCPHandshakeSim() {
           ))}
         </div>
         <div className="sim-node server">
-          <span>שרת</span>
+          <span>{isEn ? 'Server' : 'שרת'}</span>
         </div>
       </div>
       <button
@@ -62,7 +64,7 @@ export function TCPHandshakeSim() {
         onClick={runAnimation}
         disabled={playing}
       >
-        {playing ? '▶ מריץ...' : '▶ הרצת הדמיה'}
+        {playing ? (isEn ? '▶ Running...' : '▶ מריץ...') : (isEn ? '▶ Run Simulation' : '▶ הרצת הדמיה')}
       </button>
     </div>
   )

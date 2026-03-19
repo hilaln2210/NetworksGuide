@@ -3,17 +3,20 @@
  * מדגימה איך כל שכבה מוסיפה Header
  */
 import { useState } from 'react'
+import { useLang } from '../utils/language.jsx'
 import './Simulations.css'
 
-const LAYERS = [
-  { name: 'אפליקציה', color: '#8b5cf6', data: 'HTTP GET /page' },
-  { name: 'תעבורה', color: '#3b82f6', add: 'TCP Header' },
-  { name: 'רשת', color: '#10b981', add: 'IP Header' },
-  { name: 'קו', color: '#f59e0b', add: 'Ethernet Header' },
-  { name: 'פיזית', color: '#64748b', add: 'ביטים...' }
-]
-
 export function EncapsulationSim() {
+  const { lang } = useLang(); const isEn = lang === 'en'
+
+  const LAYERS = [
+    { name: isEn ? 'Application' : 'אפליקציה', color: '#8b5cf6', data: 'HTTP GET /page' },
+    { name: isEn ? 'Transport' : 'תעבורה', color: '#3b82f6', add: 'TCP Header' },
+    { name: isEn ? 'Network' : 'רשת', color: '#10b981', add: 'IP Header' },
+    { name: isEn ? 'Data Link' : 'קו', color: '#f59e0b', add: 'Ethernet Header' },
+    { name: isEn ? 'Physical' : 'פיזית', color: '#64748b', add: isEn ? 'Bits...' : 'ביטים...' }
+  ]
+
   const [direction, setDirection] = useState('down') // down = encapsulation, up = decapsulation
   const [activeLayer, setActiveLayer] = useState(-1)
 
@@ -42,8 +45,8 @@ export function EncapsulationSim() {
   const layers = direction === 'down' ? LAYERS : [...LAYERS].reverse()
 
   return (
-    <div className="simulation-box encapsulation" dir="rtl">
-      <h4>Encapsulation / Decapsulation – עטיפה וקילוף שכבות</h4>
+    <div className="simulation-box encapsulation" dir={isEn ? 'ltr' : 'rtl'}>
+      <h4>{isEn ? 'Encapsulation / Decapsulation – Wrapping & Unwrapping Layers' : 'Encapsulation / Decapsulation – עטיפה וקילוף שכבות'}</h4>
       <div className={`encaps-layers ${direction}`}>
         {layers.map((layer, i) => {
           const isActive = direction === 'down'
@@ -65,10 +68,10 @@ export function EncapsulationSim() {
       </div>
       <div className="sim-buttons">
         <button className="sim-btn" onClick={runEncapsulation}>
-          ↓ Encapsulation (שליחה)
+          {isEn ? '↓ Encapsulation (Send)' : '↓ Encapsulation (שליחה)'}
         </button>
         <button className="sim-btn" onClick={runDecapsulation}>
-          ↑ Decapsulation (קבלה)
+          {isEn ? '↑ Decapsulation (Receive)' : '↑ Decapsulation (קבלה)'}
         </button>
       </div>
     </div>

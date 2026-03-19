@@ -3,11 +3,16 @@
  * Client → Switch → Router → ... → Server
  */
 import { useState } from 'react'
+import { useLang } from '../utils/language.jsx'
 import './Simulations.css'
 
-const NODES = ['מחשב', 'Switch', 'נתב 1', 'נתב 2', 'נתב 3', 'שרת']
-
 export function PacketFlowSim() {
+  const { lang } = useLang(); const isEn = lang === 'en'
+
+  const NODES = isEn
+    ? ['Computer', 'Switch', 'Router 1', 'Router 2', 'Router 3', 'Server']
+    : ['מחשב', 'Switch', 'נתב 1', 'נתב 2', 'נתב 3', 'שרת']
+
   const [position, setPosition] = useState(-1)
   const [running, setRunning] = useState(false)
 
@@ -26,8 +31,8 @@ export function PacketFlowSim() {
   }
 
   return (
-    <div className="simulation-box packet-flow" dir="rtl">
-      <h4>מסלול חבילה ברשת</h4>
+    <div className="simulation-box packet-flow" dir={isEn ? 'ltr' : 'rtl'}>
+      <h4>{isEn ? 'Packet Path Through the Network' : 'מסלול חבילה ברשת'}</h4>
       <div className="packet-path">
         {NODES.map((node, i) => (
           <div key={i} className="path-segment">
@@ -42,7 +47,7 @@ export function PacketFlowSim() {
         ))}
       </div>
       <button className="sim-btn" onClick={run} disabled={running}>
-        {running ? '...' : '▶ הרץ מסלול'}
+        {running ? '...' : isEn ? '▶ Run Path' : '▶ הרץ מסלול'}
       </button>
     </div>
   )

@@ -3,21 +3,20 @@
  * שליחת ICMP packets ומעקב אחרי hops ברשת
  */
 import { useState, useRef } from 'react'
+import { useLang } from '../utils/language.jsx'
 import './Simulations.css'
 
-const TRACEROUTE_HOPS = [
-  { name: 'נתב מקומי', ip: '192.168.1.1' },
-  { name: 'נתב ISP', ip: '10.0.0.1' },
-  { name: 'נתב אזורי', ip: '72.14.215.85' },
-  { name: 'נתב ליבה', ip: '108.170.232.14' },
-  { name: null, ip: null } // placeholder for destination
-]
-
-function randomRtt(base, variance) {
-  return Math.round(base + Math.random() * variance)
-}
-
 export function PingSim() {
+  const { lang } = useLang(); const isEn = lang === 'en'
+
+  const TRACEROUTE_HOPS = [
+    { name: isEn ? 'Local Router' : 'נתב מקומי', ip: '192.168.1.1' },
+    { name: isEn ? 'ISP Router' : 'נתב ISP', ip: '10.0.0.1' },
+    { name: isEn ? 'Regional Router' : 'נתב אזורי', ip: '72.14.215.85' },
+    { name: isEn ? 'Core Router' : 'נתב ליבה', ip: '108.170.232.14' },
+    { name: null, ip: null } // placeholder for destination
+  ]
+
   const [target, setTarget] = useState('8.8.8.8')
   const [mode, setMode] = useState(null) // null, 'ping', 'traceroute'
   const [pingResults, setPingResults] = useState([])
@@ -35,6 +34,10 @@ export function PingSim() {
 
   const addTimeout = (fn, ms) => {
     timeoutsRef.current.push(setTimeout(fn, ms))
+  }
+
+  function randomRtt(base, variance) {
+    return Math.round(base + Math.random() * variance)
   }
 
   const displayTarget = (target || '8.8.8.8').trim()
@@ -112,8 +115,8 @@ export function PingSim() {
     : 0
 
   return (
-    <div className="simulation-box ping-sim" dir="rtl">
-      <h4>הדמיית Ping & Traceroute</h4>
+    <div className="simulation-box ping-sim" dir={isEn ? 'ltr' : 'rtl'}>
+      <h4>{isEn ? 'Ping & Traceroute Simulation' : 'הדמיית Ping & Traceroute'}</h4>
 
       {/* Target input */}
       <div className="ping-controls">
@@ -122,7 +125,7 @@ export function PingSim() {
           type="text"
           value={target}
           onChange={(e) => setTarget(e.target.value)}
-          placeholder="IP או hostname (למשל 8.8.8.8)"
+          placeholder={isEn ? 'IP or hostname (e.g. 8.8.8.8)' : 'IP או hostname (למשל 8.8.8.8)'}
           disabled={running}
         />
       </div>
@@ -131,7 +134,7 @@ export function PingSim() {
       <div className="ping-visual">
         <div className="ping-endpoint">
           <span className="ping-endpoint-icon">🖥️</span>
-          <span className="ping-endpoint-label">המחשב שלך</span>
+          <span className="ping-endpoint-label">{isEn ? 'Your Computer' : 'המחשב שלך'}</span>
         </div>
 
         <div className="ping-path-area">
@@ -188,15 +191,21 @@ export function PingSim() {
       {/* Results */}
       {mode === 'ping' && pingResults.length > 0 && (
         <div className="ping-results">
-          <div className="ping-results-title">תוצאות Ping ל-{displayTarget}:</div>
+          <div className="ping-results-title">{isEn ? `Ping Results for ${displayTarget}:` : `תוצאות Ping ל-${displayTarget}:`}</div>
           {pingResults.map((rtt, i) => (
             <div key={i} className="ping-result-line">
-              תגובה מ-{displayTarget}: זמן={rtt}ms TTL=64 (חבילה #{i + 1})
+              {isEn
+                ? `Reply from ${displayTarget}: time=${rtt}ms TTL=64 (packet #${i + 1})`
+                : `תגובה מ-${displayTarget}: זמן=${rtt}ms TTL=64 (חבילה #${i + 1})`
+              }
             </div>
           ))}
           {pingDone && (
             <div className="ping-summary">
-              סטטיסטיקה: 4 נשלחו, {pingResults.length} התקבלו, 0% אובדן | ממוצע RTT: {avgRtt}ms
+              {isEn
+                ? `Statistics: 4 sent, ${pingResults.length} received, 0% loss | Average RTT: ${avgRtt}ms`
+                : `סטטיסטיקה: 4 נשלחו, ${pingResults.length} התקבלו, 0% אובדן | ממוצע RTT: ${avgRtt}ms`
+              }
             </div>
           )}
         </div>
@@ -204,7 +213,7 @@ export function PingSim() {
 
       {mode === 'traceroute' && traceHops.length > 0 && (
         <div className="trace-results">
-          <div className="trace-results-title">Traceroute ל-{displayTarget}:</div>
+          <div className="trace-results-title">Traceroute {isEn ? 'to' : 'ל-'}{displayTarget}:</div>
           {traceHops.map((hop, i) => (
             <div key={i} className={`trace-result-line ${hop.isDestination ? 'destination' : ''}`}>
               <span className="trace-ttl">{hop.ttl}</span>
@@ -215,7 +224,10 @@ export function PingSim() {
           ))}
           {traceDone && (
             <div className="trace-summary">
-              המעקב הושלם — {traceHops.length} hops עד ליעד
+              {isEn
+                ? `Trace complete — ${traceHops.length} hops to destination`
+                : `המעקב הושלם — ${traceHops.length} hops עד ליעד`
+              }
             </div>
           )}
         </div>
@@ -224,10 +236,10 @@ export function PingSim() {
       {/* Buttons */}
       <div className="sim-buttons">
         <button className="sim-btn" onClick={handlePing} disabled={running}>
-          {running && mode === 'ping' ? '⏳ שולח...' : '📡 Ping'}
+          {running && mode === 'ping' ? (isEn ? '⏳ Sending...' : '⏳ שולח...') : '📡 Ping'}
         </button>
         <button className="sim-btn" onClick={handleTraceroute} disabled={running}>
-          {running && mode === 'traceroute' ? '⏳ עוקב...' : '🗺️ Traceroute'}
+          {running && mode === 'traceroute' ? (isEn ? '⏳ Tracing...' : '⏳ עוקב...') : '🗺️ Traceroute'}
         </button>
       </div>
     </div>
