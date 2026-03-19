@@ -257,6 +257,19 @@ function App() {
     }
   }, [chapter, page, currentPage, activeTrack])
 
+  const contentAreaRef = useRef(null)
+
+  const scrollToTop = useCallback(() => {
+    // Desktop: .content-area is the scroll container
+    if (contentAreaRef.current) {
+      contentAreaRef.current.scrollTop = 0
+    }
+    // Mobile: body/window is the scroll container
+    window.scrollTo(0, 0)
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
+  }, [])
+
   const goNext = () => {
     tryMarkRead()
     if (currentPage < totalPages - 1) {
@@ -288,22 +301,15 @@ function App() {
     scrollToTop()
   }
 
-  const contentAreaRef = useRef(null)
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-    document.querySelector('.content-area')?.scrollTo({ top: 0, behavior: 'instant' })
-    document.querySelector('.sidebar')?.scrollTo({ top: 0, behavior: 'instant' })
-  }
-
   const goToChapter = (chIndex) => {
     saveLastPosition(chIndex, 0, activeTrack?.id)
     setCurrentChapter(chIndex)
     setCurrentPage(0)
     setMobileShowContent(true)
     scrollToTop()
-    // Backup scroll after React re-render
-    setTimeout(scrollToTop, 50)
+    requestAnimationFrame(scrollToTop)
+    setTimeout(scrollToTop, 100)
+    setTimeout(scrollToTop, 300)
   }
 
   const handleSelectTrack = (track) => {
@@ -356,8 +362,9 @@ function App() {
       saveLastPosition(currentChapter, currentPage, activeTrack.id)
     }
     scrollToTop()
-    setTimeout(scrollToTop, 80)
-  }, [currentChapter, currentPage, activeTrack])
+    requestAnimationFrame(scrollToTop)
+    setTimeout(scrollToTop, 150)
+  }, [currentChapter, currentPage, activeTrack, scrollToTop])
 
   // Session time tracker — ticks every 30s, pauses when tab is hidden
   useEffect(() => {
