@@ -3,6 +3,7 @@
  * מדגימה ARP Request (broadcast) ו-ARP Reply (unicast)
  */
 import { useState } from 'react'
+import { useLang } from '../utils/language.jsx'
 import './Simulations.css'
 
 const DEVICES = [
@@ -12,6 +13,8 @@ const DEVICES = [
 ]
 
 export function ARPSim() {
+  const { lang } = useLang()
+  const isEn = lang === 'en'
   const [step, setStep] = useState(-1)
   const [playing, setPlaying] = useState(false)
 
@@ -30,8 +33,8 @@ export function ARPSim() {
   }
 
   return (
-    <div className="simulation-box arp-sim" dir="rtl">
-      <h4>הדמיית ARP — תרגום IP לכתובת MAC</h4>
+    <div className="simulation-box arp-sim" dir={isEn ? 'ltr' : 'rtl'}>
+      <h4>{isEn ? 'ARP Simulation — Resolving IP to MAC Address' : 'הדמיית ARP — תרגום IP לכתובת MAC'}</h4>
 
       <div className="arp-devices">
         {DEVICES.map((dev, i) => (
@@ -57,7 +60,9 @@ export function ARPSim() {
           <div className="arp-msg-content arp-broadcast">
             <span className="arp-msg-type">ARP Request (Broadcast)</span>
             <span className="arp-msg-text">
-              PC1 → כולם: &quot;מי זה 192.168.1.20?&quot;
+              {isEn
+                ? 'PC1 → Everyone: "Who has 192.168.1.20?"'
+                : 'PC1 → כולם: "מי זה 192.168.1.20?"'}
             </span>
             {step >= 0 && (
               <div className="arp-arrows-broadcast">
@@ -74,7 +79,9 @@ export function ARPSim() {
           <div className="arp-msg-content arp-reply">
             <span className="arp-msg-type">ARP Reply (Unicast)</span>
             <span className="arp-msg-text">
-              PC2 → PC1: &quot;זה אני — AA:BB:CC:DD:EE:FF!&quot;
+              {isEn
+                ? 'PC2 → PC1: "That\'s me — AA:BB:CC:DD:EE:FF!"'
+                : 'PC2 → PC1: "זה אני — AA:BB:CC:DD:EE:FF!"'}
             </span>
             {step >= 1 && (
               <div className="arp-arrows-reply">
@@ -88,27 +95,27 @@ export function ARPSim() {
         <div className={`arp-msg-row ${step >= 2 ? 'active' : ''}`}>
           <span className="arp-step-num">3</span>
           <div className="arp-msg-content arp-table-update">
-            <span className="arp-msg-type">טבלת ARP עודכנה ב-PC1</span>
+            <span className="arp-msg-type">{isEn ? 'ARP table updated on PC1' : 'טבלת ARP עודכנה ב-PC1'}</span>
           </div>
         </div>
       </div>
 
       {step >= 2 && (
         <div className="arp-table-card">
-          <h5>טבלת ARP של PC1:</h5>
+          <h5>{isEn ? 'PC1 ARP Table:' : 'טבלת ARP של PC1:'}</h5>
           <table className="arp-table">
             <thead>
               <tr>
-                <th>כתובת IP</th>
-                <th>כתובת MAC</th>
-                <th>סוג</th>
+                <th>{isEn ? 'IP Address' : 'כתובת IP'}</th>
+                <th>{isEn ? 'MAC Address' : 'כתובת MAC'}</th>
+                <th>{isEn ? 'Type' : 'סוג'}</th>
               </tr>
             </thead>
             <tbody>
               <tr className="arp-table-new">
                 <td><code>192.168.1.20</code></td>
                 <td><code>AA:BB:CC:DD:EE:FF</code></td>
-                <td>דינמי</td>
+                <td>{isEn ? 'Dynamic' : 'דינמי'}</td>
               </tr>
             </tbody>
           </table>
@@ -116,7 +123,7 @@ export function ARPSim() {
       )}
 
       <button className="sim-btn" onClick={runAnimation} disabled={playing}>
-        {playing ? '▶ מריץ...' : '▶ התחל'}
+        {playing ? (isEn ? '▶ Running...' : '▶ מריץ...') : (isEn ? '▶ Start' : '▶ התחל')}
       </button>
     </div>
   )

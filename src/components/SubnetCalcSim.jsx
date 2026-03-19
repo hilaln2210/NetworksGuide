@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react'
+import { useLang } from '../utils/language.jsx'
 import './Simulations.css'
 
 function ipToInt(ip) {
@@ -44,6 +45,8 @@ function calcSubnet(ip, cidr) {
 }
 
 export function SubnetCalcSim() {
+  const { lang } = useLang()
+  const isEn = lang === 'en'
   const [ip, setIp] = useState('192.168.1.100')
   const [cidr, setCidr] = useState(24)
   const [calculated, setCalculated] = useState(null)
@@ -56,7 +59,7 @@ export function SubnetCalcSim() {
 
   function handleCalc() {
     if (!isValidIp(ip)) {
-      setError('כתובת IP לא תקינה — יש להזין 4 אוקטטים (0-255)')
+      setError(isEn ? 'Invalid IP address — enter 4 octets (0-255)' : 'כתובת IP לא תקינה — יש להזין 4 אוקטטים (0-255)')
       setCalculated(null)
       return
     }
@@ -66,11 +69,11 @@ export function SubnetCalcSim() {
 
   return (
     <div className="simulation-box subnet-calc">
-      <h4>🧮 מחשבון Subnet אינטראקטיבי</h4>
+      <h4>{isEn ? '🧮 Interactive Subnet Calculator' : '🧮 מחשבון Subnet אינטראקטיבי'}</h4>
 
       <div className="subnet-input-row">
         <div className="subnet-field">
-          <label>כתובת IP</label>
+          <label>{isEn ? 'IP Address' : 'כתובת IP'}</label>
           <input
             type="text"
             value={ip}
@@ -96,14 +99,14 @@ export function SubnetCalcSim() {
           </div>
         </div>
 
-        <button className="sim-btn" onClick={handleCalc}>חשב</button>
+        <button className="sim-btn" onClick={handleCalc}>{isEn ? 'Calculate' : 'חשב'}</button>
       </div>
 
       {error && <div className="subnet-error">{error}</div>}
 
       {/* Live binary mask visualization */}
       <div className="subnet-binary-section">
-        <label>מסכת רשת בבינארי:</label>
+        <label>{isEn ? 'Subnet mask in binary:' : 'מסכת רשת בבינארי:'}</label>
         <div className="subnet-binary">
           {liveBits.map((bit, i) => (
             <span key={i} className={`subnet-bit ${bit ? 'bit-one' : 'bit-zero'}`}
@@ -117,31 +120,31 @@ export function SubnetCalcSim() {
           )}
         </div>
         <div className="subnet-binary-legend">
-          <span className="legend-net">רשת ({cidr} ביטים)</span>
-          <span className="legend-host">מארח ({32 - cidr} ביטים)</span>
+          <span className="legend-net">{isEn ? `Network (${cidr} bits)` : `רשת (${cidr} ביטים)`}</span>
+          <span className="legend-host">{isEn ? `Host (${32 - cidr} bits)` : `מארח (${32 - cidr} ביטים)`}</span>
         </div>
       </div>
 
       {calculated && (
         <div className="subnet-results">
           <div className="subnet-result-card">
-            <span className="result-label">🌐 כתובת רשת</span>
+            <span className="result-label">{isEn ? '🌐 Network Address' : '🌐 כתובת רשת'}</span>
             <span className="result-value" dir="ltr">{calculated.network}/{cidr}</span>
           </div>
           <div className="subnet-result-card">
-            <span className="result-label">📡 כתובת Broadcast</span>
+            <span className="result-label">{isEn ? '📡 Broadcast Address' : '📡 כתובת Broadcast'}</span>
             <span className="result-value" dir="ltr">{calculated.broadcast}</span>
           </div>
           <div className="subnet-result-card">
-            <span className="result-label">📍 טווח כתובות</span>
+            <span className="result-label">{isEn ? '📍 Address Range' : '📍 טווח כתובות'}</span>
             <span className="result-value" dir="ltr">{calculated.firstHost} — {calculated.lastHost}</span>
           </div>
           <div className="subnet-result-card">
-            <span className="result-label">🖥️ מספר Hosts</span>
+            <span className="result-label">{isEn ? '🖥️ Number of Hosts' : '🖥️ מספר Hosts'}</span>
             <span className="result-value">{calculated.usableHosts.toLocaleString()}</span>
           </div>
           <div className="subnet-result-card">
-            <span className="result-label">🎭 מסכת רשת</span>
+            <span className="result-label">{isEn ? '🎭 Subnet Mask' : '🎭 מסכת רשת'}</span>
             <span className="result-value" dir="ltr">{calculated.mask}</span>
           </div>
         </div>

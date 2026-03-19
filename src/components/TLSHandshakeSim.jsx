@@ -3,44 +3,58 @@
  * מדגימה את שלבי ה-Handshake: ClientHello, ServerHello, Finished, מוצפן
  */
 import { useState, useRef } from 'react'
+import { useLang } from '../utils/language.jsx'
 import './Simulations.css'
 
-const STEPS = [
-  {
-    id: 'client-hello',
-    direction: 'right',
-    label: 'ClientHello',
-    color: '#3b82f6',
-    desc: 'הלקוח שולח את רשימת ה-Cipher Suites שהוא תומך בהם + מפתח Key Share לחישוב סוד משותף.',
-    detail: 'TLS_AES_128_GCM_SHA256, x25519 key share',
-  },
-  {
-    id: 'server-hello',
-    direction: 'left',
-    label: 'ServerHello + Certificate',
-    color: '#10b981',
-    desc: 'השרת בוחר Cipher Suite, שולח את ה-Key Share שלו + תעודה דיגיטלית (Certificate) לאימות זהותו.',
-    detail: 'Selected: TLS_AES_128_GCM_SHA256 + x509 cert',
-  },
-  {
-    id: 'finished',
-    direction: 'both',
-    label: 'Finished',
-    color: '#f59e0b',
-    desc: 'שני הצדדים גוזרים מפתחות הצפנה משותפים מה-Key Share. כל צד שולח הודעת Finished מוצפנת לאימות.',
-    detail: 'Session keys derived via HKDF',
-  },
-  {
-    id: 'encrypted',
-    direction: 'tunnel',
-    label: '🔒 מוצפן!',
-    color: '#059669',
-    desc: 'התעלה מוצפנת! כל התקשורת מעתה מוגנת ב-AES-128-GCM. אף אחד באמצע לא יכול לקרוא את המידע.',
-    detail: 'Application Data encrypted',
-  },
-]
+function getSteps(isEn) {
+  return [
+    {
+      id: 'client-hello',
+      direction: 'right',
+      label: 'ClientHello',
+      color: '#3b82f6',
+      desc: isEn
+        ? 'The client sends the list of Cipher Suites it supports + a Key Share for computing a shared secret.'
+        : 'הלקוח שולח את רשימת ה-Cipher Suites שהוא תומך בהם + מפתח Key Share לחישוב סוד משותף.',
+      detail: 'TLS_AES_128_GCM_SHA256, x25519 key share',
+    },
+    {
+      id: 'server-hello',
+      direction: 'left',
+      label: 'ServerHello + Certificate',
+      color: '#10b981',
+      desc: isEn
+        ? 'The server selects a Cipher Suite, sends its Key Share + a digital Certificate to verify its identity.'
+        : 'השרת בוחר Cipher Suite, שולח את ה-Key Share שלו + תעודה דיגיטלית (Certificate) לאימות זהותו.',
+      detail: 'Selected: TLS_AES_128_GCM_SHA256 + x509 cert',
+    },
+    {
+      id: 'finished',
+      direction: 'both',
+      label: 'Finished',
+      color: '#f59e0b',
+      desc: isEn
+        ? 'Both sides derive shared encryption keys from the Key Share. Each side sends an encrypted Finished message for verification.'
+        : 'שני הצדדים גוזרים מפתחות הצפנה משותפים מה-Key Share. כל צד שולח הודעת Finished מוצפנת לאימות.',
+      detail: 'Session keys derived via HKDF',
+    },
+    {
+      id: 'encrypted',
+      direction: 'tunnel',
+      label: isEn ? '🔒 Encrypted!' : '🔒 מוצפן!',
+      color: '#059669',
+      desc: isEn
+        ? 'The tunnel is encrypted! All communication is now protected with AES-128-GCM. No one in the middle can read the data.'
+        : 'התעלה מוצפנת! כל התקשורת מעתה מוגנת ב-AES-128-GCM. אף אחד באמצע לא יכול לקרוא את המידע.',
+      detail: 'Application Data encrypted',
+    },
+  ]
+}
 
 export function TLSHandshakeSim() {
+  const { lang } = useLang()
+  const isEn = lang === 'en'
+  const STEPS = getSteps(isEn)
   const [step, setStep] = useState(-1)
   const [running, setRunning] = useState(false)
   const timerRef = useRef(null)
@@ -99,14 +113,14 @@ export function TLSHandshakeSim() {
   }
 
   return (
-    <div className="simulation-box tls-handshake" dir="rtl">
-      <h4>הדמיית TLS 1.3 Handshake — לחצו להפעלה</h4>
+    <div className="simulation-box tls-handshake" dir={isEn ? 'ltr' : 'rtl'}>
+      <h4>{isEn ? 'TLS 1.3 Handshake Simulation — Click to Start' : 'הדמיית TLS 1.3 Handshake — לחצו להפעלה'}</h4>
 
       <div className="tls-stage">
         {/* Client & Server columns */}
         <div className="tls-endpoint tls-client">
           <div className="tls-endpoint-icon">🖥️</div>
-          <div className="tls-endpoint-label">לקוח (Client)</div>
+          <div className="tls-endpoint-label">{isEn ? 'Client' : 'לקוח (Client)'}</div>
         </div>
 
         <div className="tls-middle">
@@ -127,7 +141,7 @@ export function TLSHandshakeSim() {
                   <div className="tls-tunnel">
                     <span className="tls-tunnel-lock">🔒</span>
                     <div className="tls-tunnel-bar" />
-                    <span className="tls-tunnel-text">מוצפן!</span>
+                    <span className="tls-tunnel-text">{isEn ? 'Encrypted!' : 'מוצפן!'}</span>
                   </div>
                 )
               )}
@@ -137,7 +151,7 @@ export function TLSHandshakeSim() {
 
         <div className="tls-endpoint tls-server">
           <div className="tls-endpoint-icon">🖧</div>
-          <div className="tls-endpoint-label">שרת (Server)</div>
+          <div className="tls-endpoint-label">{isEn ? 'Server' : 'שרת (Server)'}</div>
         </div>
       </div>
 
@@ -152,7 +166,7 @@ export function TLSHandshakeSim() {
             <div className="tls-desc-detail">{STEPS[step].detail}</div>
           </>
         ) : (
-          <div className="tls-desc-text tls-desc-placeholder">לחצו "התחל" לצפייה בתהליך ה-Handshake</div>
+          <div className="tls-desc-text tls-desc-placeholder">{isEn ? 'Click "Start" to watch the Handshake process' : 'לחצו "התחל" לצפייה בתהליך ה-Handshake'}</div>
         )}
       </div>
 
@@ -170,10 +184,10 @@ export function TLSHandshakeSim() {
       {/* Buttons */}
       <div className="sim-buttons">
         <button className="sim-btn" onClick={start} disabled={running}>
-          {running ? '▶ מריץ...' : '▶ התחל'}
+          {running ? (isEn ? '▶ Running...' : '▶ מריץ...') : (isEn ? '▶ Start' : '▶ התחל')}
         </button>
         <button className="sim-btn" onClick={reset} disabled={running} style={{ background: 'linear-gradient(135deg, #64748b, #94a3b8)' }}>
-          ↺ איפוס
+          {isEn ? '↺ Reset' : '↺ איפוס'}
         </button>
       </div>
     </div>

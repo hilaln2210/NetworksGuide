@@ -3,13 +3,16 @@
  * מדגימה סינון חבילות לפי חוקי Firewall
  */
 import { useState } from 'react'
+import { useLang } from '../utils/language.jsx'
 import './Simulations.css'
 
-const RULES = [
-  { id: 1, action: 'ALLOW', protocol: 'TCP', port: 80, desc: 'HTTP — גלישה רגילה' },
-  { id: 2, action: 'ALLOW', protocol: 'TCP', port: 443, desc: 'HTTPS — גלישה מאובטחת' },
-  { id: 3, action: 'DENY', protocol: '*', port: '*', desc: 'ברירת מחדל — חסום הכל' },
-]
+function getRules(isEn) {
+  return [
+    { id: 1, action: 'ALLOW', protocol: 'TCP', port: 80, desc: isEn ? 'HTTP — Regular browsing' : 'HTTP — גלישה רגילה' },
+    { id: 2, action: 'ALLOW', protocol: 'TCP', port: 443, desc: isEn ? 'HTTPS — Secure browsing' : 'HTTPS — גלישה מאובטחת' },
+    { id: 3, action: 'DENY', protocol: '*', port: '*', desc: isEn ? 'Default — Block all' : 'ברירת מחדל — חסום הכל' },
+  ]
+}
 
 const PACKET_OPTIONS = [
   { protocol: 'TCP', port: 80 },
@@ -24,8 +27,8 @@ function randomIP() {
   return `${Math.floor(Math.random() * 223) + 1}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 254) + 1}`
 }
 
-function matchRule(packet) {
-  for (const rule of RULES) {
+function matchRule(packet, rules) {
+  for (const rule of rules) {
     if (rule.port === '*' && rule.protocol === '*') {
       return { rule, matched: true }
     }
@@ -33,10 +36,13 @@ function matchRule(packet) {
       return { rule, matched: true }
     }
   }
-  return { rule: RULES[2], matched: true }
+  return { rule: rules[2], matched: true }
 }
 
 export function FirewallSim() {
+  const { lang } = useLang()
+  const isEn = lang === 'en'
+  const RULES = getRules(isEn)
   const [packet, setPacket] = useState(null)
   const [phase, setPhase] = useState('idle') // idle, flying, result
   const [result, setResult] = useState(null)
@@ -55,7 +61,7 @@ export function FirewallSim() {
     setMatchedRuleId(null)
 
     setTimeout(() => {
-      const { rule } = matchRule(pkt)
+      const { rule } = matchRule(pkt, RULES)
       setMatchedRuleId(rule.id)
       setResult(rule.action === 'ALLOW' ? 'allow' : 'deny')
       setPhase('result')
@@ -63,20 +69,20 @@ export function FirewallSim() {
   }
 
   return (
-    <div className="simulation-box firewall-sim" dir="rtl">
-      <h4>הדמיית Firewall — סינון חבילות</h4>
+    <div className="simulation-box firewall-sim" dir={isEn ? 'ltr' : 'rtl'}>
+      <h4>{isEn ? 'Firewall Simulation — Packet Filtering' : 'הדמיית Firewall — סינון חבילות'}</h4>
 
       {/* Rules table */}
       <div className="fw-rules-section">
-        <h5>חוקי Firewall:</h5>
+        <h5>{isEn ? 'Firewall Rules:' : 'חוקי Firewall:'}</h5>
         <table className="fw-rules-table">
           <thead>
             <tr>
               <th>#</th>
-              <th>פעולה</th>
-              <th>פרוטוקול</th>
-              <th>פורט</th>
-              <th>תיאור</th>
+              <th>{isEn ? 'Action' : 'פעולה'}</th>
+              <th>{isEn ? 'Protocol' : 'פרוטוקול'}</th>
+              <th>{isEn ? 'Port' : 'פורט'}</th>
+              <th>{isEn ? 'Description' : 'תיאור'}</th>
             </tr>
           </thead>
           <tbody>
@@ -104,7 +110,7 @@ export function FirewallSim() {
       <div className="fw-animation-area">
         <div className="fw-source">
           <span className="fw-icon">💻</span>
-          <span>מקור</span>
+          <span>{isEn ? 'Source' : 'מקור'}</span>
         </div>
 
         <div className="fw-packet-lane">
@@ -129,7 +135,7 @@ export function FirewallSim() {
 
         <div className="fw-dest">
           <span className="fw-icon">🖧</span>
-          <span>יעד</span>
+          <span>{isEn ? 'Destination' : 'יעד'}</span>
         </div>
       </div>
 
@@ -139,17 +145,19 @@ export function FirewallSim() {
           <span className="fw-result-icon">{result === 'allow' ? '✅' : '❌'}</span>
           <div className="fw-result-text">
             <strong>
-              {result === 'allow' ? 'החבילה עברה!' : 'החבילה נחסמה!'}
+              {result === 'allow'
+                ? (isEn ? 'Packet passed!' : 'החבילה עברה!')
+                : (isEn ? 'Packet blocked!' : 'החבילה נחסמה!')}
             </strong>
             <span>
-              {packet.protocol}:{packet.port} מ-{packet.srcIP}
+              {packet.protocol}:{packet.port} {isEn ? 'from' : 'מ-'}{packet.srcIP}
               {' — '}
               {matchedRuleId && (
                 <>
-                  התאים לחוק #{matchedRuleId}
+                  {isEn ? `Matched rule #${matchedRuleId}` : `התאים לחוק #${matchedRuleId}`}
                   {matchedRuleId <= 2
                     ? ` (${RULES[matchedRuleId - 1].desc})`
-                    : ' (ברירת מחדל — חסום הכל)'}
+                    : ` (${isEn ? 'Default — Block all' : 'ברירת מחדל — חסום הכל'})`}
                 </>
               )}
             </span>
@@ -158,7 +166,9 @@ export function FirewallSim() {
       )}
 
       <button className="sim-btn" onClick={sendPacket} disabled={phase === 'flying'}>
-        {phase === 'flying' ? '📦 שולח...' : '📦 שלח חבילה'}
+        {phase === 'flying'
+          ? (isEn ? '📦 Sending...' : '📦 שולח...')
+          : (isEn ? '📦 Send Packet' : '📦 שלח חבילה')}
       </button>
     </div>
   )

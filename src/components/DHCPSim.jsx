@@ -3,18 +3,21 @@
  * מדגימה את 4 השלבים: Discover, Offer, Request, Acknowledge
  */
 import { useState } from 'react'
+import { useLang } from '../utils/language.jsx'
 import './Simulations.css'
 
 export function DHCPSim() {
+  const { lang } = useLang()
+  const isEn = lang === 'en'
   const [step, setStep] = useState(-1)
   const [playing, setPlaying] = useState(false)
   const [done, setDone] = useState(false)
 
   const steps = [
-    { dir: 'right', label: 'Discover', desc: 'מי שרת DHCP? 📢', color: '#3b82f6' },
-    { dir: 'left', label: 'Offer', desc: '192.168.1.50 מתאים? 🎁', color: '#10b981' },
-    { dir: 'right', label: 'Request', desc: 'כן, אני רוצה את זה! 🙋', color: '#f59e0b' },
-    { dir: 'left', label: 'Ack', desc: 'מאושר! ✅', color: '#8b5cf6' },
+    { dir: 'right', label: 'Discover', desc: isEn ? 'Who is the DHCP server? 📢' : 'מי שרת DHCP? 📢', color: '#3b82f6' },
+    { dir: 'left', label: 'Offer', desc: isEn ? '192.168.1.50 — good for you? 🎁' : '192.168.1.50 מתאים? 🎁', color: '#10b981' },
+    { dir: 'right', label: 'Request', desc: isEn ? 'Yes, I want it! 🙋' : 'כן, אני רוצה את זה! 🙋', color: '#f59e0b' },
+    { dir: 'left', label: 'Ack', desc: isEn ? 'Approved! ✅' : 'מאושר! ✅', color: '#8b5cf6' },
   ]
 
   const result = {
@@ -43,13 +46,13 @@ export function DHCPSim() {
   }
 
   return (
-    <div className="simulation-box dhcp-sim" dir="rtl">
-      <h4>הדמיית DHCP — תהליך DORA</h4>
+    <div className="simulation-box dhcp-sim" dir={isEn ? 'ltr' : 'rtl'}>
+      <h4>{isEn ? 'DHCP Simulation — DORA Process' : 'הדמיית DHCP — תהליך DORA'}</h4>
 
       <div className="dhcp-arena">
         <div className="dhcp-device dhcp-client">
           <span className="dhcp-icon">💻</span>
-          <span className="dhcp-label">לקוח</span>
+          <span className="dhcp-label">{isEn ? 'Client' : 'לקוח'}</span>
           {done && <span className="dhcp-assigned">{result.ip}</span>}
         </div>
 
@@ -71,16 +74,16 @@ export function DHCPSim() {
 
         <div className="dhcp-device dhcp-server">
           <span className="dhcp-icon">🖧</span>
-          <span className="dhcp-label">שרת DHCP</span>
+          <span className="dhcp-label">{isEn ? 'DHCP Server' : 'שרת DHCP'}</span>
         </div>
       </div>
 
       {done && (
         <div className="dhcp-result-card">
-          <h5>הגדרות שהתקבלו:</h5>
+          <h5>{isEn ? 'Received settings:' : 'הגדרות שהתקבלו:'}</h5>
           <div className="dhcp-result-grid">
             <div className="dhcp-result-item">
-              <span className="dhcp-result-key">כתובת IP</span>
+              <span className="dhcp-result-key">{isEn ? 'IP Address' : 'כתובת IP'}</span>
               <code>{result.ip}</code>
             </div>
             <div className="dhcp-result-item">
@@ -100,7 +103,7 @@ export function DHCPSim() {
       )}
 
       <button className="sim-btn" onClick={runAnimation} disabled={playing}>
-        {playing ? '▶ מריץ...' : '▶ התחל'}
+        {playing ? (isEn ? '▶ Running...' : '▶ מריץ...') : (isEn ? '▶ Start' : '▶ התחל')}
       </button>
     </div>
   )
