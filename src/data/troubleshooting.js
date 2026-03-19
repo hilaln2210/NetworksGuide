@@ -6,16 +6,16 @@ export const troubleshootingContent = [
   {
     id: 1,
     icon: '🌐',
-    title: 'האינטרנט לא עובד — אבל ה-WiFi מחובר',
+    title: 'האינטרנט לא עובד — אבל ה־WiFi מחובר',
     titleEn: 'No Internet — But WiFi Is Connected',
     category: 'חיבור',
     categoryEn: 'Connection',
-    story: 'זה קרה לנו כולנו: סמל ה-WiFi ירוק ומחובר, אבל כל אתר מחזיר שגיאה. "אין אינטרנט" אבל ה-WiFi מחובר? איך זה אפשרי?',
+    story: 'זה קרה לנו כולנו: סמל ה־WiFi ירוק ומחובר, אבל כל אתר מחזיר שגיאה. "אין אינטרנט" אבל ה־WiFi מחובר? איך זה אפשרי?',
     storyEn: 'It happened to all of us: the WiFi icon is green and connected, but every website shows an error. "No internet" but WiFi is connected? How is that possible?',
     causes: [
-      'ה-router מחובר לרשת המקומית, אבל לא לאינטרנט (בעיה ב-WAN port)',
-      'שרת ה-DNS לא מגיב — הכתובות לא מתורגמות',
-      'שרת ה-DHCP לא נתן לך כתובת IP תקינה',
+      'ה-router מחובר לרשת המקומית, אבל לא לאינטרנט (בעיה ב־WAN port)',
+      'שרת ה־DNS לא מגיב — הכתובות לא מתורגמות',
+      'שרת ה־DHCP לא נתן לך כתובת IP תקינה',
       'ספקית האינטרנט (ISP) חווה תקלה',
     ],
     causesEn: [
@@ -24,10 +24,10 @@ export const troubleshootingContent = [
       'The DHCP server did not give you a valid IP address',
       'The ISP (Internet Service Provider) has an outage',
     ],
-    solution: `1. ping 8.8.8.8 — אם עובד: בעיה ב-DNS, לא אינטרנט
-2. ping router שלך (בדרך כלל 192.168.1.1) — אם לא עובד: בעיה ב-LAN
+    solution: `1. ping 8.8.8.8 — אם עובד: בעיה ב־DNS, לא אינטרנט
+2. ping router שלך (בדרך כלל 192.168.1.1) — אם לא עובד: בעיה ב־LAN
 3. ipconfig /release && ipconfig /renew — מרענן DHCP
-4. שנה DNS ל-8.8.8.8 ידנית
+4. שנה DNS ל־8.8.8.8 ידנית
 5. הפעל מחדש router (60 שניות!)`,
     solutionEn: `1. ping 8.8.8.8 — if it works: DNS problem, not internet
 2. ping your router (usually 192.168.1.1) — if it fails: LAN problem
@@ -59,9 +59,9 @@ export const troubleshootingContent = [
       'Your router does not handle QoS well',
     ],
     solution: `1. בדקו מהירות עם speedtest.net — בוקר vs ערב
-2. שנו ערוץ WiFi ל-5GHz (פחות עומס, טווח קצר יותר)
+2. שנו ערוץ WiFi ל־5GHz (פחות עומס, טווח קצר יותר)
 3. בהגדרות router — הפעילו QoS ותייגו streaming כעדיפות גבוהה
-4. התקשרו ל-ISP ודרשו SLA על מהירות מינימום`,
+4. התקשרו ל־ISP ודרשו SLA על מהירות מינימום`,
     solutionEn: `1. Check speed with speedtest.net — morning vs evening
 2. Switch WiFi channel to 5GHz (less crowded, shorter range)
 3. In router settings — enable QoS and set streaming as high priority
@@ -76,7 +76,7 @@ export const troubleshootingContent = [
     titleEn: 'Password Is Correct But Cannot Log In',
     category: 'HTTP/אבטחה',
     categoryEn: 'HTTP/Security',
-    story: 'את מקלידה סיסמה נכונה ב-100%, אבל האתר מחזיר "סיסמה שגויה". מה קורה?',
+    story: 'את מקלידה סיסמה נכונה ב־100%, אבל האתר מחזיר "סיסמה שגויה". מה קורה?',
     storyEn: 'You type the correct password 100%, but the website says "wrong password". What is happening?',
     causes: [
       'cookies ישנות — session ישן מתנגש עם הניסיון החדש',
@@ -112,13 +112,13 @@ export const troubleshootingContent = [
     titleEn: 'Ping Works But the Website Does Not Open',
     category: 'DNS',
     categoryEn: 'DNS',
-    story: 'ping 8.8.8.8 עובד מצוין, אבל chrome מראה "This site can\'t be reached". ה-IP עובד אבל ה-DNS שבור.',
+    story: 'ping 8.8.8.8 עובד מצוין, אבל chrome מראה "This site can\'t be reached". ה־IP עובד אבל ה־DNS שבור.',
     storyEn: 'ping 8.8.8.8 works fine, but Chrome shows "This site can\'t be reached". The IP works but DNS is broken.',
     causes: [
       'שרת DNS לא מגיב או עמוס',
       'DNS cache מקולקל — רשומת DNS ישנה ושגויה נשמרה',
       'ISP חוסם דומיין ספציפי',
-      'hosts file ב-Windows עם override שגוי',
+      'hosts file ב־Windows עם override שגוי',
     ],
     causesEn: [
       'DNS server is not responding or overloaded',
@@ -128,7 +128,7 @@ export const troubleshootingContent = [
     ],
     solution: `1. ipconfig /flushdns — מנקה DNS cache
 2. nslookup google.com — בודק אם DNS עובד
-3. שנה DNS ל-1.1.1.1 (Cloudflare) או 8.8.8.8 (Google)
+3. שנה DNS ל־1.1.1.1 (Cloudflare) או 8.8.8.8 (Google)
 4. בדקו hosts file: C:\\Windows\\System32\\drivers\\etc\\hosts`,
     solutionEn: `1. ipconfig /flushdns — clears DNS cache
 2. nslookup google.com — checks if DNS works
@@ -150,7 +150,7 @@ export const troubleshootingContent = [
       'Router שולח RST packet אחרי idle timeout (בדרך כלל 5-30 דקות)',
       'NAT entry פג — הפורט שהוקצה לחיבור שלך נמחק',
       'Firewall סגר חיבור שנראה "חשוד"',
-      'חבילות הולכות לאיבוד (packet loss) ו-TCP לא מצליח להתאושש',
+      'חבילות הולכות לאיבוד (packet loss) ו־TCP לא מצליח להתאושש',
     ],
     causesEn: [
       'Router sends RST packet after idle timeout (usually 5-30 minutes)',
@@ -159,7 +159,7 @@ export const troubleshootingContent = [
       'Packets are lost (packet loss) and TCP cannot recover',
     ],
     solution: `1. SSH: הוסיפו ServerAliveInterval 60 ב-~/.ssh/config
-2. TCP keepalive — מבקש מה-OS לשלוח keepalive packets
+2. TCP keepalive — מבקש מה־OS לשלוח keepalive packets
 3. בדקו packet loss עם: ping -n 100 8.8.8.8 (Windows) או ping -c 100 8.8.8.8
 4. WireGuard/VPN לחיבורים ארוכים חשובים`,
     solutionEn: `1. SSH: add ServerAliveInterval 60 in ~/.ssh/config
@@ -191,14 +191,14 @@ export const troubleshootingContent = [
       'Network card has a problem',
     ],
     solution: `1. ipconfig /release && ipconfig /renew
-2. בדקו שה-router פועל ושה-DHCP מופעל בו
+2. בדקו שה-router פועל ושה־DHCP מופעל בו
 3. נסו IP סטטי ידנית: 192.168.1.100, mask 255.255.255.0, gateway 192.168.1.1
 4. Device Manager → Network adapters → Update driver`,
     solutionEn: `1. ipconfig /release && ipconfig /renew
 2. Check that the router is on and DHCP is enabled
 3. Try a static IP manually: 192.168.1.100, mask 255.255.255.0, gateway 192.168.1.1
 4. Device Manager → Network adapters → Update driver`,
-    tip: '💡 169.254.x.x = APIPA (Automatic Private IP Addressing). תמיד סימן ש-DHCP נכשל!',
+    tip: '💡 169.254.x.x = APIPA (Automatic Private IP Addressing). תמיד סימן ש־DHCP נכשל!',
     tipEn: '💡 169.254.x.x = APIPA (Automatic Private IP Addressing). Always a sign that DHCP failed!',
   },
   {
@@ -208,7 +208,7 @@ export const troubleshootingContent = [
     titleEn: 'Two TCP Requests — Why?',
     category: 'TCP',
     categoryEn: 'TCP',
-    story: 'ב-Wireshark רואים שהאתר נפתח עם SYN, SYN-ACK, ACK, אבל אחר כך מופיע עוד SYN. למה TCP פותח חיבור חדש?',
+    story: 'ב־Wireshark רואים שהאתר נפתח עם SYN, SYN-ACK, ACK, אבל אחר כך מופיע עוד SYN. למה TCP פותח חיבור חדש?',
     storyEn: 'In Wireshark you see the website opens with SYN, SYN-ACK, ACK, but then another SYN appears. Why does TCP open a new connection?',
     causes: [
       'HTTP/1.1 פותח חיבור לכל resource (קובץ CSS, תמונה וכו\')',
@@ -222,7 +222,7 @@ export const troubleshootingContent = [
       'Connection: close header closes the connection after each request',
       'Different CDN endpoints for images vs HTML',
     ],
-    solution: `זה נורמלי ב-HTTP/1.1! HTTP/2 פתר את זה.
+    solution: `זה נורמלי ב־HTTP/1.1! HTTP/2 פתר את זה.
 בדקו בDevTools → Network → Protocol עמודה:
 - h2 = HTTP/2 (חיבור אחד לכל)
 - http/1.1 = חיבור לכל resource`,
@@ -230,7 +230,7 @@ export const troubleshootingContent = [
 Check in DevTools → Network → Protocol column:
 - h2 = HTTP/2 (one connection for all)
 - http/1.1 = one connection per resource`,
-    tip: '💡 HTTP/2 הפחית latency בכ-50% בדפדפן. רוב האתרים המודרניים משתמשים בו.',
+    tip: '💡 HTTP/2 הפחית latency בכ־50% בדפדפן. רוב האתרים המודרניים משתמשים בו.',
     tipEn: '💡 HTTP/2 reduced latency by about 50% in the browser. Most modern websites use it.',
   },
   {
@@ -240,11 +240,11 @@ Check in DevTools → Network → Protocol column:
     titleEn: 'CORS Error — "Cross-Origin Request Blocked"',
     category: 'HTTP/אבטחה',
     categoryEn: 'HTTP/Security',
-    story: 'כתבת JavaScript שמבצע fetch ל-API ומופיעה ב-Console שגיאה אדומה: CORS. מה זה ולמה?',
+    story: 'כתבת JavaScript שמבצע fetch ל־API ומופיעה ב־Console שגיאה אדומה: CORS. מה זה ולמה?',
     storyEn: 'You wrote JavaScript that does a fetch to an API and a red error appears in the Console: CORS. What is it and why?',
     causes: [
       'הדפדפן חוסם בקשות מדומיין A לדומיין B (Same-Origin Policy)',
-      'שרת ה-API לא מחזיר Access-Control-Allow-Origin header',
+      'שרת ה־API לא מחזיר Access-Control-Allow-Origin header',
       'בקשת preflight OPTIONS נכשלת',
     ],
     causesEn: [
@@ -289,10 +289,10 @@ This is a safety feature! The browser protects you from cross-site attacks.`,
       'Too far from the router',
     ],
     solution: `1. העבירו את ה-router לנקודה מרכזית בבית
-2. עברו ל-5GHz אם קרובים ל-router
+2. עברו ל־5GHz אם קרובים ל-router
 3. Mesh WiFi לבית גדול (eero, Google Nest)
 4. WiFi Analyzer (Android) — ראו אילו channels עמוסים
-5. Channel 1, 6 או 11 בלבד ל-2.4GHz (לא overlap)`,
+5. Channel 1, 6 או 11 בלבד ל־2.4GHz (לא overlap)`,
     solutionEn: `1. Move the router to a central spot in the house
 2. Switch to 5GHz if you are close to the router
 3. Use Mesh WiFi for a big house (eero, Google Nest)
@@ -362,7 +362,7 @@ Windows:
 netstat -ano | findstr :8080
 taskkill /PID <PID> /F
 
-או: שנה PORT ל-8081, 3001 וכו'
+או: שנה PORT ל־8081, 3001 וכו'
 בקוד: SO_REUSEADDR option`,
     solutionEn: `Linux/Mac:
 lsof -i :8080 → see who holds the port
@@ -374,7 +374,7 @@ taskkill /PID <PID> /F
 
 Or: change PORT to 8081, 3001, etc.
 In code: SO_REUSEADDR option`,
-    tip: '💡 SO_REUSEADDR = אומרים ל-OS "תן לי לפתוח פורט אפילו אם ב-TIME_WAIT". פתרון קסם!',
+    tip: '💡 SO_REUSEADDR = אומרים ל־OS "תן לי לפתוח פורט אפילו אם ב־TIME_WAIT". פתרון קסם!',
     tipEn: '💡 SO_REUSEADDR = tells the OS "let me open the port even if it is in TIME_WAIT". Magic fix!',
   },
   {
@@ -398,7 +398,7 @@ In code: SO_REUSEADDR option`,
       'The page moved to a new URL but redirect was not set up',
       'The router/nginx did not find a matching handler for the path',
     ],
-    solution: `בדפדפן: בדקו את ה-URL שוב — אולי רווח מיותר, / חסר בסוף
+    solution: `בדפדפן: בדקו את ה־URL שוב — אולי רווח מיותר, / חסר בסוף
 בשרת: בדקו שהקובץ/route קיים
 nginx: location block לנתיב הזה
 בGoogle Search Console: ראו דפים עם 404 ותקנו redirect
@@ -424,11 +424,11 @@ Apache: Redirect /old /new`,
     titleEn: '403 Forbidden — Access Denied',
     category: 'HTTP שגיאות',
     categoryEn: 'HTTP Errors',
-    story: 'האתר קיים, החיבור תקין, אבל השרת אומר "אסור לך להיכנס". זה שונה מ-404 — הדף קיים, אבל אין לך הרשאה.',
+    story: 'האתר קיים, החיבור תקין, אבל השרת אומר "אסור לך להיכנס". זה שונה מ־404 — הדף קיים, אבל אין לך הרשאה.',
     storyEn: 'The website exists, the connection works, but the server says "you are not allowed in". This is different from 404 — the page exists, but you do not have permission.',
     causes: [
       'הרשאות קבצים שגויות בשרת (chmod) — 644 לקבצים, 755 לתיקיות',
-      'ה-IP שלך חסום על ידי firewall או .htaccess',
+      'ה־IP שלך חסום על ידי firewall או .htaccess',
       'nginx/Apache הוגדרו לחסום גישה ישירה לתיקייה',
       'חסר קובץ index.html/index.php בתיקייה (directory listing מבוטל)',
       'token/JWT פג תוקף — השרת לא מאשר גישה',
@@ -466,7 +466,7 @@ location / {
 }
 
 If it is an API: check that the token in the header is valid and not expired`,
-    tip: '💡 403 = "Forbidden" — השרת יודע מי את אבל מחליט שאין לך גישה. שונה מ-401 (Unauthorized) שמבקש להתחבר.',
+    tip: '💡 403 = "Forbidden" — השרת יודע מי את אבל מחליט שאין לך גישה. שונה מ־401 (Unauthorized) שמבקש להתחבר.',
     tipEn: '💡 403 = "Forbidden" — the server knows who you are but says no access. Different from 401 (Unauthorized) which asks you to log in.',
   },
   {
@@ -578,12 +578,12 @@ SELECT * FROM pg_stat_activity; (Postgres)`,
     titleEn: '301/302 — Infinite Redirect Loop',
     category: 'HTTP שגיאות',
     categoryEn: 'HTTP Errors',
-    story: '"This page isn\'t redirecting properly" — הדפדפן תקוע בלולאה של redirects. A שולח ל-B ו-B שולח חזרה ל-A, לנצח.',
+    story: '"This page isn\'t redirecting properly" — הדפדפן תקוע בלולאה של redirects. A שולח ל־B ו־B שולח חזרה ל־A, לנצח.',
     storyEn: '"This page isn\'t redirecting properly" — the browser is stuck in a redirect loop. A sends to B and B sends back to A, forever.',
     causes: [
       'HTTPS redirect + HTTP server שניהם מגדירים redirect אחד לשני',
       'www ↔ non-www redirect loop בהגדרות nginx',
-      'WordPress: Site URL הוגדר לא נכון ב-DB',
+      'WordPress: Site URL הוגדר לא נכון ב־DB',
       'CDN מוסיף redirect שמתנגש עם redirect בשרת',
     ],
     causesEn: [
@@ -605,7 +605,7 @@ server {
   # אין redirect כאן
 }
 
-WordPress: ב-DB שנו siteurl/home ל-https`,
+WordPress: ב־DB שנו siteurl/home ל-https`,
     solutionEn: `1. Open DevTools → Network → see the redirects
 2. Check nginx/apache config — only one side should set a redirect
 
@@ -630,7 +630,7 @@ WordPress: in DB change siteurl/home to https`,
     titleEn: '401 Unauthorized — Login Required',
     category: 'HTTP שגיאות',
     categoryEn: 'HTTP Errors',
-    story: 'שונה מ-403! 401 = "אני לא יודע מי את — התחברי קודם". 403 = "אני יודע מי את — אבל אסור לך".',
+    story: 'שונה מ־403! 401 = "אני לא יודע מי את — התחברי קודם". 403 = "אני יודע מי את — אבל אסור לך".',
     storyEn: 'Different from 403! 401 = "I do not know who you are — log in first". 403 = "I know who you are — but you are not allowed".',
     causes: [
       'חסר Authorization header בבקשה (Bearer token, Basic auth)',
@@ -646,10 +646,10 @@ WordPress: in DB change siteurl/home to https`,
     ],
     solution: `בדפדפן: ייתכן שצריך להתחבר לאתר תחילה
 
-ב-API:
+ב־API:
 curl -H "Authorization: Bearer YOUR_TOKEN" https://api.example.com/data
 
-בדקו expiry ב-JWT:
+בדקו expiry ב־JWT:
 // פתחו jwt.io ובדקו את ה-exp field
 // הוא Unix timestamp — המר עם new Date(exp*1000)
 
@@ -724,13 +724,13 @@ sudo ufw allow 3000`,
     titleEn: 'ERR_SSL_PROTOCOL_ERROR — HTTPS Problem',
     category: 'HTTP שגיאות',
     categoryEn: 'HTTP Errors',
-    story: 'מנסה להיכנס לאתר ב-HTTPS ומקבלת שגיאת SSL. הגרסה הנפוצה: תעודת SSL פגה או לא תואמת.',
+    story: 'מנסה להיכנס לאתר ב־HTTPS ומקבלת שגיאת SSL. הגרסה הנפוצה: תעודת SSL פגה או לא תואמת.',
     storyEn: 'Trying to visit a website with HTTPS and getting an SSL error. The common version: SSL certificate expired or does not match.',
     causes: [
       'תעודת SSL (certificate) פגה — Let\'s Encrypt מתחדשת כל 90 יום',
       'תעודה לדומיין אחר — שרת אחסון מארח כמה אתרים',
       'שעון המחשב שגוי — TLS תלוי בזמן מדויק',
-      'גרסת TLS ישנה — שרת ישן שלא תומך ב-TLS 1.3',
+      'גרסת TLS ישנה — שרת ישן שלא תומך ב־TLS 1.3',
       'HSTS — הדפדפן זכר שהאתר צריך HTTPS אבל עכשיו אין',
     ],
     causesEn: [
@@ -750,7 +750,7 @@ certbot certonly --webroot -d example.com
 שעון:
 timedatectl set-ntp true
 
-לניקוי HSTS ב-Chrome:
+לניקוי HSTS ב־Chrome:
 chrome://net-internals/#hsts → Delete domain`,
     solutionEn: `Check certificate:
 openssl s_client -connect example.com:443 -servername example.com
@@ -774,11 +774,11 @@ chrome://net-internals/#hsts → Delete domain`,
     titleEn: 'Mixed Content — HTTPS with HTTP Inside',
     category: 'SSL/אבטחה',
     categoryEn: 'SSL/Security',
-    story: 'האתר שלך עובר ל-HTTPS — יופי! אבל Chrome מסמן אזהרה. הסיבה: תמונה, script, או API אחד בתוך העמוד עדיין נקרא ב-HTTP. דפדפן לא אוהב תמונה "לא מאובטחת" בתוך עמוד "מאובטח".',
+    story: 'האתר שלך עובר ל־HTTPS — יופי! אבל Chrome מסמן אזהרה. הסיבה: תמונה, script, או API אחד בתוך העמוד עדיין נקרא ב־HTTP. דפדפן לא אוהב תמונה "לא מאובטחת" בתוך עמוד "מאובטח".',
     storyEn: 'Your website moved to HTTPS — great! But Chrome shows a warning. The reason: an image, script, or API call inside the page still loads over HTTP. The browser does not like an "insecure" image inside a "secure" page.',
     causes: [
-      'img src="http://..." — תמונה נטענת ב-HTTP',
-      'script src="http://..." — JavaScript חיצוני ב-HTTP',
+      'img src="http://..." — תמונה נטענת ב־HTTP',
+      'script src="http://..." — JavaScript חיצוני ב־HTTP',
       'API call ל-http:// מתוך https:// page',
       'iframe שמטעין דף HTTP',
       'CSS background-image עם URL של http://',
@@ -795,7 +795,7 @@ chrome://net-internals/#hsts → Delete domain`,
 
 תיקון:
 - שנו כל http:// ל-https:// בקוד
-- תמונות: העלו ל-CDN שלכם (HTTPS) או שנו src
+- תמונות: העלו ל־CDN שלכם (HTTPS) או שנו src
 - API: ודאו שכל endpoint תומך HTTPS
 
 Nginx — הפניה אוטומטית HTTP→HTTPS:
@@ -826,7 +826,7 @@ server {
     titleEn: 'Certificate Chain Error — Trust Chain Broken',
     category: 'SSL/אבטחה',
     categoryEn: 'SSL/Security',
-    story: 'Chrome מציג "NET::ERR_CERT_AUTHORITY_INVALID" גם כשהתעודה חדשה ותקינה. הסיבה הנפוצה: intermediate certificate חסר. ה-TLS handshake נשבר!',
+    story: 'Chrome מציג "NET::ERR_CERT_AUTHORITY_INVALID" גם כשהתעודה חדשה ותקינה. הסיבה הנפוצה: intermediate certificate חסר. ה־TLS handshake נשבר!',
     storyEn: 'Chrome shows "NET::ERR_CERT_AUTHORITY_INVALID" even when the certificate is new and valid. The common reason: intermediate certificate is missing. The TLS handshake breaks!',
     causes: [
       'חסר intermediate certificate בהגדרות nginx/Apache',
@@ -870,7 +870,7 @@ self-signed → in organization: add to trust store`,
   {
     id: 23,
     icon: '⏳',
-    title: 'HSTS — דפדפן לא נותן להיכנס ב-HTTP',
+    title: 'HSTS — דפדפן לא נותן להיכנס ב־HTTP',
     titleEn: 'HSTS — Browser Blocks HTTP Access',
     category: 'SSL/אבטחה',
     categoryEn: 'SSL/Security',
@@ -879,7 +879,7 @@ self-signed → in organization: add to trust store`,
     causes: [
       'האתר שלח Strict-Transport-Security header בעבר',
       'max-age הוגדר ל-שנה/שנתיים — הדפדפן "זוכר" לזמן הזה',
-      'האתר עכשיו ב-HTTP בלבד (הורדת SSL) — הדפדפן מסרב',
+      'האתר עכשיו ב־HTTP בלבד (הורדת SSL) — הדפדפן מסרב',
       'includeSubDomains — כל subdomain חסום גם הוא',
     ],
     causesEn: [
@@ -888,7 +888,7 @@ self-signed → in organization: add to trust store`,
       'The website is now HTTP only (SSL removed) — the browser refuses',
       'includeSubDomains — every subdomain is also blocked',
     ],
-    solution: `ניקוי HSTS ב-Chrome:
+    solution: `ניקוי HSTS ב־Chrome:
 1. פתחו chrome://net-internals/#hsts
 2. בקטע "Delete domain security policies" הכניסו דומיין
 3. לחצו Delete
@@ -896,7 +896,7 @@ self-signed → in organization: add to trust store`,
 Firefox: about:config → network.stricttransportsecurity.preloadlist
 
 אם זה dev/test: השתמשו ב-localhost (אין HSTS) או דומיין שונה
-ב-Production: לא להוריד HSTS — זה Feature, לא Bug!`,
+ב־Production: לא להוריד HSTS — זה Feature, לא Bug!`,
     solutionEn: `Clear HSTS in Chrome:
 1. Open chrome://net-internals/#hsts
 2. In "Delete domain security policies" enter the domain
@@ -906,7 +906,7 @@ Firefox: about:config → network.stricttransportsecurity.preloadlist
 
 If it is dev/test: use localhost (no HSTS) or a different domain
 In Production: do not remove HSTS — it is a Feature, not a Bug!`,
-    tip: '💡 HSTS Preload List = רשימת אתרים שהדפדפן מכיר "מהמפעל". גוגל, פייסבוק — Chrome לעולם לא ייכנס אליהם ב-HTTP.',
+    tip: '💡 HSTS Preload List = רשימת אתרים שהדפדפן מכיר "מהמפעל". גוגל, פייסבוק — Chrome לעולם לא ייכנס אליהם ב־HTTP.',
     tipEn: '💡 HSTS Preload List = a list of websites the browser knows "from the factory". Google, Facebook — Chrome will never visit them over HTTP.',
   },
   {
@@ -977,7 +977,7 @@ const token = jwt.verify(tokenStr, process.env.JWT_SECRET)`,
       'שרת לא שולח Access-Control-Allow-Origin header',
       'Preflight OPTIONS request נכשל',
       'Credentials (cookies) + CORS = הגדרה מיוחדת נדרשת',
-      'Production: דומיין שונה מה-API domain',
+      'Production: דומיין שונה מה־API domain',
     ],
     causesEn: [
       'The browser blocks requests from one origin to another (security)',
@@ -1016,7 +1016,7 @@ app.add_middleware(CORSMiddleware,
 
 With cookies — you also need:
 fetch(url, { credentials: 'include' })`,
-    tip: '💡 CORS הוא הגנת דפדפן בלבד! ב-Postman/curl לא תראו את השגיאה — כי הם לא דפדפן. השרת לא חוסם, הדפדפן חוסם!',
+    tip: '💡 CORS הוא הגנת דפדפן בלבד! ב־Postman/curl לא תראו את השגיאה — כי הם לא דפדפן. השרת לא חוסם, הדפדפן חוסם!',
     tipEn: '💡 CORS is browser protection only! In Postman/curl you will not see the error — because they are not browsers. The server does not block, the browser blocks!',
   },
   {
@@ -1026,7 +1026,7 @@ fetch(url, { credentials: 'include' })`,
     titleEn: 'Missing Security Headers — CSP, X-Frame',
     category: 'SSL/אבטחה',
     categoryEn: 'SSL/Security',
-    story: 'האתר "עובד" — אבל Mozilla Observatory נותן ציון F. כותרות (headers) שמגנים מ-XSS, clickjacking, MIME sniffing — כולם חסרים. תוקפים אוהבים אתרים כאלה.',
+    story: 'האתר "עובד" — אבל Mozilla Observatory נותן ציון F. כותרות (headers) שמגנים מ־XSS, clickjacking, MIME sniffing — כולם חסרים. תוקפים אוהבים אתרים כאלה.',
     storyEn: 'The website "works" — but Mozilla Observatory gives it a grade F. Headers that protect from XSS, clickjacking, MIME sniffing — all are missing. Attackers love websites like this.',
     causes: [
       'Content-Security-Policy (CSP) חסר — מאפשר XSS injection',
@@ -1087,10 +1087,10 @@ Check: observatory.mozilla.org`,
       'Old network card',
     ],
     solution: `1. ping -t 8.8.8.8 — רצי 5 דקות, ספרי כמה % loss
-2. פחות מ-1% = נורמלי. יותר מ-3% = בעיה
+2. פחות מ־1% = נורמלי. יותר מ־3% = בעיה
 3. נסו כבל אחר — כבל רשת זול = בעיות
-4. ב-Wireshark חפשו TCP Retransmission — סימן ל-loss
-5. פנו ל-ISP — ייתכן שיש בעיה בצד שלהם`,
+4. ב־Wireshark חפשו TCP Retransmission — סימן ל-loss
+5. פנו ל־ISP — ייתכן שיש בעיה בצד שלהם`,
     solutionEn: `1. ping -t 8.8.8.8 — run for 5 minutes, count how many % loss
 2. Less than 1% = normal. More than 3% = problem
 3. Try a different cable — cheap network cable = problems
@@ -1109,7 +1109,7 @@ export const storiesContent = [
     titleEn: 'The Story Behind YouTube Buffering',
     category: 'סיפור אמיתי',
     categoryEn: 'True Story',
-    content: `ב-2022, חברת Cloudflare עברה תקלה שהורידה 19% מהאינטרנט. איך? BGP routing bug.
+    content: `ב־2022, חברת Cloudflare עברה תקלה שהורידה 19% מהאינטרנט. איך? BGP routing bug.
 
 BGP (Border Gateway Protocol) הוא הפרוטוקול שמחליט איך traffic זורם בין ISPs. Cloudflare שלחה prefix שגוי — ה-routers ברחבי העולם קיבלו הוראה שגויה לאן לנתב traffic.
 
@@ -1131,13 +1131,13 @@ What we learned: the internet is a network of mutual trust. BGP does not verify 
     titleEn: 'Internet by Pigeons — RFC 1149',
     category: 'מוזר אבל אמיתי',
     categoryEn: 'Weird But True',
-    content: `ב-1990 פורסם RFC 1149 — "Standard for the Transmission of IP Datagrams on Avian Carriers" (העברת IP על גבי ציפורים).
+    content: `ב־1990 פורסם RFC 1149 — "Standard for the Transmission of IP Datagrams on Avian Carriers" (העברת IP על גבי ציפורים).
 
-ב-2001, קבוצה בנורווגיה ביצעה את זה באמת: 9 חבילות IP נשלחו על 9 יונות על פני 5 ק"מ. כל יונה נשאה microSD עם הdata גלוי על גבה.
+ב־2001, קבוצה בנורווגיה ביצעה את זה באמת: 9 חבילות IP נשלחו על 9 יונות על פני 5 ק"מ. כל יונה נשאה microSD עם הdata גלוי על גבה.
 
 תוצאות:
 - 4 מתוך 9 חבילות הגיעו (56% packet loss 😅)
-- Latency: כ-3,000 שניות (50 דקות)
+- Latency: כ־3,000 שניות (50 דקות)
 - Bandwidth: ~2.27 MB (הSD שנשאה)
 
 הלקח: פרוטוקול IP הוא רק שפה — הוא יכול לרוץ על כל medium. WiFi, Fiber, Ethernet... ויונים! 🕊️`,
@@ -1163,7 +1163,7 @@ The lesson: IP protocol is just a language — it can run on any medium. WiFi, F
 
 בים התיכון עוברים 5 כבלים עיקריים שמחברים ישראל לאירופה וארה"ב. כבל אחד = עשרות Terabits/sec.
 
-ב-2022, שלושה כבלים תת-ימיים נפגעו ליד מדגסקר — כנראה עוגן של ספינה. אפריקה המזרחית איבדה 50% מחיבור האינטרנט.
+ב־2022, שלושה כבלים תת-ימיים נפגעו ליד מדגסקר — כנראה עוגן של ספינה. אפריקה המזרחית איבדה 50% מחיבור האינטרנט.
 
 כבל Sea-Me-We עובר מישראל ועד סינגפור. רוחב הפס שלו: 30+ Tbps.
 
@@ -1195,7 +1195,7 @@ The cables are maintained by a group of companies like Google, Meta, Amazon. Goo
 
 המדהים: Key Exchange קורה בלי ששלחתם את המפתח! DH מאפשר לשני צדדים להגיע למפתח זהה בלי לשלוח אותו. קסם מתמטי! 🔮
 
-כל ה-handshake = פחות מ-100ms. HTTPS אמנם מוסיף overhead — אבל HTTP/2 ו-TLS 1.3 הפחיתו אותו לאפסיים.`,
+כל ה-handshake = פחות מ־100ms. HTTPS אמנם מוסיף overhead — אבל HTTP/2 ו־TLS 1.3 הפחיתו אותו לאפסיים.`,
     contentEn: `When you see a lock icon in the browser — what exactly happens behind the scenes?
 
 1. Browser sends "Client Hello" with the TLS versions it supports
@@ -1215,9 +1215,9 @@ The whole handshake = less than 100ms. HTTPS does add overhead — but HTTP/2 an
     titleEn: 'How Starlink Changed Satellite Internet',
     category: 'טכנולוגיה',
     categoryEn: 'Technology',
-    content: `לוויינים מסורתיים (GEO) פועלים ב-35,786 ק"מ מהאדמה. Latency: 600ms+. בלתי שמיש לגיימינג.
+    content: `לוויינים מסורתיים (GEO) פועלים ב־35,786 ק"מ מהאדמה. Latency: 600ms+. בלתי שמיש לגיימינג.
 
-SpaceX שיגרה 5,000+ לוויינים ב-550 ק"מ בלבד (LEO). Latency: 20-40ms! כמעט כמו כבל.
+SpaceX שיגרה 5,000+ לוויינים ב־550 ק"מ בלבד (LEO). Latency: 20-40ms! כמעט כמו כבל.
 
 איך אפשרי? מרחק קצר = זמן עבור אור קצר. c=300,000 km/s, 550km × 2 = ~3.7ms רק למרחק. שאר ה-latency מגיע מ-processing.
 
