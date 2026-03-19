@@ -15909,6 +15909,600 @@ Immediate Actions Required:
     }
   ]
 }
+,
+
+  // ===== DARK WEB & PRIVACY (BONUS) =====
+  {
+    id: 'darkweb',
+    title: 'Dark Web ופרטיות',
+    subtitle: 'Tor, Onion Routing, פרטיות ברשת — מבט על עולם הרשת האפלה',
+    icon: '🧅',
+    color: '#6b21a8',
+    level: 'בונוס',
+    chapters: [
+        {
+            id: 801,
+            title: 'Surface, Deep & Dark Web',
+            pages: [
+                {
+                    type: 'explanation',
+                    title: 'שלוש שכבות האינטרנט',
+                    content: `<h2>שלוש שכבות האינטרנט</h2>
+<p>האינטרנט שאנחנו מכירים הוא רק קצה הקרחון. מקובל לחלק את האינטרנט לשלוש שכבות:</p>
+<ul>
+<li><strong>Surface Web (רשת פתוחה)</strong> — כל מה שמנועי חיפוש כמו Google יכולים לאנדקס ולהציג. אתרי חדשות, רשתות חברתיות, חנויות מקוונות.</li>
+<li><strong>Deep Web (רשת עמוקה)</strong> — תוכן שמנועי חיפוש לא יכולים לגשת אליו: מיילים, חשבונות בנק, מסדי נתונים פנימיים, תיקים רפואיים.</li>
+<li><strong>Dark Web (רשת אפלה)</strong> — חלק קטן מהרשת העמוקה שדורש תוכנות מיוחדות (כמו Tor) כדי לגשת אליו, ומספק אנונימיות למשתמשים ולמפעילי אתרים.</li>
+</ul>
+<div style="background:#2d1b4e;padding:16px;border-radius:8px;margin:16px 0">
+<strong>אנלוגיה:</strong> דמיינו אוקיינוס — הגלים על פני השטח הם ה-Surface Web, מתחת למים יש את ה-Deep Web (רוב הנפח), ובתוך מערות חשוכות בקרקעית נמצא ה-Dark Web.
+</div>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'Surface Web — מה שכולם רואים',
+                    content: `<h2>Surface Web — הרשת הפתוחה</h2>
+<p>ה-Surface Web הוא החלק של האינטרנט שנגיש דרך מנועי חיפוש רגילים. הוא כולל:</p>
+<ul>
+<li>אתרי חדשות ומידע (ויקיפדיה, CNN)</li>
+<li>רשתות חברתיות (Facebook, Twitter, Instagram)</li>
+<li>חנויות מקוונות (Amazon, eBay)</li>
+<li>בלוגים, פורומים ציבוריים, אתרים אישיים</li>
+</ul>
+<h3>כמה גדול הוא?</h3>
+<p>ההערכה היא שה-Surface Web מכיל כ-<strong>5-10%</strong> בלבד מכלל התוכן באינטרנט. Google אינדקס מיליארדי דפים, אבל זה חלק קטן מהמידע הקיים.</p>
+<div style="background:#2d1b4e;padding:16px;border-radius:8px;margin:16px 0">
+<strong>איך זה עובד:</strong> מנועי חיפוש שולחים "סורקים" (crawlers) שעוקבים אחרי קישורים מדף לדף. כל דף שהסורק מגיע אליו ויכול לקרוא — נכנס לאינדקס ומופיע בתוצאות החיפוש.
+</div>
+<p>דפים שמוגנים בסיסמה, חסומים לסורקים (robots.txt), או שפשוט אין קישורים אליהם — לא ייכנסו לאינדקס.</p>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'Deep Web — מתחת לפני השטח',
+                    content: `<h2>Deep Web — הרשת העמוקה</h2>
+<p>ה-Deep Web מהווה את <strong>רוב האינטרנט</strong> (הערכות מדברות על 90-95%). הוא כולל כל תוכן שמנועי חיפוש לא יכולים לאנדקס:</p>
+<h3>דוגמאות לתוכן ב-Deep Web</h3>
+<ul>
+<li><strong>חשבונות אישיים:</strong> תיבת המייל שלכם, חשבון הבנק, פרופיל ברשת חברתית (החלקים הפרטיים)</li>
+<li><strong>מסדי נתונים:</strong> מאגרים אקדמיים, רשומות רפואיות, מערכות ממשלתיות</li>
+<li><strong>רשתות ארגוניות:</strong> אינטראנט של חברות, מערכות CRM, כלי ניהול פנימיים</li>
+<li><strong>תוכן דינמי:</strong> תוצאות חיפוש בתוך אתרים, דפים שנוצרים בזמן אמת</li>
+</ul>
+<div style="background:#1a3a2a;padding:16px;border-radius:8px;margin:16px 0">
+<strong>חשוב להבין:</strong> ה-Deep Web הוא לא מסתורי או מסוכן. אתם משתמשים בו כל יום — כשאתם נכנסים לחשבון הבנק, קוראים מייל, או ניגשים למערכת בעבודה. זה פשוט תוכן שדורש הרשאה או שלא נגיש לסורקים.
+</div>
+<p>הבלבול הנפוץ ביותר הוא לערבב בין Deep Web ל-Dark Web. הם לא אותו דבר.</p>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'Dark Web — הרשת האפלה',
+                    content: `<h2>Dark Web — מה זה באמת?</h2>
+<p>ה-Dark Web הוא <strong>תת-קבוצה קטנה</strong> של ה-Deep Web. ההבדל המרכזי: הוא דורש תוכנות מיוחדות לגישה ומספק אנונימיות.</p>
+<h3>מאפיינים מרכזיים</h3>
+<ul>
+<li><strong>גישה:</strong> דורש דפדפן Tor או כלים דומים (I2P, Freenet)</li>
+<li><strong>כתובות:</strong> אתרים משתמשים בכתובות <code>.onion</code> במקום <code>.com</code></li>
+<li><strong>אנונימיות:</strong> גם המשתמש וגם מפעיל האתר יכולים להישאר אנונימיים</li>
+<li><strong>גודל:</strong> הערכות מדברות על עשרות אלפי אתרים בלבד — חלק קטן מאוד מהאינטרנט</li>
+</ul>
+<h3>מיתוסים מול מציאות</h3>
+<table style="width:100%;border-collapse:collapse;margin:12px 0">
+<tr style="background:#2d1b4e"><th style="padding:8px;text-align:right">מיתוס</th><th style="padding:8px;text-align:right">מציאות</th></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #444">90% מהאינטרנט הוא Dark Web</td><td style="padding:8px;border-bottom:1px solid #444">90% הוא Deep Web (מיילים, בנקים). ה-Dark Web הוא זעיר</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #444">כל מה שב-Dark Web הוא לא חוקי</td><td style="padding:8px;border-bottom:1px solid #444">יש שימושים לגיטימיים רבים — עיתונאות, פעילות זכויות אדם, פרטיות</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #444">אי אפשר לעקוב אחרי אנשים שם</td><td style="padding:8px;border-bottom:1px solid #444">רשויות אכיפה סגרו שווקים רבים ועצרו מפעילים</td></tr>
+</table>`
+                },
+                {
+                    type: 'summary',
+                    title: 'סיכום — שכבות האינטרנט',
+                    content: `<h2>סיכום פרק 801</h2>
+<h3>נקודות מפתח</h3>
+<ul>
+<li><strong>Surface Web</strong> (5-10%) — תוכן פתוח שמנועי חיפוש מאנדקסים. אתרים ציבוריים, חדשות, רשתות חברתיות.</li>
+<li><strong>Deep Web</strong> (90-95%) — תוכן שמוגן בסיסמה או לא נגיש לסורקים. מיילים, חשבונות בנק, מסדי נתונים. שימוש יומיומי ולגיטימי.</li>
+<li><strong>Dark Web</strong> (חלק זעיר) — דורש תוכנות מיוחדות (Tor), מספק אנונימיות, כתובות .onion. יש שימושים לגיטימיים ולא לגיטימיים.</li>
+<li>הבלבול הנפוץ ביותר: לחשוב ש-Deep Web = Dark Web. הם שונים לחלוטין.</li>
+<li>ה-Dark Web אינו בלתי חדיר — רשויות אכיפה פועלות בו בהצלחה.</li>
+</ul>
+<div style="background:#2d1b4e;padding:16px;border-radius:8px;margin:16px 0">
+<strong>לזכור:</strong> רוב האינטרנט הוא Deep Web לגיטימי. ה-Dark Web הוא נישה קטנה שמספקת אנונימיות — כלי שיכול לשרת מטרות חיוביות ושליליות כאחד.
+</div>`
+                },
+                {
+                    type: 'questions',
+                    title: 'שאלות הבנה - פרק 801',
+                    questions: [
+                        { q: 'מה ההבדל המרכזי בין Deep Web ל-Dark Web?', a: 'ה-Deep Web הוא כל תוכן שמנועי חיפוש לא מאנדקסים (מיילים, חשבונות בנק, מסדי נתונים) ומהווה 90-95% מהאינטרנט. ה-Dark Web הוא תת-קבוצה קטנה שדורשת תוכנות מיוחדות לגישה ומספקת אנונימיות.' },
+                        { q: 'למה מנועי חיפוש לא יכולים לאנדקס את ה-Deep Web?', a: 'כי התוכן מוגן בסיסמאות, חסום לסורקים באמצעות robots.txt, נוצר דינמית בתגובה לשאילתות, או שפשוט אין קישורים ציבוריים שמובילים אליו.' },
+                        { q: 'האם כל הפעילות ב-Dark Web היא לא חוקית? הסבירו.', a: 'לא. יש שימושים לגיטימיים רבים: עיתונאים במדינות עם צנזורה, פעילי זכויות אדם, חושפי שחיתויות, ואנשים שרוצים לשמור על פרטיותם. ארגונים כמו BBC ו-Facebook מפעילים גרסאות .onion של אתריהם.' },
+                        { q: 'כמה גדול ה-Dark Web ביחס לאינטרנט כולו?', a: 'ה-Dark Web הוא חלק זעיר מאוד מהאינטרנט — עשרות אלפי אתרים בלבד. לעומת זאת, ה-Surface Web מכיל מיליארדי דפים וה-Deep Web גדול אף יותר.' }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 802,
+            title: 'איך Tor עובד',
+            pages: [
+                {
+                    type: 'explanation',
+                    title: 'מהו Tor?',
+                    content: `<h2>מהו Tor?</h2>
+<p><strong>Tor</strong> (The Onion Router) הוא פרויקט קוד פתוח שמאפשר תקשורת אנונימית באינטרנט. הוא פותח במקור על ידי מעבדת המחקר של הצי האמריקני בשנות ה-90, והיום מתוחזק על ידי ארגון ללא מטרות רווח — Tor Project.</p>
+<h3>מה Tor עושה?</h3>
+<ul>
+<li><strong>מסתיר את כתובת ה-IP</strong> שלכם מהאתר שאתם מבקרים בו</li>
+<li><strong>מסתיר את היעד</strong> מספק האינטרנט שלכם</li>
+<li><strong>מצפין את התעבורה</strong> במספר שכבות הצפנה</li>
+<li><strong>מנתב את התעבורה</strong> דרך מספר שרתים (nodes) ברחבי העולם</li>
+</ul>
+<div style="background:#2d1b4e;padding:16px;border-radius:8px;margin:16px 0">
+<strong>למה "בצל"?</strong> השם Onion Routing מגיע מהאופן שבו ההצפנה עובדת — בשכבות, כמו קליפות בצל. כל שרת במסלול "מקלף" שכבת הצפנה אחת ורואה רק לאן לשלוח את ההודעה הבאה.
+</div>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'Onion Routing — שלב אחר שלב',
+                    content: `<h2>Onion Routing — איך זה עובד</h2>
+<p>כשאתם גולשים דרך Tor, ההודעה שלכם עוברת דרך <strong>שלושה שרתים</strong> (nodes/relays) לפני שמגיעה ליעד:</p>
+<h3>שלב 1: בניית המעגל (Circuit)</h3>
+<p>דפדפן Tor בוחר שלושה nodes מרשימת servers ידועה (directory):</p>
+<ol>
+<li><strong>Guard Node (Entry)</strong> — יודע מי אתם (IP שלכם) אבל לא לאן אתם הולכים</li>
+<li><strong>Middle Node (Relay)</strong> — לא יודע מי אתם ולא לאן אתם הולכים. רק מעביר</li>
+<li><strong>Exit Node</strong> — יודע לאן אתם הולכים (היעד) אבל לא מי אתם</li>
+</ol>
+<h3>שלב 2: הצפנה בשכבות</h3>
+<p>לפני השליחה, דפדפן Tor מצפין את ההודעה <strong>שלוש פעמים</strong>:</p>
+<pre style="background:#1a1a2e;padding:12px;border-radius:6px;direction:ltr;text-align:left">
+Message: "GET /index.html"
+
+Layer 3 (Exit key):    encrypt("GET /index.html")
+Layer 2 (Middle key):  encrypt(Layer 3 + "send to Exit")
+Layer 1 (Guard key):   encrypt(Layer 2 + "send to Middle")
+</pre>
+<p>כל node מקלף שכבה אחת ורואה רק את ההוראה הבאה.</p>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'המסע של חבילת מידע ב-Tor',
+                    content: `<h2>המסע של חבילת מידע</h2>
+<p>בואו נעקוב אחרי מה קורה כשמשתמש Tor גולש לאתר:</p>
+<h3>1. יוצא מהמחשב</h3>
+<p>ההודעה מוצפנת בשלוש שכבות ונשלחת ל-Guard Node.</p>
+<h3>2. Guard Node</h3>
+<p>ה-Guard מקלף את השכבה החיצונית. הוא רואה: "שלח את החבילה הזו ל-Middle Node בכתובת X". הוא <strong>יודע מי שלח</strong> (IP שלכם) אבל לא יודע מה בתוך החבילה או לאן היא הולכת בסוף.</p>
+<h3>3. Middle Node</h3>
+<p>ה-Middle מקלף שכבה נוספת. הוא רואה: "שלח ל-Exit Node בכתובת Y". הוא <strong>לא יודע כלום</strong> — לא מאיפה הגיע המידע ולא לאן הוא הולך בסוף.</p>
+<h3>4. Exit Node</h3>
+<p>ה-Exit מקלף את השכבה האחרונה ורואה את ההודעה המקורית. הוא שולח אותה ליעד (האתר). הוא <strong>יודע לאן ההודעה הולכת</strong> אבל <strong>לא יודע מי שלח</strong>.</p>
+<div style="background:#2d1b4e;padding:16px;border-radius:8px;margin:16px 0">
+<strong>עיקרון ההפרדה:</strong> אף node יחיד לא מחזיק את כל המידע. ה-Guard יודע "מי" אבל לא "לאן". ה-Exit יודע "לאן" אבל לא "מי". ה-Middle לא יודע כלום. רק שליטה על שניים מתוך שלושה nodes תאפשר פיצוח האנונימיות.
+</div>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'Nodes ו-Directory Authorities',
+                    content: `<h2>סוגי Nodes ברשת Tor</h2>
+<h3>Guard Nodes (כניסה)</h3>
+<ul>
+<li>הנקודה הראשונה במעגל — רואה את ה-IP האמיתי שלכם</li>
+<li>Tor בוחר Guard Nodes ו<strong>שומר עליהם</strong> לאורך זמן (2-3 חודשים)</li>
+<li>הסיבה: אם הייתם מחליפים Guard בכל חיבור, הסיכוי לפגוש Guard זדוני היה גדל עם הזמן</li>
+</ul>
+<h3>Middle Relays (ממסרים)</h3>
+<ul>
+<li>מעבירי מידע בלבד — לא יודעים מקור או יעד</li>
+<li>כל אחד יכול להפעיל Middle Relay מהמחשב שלו</li>
+<li>הסיכון למפעיל נמוך — הוא לא רואה תוכן ולא מזוהה</li>
+</ul>
+<h3>Exit Nodes (יציאה)</h3>
+<ul>
+<li>הנקודה האחרונה — שולחת את הבקשה ליעד הסופי</li>
+<li>רואה את התעבורה (אם לא מוצפנת ב-HTTPS)</li>
+<li>הפעלת Exit Node היא מסוכנת יותר — תעבורה לא חוקית "יוצאת" מהכתובת שלו</li>
+</ul>
+<h3>Directory Authorities</h3>
+<p>קבוצה של <strong>עשרה שרתים מהימנים</strong> שמנהלת את רשימת כל ה-nodes ברשת Tor. הם מצביעים על ה"קונצנזוס" — רשימה מאושרת של nodes, הדגלים שלהם (Guard, Exit, Stable), ורוחב הפס. דפדפן Tor מוריד את הקונצנזוס ובוחר nodes ממנו.</p>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'מעגלים, חולשות ומגבלות',
+                    content: `<h2>מעגלים (Circuits) וחולשות</h2>
+<h3>ניהול מעגלים</h3>
+<ul>
+<li>כל מעגל חי כ-<strong>10 דקות</strong> ואז מוחלף</li>
+<li>לכל אתר שונה נבנה מעגל נפרד — כדי שלא יהיה אפשר לקשר בין הגלישות</li>
+<li>המשתמש יכול לבקש מעגל חדש ידנית ("New Circuit")</li>
+</ul>
+<h3>חולשות ידועות</h3>
+<table style="width:100%;border-collapse:collapse;margin:12px 0">
+<tr style="background:#2d1b4e"><th style="padding:8px;text-align:right">חולשה</th><th style="padding:8px;text-align:right">הסבר</th></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #444">מתקפת Timing</td><td style="padding:8px;border-bottom:1px solid #444">אם תוקף שולט ב-Guard וב-Exit, הוא יכול לקשר בין נפח ותזמון התעבורה ולחשוף את המשתמש</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #444">Exit Node זדוני</td><td style="padding:8px;border-bottom:1px solid #444">Exit Node שמריץ תוקף יכול לקרוא תעבורת HTTP לא מוצפנת (לכן חשוב HTTPS)</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #444">Browser Fingerprinting</td><td style="padding:8px;border-bottom:1px solid #444">JavaScript יכול לחשוף מידע על המחשב שלכם ולזהות אתכם גם דרך Tor</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #444">איטיות</td><td style="padding:8px;border-bottom:1px solid #444">שלושה hops + הצפנה/פענוח = גלישה איטית משמעותית (100-300ms latency נוסף)</td></tr>
+</table>
+<div style="background:#1a3a2a;padding:16px;border-radius:8px;margin:16px 0">
+<strong>שיפור אבטחה:</strong> דפדפן Tor מגיע עם הגדרות שמגבילות JavaScript, חוסמות WebRTC (שיכול לדלוף IP), ומאחדות את ה-fingerprint של כל המשתמשים כדי שכולם ייראו זהים.
+</div>`
+                },
+                {
+                    type: 'summary',
+                    title: 'סיכום — איך Tor עובד',
+                    content: `<h2>סיכום פרק 802</h2>
+<h3>נקודות מפתח</h3>
+<ul>
+<li><strong>Tor</strong> (The Onion Router) מנתב תעבורה דרך שלושה שרתים (Guard, Middle, Exit) כדי להסתיר את זהות המשתמש.</li>
+<li><strong>Onion Routing:</strong> ההודעה מוצפנת בשלוש שכבות. כל node מקלף שכבה אחת ורואה רק את ההוראה הבאה.</li>
+<li><strong>עיקרון ההפרדה:</strong> Guard יודע "מי" אבל לא "לאן". Exit יודע "לאן" אבל לא "מי". Middle לא יודע כלום.</li>
+<li><strong>Guard Nodes</strong> נשמרים קבועים (2-3 חודשים) כדי להקטין סיכון. Exit Nodes מסוכנים להפעלה כי התעבורה יוצאת מהם.</li>
+<li><strong>Directory Authorities</strong> — 10 שרתים מהימנים שמנהלים את רשימת כל ה-nodes ברשת.</li>
+<li>מעגלים מוחלפים כל 10 דקות. לכל אתר מעגל נפרד.</li>
+<li><strong>חולשות:</strong> מתקפת timing, Exit זדוני, browser fingerprinting. HTTPS חיוני גם בתוך Tor.</li>
+</ul>`
+                },
+                {
+                    type: 'questions',
+                    title: 'שאלות הבנה - פרק 802',
+                    questions: [
+                        { q: 'מדוע ההצפנה ב-Tor נקראת "Onion Routing"?', a: 'כי ההודעה מוצפנת בשכבות, כמו קליפות בצל. כל node במסלול מקלף שכבת הצפנה אחת ורואה רק את ההוראה הבאה — לאן להעביר את החבילה. אף node לא רואה את כל התמונה.' },
+                        { q: 'מדוע Tor שומר על אותו Guard Node לאורך חודשים?', a: 'כדי להקטין סיכון. אם המשתמש היה מחליף Guard בכל חיבור, הסיכוי שבאחד החיבורים ייבחר Guard זדוני (שנשלט על ידי תוקף) היה גדל עם הזמן. שמירה על Guard קבוע מגבילה את החשיפה.' },
+                        { q: 'מה הסכנה של Exit Node זדוני, ואיך מתגוננים?', a: 'Exit Node רואה את התעבורה היוצאת. אם האתר לא משתמש ב-HTTPS, ה-Exit יכול לקרוא את התוכן (סיסמאות, הודעות). ההגנה: תמיד להשתמש ב-HTTPS, גם בתוך Tor, כדי שה-Exit יראה רק תעבורה מוצפנת.' },
+                        { q: 'הסבירו את מתקפת ה-Timing ומדוע היא מסוכנת.', a: 'אם תוקף שולט גם ב-Guard Node וגם ב-Exit Node של אותו מעגל, הוא יכול להשוות את תזמון ונפח התעבורה בשני הקצוות ולקשר ביניהם — כלומר לזהות שמשתמש X גולש לאתר Y. זו אחת החולשות הקשות ביותר להתגונן מפניה.' },
+                        { q: 'מה תפקידם של ה-Directory Authorities?', a: 'עשרה שרתים מהימנים שמנהלים את רשימת כל ה-nodes ברשת Tor. הם מצביעים על "קונצנזוס" — רשימה מאושרת של nodes עם הדגלים שלהם (Guard, Exit, Stable) ורוחב הפס. דפדפן Tor מוריד את הרשימה ובוחר nodes ממנה.' }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 803,
+            title: 'Hidden Services (.onion)',
+            pages: [
+                {
+                    type: 'explanation',
+                    title: 'מהם Hidden Services?',
+                    content: `<h2>מהם Hidden Services?</h2>
+<p><strong>Hidden Services</strong> (נקראים גם Onion Services) הם אתרים ושירותים שרצים <strong>בתוך רשת Tor</strong>. בניגוד לגלישה רגילה דרך Tor (שיוצאת לאינטרנט הפתוח דרך Exit Node), כאן <strong>כל התקשורת נשארת בתוך הרשת</strong>.</p>
+<h3>מאפיינים</h3>
+<ul>
+<li><strong>כתובת .onion:</strong> כתובת ייחודית בת 56 תווים (v3) שנגזרת ממפתח הצפנה ציבורי</li>
+<li><strong>אנונימיות דו-כיוונית:</strong> גם המשתמש וגם השרת אנונימיים</li>
+<li><strong>אין Exit Node:</strong> התעבורה לא יוצאת מרשת Tor — מוצפנת מקצה לקצה</li>
+<li><strong>לא צריך IP ציבורי:</strong> השרת יכול לרוץ מאחורי NAT או firewall</li>
+</ul>
+<div style="background:#2d1b4e;padding:16px;border-radius:8px;margin:16px 0">
+<strong>דוגמה לכתובת:</strong><br>
+<code>facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion</code><br>
+זו הכתובת האמיתית של Facebook ברשת Tor — שירות לגיטימי למשתמשים במדינות עם צנזורה.
+</div>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'איך Hidden Service עובד — נקודות הכרה',
+                    content: `<h2>איך Hidden Service מתפרסם</h2>
+<p>כשמפעיל שרת רוצה להנגיש אותו כ-Hidden Service, מתרחש תהליך בן מספר שלבים:</p>
+<h3>שלב 1: בחירת Introduction Points</h3>
+<p>השרת בוחר מספר nodes ברשת Tor כ-<strong>Introduction Points</strong> (נקודות הכרה). הוא בונה מעגלי Tor אליהם ושומר על חיבור קבוע.</p>
+<h3>שלב 2: פרסום ב-Distributed Hash Table</h3>
+<p>השרת יוצר <strong>Service Descriptor</strong> — מסמך שמכיל:</p>
+<ul>
+<li>את המפתח הציבורי של השירות</li>
+<li>רשימת ה-Introduction Points</li>
+<li>חתימה דיגיטלית</li>
+</ul>
+<p>המסמך מועלה ל-<strong>DHT</strong> (Distributed Hash Table) — מסד נתונים מבוזר על פני nodes ברשת Tor. הכתובת <code>.onion</code> נגזרת מהמפתח הציבורי, כך שמי שיודע את הכתובת יכול למצוא את ה-descriptor.</p>
+<div style="background:#1a3a2a;padding:16px;border-radius:8px;margin:16px 0">
+<strong>בגרסה v3 (הנוכחית):</strong> הכתובת היא 56 תווים — הצפנה חזקה יותר (ed25519) וקשה יותר לתקיפה בהשוואה לגרסה v2 (16 תווים) שהוצאה משימוש.
+</div>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'תהליך ה-Rendezvous — חיבור אנונימי',
+                    content: `<h2>Rendezvous — נקודת המפגש</h2>
+<p>כשמשתמש רוצה לגשת ל-Hidden Service, מתרחש תהליך מיוחד שנקרא <strong>Rendezvous</strong>:</p>
+<h3>מצד המשתמש:</h3>
+<ol>
+<li>המשתמש מוריד את ה-Service Descriptor מה-DHT באמצעות כתובת ה-.onion</li>
+<li>בוחר node אקראי כ-<strong>Rendezvous Point</strong> (נקודת מפגש)</li>
+<li>בונה מעגל Tor ל-Rendezvous Point ושולח לו <strong>one-time secret</strong></li>
+<li>שולח הודעה מוצפנת דרך מעגל Tor ל-Introduction Point: "אני רוצה להתחבר, ה-Rendezvous Point שלי הוא X, והסוד הוא Y"</li>
+</ol>
+<h3>מצד השרת:</h3>
+<ol>
+<li>ה-Introduction Point מעביר את ההודעה לשרת (דרך מעגל Tor)</li>
+<li>השרת בונה מעגל Tor חדש ל-Rendezvous Point</li>
+<li>שולח את ה-one-time secret כהוכחה</li>
+<li>ה-Rendezvous Point מחבר את שני המעגלים</li>
+</ol>
+<div style="background:#2d1b4e;padding:16px;border-radius:8px;margin:16px 0">
+<strong>התוצאה:</strong> המשתמש והשרת מחוברים דרך 6 nodes (3 מכל צד) דרך ה-Rendezvous Point. אף node לא יודע גם מי המשתמש וגם מי השרת. ה-Rendezvous Point עצמו רואה רק תעבורה מוצפנת.
+</div>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'שימושים לגיטימיים ב-Hidden Services',
+                    content: `<h2>שימושים לגיטימיים ב-.onion</h2>
+<p>למרות המוניטין, ל-Hidden Services יש שימושים חשובים ולגיטימיים:</p>
+<h3>עיתונאות ומקורות מידע</h3>
+<ul>
+<li><strong>SecureDrop</strong> — פלטפורמה של Freedom of the Press Foundation שמאפשרת למקורות לשלוח מסמכים לעיתונאים בצורה אנונימית. משמשת את The Guardian, NYT, Washington Post ועוד עשרות ארגוני חדשות.</li>
+<li><strong>WikiLeaks</strong> — קיבלה דליפות רבות דרך Hidden Service.</li>
+</ul>
+<h3>חברות טכנולוגיה</h3>
+<ul>
+<li><strong>Facebook</strong> — מפעיל אתר .onion רשמי לגישה ממדינות שחוסמות את Facebook</li>
+<li><strong>ProtonMail</strong> — שירות מייל מוצפן עם גישת .onion</li>
+<li><strong>BBC</strong> — השיק גרסת .onion לגישה ממדינות עם צנזורה</li>
+</ul>
+<h3>פרטיות ואבטחה</h3>
+<ul>
+<li><strong>OnionShare</strong> — שיתוף קבצים אנונימי peer-to-peer</li>
+<li><strong>ניהול שרתים מרחוק</strong> — SSH דרך .onion מבלי לחשוף IP</li>
+<li><strong>צ'אט מוצפן</strong> — Briar ו-Ricochet משתמשים ב-Hidden Services לתקשורת ישירה</li>
+</ul>
+<div style="background:#1a3a2a;padding:16px;border-radius:8px;margin:16px 0">
+<strong>לזכור:</strong> Hidden Services הם כלי טכנולוגי. כמו כל כלי, השימוש בו יכול להיות חיובי או שלילי. הטכנולוגיה עצמה היא ניטרלית.
+</div>`
+                },
+                {
+                    type: 'summary',
+                    title: 'סיכום — Hidden Services',
+                    content: `<h2>סיכום פרק 803</h2>
+<h3>נקודות מפתח</h3>
+<ul>
+<li><strong>Hidden Services</strong> הם אתרים שרצים בתוך רשת Tor עם כתובות <code>.onion</code>. אנונימיות דו-כיוונית — גם למשתמש וגם לשרת.</li>
+<li><strong>תהליך פרסום:</strong> השרת בוחר Introduction Points, יוצר Service Descriptor, ומעלה אותו ל-DHT. הכתובת .onion נגזרת מהמפתח הציבורי.</li>
+<li><strong>Rendezvous:</strong> המשתמש בוחר נקודת מפגש, שולח סוד דרך Introduction Point, והשרת מתחבר לנקודת המפגש. שני הצדדים מחוברים דרך 6 nodes.</li>
+<li><strong>v3 (56 תווים):</strong> הגרסה הנוכחית עם הצפנת ed25519, בטוחה יותר מ-v2 שהוצאה משימוש.</li>
+<li><strong>שימושים לגיטימיים:</strong> SecureDrop לעיתונאים, Facebook/BBC/ProtonMail ב-.onion, שיתוף קבצים אנונימי, SSH מאובטח.</li>
+</ul>`
+                },
+                {
+                    type: 'questions',
+                    title: 'שאלות הבנה - פרק 803',
+                    questions: [
+                        { q: 'מה ההבדל בין גלישה רגילה דרך Tor לבין גישה ל-Hidden Service?', a: 'בגלישה רגילה דרך Tor, התעבורה יוצאת מרשת Tor דרך Exit Node לאינטרנט הפתוח — רק המשתמש אנונימי. ב-Hidden Service, כל התקשורת נשארת בתוך רשת Tor, אין Exit Node, וגם השרת אנונימי. ההצפנה היא מקצה לקצה.' },
+                        { q: 'מה תפקידו של ה-Rendezvous Point?', a: 'ה-Rendezvous Point הוא node ברשת Tor שמשמש כנקודת מפגש בין המשתמש לשרת. המשתמש בונה מעגל Tor אליו, השרת בונה מעגל Tor נפרד אליו, וה-Rendezvous Point מחבר את שני המעגלים. הוא לא יודע מי אף אחד מהצדדים ורואה רק תעבורה מוצפנת.' },
+                        { q: 'איך כתובת .onion נוצרת ומה המשמעות שלה?', a: 'כתובת .onion נגזרת מהמפתח הציבורי של השרת באמצעות פונקציית hash. בגרסה v3 היא בת 56 תווים. זה אומר שמי שיודע את הכתובת יכול לאמת שהוא מתחבר לשרת הנכון — הכתובת עצמה היא הוכחת זהות.' },
+                        { q: 'תנו שלוש דוגמאות לשימושים לגיטימיים ב-Hidden Services.', a: '1) SecureDrop — מאפשר למקורות לשלוח מסמכים חסויים לעיתונאים באנונימיות. 2) Facebook ו-BBC מפעילים אתרי .onion לגישה ממדינות עם צנזורה. 3) Briar ו-Ricochet משתמשים ב-Hidden Services לצ\'אט מוצפן ישיר בין משתמשים.' }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 804,
+            title: 'כלי פרטיות',
+            pages: [
+                {
+                    type: 'explanation',
+                    title: 'VPN מול Tor — ההבדלים',
+                    content: `<h2>VPN מול Tor</h2>
+<p>שני הכלים הנפוצים ביותר להגנה על פרטיות ברשת הם VPN ו-Tor. הם עובדים אחרת ומתאימים למטרות שונות:</p>
+<h3>VPN (Virtual Private Network)</h3>
+<ul>
+<li><strong>איך עובד:</strong> מצפין את כל התעבורה ומנתב אותה דרך שרת אחד של ספק ה-VPN</li>
+<li><strong>מה מסתיר:</strong> את ה-IP שלכם מהאתר, ואת התעבורה מספק האינטרנט</li>
+<li><strong>מהירות:</strong> ירידה קלה בלבד (10-20%)</li>
+<li><strong>חולשה:</strong> ספק ה-VPN רואה את <strong>כל</strong> התעבורה שלכם. אתם סומכים עליו לחלוטין</li>
+</ul>
+<h3>Tor</h3>
+<ul>
+<li><strong>איך עובד:</strong> מנתב דרך 3 nodes אקראיים. אף אחד לא רואה את כל התמונה</li>
+<li><strong>מה מסתיר:</strong> זהות מלאה — אף node לא יודע גם "מי" וגם "לאן"</li>
+<li><strong>מהירות:</strong> איטי משמעותית (3 hops + הצפנה)</li>
+<li><strong>חוזק:</strong> לא צריך לסמוך על אף גורם יחיד</li>
+</ul>
+<table style="width:100%;border-collapse:collapse;margin:12px 0">
+<tr style="background:#2d1b4e"><th style="padding:8px;text-align:right">קריטריון</th><th style="padding:8px;text-align:right">VPN</th><th style="padding:8px;text-align:right">Tor</th></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #444">מהירות</td><td style="padding:8px;border-bottom:1px solid #444">מהיר</td><td style="padding:8px;border-bottom:1px solid #444">איטי</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #444">אמון</td><td style="padding:8px;border-bottom:1px solid #444">סומכים על ספק VPN</td><td style="padding:8px;border-bottom:1px solid #444">לא צריך לסמוך על אף אחד</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #444">אנונימיות</td><td style="padding:8px;border-bottom:1px solid #444">חלקית</td><td style="padding:8px;border-bottom:1px solid #444">גבוהה</td></tr>
+<tr><td style="padding:8px;border-bottom:1px solid #444">מתאים ל</td><td style="padding:8px;border-bottom:1px solid #444">פרטיות יומיומית, Netflix, WiFi ציבורי</td><td style="padding:8px;border-bottom:1px solid #444">אנונימיות אמיתית, עקיפת צנזורה</td></tr>
+</table>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'Tails OS — מערכת הפעלה אנונימית',
+                    content: `<h2>Tails OS — The Amnesic Incognito Live System</h2>
+<p><strong>Tails</strong> היא מערכת הפעלה שלמה שמבוססת על Linux ומתוכננת לפרטיות מקסימלית:</p>
+<h3>מאפיינים מרכזיים</h3>
+<ul>
+<li><strong>רצה מ-USB:</strong> מאתחלים את המחשב מכונן USB — לא משנה את מערכת ההפעלה הרגילה</li>
+<li><strong>אמנזית:</strong> כשמכבים את המחשב, <strong>הכל נמחק</strong>. לא נשארים עקבות על המחשב</li>
+<li><strong>כל התעבורה דרך Tor:</strong> כל תקשורת רשת עוברת דרך Tor אוטומטית — אפליקציות לא יכולות לעקוף</li>
+<li><strong>כלים מובנים:</strong> דפדפן Tor, מייל מוצפן (Thunderbird+PGP), עורך מסמכים, ניקוי metadata</li>
+</ul>
+<h3>Persistent Storage (אופציונלי)</h3>
+<p>אפשר להגדיר אזור מוצפן ב-USB ששומר קבצים בין הפעלות:</p>
+<ul>
+<li>מוגן בסיסמה חזקה</li>
+<li>מוצפן ב-LUKS</li>
+<li>רק מה שמגדירים שיישמר — נשמר</li>
+</ul>
+<div style="background:#2d1b4e;padding:16px;border-radius:8px;margin:16px 0">
+<strong>מי משתמש ב-Tails?</strong> עיתונאים (אדוארד סנודן המליץ עליה), פעילי זכויות אדם, חוקרי אבטחה, ואנשים שגרים במדינות עם מעקב ממשלתי. היא נועדה למקרים שבהם הפרטיות היא עניין של חיים ומוות.
+</div>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'הצפנת תקשורת — Signal ו-PGP',
+                    content: `<h2>הצפנת תקשורת</h2>
+<h3>Signal — מסרים מוצפנים</h3>
+<p><strong>Signal</strong> היא אפליקציית מסרים שמספקת הצפנה מקצה לקצה (E2E):</p>
+<ul>
+<li><strong>Signal Protocol:</strong> פרוטוקול הצפנה שנחשב למתקדם ביותר. משמש גם ב-WhatsApp ו-Facebook Messenger</li>
+<li><strong>Perfect Forward Secrecy:</strong> כל הודעה מוצפנת במפתח שונה — גם אם מפתח אחד נפרץ, שאר ההודעות מוגנות</li>
+<li><strong>מינימום מטא-דאטה:</strong> Signal שומרת רק את תאריך ההרשמה ותאריך החיבור האחרון — לא עם מי דיברתם או מתי</li>
+<li><strong>הודעות נעלמות:</strong> אפשר להגדיר שהודעות יימחקו אוטומטית אחרי זמן מוגדר</li>
+</ul>
+<h3>PGP — הצפנת מייל וקבצים</h3>
+<p><strong>PGP</strong> (Pretty Good Privacy) הוא תקן להצפנת מיילים וקבצים:</p>
+<ul>
+<li><strong>מפתח ציבורי:</strong> משתפים עם כולם — משמש להצפנת הודעות אליכם</li>
+<li><strong>מפתח פרטי:</strong> שומרים בסוד — משמש לפענוח הודעות ולחתימה דיגיטלית</li>
+<li><strong>Web of Trust:</strong> אין סמכות מרכזית — משתמשים חותמים על מפתחות של אחרים כדי לאשר זהות</li>
+</ul>
+<div style="background:#1a3a2a;padding:16px;border-radius:8px;margin:16px 0">
+<strong>הבדל מרכזי:</strong> Signal מוצפנת אוטומטית ופשוטה לשימוש. PGP דורש הגדרה ידנית וניהול מפתחות — אבל עובד עם מייל רגיל ולא תלוי בשירות ספציפי.
+</div>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'Metadata — המידע שמסביב למידע',
+                    content: `<h2>Metadata — הסכנה הנסתרת</h2>
+<p>גם אם התוכן מוצפן, ה-<strong>Metadata</strong> (מידע על המידע) יכול לחשוף הרבה:</p>
+<h3>מה זה Metadata?</h3>
+<ul>
+<li><strong>שיחת טלפון:</strong> התוכן מוצפן, אבל מי התקשר למי, מתי, כמה זמן, ומאיזה מיקום — זה metadata</li>
+<li><strong>מייל:</strong> הכתובות, השעה, נושא ההודעה, גודל הקובץ המצורף</li>
+<li><strong>גלישה:</strong> אילו אתרים ביקרתם, מתי, כמה זמן, מאיזה מכשיר</li>
+<li><strong>תמונה:</strong> EXIF data — מיקום GPS, סוג מצלמה, תאריך, הגדרות צילום</li>
+</ul>
+<h3>למה Metadata מסוכן?</h3>
+<p>כמו שאמר מנהל ה-NSA לשעבר מייקל היידן: <em>"אנחנו הורגים אנשים על בסיס metadata"</em>. דפוסי תקשורת חושפים:</p>
+<ul>
+<li>מי מדבר עם מי (רשת קשרים חברתית)</li>
+<li>שגרת חיים (מתי ישנים, עובדים, נוסעים)</li>
+<li>מיקומים ותנועות</li>
+<li>שיוך לקבוצות וארגונים</li>
+</ul>
+<h3>כלי הגנה</h3>
+<ul>
+<li><strong>MAT2:</strong> כלי להסרת metadata מקבצים (תמונות, PDF, מסמכים)</li>
+<li><strong>ExifTool:</strong> צפייה והסרת EXIF מתמונות</li>
+<li><strong>Tor:</strong> מסתיר metadata של תעבורת רשת</li>
+<li><strong>Signal:</strong> מסירה EXIF מתמונות לפני שליחה ושומרת מינימום metadata</li>
+</ul>`
+                },
+                {
+                    type: 'summary',
+                    title: 'סיכום — כלי פרטיות',
+                    content: `<h2>סיכום פרק 804</h2>
+<h3>נקודות מפתח</h3>
+<ul>
+<li><strong>VPN מול Tor:</strong> VPN מהיר אבל דורש אמון בספק (הוא רואה הכל). Tor איטי אבל לא דורש אמון באף גורם יחיד. VPN לפרטיות יומיומית, Tor לאנונימיות אמיתית.</li>
+<li><strong>Tails OS:</strong> מערכת הפעלה שרצה מ-USB, מנתבת הכל דרך Tor, ומוחקת הכל בכיבוי. נועדה למצבים שבהם פרטיות היא קריטית.</li>
+<li><strong>Signal:</strong> מסרים עם הצפנה מקצה לקצה, Perfect Forward Secrecy, מינימום metadata. פרוטוקול ההצפנה שלה משמש גם אפליקציות אחרות.</li>
+<li><strong>PGP:</strong> הצפנת מייל וקבצים עם מפתח ציבורי/פרטי. דורש הגדרה ידנית אבל לא תלוי בשירות מרכזי.</li>
+<li><strong>Metadata:</strong> הסכנה הנסתרת — גם בלי לקרוא תוכן, דפוסי תקשורת חושפים רשתות קשרים, מיקומים ושגרה. כלים כמו MAT2 מסירים metadata מקבצים.</li>
+</ul>`
+                },
+                {
+                    type: 'questions',
+                    title: 'שאלות הבנה - פרק 804',
+                    questions: [
+                        { q: 'מתי עדיף להשתמש ב-VPN ומתי ב-Tor?', a: 'VPN עדיף לפרטיות יומיומית — גלישה ב-WiFi ציבורי, צפייה בתוכן חסום גיאוגרפית, הסתרת תעבורה מספק אינטרנט. Tor עדיף כשצריך אנונימיות אמיתית — עיתונאות חוקרת, פעילות זכויות אדם במדינות מסוכנות, או כשלא רוצים לסמוך על שום גורם יחיד.' },
+                        { q: 'מה הופך את Tails OS לבטוחה יותר ממערכת הפעלה רגילה?', a: 'שלושה דברים: 1) היא אמנזית — הכל נמחק בכיבוי, לא נשארים עקבות. 2) כל התעבורה עוברת דרך Tor אוטומטית — אפליקציות לא יכולות לעקוף. 3) היא רצה מ-USB ולא נוגעת בדיסק הקשיח של המחשב.' },
+                        { q: 'מהו Perfect Forward Secrecy ב-Signal ולמה הוא חשוב?', a: 'Perfect Forward Secrecy אומר שכל הודעה מוצפנת במפתח שונה. גם אם תוקף מצליח לפרוץ מפתח אחד, הוא יכול לקרוא רק הודעה אחת — כל שאר ההודעות (עבר ועתיד) נשארות מוגנות. זה שונה ממערכות שמשתמשות במפתח אחד לכל השיחה.' },
+                        { q: 'תנו דוגמה לאיך Metadata יכול לחשוף מידע רגיש גם בלי לקרוא תוכן.', a: 'אם מישהו מתקשר למרפאה אונקולוגית, אחר כך לרופא המשפחה, ואז לחברת ביטוח — ה-metadata (מי התקשר למי, מתי) מספיק כדי להסיק שכנראה מדובר במחלה. באופן דומה, שיחות תכופות בין עיתונאי לגורם בכיר בארגון יכולות לחשוף מקור מידע.' }
+                    ]
+                }
+            ]
+        },
+        {
+            id: 805,
+            title: 'אתיקה וחוק',
+            pages: [
+                {
+                    type: 'explanation',
+                    title: 'המעמד החוקי של Tor',
+                    content: `<h2>המעמד החוקי של Tor והרשת האפלה</h2>
+<p>השאלה "האם Tor חוקי?" מעוררת בלבול רב. התשובה: <strong>זה תלוי במדינה ובשימוש</strong>.</p>
+<h3>ברוב המדינות המערביות</h3>
+<ul>
+<li><strong>שימוש ב-Tor הוא חוקי לחלוטין.</strong> זהו כלי לגיטימי לפרטיות, כמו VPN או הצפנת מייל.</li>
+<li>מה שלא חוקי: <strong>הפעולות</strong> שמבצעים דרך Tor. רכישת סמים, תמונות פדופיליה, פריצה למערכות — אלה עבירות בכל מקרה, עם או בלי Tor.</li>
+<li>הקמת Relay חוקית. הקמת Exit Node עלולה ליצור סיבוכים משפטיים בגלל תעבורה שעוברת דרכו.</li>
+</ul>
+<h3>מדינות שחוסמות או מגבילות</h3>
+<ul>
+<li><strong>סין:</strong> חוסמת גישה ל-Tor ברמת ה-firewall הלאומי (GFW). שימוש ב-Bridges יכול לעקוף</li>
+<li><strong>רוסיה:</strong> חוסמת גישה מ-2021. הפעלת Tor לא חוקית</li>
+<li><strong>איראן:</strong> חוסמת את רוב כלי העקיפה, כולל Tor</li>
+<li><strong>בלארוס, טורקמניסטן:</strong> חסימה מלאה של Tor ו-VPN</li>
+</ul>
+<div style="background:#2d1b4e;padding:16px;border-radius:8px;margin:16px 0">
+<strong>בישראל:</strong> שימוש ב-Tor חוקי לחלוטין. אין חוק שאוסר על הצפנה או אנונימיות ברשת. כמובן שפעילות לא חוקית (סחר בסמים, הלבנת הון, פריצה) נשארת לא חוקית גם דרך Tor.
+</div>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'עיתונאות, זכויות אדם ומלחמה בצנזורה',
+                    content: `<h2>Tor ככלי לחופש מידע</h2>
+<p>עבור מיליוני אנשים ברחבי העולם, Tor הוא לא כלי לפשיעה — הוא <strong>כלי הישרדות</strong>.</p>
+<h3>עיתונאות</h3>
+<ul>
+<li><strong>SecureDrop</strong> פועלת ביותר מ-70 ארגוני חדשות ברחבי העולם. היא מאפשרת למקורות לחשוף שחיתות בלי לסכן את חייהם.</li>
+<li>עיתונאים ב<strong>מקסיקו, רוסיה, מיאנמר</strong> ומדינות נוספות משתמשים ב-Tor כדי לתקשר עם מקורות ולפרסם כתבות.</li>
+<li><strong>Committee to Protect Journalists</strong> ממליצה על Tor כחלק מערכת הכלים לעיתונאים.</li>
+</ul>
+<h3>זכויות אדם</h3>
+<ul>
+<li>פעילי <strong>LGBT+</strong> במדינות שבהן הומוסקסואליות היא עבירה פלילית משתמשים ב-Tor כדי לגשת למידע ולקהילה</li>
+<li><strong>נשים</strong> במדינות שמגבילות זכויותיהן — גישה למידע על בריאות, משפטים, מקלטים</li>
+<li>תושבי <strong>צפון קוריאה, סין, איראן</strong> — גישה לחדשות ומידע לא מצונזר</li>
+</ul>
+<h3>האביב הערבי</h3>
+<p>במהלך האביב הערבי (2010-2012), שימוש ב-Tor עלה דרמטית במדינות כמו מצרים, תוניסיה וסוריה. מפגינים השתמשו בו כדי לתאם פעולות, לשתף סרטונים, ולתקשר עם העולם — בזמן שממשלותיהם ניסו לחסום את האינטרנט.</p>
+<div style="background:#1a3a2a;padding:16px;border-radius:8px;margin:16px 0">
+<strong>Tor Project מקבל מימון</strong> מארגונים כמו ממשלת ארה"ב (State Department, NSF), שוודיה (SIDA), וארגוני זכויות אדם. הסיבה: ממשלות מערביות מבינות שכלי פרטיות חיוניים להגנה על פעילי זכויות אדם ומתנגדי משטר ברחבי העולם.
+</div>`
+                },
+                {
+                    type: 'explanation',
+                    title: 'אכיפת חוק ברשת האפלה',
+                    content: `<h2>אכיפת חוק ב-Dark Web</h2>
+<p>למרות האנונימיות, רשויות אכיפה הצליחו לסגור שווקים ולעצור מפעילים. האנונימיות אינה מושלמת.</p>
+<h3>מבצעים בולטים</h3>
+<ul>
+<li><strong>Silk Road (2013):</strong> השוק הראשון והמפורסם ביותר. מפעילו, רוס אולבריכט (Dread Pirate Roberts), נתפס בזכות טעויות אופרציוניות — פרסם עם שם אמיתי בפורום, הזמין זהויות מזויפות לכתובת האמיתית שלו.</li>
+<li><strong>AlphaBay + Hansa (2017):</strong> Operation Bayonet — ה-FBI סגר את AlphaBay והמשטרה ההולנדית השתלטה על Hansa <strong>בסתר</strong>. משתמשים שברחו מ-AlphaBay ל-Hansa נתפסו.</li>
+<li><strong>Welcome to Video (2019):</strong> אתר תמונות פדופיליה. נחשף דרך מעקב אחר עסקאות Bitcoin. 337 נעצרו ב-23 מדינות.</li>
+</ul>
+<h3>איך תופסים אנשים?</h3>
+<ul>
+<li><strong>טעויות אנושיות:</strong> שימוש במייל אמיתי, פרסום מידע מזהה, דפוסי כתיבה</li>
+<li><strong>מעקב מטבעות קריפטו:</strong> Bitcoin אינו אנונימי — הוא פסאודונימי. ניתוח blockchain חושף דפוסים</li>
+<li><strong>חדירה טכנית:</strong> ניצול חולשות בתוכנה, השתלת malware, השתלטות על שרתים</li>
+<li><strong>עבודה סמויה:</strong> סוכנים שמתחזים לקונים או מוכרים</li>
+</ul>
+<div style="background:#2d1b4e;padding:16px;border-radius:8px;margin:16px 0">
+<strong>הלקח:</strong> Tor מספק אנונימיות טכנית, אבל אנשים טועים. רוב המעצרים נובעים מטעויות אנושיות — לא מפריצת ההצפנה של Tor עצמו.
+</div>`
+                },
+                {
+                    type: 'summary',
+                    title: 'סיכום — אתיקה וחוק',
+                    content: `<h2>סיכום פרק 805</h2>
+<h3>נקודות מפתח</h3>
+<ul>
+<li><strong>מעמד חוקי:</strong> שימוש ב-Tor חוקי ברוב המדינות המערביות, כולל ישראל. מדינות אוטוריטריות (סין, רוסיה, איראן) חוסמות או אוסרות.</li>
+<li><strong>הכלי חוקי, הפעולה קובעת:</strong> Tor הוא כמו סכין — אפשר לחתוך בו לחם או לפגוע. השימוש קובע את החוקיות.</li>
+<li><strong>עיתונאות וזכויות אדם:</strong> SecureDrop ב-70+ ארגוני חדשות. פעילי LGBT+, נשים, ומתנגדי משטר משתמשים ב-Tor כדי לגשת למידע ולתקשר בבטחה.</li>
+<li><strong>אכיפה:</strong> רשויות סגרו שווקים גדולים (Silk Road, AlphaBay, Hansa). רוב המעצרים נבעו מטעויות אנושיות ומעקב Bitcoin — לא מפריצת Tor.</li>
+<li><strong>Bitcoin אינו אנונימי:</strong> הוא פסאודונימי. ניתוח blockchain חושף דפוסי עסקאות ומוביל לזיהוי.</li>
+<li><strong>בטיחות אישית:</strong> מי שגולש ב-Dark Web צריך להבין את הסיכונים — scams, malware, חשיפה לתוכן מטריד, ועירוב לא מכוון בפעילות לא חוקית.</li>
+</ul>
+<div style="background:#2d1b4e;padding:16px;border-radius:8px;margin:16px 0">
+<strong>מסר אחרון:</strong> טכנולוגיה היא כלי ניטרלי. Tor, הצפנה ופרטיות הם זכויות בסיסיות בעידן הדיגיטלי. האתגר הוא לשמור על האיזון בין פרטיות אישית לביטחון ציבורי — ואין לכך תשובה פשוטה.
+</div>`
+                },
+                {
+                    type: 'questions',
+                    title: 'שאלות הבנה - פרק 805',
+                    questions: [
+                        { q: 'האם שימוש ב-Tor הוא חוקי? הסבירו בהתחשב במדינות שונות.', a: 'ברוב המדינות המערביות (כולל ישראל, ארה"ב, אירופה) שימוש ב-Tor חוקי לחלוטין. מה שלא חוקי הוא פעולות אסורות שמבוצעות דרכו. לעומת זאת, מדינות כמו סין, רוסיה, איראן ובלארוס חוסמות או אוסרות שימוש ב-Tor כחלק ממדיניות שליטה במידע.' },
+                        { q: 'כיצד Tor תורם לחופש העיתונות?', a: 'Tor מאפשר לעיתונאים לתקשר עם מקורות באנונימיות דרך פלטפורמות כמו SecureDrop (פועלת ב-70+ ארגוני חדשות). עיתונאים במדינות מסוכנות כמו מקסיקו, רוסיה ומיאנמר משתמשים בו כדי לחקור ולפרסם בלי לסכן את חייהם או את חיי מקורותיהם.' },
+                        { q: 'אם Tor מספק אנונימיות, איך רשויות אכיפה מצליחות לתפוס עבריינים?', a: 'רוב המעצרים נובעים מטעויות אנושיות — שימוש במייל אמיתי, פרסום מידע מזהה, דפוסי כתיבה ייחודיים. בנוסף, מעקב אחר עסקאות Bitcoin (שהוא פסאודונימי ולא אנונימי), חדירה טכנית לשרתים, ועבודה סמויה של סוכנים. Tor עצמו לא נפרץ — האנשים מאחוריו טעו.' },
+                        { q: 'מהו האיזון בין פרטיות לביטחון ציבורי, ולמה אין תשובה פשוטה?', a: 'מצד אחד, פרטיות היא זכות בסיסית — עיתונאים, פעילי זכויות אדם ואזרחים רגילים זקוקים לה. מצד שני, אנונימיות מוחלטת מקשה על אכיפת חוק נגד פשיעה. אין תשובה פשוטה כי כל הגבלה על כלי פרטיות פוגעת גם במשתמשים לגיטימיים, וכל חופש מוחלט מאפשר גם שימוש לרעה. כל חברה צריכה למצוא את האיזון שלה.' }
+                    ]
+                }
+            ]
+        }
+    ]
+}
 ]
 
 // Backward compatibility — defaults to networking track chapters

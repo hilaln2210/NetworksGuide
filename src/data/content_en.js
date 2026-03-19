@@ -8158,4 +8158,11 @@ Your company runs 500 microservices in Kubernetes. Currently using Flannel (VXLA
   606: { titleEn: "Exploitation Basics", pages: [] },
   607: { titleEn: "Password Attacks", pages: [] },
   608: { titleEn: "Report Writing", pages: [] },
+
+  // ===== Dark Web & Privacy (801-805) =====
+  801: { titleEn: "Surface, Deep, and Dark Web", pages: [] },
+  802: { titleEn: "How Tor Works", pages: [] },
+  803: { titleEn: "Hidden Services (.onion)", pages: [] },
+  804: { titleEn: "Privacy Tools", pages: [] },
+  805: { titleEn: "Ethics & Law", pages: [] },
 }
