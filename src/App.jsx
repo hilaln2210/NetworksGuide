@@ -380,7 +380,6 @@ function App() {
         {!gender && <GenderPicker onSelect={handleGenderSelect} />}
         <TrackPicker tracks={tracks} onSelect={handleSelectTrack} />
         {xpFloat && <div className="xp-float-global">{xpFloat}</div>}
-        <FeedbackButton context={{}} />
         <AdminHighlight context={{}} />
       </div>
     )
@@ -444,6 +443,14 @@ function App() {
               <button className="reset-settings-btn" onClick={() => setShowResetModal(true)} title={t('settings')}>
                 ⚙️
               </button>
+              <FeedbackButton inline context={{
+                trackTitle: activeTrack?.title,
+                activeTab,
+                chapterId: activeTab === 'learn' ? chapter?.id : activeTab === 'quiz' ? quizContext?.chapterId : undefined,
+                pageTitle: activeTab === 'learn' ? page?.title : activeTab === 'quiz' && quizContext ? `${t('quiz_question_counter')} ${quizContext.questionNum}/${quizContext.totalQuestions}` : t(TAB_I18N[activeTab] || 'tab_learn'),
+                pageIndex: activeTab === 'learn' ? currentPage : undefined,
+                totalPages: activeTab === 'learn' ? totalPages : undefined,
+              }} />
             </div>
           </div>
 
@@ -625,14 +632,6 @@ function App() {
         </div>
       )}
 
-      <FeedbackButton context={{
-        trackTitle: activeTrack?.title,
-        activeTab,
-        chapterId: activeTab === 'learn' ? chapter?.id : activeTab === 'quiz' ? quizContext?.chapterId : undefined,
-        pageTitle: activeTab === 'learn' ? page?.title : activeTab === 'quiz' && quizContext ? `${t('quiz_question_counter')} ${quizContext.questionNum}/${quizContext.totalQuestions}` : t(TAB_I18N[activeTab] || 'tab_learn'),
-        pageIndex: activeTab === 'learn' ? currentPage : undefined,
-        totalPages: activeTab === 'learn' ? totalPages : undefined,
-      }} />
       <AdminHighlight context={{
         trackTitle: activeTrack?.title,
         activeTab,

@@ -13,7 +13,7 @@ const TYPES_EN = [
   { key: 'question', label: '❓ Question' },
 ]
 
-export function FeedbackButton({ context = {} }) {
+export function FeedbackButton({ context = {}, inline = false }) {
   const { lang } = useLang()
   const isEn = lang === 'en'
   const TYPES = isEn ? TYPES_EN : TYPES_HE
@@ -84,11 +84,12 @@ export function FeedbackButton({ context = {} }) {
   return (
     <>
       <button
-        className={`feedback-fab${showPulse ? ' pulse' : ''}`}
+        className={inline ? 'feedback-inline-btn' : `feedback-fab${showPulse ? ' pulse' : ''}`}
         onClick={() => { setOpen(true); setShowPulse(false) }}
         aria-label={isEn ? 'Feedback' : 'משוב'}
+        title={isEn ? 'Send Feedback' : 'שליחת משוב'}
       >
-        {isEn ? '📝 Feedback' : '📝 משוב'}
+        {inline ? '📝' : (isEn ? '📝 Feedback' : '📝 משוב')}
       </button>
 
       {open && (

@@ -1,4 +1,21 @@
-/* ===== Feedback Button ===== */
+/* ===== Feedback Inline (header) ===== */
+.feedback-inline-btn {
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  border-radius: 99px;
+  padding: 0.3rem 0.55rem;
+  font-size: 1.15rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1;
+}
+.feedback-inline-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--teal-light);
+  transform: scale(1.15);
+}
+
+/* ===== Feedback FAB (floating, used on track picker) ===== */
 .feedback-fab {
   position: fixed;
   bottom: 20px;
