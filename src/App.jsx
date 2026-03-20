@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react'
+import { useState, useEffect, useLayoutEffect, useCallback, useRef, lazy, Suspense } from 'react'
 import { tracks } from './data/content'
 import { contentEn } from './data/content_en'
 import { ThinkOutsideBox } from './components/ThinkOutsideBox'
@@ -316,16 +316,19 @@ function App() {
   }, [chapter, page, currentPage, activeTrack])
 
   const contentAreaRef = useRef(null)
+  const pageHeaderRef = useRef(null)
 
   const scrollToTop = useCallback(() => {
-    // Desktop: .content-area is the scroll container
+    // 1. Desktop: .content-area is the scroll container (overflow-y: auto)
     if (contentAreaRef.current) {
       contentAreaRef.current.scrollTop = 0
     }
-    // Mobile: body/window is the scroll container
+    // 2. Mobile (all platforms): window/body/html scroll
     window.scrollTo(0, 0)
     document.documentElement.scrollTop = 0
     document.body.scrollTop = 0
+    // 3. Fallback: scroll the page header into view (works on all browsers)
+    pageHeaderRef.current?.scrollIntoView?.({ block: 'start', behavior: 'instant' })
   }, [])
 
   const goNext = () => {
@@ -423,15 +426,22 @@ function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [canGoNext, canGoPrev, activeTab, activeTrack])
 
-  // Persist position on every chapter/page change (ensures refresh restores correctly)
-  useEffect(() => {
+  // Persist position + scroll to top on every chapter/page change
+  useLayoutEffect(() => {
     if (activeTrack) {
       saveLastPosition(currentChapter, currentPage, activeTrack.id)
     }
+    // useLayoutEffect fires after DOM update but before paint — best time to scroll
     scrollToTop()
-    requestAnimationFrame(scrollToTop)
-    setTimeout(scrollToTop, 150)
   }, [currentChapter, currentPage, activeTrack, scrollToTop])
+
+  // Backup scroll after paint — catches iOS Safari delayed layout
+  useEffect(() => {
+    scrollToTop()
+    const t1 = setTimeout(scrollToTop, 50)
+    const t2 = setTimeout(scrollToTop, 200)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
+  }, [currentChapter, currentPage, scrollToTop])
 
   // Session time tracker — ticks every 30s, pauses when tab is hidden
   useEffect(() => {
@@ -659,7 +669,7 @@ function App() {
             >
               {t('chapter_list')}
             </button>
-            <div className="page-header">
+            <div className="page-header" ref={pageHeaderRef}>
               <span className="page-type-badge" style={getBadgeStyle(page.type)}>
                 {getPageTypeLabel(page.type, t)}
               </span>
