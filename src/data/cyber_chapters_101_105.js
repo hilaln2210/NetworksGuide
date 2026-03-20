@@ -8,19 +8,29 @@ export const chapters101to105 = [
         type: "story",
         title: "Black Friday 2013 — היום שבו Target נפרצה",
         content: `<div dir="rtl">
-<p><strong>נובמבר 2013. Black Friday.</strong></p>
-<p>אתה ה-CISO של <code>Target</code>, רשת הקמעונאות השנייה בגודלה בארה"ב. 1,800 סניפים. עשרות מיליוני לקוחות בשבוע הכי רווחי בשנה.</p>
+<div class="scenario-box scenario-hack">
+<p><strong>תרחיש:</strong> נובמבר 2013. Black Friday. אתה ה-CISO של <code>Target</code>, רשת הקמעונאות השנייה בגודלה בארה"ב. 1,800 סניפים. עשרות מיליוני לקוחות בשבוע הכי רווחי בשנה.</p>
+</div>
 
 <p>בחדר ה-<code>SOC</code> שלך בתוך הבניין הראשי במינסוטה, מערכת ה-<code>FireEye</code> שהתקנת לפני חודשיים מעלה התראה אדומה. משהו מוזר ברשת. הצוות שלך מסתכל על ההתראה ו... מתעלם ממנה.</p>
 
 <p>בדיוק באותו רגע, על עשרות אלפי מכשירי קופה (<code>POS</code>) ב-1,800 סניפים, תוכנה זדונית בשם <code>BlackPOS</code> לוכדת כל החלקת כרטיס אשראי. הנתונים נשאבים מהזיכרון — <strong>לפני</strong> שהם מוצפנים.</p>
 
-<div class="warning-box"><strong>⚠️ התוצאה:</strong> 40 מיליון כרטיסי אשראי נגנבו. 70 מיליון רשומות אישיות נחשפו. עלות ישירה: $162 מיליון. עלות כוללת: מעל מיליארד דולר. ה-CEO וה-CISO — התפטרו.</div>
+<div class="warning-box"><strong>⚠️ התוצאה:</strong></div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin:12px 0;">
+<div class="stat-highlight"><span class="stat-number">40M</span><span class="stat-unit">כרטיסי אשראי נגנבו</span></div>
+<div class="stat-highlight"><span class="stat-number">70M</span><span class="stat-unit">רשומות אישיות נחשפו</span></div>
+<div class="stat-highlight"><span class="stat-number">$1B+</span><span class="stat-unit">עלות כוללת לחברה</span></div>
+</div>
+<p>ה-CEO וה-CISO — התפטרו.</p>
 
-<p><strong>איך זה קרה?</strong></p>
-<p>חברת מיזוג אוויר קטנה — <code>Fazio Mechanical</code> — שתחזקה את מערכות ה-HVAC של Target, קיבלה גישה מרחוק לרשת. תוקפים שלחו מייל <code>phishing</code> לעובד של Fazio, גנבו את הסיסמה שלו, ונכנסו דרך פורטל הספקים.</p>
-
-<p>משם? הרשת הפנימית של Target <strong>לא הייתה מפולחת</strong>. מה שאומר שמאותו פורטל ספקים, התוקפים הגיעו ישירות למערכות הקופה.</p>
+<p><strong>איך זה קרה? — שרשרת התקיפה:</strong></p>
+<div class="attack-chain">
+<div class="attack-step"><div class="attack-step-content"><strong>Reconnaissance</strong><p>התוקפים מזהים ש-Target עובדת עם <code>Fazio Mechanical</code> — חברת HVAC קטנה עם גישה מרחוק לרשת.</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong>Initial Access</strong><p>מייל <code>phishing</code> לעובד של Fazio. גניבת סיסמה. כניסה דרך פורטל הספקים.</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong>Lateral Movement</strong><p>הרשת הפנימית של Target <strong>לא הייתה מפולחת</strong>. מפורטל הספקים — ישירות למערכות הקופה.</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong>Exfiltration</strong><p>תוכנת <code>BlackPOS</code> על עשרות אלפי קופות. כל החלקת כרטיס נלכדת מהזיכרון.</p></div></div>
+</div>
 
 <div class="key-point"><strong>💡 נקודת מפתח:</strong> הסיפור הזה הוא הדוגמה המושלמת לכשל ב-CIA Triad: פגיעה ב-<code>Confidentiality</code> (נתוני כרטיסים נגנבו), ב-<code>Integrity</code> (הותקנה תוכנה זדונית על הקופות), וב-<code>Availability</code> (הפעולות העסקיות נפגעו). כל שלושת העמודים קרסו בבת אחת.</div>
 </div>`
@@ -55,6 +65,12 @@ export const chapters101to105 = [
 
 <div class="key-point"><strong>💡 כלל הזהב:</strong> כשאתה שומע על פריצה או תקרית אבטחה — תשאל תמיד: <em>"איזה עמוד של CIA נפגע?"</em> — זה הבסיס לכל חשיבה אבטחתית.</div>
 
+<div class="mini-cards">
+<div class="mini-card"><div class="mini-card-icon">🔒</div><div class="mini-card-title">Confidentiality</div><div class="mini-card-desc">סודיות — רק מורשים רואים את המידע. הגנות: הצפנה, ACL, MFA, DLP</div></div>
+<div class="mini-card"><div class="mini-card-icon">🛡️</div><div class="mini-card-title">Integrity</div><div class="mini-card-desc">שלמות — המידע לא שונה ללא הרשאה. הגנות: Hashing, Digital Signatures, Audit Logs</div></div>
+<div class="mini-card"><div class="mini-card-icon">⚡</div><div class="mini-card-title">Availability</div><div class="mini-card-desc">זמינות — המערכת עובדת ונגישה כשצריך. הגנות: Redundancy, Backups, CDN</div></div>
+</div>
+
 <p>שים לב: לפעמים יש מתח בין העקרונות. הצפנה חזקה מחזקת <code>Confidentiality</code> אבל עלולה לפגוע ב-<code>Availability</code> (ביצועים). הרשאות נוקשות מחזקות <code>Integrity</code> אבל מקשות על גישה. אבטחת מידע היא תמיד <strong>איזון</strong>.</p>
 </div>`
       },
@@ -70,31 +86,31 @@ export const chapters101to105 = [
 <div class="code-preview"><pre><code>CVE-2017-5638 — Apache Struts2 RCE
 הפגיעות הייתה ידועה חודשיים לפני שנוצלה.
 Equifax לא עדכנו.</code></pre></div>
-<p style="color:#ef4444;"><strong>תשובה: Confidentiality</strong> — מידע אישי נחשף למי שלא מורשה.</p>
+<p><span class="phase-badge phase-red">Confidentiality</span> מידע אישי נחשף למי שלא מורשה.</p>
 </div>
 
 <div style="background:#1e293b;border-radius:10px;padding:16px;margin:12px 0;">
 <p><strong>🔴 מקרה 2: NotPetya 2017</strong></p>
 <p>נוזקת <code>wiper</code> (לא באמת <code>ransomware</code>) השמידה מערכות של Maersk, Merck, FedEx. Maersk התקינה מחדש 45,000 מחשבים ו-4,000 שרתים.</p>
-<p style="color:#3b82f6;"><strong>תשובה: Availability</strong> — חברות שלמות הפסיקו לפעול במשך שבועות.</p>
+<p><span class="phase-badge phase-blue">Availability</span> חברות שלמות הפסיקו לפעול במשך שבועות.</p>
 </div>
 
 <div style="background:#1e293b;border-radius:10px;padding:16px;margin:12px 0;">
 <p><strong>🔴 מקרה 3: SolarWinds 2020</strong></p>
 <p>תוקפים (APT29, רוסיה) הזריקו <code>backdoor</code> לתוך עדכון התוכנה הרשמי של <code>SolarWinds Orion</code>. 18,000 ארגונים התקינו את העדכון הנגוע — כולל ה-Pentagon וה-Treasury.</p>
-<p style="color:#22c55e;"><strong>תשובה: Integrity</strong> — קוד רשמי שונה ע"י תוקפים. אי אפשר היה לסמוך על שלמות התוכנה.</p>
+<p><span class="phase-badge phase-green">Integrity</span> קוד רשמי שונה ע"י תוקפים. אי אפשר היה לסמוך על שלמות התוכנה.</p>
 </div>
 
 <div style="background:#1e293b;border-radius:10px;padding:16px;margin:12px 0;">
 <p><strong>🔴 מקרה 4: Colonial Pipeline 2021</strong></p>
 <p><code>Ransomware</code> (DarkSide) השבית את צינור הדלק הגדול ביותר בחוף המזרחי של ארה"ב. תחנות דלק התרוקנו. שולם כופר של $4.4M.</p>
-<p style="color:#3b82f6;"><strong>תשובה: Availability</strong> (ראשית) + <strong>Confidentiality</strong> (נגנבו 100GB של נתונים לפני ההצפנה).</p>
+<p><span class="phase-badge phase-blue">Availability</span> (ראשית) + <span class="phase-badge phase-red">Confidentiality</span> (נגנבו 100GB של נתונים לפני ההצפנה).</p>
 </div>
 
 <div style="background:#1e293b;border-radius:10px;padding:16px;margin:12px 0;">
 <p><strong>🔴 מקרה 5: Stuxnet 2010</strong></p>
 <p>תולעת שתוכנתה (ככל הנראה ע"י ארה"ב וישראל) כדי <strong>לשנות את מהירות הצנטריפוגות</strong> במתקן העשרת האורניום בנתנז, איראן — בלי שהמפעילים ידעו.</p>
-<p style="color:#22c55e;"><strong>תשובה: Integrity</strong> — הנתונים שהמפעילים ראו היו שקריים. המכונות נהרסו בזמן שהמסכים הציגו "הכל תקין".</p>
+<p><span class="phase-badge phase-green">Integrity</span> הנתונים שהמפעילים ראו היו שקריים. המכונות נהרסו בזמן שהמסכים הציגו "הכל תקין".</p>
 </div>
 
 <div class="key-point"><strong>💡 שים לב:</strong> תקריות אמיתיות כמעט תמיד פוגעות ביותר מעיקרון אחד. <code>Ransomware</code> למשל פוגע ב-<code>Availability</code> (הצפנה), ב-<code>Confidentiality</code> (גניבת נתונים), ולפעמים ב-<code>Integrity</code> (שינוי קבצים).</div>
@@ -118,6 +134,15 @@ Equifax לא עדכנו.</code></pre></div>
   <tr><td><strong>D</strong></td><td><code>Denial of Service</code></td><td>Availability</td><td><code>SYN Flood</code>, <code>Slowloris</code></td><td>"האם מישהו יכול להשבית את זה?"</td></tr>
   <tr><td><strong>E</strong></td><td><code>Elevation of Privilege</code></td><td>Authorization</td><td><code>Buffer overflow</code> → <code>root</code></td><td>"האם מישהו יכול לקבל הרשאות שלא מגיעות לו?"</td></tr>
 </table>
+
+<div class="mini-cards">
+<div class="mini-card"><div class="mini-card-icon">🎭</div><div class="mini-card-title">Spoofing</div><div class="mini-card-desc">התחזות — מישהו מתחזה למישהו אחר. נגד Authentication.</div></div>
+<div class="mini-card"><div class="mini-card-icon">🔧</div><div class="mini-card-title">Tampering</div><div class="mini-card-desc">שינוי נתונים ללא הרשאה. נגד Integrity.</div></div>
+<div class="mini-card"><div class="mini-card-icon">🙈</div><div class="mini-card-title">Repudiation</div><div class="mini-card-desc">הכחשת פעולות שבוצעו. נגד Non-repudiation.</div></div>
+<div class="mini-card"><div class="mini-card-icon">🔓</div><div class="mini-card-title">Info Disclosure</div><div class="mini-card-desc">דליפת מידע רגיש. נגד Confidentiality.</div></div>
+<div class="mini-card"><div class="mini-card-icon">💥</div><div class="mini-card-title">Denial of Service</div><div class="mini-card-desc">השבתת שירות. נגד Availability.</div></div>
+<div class="mini-card"><div class="mini-card-icon">👑</div><div class="mini-card-title">Elevation of Privilege</div><div class="mini-card-desc">קבלת הרשאות לא מורשות. נגד Authorization.</div></div>
+</div>
 
 <div class="key-point"><strong>💡 איך משתמשים בזה בפועל:</strong> ציירו דיאגרמת זרימה של המערכת. לכל קו ולכל רכיב — שאלו את 6 השאלות של STRIDE. כתבו את התשובות. מזל טוב — עשיתם <code>Threat Modeling</code>.</div>
 </div>`
@@ -158,7 +183,21 @@ Equifax לא עדכנו.</code></pre></div>
 <p><strong>שלב 4: תעדוף</strong></p>
 <p>לא כל איום שווה. משתמשים ב-<code>DREAD</code> scoring או <code>CVSS</code> כדי לתעדף.</p>
 
+<div class="attack-chain defense-chain">
+<div class="attack-step"><div class="attack-step-content"><strong>1. שרטוט DFD</strong><p>ציור Data Flow Diagram — כל הרכיבים, זרימות נתונים, ואזורי אמון</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong>2. זיהוי Trust Boundaries</strong><p>סימון כל נקודה שבה נתונים עוברים בין אזורי אמון שונים</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong>3. הרצת STRIDE</strong><p>שאילת 6 שאלות STRIDE על כל קו וכל רכיב בדיאגרמה</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong>4. תעדוף עם DREAD/CVSS</strong><p>דירוג כל איום לפי סבירות והשפעה — טיפול בקריטיים קודם</p></div></div>
+</div>
+
 <div class="key-point"><strong>💡 נקודת מפתח:</strong> <code>Threat Modeling</code> הוא ההשקעה הכי זולה באבטחה — עושים אותו <strong>לפני</strong> שכותבים קוד, לא אחרי שהמערכת בפרודקשן.</div>
+
+<div class="chapter-summary"><h4>📋 סיכום פרק 101</h4><ul>
+<li><strong>CIA Triad</strong> — שלושת העמודים: Confidentiality, Integrity, Availability</li>
+<li><strong>STRIDE</strong> — 6 סוגי איומים למיפוי סיסטמטי: Spoofing, Tampering, Repudiation, Info Disclosure, DoS, Elevation</li>
+<li><strong>Threat Modeling</strong> — תהליך מעשי: DFD → Trust Boundaries → STRIDE → תעדוף</li>
+<li>כל תקרית אבטחה ניתנת לסיווג לפי CIA — זה הבסיס לכל חשיבה אבטחתית</li>
+</ul></div>
 </div>`
       },
       {
@@ -248,6 +287,14 @@ Equifax לא עדכנו.</code></pre></div>
 
 <p>ב-2015, חוקר אבטחה ישב בלובי של כנס DEF CON והריץ <code>WiFi Pineapple</code> — מכשיר בגודל ראוטר שיוצר רשת WiFi מזויפת. תוך שעה, 300 מכשירים התחברו אליו אוטומטית. הוא לא פרץ אף אחד — <strong>הם התחברו אליו מרצון</strong>.</p>
 
+<div class="incident-timeline">
+<div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">14:25</div><div class="timeline-desc">התוקף מתיישב בבית הקפה, מתחבר ל-WiFi הציבורי</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">14:27</div><div class="timeline-desc">מפעיל <code>arpspoof</code> — כל התעבורה עוברת דרכו</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">14:30</div><div class="timeline-desc">הקורבן מתחבר לבנק ב-HTTP — סיסמה נלכדת</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">14:32</div><div class="timeline-desc">Cookie של Slack נגנב — גישה לחשבון עבודה</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">14:35</div><div class="timeline-desc">התוקף סוגר לפטופ ויוצא — הקורבן לא חשד בכלום</div></div>
+</div>
+
 <p>הפרק הזה עוסק בהתקפות על פרוטוקולי רשת — <code>ARP Spoofing</code>, <code>SYN Flood</code>, <code>DDoS</code>. כל אחת מנצלת חולשה מובנית בפרוטוקולים שתוכננו בשנות ה-70 ו-80, כש<strong>אף אחד לא חשב על אבטחה</strong>.</p>
 </div>`
       },
@@ -301,6 +348,11 @@ Equifax לא עדכנו.</code></pre></div>
 <li><strong>שלב 4:</strong> התוקף מפעיל <code>IP forwarding</code> כדי לא לנתק את הקורבן (אחרת ירגישו שמשהו לא בסדר)</li>
 </ol>
 
+<div class="vs-container">
+<div class="vs-card vs-good"><h4>✅ ARP רגיל</h4><p>Victim שואל: "מי הוא 192.168.1.1?"<br/>Gateway עונה בכנות עם ה-MAC האמיתי שלו.<br/>התקשורת זורמת ישירות.</p></div>
+<div class="vs-card vs-bad"><h4>❌ ARP Spoofing</h4><p>התוקף עונה: "אני 192.168.1.1!" עם ה-MAC שלו.<br/>Victim מעדכן טבלה — כל התעבורה עוברת דרך התוקף.<br/>MITM מלא.</p></div>
+</div>
+
 <div class="key-point"><strong>💡 נקודת מפתח:</strong> התוקף לא "פרץ" שום דבר. הוא פשוט ניצל את העובדה שפרוטוקול ARP מאמין לכל תשובה ללא אימות. זו חולשה <strong>by design</strong>.</div>
 </div>`
       },
@@ -310,6 +362,23 @@ Equifax לא עדכנו.</code></pre></div>
         content: `<div dir="rtl">
 <p><strong>הנה איך התקפת MITM נראית מצד התוקף.</strong></p>
 <div class="demo-note">⚠️ הדגמה למטרות לימודיות בלבד. ביצוע על רשת ללא הרשאה הוא עבירה פלילית.</div>
+
+<div class="tool-card">
+<div class="tool-card-icon">🔍</div>
+<div class="tool-card-body"><strong>Nmap</strong><p>סורק רשתות — מגלה מכשירים, ports פתוחים, גרסאות שירותים, ומערכות הפעלה.</p></div>
+</div>
+<div class="tool-card">
+<div class="tool-card-icon">☠️</div>
+<div class="tool-card-body"><strong>arpspoof</strong><p>כלי מ-dsniff suite — שולח ARP replies מזויפים כדי להפנות תעבורה דרך התוקף.</p></div>
+</div>
+<div class="tool-card">
+<div class="tool-card-icon">🐙</div>
+<div class="tool-card-body"><strong>Bettercap</strong><p>Swiss army knife למתקפות רשת — ARP spoofing, sniffing, DNS spoofing, HTTP proxy ועוד.</p></div>
+</div>
+<div class="tool-card">
+<div class="tool-card-icon">🦈</div>
+<div class="tool-card-body"><strong>Wireshark</strong><p>מנתח פרוטוקולים — לכידה וניתוח ויזואלי של כל packet ברשת.</p></div>
+</div>
 
 <p><strong>שלב 1: סריקת הרשת — מי כאן?</strong></p>
 <div class="code-preview"><pre><code># גילוי כל המכשירים ברשת המקומית
@@ -371,9 +440,7 @@ $ sudo bettercap -iface wlan0
         type: "explanation",
         title: "SYN Flood — כשלחיצת יד הורסת שרת",
         content: `<div dir="rtl">
-<p><strong>האנלוגיה:</strong> דמיין מסעדה עם 100 שולחנות. מישהו מתקשר 100 פעמים ומזמין שולחן בשם שונה כל פעם. ואז לא מגיע. כל השולחנות שמורים — ואף לקוח אמיתי לא יכול לשבת.</p>
-
-<p>זה בדיוק מה ש-<code>SYN Flood</code> עושה ל-TCP.</p>
+<div class="info-box"><strong>ℹ️ האנלוגיה:</strong> דמיין מסעדה עם 100 שולחנות. מישהו מתקשר 100 פעמים ומזמין שולחן בשם שונה כל פעם. ואז לא מגיע. כל השולחנות שמורים — ואף לקוח אמיתי לא יכול לשבת. זה בדיוק מה ש-<code>SYN Flood</code> עושה ל-TCP.</div>
 
 <p><strong>תזכורת — TCP Three-Way Handshake:</strong></p>
 <div class="code-preview"><pre><code>  Client              Server
@@ -401,7 +468,7 @@ $ sudo bettercap -iface wlan0
 <p><strong>למה זה עובד?</strong></p>
 <ul>
 <li>השרת <strong>חייב</strong> להקצות זיכרון (<code>TCB</code>) לכל <code>SYN</code> — זה חלק מהפרוטוקול</li>
-<li>ה-timeout לכל half-open connection הוא <strong>60 שניות</strong> בברירת מחדל</li>
+<li>ה-timeout לכל half-open connection הוא <strong>60 שניות</strong> בברירת מחדל <div class="stat-highlight" style="display:inline-flex;margin:4px 8px;"><span class="stat-number">60s</span><span class="stat-unit">timeout ברירת מחדל</span></div></li>
 <li>התוקף משתמש ב-<code>IP spoofing</code> — אז ה-<code>SYN-ACK</code> נשלח למישהו שלא ביקש</li>
 <li>היחס: תוקף שולח MB, שרת סופג GB של state</li>
 </ul>
@@ -420,12 +487,19 @@ $ sudo bettercap -iface wlan0
 <p>לשים את זה בפרופורציה: 3.47 Tbps זה בערך כל תעבורת האינטרנט של ישראל כולה, מרוכזת על שרת אחד.</p>
 
 <p><strong>המספרים מדהימים:</strong></p>
-<ul>
-<li><strong>3.47 Tbps</strong> — שיא עולמי שלא נשבר עד היום</li>
-<li><strong>340 מיליון packets/sec</strong></li>
-<li><strong>10,000 מקורות</strong> ב-10 מדינות — ארה"ב, סין, דרום קוריאה, רוסיה, איראן ועוד</li>
-<li><strong>15 דקות</strong> — משך המתקפה</li>
-</ul>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin:12px 0;">
+<div class="stat-highlight"><span class="stat-number">3.47 Tbps</span><span class="stat-unit">שיא עולמי — bandwidth</span></div>
+<div class="stat-highlight"><span class="stat-number">340M</span><span class="stat-unit">packets לשנייה</span></div>
+<div class="stat-highlight"><span class="stat-number">10,000</span><span class="stat-unit">מקורות ב-10 מדינות</span></div>
+<div class="stat-highlight"><span class="stat-number">15 דקות</span><span class="stat-unit">משך המתקפה</span></div>
+</div>
+
+<div class="incident-timeline">
+<div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">09:15 UTC</div><div class="timeline-desc">גרף התעבורה מזנק — מהנדסת רשת בכירה מזהה אנומליה</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">09:15:03</div><div class="timeline-desc">3.47 Tbps של UDP reflection ממוקדים בלקוח אחד באסיה</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-green"></div><div class="timeline-time">09:15:08</div><div class="timeline-desc">Azure DDoS Protection מזהה ומתחיל סינון אוטומטי ב-60+ scrubbing centers</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-green"></div><div class="timeline-time">09:30</div><div class="timeline-desc">המתקפה נגמרת — הלקוח כמעט לא הרגיש</div></div>
+</div>
 
 <p><strong>הטכניקה: UDP Reflection + Amplification</strong></p>
 <p>התוקפים לא שלחו 3.47 Tbps בעצמם — זה בלתי אפשרי. הם ניצלו <code>amplification</code>:</p>
@@ -510,7 +584,26 @@ server {
 <li><code>VPN</code> — אפילו ב-WiFi ציבורי, VPN מצפין הכל. התוקף רואה רק gibberish</li>
 </ul>
 
+<div class="success-box"><strong>✅ SYN Cookies:</strong> במקום לשמור state בזיכרון, מקודד את המידע ב-ISN. רק ACK אמיתי מקצה משאבים.</div>
+<div class="success-box"><strong>✅ Rate Limiting:</strong> הגבלת קצב SYN חדשים ל-IP — מונע הצפה ממקור בודד.</div>
+<div class="success-box"><strong>✅ CDN/Anycast:</strong> מפזר תעבורה על מאות שרתים בעולם — DDoS נספג בשכבת הקצה.</div>
+<div class="success-box"><strong>✅ DAI + 802.1X:</strong> מאמת ARP replies מול DHCP snooping — מונע ARP Spoofing ברשת מנוהלת.</div>
+
+<div class="attack-chain defense-chain">
+<div class="attack-step"><div class="attack-step-content"><strong>שכבה 1: Network Edge</strong><p>CDN + Anycast + DDoS Protection (Cloudflare, AWS Shield)</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong>שכבה 2: Network Perimeter</strong><p>SYN Cookies + Rate Limiting + iptables rules</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong>שכבה 3: Local Network</strong><p>DAI + 802.1X + VPN + Static ARP entries</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong>שכבה 4: Monitoring</strong><p>SIEM alerts + traffic analysis + anomaly detection</p></div></div>
+</div>
+
 <div class="key-point"><strong>💡 סיכום:</strong> ההגנה הטובה ביותר היא <strong>שכבות</strong> — SYN Cookies + Rate Limiting + CDN + Monitoring. אין פתרון קסם אחד.</div>
+
+<div class="chapter-summary"><h4>📋 סיכום פרק 102</h4><ul>
+<li><strong>ARP Spoofing</strong> — ניצול חוסר אימות בפרוטוקול ARP ל-MITM. הגנה: DAI, 802.1X, VPN</li>
+<li><strong>SYN Flood</strong> — הצפת שרת ב-half-open connections. הגנה: SYN Cookies, Rate Limiting</li>
+<li><strong>DDoS</strong> — Amplification attacks שמגיעים ל-Terabits. הגנה: CDN/Anycast (Cloudflare, AWS Shield)</li>
+<li>הגנה בשכבות היא המפתח — אין פתרון יחיד שעוצר הכל</li>
+</ul></div>
 </div>`
       },
       {
@@ -552,6 +645,10 @@ server {
         type: "story",
         title: "הנער שפרץ לבנק — סיפור אמיתי",
         content: `<div dir="rtl">
+<div class="scenario-box scenario-hack">
+<p><strong>תרחיש:</strong> 2015, מדינה באירופה. נער בן 17 עם Burp Suite ושאלה סקרנית — האם אתר הבנק באמת מאובטח?</p>
+</div>
+
 <p><strong>2015, מדינה באירופה. נער בן 17.</strong></p>
 
 <p>הוא לא האקר מנוסה. הוא סתם תלמיד שמשחק עם <code>Burp Suite</code> שהוריד אתמול. הוא גולש באתר של הבנק המקומי שלו — לא כדי לפרוץ, סתם סקרנות.</p>
@@ -637,6 +734,11 @@ PreparedStatement ps = conn.prepareStatement(
 ps.setString(1, email);
 ps.setString(2, hashedPassword);</code></pre></div>
 
+<div class="vs-container">
+<div class="vs-card vs-bad"><h4>❌ קוד פגיע</h4><p><code>const query = "SELECT * FROM users WHERE email='" + email + "'";</code><br/>קלט משתמש מוזרק ישירות ל-SQL — מאפשר SQL Injection.</p></div>
+<div class="vs-card vs-good"><h4>✅ Parameterized Query</h4><p><code>db.query("SELECT * FROM users WHERE email = $1", [email]);</code><br/>הקלט מופרד מהשאילתא — אי אפשר להזריק קוד.</p></div>
+</div>
+
 <div class="key-point"><strong>💡 עיקרון:</strong> <strong>לעולם</strong> אל תשלב קלט משתמש ישירות ב-SQL. השתמש ב-<code>Parameterized Queries</code> או <code>ORM</code>. זו ההגנה היחידה האמיתית.</div>
 </div>`
       },
@@ -644,6 +746,11 @@ ps.setString(2, hashedPassword);</code></pre></div>
         type: "explanation",
         title: "SQLi — כלים אוטומטיים והגנה מעמיקה",
         content: `<div dir="rtl">
+<div class="tool-card">
+<div class="tool-card-icon">🗡️</div>
+<div class="tool-card-body"><strong>sqlmap</strong><p>כלי אוטומטי לזיהוי וניצול SQL Injection. תומך ב-MySQL, PostgreSQL, MSSQL, Oracle ועוד. יכול לשלוף מסדי נתונים שלמים.</p></div>
+</div>
+
 <p><strong><code>sqlmap</code> — כלי שהופך SQL Injection לאוטומטי</strong></p>
 <div class="code-preview"><pre><code># סריקה בסיסית — בודק אם URL פגיע
 $ sqlmap -u "https://target.com/search?q=test" --batch
@@ -674,6 +781,8 @@ $ sqlmap -u "..." -D production_db -T users --dump</code></pre></div>
   <tr><td>5. Monitoring</td><td><code>Query logging</code> + alerts</td><td>מזהה ניסיונות בזמן אמת</td></tr>
 </table>
 
+<div class="success-box"><strong>✅ הגנה מספר 1:</strong> השתמש תמיד ב-<code>Parameterized Queries</code> או <code>ORM</code>. זה מונע את ההזרקה ברמת השפה — לא משנה מה התוקף מנסה.</div>
+
 <div class="warning-box"><strong>⚠️ טעות נפוצה:</strong> הרבה מפתחים חושבים ש-<code>escaping</code> (החלפת ' ב-\') מספיק. זה <strong>לא מספיק</strong>. יש עשרות דרכים לעקוף escaping. <code>Parameterized Queries</code> הוא הפתרון היחיד המהימן.</div>
 </div>`
       },
@@ -682,6 +791,8 @@ $ sqlmap -u "..." -D production_db -T users --dump</code></pre></div>
         title: "XSS — כשהדפדפן הוא הנשק",
         content: `<div dir="rtl">
 <p><strong>XSS — Cross-Site Scripting: הזרקת JavaScript לדפדפן של הקורבן.</strong></p>
+
+<p>שלושה סוגים: <span class="phase-badge phase-red">Reflected XSS</span> <span class="phase-badge phase-gold">Stored XSS</span> <span class="phase-badge phase-blue">DOM-Based XSS</span></p>
 
 <p><strong>Reflected XSS — חוזר ב-URL:</strong></p>
 <div class="code-preview"><pre><code>// אתר עם שדה חיפוש שמציג את מה שחיפשת:
@@ -739,6 +850,11 @@ Set-Cookie: session=abc123; HttpOnly; Secure
 
 // 4. React/Vue/Angular — auto-escape by default
 // ← אבל אם תשתמש ב-dangerouslySetInnerHTML...💀</code></pre></div>
+
+<div class="vs-container">
+<div class="vs-card vs-bad"><h4>❌ XSS פגיע</h4><p><code>document.getElementById('out').innerHTML = userInput;</code><br/>קלט משתמש מוזרק ישירות ל-DOM ללא סינון.</p></div>
+<div class="vs-card vs-good"><h4>✅ Escaped Output</h4><p><code>document.getElementById('out').textContent = userInput;</code><br/><code>textContent</code> מציג טקסט בלבד — לא מריץ HTML/JS.</p></div>
+</div>
 </div>`
       },
       {
@@ -746,6 +862,13 @@ Set-Cookie: session=abc123; HttpOnly; Secure
         title: "CSRF — העברה בנקאית שלא ביצעת",
         content: `<div dir="rtl">
 <p><strong>התרחיש:</strong> אתה מחובר לאתר הבנק שלך. בטאב אחר, אתה גולש באתר תמים (או כך חשבת).</p>
+
+<div class="attack-chain">
+<div class="attack-step"><div class="attack-step-content"><strong>1. הקורבן מחובר לבנק</strong><p>Cookie של session שמור בדפדפן — תקף ופעיל</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong>2. גולש לאתר זדוני</strong><p>האתר מכיל <code>&lt;img&gt;</code> או <code>&lt;form&gt;</code> מוסתר שפונה לבנק</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong>3. הדפדפן שולח Cookie</strong><p>הבקשה לבנק כוללת את ה-Cookie אוטומטית — הבנק חושב שזה הלקוח</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong>4. הפעולה מתבצעת</strong><p>העברה בנקאית, שינוי סיסמה — כל פעולה שהקורבן מורשה לעשות</p></div></div>
+</div>
 
 <p>באותו אתר "תמים", מוסתר הקוד הבא:</p>
 <div class="code-preview"><pre><code><!-- הדף של התוקף — נראה לגמרי רגיל -->
@@ -858,6 +981,26 @@ Set-Cookie: session=abc123; HttpOnly; Secure
 <p style="margin:4px 0;font-size:0.85em;color:#94a3b8;">דוגמה: Capital One 2019 — SSRF חשף AWS metadata → 100M רשומות.</p>
 </div>
 
+<div class="mini-cards">
+<div class="mini-card"><div class="mini-card-icon">🥇</div><div class="mini-card-title">A01 Broken Access</div><div class="mini-card-desc">IDOR, missing authz — 94% מהאפליקציות פגיעות</div></div>
+<div class="mini-card"><div class="mini-card-icon">🔐</div><div class="mini-card-title">A02 Crypto Failures</div><div class="mini-card-desc">הצפנה חלשה, HTTP, סיסמאות plaintext</div></div>
+<div class="mini-card"><div class="mini-card-icon">💉</div><div class="mini-card-title">A03 Injection</div><div class="mini-card-desc">SQLi, NoSQLi, OS Command, LDAP</div></div>
+<div class="mini-card"><div class="mini-card-icon">📐</div><div class="mini-card-title">A04 Insecure Design</div><div class="mini-card-desc">בעיות עיצוב שאף קוד לא יתקן</div></div>
+<div class="mini-card"><div class="mini-card-icon">⚙️</div><div class="mini-card-title">A05 Misconfiguration</div><div class="mini-card-desc">Default passwords, S3 פתוח, DEBUG=True</div></div>
+<div class="mini-card"><div class="mini-card-icon">📦</div><div class="mini-card-title">A06 Vulnerable Components</div><div class="mini-card-desc">ספריות עם CVEs — Log4Shell</div></div>
+<div class="mini-card"><div class="mini-card-icon">🔑</div><div class="mini-card-title">A07 Auth Failures</div><div class="mini-card-desc">JWT none, session fixation, brute force</div></div>
+<div class="mini-card"><div class="mini-card-icon">🔗</div><div class="mini-card-title">A08 Software Integrity</div><div class="mini-card-desc">Supply chain — SolarWinds backdoor</div></div>
+<div class="mini-card"><div class="mini-card-icon">📋</div><div class="mini-card-title">A09 Logging Failures</div><div class="mini-card-desc">בלי logs = לא יודעים שנפרצנו</div></div>
+<div class="mini-card"><div class="mini-card-icon">🌐</div><div class="mini-card-title">A10 SSRF</div><div class="mini-card-desc">השרת פונה ל-URL של התוקף — Capital One 2019</div></div>
+</div>
+
+<div class="chapter-summary"><h4>📋 סיכום פרק 103</h4><ul>
+<li><strong>SQL Injection</strong> — הזרקת SQL דרך קלט משתמש. הגנה: Parameterized Queries בלבד</li>
+<li><strong>XSS</strong> — הזרקת JavaScript לדפדפן. 3 סוגים: Reflected, Stored, DOM-Based. הגנה: Escaping + CSP</li>
+<li><strong>CSRF</strong> — ניצול cookies אוטומטיים לבקשות cross-site. הגנה: CSRF Token + SameSite</li>
+<li><strong>OWASP Top 10</strong> — #1 Broken Access Control (94% פגיעים), #3 Injection ירד בזכות frameworks</li>
+</ul></div>
+
 </div>
 </div>`
       },
@@ -954,6 +1097,13 @@ Set-Cookie: session=abc123; HttpOnly; Secure
 <p><strong>יום 5-8: Lateral Movement</strong></p>
 <p><code>BloodHound</code> ממפה את ה-<code>Active Directory</code>. <code>Service Account</code> עם הרשאות מוגזמות. <code>Pass-the-Hash</code> ← <code>Domain Controller</code>. שליטה מלאה.</p>
 
+<div class="incident-timeline">
+<div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">ימים 1-3</div><div class="timeline-desc"><span class="phase-badge phase-gold">Recon</span> איסוף מודיעין — LinkedIn, GitHub credentials, Shodan מוצא Citrix CVE</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">יום 4</div><div class="timeline-desc"><span class="phase-badge phase-red">Initial Access</span> Phishing מותאם ל-IT Manager — Cobalt Strike beacon מותקן</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">ימים 5-8</div><div class="timeline-desc"><span class="phase-badge phase-red">Lateral Movement</span> BloodHound ממפה AD, Pass-the-Hash ל-Domain Controller</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-green"></div><div class="timeline-time">ימים 9-14</div><div class="timeline-desc"><span class="phase-badge phase-blue">Reporting</span> דוח מפורט עם ממצאים, screenshots, ותוכנית תיקון</div></div>
+</div>
+
 <div class="key-point"><strong>💡 הלקח:</strong> הבנק שילם $500K על firewalls. הכניסה הייתה דרך מייל phishing ומידע מ-LinkedIn. טכנולוגיה לבדה לא מגנה על טעויות אנוש.</div>
 </div>`
       },
@@ -989,26 +1139,26 @@ Set-Cookie: session=abc123; HttpOnly; Secure
 </svg>
 </div>
 
-<p><strong>שלב 1 — Reconnaissance (סיור)</strong></p>
+<p><strong>שלב 1 — <span class="phase-badge phase-gold">Reconnaissance</span> (סיור)</strong></p>
 <p>אוספים מידע <strong>בלי לגעת במטרה</strong>. שני סוגים:</p>
 <ul>
 <li><strong>פסיבי:</strong> <code>WHOIS</code>, <code>Google Dorking</code>, <code>LinkedIn</code>, <code>Shodan</code>, GitHub repos, DNS records</li>
 <li><strong>אקטיבי:</strong> <code>DNS enumeration</code>, <code>subdomain brute-force</code> — כבר "נוגעים" ברשת</li>
 </ul>
 
-<p><strong>שלב 2 — Scanning (סריקה)</strong></p>
+<p><strong>שלב 2 — <span class="phase-badge phase-blue">Scanning</span> (סריקה)</strong></p>
 <p>מזהים שירותים, גרסאות, חולשות ידועות (<code>CVEs</code>).</p>
 <p>כלים: <code>Nmap</code>, <code>Nessus</code>, <code>Nuclei</code>, <code>Masscan</code></p>
 
-<p><strong>שלב 3 — Exploitation (ניצול)</strong></p>
+<p><strong>שלב 3 — <span class="phase-badge phase-red">Exploitation</span> (ניצול)</strong></p>
 <p>מנצלים חולשה שנמצאה כדי לקבל גישה ראשונית (<code>foothold</code>).</p>
 <p>כלים: <code>Metasploit</code>, <code>Burp Suite</code>, <code>SQLmap</code>, כתיבת exploits ידנית</p>
 
-<p><strong>שלב 4 — Post-Exploitation (העמקה)</strong></p>
+<p><strong>שלב 4 — <span class="phase-badge phase-red">Post-Exploitation</span> (העמקה)</strong></p>
 <p><code>Privilege Escalation</code> → <code>Lateral Movement</code> → גישה לנכסים קריטיים</p>
 <p>כלים: <code>Mimikatz</code>, <code>BloodHound</code>, <code>Cobalt Strike</code>, <code>Rubeus</code></p>
 
-<p><strong>שלב 5 — Reporting (דוח)</strong></p>
+<p><strong>שלב 5 — <span class="phase-badge phase-green">Reporting</span> (דוח)</strong></p>
 <p>הדוח הוא המוצר. Pentest ללא דוח טוב = בזבוז כסף.</p>
 </div>`
       },
@@ -1017,6 +1167,23 @@ Set-Cookie: session=abc123; HttpOnly; Secure
         title: "Recon בפעולה — nmap, whois, subfinder",
         content: `<div dir="rtl">
 <p><strong>בואו נראה את שלב ה-Recon בפועל.</strong></p>
+
+<div class="tool-card">
+<div class="tool-card-icon">🌐</div>
+<div class="tool-card-body"><strong>WHOIS</strong><p>שאילתת רישום דומיין — חושף בעלים, registrar, name servers, תאריכי רישום.</p></div>
+</div>
+<div class="tool-card">
+<div class="tool-card-icon">🔎</div>
+<div class="tool-card-body"><strong>subfinder</strong><p>כלי גילוי subdomains פסיבי — מחפש ב-Certificate Transparency, DNS, ומנועי חיפוש.</p></div>
+</div>
+<div class="tool-card">
+<div class="tool-card-icon">🔍</div>
+<div class="tool-card-body"><strong>Nmap</strong><p>סורק ports ושירותים — מזהה גרסאות, מערכות הפעלה, CVEs ידועות.</p></div>
+</div>
+<div class="tool-card">
+<div class="tool-card-icon">🔦</div>
+<div class="tool-card-body"><strong>Google Dorking</strong><p>שימוש באופרטורים מתקדמים של Google לגילוי קבצים רגישים, דפי admin, ו-credentials חשופים.</p></div>
+</div>
 
 <p><strong>1. WHOIS — מי הבעלים?</strong></p>
 <div class="code-preview"><pre><code>$ whois target-bank.com
@@ -1079,6 +1246,15 @@ site:target-bank.com intitle:"index of"
         title: "Exploitation — Metasploit ו-Shell",
         content: `<div dir="rtl">
 <p><strong>מצאנו חולשה. עכשיו — ניצול.</strong></p>
+
+<div class="tool-card">
+<div class="tool-card-icon">💣</div>
+<div class="tool-card-body"><strong>Metasploit Framework</strong><p>פלטפורמת exploitation מובילה — 2,400+ exploits, payloads, auxiliary modules. הסטנדרט בתעשיית ה-pentesting.</p></div>
+</div>
+<div class="tool-card">
+<div class="tool-card-icon">🐚</div>
+<div class="tool-card-body"><strong>Meterpreter</strong><p>Payload מתקדם של Metasploit — shell אינטראקטיבי בזיכרון בלבד. תומך בהעלאת קבצים, screenshots, pivoting, ועוד.</p></div>
+</div>
 
 <p><strong>Metasploit — Framework ל-Exploitation</strong></p>
 <div class="code-preview"><pre><code># הפעלת Metasploit Console
@@ -1169,11 +1345,11 @@ SMB  10.10.0.1  [+] BANK\\svc_backup:P@ssw0rd2023!
 </table>
 
 <p><strong>סוגי מבדקים:</strong></p>
-<ul>
-<li><strong><code>White Box</code>:</strong> מקבלים הכל — קוד מקור, תשתית, credentials. בדיקה יסודית אבל לא מדמה תוקף אמיתי.</li>
-<li><strong><code>Black Box</code>:</strong> לא מקבלים שום מידע. מדמה תוקף אמיתי. יקר ואיטי.</li>
-<li><strong><code>Gray Box</code>:</strong> מקבלים מידע חלקי. האיזון הכי נפוץ.</li>
-</ul>
+<div class="vs-container">
+<div class="vs-card vs-good"><h4>📋 White Box</h4><p>מקבלים הכל — קוד מקור, תשתית, credentials. בדיקה יסודית אבל לא מדמה תוקף אמיתי.</p></div>
+<div class="vs-card vs-bad"><h4>🕶️ Black Box</h4><p>לא מקבלים שום מידע. מדמה תוקף אמיתי. יקר ואיטי — הבודק מתחיל מאפס.</p></div>
+</div>
+<div class="info-box"><strong>ℹ️ Gray Box:</strong> מקבלים מידע חלקי (ארכיטקטורה, credentials חלקיים). <strong>האיזון הכי נפוץ</strong> — משלב יסודיות עם סימולציה ריאלית.</div>
 
 <p><strong>הסמכות מקצועיות:</strong></p>
 <ul>
@@ -1183,7 +1359,7 @@ SMB  10.10.0.1  [+] BANK\\svc_backup:P@ssw0rd2023!
 <li><code>PNPT</code> (TCM Security) — חדש, מעשי, עלות נמוכה יותר</li>
 </ul>
 
-<div class="warning-box"><strong>⚠️ חוקיות:</strong> Pentesting ללא הרשאה = עבירה פלילית. בישראל: חוק המחשבים, 1995. בארה"ב: CFAA. אפילו סריקת <code>Nmap</code> ללא אישור יכולה להיחשב עבירה.</div>
+<div class="info-box"><strong>ℹ️ חוקיות:</strong> Pentesting ללא הרשאה = עבירה פלילית. בישראל: חוק המחשבים, 1995. בארה"ב: CFAA. אפילו סריקת <code>Nmap</code> ללא אישור יכולה להיחשב עבירה. <strong>תמיד קבל הרשאה כתובה לפני שמתחילים.</strong></div>
 </div>`
       },
       {
@@ -1226,7 +1402,23 @@ SMB  10.10.0.1  [+] BANK\\svc_backup:P@ssw0rd2023!
 <li><strong>ארוך טווח (1-3 חודשים):</strong> PAM solution, phishing training, SOC setup</li>
 </ul>
 
+<div class="mini-cards">
+<div class="mini-card"><div class="mini-card-icon">📊</div><div class="mini-card-title">Executive Summary</div><div class="mini-card-desc">חצי עמוד ל-CEO — שורה תחתונה, סיכון עסקי, ללא טכנולוגיה</div></div>
+<div class="mini-card"><div class="mini-card-icon">🔍</div><div class="mini-card-title">Technical Findings</div><div class="mini-card-desc">כל ממצא: Title, Severity, Evidence, Remediation</div></div>
+<div class="mini-card"><div class="mini-card-icon">📖</div><div class="mini-card-title">Attack Narrative</div><div class="mini-card-desc">סיפור כרונולוגי — איך פרצנו, שלב אחר שלב</div></div>
+<div class="mini-card"><div class="mini-card-icon">🛠️</div><div class="mini-card-title">Remediation Roadmap</div><div class="mini-card-desc">תוכנית תיקון: מיידי, קצר טווח, ארוך טווח</div></div>
+</div>
+
+<div class="success-box"><strong>✅ טיפ לדוח מוצלח:</strong> כתוב סיפור, לא רשימת CVEs. הנהלה מבינה "נכנסנו דרך phishing תוך 4 ימים" — לא "CVE-2023-3519 CVSS 9.8". תמיד כלול screenshots ו-timestamps.</div>
+
 <div class="key-point"><strong>💡 עצת זהב:</strong> דוח טוב מספר סיפור. לא רשימת CVEs — סיפור של "איך פרצנו". הנהלה מבינה סיפורים. הנהלה לא מבינה CVSS scores.</div>
+
+<div class="chapter-summary"><h4>📋 סיכום פרק 104</h4><ul>
+<li><strong>5 שלבי Pentest:</strong> Recon → Scanning → Exploitation → Post-Exploitation → Reporting</li>
+<li><strong>Rules of Engagement</strong> — חוזה חובה: Scope, Out of Scope, Emergency Stop, Data Handling</li>
+<li><strong>סוגי מבדקים:</strong> White Box (מלא), Black Box (עיוור), Gray Box (חלקי — הנפוץ ביותר)</li>
+<li><strong>הדוח הוא המוצר</strong> — Executive Summary + Technical Findings + Attack Narrative + Remediation</li>
+</ul></div>
 </div>`
       },
       {
@@ -1268,6 +1460,10 @@ SMB  10.10.0.1  [+] BANK\\svc_backup:P@ssw0rd2023!
         type: "story",
         title: "3 בלילה — Alert שמשנה הכל",
         content: `<div dir="rtl">
+<div class="scenario-box scenario-alert">
+<p><strong>תרחיש:</strong> 03:17 AM. אנליסטית SOC במשמרת לילה רואה 2,147 שאילתות LDAP בדקה מתחנה של עובד שנמצא בחופשה בתאילנד. זה לא false positive.</p>
+</div>
+
 <p><strong>03:17 AM. מרכז ה-SOC של חברת ביטוח בהרצליה.</strong></p>
 
 <p>שרון, אנליסטית <code>SOC</code> L2 במשמרת לילה, מביטה במסך עם כוס קפה שכבר התקררה. רוב הלילה היה שקט. התראות שגרתיות — <code>false positives</code>, סריקות פורטים אוטומטיות, ניסיונות <code>brute force</code> על VPN שנחסמו אוטומטית.</p>
@@ -1301,6 +1497,14 @@ First seen: 03:12:04 UTC</code></pre></div>
 
 <p><strong>Investigation (השעות הבאות):</strong></p>
 <p>הנוזקה הותקנה <strong>3 שבועות קודם</strong> דרך מייל <code>phishing</code> עם מסמך Word שהכיל <code>macro</code>. במשך 3 שבועות, התוקף ביצע <code>LDAP enumeration</code> בקצב נמוך שלא הפעיל alerts. הלילה — הוא הגביר קצב, כנראה בהכנה ל-<code>Lateral Movement</code> ל-<code>Domain Controller</code>.</p>
+
+<div class="incident-timeline">
+<div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">03:12</div><div class="timeline-desc">LDAP enumeration מתחיל — 2,147 שאילתות בדקה מ-WS-0342</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">03:17</div><div class="timeline-desc">Alert ב-Splunk — שרון מזהה חריגה ומתחילה Triage</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">03:20</div><div class="timeline-desc">בדיקה: העובד בחופשה, IP מקור = C2 server ידוע (APT28)</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-green"></div><div class="timeline-time">03:27</div><div class="timeline-desc">Containment: ניתוק WS-0342, נעילת חשבון, forensic image</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-green"></div><div class="timeline-time">03:35</div><div class="timeline-desc">הודעה ל-CISO ומנהל SOC — צוות IR מופעל</div></div>
+</div>
 
 <div class="key-point"><strong>💡 מה הציל את הארגון:</strong> חוק <code>SIEM</code> פשוט שמונה שאילתות LDAP חריגות. ה-<code>Detection</code> תפס את מה שה-<code>Prevention</code> (אנטי-וירוס, firewall) פספס. שרון תפסה את זה כי היא ידעה מה "נורמלי" — ו-2,147 שאילתות LDAP בדקה זה לא נורמלי.</div>
 </div>`
@@ -1351,6 +1555,14 @@ First seen: 03:12:04 UTC</code></pre></div>
   <tr><td><code>MFA</code></td><td>גניבת credentials</td><td>גם אם הסיסמה נגנבה — צריך גם את הטלפון</td></tr>
 </table>
 
+<div class="mini-cards">
+<div class="mini-card"><div class="mini-card-icon">🏢</div><div class="mini-card-title">Physical</div><div class="mini-card-desc">שומרים, מצלמות, מנעולים, בקרת כניסה לחדרי שרתים</div></div>
+<div class="mini-card"><div class="mini-card-icon">🌐</div><div class="mini-card-title">Network</div><div class="mini-card-desc">Firewall, IDS/IPS, VLANs, Micro-segmentation</div></div>
+<div class="mini-card"><div class="mini-card-icon">💻</div><div class="mini-card-title">Endpoint</div><div class="mini-card-desc">EDR, Antivirus, Host Firewall, Disk Encryption</div></div>
+<div class="mini-card"><div class="mini-card-icon">🛡️</div><div class="mini-card-title">Application</div><div class="mini-card-desc">WAF, Input Validation, CSP, Secure Coding</div></div>
+<div class="mini-card"><div class="mini-card-icon">🔐</div><div class="mini-card-title">Data</div><div class="mini-card-desc">Encryption at rest/transit, DLP, Backup, IAM + MFA</div></div>
+</div>
+
 <div class="key-point"><strong>💡 כלל האצבע:</strong> אם שכבת הגנה אחת עוצרת 90% מהתקיפות, שתי שכבות עוצרות 99%, שלוש עוצרות 99.9%. כל שכבה מוסיפה סדר גודל של הגנה.</div>
 </div>`
       },
@@ -1360,6 +1572,18 @@ First seen: 03:12:04 UTC</code></pre></div>
         content: `<div dir="rtl">
 <p><strong>ה-SOC (Security Operations Center) הוא חדר המלחמה של ה-Blue Team.</strong></p>
 <p>עובד 24/7/365. כל Alert עובר שרשרת של אנליסטים, כל אחד ברמת מומחיות אחרת.</p>
+
+<div class="mini-cards">
+<div class="mini-card"><div class="mini-card-icon">🟢</div><div class="mini-card-title">L1 — Triage</div><div class="mini-card-desc">מסנן false positives, עובד לפי playbooks, מעביר חשוד ל-L2</div></div>
+<div class="mini-card"><div class="mini-card-icon">🟡</div><div class="mini-card-title">L2 — Incident Handler</div><div class="mini-card-desc">חקירה מעמיקה, root cause analysis, containment ראשוני</div></div>
+<div class="mini-card"><div class="mini-card-icon">🔴</div><div class="mini-card-title">L3 — Threat Hunter</div><div class="mini-card-desc">ציד פרואקטיבי, Incident Response lead, forensics מעמיק</div></div>
+</div>
+
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin:12px 0;">
+<div class="stat-highlight"><span class="stat-number">11,000+</span><span class="stat-unit">alerts ליום ב-SOC ממוצע</span></div>
+<div class="stat-highlight"><span class="stat-number">277</span><span class="stat-unit">ימים — MTTD ממוצע (IBM 2023)</span></div>
+<div class="stat-highlight"><span class="stat-number">45-70%</span><span class="stat-unit">False Positive Rate</span></div>
+</div>
 
 <p><strong>L1 — Triage Analyst (מסנן)</strong></p>
 <ul>
@@ -1406,6 +1630,15 @@ First seen: 03:12:04 UTC</code></pre></div>
         content: `<div dir="rtl">
 <p><strong>ה-SIEM הוא ה"מוח" של ה-SOC. בואו נראה איך הוא נראה בפועל.</strong></p>
 
+<div class="tool-card">
+<div class="tool-card-icon">🔮</div>
+<div class="tool-card-body"><strong>Splunk</strong><p>SIEM מוביל — שפת SPL לחיפוש בלוגים, dashboards, alerts אוטומטיים. מנהל petabytes של data.</p></div>
+</div>
+<div class="tool-card">
+<div class="tool-card-icon">🦌</div>
+<div class="tool-card-body"><strong>Elastic/ELK Stack</strong><p>Elasticsearch + Logstash + Kibana. קוד פתוח, KQL לחיפוש. פופולרי ב-SOCs שרוצים גמישות ועלות נמוכה.</p></div>
+</div>
+
 <p><strong>Splunk — SPL (Search Processing Language)</strong></p>
 <div class="code-preview"><pre><code># חיפוש Lateral Movement — התחברויות חריגות
 index=windows EventCode=4624 LogonType=3
@@ -1447,6 +1680,8 @@ event.category: "process" AND
   process.name: "svchost.exe" AND
   process.parent.name: NOT ("services.exe")</code></pre></div>
 
+<div class="info-box"><strong>ℹ️ SIGMA Rules:</strong> שפה אוניברסלית ל-detection rules שמתרגמת אוטומטית ל-Splunk SPL, ELK KQL, QRadar AQL ועוד. כתוב פעם אחת — פרוס בכל SIEM.</div>
+
 <p><strong>SIGMA Rules — Detection-as-Code</strong></p>
 <div class="code-preview"><pre><code># SIGMA — שפה אוניברסלית ל-detection rules
 # מתרגמת אוטומטית ל-Splunk, ELK, QRadar...
@@ -1477,7 +1712,14 @@ tags:
 <p><strong><code>NIST SP 800-61</code> — המדריך הסטנדרטי ל-Incident Response.</strong></p>
 <p>4 שלבים, בלופ אינסופי:</p>
 
-<p><strong>1. Preparation — הכנה (לפני שקורה משהו)</strong></p>
+<div class="attack-chain defense-chain">
+<div class="attack-step"><div class="attack-step-content"><strong><span class="phase-badge phase-blue">Preparation</span></strong><p>IR Plan, Playbooks, צוות מאומן, כלים מוכנים</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong><span class="phase-badge phase-gold">Detection & Analysis</span></strong><p>זיהוי, Triage, Scoping, תיעוד כל evidence</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong><span class="phase-badge phase-red">Containment & Eradication</span></strong><p>עצירת הדימום, הסרת הגורם, שחזור מערכות</p></div></div>
+<div class="attack-step"><div class="attack-step-content"><strong><span class="phase-badge phase-green">Lessons Learned</span></strong><p>Post-mortem, עדכון playbooks, הדרכת צוות</p></div></div>
+</div>
+
+<p><strong>1. <span class="phase-badge phase-blue">Preparation</span> — הכנה (לפני שקורה משהו)</strong></p>
 <ul>
 <li><code>IR Plan</code> מתועד ומאושר ע"י הנהלה</li>
 <li><code>Playbooks</code> — נהלי טיפול לכל סוג אירוע (ransomware, phishing, data breach)</li>
@@ -1486,7 +1728,7 @@ tags:
 <li><strong>תרגולים!</strong> — <code>Tabletop exercises</code> רבעוניים</li>
 </ul>
 
-<p><strong>2. Detection & Analysis — זיהוי וניתוח</strong></p>
+<p><strong>2. <span class="phase-badge phase-gold">Detection & Analysis</span> — זיהוי וניתוח</strong></p>
 <ul>
 <li>Alert מגיע מ-SIEM / EDR / user report</li>
 <li><code>Triage</code>: האם זה אמיתי? מה החומרה?</li>
@@ -1494,7 +1736,7 @@ tags:
 <li>תיעוד: כל פעולה, כל timestamp, כל evidence</li>
 </ul>
 
-<p><strong>3. Containment, Eradication, Recovery</strong></p>
+<p><strong>3. <span class="phase-badge phase-red">Containment, Eradication, Recovery</span></strong></p>
 <table class="content-table">
   <tr><th>צעד</th><th>מה</th><th>דוגמה</th></tr>
   <tr><td><code>Short-term Containment</code></td><td>עצור את הדימום</td><td>נתק מכשיר מהרשת, חסום IP</td></tr>
@@ -1503,7 +1745,7 @@ tags:
   <tr><td><code>Recovery</code></td><td>חזור לפעולה</td><td>שחזר מ-backup, monitor closely</td></tr>
 </table>
 
-<p><strong>4. Lessons Learned — לקחים</strong></p>
+<p><strong>4. <span class="phase-badge phase-green">Lessons Learned</span> — לקחים</strong></p>
 <ul>
 <li><code>Post-mortem</code> meeting תוך 72 שעות</li>
 <li>שאלות: מה קרה? מתי גילינו? מה עבד? מה לא?</li>
@@ -1523,6 +1765,21 @@ tags:
 <p>אחרי שניתקה את WS-0342 והשלימה את ה-<code>forensic image</code>, שרון ישבה עם צוות ה-IR לחקירה מעמיקה. התמונה שהתגלתה הייתה מדאיגה.</p>
 
 <p><strong>Timeline של המתקפה:</strong></p>
+
+<div class="incident-timeline">
+<div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">יום 1</div><div class="timeline-desc">Phishing email נפתח — Cobalt Strike beacon מותקן בזיכרון (fileless)</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">ימים 2-14</div><div class="timeline-desc">Low & slow — beacon sleeps 4 שעות, 3-5 LDAP queries ליום (מתחת ל-threshold)</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">ימים 15-20</div><div class="timeline-desc">מיפוי AD עם BloodHound — זיהוי נתיב ל-Domain Admin</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">יום 21 (03:12)</div><div class="timeline-desc">התוקף מגביר קצב — 2,147 LDAP queries בדקה</div></div>
+<div class="timeline-event"><div class="timeline-dot dot-green"></div><div class="timeline-time">יום 21 (03:17)</div><div class="timeline-desc">SIEM Alert — שרון תופסת ומבצעת containment</div></div>
+</div>
+
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin:12px 0;">
+<div class="stat-highlight"><span class="stat-number">21 ימים</span><span class="stat-unit">dwell time (זמן שהייה)</span></div>
+<div class="stat-highlight"><span class="stat-number">5 דקות</span><span class="stat-unit">מ-Alert ל-Containment</span></div>
+<div class="stat-highlight"><span class="stat-number">0</span><span class="stat-unit">נתוני לקוחות שנגנבו</span></div>
+</div>
+
 <div class="code-preview"><pre><code>יום 1 (לפני 3 שבועות):
 09:14 — david.levy פתח מייל: "Invoice_Q4_2025.docx"
 09:14 — Word macro ← PowerShell ← Cobalt Strike beacon
@@ -1563,6 +1820,14 @@ tags:
 </ul>
 
 <div class="key-point"><strong>💡 הנקודה:</strong> ה-CISO של חברת הביטוח אמר במפגש הלקחים: "שילמנו מיליונים על firewalls ו-EDR. מה שהציל אותנו זו אנליסטית SOC ב-3 בלילה שידעה ש-2,000 שאילתות LDAP בדקה זה לא נורמלי." הטכנולוגיה חשובה — אבל <strong>אנשים</strong> עושים את ההבדל.</div>
+
+<div class="chapter-summary"><h4>📋 סיכום פרק 105</h4><ul>
+<li><strong>Defense in Depth</strong> — 7 שכבות הגנה, כל אחת בהנחה שהקודמת נפרצה</li>
+<li><strong>SOC</strong> — L1 (Triage) → L2 (Investigation) → L3 (Threat Hunting). 24/7/365</li>
+<li><strong>SIEM</strong> — Splunk/ELK לזיהוי anomalies. SIGMA rules כשפה אוניברסלית</li>
+<li><strong>NIST IR</strong> — 4 שלבים: Preparation → Detection → Containment → Lessons Learned</li>
+<li><strong>APT</strong> — תוקפים סבלניים (שבועות/חודשים). Detection + אנשים מיומנים = ההגנה האמיתית</li>
+</ul></div>
 </div>`
       },
       {
