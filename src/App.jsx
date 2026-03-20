@@ -570,6 +570,12 @@ function App() {
                   {gender === 'female' ? '👩' : '👨'}
                 </button>
               )}
+              <button className="font-size-btn" onClick={() => cycleFontSize(-1)} disabled={fontSize === 'small'} title={t('font_size')}>
+                A-
+              </button>
+              <button className="font-size-btn" onClick={() => cycleFontSize(1)} disabled={fontSize === 'large'} title={t('font_size')}>
+                A+
+              </button>
               <button className="dark-mode-btn" onClick={() => setDarkMode(d => !d)} title={darkMode ? 'Light mode' : 'Dark mode'}>
                 {darkMode ? '☀️' : '🌙'}
               </button>
@@ -731,7 +737,7 @@ function App() {
             </div>
           </nav>
 
-          <main className="content-area" ref={contentAreaRef}>
+          <main className="content-area" ref={contentAreaRef} onScroll={handleContentScroll}>
             <button
               className="mobile-menu-back-btn"
               onClick={() => setMobileShowContent(false)}

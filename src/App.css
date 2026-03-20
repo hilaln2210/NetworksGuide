@@ -2244,3 +2244,44 @@ html {
 .bookmarks-title { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; cursor: pointer; }
 .bookmark-item { font-size: 0.78rem; padding: 4px 8px; border-radius: 6px; cursor: pointer; color: var(--text); display: block; width: 100%; text-align: start; background: none; border: none; font-family: inherit; }
 .bookmark-item:hover { background: var(--accent-soft); }
+
+/* ===== FONT SIZE CONTROLS ===== */
+.app.font-small .content-body { font-size: 0.9rem; }
+.app.font-normal .content-body { font-size: 1rem; }
+.app.font-large .content-body { font-size: 1.15rem; }
+.app.font-large .content-body h3 { font-size: 1.3rem; }
+.app.font-large .content-body h4 { font-size: 1.15rem; }
+
+.font-size-btn {
+  background: none;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm, 8px);
+  color: var(--text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+  line-height: 1;
+}
+.font-size-btn:hover:not(:disabled) {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+.font-size-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ===== READING PROGRESS BAR ===== */
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #06b6d4, #0284c7);
+  z-index: 9999;
+  transition: width 0.15s ease-out;
+  border-radius: 0 2px 2px 0;
+}
