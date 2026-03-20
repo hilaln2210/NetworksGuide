@@ -207,6 +207,27 @@ function App() {
   const [showShortcuts, setShowShortcuts] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
 
+  // ── Visitor notification (once per browser) ──────────────────────────────
+  useEffect(() => {
+    const TG_TOKEN = import.meta.env.VITE_TG_TOKEN
+    const TG_CHAT  = import.meta.env.VITE_TG_CHAT
+    if (!TG_TOKEN || !TG_CHAT) return
+    try {
+      const key = 'ng_visitor_notified'
+      if (localStorage.getItem(key)) return
+      localStorage.setItem(key, '1')
+      const now = new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', hour12: false })
+      const lang = navigator.language || ''
+      const ua   = navigator.userAgent.slice(0, 80)
+      const msg  = `👀 <b>מישהו נכנס ל-NetworksGuide</b>\n🕐 ${now}\n🌐 שפה: ${lang}\n📱 ${ua}`
+      fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: TG_CHAT, text: msg, parse_mode: 'HTML' }),
+      }).catch(() => {})
+    } catch {}
+  }, [])
+
   const FONT_SIZES = ['small', 'normal', 'large']
   const cycleFontSize = (dir) => {
     const idx = FONT_SIZES.indexOf(fontSize)
