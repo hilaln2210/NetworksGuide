@@ -229,9 +229,17 @@ function App() {
     scrollToTop()
   }
 
-  // Apply dark mode to document
+  // Apply dark mode to document — iOS Safari needs color-scheme + background on html
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+    const root = document.documentElement
+    root.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+    root.style.colorScheme = darkMode ? 'dark' : 'light'
+    root.style.background = darkMode ? '#0f172a' : ''
+    document.body.style.background = darkMode ? '#0f172a' : ''
+    // iOS meta theme-color
+    let meta = document.querySelector('meta[name="theme-color"]')
+    if (!meta) { meta = document.createElement('meta'); meta.name = 'theme-color'; document.head.appendChild(meta) }
+    meta.content = darkMode ? '#0f172a' : '#f0f9ff'
     try { localStorage.setItem('ng_dark_mode', darkMode ? '1' : '0') } catch {}
   }, [darkMode])
 
