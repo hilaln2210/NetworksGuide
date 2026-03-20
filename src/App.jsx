@@ -5,13 +5,17 @@ import { ThinkOutsideBox } from './components/ThinkOutsideBox'
 import { KeyTip } from './components/KeyTip'
 import { FeedbackButton } from './components/FeedbackButton'
 import { AdminHighlight } from './components/AdminHighlight'
+import { ShortcutsModal } from './components/ShortcutsModal'
 
 // Lazy-loaded heavy components
 const Quiz = lazy(() => import('./components/Quiz').then(m => ({ default: m.Quiz })))
 const TroubleshootingTab = lazy(() => import('./components/TroubleshootingTab').then(m => ({ default: m.TroubleshootingTab })))
 const CreditsTab = lazy(() => import('./components/CreditsTab').then(m => ({ default: m.CreditsTab })))
+const SearchBar = lazy(() => import('./components/SearchBar').then(m => ({ default: m.SearchBar })))
 
 // Lazy-loaded simulations
+const Confetti = lazy(() => import('./components/Confetti').then(m => ({ default: m.Confetti })))
+
 const TCPHandshakeSim = lazy(() => import('./components/TCPHandshakeSim').then(m => ({ default: m.TCPHandshakeSim })))
 const EncapsulationSim = lazy(() => import('./components/EncapsulationSim').then(m => ({ default: m.EncapsulationSim })))
 const DnsLookupSim = lazy(() => import('./components/DnsLookupSim').then(m => ({ default: m.DnsLookupSim })))
@@ -195,7 +199,30 @@ function App() {
   const [bookmarks, setBookmarks] = useState(() => {
     try { return JSON.parse(localStorage.getItem('ng_bookmarks') || '[]') } catch { return [] }
   })
+  const [showConfetti, setShowConfetti] = useState(false)
   const [bookmarksOpen, setBookmarksOpen] = useState(true)
+  const [fontSize, setFontSize] = useState(() => {
+    try { return localStorage.getItem('ng_font_size') || 'normal' } catch { return 'normal' }
+  })
+  const [showShortcuts, setShowShortcuts] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
+
+  const FONT_SIZES = ['small', 'normal', 'large']
+  const cycleFontSize = (dir) => {
+    const idx = FONT_SIZES.indexOf(fontSize)
+    const next = FONT_SIZES[Math.max(0, Math.min(FONT_SIZES.length - 1, idx + dir))]
+    setFontSize(next)
+    try { localStorage.setItem('ng_font_size', next) } catch {}
+  }
+
+  const handleContentScroll = useCallback((e) => {
+    const el = e.target
+    const scrollTop = el.scrollTop
+    const scrollHeight = el.scrollHeight - el.clientHeight
+    if (scrollHeight > 0) {
+      setScrollProgress(Math.round((scrollTop / scrollHeight) * 100))
+    }
+  }, [])
 
   const saveBookmarks = (bms) => {
     setBookmarks(bms)
@@ -312,6 +339,11 @@ function App() {
       setXp(result.after)
       setXpFloat(`+${XP_PAGE_READ} XP`)
       setTimeout(() => setXpFloat(null), 1200)
+      // Check if entire chapter is now complete
+      if (getChapterProgress(compositeId, chapter.pages.length) === 100) {
+        setShowConfetti(true)
+        setTimeout(() => setShowConfetti(false), 3500)
+      }
     }
   }, [chapter, page, currentPage, activeTrack])
 
@@ -418,6 +450,10 @@ function App() {
   useEffect(() => {
     const onKey = (e) => {
       if (e.target.closest('input, textarea')) return
+      // Global shortcuts (work on any tab)
+      if (e.key === '?') { setShowShortcuts(s => !s); return }
+      if (e.key === 'd' || e.key === 'D') { setDarkMode(d => !d); return }
+      // Learn-tab only shortcuts
       if (activeTab !== 'learn' || !activeTrack) return
       if (e.key === 'ArrowLeft' && canGoNext) goNextRef.current()
       if (e.key === 'ArrowRight' && canGoPrev) goPrevRef.current()
@@ -472,8 +508,18 @@ function App() {
   if (!chapter || !page) return null
 
   return (
-    <div className="app" dir={isEn ? 'ltr' : 'rtl'}>
+    <div className={`app font-${fontSize}`} dir={isEn ? 'ltr' : 'rtl'}>
       {!gender && <GenderPicker onSelect={handleGenderSelect} />}
+
+      {/* ===== READING PROGRESS BAR ===== */}
+      {activeTab === 'learn' && scrollProgress > 0 && (
+        <div className="reading-progress-bar" style={{ width: `${scrollProgress}%` }} />
+      )}
+
+      {/* ===== KEYBOARD SHORTCUTS MODAL ===== */}
+      {showShortcuts && (
+        <ShortcutsModal onClose={() => setShowShortcuts(false)} lang={lang} t={t} />
+      )}
 
       {/* ===== HEADER ===== */}
       <header className={`header${headerCollapsed ? ' header--collapsed' : ''}`}>
@@ -562,6 +608,26 @@ function App() {
               <div className={`daily-goal-fill${goalMet ? ' goal-met' : ''}`} style={{ width: `${goalPct}%` }} />
             </div>
           </div>
+
+          {/* Content search */}
+          <Suspense fallback={null}>
+            <SearchBar
+              tracks={tracks}
+              lang={lang}
+              t={t}
+              onGoToResult={(trackId, chapterIdx, pageIdx) => {
+                const track = tracks.find(tr => tr.id === trackId)
+                if (!track) return
+                if (activeTrack?.id !== track.id) setActiveTrack(track)
+                setCurrentChapter(chapterIdx)
+                setCurrentPage(pageIdx)
+                saveLastPosition(chapterIdx, pageIdx, trackId)
+                setMobileShowContent(true)
+                setActiveTab('learn')
+                scrollToTop()
+              }}
+            />
+          </Suspense>
         </div>
 
         {/* Tab navigation */}
@@ -587,6 +653,9 @@ function App() {
           {levelUp.emoji} {t('level_up')} {getLevelName(levelUp, gender, lang)}
         </div>
       )}
+
+      {/* ===== CONFETTI — chapter complete ===== */}
+      {showConfetti && <Suspense fallback={null}><Confetti /></Suspense>}
 
       {/* ===== RESET MODAL ===== */}
       {showResetModal && (

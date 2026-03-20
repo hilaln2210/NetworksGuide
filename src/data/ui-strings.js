@@ -191,4 +191,19 @@ export const uiStrings = {
   // ===== Bookmarks =====
   bookmarks: { he: 'סימניות', en: 'Bookmarks' },
   no_bookmarks: { he: 'אין סימניות', en: 'No bookmarks yet' },
+
+  // ===== Font Size =====
+  font_size: { he: 'גודל טקסט', en: 'Font size' },
+
+  // ===== Keyboard Shortcuts =====
+  shortcuts_title: { he: 'קיצורי מקלדת', en: 'Keyboard Shortcuts' },
+  shortcut_nav: { he: 'ניווט בין עמודים', en: 'Navigate pages' },
+  shortcut_search: { he: 'חיפוש', en: 'Search' },
+  shortcut_shortcuts: { he: 'קיצורים', en: 'Shortcuts' },
+  shortcut_dark: { he: 'מצב כהה/בהיר', en: 'Toggle dark mode' },
+
+  // ===== Search =====
+  search_placeholder: { he: 'חיפוש בכל התוכן...', en: 'Search all content...' },
+  search_no_results: { he: 'לא נמצאו תוצאות', en: 'No results found' },
+  search_hint: { he: 'Ctrl+K לחיפוש', en: 'Ctrl+K to search' },
 }
