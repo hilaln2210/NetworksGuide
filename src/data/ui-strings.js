@@ -7,6 +7,7 @@ export const uiStrings = {
   tab_learn: { he: '📖 למידה', en: '📖 Learn' },
   tab_quiz: { he: '🎯 חידון', en: '🎯 Quiz' },
   tab_faq: { he: '🔧 שאלות נפוצות', en: '🔧 FAQ' },
+  tab_stats: { he: '📊 סטטיסטיקות', en: '📊 Stats' },
   tab_credits: { he: '📋 קרדיטים', en: '📋 Credits' },
 
   // ===== Gender Picker =====
@@ -163,4 +164,31 @@ export const uiStrings = {
   // ===== Misc =====
   pages_of: { he: 'מתוך', en: 'of' },
   page_word: { he: 'עמוד', en: 'Page' },
+
+  // ===== Stats Dashboard =====
+  stats_title: { he: 'לוח סטטיסטיקות', en: 'Statistics Dashboard' },
+  stats_progress_title: { he: 'התקדמות לפי מסלול', en: 'Progress by Track' },
+  stats_chapters_done: { he: 'פרקים הושלמו', en: 'chapters completed' },
+  stats_pages_read: { he: 'עמודים נקראו', en: 'pages read' },
+  stats_quiz_title: { he: 'ביצועי חידון', en: 'Quiz Performance' },
+  stats_avg_score: { he: 'ציון ממוצע', en: 'Average Score' },
+  stats_total_correct: { he: 'תשובות נכונות', en: 'Correct Answers' },
+  stats_best_topic: { he: 'נושא חזק', en: 'Best Topic' },
+  stats_worst_topic: { he: 'נושא לשיפור', en: 'Needs Work' },
+  stats_no_quizzes: { he: 'עדיין לא נעשו חידונים', en: 'No quizzes taken yet' },
+  stats_time_title: { he: 'זמן למידה', en: 'Learning Time' },
+  stats_today: { he: 'היום', en: 'Today' },
+  stats_total_pages: { he: 'סה"כ עמודים', en: 'Total Pages' },
+  stats_pace: { he: 'קצב', en: 'Pace' },
+  stats_pages_per_day: { he: 'עמודים/יום', en: 'pages/day' },
+  stats_streak_title: { he: 'רצף למידה', en: 'Learning Streak' },
+  stats_current_streak: { he: 'רצף נוכחי', en: 'Current Streak' },
+  stats_days: { he: 'ימים', en: 'days' },
+  stats_level_title: { he: 'רמה והתקדמות', en: 'Level & Progress' },
+  stats_xp_to_next: { he: 'XP לרמה הבאה', en: 'XP to next level' },
+  stats_max_level: { he: 'רמה מקסימלית!', en: 'Max level reached!' },
+
+  // ===== Bookmarks =====
+  bookmarks: { he: 'סימניות', en: 'Bookmarks' },
+  no_bookmarks: { he: 'אין סימניות', en: 'No bookmarks yet' },
 }

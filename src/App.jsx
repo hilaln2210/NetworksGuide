@@ -1,35 +1,40 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react'
 import { tracks } from './data/content'
 import { contentEn } from './data/content_en'
-import { TCPHandshakeSim } from './components/TCPHandshakeSim'
-import { EncapsulationSim } from './components/EncapsulationSim'
-import { DnsLookupSim } from './components/DnsLookupSim'
-import { PacketFlowSim } from './components/PacketFlowSim'
-import { SubnetCalcSim } from './components/SubnetCalcSim'
-import { TLSHandshakeSim } from './components/TLSHandshakeSim'
-import { DHCPSim } from './components/DHCPSim'
-import { ARPSim } from './components/ARPSim'
-import { FirewallSim } from './components/FirewallSim'
-import { HTTPRequestSim } from './components/HTTPRequestSim'
-import { PingSim } from './components/PingSim'
 import { ThinkOutsideBox } from './components/ThinkOutsideBox'
 import { KeyTip } from './components/KeyTip'
-import { Quiz } from './components/Quiz'
-import { TroubleshootingTab } from './components/TroubleshootingTab'
-import { CreditsTab } from './components/CreditsTab'
 import { FeedbackButton } from './components/FeedbackButton'
 import { AdminHighlight } from './components/AdminHighlight'
-import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName, resetXP } from './utils/xp'
-import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll, getTodayMinutes, addSessionMinutes, formatMinutes, getCompletedChapters, getTotalQuizCorrect, getLearningPace } from './utils/progress'
+
+// Lazy-loaded heavy components
+const Quiz = lazy(() => import('./components/Quiz').then(m => ({ default: m.Quiz })))
+const TroubleshootingTab = lazy(() => import('./components/TroubleshootingTab').then(m => ({ default: m.TroubleshootingTab })))
+const CreditsTab = lazy(() => import('./components/CreditsTab').then(m => ({ default: m.CreditsTab })))
+
+// Lazy-loaded simulations
+const TCPHandshakeSim = lazy(() => import('./components/TCPHandshakeSim').then(m => ({ default: m.TCPHandshakeSim })))
+const EncapsulationSim = lazy(() => import('./components/EncapsulationSim').then(m => ({ default: m.EncapsulationSim })))
+const DnsLookupSim = lazy(() => import('./components/DnsLookupSim').then(m => ({ default: m.DnsLookupSim })))
+const PacketFlowSim = lazy(() => import('./components/PacketFlowSim').then(m => ({ default: m.PacketFlowSim })))
+const SubnetCalcSim = lazy(() => import('./components/SubnetCalcSim').then(m => ({ default: m.SubnetCalcSim })))
+const TLSHandshakeSim = lazy(() => import('./components/TLSHandshakeSim').then(m => ({ default: m.TLSHandshakeSim })))
+const DHCPSim = lazy(() => import('./components/DHCPSim').then(m => ({ default: m.DHCPSim })))
+const ARPSim = lazy(() => import('./components/ARPSim').then(m => ({ default: m.ARPSim })))
+const FirewallSim = lazy(() => import('./components/FirewallSim').then(m => ({ default: m.FirewallSim })))
+const HTTPRequestSim = lazy(() => import('./components/HTTPRequestSim').then(m => ({ default: m.HTTPRequestSim })))
+const PingSim = lazy(() => import('./components/PingSim').then(m => ({ default: m.PingSim })))
+import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName, resetXP, LEVELS } from './utils/xp'
+import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll, getTodayMinutes, addSessionMinutes, formatMinutes, getCompletedChapters, getTotalQuizCorrect, getLearningPace, getReadPages, getQuizScore } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
 import { processHtmlBidi, renderBidiText } from './utils/bidi.jsx'
 import { useLang } from './utils/language.jsx'
 import './App.css'
 
-const TAB_KEYS = ['learn', 'quiz', 'bugs', 'credits']
+const TAB_KEYS = ['learn', 'quiz', 'stats', 'bugs', 'credits']
 const TAB_I18N = {
   learn: 'tab_learn',
   quiz: 'tab_quiz',
+  stats: 'tab_stats',
   bugs: 'tab_faq',
   credits: 'tab_credits',
 }
@@ -184,6 +189,51 @@ function App() {
   const [headerCollapsed, setHeaderCollapsed] = useState(() => {
     try { return localStorage.getItem('ng_header_collapsed') === '1' } catch { return false }
   })
+  const [darkMode, setDarkMode] = useState(() => {
+    try { return localStorage.getItem('ng_dark_mode') === '1' } catch { return false }
+  })
+  const [bookmarks, setBookmarks] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('ng_bookmarks') || '[]') } catch { return [] }
+  })
+  const [bookmarksOpen, setBookmarksOpen] = useState(true)
+
+  const saveBookmarks = (bms) => {
+    setBookmarks(bms)
+    try { localStorage.setItem('ng_bookmarks', JSON.stringify(bms)) } catch {}
+  }
+
+  const toggleBookmark = (trackId, chapterId, pageIdx, title) => {
+    const exists = bookmarks.find(b => b.trackId === trackId && b.chapterId === chapterId && b.pageIdx === pageIdx)
+    if (exists) {
+      saveBookmarks(bookmarks.filter(b => !(b.trackId === trackId && b.chapterId === chapterId && b.pageIdx === pageIdx)))
+    } else {
+      saveBookmarks([...bookmarks, { trackId, chapterId, pageIdx, title, timestamp: Date.now() }])
+    }
+  }
+
+  const isBookmarked = (trackId, chapterId, pageIdx) => {
+    return bookmarks.some(b => b.trackId === trackId && b.chapterId === chapterId && b.pageIdx === pageIdx)
+  }
+
+  const goToBookmark = (bm) => {
+    const track = tracks.find(t => t.id === bm.trackId)
+    if (!track) return
+    if (activeTrack?.id !== track.id) setActiveTrack(track)
+    const chIdx = track.chapters.findIndex(c => c.id === bm.chapterId)
+    if (chIdx < 0) return
+    setCurrentChapter(chIdx)
+    setCurrentPage(bm.pageIdx)
+    saveLastPosition(chIdx, bm.pageIdx, track.id)
+    setMobileShowContent(true)
+    setActiveTab('learn')
+    scrollToTop()
+  }
+
+  // Apply dark mode to document
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+    try { localStorage.setItem('ng_dark_mode', darkMode ? '1' : '0') } catch {}
+  }, [darkMode])
 
   // Persist active tab and mobile view across refreshes
   useEffect(() => {
@@ -447,6 +497,9 @@ function App() {
                   {gender === 'female' ? '👩' : '👨'}
                 </button>
               )}
+              <button className="dark-mode-btn" onClick={() => setDarkMode(d => !d)} title={darkMode ? 'Light mode' : 'Dark mode'}>
+                {darkMode ? '☀️' : '🌙'}
+              </button>
               <button className="reset-settings-btn" onClick={() => setShowResetModal(true)} title={t('settings')}>
                 ⚙️
               </button>
@@ -557,6 +610,29 @@ function App() {
             <div className="page-nav-mini">
               {t('page_word')} {currentPage + 1} {t('page_of')} {totalPages}
             </div>
+
+            {/* Bookmarks section */}
+            <div className="bookmarks-section">
+              <div className="bookmarks-title" onClick={() => setBookmarksOpen(o => !o)}>
+                {bookmarksOpen ? '\u25BC' : '\u25B6'} {t('bookmarks')} ({bookmarks.filter(b => b.trackId === activeTrack.id).length})
+              </div>
+              {bookmarksOpen && (
+                <div className="bookmarks-list">
+                  {bookmarks.filter(b => b.trackId === activeTrack.id).length === 0 && (
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', padding: '4px 8px' }}>{t('no_bookmarks')}</div>
+                  )}
+                  {bookmarks
+                    .filter(b => b.trackId === activeTrack.id)
+                    .sort((a, b) => a.timestamp - b.timestamp)
+                    .map((bm, i) => (
+                      <button key={i} className="bookmark-item" onClick={() => goToBookmark(bm)}>
+                        {'\u2B50'} {bm.title}
+                      </button>
+                    ))
+                  }
+                </div>
+              )}
+            </div>
           </nav>
 
           <main className="content-area" ref={contentAreaRef}>
@@ -571,6 +647,13 @@ function App() {
                 {getPageTypeLabel(page.type, t)}
               </span>
               {pageRead && <span className="page-read-badge">{t('page_read')}</span>}
+              <button
+                className={`bookmark-btn${isBookmarked(activeTrack.id, chapter.id, currentPage) ? ' bookmarked' : ''}`}
+                onClick={() => toggleBookmark(activeTrack.id, chapter.id, currentPage, pc.title)}
+                title={t('bookmarks')}
+              >
+                {isBookmarked(activeTrack.id, chapter.id, currentPage) ? '\u2B50' : '\u2606'}
+              </button>
               <h2>{pc.title}</h2>
             </div>
 
@@ -612,30 +695,214 @@ function App() {
 
       {activeTab === 'quiz' && (
         <div className="tab-content">
-          <Quiz
-            chapters={trackChapters}
-            onXPGain={handleXPGain}
-            gender={gender}
-            onGoToChapter={(chIdx) => {
-              goToChapter(chIdx)
-              setActiveTab('learn')
-            }}
-            autoStartChapterId={quizAutoStart?.chapterId}
-            autoStartKey={quizAutoStart?.ts}
-            onContextChange={setQuizContext}
-          />
+          <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
+            <Quiz
+              chapters={trackChapters}
+              onXPGain={handleXPGain}
+              gender={gender}
+              onGoToChapter={(chIdx) => {
+                goToChapter(chIdx)
+                setActiveTab('learn')
+              }}
+              autoStartChapterId={quizAutoStart?.chapterId}
+              autoStartKey={quizAutoStart?.ts}
+              onContextChange={setQuizContext}
+            />
+          </Suspense>
         </div>
       )}
 
+      {activeTab === 'stats' && (() => {
+        const allRead = getReadPages()
+        const QUIZ_KEY = 'networks_quiz_scores'
+        const quizData = (() => { try { return JSON.parse(localStorage.getItem(QUIZ_KEY) || '{}') } catch { return {} } })()
+        const quizEntries = Object.entries(quizData)
+        const avgScore = quizEntries.length > 0
+          ? Math.round(quizEntries.reduce((s, [, v]) => s + (v.total > 0 ? (v.best / v.total) * 100 : 0), 0) / quizEntries.length)
+          : 0
+        const bestTopic = quizEntries.length > 0
+          ? quizEntries.reduce((best, [k, v]) => {
+              const pct = v.total > 0 ? v.best / v.total : 0
+              return pct > best.pct ? { id: k, pct } : best
+            }, { id: '', pct: -1 })
+          : null
+        const worstTopic = quizEntries.length > 0
+          ? quizEntries.reduce((worst, [k, v]) => {
+              const pct = v.total > 0 ? v.best / v.total : 1
+              return pct < worst.pct ? { id: k, pct } : worst
+            }, { id: '', pct: 2 })
+          : null
+        const findChapterTitle = (id) => {
+          for (const track of tracks) {
+            const ch = track.chapters.find(c => String(c.id) === String(id) || `${track.id}__${c.id}` === id)
+            if (ch) return isEn ? (getEnChapterTitle(ch.id) || ch.title) : ch.title
+          }
+          return id
+        }
+
+        const cardStyle = {
+          background: 'var(--card-bg, #fff)',
+          borderRadius: '12px',
+          padding: '20px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+          border: '1px solid var(--border, #e5e7eb)',
+        }
+        const sectionTitle = {
+          fontSize: '1.1rem',
+          fontWeight: 700,
+          marginBottom: '14px',
+          color: 'var(--text, #1f2937)',
+        }
+        const barBg = {
+          background: 'var(--bg-secondary, #f3f4f6)',
+          borderRadius: '8px',
+          height: '10px',
+          overflow: 'hidden',
+          width: '100%',
+        }
+        const statNum = {
+          fontSize: '2rem',
+          fontWeight: 800,
+          color: 'var(--accent, #0891b2)',
+          lineHeight: 1,
+        }
+        const statLabel = {
+          fontSize: '0.8rem',
+          color: 'var(--text-muted, #6b7280)',
+          marginTop: '4px',
+        }
+
+        return (
+        <div className="tab-content" style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
+          <h2 style={{ textAlign: 'center', marginBottom: '24px', color: 'var(--text, #1f2937)' }}>{t('stats_title')}</h2>
+
+          <div style={{ display: 'grid', gap: '20px' }}>
+            {/* === Level Progress === */}
+            <div style={cardStyle}>
+              <div style={sectionTitle}>{t('stats_level_title')}</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '12px' }}>
+                <span style={{ fontSize: '2.5rem' }}>{level.emoji}</span>
+                <div>
+                  <div style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text, #1f2937)' }}>{levelName}</div>
+                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted, #6b7280)' }}>Level {level.level} &middot; {xp} XP</div>
+                </div>
+              </div>
+              <div style={barBg}>
+                <div style={{ height: '100%', borderRadius: '8px', background: 'linear-gradient(90deg, #06b6d4, #0891b2)', width: `${lvlProgress}%`, transition: 'width 0.5s' }} />
+              </div>
+              <div style={{ marginTop: '6px', fontSize: '0.8rem', color: 'var(--text-muted, #6b7280)', textAlign: 'center' }}>
+                {nextLevel ? `${nextLevel.min - xp} ${t('stats_xp_to_next')} (${nextLevelName})` : t('stats_max_level')}
+              </div>
+            </div>
+
+            {/* === Progress by Track === */}
+            <div style={cardStyle}>
+              <div style={sectionTitle}>{t('stats_progress_title')}</div>
+              {tracks.filter(tr => tr.chapters.length > 0).map(track => {
+                const totalPg = track.chapters.reduce((s, c) => s + c.pages.length, 0)
+                const readPg = track.chapters.reduce((s, c) => {
+                  const key = trackChapterId(track.id, c.id)
+                  return s + Object.keys(allRead[key] || {}).length
+                }, 0)
+                const pct = totalPg > 0 ? Math.round((readPg / totalPg) * 100) : 0
+                const compCh = getCompletedChapters(track.chapters, track.id)
+                return (
+                  <div key={track.id} style={{ marginBottom: '14px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                      <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>{track.icon} {trackI18n(track, 'title', t, lang)}</span>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-muted, #6b7280)' }}>{pct}% &middot; {compCh}/{track.chapters.length} {t('stats_chapters_done')}</span>
+                    </div>
+                    <div style={barBg}>
+                      <div style={{ height: '100%', borderRadius: '8px', background: track.color || '#0891b2', width: `${pct}%`, transition: 'width 0.5s' }} />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* === Quiz Performance === */}
+            <div style={cardStyle}>
+              <div style={sectionTitle}>{t('stats_quiz_title')}</div>
+              {quizEntries.length === 0 ? (
+                <div style={{ textAlign: 'center', color: 'var(--text-muted, #6b7280)', padding: '20px 0' }}>{t('stats_no_quizzes')}</div>
+              ) : (
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '16px', textAlign: 'center' }}>
+                  <div>
+                    <div style={statNum}>{avgScore}%</div>
+                    <div style={statLabel}>{t('stats_avg_score')}</div>
+                  </div>
+                  <div>
+                    <div style={statNum}>{totalQuizCorrect}</div>
+                    <div style={statLabel}>{t('stats_total_correct')}</div>
+                  </div>
+                  {bestTopic && bestTopic.id && (
+                    <div>
+                      <div style={{ ...statNum, fontSize: '1rem', marginTop: '8px' }}>{findChapterTitle(bestTopic.id)}</div>
+                      <div style={statLabel}>{t('stats_best_topic')} ({Math.round(bestTopic.pct * 100)}%)</div>
+                    </div>
+                  )}
+                  {worstTopic && worstTopic.id && quizEntries.length > 1 && (
+                    <div>
+                      <div style={{ ...statNum, fontSize: '1rem', marginTop: '8px', color: '#ef4444' }}>{findChapterTitle(worstTopic.id)}</div>
+                      <div style={statLabel}>{t('stats_worst_topic')} ({Math.round(worstTopic.pct * 100)}%)</div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* === Learning Time & Streak === */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+              <div style={cardStyle}>
+                <div style={sectionTitle}>{t('stats_time_title')}</div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={statNum} dir="ltr">{formatMinutes(todayMinutes, lang)}</div>
+                  <div style={statLabel}>{t('stats_today')}</div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '16px' }}>
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ ...statNum, fontSize: '1.3rem' }}>{getTotalRead()}</div>
+                    <div style={statLabel}>{t('stats_total_pages')}</div>
+                  </div>
+                  <div style={{ textAlign: 'center' }}>
+                    <div style={{ ...statNum, fontSize: '1.3rem' }}>{pace}</div>
+                    <div style={statLabel}>{t('stats_pages_per_day')}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div style={cardStyle}>
+                <div style={sectionTitle}>{t('stats_streak_title')}</div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ ...statNum, fontSize: '3rem' }}>{streak}</div>
+                  <div style={statLabel}>{t('stats_current_streak')} ({t('stats_days')})</div>
+                  <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center', gap: '4px' }}>
+                    {Array.from({ length: Math.min(streak, 14) }).map((_, i) => (
+                      <span key={i} style={{ fontSize: '1.2rem' }}>&#128293;</span>
+                    ))}
+                    {streak === 0 && <span style={{ color: 'var(--text-muted, #6b7280)', fontSize: '0.85rem' }}>{isEn ? 'Start learning to build your streak!' : 'התחל ללמוד כדי לבנות רצף!'}</span>}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        )
+      })()}
+
       {activeTab === 'bugs' && (
         <div className="tab-content">
-          <TroubleshootingTab />
+          <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
+            <TroubleshootingTab />
+          </Suspense>
         </div>
       )}
 
       {activeTab === 'credits' && (
         <div className="tab-content">
-          <CreditsTab />
+          <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
+            <CreditsTab />
+          </Suspense>
         </div>
       )}
 
@@ -702,7 +969,7 @@ function SimulationPage({ simId, content, t, lang }) {
   return (
     <div className="content-body">
       {content && <div dangerouslySetInnerHTML={{ __html: content }} />}
-      {SimComponent ? <SimComponent /> : <p>{t ? t('sim_unavailable') : 'Simulation not available'}</p>}
+      {SimComponent ? <Suspense fallback={<div className="loading-spinner">Loading...</div>}><SimComponent /></Suspense> : <p>{t ? t('sim_unavailable') : 'Simulation not available'}</p>}
     </div>
   )
 }
