@@ -3069,23 +3069,23 @@ export const quizBank = {
       ]
     },
         {
-      q: "\u200Fמה ההבדל בין סודיות (Confidentiality) לבין פרטיות (Privacy) באבטחת מידע?",
-      correct: "\u200Fסודיות (Confidentiality) מגנה על נתוני ארגון\nמפני גישה לא מורשית\nפרטיות (Privacy) מגנה על נתונים אישיים של אנשים",
+      q: "\u200Fבאיזו עקרון של ה-CIA Triad פגעה מתקפת NotPetya ב-2017?",
+      correct: "\u200FAvailability — זמינות\nNotPetya השמידה מערכות ומנעה גישה לשירותים",
       choices: [
-        "\u200Fסודיות (Confidentiality) מגנה על נתוני ארגון\nמפני גישה לא מורשית\nפרטיות (Privacy) מגנה על נתונים אישיים של אנשים",
-        "\u200Fהם מילים נרדפות — שניהם אותו דבר",
-        "\u200Fפרטיות (Privacy) חזקה יותר מסודיות (Confidentiality)",
-        "\u200Fסודיות מוגנת בהצפנה\nפרטיות מוגנת בסיסמאות בלבד"
+        "\u200FAvailability — זמינות\nNotPetya השמידה מערכות ומנעה גישה לשירותים",
+        "\u200FConfidentiality — סודיות\nNotPetya חשפה מידע סודי",
+        "\u200FIntegrity — שלמות\nNotPetya שינתה נתונים בלי לדעת",
+        "\u200FAuthentication — אימות\nNotPetya עקפה סיסמאות"
       ],
-      explanation: "‏‏ סודיות (Confidentiality)\n\nעיקרי:\n- מונעת חשיפת נתונים לגורמים לא מורשים\n- למשל: מסמך סודי של חברה\n- פרטיות (Privacy)\n\nטיפ:\nלמשל: עובד מורשה שמוכר נתוני לקוחות לצד שלישי",
-      explanationEn: "Confidentiality prevents unauthorized access to data (e.g., a company's classified document).\n\nMain Points:\n- Privacy is an individual's right over their personal data (per GDPR, CCPA regulations)\n- They overlap, but privacy can be violated without breaching confidentiality — e.g., an authorized employee selling customer data to a third party",
-      qEn: "What is the difference between Confidentiality and Privacy in information security?",
-      correctEn: "Confidentiality protects organization data\nfrom unauthorized access\nPrivacy protects personal data of individuals",
+      explanation: "\u200FNotPetya הוצגה כ-Ransomware אבל בפועל הייתה Wiper — השמידה מערכות לחלוטין.\n\nעיקרי:\n- פגיעה בזמינות (Availability) — שירותים הפסיקו לתפקד\n- Maersk איבדה 45,000 מחשבים ביום אחד\n\nטיפ:\nRansomware ⊂ Availability",
+      explanationEn: "NotPetya was presented as Ransomware but was actually a Wiper — it destroyed systems completely.\n\nMain Points:\n- Violated Availability — services stopped functioning\n- Maersk lost 45,000 computers in a single day\n\nTip:\nRansomware attacks fall under Availability threats",
+      qEn: "Which CIA Triad principle did the 2017 NotPetya attack primarily violate?",
+      correctEn: "Availability — NotPetya destroyed systems and prevented access to services",
       choicesEn: [
-        "Confidentiality protects organization data\nfrom unauthorized access\nPrivacy protects personal data of individuals",
-        "They are synonyms — both mean the same thing",
-        "Privacy is stronger than Confidentiality",
-        "Confidentiality is protected by encryption\nPrivacy is protected by passwords only"
+        "Availability — NotPetya destroyed systems and prevented access to services",
+        "Confidentiality — NotPetya exposed secret information",
+        "Integrity — NotPetya modified data silently",
+        "Authentication — NotPetya bypassed passwords"
       ]
     },
         {
@@ -3109,86 +3109,86 @@ export const quizBank = {
       ]
     },
         {
-      q: "\u200Fמהו שטח תקיפה (Attack Surface) ואיך מצמצמים אותו?",
-      correct: "\u200Fסך כל נקודות הכניסה האפשריות למערכת\nמצמצמים על ידי כיבוי שירותים מיותרים,\nעדכוני אבטחה ועקרון ההרשאה המינימלית",
+      q: "\u200Fבאיזו קטגוריה ב-STRIDE מסווגת מתקפת MITM (Man in the Middle)?",
+      correct: "\u200FTampering ו-Information Disclosure\nהתוקף גם שומע (Disclosure) וגם יכול לשנות (Tampering) תעבורה",
       choices: [
-        "\u200Fסך כל נקודות הכניסה האפשריות למערכת\nמצמצמים על ידי כיבוי שירותים מיותרים,\nעדכוני אבטחה ועקרון ההרשאה המינימלית",
-        "\u200Fשטח הפנים הפיזי של שרת\nמצמצמים על ידי התקנה בחדר סגור",
-        "\u200Fמספר המשתמשים עם גישה לאינטרנט",
-        "\u200Fמספר הפורטים הפתוחים\nמצמצמים על ידי חומת אש"
+        "\u200FTampering ו-Information Disclosure\nהתוקף גם שומע (Disclosure) וגם יכול לשנות (Tampering) תעבורה",
+        "\u200FSpoofing בלבד\nהתוקף רק מתחזה",
+        "\u200FDenial of Service\nהתוקף חוסם תקשורת",
+        "\u200FElevation of Privilege\nהתוקף מקבל הרשאות גבוהות"
       ],
-      explanation: "‏‏ שטח תקיפה — Attack Surface\n\nעיקרי:\n- כולל כל ממשק, נקודת גישה, שירות, משתמש ו־API\n- שתוקף יכול לנצל\n- איך מצמצמים?\n\nטיפ:\nשטח קטן יותר = פחות מקומות לתקוף",
-      explanationEn: "The Attack Surface includes every interface, access point, service, user, and API an attacker can exploit.\n\nMain Points:\n- To reduce it: disable unused services (e.g., FTP), remove unnecessary software, apply Least Privilege, patch security updates, and restrict network access with firewall rules\n- Smaller surface = fewer attack opportunities",
-      qEn: "What is Attack Surface and how do you reduce it?",
-      correctEn: "All possible entry points into a system\nReduce by disabling unused services,\nsecurity patches, and Least Privilege",
+      explanation: "\u200FMITM משלב שתי קטגוריות STRIDE:\n\nעיקרי:\n- Tampering — התוקף יכול לשנות תעבורה\n- Information Disclosure — התוקף רואה מידע שלא מיועד לו\n\nטיפ:\nחשוב על MITM כשילוב של האזנה + שינוי",
+      explanationEn: "MITM combines two STRIDE categories.\n\nMain Points:\n- Tampering — the attacker can modify traffic\n- Information Disclosure — the attacker sees information not intended for them\n\nTip:\nThink of MITM as a combination of eavesdropping + modification",
+      qEn: "Which STRIDE category does a MITM (Man in the Middle) attack fall under?",
+      correctEn: "Tampering and Information Disclosure\nThe attacker both intercepts (Disclosure) and can modify (Tampering) traffic",
       choicesEn: [
-        "All possible entry points into a system\nReduce by disabling unused services,\nsecurity patches, and Least Privilege",
-        "The physical surface area of a server\nReduce by installing in a locked room",
-        "The number of users with internet access",
-        "The number of open ports\nReduce by using a firewall"
+        "Tampering and Information Disclosure\nThe attacker both intercepts (Disclosure) and can modify (Tampering) traffic",
+        "Spoofing only\nThe attacker only impersonates",
+        "Denial of Service\nThe attacker blocks communication",
+        "Elevation of Privilege\nThe attacker gains elevated permissions"
       ]
     }
   ],
 
   102: [
     {
-      q: "‏מה ההבדל בין סריקת SYN (sS-) לבין סריקת חיבור (sT-) ב־Nmap?",
-      correct: "‏סריקת SYN שולחת רק חבילת SYN\nבלי להשלים את לחיצת היד (handshake)\nשקטה יותר ולא נרשמת ביומני האפליקציה",
+      q: "\u200Fאיך מתקפת SYN Flood מנצלת את TCP Three-Way Handshake?",
+      correct: "\u200Fשולחת מיליוני SYN עם IP מזויף\nהשרת שומר חיבורים פתוחים שלעולם לא יושלמו",
       choices: [
-        "‏סריקת SYN שולחת רק חבילת SYN\nבלי להשלים את לחיצת היד (handshake)\nשקטה יותר ולא נרשמת ביומני האפליקציה",
-        "‏סריקת SYN מהירה יותר כי משתמשת ב־UDP",
-        "‏סריקת חיבור (Connect) דורשת הרשאות root",
-        "‏אין הבדל — שניהם עושים אותו דבר"
+        "\u200Fשולחת מיליוני SYN עם IP מזויף\nהשרת שומר חיבורים פתוחים שלעולם לא יושלמו",
+        "\u200Fשולחת ACK ישירות בלי SYN\nמבלבלת את השרת",
+        "\u200Fשולחת FIN כדי לסגור חיבורים\nוכך גורמת ל-crash",
+        "\u200Fשולחת RST לכל חיבור קיים\nמנתקת משתמשים"
       ],
-      explanation: "‏‏ סריקת SYN — חצי-פתוחה\n\nעיקרי:\n- שולחת SYN, מקבלת SYN-ACK, שולחת RST\n- לא משלימה חיבור → לא נרשמת בלוגים\n- דורשת root\n\nטיפ:\nsT- לסביבות ללא root",
-      explanationEn: "SYN scan (Half-open): sends SYN, receives SYN-ACK, sends RST.\n\nMain Points:\n- Does not complete a connection, so it is not logged by the application\n- Requires root\n- Connect scan: completes a full TCP handshake — gets logged, but does not require root",
-      qEn: "What is the difference between SYN scan (-sS) and Connect scan (-sT) in Nmap?",
-      correctEn: "SYN scan sends only a SYN packet\nwithout completing the handshake\nquieter and not logged by the application",
+      explanation: "\u200FSYN Flood ממלאת את ה-backlog queue של השרת.\n\nעיקרי:\n- כל SYN גורם להקצאת זיכרון (TCB)\n- IP מזויף = ה-ACK לעולם לא מגיע\n- timeout כ-60 שניות לכל חיבור\n\nטיפ:\nאנלוגיה — הזמנת 1000 שולחנות במסעדה ולא להגיע",
+      explanationEn: "SYN Flood fills the server's backlog queue.\n\nMain Points:\n- Each SYN causes memory allocation (TCB)\n- Spoofed IP = the ACK never arrives\n- Timeout ~60 seconds per connection\n\nTip:\nAnalogy — reserving 1000 restaurant tables and never showing up",
+      qEn: "How does a SYN Flood attack exploit the TCP Three-Way Handshake?",
+      correctEn: "Sends millions of SYN packets with spoofed IPs\nThe server holds half-open connections that never complete",
       choicesEn: [
-        "SYN scan sends only a SYN packet\nwithout completing the handshake\nquieter and not logged by the application",
-        "SYN scan is faster because it uses UDP",
-        "Connect scan (-sT) requires root permissions",
-        "No difference — both do the same thing"
+        "Sends millions of SYN packets with spoofed IPs\nThe server holds half-open connections that never complete",
+        "Sends ACK directly without SYN\nConfuses the server",
+        "Sends FIN to close connections\nCausing crashes",
+        "Sends RST to all existing connections\nDisconnecting users"
       ]
     },
     {
-      q: "‏מה פקודת Nmap שסורקת כל הפורטים עם זיהוי שירות ומערכת הפעלה?",
-      correct: "‏nmap -sS -sV -O -p- target",
+      q: "\u200Fמה SYN Cookies ואיך הם מגנים מפני SYN Flood?",
+      correct: "\u200Fהשרת לא שומר מצב עד שמגיע ACK תקין\nה-cookie מקודד במספר ה-sequence",
       choices: [
-        "‏nmap -sS -sV -O -p- target",
-        "‏nmap --full-scan target",
-        "‏nmap -a -all target",
-        "‏nmap -sU -complete target"
+        "\u200Fהשרת לא שומר מצב עד שמגיע ACK תקין\nה-cookie מקודד במספר ה-sequence",
+        "\u200Fהשרת חוסם כל IP ששולח יותר מ-10 SYN\nבדומה ל-Rate Limiting",
+        "\u200Fהשרת מצפין את ה-SYN בלי לענות\nכדי למנוע זיוף",
+        "\u200Fהשרת שולח RST במקום SYN-ACK\nכדי לחסום תוקפים"
       ],
-      explanation: "‏‏ הדגלים\n\nעיקרי:\n- sS- לסריקת SYN\n- sV- לזיהוי גרסת שירות על הפורט\n- O- לזיהוי מערכת הפעלה\n\nטיפ:\nזמן ריצה: 10-30 דקות על כל הפורטים",
-      explanationEn: "The flags: -sS for SYN scan.\n\nMain Points:\n- -sV for service version detection (what runs on the port)\n- -O for OS detection\n- -p- for all 65,535 ports (not just the top 1,000)",
-      qEn: "What Nmap command scans all ports with service and OS detection?",
-      correctEn: "nmap -sS -sV -O -p- target",
+      explanation: "\u200FSYN Cookies = פתרון אלגנטי לבעיית ה-state.\n\nעיקרי:\n- במקום לשמור TCB בזיכרון, מקודדים את המצב בתוך ה-sequence number\n- רק אם מגיע ACK תקין — נפתח חיבור אמיתי\n- אפס צריכת זיכרון לחיבורים מזויפים\n\nטיפ:\nזה כמו מסעדה שלא שומרת שולחן עד שהלקוח באמת מגיע",
+      explanationEn: "SYN Cookies = an elegant solution to the state problem.\n\nMain Points:\n- Instead of storing a TCB in memory, the state is encoded in the sequence number\n- Only if a valid ACK arrives — a real connection is opened\n- Zero memory consumption for spoofed connections\n\nTip:\nLike a restaurant that doesn't reserve a table until the customer actually arrives",
+      qEn: "What are SYN Cookies and how do they defend against SYN Flood?",
+      correctEn: "The server doesn't store state until a valid ACK arrives\nThe cookie is encoded in the sequence number",
       choicesEn: [
-        "nmap -sS -sV -O -p- target",
-        "nmap --full-scan target",
-        "nmap -a -all target",
-        "nmap -sU -complete target"
+        "The server doesn't store state until a valid ACK arrives\nThe cookie is encoded in the sequence number",
+        "The server blocks any IP sending more than 10 SYNs\nSimilar to Rate Limiting",
+        "The server encrypts the SYN without responding\nTo prevent spoofing",
+        "The server sends RST instead of SYN-ACK\nTo block attackers"
       ]
     },
     {
-      q: "‏מה הסימן הראשון לפורט פתוח (open port) בפלט Nmap?",
-      correct: "‏מצב פתוח (STATE: open) — הפורט מחזיר SYN-ACK לבקשת SYN",
+      q: "\u200Fמהי מתקפת DNS Amplification ולמה היא כל כך יעילה?",
+      correct: "\u200Fבקשת DNS קטנה (40 bytes) מייצרת תגובה גדולה (3000 bytes)\nתוקף שולח בקשות עם IP מזויף של הקורבן",
       choices: [
-        "‏מצב פתוח (STATE: open) — הפורט מחזיר SYN-ACK לבקשת SYN",
-        "‏STATE: active",
-        "‏RESPONSE: 200 OK",
-        "‏PORT: listening"
+        "\u200Fבקשת DNS קטנה (40 bytes) מייצרת תגובה גדולה (3000 bytes)\nתוקף שולח בקשות עם IP מזויף של הקורבן",
+        "\u200Fתוקף משנה רשומות DNS\nכדי להפנות תעבורה לשרת שלו",
+        "\u200Fתוקף מציף את שרת DNS בבקשות\nכדי למנוע תרגום שמות",
+        "\u200Fתוקף חוסם את פורט 53\nכדי למנוע תעבורת DNS"
       ],
-      explanation: "‏‏ שלושת המצבים של Nmap\n\nעיקרי:\n- פתוח (open) — מקבל חיבורים\n- סגור (closed) — אין שירות, הפורט מגיב RST\n- מסונן (filtered) — חומת אש חוסמת, אין תגובה\n\nטיפ:\nopen/filtered — לא ברור האם חומת אש חוסמת או שהפורט פתוח",
-      explanationEn: "Nmap reports 3 states: open (accepting connections), closed (no service — responds with RST), and filtered (firewall blocks — no response or ICMP unreachable).\n\nMain Points:\n- open/filtered means it is unclear whether a firewall is blocking or the port is open",
-      qEn: "What is the first sign of an open port in Nmap output?",
-      correctEn: "STATE: open — the port responds with SYN-ACK to a SYN request",
+      explanation: "\u200FDNS Amplification = הגברה פי 75.\n\nעיקרי:\n- Amplification Factor: בקשה של 40 bytes \u2192 תגובה של 3,000 bytes\n- IP Spoofing: הקורבן מקבל את כל התגובות\n- שימוש ב-open resolvers ציבוריים\n\nטיפ:\nכמו להזמין 1000 פיצות לכתובת של מישהו אחר",
+      explanationEn: "DNS Amplification = 75x amplification.\n\nMain Points:\n- Amplification Factor: a 40-byte request generates a 3,000-byte response\n- IP Spoofing: the victim receives all the responses\n- Uses public open resolvers\n\nTip:\nLike ordering 1000 pizzas to someone else's address",
+      qEn: "What is a DNS Amplification attack and why is it so effective?",
+      correctEn: "A small DNS request (40 bytes) generates a large response (3000 bytes)\nAttacker sends requests with the victim's spoofed IP",
       choicesEn: [
-        "STATE: open — the port responds with SYN-ACK to a SYN request",
-        "STATE: active",
-        "RESPONSE: 200 OK",
-        "PORT: listening"
+        "A small DNS request (40 bytes) generates a large response (3000 bytes)\nAttacker sends requests with the victim's spoofed IP",
+        "Attacker modifies DNS records\nTo redirect traffic to their server",
+        "Attacker floods DNS server with requests\nTo prevent name resolution",
+        "Attacker blocks port 53\nTo prevent DNS traffic"
       ]
     },
         {
@@ -3232,23 +3232,23 @@ export const quizBank = {
       ]
     },
         {
-      q: "‏מהי מתקפת השחזור (Replay Attack) ואיך TLS מונע אותה?",
-      correct: "‏תוקף מיירט ומשחזר חבילה חוקית\nפרוטוקול TLS מונע זאת באמצעות\nמספרים סידוריים ואסימוני הפעלה חד-פעמיים",
+      q: "\u200Fאיך Dynamic ARP Inspection (DAI) מגן מפני ARP Spoofing?",
+      correct: "\u200Fה-Switch בודק כל ARP נגד טבלת DHCP Snooping\nחבילות שלא תואמות נחסמות",
       choices: [
-        "‏תוקף מיירט ומשחזר חבילה חוקית\nפרוטוקול TLS מונע זאת באמצעות\nמספרים סידוריים ואסימוני הפעלה חד-פעמיים",
-        "‏תוקף שולח אותה בקשה פעמיים לגרום לעיבוד כפול",
-        "‏תוקף מקליט שיחת קול ומשחזר אותה לאחר שיחה",
-        "‏פרוטוקול TLS לא מגן מפני מתקפת השחזור — נדרש אימות נוסף"
+        "\u200Fה-Switch בודק כל ARP נגד טבלת DHCP Snooping\nחבילות שלא תואמות נחסמות",
+        "\u200Fה-Switch מצפין את כל חבילות ARP\nכדי למנוע קריאה שלהן",
+        "\u200Fה-Switch חוסם פרוטוקול ARP לחלוטין\nומשתמש בטבלאות סטטיות בלבד",
+        "\u200Fה-Switch שולח ARP Reply אוטומטי לכל בקשה\nכדי לחסום תשובות מזויפות"
       ],
-      explanation: "‏‏ מתקפת השחזור — Replay Attack\n\nעיקרי:\n- התוקפת מיירטת אסימון אימות תקני\n- שולחת אותו שוב לשרת כדי להתחזות\n- איך TLS 1.3 מגן?\n\nטיפ:\nסנכרון שעונים (NTP) חשוב למניעה",
-      explanationEn: "Replay Attack: an attacker intercepts a valid authentication token from Alice and resends it to the server to impersonate her.\n\nMain Points:\n- TLS 1.3: each connection gets a unique nonce + sequence numbers\n- Token-based: JWT includes exp (expiration) + jti (unique JWT ID)\n- In older protocols (old Kerberos), replay was a critical vulnerability",
-      qEn: "What is a Replay Attack and how does TLS prevent it?",
-      correctEn: "An attacker intercepts and replays a valid packet\nTLS prevents this with\nsequence numbers and one-time session tokens",
+      explanation: "\u200FDAI משתמש ב-DHCP Snooping table כמקור אמת.\n\nעיקרי:\n- כל חבילת ARP נבדקת מול טבלת ה-bindings\n- IP\u2194MAC שלא תואם = נחסם\n- מגן מפני MITM ברשת מקומית\n\nטיפ:\nDAI + 802.1X = שכבת הגנה חזקה ברשת L2",
+      explanationEn: "DAI uses the DHCP Snooping table as a source of truth.\n\nMain Points:\n- Every ARP packet is validated against the bindings table\n- IP-to-MAC mismatch = dropped\n- Protects against MITM on the local network\n\nTip:\nDAI + 802.1X = strong L2 network defense layer",
+      qEn: "How does Dynamic ARP Inspection (DAI) protect against ARP Spoofing?",
+      correctEn: "The switch validates each ARP against the DHCP Snooping table\nPackets that don't match are dropped",
       choicesEn: [
-        "An attacker intercepts and replays a valid packet\nTLS prevents this with\nsequence numbers and one-time session tokens",
-        "An attacker sends the same request twice to cause double processing",
-        "An attacker records a voice call and replays it after the call",
-        "TLS does not protect against Replay Attack — additional authentication is needed"
+        "The switch validates each ARP against the DHCP Snooping table\nPackets that don't match are dropped",
+        "The switch encrypts all ARP packets\nTo prevent reading them",
+        "The switch blocks ARP protocol entirely\nUsing only static tables",
+        "The switch auto-replies to all ARP requests\nTo block spoofed responses"
       ]
     }
   ],
@@ -3275,43 +3275,43 @@ export const quizBank = {
       ]
     },
     {
-      q: "‏מה מייצג ציון 9.8 בסולם הפגיעויות (CVSS)?",
-      correct: "‏קריטי (Critical) — פגיעות חמורה מאוד הניתנת לניצול מרחוק ללא אימות",
+      q: "\u200Fמהו IDOR (Insecure Direct Object Reference) ולמה הוא מסוכן?",
+      correct: "\u200Fגישה למשאבים של משתמש אחר ע\"י שינוי מזהה ב-URL או בבקשה\nלדוגמה: שינוי /api/user/123 ל-/api/user/124",
       choices: [
-        "‏קריטי (Critical) — פגיעות חמורה מאוד הניתנת לניצול מרחוק ללא אימות",
-        "‏גבוה (High) — פגיעות קשה אך דורשת גישה פיזית",
-        "‏בינוני (Medium) — פגיעות בינונית עם השפעה מוגבלת",
-        "תלוי בסוג המערכת"
+        "\u200Fגישה למשאבים של משתמש אחר ע\"י שינוי מזהה ב-URL או בבקשה\nלדוגמה: שינוי /api/user/123 ל-/api/user/124",
+        "\u200Fהזרקת קוד JavaScript לדף של משתמש אחר\nכדי לגנוב עוגיות",
+        "\u200Fשליחת שאילתת SQL זדונית\nדרך טופס התחברות",
+        "\u200Fיצירת בקשה מזויפת מדפדפן של משתמש מחובר\nללא ידיעתו"
       ],
-      explanation: "‏‏ סולם CVSS v3\n\nעיקרי:\n- 0 = ללא\n- 0.1-3.9 = נמוך\n- 4.0-6.9 = בינוני\n\nטיפ:\nכל פגיעות קריטית דורשת טלאי תוך 24-48 שעות",
-      explanationEn: "CVSS v3 scale: 0.0=None, 0.1-3.9=Low, 4.0-6.9=Medium, 7.0-8.9=High, 9.0-10.0=Critical.\n\nMain Points:\n- A score of 9.8 means Remote Code Execution (RCE) without authentication, network-accessible\n- Heartbleed and Log4Shell received CVSS 9.8+\n- Every Critical vulnerability needs patching within 24-48 hours",
-      qEn: "What does a CVSS score of 9.8 mean?",
-      correctEn: "Critical — a very severe vulnerability that can be exploited remotely without authentication",
+      explanation: "\u200FIDOR הוא #1 ב-OWASP (Broken Access Control).\n\nעיקרי:\n- התוקף משנה ID בבקשה ומקבל גישה לנתונים של אחרים\n- הפתרון: בדיקת הרשאות בצד השרת לכל בקשה\n\nטיפ:\nIDOR = 'רק בדוק אם מותר לך'",
+      explanationEn: "IDOR is #1 in OWASP (Broken Access Control).\n\nMain Points:\n- The attacker changes an ID in the request and gains access to other users' data\n- The fix: server-side authorization checks on every request\n\nTip:\nIDOR = 'just check if you are allowed'",
+      qEn: "What is IDOR (Insecure Direct Object Reference) and why is it dangerous?",
+      correctEn: "Accessing another user's resources by changing an ID in the URL or request\nExample: changing /api/user/123 to /api/user/124",
       choicesEn: [
-        "Critical — a very severe vulnerability that can be exploited remotely without authentication",
-        "High — a difficult vulnerability that requires physical access",
-        "Medium — a moderate vulnerability with limited impact",
-        "It depends on the type of system"
+        "Accessing another user's resources by changing an ID in the URL or request\nExample: changing /api/user/123 to /api/user/124",
+        "Injecting JavaScript into another user's page\nTo steal cookies",
+        "Sending a malicious SQL query\nThrough a login form",
+        "Creating a forged request from a logged-in user's browser\nWithout their knowledge"
       ]
     },
     {
-      q: "איך Heartbleed עבד טכנית?",
-      correct: "‏בקשת heartbeat עם אורך (length) שגוי — השרת החזיר זיכרון מעבר לבקשה, כולל מפתחות פרטיים וסיסמות",
+      q: "\u200Fמהי מתקפת UNION SQL Injection ואיך היא מאפשרת לחלץ מידע ממסד הנתונים?",
+      correct: "\u200Fהתוקף משתמש ב-UNION SELECT כדי לצרף שאילתה שלו לשאילתה המקורית\nומקבל נתונים מטבלאות אחרות",
       choices: [
-        "‏בקשת heartbeat עם אורך (length) שגוי — השרת החזיר זיכרון מעבר לבקשה, כולל מפתחות פרטיים וסיסמות",
-        "‏גלישת מאגר (Buffer overflow) שמאפשרת הרצת קוד שרירותי",
-        "‏הזרקת SQL במסד הנתונים של OpenSSL",
-        "חיבור TLS לא מוצפן שאפשר האזנה"
+        "\u200Fהתוקף משתמש ב-UNION SELECT כדי לצרף שאילתה שלו לשאילתה המקורית\nומקבל נתונים מטבלאות אחרות",
+        "\u200Fהתוקף מוחק את כל הנתונים בטבלה\nעם פקודת DROP TABLE",
+        "\u200Fהתוקף משנה את הסיסמה של ה-admin\nעם UPDATE בלבד",
+        "\u200Fהתוקף מזריק JavaScript\nדרך שדה חיפוש"
       ],
-      explanation: "‏‏ תוסף ה־Heartbeat ב־OpenSSL\n\nעיקרי:\n- הלקוח שולח 'החזר לי X בתים'\n- השרת מחזיר X בתים מבלי לוודא שנשלחו כל כך הרבה\n- הבאג\n\nטיפ:\nהפגיעות הייתה חשופה שנתיים (2012-2014)",
-      explanationEn: "OpenSSL Heartbeat extension: the client sends 'return X bytes to me'.\n\nMain Points:\n- The server returns X bytes without verifying that X bytes were actually sent\n- Bug: if you request 64K but send 1 byte, the server returns 64K from RAM — which may contain private keys, session tokens, and passwords\n- The vulnerability was exposed for 2 years (2012-2014)",
-      qEn: "How did Heartbleed work technically?",
-      correctEn: "A heartbeat request with a wrong length — the server returned memory beyond the request, including private keys and passwords",
+      explanation: "\u200FUNION SQLi הוא הטכניקה הנפוצה ביותר לחילוץ מידע.\n\nעיקרי:\n- שלב 1: ORDER BY לגלות מספר עמודות\n- שלב 2: UNION SELECT NULL,NULL... לבדוק מבנה\n- שלב 3: information_schema.tables לגלות טבלאות\n- שלב 4: חילוץ הנתונים\n\nטיפ:\nUNION דורש אותו מספר עמודות כמו השאילתה המקורית",
+      explanationEn: "UNION SQLi is the most common technique for data extraction.\n\nMain Points:\n- Step 1: ORDER BY to discover the number of columns\n- Step 2: UNION SELECT NULL,NULL... to check structure\n- Step 3: information_schema.tables to discover tables\n- Step 4: Extract the data\n\nTip:\nUNION requires the same number of columns as the original query",
+      qEn: "What is a UNION SQL Injection attack and how does it extract data from the database?",
+      correctEn: "The attacker uses UNION SELECT to append their query to the original\nGetting data from other tables",
       choicesEn: [
-        "A heartbeat request with a wrong length — the server returned memory beyond the request, including private keys and passwords",
-        "A buffer overflow that allowed arbitrary code execution",
-        "SQL injection in the OpenSSL database",
-        "An unencrypted TLS connection that allowed eavesdropping"
+        "The attacker uses UNION SELECT to append their query to the original\nGetting data from other tables",
+        "The attacker deletes all data in the table\nWith a DROP TABLE command",
+        "The attacker changes the admin password\nWith an UPDATE only",
+        "The attacker injects JavaScript\nThrough a search field"
       ]
     },
         {
@@ -3378,63 +3378,63 @@ export const quizBank = {
 
   104: [
     {
-      q: "‏מהי הגנה לעומק (Defense in Depth)?",
-      correct: "‏שכבות הגנה מרובות — כך שפריצת שכבה אחת לא מספיקה להגיע לנכס",
+      q: "\u200Fמה כללי ההתקשרות (Rules of Engagement) בבדיקת חדירה ולמה הם קריטיים?",
+      correct: "\u200Fהסכם כתוב שמגדיר מה מותר ומה אסור בבדיקה\nמגן על הבודק מבחינה משפטית ומגדיר גבולות",
       choices: [
-        "‏שכבות הגנה מרובות — כך שפריצת שכבה אחת לא מספיקה להגיע לנכס",
-        "‏חומת אש חזקה מאוד בכניסה לרשת",
-        "‏הצפנת כל הנתונים במסד הנתונים",
-        "‏גיבוי יומי לכל המערכות"
+        "\u200Fהסכם כתוב שמגדיר מה מותר ומה אסור בבדיקה\nמגן על הבודק מבחינה משפטית ומגדיר גבולות",
+        "\u200Fרשימת כלים שמותר להשתמש בהם\nכמו Nmap ו-Metasploit בלבד",
+        "\u200Fחוזה תשלום בין הבודק ללקוח\nשמגדיר מחיר לשעה",
+        "\u200Fדו\"ח שנכתב אחרי הבדיקה\nשמסכם את כל הממצאים"
       ],
-      explanation: "‏‏ הגנה לעומק — שכבות\n\nעיקרי:\n- היקף — חומת אש, WAF\n- רשת — IDS/IPS, הפרדת רשתות\n- תחנות קצה — אנטי-וירוס, EDR, עדכונים\n\nטיפ:\nכל שכבה מניחה שהשכבה החיצונית תיכשל",
-      explanationEn: "Defense in Depth layers: Perimeter (Firewall, WAF) > Network (IDS/IPS, Segmentation) > Endpoint (AV, EDR, Patch) > Application (Auth, RBAC, Input validation) > Data (Encryption, DLP) > Human (Training, Phishing simulation).\n\nMain Points:\n- Each layer assumes the outer layer will fail",
-      qEn: "What is Defense in Depth?",
-      correctEn: "Multiple layers of defense — so that breaking one layer is not enough to reach the asset",
+      explanation: "\u200FRoE = הגנה משפטית + גבולות ברורים.\n\nעיקרי:\n- מגדיר scope: אילו מערכות, IP ranges, שעות\n- מגדיר מה אסור: DoS, גישה ללקוחות אמיתיים\n- חתימה לפני תחילת העבודה\n\nטיפ:\nללא RoE — אתה פורץ, לא pentester",
+      explanationEn: "RoE = legal protection + clear boundaries.\n\nMain Points:\n- Defines scope: which systems, IP ranges, hours\n- Defines what's forbidden: DoS, access to real customers\n- Signed before work begins\n\nTip:\nWithout RoE — you're a criminal, not a pentester",
+      qEn: "What are Rules of Engagement in penetration testing and why are they critical?",
+      correctEn: "A written agreement defining what's allowed and forbidden in the test\nProtects the tester legally and sets boundaries",
       choicesEn: [
-        "Multiple layers of defense — so that breaking one layer is not enough to reach the asset",
-        "A very strong firewall at the network entrance",
-        "Encrypting all data in the database",
-        "Daily backup of all systems"
+        "A written agreement defining what's allowed and forbidden in the test\nProtects the tester legally and sets boundaries",
+        "A list of tools allowed\nSuch as Nmap and Metasploit only",
+        "A payment contract between tester and client\nDefining hourly rate",
+        "A report written after the test\nSummarizing all findings"
       ]
     },
     {
-      q: "‏מהו מחזור החיים של טיפול בתקריות (Incident Response) לפי NIST?",
-      correct: "‏הכנה → זיהוי → בלימה → מיגור → שחזור → לקחים נלמדים (Preparation → Detection → Containment → Eradication → Recovery → Lessons Learned)",
+      q: "\u200Fמה ההבדל בין סיור פסיבי (Passive Recon) לסיור אקטיבי (Active Recon)?",
+      correct: "\u200Fפסיבי — אוסף מידע ללא נגיעה ישירה ביעד (WHOIS, Google)\nאקטיבי — סורק ישירות את היעד (Nmap, פינג)",
       choices: [
-        "‏הכנה → זיהוי → בלימה → מיגור → שחזור → לקחים נלמדים (Preparation → Detection → Containment → Eradication → Recovery → Lessons Learned)",
-        "‏התרעה → תיעדוף → תיקון → דיווח (Alert → Triage → Patch → Report)",
-        "‏ניטור → חסימה → ניקוי → גיבוי (Monitor → Block → Clean → Backup)",
-        "‏זיהוי → תגובה → שחזור → שיפור (Detect → Respond → Recover → Improve)"
+        "\u200Fפסיבי — אוסף מידע ללא נגיעה ישירה ביעד (WHOIS, Google)\nאקטיבי — סורק ישירות את היעד (Nmap, פינג)",
+        "\u200Fפסיבי = סריקת פורטים\nאקטיבי = ניצול חולשות",
+        "\u200Fפסיבי = בדיקה מרחוק\nאקטיבי = בדיקה פיזית במקום",
+        "\u200Fפסיבי = ללא כלים\nאקטיבי = עם כלי Pentest"
       ],
-      explanation: "‏‏ NIST SP 800-61 — ששת השלבים\n\nעיקרי:\n- הכנה — כלים, נהלים, צוות\n- זיהוי וניתוח — איתור סממני פריצה (IOCs)\n- בלימה — בידוד קצר טווח ואז ארוך טווח\n\nטיפ:\nהמחזור חוזר תמיד על עצמו",
-      explanationEn: "NIST SP 800-61: Preparation (tools, playbooks, team).\n\nMain Points:\n- Detection & Analysis (identify IOCs)\n- Containment (isolate — short-term then long-term)\n- Eradication (remove malware, patch)",
-      qEn: "What is the NIST Incident Response lifecycle?",
-      correctEn: "Preparation > Detection > Containment > Eradication > Recovery > Lessons Learned",
+      explanation: "\u200Fסיור פסיבי הוא בלתי ניתן לזיהוי.\n\nעיקרי:\n- Passive: WHOIS, Google Dorking, Shodan, רשתות חברתיות — היעד לא יודע\n- Active: nmap, ping, vulnerability scanning — היעד יכול לזהות\n\nטיפ:\nPentester טוב מתחיל בפסיבי ורק אחר כך עובר לאקטיבי",
+      explanationEn: "Passive recon is undetectable.\n\nMain Points:\n- Passive: WHOIS, Google Dorking, Shodan, social media — the target doesn't know\n- Active: nmap, ping, vulnerability scanning — the target can detect it\n\nTip:\nA good pentester starts passive and only then moves to active",
+      qEn: "What is the difference between Passive Recon and Active Recon?",
+      correctEn: "Passive — gathers info without touching the target (WHOIS, Google)\nActive — directly scans the target (Nmap, ping)",
       choicesEn: [
-        "Preparation > Detection > Containment > Eradication > Recovery > Lessons Learned",
-        "Alert > Triage > Patch > Report",
-        "Monitor > Block > Clean > Backup",
-        "Detect > Respond > Recover > Improve"
+        "Passive — gathers info without touching the target (WHOIS, Google)\nActive — directly scans the target (Nmap, ping)",
+        "Passive = port scanning\nActive = exploiting vulnerabilities",
+        "Passive = remote testing\nActive = physical on-site testing",
+        "Passive = without tools\nActive = with Pentest tools"
       ]
     },
     {
-      q: "‏מה מערכת ניהול מידע ואירועי אבטחה (SIEM) עושה שאי אפשר לעשות עם לוגים פשוטים?",
-      correct: "‏מאחדת לוגים ממקורות שונים ומחפשת מתאמים — למשל: כשל התחברות + תנועה רוחבית + הברחת מידע תוך 10 דקות",
+      q: "\u200Fמה Google Dorking ואיך Pentester משתמש בזה בשלב ה-Recon?",
+      correct: "\u200Fשימוש באופרטורים מתקדמים של Google כדי למצוא מידע רגיש\nלדוגמה: site:target.com filetype:pdf",
       choices: [
-        "‏מאחדת לוגים ממקורות שונים ומחפשת מתאמים — למשל: כשל התחברות + תנועה רוחבית + הברחת מידע תוך 10 דקות",
-        "‏מצפינה לוגים כדי שלא ייגנבו",
-        "‏מחליפה חומת אש ומערכת זיהוי חדירות (IDS)",
-        "‏שולחת התרעות רק על פגיעויות (CVE) ידועות"
+        "\u200Fשימוש באופרטורים מתקדמים של Google כדי למצוא מידע רגיש\nלדוגמה: site:target.com filetype:pdf",
+        "\u200Fפריצה לחשבון Google של היעד\nכדי לקרוא מיילים",
+        "\u200Fשימוש ב-Google Maps למציאת מיקום השרתים\nלגישה פיזית",
+        "\u200Fחיפוש הסיסמה של היעד ב-Google\nמתוך דליפות ישנות"
       ],
-      explanation: "‏‏ מערכת SIEM — מקורות\n\nעיקרי:\n- Active Directory\n- חומת אש\n- EDR\n\nטיפ:\nאנליסט SOC מבלה 70% מזמנו במערכת SIEM",
-      explanationEn: "SIEM = Security Information and Event Management.\n\nMain Points:\n- Sources: AD, Firewall, EDR, Web proxy, DNS\n- Correlation example: 3 login failures (brute force?) + success + access to sensitive server = alert\n- Tools: Splunk, IBM QRadar, Microsoft Sentinel, ELK Stack",
-      qEn: "What does a SIEM do that simple logs cannot?",
-      correctEn: "Combines logs from different sources and looks for correlations — e.g., login failure + lateral movement + data exfiltration within 10 minutes",
+      explanation: "\u200FGoogle Dorks = סיור פסיבי חינמי ורב-עוצמה.\n\nעיקרי:\n- site: — חיפוש בדומיין ספציפי\n- filetype: — מציאת PDF, XLS, DOC\n- inurl:admin — מציאת דפי ניהול חשופים\n- intitle:\"index of\" — מציאת ספריות פתוחות\n\nטיפ:\nDork = חולשה שנמצאת בלי לגעת בשרת",
+      explanationEn: "Google Dorks = free and powerful passive recon.\n\nMain Points:\n- site: — search within a specific domain\n- filetype: — find PDF, XLS, DOC files\n- inurl:admin — find exposed admin pages\n- intitle:\"index of\" — find open directories\n\nTip:\nA Dork = a vulnerability found without touching the server",
+      qEn: "What is Google Dorking and how does a Pentester use it during Recon?",
+      correctEn: "Using advanced Google operators to find sensitive information\nExample: site:target.com filetype:pdf",
       choicesEn: [
-        "Combines logs from different sources and looks for correlations — e.g., login failure + lateral movement + data exfiltration within 10 minutes",
-        "Encrypts logs so they cannot be stolen",
-        "Replaces a firewall and IDS",
-        "Sends alerts only for known CVEs"
+        "Using advanced Google operators to find sensitive information\nExample: site:target.com filetype:pdf",
+        "Hacking the target's Google account\nTo read emails",
+        "Using Google Maps to find server location\nFor physical access",
+        "Searching for the target's password in Google\nFrom old data leaks"
       ]
     },
         {
@@ -3501,63 +3501,63 @@ export const quizBank = {
 
   105: [
     {
-      q: "‏למה מצב ספר הקודים האלקטרוני (AES-ECB) מסוכן למרות שהצפנת AES עצמה חזקה?",
-      correct: "‏מצב ECB מצפין כל בלוק בנפרד — בלוקים זהים מייצרים טקסט מוצפן זהה וחושפים דפוסים",
+      q: "\u200Fמה ההבדל בין אנליסטים L1, L2 ו-L3 ב-SOC?",
+      correct: "\u200FL1 — סינון ראשוני של אזעקות\nL2 — חקירה מעמיקה\nL3 — ציד איומים ופיתוח כלים",
       choices: [
-        "‏מצב ECB מצפין כל בלוק בנפרד — בלוקים זהים מייצרים טקסט מוצפן זהה וחושפים דפוסים",
-        "‏מצב ECB לא תומך במפתחות של 256 סיביות",
-        "‏מצב ECB פגיע לפיצוח בכוח כי המפתח קצר",
-        "‏מצב ECB איטי מדי לשימוש מעשי"
+        "\u200FL1 — סינון ראשוני של אזעקות\nL2 — חקירה מעמיקה\nL3 — ציד איומים ופיתוח כלים",
+        "\u200FL1 — מנהל הSOC\nL2 — אנליסט רגיל\nL3 — ג'וניור",
+        "\u200FL1 — חומת אש\nL2 — אנטי-וירוס\nL3 — SIEM",
+        "\u200FL1 — רשת פנימית\nL2 — רשת חיצונית\nL3 — ענן"
       ],
-      explanation: "‏‏ הבעיה עם AES-ECB\n\nעיקרי:\n- כל 16 בתים מוצפנים באופן עצמאי\n- שני אזורים באותו צבע = טקסט מוצפן זהה\n- הדפוס נראה!\n\nטיפ:\nשימוש בוקטור אתחול (IV) ושרשור למניעת דפוסים",
-      explanationEn: "AES-ECB encrypts each 16-byte block independently.\n\nMain Points:\n- If an image has two regions with the same color, they produce identical ciphertext, revealing the pattern\n- Classic demo: encrypting the Linux penguin image with ECB — the silhouette is still visible\n- Solution: AES-CBC/GCM — an IV plus chaining prevents patterns",
-      qEn: "Why is AES-ECB mode dangerous even though AES itself is strong?",
-      correctEn: "ECB mode encrypts each block separately — identical blocks produce identical ciphertext and reveal patterns",
+      explanation: "\u200Fשלוש שכבות של אנליסטים:\n\nעיקרי:\n- L1 (Tier 1): Triage — סינון ראשוני, true/false positive\n- L2 (Tier 2): Investigation — חקירה מעמיקה, correlation\n- L3 (Tier 3): Threat Hunting — חיפוש פרואקטיבי, פיתוח YARA rules\n\nטיפ:\nL1 = שומר בכניסה, L2 = בלש, L3 = סוכן חשאי",
+      explanationEn: "Three layers of analysts.\n\nMain Points:\n- L1 (Tier 1): Triage — initial filtering, true/false positive determination\n- L2 (Tier 2): Investigation — deep investigation, correlation\n- L3 (Tier 3): Threat Hunting — proactive searching, developing YARA rules\n\nTip:\nL1 = security guard, L2 = detective, L3 = secret agent",
+      qEn: "What is the difference between L1, L2, and L3 SOC analysts?",
+      correctEn: "L1 — Initial alert triage\nL2 — Deep investigation\nL3 — Threat hunting and tool development",
       choicesEn: [
-        "ECB mode encrypts each block separately — identical blocks produce identical ciphertext and reveal patterns",
-        "ECB mode does not support 256-bit keys",
-        "ECB mode is vulnerable to brute force because the key is short",
-        "ECB mode is too slow for practical use"
+        "L1 — Initial alert triage\nL2 — Deep investigation\nL3 — Threat hunting and tool development",
+        "L1 — SOC manager\nL2 — Regular analyst\nL3 — Junior",
+        "L1 — Firewall\nL2 — Antivirus\nL3 — SIEM",
+        "L1 — Internal network\nL2 — External network\nL3 — Cloud"
       ]
     },
     {
-      q: "‏מהו מנגנון אפס זמני הלוך-חזור (0-RTT) בפרוטוקול TLS 1.3 / QUIC ומה הסיכון?",
-      correct: "‏שליחת נתונים בחבילה הראשונה בלי לחיצת יד — חוסכת זמן הלוך-חזור, אך נתונים אלו פגיעים למתקפת השחזור (Replay Attack)",
+      q: "\u200Fמהי הגנה לעומק (Defense in Depth) ולמה צריך כמה שכבות?",
+      correct: "\u200Fאסטרטגיה שמשתמשת במספר שכבות הגנה\nכך שכשל של שכבה אחת לא חושף את כל המערכת",
       choices: [
-        "‏שליחת נתונים בחבילה הראשונה בלי לחיצת יד — חוסכת זמן הלוך-חזור, אך נתונים אלו פגיעים למתקפת השחזור (Replay Attack)",
-        "‏חיבור TLS ללא הצפנה לשיפור מהירות",
-        "‏שמירת הפעלה על הדיסק בין חיבורים",
-        "‏שימוש ב־HTTP/1.1 כחלופה"
+        "\u200Fאסטרטגיה שמשתמשת במספר שכבות הגנה\nכך שכשל של שכבה אחת לא חושף את כל המערכת",
+        "\u200Fהתקנת חומת אש חזקה מאוד\nשמספיקה לבד להגנה מלאה",
+        "\u200Fהצפנת כל המידע בארגון\nכך שגם אם נגנב הוא חסר ערך",
+        "\u200Fהעסקת צוות SOC גדול\nשיכול לתפוס כל תוקף"
       ],
-      explanation: "‏‏ מנגנון 0-RTT\n\nעיקרי:\n- הלקוח שולח נתוני אפליקציה כבר בחבילה הראשונה\n- באמצעות כרטיס הפעלה מחיבור קודם\n- חוסך 1-2 זמני הלוך-חזור\n\nטיפ:\nTLS 1.3 תומך, גרסה 1.2 לא",
-      explanationEn: "0-RTT: the client sends application data in the very first packet (using a session ticket from a previous connection), saving 1-2 round trips.\n\nMain Points:\n- Risk: Replay attack — an attacker can resend the 0-RTT data\n- Therefore, 0-RTT is restricted to idempotent requests (GET, not POST with payment)\n- TLS 1.3 supports 0-RTT; TLS 1.2 does not",
-      qEn: "What is 0-RTT in TLS 1.3 / QUIC and what is the risk?",
-      correctEn: "Sending data in the first packet without a handshake — saves round-trip time, but this data is vulnerable to Replay Attack",
+      explanation: "\u200Fכמו טירה עם חפיר, חומה, שערים ושומרים.\n\nעיקרי:\n- פיזי: מנעולים, מצלמות\n- רשת: Firewall, IDS/IPS, Segmentation\n- Endpoint: EDR, AV\n- אפליקציה: WAF, Input Validation\n- נתונים: הצפנה, DLP\n\nטיפ:\nShell = layers — תוקף חייב לפרוץ כמה שכבות",
+      explanationEn: "Like a castle with a moat, walls, gates, and guards.\n\nMain Points:\n- Physical: locks, cameras\n- Network: Firewall, IDS/IPS, Segmentation\n- Endpoint: EDR, AV\n- Application: WAF, Input Validation\n- Data: Encryption, DLP\n\nTip:\nShell = layers — an attacker must breach multiple layers",
+      qEn: "What is Defense in Depth and why do you need multiple layers?",
+      correctEn: "A strategy using multiple layers of defense\nSo that failure of one layer doesn't expose the entire system",
       choicesEn: [
-        "Sending data in the first packet without a handshake — saves round-trip time, but this data is vulnerable to Replay Attack",
-        "A TLS connection without encryption for speed",
-        "Saving a session to disk between connections",
-        "Using HTTP/1.1 as a fallback"
+        "A strategy using multiple layers of defense\nSo that failure of one layer doesn't expose the entire system",
+        "Installing a very strong firewall\nThat's enough for full protection alone",
+        "Encrypting all data in the organization\nSo even if stolen it's worthless",
+        "Hiring a large SOC team\nThat can catch any attacker"
       ]
     },
     {
-      q: "‏מה הייחודיות של מחולל המספרים האקראיים Dual EC DRBG?",
-      correct: "‏מחולל מספרים אקראיים קריפטוגרפי שה־NSA הטמינה בו דלת אחורית — קבועים מוגדרים מראש שמאפשרים למי שמכיר את הסוד לחזות את הפלט",
+      q: "\u200Fמהי עייפות אזעקות (Alert Fatigue) ב-SOC ואיך SOAR עוזר?",
+      correct: "\u200Fעומס של אלפי אזעקות יומיות גורם לאנליסטים לפספס את החשובות\nSOAR מאפשר אוטומציה של תגובות חוזרות",
       choices: [
-        "‏מחולל מספרים אקראיים קריפטוגרפי שה־NSA הטמינה בו דלת אחורית — קבועים מוגדרים מראש שמאפשרים למי שמכיר את הסוד לחזות את הפלט",
-        "‏אלגוריתם הצפנה שנשבר בפיצוח בכוח",
-        "‏פרוטוקול החלפת מפתחות עם חולשה מתמטית",
-        "‏פונקציית גיבוב עם התנגשות ידועה"
+        "\u200Fעומס של אלפי אזעקות יומיות גורם לאנליסטים לפספס את החשובות\nSOAR מאפשר אוטומציה של תגובות חוזרות",
+        "\u200FSIEM מפסיק לעבוד כשיש יותר מדי לוגים\nSOAR מחליף את ה-SIEM",
+        "\u200Fאנליסטים מתעייפים פיזית ממשמרות לילה\nSOAR עובד רק בלילה",
+        "\u200Fחומת האש חוסמת יותר מדי תעבורה\nSOAR פותח את החסימות"
       ],
-      explanation: "‏‏ הרקע\n\nעיקרי:\n- מחולל Dual EC DRBG נכנס לתקן NIST ב־2006\n- ה־NSA שילמה 10 מיליון דולר לחברת RSA Security\n- כדי להפוך אותו לברירת מחדל\n\nטיפ:\nדלת אחורית מתמטית מושלמת",
-      explanationEn: "Dual EC DRBG entered the NIST standard in 2006.\n\nMain Points:\n- Snowden 2013 revealed: the NSA paid RSA Security $10M to use it as the default in BSafe\n- The problem: two points on the Elliptic Curve (P, Q) were chosen by the NSA — anyone who knows log_P(Q) can predict all output\n- A mathematically perfect backdoor",
-      qEn: "What was special about the Dual EC DRBG random number generator?",
-      correctEn: "A cryptographic random number generator where the NSA planted a backdoor — predefined constants let anyone who knows the secret predict the output",
+      explanation: "\u200FSOC ממוצע מטפל ב-11,000 אזעקות ביום.\n\nעיקרי:\n- 45% הן false positives\n- אנליסטים מתחילים להתעלם מאזעקות\n- SOAR (Security Orchestration, Automation and Response) מאוטמט את הפעולות החוזרות\n\nטיפ:\nSOAR = robot שעושה את העבודה המשעממת כדי שהאנליסט יתמקד באיומים אמיתיים",
+      explanationEn: "An average SOC handles 11,000 alerts per day.\n\nMain Points:\n- 45% are false positives\n- Analysts start ignoring alerts\n- SOAR (Security Orchestration, Automation and Response) automates repetitive actions\n\nTip:\nSOAR = a robot that does the boring work so analysts can focus on real threats",
+      qEn: "What is Alert Fatigue in a SOC and how does SOAR help?",
+      correctEn: "Thousands of daily alerts cause analysts to miss the important ones\nSOAR automates repetitive responses",
       choicesEn: [
-        "A cryptographic random number generator where the NSA planted a backdoor — predefined constants let anyone who knows the secret predict the output",
-        "An encryption algorithm broken by brute force",
-        "A key exchange protocol with a mathematical weakness",
-        "A hash function with a known collision"
+        "Thousands of daily alerts cause analysts to miss the important ones\nSOAR automates repetitive responses",
+        "SIEM stops working when there are too many logs\nSOAR replaces the SIEM",
+        "Analysts get physically tired from night shifts\nSOAR only works at night",
+        "The firewall blocks too much traffic\nSOAR unblocks them"
       ]
     },
         {
@@ -3624,43 +3624,43 @@ export const quizBank = {
 
   106: [
     {
-      q: "‏מהו זיוף בקשות בצד השרת (SSRF) ולמה הוא מסוכן בסביבות ענן?",
-      correct: "‏זיוף בקשות בצד השרת (SSRF) — השרת מבצע בקשה לכתובת פנימית שהתוקף בחר, כולל נקודת גישה למטא-דאטה של AWS",
+      q: "\u200Fמה 3 סוגי תחרויות CTF העיקריים?",
+      correct: "\u200FJeopardy — אתגרים לפי קטגוריות\nAttack-Defense — תקיפה והגנה על שרתים\nKing of the Hill — שליטה בשרת",
       choices: [
-        "‏זיוף בקשות בצד השרת (SSRF) — השרת מבצע בקשה לכתובת פנימית שהתוקף בחר, כולל נקודת גישה למטא-דאטה של AWS",
-        "‏הזרקת SQL באחסון ענן",
-        "‏סקריפטים חוצי-אתרים (XSS) בממשק הענן",
-        "‏חיבור לא מאובטח בין שירותי-זעיר (Microservices)"
+        "\u200FJeopardy — אתגרים לפי קטגוריות\nAttack-Defense — תקיפה והגנה על שרתים\nKing of the Hill — שליטה בשרת",
+        "\u200Fקל — בינוני — קשה\nלפי רמת הקושי",
+        "\u200FWeb — Network — Crypto\nלפי תחום טכני בלבד",
+        "\u200FSolo — Duo — Team\nלפי מספר משתתפים"
       ],
-      explanation: "‏‏ איך SSRF עובד?\n\nעיקרי:\n- האפליקציה מקבלת כתובת URL מהמשתמש ומבצעת בקשה אליה\n- התוקף שולח כתובת פנימית של נקודת מטא-דאטה של AWS\n- ומקבל הרשאות זמניות!\n\nטיפ:\nמתקפת SSRF בענן נחשבת קריטית",
-      explanationEn: "SSRF: an application accepts a URL from a user and makes a request to it.\n\nMain Points:\n- An attacker sends: http://169.254.169.254/latest/meta-data/iam/security-credentials/ — the AWS metadata endpoint\n- This returns temporary AWS credentials\n- Capital One 2019: SSRF through a misconfigured WAF led to IAM credentials and 100M records stolen",
-      qEn: "What is SSRF and why is it dangerous in cloud environments?",
-      correctEn: "Server-Side Request Forgery (SSRF) — the server makes a request to an internal address chosen by the attacker, including the AWS metadata endpoint",
+      explanation: "\u200Fשלושה פורמטים מרכזיים:\n\nעיקרי:\n- Jeopardy: הנפוץ ביותר, קטגוריות Web/Pwn/Crypto/Forensics\n- Attack-Defense: כל קבוצה מריצה שרתים ותוקפת יריבים\n- King of the Hill: מי ששולט בשרת הכי הרבה זמן מנצח\n\nטיפ:\nJeopardy = למתחילים, Attack-Defense = למתקדמים",
+      explanationEn: "Three main formats.\n\nMain Points:\n- Jeopardy: most common, categories Web/Pwn/Crypto/Forensics\n- Attack-Defense: each team runs servers and attacks opponents\n- King of the Hill: whoever controls the server the longest wins\n\nTip:\nJeopardy = for beginners, Attack-Defense = for advanced",
+      qEn: "What are the 3 main types of CTF competitions?",
+      correctEn: "Jeopardy — challenges by category\nAttack-Defense — attack and defend servers\nKing of the Hill — control a server",
       choicesEn: [
-        "Server-Side Request Forgery (SSRF) — the server makes a request to an internal address chosen by the attacker, including the AWS metadata endpoint",
-        "SQL injection in cloud storage",
-        "Cross-site scripting (XSS) in the cloud interface",
-        "An insecure connection between microservices"
+        "Jeopardy — challenges by category\nAttack-Defense — attack and defend servers\nKing of the Hill — control a server",
+        "Easy — Medium — Hard\nBy difficulty level",
+        "Web — Network — Crypto\nBy technical domain only",
+        "Solo — Duo — Team\nBy number of participants"
       ]
     },
     {
-      q: "‏מהי מתקפת אלגוריתם 'none' על אסימוני JWT?",
-      correct: "‏שינוי שדה האלגוריתם בכותרת ל-none — שרת פגיע מקבל אסימון בלי חתימה ומאמת אותו",
+      q: "\u200Fמה הפלטפורמות העיקריות ל-Bug Bounty ומה Triage?",
+      correct: "\u200FHackerOne, Bugcrowd, Intigriti\nTriage = הצוות שמוודא שהדיווח תקין ומעביר לחברה",
       choices: [
-        "‏שינוי שדה האלגוריתם בכותרת ל-none — שרת פגיע מקבל אסימון בלי חתימה ומאמת אותו",
-        "‏גניבת אסימון JWT מאחסון הדפדפן באמצעות סקריפטים חוצי-אתרים (XSS)",
-        "‏פיצוח בכוח של סוד ה־HMAC",
-        "‏מתקפת השחזור (Replay Attack) על אסימון JWT שפג תוקפו"
+        "\u200FHackerOne, Bugcrowd, Intigriti\nTriage = הצוות שמוודא שהדיווח תקין ומעביר לחברה",
+        "\u200FGitHub, GitLab, Bitbucket\nTriage = בדיקת קוד אוטומטית",
+        "\u200FShodan, Censys, ZoomEye\nTriage = סריקת רשתות אוטומטית",
+        "\u200FMetasploit, Burp Suite, Nmap\nTriage = כלי תקיפה"
       ],
-      explanation: "‏‏ מבנה JWT\n\nעיקרי:\n- כותרת, מטען ייעודי וחתימה\n- הכותרת מכילה את סוג האלגוריתם\n- המתקפה\n\nטיפ:\nשרת שמצפה ל־RSA משתמש במפתח הציבורי כסוד HMAC",
-      explanationEn: "JWT structure: header.payload.signature.\n\nMain Points:\n- The header contains the algorithm (alg)\n- An attacker changes alg to 'none' and removes the signature\n- A vulnerable server sees alg=none and skips verification",
-      qEn: "What is the JWT 'none' algorithm attack?",
-      correctEn: "Changing the algorithm field in the header to 'none' — a vulnerable server accepts a token without a signature",
+      explanation: "\u200FBug Bounty = לקבל כסף על מציאת באגים.\n\nעיקרי:\n- HackerOne: הגדולה ביותר, עובדת עם DoD, Google\n- Bugcrowd: מתמחה ב-crowdsourced security\n- Triage: צוות שמסנן דיווחים כפולים/לא רלוונטיים\n\nטיפ:\nTriage team = שומרי הסף — בלעדיהם החברה היתה מוצפת",
+      explanationEn: "Bug Bounty = getting paid for finding bugs.\n\nMain Points:\n- HackerOne: the largest, works with DoD, Google\n- Bugcrowd: specializes in crowdsourced security\n- Triage: a team that filters duplicate/irrelevant reports\n\nTip:\nTriage team = gatekeepers — without them the company would be flooded",
+      qEn: "What are the main Bug Bounty platforms and what is Triage?",
+      correctEn: "HackerOne, Bugcrowd, Intigriti\nTriage = the team that validates reports and forwards to the company",
       choicesEn: [
-        "Changing the algorithm field in the header to 'none' — a vulnerable server accepts a token without a signature",
-        "Stealing a JWT token from browser storage using XSS",
-        "Brute-forcing the HMAC secret",
-        "A Replay Attack on an expired JWT token"
+        "HackerOne, Bugcrowd, Intigriti\nTriage = the team that validates reports and forwards to the company",
+        "GitHub, GitLab, Bitbucket\nTriage = automated code review",
+        "Shodan, Censys, ZoomEye\nTriage = automated network scanning",
+        "Metasploit, Burp Suite, Nmap\nTriage = attack tools"
       ]
     },
     {
@@ -3724,23 +3724,23 @@ export const quizBank = {
       ]
     },
         {
-      q: "‏אילו הסמכות מקצועיות מומלצות להתחלת קריירה בסייבר?",
-      correct: "‏הסמכת CompTIA Security+ (רמת כניסה), האקר אתי מוסמך (CEH), הסמכת התקפה מעשית (OSCP) — לפי רמת ניסיון",
+      q: "\u200Fמה הסעיפים החשובים בדו\"ח Bug Bounty מנצח?",
+      correct: "\u200Fכותרת ברורה, חומרה (Severity), שלבי שחזור (PoC), השפעה (Impact)\nוהמלצת תיקון (Remediation)",
       choices: [
-        "‏הסמכת CompTIA Security+ (רמת כניסה), האקר אתי מוסמך (CEH), הסמכת התקפה מעשית (OSCP) — לפי רמת ניסיון",
-        "‏הסמכות CISSP ו־CISM — הטובות ביותר לכולם",
-        "‏רק ניסיון מעשי חשוב — הסמכות לא שוות כלום",
-        "‏הסמכות ענן בלבד: AWS Security Specialty ו־GCP Security"
+        "\u200Fכותרת ברורה, חומרה (Severity), שלבי שחזור (PoC), השפעה (Impact)\nוהמלצת תיקון (Remediation)",
+        "\u200Fשם החוקר, קורות חיים, ניסיון קודם\nופרטי חשבון בנק",
+        "\u200Fקוד ניצול מלא (Full Exploit)\nכולל Payload ו-Shell",
+        "\u200Fצילום מסך בלבד\nעם הסבר קצר בשורה אחת"
       ],
-      explanation: "‏‏ רמת כניסה\n\nעיקרי:\n- CompTIA A+ → Network+ → Security+\n- התקפי\n- eJPT → CEH → OSCP (מבחן מעשי 24 שעות, קשה מאוד!)\n\nטיפ:\nתרגול מעשי ב־CTF ו־HackTheBox חשוב לא פחות מהסמכות",
-      explanationEn: "Certification Roadmap: Entry level: CompTIA A+ > Network+ > Security+.\n\nMain Points:\n- Offensive: eJPT (eLearnSecurity) > CEH > OSCP (OffSec — 24h practical exam, very challenging!)\n- Defensive: SOC Analyst > CySA+ > GCIH\n- Management: CISSP (requires 5 years of experience)",
-      qEn: "Which professional certifications are recommended for starting a cyber career?",
-      correctEn: "CompTIA Security+ (entry level), CEH (Certified Ethical Hacker), OSCP (practical offensive cert) — by experience level",
+      explanation: "\u200Fדו\"ח טוב = פרס גדול יותר.\n\nעיקרי:\n- Title: תיאור קצר וברור של הבעיה\n- Severity: CVSS score או Low/Medium/High/Critical\n- Steps to Reproduce: שלבים מדויקים לשחזור\n- PoC: הוכחה (screenshot, video, script)\n- Impact: מה תוקף יכול לעשות\n- Remediation: הצעת תיקון\n\nטיפ:\nככל שהדו\"ח ברור יותר — התגמול גבוה יותר",
+      explanationEn: "A good report = a bigger reward.\n\nMain Points:\n- Title: short and clear description of the issue\n- Severity: CVSS score or Low/Medium/High/Critical\n- Steps to Reproduce: exact steps to reproduce\n- PoC: proof (screenshot, video, script)\n- Impact: what an attacker can do\n- Remediation: fix suggestion\n\nTip:\nThe clearer the report — the higher the reward",
+      qEn: "What are the key sections of a winning Bug Bounty report?",
+      correctEn: "Clear title, Severity, Steps to Reproduce (PoC), Impact\nand Remediation suggestion",
       choicesEn: [
-        "CompTIA Security+ (entry level), CEH (Certified Ethical Hacker), OSCP (practical offensive cert) — by experience level",
-        "CISSP and CISM — best for everyone",
-        "Only practical experience matters — certifications are worthless",
-        "Cloud certifications only: AWS Security Specialty and GCP Security"
+        "Clear title, Severity, Steps to Reproduce (PoC), Impact\nand Remediation suggestion",
+        "Researcher name, CV, past experience\nand bank account details",
+        "Full exploit code\nincluding Payload and Shell",
+        "Screenshot only\nwith a one-line explanation"
       ]
     }
   ],
@@ -3808,23 +3808,23 @@ export const quizBank = {
       ]
     },
         {
-      q: "‏מה ההבדל בין הצפנה סימטרית (Symmetric) להצפנה אסימטרית (Asymmetric)?",
-      correct: "‏סימטרית (AES): אותו מפתח להצפנה ופיענוח — אסימטרית (RSA): מפתח ציבורי להצפנה, מפתח פרטי לפיענוח",
+      q: "\u200Fלמה bcrypt עדיף על SHA-256 לאחסון סיסמאות?",
+      correct: "\u200Fbcrypt איטי בכוונה — מקשה על Brute Force\nוכולל Salt מובנה שמונע Rainbow Tables",
       choices: [
-        "‏סימטרית (AES): אותו מפתח להצפנה ופיענוח — אסימטרית (RSA): מפתח ציבורי להצפנה, מפתח פרטי לפיענוח",
-        "‏סימטרית מוצפנת יותר — אסימטרית מהירה יותר",
-        "‏סימטרית לרשתות — אסימטרית לקבצים",
-        "‏אלגוריתם AES הוא אסימטרי כי מפתחותיו ארוכים יותר"
+        "\u200Fbcrypt איטי בכוונה — מקשה על Brute Force\nוכולל Salt מובנה שמונע Rainbow Tables",
+        "\u200Fbcrypt מצפין את הסיסמה — אפשר לפענח\nSHA-256 רק hash חד-כיווני",
+        "\u200Fbcrypt יוצר hash קצר יותר\nשתופס פחות מקום במסד נתונים",
+        "\u200Fbcrypt עובד רק עם סיסמאות חזקות\nSHA-256 עובד עם כל סיסמה"
       ],
-      explanation: "‏‏ הצפנה סימטרית (AES, ChaCha20)\n\nעיקרי:\n- מהירה, מתאימה לכמויות גדולות של נתונים\n- הבעיה: איך מעבירים את המפתח בצורה מאובטחת?\n- הצפנה אסימטרית (RSA, ECDH)\n\nטיפ:\nRSA 2048 סיביות עדיין מאובטח — 1024 סיביות שבור!",
-      explanationEn: "Symmetric (AES, ChaCha20): fast, suitable for bulk data.\n\nMain Points:\n- Problem: key exchange — how do you send the key securely\n- Asymmetric (RSA, ECDH): slow but enables secure key exchange\n- Public key = lock, Private key = unlock",
-      qEn: "What is the difference between Symmetric and Asymmetric encryption?",
-      correctEn: "Symmetric (AES): same key for encryption and decryption — Asymmetric (RSA): public key for encryption, private key for decryption",
+      explanation: "\u200Fbcrypt = hash שתוכנן לסיסמאות.\n\nעיקרי:\n- Salt מובנה: כל hash שונה גם לאותה סיסמה\n- Work Factor: אפשר לשלוט במהירות (cost parameter)\n- SHA-256: מהיר מדי — מיליארדי ניסיונות בשנייה\n- bcrypt: 4-5 hashes בשנייה = Brute Force בלתי אפשרי\n\nטיפ:\nArgon2id הוא היורש של bcrypt — עמיד גם ל-GPU",
+      explanationEn: "bcrypt = a hash designed for passwords.\n\nMain Points:\n- Built-in Salt: every hash is different even for the same password\n- Work Factor: speed is controllable (cost parameter)\n- SHA-256: too fast — billions of attempts per second\n- bcrypt: 4-5 hashes per second = Brute Force is impossible\n\nTip:\nArgon2id is bcrypt's successor — resistant to GPU attacks as well",
+      qEn: "Why is bcrypt better than SHA-256 for storing passwords?",
+      correctEn: "bcrypt is intentionally slow — makes Brute Force hard\nAnd includes built-in Salt that prevents Rainbow Tables",
       choicesEn: [
-        "Symmetric (AES): same key for encryption and decryption — Asymmetric (RSA): public key for encryption, private key for decryption",
-        "Symmetric is more encrypted — asymmetric is faster",
-        "Symmetric is for networks — asymmetric is for files",
-        "AES is asymmetric because its keys are longer"
+        "bcrypt is intentionally slow — makes Brute Force hard\nAnd includes built-in Salt that prevents Rainbow Tables",
+        "bcrypt encrypts the password — can be decrypted\nSHA-256 is only a one-way hash",
+        "bcrypt creates a shorter hash\nTaking less space in the database",
+        "bcrypt only works with strong passwords\nSHA-256 works with any password"
       ]
     },
         {
@@ -6217,23 +6217,23 @@ export const quizBank = {
       ]
     },
     {
-      q: "\u200Fמה תנועה רוחבית (Lateral Movement)?",
-      correct: "\u200Fמעבר התוקף בין מכשירים ברשת\nלאחר גישה ראשונית\nבאמצעות RDP, SMB, SSH או Pass-the-Hash",
+      q: "\u200Fלמה אסור לכבות מחשב נגוע באירוע אבטחה?",
+      correct: "\u200FRAM מכיל ראיות קריטיות — תהליכים רצים, מפתחות הצפנה, חיבורי C2\nכיבוי מוחק את כל הזיכרון הנדיף",
       choices: [
-        "\u200Fמעבר התוקף בין מכשירים ברשת\nלאחר גישה ראשונית\nבאמצעות RDP, SMB, SSH או Pass-the-Hash",
-        "\u200Fהעברת נתונים מהרשת לשרת חיצוני",
-        "\u200Fעלייה בהרשאות ממשתמש רגיל למנהל",
-        "\u200Fשינוי כיוון תנועת תעבורה ברשת"
+        "\u200FRAM מכיל ראיות קריטיות — תהליכים רצים, מפתחות הצפנה, חיבורי C2\nכיבוי מוחק את כל הזיכרון הנדיף",
+        "\u200Fכי המחשב עלול להתפוצץ\nאם יש בו Ransomware פעיל",
+        "\u200Fכי Windows Update עלול להתקין עדכונים\nשימחקו את הנוזקה",
+        "\u200Fכי התוקף יקבל הודעה\nשהמחשב כבה ויברח"
       ],
-      explanation: "‏‏ טכניקות תנועה רוחבית\n\nעיקרי:\n- Pass-the-Hash — שימוש ב-hash ישירות ללא סיסמה\n- Pass-the-Ticket — כרטיס Kerberos גנוב\n- RDP — גישת GUI בפורט 3389\n\nטיפ:\nאיפוס אמון ב־Active Directory",
-      explanationEn: "Lateral Movement Techniques (MITRE ATT&CK T1550+): Pass-the-Hash (PtH) uses an NTLM hash directly without the password.\n\nMain Points:\n- Pass-the-Ticket uses a stolen Kerberos ticket\n- RDP: port 3389 for GUI access\n- SMB: psexec, wmiexec",
-      qEn: "What is Lateral Movement?",
-      correctEn: "The attacker moving between machines in the network\nafter initial access\nusing RDP, SMB, SSH, or Pass-the-Hash",
+      explanation: "\u200FMemory forensics תלוי ב-RAM חי.\n\nעיקרי:\n- Volatility יכול לחלץ: תהליכים, חיבורי רשת, מפתחות הצפנה\n- כיבוי = מחיקת כל הראיות מה-RAM\n- פעולה נכונה: memory dump \u2190 ניתוק רשת \u2190 חקירה\n\nטיפ:\nRAM = סצנת פשע — אל תנקה לפני שאוספים ראיות",
+      explanationEn: "Memory forensics depends on live RAM.\n\nMain Points:\n- Volatility can extract: processes, network connections, encryption keys\n- Shutdown = erasing all evidence from RAM\n- Correct action: memory dump, then network isolation, then investigation\n\nTip:\nRAM = crime scene — don't clean up before collecting evidence",
+      qEn: "Why should you NOT shut down an infected computer during a security incident?",
+      correctEn: "RAM contains critical evidence — running processes, encryption keys, C2 connections\nShutdown erases all volatile memory",
       choicesEn: [
-        "The attacker moving between machines in the network\nafter initial access\nusing RDP, SMB, SSH, or Pass-the-Hash",
-        "Transferring data from the network to an external server",
-        "Escalating privileges from a regular user to admin",
-        "Changing the direction of network traffic flow"
+        "RAM contains critical evidence — running processes, encryption keys, C2 connections\nShutdown erases all volatile memory",
+        "Because the computer might explode\nIf it has active Ransomware",
+        "Because Windows Update might install patches\nThat delete the malware",
+        "Because the attacker will get notified\nThat the computer was shut down and will flee"
       ]
     }
   ],
