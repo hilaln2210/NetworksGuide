@@ -3549,128 +3549,73 @@ AllowedIPs = 0.0.0.0/0</pre>
     pages: [
       {
         titleEn: "Facebook Outage — October 2021",
-        contentEn: `<p>On October 4, 2021, Facebook, Instagram, and WhatsApp went down for <strong>6 hours</strong>. 3.5 billion users were affected.</p>
-<h3>What happened:</h3>
-<ol>
-<li>A routine maintenance command was issued to check BGP router capacity</li>
-<li>The command had a bug — it withdrew all BGP route announcements</li>
-<li>Every Facebook server disappeared from the internet in seconds</li>
-<li>DNS servers for facebook.com became unreachable</li>
-<li>The cascading failure also took down internal tools</li>
-</ol>
-<h3>Why recovery took 6 hours:</h3>
-<ul>
-<li>Engineers could not access internal systems (they were down too)</li>
-<li>Remote access tools depended on Facebook's own network</li>
-<li>Physical access to data centers required badge systems — also down</li>
-<li>Engineers had to physically go to data centers and manually fix routers</li>
-</ul>
-<h3>Lessons:</h3>
-<ul>
-<li>Do not depend on your own network for recovery tools</li>
-<li>Out-of-band management access is critical (a separate path that works when everything else is down)</li>
-<li>Test disaster recovery procedures regularly</li>
-<li>One bad command can take down a global service</li>
-</ul>
-<p>Estimated cost: over $100 million in lost revenue.</p>`
+        contentEn: `<p>Imagine this: a normal day, October 4, 2021. You open WhatsApp — nothing. Instagram — dead. Facebook — gone.</p>
+<p>Not just you. 3.5 billion people around the world. All at once.</p>
+<p><strong>What happened?</strong></p>
+<p>An engineer at Facebook ran a routine maintenance command. A small check, nothing special.</p>
+<p>But the command did something terrible: it deleted Facebook from the internet's map.</p>
+<p>The internet's map is called <code>BGP</code>. Think of it like GPS for the internet — it tells everyone where every website lives.</p>
+<p>The moment Facebook was erased from the map, nobody in the world knew how to reach it.</p>
+<p><strong>Here's the crazy part:</strong> the tools Facebook engineers needed to fix the problem were INSIDE the network that went down.</p>
+<p>It's like locking your keys inside the locked apartment.</p>
+<p>So the engineers did the only thing left: they physically drove to the data center.</p>
+<p>They got to the door — and even the entry badge didn't work. Why? Because that too depended on Facebook's network.</p>
+<p>It took 6 hours to fix everything. Facebook lost about $60 million in revenue, and the stock dropped $6 billion.</p>
+<p><strong>The lesson:</strong> never rely on your own network to fix your own network. Always have an alternative way in.</p>`
       },
       {
         titleEn: "SQL Slammer — 376 Bytes That Shook the Internet",
-        contentEn: `<p>On January 25, 2003, a worm called <strong>SQL Slammer</strong> spread across the internet in <strong>10 minutes</strong>.</p>
-<h3>How it worked:</h3>
-<ul>
-<li>Exploited a known vulnerability in Microsoft SQL Server (patch was available for 6 months)</li>
-<li>The entire worm fit in <strong>one UDP packet — 376 bytes</strong></li>
-<li>No file was written to disk. It lived only in memory</li>
-<li>Each infected server scanned random IPs and sent the worm to them</li>
-<li>Exponential spread: doubled every 8.5 seconds</li>
-</ul>
-<h3>Impact:</h3>
-<ul>
-<li>75,000 servers infected in 10 minutes</li>
-<li>South Korea lost most of its internet for hours</li>
-<li>ATMs, airline systems, and 911 services went down in the US</li>
-<li>Internet backbone routers were overloaded with scanning traffic</li>
-</ul>
-<h3>Lessons:</h3>
-<ul>
-<li><strong>Patch your systems.</strong> The fix existed 6 months before the attack</li>
-<li>One tiny packet can cause massive damage</li>
-<li>UDP-based attacks spread faster than TCP (no handshake needed)</li>
-<li>Internet infrastructure is more fragile than we think</li>
-</ul>`
+        contentEn: `<p>January 2003. Someone released a tiny computer worm onto the internet. How tiny? 376 bytes. That's smaller than a text message.</p>
+<p>The worm was called <code>SQL Slammer</code>. It was so small it fit inside a single <code>UDP</code> packet.</p>
+<p><strong>What did it do?</strong></p>
+<p>It exploited a known bug in Microsoft's <code>SQL Server</code> software. The bug had been known for six months. Microsoft even released a fix. But most people never bothered to install it.</p>
+<p>The worm infected one server. That server immediately sent copies to random internet addresses. Every infected server did the same thing.</p>
+<p>The numbers doubled every 8.5 seconds. Within 10 minutes — 75,000 servers were infected.</p>
+<p>The result? South Korea's entire internet collapsed within 30 minutes. In the US, ATMs stopped working. 911 emergency services went down in some areas. Airlines couldn't issue tickets.</p>
+<p>All because of 376 bytes.</p>
+<p><strong>The most important lesson:</strong> update your software. The fix existed six months before the attack. Anyone who installed it was safe.</p>
+<p>The exact same story repeated in 2017 with WannaCry. People just don't update.</p>`
       },
       {
         titleEn: "BGP Hijacking and Route Leaks",
-        contentEn: `<p>BGP (Border Gateway Protocol) is how internet providers share routing information. It is based on <strong>trust</strong> — and that is a problem.</p>
-<h3>BGP Hijacking:</h3>
-<ul>
-<li>Any network can announce: "I own IP range 1.2.3.0/24"</li>
-<li>BGP has <strong>no built-in authentication</strong> — routers believe the announcement</li>
-<li>An attacker can redirect traffic meant for another network to their own</li>
-</ul>
-<h3>Famous incidents:</h3>
-<ul>
-<li><strong>2008 — Pakistan/YouTube:</strong> Pakistan Telecom tried to block YouTube locally but accidentally announced YouTube's IP range to the world. YouTube was unreachable globally for 2 hours</li>
-<li><strong>2018 — Crypto theft:</strong> Attackers hijacked Amazon DNS server IPs, redirected crypto wallet users, stole $150,000</li>
-<li><strong>2019 — China Telecom:</strong> Accidentally rerouted European traffic through China for 2 hours</li>
-</ul>
-<h3>Why is this still possible?</h3>
-<ul>
-<li>BGP was designed in 1989, when the internet was small and trusted</li>
-<li><strong>RPKI</strong> (Resource Public Key Infrastructure) is the fix — cryptographic signing of route announcements</li>
-<li>Adoption is slow: about 40% of routes are RPKI-protected (2024)</li>
-</ul>`
+        contentEn: `<p><code>BGP</code> has a big problem: it trusts everyone.</p>
+<p>When a network announces "these addresses belong to me" — every other network just believes it. No verification. No checking. Just trust.</p>
+<p>It's like someone declaring "this house is mine" and nobody checking the title deed.</p>
+<p><strong>2008 — Pakistan accidentally takes down YouTube worldwide:</strong></p>
+<p>Pakistan wanted to block YouTube inside the country. So they told their routers: "YouTube's addresses — send them nowhere."</p>
+<p>But that message leaked out. Within minutes, the entire global internet thought the way to YouTube was through Pakistan. YouTube stopped working worldwide for two hours.</p>
+<p><strong>2010 — China Telecom pulls in 15% of the internet:</strong></p>
+<p>China Telecom accidentally announced 50,000 addresses that didn't belong to them — including Dell, IBM, CNN, and even Army.mil. For 18 minutes, traffic from around the world flowed through China.</p>
+<p><strong>So what's the fix?</strong></p>
+<p>A system called <code>RPKI</code> was developed. The idea is simple: every address owner signs their addresses digitally. That way, when someone announces "these addresses are mine" — you can verify if they're really the owner.</p>
+<p>The problem? Adoption is slow. To this day, only some networks in the world use <code>RPKI</code>. The internet is still vulnerable to mistakes like these.</p>`
       },
       {
         titleEn: "Blameless Postmortem Culture",
-        contentEn: `<p>When systems fail, the natural response is: "Who made the mistake?" But blame makes things worse.</p>
-<h3>Blameless Postmortem:</h3>
-<ul>
-<li>Focus on <strong>what</strong> happened and <strong>why</strong>, not <strong>who</strong></li>
-<li>The person who made the error often has the best information about what went wrong</li>
-<li>If people fear punishment, they hide mistakes. Hidden mistakes become bigger failures</li>
-</ul>
-<h3>Structure of a good postmortem:</h3>
-<ol>
-<li><strong>Timeline:</strong> Exact sequence of events with timestamps</li>
-<li><strong>Impact:</strong> How many users affected, for how long, revenue lost</li>
-<li><strong>Root cause:</strong> The real underlying reason (not "human error")</li>
-<li><strong>What went well:</strong> Things that helped during recovery</li>
-<li><strong>Action items:</strong> Concrete changes to prevent recurrence</li>
-</ol>
-<h3>Key principle:</h3>
-<p>"The system allowed this failure to happen. Fix the system, not the person."</p>
-<ul>
-<li>If one command can take down production, the problem is missing safeguards</li>
-<li>Add confirmation prompts, canary deployments, automated rollbacks</li>
-<li>Google, Netflix, and Etsy publish their postmortems publicly — transparency builds trust</li>
-</ul>`
+        contentEn: `<p>An engineer makes a mistake. The system crashes. A million users are affected.</p>
+<p>What do you do? Fire the engineer?</p>
+<p>At companies like Google, Amazon, and Netflix — the exact opposite. They sit down together and write a document called a <strong>Postmortem</strong>.</p>
+<p><strong>What is a Postmortem?</strong></p>
+<p>A document that answers three simple questions: What happened? Why did it happen? What will we change so it doesn't happen again?</p>
+<p><strong>The key idea:</strong> if a human made a mistake — the SYSTEM failed, not the person.</p>
+<p>Why? Because if one command can bring down the entire system — the problem is that there's no safety mechanism. Not that someone pressed the wrong button.</p>
+<p><strong>The 5 Whys technique:</strong></p>
+<p>The system crashed. Why? — A query failed. Why? — A missing index on a table. Why? — Nobody checked the schema before deploy. Why? — There's no DB review checklist. Why? — Nobody thought it was needed.</p>
+<p>That's how you get to the root cause, not just the symptom.</p>
+<p><strong>Action Items</strong> — the most important part. A list of concrete changes: "from now on every deploy gets a DB review" or "add an automatic alert when error rates spike."</p>
+<p>Google, Netflix, and Etsy even publish their Postmortems publicly. Transparency builds trust.</p>
+<p><strong>The bottom line:</strong> if people fear punishment, they hide mistakes. Hidden mistakes turn into bigger crashes.</p>`
       },
       {
         titleEn: "Chaos Engineering — Breaking Things on Purpose",
-        contentEn: `<p>If you do not test failures, you will not be ready when real failures happen. <strong>Chaos engineering</strong> means breaking your system on purpose to find weaknesses.</p>
-<h3>Netflix Chaos Monkey (2011):</h3>
-<ul>
-<li>Randomly kills virtual machines in production during work hours</li>
-<li>Forces engineers to build services that survive server failures</li>
-<li>If a service cannot handle a lost server, they find out before users do</li>
-</ul>
-<h3>Netflix Simian Army (expanded tools):</h3>
-<ul>
-<li><strong>Chaos Monkey:</strong> Kills random instances</li>
-<li><strong>Chaos Kong:</strong> Simulates an entire AWS region going down</li>
-<li><strong>Latency Monkey:</strong> Adds artificial delays to network calls</li>
-</ul>
-<h3>Principles of chaos engineering:</h3>
-<ol>
-<li><strong>Start with a hypothesis:</strong> "If server X dies, users should not notice"</li>
-<li><strong>Run in production:</strong> Staging environments do not show real problems</li>
-<li><strong>Minimize blast radius:</strong> Start small (one server), expand gradually</li>
-<li><strong>Automate:</strong> Run chaos experiments continuously, not just once</li>
-</ol>
-<p><strong>Other tools:</strong> Gremlin, LitmusChaos, AWS Fault Injection Service.</p>
-<p>Companies that practice chaos engineering have fewer and shorter outages. You cannot prevent all failures, but you can be ready for them.</p>`
+        contentEn: `<p>At Netflix, they asked themselves a strange question: "What if we break things on purpose?"</p>
+<p>The idea: if our system survives random failures every day, it will survive real failures too.</p>
+<p>So they built a tool called <strong>Chaos Monkey</strong>. What does it do? Every day, randomly, it kills live servers in production. Real servers serving real users.</p>
+<p>It sounds crazy, but it's genius. Because if your service keeps running even when a server suddenly dies — you know the system is truly reliable.</p>
+<p>Netflix didn't stop there. They built more tools: <strong>Chaos Kong</strong> simulates an entire AWS region going down. <strong>Latency Monkey</strong> adds random delays to the network.</p>
+<p><strong>GameDay</strong> — Amazon's version. On a scheduled day, engineers practice a disaster scenario. Like a fire drill — but for computer systems.</p>
+<p>There's an important concept related to this: <strong>Single Point of Failure</strong>. That's when there's one component that, if it goes down, everything dies. It's the most dangerous thing a system can have.</p>
+<p><strong>The bottom line:</strong> you can't prevent failures. But you can prepare for them. Companies that practice failures every day suffer less damage when a real crash happens.</p>`
       },
       {
         titleEn: "Think Outside the Network",

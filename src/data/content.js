@@ -4762,11 +4762,13 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
         type: "explanation",
         title: "פייסבוק נפלה – 6 שעות של BGP כאוס",
         content: `
-          <p><strong>4 באוקטובר 2021, 15:51 UTC.</strong> פייסבוק, אינסטגרם, ווטסאפ — כולם נעלמו מהאינטרנט בו-זמנית.</p>
-          <p>3.5 מיליארד משתמשים. 6 שעות.</p>
+          <p>תארו לכם: יום רגיל, 4 באוקטובר 2021. אתם פותחים את WhatsApp — לא עובד. Instagram — לא עולה. Facebook — שום דבר.</p>
+          <p>לא רק אצלכם. אצל 3.5 מיליארד אנשים בעולם. בו זמנית.</p>
           <p><strong>מה קרה?</strong></p>
-          <p>בצעד תחזוקה שגרתי, מהנדס שינה הגדרות ב-<code>BGP</code> router.</p>
-          <p>הפקודה השגויה ביטלה את כל ה-<code>prefix announcements</code> — פייסבוק הסירה את עצמה ממפת האינטרנט.</p>
+          <p>מהנדס בפייסבוק הריץ פקודת תחזוקה שגרתית. פקודה שנועדה לבדוק משהו קטן.</p>
+          <p>אבל הפקודה הזו עשתה משהו נורא: היא מחקה את פייסבוק ממפת האינטרנט.</p>
+          <p>מפת האינטרנט נקראת <code>BGP</code>. זה כמו GPS של האינטרנט — הוא אומר לכולם איפה כל אתר נמצא.</p>
+          <p>ברגע שפייסבוק נמחקה מהמפה — אף אחד בעולם לא ידע איך להגיע אליה.</p>
           <div class="diagram-container">
             <svg direction="ltr" viewBox="0 0 380 130" class="content-diagram">
               <rect x="10" y="10" width="80" height="35" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -4787,22 +4789,24 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
               <text x="190" y="120" text-anchor="middle" font-size="8" fill="#92400e">• הפסד: ~$60M הכנסות + $6B ירידה בשווי מניה</text>
             </svg>
           </div>
-          <p><strong>הבעיה העמוקה:</strong> הכלים לתיקון גם הם היו בתוך הרשת שנפלה.</p>
-          <p>מהנדסים נאלצו לנסוע פיזית למרכז הנתונים.</p>
-          <p>הם ניסו להיכנס עם badge שלא עבד — כי מערכת הגישה גם היא תלויה בפייסבוק.</p>
-          <p><strong><code>BGP</code> — Border Gateway Protocol</strong> הוא הפרוטוקול שמנהל את "מפת האינטרנט".</p>
-          <p>כל <code>AS</code> (Autonomous System) מכריז על ה-<code>prefixes</code> שלו.</p>
-          <p>בלי הכרזות — אף אחד לא יודע איפה פייסבוק.</p>
+          <p><strong>ועכשיו החלק המטורף:</strong> הכלים שמהנדסי פייסבוק צריכים כדי לתקן — גם הם בתוך הרשת שנפלה.</p>
+          <p>זה כמו שהמפתח לדלת נעול בתוך הדירה הנעולה.</p>
+          <p>אז המהנדסים עשו את הדבר היחיד שנשאר: נסעו פיזית במכונית למרכז הנתונים.</p>
+          <p>הגיעו לדלת — וגם ה-badge הכניסה לא עבד. למה? כי גם הוא תלוי ברשת של פייסבוק.</p>
+          <p>לקח 6 שעות לתקן הכל. פייסבוק הפסידה כ-60 מיליון דולר בהכנסות, והמניה ירדה ב-6 מיליארד דולר.</p>
+          <p><strong>הלקח:</strong> אל תסתמכו על הרשת שלכם עצמה כדי לתקן אותה. תמיד צריך דרך גישה חלופית.</p>
         `
       },
       {
         type: "explanation",
         title: "SQL Slammer – 376 בתים ששיתקו את האינטרנט",
         content: `
-          <p><strong>25 בינואר 2003, 05:30 UTC.</strong> תוך 10 דקות — 75,000 שרתים נדבקו.</p>
-          <p>תוך 30 דקות — אינטרנט של דרום קוריאה קרס לחלוטין.</p>
-          <p><strong>הנשק:</strong> תולעת בגודל 376 בתים בלבד — קטן מספיק להיכנס בחבילת <code>UDP</code> אחת.</p>
-          <p>ניצלה חולשה ידועה ב־Microsoft SQL Server שכבר קיים לה <code>patch</code> מזה 6 חודשים.</p>
+          <p>ינואר 2003. מישהו שחרר לאינטרנט תולעת מחשב קטנטנה. כמה קטנה? 376 בתים. זה פחות מהודעת טקסט.</p>
+          <p>התולעת נקראה <code>SQL Slammer</code>. היא הייתה כל כך קטנה שנכנסה בחבילת <code>UDP</code> אחת בודדה.</p>
+          <p><strong>מה היא עשתה?</strong></p>
+          <p>היא ניצלה באג ידוע בתוכנה של Microsoft שנקראת <code>SQL Server</code>. הבאג הזה היה ידוע כבר חצי שנה. Microsoft אפילו שחררה תיקון. אבל רוב האנשים לא טרחו להתקין אותו.</p>
+          <p>התולעת הדביקה שרת אחד. השרת הנגוע שלח מיד עותקים לכתובות אקראיות באינטרנט. כל שרת שנדבק עשה את אותו הדבר.</p>
+          <p>המספרים הוכפלו כל 8.5 שניות. תוך 10 דקות — 75,000 שרתים נדבקו.</p>
           <div class="diagram-container">
             <svg direction="ltr" viewBox="0 0 360 110" class="content-diagram">
               <circle cx="180" cy="55" r="8" fill="#dc2626"/>
@@ -4825,36 +4829,24 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
               <text x="180" y="103" text-anchor="middle" font-size="8" fill="var(--text-muted)">כל שרת נגוע שולח לאלפי IP אקראיים — גדילה אקספוננציאלית</text>
             </svg>
           </div>
-          <p><strong>מה עשתה התולעת?</strong></p>
-          <ul>
-            <li>נכנסה דרך פורט UDP 1434 (SQL Server Resolution Service)</li>
-            <li>העתיקה את עצמה לזיכרון — <strong>לא לדיסק</strong>. ב-reboot — נעלמת</li>
-            <li>שלחה עותקים לכתובות IP אקראיות במהירות מקסימלית</li>
-            <li>כל שרת שלח UDP packets במהירות של network card — עד 50Mpps</li>
-          </ul>
-          <p><strong>הלקח:</strong> patch management.</p>
-          <p>חולשה ידועה, patch זמין — אף אחד לא עדכן.</p>
-          <p>בדיוק אותו תסריט חזר ב־2017 עם WannaCry.</p>
+          <p>התוצאה? האינטרנט של דרום קוריאה קרס לחלוטין תוך 30 דקות. בארה"ב כספומטים הפסיקו לעבוד. מערכת 911 נפלה באזורים מסוימים. חברות תעופה לא יכלו להנפיק כרטיסים.</p>
+          <p>כל זה בגלל 376 בתים.</p>
+          <p><strong>הלקח הכי חשוב:</strong> תעדכנו את התוכנות שלכם. התיקון היה קיים חצי שנה לפני המתקפה. מי שהתקין אותו — לא נפגע.</p>
+          <p>אותו סיפור בדיוק חזר ב-2017 עם WannaCry. אנשים פשוט לא מתעדכנים.</p>
         `
       },
       {
         type: "explanation",
         title: "BGP Leaks – כשהניתוב הולך לאיבוד",
         content: `
-          <p><code>BGP hijacking</code> ו-<code>BGP leaks</code> הם בין האיומים המסוכנים ביותר לאינטרנט — ולרוב אינם מוכרים לציבור.</p>
-          <p><strong>הבעיה:</strong> ל-<code>BGP</code> אין <code>authentication</code> מובנה.</p>
-          <p>כל <code>AS</code> יכול להכריז על כל <code>prefix</code> — בטעות או בכוונה.</p>
-          <p><strong>2010 — China Telecom מנתב 15% מהאינטרנט דרך סין:</strong></p>
-          <ul>
-            <li>China Telecom הכריזה בטעות על ~50,000 prefixes — כולל כאלה של Dell, IBM, CNN, Army.mil</li>
-            <li>18 דקות — תנועה מרחבי העולם עברה דרך סין</li>
-            <li>המידע לא היה מוצפן. כל מי ששלט ב-routers יכל לקרוא</li>
-          </ul>
-          <p><strong>2019 — Cloudflare, Comcast, AWS מנותבים דרך ניגריה:</strong></p>
-          <ul>
-            <li>MainOne (ISP ניגרי) דלף routing ל־MTN ניגריה, שדלפה ל־China Telecom</li>
-            <li>שעה וחצי של תנועה מסוננת</li>
-          </ul>
+          <p>ל-<code>BGP</code> יש בעיה גדולה: הוא מאמין לכולם.</p>
+          <p>כשרשת מכריזה "הכתובות האלה שייכות לי" — כל שאר הרשתות פשוט מאמינות לה. אין בדיקה. אין אימות. סתם אמון.</p>
+          <p>זה כמו שמישהו יכריז "הבית הזה שלי" ואף אחד לא יבדוק בטאבו.</p>
+          <p><strong>2008 — פקיסטן מפילה את YouTube בטעות:</strong></p>
+          <p>פקיסטן רצתה לחסום את YouTube בתוך המדינה שלה. אז הם אמרו ל-routers שלהם: "הכתובות של YouTube — תשלחו אותן לשום מקום."</p>
+          <p>אבל ההודעה הזו דלפה החוצה. תוך דקות, כל האינטרנט העולמי חשב שהדרך ל-YouTube היא דרך פקיסטן. YouTube הפסיק לעבוד בכל העולם לשעתיים.</p>
+          <p><strong>2010 — China Telecom מושכת אליה 15% מהאינטרנט:</strong></p>
+          <p>China Telecom הכריזה בטעות על 50,000 כתובות שלא שייכות לה — כולל של Dell, IBM, CNN, ואפילו Army.mil. במשך 18 דקות, תנועה מכל העולם עברה דרך סין.</p>
           <div class="diagram-container">
             <svg direction="ltr" viewBox="0 0 360 90" class="content-diagram">
               <rect x="10" y="25" width="70" height="40" rx="4" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -4872,25 +4864,25 @@ ws.onmessage = (e) => console.log(JSON.parse(e.data))</code></pre>
               <text x="180" y="18" text-anchor="middle" font-size="8" fill="#dc2626">מסלול שנחטף</text>
             </svg>
           </div>
-          <p><strong>הפתרון: <code>RPKI</code></strong> (Resource Public Key Infrastructure).</p>
-          <p>מאפשר לבעלי <code>IP</code> לחתום קריפטוגרפית על הכרזות ה-<code>BGP</code> שלהם.</p>
-          <p>האימוץ הולך וגדל, אך עדיין חלקי — האינטרנט עדיין פגיע.</p>
+          <p><strong>אז מה הפתרון?</strong></p>
+          <p>פיתחו מערכת בשם <code>RPKI</code>. הרעיון פשוט: כל בעלים של כתובות חותם עליהן דיגיטלית. ככה כשמישהו מכריז "הכתובות האלה שלי" — אפשר לבדוק אם הוא באמת הבעלים.</p>
+          <p>הבעיה? האימוץ איטי. עד היום רק חלק מהרשתות בעולם משתמשות ב-<code>RPKI</code>. האינטרנט עדיין פגיע לטעויות כאלה.</p>
         `
       },
       {
         type: "explanation",
         title: "Postmortem – תרבות הלמידה מכשלים",
         content: `
-          <p>בחברות הטכנולוגיה הגדולות — Google, Amazon, Netflix, Cloudflare — כשל הוא הזדמנות ללמוד, לא סיבה לפטר מישהו.</p>
-          <p>זה נקרא "blameless postmortem culture".</p>
-          <p><strong>מבנה הפוסטמורטם:</strong></p>
-          <ul>
-            <li><strong>Timeline:</strong> מה קרה בדיוק, מתי, מי הבחין ראשון</li>
-            <li><strong>Root Cause Analysis:</strong> 5 Why's — מחפשים את הסיבה העמוקה, לא הסימפטום</li>
-            <li><strong>Impact:</strong> כמה משתמשים הושפעו, כמה הכנסות אבדו, SLA</li>
-            <li><strong>Action Items:</strong> מה נשנה — תהליך, קוד, מוניטורינג</li>
-            <li><strong>Prevention:</strong> איך למנוע הישנות</li>
-          </ul>
+          <p>מהנדס עושה טעות. המערכת קורסת. מיליון משתמשים מושפעים.</p>
+          <p>מה עושים? מפטרים את המהנדס?</p>
+          <p>בחברות כמו Google, Amazon ו-Netflix — בדיוק ההפך. הם יושבים ביחד וכותבים מסמך שנקרא <strong>Postmortem</strong>.</p>
+          <p><strong>מה זה Postmortem?</strong></p>
+          <p>מסמך שעונה על שלוש שאלות פשוטות: מה קרה? למה זה קרה? מה נשנה כדי שזה לא יקרה שוב?</p>
+          <p><strong>הרעיון המרכזי:</strong> אם בן אדם עשה טעות — המערכת נכשלה, לא הבן אדם.</p>
+          <p>למה? כי אם פקודה אחת יכולה להפיל את כל המערכת — הבעיה היא שאין מנגנון הגנה. לא שמישהו לחץ על כפתור לא נכון.</p>
+          <p><strong>טכניקת 5 Why's — חמש פעמים "למה?":</strong></p>
+          <p>המערכת קרסה. למה? — כי שאילתא לא עבדה. למה? — כי חסר index בטבלה. למה? — כי לא בדקו את הסכמה לפני ה-deploy. למה? — כי אין צ'קליסט לבדיקת DB. למה? — כי אף אחד לא חשב שזה צריך.</p>
+          <p>ככה מגיעים לשורש הבעיה, לא רק לסימפטום.</p>
           <div class="code-preview">
             <pre><code>Postmortem: Database Outage — 2024-03-15
 Severity: P0 | Duration: 47 minutes
@@ -4907,25 +4899,19 @@ Root Cause: config change added query without index review.
 5 Why: Why no index? → wasn't in schema migration.
 Why not? → code review checklist didn't include DB review.</code></pre>
           </div>
-          <p><strong>Google SRE Book:</strong> "If a human operator needs to touch your system during normal operations, you have a bug."</p>
-          <p>זה הסטנדרט שגוגל בנתה את אמינות שירותיה עליו.</p>
-          <p><strong>Error Budget</strong> — <code>SLA</code> של 99.9% אומר שמותרות 8.7 שעות <code>downtime</code> לשנה.</p>
-          <p>גוגל מתירה לעצמה לנצל את ה-<code>budget</code> הזה — כי ללא סיכון, אין חדשנות.</p>
+          <p><strong>Action Items</strong> — החלק הכי חשוב. זו רשימת שינויים קונקרטיים: "מעכשיו כל deploy עובר בדיקת DB" או "מוסיפים התראה אוטומטית כשיש error rate גבוה".</p>
+          <p>Google, Netflix ו-Etsy אפילו מפרסמים את ה-Postmortems שלהם לציבור. שקיפות בונה אמון.</p>
+          <p><strong>השורה התחתונה:</strong> אם אנשים מפחדים מעונש — הם מסתירים טעויות. טעויות מוסתרות הופכות לקריסות גדולות יותר.</p>
         `
       },
       {
         type: "explanation",
         title: "Chaos Engineering – שוברים בכוונה",
         content: `
-          <p><strong>Netflix, 2011:</strong> "מה יקרה אם שרת ייפול אקראי ב-<code>production</code>?"</p>
-          <p>במקום לחשוב — הם ניסו. כך נולד <strong>Chaos Monkey</strong>.</p>
-          <p><strong><code>Chaos Engineering</code></strong> = הזרקת כשלים מבוקרת למערכת חיה, כדי לגלות חולשות לפני שהמציאות מגלה אותן.</p>
-          <ul>
-            <li><strong>Chaos Monkey:</strong> מפיל instances אקראיים ב־AWS</li>
-            <li><strong>Latency Monkey:</strong> מוסיף עיכובים אקראיים לבקשות</li>
-            <li><strong>Chaos Gorilla:</strong> מפיל Availability Zone שלמה</li>
-            <li><strong>Chaos Kong:</strong> מדמה נפילת Region שלם של AWS</li>
-          </ul>
+          <p>ב-Netflix שאלו את עצמם שאלה מוזרה: "מה אם נשבור דברים בכוונה?"</p>
+          <p>הרעיון: אם המערכת שלנו שורדת כשלים אקראיים כל יום — היא תשרוד גם כשלים אמיתיים.</p>
+          <p>אז הם בנו כלי בשם <strong>Chaos Monkey</strong>. מה הוא עושה? כל יום, באופן אקראי, הוא הורג שרתים חיים ב-production. ממש שרתים שמשרתים משתמשים אמיתיים.</p>
+          <p>זה נשמע מטורף, אבל זה גאוני. כי אם השירות שלך ממשיך לעבוד גם כששרת נופל פתאום — אתה יודע שהמערכת באמת אמינה.</p>
           <div class="diagram-container">
             <svg direction="ltr" viewBox="0 0 360 100" class="content-diagram">
               <rect x="10" y="20" width="75" height="60" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/>
@@ -4943,10 +4929,10 @@ Why not? → code review checklist didn't include DB review.</code></pre>
               <text x="180" y="95" text-anchor="middle" font-size="8" fill="var(--text-muted)">Chaos → כשל → fallback עובד = מערכת resilient</text>
             </svg>
           </div>
-          <p><strong>עיקרון:</strong> <code>resilience</code> לא נבנית בתכנון — היא נבדקת בפועל.</p>
-          <p>Netflix מריצה <code>Chaos Monkey</code> ב-<code>production</code> מדי יום. הם מוכנים לכשלים אמיתיים כי הם רגילים אליהם.</p>
-          <p><strong>GameDay</strong> — פרקטיקה של Amazon.</p>
-          <p>ביום קבוע בוחרים תרחיש כמו "Region נפל" ומתרגלים תגובה. כמו תרגיל אש, אבל למערכות מחשב.</p>
+          <p>Netflix לא עצרו שם. הם בנו עוד כלים: <strong>Chaos Kong</strong> מדמה נפילה של אזור שלם של AWS. <strong>Latency Monkey</strong> מוסיף עיכובים אקראיים לרשת.</p>
+          <p><strong>GameDay</strong> — גרסה של Amazon. ביום קבוע, המהנדסים מתרגלים תרחיש אסון. כמו תרגיל אש — אבל למערכות מחשב.</p>
+          <p>ויש מושג חשוב שקשור: <strong>Single Point of Failure</strong>. זה כשיש רכיב אחד שאם הוא נופל — הכל מת. זה הדבר הכי מסוכן שיכול להיות במערכת.</p>
+          <p><strong>השורה התחתונה:</strong> אי אפשר למנוע כשלים. אבל אפשר להתכונן אליהם. חברות שמתרגלות כשלים כל יום — סופגות פחות נזק כשקריסה אמיתית קורה.</p>
         `
       },
       {
