@@ -398,6 +398,15 @@ function App() {
     return isPageRead(compositeId, currentPage)
   })()
 
+  // Auto-mark page as read after 3 seconds of viewing
+  useEffect(() => {
+    if (!chapter || !page || !activeTrack || activeTab !== 'learn') return
+    const timer = setTimeout(() => {
+      tryMarkRead()
+    }, 3000)
+    return () => clearTimeout(timer)
+  }, [currentChapter, currentPage, activeTrack, activeTab, chapter, page, tryMarkRead])
+
   const goNextRef = useRef(goNext)
   const goPrevRef = useRef(goPrev)
   useEffect(() => { goNextRef.current = goNext })
