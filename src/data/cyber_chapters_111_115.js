@@ -7,6 +7,10 @@ export const chapters111to115 = [
         type: "story",
         title: "הדלף שזעזע את עולם הסיסמאות",
         content: `<div dir="rtl">
+<div class="scenario-box scenario-alert">
+  <p><strong>🚨 תרחיש:</strong> יוני 2012 — האקר רוסי מפרסם בפורום קובץ עם 6.5 מיליון חתימות סיסמאות של LinkedIn. מהנדסי אבטחה ברחבי העולם מורידים, בודקים — ומגלים אסון.</p>
+</div>
+
 <h2>2012: הלילה ש-LinkedIn איבדה 6.5 מיליון סיסמאות</h2>
 
 <p>ביוני 2012, האקר רוסי פרסם בפורום קובץ עם 6.5 מיליון חתימות (<code>hashes</code>) של סיסמאות מ-<code>LinkedIn</code>. מהנדסי אבטחה ברחבי העולם הורידו את הקובץ ובדקו — ותוך שעות הבינו את חומרת המצב.</p>
@@ -14,6 +18,9 @@ export const chapters111to115 = [
 <p><code>LinkedIn</code> השתמשה ב-<code>SHA-1</code> בלי <code>salt</code>. בלי מלח. בשנת 2012. זה כמו לנעול את הכספת עם מנעול מספרים ולהדביק את הקוד על הדלת.</p>
 
 <p>תוך 72 שעות, חוקרים פיצחו למעלה מ-90% מהסיסמאות. הסיסמה הנפוצה ביותר? <code>123456</code>. השנייה? <code>linkedin</code>. השלישית? <code>password</code>.</p>
+
+<div class="stat-highlight"><span class="stat-number">117M</span><span class="stat-unit">סיסמאות שדלפו בפועל</span></div>
+<div class="stat-highlight"><span class="stat-number">$2,200</span><span class="stat-unit">מחיר הקובץ המלא ב-Dark Web (5 BTC)</span></div>
 
 <div class="key-point"><strong>💡 נקודת מפתח:</strong> ב-2016 התגלה שהמספר האמיתי היה 117 מיליון סיסמאות — לא 6.5 מיליון. הקובץ המלא נמכר ב-Dark Web ב-5 Bitcoin (כ-$2,200 באותה תקופה). סיסמאות שנפרצו תוך שניות היו שוות מיליארדים בנזק.</div>
 
@@ -32,11 +39,23 @@ export const chapters111to115 = [
 
 <p><strong>שאלה 2: "מה מותר לך?"</strong> — הכרטיס שלך פותח את חדר 412, את חדר הכושר, ואת הבריכה. אבל לא את הסוויטה הנשיאותית. זה <code>Authorization</code> (הרשאה).</p>
 
+<div class="vs-container">
+  <div class="vs-card vs-bad"><h4>🔐 Authentication (AuthN)</h4><p><strong>שאלה:</strong> מי אתה?</p><p><strong>אנלוגיה:</strong> תעודת זהות בקבלה</p><p><strong>טכנית:</strong> Login עם שם משתמש + סיסמה</p></div>
+  <div class="vs-card vs-good"><h4>🛡️ Authorization (AuthZ)</h4><p><strong>שאלה:</strong> מה מותר לך?</p><p><strong>אנלוגיה:</strong> כרטיס חדר שפותח דלתות ספציפיות</p><p><strong>טכנית:</strong> role: admin יכול למחוק משתמשים</p></div>
+</div>
+
 <table class="content-table">
   <tr><th>מושג</th><th>שאלה</th><th>אנלוגיה</th><th>דוגמה טכנית</th></tr>
   <tr><td><strong><code>Authentication</code> (<code>AuthN</code>)</strong></td><td>מי אתה?</td><td>תעודת זהות בקבלה</td><td><code>Login</code> עם שם משתמש + סיסמה</td></tr>
   <tr><td><strong><code>Authorization</code> (<code>AuthZ</code>)</strong></td><td>מה מותר לך?</td><td>כרטיס חדר שפותח דלתות ספציפיות</td><td><code>role: admin</code> יכול למחוק משתמשים</td></tr>
 </table>
+
+<h3>שלושת גורמי האימות</h3>
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">🧠</div><div class="mini-card-title">משהו שאתה יודע</div><div class="mini-card-desc">סיסמה, PIN, שאלת אבטחה</div></div>
+  <div class="mini-card"><div class="mini-card-icon">📱</div><div class="mini-card-title">משהו שיש לך</div><div class="mini-card-desc">טלפון, YubiKey, כרטיס חכם</div></div>
+  <div class="mini-card"><div class="mini-card-icon">👆</div><div class="mini-card-title">משהו שאתה</div><div class="mini-card-desc">טביעת אצבע, זיהוי פנים, רשתית</div></div>
+</div>
 
 <div class="key-point"><strong>💡 נקודת מפתח:</strong> אימות תמיד בא לפני הרשאה. אי אפשר להחליט מה מותר לך אם לא יודעים מי אתה. בקוד: קודם <code>middleware</code> של <code>auth</code>, ואז בדיקת <code>permissions</code>.</div>
 
@@ -51,6 +70,8 @@ export const chapters111to115 = [
         content: `<div dir="rtl">
 <h2>הסיסמה שלך — כמה זמן עד שנפרצת?</h2>
 
+<div class="stat-highlight"><span class="stat-number">164B</span><span class="stat-unit">חתימות MD5 בשנייה עם RTX 4090</span></div>
+
 <p>מחשב עם כרטיס מסך <code>RTX 4090</code> יכול לנסות <strong>164 מיליארד</strong> חתימות <code>MD5</code> בשנייה. בואו נראה מה זה אומר:</p>
 
 <table class="content-table">
@@ -63,11 +84,11 @@ export const chapters111to115 = [
 
 <p><strong>שלוש שיטות הפריצה העיקריות:</strong></p>
 
-<p><strong>1. <code>Brute Force</code></strong> — ניסוי כל הצירופים האפשריים. עובד מעולה על סיסמאות קצרות, לוקח נצח על ארוכות.</p>
-
-<p><strong>2. <code>Dictionary Attack</code></strong> — שימוש ברשימת מילים נפוצות. הרשימה <code>rockyou.txt</code> מכילה 14 מיליון סיסמאות אמיתיות שדלפו. רוב האנשים משתמשים בסיסמאות שנמצאות שם.</p>
-
-<p><strong>3. <code>Rainbow Tables</code></strong> — טבלאות מחושבות מראש של חתימות. במקום לחשב כל <code>hash</code> בזמן אמת, פשוט מחפשים בטבלה. עובד רק אם אין <code>salt</code> — וזו בדיוק הטעות של <code>LinkedIn</code>.</p>
+<div class="attack-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong>1. Brute Force</strong><p>ניסוי כל הצירופים האפשריים. עובד מעולה על סיסמאות קצרות, לוקח נצח על ארוכות.</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>2. Dictionary Attack</strong><p>שימוש ברשימת מילים נפוצות. הרשימה <code>rockyou.txt</code> מכילה 14 מיליון סיסמאות אמיתיות שדלפו. רוב האנשים משתמשים בסיסמאות שנמצאות שם.</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>3. Rainbow Tables</strong><p>טבלאות מחושבות מראש של חתימות. במקום לחשב כל <code>hash</code> בזמן אמת, פשוט מחפשים בטבלה. עובד רק אם אין <code>salt</code> — וזו בדיוק הטעות של LinkedIn.</p></div></div>
+</div>
 
 <div class="warning-box"><strong>⚠️ אזהרה:</strong> סיסמאות מ-<code>data breaches</code> ישנים נמכרות ומשמשות ל-<code>credential stuffing</code> — ניסיון אותה סיסמה באתרים אחרים. 65% מהאנשים משתמשים באותה סיסמה במספר אתרים.</div>
 </div>`
@@ -79,6 +100,11 @@ export const chapters111to115 = [
 <h2>ההבדל בין <code>hash</code> מהיר ל-<code>hash</code> מאובטח</h2>
 
 <p><code>MD5</code> ו-<code>SHA-1</code> תוכננו להיות <strong>מהירים</strong>. זה מצוין לאימות שלמות קבצים — ונורא לסיסמאות. אלגוריתם <code>hash</code> לסיסמאות צריך להיות <strong>איטי בכוונה</strong>.</p>
+
+<div class="vs-container">
+  <div class="vs-card vs-bad"><h4>❌ MD5 / SHA-1</h4><p>164 מיליארד ניסיונות/שנייה</p><p>ללא Salt מובנה</p><p>סיסמה בת 8 תווים = 5 שעות</p><p><span class="phase-badge phase-red">לא מומלץ</span></p></div>
+  <div class="vs-card vs-good"><h4>✅ bcrypt / Argon2id</h4><p>~1,000 ניסיונות/שנייה (Argon2)</p><p>Salt מובנה + עלות זיכרון</p><p>סיסמה בת 8 תווים = 99+ שנים</p><p><span class="phase-badge phase-green">מומלץ בחום</span></p></div>
+</div>
 
 <table class="content-table">
   <tr><th>אלגוריתם</th><th>סוג</th><th><code>Salt</code> מובנה?</th><th>ניסיונות/שנייה (<code>GPU</code>)</th><th>מומלץ?</th></tr>
@@ -146,6 +172,13 @@ except argon2.exceptions.VerifyMismatchError:
 
 <p><strong>סוגי <code>MFA</code> — מהחלש לחזק:</strong></p>
 
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">📱</div><div class="mini-card-title">SMS OTP</div><div class="mini-card-desc">קוד חד-פעמי ב-SMS. <span class="phase-badge phase-gold">בינוני</span> — פגיע ל-SIM swapping ויירוט SS7</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🔢</div><div class="mini-card-title">TOTP (Google Auth)</div><div class="mini-card-desc">קוד מתחלף כל 30 שניות. <span class="phase-badge phase-blue">טוב</span> — פגיע לפישינג בזמן אמת</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🔔</div><div class="mini-card-title">Push Notifications</div><div class="mini-card-desc">אישור באפליקציה. <span class="phase-badge phase-blue">טוב</span> — פגיע ל-MFA fatigue (הצפת בקשות)</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🔑</div><div class="mini-card-title">FIDO2 / WebAuthn</div><div class="mini-card-desc">מפתח הצפנה פיזי. <span class="phase-badge phase-green">מצוין</span> — עמיד לפישינג לחלוטין</div></div>
+</div>
+
 <table class="content-table">
   <tr><th>שיטה</th><th>עיקרון</th><th>חוזק</th><th>חולשה</th></tr>
   <tr><td><code>SMS OTP</code></td><td>קוד חד-פעמי ב-SMS</td><td>בינוני</td><td><code>SIM swapping</code>, יירוט <code>SS7</code></td></tr>
@@ -158,6 +191,8 @@ except argon2.exceptions.VerifyMismatchError:
 
 <p><strong>למה <code>FIDO2</code>/<code>WebAuthn</code> עמידים לפישינג?</strong></p>
 <p>המפתח הפיזי מקושר לדומיין (<code>origin</code>). אם אתר הפישינג הוא <code>g00gle.com</code> במקום <code>google.com</code> — המפתח פשוט לא עובד. אין מה "לגנוב" כי אין קוד שעובר ברשת.</p>
+
+<div class="success-box"><strong>✅ המלצה:</strong> השתמשו ב-<code>FIDO2</code> / <code>WebAuthn</code> (כמו YubiKey) בכל מקום שאפשר. זו ההגנה החזקה ביותר מפני פישינג — המפתח קשור לדומיין ואין קוד שניתן לגנוב.</div>
 </div>`
       },
       {
@@ -171,6 +206,15 @@ except argon2.exceptions.VerifyMismatchError:
 <p><code>OAuth 2.0</code> עובד בדיוק ככה. כשאפליקציה מבקשת גישה לחשבון <code>Google</code> שלכם, היא לא מקבלת את הסיסמה — היא מקבלת <code>token</code> מוגבל שמאפשר רק מה שאישרתם.</p>
 
 <p><strong>הזרימה בקצרה:</strong></p>
+
+<div class="attack-chain defense-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong>Step 1: Redirect</strong><p>אפליקציה מפנה אתכם ל-<code>Google</code> ("התחבר עם Google")</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>Step 2: Consent</strong><p>אתם מאשרים: "כן, תן לאפליקציה לקרוא את השם והאימייל שלי"</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>Step 3: Auth Code</strong><p><code>Google</code> מחזירה <code>authorization code</code> לאפליקציה</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>Step 4: Token Exchange</strong><p>האפליקציה מחליפה את הקוד ב-<code>access token</code></p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>Step 5: API Access</strong><p>האפליקציה משתמשת ב-<code>token</code> לגשת ל-<code>API</code> — רק למה שאישרתם</p></div></div>
+</div>
+
 <ol>
 <li>אפליקציה מפנה אתכם ל-<code>Google</code> ("התחבר עם Google")</li>
 <li>אתם מאשרים: "כן, תן לאפליקציה לקרוא את השם והאימייל שלי"</li>
@@ -240,11 +284,21 @@ HMACSHA256(base64url(header) + "." + base64url(payload), secret)</code></pre></d
         type: "story",
         title: "שורה אחת של JavaScript ששדדה בנק",
         content: `<div dir="rtl">
+<div class="scenario-box scenario-hack">
+  <p><strong>💀 תרחיש:</strong> אתם גולשים באתר שנראה לגיטימי. ברקע, האתר טוען את אתר הבנק שלכם ב-iframe בלתי נראה. הכפתור "שלח" שלוחצים? מונח בדיוק מעל "העבר כסף" של הבנק.</p>
+</div>
+
 <h2>כשאתר הבנק שלך חשוף — בלי שאתה יודע</h2>
 
 <p>דמיינו תרחיש: אתם גולשים באתר שנראה לגיטימי לחלוטין. ברקע, בלי שתשימו לב, האתר טוען את אתר הבנק שלכם בתוך <code>iframe</code> בלתי נראה. הכפתור "שלח" שאתם לוחצים? הוא מונח בדיוק מעל כפתור "העבר כסף" של הבנק.</p>
 
 <p>זו מתקפת <code>Clickjacking</code>. וכל מה שהיה צריך כדי למנוע אותה? <strong>שורה אחת</strong> ב-<code>headers</code> של השרת.</p>
+
+<div class="attack-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong>Step 1: פיתוי</strong><p>תוקף יוצר אתר שנראה לגיטימי עם כפתור "שלח" אטרקטיבי</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>Step 2: iframe נסתר</strong><p>ברקע, האתר טוען את אתר הבנק ב-<code>iframe</code> שקוף (opacity: 0)</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>Step 3: Clickjacking</strong><p>הכפתור של התוקף מונח מעל כפתור "העבר כסף" — לחיצה = העברת כסף</p></div></div>
+</div>
 
 <p>או תרחיש אחר: תוקף מזריק <code>JavaScript</code> זדוני לתגובה בפורום של האתר. כל מי שקורא את התגובה — הסקריפט רץ בדפדפן שלו, גונב <code>cookies</code>, ומעביר אותם לשרת התוקף. זו מתקפת <code>XSS</code>.</p>
 
@@ -269,6 +323,31 @@ Content-Security-Policy: default-src 'self'; script-src 'self'</code></pre></div
 
 <p>חשבו על זה כמו <strong>שריון</strong>: האתר עצמו יכול להיות מקודד בצורה מושלמת, אבל בלי <code>headers</code> — הוא עומד עירום מול מתקפות.</p>
 
+<div class="tool-card">
+  <div class="tool-card-icon">🛡️</div>
+  <div class="tool-card-body"><strong>Content-Security-Policy</strong><p>מגן מפני <code>XSS</code> והזרקת קוד. ערך: <code>default-src 'self'</code> <span class="phase-badge phase-red">קריטי</span></p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🔒</div>
+  <div class="tool-card-body"><strong>Strict-Transport-Security (HSTS)</strong><p>מגן מפני <code>SSL Stripping</code>. כופה HTTPS תמיד. <span class="phase-badge phase-red">קריטי</span></p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🖼️</div>
+  <div class="tool-card-body"><strong>X-Frame-Options</strong><p>מגן מפני <code>Clickjacking</code>. ערך: <code>DENY</code>. <span class="phase-badge phase-red">קריטי</span></p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">📄</div>
+  <div class="tool-card-body"><strong>X-Content-Type-Options</strong><p>מונע <code>MIME sniffing</code>. ערך: <code>nosniff</code>. <span class="phase-badge phase-gold">חשוב</span></p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🔗</div>
+  <div class="tool-card-body"><strong>Referrer-Policy</strong><p>מונע דליפת URL. ערך: <code>strict-origin-when-cross-origin</code>. <span class="phase-badge phase-gold">חשוב</span></p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">📷</div>
+  <div class="tool-card-body"><strong>Permissions-Policy</strong><p>חוסם גישה ל-APIs רגישים (מצלמה, מיקרופון). <span class="phase-badge phase-blue">מומלץ</span></p></div>
+</div>
+
 <table class="content-table">
   <tr><th><code>Header</code></th><th>נגד מה מגן</th><th>ערך מומלץ</th><th>מה קורה בלעדיו</th></tr>
   <tr><td><code>Content-Security-Policy</code></td><td><code>XSS</code>, הזרקת קוד</td><td><code>default-src 'self'</code></td><td>כל סקריפט זדוני רץ בדפדפן</td></tr>
@@ -279,7 +358,7 @@ Content-Security-Policy: default-src 'self'; script-src 'self'</code></pre></div
   <tr><td><code>Permissions-Policy</code></td><td>גישה ל-<code>APIs</code> רגישים</td><td><code>camera=(), microphone=(), geolocation=()</code></td><td>סקריפט צד שלישי יכול לגשת למצלמה</td></tr>
 </table>
 
-<div class="demo-note"><strong>בדקו את האתר שלכם:</strong> גלשו ל-<code>securityheaders.com</code> והכניסו כתובת — תקבלו ציון מ-<code>A+</code> עד <code>F</code> ורשימת <code>headers</code> חסרים.</div>
+<div class="success-box"><strong>✅ בדקו את האתר שלכם:</strong> גלשו ל-<code>securityheaders.com</code> והכניסו כתובת — תקבלו ציון מ-<code>A+</code> עד <code>F</code> ורשימת <code>headers</code> חסרים.</div>
 </div>`
       },
       {
@@ -287,6 +366,11 @@ Content-Security-Policy: default-src 'self'; script-src 'self'</code></pre></div
         title: "CSP, HSTS ו-Headers — לפני ואחרי",
         content: `<div dir="rtl">
 <h2>הגדרת <code>Security Headers</code> — דוגמאות מעשיות</h2>
+
+<div class="vs-container">
+  <div class="vs-card vs-bad"><h4>❌ ללא Security Headers</h4><p>XSS רץ חופשי בדפדפן</p><p>Clickjacking ב-iframe נסתר</p><p>SSL Stripping מוריד ל-HTTP</p><p>MIME sniffing מריץ JS מסוכן</p></div>
+  <div class="vs-card vs-good"><h4>✅ עם Security Headers</h4><p>CSP חוסם סקריפטים זדוניים</p><p>X-Frame-Options חוסם iframes</p><p>HSTS כופה HTTPS תמיד</p><p>nosniff מונע ניחוש סוג קובץ</p></div>
+</div>
 
 <p><strong><code>Content-Security-Policy</code> — דוגמאות מהפשוט למורכב:</strong></p>
 
@@ -344,6 +428,8 @@ add_header Content-Security-Policy "default-src 'self'" always;</code></pre></di
         content: `<div dir="rtl">
 <h2><code>Content-Security-Policy</code> — העומק</h2>
 
+<div class="info-box"><strong>ℹ️ מידע:</strong> <code>CSP</code> היא ה-header החזקה ביותר והמורכבת ביותר. היא עובדת בשיטת <code>whitelist</code> — רק מה שמפורשות אישרתם יכול לרוץ. <span class="phase-badge phase-red">חובה</span> בכל אתר מודרני.</div>
+
 <p><code>CSP</code> היא ה-<code>header</code> החזקה ביותר והמורכבת ביותר. היא עובדת בשיטת <code>whitelist</code> — רק מה שמפורשות אישרתם יכול לרוץ.</p>
 
 <p><strong>הדירקטיבות המרכזיות:</strong></p>
@@ -394,6 +480,12 @@ add_header Content-Security-Policy "default-src 'self'" always;</code></pre></di
 
 <p><strong>שלוש שכבות הגנה:</strong></p>
 
+<div class="attack-chain defense-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong>🔒 SameSite Cookie</strong><p>ההגנה המודרנית הפשוטה ביותר — Cookie לא נשלח בבקשות cross-site</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>🔒 CSRF Token</strong><p>ערך אקראי ייחודי בכל טופס שרק השרת והדף הלגיטימי מכירים</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>🔒 Origin/Referer Check</strong><p>השרת מוודא שהבקשה הגיעה מהדומיין הנכון</p></div></div>
+</div>
+
 <div class="code-preview"><pre><code># 1. SameSite Cookie — ההגנה המודרנית הכי פשוטה
 Set-Cookie: session=xyz; SameSite=Strict; Secure; HttpOnly
 # Strict = Cookie לא נשלח בכלל בבקשות cross-site
@@ -422,6 +514,8 @@ if request.headers['Origin'] != 'https://bank.com':
         title: "CORS — למה קיים ומה משתבש",
         content: `<div dir="rtl">
 <h2><code>CORS</code> — <code>Cross-Origin Resource Sharing</code></h2>
+
+<div class="info-box"><strong>ℹ️ מידע:</strong> <code>CORS</code> מגן על <strong>המשתמש</strong>, לא על השרת. הדפדפן הוא שאוכף את המדיניות. בקשת <code>curl</code> מתעלמת מ-CORS לחלוטין.</div>
 
 <p><strong>הבעיה:</strong> דפדפנים אוכפים מדיניות <code>Same-Origin Policy</code> — סקריפט מ-<code>app.com</code> לא יכול לקרוא תגובות מ-<code>api.other.com</code>. זו הגנה חיונית, אבל מה אם באמת צריך לתקשר בין דומיינים?</p>
 
@@ -497,6 +591,10 @@ Access-Control-Allow-Credentials: true
         type: "story",
         title: "כשחוקר עצמאי עקב אחרי כנופיית כופרה — ממידע פתוח",
         content: `<div dir="rtl">
+<div class="scenario-box scenario-defend">
+  <p><strong>🛡️ תרחיש:</strong> חוקר אבטחה עצמאי מחליט לעקוב אחרי כנופיית כופרה בינלאומית — בלי כלי פריצה, בלי Dark Web, רק עם Google ומידע ציבורי. התוצאה? חשיפת מנהיג הכנופייה.</p>
+</div>
+
 <h2>ממסך מחשב בלונדון לבניין ספציפי בסנט פטרסבורג</h2>
 
 <p>ב-2021, חוקר אבטחה בשם <code>Jon DiMaggio</code> מ-<code>Analyst1</code> החליט לעקוב אחרי קבוצת <code>LockBit</code> — אחת מכנופיות הכופרה הפוריות בעולם. הוא לא השתמש בכלי פריצה. הוא לא ניגש ל-<code>Dark Web</code> (בהתחלה). הוא התחיל עם <code>Google</code>.</p>
@@ -527,6 +625,14 @@ Access-Control-Allow-Credentials: true
 
 <p><strong><code>IoC</code> — <code>Indicators of Compromise</code></strong></p>
 <p>עדויות שמערכת נפרצה. סוגים עיקריים:</p>
+
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">🌐</div><div class="mini-card-title">כתובות IP</div><div class="mini-card-desc">שרתי C2 (Command & Control)</div></div>
+  <div class="mini-card"><div class="mini-card-icon">#️⃣</div><div class="mini-card-title">File Hashes</div><div class="mini-card-desc">SHA-256 של נוזקה מוכרת</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🔗</div><div class="mini-card-title">דומיינים</div><div class="mini-card-desc">אתרי פישינג או C2</div></div>
+  <div class="mini-card"><div class="mini-card-icon">📝</div><div class="mini-card-title">YARA Rules</div><div class="mini-card-desc">חתימות מותאמות לזיהוי דפוסי נוזקה</div></div>
+  <div class="mini-card"><div class="mini-card-icon">👁️</div><div class="mini-card-title">מזהי התנהגות</div><div class="mini-card-desc">scheduled tasks חריגים, DNS tunneling</div></div>
+</div>
 
 <ul>
 <li><strong>כתובות <code>IP</code></strong> — שרתי <code>C2</code> (<code>Command & Control</code>)</li>
@@ -567,6 +673,35 @@ Access-Control-Allow-Credentials: true
 </table>
 
 <p><strong>הכלים המרכזיים:</strong></p>
+
+<div class="tool-card">
+  <div class="tool-card-icon">🔍</div>
+  <div class="tool-card-body"><strong>Shodan</strong><p>מכשירים ושרתים חשופים לאינטרנט — ports, services, banners. <span class="phase-badge phase-gold">Recon</span></p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🌐</div>
+  <div class="tool-card-body"><strong>Censys</strong><p>TLS certificates, services, סריקת כל IPv4. <span class="phase-badge phase-gold">Recon</span></p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">📧</div>
+  <div class="tool-card-body"><strong>theHarvester</strong><p>emails, subdomains, IPs מגוגל, בינג, LinkedIn. <span class="phase-badge phase-blue">איסוף פסיבי</span></p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🕸️</div>
+  <div class="tool-card-body"><strong>Maltego</strong><p>גרף קשרים ויזואלי בין ישויות — domains, אנשים, IPs. <span class="phase-badge phase-blue">ניתוח קשרים</span></p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🕷️</div>
+  <div class="tool-card-body"><strong>SpiderFoot</strong><p>סריקה אוטומטית של מאות מקורות OSINT. <span class="phase-badge phase-blue">אוטומציה</span></p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🔓</div>
+  <div class="tool-card-body"><strong>Have I Been Pwned</strong><p>בדיקה אם email נחשף ב-data breach. <span class="phase-badge phase-gold">בדיקת חשיפה</span></p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🔎</div>
+  <div class="tool-card-body"><strong>Google Dorks</strong><p>מידע רגיש שנחשף באינדקס של גוגל — קבצי config, סיסמאות, ממשקי ניהול. <span class="phase-badge phase-gold">חיפוש מתקדם</span></p></div>
+</div>
 
 <table class="content-table">
   <tr><th>כלי</th><th>מה מוצא</th><th>סוג</th></tr>
@@ -679,6 +814,15 @@ theHarvester -d target.com -b google,bing,linkedin -l 200
 </table>
 
 <p><strong>הזרימה ב-<code>SOC</code>:</strong></p>
+
+<div class="incident-timeline">
+  <div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">שלב 1</div><div class="timeline-desc">Threat feed מספק IoCs חדשים (כתובות IP, hashes)</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">שלב 2</div><div class="timeline-desc">IoCs נטענים אוטומטית ל-SIEM (Splunk, Sentinel)</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">שלב 3</div><div class="timeline-desc">SIEM משווה מול לוגים בזמן אמת</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">שלב 4</div><div class="timeline-desc">התאמה (match) = alert לאנליסט</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-green"></div><div class="timeline-time">שלב 5</div><div class="timeline-desc">אנליסט חוקר: true positive או false positive?</div></div>
+</div>
+
 <ol>
 <li><code>Threat feed</code> מספק <code>IoCs</code> חדשים (כתובות <code>IP</code>, <code>hashes</code>)</li>
 <li><code>IoCs</code> נטענים אוטומטית ל-<code>SIEM</code> (<code>Splunk</code>, <code>Sentinel</code>)</li>
@@ -693,6 +837,8 @@ theHarvester -d target.com -b google,bing,linkedin -l 200
         title: "Dark Web Monitoring — מה אנליסטים מחפשים",
         content: `<div dir="rtl">
 <h2>ניטור ה-<code>Dark Web</code> — מודיעין מהצד האפל</h2>
+
+<div class="info-box"><strong>ℹ️ מידע:</strong> ה-<code>Dark Web</code> הוא חלק מהאינטרנט שנגיש רק דרך רשת <code>Tor</code> (The Onion Router). הוא מכיל פורומים, שווקים, ושירותים שפועלים באנונימיות.</div>
 
 <p>ה-<code>Dark Web</code> (רשת <code>Tor</code>, פורומים סגורים) הוא המקום שבו תוקפים מוכרים כלים, נתונים גנובים, ומתכננים מתקפות. ארגוני אבטחה מנטרים אותו כדי לקבל התרעה מוקדמת.</p>
 
@@ -755,6 +901,13 @@ theHarvester -d target.com -b google,bing,linkedin -l 200
         type: "story",
         title: "SolarWinds — 9 חודשים בתוך הממשלה האמריקאית",
         content: `<div dir="rtl">
+<div class="scenario-box scenario-alert">
+  <p><strong>🚨 תרחיש:</strong> דצמבר 2020 — חברת אבטחה מגלה שנפרצה. החקירה חושפת: עדכון תוכנה רשמי וחתום של SolarWinds הכיל backdoor. 18,000 ארגונים נפגעו. 9 חודשים בתוך רשתות ממשלתיות.</p>
+</div>
+
+<div class="stat-highlight"><span class="stat-number">18,000</span><span class="stat-unit">ארגונים שהתקינו את העדכון הנגוע</span></div>
+<div class="stat-highlight"><span class="stat-number">9</span><span class="stat-unit">חודשים שהתוקפים שוטטו ללא גילוי</span></div>
+
 <h2>דצמבר 2020: הגילוי שזעזע את עולם הסייבר</h2>
 
 <p>הכל התחיל כש-<code>Kevin Mandia</code>, מנכ"ל <code>FireEye</code> — אחת מחברות האבטחה המובילות בעולם — קיבל התרעה מוזרה: מישהו רשם מכשיר <code>MFA</code> חדש על חשבון של עובד. זה לא היה העובד.</p>
@@ -764,6 +917,16 @@ theHarvester -d target.com -b google,bing,linkedin -l 200
 <p>החוקרים עקבו אחרי שרשרת הפריצה — והגיעו ל-<code>SolarWinds Orion</code>, תוכנת ניהול <code>IT</code> שמותקנת ב-<strong>18,000 ארגונים</strong> כולל משרד האוצר האמריקאי, ה-<code>DoD</code>, <code>Microsoft</code>, ו-<code>Intel</code>.</p>
 
 <p><strong>מה קרה:</strong></p>
+
+<div class="incident-timeline">
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">שלב 1</div><div class="timeline-desc">APT29 (Cozy Bear) חדרו לסביבת הפיתוח של SolarWinds</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">שלב 2</div><div class="timeline-desc">הזריקו backdoor לקוד המקור — נוזקת SUNBURST</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">שלב 3</div><div class="timeline-desc">SolarWinds שחררה עדכון רגיל, חתום דיגיטלית — עם הנוזקה</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-gold"></div><div class="timeline-time">שלב 4</div><div class="timeline-desc">SUNBURST "ישנה" שבועיים לפני הפעלה — חמיקה מ-sandbox</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-red"></div><div class="timeline-time">שלב 5</div><div class="timeline-desc">תקשורת C2 דרך DNS — נראתה כתעבורה לגיטימית</div></div>
+  <div class="timeline-event"><div class="timeline-dot dot-green"></div><div class="timeline-time">שלב 6</div><div class="timeline-desc">9 חודשים עד הגילוי — FireEye מזהה MFA anomaly</div></div>
+</div>
+
 <ol>
 <li>תוקפים מקבוצת <code>APT29</code> (Cozy Bear, מודיעין רוסי) חדרו לסביבת הפיתוח של <code>SolarWinds</code></li>
 <li>הזריקו <code>backdoor</code> לקוד המקור של <code>Orion</code> — נוזקת <code>SUNBURST</code></li>
@@ -783,6 +946,15 @@ theHarvester -d target.com -b google,bing,linkedin -l 200
 <h2><code>Incident Response Lifecycle</code> — מההכנה להפקת לקחים</h2>
 
 <p><code>NIST SP 800-61</code> מגדיר את התהליך. בפועל, 6 שלבים:</p>
+
+<div class="attack-chain defense-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong><span class="phase-badge phase-blue">1</span> Preparation</strong><p>בניית צוות, כלים, playbooks, ערוצי תקשורת, תרגולים</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong><span class="phase-badge phase-gold">2</span> Identification</strong><p>זיהוי האירוע — אמיתי או false positive? הכרזת חומרה</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong><span class="phase-badge phase-red">3</span> Containment</strong><p>בלימת הנזק — בידוד מכשירים, חסימת IPs, הגבלת lateral movement</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong><span class="phase-badge phase-red">4</span> Eradication</strong><p>הסרת הגורם — נוזקה, backdoor, פגיעות. מערכת נקייה</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong><span class="phase-badge phase-green">5</span> Recovery</strong><p>שחזור שירותים + ניטור מוגבר. חזרה לפעילות</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong><span class="phase-badge phase-blue">6</span> Lessons Learned</strong><p>מה קרה? מה השתבש? Post-mortem report והמלצות</p></div></div>
+</div>
 
 <table class="content-table">
   <tr><th>#</th><th>שלב</th><th>מה קורה</th><th>תוצר</th></tr>
@@ -810,6 +982,8 @@ theHarvester -d target.com -b google,bing,linkedin -l 200
         title: "הכנה — Playbooks, תקשורת וחדר מלחמה",
         content: `<div dir="rtl">
 <h2><code>Preparation</code> — כי ברגע האמת, אין זמן לחשוב</h2>
+
+<div class="info-box"><strong>ℹ️ <span class="phase-badge phase-blue">Preparation</span></strong> אירוע אבטחה הוא כמו שריפה. אתם לא רוצים לחפש את מטף הכיבוי כשהבניין בוער. הכנה מראש היא ההבדל בין שעה של כאוס לבין שעה של פעולה ממוקדת.</div>
 
 <p>אירוע אבטחה הוא כמו שריפה. אתם לא רוצים לחפש את מטף הכיבוי כשהבניין בוער. הכנה מראש היא ההבדל בין שעה של כאוס לבין שעה של פעולה ממוקדת.</p>
 
@@ -841,6 +1015,8 @@ theHarvester -d target.com -b google,bing,linkedin -l 200
         title: "Detection & Triage — ניתוח לוגים ובניית Timeline",
         content: `<div dir="rtl">
 <h2>זיהוי וטריאז' — הפקודות שמספרות את הסיפור</h2>
+
+<div class="info-box"><strong>ℹ️ <span class="phase-badge phase-gold">Identification</span> + <span class="phase-badge phase-blue">Analysis</span></strong> כשמגיעה התרעה, האנליסט צריך לענות על 3 שאלות: מה קרה? מתי? עד כמה זה רחב?</div>
 
 <p>כשמגיעה התרעה, האנליסט צריך לענות על 3 שאלות: <strong>מה קרה?</strong> <strong>מתי?</strong> <strong>עד כמה זה רחב?</strong></p>
 
@@ -938,6 +1114,8 @@ vol -f memory.dmp windows.cmdline    # פרמטרים של כל תהליך</code
 <li>תיעוד <code>chain of custody</code> — מי נגע במה ומתי</li>
 </ul>
 
+<div class="success-box"><strong>✅ טיפ לשימור ראיות:</strong> תמיד עשו <code>memory dump</code> לפני כל שינוי. העתיקו לוגים למקום נפרד מיד. תעדו כל פעולה עם timestamp — זה יהיה קריטי לדוח ה-post-mortem ולצרכים משפטיים.</div>
+
 <div class="warning-box"><strong>⚠️ אזהרה:</strong> <strong>אל תכבו מכשירים נגועים!</strong> כיבוי מוחק את הזיכרון (<code>RAM</code>) שמכיל ראיות קריטיות: תהליכים פעילים, מפתחות הצפנה, חיבורי <code>C2</code>. תמיד עשו <code>memory dump</code> קודם.</div>
 </div>`
       },
@@ -972,6 +1150,11 @@ vol -f memory.dmp windows.cmdline    # פרמטרים של כל תהליך</code
 </ol>
 
 <p><strong>מטריקות <code>IR</code> חשובות:</strong></p>
+
+<div class="stat-highlight"><span class="stat-number">204</span><span class="stat-unit">ימים — ממוצע זמן גילוי פריצה (MTTD)</span></div>
+<div class="stat-highlight"><span class="stat-number">73</span><span class="stat-unit">ימים — ממוצע זמן בלימה (MTTC)</span></div>
+<div class="stat-highlight"><span class="stat-number">$1.76M</span><span class="stat-unit">חיסכון עם IR plan מתורגל + AI detection</span></div>
+
 <table class="content-table">
   <tr><th>מטריקה</th><th>מה מודדת</th><th>ממוצע תעשייתי (2023)</th></tr>
   <tr><td><code>MTTD</code> — <code>Mean Time to Detect</code></td><td>זמן עד גילוי הפריצה</td><td>204 ימים</td></tr>
@@ -1019,6 +1202,13 @@ vol -f memory.dmp windows.cmdline    # פרמטרים של כל תהליך</code
         type: "story",
         title: "WannaCry — כשהאקר בן 22 הציל את העולם בטעות",
         content: `<div dir="rtl">
+<div class="scenario-box scenario-alert">
+  <p><strong>🚨 תרחיש:</strong> יום שישי, מאי 2017 — בתי חולים בבריטניה קורסים. מסכים אדומים: "הקבצים שלך הוצפנו". תוך שעות — 150 מדינות נפגעות. חוקר בן 22, $10.69, ודומיין אחד עוצרים את כל זה.</p>
+</div>
+
+<div class="stat-highlight"><span class="stat-number">230,000</span><span class="stat-unit">מחשבים נפגעו ב-150 מדינות</span></div>
+<div class="stat-highlight"><span class="stat-number">$4-8B</span><span class="stat-unit">נזק מוערך עולמי</span></div>
+
 <h2>מאי 2017: 150 מדינות, 230,000 מחשבים, 4 ימים</h2>
 
 <p>ביום שישי, 12 במאי 2017, בתי חולים בבריטניה התחילו לקרוס. מסכי מחשב הציגו הודעה אדומה: <code>Oops, your files have been encrypted!</code>. דרישה: $300 ב-<code>Bitcoin</code>. תוך שעות, הנוזקה התפשטה ל-150 מדינות.</p>
@@ -1039,6 +1229,17 @@ vol -f memory.dmp windows.cmdline    # פרמטרים של כל תהליך</code
         title: "סוגי נוזקות — המדריך המלא",
         content: `<div dir="rtl">
 <h2><code>Malware</code> — כל הסוגים שצריך להכיר</h2>
+
+<div class="mini-cards">
+  <div class="mini-card"><div class="mini-card-icon">🦠</div><div class="mini-card-title">Virus</div><div class="mini-card-desc">מדביק קבצים, צריך "מארח" שנפתח</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🐛</div><div class="mini-card-title">Worm</div><div class="mini-card-desc">מתפשט ברשת בעצמו, מנצל פגיעויות</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🐴</div><div class="mini-card-title">Trojan</div><div class="mini-card-desc">מתחזה לתוכנה לגיטימית</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🔒</div><div class="mini-card-title">Ransomware</div><div class="mini-card-desc">מצפין קבצים, דורש כופר</div></div>
+  <div class="mini-card"><div class="mini-card-icon">👻</div><div class="mini-card-title">Rootkit</div><div class="mini-card-desc">מסתיר נוכחות ב-OS/kernel</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🕵️</div><div class="mini-card-title">Spyware</div><div class="mini-card-desc">גנב מידע בשקט — הקשות, מסך</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🎮</div><div class="mini-card-title">RAT</div><div class="mini-card-desc">שליטה מרחוק מלאה במכשיר</div></div>
+  <div class="mini-card"><div class="mini-card-icon">🤖</div><div class="mini-card-title">Botnet</div><div class="mini-card-desc">רשת מכשירים נגועים בשליטת תוקף</div></div>
+</div>
 
 <table class="content-table">
   <tr><th>סוג</th><th>מה עושה</th><th>איך מתפשט</th><th>דוגמה מפורסמת</th></tr>
@@ -1064,6 +1265,8 @@ vol -f memory.dmp windows.cmdline    # פרמטרים של כל תהליך</code
         title: "איך נוזקה מתפשטת — וקטורי תקיפה",
         content: `<div dir="rtl">
 <h2>וקטורי הפצה — איך נוזקה מגיעה אליכם</h2>
+
+<div class="stat-highlight"><span class="stat-number">~70%</span><span class="stat-unit">מהפריצות מתחילות בפישינג באימייל</span></div>
 
 <p>נוזקה צריכה דרך להיכנס. הנה הוקטורים הנפוצים ביותר, מהשכיח לנדיר:</p>
 
@@ -1093,6 +1296,8 @@ vol -f memory.dmp windows.cmdline    # פרמטרים של כל תהליך</code
         title: "Static Analysis — ניתוח בלי להריץ",
         content: `<div dir="rtl">
 <h2>ניתוח סטטי — בחינת הקובץ בלי להפעיל אותו</h2>
+
+<div class="info-box"><strong>ℹ️ מידע:</strong> <span class="phase-badge phase-green">Static Analysis</span> = מסתכלים על הקובץ מבחוץ — בלי להריץ. בטוח, מהיר, וחושף הרבה. זה תמיד השלב הראשון.</div>
 
 <p><code>Static Analysis</code> = מסתכלים על הקובץ מבחוץ. בטוח, מהיר, וחושף הרבה. זה השלב הראשון בכל ניתוח.</p>
 
@@ -1155,11 +1360,37 @@ for entry in pe.DIRECTORY_ENTRY_IMPORT:
         content: `<div dir="rtl">
 <h2>ניתוח דינמי — מריצים את הנוזקה ורואים מה קורה</h2>
 
+<div class="vs-container">
+  <div class="vs-card vs-bad"><h4>🔬 Static Analysis</h4><p>בוחנים מבחוץ ללא הרצה</p><p>בטוח לחלוטין</p><p>מהיר — דקות</p><p>לא רואים קוד מוסווה</p></div>
+  <div class="vs-card vs-good"><h4>🧪 Dynamic Analysis</h4><p>מריצים ב-sandbox מבודד</p><p>בטוח רק בסביבה מבודדת</p><p>לוקח זמן — שעות</p><p>חושף obfuscation והתנהגות אמיתית</p></div>
+</div>
+
 <p><code>Dynamic Analysis</code> = מפעילים את הנוזקה בסביבה מבודדת (<code>sandbox</code>) וצופים בהתנהגות. חושף קוד מוסווה (<code>obfuscated</code>) שניתוח סטטי לא מצליח לקרוא.</p>
 
 <div class="warning-box"><strong>⚠️ אזהרה:</strong> <strong>אף פעם</strong> אל תריצו נוזקה על מכשיר אמיתי או רשת ייצור! רק ב-<code>VM</code> מבודדת ללא גישה לרשת (או עם <code>INetSim</code> שמדמה אינטרנט).</div>
 
 <p><strong>כלים לניטור בזמן ריצה:</strong></p>
+
+<div class="tool-card">
+  <div class="tool-card-icon">📊</div>
+  <div class="tool-card-body"><strong>Process Monitor</strong><p>עוקב אחרי קבצים, registry, תהליכים. מחפשים: יצירת קבצים ב-temp, שינויי registry</p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🦈</div>
+  <div class="tool-card-body"><strong>Wireshark</strong><p>לוכד תעבורת רשת. מחפשים: DNS queries ל-C2, הורדת payloads</p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🔧</div>
+  <div class="tool-card-body"><strong>API Monitor</strong><p>מתעד קריאות API. מחפשים: CreateFile, RegSetValue, socket</p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">📸</div>
+  <div class="tool-card-body"><strong>Regshot</strong><p>משווה מצב registry לפני ואחרי. מחפשים: Run keys חדשים, שירותים חדשים</p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🌐</div>
+  <div class="tool-card-body"><strong>FakeNet-NG</strong><p>מדמה תעבורת רשת. מחפשים: C2 callbacks, DNS lookups</p></div>
+</div>
 
 <table class="content-table">
   <tr><th>כלי</th><th>מה עוקב</th><th>מה לחפש</th></tr>
@@ -1211,6 +1442,14 @@ for entry in pe.DIRECTORY_ENTRY_IMPORT:
 <h2>מנגנוני <code>Persistence</code> — השורדים</h2>
 
 <p>נוזקה ללא <code>persistence</code> היא חד-פעמית — <code>reboot</code> אחד ונעלמה. לכן כמעט כל נוזקה רצינית מתקינה מנגנון שמבטיח שהיא תרוץ שוב.</p>
+
+<div class="attack-chain">
+  <div class="attack-step"><div class="attack-step-content"><strong>1. Registry Run Keys</strong><p>הנפוצות ביותר — קל לגילוי. ערך ב-HKCU/HKLM Run = רץ בכל login</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>2. Scheduled Tasks</strong><p>מתחזה לשם לגיטימי ("WindowsUpdate"). קצת קשה יותר לגילוי</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>3. Services</strong><p>דורש admin. שירות שרץ אוטומטית עם המערכת</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>4. DLL Hijacking</strong><p>מתוחכם — תהליך לגיטימי טוען DLL זדוני מתיקייה ניתנת לכתיבה</p></div></div>
+  <div class="attack-step"><div class="attack-step-content"><strong>5. WMI Event Subscription</strong><p>מתקדם — קשה לגילוי. לא נראה ב-Task Manager הבסיסי</p></div></div>
+</div>
 
 <p><strong><code>Windows</code> — מנגנונים נפוצים (מהקל לגילוי לקשה):</strong></p>
 
@@ -1285,6 +1524,19 @@ echo "/tmp/.hidden/backdoor &" >> ~/.bashrc
   <tr><td><code>Threat Hunting</code></td><td>חיפוש פרואקטיבי של איומים</td><td>חיפוש <code>IoCs</code> בכל המכשירים</td></tr>
 </table>
 
+<div class="tool-card">
+  <div class="tool-card-icon">🦅</div>
+  <div class="tool-card-body"><strong>CrowdStrike Falcon</strong><p>EDR מוביל — ניטור התנהגותי, בידוד אוטומטי, Threat Hunting</p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🤖</div>
+  <div class="tool-card-body"><strong>SentinelOne</strong><p>EDR עם AI — זיהוי אוטומטי, rollback של שינויים זדוניים</p></div>
+</div>
+<div class="tool-card">
+  <div class="tool-card-icon">🛡️</div>
+  <div class="tool-card-body"><strong>Microsoft Defender for Endpoint</strong><p>משולב ב-Windows — ניטור, forensics, threat hunting</p></div>
+</div>
+
 <p>מוצרים מובילים: <code>CrowdStrike Falcon</code>, <code>SentinelOne</code>, <code>Microsoft Defender for Endpoint</code>.</p>
 
 <p><strong><code>YARA Rules</code> — כתיבת חתימות מותאמות:</strong></p>
@@ -1313,6 +1565,15 @@ echo "/tmp/.hidden/backdoor &" >> ~/.bashrc
 </ul>
 
 <div class="key-point"><strong>💡 נקודת מפתח:</strong> ההגנה הטובה ביותר היא <strong>שכבתית</strong> (<code>Defense in Depth</code>): חינוך עובדים (שכבה אנושית) + סינון אימייל (שכבת כניסה) + <code>EDR</code> (שכבת מכשיר) + סגמנטציה (שכבת רשת) + גיבויים (שכבת שחזור). שום שכבה בודדת לא מספיקה.</div>
+
+<div class="chapter-summary"><h4>📋 סיכום פרק — Malware Analysis</h4><ul>
+<li>נוזקות מגיעות בסוגים שונים: Virus, Worm, Trojan, Ransomware, Rootkit, Spyware, RAT, Botnet</li>
+<li>~70% מהפריצות מתחילות בפישינג — הגורם האנושי הוא החולשה הגדולה</li>
+<li>Static Analysis (מבחוץ) + Dynamic Analysis (ב-sandbox) = ניתוח מלא</li>
+<li>Persistence = איך נוזקה שורדת reboot — חובה לבדוק את כל המנגנונים בניקוי</li>
+<li>EDR + YARA + Sandboxing = שכבות הגנה מודרניות</li>
+<li>Defense in Depth — שום שכבה בודדת לא מספיקה</li>
+</ul></div>
 </div>`
       },
       {
