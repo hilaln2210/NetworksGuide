@@ -23,8 +23,7 @@ export const quizBank = {
         "IP identifies a service\nPort identifies a computer",
         "Both identify computers\nThe difference is in size",
         "IP is for the internet\nPort is for local network only"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.4, pp. 58-62"
+      ]
     },
     {
       q: "\u200Fמה עושה פקודת ping?",
@@ -44,8 +43,7 @@ export const quizBank = {
         "Translates a domain name to an IP address",
         "Shows the path of a packet through the network",
         "Opens a TCP connection with a server"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.7.4, pp. 469-470"
+      ]
     },
     {
       q: "\u200Fמה עושה DNS?",
@@ -65,8 +63,7 @@ export const quizBank = {
         "Encrypts the communication\nbetween client and server",
         "Manages TCP connections\nand ensures packet delivery",
         "Assigns IP addresses on request"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.1, pp. 601-612"
+      ]
     },
     {
       q: "\u200Fמה זה traceroute?",
@@ -86,8 +83,7 @@ export const quizBank = {
         "A tool that checks if a specific port is open",
         "A tool that shows IP addresses\non the local network",
         "A tool that analyzes WiFi connection status"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.7.5, pp. 470-471"
+      ]
     },
     {
       q: "\u200Fכתובת IP תקינה מבין האפשרויות הבאות היא:",
@@ -107,8 +103,7 @@ export const quizBank = {
         "300.168.1.1",
         "192.168.1",
         "192:168:1:1"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.4, pp. 58-62"
+      ]
     },
     {
       q: "\u200Fמי הוא ״לקוח״ ומי ״שרת״ כשאת פותחת את Gmail?",
@@ -128,8 +123,7 @@ export const quizBank = {
         "Google servers = client\nYour browser = server",
         "Both are clients of the internet provider",
         "It depends on whether you send or receive email"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.5.2, pp. 67-68"
+      ]
     }
   ],
 
@@ -152,8 +146,7 @@ export const quizBank = {
         "A physical port on the back of the computer\nfor connecting a network cable",
         "An encryption protocol for secure communication",
         "The application layer in the TCP/IP model"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.1.3, pp. 505-510"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין bind() ל-connect() בתכנות Sockets?",
@@ -173,8 +166,7 @@ export const quizBank = {
         "bind() encrypts a connection\nconnect() opens a connection",
         "Both do the same thing\njust in a different order",
         "bind() is for TCP\nconnect() is for UDP"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.1.3, pp. 507-509"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין 127.0.0.1 ל־0.0.0.0 בתכנות Sockets?",
@@ -194,8 +186,7 @@ export const quizBank = {
         "127.0.0.1 for internet, 0.0.0.0 for local network",
         "Both are the same — they refer to the local computer",
         "0.0.0.0 = broadcast, 127.0.0.1 = unicast"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6.1, pp. 448-449"
+      ]
     },
     {
       q: "\u200Fמה מודל שרת-לקוח (Client-Server) בתכנות רשתות?",
@@ -215,8 +206,7 @@ export const quizBank = {
         "The server and client connect to each other at the same time",
         "Only servers use Sockets, clients do not",
         "The client listens and the server connects"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.5.2, pp. 67-68"
+      ]
     },
     {
       q: "\u200Fמה שרת הדים (Echo Server) ולמה הוא שימושי ללמידה?",
@@ -236,8 +226,7 @@ export const quizBank = {
         "A server that plays a sound back for every message",
         "A server that forwards messages between two clients",
         "A server that encrypts the message and returns it encrypted"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.1.3, pp. 509-510"
+      ]
     }
   ],
 
@@ -260,8 +249,7 @@ export const quizBank = {
         "7 layers:\nPhysical, Link, Network, Transport, Session, Presentation, Application",
         "4 layers:\nLink, Network, Transport, Application",
         "3 layers:\nHardware, Software, Application"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.3, pp. 28-42"
+      ]
     },
     {
       q: "\u200Fמה Wireshark מאפשר לעשות?",
@@ -281,8 +269,7 @@ export const quizBank = {
         "Send custom packets to the network",
         "Manage IP addresses on the local network",
         "Protect the network from attacks"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.3, pp. 28-30"
+      ]
     },
     {
       q: "\u200Fמה זה Encapsulation (אנקפסולציה)?",
@@ -302,8 +289,7 @@ export const quizBank = {
         "The process of encrypting data before sending",
         "The process of splitting data into small packets",
         "The process of compressing data to save bandwidth"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.3.5, pp. 41-42"
+      ]
     },
     {
       q: "\u200Fאיזה header מוסיפה שכבת הרשת?",
@@ -323,8 +309,7 @@ export const quizBank = {
         "MAC addresses — source and destination",
         "Ports — source and destination",
         "Domain name — source and destination"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.3.5, pp. 41-42"
+      ]
     },
     {
       q: "\u200Fמה שמות החבילות בכל שכבה?",
@@ -344,8 +329,7 @@ export const quizBank = {
         "All are called Packet",
         "Transport: Frame\nNetwork: Segment",
         "Segment and Packet are the same\nboth are names for wrapped data"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.3, pp. 28-42"
+      ]
     },
     {
       q: "\u200Fמה הפילטר ב־Wireshark להצגת HTTP בלבד?",
@@ -365,8 +349,7 @@ export const quizBank = {
         "port == 80",
         "tcp.port == 80",
         "protocol == HTTP"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.3, pp. 28-30"
+      ]
     },
     {
       q: "\u200Fמה Decapsulation בקבלת חבילה?",
@@ -386,8 +369,7 @@ export const quizBank = {
         "Opening the entire packet at once",
         "Decapsulation happens only in a router",
         "Adding an extra header at each layer"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.3.5, pp. 41-42"
+      ]
     }
   ],
 
@@ -410,8 +392,7 @@ export const quizBank = {
         "A protocol for encrypting communication\nWorks on the Transport layer",
         "A protocol for managing IP addresses\nWorks on the Network layer",
         "A protocol for transferring files\nWorks on the Link layer"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.3, pp. 625-650"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין בקשת GET לבקשת POST?",
@@ -431,8 +412,7 @@ export const quizBank = {
         "GET is encrypted\nPOST is not encrypted",
         "GET is for browsers only\nPOST is for mobile apps",
         "GET is always faster\nPOST is more reliable"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.3.3, pp. 637-641"
+      ]
     },
     {
       q: "\u200Fמה אומר קוד תגובה 404?",
@@ -452,8 +432,7 @@ export const quizBank = {
         "Internal server error",
         "The request was successful",
         "Access is forbidden (missing permission)"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.3.3, pp. 641-644"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין קוד 301 לקוד 302?",
@@ -473,8 +452,7 @@ export const quizBank = {
         "301 = server error\n302 = client error",
         "Both are the same\njust different names",
         "301 = redirect to HTTPS\n302 = redirect to HTTP"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.3.3, pp. 641-644"
+      ]
     },
     {
       q: "\u200Fמה URL ומאילו חלקים הוא מורכב?",
@@ -494,8 +472,7 @@ export const quizBank = {
         "URL = just the domain name (google.com)",
         "URL = the IP address of the server",
         "URL = the path to an HTML file on the server"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.3.2, pp. 632-636"
+      ]
     },
     {
       q: "\u200Fמה HTTP Headers ומה תפקידם?",
@@ -515,8 +492,7 @@ export const quizBank = {
         "Headers = the body of the message that contains the HTML",
         "Headers = the IP address of the server and client",
         "Headers exist only in POST requests"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.3.3, pp. 637-644"
+      ]
     }
   ],
 
@@ -539,8 +515,7 @@ export const quizBank = {
         "A visual tool for analyzing packets\nlike Wireshark",
         "A DNS server that runs on Python",
         "An encryption library for secure communication"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.3.5, pp. 41-42"
+      ]
     },
     {
       q: "\u200Fמה עושה Scapy בפקודה:\nIP(dst='8.8.8.8')/ICMP()?",
@@ -560,8 +535,7 @@ export const quizBank = {
         "Sends a DNS query to server 8.8.8.8",
         "Opens a TCP connection to Google server",
         "Performs a traceroute to address 8.8.8.8"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.7.4, pp. 468-470"
+      ]
     },
     {
       q: "\u200Fמה Scapy ומה יתרונו על Wireshark?",
@@ -581,8 +555,7 @@ export const quizBank = {
         "Scapy is a GUI\nWireshark is a CLI",
         "Scapy works only on Linux",
         "Scapy is a replacement for Wireshark"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.3.5, pp. 41-42"
+      ]
     },
     {
       q: "\u200Fכיצד בונים TCP SYN packet ב־Scapy?",
@@ -602,8 +575,7 @@ export const quizBank = {
         "Packet(TCP, SYN, dst='target', port=80)",
         "scapy.send(SYN, dst='target', port=80)",
         "TCP.syn(dst='target', dport=80)"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.2.2, pp. 522-527"
+      ]
     },
     {
       q: "\u200Fמה lfilter ב-sniff של Scapy?",
@@ -623,8 +595,7 @@ export const quizBank = {
         "A BPF filter string like in tcpdump",
         "The number of packets to capture",
         "The name of the interface to monitor"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.3.5, pp. 41-42"
+      ]
     }
   ],
 
@@ -647,8 +618,7 @@ export const quizBank = {
         "TCP for servers\nUDP for mobile",
         "TCP is encrypted\nUDP is visible",
         "TCP is old\nUDP is modern"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.1, pp. 503-510"
+      ]
     },
     {
       q: "\u200Fמה זה Three-Way Handshake?",
@@ -668,8 +638,7 @@ export const quizBank = {
         "The process of closing a TCP connection:\nFIN -> FIN-ACK -> RST",
         "An identity verification process in HTTPS",
         "A process to find the best packet size"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.2.2, pp. 522-527"
+      ]
     },
     {
       q: "\u200Fמה זה Flow Control ב־TCP?",
@@ -689,8 +658,7 @@ export const quizBank = {
         "A mechanism for encrypting data during sending",
         "A mechanism for routing packets between routers",
         "A mechanism for detecting errors in data"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.2.5, pp. 536-540"
+      ]
     },
     {
       q: "\u200Fלמה TCP גדול יותר ב-overhead מ־UDP?",
@@ -710,8 +678,7 @@ export const quizBank = {
         "TCP is encrypted, UDP is not\nso it is bigger",
         "TCP and UDP are the same size",
         "UDP is bigger than TCP"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.2.1, pp. 519-522"
+      ]
     },
     {
       q: "\u200Fמה TIME_WAIT state ב־TCP?",
@@ -731,8 +698,7 @@ export const quizBank = {
         "TCP waits for last ACK before sending FIN",
         "A server with high latency enters TIME_WAIT",
         "TIME_WAIT = a failed connection"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.2.2, pp. 527-528"
+      ]
     }
   ],
 
@@ -755,8 +721,7 @@ export const quizBank = {
         "Transferring frames between computers on a local network\nusing MAC",
         "Managing reliable connections between applications",
         "Converting digital signals to analog"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.1, pp. 375-380"
+      ]
     },
     {
       q: "\u200Fמה זה NAT?",
@@ -776,8 +741,7 @@ export const quizBank = {
         "Network Access Token\nA token for network access",
         "New Address Table\nA dynamic routing table",
         "Node Authentication Technology\nDevice authentication"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6.7, pp. 459-463"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין IP פנימי לציבורי?",
@@ -797,8 +761,7 @@ export const quizBank = {
         "Private IP is encrypted\nPublic is visible",
         "Private IP for servers\nPublic for personal computers",
         "Private IP is fixed\nPublic changes"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6.1, pp. 448-452"
+      ]
     },
     {
       q: "\u200Fאיזה כתובת IP היא ״ברדקאסט״ (broadcast) ברשת?",
@@ -818,8 +781,7 @@ export const quizBank = {
         "127.0.0.1 — loopback address",
         "0.0.0.0 — default address",
         "255.0.0.0 — network address"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6.2, pp. 452-453"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין Router לבין Switch?",
@@ -839,8 +801,7 @@ export const quizBank = {
         "Router is faster than Switch",
         "Switch connects networks\nRouter connects devices",
         "No difference — different names for the same thing"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.4 §4.8, pp. 368-370"
+      ]
     },
     {
       q: "\u200Fמה TTL ב־IP ואיך הוא מונע routing loops?",
@@ -860,8 +821,7 @@ export const quizBank = {
         "TTL = how many seconds the packet is valid",
         "TTL is set by the destination, not the sender",
         "TTL = Transport Transfer Layer"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.7.1, pp. 464-466"
+      ]
     },
     {
       q: "\u200Fמה Longest Prefix Match ב־IP routing?",
@@ -881,8 +841,7 @@ export const quizBank = {
         "Router picks the route with the lowest weight",
         "Router picks based on routing table order",
         "All routes are equal — chosen at random"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.3, pp. 393-398"
+      ]
     }
   ],
 
@@ -905,8 +864,7 @@ export const quizBank = {
         "Switch works on the Network layer\nHub on the Link layer",
         "Switch is wireless, Hub is wired",
         "Switch is faster only because it is more expensive"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.4 §4.8.2, pp. 370-372"
+      ]
     },
     {
       q: "\u200Fמה זה כתובת MAC?",
@@ -926,8 +884,7 @@ export const quizBank = {
         "A logical address assigned by DHCP",
         "The address of the main DNS server",
         "The address of the computer on the public network"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.4 §4.3.1, pp. 305-306"
+      ]
     },
     {
       q: "\u200Fמה תפקיד ה־ARP?",
@@ -947,8 +904,7 @@ export const quizBank = {
         "Automatically assigns IP addresses to devices",
         "Translates domain names to IP addresses",
         "Verifies user identity on the network"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.7.2, pp. 466-468"
+      ]
     },
     {
       q: "\u200Fמה MAC address ומה שונה אותו מ־IP?",
@@ -968,8 +924,7 @@ export const quizBank = {
         "MAC and IP are the same — just different format",
         "MAC changes on every connection\nIP is fixed",
         "MAC = IPv6\nIP = IPv4"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.4 §4.3.1, pp. 305-306"
+      ]
     },
     {
       q: "\u200Fמה Ethernet Frame structure?",
@@ -989,8 +944,7 @@ export const quizBank = {
         "Header | Data | Checksum only",
         "Src IP | Dst IP | Src Port | Dst Port | Data",
         "Start | MAC | IP | TCP | Data | End"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.4 §4.3, pp. 303-310"
+      ]
     },
     {
       q: "\u200Fמה ה־Broadcast Domain ומה Collision Domain?",
@@ -1010,8 +964,7 @@ export const quizBank = {
         "Both are the same",
         "Hub separates broadcast\nSwitch does not",
         "Router does not separate broadcast domains"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.4 §4.3.5, pp. 313-315"
+      ]
     }
   ],
 
@@ -1034,8 +987,7 @@ export const quizBank = {
         "Hub = old Switch, Router = smart Switch",
         "All three do the same thing — just different names",
         "Hub for home, Switch for business, Router for internet"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.4 §4.8, pp. 368-372"
+      ]
     },
     {
       q: "\u200Fמה VLAN ולמה משתמשים בו?",
@@ -1055,8 +1007,7 @@ export const quizBank = {
         "VLAN = VPN for local network",
         "VLAN replaces Router between networks",
         "VLAN works only with WiFi, not cables"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.4 §4.8.4, pp. 374-378"
+      ]
     },
     {
       q: "\u200Fמה תפקיד חומת האש (Firewall)?",
@@ -1076,8 +1027,7 @@ export const quizBank = {
         "Firewall encrypts all traffic",
         "Firewall prevents viruses only",
         "Firewall routes packets between networks"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.6, pp. 764-774"
+      ]
     },
     {
       q: "\u200Fמה SDN (Software Defined Networking)?",
@@ -1097,8 +1047,7 @@ export const quizBank = {
         "SDN = an advanced wireless network",
         "SDN = a Switch with more ports",
         "SDN = VPN for organizations"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.2.5, pp. 390-393"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין Router ביתי לתעשייתי?",
@@ -1118,8 +1067,7 @@ export const quizBank = {
         "Home Router works only with WiFi",
         "Enterprise Router supports only IPv6",
         "No real difference — just price"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.4 §4.8, pp. 368-372"
+      ]
     }
   ],
 
@@ -1142,8 +1090,7 @@ export const quizBank = {
         "Adding a header with MAC addresses",
         "Adding a header with IP addresses",
         "Checking data for errors"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.2 §2.1, pp. 85-90"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין fiber optic לכבל נחושת?",
@@ -1163,8 +1110,7 @@ export const quizBank = {
         "Fiber is cheaper so it is more common",
         "Fiber for undersea cables, copper for land only",
         "No significant difference in performance"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.2 §2.2, pp. 90-105"
+      ]
     },
     {
       q: "\u200Fמה Full Duplex לעומת Half Duplex?",
@@ -1184,8 +1130,7 @@ export const quizBank = {
         "Full Duplex = double speed",
         "Half Duplex = half the ports",
         "Full Duplex only with fiber cable"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.4 §4.2.1, pp. 288-290"
+      ]
     },
     {
       q: "\u200Fמה WiFi (802.11) ואיזה תקנים נפוצים?",
@@ -1205,8 +1150,7 @@ export const quizBank = {
         "WiFi = Wireless Firewall Interface",
         "WiFi is always faster than Ethernet cable",
         "WiFi 6 works only on 6GHz"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.4 §4.4, pp. 316-340"
+      ]
     },
     {
       q: "\u200Fמה PoE (Power over Ethernet)?",
@@ -1226,8 +1170,7 @@ export const quizBank = {
         "PoE = Protocol over Ethernet",
         "PoE increases network speed",
         "PoE works only with fiber cable"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.2 §2.2.3, pp. 100-101"
+      ]
     }
   ],
 
@@ -1250,8 +1193,7 @@ export const quizBank = {
         "The request is sent as plain text without any processing",
         "Only the Network and Transport layers process the request",
         "The header is sent first and then the data separately"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.3.5, pp. 41-42"
+      ]
     },
     {
       q: "\u200Fמה סדר הפעולות המלא כשמקלידים URL בדפדפן?",
@@ -1271,8 +1213,7 @@ export const quizBank = {
         "HTTP request -> DNS -> TCP -> display",
         "ARP -> MAC lookup -> HTTP -> DNS",
         "TCP -> HTTP -> DNS -> display"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.1, pp. 601-612"
+      ]
     },
     {
       q: "\u200Fמה תפקיד ה־CDN כשגולשים לאתר?",
@@ -1292,8 +1233,7 @@ export const quizBank = {
         "CDN encrypts traffic instead of TLS",
         "CDN replaces DNS and routes directly",
         "CDN stores only video files, not HTML"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.5, pp. 667-672"
+      ]
     },
     {
       q: "\u200Fמה קורה אם שרת ה־DNS שלך לא עובד?",
@@ -1313,8 +1253,7 @@ export const quizBank = {
         "The internet stops working completely",
         "The browser uses IP automatically",
         "DNS fallback switches to ARP instead"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.1.4, pp. 609-612"
+      ]
     },
     {
       q: "\u200Fכמה פקטות בערך נשלחות בגלישה לדף אחד?",
@@ -1334,8 +1273,7 @@ export const quizBank = {
         "One packet — the whole page in one request",
         "Exactly 3 — SYN, HTTP, Response",
         "Thousands of packets for each page"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.2.1, pp. 519-522"
+      ]
     }
   ],
 
@@ -1358,8 +1296,7 @@ export const quizBank = {
         "An encrypted socket that blocks unauthorized access",
         "A socket for one-way communication only",
         "A socket that filters invalid packets"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.1.3, pp. 507-510"
+      ]
     },
     {
       q: "\u200Fמה select() ולמה משתמשים בו בשרתי רשת?",
@@ -1379,8 +1316,7 @@ export const quizBank = {
         "select() picks the fastest Socket",
         "select() replaces connect() on the client",
         "select() works only with UDP"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.1.3, pp. 507-510"
+      ]
     },
     {
       q: "\u200Fמה Threading בשרת רשת ומה היתרון על select()?",
@@ -1400,8 +1336,7 @@ export const quizBank = {
         "Threading speeds up the network",
         "Threading is required in every Python server",
         "One thread is always enough for all clients"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.1.3, pp. 507-510"
+      ]
     },
     {
       q: "\u200Fמה Length Prefix Protocol ולמה צריך אותו ב־TCP?",
@@ -1421,8 +1356,7 @@ export const quizBank = {
         "Length Prefix = encrypting the message before sending",
         "TCP always sends complete messages — no prefix needed",
         "Length Prefix is only for UDP"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.1.2, pp. 504-505"
+      ]
     },
     {
       q: "\u200Fמה asyncio בפייתון ואיך שונה מ־Threading?",
@@ -1442,8 +1376,7 @@ export const quizBank = {
         "asyncio = Threading with a different name",
         "asyncio works only with HTTP, not sockets",
         "asyncio runs code on multiple CPU cores"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.1.3, pp. 507-510"
+      ]
     }
   ],
 
@@ -1466,8 +1399,7 @@ export const quizBank = {
         "Latency = bandwidth\nBandwidth = response time",
         "Both are measures of network speed",
         "Latency for local network\nBandwidth for internet"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.5.3, pp. 69-74"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין throughput ל-bandwidth?",
@@ -1487,8 +1419,7 @@ export const quizBank = {
         "Both are the same — synonyms",
         "Bandwidth = upload, Throughput = download",
         "Throughput is always higher than bandwidth"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.5.3, pp. 69-74"
+      ]
     },
     {
       q: "\u200Fמה Proxy Server?",
@@ -1508,8 +1439,7 @@ export const quizBank = {
         "Proxy = VPN for anonymous browsing",
         "Proxy = advanced Firewall",
         "Proxy works only with HTTP"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.5, pp. 667-672"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין LAN ל־WAN?",
@@ -1529,8 +1459,7 @@ export const quizBank = {
         "LAN = wireless, WAN = cables",
         "WAN is faster than LAN",
         "LAN and WAN are the same — just different size"
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.2, pp. 18-28"
+      ]
     }
   ],
 
@@ -1553,8 +1482,7 @@ export const quizBank = {
         "Checks server availability and shows response time",
         "Shows the routing table of the device",
         "Resets network card settings",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.1.3, pp. 505-510"
+      ]
     },
     {
       q: "\u200Fמה עושה הפקודה nslookup?",
@@ -1574,8 +1502,7 @@ export const quizBank = {
         "Checks open ports on a remote server",
         "Shows the ARP cache of the device",
         "Analyzes network load",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.1, pp. 601-612"
+      ]
     },
     {
       q: "\u200Fמה עושה פקודת arp -a?",
@@ -1596,8 +1523,7 @@ export const quizBank = {
         "Shows all IP addresses on the network",
         "Scans the network and finds new devices",
         "Clears the DNS cache",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.7.2, pp. 466-468"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין ipconfig ל-ifconfig?",
@@ -1618,8 +1544,7 @@ export const quizBank = {
         "ipconfig for IPv4, ifconfig for IPv6",
         "Both are the same — work on all operating systems",
         "ifconfig shows only MAC, ipconfig shows IP",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6, pp. 448-463"
+      ]
     },
     {
       q: "\u200Fמה curl ולמה משתמשים בו?",
@@ -1640,8 +1565,7 @@ export const quizBank = {
         "curl = a tool for downloading files only",
         "curl = an alternative to ping for checking availability",
         "curl works only with HTTPS",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.3, pp. 625-650"
+      ]
     },
     {
       q: "\u200Fמה פקודת route print / ip route מציגה?",
@@ -1662,8 +1586,7 @@ export const quizBank = {
         "Shows all DNS records",
         "Shows the physical network map",
         "Shows only the default gateway",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.2, pp. 380-398"
+      ]
     }
   ],
 
@@ -1686,8 +1609,7 @@ export const quizBank = {
         "Symmetric is faster\nand asymmetric is always more secure",
         "Symmetric for traffic\nAsymmetric for storage",
         "No difference — both use AES",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.1-8.2, pp. 719-740"
+      ]
     },
     {
       q: "\u200Fמה TLS Handshake עושה?",
@@ -1707,8 +1629,7 @@ export const quizBank = {
         "Opens a TCP connection and encrypts it automatically",
         "Downloads the Certificate from a CA and installs it",
         "Distinguishes between HTTP and HTTPS",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.4, pp. 748-755"
+      ]
     },
     {
       q: "\u200Fמה Certificate Authority (CA) עושה?",
@@ -1728,8 +1649,7 @@ export const quizBank = {
         "Creates encryption keys for every website",
         "Runs DNS servers for domain translation",
         "Manages certificates of all internet users",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.3, pp. 740-748"
+      ]
     },
     {
       q: "\u200Fמה ה־TLS handshake ואיזה שלבים כולל?",
@@ -1749,8 +1669,7 @@ export const quizBank = {
         "TLS = TCP handshake with encryption",
         "Steps: SYN → SYN-ACK → ACK + certificate",
         "TLS handshake = just a TCP connection",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.4, pp. 748-755"
+      ]
     },
     {
       q: "\u200Fמה Certificate Authority ואיך browsers סומכים על HTTPS?",
@@ -1770,8 +1689,7 @@ export const quizBank = {
         "Browser checks certificates in a central database",
         "Every certificate is automatically valid in HTTPS",
         "CA = DNS server that verifies certificates",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.3, pp. 740-748"
+      ]
     },
     {
       q: "\u200Fמה Perfect Forward Secrecy ולמה חשוב?",
@@ -1791,8 +1709,7 @@ export const quizBank = {
         "PFS = encrypting passwords in the browser",
         "PFS = a protocol for sharing keys between CAs",
         "PFS works only in TLS 1.3",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.4.2, pp. 752-755"
+      ]
     }
   ],
 
@@ -1815,8 +1732,7 @@ export const quizBank = {
         "SMTP = encrypted\nIMAP = not encrypted",
         "SMTP for Gmail\nIMAP for Outlook",
         "Both are for sending\nThe difference is the port",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.2, pp. 612-625"
+      ]
     },
     {
       q: "\u200Fמה SSH מאפשר לעשות?",
@@ -1836,8 +1752,7 @@ export const quizBank = {
         "Fast file transfer between servers",
         "Centralized IP address management",
         "Encrypting HTTP traffic to HTTPS",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.5, pp. 755-764"
+      ]
     },
     {
       q: "\u200Fמה הפורט הסטנדרטי של SSH?",
@@ -1852,8 +1767,7 @@ export const quizBank = {
         "23",
         "443",
         "8080",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.5, pp. 755-764"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין POP3 לבין IMAP?",
@@ -1873,8 +1787,7 @@ export const quizBank = {
         "POP3 = new email\nIMAP = old email",
         "Both are the same — just different ports",
         "IMAP = encryption\nPOP3 = no encryption",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.2.6, pp. 622-625"
+      ]
     },
     {
       q: "\u200Fמה SSH ולמה הוא עדיף על Telnet?",
@@ -1894,8 +1807,7 @@ export const quizBank = {
         "SSH and Telnet are the same — just different names",
         "SSH is faster than Telnet",
         "Telnet is encrypted in IPv6",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.5, pp. 755-764"
+      ]
     },
     {
       q: "\u200Fמה FTP Active Mode לעומת Passive Mode?",
@@ -1915,8 +1827,7 @@ export const quizBank = {
         "Active is faster\nPassive is more secure",
         "The difference is only ports: 20 and 21",
         "Passive = FTPS (encrypted FTP)",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.4, pp. 650-660"
+      ]
     }
   ],
 
@@ -1939,8 +1850,7 @@ export const quizBank = {
         "24 computers are currently connected to the network",
         "Network number 24 in the series",
         "24 routers between the computer and the internet",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6.3, pp. 453-456"
+      ]
     },
     {
       q: "\u200Fמה ה־CIDR notation /24 ומה ה-subnet mask שלו?",
@@ -1960,8 +1870,7 @@ export const quizBank = {
         "/24 = 24 hosts only",
         "/24 = 255.255.255.255",
         "/24 = class B network",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6.3, pp. 453-456"
+      ]
     },
     {
       q: "\u200Fכיצד מחלקים 192.168.1.0/24 ל־4 subnets שווים?",
@@ -1981,8 +1890,7 @@ export const quizBank = {
         "/24 into four /25 subnets",
         "/28 = 4 subnets from /24",
         "2^4=16 subnets from /24 with /28",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6.2, pp. 452-453"
+      ]
     },
     {
       q: "\u200Fמה Supernetting (Route Summarization)?",
@@ -2002,8 +1910,7 @@ export const quizBank = {
         "Supernetting = reverse Subnetting only",
         "Networks cannot be combined",
         "Supernetting = IPv6 transition mechanism",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6.3, pp. 453-456"
+      ]
     },
     {
       q: "\u200Fאיך Subnetting משמש בארכיטקטורת ענן (AWS VPC)?",
@@ -2024,8 +1931,7 @@ export const quizBank = {
         "AWS does not use Subnetting — only Security Groups",
         "Every VPC is one large subnet",
         "Subnetting in cloud is completely different from on-premise",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6, pp. 448-463"
+      ]
     }
   ],
 
@@ -2048,8 +1954,7 @@ export const quizBank = {
         "64 bits",
         "32 bits (same as IPv4)",
         "256 bits",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.8, pp. 472-484"
+      ]
     },
     {
       q: "\u200Fמה ::1 אומר ב־IPv6?",
@@ -2069,8 +1974,7 @@ export const quizBank = {
         "Default Gateway address",
         "Broadcast address",
         "Empty unassigned address",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.8, pp. 472-484"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין IPv4 ל־IPv6 header?",
@@ -2090,8 +1994,7 @@ export const quizBank = {
         "IPv6 = IPv4 with larger addresses only",
         "IPv6 header is larger and has more fields",
         "The difference is only in address size",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.8.1, pp. 473-476"
+      ]
     },
     {
       q: "\u200Fמה SLAAC ב־IPv6?",
@@ -2111,8 +2014,7 @@ export const quizBank = {
         "SLAAC = DHCPv6 with a different name",
         "SLAAC = Static address in IPv6",
         "SLAAC works only in enterprise networks",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.8.3, pp. 479-481"
+      ]
     },
     {
       q: "\u200Fמה כתובות Multicast ב־IPv6 ולמה הן מחליפות broadcast?",
@@ -2132,8 +2034,7 @@ export const quizBank = {
         "IPv6 uses broadcast like IPv4",
         "Multicast = Anycast in IPv6",
         "ff00::/8 = private range in IPv6",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.8.2, pp. 477-479"
+      ]
     }
   ],
 
@@ -2156,8 +2057,7 @@ export const quizBank = {
         "Recursive = faster\nAuthoritative = more secure",
         "Recursive belongs to ISP\nAuthoritative belongs to Google",
         "No difference — both do the same thing",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.1.1, pp. 602-605"
+      ]
     },
     {
       q: "\u200Fמה DNS TTL קובע?",
@@ -2177,8 +2077,7 @@ export const quizBank = {
         "How long the domain is registered with the registrar",
         "Speed of DNS query transfer",
         "Number of Name Servers for the domain",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.1.4, pp. 609-612"
+      ]
     },
     {
       q: "\u200Fמה DNS over HTTPS (DoH) מוסיף?",
@@ -2198,8 +2097,7 @@ export const quizBank = {
         "Speeds up DNS resolution",
         "Adds HTTPS to all websites",
         "Replaces IP addresses with domain names",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.1.5, pp. 612"
+      ]
     },
     {
       q: "\u200Fמה DNS TTL ואיך משפיע על תפוצה של שינויים?",
@@ -2219,8 +2117,7 @@ export const quizBank = {
         "TTL = how many DNS servers remember the record",
         "TTL only for MX records",
         "TTL is fixed = 24 hours for everyone",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.1.4, pp. 609-612"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין Authoritative DNS לבין Recursive Resolver?",
@@ -2240,8 +2137,7 @@ export const quizBank = {
         "Both are the same",
         "Authoritative = private DNS\nRecursive = public",
         "Recursive = Root DNS server",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.1.1, pp. 602-605"
+      ]
     },
     {
       q: "\u200Fמה DNS Cache Poisoning ואיך DNSSEC מגן?",
@@ -2261,8 +2157,7 @@ export const quizBank = {
         "DNS Poisoning = changing /etc/hosts",
         "DNSSEC = TLS for DNS",
         "DNS Poisoning works only in IPv4",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.7.2, pp. 778-780"
+      ]
     }
   ],
 
@@ -2285,8 +2180,7 @@ export const quizBank = {
         "Time window in which TCP waits for ACK before retry",
         "Size of the socket buffer",
         "Number of parallel TCP connections",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.2.5, pp. 536-540"
+      ]
     },
     {
       q: "\u200Fמה Slow Start ב־TCP Congestion Control?",
@@ -2306,8 +2200,7 @@ export const quizBank = {
         "TCP slows down packet sending at a busy router",
         "Manual setting of connection speed",
         "The slow TCP handshake process",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.2.6, pp. 540-545"
+      ]
     },
     {
       q: "\u200Fמה TCP Slow Start ואיך Congestion Control עובד?",
@@ -2327,8 +2220,7 @@ export const quizBank = {
         "TCP sends at a constant rate from the start",
         "Congestion Control = Flow Control — same thing",
         "cwnd does not change after connection is established",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.2.6, pp. 540-550"
+      ]
     },
     {
       q: "\u200Fמה TCP Window Size ומה Receive Buffer?",
@@ -2348,8 +2240,7 @@ export const quizBank = {
         "Window = MTU size",
         "Receive Buffer = Congestion Window",
         "Window Size is fixed and does not change",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.2.5, pp. 538-540"
+      ]
     },
     {
       q: "\u200Fמה Nagle's Algorithm ומתי כדאי להשבית?",
@@ -2369,8 +2260,7 @@ export const quizBank = {
         "Nagle = congestion control algorithm",
         "TCP_NODELAY slows down the connection",
         "Nagle is active only in UDP",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.2.4, pp. 534-536"
+      ]
     }
   ],
 
@@ -2393,8 +2283,7 @@ export const quizBank = {
         "Transport for UDP\nTunnel for TCP",
         "Transport is always faster",
         "No difference — both encrypt everything",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.5, pp. 755-764"
+      ]
     },
     {
       q: "\u200Fמה SYN Cookies ואיך הם פותרים SYN Flood?",
@@ -2414,8 +2303,7 @@ export const quizBank = {
         "Browser cookies that verify legitimate users",
         "Cache of SYN packets to prevent duplicates",
         "Rate limiting on SYN packets in firewall",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.6.3, pp. 770-772"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין VPN site-to-site לבין remote access VPN?",
@@ -2435,8 +2323,7 @@ export const quizBank = {
         "No difference — both types are the same",
         "Site-to-site = IPsec\nRemote access = SSL only",
         "Remote access VPN is less secure than site-to-site",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.7.6, pp. 471-472"
+      ]
     },
     {
       q: "\u200Fמה IPsec ואיזה שני מצבים קיימים?",
@@ -2456,8 +2343,7 @@ export const quizBank = {
         "IPsec = just TLS with IP features",
         "Transport Mode for site-to-site\nTunnel for remote access",
         "IPsec encrypts only UDP",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.5, pp. 755-764"
+      ]
     },
     {
       q: "\u200Fמה WireGuard ולמה נחשב טוב יותר מ־OpenVPN?",
@@ -2477,8 +2363,7 @@ export const quizBank = {
         "WireGuard is faster but less secure",
         "OpenVPN is always better because it is older",
         "WireGuard = OpenVPN v3",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.5, pp. 755-764"
+      ]
     }
   ],
 
@@ -2501,8 +2386,7 @@ export const quizBank = {
         "HIT = search success\nMISS = error",
         "HIT for videos\nMISS for HTML",
         "HIT = CDN works\nMISS = CDN is down",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.5, pp. 667-672"
+      ]
     },
     {
       q: "\u200Fמתי WebSockets עדיפים על REST?",
@@ -2522,8 +2406,7 @@ export const quizBank = {
         "When higher security is needed",
         "When high bandwidth is involved",
         "When the client is mobile",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.3.4, pp. 645-648"
+      ]
     },
     {
       q: "\u200Fמה ה־Anycast CDN ואיך Cloudflare/Akamai מנצלים BGP?",
@@ -2543,8 +2426,7 @@ export const quizBank = {
         "CDN = DNS load balancing only",
         "Anycast = random routing between servers",
         "CDN works only with TCP",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6.5, pp. 457-458"
+      ]
     },
     {
       q: "\u200Fמה Load Balancer Layer 4 לעומת Layer 7?",
@@ -2564,8 +2446,7 @@ export const quizBank = {
         "L4 is more secure than L7",
         "L7 is faster than L4",
         "No difference — L4 and L7 LB are the same",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.5.2, pp. 670-672"
+      ]
     },
     {
       q: "\u200Fמה HTTP/2 Server Push ואיך מחליט מה לpush?",
@@ -2585,8 +2466,7 @@ export const quizBank = {
         "Server Push = WebSocket",
         "Server Push = Server-Sent Events",
         "Server Push does not exist in HTTP/2",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.3.5, pp. 648-650"
+      ]
     }
   ],
 
@@ -2609,8 +2489,7 @@ export const quizBank = {
         "A DDoS attack of 5 Tbps",
         "Main database failure",
         "Wrong DNS record",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.4, pp. 398-416"
+      ]
     },
     {
       q: "\u200Fמה blameless postmortem?",
@@ -2630,8 +2509,7 @@ export const quizBank = {
         "A report explaining who is responsible for the failure",
         "A procedure for compensating customers after downtime",
         "Documentation of all code changes",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.5, pp. 64-74"
+      ]
     },
     {
       q: "\u200Fמה BGP Hijacking ואיך RPKI מגן?",
@@ -2651,8 +2529,7 @@ export const quizBank = {
         "BGP Hijacking = DDoS on BGP routers",
         "RPKI = encrypting BGP updates",
         "BGP cannot be hijacked because it is verified",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.4.5, pp. 412-416"
+      ]
     },
     {
       q: "\u200Fמה SQL Slammer (2003) ולמה הוא היה כל כך הרסני?",
@@ -2673,8 +2550,7 @@ export const quizBank = {
         "SQL Slammer encrypted databases and demanded ransom",
         "SQL Slammer attacked only browsers",
         "SQL Slammer crashed only one Microsoft server",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.6, pp. 764-774"
+      ]
     },
     {
       q: "\u200Fמה Chaos Engineering ולמה Netflix שוברים דברים בכוונה?",
@@ -2695,8 +2571,7 @@ export const quizBank = {
         "Chaos Engineering = regular performance testing",
         "Netflix only breaks things in staging, not production",
         "Chaos Engineering = pentesting for websites",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.5, pp. 64-74"
+      ]
     }
   ],
 
@@ -2719,8 +2594,7 @@ export const quizBank = {
         "A central Netflix content server in the US",
         "A monitoring tool for streaming performance",
         "An encryption mechanism for content protection",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.7 §7.5, pp. 667-672"
+      ]
     },
     {
       q: "\u200Fמה Anycast routing?",
@@ -2740,8 +2614,7 @@ export const quizBank = {
         "Load distribution between servers\nusing Round Robin algorithm",
         "Sending a packet to all devices on the network",
         "Encrypting routing information in BGP",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6.5, pp. 457-458"
+      ]
     },
     {
       q: "\u200Fמה DPI (Deep Packet Inspection) ואיך ISPs משתמשים בו?",
@@ -2761,8 +2634,7 @@ export const quizBank = {
         "DPI = DNS Privacy Inspector",
         "DPI works only on unencrypted traffic",
         "DPI = encrypting packets in a router",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.7, pp. 774-782"
+      ]
     },
     {
       q: "\u200Fמה Data Center topology ו־Spine-Leaf Architecture?",
@@ -2782,8 +2654,7 @@ export const quizBank = {
         "Spine-Leaf = Spanning Tree topology",
         "Spine = core routers\nLeaf = servers only",
         "Spine-Leaf uses STP",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.2.4, pp. 388-390"
+      ]
     },
     {
       q: "\u200Fמה Latency לעומת Bandwidth ולמה latency חשוב יותר ב-interactive apps?",
@@ -2803,8 +2674,7 @@ export const quizBank = {
         "Bandwidth and Latency are the same thing",
         "Bandwidth is always more important",
         "Latency = Round Trip Time + Bandwidth",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.5.3, pp. 69-74"
+      ]
     }
   ],
 
@@ -2827,8 +2697,7 @@ export const quizBank = {
         "Everything, including passwords and history",
         "Only the IP address — nothing more",
         "Nothing — HTTPS is fully encrypted",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.7, pp. 774-782"
+      ]
     },
     {
       q: "\u200Fמה Browser Fingerprinting?",
@@ -2848,8 +2717,7 @@ export const quizBank = {
         "Checking website reliability by the browser",
         "Saving browsing history",
         "Showing fingerprint of SSL Certificate",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.7.3, pp. 780-782"
+      ]
     },
     {
       q: "\u200Fמה SNI (Server Name Indication) ואיך TLS מכריז על ה-domain?",
@@ -2869,8 +2737,7 @@ export const quizBank = {
         "SNI = SSL certificate of the server",
         "SNI = DNS record for HTTPS",
         "SNI is encrypted from the start",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.4.1, pp. 749-750"
+      ]
     },
     {
       q: "\u200Fמה Browser Fingerprinting וכיצד websites עוקבות ללא cookies?",
@@ -2890,8 +2757,7 @@ export const quizBank = {
         "Fingerprinting = encrypted cookies",
         "Browser Fingerprint = IP address only",
         "Fingerprinting works only in Chrome",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.7.3, pp. 780-782"
+      ]
     },
     {
       q: "\u200Fמה Traffic Analysis ומה VPN לא מגן עליו?",
@@ -2911,8 +2777,7 @@ export const quizBank = {
         "VPN protects against all types of monitoring",
         "Traffic Analysis = DPI\n— VPN fully protects",
         "Traffic Analysis works only on HTTP",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.7.1, pp. 775-778"
+      ]
     }
   ],
 
@@ -2935,8 +2800,7 @@ export const quizBank = {
         "HTTP/3 is faster because it uses UDP\nand UDP is faster than TCP",
         "HTTP/3 adds encryption\nthat was not in HTTP/2",
         "HTTP/2 for desktop\nHTTP/3 for mobile",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.4, pp. 570-574"
+      ]
     },
     {
       q: "\u200Fמה eBPF מאפשר שלא היה אפשרי קודם?",
@@ -2956,8 +2820,7 @@ export const quizBank = {
         "Program network cards directly",
         "Run applications in protected memory",
         "Debug kernel crashes in production",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.2.5, pp. 390-393"
+      ]
     },
     {
       q: "\u200Fמה eBPF ואיך הוא שינה Linux networking?",
@@ -2977,8 +2840,7 @@ export const quizBank = {
         "eBPF = encryption protocol",
         "eBPF = kernel module loading",
         "eBPF runs in userspace only",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.2.5, pp. 390-393"
+      ]
     },
     {
       q: "\u200Fמה QUIC ואיך HTTP/3 מתמודד עם Head-of-Line Blocking?",
@@ -2998,8 +2860,7 @@ export const quizBank = {
         "QUIC solves HOL Blocking\ncompletely even in TCP",
         "HTTP/3 = HTTP/2 on TLS 1.3",
         "QUIC = UDP with TCP header",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.6 §6.4, pp. 570-574"
+      ]
     },
     {
       q: "\u200Fמה DPDK ואיזה שימושים של networking ב-userspace?",
@@ -3019,8 +2880,7 @@ export const quizBank = {
         "DPDK = Docker networking plugin",
         "DPDK = encryption standard",
         "DPDK slows down networking",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.2.5, pp. 390-393"
+      ]
     }
   ],
   27: [
@@ -3042,8 +2902,7 @@ export const quizBank = {
         "OSCP — Offensive Security Certified Professional",
         "AWS SAA — Solutions Architect Associate",
         "CKA — Certified Kubernetes Administrator",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.1 §1.5, pp. 64-74"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין Penetration Tester לבין SOC Analyst?",
@@ -3063,8 +2922,7 @@ export const quizBank = {
         "Pentester works with code\nSOC Analyst with hardware",
         "SOC Analyst manages firewalls\nPentester writes malware",
         "Both are the same role with different names",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.6, pp. 764-774"
+      ]
     },
     {
       q: "\u200Fלמה ידע ברשתות הכרחי לעבודה עם AWS/Cloud?",
@@ -3084,8 +2942,7 @@ export const quizBank = {
         "Cloud is not related to networking\n— everything is managed automatically",
         "Networking knowledge is needed only for on-premise\nnot for Cloud",
         "AWS requires CCNA as a condition for use",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6, pp. 448-463"
+      ]
     },
     {
       q: "\u200Fמה ההבדל בין NOC לבין SOC?",
@@ -3105,8 +2962,7 @@ export const quizBank = {
         "NOC and SOC are the same",
         "SOC = Network Operations Center",
         "NOC = Security\nSOC = Performance",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.8 §8.6, pp. 764-774"
+      ]
     },
     {
       q: "\u200Fמה Cloud native networking לעומת traditional networking?",
@@ -3126,8 +2982,7 @@ export const quizBank = {
         "Cloud Native = traditional networking on AWS",
         "Traditional = old and not in use",
         "Cloud Native uses only IPv6",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.6, pp. 448-463"
+      ]
     },
     {
       q: "\u200Fמה Software Defined Networking (SDN)?",
@@ -3147,8 +3002,7 @@ export const quizBank = {
         "SDN = networking without hardware",
         "SDN = IPv6",
         "SDN = Software Defined Network = VPN",
-      ],
-      textbookRef: "Tanenbaum 5e, Ch.5 §5.2.5, pp. 390-393"
+      ]
     }
   ],
 

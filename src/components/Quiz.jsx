@@ -487,12 +487,6 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
                   )
                 })}
               </div>
-              {q.textbookRef && (
-                <div className="quiz-textbook-ref" dir="ltr">
-                  <span className="textbook-icon">📚</span>
-                  <span className="textbook-text">{q.textbookRef}</span>
-                </div>
-              )}
             </div>
           </div>
           {canContinue && (
