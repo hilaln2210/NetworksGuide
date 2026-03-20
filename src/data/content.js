@@ -4464,19 +4464,19 @@ Endpoint = peer.example.com:51820</code></pre>
         questions: [
           {
             q: "מה ההבדל בין IPsec Tunnel mode ל־Transport mode?",
-            a: "Transport mode: מוצפן רק ה-payload, IP Header המקורי גלוי. לתקשורת Host-to-Host. Tunnel mode: כל הפקטה המקורית (כולל IP Header) נעטפת בפקטה חדשה עם IP של ה־Gateway. ל־VPN Site-to-Site.",
+            a: "IPsec מצפין תעבורת IP בשני מצבים.\n\nעיקרי:\n- Transport: מצפין רק את התוכן, הכתובות גלויות\n- Tunnel: מצפין את הכל כולל הכתובות\n- Tunnel משמש ל-VPN בין אתרים\n\nטיפ:\nTransport = חלקי | Tunnel = מלא",
             qEn: "What is the difference between IPsec Tunnel mode and Transport mode?",
             aEn: "Transport mode: only the payload is encrypted, the original IP Header is visible. Used for Host-to-Host. Tunnel mode: the entire original packet (including IP Header) is wrapped in a new packet with the Gateway IP. Used for Site-to-Site VPN."
           },
           {
             q: "למה WireGuard בוחרת cryptography קבוע ולא negotiable?",
-            a: "Cipher agility = יותר קוד, יותר surface להתקפה, ניתן לכפות downgrade לאלגוריתם חלש. WireGuard בוחר: אנחנו משתמשים ב־ChaCha20+Curve25519 כי הם הכי טובים היום. פחות קוד = פחות bugs. נקרא Cryptographic Opinionation.",
+            a: "WireGuard משתמש באלגוריתם הצפנה אחד קבוע.\n\nעיקרי:\n- בחירה מרובה = יותר קוד = יותר באגים\n- תוקף יכול לכפות שימוש באלגוריתם חלש\n- קוד קצר יותר = קל לבדוק ולאבטח\n\nטיפ:\nפחות בחירות = פחות טעויות",
             qEn: "Why does WireGuard choose fixed cryptography instead of negotiable?",
             aEn: "Cipher agility means more code, more attack surface, and the ability to force a downgrade to a weak algorithm. WireGuard chooses ChaCha20+Curve25519 because they are the best today. Less code means fewer bugs. This is called Cryptographic Opinionation."
           },
           {
             q: "מה SYN Flood ואיך SYN Cookies פותר?",
-            a: "SYN Flood: תוקף שולח מיליוני SYN עם IP מזויף. שרת מקצה state לכל SYN ועומד להיחנק. SYN Cookies: שרת לא מקצה state – במקום זאת מחזיר SYN-ACK עם ISN שמוצפן מה־IP/Port/timestamp. רק ACK תקין מוכיח שהלקוח אמיתי.",
+            a: "SYN Flood הוא מתקפה שמציפה שרת בבקשות חיבור מזויפות.\n\nעיקרי:\n- תוקף שולח מיליוני SYN עם כתובות מזויפות\n- השרת מנסה לזכור כל בקשה ונחנק\n- SYN Cookies: השרת לא זוכר כלום עד שמגיע אישור אמיתי\n\nטיפ:\nבלי Cookies = זוכר הכל ונופל | עם Cookies = זוכר רק אמיתיים",
             qEn: "What is SYN Flood and how does SYN Cookies solve it?",
             aEn: "SYN Flood: an attacker sends millions of SYN packets with fake IPs. The server allocates state for each SYN and runs out of resources. SYN Cookies: the server does not allocate state — instead it returns a SYN-ACK with an ISN encoded from the IP/Port/timestamp. Only a valid ACK proves the client is real."
           }

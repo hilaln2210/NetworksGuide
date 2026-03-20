@@ -2384,8 +2384,8 @@ export const quizBank = {
         "\u200FTransport מהיר יותר תמיד",
         "\u200Fאין הבדל — שניהם מצפינים הכל"
       ],
-      explanation: "‏ Transport mode:\nIP Header מקורי גלוי, payload מוצפן\nל־Host-to-Host\nפקטה מלאה נעטפת\nה־IP החיצוני הוא של ה־VPN Gateway\nSite-to-Site VPN = Tunnel mode\nIKEv2 מועדף ליצירת security association",
-      explanationEn: "Transport mode: original IP Header is visible, payload is encrypted. Used for Host-to-Host. Tunnel mode: the entire original packet is wrapped with a new IP header. Used for VPN gateways. IKEv2 is preferred for creating the security association.",
+      explanation: "‏IPsec מצפין תעבורת IP בשני מצבים.\n\nעיקרי:\n- Transport: מצפין רק את התוכן, הכתובות גלויות\n- Tunnel: מצפין את הכל כולל הכתובות\n- Tunnel משמש ל-VPN בין אתרים\n\nטיפ:\nTransport = חלקי | Tunnel = מלא",
+      explanationEn: "IPsec encrypts IP traffic in two modes.\n\nMain Points:\n- Transport: encrypts only the data, addresses are visible\n- Tunnel: encrypts everything including addresses\n- Tunnel is used for site-to-site VPN\n\nTip:\nTransport = partial | Tunnel = full",
       qEn: "What is the difference between IPsec Tunnel mode and Transport mode?",
       correctEn: "Transport: only payload is encrypted\nTunnel: entire packet is wrapped in a new packet",
       choicesEn: [
@@ -2405,8 +2405,8 @@ export const quizBank = {
         "\u200Fcache של SYN packets למניעת כפילויות",
         "\u200Frate limiting על SYN packets ב-firewall"
       ],
-      explanation: "‏ SYN Flood — הבעיה:\nתוקף שולח מיליוני SYN\nשרת רגיל: מקצה state לכל אחד → מלא RAM\nISN = hash(src_ip, src_port, dst_port, timestamp, secret)\nשרת לא שומר state!\nרק ACK עם ISN+1 תקין\nמוכיח שהלקוח קיבל SYN-ACK",
-      explanationEn: "SYN Flood — the problem: attacker sends millions of SYN packets. A normal server allocates state for each one and runs out of RAM. SYN Cookies solve this: the server encodes state in the ISN so no memory is needed. A valid ISN+1 response proves the client received the SYN-ACK.",
+      explanation: "‏SYN Flood הוא מתקפה שמציפה שרת בבקשות חיבור מזויפות.\n\nעיקרי:\n- תוקף שולח מיליוני SYN עם כתובות מזויפות\n- השרת מנסה לזכור כל בקשה ונחנק\n- SYN Cookies: השרת לא זוכר כלום עד שמגיע אישור אמיתי\n\nטיפ:\nבלי Cookies = זוכר הכל ונופל | עם Cookies = זוכר רק אמיתיים",
+      explanationEn: "SYN Flood is an attack that floods a server with fake connection requests.\n\nMain Points:\n- Attacker sends millions of SYN with fake addresses\n- Server tries to remember each one and crashes\n- SYN Cookies: server remembers nothing until real confirmation arrives\n\nTip:\nWithout Cookies = remembers all, crashes | With Cookies = remembers only real ones",
       qEn: "What are SYN Cookies and how do they solve SYN Flood?",
       correctEn: "Server does not allocate state for SYN\nReturns an encrypted ISN\nOnly a valid ACK proves the client is real",
       choicesEn: [
@@ -2426,8 +2426,8 @@ export const quizBank = {
         "\u200FSite-to-site = IPsec\nRemote access = SSL בלבד",
         "\u200FRemote access VPN פחות מאובטח מ-site-to-site"
       ],
-      explanation: "‏ Site-to-site:\nIPsec בין 2 routers/firewalls\nשקוף למשתמשים\nOpenVPN, WireGuard, Cisco AnyConnect, IKEv2\nSplit tunneling — רק traffic ארגוני דרך VPN (שאר ישירות)\nFull tunnel — הכל דרך VPN\nZTNA (Zero Trust) — VPN עם identity-aware policies\nWireGuard — חדש, מהיר, קוד קצר (4K lines vs 70K ב־OpenVPN)",
-      explanationEn: "Site-to-site: IPsec between 2 routers/firewalls, transparent to users. Remote access: OpenVPN, WireGuard, Cisco AnyConnect — individual users connect from outside. WireGuard is faster with shorter code (4K lines vs 70K in OpenVPN).",
+      explanation: "‏שני סוגי VPN עיקריים.\n\nעיקרי:\n- Site-to-site: מחבר שתי רשתות שלמות דרך IPsec בין נתבים\n- Remote access: משתמש בודד מתחבר לרשת הארגון\n- WireGuard חדש ומהיר, OpenVPN ותיק ונפוץ\n\nטיפ:\nSite-to-site = משרד-למשרד | Remote = בית-למשרד",
+      explanationEn: "Two main types of VPN.\n\nMain Points:\n- Site-to-site: connects two full networks via IPsec between routers\n- Remote access: single user connects to office network\n- WireGuard is new and fast, OpenVPN is older and common\n\nTip:\nSite-to-site = office-to-office | Remote = home-to-office",
       qEn: "What is the difference between site-to-site VPN and remote access VPN?",
       correctEn: "Site-to-site: connects entire networks\n(office A <-> office B)\nRemote access: single user connects to corporate network",
       choicesEn: [
@@ -2447,8 +2447,8 @@ export const quizBank = {
         "\u200FTransport Mode ל-site-to-site\nTunnel ל-remote access",
         "\u200FIPsec מצפין רק UDP"
       ],
-      explanation: "‏ IPsec components:\nIKE (Internet Key Exchange) v2 — ל-key negotiation\nESP (Encapsulating Security Payload) — encryption + authentication\nAH (Authentication Header) — authentication only (ללא encryption)\nTransport Mode — host-to-host (end devices)\nTunnel Mode — gateway-to-gateway (routers)\nIKE SA — negotiates master key\nChild SA — מפיק session keys\nDH (Diffie-Hellman) group — key agreement",
-      explanationEn: "IPsec components: IKE (Internet Key Exchange) v2 for key negotiation. ESP (Encapsulating Security Payload) for encryption and authentication. Uses Diffie-Hellman groups for key agreement.",
+      explanation: "‏IPsec הוא פרוטוקול להצפנת תעבורת IP.\n\nעיקרי:\n- Transport Mode: מצפין את התוכן, הכתובות גלויות\n- Tunnel Mode: מצפין הכל ועוטף בכתובת חדשה\n- IKE מנהל את החלפת המפתחות, ESP מצפין את הנתונים\n\nטיפ:\nTransport = בין מחשבים | Tunnel = בין רשתות",
+      explanationEn: "IPsec is a protocol for encrypting IP traffic.\n\nMain Points:\n- Transport Mode: encrypts data, addresses visible\n- Tunnel Mode: encrypts all and wraps with new address\n- IKE manages key exchange, ESP encrypts the data\n\nTip:\nTransport = between computers | Tunnel = between networks",
       qEn: "What is IPsec and what two modes exist?",
       correctEn: "IPsec: Transport Mode (L4+ encrypted, IP header visible)\nand Tunnel Mode (entire packet encrypted\n+ new IP header — VPN site-to-site)",
       choicesEn: [
@@ -2468,8 +2468,8 @@ export const quizBank = {
         "\u200FOpenVPN תמיד עדיף כי ישן יותר",
         "\u200FWireGuard = OpenVPN v3"
       ],
-      explanation: "‏ יתרונות WireGuard:\nנכלל ב־Linux kernel 5.6+\nNoise protocol framework\nChaCha20-Poly1305\n25519 ECDH\nPeer = public key + allowed IPs\nConnection migration — IP משתנה, session נשמרת\nלא TCP (חוסם firewalls)\nאין obfuscation\nAmneziaVPN/MASQ — WireGuard עם obfuscation\nTailscale/NetBird — WireGuard mesh VPN",
-      explanationEn: "WireGuard advantages: included in Linux kernel 5.6+, uses Noise protocol framework, ChaCha20-Poly1305 encryption, 25519 ECDH key exchange. A peer is defined by its public key. Tailscale and NetBird build mesh VPNs on top of WireGuard.",
+      explanation: "‏WireGuard הוא VPN מודרני, מהיר ופשוט.\n\nעיקרי:\n- קוד קצר: 4,000 שורות לעומת 70,000 ב-OpenVPN\n- מובנה בליבת Linux מגרסה 5.6\n- משתמש בהצפנה חזקה קבועה ללא בחירה\n\nטיפ:\nפחות קוד = פחות באגים = יותר אבטחה",
+      explanationEn: "WireGuard is a modern, fast, and simple VPN.\n\nMain Points:\n- Short code: 4,000 lines vs 70,000 in OpenVPN\n- Built into Linux kernel since version 5.6\n- Uses strong fixed encryption with no choices\n\nTip:\nLess code = fewer bugs = more security",
       qEn: "What is WireGuard and why is it considered better than OpenVPN?",
       correctEn: "WireGuard: ~4K lines vs ~70K in OpenVPN\nUDP, fast handshake, kernel module\nBut: not stealth (detectable by traffic analysis)",
       choicesEn: [
