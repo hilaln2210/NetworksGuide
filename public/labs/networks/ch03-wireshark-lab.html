@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 3 — Wireshark ומודל חמש שכבות</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060a10;--bg2:#0c1119;--bg3:#141c28;--border:#1e2d42;--violet:#a78bfa;--vd:rgba(167,139,250,0.1);--blue:#3b82f6;--green:#4ade80;--gd:rgba(74,222,128,0.08);--red:#ef4444;--rd:rgba(239,68,68,0.1);--gold:#fbbf24;--text:#dfe6f0;--t2:#7b8da4;--t3:#3d4f66;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.grid{position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(167,139,250,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(167,139,250,0.03) 1px,transparent 1px);background-size:40px 40px;}
+.glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 25% 15%,rgba(167,139,250,0.06) 0%,transparent 50%),radial-gradient(ellipse at 75% 85%,rgba(59,130,246,0.04) 0%,transparent 50%);}
+header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,#080e16,rgba(6,10,16,.97));backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}.icon{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--violet),var(--blue));display:flex;align-items:center;justify-content:center;font-size:18px;}
+.logo h1{font-family:'Space Mono',monospace;font-size:14px;color:var(--violet);}.logo .sub{font-size:11px;color:var(--t2);}
+.badge{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:4px 10px;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);display:flex;align-items:center;gap:5px;}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:b 2s infinite;}@keyframes b{0%,100%{opacity:1;}50%{opacity:.3;}}
+.pbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:6px 16px;display:flex;align-items:center;gap:10px;}
+.ptr{flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;}.pfl{height:100%;border-radius:3px;transition:width .5s;background:linear-gradient(90deg,var(--violet),var(--blue));}
+.plbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--t2);}
+.wrap{padding:14px;padding-bottom:100px;position:relative;z-index:1;}
+.topo{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:14px;}
+.topo-lbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--violet);letter-spacing:1px;margin-bottom:8px;}
+.topo-art{background:#040810;border:1px solid var(--border);border-radius:8px;padding:14px 10px;font-family:'Space Mono',monospace;font-size:10px;line-height:1.6;color:var(--t2);direction:ltr;text-align:left;overflow-x:auto;white-space:pre;}
+.qc{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px;display:none;}
+.qc.active{display:block;animation:up .3s ease;}@keyframes up{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.qh{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.qtag{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;background:var(--vd);color:var(--violet);}
+.qpts{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--gold);}
+.qb{padding:14px;}.qt{font-size:14px;font-weight:700;line-height:1.6;margin-bottom:12px;}
+.code{background:#040810;border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:12px;font-family:'Space Mono',monospace;font-size:10px;line-height:1.7;direction:ltr;text-align:left;color:var(--t2);overflow-x:auto;white-space:pre-wrap;}
+.opts{display:flex;flex-direction:column;gap:6px;}
+.opt{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s;text-align:right;width:100%;color:var(--text);font-family:'Heebo',sans-serif;font-size:12px;line-height:1.5;}
+.opt:hover{border-color:var(--violet);background:var(--vd);}
+.ol{width:24px;height:24px;flex-shrink:0;background:var(--vd);border:1px solid rgba(167,139,250,0.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--violet);}
+.opt.ok{border-color:var(--green);background:var(--gd);}.opt.ok .ol{background:var(--green);color:var(--bg);border-color:var(--green);}
+.opt.no{border-color:var(--red);background:var(--rd);}.opt.no .ol{background:var(--red);color:#fff;border-color:var(--red);}
+.opt.dis{pointer-events:none;opacity:.5;}
+.fb{margin-top:10px;padding:10px;border-radius:8px;font-size:11px;line-height:1.7;display:none;}
+.fb.show{display:block;animation:up .3s;}.fb.fok{background:var(--gd);border:1px solid rgba(74,222,128,0.2);color:#86efac;}.fb.fno{background:var(--rd);border:1px solid rgba(239,68,68,0.2);color:#fca5a5;}
+.foot{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(0deg,var(--bg) 70%,transparent);padding:14px 16px 10px;z-index:50;}
+.foot-in{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;}
+.fts{display:flex;gap:14px;}.fs{text-align:center;}.fv{font-family:'Space Mono',monospace;font-size:17px;font-weight:700;color:var(--violet);}.fl{font-size:8px;color:var(--t2);}
+.nb{background:linear-gradient(135deg,var(--violet),var(--blue));color:#fff;border:none;border-radius:8px;padding:8px 18px;font-family:'Heebo',sans-serif;font-weight:700;font-size:12px;cursor:pointer;}.nb:disabled{opacity:.3;cursor:not-allowed;}
+.res{display:none;text-align:center;padding:30px 16px;position:relative;z-index:1;}.res.show{display:block;animation:up .5s;}
+.re{font-size:50px;margin-bottom:10px;}.rt{font-size:20px;font-weight:900;margin-bottom:6px;}.rsu{font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:16px;}
+.rg{display:inline-block;font-family:'Space Mono',monospace;font-size:36px;font-weight:700;padding:8px 24px;border-radius:12px;margin-bottom:16px;}
+.ga{background:var(--gd);color:var(--green);border:2px solid var(--green);}.gb{background:var(--vd);color:var(--violet);border:2px solid var(--violet);}.gc{background:rgba(251,146,60,0.1);color:var(--gold);border:2px solid var(--gold);}.gf{background:var(--rd);color:var(--red);border:2px solid var(--red);}
+.retry{margin-top:14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 24px;color:var(--violet);font-family:'Heebo',sans-serif;font-weight:700;font-size:13px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="grid"></div><div class="glow"></div>
+<header>
+  <div class="logo"><div class="icon">🦈</div><div><h1>Lab — פרק 3</h1><div class="sub">Wireshark ומודל חמש שכבות</div></div></div>
+  <div class="badge"><div class="dot"></div><span id="timer">00:00</span></div>
+</header>
+<div class="pbar"><div class="ptr"><div class="pfl" id="pfl" style="width:0%"></div></div><div class="plbl" id="plbl">0 / 8</div></div>
+<div class="wrap" id="area"></div>
+<div class="res" id="resScr"></div>
+<div class="foot" id="foot"><div class="foot-in"><div class="fts"><div class="fs"><div class="fv" id="sS">0</div><div class="fl">נקודות</div></div><div class="fs"><div class="fv" id="sC">0</div><div class="fl">נכונות</div></div><div class="fs"><div class="fv" id="sK">0</div><div class="fl">רצף🔥</div></div></div><button class="nb" id="nBtn" disabled onclick="nextQ()">הבא ←</button></div></div>
+
+<script>
+(function(){
+var QS=[
+["כמה שכבות יש במודל TCP/IP המעשי (שמופיע ב-Wireshark)?",["7 שכבות (מודל OSI)","4 שכבות","5 שכבות","3 שכבות"],2,"מודל TCP/IP המעשי: 5 שכבות — 1.Physical, 2.Data Link, 3.Network, 4.Transport, 5.Application. מודל OSI = 7 שכבות (תיאורטי, מפצל את Application ל-3).","TCP/IP (5 layers)        OSI (7 layers)\n======================== ========================\n5. Application           7. Application\n                         6. Presentation\n                         5. Session\n4. Transport             4. Transport\n3. Network               3. Network\n2. Data Link             2. Data Link\n1. Physical              1. Physical\n\nWireshark shows the 5-layer model in practice"],
+["באיזה פורמט Wireshark שומר קבצי capture?",["txt","pcap / pcapng","csv","json"],1,"Wireshark שומר ב-pcap (Packet Capture) או pcapng (Next Generation — תומך metadata נוסף). pcapng הוא ברירת המחדל מ-Wireshark 2.0.","File > Save As...\n\nFormats:\n  *.pcapng  (default, recommended)\n  *.pcap    (legacy, compatible)\n  *.csv     (export only)\n  *.json    (export only)\n\nCommand line:\n  $ tshark -i eth0 -w capture.pcapng\n  $ tcpdump -i eth0 -w capture.pcap"],
+["מה הפילטר הנכון ב-Wireshark להצגת תעבורת HTTP בלבד?",["port 80","filter http","http","tcp.http"],2,"הפילטר 'http' ב-Display Filter מציג רק HTTP. 'tcp.port == 80' יכלול תעבורה שאינה HTTP. Capture Filter: 'port 80' (תחביר BPF שונה).","Display Filters (top bar):\n  http                  -> HTTP traffic only\n  tcp.port == 443       -> HTTPS (encrypted)\n  dns                   -> DNS queries\n  ip.addr == 10.0.0.1   -> specific IP\n  tcp.flags.syn == 1    -> SYN packets\n\nCapture Filters (before capture):\n  port 80               -> BPF syntax\n  host 10.0.0.1\n  tcp port 443\n\n! Display filters != Capture filters !"],
+["כל שורה ב-Wireshark מייצגת:",["בית בודד (byte)","Packet (חבילה) אחד שנלכד","חיבור TCP שלם","Session שלם"],1,"כל שורה = Packet בודד. כולל: מספר, זמן, Source, Destination, Protocol, Length, Info. לחיצה חושפת פירוט שכבתי מלא.","No. | Time     | Source        | Dest          | Proto | Info\n1   | 0.000000 | 192.168.1.10  | 93.184.216.34 | TCP   | SYN\n2   | 0.023451 | 93.184.216.34 | 192.168.1.10  | TCP   | SYN-ACK\n3   | 0.023512 | 192.168.1.10  | 93.184.216.34 | TCP   | ACK\n4   | 0.024001 | 192.168.1.10  | 93.184.216.34 | HTTP  | GET /\n5   | 0.089234 | 93.184.216.34 | 192.168.1.10  | HTTP  | 200 OK\n\nClick on packet #4 to see layers:\n  > Ethernet II (Layer 2)\n  > Internet Protocol (Layer 3)\n  > TCP (Layer 4)\n  > HTTP (Layer 5)"],
+["מה עושה Follow TCP Stream ב-Wireshark?",["סוגר את החיבור","מרכיב את כל ה-packets של חיבור TCP אחד לשיחה רציפה","מצפין את ה-capture","מוחק packets כפולים"],1,"Follow TCP Stream מרכיב packets מפוזרים לשיחה קריאה. Client בכחול, Server באדום. מושלם לניתוח HTTP, credentials, ותוכן.","Right-click > Follow > TCP Stream\n\nResult:\n  GET / HTTP/1.1              (blue = client)\n  Host: example.com\n  User-Agent: Mozilla/5.0\n\n  HTTP/1.1 200 OK             (red = server)\n  Content-Type: text/html\n  Content-Length: 1256\n\n  <html><body>...</body></html>\n\nFilter auto-applied: tcp.stream eq 0"],
+["מה ההבדל בין Display Filter ל-Capture Filter?",["אין הבדל","Display Filter מסנן אחרי לכידה, Capture Filter מסנן בזמן לכידה","Display Filter מהיר יותר","Capture Filter תומך ביותר פרוטוקולים"],1,"Capture Filter (BPF syntax) — מסנן בזמן אמת, חוסך משאבים, לא ניתן לשנות אחרי. Display Filter (Wireshark syntax) — מסנן מתוך capture קיים, גמיש, ניתן לשנות.","CAPTURE Filter (set before capture starts):\n  Syntax: BPF (Berkeley Packet Filter)\n  Example: port 80 and host 10.0.0.1\n  Pro: Saves disk/RAM\n  Con: Can't change after capture\n\nDISPLAY Filter (applied to captured data):\n  Syntax: Wireshark native\n  Example: http.request.method == \"GET\"\n  Pro: Flexible, change anytime\n  Con: All packets still in memory\n\nUse Capture for large captures,\nDisplay for analysis"],
+["איזה פרוטוקול תראה אם תסנן tcp.port == 443?",["HTTP בלבד","TLS/HTTPS — כולל Handshake ונתונים מוצפנים","DNS","ICMP"],1,"פורט 443 = HTTPS/TLS. תראה: TLS Client Hello, Server Hello, Certificate, Key Exchange, ואז Application Data מוצפן (לא קריא ללא מפתח).","Filter: tcp.port == 443\n\nNo. | Source        | Dest          | Proto | Info\n1   | 192.168.1.10  | 93.184.216.34 | TLS   | Client Hello\n2   | 93.184.216.34 | 192.168.1.10  | TLS   | Server Hello\n3   | 93.184.216.34 | 192.168.1.10  | TLS   | Certificate\n4   | 192.168.1.10  | 93.184.216.34 | TLS   | Key Exchange\n5   | 192.168.1.10  | 93.184.216.34 | TLS   | [Encrypted]\n6   | 93.184.216.34 | 192.168.1.10  | TLS   | [Encrypted]\n\nCannot read content without decryption key!"],
+["ב-Wireshark, ה-Packet Details מציג שכבות. מה הסדר מלמעלה למטה?",["Application, Transport, Network, Data Link, Physical","Physical, Data Link, Network, Transport, Application","Network, Transport, Application","Transport, Network, Data Link"],0,"Wireshark מציג שכבות מלמעלה (Application) למטה (Physical/Frame). זה Encapsulation: כל שכבה עוטפת את הקודמת. בפועל — Frame > IP > TCP > HTTP.","Packet Details Pane (top to bottom):\n\n> Frame 1: 342 bytes on wire      (Physical)\n> Ethernet II                      (Data Link)\n    Src: aa:bb:cc:dd:ee:ff\n    Dst: 11:22:33:44:55:66\n> Internet Protocol Version 4      (Network)\n    Src: 192.168.1.10\n    Dst: 93.184.216.34\n    TTL: 64\n> Transmission Control Protocol    (Transport)\n    Src Port: 54321\n    Dst Port: 80\n    Seq: 1\n> Hypertext Transfer Protocol      (Application)\n    GET / HTTP/1.1\n    Host: example.com"]
+];
+var L="\u05D0\u05D1\u05D2\u05D3";var cur=0,sc=0,cc=0,sk=0,mx=0,ans={},ts=0;
+setInterval(function(){ts++;document.getElementById('timer').textContent=String(Math.floor(ts/60)).padStart(2,'0')+':'+String(ts%60).padStart(2,'0');},1000);
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function render(){
+  var a=document.getElementById('area');a.innerHTML='';
+  var topo=document.createElement('div');topo.className='topo';
+  topo.innerHTML='<div class="topo-lbl">WIRESHARK PACKET ANALYSIS — מה רואים ב-Capture</div><div class="topo-art">'+esc(
+"  Wireshark Capture on interface eth0\n"+
+"  ===================================\n"+
+"\n"+
+"  [Your PC] ----> [Switch] ----> [Router] ----> Internet\n"+
+"      |               |\n"+
+"      |         Wireshark sniffs\n"+
+"      |         ALL packets here\n"+
+"      |               |\n"+
+"      v               v\n"+
+"  ┌─────────────────────────────────────────┐\n"+
+"  │  Packet List    (each row = 1 packet)   │\n"+
+"  ├─────────────────────────────────────────┤\n"+
+"  │  Packet Details  (layers breakdown)     │\n"+
+"  │    > Ethernet (L2)                      │\n"+
+"  │    > IP (L3)                            │\n"+
+"  │    > TCP (L4)                           │\n"+
+"  │    > HTTP (L5)                          │\n"+
+"  ├─────────────────────────────────────────┤\n"+
+"  │  Packet Bytes   (raw hex + ASCII)       │\n"+
+"  └─────────────────────────────────────────┘"
+  )+'</div>';
+  a.appendChild(topo);
+  for(var i=0;i<QS.length;i++){
+    var q=QS[i];var card=document.createElement('div');card.className='qc'+(i===cur?' active':'');card.id='qc-'+i;
+    var codeH=q[4]?'<div class="code">'+esc(q[4])+'</div>':'';
+    var optsH='<div class="opts">';
+    for(var j=0;j<q[1].length;j++){optsH+='<button class="opt" id="o-'+i+'-'+j+'" data-i="'+i+'" data-o="'+j+'"><span class="ol">'+L[j]+'</span><span>'+esc(q[1][j])+'</span></button>';}
+    optsH+='</div>';
+    card.innerHTML='<div class="qh"><span class="qtag">שאלה '+(i+1)+'/'+QS.length+'</span><span class="qpts">+10</span></div><div class="qb"><div class="qt">'+esc(q[0])+'</div>'+codeH+optsH+'<div class="fb" id="fb-'+i+'"></div></div>';
+    a.appendChild(card);
+  }
+  a.addEventListener('click',function(e){var o=e.target.closest('.opt');if(o)handleA(parseInt(o.getAttribute('data-i')),parseInt(o.getAttribute('data-o')));});
+}
+function handleA(qi,oi){
+  if(ans[qi]!==undefined)return;var q=QS[qi];var ci=q[2];var ok=oi===ci;ans[qi]=ok;
+  var bs=document.querySelectorAll('[id^="o-'+qi+'-"]');
+  for(var j=0;j<bs.length;j++){if(j===ci)bs[j].classList.add('ok');else if(j===oi&&!ok)bs[j].classList.add('no');bs[j].classList.add('dis');}
+  var fb=document.getElementById('fb-'+qi);
+  if(ok){cc++;sc+=10;sk++;if(sk>mx)mx=sk;if(sk>=3)sc+=5;fb.className='fb show fok';fb.textContent='\u2705 נכון! +10'+(sk>=3?' (+5 בונוס רצף!)':'');}
+  else{sk=0;fb.className='fb show fno';fb.textContent='\u274C לא נכון';}
+  fb.appendChild(document.createElement('br'));fb.appendChild(document.createTextNode(q[3]));
+  document.getElementById('sS').textContent=sc;document.getElementById('sC').textContent=cc;document.getElementById('sK').textContent=sk;
+  document.getElementById('pfl').style.width=(((qi+1)/QS.length)*100)+'%';document.getElementById('plbl').textContent=(qi+1)+' / '+QS.length;
+  var nb=document.getElementById('nBtn');nb.disabled=false;if(qi>=QS.length-1)nb.textContent='📊 תוצאות';
+}
+window.nextQ=function(){
+  if(cur>=QS.length-1){showRes();return;}
+  document.getElementById('qc-'+cur).classList.remove('active');cur++;document.getElementById('qc-'+cur).classList.add('active');
+  document.getElementById('nBtn').disabled=true;document.getElementById('qc-'+cur).scrollIntoView({behavior:'smooth',block:'center'});
+};
+function showRes(){
+  document.getElementById('area').style.display='none';document.getElementById('foot').style.display='none';
+  var rs=document.getElementById('resScr');rs.classList.add('show');
+  var pct=sc/(QS.length*10);var g,gc;if(pct>=.9){g='A+';gc='ga';}else if(pct>=.75){g='B';gc='gb';}else if(pct>=.55){g='C';gc='gc';}else{g='F';gc='gf';}
+  var m=String(Math.floor(ts/60)).padStart(2,'0');var s=String(ts%60).padStart(2,'0');
+  rs.innerHTML='<div class="re">'+(pct>=.9?'🏆':pct>=.75?'🎯':pct>=.55?'📚':'💪')+'</div>'+
+    '<div class="rt" style="color:'+(pct>=.75?'var(--violet)':'var(--gold)')+'">'+
+    (pct>=.9?'Wireshark Master!':pct>=.75?'מצוין!':pct>=.55?'בדרך הנכונה':'צריך חזרה')+'</div>'+
+    '<div class="rsu">'+cc+'/'+QS.length+' נכונות | '+sc+' נקודות | '+m+':'+s+' | רצף מקסימלי: '+mx+'</div>'+
+    '<div class="rg '+gc+'">'+g+'</div><br>'+
+    '<button class="retry" onclick="location.reload()">נסה שוב ↻</button>';
+}
+render();
+})();
+</script>
+</body>
+</html>

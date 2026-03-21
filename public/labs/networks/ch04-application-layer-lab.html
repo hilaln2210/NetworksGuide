@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 4 — שכבת האפליקציה</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060a10;--bg2:#0c1119;--bg3:#141c28;--border:#1e2d42;--amber:#f59e0b;--ad:rgba(245,158,11,0.1);--blue:#3b82f6;--green:#4ade80;--gd:rgba(74,222,128,0.08);--red:#ef4444;--rd:rgba(239,68,68,0.1);--gold:#fbbf24;--text:#dfe6f0;--t2:#7b8da4;--t3:#3d4f66;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.grid{position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(245,158,11,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(245,158,11,0.03) 1px,transparent 1px);background-size:40px 40px;}
+.glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 20% 20%,rgba(245,158,11,0.05) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(59,130,246,0.04) 0%,transparent 50%);}
+header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,#080e16,rgba(6,10,16,.97));backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}.icon{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--amber),#d97706);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.logo h1{font-family:'Space Mono',monospace;font-size:14px;color:var(--amber);}.logo .sub{font-size:11px;color:var(--t2);}
+.badge{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:4px 10px;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);display:flex;align-items:center;gap:5px;}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:b 2s infinite;}@keyframes b{0%,100%{opacity:1;}50%{opacity:.3;}}
+.pbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:6px 16px;display:flex;align-items:center;gap:10px;}
+.ptr{flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;}.pfl{height:100%;border-radius:3px;transition:width .5s;background:linear-gradient(90deg,var(--amber),#d97706);}
+.plbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--t2);}
+.wrap{padding:14px;padding-bottom:100px;position:relative;z-index:1;}
+.topo{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:14px;}
+.topo-lbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--amber);letter-spacing:1px;margin-bottom:8px;}
+.topo-art{background:#040810;border:1px solid var(--border);border-radius:8px;padding:14px 10px;font-family:'Space Mono',monospace;font-size:10px;line-height:1.6;color:var(--t2);direction:ltr;text-align:left;overflow-x:auto;white-space:pre;}
+.qc{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px;display:none;}
+.qc.active{display:block;animation:up .3s ease;}@keyframes up{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.qh{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.qtag{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;background:var(--ad);color:var(--amber);}
+.qpts{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--gold);}
+.qb{padding:14px;}.qt{font-size:14px;font-weight:700;line-height:1.6;margin-bottom:12px;}
+.code{background:#040810;border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:12px;font-family:'Space Mono',monospace;font-size:10px;line-height:1.7;direction:ltr;text-align:left;color:var(--t2);overflow-x:auto;white-space:pre-wrap;}
+.opts{display:flex;flex-direction:column;gap:6px;}
+.opt{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s;text-align:right;width:100%;color:var(--text);font-family:'Heebo',sans-serif;font-size:12px;line-height:1.5;}
+.opt:hover{border-color:var(--amber);background:var(--ad);}
+.ol{width:24px;height:24px;flex-shrink:0;background:var(--ad);border:1px solid rgba(245,158,11,0.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--amber);}
+.opt.ok{border-color:var(--green);background:var(--gd);}.opt.ok .ol{background:var(--green);color:var(--bg);border-color:var(--green);}
+.opt.no{border-color:var(--red);background:var(--rd);}.opt.no .ol{background:var(--red);color:#fff;border-color:var(--red);}
+.opt.dis{pointer-events:none;opacity:.5;}
+.fb{margin-top:10px;padding:10px;border-radius:8px;font-size:11px;line-height:1.7;display:none;}
+.fb.show{display:block;animation:up .3s;}.fb.fok{background:var(--gd);border:1px solid rgba(74,222,128,0.2);color:#86efac;}.fb.fno{background:var(--rd);border:1px solid rgba(239,68,68,0.2);color:#fca5a5;}
+.foot{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(0deg,var(--bg) 70%,transparent);padding:14px 16px 10px;z-index:50;}
+.foot-in{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;}
+.fts{display:flex;gap:14px;}.fs{text-align:center;}.fv{font-family:'Space Mono',monospace;font-size:17px;font-weight:700;color:var(--amber);}.fl{font-size:8px;color:var(--t2);}
+.nb{background:linear-gradient(135deg,var(--amber),#d97706);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-family:'Heebo',sans-serif;font-weight:700;font-size:12px;cursor:pointer;}.nb:disabled{opacity:.3;cursor:not-allowed;}
+.res{display:none;text-align:center;padding:30px 16px;position:relative;z-index:1;}.res.show{display:block;animation:up .5s;}
+.re{font-size:50px;margin-bottom:10px;}.rt{font-size:20px;font-weight:900;margin-bottom:6px;}.rsu{font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:16px;}
+.rg{display:inline-block;font-family:'Space Mono',monospace;font-size:36px;font-weight:700;padding:8px 24px;border-radius:12px;margin-bottom:16px;}
+.ga{background:var(--gd);color:var(--green);border:2px solid var(--green);}.gb{background:var(--ad);color:var(--amber);border:2px solid var(--amber);}.gc{background:rgba(251,146,60,0.1);color:var(--gold);border:2px solid var(--gold);}.gf{background:var(--rd);color:var(--red);border:2px solid var(--red);}
+.retry{margin-top:14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 24px;color:var(--amber);font-family:'Heebo',sans-serif;font-weight:700;font-size:13px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="grid"></div><div class="glow"></div>
+<header>
+  <div class="logo"><div class="icon">📡</div><div><h1>Lab — פרק 4</h1><div class="sub">שכבת האפליקציה</div></div></div>
+  <div class="badge"><div class="dot"></div><span id="timer">00:00</span></div>
+</header>
+<div class="pbar"><div class="ptr"><div class="pfl" id="pfl" style="width:0%"></div></div><div class="plbl" id="plbl">0 / 8</div></div>
+<div class="wrap" id="area"></div>
+<div class="res" id="resScr"></div>
+<div class="foot" id="foot"><div class="foot-in"><div class="fts"><div class="fs"><div class="fv" id="sS">0</div><div class="fl">נקודות</div></div><div class="fs"><div class="fv" id="sC">0</div><div class="fl">נכונות</div></div><div class="fs"><div class="fv" id="sK">0</div><div class="fl">רצף🔥</div></div></div><button class="nb" id="nBtn" disabled onclick="nextQ()">הבא ←</button></div></div>
+
+<script>
+(function(){
+var QS=[
+["מה ההבדל בין HTTP Methods: GET, POST, PUT, DELETE?",["כולם עושים אותו דבר","GET=קריאה, POST=יצירה, PUT=עדכון, DELETE=מחיקה","GET=מהיר, POST=איטי","GET=מוצפן, POST=לא"],1,"HTTP Methods = פעולות CRUD: GET (Read), POST (Create), PUT (Update), DELETE (Delete). GET שולח פרמטרים ב-URL, POST בגוף הבקשה.","HTTP Methods (CRUD):\n\nGET /api/users/42          -> Read user 42\nPOST /api/users            -> Create new user\n  Body: {\"name\": \"Hila\"}\nPUT /api/users/42          -> Update user 42\n  Body: {\"name\": \"Hila L\"}\nDELETE /api/users/42       -> Delete user 42\n\nGET = Safe (no side effects)\nPOST = Not idempotent\nPUT = Idempotent (same result if repeated)\nDELETE = Idempotent"],
+["מה המשמעות של Status Code 301?",["הבקשה הצליחה","הפניה קבועה (Permanent Redirect)","לא נמצא","שגיאת שרת"],1,"301 = Moved Permanently — הדף עבר לכתובת חדשה לצמיתות. הדפדפן יזכור את ההפניה. 302 = Temporary Redirect (זמני).","Status Code Families:\n\n1xx  Informational\n  100 Continue\n\n2xx  Success\n  200 OK\n  201 Created\n  204 No Content\n\n3xx  Redirection\n  301 Moved Permanently  <-- THIS ONE\n  302 Found (Temporary)\n  304 Not Modified\n\n4xx  Client Error\n  400 Bad Request\n  401 Unauthorized\n  403 Forbidden\n  404 Not Found\n  429 Too Many Requests\n\n5xx  Server Error\n  500 Internal Server Error\n  502 Bad Gateway\n  503 Service Unavailable"],
+["מה קורה כשאתה מקליד google.com בדפדפן?",["הדפדפן שולח ישירות ל-Google","DNS resolve → TCP connect → TLS handshake → HTTP GET → Response","הדפדפן בודק את הקובץ hosts בלבד","Router מנתב ישירות לשרת"],1,"1) DNS: google.com → IP. 2) TCP: 3-Way Handshake. 3) TLS: אם HTTPS, הצפנה. 4) HTTP: GET /. 5) Response: HTML. 6) דפדפן מבצע עוד requests (CSS, JS, images).","What happens when you type google.com:\n\n1. DNS Resolution\n   Browser cache -> OS cache -> Router -> ISP DNS\n   google.com -> 142.250.190.14\n\n2. TCP Connection\n   SYN -> SYN-ACK -> ACK (port 443)\n\n3. TLS Handshake\n   Client Hello -> Server Hello -> Certificate\n   -> Key Exchange -> Encrypted Session\n\n4. HTTP Request\n   GET / HTTP/2\n   Host: google.com\n\n5. HTTP Response\n   200 OK + HTML\n\n6. Browser renders HTML, requests:\n   GET /style.css\n   GET /logo.png\n   GET /script.js"],
+["איזה פרוטוקול משמש לקבלת מיילים מהשרת?",["SMTP","IMAP / POP3","HTTP","FTP"],1,"SMTP = שליחת מיילים (port 25/587). IMAP = קבלה + סנכרון (port 143/993, מיילים נשארים בשרת). POP3 = קבלה + הורדה (port 110/995, מוריד ומוחק מהשרת).","Email Protocol Flow:\n\nSending (SMTP):\n  [Your Client] --SMTP:587--> [Your Mail Server]\n  [Your Server] --SMTP:25---> [Recipient Server]\n\nReceiving (IMAP or POP3):\n  [Recipient Server] --IMAP:993--> [Their Client]\n\n  IMAP (port 143/993):\n    + Sync across devices\n    + Emails stay on server\n    + Folders supported\n\n  POP3 (port 110/995):\n    - Download & delete from server\n    - Single device\n    - Simple"],
+["מהו Cookie ב-HTTP?",["סוג הצפנה","פיסת מידע קטנה שהשרת שומר בדפדפן לזיהוי משתמש","כתובת IP","סוג compression"],1,"Cookie = key=value שהשרת שולח לדפדפן ב-Set-Cookie header. הדפדפן שולח אותו חזרה בכל בקשה. שימושים: sessions, authentication, tracking.","Server Response:\n  HTTP/1.1 200 OK\n  Set-Cookie: session_id=abc123; Path=/; HttpOnly\n  Set-Cookie: theme=dark; Max-Age=86400\n\nBrowser stores cookies...\n\nNext Request (automatic!):\n  GET /dashboard HTTP/1.1\n  Cookie: session_id=abc123; theme=dark\n\nCookie attributes:\n  HttpOnly  = JS can't access (security)\n  Secure    = HTTPS only\n  SameSite  = CSRF protection\n  Max-Age   = Expiration in seconds\n  Path      = URL scope"],
+["מהו DNS Record מסוג A?",["מפנה לשרת מייל","ממפה שם דומיין לכתובת IPv4","מפנה דומיין לדומיין אחר","מכיל טקסט חופשי"],1,"A Record = Name → IPv4 Address. AAAA = IPv6. CNAME = Alias לדומיין אחר. MX = Mail server. NS = Nameserver. TXT = טקסט (SPF, verification).","DNS Record Types:\n\n  A Record:\n    google.com -> 142.250.190.14 (IPv4)\n\n  AAAA Record:\n    google.com -> 2607:f8b0:4004::64 (IPv6)\n\n  CNAME Record:\n    www.google.com -> google.com (alias)\n\n  MX Record:\n    google.com -> mail: smtp.google.com (priority: 10)\n\n  NS Record:\n    google.com -> ns1.google.com (nameserver)\n\n  TXT Record:\n    google.com -> \"v=spf1 include:_spf.google.com\"\n\n$ nslookup -type=A google.com\n$ dig google.com MX"],
+["מהו ההבדל בין HTTP/1.1 ל-HTTP/2?",["HTTP/2 לא מוצפן","HTTP/2 תומך ב-multiplexing — מספר בקשות במקביל על חיבור אחד","HTTP/2 לא תומך ב-HTTPS","אין הבדל מעשי"],1,"HTTP/2: binary protocol (לא טקסט), multiplexing (בקשות מקביליות על חיבור TCP אחד), header compression (HPACK), server push. מהיר משמעותית מ-1.1.","HTTP/1.1:\n  GET /page.html  -> wait -> response\n  GET /style.css  -> wait -> response\n  GET /script.js  -> wait -> response\n  (sequential, one at a time per connection)\n  Workaround: open 6 parallel connections\n\nHTTP/2:\n  Connection 1 (single TCP):\n    Stream 1: GET /page.html  -> response\n    Stream 2: GET /style.css  -> response  (parallel!)\n    Stream 3: GET /script.js  -> response  (parallel!)\n  + Binary framing (faster parsing)\n  + Header compression (HPACK)\n  + Server Push (send before asked)"],
+["מהו FTP ומה הפורטים שלו?",["פרוטוקול מייל, פורט 25","פרוטוקול העברת קבצים, פורט 21 (control) + 20 (data)","פרוטוקול DNS, פורט 53","פרוטוקול הצפנה, פורט 443"],1,"FTP (File Transfer Protocol) — העברת קבצים. פורט 21 = control channel (פקודות). פורט 20 = data channel (קבצים). SFTP (SSH) = חלופה מאובטחת בפורט 22.","FTP Flow (2 channels!):\n\nControl Channel (port 21):\n  Client: USER admin\n  Server: 331 Password required\n  Client: PASS secret123\n  Server: 230 Login successful\n  Client: LIST\n  Server: 150 Opening data connection\n\nData Channel (port 20):\n  Server -> Client: file listing\n  Server: 226 Transfer complete\n\nClient: RETR report.pdf\n  Data: Server -> Client: [file bytes]\n\nSecure alternatives:\n  SFTP (SSH, port 22) - recommended\n  FTPS (FTP + TLS, port 990)"]
+];
+var L="\u05D0\u05D1\u05D2\u05D3";var cur=0,sc=0,cc=0,sk=0,mx=0,ans={},ts=0;
+setInterval(function(){ts++;document.getElementById('timer').textContent=String(Math.floor(ts/60)).padStart(2,'0')+':'+String(ts%60).padStart(2,'0');},1000);
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function render(){
+  var a=document.getElementById('area');a.innerHTML='';
+  var topo=document.createElement('div');topo.className='topo';
+  topo.innerHTML='<div class="topo-lbl">APPLICATION LAYER PROTOCOLS — פרוטוקולי שכבה 5</div><div class="topo-art">'+esc(
+"  ┌─────────────────────────────────────────────────────┐\n"+
+"  │              APPLICATION LAYER (Layer 5)            │\n"+
+"  │                                                     │\n"+
+"  │  HTTP/HTTPS (80/443)     DNS (53)     FTP (21/20)  │\n"+
+"  │  Web browsing, APIs      Name -> IP   File transfer │\n"+
+"  │                                                     │\n"+
+"  │  SMTP (25/587)     IMAP (143/993)   POP3 (110/995) │\n"+
+"  │  Send email        Receive+Sync     Receive+Delete  │\n"+
+"  │                                                     │\n"+
+"  │  SSH (22)          DHCP (67/68)     NTP (123)      │\n"+
+"  │  Remote access     Auto IP assign   Time sync       │\n"+
+"  ├─────────────────────────────────────────────────────┤\n"+
+"  │  Transport (TCP/UDP) > Network (IP) > Link > Phys  │\n"+
+"  └─────────────────────────────────────────────────────┘\n"+
+"\n"+
+"  Browser: DNS(53) -> TCP(443) -> TLS -> HTTP GET -> HTML"
+  )+'</div>';
+  a.appendChild(topo);
+  for(var i=0;i<QS.length;i++){
+    var q=QS[i];var card=document.createElement('div');card.className='qc'+(i===cur?' active':'');card.id='qc-'+i;
+    var codeH=q[4]?'<div class="code">'+esc(q[4])+'</div>':'';
+    var optsH='<div class="opts">';
+    for(var j=0;j<q[1].length;j++){optsH+='<button class="opt" id="o-'+i+'-'+j+'" data-i="'+i+'" data-o="'+j+'"><span class="ol">'+L[j]+'</span><span>'+esc(q[1][j])+'</span></button>';}
+    optsH+='</div>';
+    card.innerHTML='<div class="qh"><span class="qtag">שאלה '+(i+1)+'/'+QS.length+'</span><span class="qpts">+10</span></div><div class="qb"><div class="qt">'+esc(q[0])+'</div>'+codeH+optsH+'<div class="fb" id="fb-'+i+'"></div></div>';
+    a.appendChild(card);
+  }
+  a.addEventListener('click',function(e){var o=e.target.closest('.opt');if(o)handleA(parseInt(o.getAttribute('data-i')),parseInt(o.getAttribute('data-o')));});
+}
+function handleA(qi,oi){
+  if(ans[qi]!==undefined)return;var q=QS[qi];var ci=q[2];var ok=oi===ci;ans[qi]=ok;
+  var bs=document.querySelectorAll('[id^="o-'+qi+'-"]');
+  for(var j=0;j<bs.length;j++){if(j===ci)bs[j].classList.add('ok');else if(j===oi&&!ok)bs[j].classList.add('no');bs[j].classList.add('dis');}
+  var fb=document.getElementById('fb-'+qi);
+  if(ok){cc++;sc+=10;sk++;if(sk>mx)mx=sk;if(sk>=3)sc+=5;fb.className='fb show fok';fb.textContent='\u2705 נכון! +10'+(sk>=3?' (+5 בונוס רצף!)':'');}
+  else{sk=0;fb.className='fb show fno';fb.textContent='\u274C לא נכון';}
+  fb.appendChild(document.createElement('br'));fb.appendChild(document.createTextNode(q[3]));
+  document.getElementById('sS').textContent=sc;document.getElementById('sC').textContent=cc;document.getElementById('sK').textContent=sk;
+  document.getElementById('pfl').style.width=(((qi+1)/QS.length)*100)+'%';document.getElementById('plbl').textContent=(qi+1)+' / '+QS.length;
+  var nb=document.getElementById('nBtn');nb.disabled=false;if(qi>=QS.length-1)nb.textContent='📊 תוצאות';
+}
+window.nextQ=function(){
+  if(cur>=QS.length-1){showRes();return;}
+  document.getElementById('qc-'+cur).classList.remove('active');cur++;document.getElementById('qc-'+cur).classList.add('active');
+  document.getElementById('nBtn').disabled=true;document.getElementById('qc-'+cur).scrollIntoView({behavior:'smooth',block:'center'});
+};
+function showRes(){
+  document.getElementById('area').style.display='none';document.getElementById('foot').style.display='none';
+  var rs=document.getElementById('resScr');rs.classList.add('show');
+  var pct=sc/(QS.length*10);var g,gc;if(pct>=.9){g='A+';gc='ga';}else if(pct>=.75){g='B';gc='gb';}else if(pct>=.55){g='C';gc='gc';}else{g='F';gc='gf';}
+  var m=String(Math.floor(ts/60)).padStart(2,'0');var s=String(ts%60).padStart(2,'0');
+  rs.innerHTML='<div class="re">'+(pct>=.9?'🏆':pct>=.75?'🎯':pct>=.55?'📚':'💪')+'</div>'+
+    '<div class="rt" style="color:'+(pct>=.75?'var(--amber)':'var(--gold)')+'">'+
+    (pct>=.9?'Application Layer Expert!':pct>=.75?'מצוין!':pct>=.55?'בדרך הנכונה':'צריך חזרה')+'</div>'+
+    '<div class="rsu">'+cc+'/'+QS.length+' נכונות | '+sc+' נקודות | '+m+':'+s+' | רצף מקסימלי: '+mx+'</div>'+
+    '<div class="rg '+gc+'">'+g+'</div><br>'+
+    '<button class="retry" onclick="location.reload()">נסה שוב ↻</button>';
+}
+render();
+})();
+</script>
+</body>
+</html>

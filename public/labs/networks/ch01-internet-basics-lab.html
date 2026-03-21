@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 1 — תחילת מסע: איך עובד האינטרנט</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060a10;--bg2:#0c1119;--bg3:#141c28;--border:#1e2d42;--teal:#2dd4bf;--td:rgba(45,212,191,0.1);--blue:#3b82f6;--green:#4ade80;--gd:rgba(74,222,128,0.08);--red:#ef4444;--rd:rgba(239,68,68,0.1);--gold:#fbbf24;--text:#dfe6f0;--t2:#7b8da4;--t3:#3d4f66;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.grid{position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(45,212,191,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,0.03) 1px,transparent 1px);background-size:40px 40px;}
+header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,#080e16,rgba(6,10,16,.97));backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}.icon{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--teal),var(--blue));display:flex;align-items:center;justify-content:center;font-size:18px;}
+.logo h1{font-family:'Space Mono',monospace;font-size:14px;color:var(--teal);}.logo .sub{font-size:11px;color:var(--t2);}
+.badge{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:4px 10px;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);display:flex;align-items:center;gap:5px;}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:b 2s infinite;}@keyframes b{0%,100%{opacity:1;}50%{opacity:.3;}}
+.pbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:6px 16px;display:flex;align-items:center;gap:10px;}
+.ptr{flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;}.pfl{height:100%;border-radius:3px;transition:width .5s;background:linear-gradient(90deg,var(--teal),var(--blue));}
+.plbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--t2);}
+.wrap{padding:14px;padding-bottom:100px;position:relative;z-index:1;}
+
+/* Topology */
+.topo{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:14px;}
+.topo-lbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:1px;margin-bottom:8px;}
+.topo-art{background:#040810;border:1px solid var(--border);border-radius:8px;padding:14px 10px;font-family:'Space Mono',monospace;font-size:10px;line-height:1.6;color:var(--t2);direction:ltr;text-align:left;overflow-x:auto;white-space:pre;}
+
+.qc{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:12px;display:none;}
+.qc.active{display:block;animation:up .3s ease;}@keyframes up{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.qh{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.qtag{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;background:var(--td);color:var(--teal);}
+.qpts{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--gold);}
+.qb{padding:14px;}.qn{font-size:10px;color:var(--t3);font-family:'Space Mono',monospace;margin-bottom:4px;}
+.qt{font-size:14px;font-weight:700;line-height:1.6;margin-bottom:12px;}
+.code{background:#040810;border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:12px;font-family:'Space Mono',monospace;font-size:10px;line-height:1.7;direction:ltr;text-align:left;color:var(--t2);overflow-x:auto;white-space:pre-wrap;}
+.opts{display:flex;flex-direction:column;gap:6px;}
+.opt{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s;text-align:right;width:100%;color:var(--text);font-family:'Heebo',sans-serif;font-size:12px;line-height:1.5;}
+.opt:hover{border-color:var(--teal);background:var(--td);}
+.ol{width:24px;height:24px;flex-shrink:0;background:var(--td);border:1px solid rgba(45,212,191,0.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--teal);}
+.opt.ok{border-color:var(--green);background:var(--gd);}.opt.ok .ol{background:var(--green);color:var(--bg);border-color:var(--green);}
+.opt.no{border-color:var(--red);background:var(--rd);}.opt.no .ol{background:var(--red);color:#fff;border-color:var(--red);}
+.opt.dis{pointer-events:none;opacity:.5;}
+.fb{margin-top:10px;padding:10px;border-radius:8px;font-size:11px;line-height:1.7;display:none;}
+.fb.show{display:block;animation:up .3s;}.fb.fok{background:var(--gd);border:1px solid rgba(74,222,128,0.2);color:#86efac;}.fb.fno{background:var(--rd);border:1px solid rgba(239,68,68,0.2);color:#fca5a5;}
+
+.foot{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(0deg,var(--bg) 70%,transparent);padding:14px 16px 10px;z-index:50;}
+.foot-in{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;}
+.fts{display:flex;gap:14px;}.fs{text-align:center;}.fv{font-family:'Space Mono',monospace;font-size:17px;font-weight:700;color:var(--teal);}.fl{font-size:8px;color:var(--t2);}
+.nb{background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;border:none;border-radius:8px;padding:8px 18px;font-family:'Heebo',sans-serif;font-weight:700;font-size:12px;cursor:pointer;}.nb:disabled{opacity:.3;cursor:not-allowed;}
+
+.res{display:none;text-align:center;padding:30px 16px;position:relative;z-index:1;}.res.show{display:block;animation:up .5s;}
+.re{font-size:50px;margin-bottom:10px;}.rt{font-size:20px;font-weight:900;margin-bottom:6px;}.rs{font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:16px;}
+.rg{display:inline-block;font-family:'Space Mono',monospace;font-size:36px;font-weight:700;padding:8px 24px;border-radius:12px;margin-bottom:16px;}
+.ga{background:var(--gd);color:var(--green);border:2px solid var(--green);}.gb{background:var(--td);color:var(--teal);border:2px solid var(--teal);}.gc{background:rgba(251,146,60,0.1);color:var(--orange);border:2px solid var(--orange);}.gf{background:var(--rd);color:var(--red);border:2px solid var(--red);}
+.retry{margin-top:14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 24px;color:var(--teal);font-family:'Heebo',sans-serif;font-weight:700;font-size:13px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="grid"></div>
+<header>
+  <div class="logo"><div class="icon">🌐</div><div><h1>Lab — פרק 1</h1><div class="sub">תחילת מסע: איך עובד האינטרנט</div></div></div>
+  <div class="badge"><div class="dot"></div><span id="timer">00:00</span></div>
+</header>
+<div class="pbar"><div class="ptr"><div class="pfl" id="pfl" style="width:0%"></div></div><div class="plbl" id="plbl">0 / 8</div></div>
+<div class="wrap" id="area"></div>
+<div class="res" id="resScr"></div>
+<div class="foot" id="foot"><div class="foot-in"><div class="fts"><div class="fs"><div class="fv" id="sS">0</div><div class="fl">נקודות</div></div><div class="fs"><div class="fv" id="sC">0</div><div class="fl">נכונות</div></div><div class="fs"><div class="fv" id="sK">0</div><div class="fl">רצף🔥</div></div></div><button class="nb" id="nBtn" disabled onclick="nextQ()">הבא ←</button></div></div>
+
+<script>
+(function(){
+var QS=[
+["מה הפרוטוקול שאחראי על ניתוב חבילות באינטרנט?",["TCP","IP","HTTP","DNS"],1,"IP (Internet Protocol) מנתב packets בין רשתות. TCP מעליו מוסיף אמינות וסדר."],
+["מהי חבילה (Packet)?",["קובץ שלם שנשלח ברשת","יחידת מידע קטנה עם header ו-payload","סוג כבל רשת","פרוטוקול הצפנה"],1,"Packet = יחידת מידע קטנה. header מכיל כתובות ומספור, payload מכיל את התוכן בפועל. הודעות מפוצלות ל-packets.","Client sends data:\n[Header: src=192.168.1.10, dst=93.184.216.34, seq=1]\n[Payload: 'GET /index.html HTTP/1.1']\n\n[Header: src=192.168.1.10, dst=93.184.216.34, seq=2]\n[Payload: 'Host: example.com']"],
+["מה התפקיד של ISP?",["הצפנת כל התעבורה","חיבור משתמשים לאינטרנט","ניהול DNS בלבד","אחסון אתרים"],1,"ISP (Internet Service Provider) — ספק אינטרנט. הגשר בין הרשת הביתית שלך לאינטרנט הגלובלי. דוגמאות: Bezeq, Partner, HOT."],
+["מהו Latency?",["כמות נתונים שאפשר להוריד בשנייה","הזמן שלוקח לחבילה להגיע מנקודה A ל-B","גודל ה-Packet המקסימלי","מספר ה-Routers בדרך"],1,"Latency = השהיה, נמדדת ב-milliseconds. Bandwidth = רוחב פס (כמה נתונים/שנייה). Latency נמוך = תגובה מהירה.","$ ping google.com\n64 bytes from 142.250.190.14: time=12.3 ms  <-- Latency\n64 bytes from 142.250.190.14: time=11.8 ms\n64 bytes from 142.250.190.14: time=12.1 ms\n\nLatency = ~12ms (good!)\nBandwidth = 100 Mbps (separate metric)"],
+["מה ההבדל בין LAN ל-WAN?",["LAN=אלחוטי, WAN=כבלים","LAN=רשת מקומית, WAN=רשת רחבה","LAN=מהיר תמיד, WAN=איטי תמיד","אין הבדל מעשי"],1,"LAN (Local Area Network) = רשת מקומית — בית, משרד. WAN (Wide Area Network) = רשת רחבה שמחברת LANs שונים. האינטרנט = ה-WAN הגדול ביותר."],
+["מה מודל Client-Server?",["שני מחשבים זהים שמשתפים קבצים","לקוח שולח בקשה ושרת מחזיר תשובה","מחשב שמחובר ל-WiFi","סוג כבל רשת"],1,"Client-Server: הלקוח (דפדפן) שולח Request, השרת מעבד ומחזיר Response. רוב האינטרנט עובד ככה — HTTP, Email, DNS.","Client (Browser)          Server (Web)\n    |                         |\n    |--- GET /index.html ---->|\n    |                         | (process)\n    |<--- 200 OK + HTML ------|\n    |                         |\n    |--- GET /style.css ----->|\n    |<--- 200 OK + CSS -------|"],
+["מהו Hop ברשת?",["קפיצה של packet דרך Router בדרך ליעד","סוג כבל","שגיאת רשת","פרוטוקול"],0,"Hop = מעבר של packet דרך Router. ככל שיש יותר hops, כך ה-Latency עולה. traceroute מראה את כל ה-hops ליעד.","$ traceroute example.com\n1  192.168.1.1 (router)     1ms   <-- hop 1\n2  10.0.0.1 (ISP)           5ms   <-- hop 2\n3  72.14.239.1              12ms  <-- hop 3\n4  93.184.216.34 (target)   18ms  <-- hop 4\n\nTotal: 4 hops, 18ms latency"],
+["מהו Bandwidth?",["השהיה ברשת","כמות הנתונים המקסימלית שאפשר להעביר בשנייה","מספר חבילות ברשת","סוג Router"],1,"Bandwidth = רוחב פס, נמדד ב-Mbps/Gbps. כביש — Bandwidth=מספר נתיבים, Latency=אורך הכביש. שניהם חשובים."]
+];
+var L="\u05D0\u05D1\u05D2\u05D3";var cur=0,sc=0,cc=0,sk=0,mx=0,ans={},ts=0;
+setInterval(function(){ts++;document.getElementById('timer').textContent=String(Math.floor(ts/60)).padStart(2,'0')+':'+String(ts%60).padStart(2,'0');},1000);
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function render(){
+  var a=document.getElementById('area');a.innerHTML='';
+  // Topology
+  var topo=document.createElement('div');topo.className='topo';
+  topo.innerHTML='<div class="topo-lbl">NETWORK TOPOLOGY — איך עובד האינטרנט</div><div class="topo-art">'+esc(
+"  You (Client)                              Web Server\n"+
+"  192.168.1.10                              93.184.216.34\n"+
+"       |                                         |\n"+
+"  [WiFi Router]                            [Data Center]\n"+
+"  192.168.1.1                               Load Balancer\n"+
+"       |                                         |\n"+
+"  [ISP Router] ---- [Internet Backbone] ---- [ISP Router]\n"+
+"  (Bezeq/HOT)        (Undersea Cables)       (AWS/Google)\n"+
+"       |                                         |\n"+
+"  === LAN (Private) ===    ===== WAN (Public) ====="
+  )+'</div>';
+  a.appendChild(topo);
+
+  for(var i=0;i<QS.length;i++){
+    var q=QS[i];var card=document.createElement('div');card.className='qc'+(i===cur?' active':'');card.id='qc-'+i;
+    var codeH=q[4]?'<div class="code">'+esc(q[4])+'</div>':'';
+    var optsH='<div class="opts">';
+    for(var j=0;j<q[1].length;j++){optsH+='<button class="opt" id="o-'+i+'-'+j+'" data-i="'+i+'" data-o="'+j+'"><span class="ol">'+L[j]+'</span><span>'+esc(q[1][j])+'</span></button>';}
+    optsH+='</div>';
+    card.innerHTML='<div class="qh"><span class="qtag">שאלה '+(i+1)+'/'+QS.length+'</span><span class="qpts">+10</span></div><div class="qb"><div class="qt">'+esc(q[0])+'</div>'+codeH+optsH+'<div class="fb" id="fb-'+i+'"></div></div>';
+    a.appendChild(card);
+  }
+  a.addEventListener('click',function(e){var o=e.target.closest('.opt');if(o)handleA(parseInt(o.getAttribute('data-i')),parseInt(o.getAttribute('data-o')));});
+}
+function handleA(qi,oi){
+  if(ans[qi]!==undefined)return;var q=QS[qi];var ci=q[2];var ok=oi===ci;ans[qi]=ok;
+  var bs=document.querySelectorAll('[id^="o-'+qi+'-"]');
+  for(var j=0;j<bs.length;j++){if(j===ci)bs[j].classList.add('ok');else if(j===oi&&!ok)bs[j].classList.add('no');bs[j].classList.add('dis');}
+  var fb=document.getElementById('fb-'+qi);
+  if(ok){cc++;sc+=10;sk++;if(sk>mx)mx=sk;if(sk>=3)sc+=5;fb.className='fb show fok';fb.textContent='\u2705 נכון! +10'+(sk>=3?' (+5 בונוס רצף!)':'');}
+  else{sk=0;fb.className='fb show fno';fb.textContent='\u274C לא נכון';}
+  fb.appendChild(document.createElement('br'));fb.appendChild(document.createTextNode(q[3]));
+  document.getElementById('sS').textContent=sc;document.getElementById('sC').textContent=cc;document.getElementById('sK').textContent=sk;
+  document.getElementById('pfl').style.width=(((qi+1)/QS.length)*100)+'%';document.getElementById('plbl').textContent=(qi+1)+' / '+QS.length;
+  var nb=document.getElementById('nBtn');nb.disabled=false;if(qi>=QS.length-1)nb.textContent='📊 תוצאות';
+}
+window.nextQ=function(){
+  if(cur>=QS.length-1){showRes();return;}
+  document.getElementById('qc-'+cur).classList.remove('active');cur++;document.getElementById('qc-'+cur).classList.add('active');
+  document.getElementById('nBtn').disabled=true;document.getElementById('qc-'+cur).scrollIntoView({behavior:'smooth',block:'center'});
+};
+function showRes(){
+  document.getElementById('area').style.display='none';document.getElementById('foot').style.display='none';
+  var rs=document.getElementById('resScr');rs.classList.add('show');
+  var pct=sc/(QS.length*10);var g,gc;if(pct>=.9){g='A+';gc='ga';}else if(pct>=.75){g='B';gc='gb';}else if(pct>=.55){g='C';gc='gc';}else{g='F';gc='gf';}
+  var m=String(Math.floor(ts/60)).padStart(2,'0');var s=String(ts%60).padStart(2,'0');
+  rs.innerHTML='<div class="re">'+(pct>=.9?'🏆':pct>=.75?'🎯':pct>=.55?'📚':'💪')+'</div>'+
+    '<div class="rt" style="color:'+(pct>=.75?'var(--teal)':'var(--orange)')+'">'+
+    (pct>=.9?'מושלם!':pct>=.75?'מצוין!':pct>=.55?'בדרך הנכונה':'צריך חזרה')+'</div>'+
+    '<div class="rs">'+cc+'/'+QS.length+' נכונות | '+sc+' נקודות | '+m+':'+s+' | רצף מקסימלי: '+mx+'</div>'+
+    '<div class="rg '+gc+'">'+g+'</div><br>'+
+    '<button class="retry" onclick="location.reload()">נסה שוב ↻</button>';
+}
+render();
+})();
+</script>
+</body>
+</html>
