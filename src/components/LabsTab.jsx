@@ -14,6 +14,30 @@ const LABS = [
     xp: 150,
     src: '/labs/soc-lab.html',
   },
+  {
+    id: 'bug-bounty-ctf',
+    title: { he: '🐛 Bug Bounty CTF', en: '🐛 Bug Bounty CTF' },
+    description: {
+      he: '5 אתגרים עם קוד אמיתי: XSS בשדה חיפוש, IDOR ב-API, פענוח Base64, SQL Injection, וכתיבת דוח Bug Bounty מקצועי. מערכת Bounty כספי ו-3 חיים.',
+      en: '5 real-code challenges: XSS in search field, IDOR in API, Base64 decoding, SQL Injection, and writing a professional Bug Bounty report. Bounty money system and 3 lives.',
+    },
+    chapter: { he: 'פרק 6 — אבטחת אפליקציות', en: 'Chapter 6 — Application Security' },
+    difficulty: { he: 'מתקדם', en: 'Advanced' },
+    xp: 200,
+    src: '/labs/ch6-bug-bounty.html',
+  },
+  {
+    id: 'crypto-lab',
+    title: { he: '🔐 מעבדת קריפטוגרפיה', en: '🔐 Cryptography Lab' },
+    description: {
+      he: '5 אתגרים: פענוח Caesar Cipher בזמן אמת, הצפנה סימטרית vs אסימטרית, Hash Collision ב-MD5, התקפת MitM על TLS, ובחירת ארכיטקטורת הצפנה. מערכת "מפתחות" במקום נקודות.',
+      en: '5 challenges: real-time Caesar Cipher decoding, symmetric vs asymmetric encryption, MD5 Hash Collision, MitM attack on TLS, and choosing the right encryption architecture. "Keys" instead of points.',
+    },
+    chapter: { he: 'פרק 7 — קריפטוגרפיה', en: 'Chapter 7 — Cryptography' },
+    difficulty: { he: 'בינוני', en: 'Intermediate' },
+    xp: 180,
+    src: '/labs/ch7-crypto.html',
+  },
 ]
 
 export function LabsTab() {
