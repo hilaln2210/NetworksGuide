@@ -6,6 +6,7 @@ export const uiStrings = {
   // ===== Tabs =====
   tab_learn: { he: '📖 למידה', en: '📖 Learn' },
   tab_quiz: { he: '🎯 חידון', en: '🎯 Quiz' },
+  tab_labs: { he: '🧪 מעבדות', en: '🧪 Labs' },
   tab_faq: { he: '🔧 שאלות נפוצות', en: '🔧 FAQ' },
   tab_stats: { he: '📊 סטטיסטיקות', en: '📊 Stats' },
   tab_credits: { he: '📋 קרדיטים', en: '📋 Credits' },

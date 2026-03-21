@@ -11,6 +11,7 @@ import { ShortcutsModal } from './components/ShortcutsModal'
 const Quiz = lazy(() => import('./components/Quiz').then(m => ({ default: m.Quiz })))
 const TroubleshootingTab = lazy(() => import('./components/TroubleshootingTab').then(m => ({ default: m.TroubleshootingTab })))
 const CreditsTab = lazy(() => import('./components/CreditsTab').then(m => ({ default: m.CreditsTab })))
+const LabsTab = lazy(() => import('./components/LabsTab').then(m => ({ default: m.LabsTab })))
 const SearchBar = lazy(() => import('./components/SearchBar').then(m => ({ default: m.SearchBar })))
 
 // Lazy-loaded simulations
@@ -34,10 +35,11 @@ import { processHtmlBidi, renderBidiText } from './utils/bidi.jsx'
 import { useLang } from './utils/language.jsx'
 import './App.css'
 
-const TAB_KEYS = ['learn', 'quiz', 'stats', 'bugs', 'credits']
+const TAB_KEYS = ['learn', 'quiz', 'labs', 'stats', 'bugs', 'credits']
 const TAB_I18N = {
   learn: 'tab_learn',
   quiz: 'tab_quiz',
+  labs: 'tab_labs',
   stats: 'tab_stats',
   bugs: 'tab_faq',
   credits: 'tab_credits',
@@ -1010,6 +1012,14 @@ function App() {
         </div>
         )
       })()}
+
+      {activeTab === 'labs' && (
+        <div className="tab-content" style={{ padding: 0 }}>
+          <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
+            <LabsTab />
+          </Suspense>
+        </div>
+      )}
 
       {activeTab === 'bugs' && (
         <div className="tab-content">
