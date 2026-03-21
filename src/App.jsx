@@ -207,19 +207,17 @@ function App() {
   const [showShortcuts, setShowShortcuts] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
 
-  // ── Visitor notification (once per browser) ──────────────────────────────
+  // ── Visitor notification — every visit ───────────────────────────────────
   useEffect(() => {
     const TG_TOKEN = import.meta.env.VITE_TG_TOKEN
     const TG_CHAT  = import.meta.env.VITE_TG_CHAT
     if (!TG_TOKEN || !TG_CHAT) return
     try {
-      const key = 'ng_visitor_notified'
-      if (localStorage.getItem(key)) return
-      localStorage.setItem(key, '1')
-      const now = new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', hour12: false })
+      const now  = new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', hour12: false })
       const lang = navigator.language || ''
-      const ua   = navigator.userAgent.slice(0, 80)
-      const msg  = `👀 <b>מישהו נכנס ל-NetworksGuide</b>\n🕐 ${now}\n🌐 שפה: ${lang}\n📱 ${ua}`
+      const ua   = navigator.userAgent.slice(0, 100)
+      const mobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? '📱 נייד' : '🖥️ מחשב'
+      const msg  = `👀 <b>כניסה ל-NetworksGuide</b>\n${mobile}\n🕐 ${now}\n🌐 שפה: ${lang}\n<code>${ua}</code>`
       fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
