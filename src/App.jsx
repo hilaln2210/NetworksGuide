@@ -666,6 +666,7 @@ function App() {
               onClick={() => { setActiveTab(key); if (key !== 'quiz') setQuizAutoStart(null) }}
             >
               {t(TAB_I18N[key])}
+              {key === 'labs' && <span style={{ marginInlineStart: '5px', fontSize: '0.65rem', fontWeight: 700, background: 'linear-gradient(135deg,#f59e0b,#ef4444)', color: '#fff', borderRadius: '4px', padding: '1px 5px', verticalAlign: 'middle', letterSpacing: '0.03em' }}>PRO</span>}
             </button>
           ))}
         </div>

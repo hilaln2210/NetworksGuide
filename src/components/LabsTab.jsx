@@ -372,6 +372,9 @@ export function LabsTab() {
                     {lab.description[lang] || lab.description.he}
                   </div>
                   <div style={{ display: 'flex', gap: '7px', flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: '0.75rem', background: 'linear-gradient(135deg,#f59e0b,#ef4444)', color: '#fff', borderRadius: '6px', padding: '2px 8px', fontWeight: 700, letterSpacing: '0.03em' }}>
+                      ✦ PRO
+                    </span>
                     <span style={{ fontSize: '0.75rem', background: 'rgba(8,145,178,0.1)', color: '#0891b2', borderRadius: '6px', padding: '2px 8px', fontWeight: 600 }}>
                       {lab.chapter[lang] || lab.chapter.he}
                     </span>
