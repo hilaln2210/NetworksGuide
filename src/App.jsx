@@ -32,6 +32,7 @@ import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, upda
 import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll, getTodayMinutes, addSessionMinutes, formatMinutes, getCompletedChapters, getTotalQuizCorrect, getLearningPace, getReadPages, getQuizScore } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
 import { processHtmlBidi, renderBidiText } from './utils/bidi.jsx'
+import { notifyVisit } from './utils/tgNotify.js'
 import { useLang } from './utils/language.jsx'
 import './App.css'
 
@@ -210,23 +211,7 @@ function App() {
   const [scrollProgress, setScrollProgress] = useState(0)
 
   // ── Visitor notification — every visit ───────────────────────────────────
-  useEffect(() => {
-    const TG_TOKEN = import.meta.env.VITE_TG_TOKEN
-    const TG_CHAT  = import.meta.env.VITE_TG_CHAT
-    if (!TG_TOKEN || !TG_CHAT) return
-    try {
-      const now  = new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', hour12: false })
-      const lang = navigator.language || ''
-      const ua   = navigator.userAgent.slice(0, 100)
-      const mobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? '📱 נייד' : '🖥️ מחשב'
-      const msg  = `👀 <b>כניסה ל-NetworksGuide</b>\n${mobile}\n🕐 ${now}\n🌐 שפה: ${lang}\n<code>${ua}</code>`
-      fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: TG_CHAT, text: msg, parse_mode: 'HTML' }),
-      }).catch(() => {})
-    } catch {}
-  }, [])
+  useEffect(() => { notifyVisit() }, [])
 
   const FONT_SIZES = ['small', 'normal', 'large']
   const cycleFontSize = (dir) => {
