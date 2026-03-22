@@ -283,6 +283,15 @@ const TRACKS = [
         xp: 180,
         src: '/labs/sec-ch04-pentest-lab.html',
       },
+      {
+        id: 'sec-ch05',
+        title: { he: '🔍 Incident Response & Digital Forensics', en: '🔍 Incident Response & Digital Forensics' },
+        description: { he: 'PICERL, Order of Volatility, Containment, Memory Forensics, Ransomware Response, Chain of Custody — תגובה מקצועית לאירועי סייבר ופורנזיקה דיגיטלית.', en: 'PICERL, Order of Volatility, Containment, Memory Forensics, Ransomware Response, Chain of Custody — professional cyber incident response and digital forensics.' },
+        chapter: { he: 'פרק 5', en: 'Chapter 5' },
+        difficulty: { he: 'מתקדם', en: 'Advanced' },
+        xp: 170,
+        src: '/labs/sec-ch05-incident-response-lab.html',
+      },
     ],
   },
 ]
