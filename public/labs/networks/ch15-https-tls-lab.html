@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 15 — HTTPS ו-TLS</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060a10;--bg2:#0c1119;--bg3:#141c28;--border:#1e2d42;--acc:#34d399;--ad:rgba(52,211,153,0.1);--green:#4ade80;--gd:rgba(74,222,128,0.08);--red:#ef4444;--rd:rgba(239,68,68,0.1);--gold:#fbbf24;--text:#dfe6f0;--t2:#7b8da4;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.grid{position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(52,211,153,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(52,211,153,0.03) 1px,transparent 1px);background-size:40px 40px;}
+header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,#080e16,rgba(6,10,16,.97));backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}.icon{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--acc),#059669);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.logo h1{font-family:'Space Mono',monospace;font-size:14px;color:var(--acc);}.logo .sub{font-size:11px;color:var(--t2);}
+.badge{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:4px 10px;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);display:flex;align-items:center;gap:5px;}.dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:b 2s infinite;}@keyframes b{0%,100%{opacity:1;}50%{opacity:.3;}}
+.pbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:6px 16px;display:flex;align-items:center;gap:10px;}.ptr{flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;}.pfl{height:100%;border-radius:3px;transition:width .5s;background:linear-gradient(90deg,var(--acc),#059669);}.plbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--t2);}
+.wrap{padding:14px;padding-bottom:100px;position:relative;z-index:1;}
+.qc{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px;display:none;}.qc.active{display:block;animation:up .3s ease;}@keyframes up{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.qh{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}.qtag{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;background:var(--ad);color:var(--acc);}.qpts{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--gold);}
+.qb{padding:14px;}.theory{font-size:13px;color:var(--t2);line-height:1.9;margin-bottom:14px;padding:12px 14px;background:var(--bg3);border-radius:10px;border-right:3px solid var(--acc);}.theory strong{color:var(--text);}
+.qt{font-size:14px;font-weight:700;line-height:1.6;margin-bottom:12px;color:var(--acc);}
+.code{background:#040810;border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:12px;font-family:'Space Mono',monospace;font-size:10px;line-height:1.7;direction:ltr;text-align:left;color:var(--t2);overflow-x:auto;white-space:pre-wrap;}
+.opts{display:flex;flex-direction:column;gap:6px;}.opt{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s;text-align:right;width:100%;color:var(--text);font-family:'Heebo',sans-serif;font-size:12px;line-height:1.5;}.opt:hover{border-color:var(--acc);background:var(--ad);}
+.ol{width:24px;height:24px;flex-shrink:0;background:var(--ad);border:1px solid rgba(52,211,153,0.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--acc);}
+.opt.ok{border-color:var(--green);background:var(--gd);}.opt.ok .ol{background:var(--green);color:var(--bg);}.opt.no{border-color:var(--red);background:var(--rd);}.opt.no .ol{background:var(--red);color:#fff;}.opt.dis{pointer-events:none;opacity:.5;}
+.fb{margin-top:10px;padding:10px;border-radius:8px;font-size:11px;line-height:1.7;display:none;}.fb.show{display:block;animation:up .3s;}.fb.fok{background:var(--gd);border:1px solid rgba(74,222,128,0.2);color:#86efac;}.fb.fno{background:var(--rd);border:1px solid rgba(239,68,68,0.2);color:#fca5a5;}
+.foot{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(0deg,var(--bg) 70%,transparent);padding:14px 16px 10px;z-index:50;}.foot-in{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;}.fts{display:flex;gap:14px;}.fs{text-align:center;}.fv{font-family:'Space Mono',monospace;font-size:17px;font-weight:700;color:var(--acc);}.fl{font-size:8px;color:var(--t2);}
+.nb{background:linear-gradient(135deg,var(--acc),#059669);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-family:'Heebo',sans-serif;font-weight:700;font-size:12px;cursor:pointer;}.nb:disabled{opacity:.3;cursor:not-allowed;}
+.res{display:none;text-align:center;padding:30px 16px;position:relative;z-index:1;}.res.show{display:block;animation:up .5s;}.re{font-size:50px;margin-bottom:10px;}.rt{font-size:20px;font-weight:900;margin-bottom:6px;}.rsu{font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:16px;}
+.rg{display:inline-block;font-family:'Space Mono',monospace;font-size:36px;font-weight:700;padding:8px 24px;border-radius:12px;margin-bottom:16px;}.ga{background:var(--gd);color:var(--green);border:2px solid var(--green);}.gb{background:var(--ad);color:var(--acc);border:2px solid var(--acc);}.gc{background:rgba(251,146,60,0.1);color:var(--gold);border:2px solid var(--gold);}.gf{background:var(--rd);color:var(--red);border:2px solid var(--red);}
+.retry{margin-top:14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 24px;color:var(--acc);font-family:'Heebo',sans-serif;font-weight:700;font-size:13px;cursor:pointer;}
+</style></head><body><div class="grid"></div>
+<header><div class="logo"><div class="icon">🔒</div><div><h1>Lab — פרק 15</h1><div class="sub">HTTPS ו-TLS — תקשורת מוצפנת</div></div></div><div class="badge"><div class="dot"></div><span id="timer">00:00</span></div></header>
+<div class="pbar"><div class="ptr"><div class="pfl" id="pfl" style="width:0%"></div></div><div class="plbl" id="plbl">0 / 8</div></div>
+<div class="wrap" id="area"></div><div class="res" id="resScr"></div>
+<div class="foot" id="foot"><div class="foot-in"><div class="fts"><div class="fs"><div class="fv" id="sS">0</div><div class="fl">נקודות</div></div><div class="fs"><div class="fv" id="sC">0</div><div class="fl">נכונות</div></div><div class="fs"><div class="fv" id="sK">0</div><div class="fl">רצף🔥</div></div></div><button class="nb" id="nBtn" disabled onclick="nextQ()">הבא ←</button></div></div>
+<script>
+(function(){
+var QS=[
+["<strong>TLS (Transport Layer Security)</strong> הוא הפרוטוקול שמצפין תעבורת HTTPS. הוא יושב בין TCP לHTTP ומספק שלושה דברים: <strong>הצפנה</strong> (אף אחד לא יכול לקרוא את התוכן), <strong>אימות</strong> (מוודא שהשרת הוא מי שהוא טוען שהוא), ו<strong>שלמות</strong> (מוודא שהנתונים לא שונו בדרך).",
+"מה שלושת הדברים ש-TLS מספק?",
+["מהירות, אמינות, ניתוב","הצפנה (Encryption), אימות (Authentication), שלמות (Integrity)","DNS, TCP, HTTP","חיבור, ניתוק, Retry"],1,
+"Encryption = תוקף לא יכול לקרוא. Authentication = Certificate מוכיח שgoogle.com הוא באמת Google. Integrity = HMAC/hash מוודא שאף byte לא שונה בדרך. בלי שלמות, תוקף יכול לשנות תוכן גם בלי לפענח."],
+
+["<strong>TLS Handshake</strong> הוא התהליך שבו Client ו-Server מסכימים על הצפנה ומחליפים מפתחות. ב-TLS 1.3 (הגרסה העדכנית), ה-Handshake מצומצם: Client Hello (cipher suites + key share), Server Hello (בחר cipher + key share + certificate). סה\"כ 1-RTT במקום 2-RTT ב-TLS 1.2. אפילו 0-RTT לחיבורים חוזרים.",
+"למה TLS 1.3 מהיר יותר מ-TLS 1.2?",
+["כי הוא לא מצפין","Handshake ב-1 RTT במקום 2 — Client שולח key share כבר ב-Hello הראשון","כי הוא משתמש ב-UDP","כי הוא לא בודק certificate"],1,
+"TLS 1.2: Client Hello → Server Hello → Certificate → Key Exchange → 2 round trips. TLS 1.3: Client Hello (עם key share!) → Server Hello (עם key share!) → 1 round trip. גם הסיר ciphers חלשים (RC4, SHA-1, RSA key exchange).",
+"TLS 1.3 Handshake (1-RTT):\n\nClient                        Server\n  |-- ClientHello ------------>|\n  |   + supported ciphers      |\n  |   + key_share (ECDHE)      |\n  |                            |\n  |<-- ServerHello ------------|\n  |   + chosen cipher          |\n  |   + key_share              |\n  |   + Certificate            |\n  |   + Finished               |\n  |                            |\n  |-- Finished --------------->|\n  |                            |\n  |== Encrypted data =========>|  1 RTT total!"],
+
+["<strong>Certificate (תעודה דיגיטלית)</strong> היא הדרך שבה השרת מוכיח את זהותו. התעודה מכילה: שם הדומיין, מפתח ציבורי, מי הנפיק אותה (CA), ותאריך תפוגה. CA (Certificate Authority) כמו Let's Encrypt, DigiCert חותם על התעודה — הדפדפן סומך על CA ולכן סומך על התעודה.",
+"מה קורה אם תעודת SSL פגה תוקף?",
+["הדפדפן מציג אזהרה — החיבור עדיין מוצפן אבל הזהות לא מאומתת","האתר לא מוצפן","השרת קורס","DNS מפסיק לעבוד"],0,
+"תעודה פגה = הדפדפן מזהיר (\"Your connection is not private\"). ההצפנה עדיין עובדת טכנית, אבל אין ערובה שהשרת לגיטימי — יכול להיות MitM. Let's Encrypt נותן תעודות חינם ל-90 יום עם חידוש אוטומטי."],
+
+["<strong>HSTS (HTTP Strict Transport Security)</strong> הוא header שהשרת שולח שאומר לדפדפן: \"מעכשיו תמיד תתחבר אליי רק ב-HTTPS, גם אם המשתמש הקליד http://\". זה מונע התקפות SSL Stripping שבהן תוקף MitM מוריד את ההצפנה מ-HTTPS ל-HTTP בלי שהמשתמש שם לב.",
+"מה HSTS מונע?",
+["וירוסים","SSL Stripping — התקפה שמורידה את ההצפנה מHTTPS ל-HTTP","DDoS","SQL Injection"],1,
+"SSL Stripping: תוקף MitM מיירט בקשת HTTP (לפני redirect ל-HTTPS) ומחבר את המשתמש ב-HTTP לעצמו, וב-HTTPS לשרת. המשתמש חושב שהכל בסדר. HSTS = הדפדפן זוכר לחייב HTTPS, אז Stripping לא עובד.",
+"Server response header:\n  Strict-Transport-Security: max-age=31536000; includeSubDomains\n\nWhat this means:\n  1. Browser remembers for 1 year\n  2. ALL connections must be HTTPS\n  3. http:// automatically -> https://\n  4. Invalid cert? NO override option!\n  5. Applies to subdomains too\n\nWithout HSTS:\n  User types http://bank.com\n  -> HTTP request (unencrypted!)\n  -> 301 redirect to https://\n  -> Attacker can intercept the HTTP request!\n\nWith HSTS:\n  User types http://bank.com\n  -> Browser internally -> https:// (never sends HTTP)"],
+
+["<strong>Certificate Pinning</strong> הוא מנגנון אבטחה נוסף שבו האפליקציה (לא רק הדפדפן) זוכרת את ה-Certificate הספציפי או ה-Public Key של השרת. גם אם תוקף הצליח להנפיק תעודה מזויפת מ-CA פרוץ — ה-Pinning ידחה אותה כי היא לא תואמת למה שהאפליקציה מכירה.",
+"מה Certificate Pinning מגן נגדו?",
+["DDoS","תוקף שהנפיק תעודה מזויפת מ-CA — האפליקציה מכירה רק את הcert האמיתי","Brute Force","SQL Injection"],1,
+"Pinning = שכבת אמון נוספת מעבר ל-CA. בעיה: קשה לתחזק, אם Certificate מתחלף — האפליקציה שוברת. Google Chrome הוריד תמיכה בpinning כי הנזק הפוטנציאלי גדול מהתועלת. אלטרנטיבה: Certificate Transparency logs."],
+
+["<strong>Perfect Forward Secrecy (PFS)</strong> מבטיח שגם אם המפתח הפרטי של השרת נגנב בעתיד, תעבורה שהוצפנה בעבר לא ניתנת לפענוח. איך? כל session יוצר מפתח זמני חדש (ephemeral key) באמצעות Diffie-Hellman. המפתח הזמני נמחק אחרי הsession — אין מה לגנוב.",
+"למה PFS חשוב גם אם השרת מאובטח היום?",
+["כי הוא מהיר יותר","כי אם המפתח הפרטי ייגנב בעתיד — תעבורה ישנה שהוקלטה עדיין לא ניתנת לפענוח","כי הוא מונע DDoS","כי הוא לא צריך certificate"],1,
+"בלי PFS: תוקף מקליט תעבורה מוצפנת היום, גונב private key בעוד שנה, מפענח הכל. עם PFS (ECDHE): כל session עם מפתח זמני שנמחק. גם עם ה-private key, אין דרך לשחזר session keys ישנים. TLS 1.3 מחייב PFS."],
+
+["<strong>SNI (Server Name Indication)</strong> פותר בעיה של שרת אחד שמארח כמה אתרים. ב-TLS, ההצפנה מתחילה לפני שה-HTTP Host header נשלח. אז איך השרת יודע איזו תעודה להציג? SNI — החלק ב-Client Hello שאומר: \"אני רוצה להתחבר ל-example.com\". ככה השרת שולף את התעודה הנכונה.",
+"למה בלי SNI, שרת עם כמה אתרים לא יכול לתת HTTPS לכולם?",
+["כי אין מספיק פורטים","כי ההצפנה מתחילה לפני ש-Host header נשלח — השרת לא יודע איזו תעודה להציג","כי DNS לא תומך","כי צריך IP נפרד לכל אתר"],1,
+"בלי SNI: שרת עם 10 אתרים צריך 10 כתובות IP (כתובת לכל תעודה) — יקר ולא scalable. עם SNI: Client Hello מכיל שם הדומיין → השרת מציג תעודה מתאימה. חיסרון: שם הדומיין גלוי ב-Client Hello (לא מוצפן). ESNI/ECH פותרים את זה."],
+
+["<strong>Let's Encrypt</strong> חולל מהפכה ב-HTTPS. לפני 2015, תעודות SSL עלו כסף ודרשו תהליך ידני. Let's Encrypt נותן תעודות חינם, אוטומטיות, ותקפות ל-90 יום. Certbot מחדש אוטומטית. בזכותם, האינטרנט עבר מ-~40% HTTPS ב-2015 ליותר מ-95% היום.",
+"למה תעודות Let's Encrypt תקפות רק 90 יום?",
+["כי הן חינם","כדי לעודד אוטומציה ולהקטין את חלון הפגיעות — אם מפתח נגנב, התעודה פגה מהר","כי הן חלשות יותר","כי CA דורש תשלום לארוך יותר"],1,
+"90 יום = אם מפתח נחשף, הנזק מוגבל. מעודד certbot/automation במקום חידוש ידני שנשכח. תעודות מסחריות (1-2 שנים) = חלון פגיעות ארוך יותר. Let's Encrypt הנפיק מיליארדי תעודות והפך HTTPS לברירת מחדל."]
+];
+var L="\u05D0\u05D1\u05D2\u05D3",cur=0,sc=0,cc=0,sk=0,mx=0,ans={},ts=0;
+setInterval(function(){ts++;document.getElementById('timer').textContent=String(Math.floor(ts/60)).padStart(2,'0')+':'+String(ts%60).padStart(2,'0');},1000);
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function render(){var a=document.getElementById('area');a.innerHTML='';for(var i=0;i<QS.length;i++){var q=QS[i];var card=document.createElement('div');card.className='qc'+(i===cur?' active':'');card.id='qc-'+i;var codeH=q[5]?'<div class="code">'+esc(q[5])+'</div>':'';var optsH='<div class="opts">';for(var j=0;j<q[2].length;j++){optsH+='<button class="opt" id="o-'+i+'-'+j+'" data-i="'+i+'" data-o="'+j+'"><span class="ol">'+L[j]+'</span><span>'+esc(q[2][j])+'</span></button>';}optsH+='</div>';card.innerHTML='<div class="qh"><span class="qtag">שאלה '+(i+1)+'/'+QS.length+'</span><span class="qpts">+10</span></div><div class="qb"><div class="theory">'+q[0]+'</div><div class="qt">'+esc(q[1])+'</div>'+codeH+optsH+'<div class="fb" id="fb-'+i+'"></div></div>';a.appendChild(card);}a.addEventListener('click',function(e){var o=e.target.closest('.opt');if(o)handleA(parseInt(o.getAttribute('data-i')),parseInt(o.getAttribute('data-o')));});}
+function handleA(qi,oi){if(ans[qi]!==undefined)return;var q=QS[qi];var ci=q[3];var ok=oi===ci;ans[qi]=ok;var bs=document.querySelectorAll('[id^="o-'+qi+'-"]');for(var j=0;j<bs.length;j++){if(j===ci)bs[j].classList.add('ok');else if(j===oi&&!ok)bs[j].classList.add('no');bs[j].classList.add('dis');}var fb=document.getElementById('fb-'+qi);if(ok){cc++;sc+=10;sk++;if(sk>mx)mx=sk;if(sk>=3)sc+=5;fb.className='fb show fok';fb.textContent='\u2705 נכון! +10'+(sk>=3?' (+5 רצף!)':'');}else{sk=0;fb.className='fb show fno';fb.textContent='\u274C לא נכון';}fb.appendChild(document.createElement('br'));fb.appendChild(document.createTextNode(q[4]));document.getElementById('sS').textContent=sc;document.getElementById('sC').textContent=cc;document.getElementById('sK').textContent=sk;document.getElementById('pfl').style.width=(((qi+1)/QS.length)*100)+'%';document.getElementById('plbl').textContent=(qi+1)+' / '+QS.length;var nb=document.getElementById('nBtn');nb.disabled=false;if(qi>=QS.length-1)nb.textContent='📊 תוצאות';}
+window.nextQ=function(){if(cur>=QS.length-1){showRes();return;}document.getElementById('qc-'+cur).classList.remove('active');cur++;document.getElementById('qc-'+cur).classList.add('active');document.getElementById('nBtn').disabled=true;document.getElementById('qc-'+cur).scrollIntoView({behavior:'smooth',block:'center'});};
+function showRes(){document.getElementById('area').style.display='none';document.getElementById('foot').style.display='none';var rs=document.getElementById('resScr');rs.classList.add('show');var pct=sc/(QS.length*10);var g,gc;if(pct>=.9){g='A+';gc='ga';}else if(pct>=.75){g='B';gc='gb';}else if(pct>=.55){g='C';gc='gc';}else{g='F';gc='gf';}var m=String(Math.floor(ts/60)).padStart(2,'0');var s=String(ts%60).padStart(2,'0');rs.innerHTML='<div class="re">'+(pct>=.9?'🏆':pct>=.75?'🎯':pct>=.55?'📚':'💪')+'</div><div class="rt" style="color:'+(pct>=.75?'var(--acc)':'var(--gold)')+'">'+  (pct>=.9?'TLS Master!':pct>=.75?'מצוין!':pct>=.55?'בדרך הנכונה':'צריך חזרה')+'</div><div class="rsu">'+cc+'/'+QS.length+' | '+sc+' נק\' | '+m+':'+s+' | רצף: '+mx+'</div><div class="rg '+gc+'">'+g+'</div><br><button class="retry" onclick="location.reload()">נסה שוב ↻</button>';}render();})();
+</script></body></html>

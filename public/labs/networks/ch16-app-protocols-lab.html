@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 16 — פרוטוקולי אפליקציה</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060a10;--bg2:#0c1119;--bg3:#141c28;--border:#1e2d42;--acc:#818cf8;--ad:rgba(129,140,248,0.1);--green:#4ade80;--gd:rgba(74,222,128,0.08);--red:#ef4444;--rd:rgba(239,68,68,0.1);--gold:#fbbf24;--text:#dfe6f0;--t2:#7b8da4;}
+*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+.grid{position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(129,140,248,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(129,140,248,0.03) 1px,transparent 1px);background-size:40px 40px;}
+header{position:sticky;top:0;z-index:50;background:linear-gradient(180deg,#080e16,rgba(6,10,16,.97));backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;}
+.logo{display:flex;align-items:center;gap:10px;}.icon{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--acc),#4f46e5);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.logo h1{font-family:'Space Mono',monospace;font-size:14px;color:var(--acc);}.logo .sub{font-size:11px;color:var(--t2);}
+.badge{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:4px 10px;font-family:'Space Mono',monospace;font-size:11px;color:var(--green);display:flex;align-items:center;gap:5px;}.dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:b 2s infinite;}@keyframes b{0%,100%{opacity:1;}50%{opacity:.3;}}
+.pbar{background:var(--bg2);border-bottom:1px solid var(--border);padding:6px 16px;display:flex;align-items:center;gap:10px;}.ptr{flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;}.pfl{height:100%;border-radius:3px;transition:width .5s;background:linear-gradient(90deg,var(--acc),#4f46e5);}.plbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--t2);}
+.wrap{padding:14px;padding-bottom:100px;position:relative;z-index:1;}
+.qc{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px;display:none;}.qc.active{display:block;animation:up .3s ease;}@keyframes up{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.qh{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}.qtag{font-family:'Space Mono',monospace;font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;background:var(--ad);color:var(--acc);}.qpts{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--gold);}
+.qb{padding:14px;}.theory{font-size:13px;color:var(--t2);line-height:1.9;margin-bottom:14px;padding:12px 14px;background:var(--bg3);border-radius:10px;border-right:3px solid var(--acc);}.theory strong{color:var(--text);}
+.qt{font-size:14px;font-weight:700;line-height:1.6;margin-bottom:12px;color:var(--acc);}
+.code{background:#040810;border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:12px;font-family:'Space Mono',monospace;font-size:10px;line-height:1.7;direction:ltr;text-align:left;color:var(--t2);overflow-x:auto;white-space:pre-wrap;}
+.opts{display:flex;flex-direction:column;gap:6px;}.opt{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 12px;cursor:pointer;transition:all .2s;text-align:right;width:100%;color:var(--text);font-family:'Heebo',sans-serif;font-size:12px;line-height:1.5;}.opt:hover{border-color:var(--acc);background:var(--ad);}
+.ol{width:24px;height:24px;flex-shrink:0;background:var(--ad);border:1px solid rgba(129,140,248,0.2);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:var(--acc);}
+.opt.ok{border-color:var(--green);background:var(--gd);}.opt.ok .ol{background:var(--green);color:var(--bg);}.opt.no{border-color:var(--red);background:var(--rd);}.opt.no .ol{background:var(--red);color:#fff;}.opt.dis{pointer-events:none;opacity:.5;}
+.fb{margin-top:10px;padding:10px;border-radius:8px;font-size:11px;line-height:1.7;display:none;}.fb.show{display:block;animation:up .3s;}.fb.fok{background:var(--gd);border:1px solid rgba(74,222,128,0.2);color:#86efac;}.fb.fno{background:var(--rd);border:1px solid rgba(239,68,68,0.2);color:#fca5a5;}
+.foot{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(0deg,var(--bg) 70%,transparent);padding:14px 16px 10px;z-index:50;}.foot-in{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:8px 12px;display:flex;align-items:center;justify-content:space-between;}.fts{display:flex;gap:14px;}.fs{text-align:center;}.fv{font-family:'Space Mono',monospace;font-size:17px;font-weight:700;color:var(--acc);}.fl{font-size:8px;color:var(--t2);}
+.nb{background:linear-gradient(135deg,var(--acc),#4f46e5);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-family:'Heebo',sans-serif;font-weight:700;font-size:12px;cursor:pointer;}.nb:disabled{opacity:.3;cursor:not-allowed;}
+.res{display:none;text-align:center;padding:30px 16px;position:relative;z-index:1;}.res.show{display:block;animation:up .5s;}.re{font-size:50px;margin-bottom:10px;}.rt{font-size:20px;font-weight:900;margin-bottom:6px;}.rsu{font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:16px;}
+.rg{display:inline-block;font-family:'Space Mono',monospace;font-size:36px;font-weight:700;padding:8px 24px;border-radius:12px;margin-bottom:16px;}.ga{background:var(--gd);color:var(--green);border:2px solid var(--green);}.gb{background:var(--ad);color:var(--acc);border:2px solid var(--acc);}.gc{background:rgba(251,146,60,0.1);color:var(--gold);border:2px solid var(--gold);}.gf{background:var(--rd);color:var(--red);border:2px solid var(--red);}
+.retry{margin-top:14px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 24px;color:var(--acc);font-family:'Heebo',sans-serif;font-weight:700;font-size:13px;cursor:pointer;}
+</style></head><body><div class="grid"></div>
+<header><div class="logo"><div class="icon">📱</div><div><h1>Lab — פרק 16</h1><div class="sub">פרוטוקולי אפליקציה — App Protocols</div></div></div><div class="badge"><div class="dot"></div><span id="timer">00:00</span></div></header>
+<div class="pbar"><div class="ptr"><div class="pfl" id="pfl" style="width:0%"></div></div><div class="plbl" id="plbl">0 / 8</div></div>
+<div class="wrap" id="area"></div><div class="res" id="resScr"></div>
+<div class="foot" id="foot"><div class="foot-in"><div class="fts"><div class="fs"><div class="fv" id="sS">0</div><div class="fl">נקודות</div></div><div class="fs"><div class="fv" id="sC">0</div><div class="fl">נכונות</div></div><div class="fs"><div class="fv" id="sK">0</div><div class="fl">רצף🔥</div></div></div><button class="nb" id="nBtn" disabled onclick="nextQ()">הבא ←</button></div></div>
+<script>
+(function(){
+var QS=[
+["<strong>WebSocket</strong> הוא פרוטוקול שמאפשר תקשורת דו-כיוונית מתמשכת בין דפדפן לשרת. בניגוד ל-HTTP רגיל שבו הלקוח שולח בקשה ומקבל תשובה (ואז החיבור \"מת\"), WebSocket שומר חיבור פתוח — שני הצדדים יכולים לשלוח הודעות בכל רגע. מתחיל כ-HTTP Upgrade ועובר לפרוטוקול ws://.",
+"למה WebSocket עדיף על HTTP Polling לצ'אט בזמן אמת?",
+["כי הוא מוצפן יותר","חיבור אחד פתוח תמיד — בלי overhead של בקשות חוזרות כל שנייה","כי הוא משתמש ב-UDP","כי הוא לא צריך שרת"],1,
+"HTTP Polling: הלקוח שולח GET כל שנייה ושואל \"יש חדש?\". בזבוז bandwidth ו-latency. WebSocket: חיבור פתוח, השרת דוחף הודעות ברגע שהן מגיעות. אפס overhead, latency מינימלי. שימושים: צ'אט, trading, gaming, notifications.",
+"HTTP Polling (wasteful):\n  Client: GET /messages?since=100  (every 1s)\n  Server: 200 OK []               (nothing new)\n  Client: GET /messages?since=100  (again...)\n  Server: 200 OK [{new message}]   (finally!)\n\nWebSocket (efficient):\n  Client: GET /chat (Upgrade: websocket)\n  Server: 101 Switching Protocols\n  --- persistent connection ---\n  Server: {\"msg\": \"Hello!\"}     (instant push)\n  Client: {\"msg\": \"Hi back!\"}   (instant send)\n  Server: {\"msg\": \"How are you?\"}"],
+
+["<strong>gRPC</strong> הוא framework של Google לתקשורת בין שירותים (microservices). הוא משתמש ב-HTTP/2 ו-Protocol Buffers (פורמט בינארי קטן ומהיר). בניגוד ל-REST שמעביר JSON כטקסט, gRPC מעביר נתונים בינאריים — קטנים יותר ומפורסרים מהר יותר. תומך ב-streaming דו-כיווני.",
+"מה היתרון של gRPC על REST API?",
+["gRPC תומך בדפדפנים טוב יותר","נתונים בינאריים קטנים + HTTP/2 multiplexing = מהיר ויעיל בין microservices","gRPC לא צריך שרת","gRPC מוצפן יותר"],1,
+"gRPC: protobuf (בינארי, קטן), HTTP/2 (multiplexing, streaming), type safety (schema מוגדר מראש). REST: JSON (טקסט, גדול), HTTP/1.1 (בד\"כ), גמיש אבל ללא schema. gRPC מצוין בין שירותים; REST מצוין לAPI ציבורי."],
+
+["<strong>GraphQL</strong> הוא שפת שאילתות ל-APIs שפיתחה Facebook. בניגוד ל-REST שבו כל endpoint מחזיר מבנה קבוע, ב-GraphQL הלקוח מגדיר בדיוק אילו שדות הוא רוצה. זה פותר שתי בעיות: Over-fetching (מקבלים יותר מדי) ו-Under-fetching (צריכים כמה בקשות לקבל הכל).",
+"מה הבעיה ש-GraphQL פותר?",
+["אבטחה","Over-fetching ו-Under-fetching — הלקוח מגדיר בדיוק מה הוא צריך בשאילתה אחת","מהירות שרת","הצפנה"],1,
+"REST: GET /users/1 מחזיר 20 שדות, רוצה רק name. Over-fetch. צריך גם posts? בקשה נוספת. Under-fetch. GraphQL: שאילתה אחת { user(id:1) { name, posts { title } } } = בדיוק מה שצריך. חיסרון: complexity, caching קשה יותר.",
+"REST (multiple requests, extra data):\n  GET /users/1        -> {id,name,email,bio,...}\n  GET /users/1/posts  -> [{id,title,body,...}]\n  2 requests, got fields we don't need\n\nGraphQL (one request, exact data):\n  POST /graphql\n  { user(id: 1) {\n      name\n      posts { title }\n  }}\n  -> {\"user\": {\"name\": \"Hila\", \"posts\": [{\"title\": \"...\"}]}}\n  1 request, exactly what we asked for"],
+
+["<strong>DHCP (Dynamic Host Configuration Protocol)</strong> מחלק כתובות IP אוטומטית כשמכשיר מתחבר לרשת. בלעדיו, כל מכשיר היה צריך הגדרה ידנית. DHCP נותן: IP, Subnet Mask, Default Gateway, DNS server, ו-Lease Time (כמה זמן ה-IP שלך). הכל ב-4 הודעות UDP.",
+"מה Lease Time ב-DHCP?",
+["זמן חיבור ל-WiFi","הזמן שה-IP מוקצה לך — כשנגמר, צריך לחדש או לקבל IP חדש","זמן הורדה","TTL של packet"],1,
+"Lease = השאלה זמנית. בבית: 24 שעות בד\"כ. בקפה: 1-2 שעות. כשנגמר 50% מה-lease, המכשיר מנסה לחדש אוטומטית (DHCP Request). אם השרת לא מגיב — מנסה ב-87.5%. אם נכשל — מחפש DHCP חדש.",
+"DHCP DORA Process (all UDP):\n\n  Client          DHCP Server\n    |                  |\n    |-- Discover ----->|  Broadcast: \"I need an IP!\"\n    |  (UDP 67/68)     |\n    |<-- Offer --------|  \"Here, take 192.168.1.50\"\n    |                  |   lease: 86400s (24h)\n    |-- Request ------>|  \"Yes, I want that one\"\n    |                  |\n    |<-- Acknowledge --|  \"It's yours for 24 hours\"\n    |                  |\n    | After 12 hours:  |\n    |-- Request ------>|  \"Can I keep my IP?\"\n    |<-- ACK ----------|  \"Yes, renewed for 24h\""],
+
+["<strong>NTP (Network Time Protocol)</strong> מסנכרן שעונים בין מחשבים ברשת. נשמע פשוט, אבל זה קריטי: תעודות TLS בודקות תאריכים, לוגים צריכים חותמות זמן מדויקות, Kerberos authentication נכשל עם הפרש של 5 דקות. NTP מדויק עד מילישניות ומשתמש בהיררכיה של שרתים (Stratum).",
+"למה סנכרון שעונים קריטי לאבטחה?",
+["כי השעון יפה","תעודות TLS, לוגים, ו-Kerberos תלויים בזמן מדויק — הפרש יגרום לכשלונות אימות","כי DNS צריך שעון","כי TCP צריך שעון"],1,
+"TLS Certificate: \"valid from Jan 1 to Dec 31\". שעון לא מסונכרן? התעודה נראית פגה → HTTPS שבור. Kerberos: ticket valid for 5 min → הפרש שעון = authentication failure. לוגים: חקירת incident דורשת timestamps מדויקים בין שרתים."],
+
+["<strong>SSH (Secure Shell)</strong> מאפשר גישה מרחוק מאובטחת לשרתים. הוא מצפין את כל התקשורת — בניגוד ל-Telnet הישן שהעביר סיסמאות בטקסט פתוח. SSH תומך גם ב-SCP/SFTP (העברת קבצים), Port Forwarding (tunneling), ו-Key-based Authentication (בלי סיסמה).",
+"למה SSH Key Authentication עדיף על סיסמה?",
+["כי הוא מהיר יותר","מפתח RSA/Ed25519 בלתי אפשרי ל-Brute Force; סיסמה יכולה להיות חלשה או להיגנב","כי הוא לא דורש אינטרנט","כי הוא עובד רק ב-Linux"],1,
+"SSH Key: Private Key נשאר אצלך (מוגן בpassphrase), Public Key על השרת. הKey הוא 2048-4096 ביט — impossible לbrute force. סיסמה: 8-20 תווים, ניתן לנחש/לגנוב/phishing. Key = הסטנדרט בproduction servers. disable password auth!",
+"SSH Key Authentication:\n\n  1. Generate key pair:\n     $ ssh-keygen -t ed25519\n     -> ~/.ssh/id_ed25519      (private - KEEP SECRET)\n     -> ~/.ssh/id_ed25519.pub  (public - copy to server)\n\n  2. Copy public key to server:\n     $ ssh-copy-id user@server\n     (adds to ~/.ssh/authorized_keys)\n\n  3. Connect (no password!):\n     $ ssh user@server\n     -> Authenticated by key automatically\n\n  4. Disable password auth (security!):\n     /etc/ssh/sshd_config:\n     PasswordAuthentication no"],
+
+["<strong>SNMP (Simple Network Management Protocol)</strong> משמש לניטור וניהול רכיבי רשת. Router, Switch, Server — כולם חושפים מידע דרך SNMP: CPU usage, bandwidth, errors, uptime. כלי ניטור כמו Zabbix, Nagios, PRTG אוספים את המידע הזה ומתריעים כשמשהו לא בסדר.",
+"מה MIB ב-SNMP?",
+["סוג הצפנה","מסד נתונים היררכי שמגדיר אילו פרמטרים אפשר לקרוא/לשנות במכשיר","סוג כבל","פרוטוקול ניתוב"],1,
+"MIB (Management Information Base) = עץ של OIDs (Object Identifiers) שכל אחד מייצג פרמטר. למשל: 1.3.6.1.2.1.1.3.0 = uptime. SNMP v1/v2c = community strings (כמו סיסמה בטקסט). SNMP v3 = הצפנה ואימות. תמיד להשתמש ב-v3!"],
+
+["<strong>SIP (Session Initiation Protocol)</strong> הוא הפרוטוקול שמנהל שיחות VoIP — טלפוניה דרך האינטרנט. SIP אחראי על הקמת השיחה (מי מתקשר למי, מה ה-codecs), אבל הקול עצמו עובר דרך <strong>RTP (Real-time Transport Protocol)</strong> מעל UDP. SIP = שליטה, RTP = מדיה.",
+"למה הקול ב-VoIP עובר ב-UDP ולא TCP?",
+["כי UDP מוצפן","כי UDP מהיר יותר — ב-real-time עדיף לאבד packet מאשר לחכות ל-retransmission","כי TCP לא תומך באודיו","כי UDP זול יותר"],1,
+"TCP retransmission = delay = שתיקה באמצע שיחה (רע!). UDP packet loss = רעש קטן שהמוח משלים (מקובל). בשיחת טלפון, packet שמגיע מאוחר חסר ערך — הרגע עבר. לכן UDP + RTP + jitter buffer = הפתרון האופטימלי ל-real-time."]
+];
+var L="\u05D0\u05D1\u05D2\u05D3",cur=0,sc=0,cc=0,sk=0,mx=0,ans={},ts=0;
+setInterval(function(){ts++;document.getElementById('timer').textContent=String(Math.floor(ts/60)).padStart(2,'0')+':'+String(ts%60).padStart(2,'0');},1000);
+function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+function render(){var a=document.getElementById('area');a.innerHTML='';for(var i=0;i<QS.length;i++){var q=QS[i];var card=document.createElement('div');card.className='qc'+(i===cur?' active':'');card.id='qc-'+i;var codeH=q[5]?'<div class="code">'+esc(q[5])+'</div>':'';var optsH='<div class="opts">';for(var j=0;j<q[2].length;j++){optsH+='<button class="opt" id="o-'+i+'-'+j+'" data-i="'+i+'" data-o="'+j+'"><span class="ol">'+L[j]+'</span><span>'+esc(q[2][j])+'</span></button>';}optsH+='</div>';card.innerHTML='<div class="qh"><span class="qtag">שאלה '+(i+1)+'/'+QS.length+'</span><span class="qpts">+10</span></div><div class="qb"><div class="theory">'+q[0]+'</div><div class="qt">'+esc(q[1])+'</div>'+codeH+optsH+'<div class="fb" id="fb-'+i+'"></div></div>';a.appendChild(card);}a.addEventListener('click',function(e){var o=e.target.closest('.opt');if(o)handleA(parseInt(o.getAttribute('data-i')),parseInt(o.getAttribute('data-o')));});}
+function handleA(qi,oi){if(ans[qi]!==undefined)return;var q=QS[qi];var ci=q[3];var ok=oi===ci;ans[qi]=ok;var bs=document.querySelectorAll('[id^="o-'+qi+'-"]');for(var j=0;j<bs.length;j++){if(j===ci)bs[j].classList.add('ok');else if(j===oi&&!ok)bs[j].classList.add('no');bs[j].classList.add('dis');}var fb=document.getElementById('fb-'+qi);if(ok){cc++;sc+=10;sk++;if(sk>mx)mx=sk;if(sk>=3)sc+=5;fb.className='fb show fok';fb.textContent='\u2705 נכון! +10'+(sk>=3?' (+5 רצף!)':'');}else{sk=0;fb.className='fb show fno';fb.textContent='\u274C לא נכון';}fb.appendChild(document.createElement('br'));fb.appendChild(document.createTextNode(q[4]));document.getElementById('sS').textContent=sc;document.getElementById('sC').textContent=cc;document.getElementById('sK').textContent=sk;document.getElementById('pfl').style.width=(((qi+1)/QS.length)*100)+'%';document.getElementById('plbl').textContent=(qi+1)+' / '+QS.length;var nb=document.getElementById('nBtn');nb.disabled=false;if(qi>=QS.length-1)nb.textContent='📊 תוצאות';}
+window.nextQ=function(){if(cur>=QS.length-1){showRes();return;}document.getElementById('qc-'+cur).classList.remove('active');cur++;document.getElementById('qc-'+cur).classList.add('active');document.getElementById('nBtn').disabled=true;document.getElementById('qc-'+cur).scrollIntoView({behavior:'smooth',block:'center'});};
+function showRes(){document.getElementById('area').style.display='none';document.getElementById('foot').style.display='none';var rs=document.getElementById('resScr');rs.classList.add('show');var pct=sc/(QS.length*10);var g,gc;if(pct>=.9){g='A+';gc='ga';}else if(pct>=.75){g='B';gc='gb';}else if(pct>=.55){g='C';gc='gc';}else{g='F';gc='gf';}var m=String(Math.floor(ts/60)).padStart(2,'0');var s=String(ts%60).padStart(2,'0');rs.innerHTML='<div class="re">'+(pct>=.9?'🏆':pct>=.75?'🎯':pct>=.55?'📚':'💪')+'</div><div class="rt" style="color:'+(pct>=.75?'var(--acc)':'var(--gold)')+'">'+  (pct>=.9?'App Protocols Master!':pct>=.75?'מצוין!':pct>=.55?'בדרך הנכונה':'צריך חזרה')+'</div><div class="rsu">'+cc+'/'+QS.length+' | '+sc+' נק\' | '+m+':'+s+' | רצף: '+mx+'</div><div class="rg '+gc+'">'+g+'</div><br><button class="retry" onclick="location.reload()">נסה שוב ↻</button>';}render();})();
+</script></body></html>

@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLang } from '../utils/language.jsx'
+import { isProUnlocked, validateCode } from '../utils/proAccess.js'
 
 const TRACKS = [
   {
@@ -123,6 +124,33 @@ const TRACKS = [
         xp: 100,
         src: '/labs/networks/ch13-glossary-lab.html',
       },
+      {
+        id: 'net-ch14',
+        title: { he: '🛠️ פקודות וכלים — Commands & Tools', en: '🛠️ Commands & Tools' },
+        description: { he: 'ping, traceroute, nslookup, netstat, curl ועוד — תרגול מעשי של כלי הרשת החיוניים.', en: 'ping, traceroute, nslookup, netstat, curl and more — hands-on practice with essential network tools.' },
+        chapter: { he: 'פרק 14', en: 'Chapter 14' },
+        difficulty: { he: 'מתחיל', en: 'Beginner' },
+        xp: 110,
+        src: '/labs/networks/ch14-commands-tools-lab.html',
+      },
+      {
+        id: 'net-ch15',
+        title: { he: '🔒 HTTPS ו-TLS — תקשורת מוצפנת', en: '🔒 HTTPS & TLS — Encrypted Communication' },
+        description: { he: 'איך TLS Handshake עובד, certificates, HSTS, ומה ההבדל בין HTTP ל-HTTPS בפועל.', en: 'How TLS Handshake works, certificates, HSTS, and the practical difference between HTTP and HTTPS.' },
+        chapter: { he: 'פרק 15', en: 'Chapter 15' },
+        difficulty: { he: 'בינוני', en: 'Intermediate' },
+        xp: 140,
+        src: '/labs/networks/ch15-https-tls-lab.html',
+      },
+      {
+        id: 'net-ch16',
+        title: { he: '📱 פרוטוקולי אפליקציה — App Protocols', en: '📱 Application Protocols' },
+        description: { he: 'HTTP/2, WebSockets, gRPC, REST vs GraphQL — השוואה מעשית של פרוטוקולי שכבת האפליקציה המודרניים.', en: 'HTTP/2, WebSockets, gRPC, REST vs GraphQL — practical comparison of modern application layer protocols.' },
+        chapter: { he: 'פרק 16', en: 'Chapter 16' },
+        difficulty: { he: 'בינוני', en: 'Intermediate' },
+        xp: 140,
+        src: '/labs/networks/ch16-app-protocols-lab.html',
+      },
     ],
   },
   {
@@ -169,11 +197,85 @@ const DIFFICULTY_COLORS = {
   'Advanced': { bg: 'rgba(220,38,38,0.1)', color: '#dc2626' },
 }
 
+function ProLockScreen({ onUnlock, isEn }) {
+  const [code, setCode] = useState('')
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    if (!code.trim()) return
+    setLoading(true)
+    setError(false)
+    const ok = await validateCode(code)
+    setLoading(false)
+    if (ok) onUnlock()
+    else setError(true)
+  }
+
+  return (
+    <div style={{
+      display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+      minHeight: '60vh', padding: '32px', textAlign: 'center',
+    }}>
+      <div style={{ fontSize: '3rem', marginBottom: '16px' }}>🔐</div>
+      <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text, #1f2937)', marginBottom: '8px' }}>
+        {isEn ? 'Pro Content' : 'תוכן Pro'}
+      </h2>
+      <p style={{ color: 'var(--text-muted, #6b7280)', marginBottom: '28px', maxWidth: '340px', lineHeight: 1.6 }}>
+        {isEn
+          ? 'The Labs are available to approved students only. Enter your access code to continue.'
+          : 'המעבדות זמינות לסטודנטים מאושרים בלבד. הזן את קוד הגישה שקיבלת כדי להמשיך.'}
+      </p>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', maxWidth: '300px' }}>
+        <input
+          type="text"
+          value={code}
+          onChange={e => { setCode(e.target.value); setError(false) }}
+          placeholder={isEn ? 'Enter access code...' : 'קוד גישה...'}
+          autoFocus
+          style={{
+            padding: '12px 16px', borderRadius: '10px', fontSize: '1rem',
+            border: `1.5px solid ${error ? '#ef4444' : 'var(--border, #e5e7eb)'}`,
+            background: 'var(--bg, #fff)', color: 'var(--text, #1f2937)',
+            outline: 'none', textAlign: 'center', letterSpacing: '0.05em',
+          }}
+        />
+        {error && (
+          <span style={{ color: '#ef4444', fontSize: '0.85rem' }}>
+            {isEn ? 'Invalid code. Please try again.' : 'קוד שגוי. נסה שוב.'}
+          </span>
+        )}
+        <button
+          type="submit"
+          disabled={loading || !code.trim()}
+          style={{
+            padding: '12px', borderRadius: '10px', fontWeight: 700, fontSize: '1rem',
+            background: 'var(--accent, #0891b2)', color: '#fff', border: 'none',
+            cursor: loading || !code.trim() ? 'not-allowed' : 'pointer',
+            opacity: loading || !code.trim() ? 0.6 : 1,
+          }}
+        >
+          {loading ? '...' : (isEn ? 'Unlock Labs' : 'פתח גישה')}
+        </button>
+      </form>
+      <p style={{ marginTop: '24px', fontSize: '0.8rem', color: 'var(--text-muted, #6b7280)' }}>
+        {isEn ? "Don't have a code? Contact your instructor." : 'אין לך קוד? פנה למרצה.'}
+      </p>
+    </div>
+  )
+}
+
 export function LabsTab() {
   const { lang } = useLang()
   const isEn = lang === 'en'
   const [activeLab, setActiveLab] = useState(null)
   const [activeTrack, setActiveTrack] = useState('networks')
+  const [unlocked, setUnlocked] = useState(() => isProUnlocked())
+
+  if (!unlocked) {
+    return <ProLockScreen onUnlock={() => setUnlocked(true)} isEn={isEn} />
+  }
 
   if (activeLab) {
     return (
