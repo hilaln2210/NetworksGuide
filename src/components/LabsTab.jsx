@@ -246,35 +246,7 @@ const TRACKS = [
   {
     id: 'security',
     label: { he: '🔒 אבטחת מידע', en: '🔒 Cybersecurity' },
-    labs: [
-      {
-        id: 'soc-analyst',
-        title: { he: '🔍 סימולציית אנליסט SOC', en: '🔍 SOC Analyst Simulation' },
-        description: { he: 'חקור אירועי אבטחה בסביבת SIEM אמיתית — זהה התקפות, ענה על שאלות חקירה, ותרגל כישורי Blue Team.', en: 'Investigate security events in a real SIEM environment — identify attacks, answer investigation questions, and practice Blue Team skills.' },
-        chapter: { he: 'פרק 5 — אבטחת רשת', en: 'Chapter 5 — Network Security' },
-        difficulty: { he: 'בינוני', en: 'Intermediate' },
-        xp: 150,
-        src: '/labs/soc-lab.html',
-      },
-      {
-        id: 'bug-bounty-ctf',
-        title: { he: '🐛 Bug Bounty CTF', en: '🐛 Bug Bounty CTF' },
-        description: { he: '5 אתגרים עם קוד אמיתי: XSS, IDOR, Base64, SQL Injection, וכתיבת דוח Bug Bounty מקצועי. מערכת Bounty כספי ו-3 חיים.', en: '5 real-code challenges: XSS, IDOR, Base64, SQL Injection, and writing a professional Bug Bounty report. Bounty money system and 3 lives.' },
-        chapter: { he: 'פרק 6 — אבטחת אפליקציות', en: 'Chapter 6 — Application Security' },
-        difficulty: { he: 'מתקדם', en: 'Advanced' },
-        xp: 200,
-        src: '/labs/ch6-bug-bounty.html',
-      },
-      {
-        id: 'crypto-lab',
-        title: { he: '🔐 מעבדת קריפטוגרפיה', en: '🔐 Cryptography Lab' },
-        description: { he: '5 אתגרים: Caesar Cipher, הצפנה סימטרית/אסימטרית, Hash Collision, MitM על TLS, ובחירת ארכיטקטורת הצפנה. מערכת "מפתחות".', en: '5 challenges: Caesar Cipher, symmetric/asymmetric encryption, Hash Collision, MitM on TLS, and choosing encryption architecture. "Keys" system.' },
-        chapter: { he: 'פרק 7 — קריפטוגרפיה', en: 'Chapter 7 — Cryptography' },
-        difficulty: { he: 'בינוני', en: 'Intermediate' },
-        xp: 180,
-        src: '/labs/ch7-crypto.html',
-      },
-    ],
+    labs: [],
   },
 ]
 
