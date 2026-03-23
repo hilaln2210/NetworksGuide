@@ -4,11 +4,13 @@ import { isFirebaseConfigured } from '../config/firebase.js'
 import { useLang } from '../utils/language.jsx'
 
 export function UserMenu({ user, onSignIn, onSignOut }) {
-  if (!isFirebaseConfigured()) return null
   const { lang } = useLang()
-  const isEn = lang === 'en'
   const [loading, setLoading] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
+
+  const isEn = lang === 'en'
+
+  if (!isFirebaseConfigured()) return null
 
   async function handleSignIn() {
     setLoading(true)
