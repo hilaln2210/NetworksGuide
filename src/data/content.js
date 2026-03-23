@@ -14,64 +14,7 @@ export const tracks = [
     icon: '🌐',
     color: '#0891b2',
     level: 'מתחיל–מתקדם',
-    chapters: [
-  {
-    id: 3,
-    title: "Wireshark ומודל חמש השכבות",
-    pages: [
-      { type: "html_page", title: "Wireshark ומודל חמש השכבות", src: "/learn/networks/learn_ch03.html" }
-    ]
-  },
-  {
-    id: 4,
-    title: "שכבת האפליקציה",
-    pages: [
-      { type: "html_page", title: "שכבת האפליקציה", src: "/learn/networks/learn_ch04.html" }
-    ]
-  },
-  {
-    id: 5,
-    title: "Scapy — Packet Crafting",
-    pages: [
-      { type: "html_page", title: "Scapy — Packet Crafting", src: "/learn/networks/learn_ch05.html" }
-    ]
-  },
-  {
-    id: 6,
-    title: "שכבת התעבורה",
-    pages: [
-      { type: "html_page", title: "שכבת התעבורה", src: "/learn/networks/learn_ch06.html" }
-    ]
-  },
-  {
-    id: 7,
-    title: "שכבת הרשת",
-    pages: [
-      { type: "html_page", title: "שכבת הרשת", src: "/learn/networks/learn_ch07.html" }
-    ]
-  },
-  {
-    id: 8,
-    title: "שכבת הקו",
-    pages: [
-      { type: "html_page", title: "שכבת הקו", src: "/learn/networks/learn_ch08.html" }
-    ]
-  },
-  {
-    id: 9,
-    title: "רכיבי רשת",
-    pages: [
-      { type: "html_page", title: "רכיבי רשת", src: "/learn/networks/learn_ch09.html" }
-    ]
-  },
-  {
-    id: 10,
-    title: "השכבה הפיזית",
-    pages: [
-      { type: "html_page", title: "השכבה הפיזית", src: "/learn/networks/learn_ch10.html" }
-    ]
-  }
-    ]
+    chapters: []
   },
   {
     id: 'cyber',
