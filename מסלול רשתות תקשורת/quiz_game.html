@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NetQuiz ⚡ חידון רשתות</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800;900&family=Space+Grotesk:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   TOKENS
+══════════════════════════════════════════ */
+:root {
+  --bg:    #070a12;
+  --bg2:   #0d1120;
+  --surf:  #111827;
+  --s2:    #1a2235;
+  --brd:   #1e2d45;
+  --txt:   #e2eaff;
+  --dim:   #6a7a9a;
+  --mono:  'IBM Plex Mono', monospace;
+  --disp:  'Syne', sans-serif;
+  --body:  'Space Grotesk', sans-serif;
+
+  /* Track colors */
+  --t1: #f97316;   /* Layer 1 — orange  */
+  --t2: #06b6d4;   /* Layer 2 — cyan    */
+  --t3: #10b981;   /* Layer 3 — green   */
+  --t4: #f59e0b;   /* Layer 4 — amber   */
+  --t5: #a78bfa;   /* Layer 5 — purple  */
+
+  /* Levels */
+  --lv1: #34d399;
+  --lv2: #fbbf24;
+  --lv3: #f87171;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: var(--body);
+  min-height: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Animated noise/starfield */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,.08) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 55%, rgba(255,255,255,.06) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 25%, rgba(255,255,255,.07) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 70%, rgba(255,255,255,.05) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 85%, rgba(255,255,255,.06) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ambient glow — changes per track */
+#ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: background 1s ease;
+  background: radial-gradient(ellipse 70% 50% at 50% -10%, rgba(106,74,255,.08) 0%, transparent 65%);
+}
+
+.wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ══════════════════════════════════════════
+   SCREENS
+══════════════════════════════════════════ */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ══════════════════════════════════════════
+   HOME SCREEN
+══════════════════════════════════════════ */
+#home {
+  padding-top: 60px;
+  text-align: center;
+}
+
+.logo-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--dim);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  border: 1px solid var(--brd);
+  padding: 6px 16px;
+  border-radius: 99px;
+  background: rgba(255,255,255,.02);
+}
+
+.logo-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--t3);
+  animation: blink 1.4s ease-in-out infinite;
+}
+
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.home-title {
+  font-family: var(--disp);
+  font-weight: 900;
+  font-size: clamp(52px, 12vw, 96px);
+  line-height: 1;
+  letter-spacing: -3px;
+  margin-bottom: 4px;
+  color: #fff;
+}
+
+.home-title span {
+  background: linear-gradient(135deg, #f97316, #f59e0b, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.home-sub {
+  font-size: 17px;
+  color: var(--dim);
+  margin-bottom: 60px;
+  font-weight: 300;
+}
+
+/* Track cards */
+.tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 48px;
+  text-align: right;
+}
+
+.track-card {
+  background: var(--surf);
+  border: 1px solid var(--brd);
+  border-radius: 18px;
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: transform .18s, border-color .18s, box-shadow .18s;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.track-card::before {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 4px;
+  border-radius: 0 18px 18px 0;
+}
+
+.track-card:hover {
+  transform: translateX(4px);
+  border-color: var(--track-color, var(--brd));
+  box-shadow: 0 0 30px rgba(0,0,0,.3);
+}
+
+.track-card[data-track="1"] { --track-color: var(--t1); }
+.track-card[data-track="1"]::before { background: var(--t1); }
+.track-card[data-track="2"] { --track-color: var(--t2); }
+.track-card[data-track="2"]::before { background: var(--t2); }
+.track-card[data-track="3"] { --track-color: var(--t3); }
+.track-card[data-track="3"]::before { background: var(--t3); }
+.track-card[data-track="4"] { --track-color: var(--t4); }
+.track-card[data-track="4"]::before { background: var(--t4); }
+.track-card[data-track="5"] { --track-color: var(--t5); }
+.track-card[data-track="5"]::before { background: var(--t5); }
+
+.track-icon {
+  font-size: 36px;
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--brd);
+}
+
+.track-info { flex: 1; }
+
+.track-name {
+  font-family: var(--disp);
+  font-size: 18px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 3px;
+  letter-spacing: -.3px;
+}
+
+.track-desc {
+  font-size: 13px;
+  color: var(--dim);
+  line-height: 1.5;
+}
+
+.track-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.track-q-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+}
+
+.level-pips {
+  display: flex;
+  gap: 4px;
+}
+
+.pip {
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  background: var(--brd);
+}
+
+.pip.active { background: var(--track-color, var(--dim)); }
+
+/* ══════════════════════════════════════════
+   LEVEL SELECT
+══════════════════════════════════════════ */
+#levelSelect {
+  padding-top: 48px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  margin-bottom: 32px;
+  transition: color .15s;
+}
+
+.back-btn:hover { color: var(--txt); }
+
+.ls-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.ls-icon { font-size: 48px; margin-bottom: 12px; }
+
+.ls-title {
+  font-family: var(--disp);
+  font-size: 32px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  margin-bottom: 6px;
+}
+
+.ls-sub { font-size: 14px; color: var(--dim); }
+
+.levels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 560px) { .levels-grid { grid-template-columns: 1fr; } }
+
+.level-card {
+  border-radius: 18px;
+  padding: 24px 18px;
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: transform .18s, border-color .18s;
+  position: relative;
+  overflow: hidden;
+}
+
+.level-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: .04;
+}
+
+.level-card:hover { transform: translateY(-4px); }
+
+.lv-easy   { background: rgba(52,211,153,.08);  border-color: rgba(52,211,153,.25);  color: var(--lv1); }
+.lv-medium { background: rgba(251,191,36,.08);  border-color: rgba(251,191,36,.25);  color: var(--lv2); }
+.lv-hard   { background: rgba(248,113,113,.08); border-color: rgba(248,113,113,.25); color: var(--lv3); }
+
+.level-card:hover.lv-easy   { border-color: var(--lv1); }
+.level-card:hover.lv-medium { border-color: var(--lv2); }
+.level-card:hover.lv-hard   { border-color: var(--lv3); }
+
+.lv-emoji { font-size: 40px; margin-bottom: 10px; display: block; }
+
+.lv-name {
+  font-family: var(--disp);
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.lv-desc { font-size: 12px; color: var(--dim); line-height: 1.5; }
+
+.lv-info {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.lv-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 99px;
+  border: 1px solid currentColor;
+  opacity: .7;
+}
+
+/* ══════════════════════════════════════════
+   QUIZ SCREEN
+══════════════════════════════════════════ */
+#quiz { padding-top: 28px; }
+
+/* Top bar */
+.quiz-topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.qt-track-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 6px;
+  letter-spacing: .5px;
+}
+
+.qt-level-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid;
+}
+
+.qt-spacer { flex: 1; }
+
+/* XP counter */
+.xp-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--yw);
+}
+
+/* Timer */
+.timer-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 8px;
+  background: rgba(0,0,0,.3);
+  border: 1px solid var(--brd);
+  min-width: 60px;
+  justify-content: center;
+}
+
+.timer-wrap.danger { color: #f87171; border-color: rgba(248,113,113,.4); background: rgba(248,113,113,.06); animation: shake .12s ease infinite alternate; }
+@keyframes shake { from{transform:translateX(0)} to{transform:translateX(2px)} }
+
+/* Progress bar */
+.quiz-prog-bar {
+  height: 3px;
+  background: var(--brd);
+  border-radius: 99px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.quiz-prog-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width .4s ease;
+  background: linear-gradient(90deg, var(--track-c, #fff), rgba(255,255,255,.5));
+}
+
+/* Question card */
+.q-card {
+  background: var(--surf);
+  border: 1px solid var(--brd);
+  border-radius: 22px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  animation: slideIn .3s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes slideIn {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+.q-head {
+  background: var(--s2);
+  border-bottom: 1px solid var(--brd);
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.q-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+  letter-spacing: 1px;
+}
+
+.q-cat {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 2px 10px;
+  border-radius: 5px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--brd);
+  color: var(--dim);
+}
+
+.q-xp-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 5px;
+  margin-right: auto;
+}
+
+.q-body { padding: 26px 24px 20px; }
+
+.q-text {
+  font-size: 19px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.5;
+  margin-bottom: 26px;
+  letter-spacing: -.2px;
+}
+
+/* Snippet */
+.q-snippet {
+  background: #060c14;
+  border: 1px solid var(--brd);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 22px;
+  direction: ltr;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.9;
+}
+
+.qs-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,.02);
+  border-bottom: 1px solid var(--brd);
+}
+
+.qs-dot { width: 9px; height: 9px; border-radius: 50%; }
+.d-r{background:#ff5f57}.d-y{background:#febc2e}.d-g{background:#28c840}
+
+.qs-body { padding: 13px 16px; }
+
+/* Options */
+.opts { display: flex; flex-direction: column; gap: 8px; }
+
+.opt {
+  background: rgba(255,255,255,.03);
+  border: 1px solid var(--brd);
+  border-radius: 12px;
+  padding: 14px 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  text-align: right;
+  width: 100%;
+  font-family: var(--body);
+  font-size: 14.5px;
+  color: var(--txt);
+  line-height: 1.55;
+  transition: all .14s;
+  position: relative;
+  overflow: hidden;
+}
+
+.opt::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background:var(--track-c,rgba(255,255,255,.05));
+  opacity:0;
+  transition:opacity .14s;
+}
+
+.opt:hover:not(.done)::after { opacity:.06; }
+.opt:hover:not(.done) { border-color: var(--brd2); transform: translateX(-3px); }
+.opt.done { cursor: default; pointer-events: none; }
+
+.opt.correct { border-color: rgba(52,211,153,.5); background: rgba(52,211,153,.07); }
+.opt.wrong   { border-color: rgba(248,113,113,.4); background: rgba(248,113,113,.05); color: var(--dim); }
+.opt.reveal  { border-color: rgba(52,211,153,.3); background: rgba(52,211,153,.04); }
+
+.olabel {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--dim);
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--brd);
+  margin-top: 1px;
+  transition: all .14s;
+}
+
+.opt.correct .olabel { color: var(--lv1); background: rgba(52,211,153,.15); border-color: rgba(52,211,153,.3); }
+.opt.wrong   .olabel { color: var(--lv3); }
+.otext { flex: 1; text-align: right; }
+.oicon { font-size: 18px; min-width: 22px; flex-shrink: 0; margin-top: 1px; text-align: center; }
+
+/* Explanation */
+.exp {
+  border-radius: 12px;
+  padding: 15px 18px;
+  margin-top: 14px;
+  display: none;
+  border-right: 3px solid;
+  animation: fadeUp .25s ease;
+}
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+.exp.ok  { background: rgba(52,211,153,.06);  border-color: var(--lv1); }
+.exp.bad { background: rgba(248,113,113,.06); border-color: var(--lv3); }
+
+.exp-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.exp.ok .exp-label { color: var(--lv1); }
+.exp.bad .exp-label { color: var(--lv3); }
+.exp-body { font-size: 13.5px; color: var(--dim); line-height: 1.8; }
+
+/* XP pop */
+.xp-pop {
+  position: fixed;
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--yw);
+  pointer-events: none;
+  z-index: 9999;
+  animation: xpFloat 1.2s ease forwards;
+}
+
+@keyframes xpFloat {
+  0%   { opacity:1; transform:translateY(0) scale(1); }
+  100% { opacity:0; transform:translateY(-70px) scale(1.3); }
+}
+
+/* Footer buttons */
+.quiz-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.btn {
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all .15s;
+  border: 1px solid var(--brd);
+  background: transparent;
+  color: var(--dim);
+}
+
+.btn:hover:not(:disabled) { border-color: var(--txt); color: var(--txt); }
+.btn:disabled { opacity:.3; cursor:default; }
+
+.btn-primary {
+  background: var(--surf);
+  border-color: var(--brd2);
+  color: var(--txt);
+  font-weight: 600;
+  padding: 10px 28px;
+}
+
+.btn-primary:hover:not(:disabled) { background: var(--s2); }
+
+/* ══════════════════════════════════════════
+   RESULT SCREEN
+══════════════════════════════════════════ */
+#result { padding-top: 60px; text-align: center; }
+
+.result-ring {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 28px;
+}
+
+.rr-svg { position:absolute; inset:0; transform:rotate(-90deg); }
+
+.rr-bg   { fill:none; stroke:var(--brd); stroke-width:10; }
+.rr-fill { fill:none; stroke-width:10; stroke-linecap:round;
+           stroke-dasharray:439; stroke-dashoffset:439;
+           transition:stroke-dashoffset 1.2s cubic-bezier(.22,1,.36,1); }
+
+.rr-inner {
+  position:absolute;
+  inset:18px;
+  border-radius:50%;
+  background:var(--surf);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+
+.rr-pct {
+  font-family:var(--disp);
+  font-size:36px;
+  font-weight:900;
+  color:#fff;
+  letter-spacing:-1px;
+  line-height:1;
+}
+
+.rr-grade {
+  font-family:var(--mono);
+  font-size:11px;
+  color:var(--dim);
+  letter-spacing:2px;
+  margin-top:2px;
+}
+
+.result-title {
+  font-family:var(--disp);
+  font-size:clamp(28px,6vw,44px);
+  font-weight:900;
+  color:#fff;
+  letter-spacing:-1px;
+  margin-bottom:6px;
+}
+
+.result-sub { font-size:15px; color:var(--dim); margin-bottom:36px; font-weight:300; }
+
+.result-stats {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  margin-bottom:36px;
+  flex-wrap:wrap;
+}
+
+.rstat {
+  background:var(--surf);
+  border:1px solid var(--brd);
+  border-radius:14px;
+  padding:16px 24px;
+  min-width:90px;
+  text-align:center;
+}
+
+.rstat-val { font-family:var(--mono); font-size:24px; font-weight:700; }
+.rstat-lbl { font-size:11px; color:var(--dim); margin-top:3px; font-family:var(--mono); letter-spacing:1px; }
+
+.result-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+.btn-restart {
+  font-family:var(--body);
+  font-size:14px;
+  font-weight:600;
+  padding:12px 32px;
+  border-radius:12px;
+  cursor:pointer;
+  border:none;
+  background: linear-gradient(135deg,#f97316,#a78bfa);
+  color:#fff;
+  transition:opacity .15s;
+}
+.btn-restart:hover { opacity:.85; }
+
+.btn-home-r {
+  font-family:var(--body);
+  font-size:14px;
+  font-weight:500;
+  padding:12px 28px;
+  border-radius:12px;
+  cursor:pointer;
+  border:1px solid var(--brd);
+  background:transparent;
+  color:var(--dim);
+  transition:all .15s;
+}
+.btn-home-r:hover { border-color:var(--txt); color:var(--txt); }
+
+/* Fireworks */
+.fw { position:fixed; pointer-events:none; z-index:9998; }
+.fw-dot {
+  position:absolute;
+  width:8px; height:8px;
+  border-radius:50%;
+  animation:fwFly 1s ease forwards;
+}
+@keyframes fwFly {
+  0%   { transform:translate(0,0) scale(1); opacity:1; }
+  100% { transform:translate(var(--dx),var(--dy)) scale(0); opacity:0; }
+}
+
+/* ══════════════════════════════════════════
+   SYNTAX COLORS
+══════════════════════════════════════════ */
+.sk { color:#ff79c6; }
+.sv { color:#8be9fd; }
+.ss { color:#f1fa8c; }
+.sn { color:#bd93f9; }
+.sc { color:#6272a4; }
+.sg { color:#50fa7b; }
+.so { color:#ffb86c; }
+.sr { color:#ff5555; }
+.sw { color:#fff; }
+
+/* ══════════════════════════════════════════
+   STREAK INDICATOR
+══════════════════════════════════════════ */
+.streak-bar {
+  display:flex;
+  gap:4px;
+  justify-content:center;
+  margin-bottom:16px;
+}
+
+.streak-pip {
+  width:10px; height:10px;
+  border-radius:3px;
+  background:var(--brd);
+  transition:background .2s;
+}
+
+.streak-pip.hot { background:var(--yw); box-shadow:0 0 6px var(--yw); }
+</style>
+</head>
+<body>
+<div id="ambient"></div>
+
+<div class="wrap">
+
+<!-- ════════════════════ HOME ════════════════════ -->
+<section class="screen active" id="home">
+  <div class="logo-mark"><div class="logo-dot"></div>NetQuiz</div>
+  <h1 class="home-title">Net<span>Quiz</span></h1>
+  <p class="home-sub">בחר מסלול ורמה — ותוכיח שאתה מבין רשתות</p>
+
+  <div class="tracks" id="trackList">
+
+    <div class="track-card" data-track="1" onclick="selectTrack(1)">
+      <div class="track-icon">⚡</div>
+      <div class="track-info">
+        <div class="track-name">שכבה 1 — פיזית</div>
+        <div class="track-desc">ביטים, גלים, AM/FM, ADSL, CAT5, WiFi, סיב אופטי</div>
+      </div>
+      <div class="track-meta">
+        <div class="track-q-count">10 שאלות</div>
+        <div class="level-pips">
+          <div class="pip active"></div>
+          <div class="pip active"></div>
+          <div class="pip active"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="track-card" data-track="2" onclick="selectTrack(2)">
+      <div class="track-icon">🔗</div>
+      <div class="track-info">
+        <div class="track-name">שכבה 2 — קו</div>
+        <div class="track-desc">Ethernet, MAC, ARP, Hub vs Switch, Ethernet Frame</div>
+      </div>
+      <div class="track-meta">
+        <div class="track-q-count">10 שאלות</div>
+        <div class="level-pips">
+          <div class="pip active"></div>
+          <div class="pip active"></div>
+          <div class="pip active"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="track-card" data-track="3" onclick="selectTrack(3)">
+      <div class="track-icon">🌐</div>
+      <div class="track-info">
+        <div class="track-name">שכבה 3 — רשת</div>
+        <div class="track-desc">IP, Subnet, NAT, DHCP, Routing, ICMP, TTL, traceroute</div>
+      </div>
+      <div class="track-meta">
+        <div class="track-q-count">10 שאלות</div>
+        <div class="level-pips">
+          <div class="pip active"></div>
+          <div class="pip active"></div>
+          <div class="pip active"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="track-card" data-track="4" onclick="selectTrack(4)">
+      <div class="track-icon">🚦</div>
+      <div class="track-info">
+        <div class="track-name">שכבה 4 — תעבורה</div>
+        <div class="track-desc">TCP vs UDP, Ports, Handshake, Seq/ACK, Checksum</div>
+      </div>
+      <div class="track-meta">
+        <div class="track-q-count">10 שאלות</div>
+        <div class="level-pips">
+          <div class="pip active"></div>
+          <div class="pip active"></div>
+          <div class="pip active"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="track-card" data-track="5" onclick="selectTrack(5)">
+      <div class="track-icon">🧩</div>
+      <div class="track-info">
+        <div class="track-name">אינטגרציה — הכל ביחד</div>
+        <div class="track-desc">DHCP→ARP→DNS→TCP→HTTP, NAT, Sockets, select(), כל השכבות</div>
+      </div>
+      <div class="track-meta">
+        <div class="track-q-count">10 שאלות</div>
+        <div class="level-pips">
+          <div class="pip active"></div>
+          <div class="pip active"></div>
+          <div class="pip active"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════ LEVEL SELECT ════════════════════ -->
+<section class="screen" id="levelSelect">
+  <button class="back-btn" onclick="showScreen('home')">← חזרה</button>
+  <div class="ls-header">
+    <div class="ls-icon" id="lsIcon">⚡</div>
+    <div class="ls-title" id="lsTitle">שכבה 1</div>
+    <div class="ls-sub" id="lsSub">בחר רמת קושי</div>
+  </div>
+
+  <div class="levels-grid">
+    <div class="level-card lv-easy" onclick="startQuiz('easy')">
+      <span class="lv-emoji">🟢</span>
+      <div class="lv-name">קל</div>
+      <div class="lv-desc">מושגים בסיסיים, הגדרות, שאלות פשוטות</div>
+      <div class="lv-info">
+        <span class="lv-badge">30 שניות</span>
+        <span class="lv-badge">10 XP</span>
+      </div>
+    </div>
+    <div class="level-card lv-medium" onclick="startQuiz('medium')">
+      <span class="lv-emoji">🟡</span>
+      <div class="lv-name">בינוני</div>
+      <div class="lv-desc">הבנה, חישובים, השוואות בין מושגים</div>
+      <div class="lv-info">
+        <span class="lv-badge">20 שניות</span>
+        <span class="lv-badge">20 XP</span>
+      </div>
+    </div>
+    <div class="level-card lv-hard" onclick="startQuiz('hard')">
+      <span class="lv-emoji">🔴</span>
+      <div class="lv-name">קשה</div>
+      <div class="lv-desc">אינטגרציה, תרחישים מורכבים, חישובים</div>
+      <div class="lv-info">
+        <span class="lv-badge">15 שניות</span>
+        <span class="lv-badge">30 XP</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ QUIZ ════════════════════ -->
+<section class="screen" id="quiz">
+  <div class="quiz-topbar">
+    <span class="qt-track-badge" id="qtTrackBadge"></span>
+    <span class="qt-level-badge" id="qtLevelBadge"></span>
+    <span class="qt-spacer"></span>
+    <div class="xp-display">⚡ <span id="xpCount">0</span> XP</div>
+    <div class="timer-wrap" id="timerWrap">
+      <span id="timerIcon">⏱</span>
+      <span id="timerVal">30</span>
+    </div>
+  </div>
+
+  <div class="streak-bar" id="streakBar"></div>
+
+  <div class="quiz-prog-bar">
+    <div class="quiz-prog-fill" id="qProgFill"></div>
+  </div>
+
+  <div class="q-card" id="qCard">
+    <div class="q-head">
+      <span class="q-num" id="qNum">שאלה 1 / 10</span>
+      <span class="q-cat" id="qCat"></span>
+      <span class="q-xp-badge" id="qXpBadge"></span>
+    </div>
+    <div class="q-body">
+      <div id="qSnip"></div>
+      <div class="q-text" id="qText"></div>
+      <div class="opts" id="qOpts"></div>
+      <div class="exp" id="qExp">
+        <div class="exp-label" id="qExpLabel"></div>
+        <div class="exp-body" id="qExpBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz-foot">
+    <button class="btn" onclick="showScreen('home')">🏠 יציאה</button>
+    <button class="btn btn-primary" id="btnNext" onclick="nextQ()" disabled>הבא →</button>
+  </div>
+</section>
+
+<!-- ════════════════════ RESULT ════════════════════ -->
+<section class="screen" id="result">
+  <div class="result-ring">
+    <svg class="rr-svg" viewBox="0 0 160 160">
+      <circle class="rr-bg" cx="80" cy="80" r="70"/>
+      <circle class="rr-fill" cx="80" cy="80" r="70" id="rrFill"
+              stroke="url(#rgrad)"/>
+      <defs>
+        <linearGradient id="rgrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#f97316"/>
+          <stop offset="100%" stop-color="#a78bfa"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="rr-inner">
+      <div class="rr-pct" id="rrPct">0%</div>
+      <div class="rr-grade" id="rrGrade">---</div>
+    </div>
+  </div>
+
+  <div class="result-title" id="rTitle">כל הכבוד!</div>
+  <div class="result-sub" id="rSub"></div>
+
+  <div class="result-stats">
+    <div class="rstat"><div class="rstat-val" style="color:var(--lv1)" id="rOk">0</div><div class="rstat-lbl">נכון</div></div>
+    <div class="rstat"><div class="rstat-val" style="color:var(--lv3)" id="rBad">0</div><div class="rstat-lbl">שגוי</div></div>
+    <div class="rstat"><div class="rstat-val" style="color:var(--yw)"  id="rXp">0</div><div class="rstat-lbl">XP</div></div>
+    <div class="rstat"><div class="rstat-val" style="color:#a78bfa"   id="rStreak">0</div><div class="rstat-lbl">streak</div></div>
+  </div>
+
+  <div class="result-btns">
+    <button class="btn-restart" onclick="restartQuiz()">שחק שוב 🔄</button>
+    <button class="btn-home-r" onclick="showScreen('home')">בחר מסלול 🏠</button>
+  </div>
+</section>
+
+</div>
+
+<script>
+/* ══════════════════════════════════════════
+   DATA — 10 questions per track × 3 levels
+══════════════════════════════════════════ */
+var TRACKS = {
+
+  /* ─── TRACK 1 — Physical Layer ─── */
+  1: {
+    name: "שכבה 1 — פיזית",
+    icon: "⚡",
+    color: "#f97316",
+    questions: {
+      easy: [
+        { cat:"ביט", q:"מה מטרת השכבה הפיזית?", a:["להעביר ביט בודד בין שני רכיבים", "לנתב חבילות IP על פי התקן", "לנהל כתובות MAC — בכל תרחיש", "להצפין מידע בכל המקרים — על פי RFC"], c:0, e:"השכבה הפיזית מתמחה בהעברת היחידה הבסיסית ביותר — ביט אחד. כל שאר השכבות מניחות שאפשר להעביר ביטים." },
+        { cat:"תווך", q:"מה שלושת התווכים העיקריים בשכבה הפיזית?", a:["TCP, UDP, HTTP", "נחושת, אוויר, סיב אופטי", "MAC, IP, Port", "Ethernet, WiFi, Bluetooth"], c:1, e:"כבלי נחושת (CAT5, ADSL), אוויר (WiFi, מיקרוגל), וסיב אופטי (זכוכית/פלסטיק) — שלושת 'עמודי התווך' של שכבה 1." },
+        { cat:"AM/FM", q:"ב-AM — מה משתנה כדי לקודד מידע?", a:["כיוון הגל על פי התקן", "התדר בכל המקרים — על פי RFC", "האמפליטודה (גובה הגל)", "מהירות הגל — בכל תרחיש"], c:2, e:"AM = Amplitude Modulation. המידע מקודד בשינוי גובה הגל. התדר נשאר קבוע. לעומתו FM = Frequency Modulation — התדר משתנה." },
+        { cat:"ביט", q:"כמה ערכים יכול להחזיק ביט אחד?", a:["אינסוף", "8 — ספרות 0 עד 7", "256 — כמו byte", "2 — רק 0 או 1"], c:3, e:"ביט = BInary digiT. שני ערכים בלבד: 0 או 1. זו ה'אטום' של המידע הדיגיטלי. 8 ביטים = byte = 256 ערכים אפשריים." },
+        { cat:"WiFi", q:"מה ההבדל בין WiFi 2.4GHz ל-5GHz?", a:["זהים — רק שמות שונים", "2.4GHz טווח ארוך יותר, 5GHz מהיר יותר", "5GHz טווח ארוך יותר, 2.4GHz מהיר יותר", "2.4GHz = IPv4, 5GHz = IPv6"], c:1, e:"תדר גבוה = אורך גל קצר = ספיגה גדולה בקירות = טווח קצר יותר. לכן 5GHz מהיר אך לא חודר קירות טוב כמו 2.4GHz." },
+        { cat:"ADSL", q:"מה הפילטר של מודם ADSL עושה?", a:["מגביר את האות של המודם על פי התקן", "מחבר בין שני כבלים שונים — בכל תרחיש", "מפריד תדרי קול מתדרי data על אותו כבל", "מצפין את התעבורה בכל המקרים — על פי RFC"], c:2, e:"הטלפון עובד בתדרים 50Hz-20KHz. ADSL עובד בתדרים גבוהים יותר. הפילטר מסנן כל תווך לטווח התדרים שלו — כך שניהם על אותו כבל ללא הפרעות." },
+        { cat:"סיב אופטי", q:"מה מועבר בסיב אופטי?", a:["אדי מים", "זרם חשמלי", "גלי רדיו", "אור"], c:3, e:"סיב אופטי = סיב זכוכית/פלסטיק שמעביר אור. 1 = אור חזק, 0 = אור חלש. היתרון: אין הפרעות חשמליות, מרחקים עצומים, מהירות מטורפת." },
+        { cat:"CAT5", q:"כמה כבלי זוגות יש בכבל CAT5?", a:["4 זוגות (8 חוטים)", "2 זוגות (4 חוטים)", "1 זוג (2 חוטים)", "6 זוגות (12 חוטים)"], c:0, e:"CAT5 = 4 כבלי זוגות = 8 חוטים. כל זוג בצבע שונה. הליפוף מבטל הפרעות השראה. לא כולם בשימוש — תקן 10Base-T משתמש ב-2 זוגות בלבד." },
+        { cat:"דופלקס", q:"מה ההבדל בין Half Duplex ל-Full Duplex?", a:["Half = איטי, Full = מהיר — ללא יוצא מן הכלל", "Half = קווי, Full = אלחוטי", "Half = רק כיוון אחד בכל רגע", "Half = Layer 1, Full = Layer 2"], c:2, e:"WiFi = Half Duplex (רק צד אחד מדבר בכל פעם). Ethernet קווי = Full Duplex (שני הצדדים במקביל). זה למה WiFi עם הרבה מחשבים = קצב מתחלק." },
+        { cat:"גל", q:"מה 'תדר' של גל?", a:["מהירות התפשטות הגל", "גובה הגל המקסימלי", "המרחק מפסגה לפסגה", "מספר מחזורים לשניה"], c:3, e:"תדר = כמה פעמים הגל מבצע מחזור שלם בשניה. 1Hz = פעם אחת. WiFi 2.4GHz = 2,400,000,000 מחזורים לשניה! תדר גבוה → קצב העברת מידע גבוה יותר." }
+      ],
+      medium: [
+        { cat:"AM vs FM", q:"למה רדיו FM נשמע טוב יותר מ-AM? הסבר פיזיקלי.", a:["FM עמיד לרעשים כי רעש = שינוי אמפליטודה", "FM בתדר גבוה יותר = איכות טובה יותר", "FM דיגיטלי, AM אנלוגי", "FM משתמש בסיב אופטי — בהתאם לתקן IEEE 802"], c:0, e:"מידע ב-AM = שמור באמפליטודה. רעש חשמלי = שינוי אמפליטודה = עיוות ישיר. ב-FM המידע = בתדר. רעש = שינוי אמפליטודה → לא פוגע בתדר → FM עמיד!" },
+        { cat:"ADSL", q:"מדוע ADSL מהיר פי מיליון ממודם 300bps משנות ה-70?", a:["ADSL = סיב אופטי בתחפושת — תמיד, בכל מקרה", "ADSL מנצל תדרים גבוהים בגלל קרבה למרכזייה", "ADSL משתמש ב-8 חוטים במקום 2", "ADSL מדחס את הנתונים פי מיליון"], c:1, e:"קרבת המרכזייה → ניצול תדרים מעל 20KHz. מודם קלאסי מוגבל לתדרי קול (20KHz). ADSL = 100MHz+ = קצב גבוה בהרבה. אותו כבל נחושת, שימוש חכם יותר!" },
+        { cat:"סיב אופטי", q:"כמה ניתן להעביר בסיב אופטי? מה היתרון לעומת נחושת?", a:["1 Gbps — מהיר מנחושת אבל יקר יותר", "1 Mbps בלבד — אור חלש מדי", "100 Mbps — זהה ל-WiFi — ללא יוצא מן הכלל", "100 Terabit/s ל-100 ק\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"מ"], c:3, e:"בפרק: '100Terabit/s למרחק מעל 100 ק\"מ.' 12.5 הארד-דיסקים של 1TB בשניה! בנוסף: מידע לא 'נכנס ולא יוצא' מהסיב — אין הפרעות. נחושת משדרת לסביבה." },
+        { cat:"WiFi", q:"מדוע WiFi = Half Duplex? מה קורה עם 20 מחשבים על AP אחד?", a:["תדר שידור יחיד = רק אחד מדבר בכל פעם", "WiFi = Full Duplex, 20 מחשבים = אין הבדל", "20 מחשבים = 20 ערוצים מקבילים — לפי פרוטוקול TCP בלבד", "AP שולח לכולם בו-זמנית ב-Multicast"], c:0, e:"בפרק: 'WiFi = Half Duplex. ככל שיש יותר מחשבים מחוברים, הקצב יקטן ויתחלק בין כולם.' לכן WiFi ארגוני = AP אחד לכל 15-20 משתמשים מקסימום." },
+        { cat:"קוד מורס", q:"מה ההבדל בין נקודה לקו בקוד מורס? מה מגדיר ביניהם?", a:["כיוון הגל — נקודה=ימין, קו=שמאל", "משך הזמן — נקודה=קצרה, קו=ארוך", "עוצמת האות — נקודה=חזק, קו=חלש", "תדר — נקודה=גבוה, קו=נמוך — בהתאם לתקן IEEE 802"], c:1, e:"משך הזמן הוא המפריד. הגדרה מדויקת של משכים = ניתן להגדיר קצב שידור גבוה יותר ולהפריד בין אותיות ומילים. ללא הגדרה = בלבול בין Q ל-MA." },
+        { cat:"אנלוגי/דיגיטלי", q:"מה ההבדל בין תקליט (אנלוגי) ל-CD (דיגיטלי)?", a:["זהים — רק חומר שונה — תמיד, בכל מקרה", "תקליט = דיגיטלי, CD = אנלוגי", "תקליט = גל רציף נחרט", "CD מדגם 100Hz, תקליט = ∞ Hz"], c:2, e:"תקליט אנלוגי: המחט עוקבת אחר הגל הרציף. CD דיגיטלי: 44,100 מדידות לשניה → ביטים. יתרון ענק: ביט שגוי ניתן לזהות ולתקן (error correction). scratches בCD → ניתן לתיקון!" },
+        { cat:"ממסר", q:"כיצד מעבירים אות בסיב אופטי ל-500 ק\"מ אם הסיב מחזיק עד 100 ק\"מ?", a:["ממסרים — רכיבים שמקבלים, מגבירים ומשדרים הלאה", "משתמשים בסיב 'מעולה' שמחזיק 500 ק\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"מ", "מחזקים את האות בהתחלה — ללא יוצא מן הכלל", "לא ניתן — 100 ק\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"מ = מקסימום"], c:0, e:"ממסר = Relay. מקבל את האות, מגבירה, ומשדרת הלאה. כבלים תת-ימיים בין יבשות = עשרות ממסרים בקרקעית הים! זו הסיבה שאפשר לגלוש מישראל לארה\"ב." },
+        { cat:"CAT5", q:"מדוע דרוש 'כבל מוצלב' לחיבור ישיר בין שני מחשבים?", a:["כבל מוצלב מגביר את האות", "TX של אחד חייב להגיע ל-RX של השני", "כבל מוצלב מוסיף הצפנה — לפי פרוטוקול TCP בלבד", "כבל מוצלב מהיר יותר מרגיל"], c:1, e:"בכבל רגיל: גם א' וגם ב' שולחים על כבל כתום ומאזינים על כבל ירוק. כבל מוצלב: TX-א' → RX-ב' ולהיפך. כיום: Auto-MDIX בכרטיסים מודרניים מזהה אוטומטית." },
+        { cat:"מיקרוגל", q:"מדוע אנטנות מיקרוגל הן כיווניות? מה החיסרון?", a:["אין חיסרון — בהתאם לתקן IEEE 802", "כיווניות כי מיקרוגל לא יכול לעבור בקירות", "כיווניות = ריכוז האנרגיה לכיוון אחד = טו", "כיווניות = פחות חשמל בלבד"], c:2, e:"בפרק: 'כיווניות מאפשרת חיסכון באנרגיה ומונעת הפרעות בין ערוצים.' כמו פנס ממוקד vs. נורה רגילה. חיסרון: 'נדרש קו ישיר ונקי ממחסומים.' הר בדרך = אין קישור!" },
+        { cat:"תדר/גל", q:"אורך גל 2.4GHz לעומת 5GHz — מה ארוך יותר? מה המשמעות?", a:["2.4GHz קצר יותר = מהיר יותר", "5GHz ארוך יותר — תדר גבוה = אורך גל גדול", "זהים — תדר לא קשור לאורך גל — תמיד, בכל מקרה", "2.4GHz ארוך יותר (≈12.5 ס\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"מ)"], c:3, e:"תדר × אורך גל = מהירות האור (קבועה). תדר גבוה → אורך גל קצר. 2.4GHz ≈ 12.5 ס\"מ, 5GHz ≈ 6 ס\"מ. גל ארוך חודר קירות טוב יותר → 2.4GHz = טווח ארוך יותר." }
+      ],
+      hard: [
+        { cat:"חישוב", q:"מודם ADSL מגיע ל-100Mbps. כמה bytes לשניה זה? כמה תמונות של 5MB לשניה?", a:["100 MB/s → 20 תמונות בכל המקרים", "12.5 MB/s → 2.5 תמונות לשניה", "1000 KB/s → 0.2 תמונות על פי התקן", "100 KB/s → 0.02 תמונות"], c:1, e:"100Mbps ÷ 8 bits/byte = 12.5 MB/s. תמונה 5MB: 12.5÷5 = 2.5 תמונות לשניה. חישוב חיוני: תמיד לחלק ב-8 כשעוברים מ-bits ל-bytes!" },
+        { cat:"אינטגרציה", q:"מסע פקטה מישראל לארה\"ב — אילו שכבות פיזיות עוברת? בסדר הנכון?", a:["רדיו AM בין יבשות", "WiFi מקצה לקצה — לפי פרוטוקול TCP בלבד", "CAT5 (לנתב ביתי) → ADSL", "סיב אופטי מהבית"], c:2, e:"כל hop = שכבה פיזית שונה! ביתי: CAT5/WiFi. ספק: ADSL/נחושת. ישראל↔ארה\"ב: כבל תת-ימי (סיב אופטי). שרת: Ethernet. זהו עיקרון מרכזי — שכבה פיזית שונה בכל segment!" },
+        { cat:"AM FM חישוב", q:"מודם ב-1970 קודד 0→1070Hz ו-1→1270Hz. אם משדר 300 קוד-שינויים לשניה — מה ה-bitrate?", a:["150 bps — חצי שניה לביט על פי התקן", "600 bps — שני ביטים לכל שינוי", "1070 bps — תלוי בתדר בכל המקרים", "300 bps — כל שינוי תדר = ביט אחד"], c:3, e:"כל קוד-שינוי (symbol) = ביט אחד (כי יש 2 תדרים = 1 ביט מידע). 300 symbols/s × 1 bit/symbol = 300 bps. טבלה של 4 תדרים = 2 ביטים לסימבול = 600 bps." },
+        { cat:"סיב אופטי", q:"סיב אופטי בתדרים מרובים (WDM) — מה הרעיון ומה היתרון?", a:["כמה 'צבעים' (תדרי אור) שונים במקביל = מכ", "WDM = טיפול בשגיאות, לא הגברת קיבולת", "WDM = שם אחר לממסר — תמיד, בכל מקרה על פי התקן", "WDM מאפשר Half Duplex בסיב בכל המקרים"], c:0, e:"WDM = Wavelength Division Multiplexing. כמו לשלוח מספר 'ערוצי radio' שונים על אותו כבל. 10 צבעי LED שונים = 10 ערוצים מקביליים = קיבולת × 10. DWDM (Dense) = 80+ ערוצים!" },
+        { cat:"שגיאות", q:"מדוע קידוד דיגיטלי עדיף על אנלוגי לתיקון שגיאות? הסבר עם דוגמה.", a:["דיגיטלי = יותר bits = יותר שגיאות על פי התקן", "אנלוגי עדיף — אין שגיאות בכל המקרים", "דיגיטלי: שגיאה ב-bit = ניתן לזהות ולתקן", "זהים מבחינת שגיאות — ללא יוצא מן הכלל"], c:2, e:"אנלוגי: גל עם רעש → עיוות קבוע. אין 'ערך נכון' לחזור אליו. דיגיטלי: bit שגוי (0→1) = ניתן לזהות עם parity/CRC ולתקן עם כפילות. CD עם שריטות: עד 25% פגום ועדיין מנגן!" }
+      ]
+    }
+  },
+
+  /* ─── TRACK 2 — Data Link Layer ─── */
+  2: {
+    name: "שכבה 2 — קו",
+    icon: "🔗",
+    color: "#06b6d4",
+    questions: {
+      easy: [
+        { cat:"MAC", q:"מה כתובת MAC? מה גודלה?", a:["כתובת לוגית של המחשב — 4 bytes, ניתנת לשינוי", "מספר הפורט שפתוח בחיבור", "שם הפרוטוקול של שכבה 2 — לפי פרוטוקול TCP בלבד", "כתובת פיזית של כרטיס הרשת"], c:3, e:"MAC = Media Access Control. 6 bytes = 48 bits. שלושת ה-bytes הראשונים = OUI = מזהה יצרן. שלוש האחרונים = מזהה ייחודי. צרובה על הכרטיס, לא אמורה להשתנות." },
+        { cat:"Ethernet Frame", q:"אילו שדות בEthernet Frame לא מופיעים ב-Wireshark?", a:["Preamble ו-CRC32", "Destination MAC ו-Source MAC", "Type/EtherType", "Data"], c:0, e:"Preamble = 8 bytes לסנכרון — הכרטיס מוריד לפני שה-frame מגיע לתוכנה. CRC32 = checksum שנבדק ומוסר ע\"י הכרטיס. Wireshark רואה רק מה שנשאר." },
+        { cat:"ARP", q:"מה ARP עושה?", a:["מנתב חבילות בין רשתות", "ממיר כתובת IP לכתובת MAC", "מחלק כתובות IP לרשת", "ממיר שם דומיין לכתובת IP"], c:1, e:"ARP = Address Resolution Protocol. IP → MAC. נחוץ כי כדי לבנות Ethernet frame צריך MAC של היעד. שולח ARP Request ב-Broadcast, מקבל ARP Reply Unicast." },
+        { cat:"Hub vs Switch", q:"מה ההבדל הבסיסי בין Hub ל-Switch?", a:["Hub = WiFi, Switch = קווי — ללא יוצא מן הכלל", "Hub מהיר יותר, Switch איטי", "Hub = Layer 3, Switch = Layer 2", "Hub שולח לכולם תמיד (Layer 1)"], c:3, e:"Hub = Layer 1 — לא מכיר כתובות, שולח הכל לכולם. Switch = Layer 2 — מכיר MAC, בונה MAC Table, שולח כל frame רק ליעד. לכן Hub כמעט לא קיים היום." },
+        { cat:"Broadcast", q:"מה כתובת ff:ff:ff:ff:ff:ff?", a:["Ethernet Broadcast", "כתובת של Switch", "כתובת Loopback של Layer 2", "כתובת שגויה — לא חוקית"], c:0, e:"ff:ff:ff:ff:ff:ff = כתובת Broadcast של Ethernet. מסגרת עם dst זה מגיעה לכל כרטיסי הרשת ברשת. ARP Request נשלח ל-Broadcast — כי רוצים שכולם ישמעו." },
+        { cat:"OUI", q:"מה שלושת ה-bytes הראשונים של MAC Address?", a:["גרסת הפרוטוקול", "OUI — מזהה יצרן", "מספר הפורט", "מזהה המחשב הספציפי"], c:1, e:"OUI = Organizationally Unique Identifier. D4:BE:D9 = Dell. לכל יצרן יש OUI אחד ויותר. אפשר לבדוק ב-coffer.com/mac_find. 3 bytes ראשונים = יצרן, 3 אחרונים = כרטיס." },
+        { cat:"Switch", q:"מה Switch חדש עושה כשלא מכיר MAC של היעד?", a:["שולח ARP Request על פי התקן", "מחזיר שגיאה לשולח — בכל תרחיש", "Flooding — שולח לכל הפורטים חוץ ממקור", "זורק את המסגרת בכל המקרים — על פי RFC"], c:2, e:"Switch חדש = MAC Table ריקה = לא יודע לאן לשלוח. פתרון: Flooding — כמו Hub. אבל: Switch לומד מה-src MAC! כשב' ישלח תשובה, Switch ילמד גם את ב' ומעתה Unicast." },
+        { cat:"שכבה 2", q:"תפקיד שכבת הקו?", a:["העברת מידע בין שתי ישויות מחוברות ישירות", "ניתוב חבילות בין רשתות שונות על פי התקן", "הצפנת תעבורה — ללא יוצא מן הכלל — על פי RFC", "חלוקת כתובות IP בכל המקרים — בכל תרחיש"], c:0, e:"Layer 2 = hop אחד בלבד. לא מכירה את הנתיב המלא. Layer 3 = נתיב מלא. אנלוגיה: Layer 3 = Waze (מסלול), Layer 2 = הנהג (לחץ גז, אותת, עצור ברמזור)." },
+        { cat:"Ethernet Frame", q:"מה שדה Type/EtherType מציין?", a:["מספר השגיאות שנמצאו", "סוג ה-Data: 0x0800=IP", "גרסת Ethernet על פי התקן", "גודל ה-frame בכל המקרים"], c:1, e:"Type = EtherType. הכרטיס קורא את השדה ומחליט לאן להפנות: 0x0800 → IP stack, 0x0806 → ARP stack. כך Layer 2 יכול לשרת פרוטוקולים שונים בLayer 3." },
+        { cat:"ARP Cache", q:"מה arp -a מציג?", a:["טבלת ניתוב — בהתאם לתקן IEEE 802", "רשימת כתובות MAC של כרטיסי הרשת", "טבלת ARP Cache: IP→MAC עם סוג", "רשימת פורטים פתוחים"], c:2, e:"arp -a = הצגת ARP Cache. dynamic = נלמד ע\"י ARP. static = הוכנס ידנית. arp -d <IP> = מחיקת רשומה (דורש admin). arp -s = הוספה ידנית." }
+      ],
+      medium: [
+        { cat:"MAC Table", q:"Switch עם טבלה: A→Port1, B→Port3. C שולח ל-A. מה Switch עושה?", a:["זורק כי C לא בטבלה — תמיד, בכל מקרה", "Flood לכל הפורטים כי C לא בטבלה", "שולח ל-Port1 ול-Port3", "שולח רק ל-Port1 (A ידוע)"], c:3, e:"Switch בודק dst: A → Port1 ✓ → שולח רק ל-Port1. במקביל לומד src: MAC_C → Port_C. dst ידוע = Unicast! גם אם src לא ידוע, dst שולט על ההחלטה." },
+        { cat:"ARP", q:"מחשב A (10.0.0.1/8) שולח ל-Google (8.8.8.8). ל-ARP Request נשלח ל-מי?", a:["Google ישירות — ARP שואל כל IP", "Default Gateway —", "DNS — כי לא יודעים MAC של Google", "לא שולחים ARP בכלל — ללא יוצא מן הכלל"], c:1, e:"ARP = Layer 2 → לא עובר נתבים. A בודק: 8.8.8.8 ב-10.0.0.0/8? לא! → שולח ל-Default Gateway. ARP לגילוי MAC של הנתב. הנתב מטפל מכאן והלאה." },
+        { cat:"Layer 2 vs 3", q:"חבילה מהמחשב שלך ל-Facebook. מה כתובת MAC dst? מה IP dst?", a:["MAC dst = Facebook, IP dst = נתב", "שניהם = Facebook", "MAC dst = נתב ביתי (hop נוכחי)", "שניהם = נתב — לפי פרוטוקול TCP בלבד"], c:2, e:"עיקרון מרכזי: Layer 2 (MAC) = hop נוכחי בלבד. Layer 3 (IP) = נקודות הקצה הסופיות. MAC dst = נתב הביתי (כי זה הhop הבא). IP dst = Facebook (כי זה היעד). בנתב הבא: MAC dst = הנתב הבא..." },
+        { cat:"Collision", q:"למה Switch מונע התנגשויות ו-Hub לא?", a:["Switch מחכה לתור ממוספר — בהתאם לתקן IEEE 802", "Switch מבטל את האות אם מגלה התנגשות", "Switch יש TTL שמונע לולאות", "כל פורט ב-Switch = Collision Domain נפרד"], c:3, e:"Hub = ערוץ משותף = כולם על אותו 'חוט'. A ו-B שולחים יחד → התנגשות → מידע שגוי. Switch = כל פורט עצמאי. A שולח ל-Switch, B שולח ל-Switch → אין מגע. Switch מחכה בזיכרון ומוציא." },
+        { cat:"Ethernet Frame", q:"Preamble של Ethernet = 8 bytes. למה לא מופיע ב-Wireshark?", a:["כרטיס הרשת מזהה ומסיר אותו לפני שהתוכנה רואה", "Wireshark מסתיר אותו לאבטחה — תמיד, בכל מקרה", "Preamble = חלק מה-IP header", "Preamble לא קיים ב-Ethernet II"], c:0, e:"Preamble = 8 bytes של 10101010... לסנכרון. הכרטיס מזהה אותו ויודע שהגיעה מסגרת חדשה, ואז מוריד אותו. CRC32 = נבדק: תקין → מוריד ומעביר; פגום → זורק. Wireshark = 'אחרי' הכרטיס." },
+        { cat:"sendp", q:"מה ההבדל בין Scapy send() ל-sendp()?", a:["send() = Broadcast, sendp() = Unicast", "send() = UDP, sendp() = TCP — ללא יוצא מן הכלל", "send() = Layer 3", "send() מהיר יותר, sendp() אמין יותר"], c:2, e:"send() = Scapy מחליט על Ethernet headers. sendp() = אנחנו בונים Ether() ידנית. sendp() שימושי כשרוצים לשנות MAC src (spoofing לצרכי בדיקה), לשלוח ARP מזויף, או לבחור ממשק ספציפי." },
+        { cat:"Hub", q:"3 מחשבים ב-Hub. A שולח ל-B. מה C מקבל? מה C עושה עם זה?", a:["C לא מקבל — Hub חכם מספיק לסנן", "C מקבל ושולח ACK — לפי פרוטוקול TCP בלבד", "C מקבל ומעביר ל-D", "C מקבל את ה-frame (Hub = Flood)"], c:3, e:"Hub = Layer 1 = לא מכיר MAC = שולח הכל לכולם (חוץ ממקור). C מקבל, קורא dst MAC, רואה שזה לא MAC שלו → זורק. זו בעיית הפרטיות של Hub: Wireshark על C רואה הכל!" },
+        { cat:"Switch", q:"Switch מלא — B שולח Broadcast. מה Switch עושה?", a:["Flood לכל הפורטים חוץ ממקור B", "שולח רק ל-Port1 כי זה הנמוך ביותר", "זורק — Broadcast לא בטבלה — בהתאם לתקן IEEE 802", "שולח רק ל-Port שביקש ב-ARP"], c:0, e:"ff:ff:ff:ff:ff:ff = Broadcast → תמיד Flood, גם ב-Switch מתוחכם. Switch לא שומר Broadcast בטבלה — מיועד לכולם תמיד. ARP Request חייב להגיע לכולם — לכן Broadcast." },
+        { cat:"MAC", q:"ipconfig מציג D4-BE-D9-D6-0C-2A. Wireshark מציג d4:be:d9:d6:0c:2a. זה אותו דבר?", a:["לא — מספר הבתים שונה — תמיד, בכל מקרה", "כן — אותה כתובת. ipconfig = מקף", "לא — ipconfig = hex, Wireshark = decimal", "כן, אבל רק אם מוסיפים 00 בהתחלה"], c:1, e:"אותה כתובת, 3 פורמטים: D4-BE-D9-D6-0C-2A (ipconfig), d4:be:d9:d6:0c:2a (Scapy/Wireshark), D4BE:D9D6:0C2A (ייצוג זוגות). Wireshark = lowercase, ipconfig = UPPERCASE. תמיד אותו MAC." },
+        { cat:"ARP Reply", q:"ARP Request נשלח ל-Broadcast. ARP Reply נשלח ל-?", a:["Broadcast — כולם צריכים לדעת", "לשרת ה-DNS", "Multicast — ללא יוצא מן הכלל", "Unicast — ישירות למי ששאל"], c:3, e:"ARP Request כולל את MAC של השולח (A). לכן כשב' עונה, הוא שולח Unicast ישירות ל-MAC של A. אין צורך ב-Broadcast לתשובה — יותר יעיל." }
+      ],
+      hard: [
+        { cat:"ARP Poisoning", q:"מה ARP Poisoning? כיצד Switch לא מגן עליו?", a:["שולחים ARP Reply מזויפים = כולם מעדכנים ARP C", "Switch מגן עם Dynamic ARP Inspection — לפי פרוטוקול TCP בלבד", "ARP Poisoning = כבלוס שגוי ב-MAC Table", "Switch מזהה ARP מזויף ע\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"י Checksum"], c:0, e:"ARP Poisoning: תוקף שולח ARP Reply: 'IP של הנתב = MAC שלי'. הקורבן מעדכן Cache. כל תעבורה → עוברת דרך התוקף (MITM). Switch לא מגן = Layer 2 בלבד. הגנה: DHCP Snooping + Dynamic ARP Inspection." },
+        { cat:"חישוב MAC Table", q:"Switch עם 8 ports. 5 מחשבים מחוברים. כמה ערכים בMAC Table לכל היותר? מה קורה אם עולה?", a:["אינסוף ערכים — בהתאם לתקן IEEE 802", "5 ערכים (מחשב אחד לפורט)", "8 ערכים — port אחד", "50,000 ערכים — MAC Table לא מוגבלת"], c:1, e:"MAC Table = ערך לכל MAC שנראה. מחשב אחד לפורט = 5 ערכים. Timeout: כל ערך שלא נראה X שניות → נמחק (aging). אם Switch מלא: MAC flooding attack — תוקף ממלא טבלה → Switch → Mode Hub." },
+        { cat:"VLAN", q:"מה VLAN ומדוע Switch צריך אותו ולא רק IP Subnets?", a:["VLAN = הצפנת תעבורה ב-Switch", "VLAN = גרסה וירטואלית של Router", "VLAN = Layer 2 Isolation", "VLAN רלוונטי רק ל-WiFi — תמיד, בכל מקרה"], c:2, e:"ללא VLAN: כל Broadcast מגיע לכל מחשב ב-Switch = עומס + אבטחה. עם VLAN: מחלקת HR ו-Engineering על אותו Switch — Broadcast Domain נפרד. גם Layer 2 מבודד! Subnet רק ב-Layer 3." },
+        { cat:"Spanning Tree", q:"3 Switches מחוברים בלולאה. מה קורה ללא STP?", a:["Broadcast Storm — frame נשלח ב-loop לנצח", "STP לא נחוץ — Switch זורק frames כפולים", "frames עוברים TTL ומוסרים — ללא יוצא מן הכלל", "Switch מזהה לולאה ע\\\\\\\\\\\\\\\"י MAC Table"], c:0, e:"ללא STP (Spanning Tree Protocol): Broadcast frame נכנס ל-loop, כל Switch מפציל ושולח לשאר, frame מוכפל לאינסוף → Broadcast Storm → כל הרשת קורסת תוך שניות. STP = חוסם פורט אחד לשבור לולאה." },
+        { cat:"Jumbo Frames", q:"Ethernet סטנדרטי = MTU 1500 bytes. Jumbo Frames = 9000 bytes. מה היתרון? מה החיסרון?", a:["Jumbo Frame מהיר יותר בתקשורת אלחוטית", "יתרון: פחות overhead (כל frame = header אחד,", "Jumbo Frame = חיבור 10Gbps בלבד", "אין חיסרון — Jumbo תמיד עדיף — לפי פרוטוקול TCP בלבד"], c:1, e:"MTU 1500: כל IP packet גדול יותר = fragmentation = עומס. Jumbo 9000: פחות frames לאותה כמות data = פחות header overhead = יעיל יותר. חיסרון: כל frame גדול יותר לבדיקת CRC. דורש שכל ה-chain תומך." }
+      ]
+    }
+  },
+
+  /* ─── TRACK 3 — Network Layer ─── */
+  3: {
+    name: "שכבה 3 — רשת",
+    icon: "🌐",
+    color: "#10b981",
+    questions: {
+      easy: [
+        { cat:"IP", q:"מה גודל כתובת IPv4?", a:["16 bytes = 128 bits", "6 bytes = 48 bits", "4 bytes = 32 bits", "2 bytes = 16 bits"], c:2, e:"IPv4 = 4 bytes = 32 bits = 2^32 ≈ 4.3 מיליארד כתובות. IPv6 = 128 bits (16 bytes) = 2^128 כתובות. הסיבה למעבר ל-IPv6: 4.3 מיליארד כבר לא מספיק!" },
+        { cat:"Subnet", q:"מסכת רשת 255.255.255.0 — כמה bits שייכים ל-Network ID?", a:["32 bits על פי התקן", "8 bits בכל המקרים — על פי RFC", "16 bits — בכל תרחיש", "24 bits (3 bytes של 255)"], c:3, e:"255 בינארי = 11111111 = 8 bits. 255.255.255.0 = 24 bits של 1 = Network ID, 8 bits של 0 = Host ID. בקיצור: /24. ב-/24 יש 256 כתובות, 254 שמישות (0 = network, 255 = broadcast)." },
+        { cat:"NAT", q:"מה NAT עושה?", a:["מנתב חבילות בין VLANs", "מחליף כתובת IP פרטית בציבורית", "מחלק כתובות IP לרשת — ללא יוצא מן הכלל", "מבצע הצפנה של כתובות IP"], c:1, e:"NAT = Network Address Translation. ביציאה: src 192.168.x.x → 1.1.1.1. בכניסה: dst 1.1.1.1 → 192.168.x.x. 'שקוף' למחשב ולשרת. חוסך כתובות IPv4." },
+        { cat:"DHCP", q:"מה DHCP מחלק?", a:["MAC Address בכל המקרים — על פי RFC", "שם הדומיין בלבד — בכל תרחיש", "IP, Subnet Mask, Default Gateway, DNS Se", "Port Numbers על פי התקן"], c:2, e:"DHCP = Dynamic Host Configuration Protocol. 4 ב-DORA: Discover → Offer → Request → ACK. מחלק: IP, Mask, Gateway, DNS. בלי DHCP = כל מחשב מוגדר ידנית." },
+        { cat:"TTL", q:"מה TTL ב-IP header? מי מוריד אותו?", a:["TTL = זמן בשניות, לא hops", "כל Switch מוריד ב-1 — בהתאם לתקן IEEE 802", "כל מחשב בדרך מוריד ב-1", "Time To Live — מונה hops"], c:3, e:"TTL נולד כ-'time to live בשניות' אבל בפועל = מספר hops. רק נתבים (Layer 3) מורידים TTL. Switch (Layer 2) לא! traceroute מנצל זאת — שולח TTL=1, 2, 3... ומקבל ICMP Time Exceeded מכל נתב." },
+        { cat:"ICMP", q:"מה הפרוטוקול שping משתמש בו?", a:["ICMP — Internet Control Message Protocol", "TCP port 80 על פי התקן", "UDP port 53 — בכל תרחיש", "ARP בכל המקרים — על פי RFC"], c:0, e:"ping = Echo Request (ICMP type 8) + Echo Reply (ICMP type 0). ICMP = Layer 3, אותה שכבה כמו IP. ICMP גם משמש ל-Destination Unreachable, Time Exceeded (traceroute), ועוד." },
+        { cat:"Routing Table", q:"חבילה עם dst=192.168.0.55. Routing Table: 192.168.0.0/24→LAN, 0.0.0.0/0→ISP. לאן?", a:["ISP — default route", "שתיהן — שולח לשניהם", "LAN — 192.168.0.0/24 תואמת", "זורק — לא יודע — ללא יוצא מן הכלל"], c:2, e:"Router בוחר הנתיב הספציפי ביותר. 192.168.0.55 תואמת /24 (ספציפי). 0.0.0.0/0 = כל כתובת (כללי). ספציפי מנצח כללי. הדרך החבילה: → LAN." },
+        { cat:"Private IP", q:"אילו טווחים הם כתובות IP פרטיות?", a:["כל כתובת שמתחילה ב-0", "1.x.x.x, 2.x.x.x, 3.x.x.x", "100.x.x.x, 200.x.x.x", "10.x.x.x, 172.16-31.x.x"], c:3, e:"RFC 1918: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16. לא ניתנות לניתוב באינטרנט. NAT מאפשר להן לצאת. ברשת ביתית: בדרך כלל 192.168.x.x." },
+        { cat:"Loopback", q:"מה כתובת 127.0.0.1?", a:["Loopback — שולחת חבילות ל'עצמך'", "Default Gateway", "Broadcast כללי — בהתאם לתקן IEEE 802", "DNS Server המקומי"], c:0, e:"127.0.0.1 = Loopback. חבילה ל-127.0.0.1 'מחזורת' בתוך כרטיס הרשת הוירטואלי ולא יוצאת לרשת. שימושי לבדיקה: ping 127.0.0.1 = בדיקה שה-TCP/IP stack עובד." },
+        { cat:"DHCP", q:"מה ה-'D' ב-DORA?", a:["Delivery בכל המקרים — בכל תרחיש", "Discover — המחשב מכריז ב-Broadcast שהוא", "Disconnect על פי התקן — על פי RFC", "Dynamic — תמיד, בכל מקרה"], c:1, e:"DORA: Discover (Broadcast מהלקוח) → Offer (שרת מציע IP) → Request (לקוח מקבל) → ACK (שרת מאשר). Discover = Broadcast כי אין עדיין IP ולא יודעים כתובת שרת DHCP." }
+      ],
+      medium: [
+        { cat:"Subnet חישוב", q:"IP: 192.168.5.30, Mask: 255.255.255.0. מה Network ID? מה Broadcast?", a:["Network: 192.0.0.0, Broadcast: 192.168.5.255", "Network: 192.168.0.0, Broadcast: 192.168.5.255", "Network: 192.168.5.30, Broadcast: 255.255.255.255", "Network: 192.168.5.0, Broadcast: 192.168.5.255"], c:3, e:"Mask 255.255.255.0 = 3 bytes Network + 1 byte Host. Network = IP AND Mask = 192.168.5.0. Broadcast = Network OR (NOT Mask) = 192.168.5.255. Host range: 192.168.5.1 – 192.168.5.254." },
+        { cat:"TTL", q:"מחשב שולח TTL=64 ל-DNS (5 hops). מה TTL שמגיע ל-DNS? מה Switch עושה ל-TTL?", a:["TTL=59. Switch לא משנה TTL", "TTL=64 — לא משתנה — לפי פרוטוקול TCP בלבד", "TTL=59. Switch גם מוריד ב-1", "TTL=64. Switch מעלה TTL ב-1"], c:0, e:"5 נתבים × (-1) = TTL 64-5=59. Switch = Layer 2 = לא מבין IP = לא מגע ב-TTL! רק Router מוריד TTL ומחשב Checksum מחדש. בפרק: 'רק רכיבי שכבת הרשת, כגון נתבים, משנים את ערך זה.'" },
+        { cat:"NAT", q:"מחשב (192.168.0.5) שולח ל-Facebook. Facebook רואה מה בתור src IP?", a:["MAC של הנתב", "IP הנתב (1.1.1.1)", "192.168.0.5 — Facebook רואה את ה-IP האמיתי", "IP של DNS Server"], c:1, e:"בפרק: 'כאשר הנתב יקבל את החבילה, הוא יחליף את כתובת המקור לכתובת שלו. Facebook לא מודע כלל לכך שהיא נשלחה מ-192.168.0.5.' בחזרה: NAT מחליף dst מ-1.1.1.1 ל-192.168.0.5." },
+        { cat:"Routing", q:"נתב מקבל חבילה. מה 3 הפעולות לפני שמעביר?", a:["מחליף IP src/dst — תמיד, בכל מקרה", "(1) מוריד TTL. (2) מחליף MAC. זהו", "(1) מחשב Checksum ומוודא תקינות", "(1) בודק DNS. (2) מוריד TTL. (3) שולח"], c:2, e:"בפרק: 'הנתב מחשב את ה-Checksum ומוודא תקינות. לאחר מכן מחסיר 1 מ-TTL. בעקבות ההחסרה, עליו לחשב Checksum מחדש.' ואז: בונה Ethernet frame חדש עם MAC src/dst של ה-hop הנוכחי." },
+        { cat:"Subnet", q:"A: 10.0.0.1/8, B: 10.5.5.5/8. האם ב-Subnet אחד? האם A שולח ARP ל-B ישירות?", a:["כן — שניהם 10.x.x.x/8. A שולח ARP ישירות ל-B (לא דרך Gateway)","כן — Subnet אחד אבל ARP דרך Gateway","לא — Subnets שונים","כן — Subnet אחד אבל לא ARP"] , c:0, e:"Mask /8 = בית ראשון = Network. 10.x.x.x = אחד ה-Subnet. A בודק: 10.5.5.5 ב-10.0.0.0/8? כן! → שולח ARP Request ישירות (לא דרך Gateway). אם אינם באותו Subnet → ARP ל-Gateway." },
+        { cat:"traceroute", q:"traceroute עושה TTL=1, TTL=2... מה מחזיר כל נתב?", a:["ICMP Time Exceeded (type 11)", "ICMP Echo Reply (type 0) על פי התקן", "TCP RST — ללא יוצא מן הכלל", "UDP Port Unreachable בכל המקרים"], c:0, e:"traceroute: שולח UDP/ICMP עם TTL=1 → נתב 1 מוריד ל-0 → זורק + שולח ICMP Time Exceeded עם IP שלו! ← כך גיליתי נתב 1. ואז TTL=2 → נתב 2 שולח Time Exceeded. וכך הלאה עד היעד." },
+        { cat:"Default Gateway", q:"מה Default Gateway? למה המחשב צריך אותו?", a:["DNS Server — לפי פרוטוקול TCP בלבד", "נתב שמוציא חבילות מחוץ ל-Subnet", "DHCP Server", "שם אחר ל-Switch"], c:1, e:"כשיעד לא ב-Subnet שלנו = חבילה חייבת לצאת דרך נתב. Default Gateway = 'נתב ברירת המחדל' לשליחת חבילות לכתובות לא מוכרות. DHCP מחלק גם את כתובת ה-Default Gateway." },
+        { cat:"DHCP", q:"DHCP Discover נשלח מ-0.0.0.0 ל-255.255.255.255. למה?", a:["לקוח אין עדיין IP (src=0.0.0.0). לא יודע כתובת שרת DHCP (dst=255.255.255.255=Broadcast כדי לפנות לכולם)","src=0.0.0.0 = אנונימי, dst=255.255.255.255 = multicast","src=0.0.0.0 = loopback","dst=255.255.255.255 = DNS Server"] , c:0, e:"לקוח חדש: אין IP → src=0.0.0.0. לא יודע כתובת שרת DHCP → dst=255.255.255.255 (Broadcast = כולם). כל ישות ברשת מקבלת, שרת DHCP מזהה ועונה עם Offer." },
+        { cat:"ICMP", q:"מה ההבדל בין ping ל-traceroute מבחינת ICMP?", a:["ping = TCP, traceroute = UDP", "שניהם זהים — ICMP Echo — בהתאם לתקן IEEE 802", "ping = Echo Request/Reply (type 8/0)", "ping = UDP, traceroute = ICMP"], c:2, e:"ping: שולח ICMP Echo Request, מצפה ל-Echo Reply. traceroute: שולח עם TTL=1,2,3... כל נתב שמגיע אליו TTL=0 שולח Time Exceeded. בסוף: יעד מקבל → Port Unreachable (Windows) / Echo Reply (Linux)." },
+        { cat:"IP Header", q:"IP Header כולל Checksum אבל Ethernet גם כולל CRC32. למה ב-IPv6 הסירו את ה-Checksum?", a:["IPv6 Checksum = אוטומטי בחומרה", "IPv6 = פחות ביטחוני — תמיד, בכל מקרה", "IPv6 לא צריך Checksum כי אין שגיאות", "Layer 2 כבר מבצע Checksum"], c:3, e:"בפרק: 'שנים של ניסיון הוכיחו שבדרך כלל חבילת IPv4 רצה מעל Layer 2 שכולל Checksum ומעל Layer 4 שגם כולל Checksum. אי לכך, אין צורך לחשב Checksum בכל נתב — פעולה יקרה.' IPv6 = נתבים מהירים יותר." }
+      ],
+      hard: [
+        { cat:"CIDR חישוב", q:"/26 — כמה hosts? כמה רשתות יוצאות מ-/24?", a:["64 hosts שמישים, 4 רשתות", "/26 = 64 כתובות, 62 hosts שמישים", "62 hosts, 2 רשתות — ללא יוצא מן הכלל", "128 כתובות, 8 רשתות"], c:1, e:"/26 = 32-26=6 bits לhosts = 2^6=64 כתובות. פחות 2 (network+broadcast) = 62 hosts שמישים. /24→/26: 26-24=2 bits מושאלים = 2^2=4 רשתות. כל רשת: .0, .64, .128, .192." },
+        { cat:"NAT חישוב", q:"100 מחשבים מאחורי NAT עם IP ציבורי אחד. איך נתב יודע להחזיר תשובות לכל אחד?", a:["Switch מזהה לפי MAC", "לא ניתן — IP ציבורי אחד = מחשב אחד", "NAT Table: מקליד src_IP:port", "DNS מפנה לכל מחשב — לפי פרוטוקול TCP בלבד"], c:2, e:"PAT = Port Address Translation (NAT עם ports). נתב: 192.168.0.5:49152 → 1.1.1.1:50001. 192.168.0.6:49152 → 1.1.1.1:50002. בחזרה: port 50001 → 192.168.0.5. כך 65535 ports = 65535 חיבורים במקביל!" },
+        { cat:"BGP", q:"כיצד נתבי ISP מדברים אחד עם השני? מה BGP?", a:["BGP = Border Gateway Protocol. נתבי ISP מחליפים מידע על רשתות שידועות להם. כל ISP = Autonomous System עם ASN ייחודי","BGP = גרסה מיוחדת של DHCP","BGP = Routing Table ידנית","BGP = פרוטוקול של Layer 2"] , c:0, e:"BGP = 'פרוטוקול השלטון' של האינטרנט. כל ISP/ענן = Autonomous System. BGP מסנכרן Routing Tables בין ASים. AS Israel → AS Level3 → AS Google. BGP bugs = חלקים שלמים של האינטרנט נופלים (AS7007, Facebook 2021)." },
+        { cat:"IP Fragmentation", q:"MTU=1500 bytes. שולחים packet של 3000 bytes. מה קורה?", a:["שולח הודעת שגיאה ICMP — בהתאם לתקן IEEE 802", "נזרק — packet גדול מדי", "מעוגל ל-1500 אוטומטית", "IP Fragmentation: נחתך ל-2 fragments"], c:3, e:"IP Fragmentation: כל נתב שמקבל packet גדול מ-MTU שלו חותך לfragments. Fragment Offset מציין איפה כל חלק מתחיל. יעד מרכיב לפי Identification field. בעיה: Path MTU Discovery מנסה למנוע fragmentation." },
+        { cat:"OSPF", q:"מה ההבדל בין Static Routing ל-Dynamic Routing (OSPF)?", a:["Static: נתב מוגדר ידנית — לא מסתגל לשינויים. OSPF: נתבים מחליפים מידע, מבנים מפה של הרשת, מחשבים Shortest Path אוטומטית","Static = Layer 2, OSPF = Layer 3","OSPF = גרסה מתקדמת של ARP","Static = IPv4, OSPF = IPv6"] , c:0, e:"Static: כל הנתב יודע רק מה הוגדר לו ידנית. OSPF (Open Shortest Path First): נתבים שולחים Hello, מגלים שכנים, מחליפים Link State Advertisements, כל נתב בונה מפה מלאה, מחשב Dijkstra לנתיב קצר ביותר." }
+      ]
+    }
+  },
+
+  /* ─── TRACK 4 — Transport Layer ─── */
+  4: {
+    name: "שכבה 4 — תעבורה",
+    icon: "🚦",
+    color: "#f59e0b",
+    questions: {
+      easy: [
+        { cat:"TCP vs UDP", q:"מה ההבדל הבסיסי בין TCP ל-UDP?", a:["TCP = מבוסס קישור", "TCP = מהיר, UDP = אמין — תמיד, בכל מקרה", "TCP = Layer 4, UDP = Layer 3", "TCP = אלחוטי, UDP = קווי"], c:0, e:"TCP: Handshake, Seq/ACK, ניהול שגיאות, congestion control. UDP: שולח וחושפים — ללא ertification. DNS, streaming, gaming = UDP (מהירות > אמינות). HTTP, SSH, SMTP = TCP (אמינות > מהירות)." },
+        { cat:"Ports", q:"מה פורט 80?", a:["SSH בכל המקרים — על פי RFC", "DNS על פי התקן", "HTTP — Web browsing", "FTP — בכל תרחיש"], c:2, e:"Well-known ports: 80=HTTP, 443=HTTPS, 53=DNS, 22=SSH, 25=SMTP, 21=FTP, 110=POP3. Well-known = 0-1023. Client ports = random 49152-65535." },
+        { cat:"Handshake", q:"Three-Way Handshake — מה שלושת הצעדים?", a:["SYN → ACK → FIN", "REQUEST → RESPONSE → CONFIRM", "CONNECT → OK → GO", "SYN → SYN+ACK → ACK"], c:3, e:"Client שולח SYN (מבקש חיבור). Server עונה SYN+ACK (מסכים + מבקש). Client שולח ACK (מאשר). רק אחרי 3 הצעדים החיבור פתוח. 'Three-Way' = 3 הודעות." },
+        { cat:"netstat", q:"מה netstat מציג?", a:["חיבורי רשת פעילים: פורטים", "רשימת כרטיסי רשת על פי התקן", "טבלת ניתוב בכל המקרים", "MAC Addresses של הרשת"], c:0, e:"netstat -an: כל החיבורים הפעילים. Local Address (IP:Port שלי) + Foreign Address (IP:Port של הצד השני) + State (LISTEN/ESTABLISHED/TIME_WAIT). כלי אבחון חיוני." },
+        { cat:"Checksum", q:"מה Checksum בTCP/UDP?", a:["מספר פורט היעד — תמיד, בכל מקרה", "ערך מחושב מהנתונים", "ID של חיבור TCP", "מספר הbytes שנשלחו"], c:1, e:"Checksum = סיכום מתמטי של כל bytes ב-packet. נשלח עם ה-packet. הנמען מחשב Checksum בעצמו ומשווה. אם שונה = packet פגום = זורק (UDP) / מבקש שליחה חוזרת (TCP)." },
+        { cat:"TCP", q:"TCP Seq Number — מה תפקידו?", a:["מספר הpacket", "מספר ה-ACK — ללא יוצא מן הכלל", "TTL של TCP", "מספר סידורי לכל byte"], c:3, e:"Seq Number = מספר ה-byte הראשון ב-segment הזה. נמען יודע מה קיבל ומה חסר. אם packet אבד = הנמען רואה חור ב-Seq → שולח ACK עם הSeq שהוא מצפה לו → TCP שולח מחדש." },
+        { cat:"UDP", q:"מתי עדיף UDP על TCP?", a:["כשמהירות חשובה יותר מאמינות: streaming", "כשצריך אמינות — לפי פרוטוקול TCP בלבד", "כשמסגרות גדולות על פי התקן — על פי RFC", "UDP תמיד עדיף בכל המקרים — בכל תרחיש"], c:0, e:"UDP: כל packet עצמאי, ללא Handshake, ללא retransmit. DNS = תשובה מהירה חשובה מאמינות (retry מהיר אם לא מגיע). Zoom/Skype = frame אחד חסר? מוותרים וממשיכים. Gaming = latency < correctness." },
+        { cat:"Ports", q:"לקוח מתחבר ל-HTTP Server. מה פורט היעד? מה פורט המקור?", a:["dst=random, src=80", "dst=80 (HTTP well-known)", "dst=443, src=80", "dst=src=80 — בהתאם לתקן IEEE 802"], c:1, e:"Well-known port = השרת מאזין ב-80. Client = מגריל פורט רנדומלי מ-49152 עד 65535. כך ניתן לפתוח מספר חיבורי HTTP בו-זמנית מאותו מחשב — כל חיבור = src port שונה." },
+        { cat:"TCP State", q:"מה מצב LISTEN של TCP?", a:["החיבור נסגר בכל המקרים — על פי RFC", "חיבור פעיל וקיים — בכל תרחיש", "שרת מחכה לחיבורים נכנסים בפורט זה", "ממתין ל-ACK על פי התקן"], c:2, e:"netstat: LISTEN = שרת פתח socket ועושה listen(). מחכה ל-SYN. ESTABLISHED = חיבור פעיל לאחר Handshake. TIME_WAIT = ממתין לאחר FIN (מבטיח שכל הpackets הגיעו). CLOSE_WAIT = הצד השני סגר." },
+        { cat:"Checksum", q:"TCP Checksum מחשבת גם על ה-IP header (Pseudo Header). למה?", a:["מוודא שה-packet הגיע לכתובת IP ול-Port הנכונים — לא רק שהData לא פגום","כי IP Header ארוך יותר","כי UDP לא מחשב Pseudo Header","כי IPv6 לא כולל Checksum"] , c:0, e:"TCP Pseudo Header כולל: src IP, dst IP, Protocol, TCP Length. כך Checksum מגלה גם: packet שהגיע ל-IP אחר בטעות (IP fragmentation bug), או port rottation. הגנה נוספת מעל IP Checksum." }
+      ],
+      medium: [
+        { cat:"Seq/ACK חישוב", q:"Client ISN=333. SYN נשלח. מה ACK מחזיר Server ב-SYN+ACK?", a:["ACK=334 — ISN+1 (SYN נחשב byte אחד)", "ACK=333 על פי התקן", "ACK=0 בכל המקרים — על פי RFC", "ACK=335 — ISN+2 — בכל תרחיש"], c:0, e:"SYN = byte אחד (אפילו שאין data). ACK = Seq_שקיבלתי + גודל (1 עבור SYN) = 333+1=334. בpayload רגיל: ACK = Seq + len(data). Server מחזיר ACK=334 = 'קיבלתי עד 333, מצפה ל-334.'" },
+        { cat:"Handshake", q:"Client ISN=333, Server ISN=500. מלא: (3) ACK שולח Client — Seq=? ACK=?", a:["Seq=0, ACK=501", "Seq=334, ACK=501", "Seq=500, ACK=333", "Seq=333, ACK=500"], c:1, e:"SYN+ACK שהגיע: Seq=500, ACK=334. Client שולח ACK: Seq = ACK שקיבל = 334. ACK = Seq שקיבל + 1 = 500+1=501 (SYN = byte אחד). החיבור עכשיו פתוח!" },
+        { cat:"Port", q:"מחשב פתוח 3 חיבורי HTTP בו-זמנית לאותו server. איך זה אפשרי?", a:["מחשב משתמש ב-3 IPs שונים", "לא אפשרי — src port אחד לכל", "כל חיבור = src port שונה (random)", "3 Sockets על אותו port — בהתאם לתקן IEEE 802"], c:2, e:"Socket = (src_IP, src_port, dst_IP, dst_port). שלושה חיבורים: (:49152, google:80), (:49153, google:80), (:49154, google:80). src port שונה = חיבור שונה. עד 65535-49152=16383 חיבורים בו-זמנית!" },
+        { cat:"TCP", q:"מה קורה אם packet אבד ב-TCP? מה הdiagram?", a:["Receiver מבקש ידנית", "UDP מטפל בזה — תמיד, בכל מקרה", "packet נזרק לצמיתות", "Timeout/Duplicate ACK"], c:3, e:"Fast Retransmit: Receiver מקבל Seq 1,2,4 (חסר 3) → שולח ACK=3 (dup) שוב ושוב. אחרי 3 dup ACKs, Sender לא מחכה לTimeout → שולח Seq=3 מיד. Timeout Retransmit = איטי יותר אבל גם קורה." },
+        { cat:"UDP Header", q:"UDP Header = 8 bytes בלבד. מה 4 השדות?", a:["src port, dst port, seq, ack", "src port, dst port, length, checksum", "IP, port, protocol, checksum", "src, dst, TTL, flags — ללא יוצא מן הכלל"], c:1, e:"UDP Header = 8 bytes: src port (2), dst port (2), length (2), checksum (2). לעומת TCP: 20 bytes minimum עם Seq, ACK, Flags, Window, Options. UDP = overhead נמוך = מהיר יותר לapplications שלא צריכים אמינות." },
+        { cat:"Checksum", q:"UDP Checksum אופציונלי ב-IPv4 אבל חובה ב-IPv6. למה?", a:["ב-IPv6 יש יותר שגיאות", "UDP ב-IPv6 שונה לחלוטין", "ב-IPv6 הוסרו Checksums מה-IP Header", "ב-IPv4 UDP לא בשימוש — לפי פרוטוקול TCP בלבד"], c:2, e:"IPv4: IP Header עם Checksum + UDP Checksum = כפל הגנה (UDP יכול להסתמך על IP). IPv6: IP Header ללא Checksum! → UDP Checksum חובה כי אחרת אין הגנה מ-corruption בשכבה הזו." },
+        { cat:"TCP Flags", q:"מה כל דגל: SYN, ACK, FIN, RST?", a:["SYN=שליחה, ACK=קבלה, FIN=שגיאה, RST=retry", "SYN=sync, ACK=ack, FIN=finish, RST=restart (חיבור חדש)", "כולם משמעותם זהה — איתות — בהתאם לתקן IEEE 802", "SYN=פתיחת חיבור, ACK=אישור קבלה, FIN=סגירה מס"], c:3, e:"SYN: 'רצה להתחבר'. ACK: 'קיבלתי עד Seq X'. FIN: 'סיימתי לשלוח, מבקש לסגור בצד שלי'. RST: 'קטע הכל מיד, נסה שוב'. Handshake: SYN → SYN+ACK → ACK. סגירה: FIN→ACK→FIN→ACK." },
+        { cat:"Sockets", q:"socket.recv(1024) — data=='' — מה זה אומר?", a:["החיבור נסגר — הצד השני קרא ל-close()", "recv הגיע ל-timeout בכל המקרים — בכל תרחיש", "socket.send('') נשלח על פי התקן — על פי RFC", "שגיאת רשת — retry — תמיד, בכל מקרה"], c:0, e:"בפרק: 'קבלת מחרוזת ריקה מעידה שהחיבור בין הלקוח אל השרת התנתק.' TCP FIN קיבלנו → recv מחזיר ''. חשוב לבדוק: if data=='': close socket ו-remove מהרשימה. לא לבדוק = לולאה אינסופית!" },
+        { cat:"Window Size", q:"מה TCP Window Size? למה הוא חשוב?", a:["מספר maximal של packets על פי התקן", "גודל ה-TCP Header בכל המקרים — בכל תרחיש", "כמה bytes Sender יכול לשלוח לפני שצריך A", "Buffer בנתב — ללא יוצא מן הכלל — על פי RFC"], c:2, e:"Window Size = flow control. Receiver אומר: 'יש לי X bytes מקום ב-buffer'. Sender לא ישלח יותר. ב-Congestion Control: Window נצמצם כשיש עומס. TCP Sliding Window = ניצול מקסימלי של pipeline." },
+        { cat:"netstat", q:"netstat מציג: 127.0.0.1:8820 LISTEN. מה זה אומר?", a:["שרת מאזין לכולם ב-8820 בכל המקרים — בכל תרחיש", "שגיאת bind — port תפוס על פי התקן — על פי RFC", "לקוח פתוח ל-8820 — לפי פרוטוקול TCP בלבד", "שרת מאזין לחיבורים ב-port 8820 על loopback בלבד"], c:3, e:"127.0.0.1:8820 LISTEN = bind ל-loopback בלבד. רק חיבורים מ-127.0.0.1 יתקבלו. 0.0.0.0:8820 LISTEN = מאזין לכולם. לאבחון: netstat -an | findstr 8820 בWindows." },
+        { cat:"TCP", q:"מתי TCP ישלח RST במקום FIN?", a:["כשרוצים לסגור מיד ללא המתנה (abort)", "RST = אותו דבר כמו FIN", "RST = הצד השני ביקש", "RST = רק ב-UDP — בהתאם לתקן IEEE 802"], c:0, e:"FIN = 'סיימתי לשלוח, תסגור בנוח.' RST = 'עצור הכל מיד!' מתי RST: חיבור ל-port שאין עליו listener, firewall שמסמן חיבורים בעייתיים, application crash, timeout ארוך. RST אינו graceful — data ב-buffer עלול לאבד." }
+      ],
+      hard: [
+        { cat:"Handshake חישוב", q:"Client ISN=1000, Server ISN=2000. Client שולח 500 bytes data. מה Seq+ACK של Server's response?", a:["Server: Seq=2000, ACK=1000 — תמיד, בכל מקרה", "Server: Seq=2000, ACK=1501", "Server: Seq=2001, ACK=1500", "Server: Seq=1501, ACK=2001"], c:1, e:"אחרי Handshake: Client.Seq=334 (ISN+1SYN). Client שולח 500 bytes: Seq=334, data[0..499]. Server קיבל עד 334+500-1=833 → ACK=834. רגע — ISN=1000: Client.SYN Seq=1000, SYN+ACK ACK=1001. Client שולח data: Seq=1001. Server ACK=1001+500=1501." },
+        { cat:"Congestion Control", q:"מה TCP Slow Start? מה Congestion Window?", a:["Slow Start = תכונה של UDP — ללא יוצא מן הכלל", "Slow Start = TCP איטי מעצמו ולא ניתן לשנות", "Congestion Window = Buffer בנמען", "מתחיל בWindow קטן"], c:3, e:"Slow Start: cwnd=1→2→4→8... (exponential). מגיע ל-ssthresh (slow start threshold) → Linear increase (congestion avoidance). Packet loss detected (3 dup ACKs): ssthresh=cwnd/2, cwnd=ssthresh (fast recovery). Timeout: cwnd=1, Slow Start מחדש." },
+        { cat:"TIME_WAIT", q:"למה TCP מחכה 2×MSL (2 Minutes) ב-TIME_WAIT לפני סגירה מוחלטת?", a:["(1) מבטיח שה-ACK האחרון לFIN הגיע", "כי FTP דורש 2 דקות — לפי פרוטוקול TCP בלבד", "כי NAT צריך זמן לנקות", "TIME_WAIT = ב-UDP בלבד"], c:0, e:"MSL = Maximum Segment Lifetime (בד\"כ 1 דקה). 2×MSL: (1) אם ACK האחרון אבד, הצד השני שולח FIN שוב. צריך 2×MSL לקבל ולענות. (2) ישן packets (גיל עד MSL) לא יגיעו לחיבור חדש. TIME_WAIT = הגנה מ-connection hijacking." },
+        { cat:"QUIC", q:"מה QUIC? למה גוגל פיתחה אותו כתחליף ל-TCP?", a:["QUIC = Layer 2 protocol", "QUIC = UDP-based transport עם TCP-like reliab", "QUIC = HTTP/3 רק לגוגל — בהתאם לתקן IEEE 802", "QUIC = Quick UDP Internet Connections = כמו UDP אבל מהיר יותר"], c:1, e:"TCP מגבלות: Head-of-line blocking (packet אחד חסר = כל streams חסומים), handshake 1-3 RTT, TLS בנפרד. QUIC על UDP: built-in TLS 1.3, 0-RTT (connection בלי handshake לsites מוכרים), streams מקבילים ללא blocking. HTTP/3 = QUIC." },
+        { cat:"Socket Sockets", q:"select() מחזיר rlist. server_socket בתוכו. מה זה אומר? מה עושים?", a:["לקוח חדש מחכה להתחבר → קוראים accept() → מוסיפים client_socket ל-open_client_sockets","שגיאה בשרת — לסגור ולפתוח מחדש","השרת רוצה לשלוח מידע","server_socket ב-wlist, לא rlist"] , c:0, e:"בפרק: 'במידה שניתן לקרוא מ-server_socket, המשמעות היא שיש פנייה של לקוח חדש. ניתן לקרוא ל-accept ולהקים חיבור עם הלקוח החדש.' ואז: open_client_sockets.append(new_socket). הלקוח ב-open_clients מעתה." }
+      ]
+    }
+  },
+
+  /* ─── TRACK 5 — Integration ─── */
+  5: {
+    name: "אינטגרציה — הכל",
+    icon: "🧩",
+    color: "#a78bfa",
+    questions: {
+      easy: [
+        { cat:"מסע פקטה", q:"מה הסדר הנכון כשגולשים לfacebook.com לראשונה?", a:["TCP → DHCP → DNS → HTTP", "HTTP → DNS → DHCP → TCP", "DHCP → ARP → DNS → TCP Handshake ", "DNS → ARP → HTTP → TCP — תמיד, בכל מקרה"], c:2, e:"DHCP ראשון = קבלת IP. ARP = גילוי MAC של נתב. DNS = IP של Facebook. TCP Handshake = הקמת קישור. HTTP GET = בקשת עמוד. 200 OK = תגובה. זהו המסע המלא." },
+        { cat:"שכבות", q:"מי 'יודע' את כתובות IP? מי 'יודע' MAC?", a:["IP = Layer 3 (Router)", "IP ו-MAC = Layer 2 שניהם", "IP = Layer 4, MAC = Layer 3", "הכל = Layer 3 — ללא יוצא מן הכלל"], c:0, e:"Layer 1 (Hub): לא מבין שום כתובת. Layer 2 (Switch): MAC. Layer 3 (Router): IP. Layer 4: Ports (TCP/UDP). Layer 5 (App): HTTP/DNS/DHCP. כל שכבה מסתכלת על שדות שלה בלבד." },
+        { cat:"DHCP", q:"מחשב חדש ברשת. מה הוא יודע לפני DHCP?", a:["IP שלו בכל המקרים — על פי RFC", "רק MAC שלו — צרוב על כרטיס הרשת", "Default Gateway — בכל תרחיש", "DNS Server על פי התקן"], c:1, e:"בפרק: 'המחשב יודע רק את כתובת ה-MAC של כרטיס הרשת שלו.' הכל השאר — IP, Mask, Gateway, DNS — מגיע מ-DHCP. ה-MAC צרוב על הכרטיס ולא תלוי ברשת." },
+        { cat:"שכבות", q:"Switch מוריד TTL? Router מחליף MAC?", a:["Switch מוריד TTL, Router לא", "שניהם מורידים TTL — בהתאם לתקן IEEE 802", "Switch לא מוריד TTL (Layer 2 בלבד)", "שניהם לא משנים כלום"], c:2, e:"עיקרון מרכזי: Switch=Layer 2=לא מבין IP=לא מגע ב-TTL. Router=Layer 3=כן מוריד TTL ב-1, מחשב Checksum מחדש, מחליף MAC src/dst לhop הנוכחי." },
+        { cat:"MAC vs IP", q:"בנסיעה מהמחשב ל-Facebook, מה משתנה בכל hop?", a:["שניהם משתנים — תמיד, בכל מקרה", "IP משתנה, MAC קבוע", "שניהם קבועים", "MAC src/dst משתנה בכל hop"], c:3, e:"Layer 2 (MAC) = hop נוכחי בלבד. בכל Router: src_MAC=MAC_router_out, dst_MAC=MAC_next_hop. Layer 3 (IP) = קצוות סופיים = לא משתנה (אלא אם NAT). זהו ההבדל הגדול בין L2 ל-L3." },
+        { cat:"Client Server", q:"מה Socket? מה IP+Port מזהים?", a:["IP+Port = רק כתובת, לא Socket", "Socket = נקודת קצה של חיבור", "Socket = כתובת IP", "Socket = כבל פיזי — ללא יוצא מן הכלל"], c:1, e:"Socket = 'צינור' דיגיטלי. כתובת Socket = IP:Port. IP = כתובת המחשב. Port = 'דירה' ספציפית על המחשב (תוכנה מסוימת). 127.0.0.1:80 = שרת HTTP על המחשב המקומי." },
+        { cat:"ARP", q:"למה ARP Request נשלח ל-Broadcast ולא Unicast?", a:["כי Switch לא תומך ב-Unicast", "כדי לחסוך ב-Routing — לפי פרוטוקול TCP בלבד", "כי לא יודעים את MAC של היעד", "ARP = שכבה 3, Unicast = שכבה 2"], c:2, e:"לוגיקה מעגלית: צריכים MAC של B כדי לשלוח ל-B. אבל אם ידעתי MAC → לא צריך ARP! לכן Broadcast: 'מי שהוא 10.0.0.2 — ענה לי עם המACM שלך.' B שומע, מזהה את ה-IP שלו, עונה Unicast." },
+        { cat:"שכבות", q:"DNS = איזו שכבה? HTTP = איזו שכבה? TCP = איזו שכבה?", a:["DNS=4, HTTP=5, TCP=3", "DNS=3, HTTP=4, TCP=5", "כולם Layer 4 — בהתאם לתקן IEEE 802", "DNS+HTTP = Layer 5 (Application)"], c:3, e:"מודל 5 שכבות: L1=פיזי, L2=קו, L3=רשת(IP), L4=תעבורה(TCP/UDP), L5=אפליקציה(HTTP/DNS/DHCP/SSH). DNS עובד מעל UDP port 53. HTTP מעל TCP port 80. HTTPS מעל TCP port 443." },
+        { cat:"select", q:"למה צריך select() בשרת מרובה לקוחות?", a:["accept() ו-recv() הן blocking", "select() מהיר יותר", "select() = threading", "select() רק ל-UDP — תמיד, בכל מקרה"], c:0, e:"בפרק: 'accept blocking — הקוד יקפא עד שיתקבל חיבור. recv blocking — לא תאפשר המשך ריצה עד שיגיע מידע.' select() = מי מוכן עכשיו? → פועל רק עליהם. לא מבזבז זמן בהמתנה." },
+        { cat:"NAT", q:"הנתב הביתי שלך = כמה רכיבים בתוכו?", a:["Switch + Router בלבד", "Router בלבד — בכל תרחיש", "Router + Switch (LAN ports) + WiFi AP + DHCP + NAT + Firewall", "Modem בלבד"], c:2, e:"ה'ראוטר ביתי' שלך הוא multi-function device! Router (ניתוב), Switch (4 LAN ports), WiFi AP, DHCP Server (מחלק IP), NAT (כתובת פרטית→ציבורית), Firewall, לפעמים DNS Relay. ראוטר ארגוני 'טהור' = רק routing." }
+      ],
+      medium: [
+        { cat:"מסע מלא", q:"מחשב (192.168.0.5/16) רוצה ל-DNS (2.2.2.2). ARP ל-מי? למה?", a:["ARP ל-2.2.2.2 ישירות", "לא שולחים ARP — DNS ידוע", "ARP ל-DNS Server — לפי פרוטוקול TCP בלבד", "ARP ל-Default Gateway (192.168.0.1)"], c:3, e:"בפרק: '2.2.2.2... שני הבתים הראשונים הם 2.2 ולא 192.168... לא ב-Subnet.' → ARP לDefault Gateway. ARP = Layer 2 → לא עובר נתבים. Gateway מטפל מכאן." },
+        { cat:"חבילה מלאה", q:"DNS Query מהמחשב (192.168.0.5) לDNS (2.2.2.2) דרך נתב. מה כתובות ב-frame?", a:["MAC src=MAC_מחשב, MAC dst=MAC_נתב", "MAC src=MAC_מחשב, MAC dst=MAC_DNS. IP src=192.168.0.5, IP dst=2.2.2.2", "MAC src=IP שלי, MAC dst=IP של DNS", "כולם של המחשב — בהתאם לתקן IEEE 802"], c:0, e:"Layer 2 = hop נוכחי: src=MAC_מחשב, dst=MAC_נתב. Layer 3 = נקודות קצה: src=192.168.0.5 (שלי), dst=2.2.2.2 (DNS). MAC dst = נתב כי זה ה-hop הבא. IP dst = DNS כי זה היעד הסופי." },
+        { cat:"TCP + HTTP", q:"TCP Handshake הסתיים. Client שולח HTTP GET. Server Response 200 OK. מה Seq+ACK של ה-GET?", a:["Seq=ISN_server, ACK=ISN_client", "Client: Seq=ISN_client+1", "Seq=0, ACK=0 — תמיד, בכל מקרה", "Seq=1, ACK=1 תמיד"], c:1, e:"אחרי Handshake: Client Seq = ISN_client+1 (SYN נחשב byte). Client ACK = ISN_server+1. ה-GET הראשון: Seq = מה שהיה ACK של הHandshake (לקוח) = ISN_client+1. ACK = ISN_server+1. בלי data חדש = Seq לא מתקדם." },
+        { cat:"select rlist/wlist", q:"select() מחזיר client_socket ב-wlist. מה זה אומר? מה עושים?", a:["client_socket = server_socket בכל המקרים", "client_socket שלח מידע — קוראים recv()", "client_socket קרס — ללא יוצא מן הכלל על פי התקן", "client_socket מוכן לקבל שליחה ללא blocki"], c:3, e:"rlist = מוכן לקריאה. wlist = מוכן לשליחה. client ב-wlist → send() לא יחסום! → שולחים הודעות מהתור. client ב-rlist → recv() לא יחסום! → קוראים מידע." },
+        { cat:"NAT חזרה", q:"Facebook (3.3.3.3) שולח תשובה. מה נתב עושה?", a:["מחליף dst IP: 1.1.1.1 → 192.168.0.5", "שולח Broadcast לכולם", "שולח ל-DNS Server — לפי פרוטוקול TCP בלבד", "זורק — כתובת ציבורית לא מכירים"], c:0, e:"NAT Table: זוכר שפרטנו 1.1.1.1:PORT_X → 192.168.0.5:PORT_Y. תשובה ל-1.1.1.1:PORT_X → מחליף ל-192.168.0.5:PORT_Y. המחשב מקבל 'כאילו' Facebook ענה ישירות ל-192.168.0.5." },
+        { cat:"TTL trace", q:"מחשב שולח TTL=128. עובר Switch→Router→R1→R2→DNS. מה TTL שמגיע?", a:["TTL=124 — 4 hops", "TTL=125 — 3 נתבים בלבד", "TTL=128 — לא משתנה", "TTL=123 — 5 hops כולל Switch"], c:1, e:"Switch = Layer 2 = לא מוריד TTL. נתבים: Router (-1), R1 (-1), R2 (-1) = 3 הורדות. 128-3=125. בפרק: 'רק רכיבי שכבת הרשת, כגון נתבים, משנים את ערך זה, ולא רכיבי שכבת הקו.' " },
+        { cat:"Socket Server", q:"כשdata='' ב-recv, מה השרת עם select() צריך לעשות?", a:["לשלוח הודעת שגיאה ללקוח בכל המקרים", "להמשיך כרגיל — מחרוזת ריקה = הודעה ריקה", "open_client_sockets.remove(current_socke", "לעשות accept() מחדש — תמיד, בכל מקרה על פי התקן"], c:2, e:"בפרק: 'יש להבין האם התקבלה מחרוזת ריקה והחיבור נסגר. if data == '': open_client_sockets.remove(current_socket); print Connection closed.' ואז close() כדי לשחרר משאבים." },
+        { cat:"אינטגרציה", q:"Router vs Switch — מי מחליף כתובת MAC? מי מוריד TTL? מי מבין IP?", a:["Router: מחליף MAC", "Switch: מחליף MAC, Router: מוריד TTL", "שניהם אותו דבר — ללא יוצא מן הכלל", "Switch: מבין IP, Router: מבין MAC"], c:0, e:"Router = Layer 3: מוריד Ethernet frame, קורא IP, בונה frame חדש עם MAC src/dst של hop הנוכחי, מוריד TTL. Switch = Layer 2: מעביר frame כמו שהוא, לא מגע ב-IP header, לא TTL." },
+        { cat:"DNS Transaction", q:"DNS Transaction ID — מה זה ומה יתרונו?", a:["כתובת IP של שרת DNS", "מזהה ייחודי לכל שאילתא", "מספר סידורי כמו TCP Seq", "Port השאילתא — לפי פרוטוקול TCP בלבד"], c:1, e:"DNS מעל UDP = ללא Seq/ACK. איך יודעים לאיזו שאלה הגיעה תשובה? Transaction ID! אם שלחנו שאלות מרובות (dns.google.com + dns.facebook.com), כל תשובה מגיעה עם ה-ID שלה." },
+        { cat:"3 Way", q:"ISN=1000, ISN_server=2000. Client שולח 200 bytes. מה Seq+ACK של Server's ACK?", a:["Server ACK: Seq=1201, ACK=2001", "Seq=2000, ACK=1000 — בהתאם לתקן IEEE 802", "Server ACK: Seq=2001", "Seq=1201, ACK=1201"], c:2, e:"אחרי Handshake: Client Seq=1001, Server Seq=2001. Client שולח 200 bytes: Seq=1001. Server מקבל עד 1001+200-1=1200 → ACK=1201. Server Response: Seq=2001 (לא שלח עוד data), ACK=1201." }
+      ],
+      hard: [
+        { cat:"חישוב מלא", q:"Client ISN=500, Server ISN=900. Client GET (100 bytes). Server 200 OK (500 bytes). מה ACK האחרון של Client?", a:["ACK=1500 בכל המקרים — בכל תרחיש", "ACK=1401 על פי התקן — על פי RFC", "ACK=902 — תמיד, בכל מקרה", "ACK=1402 = 900(ISN_s)+1(SYN)+1(SYN)+500("], c:3, e:"Handshake: SYN(500)→SYN+ACK(900,ACK=501)→ACK(501,ACK=901). GET: Client Seq=501, 100 bytes. Server ACK=601. 200 OK: Server Seq=901, 500 bytes. Client ACK=901+500=1401. Final: Client ACK=1401." },
+        { cat:"Full Stack", q:"בקשת HTTPS לgoogle.com — רשום את כל ה-handshakes הנדרשים בסדר.", a:["HTTP GET → DNS → TCP — ללא יוצא מן הכלל", "DHCP → ARP (Gateway) → DNS", "TCP → TLS → DNS → HTTP", "DNS → TCP → UDP → TLS"], c:1, e:"DHCP (IP). ARP (MAC של Gateway). DNS Query UDP/53 (IP של Google). TCP SYN→SYN+ACK→ACK (port 443). TLS ClientHello→ServerHello→Certificate→Finished (מעל TCP). HTTP/2 GET (מעל TLS). כל שכבה = handshake משלה!" },
+        { cat:"select אינטגרציה", q:"Server עם select(). Client A שולח מידע. Client B מתחבר. שניהם ב-rlist. מה הסדר הנכון?", a:["A קודם כי שלח מידע", "B קודם כי חדש — לפי פרוטוקול TCP בלבד", "לא משנה הסדר ב-rlist", "server_socket תמיד ראשון"], c:2, e:"בפרק: 'for current_socket in rlist: if current_socket is server_socket: accept() else: recv().' לולאה מטפלת בכולם באיטרציה אחת! אין עדיפות — הסדר לפי Python list. זו ה'גאונות' של select()." },
+        { cat:"הכל יחד", q:"DHCP Discover נשלח. ב-Wireshark — מה src IP? dst IP? src MAC? dst MAC?", a:["src=MAC שלי, dst=MAC_DHCP", "src IP=192.168.0.1, dst IP=255.255.255.255", "src/dst הכל 0 — בהתאם לתקן IEEE 802", "src IP=0.0.0.0 (אין עדיין)"], c:3, e:"DHCP Discover = הודעה ראשונה של מחשב חדש. אין IP → src=0.0.0.0. לא יודע שרת DHCP → dst=255.255.255.255 (L3 Broadcast). L2: src=MAC שלי (ידוע). dst=ff:ff:ff:ff:ff:ff (L2 Broadcast). Switch = Flood." },
+        { cat:"Multi-layer", q:"traceroute שולח packet עם TTL=3. מה בדיוק קורה ב-Router3 ולאחריו?", a:["Router3 קיבל TTL=1, מוריד ל-0, זורק, שולח ICMP Time Exceeded (type 11) עם IP_Router3. traceroute קיבל → גילה Router3","Router3 מוריד ל-0 ומשלח הלאה","Router3 מחזיר ACK","Router3 מחסיר 1 ושולח לRouter4"] , c:0, e:"TTL=3: Router1 מוריד ל-2, Router2 מוריד ל-1, Router3 מוריד ל-0 → זורק! → שולח ICMP Type 11 (Time Exceeded) מה-IP שלו → traceroute קיבל IP_Router3 → הצגה ל-user. TTL=4 → Router4 חוזר. וכן הלאה." }
+      ]
+    }
+  }
+};
+
+/* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
+var state = {
+  track: null, level: null,
+  questions: [], cur: 0,
+  ans: [], xp: 0, streak: 0, maxStreak: 0,
+  timer: null, timeLeft: 0,
+  timeLimits: { easy:30, medium:20, hard:15 },
+  xpPerQ: { easy:10, medium:20, hard:30 }
+};
+
+/* ══════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+}
+
+function selectTrack(t) {
+  state.track = t;
+  var td = TRACKS[t];
+  document.getElementById('lsIcon').textContent  = td.icon;
+  document.getElementById('lsTitle').textContent = td.name;
+  document.getElementById('lsSub').textContent   = 'בחר רמת קושי';
+  setAmbient(td.color);
+  showScreen('levelSelect');
+}
+
+function setAmbient(color) {
+  document.getElementById('ambient').style.background =
+    'radial-gradient(ellipse 70% 45% at 50% -5%, ' + color + '14 0%, transparent 60%)';
+}
+
+function startQuiz(level) {
+  state.level = level;
+  var td = TRACKS[state.track];
+  var rawQ = td.questions[level];
+  // shuffle
+  state.questions = rawQ.slice().sort(function(){ return Math.random()-.5; });
+  state.cur = 0;
+  state.ans = new Array(state.questions.length).fill(-1);
+  state.xp = 0; state.streak = 0; state.maxStreak = 0;
+
+  // badges
+  var tc = td.color;
+  var tb = document.getElementById('qtTrackBadge');
+  tb.textContent = td.icon + ' ' + td.name;
+  tb.style.background = 'rgba(0,0,0,.4)';
+  tb.style.border = '1px solid ' + tc + '44';
+  tb.style.color = tc;
+
+  var lb = document.getElementById('qtLevelBadge');
+  var lMap = { easy:{txt:'🟢 קל', c:'rgba(52,211,153,.6)'}, medium:{txt:'🟡 בינוני', c:'rgba(251,191,36,.6)'}, hard:{txt:'🔴 קשה', c:'rgba(248,113,113,.6)'} };
+  lb.textContent = lMap[level].txt;
+  lb.style.color = lMap[level].c;
+  lb.style.borderColor = lMap[level].c;
+
+  document.getElementById('qProgFill').style.background = 'linear-gradient(90deg,' + tc + ',' + tc + '88)';
+  document.querySelector(':root').style.setProperty('--track-c', tc);
+
+  buildStreakBar();
+  setAmbient(tc);
+  showScreen('quiz');
+  renderQ();
+}
+
+function buildStreakBar() {
+  var sb = document.getElementById('streakBar');
+  sb.innerHTML = '';
+  for (var i = 0; i < 10; i++) {
+    var d = document.createElement('div');
+    d.className = 'streak-pip';
+    d.id = 'sp' + i;
+    sb.appendChild(d);
+  }
+}
+
+/* ══════════════════════════════════════════
+   RENDER QUESTION
+══════════════════════════════════════════ */
+var LBL = ['א','ב','ג','ד'];
+
+function renderQ() {
+  var q = state.questions[state.cur];
+  var total = state.questions.length;
+
+  document.getElementById('qNum').textContent  = 'שאלה ' + (state.cur+1) + ' / ' + total;
+  document.getElementById('qCat').textContent  = q.cat;
+  document.getElementById('xpCount').textContent = state.xp;
+
+  var xpB = document.getElementById('qXpBadge');
+  var xpV = state.xpPerQ[state.level];
+  xpB.textContent = '+' + xpV + ' XP';
+  xpB.style.background = 'rgba(251,191,36,.12)';
+  xpB.style.color = '#fbbf24';
+  xpB.style.border = '1px solid rgba(251,191,36,.25)';
+  xpB.style.borderRadius = '5px';
+  xpB.style.padding = '2px 8px';
+  xpB.style.fontFamily = 'var(--mono)';
+  xpB.style.fontSize = '10px';
+
+  // snippet
+  document.getElementById('qSnip').innerHTML = '';
+  if (q.snip) {
+    var sd = document.createElement('div');
+    sd.className = 'q-snippet';
+    var bar = document.createElement('div');
+    bar.className = 'qs-bar';
+    bar.innerHTML = '<div class="qs-dot d-r"></div><div class="qs-dot d-y"></div><div class="qs-dot d-g"></div>';
+    var body = document.createElement('div');
+    body.className = 'qs-body';
+    body.innerHTML = q.snip;
+    sd.appendChild(bar); sd.appendChild(body);
+    document.getElementById('qSnip').appendChild(sd);
+  }
+
+  document.getElementById('qText').textContent = q.q;
+
+  // shuffle options
+  var idx = [0,1,2,3].sort(function(){ return Math.random()-.5; });
+  var shufA = idx.map(function(i){ return q.a[i]; });
+  var newC = idx.indexOf(q.c);
+
+  var oc = document.getElementById('qOpts');
+  oc.innerHTML = '';
+  for (var i = 0; i < 4; i++) {
+    (function(i){
+      var b = document.createElement('button');
+      b.className = 'opt';
+      b.dataset.i = i;
+      b.dataset.correct = newC;
+      b.innerHTML =
+        '<span class="olabel">' + LBL[i] + '</span>' +
+        '<span class="otext">' + shufA[i] + '</span>' +
+        '<span class="oicon"></span>';
+      b.addEventListener('click', function() { pick(this, parseInt(this.dataset.correct)); });
+      oc.appendChild(b);
+    })(i);
+  }
+
+  document.getElementById('qExp').style.display = 'none';
+  document.getElementById('qExp').className = 'exp';
+  document.getElementById('btnNext').disabled = true;
+
+  // progress
+  document.getElementById('qProgFill').style.width = (state.cur / total * 100) + '%';
+
+  // timer
+  startTimer();
+
+  // re-animate card
+  var card = document.getElementById('qCard');
+  card.style.animation = 'none';
+  card.offsetHeight; // reflow
+  card.style.animation = 'slideIn .3s cubic-bezier(.22,1,.36,1)';
+}
+
+/* ══════════════════════════════════════════
+   TIMER
+══════════════════════════════════════════ */
+function startTimer() {
+  clearInterval(state.timer);
+  state.timeLeft = state.timeLimits[state.level];
+  updateTimerUI();
+  state.timer = setInterval(function() {
+    state.timeLeft--;
+    updateTimerUI();
+    if (state.timeLeft <= 0) {
+      clearInterval(state.timer);
+      timeUp();
+    }
+  }, 1000);
+}
+
+function updateTimerUI() {
+  var tw = document.getElementById('timerWrap');
+  var tv = document.getElementById('timerVal');
+  tv.textContent = state.timeLeft;
+  if (state.timeLeft <= 5) {
+    tw.classList.add('danger');
+    document.getElementById('timerIcon').textContent = '🔥';
+  } else {
+    tw.classList.remove('danger');
+    document.getElementById('timerIcon').textContent = '⏱';
+  }
+}
+
+function timeUp() {
+  // mark as wrong
+  state.ans[state.cur] = -2; // timed out
+  state.streak = 0;
+  updateStreakPip(state.cur, false);
+
+  // reveal correct answer
+  var bs = document.querySelectorAll('.opt');
+  bs.forEach(function(b){ b.classList.add('done'); b.removeEventListener('click', pick); });
+  var correctIdx = parseInt(bs[0].dataset.correct);
+  bs[correctIdx].classList.add('reveal');
+  bs[correctIdx].querySelector('.oicon').textContent = '✓';
+
+  var ex = document.getElementById('qExp');
+  ex.className = 'exp bad';
+  document.getElementById('qExpLabel').textContent = '⏰ פג הזמן!';
+  document.getElementById('qExpBody').textContent = state.questions[state.cur].e;
+  ex.style.display = 'block';
+
+  document.getElementById('btnNext').disabled = false;
+}
+
+/* ══════════════════════════════════════════
+   PICK ANSWER
+══════════════════════════════════════════ */
+function pick(btn, correctIdx) {
+  clearInterval(state.timer);
+  var chosen = parseInt(btn.dataset.i);
+  var ok = (chosen === correctIdx);
+
+  state.ans[state.cur] = ok ? 1 : 0;
+
+  // XP
+  if (ok) {
+    var earnedXP = state.xpPerQ[state.level];
+    // bonus for streak
+    if (state.streak >= 2) earnedXP = Math.round(earnedXP * (1 + state.streak * 0.1));
+    state.xp += earnedXP;
+    document.getElementById('xpCount').textContent = state.xp;
+    showXpPop(earnedXP, btn);
+    state.streak++;
+    state.maxStreak = Math.max(state.maxStreak, state.streak);
+  } else {
+    state.streak = 0;
+  }
+
+  updateStreakPip(state.cur, ok);
+
+  // style options
+  var bs = document.querySelectorAll('.opt');
+  bs.forEach(function(b){
+    b.classList.add('done');
+    b.removeEventListener('click', pick);
+  });
+
+  if (ok) {
+    btn.classList.add('correct');
+    btn.querySelector('.oicon').textContent = '✓';
+  } else {
+    btn.classList.add('wrong');
+    btn.querySelector('.oicon').textContent = '✗';
+    bs[correctIdx].classList.add('reveal');
+    bs[correctIdx].querySelector('.oicon').textContent = '✓';
+  }
+
+  var ex = document.getElementById('qExp');
+  ex.className = 'exp ' + (ok ? 'ok' : 'bad');
+  document.getElementById('qExpLabel').textContent = ok ? '✓ נכון!' : '✗ לא בדיוק...';
+  document.getElementById('qExpBody').textContent = state.questions[state.cur].e;
+  ex.style.display = 'block';
+
+  document.getElementById('btnNext').disabled = false;
+}
+
+function showXpPop(xp, btn) {
+  var r = btn.getBoundingClientRect();
+  var div = document.createElement('div');
+  div.className = 'xp-pop';
+  div.textContent = '+' + xp + ' XP' + (state.streak >= 2 ? ' 🔥' : '');
+  div.style.left = (r.left + r.width/2 - 40) + 'px';
+  div.style.top = (r.top - 20 + window.scrollY) + 'px';
+  document.body.appendChild(div);
+  setTimeout(function(){ div.remove(); }, 1200);
+}
+
+function updateStreakPip(idx, ok) {
+  var pip = document.getElementById('sp' + idx);
+  if (pip) pip.classList.toggle('hot', ok);
+}
+
+/* ══════════════════════════════════════════
+   NEXT QUESTION
+══════════════════════════════════════════ */
+function nextQ() {
+  state.cur++;
+  if (state.cur >= state.questions.length) {
+    clearInterval(state.timer);
+    showResult();
+  } else {
+    renderQ();
+  }
+}
+
+/* ══════════════════════════════════════════
+   RESULT
+══════════════════════════════════════════ */
+function showResult() {
+  var ok = state.ans.filter(function(x){ return x===1; }).length;
+  var total = state.questions.length;
+  var pct = Math.round(ok / total * 100);
+
+  var circ = 2 * Math.PI * 70;
+  setTimeout(function(){
+    document.getElementById('rrFill').style.strokeDashoffset = circ * (1 - pct/100);
+  }, 200);
+
+  document.getElementById('rrPct').textContent = pct + '%';
+
+  var grade;
+  if (pct >= 90) grade = 'A+';
+  else if (pct >= 80) grade = 'A';
+  else if (pct >= 70) grade = 'B';
+  else if (pct >= 60) grade = 'C';
+  else grade = 'F';
+  document.getElementById('rrGrade').textContent = grade;
+
+  var title, sub;
+  if (pct >= 90) { title = 'מצוין! 🏆'; sub = 'אתה מומחה רשתות!'; }
+  else if (pct >= 70) { title = 'כל הכבוד! 🎯'; sub = 'שליטה טובה. עוד קצת והשתלמת.'; }
+  else if (pct >= 50) { title = 'לא רע 💪'; sub = 'חזור על החומר ונסה שוב.'; }
+  else { title = 'יש מה לשפר 📖'; sub = 'קרא את פרק ה-Learn ונסה שוב!'; }
+
+  document.getElementById('rTitle').textContent = title;
+  document.getElementById('rSub').textContent   = sub;
+  document.getElementById('rOk').textContent     = ok;
+  document.getElementById('rBad').textContent    = total - ok;
+  document.getElementById('rXp').textContent     = state.xp;
+  document.getElementById('rStreak').textContent = state.maxStreak;
+
+  if (pct >= 80) fireworks();
+
+  document.getElementById('qProgFill').style.width = '100%';
+  showScreen('result');
+}
+
+function fireworks() {
+  var colors = ['#f97316','#a78bfa','#06b6d4','#10b981','#fbbf24'];
+  for (var i = 0; i < 30; i++) {
+    (function(i){
+      setTimeout(function(){
+        var fw = document.createElement('div');
+        fw.className = 'fw';
+        var x = Math.random() * window.innerWidth;
+        var y = Math.random() * window.innerHeight * .6 + 100;
+        fw.style.left = x + 'px';
+        fw.style.top  = y + 'px';
+        for (var j = 0; j < 8; j++) {
+          var dot = document.createElement('div');
+          dot.className = 'fw-dot';
+          dot.style.background = colors[Math.floor(Math.random()*colors.length)];
+          var angle = (j / 8) * Math.PI * 2;
+          var dist = 40 + Math.random() * 60;
+          dot.style.setProperty('--dx', Math.cos(angle)*dist + 'px');
+          dot.style.setProperty('--dy', Math.sin(angle)*dist + 'px');
+          dot.style.animationDelay = (Math.random()*0.2) + 's';
+          fw.appendChild(dot);
+        }
+        document.body.appendChild(fw);
+        setTimeout(function(){ fw.remove(); }, 1300);
+      }, i * 80);
+    })(i);
+  }
+}
+
+function restartQuiz() {
+  startQuiz(state.level);
+}
+</script>
+</body>
+</html>
