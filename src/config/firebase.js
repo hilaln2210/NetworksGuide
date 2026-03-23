@@ -2,27 +2,18 @@ import { initializeApp } from 'firebase/app'
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 
-// ══════════════════════════════════════════════════════════════
-// PASTE YOUR FIREBASE CONFIG HERE (from Firebase Console)
-// ══════════════════════════════════════════════════════════════
 const firebaseConfig = {
-  apiKey: "PASTE_HERE",
-  authDomain: "PASTE_HERE",
-  projectId: "PASTE_HERE",
-  storageBucket: "PASTE_HERE",
-  messagingSenderId: "PASTE_HERE",
-  appId: "PASTE_HERE"
+  apiKey: "AIzaSyAzWXWDtlFY49RIoZSZgfQ3hMtuArjO7SE",
+  authDomain: "im-ok-hila.firebaseapp.com",
+  projectId: "im-ok-hila",
+  storageBucket: "im-ok-hila.firebasestorage.app",
+  messagingSenderId: "500133632911",
+  appId: "1:500133632911:web:3e137c9980fc4ba64509fa"
 }
 
-const CONFIGURED = firebaseConfig.apiKey !== "PASTE_HERE"
+const app = initializeApp(firebaseConfig)
+export const auth = getAuth(app)
+export const db = getFirestore(app)
+export const googleProvider = new GoogleAuthProvider()
 
-let app = null, auth = null, db = null, googleProvider = null
-if (CONFIGURED) {
-  app = initializeApp(firebaseConfig)
-  auth = getAuth(app)
-  db = getFirestore(app)
-  googleProvider = new GoogleAuthProvider()
-}
-
-export { auth, db, googleProvider }
-export const isFirebaseConfigured = () => CONFIGURED
+export const isFirebaseConfigured = () => true
