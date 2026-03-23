@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 5 – מעבדה | Scapy</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Heebo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0e1a;--surf:#111827;--surf2:#1a2235;--brd:#1e2d45;--ac:#00d4ff;--ac2:#7c3aed;--gr:#10b981;--rd:#ef4444;--tx:#e2e8f0;--mt:#64748b;--mono:'IBM Plex Mono',monospace;--sans:'Heebo',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrap{max-width:900px;margin:0 auto;padding:32px 20px 60px;position:relative;z-index:1;}
+.hdr{margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--brd);}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.badge{background:linear-gradient(135deg,var(--ac2),#4f46e5);color:#fff;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:2px;padding:4px 10px;border-radius:4px;}
+.ch{font-family:var(--mono);font-size:12px;color:var(--ac);}
+.title{font-size:26px;font-weight:900;color:#fff;line-height:1.2;}
+.sub{font-size:14px;color:var(--mt);margin-top:4px;}
+.prog{background:var(--surf);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;margin-bottom:32px;display:flex;align-items:center;gap:20px;}
+.pl{font-family:var(--mono);font-size:12px;color:var(--mt);}
+.pb{flex:1;height:6px;background:var(--brd);border-radius:99px;overflow:hidden;}
+.pf{height:100%;background:linear-gradient(90deg,var(--ac2),var(--ac));border-radius:99px;transition:width .5s;width:0%;}
+.ps{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ac);}
+.card{background:var(--surf);border:1px solid var(--brd);border-radius:16px;overflow:hidden;}
+.ch2{background:var(--surf2);border-bottom:1px solid var(--brd);padding:16px 24px;display:flex;align-items:center;gap:12px;}
+.qn{font-family:var(--mono);font-size:11px;color:var(--mt);}
+.qc{font-family:var(--mono);font-size:11px;color:var(--ac);background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);padding:2px 8px;border-radius:4px;}
+.body{padding:28px 24px 20px;}
+.snip{background:#0d1117;border:1px solid var(--brd);border-radius:8px;padding:14px 18px;margin-bottom:22px;font-family:var(--mono);font-size:13px;line-height:1.85;overflow-x:auto;direction:ltr;text-align:left;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.nu{color:#bd93f9;}.va{color:#8be9fd;}.cm{color:#6272a4;}
+.qt{font-size:18px;font-weight:600;color:#fff;line-height:1.5;margin-bottom:28px;}
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{background:var(--bg);border:1px solid var(--brd);border-radius:10px;padding:14px 18px;cursor:pointer;text-align:right;display:flex;align-items:center;gap:12px;width:100%;font-family:var(--sans);font-size:15px;color:var(--tx);transition:all .15s;}
+.opt:hover{border-color:var(--ac);background:rgba(0,212,255,.04);color:#fff;}
+.opt.done{cursor:default;pointer-events:none;}
+.opt.correct{border-color:var(--gr);background:rgba(16,185,129,.1);color:#fff;}
+.opt.correct .lb{color:var(--gr);}
+.opt.wrong{border-color:var(--rd);background:rgba(239,68,68,.08);color:var(--mt);}
+.opt.wrong .lb{color:var(--rd);}
+.opt.show{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.05);}
+.lb{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--mt);min-width:20px;text-align:center;flex-shrink:0;}
+.ot{flex:1;text-align:right;}
+.ic{font-size:16px;min-width:20px;text-align:center;flex-shrink:0;}
+.exp{margin:20px 0 0;padding:16px 18px;border-radius:10px;border-right:3px solid var(--gr);background:rgba(16,185,129,.06);display:none;}
+.exp.bad{border-color:var(--rd);background:rgba(239,68,68,.06);}
+.et{font-family:var(--mono);font-size:11px;color:var(--gr);margin-bottom:6px;text-transform:uppercase;}
+.exp.bad .et{color:var(--rd);}
+.eb{font-size:14px;color:#94a3b8;line-height:1.7;}
+.foot{padding:20px 24px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;}
+.btn{background:transparent;border:1px solid var(--brd);color:var(--mt);padding:10px 20px;border-radius:8px;font-family:var(--sans);font-size:14px;cursor:pointer;transition:all .15s;}
+.btn:hover:not(:disabled){border-color:var(--ac);color:var(--ac);}
+.btn:disabled{opacity:.3;cursor:default;}
+.btn.pri{background:linear-gradient(135deg,var(--ac2),#4f46e5);border-color:transparent;color:#fff;font-weight:600;}
+.btn.pri:hover{opacity:.9;}
+.res{display:none;text-align:center;padding:60px 24px;}
+.ring{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;}
+.ring::after{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--surf);}
+.rn{font-family:var(--mono);font-size:36px;font-weight:600;color:#fff;position:relative;z-index:1;}
+.rt{font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;}
+.rs{font-size:15px;color:var(--mt);margin-bottom:32px;}
+.bks{display:flex;gap:20px;justify-content:center;margin-bottom:36px;flex-wrap:wrap;}
+.bk{background:var(--surf2);border:1px solid var(--brd);border-radius:10px;padding:14px 24px;text-align:center;}
+.bv{font-family:var(--mono);font-size:22px;font-weight:600;color:#fff;}
+.bl{font-size:12px;color:var(--mt);margin-top:2px;}
+.rbtn{background:linear-gradient(135deg,var(--ac2),#4f46e5);border:none;color:#fff;padding:14px 36px;border-radius:10px;font-family:var(--sans);font-size:16px;font-weight:600;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div class="row"><span class="badge">PRO LAB</span><span class="ch">פרק 5 מתוך 12</span></div>
+    <div class="title">Scapy</div>
+    <div class="sub">12 שאלות &middot; sniff &middot; lfilter &middot; prn &middot; בניית פקטות &middot; שכבות &middot; send/sr</div>
+  </div>
+  <div class="prog">
+    <span class="pl">התקדמות</span>
+    <div class="pb"><div class="pf" id="pf"></div></div>
+    <span class="ps" id="ps">0 / 12</span>
+  </div>
+  <div class="card" id="card">
+    <div class="ch2"><span class="qn" id="qn">שאלה 1</span><span class="qc" id="qc"></span></div>
+    <div class="body">
+      <div id="snip"></div>
+      <div class="qt" id="qt"></div>
+      <div class="opts" id="opts"></div>
+      <div class="exp" id="exp"><div class="et" id="et"></div><div class="eb" id="eb"></div></div>
+    </div>
+    <div class="foot">
+      <button class="btn" id="prev" onclick="go(-1)" disabled>&#x2192; הקודם</button>
+      <button class="btn pri" id="next" onclick="go(1)" disabled>הבא &#x2190;</button>
+    </div>
+  </div>
+  <div class="res" id="res">
+    <div class="ring" id="ring"><span class="rn" id="rpct">0%</span></div>
+    <div class="rt" id="rt"></div><div class="rs" id="rs"></div>
+    <div class="bks">
+      <div class="bk"><div class="bv" id="rok" style="color:var(--gr)"></div><div class="bl">נכון</div></div>
+      <div class="bk"><div class="bv" id="rbd" style="color:var(--rd)"></div><div class="bl">שגוי</div></div>
+      <div class="bk"><div class="bv" id="rtt" style="color:var(--ac)"></div><div class="bl">סהכ</div></div>
+    </div>
+    <button class="rbtn" onclick="restart()">התחל מחדש</button>
+  </div>
+</div>
+<script>
+var Q = [
+  {
+    cat: "Scapy בסיס",
+    sn: null,
+    q: "מה ההבדל בין Sockets ל-Scapy? מה Scapy מאפשרת שSockets לא מאפשרת?",
+    a: [
+      "Sockets לשכבת אפליקציה בלבד. Scapy מאפשרת לבנות ולשלוח פקטות בשכבות נמוכות (IP, Ethernet) ולהסניף ולנתח כל שדה",
+      "Sockets מהיר יותר. Scapy איטי ולכן לא מומלץ בפרודקשן",
+      "Sockets ל-TCP. Scapy ל-UDP בלבד",
+      "הם זהים, Scapy היא רק ממשק גרפי ל-Sockets"
+    ],
+    c: 0,
+    e: "בפרק: Sockets = שכבת אפליקציה (Layer 5). Scapy = עובדת מעל Python ומאפשרת גישה לשכבות נמוכות: לבנות פקטת IP ידנית, לשנות TTL, לשלוח Ethernet frame, להסניף ולנתח DNS/HTTP ברמת שדה."
+  },
+  {
+    cat: "sniff()",
+    sn: '<span class="va">packets</span> = <span class="fn">sniff</span>(count=<span class="nu">10</span>)\npackets.summary()',
+    q: "מה עושה sniff()? למה היא blocking וזה חשוב?",
+    a: [
+      "מסניפה פקטות מהרשת. Blocking = הקוד עוצר עד שנתפסות count פקטות — לא ממשיך לפני כן",
+      "שולחת פקטות לרשת. Blocking = מחכה לאישור משרת",
+      "פותחת חיבור TCP. Blocking = מחכה ל-SYN-ACK",
+      "מריצה Wireshark אוטומטית. Blocking = ממתינה לסגירת Wireshark"
+    ],
+    c: 0,
+    e: "בפרק: sniff() היא הפונקציה המרכזית להסנפה. Blocking = הפונקציה לא מחזירה תוצאה עד שיתפסו count פקטות שעוברות את ה-filter. אם lfilter מסנן רוב הפקטות — ייקח הרבה זמן עד שיתפסו 10 שעוברות."
+  },
+  {
+    cat: "lfilter ו-prn",
+    sn: '<span class="kw">def</span> <span class="fn">filter_dns</span>(pkt):\n    <span class="kw">return</span> DNS <span class="kw">in</span> pkt\n\n<span class="kw">def</span> <span class="fn">print_name</span>(pkt):\n    <span class="kw">print</span> pkt[DNSQR].qname\n\n<span class="fn">sniff</span>(count=<span class="nu">10</span>, lfilter=filter_dns, prn=print_name)',
+    q: "מה ההבדל בין lfilter לבין prn? מה השרשרת שמתבצעת?",
+    a: [
+      "lfilter = שומר/זורק כל פקטה (True/False). prn = פונקציה שרצה על כל פקטה שעברה את ה-filter",
+      "lfilter = מסנן לפי Layer. prn = מסנן לפי Protocol",
+      "lfilter = שולח פקטות. prn = מקבל פקטות",
+      "הם זהים, רק שמות שונים לאותה פונקציה"
+    ],
+    c: 0,
+    e: "בפרק: שרשרת sniff: (1) lfilter בודקת כל פקטה — מחזירה True → פקטה נשמרת, False → נזרקת. (2) כל פקטה שעברה lfilter נשלחת ל-prn לביצוע פעולה (הדפסה, שמירה לקובץ וכו')."
+  },
+  {
+    cat: "גישה לשכבות",
+    sn: '<span class="kw">if</span> DNS <span class="kw">in</span> packet:\n    op = packet[DNS].opcode\n    name = packet[DNSQR].qname\n    qtype = packet[DNSQR].qtype',
+    q: "מה ערך opcode=0 אומר? מה qtype=1 אומר?",
+    a: [
+      "opcode=0 = DNS Query (שאילתא). qtype=1 = A record (בקשת IPv4)",
+      "opcode=0 = DNS Error. qtype=1 = CNAME record",
+      "opcode=0 = DNS Response. qtype=1 = MX record",
+      "opcode=0 = תשובה. qtype=1 = שאילתא"
+    ],
+    c: 0,
+    e: "בפרק תרגיל 5.1: opcode=0 = QUERY (שאילתא, לא תשובה). qtype=1 = A record (מיפוי שם ל-IPv4). שניהם מסוננים יחד כדי לקבל רק שאילתות DNS מסוג A — בדיוק מה שהדפדפן שולח כשגולשים לאתר."
+  },
+  {
+    cat: "בניית פקטות",
+    sn: '<span class="va">my_pkt</span> = <span class="fn">IP</span>()\nmy_pkt.show()\n<span class="cm"># version = 4, ttl = 64, src = 127.0.0.1...</span>',
+    q: "מה Scapy ממלא אוטומטית כשיוצרים IP()? מה show() מציג בנוסף על הצגה ישירה?",
+    a: [
+      "Scapy ממלא שדות עם ערכי ברירת מחדל הגיוניים (version=4, ttl=64 וכו'). show() מציג כולם עם הסבר. הצגה ישירה מציגה רק שדות ששונו",
+      "Scapy שולח הפקטה לרשת אוטומטית. show() מציג פלט בינארי",
+      "Scapy לא ממלא כלום — חייבים להגדיר הכל. show() = שגיאה אם חסרים שדות",
+      "show() = ייצוג גרפי. הצגה ישירה = טקסט בלבד"
+    ],
+    c: 0,
+    e: "בפרק: Scapy ממלא אוטומטית version=4, ttl=64, proto, checksum וכו'. show() מסביר כל שדה (כמו Wireshark). הצגה ישירה (my_pkt) מציגה רק שדות שונים מברירת מחדל — שימושי לראות מה שינינו."
+  },
+  {
+    cat: "אופרטור /",
+    sn: '<span class="va">pkt1</span> = <span class="fn">IP</span>() / <span class="fn">TCP</span>()\n<span class="va">pkt2</span> = <span class="fn">Ether</span>() / <span class="fn">IP</span>() / <span class="fn">TCP</span>() / <span class="fn">Raw</span>(<span class="st">"GET / HTTP/1.0\\r\\n\\r\\n"</span>)',
+    q: "מה עושה אופרטור / בין שכבות Scapy? מה הקשר ל-Encapsulation?",
+    a: [
+      "מחבר (Stack) שכבות זו על גבי זו — ממש כמו Encapsulation: כל שכבה עוטפת את זו שמעליה",
+      "מחלק את הפקטה למספר פקטות קטנות לשידור",
+      "מבצע OR בינארי בין ה-Headers",
+      "משחרר את השכבה הקודמת מהזיכרון"
+    ],
+    c: 0,
+    e: "בפרק: / = Encapsulation בקוד. Ether()/IP()/TCP() יוצרת פקטת Ethernet שמכילה IP שמכיל TCP — בדיוק כמו שתראו ב-Wireshark. Scapy מציג: <Ether |<IP |<TCP |>>>. Raw() מוסיף Payload גולמי."
+  },
+  {
+    cat: "HTTP ב-Scapy",
+    sn: '<span class="kw">def</span> <span class="fn">http_filter</span>(pkt):\n    <span class="kw">return</span> (TCP <span class="kw">in</span> pkt <span class="kw">and</span>\n            Raw <span class="kw">in</span> pkt <span class="kw">and</span>\n            <span class="fn">str</span>(pkt[Raw]).<span class="fn">startswith</span>(<span class="st">\'GET\'</span>))',
+    q: "למה לא ניתן לכתוב 'HTTP in packet' ב-Scapy? איך מסננים HTTP GET?",
+    a: [
+      "Scapy לא מכיר HTTP כשכבה רשמית — מתייחס אליו כ-Raw. מסננים: TCP + Raw + startswith('GET')",
+      "HTTP in packet עובד רק ב-Wireshark, לא ב-Scapy",
+      "HTTP מוצפן תמיד ולכן לא ניתן לסנן",
+      "Scapy מכיר HTTP אבל צריך לייבא module נפרד"
+    ],
+    c: 0,
+    e: "בפרק: Scapy מתייחס ל-HTTP כ-Raw (מחרוזת). לכן בודקים: (1) TCP in packet — HTTP רץ מעל TCP. (2) Raw in packet — יש תוכן. (3) str(packet[Raw]).startswith('GET') — מתחיל ב-GET."
+  },
+  {
+    cat: "שליחה",
+    sn: '<span class="va">pkt</span> = <span class="fn">IP</span>(dst=<span class="st">\'www.google.com\'</span>) / <span class="fn">Raw</span>(<span class="st">\'Hello\'</span>)\n<span class="fn">send</span>(pkt)\n\n<span class="va">ans</span>, <span class="va">unans</span> = <span class="fn">sr</span>(pkt)\n<span class="va">ans1</span> = <span class="fn">sr1</span>(pkt)',
+    q: "מה ההבדל בין send() לבין sr() ו-sr1()?",
+    a: [
+      "send() = שלח ושכח, לא מחכה לתגובה. sr() = שלח וחכה, מחזיר (answered, unanswered). sr1() = רק תגובה ראשונה",
+      "send() = Layer 3. sr() = Layer 2. sr1() = Layer 1",
+      "send() = TCP. sr() = UDP. sr1() = ICMP",
+      "הם זהים, רק הפלט שונה"
+    ],
+    c: 0,
+    e: "בפרק: send() = שלח פקטה ב-Layer 3, לא מחכה לתגובה. sr() = send+receive, מחזיר tuple של (answered, unanswered). sr1() = כמו sr אבל מחזיר רק הפקטה הראשונה שחזרה. sendp()/srp() = גרסאות Layer 2."
+  },
+  {
+    cat: "Resolving",
+    sn: '<span class="va">pkt</span> = <span class="fn">IP</span>(dst=<span class="st">\'www.google.com\'</span>)\nmy_pkt.src  <span class="cm"># \'127.0.0.1\'</span>\nmy_pkt.dst  <span class="cm"># \'www.google.com\'</span>',
+    q: "מה זה Resolving ב-Scapy? מתי בפועל מתבצע תרגום השם ל-IP?",
+    a: [
+      "Scapy יודע לבצע DNS בעצמו. השם נשמר בפקטה, אבל בזמן send() הוא מבצע DNS ומציב את ה-IP האמיתי",
+      "Resolving = שינוי כתובת ה-IP תוך כדי שידור",
+      "Scapy לא תומך בשמות דומיין — חייבים IP מספרי",
+      "Resolving = הצפנת הכתובת לפני שליחה"
+    ],
+    c: 0,
+    e: "בפרק: IP(dst='www.google.com') — Scapy שומר את שם הדומיין בפקטה. כשמסתכלים: show() מציג 'www.google.com'. אבל בזמן send() בפועל, Scapy מבצע DNS ומציב את ה-IP הנכון בשדה dst."
+  },
+  {
+    cat: "שכבות ב-Scapy",
+    sn: '<span class="va">pkt</span> = <span class="fn">Ether</span>() / <span class="fn">IP</span>(dst=<span class="st">\'1.2.3.4\'</span>, ttl=<span class="nu">10</span>) / <span class="fn">TCP</span>(dport=<span class="nu">80</span>)\n<span class="cm"># <Ether type=0x800 |<IP ttl=10 |<TCP dport=http |>>></span>',
+    q: "מה Scapy מסיק אוטומטית כשמציינים dport=80? מה type=0x800 אומר?",
+    a: [
+      "dport=80 = Scapy יודע שזה HTTP ומציג 'http'. type=0x800 = שכבה הבאה היא IP (EtherType)",
+      "dport=80 = Scapy פותח חיבור HTTP אוטומטית. type=0x800 = גרסת Ethernet",
+      "dport=80 = Scapy מסנן רק HTTP. type=0x800 = מספר הפורט",
+      "שניהם שגיאות, Scapy לא מכיר ערכים מספריים"
+    ],
+    c: 0,
+    e: "בפרק: Scapy מכיר פורטים מוכרים — dport=80 מוצג כ-http, בדיוק כמו Wireshark. type=0x800 = EtherType שאומר שהשכבה הבאה ב-Ethernet frame היא IP. זה מה שמאפשר לכרטיס הרשת להבין מה לעשות עם ה-Frame."
+  },
+  {
+    cat: "import ב-Script",
+    sn: '<span class="kw">from</span> scapy.all <span class="kw">import</span> *\n\n<span class="kw">def</span> <span class="fn">filter_dns</span>(pkt):\n    <span class="kw">return</span> (DNS <span class="kw">in</span> pkt <span class="kw">and</span>\n            pkt[DNS].opcode == <span class="nu">0</span> <span class="kw">and</span>\n            pkt[DNSQR].qtype == <span class="nu">1</span>)\n\n<span class="kw">def</span> <span class="fn">print_name</span>(pkt):\n    <span class="kw">print</span> pkt[DNSQR].qname\n\nsniff(count=<span class="nu">10</span>, lfilter=filter_dns, prn=print_name)',
+    q: "איך מריצים Scapy מקובץ .py ולא מ-interpreter? מה השורה החיונית?",
+    a: [
+      "from scapy.all import * — מייבאת את כל אובייקטי Scapy לסקריפט",
+      "import scapy — מייבאת רק את הפקטות",
+      "scapy.run() — מפעיל Scapy במצב אוטומטי",
+      "אין צורך ב-import כי Scapy מותקן גלובלית"
+    ],
+    c: 0,
+    e: "בפרק: כשרוצים לכתוב סקריפט קובץ .py, צריך: from scapy.all import * . זה מייבא DNS, IP, TCP, sniff, send וכו'. אחרי זה הקוד זהה לעבודה ב-interpreter. הסקריפט הקומפלטי מהפרק עושה בדיוק זאת."
+  },
+  {
+    cat: "DNS Monitoring — תרגיל 5.1",
+    sn: '<span class="cm"># ipconfig /flushdns</span>\n<span class="kw">def</span> <span class="fn">filter_dns</span>(pkt):\n    <span class="kw">return</span> (DNS <span class="kw">in</span> pkt <span class="kw">and</span>\n            pkt[DNS].opcode == <span class="nu">0</span> <span class="kw">and</span>\n            pkt[DNSQR].qtype == <span class="nu">1</span>)\n\nsniff(lfilter=filter_dns, prn=<span class="kw">lambda</span> p: <span class="kw">print</span>(p[DNSQR].qname))',
+    q: "למה צריך ipconfig /flushdns לפני ההסנפה? מה קורה בלעדיו?",
+    a: [
+      "מנקה מטמון DNS. בלעדיו, מערכת ההפעלה זוכרת כתובות מהפעם הקודמת ולא שולחת שאילתות DNS חדשות — ולא נסנוף כלום",
+      "מאפס את כרטיס הרשת לפני הסנפה",
+      "מנקה את ה-ARP cache",
+      "נחוץ רק ב-Windows, לא ב-Linux"
+    ],
+    c: 0,
+    e: "בפרק: 'לפני ביצוע ההסנפה, נאפס את המטמון של רשומות ה-DNS'. מערכת ההפעלה זוכרת תשובות DNS ל-TTL שניות. אם גלשת ל-google.com לפני שעה — לא תישלח שאילתת DNS חדשה ולא תסנוף אותה."
+  }
+];
+
+var LBL = ["א","ב","ג","ד"];
+var cur = 0;
+var ans = [];
+for (var i = 0; i < Q.length; i++) { ans.push(-1); }
+
+function shuf(q) {
+  var idx = [0,1,2,3];
+  for (var i = 3; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i+1));
+    var t = idx[i]; idx[i] = idx[j]; idx[j] = t;
+  }
+  var na = [];
+  for (var k = 0; k < 4; k++) { na.push(q.a[idx[k]]); }
+  var nc = -1;
+  for (var k = 0; k < 4; k++) { if (idx[k] === q.c) { nc = k; break; } }
+  return {cat:q.cat, sn:q.sn, q:q.q, a:na, c:nc, e:q.e};
+}
+
+var SQ = [];
+for (var i = 0; i < Q.length; i++) { SQ.push(shuf(Q[i])); }
+
+function render() {
+  var q = SQ[cur];
+  document.getElementById("qn").textContent = "שאלה " + (cur+1);
+  document.getElementById("qc").textContent = q.cat;
+  var sn = document.getElementById("snip");
+  sn.innerHTML = q.sn ? '<div class="snip">' + q.sn + '</div>' : "";
+  document.getElementById("qt").textContent = q.q;
+  var oc = document.getElementById("opts");
+  oc.innerHTML = "";
+  for (var i = 0; i < 4; i++) {
+    var b = document.createElement("button");
+    b.className = "opt";
+    b.innerHTML = '<span class="lb">' + LBL[i] + '</span><span class="ot">' + q.a[i] + '</span><span class="ic"></span>';
+    b.setAttribute("data-i", i);
+    b.onclick = pick;
+    oc.appendChild(b);
+  }
+  var ex = document.getElementById("exp");
+  ex.style.display = "none"; ex.className = "exp";
+  if (ans[cur] !== -1) { showA(cur); }
+  document.getElementById("prev").disabled = (cur === 0);
+  document.getElementById("next").disabled = (ans[cur] === -1);
+  upProg();
+}
+
+function pick() {
+  if (ans[cur] !== -1) { return; }
+  var i = parseInt(this.getAttribute("data-i"));
+  ans[cur] = i; showA(cur);
+  document.getElementById("next").disabled = false;
+}
+
+function showA(idx) {
+  var q = SQ[idx]; var ch = ans[idx]; var ok = (ch === q.c);
+  var bs = document.querySelectorAll(".opt");
+  for (var i = 0; i < bs.length; i++) {
+    bs[i].className = "opt done"; bs[i].onclick = null;
+    var ic = bs[i].querySelector(".ic");
+    if (i === q.c) { bs[i].classList.add(ok ? "correct" : "show"); if (!ok) { ic.textContent = "\u2713"; } }
+    if (i === ch && !ok) { bs[i].classList.add("wrong"); ic.textContent = "\u2717"; }
+    if (i === ch && ok) { ic.textContent = "\u2713"; }
+  }
+  var ex = document.getElementById("exp");
+  document.getElementById("et").textContent = ok ? "\u2713 \u05e0\u05db\u05d5\u05df!" : "\u2717 \u05dc\u05d0 \u05d1\u05d3\u05d9\u05d5\u05e7...";
+  document.getElementById("eb").textContent = q.e;
+  ex.className = ok ? "exp" : "exp bad"; ex.style.display = "block";
+}
+
+function upProg() {
+  var n = 0;
+  for (var i = 0; i < ans.length; i++) { if (ans[i] !== -1) { n++; } }
+  document.getElementById("pf").style.width = (n / Q.length * 100) + "%";
+  document.getElementById("ps").textContent = n + " / " + Q.length;
+}
+
+function go(d) {
+  var n = cur + d;
+  if (n < 0) { return; }
+  if (n >= Q.length) { showRes(); return; }
+  cur = n; render();
+}
+
+function showRes() {
+  document.getElementById("card").style.display = "none";
+  document.getElementById("res").style.display = "block";
+  var ok = 0, bd = 0;
+  for (var i = 0; i < ans.length; i++) {
+    if (ans[i] === SQ[i].c) { ok++; } else if (ans[i] !== -1) { bd++; }
+  }
+  var pct = Math.round(ok / Q.length * 100);
+  document.getElementById("ring").style.background = "conic-gradient(var(--ac) 0%,var(--ac2) " + pct + "%,var(--brd) " + pct + "%)";
+  document.getElementById("rpct").textContent = pct + "%";
+  document.getElementById("rok").textContent = ok;
+  document.getElementById("rbd").textContent = bd;
+  document.getElementById("rtt").textContent = Q.length;
+  var t, s;
+  if (pct >= 80) { t = "\u05de\u05e6\u05d5\u05d9\u05df! \ud83c\udfaf"; s = "Scapy \u05d1\u05e9\u05dc\u05d9\u05d8\u05d4"; }
+  else if (pct >= 50) { t = "\u05dc\u05d0 \u05e8\u05e2 \ud83d\udcaa"; s = "\u05d7\u05d6\u05d5\u05e8 \u05e2\u05dc lfilter/prn \u05d5-send/sr"; }
+  else { t = "\u05d9\u05e9 \u05de\u05d4 \u05dc\u05d7\u05d6\u05e7 \ud83d\udcda"; s = "\u05e7\u05e8\u05d0 \u05e9\u05d5\u05d1 \u05d0\u05ea \u05e4\u05e8\u05e7 5"; }
+  document.getElementById("rt").textContent = t;
+  document.getElementById("rs").textContent = s;
+  upProg();
+}
+
+function restart() {
+  SQ = [];
+  for (var i = 0; i < Q.length; i++) { SQ.push(shuf(Q[i])); }
+  cur = 0; ans = [];
+  for (var i = 0; i < Q.length; i++) { ans.push(-1); }
+  document.getElementById("card").style.display = "block";
+  document.getElementById("res").style.display = "none";
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

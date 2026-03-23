@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 4 – שכבת האפליקציה</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;background:#eef8fc;padding:20px;color:#1a1a2e;line-height:1.7;}
+.wrap{max-width:1000px;margin:auto;}
+.card{background:#fff;padding:24px 28px;border-radius:20px;margin-bottom:18px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.card h1{margin:0 0 6px;font-size:26px;color:#0f1d2a;}
+.card h2{margin:0 0 14px;font-size:20px;color:#0a3d62;border-bottom:2px solid #d4eaf7;padding-bottom:8px;}
+.card h3{margin:10px 0 6px;font-size:16px;color:#154360;}
+.card p{margin:0 0 12px;}
+pre{background:#0f1d2a;color:#f0f0f0;padding:16px;border-radius:12px;overflow-x:auto;font-size:13px;line-height:1.8;direction:ltr;text-align:left;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.cm{color:#6272a4;}.va{color:#8be9fd;}.nu{color:#bd93f9;}
+.box{border:1px solid #b3d7ee;padding:14px 18px;border-radius:12px;margin:12px 0;background:#f0f9ff;}
+.box.green{border-color:#a8d8a8;background:#f0fff4;}
+.box.yellow{border-color:#f5cba7;background:#fef9f0;}
+.box.red{border-color:#f5b7b1;background:#fff5f5;}
+.box h4{margin:0 0 6px;font-size:14px;color:#0a3d62;}
+.box.green h4{color:#145a32;}
+.box.yellow h4{color:#784212;}
+.box.red h4{color:#7b241c;}
+.box p{margin:0;font-size:14px;color:#333;}
+.tag{display:inline-block;background:#d4eaf7;color:#0a3d62;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-left:6px;}
+.tag.g{background:#d5f5e3;color:#145a32;}
+.tag.r{background:#fadbd8;color:#7b241c;}
+.tag.y{background:#fdebd0;color:#784212;}
+.method-row{display:flex;gap:16px;margin:12px 0;flex-wrap:wrap;}
+.method-card{flex:1;min-width:200px;border:1px solid #d0d0d0;border-radius:12px;padding:14px;background:#fafafa;}
+.method-card h4{margin:0 0 8px;font-size:15px;}
+.method-card p{margin:0;font-size:13px;color:#555;}
+.flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin:12px 0;}
+.flow-item{background:#0a3d62;color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;text-align:center;}
+.flow-arrow{font-size:20px;color:#999;padding:0 6px;}
+.codes{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;}
+.code-badge{padding:8px 14px;border-radius:10px;font-weight:700;font-size:14px;text-align:center;}
+.c2{background:#d5f5e3;color:#145a32;}
+.c3{background:#d4eaf7;color:#0a3d62;}
+.c4{background:#fdebd0;color:#784212;}
+.c5{background:#fadbd8;color:#7b241c;}
+table.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}
+.tbl th{background:#0a3d62;color:#fff;padding:10px 14px;text-align:right;}
+.tbl td{padding:9px 14px;border:1px solid #cce;vertical-align:top;}
+.tbl tr:nth-child(even) td{background:#f4f9ff;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- כותרת -->
+<div class="card">
+  <h1>&#x1F310; פרק 4 – שכבת האפליקציה</h1>
+  <p style="color:#555;margin:0;">HTTP &middot; בקשה ותגובה &middot; Status Codes &middot; Headers &middot; GET vs POST &middot; DNS &middot; URL</p>
+</div>
+
+<!-- מה לומדים -->
+<div class="card">
+  <h2>נושאי הפרק</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:10px;">
+    <div class="box" style="flex:1;min-width:180px;"><h4>&#x1F4E1; HTTP בסיס</h4><p>בקשה ותגובה, מבנה ה-protocol</p></div>
+    <div class="box green" style="flex:1;min-width:180px;"><h4>&#x1F4CA; Status Codes</h4><p>200, 301, 302, 404, 500</p></div>
+    <div class="box yellow" style="flex:1;min-width:180px;"><h4>&#x1F4DC; HTTP Headers</h4><p>שדות מידע נוספים בבקשה ובתגובה</p></div>
+    <div class="box" style="flex:1;min-width:180px;"><h4>&#x1F504; GET vs POST</h4><p>שני סוגי בקשות HTTP עיקריים</p></div>
+    <div class="box green" style="flex:1;min-width:180px;"><h4>&#x1F310; DNS</h4><p>תרגום שמות דומיין לכתובות IP</p></div>
+  </div>
+</div>
+
+<!-- HTTP מהו -->
+<div class="card">
+  <h2>&#x1F4E1; HTTP – איך זה עובד?</h2>
+  <p>HTTP הוא פרוטוקול <strong>בקשה-תגובה</strong>: הלקוח (דפדפן) שולח <strong>Request</strong>, השרת מחזיר <strong>Response</strong>. כל תקשורת HTTP כוללת שורת בקשה/תגובה + Headers + Data (תוכן).</p>
+  <div class="flow">
+    <div class="flow-item">דפדפן</div>
+    <div class="flow-arrow">──── GET /page.html ────&#x2192;</div>
+    <div class="flow-item">שרת</div>
+    <div class="flow-arrow">&#x2190;── 200 OK + HTML ────</div>
+    <div class="flow-item">דפדפן</div>
+  </div>
+  <div class="box yellow">
+    <h4>&#x1F4CC; מה ראינו ב-Wireshark (תרגיל 4.1)</h4>
+    <p>הסנפנו גלישה ל-<code>info.cern.ch/hypertext/WWW/TheProject.html</code> עם פילטר <code>http</code>. ראינו <strong>שתי שורות</strong>: פקטת הבקשה מהלקוח, ופקטת התגובה מהשרת.</p>
+  </div>
+</div>
+
+<!-- מבנה בקשה -->
+<div class="card">
+  <h2>&#x1F4DD; מבנה בקשת GET</h2>
+  <pre><span class="kw">GET</span> /hypertext/WWW/TheProject.html <span class="nu">HTTP/1.1</span>
+<span class="va">Host:</span> info.cern.ch
+<span class="va">Accept:</span> text/html
+<span class="va">Accept-Language:</span> he
+<span class="va">Connection:</span> keep-alive
+<span class="cm">          &lt;-- שורה ריקה = סיום Headers</span>
+<span class="cm">          &lt;-- GET אין Body בבקשת</span></pre>
+  <div class="method-row">
+    <div class="method-card">
+      <h4 style="color:#0a3d62;">&#x1F4CB; שורת הבקשה</h4>
+      <p>METHOD + URL + גרסת פרוטוקול<br><code>GET /page.html HTTP/1.1</code></p>
+    </div>
+    <div class="method-card">
+      <h4 style="color:#145a32;">&#x1F4CB; Headers</h4>
+      <p>שדות מידע נוספים. פורמט: <code>שם: ערך</code><br>מסתיימים בשורה ריקה (<code>\r\n\r\n</code>)</p>
+    </div>
+    <div class="method-card">
+      <h4 style="color:#784212;">&#x1F4CB; Body (Data)</h4>
+      <p>תוכן הבקשה. ב-GET ריק. ב-POST כולל את הנתונים שנשלחים.</p>
+    </div>
+  </div>
+  <div class="box">
+    <h4>&#x2139; הפרדה בין שורות</h4>
+    <p>ב-HTTP משתמשים ב-<code>\r\n</code> (carriage return + line feed) להפרדת שורות. שורה ריקה (<code>\r\n\r\n</code>) = סיום Headers תחילת Body.</p>
+  </div>
+</div>
+
+<!-- מבנה תגובה -->
+<div class="card">
+  <h2>&#x1F4E9; מבנה תגובת HTTP</h2>
+  <pre><span class="nu">HTTP/1.1</span> <span class="fn">200</span> <span class="fn">OK</span>
+<span class="va">Content-Type:</span> text/html; charset=UTF-8
+<span class="va">Content-Length:</span> 1234
+<span class="va">Server:</span> Apache
+<span class="cm">          &lt;-- שורה ריקה</span>
+<span class="st">&lt;html&gt;...תוכן דף האינטרנט...&lt;/html&gt;</span></pre>
+  <p>שורת התגובה מכילה <strong>3 שדות</strong>: גרסת פרוטוקול · קוד תגובה · תיאור.</p>
+</div>
+
+<!-- Status Codes -->
+<div class="card">
+  <h2>&#x1F4CA; קודי תגובה (Status Codes)</h2>
+  <div class="codes">
+    <div class="code-badge c2">2xx ✓<br><small>הצלחה</small></div>
+    <div class="code-badge c3">3xx ↩<br><small>הפניה</small></div>
+    <div class="code-badge c4">4xx ✗<br><small>שגיאת לקוח</small></div>
+    <div class="code-badge c5">5xx ✗<br><small>שגיאת שרת</small></div>
+  </div>
+  <table class="tbl">
+    <tr><th>קוד</th><th>שם</th><th>משמעות</th><th>דוגמה</th></tr>
+    <tr><td><span class="tag g">200</span></td><td>OK</td><td>הצלחה מלאה</td><td>גלישה רגילה לאתר</td></tr>
+    <tr><td><span class="tag g">301</span></td><td>Moved Permanently</td><td>הדף עבר לכתובת חדשה לתמיד</td><td>http ← https</td></tr>
+    <tr><td><span class="tag y">302</span></td><td>Moved Temporarily</td><td>הפניה זמנית לכתובת אחרת</td><td>Login redirect</td></tr>
+    <tr><td><span class="tag r">403</span></td><td>Forbidden</td><td>אין הרשאה</td><td>ניסיון גישה לקובץ מוגן</td></tr>
+    <tr><td><span class="tag r">404</span></td><td>Not Found</td><td>משאב לא קיים</td><td>כתובת שגויה</td></tr>
+    <tr><td><span class="tag r">500</span></td><td>Internal Server Error</td><td>תקלה בשרת</td><td>באג בקוד השרת</td></tr>
+  </table>
+  <div class="box green">
+    <h4>&#x1F4A1; לוגיקת הלקוח</h4>
+    <p>הלקוח קודם בודק קוד תגובה ← אם 200 בודק Content-Type ← מציג את ה-Body. אם 404 מציג שגיאה. אם 301/302 שולח בקשה חדשה לכתובת שב-Location Header.</p>
+  </div>
+</div>
+
+<!-- GET vs POST -->
+<div class="card">
+  <h2>&#x1F504; GET לעומת POST</h2>
+  <div class="method-row">
+    <div class="method-card">
+      <h4 style="color:#0a3d62;">GET – בקשת קבלת מידע</h4>
+      <p>&#x2022; מידע עובר ב-URL כפרמטרים<br>&#x2022; מקסימום ~2000 תווים<br>&#x2022; גלוי לעין בדפדפן<br>&#x2022; ניתן לשמור כ-Bookmark<br>&#x2022; לא לשינוי נתונים בשרת</p>
+      <pre style="margin-top:8px;font-size:11px;"><span class="kw">GET</span> /search?q=python&lang=he HTTP/1.1</pre>
+    </div>
+    <div class="method-card">
+      <h4 style="color:#145a32;">POST – שליחת נתונים</h4>
+      <p>&#x2022; מידע עובר ב-Body<br>&#x2022; גודל לא מוגבל (תמונות, קבצים)<br>&#x2022; לא גלוי ב-URL<br>&#x2022; לא ניתן לשמור כ-Bookmark<br>&#x2022; לשינוי/יצירת נתונים</p>
+      <pre style="margin-top:8px;font-size:11px;"><span class="kw">POST</span> /upload HTTP/1.1
+<span class="va">Content-Length:</span> 45123
+<span class="cm">&lt;-- שורה ריקה --&gt;</span>
+<span class="st">[תוכן התמונה בינארי...]</span></pre>
+    </div>
+  </div>
+  <div class="box yellow">
+    <h4>&#x1F4F8; דוגמה מהפרק: העלאת תמונה ל-Facebook</h4>
+    <p>תמונה בטלפון = 1MB+. URL מקסימלי = 2000 תווים. <strong>לא ניתן</strong> להעביר בGET. לכן Facebook משתמש ב-POST ששולח את התמונה ב-Body.</p>
+  </div>
+  <div class="box">
+    <h4>&#x1F50D; דוגמה: Google Search</h4>
+    <p>חיפוש ב-Google = בקשת GET עם פרמטר <code>q</code>:<br>
+    <code>GET www.google.com/search?q=python HTTP/1.1</code><br>
+    חיפוש מרובה פרמטרים מופרד ב-<code>&amp;</code>:<br>
+    <code>GET twitter.com/search?q=obama&amp;mode=users HTTP/1.1</code></p>
+  </div>
+</div>
+
+<!-- URL -->
+<div class="card">
+  <h2>&#x1F517; URL – כתובת משאב</h2>
+  <pre>http://www.site.com/folder_a/folder_b/file.txt</pre>
+  <table class="tbl">
+    <tr><th>חלק</th><th>דוגמה</th><th>משמעות</th></tr>
+    <tr><td>Protocol (Scheme)</td><td>http://</td><td>פרוטוקול התקשורת</td></tr>
+    <tr><td>Host</td><td>www.site.com</td><td>שם הדומיין / IP השרת</td></tr>
+    <tr><td>Path</td><td>/folder_a/folder_b/file.txt</td><td>נתיב לקובץ ב-root directory</td></tr>
+    <tr><td>Query String</td><td>?q=python&amp;lang=he</td><td>פרמטרים לבקשת GET (אחרי ?)</td></tr>
+  </table>
+  <div class="box green">
+    <h4>&#x1F4C1; Root Directory</h4>
+    <p>תיקיית הבסיס שהשרת מגיש ממנה קבצים. פנייה ל-<code>/folder/file.txt</code> מתורגמת ל-<code>C:\wwwroot\folder\file.txt</code>. פנייה ל-<code>/</code> = עמוד הבית.</p>
+  </div>
+</div>
+
+<!-- דוגמאות קוד -->
+<div class="card">
+  <h2>&#x1F4BB; דוגמאות מהתרגילים</h2>
+
+  <div class="box">
+    <h4>&#x1F680; תרגיל 4.4 – שרת HTTP בסיסי</h4>
+    <p>מה שהשרת עושה בכל בקשה:</p>
+  </div>
+  <pre><span class="cm"># 1. קבל חיבור מלקוח</span>
+(client_socket, addr) = server_socket.<span class="fn">accept</span>()
+
+<span class="cm"># 2. קרא את הבקשה</span>
+request = client_socket.<span class="fn">recv</span>(<span class="nu">1024</span>)
+
+<span class="cm"># 3. פרסר את שורת הבקשה</span>
+<span class="cm"># "GET /index.html HTTP/1.1\r\nHost: ..."</span>
+method, url, protocol = request.<span class="fn">split</span>(<span class="st">' '</span>)[:<span class="nu">3</span>]
+
+<span class="cm"># 4. קרא את הקובץ</span>
+<span class="kw">with</span> <span class="fn">open</span>(root_dir + url, <span class="st">'rb'</span>) <span class="kw">as</span> f:
+    data = f.<span class="fn">read</span>()
+
+<span class="cm"># 5. שלח תגובה</span>
+response = <span class="st">"HTTP/1.0 200 OK\r\n"</span>
+response += <span class="st">"Content-Length: "</span> + <span class="fn">str</span>(<span class="fn">len</span>(data)) + <span class="st">"\r\n"</span>
+response += <span class="st">"\r\n"</span>
+client_socket.<span class="fn">send</span>(response)
+client_socket.<span class="fn">send</span>(data)</pre>
+
+  <div class="box green">
+    <h4>&#x1F9EE; תרגיל 4.6 – GET Parameters</h4>
+    <p>שרת שמחשב next-number לפי פרמטר:</p>
+  </div>
+  <pre><span class="cm"># בקשה: GET /calculate-next?num=4 HTTP/1.1</span>
+<span class="cm"># מחלץ פרמטרים מה-URL</span>
+url = <span class="st">"/calculate-next?num=4"</span>
+<span class="va">path</span>, <span class="va">params</span> = url.<span class="fn">split</span>(<span class="st">'?'</span>)
+<span class="cm"># path = "/calculate-next", params = "num=4"</span>
+<span class="va">key</span>, <span class="va">val</span> = params.<span class="fn">split</span>(<span class="st">'='</span>)
+<span class="va">result</span> = <span class="fn">str</span>(<span class="fn">int</span>(val) + <span class="nu">1</span>)
+<span class="cm"># result = "5"</span>
+
+<span class="cm"># בקשה: GET /calculate-area?height=3&width=4</span>
+<span class="cm"># תשובה: "6.0"</span></pre>
+
+  <div class="box">
+    <h4>&#x26A0; שגיאות נפוצות בתרגיל שרת HTTP</h4>
+    <p>&#x2022; לא לשכוח <code>\r\n</code> בין Headers<br>
+    &#x2022; שורה ריקה (<code>\r\n\r\n</code>) חייבת להפריד Headers מ-Body<br>
+    &#x2022; קריאת קבצים ב-binary mode (<code>'rb'</code>) לתמונות ו-JS<br>
+    &#x2022; Windows: להחליף <code>/</code> ב-<code>\</code> בנתיבי קבצים</p>
+  </div>
+</div>
+
+<!-- DNS -->
+<div class="card">
+  <h2>&#x1F30D; DNS – Domain Name System</h2>
+  <p>DNS ממיר שמות דומיין לכתובות IP. כל גלישה לאתר מתחילה בשאילתת DNS.</p>
+  <div class="flow">
+    <div class="flow-item">דפדפן<br><small>www.google.com</small></div>
+    <div class="flow-arrow">──DNS Query──&#x2192;</div>
+    <div class="flow-item">שרת DNS</div>
+    <div class="flow-arrow">&#x2192;──142.250.74.4──</div>
+    <div class="flow-item">דפדפן<br><small>יודע IP</small></div>
+    <div class="flow-arrow">──GET / HTTP/1.1──&#x2192;</div>
+    <div class="flow-item">Google<br><small>142.250.74.4</small></div>
+  </div>
+  <table class="tbl">
+    <tr><th>Record Type</th><th>משמעות</th><th>דוגמה</th></tr>
+    <tr><td><span class="tag">A</span></td><td>שם → IPv4</td><td>google.com → 142.250.74.4</td></tr>
+    <tr><td><span class="tag">CNAME</span></td><td>שם → שם אחר (alias)</td><td>www.site.com → site.com</td></tr>
+    <tr><td><span class="tag">MX</span></td><td>שם → שרת מייל</td><td>domain.com → mail.domain.com</td></tr>
+  </table>
+  <div class="box green">
+    <h4>&#x1F527; הכלי nslookup</h4>
+    <p>שואל שרת DNS ומחזיר כתובת IP: <code>nslookup www.google.com</code><br>
+    פרוטוקול DNS עובד על <strong>UDP פורט 53</strong>.</p>
+  </div>
+</div>
+
+<!-- טיפים Wireshark -->
+<div class="card">
+  <h2>&#x1F50D; דיבוג עם Wireshark + Chrome DevTools</h2>
+  <div class="method-row">
+    <div class="method-card">
+      <h4>Wireshark</h4>
+      <p>&#x2022; פילטר: <code>http</code><br>
+      &#x2022; Follow TCP Stream = כל שיחה<br>
+      &#x2022; Retransmission = מידע נשלח שוב (TCP)</p>
+    </div>
+    <div class="method-card">
+      <h4>Chrome DevTools (F12)</h4>
+      <p>&#x2022; Tab: Network<br>
+      &#x2022; רואים כל בקשה ותגובה<br>
+      &#x2022; Headers / Response / Timing</p>
+    </div>
+    <div class="method-card">
+      <h4>telnet לבדיקה</h4>
+      <p>&#x2022; <code>telnet site.com 80</code><br>
+      &#x2022; כתוב GET ידנית<br>
+      &#x2022; ראה תגובה גולמית</p>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

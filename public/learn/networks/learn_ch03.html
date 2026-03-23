@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 3 – למידה – Wireshark ומודל חמש השכבות</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Heebo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f0f7ff;--card:#fff;--brd:#d0e4f5;--h:#0a1628;--tx:#1e3050;--mt:#6b7f9a;--ac:#0066cc;--ac2:#7c3aed;--gr:#059669;--rd:#dc2626;--warn:#d97706;--mono:'IBM Plex Mono',monospace;--sans:'Heebo',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);padding:24px 16px 60px;}
+.wrap{max-width:960px;margin:0 auto;}
+/* Header */
+.hero{background:linear-gradient(135deg,#0a1628 0%,#1a2e50 60%,#0f3460 100%);border-radius:20px;padding:36px 40px;margin-bottom:28px;color:#fff;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.04) 1px,transparent 1px);background-size:30px 30px;}
+.hero-in{position:relative;z-index:1;}
+.hero-badge{display:inline-block;background:rgba(0,212,255,.15);border:1px solid rgba(0,212,255,.3);color:#00d4ff;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:2px;padding:4px 12px;border-radius:4px;margin-bottom:12px;}
+.hero h1{font-size:28px;font-weight:900;line-height:1.2;margin-bottom:8px;}
+.hero p{font-size:15px;color:#94a3b8;max-width:600px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.hero-tag{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#cbd5e1;font-family:var(--mono);font-size:11px;padding:3px 10px;border-radius:4px;}
+/* Cards */
+.section{margin-bottom:24px;}
+.section-title{font-size:13px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;padding-right:4px;}
+.card{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:24px 28px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+.card h2{font-size:18px;font-weight:800;color:var(--h);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+.card h3{font-size:15px;font-weight:700;color:var(--h);margin:16px 0 8px;}
+.card p{font-size:15px;color:var(--tx);line-height:1.75;margin-bottom:10px;}
+.card ul{padding-right:20px;margin-bottom:10px;}
+.card li{font-size:15px;color:var(--tx);line-height:1.7;margin-bottom:4px;}
+.icon{font-size:20px;}
+/* Layer table */
+.lt{width:100%;border-collapse:collapse;margin:16px 0;}
+.lt th,.lt td{padding:10px 14px;text-align:center;border:1px solid var(--brd);font-size:13px;}
+.lt th{font-weight:700;font-family:var(--mono);}
+.lt td{font-size:13px;}
+.l5{background:#e0f2fe;color:#0369a1;}
+.l4{background:#dcfce7;color:#166534;}
+.l3{background:#fef9c3;color:#854d0e;}
+.l2{background:#f3e8ff;color:#6b21a8;}
+.l1{background:#fee2e2;color:#991b1b;}
+/* Code */
+pre{background:#0f1d2a;color:#e2e8f0;padding:16px 20px;border-radius:12px;font-family:var(--mono);font-size:13px;line-height:1.85;overflow-x:auto;margin:12px 0;direction:ltr;text-align:left;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.nu{color:#bd93f9;}.va{color:#8be9fd;}.cm{color:#6272a4;}
+/* Callout boxes */
+.tip{background:#ecfdf5;border:1px solid #a7f3d0;border-right:4px solid var(--gr);border-radius:10px;padding:14px 18px;margin:14px 0;}
+.tip-title{font-size:12px;font-weight:700;color:var(--gr);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.tip p{font-size:14px;color:#065f46;margin:0;}
+.warn{background:#fffbeb;border:1px solid #fde68a;border-right:4px solid var(--warn);border-radius:10px;padding:14px 18px;margin:14px 0;}
+.warn-title{font-size:12px;font-weight:700;color:var(--warn);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.warn p{font-size:14px;color:#92400e;margin:0;}
+.danger{background:#fef2f2;border:1px solid #fca5a5;border-right:4px solid var(--rd);border-radius:10px;padding:14px 18px;margin:14px 0;}
+.danger-title{font-size:12px;font-weight:700;color:var(--rd);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.danger p{font-size:14px;color:#7f1d1d;margin:0;}
+/* Example boxes */
+.example{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:16px 18px;margin:12px 0;}
+.example-label{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--mt);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
+/* Filter table */
+.ft{width:100%;border-collapse:collapse;margin:12px 0;}
+.ft th{background:#f1f5f9;padding:8px 12px;text-align:right;font-size:13px;font-weight:700;color:var(--h);border:1px solid var(--brd);}
+.ft td{padding:8px 12px;font-size:13px;color:var(--tx);border:1px solid var(--brd);}
+.ft td:first-child{font-family:var(--mono);font-size:12px;color:var(--ac2);direction:ltr;text-align:left;}
+/* Summary */
+.summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:12px;}
+.sg{background:linear-gradient(135deg,#0a1628,#1a2e50);border-radius:12px;padding:16px;color:#fff;}
+.sg-num{font-family:var(--mono);font-size:24px;font-weight:700;color:#00d4ff;margin-bottom:4px;}
+.sg-name{font-size:14px;font-weight:700;margin-bottom:4px;}
+.sg-proto{font-family:var(--mono);font-size:11px;color:#94a3b8;}
+.sg-unit{font-size:12px;color:#64748b;margin-top:4px;}
+/* Progress */
+.prog-bar{background:#e2e8f0;border-radius:99px;height:8px;overflow:hidden;margin-bottom:6px;}
+.prog-fill{height:100%;background:linear-gradient(90deg,#7c3aed,#0066cc);border-radius:99px;}
+.prog-lbl{font-size:12px;color:var(--mt);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-in">
+    <div class="hero-badge">פרק 3 מתוך 12</div>
+    <h1>Wireshark ומודל חמש השכבות</h1>
+    <p>מה באמת קורה ברשת כשאנו שולחים מידע? כיצד פקטה בנויה? ואיך רואים אותה בזמן אמת?</p>
+    <div class="hero-tags">
+      <span class="hero-tag">מודל שכבות</span>
+      <span class="hero-tag">Encapsulation</span>
+      <span class="hero-tag">פרוטוקול</span>
+      <span class="hero-tag">Wireshark</span>
+      <span class="hero-tag">Display Filter</span>
+      <span class="hero-tag">Follow TCP Stream</span>
+    </div>
+  </div>
+</div>
+
+<!-- PART 1: MODEL -->
+<div class="section">
+  <div class="section-title">חלק א' — מדוע מודל שכבות?</div>
+
+  <div class="card">
+    <h2><span class="icon">🏗️</span> הבעיה שהמודל פותר</h2>
+    <p>בעבר, כל יצרן חומרה פיתח פרוטוקול תקשורת קנייני משלו. כתוצאה מכך, מכשירים של יצרנים שונים לא יכלו לתקשר — לקוחות היו מחויבים לאותה יצרנית לכל הציוד שלהם.</p>
+    <p>ארגון ISO יצר את מודל OSI (7 שכבות) ובהמשך נוצר מודל TCP/IP המעשי שבו אנו משתמשים — <strong>מודל חמש השכבות</strong>.</p>
+    <div class="tip">
+      <div class="tip-title">עיקרון המפתח</div>
+      <p>כל שכבה מספקת שירות לשכבה שמעליה מבלי לחשוף כיצד השירות ממומש. שינוי מימוש שכבה אחת לא שובר את שאר המערכת — "קופסה שחורה".</p>
+    </div>
+    <div class="example">
+      <div class="example-label">אנלוגיה מהפרק — שדה תעופה</div>
+      <p style="font-size:14px;color:var(--tx);margin:0;">שכבת המטוס לא יודעת ולא מתעניינת אם הנוסע הגיע לשדה התעופה ברכב, אוטובוס או רגלית. היא אחראית על הטיסה בלבד. כך כל שכבה ברשת.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PART 2: 5 LAYERS -->
+<div class="section">
+  <div class="section-title">חלק ב' — חמש השכבות</div>
+
+  <div class="card">
+    <h2><span class="icon">📊</span> טבלת חמש השכבות</h2>
+    <table class="lt">
+      <tr>
+        <th>#</th>
+        <th>שם</th>
+        <th>מטרה</th>
+        <th>פרוטוקול לדוגמה</th>
+        <th>שם יחידת מידע</th>
+      </tr>
+      <tr>
+        <td class="l5"><strong>5</strong></td>
+        <td class="l5">Application</td>
+        <td class="l5">שימושי אפליקציה</td>
+        <td class="l5">HTTP, SMTP, FTP</td>
+        <td class="l5">Message</td>
+      </tr>
+      <tr>
+        <td class="l4"><strong>4</strong></td>
+        <td class="l4">Transport</td>
+        <td class="l4">ריבוב פורטים + אמינות</td>
+        <td class="l4">TCP, UDP</td>
+        <td class="l4">Segment</td>
+      </tr>
+      <tr>
+        <td class="l3"><strong>3</strong></td>
+        <td class="l3">Network</td>
+        <td class="l3">ניתוב בין רשתות</td>
+        <td class="l3">IP</td>
+        <td class="l3">Packet</td>
+      </tr>
+      <tr>
+        <td class="l2"><strong>2</strong></td>
+        <td class="l2">Data Link</td>
+        <td class="l2">תקשורת ישויות סמוכות</td>
+        <td class="l2">Ethernet</td>
+        <td class="l2">Frame</td>
+      </tr>
+      <tr>
+        <td class="l1"><strong>1</strong></td>
+        <td class="l1">Physical</td>
+        <td class="l1">העברת ביטים על תווך</td>
+        <td class="l1">—</td>
+        <td class="l1">Bit</td>
+      </tr>
+    </table>
+    <div class="warn">
+      <div class="warn-title">חשוב לזכור</div>
+      <p>Sockets שלמדנו בפרק 2 הם API של מערכת ההפעלה שפועל בשכבת האפליקציה. הפרמטרים שנותנים (IP + Port) מתייחסים לשכבות 3 ו-4 שמתחת.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">📦</span> Encapsulation — כימוס</h2>
+    <h3>תהליך השליחה (Encapsulation)</h3>
+    <p>כל שכבה מוסיפה <strong>Header</strong> בראש הנתונים שמגיעים מהשכבה שמעליה:</p>
+    <pre>[App Data]
+[TCP Header] + [App Data]
+[IP Header] + [TCP Header] + [App Data]
+[Ethernet Header] + [IP Header] + [TCP Header] + [App Data] + [Ethernet Trailer]
+→ bits על הכבל</pre>
+    <h3>תהליך הקבלה (Decapsulation)</h3>
+    <p>ביעד קולפים שכבה אחר שכבה <strong>מלמטה למעלה</strong> — כמו חבילה עוברת שמורידים ממנה עטיפות.</p>
+    <div class="tip">
+      <div class="tip-title">עיקרון חשוב</div>
+      <p>ה-Data של שכבה N = הפקטה השלמה של שכבה N+1. כשאומרים "Frame" — הכוונה לשכבה 2 + כל השכבות שמעליה בפנים.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🗣️</span> פרוטוקול</h2>
+    <p>פרוטוקול = הסכם שמחייב שני צדדים לסט כללים קבוע על פורמט התקשורת.</p>
+    <div class="example">
+      <div class="example-label">דוגמאות מהפרקים</div>
+      <ul style="padding-right:16px;margin:0;">
+        <li style="font-size:14px;color:var(--tx);line-height:1.7;">הפרוטוקול שכתבתם בתרגיל 2.6 — כל פקודה בדיוק 4 בתים (TIME, NAME, RAND, EXIT)</li>
+        <li style="font-size:14px;color:var(--tx);line-height:1.7;">HTTP — פרוטוקול גלישה, שולט כיצד דפדפן מדבר עם שרת</li>
+        <li style="font-size:14px;color:var(--tx);line-height:1.7;">SMTP — פרוטוקול מייל</li>
+      </ul>
+    </div>
+    <h3>למה חולקים למידע לפקטות?</h3>
+    <ul>
+      <li><strong>בקרת שגיאות:</strong> שגיאה? שולחים רק את הפקטה הפגומה, לא הכל</li>
+      <li><strong>שיתוף קו:</strong> כמה תוכניות/מחשבים שולחים לסירוגין — כל אחד שולח פקטה ומפנה</li>
+      <li><strong>סנכרון חומרה:</strong> קל יותר לסנכרן בין ישויות ברשת</li>
+    </ul>
+  </div>
+</div>
+
+<!-- PART 3: WIRESHARK -->
+<div class="section">
+  <div class="section-title">חלק ג' — Wireshark בפועל</div>
+
+  <div class="card">
+    <h2><span class="icon">🦈</span> מבנה חלון Wireshark</h2>
+    <div class="example">
+      <div class="example-label">4 חלקי המסך הראשי</div>
+      <ul style="padding-right:16px;margin:0;">
+        <li style="font-size:14px;color:var(--tx);line-height:1.8;"><strong style="color:#dc2626;">אדום</strong> — Display Filter: סינון תצוגה</li>
+        <li style="font-size:14px;color:var(--tx);line-height:1.8;"><strong style="color:#2563eb;">כחול</strong> — רשימת פקטות: No / Time / Source / Destination / Protocol / Length / Info</li>
+        <li style="font-size:14px;color:var(--tx);line-height:1.8;"><strong style="color:#16a34a;">ירוק</strong> — ניתוח פקטה לשכבות</li>
+        <li style="font-size:14px;color:var(--tx);line-height:1.8;"><strong style="color:#d97706;">כתום</strong> — תוכן גולמי: Hex + ASCII</li>
+      </ul>
+    </div>
+    <h3>Promiscuous Mode (מצב פרוץ)</h3>
+    <p>כרטיס רשת בדרך כלל זורק מסגרות לא מיועדות אליו. Promiscuous Mode מורה לו לקלוט <em>כל</em> מסגרת שרואה — גם תעבורה של מחשבים אחרים ברשת.</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🔍</span> Display Filters — דוגמאות מהפרק</h2>
+    <table class="ft">
+      <tr>
+        <th>פילטר</th>
+        <th>מה הוא מציג</th>
+      </tr>
+      <tr>
+        <td>icmp</td>
+        <td>פקטות ICMP בלבד (ping)</td>
+      </tr>
+      <tr>
+        <td>tcp</td>
+        <td>כל פקטות TCP</td>
+      </tr>
+      <tr>
+        <td>ip.src == 192.168.1.1</td>
+        <td>פקטות שיצאו מכתובת זו בלבד</td>
+      </tr>
+      <tr>
+        <td>ip.dst == 192.168.1.1</td>
+        <td>פקטות שהולכות לכתובת זו בלבד</td>
+      </tr>
+      <tr>
+        <td>ip.addr == 192.168.1.1</td>
+        <td>פקטות שבהן כתובת זו היא מקור OR יעד</td>
+      </tr>
+      <tr>
+        <td>tcp.port == 80</td>
+        <td>פקטות TCP עם פורט 80 (מקור OR יעד)</td>
+      </tr>
+      <tr>
+        <td>ip.addr == X and tcp.port == 443</td>
+        <td>שילוב עם and / or</td>
+      </tr>
+      <tr>
+        <td>frame contains "txtPa"</td>
+        <td>מסגרות שמכילות טקסט מסוים (תרגיל 3.2)</td>
+      </tr>
+      <tr>
+        <td>icmp.resptime &gt; 100</td>
+        <td>שדה מחושב ע"י Wireshark, לא בפקטה עצמה</td>
+      </tr>
+    </table>
+    <div class="warn">
+      <div class="warn-title">Display Filter לעומת Capture Filter</div>
+      <p><strong>Display Filter</strong> = תצוגה בלבד, פקטות שסוננו עדיין קיימות, ניתן לשנות תוך כדי. <strong>Capture Filter</strong> = פועל ב-Driver, פקטות שסוננו לא נקלטות בכלל, מהיר יותר.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🌊</span> Follow TCP Stream</h2>
+    <p>לחיצה ימנית על פקטה → <em>Follow TCP Stream</em> מציגה את כל ה-Data של אותו Socket.</p>
+    <pre><span class="cm"># תצוגה לפי צבע:</span>
+<span style="color:#ff5555">אדום  = Client → Server</span>
+<span style="color:#5588ff">כחול  = Server → Client</span>
+<span class="cm">
+# רק Data של שכבת האפליקציה
+# ללא IP headers, TCP headers וכו'</span></pre>
+    <div class="tip">
+      <div class="tip-title">שימוש מהפרק</div>
+      <p>בתרגיל 3.4: מחברים לשרת שכתבנו בתרגיל 2.6 ורואים בדיוק את הפרוטוקול שהגדרנו — TIME, NAME, RAND ואת התגובות.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🔓</span> תרגיל 3.2 — הסנפת סיסמה</h2>
+    <p>נכנסים לאתר HTTP רגיל (לא HTTPS), ממלאים פרטים ומסניפים. עם הפילטר <code>frame contains "txtPa"</code> מוצאים פקטה שמכילה את הסיסמה <strong>בטקסט גלוי!</strong></p>
+    <div class="danger">
+      <div class="danger-title">המסקנה הביטחונית</div>
+      <p>כל מה שנשלח ב-HTTP עובר בגלוי ברשת. כיום רוב האתרים משתמשים ב-HTTPS = HTTP + TLS שמצפין את כל ה-Stream כולל URL, headers וגוף. לעולם לא להזין סיסמה אמיתית באתרי HTTP.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div class="section">
+  <div class="section-title">סיכום מהיר — 5 השכבות</div>
+  <div class="summary-grid">
+    <div class="sg">
+      <div class="sg-num">5</div>
+      <div class="sg-name">Application</div>
+      <div class="sg-proto">HTTP · SMTP · FTP · DNS</div>
+      <div class="sg-unit">יחידה: Message</div>
+    </div>
+    <div class="sg">
+      <div class="sg-num">4</div>
+      <div class="sg-name">Transport</div>
+      <div class="sg-proto">TCP · UDP</div>
+      <div class="sg-unit">יחידה: Segment</div>
+    </div>
+    <div class="sg">
+      <div class="sg-num">3</div>
+      <div class="sg-name">Network</div>
+      <div class="sg-proto">IP</div>
+      <div class="sg-unit">יחידה: Packet</div>
+    </div>
+    <div class="sg">
+      <div class="sg-num">2</div>
+      <div class="sg-name">Data Link</div>
+      <div class="sg-proto">Ethernet · WiFi</div>
+      <div class="sg-unit">יחידה: Frame</div>
+    </div>
+    <div class="sg">
+      <div class="sg-num">1</div>
+      <div class="sg-name">Physical</div>
+      <div class="sg-proto">כבל · סיב אופטי · אוויר</div>
+      <div class="sg-unit">יחידה: Bit</div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

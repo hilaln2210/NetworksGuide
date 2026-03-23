@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 3 - Wireshark ומודל חמש השכבות</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Heebo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0e1a;--surf:#111827;--surf2:#1a2235;--brd:#1e2d45;--ac:#00d4ff;--ac2:#7c3aed;--gr:#10b981;--rd:#ef4444;--tx:#e2e8f0;--mt:#64748b;--mono:'IBM Plex Mono',monospace;--sans:'Heebo',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrap{max-width:900px;margin:0 auto;padding:32px 20px 60px;position:relative;z-index:1;}
+.hdr{margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--brd);}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.badge{background:linear-gradient(135deg,var(--ac2),#4f46e5);color:#fff;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:2px;padding:4px 10px;border-radius:4px;}
+.ch{font-family:var(--mono);font-size:12px;color:var(--ac);}
+.title{font-size:26px;font-weight:900;color:#fff;line-height:1.2;}
+.sub{font-size:14px;color:var(--mt);margin-top:4px;}
+.prog{background:var(--surf);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;margin-bottom:32px;display:flex;align-items:center;gap:20px;}
+.pl{font-family:var(--mono);font-size:12px;color:var(--mt);}
+.pb{flex:1;height:6px;background:var(--brd);border-radius:99px;overflow:hidden;}
+.pf{height:100%;background:linear-gradient(90deg,var(--ac2),var(--ac));border-radius:99px;transition:width .5s;width:0%;}
+.ps{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ac);}
+.card{background:var(--surf);border:1px solid var(--brd);border-radius:16px;overflow:hidden;}
+.ch2{background:var(--surf2);border-bottom:1px solid var(--brd);padding:16px 24px;display:flex;align-items:center;gap:12px;}
+.qn{font-family:var(--mono);font-size:11px;color:var(--mt);}
+.qc{font-family:var(--mono);font-size:11px;color:var(--ac);background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);padding:2px 8px;border-radius:4px;}
+.body{padding:28px 24px 20px;}
+.snip{background:#0d1117;border:1px solid var(--brd);border-radius:8px;padding:14px 18px;margin-bottom:22px;font-family:var(--mono);font-size:13px;line-height:1.85;overflow-x:auto;direction:ltr;text-align:left;}
+.layers{width:100%;border-collapse:collapse;margin-bottom:22px;font-family:var(--mono);font-size:12px;}
+.layers th{padding:8px 12px;text-align:center;font-weight:600;border:1px solid var(--brd);}
+.layers td{padding:7px 12px;text-align:center;border:1px solid var(--brd);}
+.l5{background:rgba(0,212,255,.12);color:#00d4ff;}
+.l4{background:rgba(16,185,129,.12);color:#10b981;}
+.l3{background:rgba(245,158,11,.12);color:#f59e0b;}
+.l2{background:rgba(124,58,237,.12);color:#a78bfa;}
+.l1{background:rgba(239,68,68,.12);color:#ef4444;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.nu{color:#bd93f9;}.va{color:#8be9fd;}.cm{color:#6272a4;}
+.qt{font-size:18px;font-weight:600;color:#fff;line-height:1.5;margin-bottom:28px;}
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{background:var(--bg);border:1px solid var(--brd);border-radius:10px;padding:14px 18px;cursor:pointer;text-align:right;display:flex;align-items:center;gap:12px;width:100%;font-family:var(--sans);font-size:15px;color:var(--tx);transition:all .15s;}
+.opt:hover{border-color:var(--ac);background:rgba(0,212,255,.04);color:#fff;}
+.opt.done{cursor:default;pointer-events:none;}
+.opt.correct{border-color:var(--gr);background:rgba(16,185,129,.1);color:#fff;}
+.opt.correct .lb{color:var(--gr);}
+.opt.wrong{border-color:var(--rd);background:rgba(239,68,68,.08);color:var(--mt);}
+.opt.wrong .lb{color:var(--rd);}
+.opt.show{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.05);}
+.lb{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--mt);min-width:20px;text-align:center;flex-shrink:0;}
+.ot{flex:1;text-align:right;}
+.ic{font-size:16px;min-width:20px;text-align:center;flex-shrink:0;}
+.exp{margin:20px 0 0;padding:16px 18px;border-radius:10px;border-right:3px solid var(--gr);background:rgba(16,185,129,.06);display:none;}
+.exp.bad{border-color:var(--rd);background:rgba(239,68,68,.06);}
+.et{font-family:var(--mono);font-size:11px;color:var(--gr);margin-bottom:6px;text-transform:uppercase;}
+.exp.bad .et{color:var(--rd);}
+.eb{font-size:14px;color:#94a3b8;line-height:1.7;}
+.foot{padding:20px 24px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;}
+.btn{background:transparent;border:1px solid var(--brd);color:var(--mt);padding:10px 20px;border-radius:8px;font-family:var(--sans);font-size:14px;cursor:pointer;transition:all .15s;}
+.btn:hover:not(:disabled){border-color:var(--ac);color:var(--ac);}
+.btn:disabled{opacity:.3;cursor:default;}
+.btn.pri{background:linear-gradient(135deg,var(--ac2),#4f46e5);border-color:transparent;color:#fff;font-weight:600;}
+.btn.pri:hover{opacity:.9;}
+.res{display:none;text-align:center;padding:60px 24px;}
+.ring{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;}
+.ring::after{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--surf);}
+.rn{font-family:var(--mono);font-size:36px;font-weight:600;color:#fff;position:relative;z-index:1;}
+.rt{font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;}
+.rs{font-size:15px;color:var(--mt);margin-bottom:32px;}
+.bks{display:flex;gap:20px;justify-content:center;margin-bottom:36px;flex-wrap:wrap;}
+.bk{background:var(--surf2);border:1px solid var(--brd);border-radius:10px;padding:14px 24px;text-align:center;}
+.bv{font-family:var(--mono);font-size:22px;font-weight:600;color:#fff;}
+.bl{font-size:12px;color:var(--mt);margin-top:2px;}
+.rbtn{background:linear-gradient(135deg,var(--ac2),#4f46e5);border:none;color:#fff;padding:14px 36px;border-radius:10px;font-family:var(--sans);font-size:16px;font-weight:600;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div class="row"><span class="badge">PRO LAB</span><span class="ch">פרק 3 מתוך 12</span></div>
+    <div class="title">Wireshark ומודל חמש השכבות</div>
+    <div class="sub">12 שאלות &middot; מודל שכבות &middot; Encapsulation &middot; פרוטוקול &middot; Wireshark filters &middot; Follow TCP Stream</div>
+  </div>
+  <div class="prog">
+    <span class="pl">התקדמות</span>
+    <div class="pb"><div class="pf" id="pf"></div></div>
+    <span class="ps" id="ps">0 / 12</span>
+  </div>
+  <div class="card" id="card">
+    <div class="ch2">
+      <span class="qn" id="qn">שאלה 1</span>
+      <span class="qc" id="qc"></span>
+    </div>
+    <div class="body">
+      <div id="snip"></div>
+      <div class="qt" id="qt"></div>
+      <div class="opts" id="opts"></div>
+      <div class="exp" id="exp">
+        <div class="et" id="et"></div>
+        <div class="eb" id="eb"></div>
+      </div>
+    </div>
+    <div class="foot">
+      <button class="btn" id="prev" onclick="go(-1)" disabled>&#x2192; הקודם</button>
+      <button class="btn pri" id="next" onclick="go(1)" disabled>הבא &#x2190;</button>
+    </div>
+  </div>
+  <div class="res" id="res">
+    <div class="ring" id="ring"><span class="rn" id="rpct">0%</span></div>
+    <div class="rt" id="rt"></div>
+    <div class="rs" id="rs"></div>
+    <div class="bks">
+      <div class="bk"><div class="bv" id="rok" style="color:var(--gr)"></div><div class="bl">נכון</div></div>
+      <div class="bk"><div class="bv" id="rbd" style="color:var(--rd)"></div><div class="bl">שגוי</div></div>
+      <div class="bk"><div class="bv" id="rtt" style="color:var(--ac)"></div><div class="bl">סהכ</div></div>
+    </div>
+    <button class="rbtn" onclick="restart()">התחל מחדש</button>
+  </div>
+</div>
+<script>
+var LAYERS_HTML = '<table class="layers"><tr><th class="l5">5 - Application</th><th class="l4">4 - Transport</th><th class="l3">3 - Network</th><th class="l2">2 - Data Link</th><th class="l1">1 - Physical</th></tr><tr><td class="l5">HTTP / SMTP / FTP</td><td class="l4">TCP / UDP</td><td class="l3">IP</td><td class="l2">Ethernet</td><td class="l1">Bit / כבל</td></tr><tr><td class="l5">Message</td><td class="l4">Segment</td><td class="l3">Packet</td><td class="l2">Frame</td><td class="l1">Bit</td></tr></table>';
+
+var Q = [
+  {
+    cat: "מודל שכבות - למה",
+    sn: null,
+    q: "מדוע נוצר מודל השכבות לרשתות? איזו בעיה הוא בא לפתור?",
+    a: [
+      "כל יצרן פיתח פרוטוקול קנייני משלו ומכשירים של יצרנים שונים לא יכלו לתקשר. המודל יצר שפה משותפת",
+      "רשתות היו איטיות מדי, המודל חולק את העבודה בין שכבות להאצה",
+      "הממשלות דרשו תקינה כדי לגבות מסים על תעבורת רשת",
+      "בעיות אבטחה בפרוטוקולים ישנים גרמו להאקרים לפרוץ לכל מחשב"
+    ],
+    c: 0,
+    e: "בפרק: יצרניות שיווקו מכשירים שתומכים רק בתקן שלהן, ולקוחות היו מחויבים לאותה יצרנית. ISO יצר את מודל OSI כדי לסטנדרטיז ולאפשר לכל מכשיר לדבר עם כל מכשיר אחר."
+  },
+  {
+    cat: "מודל שכבות - עיקרון",
+    sn: null,
+    q: "מהו העיקרון המרכזי של מודל שכבות? מה מסתירה כל שכבה מהשכבה שמעליה?",
+    a: [
+      "כל שכבה מספקת שירות לשכבה שמעליה מבלי לחשוף את האופן שבו השירות ממומש - 'קופסה שחורה'",
+      "כל שכבה מצפינה את הנתונים לפני העברה לשכבה הבאה",
+      "כל שכבה בודקת שגיאות ושולחת שוב אם הנתונים פגומים",
+      "כל שכבה מחכה לאישור מהשכבה שמתחתיה לפני המשך"
+    ],
+    c: 0,
+    e: "בפרק: כמו שכבת השערים בשדה התעופה לא יודעת אם הנוסע הגיע ברכב או אוטובוס, כל שכבה לא מתעניינת במימוש של השכבות שמתחתיה. כל עוד השירות מסופק, המימוש יכול להשתנות ללא השפעה."
+  },
+  {
+    cat: "5 השכבות - זיהוי",
+    sn: LAYERS_HTML,
+    q: "פקטה TCP/IP נשלחת. שכבה 3 מוסיפה Header. מה מכיל ה-Header של שכבה 3?",
+    a: [
+      "כתובות IP של מקור ויעד - כי שכבה 3 (Network) אחראית על ניתוב בין רשתות",
+      "פורטים TCP - כי צריך לזהות את האפליקציה",
+      "כתובות MAC - כי אלו הכתובות של שכבת הקו",
+      "שם הפרוטוקול בלבד - HTTP, FTP וכו'"
+    ],
+    c: 0,
+    e: "שכבה 3 (Network / IP) אחראית על ניתוב בין רשתות. ה-Header שלה מכיל IP מקור ויעד. שכבה 4 (Transport) מוסיפה פורטים. שכבה 2 (Data Link) מוסיפה MAC. כל שכבה מוסיפה Header בראש הפקטה."
+  },
+  {
+    cat: "Encapsulation",
+    sn: null,
+    q: "מה זה Encapsulation (כימוס) ומה ה-Decapsulation? היכן כל תהליך מתרחש?",
+    a: [
+      "Encapsulation = כל שכבה עוטפת את הנתונים בשולח. Decapsulation = קילוף שכבות ביעד מלמטה למעלה",
+      "Encapsulation = הצפנת הנתונים. Decapsulation = פענוח אצל הנמען",
+      "שניהם מתרחשים על אותו מחשב, זה תהליך דחיסה ופריסה",
+      "Encapsulation = חלוקה לפקטות. Decapsulation = איחוד פקטות בסוף"
+    ],
+    c: 0,
+    e: "בפרק: Encapsulation בשולח - כל שכבה מוסיפה Header (כמו חבילה עוברת שמקבלת עוד שכבת עטיפה). Decapsulation ביעד - קולפים שכבה אחרי שכבה מלמטה למעלה. השכבה הפיזית היא הכבל עצמו."
+  },
+  {
+    cat: "פרוטוקול",
+    sn: null,
+    q: "מהו פרוטוקול ומדוע הוא הכרחי בתקשורת רשתות?",
+    a: [
+      "הסכם שמחייב שני צדדים לסט כללים על פורמט התקשורת - בלעדיו כל רכיב מדבר 'שפה' אחרת",
+      "תוכנה שמתרגמת בין שפות תכנות שונות (Python, Java, C++)",
+      "חומרה שמחברת בין כרטיסי רשת שונים",
+      "מסמך משפטי שמגדיר מי אחראי כשהתקשורת נכשלת"
+    ],
+    c: 0,
+    e: "בפרק: בלי פרוטוקולים - מגדל בבל שבו כל רכיב מדבר שפה שלו. HTTP הוא פרוטוקול שמגדיר איך דפדפן מדבר עם שרת. גם הפרוטוקול שכתבתם בתרגיל 2.6 (4 בתים לפקודה) הוא פרוטוקול."
+  },
+  {
+    cat: "מדוע פקטות?",
+    sn: null,
+    q: "למה מידע מחולק לפקטות ולא נשלח כרצף ביטים רציף אחד? ציינו שתי סיבות מהפרק.",
+    a: [
+      "1) בקרת שגיאות טובה יותר - שולחים רק פקטה פגומה מחדש. 2) שיתוף הקו בין כמה תוכניות במקביל",
+      "1) פקטות קטנות מהירות יותר מרצף ארוך. 2) הצפנה קלה יותר על פקטות קטנות",
+      "1) חסכון בזיכרון. 2) יכולת לשלוח לכמה יעדים שונים בו זמנית",
+      "1) תקן ISO מחייב. 2) כרטיסי רשת לא יכולים לשלוח יותר מ-1500 בתים ברצף"
+    ],
+    c: 0,
+    e: "בפרק: 3 סיבות עיקריות. (1) שגיאה? שולחים רק את הפקטה הפגומה ולא הכל מחדש. (2) כמה תוכניות משתפות את הקו - בסוף כל פקטה מישות אחרת יכולה לשלוח. (3) סנכרון חומרה קל יותר."
+  },
+  {
+    cat: "Wireshark - Display Filter",
+    sn: '<span class="va">ip.addr</span> == <span class="nu">192.168.1.1</span> <span class="kw">and</span> <span class="va">tcp.port</span> == <span class="nu">80</span>',
+    q: "מה יציג הפילטר הזה ב-Wireshark? מה ההבדל בין ip.src לבין ip.addr?",
+    a: [
+      "פקטות שכתובת IP שלהן (מקור או יעד) היא 192.168.1.1 ופורט TCP שלהן (מקור או יעד) הוא 80. ip.src = מקור בלבד, ip.addr = מקור או יעד",
+      "רק פקטות שיצאו מ-192.168.1.1 לפורט 80 - ip.src ו-ip.addr זהים",
+      "פקטות HTTP בלבד מ-192.168.1.1, כי פורט 80 = HTTP",
+      "כל פקטות ה-TCP ברשת שמגיעות לכתובת זו"
+    ],
+    c: 0,
+    e: "ip.addr == X מציג פקטות שבהן X הוא מקור OR יעד. ip.src == X = רק אם X הוא השולח. ip.dst == X = רק אם X הוא המקבל. tcp.port == 80 = פורט 80 בצד כלשהו (מקור או יעד)."
+  },
+  {
+    cat: "Wireshark - Capture vs Display",
+    sn: null,
+    q: "מה ההבדל בין Display Filter לבין Capture Filter ב-Wireshark?",
+    a: [
+      "Display Filter משפיע על תצוגה בלבד, פקטות שנסוננו עדיין קיימות. Capture Filter פועל ברמת ה-Driver ופקטות שסוננו לא נקלטות בכלל",
+      "הם זהים לחלוטין, רק נמצאים בתפריטים שונים",
+      "Capture Filter מהיר יותר כי הוא פועל בתוכנה, Display Filter פועל בחומרה",
+      "Display Filter ל-TCP בלבד, Capture Filter ל-UDP בלבד"
+    ],
+    c: 0,
+    e: "בפרק: Display Filter = סינון תצוגה - פקטות מוסתרות אך קיימות, אפשר לשנות בכל עת. Capture Filter = פועל ב-Driver (מערכת הפעלה) - פקטות שלא עוברות הפילטר לא נקלטות בכלל. Capture Filter מהיר יותר."
+  },
+  {
+    cat: "Wireshark - תצוגה",
+    sn: null,
+    q: "מהם 4 החלקים הראשיים בחלון ההסנפה של Wireshark לפי הפרק?",
+    a: [
+      "1) Display Filter למעלה. 2) רשימת פקטות (No/Time/Source/Dest/Protocol). 3) ניתוח הפקטה לשכבות. 4) תוכן Hex+ASCII",
+      "1) Interface list. 2) Statistics. 3) Capture Options. 4) Follow TCP Stream",
+      "1) כרטיסי רשת. 2) כתובות IP. 3) פרוטוקולים. 4) Conversations",
+      "1) פילטר הסנפה. 2) גרף תעבורה. 3) רשימת endpoints. 4) לוג שגיאות"
+    ],
+    c: 0,
+    e: "בפרק מתואר: (אדום) Display Filter. (כחול) רשימת פקטות עם שדות No./Time/Source/Destination/Protocol/Length/Info. (ירוק) ניתוח הפקטה לשכבות. (כתום) תוכן גולמי Hex ו-ASCII."
+  },
+  {
+    cat: "Wireshark - Promiscuous Mode",
+    sn: null,
+    q: "מה זה Promiscuous Mode ('מצב פרוץ') ב-Wireshark? מה רואים בו שלא רואים בלעדיו?",
+    a: [
+      "כרטיס הרשת קולט את כל המסגרות שרואה ולא רק אלו המיועדות אליו - רואים גם תעבורה של מחשבים אחרים ברשת",
+      "מצב שמאפשר לשלוח פקטות מזויפות ברשת לצרכי בדיקה",
+      "מצב מהיר יותר שמסנן פקטות בחומרה לפני שמגיעות לתוכנה",
+      "הצפנת ההסנפה כדי שאחרים לא יוכלו לקרוא את הקבצים"
+    ],
+    c: 0,
+    e: "בפרק: ב-Promiscuous Mode כרטיס הרשת קולט כל מסגרת שרואה, גם כאלו שלא מיועדות למחשב שלנו. בלי מצב זה, הכרטיס זורק מסגרות לא עבורו. מצב זה הכרחי לסנפה אמיתית ברשת."
+  },
+  {
+    cat: "Follow TCP Stream",
+    sn: '<span class="cm">Follow TCP Stream → תצוגה של כל ה-Stream</span>\n<span style="color:#ff5555">Client → Server: TIME</span>\n<span style="color:#5555ff">Server → Client: 14:30:22</span>',
+    q: "מה רואים בחלון Follow TCP Stream ב-Wireshark? מה ה'קסם' שהוא מאפשר?",
+    a: [
+      "רק את ה-Data של שכבת האפליקציה ללא כל ה-Headers - רואים את 'שיחת' הלקוח-שרת בדיוק כפי שהאפליקציה ראתה אותה",
+      "את כל הפקטות הגולמיות כולל כל ה-Headers של כל השכבות",
+      "גרף שמציג את קצב ההעברה לאורך זמן",
+      "רשימת כל ה-TCP connections שנפתחו ונסגרו"
+    ],
+    c: 0,
+    e: "בפרק תרגיל 3.4: Follow TCP Stream מפלטר את כל הפקטות של אותו Socket ומציג רק את ה-Data (שכבה 5) ללא Headers. אדום = Client→Server, כחול = Server→Client. ניתן לזהות את הפרוטוקול שכתבתם."
+  },
+  {
+    cat: "הסנפת סיסמה",
+    sn: '<span class="cm">frame contains "txtPa"</span>\n<span class="cm">→ נמצאת פקטה עם הסיסמה בטקסט גלוי!</span>',
+    q: "בתרגיל 3.2 הסניפו סיסמה שנשלחה לאתר HTTP. מה זה מלמד? למה כיום זה פחות מסוכן?",
+    a: [
+      "HTTP שולח הכל בטקסט גלוי ברשת. כיום רוב האתרים משתמשים ב-HTTPS שמצפין את כל התעבורה כולל סיסמאות",
+      "הסיסמה מוצפנת אוטומטית על ידי הדפדפן לפני שליחה, כך שמה שנראה בHex לא ניתן לקריאה",
+      "הסנפה כזו אפשרית רק ב-Windows XP, מערכות חדשות מונעות זאת",
+      "רק מי שיש לו גישה פיזית לכבל הרשת יכול לראות פקטות"
+    ],
+    c: 0,
+    e: "בפרק: כל מה שנשלח ברשת עובר דרך כרטיס הרשת גלוי - גם הסיסמה שמוצגת כ'כוכביות'. HTTPS = HTTP + TLS שמצפין את כל ה-Stream. היום הרוב המוחלט של האתרים משתמש ב-HTTPS."
+  }
+];
+
+var LBL = ["א","ב","ג","ד"];
+var cur = 0;
+var ans = [];
+for (var i = 0; i < Q.length; i++) { ans.push(-1); }
+
+function shuf(q) {
+  var idx = [0,1,2,3];
+  for (var i = 3; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i+1));
+    var t = idx[i]; idx[i] = idx[j]; idx[j] = t;
+  }
+  var na = []; for (var k = 0; k < 4; k++) { na.push(q.a[idx[k]]); }
+  var nc = -1; for (var k = 0; k < 4; k++) { if (idx[k] === q.c) { nc = k; break; } }
+  return {cat:q.cat, sn:q.sn, q:q.q, a:na, c:nc, e:q.e};
+}
+
+var SQ = [];
+for (var i = 0; i < Q.length; i++) { SQ.push(shuf(Q[i])); }
+
+function render() {
+  var q = SQ[cur];
+  document.getElementById("qn").textContent = "שאלה " + (cur+1);
+  document.getElementById("qc").textContent = q.cat;
+  var sn = document.getElementById("snip");
+  sn.innerHTML = q.sn ? '<div class="snip">' + q.sn + '</div>' : "";
+  document.getElementById("qt").textContent = q.q;
+  var oc = document.getElementById("opts"); oc.innerHTML = "";
+  for (var i = 0; i < 4; i++) {
+    var b = document.createElement("button");
+    b.className = "opt";
+    b.innerHTML = '<span class="lb">'+LBL[i]+'</span><span class="ot">'+q.a[i]+'</span><span class="ic"></span>';
+    b.setAttribute("data-i", i); b.onclick = pick; oc.appendChild(b);
+  }
+  var ex = document.getElementById("exp"); ex.style.display = "none"; ex.className = "exp";
+  if (ans[cur] !== -1) { showA(cur); }
+  document.getElementById("prev").disabled = (cur === 0);
+  document.getElementById("next").disabled = (ans[cur] === -1);
+  upProg();
+}
+
+function pick() {
+  if (ans[cur] !== -1) { return; }
+  var i = parseInt(this.getAttribute("data-i")); ans[cur] = i;
+  showA(cur); document.getElementById("next").disabled = false;
+}
+
+function showA(idx) {
+  var q = SQ[idx]; var ch = ans[idx]; var ok = (ch === q.c);
+  var bs = document.querySelectorAll(".opt");
+  for (var i = 0; i < bs.length; i++) {
+    bs[i].className = "opt done"; bs[i].onclick = null;
+    var ic = bs[i].querySelector(".ic");
+    if (i === q.c) { bs[i].classList.add(ok ? "correct" : "show"); if (!ok) { ic.textContent = "\u2713"; } }
+    if (i === ch && !ok) { bs[i].classList.add("wrong"); ic.textContent = "\u2717"; }
+    if (i === ch && ok) { ic.textContent = "\u2713"; }
+  }
+  var ex = document.getElementById("exp");
+  document.getElementById("et").textContent = ok ? "\u2713 \u05e0\u05db\u05d5\u05df!" : "\u2717 \u05dc\u05d0 \u05d1\u05d3\u05d9\u05d5\u05e7...";
+  document.getElementById("eb").textContent = q.e;
+  ex.className = ok ? "exp" : "exp bad"; ex.style.display = "block";
+}
+
+function upProg() {
+  var n = 0; for (var i = 0; i < ans.length; i++) { if (ans[i] !== -1) { n++; } }
+  document.getElementById("pf").style.width = (n / Q.length * 100) + "%";
+  document.getElementById("ps").textContent = n + " / " + Q.length;
+}
+
+function go(d) {
+  var n = cur + d; if (n < 0) { return; }
+  if (n >= Q.length) { showRes(); return; }
+  cur = n; render();
+}
+
+function showRes() {
+  document.getElementById("card").style.display = "none";
+  document.getElementById("res").style.display = "block";
+  var ok = 0, bd = 0;
+  for (var i = 0; i < ans.length; i++) {
+    if (ans[i] === SQ[i].c) { ok++; } else if (ans[i] !== -1) { bd++; }
+  }
+  var pct = Math.round(ok / Q.length * 100);
+  document.getElementById("ring").style.background = "conic-gradient(var(--ac) 0%,var(--ac2) "+pct+"%,var(--brd) "+pct+"%)";
+  document.getElementById("rpct").textContent = pct + "%";
+  document.getElementById("rok").textContent = ok;
+  document.getElementById("rbd").textContent = bd;
+  document.getElementById("rtt").textContent = Q.length;
+  var t, s;
+  if (pct >= 80) { t = "\u05de\u05e6\u05d5\u05d9\u05df! \ud83c\udfaf"; s = "\u05e9\u05d5\u05dc\u05d8 \u05d1\u05de\u05d5\u05d3\u05dc \u05d4\u05e9\u05db\u05d1\u05d5\u05ea \u05d5-Wireshark"; }
+  else if (pct >= 50) { t = "\u05dc\u05d0 \u05e8\u05e2 \ud83d\udcaa"; s = "\u05d7\u05d6\u05d5\u05e8 \u05e2\u05dc Encapsulation \u05d5\u05e4\u05d9\u05dc\u05d8\u05e8\u05d9\u05dd"; }
+  else { t = "\u05d9\u05e9 \u05de\u05d4 \u05dc\u05d7\u05d6\u05e7 \ud83d\udcda"; s = "\u05e7\u05e8\u05d0 \u05e9\u05d5\u05d1 \u05d0\u05ea \u05e4\u05e8\u05e7 3 \u05d5\u05e0\u05e1\u05d4 \u05de\u05d7\u05d3\u05e9"; }
+  document.getElementById("rt").textContent = t;
+  document.getElementById("rs").textContent = s;
+  upProg();
+}
+
+function restart() {
+  SQ = []; for (var i = 0; i < Q.length; i++) { SQ.push(shuf(Q[i])); }
+  cur = 0; ans = []; for (var i = 0; i < Q.length; i++) { ans.push(-1); }
+  document.getElementById("card").style.display = "block";
+  document.getElementById("res").style.display = "none";
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

@@ -807,6 +807,8 @@ function App() {
                 <SimulationPage simId={page.simId} content={pc.content} t={t} lang={lang} />
               ) : page.type === 'thinkOutside' ? (
                 <ThinkOutsidePage page={page} lang={lang} chapterId={chapter?.id} pageIdx={currentPage} />
+              ) : page.type === 'html_page' ? (
+                <iframe src={page.src} style={{ width: '100%', height: '80vh', border: 'none', borderRadius: '8px' }} title={page.title} />
               ) : (
                 <div className="content-body" dangerouslySetInnerHTML={{ __html: isEn && pc.content !== page.content ? pc.content : processHtmlBidi(page.content) }} />
               )}

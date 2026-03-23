@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 6 – מעבדה Pro | שכבת התעבורה</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Heebo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0e1a;--surf:#111827;--surf2:#1a2235;--brd:#1e2d45;--ac:#00d4ff;--ac2:#7c3aed;--gr:#10b981;--rd:#ef4444;--yw:#f59e0b;--tx:#e2e8f0;--mt:#64748b;--mono:'IBM Plex Mono',monospace;--sans:'Heebo',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrap{max-width:900px;margin:0 auto;padding:32px 20px 60px;position:relative;z-index:1;}
+.hdr{margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--brd);}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.badge{background:linear-gradient(135deg,var(--ac2),#4f46e5);color:#fff;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:2px;padding:4px 10px;border-radius:4px;}
+.ch{font-family:var(--mono);font-size:12px;color:var(--ac);}
+.title{font-size:26px;font-weight:900;color:#fff;line-height:1.2;}
+.sub{font-size:14px;color:var(--mt);margin-top:4px;}
+.prog{background:var(--surf);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;margin-bottom:32px;display:flex;align-items:center;gap:20px;}
+.pl{font-family:var(--mono);font-size:12px;color:var(--mt);}
+.pb{flex:1;height:6px;background:var(--brd);border-radius:99px;overflow:hidden;}
+.pf{height:100%;background:linear-gradient(90deg,var(--ac2),var(--ac));border-radius:99px;transition:width .5s;width:0%;}
+.ps{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ac);}
+.card{background:var(--surf);border:1px solid var(--brd);border-radius:16px;overflow:hidden;}
+.ch2{background:var(--surf2);border-bottom:1px solid var(--brd);padding:16px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.qn{font-family:var(--mono);font-size:11px;color:var(--mt);}
+.qc{font-family:var(--mono);font-size:11px;color:var(--ac);background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);padding:2px 8px;border-radius:4px;}
+.qd{font-family:var(--mono);font-size:10px;color:var(--yw);background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);padding:2px 8px;border-radius:4px;}
+.body{padding:28px 24px 20px;}
+.snip{background:#0d1117;border:1px solid var(--brd);border-radius:8px;padding:14px 18px;margin-bottom:22px;font-family:var(--mono);font-size:13px;line-height:1.9;overflow-x:auto;direction:ltr;text-align:left;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.nu{color:#bd93f9;}.va{color:#8be9fd;}.cm{color:#6272a4;}.yw{color:#f59e0b;}.rd{color:#ff5555;}.gr{color:#50fa7b;}
+/* handshake diagram in snip */
+.hs-d{margin:4px 0;display:flex;align-items:center;gap:8px;font-size:13px;}
+.hs-c{color:#8be9fd;width:70px;flex-shrink:0;font-weight:700;}
+.hs-s{color:#50fa7b;width:70px;flex-shrink:0;font-weight:700;text-align:left;}
+.hs-arrow{flex:1;text-align:center;font-size:14px;color:#bd93f9;}
+.hs-info{font-size:11px;color:#6272a4;}
+.qt{font-size:18px;font-weight:600;color:#fff;line-height:1.5;margin-bottom:28px;}
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{background:var(--bg);border:1px solid var(--brd);border-radius:10px;padding:14px 18px;cursor:pointer;text-align:right;display:flex;align-items:center;gap:12px;width:100%;font-family:var(--sans);font-size:15px;color:var(--tx);transition:all .15s;}
+.opt:hover{border-color:var(--ac);background:rgba(0,212,255,.04);color:#fff;}
+.opt.done{cursor:default;pointer-events:none;}
+.opt.correct{border-color:var(--gr);background:rgba(16,185,129,.1);color:#fff;}
+.opt.correct .lb{color:var(--gr);}
+.opt.wrong{border-color:var(--rd);background:rgba(239,68,68,.08);color:var(--mt);}
+.opt.wrong .lb{color:var(--rd);}
+.opt.show{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.05);}
+.lb{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--mt);min-width:20px;text-align:center;flex-shrink:0;}
+.ot{flex:1;text-align:right;}
+.ic{font-size:16px;min-width:20px;text-align:center;flex-shrink:0;}
+.exp{margin:20px 0 0;padding:16px 18px;border-radius:10px;border-right:3px solid var(--gr);background:rgba(16,185,129,.06);display:none;}
+.exp.bad{border-color:var(--rd);background:rgba(239,68,68,.06);}
+.et{font-family:var(--mono);font-size:11px;color:var(--gr);margin-bottom:6px;text-transform:uppercase;}
+.exp.bad .et{color:var(--rd);}
+.eb{font-size:14px;color:#94a3b8;line-height:1.8;}
+.foot{padding:20px 24px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;}
+.btn{background:transparent;border:1px solid var(--brd);color:var(--mt);padding:10px 20px;border-radius:8px;font-family:var(--sans);font-size:14px;cursor:pointer;transition:all .15s;}
+.btn:hover:not(:disabled){border-color:var(--ac);color:var(--ac);}
+.btn:disabled{opacity:.3;cursor:default;}
+.btn.pri{background:linear-gradient(135deg,var(--ac2),#4f46e5);border-color:transparent;color:#fff;font-weight:600;}
+.btn.pri:hover{opacity:.9;}
+.res{display:none;text-align:center;padding:60px 24px;}
+.ring{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;}
+.ring::after{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--surf);}
+.rn{font-family:var(--mono);font-size:36px;font-weight:600;color:#fff;position:relative;z-index:1;}
+.rt{font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;}
+.rs{font-size:15px;color:var(--mt);margin-bottom:32px;}
+.bks{display:flex;gap:20px;justify-content:center;margin-bottom:36px;flex-wrap:wrap;}
+.bk{background:var(--surf2);border:1px solid var(--brd);border-radius:10px;padding:14px 24px;text-align:center;}
+.bv{font-family:var(--mono);font-size:22px;font-weight:600;color:#fff;}
+.bl{font-size:12px;color:var(--mt);margin-top:2px;}
+.rbtn{background:linear-gradient(135deg,var(--ac2),#4f46e5);border:none;color:#fff;padding:14px 36px;border-radius:10px;font-family:var(--sans);font-size:16px;font-weight:600;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div class="row"><span class="badge">PRO LAB</span><span class="ch">פרק 6 מתוך 12</span></div>
+    <div class="title">שכבת התעבורה</div>
+    <div class="sub">15 שאלות &middot; Ports &middot; TCP vs UDP &middot; Handshake &middot; Seq/ACK &middot; Checksum &middot; Scapy &middot; netstat</div>
+  </div>
+  <div class="prog">
+    <span class="pl">התקדמות</span>
+    <div class="pb"><div class="pf" id="pf"></div></div>
+    <span class="ps" id="ps">0 / 15</span>
+  </div>
+  <div class="card" id="card">
+    <div class="ch2">
+      <span class="qn" id="qn">שאלה 1</span>
+      <span class="qc" id="qc"></span>
+      <span class="qd" id="qd" style="display:none"></span>
+    </div>
+    <div class="body">
+      <div id="snip"></div>
+      <div class="qt" id="qt"></div>
+      <div class="opts" id="opts"></div>
+      <div class="exp" id="exp"><div class="et" id="et"></div><div class="eb" id="eb"></div></div>
+    </div>
+    <div class="foot">
+      <button class="btn" id="prev" onclick="go(-1)" disabled>&#x2192; הקודם</button>
+      <button class="btn pri" id="next" onclick="go(1)" disabled>הבא &#x2190;</button>
+    </div>
+  </div>
+  <div class="res" id="res">
+    <div class="ring" id="ring"><span class="rn" id="rpct">0%</span></div>
+    <div class="rt" id="rt"></div><div class="rs" id="rs"></div>
+    <div class="bks">
+      <div class="bk"><div class="bv" id="rok" style="color:var(--gr)"></div><div class="bl">נכון</div></div>
+      <div class="bk"><div class="bv" id="rbd" style="color:var(--rd)"></div><div class="bl">שגוי</div></div>
+      <div class="bk"><div class="bv" id="rtt" style="color:var(--ac)"></div><div class="bl">סהכ</div></div>
+    </div>
+    <button class="rbtn" onclick="restart()">התחל מחדש</button>
+  </div>
+</div>
+<script>
+var Q = [
+  {
+    cat: "פורטים",
+    dif: "",
+    sn: null,
+    q: "מה זה Port ולמה הוא נחוץ? מה ההקבלה לבניין ודירה שמוסברת בפרק?",
+    a: [
+      "Port מזהה תוכנה ספציפית על מחשב. IP = כתובת הבניין, Port = מספר הדירה. מאפשר כמה שירותים על אותה IP",
+      "Port הוא כתובת IP עם suffix מספרי לזיהוי גרסת פרוטוקול",
+      "Port הוא מספר channel בכרטיס הרשת שמבדיל בין WiFi לEthernet",
+      "Port מגדיר את מהירות החיבור בין שני מחשבים"
+    ],
+    c: 0,
+    e: "בפרק: כשיש שרת עם שירות מייל ושירות HTTP על אותה IP, השרת צריך להבדיל ביניהם. הפתרון: פורטים. IP = זיהוי המחשב. Port = זיהוי התוכנה. פורט 80 = HTTP, 25 = SMTP. טווח 0-65,535."
+  },
+  {
+    cat: "netstat",
+    dif: "",
+    sn: '<span class="cm">C:\\> netstat -a</span>\n<span class="gr">TCP  0.0.0.0:8820  0.0.0.0:0  LISTENING</span>\n<span class="yw">TCP  127.0.0.1:8820  127.0.0.1:54231  ESTABLISHED</span>',
+    q: "מה ההבדל בין LISTENING לבין ESTABLISHED? מתי מופיעות שתי השורות יחד?",
+    a: [
+      "LISTENING = ממתין לחיבור חדש. ESTABLISHED = חיבור פעיל קיים. שתיהן מופיעות כשהשרת מאזין וגם לקוח מחובר",
+      "LISTENING = TCP. ESTABLISHED = UDP",
+      "LISTENING = עבר חיבור. ESTABLISHED = עתידי",
+      "LISTENING = כתובת מקומית. ESTABLISHED = כתובת רחוקה"
+    ],
+    c: 0,
+    e: "בפרק תרגיל 6.1: כש-netstat -a מציג LISTENING — שרת מאזין, אין לקוח. כשלקוח מתחבר מופיע ESTABLISHED. ללא -a, netstat מציג רק ESTABLISHED (חיבורים קיימים). עם -a רואים גם מה שמחכה לחיבור."
+  },
+  {
+    cat: "TCP vs UDP",
+    dif: "",
+    sn: null,
+    q: "מתי נבחר TCP ומתי UDP? קבע לכל מקרה: הורדת קובץ, DNS, שיחת Skype, העלאת תמונה.",
+    a: [
+      "קובץ=TCP, DNS=UDP, Skype=UDP, תמונה=TCP. כי קבצים ותמונות דורשים אמינות, DNS שאלה-תשובה קצרה, Skype מהירות חשובה",
+      "כולם TCP כי הוא האמין יותר תמיד",
+      "קובץ=UDP (מהיר), DNS=TCP (חייב להגיע), Skype=TCP, תמונה=UDP",
+      "זה תלוי בגודל הקובץ: מתחת ל-1MB = UDP, מעלה = TCP"
+    ],
+    c: 0,
+    e: "בפרק: TCP כשאמינות חשובה — קבצים ותמונות חייבים להגיע שלמים. UDP כשמהירות חשובה — DNS = שאלה-תשובה קצרה, אם אבדה שואלים שוב. Skype = עדיף מהירות, packet אבוד = מלמלה קלה, לא קטסטרופה."
+  },
+  {
+    cat: "UDP Header",
+    dif: "",
+    sn: '<span class="cm">UDP Header — 8 bytes:</span>\n<span class="va">[ src_port: 2B ][ dst_port: 2B ]</span>\n<span class="va">[ length: 2B   ][ checksum: 2B ]</span>',
+    q: "מה שדה Length ב-UDP מציין? האם רק Header, רק Data, או שניהם?",
+    a: [
+      "Header + Data ביחד. אם Header=8 ו-DNS=32, אז Length=40",
+      "רק ה-Data, Header לא נספר",
+      "רק ה-Header (תמיד 8)",
+      "גודל ה-IP Packet הכולל"
+    ],
+    c: 0,
+    e: "בפרק תרגיל 6.4: Wireshark מציג UDP Header=8 bytes, DNS layer=32 bytes. שדה Length=8+32=40. כלומר Length מתאר את האורך הכולל של UDP (Header + כל מה שמעליו)."
+  },
+  {
+    cat: "Checksum",
+    dif: "",
+    sn: '<span class="cm"># מספר טלפון: 054-5555555</span>\n<span class="cm"># Checksum = סכום כל הספרות</span>\n<span class="nu">0+5+4+5+5+5+5+5+5+5 = 44</span>\n<span class="cm"># השרת קיבל: 654-5555555</span>\n<span class="nu">6+5+4+5+5+5+5+5+5+5 = 50 ≠ 44</span>',
+    q: "מה Checksum ומה הוא מגלה? מה הוא לא מגלה?",
+    a: [
+      "Checksum מגלה ששגיאה קרתה בחבילה. לא מגלה היכן בדיוק ואם שתי ספרות התחלפו ביניהן בצורה שמשמרת את הסכום",
+      "Checksum מגלה ומתקן שגיאות אוטומטית",
+      "Checksum מונע שגיאות על ידי הצפנת החבילה",
+      "Checksum בודק שהחבילה הגיעה ליעד הנכון"
+    ],
+    c: 0,
+    e: "בפרק: Checksum = חישוב פונקציה על המידע. שולח שולח גם את התוצאה. מקבל מחשב שוב ומשווה. אם שונה → שגיאה, חבילה נזרקת. מגבלה: אם 0 השתנה ל-6 ו-6 השתנה ל-0 — אותו סכום, שגיאה לא תתגלה."
+  },
+  {
+    cat: "UDP Socket",
+    dif: "",
+    sn: '<span class="cm"># TCP Socket</span>\nmy_socket = socket.<span class="fn">socket</span>(socket.AF_INET,\n                          socket.SOCK_STREAM)\n\n<span class="cm"># UDP Socket</span>\nmy_socket = socket.<span class="fn">socket</span>(socket.AF_INET,\n                          socket.SOCK_DGRAM)',
+    q: "מה ההבדל המעשי בקוד בין TCP ל-UDP Socket? מה נעלם ב-UDP?",
+    a: [
+      "SOCK_STREAM=TCP, SOCK_DGRAM=UDP. ב-UDP: אין connect(), listen(), accept(). שולחים עם sendto() ומקבלים עם recvfrom() שמחזיר גם כתובת השולח",
+      "ב-UDP: bind() לא עובד, אפשר רק לשלוח",
+      "ב-UDP: recv() עובד כמו TCP, ההבדל רק בשם האובייקט",
+      "ב-UDP: חייבים לציין timeout, אחרת הקוד נתקע לנצח"
+    ],
+    c: 0,
+    e: "בפרק: UDP אין קישור → אין connect/listen/accept. שולחים: sendto(data, (ip, port)). מקבלים: data, addr = recvfrom(1024). addr מחזיר את כתובת השולח כי אין קישור שמנהל את זה. TCP ברירת מחדל (SOCK_STREAM)."
+  },
+  {
+    cat: "TCP Sequence Numbers",
+    dif: "",
+    sn: '<span class="va">Client</span> → <span class="gr">Server</span>: Seq=<span class="nu">100</span>, <span class="st">"Hello "</span> (6 bytes)\n<span class="gr">Server</span> → <span class="va">Client</span>: <span class="yw">ACK=?</span>\n\n<span class="va">Client</span> → <span class="gr">Server</span>: Seq=<span class="nu">106</span>, <span class="st">"cool"</span> (4 bytes)\n<span class="gr">Server</span> → <span class="va">Client</span>: <span class="yw">ACK=?</span>',
+    q: "מה יהיו ערכי ה-ACK אחרי קבלת כל חבילה?",
+    a: [
+      "ACK=106 אחרי 'Hello ' (100+6). ACK=110 אחרי 'cool' (106+4)",
+      "ACK=101 אחרי 'Hello', ACK=102 אחרי 'cool' — ACK מונה חבילות",
+      "ACK=107 ו-ACK=111 — ACK = Seq + len + 1",
+      "ACK=100 בשניהם — ACK = Seq של החבילה שנשלחה"
+    ],
+    c: 0,
+    e: "בפרק: ACK = Seq_last + len(data). 'Hello ' = 6 bytes, Seq=100 → ACK=106. 'cool' = 4 bytes, Seq=106 → ACK=110. ACK מציין את הבית הבא הצפוי — כלומר כל מה שלפניו הגיע תקין."
+  },
+  {
+    cat: "Three-Way Handshake",
+    dif: "",
+    sn: '<span class="cm"># Three-Way Handshake</span>\n<span class="va">Client</span> <span class="rd">──[SYN, Seq=123]──────────────→</span> <span class="gr">Server</span>\n<span class="va">Client</span> <span class="yw">←─[SYN+ACK, Seq=555, ACK=?]──</span> <span class="gr">Server</span>\n<span class="va">Client</span> <span class="rd">──[ACK, Seq=?, ACK=?]─────────→</span> <span class="gr">Server</span>',
+    q: "מה יהיו ערכי ACK בחבילה 2, וערכי Seq ו-ACK בחבילה 3?",
+    a: [
+      "חבילה 2: ACK=124 (123+1). חבילה 3: Seq=124, ACK=556 (555+1)",
+      "חבילה 2: ACK=123. חבילה 3: Seq=123, ACK=555",
+      "חבילה 2: ACK=125. חבילה 3: Seq=125, ACK=557",
+      "חבילה 2: ACK=0. חבילה 3: Seq=0, ACK=0"
+    ],
+    c: 0,
+    e: "בפרק: SYN נחשב כ-1 byte. חבילה 2 (SYN+ACK): שרת מאשר SYN של לקוח → ACK=123+1=124. שרת ISN=555. חבילה 3 (ACK): לקוח מאשר SYN+ACK → ACK=555+1=556. Seq=124 (הבית הבא של לקוח)."
+  },
+  {
+    cat: "Three-Way Handshake",
+    dif: "חישוב",
+    sn: null,
+    q: "בלחיצת יד: לקוח ISN=500, שרת ISN=200. מה Seq ו-ACK בכל שלב?",
+    a: [
+      "SYN: Seq=500. SYN+ACK: Seq=200, ACK=501. ACK: Seq=501, ACK=201",
+      "SYN: Seq=500. SYN+ACK: Seq=200, ACK=500. ACK: Seq=500, ACK=200",
+      "SYN: Seq=500. SYN+ACK: Seq=200, ACK=502. ACK: Seq=502, ACK=202",
+      "SYN: Seq=0. SYN+ACK: Seq=0, ACK=1. ACK: Seq=1, ACK=1"
+    ],
+    c: 0,
+    e: "כלל: ACK = ISN_שלהם + 1 (SYN נחשב byte אחד). שלב 1 SYN: Seq=500. שלב 2 SYN+ACK: Seq=200 (ISN שרת), ACK=500+1=501. שלב 3 ACK: Seq=501 (בית הבא מלקוח), ACK=200+1=201."
+  },
+  {
+    cat: "Seq/ACK חישוב",
+    dif: "חישוב",
+    sn: '<span class="cm"># אחרי Handshake: Client Seq=124, Server Seq=556</span>\n<span class="va">Client</span> <span class="rd">──[Seq=124, "Hello" (5B)]──→</span> <span class="gr">Server</span>\n<span class="gr">Server</span> <span class="yw">←─[Seq=556, ACK=?, "Hi!" (3B)]──</span> <span class="va">Client</span>\n<span class="va">Client</span> <span class="rd">──[Seq=?, ACK=?]──────────────→</span> <span class="gr">Server</span>',
+    q: "מה ACK בתגובת השרת? מה Seq ו-ACK בחבילת הלקוח השלישית?",
+    a: [
+      "שרת ACK=129 (124+5). לקוח: Seq=129, ACK=559 (556+3)",
+      "שרת ACK=125 (124+1). לקוח: Seq=125, ACK=557 (556+1)",
+      "שרת ACK=130 (124+6). לקוח: Seq=130, ACK=560",
+      "שרת ACK=124. לקוח: Seq=124, ACK=556 — לא השתנה"
+    ],
+    c: 0,
+    e: "שרת מקבל 'Hello' (5B) Seq=124: ACK=124+5=129. שרת שולח 'Hi!' (3B) Seq=556. לקוח: Seq=129 (הבית הבא שלו), ACK=556+3=559 (מאשר שקיבל 'Hi!')."
+  },
+  {
+    cat: "TCP Flags",
+    dif: "",
+    sn: null,
+    q: "מה קורה כששולחים SYN לפורט סגור? מה ההשלכה לPort Scanning?",
+    a: [
+      "מקבלים RST (פורט סגור) או אין תגובה (Firewall). SYN+ACK = פורט פתוח. כך בונים Port Scanner",
+      "מקבלים תמיד ACK עם קוד שגיאה שמציין שהפורט סגור",
+      "החיבור נוצר בכל מקרה ורק אחרי שניות מתנתק",
+      "מקבלים FIN כי השרת סוגר את החיבור מיד"
+    ],
+    c: 0,
+    e: "בפרק תרגיל 6.19: שלחו SYN לפורט 24601 של Google → אין תגובה (סגור/Firewall). SYN לפורט 80 → SYN+ACK (פתוח!). עיקרון Port Scanner: שלח SYN לכל פורט, אם מקבלים SYN+ACK הפורט פתוח."
+  },
+  {
+    cat: "TCP Scapy",
+    dif: "",
+    sn: '<span class="kw">from</span> scapy.all <span class="kw">import</span> *\n\n<span class="cm"># שלב 1: SYN</span>\n<span class="va">syn</span> = <span class="fn">TCP</span>(dport=<span class="nu">80</span>, seq=<span class="nu">123</span>, flags=<span class="st">\'S\'</span>)\n<span class="va">resp</span> = <span class="fn">sr1</span>(<span class="fn">IP</span>(dst=<span class="st">\'www.google.com\'</span>)/<span class="va">syn</span>)\n\n<span class="cm"># שלב 2: ACK</span>\n<span class="va">ack</span> = <span class="fn">TCP</span>(\n    dport=<span class="nu">80</span>,\n    seq=resp[TCP].ack,\n    ack=resp[TCP].seq+<span class="nu">1</span>,\n    flags=<span class="st">\'A\'</span>\n)',
+    q: "בשלב 2, למה seq=resp[TCP].ack ו-ack=resp[TCP].seq+1?",
+    a: [
+      "seq=resp.ack כי הבית הבא שלנו הוא מה שהשרת ציפה לקבל. ack=resp.seq+1 כי SYN נחשב byte אחד ואנחנו מאשרים אותו",
+      "seq=resp.seq כי אנחנו ממשיכים מאותו מספר. ack=resp.ack",
+      "הערכים אקראיים, רק flags='A' חשוב",
+      "seq=123+1=124 תמיד. ack=resp.seq כי לא מוסיפים 1 ל-seq"
+    ],
+    c: 0,
+    e: "בפרק: SYN+ACK של השרת מכיל: ack=124 (הבית הבא שהוא מצפה מאיתנו). חבילת ACK שלנו: seq=124 (בדיוק זה). ack=resp.seq+1 כי SYN+ACK של השרת נחשב byte אחד, ואנחנו מאשרים עד לבית הזה."
+  },
+  {
+    cat: "UDP Scapy",
+    dif: "",
+    sn: '<span class="va">dns_pkt</span> = (\n    <span class="fn">IP</span>(dst=<span class="st">\'8.8.8.8\'</span>) /\n    <span class="fn">UDP</span>(sport=<span class="nu">24601</span>, dport=<span class="nu">53</span>) /\n    <span class="fn">DNS</span>(qdcount=<span class="nu">1</span>, rd=<span class="nu">1</span>) /\n    <span class="fn">DNSQR</span>(qname=<span class="st">\'www.google.com\'</span>)\n)\n<span class="va">resp</span> = <span class="fn">sr1</span>(dns_pkt)',
+    q: "למה בחרנו dport=53 ו-rd=1? מה עושה sr1() כאן?",
+    a: [
+      "dport=53 = פורט DNS. rd=1 = Recursion Desired, מבקש מ-8.8.8.8 לחפש אם לא יודע. sr1 שולח ומחכה לתגובה ראשונה",
+      "dport=53 = גודל חבילה. rd=1 = מהירות מרבית",
+      "dport=53 = גרסת DNS. rd=1 = מספר חבילות לשלוח",
+      "dport=53 = פורט שגיאה. sr1 = שולח שוב אם אין תגובה"
+    ],
+    c: 0,
+    e: "בפרק תרגיל 6.10: 53 = פורט שרת DNS (Well-Known). rd=1 = Recursion Desired, מאפשר ל-8.8.8.8 לפנות לשרתים אחרים אם הוא לא יודע. sr1 = שלח ותפוס תשובה ראשונה (כמו sr אבל מחזיר packet בודד)."
+  },
+  {
+    cat: "ISN רנדומלי",
+    dif: "",
+    sn: null,
+    q: "מדוע ה-ISN נבחר באופן רנדומלי ולא תמיד 0?",
+    a: [
+      "למנוע התנגשות: אם ISN=0 תמיד, חבילה שאבדה מחיבור ישן יכולה להגיע ולבלבל חיבור חדש עם אותן כתובות ופורטים",
+      "בגלל דרישות הצפנה, ISN מוצפן ולכן נראה רנדומלי",
+      "כדי לחסוך ב-Seq Number space — אם מתחילים מ-0 גדלים מהר",
+      "דרישת תקן RFC שלא מסבירה את הסיבה"
+    ],
+    c: 0,
+    e: "בפרק: אם ISN=0 תמיד — נאמר שחיבור נפל ונוצר חדש. חבילה מהחיבור הישן (עם Seq=100 שנאבדה בדרך) תגיע לחיבור החדש. השרת יחשוב שזו חבילה לגיטימית מהחיבור הנוכחי — שגיאה. ISN רנדומלי מונע זאת."
+  },
+  {
+    cat: "טבלת השוואה",
+    dif: "",
+    sn: null,
+    q: "מה שלושת המנגנונים של TCP לאמינות? האם UDP מכיל אחד מהם?",
+    a: [
+      "TCP: (1) ACK + שליחה מחדש אחרי timeout. (2) Sequence Numbers לסדר נכון. (3) Checksum לשגיאות תוכן. UDP: רק Checksum (ואופציונלי)",
+      "TCP: Checksum, ISN, Port. UDP: כלום",
+      "TCP: SYN, ACK, FIN. UDP: שולח SYN בלבד",
+      "TCP ו-UDP זהים, ההבדל רק בגודל ה-Header"
+    ],
+    c: 0,
+    e: "בפרק טבלת סיכום: (1) חבילה לא הגיעה → ACK + retransmit (TCP בלבד). (2) חבילות בסדר לא נכון → Sequence Numbers (TCP בלבד). (3) שגיאות בתוכן → Checksum (TCP תמיד, UDP אופציונלי). פורטים = שניהם."
+  }
+];
+
+var LBL = ["א","ב","ג","ד"];
+var cur = 0;
+var ans = [];
+for (var i = 0; i < Q.length; i++) { ans.push(-1); }
+
+function shuf(q) {
+  var idx = [0,1,2,3];
+  for (var i = 3; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i+1));
+    var t = idx[i]; idx[i] = idx[j]; idx[j] = t;
+  }
+  var na = [];
+  for (var k = 0; k < 4; k++) { na.push(q.a[idx[k]]); }
+  var nc = -1;
+  for (var k = 0; k < 4; k++) { if (idx[k] === q.c) { nc = k; break; } }
+  return {cat:q.cat, dif:q.dif, sn:q.sn, q:q.q, a:na, c:nc, e:q.e};
+}
+
+var SQ = [];
+for (var i = 0; i < Q.length; i++) { SQ.push(shuf(Q[i])); }
+
+function render() {
+  var q = SQ[cur];
+  document.getElementById("qn").textContent = "שאלה " + (cur+1);
+  document.getElementById("qc").textContent = q.cat;
+  var qd = document.getElementById("qd");
+  if (q.dif) { qd.textContent = q.dif; qd.style.display = ""; }
+  else { qd.style.display = "none"; }
+  var sn = document.getElementById("snip");
+  sn.innerHTML = q.sn ? '<div class="snip">' + q.sn + '</div>' : "";
+  document.getElementById("qt").textContent = q.q;
+  var oc = document.getElementById("opts");
+  oc.innerHTML = "";
+  for (var i = 0; i < 4; i++) {
+    var b = document.createElement("button");
+    b.className = "opt";
+    b.innerHTML = '<span class="lb">' + LBL[i] + '</span><span class="ot">' + q.a[i] + '</span><span class="ic"></span>';
+    b.setAttribute("data-i", i);
+    b.onclick = pick;
+    oc.appendChild(b);
+  }
+  var ex = document.getElementById("exp");
+  ex.style.display = "none"; ex.className = "exp";
+  if (ans[cur] !== -1) { showA(cur); }
+  document.getElementById("prev").disabled = (cur === 0);
+  document.getElementById("next").disabled = (ans[cur] === -1);
+  upProg();
+}
+
+function pick() {
+  if (ans[cur] !== -1) { return; }
+  var i = parseInt(this.getAttribute("data-i"));
+  ans[cur] = i; showA(cur);
+  document.getElementById("next").disabled = false;
+}
+
+function showA(idx) {
+  var q = SQ[idx]; var ch = ans[idx]; var ok = (ch === q.c);
+  var bs = document.querySelectorAll(".opt");
+  for (var i = 0; i < bs.length; i++) {
+    bs[i].className = "opt done"; bs[i].onclick = null;
+    var ic = bs[i].querySelector(".ic");
+    if (i === q.c) { bs[i].classList.add(ok ? "correct" : "show"); if (!ok) { ic.textContent = "\u2713"; } }
+    if (i === ch && !ok) { bs[i].classList.add("wrong"); ic.textContent = "\u2717"; }
+    if (i === ch && ok) { ic.textContent = "\u2713"; }
+  }
+  var ex = document.getElementById("exp");
+  document.getElementById("et").textContent = ok ? "\u2713 \u05e0\u05db\u05d5\u05df!" : "\u2717 \u05dc\u05d0 \u05d1\u05d3\u05d9\u05d5\u05e7...";
+  document.getElementById("eb").textContent = q.e;
+  ex.className = ok ? "exp" : "exp bad"; ex.style.display = "block";
+}
+
+function upProg() {
+  var n = 0;
+  for (var i = 0; i < ans.length; i++) { if (ans[i] !== -1) { n++; } }
+  document.getElementById("pf").style.width = (n / Q.length * 100) + "%";
+  document.getElementById("ps").textContent = n + " / " + Q.length;
+}
+
+function go(d) {
+  var n = cur + d;
+  if (n < 0) { return; }
+  if (n >= Q.length) { showRes(); return; }
+  cur = n; render();
+}
+
+function showRes() {
+  document.getElementById("card").style.display = "none";
+  document.getElementById("res").style.display = "block";
+  var ok = 0, bd = 0;
+  for (var i = 0; i < ans.length; i++) {
+    if (ans[i] === SQ[i].c) { ok++; } else if (ans[i] !== -1) { bd++; }
+  }
+  var pct = Math.round(ok / Q.length * 100);
+  document.getElementById("ring").style.background = "conic-gradient(var(--ac) 0%,var(--ac2) " + pct + "%,var(--brd) " + pct + "%)";
+  document.getElementById("rpct").textContent = pct + "%";
+  document.getElementById("rok").textContent = ok;
+  document.getElementById("rbd").textContent = bd;
+  document.getElementById("rtt").textContent = Q.length;
+  var t, s;
+  if (pct >= 80) { t = "\u05de\u05e6\u05d5\u05d9\u05df! \ud83c\udfaf"; s = "\u05e9\u05dc\u05d9\u05d8\u05d4 \u05de\u05dc\u05d0\u05d4 \u05d1-TCP/UDP"; }
+  else if (pct >= 60) { t = "\u05dc\u05d0 \u05e8\u05e2 \ud83d\udcaa"; s = "\u05d7\u05d6\u05d5\u05e8 \u05e2\u05dc \u05d7\u05d9\u05e9\u05d5\u05d1\u05d9 Seq/ACK"; }
+  else { t = "\u05d9\u05e9 \u05de\u05d4 \u05dc\u05d7\u05d6\u05e7 \ud83d\udcda"; s = "\u05e7\u05e8\u05d0 \u05e9\u05d5\u05d1 \u05d0\u05ea \u05e4\u05e8\u05e7 6"; }
+  document.getElementById("rt").textContent = t;
+  document.getElementById("rs").textContent = s;
+  upProg();
+}
+
+function restart() {
+  SQ = [];
+  for (var i = 0; i < Q.length; i++) { SQ.push(shuf(Q[i])); }
+  cur = 0; ans = [];
+  for (var i = 0; i < Q.length; i++) { ans.push(-1); }
+  document.getElementById("card").style.display = "block";
+  document.getElementById("res").style.display = "none";
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
