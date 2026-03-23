@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 12 – מעבדה Pro | Sockets מתקדם</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Heebo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060b12;--surf:#0f1824;--surf2:#162030;--brd:#1e2d45;--ac:#50fa7b;--ac2:#7c3aed;--gr:#50fa7b;--rd:#ff5555;--yw:#f1fa8c;--tx:#e2e8f0;--mt:#64748b;--mono:'IBM Plex Mono',monospace;--sans:'Heebo',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(80,250,123,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(80,250,123,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrap{max-width:900px;margin:0 auto;padding:32px 20px 60px;position:relative;z-index:1;}
+.hdr{margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--brd);}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+.badge{background:linear-gradient(135deg,var(--ac2),#4f46e5);color:#fff;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:2px;padding:4px 10px;border-radius:4px;}
+.badge2{background:rgba(80,250,123,.12);color:var(--ac);border:1px solid rgba(80,250,123,.3);font-family:var(--mono);font-size:10px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:1px;}
+.ch{font-family:var(--mono);font-size:12px;color:var(--ac);}
+.title{font-size:26px;font-weight:900;color:#fff;line-height:1.2;}
+.sub{font-size:14px;color:var(--mt);margin-top:4px;}
+.prog{background:var(--surf);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;margin-bottom:32px;display:flex;align-items:center;gap:20px;}
+.pl{font-family:var(--mono);font-size:12px;color:var(--mt);}
+.pb{flex:1;height:6px;background:var(--brd);border-radius:99px;overflow:hidden;}
+.pf{height:100%;background:linear-gradient(90deg,var(--ac),#06b6d4);border-radius:99px;transition:width .5s;width:0%;}
+.ps{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ac);}
+.card{background:var(--surf);border:1px solid var(--brd);border-radius:16px;overflow:hidden;}
+.ch2{background:var(--surf2);border-bottom:1px solid var(--brd);padding:16px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.qn{font-family:var(--mono);font-size:11px;color:var(--mt);}
+.qc{font-family:var(--mono);font-size:11px;color:var(--ac);background:rgba(80,250,123,.08);border:1px solid rgba(80,250,123,.25);padding:2px 8px;border-radius:4px;}
+.body{padding:28px 24px 20px;}
+.snip{background:#0d1117;border:1px solid var(--brd);border-radius:10px;padding:14px 18px;margin-bottom:22px;font-family:var(--mono);font-size:12px;line-height:1.9;overflow-x:auto;direction:ltr;text-align:left;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.nu{color:#bd93f9;}.va{color:#8be9fd;}.cm{color:#6272a4;}.or{color:#ffb86c;}.rd2{color:#ff5555;}.tl{color:#8be9fd;}
+.qt{font-size:18px;font-weight:600;color:#fff;line-height:1.5;margin-bottom:28px;}
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{background:var(--bg);border:1px solid var(--brd);border-radius:10px;padding:14px 18px;cursor:pointer;text-align:right;display:flex;align-items:center;gap:12px;width:100%;font-family:var(--sans);font-size:15px;color:var(--tx);transition:all .15s;}
+.opt:hover{border-color:var(--ac);background:rgba(80,250,123,.04);color:#fff;}
+.opt.done{cursor:default;pointer-events:none;}
+.opt.correct{border-color:var(--gr);background:rgba(80,250,123,.1);color:#fff;}
+.opt.correct .lb{color:var(--gr);}
+.opt.wrong{border-color:var(--rd);background:rgba(255,85,85,.08);color:var(--mt);}
+.opt.wrong .lb{color:var(--rd);}
+.opt.show{border-color:rgba(80,250,123,.4);background:rgba(80,250,123,.05);}
+.lb{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--mt);min-width:20px;text-align:center;flex-shrink:0;}
+.ot{flex:1;text-align:right;}
+.ic{font-size:16px;min-width:20px;text-align:center;flex-shrink:0;}
+.exp{margin:20px 0 0;padding:16px 18px;border-radius:10px;border-right:3px solid var(--gr);background:rgba(80,250,123,.06);display:none;}
+.exp.bad{border-color:var(--rd);background:rgba(255,85,85,.06);}
+.et{font-family:var(--mono);font-size:11px;color:var(--gr);margin-bottom:6px;text-transform:uppercase;}
+.exp.bad .et{color:var(--rd);}
+.eb{font-size:14px;color:#94a3b8;line-height:1.8;}
+.foot{padding:20px 24px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;}
+.btn{background:transparent;border:1px solid var(--brd);color:var(--mt);padding:10px 20px;border-radius:8px;font-family:var(--sans);font-size:14px;cursor:pointer;transition:all .15s;}
+.btn:hover:not(:disabled){border-color:var(--ac);color:var(--ac);}
+.btn:disabled{opacity:.3;cursor:default;}
+.btn.pri{background:linear-gradient(135deg,var(--ac),#06b6d4);border-color:transparent;color:#000;font-weight:700;}
+.res{display:none;text-align:center;padding:60px 24px;}
+.ring{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;}
+.ring::after{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--surf);}
+.rn{font-family:var(--mono);font-size:36px;font-weight:600;color:#fff;position:relative;z-index:1;}
+.rt2{font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;}
+.rs{font-size:15px;color:var(--mt);margin-bottom:32px;}
+.bks{display:flex;gap:20px;justify-content:center;margin-bottom:36px;flex-wrap:wrap;}
+.bk{background:var(--surf2);border:1px solid var(--brd);border-radius:10px;padding:14px 24px;text-align:center;}
+.bv{font-family:var(--mono);font-size:22px;font-weight:600;color:#fff;}
+.bl{font-size:12px;color:var(--mt);margin-top:2px;}
+.rbtn{background:linear-gradient(135deg,var(--ac),#06b6d4);border:none;color:#000;padding:14px 36px;border-radius:10px;font-family:var(--sans);font-size:16px;font-weight:700;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div class="row">
+      <span class="badge">PRO LAB</span>
+      <span class="badge2">⚡ select()</span>
+      <span class="ch">פרק 12 מתוך 12</span>
+    </div>
+    <div class="title">תכנות Sockets מתקדם</div>
+    <div class="sub">15 שאלות &middot; blocking vs non-blocking &middot; select() &middot; multi-client &middot; chat protocol &middot; wlist/rlist</div>
+  </div>
+  <div class="prog">
+    <span class="pl">התקדמות</span>
+    <div class="pb"><div class="pf" id="pf"></div></div>
+    <span class="ps" id="ps">0 / 15</span>
+  </div>
+  <div class="card" id="card">
+    <div class="ch2"><span class="qn" id="qn">שאלה 1</span><span class="qc" id="qc"></span></div>
+    <div class="body">
+      <div id="snip"></div>
+      <div class="qt" id="qt"></div>
+      <div class="opts" id="opts"></div>
+      <div class="exp" id="exp"><div class="et" id="et"></div><div class="eb" id="eb"></div></div>
+    </div>
+    <div class="foot">
+      <button class="btn" id="prev" onclick="go(-1)" disabled>&#x2192; הקודם</button>
+      <button class="btn pri" id="next" onclick="go(1)" disabled>הבא &#x2190;</button>
+    </div>
+  </div>
+  <div class="res" id="res">
+    <div class="ring" id="ring"><span class="rn" id="rpct">0%</span></div>
+    <div class="rt2" id="rt"></div><div class="rs" id="rs"></div>
+    <div class="bks">
+      <div class="bk"><div class="bv" id="rok" style="color:var(--gr)"></div><div class="bl">נכון</div></div>
+      <div class="bk"><div class="bv" id="rbd" style="color:var(--rd)"></div><div class="bl">שגוי</div></div>
+      <div class="bk"><div class="bv" id="rtt" style="color:var(--ac)"></div><div class="bl">סהכ</div></div>
+    </div>
+    <button class="rbtn" onclick="restart()">התחל מחדש</button>
+  </div>
+</div>
+<script>
+var Q=[
+  {
+    cat:"Blocking",sn:null,
+    q:"מה הבעיה עם accept() ו-recv() בשרת שמטפל בלקוחות מרובים?",
+    a:["שתיהן blocking — מקפיאות את התוכנית עד שיש נתון. כשמחכים ל-recv מ-A, לקוח B לא יכול להתחבר","הן לא תומכות בTCP","הן עובדות רק עם UDP","accept() בלבד blocking, recv() לא"],
+    c:0,e:"בפרק: 'המתודה accept הינה blocking — כלומר, הקוד יקפא ולא ימשיך לרוץ עד אשר יתקבל בשרת חיבור חדש.' גם recv: 'גם המתודה recv הינה blocking — ולא תאפשר את המשך ריצת התוכנית עד אשר נקבל מידע.' כשמחכים לאחד — מפספסים את השני."
+  },
+  {
+    cat:"select()",sn:'<div><span class="kw">import</span> select\n\nrlist, wlist, xlist = select.<span class="fn">select</span>(\n    [server_socket] + open_client_sockets,\n    [],\n    []\n)</div>',
+    q:"מה select() מקבלת כקלט? מה היא מחזירה?",
+    a:["קלט: 3 רשימות של Sockets (לקריאה, לכתיבה, לשגיאות). פלט: 3 רשימות של Sockets שמוכנים עכשיו","קלט: כתובת IP. פלט: חבילות ממנה","קלט: מחרוזת. פלט: parsed JSON","קלט: פורט. פלט: Socket object"],
+    c:0,e:"בפרק: 'select מקבלת שלוש רשימות: רשימת ה-Sockets מהם אולי נרצה לקרוא, רשימת ה-Sockets אליהם אולי נרצה לכתוב, רשימת ה-Sockets עבורם נרצה לבדוק מקרים של שגיאות. לאחר שסיימת, מחזירה שלוש רשימות: מהם ניתן לקרוא, לכתוב, ושגיאות.'"
+  },
+  {
+    cat:"server_socket ב-rlist",sn:'<div><span class="kw">for</span> current_socket <span class="kw">in</span> rlist:\n    <span class="kw">if</span> current_socket <span class="kw">is</span> server_socket:\n        <span class="cm">??? </span></div>',
+    q:"אם server_socket נמצא ב-rlist — מה זה אומר? מה עושים?",
+    a:["לקוח חדש מחכה להתחבר → קוראים accept() ומוסיפים Socket חדש לרשימה","שגיאה בשרת","לקוח קיים שלח מידע","השרת רוצה לשלוח מידע"],
+    c:0,e:"בפרק: 'במידה שניתן לקרוא מ-Socket זה, המשמעות היא שיש פנייה של לקוח חדש. כלומר, במקרה זה, ניתן לקרוא ל-accept ולהקים חיבור עם הלקוח החדש.' ואז: open_client_sockets.append(new_socket)."
+  },
+  {
+    cat:"client_socket ב-rlist",sn:'<div><span class="kw">else</span>:\n    data = current_socket.<span class="fn">recv</span>(<span class="nu">1024</span>)\n    <span class="kw">if</span> data == <span class="st">""</span>:\n        open_client_sockets.<span class="fn">remove</span>(current_socket)\n    <span class="kw">else</span>:\n        <span class="cm">???</span></div>',
+    q:"אם client_socket נמצא ב-rlist — מה זה אומר? ומה data==\"\" מציין?",
+    a:["לקוח קיים שלח מידע → recv(). data==\"\" מציין שהחיבור נסגר → מסירים מהרשימה","client_socket ב-rlist = שגיאה","data==\"\" = הצלחה","data==\"\" = הלקוח שלח הודעה ריקה בכוונה"],
+    c:0,e:"בפרק: 'במידה שניתן לקרוא מ-Socket של לקוח, הרי שהוא שלח מידע. כלומר, ניתן לקרוא ל-recv ולקבל מידע מלקוח קיים.' data==\"\" = פייתון מסמן שהחיבור נסגר (הלקוח התנתק). לכן: remove מהרשימה."
+  },
+  {
+    cat:"wlist",sn:'<div>rlist, wlist, xlist = select.<span class="fn">select</span>(\n    [server_socket] + open_client_sockets,\n    open_client_sockets,  <span class="cm"># הוספנו!</span>\n    []\n)</div>',
+    q:"למה העברנו את open_client_sockets כפרמטר שני? מה wlist מחזיר?",
+    a:["כדי לדעת אילו לקוחות מוכנים לקבל מידע. wlist = תת-רשימה של Sockets שניתן לשלוח אליהם עכשיו ללא blocking","כדי לקבל מידע מהם","wlist = Sockets עם שגיאות","wlist = כולם תמיד, לא משנה מה שולחים"],
+    c:0,e:"בפרק: 'נשנה זאת ונעביר לפונקציה select את רשימת כל הלקוחות, כדי שתחזיר לנו אל המשתנה wlist את רשימת הלקוחות שכרגע ניתן לשלוח אליהם מידע.' send() ל-Socket לא מוכן = blocking. wlist = מי מוכן עכשיו."
+  },
+  {
+    cat:"messages_to_send",sn:'<div>messages_to_send.<span class="fn">append</span>((current_socket, <span class="st">\'Hello, \'</span> + data))\n\n<span class="cm"># ואז בסוף הלולאה:</span>\n<span class="fn">send_waiting_messages</span>(wlist)</div>',
+    q:"למה לא שולחים send() ישירות? למה שומרים ב-messages_to_send?",
+    a:["send() עלול להיות blocking אם הלקוח לא מוכן. שומרים בתור ושולחים רק כשwlist מאשר שהוא מוכן","send() לא עובד בלולאה","messages_to_send = backup בלבד","send() מוגבל ל-1KB, לכן שומרים"],
+    c:0,e:"בפרק: 'לא בטוח שאותו Socket שעכשיו קראתי ממנו את המידע מוכן לכך שנשלח לו את המידע. במקרה כזה, הפונקציה send עלולה להיתקע, ולא נוכל לתת שירות לשאר הלקוחות.' לכן: תור + שליחה רק דרך wlist."
+  },
+  {
+    cat:"send_waiting_messages",sn:'<div><span class="kw">def</span> <span class="fn">send_waiting_messages</span>(wlist):\n    <span class="kw">for</span> message <span class="kw">in</span> messages_to_send:\n        (client_socket, data) = message\n        <span class="kw">if</span> client_socket <span class="kw">in</span> wlist:\n            client_socket.<span class="fn">send</span>(data)\n            messages_to_send.<span class="fn">remove</span>(message)</div>',
+    q:"מה קורה להודעה שלקוח היעד שלה לא ב-wlist?",
+    a:["ההודעה נשארת ב-messages_to_send ותשלח בסיבוב הבא של select()","ההודעה נזרקת","ההודעה נשלחת בכל מקרה","פונקציה זורקת Exception"],
+    c:0,e:"בפרק: 'באם ה-Socket לא היה מוכן לכתיבה, הרי שהפונקציה תצא מבלי לשלוח את ההודעה ללקוח, וההודעה לא תמחק מרשימת ההודעות שעוד יש לשלוח, ולכן תשאר בה.' → תישלח בסיבוב הבא."
+  },
+  {
+    cat:"[server_socket]+open_clients",sn:'<div>rlist, wlist, xlist = select.<span class="fn">select</span>(\n    [server_socket] + open_client_sockets,\n    ...\n)</div>',
+    q:"למה שרשרנו [server_socket] + open_client_sockets? מה היה קורה אם שלחנו רק open_client_sockets?",
+    a:["כדי לבדוק גם חיבורים חדשים וגם קריאות מלקוחות קיימים. ללא server_socket — לעולם לא נקבל לקוחות חדשים","כי select() דורשת מינימום 2 Sockets","כי open_client_sockets יכול להיות ריק בהתחלה ו-select() תזרוק שגיאה","אין הבדל — select() לא מבדיל ביניהם"],
+    c:0,e:"בפרק: 'אל המשתנה rlist ישמרו Sockets מהם ניתן לקרוא: ה-Socket של השרת המאזין — במידה שניתן לקרוא מ-Socket זה, יש פנייה של לקוח חדש. כלל ה-Sockets של הלקוחות — שלח מידע.' ללא server_socket → לעולם לא נקבל accept()."
+  },
+  {
+    cat:"פרוטוקול — parsing",sn:'<div><span class="cm"># הודעה מהלקוח:</span>\n<span class="st">"4Omer118This is an example"</span>\n<span class="cm">#  ^ ^      ^  ^</span>\n<span class="cm">#  4 Omer   1  18</span>\n<span class="cm"># len שם פקודה len הודעה</span></div>',
+    q:"איך השרת מפרש את ההודעה? מה כל שדה?",
+    a:["4=אורך שם, Omer=שם, 1=פקודה (chat), 18=אורך הודעה, שאר=הודעה. האורכים בגודל קבוע כדי לאפשר parsing","כל תו = שדה נפרד","מבדיל לפי רווחים","אורך הכל=4 תמיד"],
+    c:0,e:"בפרק: 'שדה סוג: אורך שם המשתמש (מספר) = 4, שם המשתמש = Omer, פקודה לשימוש = 1, אורך ההודעה = 18, ההודעה עצמה.' שדה האורך בגודל קבוע (למשל 4 bytes) כדי לדעת היכן הוא מסתיים."
+  },
+  {
+    cat:"פרוטוקול — פקודות",sn:'<div><span class="cm">פקודות:</span>\n<span class="or">1</span> = <span class="st">הודעת צ\'אט</span>\n<span class="fn">2</span> = <span class="st">מינוי מנהל</span>\n<span class="rd2">3</span> = <span class="st">kick (העפה)</span>\n<span class="yw">4</span> = <span class="st">mute (השתקה)</span>\n<span class="tl">5</span> = <span class="st">הודעה פרטית</span></div>',
+    q:"Omer רוצה להעיף את Avi. מה ההודעה שישלח? (Omer=4 תווים, Avi=3 תווים)",
+    a:["4Omer33Avi — אורך שם שולח=4, שם=Omer, פקודה=3 (kick), אורך שם מועף=3, שם=Avi","4Omer13Avi","4Omer43Avi","3kick4Omer3Avi"],
+    c:0,e:"בפרק: 'דוגמה להעפת משתמש: 4Omer33Avi. באדום=אורך שם המעיף(4). בכחול=שם המעיף(Omer). בכתום=פקודה(3=kick). בירוק=אורך שם המועף(3). בסגול=שם המועף(Avi).' פקודה 4=mute."
+  },
+  {
+    cat:"הודעה פרטית DM",sn:'<div><span class="cm"># Omer שולח ל-Shlomi: "This message is private"</span>\n<span class="cm"># Omer=4, Shlomi=6, הודעה=23 תווים</span>\n<span class="tl">4Omer56Shlomi23This message is private</span></div>',
+    q:"מה מייחד הודעה פרטית (פקודה 5) לעומת הודעת צ'אט רגילה?",
+    a:["DM כולל גם שם הנמען ואורכו. רק שני המשתמשים רואים — השרת לא מעביר לשאר","DM = אותו פרוטוקול כמו chat, רק עם flag","DM נשלח ישירות בין לקוח ללקוח, לא דרך השרת","DM = Broadcast עם פילטר"],
+    c:0,e:"בפרק: 'הודעה פרטית בין משתמשים — פרמטרים: אורך שם המשתמש שאליו רוצים לשלוח, שם המשתמש, אורך ההודעה, ההודעה.' ו: 'רק שני המשתמשים הרלבנטיים יראו את ההודעה, ולא אף אחד אחר.' השרת הוא המתווך."
+  },
+  {
+    cat:"לקוח ב-select",sn:null,
+    q:"בצ'אט — גם הלקוח צריך select(). למה? מה שתי הפעולות המקבילות שלו?",
+    a:["(1) קריאת קלט מהמשתמש (raw_input — blocking!). (2) קריאת מידע מהשרת (recv — blocking!). שתיהן blocking → לקוח צריך select() כמו שרת","לקוח לא צריך select() כי הוא לא שרת","select() רק לשרתים","לקוח משתמש ב-threading, לא select"],
+    c:0,e:"בפרק: 'סקריפט הלקוח צריך להצליח גם לקרוא מידע מהמשתמש, וגם לקרוא מידע מהשרת. פעולות אלו צריכות להתבצע במקביל, ולכן אסור להן להיות חוסמות.' גם raw_input=blocking. פתרון: מודול msvcrt + select."
+  },
+  {
+    cat:"chat — Broadcast",sn:null,
+    q:"בצ'אט — כשלקוח שולח הודעה, לאילו לקוחות השרת מעביר? ולאיזה לא?",
+    a:["לכל הלקוחות חוץ מהשולח עצמו. השולח לא מקבל חזרה את ההודעה שלו","לכולם כולל השולח","רק לשולח (echo)","לכל לקוח שנמצא ב-wlist"],
+    c:0,e:"בפרק: 'השרת צריך לשלוח את ההודעה לכל הלקוחות מלבד לזה ששלח אותה אליו.' כלומר: for each client in open_client_sockets: if client != sender: שלח. ולגבי DM: רק לנמען הספציפי."
+  },
+  {
+    cat:"admin — @",sn:'<div><span class="fn">10:05</span> <span class="or">@manager3</span><span class="st">: Woohoo, I am a manager</span>\n<span class="fn">10:06</span> <span class="tl">talmid4</span><span class="st">: Hello</span></div>',
+    q:"מנהל מנסה למנות משתמש רגיל. מה הבדיקה שהשרת צריך לבצע? מה קורה ל-'@talmid'?",
+    a:["בודק שהממנה הוא מנהל (ברשימה). שם שמתחיל ב-@ אסור לרישום — כדי שרגילים לא יתחזו למנהלים","כל משתמש יכול למנות מנהלים","@ ב-שם = מותר, רק צ'אט מציג אותו","בודק שהממונה שולח פקודה 1"],
+    c:0,e:"בפרק: 'אפשרו למנהלים למנות באופן דינאמי מנהלים נוספים. שימו לב: מי שאינו מנהל לא יכול למנות.' ו: 'דאגו לכך שמשתמשים לא יוכלו להשתמש בשם שמתחיל ב-@, כדי לא לגרום לאחרים לחשוב שהם מנהלים.' @ = prefix ייחודי למנהלים."
+  },
+  {
+    cat:"סיכום select()",sn:null,
+    q:"מה ההבדל המהותי בין שרת מפרק 2 לשרת עם select()? מה select() מאפשרת?",
+    a:["פרק 2: טפל בלקוח אחד, סגור, טפל בהבא. select(): ניהול מקבילי של לקוחות מרובים — חיבורים חדשים + קריאה + שליחה כולם ללא blocking","select() מהירה יותר בלבד","פרק 2 תומך ב-UDP, select() ב-TCP","הבדל בשם בלבד"],
+    c:0,e:"בפרק: 'לפני select: נאלצנו לסגור את החיבור עם הלקוח הראשון על מנת לטפל בבקשה מלקוח נוסף.' select() = non-blocking multiplexing: select() מחכה לאירוע כלשהו, ואז מטפלים רק במי שמוכן. מאפשר Facebook-style שרת — אלפי לקוחות בו-זמנית."
+  }
+];
+
+var LBL=["א","ב","ג","ד"];
+var cur=0,ans=[];
+for(var i=0;i<Q.length;i++){ans.push(-1);}
+
+function shuf(q){
+  var idx=[0,1,2,3];
+  for(var i=3;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=idx[i];idx[i]=idx[j];idx[j]=t;}
+  var na=[];for(var k=0;k<4;k++){na.push(q.a[idx[k]]);}
+  var nc=-1;for(var k=0;k<4;k++){if(idx[k]===q.c){nc=k;break;}}
+  return{cat:q.cat,sn:q.sn,q:q.q,a:na,c:nc,e:q.e};
+}
+
+var SQ=[];for(var i=0;i<Q.length;i++){SQ.push(shuf(Q[i]));}
+
+function render(){
+  var q=SQ[cur];
+  document.getElementById("qn").textContent="שאלה "+(cur+1);
+  document.getElementById("qc").textContent=q.cat;
+  var sn=document.getElementById("snip");
+  sn.innerHTML=q.sn?'<div class="snip">'+q.sn+'</div>':"";
+  document.getElementById("qt").textContent=q.q;
+  var oc=document.getElementById("opts");oc.innerHTML="";
+  for(var i=0;i<4;i++){
+    var b=document.createElement("button");b.className="opt";
+    b.innerHTML='<span class="lb">'+LBL[i]+'</span><span class="ot">'+q.a[i]+'</span><span class="ic"></span>';
+    b.setAttribute("data-i",i);b.onclick=pick;oc.appendChild(b);
+  }
+  var ex=document.getElementById("exp");ex.style.display="none";ex.className="exp";
+  if(ans[cur]!==-1){showA(cur);}
+  document.getElementById("prev").disabled=(cur===0);
+  document.getElementById("next").disabled=(ans[cur]===-1);
+  upProg();
+}
+
+function pick(){
+  if(ans[cur]!==-1){return;}
+  var i=parseInt(this.getAttribute("data-i"));
+  ans[cur]=i;showA(cur);document.getElementById("next").disabled=false;
+}
+
+function showA(idx){
+  var q=SQ[idx];var ch=ans[idx];var ok=(ch===q.c);
+  var bs=document.querySelectorAll(".opt");
+  for(var i=0;i<bs.length;i++){
+    bs[i].className="opt done";bs[i].onclick=null;
+    var ic=bs[i].querySelector(".ic");
+    if(i===q.c){bs[i].classList.add(ok?"correct":"show");if(!ok){ic.textContent="\u2713";}}
+    if(i===ch&&!ok){bs[i].classList.add("wrong");ic.textContent="\u2717";}
+    if(i===ch&&ok){ic.textContent="\u2713";}
+  }
+  var ex=document.getElementById("exp");
+  document.getElementById("et").textContent=ok?"\u2713 \u05e0\u05db\u05d5\u05df!":"\u2717 \u05dc\u05d0 \u05d1\u05d3\u05d9\u05d5\u05e7...";
+  document.getElementById("eb").textContent=q.e;
+  ex.className=ok?"exp":"exp bad";ex.style.display="block";
+}
+
+function upProg(){
+  var n=0;for(var i=0;i<ans.length;i++){if(ans[i]!==-1){n++;}}
+  document.getElementById("pf").style.width=(n/Q.length*100)+"%";
+  document.getElementById("ps").textContent=n+" / "+Q.length;
+}
+
+function go(d){
+  var n=cur+d;if(n<0){return;}
+  if(n>=Q.length){showRes();return;}
+  cur=n;render();
+}
+
+function showRes(){
+  document.getElementById("card").style.display="none";
+  document.getElementById("res").style.display="block";
+  var ok=0,bd=0;
+  for(var i=0;i<ans.length;i++){if(ans[i]===SQ[i].c){ok++;}else if(ans[i]!==-1){bd++;}}
+  var pct=Math.round(ok/Q.length*100);
+  document.getElementById("ring").style.background="conic-gradient(var(--ac) 0%,#06b6d4 "+pct+"%,var(--brd) "+pct+"%)";
+  document.getElementById("rpct").textContent=pct+"%";
+  document.getElementById("rok").textContent=ok;document.getElementById("rbd").textContent=bd;document.getElementById("rtt").textContent=Q.length;
+  var t,s;
+  if(pct>=80){t="\u05de\u05e6\u05d5\u05d9\u05df! \u26a1";s="select() \u05d1\u05e9\u05dc\u05d9\u05d8\u05d4 \u05de\u05dc\u05d0\u05d4!";}
+  else if(pct>=60){t="\u05dc\u05d0 \u05e8\u05e2 \ud83d\udcaa";s="\u05d7\u05d6\u05d5\u05e8 \u05e2\u05dc rlist \u05d5-wlist";}
+  else{t="\u05d9\u05e9 \u05de\u05d4 \u05dc\u05d7\u05d6\u05e7 \ud83d\udcda";s="\u05e7\u05e8\u05d0 \u05e9\u05d5\u05d1 \u05d0\u05ea \u05e4\u05e8\u05e7 12";}
+  document.getElementById("rt").textContent=t;document.getElementById("rs").textContent=s;
+  upProg();
+}
+
+function restart(){
+  SQ=[];for(var i=0;i<Q.length;i++){SQ.push(shuf(Q[i]));}
+  cur=0;ans=[];for(var i=0;i<Q.length;i++){ans.push(-1);}
+  document.getElementById("card").style.display="block";
+  document.getElementById("res").style.display="none";
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

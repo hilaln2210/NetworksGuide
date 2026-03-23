@@ -1,6 +1,3 @@
-import { chapters101to105 } from './cyber_chapters_101_105.js'
-import { chapters106to110 } from './cyber_chapters_106_110.js'
-import { chapters111to115 } from './cyber_chapters_111_115.js'
 
 // ===== TRACKS =====
 // Each track is a self-contained learning path with its own chapters.
@@ -32,11 +29,13 @@ export const tracks = [
   {
     id: 'cyber',
     title: 'אבטחת מידע',
-    subtitle: 'Pentesting, CTF, SOC, Bug Bounty — מהבסיס למקצוען',
+    subtitle: '8 פרקים, 12 מעבדות, חידון — מהבסיס עד טכניקות מתקדמות',
     icon: '🔐',
     color: '#ef4444',
     level: 'בינוני–מתקדם',
-    chapters: [...chapters101to105, ...chapters106to110, ...chapters111to115]
+    chapters: [
+      { id: 101, title: "אבטחת מידע PRO", pages: [{ type: "html_page", title: "אבטחת מידע PRO", src: "/learn/security/cybersecurity_pro_course.html" }] }
+    ]
   },
   {
     id: 'devops',
