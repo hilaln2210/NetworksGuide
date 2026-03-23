@@ -814,8 +814,13 @@ function App() {
                   style={{ width: '100%', border: 'none', display: 'block', minHeight: '60vh' }}
                   onLoad={(e) => {
                     try {
-                      const h = e.target.contentDocument.documentElement.scrollHeight
-                      e.target.style.height = h + 'px'
+                      const resize = () => {
+                        const h = e.target.contentDocument.documentElement.scrollHeight
+                        if (h > 0) e.target.style.height = h + 'px'
+                      }
+                      resize()
+                      setTimeout(resize, 400)
+                      setTimeout(resize, 1200)
                     } catch { e.target.style.height = '100vh' }
                   }}
                 />

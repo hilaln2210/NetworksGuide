@@ -1959,7 +1959,7 @@ html {
   }
 }
 
-/* ===== HTML PAGE (iframe) — mobile fix ===== */
+/* ===== HTML PAGE (iframe) — layout ===== */
 .page-content:has(iframe) {
   padding: 0;
   overflow: hidden;
@@ -1967,8 +1967,32 @@ html {
 }
 
 @media (max-width: 800px) {
+  /* iframe pages — edge-to-edge on mobile */
   .page-content:has(iframe) {
     border-radius: 12px;
+    margin: 0 -1.25rem; /* cancel .content-area padding */
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  /* less padding around content area on mobile for iframe pages */
+  .content-area {
+    padding: 0.75rem;
+  }
+
+  /* page header tighter on mobile */
+  .page-header {
+    padding: 0.75rem 0 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-area {
+    padding: 0.5rem;
+  }
+
+  .page-content:has(iframe) {
     margin: 0 -0.5rem;
   }
 }
