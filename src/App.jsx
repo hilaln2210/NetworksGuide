@@ -859,7 +859,7 @@ function App() {
         const allRead = getReadPages()
         const QUIZ_KEY = 'networks_quiz_scores'
         const quizData = (() => { try { return JSON.parse(localStorage.getItem(QUIZ_KEY) || '{}') } catch { return {} } })()
-        const quizEntries = Object.entries(quizData)
+        const quizEntries = Object.entries(quizData).filter(([, v]) => v && typeof v === 'object' && v.total > 0)
         const avgScore = quizEntries.length > 0
           ? Math.round(quizEntries.reduce((s, [, v]) => s + (v.total > 0 ? (v.best / v.total) * 100 : 0), 0) / quizEntries.length)
           : 0
