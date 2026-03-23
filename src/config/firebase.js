@@ -3,12 +3,12 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAzWXWDtlFY49RIoZSZgfQ3hMtuArjO7SE",
-  authDomain: "im-ok-hila.firebaseapp.com",
-  projectId: "im-ok-hila",
-  storageBucket: "im-ok-hila.firebasestorage.app",
-  messagingSenderId: "500133632911",
-  appId: "1:500133632911:web:3e137c9980fc4ba64509fa"
+  apiKey: "AIzaSyD9aufDkcl_UiQ3AOpJt-VwQaeCTmNJ5HI",
+  authDomain: "solid-ruler-464214-i6.firebaseapp.com",
+  projectId: "solid-ruler-464214-i6",
+  storageBucket: "solid-ruler-464214-i6.firebasestorage.app",
+  messagingSenderId: "8784160886",
+  appId: "1:8784160886:web:69ba27da2d00b3c5031757"
 }
 
 const app = initializeApp(firebaseConfig)
