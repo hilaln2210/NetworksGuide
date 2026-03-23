@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 7 – שכבת הרשת</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;background:#eef8fc;padding:20px;color:#1a1a2e;line-height:1.7;}
+.wrap{max-width:1050px;margin:auto;}
+.card{background:#fff;padding:24px 28px;border-radius:20px;margin-bottom:18px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+h1{margin:0 0 6px;font-size:26px;color:#0f1d2a;}
+h2{margin:0 0 14px;font-size:20px;color:#0a3d62;border-bottom:2px solid #d4eaf7;padding-bottom:8px;}
+h3{margin:10px 0 6px;font-size:16px;color:#154360;}
+p{margin:0 0 12px;}
+pre{background:#0f1d2a;color:#f0f0f0;padding:14px;border-radius:12px;overflow-x:auto;font-size:13px;line-height:1.8;direction:ltr;text-align:left;margin:10px 0;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.cm{color:#6272a4;}.va{color:#8be9fd;}.nu{color:#bd93f9;}
+.box{border:1px solid #b3d7ee;padding:14px 18px;border-radius:12px;margin:12px 0;background:#f0f9ff;}
+.box.green{border-color:#a8d8a8;background:#f0fff4;}
+.box.yellow{border-color:#f5cba7;background:#fef9f0;}
+.box.red{border-color:#f5b7b1;background:#fff5f5;}
+.box.purple{border-color:#c39bd3;background:#fdf2ff;}
+.box h4{margin:0 0 6px;font-size:14px;color:#0a3d62;}
+.box.green h4{color:#145a32;}
+.box.yellow h4{color:#784212;}
+.box.red h4{color:#7b241c;}
+.box.purple h4{color:#6c3483;}
+.box p,.box li{margin:0;font-size:14px;color:#333;}
+.box ul{margin:6px 0;padding-right:18px;}
+.box li{margin-bottom:3px;}
+code{background:#e8f4fd;padding:2px 7px;border-radius:4px;font-family:monospace;font-size:13px;color:#0a3d62;}
+table.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}
+.tbl th{background:#0a3d62;color:#fff;padding:10px 14px;text-align:right;}
+.tbl td{padding:9px 14px;border:1px solid #cce;vertical-align:top;}
+.tbl tr:nth-child(even) td{background:#f4f9ff;}
+.tbl td code{font-size:12px;}
+.row2{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0;}
+.col{flex:1;min-width:220px;border:1px solid #d0d0d0;border-radius:14px;padding:16px;background:#fafafa;}
+.col h4{margin:0 0 10px;font-size:15px;}
+.col p{font-size:13px;color:#444;margin:0 0 8px;}
+
+/* IP address diagram */
+.ip-box{display:flex;gap:2px;margin:12px 0;}
+.ip-byte{flex:1;padding:10px 6px;border-radius:8px;text-align:center;font-family:monospace;font-weight:700;font-size:15px;}
+.ip-net{background:#d5f5e3;color:#145a32;}
+.ip-host{background:#d4eaf7;color:#0a3d62;}
+.ip-label{font-size:11px;font-weight:400;margin-top:4px;color:#555;}
+
+/* Routing table */
+.rt{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;}
+.rt th{background:#154360;color:#fff;padding:8px 12px;text-align:right;font-size:12px;}
+.rt td{padding:8px 12px;border:1px solid #cce;font-family:monospace;}
+.rt tr.match td{background:#d5f5e3;}
+.rt tr.dflt td{background:#fdebd0;}
+
+/* TTL diagram */
+.ttl-flow{display:flex;align-items:center;gap:4px;margin:14px 0;flex-wrap:wrap;}
+.ttl-node{background:#0a3d62;color:#fff;padding:8px 14px;border-radius:10px;font-size:12px;text-align:center;min-width:70px;}
+.ttl-node.dead{background:#c0392b;}
+.ttl-arrow{font-size:18px;color:#888;}
+.ttl-val{font-family:monospace;font-size:11px;color:#888;display:block;margin-top:3px;}
+
+/* DHCP flow */
+.dhcp-flow{display:flex;flex-direction:column;gap:6px;margin:14px 0;}
+.dhcp-msg{display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:10px;font-size:13px;}
+.dhcp-discover{background:#e8f4ff;border:1px solid #aaccee;}
+.dhcp-offer{background:#fff3cd;border:1px solid #f0d080;}
+.dhcp-request{background:#e8f4ff;border:1px solid #aaccee;}
+.dhcp-ack{background:#d5f5e3;border:1px solid #a8d8a8;}
+.dhcp-who{font-weight:700;min-width:80px;font-size:12px;}
+.dhcp-arrow{font-size:16px;color:#888;}
+.dhcp-desc{flex:1;color:#333;}
+.dhcp-note{font-size:11px;color:#777;margin-top:2px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- Header -->
+<div class="card">
+  <h1>&#x1F30D; פרק 7 — שכבת הרשת</h1>
+  <p style="color:#555;margin:0;">IP &middot; כתובות &middot; Subnet Mask &middot; NAT &middot; Routing Table &middot; ICMP &middot; TTL &middot; Traceroute &middot; DHCP</p>
+</div>
+
+<!-- תפקיד Layer 3 -->
+<div class="card">
+  <h2>&#x1F3AF; תפקיד שכבת הרשת</h2>
+  <p>שכבת הרשת (Layer 3) אחראית להעביר <strong>חבילות מידע (Packets) מישות אחת לישות אחרת</strong> — גם דרך מחשבים ורשתות רבות בדרך. כמו Waze שמחליטה על הנתיב, לא על אופן הנהיגה.</p>
+  <div class="row2">
+    <div class="col">
+      <h4 style="color:#0a3d62;">מה שכבת הרשת מספקת לLayer 4</h4>
+      <p>מודל "ענן": שלח חבילה מכאן לכאן — ואני אדאג לדרך. Layer 4 לא יודע על נתבים, כבלים, WiFi.</p>
+    </div>
+    <div class="col">
+      <h4 style="color:#145a32;">מה שכבת הרשת מקבלת מLayer 2</h4>
+      <p>שכבת הקו מטפלת בחיבור בין שתי ישויות סמוכות. Layer 3 לא אכפת איך — כבל, לוויין, יוני דואר.</p>
+    </div>
+  </div>
+</div>
+
+<!-- כתובות IP -->
+<div class="card">
+  <h2>&#x1F4CD; כתובות IP — מבנה ומשמעות</h2>
+  <p>כתובת IPv4 = <strong>4 bytes = 32 bits</strong>. כל byte = ערך 0-255. כתובת IP מחולקת לשני חלקים:</p>
+
+  <div class="ip-box">
+    <div class="ip-byte ip-net">200<div class="ip-label">רשת</div></div>
+    <div class="ip-byte ip-net">100<div class="ip-label">רשת</div></div>
+    <div class="ip-byte ip-host">0<div class="ip-label">ישות</div></div>
+    <div class="ip-byte ip-host">1<div class="ip-label">ישות</div></div>
+  </div>
+  <p style="font-size:13px;color:#555;">דוגמת "מחשביל'ה": <code>200.100.0.1</code> עם מסכה /16 — מזהה רשת=200.100, מזהה ישות=0.1</p>
+
+  <div class="box yellow">
+    <h4>&#x26A0; כתובת לא תקינה</h4>
+    <p><code>192.168.275.2</code> — לא תקינה! 275 &gt; 255, לא נכנס ב-byte.</p>
+  </div>
+  <div class="box">
+    <h4>&#x2139; כתובת IP היא לוגית, לא פיזית</h4>
+    <p>IP אינה "צרובה" על כרטיס הרשת כמו MAC — ניתן לשנותה. ניתנת על ידי הרשת (DHCP) או ידנית.</p>
+  </div>
+</div>
+
+<!-- Subnet Mask -->
+<div class="card">
+  <h2>&#x1F9EE; Subnet Mask — מסיכת רשת</h2>
+  <p>ה-Subnet Mask מגדיר <strong>כמה bits מהכתובת הם מזהה הרשת</strong>. ניתן לציין כ-/N (CIDR) או כ-255.x.x.x.</p>
+
+  <table class="tbl">
+    <tr><th>Subnet Mask</th><th>CIDR</th><th>מזהה רשת</th><th>ל-192.168.0.1 — מה ברשת?</th></tr>
+    <tr><td>255.0.0.0</td><td>/8</td><td>Byte ראשון</td><td>כל כתובת שמתחילה ב-192</td></tr>
+    <tr><td>255.255.0.0</td><td>/16</td><td>2 Bytes ראשונים</td><td>כל כתובת שמתחילה ב-192.168</td></tr>
+    <tr><td>255.255.255.0</td><td>/24</td><td>3 Bytes ראשונים</td><td>כל כתובת שמתחילה ב-192.168.0</td></tr>
+  </table>
+
+  <div class="box purple">
+    <h4>&#x1F4A1; דוגמת בחינה מהפרק</h4>
+    <p>192.160.0.1 ו-192.168.0.2 — אותה רשת ב-/8 (שניהם מתחילים ב-192), אבל <strong>רשתות שונות ב-/16</strong> (192.160 ≠ 192.168)!</p>
+  </div>
+</div>
+
+<!-- כתובות מיוחדות -->
+<div class="card">
+  <h2>&#x2605; כתובות IP מיוחדות</h2>
+  <table class="tbl">
+    <tr><th>כתובת</th><th>שם</th><th>משמעות</th></tr>
+    <tr><td><code>255.255.255.255</code></td><td>Broadcast</td><td>מגיעה לכל הישויות ברשת</td></tr>
+    <tr><td><code>127.0.0.0/8</code></td><td>Loopback</td><td>נשארת במחשב, לא יוצאת לרשת. 127.0.0.1 = localhost</td></tr>
+    <tr><td><code>0.0.0.0</code></td><td>כתובת ריקה</td><td>ב-DHCP Discover: "אין לי כתובת עדיין"</td></tr>
+    <tr><td><code>10.x.x.x</code></td><td>Private</td><td>רשת פרטית (10.0.0.0/8)</td></tr>
+    <tr><td><code>172.16.x.x</code></td><td>Private</td><td>רשת פרטית (172.16.0.0/12)</td></tr>
+    <tr><td><code>192.168.x.x</code></td><td>Private</td><td>רשת פרטית (192.168.0.0/16) — הנפוצה בבתים</td></tr>
+  </table>
+</div>
+
+<!-- NAT -->
+<div class="card">
+  <h2>&#x1F504; NAT — Network Address Translation</h2>
+  <p>בסוף שנות ה-80 נגמרו כתובות IPv4. הפתרון: NAT. כל הרשת הפרטית משתמשת בכתובת ציבורית אחת של הנתב.</p>
+  <div class="row2">
+    <div class="col" style="border-color:#a8d8a8;background:#f0fff4;">
+      <h4 style="color:#145a32;">&#x2192; יציאה לאינטרנט</h4>
+      <p>מחשב (192.168.0.1) שולח ל-Google.<br>
+      <strong>נתב מחליף src</strong>: 192.168.0.1 → 1.1.1.1.<br>
+      Google רואה רק 1.1.1.1.</p>
+    </div>
+    <div class="col" style="border-color:#b3d7ee;background:#f0f9ff;">
+      <h4 style="color:#0a3d62;">&#x2190; תשובה חזרה</h4>
+      <p>Google שולח ל-1.1.1.1 (הנתב).<br>
+      <strong>נתב מחליף dst</strong>: 1.1.1.1 → 192.168.0.1.<br>
+      המחשב מקבל כאילו Google ענה ישירות.</p>
+    </div>
+  </div>
+  <div class="box yellow">
+    <h4>&#x2753; שאלה מהפרק</h4>
+    <p>כשמחשב א' ומחשב ב' פונים שניהם ל-Google — איך הנתב יודע למי להחזיר? התשובה: ה-NAT table שומר מיפוי של פורטים. לא נפורט בספר זה.</p>
+  </div>
+</div>
+
+<!-- Routing Table -->
+<div class="card">
+  <h2>&#x1F5FA; טבלת ניתוב (Routing Table)</h2>
+  <p>לכל נתב (ומחשב) יש טבלת ניתוב. הנתב בודק <strong>מלמטה למעלה</strong> — מהכלל הספציפי לגנרי.</p>
+
+  <table class="rt">
+    <tr><th>#</th><th>Network Destination</th><th>Netmask</th><th>Interface</th></tr>
+    <tr class="dflt"><td>1</td><td>0.0.0.0</td><td>0.0.0.0</td><td>3.3.3.3 (R4 — Default)</td></tr>
+    <tr><td>2</td><td>192.168.0.0</td><td>255.255.0.0</td><td>1.1.1.1 (R1)</td></tr>
+    <tr class="match"><td>3</td><td>100.200.0.0</td><td>255.255.0.0</td><td>2.2.2.2 (R3) ✓</td></tr>
+  </table>
+  <p style="font-size:13px;color:#555;">חבילה ל-<strong>100.200.5.8</strong>: בודק שורה 3 → מזהה רשת 100.200 ✓ → שולח ל-R3 (2.2.2.2)</p>
+
+  <div class="box green">
+    <h4>&#x1F4A1; Default Gateway = שורת 0.0.0.0/0</h4>
+    <p>כל חבילה שלא התאימה לאף שורה — הולכת ל-Default Gateway. זהו הנתב שמחבר אתנו לאינטרנט.</p>
+  </div>
+  <div class="box">
+    <h4>&#x1F4BB; route print — טבלת ניתוב של המחשב</h4>
+    <p>בשורת פקודה: <code>route print</code>. רואים Default Gateway, כתובות לממשקים שונים (כרטיס רשת + loopback).</p>
+  </div>
+</div>
+
+<!-- ICMP ו-Ping -->
+<div class="card">
+  <h2>&#x1F4E1; ICMP — Internet Control Message Protocol</h2>
+  <p>פרוטוקול לאבחון רשת. Header קבוע של <strong>8 bytes</strong>. שני כלים מרכזיים שמשתמשים בו:</p>
+
+  <div class="row2">
+    <div class="col">
+      <h4>Ping = Echo Request/Reply</h4>
+      <p>Type=8 (Echo Request), Type=0 (Echo Reply). Code=0 תמיד. הגוף מועתק בתשובה. Identifier ו-Sequence Number מאפשרים לזהות תגובות.</p>
+      <pre style="font-size:12px;"><span class="cm"># Scapy — ping</span>
+pkt = <span class="fn">IP</span>(dst=<span class="st">'www.google.com'</span>)/<span class="fn">ICMP</span>()
+resp = <span class="fn">sr1</span>(pkt)</pre>
+    </div>
+    <div class="col">
+      <h4>ICMP Type=11 — Time Exceeded</h4>
+      <p>נשלח כשנתב מוריד TTL ל-0. מכיל העתק של החבילה המקורית. <strong>זהו הבסיס של Traceroute!</strong></p>
+      <pre style="font-size:12px;"><span class="cm"># Time Exceeded → כתובת הנתב</span>
+<span class="va">hop_ip</span> = resp[IP].src</pre>
+    </div>
+  </div>
+</div>
+
+<!-- TTL ו-Traceroute -->
+<div class="card">
+  <h2>&#x23F1; TTL ו-Traceroute — כיצד זה עובד</h2>
+  <p><strong>TTL (Time To Live)</strong> = שדה ב-IP Header (1 byte, 0-255). כל נתב מוריד TTL ב-1. כש-TTL=0 — הנתב <strong>זורק את החבילה ושולח ICMP Time Exceeded</strong> חזרה.</p>
+
+  <p style="margin-bottom:8px;">מטרת TTL: מניעת לולאות אינסופיות. חבילה "לכודה" בין נתבים תיזרק.</p>
+
+  <div class="ttl-flow">
+    <div class="ttl-node">מחשב<span class="ttl-val">TTL=3</span></div>
+    <div class="ttl-arrow">→</div>
+    <div class="ttl-node">R1<span class="ttl-val">TTL=2</span></div>
+    <div class="ttl-arrow">→</div>
+    <div class="ttl-node">R2<span class="ttl-val">TTL=1</span></div>
+    <div class="ttl-arrow">→</div>
+    <div class="ttl-node">R3<span class="ttl-val">TTL=0</span></div>
+    <div class="ttl-arrow">→</div>
+    <div class="ttl-node dead">&#x274C; זרוק + Time Exceeded</div>
+  </div>
+
+  <div class="box green">
+    <h4>&#x1F4A1; כיצד Traceroute בנוי — הטריק</h4>
+    <p>
+      שלח פקטה עם TTL=1 → הנתב הראשון שולח Time Exceeded → מגלים כתובתו.<br>
+      שלח TTL=2 → נתב שני זורק → מגלים כתובתו.<br>
+      וכך הלאה עד שמגיעים ליעד.
+    </p>
+  </div>
+
+  <pre><span class="cm"># Scapy — Traceroute ידני</span>
+<span class="kw">for</span> ttl <span class="kw">in</span> <span class="fn">range</span>(<span class="nu">1</span>, <span class="nu">30</span>):
+    pkt = <span class="fn">IP</span>(dst=<span class="st">'www.google.com'</span>, ttl=ttl) / <span class="fn">ICMP</span>()
+    resp = <span class="fn">sr1</span>(pkt, timeout=<span class="nu">2</span>)
+    <span class="kw">if</span> resp:
+        <span class="kw">print</span>(resp[IP].src)
+        <span class="kw">if</span> resp[IP].src == <span class="fn">IP</span>(dst=<span class="st">'www.google.com'</span>).dst:
+            <span class="kw">break</span></pre>
+</div>
+
+<!-- DHCP -->
+<div class="card">
+  <h2>&#x1F4E7; DHCP — קבלת כתובת IP דינמית</h2>
+  <p>DHCP (Dynamic Host Configuration Protocol) מקצה כתובת IP לכרטיס רשת שהתחבר לרשת. תהליך בן 4 הודעות:</p>
+
+  <div class="dhcp-flow">
+    <div class="dhcp-msg dhcp-discover">
+      <span class="dhcp-who">מחשב</span>
+      <span class="dhcp-arrow">&#x2192;</span>
+      <div class="dhcp-desc">
+        <strong>DHCP Discover</strong> — "אין לי IP, מישהו יעזור?"
+        <div class="dhcp-note">נשלח ל-Broadcast (255.255.255.255), src=0.0.0.0</div>
+      </div>
+    </div>
+    <div class="dhcp-msg dhcp-offer">
+      <span class="dhcp-who">שרת DHCP</span>
+      <span class="dhcp-arrow">&#x2192;</span>
+      <div class="dhcp-desc">
+        <strong>DHCP Offer</strong> — "הנה הצעה: IP=192.168.1.5, Lease=24h"
+        <div class="dhcp-note">גם נשלח ל-Broadcast (הלקוח עדיין בלי IP). כולל Subnet Mask, Gateway, DNS</div>
+      </div>
+    </div>
+    <div class="dhcp-msg dhcp-request">
+      <span class="dhcp-who">מחשב</span>
+      <span class="dhcp-arrow">&#x2192;</span>
+      <div class="dhcp-desc">
+        <strong>DHCP Request</strong> — "אני בוחר בהצעה שלך"
+        <div class="dhcp-note">Broadcast — גם שאר שרתי DHCP יודעים שלא נבחרו</div>
+      </div>
+    </div>
+    <div class="dhcp-msg dhcp-ack">
+      <span class="dhcp-who">שרת DHCP</span>
+      <span class="dhcp-arrow">&#x2192;</span>
+      <div class="dhcp-desc">
+        <strong>DHCP ACK</strong> — "מאושר! הכתובת שלך עד..."
+        <div class="dhcp-note">המחשב יכול להתחיל לתקשר. קיבל: IP, Mask, Gateway, DNS</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box green">
+    <h4>&#x1F527; ipconfig /release ו-/renew</h4>
+    <p><code>ipconfig /release</code> = שחרר כתובת IP (מחשב שולח DHCP Release).<br>
+    <code>ipconfig /renew</code> = בקש כתובת חדשה (מתחיל תהליך Discover מחדש).</p>
+  </div>
+  <div class="box yellow">
+    <h4>&#x2753; למה DHCP מעל UDP ולא TCP?</h4>
+    <p>שתי סיבות: (1) שאלה-תשובה קצרה — אם אבדה שולחים שוב. (2) הודעות נשלחות ל-Broadcast — TCP לא תומך ב-Broadcast.</p>
+  </div>
+</div>
+
+<!-- כלים -->
+<div class="card">
+  <h2>&#x1F6E0; כלי שורת פקודה בפרק זה</h2>
+  <table class="tbl">
+    <tr><th>כלי</th><th>תפקיד</th><th>דוגמה</th></tr>
+    <tr><td><code>ipconfig</code></td><td>הצגת כתובת IP, Subnet Mask, Default Gateway</td><td><code>ipconfig</code></td></tr>
+    <tr><td><code>route print</code></td><td>טבלת ניתוב של המחשב</td><td><code>route print</code></td></tr>
+    <tr><td><code>tracert -d</code></td><td>מציג נתבים בדרך ל-IP (ללא DNS)</td><td><code>tracert -d www.google.com</code></td></tr>
+    <tr><td><code>ping</code></td><td>בדיקת קישוריות + זמן תגובה</td><td><code>ping www.google.com</code></td></tr>
+    <tr><td><code>ipconfig /release</code></td><td>שחרור כתובת DHCP</td><td><code>ipconfig /release</code></td></tr>
+    <tr><td><code>ipconfig /renew</code></td><td>בקשת כתובת DHCP חדשה</td><td><code>ipconfig /renew</code></td></tr>
+  </table>
+</div>
+
+</div>
+</body>
+</html>

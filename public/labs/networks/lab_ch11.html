@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 11 – מעבדה Pro | איך הכל מתחבר</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Heebo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0e1a;--surf:#111827;--surf2:#1a2235;--brd:#1e2d45;--ac:#00d4ff;--ac2:#7c3aed;--gr:#10b981;--rd:#ef4444;--yw:#f59e0b;--tx:#e2e8f0;--mt:#64748b;--mono:'IBM Plex Mono',monospace;--sans:'Heebo',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrap{max-width:900px;margin:0 auto;padding:32px 20px 60px;position:relative;z-index:1;}
+.hdr{margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--brd);}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+.badge{background:linear-gradient(135deg,var(--ac2),#4f46e5);color:#fff;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:2px;padding:4px 10px;border-radius:4px;}
+.badge-final{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#000;font-family:var(--mono);font-size:10px;font-weight:700;padding:4px 10px;border-radius:4px;letter-spacing:1px;}
+.ch{font-family:var(--mono);font-size:12px;color:var(--ac);}
+.title{font-size:26px;font-weight:900;color:#fff;line-height:1.2;}
+.sub{font-size:14px;color:var(--mt);margin-top:4px;}
+.prog{background:var(--surf);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;margin-bottom:32px;display:flex;align-items:center;gap:20px;}
+.pl{font-family:var(--mono);font-size:12px;color:var(--mt);}
+.pb{flex:1;height:6px;background:var(--brd);border-radius:99px;overflow:hidden;}
+.pf{height:100%;background:linear-gradient(90deg,#f59e0b,#ef4444,var(--ac2));border-radius:99px;transition:width .5s;width:0%;}
+.ps{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--yw);}
+.card{background:var(--surf);border:1px solid var(--brd);border-radius:16px;overflow:hidden;}
+.ch2{background:var(--surf2);border-bottom:1px solid var(--brd);padding:16px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.qn{font-family:var(--mono);font-size:11px;color:var(--mt);}
+.qc{font-family:var(--mono);font-size:11px;color:var(--ac);background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);padding:2px 8px;border-radius:4px;}
+.qstep{font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 10px;border-radius:4px;border:1px solid;}
+.body{padding:28px 24px 20px;}
+.snip{background:#0d1117;border:1px solid var(--brd);border-radius:10px;padding:14px 18px;margin-bottom:22px;font-family:var(--mono);font-size:12px;line-height:2;overflow-x:auto;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.nu{color:#bd93f9;}.va{color:#8be9fd;}.cm{color:#6272a4;}.yw{color:#f59e0b;}.gr2{color:#50fa7b;}.rd2{color:#ff5555;}.tl{color:#06b6d4;}.pr{color:#a78bfa;}.pk{color:#f472b6;}.or{color:#fb923c;}
+.qt{font-size:18px;font-weight:600;color:#fff;line-height:1.5;margin-bottom:28px;}
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{background:var(--bg);border:1px solid var(--brd);border-radius:10px;padding:14px 18px;cursor:pointer;text-align:right;display:flex;align-items:center;gap:12px;width:100%;font-family:var(--sans);font-size:15px;color:var(--tx);transition:all .15s;}
+.opt:hover{border-color:var(--ac);background:rgba(0,212,255,.04);color:#fff;}
+.opt.done{cursor:default;pointer-events:none;}
+.opt.correct{border-color:var(--gr);background:rgba(16,185,129,.1);color:#fff;}
+.opt.correct .lb{color:var(--gr);}
+.opt.wrong{border-color:var(--rd);background:rgba(239,68,68,.08);color:var(--mt);}
+.opt.wrong .lb{color:var(--rd);}
+.opt.show{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.05);}
+.lb{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--mt);min-width:20px;text-align:center;flex-shrink:0;}
+.ot{flex:1;text-align:right;}
+.ic{font-size:16px;min-width:20px;text-align:center;flex-shrink:0;}
+.exp{margin:20px 0 0;padding:16px 18px;border-radius:10px;border-right:3px solid var(--gr);background:rgba(16,185,129,.06);display:none;}
+.exp.bad{border-color:var(--rd);background:rgba(239,68,68,.06);}
+.et{font-family:var(--mono);font-size:11px;color:var(--gr);margin-bottom:6px;text-transform:uppercase;}
+.exp.bad .et{color:var(--rd);}
+.eb{font-size:14px;color:#94a3b8;line-height:1.8;}
+.foot{padding:20px 24px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;}
+.btn{background:transparent;border:1px solid var(--brd);color:var(--mt);padding:10px 20px;border-radius:8px;font-family:var(--sans);font-size:14px;cursor:pointer;transition:all .15s;}
+.btn:hover:not(:disabled){border-color:var(--ac);color:var(--ac);}
+.btn:disabled{opacity:.3;cursor:default;}
+.btn.pri{background:linear-gradient(135deg,#f59e0b,#ef4444);border-color:transparent;color:#000;font-weight:700;}
+.res{display:none;text-align:center;padding:60px 24px;}
+.ring{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;}
+.ring::after{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--surf);}
+.rn{font-family:var(--mono);font-size:36px;font-weight:600;color:#fff;position:relative;z-index:1;}
+.rt2{font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;}
+.rs{font-size:15px;color:var(--mt);margin-bottom:32px;}
+.bks{display:flex;gap:20px;justify-content:center;margin-bottom:36px;flex-wrap:wrap;}
+.bk{background:var(--surf2);border:1px solid var(--brd);border-radius:10px;padding:14px 24px;text-align:center;}
+.bv{font-family:var(--mono);font-size:22px;font-weight:600;color:#fff;}
+.bl{font-size:12px;color:var(--mt);margin-top:2px;}
+.rbtn{background:linear-gradient(135deg,#f59e0b,#ef4444);border:none;color:#000;padding:14px 36px;border-radius:10px;font-family:var(--sans);font-size:16px;font-weight:700;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div class="row">
+      <span class="badge">PRO LAB</span>
+      <span class="badge-final">⚡ FINAL</span>
+      <span class="ch">פרק 11 מתוך 12</span>
+    </div>
+    <div class="title">איך הכל מתחבר</div>
+    <div class="sub">15 שאלות &middot; מסע פקטה מלא &middot; DHCP→ARP→DNS→TCP→HTTP→NAT &middot; שאלות אינטגרציה</div>
+  </div>
+  <div class="prog">
+    <span class="pl">התקדמות</span>
+    <div class="pb"><div class="pf" id="pf"></div></div>
+    <span class="ps" id="ps">0 / 15</span>
+  </div>
+  <div class="card" id="card">
+    <div class="ch2"><span class="qn" id="qn">שאלה 1</span><span class="qc" id="qc"></span></div>
+    <div class="body">
+      <div id="snip"></div>
+      <div class="qt" id="qt"></div>
+      <div class="opts" id="opts"></div>
+      <div class="exp" id="exp"><div class="et" id="et"></div><div class="eb" id="eb"></div></div>
+    </div>
+    <div class="foot">
+      <button class="btn" id="prev" onclick="go(-1)" disabled>&#x2192; הקודם</button>
+      <button class="btn pri" id="next" onclick="go(1)" disabled>הבא &#x2190;</button>
+    </div>
+  </div>
+  <div class="res" id="res">
+    <div class="ring" id="ring"><span class="rn" id="rpct">0%</span></div>
+    <div class="rt2" id="rt"></div><div class="rs" id="rs"></div>
+    <div class="bks">
+      <div class="bk"><div class="bv" id="rok" style="color:var(--gr)"></div><div class="bl">נכון</div></div>
+      <div class="bk"><div class="bv" id="rbd" style="color:var(--rd)"></div><div class="bl">שגוי</div></div>
+      <div class="bk"><div class="bv" id="rtt" style="color:var(--yw)"></div><div class="bl">סהכ</div></div>
+    </div>
+    <button class="rbtn" onclick="restart()">התחל מחדש</button>
+  </div>
+</div>
+<script>
+var Q = [
+  {
+    cat:"DHCP — שלב 1", sn:null,
+    q:"מחשב מתחבר לרשת. מה הוא יודע כרגע, ומה הוא צריך לגלות? מה הודעת DHCP Discover כוללת?",
+    a:["יודע: MAC שלו בלבד. צריך: IP, Mask, Gateway, DNS. Discover=Broadcast (src=0.0.0.0, dst=255.255.255.255) — כי אין לו עדיין כתובת","יודע: IP. צריך: MAC. Discover=Unicast לשרת DHCP","יודע: IP ו-MAC. Discover=Multicast לשרת DNS","יודע הכל, Discover רק מאשר"],
+    c:0, e:"בפרק: 'המחשב יודע רק את כתובת ה-MAC של כרטיס הרשת שלו.' שאר הפרטים — IP, Subnet Mask, Default Gateway, DNS — מגיעים מ-DHCP. Discover=Broadcast כי אין עדיין IP ולא יודעים כתובת שרת DHCP."
+  },
+  {
+    cat:"DHCP — Switch", sn:'<div><span class="yw">DHCP Discover</span> ← חבילה ראשונה שהמחשב שלח אי פעם</div><div style="color:#6272a4;margin-top:6px;">Switch: טבלת MAC ריקה</div>',
+    q:"כשהמחשב שולח DHCP Discover — מה Switch לומד? מה הוא עושה עם המסגרת?",
+    a:["Flood לכל הפורטים (כי dst=ff:ff:ff:ff:ff:ff = Broadcast). לומד: MAC_מחשב → Port_X מה-src","Drop — Switch לא מעביר Broadcast","שולח רק לשרת DHCP","שולח רק לנתב"],
+    c:0, e:"בפרק: 'בפעם הראשונה בה המחשב שלנו שלח מסגרת כלשהי, למשל את חבילת ה-DHCP Discover, ה-Switch קרא את כתובת המקור של המסגרת ושייך אותה לפורט הפיזי.' Broadcast=Flood. Switch לומד src בכל מסגרת."
+  },
+  {
+    cat:"ARP — שלב 2", sn:'<div><span class="tl">IP מחשב:</span> <span class="yw">192.168.0.5/16</span></div><div><span class="tl">DNS Server:</span> <span class="yw">2.2.2.2</span></div><div style="color:#6272a4;margin-top:4px;">שאלה: ARP ל-מי?</div>',
+    q:"המחשב צריך לשלוח DNS Query ל-2.2.2.2. הוא שולח ARP — לאיזה IP? למה?",
+    a:["ARP ל-Default Gateway (192.168.0.1). כי 2.2.2.2 לא ב-Subnet (192.168.x.x). ARP לא עובר נתבים","ARP ל-2.2.2.2 ישירות","ARP ל-DNS Server","לא שולח ARP, שולח ישירות ב-IP"],
+    c:0, e:"בפרק: '2.2.2.2... שני הבתים הראשונים הם 2.2 ולא 5.5/192.168... ששרת ה-DNS לא נמצא באותו ה-Subnet.' כלל: יעד לא ב-Subnet → ARP ל-Default Gateway. ARP=Layer 2 לא עובר נתבים."
+  },
+  {
+    cat:"Layer 2 vs 3 — ARP Reply", sn:'<div><span class="yw">מחשב (192.168.0.5)</span> שולח DNS Query<br>דרך: <span class="tl">נתב (192.168.0.1)</span></div><div style="margin-top:6px;color:#6272a4;">מלא את הכתובות:</div>',
+    q:"מה יהיו כתובות MAC ו-IP בחבילת ה-DNS Query שנשלחת?",
+    a:["MAC src=MAC_מחשב, MAC dst=MAC_נתב_LAN, IP src=192.168.0.5, IP dst=2.2.2.2","MAC src=MAC_מחשב, MAC dst=MAC_DNS, IP src=192.168.0.5, IP dst=2.2.2.2","MAC src ו-dst = IPs, IP src=MAC_מחשב","כולם של המחשב בשתי השכבות"],
+    c:0, e:"בפרק: Layer 2 = hop נוכחי (מחשב → נתב). Layer 3 = קצוות (מחשב → DNS). MAC dst = נתב (hop הבא, הושג ב-ARP). IP dst = DNS Server (יעד סופי). MAC משתנה בכל hop! IP לא."
+  },
+  {
+    cat:"TTL — נתבים", sn:'<div><span class="yw">מחשב שולח: TTL=128</span><br><span class="tl">עובר: Switch → נתב → R1 → R2 → DNS</span></div>',
+    q:"מה ה-TTL כשמגיע ל-DNS? מה Switch עושה ל-TTL?",
+    a:["TTL=124 (128-4 נתבים). Switch לא משנה TTL כלל — רק נתבים מורידים TTL ב-1","TTL=123 (Switch גם מוריד)","TTL=128 (אף אחד לא מוריד)","TTL=0 אחרי DNS"],
+    c:0, e:"בפרק: 'שימו לב שהחבילה הגיעה אל הנתב הקרוב אל המחשב שלנו דרך ה-Switch, שלא שינה את ערך ה-TTL. רק רכיבי שכבת הרשת, כגון נתבים, משנים את ערך זה.' נתב→R1→R2→DNS = 4 נתבים → 128-4=124."
+  },
+  {
+    cat:"DNS — שלב 3", sn:'<div><span class="yw">DNS Query:</span><br><span class="tl">Type: A</span><br><span class="tl">Name: www.facebook.com</span><br><span class="tl">Transaction ID: 1337</span></div>',
+    q:"מה Transaction ID ב-DNS? מה קורה לו בתשובה?",
+    a:["מזהה ייחודי לשאלה. שרת DNS מעתיק אותו לתשובה. מאפשר לזהות איזו תשובה שייכת לאיזו שאלה","מספר סידורי של הפקטה כמו TCP Seq","גרסת פרוטוקול DNS","מספר שאילתות שנשלחו"],
+    c:0, e:"בפרק: 'החבילה מכילה Transaction ID מסויים. לצורך הדוגמה, נאמר שה-Transaction ID הינו 1337. כאשר שרת ה-DNS יענה על השאילתא, גם התשובה תכלול את הערך 1337.' מאפשר לזהות תשובה לשאלה ב-UDP."
+  },
+  {
+    cat:"TCP — שלב 4", sn:'<div><span class="tl">פורטים בהקמת קישור TCP:</span><br><span class="yw">dst port = ?</span><br><span class="yw">src port = ?</span></div>',
+    q:"מה יהיו פורטי src ו-dst בקישור TCP למחשב Facebook בבקשת HTTP?",
+    a:["dst=80 (HTTP well-known). src=מספר רנדומלי בטווח 49152-65535, למשל 60124","dst=443, src=80","dst=53, src=80","dst=80, src=80"],
+    c:0, e:"בפרק: 'הפורט שאליו תתבצע הפנייה... יהיה ככל הנראה פורט 80.' ו: 'הפורט ממנו תתבצע הפנייה... יהיה מספר רנדומלי... רוב מערכות ההפעלה מגרילות מספר פורט בטווח שבין 49,152 ובין 65,535.'"
+  },
+  {
+    cat:"TCP Handshake — חישוב", sn:'<div><span class="tl">Client ISN=333 | Server ISN=500</span><br><div style="margin-top:6px;"><span class="yw">SYN:</span> Seq=333, ACK=?<br><span class="gr2">SYN+ACK:</span> Seq=500, ACK=?<br><span class="pr">ACK:</span> Seq=?, ACK=?</div></div>',
+    q:"השלם את שדות Seq ו-ACK בשלושת הצעדים:",
+    a:["SYN: ACK=0. SYN+ACK: ACK=334. ACK: Seq=334, ACK=501","SYN: ACK=1. SYN+ACK: ACK=333. ACK: Seq=333, ACK=500","SYN: ACK=333. SYN+ACK: ACK=500. ACK: Seq=500, ACK=501","הכל 0 כי Handshake לא מעביר מידע"],
+    c:0, e:"בפרק: SYN נחשב byte אחד. SYN+ACK: ACK=ISN_client+1=333+1=334. ACK: Seq=334 (=ACK שהתקבל), ACK=ISN_server+1=500+1=501. עיקרון: ACK = Seq_שנשלח + 1 (לSYN/FIN)."
+  },
+  {
+    cat:"HTTP — שלב 5", sn:null,
+    q:"אחרי Handshake — איך נראית בקשת HTTP לדף הבית של Facebook? מה התשובה הצפויה?",
+    a:["GET / HTTP/1.0 + Host: www.facebook.com. תשובה: HTTP/1.0 200 OK + HTML","POST / HTTP/1.0. תשובה: 404","DNS GET. תשובה: 302 Redirect","TCP SYN. תשובה: SYN+ACK"],
+    c:0, e:"בפרק: 'כאשר דפדפן פונה לאתר כלשהו, הוא פונה באמצעות בקשת GET. מכיוון שהפנייה מתבצעת אל העמוד הראשי של Facebook, מבלי לבקש אף משאב ספציפי, היא תתבצע אל המשאב שנמצא בכתובת / .' תשובה: 200 OK."
+  },
+  {
+    cat:"NAT — שלב 6", sn:'<div><span class="yw">מחשב: 192.168.0.5</span><br><span class="tl">נתב WAN: 1.1.1.1</span><br><span class="gr2">Facebook: 3.3.3.3</span></div>',
+    q:"מחשב שולח HTTP ל-Facebook. מה Facebook רואה? מה מחשב רואה בתשובה?",
+    a:["Facebook רואה: src=1.1.1.1 (לא 192.168.0.5!). מחשב רואה: dst=192.168.0.5 (נתב החליף בחזרה). שקוף לשניהם","Facebook רואה: src=192.168.0.5. מחשב רואה: dst=3.3.3.3","שניהם רואים את הכתובות האמיתיות","NAT מונע את התקשורת לגמרי"],
+    c:0, e:"בפרק: 'כאשר הנתב יקבל את החבילה, הוא יחליף את כתובת המקור לכתובת שלו. כאשר החבילה תגיע אל Facebook, היא תיראה כאילו היא הגיעה מהכתובת 1.1.1.1.' וגם: 'מחשב שלנו כלל לא צריך להיות מודע לתהליך ה-NAT.'"
+  },
+  {
+    cat:"MAC בכל Hop", sn:'<div><span class="yw">מחשב→נתב→R1→DNS</span><br><div style="margin-top:6px;"><span class="tl">IP src</span> לאורך כל הדרך: <span class="yw">192.168.0.5</span><br><span class="tl">IP dst</span> לאורך כל הדרך: <span class="yw">2.2.2.2</span></div></div>',
+    q:"מה קורה ל-MAC src ו-dst בכל hop? ומה לא משתנה?",
+    a:["MAC משתנה בכל hop (src=כרטיס השולח, dst=כרטיס הקולט). IP נשאר קבוע כל הדרך","הכל משתנה","MAC קבוע, IP משתנה","MAC ו-IP משתנים"],
+    c:0, e:"בפרק: 'כתובות ה-IP נותרו ללא שינוי! כך ניתן לראות שבעוד כתובות ה-MAC משתנות בכל Hop בדרך ומציינות מה השלב הנוכחי שהחבילה עוברת, כתובות ה-IP נשארות קבועות לאורך המשלוח ומציינות ממי החבילה הגיעה במקור ומה יעדה הסופי.'"
+  },
+  {
+    cat:"אינטגרציה", sn:'<div><span class="yw">ש:</span> <span style="color:#e2e8f0;">Switch ← מה הוא לא עושה שנתב כן עושה?</span></div>',
+    q:"Switch מוריד TTL? Switch מחליף MAC? Switch מנתב לפי IP? מה נכון?",
+    a:["Switch לא מוריד TTL, לא מנתב לפי IP. Switch כן מחליף (=משנה) כתובות MAC בטבלה פנימית שלו ומנתב לפי MAC","Switch מוריד TTL כמו נתב","Switch מנתב לפי IP","Switch ו-Router זהים בפונקציה"],
+    c:0, e:"Switch=Layer 2: מעביר לפי MAC, לא מבין IP, לא מוריד TTL. Router=Layer 3: קורא IP header, מוריד TTL ב-1, מחשב Checksum מחדש, מחליף MAC לפי hop. זהו ההבדל המהותי."
+  },
+  {
+    cat:"סדר הפרוטוקולים", sn:null,
+    q:"מה הסדר הנכון של הפרוטוקולים כשמחשב מתחבר לרשת וגולש לFacebook בפעם הראשונה?",
+    a:["DHCP → ARP → DNS → TCP Handshake → HTTP GET → HTTP 200 OK","DNS → DHCP → ARP → TCP → HTTP","TCP → DHCP → DNS → HTTP → ARP","HTTP → DNS → TCP → DHCP → ARP"],
+    c:0, e:"בפרק: DHCP = קבלת IP (ראשון!). ARP = גילוי MAC של נתב (לפני DNS). DNS = מציאת IP של Facebook. TCP Handshake = הקמת קישור. HTTP GET = בקשה. HTTP 200 OK = תשובה. זהו המסע המלא."
+  },
+  {
+    cat:"מה נתב עושה לפקטה", sn:null,
+    q:"נתב מקבל פקטה. מה הוא עושה לה לפני שמעביר הלאה? (3 פעולות)",
+    a:["(1) מחשב Checksum ומוודא תקינות. (2) מוריד TTL ב-1. (3) מחשב Checksum מחדש. ואז מחליף MAC ומנתב","מעביר as-is ללא שינוי","מוסיף Header חדש","מפצל לחבילות קטנות"],
+    c:0, e:"בפרק: 'כאשר הנתב מקבל את החבילה, עליו לחשב את ה-Checksum ולוודא שהיא תקינה. לאחר מכן, הוא מחסיר 1 מערך ה-TTL... בעקבות החסרה זו, עליו לחשב את ערך ה-Checksum מחדש בטרם יעביר הלאה.' ואז מחליף MAC."
+  },
+  {
+    cat:"שאלת סיכום", sn:'<div><span style="color:#e2e8f0;font-size:14px;">מסע פקטה מלא — כל שכבה, כל פרוטוקול</span><br><div style="margin-top:10px;line-height:2.2;font-size:12px;"><span class="yw">Layer 5:</span> <span class="cm">DHCP, DNS, HTTP</span><br><span class="tl">Layer 4:</span> <span class="cm">TCP (Handshake)</span><br><span class="gr2">Layer 3:</span> <span class="cm">IP, Routing, TTL, NAT</span><br><span class="pr">Layer 2:</span> <span class="cm">Ethernet, ARP, Switch</span><br><span class="or">Layer 1:</span> <span class="cm">CAT5, WiFi, Fiber</span></div></div>',
+    q:"מה עובר את כל חמש השכבות כשמחשב מקבל IP ואז גולש? מה ייחודי לכל שכבה?",
+    a:["L5:DHCP/DNS/HTTP לוגיקת אפליקציה. L4:TCP/UDP פורטים+אמינות. L3:IP ניתוב+TTL+NAT. L2:Ethernet MAC+ARP+Switch. L1:ביטים על כבל/אוויר/זכוכית","כל השכבות עושות אותו דבר","רק L3 ו-L4 פעילים","L5 ו-L1 בלבד"],
+    c:0, e:"זהו סיכום הספר! Layer 1=ביטים על חומר פיזי. Layer 2=MAC+Ethernet+ARP. Layer 3=IP+Routing+TTL+NAT. Layer 4=TCP/UDP+פורטים+Seq/ACK. Layer 5=DHCP/DNS/HTTP — לוגיקת האפליקציה. כל שכבה מסתמכת על מה שמתחתיה."
+  }
+];
+
+var LBL=["א","ב","ג","ד"];
+var cur=0,ans=[];
+for(var i=0;i<Q.length;i++){ans.push(-1);}
+
+function shuf(q){
+  var idx=[0,1,2,3];
+  for(var i=3;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=idx[i];idx[i]=idx[j];idx[j]=t;}
+  var na=[];for(var k=0;k<4;k++){na.push(q.a[idx[k]]);}
+  var nc=-1;for(var k=0;k<4;k++){if(idx[k]===q.c){nc=k;break;}}
+  return{cat:q.cat,sn:q.sn,q:q.q,a:na,c:nc,e:q.e};
+}
+
+var SQ=[];for(var i=0;i<Q.length;i++){SQ.push(shuf(Q[i]));}
+
+function render(){
+  var q=SQ[cur];
+  document.getElementById("qn").textContent="שאלה "+(cur+1);
+  document.getElementById("qc").textContent=q.cat;
+  var sn=document.getElementById("snip");
+  sn.innerHTML=q.sn?'<div class="snip">'+q.sn+'</div>':"";
+  document.getElementById("qt").textContent=q.q;
+  var oc=document.getElementById("opts");oc.innerHTML="";
+  for(var i=0;i<4;i++){
+    var b=document.createElement("button");b.className="opt";
+    b.innerHTML='<span class="lb">'+LBL[i]+'</span><span class="ot">'+q.a[i]+'</span><span class="ic"></span>';
+    b.setAttribute("data-i",i);b.onclick=pick;oc.appendChild(b);
+  }
+  var ex=document.getElementById("exp");ex.style.display="none";ex.className="exp";
+  if(ans[cur]!==-1){showA(cur);}
+  document.getElementById("prev").disabled=(cur===0);
+  document.getElementById("next").disabled=(ans[cur]===-1);
+  upProg();
+}
+
+function pick(){
+  if(ans[cur]!==-1){return;}
+  var i=parseInt(this.getAttribute("data-i"));
+  ans[cur]=i;showA(cur);document.getElementById("next").disabled=false;
+}
+
+function showA(idx){
+  var q=SQ[idx];var ch=ans[idx];var ok=(ch===q.c);
+  var bs=document.querySelectorAll(".opt");
+  for(var i=0;i<bs.length;i++){
+    bs[i].className="opt done";bs[i].onclick=null;
+    var ic=bs[i].querySelector(".ic");
+    if(i===q.c){bs[i].classList.add(ok?"correct":"show");if(!ok){ic.textContent="\u2713";}}
+    if(i===ch&&!ok){bs[i].classList.add("wrong");ic.textContent="\u2717";}
+    if(i===ch&&ok){ic.textContent="\u2713";}
+  }
+  var ex=document.getElementById("exp");
+  document.getElementById("et").textContent=ok?"\u2713 \u05e0\u05db\u05d5\u05df!":"\u2717 \u05dc\u05d0 \u05d1\u05d3\u05d9\u05d5\u05e7...";
+  document.getElementById("eb").textContent=q.e;
+  ex.className=ok?"exp":"exp bad";ex.style.display="block";
+}
+
+function upProg(){
+  var n=0;for(var i=0;i<ans.length;i++){if(ans[i]!==-1){n++;}}
+  document.getElementById("pf").style.width=(n/Q.length*100)+"%";
+  document.getElementById("ps").textContent=n+" / "+Q.length;
+}
+
+function go(d){
+  var n=cur+d;if(n<0){return;}
+  if(n>=Q.length){showRes();return;}
+  cur=n;render();
+}
+
+function showRes(){
+  document.getElementById("card").style.display="none";
+  document.getElementById("res").style.display="block";
+  var ok=0,bd=0;
+  for(var i=0;i<ans.length;i++){if(ans[i]===SQ[i].c){ok++;}else if(ans[i]!==-1){bd++;}}
+  var pct=Math.round(ok/Q.length*100);
+  document.getElementById("ring").style.background="conic-gradient(var(--yw) 0%,var(--rd) "+Math.floor(pct/2)+"%,var(--ac2) "+pct+"%,var(--brd) "+pct+"%)";
+  document.getElementById("rpct").textContent=pct+"%";
+  document.getElementById("rok").textContent=ok;
+  document.getElementById("rbd").textContent=bd;
+  document.getElementById("rtt").textContent=Q.length;
+  var t,s;
+  if(pct>=80){t="\u05de\u05e6\u05d5\u05d9\u05df! \ud83c\udfaf";s="\u05e9\u05dc\u05d9\u05d8\u05d4 \u05de\u05dc\u05d0\u05d4 \u05d1\u05de\u05d5\u05d3\u05dc \u05d7\u05de\u05e9 \u05d4\u05e9\u05db\u05d1\u05d5\u05ea!";}
+  else if(pct>=60){t="\u05dc\u05d0 \u05e8\u05e2 \ud83d\udcaa";s="\u05d7\u05d6\u05d5\u05e8 \u05e2\u05dc \u05de\u05e1\u05e2 \u05d4\u05e4\u05e7\u05d8\u05d4 \u05d4\u05de\u05dc\u05d0";}
+  else{t="\u05d9\u05e9 \u05de\u05d4 \u05dc\u05d7\u05d6\u05e7 \ud83d\udcda";s="\u05e7\u05e8\u05d0 \u05e9\u05d5\u05d1 \u05d0\u05ea \u05e4\u05e8\u05e7\u05d9\u05dd 7-11";}
+  document.getElementById("rt").textContent=t;document.getElementById("rs").textContent=s;
+  upProg();
+}
+
+function restart(){
+  SQ=[];for(var i=0;i<Q.length;i++){SQ.push(shuf(Q[i]));}
+  cur=0;ans=[];for(var i=0;i<Q.length;i++){ans.push(-1);}
+  document.getElementById("card").style.display="block";
+  document.getElementById("res").style.display="none";
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

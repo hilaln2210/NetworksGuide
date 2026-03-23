@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 1 – מעבדה Pro | תחילת מסע</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Fraunces:ital,wght@0,700;0,900;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:    #06080f;
+  --bg2:   #0b0f1a;
+  --surf:  #0f1520;
+  --surf2: #141c2e;
+  --brd:   #1a2540;
+  --brd2:  #243050;
+  --ac:    #4fd1ff;
+  --ac2:   #a78bfa;
+  --gr:    #34d399;
+  --yw:    #fbbf24;
+  --rd:    #f87171;
+  --txt:   #d1d9eb;
+  --txt2:  #8899bb;
+  --txt3:  #4a5a7a;
+  --mono:  'IBM Plex Mono', monospace;
+  --display: 'Fraunces', Georgia, serif;
+  --body:  'Inter', sans-serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--txt);
+  font-family: var(--body);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 35% at 15% 5%,  rgba(79,209,255,.055) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 30% at 85% 90%,  rgba(167,139,250,.045) 0%, transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(79,209,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,209,255,.02) 1px, transparent 1px);
+  background-size: 56px 56px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 22px 80px; position: relative; z-index: 1; }
+
+/* ═══ HEADER ═══ */
+.hdr {
+  padding: 48px 0 36px;
+  border-bottom: 1px solid var(--brd);
+  margin-bottom: 36px;
+}
+
+.hdr-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.badge-pro {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, var(--ac2), #4f46e5);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 5px;
+}
+
+.badge-ch {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ac);
+  background: rgba(79,209,255,.08);
+  border: 1px solid rgba(79,209,255,.2);
+  padding: 3px 10px;
+  border-radius: 5px;
+}
+
+.hdr-title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(26px, 5vw, 36px);
+  color: #fff;
+  letter-spacing: -.5px;
+  margin-bottom: 6px;
+  line-height: 1.1;
+}
+
+.hdr-sub {
+  font-size: 13px;
+  color: var(--txt3);
+  font-family: var(--mono);
+  line-height: 1.8;
+}
+
+/* ═══ PROGRESS ═══ */
+.prog-wrap {
+  background: var(--surf);
+  border: 1px solid var(--brd);
+  border-radius: 14px;
+  padding: 16px 22px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.prog-label { font-family: var(--mono); font-size: 11px; color: var(--txt3); white-space: nowrap; }
+
+.prog-bar {
+  flex: 1;
+  height: 5px;
+  background: var(--brd);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--ac2), var(--ac));
+  border-radius: 99px;
+  transition: width .5s cubic-bezier(.4,0,.2,1);
+  width: 0%;
+}
+
+.prog-count {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ac);
+  white-space: nowrap;
+}
+
+/* ═══ QUESTION CARD ═══ */
+.qcard {
+  background: var(--surf);
+  border: 1px solid var(--brd);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: border-color .3s;
+}
+
+.qcard-head {
+  background: var(--surf2);
+  border-bottom: 1px solid var(--brd);
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.qnum {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--txt3);
+  letter-spacing: 1px;
+}
+
+.qcat {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ac);
+  background: rgba(79,209,255,.08);
+  border: 1px solid rgba(79,209,255,.18);
+  padding: 2px 9px;
+  border-radius: 5px;
+  letter-spacing: .5px;
+}
+
+.qbody { padding: 28px 24px 20px; }
+
+/* Terminal snippet in question */
+.qterm {
+  background: #040810;
+  border: 1px solid var(--brd);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 22px;
+  direction: ltr;
+  text-align: left;
+}
+
+.qterm-bar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,.025);
+  border-bottom: 1px solid var(--brd);
+}
+
+.qt-dot { width: 9px; height: 9px; border-radius: 50%; }
+.qt-r { background: #ff5f57; } .qt-y { background: #febc2e; } .qt-g { background: #28c840; }
+
+.qterm-body {
+  padding: 14px 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.t-p { color: var(--gr); }
+.t-c { color: #fff; }
+.t-o { color: var(--txt2); }
+.t-i { color: var(--ac); }
+.t-m { color: var(--yw); }
+.t-cm { color: var(--txt3); }
+.t-rd { color: var(--rd); }
+
+/* Concept snippet */
+.qsnip {
+  background: rgba(0,0,0,.3);
+  border: 1px solid var(--brd);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.qt-text {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.55;
+  margin-bottom: 26px;
+  font-family: var(--body);
+  letter-spacing: -.2px;
+}
+
+/* ═══ OPTIONS ═══ */
+.opts { display: flex; flex-direction: column; gap: 9px; }
+
+.opt {
+  background: rgba(0,0,0,.2);
+  border: 1px solid var(--brd);
+  border-radius: 11px;
+  padding: 14px 18px;
+  cursor: pointer;
+  text-align: right;
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  width: 100%;
+  font-family: var(--body);
+  font-size: 14.5px;
+  color: var(--txt);
+  transition: all .15s;
+  line-height: 1.55;
+}
+
+.opt:hover:not(.done) {
+  border-color: rgba(79,209,255,.35);
+  background: rgba(79,209,255,.04);
+  color: #fff;
+  transform: translateX(-2px);
+}
+
+.opt.done { cursor: default; pointer-events: none; }
+
+.opt.correct {
+  border-color: rgba(52,211,153,.5);
+  background: rgba(52,211,153,.07);
+  color: #fff;
+}
+
+.opt.correct .olabel { color: var(--gr); background: rgba(52,211,153,.15); border-color: rgba(52,211,153,.3); }
+
+.opt.wrong {
+  border-color: rgba(248,113,113,.4);
+  background: rgba(248,113,113,.05);
+  color: var(--txt3);
+}
+
+.opt.wrong .olabel { color: var(--rd); background: rgba(248,113,113,.1); border-color: rgba(248,113,113,.2); }
+
+.opt.reveal {
+  border-color: rgba(52,211,153,.3);
+  background: rgba(52,211,153,.04);
+}
+
+.olabel {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--txt3);
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--brd);
+  margin-top: 1px;
+  transition: all .15s;
+}
+
+.otext { flex: 1; text-align: right; }
+.oicon { font-size: 16px; min-width: 18px; text-align: center; flex-shrink: 0; margin-top: 2px; }
+
+/* ═══ EXPLANATION ═══ */
+.exp {
+  margin-top: 18px;
+  border-radius: 12px;
+  padding: 16px 18px;
+  display: none;
+  border-right: 3px solid;
+}
+
+.exp.ok  { background: rgba(52,211,153,.06);  border-color: var(--gr);  }
+.exp.bad { background: rgba(248,113,113,.06); border-color: var(--rd);  }
+
+.exp-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 7px;
+  font-weight: 700;
+}
+
+.exp.ok  .exp-label { color: var(--gr); }
+.exp.bad .exp-label { color: var(--rd); }
+
+.exp-body { font-size: 13.5px; color: var(--txt2); line-height: 1.8; }
+
+/* ═══ CARD FOOTER ═══ */
+.qfoot {
+  padding: 18px 24px;
+  border-top: 1px solid var(--brd);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn {
+  font-family: var(--body);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 20px;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all .15s;
+  border: 1px solid var(--brd);
+  background: transparent;
+  color: var(--txt3);
+}
+
+.btn:hover:not(:disabled) { border-color: var(--ac); color: var(--ac); }
+.btn:disabled { opacity: .3; cursor: default; }
+
+.btn-next {
+  background: linear-gradient(135deg, var(--ac2), #4f46e5);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 600;
+  padding: 9px 24px;
+}
+
+.btn-next:hover:not(:disabled) { opacity: .88; border-color: transparent; color: #fff; }
+
+/* ═══ RESULT SCREEN ═══ */
+.result {
+  display: none;
+  text-align: center;
+  padding: 64px 24px;
+}
+
+.result-ring-wrap {
+  position: relative;
+  width: 148px;
+  height: 148px;
+  margin: 0 auto 28px;
+}
+
+.result-ring-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--surf2);
+}
+
+.result-ring-svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.result-ring-num {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 34px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.result-title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 30px;
+  color: #fff;
+  letter-spacing: -.5px;
+  margin-bottom: 8px;
+}
+
+.result-sub {
+  font-size: 15px;
+  color: var(--txt2);
+  margin-bottom: 36px;
+  font-weight: 300;
+}
+
+.result-stats {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.rstat {
+  background: var(--surf2);
+  border: 1px solid var(--brd);
+  border-radius: 12px;
+  padding: 16px 28px;
+  text-align: center;
+  min-width: 90px;
+}
+
+.rstat-val { font-family: var(--mono); font-size: 26px; font-weight: 700; color: #fff; }
+.rstat-lbl { font-size: 12px; color: var(--txt3); margin-top: 3px; font-family: var(--mono); }
+
+.btn-restart {
+  background: linear-gradient(135deg, var(--ac2), #4f46e5);
+  border: none;
+  color: #fff;
+  font-family: var(--body);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 13px 40px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+
+.btn-restart:hover { opacity: .88; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-top">
+      <span class="badge-pro">PRO LAB</span>
+      <span class="badge-ch">פרק 1 / 12</span>
+    </div>
+    <h1 class="hdr-title">תחילת מסע</h1>
+    <div class="hdr-sub">15 שאלות &nbsp;·&nbsp; Client/Server &nbsp;·&nbsp; IP &nbsp;·&nbsp; DNS &nbsp;·&nbsp; ping &nbsp;·&nbsp; tracert &nbsp;·&nbsp; nslookup &nbsp;·&nbsp; Hop &nbsp;·&nbsp; GeoIP &nbsp;·&nbsp; WWW</div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="prog-wrap">
+    <span class="prog-label">התקדמות</span>
+    <div class="prog-bar"><div class="prog-fill" id="pf"></div></div>
+    <span class="prog-count" id="pc">0 / 15</span>
+  </div>
+
+  <!-- QUESTION CARD -->
+  <div class="qcard" id="qcard">
+    <div class="qcard-head">
+      <span class="qnum" id="qnum">שאלה 1</span>
+      <span class="qcat" id="qcat"></span>
+    </div>
+    <div class="qbody">
+      <div id="qsnip"></div>
+      <div class="qt-text" id="qtext"></div>
+      <div class="opts" id="opts"></div>
+      <div class="exp" id="exp">
+        <div class="exp-label" id="explabel"></div>
+        <div class="exp-body" id="expbody"></div>
+      </div>
+    </div>
+    <div class="qfoot">
+      <button class="btn" id="btnPrev" onclick="go(-1)" disabled>← הקודם</button>
+      <button class="btn btn-next" id="btnNext" onclick="go(1)" disabled>הבא →</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result" id="result">
+    <div class="result-ring-wrap">
+      <div class="result-ring-bg"></div>
+      <svg class="result-ring-svg" viewBox="0 0 148 148" id="rsvg">
+        <circle cx="74" cy="74" r="62" fill="none" stroke="#1a2540" stroke-width="10"/>
+        <circle cx="74" cy="74" r="62" fill="none" stroke="url(#rg)" stroke-width="10"
+                stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6" id="rarc"/>
+        <defs>
+          <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#a78bfa"/>
+            <stop offset="100%" stop-color="#4fd1ff"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="result-ring-num" id="rpct">0%</div>
+    </div>
+    <div class="result-title" id="rtitle"></div>
+    <div class="result-sub" id="rsub"></div>
+    <div class="result-stats">
+      <div class="rstat"><div class="rstat-val" id="rok" style="color:var(--gr)"></div><div class="rstat-lbl">נכון</div></div>
+      <div class="rstat"><div class="rstat-val" id="rbd" style="color:var(--rd)"></div><div class="rstat-lbl">שגוי</div></div>
+      <div class="rstat"><div class="rstat-val" id="rtt" style="color:var(--ac)"></div><div class="rstat-lbl">סה"כ</div></div>
+    </div>
+    <button class="btn-restart" onclick="restart()">התחל מחדש</button>
+  </div>
+
+</div>
+<script>
+var Q = [
+  {
+    cat: "Client & Server",
+    snip: null,
+    q: "מה ההגדרה של Client ומה של Server? מי יוזם את התקשורת?",
+    a: [
+      "Client = יוזם ושולח Requests. Server = מחכה, מקבל ומחזיר Responses. תמיד ה-Client מתחיל.",
+      "Server = יוזם, Client = מגיב. השרת שולח דוא\"ל ללקוחות.",
+      "Client ו-Server זהים, רק צדדים שונים של אותו חיבור.",
+      "Client = מחשב, Server = נתב. ה-Server מנתב את הבקשות."
+    ],
+    c: 0,
+    e: "בפרק: 'כאשר אתם פונים אל YouTube, הלקוח הוא המחשב שלכם, והשרת הוא שרת YouTube. הדפדפן שלכם שולח בקשה לשרת, והשרת מחזיר לכם תשובה.' Client תמיד יוזם. Server תמיד מאזין ומגיב."
+  },
+  {
+    cat: "Request & Response",
+    snip: null,
+    q: "מה ההבדל בין Request לבין Response? מה כל אחד מכיל?",
+    a: [
+      "Request = בקשה מהלקוח לשרת ('שלח לי את העמוד'). Response = תגובת השרת ללקוח (HTML+CSS+JS שמרכיב את הדף).",
+      "Request = קובץ HTML. Response = כתובת IP.",
+      "שניהם זהים, רק כיוון שונה.",
+      "Request = תשובה, Response = בקשה. (ההיפך מהנכון)"
+    ],
+    c: 0,
+    e: "בפרק: 'הדפדפן צריך לשלוח הודעת בקשה (Request) אל Facebook, ובה להגיד שלח לי את המידע הנדרש. כאשר Facebook מקבל את הבקשה, הוא שולח תגובה (Response) שמכילה את המידע הדרוש.' ניתן לראות את ה-Response ב-View Page Source."
+  },
+  {
+    cat: "כתובות IP",
+    snip: '<div class="qsnip" style="direction:ltr;text-align:left;"><span class="t-i">192.168.14.51</span>  &larr; <span class="t-cm">תקינה</span>\n<span class="t-i">10.0.0.255</span>     &larr; <span class="t-cm">תקינה</span>\n<span class="t-rd">300.5.1.8</span>      &larr; <span class="t-cm">???</span></div>',
+    q: "מה מבנה כתובת IP? למה 300.5.1.8 אינה כתובת חוקית?",
+    a: [
+      "4 bytes, כל byte ערך 0–255. 300 גדול מ-255 — לא ניתן לייצג ב-byte אחד — כתובת לא חוקית.",
+      "4 bytes, כל byte 0–999. 300 תקין כי המחשב מוסיף 0 לפניו.",
+      "IP = שם דומיין בספרות. 300 תקין בגרסאות חדשות.",
+      "IP = 6 bytes. 300.5.1.8 לא חוקית כי חסרים שני bytes."
+    ],
+    c: 0,
+    e: "בפרק: 'כתובות IP מורכבות מארבעה בתים. כל בית יכול לקבל ערך בין 0 ל-255.' 300 > 255 → לא ניתן לייצג ב-byte אחד → כתובת לא חוקית. הטווח החוקי: 0.0.0.0 עד 255.255.255.255."
+  },
+  {
+    cat: "ping",
+    snip: '<div class="qterm"><div class="qterm-bar"><div class="qt-dot qt-r"></div><div class="qt-dot qt-y"></div><div class="qt-dot qt-g"></div></div><div class="qterm-body"><span class="t-p">C:\\&gt; </span><span class="t-c">ping www.facebook.com</span>\n<span class="t-o">Pinging facebook.com [</span><span class="t-i">31.13.72.65</span><span class="t-o">]</span>\n<span class="t-o">Reply from 31.13.72.65: time=</span><span class="t-m">180ms</span></div></div>',
+    q: "מה הכלי ping נועד לעשות? מה ניתן ללמוד מהפלט הזה?",
+    a: [
+      "בודק קישוריות: שולח בקשת הד ומחכה לתשובה. מהפלט: ה-IP של Facebook הוא 31.13.72.65, החיבור עובד, זמן תגובה 180ms.",
+      "מוריד את קוד ה-HTML של Facebook ומציג בטרמינל.",
+      "מבצע שאילתת DNS ומדפיס את כל רשומות ה-DNS.",
+      "מציג את המסלול המלא של כל ה-Hops עד ל-Facebook."
+    ],
+    c: 0,
+    e: "בפרק: 'הכלי ping נועד לבדוק האם מחשב בעל כתובת IP מסויימת מחובר לרשת, ולמדוד כמה זמן לוקח להודעה להישלח ולחזור.' כתוצר לוואי — מציג IP. הוא לא כלי DNS ולא כלי הורדה."
+  },
+  {
+    cat: "DNS",
+    snip: null,
+    q: "למה צריך DNS? מה הבעיה שהוא פותר?",
+    a: [
+      "בני אדם זוכרים שמות (facebook.com), מחשבים צריכים IP. DNS ממיר שם דומיין → כתובת IP בזמן אמת.",
+      "DNS = Domain Network Security. מאבטח את התעבורה מפני האקרים.",
+      "DNS מאיץ גלישה על ידי שמירת דפים שלמים במטמון.",
+      "DNS = שם אחר ל-DHCP. מחלק כתובות IP לכל מחשב ברשת."
+    ],
+    c: 0,
+    e: "בפרק: 'לבני אדם קל יותר לזכור שמות דומיין מאשר כתובות IP. DNS הוא הדרך לתרגם בין השניים. ההמרה מתרחשת בכל פעם שאנו מציינים שם דומיין — בין אם בדפדפן, ובין אם בכלים כמו ping או tracert.'"
+  },
+  {
+    cat: "nslookup",
+    snip: '<div class="qterm"><div class="qterm-bar"><div class="qt-dot qt-r"></div><div class="qt-dot qt-y"></div><div class="qt-dot qt-g"></div></div><div class="qterm-body"><span class="t-p">C:\\&gt; </span><span class="t-c">nslookup www.google.com</span>\n<span class="t-o">Name:    www.google.com</span>\n<span class="t-o">Address: </span><span class="t-i">142.250.74.46</span></div></div>',
+    q: "מה nslookup עושה? מה ההבדל בינו ל-ping?",
+    a: [
+      "nslookup = שאילתת DNS טהורה (שם→IP). ping = בדיקת קישוריות + מדידת זמן. שניהם מציגים IP אך למטרות שונות.",
+      "nslookup = מהיר. ping = איטי. אחרת זהים לחלוטין.",
+      "nslookup = ל-Windows. ping = ל-Linux. לא עובדים אותו דבר.",
+      "nslookup = בודק אם האתר עלה. ping = מוריד קבצים."
+    ],
+    c: 0,
+    e: "בפרק: 'על מנת להשתמש במערכת ה-DNS לתרגם שמות דומיין לכתובות IP, נוכל להשתמש בכלי nslookup.' nslookup = DNS בלבד. ping = קישוריות + IP כתוצר לוואי. שני כלים שונים, שני מטרות שונות."
+  },
+  {
+    cat: "Hop & tracert",
+    snip: '<div class="qterm"><div class="qterm-bar"><div class="qt-dot qt-r"></div><div class="qt-dot qt-y"></div><div class="qt-dot qt-g"></div></div><div class="qterm-body"><span class="t-p">C:\\&gt; </span><span class="t-c">tracert -d www.google.com</span>\n<span class="t-cm"> 1   &lt;1ms  192.168.14.1</span>\n<span class="t-cm"> 2    5ms  212.179.37.1</span>\n<span class="t-cm">...</span>\n<span class="t-cm">15  180ms  142.250.74.46</span></div></div>',
+    q: "מה Hop? מה tracert מציג? מה הדגל -d עושה?",
+    a: [
+      "Hop = מעבר חבילה בין שני רכיבים מחוברים ישירות. tracert מציג כל רכיב בדרך עם זמן תגובה. -d = ללא תרגום DNS (IP בלבד).",
+      "Hop = שגיאת תקשורת. tracert מציג הודעות שגיאה. -d = debug mode.",
+      "Hop = הורדת קובץ חלקית. tracert = כלי הורדה מקביל.",
+      "Hop = קפיצת מחיר. tracert = כלי למציאת ספק זול."
+    ],
+    c: 0,
+    e: "בפרק: 'העברה של הודעה בין רכיב אחד לרכיב אחר המחוברים ישירות נקראת קפיצה (Hop).' tracert עוקב אחרי כל ה-Hops עד ליעד. -d = ללא DNS Lookup על כל Hop = מהיר יותר."
+  },
+  {
+    cat: "ניתוח tracert",
+    snip: '<div class="qterm"><div class="qterm-bar"><div class="qt-dot qt-r"></div><div class="qt-dot qt-y"></div><div class="qt-dot qt-g"></div></div><div class="qterm-body"><span class="t-cm"> 1   &lt;1ms  192.168.14.1</span>\n<span class="t-cm"> 2    5ms  212.179.37.1</span>\n<span class="t-cm"> 3   12ms  80.77.64.10</span>\n<span class="t-m">10  145ms  64.86.252.20</span>\n<span class="t-cm">15  180ms  142.250.74.46</span></div></div>',
+    q: "מה ניתן להסיק מקפיצה גדולה בזמן בין hop 3 (12ms) ל-hop 10 (145ms)?",
+    a: [
+      "כנראה עברנו יבשת — קפיצה גדולה בזמן מצביעה על מרחק גיאוגרפי (כבל תת-ימי, למשל ממזרח-תיכון לארה\"ב).",
+      "hop 10 הוא שרת איטי. אין קשר למרחק גיאוגרפי.",
+      "מסמן שהחבילה אבדה ונשלחה מחדש — לכן לקח יותר זמן.",
+      "זמן 145ms = שגיאה. hop 10 לא נענה כראוי."
+    ],
+    c: 0,
+    e: "בפרק: 'ההבדלים בין משך הזמן שלוקח להגיע לכל רכיב יכולים להעיד על המרחק הגיאוגרפי. אם נראה לפתע הפרש גדול מאוד בין זמנים, נוכל לשער שעברנו יבשת.' קפיצה מ-12ms ל-145ms ≈ כבל תת-ימי לאמריקה."
+  },
+  {
+    cat: "GeoIP",
+    snip: null,
+    q: "מה GeoIP? מדוע הוא לא אמין לחלוטין?",
+    a: [
+      "מאגר נתונים שממפה IP → מיקום גיאוגרפי. לא רשמי ולא מדויק — כתובת IP אינה קשורה בוודאות למיקום פיזי.",
+      "GeoIP = כתובת GPS מדויקת של כל מחשב. חייב להיות מדויק לפי חוק.",
+      "GeoIP = גרסה 6 של IP (IPv6). מאפשר יותר כתובות.",
+      "GeoIP = שירות של גוגל מפות. מדויק לחלוטין."
+    ],
+    c: 0,
+    e: "בפרק: 'ישנם מאגרי נתונים הכוללים מידע על המיקום הגיאוגרפי של כתובות IP. מאגרים אלו לא רשמיים ולא מדויקים.' תוצאה אמיתית: GeoIP שגוי הפנה לחווה בקנזס — אדם תמים קיבל פשיטות משטרה. IP ≠ מיקום מדויק."
+  },
+  {
+    cat: "WWW",
+    snip: null,
+    q: "מה WWW? מה ההבדל בין WWW לאינטרנט?",
+    a: [
+      "WWW = World Wide Web = אוסף עמודי אינטרנט מקושרים בלינקים. האינטרנט = תשתית פיזית (כבלים, נתבים) שעליה WWW רץ.",
+      "WWW ואינטרנט = אותו דבר בדיוק, רק שמות שונים.",
+      "WWW = פרוטוקול התקשורת. אינטרנט = הדפדפן.",
+      "WWW = World Wide Web = גרסה ישנה של האינטרנט שכבר לא בשימוש."
+    ],
+    c: 0,
+    e: "בפרק: 'WWW - ראשית תיבות של World Wide Web. זהו אוסף עמודי האינטרנט אליהם אנו גולשים בדפדפן. העמודים מפוזרים בכל רחבי העולם ומקושרים ביניהם באמצעות לינקים.' האינטרנט = התשתית. WWW = שכבת האפליקציה מעליה."
+  },
+  {
+    cat: "כתובת מקור ויעד",
+    snip: '<div class="qsnip" style="direction:ltr;text-align:left;"><span class="t-cm">-- בקשה (Request) --</span>\n<span class="t-o">src:</span> <span class="t-i">192.168.1.5</span>   <span class="t-cm">← המחשב שלך</span>\n<span class="t-o">dst:</span> <span class="t-i">31.13.72.65</span>  <span class="t-cm">← Facebook</span>\n\n<span class="t-cm">-- תגובה (Response) --</span>\n<span class="t-o">src:</span> <span class="t-rd">???</span>\n<span class="t-o">dst:</span> <span class="t-rd">???</span></div>',
+    q: "מה יהיו כתובות המקור והיעד ב-Response שחוזר מ-Facebook?",
+    a: [
+      "src = 31.13.72.65 (Facebook שולח), dst = 192.168.1.5 (המחשב שלך מקבל). הכתובות התהפכו.",
+      "src ו-dst זהים ל-Request — לא משתנים.",
+      "src = 192.168.1.5, dst = 31.13.72.65 — אותו כיוון.",
+      "src = שרת DNS, dst = המחשב שלך."
+    ],
+    c: 0,
+    e: "בפרק: 'כאשר נשלחת הודעת התגובה, היא נשלחת מ-Facebook לדפדפן. לכן כתובת המקור תכיל את כתובת ה-IP של Facebook, בעוד כתובת היעד תכיל את כתובת ה-IP של המחשב ממנו מתבצעת הגלישה.' Request ו-Response = כתובות מתהפכות."
+  },
+  {
+    cat: "ענן האינטרנט",
+    snip: null,
+    q: "מדוע לא מחוברים ישירות ל-Facebook? מה תפקידו של ענן האינטרנט?",
+    a: [
+      "לא ניתן ולא כלכלי לחבר כל מחשב לכל שרת בכבל. ענן = אוסף רכיבים שמעבירים את ההודעה hop-by-hop עד ליעד.",
+      "ענן = שרתי AWS בלבד. כל אתר חייב להיות מאוחסן שם.",
+      "מחוברים ישירות, אין ענן. הענן הוא רק שם שיווקי.",
+      "ענן = Wi-Fi. בלי Wi-Fi אין אינטרנט."
+    ],
+    c: 0,
+    e: "בפרק: 'האינטרנט הוא למעשה אוסף של הרבה רכיבים שמחוברים זה לזה. הודעה שנשלחת בין שני מחשבים עוברת בדרך בין הרבה רכיבים שמחוברים זה לזה באופן ישיר. כך כל רכיב מעביר את ההודעה הלאה אל הרכיב הבא.'"
+  },
+  {
+    cat: "DNS — סדר הפעולות",
+    snip: null,
+    q: "מה הסדר הנכון של הפעולות כשמקלידים www.facebook.com ולוחצים Enter?",
+    a: [
+      "(1) DNS Query → מקבלים IP של Facebook. (2) שולחים HTTP Request ל-IP. (3) מקבלים Response עם HTML. (4) הדפדפן מציג.",
+      "(1) שולחים Request מיד. (2) DNS בדרך חזרה מוסיף את ה-IP.",
+      "(1) ping. (2) tracert. (3) nslookup. (4) HTTP.",
+      "(1) מציג דף ריק. (2) טוען DNS בפסקת רקע. (3) מריץ JavaScript."
+    ],
+    c: 0,
+    e: "בפרק: 'המחשב מבין בשלב ראשון מה היא כתובת ה-IP של היעד, ורק אחר כך שולח אליו את ההודעה.' DNS חייב להגיע ראשון — בלי IP לא יודעים לאן לשלוח את הבקשה. זה חל גם על ping וגם על tracert."
+  },
+  {
+    cat: "View Page Source",
+    snip: null,
+    q: "מה רואים כשלוחצים 'View Page Source' באתר? מה זה מלמד?",
+    a: [
+      "את ה-HTML/CSS/JS שהשרת שלח — הResponse הגולמי. מלמד: הדפדפן מקבל טקסט מהשרת ובונה ממנו את הדף.",
+      "קוד המקור של הדפדפן Chrome/Firefox עצמו.",
+      "את כתובות ה-IP של כל הנתבים שהחבילה עברה.",
+      "לוגי שגיאות פנימיים של שרת Facebook."
+    ],
+    c: 0,
+    e: "בפרק: 'על מנת לראות את המידע שהשרת שלח ללקוח, ניתן ללחוץ על הכפתור הימני ולבחור View page source. בחלון שייפתח יוצג טקסט שמכיל את המידע ששלח השרת כתגובה לבקשת הלקוח.' זהו בדיוק ה-Response."
+  },
+  {
+    cat: "סיכום כלים",
+    snip: null,
+    q: "התאם: (א) בדיקת קישוריות + זמן תגובה  (ב) תרגום שם דומיין → IP  (ג) הצגת כל ה-Hops בדרך",
+    a: [
+      "(א) ping — (ב) nslookup — (ג) tracert",
+      "(א) nslookup — (ב) tracert — (ג) ping",
+      "(א) tracert — (ב) ping — (ג) nslookup",
+      "כל הכלים עושים את אותו הדבר"
+    ],
+    c: 0,
+    e: "בפרק: ping = 'לבדוק האם מחשב בכתובת IP מסויימת מחובר לרשת ולמדוד זמן.' nslookup = 'להשתמש במערכת DNS לתרגם שמות דומיין לכתובות IP.' tracert = 'לגלות את המסלול שהודעה עוברת.' שלושה כלים, שלוש מטרות שונות."
+  }
+];
+
+var LBL = ["א","ב","ג","ד"];
+var cur = 0;
+var ans = new Array(Q.length).fill(-1);
+
+function shuf(q) {
+  var idx = [0,1,2,3];
+  for (var i = 3; i > 0; i--) {
+    var j = Math.floor(Math.random()*(i+1));
+    var t = idx[i]; idx[i]=idx[j]; idx[j]=t;
+  }
+  var na = idx.map(function(k){ return q.a[k]; });
+  var nc = idx.indexOf(q.c);
+  return { cat:q.cat, snip:q.snip, q:q.q, a:na, c:nc, e:q.e };
+}
+
+var SQ = Q.map(shuf);
+
+function render() {
+  var q = SQ[cur];
+  document.getElementById("qnum").textContent  = "שאלה " + (cur+1);
+  document.getElementById("qcat").textContent  = q.cat;
+
+  var sn = document.getElementById("qsnip");
+  sn.innerHTML = q.snip || "";
+
+  document.getElementById("qtext").textContent = q.q;
+
+  var oc = document.getElementById("opts");
+  oc.innerHTML = "";
+  for (var i = 0; i < 4; i++) {
+    var b = document.createElement("button");
+    b.className = "opt";
+    b.dataset.i = i;
+    b.innerHTML =
+      '<span class="olabel">' + LBL[i] + '</span>' +
+      '<span class="otext">' + q.a[i] + '</span>' +
+      '<span class="oicon"></span>';
+    b.addEventListener("click", pick);
+    oc.appendChild(b);
+  }
+
+  var ex = document.getElementById("exp");
+  ex.style.display = "none";
+  ex.className = "exp";
+
+  if (ans[cur] !== -1) showA(cur);
+
+  document.getElementById("btnPrev").disabled = (cur === 0);
+  document.getElementById("btnNext").disabled = (ans[cur] === -1);
+  updateProg();
+}
+
+function pick() {
+  if (ans[cur] !== -1) return;
+  var i = parseInt(this.dataset.i);
+  ans[cur] = i;
+  showA(cur);
+  document.getElementById("btnNext").disabled = false;
+}
+
+function showA(idx) {
+  var q = SQ[idx]; var ch = ans[idx]; var ok = (ch === q.c);
+  var bs = document.querySelectorAll(".opt");
+  for (var i = 0; i < bs.length; i++) {
+    bs[i].classList.add("done");
+    bs[i].removeEventListener("click", pick);
+    var ic = bs[i].querySelector(".oicon");
+    if (i === q.c) { bs[i].classList.add(ok ? "correct" : "reveal"); if (!ok) ic.textContent = "✓"; }
+    if (i === ch && !ok) { bs[i].classList.add("wrong"); ic.textContent = "✗"; }
+    if (i === ch && ok) ic.textContent = "✓";
+  }
+  var ex = document.getElementById("exp");
+  ex.className = "exp " + (ok ? "ok" : "bad");
+  document.getElementById("explabel").textContent = ok ? "✓  נכון!" : "✗  לא בדיוק...";
+  document.getElementById("expbody").textContent  = q.e;
+  ex.style.display = "block";
+}
+
+function updateProg() {
+  var n = ans.filter(function(x){ return x !== -1; }).length;
+  document.getElementById("pf").style.width = (n / Q.length * 100) + "%";
+  document.getElementById("pc").textContent = n + " / " + Q.length;
+}
+
+function go(d) {
+  var n = cur + d;
+  if (n < 0) return;
+  if (n >= Q.length) { showResult(); return; }
+  cur = n; render();
+}
+
+function showResult() {
+  document.getElementById("qcard").style.display  = "none";
+  document.getElementById("result").style.display = "block";
+
+  var ok = 0, bd = 0;
+  for (var i = 0; i < Q.length; i++) {
+    if (ans[i] === SQ[i].c) ok++;
+    else if (ans[i] !== -1) bd++;
+  }
+  var pct = Math.round(ok / Q.length * 100);
+
+  // SVG arc
+  var circ = 2 * Math.PI * 62;
+  var offset = circ * (1 - pct/100);
+  document.getElementById("rarc").style.strokeDashoffset = offset;
+  document.getElementById("rpct").textContent  = pct + "%";
+  document.getElementById("rok").textContent   = ok;
+  document.getElementById("rbd").textContent   = bd;
+  document.getElementById("rtt").textContent   = Q.length;
+
+  var title, sub;
+  if (pct >= 87) { title = "מצוין! 🎯"; sub = "שליטה מלאה במושגי הבסיס"; }
+  else if (pct >= 65) { title = "לא רע 💪"; sub = "חזור על DNS ו-tracert"; }
+  else { title = "יש מה לחזק 📖"; sub = "קרא שוב את פרק 1"; }
+
+  document.getElementById("rtitle").textContent = title;
+  document.getElementById("rsub").textContent   = sub;
+  updateProg();
+}
+
+function restart() {
+  SQ  = Q.map(shuf);
+  ans = new Array(Q.length).fill(-1);
+  cur = 0;
+  document.getElementById("qcard").style.display  = "block";
+  document.getElementById("result").style.display = "none";
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

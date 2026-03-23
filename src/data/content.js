@@ -10,11 +10,24 @@ export const tracks = [
   {
     id: 'networking',
     title: 'רשתות מחשבים',
-    subtitle: 'Wireshark, שכבות הרשת, TCP/IP, Scapy ורכיבי רשת — 8 פרקים',
+    subtitle: 'איך עובד האינטרנט, Sockets, Wireshark, TCP/IP, Scapy ועוד — 12 פרקים',
     icon: '🌐',
     color: '#0891b2',
     level: 'מתחיל–מתקדם',
-    chapters: []
+    chapters: [
+  { id: 1,  title: "תחילת מסע — איך עובד האינטרנט?",   pages: [{ type: "html_page", title: "תחילת מסע — איך עובד האינטרנט?",   src: "/learn/networks/learn_ch01.html" }] },
+  { id: 2,  title: "תכנות ב-Sockets",                   pages: [{ type: "html_page", title: "תכנות ב-Sockets",                   src: "/learn/networks/learn_ch02.html" }] },
+  { id: 3,  title: "Wireshark ומודל חמש השכבות",         pages: [{ type: "html_page", title: "Wireshark ומודל חמש השכבות",         src: "/learn/networks/learn_ch03.html" }] },
+  { id: 4,  title: "שכבת האפליקציה",                    pages: [{ type: "html_page", title: "שכבת האפליקציה",                    src: "/learn/networks/learn_ch04.html" }] },
+  { id: 5,  title: "Scapy — Packet Crafting",            pages: [{ type: "html_page", title: "Scapy — Packet Crafting",            src: "/learn/networks/learn_ch05.html" }] },
+  { id: 6,  title: "שכבת התעבורה",                      pages: [{ type: "html_page", title: "שכבת התעבורה",                      src: "/learn/networks/learn_ch06.html" }] },
+  { id: 7,  title: "שכבת הרשת",                         pages: [{ type: "html_page", title: "שכבת הרשת",                         src: "/learn/networks/learn_ch07.html" }] },
+  { id: 8,  title: "שכבת הקו",                          pages: [{ type: "html_page", title: "שכבת הקו",                          src: "/learn/networks/learn_ch08.html" }] },
+  { id: 9,  title: "רכיבי רשת",                         pages: [{ type: "html_page", title: "רכיבי רשת",                         src: "/learn/networks/learn_ch09.html" }] },
+  { id: 10, title: "השכבה הפיזית",                      pages: [{ type: "html_page", title: "השכבה הפיזית",                      src: "/learn/networks/learn_ch10.html" }] },
+  { id: 11, title: "איך הכל מתחבר",                     pages: [{ type: "html_page", title: "איך הכל מתחבר",                     src: "/learn/networks/learn_ch11.html" }] },
+  { id: 12, title: "תכנות Sockets מתקדם",               pages: [{ type: "html_page", title: "תכנות Sockets מתקדם",               src: "/learn/networks/learn_ch12.html" }] },
+    ]
   },
   {
     id: 'cyber',

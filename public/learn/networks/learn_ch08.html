@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 8 – שכבת הקו</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;background:#eef8fc;padding:20px;color:#1a1a2e;line-height:1.7;}
+.wrap{max-width:1050px;margin:auto;}
+.card{background:#fff;padding:24px 28px;border-radius:20px;margin-bottom:18px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+h1{margin:0 0 6px;font-size:26px;color:#0f1d2a;}
+h2{margin:0 0 14px;font-size:20px;color:#0a3d62;border-bottom:2px solid #d4eaf7;padding-bottom:8px;}
+h3{margin:10px 0 6px;font-size:16px;color:#154360;}
+p{margin:0 0 12px;}
+pre{background:#0f1d2a;color:#f0f0f0;padding:14px;border-radius:12px;overflow-x:auto;font-size:13px;line-height:1.8;direction:ltr;text-align:left;margin:10px 0;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.cm{color:#6272a4;}.va{color:#8be9fd;}.nu{color:#bd93f9;}
+.box{border:1px solid #b3d7ee;padding:14px 18px;border-radius:12px;margin:12px 0;background:#f0f9ff;}
+.box.green{border-color:#a8d8a8;background:#f0fff4;}
+.box.yellow{border-color:#f5cba7;background:#fef9f0;}
+.box.red{border-color:#f5b7b1;background:#fff5f5;}
+.box.purple{border-color:#c39bd3;background:#fdf2ff;}
+.box h4{margin:0 0 6px;font-size:14px;color:#0a3d62;}
+.box.green h4{color:#145a32;}
+.box.yellow h4{color:#784212;}
+.box.red h4{color:#7b241c;}
+.box.purple h4{color:#6c3483;}
+.box p,.box li{margin:0;font-size:14px;color:#333;}
+.box ul,.box ol{margin:6px 0;padding-right:18px;}
+.box li{margin-bottom:3px;}
+code{background:#e8f4fd;padding:2px 7px;border-radius:4px;font-family:monospace;font-size:13px;color:#0a3d62;}
+table.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}
+.tbl th{background:#0a3d62;color:#fff;padding:10px 14px;text-align:right;}
+.tbl td{padding:9px 14px;border:1px solid #cce;vertical-align:top;}
+.tbl tr:nth-child(even) td{background:#f4f9ff;}
+.row2{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0;}
+.col{flex:1;min-width:220px;border:1px solid #d0d0d0;border-radius:14px;padding:16px;background:#fafafa;}
+.col h4{margin:0 0 10px;font-size:15px;}
+.col p{font-size:13px;color:#444;margin:0 0 8px;}
+/* MAC diagram */
+.mac-box{display:flex;gap:2px;margin:12px 0;}
+.mac-byte{flex:1;padding:10px 6px;border-radius:8px;text-align:center;font-family:monospace;font-weight:700;font-size:14px;}
+.mac-vendor{background:#fadbd8;color:#7b241c;}
+.mac-host{background:#d5f5e3;color:#145a32;}
+/* Ethernet Frame */
+.eth-frame{display:flex;gap:2px;margin:14px 0;flex-wrap:nowrap;overflow-x:auto;}
+.eth-field{padding:10px 8px;border-radius:6px;font-family:monospace;font-size:11px;text-align:center;font-weight:700;white-space:nowrap;}
+.ef1{background:#e8d8f8;color:#6c3483;}
+.ef2{background:#fadbd8;color:#7b241c;}
+.ef3{background:#d5f5e3;color:#145a32;}
+.ef4{background:#d4eaf7;color:#0a3d62;}
+.ef5{background:#fdebd0;color:#784212;}
+.ef6{background:#d7dbdd;color:#333;}
+/* ARP Flow */
+.arp-flow{display:flex;flex-direction:column;gap:8px;margin:14px 0;}
+.arp-msg{display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:10px;font-size:13px;}
+.arp-req{background:#fff3cd;border:1px solid #f0d080;}
+.arp-rep{background:#d5f5e3;border:1px solid #a8d8a8;}
+.arp-who{font-weight:700;min-width:80px;font-size:12px;}
+.arp-arrow{font-size:20px;color:#888;}
+.arp-desc{flex:1;}
+.arp-note{font-size:11px;color:#666;margin-top:2px;}
+/* Switch table */
+.sw-tbl{border:1px solid #cce;border-radius:10px;overflow:hidden;margin:12px 0;font-size:13px;}
+.sw-tbl-head{background:#154360;color:#fff;display:flex;padding:8px 14px;font-weight:700;}
+.sw-tbl-row{display:flex;padding:8px 14px;border-top:1px solid #cce;}
+.sw-tbl-row:nth-child(even){background:#f4f9ff;}
+.sw-cell{flex:1;font-family:monospace;}
+/* Hub vs Switch comparison */
+.cmp{display:flex;gap:16px;margin:14px 0;flex-wrap:wrap;}
+.cmp-card{flex:1;min-width:220px;border-radius:14px;padding:16px;}
+.cmp-hub{background:#fff3cd;border:1px solid #f0d080;}
+.cmp-sw{background:#d5f5e3;border:1px solid #a8d8a8;}
+.cmp-card h4{margin:0 0 10px;font-size:15px;}
+.cmp-card p{font-size:13px;color:#444;margin:0 0 6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="card">
+  <h1>&#x1F517; פרק 8 — שכבת הקו</h1>
+  <p style="color:#555;margin:0;">Ethernet &middot; MAC Address &middot; Ethernet Frame &middot; ARP &middot; Hub &middot; Switch &middot; Collisions</p>
+</div>
+
+<!-- תפקיד Layer 2 -->
+<div class="card">
+  <h2>&#x1F3AF; תפקיד שכבת הקו (Layer 2)</h2>
+  <p>שכבת הקו אחראית על <strong>העברת מידע בין שתי ישויות המחוברות באופן ישיר</strong> — hop אחד בלבד. לא מטפלת בנתיב המלא, רק בצעד הנוכחי.</p>
+  <div class="box green">
+    <h4>&#x1F4A1; ההבדל מול Layer 3</h4>
+    <p>Layer 3 (IP): כתובות מקור ויעד = נקודות הקצה הסופיות (מחשבי ↔ Ynet).<br>
+    Layer 2 (Ethernet): כתובות = hop נוכחי בלבד (מחשבי ↔ נתב, ואז נתב ↔ נתב הבא).</p>
+  </div>
+  <p>המימוש נמצא בכרטיס הרשת: כרטיס Ethernet ↔ Ethernet, כרטיס WiFi ↔ WiFi. כרטיסים מסוגים שונים לא מתקשרים ישירות זה עם זה.</p>
+</div>
+
+<!-- כתובות MAC -->
+<div class="card">
+  <h2>&#x1F50C; כתובות MAC</h2>
+  <p>כתובת MAC = <strong>6 bytes</strong> — כתובת <strong>פיזית</strong> הצרובה על כרטיס הרשת. ייחודית בעולם. לא אמורה להשתנות.</p>
+
+  <div class="mac-box">
+    <div class="mac-byte mac-vendor">D4<div style="font-size:10px;margin-top:3px;color:#999;">Vendor</div></div>
+    <div class="mac-byte mac-vendor">BE<div style="font-size:10px;margin-top:3px;color:#999;">Vendor</div></div>
+    <div class="mac-byte mac-vendor">D9<div style="font-size:10px;margin-top:3px;color:#999;">Vendor</div></div>
+    <div class="mac-byte mac-host">D6<div style="font-size:10px;margin-top:3px;color:#999;">Host</div></div>
+    <div class="mac-byte mac-host">0C<div style="font-size:10px;margin-top:3px;color:#999;">Host</div></div>
+    <div class="mac-byte mac-host">2A<div style="font-size:10px;margin-top:3px;color:#999;">Host</div></div>
+  </div>
+
+  <table class="tbl">
+    <tr><th>חלק</th><th>גודל</th><th>משמעות</th></tr>
+    <tr><td>3 bytes ראשונים (OUI)</td><td>24 bits</td><td>מזהה יצרן (Vendor ID) — D4:BE:D9 = Dell</td></tr>
+    <tr><td>3 bytes אחרונים</td><td>24 bits</td><td>מזהה ישות ספציפית (Host ID)</td></tr>
+  </table>
+
+  <div class="row2">
+    <div class="col">
+      <h4>פורמטים של כתובת MAC</h4>
+      <p><code>D4-BE-D9-D6-0C-2A</code> — ipconfig (מקף)</p>
+      <p><code>D4:BE:D9:D6:0C:2A</code> — Scapy (נקודותיים)</p>
+      <p><code>FF:FF:FF:FF:FF:FF</code> — Broadcast לכולם</p>
+    </div>
+    <div class="col">
+      <h4>כיצד מוצאים את כתובת ה-MAC</h4>
+      <p><code>ipconfig /all</code> → "Physical Address"<br>
+      Scapy: <code>frame[Ether].src</code><br>
+      זיהוי יצרן: coffer.com/mac_find</p>
+    </div>
+  </div>
+</div>
+
+<!-- Ethernet Frame -->
+<div class="card">
+  <h2>&#x1F4E6; מבנה מסגרת Ethernet</h2>
+  <div class="eth-frame">
+    <div class="eth-field ef1">Preamble<br><small>8B</small></div>
+    <div class="eth-field ef2">Dst MAC<br><small>6B</small></div>
+    <div class="eth-field ef3">Src MAC<br><small>6B</small></div>
+    <div class="eth-field ef4">Type<br><small>2B</small></div>
+    <div class="eth-field ef5">Data<br><small>46-1500B</small></div>
+    <div class="eth-field ef6">CRC32<br><small>4B</small></div>
+  </div>
+
+  <table class="tbl">
+    <tr><th>שדה</th><th>גודל</th><th>תפקיד</th><th>הערה</th></tr>
+    <tr><td>Preamble</td><td>8B</td><td>סנכרון תחילת מסגרת</td><td>לא מופיע ב-Wireshark!</td></tr>
+    <tr><td>Dst MAC</td><td>6B</td><td>כתובת יעד</td><td>FF:FF:FF:FF:FF:FF = Broadcast</td></tr>
+    <tr><td>Src MAC</td><td>6B</td><td>כתובת מקור</td><td>כרטיס הרשת השולח</td></tr>
+    <tr><td>Type</td><td>2B</td><td>סוג ה-Data</td><td>0x0800 = IP, 0x0806 = ARP</td></tr>
+    <tr><td>Data</td><td>46-1500B</td><td>המידע (כולל Layer 3+)</td><td>מינימום 64B בסך הכל</td></tr>
+    <tr><td>CRC32</td><td>4B</td><td>Checksum לגילוי שגיאות</td><td>לא מופיע ב-Wireshark!</td></tr>
+  </table>
+
+  <div class="box yellow">
+    <h4>&#x2753; למה Preamble ו-CRC32 לא ב-Wireshark?</h4>
+    <p>Preamble מטופל ע"י כרטיס הרשת לפני שהמסגרת מגיעה לתוכנה. CRC32 נבדק ואז מוסר ע"י כרטיס הרשת — אם תקין, עובר הלאה ללא ה-CRC.</p>
+  </div>
+</div>
+
+<!-- Layer 2 vs 3 בפקטה -->
+<div class="card">
+  <h2>&#x1F4CA; Layer 2 לעומת Layer 3 — דוגמה מהפרק</h2>
+  <p>בקשת HTTP ממחשב → Ynet דרך נתב ביתי:</p>
+  <table class="tbl">
+    <tr><th>שכבה</th><th>כתובת מקור</th><th>כתובת יעד</th><th>מתי משתנה?</th></tr>
+    <tr><td><strong>Layer 3 (IP)</strong></td><td>192.168.14.51 (מחשבי)</td><td>IP של Ynet</td><td>לא משתנה לאורך כל הדרך</td></tr>
+    <tr><td><strong>Layer 2 (Ethernet)</strong></td><td>MAC של מחשבי</td><td>MAC של הנתב הביתי</td><td>משתנה בכל hop!</td></tr>
+  </table>
+  <div class="box green">
+    <h4>&#x1F4A1; עיקרון מרכזי</h4>
+    <p>בשכבה 2: src/dst = hop נוכחי. בשכבה 3: src/dst = נקודות הקצה הסופיות. בנתב הבא: src MAC = כרטיס הנתב, dst MAC = הנתב הבא אחריו — אבל ה-IP נשאר זהה!</p>
+  </div>
+</div>
+
+<!-- ARP -->
+<div class="card">
+  <h2>&#x1F9ED; ARP — Address Resolution Protocol</h2>
+  <p>ARP ממפה <strong>כתובת IP → כתובת MAC</strong>. נחוץ כי כדי לבנות Ethernet frame צריך MAC יעד, לא רק IP.</p>
+
+  <div class="arp-flow">
+    <div class="arp-msg arp-req">
+      <span class="arp-who">מחשב A</span>
+      <span class="arp-arrow">&#x2192;</span>
+      <div class="arp-desc">
+        <strong>ARP Request</strong> — "מי יש את MAC של 10.0.0.2? תגיד ל-10.0.0.1"
+        <div class="arp-note">נשלח ל-Broadcast (ff:ff:ff:ff:ff:ff). כולם מקבלים.</div>
+      </div>
+    </div>
+    <div class="arp-msg arp-rep">
+      <span class="arp-who">מחשב B</span>
+      <span class="arp-arrow">&#x2192;</span>
+      <div class="arp-desc">
+        <strong>ARP Reply</strong> — "אני! ה-MAC שלי הוא AA:BB:CC:DD:EE:FF"
+        <div class="arp-note">נשלח Unicast ישירות למחשב A (לא Broadcast).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box purple">
+    <h4>&#x1F9E0; ARP Cache — מטמון</h4>
+    <p>מערכת ההפעלה שומרת מיפויי IP→MAC במטמון כדי לא לשאול שוב ושוב.<br>
+    <code>arp -a</code> = הצגת ה-cache.<br>
+    <code>arp -d &lt;IP&gt;</code> = מחיקת רשומה (דורש הרשאות Admin).</p>
+  </div>
+
+  <div class="box yellow">
+    <h4>&#x2753; כשיעד מחוץ ל-Subnet — למי שולחים ARP?</h4>
+    <p>אם IP היעד <strong>אינו ב-Subnet</strong> — שולחים ARP ל-Default Gateway (הנתב), לא ליעד הסופי. הנתב מטפל מכאן.</p>
+  </div>
+</div>
+
+<!-- Hub vs Switch -->
+<div class="card">
+  <h2>&#x1F4E1; Hub לעומת Switch</h2>
+  <div class="cmp">
+    <div class="cmp-card cmp-hub">
+      <h4 style="color:#784212;">Hub — שכבה 1 (פיזית)</h4>
+      <p>&#x2022; לא מכיר MAC, לא מבין Ethernet</p>
+      <p>&#x2022; מעביר כל מסגרת לכל הפורטים (חוץ ממקור)</p>
+      <p>&#x2022; בעיות: פרטיות, עומס, התנגשויות</p>
+      <p>&#x2022; כרטיס הרשת של כל מחשב בודק בעצמו אם המסגרת מיועדת אליו</p>
+    </div>
+    <div class="cmp-card cmp-sw">
+      <h4 style="color:#145a32;">Switch — שכבה 2 (קו)</h4>
+      <p>&#x2022; מכיר MAC, יכול לחשב Checksum</p>
+      <p>&#x2022; שולח כל מסגרת רק לפורט הנכון</p>
+      <p>&#x2022; לומד בזמן ריצה: בונה טבלת MAC→Port</p>
+      <p>&#x2022; Switch חדש = לא יודע → מתנהג כ-Hub (Flooding)</p>
+    </div>
+  </div>
+
+  <h3>כיצד Switch לומד — טבלת MAC</h3>
+  <div class="box">
+    <h4>&#x1F4CB; תהליך הלמידה</h4>
+    <ol>
+      <li>A שולח ל-B (Switch לא מכיר B) → שולח לכל הפורטים (Flooding)</li>
+      <li>Switch לומד: כתובת MAC של A → Port 1</li>
+      <li>B שולח ל-A → Switch מכיר A → שולח רק לPort 1</li>
+      <li>Switch לומד: MAC של B → Port 8</li>
+      <li>מעתה: כל מסגרת ל-A → רק Port 1, ל-B → רק Port 8</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Scapy Layer 2 -->
+<div class="card">
+  <h2>&#x1F4BB; Scapy — שכבה 2</h2>
+  <div class="row2">
+    <div class="col">
+      <h4>send() לעומת sendp()</h4>
+      <p><code>send()</code> = Layer 3. Scapy בונה Ethernet לבד.</p>
+      <p><code>sendp()</code> = Layer 2. אנחנו שולטים ב-Ethernet.</p>
+      <pre style="font-size:12px;"><span class="cm"># Layer 3 — Scapy ממלא MAC אוטומטי</span>
+<span class="fn">send</span>(<span class="fn">IP</span>(dst=<span class="st">'google.com'</span>)/<span class="fn">ICMP</span>())
+
+<span class="cm"># Layer 2 — שליטה מלאה</span>
+pkt = <span class="fn">Ether</span>() / <span class="fn">IP</span>(dst=<span class="st">'google.com'</span>) / <span class="fn">ICMP</span>()
+<span class="fn">sendp</span>(pkt)</pre>
+    </div>
+    <div class="col">
+      <h4>סינון לפי MAC</h4>
+      <pre style="font-size:12px;">MY_MAC = <span class="st">'d4:be:d9:d6:0c:2a'</span>
+
+<span class="kw">def</span> <span class="fn">filter_mac</span>(frame):
+    <span class="kw">return</span> (Ether <span class="kw">in</span> frame <span class="kw">and</span>
+            frame[Ether].dst == MY_MAC)
+
+sniff(count=<span class="nu">10</span>,
+      lfilter=filter_mac,
+      prn=<span class="kw">lambda</span> f: <span class="kw">print</span>(f[Ether].src))</pre>
+    </div>
+  </div>
+</div>
+
+<!-- סיכום כלים -->
+<div class="card">
+  <h2>&#x1F6E0; כלים בפרק זה</h2>
+  <table class="tbl">
+    <tr><th>כלי</th><th>תפקיד</th><th>דוגמה</th></tr>
+    <tr><td><code>ipconfig /all</code></td><td>כתובת MAC + IP של כרטיסי רשת</td><td><code>ipconfig /all</code></td></tr>
+    <tr><td><code>arp -a</code></td><td>הצגת ARP Cache</td><td><code>arp -a</code></td></tr>
+    <tr><td><code>arp -d &lt;IP&gt;</code></td><td>מחיקת רשומת ARP</td><td><code>arp -d 192.168.1.1</code></td></tr>
+    <tr><td>Scapy <code>Ether</code></td><td>גישה לשכבת Ethernet</td><td><code>frame[Ether].src</code></td></tr>
+    <tr><td>Scapy <code>sendp</code></td><td>שליחה ב-Layer 2</td><td><code>sendp(Ether()/IP()/ICMP())</code></td></tr>
+  </table>
+</div>
+
+</div>
+</body>
+</html>

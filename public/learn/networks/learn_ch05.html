@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 5 – Scapy</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;background:#eef8fc;padding:20px;color:#1a1a2e;line-height:1.7;}
+.wrap{max-width:1000px;margin:auto;}
+.card{background:#fff;padding:24px 28px;border-radius:20px;margin-bottom:18px;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.card h1{margin:0 0 6px;font-size:26px;color:#0f1d2a;}
+.card h2{margin:0 0 14px;font-size:20px;color:#0a3d62;border-bottom:2px solid #d4eaf7;padding-bottom:8px;}
+.card h3{margin:10px 0 6px;font-size:16px;color:#154360;}
+.card p{margin:0 0 12px;}
+pre{background:#0f1d2a;color:#f0f0f0;padding:16px;border-radius:12px;overflow-x:auto;font-size:13px;line-height:1.8;direction:ltr;text-align:left;margin:10px 0;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.cm{color:#6272a4;}.va{color:#8be9fd;}.nu{color:#bd93f9;}
+.box{border:1px solid #b3d7ee;padding:14px 18px;border-radius:12px;margin:12px 0;background:#f0f9ff;}
+.box.green{border-color:#a8d8a8;background:#f0fff4;}
+.box.yellow{border-color:#f5cba7;background:#fef9f0;}
+.box.red{border-color:#f5b7b1;background:#fff5f5;}
+.box h4{margin:0 0 6px;font-size:14px;color:#0a3d62;}
+.box.green h4{color:#145a32;}
+.box.yellow h4{color:#784212;}
+.box.red h4{color:#7b241c;}
+.box p{margin:0;font-size:14px;color:#333;}
+.tag{display:inline-block;background:#d4eaf7;color:#0a3d62;font-size:12px;font-weight:700;padding:2px 10px;border-radius:20px;margin-left:6px;}
+.tag.g{background:#d5f5e3;color:#145a32;}
+.tag.y{background:#fdebd0;color:#784212;}
+.method-row{display:flex;gap:16px;margin:12px 0;flex-wrap:wrap;}
+.method-card{flex:1;min-width:220px;border:1px solid #d0d0d0;border-radius:12px;padding:14px;background:#fafafa;}
+.method-card h4{margin:0 0 8px;font-size:15px;color:#0a3d62;}
+.method-card p{margin:0;font-size:13px;color:#555;}
+.flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;margin:12px 0;gap:4px;}
+.flow-item{background:#0a3d62;color:#fff;padding:8px 14px;border-radius:8px;font-size:13px;font-weight:700;text-align:center;}
+.flow-arrow{font-size:18px;color:#999;padding:0 4px;}
+table.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;}
+.tbl th{background:#0a3d62;color:#fff;padding:10px 14px;text-align:right;}
+.tbl td{padding:9px 14px;border:1px solid #cce;vertical-align:top;}
+.tbl tr:nth-child(even) td{background:#f4f9ff;}
+code{background:#e8f4fd;padding:1px 6px;border-radius:4px;font-family:monospace;font-size:13px;color:#0a3d62;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="card">
+  <h1>&#x1F4E1; פרק 5 – Scapy</h1>
+  <p style="color:#555;margin:0;">ספריית Python לבניית פקטות &middot; הסנפה &middot; שליחה &middot; ניתוח שכבות</p>
+</div>
+
+<div class="card">
+  <h2>מה זה Scapy ולמה צריך אותו?</h2>
+  <p>בפרק 2 למדנו Sockets — לתקשורת ברמת שכבת האפליקציה. Scapy מאפשרת לעבוד <strong>ברמות נמוכות יותר</strong>: לבנות פקטות IP, TCP, Ethernet, לשלוח אותן, ולהסניף ולנתח פקטות ברשת.</p>
+  <div class="method-row">
+    <div class="method-card"><h4>&#x1F50D; הסנפה</h4><p>לתפוס פקטות מהרשת ולעבד אותן בקוד Python</p></div>
+    <div class="method-card"><h4>&#x1F6E0; בניית פקטות</h4><p>לבנות פקטות מדויקות עם שליטה על כל שדה</p></div>
+    <div class="method-card"><h4>&#x1F4E4; שליחה</h4><p>לשלוח פקטות ולקבל תגובות מהרשת</p></div>
+    <div class="method-card"><h4>&#x1F9EA; ניתוח</h4><p>לקרוא ולשנות שדות בכל שכבה של פקטה</p></div>
+  </div>
+  <div class="box yellow">
+    <h4>&#x26A0; שימו לב</h4>
+    <p>Scapy מיובאת בקובץ py כך: <code>from scapy.all import *</code></p>
+  </div>
+</div>
+
+<div class="card">
+  <h2>&#x1F50D; הסנפה עם sniff()</h2>
+  <p>הפונקציה <code>sniff()</code> היא הכלי המרכזי להסנפה. היא <strong>blocking</strong> — לא תחזור עד שיתפסו מספיק פקטות.</p>
+  <pre><span class="cm"># הסנפה פשוטה — 2 פקטות</span>
+packets = <span class="fn">sniff</span>(count=<span class="nu">2</span>)
+packets.summary()
+
+<span class="cm"># הסנפה עם filter — רק DNS</span>
+<span class="kw">def</span> <span class="fn">filter_dns</span>(packet):
+    <span class="kw">return</span> DNS <span class="kw">in</span> packet <span class="kw">and</span> packet[DNS].opcode == <span class="nu">0</span>
+
+<span class="cm"># הסנפה עם prn — פעולה על כל פקטה</span>
+<span class="kw">def</span> <span class="fn">print_query</span>(pkt):
+    <span class="kw">print</span> pkt[DNSQR].qname
+
+sniff(count=<span class="nu">10</span>, lfilter=filter_dns, prn=print_query)</pre>
+
+  <table class="tbl">
+    <tr><th>פרמטר</th><th>תפקיד</th><th>דוגמה</th></tr>
+    <tr><td><code>count</code></td><td>כמה פקטות לתפוס</td><td><code>count=10</code></td></tr>
+    <tr><td><code>lfilter</code></td><td>פונקציה לסינון — מחזירה True/False</td><td><code>lfilter=filter_dns</code></td></tr>
+    <tr><td><code>prn</code></td><td>פונקציה לביצוע על כל פקטה שעברה</td><td><code>prn=print_query</code></td></tr>
+    <tr><td><code>iface</code></td><td>ממשק רשת ספציפי</td><td><code>iface="eth0"</code></td></tr>
+  </table>
+  <div class="box green">
+    <h4>&#x1F4A1; שרשרת sniff — תרגיל 5.1</h4>
+    <p>כל פקטה עוברת: lfilter (האם רלוונטית?) → אם כן → prn (מה לעשות איתה?)</p>
+  </div>
+</div>
+
+<div class="card">
+  <h2>&#x1F50E; גישה לשכבות ושדות בפקטה</h2>
+  <pre><span class="cm"># בדיקה האם שכבה קיימת</span>
+<span class="kw">if</span> DNS <span class="kw">in</span> packet:
+    ...
+
+<span class="cm"># גישה לשכבה ספציפית</span>
+packet[DNS]        <span class="cm"># שכבת DNS</span>
+packet[IP]         <span class="cm"># שכבת IP</span>
+packet[TCP]        <span class="cm"># שכבת TCP</span>
+packet[Raw]        <span class="cm"># מידע גולמי</span>
+
+<span class="cm"># גישה לשדה ספציפי</span>
+packet[DNS].opcode     <span class="cm"># 0 = Query, 1 = Response</span>
+packet[DNSQR].qname    <span class="cm"># שם הדומיין</span>
+packet[DNSQR].qtype    <span class="cm"># 1 = A record</span>
+packet[IP].src         <span class="cm"># כתובת מקור</span>
+packet[IP].dst         <span class="cm"># כתובת יעד</span>
+packet[IP].ttl         <span class="cm"># TTL</span>
+
+<span class="cm"># הצגה מלאה</span>
+packet.show()          <span class="cm"># פירוט כל שכבה</span>
+packet.summary()       <span class="cm"># שורה קצרה</span></pre>
+  <div class="box">
+    <h4>&#x2139; show() לעומת הצגה ישירה</h4>
+    <p>כשכותבים <code>packet[DNS]</code> מקבלים ייצוג. <code>show()</code> מסביר את המשמעות (כמו Wireshark). לגישה לערך: <code>packet[DNS].opcode</code> מחזיר 0 (לא "QUERY").</p>
+  </div>
+</div>
+
+<div class="card">
+  <h2>&#x1F6E0; בניית פקטות</h2>
+  <p>Scapy ממלא שדות ריקים <strong>אוטומטית</strong> בערכים הגיוניים (TTL=64, version=4, checksum וכו'). אנחנו מגדירים רק מה שרוצים לשנות.</p>
+
+  <pre><span class="cm"># פקטה IP בסיסית</span>
+my_pkt = <span class="fn">IP</span>()
+my_pkt.show()         <span class="cm"># Scapy ממלא הכל</span>
+
+<span class="cm"># פקטה עם שדות מוגדרים</span>
+my_pkt = <span class="fn">IP</span>(dst=<span class="st">'10.1.1.1'</span>, ttl=<span class="nu">5</span>)
+
+<span class="cm"># Resolving — Scapy מבצע DNS אוטומטי</span>
+my_pkt = <span class="fn">IP</span>(dst=<span class="st">'www.google.com'</span>)
+
+<span class="cm"># גישה לשדה</span>
+my_pkt.src    <span class="cm"># '127.0.0.1'</span>
+my_pkt.dst    <span class="cm"># 'www.google.com'</span>
+
+<span class="cm"># שינוי שדה</span>
+my_pkt.dst = <span class="st">'8.8.8.8'</span></pre>
+
+  <div class="box green">
+    <h4>&#x1F4A1; Scapy מציג רק שדות ששונו</h4>
+    <p>כשמדפיסים <code>my_pkt</code> (ללא show), Scapy מציג רק שדות שונים מברירת מחדל. זה עוזר לראות בדיוק מה שינינו.</p>
+  </div>
+</div>
+
+<div class="card">
+  <h2>&#x1F9F1; שכבות — אופרטור /</h2>
+  <p>מחברים שכבות עם <strong>/</strong>. זה מייצג Encapsulation — שכבה מעל שכבה.</p>
+  <pre><span class="cm"># IP + TCP</span>
+my_pkt = <span class="fn">IP</span>() / <span class="fn">TCP</span>()
+
+<span class="cm"># Ethernet + IP + TCP</span>
+my_pkt = <span class="fn">Ether</span>() / <span class="fn">IP</span>() / <span class="fn">TCP</span>()
+
+<span class="cm"># Ethernet + IP + TCP + HTTP (Raw)</span>
+my_pkt = <span class="fn">Ether</span>() / <span class="fn">IP</span>(dst=<span class="st">'1.2.3.4'</span>) / <span class="fn">TCP</span>(dport=<span class="nu">80</span>) / <span class="fn">Raw</span>(<span class="st">"GET / HTTP/1.0\r\n\r\n"</span>)
+
+<span class="cm"># IP + TCP עם פרמטרים</span>
+my_pkt = <span class="fn">Ether</span>() / <span class="fn">IP</span>(dst=<span class="st">'1.2.3.4'</span>, ttl=<span class="nu">10</span>) / <span class="fn">TCP</span>(dport=<span class="nu">80</span>)</pre>
+
+  <div class="method-row">
+    <div class="method-card"><h4>Layer 2 — Ether()</h4><p>שכבת הקו. כתובות MAC.</p></div>
+    <div class="method-card"><h4>Layer 3 — IP()</h4><p>שכבת הרשת. כתובות IP, TTL.</p></div>
+    <div class="method-card"><h4>Layer 4 — TCP() / UDP()</h4><p>שכבת תעבורה. פורטים.</p></div>
+    <div class="method-card"><h4>Raw()</h4><p>תוכן גולמי (Payload). HTTP וכו'.</p></div>
+  </div>
+</div>
+
+<div class="card">
+  <h2>&#x1F4E4; שליחת פקטות</h2>
+  <pre><span class="cm"># שליחה ב-Layer 3 (OS מוסיף Layer 2)</span>
+<span class="fn">send</span>(my_pkt)          <span class="cm"># שלח, לא מחכה לתגובה</span>
+
+<span class="cm"># שליחה + קבלת תגובה ב-Layer 3</span>
+answered, unanswered = <span class="fn">sr</span>(my_pkt)
+ans = <span class="fn">sr1</span>(my_pkt)      <span class="cm"># רק תגובה ראשונה</span>
+
+<span class="cm"># שליחה ב-Layer 2 (שליטה מלאה)</span>
+<span class="fn">sendp</span>(my_pkt)         <span class="cm"># כולל Ethernet header</span></pre>
+
+  <table class="tbl">
+    <tr><th>פונקציה</th><th>שכבה</th><th>מחכה לתגובה?</th></tr>
+    <tr><td><code>send()</code></td><td>Layer 3</td><td>לא</td></tr>
+    <tr><td><code>sr()</code></td><td>Layer 3</td><td>כן — (answered, unanswered)</td></tr>
+    <tr><td><code>sr1()</code></td><td>Layer 3</td><td>כן — תגובה ראשונה בלבד</td></tr>
+    <tr><td><code>sendp()</code></td><td>Layer 2</td><td>לא</td></tr>
+    <tr><td><code>srp()</code></td><td>Layer 2</td><td>כן</td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2>&#x1F4CB; תרגיל 5.1 — הסנפת DNS</h2>
+  <p>המטרה: הדפסת כל שאילתות DNS (סוג A) בזמן גלישה.</p>
+  <pre><span class="kw">from</span> scapy.all <span class="kw">import</span> *
+
+<span class="kw">def</span> <span class="fn">filter_dns</span>(packet):
+    <span class="kw">return</span> (DNS <span class="kw">in</span> packet <span class="kw">and</span>
+            packet[DNS].opcode == <span class="nu">0</span> <span class="kw">and</span>    <span class="cm"># Query</span>
+            packet[DNSQR].qtype == <span class="nu">1</span>)         <span class="cm"># A record</span>
+
+<span class="kw">def</span> <span class="fn">print_query_name</span>(pkt):
+    <span class="kw">print</span> pkt[DNSQR].qname
+
+sniff(count=<span class="nu">10</span>, lfilter=filter_dns, prn=print_query_name)</pre>
+  <div class="box green">
+    <h4>&#x1F4A1; שרשרת הפעולות</h4>
+    <p>1. ipconfig /flushdns — לנקות מטמון DNS<br>
+    2. הרץ sniff<br>
+    3. גלוש בדפדפן<br>
+    4. תראה כל שאילתת DNS מודפסת אוטומטית</p>
+  </div>
+</div>
+
+<div class="card">
+  <h2>&#x1F4CB; תרגיל 5.2 — הסנפת HTTP GET</h2>
+  <p>Scapy לא מכיר HTTP — מתייחס אליו כ-Raw. מסננים לפי תחילת המחרוזת.</p>
+  <pre><span class="kw">def</span> <span class="fn">http_get_filter</span>(packet):
+    <span class="kw">return</span> (TCP <span class="kw">in</span> packet <span class="kw">and</span>
+            Raw <span class="kw">in</span> packet <span class="kw">and</span>
+            <span class="fn">str</span>(packet[Raw]).<span class="fn">startswith</span>(<span class="st">'GET'</span>))
+
+<span class="kw">def</span> <span class="fn">print_url</span>(pkt):
+    data = <span class="fn">str</span>(pkt[Raw])
+    <span class="cm"># מחלץ URL מתוך בקשת GET</span>
+    <span class="kw">print</span> data.<span class="fn">split</span>(<span class="st">'\r\n'</span>)[<span class="nu">0</span>]
+
+sniff(count=<span class="nu">20</span>, lfilter=http_get_filter, prn=print_url)</pre>
+  <div class="box yellow">
+    <h4>&#x26A0; למה לא HTTP in packet?</h4>
+    <p>Scapy אינו מכיר HTTP כשכבה רשמית — כל תוכן HTTP מופיע כ-<code>Raw</code>. לכן מסננים לפי TCP + Raw + startswith('GET').</p>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 8 – מעבדה Pro | שכבת הקו</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Heebo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0e1a;--surf:#111827;--surf2:#1a2235;--brd:#1e2d45;--ac:#00d4ff;--ac2:#7c3aed;--gr:#10b981;--rd:#ef4444;--yw:#f59e0b;--tx:#e2e8f0;--mt:#64748b;--mono:'IBM Plex Mono',monospace;--sans:'Heebo',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,212,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrap{max-width:900px;margin:0 auto;padding:32px 20px 60px;position:relative;z-index:1;}
+.hdr{margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--brd);}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.badge{background:linear-gradient(135deg,var(--ac2),#4f46e5);color:#fff;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:2px;padding:4px 10px;border-radius:4px;}
+.ch{font-family:var(--mono);font-size:12px;color:var(--ac);}
+.title{font-size:26px;font-weight:900;color:#fff;line-height:1.2;}
+.sub{font-size:14px;color:var(--mt);margin-top:4px;}
+.prog{background:var(--surf);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;margin-bottom:32px;display:flex;align-items:center;gap:20px;}
+.pl{font-family:var(--mono);font-size:12px;color:var(--mt);}
+.pb{flex:1;height:6px;background:var(--brd);border-radius:99px;overflow:hidden;}
+.pf{height:100%;background:linear-gradient(90deg,var(--ac2),var(--ac));border-radius:99px;transition:width .5s;width:0%;}
+.ps{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ac);}
+.card{background:var(--surf);border:1px solid var(--brd);border-radius:16px;overflow:hidden;}
+.ch2{background:var(--surf2);border-bottom:1px solid var(--brd);padding:16px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.qn{font-family:var(--mono);font-size:11px;color:var(--mt);}
+.qc{font-family:var(--mono);font-size:11px;color:var(--ac);background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.2);padding:2px 8px;border-radius:4px;}
+.body{padding:28px 24px 20px;}
+.snip{background:#0d1117;border:1px solid var(--brd);border-radius:8px;padding:14px 18px;margin-bottom:22px;font-family:var(--mono);font-size:13px;line-height:1.9;overflow-x:auto;direction:ltr;text-align:left;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.nu{color:#bd93f9;}.va{color:#8be9fd;}.cm{color:#6272a4;}.yw{color:#f59e0b;}.gr2{color:#50fa7b;}.rd2{color:#ff5555;}
+/* Frame diagram in snip */
+.frm{display:flex;gap:2px;margin:6px 0;flex-wrap:nowrap;}
+.fb{padding:7px 8px;border-radius:4px;font-family:var(--mono);font-size:11px;text-align:center;font-weight:700;white-space:nowrap;}
+.fb1{background:rgba(124,58,237,.2);color:#a78bfa;}
+.fb2{background:rgba(239,68,68,.2);color:#ff5555;}
+.fb3{background:rgba(16,185,129,.2);color:#10b981;}
+.fb4{background:rgba(0,212,255,.2);color:#00d4ff;}
+.fb5{background:rgba(245,158,11,.2);color:#f59e0b;}
+.fb6{background:rgba(100,116,139,.2);color:#94a3b8;}
+/* MAC diagram */
+.mac-d{display:flex;gap:2px;margin:6px 0;}
+.mb{flex:1;padding:7px 4px;border-radius:6px;text-align:center;font-family:var(--mono);font-weight:700;font-size:13px;}
+.mv{background:rgba(239,68,68,.2);color:#ff5555;}
+.mh{background:rgba(16,185,129,.2);color:#10b981;}
+.qt{font-size:18px;font-weight:600;color:#fff;line-height:1.5;margin-bottom:28px;}
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{background:var(--bg);border:1px solid var(--brd);border-radius:10px;padding:14px 18px;cursor:pointer;text-align:right;display:flex;align-items:center;gap:12px;width:100%;font-family:var(--sans);font-size:15px;color:var(--tx);transition:all .15s;}
+.opt:hover{border-color:var(--ac);background:rgba(0,212,255,.04);color:#fff;}
+.opt.done{cursor:default;pointer-events:none;}
+.opt.correct{border-color:var(--gr);background:rgba(16,185,129,.1);color:#fff;}
+.opt.correct .lb{color:var(--gr);}
+.opt.wrong{border-color:var(--rd);background:rgba(239,68,68,.08);color:var(--mt);}
+.opt.wrong .lb{color:var(--rd);}
+.opt.show{border-color:rgba(16,185,129,.4);background:rgba(16,185,129,.05);}
+.lb{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--mt);min-width:20px;text-align:center;flex-shrink:0;}
+.ot{flex:1;text-align:right;}
+.ic{font-size:16px;min-width:20px;text-align:center;flex-shrink:0;}
+.exp{margin:20px 0 0;padding:16px 18px;border-radius:10px;border-right:3px solid var(--gr);background:rgba(16,185,129,.06);display:none;}
+.exp.bad{border-color:var(--rd);background:rgba(239,68,68,.06);}
+.et{font-family:var(--mono);font-size:11px;color:var(--gr);margin-bottom:6px;text-transform:uppercase;}
+.exp.bad .et{color:var(--rd);}
+.eb{font-size:14px;color:#94a3b8;line-height:1.8;}
+.foot{padding:20px 24px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;}
+.btn{background:transparent;border:1px solid var(--brd);color:var(--mt);padding:10px 20px;border-radius:8px;font-family:var(--sans);font-size:14px;cursor:pointer;transition:all .15s;}
+.btn:hover:not(:disabled){border-color:var(--ac);color:var(--ac);}
+.btn:disabled{opacity:.3;cursor:default;}
+.btn.pri{background:linear-gradient(135deg,var(--ac2),#4f46e5);border-color:transparent;color:#fff;font-weight:600;}
+.btn.pri:hover{opacity:.9;}
+.res{display:none;text-align:center;padding:60px 24px;}
+.ring{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;}
+.ring::after{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--surf);}
+.rn{font-family:var(--mono);font-size:36px;font-weight:600;color:#fff;position:relative;z-index:1;}
+.rt2{font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;}
+.rs{font-size:15px;color:var(--mt);margin-bottom:32px;}
+.bks{display:flex;gap:20px;justify-content:center;margin-bottom:36px;flex-wrap:wrap;}
+.bk{background:var(--surf2);border:1px solid var(--brd);border-radius:10px;padding:14px 24px;text-align:center;}
+.bv{font-family:var(--mono);font-size:22px;font-weight:600;color:#fff;}
+.bl{font-size:12px;color:var(--mt);margin-top:2px;}
+.rbtn{background:linear-gradient(135deg,var(--ac2),#4f46e5);border:none;color:#fff;padding:14px 36px;border-radius:10px;font-family:var(--sans);font-size:16px;font-weight:600;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div class="row"><span class="badge">PRO LAB</span><span class="ch">פרק 8 מתוך 12</span></div>
+    <div class="title">שכבת הקו</div>
+    <div class="sub">15 שאלות &middot; MAC &middot; Ethernet Frame &middot; ARP &middot; Hub vs Switch &middot; Layer 2 vs 3 &middot; Scapy</div>
+  </div>
+  <div class="prog">
+    <span class="pl">התקדמות</span>
+    <div class="pb"><div class="pf" id="pf"></div></div>
+    <span class="ps" id="ps">0 / 15</span>
+  </div>
+  <div class="card" id="card">
+    <div class="ch2"><span class="qn" id="qn">שאלה 1</span><span class="qc" id="qc"></span></div>
+    <div class="body">
+      <div id="snip"></div>
+      <div class="qt" id="qt"></div>
+      <div class="opts" id="opts"></div>
+      <div class="exp" id="exp"><div class="et" id="et"></div><div class="eb" id="eb"></div></div>
+    </div>
+    <div class="foot">
+      <button class="btn" id="prev" onclick="go(-1)" disabled>&#x2192; הקודם</button>
+      <button class="btn pri" id="next" onclick="go(1)" disabled>הבא &#x2190;</button>
+    </div>
+  </div>
+  <div class="res" id="res">
+    <div class="ring" id="ring"><span class="rn" id="rpct">0%</span></div>
+    <div class="rt2" id="rt"></div><div class="rs" id="rs"></div>
+    <div class="bks">
+      <div class="bk"><div class="bv" id="rok" style="color:var(--gr)"></div><div class="bl">נכון</div></div>
+      <div class="bk"><div class="bv" id="rbd" style="color:var(--rd)"></div><div class="bl">שגוי</div></div>
+      <div class="bk"><div class="bv" id="rtt" style="color:var(--ac)"></div><div class="bl">סהכ</div></div>
+    </div>
+    <button class="rbtn" onclick="restart()">התחל מחדש</button>
+  </div>
+</div>
+<script>
+var Q = [
+  {
+    cat: "שכבת הקו",
+    sn: null,
+    q: "מה ההבדל בין תפקיד שכבת הקו לבין שכבת הרשת?",
+    a: [
+      "שכבת הקו = תקשורת בין ישויות מחוברות ישירות (hop אחד). שכבת הרשת = מסלול מלא מקצה לקצה",
+      "שכבת הקו = מהירה יותר. שכבת הרשת = אמינה יותר",
+      "שכבת הקו = TCP. שכבת הרשת = UDP",
+      "הן זהות, רק שמות שונים"
+    ],
+    c: 0,
+    e: "בפרק: שכבת הקו אחראית על hop אחד בלבד — בין ישויות מחוברות ישירות. שכבת הרשת מתמודדת עם המסלול המלא. ב-Waze: Layer 3 = קביעת המסלול, Layer 2 = הוראות לנהג (לחץ גז, אותת, עצור ברמזור)."
+  },
+  {
+    cat: "MAC Address",
+    sn: '<div class="mac-d"><div class="mb mv">D4</div><div class="mb mv">BE</div><div class="mb mv">D9</div><div class="mb mh">D6</div><div class="mb mh">0C</div><div class="mb mh">2A</div></div><div style="font-size:11px;color:#6272a4;margin-top:3px;">אדום = Vendor ID | ירוק = Host ID</div>',
+    q: "מה ההבדל בין כתובת MAC לכתובת IP? מה כל אחת מייצגת?",
+    a: [
+      "MAC = פיזית, 6 bytes, צרובה על כרטיס הרשת, ייחודית בעולם. IP = לוגית, 4 bytes, ניתנת לשינוי, ניתנת ע\"י הרשת",
+      "MAC = לשכבת התעבורה, IP = לשכבת הרשת. הן שוות בגודל",
+      "MAC = תמיד משתנה. IP = תמיד קבועה",
+      "MAC = לזיהוי יצרן בלבד, IP = לזיהוי מחשב"
+    ],
+    c: 0,
+    e: "בפרק: MAC = Media Access Control. צרובה על כרטיס הרשת, 6 bytes, אמורה להיות ייחודית בעולם, לא משתנה (בדרך כלל). IP = כתובת לוגית שמוקצית ע\"י הרשת (DHCP או ידנית), 4 bytes, יכולה להשתנות."
+  },
+  {
+    cat: "MAC Address",
+    sn: '<span class="gr2">D4:BE:D9:D6:0C:2A</span>  ← כרטיס רשת מחשב\n<span class="gr2">D4:BE:D9:11:22:33</span>  ← כרטיס רשת נתב',
+    q: "מה ניתן להסיק מ-3 הbytes הראשונים הזהים D4:BE:D9?",
+    a: [
+      "שני הכרטיסים יוצרו ע\"י אותו יצרן (Vendor ID זהה). D4:BE:D9 = Dell",
+      "הם נמצאים באותה רשת",
+      "הם חולקים את אותו כתובת IP",
+      "הם מחוברים לאותו Switch"
+    ],
+    c: 0,
+    e: "בפרק: 3 bytes ראשונים = OUI = Vendor ID = מזהה יצרן. D4:BE:D9 שייך ל-Dell. אפשר לבדוק ב-coffer.com/mac_find. לכל יצרן יש OUI אחד ויותר. 3 bytes אחרונים = Host ID = מזהה כרטיס ספציפי."
+  },
+  {
+    cat: "Ethernet Frame",
+    sn: '<div class="frm"><div class="fb fb1">Preamble 8B</div><div class="fb fb2">Dst MAC 6B</div><div class="fb fb3">Src MAC 6B</div><div class="fb fb4">Type 2B</div><div class="fb fb5">Data 46-1500B</div><div class="fb fb6">CRC32 4B</div></div>',
+    q: "מה תפקיד שדה Type? מה הערך 0x0800 מציין?",
+    a: [
+      "Type מציין מהו פרוטוקול ה-Data שמכיל המסגרת. 0x0800 = IP (כרטיס הרשת מפנה ל-IP stack)",
+      "Type = גודל ה-Data. 0x0800 = 2048 bytes",
+      "Type = מספר השגיאות שנמצאו. 0x0800 = ללא שגיאות",
+      "Type = גרסת Ethernet. 0x0800 = Ethernet II"
+    ],
+    c: 0,
+    e: "בפרק: Type מציין סוג ה-Data. 0x0800 = IP, 0x0806 = ARP. הכרטיס קורא Type ומחליט לאן להפנות: 0x0800 → IP stack. כך כרטיס Layer 2 יכול להעביר מידע ל-Layer 3 בלי לדעת מה יש בפנים."
+  },
+  {
+    cat: "Ethernet Frame",
+    sn: '<div class="frm"><div class="fb fb1">Preamble</div><div class="fb fb2">Dst MAC</div><div class="fb fb3">Src MAC</div><div class="fb fb4">Type</div><div class="fb fb5">Data</div><div class="fb fb6">CRC32</div></div>',
+    q: "למה Preamble ו-CRC32 לא מופיעים ב-Wireshark?",
+    a: [
+      "Preamble מטופל ע\"י כרטיס הרשת לפני Wireshark. CRC32 נבדק ואם תקין — מוסר ע\"י הכרטיס לפני שהתוכנה רואה",
+      "הם לא חלק מהמסגרת, Wireshark מוסיף אותם בעצמו",
+      "Wireshark מסתיר אותם לאבטחה",
+      "הם קיימים רק ב-TCP, לא ב-Ethernet"
+    ],
+    c: 0,
+    e: "בפרק: Preamble = 8 bytes של סנכרון. כרטיס הרשת מזהה אותו ומסיר אותו לפני שהמסגרת מגיעה לתוכנה. CRC32 = Checksum. כרטיס הרשת מאמת — אם תקין: מסיר ומעביר הלאה. אם פגום: זורק. Wireshark רואה רק מה שנשאר."
+  },
+  {
+    cat: "Layer 2 vs 3",
+    sn: '<span class="cm">-- בקשת HTTP: מחשב → נתב ביתי → Ynet --</span>\n<span class="yw">Layer 3 (IP):</span>\n  src: 192.168.14.51  dst: IP של Ynet\n\n<span class="gr2">Layer 2 (Ethernet):</span>\n  src: MAC של מחשבי   dst: MAC של ?',
+    q: "מה כתובת ה-MAC של היעד בשכבה 2 כשהמחשב שולח ל-Ynet? ולמה זו לא כתובת MAC של Ynet?",
+    a: [
+      "MAC של הנתב הביתי — כי שכבה 2 מתארת hop ישיר, והנתב הוא הישות הישירה הבאה, לא Ynet",
+      "MAC של Ynet — כי Layer 2 גם יודע את הכתובת הסופית",
+      "FF:FF:FF:FF:FF:FF (Broadcast) — כי לא יודעים את MAC של Ynet",
+      "00:00:00:00:00:00 — כי מחוץ לרשת המקומית"
+    ],
+    c: 0,
+    e: "בפרק: שכבה 2 = hop ישיר בלבד. מחשב לא יכול לשלוח ישירות ל-Ynet ב-Layer 2 — הם לא מחוברים ישירות. המחשב שולח לנתב הביתי. הנתב שולח לנתב הבא. בכל שלב: Layer 2 src/dst = הישויות הסמוכות. Layer 3 IP לא משתנה!"
+  },
+  {
+    cat: "ARP",
+    sn: null,
+    q: "למה צריך ARP? מדוע לא מספיקה כתובת ה-IP של היעד?",
+    a: [
+      "כדי לבנות Ethernet frame צריך MAC יעד. כרטיס הרשת לא מבין IP, רק MAC. ARP ממיר IP → MAC",
+      "ARP מוודא שהחיבור מאובטח לפני שליחה",
+      "ARP מוסיף הצפנה לפני שליחת MAC",
+      "ARP נחוץ רק עבור IPv6, ב-IPv4 לא צריך"
+    ],
+    c: 0,
+    e: "בפרק: שתי סיבות. (1) כדי לבנות Ethernet frame צריך שדה Dst MAC — ללא MAC לא ניתן לבנות מסגרת. (2) כרטיס רשת B קורא את Dst MAC ומחליט אם המסגרת מיועדת אליו — הוא לא מבין IP, רק MAC."
+  },
+  {
+    cat: "ARP",
+    sn: '<span class="va">מחשב A: 10.0.0.1</span>\n<span class="gr2">מחשב B: 10.0.0.2</span>\n<span class="yw">מחשב C: 10.0.0.3</span>\n\n<span class="cm">A שולח ARP Request</span>',
+    q: "ל-ARP Request נשלח ל-Broadcast ועונה רק ב' — מדוע שאר המחשבים לא עונים?",
+    a: [
+      "Broadcast = כולם מקבלים ובודקים. רק מחשב ב' מזהה שה-IP בשאילתא שייך לו ועונה. ג' מתעלם",
+      "Broadcast = רק מחשב ב' מקבל, Broadcast מגיע לפי IP",
+      "ג' חסום ב-Firewall מלענות ל-ARP",
+      "Switch מסנן ושולח רק למחשב ב'"
+    ],
+    c: 0,
+    e: "בפרק: ARP Request נשלח ל-Broadcast (ff:ff:ff:ff:ff:ff) = כל כרטיסי הרשת מקבלים. כל מחשב בודק: 'האם ה-IP בשאילתא שלי?' ג' רואה 10.0.0.2, בודק, מבין שזה לא שלו, מתעלם. ב' מזהה שזה שלו ועונה Unicast."
+  },
+  {
+    cat: "ARP",
+    sn: null,
+    q: "מחשב A (10.0.0.1/8) רוצה לשלוח ל-Google (3.3.3.3). ל-ARP Request ל-MAC של מי?",
+    a: [
+      "Default Gateway — כי Google לא ב-Subnet, החבילה חייבת לצאת דרך הנתב ולכן שואלים את MAC שלו",
+      "Google ישירות — ARP שואל כל כתובת IP ברשת",
+      "DNS Server — כי לא יודעים את IP של Google",
+      "לא שולחים ARP, שולחים ישירות ל-IP"
+    ],
+    c: 0,
+    e: "בפרק: אם יעד לא ב-Subnet → חבילה הולכת ל-Default Gateway. מחשב A בודק: 3.3.3.3 ב-Subnet 10.0.0.0/8? לא! (10 ≠ 3) → שולח ARP ל-IP של Default Gateway. לאחר מכן בונה Ethernet frame עם MAC של הנתב כ-Dst."
+  },
+  {
+    cat: "Hub vs Switch",
+    sn: null,
+    q: "מחשב A ב-Hub שולח מסגרת ל-B. מחשב C מחובר לאותו Hub. מה C מקבל?",
+    a: [
+      "C מקבל את המסגרת — Hub שולח הכל לכולם. כרטיס C בודק Dst MAC ומזהה שזה לא שלו — זורק",
+      "C לא מקבל כלום — Hub חכם מספיק לסנן",
+      "C מקבל רק אם שלח Broadcast",
+      "C מקבל רק אם יש לו אותו OUI כמו A"
+    ],
+    c: 0,
+    e: "בפרק: Hub = Layer 1 בלבד. לא מבין MAC. שולח כל מסגרת לכל הפורטים (חוץ ממקור). C מקבל, כרטיס הרשת של C קורא Dst MAC, מבין שלא מיועד אליו, זורק. בעיות Hub: פרטיות, עומס על הרשת, התנגשויות."
+  },
+  {
+    cat: "Switch — למידה",
+    sn: '<span class="cm">Switch חדש — טבלת MAC ריקה</span>\n\n<span class="va">A</span> (Port 1) שולח ל-<span class="gr2">B</span> (Port 8)\n<span class="yw">MAC table אחרי פעולה זו?</span>',
+    q: "מה Switch חדש עושה כשהוא לא מכיר את MAC של B? מה הוא לומד?",
+    a: [
+      "שולח לכל הפורטים (Flooding כמו Hub) כי לא מכיר B. לומד: MAC של A → Port 1",
+      "זורק את המסגרת כי אינו מכיר את B",
+      "שולח רק ל-Port 1 כי הוא היחיד שנרשם",
+      "שולח Broadcast ARP לגילוי B"
+    ],
+    c: 0,
+    e: "בפרק: Switch חדש = טבלה ריקה. לא מכיר B → Flooding (שולח לכל הפורטים חוץ מ-1). אבל: Switch לומד מה-src של המסגרת! A שלח מ-Port 1 → MAC של A ∈ Port 1. בפעם הבאה שמישהו ישלח ל-A, יעבור רק ל-Port 1."
+  },
+  {
+    cat: "Switch — למידה",
+    sn: '<span class="cm">לאחר מספר פעולות:</span>\n<span class="va">MAC table: A→P1, B→P8</span>\n\n<span class="gr2">B</span> שולח ל-<span class="va">A</span>',
+    q: "כעת ש-Switch מכיר A ב-Port 1 — מה הוא עושה כשב' שולח ל-א'?",
+    a: [
+      "שולח רק ל-Port 1 (לא Flooding) ולומד: MAC של B → Port 8",
+      "שולח לכל הפורטים כי B חדש",
+      "שולח ל-Port 1 ו-8 ביחד",
+      "שולח לכל הפורטים כי B שולח לA ולא לברoadcast"
+    ],
+    c: 0,
+    e: "בפרק: Switch בודק טבלה — מכיר A (Port 1) → שולח רק ל-Port 1. במקביל: קורא Src MAC של B → B מחובר מ-Port 8 → מוסיף לטבלה: MAC של B → Port 8. עכשיו Switch מכיר שניהם. מסגרות עתידיות → Unicast."
+  },
+  {
+    cat: "Layer 2 vs 3",
+    sn: '<span class="cm">בקשת HTTP ממחשב → Ynet</span>\n<span class="yw">Layer 3:</span>\n  src_ip: 192.168.14.51  dst_ip: 91.108.4.1\n\n<span class="gr2">Layer 2:</span>\n  src_mac: d4:be:d9:d6:0c:2a\n  dst_mac: <span class="rd2">e4:8d:8c:aa:11:22</span>  ← נתב',
+    q: "בנתב הבא בדרך, מה ישתנה בשכבה 2 ומה לא?",
+    a: [
+      "Layer 2 ישתנה: src_mac=MAC הנתב הנוכחי, dst_mac=MAC הנתב הבא. Layer 3 לא ישתנה: IP src/dst נשארים זהים",
+      "Layer 2 ו-3 ישתנו שניהם בכל נתב",
+      "Layer 2 לא ישתנה, Layer 3 ישתנה",
+      "רק dst_mac ישתנה, src_mac נשאר של המחשב המקורי"
+    ],
+    c: 0,
+    e: "בפרק: זהו עיקרון מרכזי. IP src/dst = נקודות קצה — לא משתנים לאורך כל הדרך. MAC src/dst = hop נוכחי — מתחלפים בכל נתב. כל נתב בונה Ethernet frame חדש עם src_mac שלו ו-dst_mac של הנתב הבא."
+  },
+  {
+    cat: "Scapy Layer 2",
+    sn: '<span class="cm"># שני שיטות שליחה</span>\n<span class="fn">send</span>(<span class="fn">IP</span>(dst=<span class="st">\'google.com\'</span>)/<span class="fn">ICMP</span>())\n\n<span class="fn">sendp</span>(<span class="fn">Ether</span>()/<span class="fn">IP</span>(dst=<span class="st">\'google.com\'</span>)/<span class="fn">ICMP</span>())',
+    q: "מה ההבדל בין send() לבין sendp()? מה Scapy עושה אוטומטית ב-send()?",
+    a: [
+      "send() = Layer 3, Scapy בונה Ethernet אוטומטית. sendp() = Layer 2, אנחנו שולטים ב-MAC",
+      "send() = UDP, sendp() = TCP. ההבדל הוא בפרוטוקול Transport",
+      "send() = Unicast, sendp() = Broadcast",
+      "הם זהים, sendp() הוא רק alias"
+    ],
+    c: 0,
+    e: "בפרק: send() = שולח ב-Layer 3 → Scapy בונה Ethernet אוטומטית (src=MAC שלנו, dst=MAC של נתב, type=0x0800). sendp() = שליחה ב-Layer 2, אנחנו מגדירים את Ether() עם כל השדות. שימושי כשרוצים לשנות MAC src/dst ידנית."
+  },
+  {
+    cat: "ARP Cache",
+    sn: '<span class="cm">arp -a</span>\n<span class="gr2">192.168.14.1   e4:8d:8c:aa:11:22   dynamic</span>\n<span class="va">192.168.14.55  d4:be:d9:11:22:33   dynamic</span>\n<span class="yw">192.168.14.255 ff:ff:ff:ff:ff:ff   static</span>',
+    q: "מה המשמעות של 'dynamic' לעומת 'static' ב-ARP Cache? מה הכתובת 192.168.14.255?",
+    a: [
+      "dynamic = התקבל ע\"י ARP (יכול להשתנות). static = הוכנס ידנית (לא משתנה). 192.168.14.255 = Broadcast הרשת",
+      "dynamic = זמני. static = קבוע לנצח. 192.168.14.255 = Default Gateway",
+      "dynamic = IPv6. static = IPv4. 192.168.14.255 = loopback",
+      "dynamic = מוצפן. static = לא מוצפן"
+    ],
+    c: 0,
+    e: "בפרק arp -a: dynamic = המיפוי נלמד ע\"י פרוטוקול ARP, יש לו timeout ויכול להתעדכן. static = הוכנס ידנית, לא משתנה אוטומטית. 192.168.14.255 = כתובת Broadcast של הרשת המקומית (Subnet Broadcast)."
+  }
+];
+
+var LBL = ["א","ב","ג","ד"];
+var cur = 0;
+var ans = [];
+for (var i = 0; i < Q.length; i++) { ans.push(-1); }
+
+function shuf(q) {
+  var idx = [0,1,2,3];
+  for (var i = 3; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i+1));
+    var t = idx[i]; idx[i] = idx[j]; idx[j] = t;
+  }
+  var na = [];
+  for (var k = 0; k < 4; k++) { na.push(q.a[idx[k]]); }
+  var nc = -1;
+  for (var k = 0; k < 4; k++) { if (idx[k] === q.c) { nc = k; break; } }
+  return {cat:q.cat, sn:q.sn, q:q.q, a:na, c:nc, e:q.e};
+}
+
+var SQ = [];
+for (var i = 0; i < Q.length; i++) { SQ.push(shuf(Q[i])); }
+
+function render() {
+  var q = SQ[cur];
+  document.getElementById("qn").textContent = "שאלה " + (cur+1);
+  document.getElementById("qc").textContent = q.cat;
+  var sn = document.getElementById("snip");
+  sn.innerHTML = q.sn ? '<div class="snip">' + q.sn + '</div>' : "";
+  document.getElementById("qt").textContent = q.q;
+  var oc = document.getElementById("opts");
+  oc.innerHTML = "";
+  for (var i = 0; i < 4; i++) {
+    var b = document.createElement("button");
+    b.className = "opt";
+    b.innerHTML = '<span class="lb">' + LBL[i] + '</span><span class="ot">' + q.a[i] + '</span><span class="ic"></span>';
+    b.setAttribute("data-i", i);
+    b.onclick = pick;
+    oc.appendChild(b);
+  }
+  var ex = document.getElementById("exp");
+  ex.style.display = "none"; ex.className = "exp";
+  if (ans[cur] !== -1) { showA(cur); }
+  document.getElementById("prev").disabled = (cur === 0);
+  document.getElementById("next").disabled = (ans[cur] === -1);
+  upProg();
+}
+
+function pick() {
+  if (ans[cur] !== -1) { return; }
+  var i = parseInt(this.getAttribute("data-i"));
+  ans[cur] = i; showA(cur);
+  document.getElementById("next").disabled = false;
+}
+
+function showA(idx) {
+  var q = SQ[idx]; var ch = ans[idx]; var ok = (ch === q.c);
+  var bs = document.querySelectorAll(".opt");
+  for (var i = 0; i < bs.length; i++) {
+    bs[i].className = "opt done"; bs[i].onclick = null;
+    var ic = bs[i].querySelector(".ic");
+    if (i === q.c) { bs[i].classList.add(ok ? "correct" : "show"); if (!ok) { ic.textContent = "\u2713"; } }
+    if (i === ch && !ok) { bs[i].classList.add("wrong"); ic.textContent = "\u2717"; }
+    if (i === ch && ok) { ic.textContent = "\u2713"; }
+  }
+  var ex = document.getElementById("exp");
+  document.getElementById("et").textContent = ok ? "\u2713 \u05e0\u05db\u05d5\u05df!" : "\u2717 \u05dc\u05d0 \u05d1\u05d3\u05d9\u05d5\u05e7...";
+  document.getElementById("eb").textContent = q.e;
+  ex.className = ok ? "exp" : "exp bad"; ex.style.display = "block";
+}
+
+function upProg() {
+  var n = 0;
+  for (var i = 0; i < ans.length; i++) { if (ans[i] !== -1) { n++; } }
+  document.getElementById("pf").style.width = (n / Q.length * 100) + "%";
+  document.getElementById("ps").textContent = n + " / " + Q.length;
+}
+
+function go(d) {
+  var n = cur + d;
+  if (n < 0) { return; }
+  if (n >= Q.length) { showRes(); return; }
+  cur = n; render();
+}
+
+function showRes() {
+  document.getElementById("card").style.display = "none";
+  document.getElementById("res").style.display = "block";
+  var ok = 0, bd = 0;
+  for (var i = 0; i < ans.length; i++) {
+    if (ans[i] === SQ[i].c) { ok++; } else if (ans[i] !== -1) { bd++; }
+  }
+  var pct = Math.round(ok / Q.length * 100);
+  document.getElementById("ring").style.background = "conic-gradient(var(--ac) 0%,var(--ac2) " + pct + "%,var(--brd) " + pct + "%)";
+  document.getElementById("rpct").textContent = pct + "%";
+  document.getElementById("rok").textContent = ok;
+  document.getElementById("rbd").textContent = bd;
+  document.getElementById("rtt").textContent = Q.length;
+  var t, s;
+  if (pct >= 80) { t = "\u05de\u05e6\u05d5\u05d9\u05df! \ud83c\udfaf"; s = "Ethernet \u05d1\u05e9\u05dc\u05d9\u05d8\u05d4"; }
+  else if (pct >= 60) { t = "\u05dc\u05d0 \u05e8\u05e2 \ud83d\udcaa"; s = "\u05d7\u05d6\u05d5\u05e8 \u05e2\u05dc ARP \u05d5-Switch"; }
+  else { t = "\u05d9\u05e9 \u05de\u05d4 \u05dc\u05d7\u05d6\u05e7 \ud83d\udcda"; s = "\u05e7\u05e8\u05d0 \u05e9\u05d5\u05d1 \u05d0\u05ea \u05e4\u05e8\u05e7 8"; }
+  document.getElementById("rt").textContent = t;
+  document.getElementById("rs").textContent = s;
+  upProg();
+}
+
+function restart() {
+  SQ = [];
+  for (var i = 0; i < Q.length; i++) { SQ.push(shuf(Q[i])); }
+  cur = 0; ans = [];
+  for (var i = 0; i < Q.length; i++) { ans.push(-1); }
+  document.getElementById("card").style.display = "block";
+  document.getElementById("res").style.display = "none";
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

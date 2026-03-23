@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 2 – מעבדה Pro | תכנות ב-Sockets</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Heebo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060b12;--surf:#0f1824;--surf2:#162030;--brd:#1e2d45;--ac:#50fa7b;--ac2:#7c3aed;--gr:#50fa7b;--rd:#ff5555;--yw:#f1fa8c;--tx:#e2e8f0;--mt:#64748b;--mono:'IBM Plex Mono',monospace;--sans:'Heebo',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(80,250,123,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(80,250,123,.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.wrap{max-width:900px;margin:0 auto;padding:32px 20px 60px;position:relative;z-index:1;}
+.hdr{margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid var(--brd);}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+.badge{background:linear-gradient(135deg,var(--ac2),#4f46e5);color:#fff;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:2px;padding:4px 10px;border-radius:4px;}
+.badge2{background:rgba(80,250,123,.12);color:var(--ac);border:1px solid rgba(80,250,123,.3);font-family:var(--mono);font-size:10px;font-weight:700;padding:4px 10px;border-radius:4px;}
+.ch{font-family:var(--mono);font-size:12px;color:var(--ac);}
+.title{font-size:26px;font-weight:900;color:#fff;}
+.sub{font-size:14px;color:var(--mt);margin-top:4px;}
+.prog{background:var(--surf);border:1px solid var(--brd);border-radius:12px;padding:16px 20px;margin-bottom:32px;display:flex;align-items:center;gap:20px;}
+.pl{font-family:var(--mono);font-size:12px;color:var(--mt);}
+.pb{flex:1;height:6px;background:var(--brd);border-radius:99px;overflow:hidden;}
+.pf{height:100%;background:linear-gradient(90deg,var(--ac),#06b6d4);border-radius:99px;transition:width .5s;width:0%;}
+.ps{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ac);}
+.card{background:var(--surf);border:1px solid var(--brd);border-radius:16px;overflow:hidden;}
+.ch2{background:var(--surf2);border-bottom:1px solid var(--brd);padding:16px 24px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.qn{font-family:var(--mono);font-size:11px;color:var(--mt);}
+.qc{font-family:var(--mono);font-size:11px;color:var(--ac);background:rgba(80,250,123,.08);border:1px solid rgba(80,250,123,.25);padding:2px 8px;border-radius:4px;}
+.body{padding:28px 24px 20px;}
+.snip{background:#0d1117;border:1px solid var(--brd);border-radius:10px;padding:14px 18px;margin-bottom:22px;font-family:var(--mono);font-size:12px;line-height:1.9;overflow-x:auto;direction:ltr;text-align:left;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.nu{color:#bd93f9;}.va{color:#8be9fd;}.cm{color:#6272a4;}.or{color:#ffb86c;}.rd2{color:#ff5555;}.tl{color:#8be9fd;}.pur{color:#bd93f9;}
+.qt{font-size:18px;font-weight:600;color:#fff;line-height:1.5;margin-bottom:28px;}
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{background:var(--bg);border:1px solid var(--brd);border-radius:10px;padding:14px 18px;cursor:pointer;text-align:right;display:flex;align-items:center;gap:12px;width:100%;font-family:var(--sans);font-size:15px;color:var(--tx);transition:all .15s;}
+.opt:hover{border-color:var(--ac);background:rgba(80,250,123,.04);color:#fff;}
+.opt.done{cursor:default;pointer-events:none;}
+.opt.correct{border-color:var(--gr);background:rgba(80,250,123,.1);color:#fff;}
+.opt.correct .lb{color:var(--gr);}
+.opt.wrong{border-color:var(--rd);background:rgba(255,85,85,.08);color:var(--mt);}
+.opt.wrong .lb{color:var(--rd);}
+.opt.show{border-color:rgba(80,250,123,.4);background:rgba(80,250,123,.05);}
+.lb{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--mt);min-width:20px;text-align:center;flex-shrink:0;}
+.ot{flex:1;text-align:right;}
+.ic{font-size:16px;min-width:20px;text-align:center;flex-shrink:0;}
+.exp{margin:20px 0 0;padding:16px 18px;border-radius:10px;border-right:3px solid var(--gr);background:rgba(80,250,123,.06);display:none;}
+.exp.bad{border-color:var(--rd);background:rgba(255,85,85,.06);}
+.et{font-family:var(--mono);font-size:11px;color:var(--gr);margin-bottom:6px;text-transform:uppercase;}
+.exp.bad .et{color:var(--rd);}
+.eb{font-size:14px;color:#94a3b8;line-height:1.8;}
+.foot{padding:20px 24px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;}
+.btn{background:transparent;border:1px solid var(--brd);color:var(--mt);padding:10px 20px;border-radius:8px;font-family:var(--sans);font-size:14px;cursor:pointer;transition:all .15s;}
+.btn:hover:not(:disabled){border-color:var(--ac);color:var(--ac);}
+.btn:disabled{opacity:.3;cursor:default;}
+.btn.pri{background:linear-gradient(135deg,var(--ac),#06b6d4);border-color:transparent;color:#000;font-weight:700;}
+.res{display:none;text-align:center;padding:60px 24px;}
+.ring{width:140px;height:140px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;position:relative;}
+.ring::after{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--surf);}
+.rn{font-family:var(--mono);font-size:36px;font-weight:600;color:#fff;position:relative;z-index:1;}
+.rt2{font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;}
+.rs{font-size:15px;color:var(--mt);margin-bottom:32px;}
+.bks{display:flex;gap:20px;justify-content:center;margin-bottom:36px;flex-wrap:wrap;}
+.bk{background:var(--surf2);border:1px solid var(--brd);border-radius:10px;padding:14px 24px;text-align:center;}
+.bv{font-family:var(--mono);font-size:22px;font-weight:600;color:#fff;}
+.bl{font-size:12px;color:var(--mt);margin-top:2px;}
+.rbtn{background:linear-gradient(135deg,var(--ac),#06b6d4);border:none;color:#000;padding:14px 36px;border-radius:10px;font-family:var(--sans);font-size:16px;font-weight:700;cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hdr">
+    <div class="row">
+      <span class="badge">PRO LAB</span>
+      <span class="badge2">🔌 Sockets</span>
+      <span class="ch">פרק 2 מתוך 12</span>
+    </div>
+    <div class="title">תכנות ב-Sockets</div>
+    <div class="sub">15 שאלות &middot; socket() &middot; connect() &middot; bind() &middot; listen() &middot; accept() &middot; send() &middot; recv() &middot; close()</div>
+  </div>
+  <div class="prog">
+    <span class="pl">התקדמות</span>
+    <div class="pb"><div class="pf" id="pf"></div></div>
+    <span class="ps" id="ps">0 / 15</span>
+  </div>
+  <div class="card" id="card">
+    <div class="ch2"><span class="qn" id="qn">שאלה 1</span><span class="qc" id="qc"></span></div>
+    <div class="body">
+      <div id="snip"></div>
+      <div class="qt" id="qt"></div>
+      <div class="opts" id="opts"></div>
+      <div class="exp" id="exp"><div class="et" id="et"></div><div class="eb" id="eb"></div></div>
+    </div>
+    <div class="foot">
+      <button class="btn" id="prev" onclick="go(-1)" disabled>&#x2192; הקודם</button>
+      <button class="btn pri" id="next" onclick="go(1)" disabled>הבא &#x2190;</button>
+    </div>
+  </div>
+  <div class="res" id="res">
+    <div class="ring" id="ring"><span class="rn" id="rpct">0%</span></div>
+    <div class="rt2" id="rt"></div><div class="rs" id="rs"></div>
+    <div class="bks">
+      <div class="bk"><div class="bv" id="rok" style="color:var(--gr)"></div><div class="bl">נכון</div></div>
+      <div class="bk"><div class="bv" id="rbd" style="color:var(--rd)"></div><div class="bl">שגוי</div></div>
+      <div class="bk"><div class="bv" id="rtt" style="color:var(--ac)"></div><div class="bl">סהכ</div></div>
+    </div>
+    <button class="rbtn" onclick="restart()">התחל מחדש</button>
+  </div>
+</div>
+<script>
+var Q=[
+  {
+    cat:"מה זה Socket?", sn:null,
+    q:"מהי ההגדרה של Socket? מה האנלוגיה שבפרק?",
+    a:["נקודת קצה של חיבור בין שתי תוכנות. אנלוגיה: צינור — מידע שנכנס מצד אחד יוצא בצד השני","Socket = פורט TCP","Socket = כתובת IP","Socket = שם הפרוטוקול"],
+    c:0, e:"בפרק: 'Socket הוא נקודת קצה של חיבור בין שני רכיבים. כאשר אנחנו רוצים להעביר מידע בין שני מחשבים, אנחנו צריכים לקשר ביניהם, בדומה להעברת מידע בין שני צדדים של צינור.' כל קצה של הצינור = Socket."
+  },
+  {
+    cat:"כתובת Socket", sn:'<div><span class="fn">my_socket</span>.<span class="fn">connect</span>((<span class="st">\'1.2.3.4\'</span>, <span class="nu">8820</span>))</div>',
+    q:"מה שני המרכיבים של כתובת Socket? מה תפקיד כל אחד?",
+    a:["IP = מזהה את הרכיב (מחשב/שרת). Port = מזהה את התוכנה הספציפית. יחד: כתובת ייחודית לתהליך ברשת","IP = פורט, Port = כתובת","IP = שם הדומיין, Port = הפרוטוקול","IP ו-Port זהים, רק שמות שונים"],
+    c:0, e:"בפרק: 'Socket ישנם שני מזהים: מזהה הרכיב — מזהה את הרכיב שאיתו נרצה לתקשר. מזהה התכנית — מזהה את התוכנה על הרכיב.' אנלוגיה: IP = כתובת הבניין, Port = מספר הדירה."
+  },
+  {
+    cat:"סדר פונקציות — לקוח", sn:'<div><span class="cm">מה הסדר הנכון?</span>\n<span class="pur">socket()</span> → <span class="fn">???</span> → <span class="fn">???</span> → <span class="fn">???</span> → <span class="fn">close()</span></div>',
+    q:"מה הסדר הנכון של קריאות ה-API בצד הלקוח?",
+    a:["socket() → connect() → send() → recv() → close()","socket() → bind() → listen() → accept() → close()","socket() → listen() → connect() → recv() → close()","bind() → socket() → connect() → close()"],
+    c:0, e:"בפרק: לקוח: (1) socket() — יצור אובייקט. (2) connect() — התחבר לשרת. (3) send() — שלח מידע. (4) recv() — קבל תשובה. (5) close() — סגור. bind/listen/accept = שרת בלבד!"
+  },
+  {
+    cat:"סדר פונקציות — שרת", sn:'<div><span class="cm">מה הסדר הנכון בצד השרת?</span></div>',
+    q:"מה הסדר הנכון של קריאות ה-API בצד השרת?",
+    a:["socket() → bind() → listen() → accept() → recv() → send() → close()","socket() → connect() → recv() → send() → close()","bind() → listen() → socket() → accept()","socket() → accept() → bind() → listen()"],
+    c:0, e:"בפרק: שרת: (1) socket(). (2) bind() — קשר לפורט. (3) listen() — התחל להאזין. (4) accept() — קבל לקוח. (5) recv()/send() — תקשורת. (6) close(). שים לב: connect() הוא של לקוח, לא שרת!"
+  },
+  {
+    cat:"accept() — blocking", sn:'<div>(client_socket, client_address) = server_socket.<span class="fn">accept</span>()\n<span class="cm"># מה קורה כאן?</span></div>',
+    q:"מה accept() עושה? למה היא blocking?",
+    a:["מחכה עד שלקוח מתחבר (blocking — מקפיאה את התוכנית). מחזירה tuple: Socket לתקשורת עם הלקוח + כתובתו","accept() = שולחת בקשת חיבור לשרת","accept() = בודקת אם הפורט פנוי","accept() = מחזירה מיד None אם אין לקוח"],
+    c:0, e:"בפרק: 'המתודה accept הינה blocking — כלומר, הקוד יקפא ולא ימשיך לרוץ עד אשר יתקבל בשרת חיבור חדש. המתודה accept מחזירה tuple שכולל socket של הלקוח, וכתובת הלקוח.' שני אובייקטים שונים: server_socket ו-client_socket."
+  },
+  {
+    cat:"recv() — blocking", sn:'<div>data = client_socket.<span class="fn">recv</span>(<span class="nu">1024</span>)\n<span class="kw">if</span> data == <span class="st">""</span>:\n    <span class="cm"># ???</span></div>',
+    q:"מה recv() עושה? מה מחרוזת ריקה מציינת?",
+    a:["recv() = blocking, מחכה למידע. data==\"\" = החיבור נסגר (הלקוח התנתק) — צריך לטפל במקרה הזה","recv() מחזירה None כשאין מידע","data==\"\" = הלקוח שלח הודעה ריקה בכוונה","recv() = non-blocking, מחזירה מיד"],
+    c:0, e:"בפרק: 'הפונקציה recv הינה blocking — ולא תאפשר את המשך ריצת התוכנית עד אשר נקבל מידע מהלקוח.' ו: 'במידה שהחיבור התנתק, recv תחזיר מחרוזת ריקה. יש לבדוק מקרה זה בקוד.' לא בדיקה = באג!"
+  },
+  {
+    cat:"0.0.0.0 ו-127.0.0.1", sn:'<div><span class="cm">שרת:</span>  server_socket.<span class="fn">bind</span>((<span class="st">\'0.0.0.0\'</span>, <span class="nu">8820</span>))\n<span class="cm">לקוח:</span> my_socket.<span class="fn">connect</span>((<span class="st">\'127.0.0.1\'</span>, <span class="nu">8820</span>))</div>',
+    q:"מה ההבדל בין 0.0.0.0 ל-127.0.0.1? למה השרת משתמש ב-0.0.0.0 והלקוח ב-127.0.0.1?",
+    a:["0.0.0.0 = כל ממשק (bind לכל כתובת). 127.0.0.1 = loopback = התחבר למחשב עצמך. בדיקה מקומית = שרת ולקוח על אותו מחשב","0.0.0.0 = אינטרנט. 127.0.0.1 = LAN","0.0.0.0 = IPv6. 127.0.0.1 = IPv4","הם זהים, רק פורמט שונה"],
+    c:0, e:"בפרק: '0.0.0.0 — כל מי שמנסה להתחבר אל הרכיב שלנו.' ו: '127.0.0.1 — כתובת מיוחדת המציינת שהמידע נשלח אל כרטיס הרשת הוירטואלי Loopback — כלומר העברת מידע שתישאר בגדר המחשב.' לבדיקה מקומית: שרת bind(0.0.0.0), לקוח connect(127.0.0.1)."
+  },
+  {
+    cat:"server_socket vs client_socket", sn:'<div>(client_socket, addr) = server_socket.<span class="fn">accept</span>()\n<span class="cm"># שני אובייקטים שונים!</span></div>',
+    q:"מה ההבדל בין server_socket ל-client_socket בשרת?",
+    a:["server_socket = מאזין לחיבורים חדשים (bind/listen/accept). client_socket = מתקשר עם לקוח ספציפי (recv/send/close)","הם זהים, שמות שונים בלבד","server_socket = UDP, client_socket = TCP","server_socket = IPv6, client_socket = IPv4"],
+    c:0, e:"בפרק: 'לא להתבלבל בין שני אובייקטי ה-socket השונים. האובייקט server_socket הינו האובייקט של השרת ואליו מתחברים לקוחות חדשים. לעומתו, client_socket מייצג את התקשורת של השרת עם לקוח ספציפי.' accept() יוצר client_socket חדש לכל לקוח."
+  },
+  {
+    cat:"פורטים", sn:'<div><span class="cm">טווחי פורטים:</span>\n<span class="fn">0–1023:</span>     Well-Known (HTTP=80, DNS=53)\n<span class="yw">1024–49151:</span>  Registered\n<span class="tl">49152–65535:</span> Dynamic (random)</div>',
+    q:"לקוח מתחבר לשרת HTTP. מה פורט היעד? מה פורט המקור של הלקוח?",
+    a:["dst=80 (well-known HTTP). src=מספר רנדומלי ב-49152-65535 שמערכת ההפעלה מגרילה","dst=443, src=80","dst=8820, src=1024","dst ו-src שניהם 80"],
+    c:0, e:"בפרק: פורט 80 = HTTP well-known port. ו (מפרק 11): 'הפורט ממנו תתבצע הפנייה, כלומר הפורט במחשב שלנו, יהיה מספר רנדומלי שתגריל מערכת ההפעלה. רוב מערכות ההפעלה מגרילות מספר פורט בטווח שבין 49,152 ובין 65,535.'"
+  },
+  {
+    cat:"close()", sn:'<div>server_socket.<span class="fn">close</span>()\n<span class="cm"># מה קורה אם שוכחים?</span></div>',
+    q:"מה קורה אם לא קוראים ל-close() בסוף? מה הפתרון?",
+    a:["הפורט נשאר 'תפוס' — תוכנה אחרת לא יכולה להשתמש בו. פתרון: שנה מספר פורט, או המתן שמערכת ההפעלה תשחרר אוטומטית","כלום, close() אופציונלי","close() רק צריך ב-server_socket, לא ב-client_socket","close() נקרא אוטומטית"],
+    c:0, e:"בפרק: 'כשאנו קוראים למתודה close, אנו מודיעים למערכת ההפעלה שסיימנו להשתמש באובייקט ה-socket, ולכן מערכת ההפעלה יכולה לשחרר את המשאבים. בין השאר, אחד המשאבים הוא מספר הפורט.' לא close = פורט תפוס!"
+  },
+  {
+    cat:"קוד לקוח", sn:'<div><span class="kw">import</span> socket\nmy_socket = socket.<span class="fn">socket</span>()\nmy_socket.<span class="fn">connect</span>((<span class="st">\'1.2.3.4\'</span>, <span class="nu">8820</span>))\nmy_socket.<span class="fn">send</span>(<span class="st">\'Omer\'</span>)\ndata = my_socket.<span class="fn">recv</span>(<span class="nu">1024</span>)\n<span class="kw">print</span> data\nmy_socket.<span class="fn">close</span>()</div>',
+    q:"כמה שורות קוד פייתון נדרשות ללקוח בסיסי? מה כל שלב עושה?",
+    a:["7 שורות: (1)import, (2)socket(), (3)connect(), (4)send(), (5)recv(), (6)print, (7)close() — יצירה, חיבור, שליחה, קבלה, סגירה","50+ שורות כי יש לטפל בשגיאות","לפחות 20 שורות כי יש headers","3 שורות: connect, send, recv"],
+    c:0, e:"בפרק: 'בשבע שורות קוד אלו יצרנו אובייקט socket, התחברנו לשרת מרוחק, שלחנו אליו מידע, קיבלנו ממנו מידע, הדפסנו את המידע שהתקבל וסגרנו את האובייקט. שימו לב עד כמה נוח לכתוב קוד כזה בשפת פייתון.'"
+  },
+  {
+    cat:"שרת פקודות", sn:'<div><span class="cm">פרוטוקול שרת פקודות:</span>\n<span class="yw">TIME</span> → שעה נוכחית\n<span class="fn">NAME</span> → שם השרת\n<span class="tl">RAND</span> → מספר רנדומלי 1-10\n<span class="rd2">EXIT</span> → ניתוק</div>',
+    q:"מדוע כל פקודה ב-TIME/NAME/RAND/EXIT היא בדיוק 4 bytes? מה היתרון?",
+    a:["אורך קבוע = השרת יודע תמיד כמה bytes לקרוא (recv(4)). ללא אורך קבוע — איך השרת יודע איפה הפקודה נגמרת?","4 bytes = גודל integer בפייתון","4 bytes = המגבלה של TCP","4 bytes = אורך MAC Address"],
+    c:0, e:"בפרק: 'על כל בקשה של הלקוח להיות באורך של ארבעה בתים בדיוק.' פרוטוקול עם אורך קבוע = parsing פשוט. השרת קורא recv(4) בדיוק וקורא. ללא אורך קבוע: שרת לא יודע איפה הפקודה מסתיימת."
+  },
+  {
+    cat:"listen() — פרמטר", sn:'<div>server_socket.<span class="fn">listen</span>(<span class="nu">5</span>)\n<span class="cm"># מה המספר 5 אומר?</span></div>',
+    q:"מה הפרמטר של listen() מגדיר?",
+    a:["תור ההמתנה — כמה לקוחות יכולים לחכות בתור לפני ש-accept() מטפל בהם","מספר הפורטים שיאזינו","מספר שניות ל-timeout","מספר הבתים שניתן לקבל"],
+    c:0, e:"בפרק: 'שימו לב שהמתודה listen מקבלת פרמטר מספרי.' הפרמטר = backlog = גודל תור ההמתנה (כמה לקוחות יכולים 'לעמוד בתור' בזמן שהשרת עסוק ב-accept). listen(1) = רק לקוח אחד בתור."
+  },
+  {
+    cat:"שרת הדים", sn:'<div><span class="cm">שרת הדים (echo server):</span>\n<span class="cm">Client → "Hello World"</span>\n<span class="cm">Server → "Hello World" (עותק!)</span></div>',
+    q:"מה שרת הדים (echo server) עושה? איך מממשים אותו?",
+    a:["מחזיר כל מידע שמקבל בחזרה ללקוח. מימוש: recv() → send() עם אותו ה-data","מחזיר תמיד 'Hello World'","מדפיס למסך ולא שולח חזרה","מצפין ומחזיר"],
+    c:0, e:"בפרק: 'השרת משכפל כל מידע שתשלחו לו, ושולח אותו אליכם בחזרה, כמו הד. כך למשל, אם תכתבו אל השרת Hello World, הוא יענה Hello World.' מימוש: while True: data=recv(1024); if data=='': break; send(data)."
+  },
+  {
+    cat:"סיכום — שרת vs לקוח", sn:null,
+    q:"אילו פונקציות שייכות ללקוח בלבד? אילו לשרת בלבד? אילו לשניהם?",
+    a:["לקוח בלבד: connect(). שרת בלבד: bind(), listen(), accept(). שניהם: socket(), send(), recv(), close()","לקוח: bind, listen. שרת: connect","הכל לשניהם","לקוח: accept(). שרת: connect()"],
+    c:0, e:"בפרק: connect() = לקוח יוזם חיבור. bind() = שרת מגדיר כתובת. listen() = שרת מתחיל להאזין. accept() = שרת מקבל לקוח. socket()/send()/recv()/close() = משותפים. השרת אחרי accept() משתמש ב-send/recv בדיוק כמו לקוח!"
+  }
+];
+
+var LBL=["א","ב","ג","ד"];
+var cur=0,ans=[];
+for(var i=0;i<Q.length;i++){ans.push(-1);}
+
+function shuf(q){
+  var idx=[0,1,2,3];
+  for(var i=3;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=idx[i];idx[i]=idx[j];idx[j]=t;}
+  var na=[];for(var k=0;k<4;k++){na.push(q.a[idx[k]]);}
+  var nc=-1;for(var k=0;k<4;k++){if(idx[k]===q.c){nc=k;break;}}
+  return{cat:q.cat,sn:q.sn,q:q.q,a:na,c:nc,e:q.e};
+}
+
+var SQ=[];for(var i=0;i<Q.length;i++){SQ.push(shuf(Q[i]));}
+
+function render(){
+  var q=SQ[cur];
+  document.getElementById("qn").textContent="שאלה "+(cur+1);
+  document.getElementById("qc").textContent=q.cat;
+  var sn=document.getElementById("snip");
+  sn.innerHTML=q.sn?'<div class="snip">'+q.sn+'</div>':"";
+  document.getElementById("qt").textContent=q.q;
+  var oc=document.getElementById("opts");oc.innerHTML="";
+  for(var i=0;i<4;i++){
+    var b=document.createElement("button");b.className="opt";
+    b.innerHTML='<span class="lb">'+LBL[i]+'</span><span class="ot">'+q.a[i]+'</span><span class="ic"></span>';
+    b.setAttribute("data-i",i);b.onclick=pick;oc.appendChild(b);
+  }
+  var ex=document.getElementById("exp");ex.style.display="none";ex.className="exp";
+  if(ans[cur]!==-1){showA(cur);}
+  document.getElementById("prev").disabled=(cur===0);
+  document.getElementById("next").disabled=(ans[cur]===-1);
+  upProg();
+}
+
+function pick(){
+  if(ans[cur]!==-1){return;}
+  var i=parseInt(this.getAttribute("data-i"));
+  ans[cur]=i;showA(cur);document.getElementById("next").disabled=false;
+}
+
+function showA(idx){
+  var q=SQ[idx];var ch=ans[idx];var ok=(ch===q.c);
+  var bs=document.querySelectorAll(".opt");
+  for(var i=0;i<bs.length;i++){
+    bs[i].className="opt done";bs[i].onclick=null;
+    var ic=bs[i].querySelector(".ic");
+    if(i===q.c){bs[i].classList.add(ok?"correct":"show");if(!ok){ic.textContent="\u2713";}}
+    if(i===ch&&!ok){bs[i].classList.add("wrong");ic.textContent="\u2717";}
+    if(i===ch&&ok){ic.textContent="\u2713";}
+  }
+  var ex=document.getElementById("exp");
+  document.getElementById("et").textContent=ok?"\u2713 \u05e0\u05db\u05d5\u05df!":"\u2717 \u05dc\u05d0 \u05d1\u05d3\u05d9\u05d5\u05e7...";
+  document.getElementById("eb").textContent=q.e;
+  ex.className=ok?"exp":"exp bad";ex.style.display="block";
+}
+
+function upProg(){
+  var n=0;for(var i=0;i<ans.length;i++){if(ans[i]!==-1){n++;}}
+  document.getElementById("pf").style.width=(n/Q.length*100)+"%";
+  document.getElementById("ps").textContent=n+" / "+Q.length;
+}
+
+function go(d){
+  var n=cur+d;if(n<0){return;}
+  if(n>=Q.length){showRes();return;}
+  cur=n;render();
+}
+
+function showRes(){
+  document.getElementById("card").style.display="none";
+  document.getElementById("res").style.display="block";
+  var ok=0,bd=0;
+  for(var i=0;i<ans.length;i++){if(ans[i]===SQ[i].c){ok++;}else if(ans[i]!==-1){bd++;}}
+  var pct=Math.round(ok/Q.length*100);
+  document.getElementById("ring").style.background="conic-gradient(var(--ac) 0%,#06b6d4 "+pct+"%,var(--brd) "+pct+"%)";
+  document.getElementById("rpct").textContent=pct+"%";
+  document.getElementById("rok").textContent=ok;document.getElementById("rbd").textContent=bd;document.getElementById("rtt").textContent=Q.length;
+  var t,s;
+  if(pct>=80){t="\u05de\u05e6\u05d5\u05d9\u05df! \ud83d\udd0c";s="Sockets \u05d1\u05e9\u05dc\u05d9\u05d8\u05d4 \u05de\u05dc\u05d0\u05d4!";}
+  else if(pct>=60){t="\u05dc\u05d0 \u05e8\u05e2 \ud83d\udcaa";s="\u05d7\u05d6\u05d5\u05e8 \u05e2\u05dc accept() \u05d5-bind()";}
+  else{t="\u05d9\u05e9 \u05de\u05d4 \u05dc\u05d7\u05d6\u05e7 \ud83d\udcda";s="\u05e7\u05e8\u05d0 \u05e9\u05d5\u05d1 \u05d0\u05ea \u05e4\u05e8\u05e7 2";}
+  document.getElementById("rt").textContent=t;document.getElementById("rs").textContent=s;
+  upProg();
+}
+
+function restart(){
+  SQ=[];for(var i=0;i<Q.length;i++){SQ.push(shuf(Q[i]));}
+  cur=0;ans=[];for(var i=0;i<Q.length;i++){ans.push(-1);}
+  document.getElementById("card").style.display="block";
+  document.getElementById("res").style.display="none";
+  render();
+}
+
+render();
+</script>
+</body>
+</html>

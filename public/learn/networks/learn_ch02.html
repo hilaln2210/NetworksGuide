@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 2 – תכנות ב-Sockets</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Heebo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060b12;--surf:#0f1824;--surf2:#162030;--brd:#1e2d45;--ac:#50fa7b;--ac2:#ff79c6;--teal:#8be9fd;--yw:#f1fa8c;--pur:#bd93f9;--or:#ffb86c;--rd:#ff5555;--cm:#6272a4;--txt:#e2e8f0;--mt:#64748b;--mono:'IBM Plex Mono',monospace;--sans:'Heebo',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--txt);font-family:var(--sans);min-height:100vh;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 50% -5%,rgba(80,250,123,.05) 0%,transparent 55%);pointer-events:none;}
+.wrap{max-width:980px;margin:0 auto;padding:48px 20px 80px;position:relative;z-index:1;}
+
+/* Hero */
+.hero{text-align:center;padding:40px 0 56px;}
+.hero-ch{font-family:var(--mono);font-size:11px;color:var(--ac);letter-spacing:4px;text-transform:uppercase;display:block;margin-bottom:16px;}
+.hero-title{font-size:50px;font-weight:900;line-height:1.05;margin-bottom:14px;background:linear-gradient(135deg,#fff 25%,var(--ac) 60%,var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:16px;color:var(--mt);max-width:560px;margin:0 auto;}
+
+/* Section labels */
+.sec-label{font-family:var(--mono);font-size:10px;color:var(--ac);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:8px;}
+.sec-h{font-size:24px;font-weight:800;color:#fff;margin-bottom:16px;}
+
+/* Cards */
+.card{background:var(--surf);border:1px solid var(--brd);border-radius:16px;padding:24px;margin-bottom:20px;}
+
+/* Code blocks */
+pre{background:#0d1117;border:1px solid var(--brd);border-radius:10px;padding:16px 18px;overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.9;margin:12px 0;direction:ltr;text-align:left;}
+.kw{color:#ff79c6;}.fn{color:#50fa7b;}.st{color:#f1fa8c;}.nu{color:#bd93f9;}.va{color:#8be9fd;}.cm{color:#6272a4;}.or{color:#ffb86c;}.rd2{color:#ff5555;}.tl{color:#8be9fd;}
+
+/* Pipe / socket metaphor diagram */
+.pipe-diag{display:flex;align-items:center;gap:0;margin:18px 0;flex-wrap:wrap;gap:8px;}
+.pipe-node{padding:12px 18px;border-radius:10px;font-size:13px;font-weight:700;text-align:center;}
+.pn-client{background:rgba(80,250,123,.12);color:var(--ac);border:1px solid rgba(80,250,123,.3);}
+.pn-socket{background:rgba(139,233,253,.1);color:var(--teal);border:1px solid rgba(139,233,253,.3);font-family:var(--mono);font-size:11px;}
+.pn-server{background:rgba(189,147,249,.12);color:var(--pur);border:1px solid rgba(189,147,249,.3);}
+.pn-arrow{font-size:20px;color:var(--mt);}
+.pn-label{font-family:var(--mono);font-size:10px;color:var(--cm);text-align:center;margin-top:2px;}
+
+/* Address anatomy */
+.addr-box{display:flex;gap:4px;margin:14px 0;flex-wrap:wrap;}
+.ab{padding:10px 16px;border-radius:8px;text-align:center;font-family:var(--mono);font-weight:700;}
+.ab-ip{background:rgba(80,250,123,.15);color:var(--ac);flex:2;}
+.ab-sep{display:flex;align-items:center;color:var(--mt);font-size:20px;}
+.ab-port{background:rgba(189,147,249,.15);color:var(--pur);flex:1;}
+.ab-label{font-size:10px;font-weight:400;margin-top:4px;color:rgba(255,255,255,.5);}
+
+/* API Grid */
+.api-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0;}
+@media(max-width:600px){.api-grid{grid-template-columns:1fr;}}
+.api-card{background:rgba(0,0,0,.3);border:1px solid var(--brd);border-radius:10px;padding:14px;}
+.api-fn{font-family:var(--mono);font-size:13px;font-weight:700;margin-bottom:4px;}
+.client-fn{color:var(--ac);}
+.server-fn{color:var(--pur);}
+.shared-fn{color:var(--teal);}
+.api-sig{font-family:var(--mono);font-size:11px;color:var(--cm);margin-bottom:6px;}
+.api-desc{font-size:12px;color:var(--mt);line-height:1.6;}
+.api-note{font-family:var(--mono);font-size:11px;color:var(--or);margin-top:4px;}
+
+/* Client vs Server side-by-side */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;}
+@media(max-width:600px){.two-col{grid-template-columns:1fr;}}
+.col-head{font-family:var(--mono);font-size:11px;font-weight:700;padding:6px 12px;border-radius:6px;margin-bottom:8px;display:inline-block;}
+.col-client{background:rgba(80,250,123,.12);color:var(--ac);border:1px solid rgba(80,250,123,.3);}
+.col-server{background:rgba(189,147,249,.12);color:var(--pur);border:1px solid rgba(189,147,249,.3);}
+
+/* Step flow */
+.steps{display:flex;flex-direction:column;gap:0;}
+.step{display:flex;gap:12px;align-items:stretch;margin-bottom:10px;}
+.step-num{font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;flex-shrink:0;margin-top:3px;height:fit-content;}
+.sn-c{background:rgba(80,250,123,.15);color:var(--ac);}
+.sn-s{background:rgba(189,147,249,.15);color:var(--pur);}
+.step-body{font-size:13px;color:var(--mt);line-height:1.7;flex:1;}
+.step-body strong{color:#fff;}
+.step-body code{font-family:var(--mono);font-size:12px;background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;color:var(--teal);}
+
+/* Info boxes */
+.info{border-radius:10px;padding:14px 18px;margin:14px 0;border-right:3px solid;}
+.info.green{background:rgba(80,250,123,.06);border-color:var(--ac);}
+.info.yellow{background:rgba(241,250,140,.06);border-color:var(--yw);}
+.info.red{background:rgba(255,85,85,.06);border-color:var(--rd2);}
+.info.blue{background:rgba(139,233,253,.06);border-color:var(--teal);}
+.info-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:5px;}
+.info-body{font-size:13px;color:var(--mt);line-height:1.7;}
+
+/* Port range table */
+.tbl{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;}
+.tbl th{background:#0d1929;color:var(--teal);padding:9px 14px;border:1px solid var(--brd);font-family:var(--mono);font-size:10px;text-align:right;letter-spacing:1px;}
+.tbl td{padding:9px 14px;border:1px solid var(--brd);color:var(--mt);}
+.tbl tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+.tbl td:first-child{font-family:var(--mono);color:#fff;font-weight:600;}
+
+/* Commands tabel */
+.cmd-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0;}
+@media(max-width:600px){.cmd-grid{grid-template-columns:1fr;}}
+.cmd-card{background:rgba(0,0,0,.3);border:1px solid var(--brd);border-radius:8px;padding:12px;}
+.cmd-name{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--yw);margin-bottom:4px;}
+.cmd-desc{font-size:12px;color:var(--mt);}
+.cmd-ex{font-family:var(--mono);font-size:11px;color:var(--ac);margin-top:6px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Hero -->
+  <div class="hero">
+    <span class="hero-ch">פרק 2 מתוך 12</span>
+    <div class="hero-title">תכנות ב-Sockets 🔌</div>
+    <div class="hero-sub">socket(), connect(), send(), recv(), close(), bind(), listen(), accept() — לקוח ושרת בפייתון מאפס.</div>
+  </div>
+
+  <!-- What is a Socket -->
+  <div class="card">
+    <span class="sec-label">מושג יסוד</span>
+    <div class="sec-h">מה זה Socket?</div>
+    <p style="color:var(--mt);font-size:14px;margin-bottom:16px;">Socket = נקודת קצה של חיבור. דמיינו <strong style="color:#fff;">צינור</strong> בין שתי תוכנות — מידע שנכנס מצד אחד יוצא בצד השני. כל קצה = Socket.</p>
+    <div class="pipe-diag">
+      <div>
+        <div class="pipe-node pn-client">💻 לקוח</div>
+        <div class="pn-label">Client Socket</div>
+      </div>
+      <div class="pn-arrow">⟵══════⟹</div>
+      <div>
+        <div class="pipe-node pn-socket" style="padding:8px 12px;">זרם בתים<br>bytes stream</div>
+        <div class="pn-label">הצינור</div>
+      </div>
+      <div class="pn-arrow">⟵══════⟹</div>
+      <div>
+        <div class="pipe-node pn-server">🗄️ שרת</div>
+        <div class="pn-label">Server Socket</div>
+      </div>
+    </div>
+    <div class="info green">
+      <div class="info-title">💡 אנלוגיה — בניין דירות</div>
+      <div class="info-body">כתובת IP = כתובת הבניין (הרצל 1, תל אביב). פורט = מספר הדירה (דירה 23). Socket = תיבת הדואר הספציפית בדירה הזו.</div>
+    </div>
+  </div>
+
+  <!-- Socket Address -->
+  <div class="card">
+    <span class="sec-label">כתובת Socket</span>
+    <div class="sec-h">IP + Port = כתובת מלאה</div>
+    <div class="addr-box">
+      <div class="ab ab-ip">1.2.3.4<div class="ab-label">כתובת IP — מזהה את הרכיב (מחשב/שרת)</div></div>
+      <div class="ab-sep">:</div>
+      <div class="ab-port">8820<div class="ab-label">Port — מזהה את התוכנה</div></div>
+    </div>
+    <table class="tbl">
+      <tr><th>טווח פורטים</th><th>שם</th><th>שימוש</th></tr>
+      <tr><td>0 – 1023</td><td>Well-Known</td><td>HTTP=80, DNS=53, SSH=22 (דורשים הרשאות)</td></tr>
+      <tr><td>1024 – 49151</td><td>Registered</td><td>שרתים של אפליקציות (כמו 8820 בפרק)</td></tr>
+      <tr><td>49152 – 65535</td><td>Dynamic</td><td>פורטים זמניים שמערכת ההפעלה מגרילה ללקוחות</td></tr>
+    </table>
+    <div class="info blue">
+      <div class="info-title">🔁 0.0.0.0 לעומת 127.0.0.1</div>
+      <div class="info-body">
+        <strong style="color:#fff;">0.0.0.0</strong> = "כל ממשק" — השרת מאזין מכל כתובת (bind).<br>
+        <strong style="color:#fff;">127.0.0.1</strong> = Loopback — מתחבר לעצמך. לקוח ושרת על אותו מחשב.
+      </div>
+    </div>
+  </div>
+
+  <!-- API Reference -->
+  <div class="card">
+    <span class="sec-label">API של Socket</span>
+    <div class="sec-h">כל הפונקציות</div>
+    <div class="api-grid">
+      <div class="api-card">
+        <div class="api-fn shared-fn">socket()</div>
+        <div class="api-sig">socket.socket()</div>
+        <div class="api-desc">יוצר אובייקט Socket חדש. נקודת ההתחלה — גם ללקוח וגם לשרת.</div>
+      </div>
+      <div class="api-card">
+        <div class="api-fn client-fn">connect()</div>
+        <div class="api-sig">sock.connect(('ip', port))</div>
+        <div class="api-desc">לקוח בלבד. יוצר חיבור לשרת מרוחק לפי IP + Port.</div>
+      </div>
+      <div class="api-card">
+        <div class="api-fn server-fn">bind()</div>
+        <div class="api-sig">sock.bind(('0.0.0.0', port))</div>
+        <div class="api-desc">שרת בלבד. קושר את ה-Socket לכתובת ופורט מקומי.</div>
+      </div>
+      <div class="api-card">
+        <div class="api-fn server-fn">listen()</div>
+        <div class="api-sig">sock.listen(5)</div>
+        <div class="api-desc">שרת בלבד. מתחיל להאזין לחיבורים נכנסים.</div>
+      </div>
+      <div class="api-card">
+        <div class="api-fn server-fn">accept()</div>
+        <div class="api-sig">(client_sock, addr) = sock.accept()</div>
+        <div class="api-desc">שרת בלבד. <strong style="color:var(--rd2);">BLOCKING</strong> — מחכה עד שלקוח מתחבר. מחזיר Socket חדש לתקשורת.</div>
+        <div class="api-note">⚠️ מקפיאה עד שלקוח מגיע!</div>
+      </div>
+      <div class="api-card">
+        <div class="api-fn shared-fn">send()</div>
+        <div class="api-sig">sock.send('Hello')</div>
+        <div class="api-desc">שולח מחרוזת (רצף בתים) לצד השני.</div>
+      </div>
+      <div class="api-card">
+        <div class="api-fn shared-fn">recv()</div>
+        <div class="api-sig">data = sock.recv(1024)</div>
+        <div class="api-desc"><strong style="color:var(--rd2);">BLOCKING</strong> — מחכה עד שמגיע מידע. 1024 = מקסימום בתים לקריאה.</div>
+        <div class="api-note">⚠️ מחרוזת ריקה = חיבור נסגר!</div>
+      </div>
+      <div class="api-card">
+        <div class="api-fn shared-fn">close()</div>
+        <div class="api-sig">sock.close()</div>
+        <div class="api-desc">סוגר את ה-Socket ומשחרר את הפורט. חשוב לקרוא בסוף!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client Code -->
+  <div class="card">
+    <span class="sec-label">צד הלקוח</span>
+    <div class="sec-h">קוד לקוח מלא — 7 שורות</div>
+    <div class="steps">
+      <div class="step"><span class="step-num sn-c">1</span><div class="step-body"><strong>import socket</strong> — ייבוא המודול</div></div>
+      <div class="step"><span class="step-num sn-c">2</span><div class="step-body"><strong>socket.socket()</strong> — יצירת אובייקט</div></div>
+      <div class="step"><span class="step-num sn-c">3</span><div class="step-body"><strong>connect()</strong> — התחברות לשרת (IP + Port)</div></div>
+      <div class="step"><span class="step-num sn-c">4</span><div class="step-body"><strong>send()</strong> — שליחת מידע</div></div>
+      <div class="step"><span class="step-num sn-c">5</span><div class="step-body"><strong>recv()</strong> — קבלת תשובה</div></div>
+      <div class="step"><span class="step-num sn-c">6</span><div class="step-body"><strong>close()</strong> — סגירה ושחרור פורט</div></div>
+    </div>
+    <pre><span class="kw">import</span> socket
+
+my_socket = socket.<span class="fn">socket</span>()
+my_socket.<span class="fn">connect</span>((<span class="st">'1.2.3.4'</span>, <span class="nu">8820</span>))
+my_socket.<span class="fn">send</span>(<span class="st">'Omer'</span>)
+data = my_socket.<span class="fn">recv</span>(<span class="nu">1024</span>)
+<span class="kw">print</span> <span class="st">'The server sent: '</span> + data
+my_socket.<span class="fn">close</span>()</pre>
+  </div>
+
+  <!-- Server Code -->
+  <div class="card">
+    <span class="sec-label">צד השרת</span>
+    <div class="sec-h">קוד שרת מלא — 4 פונקציות חדשות</div>
+    <div class="info yellow">
+      <div class="info-title">⚠️ שני אובייקטי Socket!</div>
+      <div class="info-body">
+        <strong style="color:var(--pur);">server_socket</strong> — מאזין לחיבורים חדשים (bind, listen, accept).<br>
+        <strong style="color:var(--ac);">client_socket</strong> — מתקשר עם לקוח ספציפי (recv, send, close).
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="step-num sn-s">1</span><div class="step-body"><strong>socket()</strong> — יצירת server_socket</div></div>
+      <div class="step"><span class="step-num sn-s">2</span><div class="step-body"><strong>bind('0.0.0.0', 8820)</strong> — קישור לפורט</div></div>
+      <div class="step"><span class="step-num sn-s">3</span><div class="step-body"><strong>listen(1)</strong> — מתחיל להאזין</div></div>
+      <div class="step"><span class="step-num sn-s">4</span><div class="step-body"><strong>accept()</strong> — מחכה ללקוח (blocking!) → מחזיר client_socket</div></div>
+      <div class="step"><span class="step-num sn-s">5</span><div class="step-body"><strong>recv()</strong> — קורא מהלקוח</div></div>
+      <div class="step"><span class="step-num sn-s">6</span><div class="step-body"><strong>send()</strong> — שולח תשובה</div></div>
+      <div class="step"><span class="step-num sn-s">7</span><div class="step-body"><strong>client_socket.close()</strong> — סגירת חיבור הלקוח</div></div>
+      <div class="step"><span class="step-num sn-s">8</span><div class="step-body"><strong>server_socket.close()</strong> — סגירת השרת</div></div>
+    </div>
+    <pre><span class="kw">import</span> socket
+
+server_socket = socket.<span class="fn">socket</span>()
+server_socket.<span class="fn">bind</span>((<span class="st">'0.0.0.0'</span>, <span class="nu">8820</span>))
+server_socket.<span class="fn">listen</span>(<span class="nu">1</span>)
+
+(client_socket, client_address) = server_socket.<span class="fn">accept</span>()  <span class="cm"># blocking!</span>
+
+client_name = client_socket.<span class="fn">recv</span>(<span class="nu">1024</span>)
+client_socket.<span class="fn">send</span>(<span class="st">'Hello '</span> + client_name)
+
+client_socket.<span class="fn">close</span>()
+server_socket.<span class="fn">close</span>()</pre>
+  </div>
+
+  <!-- Close & Ports -->
+  <div class="card">
+    <span class="sec-label">שחרור משאבים</span>
+    <div class="sec-h">למה חשוב close()?</div>
+    <div class="info red">
+      <div class="info-title">🔒 פורט תפוס — שגיאה נפוצה</div>
+      <div class="info-body">אם התוכנה קרסה לפני close() — הפורט נשאר "תפוס". פתרון: שנה מספר פורט בצד הלקוח והשרת. אחרי זמן מה מערכת ההפעלה משחררת אוטומטית.</div>
+    </div>
+  </div>
+
+  <!-- Commands Protocol (ex 2.6) -->
+  <div class="card">
+    <span class="sec-label">תרגיל 2.6 — פרוטוקול</span>
+    <div class="sec-h">שרת פקודות — TIME / NAME / RAND / EXIT</div>
+    <p style="color:var(--mt);font-size:14px;margin-bottom:14px;">כל בקשה = בדיוק 4 bytes. תשובה — אורך משתנה. שרת קולט פקודה ומחזיר תגובה מתאימה:</p>
+    <div class="cmd-grid">
+      <div class="cmd-card">
+        <div class="cmd-name">TIME</div>
+        <div class="cmd-desc">מחזיר את השעה הנוכחית בשרת</div>
+        <div class="cmd-ex">import time → time.strftime(...)</div>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd-name">NAME</div>
+        <div class="cmd-desc">מחזיר את שם השרת (מחרוזת קבועה)</div>
+        <div class="cmd-ex">"MyServer"</div>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd-name">RAND</div>
+        <div class="cmd-desc">מחזיר מספר רנדומלי 1-10</div>
+        <div class="cmd-ex">import random → random.randint(1,10)</div>
+      </div>
+      <div class="cmd-card">
+        <div class="cmd-name">EXIT</div>
+        <div class="cmd-desc">מנתק את החיבור עם הלקוח</div>
+        <div class="cmd-ex">client_socket.close()</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key concepts summary -->
+  <div class="card" style="border-color:rgba(80,250,123,.25);">
+    <span class="sec-label">סיכום</span>
+    <div class="sec-h">מה למדנו בפרק 2</div>
+    <div class="two-col">
+      <div>
+        <div class="col-head col-client">💻 לקוח</div>
+        <div class="steps" style="margin-top:8px;">
+          <div class="step"><span class="step-num sn-c">①</span><div class="step-body">socket() → connect() → send() → recv() → close()</div></div>
+        </div>
+      </div>
+      <div>
+        <div class="col-head col-server">🗄️ שרת</div>
+        <div class="steps" style="margin-top:8px;">
+          <div class="step"><span class="step-num sn-s">①</span><div class="step-body">socket() → bind() → listen() → accept() → recv() → send() → close()</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="info green" style="margin-top:16px;">
+      <div class="info-title">🚀 מה עוד לא כיסינו</div>
+      <div class="info-body">ריבוי לקוחות במקביל → פרק 12 (select). סוגי Socket שונים. אבטחה. על אלה נלמד בהמשך!</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
