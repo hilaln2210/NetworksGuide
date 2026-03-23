@@ -29,14 +29,50 @@ function setAllProgress(data) {
   }
 }
 
-function countProgress(data) {
+// Merge two progress snapshots — always take the best of both
+function mergeProgress(local, cloud) {
+  const merged = { ...local }
+
+  // read_pages: union of all chapters+pages from both
   try {
-    const pages = JSON.parse(data.read_pages || '{}')
-    return Object.values(pages).reduce((sum, ch) => sum + Object.keys(ch).length, 0)
-  } catch { return 0 }
+    const lp = JSON.parse(local.read_pages || '{}')
+    const cp = JSON.parse(cloud.read_pages || '{}')
+    const all = { ...lp }
+    for (const [ch, pages] of Object.entries(cp)) {
+      all[ch] = { ...(all[ch] || {}), ...pages }
+    }
+    merged.read_pages = JSON.stringify(all)
+  } catch { /* keep local */ }
+
+  // xp, streak — take max
+  for (const key of ['xp', 'streak']) {
+    const l = parseFloat(local[key]) || 0
+    const c = parseFloat(cloud[key]) || 0
+    merged[key] = String(Math.max(l, c))
+  }
+
+  // quiz_scores — per-chapter max
+  try {
+    const lq = JSON.parse(local.quiz_scores || '{}')
+    const cq = JSON.parse(cloud.quiz_scores || '{}')
+    const all = { ...lq }
+    for (const [ch, score] of Object.entries(cq)) {
+      all[ch] = Math.max(all[ch] ?? 0, score)
+    }
+    merged.quiz_scores = JSON.stringify(all)
+  } catch { /* keep local */ }
+
+  // gender, position — cloud wins (preferences set intentionally)
+  if (cloud.gender) merged.gender = cloud.gender
+  if (cloud.position) merged.position = cloud.position
+
+  // pro_hash — keep whichever exists
+  if (!merged.pro_hash && cloud.pro_hash) merged.pro_hash = cloud.pro_hash
+
+  return merged
 }
 
-// Pull progress from Firestore → merge into localStorage (cloud wins if more progress)
+// Pull progress from Firestore → merge into localStorage
 export async function pullProgress(uid) {
   if (!isFirebaseConfigured() || !uid) return false
   try {
@@ -44,14 +80,9 @@ export async function pullProgress(uid) {
     if (!snap.exists()) return false
     const cloud = snap.data()
     const local = getAllProgress()
-    // Cloud wins if it has more read pages (= more progress)
-    const cloudCount = countProgress(cloud)
-    const localCount = countProgress(local)
-    if (cloudCount > localCount) {
-      setAllProgress(cloud)
-      return true // did restore
-    }
-    return false
+    const merged = mergeProgress(local, cloud)
+    setAllProgress(merged)
+    return true
   } catch (e) {
     console.warn('[CloudSync] pull failed:', e.message)
     return false
