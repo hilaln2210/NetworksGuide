@@ -34,6 +34,7 @@ export const tracks = [
     icon: '🔐',
     color: '#ef4444',
     level: 'בינוני–מתקדם',
+    quizSrc: '/learn/security/quiz_game.html',
     chapters: [
       { id: 101, title: "יסודות אבטחת מידע — CIA Triad", pages: [{ type: "html_page", title: "יסודות אבטחת מידע — CIA Triad", src: "/learn/security/learn_ch01.html" }] },
       { id: 102, title: "Social Engineering & Phishing", pages: [{ type: "html_page", title: "Social Engineering & Phishing", src: "/learn/security/learn_ch02.html" }] },
@@ -42,8 +43,7 @@ export const tracks = [
       { id: 105, title: "Malware — סוגים, זיהוי ומניעה", pages: [{ type: "html_page", title: "Malware — סוגים, זיהוי ומניעה", src: "/learn/security/learn_ch05.html" }] },
       { id: 106, title: "Penetration Testing", pages: [{ type: "html_page", title: "Penetration Testing", src: "/learn/security/learn_ch06.html" }] },
       { id: 107, title: "SOC & Incident Response", pages: [{ type: "html_page", title: "SOC & Incident Response", src: "/learn/security/learn_ch07.html" }] },
-      { id: 108, title: "Cloud Security & Compliance", pages: [{ type: "html_page", title: "Cloud Security & Compliance", src: "/learn/security/learn_ch08.html" }] },
-      { id: 109, title: "⚡ חידון אבטחת מידע", pages: [{ type: "html_page", title: "חידון אבטחת מידע", src: "/learn/security/quiz_game.html" }] }
+      { id: 108, title: "Cloud Security & Compliance", pages: [{ type: "html_page", title: "Cloud Security & Compliance", src: "/learn/security/learn_ch08.html" }] }
     ]
   },
   {
