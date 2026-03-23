@@ -51,13 +51,17 @@ function mergeProgress(local, cloud) {
     merged[key] = String(Math.max(l, c))
   }
 
-  // quiz_scores — per-chapter max
+  // quiz_scores — per-chapter max (format: { best, total, date })
   try {
     const lq = JSON.parse(local.quiz_scores || '{}')
     const cq = JSON.parse(cloud.quiz_scores || '{}')
     const all = { ...lq }
-    for (const [ch, score] of Object.entries(cq)) {
-      all[ch] = Math.max(all[ch] ?? 0, score)
+    for (const [ch, cv] of Object.entries(cq)) {
+      if (!cv || typeof cv !== 'object') continue
+      const lv = all[ch]
+      if (!lv || typeof lv !== 'object' || cv.best > lv.best) {
+        all[ch] = cv
+      }
     }
     merged.quiz_scores = JSON.stringify(all)
   } catch { /* keep local */ }
