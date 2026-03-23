@@ -12,23 +12,61 @@ const LS_KEYS = {
   pro_hash: 'ng_pro_hash',
 }
 
-// Fix any corrupted quiz_scores data (nulls from previous bad merge)
-function repairLocalStorage() {
+function safeParse(str, fallback) {
+  try { return JSON.parse(str || JSON.stringify(fallback)) } catch { return fallback }
+}
+
+// Merge two snapshots — take the best of both, never lose progress
+function mergeProgress(local, cloud) {
+  const merged = { ...local }
+
+  // read_pages: union — { chId: { pageIdx: true } }
   try {
-    const raw = localStorage.getItem('networks_quiz_scores')
-    if (!raw) return
-    const data = JSON.parse(raw)
-    let changed = false
-    for (const [k, v] of Object.entries(data)) {
-      if (v === null || typeof v !== 'object' || !('best' in v)) {
-        delete data[k]
-        changed = true
+    const lp = safeParse(local.read_pages, {})
+    const cp = safeParse(cloud.read_pages, {})
+    const all = { ...lp }
+    for (const [ch, pages] of Object.entries(cp)) {
+      if (pages && typeof pages === 'object') {
+        all[ch] = { ...(all[ch] || {}), ...pages }
       }
     }
-    if (changed) localStorage.setItem('networks_quiz_scores', JSON.stringify(data))
-  } catch {
-    localStorage.removeItem('networks_quiz_scores')
+    merged.read_pages = JSON.stringify(all)
+  } catch { /* keep local */ }
+
+  // xp, streak — max
+  for (const key of ['xp', 'streak']) {
+    const l = parseFloat(local[key]) || 0
+    const c = parseFloat(cloud[key]) || 0
+    merged[key] = String(Math.max(l, c))
   }
+
+  // quiz_scores — format: { chId: { best, total, date } } — take highest best
+  try {
+    const lq = safeParse(local.quiz_scores, {})
+    const cq = safeParse(cloud.quiz_scores, {})
+    const all = { ...lq }
+    for (const [ch, cv] of Object.entries(cq)) {
+      if (!cv || typeof cv !== 'object' || !('best' in cv) || !('total' in cv)) continue
+      const lv = all[ch]
+      if (!lv || typeof lv !== 'object' || !('best' in lv) || cv.best > lv.best) {
+        all[ch] = cv
+      }
+    }
+    // strip any corrupted entries
+    for (const [k, v] of Object.entries(all)) {
+      if (!v || typeof v !== 'object' || !('best' in v) || !('total' in v)) delete all[k]
+    }
+    merged.quiz_scores = JSON.stringify(all)
+  } catch { /* keep local */ }
+
+  // gender, position — cloud wins
+  if (cloud.gender) merged.gender = cloud.gender
+  if (cloud.position) merged.position = cloud.position
+
+  // pro_hash — keep whichever exists
+  if (!merged.pro_hash && cloud.pro_hash) merged.pro_hash = cloud.pro_hash
+
+  return merged
 }
 
 function getAllProgress() {
@@ -48,27 +86,20 @@ function setAllProgress(data) {
   }
 }
 
-function countPages(data) {
-  try {
-    const pages = JSON.parse(data.read_pages || '{}')
-    return Object.values(pages).reduce((sum, ch) => sum + Object.keys(ch).length, 0)
-  } catch { return 0 }
-}
-
-// Pull progress from Firestore → localStorage (cloud wins if more pages read)
+// Pull from Firestore → merge into localStorage
 export async function pullProgress(uid) {
   if (!isFirebaseConfigured() || !uid) return false
-  repairLocalStorage()
   try {
     const snap = await getDoc(doc(db, 'users', uid))
-    if (!snap.exists()) return false
-    const cloud = snap.data()
+    const cloud = snap.exists() ? snap.data() : {}
     const local = getAllProgress()
-    if (countPages(cloud) > countPages(local)) {
-      setAllProgress(cloud)
-      return true
-    }
-    return false
+    const merged = mergeProgress(local, cloud)
+    setAllProgress(merged)
+    // Push merged result back so cloud is also up to date
+    const toSave = getAllProgress()
+    toSave.updated_at = new Date().toISOString()
+    await setDoc(doc(db, 'users', uid), toSave, { merge: true })
+    return true
   } catch (e) {
     console.warn('[CloudSync] pull failed:', e.message)
     return false
@@ -78,7 +109,6 @@ export async function pullProgress(uid) {
 // Push localStorage → Firestore
 export async function pushProgress(uid) {
   if (!isFirebaseConfigured() || !uid) return
-  repairLocalStorage()
   try {
     const data = getAllProgress()
     data.updated_at = new Date().toISOString()
@@ -88,7 +118,6 @@ export async function pushProgress(uid) {
   }
 }
 
-// Auto-sync: pull on login, push periodically
 let _pushInterval = null
 
 export function startAutoSync(uid) {
