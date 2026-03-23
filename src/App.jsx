@@ -33,6 +33,9 @@ import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPos
 import { getGender, setGender } from './utils/gender'
 import { processHtmlBidi, renderBidiText } from './utils/bidi.jsx'
 import { notifyVisit } from './utils/tgNotify.js'
+import { onAuthChange } from './utils/auth.js'
+import { pullProgress, pushProgress, startAutoSync, stopAutoSync } from './utils/cloudSync.js'
+import { UserMenu } from './components/UserMenu.jsx'
 import { useLang } from './utils/language.jsx'
 import './App.css'
 
@@ -210,6 +213,31 @@ function App() {
   const [showShortcuts, setShowShortcuts] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
 
+  const [authUser, setAuthUser] = useState(null)
+
+  // ── Auth: listen for sign-in / sign-out ──────────────────────────────────
+  useEffect(() => {
+    return onAuthChange(async (user) => {
+      setAuthUser(user)
+      if (user) {
+        const restored = await pullProgress(user.uid)
+        if (restored) {
+          // Refresh local state from restored localStorage
+          setXp(getXP())
+          setGenderState(getGender())
+        }
+        startAutoSync(user.uid)
+      } else {
+        stopAutoSync()
+      }
+    })
+  }, [])
+
+  // Push progress on important actions (page read, quiz, etc.)
+  const syncToCloud = useCallback(() => {
+    if (authUser) pushProgress(authUser.uid)
+  }, [authUser])
+
   // ── Visitor notification — every visit ───────────────────────────────────
   useEffect(() => { notifyVisit() }, [])
 
@@ -350,8 +378,9 @@ function App() {
         setShowConfetti(true)
         setTimeout(() => setShowConfetti(false), 3500)
       }
+      syncToCloud()
     }
-  }, [chapter, page, currentPage, activeTrack])
+  }, [chapter, page, currentPage, activeTrack, syncToCloud])
 
   const contentAreaRef = useRef(null)
   const pageHeaderRef = useRef(null)
@@ -588,6 +617,11 @@ function App() {
               <button className="reset-settings-btn" onClick={() => setShowResetModal(true)} title={t('settings')}>
                 ⚙️
               </button>
+              <UserMenu
+                user={authUser}
+                onSignIn={(u) => setAuthUser(u)}
+                onSignOut={() => setAuthUser(null)}
+              />
               <FeedbackButton inline context={{
                 trackTitle: activeTrack?.title,
                 activeTab,
