@@ -24,7 +24,14 @@ const TRACKS = [
   {
     id: 'security',
     label: { he: '🔒 אבטחת מידע', en: '🔒 Cybersecurity' },
-    labs: [],
+    labs: [
+      { id: 'sec-ch01', chapter: { he: 'פרק 1', en: 'Chapter 1' }, title: { he: '🔍 Network Scanning עם Nmap', en: '🔍 Network Scanning with Nmap' }, description: { he: 'סריקת רשתות, גילוי hosts ושירותים פתוחים עם Nmap.', en: 'Network scanning, host discovery and open service detection with Nmap.' }, difficulty: { he: 'מתחיל', en: 'Beginner' }, xp: 110, src: '/learn/security/lab_ch01.html' },
+      { id: 'sec-ch02', chapter: { he: 'פרק 2', en: 'Chapter 2' }, title: { he: '🎣 Phishing Email Analysis', en: '🎣 Phishing Email Analysis' }, description: { he: 'ניתוח מיילים פישינג, זיהוי סימני מניפולציה וטכניקות Social Engineering.', en: 'Analyzing phishing emails, identifying manipulation signs and Social Engineering.' }, difficulty: { he: 'מתחיל', en: 'Beginner' }, xp: 110, src: '/learn/security/lab_ch02.html' },
+      { id: 'sec-ch03', chapter: { he: 'פרק 3', en: 'Chapter 3' }, title: { he: '💉 SQL Injection עם DVWA', en: '💉 SQL Injection with DVWA' }, description: { he: 'ניצול חולשות SQL Injection ב-DVWA — הבנת המתקפה והגנה.', en: 'Exploiting SQL Injection vulnerabilities in DVWA — attack and defense.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/security/lab_ch03.html' },
+      { id: 'sec-ch04', chapter: { he: 'פרק 4', en: 'Chapter 4' }, title: { he: '🔓 Password Cracking עם Hashcat', en: '🔓 Password Cracking with Hashcat' }, description: { he: 'פיצוח סיסמאות מוצפנות עם Hashcat — dictionary attacks ו-brute force.', en: 'Cracking hashed passwords with Hashcat — dictionary attacks and brute force.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 140, src: '/learn/security/lab_ch04.html' },
+      { id: 'sec-ch05', chapter: { he: 'פרק 5', en: 'Chapter 5' }, title: { he: '🦈 Wireshark — ניתוח תעבורת רשת', en: '🦈 Wireshark — Network Traffic Analysis' }, description: { he: 'ניתוח packets בזמן אמת עם Wireshark, זיהוי תעבורה חשודה.', en: 'Real-time packet analysis with Wireshark, detecting suspicious traffic.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/security/lab_ch05.html' },
+      { id: 'sec-ch06', chapter: { he: 'פרק 6', en: 'Chapter 6' }, title: { he: '🏴 CTF Challenge: TryHackMe / HackTheBox', en: '🏴 CTF Challenge: TryHackMe / HackTheBox' }, description: { he: 'פתרון אתגר CTF מעשי — שילוב כל הכלים שנלמדו.', en: 'Solving a practical CTF challenge — combining all learned tools.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 160, src: '/learn/security/lab_ch06.html' },
+    ],
   },
 ]
 

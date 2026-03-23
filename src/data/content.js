@@ -35,7 +35,15 @@ export const tracks = [
     color: '#ef4444',
     level: 'בינוני–מתקדם',
     chapters: [
-      { id: 101, title: "אבטחת מידע PRO", pages: [{ type: "html_page", title: "אבטחת מידע PRO", src: "/learn/security/cybersecurity_pro_course.html" }] }
+      { id: 101, title: "יסודות אבטחת מידע — CIA Triad", pages: [{ type: "html_page", title: "יסודות אבטחת מידע — CIA Triad", src: "/learn/security/learn_ch01.html" }] },
+      { id: 102, title: "Social Engineering & Phishing", pages: [{ type: "html_page", title: "Social Engineering & Phishing", src: "/learn/security/learn_ch02.html" }] },
+      { id: 103, title: "קריפטוגרפיה — הצפנה", pages: [{ type: "html_page", title: "קריפטוגרפיה — הצפנה", src: "/learn/security/learn_ch03.html" }] },
+      { id: 104, title: "רשתות ואבטחת רשת", pages: [{ type: "html_page", title: "רשתות ואבטחת רשת", src: "/learn/security/learn_ch04.html" }] },
+      { id: 105, title: "Malware — סוגים, זיהוי ומניעה", pages: [{ type: "html_page", title: "Malware — סוגים, זיהוי ומניעה", src: "/learn/security/learn_ch05.html" }] },
+      { id: 106, title: "Penetration Testing", pages: [{ type: "html_page", title: "Penetration Testing", src: "/learn/security/learn_ch06.html" }] },
+      { id: 107, title: "SOC & Incident Response", pages: [{ type: "html_page", title: "SOC & Incident Response", src: "/learn/security/learn_ch07.html" }] },
+      { id: 108, title: "Cloud Security & Compliance", pages: [{ type: "html_page", title: "Cloud Security & Compliance", src: "/learn/security/learn_ch08.html" }] },
+      { id: 109, title: "⚡ חידון אבטחת מידע", pages: [{ type: "html_page", title: "חידון אבטחת מידע", src: "/learn/security/quiz_game.html" }] }
     ]
   },
   {
