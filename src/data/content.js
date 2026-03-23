@@ -11,6 +11,7 @@ export const tracks = [
     icon: '🌐',
     color: '#0891b2',
     level: 'מתחיל–מתקדם',
+    quizSrc: '/learn/networks/quiz_game.html',
     chapters: [
   { id: 1,  title: "תחילת מסע — איך עובד האינטרנט?",   pages: [{ type: "html_page", title: "תחילת מסע — איך עובד האינטרנט?",   src: "/learn/networks/learn_ch01.html" }] },
   { id: 2,  title: "תכנות ב-Sockets",                   pages: [{ type: "html_page", title: "תכנות ב-Sockets",                   src: "/learn/networks/learn_ch02.html" }] },
@@ -24,7 +25,6 @@ export const tracks = [
   { id: 10, title: "השכבה הפיזית",                      pages: [{ type: "html_page", title: "השכבה הפיזית",                      src: "/learn/networks/learn_ch10.html" }] },
   { id: 11, title: "איך הכל מתחבר",                     pages: [{ type: "html_page", title: "איך הכל מתחבר",                     src: "/learn/networks/learn_ch11.html" }] },
   { id: 12, title: "תכנות Sockets מתקדם",               pages: [{ type: "html_page", title: "תכנות Sockets מתקדם",               src: "/learn/networks/learn_ch12.html" }] },
-  { id: 13, title: "⚡ חידון רשתות",                    pages: [{ type: "html_page", title: "חידון רשתות",                       src: "/learn/networks/quiz_game.html"   }] },
     ]
   },
   {

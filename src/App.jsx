@@ -855,20 +855,40 @@ function App() {
 
       {activeTab === 'quiz' && (
         <div className="tab-content">
-          <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
-            <Quiz
-              chapters={trackChapters}
-              onXPGain={handleXPGain}
-              gender={gender}
-              onGoToChapter={(chIdx) => {
-                goToChapter(chIdx)
-                setActiveTab('learn')
+          {activeTrack?.quizSrc ? (
+            <iframe
+              key={activeTrack.quizSrc}
+              src={activeTrack.quizSrc}
+              title="חידון"
+              style={{ width: '100%', border: 'none', display: 'block', minHeight: '80vh' }}
+              onLoad={(e) => {
+                try {
+                  const resize = () => {
+                    const h = e.target.contentDocument?.documentElement?.scrollHeight
+                    if (h > 100) e.target.style.height = h + 'px'
+                  }
+                  resize()
+                  setTimeout(resize, 400)
+                  setTimeout(resize, 1200)
+                } catch { e.target.style.height = '100vh' }
               }}
-              autoStartChapterId={quizAutoStart?.chapterId}
-              autoStartKey={quizAutoStart?.ts}
-              onContextChange={setQuizContext}
             />
-          </Suspense>
+          ) : (
+            <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
+              <Quiz
+                chapters={trackChapters}
+                onXPGain={handleXPGain}
+                gender={gender}
+                onGoToChapter={(chIdx) => {
+                  goToChapter(chIdx)
+                  setActiveTab('learn')
+                }}
+                autoStartChapterId={quizAutoStart?.chapterId}
+                autoStartKey={quizAutoStart?.ts}
+                onContextChange={setQuizContext}
+              />
+            </Suspense>
+          )}
         </div>
       )}
 
