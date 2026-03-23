@@ -107,6 +107,14 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 .sec-label{font-family:var(--mono);font-size:10px;color:var(--s4);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:8px;}
 </style>
+<style id="mobile-fix">
+@media (max-width: 600px) {
+  body { padding: 12px 10px 60px !important; }
+  .wrap, .container { padding-left: 10px !important; padding-right: 10px !important; }
+  pre, table { max-width: 100%; overflow-x: auto; }
+  img, svg { max-width: 100% !important; height: auto !important; }
+}
+</style>
 </head>
 <body>
 <div class="wrap">

@@ -1959,6 +1959,20 @@ html {
   }
 }
 
+/* ===== HTML PAGE (iframe) — mobile fix ===== */
+.page-content:has(iframe) {
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+}
+
+@media (max-width: 800px) {
+  .page-content:has(iframe) {
+    border-radius: 12px;
+    margin: 0 -0.5rem;
+  }
+}
+
 /* ===== RESET SETTINGS BUTTON ===== */
 .reset-settings-btn {
   background: none;

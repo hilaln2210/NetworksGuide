@@ -103,6 +103,14 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .tag-sw{background:rgba(16,185,129,.15);color:var(--sw);}
 .tag-rt{background:rgba(0,212,255,.15);color:var(--rt);}
 </style>
+<style id="mobile-fix">
+@media (max-width: 600px) {
+  body { padding: 12px 10px 60px !important; }
+  .wrap, .container { padding-left: 10px !important; padding-right: 10px !important; }
+  pre, table { max-width: 100%; overflow-x: auto; }
+  img, svg { max-width: 100% !important; height: auto !important; }
+}
+</style>
 </head>
 <body>
 <div class="wrap">

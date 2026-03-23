@@ -79,6 +79,14 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .bl{font-size:12px;color:var(--mt);margin-top:2px;}
 .rbtn{background:linear-gradient(135deg,var(--ac2),#4f46e5);border:none;color:#fff;padding:14px 36px;border-radius:10px;font-family:var(--sans);font-size:16px;font-weight:600;cursor:pointer;}
 </style>
+<style id="mobile-fix">
+@media (max-width: 600px) {
+  body { padding: 12px 10px 60px !important; }
+  .wrap, .container { padding-left: 10px !important; padding-right: 10px !important; }
+  pre, table { max-width: 100%; overflow-x: auto; }
+  img, svg { max-width: 100% !important; height: auto !important; }
+}
+</style>
 </head>
 <body>
 <div class="wrap">

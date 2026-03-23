@@ -808,7 +808,17 @@ function App() {
               ) : page.type === 'thinkOutside' ? (
                 <ThinkOutsidePage page={page} lang={lang} chapterId={chapter?.id} pageIdx={currentPage} />
               ) : page.type === 'html_page' ? (
-                <iframe src={page.src} style={{ width: '100%', height: '80vh', border: 'none', borderRadius: '8px' }} title={page.title} />
+                <iframe
+                  src={page.src}
+                  title={page.title}
+                  style={{ width: '100%', border: 'none', display: 'block', minHeight: '60vh' }}
+                  onLoad={(e) => {
+                    try {
+                      const h = e.target.contentDocument.documentElement.scrollHeight
+                      e.target.style.height = h + 'px'
+                    } catch { e.target.style.height = '100vh' }
+                  }}
+                />
               ) : (
                 <div className="content-body" dangerouslySetInnerHTML={{ __html: isEn && pc.content !== page.content ? pc.content : processHtmlBidi(page.content) }} />
               )}
