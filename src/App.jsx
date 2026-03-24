@@ -234,6 +234,8 @@ function App() {
         setCurrentPage(0)
         setActiveTrack(null)
         localStorage.setItem('ng_content_version', CONTENT_VERSION)
+        // Flag for auth callback: skip pull so cloud doesn't overwrite the reset
+        sessionStorage.setItem('ng_just_reset', '1')
         setResetBanner(true)
       }
     } catch {}
@@ -244,11 +246,18 @@ function App() {
     return onAuthChange(async (user) => {
       setAuthUser(user)
       if (user) {
-        const restored = await pullProgress(user.uid)
-        if (restored) {
-          // Refresh local state from restored localStorage
-          setXp(getXP())
-          setGenderState(getGender())
+        const justReset = sessionStorage.getItem('ng_just_reset') === '1'
+        if (justReset) {
+          // Version reset just happened — overwrite cloud with empty state, don't pull old data
+          sessionStorage.removeItem('ng_just_reset')
+          await pushProgress(user.uid)
+        } else {
+          const restored = await pullProgress(user.uid)
+          if (restored) {
+            // Refresh local state from restored localStorage
+            setXp(getXP())
+            setGenderState(getGender())
+          }
         }
         startAutoSync(user.uid)
       } else {
