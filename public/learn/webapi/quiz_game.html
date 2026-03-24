@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Web & APIs PRO</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&family=Noto+Sans+Hebrew:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600;700&display=swap');
 
 :root {
   --bg:      #0b0b0f;
@@ -81,7 +80,7 @@ body::after {
 }
 
 .nav-brand {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', 'Noto Sans Hebrew', sans-serif;
   font-size: 14px; font-weight: 800;
   color: var(--blue2);
   letter-spacing: -.3px;
@@ -92,7 +91,7 @@ body::after {
 .nav-tabs { display: flex; height: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
 .nav-tab {
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 11px; letter-spacing: .5px;
   padding: 0 18px; height: 100%;
   border: none; background: none;
@@ -119,7 +118,7 @@ body::after {
 .hero { padding: 72px 0 56px; }
 
 .hero-eyebrow {
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 11px; letter-spacing: 3px;
   color: var(--blue);
   text-transform: uppercase;
@@ -130,11 +129,11 @@ body::after {
 .hero-eyebrow::before { content: '//'; color: var(--text-dim); }
 
 .hero h1 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', 'Noto Sans Hebrew', sans-serif;
   font-size: clamp(48px, 8vw, 96px);
   font-weight: 800;
   line-height: .92;
-  letter-spacing: -3px;
+  letter-spacing: -1px;
   margin-bottom: 22px;
 }
 
@@ -166,14 +165,14 @@ body::after {
 .stat:first-child { border-left: none; }
 
 .stat-n {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', 'Noto Sans Hebrew', sans-serif;
   font-size: 30px; font-weight: 800;
   color: var(--blue2);
   display: block; line-height: 1;
 }
 
 .stat-l {
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 9px; letter-spacing: 1.5px;
   color: var(--text-dim); text-transform: uppercase;
   margin-top: 3px; display: block;
@@ -207,7 +206,7 @@ body::after {
 }
 
 .ch-method {
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10px; font-weight: 600;
   padding: 3px 9px; border-radius: 5px;
   min-width: 50px; text-align: center;
@@ -223,7 +222,7 @@ body::after {
 .ch-info { flex: 1; min-width: 0; }
 
 .ch-title {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', 'Noto Sans Hebrew', sans-serif;
   font-size: 16px; font-weight: 700;
   color: var(--text);
   margin-bottom: 3px; line-height: 1.2;
@@ -234,7 +233,7 @@ body::after {
 .ch-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
 .badge {
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 9px; padding: 2px 7px;
   border-radius: 4px; letter-spacing: .5px;
 }
@@ -245,7 +244,7 @@ body::after {
 .b-amber  { background: rgba(245,158,11,.1);  color: var(--amber2); border: 1px solid rgba(245,158,11,.2); }
 .b-purple { background: rgba(168,85,247,.1);  color: var(--purple); border: 1px solid rgba(168,85,247,.2); }
 
-.ch-time { font-family: 'Fira Code', monospace; font-size: 10px; color: var(--text-dim); }
+.ch-time { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); }
 .ch-arrow { color: var(--text-dim); font-size: 13px; transition: transform .3s, color .2s; }
 .ch.open .ch-arrow { transform: rotate(90deg); color: var(--blue); }
 
@@ -258,7 +257,7 @@ body::after {
 @media(max-width:680px){ .two-col { grid-template-columns: 1fr; } }
 
 .sec-label {
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 9px; letter-spacing: 2px;
   text-transform: uppercase; color: var(--blue2);
   margin-bottom: 12px;
@@ -274,14 +273,14 @@ body::after {
   line-height: 1.55; align-items: flex-start;
 }
 
-.li::before { content:'→'; color:var(--blue); font-size:11px; margin-top:2px; flex-shrink:0; font-family:'Fira Code',monospace; }
+.li::before { content:'→'; color:var(--blue); font-size:11px; margin-top:2px; flex-shrink:0; font-family:'JetBrains Mono',monospace; }
 
 /* CODE BLOCK */
 .code {
   background: var(--code-bg);
   border: 1px solid var(--border);
   border-radius: 8px; padding: 16px;
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 12px; line-height: 1.8;
   overflow-x: auto; margin-top: 12px;
 }
@@ -303,8 +302,8 @@ body::after {
   border-radius: 8px; padding: 16px 18px;
 }
 
-.inc-badge { font-family:'Fira Code',monospace; font-size:9px; letter-spacing:1.5px; color:var(--red2); text-transform:uppercase; margin-bottom:8px; }
-.inc-title { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px; }
+.inc-badge { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:1.5px; color:var(--red2); text-transform:uppercase; margin-bottom:8px; }
+.inc-title { font-family:'Inter','Noto Sans Hebrew',sans-serif; font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px; }
 .inc-desc { font-size:12px; color:var(--text-mid); line-height:1.7; }
 
 /* PRO TIP */
@@ -342,7 +341,7 @@ body::after {
 .lab.open .lab-head { border-bottom-color: var(--border); background: var(--surface); }
 
 .lab-num {
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 10px; color: var(--text-dim);
   min-width: 20px; letter-spacing: 1px;
 }
@@ -355,11 +354,11 @@ body::after {
 }
 
 .lab-info { flex: 1; }
-.lab-name { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--text); margin-bottom:3px; }
+.lab-name { font-family:'Inter','Noto Sans Hebrew',sans-serif; font-size:16px; font-weight:700; color:var(--text); margin-bottom:3px; }
 .lab-sub  { font-size:12px; color:var(--text-dim); }
 
 .diff {
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 9px; padding: 3px 8px; border-radius: 4px; letter-spacing:.5px;
 }
 
@@ -387,7 +386,7 @@ body::after {
 }
 
 .sn {
-  font-family:'Fira Code',monospace; font-size:10px;
+  font-family:'JetBrains Mono',monospace; font-size:10px;
   color:var(--blue2); background:rgba(99,102,241,.1);
   border:1px solid rgba(99,102,241,.2); border-radius:4px;
   padding:1px 6px; min-width:30px; text-align:center;
@@ -401,7 +400,7 @@ body::after {
   border-radius: 8px; padding: 14px 16px;
   margin: 12px 0;
 }
-.q-box-label { font-family:'Fira Code',monospace; font-size:9px; color:var(--blue2); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+.q-box-label { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--blue2); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
 .q-box-text { font-size:14px; font-weight:600; color:var(--text); line-height:1.5; }
 
 /* ANSWER BTN */
@@ -411,7 +410,7 @@ body::after {
   background: transparent;
   border: 1px solid rgba(99,102,241,.35);
   color: var(--blue2); border-radius: 6px;
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 11px; letter-spacing: .5px;
   cursor: pointer; transition: all .2s;
 }
@@ -430,7 +429,7 @@ body::after {
 @keyframes fadeUp { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
 
 .ans-head {
-  font-family:'Fira Code',monospace; font-size:9px;
+  font-family:'JetBrains Mono',monospace; font-size:9px;
   letter-spacing:2px; text-transform:uppercase;
   color:var(--blue2); margin-bottom:14px;
   display:flex; align-items:center; gap:8px;
@@ -445,7 +444,7 @@ body::after {
 .ans-item:last-child { margin-bottom:0; }
 
 .an {
-  font-family:'Fira Code',monospace; font-size:10px;
+  font-family:'JetBrains Mono',monospace; font-size:10px;
   color:var(--blue2); background:rgba(99,102,241,.1);
   border:1px solid rgba(99,102,241,.2); border-radius:4px;
   padding:1px 6px; min-width:28px; text-align:center;
@@ -477,7 +476,7 @@ body::after {
 }
 
 .quiz-top h2 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', 'Noto Sans Hebrew', sans-serif;
   font-size: 32px; font-weight: 800;
   color: var(--text); margin-bottom: 8px; letter-spacing: -1px;
 }
@@ -486,7 +485,7 @@ body::after {
 
 .q-prog-bg { background:rgba(255,255,255,.05); border-radius:20px; height:3px; margin:18px 0 0; overflow:hidden; }
 .q-prog { height:100%; border-radius:20px; background:linear-gradient(90deg,var(--blue),var(--purple)); transition:width .4s; }
-.q-prog-lbl { font-family:'Fira Code',monospace; font-size:10px; color:var(--text-dim); text-align:left; margin-top:5px; }
+.q-prog-lbl { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); text-align:left; margin-top:5px; }
 
 .q-list { display:flex; flex-direction:column; gap:12px; }
 
@@ -498,8 +497,8 @@ body::after {
 .q-card.c-fail { border-color:var(--red);    background:rgba(244,63,94,.04); }
 
 .q-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
-.q-idx { font-family:'Fira Code',monospace; font-size:9px; color:var(--blue2); letter-spacing:2px; }
-.q-tag { font-family:'Fira Code',monospace; font-size:9px; color:var(--text-dim); border:1px solid var(--border); padding:2px 6px; border-radius:4px; }
+.q-idx { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--blue2); letter-spacing:2px; }
+.q-tag { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dim); border:1px solid var(--border); padding:2px 6px; border-radius:4px; }
 .q-text { font-size:15px; font-weight:600; color:var(--text); margin-bottom:14px; line-height:1.5; }
 
 .q-opts { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
@@ -537,17 +536,17 @@ body::after {
 }
 .score-box.show { display:block; animation:fadeUp .4s ease; }
 
-.score-http { font-family:'Fira Code',monospace; font-size:12px; color:var(--text-dim); margin-bottom:10px; }
-.score-big { font-family:'Syne',sans-serif; font-size:84px; font-weight:800; color:var(--blue2); line-height:1; letter-spacing:-3px; }
+.score-http { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-dim); margin-bottom:10px; }
+.score-big { font-family:'Inter','Noto Sans Hebrew',sans-serif; font-size:84px; font-weight:800; color:var(--blue2); line-height:1; letter-spacing:-3px; }
 .score-big .frac { font-size:38px; color:var(--text-dim); vertical-align:middle; }
-.score-status { font-family:'Fira Code',monospace; font-size:15px; margin-top:6px; }
+.score-status { font-family:'JetBrains Mono',monospace; font-size:15px; margin-top:6px; }
 .score-msg { font-size:17px; font-weight:600; color:var(--text); margin-top:14px; }
-.score-sub { font-size:12px; color:var(--text-dim); margin-top:6px; font-family:'Fira Code',monospace; }
+.score-sub { font-size:12px; color:var(--text-dim); margin-top:6px; font-family:'JetBrains Mono',monospace; }
 
 .score-acts { display:flex; justify-content:center; gap:12px; margin-top:26px; flex-wrap:wrap; }
 
 .btn {
-  font-family:'Fira Code',monospace; font-size:11px;
+  font-family:'JetBrains Mono',monospace; font-size:11px;
   padding:12px 24px; border-radius:7px;
   cursor:pointer; text-decoration:none; display:inline-block;
   transition:all .2s; letter-spacing:.5px; border:1px solid;
@@ -577,10 +576,10 @@ body::after {
 .td { width:11px; height:11px; border-radius:50%; }
 .td-r{background:#ff5f57;} .td-y{background:#febc2e;} .td-g{background:#28c840;}
 
-.tb-title { font-family:'Fira Code',monospace; font-size:11px; color:var(--text-dim); margin-right:auto; }
+.tb-title { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); margin-right:auto; }
 
 .game-scorebar {
-  font-family:'Fira Code',monospace; font-size:11px;
+  font-family:'JetBrains Mono',monospace; font-size:11px;
   display:flex; gap:16px;
 }
 
@@ -591,7 +590,7 @@ body::after {
 .game-body { padding: 28px; }
 
 .game-q {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Inter', 'Noto Sans Hebrew', sans-serif;
   font-size: 20px; font-weight: 700;
   color: var(--text); margin-bottom: 8px; line-height: 1.35;
 }
@@ -607,7 +606,7 @@ body::after {
 
 .g-opt {
   padding: 14px 8px; border-radius: 8px; cursor: pointer;
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 15px; font-weight: 700;
   text-align: center; transition: all .15s;
   border: 2px solid transparent; user-select: none;
@@ -659,15 +658,15 @@ body::after {
 .game-end.show { display: block; }
 
 .ge-emoji { font-size: 54px; margin-bottom: 14px; }
-.ge-title { font-family:'Syne',sans-serif; font-size:28px; font-weight:800; color:var(--text); margin-bottom:8px; letter-spacing:-1px; }
-.ge-score { font-family:'Fira Code',monospace; font-size:14px; color:var(--blue2); margin-bottom:6px; }
+.ge-title { font-family:'Inter','Noto Sans Hebrew',sans-serif; font-size:28px; font-weight:800; color:var(--text); margin-bottom:8px; letter-spacing:-1px; }
+.ge-score { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--blue2); margin-bottom:6px; }
 .ge-msg { font-size:14px; color:var(--text-dim); margin-bottom:24px; }
 
 .game-help {
   background: rgba(99,102,241,.05);
   border: 1px solid rgba(99,102,241,.15);
   border-radius: 8px; padding: 12px 16px;
-  font-family: 'Fira Code', monospace;
+  font-family: 'JetBrains Mono', monospace;
   font-size: 11px; color: var(--text-dim);
   line-height: 1.65; margin-top: 16px;
 }
@@ -677,7 +676,7 @@ body::after {
   text-align: center; padding: 32px; border-top: 1px solid var(--border);
   position: relative; z-index: 1;
 }
-.site-footer p { font-family:'Fira Code',monospace; font-size:10px; color:var(--text-dim); letter-spacing:2px; }
+.site-footer p { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); letter-spacing:2px; }
 
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width:4px; height:4px; }
@@ -773,21 +772,6 @@ body::after {
   .site-footer { padding-bottom:max(20px,env(safe-area-inset-bottom)); }
 }
 </style>
-
-<style>
-/* mobile-fix */
-html, body { overflow-x: hidden; }
-@media (max-width: 800px) {
-  .container { padding: 0 12px; }
-  pre, code { font-size: 0.78rem; }
-  table { font-size: 0.82rem; }
-}
-@media (max-width: 480px) {
-  .container { padding: 0 6px; }
-  .ch, .lab { padding: 12px 8px; }
-  pre { padding: 10px 8px; }
-}
-</style>
 <style id="ng-light">
 [data-theme="light"] {
   --bg: #f8f9ff; --bg2: #f0f1fb;
@@ -801,7 +785,20 @@ html, body { overflow-x: hidden; }
 <script src="/_bridge.js"></script>
 </head>
 <body>
-<div id="quiz" class="section active"><div class="sec-body">
+
+<nav class="nav">
+  <span class="nav-brand">Web &amp; APIs PRO</span>
+  <div class="nav-tabs">
+    <button class="nav-tab " onclick="window.location.href='web_apis_learn.html'">למידה</button>
+    <button class="nav-tab " onclick="window.location.href='web_apis_labs.html'">מעבדות</button>
+    <button class="nav-tab active" onclick="window.location.href='web_apis_quiz.html'">חידון</button>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ════════════ QUIZ ════════════ -->
+  <div id="quiz" class="section active"><div class="sec-body">
     <div class="quiz-top">
       <h2>🧠 חידון Web &amp; APIs</h2>
       <p>20 שאלות · אירועים אמיתיים · הסבר מלא לכל תשובה</p>
@@ -822,64 +819,31 @@ html, body { overflow-x: hidden; }
     </div>
   </div></div>
 
-  <!-- ════════════ GAME ════════════ -->
-  <div id="game" class="section"><div class="sec-body">
-    <div class="game-shell">
-      <div class="game-titlebar">
-        <div class="tb-dots"><div class="td td-r"></div><div class="td td-y"></div><div class="td td-g"></div></div>
-        <span class="tb-title">http-status-game v2.0</span>
-        <div class="game-scorebar">
-          <span class="gs-score">score: <span id="gScore">0</span></span>
-          <span class="gs-lives">lives: <span id="gLives">❤️❤️❤️</span></span>
-          <span class="gs-level">level: <span id="gLevel">1</span></span>
-        </div>
-      </div>
-
-      <div class="game-body" id="gameBody">
-        <div class="game-q" id="gQuestion">טוען...</div>
-        <div class="game-hint" id="gHint"></div>
-        <div class="game-opts" id="gOptions"></div>
-        <div class="game-feedback" id="gFeedback"></div>
-        <div class="game-progress-wrap">
-          <div class="game-progress-fill" id="gProgress" style="width:0%"></div>
-        </div>
-      </div>
-
-      <div class="game-end" id="gameResult">
-        <div class="ge-emoji" id="grEmoji">🏆</div>
-        <div class="ge-title" id="grTitle"></div>
-        <div class="ge-score" id="grScore"></div>
-        <div class="ge-msg" id="grMsg"></div>
-        <button class="btn btn-blue" onclick="startGame()" style="margin:0 auto">🔄 שחק שוב</button>
-      </div>
-    </div>
-
-    <div class="game-help">
-      <strong style="color:var(--blue2)">איך לשחק:</strong> כל תיאור → בחר Status Code נכון. Level עולה כל 3 נכונות ומוסיף Codes נדירים. טיפ: 2xx = הצלחה · 3xx = Redirect · 4xx = Client Error · 5xx = Server Error
-    </div>
-  </div></div>
-
+  
 </div><!-- /container -->
 
 <footer class="site-footer">
   <p>// WEB &amp; APIS PRO · REQUEST · RESPOND · REPEAT //</p>
 </footer>
 
-
 <script>
-// ── TABS ──
+
+// ── TABS ── (split-file mode: tabs navigate between files)
 function switchTab(id, el) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  // In split mode each file only has one section — just show it
+  const sec = document.getElementById(id);
+  if (sec) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    sec.classList.add('active');
+  }
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  if (el) el.classList.add('active');
-  if (id === 'game') startGame();
+  if (el && el.classList) el.classList.add('active');
 }
 
 // ── CHAPTERS / LABS ──
 function toggleCh(id) { document.getElementById(id).classList.toggle('open'); }
 function toggleLab(id) { document.getElementById(id).classList.toggle('open'); }
-document.getElementById('lb1').classList.add('open');
+const _lb1 = document.getElementById('lb1'); if (_lb1) _lb1.classList.add('open');
 
 // ── ANSWER TOGGLE ──
 function toggleAns(id) {
@@ -894,6 +858,7 @@ function toggleAns(id) {
 }
 
 // ── QUIZ ──
+
 const QS = [
   { q:"איזה Status Code מוחזר כש-Resource לא קיים?", tag:"Status Codes", opts:["400 Bad Request","401 Unauthorized","404 Not Found","503 Service Unavailable"], ans:2, exp:"404 Not Found — ה-Resource שביקשת לא קיים. 400 = הבקשה עצמה שגויה (Missing field). 401 = לא מאומת (שלח Credentials). 503 = שרת לא זמין כרגע." },
   { q:"מה ההבדל בין 401 ל-403?", tag:"Status Codes", opts:["אין הבדל","401 = לא מזוהה, 403 = מזוהה אך אסור","401 = Server Error","401 עבור API בלבד"], ans:1, exp:"401 Unauthorized = לא מאומת (שלח Credentials קודם). 403 Forbidden = מאומת אבל אין הרשאה. שם 'Unauthorized' הוא טעות היסטורית — הכוונה Unauthenticated." },
@@ -979,133 +944,6 @@ function showScore() {
 function restartQuiz() { buildQuiz(); window.scrollTo({top:document.getElementById('quiz').offsetTop-80,behavior:'smooth'}); }
 
 buildQuiz();
-
-// ── GAME ──
-const STATUSES = [
-  { code:200, cls:'go-200', name:'OK' },
-  { code:301, cls:'go-301', name:'Moved Permanently' },
-  { code:404, cls:'go-404', name:'Not Found' },
-  { code:500, cls:'go-500', name:'Internal Server Error' },
-  { code:401, cls:'go-401', name:'Unauthorized' },
-  { code:403, cls:'go-403', name:'Forbidden' },
-  { code:429, cls:'go-429', name:'Too Many Requests' },
-  { code:503, cls:'go-503', name:'Service Unavailable' },
-];
-
-const EXTRA = [
-  { code:204, cls:'go-200', name:'No Content' },
-  { code:400, cls:'go-400', name:'Bad Request' },
-  { code:302, cls:'go-302', name:'Found (Temp Redirect)' },
-  { code:422, cls:'go-422', name:'Unprocessable Entity' },
-  { code:405, cls:'go-405', name:'Method Not Allowed' },
-  { code:201, cls:'go-201', name:'Created' },
-  { code:502, cls:'go-502', name:'Bad Gateway' },
-  { code:304, cls:'go-304', name:'Not Modified' },
-];
-
-const ALL = [...STATUSES, ...EXTRA];
-
-const QUESTIONS = [
-  { desc:"המשאב קיים, הכל עבד מצוין", hint:"הצלחה מושלמת", ans:200 },
-  { desc:"הכתובת עברה ל-URL חדש לתמיד", hint:"Redirect קבוע — גוגל אוהב", ans:301 },
-  { desc:"הדף שחיפשת לא קיים", hint:"המשאב נעלם — או מעולם לא היה", ans:404 },
-  { desc:"קוד צד שרת קרס עם Exception", hint:"זה לא אשמת ה-Client", ans:500 },
-  { desc:"שלחת בקשה בלי להתחבר", hint:"מי אתה? אנחנו לא מכירים אותך", ans:401 },
-  { desc:"מחובר, אבל אין לך גישה לדף", hint:"אנחנו יודעים מי אתה, אבל לא", ans:403 },
-  { desc:"שלחת יותר מדי בקשות מהר מדי", hint:"Slow down! 🐢", ans:429 },
-  { desc:"שרת לא יכול לעבד כרגע", hint:"≠ 500. השרת בסדר, פשוט עמוס", ans:503 },
-  { desc:"הצליח, אין תוכן להחזיר (DELETE)", hint:"Success ללא Body", ans:204 },
-  { desc:"ה-Client שלח JSON שבור", hint:"תקינות הבקשה — Client's fault", ans:400 },
-  { desc:"ה-Resource עבר ל-URL זמני", hint:"כמו 301 אבל זמני", ans:302 },
-  { desc:"שדה חובה חסר ב-Form", hint:"Input תקין אבל Logic לא", ans:422 },
-  { desc:"שלחת DELETE ל-Endpoint שמקבל GET", hint:"Method לא מוכר כאן", ans:405 },
-  { desc:"POST הצליח ויצר Resource חדש", hint:"Created — שונה מ-200", ans:201 },
-  { desc:"Gateway קיבל תגובה שגויה מ-Upstream", hint:"שגיאה בשרת מאחורי", ans:502 },
-  { desc:"Resource לא השתנה מאז ה-Cache", hint:"חסכנו Bandwidth!", ans:304 },
-];
-
-let gScore=0, gLives=3, gLevel=1, gAsked=[];
-
-function startGame() {
-  gScore=0; gLives=3; gLevel=1; gAsked=[];
-  document.getElementById('gameResult').classList.remove('show');
-  document.getElementById('gameBody').style.display='block';
-  updateGUI(); nextQ();
-}
-
-function updateGUI() {
-  document.getElementById('gScore').textContent = gScore;
-  document.getElementById('gLives').textContent = '❤️'.repeat(gLives)+'🖤'.repeat(3-gLives);
-  document.getElementById('gLevel').textContent = gLevel;
-}
-
-function getOpts(ans) {
-  const pool = gLevel<=2 ? STATUSES.slice(0,4) : gLevel<=4 ? STATUSES : ALL;
-  const correct = ALL.find(s=>s.code===ans)||pool[0];
-  const others = pool.filter(s=>s.code!==ans).sort(()=>Math.random()-.5).slice(0,3);
-  return [...others, correct].sort(()=>Math.random()-.5);
-}
-
-function nextQ() {
-  const rem = QUESTIONS.filter((_,i)=>!gAsked.includes(i));
-  if (!rem.length||gLives<=0) { endGame(); return; }
-  const idx = QUESTIONS.indexOf(rem[Math.floor(Math.random()*rem.length)]);
-  gAsked.push(idx);
-  const q = QUESTIONS[idx]; q._cur = idx;
-  window._curQ = q;
-  document.getElementById('gQuestion').textContent = q.desc;
-  document.getElementById('gHint').textContent = '💭 '+q.hint;
-  document.getElementById('gFeedback').textContent='';
-  document.getElementById('gFeedback').className='game-feedback';
-  const opts = getOpts(q.ans);
-  document.getElementById('gOptions').innerHTML = opts.map(o=>
-    `<div class="g-opt ${o.cls}" onclick="answer(${o.code},this)">${o.code}<small>${o.name}</small></div>`
-  ).join('');
-  document.getElementById('gProgress').style.width = (gAsked.length/QUESTIONS.length*100)+'%';
-  gLevel = Math.min(5, Math.floor(gScore/3)+1);
-  updateGUI();
-}
-
-function answer(code, el) {
-  const q = window._curQ;
-  document.querySelectorAll('.g-opt').forEach(o=>o.classList.add('locked'));
-  const fb = document.getElementById('gFeedback');
-  if (code===q.ans) {
-    el.classList.add('correct');
-    gScore += gLevel;
-    try { window.parent.postMessage({ type: 'ng_xp', amount: gLevel * 5 }, '*'); } catch(e) {}
-    fb.textContent='✅ נכון! +'+gLevel+'pts';
-    fb.className='game-feedback fb-ok';
-    updateGUI();
-    setTimeout(nextQ, 900);
-  } else {
-    el.classList.add('wrong');
-    gLives--;
-    const c=[...document.querySelectorAll('.g-opt')].find(o=>o.getAttribute('onclick')&&o.getAttribute('onclick').includes('answer('+q.ans+','));
-    if(c) c.classList.add('correct');
-    fb.textContent='❌ התשובה: '+q.ans+' '+ALL.find(s=>s.code===q.ans)?.name;
-    fb.className='game-feedback fb-err';
-    updateGUI();
-    if(gLives<=0){setTimeout(endGame,1200);return;}
-    setTimeout(nextQ,1400);
-  }
-}
-
-function endGame() {
-  document.getElementById('gameBody').style.display='none';
-  document.getElementById('gameResult').classList.add('show');
-  let emoji,title,msg;
-  if(gScore>=36){emoji='🏆';title='HTTP Master!';msg='אתה זוכר Status Codes בשינה. Senior Engineer Material.';}
-  else if(gScore>=20){emoji='⭐';title='טוב מאוד!';msg='עוד קצת תרגול ותהיה Master.';}
-  else if(gScore>=10){emoji='📖';title='בינוני';msg='קרא שוב את פרק Status Codes ונסה שוב.';}
-  else{emoji='☕';title='418 I\'m a Teapot';msg='גם זה Status Code. חזור ל-Basics.';}
-  document.getElementById('grEmoji').textContent=emoji;
-  document.getElementById('grTitle').textContent=title;
-  document.getElementById('grScore').textContent=`ניקוד: ${gScore} | חיים: ${gLives}`;
-  document.getElementById('grMsg').textContent=msg;
-}
-
-startGame();
 </script>
 </body>
 </html>

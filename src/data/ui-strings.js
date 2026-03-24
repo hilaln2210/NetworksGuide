@@ -28,25 +28,25 @@ export const uiStrings = {
 
   // ===== Track titles / subtitles / levels =====
   track_networking_title: { he: 'רשתות מחשבים', en: 'Computer Networks' },
-  track_networking_subtitle: { he: 'TCP/IP, DNS, HTTP ועוד 26 פרקים מרשתות בסיס עד BGP', en: 'TCP/IP, DNS, HTTP and 26 chapters from basics to BGP' },
+  track_networking_subtitle: { he: 'Sockets, Wireshark, TCP/IP, שכבות הרשת, Scapy ועוד — 12 פרקים מהבסיס למתקדם', en: 'Sockets, Wireshark, TCP/IP, network layers, Scapy and more — 12 chapters' },
   track_networking_level: { he: 'מתחיל–מתקדם', en: 'Beginner–Advanced' },
   track_cyber_title: { he: 'אבטחת מידע', en: 'Cybersecurity' },
-  track_cyber_subtitle: { he: 'Pentesting, CTF, SOC, Bug Bounty — מהבסיס למקצוען', en: 'Pentesting, CTF, SOC, Bug Bounty — from basics to professional' },
-  track_cyber_level: { he: 'מתחיל–מתקדם', en: 'Beginner–Advanced' },
-  track_devops_title: { he: 'DevOps', en: 'DevOps' },
-  track_devops_subtitle: { he: 'Linux, Docker, K8s, AWS, CI/CD, Terraform, Monitoring, GitOps', en: 'Linux, Docker, K8s, AWS, CI/CD, Terraform, Monitoring, GitOps' },
-  track_devops_level: { he: 'מתחיל–מתקדם', en: 'Beginner–Advanced' },
+  track_cyber_subtitle: { he: 'CIA Triad, קריפטוגרפיה, Malware, Penetration Testing, SOC — 8 פרקים + 6 מעבדות', en: 'CIA Triad, cryptography, malware, penetration testing, SOC — 8 chapters + 6 labs' },
+  track_cyber_level: { he: 'בינוני–מתקדם', en: 'Intermediate–Advanced' },
+  track_devops_title: { he: 'DevOps & Cloud', en: 'DevOps & Cloud' },
+  track_devops_subtitle: { he: 'Docker, Kubernetes, CI/CD, Terraform, Observability, AWS — 9 פרקים + 7 מעבדות', en: 'Docker, Kubernetes, CI/CD, Terraform, Observability, AWS — 9 chapters + 7 labs' },
+  track_devops_level: { he: 'בינוני–מתקדם', en: 'Intermediate–Advanced' },
   track_research_title: { he: 'חקר רשתות', en: 'Network Research' },
   track_research_subtitle: { he: 'Wireshark, BGP, DNS, HTTP/2, eBPF, TLS, Container Networking', en: 'Wireshark, BGP, DNS, HTTP/2, eBPF, TLS, Container Networking' },
   track_research_level: { he: 'מתקדם', en: 'Advanced' },
 
   // ===== New tracks =====
   track_linux_title: { he: 'מערכות ולינוקס', en: 'System & Linux' },
-  track_linux_subtitle: { he: 'פקודות, הרשאות, Bash, כלי רשת ופתרון תקלות — הבסיס לכל איש IT', en: 'Commands, permissions, Bash, network tools & troubleshooting — the IT foundation' },
+  track_linux_subtitle: { he: 'Filesystem, Process, Bash, systemd, Storage, Security Hardening — 10 פרקים + 6 מעבדות', en: 'Filesystem, Process, Bash, systemd, Storage, Security Hardening — 10 chapters + 6 labs' },
   track_linux_level: { he: 'מתחיל–בינוני', en: 'Beginner–Intermediate' },
 
   track_webapi_title: { he: 'Web ו-APIs', en: 'Web & APIs' },
-  track_webapi_subtitle: { he: 'HTTP/HTTPS, REST APIs, JWT, דפדפנים וכלים — הבנה מעמיקה של הווב', en: 'HTTP/HTTPS, REST APIs, JWT, browsers & tools — deep understanding of the web' },
+  track_webapi_subtitle: { he: 'HTTP, REST, GraphQL, Auth, WebSockets, Performance, API Design — 8 פרקים + 6 מעבדות', en: 'HTTP, REST, GraphQL, Auth, WebSockets, Performance, API Design — 8 chapters + 6 labs' },
   track_webapi_level: { he: 'מתחיל–בינוני', en: 'Beginner–Intermediate' },
 
   track_redteam_title: { he: 'Red Team — פריצה אתית', en: 'Red Team — Ethical Hacking' },

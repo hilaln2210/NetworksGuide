@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>רשתות מחשבים Pro</title>
@@ -486,59 +485,741 @@ nav {
   100%{opacity:0;transform:translateY(-56px) scale(1.2)}
 }
 </style>
-
-<style id="ng-light">
-[data-theme="light"] {
-  --bg: #f0f6ff; --bg1: #e8f0ff;
-  --surf: #ffffff; --s2: #f0f5ff; --s3: #e8f0ff;
-  --brd: #c8d8f0; --brd2: #b0c4e8;
-  --ac: #0284c7; --ac2: #7c3aed;
-  --txt: #0f1f35; --dim: #2a4a6a; --dim2: #334155;
-  --gr: #059669; --yw: #d97706; --rd: #dc2626; --pk: #db2777;
-}
-/* Fix hardcoded #fff text — chapter & section titles */
-[data-theme="light"] .ch-title,
-[data-theme="light"] .section-h,
-[data-theme="light"] .concept-title,
-[data-theme="light"] .alert-title,
-[data-theme="light"] .curr-name,
-[data-theme="light"] .ms-title,
-[data-theme="light"] .mc-title,
-[data-theme="light"] .hstat-val,
-[data-theme="light"] .nav-logo,
-[data-theme="light"] .hero-title { color: #0f1f35 !important; }
-
-/* Summary table */
-[data-theme="light"] .sum-tbl th { background: #dce8f8 !important; color: #0284c7 !important; }
-[data-theme="light"] .sum-tbl td:first-child { color: #0f1f35 !important; }
-[data-theme="light"] .sum-tbl tr:nth-child(even) td { background: rgba(2,132,199,0.04) !important; }
-
-/* Alert boxes — keep colored bg but fix title */
-[data-theme="light"] .alert-box.info { background: rgba(2,132,199,0.08) !important; border-color: rgba(2,132,199,0.3) !important; }
-[data-theme="light"] .alert-box.tip  { background: rgba(5,150,105,0.08) !important; border-color: rgba(5,150,105,0.3) !important; }
-[data-theme="light"] .alert-box.warn { background: rgba(217,119,6,0.08) !important; border-color: rgba(217,119,6,0.3) !important; }
-
-/* Concept cards */
-[data-theme="light"] .concept { background: #f0f5ff !important; border-color: #c8d8f0 !important; }
-
-/* Mission elements */
-[data-theme="light"] .mi-num { background: rgba(2,132,199,0.08) !important; border-color: #c8d8f0 !important; }
-[data-theme="light"] .mission-item:hover { background: rgba(2,132,199,0.05) !important; }
-
-/* Buttons with near-invisible bg */
-[data-theme="light"] .tqc-btn { background: rgba(2,132,199,0.06) !important; color: #334155 !important; }
-
-/* Nav */
-[data-theme="light"] .nav-tab { color: #2a4a6a !important; }
-[data-theme="light"] .header-bar { background: rgba(240,246,255,0.95) !important; border-color: #c8d8f0 !important; }
-</style>
-<script src="/_bridge.js"></script>
 </head>
 <body>
-<div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-  <div id="chContent"></div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">רשתות <em>Pro</em></div>
+  <div style="display:flex;gap:4px;margin-right:auto;">
+    <button class="nav-btn active" onclick="go('landing')">🏠 ראשי</button>
+    <button class="nav-btn" onclick="go('learn')">📖 למידה</button>
+    <button class="nav-btn" onclick="go('terminal-screen')">⌨️ טרמינל</button>
+  </div>
+  <div class="nav-xp">⚡ <span id="xpTotal">0</span> XP</div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     LANDING
+══════════════════════════════════════════ -->
+<section class="screen on" id="landing">
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">קורס Pro · מבוסס ספר רשתות מחשבים</div>
+    <h1 class="hero-h">רשתות<br><em>מחשבים</em></h1>
+    <p class="hero-p">12 פרקים · תוכן מלא לפי הספר הצבאי · Terminal Simulator עם 24 משימות אמיתיות</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-n">12</div><div class="hs-l">פרקים</div></div>
+      <div class="hs"><div class="hs-n">24</div><div class="hs-l">missions</div></div>
+      <div class="hs"><div class="hs-n">5</div><div class="hs-l">שכבות</div></div>
+    </div>
+    <button class="hero-cta" onclick="go('learn');loadCh(1)">התחל ללמוד ←</button>
+  </div>
+  <div>
+    <div class="ch-grid" style="padding:0;grid-template-columns:repeat(2,1fr);max-width:none;" id="homeGrid"></div>
+  </div>
 </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     LEARN
+══════════════════════════════════════════ -->
+<section class="screen" id="learn">
+  <div id="readBar"></div>
+  <div class="learn-wrap">
+    <div class="l-sidebar" id="lSidebar"></div>
+    <div class="l-content" id="lContent">
+      <p style="color:var(--dim2)">בחר פרק...</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TERMINAL
+══════════════════════════════════════════ -->
+<section class="screen" id="terminal-screen">
+<div class="term-wrap">
+
+  <div class="m-sidebar">
+    <div class="ms-head">
+      <div class="ms-title">⌨️ Terminal</div>
+      <div class="ms-sub">24 משימות</div>
+      <div class="ms-prog"><div class="ms-prog-fill" id="msProg" style="width:0%"></div></div>
+    </div>
+    <div id="missionList"></div>
+  </div>
+
+  <div class="term-main">
+    <div class="mission-card" id="mCard">
+      <div class="mc-badge">⌨️ TERMINAL SIMULATOR</div>
+      <div class="mc-title" id="mcTitle">בחר משימה</div>
+      <div class="mc-desc"  id="mcDesc">בחר משימה מהרשימה להתחיל</div>
+      <div class="mc-hints" id="mcHints"></div>
+    </div>
+
+    <div class="terminal">
+      <div class="term-topbar">
+        <div class="tb-dot tb-r"></div>
+        <div class="tb-dot tb-y"></div>
+        <div class="tb-dot tb-g"></div>
+        <span class="term-name">student@networks-lab:~$</span>
+        <button class="term-clear-btn" onclick="clearTerm()">clear</button>
+      </div>
+      <div class="term-out" id="termOut">
+        <div class="out-line"><span class="out-info">Networks Pro Terminal v2.0</span></div>
+        <div class="out-line"><span class="out-dim">בחר משימה מהרשימה, או הקלד פקודה. כתוב help לרשימה.</span></div>
+        <div class="out-line"></div>
+      </div>
+      <div class="term-input-row">
+        <span class="term-ps">student@lab:~$&nbsp;</span>
+        <input class="term-in" id="termIn" type="text" autocomplete="off" spellcheck="false"
+               placeholder="הקלד פקודה..." onkeydown="onKey(event)">
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
 <script>
+
+var CHAPTERS = [
+  {n:1,icon:'🌐',color:'#00d4ff',name:'תחילת מסע',desc:'Client/Server, כתובות IP, DNS, ping, traceroute, ענן האינטרנט',sections:['WWW','Client / Server','IP','ענן האינטרנט','DNS','סיכום כלים'],content:buildCh1},
+  {n:2,icon:'🔌',color:'#50fa7b',name:'Sockets בסיסי',desc:'socket(), connect(), bind(), listen(), accept(), send(), recv()',sections:['מה זה Socket?','API של Socket','לקוח','שרת','שרת פקודות'],content:buildCh2},
+  {n:3,icon:'🦈',color:'#1eb4f5',name:'Wireshark',desc:'Encapsulation, Decapsulation, Display Filter, Capture Filter',sections:['Wireshark','מודל חמש השכבות','Encapsulation','Filters'],content:buildCh3},
+  {n:4,icon:'📡',color:'#a78bfa',name:'שכבת האפליקציה',desc:'HTTP GET/POST, Status Codes, Headers, URL, DNS, Root Directory',sections:['HTTP','URL','Status Codes','DNS לעומק'],content:buildCh4},
+  {n:5,icon:'🐍',color:'#10b981',name:'Scapy',desc:'sniff(), lfilter, prn, שכבות חבילה, send/sr/sr1',sections:['מה זה Scapy?','בניית חבילה','sniff','send/sr'],content:buildCh5},
+  {n:6,icon:'🚦',color:'#f59e0b',name:'שכבת התעבורה',desc:'TCP vs UDP, Ports, netstat, Three-Way Handshake, Seq/ACK',sections:['תפקיד','Ports','TCP vs UDP','Three-Way Handshake','netstat'],content:buildCh6},
+  {n:7,icon:'🌍',color:'#34d399',name:'שכבת הרשת',desc:'IP, Subnet Mask, NAT, Routing Table, DHCP, TTL, traceroute',sections:['תפקיד','כתובת IP','DHCP','NAT','TTL & Routing','ICMP'],content:buildCh7},
+  {n:8,icon:'🔗',color:'#06b6d4',name:'שכבת הקו',desc:'Ethernet, MAC Address, ARP, Ethernet Frame, Hub vs Switch',sections:['תפקיד','MAC Address','Ethernet Frame','ARP','Multicast & Broadcast'],content:buildCh8},
+  {n:9,icon:'🔀',color:'#8b5cf6',name:'רכיבי רשת',desc:'Hub vs Switch vs Router — שכבות, MAC Table, Flooding, ARP',sections:['Hub','Switch','Router','סיכום'],content:buildCh9},
+  {n:10,icon:'⚡',color:'#f97316',name:'השכבה הפיזית',desc:'ביט, גלים, AM/FM, אנלוגי/דיגיטלי, ADSL, CAT5, WiFi, סיב אופטי',sections:['ביט','AM vs FM','WiFi','ADSL & CAT5'],content:buildCh10},
+  {n:11,icon:'🧩',color:'#ec4899',name:'איך הכל מתחבר',desc:'DHCP→ARP→DNS→TCP→HTTP→NAT — מסע פקטה שלם מקצה לקצה',sections:['נקודת ההתחלה','שלב 1: DHCP','שלב 2: ARP','שלב 3: DNS','שלב 4+5: TCP & HTTP'],content:buildCh11},
+  {n:12,icon:'⚙️',color:'#50fa7b',name:'Sockets מתקדם',desc:'select(), blocking vs non-blocking, multi-client, Chat Protocol',sections:['הבעיה','select()','messages_to_send'],content:buildCh12}
+];
+
+
+function buildCh1(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — WWW</span>' +
+    '<h2 class="section-h">מה זה WWW?</h2>' +
+    '<p class="prose">WWW = World Wide Web. אוסף עמודי האינטרנט אליהם גולשים בדפדפן. העמודים <strong>מפוזרים בכל רחבי העולם</strong> ומקושרים אחד לשני באמצעות לינקים — כמו רשת קורי עכביש.</p>' +
+    '</div>' +
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — Client / Server</span>' +
+    '<h2 class="section-h">Client & Server</h2>' +
+    '<p class="prose">הדפדפן = <strong>Client</strong> — שולח Request (בקשה). Facebook = <strong>Server</strong> — מקבל ומחזיר Response (תגובה). Client תמיד יוזם.</p>' +
+    '<div class="flow-diag">' +
+    '<div class="flow-node fn-blue">💻 Client<br><small>דפדפן</small></div>' +
+    '<div class="flow-arr">──Request──▶</div>' +
+    '<div class="flow-node fn-gray">☁️ ענן</div>' +
+    '<div class="flow-arr">──▶</div>' +
+    '<div class="flow-node fn-green">🗄️ Server<br><small>Facebook</small></div>' +
+    '<div class="flow-arr">◀──Response──</div>' +
+    '</div>' +
+    '<div class="alert-box tip"><div class="alert-icon">💡</div><div class="alert-body">' +
+    '<div class="alert-title">View Page Source</div>' +
+    '<div class="alert-text">קליק ימני → "View page source" — רואים את ה-HTML שהשרת שלח. זה ה-Response.</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — IP</span>' +
+    '<h2 class="section-h">כתובות IP</h2>' +
+    '<p class="prose">כמו כתובת דואר — כל הודעה ברשת כוללת <strong>כתובת מקור</strong> ו<strong>כתובת יעד</strong>. כתובת IP מורכבת מ-4 bytes, כל byte בין 0 ל-255.</p>' +
+    '<div class="alert-box info"><div class="alert-icon">🌍</div><div class="alert-body">' +
+    '<div class="alert-title">GeoIP</div>' +
+    '<div class="alert-text">ניתן לעיתים להבין מכתובת IP מה המיקום הגיאוגרפי שלה, באמצעות GeoIP. אך שימו לב — לא תמיד מדויק!</div>' +
+    '</div></div>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">cmd</span></div>' +
+    '<div class="code-body"><span class="tp">C:\\&gt;</span> <span class="tw">ping www.facebook.com</span><br><span class="tc">Pinging [</span><span class="tv">31.13.72.65</span><span class="tc">] time=180ms</span></div></div>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — ענן האינטרנט</span>' +
+    '<h2 class="section-h">ענן האינטרנט & Hops</h2>' +
+    '<p class="prose">המחשב שלנו לא מחובר ישירות לשרת Facebook. ההודעה עוברת דרך <strong>הרבה רכיבים</strong> שמעבירים אותה hop-by-hop. הכלי traceroute מציג את כל התחנות.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">tracert -d www.facebook.com</span></div>' +
+    '<div class="code-body"><span class="tc"> 1</span>  &lt;1ms  <span class="tv">192.168.1.1</span>  <span class="tc">← נתב ביתי</span><br>' +
+    '<span class="tc"> 2</span>   5ms  <span class="tv">212.179.37.1</span><br>' +
+    '<span class="tc"> 3</span>  12ms  <span class="tv">80.77.64.1</span><br>' +
+    '<span class="tc"> *</span>   *    <span class="tc">Request timed out</span><br>' +
+    '<span class="tc">15</span> 180ms  <span class="tv">157.240.22.35</span>  <span class="tc">← Facebook!</span>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">05 — DNS</span>' +
+    '<h2 class="section-h">DNS — Domain Name System</h2>' +
+    '<p class="prose">בני אדם זוכרים שמות (www.facebook.com). מחשבים צריכים IP. DNS = מערכת תרגום. בכל פנייה לשם דומיין — בדפדפן, ב-ping, ב-tracert — המחשב קודם שואל DNS.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">nslookup www.facebook.com</span></div>' +
+    '<div class="code-body">Name:    www.facebook.com<br>Address: <span class="tv">157.240.22.35</span></div></div>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">06 — סיכום כלים</span>' +
+    '<h2 class="section-h">כלי שורת הפקודה</h2>' +
+    '<table class="sum-tbl"><tr><th>כלי</th><th>מטרה</th><th>פקודה לדוגמה</th></tr>' +
+    '<tr><td>ping</td><td>קישוריות + IP + זמן תגובה</td><td>ping www.google.com</td></tr>' +
+    '<tr><td>tracert</td><td>כל ה-Hops בדרך ליעד</td><td>tracert -d 8.8.8.8</td></tr>' +
+    '<tr><td>nslookup</td><td>תרגום שם דומיין → IP</td><td>nslookup facebook.com</td></tr>' +
+    '<tr><td>ipconfig</td><td>כתובת IP + MAC + Gateway</td><td>ipconfig /all</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh2(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — מה זה Socket?</span>' +
+    '<h2 class="section-h">Socket — נקודת קצה של חיבור</h2>' +
+    '<p class="prose">Socket הוא <strong>נקודת קצה של חיבור בין שני רכיבים</strong>. דמיינו צינור — מידע שנכנס מצד אחד יוצא בצד השני. כל קצה = Socket. הצינור יכול לחבר תוכנות על <em>אותו מחשב</em> או מחשבים <em>שונים</em>.</p>' +
+    '<div class="alert-box info"><div class="alert-icon">🏠</div><div class="alert-body">' +
+    '<div class="alert-title">אנלוגיה — בניין דירות</div>' +
+    '<div class="alert-text">כתובת IP = כתובת הבניין. Port = מספר הדירה. Socket = תיבת הדואר. פורט יכול להיות מספר בין 0 ל-65,535.</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — API של Socket</span>' +
+    '<h2 class="section-h">8 פונקציות</h2>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">🔌</div><div class="concept-title" style="color:var(--ac)">socket()</div><div class="concept-body">יוצר אובייקט Socket חדש. גם לקוח וגם שרת.</div></div>' +
+    '<div class="concept"><div class="concept-icon">🔗</div><div class="concept-title" style="color:var(--ac)">connect((ip, port))</div><div class="concept-body">לקוח בלבד. יוצר חיבור לשרת מרוחק.</div></div>' +
+    '<div class="concept"><div class="concept-icon">📍</div><div class="concept-title" style="color:#a78bfa">bind((ip, port))</div><div class="concept-body">שרת בלבד. קושר לכתובת מקומית. 0.0.0.0 = קבל מכל.</div></div>' +
+    '<div class="concept"><div class="concept-icon">👂</div><div class="concept-title" style="color:#a78bfa">listen(n)</div><div class="concept-body">שרת בלבד. מתחיל להאזין לחיבורים נכנסים.</div></div>' +
+    '<div class="concept"><div class="concept-icon">🤝</div><div class="concept-title" style="color:var(--rd)">accept() — BLOCKING</div><div class="concept-body">שרת. מקפיא עד שלקוח מתחבר. מחזיר (client_socket, address).</div></div>' +
+    '<div class="concept"><div class="concept-icon">📨</div><div class="concept-title" style="color:var(--gr)">send(data)</div><div class="concept-body">שולח מחרוזת (רצף בתים) לצד השני.</div></div>' +
+    '<div class="concept"><div class="concept-icon">📬</div><div class="concept-title" style="color:var(--rd)">recv(1024) — BLOCKING</div><div class="concept-body">מקפיא עד שמגיע מידע. מחרוזת ריקה = חיבור נסגר!</div></div>' +
+    '<div class="concept"><div class="concept-icon">❌</div><div class="concept-title" style="color:var(--yw)">close()</div><div class="concept-body">סוגר ומשחרר פורט. אחרת הפורט נשאר "תפוס"!</div></div>' +
+    '</div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — לקוח</span>' +
+    '<h2 class="section-h">קוד לקוח — 7 שורות Python</h2>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">client.py</span></div>' +
+    '<div class="code-body">' +
+    '<span class="to">import</span> socket<br>' +
+    'my_socket = socket.<span class="tp">socket</span>()<br>' +
+    'my_socket.<span class="tp">connect</span>((<span class="ts">\'1.2.3.4\'</span>, <span class="tn">8820</span>))<br>' +
+    'my_socket.<span class="tp">send</span>(<span class="ts">\'Omer\'</span>)<br>' +
+    'data = my_socket.<span class="tp">recv</span>(<span class="tn">1024</span>)<br>' +
+    '<span class="to">print</span> <span class="ts">\'The server sent: \'</span> + data<br>' +
+    'my_socket.<span class="tp">close</span>()' +
+    '</div></div>' +
+    '<div class="alert-box info"><div class="alert-icon">🔁</div><div class="alert-body">' +
+    '<div class="alert-title">127.0.0.1 = Loopback</div>' +
+    '<div class="alert-text">לבדיקה על אותו מחשב — לקוח מתחבר ל-127.0.0.1. זה כתובת מיוחדת שמציינת "אל עצמך".</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — שרת</span>' +
+    '<h2 class="section-h">קוד שרת — 2 Sockets שונים!</h2>' +
+    '<div class="alert-box warn"><div class="alert-icon">⚠️</div><div class="alert-body">' +
+    '<div class="alert-title">לא להתבלבל!</div>' +
+    '<div class="alert-text"><strong>server_socket</strong> — מאזין לחיבורים. <strong>client_socket</strong> — מתקשר עם לקוח ספציפי.</div>' +
+    '</div></div>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">server.py</span></div>' +
+    '<div class="code-body">' +
+    '<span class="to">import</span> socket<br>' +
+    'server_socket = socket.<span class="tp">socket</span>()<br>' +
+    'server_socket.<span class="tp">bind</span>((<span class="ts">\'0.0.0.0\'</span>, <span class="tn">8820</span>))<br>' +
+    'server_socket.<span class="tp">listen</span>(<span class="tn">1</span>)<br>' +
+    '(client_socket, client_address) = server_socket.<span class="tp">accept</span>()  <span class="tc"># blocking!</span><br>' +
+    'client_name = client_socket.<span class="tp">recv</span>(<span class="tn">1024</span>)<br>' +
+    'client_socket.<span class="tp">send</span>(<span class="ts">\'Hello \'</span> + client_name)<br>' +
+    'client_socket.<span class="tp">close</span>()<br>' +
+    'server_socket.<span class="tp">close</span>()' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">05 — שרת פקודות</span>' +
+    '<h2 class="section-h">שרת פקודות — TIME / NAME / RAND / EXIT</h2>' +
+    '<p class="prose">כל בקשה = בדיוק <strong>4 bytes</strong>. שרת קולט פקודה ומחזיר תגובה בהתאם:</p>' +
+    '<table class="sum-tbl"><tr><th>פקודה</th><th>תגובה</th><th>מודול Python</th></tr>' +
+    '<tr><td>TIME</td><td>השעה הנוכחית</td><td>import time</td></tr>' +
+    '<tr><td>NAME</td><td>שם השרת</td><td>מחרוזת קבועה</td></tr>' +
+    '<tr><td>RAND</td><td>מספר 1-10</td><td>import random</td></tr>' +
+    '<tr><td>EXIT</td><td>ניתוק</td><td>client_socket.close()</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh3(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — Wireshark</span>' +
+    '<h2 class="section-h">מה Wireshark עושה?</h2>' +
+    '<p class="prose">Wireshark הוא כלי שמאפשר <strong>לבחון את המידע שיוצא ומתקבל בכרטיס הרשת שלנו</strong>. ניתן לראות פקטות בזמן אמת, לנתח פרוטוקולים ולגלות סיסמאות שעוברות בגלוי!</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — מודל חמש השכבות</span>' +
+    '<h2 class="section-h">מודל חמש השכבות</h2>' +
+    '<p class="prose">מודל לוגי שמחלק את פעולות מערכת התקשורת לחמישה חלקים שונים. כל שכבה מספקת שירות לשכבה שמעליה ומקבלת שירות מהשכבה שמתחתיה.</p>' +
+    '<table class="sum-tbl">' +
+    '<tr><th>#</th><th>שכבה</th><th>פרוטוקולים</th><th>כתובות</th></tr>' +
+    '<tr><td>5</td><td>אפליקציה</td><td>HTTP, DNS, DHCP, SSH, SMTP</td><td>—</td></tr>' +
+    '<tr><td>4</td><td>תעבורה</td><td>TCP, UDP</td><td>Port</td></tr>' +
+    '<tr><td>3</td><td>רשת</td><td>IP, ICMP</td><td>IP Address</td></tr>' +
+    '<tr><td>2</td><td>קו</td><td>Ethernet, WiFi</td><td>MAC Address</td></tr>' +
+    '<tr><td>1</td><td>פיזית</td><td>כבל, אוויר, סיב אופטי</td><td>—</td></tr>' +
+    '</table></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — Encapsulation</span>' +
+    '<h2 class="section-h">Encapsulation & Decapsulation</h2>' +
+    '<p class="prose"><strong>Encapsulation (כימוס)</strong> — בשליחה: כל שכבה מוסיפה Header משלה (עוטפת). <strong>Decapsulation (קילוף)</strong> — בקבלה: כל שכבה מסירה את ה-Header שלה.</p>' +
+    '<div class="alert-box info"><div class="alert-icon">📦</div><div class="alert-body">' +
+    '<div class="alert-title">Header</div>' +
+    '<div class="alert-text">המידע שמוסיפה כל שכבה בתחילת הפקטה נקרא Header (תחילית). הוא מכיל מידע שמשמש לשליטה ובקרה — כמו כתובת IP, מספר פורט, Checksum.</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — Filters</span>' +
+    '<h2 class="section-h">Display Filter vs Capture Filter</h2>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">🔍</div><div class="concept-title" style="color:var(--ac)">Display Filter</div>' +
+    '<div class="concept-body">מסנן את <strong>התצוגה בלבד</strong>. ניתן לשנות בכל רגע ללא הפסקת הלכידה.</div></div>' +
+    '<div class="concept"><div class="concept-icon">📡</div><div class="concept-title" style="color:var(--gr)">Capture Filter</div>' +
+    '<div class="concept-body">מסנן מה <strong>נלכד בפועל</strong>. BPF syntax. דורש הפסקה והפעלה מחדש.</div></div>' +
+    '</div>' +
+    '<table class="sum-tbl"><tr><th>Display Filter</th><th>מה מציג</th></tr>' +
+    '<tr><td>http</td><td>רק HTTP packets</td></tr>' +
+    '<tr><td>ip.addr == 8.8.8.8</td><td>src או dst = 8.8.8.8</td></tr>' +
+    '<tr><td>tcp.port == 80</td><td>TCP port 80</td></tr>' +
+    '<tr><td>dns</td><td>רק DNS packets</td></tr>' +
+    '<tr><td>tcp.flags.syn == 1</td><td>חבילות SYN בלבד</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh4(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — HTTP</span>' +
+    '<h2 class="section-h">פרוטוקול HTTP — בקשה ותגובה</h2>' +
+    '<p class="prose">HTTP (HyperText Transfer Protocol) הוא הפרוטוקול הנפוץ ביותר בשכבת האפליקציה. לקוח שולח <strong>Request</strong>, שרת מחזיר <strong>Response</strong>.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">HTTP Request</span></div>' +
+    '<div class="code-body">' +
+    '<span class="tp">GET</span> / <span class="tw">HTTP/1.1</span><br>' +
+    '<span class="tv">Host:</span> www.facebook.com<br>' +
+    '<span class="tv">User-Agent:</span> Mozilla/5.0<br>' +
+    '<span class="tv">Accept:</span> text/html' +
+    '</div></div>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">HTTP Response</span></div>' +
+    '<div class="code-body">' +
+    '<span class="tp">HTTP/1.1</span> <span class="ts">200 OK</span><br>' +
+    '<span class="tv">Content-Type:</span> text/html; charset=utf-8<br>' +
+    '<span class="tv">Content-Length:</span> 48291<br><br>' +
+    '<span class="tc">&lt;!DOCTYPE html&gt;...</span>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — URL</span>' +
+    '<h2 class="section-h">URL — Universal Resource Locator</h2>' +
+    '<p class="prose">URL = כתובת משאב אוניברסלית. מבנה: <code style="font-family:var(--mono);color:var(--ac)">http://www.site.com/folder/file.txt</code>. השרת יחפש את הקובץ ב-Root Directory שלו.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — Status Codes</span>' +
+    '<h2 class="section-h">קודי תגובה HTTP</h2>' +
+    '<table class="sum-tbl"><tr><th>קוד</th><th>משמעות</th><th>מתי</th></tr>' +
+    '<tr><td>200 OK</td><td>הצלחה</td><td>הבקשה טופלה בהצלחה</td></tr>' +
+    '<tr><td>301 Moved Permanently</td><td>Redirect קבוע</td><td>http → https</td></tr>' +
+    '<tr><td>403 Forbidden</td><td>אסור</td><td>אין הרשאה</td></tr>' +
+    '<tr><td>404 Not Found</td><td>לא נמצא</td><td>ה-URL לא קיים</td></tr>' +
+    '<tr><td>500 Internal Server Error</td><td>שגיאת שרת</td><td>באג בצד השרת</td></tr>' +
+    '</table></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — DNS לעומק</span>' +
+    '<h2 class="section-h">DNS — Resource Records</h2>' +
+    '<p class="prose">שרת DNS מכיל Resource Records מסוגים שונים. לשאילתת DNS יש Transaction ID לזיהוי.</p>' +
+    '<table class="sum-tbl"><tr><th>סוג</th><th>מה מחזיר</th></tr>' +
+    '<tr><td>A</td><td>IPv4 address</td></tr>' +
+    '<tr><td>AAAA</td><td>IPv6 address</td></tr>' +
+    '<tr><td>MX</td><td>שרת המייל של הדומיין</td></tr>' +
+    '<tr><td>CNAME</td><td>כינוי (Alias) לשם אחר</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh5(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — מה זה Scapy?</span>' +
+    '<h2 class="section-h">Scapy</h2>' +
+    '<p class="prose">Scapy היא <strong>ספרייה חיצונית ל-Python</strong> שמאפשרת: הסנפת תעבורה, שליחה וניתוח של חבילות, ובניית חבילות מותאמות אישית. Scapy רץ מעל Python — אפשר להשתמש בכל פונקציה של Python.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — בניית חבילה</span>' +
+    '<h2 class="section-h">בניית חבילות — שכבות עם /</h2>' +
+    '<p class="prose">בונים חבילה שכבה על שכבה עם האופרטור <strong>/</strong>:</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">Scapy</span></div>' +
+    '<div class="code-body">' +
+    '<span class="tc"># חבילה IP/ICMP</span><br>' +
+    'my_packet = IP(dst=<span class="ts">"8.8.8.8"</span>) / ICMP()<br><br>' +
+    '<span class="tc"># שליחה</span><br>' +
+    'send(my_packet)<br>' +
+    '<span class="tc"># Sent 1 packets.</span>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — sniff</span>' +
+    '<h2 class="section-h">הסנפה עם sniff()</h2>' +
+    '<p class="prose"><strong>lfilter</strong> = פונקציית סינון (מה ללכוד). <strong>prn</strong> = callback שנקרא לכל חבילה שנתפסה. <strong>store=0</strong> = אל תשמור בזיכרון.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">sniff דוגמה</span></div>' +
+    '<div class="code-body">' +
+    '<span class="to">from</span> scapy.all <span class="to">import</span> *<br><br>' +
+    'sniff(<br>' +
+    '&nbsp;&nbsp;lfilter=<span class="to">lambda</span> p: p.haslayer(DNS),<br>' +
+    '&nbsp;&nbsp;prn=<span class="to">lambda</span> p: p[DNS].qd.qname,<br>' +
+    '&nbsp;&nbsp;store=<span class="tn">0</span><br>' +
+    ')' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — send/sr</span>' +
+    '<h2 class="section-h">שליחת חבילות</h2>' +
+    '<table class="sum-tbl"><tr><th>פונקציה</th><th>Layer</th><th>מה עושה</th></tr>' +
+    '<tr><td>send(pkt)</td><td>Layer 3</td><td>שולח, לא מחכה לתשובה</td></tr>' +
+    '<tr><td>sendp(pkt)</td><td>Layer 2</td><td>שולח עם Ethernet header — שולטים ב-MAC</td></tr>' +
+    '<tr><td>sr(pkt)</td><td>Layer 3</td><td>שולח ומחכה לתשובות (מרובות)</td></tr>' +
+    '<tr><td>sr1(pkt)</td><td>Layer 3</td><td>שולח ומחכה לתשובה אחת בלבד</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh6(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — תפקיד</span>' +
+    '<h2 class="section-h">שכבת התעבורה</h2>' +
+    '<p class="prose">שכבת התעבורה אחראית להעביר מידע מ<strong>תכנית לתכנית</strong> (process to process). שתי מטרות עיקריות:</p>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">🔀</div><div class="concept-title">ריבוב אפליקציות</div>' +
+    '<div class="concept-body">שימוש בכמה שירותים במקביל מאותה ישות. מזהה: Port. תמיד קיים.</div></div>' +
+    '<div class="concept"><div class="concept-icon">🔒</div><div class="concept-title">העברה אמינה</div>' +
+    '<div class="concept-body">ודאות שהמידע מגיע. אופציונלי — קיים רק ב-TCP, לא ב-UDP.</div></div>' +
+    '</div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — Ports</span>' +
+    '<h2 class="section-h">פורטים</h2>' +
+    '<p class="prose">פורט = מספר שמזהה תכנית. טווח: 0-65535. Well-known: 0-1023 (דורשים הרשאות).</p>' +
+    '<table class="sum-tbl"><tr><th>פורט</th><th>פרוטוקול</th></tr>' +
+    '<tr><td>80</td><td>HTTP</td></tr>' +
+    '<tr><td>443</td><td>HTTPS</td></tr>' +
+    '<tr><td>53</td><td>DNS</td></tr>' +
+    '<tr><td>22</td><td>SSH</td></tr>' +
+    '<tr><td>25</td><td>SMTP (מייל)</td></tr>' +
+    '</table>' +
+    '<div class="alert-box info"><div class="alert-icon">🎲</div><div class="alert-body">' +
+    '<div class="alert-title">פורט מקור של לקוח</div>' +
+    '<div class="alert-text">פורט יעד = ידוע (80 לHTTP). פורט מקור = מספר רנדומלי שמגרילה מערכת ההפעלה.</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — TCP vs UDP</span>' +
+    '<h2 class="section-h">TCP ו-UDP</h2>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">🔒</div><div class="concept-title" style="color:var(--ac)">TCP</div>' +
+    '<div class="concept-body">מבוסס קישור. Handshake. Seq/ACK. Checksum. Window. אמין. HTTP, SSH, SMTP.</div></div>' +
+    '<div class="concept"><div class="concept-icon">⚡</div><div class="concept-title" style="color:var(--yw)">UDP</div>' +
+    '<div class="concept-body">ללא קישור. Header 8 bytes. מהיר. לא אמין. DNS, streaming, VoIP.</div></div>' +
+    '</div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — Three-Way Handshake</span>' +
+    '<h2 class="section-h">TCP Three-Way Handshake</h2>' +
+    '<div class="flow-diag" style="flex-direction:column;gap:10px;">' +
+    '<div style="font-family:var(--mono);font-size:13px;display:flex;align-items:center;gap:10px;">' +
+    '<span style="color:var(--ac);width:70px">Client</span>' +
+    '<span style="color:var(--yw)">── SYN (seq=ISN_c) ──────────────────────▶</span>' +
+    '<span style="color:var(--gr)">Server</span></div>' +
+    '<div style="font-family:var(--mono);font-size:13px;display:flex;align-items:center;gap:10px;">' +
+    '<span style="color:var(--ac);width:70px">Client</span>' +
+    '<span style="color:var(--yw)">◀── SYN+ACK (seq=ISN_s, ack=ISN_c+1) ──</span>' +
+    '<span style="color:var(--gr)">Server</span></div>' +
+    '<div style="font-family:var(--mono);font-size:13px;display:flex;align-items:center;gap:10px;">' +
+    '<span style="color:var(--ac);width:70px">Client</span>' +
+    '<span style="color:var(--yw)">── ACK (seq=ISN_c+1, ack=ISN_s+1) ─────▶</span>' +
+    '<span style="color:var(--gr)">Server</span></div>' +
+    '</div>' +
+    '<div class="alert-box tip"><div class="alert-icon">💡</div><div class="alert-body">' +
+    '<div class="alert-title">Seq & ACK</div>' +
+    '<div class="alert-text">ACK = seq_שקיבלתי + גודל_המידע. SYN נחשב byte אחד לצרכי חישוב. כל סגמנט מכיל Checksum שמוודא תקינות.</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">05 — netstat</span>' +
+    '<h2 class="section-h">netstat</h2>' +
+    '<p class="prose">מציג חיבורי TCP/UDP פעילים: כתובת מקומית, כתובת מרוחקת, מצב.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">netstat -an</span></div>' +
+    '<div class="code-body">' +
+    '<span class="tp">Proto</span>  Local Address        Foreign Address   State<br>' +
+    '<span class="tv">tcp</span>    0.0.0.0:80           0.0.0.0:*         <span class="tp">LISTEN</span><br>' +
+    '<span class="tv">tcp</span>    192.168.1.5:49152    142.250.74.46:80  <span class="tp">ESTABLISHED</span><br>' +
+    '<span class="tv">udp</span>    0.0.0.0:53           0.0.0.0:*' +
+    '</div></div></div>'
+  );
+}
+
+function buildCh7(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — תפקיד</span>' +
+    '<h2 class="section-h">שכבת הרשת</h2>' +
+    '<p class="prose">שכבת הרשת אחראית להעביר חבילה בין <strong>מחשב למחשב</strong> — גם כשהם לא מחוברים ישירות. הפרוטוקול: IP. הרכיב: נתב (Router).</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — כתובת IP</span>' +
+    '<h2 class="section-h">כתובת IP ו-Subnet Mask</h2>' +
+    '<p class="prose">כל חבילה IP כוללת: src IP, dst IP, TTL, Protocol, Checksum ועוד. <strong>Subnet Mask</strong> מגדיר כמה bits הם Network ID וכמה Host ID.</p>' +
+    '<div class="alert-box info"><div class="alert-icon">🧮</div><div class="alert-body">' +
+    '<div class="alert-title">דוגמה: /24</div>' +
+    '<div class="alert-text">IP: 192.168.5.30, Mask: 255.255.255.0 → Network: 192.168.5.0, Broadcast: 192.168.5.255, Hosts: .1–.254</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — DHCP</span>' +
+    '<h2 class="section-h">DHCP — D.O.R.A</h2>' +
+    '<p class="prose">DHCP (Dynamic Host Configuration Protocol) מחלק: IP, Subnet Mask, Default Gateway, DNS.</p>' +
+    '<div class="flow-diag">' +
+    '<div class="flow-node fn-green" style="font-size:12px">Discover<br><small>Broadcast</small></div>' +
+    '<div class="flow-arr">→</div>' +
+    '<div class="flow-node fn-blue" style="font-size:12px">Offer<br><small>IP מוצע</small></div>' +
+    '<div class="flow-arr">→</div>' +
+    '<div class="flow-node fn-green" style="font-size:12px">Request<br><small>מבקש</small></div>' +
+    '<div class="flow-arr">→</div>' +
+    '<div class="flow-node fn-purple" style="font-size:12px">ACK<br><small>מאשר</small></div>' +
+    '</div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — NAT</span>' +
+    '<h2 class="section-h">NAT — Network Address Translation</h2>' +
+    '<p class="prose">NAT מאפשר למחשבים עם <strong>כתובות פרטיות</strong> (192.168.x.x / 10.x.x.x / 172.16-31.x.x) להגיע לאינטרנט. הנתב מחליף src IP ביציאה ומחזיר dst IP בכניסה.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">05 — TTL & Routing</span>' +
+    '<h2 class="section-h">TTL וטבלת ניתוב</h2>' +
+    '<p class="prose"><strong>TTL</strong> — Time To Live. byte אחד (0-255). כל נתב מוריד ב-1. כשמגיע ל-0 — חבילה נזרקת + ICMP Time Exceeded. זה הבסיס ל-traceroute!</p>' +
+    '<p class="prose" style="margin-top:8px"><strong>Routing Table</strong> — לכל נתב יש טבלת ניתוב. כל חבילה שלא מתאימה לחוק ספציפי → Default Gateway.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">06 — ICMP</span>' +
+    '<h2 class="section-h">ICMP</h2>' +
+    '<p class="prose">ICMP (Internet Control Message Protocol) — פרוטוקול עזר ל-IP. ping משתמש ב-Echo Request/Reply. traceroute מנצל הודעות Time Exceeded.</p>' +
+    '<table class="sum-tbl"><tr><th>כלי Linux</th><th>פקודה</th></tr>' +
+    '<tr><td>כתובת IP</td><td>ip addr show</td></tr>' +
+    '<tr><td>טבלת ניתוב</td><td>ip route show</td></tr>' +
+    '<tr><td>DHCP renew</td><td>dhclient eth0</td></tr>' +
+    '<tr><td>traceroute</td><td>traceroute -n 8.8.8.8</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh8(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — תפקיד</span>' +
+    '<h2 class="section-h">שכבת הקו</h2>' +
+    '<p class="prose">שכבת הקו אחראית לאפשר תקשורת בין <strong>שתי ישויות המחוברות זו לזו באופן ישיר</strong> (hop אחד). הפרוטוקול הנפוץ: Ethernet. הכתובת: MAC Address.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — MAC Address</span>' +
+    '<h2 class="section-h">כתובת Ethernet — MAC</h2>' +
+    '<p class="prose">כתובת Ethernet מחולקת לשני חלקים: <strong>מזהה יצרן (Vendor ID)</strong> — 3 bytes ראשונים, ו<strong>מזהה ישות (Host ID)</strong> — 3 bytes אחרונים.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div></div>' +
+    '<div class="code-body"><span class="tv">d4:be:d9</span>  <span class="tc">← מזהה יצרן (Vendor ID)</span>  :  <span class="ts">d6:0c:2a</span>  <span class="tc">← מזהה ישות (Host ID)</span></div></div>' +
+    '<div class="alert-box info"><div class="alert-icon">🔍</div><div class="alert-body">' +
+    '<div class="alert-title">Wireshark מציין את שם היצרן</div>' +
+    '<div class="alert-text">ניתן לברר את שם היצרן מ-3 הבתים הראשונים — Wireshark עושה זאת אוטומטית בעמודת Source.</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — Ethernet Frame</span>' +
+    '<h2 class="section-h">מבנה מסגרת Ethernet</h2>' +
+    '<table class="sum-tbl"><tr><th>שדה</th><th>גודל</th><th>תיאור</th></tr>' +
+    '<tr><td>Preamble</td><td>8 bytes</td><td>סנכרון — לא מוצג ב-Wireshark!</td></tr>' +
+    '<tr><td>Destination MAC</td><td>6 bytes</td><td>MAC של היעד הסמוך</td></tr>' +
+    '<tr><td>Source MAC</td><td>6 bytes</td><td>MAC של השולח</td></tr>' +
+    '<tr><td>Type / EtherType</td><td>2 bytes</td><td>0x0800=IP, 0x0806=ARP</td></tr>' +
+    '<tr><td>Data (Payload)</td><td>46–1500 bytes</td><td>ה-IP packet</td></tr>' +
+    '<tr><td>CRC32 (FCS)</td><td>4 bytes</td><td>Checksum — לא מוצג ב-Wireshark!</td></tr>' +
+    '</table>' +
+    '<div class="alert-box warn"><div class="alert-icon">⚠️</div><div class="alert-body">' +
+    '<div class="alert-title">MAC vs IP</div>' +
+    '<div class="alert-text">MAC = Layer 2 = hop נוכחי בלבד. IP = Layer 3 = מקצה לקצה. MAC משתנה בכל hop, IP נשאר קבוע!</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — ARP</span>' +
+    '<h2 class="section-h">ARP — Address Resolution Protocol</h2>' +
+    '<p class="prose">ARP ממיר IP → MAC. נחוץ כי Ethernet frame דורש MAC יעד. <strong>ARP Request</strong> = Broadcast (ff:ff:ff:ff:ff:ff). <strong>ARP Reply</strong> = Unicast.</p>' +
+    '<div class="flow-diag">' +
+    '<div class="flow-node fn-blue" style="font-size:12px">A: "מי יש MAC<br>של 10.0.0.2?"<br><small>→ Broadcast</small></div>' +
+    '<div class="flow-arr">→ לכולם →</div>' +
+    '<div class="flow-node fn-green" style="font-size:12px">B: "אני! MAC=aa:bb"<br><small>Unicast → A</small></div>' +
+    '</div>' +
+    '<div class="alert-box tip"><div class="alert-icon">💾</div><div class="alert-body">' +
+    '<div class="alert-title">ARP Cache</div>' +
+    '<div class="alert-text">התשובה נשמרת ב-ARP Cache. הצגה: <strong>arp -a</strong>. מחיקה: <strong>arp -d &lt;IP&gt;</strong>.</div>' +
+    '</div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">05 — Multicast & Broadcast</span>' +
+    '<h2 class="section-h">כתובות מיוחדות</h2>' +
+    '<table class="sum-tbl"><tr><th>כתובת</th><th>סוג</th><th>שימוש</th></tr>' +
+    '<tr><td>ff:ff:ff:ff:ff:ff</td><td>Broadcast</td><td>ARP Request, DHCP Discover</td></tr>' +
+    '<tr><td>01:xx:xx:xx:xx:xx</td><td>Multicast</td><td>bit ראשון = 1 → Multicast</td></tr>' +
+    '<tr><td>כל שאר</td><td>Unicast</td><td>פנייה ישירה לכרטיס רשת ספציפי</td></tr>' +
+    '</table></div>' +
+    '</div>'
+  );
+}
+
+function buildCh9(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — Hub</span>' +
+    '<h2 class="section-h">Hub (רכזת) — שכבה פיזית</h2>' +
+    '<p class="prose">Hub הוא רכיב <strong>שכבה 1</strong>. אינו מכיר כתובות Ethernet או IP. כשמחשב שולח מסגרת — Hub <strong>מעתיק ושולח לכל הפורטים</strong>, מלבד ממנו המסגרת נשלחה.</p>' +
+    '<div class="alert-box warn"><div class="alert-icon">⚠️</div><div class="alert-body">' +
+    '<div class="alert-title">Hub = Wireshark בחינם</div>' +
+    '<div class="alert-text">ברשת Hub — כל מחשב מקבל את כל התעבורה. Wireshark על מחשב C יראה גם שיחות בין A ל-B!</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — Switch</span>' +
+    '<h2 class="section-h">Switch (מתג) — שכבה 2</h2>' +
+    '<p class="prose">Switch הוא רכיב <strong>שכבה 2</strong>. מכיר כתובות MAC. לאחר שלמד את הרשת — שולח כל מסגרת <strong>רק לפורט הרלוונטי</strong>.</p>' +
+    '<div class="alert-box info"><div class="alert-icon">📚</div><div class="alert-body">' +
+    '<div class="alert-title">כיצד Switch לומד?</div>' +
+    '<div class="alert-text">Switch בונה MAC Table על ידי למידה מ-src MAC של כל מסגרת שמגיעה. כשלא מכיר dst — עושה Flooding (כמו Hub).</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — Router</span>' +
+    '<h2 class="section-h">Router (נתב) — שכבה 3</h2>' +
+    '<p class="prose">Router הוא רכיב <strong>שכבה 3</strong>. מכיר כתובות IP ו-Subnet Masks. מחליט על מסלול הניתוב <strong>הטוב ביותר</strong> לכל חבילה. משתמש בטבלאות ניתוב דינאמיות.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — סיכום</span>' +
+    '<h2 class="section-h">טבלת השוואה</h2>' +
+    '<table class="sum-tbl"><tr><th>רכיב</th><th>שכבה</th><th>כתובות</th><th>פעולה</th></tr>' +
+    '<tr><td>Hub</td><td>פיזית (1)</td><td>לא מכיר</td><td>שולח לכל הפורטים תמיד</td></tr>' +
+    '<tr><td>Switch</td><td>קו (2)</td><td>MAC</td><td>שולח רק ליעד (MAC Table). Flooding אם לא מכיר.</td></tr>' +
+    '<tr><td>Router</td><td>רשת (3)</td><td>IP</td><td>מנתב בין רשתות. Routing Table דינאמית.</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh10(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — ביט</span>' +
+    '<h2 class="section-h">השכבה הפיזית — ביטים</h2>' +
+    '<p class="prose"><strong>מטרת השכבה הפיזית: להעביר ביט יחיד בין רכיבי מחשוב.</strong> ביט (bit) = ספרה בינארית, יכול להחזיק 0 או 1. שלושה תווכים עיקריים: <strong>כבלי מתכת, אוויר, סיבים אופטיים</strong>.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — AM vs FM</span>' +
+    '<h2 class="section-h">Amplitude Modulation vs Frequency Modulation</h2>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">📻</div><div class="concept-title">AM — Amplitude Modulation</div>' +
+    '<div class="concept-body">מידע מקודד בגובה הגל (אמפליטודה). <strong>רגיש לרעשים</strong> — רעש חשמלי = שינוי אמפליטודה = עיוות.</div></div>' +
+    '<div class="concept"><div class="concept-icon">📡</div><div class="concept-title">FM — Frequency Modulation</div>' +
+    '<div class="concept-body">מידע מקודד בתדר. <strong>עמיד לרעשים</strong> — רעש = שינוי אמפליטודה, לא תדר. לכן FM נשמע טוב יותר.</div></div>' +
+    '</div>' +
+    '<div class="alert-box info"><div class="alert-icon">🎵</div><div class="alert-body">' +
+    '<div class="alert-title">Modulation = אפנון</div>' +
+    '<div class="alert-text">אפנון = הרכבת גל מידע על גבי גל "נושא" חלק. הגל הנושא עובר שינוי — בגובה (AM) או בתדר (FM).</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — WiFi</span>' +
+    '<h2 class="section-h">WiFi — רשתות אלחוטיות</h2>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">📶</div><div class="concept-title">2.4GHz</div>' +
+    '<div class="concept-body">אורך גל ארוך → חודר קירות טוב. טווח ארוך יותר. איטי יותר.</div></div>' +
+    '<div class="concept"><div class="concept-icon">🚀</div><div class="concept-title">5GHz</div>' +
+    '<div class="concept-body">אורך גל קצר. מהיר יותר. טווח קצר, לא חודר קירות.</div></div>' +
+    '</div>' +
+    '<div class="alert-box warn"><div class="alert-icon">⚠️</div><div class="alert-body">' +
+    '<div class="alert-title">WiFi = Half Duplex!</div>' +
+    '<div class="alert-text">מגבלה מתדר שידור יחיד: רק צד אחד מדבר בכל פעם. <strong>ככל שיש יותר מחשבים — הקצב מתחלק ביניהם!</strong></div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — ADSL & CAT5</span>' +
+    '<h2 class="section-h">ADSL, CAT5 וסיב אופטי</h2>' +
+    '<table class="sum-tbl"><tr><th>תווך</th><th>מהירות</th><th>תכונה</th></tr>' +
+    '<tr><td>CAT5 (נחושת)</td><td>עד 1Gbps</td><td>כבל זוגות מפותלים. CAT3/5/5e/6 — איכות בידוד שונה</td></tr>' +
+    '<tr><td>ADSL</td><td>עד 100Mbps</td><td>על כבל טלפון נחושת קיים. תלוי מרחק ממרכזייה</td></tr>' +
+    '<tr><td>סיב אופטי</td><td>עד 100Tbps</td><td>אור בזכוכית/פלסטיק. מרחקים ארוכים, ללא הפרעות</td></tr>' +
+    '</table>' +
+    '<div class="alert-box tip"><div class="alert-icon">💡</div><div class="alert-body">' +
+    '<div class="alert-title">ממסר (Relay)</div>' +
+    '<div class="alert-text">לאורכים גדולים מדי — מניחים ממסרים שמגבירים ומשדרים הלאה. הכבלים התת-ימיים בין יבשות מכילים עשרות ממסרים.</div>' +
+    '</div></div></div>'
+  );
+}
+
+function buildCh11(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — נקודת ההתחלה</span>' +
+    '<h2 class="section-h">מה המחשב יודע לפני הכל?</h2>' +
+    '<p class="prose">בשלב הזה, <strong>המחשב יודע רק את כתובת ה-MAC של כרטיס הרשת שלו</strong>. הוא יודע כיוון שזו צרובה באופן פיזי על הכרטיס.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — שלב 1: DHCP</span>' +
+    '<h2 class="section-h">קבלת IP עם DHCP</h2>' +
+    '<p class="prose">שולח DHCP Discover ב-Broadcast. שרת DHCP מחזיר Offer עם: IP, Subnet Mask, Default Gateway, DNS Server.</p>' +
+    '<div class="alert-box info"><div class="alert-icon">🌐</div><div class="alert-body">' +
+    '<div class="alert-title">Broadcast Domain</div>' +
+    '<div class="alert-text">DHCP Discover חייב להגיע לשרת DHCP ללא מעבר בנתבים. המחשב, שרת DHCP והנתב חייבים להיות באותו Broadcast Domain (מחוברים דרך Switch).</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — שלב 2: ARP</span>' +
+    '<h2 class="section-h">גילוי MAC של Default Gateway</h2>' +
+    '<p class="prose">שרת ה-DNS לא ב-Subnet שלנו → חבילה חייבת לעבור דרך Default Gateway. שולחים ARP Request: "מי יש MAC של [Gateway IP]?" → Switch עושה Flooding → Gateway עונה Unicast.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — שלב 3: DNS</span>' +
+    '<h2 class="section-h">מציאת IP של Facebook</h2>' +
+    '<p class="prose">שולחים DNS Query ל-DNS Server (שעברה דרך Gateway). מקבלים IP של Facebook. לאורך המסלול — MAC src/dst משתנה בכל hop, IP src/dst נשאר קבוע.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">05 — שלב 4+5: TCP & HTTP</span>' +
+    '<h2 class="section-h">Three-Way Handshake → HTTP GET</h2>' +
+    '<div class="flow-diag" style="flex-direction:column;gap:8px;">' +
+    '<div style="display:flex;align-items:center;gap:10px;">' +
+    '<div class="flow-node fn-purple" style="font-size:12px;min-width:90px">TCP Handshake</div>' +
+    '<span style="color:var(--dim2);font-size:13px">SYN → SYN+ACK → ACK. פורט dst=80.</span></div>' +
+    '<div style="display:flex;align-items:center;gap:10px;">' +
+    '<div class="flow-node fn-green" style="font-size:12px;min-width:90px">HTTP GET /</div>' +
+    '<span style="color:var(--dim2);font-size:13px">Facebook מחזיר 200 OK + HTML</span></div>' +
+    '</div>' +
+    '<div class="alert-box tip"><div class="alert-icon">🔑</div><div class="alert-body">' +
+    '<div class="alert-title">NAT — שקוף לגמרי</div>' +
+    '<div class="alert-text">הנתב מחליף src IP (192.168.x.x → IP ציבורי) ביציאה. Facebook רואה רק IP הנתב. בחזרה — הנתב מחליף dst חזרה לכתובת הפרטית.</div>' +
+    '</div></div></div>'
+  );
+}
+
 function buildCh12(){
   return (
     '<div class="learn-section">' +
@@ -1580,15 +2261,6 @@ function esc(s) {
 
 /* INIT */
 buildSidebar();
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chContent').innerHTML =
-    '<div class="ch-eyebrow">פרק 12 מתוך 12</div>' +
-    '<h1 class="ch-title">⚙️ Sockets מתקדם</h1>' +
-    '<p class="ch-desc">select(), blocking vs non-blocking, multi-client, Chat Protocol</p>' +
-    '<div class="divider"></div>' +
-    buildCh12();
-});
 </script>
 </body>
 </html>
