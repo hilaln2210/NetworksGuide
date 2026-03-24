@@ -1,55 +1,36 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<title>מעבדה 2 — בנה REST API עם Node.js + Express</title>
-<style>
-/* mobile-fix */
-html, body { overflow-x: hidden; max-width: 100vw; }
-@media (max-width: 800px) {
-  body { padding: 1rem !important; font-size: 15px; }
-  pre, code, .code { font-size: 12px !important; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
-  table { font-size: 13px; display: block; overflow-x: auto; }
-}
-@media (max-width: 480px) {
-  body { padding: 0.25rem !important; }
-  h1 { font-size: 1.3rem !important; }
-  h2 { font-size: 1.1rem !important; }
-}
-</style>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>Web & APIs PRO</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Fira+Code:wght@400;500;600&family=Noto+Sans+Hebrew:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Fira+Code:wght@400;500;600&family=Noto+Sans+Hebrew:wght@300;400;500;700&display=swap');
 
 :root {
-  --bg: #f5f2ec;
-  --bg2: #ede9e1;
-  --surface: #ffffff;
-  --card: #ffffff;
-  --border: #e0d9ce;
-  --border2: #ccc4b6;
-  --ink: #1a1714;
-  --ink2: #3d3830;
-  --ink3: #7a7060;
-  --ink4: #a89e8e;
-  --blue: #2563eb;
-  --blue-bg: #eff6ff;
-  --blue-border: #bfdbfe;
-  --green: #16a34a;
-  --green-bg: #f0fdf4;
-  --green-border: #bbf7d0;
-  --red: #dc2626;
-  --red-bg: #fef2f2;
-  --red-border: #fecaca;
-  --amber: #d97706;
-  --amber-bg: #fffbeb;
-  --amber-border: #fde68a;
-  --purple: #7c3aed;
-  --purple-bg: #f5f3ff;
-  --purple-border: #ddd6fe;
-  --code-bg: #1e1b18;
-  --code-text: #e8e0d4;
+  --bg:      #0b0b0f;
+  --bg2:     #111118;
+  --surface: #15151f;
+  --card:    #181824;
+  --border:  #252535;
+  --border2: #32324a;
+  --blue:    #6366f1;
+  --blue2:   #818cf8;
+  --blue3:   #c7d2fe;
+  --blue-glow: rgba(99,102,241,0.15);
+  --green:   #10b981;
+  --green2:  #34d399;
+  --red:     #f43f5e;
+  --red2:    #fb7185;
+  --amber:   #f59e0b;
+  --amber2:  #fbbf24;
+  --cyan:    #06b6d4;
+  --purple:  #a855f7;
+  --text:    #e2e8f0;
+  --text-mid:#94a3b8;
+  --text-dim:#475569;
+  --code-bg: #090910;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -57,1014 +38,888 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 body {
   font-family: 'Noto Sans Hebrew', sans-serif;
   background: var(--bg);
-  color: var(--ink);
+  color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* Subtle paper texture */
+/* Noise texture */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c4b8a4' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: .6;
+}
+
+/* Gradient orb */
+body::after {
+  content: '';
+  position: fixed;
+  top: -30%;
+  right: -20%;
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
 
-/* ===== STATUS BAR (browser-style) ===== */
-.status-bar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--surface);
-  border-bottom: 2px solid var(--border);
-  padding: 0;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+.container { max-width: 1040px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,11,15,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex; align-items: center; height: 52px; gap: 0;
 }
 
-.browser-chrome {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 20px;
-}
-
-.browser-dots { display: flex; gap: 6px; }
-.dot { width: 12px; height: 12px; border-radius: 50%; }
-.dot-r { background: #ff5f57; }
-.dot-y { background: #febc2e; }
-.dot-g { background: #28c840; }
-
-.url-bar {
-  flex: 1;
-  background: var(--bg);
-  border: 1px solid var(--border2);
-  border-radius: 8px;
-  padding: 6px 14px;
-  font-family: 'Fira Code', monospace;
-  font-size: 12px;
-  color: var(--ink3);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  cursor: default;
-}
-
-.url-lock { color: var(--green); font-size: 11px; flex-shrink: 0; }
-.url-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.url-text span { color: var(--blue); }
-
-.status-pill {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-weight: 600;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: all .2s;
+.nav-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px; font-weight: 800;
+  color: var(--blue2);
+  letter-spacing: -.3px;
+  margin-left: 24px;
   white-space: nowrap;
 }
 
-.s200 { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
-.s304 { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
-.s404 { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
-.s500 { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+.nav-tabs { display: flex; height: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
-/* ===== HERO ===== */
-.hero {
-  position: relative;
-  z-index: 1;
-  padding: 60px 0 44px;
-  border-bottom: 1px solid var(--border);
-}
-
-.hero-kicker {
+.nav-tab {
   font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  color: var(--blue);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 18px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.hero-kicker::before {
-  content: 'GET /course/web-apis HTTP/1.1';
-  color: var(--ink4);
-  font-size: 10px;
-}
-
-.hero h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(44px, 8vw, 84px);
-  line-height: 1;
-  color: var(--ink);
-  margin-bottom: 16px;
-  letter-spacing: -1px;
-}
-
-.hero h1 em {
-  font-style: italic;
-  color: var(--blue);
-}
-
-.hero-desc {
-  font-size: 16px;
-  color: var(--ink3);
-  max-width: 540px;
-  line-height: 1.75;
-  margin-bottom: 36px;
-  font-weight: 300;
-}
-
-/* RESPONSE CARD (stats) */
-.response-card {
-  background: var(--code-bg);
-  border-radius: 12px;
-  padding: 20px 24px;
-  display: inline-flex;
-  gap: 36px;
-  flex-wrap: wrap;
-}
-
-.rc-item { text-align: center; }
-
-.rc-val {
-  font-family: 'Fira Code', monospace;
-  font-size: 30px;
-  font-weight: 600;
-  color: #86efac;
-  display: block;
-  line-height: 1;
-}
-
-.rc-key {
-  font-family: 'Fira Code', monospace;
-  font-size: 9px;
-  color: #6b7280;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  margin-top: 4px;
-}
-
-/* ===== TABS ===== */
-.tab-row {
-  display: flex;
-  gap: 0;
-  border-bottom: 2px solid var(--border);
-  margin-bottom: 40px;
-  margin-top: 40px;
-  position: relative;
-  z-index: 1;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.tab-btn {
-  font-family: 'Fira Code', monospace;
-  font-size: 12px;
-  padding: 13px 22px;
-  border: none;
-  background: none;
-  color: var(--ink4);
+  font-size: 11px; letter-spacing: .5px;
+  padding: 0 18px; height: 100%;
+  border: none; background: none;
+  color: var(--text-dim);
   cursor: pointer;
   border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  transition: all .2s;
+  transition: all .15s;
   white-space: nowrap;
-  letter-spacing: .5px;
+  display: flex; align-items: center; gap: 6px;
 }
 
-.tab-btn:hover { color: var(--ink2); }
-.tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 600; }
+.nav-tab:hover { color: var(--text-mid); }
+.nav-tab.active { color: var(--blue2); border-bottom-color: var(--blue); font-weight: 600; }
 
-/* ===== SECTIONS ===== */
+.nav-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green); flex-shrink: 0;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
+
+/* ── HERO ── */
+.hero { padding: 72px 0 56px; }
+
+.hero-eyebrow {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; letter-spacing: 3px;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+
+.hero-eyebrow::before { content: '//'; color: var(--text-dim); }
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 800;
+  line-height: .92;
+  letter-spacing: -3px;
+  margin-bottom: 22px;
+}
+
+.hero h1 .w1 { color: var(--text); display: block; }
+.hero h1 .w2 { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--blue); }
+.hero h1 .amp { color: var(--blue2); }
+
+.hero-desc {
+  font-size: 16px; color: var(--text-mid);
+  max-width: 520px; line-height: 1.75;
+  margin-bottom: 40px; font-weight: 300;
+}
+
+/* Stats grid */
+.stats {
+  display: inline-grid;
+  grid-template-columns: repeat(4, auto);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.stat {
+  padding: 16px 24px;
+  border-left: 1px solid var(--border);
+  text-align: center;
+}
+.stat:first-child { border-left: none; }
+
+.stat-n {
+  font-family: 'Syne', sans-serif;
+  font-size: 30px; font-weight: 800;
+  color: var(--blue2);
+  display: block; line-height: 1;
+}
+
+.stat-l {
+  font-family: 'Fira Code', monospace;
+  font-size: 9px; letter-spacing: 1.5px;
+  color: var(--text-dim); text-transform: uppercase;
+  margin-top: 3px; display: block;
+}
+
+/* ── SECTION ── */
 .section { display: none; }
 .section.active { display: block; }
+.sec-body { padding: 36px 0 64px; }
 
-/* ===== CHAPTER CARDS ===== */
+/* ── CHAPTERS ── */
 .chapters { display: flex; flex-direction: column; gap: 2px; }
 
 .ch {
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 0;
   overflow: hidden;
-  transition: border-color .2s, box-shadow .2s;
+  transition: border-color .2s;
 }
 
 .ch:first-child { border-radius: 12px 12px 0 0; }
 .ch:last-child  { border-radius: 0 0 12px 12px; }
-.ch:hover { border-color: var(--blue-border); box-shadow: 0 2px 12px rgba(37,99,235,0.06); }
-.ch.open { border-color: var(--blue-border); }
+.ch:hover { border-color: var(--border2); }
+.ch.open { border-color: rgba(99,102,241,.4); box-shadow: 0 0 0 1px rgba(99,102,241,.1); }
 
-.ch-head {
+.ch-trigger {
   padding: 18px 22px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  display: flex; align-items: center; gap: 16px;
   user-select: none;
 }
 
 .ch-method {
   font-family: 'Fira Code', monospace;
-  font-size: 10px;
-  font-weight: 600;
-  padding: 3px 8px;
-  border-radius: 4px;
-  min-width: 42px;
-  text-align: center;
+  font-size: 10px; font-weight: 600;
+  padding: 3px 9px; border-radius: 5px;
+  min-width: 50px; text-align: center;
   flex-shrink: 0;
 }
 
-.m-get    { background: var(--blue-bg);   color: var(--blue);   border: 1px solid var(--blue-border); }
-.m-post   { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
-.m-put    { background: var(--amber-bg);  color: var(--amber);  border: 1px solid var(--amber-border); }
-.m-delete { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
-.m-patch  { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
+.m-get    { background: rgba(16,185,129,.12); color: var(--green2);  border: 1px solid rgba(16,185,129,.25); }
+.m-post   { background: rgba(99,102,241,.12); color: var(--blue2);   border: 1px solid rgba(99,102,241,.25); }
+.m-put    { background: rgba(245,158,11,.1);  color: var(--amber2);  border: 1px solid rgba(245,158,11,.25); }
+.m-ws     { background: rgba(168,85,247,.1);  color: var(--purple);  border: 1px solid rgba(168,85,247,.25); }
+.m-test   { background: rgba(6,182,212,.1);   color: var(--cyan);    border: 1px solid rgba(6,182,212,.25); }
+
+.ch-info { flex: 1; min-width: 0; }
 
 .ch-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 19px;
-  color: var(--ink);
-  flex: 1;
-  line-height: 1.2;
+  font-family: 'Syne', sans-serif;
+  font-size: 16px; font-weight: 700;
+  color: var(--text);
+  margin-bottom: 3px; line-height: 1.2;
 }
 
-.ch-sub {
-  font-size: 12px;
-  color: var(--ink4);
-  font-weight: 300;
-  margin-top: 2px;
-}
+.ch-sub { font-size: 12px; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-.ch-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
+.ch-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
-.ch-time {
+.badge {
   font-family: 'Fira Code', monospace;
-  font-size: 10px;
-  color: var(--ink4);
+  font-size: 9px; padding: 2px 7px;
+  border-radius: 4px; letter-spacing: .5px;
 }
 
-.ch-arrow {
-  color: var(--ink4);
-  font-size: 14px;
-  transition: transform .3s, color .2s;
-}
+.b-blue   { background: rgba(99,102,241,.12); color: var(--blue2);  border: 1px solid rgba(99,102,241,.2); }
+.b-green  { background: rgba(16,185,129,.1);  color: var(--green2); border: 1px solid rgba(16,185,129,.2); }
+.b-red    { background: rgba(244,63,94,.1);   color: var(--red2);   border: 1px solid rgba(244,63,94,.2); }
+.b-amber  { background: rgba(245,158,11,.1);  color: var(--amber2); border: 1px solid rgba(245,158,11,.2); }
+.b-purple { background: rgba(168,85,247,.1);  color: var(--purple); border: 1px solid rgba(168,85,247,.2); }
 
+.ch-time { font-family: 'Fira Code', monospace; font-size: 10px; color: var(--text-dim); }
+.ch-arrow { color: var(--text-dim); font-size: 13px; transition: transform .3s, color .2s; }
 .ch.open .ch-arrow { transform: rotate(90deg); color: var(--blue); }
-
-/* TAGS */
-.tag {
-  font-family: 'Fira Code', monospace;
-  font-size: 9px;
-  padding: 2px 7px;
-  border-radius: 4px;
-  letter-spacing: .3px;
-  display: inline-block;
-}
-
-.t-blue   { background: var(--blue-bg);   color: var(--blue);   border: 1px solid var(--blue-border); }
-.t-green  { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
-.t-red    { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
-.t-amber  { background: var(--amber-bg);  color: var(--amber);  border: 1px solid var(--amber-border); }
-.t-purple { background: var(--purple-bg); color: var(--purple); border: 1px solid var(--purple-border); }
 
 /* CHAPTER BODY */
 .ch-body { display: none; border-top: 1px solid var(--border); }
 .ch.open .ch-body { display: block; }
-
 .ch-inner { padding: 24px 22px; }
 
-.ch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-@media(max-width:680px){ .ch-grid { grid-template-columns: 1fr; } }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media(max-width:680px){ .two-col { grid-template-columns: 1fr; } }
 
-/* SECTION HEADER */
-.s-head {
+.sec-label {
   font-family: 'Fira Code', monospace;
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--blue);
+  font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--blue2);
   margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: flex; align-items: center; gap: 8px;
 }
-.s-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
 
-/* LEARN LIST */
 .learn-list { display: flex; flex-direction: column; gap: 8px; }
 
 .li {
-  display: flex;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--ink2);
-  line-height: 1.5;
-  align-items: flex-start;
+  display: flex; gap: 10px;
+  font-size: 13px; color: var(--text-mid);
+  line-height: 1.55; align-items: flex-start;
 }
 
-.li-dot {
-  color: var(--blue);
-  font-size: 11px;
-  margin-top: 3px;
-  flex-shrink: 0;
-}
-
-/* INCIDENT */
-.incident {
-  background: var(--red-bg);
-  border: 1px solid var(--red-border);
-  border-right: 4px solid var(--red);
-  border-radius: 8px;
-  padding: 16px 18px;
-}
-
-.inc-badge {
-  font-family: 'Fira Code', monospace;
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  color: var(--red);
-  text-transform: uppercase;
-  margin-bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.inc-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 17px;
-  color: var(--ink);
-  margin-bottom: 6px;
-}
-
-.inc-desc {
-  font-size: 12px;
-  color: var(--ink3);
-  line-height: 1.65;
-}
+.li::before { content:'→'; color:var(--blue); font-size:11px; margin-top:2px; flex-shrink:0; font-family:'Fira Code',monospace; }
 
 /* CODE BLOCK */
 .code {
   background: var(--code-bg);
-  border-radius: 8px;
-  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px;
   font-family: 'Fira Code', monospace;
-  font-size: 11.5px;
-  line-height: 1.8;
-  color: var(--code-text);
-  overflow-x: auto;
-  margin-top: 12px;
-  position: relative;
+  font-size: 12px; line-height: 1.8;
+  overflow-x: auto; margin-top: 12px;
 }
 
-.code .ln { color: #4b5563; user-select: none; margin-left: 12px; }
-.code .kw  { color: #93c5fd; }
-.code .str { color: #86efac; }
-.code .num { color: #fde68a; }
-.code .cmt { color: #6b7280; font-style: italic; }
-.code .key { color: #c4b5fd; }
-.code .val { color: #f9a8d4; }
-.code .url { color: #67e8f9; }
-.code .ok  { color: #86efac; }
-.code .err { color: #fca5a5; }
+.ck  { color: var(--blue2); }
+.cs  { color: var(--green2); }
+.cn  { color: var(--amber2); }
+.cc  { color: var(--text-dim); font-style: italic; }
+.cok { color: var(--green); }
+.cer { color: var(--red2); }
+.ch_ { color: var(--cyan); }
+.cp  { color: var(--purple); }
+
+/* INCIDENT */
+.incident {
+  background: linear-gradient(135deg, rgba(244,63,94,.06), rgba(251,113,133,.03));
+  border: 1px solid rgba(244,63,94,.2);
+  border-right: 4px solid var(--red);
+  border-radius: 8px; padding: 16px 18px;
+}
+
+.inc-badge { font-family:'Fira Code',monospace; font-size:9px; letter-spacing:1.5px; color:var(--red2); text-transform:uppercase; margin-bottom:8px; }
+.inc-title { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px; }
+.inc-desc { font-size:12px; color:var(--text-mid); line-height:1.7; }
 
 /* PRO TIP */
 .pro-tip {
-  margin-top: 16px;
-  background: var(--blue-bg);
-  border: 1px solid var(--blue-border);
-  border-radius: 8px;
-  padding: 13px 16px;
-  font-size: 13px;
-  color: var(--ink2);
-  line-height: 1.6;
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
+  margin-top: 14px;
+  background: rgba(99,102,241,.06);
+  border: 1px solid rgba(99,102,241,.2);
+  border-radius: 8px; padding: 12px 16px;
+  font-size: 13px; color: var(--text-mid); line-height:1.65;
+  display: flex; gap: 10px;
 }
+.pro-tip strong { color: var(--blue2); }
 
-.pro-tip-icon { flex-shrink: 0; font-size: 15px; margin-top: 1px; }
-.pro-tip strong { color: var(--blue); }
+.tags-row { display:flex; gap:5px; flex-wrap:wrap; margin-top:10px; }
 
-.tags-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
-
-/* ===== LABS ===== */
-.labs-list { display: flex; flex-direction: column; gap: 14px; }
+/* ── LABS ── */
+.labs-list { display: flex; flex-direction: column; gap: 16px; }
 
 .lab {
-  background: var(--surface);
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
+  border-radius: 12px; overflow: hidden;
+  transition: border-color .2s;
 }
 
 .lab-head {
-  padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  padding: 18px 22px;
+  display: flex; align-items: center; gap: 14px;
   cursor: pointer;
   border-bottom: 1px solid transparent;
   transition: background .2s;
 }
 
-.lab-head:hover { background: var(--bg); }
-.lab.open .lab-head { border-bottom-color: var(--border); background: var(--bg); }
+.lab-head:hover { background: var(--surface); }
+.lab.open .lab-head { border-bottom-color: var(--border); background: var(--surface); }
 
-.lab-emoji { font-size: 24px; }
+.lab-num {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px; color: var(--text-dim);
+  min-width: 20px; letter-spacing: 1px;
+}
+
+.lab-icon-box {
+  width: 40px; height: 40px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 19px; flex-shrink: 0;
+  background: var(--bg2); border: 1px solid var(--border);
+}
 
 .lab-info { flex: 1; }
-.lab-name { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--ink); margin-bottom: 2px; }
-.lab-sub  { font-size: 12px; color: var(--ink4); }
+.lab-name { font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--text); margin-bottom:3px; }
+.lab-sub  { font-size:12px; color:var(--text-dim); }
 
 .diff {
   font-family: 'Fira Code', monospace;
-  font-size: 9px;
-  padding: 3px 8px;
-  border-radius: 4px;
-  letter-spacing: .5px;
+  font-size: 9px; padding: 3px 8px; border-radius: 4px; letter-spacing:.5px;
 }
 
-.d-easy   { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
-.d-medium { background: var(--amber-bg);  color: var(--amber);  border: 1px solid var(--amber-border); }
-.d-hard   { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
+.d-easy   { background:rgba(16,185,129,.1); color:var(--green2); border:1px solid rgba(16,185,129,.25); }
+.d-medium { background:rgba(245,158,11,.1); color:var(--amber2); border:1px solid rgba(245,158,11,.25); }
+.d-hard   { background:rgba(244,63,94,.1);  color:var(--red2);   border:1px solid rgba(244,63,94,.25); }
 
-.lab-chev { color: var(--ink4); font-size: 14px; transition: transform .3s; }
-.lab.open .lab-chev { transform: rotate(90deg); color: var(--blue); }
+.lab-chev { color:var(--text-dim); font-size:14px; transition:transform .3s; }
+.lab.open .lab-chev { transform:rotate(90deg); color:var(--blue); }
 
-.lab-body { display: none; padding: 20px; }
-.lab.open .lab-body { display: block; }
+.lab-body { display:none; padding:22px; }
+.lab.open .lab-body { display:block; }
 
 .lab-goal {
-  font-size: 13px;
-  color: var(--ink2);
-  line-height: 1.6;
-  border-right: 3px solid var(--blue);
-  padding-right: 13px;
-  margin-bottom: 16px;
-  font-style: italic;
+  font-size:14px; color:var(--text-mid); line-height:1.65;
+  border-right:3px solid var(--blue); padding-right:14px;
+  margin-bottom:18px; font-style:italic;
 }
 
-.lab-steps { display: flex; flex-direction: column; gap: 9px; margin-bottom: 14px; }
+.lab-steps { display:flex; flex-direction:column; gap:9px; margin-bottom:14px; }
 
 .lab-step {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  font-size: 13px;
-  color: var(--ink2);
-  line-height: 1.5;
+  display:flex; gap:12px; align-items:flex-start;
+  font-size:13px; color:var(--text-mid); line-height:1.55;
 }
 
 .sn {
-  font-family: 'Fira Code', monospace;
-  font-size: 10px;
-  color: var(--blue);
-  background: var(--blue-bg);
-  border: 1px solid var(--blue-border);
-  border-radius: 4px;
-  padding: 1px 6px;
-  min-width: 30px;
-  text-align: center;
-  margin-top: 2px;
-  flex-shrink: 0;
+  font-family:'Fira Code',monospace; font-size:10px;
+  color:var(--blue2); background:rgba(99,102,241,.1);
+  border:1px solid rgba(99,102,241,.2); border-radius:4px;
+  padding:1px 6px; min-width:30px; text-align:center;
+  margin-top:2px; flex-shrink:0;
 }
 
-/* ===== QUIZ ===== */
-.quiz-top {
+/* QUESTION BOX */
+.q-box {
   background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 8px; padding: 14px 16px;
+  margin: 12px 0;
+}
+.q-box-label { font-family:'Fira Code',monospace; font-size:9px; color:var(--blue2); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
+.q-box-text { font-size:14px; font-weight:600; color:var(--text); line-height:1.5; }
+
+/* ANSWER BTN */
+.ans-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 14px; padding: 9px 18px;
+  background: transparent;
+  border: 1px solid rgba(99,102,241,.35);
+  color: var(--blue2); border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+  font-size: 11px; letter-spacing: .5px;
+  cursor: pointer; transition: all .2s;
+}
+.ans-btn:hover { background: rgba(99,102,241,.1); border-color: var(--blue2); }
+.ans-btn.open  { background: rgba(99,102,241,.1); border-color: var(--blue2); }
+
+.ans-box {
+  display: none;
+  margin-top: 14px;
+  background: rgba(99,102,241,.04);
+  border: 1px solid rgba(99,102,241,.18);
+  border-radius: 10px; padding: 20px;
+  animation: fadeUp .25s ease;
+}
+.ans-box.show { display: block; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+
+.ans-head {
+  font-family:'Fira Code',monospace; font-size:9px;
+  letter-spacing:2px; text-transform:uppercase;
+  color:var(--blue2); margin-bottom:14px;
+  display:flex; align-items:center; gap:8px;
+}
+.ans-head::after { content:''; flex:1; height:1px; background:rgba(99,102,241,.2); }
+
+.ans-item {
+  display:flex; gap:12px; margin-bottom:12px;
+  font-size:13px; color:var(--text-mid); line-height:1.65;
+  align-items:flex-start;
+}
+.ans-item:last-child { margin-bottom:0; }
+
+.an {
+  font-family:'Fira Code',monospace; font-size:10px;
+  color:var(--blue2); background:rgba(99,102,241,.1);
+  border:1px solid rgba(99,102,241,.2); border-radius:4px;
+  padding:1px 6px; min-width:28px; text-align:center;
+  flex-shrink:0; margin-top:2px;
+}
+
+.ans-highlight {
+  background: rgba(6,182,212,.05);
+  border-right: 3px solid var(--cyan);
+  padding: 11px 14px; border-radius: 6px;
+  font-size: 12px; color: var(--text-mid); line-height:1.7;
+  margin-top: 12px;
+}
+
+.ans-warn {
+  background: rgba(244,63,94,.05);
+  border: 1px solid rgba(244,63,94,.2);
+  padding: 11px 14px; border-radius: 6px;
+  font-size: 12px; color: var(--red2); line-height:1.65;
+  margin-top: 10px;
+}
+
+/* ── QUIZ ── */
+.quiz-top {
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 32px;
-  text-align: center;
-  margin-bottom: 28px;
+  border-radius: 12px; padding: 32px;
+  text-align: center; margin-bottom: 24px;
 }
 
 .quiz-top h2 {
-  font-family: 'DM Serif Display', serif;
-  font-size: 36px;
-  color: var(--ink);
-  margin-bottom: 6px;
+  font-family: 'Syne', sans-serif;
+  font-size: 32px; font-weight: 800;
+  color: var(--text); margin-bottom: 8px; letter-spacing: -1px;
 }
 
-.quiz-top p { font-size: 14px; color: var(--ink3); }
+.quiz-top p { font-size: 13px; color: var(--text-dim); }
 
-.q-prog-bg { background: var(--bg2); border-radius: 20px; height: 4px; margin: 20px 0 0; overflow: hidden; }
-.q-prog    { height: 100%; border-radius: 20px; background: linear-gradient(90deg, var(--blue), var(--purple)); transition: width .4s; }
-.q-prog-lbl { font-family:'Fira Code',monospace; font-size:10px; color:var(--ink4); text-align:left; margin-top:5px; }
+.q-prog-bg { background:rgba(255,255,255,.05); border-radius:20px; height:3px; margin:18px 0 0; overflow:hidden; }
+.q-prog { height:100%; border-radius:20px; background:linear-gradient(90deg,var(--blue),var(--purple)); transition:width .4s; }
+.q-prog-lbl { font-family:'Fira Code',monospace; font-size:10px; color:var(--text-dim); text-align:left; margin-top:5px; }
 
-.q-list { display: flex; flex-direction: column; gap: 14px; }
+.q-list { display:flex; flex-direction:column; gap:12px; }
 
 .q-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 22px;
-  transition: border-color .3s;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 22px; transition: border-color .3s;
 }
+.q-card.c-ok   { border-color:var(--green);  background:rgba(16,185,129,.04); }
+.q-card.c-fail { border-color:var(--red);    background:rgba(244,63,94,.04); }
 
-.q-card.c-ok   { border-color: var(--green); background: var(--green-bg); }
-.q-card.c-fail { border-color: var(--red); background: var(--red-bg); }
+.q-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.q-idx { font-family:'Fira Code',monospace; font-size:9px; color:var(--blue2); letter-spacing:2px; }
+.q-tag { font-family:'Fira Code',monospace; font-size:9px; color:var(--text-dim); border:1px solid var(--border); padding:2px 6px; border-radius:4px; }
+.q-text { font-size:15px; font-weight:600; color:var(--text); margin-bottom:14px; line-height:1.5; }
 
-.q-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.q-idx { font-family:'Fira Code',monospace; font-size:10px; color: var(--blue); letter-spacing:1px; }
-.q-tag { font-family:'Fira Code',monospace; font-size:9px; color:var(--ink4); border:1px solid var(--border); padding:2px 6px; border-radius:4px; }
-.q-text { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 16px; line-height: 1.5; }
-
-.q-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-@media(max-width:520px){ .q-opts { grid-template-columns: 1fr; } }
+.q-opts { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+@media(max-width:520px){ .q-opts { grid-template-columns:1fr; } }
 
 .q-opt {
-  padding: 11px 14px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--bg);
-  cursor: pointer;
-  font-size: 13px;
-  color: var(--ink2);
-  text-align: right;
-  transition: all .15s;
-  line-height: 1.4;
+  padding:11px 14px; border:1px solid var(--border);
+  border-radius:7px; background:var(--surface);
+  cursor:pointer; font-size:12px; color:var(--text-mid);
+  text-align:right; transition:all .15s; line-height:1.45;
 }
-
-.q-opt:hover:not(.locked) { border-color: var(--blue); color: var(--blue); background: var(--blue-bg); }
-.q-opt.hit  { border-color: var(--green)!important; background: var(--green-bg)!important; color: var(--green)!important; font-weight: 600; }
-.q-opt.miss { border-color: var(--red)!important; background: var(--red-bg)!important; color: var(--red)!important; }
-.q-opt.locked { cursor: default; }
+.q-opt:hover:not(.locked) { border-color:var(--blue); color:var(--blue2); background:rgba(99,102,241,.06); }
+.q-opt.hit  { border-color:var(--green)!important; background:rgba(16,185,129,.1)!important; color:var(--green2)!important; font-weight:600; }
+.q-opt.miss { border-color:var(--red)!important; background:rgba(244,63,94,.1)!important; color:var(--red2)!important; }
+.q-opt.locked { cursor:default; }
 
 .q-exp {
-  margin-top: 12px;
-  padding: 11px 14px;
-  background: var(--blue-bg);
-  border: 1px solid var(--blue-border);
-  border-radius: 6px;
-  font-size: 12px;
-  color: var(--ink2);
-  line-height: 1.7;
-  display: none;
+  margin-top:12px; padding:11px 14px;
+  background:rgba(99,102,241,.06); border-right:3px solid var(--blue);
+  border-radius:6px; font-size:12px; color:var(--text-mid); line-height:1.7;
+  display:none;
 }
-.q-exp.show { display: block; animation: pop .25s ease; }
-@keyframes pop { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:translateY(0)} }
+.q-exp.show { display:block; animation:fadeUp .25s ease; }
 
 /* SCORE */
 .score-box {
-  background: var(--surface);
-  border: 2px solid var(--blue);
-  border-radius: 16px;
-  padding: 50px 32px;
-  text-align: center;
-  margin-top: 24px;
-  display: none;
-  position: relative;
-  overflow: hidden;
+  background:var(--card); border:1px solid var(--blue);
+  border-radius:14px; padding:48px 32px;
+  text-align:center; margin-top:24px; display:none;
+  position:relative; overflow:hidden;
 }
-
 .score-box::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 4px;
-  background: linear-gradient(90deg, var(--blue), var(--purple), var(--green));
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--blue),var(--purple),var(--blue),transparent);
 }
+.score-box.show { display:block; animation:fadeUp .4s ease; }
 
-.score-box.show { display: block; animation: pop .4s ease; }
+.score-http { font-family:'Fira Code',monospace; font-size:12px; color:var(--text-dim); margin-bottom:10px; }
+.score-big { font-family:'Syne',sans-serif; font-size:84px; font-weight:800; color:var(--blue2); line-height:1; letter-spacing:-3px; }
+.score-big .frac { font-size:38px; color:var(--text-dim); vertical-align:middle; }
+.score-status { font-family:'Fira Code',monospace; font-size:15px; margin-top:6px; }
+.score-msg { font-size:17px; font-weight:600; color:var(--text); margin-top:14px; }
+.score-sub { font-size:12px; color:var(--text-dim); margin-top:6px; font-family:'Fira Code',monospace; }
 
-.score-http {
-  font-family: 'Fira Code', monospace;
-  font-size: 14px;
-  color: var(--ink4);
-  margin-bottom: 8px;
-}
-
-.score-big {
-  font-family: 'DM Serif Display', serif;
-  font-size: 88px;
-  color: var(--ink);
-  line-height: 1;
-  letter-spacing: -2px;
-}
-
-.score-big .frac { font-size: 40px; color: var(--ink4); vertical-align: middle; }
-.score-status { font-family:'Fira Code',monospace; font-size:16px; margin-top:6px; }
-.score-msg { font-size: 18px; font-weight: 600; color: var(--ink); margin-top: 14px; }
-.score-sub { font-size: 13px; color: var(--ink3); margin-top: 6px; }
-
-.score-acts { display: flex; justify-content: center; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+.score-acts { display:flex; justify-content:center; gap:12px; margin-top:26px; flex-wrap:wrap; }
 
 .btn {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  padding: 12px 24px;
-  border-radius: 8px;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: all .2s;
-  letter-spacing: .5px;
-  border: 1px solid;
-  min-height: 44px;
+  font-family:'Fira Code',monospace; font-size:11px;
+  padding:12px 24px; border-radius:7px;
+  cursor:pointer; text-decoration:none; display:inline-block;
+  transition:all .2s; letter-spacing:.5px; border:1px solid;
+  min-height:44px; display:inline-flex; align-items:center;
 }
+.btn-blue  { background:var(--blue); color:#fff; border-color:var(--blue); font-weight:700; }
+.btn-blue:hover { box-shadow:0 0 24px rgba(99,102,241,.5); transform:translateY(-1px); }
+.btn-ghost { background:transparent; color:var(--text-dim); border-color:var(--border2); }
+.btn-ghost:hover { border-color:var(--blue2); color:var(--blue2); }
 
-.btn-blue   { background: var(--blue);   color: white; border-color: var(--blue); }
-.btn-blue:hover { box-shadow: 0 4px 16px rgba(37,99,235,.3); transform: translateY(-1px); }
-.btn-ghost  { background: transparent; color: var(--ink3); border-color: var(--border2); }
-.btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
-
-/* ===== GAME SECTION ===== */
-.game-wrap {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  margin-bottom: 24px;
-}
-
-.game-header {
+/* ── GAME ── */
+.game-shell {
   background: var(--code-bg);
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
+  border: 1px solid var(--border2);
+  border-radius: 12px; overflow: hidden;
+  box-shadow: 0 0 60px rgba(99,102,241,.08);
 }
 
-.game-title {
-  font-family: 'Fira Code', monospace;
-  font-size: 13px;
-  color: #86efac;
-  font-weight: 600;
+.game-titlebar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex; align-items: center; gap: 10px;
 }
 
-.game-meta {
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  color: #6b7280;
-  display: flex;
-  gap: 16px;
+.tb-dots { display:flex; gap:6px; }
+.td { width:11px; height:11px; border-radius:50%; }
+.td-r{background:#ff5f57;} .td-y{background:#febc2e;} .td-g{background:#28c840;}
+
+.tb-title { font-family:'Fira Code',monospace; font-size:11px; color:var(--text-dim); margin-right:auto; }
+
+.game-scorebar {
+  font-family:'Fira Code',monospace; font-size:11px;
+  display:flex; gap:16px;
 }
 
-.game-score-display { color: #fde68a; }
-.game-lives { color: #fca5a5; }
-.game-level-display { color: #c4b5fd; }
+.gs-score { color:var(--amber2); }
+.gs-lives { color:var(--red2); }
+.gs-level { color:var(--purple); }
 
-.game-body { padding: 24px; }
+.game-body { padding: 28px; }
 
-.game-question {
-  font-family: 'DM Serif Display', serif;
-  font-size: 20px;
-  color: var(--ink);
-  margin-bottom: 8px;
-  line-height: 1.3;
+.game-q {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--text); margin-bottom: 8px; line-height: 1.35;
 }
 
-.game-hint {
-  font-size: 13px;
-  color: var(--ink4);
-  margin-bottom: 20px;
-  font-style: italic;
-}
+.game-hint { font-size:13px; color:var(--text-dim); margin-bottom:22px; font-style:italic; }
 
-.game-options {
+.game-opts {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: 10px; margin-bottom: 18px;
 }
+@media(max-width:580px){ .game-opts { grid-template-columns: repeat(2,1fr); } }
 
-@media(max-width:600px){ .game-options { grid-template-columns: repeat(2, 1fr); } }
-@media(max-width:380px){ .game-options { grid-template-columns: 1fr 1fr; } }
-
-.game-opt {
+.g-opt {
+  padding: 14px 8px; border-radius: 8px; cursor: pointer;
   font-family: 'Fira Code', monospace;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 14px 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: center;
-  transition: all .15s;
-  border: 2px solid transparent;
+  font-size: 15px; font-weight: 700;
+  text-align: center; transition: all .15s;
+  border: 2px solid transparent; user-select: none;
 }
 
-.game-opt-200 { background: var(--green-bg); color: var(--green); border-color: var(--green-border); }
-.game-opt-301 { background: var(--amber-bg); color: var(--amber); border-color: var(--amber-border); }
-.game-opt-404 { background: var(--red-bg); color: var(--red); border-color: var(--red-border); }
-.game-opt-500 { background: var(--purple-bg); color: var(--purple); border-color: var(--purple-border); }
-.game-opt-401 { background: #fff7ed; color: #ea580c; border-color: #fed7aa; }
-.game-opt-403 { background: #fef3c7; color: #b45309; border-color: #fcd34d; }
-.game-opt-429 { background: #fdf2f8; color: #be185d; border-color: #fbcfe8; }
-.game-opt-503 { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
+.go-200 { background:rgba(16,185,129,.12); color:var(--green2);  border-color:rgba(16,185,129,.3); }
+.go-301 { background:rgba(245,158,11,.1);  color:var(--amber2);  border-color:rgba(245,158,11,.3); }
+.go-404 { background:rgba(244,63,94,.1);   color:var(--red2);    border-color:rgba(244,63,94,.3); }
+.go-500 { background:rgba(168,85,247,.1);  color:var(--purple);  border-color:rgba(168,85,247,.3); }
+.go-401 { background:rgba(6,182,212,.1);   color:var(--cyan);    border-color:rgba(6,182,212,.3); }
+.go-403 { background:rgba(99,102,241,.12); color:var(--blue2);   border-color:rgba(99,102,241,.3); }
+.go-429 { background:rgba(251,191,36,.1);  color:#fbbf24;        border-color:rgba(251,191,36,.3); }
+.go-503 { background:rgba(244,114,182,.1); color:#f472b6;        border-color:rgba(244,114,182,.3); }
+.go-400 { background:rgba(244,63,94,.1);   color:var(--red2);    border-color:rgba(244,63,94,.3); }
+.go-302 { background:rgba(245,158,11,.1);  color:var(--amber2);  border-color:rgba(245,158,11,.3); }
+.go-422 { background:rgba(244,63,94,.1);   color:var(--red2);    border-color:rgba(244,63,94,.3); }
+.go-405 { background:rgba(6,182,212,.1);   color:var(--cyan);    border-color:rgba(6,182,212,.3); }
+.go-201 { background:rgba(16,185,129,.12); color:var(--green2);  border-color:rgba(16,185,129,.3); }
+.go-502 { background:rgba(168,85,247,.1);  color:var(--purple);  border-color:rgba(168,85,247,.3); }
+.go-304 { background:rgba(245,158,11,.1);  color:var(--amber2);  border-color:rgba(245,158,11,.3); }
 
-.game-opt:hover:not(.locked) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
-.game-opt.correct { transform: scale(1.05); box-shadow: 0 4px 16px rgba(22,163,74,.3); }
-.game-opt.wrong   { opacity: .5; transform: scale(.95); }
-.game-opt.locked  { cursor: default; }
+.g-opt:hover:not(.locked) { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.3); }
+.g-opt.correct { transform:scale(1.05); box-shadow:0 0 20px rgba(16,185,129,.4); }
+.g-opt.wrong   { opacity:.4; transform:scale(.95); }
+.g-opt.locked  { cursor:default; }
 
-.game-feedback {
-  text-align: center;
-  font-size: 14px;
-  font-weight: 600;
-  min-height: 24px;
-  transition: all .2s;
-}
+.g-opt small { display:block; font-size:9px; font-weight:400; opacity:.7; margin-top:3px; }
 
-.fb-correct { color: var(--green); }
-.fb-wrong   { color: var(--red); }
+.game-feedback { text-align:center; font-size:14px; font-weight:600; min-height:22px; transition:all .2s; }
+.fb-ok  { color:var(--green2); }
+.fb-err { color:var(--red2); }
 
-.game-progress {
-  background: var(--bg2);
-  border-radius: 20px;
-  height: 4px;
+.game-progress-wrap {
   margin-top: 16px;
-  overflow: hidden;
+  background: rgba(255,255,255,.05);
+  border-radius: 20px; height: 3px; overflow: hidden;
 }
 
 .game-progress-fill {
-  height: 100%;
+  height: 100%; border-radius: 20px;
   background: linear-gradient(90deg, var(--green), var(--blue));
-  border-radius: 20px;
   transition: width .4s;
 }
 
-.game-result {
-  text-align: center;
-  padding: 32px 20px;
+.game-end {
   display: none;
+  text-align: center; padding: 40px 24px;
 }
+.game-end.show { display: block; }
 
-.game-result.show { display: block; }
+.ge-emoji { font-size: 54px; margin-bottom: 14px; }
+.ge-title { font-family:'Syne',sans-serif; font-size:28px; font-weight:800; color:var(--text); margin-bottom:8px; letter-spacing:-1px; }
+.ge-score { font-family:'Fira Code',monospace; font-size:14px; color:var(--blue2); margin-bottom:6px; }
+.ge-msg { font-size:14px; color:var(--text-dim); margin-bottom:24px; }
 
-.gr-emoji { font-size: 56px; margin-bottom: 12px; }
-
-.gr-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 28px;
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-
-.gr-score {
+.game-help {
+  background: rgba(99,102,241,.05);
+  border: 1px solid rgba(99,102,241,.15);
+  border-radius: 8px; padding: 12px 16px;
   font-family: 'Fira Code', monospace;
-  font-size: 16px;
-  color: var(--blue);
-  margin-bottom: 16px;
+  font-size: 11px; color: var(--text-dim);
+  line-height: 1.65; margin-top: 16px;
 }
 
-.gr-msg { font-size: 14px; color: var(--ink3); margin-bottom: 24px; }
-
-/* ===== FOOTER ===== */
+/* ── FOOTER ── */
 .site-footer {
-  text-align: center;
-  padding: 36px 24px;
-  border-top: 1px solid var(--border);
-  margin-top: 60px;
-  position: relative;
-  z-index: 1;
+  text-align: center; padding: 32px; border-top: 1px solid var(--border);
+  position: relative; z-index: 1;
+}
+.site-footer p { font-family:'Fira Code',monospace; font-size:10px; color:var(--text-dim); letter-spacing:2px; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+::-webkit-scrollbar-thumb:hover { background:var(--blue); }
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .container { padding:0 16px; }
+  .nav { padding:0 16px; }
+  .nav-brand { font-size:13px; margin-left:14px; }
+  .nav-tab { padding:0 12px; font-size:10px; }
+  .hero { padding:44px 0 36px; }
+  .hero h1 { font-size:clamp(40px,10vw,72px); letter-spacing:-2px; }
+  .hero-desc { font-size:15px; }
+  .stats { grid-template-columns:1fr 1fr; width:100%; }
+  .stat { border-left:none; border-top:1px solid var(--border); }
+  .stat:nth-child(1),.stat:nth-child(2) { border-top:none; }
+  .stat:nth-child(odd) { border-left:none; }
+  .stat:nth-child(even) { border-left:1px solid var(--border); }
+  .ch-trigger { padding:14px 16px; gap:12px; }
+  .ch-title { font-size:14px; }
+  .ch-inner { padding:18px 16px; }
 }
 
-.site-footer p {
-  font-family: 'Fira Code', monospace;
-  font-size: 10px;
-  color: var(--ink4);
-  letter-spacing: 1.5px;
+@media(max-width:480px){
+  .container { padding:0 12px; }
+  .nav { padding:0 12px; height:46px; }
+  .nav-brand { font-size:12px; margin-left:10px; }
+  .nav-tab { font-size:9px; padding:0 9px; }
+  .nav-dot { display:none; }
+  .hero { padding:28px 0 24px; }
+  .hero h1 { font-size:clamp(36px,12vw,56px); letter-spacing:-1.5px; }
+  .hero-eyebrow { font-size:9px; }
+  .hero-desc { font-size:13px; line-height:1.7; margin-bottom:24px; }
+  .hero-eyebrow::before { display:none; }
+  .stats { grid-template-columns:1fr 1fr; width:100%; border-radius:8px; }
+  .stat-n { font-size:24px; }
+  .stat-l { font-size:8px; }
+  .sec-body { padding:24px 0 44px; }
+  .ch-trigger { padding:12px 13px; gap:10px; }
+  .ch-method { font-size:9px; padding:2px 7px; min-width:40px; }
+  .ch-title { font-size:13px; }
+  .ch-sub { font-size:11px; }
+  .ch-time { display:none; }
+  .ch-right { gap:6px; }
+  .ch-inner { padding:14px 13px; }
+  .sec-label { font-size:8px; }
+  .li { font-size:12px; }
+  .code { font-size:10.5px; padding:12px; }
+  .incident { padding:12px 14px; border-right-width:3px; }
+  .inc-title { font-size:14px; }
+  .inc-desc { font-size:11px; }
+  .pro-tip { font-size:12px; padding:11px 13px; }
+  .labs-list { gap:12px; }
+  .lab-head { padding:13px 14px; gap:10px; }
+  .lab-icon-box { width:34px; height:34px; font-size:16px; }
+  .lab-name { font-size:14px; }
+  .lab-sub { font-size:11px; }
+  .lab-body { padding:15px 13px; }
+  .lab-goal { font-size:13px; }
+  .lab-step { font-size:12px; }
+  .sn { font-size:9px; min-width:26px; }
+  .ans-item { font-size:12px; }
+  .ans-highlight,.ans-warn { font-size:11px; }
+  .quiz-top { padding:22px 16px; border-radius:10px; }
+  .quiz-top h2 { font-size:24px; }
+  .q-card { padding:14px 12px; }
+  .q-text { font-size:14px; margin-bottom:12px; }
+  .q-opts { grid-template-columns:1fr; gap:6px; }
+  .q-opt { font-size:12px; padding:11px 13px; min-height:44px; display:flex; align-items:center; }
+  .q-exp { font-size:11px; }
+  .score-big { font-size:64px; }
+  .score-big .frac { font-size:30px; }
+  .score-msg { font-size:15px; }
+  .score-acts { flex-direction:column; gap:8px; }
+  .btn { justify-content:center; width:100%; }
+  .game-body { padding:18px 14px; }
+  .game-q { font-size:17px; }
+  .game-hint { font-size:12px; margin-bottom:16px; }
+  .game-opts { gap:8px; }
+  .g-opt { font-size:13px; padding:12px 6px; border-radius:7px; }
+  .ge-title { font-size:22px; }
+  .game-help { font-size:10px; }
+  .site-footer { padding:20px 12px; }
+  .site-footer p { font-size:9px; letter-spacing:1px; }
 }
 
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--blue); }
-
-/* ===== MOBILE ===== */
-@media (max-width: 768px) {
-  .container { padding: 0 16px; }
-  .browser-chrome { padding: 8px 14px; gap: 8px; }
-  .browser-dots { gap: 5px; }
-  .dot { width: 10px; height: 10px; }
-  .url-bar { font-size: 10px; padding: 5px 10px; }
-  .status-pill { font-size: 10px; display: none; }
-  .status-pill:first-of-type { display: flex; }
-  .hero { padding: 40px 0 28px; }
-  .hero h1 { font-size: clamp(36px, 9vw, 62px); }
-  .response-card { gap: 24px; padding: 16px 20px; }
-  .rc-val { font-size: 24px; }
-  .ch-head { padding: 14px 16px; gap: 12px; }
-  .ch-title { font-size: 16px; }
-  .ch-inner { padding: 18px 16px; }
-  .game-options { grid-template-columns: repeat(2, 1fr); }
+@supports (padding: max(0px)){
+  .nav { padding-left:max(16px,env(safe-area-inset-left)); padding-right:max(16px,env(safe-area-inset-right)); }
+  .container { padding-left:max(12px,env(safe-area-inset-left)); padding-right:max(12px,env(safe-area-inset-right)); }
+  .site-footer { padding-bottom:max(20px,env(safe-area-inset-bottom)); }
 }
+</style>
 
-@media (max-width: 480px) {
+<style>
+/* mobile-fix */
+html, body { overflow-x: hidden; }
+@media (max-width: 800px) {
   .container { padding: 0 12px; }
-
-  /* Browser bar — simplify */
-  .browser-chrome { padding: 8px 12px; gap: 8px; }
-  .url-bar { font-size: 9px; padding: 5px 8px; }
-  .url-bar .url-text { font-size: 9px; }
-  .status-pill { font-size: 9px; padding: 3px 7px; }
-
-  /* Hero */
-  .hero { padding: 28px 0 20px; }
-  .hero h1 { font-size: clamp(34px, 11vw, 52px); letter-spacing: -.5px; }
-  .hero-kicker::before { display: none; }
-  .hero-kicker { font-size: 10px; }
-  .hero-desc { font-size: 13px; line-height: 1.7; margin-bottom: 24px; }
-
-  /* Stats */
-  .response-card {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    padding: 0;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  .rc-item {
-    padding: 14px 10px;
-    border-right: 1px solid #2d2a25;
-    border-bottom: 1px solid #2d2a25;
-  }
-  .rc-item:nth-child(even) { border-right: none; }
-  .rc-item:nth-last-child(-n+2) { border-bottom: none; }
-  .rc-val { font-size: 22px; }
-  .rc-key { font-size: 8px; }
-
-  /* Tabs */
-  .tab-row { margin-top: 24px; margin-bottom: 24px; }
-  .tab-btn { font-size: 10px; padding: 10px 12px; }
-
-  /* Chapters */
-  .ch-head { padding: 13px 13px; gap: 10px; }
-  .ch-method { font-size: 9px; padding: 2px 6px; min-width: 36px; }
-  .ch-title { font-size: 15px; }
-  .ch-sub { font-size: 11px; }
-  .ch-time { display: none; }
-  .ch-right { gap: 6px; }
-  .ch-inner { padding: 16px 13px; }
-  .s-head { font-size: 8px; letter-spacing: 1.5px; }
-  .li { font-size: 12px; }
-  .incident { padding: 12px 13px; border-right-width: 3px; }
-  .inc-title { font-size: 15px; }
-  .inc-desc { font-size: 11px; }
-  .code { font-size: 10px; padding: 13px; line-height: 1.75; }
-  .pro-tip { font-size: 12px; padding: 11px 13px; }
-
-  /* Labs */
-  .labs-list { gap: 10px; }
-  .lab { border-radius: 10px; }
-  .lab-head { padding: 13px 14px; gap: 10px; }
-  .lab-emoji { font-size: 20px; }
-  .lab-name { font-size: 15px; }
-  .lab-sub { font-size: 11px; }
-  .lab-body { padding: 16px 14px; }
-  .lab-goal { font-size: 12px; padding-right: 11px; }
-  .lab-step { font-size: 12px; }
-  .sn { font-size: 9px; min-width: 26px; }
-
-  /* Quiz */
-  .quiz-top { padding: 22px 16px; border-radius: 10px; }
-  .quiz-top h2 { font-size: 28px; }
-  .quiz-top p { font-size: 12px; }
-  .q-list { gap: 10px; }
-  .q-card { padding: 15px 13px; border-radius: 10px; }
-  .q-text { font-size: 14px; margin-bottom: 12px; }
-  .q-idx { font-size: 9px; }
-  .q-opts { grid-template-columns: 1fr; gap: 6px; }
-  .q-opt { font-size: 13px; padding: 12px 13px; min-height: 46px; display: flex; align-items: center; border-radius: 7px; }
-  .q-exp { font-size: 11px; padding: 10px 12px; }
-  .score-box { padding: 32px 18px; border-radius: 12px; }
-  .score-big { font-size: 68px; }
-  .score-big .frac { font-size: 32px; }
-  .score-msg { font-size: 16px; }
-  .score-acts { flex-direction: column; gap: 8px; }
-  .btn { text-align: center; width: 100%; min-height: 48px; }
-
-  /* Game */
-  .game-header { padding: 12px 14px; }
-  .game-title { font-size: 12px; }
-  .game-meta { font-size: 10px; gap: 10px; }
-  .game-body { padding: 18px 14px; }
-  .game-question { font-size: 17px; }
-  .game-hint { font-size: 12px; }
-  .game-options { grid-template-columns: 1fr 1fr; gap: 7px; }
-  .game-opt { font-size: 13px; padding: 12px 6px; border-radius: 7px; }
-  .gr-emoji { font-size: 44px; }
-  .gr-title { font-size: 24px; }
-  .gr-score { font-size: 14px; }
-  .gr-msg { font-size: 13px; }
-
-  /* Footer */
-  .site-footer { padding: 20px 12px; margin-top: 40px; }
-  .site-footer p { font-size: 9px; }
+  pre, code { font-size: 0.78rem; }
+  table { font-size: 0.82rem; }
 }
-
-@supports (padding: max(0px)) {
-  .browser-chrome {
-    padding-left: max(14px, env(safe-area-inset-left));
-    padding-right: max(14px, env(safe-area-inset-right));
-  }
-  .container {
-    padding-left: max(12px, env(safe-area-inset-left));
-    padding-right: max(12px, env(safe-area-inset-right));
-  }
-  .site-footer { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+@media (max-width: 480px) {
+  .container { padding: 0 6px; }
+  .ch, .lab { padding: 12px 8px; }
+  pre { padding: 10px 8px; }
 }
 </style>
 </head>
 <body>
-<div class="labs-wrap" style="padding:16px">
-<div class="lab" id="lb2" open>
+<div id="labs" class="section"><div class="sec-body">
+    <div class="labs-list">
+
+      <!-- LAB 1 -->
+      
+<div class="lab open" id="lb2">
         <div class="lab-head" onclick="toggleLab('lb2')">
-          <span class="lab-emoji">🏗️</span>
+          <span class="lab-num">02</span>
+          <div class="lab-icon-box">🏗️</div>
           <div class="lab-info">
-            <div class="lab-name">מעבדה 2 — בנה REST API עם Node.js + Express</div>
-            <div class="lab-sub">CRUD · Validation · Error Handling · Middleware</div>
+            <div class="lab-name">REST API ברמת Production — Node.js + Express</div>
+            <div class="lab-sub">CRUD · Zod Validation · RFC 7807 Errors · Middleware Stack · Swagger</div>
           </div>
           <span class="diff d-easy">EASY</span>
           <span class="lab-chev">▶</span>
         </div>
         <div class="lab-body" style="display:block">
-          <div class="lab-goal">🎯 בנה API מלא — יצירה, קריאה, עדכון, מחיקה — עם validation אמיתי ו-error handling כמו בפרודקשן.</div>
+          <div class="lab-goal">בנה API מלא — CRUD, Validation, Error Handling כמו שמהנדס Senior יכתוב ב-Code Review.</div>
           <div class="lab-steps">
-            <div class="lab-step"><span class="sn">01</span>צור Express app עם endpoints: GET /users, POST /users, PUT /users/:id, DELETE /users/:id</div>
-            <div class="lab-step"><span class="sn">02</span>הוסף Middleware: morgan לlogging, helmet לSecurity headers, cors.</div>
-            <div class="lab-step"><span class="sn">03</span>הוסף Input Validation עם zod או joi — שדות חסרים מחזירים 400 עם RFC 7807 Error.</div>
-            <div class="lab-step"><span class="sn">04</span>כתוב Global Error Handler Middleware — כל Error עובר דרכו.</div>
-            <div class="lab-step"><span class="sn">05</span>תעד את ה-API עם Swagger (swagger-ui-express + swagger-jsdoc).</div>
+            <div class="lab-step"><span class="sn">01</span>צור Express app עם Endpoints: <code>GET /users</code>, <code>GET /users/:id</code>, <code>POST /users</code>, <code>PATCH /users/:id</code>, <code>DELETE /users/:id</code></div>
+            <div class="lab-step"><span class="sn">02</span>Middleware Stack: <code>helmet()</code> → <code>cors()</code> → <code>morgan('combined')</code> → <code>express.json({ limit: '10kb' })</code></div>
+            <div class="lab-step"><span class="sn">03</span>Zod Validation Schema לכל Input. שדה חסר → <code>400 Bad Request</code> עם RFC 7807 Error Body.</div>
+            <div class="lab-step"><span class="sn">04</span>Global Error Handler: אחרון ב-Middleware Stack, מקבל <code>(err, req, res, next)</code>.</div>
+            <div class="lab-step"><span class="sn">05</span>הוסף Swagger UI: <code>swagger-ui-express</code> + <code>swagger-jsdoc</code>. נגיש ב-<code>/api-docs</code>.</div>
+            <div class="lab-step"><span class="sn">06</span>בדוק עם curl: שדה חסר → מה מוחזר? ID לא קיים → איזה Code?</div>
           </div>
-          <div class="code"><span class="cmt">// RFC 7807 — Error Response</span>
+
+          <button class="ans-btn" onclick="toggleAns('a2')"><span id="a2i">▶</span> הצג קוד Production-Grade</button>
+          <div class="ans-box" id="a2">
+            <div class="ans-head">✅ Express API — Production Template</div>
+            <div class="code"><span class="cc">// app.js — סדר Middleware חשוב!</span>
+<span class="ck">const</span> app = express();
+
+<span class="cc">// Security first</span>
+app.use(helmet());
+app.use(cors({ origin: process.env.ALLOWED_ORIGINS?.split(<span class="cs">','</span>) }));
+app.use(morgan(<span class="cs">'combined'</span>));
+app.use(express.json({ limit: <span class="cs">'10kb'</span> }));  <span class="cc">// מניע payload attacks</span>
+
+<span class="cc">// Validation Middleware</span>
+<span class="ck">const</span> validate = (schema) => (req, res, next) => {
+  <span class="ck">const</span> result = schema.safeParse(req.body);
+  <span class="ck">if</span> (!result.success) {
+    <span class="ck">return</span> res.status(<span class="cn">400</span>).json({
+      <span class="ck">type</span>: <span class="cs">'https://api.co/errors/validation'</span>,
+      <span class="ck">title</span>: <span class="cs">'Validation Failed'</span>,
+      <span class="ck">status</span>: <span class="cn">400</span>,
+      <span class="ck">detail</span>: result.error.issues[<span class="cn">0</span>].message,
+      <span class="ck">errors</span>: result.error.issues
+    });
+  }
+  req.validated = result.data;
+  next();
+};
+
+<span class="cc">// Routes</span>
+app.post(<span class="cs">'/users'</span>, validate(UserSchema), async (req, res, next) => {
+  <span class="ck">try</span> {
+    <span class="ck">const</span> user = <span class="ck">await</span> db.users.create(req.validated);
+    res.status(<span class="cn">201</span>).location(<span class="cs">`/users/${user.id}`</span>).json(user);
+  } <span class="ck">catch</span> (err) { next(err); }  <span class="cc">← תמיד next(err)!</span>
+});
+
+<span class="cc">// Global Error Handler — חייב להיות אחרון</span>
 app.use((err, req, res, next) => {
-  res.status(err.status || <span class="num">500</span>).json({
-    <span class="key">type</span>: <span class="str">"https://errors.api.com/validation"</span>,
-    <span class="key">title</span>: <span class="str">"Validation Failed"</span>,
-    <span class="key">status</span>: <span class="num">400</span>,
-    <span class="key">detail</span>: err.message,
-    <span class="key">instance</span>: req.path
+  <span class="ck">const</span> status = err.status || <span class="cn">500</span>;
+  res.status(status).json({
+    type: <span class="cs">`https://api.co/errors/${err.code || 'internal'}`</span>,
+    title: err.message,
+    status,
+    instance: req.path
   });
 });</div>
+            <div class="ans-item"><span class="an">⚠️</span><div>Global Error Handler חייב 4 פרמטרים — <code>(err, req, res, next)</code>. עם 3 פרמטרים Express לא מזהה אותו כ-Error Handler ולא יקרא אותו.</div></div>
+            <div class="ans-highlight">💡 <strong>Swagger Auto-Docs:</strong> הוסף JSDoc Comments לRoutes → swagger-jsdoc יוצר OpenAPI Spec → swagger-ui-express מציג ב-<code>/api-docs</code>. Clients יכולים לייצר SDK אוטומטי מה-Spec.</div>
+          </div>
         </div>
       </div>
-</div>
-<script>
-// ===== STATUS PILL CYCLE =====
-let pillIdx = 0;
-const pills = ['statusPill','sp2','sp3','sp4'];
-function cyclePill() {
-  document.getElementById(pills[pillIdx]).style.display = 'none';
-  pillIdx = (pillIdx + 1) % pills.length;
-  document.getElementById(pills[pillIdx]).style.display = 'flex';
-}
 
-// ===== TABS =====
-function switchTab(id, btn) {
+      <!-- LAB 3 -->
+</div></div>
+<script>
+// ── TABS ──
+function switchTab(id, el) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  if (btn && btn.classList && btn.classList.contains('tab-btn')) btn.classList.add('active');
+  if (el) el.classList.add('active');
   if (id === 'game') startGame();
 }
 
-// ===== CHAPTERS & LABS =====
+// ── CHAPTERS / LABS ──
 function toggleCh(id) { document.getElementById(id).classList.toggle('open'); }
 function toggleLab(id) { document.getElementById(id).classList.toggle('open'); }
 document.getElementById('lb1').classList.add('open');
 
-// ===== QUIZ =====
+// ── ANSWER TOGGLE ──
+function toggleAns(id) {
+  const box = document.getElementById(id);
+  const btn = box.previousElementSibling;
+  const icon = document.getElementById(id + 'i');
+  const isOpen = box.classList.contains('show');
+  box.classList.toggle('show');
+  btn.classList.toggle('open');
+  icon.textContent = isOpen ? '▶' : '▼';
+  btn.childNodes[1].textContent = ' ' + (isOpen ? 'הצג תשובה מלאה' : 'הסתר תשובה');
+}
+
+// ── QUIZ ──
 const QS = [
-  { q:"איזה Status Code מוחזר כש-Resource לא קיים?", tag:"Status Codes", opts:["400 Bad Request","401 Unauthorized","404 Not Found","503 Service Unavailable"], ans:2, exp:"404 Not Found — ה-Resource שביקשת לא קיים. 400 = הבקשה עצמה שגויה. 401 = לא מאומת. 503 = שרת לא זמין." },
-  { q:"מה ההבדל בין 401 ל-403?", tag:"Status Codes", opts:["אין הבדל, שניהם Auth Errors","401 = לא מזוהה, 403 = מזוהה אך אסור","401 = Server Error, 403 = Client Error","401 עבור API, 403 עבור Web"], ans:1, exp:"401 Unauthorized = לא מאומת (שלח Credentials). 403 Forbidden = מאומת אבל אין הרשאה. שם 'Unauthorized' הוא טעות היסטורית — הכוונה Unauthenticated." },
-  { q:"מה JWT?", tag:"Auth", opts:["JSON Web Template","JavaScript Widget Token","JSON Web Token — Token מקודד עם Signature","Java Web Technology"], ans:2, exp:"JWT = JSON Web Token. מורכב מ-3 חלקים: Header (algorithm), Payload (claims), Signature. הכל Base64 מקודד. Signature מאמת שהתוכן לא שונה — אבל ה-Payload אינו מוצפן!" },
-  { q:"מה idempotent בהקשר HTTP?", tag:"REST", opts:["בקשה שתמיד מחזירה 200","בקשה שאפשר לשלוח פעמיים ולקבל אותה תוצאה","בקשה ללא Body","בקשה עם Caching"], ans:1, exp:"Idempotent = הפעלה חוזרת נותנת אותה תוצאה. GET, PUT, DELETE = Idempotent. POST = לא Idempotent (יוצר resource חדש בכל פעם). חשוב לRetry Logic — רק Idempotent methods בטוחים לRetry." },
-  { q:"מה CORS ולמה הוא קיים?", tag:"Security", opts:["Cache Object Resource System","Cross-Origin Resource Sharing — מגן על Users ממתקפות Cross-Site","Compressed Output Response Size","Certificate Origin Registration System"], ans:1, exp:"CORS = Cross-Origin Resource Sharing. הדפדפן חוסם JavaScript מ-origin אחד מלגשת ל-API ב-origin אחר. הגנה מ-CSRF Attacks. Server מצהיר ב-Access-Control-Allow-Origin מי מורשה לקרוא את ה-Response." },
-  { q:"מה הבעיה עם storing JWT ב-localStorage?", tag:"Security", opts:["JWT גדול מדי ל-localStorage","XSS יכול לגנוב אותו — JavaScript יכול לקרוא localStorage","לא ניתן לשלוח אותו ב-Headers","localStorage לא Persistent"], ans:1, exp:"localStorage נגיש ל-כל JavaScript בדף — כולל XSS Scripts. HttpOnly Cookie לא נגיש ל-JavaScript — הדפדפן שולח אותו אוטומטית ולא ניתן לגנוב עם XSS. לכן: Refresh Token ב-HttpOnly Cookie, Access Token ב-Memory." },
-  { q:"מה Cache-Control: no-cache אומר?", tag:"Caching", opts:["לא לשמור Cache בכלל","לבקש מהשרת לאמת תוקף לפני שימוש ב-Cache","למחוק Cache קיים","לשמור Cache רק ב-Browser"], ans:1, exp:"no-cache ≠ 'אל תשמור'. המשמעות היא: שמור Cache, אבל תמיד בקש מהשרת לאמת תוקפו (Revalidate) לפני שימוש. לא לשמור בכלל = no-store. זוהי אחת הטעויות הנפוצות ב-HTTP Caching!" },
-  { q:"מה GraphQL פותר שRESTלא?", tag:"GraphQL", opts:["GraphQL מהיר יותר מ-REST","Over-fetching ו-Under-fetching — Client מבקש בדיוק מה שצריך","GraphQL יותר מאובטח","GraphQL עובד רק עם SQL"], ans:1, exp:"Over-fetching: REST מחזיר שדות שלא צריך. Under-fetching: צריך מספר Requests לנתונים שווי. GraphQL = שאילתה אחת שמחזירה בדיוק מה שהוגדר. Facebook המציאה אותו כשמובייל היה איטי ויקר." },
-  { q:"מה WebSocket לעומת HTTP?", tag:"Real-Time", opts:["WebSocket זהה ל-HTTP/2","WebSocket = Full-Duplex connection, HTTP = Request/Response","WebSocket רק בMobile","WebSocket יותר מאובטח מ-HTTPS"], ans:1, exp:"HTTP = Client שולח → Server עונה. WebSocket = חיבור פתוח קבוע. Server יכול לשלוח ל-Client בלי שיבקש. Full-Duplex = שניהם שולחים ומקבלים בו זמנית. מתחיל כ-HTTP Upgrade Request." },
-  { q:"מה Rate Limiting Code נכון לשלוח?", tag:"Performance", opts:["400 Bad Request","401 Unauthorized","429 Too Many Requests","503 Service Unavailable"], ans:2, exp:"429 Too Many Requests הוא קוד הסטנדרט. יש להוסיף: Retry-After Header (מתי לנסות שוב) ו-X-RateLimit-Remaining (כמה נשאר). 503 = Server לא זמין בכלל, שונה." },
-  { q:"מה OAuth 2.0 Authorization Code + PKCE?", tag:"Auth", opts:["Hash של Password","Flow מאובטח ל-Auth ב-Public Clients (Mobile/SPA) ללא Client Secret","Type של JWT","Database Auth Protocol"], ans:1, exp:"PKCE (Proof Key for Code Exchange) מונע Code Interception Attacks ב-Mobile Apps ו-SPAs שלא יכולים לשמור Client Secret בבטחה. ה-App מייצר Code Verifier + Code Challenge ומאמת ש-Authorization Code לא נגנב." },
-  { q:"מה Webhook?", tag:"API Design", opts:["Web Security Hook","HTTP Callback — Server שולח Request ל-Client כשיש Event","Type של API Key","Widget Hook בUI"], ans:1, exp:"Webhook = Push Notification ל-API. במקום שה-Client יסקן (Polling) 'יש משהו חדש?', ה-Server שולח Request ל-URL שהגדרת כשיש Event. Stripe, GitHub, Slack — כולם Webhooks. זכור: תמיד אמת Signature!" },
-  { q:"מה Idempotency Key?", tag:"API Design", opts:["JWT Key","Unique ID שנשלח עם Request למניעת כפילויות","Cache Key","Database Primary Key"], ans:1, exp:"Idempotency Key = UUID שנשלח ב-Header: Idempotency-Key: uuid-123. אם Request נשלח פעמיים (Network retry), השרת מזהה את המפתח ומחזיר אותה תשובה במקום לבצע שוב. קריטי ל-Payments ו-Webhooks." },
-  { q:"מה N+1 Problem ב-GraphQL?", tag:"GraphQL", opts:["Query עם יותר מ-1 שדה","Query שגורם ל-N DB Queries לכל N Records (במקום Query אחד)","Error ב-GraphQL","API שמחזיר יותר מ-N Results"], ans:1, exp:"N+1: אם ביקשת 10 Users עם Orders שלהם → 1 Query לUsers + 10 Queries (אחד לOrders של כל User) = 11 Queries. הפתרון: DataLoader שמבצע Batching — Query אחד ל-Orders של כל 10 Users." },
-  { q:"מה ETag ב-HTTP?", tag:"Caching", opts:["Encryption Tag","גרסה של Resource — Browser שולח אותה חזרה לבדיקת Freshness","Error Tag","Event Tag"], ans:1, exp:"ETag = Entity Tag. Hash של תוכן ה-Resource. Browser שולח: If-None-Match: 'abc123'. אם Resource לא השתנה → Server מחזיר 304 Not Modified (ללא Body). חוסך Bandwidth ומהיר יותר מMax-Age." },
-  { q:"מה הבדל בין PUT ל-PATCH?", tag:"REST", opts:["אין הבדל","PUT = החלפה מלאה, PATCH = עדכון חלקי","PUT ל-Create, PATCH ל-Update","PUT יותר מאובטח"], ans:1, exp:"PUT = שלח Resource שלם (כל שדה שלא שלחת יתאפס). PATCH = שלח רק מה שרוצה לשנות. שניהם Idempotent. בפועל: PATCH עדיף ברוב המקרים — פחות Bandwidth, פחות סיכוי למחוק נתונים בטעות." },
-  { q:"מה הסטנדרט לError Response ב-API?", tag:"REST", opts:["כל API יחליט בעצמו","RFC 7807 — Problem Details for HTTP APIs","YAML Error Format","JSON:API Error Schema"], ans:1, exp:'RFC 7807 מגדיר Error Format סטנדרטי: {"type": "URL", "title": "Error Name", "status": 400, "detail": "...", "instance": "/api/..."}. כאשר כל API משתמש בזה — Clients יכולים לטפל ב-Errors אוניברסלית.' },
-  { q:"מה SSE לעומת WebSocket?", tag:"Real-Time", opts:["SSE = Full-Duplex, WS = One-Way","SSE = One-Way Server Push, WS = Full-Duplex. SSE יותר פשוט ועובד על HTTP","SSE יותר מהיר","שניהם זהים"], ans:1, exp:"SSE (Server-Sent Events) = שרת שולח ל-Client בלבד, One-Way. פשוט יותר, Auto-Reconnect מובנה, עובד על HTTP/2. WebSocket = Full-Duplex. לnotifications, feeds, dashboards — SSE מנצח. לChat, Gaming — WebSocket." },
-  { q:"מה gRPC?", tag:"API Design", opts:["Google Remote Procedure Call — Protocol Buffers, Streaming, מהיר מREST","Google REST Client","גרסה חדשה של HTTP","GraphQL Remote Client"], ans:0, exp:"gRPC = Google Remote Procedure Call. משתמש ב-Protocol Buffers (binary, לא JSON) + HTTP/2. פי 5-10 מהיר מREST. Streaming בשני הכיוונים. מושלם ל-Microservices. חסרון: לא human-readable, צריך Client Generation." },
-  { q:"מה Circuit Breaker Pattern?", tag:"API Design", opts:["Firewall Rule","Pattern שמפסיק לשלוח בקשות לשירות תקוע — נמנע מ-Cascading Failures","API Key Rotation","Cache Invalidation"], ans:1, exp:"Circuit Breaker = כמו מחבר חשמלי שנפתח כשיש עומס יתר. כששירות מחזיר שגיאות חוזרות → Circuit נפתח → מחזיר Error מיידי בלי לחכות. אחרי זמן מוגדר → מנסה שוב. מונע Thundering Herd ו-Cascading Failures." },
+  { q:"איזה Status Code מוחזר כש-Resource לא קיים?", tag:"Status Codes", opts:["400 Bad Request","401 Unauthorized","404 Not Found","503 Service Unavailable"], ans:2, exp:"404 Not Found — ה-Resource שביקשת לא קיים. 400 = הבקשה עצמה שגויה (Missing field). 401 = לא מאומת (שלח Credentials). 503 = שרת לא זמין כרגע." },
+  { q:"מה ההבדל בין 401 ל-403?", tag:"Status Codes", opts:["אין הבדל","401 = לא מזוהה, 403 = מזוהה אך אסור","401 = Server Error","401 עבור API בלבד"], ans:1, exp:"401 Unauthorized = לא מאומת (שלח Credentials קודם). 403 Forbidden = מאומת אבל אין הרשאה. שם 'Unauthorized' הוא טעות היסטורית — הכוונה Unauthenticated." },
+  { q:"מה JWT?", tag:"Auth", opts:["JSON Web Template","JavaScript Widget Token","JSON Web Token — Token מקודד עם Signature","Java Web Technology"], ans:2, exp:"JWT = JSON Web Token. 3 חלקים: Header (algorithm), Payload (claims), Signature. הכל Base64 מקודד — גלוי לכולם! Signature מאמת שהתוכן לא שונה. לעולם אל תשמור סיסמה ב-Payload." },
+  { q:"מה idempotent בהקשר HTTP?", tag:"REST", opts:["בקשה שתמיד מחזירה 200","בקשה שאפשר לשלוח פעמיים ולקבל אותה תוצאה","בקשה ללא Body","בקשה עם Caching"], ans:1, exp:"Idempotent = הפעלה חוזרת נותנת אותה תוצאה. GET, PUT, DELETE = Idempotent. POST = לא Idempotent (יוצר resource חדש). PATCH = תלוי מימוש. חשוב ל-Retry Logic — רק Idempotent Methods בטוחים." },
+  { q:"מה CORS ולמה הוא קיים?", tag:"Security", opts:["Cache Object Resource System","Cross-Origin Resource Sharing — מגן על Users ממתקפות Cross-Site","Compressed Output Response Size","Certificate Origin System"], ans:1, exp:"CORS = Cross-Origin Resource Sharing. הדפדפן חוסם JavaScript מ-origin אחד מלגשת ל-API באחר. Server מצהיר ב-Access-Control-Allow-Origin מי מורשה. מגן מ-CSRF." },
+  { q:"מה הבעיה עם JWT ב-localStorage?", tag:"Security", opts:["JWT גדול מדי","XSS יכול לגנוב אותו","לא ניתן לשלוח ב-Headers","localStorage לא Persistent"], ans:1, exp:"localStorage נגיש לכל JavaScript בדף — כולל XSS Scripts. HttpOnly Cookie לא נגיש ל-JS. לכן: Refresh Token ב-HttpOnly Cookie, Access Token ב-Memory (JS Variable)." },
+  { q:"מה Cache-Control: no-cache אומר?", tag:"Caching", opts:["לא לשמור Cache בכלל","לבקש אימות תוקף לפני שימוש ב-Cache","למחוק Cache קיים","לשמור Cache רק ב-Browser"], ans:1, exp:"no-cache ≠ 'אל תשמור'. המשמעות: שמור Cache, אבל בקש מהשרת לאמת (Revalidate) לפני שימוש. לא לשמור בכלל = no-store. הטעות הנפוצה ביותר ב-HTTP Caching." },
+  { q:"מה GraphQL פותר שREST לא?", tag:"GraphQL", opts:["GraphQL מהיר יותר","Over-fetching ו-Under-fetching — Client בוחר בדיוק מה לקבל","GraphQL יותר מאובטח","GraphQL עם SQL בלבד"], ans:1, exp:"Over-fetching: REST מחזיר שדות שלא צריך. Under-fetching: צריך מספר Requests. GraphQL = שאילתה אחת שמחזירה בדיוק מה שהוגדר. Facebook המציאה כש-Mobile היה איטי." },
+  { q:"מה WebSocket לעומת HTTP?", tag:"Real-Time", opts:["זהים לחלוטין","WebSocket = Full-Duplex, HTTP = Request/Response חד-כיווני","WebSocket רק ב-Mobile","WebSocket יותר מאובטח"], ans:1, exp:"HTTP = Client שולח → Server עונה. חד-כיווני. WebSocket = חיבור פתוח קבוע. Server יכול לשלוח ל-Client בלי שיבקש. Full-Duplex. מתחיל כ-HTTP Upgrade Request." },
+  { q:"מה Rate Limiting Code נכון?", tag:"Performance", opts:["400 Bad Request","401 Unauthorized","429 Too Many Requests","503 Service Unavailable"], ans:2, exp:"429 Too Many Requests הוא הקוד הסטנדרטי. הוסף: Retry-After Header (מתי לנסות שוב) ו-X-RateLimit-Remaining (כמה נשאר). 503 = Server לא זמין — שונה." },
+  { q:"מה OAuth 2.0 + PKCE?", tag:"Auth", opts:["Hash של Password","Flow מאובטח ל-Auth ב-Public Clients ללא Client Secret","Type של JWT","DB Auth Protocol"], ans:1, exp:"PKCE מונע Code Interception Attacks ב-Mobile Apps ו-SPAs שלא יכולים לשמור Client Secret. App מייצר Code Verifier + Code Challenge ומאמת שה-Authorization Code לא נגנב." },
+  { q:"מה Webhook?", tag:"API Design", opts:["Web Security Hook","HTTP Callback — Server שולח ל-Client כשיש Event","Type של API Key","Widget Hook"], ans:1, exp:"Webhook = Push Notification ל-API. במקום Polling 'יש משהו חדש?', Server שולח Request כשיש Event. Stripe, GitHub, Slack — כולם Webhooks. תמיד אמת Signature!" },
+  { q:"מה Idempotency Key?", tag:"API Design", opts:["JWT Key","Unique ID למניעת כפילויות","Cache Key","DB Primary Key"], ans:1, exp:"UUID שנשלח ב-Header: Idempotency-Key: uuid. אם Request נשלח פעמיים (Network retry), Server מזהה ומחזיר תשובה שמורה. קריטי ל-Payments ו-Webhooks." },
+  { q:"מה N+1 Problem ב-GraphQL?", tag:"GraphQL", opts:["Query עם יותר מ-1 שדה","Query שגורם ל-N DB Queries לכל N Records","Error ב-GraphQL","API שמחזיר יותר מ-N Results"], ans:1, exp:"N+1: 10 Users עם Orders → 1 Query + 10 Queries = 11. DataLoader: 1 + 1 = 2 Queries. חיסכון של 82%. תמיד use DataLoader ב-GraphQL." },
+  { q:"מה ETag ב-HTTP?", tag:"Caching", opts:["Encryption Tag","Hash של Resource — בדיקת Freshness","Error Tag","Event Tag"], ans:1, exp:"ETag = Entity Tag. Hash של תוכן. Browser שולח: If-None-Match. אם לא השתנה → 304 Not Modified ללא Body. חוסך Bandwidth. מדויק יותר מ-max-age." },
+  { q:"מה הבדל PUT ל-PATCH?", tag:"REST", opts:["אין הבדל","PUT = החלפה מלאה, PATCH = עדכון חלקי","PUT ל-Create","PUT יותר מאובטח"], ans:1, exp:"PUT = שלח Resource שלם (שדה שלא שלחת יתאפס). PATCH = שלח רק מה שרוצה לשנות. שניהם Idempotent. PATCH עדיף ברוב המקרים — פחות Bandwidth, פחות סיכון." },
+  { q:"מה הסטנדרט ל-Error Response ב-API?", tag:"REST", opts:["כל API לבד","RFC 7807 Problem Details","YAML Error Format","JSON:API Error Schema"], ans:1, exp:'RFC 7807: {"type": "URL", "title": "Error Name", "status": 400, "detail": "...", "instance": "/api/..."}. כשכולם משתמשים בזה — Clients יכולים לטפל ב-Errors אוניברסלית.' },
+  { q:"מה SSE לעומת WebSocket?", tag:"Real-Time", opts:["SSE = Full-Duplex","SSE = One-Way Server Push, WS = Full-Duplex. SSE פשוט יותר","SSE מהיר יותר","זהים"], ans:1, exp:"SSE = Server שולח ל-Client בלבד. פשוט, Auto-Reconnect, HTTP/2 Native. WebSocket = Full-Duplex. Notifications, Feeds = SSE. Chat, Gaming = WebSocket." },
+  { q:"מה gRPC?", tag:"API Design", opts:["Google Remote Procedure Call — Protocol Buffers, מהיר מ-REST","Google REST Client","גרסה חדשה של HTTP","GraphQL Remote Client"], ans:0, exp:"gRPC = Protocol Buffers (Binary, לא JSON) + HTTP/2. פי 5-10 מהיר מ-REST. Streaming דו-כיווני. מושלם ל-Microservices. חיסרון: לא Human-Readable, צריך Code Generation." },
+  { q:"מה Circuit Breaker Pattern?", tag:"API Design", opts:["Firewall Rule","Pattern שמפסיק לשלוח לשירות תקוע — מונע Cascading Failures","API Key Rotation","Cache Invalidation"], ans:1, exp:"Circuit Breaker: שירות מחזיר שגיאות חוזרות → Circuit נפתח → Error מיידי ללא המתנה. אחרי Timeout → Half-Open → מנסה שוב. מונע Thundering Herd ו-Cascading Failures." },
 ];
 
 let qAnswered = 0, qScore = 0;
@@ -1075,22 +930,14 @@ function buildQuiz() {
   qAnswered = 0; qScore = 0;
   document.getElementById('scoreBox').classList.remove('show');
   updateProg();
-
   QS.forEach((q, i) => {
-    const card = document.createElement('div');
-    card.className = 'q-card';
-    card.id = 'qc' + i;
-    card.innerHTML = `
-      <div class="q-top">
-        <span class="q-idx">${String(i+1).padStart(2,'0')} / ${QS.length}</span>
-        <span class="q-tag">${q.tag}</span>
-      </div>
+    const c = document.createElement('div');
+    c.className = 'q-card'; c.id = 'qc'+i;
+    c.innerHTML = `<div class="q-top"><span class="q-idx">${String(i+1).padStart(2,'0')} / ${QS.length}</span><span class="q-tag">${q.tag}</span></div>
       <div class="q-text">${q.q}</div>
-      <div class="q-opts">
-        ${q.opts.map((o,j) => `<div class="q-opt" onclick="pick(${i},${j})" id="o_${i}_${j}">${o}</div>`).join('')}
-      </div>
+      <div class="q-opts">${q.opts.map((o,j)=>`<div class="q-opt" onclick="pick(${i},${j})" id="o_${i}_${j}">${o}</div>`).join('')}</div>
       <div class="q-exp" id="exp_${i}">${q.exp}</div>`;
-    list.appendChild(card);
+    list.appendChild(c);
   });
 }
 
@@ -1099,190 +946,168 @@ function pick(qi, oi) {
   document.querySelectorAll(`[id^="o_${qi}_"]`).forEach(el => el.classList.add('locked'));
   if (oi === q.ans) {
     document.getElementById(`o_${qi}_${oi}`).classList.add('hit');
-    document.getElementById('qc' + qi).classList.add('c-ok');
+    document.getElementById('qc'+qi).classList.add('c-ok');
     qScore++;
   } else {
     document.getElementById(`o_${qi}_${oi}`).classList.add('miss');
     document.getElementById(`o_${qi}_${q.ans}`).classList.add('hit');
-    document.getElementById('qc' + qi).classList.add('c-fail');
+    document.getElementById('qc'+qi).classList.add('c-fail');
   }
-  document.getElementById('exp_' + qi).classList.add('show');
-  qAnswered++;
-  updateProg();
+  document.getElementById('exp_'+qi).classList.add('show');
+  qAnswered++; updateProg();
   if (qAnswered === QS.length) setTimeout(showScore, 500);
 }
 
 function updateProg() {
-  const pct = (qAnswered / QS.length) * 100;
-  document.getElementById('qp').style.width = pct + '%';
+  const pct = (qAnswered/QS.length)*100;
+  document.getElementById('qp').style.width = pct+'%';
   document.getElementById('qpl').textContent = `${qAnswered} / ${QS.length} נענו`;
 }
 
 function showScore() {
-  const pct = Math.round((qScore / QS.length) * 100);
-  const sb = document.getElementById('scoreBox');
-  sb.classList.add('show');
+  const pct = Math.round((qScore/QS.length)*100);
+  document.getElementById('scoreBox').classList.add('show');
   document.getElementById('scoreBig').innerHTML = `${qScore}<span class="frac">/${QS.length}</span>`;
-
   let http, status, msg, sub;
-  if (pct >= 90) { http = 'HTTP/1.1 200 OK'; status = '✅ 200 OK'; msg = 'Response: מושלם. Senior Engineer?'; sub = 'כל API שתכתוב יאהב אותך.'; }
-  else if (pct >= 75) { http = 'HTTP/1.1 206 Partial Content'; status = '📦 206 Partial Content'; msg = 'קרוב! עוד קצת תרגול'; sub = 'חזור על פרק Auth ו-Caching.'; }
-  else if (pct >= 55) { http = 'HTTP/1.1 304 Not Modified'; status = '🔄 304 Not Modified'; msg = 'בינוני — יש מה לשפר'; sub = 'קרא את הפרקים, נסה שוב.'; }
-  else { http = 'HTTP/1.1 418 I\'m a teapot'; status = "☕ 418 I'm a Teapot"; msg = 'אה אוף... 418.'; sub = "גם RFC 2324 הוא ידע. חזור ל-CH01."; }
-
+  if (pct>=90) { http='HTTP/2 200 OK'; status='✅ 200 OK'; msg='Response: מושלם. Senior Engineer?'; sub='כל API שתכתוב יאהב אותך.'; }
+  else if(pct>=75){ http='HTTP/2 206 Partial Content'; status='📦 206 Partial Content'; msg='קרוב! עוד קצת תרגול'; sub='חזור על Auth ו-Caching.'; }
+  else if(pct>=55){ http='HTTP/2 304 Not Modified'; status='🔄 304 Not Modified'; msg='בינוני — יש מה לשפר'; sub='קרא את הפרקים, נסה שוב.'; }
+  else { http="HTTP/2 418 I'm a teapot"; status="☕ 418 I'm a Teapot"; msg='גם RFC 2324 הוא ידע.'; sub='חזור ל-CH01.'; }
   document.getElementById('scoreHttp').textContent = http;
   document.getElementById('scoreStatus').textContent = status;
   document.getElementById('scoreMsg').textContent = msg;
   document.getElementById('scoreSub').textContent = sub;
-  sb.scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('scoreBox').scrollIntoView({behavior:'smooth'});
 }
 
-function restartQuiz() {
-  buildQuiz();
-  window.scrollTo({ top: document.getElementById('quiz').offsetTop - 80, behavior: 'smooth' });
-}
+function restartQuiz() { buildQuiz(); window.scrollTo({top:document.getElementById('quiz').offsetTop-80,behavior:'smooth'}); }
 
-// ===== GAME =====
+buildQuiz();
+
+// ── GAME ──
 const STATUSES = [
-  { code: 200, label: '200', cls: 'game-opt-200', name: 'OK' },
-  { code: 301, label: '301', cls: 'game-opt-301', name: 'Moved Permanently' },
-  { code: 404, label: '404', cls: 'game-opt-404', name: 'Not Found' },
-  { code: 500, label: '500', cls: 'game-opt-500', name: 'Internal Server Error' },
-  { code: 401, label: '401', cls: 'game-opt-401', name: 'Unauthorized' },
-  { code: 403, label: '403', cls: 'game-opt-403', name: 'Forbidden' },
-  { code: 429, label: '429', cls: 'game-opt-429', name: 'Too Many Requests' },
-  { code: 503, label: '503', cls: 'game-opt-503', name: 'Service Unavailable' },
+  { code:200, cls:'go-200', name:'OK' },
+  { code:301, cls:'go-301', name:'Moved Permanently' },
+  { code:404, cls:'go-404', name:'Not Found' },
+  { code:500, cls:'go-500', name:'Internal Server Error' },
+  { code:401, cls:'go-401', name:'Unauthorized' },
+  { code:403, cls:'go-403', name:'Forbidden' },
+  { code:429, cls:'go-429', name:'Too Many Requests' },
+  { code:503, cls:'go-503', name:'Service Unavailable' },
 ];
+
+const EXTRA = [
+  { code:204, cls:'go-200', name:'No Content' },
+  { code:400, cls:'go-400', name:'Bad Request' },
+  { code:302, cls:'go-302', name:'Found (Temp Redirect)' },
+  { code:422, cls:'go-422', name:'Unprocessable Entity' },
+  { code:405, cls:'go-405', name:'Method Not Allowed' },
+  { code:201, cls:'go-201', name:'Created' },
+  { code:502, cls:'go-502', name:'Bad Gateway' },
+  { code:304, cls:'go-304', name:'Not Modified' },
+];
+
+const ALL = [...STATUSES, ...EXTRA];
 
 const QUESTIONS = [
-  { desc: "המשאב קיים, הכל עבד מצוין", hint: "הצלחה מושלמת", ans: 200 },
-  { desc: "הכתובת עברה לURL חדש לתמיד", hint: "Redirect קבוע — גוגל אוהב זאת", ans: 301 },
-  { desc: "הדף שחיפשת לא קיים", hint: "המשאב נעלם (או מעולם לא היה)", ans: 404 },
-  { desc: "קוד צד שרת קרס עם Exception", hint: "זה לא אשמת ה-Client", ans: 500 },
-  { desc: "שלחת בקשה בלי להתחבר", hint: "מי אתה? אנחנו לא מכירים אותך", ans: 401 },
-  { desc: "מחובר, אבל אין לך גישה לדף הזה", hint: "אנחנו יודעים מי אתה, אבל לא", ans: 403 },
-  { desc: "שלחת יותר מדי בקשות בזמן קצר", hint: "Slow down! 🐢", ans: 429 },
-  { desc: "שרת לא יכול לעבד כרגע, נסה מאוחר יותר", hint: "503 ≠ 500. השרת בסדר, הוא עמוס", ans: 503 },
-  { desc: "הכל בסדר אבל אין תוכן להחזיר", hint: "200 אחיו הדקיק...", ans: 204 },
-  { desc: "ה-Client שלח JSON שבור/שגוי", hint: "תבנית הבקשה לא תקינה", ans: 400 },
-  { desc: "המשאב נמצא, אבל ב-URL זמני אחר", hint: "כמו 301 אבל זמני", ans: 302 },
-  { desc: "שדה חובה חסר ב-Form", hint: "תקינות הקלט — Client's problem", ans: 422 },
-  { desc: "API לא מכיר את ה-Method הזה", hint: "שלחת DELETE ל-Endpoint שמקבל רק GET", ans: 405 },
-  { desc: "Resource נוצר בהצלחה", hint: "POST שעובד = 201", ans: 201 },
-  { desc: "הבקשה בדרך, שרת אחר יטפל", hint: "Gateway מועבר", ans: 502 },
+  { desc:"המשאב קיים, הכל עבד מצוין", hint:"הצלחה מושלמת", ans:200 },
+  { desc:"הכתובת עברה ל-URL חדש לתמיד", hint:"Redirect קבוע — גוגל אוהב", ans:301 },
+  { desc:"הדף שחיפשת לא קיים", hint:"המשאב נעלם — או מעולם לא היה", ans:404 },
+  { desc:"קוד צד שרת קרס עם Exception", hint:"זה לא אשמת ה-Client", ans:500 },
+  { desc:"שלחת בקשה בלי להתחבר", hint:"מי אתה? אנחנו לא מכירים אותך", ans:401 },
+  { desc:"מחובר, אבל אין לך גישה לדף", hint:"אנחנו יודעים מי אתה, אבל לא", ans:403 },
+  { desc:"שלחת יותר מדי בקשות מהר מדי", hint:"Slow down! 🐢", ans:429 },
+  { desc:"שרת לא יכול לעבד כרגע", hint:"≠ 500. השרת בסדר, פשוט עמוס", ans:503 },
+  { desc:"הצליח, אין תוכן להחזיר (DELETE)", hint:"Success ללא Body", ans:204 },
+  { desc:"ה-Client שלח JSON שבור", hint:"תקינות הבקשה — Client's fault", ans:400 },
+  { desc:"ה-Resource עבר ל-URL זמני", hint:"כמו 301 אבל זמני", ans:302 },
+  { desc:"שדה חובה חסר ב-Form", hint:"Input תקין אבל Logic לא", ans:422 },
+  { desc:"שלחת DELETE ל-Endpoint שמקבל GET", hint:"Method לא מוכר כאן", ans:405 },
+  { desc:"POST הצליח ויצר Resource חדש", hint:"Created — שונה מ-200", ans:201 },
+  { desc:"Gateway קיבל תגובה שגויה מ-Upstream", hint:"שגיאה בשרת מאחורי", ans:502 },
+  { desc:"Resource לא השתנה מאז ה-Cache", hint:"חסכנו Bandwidth!", ans:304 },
 ];
 
-// Add missing status types for later levels
-const EXTRA = [
-  { code: 204, label: '204', cls: 'game-opt-200', name: 'No Content' },
-  { code: 400, label: '400', cls: 'game-opt-404', name: 'Bad Request' },
-  { code: 302, label: '302', cls: 'game-opt-301', name: 'Found (Temp Redirect)' },
-  { code: 422, label: '422', cls: 'game-opt-404', name: 'Unprocessable Entity' },
-  { code: 405, label: '405', cls: 'game-opt-401', name: 'Method Not Allowed' },
-  { code: 201, label: '201', cls: 'game-opt-200', name: 'Created' },
-  { code: 502, label: '502', cls: 'game-opt-500', name: 'Bad Gateway' },
-];
-const ALL_STATUS = [...STATUSES, ...EXTRA];
-
-let gScore = 0, gLives = 3, gLevel = 1, gCurrent = 0, gAsked = [];
+let gScore=0, gLives=3, gLevel=1, gAsked=[];
 
 function startGame() {
-  gScore = 0; gLives = 3; gLevel = 1; gCurrent = 0; gAsked = [];
+  gScore=0; gLives=3; gLevel=1; gAsked=[];
   document.getElementById('gameResult').classList.remove('show');
-  document.getElementById('gameBody').style.display = 'block';
-  updateGameUI();
-  nextQuestion();
+  document.getElementById('gameBody').style.display='block';
+  updateGUI(); nextQ();
 }
 
-function updateGameUI() {
+function updateGUI() {
   document.getElementById('gScore').textContent = gScore;
-  document.getElementById('gLives').textContent = '❤️'.repeat(gLives) + '🖤'.repeat(3 - gLives);
+  document.getElementById('gLives').textContent = '❤️'.repeat(gLives)+'🖤'.repeat(3-gLives);
   document.getElementById('gLevel').textContent = gLevel;
 }
 
-function getOptions(ansCode) {
-  const pool = gLevel <= 2 ? STATUSES.slice(0, 4) : gLevel <= 4 ? STATUSES : ALL_STATUS;
-  const correct = ALL_STATUS.find(s => s.code === ansCode) || pool[0];
-  const others = pool.filter(s => s.code !== ansCode);
-  const shuffled = others.sort(() => Math.random() - .5).slice(0, 3);
-  return [...shuffled, correct].sort(() => Math.random() - .5);
+function getOpts(ans) {
+  const pool = gLevel<=2 ? STATUSES.slice(0,4) : gLevel<=4 ? STATUSES : ALL;
+  const correct = ALL.find(s=>s.code===ans)||pool[0];
+  const others = pool.filter(s=>s.code!==ans).sort(()=>Math.random()-.5).slice(0,3);
+  return [...others, correct].sort(()=>Math.random()-.5);
 }
 
-function nextQuestion() {
-  const remaining = QUESTIONS.filter((_, i) => !gAsked.includes(i));
-  if (remaining.length === 0 || gLives <= 0) { endGame(); return; }
-
-  const idx = QUESTIONS.indexOf(remaining[Math.floor(Math.random() * remaining.length)]);
+function nextQ() {
+  const rem = QUESTIONS.filter((_,i)=>!gAsked.includes(i));
+  if (!rem.length||gLives<=0) { endGame(); return; }
+  const idx = QUESTIONS.indexOf(rem[Math.floor(Math.random()*rem.length)]);
   gAsked.push(idx);
-  gCurrent = QUESTIONS[idx];
-  gCurrent._idx = idx;
-
-  document.getElementById('gQuestion').textContent = gCurrent.desc;
-  document.getElementById('gHint').textContent = `💭 ${gCurrent.hint}`;
-  document.getElementById('gFeedback').textContent = '';
-  document.getElementById('gFeedback').className = 'game-feedback';
-
-  const opts = getOptions(gCurrent.ans);
-  const optDiv = document.getElementById('gOptions');
-  optDiv.innerHTML = opts.map(o =>
-    `<div class="game-opt ${o.cls}" onclick="gameAnswer(${o.code}, this)">${o.label}<br><small style="font-size:9px;font-weight:400;opacity:.7">${o.name}</small></div>`
+  const q = QUESTIONS[idx]; q._cur = idx;
+  window._curQ = q;
+  document.getElementById('gQuestion').textContent = q.desc;
+  document.getElementById('gHint').textContent = '💭 '+q.hint;
+  document.getElementById('gFeedback').textContent='';
+  document.getElementById('gFeedback').className='game-feedback';
+  const opts = getOpts(q.ans);
+  document.getElementById('gOptions').innerHTML = opts.map(o=>
+    `<div class="g-opt ${o.cls}" onclick="answer(${o.code},this)">${o.code}<small>${o.name}</small></div>`
   ).join('');
-
-  const prog = (gAsked.length / QUESTIONS.length) * 100;
-  document.getElementById('gProgress').style.width = prog + '%';
-
-  // Level up every 3 correct
-  gLevel = Math.min(4, Math.floor(gScore / 3) + 1);
-  updateGameUI();
+  document.getElementById('gProgress').style.width = (gAsked.length/QUESTIONS.length*100)+'%';
+  gLevel = Math.min(5, Math.floor(gScore/3)+1);
+  updateGUI();
 }
 
-function gameAnswer(code, el) {
-  const opts = document.querySelectorAll('.game-opt');
-  opts.forEach(o => o.classList.add('locked'));
-
+function answer(code, el) {
+  const q = window._curQ;
+  document.querySelectorAll('.g-opt').forEach(o=>o.classList.add('locked'));
   const fb = document.getElementById('gFeedback');
-  if (code === gCurrent.ans) {
+  if (code===q.ans) {
     el.classList.add('correct');
     gScore += gLevel;
-    fb.textContent = `✅ נכון! ${code} ${ALL_STATUS.find(s=>s.code===code)?.name || ''}`;
-    fb.className = 'game-feedback fb-correct';
-    updateGameUI();
-    setTimeout(nextQuestion, 900);
+    fb.textContent='✅ נכון! +'+gLevel+'pts';
+    fb.className='game-feedback fb-ok';
+    updateGUI();
+    setTimeout(nextQ, 900);
   } else {
     el.classList.add('wrong');
     gLives--;
-    const correct = document.querySelector(`.game-opt[onclick*="${gCurrent.ans},"]`) ||
-      [...opts].find(o => o.onclick && o.getAttribute('onclick').includes(`gameAnswer(${gCurrent.ans},`));
-    if (correct) correct.classList.add('correct');
-    fb.textContent = `❌ טעות! התשובה: ${gCurrent.ans} ${ALL_STATUS.find(s=>s.code===gCurrent.ans)?.name || ''}`;
-    fb.className = 'game-feedback fb-wrong';
-    updateGameUI();
-    if (gLives <= 0) { setTimeout(endGame, 1200); return; }
-    setTimeout(nextQuestion, 1400);
+    const c=[...document.querySelectorAll('.g-opt')].find(o=>o.getAttribute('onclick')&&o.getAttribute('onclick').includes('answer('+q.ans+','));
+    if(c) c.classList.add('correct');
+    fb.textContent='❌ התשובה: '+q.ans+' '+ALL.find(s=>s.code===q.ans)?.name;
+    fb.className='game-feedback fb-err';
+    updateGUI();
+    if(gLives<=0){setTimeout(endGame,1200);return;}
+    setTimeout(nextQ,1400);
   }
 }
 
 function endGame() {
-  document.getElementById('gameBody').style.display = 'none';
-  const result = document.getElementById('gameResult');
-  result.classList.add('show');
-
-  const total = QUESTIONS.length;
-  const pct = Math.round((gScore / (total * 4)) * 100);
-
-  let emoji, title, msg;
-  if (gScore >= 30) { emoji = '🏆'; title = 'HTTP Master!'; msg = `ניקוד ${gScore} — אתה זוכר Status Codes בשינה. Senior Engineer Material.`; }
-  else if (gScore >= 18) { emoji = '🎯'; title = 'טוב מאוד!'; msg = `ניקוד ${gScore} — עוד קצת תרגול ותהיה Master.`; }
-  else if (gScore >= 10) { emoji = '📖'; title = 'בינוני'; msg = `ניקוד ${gScore} — קרא שוב את פרק Status Codes.`; }
-  else { emoji = '☕'; title = '418 I\'m a Teapot'; msg = `ניקוד ${gScore} — גם זה Status Code! חזור ל-basics.`; }
-
-  document.getElementById('grEmoji').textContent = emoji;
-  document.getElementById('grTitle').textContent = title;
-  document.getElementById('grScore').textContent = `ניקוד: ${gScore} | חיים שנותרו: ${gLives}`;
-  document.getElementById('grMsg').textContent = msg;
+  document.getElementById('gameBody').style.display='none';
+  document.getElementById('gameResult').classList.add('show');
+  let emoji,title,msg;
+  if(gScore>=36){emoji='🏆';title='HTTP Master!';msg='אתה זוכר Status Codes בשינה. Senior Engineer Material.';}
+  else if(gScore>=20){emoji='⭐';title='טוב מאוד!';msg='עוד קצת תרגול ותהיה Master.';}
+  else if(gScore>=10){emoji='📖';title='בינוני';msg='קרא שוב את פרק Status Codes ונסה שוב.';}
+  else{emoji='☕';title='418 I\'m a Teapot';msg='גם זה Status Code. חזור ל-Basics.';}
+  document.getElementById('grEmoji').textContent=emoji;
+  document.getElementById('grTitle').textContent=title;
+  document.getElementById('grScore').textContent=`ניקוד: ${gScore} | חיים: ${gLives}`;
+  document.getElementById('grMsg').textContent=msg;
 }
 
-buildQuiz();
 startGame();
 </script>
 </body>
