@@ -107,25 +107,28 @@ function TrackPicker({ tracks, onSelect }) {
           const pct = totalPages > 0 ? Math.round((totalRead / totalPages) * 100) : 0
           const hasProgress = pct > 0
           const isEmpty = track.chapters.length === 0
+          const isLocked = track.locked === true
 
           return (
             <button
               key={track.id}
-              className={`track-card ${isEmpty ? 'track-card--soon' : ''}`}
-              onClick={() => !isEmpty && onSelect(track)}
-              disabled={isEmpty}
+              className={`track-card ${isLocked ? 'track-card--locked' : isEmpty ? 'track-card--soon' : ''}`}
+              onClick={() => !isLocked && !isEmpty && onSelect(track)}
+              disabled={isLocked || isEmpty}
               style={{ '--track-color': track.color }}
             >
+              {isLocked && <div className="track-card-lock-badge">🔒</div>}
               <div className="track-card-icon">{track.icon}</div>
               <div className="track-card-body">
                 <div className="track-card-title">{trackI18n(track, 'title', t, lang)}</div>
                 <div className="track-card-subtitle">{trackI18n(track, 'subtitle', t, lang)}</div>
                 <div className="track-card-meta">
                   <span className="track-card-level">{trackI18n(track, 'level', t, lang)}</span>
-                  {!isEmpty && <span className="track-card-chapters">{track.chapters.length} {t('chapters_count')}</span>}
-                  {isEmpty && <span className="track-card-soon">{t('coming_soon')}</span>}
+                  {!isEmpty && !isLocked && <span className="track-card-chapters">{track.chapters.length} {t('chapters_count')}</span>}
+                  {isEmpty && !isLocked && <span className="track-card-soon">{t('coming_soon')}</span>}
                 </div>
-                {hasProgress && (
+                {isLocked && <div className="track-card-editing">{t('being_edited')}</div>}
+                {hasProgress && !isLocked && (
                   <div className="track-card-progress">
                     <div className="track-card-prog-bar">
                       <div className="track-card-prog-fill" style={{ width: `${pct}%` }} />
@@ -134,8 +137,8 @@ function TrackPicker({ tracks, onSelect }) {
                   </div>
                 )}
               </div>
-              {hasProgress && <div className="track-card-continue">{t('continue')}</div>}
-              {!hasProgress && !isEmpty && <div className="track-card-start">{t('start')}</div>}
+              {hasProgress && !isLocked && <div className="track-card-continue">{t('continue')}</div>}
+              {!hasProgress && !isEmpty && !isLocked && <div className="track-card-start">{t('start')}</div>}
             </button>
           )
         })}

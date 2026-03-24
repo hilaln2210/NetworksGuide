@@ -65,8 +65,8 @@ export const tracks = [
       { id: 208, title: "Cloud — AWS, Azure, GCP לעומק",               pages: [{ type: "html_page", title: "Cloud",                               src: "/learn/devops/learn_ch08.html" }] },
       { id: 209, title: "DevSecOps — אבטחה שנבנית, לא מודבקת",        pages: [{ type: "html_page", title: "DevSecOps",                           src: "/learn/devops/learn_ch09.html" }] },
     ]
-  }
-  // ── LOCKED / COMING SOON ──
+  },
+  // ── LOCKED — בעריכה ──
   {
     id: 'research',
     title: 'חקר רשתות',
@@ -74,6 +74,7 @@ export const tracks = [
     icon: '🔬',
     color: '#8b5cf6',
     level: 'מתקדם',
+    locked: true,
     chapters: []
   },
   {
@@ -83,6 +84,7 @@ export const tracks = [
     icon: '🐧',
     color: '#f59e0b',
     level: 'מתחיל–בינוני',
+    locked: true,
     chapters: []
   },
   {
@@ -92,6 +94,7 @@ export const tracks = [
     icon: '🌍',
     color: '#06b6d4',
     level: 'מתחיל–בינוני',
+    locked: true,
     chapters: []
   },
   {
@@ -101,6 +104,7 @@ export const tracks = [
     icon: '🔴',
     color: '#dc2626',
     level: 'בינוני–מתקדם',
+    locked: true,
     chapters: []
   },
 ]

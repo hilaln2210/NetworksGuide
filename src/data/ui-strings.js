@@ -22,6 +22,7 @@ export const uiStrings = {
   pick_track: { he: 'בחרו מסלול לימוד — כל מסלול עצמאי עם פרקים ותרגול משלו', en: 'Pick a learning track — each track has its own chapters and exercises' },
   chapters_count: { he: 'פרקים', en: 'chapters' },
   coming_soon: { he: 'בקרוב', en: 'Coming soon' },
+  being_edited: { he: '✏️ בעריכה — תכנים טובים יותר בדרך', en: '✏️ Being updated — better content coming' },
   continue: { he: '← המשך', en: 'Continue →' },
   start: { he: '← התחל', en: 'Start →' },
 
