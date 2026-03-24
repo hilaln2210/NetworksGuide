@@ -220,7 +220,7 @@ function App() {
   const [authUser, setAuthUser] = useState(null)
 
   // ── Content version reset ─────────────────────────────────────────────────
-  const CONTENT_VERSION = 'v20240324-d'
+  const CONTENT_VERSION = 'v20240324-e'
   useEffect(() => {
     try {
       const stored = localStorage.getItem('ng_content_version')
