@@ -1,832 +1,459 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<title>מעבדה 4 — Password Cracking עם Hashcat</title>
-<style>
-/* mobile-fix */
-html, body { overflow-x: hidden; max-width: 100vw; }
-@media (max-width: 800px) {
-  body { padding: 1rem !important; font-size: 15px; }
-  pre, code { font-size: 12px !important; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
-  table { font-size: 13px; display: block; overflow-x: auto; }
-}
-@media (max-width: 480px) {
-  body { padding: 0.25rem !important; }
-}
-</style>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>אבטחת מידע PRO</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&family=Heebo:wght@300;400;600;800&display=swap');
-
-  :root {
-    --bg: #050d1a;
-    --surface: #0a1628;
-    --card: #0d1e35;
-    --border: #1a3a5c;
-    --accent: #00d4ff;
-    --accent2: #ff3b6b;
-    --accent3: #39ff14;
-    --gold: #ffd700;
-    --text: #c8dff0;
-    --text-dim: #5a7a9a;
-    --warn: #ff6b35;
-  }
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Heebo', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Animated grid background */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: 
-      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  body::after {
-    content: '';
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(ellipse at 30% 20%, rgba(0,212,255,0.06) 0%, transparent 50%),
-                radial-gradient(ellipse at 70% 80%, rgba(255,59,107,0.05) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
-    animation: pulse 8s ease-in-out infinite alternate;
-  }
-
-  @keyframes pulse {
-    0% { opacity: 0.5; }
-    100% { opacity: 1; }
-  }
-
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* HEADER */
-  .hero {
-    padding: 60px 24px 40px;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .badge {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--accent2), #ff6b35);
-    color: white;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    padding: 6px 18px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-
-  @keyframes glow {
-    from { box-shadow: 0 0 10px rgba(255,59,107,0.4); }
-    to { box-shadow: 0 0 25px rgba(255,59,107,0.8), 0 0 50px rgba(255,59,107,0.3); }
-  }
-
-  .hero h1 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: clamp(42px, 7vw, 72px);
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 16px;
-    background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent2) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-sub {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    color: var(--accent);
-    letter-spacing: 2px;
-    margin-bottom: 30px;
-    opacity: 0.8;
-  }
-
-  .hero-desc {
-    font-size: 17px;
-    color: var(--text-dim);
-    max-width: 600px;
-    margin: 0 auto 40px;
-    line-height: 1.7;
-    font-weight: 300;
-  }
-
-  /* STATS BAR */
-  .stats-bar {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    margin-bottom: 50px;
-    padding: 20px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    max-width: 700px;
-    margin: 0 auto 50px;
-  }
-
-  .stat-item {
-    text-align: center;
-  }
-
-  .stat-num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 26px;
-    font-weight: 600;
-    color: var(--accent);
-    display: block;
-  }
-
-  .stat-label {
-    font-size: 12px;
-    color: var(--text-dim);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  /* NAV TABS */
-  .nav-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 1;
-  }
-
-  .tab-btn {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    letter-spacing: 1px;
-    padding: 10px 24px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--card);
-    color: var(--text-dim);
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-
-  .tab-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .tab-btn.active {
-    background: var(--accent);
-    color: var(--bg);
-    border-color: var(--accent);
-    font-weight: 600;
-    box-shadow: 0 0 20px rgba(0,212,255,0.3);
-  }
-
-  /* SECTIONS */
-  .section { display: none; }
-  .section.active { display: block; }
-
-  /* CHAPTER CARDS */
-  .chapters-grid { display: flex; flex-direction: column; gap: 20px; }
-
-  .chapter-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    transition: all 0.3s;
-  }
-
-  .chapter-card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 0 30px rgba(0,212,255,0.08);
-    transform: translateY(-2px);
-  }
-
-  .chapter-header {
-    padding: 22px 28px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .chapter-num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 2px;
-    min-width: 70px;
-  }
-
-  .chapter-icon {
-    font-size: 28px;
-    min-width: 40px;
-    text-align: center;
-  }
-
-  .chapter-meta { flex: 1; }
-
-  .chapter-title {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 4px;
-  }
-
-  .chapter-desc {
-    font-size: 13px;
-    color: var(--text-dim);
-    line-height: 1.5;
-  }
-
-  .chapter-tags {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-top: 8px;
-  }
-
-  .tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    background: rgba(0,212,255,0.1);
-    border: 1px solid rgba(0,212,255,0.2);
-    color: var(--accent);
-    letter-spacing: 0.5px;
-  }
-
-  .tag.danger { background: rgba(255,59,107,0.1); border-color: rgba(255,59,107,0.2); color: var(--accent2); }
-  .tag.success { background: rgba(57,255,20,0.08); border-color: rgba(57,255,20,0.2); color: var(--accent3); }
-  .tag.warn { background: rgba(255,107,53,0.1); border-color: rgba(255,107,53,0.2); color: var(--warn); }
-
-  .chapter-toggle {
-    font-size: 18px;
-    color: var(--text-dim);
-    transition: transform 0.3s;
-    min-width: 24px;
-    text-align: center;
-  }
-
-  .chapter-card.open .chapter-toggle { transform: rotate(180deg); color: var(--accent); }
-
-  .chapter-body {
-    display: none;
-    padding: 0 28px 28px;
-    border-top: 1px solid var(--border);
-  }
-
-  .chapter-card.open .chapter-body { display: block; }
-
-  /* CONTENT BLOCKS */
-  .content-section {
-    margin-top: 24px;
-  }
-
-  .content-section h4 {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .content-section h4::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .learn-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 12px;
-  }
-
-  .learn-item {
-    background: rgba(0,212,255,0.04);
-    border: 1px solid rgba(0,212,255,0.1);
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-size: 14px;
-    line-height: 1.5;
-    position: relative;
-    padding-right: 36px;
-  }
-
-  .learn-item::before {
-    content: '▸';
-    position: absolute;
-    right: 14px;
-    top: 14px;
-    color: var(--accent);
-    font-size: 12px;
-  }
-
-  /* REAL WORLD EVENT */
-  .real-event {
-    background: linear-gradient(135deg, rgba(255,59,107,0.06), rgba(255,107,53,0.04));
-    border: 1px solid rgba(255,59,107,0.2);
-    border-right: 4px solid var(--accent2);
-    border-radius: 10px;
-    padding: 18px 20px;
-    margin-top: 12px;
-  }
-
-  .real-event .event-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--accent2);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .real-event .event-title {
-    font-weight: 700;
-    font-size: 15px;
-    color: white;
-    margin-bottom: 6px;
-  }
-
-  .real-event .event-desc {
-    font-size: 13px;
-    color: var(--text-dim);
-    line-height: 1.6;
-  }
-
-  /* LAB CARD */
-  .lab-card {
-    background: linear-gradient(135deg, rgba(57,255,20,0.04), rgba(0,212,255,0.03));
-    border: 1px solid rgba(57,255,20,0.2);
-    border-radius: 12px;
-    padding: 18px 20px;
-    margin-top: 12px;
-  }
-
-  .lab-card .lab-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--accent3);
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .lab-card .lab-title {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 6px;
-  }
-
-  .lab-steps {
-    margin-top: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .lab-step {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.5;
-  }
-
-  .step-num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--accent3);
-    background: rgba(57,255,20,0.1);
-    border: 1px solid rgba(57,255,20,0.2);
-    border-radius: 4px;
-    padding: 1px 7px;
-    min-width: 34px;
-    text-align: center;
-    margin-top: 1px;
-  }
-
-  .code-block {
-    background: #020810;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 16px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    color: var(--accent3);
-    margin-top: 10px;
-    line-height: 1.7;
-    overflow-x: auto;
-  }
-
-  .code-block .comment { color: var(--text-dim); }
-  .code-block .cmd { color: var(--accent); }
-  .code-block .str { color: var(--gold); }
-
-  /* QUIZ SECTION */
-  .quiz-intro {
-    text-align: center;
-    padding: 40px 20px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    margin-bottom: 30px;
-  }
-
-  .quiz-intro h2 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--gold);
-    margin-bottom: 10px;
-  }
-
-  .quiz-intro p {
-    color: var(--text-dim);
-    font-size: 15px;
-  }
-
-  .quiz-container { display: flex; flex-direction: column; gap: 20px; }
-
-  .quiz-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    transition: all 0.3s;
-  }
-
-  .quiz-card.correct { border-color: var(--accent3); background: rgba(57,255,20,0.04); }
-  .quiz-card.wrong { border-color: var(--accent2); background: rgba(255,59,107,0.04); }
-
-  .quiz-q-num {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-
-  .quiz-q-text {
-    font-size: 17px;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
-
-  .quiz-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
-
-  @media (max-width: 600px) { .quiz-options { grid-template-columns: 1fr; } }
-
-  .quiz-option {
-    padding: 14px 18px;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    background: rgba(255,255,255,0.02);
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--text);
-    text-align: right;
-    transition: all 0.2s;
-    line-height: 1.4;
-  }
-
-  .quiz-option:hover:not(.disabled) { border-color: var(--accent); color: var(--accent); }
-  .quiz-option.correct-ans { border-color: var(--accent3) !important; background: rgba(57,255,20,0.1) !important; color: var(--accent3) !important; }
-  .quiz-option.wrong-ans { border-color: var(--accent2) !important; background: rgba(255,59,107,0.1) !important; color: var(--accent2) !important; }
-  .quiz-option.disabled { cursor: default; }
-
-  .quiz-explain {
-    margin-top: 16px;
-    padding: 14px 16px;
-    background: rgba(0,212,255,0.06);
-    border-right: 3px solid var(--accent);
-    border-radius: 8px;
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.6;
-    display: none;
-  }
-
-  .quiz-explain.show { display: block; }
-
-  .score-display {
-    text-align: center;
-    padding: 40px;
-    background: var(--card);
-    border: 1px solid var(--gold);
-    border-radius: 16px;
-    margin-top: 30px;
-    display: none;
-  }
-
-  .score-display.show { display: block; }
-
-  .score-num {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 80px;
-    font-weight: 700;
-    color: var(--gold);
-    line-height: 1;
-  }
-
-  .score-label { font-size: 16px; color: var(--text-dim); margin-top: 10px; }
-
-  .restart-btn {
-    margin-top: 24px;
-    padding: 12px 32px;
-    background: var(--accent);
-    color: var(--bg);
-    border: none;
-    border-radius: 8px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .restart-btn:hover { box-shadow: 0 0 20px rgba(0,212,255,0.5); }
-
-  /* LAB SECTION */
-  .labs-grid { display: flex; flex-direction: column; gap: 24px; }
-
-  .lab-section-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-  }
-
-  .lab-section-header {
-    padding: 22px 28px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    border-bottom: 1px solid var(--border);
-    background: rgba(57,255,20,0.03);
-  }
-
-  .lab-icon { font-size: 30px; }
-
-  .lab-section-title {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: white;
-    flex: 1;
-  }
-
-  .lab-difficulty {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 1px;
-    padding: 4px 12px;
-    border-radius: 20px;
-  }
-
-  .diff-easy { background: rgba(57,255,20,0.1); color: var(--accent3); border: 1px solid rgba(57,255,20,0.3); }
-  .diff-medium { background: rgba(255,215,0,0.1); color: var(--gold); border: 1px solid rgba(255,215,0,0.3); }
-  .diff-hard { background: rgba(255,59,107,0.1); color: var(--accent2); border: 1px solid rgba(255,59,107,0.3); }
-
-  .lab-section-body { padding: 24px 28px; }
-
-  .lab-objective {
-    font-size: 14px;
-    color: var(--text-dim);
-    margin-bottom: 20px;
-    padding: 12px 16px;
-    background: rgba(0,212,255,0.04);
-    border-radius: 8px;
-    border-right: 3px solid var(--accent);
-    line-height: 1.6;
-  }
-
-  .lab-exercise {
-    margin-bottom: 20px;
-    padding: 18px;
-    background: rgba(255,255,255,0.02);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-  }
-
-  .lab-exercise-title {
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--accent3);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .lab-exercise-desc {
-    font-size: 13px;
-    color: var(--text-dim);
-    margin-bottom: 12px;
-    line-height: 1.6;
-  }
-
-  /* PROGRESS BAR */
-  .progress-bar-container {
-    background: rgba(255,255,255,0.05);
-    border-radius: 20px;
-    height: 4px;
-    margin-bottom: 8px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    border-radius: 20px;
-    background: linear-gradient(90deg, var(--accent), var(--accent2));
-    animation: fillAnim 1s ease forwards;
-  }
-
-  @keyframes fillAnim {
-    from { width: 0; }
-  }
-
-  /* FOOTER */
-  .footer {
-    text-align: center;
-    padding: 40px 24px;
-    color: var(--text-dim);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 1px;
-    position: relative;
-    z-index: 1;
-    border-top: 1px solid var(--border);
-    margin-top: 60px;
-  }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
-  .chapter-duration {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    color: var(--text-dim);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .tip-box {
-    background: rgba(255,215,0,0.05);
-    border: 1px solid rgba(255,215,0,0.2);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-top: 12px;
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.6;
-  }
-
-  .tip-box strong { color: var(--gold); }
-
-  /* =============================================
-     MOBILE RESPONSIVE
-     ============================================= */
-
-  @media (max-width: 768px) {
-    .container { padding: 0 16px; }
-    .hero { padding: 40px 16px 28px; }
-    .stats-bar { gap: 20px; padding: 16px; margin-bottom: 36px; }
-    .stat-num { font-size: 22px; }
-    .nav-tabs { gap: 6px; }
-    .tab-btn { font-size: 12px; padding: 9px 16px; letter-spacing: 0.5px; }
-    .chapter-header { padding: 16px 20px; gap: 12px; }
-    .chapter-title { font-size: 17px; }
-    .chapter-body { padding: 0 20px 20px; }
-    .learn-grid { grid-template-columns: 1fr; }
-    .quiz-card { padding: 20px; }
-    .quiz-q-text { font-size: 15px; }
-    .lab-section-header { padding: 16px 20px; gap: 12px; }
-    .lab-section-title { font-size: 18px; }
-    .lab-section-body { padding: 18px 20px; }
-    .footer { padding: 28px 16px; font-size: 11px; margin-top: 40px; }
-  }
-
-  @media (max-width: 480px) {
-    .container { padding: 0 12px; }
-    .hero { padding: 28px 12px 20px; }
-    .hero h1 { font-size: clamp(36px, 11vw, 54px); margin-bottom: 10px; }
-    .hero-sub { font-size: 11px; letter-spacing: 1px; margin-bottom: 14px; }
-    .hero-desc { font-size: 13px; margin-bottom: 24px; line-height: 1.6; }
-    .stats-bar { gap: 14px; padding: 14px 12px; margin-bottom: 28px; border-radius: 12px; }
-    .stat-num { font-size: 20px; }
-    .stat-label { font-size: 9px; }
-    .nav-tabs { gap: 5px; margin-bottom: 22px; }
-    .tab-btn { font-size: 11px; padding: 9px 11px; letter-spacing: 0; border-radius: 8px; }
-    .chapter-header { padding: 14px; gap: 10px; }
-    .chapter-num { font-size: 9px; min-width: 50px; }
-    .chapter-icon { font-size: 22px; min-width: 28px; }
-    .chapter-title { font-size: 15px; }
-    .chapter-desc { font-size: 12px; }
-    .chapter-duration { font-size: 10px; }
-    .chapter-body { padding: 0 14px 18px; }
-    .content-section { margin-top: 18px; }
-    .content-section h4 { font-size: 9px; letter-spacing: 1.5px; margin-bottom: 10px; }
-    .learn-item { font-size: 12px; padding: 10px 12px 10px 10px; padding-right: 28px; }
-    .learn-item::before { right: 10px; top: 10px; font-size: 10px; }
-    .real-event { padding: 12px 14px; border-right-width: 3px; border-radius: 8px; }
-    .real-event .event-label { font-size: 9px; }
-    .real-event .event-title { font-size: 14px; }
-    .real-event .event-desc { font-size: 12px; line-height: 1.6; }
-    .tip-box { font-size: 12px; padding: 11px 13px; margin-top: 10px; }
-    .code-block { font-size: 10.5px; padding: 10px 12px; line-height: 1.65; border-radius: 6px; }
-    .lab-step { font-size: 12px; }
-    .step-num { font-size: 10px; min-width: 28px; padding: 1px 5px; }
-    .quiz-intro { padding: 24px 16px; border-radius: 12px; margin-bottom: 20px; }
-    .quiz-intro h2 { font-size: 26px; }
-    .quiz-intro p { font-size: 13px; }
-    .quiz-container { gap: 14px; }
-    .quiz-card { padding: 16px 14px; border-radius: 12px; }
-    .quiz-q-num { font-size: 9px; margin-bottom: 8px; }
-    .quiz-q-text { font-size: 14px; margin-bottom: 14px; }
-    .quiz-options { grid-template-columns: 1fr; gap: 8px; }
-    .quiz-option { padding: 13px 14px; font-size: 13px; min-height: 48px; display: flex; align-items: center; border-radius: 8px; }
-    .quiz-explain { font-size: 12px; padding: 11px 13px; margin-top: 12px; }
-    .score-display { padding: 30px 16px; border-radius: 14px; }
-    .score-num { font-size: 64px; }
-    .score-label { font-size: 14px; }
-    .restart-btn { padding: 13px 24px; font-size: 12px; width: 100%; border-radius: 10px; min-height: 48px; }
-    .labs-grid { gap: 14px; }
-    .lab-section-card { border-radius: 12px; }
-    .lab-section-header { padding: 14px; gap: 10px; }
-    .lab-icon { font-size: 24px; }
-    .lab-section-title { font-size: 16px; line-height: 1.3; }
-    .lab-section-body { padding: 16px 14px; }
-    .lab-objective { font-size: 13px; padding: 10px 12px; }
-    .lab-exercise { padding: 14px 12px; margin-bottom: 12px; }
-    .lab-exercise-title { font-size: 14px; }
-    .lab-exercise-desc { font-size: 12px; }
-    .footer { font-size: 10px; padding: 20px 12px; margin-top: 32px; }
-  }
-
-  @supports (padding: max(0px)) {
-    .container {
-      padding-left: max(12px, env(safe-area-inset-left));
-      padding-right: max(12px, env(safe-area-inset-right));
-    }
-    .footer { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
-  }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg:      #0b0f14;
+  --bg2:     #0f1520;
+  --surface: #141e2e;
+  --card:    #19243a;
+  --border:  #1e3050;
+  --border2: #2a4060;
+  --blue:    #3b82f6;
+  --blue2:   #60a5fa;
+  --blue3:   #93c5fd;
+  --cyan:    #06b6d4;
+  --cyan2:   #22d3ee;
+  --green:   #10b981;
+  --green2:  #34d399;
+  --red:     #ef4444;
+  --red2:    #f87171;
+  --amber:   #f59e0b;
+  --amber2:  #fbbf24;
+  --purple:  #8b5cf6;
+  --purple2: #a78bfa;
+  --text:    #e2eaf5;
+  --text-mid:#8ba3c0;
+  --text-dim:#3a5570;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans Hebrew', 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: radial-gradient(circle, rgba(59,130,246,0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none; z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed; top: -15%; right: -10%;
+  width: 60%; height: 60%;
+  background: radial-gradient(ellipse, rgba(59,130,246,0.05) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+
+.container { max-width: 1060px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,15,20,0.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  height: 48px; display: flex; align-items: center;
+  padding: 0 24px; gap: 0;
+}
+
+.nav-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 600;
+  color: var(--blue2); margin-left: 20px;
+  letter-spacing: .5px; white-space: nowrap;
+}
+
+.nav-tabs { display: flex; height: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.nav-tab {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; padding: 0 16px; height: 100%;
+  border: none; background: none; color: var(--text-dim);
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all .15s; white-space: nowrap;
+  display: flex; align-items: center; gap: 6px;
+}
+.nav-tab:hover { color: var(--text-mid); }
+.nav-tab.active { color: var(--blue2); border-bottom-color: var(--blue); font-weight: 600; }
+
+.nav-clock { margin-right: auto; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); }
+
+/* ── HERO ── */
+.hero { padding: 56px 0 44px; border-bottom: 1px solid var(--border); }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--blue2); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: '//'; color: var(--text-dim); }
+
+.hero h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(40px, 7vw, 78px);
+  font-weight: 700; line-height: 1;
+  letter-spacing: -1px; margin-bottom: 16px;
+}
+.hero h1 .w1 { color: var(--text); }
+.hero h1 .w2 { color: var(--blue2); }
+
+.hero-desc {
+  font-size: 15px; color: var(--text-mid);
+  max-width: 520px; line-height: 1.75;
+  margin-bottom: 36px;
+}
+
+.stats-row {
+  display: inline-grid; grid-template-columns: repeat(4, auto);
+  border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; background: var(--surface);
+}
+.stat { padding: 14px 22px; border-left: 1px solid var(--border); text-align: center; }
+.stat:first-child { border-left: none; }
+.stat-n { font-family:'JetBrains Mono',monospace; font-size:26px; font-weight:700; color:var(--blue2); display:block; line-height:1; }
+.stat-l { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dim); letter-spacing:1.5px; text-transform:uppercase; margin-top:3px; display:block; }
+
+/* ── SECTIONS ── */
+.section { display: none; }
+.section.active { display: block; }
+.sec-inner { padding: 32px 0 64px; }
+
+/* ── CHAPTERS ── */
+.chapters { display: flex; flex-direction: column; gap: 2px; }
+
+.ch { background: var(--card); border: 1px solid var(--border); overflow: hidden; transition: border-color .2s; }
+.ch:first-child { border-radius: 10px 10px 0 0; }
+.ch:last-child  { border-radius: 0 0 10px 10px; }
+.ch:hover { border-color: var(--border2); }
+.ch.open  { border-color: rgba(59,130,246,.4); }
+
+.ch-trigger { padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 14px; user-select: none; }
+
+.ch-num { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); min-width:44px; letter-spacing:1px; }
+
+.ch-icon { width:36px; height:36px; border:1px solid var(--border2); border-radius:6px; background:rgba(59,130,246,.08); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+
+.ch-info { flex:1; min-width:0; }
+.ch-name { font-family:'Inter',sans-serif; font-size:15px; font-weight:600; color:var(--text); margin-bottom:2px; line-height:1.2; }
+.ch-desc { font-size:12px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+.ch-meta { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.ch-time { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); }
+.ch-chev { color:var(--text-dim); font-size:13px; transition:transform .3s, color .2s; }
+.ch.open .ch-chev { transform:rotate(90deg); color:var(--blue2); }
+
+.chip { font-family:'JetBrains Mono',monospace; font-size:9px; padding:2px 7px; border-radius:4px; letter-spacing:.5px; }
+.chip-b { background:rgba(59,130,246,.1); color:var(--blue2); border:1px solid rgba(59,130,246,.25); }
+.chip-r { background:rgba(239,68,68,.1); color:var(--red2); border:1px solid rgba(239,68,68,.2); }
+.chip-g { background:rgba(16,185,129,.1); color:var(--green2); border:1px solid rgba(16,185,129,.2); }
+.chip-a { background:rgba(245,158,11,.1); color:var(--amber2); border:1px solid rgba(245,158,11,.2); }
+.chip-p { background:rgba(139,92,246,.1); color:var(--purple2); border:1px solid rgba(139,92,246,.2); }
+.chip-c { background:rgba(6,182,212,.1); color:var(--cyan2); border:1px solid rgba(6,182,212,.2); }
+
+.ch-body { display:none; border-top:1px solid var(--border); }
+.ch.open .ch-body { display:block; }
+.ch-inner { padding: 22px 20px; }
+
+.ch-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media(max-width:680px){ .ch-grid { grid-template-columns:1fr; } }
+
+.sec-label {
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  letter-spacing:2px; text-transform:uppercase; color:var(--blue2);
+  margin-bottom:10px; display:flex; align-items:center; gap:8px;
+}
+.sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+.learn-list { display:flex; flex-direction:column; gap:7px; }
+.li {
+  font-size:13px; color:var(--text-mid); line-height:1.55;
+  display:flex; gap:10px; align-items:flex-start;
+}
+.li::before { content:'→'; color:var(--blue2); font-family:'JetBrains Mono',monospace; font-size:11px; margin-top:2px; flex-shrink:0; }
+
+.chips-row { display:flex; gap:5px; flex-wrap:wrap; margin-top:10px; }
+
+/* INCIDENT BOX */
+.incident {
+  background:linear-gradient(135deg,rgba(239,68,68,.05),rgba(248,113,113,.03));
+  border:1px solid rgba(239,68,68,.2);
+  border-right:4px solid var(--red);
+  border-radius:8px; padding:16px 17px;
+}
+.inc-badge { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:1.5px; color:var(--red2); text-transform:uppercase; margin-bottom:7px; }
+.inc-title { font-family:'Inter',sans-serif; font-size:14px; font-weight:600; color:var(--text); margin-bottom:8px; line-height:1.3; }
+.inc-desc { font-size:12px; color:var(--text-mid); line-height:1.75; }
+.inc-desc strong { color:var(--amber2); font-weight:600; }
+
+/* CODE */
+.code-block {
+  background:#060b12; border:1px solid var(--border2); border-radius:7px;
+  padding:14px; font-family:'JetBrains Mono',monospace;
+  font-size:11.5px; line-height:1.8; overflow-x:auto; margin-top:12px;
+}
+.cp { color:var(--blue2); }
+.cf { color:var(--amber2); }
+.cs { color:var(--green2); }
+.cc { color:var(--text-dim); font-style:italic; }
+.co { color:var(--red2); }
+.ch_ { color:var(--cyan2); }
+.ck { color:var(--purple2); }
+
+/* TIP */
+.tip-box {
+  margin-top:14px; background:rgba(59,130,246,.04);
+  border:1px solid rgba(59,130,246,.15); border-radius:6px;
+  padding:11px 14px; font-size:13px; color:var(--text-mid);
+  line-height:1.65; display:flex; gap:10px;
+}
+.tip-box strong { color:var(--blue2); }
+
+/* ── LABS ── */
+.labs-list { display:flex; flex-direction:column; gap:14px; }
+
+.lab { background:var(--card); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+
+.lab-head { padding:16px 20px; display:flex; align-items:center; gap:12px; cursor:pointer; border-bottom:1px solid transparent; transition:background .15s; }
+.lab-head:hover { background:var(--surface); }
+.lab.open .lab-head { border-bottom-color:var(--border); background:var(--surface); }
+
+.lab-emoji { font-size:22px; }
+.lab-info { flex:1; }
+.lab-name { font-family:'Inter',sans-serif; font-size:14px; font-weight:600; color:var(--text); margin-bottom:2px; }
+.lab-sub  { font-size:12px; color:var(--text-dim); }
+
+.diff { font-family:'JetBrains Mono',monospace; font-size:9px; padding:3px 7px; border-radius:4px; letter-spacing:.5px; }
+.d-easy   { background:rgba(16,185,129,.1); color:var(--green2); border:1px solid rgba(16,185,129,.25); }
+.d-medium { background:rgba(245,158,11,.1); color:var(--amber2); border:1px solid rgba(245,158,11,.25); }
+.d-hard   { background:rgba(239,68,68,.1);  color:var(--red2);   border:1px solid rgba(239,68,68,.25); }
+
+.lab-chev { color:var(--text-dim); font-size:13px; transition:transform .3s; }
+.lab.open .lab-chev { transform:rotate(90deg); color:var(--blue2); }
+
+.lab-body { display:none; padding:20px; }
+.lab.open .lab-body { display:block; }
+
+.lab-goal { font-size:14px; color:var(--text-mid); border-right:3px solid var(--blue); padding-right:13px; margin-bottom:16px; line-height:1.65; }
+
+.lab-steps { display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+.lab-step { display:flex; gap:10px; font-size:13px; color:var(--text-mid); line-height:1.55; align-items:flex-start; }
+.sn {
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  color:var(--blue2); background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.2);
+  border-radius:3px; padding:1px 6px; min-width:28px; text-align:center;
+  margin-top:2px; flex-shrink:0;
+}
+
+/* ANSWER */
+.ans-btn {
+  display:inline-flex; align-items:center; gap:7px; margin-top:12px;
+  padding:8px 16px; background:transparent;
+  border:1px solid rgba(59,130,246,.3); color:var(--blue2);
+  border-radius:5px; font-family:'JetBrains Mono',monospace;
+  font-size:10px; letter-spacing:.5px; cursor:pointer; transition:all .2s;
+}
+.ans-btn:hover { background:rgba(59,130,246,.08); }
+.ans-btn.open  { background:rgba(59,130,246,.08); border-color:var(--blue2); }
+
+.ans-box {
+  display:none; margin-top:12px;
+  background:rgba(59,130,246,.03); border:1px solid rgba(59,130,246,.15);
+  border-radius:8px; padding:18px; animation:fadeUp .2s ease;
+}
+.ans-box.show { display:block; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(-5px)} to{opacity:1;transform:translateY(0)} }
+
+.ans-head {
+  font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:2px;
+  text-transform:uppercase; color:var(--blue2); margin-bottom:12px;
+  display:flex; align-items:center; gap:8px;
+}
+.ans-head::after { content:''; flex:1; height:1px; background:rgba(59,130,246,.2); }
+
+.ans-item { display:flex; gap:10px; margin-bottom:10px; font-size:13px; color:var(--text-mid); line-height:1.65; align-items:flex-start; }
+.ans-item:last-child { margin-bottom:0; }
+.an {
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  color:var(--blue2); background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.2);
+  border-radius:3px; padding:1px 5px; min-width:26px; text-align:center;
+  flex-shrink:0; margin-top:2px;
+}
+.ans-note { background:rgba(6,182,212,.05); border-right:3px solid var(--cyan); padding:9px 13px; border-radius:5px; font-size:12px; color:var(--text-mid); line-height:1.7; margin-top:10px; }
+.ans-warn { background:rgba(239,68,68,.05); border:1px solid rgba(239,68,68,.2); padding:9px 13px; border-radius:5px; font-size:12px; color:var(--red2); line-height:1.65; margin-top:10px; }
+
+/* ── QUIZ ── */
+.quiz-top { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:28px; text-align:center; margin-bottom:22px; }
+.quiz-top h2 { font-family:'Inter',sans-serif; font-size:26px; font-weight:700; color:var(--text); margin-bottom:7px; }
+.quiz-top p  { font-size:13px; color:var(--text-dim); }
+.q-prog-bg { background:rgba(255,255,255,.05); border-radius:20px; height:3px; margin:16px 0 0; overflow:hidden; }
+.q-prog { height:100%; border-radius:20px; background:var(--blue); transition:width .4s; }
+.q-prog-lbl { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); text-align:left; margin-top:4px; }
+
+.q-list { display:flex; flex-direction:column; gap:11px; }
+.q-card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:20px; transition:border-color .3s; }
+.q-card.c-ok   { border-color:var(--green);  background:rgba(16,185,129,.03); }
+.q-card.c-fail { border-color:var(--red);    background:rgba(239,68,68,.03); }
+.q-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.q-idx { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--blue2); letter-spacing:2px; }
+.q-tag { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dim); border:1px solid var(--border); padding:1px 6px; border-radius:3px; }
+.q-text { font-size:15px; font-weight:600; color:var(--text); margin-bottom:13px; line-height:1.5; }
+.q-opts { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+@media(max-width:500px){ .q-opts { grid-template-columns:1fr; } }
+.q-opt { padding:10px 13px; border:1px solid var(--border); border-radius:5px; background:var(--surface); cursor:pointer; font-size:12px; color:var(--text-mid); text-align:right; transition:all .15s; line-height:1.45; }
+.q-opt:hover:not(.locked) { border-color:var(--blue); color:var(--blue2); background:rgba(59,130,246,.06); }
+.q-opt.hit  { border-color:var(--green)!important; background:rgba(16,185,129,.1)!important; color:var(--green2)!important; font-weight:600; }
+.q-opt.miss { border-color:var(--red)!important; background:rgba(239,68,68,.1)!important; color:var(--red2)!important; }
+.q-opt.locked { cursor:default; }
+.q-exp { margin-top:10px; padding:10px 13px; background:rgba(59,130,246,.05); border-right:3px solid var(--blue2); border-radius:5px; font-size:12px; color:var(--text-mid); line-height:1.7; display:none; }
+.q-exp.show { display:block; animation:fadeUp .2s ease; }
+
+.score-box { background:var(--card); border:1px solid var(--border2); border-radius:10px; padding:44px 28px; text-align:center; margin-top:22px; display:none; position:relative; overflow:hidden; }
+.score-box::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--blue),var(--cyan),var(--blue),transparent); }
+.score-box.show { display:block; animation:fadeUp .4s ease; }
+.score-big { font-family:'Inter',sans-serif; font-size:76px; font-weight:700; color:var(--blue2); line-height:1; letter-spacing:-2px; }
+.score-big .frac { font-size:34px; color:var(--text-dim); vertical-align:middle; }
+.score-pct { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text-dim); margin-top:5px; }
+.score-msg { font-size:17px; font-weight:600; color:var(--text); margin-top:12px; }
+.score-sub { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-dim); margin-top:5px; }
+.score-acts { display:flex; justify-content:center; gap:12px; margin-top:22px; flex-wrap:wrap; }
+
+.btn { font-family:'JetBrains Mono',monospace; font-size:11px; padding:11px 22px; border-radius:5px; cursor:pointer; transition:all .2s; letter-spacing:.5px; border:1px solid; min-height:42px; display:inline-flex; align-items:center; }
+.btn-blue  { background:var(--blue); color:#fff; border-color:var(--blue); font-weight:700; }
+.btn-blue:hover { box-shadow:0 4px 16px rgba(59,130,246,.4); }
+.btn-ghost { background:transparent; color:var(--text-dim); border-color:var(--border2); }
+.btn-ghost:hover { border-color:var(--blue2); color:var(--blue2); }
+
+/* ── GAME ── */
+.game-shell { background:var(--surface); border:1px solid var(--border2); border-radius:10px; overflow:hidden; }
+.game-bar { background:var(--card); border-bottom:1px solid var(--border); padding:10px 16px; display:flex; align-items:center; gap:10px; }
+.gbar-dots { display:flex; gap:5px; }
+.gd { width:10px; height:10px; border-radius:50%; }
+.gd-r{background:#ff5f57;} .gd-y{background:#febc2e;} .gd-g{background:#28c840;}
+.game-title-bar { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); margin-right:auto; }
+.game-scorebar { font-family:'JetBrains Mono',monospace; font-size:11px; display:flex; gap:14px; }
+.gs-s{color:var(--amber2);} .gs-l{color:var(--red2);} .gs-lv{color:var(--purple2);}
+
+.game-body { padding:26px; }
+.game-q { font-family:'Inter',sans-serif; font-size:18px; font-weight:600; color:var(--text); margin-bottom:7px; line-height:1.35; }
+.game-hint { font-size:13px; color:var(--text-dim); margin-bottom:20px; font-style:italic; }
+.game-opts { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; margin-bottom:16px; }
+@media(max-width:580px){ .game-opts { grid-template-columns:repeat(2,1fr); } }
+
+.g-opt { padding:13px 6px; border-radius:7px; cursor:pointer; text-align:center; font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; transition:all .15s; border:2px solid transparent; user-select:none; }
+.go-cia     { background:rgba(59,130,246,.12); color:var(--blue2);   border-color:rgba(59,130,246,.3); }
+.go-threat  { background:rgba(239,68,68,.1);   color:var(--red2);    border-color:rgba(239,68,68,.3); }
+.go-crypto  { background:rgba(139,92,246,.1);  color:var(--purple2); border-color:rgba(139,92,246,.3); }
+.go-network { background:rgba(6,182,212,.1);   color:var(--cyan2);   border-color:rgba(6,182,212,.3); }
+.go-malware { background:rgba(245,158,11,.1);  color:var(--amber2);  border-color:rgba(245,158,11,.3); }
+.go-pentest { background:rgba(16,185,129,.1);  color:var(--green2);  border-color:rgba(16,185,129,.3); }
+.go-soc     { background:rgba(59,130,246,.12); color:var(--blue3);   border-color:rgba(59,130,246,.25); }
+.go-cloud   { background:rgba(139,92,246,.1);  color:var(--purple2); border-color:rgba(139,92,246,.25); }
+
+.g-opt:hover:not(.locked) { transform:translateY(-2px); box-shadow:0 5px 14px rgba(0,0,0,.35); }
+.g-opt.correct { transform:scale(1.05); box-shadow:0 0 18px rgba(16,185,129,.4); }
+.g-opt.wrong   { opacity:.4; transform:scale(.95); }
+.g-opt.locked  { cursor:default; }
+.g-opt small   { display:block; font-size:9px; font-weight:400; opacity:.7; margin-top:2px; }
+
+.game-feedback { text-align:center; font-size:14px; font-weight:600; min-height:22px; }
+.fb-ok  { color:var(--green2); }
+.fb-err { color:var(--red2); }
+
+.game-prog-wrap { background:rgba(255,255,255,.05); border-radius:20px; height:3px; margin-top:14px; overflow:hidden; }
+.game-prog-fill { height:100%; background:linear-gradient(90deg,var(--blue),var(--cyan)); border-radius:20px; transition:width .4s; }
+
+.game-end { display:none; text-align:center; padding:36px 20px; }
+.game-end.show { display:block; }
+.ge-emoji { font-size:50px; margin-bottom:12px; }
+.ge-title { font-family:'Inter',sans-serif; font-size:24px; font-weight:700; color:var(--text); margin-bottom:7px; }
+.ge-score { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--blue2); margin-bottom:8px; }
+.ge-msg   { font-size:13px; color:var(--text-dim); margin-bottom:22px; }
+
+.game-help { margin-top:14px; background:rgba(59,130,246,.04); border:1px solid rgba(59,130,246,.15); border-radius:6px; padding:11px 15px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); line-height:1.65; }
+
+/* ── FOOTER ── */
+.site-footer { text-align:center; padding:26px; border-top:1px solid var(--border); }
+.site-footer p { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); letter-spacing:2px; }
+
+::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+::-webkit-scrollbar-thumb:hover { background:var(--blue); }
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .container { padding:0 16px; }
+  .nav { padding:0 14px; }
+  .nav-clock { display:none; }
+  .hero { padding:36px 0 28px; }
+  .stats-row { width:100%; grid-template-columns:1fr 1fr; }
+  .stat { border-left:none; border-top:1px solid var(--border); }
+  .stat:nth-child(1),.stat:nth-child(2) { border-top:none; }
+  .stat:nth-child(even) { border-left:1px solid var(--border); }
+}
+@media(max-width:480px){
+  .container { padding:0 12px; }
+  .nav { padding:0 12px; height:46px; }
+  .nav-tab { font-size:10px; padding:0 10px; }
+  .nav-brand { font-size:11px; margin-left:10px; }
+  .hero { padding:24px 0 20px; }
+  .hero h1 { font-size:clamp(34px,11vw,52px); }
+  .hero-desc { font-size:13px; }
+  .stat-n { font-size:22px; }
+  .sec-inner { padding:20px 0 44px; }
+  .ch-trigger { padding:11px 12px; gap:9px; }
+  .ch-icon { width:30px; height:30px; font-size:14px; }
+  .ch-name { font-size:13px; }
+  .ch-desc { display:none; }
+  .ch-time { display:none; }
+  .ch-inner { padding:14px 12px; }
+  .learn-list .li { font-size:12px; }
+  .code-block { font-size:10.5px; }
+  .inc-desc { font-size:11px; }
+  .lab-head { padding:12px 13px; }
+  .lab-name { font-size:13px; }
+  .lab-body { padding:14px 13px; }
+  .lab-goal { font-size:13px; }
+  .lab-step { font-size:12px; }
+  .ans-item { font-size:12px; }
+  .game-body { padding:16px 13px; }
+  .game-q { font-size:16px; }
+  .game-opts { gap:7px; }
+  .g-opt { font-size:12px; padding:11px 5px; }
+  .quiz-top h2 { font-size:22px; }
+  .q-card { padding:14px 12px; }
+  .q-text { font-size:14px; }
+  .q-opts { grid-template-columns:1fr; gap:6px; }
+  .q-opt { font-size:12px; padding:10px 12px; min-height:44px; display:flex; align-items:center; }
+  .score-big { font-size:58px; }
+  .score-acts { flex-direction:column; }
+  .btn { width:100%; justify-content:center; }
+  .site-footer { padding:18px 12px; }
+}
+@supports (padding: max(0px)) {
+  .nav { padding-left:max(16px,env(safe-area-inset-left)); padding-right:max(16px,env(safe-area-inset-right)); }
+  .container { padding-left:max(12px,env(safe-area-inset-left)); padding-right:max(12px,env(safe-area-inset-right)); }
+  .site-footer { padding-bottom:max(18px,env(safe-area-inset-bottom)); }
+}
 </style>
+
 <style id="ng-light">
 [data-theme="light"] {
   --bg: #f0f4f8; --surface: #ffffff; --card: #f5f8fc;
@@ -838,454 +465,280 @@ html, body { overflow-x: hidden; max-width: 100vw; }
 <script src="/_bridge.js"></script>
 </head>
 <body>
-<style>
-      .lab-answer-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 16px;
-        padding: 9px 18px;
-        background: transparent;
-        border: 1px solid rgba(57,255,20,0.3);
-        color: var(--accent3);
-        border-radius: 6px;
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 11px;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: all .2s;
-      }
-      .lab-answer-btn:hover { background: rgba(57,255,20,0.08); border-color: var(--accent3); }
-      .lab-answer-btn.open { background: rgba(57,255,20,0.08); }
-
-      .lab-answer-box {
-        display: none;
-        margin-top: 14px;
-        background: rgba(57,255,20,0.04);
-        border: 1px solid rgba(57,255,20,0.2);
-        border-radius: 10px;
-        padding: 18px 20px;
-        animation: fadeInAns .25s ease;
-      }
-      .lab-answer-box.show { display: block; }
-      @keyframes fadeInAns { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
-
-      .ans-section-title {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--accent3);
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
-
-      .ans-item {
-        display: flex;
-        gap: 10px;
-        align-items: flex-start;
-        margin-bottom: 10px;
-        font-size: 13px;
-        color: var(--text);
-        line-height: 1.6;
-      }
-      .ans-item:last-child { margin-bottom: 0; }
-
-      .ans-num {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        color: var(--accent3);
-        background: rgba(57,255,20,0.1);
-        border: 1px solid rgba(57,255,20,0.2);
-        border-radius: 3px;
-        padding: 1px 6px;
-        min-width: 28px;
-        text-align: center;
-        flex-shrink: 0;
-        margin-top: 3px;
-      }
-
-      .ans-highlight {
-        background: rgba(0,212,255,0.08);
-        border-right: 3px solid var(--accent);
-        padding: 10px 14px;
-        border-radius: 6px;
-        font-size: 13px;
-        color: var(--text);
-        line-height: 1.6;
-        margin-top: 10px;
-      }
-
-      .ans-warn {
-        background: rgba(255,59,107,0.06);
-        border: 1px solid rgba(255,59,107,0.2);
-        border-radius: 6px;
-        padding: 10px 14px;
-        font-size: 12px;
-        color: var(--accent2);
-        margin-top: 10px;
-        line-height: 1.6;
-      }
-
-      .lab-question {
-        background: rgba(0,212,255,0.04);
-        border: 1px solid rgba(0,212,255,0.12);
-        border-radius: 8px;
-        padding: 14px 16px;
-        margin-top: 12px;
-      }
-      .lab-question-title {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 10px;
-        color: var(--accent);
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        margin-bottom: 8px;
-      }
-      .lab-question-text {
-        font-size: 14px;
-        color: var(--text);
-        font-weight: 600;
-        line-height: 1.5;
-      }
-
-      .lab-tag {
-        font-family: 'IBM Plex Mono', monospace;
-        font-size: 9px;
-        padding: 2px 8px;
-        border-radius: 3px;
-        display: inline-block;
-        margin-left: 6px;
-      }
-      .lab-tag-easy   { background: rgba(57,255,20,0.1); color: var(--accent3); border: 1px solid rgba(57,255,20,0.25); }
-      .lab-tag-medium { background: rgba(255,215,0,0.1); color: var(--gold); border: 1px solid rgba(255,215,0,0.25); }
-      .lab-tag-hard   { background: rgba(255,59,107,0.1); color: var(--accent2); border: 1px solid rgba(255,59,107,0.25); }
-
-      .lab-meta-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-bottom: 4px;
-      }
-
-      @media(max-width:480px){
-        .lab-answer-btn { font-size: 10px; padding: 8px 14px; }
-        .lab-answer-box { padding: 14px 14px; }
-        .ans-item { font-size: 12px; }
-      }
-    </style>
-<div class="container" style="padding:16px"><div class="labs-grid">
-<div class="lab-section-card">
-        <div class="lab-section-header">
-          <span class="lab-icon">🔐</span>
-          <div style="flex:1">
-            <div class="lab-meta-row">
-              <span class="lab-section-title" style="margin-bottom:0">מעבדה 4 — Password Cracking עם Hashcat</span>
-              <span class="lab-tag lab-tag-medium">MEDIUM</span>
-            </div>
-            <div style="font-size:12px;color:var(--text-dim);margin-top:3px">Hash Types · Dictionary Attack · Rules · Salting · BCRYPT vs MD5</div>
-          </div>
-        </div>
-        <div class="lab-section-body">
-          <div class="lab-objective">
-            🎯 <strong>מטרה:</strong> להבין בפועל למה MD5 לסיסמאות הוא רשלנות, וכמה זמן לוקח לשבור סיסמאות נפוצות מול חזקות.
-          </div>
-
-          <div class="lab-exercise">
-            <div class="lab-exercise-title">⚡ שלב 1 — יצירת Hash וניסיון שבירה</div>
-            <div class="code-block">
-<span class="comment"># צור MD5 Hash לסיסמה "password123"</span>
-<span class="cmd">echo -n "password123" | md5sum</span>
-<span class="comment"># → 482c811da5d5b4bc6d497ffa98491e38</span>
-
-<span class="comment"># שמור ב-file</span>
-<span class="cmd">echo "482c811da5d5b4bc6d497ffa98491e38" > hash_md5.txt</span>
-
-<span class="comment"># שבור עם RockYou wordlist (Dictionary Attack)</span>
-<span class="cmd">hashcat -m 0 -a 0 hash_md5.txt /usr/share/wordlists/rockyou.txt</span>
-
-<span class="comment"># הוסף Rules (ל-1337speak, numbers suffix וכד')</span>
-<span class="cmd">hashcat -m 0 -a 0 hash_md5.txt rockyou.txt -r /usr/share/hashcat/rules/best64.rule</span>
-
-<span class="comment"># עכשיו BCRYPT — אותה סיסמה, כמה זמן?</span>
-<span class="comment"># צור BCRYPT online: bcrypt-generator.com</span>
-<span class="cmd">hashcat -m 3200 -a 0 hash_bcrypt.txt rockyou.txt</span>
-            </div>
-          </div>
-
-          <div class="lab-exercise">
-            <div class="lab-exercise-title">⚡ שלב 2 — ניסוי השוואתי</div>
-            <div class="lab-steps">
-              <div class="lab-step"><span class="step-num">01</span> כמה זמן לקח לשבור MD5 של "password123"?</div>
-              <div class="lab-step"><span class="step-num">02</span> נסה "P@ssw0rd!" — כמה זמן עכשיו?</div>
-              <div class="lab-step"><span class="step-num">03</span> נסה "correct-horse-battery-staple" — מה קורה?</div>
-              <div class="lab-step"><span class="step-num">04</span> חשב: מה עדיף — "P@s$w0rd!" או "four-random-words"?</div>
-            </div>
-          </div>
-
-          <button class="lab-answer-btn" onclick="toggleAnswer('ans4')">
-            <span id="ans4-icon">▶</span> הצג תשובה מלאה
-          </button>
-          <div class="lab-answer-box show" id="ans4">
-            <div class="ans-section-title">✅ תשובות — Password Cracking</div>
-
-            <div class="ans-item">
-              <span class="ans-num">01</span>
-              <div><strong>MD5 "password123":</strong> פחות מ-1 שנייה. כלול ב-RockYou wordlist. GPU RTX 4090 שובר 164 <em>מיליארד</em> MD5 hash לשנייה.</div>
-            </div>
-            <div class="ans-item">
-              <span class="ans-num">02</span>
-              <div><strong>"P@ssw0rd!":</strong> עם Rules — עדיין דקות בודדות. Leet-speak substitutions הם הראשונות שHashcat מנסה. לא מגן.</div>
-            </div>
-            <div class="ans-item">
-              <span class="ans-num">03</span>
-              <div><strong>"correct-horse-battery-staple":</strong> 4 מילים רנדומליות ≈ 10⁵² אפשרויות. לא ב-Dictionary, Brute Force לוקח מיליוני שנים. <strong>זו הסיסמה החזקה.</strong></div>
-            </div>
-            <div class="ans-item">
-              <span class="ans-num">04</span>
-              <div><strong>BCRYPT vs MD5:</strong> BCRYPT מכוון להיות איטי. GPU שובר 184 BCRYPT לשנייה (לא מיליארדים). 164 מיליארד / 184 = פי 891 מיליון איטי יותר.</div>
-            </div>
-
-            <div class="ans-highlight">
-              💡 <strong>Password Entropy Chart:</strong><br>
-              • 8 תווים, lowercase: 26⁸ ≈ 208 מיליארד — נשבר בשנייה (MD5)<br>
-              • 4 מילים רנדומליות: 7776⁴ ≈ 3.6 טריליון — לא ניתן לשבור<br>
-              • BCRYPT + Salt + 4 מילים = בלתי שביר מבחינה מעשית
-            </div>
-            <div class="ans-warn">
-              ⚠️ <strong>לעולם אל תשתמש ב:</strong> MD5, SHA1, SHA256 לסיסמאות. תמיד: bcrypt, Argon2id, או scrypt עם work factor גבוה.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ══════════════════════════════════════
-           LAB 5 — Wireshark
-      ══════════════════════════════════════ -->
-</div></div>
+<div class="lab open" id="lb4">
+  <div class="lab-head" onclick="toggleLab('lb4')">
+    <span class="lab-emoji">🔓</span>
+    <div class="lab-info">
+      <div class="lab-name">מעבדה 4 — Password Cracking עם Hashcat</div>
+      <div class="lab-sub">MD5 vs bcrypt · Dictionary Attack · Rainbow Tables · Salting</div>
+    </div>
+    <span class="diff d-medium">MEDIUM</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-body" style="display:block">
+    <div class="lab-goal">הבן את ההבדל הביצועי בין MD5 לbcrypt — ולמה בחירת ה-Hash Algorithm קובעת חיים ומוות.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="sn">01</span>צור Hash: <code>echo -n "password123" | md5sum</code> ו-<code>python3 -c "import bcrypt; print(bcrypt.hashpw(b'password123', bcrypt.gensalt(12)))"</code></div>
+      <div class="lab-step"><span class="sn">02</span>התקן Hashcat: <code>sudo apt install hashcat</code> (או Windows binary)</div>
+      <div class="lab-step"><span class="sn">03</span>Dictionary Attack על MD5: <code>hashcat -m 0 -a 0 hash.txt rockyou.txt</code></div>
+      <div class="lab-step"><span class="sn">04</span>נסה אותו Dictionary על bcrypt (<code>-m 3200</code>) — השווה מהירות</div>
+      <div class="lab-step"><span class="sn">05</span>בדוק CrackStation.net — הדבק MD5 Hash וראה כמה מהר הוא נפצח</div>
+      <div class="lab-step"><span class="sn">06</span>השווה: MD5 ל-GPU טוב = 50 מיליארד hashes/שניה. bcrypt(12) = 20,000 hashes/שניה.</div>
+    </div>
+    <button class="ans-btn" onclick="toggleAns('a4')"><span id="a4i">▶</span> הצג תשובות</button>
+    <div class="ans-box" id="a4">
+      <div class="ans-head">✅ תשובות — Password Cracking</div>
+      <div class="ans-item"><span class="an">03</span><div><strong>rockyou.txt:</strong> קובץ מ-2009 עם 14 מיליון סיסמאות אמיתיות מפרצת RockYou. "password123", "123456", "qwerty" — כולן שם. Dictionary Attack בודק כל סיסמה מהרשימה. MD5 של "password" נפצח בפחות משנייה.</div></div>
+      <div class="ans-item"><span class="an">04</span><div><strong>bcrypt(12) vs MD5:</strong><br>
+        MD5: GPU מודרני = ~50 ביליון hashes/שנייה<br>
+        bcrypt(10): ~20,000 hashes/שנייה<br>
+        bcrypt(12): ~5,000 hashes/שנייה<br>
+        הפרש: פקטור של 10 מיליון. Rockyou (14M) vs MD5 = שניות. vs bcrypt(12) = שנים.
+      </div></div>
+      <div class="ans-item"><span class="an">06</span><div><strong>Salt מגן מ-Rainbow Tables:</strong> Rainbow Table = טבלה מחושבת מראש של MD5("password")→Hash. אם מוסיפים Salt אקראי: MD5("password"+Salt) → Hash ייחודי לכל משתמש. Rainbow Table לא עוזר כי היא לא חישבה את הSalt הזה. bcrypt מובנה עם Salt.</div></div>
+      <div class="ans-note">💡 <strong>בחירה נכונה ב-2024:</strong> bcrypt(12) לרוב שימושים. argon2id לרמת אבטחה גבוהה (מנצח GPU attacks ו-ASIC attacks). scrypt כחלופה. לעולם לא MD5, SHA1, SHA256 ישירות לסיסמאות — הם מהירים מדי.</div>
+    </div>
+  </div>
+</div>
 <script>
-// ===== TOGGLE ANSWERS =====
-function toggleAnswer(id) {
-  const box = document.getElementById(id);
-  const btn = box.previousElementSibling;
-  const isOpen = box.classList.contains('show');
+// ── Clock ──
+setInterval(() => {
+  const el = document.getElementById('clk');
+  if (el) el.textContent = new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}) + ' 🔐';
+}, 1000);
+
+// ── Tabs ──
+function switchTab(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  const sec = document.getElementById(id);
+  if (sec) sec.classList.add('active');
+  if (el && el.classList) el.classList.add('active');
+  if (id === 'game') startGame();
+}
+
+// ── Chapters / Labs ──
+function toggleCh(id)  { document.getElementById(id).classList.toggle('open'); }
+function toggleLab(id) { document.getElementById(id).classList.toggle('open'); }
+const _lb1 = document.getElementById('lb1'); if (_lb1) _lb1.classList.add('open');
+
+// ── Answer Toggle ──
+function toggleAns(id) {
+  const box  = document.getElementById(id);
+  const btn  = box.previousElementSibling;
+  const icon = document.getElementById(id + 'i');
+  const open = box.classList.contains('show');
   box.classList.toggle('show');
   btn.classList.toggle('open');
-  btn.innerHTML = '<span>' + (isOpen ? '▶' : '▼') + '</span> ' + (isOpen ? 'הצג תשובה מלאה' : 'הסתר תשובה');
+  if (icon) icon.textContent = open ? '▶' : '▼';
+  btn.childNodes[1].textContent = ' ' + (open ? 'הצג תשובות' : 'הסתר תשובות');
 }
 
-// ===== TABS =====
-function switchTab(id, btn) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
-}
-
-// ===== CHAPTERS =====
-function toggleChapter(header) {
-  const card = header.parentElement;
-  card.classList.toggle('open');
-}
-
-// ===== QUIZ DATA =====
-const questions = [
-  {
-    q: "איזה מרכיב ב-CIA Triad הופר בפרצת Equifax 2017?",
-    opts: ["רק Availability", "רק Integrity", "כל שלושת המרכיבים", "אף מרכיב לא הופר"],
-    correct: 2,
-    explain: "בפרצת Equifax הופרה Confidentiality (מידע סודי נגנב), Integrity (נתונים עשויים היו להשתנות), ו-Availability (שירותים הופלו). פגיעות ב-Apache Struts שלא עודכנה היא הסיבה."
-  },
-  {
-    q: "באיזה כלי השתמש התוקף בפרצת Twitter 2020 כדי לגשל 130 חשבונות?",
-    opts: ["Malware מתוחכם", "Spear Phishing", "Social Engineering טלפוני", "SQL Injection"],
-    correct: 2,
-    explain: "ילד בן 17 התקשר לעובד Twitter, התחזה לעובד IT, וקיבל גישה לכלי ניהול פנימי. אפס קוד מתוחכם — רק שיחת טלפון. Social Engineering הוא הנשק הנפוץ ביותר."
-  },
-  {
-    q: "מה היה הגורם לפרצת Colonial Pipeline 2021?",
-    opts: ["Zero-Day exploit", "VPN ישן עם סיסמה שנחשפה", "Insider Threat", "Phishing Email"],
-    correct: 1,
-    explain: "DarkSide נכנסו דרך VPN ישן שהסיסמה שלו נמצאה בדארקווב. MFA (Multi-Factor Authentication) פשוטה הייתה מונעת את כל האירוע. זה שינה את הצבא הפדרלי של ארה\"ב."
-  },
-  {
-    q: "מה הוא Heartbleed (CVE-2014-0160)?",
-    opts: ["DDoS Attack", "באג ב-OpenSSL שמאפשר קריאת זיכרון שרת", "SQL Injection", "Ransomware"],
-    correct: 1,
-    explain: "Heartbleed אפשר לשלוח Heartbeat request מיוחד שגרם לשרת להחזיר עד 64KB מהזיכרון — כולל מפתחות פרטיים, סיסמאות ו-session tokens. קיים 2 שנים לפני הגילוי."
-  },
-  {
-    q: "מה הכוונה בעיקרון Zero Trust?",
-    opts: ["לא להתקין Antivirus", "לעולם אל תסמוך, תמיד אמת — גם בפנים הרשת", "לחסום כל גישה לרשת", "לסגור את ה-Firewall"],
-    correct: 1,
-    explain: "Zero Trust מניח שאין 'בפנים' ו'בחוץ' בטוחים. כל בקשת גישה, גם מתוך הרשת הפנימית, חייבת אימות. SolarWinds הוכיחה שספקים מהימנים יכולים להיות וקטור תקיפה."
-  },
-  {
-    q: "SolarWinds 2020 — באיזה סוג תקיפה מדובר?",
-    opts: ["Phishing", "Brute Force", "Supply Chain Attack", "DDoS"],
-    correct: 2,
-    explain: "Supply Chain Attack — קוד זדוני הוחדר לתוך עדכון תוכנה לגיטימי. 18,000 ארגונים הורידו את ה-backdoor מרצונם. זה ה-APT29 הרוסי בפעולה."
-  },
-  {
-    q: "מה ה-3-2-1 Backup Rule?",
-    opts: ["גיבוי כל 3 שנים, 2 פעמים ביום, 1 שרת", "3 עותקים, 2 מדיות שונות, 1 מחוץ לאתר", "3 כוננים, 2 עננים, 1 מפתח", "3 RAID, 2 NAS, 1 Cloud"],
-    correct: 1,
-    explain: "3-2-1: שלושה עותקים של הנתונים, על שתי מדיות שונות (כונן + ענן), עם עותק אחד מחוץ לאתר פיזי. Ransomware לא יכול להצפין גיבוי Offsite שאין לו גישה אליו."
-  },
-  {
-    q: "Target 2013 — מה היה וקטור הכניסה של התוקפים?",
-    opts: ["גישה ישירה לשרת ה-POS", "ספק מיזוג האוויר (HVAC)", "Phishing לעובד בכיר", "Wi-Fi של החנות"],
-    correct: 1,
-    explain: "התוקפים נכנסו דרך אישורי גישה של ספק HVAC חיצוני. מהרשת של הספק הם עברו לרשת הפנימית של Target. זו דוגמה קלאסית לסיכון Third-Party Vendor."
-  },
-  {
-    q: "מה ה-OWASP Top 10?",
-    opts: ["10 כלי Hacking נפוצים", "10 הפגיעויות הנפוצות ביותר ב-Web Apps", "10 תקנות Compliance", "10 סוגי Malware"],
-    correct: 1,
-    explain: "OWASP Top 10 הוא רשימה שמתעדכנת של הפגיעויות הנפוצות והמסוכנות ביותר ביישומי Web. SQL Injection ו-XSS מופיעים ברשימה מאז ה-2003."
-  },
-  {
-    q: "מה ההבדל בין IDS ל-IPS?",
-    opts: ["IDS חינמי, IPS בתשלום", "IDS מזהה ומתריע, IPS מזהה וחוסם", "IDS לרשת, IPS לשרתים", "אין הבדל"],
-    correct: 1,
-    explain: "IDS (Intrusion Detection System) רק מזהה ומתריע. IPS (Intrusion Prevention System) גם חוסם בזמן אמת. IPS הוא IDS עם זרוע אקטיבית — יתרון, אך גם סיכון ל-False Positive."
-  },
-  {
-    q: "מה זה Spear Phishing?",
-    opts: ["פישינג עם קוד זדוני", "פישינג ממוקד לאדם/ארגון ספציפי", "פישינג ב-SMS", "פישינג בטלפון"],
-    correct: 1,
-    explain: "Spear Phishing הוא פישינג ממוקד — התוקף חוקר את הקורבן (LinkedIn, Facebook) ושולח מייל שנראה אישי ואמין. שיעור ההצלחה הרבה גבוה יותר מפישינג כללי."
-  },
-  {
-    q: "Capital One 2019 — מה איפשר לפרוץ?",
-    opts: ["Weak Password", "Unpatched OS", "SSRF + IAM Overprivileged Role", "Malware בדפדפן"],
-    correct: 2,
-    explain: "SSRF (Server-Side Request Forgery) אפשרה לגשת ל-AWS Instance Metadata Service ולהשיג Credentials. ה-IAM Role הייתה עם הרשאות רחבות מדי — אילו Least Privilege הייתה מיושמת, הנזק היה מוגבל."
-  },
-  {
-    q: "איזה Hash Algorithm הכי מומלץ לאחסון סיסמאות?",
-    opts: ["MD5", "SHA-1", "SHA-256", "BCRYPT / Argon2"],
-    correct: 3,
-    explain: "BCRYPT ו-Argon2 עוצבו במיוחד לסיסמאות — הם איטיים בכוונה (work factor) ומכילים Salt מובנה. MD5 ו-SHA-256 מהירים מדי — מיליארדי ניחושים בשנייה עם GPU."
-  },
-  {
-    q: "מה MITRE ATT&CK?",
-    opts: ["כלי Scanning", "ממשל אמריקאי לסייבר", "Framework של טקטיקות ותוקפים אמיתיים", "Antivirus"],
-    correct: 2,
-    explain: "MITRE ATT&CK הוא Knowledge Base עם 14 טקטיקות ו-200+ טכניקות של תוקפים מהעולם האמיתי. כלי חיוני לכל SOC, Threat Hunter ו-Red Teamer."
-  },
-  {
-    q: "מה Heartland Payment Systems 2009 מלמדת אותנו?",
-    opts: ["Firewall לא מספיק", "SQL Injection עדיין עובד ב-2024", "Cloud לא בטוח", "Employees הם האיום"],
-    correct: 1,
-    explain: "SQL Injection גנבה 130M כרטיסי אשראי ב-2009. ב-2023, SQL Injection עדיין ב-OWASP Top 10. 15 שנה אחרי, אותו באג. Parameterized Queries ו-Input Validation הם הפתרון."
-  },
-  {
-    q: "מה ה-Shared Responsibility Model בענן?",
-    opts: ["הענן אחראי על הכל", "הלקוח אחראי על הכל", "חלוקת אחריות בין הענן ללקוח", "צד שלישי אחראי"],
-    correct: 2,
-    explain: "AWS/Azure/GCP אחראים על אבטחת התשתית הפיזית (Security OF the Cloud). הלקוח אחראי על מה שהוא בונה בענן (Security IN the Cloud) — IAM, הגדרות, קוד, נתונים."
-  },
-  {
-    q: "מהו Dwell Time בהקשר של אבטחת מידע?",
-    opts: ["זמן תגובה לאירוע", "הזמן שתוקף שוהה ברשת לפני גילוי", "זמן Backup", "זמן ה-Firewall Rule"],
-    correct: 1,
-    explain: "Dwell Time = כמה זמן עובר מכניסת התוקף ועד הגילוי. הממוצע הוא 197 יום. ב-Target — 40 יום. ב-SolarWinds — חודשים. Threat Hunting פרואקטיבי מקצר את הזמן הזה."
-  },
-  {
-    q: "מה הסיבה שאסור ל-Root Account של AWS להיות בשימוש יומיומי?",
-    opts: ["הוא יקר", "יש לו הרשאות מלאות ובלתי ניתנות לבקרה", "הוא איטי", "הוא לא תומך ב-MFA"],
-    correct: 1,
-    explain: "Root Account ב-AWS הוא כל-יכול — לא ניתן להגבילו עם IAM Policies. אם הוא נפרץ — כל הארגון חשוף. יש ליצור IAM Users עם Least Privilege ולהשתמש ב-Root רק לפעולות חריגות."
-  },
-  {
-    q: "מה ה-kill chain בהקשר של Cyber Attack?",
-    opts: ["שרשרת עדכוני תוכנה", "שלבי מתקפה מ-Recon ועד Achievement", "רשת של בוטים", "כלי Threat Intel"],
-    correct: 1,
-    explain: "Cyber Kill Chain (Lockheed Martin) מגדיר 7 שלבים: Reconnaissance, Weaponization, Delivery, Exploitation, Installation, C2, Actions on Objectives. עצירה בכל שלב שוברת את השרשרת."
-  },
-  {
-    q: "מה ה-GDPR מחייב במקרה של Data Breach?",
-    opts: ["דיווח תוך 7 ימים", "דיווח תוך 72 שעות לרשות המוסמכת", "אין חובת דיווח", "דיווח תוך שנה"],
-    correct: 1,
-    explain: "GDPR מחייב דיווח Data Breach לרשות הגנת המידע תוך 72 שעות מהגילוי. אי-דיווח = קנס של עד 4% מהמחזור הגלובאלי השנתי. Amazon קיבלה קנס של 746 מיליון יורו ב-2021."
-  }
+// ── Quiz ──
+const QS = [
+  {q:"איזה מרכיב ב-CIA Triad הופר בפרצת Equifax 2017?",tag:"CIA",opts:["רק Availability","רק Integrity","כל שלושת המרכיבים","אף מרכיב לא הופר"],ans:2,exp:"בפרצת Equifax הופרו כל שלושה: Confidentiality (143M רשומות נגנבו), Integrity (לא ניתן לוודא מה עוד שונה), Availability (השירות הושבת). הפרצה הייתה דרך CVE-2017-5638 ב-Apache Struts שהיה Patch זמין חודשיים קודם."},
+  {q:"באיזה סוג תקיפה השתמש ה-17 בן ה-Twitter 2020?",tag:"Social Eng",opts:["SQL Injection","Zero-Day Exploit","Vishing — התקשר לעובד והתחזה לIT","Ransomware"],ans:2,exp:"ילד בן 17 מפלורידה התקשר לעובדי Twitter, התחזה לאיש IT פנימי, ושכנע אותם למסור גישה לכלי ניהול פנימי. זוהי מתקפת Vishing (Voice Phishing). שום קוד מתוחכם — רק הנדסה חברתית."},
+  {q:"מה היה גורם הכניסה בפרצת Colonial Pipeline 2021?",tag:"Network",opts:["Zero-Day ב-Firewall","סיסמת VPN גנובה מהדארקווב ללא MFA","SQL Injection","Phishing Email לCEO"],ans:1,exp:"DarkSide נכנסו דרך חשבון VPN ישן שהסיסמה שלו נמצאה בDark Web מפרצה קודמת. החשבון לא היה מוגן ב-MFA. שני כלים פשוטים היו מונעים: MFA + Password Rotation."},
+  {q:"מה Heartbleed (CVE-2014-0160)?",tag:"Crypto",opts:["וירוס שמצפין קבצים","באג בOpenSSL שאפשר לקרוא 64KB מזיכרון השרת","SQL Injection ב-MySQL","DDoS Attack על שרתי DNS"],ans:1,exp:"Heartbleed אפשר לתוקף לשלוח Heartbeat Request מזויף שגורם לOpenSSL להחזיר 64KB מהזיכרון — כולל Private Keys, סיסמאות, ו-Session Tokens. 500,000 שרתים היו חשופים. הבאג היה בקוד 2 שנים."},
+  {q:"מה עיקרון Zero Trust?",tag:"Network",opts:["לבטוח בכל מה שבתוך הרשת הפנימית","לא לבטוח בשום Entity — תמיד לאמת, גם מבפנים","להגביל גישה רק לאינטרנט","להסיר Firewall ולסמוך על הצפנה"],ans:1,exp:"Zero Trust = Never Trust, Always Verify. גם משתמש ברשת הפנימית חייב Authentication + Authorization לכל גישה. Micro-segmentation מגבילה תנועה לרוחב. Google BeyondCorp וNIST SP 800-207 הגדירו את הארכיטקטורה."},
+  {q:"SolarWinds 2020 — איזה סוג תקיפה?",tag:"Malware",opts:["Ransomware","DDoS","Supply Chain Attack — הזרקת Backdoor לBuild Pipeline","Phishing"],ans:2,exp:"APT29 הזריקה Backdoor (SUNBURST) ישירות לתהליך ה-Build של SolarWinds Orion. 18,000 ארגונים התקינו את העדכון הנגוע. הBackdoor 'ישן' 14 יום כדי לעבור Sandbox Detection. Supply Chain Attack = המתקפה הכי מתוחכמת."},
+  {q:"מה ה-3-2-1 Backup Rule?",tag:"CIA",opts:["3 כוננים, 2 ממוקמים, 1 מוצפן","3 עותקים, 2 מדיות שונות, 1 Offsite","3 גיבויים יומיים, 2 שבועיים, 1 חודשי","3 שכבות הצפנה, 2 Keys, 1 HSM"],ans:1,exp:"3 עותקים של הנתונים, על 2 סוגי מדיות שונות (למשל HDD + Cloud), כש-1 לפחות Offsite. מגן מפני: כשל חומרה, כשל אחד המדיות, ואסון מקומי (שריפה/הצפה). בעידן Ransomware: גיבוי Offline שה-Ransomware לא מגיע אליו."},
+  {q:"Target 2013 — מה היה וקטור הכניסה?",tag:"Network",opts:["Zero-Day בPOS System","חדירה דרך ספק HVAC עם גישה לרשת","SQL Injection","Phishing לCTO"],ans:1,exp:"תוקפים נכנסו דרך ספק חיצוני לשירותי מיזוג אוויר (HVAC) שהיה לו גישה לרשת Target. זה מדגים Lateral Movement — נכנסים דרך החוליה החלשה, מתפשטים לנכסים הרגישים. Target ידעה על הפרצה מFireEye Alert — ולא פעלה."},
+  {q:"מה OWASP Top 10?",tag:"Pentest",opts:["10 כלי ה-Hacking הנפוצים","רשימת 10 הפגיעויות הנפוצות ב-Web Applications","10 כללי הסייבר של FBI","10 ה-CVEs הדחופים ביותר"],ans:1,exp:"OWASP (Open Web Application Security Project) מפרסמת רשימת 10 הפגיעויות הנפוצות ביותר בWeb. 2021 Top 3: Broken Access Control, Cryptographic Failures, Injection. כל מפתח Web חייב להכיר אותה."},
+  {q:"מה ההבדל בין IDS ל-IPS?",tag:"Network",opts:["IDS מהיר יותר, IPS יקר יותר","IDS מזהה ומתריע, IPS מזהה וחוסם אקטיבית","IDS בענן, IPS On-Premise","אין הבדל, מונחים זהים"],ans:1,exp:"IDS = Intrusion Detection System: מזהה תעבורה חשודה ושולח Alert — Passive. IPS = Intrusion Prevention System: מזהה וחוסם בזמן אמת — Inline. IPS יכול לגרום ל-False Positives שחוסמים תעבורה לגיטימית."},
+  {q:"מה Spear Phishing?",tag:"Social Eng",opts:["Phishing המוני לכל הרשימה","Phishing ממוקד לאדם ספציפי עם פרטים אישיים","Phishing בSMS","Phishing באמצעות USB"],ans:1,exp:"Spear Phishing = מייל מדויק לאדם ספציפי: 'שלום יוסי, בנוגע לפגישה שלנו ב-15 לחודש...' עם שמות עמיתים אמיתיים, פרטים מLinkеdIn. שיעור הצלחה 3× גבוה מPhishing רגיל. BEC (Business Email Compromise) = Spear Phishing לCFO לאשר העברת כסף."},
+  {q:"Capital One 2019 — מה איפשר לפרוץ?",tag:"Cloud",opts:["Weak Password","SSRF + IAM Role עם הרשאות רחבות מדי","SQL Injection","Ransomware"],ans:1,exp:"SSRF (Server-Side Request Forgery) גרם לשרת לQuery את AWS Metadata Service ולקבל Credentials של IAM Role. ה-Role הזה, בגלל Misconfiguration, היה עם הרשאות רחבות מדי ל-S3. הפתרון: IMDSv2 (מונע SSRF), Least Privilege."},
+  {q:"איזה Hash Algorithm הכי מומלץ לסיסמאות?",tag:"Crypto",opts:["MD5 עם Salt","SHA-256","bcrypt או argon2id","SHA-512"],ans:2,exp:"bcrypt ו-argon2id מותאמים לסיסמאות כי הם מכוונים להיות איטיים ויקרים חישובית. MD5 = 50 מיליארד hashes/שנייה ב-GPU. bcrypt(12) = 5,000/שנייה. ה-Salt מובנה. argon2id מנצח גם ASIC/FPGA attacks."},
+  {q:"מה MITRE ATT&CK?",tag:"SOC",opts:["כלי סריקת Vulnerabilities","Framework שממפה טקטיקות ושיטות של תוקפים אמיתיים","Certificate לאנשי אבטחה","ממשלת ארה\"ב לאבטחת מידע"],ans:1,exp:"MITRE ATT&CK = ידע מבוסס עולמי על טקטיקות, טכניקות, ונהלים (TTPs) של תוקפים אמיתיים. מחולק לTactics (מה התוקף רוצה) ו-Techniques (איך הוא עושה את זה). SOC Teams משתמשים לDetection Engineering, Threat Hunting, ו-Red Team Exercises."},
+  {q:"Heartland 2009 — מה הלקח?",tag:"Pentest",opts:["תמיד להצפין את הDB","SQL Injection ידוע, Patch ידוע, אחריות לא ברורה = פרצה","Firewall חזק מספיק","לא לאחסן נתוני כרטיסים"],ans:1,exp:"הפגיעות הייתה ידועה, ה-Patch היה זמין, ו'אף אחד לא הרגיש אחראי לתקן אותה'. 130 מיליון כרטיסים. הלקח: Vulnerability Management + ברור מי אחראי + Penetration Testing תקופתי. PCI-DSS מחייב Pentest שנתי על מערכות כרטיסי אשראי."},
+  {q:"מה Shared Responsibility Model?",tag:"Cloud",opts:["AWS אחראית על הכל","הלקוח אחראי על הכל","AWS מגינה על Infrastructure, הלקוח מגין על Data ו-Config שלו","הספק ביטוח מחלק אחריות"],ans:2,exp:"AWS/Azure/GCP אחראים על 'Security OF the Cloud': חומרה, רשת, Data Centers. הלקוח אחראי על 'Security IN the Cloud': IAM, Data Encryption, Network Config, OS Patching. Misconfigured S3 Bucket = אשמת הלקוח, לא AWS."},
+  {q:"מהו Dwell Time?",tag:"SOC",opts:["זמן Boot של שרת","הזמן שתוקף שוהה ברשת לפני גילוי","זמן Response לIncident","TTL של DNS Record"],ans:1,exp:"Dwell Time = הזמן מרגע החדירה ועד גילוי. ממוצע עולמי: 197 יום (2023, M-Trends Report). בזמן הזה התוקף: מסייר, מעלה הרשאות, מציב Backdoors, גונב נתונים. ירידה ל-21 יום בארגונים עם SOC מתקדם."},
+  {q:"למה אסור להשתמש ב-Root Account של AWS יומיומית?",tag:"Cloud",opts:["Root חלש מדי לפרודקשן","Root לא ניתן לBound ב-IAM Policy — גישה מלאה ללא הגבלה","Root איטי יותר","Root מוגבל ל-10 Operations ביום"],ans:1,exp:"Root Account = God Mode. לא ניתן להגביל אותו ב-IAM Policies. אם נגנב Credential = הכל חשוף. Best Practice: צור IAM User עם הרשאות הדרושות, הפעל MFA על Root, ולא תשתמש בRoot כלל. אחסן Root Credentials ב-Safe פיזי."},
+  {q:"מה Kill Chain בסייבר?",tag:"SOC",opts:["שרשרת הFail לפני קריסת שרת","7 שלבי מתקפת Cyber: Recon→Weaponize→Deliver→Exploit→Install→C2→Actions","שיטת BreachForce","Kill Switch של Malware"],ans:1,exp:"Lockheed Martin Cyber Kill Chain: Reconnaissance → Weaponization → Delivery → Exploitation → Installation → Command & Control → Actions on Objectives. כל שלב הוא הזדמנות לעצור את המתקפה. MITRE ATT&CK מפרט כל שלב לטכניקות ספציפיות."},
+  {q:"GDPR — מה מחייב במקרה של Data Breach?",tag:"Cloud",opts:["דיווח תוך 30 יום לכל המשתמשים","דיווח לרשות הגנת הפרטיות תוך 72 שעות אם יש סיכון לאנשים","דיווח רק אם נגנבו מעל 1000 רשומות","אין חובת דיווח אם הנתונים מוצפנים"],ans:1,exp:"GDPR Article 33: Data Breach שמהווה סיכון לזכויות אנשים → דיווח לDPA (Data Protection Authority) תוך 72 שעות. Article 34: Breach שמהווה סיכון גבוה → גם חובה להודיע לנפגעים. קנס עד €20M או 4% מהמחזור."}
 ];
 
-let answered = 0;
-let score = 0;
+let qAns = 0, qScore = 0;
 
 function buildQuiz() {
-  const container = document.getElementById('quizContainer');
-  container.innerHTML = '';
-  answered = 0;
-  score = 0;
-  document.getElementById('scoreDisplay').classList.remove('show');
-
-  questions.forEach((q, i) => {
-    const card = document.createElement('div');
-    card.className = 'quiz-card';
-    card.id = 'qcard' + i;
-
-    const opts = q.opts.map((opt, j) => `
-      <div class="quiz-option" onclick="answerQ(${i}, ${j})" id="opt_${i}_${j}">${opt}</div>
-    `).join('');
-
-    card.innerHTML = `
-      <div class="quiz-q-num">שאלה ${i+1} / ${questions.length}</div>
-      <div class="quiz-q-text">${q.q}</div>
-      <div class="quiz-options">${opts}</div>
-      <div class="quiz-explain" id="explain_${i}">${q.explain}</div>
-    `;
-    container.appendChild(card);
+  const list = document.getElementById('qList');
+  list.innerHTML = '';
+  qAns = 0; qScore = 0;
+  document.getElementById('scoreBox').classList.remove('show');
+  updateProg();
+  QS.forEach((q, i) => {
+    const c = document.createElement('div');
+    c.className = 'q-card'; c.id = 'qc' + i;
+    c.innerHTML = `<div class="q-top"><span class="q-idx">${String(i+1).padStart(2,'0')}/20</span><span class="q-tag">${q.tag}</span></div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts">${q.opts.map((o,j) => `<div class="q-opt" onclick="pick(${i},${j})" id="o_${i}_${j}">${o}</div>`).join('')}</div>
+      <div class="q-exp" id="exp_${i}">${q.exp}</div>`;
+    list.appendChild(c);
   });
 }
 
-function answerQ(qIdx, optIdx) {
-  const q = questions[qIdx];
-  const allOpts = document.querySelectorAll(`[id^="opt_${qIdx}_"]`);
-  allOpts.forEach(o => o.classList.add('disabled'));
-
-  if (optIdx === q.correct) {
-    document.getElementById(`opt_${qIdx}_${optIdx}`).classList.add('correct-ans');
-    document.getElementById('qcard' + qIdx).classList.add('correct');
-    score++;
+function pick(qi, oi) {
+  const q = QS[qi];
+  document.querySelectorAll(`[id^="o_${qi}_"]`).forEach(el => el.classList.add('locked'));
+  if (oi === q.ans) {
+    document.getElementById(`o_${qi}_${oi}`).classList.add('hit');
+    document.getElementById('qc' + qi).classList.add('c-ok');
+    qScore++;
   } else {
-    document.getElementById(`opt_${qIdx}_${optIdx}`).classList.add('wrong-ans');
-    document.getElementById(`opt_${qIdx}_${q.correct}`).classList.add('correct-ans');
-    document.getElementById('qcard' + qIdx).classList.add('wrong');
+    document.getElementById(`o_${qi}_${oi}`).classList.add('miss');
+    document.getElementById(`o_${qi}_${q.ans}`).classList.add('hit');
+    document.getElementById('qc' + qi).classList.add('c-fail');
   }
+  document.getElementById('exp_' + qi).classList.add('show');
+  qAns++; updateProg();
+  if (qAns === QS.length) setTimeout(showScore, 500);
+}
 
-  document.getElementById('explain_' + qIdx).classList.add('show');
-  answered++;
-
-  if (answered === questions.length) {
-    setTimeout(showScore, 800);
-  }
+function updateProg() {
+  document.getElementById('qp').style.width = (qAns / QS.length * 100) + '%';
+  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} נענו`;
 }
 
 function showScore() {
-  const pct = Math.round((score / questions.length) * 100);
-  const display = document.getElementById('scoreDisplay');
-  display.classList.add('show');
-  document.getElementById('scoreNum').textContent = `${score}/${questions.length}`;
-  
-  let label = '';
-  if (pct >= 90) label = '🏆 מדהים! אתה PRO אמיתי!';
-  else if (pct >= 70) label = '💪 מצוין! עוד קצת ותהיה PRO';
-  else if (pct >= 50) label = '📚 טוב! חזור לפרקים ונסה שוב';
-  else label = '🔄 חזור ללמוד — הבסיס חשוב!';
-  
-  document.getElementById('scoreLabel').textContent = label;
-  display.scrollIntoView({ behavior: 'smooth' });
+  const pct = Math.round(qScore / QS.length * 100);
+  document.getElementById('scoreBox').classList.add('show');
+  document.getElementById('scoreBig').innerHTML = `${qScore}<span class="frac">/20</span>`;
+  document.getElementById('scorePct').textContent = pct + '%';
+  let msg, sub;
+  if (pct >= 90) { msg = 'Security Expert! 🛡️'; sub = 'CISSP ready. Threat actors fear you.'; }
+  else if (pct >= 75) { msg = 'Senior Analyst — עוד קצת'; sub = 'חזור על Crypto ו-Cloud Security'; }
+  else if (pct >= 55) { msg = 'Junior SOC — בדרך הנכונה'; sub = 'תרגל את המעבדות ונסה שוב'; }
+  else { msg = 'Breach Detected ❌'; sub = 'חזור לפרקים — האויב לא ישן'; }
+  document.getElementById('scoreMsg').textContent = msg;
+  document.getElementById('scoreSub').textContent = sub;
+  document.getElementById('scoreBox').scrollIntoView({ behavior: 'smooth' });
 }
 
-function restartQuiz() { buildQuiz(); window.scrollTo({ top: document.getElementById('quiz').offsetTop - 100, behavior: 'smooth' }); }
+function restartQuiz() {
+  buildQuiz();
+  window.scrollTo({ top: document.getElementById('quiz').offsetTop - 80, behavior: 'smooth' });
+}
 
 buildQuiz();
+
+// ── Game ──
+const CATS = [
+  { id: 'cia',     label: 'CIA Triad',    cls: 'go-cia' },
+  { id: 'social',  label: 'Social Eng',   cls: 'go-threat' },
+  { id: 'crypto',  label: 'Crypto',       cls: 'go-crypto' },
+  { id: 'network', label: 'Network',      cls: 'go-network' },
+  { id: 'malware', label: 'Malware',      cls: 'go-malware' },
+  { id: 'pentest', label: 'Pentest',      cls: 'go-pentest' },
+  { id: 'soc',     label: 'SOC/IR',       cls: 'go-soc' },
+  { id: 'cloud',   label: 'Cloud Sec',    cls: 'go-cloud' },
+];
+
+const GQS = [
+  { desc: 'האם הנתונים נגישים רק למי שמורשה?', hint: 'אחד מ-3 עמודי הבסיס', ans: 'cia' },
+  { desc: 'מייל מCEO מבקש להעביר כסף דחוף', hint: 'Business Email Compromise', ans: 'social' },
+  { desc: 'AES-256 מצפין קובץ עם מפתח סימטרי', hint: 'הצפנה סימטרית', ans: 'crypto' },
+  { desc: 'Nmap סורק פורטים פתוחים ברשת', hint: 'Network Reconnaissance', ans: 'pentest' },
+  { desc: 'WannaCry מצפין קבצים ודורש Bitcoin', hint: 'קוד זדוני שמצפין', ans: 'malware' },
+  { desc: 'Firewall חוסם תעבורה לפי Rules', hint: 'הגנת רשת', ans: 'network' },
+  { desc: 'Alert ב-SIEM על Login מIP חריג', hint: 'Security Operations Center', ans: 'soc' },
+  { desc: 'S3 Bucket פתוח לPublic בטעות', hint: 'Cloud Misconfiguration', ans: 'cloud' },
+  { desc: 'bcrypt(12) לאחסון סיסמאות', hint: 'Slow Hashing Algorithm', ans: 'crypto' },
+  { desc: 'ילד בן 17 מתקשר לעובד ומתחזה לIT', hint: 'Voice Phishing', ans: 'social' },
+  { desc: 'נגיף שמסתתר בKernel ומסתיר את עצמו', hint: 'Rootkit', ans: 'malware' },
+  { desc: 'SQL Injection חושף כל רשומות הDB', hint: 'OWASP Top 10', ans: 'pentest' },
+  { desc: 'Dwell Time ממוצע: 197 יום לפני גילוי', hint: 'כמה זמן התוקף שם לפני שמגלים', ans: 'soc' },
+  { desc: 'VPN מצפין תעבורה ברשת ציבורית', hint: 'Network Security Tool', ans: 'network' },
+  { desc: 'AWS מגינה על Data Center, לקוח מגין על Data', hint: 'Shared Responsibility', ans: 'cloud' },
+  { desc: 'Digital Signature מאמת שהמייל לא שונה', hint: 'Public Key Cryptography', ans: 'crypto' },
+  { desc: 'Wireshark לוכד Credentials בHTTP Cleartext', hint: 'Network Analysis Tool', ans: 'pentest' },
+  { desc: 'Kill Chain: Recon→Weaponize→Deliver→Exploit', hint: 'Attack Lifecycle Framework', ans: 'soc' },
+  { desc: 'Zero-Day Exploit — פגיעות לא ידועה ליצרן', hint: 'Advanced Threat', ans: 'malware' },
+  { desc: 'GDPR: דיווח על פרצה תוך 72 שעות', hint: 'Data Protection Regulation', ans: 'cloud' },
+];
+
+let gScore = 0, gLives = 3, gLevel = 1, gAsked = [];
+
+function startGame() {
+  gScore = 0; gLives = 3; gLevel = 1; gAsked = [];
+  document.getElementById('gameEnd').classList.remove('show');
+  document.getElementById('gameBody').style.display = 'block';
+  updateGUI(); nextQ();
+}
+
+function updateGUI() {
+  document.getElementById('gScore').textContent = gScore;
+  document.getElementById('gLives').textContent = '❤️'.repeat(gLives) + '🖤'.repeat(3 - gLives);
+  document.getElementById('gLevel').textContent = gLevel;
+}
+
+function getCats() {
+  const count = gLevel <= 2 ? 4 : gLevel <= 4 ? 6 : 8;
+  return CATS.slice(0, count);
+}
+
+function nextQ() {
+  const rem = GQS.filter((_, i) => !gAsked.includes(i));
+  if (!rem.length || gLives <= 0) { endGame(); return; }
+  const idx = GQS.indexOf(rem[Math.floor(Math.random() * rem.length)]);
+  gAsked.push(idx);
+  const q = GQS[idx]; window._cq = q;
+  document.getElementById('gQ').textContent = q.desc;
+  document.getElementById('gH').textContent = '💭 ' + q.hint;
+  document.getElementById('gFb').textContent = '';
+  document.getElementById('gFb').className = 'game-feedback';
+  const cats = getCats();
+  document.getElementById('gOpts').innerHTML = cats.map(c =>
+    `<div class="g-opt ${c.cls}" onclick="gAns('${c.id}',this)">${c.label}<small>${
+      c.id==='cia'?'C·I·A':c.id==='social'?'Humans':c.id==='crypto'?'Encrypt':
+      c.id==='network'?'Firewall':c.id==='malware'?'Virus':c.id==='pentest'?'Attack':
+      c.id==='soc'?'Defend':'AWS/GCP'
+    }</small></div>`
+  ).join('');
+  document.getElementById('gProg').style.width = (gAsked.length / GQS.length * 100) + '%';
+  gLevel = Math.min(5, Math.floor(gScore / 4) + 1);
+  updateGUI();
+}
+
+function gAns(cat, el) {
+  const q = window._cq;
+  document.querySelectorAll('.g-opt').forEach(o => o.classList.add('locked'));
+  const fb = document.getElementById('gFb');
+  if (cat === q.ans) {
+    el.classList.add('correct');
+    gScore += gLevel;
+    fb.textContent = '✅ נכון! +' + gLevel + 'pts';
+    fb.className = 'game-feedback fb-ok';
+    updateGUI();
+    setTimeout(nextQ, 900);
+  } else {
+    el.classList.add('wrong');
+    gLives--;
+    const correct = [...document.querySelectorAll('.g-opt')].find(o =>
+      o.getAttribute('onclick') && o.getAttribute('onclick').includes("'" + q.ans + "'")
+    );
+    if (correct) correct.classList.add('correct');
+    fb.textContent = '❌ התשובה: ' + (CATS.find(c => c.id === q.ans)?.label || q.ans);
+    fb.className = 'game-feedback fb-err';
+    updateGUI();
+    if (gLives <= 0) { setTimeout(endGame, 1200); return; }
+    setTimeout(nextQ, 1400);
+  }
+}
+
+function endGame() {
+  document.getElementById('gameBody').style.display = 'none';
+  document.getElementById('gameEnd').classList.add('show');
+  let emoji, title, msg;
+  if (gScore >= 55)      { emoji = '🏆'; title = 'Cyber Expert!'; msg = 'Threat Detected → Threat Neutralized. אתה מוכן לSOC.'; }
+  else if (gScore >= 32) { emoji = '🛡️'; title = 'Security Analyst'; msg = 'טוב מאוד. עוד תרגול בCloud Security.'; }
+  else if (gScore >= 18) { emoji = '🔍'; title = 'Junior Analyst'; msg = 'בסיס קיים. חזור לפרקים ונסה שוב.'; }
+  else                   { emoji = '📖'; title = 'Breach Detected'; msg = 'Attacker 1 — Defender 0. חזור לפרקים.'; }
+  document.getElementById('geEmoji').textContent = emoji;
+  document.getElementById('geTitle').textContent = title;
+  document.getElementById('geScore').textContent = 'score: ' + gScore + ' | lives: ' + gLives;
+  document.getElementById('geMsg').textContent = msg;
+}
+
+startGame();
 </script>
 </body>
 </html>
