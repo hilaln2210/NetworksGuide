@@ -220,15 +220,19 @@ function App() {
   const [authUser, setAuthUser] = useState(null)
 
   // ── Content version reset ─────────────────────────────────────────────────
-  const CONTENT_VERSION = 'v20240324-b'
+  const CONTENT_VERSION = 'v20240324-c'
   useEffect(() => {
     try {
       const stored = localStorage.getItem('ng_content_version')
       if (stored !== CONTENT_VERSION) {
         resetAll()
         resetXP()
-        setXp(getXP())
-        setStreak(getStreak())
+        // Reset React state too — localStorage reset alone doesn't update UI
+        setXp(0)
+        setStreak(0)
+        setCurrentChapter(0)
+        setCurrentPage(0)
+        setActiveTrack(null)
         localStorage.setItem('ng_content_version', CONTENT_VERSION)
         setResetBanner(true)
       }
