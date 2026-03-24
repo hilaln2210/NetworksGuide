@@ -296,6 +296,10 @@ function App() {
     const next = FONT_SIZES[Math.max(0, Math.min(FONT_SIZES.length - 1, idx + dir))]
     setFontSize(next)
     try { localStorage.setItem('ng_font_size', next) } catch {}
+    // Notify all iframes
+    document.querySelectorAll('iframe').forEach(f => {
+      try { f.contentWindow.postMessage({ ng: 'font', size: next }, '*') } catch {}
+    })
   }
 
   const handleContentScroll = useCallback((e) => {
@@ -351,6 +355,10 @@ function App() {
     if (!meta) { meta = document.createElement('meta'); meta.name = 'theme-color'; document.head.appendChild(meta) }
     meta.content = darkMode ? '#0f172a' : '#f0f9ff'
     try { localStorage.setItem('ng_dark_mode', darkMode ? '1' : '0') } catch {}
+    // Notify all iframes
+    document.querySelectorAll('iframe').forEach(f => {
+      try { f.contentWindow.postMessage({ ng: 'theme', dark: darkMode }, '*') } catch {}
+    })
   }, [darkMode])
 
   // Persist active tab and mobile view across refreshes

@@ -788,6 +788,17 @@ html, body { overflow-x: hidden; }
   pre { padding: 10px 8px; }
 }
 </style>
+<style id="ng-light">
+[data-theme="light"] {
+  --bg: #f8f9ff; --bg2: #f0f1fb;
+  --surface: #ffffff; --card: #fafafe;
+  --border: #dde0f5; --border2: #c8ccee;
+  --text: #1e1b4b; --text-mid: #3730a3; --text-dim: #6366f1;
+  --blue: #4338ca; --blue2: #4f46e5; --blue3: #818cf8;
+  --blue-glow: rgba(67,56,202,0.1); --code-bg: #f0f0ff;
+}
+</style>
+<script src="/_bridge.js"></script>
 </head>
 <body>
 <div id="quiz" class="section active"><div class="sec-body">
@@ -932,6 +943,7 @@ function pick(qi, oi) {
     document.getElementById(`o_${qi}_${oi}`).classList.add('hit');
     document.getElementById('qc'+qi).classList.add('c-ok');
     qScore++;
+    try { window.parent.postMessage({ type: 'ng_xp', amount: 10 }, '*'); } catch(e) {}
   } else {
     document.getElementById(`o_${qi}_${oi}`).classList.add('miss');
     document.getElementById(`o_${qi}_${q.ans}`).classList.add('hit');
@@ -1061,6 +1073,7 @@ function answer(code, el) {
   if (code===q.ans) {
     el.classList.add('correct');
     gScore += gLevel;
+    try { window.parent.postMessage({ type: 'ng_xp', amount: gLevel * 5 }, '*'); } catch(e) {}
     fb.textContent='✅ נכון! +'+gLevel+'pts';
     fb.className='game-feedback fb-ok';
     updateGUI();

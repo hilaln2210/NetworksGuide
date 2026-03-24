@@ -830,6 +830,15 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   h3 { font-size: 1rem !important; }
 }
 </style>
+<style id="ng-light">
+[data-theme="light"] {
+  --bg: #f0f4f8; --surface: #ffffff; --card: #f5f8fc;
+  --border: #ccd9e8;
+  --accent: #0891b2; --accent2: #dc2626; --accent3: #16a34a; --gold: #d97706;
+  --text: #0d1f33; --text-dim: #3a5a7a; --warn: #ea580c;
+}
+</style>
+<script src="/_bridge.js"></script>
 </head>
 <body>
 <div class="container">
@@ -1014,6 +1023,7 @@ function answerQ(qIdx, optIdx) {
     document.getElementById(`opt_${qIdx}_${optIdx}`).classList.add('correct-ans');
     document.getElementById('qcard' + qIdx).classList.add('correct');
     score++;
+    try { window.parent.postMessage({ type: 'ng_xp', amount: 10 }, '*'); } catch(e) {}
   } else {
     document.getElementById(`opt_${qIdx}_${optIdx}`).classList.add('wrong-ans');
     document.getElementById(`opt_${qIdx}_${q.correct}`).classList.add('correct-ans');
