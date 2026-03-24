@@ -58,6 +58,18 @@ const TRACKS = [
       { id: 'web-ch06', chapter: { he: 'פרק 8', en: 'Chapter 8' }, title: { he: '📈 API Load Testing עם k6',             en: '📈 API Load Testing with k6'              }, description: { he: 'בדיקות עומס על API עם k6 — Virtual Users, ramps, thresholds.', en: 'Load testing API with k6 — Virtual Users, ramps, thresholds.' },               difficulty: { he: 'מתקדם',  en: 'Advanced'     }, xp: 150, src: '/learn/webapi/lab_ch06.html' },
     ],
   },
+  {
+    id: 'linux',
+    label: { he: '🐧 מערכות ולינוקס', en: '🐧 System & Linux' },
+    labs: [
+      { id: 'lnx-ch01', chapter: { he: 'פרק 2', en: 'Chapter 2' }, title: { he: '🗂️ Filesystem Archaeology',            en: '🗂️ Filesystem Archaeology'         }, description: { he: 'חקירת מבנה הקבצים, hardlinks, inodes, find ו-lsof.', en: 'Explore filesystem structure, hardlinks, inodes, find and lsof.' }, difficulty: { he: 'מתחיל', en: 'Beginner' }, xp: 110, src: '/learn/linux/lab_ch01.html' },
+      { id: 'lnx-ch02', chapter: { he: 'פרק 4', en: 'Chapter 4' }, title: { he: '⚙️ Bash Script ברמת Production',       en: '⚙️ Production-Grade Bash Script'   }, description: { he: 'כתיבת סקריפט Bash מקצועי עם error handling, logging ו-flags.', en: 'Write professional Bash script with error handling, logging and flags.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/linux/lab_ch02.html' },
+      { id: 'lnx-ch03', chapter: { he: 'פרק 5', en: 'Chapter 5' }, title: { he: '🔍 Log Analysis Kung-Fu',               en: '🔍 Log Analysis Kung-Fu'            }, description: { he: 'ניתוח לוגים עם grep, awk, sed, sort, uniq — מציאת דפוסים ושגיאות.', en: 'Analyze logs with grep, awk, sed, sort, uniq — find patterns and errors.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/linux/lab_ch03.html' },
+      { id: 'lnx-ch04', chapter: { he: 'פרק 3', en: 'Chapter 3' }, title: { he: '🧠 Process & Memory Forensics',         en: '🧠 Process & Memory Forensics'     }, description: { he: 'חקירת תהליכים, זיכרון ו-CPU עם ps, top, htop, strace, lsof.', en: 'Investigate processes, memory and CPU with ps, top, htop, strace, lsof.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 140, src: '/learn/linux/lab_ch04.html' },
+      { id: 'lnx-ch05', chapter: { he: 'פרק 8', en: 'Chapter 8' }, title: { he: '🔧 systemd Service ברמה מקצועית',      en: '🔧 Production systemd Service'     }, description: { he: 'כתיבת systemd unit file, Type=notify, journald, restart policies.', en: 'Write systemd unit file, Type=notify, journald, restart policies.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 150, src: '/learn/linux/lab_ch05.html' },
+      { id: 'lnx-ch06', chapter: { he: 'פרק 10', en: 'Chapter 10' }, title: { he: '🔒 SSH Hardening + Fail2ban',         en: '🔒 SSH Hardening + Fail2ban'       }, description: { he: 'הקשחת SSH: key-only auth, port change, fail2ban, UFW rules.', en: 'Harden SSH: key-only auth, port change, fail2ban, UFW rules.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 150, src: '/learn/linux/lab_ch06.html' },
+    ],
+  },
 ]
 
 const DIFFICULTY_COLORS = {

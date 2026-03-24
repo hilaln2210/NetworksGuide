@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux PRO — מסלול מקצועי</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+Hebrew:wght@300;400;600;700&display=swap');
+
+:root {
+  --bg:       #080c08;
+  --bg2:      #0c120c;
+  --surface:  #111811;
+  --card:     #141d14;
+  --border:   #1e2e1e;
+  --border2:  #2a402a;
+  --green:    #33ff66;
+  --green2:   #22cc44;
+  --green3:   #11441a;
+  --green-dim:#1a4a1a;
+  --amber:    #ffcc00;
+  --amber2:   #e6a800;
+  --red:      #ff4444;
+  --blue:     #44aaff;
+  --cyan:     #00ffee;
+  --text:     #c8e8c8;
+  --text-mid: #7aaa7a;
+  --text-dim: #3a5a3a;
+  --cursor:   #33ff66;
+  --phosphor: rgba(51,255,102,0.04);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans Hebrew', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* CRT scanlines overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Phosphor glow */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%,
+    rgba(51,255,102,0.025) 0%,
+    transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ═══════════════════════════════════════
+   TOP BAR — tmux-style
+═══════════════════════════════════════ */
+.tmux-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--green);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  height: 28px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0;
+  user-select: none;
+}
+
+.tmux-left {
+  background: var(--bg);
+  color: var(--green);
+  padding: 0 14px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 3px solid var(--green);
+}
+
+.tmux-tabs {
+  display: flex;
+  height: 100%;
+}
+
+.tmux-tab {
+  padding: 0 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all .15s;
+  border: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+.tmux-tab.inactive { background: var(--surface); color: var(--text-mid); }
+.tmux-tab.inactive:hover { background: var(--card); color: var(--text); }
+.tmux-tab.active { background: var(--green); color: var(--bg); font-weight: 700; }
+
+.tmux-right {
+  margin-right: auto;
+  padding: 0 14px;
+  font-size: 10px;
+  font-weight: 400;
+  opacity: .7;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+.hero {
+  padding: 56px 0 44px;
+  position: relative;
+  z-index: 1;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-prompt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: var(--text-mid);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.prompt-user { color: var(--green); }
+.prompt-at   { color: var(--text-dim); }
+.prompt-host { color: var(--cyan); }
+.prompt-path { color: var(--blue); }
+.prompt-dollar { color: var(--text); margin: 0 8px; }
+
+.hero h1 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(44px, 8vw, 88px);
+  font-weight: 800;
+  line-height: .92;
+  letter-spacing: -2px;
+  margin-bottom: 18px;
+  color: var(--green);
+  text-shadow: 0 0 40px rgba(51,255,102,0.35), 0 0 80px rgba(51,255,102,0.12);
+}
+
+.hero h1 .dim { color: var(--text-dim); font-weight: 300; }
+
+.hero-sub {
+  font-family: 'Crimson Pro', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: var(--text-mid);
+  margin-bottom: 32px;
+  font-weight: 300;
+  max-width: 580px;
+  line-height: 1.6;
+}
+
+/* UPTIME STATS */
+.uptime-row {
+  display: flex;
+  gap: 0;
+  flex-wrap: wrap;
+  font-family: 'JetBrains Mono', monospace;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  display: inline-flex;
+}
+
+.ut-item {
+  padding: 12px 22px;
+  border-left: 1px solid var(--border);
+  text-align: center;
+}
+
+.ut-item:first-child { border-left: none; }
+
+.ut-val {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--green);
+  display: block;
+  line-height: 1;
+  text-shadow: 0 0 16px rgba(51,255,102,0.4);
+}
+
+.ut-key {
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 4px;
+  display: block;
+}
+
+/* Blinking cursor */
+@keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+.cursor { display: inline-block; width: 8px; height: 16px; background: var(--green); animation: blink 1s infinite; vertical-align: middle; margin-right: 2px; }
+
+/* ═══════════════════════════════════════
+   SECTIONS
+═══════════════════════════════════════ */
+.section { display: none; }
+.section.active { display: block; }
+.section-inner { padding: 36px 0 60px; }
+
+/* ═══════════════════════════════════════
+   CHAPTERS — man page style
+═══════════════════════════════════════ */
+.chapters { display: flex; flex-direction: column; gap: 2px; }
+
+.ch {
+  border: 1px solid var(--border);
+  border-radius: 0;
+  overflow: hidden;
+  transition: border-color .2s;
+  background: var(--card);
+}
+
+.ch:first-child { border-radius: 8px 8px 0 0; }
+.ch:last-child  { border-radius: 0 0 8px 8px; }
+.ch:hover { border-color: var(--border2); }
+.ch.open  { border-color: rgba(51,255,102,.35); }
+
+.ch-trigger {
+  padding: 16px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  user-select: none;
+}
+
+.ch-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+  min-width: 48px;
+  letter-spacing: 1px;
+}
+
+.ch-icon-box {
+  width: 38px; height: 38px;
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  background: var(--green3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.ch-info { flex: 1; min-width: 0; }
+
+.ch-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 3px;
+  line-height: 1.2;
+}
+
+.ch-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ch-meta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+.ch-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.ch-chevron { color: var(--text-dim); transition: transform .3s, color .2s; font-size: 14px; }
+.ch.open .ch-chevron { transform: rotate(90deg); color: var(--green); }
+
+/* BADGE */
+.badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  letter-spacing: .5px;
+}
+
+.b-core   { background: rgba(51,255,102,.1); color: var(--green); border: 1px solid rgba(51,255,102,.25); }
+.b-sys    { background: rgba(0,255,238,.08); color: var(--cyan); border: 1px solid rgba(0,255,238,.2); }
+.b-adv    { background: rgba(255,204,0,.08); color: var(--amber); border: 1px solid rgba(255,204,0,.2); }
+.b-hard   { background: rgba(255,68,68,.08); color: var(--red); border: 1px solid rgba(255,68,68,.2); }
+.b-sec    { background: rgba(68,170,255,.08); color: var(--blue); border: 1px solid rgba(68,170,255,.2); }
+
+/* CHAPTER BODY */
+.ch-body { display: none; border-top: 1px solid var(--border); }
+.ch.open .ch-body { display: block; }
+.ch-inner { padding: 24px 20px; }
+
+/* man-page section label */
+.man-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.man-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media(max-width:680px){ .two-col { grid-template-columns: 1fr; } }
+
+/* LEARN ITEMS */
+.learn-list { display: flex; flex-direction: column; gap: 8px; }
+
+.li {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.55;
+  align-items: flex-start;
+}
+
+.li::before {
+  content: '▸';
+  color: var(--green2);
+  font-size: 11px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* CODE BLOCK — real terminal */
+.term {
+  background: #020402;
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  line-height: 1.85;
+  overflow-x: auto;
+  margin-top: 10px;
+  position: relative;
+}
+
+.term-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 6px;
+  border-radius: 8px 8px 0 0;
+}
+
+.term-dot { width: 10px; height: 10px; border-radius: 50%; }
+.td-r { background: #ff5f57; }
+.td-y { background: #febc2e; }
+.td-g { background: #28c840; }
+
+.term-title {
+  margin-right: auto;
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+.term-content { margin-top: 20px; }
+
+.t-p   { color: var(--green); }     /* prompt */
+.t-cmd { color: #e2e2e2; }          /* command */
+.t-f   { color: var(--amber); }     /* flag */
+.t-s   { color: #86efac; }          /* string */
+.t-o   { color: var(--text-mid); }  /* output */
+.t-c   { color: var(--text-dim); font-style: italic; } /* comment */
+.t-e   { color: var(--red); }       /* error */
+.t-ok  { color: var(--green); }     /* success */
+.t-h   { color: var(--cyan); }      /* highlight */
+
+/* STORY BOX — "מה הלך עגול" */
+.story {
+  background: linear-gradient(135deg, rgba(255,204,0,.04), rgba(255,68,68,.03));
+  border: 1px solid rgba(255,204,0,.2);
+  border-right: 4px solid var(--amber);
+  border-radius: 8px;
+  padding: 16px 18px;
+}
+
+.story-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--amber);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.story-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.story-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 14px;
+  color: var(--text-mid);
+  line-height: 1.7;
+}
+
+/* PRO TIP */
+.pro-tip {
+  margin-top: 14px;
+  background: rgba(51,255,102,.04);
+  border: 1px solid rgba(51,255,102,.15);
+  border-radius: 6px;
+  padding: 12px 15px;
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.6;
+  display: flex;
+  gap: 10px;
+}
+
+.pro-tip strong { color: var(--green); }
+.pt-icon { flex-shrink: 0; }
+
+.badges-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
+
+/* ═══════════════════════════════════════
+   LABS
+═══════════════════════════════════════ */
+.labs-list { display: flex; flex-direction: column; gap: 16px; }
+
+.lab {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.lab-head {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: background .2s;
+}
+
+.lab-head:hover { background: var(--surface); }
+.lab.open .lab-head { border-bottom-color: var(--border); background: var(--surface); }
+
+.lab-icon { font-size: 22px; }
+.lab-info { flex: 1; }
+
+.lab-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 3px;
+}
+
+.lab-sub { font-size: 12px; color: var(--text-dim); }
+
+.diff {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 3px;
+  letter-spacing: .5px;
+}
+
+.d-easy   { background: rgba(51,255,102,.1); color: var(--green); border:1px solid rgba(51,255,102,.3); }
+.d-medium { background: rgba(255,204,0,.1); color: var(--amber); border:1px solid rgba(255,204,0,.3); }
+.d-hard   { background: rgba(255,68,68,.1); color: var(--red); border:1px solid rgba(255,68,68,.3); }
+
+.lab-chev { color: var(--text-dim); font-size: 14px; transition: transform .3s; }
+.lab.open .lab-chev { transform: rotate(90deg); color: var(--green); }
+
+.lab-body { display: none; padding: 20px; }
+.lab.open .lab-body { display: block; }
+
+.lab-goal {
+  font-family: 'Crimson Pro', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-mid);
+  border-right: 3px solid var(--green2);
+  padding-right: 14px;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.lab-steps { display: flex; flex-direction: column; gap: 9px; margin-bottom: 14px; }
+
+.lab-step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.5;
+}
+
+.sn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--green);
+  background: rgba(51,255,102,.1);
+  border: 1px solid rgba(51,255,102,.2);
+  border-radius: 3px;
+  padding: 1px 6px;
+  min-width: 30px;
+  text-align: center;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* ANSWER BUTTON */
+.ans-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid rgba(51,255,102,.3);
+  color: var(--green);
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.ans-btn:hover { background: rgba(51,255,102,.08); }
+.ans-btn.open  { background: rgba(51,255,102,.08); border-color: var(--green); }
+
+.ans-box {
+  display: none;
+  margin-top: 14px;
+  background: rgba(51,255,102,.03);
+  border: 1px solid rgba(51,255,102,.15);
+  border-radius: 8px;
+  padding: 18px;
+  animation: slideIn .2s ease;
+}
+
+.ans-box.show { display: block; }
+
+@keyframes slideIn { from{opacity:0;transform:translateY(-5px)} to{opacity:1;transform:translateY(0)} }
+
+.ans-head {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ans-head::after { content:''; flex:1; height:1px; background: rgba(51,255,102,.2); }
+
+.ans-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.6;
+  align-items: flex-start;
+}
+
+.ans-item:last-child { margin-bottom: 0; }
+
+.an {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--green);
+  background: rgba(51,255,102,.1);
+  border: 1px solid rgba(51,255,102,.2);
+  border-radius: 3px;
+  padding: 1px 6px;
+  min-width: 30px;
+  text-align: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ans-note {
+  background: rgba(0,255,238,.04);
+  border-right: 3px solid var(--cyan);
+  padding: 10px 13px;
+  border-radius: 5px;
+  font-size: 12px;
+  color: var(--text-mid);
+  line-height: 1.65;
+  margin-top: 10px;
+}
+
+.ans-warn {
+  background: rgba(255,68,68,.05);
+  border: 1px solid rgba(255,68,68,.2);
+  padding: 10px 13px;
+  border-radius: 5px;
+  font-size: 12px;
+  color: #ff8888;
+  line-height: 1.65;
+  margin-top: 10px;
+}
+
+/* ═══════════════════════════════════════
+   QUIZ
+═══════════════════════════════════════ */
+.quiz-header {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.quiz-header h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--green);
+  text-shadow: 0 0 20px rgba(51,255,102,.3);
+  margin-bottom: 8px;
+}
+
+.quiz-header p { font-size: 13px; color: var(--text-dim); }
+
+.q-prog-bg { background: rgba(255,255,255,.05); border-radius:20px; height:3px; margin:16px 0 0; overflow:hidden; }
+.q-prog { height:100%; border-radius:20px; background: var(--green); transition:width .4s; box-shadow: 0 0 10px rgba(51,255,102,.5); }
+.q-prog-lbl { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); text-align:left; margin-top:5px; letter-spacing:1px; }
+
+.q-list { display: flex; flex-direction: column; gap: 12px; }
+
+.q-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  transition: border-color .3s;
+}
+
+.q-card.c-ok   { border-color: var(--green); background: rgba(51,255,102,.03); }
+.q-card.c-fail { border-color: var(--red);   background: rgba(255,68,68,.03); }
+
+.q-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.q-idx { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--green); letter-spacing:2px; }
+.q-tag { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dim); border:1px solid var(--border); padding:1px 6px; border-radius:3px; }
+.q-text { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 14px; line-height: 1.5; }
+
+.q-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+@media(max-width:500px){ .q-opts { grid-template-columns: 1fr; } }
+
+.q-opt {
+  padding: 10px 13px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-mid);
+  text-align: right;
+  transition: all .15s;
+  line-height: 1.45;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.q-opt:hover:not(.locked) { border-color: var(--green); color: var(--green); background: rgba(51,255,102,.05); }
+.q-opt.hit  { border-color: var(--green)!important; background: rgba(51,255,102,.1)!important; color: var(--green)!important; font-weight: 700; }
+.q-opt.miss { border-color: var(--red)!important; background: rgba(255,68,68,.1)!important; color: var(--red)!important; }
+.q-opt.locked { cursor: default; }
+
+.q-exp {
+  margin-top: 10px;
+  padding: 10px 13px;
+  background: rgba(51,255,102,.04);
+  border-right: 3px solid var(--green2);
+  border-radius: 5px;
+  font-size: 12px;
+  color: var(--text-mid);
+  line-height: 1.65;
+  display: none;
+}
+
+.q-exp.show { display: block; animation: slideIn .2s ease; }
+
+.score-box {
+  background: var(--card);
+  border: 1px solid var(--green);
+  border-radius: 10px;
+  padding: 44px 28px;
+  text-align: center;
+  margin-top: 24px;
+  display: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.score-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  box-shadow: 0 0 20px rgba(51,255,102,.5);
+}
+
+.score-box.show { display: block; animation: slideIn .4s ease; }
+
+.score-big {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 80px;
+  font-weight: 800;
+  color: var(--green);
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(51,255,102,.5);
+  letter-spacing: -3px;
+}
+
+.score-pct { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--text-dim); margin-top:6px; }
+.score-msg { font-family:'Crimson Pro',serif; font-size:20px; font-style:italic; color:var(--text); margin-top:12px; }
+.score-sub { font-size:12px; color:var(--text-dim); margin-top:6px; font-family:'JetBrains Mono',monospace; }
+
+.score-acts { display:flex; justify-content:center; gap:12px; margin-top:24px; flex-wrap:wrap; }
+
+.btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 11px 22px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all .2s;
+  letter-spacing: .5px;
+  border: 1px solid;
+  min-height: 42px;
+}
+
+.btn-green { background: var(--green); color: var(--bg); border-color: var(--green); font-weight:700; }
+.btn-green:hover { box-shadow: 0 0 20px rgba(51,255,102,.5); }
+.btn-ghost { background: transparent; color: var(--text-dim); border-color: var(--border2); }
+.btn-ghost:hover { border-color: var(--green); color: var(--green); }
+
+/* ═══════════════════════════════════════
+   GAME — Terminal Simulator
+═══════════════════════════════════════ */
+.game-terminal {
+  background: #020402;
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: 0 0 40px rgba(51,255,102,.08);
+}
+
+.gt-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gt-dots { display:flex; gap:5px; }
+.gt-dot { width:10px; height:10px; border-radius:50%; }
+.gd-r { background:#ff5f57; } .gd-y { background:#febc2e; } .gd-g { background:#28c840; }
+
+.gt-title {
+  margin-right: auto;
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+}
+
+.gt-score-display {
+  font-size: 11px;
+  color: var(--amber);
+  display: flex;
+  gap: 14px;
+}
+
+.gt-screen {
+  min-height: 220px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 16px;
+  line-height: 1.7;
+  font-size: 12px;
+  scroll-behavior: smooth;
+}
+
+.gt-line { margin-bottom: 2px; }
+.gt-prompt-line { display: flex; gap: 6px; margin-top: 8px; margin-bottom: 2px; }
+.gt-user { color: var(--green); }
+.gt-at   { color: var(--text-dim); }
+.gt-host { color: var(--cyan); }
+.gt-path { color: var(--blue); }
+.gt-dollar { color: var(--text); }
+.gt-typed { color: #e2e2e2; }
+.gt-out  { color: var(--text-mid); }
+.gt-ok   { color: var(--green); }
+.gt-err  { color: var(--red); }
+.gt-hint { color: var(--amber); opacity: .8; font-style: italic; }
+.gt-sys  { color: var(--cyan); }
+
+.gt-input-area {
+  border-top: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #010301;
+}
+
+.gt-input-prompt { font-size: 12px; white-space: nowrap; }
+
+.gt-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e2e2e2;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  caret-color: var(--green);
+  direction: ltr;
+}
+
+.gt-enter-btn {
+  background: rgba(51,255,102,.1);
+  border: 1px solid rgba(51,255,102,.25);
+  color: var(--green);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.gt-enter-btn:hover { background: rgba(51,255,102,.2); }
+
+.gt-bottom {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.gt-mission {
+  font-size: 12px;
+  color: var(--text-mid);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.gt-mission strong { color: var(--amber); font-family: 'JetBrains Mono', monospace; }
+
+.gt-progress-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gt-prog-bg { flex: 1; background: rgba(255,255,255,.06); border-radius:20px; height:4px; overflow:hidden; }
+.gt-prog-fill { height:100%; border-radius:20px; background: var(--green); transition: width .5s; box-shadow: 0 0 8px rgba(51,255,102,.4); }
+.gt-prog-lbl { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dim); letter-spacing:1px; }
+
+.gt-end {
+  text-align: center;
+  padding: 32px 20px;
+  display: none;
+}
+
+.gt-end.show { display: block; }
+.gt-end-icon { font-size: 52px; margin-bottom: 12px; }
+.gt-end-title { font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:800; color:var(--green); margin-bottom:8px; text-shadow:0 0 20px rgba(51,255,102,.4); }
+.gt-end-score { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--amber); margin-bottom:8px; }
+.gt-end-msg { font-family:'Crimson Pro',serif; font-size:15px; color:var(--text-mid); font-style:italic; margin-bottom:20px; }
+
+.game-tip {
+  background: rgba(51,255,102,.04);
+  border: 1px solid rgba(51,255,102,.15);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--text-mid);
+  line-height: 1.6;
+  margin-top: 16px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════ */
+.site-footer {
+  text-align: center;
+  padding: 28px;
+  border-top: 1px solid var(--border);
+  margin-top: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.site-footer p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+}
+
+/* ═══════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════ */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--green); }
+
+/* ═══════════════════════════════════════
+   MOBILE
+═══════════════════════════════════════ */
+@media(max-width:768px){
+  .container { padding: 0 16px; }
+  .tmux-bar { height: 26px; overflow-x: auto; }
+  .tmux-left { padding: 0 10px; font-size: 11px; }
+  .tmux-tab { padding: 0 12px; font-size: 10px; }
+  .tmux-right { display: none; }
+  .hero { padding: 36px 0 28px; }
+  .hero h1 { font-size: clamp(38px, 10vw, 64px); }
+  .hero-sub { font-size: 17px; }
+  .uptime-row { width: 100%; }
+  .ut-item { flex: 1; padding: 10px 12px; }
+  .ut-val { font-size: 22px; }
+  .ch-trigger { padding: 13px 14px; gap: 12px; }
+  .ch-name { font-size: 13px; }
+  .ch-time { display: none; }
+  .ch-inner { padding: 18px 14px; }
+  .gt-screen { max-height: 250px; font-size: 11px; }
+}
+
+@media(max-width:480px){
+  .container { padding: 0 12px; }
+  .tmux-bar { font-size: 10px; }
+  .tmux-left { font-size: 10px; gap: 5px; }
+  .tmux-tab { font-size: 9px; padding: 0 10px; }
+  .hero { padding: 26px 0 20px; }
+  .hero h1 { font-size: clamp(34px, 12vw, 56px); letter-spacing: -1px; }
+  .hero-sub { font-size: 15px; margin-bottom: 20px; }
+  .hero-prompt { font-size: 11px; flex-wrap: wrap; }
+  .uptime-row { display: grid; grid-template-columns: 1fr 1fr; border-radius: 6px; width: 100%; }
+  .ut-item { border-left: none; border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); }
+  .ut-item:nth-child(odd) { border-left: none; }
+  .ut-val { font-size: 20px; }
+  .ut-key { font-size: 8px; }
+  .section-inner { padding: 24px 0 40px; }
+  .ch-trigger { padding: 12px 12px; gap: 10px; }
+  .ch-icon-box { width: 32px; height: 32px; font-size: 15px; flex-shrink: 0; }
+  .ch-name { font-size: 13px; line-height: 1.2; }
+  .ch-desc { font-size: 11px; }
+  .ch-meta { gap: 6px; }
+  .ch-inner { padding: 14px 12px; }
+  .man-label { font-size: 8px; }
+  .li { font-size: 12px; }
+  .term { font-size: 10.5px; }
+  .story { padding: 12px 14px; }
+  .story-text { font-size: 13px; }
+  .pro-tip { font-size: 12px; }
+  .lab-head { padding: 12px 13px; gap: 10px; }
+  .lab-icon { font-size: 18px; }
+  .lab-name { font-size: 13px; }
+  .lab-sub { font-size: 11px; }
+  .lab-body { padding: 14px 13px; }
+  .lab-goal { font-size: 13px; }
+  .lab-step { font-size: 12px; }
+  .ans-item { font-size: 12px; }
+  .quiz-header h2 { font-size: 22px; }
+  .q-card { padding: 14px 12px; }
+  .q-text { font-size: 14px; margin-bottom: 12px; }
+  .q-opts { grid-template-columns: 1fr; gap: 6px; }
+  .q-opt { font-size: 11px; padding: 10px 12px; min-height: 44px; display: flex; align-items: center; }
+  .q-exp { font-size: 11px; }
+  .score-big { font-size: 60px; }
+  .score-msg { font-size: 17px; }
+  .score-acts { flex-direction: column; gap: 8px; }
+  .btn { text-align: center; width: 100%; min-height: 44px; }
+  .gt-screen { min-height: 180px; max-height: 220px; font-size: 11px; padding: 12px; }
+  .gt-input-area { padding: 8px 12px; }
+  .gt-input { font-size: 11px; }
+  .gt-bottom { padding: 12px 13px; }
+  .gt-mission { font-size: 11px; }
+  .gt-end-title { font-size: 18px; }
+  .site-footer { padding: 18px 12px; }
+}
+
+@supports (padding: max(0px)) {
+  .tmux-bar {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+  .container {
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+  .site-footer { padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+}
+</style>
+
+<style>
+/* mobile-fix */
+html, body { overflow-x: hidden; }
+@media (max-width: 800px) {
+  .container { padding: 0 12px; }
+  pre, code { font-size: 0.78rem; }
+  table { font-size: 0.82rem; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 6px; }
+  .ch, .lab { padding: 12px 8px; }
+  pre { padding: 10px 8px; }
+}
+</style>
+</head>
+<body>
+<div id="labs" class="section"><div class="section-inner">
+    <div class="labs-list">
+
+      <!-- LAB 1 -->
+      
+<div class="lab open" id="lb1">
+        <div class="lab-head" onclick="toggleLab('lb1')">
+          <span class="lab-icon">🗺️</span>
+          <div class="lab-info">
+            <div class="lab-name">מעבדה 1 — Filesystem Archaeology</div>
+            <div class="lab-sub">Inodes · Hard Links · /proc exploration · find הנסתר</div>
+          </div>
+          <span class="diff d-easy">EASY</span><span class="lab-chev">▶</span>
+        </div>
+        <div class="lab-body" style="display:block">
+          <div class="lab-goal">"הכל קובץ" — זה לא רק סיסמה, זו ארכיטקטורה. תוכיח לעצמך שהיא נכונה.</div>
+          <div class="lab-steps">
+            <div class="lab-step"><span class="sn">01</span>רוץ <code>ls -lai /proc/self/</code> — מה ה-inode number של . ו-..?</div>
+            <div class="lab-step"><span class="sn">02</span>צור קובץ, צור Hard Link אליו, בדוק ש-inode זהה: <code>stat file1 file2</code></div>
+            <div class="lab-step"><span class="sn">03</span>מחק את הקובץ המקורי — האם תוכן ה-Link נשמר? למה?</div>
+            <div class="lab-step"><span class="sn">04</span>חקור את <code>/proc/$(pidof bash)/fd/</code> — מה הקבצים הפתוחים?</div>
+            <div class="lab-step"><span class="sn">05</span>מצא את כל הקבצים הגדולים מ-100MB: <code>find / -size +100M -type f 2>/dev/null</code></div>
+            <div class="lab-step"><span class="sn">06</span>שאלה: Directory ל-Filesystem Root מרוקן — כמה Inodes נשרפו?</div>
+          </div>
+          <button class="ans-btn" onclick="toggleAns('a1')"><span id="a1i">▶</span> הצג תשובה</button>
+          <div class="ans-box" id="a1">
+            <div class="ans-head">✅ תשובות</div>
+            <div class="ans-item"><span class="an">02</span><div>Hard Links חולקים inode. <code>ln file1 file2</code> → <code>stat</code> יראה <code>Inode: 12345678</code> זהה לשניהם. Link count = 2.</div></div>
+            <div class="ans-item"><span class="an">03</span><div>כן, תוכן נשמר! <code>rm file1</code> רק מוחק את ה-Directory Entry. inode נמחק רק כש-Link Count יורד ל-0 וכל File Descriptors נסגרים.</div></div>
+            <div class="ans-item"><span class="an">04</span><div><code>/proc/self/fd/</code> מכיל Symlinks לכל FD פתוח: fd/0 = stdin, fd/1 = stdout, fd/2 = stderr. <code>ls -la /proc/self/fd/</code> יראה גם sockets.</div></div>
+            <div class="ans-item"><span class="an">06</span><div>Directory ריק עדיין צורך <strong>1 inode</strong>. Filesystem מלא ב-inodes (לא ב-space) = לא ניתן ליצור קבצים חדשים. בדוק: <code>df -i</code></div></div>
+            <div class="ans-note">💡 <code>/proc/meminfo</code>, <code>/proc/cpuinfo</code>, <code>/proc/net/dev</code> — כל ה"קבצים" האלה נוצרים בזמן אמת על ידי ה-Kernel. קראת אותם? ה-Kernel כתב אותם באותה שניה.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LAB 2 -->
+</div></div>
+<script>
+// ===== CLOCK =====
+setInterval(() => {
+  const now = new Date();
+  document.getElementById('tmux-clock').textContent =
+    now.toLocaleTimeString('he-IL', {hour:'2-digit',minute:'2-digit'}) + ' 🐧';
+}, 1000);
+
+// ===== TABS =====
+function switchTab(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tmux-tab').forEach(t => { t.classList.remove('active'); t.classList.add('inactive'); });
+  document.getElementById(id).classList.add('active');
+  if (el) { el.classList.add('active'); el.classList.remove('inactive'); }
+  if (id === 'game') { setTimeout(startGame, 100); }
+}
+
+// ===== CHAPTERS / LABS =====
+function toggleCh(id) { document.getElementById(id).classList.toggle('open'); }
+function toggleLab(id) { document.getElementById(id).classList.toggle('open'); }
+document.getElementById('lb1').classList.add('open');
+
+// ===== ANSWER TOGGLE =====
+function toggleAns(id) {
+  const box = document.getElementById(id);
+  const btn = box.previousElementSibling;
+  const iconEl = document.getElementById(id + 'i');
+  const isOpen = box.classList.contains('show');
+  box.classList.toggle('show');
+  btn.classList.toggle('open');
+  iconEl.textContent = isOpen ? '▶' : '▼';
+  btn.childNodes[1].textContent = ' ' + (isOpen ? 'הצג תשובה' : 'הסתר תשובה');
+}
+
+// ===== QUIZ =====
+const QS = [
+  { q:"מה PID 1 ב-Linux המודרני?", tag:"system", opts:["init","bash","systemd","kernel"], ans:2, exp:"systemd הוא PID 1 ברוב הDistributions המודרניות (Ubuntu 16.04+, CentOS 7+, Debian 8+). הוא אחראי לBoot, Service Management, Logging ועוד. לפניו היה SysVinit עם /etc/init.d scripts." },
+  { q:"מה ההבדל בין kill -9 ל-kill -15?", tag:"process", opts:["אין הבדל","SIGKILL (9) בלתי ניתן לחסימה, SIGTERM (15) ניתן לHandle","SIGKILL גרסה ישנה, SIGTERM חדשה","SIGKILL לroot בלבד"], ans:1, exp:"SIGTERM (15) = בקשה מנומסת לסיים. Process יכול לתפוס אותה ולנקות. SIGKILL (9) = פקודה ישירה לKernel — Process לא יכול לחסום, לתפוס או להתעלם ממנה. תמיד נסה SIGTERM קודם." },
+  { q:"מה set -euo pipefail עושה ב-Bash?", tag:"bash", opts:["מסדר output לפי אלפבית","fail on error + unbound vars + pipe errors","מפעיל debug mode","מגדיר encoding ל-UTF-8"], ans:1, exp:"-e: Script נכשל אם פקודה מחזירה non-zero. -u: שגיאה על משתנה לא מוגדר. -o pipefail: Pipeline נכשל אם אחת הפקודות נכשלה. שלושתם יחד = Script שנופל בבעיה ראשונה ולא ממשיך בשקט." },
+  { q:"מה inode?", tag:"filesystem", opts:["שם הקובץ","מיקום הקובץ בDisk בלבד","מבנה נתונים עם metadata של קובץ (ללא שם)","index של כל הDirectories"], ans:2, exp:"inode מכיל: permissions, owner, timestamps, size, ומצביעים ל-Data Blocks. לא מכיל שם הקובץ — זה נמצא ב-Directory Entry. Hard Links חולקים inode. rm מוחק Directory Entry, לא inode, עד שLink Count = 0." },
+  { q:"מה cgroups?", tag:"kernel", opts:["Command Groups — קיצור לCommand Lists","Control Groups — בידוד ושליטה במשאבים לProcess Groups","Crypto Groups — ניהול מפתחות","Container Groups — שם Docker"], ans:1, exp:"cgroups (Control Groups) = Kernel feature לבידוד CPU, Memory, I/O בין Groups של Processes. Docker, Kubernetes, systemd — כולם בנויים על cgroups. cgroups v2 הוא ה-Standard החדש עם Unified Hierarchy." },
+  { q:"מה SIGCHLD Signal?", tag:"process", opts:["Signal לChild Process לסיום","Signal שParent מקבל כש-Child נסיים/נעצר","Signal לKill כל ה-Children","Signal מ-cron"], ans:1, exp:"Parent Process מקבל SIGCHLD כאשר Child Process משנה מצב (יסיים, נעצר, המשיך). Parent חייב לקרא wait() כדי לאסוף Exit Status — אחרת Child נשאר כ-Zombie (Z State)." },
+  { q:"מה swap ב-Linux?", tag:"memory", opts:["Virtual Memory בRAM","Disk Space כ-RAM גיבוי כשRAM מלא","Filesystem Swap","Network Memory"], ans:1, exp:"Swap = Space בDisk שKernel משתמש בו כהרחבה לRAM. Swapping = להוציא Pages מRAM לDisk כשRAM מלא. sysctl vm.swappiness (0-100) קובע מתי Kernel מתחיל לSwap. SSD = Swap מהיר, HDD = איטי מאוד." },
+  { q:"מה Hard Link לא יכול לעשות?", tag:"filesystem", opts:["לקשר לקובץ ב-Filesystem אחר","לקשר לDirectory","לשנות Link Count","גם A וגם B"], ans:3, exp:"Hard Links לא יכולים: (1) לחצות Filesystem Boundaries — inode ייחודי לFilesystem. (2) לקשר לDirectories — מניעת Loops. Symbolic Links יכולים את שניהם, אבל הם מצביעים לנתיב, לא לinode." },
+  { q:"מה /dev/null?", tag:"filesystem", opts:["קובץ ריק בDisk","Character Device — bytes sink, קלט = EOF","Null Pointer ב-Kernel","Default Log File"], ans:1, exp:"/dev/null הוא Character Special File. כתיבה אליו = ה-Kernel בולע את הBytes. קריאה ממנו = EOF מיידית. שימוש: redirect output לשתיקה (> /dev/null), יצירת קבצים ריקים (< /dev/null), 2>&1 >/dev/null." },
+  { q:"מה awk '{print $2}' עושה?", tag:"text", opts:["מדפיס שורה 2","מדפיס עמודה 2 מכל שורה","מדפיס 2 שורות ראשונות","חיפוש Pattern $2"], ans:1, exp:"awk מחלק כל שורה לFields לפי IFS (ברירת מחדל: whitespace). $1 = Field ראשון, $2 = שני, $NF = אחרון. '{print $2}' מדפיס Field שני מכל שורה — לדוגמה: עמודת Username ב-ps aux." },
+  { q:"מה systemd Unit Type מתאים ל-Cron Job?", tag:"systemd", opts:[".service",".socket",".timer",".mount"], ans:2, exp:".timer Units הם Replacement ל-Cron ב-systemd. OnCalendar=*-*-* 03:00:00 = כל יום בשלוש. יתרונות על Cron: Logging ב-Journal, Dependency Management, Monotonic vs Realtime timers, ו-Persistent=yes לRun Missed Jobs." },
+  { q:"מה ההבדל בין ext4 ל-ZFS?", tag:"storage", opts:["אין הבדל","ext4 = Journaling Filesystem, ZFS = Copy-on-Write עם Checksums + RAID","ext4 מהיר יותר תמיד","ZFS = Filesystem ישן"], ans:1, exp:"ext4: Journaling FS, מהיר, פשוט, Linux-native. ZFS: Copy-on-Write, Data Integrity Checksums, Built-in RAID (RAIDZ), Snapshots, Compression. ZFS לא נמצא בKernel Linux (License clash) — צריך DKMS Module." },
+  { q:"מה TCP TIME_WAIT State?", tag:"network", opts:["Connection נכשלה","Connection פעילה","תקופת המתנה לאחר סגירה — מניעת Stale Packets","Timeout של Application"], ans:2, exp:"TIME_WAIT נמשך 2*MSL (Maximum Segment Lifetime) = בד\"כ 60-120 שניות. מטרה: לוודא שכל Packets מה-Connection הקודמת נספגו לפני שהPort יהיה זמין. הרבה TIME_WAIT = Normal ב-High-Traffic Server." },
+  { q:"מה SELinux Enforcing Mode?", tag:"security", opts:["SELinux מנוטרל","SELinux מתעד אבל לא חוסם","SELinux אוכף Policy ומחסם גישה לא מורשית","SELinux Strict Mode"], ans:2, exp:"SELinux שלושה Modes: Disabled (כבוי), Permissive (מתעד violations ללא חסימה — טוב לDebug), Enforcing (חוסם כל גישה שאינה ב-Policy). בפרודקשן: Enforcing. לעולם לא: Disabled." },
+  { q:"מה strace עושה?", tag:"debug", opts:["Trace Stack Overflow","מציג את כל System Calls שProcess מבצע","Static Race Condition Detector","String Trace — חיפוש Strings"], ans:1, exp:"strace מיירט System Calls (syscalls) — הפנייות שProcess שולח לKernel. מאפשר לראות: קבצים שנפתחים, Network connections, Memory allocations. strace -c = Statistics, strace -f = Trace Children גם כן." },
+  { q:"מה Dirty Pipe (CVE-2022-0847)?", tag:"kernel", opts:["Bug ב-Docker","Linux Kernel Privilege Escalation דרך pipe() syscall","Dirty Memory Leak","Pipe Buffer Overflow ב-Bash"], ans:1, exp:"CVE-2022-0847: מחקר של Max Kellermann. Bug בLinux Kernel 5.8+ — ניתן לכתוב לכל קובץ read-only (כולל /etc/passwd) דרך pipe(). Local User → Root ב-seconds. Patched בKernel 5.16.11. דוגמה ל-bug שמשפיע על כל Distribution." },
+  { q:"מה /proc/sys/vm/overcommit_memory = 2 אומר?", tag:"kernel", opts:["לא להשתמש ב-Swap","Kernel לא יאפשר Overcommit — רק RAM זמין אמיתי","להפחית Cache","לתת זיכרון ל-Docker בלבד"], ans:1, exp:"vm.overcommit_memory: 0 (ברירת מחדל) = Heuristic Overcommit. 1 = תמיד אשר. 2 = לא יותר ממה שקיים פיזית. Value=2 חשוב לDatabases כמו PostgreSQL — מניעת OOM Killer בזמן לא צפוי." },
+  { q:"מה LVM Snapshot?", tag:"storage", opts:["LVM Backup לCloud","Copy-on-Write Snapshot — שינויים נכתבים ל-Snapshot Volume","Full Copy של ה-Volume","RAID Snapshot"], ans:1, exp:"LVM Snapshot = Copy-on-Write. בזמן יצירה = Instant. שינויים לOriginal? Snapshot שומר את הBlock הישן. זה מאפשר Backup עקבי בזמן שה-Production רץ. מחיר: Performance Overhead של כל כתיבה ל-Original." },
+  { q:"מה Auditd עושה?", tag:"security", opts:["Audits Bash Scripts","Kernel-level Security Logging — מי, מה, מתי, מאיפה","RAM Audit","Disk Audit Tool"], ans:1, exp:"auditd = Kernel Audit Subsystem. מתעד syscalls ברמת Kernel לפי Rules. לדוגמה: auditctl -w /etc/sudoers -p rwxa = כל גישה ל-sudoers מתועדת. HIPAA, PCI-DSS דורשים Audit Logging. ausearch ו-aureport לניתוח." },
+  { q:"מה ה-USE Method של Brendan Gregg?", tag:"performance", opts:["Unix Standard Execution","Utilization, Saturation, Errors — Framework לDiagnosis של Performance","User System Events","Uptime System Evaluation"], ans:1, exp:"USE Method: לכל Resource (CPU, Memory, Disk, Network) — בדוק: Utilization (% שימוש), Saturation (Queue/Waiting), Errors (Error Count). שיטה שיטתית לאבחון Performance Issues לפני שמוסיפים Hardware." },
+];
+
+let qAns = 0, qScore = 0;
+
+function buildQuiz() {
+  const list = document.getElementById('qList');
+  list.innerHTML = '';
+  qAns = 0; qScore = 0;
+  document.getElementById('scoreBox').classList.remove('show');
+  updateQProg();
+  QS.forEach((q, i) => {
+    const c = document.createElement('div');
+    c.className = 'q-card'; c.id = 'qc'+i;
+    c.innerHTML = `
+      <div class="q-top"><span class="q-idx">Q${String(i+1).padStart(2,'0')}/20</span><span class="q-tag">${q.tag}</span></div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts">${q.opts.map((o,j)=>`<div class="q-opt" onclick="pick(${i},${j})" id="o_${i}_${j}">${o}</div>`).join('')}</div>
+      <div class="q-exp" id="exp_${i}">${q.exp}</div>`;
+    list.appendChild(c);
+  });
+}
+
+function pick(qi, oi) {
+  const q = QS[qi];
+  document.querySelectorAll(`[id^="o_${qi}_"]`).forEach(el => el.classList.add('locked'));
+  if (oi === q.ans) {
+    document.getElementById(`o_${qi}_${oi}`).classList.add('hit');
+    document.getElementById('qc'+qi).classList.add('c-ok');
+    qScore++;
+  } else {
+    document.getElementById(`o_${qi}_${oi}`).classList.add('miss');
+    document.getElementById(`o_${qi}_${q.ans}`).classList.add('hit');
+    document.getElementById('qc'+qi).classList.add('c-fail');
+  }
+  document.getElementById('exp_'+qi).classList.add('show');
+  qAns++; updateQProg();
+  if (qAns === QS.length) setTimeout(showScore, 500);
+}
+
+function updateQProg() {
+  const pct = (qAns/QS.length)*100;
+  document.getElementById('qp').style.width = pct+'%';
+  document.getElementById('qpl').textContent = `${qAns}/${QS.length} answered`;
+}
+
+function showScore() {
+  const pct = Math.round((qScore/QS.length)*100);
+  const sb = document.getElementById('scoreBox'); sb.classList.add('show');
+  document.getElementById('scoreBig').textContent = `${qScore}/20`;
+  document.getElementById('scorePct').textContent = `${pct}%`;
+  let msg, sub;
+  if (pct>=90){msg="kernel hacker. Linus would approve.";sub="exit status: 0";}
+  else if(pct>=75){msg="solid sysadmin skills.";sub="rm -f /tmp/excuses && study harder";}
+  else if(pct>=55){msg="needs more terminal time.";sub="sudo apt install -y knowledge";}
+  else{msg="grep -r 'linux skills' /dev/null";sub="exit status: 1 — חזור לפרקים";}
+  document.getElementById('scoreMsg').textContent = msg;
+  document.getElementById('scoreSub').textContent = sub;
+  sb.scrollIntoView({behavior:'smooth'});
+}
+
+function restartQuiz() { buildQuiz(); window.scrollTo({top:document.getElementById('quiz').offsetTop-80,behavior:'smooth'}); }
+
+buildQuiz();
+
+// ===== TERMINAL GAME =====
+const MISSIONS = [
+  { id:1, level:1, path:'~', desc:'<strong style="color:var(--amber)">MISSION 1:</strong> הצג את שם המשתמש הנוכחי', answers:['whoami'], hint:'whoami', success:'user: student. access granted.' },
+  { id:2, level:1, path:'~', desc:'<strong style="color:var(--amber)">MISSION 2:</strong> הצג את ה-Working Directory הנוכחי', answers:['pwd'], hint:'pwd', success:'/home/student' },
+  { id:3, level:1, path:'~', desc:'<strong style="color:var(--amber)">MISSION 3:</strong> הצג קבצים כולל מוסתרים עם פרטים מלאים', answers:['ls -la','ls -al','ls -la .','ls -al .'], hint:'ls עם flags -l ו-a', success:'drwxr-xr-x 2 student student 4096 ...' },
+  { id:4, level:1, path:'~', desc:'<strong style="color:var(--amber)">MISSION 4:</strong> צור Directory בשם "projects"', answers:['mkdir projects','mkdir -p projects'], hint:'mkdir', success:'directory created: projects/' },
+  { id:5, level:1, path:'~', desc:'<strong style="color:var(--amber)">MISSION 5:</strong> כתוב "Hello, Linux!" לתוך קובץ hello.txt', answers:['echo "Hello, Linux!" > hello.txt',"echo 'Hello, Linux!' > hello.txt",'echo Hello, Linux! > hello.txt'], hint:'echo + redirect >', success:'hello.txt written: 14 bytes' },
+  { id:6, level:2, path:'~', desc:'<strong style="color:var(--amber)">MISSION 6:</strong> הצג תוכן /etc/os-release', answers:['cat /etc/os-release'], hint:'cat', success:'NAME="Ubuntu"\nVERSION="22.04.3 LTS"' },
+  { id:7, level:2, path:'~', desc:'<strong style="color:var(--amber)">MISSION 7:</strong> מצא את כל קבצי .log תחת /var/log (ללא שגיאות)', answers:['find /var/log -name "*.log" 2>/dev/null','find /var/log -name *.log 2>/dev/null'], hint:'find + -name + redirect stderr', success:'found 47 .log files' },
+  { id:8, level:2, path:'~', desc:'<strong style="color:var(--amber)">MISSION 8:</strong> הצג שימוש ב-Disk בפורמט Human-Readable', answers:['df -h','df -h .'], hint:'df עם -h', success:'Filesystem      Size  Used Avail Use%\n/dev/sda1       50G   12G   36G  25%' },
+  { id:9, level:2, path:'~', desc:'<strong style="color:var(--amber)">MISSION 9:</strong> הצג 5 ה-Processes שצורכים הכי הרבה CPU', answers:['ps aux --sort=-%cpu | head -6','ps aux --sort -%cpu | head -6'], hint:'ps aux עם --sort ו-head', success:'USER    PID %CPU  COMMAND\nroot   1337 87.3  stress' },
+  { id:10, level:2, path:'~', desc:'<strong style="color:var(--amber)">MISSION 10:</strong> חפש "error" (case-insensitive) ב-syslog', answers:['grep -i error /var/log/syslog','grep -i "error" /var/log/syslog'], hint:'grep -i', success:'[kernel] EXT4-fs error: ...' },
+  { id:11, level:3, path:'/etc', desc:'<strong style="color:var(--amber)">MISSION 11:</strong> הצג permissions של /etc/shadow בפורמט Octal', answers:['stat -c %a /etc/shadow','stat --format=%a /etc/shadow'], hint:'stat -c %a', success:'640  ← rw-r----- אבל... זה בסדר?' },
+  { id:12, level:3, path:'~', desc:'<strong style="color:var(--amber)">MISSION 12:</strong> הצג כמה זיכרון RAM פנוי ב-Megabytes', answers:['free -m','free --mega'], hint:'free -m', success:'               total  used  free\nMem:            7923  4102  1821' },
+  { id:13, level:3, path:'~', desc:'<strong style="color:var(--amber)">MISSION 13:</strong> ראה את כל הConnections הפעילות עם PID', answers:['ss -tlnp','ss -tnlp'], hint:'ss עם flags: t,l,n,p', success:'LISTEN 0  128  0.0.0.0:22  0.0.0.0:*  users:((sshd,pid=1,fd=3))' },
+  { id:14, level:3, path:'~', desc:'<strong style="color:var(--amber)">MISSION 14:</strong> הצג את עץ ה-Processes של Bash הנוכחי', answers:['pstree -p $$','pstree $$'], hint:'pstree -p + PID של bash ($$ = PID נוכחי)', success:'bash(4521)───pstree(4522)' },
+  { id:15, level:3, path:'~', desc:'<strong style="color:var(--amber)">MISSION 15:</strong> הצג את 10 ה-Files הגדולים ביותר ב-/var', answers:['find /var -type f -exec du -sh {} + 2>/dev/null | sort -rh | head','du -ah /var 2>/dev/null | sort -rh | head'], hint:'du + sort -rh + head', success:'4.2G  /var/lib/mysql/ibdata1\n1.8G  /var/log/syslog' },
+];
+
+let gScore = 0, gStreak = 0, gLevel = 1;
+let currentIdx = 0, cmdHistory = [], histPos = -1;
+
+function gPrint(text, cls='gt-out', delay=0) {
+  const screen = document.getElementById('gtScreen');
+  setTimeout(() => {
+    const line = document.createElement('div');
+    line.className = 'gt-line ' + cls;
+    line.innerHTML = text;
+    screen.appendChild(line);
+    screen.scrollTop = screen.scrollHeight;
+  }, delay);
+}
+
+function gPromptLine(cmd) {
+  const screen = document.getElementById('gtScreen');
+  const line = document.createElement('div');
+  line.className = 'gt-prompt-line';
+  line.innerHTML = `<span class="gt-user">student</span><span class="gt-at">@</span><span class="gt-host">linux-pro</span><span style="color:var(--text-dim)">:</span><span class="gt-path">${document.getElementById('gtPath').textContent}</span><span class="gt-dollar"> $ </span><span class="gt-typed">${cmd}</span>`;
+  screen.appendChild(line);
+  screen.scrollTop = screen.scrollHeight;
+}
+
+function loadMission() {
+  if (currentIdx >= MISSIONS.length) { endGame(); return; }
+  const m = MISSIONS[currentIdx];
+  gLevel = m.level;
+  document.getElementById('gLevel').textContent = gLevel;
+  document.getElementById('gtPath').textContent = m.path;
+  document.getElementById('gtMission').innerHTML = m.desc;
+  const pct = (currentIdx / MISSIONS.length) * 100;
+  document.getElementById('gtProg').style.width = pct + '%';
+  document.getElementById('gtProgLbl').textContent = `${currentIdx}/${MISSIONS.length}`;
+  if (currentIdx > 0) { gPrint('', '', 0); }
+  gPrint(`<span class="gt-sys">── mission ${m.id}/15 ─ level ${m.level} ${'★'.repeat(m.level)}${'☆'.repeat(3-m.level)} ──</span>`, '', 0);
+}
+
+function submitCmd() {
+  const input = document.getElementById('gtInput');
+  const cmd = input.value.trim();
+  if (!cmd) return;
+  input.value = '';
+  cmdHistory.unshift(cmd); histPos = -1;
+
+  gPromptLine(cmd);
+
+  const m = MISSIONS[currentIdx];
+
+  if (cmd === 'hint') {
+    gPrint(`<span class="gt-hint">💡 hint: try "${m.hint}"</span>`);
+    return;
+  }
+
+  if (cmd === 'skip') {
+    gScore = Math.max(0, gScore - 5);
+    gStreak = 0;
+    updateGameUI();
+    gPrint(`<span class="gt-err">skipped (−5 points)</span>`);
+    currentIdx++;
+    setTimeout(loadMission, 400);
+    return;
+  }
+
+  const normalized = cmd.replace(/\s+/g, ' ').trim();
+  const isCorrect = m.answers.some(a => normalized === a.replace(/\s+/g,' ').trim() ||
+    normalized.includes(a.replace(/\s+/g,' ').trim().split(' ')[0]) && m.answers.some(ans => normalized === ans.replace(/\s+/g,' ').trim()));
+
+  const exactMatch = m.answers.some(a => normalized === a.replace(/\s+/g,' ').trim());
+
+  if (exactMatch) {
+    gStreak++;
+    const bonus = gStreak >= 3 ? 5 : 0;
+    const pts = 10 + bonus + (m.level * 2);
+    gScore += pts;
+    updateGameUI();
+    gPrint(`<span class="gt-ok">${m.success}</span>`, '', 0);
+    if (bonus) gPrint(`<span class="gt-sys">🔥 streak x${gStreak}! +${bonus} bonus points</span>`, '', 100);
+    gPrint(`<span class="gt-ok">✓ correct +${pts}pts</span>`, '', 150);
+    currentIdx++;
+    setTimeout(loadMission, 800);
+  } else {
+    gStreak = 0;
+    updateGameUI();
+    if (cmd.split(' ')[0] === m.answers[0].split(' ')[0]) {
+      gPrint(`<span class="gt-err">almost! check the flags. type 'hint' for help.</span>`);
+    } else {
+      gPrint(`<span class="gt-err">command not found or incorrect. type 'hint' for help.</span>`);
+    }
+  }
+}
+
+function updateGameUI() {
+  document.getElementById('gScore').textContent = gScore;
+  document.getElementById('gStreak').textContent = gStreak;
+  document.getElementById('gLevel').textContent = gLevel;
+}
+
+function endGame() {
+  document.getElementById('gtInputArea').style.display = 'none';
+  document.getElementById('gtBottom').style.display = 'none';
+  const end = document.getElementById('gtEnd');
+  end.classList.add('show');
+  const pct = Math.round((gScore / (MISSIONS.reduce((a,m) => a + 10 + m.level*2, 0))) * 100);
+  let icon, title, msg;
+  if (gScore >= 180) { icon='🏆'; title='$ sudo make me a sandwich'; msg='אתה מוכן לManage Production Servers. Linus מרוצה.'; }
+  else if (gScore >= 120) { icon='⭐'; title='$ id | grep sudo'; msg='Solid Linux skills. עוד קצת practice ותהיה Senior SysAdmin.'; }
+  else if (gScore >= 70) { icon='📖'; title='$ man linux'; msg='התחלה טובה. חזור לפרקים ונסה שוב.'; }
+  else { icon='🐧'; title='$ cat /dev/random'; msg='גם Linus התחיל מאי-שם. חזור לMissions 1-5.'; }
+  document.getElementById('gtEndIcon').textContent = icon;
+  document.getElementById('gtEndTitle').textContent = title;
+  document.getElementById('gtEndScore').textContent = `score: ${gScore} | missions: ${currentIdx}/15`;
+  document.getElementById('gtEndMsg').textContent = msg;
+}
+
+function startGame() {
+  gScore = 0; gStreak = 0; gLevel = 1; currentIdx = 0; cmdHistory = []; histPos = -1;
+  document.getElementById('gScore').textContent = '0';
+  document.getElementById('gStreak').textContent = '0';
+  document.getElementById('gLevel').textContent = '1';
+  document.getElementById('gtScreen').innerHTML = '';
+  document.getElementById('gtEnd').classList.remove('show');
+  document.getElementById('gtInputArea').style.display = 'flex';
+  const gtBottom = document.getElementById('gtBottom');
+  if (gtBottom) gtBottom.style.display = 'block';
+  gPrint('<span class="gt-sys">Linux Terminal Challenge v2.0</span>', '', 0);
+  gPrint('<span class="gt-sys">type commands to complete missions. "hint" for help. "skip" to skip (-5pts).</span>', '', 100);
+  gPrint('', '', 200);
+  setTimeout(loadMission, 300);
+  setTimeout(() => document.getElementById('gtInput').focus(), 400);
+}
+
+// Keyboard navigation
+document.getElementById('gtInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); submitCmd(); }
+  if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (histPos < cmdHistory.length - 1) { histPos++; document.getElementById('gtInput').value = cmdHistory[histPos]; }
+  }
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    if (histPos > 0) { histPos--; document.getElementById('gtInput').value = cmdHistory[histPos]; }
+    else { histPos = -1; document.getElementById('gtInput').value = ''; }
+  }
+});
+
+startGame();
+</script>
+</body>
+</html>

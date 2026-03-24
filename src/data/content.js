@@ -80,12 +80,23 @@ export const tracks = [
   {
     id: 'linux',
     title: 'מערכות ולינוקס',
-    subtitle: 'פקודות, הרשאות, Bash, כלי רשת ופתרון תקלות — הבסיס לכל איש IT',
+    subtitle: 'Philosophy, Filesystem, Process, Bash, Networking, Storage, systemd — 10 פרקים',
     icon: '🐧',
     color: '#f59e0b',
     level: 'מתחיל–בינוני',
-    locked: true,
-    chapters: []
+    quizSrc: '/learn/linux/quiz_game.html',
+    chapters: [
+      { id: 401, title: "The Linux Philosophy",                                 pages: [{ type: "html_page", title: "Linux Philosophy",    src: "/learn/linux/learn_ch01.html" }] },
+      { id: 402, title: "Filesystem Hierarchy",                                 pages: [{ type: "html_page", title: "Filesystem",          src: "/learn/linux/learn_ch02.html" }] },
+      { id: 403, title: "Process Management",                                   pages: [{ type: "html_page", title: "Processes",           src: "/learn/linux/learn_ch03.html" }] },
+      { id: 404, title: "Shell & Bash Scripting",                               pages: [{ type: "html_page", title: "Bash Scripting",      src: "/learn/linux/learn_ch04.html" }] },
+      { id: 405, title: "Text Processing — grep, awk, sed",                    pages: [{ type: "html_page", title: "Text Processing",     src: "/learn/linux/learn_ch05.html" }] },
+      { id: 406, title: "Networking — ss, ip, tcpdump, iptables",              pages: [{ type: "html_page", title: "Networking",          src: "/learn/linux/learn_ch06.html" }] },
+      { id: 407, title: "Storage & Filesystems — LVM, RAID, ZFS",             pages: [{ type: "html_page", title: "Storage",             src: "/learn/linux/learn_ch07.html" }] },
+      { id: 408, title: "systemd — ה-PID 1 המודרני",                          pages: [{ type: "html_page", title: "systemd",             src: "/learn/linux/learn_ch08.html" }] },
+      { id: 409, title: "Performance Tuning",                                   pages: [{ type: "html_page", title: "Performance",         src: "/learn/linux/learn_ch09.html" }] },
+      { id: 410, title: "Linux Security Hardening",                             pages: [{ type: "html_page", title: "Security Hardening", src: "/learn/linux/learn_ch10.html" }] },
+    ]
   },
   {
     id: 'webapi',
