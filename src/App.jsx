@@ -215,8 +215,25 @@ function App() {
   })
   const [showShortcuts, setShowShortcuts] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
+  const [resetBanner, setResetBanner] = useState(false)
 
   const [authUser, setAuthUser] = useState(null)
+
+  // ── Content version reset ─────────────────────────────────────────────────
+  const CONTENT_VERSION = 'v20240324'
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('ng_content_version')
+      if (stored !== CONTENT_VERSION) {
+        resetAll()
+        resetXP()
+        setXp(getXP())
+        setStreak(getStreak())
+        localStorage.setItem('ng_content_version', CONTENT_VERSION)
+        if (stored !== null) setResetBanner(true) // only show banner if user had previous data
+      }
+    } catch {}
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Auth: listen for sign-in / sign-out ──────────────────────────────────
   useEffect(() => {
@@ -531,10 +548,35 @@ function App() {
     return () => { clearInterval(id); document.removeEventListener('visibilitychange', onVisible) }
   }, [])
 
+  const ResetBanner = resetBanner && (
+    <div style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 9999,
+      background: 'linear-gradient(135deg, #0891b2, #7c3aed)',
+      color: '#fff', padding: '12px 20px',
+      display: 'flex', alignItems: 'center', gap: '12px',
+      fontSize: '0.9rem', fontWeight: 500,
+      boxShadow: '0 2px 12px rgba(0,0,0,0.25)',
+    }}>
+      <span style={{ fontSize: '1.2rem' }}>🔄</span>
+      <span style={{ flex: 1 }}>
+        {isEn
+          ? 'The platform was updated with new content — your progress was reset automatically. Start fresh!'
+          : 'הפלטפורמה עודכנה עם תכנים חדשים — ההתקדמות אופסה אוטומטית. התחילו מחדש!'}
+      </span>
+      <button
+        onClick={() => setResetBanner(false)}
+        style={{ background: 'rgba(255,255,255,0.2)', border: 'none', borderRadius: '6px', color: '#fff', padding: '4px 12px', cursor: 'pointer', fontSize: '0.85rem' }}
+      >
+        {isEn ? 'Got it' : 'הבנתי'}
+      </button>
+    </div>
+  )
+
   // ===== RENDER: Track Picker =====
   if (!activeTrack) {
     return (
       <div className="app" dir={isEn ? 'ltr' : 'rtl'}>
+        {ResetBanner}
         {!gender && <GenderPicker onSelect={handleGenderSelect} />}
         <TrackPicker tracks={tracks} onSelect={handleSelectTrack} />
         {xpFloat && <div className="xp-float-global">{xpFloat}</div>}
@@ -547,6 +589,7 @@ function App() {
 
   return (
     <div className={`app font-${fontSize}`} dir={isEn ? 'ltr' : 'rtl'}>
+      {ResetBanner}
       {!gender && <GenderPicker onSelect={handleGenderSelect} />}
 
       {/* ===== READING PROGRESS BAR ===== */}
