@@ -33,6 +33,19 @@ const TRACKS = [
       { id: 'sec-ch06', chapter: { he: 'פרק 6', en: 'Chapter 6' }, title: { he: '🏴 CTF Challenge: TryHackMe / HackTheBox', en: '🏴 CTF Challenge: TryHackMe / HackTheBox' }, description: { he: 'פתרון אתגר CTF מעשי — שילוב כל הכלים שנלמדו.', en: 'Solving a practical CTF challenge — combining all learned tools.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 160, src: '/learn/security/lab_ch06.html' },
     ],
   },
+  {
+    id: 'devops',
+    label: { he: '☁️ DevOps & Cloud', en: '☁️ DevOps & Cloud' },
+    labs: [
+      { id: 'dev-ch01', chapter: { he: 'פרק 3', en: 'Chapter 3' }, title: { he: '🐳 Docker: בנה ופרוס אפליקציה ראשונה', en: '🐳 Docker: Build and Deploy First App' }, description: { he: 'בניית Docker image, הרצת containers ופרסום לפרודקשן.', en: 'Build Docker image, run containers and deploy to production.' }, difficulty: { he: 'מתחיל', en: 'Beginner' }, xp: 110, src: '/learn/devops/lab_ch01.html' },
+      { id: 'dev-ch02', chapter: { he: 'פרק 4', en: 'Chapter 4' }, title: { he: '☸️ Kubernetes Local עם minikube', en: '☸️ Kubernetes Local with minikube' }, description: { he: 'הרצת cluster מקומי עם minikube, deployments, services ו-scaling.', en: 'Run local cluster with minikube, deployments, services and scaling.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/devops/lab_ch02.html' },
+      { id: 'dev-ch03', chapter: { he: 'פרק 5', en: 'Chapter 5' }, title: { he: '⚙️ GitHub Actions CI/CD Pipeline', en: '⚙️ GitHub Actions CI/CD Pipeline' }, description: { he: 'בניית pipeline אוטומטי — build, test, deploy עם GitHub Actions.', en: 'Build automated pipeline — build, test, deploy with GitHub Actions.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/devops/lab_ch03.html' },
+      { id: 'dev-ch04', chapter: { he: 'פרק 6', en: 'Chapter 6' }, title: { he: '🏗️ Terraform: הרם AWS Infrastructure מאפס', en: '🏗️ Terraform: Provision AWS Infrastructure' }, description: { he: 'כתיבת Terraform ראשון, הרמת EC2 + VPC + S3 על AWS.', en: 'Write first Terraform, provision EC2 + VPC + S3 on AWS.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 150, src: '/learn/devops/lab_ch04.html' },
+      { id: 'dev-ch05', chapter: { he: 'פרק 7', en: 'Chapter 7' }, title: { he: '📊 Prometheus + Grafana Stack', en: '📊 Prometheus + Grafana Stack' }, description: { he: 'הקמת monitoring stack מלא עם Prometheus, Grafana ו-AlertManager.', en: 'Set up full monitoring stack with Prometheus, Grafana and AlertManager.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 140, src: '/learn/devops/lab_ch05.html' },
+      { id: 'dev-ch06', chapter: { he: 'פרק 4', en: 'Chapter 4' }, title: { he: '🔵 Blue/Green Deployment ב-K8s', en: '🔵 Blue/Green Deployment in K8s' }, description: { he: 'Zero-downtime deployment עם Blue/Green strategy ב-Kubernetes.', en: 'Zero-downtime deployment with Blue/Green strategy in Kubernetes.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 150, src: '/learn/devops/lab_ch06.html' },
+      { id: 'dev-ch07', chapter: { he: 'פרק 6', en: 'Chapter 6' }, title: { he: '🔐 Secrets Management עם HashiCorp Vault', en: '🔐 Secrets Management with HashiCorp Vault' }, description: { he: 'ניהול סודות, API keys וסיסמאות בצורה מאובטחת עם Vault.', en: 'Manage secrets, API keys and passwords securely with Vault.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 160, src: '/learn/devops/lab_ch07.html' },
+    ],
+  },
 ]
 
 const DIFFICULTY_COLORS = {
