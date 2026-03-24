@@ -452,6 +452,31 @@ body::after {
   .container { padding-left:max(12px,env(safe-area-inset-left)); padding-right:max(12px,env(safe-area-inset-right)); }
   .site-footer { padding-bottom:max(18px,env(safe-area-inset-bottom)); }
 }
+
+<style id="emu-css">
+.emu-wrap{margin-top:18px;border:1px solid var(--border2);border-radius:10px;overflow:hidden;background:var(--code-bg);}
+.emu-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:8px 14px;display:flex;align-items:center;gap:8px;}
+.emu-dots{display:flex;gap:5px;}
+.ed{width:10px;height:10px;border-radius:50%;}
+.ed-r{background:#ff5f57;}.ed-y{background:#febc2e;}.ed-g{background:#28c840;}
+.emu-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-right:auto;}
+.emu-run-btn{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:5px 14px;background:var(--blue);color:#fff;border:none;border-radius:4px;cursor:pointer;transition:all .15s;letter-spacing:.5px;}
+.emu-run-btn:hover{background:var(--blue2);}
+.emu-run-btn.running{background:var(--amber);color:#000;}
+.emu-clr-btn{font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 10px;background:transparent;color:var(--text-dim);border:1px solid var(--border2);border-radius:4px;cursor:pointer;transition:all .15s;}
+.emu-clr-btn:hover{border-color:var(--blue2);color:var(--blue2);}
+.emu-iw{padding:10px 14px;border-bottom:1px solid var(--border);}
+.emu-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:1px;margin-bottom:5px;}
+.emu-sel{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:6px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;margin-bottom:6px;}
+.emu-sel:focus{border-color:var(--blue2);}
+.emu-inp{background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:7px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;width:100%;}
+.emu-inp:focus{border-color:var(--blue2);}
+.emu-ta{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:8px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;resize:vertical;min-height:55px;line-height:1.6;}
+.emu-ta:focus{border-color:var(--blue2);}
+.emu-row{display:flex;gap:7px;flex-wrap:wrap;}
+.emu-out{min-height:130px;max-height:300px;overflow-y:auto;padding:13px 15px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.85;color:var(--text-mid);}
+.emu-out .ok{color:#34d399;}.emu-out .err{color:#f87171;}.emu-out .key{color:#818cf8;}.emu-out .val{color:#fbbf24;}.emu-out .dim{color:#475569;}.emu-out .warn{color:#fbbf24;}.emu-out .hi{color:#22d3ee;}.emu-out .em{color:#475569;font-style:italic;}.emu-out .red{color:#f43f5e;}
+</style>
 </style>
 
 <style id="ng-light">
@@ -484,7 +509,37 @@ body::after {
       <div class="lab-step"><span class="sn">05</span>חלץ Hashes: <code>' UNION SELECT user,password FROM users--</code></div>
       <div class="lab-step"><span class="sn">06</span>הגדל Security Level ל-High ולראה שה-Payload אותו לא עובד — למה?</div>
     </div>
-    <button class="ans-btn" onclick="toggleAns('a3')"><span id="a3i">▶</span> הצג תשובות</button>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-title">DVWA SQL Injection Lab</span>
+    <button class="emu-clr-btn" onclick="cyC('cy3out')">clear</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-row" style="align-items:center;gap:8px;margin-bottom:7px">
+      <span class="emu-lbl" style="margin:0;white-space:nowrap">Security Level:</span>
+      <select class="emu-sel" id="cy3lvl" style="width:auto;margin:0;padding:5px 10px;flex:1">
+        <option value="low">Low &#8212; Vulnerable</option>
+        <option value="high">High &#8212; Prepared Statements</option>
+      </select>
+    </div>
+    <div class="emu-lbl">הזן User ID (ואו SQLi Payload):</div>
+    <div class="emu-row">
+      <input class="emu-inp" id="cy3in" style="flex:1" placeholder="1" onkeydown="if(event.key==='Enter')cyLab3()">
+      <button class="emu-run-btn" onclick="cyLab3()">Submit</button>
+    </div>
+    <div style="margin-top:7px;display:flex;gap:5px;flex-wrap:wrap">
+      <button class="emu-clr-btn" onclick="cy3q('1')">ID: 1</button>
+      <button class="emu-clr-btn" onclick="cy3q(&quot;' OR '1'='1&quot;)">OR 1=1</button>
+      <button class="emu-clr-btn" onclick="cy3q(&quot;' ORDER BY 2--&quot;)">ORDER BY</button>
+      <button class="emu-clr-btn" onclick="cy3q(&quot;' UNION SELECT user,password FROM users--&quot;)">UNION Dump</button>
+    </div>
+  </div>
+  <div class="emu-out" id="cy3out"><span class="em">הזן ID ולחץ Submit...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a3')"><span id="a3i">▶</span> הצג תשובות</button>
     <div class="ans-box" id="a3">
       <div class="ans-head">✅ תשובות — SQL Injection</div>
       <div class="ans-item"><span class="an">02</span><div><strong>' OR '1'='1:</strong> Query הופך ל: <code>SELECT * FROM users WHERE id='' OR '1'='1'</code>. תנאי תמיד נכון → מחזיר כל השורות. הפגיעות: Input מוכנס ישירות ל-Query ללא sanitization.</div></div>
@@ -495,246 +550,6 @@ body::after {
     </div>
   </div>
 </div>
-<script>
-// ── Clock ──
-setInterval(() => {
-  const el = document.getElementById('clk');
-  if (el) el.textContent = new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}) + ' 🔐';
-}, 1000);
-
-// ── Tabs ──
-function switchTab(id, el) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  const sec = document.getElementById(id);
-  if (sec) sec.classList.add('active');
-  if (el && el.classList) el.classList.add('active');
-  if (id === 'game') startGame();
-}
-
-// ── Chapters / Labs ──
-function toggleCh(id)  { document.getElementById(id).classList.toggle('open'); }
-function toggleLab(id) { document.getElementById(id).classList.toggle('open'); }
-const _lb1 = document.getElementById('lb1'); if (_lb1) _lb1.classList.add('open');
-
-// ── Answer Toggle ──
-function toggleAns(id) {
-  const box  = document.getElementById(id);
-  const btn  = box.previousElementSibling;
-  const icon = document.getElementById(id + 'i');
-  const open = box.classList.contains('show');
-  box.classList.toggle('show');
-  btn.classList.toggle('open');
-  if (icon) icon.textContent = open ? '▶' : '▼';
-  btn.childNodes[1].textContent = ' ' + (open ? 'הצג תשובות' : 'הסתר תשובות');
-}
-
-// ── Quiz ──
-const QS = [
-  {q:"איזה מרכיב ב-CIA Triad הופר בפרצת Equifax 2017?",tag:"CIA",opts:["רק Availability","רק Integrity","כל שלושת המרכיבים","אף מרכיב לא הופר"],ans:2,exp:"בפרצת Equifax הופרו כל שלושה: Confidentiality (143M רשומות נגנבו), Integrity (לא ניתן לוודא מה עוד שונה), Availability (השירות הושבת). הפרצה הייתה דרך CVE-2017-5638 ב-Apache Struts שהיה Patch זמין חודשיים קודם."},
-  {q:"באיזה סוג תקיפה השתמש ה-17 בן ה-Twitter 2020?",tag:"Social Eng",opts:["SQL Injection","Zero-Day Exploit","Vishing — התקשר לעובד והתחזה לIT","Ransomware"],ans:2,exp:"ילד בן 17 מפלורידה התקשר לעובדי Twitter, התחזה לאיש IT פנימי, ושכנע אותם למסור גישה לכלי ניהול פנימי. זוהי מתקפת Vishing (Voice Phishing). שום קוד מתוחכם — רק הנדסה חברתית."},
-  {q:"מה היה גורם הכניסה בפרצת Colonial Pipeline 2021?",tag:"Network",opts:["Zero-Day ב-Firewall","סיסמת VPN גנובה מהדארקווב ללא MFA","SQL Injection","Phishing Email לCEO"],ans:1,exp:"DarkSide נכנסו דרך חשבון VPN ישן שהסיסמה שלו נמצאה בDark Web מפרצה קודמת. החשבון לא היה מוגן ב-MFA. שני כלים פשוטים היו מונעים: MFA + Password Rotation."},
-  {q:"מה Heartbleed (CVE-2014-0160)?",tag:"Crypto",opts:["וירוס שמצפין קבצים","באג בOpenSSL שאפשר לקרוא 64KB מזיכרון השרת","SQL Injection ב-MySQL","DDoS Attack על שרתי DNS"],ans:1,exp:"Heartbleed אפשר לתוקף לשלוח Heartbeat Request מזויף שגורם לOpenSSL להחזיר 64KB מהזיכרון — כולל Private Keys, סיסמאות, ו-Session Tokens. 500,000 שרתים היו חשופים. הבאג היה בקוד 2 שנים."},
-  {q:"מה עיקרון Zero Trust?",tag:"Network",opts:["לבטוח בכל מה שבתוך הרשת הפנימית","לא לבטוח בשום Entity — תמיד לאמת, גם מבפנים","להגביל גישה רק לאינטרנט","להסיר Firewall ולסמוך על הצפנה"],ans:1,exp:"Zero Trust = Never Trust, Always Verify. גם משתמש ברשת הפנימית חייב Authentication + Authorization לכל גישה. Micro-segmentation מגבילה תנועה לרוחב. Google BeyondCorp וNIST SP 800-207 הגדירו את הארכיטקטורה."},
-  {q:"SolarWinds 2020 — איזה סוג תקיפה?",tag:"Malware",opts:["Ransomware","DDoS","Supply Chain Attack — הזרקת Backdoor לBuild Pipeline","Phishing"],ans:2,exp:"APT29 הזריקה Backdoor (SUNBURST) ישירות לתהליך ה-Build של SolarWinds Orion. 18,000 ארגונים התקינו את העדכון הנגוע. הBackdoor 'ישן' 14 יום כדי לעבור Sandbox Detection. Supply Chain Attack = המתקפה הכי מתוחכמת."},
-  {q:"מה ה-3-2-1 Backup Rule?",tag:"CIA",opts:["3 כוננים, 2 ממוקמים, 1 מוצפן","3 עותקים, 2 מדיות שונות, 1 Offsite","3 גיבויים יומיים, 2 שבועיים, 1 חודשי","3 שכבות הצפנה, 2 Keys, 1 HSM"],ans:1,exp:"3 עותקים של הנתונים, על 2 סוגי מדיות שונות (למשל HDD + Cloud), כש-1 לפחות Offsite. מגן מפני: כשל חומרה, כשל אחד המדיות, ואסון מקומי (שריפה/הצפה). בעידן Ransomware: גיבוי Offline שה-Ransomware לא מגיע אליו."},
-  {q:"Target 2013 — מה היה וקטור הכניסה?",tag:"Network",opts:["Zero-Day בPOS System","חדירה דרך ספק HVAC עם גישה לרשת","SQL Injection","Phishing לCTO"],ans:1,exp:"תוקפים נכנסו דרך ספק חיצוני לשירותי מיזוג אוויר (HVAC) שהיה לו גישה לרשת Target. זה מדגים Lateral Movement — נכנסים דרך החוליה החלשה, מתפשטים לנכסים הרגישים. Target ידעה על הפרצה מFireEye Alert — ולא פעלה."},
-  {q:"מה OWASP Top 10?",tag:"Pentest",opts:["10 כלי ה-Hacking הנפוצים","רשימת 10 הפגיעויות הנפוצות ב-Web Applications","10 כללי הסייבר של FBI","10 ה-CVEs הדחופים ביותר"],ans:1,exp:"OWASP (Open Web Application Security Project) מפרסמת רשימת 10 הפגיעויות הנפוצות ביותר בWeb. 2021 Top 3: Broken Access Control, Cryptographic Failures, Injection. כל מפתח Web חייב להכיר אותה."},
-  {q:"מה ההבדל בין IDS ל-IPS?",tag:"Network",opts:["IDS מהיר יותר, IPS יקר יותר","IDS מזהה ומתריע, IPS מזהה וחוסם אקטיבית","IDS בענן, IPS On-Premise","אין הבדל, מונחים זהים"],ans:1,exp:"IDS = Intrusion Detection System: מזהה תעבורה חשודה ושולח Alert — Passive. IPS = Intrusion Prevention System: מזהה וחוסם בזמן אמת — Inline. IPS יכול לגרום ל-False Positives שחוסמים תעבורה לגיטימית."},
-  {q:"מה Spear Phishing?",tag:"Social Eng",opts:["Phishing המוני לכל הרשימה","Phishing ממוקד לאדם ספציפי עם פרטים אישיים","Phishing בSMS","Phishing באמצעות USB"],ans:1,exp:"Spear Phishing = מייל מדויק לאדם ספציפי: 'שלום יוסי, בנוגע לפגישה שלנו ב-15 לחודש...' עם שמות עמיתים אמיתיים, פרטים מLinkеdIn. שיעור הצלחה 3× גבוה מPhishing רגיל. BEC (Business Email Compromise) = Spear Phishing לCFO לאשר העברת כסף."},
-  {q:"Capital One 2019 — מה איפשר לפרוץ?",tag:"Cloud",opts:["Weak Password","SSRF + IAM Role עם הרשאות רחבות מדי","SQL Injection","Ransomware"],ans:1,exp:"SSRF (Server-Side Request Forgery) גרם לשרת לQuery את AWS Metadata Service ולקבל Credentials של IAM Role. ה-Role הזה, בגלל Misconfiguration, היה עם הרשאות רחבות מדי ל-S3. הפתרון: IMDSv2 (מונע SSRF), Least Privilege."},
-  {q:"איזה Hash Algorithm הכי מומלץ לסיסמאות?",tag:"Crypto",opts:["MD5 עם Salt","SHA-256","bcrypt או argon2id","SHA-512"],ans:2,exp:"bcrypt ו-argon2id מותאמים לסיסמאות כי הם מכוונים להיות איטיים ויקרים חישובית. MD5 = 50 מיליארד hashes/שנייה ב-GPU. bcrypt(12) = 5,000/שנייה. ה-Salt מובנה. argon2id מנצח גם ASIC/FPGA attacks."},
-  {q:"מה MITRE ATT&CK?",tag:"SOC",opts:["כלי סריקת Vulnerabilities","Framework שממפה טקטיקות ושיטות של תוקפים אמיתיים","Certificate לאנשי אבטחה","ממשלת ארה\"ב לאבטחת מידע"],ans:1,exp:"MITRE ATT&CK = ידע מבוסס עולמי על טקטיקות, טכניקות, ונהלים (TTPs) של תוקפים אמיתיים. מחולק לTactics (מה התוקף רוצה) ו-Techniques (איך הוא עושה את זה). SOC Teams משתמשים לDetection Engineering, Threat Hunting, ו-Red Team Exercises."},
-  {q:"Heartland 2009 — מה הלקח?",tag:"Pentest",opts:["תמיד להצפין את הDB","SQL Injection ידוע, Patch ידוע, אחריות לא ברורה = פרצה","Firewall חזק מספיק","לא לאחסן נתוני כרטיסים"],ans:1,exp:"הפגיעות הייתה ידועה, ה-Patch היה זמין, ו'אף אחד לא הרגיש אחראי לתקן אותה'. 130 מיליון כרטיסים. הלקח: Vulnerability Management + ברור מי אחראי + Penetration Testing תקופתי. PCI-DSS מחייב Pentest שנתי על מערכות כרטיסי אשראי."},
-  {q:"מה Shared Responsibility Model?",tag:"Cloud",opts:["AWS אחראית על הכל","הלקוח אחראי על הכל","AWS מגינה על Infrastructure, הלקוח מגין על Data ו-Config שלו","הספק ביטוח מחלק אחריות"],ans:2,exp:"AWS/Azure/GCP אחראים על 'Security OF the Cloud': חומרה, רשת, Data Centers. הלקוח אחראי על 'Security IN the Cloud': IAM, Data Encryption, Network Config, OS Patching. Misconfigured S3 Bucket = אשמת הלקוח, לא AWS."},
-  {q:"מהו Dwell Time?",tag:"SOC",opts:["זמן Boot של שרת","הזמן שתוקף שוהה ברשת לפני גילוי","זמן Response לIncident","TTL של DNS Record"],ans:1,exp:"Dwell Time = הזמן מרגע החדירה ועד גילוי. ממוצע עולמי: 197 יום (2023, M-Trends Report). בזמן הזה התוקף: מסייר, מעלה הרשאות, מציב Backdoors, גונב נתונים. ירידה ל-21 יום בארגונים עם SOC מתקדם."},
-  {q:"למה אסור להשתמש ב-Root Account של AWS יומיומית?",tag:"Cloud",opts:["Root חלש מדי לפרודקשן","Root לא ניתן לBound ב-IAM Policy — גישה מלאה ללא הגבלה","Root איטי יותר","Root מוגבל ל-10 Operations ביום"],ans:1,exp:"Root Account = God Mode. לא ניתן להגביל אותו ב-IAM Policies. אם נגנב Credential = הכל חשוף. Best Practice: צור IAM User עם הרשאות הדרושות, הפעל MFA על Root, ולא תשתמש בRoot כלל. אחסן Root Credentials ב-Safe פיזי."},
-  {q:"מה Kill Chain בסייבר?",tag:"SOC",opts:["שרשרת הFail לפני קריסת שרת","7 שלבי מתקפת Cyber: Recon→Weaponize→Deliver→Exploit→Install→C2→Actions","שיטת BreachForce","Kill Switch של Malware"],ans:1,exp:"Lockheed Martin Cyber Kill Chain: Reconnaissance → Weaponization → Delivery → Exploitation → Installation → Command & Control → Actions on Objectives. כל שלב הוא הזדמנות לעצור את המתקפה. MITRE ATT&CK מפרט כל שלב לטכניקות ספציפיות."},
-  {q:"GDPR — מה מחייב במקרה של Data Breach?",tag:"Cloud",opts:["דיווח תוך 30 יום לכל המשתמשים","דיווח לרשות הגנת הפרטיות תוך 72 שעות אם יש סיכון לאנשים","דיווח רק אם נגנבו מעל 1000 רשומות","אין חובת דיווח אם הנתונים מוצפנים"],ans:1,exp:"GDPR Article 33: Data Breach שמהווה סיכון לזכויות אנשים → דיווח לDPA (Data Protection Authority) תוך 72 שעות. Article 34: Breach שמהווה סיכון גבוה → גם חובה להודיע לנפגעים. קנס עד €20M או 4% מהמחזור."}
-];
-
-let qAns = 0, qScore = 0;
-
-function buildQuiz() {
-  const list = document.getElementById('qList');
-  list.innerHTML = '';
-  qAns = 0; qScore = 0;
-  document.getElementById('scoreBox').classList.remove('show');
-  updateProg();
-  QS.forEach((q, i) => {
-    const c = document.createElement('div');
-    c.className = 'q-card'; c.id = 'qc' + i;
-    c.innerHTML = `<div class="q-top"><span class="q-idx">${String(i+1).padStart(2,'0')}/20</span><span class="q-tag">${q.tag}</span></div>
-      <div class="q-text">${q.q}</div>
-      <div class="q-opts">${q.opts.map((o,j) => `<div class="q-opt" onclick="pick(${i},${j})" id="o_${i}_${j}">${o}</div>`).join('')}</div>
-      <div class="q-exp" id="exp_${i}">${q.exp}</div>`;
-    list.appendChild(c);
-  });
-}
-
-function pick(qi, oi) {
-  const q = QS[qi];
-  document.querySelectorAll(`[id^="o_${qi}_"]`).forEach(el => el.classList.add('locked'));
-  if (oi === q.ans) {
-    document.getElementById(`o_${qi}_${oi}`).classList.add('hit');
-    document.getElementById('qc' + qi).classList.add('c-ok');
-    qScore++;
-  } else {
-    document.getElementById(`o_${qi}_${oi}`).classList.add('miss');
-    document.getElementById(`o_${qi}_${q.ans}`).classList.add('hit');
-    document.getElementById('qc' + qi).classList.add('c-fail');
-  }
-  document.getElementById('exp_' + qi).classList.add('show');
-  qAns++; updateProg();
-  if (qAns === QS.length) setTimeout(showScore, 500);
-}
-
-function updateProg() {
-  document.getElementById('qp').style.width = (qAns / QS.length * 100) + '%';
-  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} נענו`;
-}
-
-function showScore() {
-  const pct = Math.round(qScore / QS.length * 100);
-  document.getElementById('scoreBox').classList.add('show');
-  document.getElementById('scoreBig').innerHTML = `${qScore}<span class="frac">/20</span>`;
-  document.getElementById('scorePct').textContent = pct + '%';
-  let msg, sub;
-  if (pct >= 90) { msg = 'Security Expert! 🛡️'; sub = 'CISSP ready. Threat actors fear you.'; }
-  else if (pct >= 75) { msg = 'Senior Analyst — עוד קצת'; sub = 'חזור על Crypto ו-Cloud Security'; }
-  else if (pct >= 55) { msg = 'Junior SOC — בדרך הנכונה'; sub = 'תרגל את המעבדות ונסה שוב'; }
-  else { msg = 'Breach Detected ❌'; sub = 'חזור לפרקים — האויב לא ישן'; }
-  document.getElementById('scoreMsg').textContent = msg;
-  document.getElementById('scoreSub').textContent = sub;
-  document.getElementById('scoreBox').scrollIntoView({ behavior: 'smooth' });
-}
-
-function restartQuiz() {
-  buildQuiz();
-  window.scrollTo({ top: document.getElementById('quiz').offsetTop - 80, behavior: 'smooth' });
-}
-
-buildQuiz();
-
-// ── Game ──
-const CATS = [
-  { id: 'cia',     label: 'CIA Triad',    cls: 'go-cia' },
-  { id: 'social',  label: 'Social Eng',   cls: 'go-threat' },
-  { id: 'crypto',  label: 'Crypto',       cls: 'go-crypto' },
-  { id: 'network', label: 'Network',      cls: 'go-network' },
-  { id: 'malware', label: 'Malware',      cls: 'go-malware' },
-  { id: 'pentest', label: 'Pentest',      cls: 'go-pentest' },
-  { id: 'soc',     label: 'SOC/IR',       cls: 'go-soc' },
-  { id: 'cloud',   label: 'Cloud Sec',    cls: 'go-cloud' },
-];
-
-const GQS = [
-  { desc: 'האם הנתונים נגישים רק למי שמורשה?', hint: 'אחד מ-3 עמודי הבסיס', ans: 'cia' },
-  { desc: 'מייל מCEO מבקש להעביר כסף דחוף', hint: 'Business Email Compromise', ans: 'social' },
-  { desc: 'AES-256 מצפין קובץ עם מפתח סימטרי', hint: 'הצפנה סימטרית', ans: 'crypto' },
-  { desc: 'Nmap סורק פורטים פתוחים ברשת', hint: 'Network Reconnaissance', ans: 'pentest' },
-  { desc: 'WannaCry מצפין קבצים ודורש Bitcoin', hint: 'קוד זדוני שמצפין', ans: 'malware' },
-  { desc: 'Firewall חוסם תעבורה לפי Rules', hint: 'הגנת רשת', ans: 'network' },
-  { desc: 'Alert ב-SIEM על Login מIP חריג', hint: 'Security Operations Center', ans: 'soc' },
-  { desc: 'S3 Bucket פתוח לPublic בטעות', hint: 'Cloud Misconfiguration', ans: 'cloud' },
-  { desc: 'bcrypt(12) לאחסון סיסמאות', hint: 'Slow Hashing Algorithm', ans: 'crypto' },
-  { desc: 'ילד בן 17 מתקשר לעובד ומתחזה לIT', hint: 'Voice Phishing', ans: 'social' },
-  { desc: 'נגיף שמסתתר בKernel ומסתיר את עצמו', hint: 'Rootkit', ans: 'malware' },
-  { desc: 'SQL Injection חושף כל רשומות הDB', hint: 'OWASP Top 10', ans: 'pentest' },
-  { desc: 'Dwell Time ממוצע: 197 יום לפני גילוי', hint: 'כמה זמן התוקף שם לפני שמגלים', ans: 'soc' },
-  { desc: 'VPN מצפין תעבורה ברשת ציבורית', hint: 'Network Security Tool', ans: 'network' },
-  { desc: 'AWS מגינה על Data Center, לקוח מגין על Data', hint: 'Shared Responsibility', ans: 'cloud' },
-  { desc: 'Digital Signature מאמת שהמייל לא שונה', hint: 'Public Key Cryptography', ans: 'crypto' },
-  { desc: 'Wireshark לוכד Credentials בHTTP Cleartext', hint: 'Network Analysis Tool', ans: 'pentest' },
-  { desc: 'Kill Chain: Recon→Weaponize→Deliver→Exploit', hint: 'Attack Lifecycle Framework', ans: 'soc' },
-  { desc: 'Zero-Day Exploit — פגיעות לא ידועה ליצרן', hint: 'Advanced Threat', ans: 'malware' },
-  { desc: 'GDPR: דיווח על פרצה תוך 72 שעות', hint: 'Data Protection Regulation', ans: 'cloud' },
-];
-
-let gScore = 0, gLives = 3, gLevel = 1, gAsked = [];
-
-function startGame() {
-  gScore = 0; gLives = 3; gLevel = 1; gAsked = [];
-  document.getElementById('gameEnd').classList.remove('show');
-  document.getElementById('gameBody').style.display = 'block';
-  updateGUI(); nextQ();
-}
-
-function updateGUI() {
-  document.getElementById('gScore').textContent = gScore;
-  document.getElementById('gLives').textContent = '❤️'.repeat(gLives) + '🖤'.repeat(3 - gLives);
-  document.getElementById('gLevel').textContent = gLevel;
-}
-
-function getCats() {
-  const count = gLevel <= 2 ? 4 : gLevel <= 4 ? 6 : 8;
-  return CATS.slice(0, count);
-}
-
-function nextQ() {
-  const rem = GQS.filter((_, i) => !gAsked.includes(i));
-  if (!rem.length || gLives <= 0) { endGame(); return; }
-  const idx = GQS.indexOf(rem[Math.floor(Math.random() * rem.length)]);
-  gAsked.push(idx);
-  const q = GQS[idx]; window._cq = q;
-  document.getElementById('gQ').textContent = q.desc;
-  document.getElementById('gH').textContent = '💭 ' + q.hint;
-  document.getElementById('gFb').textContent = '';
-  document.getElementById('gFb').className = 'game-feedback';
-  const cats = getCats();
-  document.getElementById('gOpts').innerHTML = cats.map(c =>
-    `<div class="g-opt ${c.cls}" onclick="gAns('${c.id}',this)">${c.label}<small>${
-      c.id==='cia'?'C·I·A':c.id==='social'?'Humans':c.id==='crypto'?'Encrypt':
-      c.id==='network'?'Firewall':c.id==='malware'?'Virus':c.id==='pentest'?'Attack':
-      c.id==='soc'?'Defend':'AWS/GCP'
-    }</small></div>`
-  ).join('');
-  document.getElementById('gProg').style.width = (gAsked.length / GQS.length * 100) + '%';
-  gLevel = Math.min(5, Math.floor(gScore / 4) + 1);
-  updateGUI();
-}
-
-function gAns(cat, el) {
-  const q = window._cq;
-  document.querySelectorAll('.g-opt').forEach(o => o.classList.add('locked'));
-  const fb = document.getElementById('gFb');
-  if (cat === q.ans) {
-    el.classList.add('correct');
-    gScore += gLevel;
-    fb.textContent = '✅ נכון! +' + gLevel + 'pts';
-    fb.className = 'game-feedback fb-ok';
-    updateGUI();
-    setTimeout(nextQ, 900);
-  } else {
-    el.classList.add('wrong');
-    gLives--;
-    const correct = [...document.querySelectorAll('.g-opt')].find(o =>
-      o.getAttribute('onclick') && o.getAttribute('onclick').includes("'" + q.ans + "'")
-    );
-    if (correct) correct.classList.add('correct');
-    fb.textContent = '❌ התשובה: ' + (CATS.find(c => c.id === q.ans)?.label || q.ans);
-    fb.className = 'game-feedback fb-err';
-    updateGUI();
-    if (gLives <= 0) { setTimeout(endGame, 1200); return; }
-    setTimeout(nextQ, 1400);
-  }
-}
-
-function endGame() {
-  document.getElementById('gameBody').style.display = 'none';
-  document.getElementById('gameEnd').classList.add('show');
-  let emoji, title, msg;
-  if (gScore >= 55)      { emoji = '🏆'; title = 'Cyber Expert!'; msg = 'Threat Detected → Threat Neutralized. אתה מוכן לSOC.'; }
-  else if (gScore >= 32) { emoji = '🛡️'; title = 'Security Analyst'; msg = 'טוב מאוד. עוד תרגול בCloud Security.'; }
-  else if (gScore >= 18) { emoji = '🔍'; title = 'Junior Analyst'; msg = 'בסיס קיים. חזור לפרקים ונסה שוב.'; }
-  else                   { emoji = '📖'; title = 'Breach Detected'; msg = 'Attacker 1 — Defender 0. חזור לפרקים.'; }
-  document.getElementById('geEmoji').textContent = emoji;
-  document.getElementById('geTitle').textContent = title;
-  document.getElementById('geScore').textContent = 'score: ' + gScore + ' | lives: ' + gLives;
-  document.getElementById('geMsg').textContent = msg;
-}
-
-startGame();
-</script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 </body>
 </html>
