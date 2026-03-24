@@ -166,6 +166,8 @@ for i, start in enumerate(lb_positions):
 
 # ── 9. Extract quiz ───────────────────────────────────────────────────────────
 quiz_chunk = body[quiz_start:].rstrip()
+# Strip embedded <script> block — make_html appends shared_js, avoiding duplicate declarations
+quiz_chunk = re.sub(r'<script\b[^>]*>.*?</script>', '', quiz_chunk, flags=re.DOTALL)
 quiz_chunk = quiz_chunk.replace('id="quiz" class="section"', 'id="quiz" class="section active"', 1)
 quiz_html = make_html("Web & APIs PRO — Quiz", quiz_chunk)
 quiz_path = os.path.join(OUT, "quiz_game.html")
