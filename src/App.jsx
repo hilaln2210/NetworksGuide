@@ -220,7 +220,7 @@ function App() {
   const [authUser, setAuthUser] = useState(null)
 
   // ── Content version reset ─────────────────────────────────────────────────
-  const CONTENT_VERSION = 'v20240324'
+  const CONTENT_VERSION = 'v20240324-b'
   useEffect(() => {
     try {
       const stored = localStorage.getItem('ng_content_version')
@@ -230,7 +230,7 @@ function App() {
         setXp(getXP())
         setStreak(getStreak())
         localStorage.setItem('ng_content_version', CONTENT_VERSION)
-        if (stored !== null) setResetBanner(true) // only show banner if user had previous data
+        setResetBanner(true)
       }
     } catch {}
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
