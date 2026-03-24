@@ -112,6 +112,14 @@ term_html = term_html.replace(
     1
 )
 
+# Patch script: guard getElementById calls that reference SPA-only elements
+patched_script = full_script
+for elem_id in ['xpTotal', 'homeGrid', 'lSidebar', 'lContent']:
+    patched_script = patched_script.replace(
+        f"document.getElementById('{elem_id}')",
+        f"(document.getElementById('{elem_id}')||{{}})"
+    )
+
 terminal_page = f"""<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -120,7 +128,7 @@ terminal_page = f"""<!DOCTYPE html>
 <body>
 {term_html}
 <script>
-{full_script}
+{patched_script}
 </script>
 </body>
 </html>"""

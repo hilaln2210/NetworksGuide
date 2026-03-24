@@ -732,52 +732,6 @@ nav {
 
 </style>
 
-<style id="ng-light">
-[data-theme="light"] {
-  --bg: #f0f6ff; --bg1: #e8f0ff;
-  --surf: #ffffff; --s2: #f0f5ff; --s3: #e8f0ff;
-  --brd: #c8d8f0; --brd2: #b0c4e8;
-  --ac: #0284c7; --ac2: #7c3aed;
-  --txt: #0f1f35; --dim: #2a4a6a; --dim2: #334155;
-  --gr: #059669; --yw: #d97706; --rd: #dc2626; --pk: #db2777;
-}
-/* Fix hardcoded #fff text — chapter & section titles */
-[data-theme="light"] .ch-title,
-[data-theme="light"] .section-h,
-[data-theme="light"] .concept-title,
-[data-theme="light"] .alert-title,
-[data-theme="light"] .curr-name,
-[data-theme="light"] .ms-title,
-[data-theme="light"] .mc-title,
-[data-theme="light"] .hstat-val,
-[data-theme="light"] .nav-logo,
-[data-theme="light"] .hero-title { color: #0f1f35 !important; }
-
-/* Summary table */
-[data-theme="light"] .sum-tbl th { background: #dce8f8 !important; color: #0284c7 !important; }
-[data-theme="light"] .sum-tbl td:first-child { color: #0f1f35 !important; }
-[data-theme="light"] .sum-tbl tr:nth-child(even) td { background: rgba(2,132,199,0.04) !important; }
-
-/* Alert boxes — keep colored bg but fix title */
-[data-theme="light"] .alert-box.info { background: rgba(2,132,199,0.08) !important; border-color: rgba(2,132,199,0.3) !important; }
-[data-theme="light"] .alert-box.tip  { background: rgba(5,150,105,0.08) !important; border-color: rgba(5,150,105,0.3) !important; }
-[data-theme="light"] .alert-box.warn { background: rgba(217,119,6,0.08) !important; border-color: rgba(217,119,6,0.3) !important; }
-
-/* Concept cards */
-[data-theme="light"] .concept { background: #f0f5ff !important; border-color: #c8d8f0 !important; }
-
-/* Mission elements */
-[data-theme="light"] .mi-num { background: rgba(2,132,199,0.08) !important; border-color: #c8d8f0 !important; }
-[data-theme="light"] .mission-item:hover { background: rgba(2,132,199,0.05) !important; }
-
-/* Buttons with near-invisible bg */
-[data-theme="light"] .tqc-btn { background: rgba(2,132,199,0.06) !important; color: #334155 !important; }
-
-/* Nav */
-[data-theme="light"] .nav-tab { color: #2a4a6a !important; }
-[data-theme="light"] .header-bar { background: rgba(240,246,255,0.95) !important; border-color: #c8d8f0 !important; }
-</style>
-<script src="/_bridge.js"></script>
 </head>
 <body>
 <section class="screen on" id="lab-screen">
@@ -4269,7 +4223,7 @@ var S = {
   curCh: null,
   hist: [], histIdx: -1
 };
-document.getElementById('xpTotal').textContent = S.xp;
+(document.getElementById('xpTotal')||{}).textContent = S.xp;
 
 /* ════════════════════════
    NAV
@@ -4291,7 +4245,7 @@ function go(id) {
    BUILD HOME GRID
 ════════════════════════ */
 (function() {
-  var g = document.getElementById('homeGrid');
+  var g = (document.getElementById('homeGrid')||{});
   CHAPTERS.forEach(function(ch) {
     var mc = MISSIONS.filter(function(m){ return m.ch===ch.n; }).length;
     var card = document.createElement('div');
@@ -4323,7 +4277,7 @@ function getMissionForCh(n) {
    BUILD LEARN SIDEBAR
 ════════════════════════ */
 function buildSidebar() {
-  var sb = document.getElementById('lSidebar');
+  var sb = (document.getElementById('lSidebar')||{});
   sb.innerHTML = '<span class="sb-lbl">תוכן עניינים</span>';
   CHAPTERS.forEach(function(ch) {
     var wrap = document.createElement('div');
@@ -4374,7 +4328,7 @@ function loadCh(n) {
   var prev = n>1  ? '<button class="ch-nav-btn" onclick="loadCh('+(n-1)+')">← פרק '+(n-1)+'</button>' : '<span></span>';
   var next = n<12 ? '<button class="ch-nav-btn ch-nav-next" onclick="loadCh('+(n+1)+')">פרק '+(n+1)+' →</button>' : '<span></span>';
 
-  var lc = document.getElementById('lContent');
+  var lc = (document.getElementById('lContent')||{});
   lc.innerHTML =
     '<div class="ch-eyebrow">פרק ' + String(n).padStart(2,'0') + ' מתוך 12</div>' +
     '<h1 class="ch-title">' + ch.icon + ' ' + ch.name + '</h1>' +
@@ -4548,7 +4502,7 @@ function completeMission(m) {
   localStorage.setItem('nwpro_done', JSON.stringify(S.done));
   S.xp += m.xp;
   localStorage.setItem('nwpro_xp', S.xp);
-  document.getElementById('xpTotal').textContent = S.xp;
+  (document.getElementById('xpTotal')||{}).textContent = S.xp;
 
   var el = document.createElement('div');
   el.className = 'out-success';
@@ -5951,7 +5905,7 @@ var S = {
   curCh: null,
   hist: [], histIdx: -1
 };
-document.getElementById('xpTotal').textContent = S.xp;
+(document.getElementById('xpTotal')||{}).textContent = S.xp;
 
 /* ════════════════════════
    NAV
@@ -5973,7 +5927,7 @@ function go(id) {
    BUILD HOME GRID
 ════════════════════════ */
 (function() {
-  var g = document.getElementById('homeGrid');
+  var g = (document.getElementById('homeGrid')||{});
   CHAPTERS.forEach(function(ch) {
     var mc = MISSIONS.filter(function(m){ return m.ch===ch.n; }).length;
     var card = document.createElement('div');
@@ -6005,7 +5959,7 @@ function getMissionForCh(n) {
    BUILD LEARN SIDEBAR
 ════════════════════════ */
 function buildSidebar() {
-  var sb = document.getElementById('lSidebar');
+  var sb = (document.getElementById('lSidebar')||{});
   sb.innerHTML = '<span class="sb-lbl">תוכן עניינים</span>';
   CHAPTERS.forEach(function(ch) {
     var wrap = document.createElement('div');
@@ -6056,7 +6010,7 @@ function loadCh(n) {
   var prev = n>1  ? '<button class="ch-nav-btn" onclick="loadCh('+(n-1)+')">← פרק '+(n-1)+'</button>' : '<span></span>';
   var next = n<12 ? '<button class="ch-nav-btn ch-nav-next" onclick="loadCh('+(n+1)+')">פרק '+(n+1)+' →</button>' : '<span></span>';
 
-  var lc = document.getElementById('lContent');
+  var lc = (document.getElementById('lContent')||{});
   lc.innerHTML =
     '<div class="ch-eyebrow">פרק ' + String(n).padStart(2,'0') + ' מתוך 12</div>' +
     '<h1 class="ch-title">' + ch.icon + ' ' + ch.name + '</h1>' +
@@ -6230,7 +6184,7 @@ function completeMission(m) {
   localStorage.setItem('nwpro_done', JSON.stringify(S.done));
   S.xp += m.xp;
   localStorage.setItem('nwpro_xp', S.xp);
-  document.getElementById('xpTotal').textContent = S.xp;
+  (document.getElementById('xpTotal')||{}).textContent = S.xp;
 
   var el = document.createElement('div');
   el.className = 'out-success';
