@@ -9,26 +9,26 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+Hebrew:wght@300;400;600;700&display=swap');
 
 :root {
-  --bg:       #080c08;
-  --bg2:      #0c120c;
-  --surface:  #111811;
-  --card:     #141d14;
-  --border:   #1e2e1e;
-  --border2:  #2a402a;
-  --green:    #33ff66;
-  --green2:   #22cc44;
-  --green3:   #11441a;
-  --green-dim:#1a4a1a;
-  --amber:    #ffcc00;
-  --amber2:   #e6a800;
-  --red:      #ff4444;
-  --blue:     #44aaff;
-  --cyan:     #00ffee;
-  --text:     #c8e8c8;
-  --text-mid: #7aaa7a;
-  --text-dim: #3a5a3a;
-  --cursor:   #33ff66;
-  --phosphor: rgba(51,255,102,0.04);
+  --bg:       #0d1117;
+  --bg2:      #111820;
+  --surface:  #161b22;
+  --card:     #1c2128;
+  --border:   #30363d;
+  --border2:  #3d444d;
+  --green:    #3fb950;
+  --green2:   #2ea043;
+  --green3:   #112d20;
+  --green-dim:#0d2016;
+  --amber:    #e3b341;
+  --amber2:   #d29922;
+  --red:      #f85149;
+  --blue:     #58a6ff;
+  --cyan:     #39c5cf;
+  --text:     #e6edf3;
+  --text-mid: #8b949e;
+  --text-dim: #484f58;
+  --cursor:   #58a6ff;
+  --phosphor: rgba(88,166,255,0.03);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -42,30 +42,28 @@ body {
   cursor: default;
 }
 
-/* CRT scanlines overlay */
+/* Subtle dot pattern */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0,0,0,0.08) 2px,
-    rgba(0,0,0,0.08) 4px
-  );
+  background-image: radial-gradient(circle, rgba(88,166,255,0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 0;
 }
 
-/* Phosphor glow */
+/* Ambient glow */
 body::after {
   content: '';
   position: fixed;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 50%,
-    rgba(51,255,102,0.025) 0%,
-    transparent 70%);
+  top: -10%;
+  right: -10%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(ellipse at 80% 20%,
+    rgba(88,166,255,0.04) 0%,
+    transparent 55%);
   pointer-events: none;
   z-index: 0;
 }
@@ -85,27 +83,28 @@ body::after {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--green);
-  color: var(--bg);
+  background: var(--surface);
+  color: var(--text);
   display: flex;
   align-items: center;
-  height: 28px;
+  height: 32px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   padding: 0;
   user-select: none;
+  border-bottom: 1px solid var(--border2);
 }
 
 .tmux-left {
-  background: var(--bg);
-  color: var(--green);
-  padding: 0 14px;
+  background: rgba(88,166,255,0.08);
+  color: var(--blue);
+  padding: 0 16px;
   height: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
-  border-left: 3px solid var(--green);
+  border-left: 3px solid var(--blue);
 }
 
 .tmux-tabs {
@@ -130,7 +129,7 @@ body::after {
 
 .tmux-tab.inactive { background: var(--surface); color: var(--text-mid); }
 .tmux-tab.inactive:hover { background: var(--card); color: var(--text); }
-.tmux-tab.active { background: var(--green); color: var(--bg); font-weight: 700; }
+.tmux-tab.active { background: rgba(88,166,255,0.12); color: var(--blue); font-weight: 700; border-bottom: 2px solid var(--blue); }
 
 .tmux-right {
   margin-right: auto;
@@ -161,7 +160,7 @@ body::after {
   gap: 0;
 }
 
-.prompt-user { color: var(--green); }
+.prompt-user { color: var(--blue); }
 .prompt-at   { color: var(--text-dim); }
 .prompt-host { color: var(--cyan); }
 .prompt-path { color: var(--blue); }
@@ -174,21 +173,21 @@ body::after {
   line-height: .92;
   letter-spacing: -2px;
   margin-bottom: 18px;
-  color: var(--green);
-  text-shadow: 0 0 40px rgba(51,255,102,0.35), 0 0 80px rgba(51,255,102,0.12);
+  color: var(--text);
+  text-shadow: none;
 }
 
 .hero h1 .dim { color: var(--text-dim); font-weight: 300; }
 
 .hero-sub {
-  font-family: 'Crimson Pro', serif;
-  font-size: 20px;
-  font-style: italic;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
   color: var(--text-mid);
   margin-bottom: 32px;
   font-weight: 300;
-  max-width: 580px;
-  line-height: 1.6;
+  max-width: 560px;
+  line-height: 1.75;
+  letter-spacing: -0.2px;
 }
 
 /* UPTIME STATS */
@@ -214,10 +213,10 @@ body::after {
 .ut-val {
   font-size: 28px;
   font-weight: 700;
-  color: var(--green);
+  color: var(--blue);
   display: block;
   line-height: 1;
-  text-shadow: 0 0 16px rgba(51,255,102,0.4);
+  text-shadow: none;
 }
 
 .ut-key {
@@ -249,14 +248,14 @@ body::after {
   border: 1px solid var(--border);
   border-radius: 0;
   overflow: hidden;
-  transition: border-color .2s;
+  transition: all .2s;
   background: var(--card);
 }
 
 .ch:first-child { border-radius: 8px 8px 0 0; }
 .ch:last-child  { border-radius: 0 0 8px 8px; }
 .ch:hover { border-color: var(--border2); }
-.ch.open  { border-color: rgba(51,255,102,.35); }
+.ch.open  { border-color: rgba(88,166,255,.3); }
 
 .ch-trigger {
   padding: 16px 20px;
@@ -291,7 +290,7 @@ body::after {
   font-family: 'JetBrains Mono', monospace;
   font-size: 15px;
   font-weight: 700;
-  color: var(--green);
+  color: var(--blue);
   margin-bottom: 3px;
   line-height: 1.2;
 }
@@ -313,7 +312,7 @@ body::after {
 }
 
 .ch-chevron { color: var(--text-dim); transition: transform .3s, color .2s; font-size: 14px; }
-.ch.open .ch-chevron { transform: rotate(90deg); color: var(--green); }
+.ch.open .ch-chevron { transform: rotate(90deg); color: var(--blue); }
 
 /* BADGE */
 .badge {
@@ -324,7 +323,7 @@ body::after {
   letter-spacing: .5px;
 }
 
-.b-core   { background: rgba(51,255,102,.1); color: var(--green); border: 1px solid rgba(51,255,102,.25); }
+.b-core   { background: rgba(88,166,255,.1); color: var(--blue); border: 1px solid rgba(88,166,255,.25); }
 .b-sys    { background: rgba(0,255,238,.08); color: var(--cyan); border: 1px solid rgba(0,255,238,.2); }
 .b-adv    { background: rgba(255,204,0,.08); color: var(--amber); border: 1px solid rgba(255,204,0,.2); }
 .b-hard   { background: rgba(255,68,68,.08); color: var(--red); border: 1px solid rgba(255,68,68,.2); }
@@ -341,7 +340,7 @@ body::after {
   font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--green);
+  color: var(--blue);
   margin-bottom: 12px;
   display: flex;
   align-items: center;
@@ -459,8 +458,8 @@ body::after {
 /* PRO TIP */
 .pro-tip {
   margin-top: 14px;
-  background: rgba(51,255,102,.04);
-  border: 1px solid rgba(51,255,102,.15);
+  background: rgba(88,166,255,.04);
+  border: 1px solid rgba(88,166,255,.15);
   border-radius: 6px;
   padding: 12px 15px;
   font-size: 13px;
@@ -470,7 +469,7 @@ body::after {
   gap: 10px;
 }
 
-.pro-tip strong { color: var(--green); }
+.pro-tip strong { color: var(--blue); }
 .pt-icon { flex-shrink: 0; }
 
 .badges-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
@@ -497,8 +496,8 @@ body::after {
   transition: background .2s;
 }
 
-.lab-head:hover { background: var(--surface); }
-.lab.open .lab-head { border-bottom-color: var(--border); background: var(--surface); }
+.lab-head:hover { background: rgba(255,255,255,0.03); }
+.lab.open .lab-head { border-bottom-color: var(--border2); background: rgba(88,166,255,0.04); }
 
 .lab-icon { font-size: 22px; }
 .lab-info { flex: 1; }
@@ -507,7 +506,7 @@ body::after {
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
   font-weight: 700;
-  color: var(--green);
+  color: var(--blue);
   margin-bottom: 3px;
 }
 
@@ -521,12 +520,12 @@ body::after {
   letter-spacing: .5px;
 }
 
-.d-easy   { background: rgba(51,255,102,.1); color: var(--green); border:1px solid rgba(51,255,102,.3); }
+.d-easy   { background: rgba(63,185,80,.1); color: var(--green); border:1px solid rgba(63,185,80,.3); }
 .d-medium { background: rgba(255,204,0,.1); color: var(--amber); border:1px solid rgba(255,204,0,.3); }
 .d-hard   { background: rgba(255,68,68,.1); color: var(--red); border:1px solid rgba(255,68,68,.3); }
 
 .lab-chev { color: var(--text-dim); font-size: 14px; transition: transform .3s; }
-.lab.open .lab-chev { transform: rotate(90deg); color: var(--green); }
+.lab.open .lab-chev { transform: rotate(90deg); color: var(--blue); }
 
 .lab-body { display: none; padding: 20px; }
 .lab.open .lab-body { display: block; }
@@ -536,7 +535,7 @@ body::after {
   font-size: 15px;
   font-style: italic;
   color: var(--text-mid);
-  border-right: 3px solid var(--green2);
+  border-right: 3px solid var(--blue);
   padding-right: 14px;
   margin-bottom: 16px;
   line-height: 1.6;
@@ -556,9 +555,9 @@ body::after {
 .sn {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  color: var(--green);
-  background: rgba(51,255,102,.1);
-  border: 1px solid rgba(51,255,102,.2);
+  color: var(--blue);
+  background: rgba(88,166,255,.1);
+  border: 1px solid rgba(88,166,255,.2);
   border-radius: 3px;
   padding: 1px 6px;
   min-width: 30px;
@@ -575,8 +574,8 @@ body::after {
   margin-top: 14px;
   padding: 8px 16px;
   background: transparent;
-  border: 1px solid rgba(51,255,102,.3);
-  color: var(--green);
+  border: 1px solid rgba(88,166,255,.3);
+  color: var(--blue);
   border-radius: 4px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
@@ -585,14 +584,14 @@ body::after {
   transition: all .2s;
 }
 
-.ans-btn:hover { background: rgba(51,255,102,.08); }
-.ans-btn.open  { background: rgba(51,255,102,.08); border-color: var(--green); }
+.ans-btn:hover { background: rgba(88,166,255,.08); }
+.ans-btn.open  { background: rgba(88,166,255,.08); border-color: var(--blue); }
 
 .ans-box {
   display: none;
   margin-top: 14px;
-  background: rgba(51,255,102,.03);
-  border: 1px solid rgba(51,255,102,.15);
+  background: rgba(88,166,255,.03);
+  border: 1px solid rgba(88,166,255,.15);
   border-radius: 8px;
   padding: 18px;
   animation: slideIn .2s ease;
@@ -614,7 +613,7 @@ body::after {
   gap: 8px;
 }
 
-.ans-head::after { content:''; flex:1; height:1px; background: rgba(51,255,102,.2); }
+.ans-head::after { content:''; flex:1; height:1px; background: rgba(88,166,255,.2); }
 
 .ans-item {
   display: flex;
@@ -631,9 +630,9 @@ body::after {
 .an {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  color: var(--green);
-  background: rgba(51,255,102,.1);
-  border: 1px solid rgba(51,255,102,.2);
+  color: var(--blue);
+  background: rgba(88,166,255,.1);
+  border: 1px solid rgba(88,166,255,.2);
   border-radius: 3px;
   padding: 1px 6px;
   min-width: 30px;
@@ -644,7 +643,7 @@ body::after {
 
 .ans-note {
   background: rgba(0,255,238,.04);
-  border-right: 3px solid var(--cyan);
+  border-right: 3px solid var(--blue);
   padding: 10px 13px;
   border-radius: 5px;
   font-size: 12px;
@@ -681,14 +680,14 @@ body::after {
   font-size: 28px;
   font-weight: 800;
   color: var(--green);
-  text-shadow: 0 0 20px rgba(51,255,102,.3);
+  text-shadow: none;
   margin-bottom: 8px;
 }
 
 .quiz-header p { font-size: 13px; color: var(--text-dim); }
 
 .q-prog-bg { background: rgba(255,255,255,.05); border-radius:20px; height:3px; margin:16px 0 0; overflow:hidden; }
-.q-prog { height:100%; border-radius:20px; background: var(--green); transition:width .4s; box-shadow: 0 0 10px rgba(51,255,102,.5); }
+.q-prog { height:100%; border-radius:20px; background: var(--blue); transition:width .4s; }
 .q-prog-lbl { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); text-align:left; margin-top:5px; letter-spacing:1px; }
 
 .q-list { display: flex; flex-direction: column; gap: 12px; }
@@ -701,7 +700,7 @@ body::after {
   transition: border-color .3s;
 }
 
-.q-card.c-ok   { border-color: var(--green); background: rgba(51,255,102,.03); }
+.q-card.c-ok   { border-color: var(--green); background: rgba(63,185,80,.04); }
 .q-card.c-fail { border-color: var(--red);   background: rgba(255,68,68,.03); }
 
 .q-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
@@ -726,16 +725,16 @@ body::after {
   font-family: 'JetBrains Mono', monospace;
 }
 
-.q-opt:hover:not(.locked) { border-color: var(--green); color: var(--green); background: rgba(51,255,102,.05); }
-.q-opt.hit  { border-color: var(--green)!important; background: rgba(51,255,102,.1)!important; color: var(--green)!important; font-weight: 700; }
+.q-opt:hover:not(.locked) { border-color: var(--blue); color: var(--blue); background: rgba(88,166,255,.06); }
+.q-opt.hit  { border-color: var(--green)!important; background: rgba(63,185,80,.1)!important; color: var(--green)!important; font-weight: 700; }
 .q-opt.miss { border-color: var(--red)!important; background: rgba(255,68,68,.1)!important; color: var(--red)!important; }
 .q-opt.locked { cursor: default; }
 
 .q-exp {
   margin-top: 10px;
   padding: 10px 13px;
-  background: rgba(51,255,102,.04);
-  border-right: 3px solid var(--green2);
+  background: rgba(88,166,255,.04);
+  border-right: 3px solid var(--blue);
   border-radius: 5px;
   font-size: 12px;
   color: var(--text-mid);
@@ -747,7 +746,7 @@ body::after {
 
 .score-box {
   background: var(--card);
-  border: 1px solid var(--green);
+  border: 1px solid var(--border2);
   border-radius: 10px;
   padding: 44px 28px;
   text-align: center;
@@ -761,8 +760,7 @@ body::after {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--green), transparent);
-  box-shadow: 0 0 20px rgba(51,255,102,.5);
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
 }
 
 .score-box.show { display: block; animation: slideIn .4s ease; }
@@ -771,9 +769,9 @@ body::after {
   font-family: 'JetBrains Mono', monospace;
   font-size: 80px;
   font-weight: 800;
-  color: var(--green);
+  color: var(--blue);
   line-height: 1;
-  text-shadow: 0 0 40px rgba(51,255,102,.5);
+  text-shadow: none;
   letter-spacing: -3px;
 }
 
@@ -797,8 +795,8 @@ body::after {
   min-height: 42px;
 }
 
-.btn-green { background: var(--green); color: var(--bg); border-color: var(--green); font-weight:700; }
-.btn-green:hover { box-shadow: 0 0 20px rgba(51,255,102,.5); }
+.btn-green { background: var(--blue); color: #0d1117; border-color: var(--blue); font-weight:700; }
+.btn-green:hover { box-shadow: 0 4px 16px rgba(88,166,255,.3); }
 .btn-ghost { background: transparent; color: var(--text-dim); border-color: var(--border2); }
 .btn-ghost:hover { border-color: var(--green); color: var(--green); }
 
@@ -811,7 +809,7 @@ body::after {
   border-radius: 10px;
   overflow: hidden;
   font-family: 'JetBrains Mono', monospace;
-  box-shadow: 0 0 40px rgba(51,255,102,.08);
+  box-shadow: 0 4px 24px rgba(0,0,0,.4);
 }
 
 .gt-bar {
@@ -853,7 +851,7 @@ body::after {
 
 .gt-line { margin-bottom: 2px; }
 .gt-prompt-line { display: flex; gap: 6px; margin-top: 8px; margin-bottom: 2px; }
-.gt-user { color: var(--green); }
+.gt-user { color: var(--blue); }
 .gt-at   { color: var(--text-dim); }
 .gt-host { color: var(--cyan); }
 .gt-path { color: var(--blue); }
@@ -889,9 +887,9 @@ body::after {
 }
 
 .gt-enter-btn {
-  background: rgba(51,255,102,.1);
-  border: 1px solid rgba(51,255,102,.25);
-  color: var(--green);
+  background: rgba(88,166,255,.1);
+  border: 1px solid rgba(88,166,255,.25);
+  color: var(--blue);
   border-radius: 4px;
   padding: 4px 10px;
   font-family: 'JetBrains Mono', monospace;
@@ -900,7 +898,7 @@ body::after {
   transition: all .15s;
 }
 
-.gt-enter-btn:hover { background: rgba(51,255,102,.2); }
+.gt-enter-btn:hover { background: rgba(88,166,255,.2); }
 
 .gt-bottom {
   padding: 14px 16px;
@@ -924,7 +922,7 @@ body::after {
 }
 
 .gt-prog-bg { flex: 1; background: rgba(255,255,255,.06); border-radius:20px; height:4px; overflow:hidden; }
-.gt-prog-fill { height:100%; border-radius:20px; background: var(--green); transition: width .5s; box-shadow: 0 0 8px rgba(51,255,102,.4); }
+.gt-prog-fill { height:100%; border-radius:20px; background: var(--blue); transition: width .5s; }
 .gt-prog-lbl { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dim); letter-spacing:1px; }
 
 .gt-end {
@@ -935,13 +933,13 @@ body::after {
 
 .gt-end.show { display: block; }
 .gt-end-icon { font-size: 52px; margin-bottom: 12px; }
-.gt-end-title { font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:800; color:var(--green); margin-bottom:8px; text-shadow:0 0 20px rgba(51,255,102,.4); }
+.gt-end-title { font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:800; color:var(--green); margin-bottom:8px; text-shadow:none; }
 .gt-end-score { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--amber); margin-bottom:8px; }
 .gt-end-msg { font-family:'Crimson Pro',serif; font-size:15px; color:var(--text-mid); font-style:italic; margin-bottom:20px; }
 
 .game-tip {
-  background: rgba(51,255,102,.04);
-  border: 1px solid rgba(51,255,102,.15);
+  background: rgba(88,166,255,.04);
+  border: 1px solid rgba(88,166,255,.15);
   border-radius: 6px;
   padding: 12px 16px;
   font-size: 12px;
@@ -976,7 +974,7 @@ body::after {
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: var(--green); }
+::-webkit-scrollbar-thumb:hover { background: var(--blue); }
 
 /* ═══════════════════════════════════════
    MOBILE
@@ -1097,7 +1095,7 @@ html, body { overflow-x: hidden; }
 <div id="quiz" class="section active"><div class="section-inner">
     <div class="quiz-header">
       <h2>$ man quiz<span class="cursor"></span></h2>
-      <p>20 שאלות · kernel-level knowledge · כל תשובה = הסבר</p>
+      <p>20 שאלות · בסיס לינוקס · כל תשובה = הסבר</p>
       <div class="q-prog-bg"><div class="q-prog" id="qp" style="width:0%"></div></div>
       <div class="q-prog-lbl" id="qpl">0 / 20 answered</div>
     </div>
@@ -1119,44 +1117,33 @@ html, body { overflow-x: hidden; }
 
     <div class="game-terminal">
       <div class="gt-bar">
-        <div class="gt-dots"><div class="gt-dot gd-r"></div><div class="gt-dot gd-y"></div><div class="gt-dot gd-g"></div></div>
-        <span class="gt-title">terminal-challenge — bash 5.2</span>
+        <div class="gt-dots">
+          <div class="gt-dot gd-r"></div>
+          <div class="gt-dot gd-y"></div>
+          <div class="gt-dot gd-g"></div>
+        </div>
+        <span class="gt-title">bash — student@linux-lab:~ (simulator)</span>
         <div class="gt-score-display">
-          <span>score: <span id="gScore">0</span></span>
-          <span>streak: <span id="gStreak">0</span>🔥</span>
-          <span>level: <span id="gLevel">1</span></span>
+          <span id="sim-cmds" style="color:var(--blue)">0 פקודות</span>
+          <span id="sim-streak" style="color:var(--amber)"></span>
         </div>
       </div>
 
-      <div class="gt-screen" id="gtScreen"></div>
+      <div class="gt-screen" id="simScreen"></div>
 
-      <div class="gt-input-area" id="gtInputArea">
-        <span class="gt-input-prompt">
-          <span class="gt-user">student</span><span class="gt-at">@</span><span class="gt-host">linux-pro</span><span style="color:var(--text-dim)">:</span><span class="gt-path" id="gtPath">~</span><span class="gt-dollar"> $ </span>
+      <div class="gt-input-area" id="simInputArea">
+        <span class="gt-input-prompt" id="simPrompt">
+          <span class="gt-user">student</span><span class="gt-at">@</span><span class="gt-host">linux-lab</span><span style="color:var(--text-dim)">:</span><span class="gt-path" id="simCwdDisplay">~</span><span class="gt-dollar"> $ </span>
         </span>
-        <input class="gt-input" id="gtInput" placeholder="הקלד פקודה..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" dir="ltr">
-        <button class="gt-enter-btn" onclick="submitCmd()">↵</button>
-      </div>
-
-      <div class="gt-bottom">
-        <div class="gt-mission" id="gtMission">טוען משימה...</div>
-        <div class="gt-progress-row">
-          <div class="gt-prog-bg"><div class="gt-prog-fill" id="gtProg" style="width:0%"></div></div>
-          <span class="gt-prog-lbl" id="gtProgLbl">0/0</span>
-        </div>
-      </div>
-
-      <div class="gt-end" id="gtEnd">
-        <div class="gt-end-icon" id="gtEndIcon">🏆</div>
-        <div class="gt-end-title" id="gtEndTitle"></div>
-        <div class="gt-end-score" id="gtEndScore"></div>
-        <div class="gt-end-msg" id="gtEndMsg"></div>
-        <button class="btn btn-green" onclick="startGame()" style="margin:16px auto 0;display:block">$ play again</button>
+        <input class="gt-input" id="simInput" placeholder="הקלד פקודה Linux..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" dir="ltr">
+        <button class="gt-enter-btn" onclick="simRun()">&#x23CE;</button>
       </div>
     </div>
 
-    <div class="game-tip">
-      <strong style="color:var(--green)">$ man game</strong> — הקלד פקודות Linux אמיתיות לפתרון משימות. הפקודה חייבת לכלול את הרכיבים הנכונים. Hints זמינים. מקש Enter לשליחה. מקש ↑ להיסטוריה.
+    <div class="game-tip" style="margin-top:12px">
+      <strong style="color:var(--green)">&#x1F4BB; טרמינל אמיתי!</strong> — הקלד פקודות Linux ותקבל פלט אמיתי.
+      מקש &#x2191; להיסטוריה, Tab להשלמה אוטומטית.
+      נסה: <code>help</code> לרשימת כל הפקודות.
     </div>
 
   </div></div>
@@ -1182,7 +1169,7 @@ function switchTab(id, el) {
   document.querySelectorAll('.tmux-tab').forEach(t => { t.classList.remove('active'); t.classList.add('inactive'); });
   document.getElementById(id).classList.add('active');
   if (el) { el.classList.add('active'); el.classList.remove('inactive'); }
-  if (id === 'game') { setTimeout(startGame, 100); }
+  if (id === 'game') { if (typeof simBoot === 'function') simBoot(); }
 }
 
 // ===== CHAPTERS / LABS =====
@@ -1204,26 +1191,26 @@ function toggleAns(id) {
 
 // ===== QUIZ =====
 const QS = [
-  { q:"מה PID 1 ב-Linux המודרני?", tag:"system", opts:["init","bash","systemd","kernel"], ans:2, exp:"systemd הוא PID 1 ברוב הDistributions המודרניות (Ubuntu 16.04+, CentOS 7+, Debian 8+). הוא אחראי לBoot, Service Management, Logging ועוד. לפניו היה SysVinit עם /etc/init.d scripts." },
-  { q:"מה ההבדל בין kill -9 ל-kill -15?", tag:"process", opts:["אין הבדל","SIGKILL (9) בלתי ניתן לחסימה, SIGTERM (15) ניתן לHandle","SIGKILL גרסה ישנה, SIGTERM חדשה","SIGKILL לroot בלבד"], ans:1, exp:"SIGTERM (15) = בקשה מנומסת לסיים. Process יכול לתפוס אותה ולנקות. SIGKILL (9) = פקודה ישירה לKernel — Process לא יכול לחסום, לתפוס או להתעלם ממנה. תמיד נסה SIGTERM קודם." },
-  { q:"מה set -euo pipefail עושה ב-Bash?", tag:"bash", opts:["מסדר output לפי אלפבית","fail on error + unbound vars + pipe errors","מפעיל debug mode","מגדיר encoding ל-UTF-8"], ans:1, exp:"-e: Script נכשל אם פקודה מחזירה non-zero. -u: שגיאה על משתנה לא מוגדר. -o pipefail: Pipeline נכשל אם אחת הפקודות נכשלה. שלושתם יחד = Script שנופל בבעיה ראשונה ולא ממשיך בשקט." },
-  { q:"מה inode?", tag:"filesystem", opts:["שם הקובץ","מיקום הקובץ בDisk בלבד","מבנה נתונים עם metadata של קובץ (ללא שם)","index של כל הDirectories"], ans:2, exp:"inode מכיל: permissions, owner, timestamps, size, ומצביעים ל-Data Blocks. לא מכיל שם הקובץ — זה נמצא ב-Directory Entry. Hard Links חולקים inode. rm מוחק Directory Entry, לא inode, עד שLink Count = 0." },
-  { q:"מה cgroups?", tag:"kernel", opts:["Command Groups — קיצור לCommand Lists","Control Groups — בידוד ושליטה במשאבים לProcess Groups","Crypto Groups — ניהול מפתחות","Container Groups — שם Docker"], ans:1, exp:"cgroups (Control Groups) = Kernel feature לבידוד CPU, Memory, I/O בין Groups של Processes. Docker, Kubernetes, systemd — כולם בנויים על cgroups. cgroups v2 הוא ה-Standard החדש עם Unified Hierarchy." },
-  { q:"מה SIGCHLD Signal?", tag:"process", opts:["Signal לChild Process לסיום","Signal שParent מקבל כש-Child נסיים/נעצר","Signal לKill כל ה-Children","Signal מ-cron"], ans:1, exp:"Parent Process מקבל SIGCHLD כאשר Child Process משנה מצב (יסיים, נעצר, המשיך). Parent חייב לקרא wait() כדי לאסוף Exit Status — אחרת Child נשאר כ-Zombie (Z State)." },
-  { q:"מה swap ב-Linux?", tag:"memory", opts:["Virtual Memory בRAM","Disk Space כ-RAM גיבוי כשRAM מלא","Filesystem Swap","Network Memory"], ans:1, exp:"Swap = Space בDisk שKernel משתמש בו כהרחבה לRAM. Swapping = להוציא Pages מRAM לDisk כשRAM מלא. sysctl vm.swappiness (0-100) קובע מתי Kernel מתחיל לSwap. SSD = Swap מהיר, HDD = איטי מאוד." },
-  { q:"מה Hard Link לא יכול לעשות?", tag:"filesystem", opts:["לקשר לקובץ ב-Filesystem אחר","לקשר לDirectory","לשנות Link Count","גם A וגם B"], ans:3, exp:"Hard Links לא יכולים: (1) לחצות Filesystem Boundaries — inode ייחודי לFilesystem. (2) לקשר לDirectories — מניעת Loops. Symbolic Links יכולים את שניהם, אבל הם מצביעים לנתיב, לא לinode." },
-  { q:"מה /dev/null?", tag:"filesystem", opts:["קובץ ריק בDisk","Character Device — bytes sink, קלט = EOF","Null Pointer ב-Kernel","Default Log File"], ans:1, exp:"/dev/null הוא Character Special File. כתיבה אליו = ה-Kernel בולע את הBytes. קריאה ממנו = EOF מיידית. שימוש: redirect output לשתיקה (> /dev/null), יצירת קבצים ריקים (< /dev/null), 2>&1 >/dev/null." },
-  { q:"מה awk '{print $2}' עושה?", tag:"text", opts:["מדפיס שורה 2","מדפיס עמודה 2 מכל שורה","מדפיס 2 שורות ראשונות","חיפוש Pattern $2"], ans:1, exp:"awk מחלק כל שורה לFields לפי IFS (ברירת מחדל: whitespace). $1 = Field ראשון, $2 = שני, $NF = אחרון. '{print $2}' מדפיס Field שני מכל שורה — לדוגמה: עמודת Username ב-ps aux." },
-  { q:"מה systemd Unit Type מתאים ל-Cron Job?", tag:"systemd", opts:[".service",".socket",".timer",".mount"], ans:2, exp:".timer Units הם Replacement ל-Cron ב-systemd. OnCalendar=*-*-* 03:00:00 = כל יום בשלוש. יתרונות על Cron: Logging ב-Journal, Dependency Management, Monotonic vs Realtime timers, ו-Persistent=yes לRun Missed Jobs." },
-  { q:"מה ההבדל בין ext4 ל-ZFS?", tag:"storage", opts:["אין הבדל","ext4 = Journaling Filesystem, ZFS = Copy-on-Write עם Checksums + RAID","ext4 מהיר יותר תמיד","ZFS = Filesystem ישן"], ans:1, exp:"ext4: Journaling FS, מהיר, פשוט, Linux-native. ZFS: Copy-on-Write, Data Integrity Checksums, Built-in RAID (RAIDZ), Snapshots, Compression. ZFS לא נמצא בKernel Linux (License clash) — צריך DKMS Module." },
-  { q:"מה TCP TIME_WAIT State?", tag:"network", opts:["Connection נכשלה","Connection פעילה","תקופת המתנה לאחר סגירה — מניעת Stale Packets","Timeout של Application"], ans:2, exp:"TIME_WAIT נמשך 2*MSL (Maximum Segment Lifetime) = בד\"כ 60-120 שניות. מטרה: לוודא שכל Packets מה-Connection הקודמת נספגו לפני שהPort יהיה זמין. הרבה TIME_WAIT = Normal ב-High-Traffic Server." },
-  { q:"מה SELinux Enforcing Mode?", tag:"security", opts:["SELinux מנוטרל","SELinux מתעד אבל לא חוסם","SELinux אוכף Policy ומחסם גישה לא מורשית","SELinux Strict Mode"], ans:2, exp:"SELinux שלושה Modes: Disabled (כבוי), Permissive (מתעד violations ללא חסימה — טוב לDebug), Enforcing (חוסם כל גישה שאינה ב-Policy). בפרודקשן: Enforcing. לעולם לא: Disabled." },
-  { q:"מה strace עושה?", tag:"debug", opts:["Trace Stack Overflow","מציג את כל System Calls שProcess מבצע","Static Race Condition Detector","String Trace — חיפוש Strings"], ans:1, exp:"strace מיירט System Calls (syscalls) — הפנייות שProcess שולח לKernel. מאפשר לראות: קבצים שנפתחים, Network connections, Memory allocations. strace -c = Statistics, strace -f = Trace Children גם כן." },
-  { q:"מה Dirty Pipe (CVE-2022-0847)?", tag:"kernel", opts:["Bug ב-Docker","Linux Kernel Privilege Escalation דרך pipe() syscall","Dirty Memory Leak","Pipe Buffer Overflow ב-Bash"], ans:1, exp:"CVE-2022-0847: מחקר של Max Kellermann. Bug בLinux Kernel 5.8+ — ניתן לכתוב לכל קובץ read-only (כולל /etc/passwd) דרך pipe(). Local User → Root ב-seconds. Patched בKernel 5.16.11. דוגמה ל-bug שמשפיע על כל Distribution." },
-  { q:"מה /proc/sys/vm/overcommit_memory = 2 אומר?", tag:"kernel", opts:["לא להשתמש ב-Swap","Kernel לא יאפשר Overcommit — רק RAM זמין אמיתי","להפחית Cache","לתת זיכרון ל-Docker בלבד"], ans:1, exp:"vm.overcommit_memory: 0 (ברירת מחדל) = Heuristic Overcommit. 1 = תמיד אשר. 2 = לא יותר ממה שקיים פיזית. Value=2 חשוב לDatabases כמו PostgreSQL — מניעת OOM Killer בזמן לא צפוי." },
-  { q:"מה LVM Snapshot?", tag:"storage", opts:["LVM Backup לCloud","Copy-on-Write Snapshot — שינויים נכתבים ל-Snapshot Volume","Full Copy של ה-Volume","RAID Snapshot"], ans:1, exp:"LVM Snapshot = Copy-on-Write. בזמן יצירה = Instant. שינויים לOriginal? Snapshot שומר את הBlock הישן. זה מאפשר Backup עקבי בזמן שה-Production רץ. מחיר: Performance Overhead של כל כתיבה ל-Original." },
-  { q:"מה Auditd עושה?", tag:"security", opts:["Audits Bash Scripts","Kernel-level Security Logging — מי, מה, מתי, מאיפה","RAM Audit","Disk Audit Tool"], ans:1, exp:"auditd = Kernel Audit Subsystem. מתעד syscalls ברמת Kernel לפי Rules. לדוגמה: auditctl -w /etc/sudoers -p rwxa = כל גישה ל-sudoers מתועדת. HIPAA, PCI-DSS דורשים Audit Logging. ausearch ו-aureport לניתוח." },
-  { q:"מה ה-USE Method של Brendan Gregg?", tag:"performance", opts:["Unix Standard Execution","Utilization, Saturation, Errors — Framework לDiagnosis של Performance","User System Events","Uptime System Evaluation"], ans:1, exp:"USE Method: לכל Resource (CPU, Memory, Disk, Network) — בדוק: Utilization (% שימוש), Saturation (Queue/Waiting), Errors (Error Count). שיטה שיטתית לאבחון Performance Issues לפני שמוסיפים Hardware." },
+  { q:"מה הפקודה להצגת ה-Directory הנוכחי?", tag:"ניווט", opts:["ls","pwd","cd","dir"], ans:1, exp:"pwd = Print Working Directory. מציג את הנתיב המלא של התיקייה שאתה נמצא בה. לדוגמה: /home/student/Documents" },
+  { q:"איך יוצרים תיקייה חדשה בשם 'projects'?", tag:"קבצים", opts:["touch projects","mkdir projects","create projects","new projects"], ans:1, exp:"mkdir = Make Directory. mkdir -p יוצר גם תיקיות ביניים שלא קיימות. לדוגמה: mkdir -p a/b/c יוצר את כל שלושת הרמות." },
+  { q:"מה ההבדל בין > ל->>?", tag:"כתיבה", opts:["אין הבדל",">> יוצר קובץ חדש, > מוסיף","> מחליף, >> מוסיף לסוף","> מהיר יותר"], ans:2, exp:"> (Redirect) מחליף את תוכן הקובץ. >> (Append) מוסיף לסוף בלי למחוק. echo 'שורה' > file.txt = מחליף. echo 'שורה' >> file.txt = מוסיף." },
+  { q:"איך מציגים קבצים מוסתרים ב-ls?", tag:"ניווט", opts:["ls -h","ls -a","ls -l","ls -r"], ans:1, exp:"ls -a = all. קבצים שמתחילים ב-נקודה (כמו .bashrc) הם מוסתרים. ls -la מציג גם מוסתרים עם פרטים מלאים." },
+  { q:"מה הפקודה לחיפוש טקסט בקובץ?", tag:"חיפוש", opts:["find","search","grep","locate"], ans:2, exp:"grep = Global Regular Expression Print. grep 'error' file.txt מחפש את המילה error. grep -i = case insensitive. grep -r = חיפוש רקורסיבי בתיקיות." },
+  { q:"איך מעניקים הרשאת הרצה לקובץ?", tag:"הרשאות", opts:["chmod +r file","chmod +x file","chmod +w file","chmod +e file"], ans:1, exp:"chmod +x מוסיף הרשאת Execute לכולם. בלי זה, Script לא רץ. ls -l יראה x בהרשאות: -rwxr-xr-x" },
+  { q:"מה הפקודה לעצירת תהליך לפי PID?", tag:"תהליכים", opts:["stop PID","end PID","kill PID","halt PID"], ans:2, exp:"kill PID שולח SIGTERM — בקשה מנומסת לסיום. kill -9 PID שולח SIGKILL — עצירה בכוח. תמיד נסה kill רגיל קודם." },
+  { q:"מה ~ (טילדה) מייצגת?", tag:"ניווט", opts:["Root /","תיקיית הבית של המשתמש","תיקייה נסתרת","תיקייה זמנית"], ans:1, exp:"~ = Home Directory של המשתמש הנוכחי. בדרך כלל /home/username. cd ~ = חזרה ל-Home מכל מקום. echo ~ יציג את הנתיב." },
+  { q:"מה עושה הפקודה tail -f?", tag:"לוגים", opts:["מציג סוף קובץ פעם אחת","עוקב אחרי קובץ בזמן אמת","מחפש בסוף הקובץ","מוחק שורות אחרונות"], ans:1, exp:"tail -f (Follow) מציג שורות חדשות שנוספות לקובץ בזמן אמת. אידיאלי לניטור Logs. Ctrl+C לעצירה." },
+  { q:"מה | (Pipe) עושה?", tag:"Pipe", opts:["מחלק קובץ לחלקים","מעביר Output של פקודה אחת ל-Input של הבאה","יוצר קובץ חדש","מציג שורות במקביל"], ans:1, exp:"Pipe מחבר פקודות. ls | wc -l = ls מפיק רשימה, wc -l סופר שורות. כך אפשר לשרשר: ls | sort | uniq | head -10" },
+  { q:"מה הפקודה להצגת שימוש בדיסק?", tag:"מערכת", opts:["mem -h","disk -h","df -h","du -h"], ans:2, exp:"df = Disk Free. df -h = Human Readable (GB/MB). du -sh folder/ = גודל תיקייה ספציפית. -h = Human readable בשני הכלים." },
+  { q:"איך מציגים 10 השורות הראשונות של קובץ?", tag:"קבצים", opts:["first 10 file","top file","head file","cat -10 file"], ans:2, exp:"head file = 10 שורות ראשונות. head -20 file = 20 שורות. tail = שורות אחרונות. tail -5 file = 5 שורות אחרונות." },
+  { q:"מה sudo עושה?", tag:"הרשאות", opts:["מחק קבצים מוגנים","מריץ פקודה עם הרשאות root","מציג משתמשים","מחסום גישה לתיקיות"], ans:1, exp:"sudo = Super User DO. מריץ את הפקודה הבאה עם הרשאות Administrator (root). נדרש לשינויים במערכת. כל פקודה עם sudo מתועדת ב-/var/log/auth.log" },
+  { q:"מה הפקודה לבדיקה האם שרת זמין?", tag:"רשת", opts:["check host","test server","ping host","connect host"], ans:2, exp:"ping host שולח ICMP packets ומחכה לתגובה. ping -c 4 google.com שולח 4 packets. אם אין תגובה = שרת לא נגיש או חוסם ICMP." },
+  { q:"מה chmod 755 אומר?", tag:"הרשאות", opts:["Owner: הכל, Group: rx, Others: rx","Owner: rw, Group: r, Others: r","Owner: r, Group: rw, Others: rx","הכל לכולם"], ans:0, exp:"7=rwx (4+2+1), 5=r-x (4+1). chmod 755 = Owner כל הרשאות, Group ו-Others קריאה+הרצה. הגדרה נפוצה ל-Scripts ו-Directories." },
+  { q:"מה הפקודה לחיפוש קבצים לפי שם?", tag:"חיפוש", opts:["locate -name","grep -r","find / -name","search -f"], ans:2, exp:"find / -name '*.txt' מחפש כל קבצי .txt. find . -name 'config*' מחפש בתיקייה הנוכחית. 2>/dev/null מסתיר שגיאות Permission." },
+  { q:"מה ps aux מציג?", tag:"תהליכים", opts:["רק תהליכים שלך","כל התהליכים הרצים במערכת","תהליכים שנכשלו","תהליכים ב-background בלבד"], ans:1, exp:"ps aux = כל התהליכים (a=all users, u=user format, x=כולל background). מציג: USER, PID, %CPU, %MEM, COMMAND. grep אחריו לסינון." },
+  { q:"מה הפקודה לקריאת Log של שירות?", tag:"לוגים", opts:["cat /var/log/service","systemlog service","journalctl -u service","readlog service"], ans:2, exp:"journalctl -u nginx מציג Log של nginx. -n 50 = 50 שורות אחרונות. -f = Follow (זמן אמת). --since '1 hour ago' = שעה אחרונה." },
+  { q:"מה קורה כש-לוחצים Ctrl+C בטרמינל?", tag:"בסיס", opts:["מדביקים טקסט","עוצרים את התהליך הנוכחי","מנקים את המסך","יוצאים מה-Terminal"], ans:1, exp:"Ctrl+C שולח SIGINT לתהליך הנוכחי — בקשת עצירה. Ctrl+Z = מאכסן ב-background (suspend). Ctrl+D = סגירת Session. Ctrl+L = נקה מסך." },
+  { q:"מה הפקודה להצגת גודל זיכרון RAM?", tag:"מערכת", opts:["ram -h","memory -h","free -h","mem status"], ans:2, exp:"free -h מציג Total/Used/Free RAM ו-Swap. -h = Human Readable. /proc/meminfo לפרטים מלאים יותר. htop מציג גרפית." },
 ];
 
 let qAns = 0, qScore = 0;
@@ -1276,10 +1263,10 @@ function showScore() {
   document.getElementById('scoreBig').textContent = `${qScore}/20`;
   document.getElementById('scorePct').textContent = `${pct}%`;
   let msg, sub;
-  if (pct>=90){msg="kernel hacker. Linus would approve.";sub="exit status: 0";}
-  else if(pct>=75){msg="solid sysadmin skills.";sub="rm -f /tmp/excuses && study harder";}
-  else if(pct>=55){msg="needs more terminal time.";sub="sudo apt install -y knowledge";}
-  else{msg="grep -r 'linux skills' /dev/null";sub="exit status: 1 — חזור לפרקים";}
+  if (pct>=90){msg="Linux Beginner → Expert! 🎉";sub="exit status: 0 — מוכן לפרקים הבאים";}
+  else if(pct>=70){msg="טוב מאוד, עוד קצת תרגול!";sub="חזור על הפרקים שטעית בהם";}
+  else if(pct>=50){msg="בסיס קיים — תחזק אותו";sub="sudo apt install -y practice-more";}
+  else{msg="הכי קל ללמוד בעשייה!";sub="פתח Terminal ותרגל את המעבדות";}
   document.getElementById('scoreMsg').textContent = msg;
   document.getElementById('scoreSub').textContent = sub;
   sb.scrollIntoView({behavior:'smooth'});
@@ -1289,171 +1276,1141 @@ function restartQuiz() { buildQuiz(); window.scrollTo({top:document.getElementBy
 
 buildQuiz();
 
-// ===== TERMINAL GAME =====
-const MISSIONS = [
-  { id:1, level:1, path:'~', desc:'<strong style="color:var(--amber)">MISSION 1:</strong> הצג את שם המשתמש הנוכחי', answers:['whoami'], hint:'whoami', success:'user: student. access granted.' },
-  { id:2, level:1, path:'~', desc:'<strong style="color:var(--amber)">MISSION 2:</strong> הצג את ה-Working Directory הנוכחי', answers:['pwd'], hint:'pwd', success:'/home/student' },
-  { id:3, level:1, path:'~', desc:'<strong style="color:var(--amber)">MISSION 3:</strong> הצג קבצים כולל מוסתרים עם פרטים מלאים', answers:['ls -la','ls -al','ls -la .','ls -al .'], hint:'ls עם flags -l ו-a', success:'drwxr-xr-x 2 student student 4096 ...' },
-  { id:4, level:1, path:'~', desc:'<strong style="color:var(--amber)">MISSION 4:</strong> צור Directory בשם "projects"', answers:['mkdir projects','mkdir -p projects'], hint:'mkdir', success:'directory created: projects/' },
-  { id:5, level:1, path:'~', desc:'<strong style="color:var(--amber)">MISSION 5:</strong> כתוב "Hello, Linux!" לתוך קובץ hello.txt', answers:['echo "Hello, Linux!" > hello.txt',"echo 'Hello, Linux!' > hello.txt",'echo Hello, Linux! > hello.txt'], hint:'echo + redirect >', success:'hello.txt written: 14 bytes' },
-  { id:6, level:2, path:'~', desc:'<strong style="color:var(--amber)">MISSION 6:</strong> הצג תוכן /etc/os-release', answers:['cat /etc/os-release'], hint:'cat', success:'NAME="Ubuntu"\nVERSION="22.04.3 LTS"' },
-  { id:7, level:2, path:'~', desc:'<strong style="color:var(--amber)">MISSION 7:</strong> מצא את כל קבצי .log תחת /var/log (ללא שגיאות)', answers:['find /var/log -name "*.log" 2>/dev/null','find /var/log -name *.log 2>/dev/null'], hint:'find + -name + redirect stderr', success:'found 47 .log files' },
-  { id:8, level:2, path:'~', desc:'<strong style="color:var(--amber)">MISSION 8:</strong> הצג שימוש ב-Disk בפורמט Human-Readable', answers:['df -h','df -h .'], hint:'df עם -h', success:'Filesystem      Size  Used Avail Use%\n/dev/sda1       50G   12G   36G  25%' },
-  { id:9, level:2, path:'~', desc:'<strong style="color:var(--amber)">MISSION 9:</strong> הצג 5 ה-Processes שצורכים הכי הרבה CPU', answers:['ps aux --sort=-%cpu | head -6','ps aux --sort -%cpu | head -6'], hint:'ps aux עם --sort ו-head', success:'USER    PID %CPU  COMMAND\nroot   1337 87.3  stress' },
-  { id:10, level:2, path:'~', desc:'<strong style="color:var(--amber)">MISSION 10:</strong> חפש "error" (case-insensitive) ב-syslog', answers:['grep -i error /var/log/syslog','grep -i "error" /var/log/syslog'], hint:'grep -i', success:'[kernel] EXT4-fs error: ...' },
-  { id:11, level:3, path:'/etc', desc:'<strong style="color:var(--amber)">MISSION 11:</strong> הצג permissions של /etc/shadow בפורמט Octal', answers:['stat -c %a /etc/shadow','stat --format=%a /etc/shadow'], hint:'stat -c %a', success:'640  ← rw-r----- אבל... זה בסדר?' },
-  { id:12, level:3, path:'~', desc:'<strong style="color:var(--amber)">MISSION 12:</strong> הצג כמה זיכרון RAM פנוי ב-Megabytes', answers:['free -m','free --mega'], hint:'free -m', success:'               total  used  free\nMem:            7923  4102  1821' },
-  { id:13, level:3, path:'~', desc:'<strong style="color:var(--amber)">MISSION 13:</strong> ראה את כל הConnections הפעילות עם PID', answers:['ss -tlnp','ss -tnlp'], hint:'ss עם flags: t,l,n,p', success:'LISTEN 0  128  0.0.0.0:22  0.0.0.0:*  users:((sshd,pid=1,fd=3))' },
-  { id:14, level:3, path:'~', desc:'<strong style="color:var(--amber)">MISSION 14:</strong> הצג את עץ ה-Processes של Bash הנוכחי', answers:['pstree -p $$','pstree $$'], hint:'pstree -p + PID של bash ($$ = PID נוכחי)', success:'bash(4521)───pstree(4522)' },
-  { id:15, level:3, path:'~', desc:'<strong style="color:var(--amber)">MISSION 15:</strong> הצג את 10 ה-Files הגדולים ביותר ב-/var', answers:['find /var -type f -exec du -sh {} + 2>/dev/null | sort -rh | head','du -ah /var 2>/dev/null | sort -rh | head'], hint:'du + sort -rh + head', success:'4.2G  /var/lib/mysql/ibdata1\n1.8G  /var/log/syslog' },
-];
+// ===== TERMINAL SIMULATOR =====
+(function() {
 
-let gScore = 0, gStreak = 0, gLevel = 1;
-let currentIdx = 0, cmdHistory = [], histPos = -1;
+// ── Virtual Filesystem ──
+const FS = {
+  '/': { type: 'dir', children: ['home','etc','var','tmp','usr','proc'] },
+  '/home': { type: 'dir', children: ['student'] },
+  '/home/student': { type: 'dir', children: ['Desktop','Documents','Downloads','notes.txt','hello.sh'] },
+  '/home/student/Desktop': { type: 'dir', children: [] },
+  '/home/student/Documents': { type: 'dir', children: ['project.txt','readme.md'] },
+  '/home/student/Downloads': { type: 'dir', children: ['archive.tar.gz'] },
+  '/home/student/notes.txt': { type: 'file', content: 'לינוקס זה כיף!\nהפקודה הראשונה שלמדתי: whoami\nהפקודה שהכי אהבתי: ls -la\n', perms: '644', size: 72 },
+  '/home/student/hello.sh': { type: 'file', content: '#!/bin/bash\necho "שלום מה-Script!"\necho "תאריך היום: $(date)"\n', perms: '755', size: 58 },
+  '/home/student/Documents/project.txt': { type: 'file', content: 'פרויקט Linux\n============\nמטרה: ללמוד פקודות בסיסיות\nסטטוס: בתהליך\n', perms: '644', size: 68 },
+  '/home/student/Documents/readme.md': { type: 'file', content: '# README\n\nברוכים הבאים לפרויקט!\n\n## פקודות שימושיות\n- ls -la\n- grep -i pattern file\n- chmod +x script.sh\n', perms: '644', size: 96 },
+  '/home/student/Downloads/archive.tar.gz': { type: 'file', content: '[binary data — קובץ גיבוי דחוס]', perms: '644', size: 20480 },
+  '/etc': { type: 'dir', children: ['passwd','hostname','os-release','hosts','crontab'] },
+  '/etc/passwd': { type: 'file', content: 'root:x:0:0:root:/root:/bin/bash\ndaemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\nwww-data:x:33:33:www-data:/var/www:/usr/sbin/nologin\nnobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin\nstudent:x:1000:1000:Linux Student:/home/student:/bin/bash\n', perms: '644', size: 210 },
+  '/etc/hostname': { type: 'file', content: 'linux-lab\n', perms: '644', size: 10 },
+  '/etc/hosts': { type: 'file', content: '127.0.0.1\tlocalhost\n127.0.1.1\tlinux-lab\n::1\t\tlocalhost ip6-localhost\n', perms: '644', size: 72 },
+  '/etc/os-release': { type: 'file', content: 'NAME="Ubuntu"\nVERSION="22.04.3 LTS (Jammy Jellyfish)"\nID=ubuntu\nID_LIKE=debian\nPRETTY_NAME="Ubuntu 22.04.3 LTS"\nHOME_URL="https://www.ubuntu.com/"\n', perms: '644', size: 148 },
+  '/etc/crontab': { type: 'file', content: '# /etc/crontab: system-wide crontab\nSHELL=/bin/sh\nPATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin\n\n# m h dom mon dow user  command\n17 *\t* * *\troot  cd / && run-parts /etc/cron.hourly\n', perms: '644', size: 188 },
+  '/var': { type: 'dir', children: ['log','tmp'] },
+  '/var/log': { type: 'dir', children: ['syslog','auth.log','app.log'] },
+  '/var/log/syslog': { type: 'file', content: 'Jan 15 10:00:01 linux-lab systemd[1]: Started Daily apt download activities.\nJan 15 10:01:32 linux-lab kernel: [12345.678] EXT4-fs (sda1): mounted filesystem\nJan 15 10:05:14 linux-lab sshd[1234]: Accepted publickey for student\nJan 15 10:10:22 linux-lab systemd[1]: nginx.service: Main process exited\nJan 15 10:10:22 linux-lab systemd[1]: nginx.service: Failed with result exit-code\nJan 15 10:15:00 linux-lab CRON[5678]: pam_unix: session opened for user root\nJan 15 11:00:01 linux-lab kernel: [15000.123] usb 1-1: new high-speed USB device\n', perms: '640', size: 520 },
+  '/var/log/auth.log': { type: 'file', content: 'Jan 15 09:00:01 linux-lab sshd[999]: Server listening on 0.0.0.0 port 22\nJan 15 10:05:14 linux-lab sshd[1234]: Accepted publickey for student from 192.168.1.100\nJan 15 10:05:14 linux-lab sshd[1234]: pam_unix: session opened for user student\nJan 15 10:55:43 linux-lab sudo[2222]: student : TTY=pts/0 ; COMMAND=/bin/apt update\n', perms: '640', size: 380 },
+  '/var/log/app.log': { type: 'file', content: '[2024-01-15 08:00:01] INFO - Application started\n[2024-01-15 08:00:02] INFO - Database connected\n[2024-01-15 09:15:33] INFO - Request processed: GET /api/users\n[2024-01-15 09:15:34] INFO - Request processed: POST /api/login\n[2024-01-15 10:22:11] ERROR - Database timeout after 30s\n[2024-01-15 10:22:12] ERROR - Retrying connection...\n[2024-01-15 10:22:15] INFO - Database reconnected\n[2024-01-15 11:00:00] INFO - Hourly backup completed\n', perms: '644', size: 440 },
+  '/var/tmp': { type: 'dir', children: [] },
+  '/tmp': { type: 'dir', children: [] },
+  '/usr': { type: 'dir', children: ['bin','local'] },
+  '/usr/bin': { type: 'dir', children: ['python3','node','git','vim','nano'] },
+  '/usr/local': { type: 'dir', children: ['bin'] },
+  '/usr/local/bin': { type: 'dir', children: [] },
+  '/proc': { type: 'dir', children: ['cpuinfo','meminfo','uptime','version'] },
+  '/proc/cpuinfo': { type: 'file', content: 'processor\t: 0\nmodel name\t: Intel(R) Core(TM) i7-9700K CPU @ 3.60GHz\ncpu MHz\t\t: 3600.000\ncache size\t: 12288 KB\nbogomips\t: 7200.00\n\nprocessor\t: 1\nmodel name\t: Intel(R) Core(TM) i7-9700K CPU @ 3.60GHz\ncpu MHz\t\t: 3600.000\n', perms: '444', size: 240 },
+  '/proc/meminfo': { type: 'file', content: 'MemTotal:        8192000 kB\nMemFree:         2048000 kB\nMemAvailable:    3500000 kB\nBuffers:          512000 kB\nCached:          1800000 kB\nSwapTotal:       2097152 kB\nSwapFree:        2097152 kB\n', perms: '444', size: 188 },
+  '/proc/uptime': { type: 'file', content: '86400.42 172800.84\n', perms: '444', size: 20 },
+  '/proc/version': { type: 'file', content: 'Linux version 5.15.0-91-generic (buildd@lcy02-amd64-001) (gcc version 11.4.0) #101-Ubuntu SMP Tue Nov 14 13:30:08 UTC 2023\n', perms: '444', size: 118 },
+};
 
-function gPrint(text, cls='gt-out', delay=0) {
-  const screen = document.getElementById('gtScreen');
-  setTimeout(() => {
-    const line = document.createElement('div');
-    line.className = 'gt-line ' + cls;
-    line.innerHTML = text;
-    screen.appendChild(line);
-    screen.scrollTop = screen.scrollHeight;
-  }, delay);
+// ── State ──
+let simCwd = '/home/student';
+let simHistory = [];
+let simHistPos = -1;
+let simCmdCount = 0;
+// Mutable FS clone for mkdir/touch/rm/cp/mv during session
+const MFS = JSON.parse(JSON.stringify(FS));
+
+// ── Helpers ──
+function resolvePath(p, cwd) {
+  if (!p || p === '~') return '/home/student';
+  if (p.startsWith('~/')) return '/home/student' + p.slice(1);
+  if (p.startsWith('/')) return normPath(p);
+  return normPath(cwd + '/' + p);
 }
 
-function gPromptLine(cmd) {
-  const screen = document.getElementById('gtScreen');
-  const line = document.createElement('div');
-  line.className = 'gt-prompt-line';
-  line.innerHTML = `<span class="gt-user">student</span><span class="gt-at">@</span><span class="gt-host">linux-pro</span><span style="color:var(--text-dim)">:</span><span class="gt-path">${document.getElementById('gtPath').textContent}</span><span class="gt-dollar"> $ </span><span class="gt-typed">${cmd}</span>`;
-  screen.appendChild(line);
+function normPath(p) {
+  const parts = p.split('/').filter(Boolean);
+  const res = [];
+  for (const part of parts) {
+    if (part === '..') res.pop();
+    else if (part !== '.') res.push(part);
+  }
+  return '/' + res.join('/');
+}
+
+function getNode(path) { return MFS[path] || null; }
+
+function parentOf(path) {
+  const i = path.lastIndexOf('/');
+  return i === 0 ? '/' : path.slice(0, i);
+}
+
+function baseName(path) { return path.slice(path.lastIndexOf('/') + 1); }
+
+function sizeStr(bytes) {
+  if (bytes >= 1048576) return (bytes/1048576).toFixed(1) + 'M';
+  if (bytes >= 1024)    return (bytes/1024).toFixed(0) + 'K';
+  return bytes + '';
+}
+
+function permsStr(perms, type) {
+  const t = type === 'dir' ? 'd' : '-';
+  const map = {'7':'rwx','6':'rw-','5':'r-x','4':'r--','3':'-wx','2':'-w-','1':'--x','0':'---'};
+  return t + (map[perms[0]]||'---') + (map[perms[1]]||'---') + (map[perms[2]]||'---');
+}
+
+function fmtDate() {
+  const d = new Date();
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return months[d.getMonth()] + ' ' + String(d.getDate()).padStart(2,' ') + ' ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+}
+
+function escape(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function cwdDisplay(p) { return p.startsWith('/home/student') ? '~' + p.slice(13) : p; }
+
+// ── Print to screen ──
+function simPrint(html, cls) {
+  const screen = document.getElementById('simScreen');
+  const d = document.createElement('div');
+  d.className = 'gt-line' + (cls ? ' ' + cls : '');
+  d.innerHTML = html;
+  screen.appendChild(d);
   screen.scrollTop = screen.scrollHeight;
 }
 
-function loadMission() {
-  if (currentIdx >= MISSIONS.length) { endGame(); return; }
-  const m = MISSIONS[currentIdx];
-  gLevel = m.level;
-  document.getElementById('gLevel').textContent = gLevel;
-  document.getElementById('gtPath').textContent = m.path;
-  document.getElementById('gtMission').innerHTML = m.desc;
-  const pct = (currentIdx / MISSIONS.length) * 100;
-  document.getElementById('gtProg').style.width = pct + '%';
-  document.getElementById('gtProgLbl').textContent = `${currentIdx}/${MISSIONS.length}`;
-  if (currentIdx > 0) { gPrint('', '', 0); }
-  gPrint(`<span class="gt-sys">── mission ${m.id}/15 ─ level ${m.level} ${'★'.repeat(m.level)}${'☆'.repeat(3-m.level)} ──</span>`, '', 0);
+function simPromptLine(cmd) {
+  const screen = document.getElementById('simScreen');
+  const d = document.createElement('div');
+  d.className = 'gt-prompt-line';
+  d.innerHTML =
+    '<span class="gt-user">student</span><span class="gt-at">@</span>' +
+    '<span class="gt-host">linux-lab</span><span style="color:var(--text-dim)">:</span>' +
+    '<span class="gt-path">' + escape(cwdDisplay(simCwd)) + '</span>' +
+    '<span class="gt-dollar"> $ </span><span class="gt-typed">' + escape(cmd) + '</span>';
+  screen.appendChild(d);
+  screen.scrollTop = screen.scrollHeight;
 }
 
-function submitCmd() {
-  const input = document.getElementById('gtInput');
-  const cmd = input.value.trim();
-  if (!cmd) return;
-  input.value = '';
-  cmdHistory.unshift(cmd); histPos = -1;
+// ── Command Dispatcher ──
+function simExec(raw) {
+  const trimmed = raw.trim();
+  if (!trimmed) return;
 
-  gPromptLine(cmd);
+  simHistory.unshift(trimmed);
+  simHistPos = -1;
+  simCmdCount++;
+  document.getElementById('sim-cmds').textContent = simCmdCount + ' פקודות';
 
-  const m = MISSIONS[currentIdx];
-
-  if (cmd === 'hint') {
-    gPrint(`<span class="gt-hint">💡 hint: try "${m.hint}"</span>`);
+  // Handle pipe: cmd1 | cmd2 (basic support)
+  if (trimmed.includes(' | ')) {
+    execPipe(trimmed);
     return;
   }
 
-  if (cmd === 'skip') {
-    gScore = Math.max(0, gScore - 5);
-    gStreak = 0;
-    updateGameUI();
-    gPrint(`<span class="gt-err">skipped (−5 points)</span>`);
-    currentIdx++;
-    setTimeout(loadMission, 400);
-    return;
+  // Handle redirect: cmd > file or cmd >> file
+  let redirect = null;
+  let append = false;
+  let cmdStr = trimmed;
+  const redirMatch = trimmed.match(/^(.+?)\s*(>>|>)\s*(\S+)$/);
+  if (redirMatch) {
+    cmdStr = redirMatch[1].trim();
+    append = redirMatch[2] === '>>';
+    redirect = resolvePath(redirMatch[3], simCwd);
   }
 
-  const normalized = cmd.replace(/\s+/g, ' ').trim();
-  const isCorrect = m.answers.some(a => normalized === a.replace(/\s+/g,' ').trim() ||
-    normalized.includes(a.replace(/\s+/g,' ').trim().split(' ')[0]) && m.answers.some(ans => normalized === ans.replace(/\s+/g,' ').trim()));
+  const result = runCmd(cmdStr);
 
-  const exactMatch = m.answers.some(a => normalized === a.replace(/\s+/g,' ').trim());
-
-  if (exactMatch) {
-    gStreak++;
-    const bonus = gStreak >= 3 ? 5 : 0;
-    const pts = 10 + bonus + (m.level * 2);
-    gScore += pts;
-    updateGameUI();
-    gPrint(`<span class="gt-ok">${m.success}</span>`, '', 0);
-    if (bonus) gPrint(`<span class="gt-sys">🔥 streak x${gStreak}! +${bonus} bonus points</span>`, '', 100);
-    gPrint(`<span class="gt-ok">✓ correct +${pts}pts</span>`, '', 150);
-    currentIdx++;
-    setTimeout(loadMission, 800);
-  } else {
-    gStreak = 0;
-    updateGameUI();
-    if (cmd.split(' ')[0] === m.answers[0].split(' ')[0]) {
-      gPrint(`<span class="gt-err">almost! check the flags. type 'hint' for help.</span>`);
+  if (redirect !== null && result !== null) {
+    // Write to file
+    const existing = append && MFS[redirect] ? MFS[redirect].content : '';
+    const newContent = (result || '').replace(/<[^>]+>/g,'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&') + '\n';
+    if (MFS[redirect]) {
+      MFS[redirect].content = existing + newContent;
     } else {
-      gPrint(`<span class="gt-err">command not found or incorrect. type 'hint' for help.</span>`);
+      const parent = parentOf(redirect);
+      const base = baseName(redirect);
+      if (MFS[parent]) {
+        MFS[parent].children.push(base);
+        MFS[redirect] = { type: 'file', content: existing + newContent, perms: '644', size: (existing + newContent).length };
+      } else {
+        simPrint('<span class="t-e">bash: ' + escape(redirect) + ': No such file or directory</span>');
+      }
+    }
+    return;
+  }
+
+  if (result !== null && result !== '') simPrint(result);
+}
+
+function execPipe(raw) {
+  const cmds = raw.split(' | ').map(s => s.trim());
+  let input = null;
+  for (const cmd of cmds) {
+    if (input !== null) {
+      // Feed previous output as stdin
+      const result = runCmdWithStdin(cmd, input);
+      input = result ? result.replace(/<[^>]+>/g,'').replace(/&[a-z]+;/g, s => ({'&amp;':'&','&lt;':'<','&gt;':'>',' ':' '}[s]||s)) : '';
+    } else {
+      const result = runCmd(cmd);
+      input = result ? result.replace(/<[^>]+>/g,'').replace(/&[a-z]+;/g, s => ({'&amp;':'&','&lt;':'<','&gt;':'>',' ':' '}[s]||s)) : '';
+    }
+  }
+  if (input !== null && input.trim() !== '') simPrint(escape(input).replace(/\n/g,'<br>'));
+}
+
+function runCmdWithStdin(cmdStr, stdin) {
+  const args = parseArgs(cmdStr);
+  const cmd = args[0];
+
+  if (cmd === 'grep') {
+    const flags = args.filter(a => a.startsWith('-'));
+    const nonFlags = args.filter(a => !a.startsWith('-'));
+    const pattern = nonFlags[1] || '';
+    const caseInsensitive = flags.some(f => f.includes('i'));
+    const countOnly = flags.some(f => f.includes('c'));
+    const lineNum = flags.some(f => f.includes('n'));
+    const lines = stdin.split('\n').filter(l => l !== '');
+    const regex = new RegExp(pattern, caseInsensitive ? 'i' : '');
+    const matched = lines.filter(l => regex.test(l));
+    if (countOnly) return matched.length + '';
+    if (lineNum) return matched.map((l,i) => (i+1) + ':' + l).join('\n');
+    return matched.join('\n');
+  }
+  if (cmd === 'wc') {
+    const lines = stdin.split('\n').filter(l => l !== '');
+    if (args.includes('-l')) return lines.length + '';
+    if (args.includes('-w')) return stdin.split(/\s+/).filter(Boolean).length + '';
+    if (args.includes('-c')) return stdin.length + '';
+    return lines.length + '\t' + stdin.split(/\s+/).filter(Boolean).length + '\t' + stdin.length;
+  }
+  if (cmd === 'sort') {
+    let lines = stdin.split('\n').filter(l => l !== '');
+    if (args.includes('-r')) lines = lines.reverse();
+    else lines = lines.sort();
+    if (args.includes('-u')) lines = [...new Set(lines)];
+    if (args.includes('-rh') || (args.includes('-r') && args.includes('-h'))) {
+      lines = stdin.split('\n').filter(l => l !== '').sort((a,b) => {
+        const toBytes = s => { const m = s.match(/^([\d.]+)([KMGT]?)/); if(!m) return 0; const u={'K':1024,'M':1048576,'G':1073741824,'T':1099511627776}; return parseFloat(m[1])*(u[m[2]]||1); };
+        return toBytes(b.split(/\s/)[0]) - toBytes(a.split(/\s/)[0]);
+      });
+    }
+    return lines.join('\n');
+  }
+  if (cmd === 'head') {
+    const n = parseInt(args[args.indexOf('-n')+1]||args.find(a=>a.match(/^-\d+$/))||'') || 10;
+    return stdin.split('\n').slice(0, n).join('\n');
+  }
+  if (cmd === 'tail') {
+    const n = parseInt(args[args.indexOf('-n')+1]||args.find(a=>a.match(/^-\d+$/))||'') || 10;
+    const lines = stdin.split('\n');
+    return lines.slice(-n).join('\n');
+  }
+  if (cmd === 'uniq') {
+    const lines = stdin.split('\n').filter(l => l !== '');
+    if (args.includes('-c')) {
+      const res = [];
+      let count = 1;
+      for (let i = 1; i <= lines.length; i++) {
+        if (lines[i] === lines[i-1]) { count++; }
+        else { res.push(String(count).padStart(7) + ' ' + lines[i-1]); count = 1; }
+      }
+      return res.join('\n');
+    }
+    return [...new Set(lines)].join('\n');
+  }
+  if (cmd === 'tr') {
+    if (args.includes('-d')) return stdin.replace(new RegExp(args[args.indexOf('-d')+1],'g'),'');
+    return stdin;
+  }
+  if (cmd === 'cut') {
+    const fIdx = args.indexOf('-f');
+    const dIdx = args.indexOf('-d');
+    if (fIdx >= 0) {
+      const f = parseInt(args[fIdx+1]) - 1;
+      const delim = dIdx >= 0 ? args[dIdx+1] : '\t';
+      return stdin.split('\n').filter(l=>l).map(l => l.split(delim)[f] || '').join('\n');
+    }
+    return stdin;
+  }
+  if (cmd === 'awk') {
+    const prog = args.slice(1).join(' ').replace(/^'|'$/g,'');
+    const lines = stdin.split('\n').filter(l => l !== '');
+    const printField = prog.match(/\{print \$(\d+)\}/);
+    if (printField) {
+      const fi = parseInt(printField[1]) - 1;
+      return lines.map(l => l.trim().split(/\s+/)[fi] || '').join('\n');
+    }
+    return stdin;
+  }
+  if (cmd === 'xargs') {
+    return '[xargs: not simulated in this environment]';
+  }
+  return runCmd(cmdStr + ' <<< ' + stdin) || stdin;
+}
+
+function parseArgs(cmdStr) {
+  // Simple tokenizer that handles quoted strings
+  const tokens = [];
+  let current = '';
+  let inSingle = false, inDouble = false;
+  for (let i = 0; i < cmdStr.length; i++) {
+    const ch = cmdStr[i];
+    if (ch === "'" && !inDouble) { inSingle = !inSingle; continue; }
+    if (ch === '"' && !inSingle) { inDouble = !inDouble; continue; }
+    if (ch === ' ' && !inSingle && !inDouble) {
+      if (current) { tokens.push(current); current = ''; }
+    } else {
+      current += ch;
+    }
+  }
+  if (current) tokens.push(current);
+  return tokens;
+}
+
+function runCmd(cmdStr) {
+  const args = parseArgs(cmdStr);
+  const cmd = args[0];
+  if (!cmd) return '';
+
+  switch(cmd) {
+
+    case 'whoami': return 'student';
+
+    case 'id': return 'uid=1000(student) gid=1000(student) groups=1000(student),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev)';
+
+    case 'pwd': return simCwd;
+
+    case 'hostname': return 'linux-lab';
+
+    case 'uname': {
+      if (args.includes('-a')) return 'Linux linux-lab 5.15.0-91-generic #101-Ubuntu SMP x86_64 GNU/Linux';
+      if (args.includes('-r')) return '5.15.0-91-generic';
+      if (args.includes('-n')) return 'linux-lab';
+      return 'Linux';
+    }
+
+    case 'date': {
+      const d = new Date();
+      if (args.includes('+%Y%m%d_%H%M')) return d.getFullYear() + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') + '_' + String(d.getHours()).padStart(2,'0') + String(d.getMinutes()).padStart(2,'0');
+      if (args.includes('+%A')) return ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d.getDay()];
+      if (args.includes('+%T')) return d.toTimeString().slice(0,8);
+      if (args.includes('+%F')) return d.toISOString().slice(0,10);
+      return d.toString().replace(/\(.*\)/,'').trim();
+    }
+
+    case 'echo': {
+      const nFlag = args[1] === '-n';
+      const parts = nFlag ? args.slice(2) : args.slice(1);
+      let text = parts.join(' ');
+      // Handle $VAR substitutions (basic)
+      text = text.replace(/\$USER/g, 'student').replace(/\$HOME/g, '/home/student').replace(/\$SHELL/g, '/bin/bash').replace(/\$HOSTNAME/g, 'linux-lab').replace(/\$PWD/g, simCwd).replace(/\$PATH/g, '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin');
+      return escape(text);
+    }
+
+    case 'ls': {
+      const flags = args.filter(a => a.startsWith('-')).join('');
+      const pathArg = args.find(a => !a.startsWith('-') && a !== 'ls');
+      const target = pathArg ? resolvePath(pathArg, simCwd) : simCwd;
+      const node = getNode(target);
+      if (!node) return '<span class="t-e">ls: cannot access \'' + escape(target) + '\': No such file or directory</span>';
+      
+      let entries = [];
+      if (node.type === 'file') {
+        entries = [{ name: baseName(target), node }];
+      } else {
+        if (flags.includes('a')) {
+          entries.push({ name: '.', node: { type:'dir', perms:'755', size:4096 } });
+          entries.push({ name: '..', node: { type:'dir', perms:'755', size:4096 } });
+        }
+        entries = entries.concat((node.children || []).map(name => {
+          const childPath = (target === '/' ? '' : target) + '/' + name;
+          return { name, node: getNode(childPath) || { type:'file', perms:'644', size:0 } };
+        }));
+      }
+      
+      if (flags.includes('l')) {
+        const now = fmtDate();
+        return entries.map(e => {
+          const n = e.node || { type:'file', perms:'644', size:0 };
+          const perm = permsStr(n.perms || (n.type==='dir'?'755':'644'), n.type);
+          const size = n.type === 'dir' ? '4096' : (n.size || 0) + '';
+          const color = n.type === 'dir' ? '<span class="t-h">' : '<span class="t-o">';
+          return perm + ' 1 student student ' + size.padStart(6) + ' ' + now + ' ' + color + escape(e.name) + '</span>';
+        }).join('\n');
+      }
+      
+      if (flags.includes('1')) {
+        return entries.map(e => {
+          const n = e.node || { type:'file' };
+          return n.type === 'dir' ? '<span class="t-h">' + escape(e.name) + '</span>' : escape(e.name);
+        }).join('\n');
+      }
+      
+      // Default: columns
+      const parts = entries.map(e => {
+        const n = e.node || { type:'file' };
+        return n.type === 'dir' ? '<span class="t-h">' + escape(e.name) + '</span>' : escape(e.name);
+      });
+      return parts.join('  ');
+    }
+
+    case 'cd': {
+      const dest = args[1] ? resolvePath(args[1], simCwd) : '/home/student';
+      const node = getNode(dest);
+      if (!node) return '<span class="t-e">bash: cd: ' + escape(dest) + ': No such file or directory</span>';
+      if (node.type !== 'dir') return '<span class="t-e">bash: cd: ' + escape(dest) + ': Not a directory</span>';
+      simCwd = dest;
+      document.getElementById('simCwdDisplay').textContent = cwdDisplay(simCwd);
+      return '';
+    }
+
+    case 'cat': {
+      if (args.length < 2) return ''; // stdin mode not simulated
+      const results = [];
+      for (const a of args.slice(1)) {
+        const p = resolvePath(a, simCwd);
+        const node = getNode(p);
+        if (!node) { results.push('<span class="t-e">cat: ' + escape(a) + ': No such file or directory</span>'); continue; }
+        if (node.type === 'dir') { results.push('<span class="t-e">cat: ' + escape(a) + ': Is a directory</span>'); continue; }
+        results.push(escape(node.content || ''));
+      }
+      return results.join('');
+    }
+
+    case 'less': case 'more': {
+      const p = args[1] ? resolvePath(args[1], simCwd) : null;
+      if (!p) return '(less: no file specified)';
+      const node = getNode(p);
+      if (!node) return '<span class="t-e">less: ' + escape(args[1]) + ': No such file or directory</span>';
+      if (node.type === 'dir') return '<span class="t-e">less: ' + escape(args[1]) + ': Is a directory</span>';
+      return '<span class="t-c">[מציג קובץ — בסימולטור הכל מוצג בבת אחת]</span>\n' + escape(node.content || '');
+    }
+
+    case 'head': {
+      const flags = args.filter(a => a.startsWith('-'));
+      const pathArg = args.find(a => !a.startsWith('-') && a !== 'head');
+      const n = parseInt(flags.find(f => f.match(/^-\d+$/))?.slice(1)) || parseInt(flags[flags.indexOf('-n')+1]) || 10;
+      if (!pathArg) return '(head: reading from stdin not supported here)';
+      const p = resolvePath(pathArg, simCwd);
+      const node = getNode(p);
+      if (!node) return '<span class="t-e">head: cannot open \'' + escape(pathArg) + '\': No such file or directory</span>';
+      return escape((node.content || '').split('\n').slice(0, n).join('\n'));
+    }
+
+    case 'tail': {
+      const flags = args.filter(a => a.startsWith('-'));
+      const pathArg = args.find(a => !a.startsWith('-') && a !== 'tail');
+      const n = parseInt(flags.find(f => f.match(/^-\d+$/))?.slice(1)) || parseInt(flags[flags.indexOf('-n')+1]) || 10;
+      if (!pathArg) return '(tail: reading from stdin not supported here)';
+      const p = resolvePath(pathArg, simCwd);
+      const node = getNode(p);
+      if (!node) return '<span class="t-e">tail: cannot open \'' + escape(pathArg) + '\': No such file or directory</span>';
+      const lines = (node.content || '').split('\n');
+      return escape(lines.slice(-n).join('\n'));
+    }
+
+    case 'grep': {
+      const flags = args.filter(a => a.startsWith('-')).join('');
+      const nonFlags = args.filter(a => !a.startsWith('-') && a !== 'grep');
+      const pattern = nonFlags[0] || '';
+      const files = nonFlags.slice(1);
+      const ci = flags.includes('i');
+      const countOnly = flags.includes('c');
+      const lineNum = flags.includes('n');
+      const invertMatch = flags.includes('v');
+      const recursive = flags.includes('r') || flags.includes('R');
+      const regex = new RegExp(pattern, ci ? 'i' : '');
+
+      if (recursive) {
+        const dir = files[0] ? resolvePath(files[0], simCwd) : simCwd;
+        const results = [];
+        const walk = (p) => {
+          const node = getNode(p);
+          if (!node) return;
+          if (node.type === 'dir') { (node.children||[]).forEach(c => walk(p === '/' ? '/'+c : p+'/'+c)); }
+          else {
+            const matched = (node.content||'').split('\n').filter(l => regex.test(l) !== invertMatch);
+            matched.forEach(l => results.push(escape(p + ':' + l)));
+          }
+        };
+        walk(dir);
+        if (countOnly) return results.length + '';
+        return results.join('\n');
+      }
+
+      if (!files.length) return '(grep: לא צוין קובץ — בסימולטור צריך לציין קובץ)';
+      
+      const allResults = [];
+      for (const f of files) {
+        const p = resolvePath(f, simCwd);
+        const node = getNode(p);
+        if (!node) { allResults.push('<span class="t-e">grep: ' + escape(f) + ': No such file or directory</span>'); continue; }
+        if (node.type === 'dir') { allResults.push('<span class="t-e">grep: ' + escape(f) + ': Is a directory</span>'); continue; }
+        const lines = (node.content||'').split('\n');
+        const matched = lines.filter(l => regex.test(l) !== invertMatch);
+        if (countOnly) { allResults.push((files.length > 1 ? f + ':' : '') + matched.length); continue; }
+        matched.forEach((l, idx) => {
+          const prefix = files.length > 1 ? escape(f) + ':' : '';
+          const numPrefix = lineNum ? (idx+1) + ':' : '';
+          // Highlight match
+          const hl = l.replace(regex, m => '<span style="color:var(--amber);font-weight:700">' + escape(m) + '</span>');
+          allResults.push(prefix + numPrefix + hl);
+        });
+      }
+      return allResults.join('\n');
+    }
+
+    case 'wc': {
+      const files = args.slice(1).filter(a => !a.startsWith('-'));
+      const flags = args.filter(a => a.startsWith('-')).join('');
+      const linesOnly = flags.includes('l');
+      const wordsOnly = flags.includes('w');
+      const charsOnly = flags.includes('c');
+      
+      if (!files.length) return '(wc: בסימולטור צריך לציין קובץ)';
+      
+      const results = [];
+      let totL=0, totW=0, totC=0;
+      for (const f of files) {
+        const p = resolvePath(f, simCwd);
+        const node = getNode(p);
+        if (!node) { results.push('<span class="t-e">wc: ' + escape(f) + ': No such file or directory</span>'); continue; }
+        const content = node.content || '';
+        const l = content.split('\n').filter(x=>x).length;
+        const w = content.split(/\s+/).filter(Boolean).length;
+        const c = content.length;
+        totL+=l; totW+=w; totC+=c;
+        if (linesOnly) results.push(String(l).padStart(7) + ' ' + escape(f));
+        else if (wordsOnly) results.push(String(w).padStart(7) + ' ' + escape(f));
+        else if (charsOnly) results.push(String(c).padStart(7) + ' ' + escape(f));
+        else results.push(String(l).padStart(7) + ' ' + String(w).padStart(7) + ' ' + String(c).padStart(7) + ' ' + escape(f));
+      }
+      if (files.length > 1) {
+        if (linesOnly) results.push(String(totL).padStart(7) + ' total');
+        else results.push(String(totL).padStart(7) + ' ' + String(totW).padStart(7) + ' ' + String(totC).padStart(7) + ' total');
+      }
+      return results.join('\n');
+    }
+
+    case 'find': {
+      const pathArg = args[1] && !args[1].startsWith('-') ? resolvePath(args[1], simCwd) : simCwd;
+      const nameIdx = args.indexOf('-name');
+      const typeIdx = args.indexOf('-type');
+      const sizeIdx = args.indexOf('-size');
+      const namePattern = nameIdx >= 0 ? args[nameIdx+1] : null;
+      const typeFilter = typeIdx >= 0 ? args[typeIdx+1] : null;
+      
+      const results = [];
+      const walk = (p) => {
+        const node = getNode(p);
+        if (!node) return;
+        const name = baseName(p) || '/';
+        let match = true;
+        if (namePattern) {
+          const re = new RegExp('^' + namePattern.replace(/\./g,'\\.').replace(/\*/g,'.*') + '$');
+          if (!re.test(name)) match = false;
+        }
+        if (typeFilter === 'f' && node.type !== 'file') match = false;
+        if (typeFilter === 'd' && node.type !== 'dir') match = false;
+        if (match) results.push(p.startsWith(simCwd) && args[1] === '.' ? '.' + p.slice(simCwd.length) : p);
+        if (node.type === 'dir') {
+          (node.children||[]).forEach(c => walk(p === '/' ? '/'+c : p+'/'+c));
+        }
+      };
+      walk(pathArg);
+      return results.map(r => escape(r)).join('\n');
+    }
+
+    case 'mkdir': {
+      const p_flag = args.includes('-p');
+      const dirs = args.filter(a => !a.startsWith('-') && a !== 'mkdir');
+      const msgs = [];
+      for (const d of dirs) {
+        const target = resolvePath(d, simCwd);
+        if (MFS[target]) { msgs.push('<span class="t-e">mkdir: cannot create directory \'' + escape(d) + '\': File exists</span>'); continue; }
+        const parent = parentOf(target);
+        if (!MFS[parent] && !p_flag) { msgs.push('<span class="t-e">mkdir: cannot create directory \'' + escape(d) + '\': No such file or directory</span>'); continue; }
+        if (p_flag) {
+          // Create all intermediate
+          const parts = target.split('/').filter(Boolean);
+          let cur = '';
+          for (const part of parts) {
+            cur += '/' + part;
+            if (!MFS[cur]) {
+              const par = parentOf(cur);
+              MFS[cur] = { type: 'dir', children: [], perms: '755', size: 4096 };
+              if (MFS[par]) MFS[par].children.push(baseName(cur));
+            }
+          }
+        } else {
+          MFS[target] = { type: 'dir', children: [], perms: '755', size: 4096 };
+          if (MFS[parent]) MFS[parent].children.push(baseName(target));
+        }
+      }
+      return msgs.join('\n');
+    }
+
+    case 'touch': {
+      const files = args.filter(a => a !== 'touch');
+      const msgs = [];
+      for (const f of files) {
+        const target = resolvePath(f, simCwd);
+        if (!MFS[target]) {
+          const parent = parentOf(target);
+          if (!MFS[parent]) { msgs.push('<span class="t-e">touch: cannot touch \'' + escape(f) + '\': No such file or directory</span>'); continue; }
+          MFS[target] = { type: 'file', content: '', perms: '644', size: 0 };
+          MFS[parent].children.push(baseName(target));
+        }
+        // If exists, just update (timestamp not simulated)
+      }
+      return msgs.join('\n');
+    }
+
+    case 'rm': {
+      const flags = args.filter(a => a.startsWith('-')).join('');
+      const recursive = flags.includes('r') || flags.includes('R');
+      const force = flags.includes('f');
+      const files = args.filter(a => !a.startsWith('-') && a !== 'rm');
+      const msgs = [];
+      for (const f of files) {
+        const target = resolvePath(f, simCwd);
+        const node = getNode(target);
+        if (!node) {
+          if (!force) msgs.push('<span class="t-e">rm: cannot remove \'' + escape(f) + '\': No such file or directory</span>');
+          continue;
+        }
+        if (node.type === 'dir' && !recursive) { msgs.push('<span class="t-e">rm: cannot remove \'' + escape(f) + '\': Is a directory</span>'); continue; }
+        // Remove from parent
+        const parent = parentOf(target);
+        const base = baseName(target);
+        if (MFS[parent]) MFS[parent].children = MFS[parent].children.filter(c => c !== base);
+        // Remove node and children recursively
+        const removeAll = (p) => {
+          const n = MFS[p];
+          if (n && n.type === 'dir') (n.children||[]).forEach(c => removeAll(p === '/' ? '/'+c : p+'/'+c));
+          delete MFS[p];
+        };
+        removeAll(target);
+      }
+      return msgs.join('\n');
+    }
+
+    case 'cp': {
+      const flags = args.filter(a => a.startsWith('-')).join('');
+      const nonFlags = args.filter(a => !a.startsWith('-') && a !== 'cp');
+      if (nonFlags.length < 2) return '<span class="t-e">cp: missing file operand</span>';
+      const src = resolvePath(nonFlags[0], simCwd);
+      const dstArg = resolvePath(nonFlags[1], simCwd);
+      const srcNode = getNode(src);
+      if (!srcNode) return '<span class="t-e">cp: cannot stat \'' + escape(nonFlags[0]) + '\': No such file or directory</span>';
+      
+      let dst = dstArg;
+      const dstNode = getNode(dstArg);
+      if (dstNode && dstNode.type === 'dir') dst = dstArg + '/' + baseName(src);
+      
+      const parent = parentOf(dst);
+      if (!MFS[parent]) return '<span class="t-e">cp: cannot create regular file \'' + escape(nonFlags[1]) + '\': No such file or directory</span>';
+      MFS[dst] = JSON.parse(JSON.stringify(srcNode));
+      if (!MFS[parent].children.includes(baseName(dst))) MFS[parent].children.push(baseName(dst));
+      return '';
+    }
+
+    case 'mv': {
+      const nonFlags = args.filter(a => !a.startsWith('-') && a !== 'mv');
+      if (nonFlags.length < 2) return '<span class="t-e">mv: missing file operand</span>';
+      const src = resolvePath(nonFlags[0], simCwd);
+      const dstArg = resolvePath(nonFlags[1], simCwd);
+      const srcNode = getNode(src);
+      if (!srcNode) return '<span class="t-e">mv: cannot stat \'' + escape(nonFlags[0]) + '\': No such file or directory</span>';
+      
+      let dst = dstArg;
+      const dstNode = getNode(dstArg);
+      if (dstNode && dstNode.type === 'dir') dst = dstArg + '/' + baseName(src);
+      
+      const dstParent = parentOf(dst);
+      if (!MFS[dstParent]) return '<span class="t-e">mv: cannot move to \'' + escape(nonFlags[1]) + '\': No such directory</span>';
+      
+      MFS[dst] = JSON.parse(JSON.stringify(srcNode));
+      if (!MFS[dstParent].children.includes(baseName(dst))) MFS[dstParent].children.push(baseName(dst));
+      
+      const srcParent = parentOf(src);
+      if (MFS[srcParent]) MFS[srcParent].children = MFS[srcParent].children.filter(c => c !== baseName(src));
+      delete MFS[src];
+      return '';
+    }
+
+    case 'chmod': {
+      const mode = args[1];
+      const files = args.slice(2);
+      const msgs = [];
+      for (const f of files) {
+        const p = resolvePath(f, simCwd);
+        const node = getNode(p);
+        if (!node) { msgs.push('<span class="t-e">chmod: cannot access \'' + escape(f) + '\': No such file or directory</span>'); continue; }
+        if (mode.match(/^[0-7]{3,4}$/)) {
+          node.perms = mode.slice(-3);
+        } else if (mode.includes('+x')) {
+          const p3 = node.perms || '644';
+          const n = [parseInt(p3[0]), parseInt(p3[1]), parseInt(p3[2])];
+          node.perms = n.map(x => x | 1).join('');
+        } else if (mode.includes('-x')) {
+          const p3 = node.perms || '644';
+          const n = [parseInt(p3[0]), parseInt(p3[1]), parseInt(p3[2])];
+          node.perms = n.map(x => x & 6).join('');
+        } else if (mode.includes('+r')) {
+          const p3 = node.perms || '644';
+          node.perms = p3.split('').map(x => String(parseInt(x)|4)).join('');
+        }
+      }
+      return msgs.join('\n');
+    }
+
+    case 'ps': {
+      const flags = args.slice(1).join('');
+      const header = 'USER       PID  %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND';
+      const procs = [
+        'root         1   0.0  0.1  22540  9876 ?        Ss   10:00   0:01 /sbin/init',
+        'root       245   0.0  0.0  31416  4012 ?        Ss   10:00   0:00 /usr/sbin/sshd',
+        'root       312   0.0  0.2 120856 18432 ?        Ssl  10:00   0:02 /usr/bin/python3 /usr/bin/networkd-dispatcher',
+        'www-data   445   0.1  0.3 197804 28160 ?        S    10:00   0:05 nginx: worker process',
+        'student   1000   0.0  0.1  22476  9216 pts/0    Ss   10:05   0:00 -bash',
+        'student   1001   0.2  1.2 987456 98304 pts/0   S    10:10   0:12 python3 app.py',
+        'student   1234   0.0  0.0   8936   752 pts/0    R+   11:00   0:00 ps aux',
+      ];
+      if (flags.includes('a') || flags.includes('u') || flags.includes('x')) {
+        return header + '\n' + procs.join('\n');
+      }
+      return procs.filter(p => p.includes('student')).join('\n');
+    }
+
+    case 'top': {
+      return '<span class="t-c">[top — בסימולטור השתמש ב-ps aux במקום]</span>\n' +
+        'top - ' + new Date().toTimeString().slice(0,8) + ' up  1:00,  1 user,  load average: 0.15, 0.12, 0.10\n' +
+        'Tasks: 89 total,   1 running,  88 sleeping,   0 stopped,   0 zombie\n' +
+        '%Cpu(s):  2.3 us,  1.1 sy,  0.0 ni, 96.5 id,  0.0 wa\n' +
+        'MiB Mem :   7813.8 total,   2048.2 free,   4102.4 used,   1663.2 buff/cache\n\n' +
+        '  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND\n' +
+        ' 1001 student   20   0  964k    96m   12m  S   0.7   1.2   0:12.34 python3\n' +
+        '  445 www-data  20   0  193m    27m    8m  S   0.3   0.3   0:05.21 nginx';
+    }
+
+    case 'kill': {
+      const sig = args.find(a => a.startsWith('-')) || '-15';
+      const pid = args.find(a => !a.startsWith('-') && a !== 'kill');
+      if (!pid) return '<span class="t-e">kill: usage: kill [-s sigspec] pid</span>';
+      if (pid === '1234' || pid === '1') return '<span class="t-e">kill: (' + pid + ') - Operation not permitted</span>';
+      return '<span class="t-ok">Process ' + escape(pid) + ' terminated (signal ' + escape(sig.slice(1) || '15') + ')</span>';
+    }
+
+    case 'df': {
+      const flags = args.filter(a => a.startsWith('-')).join('');
+      const h = flags.includes('h');
+      const header = h ? 'Filesystem      Size  Used Avail Use% Mounted on' : 'Filesystem     1K-blocks    Used Available Use% Mounted on';
+      const rows = h
+        ? ['/dev/sda1        50G   12G    36G  25% /', 'tmpfs           3.9G     0   3.9G   0% /dev/shm', '/dev/sdb1       100G   45G    55G  45% /data']
+        : ['/dev/sda1     52428800 12582912 37748928  25% /', 'tmpfs          4096000        0  4096000   0% /dev/shm'];
+      return header + '\n' + rows.join('\n');
+    }
+
+    case 'du': {
+      const flags = args.filter(a => a.startsWith('-')).join('');
+      const pathArg = args.find(a => !a.startsWith('-') && a !== 'du');
+      const h = flags.includes('h');
+      const s = flags.includes('s');
+      const target = pathArg ? resolvePath(pathArg, simCwd) : simCwd;
+      const node = getNode(target);
+      if (!node) return '<span class="t-e">du: cannot access \'' + escape(pathArg||'.') + '\': No such file or directory</span>';
+      
+      const getSize = (p) => {
+        const n = getNode(p);
+        if (!n) return 0;
+        if (n.type === 'file') return n.size || 0;
+        return (n.children||[]).reduce((acc, c) => acc + getSize(p === '/' ? '/'+c : p+'/'+c), 4096);
+      };
+      
+      if (s) {
+        const sz = getSize(target);
+        return (h ? sizeStr(sz) : Math.ceil(sz/1024)) + '\t' + escape(pathArg || '.');
+      }
+      
+      const results = [];
+      const walk = (p, label) => {
+        const n = getNode(p);
+        if (!n) return;
+        if (n.type === 'file') { results.push((h ? sizeStr(n.size||0) : Math.ceil((n.size||0)/1024)) + '\t' + escape(label)); return; }
+        (n.children||[]).forEach(c => walk(p === '/' ? '/'+c : p+'/'+c, label+'/'+c));
+        const sz = getSize(p);
+        results.push((h ? sizeStr(sz) : Math.ceil(sz/1024)) + '\t' + escape(label));
+      };
+      walk(target, pathArg || '.');
+      return results.join('\n');
+    }
+
+    case 'free': {
+      const flags = args.filter(a => a.startsWith('-')).join('');
+      const h = flags.includes('h') || flags.includes('-human');
+      const m = flags.includes('m');
+      if (h) return '               total        used        free      shared  buff/cache   available\nMem:           7.6Gi       4.0Gi       2.0Gi       124Mi       1.6Gi       3.2Gi\nSwap:          2.0Gi          0B       2.0Gi';
+      if (m) return '               total        used        free      shared  buff/cache   available\nMem:            7813        4102        2048         126        1663        3408\nSwap:           2048           0        2048';
+      return '               total        used        free      shared  buff/cache   available\nMem:         8001536     4200448     2097152      129024     1703936     3491840\nSwap:        2097152           0     2097152';
+    }
+
+    case 'stat': {
+      const fmtArg = args.includes('-c') ? args[args.indexOf('-c')+1] : null;
+      const pathArg = args.find(a => !a.startsWith('-') && a !== 'stat' && a !== (fmtArg||''));
+      if (!pathArg) return '<span class="t-e">stat: missing operand</span>';
+      const p = resolvePath(pathArg, simCwd);
+      const node = getNode(p);
+      if (!node) return '<span class="t-e">stat: cannot statx \'' + escape(pathArg) + '\': No such file or directory</span>';
+      if (fmtArg === '%a') return node.perms || '644';
+      if (fmtArg === '%A') return permsStr(node.perms||'644', node.type);
+      return '  File: ' + escape(p) + '\n  Size: ' + (node.size||0) + '\t\tBlocks: 8\tIO Block: 4096\t' + node.type + '\n  Inode: ' + (Math.floor(Math.random()*900000)+100000) + '\t Links: 1\nAccess: (' + (node.perms||'644') + '/' + permsStr(node.perms||'644',node.type) + ')  Uid: ( 1000/student)   Gid: ( 1000/student)';
+    }
+
+    case 'which': {
+      const cmdsMap = {'ls':'/bin/ls','cat':'/bin/cat','grep':'/bin/grep','bash':'/bin/bash','sh':'/bin/sh','python3':'/usr/bin/python3','node':'/usr/bin/node','git':'/usr/bin/git','vim':'/usr/bin/vim','nano':'/bin/nano','nginx':'/usr/sbin/nginx','apt':'/usr/bin/apt','curl':'/usr/bin/curl','wget':'/usr/bin/wget','ssh':'/usr/bin/ssh'};
+      const bin = args[1];
+      return cmdsMap[bin] ? cmdsMap[bin] : '<span class="t-e">' + escape(bin||'') + ' not found</span>';
+    }
+
+    case 'type': {
+      const builtins = ['cd','echo','pwd','export','alias','source'];
+      const bin = args[1];
+      if (builtins.includes(bin)) return bin + ' is a shell builtin';
+      return bin + ' is /usr/bin/' + bin;
+    }
+
+    case 'env': case 'printenv': {
+      return 'USER=student\nHOME=/home/student\nSHELL=/bin/bash\nPWD=' + simCwd + '\nPATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\nLANG=en_US.UTF-8\nTERM=xterm-256color\nLOGNAME=student';
+    }
+
+    case 'export': {
+      return ''; // silently accept
+    }
+
+    case 'man': {
+      const manPages = {
+        'ls': 'LS(1)\n\nNAME\n  ls - list directory contents\n\nSYNOPSIS\n  ls [OPTION]... [FILE]...\n\nOPTIONS\n  -a  do not ignore entries starting with .\n  -l  use a long listing format\n  -h  with -l, print sizes like 1K 234M\n  -r  reverse order while sorting',
+        'grep': 'GREP(1)\n\nNAME\n  grep - print lines that match patterns\n\nSYNOPSIS\n  grep [OPTION]... PATTERN [FILE]...\n\nOPTIONS\n  -i  ignore case\n  -n  print line number\n  -c  print count of matching lines\n  -r  recursive search\n  -v  invert match',
+        'chmod': 'CHMOD(1)\n\nNAME\n  chmod - change file mode bits\n\nSYNOPSIS\n  chmod [OPTION]... MODE FILE...\n\nEXAMPLES\n  chmod +x file    add execute permission\n  chmod 755 file   rwxr-xr-x\n  chmod 644 file   rw-r--r--',
+        'find': 'FIND(1)\n\nNAME\n  find - search for files\n\nSYNOPSIS\n  find [PATH] [EXPRESSION]\n\nOPTIONS\n  -name PATTERN  file name pattern\n  -type f        regular files only\n  -type d        directories only',
+      };
+      const topic = args[1];
+      if (!topic) return 'What manual page do you want?';
+      const page = manPages[topic];
+      return page ? escape(page) : '<span class="t-e">No manual entry for ' + escape(topic) + '</span>';
+    }
+
+    case 'nano': case 'vim': case 'vi': {
+      const f = args[1];
+      return '<span class="t-c">[' + cmd + ' — עורך טקסט לא זמין בסימולטור. השתמש ב-echo "text" > ' + escape(f||'file') + ' לכתיבה]</span>';
+    }
+
+    case 'ssh': {
+      return '<span class="t-c">[ssh — לא זמין בסימולטור (אין חיבור אמיתי)]</span>';
+    }
+
+    case 'sudo': {
+      const subcmd = args.slice(1).join(' ');
+      if (!subcmd) return 'usage: sudo command';
+      // Simulate sudo for safe commands
+      if (subcmd.startsWith('apt') || subcmd.startsWith('systemctl') || subcmd.startsWith('adduser') || subcmd.startsWith('useradd')) {
+        return '<span class="t-c">[sudo: ' + escape(subcmd) + ' — מדומה בסימולטור]\n[sudo] password for student: ******\nCommand executed (simulated).</span>';
+      }
+      return '<span class="t-c">[sudo] password for student: ******\n</span>' + (runCmd(subcmd) || '');
+    }
+
+    case 'apt': {
+      const sub = args[1];
+      if (sub === 'update') return 'Hit:1 http://archive.ubuntu.com/ubuntu jammy InRelease\nHit:2 http://security.ubuntu.com/ubuntu jammy-security InRelease\nReading package lists... Done';
+      if (sub === 'install') return 'Reading package lists... Done\nBuilding dependency tree... Done\nThe following NEW packages will be installed:\n  ' + (args[2]||'package') + '\n0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.\n<span class="t-ok">Setting up ' + escape(args[2]||'package') + ' ... done</span>';
+      if (sub === 'search') return 'Sorting... Done\nFull Text Search... Done\n' + (args[2]||'') + '/jammy 1.0.0 amd64\n  Package matching your search';
+      return '<span class="t-e">apt: command not found (use sudo apt)</span>';
+    }
+
+    case 'systemctl': {
+      const sub = args[1], svc = args[2]||'';
+      if (sub === 'status') return '● ' + escape(svc) + '.service - ' + escape(svc) + ' Service\n     Loaded: loaded (/etc/systemd/system/' + escape(svc) + '.service; enabled)\n     Active: <span class="t-ok">active (running)</span> since ' + new Date().toISOString() + '\n   Main PID: 1001\n      Tasks: 3\n     Memory: 24.0M';
+      if (sub === 'start') return '<span class="t-ok">Started ' + escape(svc) + '.service</span>';
+      if (sub === 'stop') return '<span class="t-c">Stopped ' + escape(svc) + '.service</span>';
+      if (sub === 'restart') return '<span class="t-ok">Restarted ' + escape(svc) + '.service</span>';
+      if (sub === 'enable') return 'Created symlink /etc/systemd/system/multi-user.target.wants/' + escape(svc) + '.service';
+      return '[systemctl ' + escape(sub||'') + ' — simulated]';
+    }
+
+    case 'journalctl': {
+      const uIdx = args.indexOf('-u');
+      const svc = uIdx >= 0 ? args[uIdx+1] : 'system';
+      const n = args.includes('-n') ? parseInt(args[args.indexOf('-n')+1]) || 10 : 20;
+      const lines = [
+        'Jan 15 10:00:01 linux-lab systemd[1]: Started ' + svc,
+        'Jan 15 10:00:02 linux-lab ' + svc + '[1001]: Service initialized',
+        'Jan 15 10:00:03 linux-lab ' + svc + '[1001]: Listening on port 8080',
+        'Jan 15 10:15:22 linux-lab ' + svc + '[1001]: Connection from 192.168.1.5',
+        'Jan 15 10:30:00 linux-lab ' + svc + '[1001]: Processed 1000 requests',
+        'Jan 15 11:00:00 linux-lab ' + svc + '[1001]: Health check OK',
+      ];
+      return lines.slice(-n).map(escape).join('\n');
+    }
+
+    case 'ss': {
+      const flags = args.filter(a => a.startsWith('-')).join('');
+      const header = 'Netid  State   Recv-Q  Send-Q  Local Address:Port  Peer Address:Port  Process';
+      const rows = [
+        'tcp    LISTEN  0       128     0.0.0.0:22         0.0.0.0:*          users:((sshd,pid=245,fd=3))',
+        'tcp    LISTEN  0       128     0.0.0.0:80         0.0.0.0:*          users:((nginx,pid=445,fd=6))',
+        'tcp    LISTEN  0       5       0.0.0.0:8080       0.0.0.0:*          users:((python3,pid=1001,fd=4))',
+        'tcp    ESTAB   0       0       192.168.1.5:22     192.168.1.100:54321 users:((sshd,pid=1234,fd=4))',
+      ];
+      if (flags.includes('t') || flags.includes('l')) return header + '\n' + rows.join('\n');
+      return header + '\n' + rows.join('\n');
+    }
+
+    case 'ping': {
+      const host = args.find(a => !a.startsWith('-') && a !== 'ping');
+      const c = args.includes('-c') ? parseInt(args[args.indexOf('-c')+1]) || 4 : 4;
+      if (!host) return '<span class="t-e">ping: usage error: Destination address required</span>';
+      const ip = host === 'localhost' ? '127.0.0.1' : host === 'google.com' ? '142.250.185.14' : '192.168.1.1';
+      const lines = ['PING ' + escape(host) + ' (' + ip + '): 56 data bytes'];
+      for (let i = 0; i < Math.min(c, 4); i++) {
+        const ms = (10 + Math.random()*30).toFixed(3);
+        lines.push('64 bytes from ' + ip + ': icmp_seq=' + i + ' ttl=64 time=' + ms + ' ms');
+      }
+      lines.push('\n--- ' + escape(host) + ' ping statistics ---');
+      lines.push(c + ' packets transmitted, ' + c + ' received, 0% packet loss');
+      return lines.join('\n');
+    }
+
+    case 'curl': {
+      const url = args.find(a => !a.startsWith('-') && a !== 'curl');
+      if (!url) return '<span class="t-e">curl: try \'curl --help\' for more information</span>';
+      if (url.includes('api.github.com/users/')) {
+        const user = url.split('/').pop();
+        return '{\n  "login": "' + user + '",\n  "name": "GitHub User",\n  "public_repos": 42,\n  "followers": 1337\n}';
+      }
+      if (url.includes('httpbin.org')) return '{\n  "url": "' + escape(url) + '",\n  "headers": {"User-Agent": "curl/7.81.0"}\n}';
+      return '<span class="t-c">[Simulated response for ' + escape(url) + ']</span>\n{"status": "ok", "simulated": true}';
+    }
+
+    case 'wget': {
+      const url = args.find(a => !a.startsWith('-') && a !== 'wget');
+      const fname = url ? url.split('/').pop() || 'index.html' : 'index.html';
+      if (!url) return '<span class="t-e">wget: missing URL</span>';
+      return '--2024-01-15 11:00:00--  ' + escape(url) + '\nResolving ' + escape(url.split('/')[2]||'host') + '...\nConnecting... connected\nHTTP request sent, awaiting response... <span class="t-ok">200 OK</span>\nLength: 12345 (12K)\nSaving to: \'' + escape(fname) + '\'\n\n' + escape(fname) + '  100%[===========>]  12.06K  --.-KB/s    in 0.1s\n\n<span class="t-ok">2024-01-15 11:00:01 (120 KB/s) - \'' + escape(fname) + '\' saved [12345/12345]</span>';
+    }
+
+    case 'ip': {
+      if (args[1] === 'addr' || args[1] === 'a') {
+        return '1: lo: <LOOPBACK,UP,LOWER_UP>\n    inet 127.0.0.1/8 scope host lo\n2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP>\n    inet 192.168.1.5/24 brd 192.168.1.255 scope global eth0\n    inet6 fe80::1/64 scope link';
+      }
+      if (args[1] === 'route' || args[1] === 'r') {
+        return 'default via 192.168.1.1 dev eth0\n192.168.1.0/24 dev eth0 proto kernel scope link src 192.168.1.5';
+      }
+      return 'Usage: ip [ OPTIONS ] OBJECT { COMMAND }';
+    }
+
+    case 'ifconfig': {
+      return 'eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500\n        inet 192.168.1.5  netmask 255.255.255.0  broadcast 192.168.1.255\n        ether 08:00:27:12:34:56  txqueuelen 1000  (Ethernet)\n\nlo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536\n        inet 127.0.0.1  netmask 255.0.0.0';
+    }
+
+    case 'history': {
+      return simHistory.slice(0,20).reverse().map((cmd,i) => String(i+1).padStart(4) + '  ' + escape(cmd)).join('\n');
+    }
+
+    case 'alias': {
+      return 'alias ll=\'ls -alF\'\nalias la=\'ls -A\'\nalias l=\'ls -CF\'\nalias grep=\'grep --color=auto\'';
+    }
+
+    case 'clear': {
+      document.getElementById('simScreen').innerHTML = '';
+      return null;
+    }
+
+    case 'reset': {
+      document.getElementById('simScreen').innerHTML = '';
+      simCwd = '/home/student';
+      document.getElementById('simCwdDisplay').textContent = '~';
+      return null;
+    }
+
+    case 'exit': case 'logout': {
+      simPrint('<span class="t-c">logout — סגור את ה-Tab לסגירת Session :)</span>');
+      return null;
+    }
+
+    case 'help': {
+      return '<span class="t-h">פקודות זמינות בסימולטור:</span>\n\n' +
+        '<span class="t-ok">ניווט:</span> pwd, cd, ls\n' +
+        '<span class="t-ok">קבצים:</span> cat, head, tail, less, touch, mkdir, rm, cp, mv, stat\n' +
+        '<span class="t-ok">חיפוש:</span> grep, find, which, type\n' +
+        '<span class="t-ok">עריכה:</span> echo (+ redirect > >>)\n' +
+        '<span class="t-ok">מערכת:</span> ps, top, kill, df, du, free, date, whoami, id, uname, hostname\n' +
+        '<span class="t-ok">רשת:</span> ping, curl, wget, ss, ip, ifconfig\n' +
+        '<span class="t-ok">שירותים:</span> systemctl, journalctl\n' +
+        '<span class="t-ok">חבילות:</span> apt (sudo apt update/install)\n' +
+        '<span class="t-ok">אחר:</span> chmod, wc, sort, uniq, history, alias, man, env, clear, help\n' +
+        '<span class="t-ok">Pipe:</span> cmd1 | cmd2 | cmd3\n' +
+        '<span class="t-ok">Redirect:</span> cmd > file  or  cmd >> file\n' +
+        '\n<span class="t-c">טיפ: לחץ ↑ להיסטוריה, Tab להשלמה אוטומטית</span>';
+    }
+
+    default: {
+      // Check if it looks like a script execution
+      if (cmd.startsWith('./')) {
+        const scriptPath = resolvePath(cmd, simCwd);
+        const node = getNode(scriptPath);
+        if (!node) return '<span class="t-e">bash: ' + escape(cmd) + ': No such file or directory</span>';
+        if (node.type !== 'file') return '<span class="t-e">bash: ' + escape(cmd) + ': Is a directory</span>';
+        const perms = node.perms || '644';
+        if (!(parseInt(perms[0]) & 1)) return '<span class="t-e">bash: ' + escape(cmd) + ': Permission denied\nרמז: נסה chmod +x ' + escape(cmd) + '</span>';
+        // Simulate basic script execution
+        return '<span class="t-ok">[מריץ ' + escape(cmd) + '...]</span>\n' + 
+               escape((node.content || '').split('\n').filter(l => !l.startsWith('#') && l.trim()).map(l => {
+                 if (l.startsWith('echo ')) return l.replace(/^echo /,'').replace(/["']/g,'');
+                 return '[' + l + ']';
+               }).join('\n'));
+      }
+      return '<span class="t-e">bash: ' + escape(cmd) + ': command not found\nרמז: הקלד <span class="t-h">help</span> לרשימת פקודות זמינות</span>';
     }
   }
 }
 
-function updateGameUI() {
-  document.getElementById('gScore').textContent = gScore;
-  document.getElementById('gStreak').textContent = gStreak;
-  document.getElementById('gLevel').textContent = gLevel;
-}
+// ── Tab Completion ──
+function tabComplete(input) {
+  const parts = input.split(' ');
+  const completing = parts[parts.length - 1];
+  const isFirst = parts.length === 1;
 
-function endGame() {
-  document.getElementById('gtInputArea').style.display = 'none';
-  document.getElementById('gtBottom').style.display = 'none';
-  const end = document.getElementById('gtEnd');
-  end.classList.add('show');
-  const pct = Math.round((gScore / (MISSIONS.reduce((a,m) => a + 10 + m.level*2, 0))) * 100);
-  let icon, title, msg;
-  if (gScore >= 180) { icon='🏆'; title='$ sudo make me a sandwich'; msg='אתה מוכן לManage Production Servers. Linus מרוצה.'; }
-  else if (gScore >= 120) { icon='⭐'; title='$ id | grep sudo'; msg='Solid Linux skills. עוד קצת practice ותהיה Senior SysAdmin.'; }
-  else if (gScore >= 70) { icon='📖'; title='$ man linux'; msg='התחלה טובה. חזור לפרקים ונסה שוב.'; }
-  else { icon='🐧'; title='$ cat /dev/random'; msg='גם Linus התחיל מאי-שם. חזור לMissions 1-5.'; }
-  document.getElementById('gtEndIcon').textContent = icon;
-  document.getElementById('gtEndTitle').textContent = title;
-  document.getElementById('gtEndScore').textContent = `score: ${gScore} | missions: ${currentIdx}/15`;
-  document.getElementById('gtEndMsg').textContent = msg;
-}
-
-function startGame() {
-  gScore = 0; gStreak = 0; gLevel = 1; currentIdx = 0; cmdHistory = []; histPos = -1;
-  document.getElementById('gScore').textContent = '0';
-  document.getElementById('gStreak').textContent = '0';
-  document.getElementById('gLevel').textContent = '1';
-  document.getElementById('gtScreen').innerHTML = '';
-  document.getElementById('gtEnd').classList.remove('show');
-  document.getElementById('gtInputArea').style.display = 'flex';
-  const gtBottom = document.getElementById('gtBottom');
-  if (gtBottom) gtBottom.style.display = 'block';
-  gPrint('<span class="gt-sys">Linux Terminal Challenge v2.0</span>', '', 0);
-  gPrint('<span class="gt-sys">type commands to complete missions. "hint" for help. "skip" to skip (-5pts).</span>', '', 100);
-  gPrint('', '', 200);
-  setTimeout(loadMission, 300);
-  setTimeout(() => document.getElementById('gtInput').focus(), 400);
-}
-
-// Keyboard navigation
-document.getElementById('gtInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') { e.preventDefault(); submitCmd(); }
-  if (e.key === 'ArrowUp') {
-    e.preventDefault();
-    if (histPos < cmdHistory.length - 1) { histPos++; document.getElementById('gtInput').value = cmdHistory[histPos]; }
+  if (isFirst) {
+    const cmds = ['ls','cd','pwd','cat','echo','mkdir','touch','rm','cp','mv','grep','wc','head','tail','find','chmod','ps','df','du','free','whoami','id','date','man','clear','help','ping','curl','wget','ss','ip','history','sort','uniq','systemctl','journalctl','sudo','apt','nano','vim','stat','which','type','env','hostname','uname','alias','kill','top','ifconfig'];
+    const matches = cmds.filter(c => c.startsWith(completing));
+    if (matches.length === 1) return parts.slice(0,-1).concat(matches[0]).join(' ') + ' ';
+    if (matches.length > 1) { simPrint(matches.join('  ')); return input; }
+    return input;
   }
-  if (e.key === 'ArrowDown') {
-    e.preventDefault();
-    if (histPos > 0) { histPos--; document.getElementById('gtInput').value = cmdHistory[histPos]; }
-    else { histPos = -1; document.getElementById('gtInput').value = ''; }
+
+  // Complete file path
+  let dir, prefix;
+  const lastSlash = completing.lastIndexOf('/');
+  if (lastSlash >= 0) {
+    const rawDir = completing.slice(0, lastSlash) || '/';
+    dir = resolvePath(rawDir, simCwd);
+    prefix = completing.slice(lastSlash + 1);
+  } else {
+    dir = simCwd;
+    prefix = completing;
+  }
+
+  const node = getNode(dir);
+  if (!node || node.type !== 'dir') return input;
+  const matches = (node.children || []).filter(c => c.startsWith(prefix));
+
+  if (matches.length === 1) {
+    const completed = matches[0];
+    const childPath = (dir === '/' ? '' : dir) + '/' + completed;
+    const isDir = getNode(childPath)?.type === 'dir';
+    const base = lastSlash >= 0 ? completing.slice(0, lastSlash + 1) + completed : completed;
+    return parts.slice(0,-1).concat(base + (isDir ? '/' : '')).join(' ');
+  }
+  if (matches.length > 1) { simPrint(matches.join('  ')); }
+  return input;
+}
+
+// ── Main run function ──
+window.simRun = function() {
+  const input = document.getElementById('simInput');
+  const cmd = input.value;
+  input.value = '';
+  if (!cmd.trim()) return;
+  simPromptLine(cmd);
+  const result = simExec(cmd);
+  if (result !== null && result !== undefined && result !== '') simPrint(result);
+};
+
+// ── Boot message ──
+let _bootTimers = [];
+function simBoot() {
+  // Cancel any pending boot timers from previous call
+  _bootTimers.forEach(t => clearTimeout(t));
+  _bootTimers = [];
+
+  const screen = document.getElementById('simScreen');
+  screen.innerHTML = '';
+  simCwd = '/home/student';
+  document.getElementById('simCwdDisplay').textContent = '~';
+  simCmdCount = 0;
+  simHistory = [];
+
+  const bootLines = [
+    '<span class="t-ok">Linux Lab Simulator v1.0 — Bash 5.2</span>',
+    'Last login: ' + new Date().toString().slice(0,24),
+    '',
+    'ברוכים הבאים! זהו Terminal Simulator.',
+    'הקלד <span class="t-h">help</span> לרשימה מלאה.',
+    '',
+  ];
+  bootLines.forEach((line, i) => {
+    const t = setTimeout(() => simPrint(line), i * 80);
+    _bootTimers.push(t);
+  });
+
+  const t = setTimeout(() => {
+    document.getElementById('simInput').focus();
+  }, bootLines.length * 80 + 100);
+  _bootTimers.push(t);
+}
+
+// ── Keyboard ──
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('simInput');
+  if (!input) return;
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); window.simRun(); }
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (simHistPos < simHistory.length - 1) { simHistPos++; input.value = simHistory[simHistPos]; }
+    }
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (simHistPos > 0) { simHistPos--; input.value = simHistory[simHistPos]; }
+      else { simHistPos = -1; input.value = ''; }
+    }
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      input.value = tabComplete(input.value);
+    }
+    if (e.key === 'l' && e.ctrlKey) {
+      e.preventDefault();
+      document.getElementById('simScreen').innerHTML = '';
+    }
+    if (e.key === 'c' && e.ctrlKey) {
+      e.preventDefault();
+      simPromptLine('^C');
+      input.value = '';
+    }
+  });
+
+  // Focus on tab switch
+  const gameTab = document.querySelector('[onclick*="game"]');
+  if (gameTab) {
+    gameTab.addEventListener('click', () => setTimeout(() => input.focus(), 100));
   }
 });
 
-startGame();
+// Expose globally so switchTab can call us
+window.simBoot = simBoot;
+window.simRun = simRun;
+
+})(); // end IIFE
+
 </script>
 </body>
 </html>
