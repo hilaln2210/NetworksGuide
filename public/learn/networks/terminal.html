@@ -1,0 +1,2275 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,400&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════
+   TOKENS
+══════════════════════════════════════════ */
+:root {
+  --ink:   #0f1117;
+  --ink2:  #1a2030;
+  --paper: #f5f4f0;
+  --warm:  #ece9e2;
+  --warm2: #e2ddd5;
+  --line:  #ccc8bf;
+  --dim:   #6b6560;
+  --dim2:  #9c968e;
+  --ac:    #1a4fcf;
+  --ac2:   #c7440e;
+  --gr:    #16724a;
+  --yw:    #b87c0e;
+  --code:  #1e2533;
+
+  --mono:  'DM Mono', monospace;
+  --disp:  'Fraunces', serif;
+  --body:  'Heebo', sans-serif;
+}
+
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ══ SCREEN SYSTEM ══ */
+.screen { display:none; }
+.screen.on { display:block; }
+
+/* ══════════════════════════════════════════
+   NAV
+══════════════════════════════════════════ */
+nav {
+  position: sticky; top:0; z-index:100;
+  background: rgba(245,244,240,.96);
+  backdrop-filter: blur(12px);
+  border-bottom: 1.5px solid var(--line);
+  height: 54px;
+  display: flex; align-items: center;
+  padding: 0 28px; gap: 6px;
+}
+
+.nav-logo {
+  font-family: var(--disp); font-size: 18px; font-weight: 900;
+  color: var(--ink); letter-spacing: -0.5px; margin-left: auto;
+}
+.nav-logo em { font-style: italic; font-weight: 300; color: var(--ac); }
+
+.nav-btn {
+  font-family: var(--mono); font-size: 11px; letter-spacing: .5px;
+  padding: 6px 14px; border-radius: 6px;
+  border: 1.5px solid transparent;
+  background: none; cursor: pointer; color: var(--dim);
+  transition: all .15s;
+}
+.nav-btn:hover { color: var(--ink); border-color: var(--line); }
+.nav-btn.active { color: var(--ac); border-color: var(--ac); background: rgba(26,79,207,.06); }
+
+.nav-xp {
+  font-family: var(--mono); font-size: 12px; font-weight: 500;
+  color: var(--yw); background: rgba(184,124,14,.08);
+  border: 1.5px solid rgba(184,124,14,.25);
+  padding: 4px 12px; border-radius: 6px; margin-right: 10px;
+}
+
+/* ══════════════════════════════════════════
+   LANDING
+══════════════════════════════════════════ */
+#landing { min-height: 100vh; }
+
+.hero {
+  padding: 80px 28px 60px;
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  align-items: center;
+}
+@media(max-width:720px){ .hero{grid-template-columns:1fr;padding:48px 20px 40px;gap:32px;} }
+
+.hero-left {}
+.hero-tag {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--ac);
+  background: rgba(26,79,207,.07); border: 1.5px solid rgba(26,79,207,.2);
+  padding: 4px 12px; border-radius: 4px; display: inline-block; margin-bottom: 20px;
+}
+.hero-h {
+  font-family: var(--disp); font-weight: 900; font-size: clamp(44px,7vw,72px);
+  line-height: 1; letter-spacing: -2px; color: var(--ink); margin-bottom: 16px;
+}
+.hero-h em { font-style: italic; font-weight: 300; color: var(--ac); }
+.hero-p { font-size: 15px; color: var(--dim); line-height: 1.75; margin-bottom: 32px; }
+
+.hero-stats {
+  display: flex; gap: 28px; margin-bottom: 32px;
+}
+.hs { border-left: 2px solid var(--line); padding-left: 14px; }
+.hs-n { font-family: var(--disp); font-size: 26px; font-weight: 700; color: var(--ink); }
+.hs-l { font-size: 11px; color: var(--dim2); font-family: var(--mono); }
+
+.hero-cta {
+  font-family: var(--body); font-size: 14px; font-weight: 700;
+  padding: 12px 28px; border-radius: 8px; border: none; cursor: pointer;
+  background: var(--ac); color: #fff; transition: opacity .15s;
+  display: inline-block;
+}
+.hero-cta:hover { opacity: .88; }
+
+/* Chapter grid */
+.ch-grid {
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr));
+  gap: 12px; padding: 0 28px 80px;
+}
+
+.ch-card {
+  background: var(--paper); border: 1.5px solid var(--line);
+  border-radius: 12px; padding: 18px 20px;
+  cursor: pointer; transition: all .18s;
+  position: relative; overflow: hidden;
+}
+.ch-card::after {
+  content: ''; position: absolute; bottom:0; left:0; right:0; height:3px;
+  background: var(--cc, var(--line));
+}
+.ch-card:hover { transform: translateY(-3px); border-color: var(--cc,var(--line)); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+
+.cc-n { font-family: var(--mono); font-size: 10px; color: var(--dim2); letter-spacing: 2px; margin-bottom: 6px; }
+.cc-icon { font-size: 24px; margin-bottom: 8px; display: block; }
+.cc-name { font-family: var(--disp); font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.cc-desc { font-size: 12px; color: var(--dim); line-height: 1.5; }
+.cc-acts { display:flex; gap:6px; margin-top:10px; }
+.cc-btn {
+  font-family: var(--mono); font-size: 10px; padding: 4px 9px;
+  border-radius: 5px; border: 1.5px solid var(--line);
+  background: none; cursor: pointer; color: var(--dim);
+  transition: all .13s;
+}
+.cc-btn:hover { border-color: var(--ac); color: var(--ac); }
+.cc-btn.term:hover { border-color: var(--gr); color: var(--gr); }
+
+/* ══════════════════════════════════════════
+   LEARN SCREEN
+══════════════════════════════════════════ */
+#learn { min-height: 100vh; }
+
+.learn-wrap {
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: 220px 1fr;
+  min-height: calc(100vh - 54px);
+}
+@media(max-width:700px){ .learn-wrap{grid-template-columns:1fr;} }
+
+/* Sidebar */
+.l-sidebar {
+  border-left: 1.5px solid var(--line);
+  background: var(--warm);
+  padding: 24px 0;
+  position: sticky; top:54px;
+  height: calc(100vh - 54px);
+  overflow-y: auto;
+}
+.l-sidebar::-webkit-scrollbar{width:3px;}
+.l-sidebar::-webkit-scrollbar-thumb{background:var(--line);}
+
+.sb-lbl {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--dim2);
+  padding: 0 16px; margin-bottom: 8px; display: block;
+}
+
+.sb-ch {
+  padding: 6px 16px; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 500; color: var(--dim);
+  transition: all .13s; border-right: 3px solid transparent;
+}
+.sb-ch:hover { color: var(--ink); background: rgba(0,0,0,.03); }
+.sb-ch.active { color: var(--ac); border-color: var(--ac); background: rgba(26,79,207,.04); }
+.sb-ch-num { font-family: var(--mono); font-size: 10px; color: var(--dim2); min-width: 18px; }
+
+.sb-secs { display: none; }
+.sb-secs.open { display: block; }
+
+.sb-sec {
+  padding: 4px 16px 4px 30px; cursor: pointer;
+  font-size: 12px; color: var(--dim2);
+  transition: all .12s; display: flex; align-items: center; gap: 6px;
+  background: none; border: none; width: 100%; text-align: right;
+}
+.sb-sec:hover { color: var(--ink); }
+.sb-sec.active { color: var(--ac); font-weight: 600; }
+.sb-sec::before { content:'·'; color: var(--dim2); }
+
+/* Content */
+.l-content { padding: 48px 52px 100px; }
+@media(max-width:900px){ .l-content{padding:28px 20px 80px;} }
+
+/* Reading bar */
+#readBar {
+  position: fixed; top:54px; right:220px; left:0; height:2.5px;
+  background: linear-gradient(90deg, var(--ac), var(--ac2));
+  width: 0%; z-index:90; transition: width .15s;
+}
+
+/* Chapter header */
+.ch-eyebrow {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--dim2); margin-bottom: 10px;
+}
+.ch-title {
+  font-family: var(--disp); font-size: clamp(32px,5vw,50px);
+  font-weight: 900; color: var(--ink); letter-spacing: -1.5px;
+  line-height: 1.05; margin-bottom: 10px;
+}
+.ch-desc { font-size: 15px; color: var(--dim); margin-bottom: 4px; }
+.divider { height: 1.5px; background: var(--line); margin: 32px 0; }
+
+/* Learn sections */
+.learn-section { margin-bottom: 52px; scroll-margin-top: 80px; }
+
+.section-label {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
+  text-transform: uppercase; font-weight: 500;
+  color: var(--ac); display: block; margin-bottom: 8px;
+}
+.section-h {
+  font-family: var(--disp); font-size: 22px; font-weight: 700;
+  color: var(--ink); letter-spacing: -.3px; margin-bottom: 14px;
+}
+.prose {
+  font-size: 15px; color: var(--ink2); line-height: 1.85; font-weight: 400;
+}
+.prose strong { color: var(--ink); font-weight: 700; }
+
+/* Concept grid */
+.concept-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0; }
+@media(max-width:600px){ .concept-grid{grid-template-columns:1fr;} }
+.concept {
+  background: var(--warm); border: 1.5px solid var(--line);
+  border-radius: 10px; padding: 16px;
+}
+.concept-icon { font-size: 24px; margin-bottom: 8px; }
+.concept-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.concept-body { font-size: 13px; color: var(--ink2); line-height: 1.65; }
+
+/* Alert boxes */
+.alert-box {
+  border-radius: 10px; padding: 14px 18px; margin: 16px 0;
+  display: flex; gap: 13px; border: 1.5px solid;
+}
+.alert-icon { font-size: 18px; flex-shrink:0; margin-top:1px; }
+.alert-body { flex:1; }
+.alert-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+.alert-text { font-size: 13px; color: var(--ink2); line-height: 1.7; }
+.alert-box.info  { background:#eff6ff; border-color:#bfdbfe; }
+.alert-box.tip   { background:#f0fdf4; border-color:#bbf7d0; }
+.alert-box.warn  { background:#fffbeb; border-color:#fde68a; }
+
+/* Code blocks */
+.code-block {
+  background: var(--code); border-radius: 10px;
+  overflow: hidden; margin: 16px 0;
+  direction: ltr; text-align: left;
+}
+.code-bar {
+  display: flex; align-items: center; gap: 5px;
+  padding: 7px 14px; background: rgba(255,255,255,.04);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.cd{width:9px;height:9px;border-radius:50%;}
+.cd-r{background:#ff5f57}.cd-y{background:#febc2e}.cd-g{background:#28c840}
+.code-label { font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.35);margin-right:auto; }
+.code-body {
+  padding: 14px 16px;
+  font-family: var(--mono); font-size: 13px; line-height: 1.9;
+  color: #cdd6f4;
+}
+.tp{color:#50fa7b}.tv{color:#8be9fd}.ts{color:#f1fa8c}.tn{color:#bd93f9}
+.tc{color:#6272a4}.to{color:#ffb86c}.tw{color:#cdd6f4}
+
+/* Tables */
+.sum-tbl { width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px; }
+.sum-tbl th {
+  background:var(--warm);color:var(--ink);font-family:var(--body);font-weight:700;
+  padding:9px 13px;border:1.5px solid var(--line);text-align:right;font-size:12px;
+}
+.sum-tbl td {
+  padding:9px 13px;border:1.5px solid var(--line);color:var(--ink2);
+  vertical-align:top;line-height:1.6;
+}
+.sum-tbl tr:nth-child(even) td { background:var(--warm); }
+.sum-tbl td:first-child { font-family:var(--mono);font-size:12px;color:var(--ac);font-weight:600;white-space:nowrap; }
+
+/* Flow */
+.flow-diag {
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+  margin:16px 0;padding:18px;background:var(--warm);
+  border:1.5px solid var(--line);border-radius:10px;
+}
+.flow-node {
+  padding:9px 14px;border-radius:8px;font-size:12.5px;
+  font-weight:600;text-align:center;white-space:nowrap;line-height:1.4;
+}
+.fn-blue   { background:#dbeafe;color:#1d4ed8;border:1.5px solid #bfdbfe; }
+.fn-green  { background:#d1fae5;color:#065f46;border:1.5px solid #a7f3d0; }
+.fn-purple { background:#ede9fe;color:#5b21b6;border:1.5px solid #c4b5fd; }
+.fn-gray   { background:#f3f4f6;color:#374151;border:1.5px solid #d1d5db; }
+.flow-arr  { color:var(--dim);font-size:18px; }
+
+/* Ch nav */
+.ch-nav {
+  display:flex;gap:12px;margin-top:56px;padding-top:24px;
+  border-top:1.5px solid var(--line);align-items:center;
+}
+.ch-nav-btn {
+  font-family:var(--mono);font-size:11px;padding:8px 16px;
+  border-radius:7px;border:1.5px solid var(--line);
+  background:var(--paper);color:var(--dim);cursor:pointer;transition:all .14s;
+}
+.ch-nav-btn:hover{border-color:var(--ac);color:var(--ac);}
+.ch-nav-next{background:var(--ac);color:#fff;border-color:var(--ac);}
+.ch-nav-next:hover{opacity:.88;}
+
+/* ══════════════════════════════════════════
+   TERMINAL SCREEN
+══════════════════════════════════════════ */
+#terminal-screen { min-height:100vh; }
+
+.term-wrap {
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: 240px 1fr;
+  min-height: calc(100vh - 54px);
+}
+@media(max-width:700px){ .term-wrap{grid-template-columns:1fr;} }
+
+/* Mission sidebar */
+.m-sidebar {
+  border-left: 1.5px solid var(--line);
+  background: var(--warm);
+  padding: 20px 0;
+  position: sticky; top:54px;
+  height: calc(100vh - 54px);
+  overflow-y: auto;
+}
+.m-sidebar::-webkit-scrollbar{width:3px;}
+.m-sidebar::-webkit-scrollbar-thumb{background:var(--line);}
+
+.ms-head { padding: 0 16px 16px; border-bottom:1.5px solid var(--line); margin-bottom:12px; }
+.ms-title { font-family:var(--disp);font-size:16px;font-weight:700;color:var(--ink); }
+.ms-sub { font-family:var(--mono);font-size:10px;color:var(--dim2);margin-top:3px; }
+
+.ms-prog { height:3px;background:var(--line);border-radius:99px;margin-top:10px;overflow:hidden; }
+.ms-prog-fill { height:100%;background:var(--gr);border-radius:99px;transition:width .5s; }
+
+.m-item {
+  display:flex;align-items:center;gap:10px;
+  padding:8px 16px;cursor:pointer;transition:all .13s;
+  border-right:3px solid transparent;
+}
+.m-item:hover { background:rgba(0,0,0,.03); }
+.m-item.active { background:rgba(22,114,74,.05);border-color:var(--gr); }
+.m-item.done { opacity:.7; }
+
+.m-num {
+  font-family:var(--mono);font-size:9px;
+  width:22px;height:22px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--warm2);border:1.5px solid var(--line);
+  color:var(--dim2);flex-shrink:0;font-weight:500;
+}
+.m-item.active .m-num { background:rgba(22,114,74,.1);border-color:var(--gr);color:var(--gr); }
+.m-item.done   .m-num { background:rgba(22,114,74,.08);border-color:rgba(22,114,74,.3);color:var(--gr); }
+
+.m-info { flex:1; }
+.m-name { font-size:12px;font-weight:600;color:var(--ink); }
+.m-ch   { font-family:var(--mono);font-size:10px;color:var(--dim2);margin-top:1px; }
+.m-check { color:var(--gr);font-size:13px;flex-shrink:0; }
+
+/* Terminal area */
+.term-main { display:flex;flex-direction:column;height:calc(100vh - 54px);overflow:hidden; }
+
+.mission-card {
+  background:var(--warm);border-bottom:1.5px solid var(--line);
+  padding:20px 24px;flex-shrink:0;
+}
+.mc-badge {
+  font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gr);background:rgba(22,114,74,.08);border:1.5px solid rgba(22,114,74,.25);
+  padding:3px 9px;border-radius:4px;display:inline-block;margin-bottom:10px;
+}
+.mc-title { font-family:var(--disp);font-size:20px;font-weight:700;color:var(--ink);margin-bottom:6px; }
+.mc-desc  { font-size:13px;color:var(--dim);margin-bottom:10px;line-height:1.6; }
+.mc-hints { display:flex;flex-direction:column;gap:4px; }
+.mc-hint  { font-size:12.5px;color:var(--dim);display:flex;gap:6px;align-items:flex-start; }
+.mc-hint::before { content:'›';color:var(--ac);flex-shrink:0;font-family:var(--mono); }
+
+/* Terminal window */
+.terminal {
+  flex:1;display:flex;flex-direction:column;
+  background:#0d1117;overflow:hidden;
+}
+
+.term-topbar {
+  display:flex;align-items:center;gap:5px;padding:9px 16px;
+  background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06);
+  flex-shrink:0;
+}
+.tb-dot{width:10px;height:10px;border-radius:50%;}
+.tb-r{background:#ff5f57}.tb-y{background:#febc2e}.tb-g{background:#28c840}
+.term-name { font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.3);margin-right:auto; }
+.term-clear-btn {
+  font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.3);
+  background:none;border:1px solid rgba(255,255,255,.12);padding:2px 8px;
+  border-radius:4px;cursor:pointer;transition:all .13s;
+}
+.term-clear-btn:hover { color:rgba(255,255,255,.6); }
+
+.term-out {
+  flex:1;padding:14px 18px;overflow-y:auto;
+  font-family:var(--mono);font-size:13px;line-height:1.8;
+  direction:ltr;text-align:left;
+}
+.term-out::-webkit-scrollbar{width:4px;}
+.term-out::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);}
+
+.out-line { margin-bottom:1px; }
+.out-ps1  { color:#50fa7b; }
+.out-cmd  { color:#f8f8f2; }
+.out-ok   { color:#50fa7b; }
+.out-err  { color:#ff5555; }
+.out-info { color:#8be9fd; }
+.out-dim  { color:#6272a4; }
+.out-yw   { color:#f1fa8c; }
+.out-pur  { color:#bd93f9; }
+
+.out-success {
+  background:rgba(80,250,123,.07);border:1px solid rgba(80,250,123,.2);
+  border-radius:6px;padding:8px 12px;margin:6px 0;
+  color:#50fa7b;display:flex;align-items:center;gap:8px;
+}
+.out-fail {
+  background:rgba(255,85,85,.07);border:1px solid rgba(255,85,85,.2);
+  border-radius:6px;padding:8px 12px;margin:6px 0;
+  color:#ff5555;display:flex;align-items:center;gap:8px;
+}
+
+.term-input-row {
+  display:flex;align-items:center;
+  padding:9px 18px;border-top:1px solid rgba(255,255,255,.07);
+  background:rgba(0,0,0,.2);flex-shrink:0;
+}
+.term-ps { font-family:var(--mono);font-size:13px;color:#50fa7b;white-space:nowrap;direction:ltr; }
+.term-in {
+  flex:1;background:none;border:none;outline:none;
+  font-family:var(--mono);font-size:13px;color:#f8f8f2;
+  padding:0 8px;direction:ltr;caret-color:#8be9fd;
+}
+
+/* XP Pop */
+.xp-pop {
+  position:fixed;font-family:var(--mono);font-size:16px;font-weight:700;
+  color:var(--yw);pointer-events:none;z-index:9999;
+  animation:xpfloat 1.2s ease forwards;
+}
+@keyframes xpfloat {
+  0%{opacity:1;transform:translateY(0) scale(1)}
+  100%{opacity:0;transform:translateY(-56px) scale(1.2)}
+}
+</style>
+
+<style>
+body { margin:0; overflow:hidden; }
+.screen { display:none; }
+.screen.on { display:block; }
+#terminal-screen.on { min-height:100vh; }
+</style>
+<style id="ng-light">
+[data-theme="light"] {
+  --bg: #f0f6ff; --bg1: #e8f0ff;
+  --surf: #ffffff; --s2: #f0f5ff; --s3: #e8f0ff;
+  --brd: #c8d8f0; --brd2: #b0c4e8;
+  --ac: #0284c7; --ac2: #7c3aed;
+  --txt: #0f1f35; --dim: #2a4a6a; --dim2: #334155;
+  --gr: #059669; --yw: #d97706; --rd: #dc2626; --pk: #db2777;
+}
+/* Fix hardcoded #fff text — chapter & section titles */
+[data-theme="light"] .ch-title,
+[data-theme="light"] .section-h,
+[data-theme="light"] .concept-title,
+[data-theme="light"] .alert-title,
+[data-theme="light"] .curr-name,
+[data-theme="light"] .ms-title,
+[data-theme="light"] .mc-title,
+[data-theme="light"] .hstat-val,
+[data-theme="light"] .nav-logo,
+[data-theme="light"] .hero-title { color: #0f1f35 !important; }
+
+/* Summary table */
+[data-theme="light"] .sum-tbl th { background: #dce8f8 !important; color: #0284c7 !important; }
+[data-theme="light"] .sum-tbl td:first-child { color: #0f1f35 !important; }
+[data-theme="light"] .sum-tbl tr:nth-child(even) td { background: rgba(2,132,199,0.04) !important; }
+
+/* Alert boxes — keep colored bg but fix title */
+[data-theme="light"] .alert-box.info { background: rgba(2,132,199,0.08) !important; border-color: rgba(2,132,199,0.3) !important; }
+[data-theme="light"] .alert-box.tip  { background: rgba(5,150,105,0.08) !important; border-color: rgba(5,150,105,0.3) !important; }
+[data-theme="light"] .alert-box.warn { background: rgba(217,119,6,0.08) !important; border-color: rgba(217,119,6,0.3) !important; }
+
+/* Concept cards */
+[data-theme="light"] .concept { background: #f0f5ff !important; border-color: #c8d8f0 !important; }
+
+/* Mission elements */
+[data-theme="light"] .mi-num { background: rgba(2,132,199,0.08) !important; border-color: #c8d8f0 !important; }
+[data-theme="light"] .mission-item:hover { background: rgba(2,132,199,0.05) !important; }
+
+/* Buttons with near-invisible bg */
+[data-theme="light"] .tqc-btn { background: rgba(2,132,199,0.06) !important; color: #334155 !important; }
+
+/* Nav */
+[data-theme="light"] .nav-tab { color: #2a4a6a !important; }
+[data-theme="light"] .header-bar { background: rgba(240,246,255,0.95) !important; border-color: #c8d8f0 !important; }
+</style>
+<script src="/_bridge.js"></script>
+</head>
+<body>
+<section class="screen on" id="terminal-screen">
+<div class="term-wrap">
+
+  <div class="m-sidebar">
+    <div class="ms-head">
+      <div class="ms-title">⌨️ Terminal</div>
+      <div class="ms-sub">24 משימות</div>
+      <div class="ms-prog"><div class="ms-prog-fill" id="msProg" style="width:0%"></div></div>
+    </div>
+    <div id="missionList"></div>
+  </div>
+
+  <div class="term-main">
+    <div class="mission-card" id="mCard">
+      <div class="mc-badge">⌨️ TERMINAL SIMULATOR</div>
+      <div class="mc-title" id="mcTitle">בחר משימה</div>
+      <div class="mc-desc"  id="mcDesc">בחר משימה מהרשימה להתחיל</div>
+      <div class="mc-hints" id="mcHints"></div>
+    </div>
+
+    <div class="terminal">
+      <div class="term-topbar">
+        <div class="tb-dot tb-r"></div>
+        <div class="tb-dot tb-y"></div>
+        <div class="tb-dot tb-g"></div>
+        <span class="term-name">student@networks-lab:~$</span>
+        <button class="term-clear-btn" onclick="clearTerm()">clear</button>
+      </div>
+      <div class="term-out" id="termOut">
+        <div class="out-line"><span class="out-info">Networks Pro Terminal v2.0</span></div>
+        <div class="out-line"><span class="out-dim">בחר משימה מהרשימה, או הקלד פקודה. כתוב help לרשימה.</span></div>
+        <div class="out-line"></div>
+      </div>
+      <div class="term-input-row">
+        <span class="term-ps">student@lab:~$&nbsp;</span>
+        <input class="term-in" id="termIn" type="text" autocomplete="off" spellcheck="false"
+               placeholder="הקלד פקודה..." onkeydown="onKey(event)">
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+<script>
+
+
+var CHAPTERS = [
+  {n:1,icon:'🌐',color:'#00d4ff',name:'תחילת מסע',desc:'Client/Server, כתובות IP, DNS, ping, traceroute, ענן האינטרנט',sections:['WWW','Client / Server','IP','ענן האינטרנט','DNS','סיכום כלים'],content:buildCh1},
+  {n:2,icon:'🔌',color:'#50fa7b',name:'Sockets בסיסי',desc:'socket(), connect(), bind(), listen(), accept(), send(), recv()',sections:['מה זה Socket?','API של Socket','לקוח','שרת','שרת פקודות'],content:buildCh2},
+  {n:3,icon:'🦈',color:'#1eb4f5',name:'Wireshark',desc:'Encapsulation, Decapsulation, Display Filter, Capture Filter',sections:['Wireshark','מודל חמש השכבות','Encapsulation','Filters'],content:buildCh3},
+  {n:4,icon:'📡',color:'#a78bfa',name:'שכבת האפליקציה',desc:'HTTP GET/POST, Status Codes, Headers, URL, DNS, Root Directory',sections:['HTTP','URL','Status Codes','DNS לעומק'],content:buildCh4},
+  {n:5,icon:'🐍',color:'#10b981',name:'Scapy',desc:'sniff(), lfilter, prn, שכבות חבילה, send/sr/sr1',sections:['מה זה Scapy?','בניית חבילה','sniff','send/sr'],content:buildCh5},
+  {n:6,icon:'🚦',color:'#f59e0b',name:'שכבת התעבורה',desc:'TCP vs UDP, Ports, netstat, Three-Way Handshake, Seq/ACK',sections:['תפקיד','Ports','TCP vs UDP','Three-Way Handshake','netstat'],content:buildCh6},
+  {n:7,icon:'🌍',color:'#34d399',name:'שכבת הרשת',desc:'IP, Subnet Mask, NAT, Routing Table, DHCP, TTL, traceroute',sections:['תפקיד','כתובת IP','DHCP','NAT','TTL & Routing','ICMP'],content:buildCh7},
+  {n:8,icon:'🔗',color:'#06b6d4',name:'שכבת הקו',desc:'Ethernet, MAC Address, ARP, Ethernet Frame, Hub vs Switch',sections:['תפקיד','MAC Address','Ethernet Frame','ARP','Multicast & Broadcast'],content:buildCh8},
+  {n:9,icon:'🔀',color:'#8b5cf6',name:'רכיבי רשת',desc:'Hub vs Switch vs Router — שכבות, MAC Table, Flooding, ARP',sections:['Hub','Switch','Router','סיכום'],content:buildCh9},
+  {n:10,icon:'⚡',color:'#f97316',name:'השכבה הפיזית',desc:'ביט, גלים, AM/FM, אנלוגי/דיגיטלי, ADSL, CAT5, WiFi, סיב אופטי',sections:['ביט','AM vs FM','WiFi','ADSL & CAT5'],content:buildCh10},
+  {n:11,icon:'🧩',color:'#ec4899',name:'איך הכל מתחבר',desc:'DHCP→ARP→DNS→TCP→HTTP→NAT — מסע פקטה שלם מקצה לקצה',sections:['נקודת ההתחלה','שלב 1: DHCP','שלב 2: ARP','שלב 3: DNS','שלב 4+5: TCP & HTTP'],content:buildCh11},
+  {n:12,icon:'⚙️',color:'#50fa7b',name:'Sockets מתקדם',desc:'select(), blocking vs non-blocking, multi-client, Chat Protocol',sections:['הבעיה','select()','messages_to_send'],content:buildCh12}
+];
+
+
+function buildCh1(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — WWW</span>' +
+    '<h2 class="section-h">מה זה WWW?</h2>' +
+    '<p class="prose">WWW = World Wide Web. אוסף עמודי האינטרנט אליהם גולשים בדפדפן. העמודים <strong>מפוזרים בכל רחבי העולם</strong> ומקושרים אחד לשני באמצעות לינקים — כמו רשת קורי עכביש.</p>' +
+    '</div>' +
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — Client / Server</span>' +
+    '<h2 class="section-h">Client & Server</h2>' +
+    '<p class="prose">הדפדפן = <strong>Client</strong> — שולח Request (בקשה). Facebook = <strong>Server</strong> — מקבל ומחזיר Response (תגובה). Client תמיד יוזם.</p>' +
+    '<div class="flow-diag">' +
+    '<div class="flow-node fn-blue">💻 Client<br><small>דפדפן</small></div>' +
+    '<div class="flow-arr">──Request──▶</div>' +
+    '<div class="flow-node fn-gray">☁️ ענן</div>' +
+    '<div class="flow-arr">──▶</div>' +
+    '<div class="flow-node fn-green">🗄️ Server<br><small>Facebook</small></div>' +
+    '<div class="flow-arr">◀──Response──</div>' +
+    '</div>' +
+    '<div class="alert-box tip"><div class="alert-icon">💡</div><div class="alert-body">' +
+    '<div class="alert-title">View Page Source</div>' +
+    '<div class="alert-text">קליק ימני → "View page source" — רואים את ה-HTML שהשרת שלח. זה ה-Response.</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — IP</span>' +
+    '<h2 class="section-h">כתובות IP</h2>' +
+    '<p class="prose">כמו כתובת דואר — כל הודעה ברשת כוללת <strong>כתובת מקור</strong> ו<strong>כתובת יעד</strong>. כתובת IP מורכבת מ-4 bytes, כל byte בין 0 ל-255.</p>' +
+    '<div class="alert-box info"><div class="alert-icon">🌍</div><div class="alert-body">' +
+    '<div class="alert-title">GeoIP</div>' +
+    '<div class="alert-text">ניתן לעיתים להבין מכתובת IP מה המיקום הגיאוגרפי שלה, באמצעות GeoIP. אך שימו לב — לא תמיד מדויק!</div>' +
+    '</div></div>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">cmd</span></div>' +
+    '<div class="code-body"><span class="tp">C:\\&gt;</span> <span class="tw">ping www.facebook.com</span><br><span class="tc">Pinging [</span><span class="tv">31.13.72.65</span><span class="tc">] time=180ms</span></div></div>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — ענן האינטרנט</span>' +
+    '<h2 class="section-h">ענן האינטרנט & Hops</h2>' +
+    '<p class="prose">המחשב שלנו לא מחובר ישירות לשרת Facebook. ההודעה עוברת דרך <strong>הרבה רכיבים</strong> שמעבירים אותה hop-by-hop. הכלי traceroute מציג את כל התחנות.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">tracert -d www.facebook.com</span></div>' +
+    '<div class="code-body"><span class="tc"> 1</span>  &lt;1ms  <span class="tv">192.168.1.1</span>  <span class="tc">← נתב ביתי</span><br>' +
+    '<span class="tc"> 2</span>   5ms  <span class="tv">212.179.37.1</span><br>' +
+    '<span class="tc"> 3</span>  12ms  <span class="tv">80.77.64.1</span><br>' +
+    '<span class="tc"> *</span>   *    <span class="tc">Request timed out</span><br>' +
+    '<span class="tc">15</span> 180ms  <span class="tv">157.240.22.35</span>  <span class="tc">← Facebook!</span>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">05 — DNS</span>' +
+    '<h2 class="section-h">DNS — Domain Name System</h2>' +
+    '<p class="prose">בני אדם זוכרים שמות (www.facebook.com). מחשבים צריכים IP. DNS = מערכת תרגום. בכל פנייה לשם דומיין — בדפדפן, ב-ping, ב-tracert — המחשב קודם שואל DNS.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">nslookup www.facebook.com</span></div>' +
+    '<div class="code-body">Name:    www.facebook.com<br>Address: <span class="tv">157.240.22.35</span></div></div>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">06 — סיכום כלים</span>' +
+    '<h2 class="section-h">כלי שורת הפקודה</h2>' +
+    '<table class="sum-tbl"><tr><th>כלי</th><th>מטרה</th><th>פקודה לדוגמה</th></tr>' +
+    '<tr><td>ping</td><td>קישוריות + IP + זמן תגובה</td><td>ping www.google.com</td></tr>' +
+    '<tr><td>tracert</td><td>כל ה-Hops בדרך ליעד</td><td>tracert -d 8.8.8.8</td></tr>' +
+    '<tr><td>nslookup</td><td>תרגום שם דומיין → IP</td><td>nslookup facebook.com</td></tr>' +
+    '<tr><td>ipconfig</td><td>כתובת IP + MAC + Gateway</td><td>ipconfig /all</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh2(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — מה זה Socket?</span>' +
+    '<h2 class="section-h">Socket — נקודת קצה של חיבור</h2>' +
+    '<p class="prose">Socket הוא <strong>נקודת קצה של חיבור בין שני רכיבים</strong>. דמיינו צינור — מידע שנכנס מצד אחד יוצא בצד השני. כל קצה = Socket. הצינור יכול לחבר תוכנות על <em>אותו מחשב</em> או מחשבים <em>שונים</em>.</p>' +
+    '<div class="alert-box info"><div class="alert-icon">🏠</div><div class="alert-body">' +
+    '<div class="alert-title">אנלוגיה — בניין דירות</div>' +
+    '<div class="alert-text">כתובת IP = כתובת הבניין. Port = מספר הדירה. Socket = תיבת הדואר. פורט יכול להיות מספר בין 0 ל-65,535.</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — API של Socket</span>' +
+    '<h2 class="section-h">8 פונקציות</h2>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">🔌</div><div class="concept-title" style="color:var(--ac)">socket()</div><div class="concept-body">יוצר אובייקט Socket חדש. גם לקוח וגם שרת.</div></div>' +
+    '<div class="concept"><div class="concept-icon">🔗</div><div class="concept-title" style="color:var(--ac)">connect((ip, port))</div><div class="concept-body">לקוח בלבד. יוצר חיבור לשרת מרוחק.</div></div>' +
+    '<div class="concept"><div class="concept-icon">📍</div><div class="concept-title" style="color:#a78bfa">bind((ip, port))</div><div class="concept-body">שרת בלבד. קושר לכתובת מקומית. 0.0.0.0 = קבל מכל.</div></div>' +
+    '<div class="concept"><div class="concept-icon">👂</div><div class="concept-title" style="color:#a78bfa">listen(n)</div><div class="concept-body">שרת בלבד. מתחיל להאזין לחיבורים נכנסים.</div></div>' +
+    '<div class="concept"><div class="concept-icon">🤝</div><div class="concept-title" style="color:var(--rd)">accept() — BLOCKING</div><div class="concept-body">שרת. מקפיא עד שלקוח מתחבר. מחזיר (client_socket, address).</div></div>' +
+    '<div class="concept"><div class="concept-icon">📨</div><div class="concept-title" style="color:var(--gr)">send(data)</div><div class="concept-body">שולח מחרוזת (רצף בתים) לצד השני.</div></div>' +
+    '<div class="concept"><div class="concept-icon">📬</div><div class="concept-title" style="color:var(--rd)">recv(1024) — BLOCKING</div><div class="concept-body">מקפיא עד שמגיע מידע. מחרוזת ריקה = חיבור נסגר!</div></div>' +
+    '<div class="concept"><div class="concept-icon">❌</div><div class="concept-title" style="color:var(--yw)">close()</div><div class="concept-body">סוגר ומשחרר פורט. אחרת הפורט נשאר "תפוס"!</div></div>' +
+    '</div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — לקוח</span>' +
+    '<h2 class="section-h">קוד לקוח — 7 שורות Python</h2>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">client.py</span></div>' +
+    '<div class="code-body">' +
+    '<span class="to">import</span> socket<br>' +
+    'my_socket = socket.<span class="tp">socket</span>()<br>' +
+    'my_socket.<span class="tp">connect</span>((<span class="ts">\'1.2.3.4\'</span>, <span class="tn">8820</span>))<br>' +
+    'my_socket.<span class="tp">send</span>(<span class="ts">\'Omer\'</span>)<br>' +
+    'data = my_socket.<span class="tp">recv</span>(<span class="tn">1024</span>)<br>' +
+    '<span class="to">print</span> <span class="ts">\'The server sent: \'</span> + data<br>' +
+    'my_socket.<span class="tp">close</span>()' +
+    '</div></div>' +
+    '<div class="alert-box info"><div class="alert-icon">🔁</div><div class="alert-body">' +
+    '<div class="alert-title">127.0.0.1 = Loopback</div>' +
+    '<div class="alert-text">לבדיקה על אותו מחשב — לקוח מתחבר ל-127.0.0.1. זה כתובת מיוחדת שמציינת "אל עצמך".</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — שרת</span>' +
+    '<h2 class="section-h">קוד שרת — 2 Sockets שונים!</h2>' +
+    '<div class="alert-box warn"><div class="alert-icon">⚠️</div><div class="alert-body">' +
+    '<div class="alert-title">לא להתבלבל!</div>' +
+    '<div class="alert-text"><strong>server_socket</strong> — מאזין לחיבורים. <strong>client_socket</strong> — מתקשר עם לקוח ספציפי.</div>' +
+    '</div></div>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">server.py</span></div>' +
+    '<div class="code-body">' +
+    '<span class="to">import</span> socket<br>' +
+    'server_socket = socket.<span class="tp">socket</span>()<br>' +
+    'server_socket.<span class="tp">bind</span>((<span class="ts">\'0.0.0.0\'</span>, <span class="tn">8820</span>))<br>' +
+    'server_socket.<span class="tp">listen</span>(<span class="tn">1</span>)<br>' +
+    '(client_socket, client_address) = server_socket.<span class="tp">accept</span>()  <span class="tc"># blocking!</span><br>' +
+    'client_name = client_socket.<span class="tp">recv</span>(<span class="tn">1024</span>)<br>' +
+    'client_socket.<span class="tp">send</span>(<span class="ts">\'Hello \'</span> + client_name)<br>' +
+    'client_socket.<span class="tp">close</span>()<br>' +
+    'server_socket.<span class="tp">close</span>()' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">05 — שרת פקודות</span>' +
+    '<h2 class="section-h">שרת פקודות — TIME / NAME / RAND / EXIT</h2>' +
+    '<p class="prose">כל בקשה = בדיוק <strong>4 bytes</strong>. שרת קולט פקודה ומחזיר תגובה בהתאם:</p>' +
+    '<table class="sum-tbl"><tr><th>פקודה</th><th>תגובה</th><th>מודול Python</th></tr>' +
+    '<tr><td>TIME</td><td>השעה הנוכחית</td><td>import time</td></tr>' +
+    '<tr><td>NAME</td><td>שם השרת</td><td>מחרוזת קבועה</td></tr>' +
+    '<tr><td>RAND</td><td>מספר 1-10</td><td>import random</td></tr>' +
+    '<tr><td>EXIT</td><td>ניתוק</td><td>client_socket.close()</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh3(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — Wireshark</span>' +
+    '<h2 class="section-h">מה Wireshark עושה?</h2>' +
+    '<p class="prose">Wireshark הוא כלי שמאפשר <strong>לבחון את המידע שיוצא ומתקבל בכרטיס הרשת שלנו</strong>. ניתן לראות פקטות בזמן אמת, לנתח פרוטוקולים ולגלות סיסמאות שעוברות בגלוי!</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — מודל חמש השכבות</span>' +
+    '<h2 class="section-h">מודל חמש השכבות</h2>' +
+    '<p class="prose">מודל לוגי שמחלק את פעולות מערכת התקשורת לחמישה חלקים שונים. כל שכבה מספקת שירות לשכבה שמעליה ומקבלת שירות מהשכבה שמתחתיה.</p>' +
+    '<table class="sum-tbl">' +
+    '<tr><th>#</th><th>שכבה</th><th>פרוטוקולים</th><th>כתובות</th></tr>' +
+    '<tr><td>5</td><td>אפליקציה</td><td>HTTP, DNS, DHCP, SSH, SMTP</td><td>—</td></tr>' +
+    '<tr><td>4</td><td>תעבורה</td><td>TCP, UDP</td><td>Port</td></tr>' +
+    '<tr><td>3</td><td>רשת</td><td>IP, ICMP</td><td>IP Address</td></tr>' +
+    '<tr><td>2</td><td>קו</td><td>Ethernet, WiFi</td><td>MAC Address</td></tr>' +
+    '<tr><td>1</td><td>פיזית</td><td>כבל, אוויר, סיב אופטי</td><td>—</td></tr>' +
+    '</table></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — Encapsulation</span>' +
+    '<h2 class="section-h">Encapsulation & Decapsulation</h2>' +
+    '<p class="prose"><strong>Encapsulation (כימוס)</strong> — בשליחה: כל שכבה מוסיפה Header משלה (עוטפת). <strong>Decapsulation (קילוף)</strong> — בקבלה: כל שכבה מסירה את ה-Header שלה.</p>' +
+    '<div class="alert-box info"><div class="alert-icon">📦</div><div class="alert-body">' +
+    '<div class="alert-title">Header</div>' +
+    '<div class="alert-text">המידע שמוסיפה כל שכבה בתחילת הפקטה נקרא Header (תחילית). הוא מכיל מידע שמשמש לשליטה ובקרה — כמו כתובת IP, מספר פורט, Checksum.</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — Filters</span>' +
+    '<h2 class="section-h">Display Filter vs Capture Filter</h2>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">🔍</div><div class="concept-title" style="color:var(--ac)">Display Filter</div>' +
+    '<div class="concept-body">מסנן את <strong>התצוגה בלבד</strong>. ניתן לשנות בכל רגע ללא הפסקת הלכידה.</div></div>' +
+    '<div class="concept"><div class="concept-icon">📡</div><div class="concept-title" style="color:var(--gr)">Capture Filter</div>' +
+    '<div class="concept-body">מסנן מה <strong>נלכד בפועל</strong>. BPF syntax. דורש הפסקה והפעלה מחדש.</div></div>' +
+    '</div>' +
+    '<table class="sum-tbl"><tr><th>Display Filter</th><th>מה מציג</th></tr>' +
+    '<tr><td>http</td><td>רק HTTP packets</td></tr>' +
+    '<tr><td>ip.addr == 8.8.8.8</td><td>src או dst = 8.8.8.8</td></tr>' +
+    '<tr><td>tcp.port == 80</td><td>TCP port 80</td></tr>' +
+    '<tr><td>dns</td><td>רק DNS packets</td></tr>' +
+    '<tr><td>tcp.flags.syn == 1</td><td>חבילות SYN בלבד</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh4(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — HTTP</span>' +
+    '<h2 class="section-h">פרוטוקול HTTP — בקשה ותגובה</h2>' +
+    '<p class="prose">HTTP (HyperText Transfer Protocol) הוא הפרוטוקול הנפוץ ביותר בשכבת האפליקציה. לקוח שולח <strong>Request</strong>, שרת מחזיר <strong>Response</strong>.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">HTTP Request</span></div>' +
+    '<div class="code-body">' +
+    '<span class="tp">GET</span> / <span class="tw">HTTP/1.1</span><br>' +
+    '<span class="tv">Host:</span> www.facebook.com<br>' +
+    '<span class="tv">User-Agent:</span> Mozilla/5.0<br>' +
+    '<span class="tv">Accept:</span> text/html' +
+    '</div></div>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">HTTP Response</span></div>' +
+    '<div class="code-body">' +
+    '<span class="tp">HTTP/1.1</span> <span class="ts">200 OK</span><br>' +
+    '<span class="tv">Content-Type:</span> text/html; charset=utf-8<br>' +
+    '<span class="tv">Content-Length:</span> 48291<br><br>' +
+    '<span class="tc">&lt;!DOCTYPE html&gt;...</span>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — URL</span>' +
+    '<h2 class="section-h">URL — Universal Resource Locator</h2>' +
+    '<p class="prose">URL = כתובת משאב אוניברסלית. מבנה: <code style="font-family:var(--mono);color:var(--ac)">http://www.site.com/folder/file.txt</code>. השרת יחפש את הקובץ ב-Root Directory שלו.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — Status Codes</span>' +
+    '<h2 class="section-h">קודי תגובה HTTP</h2>' +
+    '<table class="sum-tbl"><tr><th>קוד</th><th>משמעות</th><th>מתי</th></tr>' +
+    '<tr><td>200 OK</td><td>הצלחה</td><td>הבקשה טופלה בהצלחה</td></tr>' +
+    '<tr><td>301 Moved Permanently</td><td>Redirect קבוע</td><td>http → https</td></tr>' +
+    '<tr><td>403 Forbidden</td><td>אסור</td><td>אין הרשאה</td></tr>' +
+    '<tr><td>404 Not Found</td><td>לא נמצא</td><td>ה-URL לא קיים</td></tr>' +
+    '<tr><td>500 Internal Server Error</td><td>שגיאת שרת</td><td>באג בצד השרת</td></tr>' +
+    '</table></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — DNS לעומק</span>' +
+    '<h2 class="section-h">DNS — Resource Records</h2>' +
+    '<p class="prose">שרת DNS מכיל Resource Records מסוגים שונים. לשאילתת DNS יש Transaction ID לזיהוי.</p>' +
+    '<table class="sum-tbl"><tr><th>סוג</th><th>מה מחזיר</th></tr>' +
+    '<tr><td>A</td><td>IPv4 address</td></tr>' +
+    '<tr><td>AAAA</td><td>IPv6 address</td></tr>' +
+    '<tr><td>MX</td><td>שרת המייל של הדומיין</td></tr>' +
+    '<tr><td>CNAME</td><td>כינוי (Alias) לשם אחר</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh5(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — מה זה Scapy?</span>' +
+    '<h2 class="section-h">Scapy</h2>' +
+    '<p class="prose">Scapy היא <strong>ספרייה חיצונית ל-Python</strong> שמאפשרת: הסנפת תעבורה, שליחה וניתוח של חבילות, ובניית חבילות מותאמות אישית. Scapy רץ מעל Python — אפשר להשתמש בכל פונקציה של Python.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — בניית חבילה</span>' +
+    '<h2 class="section-h">בניית חבילות — שכבות עם /</h2>' +
+    '<p class="prose">בונים חבילה שכבה על שכבה עם האופרטור <strong>/</strong>:</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">Scapy</span></div>' +
+    '<div class="code-body">' +
+    '<span class="tc"># חבילה IP/ICMP</span><br>' +
+    'my_packet = IP(dst=<span class="ts">"8.8.8.8"</span>) / ICMP()<br><br>' +
+    '<span class="tc"># שליחה</span><br>' +
+    'send(my_packet)<br>' +
+    '<span class="tc"># Sent 1 packets.</span>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — sniff</span>' +
+    '<h2 class="section-h">הסנפה עם sniff()</h2>' +
+    '<p class="prose"><strong>lfilter</strong> = פונקציית סינון (מה ללכוד). <strong>prn</strong> = callback שנקרא לכל חבילה שנתפסה. <strong>store=0</strong> = אל תשמור בזיכרון.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">sniff דוגמה</span></div>' +
+    '<div class="code-body">' +
+    '<span class="to">from</span> scapy.all <span class="to">import</span> *<br><br>' +
+    'sniff(<br>' +
+    '&nbsp;&nbsp;lfilter=<span class="to">lambda</span> p: p.haslayer(DNS),<br>' +
+    '&nbsp;&nbsp;prn=<span class="to">lambda</span> p: p[DNS].qd.qname,<br>' +
+    '&nbsp;&nbsp;store=<span class="tn">0</span><br>' +
+    ')' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — send/sr</span>' +
+    '<h2 class="section-h">שליחת חבילות</h2>' +
+    '<table class="sum-tbl"><tr><th>פונקציה</th><th>Layer</th><th>מה עושה</th></tr>' +
+    '<tr><td>send(pkt)</td><td>Layer 3</td><td>שולח, לא מחכה לתשובה</td></tr>' +
+    '<tr><td>sendp(pkt)</td><td>Layer 2</td><td>שולח עם Ethernet header — שולטים ב-MAC</td></tr>' +
+    '<tr><td>sr(pkt)</td><td>Layer 3</td><td>שולח ומחכה לתשובות (מרובות)</td></tr>' +
+    '<tr><td>sr1(pkt)</td><td>Layer 3</td><td>שולח ומחכה לתשובה אחת בלבד</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh6(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — תפקיד</span>' +
+    '<h2 class="section-h">שכבת התעבורה</h2>' +
+    '<p class="prose">שכבת התעבורה אחראית להעביר מידע מ<strong>תכנית לתכנית</strong> (process to process). שתי מטרות עיקריות:</p>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">🔀</div><div class="concept-title">ריבוב אפליקציות</div>' +
+    '<div class="concept-body">שימוש בכמה שירותים במקביל מאותה ישות. מזהה: Port. תמיד קיים.</div></div>' +
+    '<div class="concept"><div class="concept-icon">🔒</div><div class="concept-title">העברה אמינה</div>' +
+    '<div class="concept-body">ודאות שהמידע מגיע. אופציונלי — קיים רק ב-TCP, לא ב-UDP.</div></div>' +
+    '</div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — Ports</span>' +
+    '<h2 class="section-h">פורטים</h2>' +
+    '<p class="prose">פורט = מספר שמזהה תכנית. טווח: 0-65535. Well-known: 0-1023 (דורשים הרשאות).</p>' +
+    '<table class="sum-tbl"><tr><th>פורט</th><th>פרוטוקול</th></tr>' +
+    '<tr><td>80</td><td>HTTP</td></tr>' +
+    '<tr><td>443</td><td>HTTPS</td></tr>' +
+    '<tr><td>53</td><td>DNS</td></tr>' +
+    '<tr><td>22</td><td>SSH</td></tr>' +
+    '<tr><td>25</td><td>SMTP (מייל)</td></tr>' +
+    '</table>' +
+    '<div class="alert-box info"><div class="alert-icon">🎲</div><div class="alert-body">' +
+    '<div class="alert-title">פורט מקור של לקוח</div>' +
+    '<div class="alert-text">פורט יעד = ידוע (80 לHTTP). פורט מקור = מספר רנדומלי שמגרילה מערכת ההפעלה.</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — TCP vs UDP</span>' +
+    '<h2 class="section-h">TCP ו-UDP</h2>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">🔒</div><div class="concept-title" style="color:var(--ac)">TCP</div>' +
+    '<div class="concept-body">מבוסס קישור. Handshake. Seq/ACK. Checksum. Window. אמין. HTTP, SSH, SMTP.</div></div>' +
+    '<div class="concept"><div class="concept-icon">⚡</div><div class="concept-title" style="color:var(--yw)">UDP</div>' +
+    '<div class="concept-body">ללא קישור. Header 8 bytes. מהיר. לא אמין. DNS, streaming, VoIP.</div></div>' +
+    '</div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — Three-Way Handshake</span>' +
+    '<h2 class="section-h">TCP Three-Way Handshake</h2>' +
+    '<div class="flow-diag" style="flex-direction:column;gap:10px;">' +
+    '<div style="font-family:var(--mono);font-size:13px;display:flex;align-items:center;gap:10px;">' +
+    '<span style="color:var(--ac);width:70px">Client</span>' +
+    '<span style="color:var(--yw)">── SYN (seq=ISN_c) ──────────────────────▶</span>' +
+    '<span style="color:var(--gr)">Server</span></div>' +
+    '<div style="font-family:var(--mono);font-size:13px;display:flex;align-items:center;gap:10px;">' +
+    '<span style="color:var(--ac);width:70px">Client</span>' +
+    '<span style="color:var(--yw)">◀── SYN+ACK (seq=ISN_s, ack=ISN_c+1) ──</span>' +
+    '<span style="color:var(--gr)">Server</span></div>' +
+    '<div style="font-family:var(--mono);font-size:13px;display:flex;align-items:center;gap:10px;">' +
+    '<span style="color:var(--ac);width:70px">Client</span>' +
+    '<span style="color:var(--yw)">── ACK (seq=ISN_c+1, ack=ISN_s+1) ─────▶</span>' +
+    '<span style="color:var(--gr)">Server</span></div>' +
+    '</div>' +
+    '<div class="alert-box tip"><div class="alert-icon">💡</div><div class="alert-body">' +
+    '<div class="alert-title">Seq & ACK</div>' +
+    '<div class="alert-text">ACK = seq_שקיבלתי + גודל_המידע. SYN נחשב byte אחד לצרכי חישוב. כל סגמנט מכיל Checksum שמוודא תקינות.</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">05 — netstat</span>' +
+    '<h2 class="section-h">netstat</h2>' +
+    '<p class="prose">מציג חיבורי TCP/UDP פעילים: כתובת מקומית, כתובת מרוחקת, מצב.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">netstat -an</span></div>' +
+    '<div class="code-body">' +
+    '<span class="tp">Proto</span>  Local Address        Foreign Address   State<br>' +
+    '<span class="tv">tcp</span>    0.0.0.0:80           0.0.0.0:*         <span class="tp">LISTEN</span><br>' +
+    '<span class="tv">tcp</span>    192.168.1.5:49152    142.250.74.46:80  <span class="tp">ESTABLISHED</span><br>' +
+    '<span class="tv">udp</span>    0.0.0.0:53           0.0.0.0:*' +
+    '</div></div></div>'
+  );
+}
+
+function buildCh7(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — תפקיד</span>' +
+    '<h2 class="section-h">שכבת הרשת</h2>' +
+    '<p class="prose">שכבת הרשת אחראית להעביר חבילה בין <strong>מחשב למחשב</strong> — גם כשהם לא מחוברים ישירות. הפרוטוקול: IP. הרכיב: נתב (Router).</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — כתובת IP</span>' +
+    '<h2 class="section-h">כתובת IP ו-Subnet Mask</h2>' +
+    '<p class="prose">כל חבילה IP כוללת: src IP, dst IP, TTL, Protocol, Checksum ועוד. <strong>Subnet Mask</strong> מגדיר כמה bits הם Network ID וכמה Host ID.</p>' +
+    '<div class="alert-box info"><div class="alert-icon">🧮</div><div class="alert-body">' +
+    '<div class="alert-title">דוגמה: /24</div>' +
+    '<div class="alert-text">IP: 192.168.5.30, Mask: 255.255.255.0 → Network: 192.168.5.0, Broadcast: 192.168.5.255, Hosts: .1–.254</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — DHCP</span>' +
+    '<h2 class="section-h">DHCP — D.O.R.A</h2>' +
+    '<p class="prose">DHCP (Dynamic Host Configuration Protocol) מחלק: IP, Subnet Mask, Default Gateway, DNS.</p>' +
+    '<div class="flow-diag">' +
+    '<div class="flow-node fn-green" style="font-size:12px">Discover<br><small>Broadcast</small></div>' +
+    '<div class="flow-arr">→</div>' +
+    '<div class="flow-node fn-blue" style="font-size:12px">Offer<br><small>IP מוצע</small></div>' +
+    '<div class="flow-arr">→</div>' +
+    '<div class="flow-node fn-green" style="font-size:12px">Request<br><small>מבקש</small></div>' +
+    '<div class="flow-arr">→</div>' +
+    '<div class="flow-node fn-purple" style="font-size:12px">ACK<br><small>מאשר</small></div>' +
+    '</div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — NAT</span>' +
+    '<h2 class="section-h">NAT — Network Address Translation</h2>' +
+    '<p class="prose">NAT מאפשר למחשבים עם <strong>כתובות פרטיות</strong> (192.168.x.x / 10.x.x.x / 172.16-31.x.x) להגיע לאינטרנט. הנתב מחליף src IP ביציאה ומחזיר dst IP בכניסה.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">05 — TTL & Routing</span>' +
+    '<h2 class="section-h">TTL וטבלת ניתוב</h2>' +
+    '<p class="prose"><strong>TTL</strong> — Time To Live. byte אחד (0-255). כל נתב מוריד ב-1. כשמגיע ל-0 — חבילה נזרקת + ICMP Time Exceeded. זה הבסיס ל-traceroute!</p>' +
+    '<p class="prose" style="margin-top:8px"><strong>Routing Table</strong> — לכל נתב יש טבלת ניתוב. כל חבילה שלא מתאימה לחוק ספציפי → Default Gateway.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">06 — ICMP</span>' +
+    '<h2 class="section-h">ICMP</h2>' +
+    '<p class="prose">ICMP (Internet Control Message Protocol) — פרוטוקול עזר ל-IP. ping משתמש ב-Echo Request/Reply. traceroute מנצל הודעות Time Exceeded.</p>' +
+    '<table class="sum-tbl"><tr><th>כלי Linux</th><th>פקודה</th></tr>' +
+    '<tr><td>כתובת IP</td><td>ip addr show</td></tr>' +
+    '<tr><td>טבלת ניתוב</td><td>ip route show</td></tr>' +
+    '<tr><td>DHCP renew</td><td>dhclient eth0</td></tr>' +
+    '<tr><td>traceroute</td><td>traceroute -n 8.8.8.8</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh8(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — תפקיד</span>' +
+    '<h2 class="section-h">שכבת הקו</h2>' +
+    '<p class="prose">שכבת הקו אחראית לאפשר תקשורת בין <strong>שתי ישויות המחוברות זו לזו באופן ישיר</strong> (hop אחד). הפרוטוקול הנפוץ: Ethernet. הכתובת: MAC Address.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — MAC Address</span>' +
+    '<h2 class="section-h">כתובת Ethernet — MAC</h2>' +
+    '<p class="prose">כתובת Ethernet מחולקת לשני חלקים: <strong>מזהה יצרן (Vendor ID)</strong> — 3 bytes ראשונים, ו<strong>מזהה ישות (Host ID)</strong> — 3 bytes אחרונים.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div></div>' +
+    '<div class="code-body"><span class="tv">d4:be:d9</span>  <span class="tc">← מזהה יצרן (Vendor ID)</span>  :  <span class="ts">d6:0c:2a</span>  <span class="tc">← מזהה ישות (Host ID)</span></div></div>' +
+    '<div class="alert-box info"><div class="alert-icon">🔍</div><div class="alert-body">' +
+    '<div class="alert-title">Wireshark מציין את שם היצרן</div>' +
+    '<div class="alert-text">ניתן לברר את שם היצרן מ-3 הבתים הראשונים — Wireshark עושה זאת אוטומטית בעמודת Source.</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — Ethernet Frame</span>' +
+    '<h2 class="section-h">מבנה מסגרת Ethernet</h2>' +
+    '<table class="sum-tbl"><tr><th>שדה</th><th>גודל</th><th>תיאור</th></tr>' +
+    '<tr><td>Preamble</td><td>8 bytes</td><td>סנכרון — לא מוצג ב-Wireshark!</td></tr>' +
+    '<tr><td>Destination MAC</td><td>6 bytes</td><td>MAC של היעד הסמוך</td></tr>' +
+    '<tr><td>Source MAC</td><td>6 bytes</td><td>MAC של השולח</td></tr>' +
+    '<tr><td>Type / EtherType</td><td>2 bytes</td><td>0x0800=IP, 0x0806=ARP</td></tr>' +
+    '<tr><td>Data (Payload)</td><td>46–1500 bytes</td><td>ה-IP packet</td></tr>' +
+    '<tr><td>CRC32 (FCS)</td><td>4 bytes</td><td>Checksum — לא מוצג ב-Wireshark!</td></tr>' +
+    '</table>' +
+    '<div class="alert-box warn"><div class="alert-icon">⚠️</div><div class="alert-body">' +
+    '<div class="alert-title">MAC vs IP</div>' +
+    '<div class="alert-text">MAC = Layer 2 = hop נוכחי בלבד. IP = Layer 3 = מקצה לקצה. MAC משתנה בכל hop, IP נשאר קבוע!</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — ARP</span>' +
+    '<h2 class="section-h">ARP — Address Resolution Protocol</h2>' +
+    '<p class="prose">ARP ממיר IP → MAC. נחוץ כי Ethernet frame דורש MAC יעד. <strong>ARP Request</strong> = Broadcast (ff:ff:ff:ff:ff:ff). <strong>ARP Reply</strong> = Unicast.</p>' +
+    '<div class="flow-diag">' +
+    '<div class="flow-node fn-blue" style="font-size:12px">A: "מי יש MAC<br>של 10.0.0.2?"<br><small>→ Broadcast</small></div>' +
+    '<div class="flow-arr">→ לכולם →</div>' +
+    '<div class="flow-node fn-green" style="font-size:12px">B: "אני! MAC=aa:bb"<br><small>Unicast → A</small></div>' +
+    '</div>' +
+    '<div class="alert-box tip"><div class="alert-icon">💾</div><div class="alert-body">' +
+    '<div class="alert-title">ARP Cache</div>' +
+    '<div class="alert-text">התשובה נשמרת ב-ARP Cache. הצגה: <strong>arp -a</strong>. מחיקה: <strong>arp -d &lt;IP&gt;</strong>.</div>' +
+    '</div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">05 — Multicast & Broadcast</span>' +
+    '<h2 class="section-h">כתובות מיוחדות</h2>' +
+    '<table class="sum-tbl"><tr><th>כתובת</th><th>סוג</th><th>שימוש</th></tr>' +
+    '<tr><td>ff:ff:ff:ff:ff:ff</td><td>Broadcast</td><td>ARP Request, DHCP Discover</td></tr>' +
+    '<tr><td>01:xx:xx:xx:xx:xx</td><td>Multicast</td><td>bit ראשון = 1 → Multicast</td></tr>' +
+    '<tr><td>כל שאר</td><td>Unicast</td><td>פנייה ישירה לכרטיס רשת ספציפי</td></tr>' +
+    '</table></div>' +
+    '</div>'
+  );
+}
+
+function buildCh9(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — Hub</span>' +
+    '<h2 class="section-h">Hub (רכזת) — שכבה פיזית</h2>' +
+    '<p class="prose">Hub הוא רכיב <strong>שכבה 1</strong>. אינו מכיר כתובות Ethernet או IP. כשמחשב שולח מסגרת — Hub <strong>מעתיק ושולח לכל הפורטים</strong>, מלבד ממנו המסגרת נשלחה.</p>' +
+    '<div class="alert-box warn"><div class="alert-icon">⚠️</div><div class="alert-body">' +
+    '<div class="alert-title">Hub = Wireshark בחינם</div>' +
+    '<div class="alert-text">ברשת Hub — כל מחשב מקבל את כל התעבורה. Wireshark על מחשב C יראה גם שיחות בין A ל-B!</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — Switch</span>' +
+    '<h2 class="section-h">Switch (מתג) — שכבה 2</h2>' +
+    '<p class="prose">Switch הוא רכיב <strong>שכבה 2</strong>. מכיר כתובות MAC. לאחר שלמד את הרשת — שולח כל מסגרת <strong>רק לפורט הרלוונטי</strong>.</p>' +
+    '<div class="alert-box info"><div class="alert-icon">📚</div><div class="alert-body">' +
+    '<div class="alert-title">כיצד Switch לומד?</div>' +
+    '<div class="alert-text">Switch בונה MAC Table על ידי למידה מ-src MAC של כל מסגרת שמגיעה. כשלא מכיר dst — עושה Flooding (כמו Hub).</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — Router</span>' +
+    '<h2 class="section-h">Router (נתב) — שכבה 3</h2>' +
+    '<p class="prose">Router הוא רכיב <strong>שכבה 3</strong>. מכיר כתובות IP ו-Subnet Masks. מחליט על מסלול הניתוב <strong>הטוב ביותר</strong> לכל חבילה. משתמש בטבלאות ניתוב דינאמיות.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — סיכום</span>' +
+    '<h2 class="section-h">טבלת השוואה</h2>' +
+    '<table class="sum-tbl"><tr><th>רכיב</th><th>שכבה</th><th>כתובות</th><th>פעולה</th></tr>' +
+    '<tr><td>Hub</td><td>פיזית (1)</td><td>לא מכיר</td><td>שולח לכל הפורטים תמיד</td></tr>' +
+    '<tr><td>Switch</td><td>קו (2)</td><td>MAC</td><td>שולח רק ליעד (MAC Table). Flooding אם לא מכיר.</td></tr>' +
+    '<tr><td>Router</td><td>רשת (3)</td><td>IP</td><td>מנתב בין רשתות. Routing Table דינאמית.</td></tr>' +
+    '</table></div>'
+  );
+}
+
+function buildCh10(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — ביט</span>' +
+    '<h2 class="section-h">השכבה הפיזית — ביטים</h2>' +
+    '<p class="prose"><strong>מטרת השכבה הפיזית: להעביר ביט יחיד בין רכיבי מחשוב.</strong> ביט (bit) = ספרה בינארית, יכול להחזיק 0 או 1. שלושה תווכים עיקריים: <strong>כבלי מתכת, אוויר, סיבים אופטיים</strong>.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — AM vs FM</span>' +
+    '<h2 class="section-h">Amplitude Modulation vs Frequency Modulation</h2>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">📻</div><div class="concept-title">AM — Amplitude Modulation</div>' +
+    '<div class="concept-body">מידע מקודד בגובה הגל (אמפליטודה). <strong>רגיש לרעשים</strong> — רעש חשמלי = שינוי אמפליטודה = עיוות.</div></div>' +
+    '<div class="concept"><div class="concept-icon">📡</div><div class="concept-title">FM — Frequency Modulation</div>' +
+    '<div class="concept-body">מידע מקודד בתדר. <strong>עמיד לרעשים</strong> — רעש = שינוי אמפליטודה, לא תדר. לכן FM נשמע טוב יותר.</div></div>' +
+    '</div>' +
+    '<div class="alert-box info"><div class="alert-icon">🎵</div><div class="alert-body">' +
+    '<div class="alert-title">Modulation = אפנון</div>' +
+    '<div class="alert-text">אפנון = הרכבת גל מידע על גבי גל "נושא" חלק. הגל הנושא עובר שינוי — בגובה (AM) או בתדר (FM).</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — WiFi</span>' +
+    '<h2 class="section-h">WiFi — רשתות אלחוטיות</h2>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">📶</div><div class="concept-title">2.4GHz</div>' +
+    '<div class="concept-body">אורך גל ארוך → חודר קירות טוב. טווח ארוך יותר. איטי יותר.</div></div>' +
+    '<div class="concept"><div class="concept-icon">🚀</div><div class="concept-title">5GHz</div>' +
+    '<div class="concept-body">אורך גל קצר. מהיר יותר. טווח קצר, לא חודר קירות.</div></div>' +
+    '</div>' +
+    '<div class="alert-box warn"><div class="alert-icon">⚠️</div><div class="alert-body">' +
+    '<div class="alert-title">WiFi = Half Duplex!</div>' +
+    '<div class="alert-text">מגבלה מתדר שידור יחיד: רק צד אחד מדבר בכל פעם. <strong>ככל שיש יותר מחשבים — הקצב מתחלק ביניהם!</strong></div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — ADSL & CAT5</span>' +
+    '<h2 class="section-h">ADSL, CAT5 וסיב אופטי</h2>' +
+    '<table class="sum-tbl"><tr><th>תווך</th><th>מהירות</th><th>תכונה</th></tr>' +
+    '<tr><td>CAT5 (נחושת)</td><td>עד 1Gbps</td><td>כבל זוגות מפותלים. CAT3/5/5e/6 — איכות בידוד שונה</td></tr>' +
+    '<tr><td>ADSL</td><td>עד 100Mbps</td><td>על כבל טלפון נחושת קיים. תלוי מרחק ממרכזייה</td></tr>' +
+    '<tr><td>סיב אופטי</td><td>עד 100Tbps</td><td>אור בזכוכית/פלסטיק. מרחקים ארוכים, ללא הפרעות</td></tr>' +
+    '</table>' +
+    '<div class="alert-box tip"><div class="alert-icon">💡</div><div class="alert-body">' +
+    '<div class="alert-title">ממסר (Relay)</div>' +
+    '<div class="alert-text">לאורכים גדולים מדי — מניחים ממסרים שמגבירים ומשדרים הלאה. הכבלים התת-ימיים בין יבשות מכילים עשרות ממסרים.</div>' +
+    '</div></div></div>'
+  );
+}
+
+function buildCh11(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — נקודת ההתחלה</span>' +
+    '<h2 class="section-h">מה המחשב יודע לפני הכל?</h2>' +
+    '<p class="prose">בשלב הזה, <strong>המחשב יודע רק את כתובת ה-MAC של כרטיס הרשת שלו</strong>. הוא יודע כיוון שזו צרובה באופן פיזי על הכרטיס.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — שלב 1: DHCP</span>' +
+    '<h2 class="section-h">קבלת IP עם DHCP</h2>' +
+    '<p class="prose">שולח DHCP Discover ב-Broadcast. שרת DHCP מחזיר Offer עם: IP, Subnet Mask, Default Gateway, DNS Server.</p>' +
+    '<div class="alert-box info"><div class="alert-icon">🌐</div><div class="alert-body">' +
+    '<div class="alert-title">Broadcast Domain</div>' +
+    '<div class="alert-text">DHCP Discover חייב להגיע לשרת DHCP ללא מעבר בנתבים. המחשב, שרת DHCP והנתב חייבים להיות באותו Broadcast Domain (מחוברים דרך Switch).</div>' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — שלב 2: ARP</span>' +
+    '<h2 class="section-h">גילוי MAC של Default Gateway</h2>' +
+    '<p class="prose">שרת ה-DNS לא ב-Subnet שלנו → חבילה חייבת לעבור דרך Default Gateway. שולחים ARP Request: "מי יש MAC של [Gateway IP]?" → Switch עושה Flooding → Gateway עונה Unicast.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">04 — שלב 3: DNS</span>' +
+    '<h2 class="section-h">מציאת IP של Facebook</h2>' +
+    '<p class="prose">שולחים DNS Query ל-DNS Server (שעברה דרך Gateway). מקבלים IP של Facebook. לאורך המסלול — MAC src/dst משתנה בכל hop, IP src/dst נשאר קבוע.</p>' +
+    '</div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">05 — שלב 4+5: TCP & HTTP</span>' +
+    '<h2 class="section-h">Three-Way Handshake → HTTP GET</h2>' +
+    '<div class="flow-diag" style="flex-direction:column;gap:8px;">' +
+    '<div style="display:flex;align-items:center;gap:10px;">' +
+    '<div class="flow-node fn-purple" style="font-size:12px;min-width:90px">TCP Handshake</div>' +
+    '<span style="color:var(--dim2);font-size:13px">SYN → SYN+ACK → ACK. פורט dst=80.</span></div>' +
+    '<div style="display:flex;align-items:center;gap:10px;">' +
+    '<div class="flow-node fn-green" style="font-size:12px;min-width:90px">HTTP GET /</div>' +
+    '<span style="color:var(--dim2);font-size:13px">Facebook מחזיר 200 OK + HTML</span></div>' +
+    '</div>' +
+    '<div class="alert-box tip"><div class="alert-icon">🔑</div><div class="alert-body">' +
+    '<div class="alert-title">NAT — שקוף לגמרי</div>' +
+    '<div class="alert-text">הנתב מחליף src IP (192.168.x.x → IP ציבורי) ביציאה. Facebook רואה רק IP הנתב. בחזרה — הנתב מחליף dst חזרה לכתובת הפרטית.</div>' +
+    '</div></div></div>'
+  );
+}
+
+function buildCh12(){
+  return (
+    '<div class="learn-section">' +
+    '<span class="section-label">01 — הבעיה</span>' +
+    '<h2 class="section-h">ריבוי לקוחות — למה זו בעיה?</h2>' +
+    '<p class="prose">בפרק 2 כתבנו שרת שמטפל בלקוח אחד. כדי לטפל בלקוח נוסף — נאלצנו <strong>לסגור את החיבור עם הראשון</strong>. עם Facebook שעובד כך — לא ניתן לשני משתמשים להתחבר בו-זמנית!</p>' +
+    '<div class="concept-grid">' +
+    '<div class="concept"><div class="concept-icon">❌</div><div class="concept-title" style="color:var(--rd)">הבעיה</div>' +
+    '<div class="concept-body">accept() ו-recv() הן blocking — מקפיאות. בזמן שמחכים ל-recv מלקוח A, לקוח B לא יכול להתחבר.</div></div>' +
+    '<div class="concept"><div class="concept-icon">✅</div><div class="concept-title" style="color:var(--gr)">הפתרון — select()</div>' +
+    '<div class="concept-body">select() בודקת מי מוכן ללא blocking. מחזירה rlist (מוכן לקריאה), wlist (מוכן לשליחה), xlist (שגיאות).</div></div>' +
+    '</div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">02 — select()</span>' +
+    '<h2 class="section-h">שימוש ב-select()</h2>' +
+    '<p class="prose">select() מקבלת 3 רשימות: Sockets לקריאה, Sockets לשליחה, Sockets לשגיאות. מחזירה רק את ה-Sockets <strong>שמוכנים עכשיו</strong>.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">server_select.py</span></div>' +
+    '<div class="code-body">' +
+    '<span class="to">import</span> socket, select<br><br>' +
+    'server = socket.<span class="tp">socket</span>()<br>' +
+    'server.<span class="tp">bind</span>((<span class="ts">\'0.0.0.0\'</span>, <span class="tn">9000</span>))<br>' +
+    'server.<span class="tp">listen</span>(<span class="tn">5</span>)<br>' +
+    'open_client_sockets = []<br>' +
+    'messages_to_send = []<br><br>' +
+    '<span class="to">while True</span>:<br>' +
+    '&nbsp;&nbsp;rlist, wlist, xlist = select.<span class="tp">select</span>(<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;[server] + open_client_sockets,<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;open_client_sockets, []<br>' +
+    '&nbsp;&nbsp;)<br>' +
+    '&nbsp;&nbsp;<span class="to">for</span> current_socket <span class="to">in</span> rlist:<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;<span class="to">if</span> current_socket <span class="to">is</span> server:<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tc"># לקוח חדש</span><br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(new_socket, address) = server.<span class="tp">accept</span>()<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;open_client_sockets.<span class="tp">append</span>(new_socket)<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;<span class="to">else</span>:<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tc"># מידע מלקוח קיים</span><br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data = current_socket.<span class="tp">recv</span>(<span class="tn">1024</span>)<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="to">if</span> data == <span class="ts">\'\'</span>:<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;open_client_sockets.<span class="tp">remove</span>(current_socket)<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_socket.<span class="tp">close</span>()' +
+    '</div></div></div>' +
+
+    '<div class="learn-section">' +
+    '<span class="section-label">03 — messages_to_send</span>' +
+    '<h2 class="section-h">שליחה מדורגת</h2>' +
+    '<p class="prose">לא ניתן לשלוח לכל לקוח מיד — Socket אולי לא מוכן. פתרון: שמור הודעות ב-<strong>messages_to_send</strong> (רשימה של (socket, data)), ושלח רק דרך wlist.</p>' +
+    '<div class="code-block"><div class="code-bar"><div class="cd cd-r"></div><div class="cd cd-y"></div><div class="cd cd-g"></div><span class="code-label">send_waiting_messages</span></div>' +
+    '<div class="code-body">' +
+    '<span class="to">def</span> <span class="tp">send_waiting_messages</span>(wlist):<br>' +
+    '&nbsp;&nbsp;<span class="to">for</span> message <span class="to">in</span> messages_to_send[:]:<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;(client_socket, data) = message<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;<span class="to">if</span> client_socket <span class="to">in</span> wlist:<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;client_socket.<span class="tp">send</span>(data)<br>' +
+    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;messages_to_send.<span class="tp">remove</span>(message)' +
+    '</div></div></div>'
+  );
+}
+
+
+
+var MISSIONS = [
+  /* ─ פרק 1 ─ */
+  {
+    id:'m1_1', ch:1, name:'ping בסיסי', title:'שלח ping ל-Google',
+    desc:'השתמש ב-ping כדי לבדוק קישוריות ולגלות את כתובת ה-IP של Google.',
+    hints:['הקלד: ping google.com','ה-ping ישלח 4 חבילות ויציג IP + זמן תגובה','נסה גם: ping 8.8.8.8'],
+    goal:'לראות Reply from עם IP',
+    commands:{
+      'ping google.com': () => pingOutput('google.com','142.250.74.46',4,[22,23,21,22]),
+      'ping 8.8.8.8':    () => pingOutput('8.8.8.8','8.8.8.8',4,[15,14,16,15]),
+      'ping':            () => ['<span class="out-err">Usage: ping &lt;hostname&gt;</span>'],
+    },
+    successCmd: 'ping google.com',
+    xp: 15
+  },
+  {
+    id:'m1_2', ch:1, name:'tracert מסלול', title:'עקוב אחרי מסלול החבילה',
+    desc:'השתמש ב-tracert (או traceroute) כדי לראות את כל ה-Hops בדרך ל-8.8.8.8.',
+    hints:['הקלד: traceroute 8.8.8.8','כל שורה = hop אחד (נתב אחד)','קפיצה גדולה בזמן = מעבר יבשת'],
+    goal:'לראות את כל ה-hops',
+    commands:{
+      'traceroute 8.8.8.8':        () => tracertOutput('8.8.8.8'),
+      'traceroute google.com':     () => tracertOutput('google.com'),
+      'tracert 8.8.8.8':           () => tracertOutput('8.8.8.8'),
+      'traceroute':                () => ['<span class="out-err">Usage: traceroute &lt;host&gt;</span>'],
+    },
+    successCmd:'traceroute 8.8.8.8',
+    xp: 20
+  },
+  {
+    id:'m1_3', ch:1, name:'nslookup DNS', title:'תרגם שם דומיין ל-IP',
+    desc:'השתמש ב-nslookup כדי לשאול את שרת ה-DNS מה כתובת ה-IP של facebook.com.',
+    hints:['הקלד: nslookup facebook.com','nslookup = שאילתת DNS טהורה','הכתובת שמוחזרת היא IP של שרת Facebook'],
+    goal:'לראות את ה-IP של facebook.com',
+    commands:{
+      'nslookup facebook.com':  () => nslookupOutput('facebook.com','157.240.22.35'),
+      'nslookup google.com':    () => nslookupOutput('google.com','142.250.74.46'),
+      'nslookup':               () => ['<span class="out-err">Usage: nslookup &lt;domain&gt;</span>'],
+    },
+    successCmd:'nslookup facebook.com',
+    xp: 15
+  },
+
+  /* ─ פרק 2 ─ */
+  {
+    id:'m2_1', ch:2, name:'Socket לקוח', title:'כתוב לקוח Python ב-Socket',
+    desc:'צור חיבור Socket לשרת, שלח הודעה וקבל תשובה.',
+    hints:['הקלד: python3 client.py','הקוד: import socket; s=socket.socket(); s.connect(("httpbin.org",80))','send ו-recv לאחר החיבור'],
+    goal:'להריץ לקוח socket בהצלחה',
+    commands:{
+      'python3 client.py': () => [
+        '<span class="out-dim">[*] Creating socket...</span>',
+        '<span class="out-ok">[+] Connected to httpbin.org:80</span>',
+        '<span class="out-dim">[*] Sending: "Hello Server"</span>',
+        '<span class="out-ok">[+] Received: "Hello Client"</span>',
+        '<span class="out-dim">[*] Closing socket.</span>',
+      ],
+      'cat client.py': () => [
+        '<span class="out-pur">import</span> socket',
+        '<span class="out-info">my_socket</span> = socket.socket()',
+        '<span class="out-info">my_socket</span>.connect((<span class="out-ok">"httpbin.org"</span>, <span class="out-yw">80</span>))',
+        '<span class="out-info">my_socket</span>.send(<span class="out-ok">b"Hello Server"</span>)',
+        '<span class="out-info">data</span> = <span class="out-info">my_socket</span>.recv(<span class="out-yw">1024</span>)',
+        '<span class="out-pur">print</span>(data)',
+        '<span class="out-info">my_socket</span>.close()',
+      ],
+    },
+    successCmd:'python3 client.py',
+    xp: 25
+  },
+  {
+    id:'m2_2', ch:2, name:'netcat בסיסי', title:'בדוק פורטים עם netcat',
+    desc:'השתמש ב-nc לבדיקת חיבור TCP לפורט 80.',
+    hints:['הקלד: nc -zv google.com 80','nc -zv = scan ללא שליחת נתונים','-z = zero I/O mode'],
+    goal:'לראות Connection succeeded',
+    commands:{
+      'nc -zv google.com 80':   () => ['<span class="out-ok">Connection to google.com 80 port [tcp/http] succeeded!</span>'],
+      'nc -zv google.com 443':  () => ['<span class="out-ok">Connection to google.com 443 port [tcp/https] succeeded!</span>'],
+      'nc -zv google.com 23':   () => ['<span class="out-err">nc: connect to google.com port 23 (tcp) failed: Connection refused</span>'],
+      'nc':                     () => ['<span class="out-dim">usage: nc [-zv] host port</span>'],
+    },
+    successCmd:'nc -zv google.com 80',
+    xp: 20
+  },
+
+  /* ─ פרק 3 ─ */
+  {
+    id:'m3_1', ch:3, name:'tcpdump בסיסי', title:'לכוד חבילות עם tcpdump',
+    desc:'השתמש ב-tcpdump כדי ללכוד חבילות IP על ממשק eth0.',
+    hints:['הקלד: sudo tcpdump -i eth0 -n -c 5','הדגל -n = אל תתרגם IPs לשמות','הדגל -c 5 = לכוד 5 חבילות ועצור'],
+    goal:'ללכוד 5 חבילות',
+    commands:{
+      'sudo tcpdump -i eth0 -n -c 5': () => tcpdumpOutput(5),
+      'sudo tcpdump -i any -n -c 5':  () => tcpdumpOutput(5),
+      'sudo tcpdump -i eth0':         () => ['<span class="out-err">Error: need -c to limit packets in simulator</span>'],
+      'tcpdump':                      () => ['<span class="out-err">tcpdump: eth0: You don\'t have permission to capture. Try sudo.</span>'],
+    },
+    successCmd:'sudo tcpdump -i eth0 -n -c 5',
+    xp: 25
+  },
+  {
+    id:'m3_2', ch:3, name:'tcpdump filter', title:'סנן חבילות לפי פרוטוקול',
+    desc:'לכוד רק חבילות DNS (UDP port 53) עם tcpdump.',
+    hints:['הקלד: sudo tcpdump -i eth0 -n udp port 53 -c 3','Display filter: udp port 53','DNS = UDP, port 53'],
+    goal:'לראות חבילות DNS בלבד',
+    commands:{
+      'sudo tcpdump -i eth0 -n udp port 53 -c 3': () => [
+        '<span class="out-dim">tcpdump: listening on eth0, filter: udp port 53</span>',
+        '<span class="out-ok">10:14:22.1 IP 192.168.1.5.52312 > 8.8.8.8.53: A? google.com.</span>',
+        '<span class="out-ok">10:14:22.2 IP 8.8.8.8.53 > 192.168.1.5.52312: A 142.250.74.46</span>',
+        '<span class="out-ok">10:14:23.1 IP 192.168.1.5.55120 > 8.8.8.8.53: A? github.com.</span>',
+        '<span class="out-dim">3 packets captured</span>',
+      ],
+      'sudo tcpdump -i eth0 tcp port 80 -c 3': () => [
+        '<span class="out-dim">tcpdump: listening on eth0, filter: tcp port 80</span>',
+        '<span class="out-ok">10:14:25.1 IP 192.168.1.5.49152 > 142.250.74.46.80: S</span>',
+        '<span class="out-ok">10:14:25.2 IP 142.250.74.46.80 > 192.168.1.5.49152: SA</span>',
+        '<span class="out-ok">10:14:25.2 IP 192.168.1.5.49152 > 142.250.74.46.80: A</span>',
+        '<span class="out-dim">3 packets captured</span>',
+      ],
+    },
+    successCmd:'sudo tcpdump -i eth0 -n udp port 53 -c 3',
+    xp: 30
+  },
+
+  /* ─ פרק 4 ─ */
+  {
+    id:'m4_1', ch:4, name:'curl HTTP GET', title:'שלח HTTP GET עם curl',
+    desc:'השתמש ב-curl לשליחת HTTP GET request ל-httpbin.org וראה את ה-Response.',
+    hints:['הקלד: curl -v http://httpbin.org/get','הדגל -v = verbose, מציג headers','תראה 200 OK ותוכן JSON'],
+    goal:'לקבל HTTP 200 OK',
+    commands:{
+      'curl -v http://httpbin.org/get': () => [
+        '<span class="out-dim">*   Trying 54.208.105.16:80...</span>',
+        '<span class="out-ok">* Connected to httpbin.org port 80</span>',
+        '<span class="out-info">&gt; GET /get HTTP/1.1</span>',
+        '<span class="out-info">&gt; Host: httpbin.org</span>',
+        '<span class="out-info">&gt; User-Agent: curl/7.88.1</span>',
+        '<span class="out-dim">&lt;</span>',
+        '<span class="out-ok">&lt; HTTP/1.1 200 OK</span>',
+        '<span class="out-dim">&lt; Content-Type: application/json</span>',
+        '<span class="out-dim">&lt; Content-Length: 256</span>',
+        '<span class="out-dim">{</span>',
+        '<span class="out-dim">  "origin": "212.179.0.1",</span>',
+        '<span class="out-dim">  "url": "http://httpbin.org/get"</span>',
+        '<span class="out-dim">}</span>',
+      ],
+      'curl http://httpbin.org/get': () => [
+        '<span class="out-dim">{"origin":"212.179.0.1","url":"http://httpbin.org/get"}</span>',
+      ],
+      'curl -I http://httpbin.org/get': () => [
+        '<span class="out-ok">HTTP/1.1 200 OK</span>',
+        '<span class="out-dim">Content-Type: application/json</span>',
+        '<span class="out-dim">Server: gunicorn/19.9.0</span>',
+      ],
+    },
+    successCmd:'curl -v http://httpbin.org/get',
+    xp: 25
+  },
+  {
+    id:'m4_2', ch:4, name:'curl POST', title:'שלח HTTP POST',
+    desc:'שלח POST request עם data ל-httpbin.org/post.',
+    hints:['הקלד: curl -X POST -d "name=Omer" http://httpbin.org/post','-X POST = שיטת POST','-d = data שנשלח ב-body'],
+    goal:'לקבל 200 OK עם form data',
+    commands:{
+      'curl -X POST -d "name=Omer" http://httpbin.org/post': () => [
+        '<span class="out-ok">HTTP/1.1 200 OK</span>',
+        '<span class="out-dim">{</span>',
+        '<span class="out-dim">  "form": { "name": "Omer" },</span>',
+        '<span class="out-dim">  "url": "http://httpbin.org/post"</span>',
+        '<span class="out-dim">}</span>',
+      ],
+      'curl -X POST http://httpbin.org/post': () => [
+        '<span class="out-dim">{"form":{},"url":"http://httpbin.org/post"}</span>',
+      ],
+    },
+    successCmd:'curl -X POST -d "name=Omer" http://httpbin.org/post',
+    xp: 25
+  },
+
+  /* ─ פרק 5 ─ */
+  {
+    id:'m5_1', ch:5, name:'scapy ping', title:'שלח ICMP עם Scapy',
+    desc:'השתמש ב-Scapy לבניית וסיום ICMP Echo Request ידנית.',
+    hints:['הקלד: python3 scapy_ping.py','הקוד: from scapy.all import *; sr1(IP(dst="8.8.8.8")/ICMP())','sr1 = send+receive one reply'],
+    goal:'לקבל ICMP reply מ-8.8.8.8',
+    commands:{
+      'python3 scapy_ping.py': () => [
+        '<span class="out-dim">WARNING: No IPv4 address found on eth0!</span>',
+        '<span class="out-dim">Begin emission:</span>',
+        '<span class="out-ok">Finished sending 1 packets.</span>',
+        '<span class="out-dim">Received 1 packets, got 1 answers, remaining 0 packets</span>',
+        '<span class="out-ok">&lt;IP  dst=8.8.8.8 /&gt;&lt;ICMP type=echo-reply /&gt;</span>',
+      ],
+      'cat scapy_ping.py': () => [
+        '<span class="out-pur">from</span> scapy.all <span class="out-pur">import</span> *',
+        'resp = sr1(IP(dst=<span class="out-ok">"8.8.8.8"</span>)/ICMP(), timeout=<span class="out-yw">2</span>)',
+        '<span class="out-pur">if</span> resp:',
+        '    resp.show()',
+      ],
+    },
+    successCmd:'python3 scapy_ping.py',
+    xp: 30
+  },
+
+  /* ─ פרק 6 ─ */
+  {
+    id:'m6_1', ch:6, name:'netstat פורטים', title:'הצג חיבורים פעילים',
+    desc:'השתמש ב-netstat לראות אילו פורטים פתוחים ואילו חיבורים TCP פעילים.',
+    hints:['הקלד: netstat -tuln','הדגל -t = TCP, -u = UDP, -l = listening, -n = no DNS','חפש שורות עם LISTEN'],
+    goal:'לראות פורטים ב-LISTEN',
+    commands:{
+      'netstat -tuln': () => netstatOutput(),
+      'netstat -an': () => netstatOutput(),
+      'netstat': () => netstatOutput(),
+      'ss -tuln': () => [
+        '<span class="out-dim">Netid  State   Recv-Q  Send-Q  Local Address:Port</span>',
+        '<span class="out-ok">tcp    LISTEN  0       128     0.0.0.0:22</span>',
+        '<span class="out-ok">tcp    LISTEN  0       128     0.0.0.0:80</span>',
+        '<span class="out-ok">tcp    LISTEN  0       50      0.0.0.0:443</span>',
+        '<span class="out-ok">udp    UNCONN  0       0       0.0.0.0:53</span>',
+      ],
+    },
+    successCmd:'netstat -tuln',
+    xp: 20
+  },
+  {
+    id:'m6_2', ch:6, name:'TCP Handshake', title:'עקוב אחרי TCP Handshake',
+    desc:'לכוד TCP Handshake מלא ב-tcpdump כדי לראות SYN, SYN+ACK, ACK.',
+    hints:['הקלד: sudo tcpdump -i eth0 "tcp[tcpflags] & tcp-syn != 0" -c 3','זה לוכד חבילות עם דגל SYN','תראה SYN → SYN+ACK → ACK'],
+    goal:'לראות TCP Handshake',
+    commands:{
+      'sudo tcpdump -i eth0 "tcp[tcpflags] & tcp-syn != 0" -c 3': () => [
+        '<span class="out-dim">tcpdump: listening on eth0, filter: tcp-syn</span>',
+        '<span class="out-ok">10:20:01.1 IP 192.168.1.5.49152 > 142.250.74.46.80: Flags [<span style="color:var(--yw)">S</span>], seq 1000</span>',
+        '<span class="out-ok">10:20:01.1 IP 142.250.74.46.80 > 192.168.1.5.49152: Flags [<span style="color:var(--yw)">S.</span>], seq 2000, ack 1001</span>',
+        '<span class="out-ok">10:20:01.2 IP 192.168.1.5.49152 > 142.250.74.46.80: Flags [<span style="color:var(--yw)">.</span>], ack 2001</span>',
+        '<span class="out-dim">3 packets captured — Three-Way Handshake complete! ✓</span>',
+      ],
+      'sudo tcpdump -i eth0 tcp -c 6': () => tcpdumpOutput(6),
+    },
+    successCmd:'sudo tcpdump -i eth0 "tcp[tcpflags] & tcp-syn != 0" -c 3',
+    xp: 35
+  },
+
+  /* ─ פרק 7 ─ */
+  {
+    id:'m7_1', ch:7, name:'ifconfig / ip', title:'הצג כתובות IP של הממשקים',
+    desc:'ראה את כתובת ה-IP, Subnet Mask וממשקי הרשת במחשב.',
+    hints:['הקלד: ip addr show','או: ifconfig -a','חפש את ממשק eth0 וכתובת inet שלו'],
+    goal:'לראות כתובת IP וSubnet',
+    commands:{
+      'ip addr show': () => ipAddrOutput(),
+      'ip addr':      () => ipAddrOutput(),
+      'ifconfig':     () => ifconfigOutput(),
+      'ifconfig -a':  () => ifconfigOutput(),
+    },
+    successCmd:'ip addr show',
+    xp: 20
+  },
+  {
+    id:'m7_2', ch:7, name:'ip route', title:'הצג טבלת ניתוב',
+    desc:'ראה את טבלת הניתוב (Routing Table) של המחשב.',
+    hints:['הקלד: ip route show','שורה שמתחילה ב-default = Default Gateway','כל שורה = נתיב לרשת'],
+    goal:'לראות את Default Gateway',
+    commands:{
+      'ip route show':  () => routeOutput(),
+      'ip route':       () => routeOutput(),
+      'route -n':       () => [
+        '<span class="out-dim">Kernel IP routing table</span>',
+        '<span class="out-dim">Destination     Gateway         Genmask         Flags</span>',
+        '<span class="out-ok">0.0.0.0         192.168.1.1     0.0.0.0         UG</span>',
+        '<span class="out-ok">192.168.1.0     0.0.0.0         255.255.255.0   U</span>',
+      ],
+      'netstat -rn': () => routeOutput(),
+    },
+    successCmd:'ip route show',
+    xp: 25
+  },
+  {
+    id:'m7_3', ch:7, name:'DHCP renew', title:'חדש כתובת IP מ-DHCP',
+    desc:'שחרר את כתובת ה-IP הנוכחית ובקש חדשה משרת DHCP.',
+    hints:['הקלד: sudo dhclient -r eth0 && sudo dhclient eth0','-r = release (ויתור על IP)','ואז dhclient לבד = request חדש'],
+    goal:'לקבל IP חדש מ-DHCP',
+    commands:{
+      'sudo dhclient -r eth0 && sudo dhclient eth0': () => [
+        '<span class="out-dim">Killed old client process</span>',
+        '<span class="out-dim">DHCPRELEASE on eth0 to 192.168.1.1 port 67</span>',
+        '<span class="out-dim">DHCPDISCOVER on eth0 to 255.255.255.255 port 67</span>',
+        '<span class="out-ok">DHCPOFFER from 192.168.1.1</span>',
+        '<span class="out-dim">DHCPREQUEST for 192.168.1.7 on eth0 to 255.255.255.255</span>',
+        '<span class="out-ok">DHCPACK from 192.168.1.1 — bound to 192.168.1.7</span>',
+      ],
+      'sudo dhclient eth0': () => [
+        '<span class="out-dim">DHCPDISCOVER on eth0 to 255.255.255.255</span>',
+        '<span class="out-ok">DHCPACK from 192.168.1.1 — bound to 192.168.1.5</span>',
+      ],
+    },
+    successCmd:'sudo dhclient -r eth0 && sudo dhclient eth0',
+    xp: 30
+  },
+
+  /* ─ פרק 8 ─ */
+  {
+    id:'m8_1', ch:8, name:'ARP cache', title:'הצג ומחק ARP Cache',
+    desc:'ראה את טבלת ה-ARP Cache ואחר כך מחק רשומה ספציפית.',
+    hints:['הקלד: arp -n','לאחר מכן: sudo arp -d 192.168.1.1','ARP Cache = מיפוי IP→MAC שמור'],
+    goal:'לראות ולמחוק רשומת ARP',
+    commands:{
+      'arp -n':                  () => arpOutput(),
+      'arp -a':                  () => arpOutput(),
+      'sudo arp -d 192.168.1.1': () => ['<span class="out-ok">192.168.1.1 deleted from ARP cache</span>'],
+      'sudo ip neigh flush all': () => ['<span class="out-ok">ARP cache flushed.</span>'],
+    },
+    successCmd:'arp -n',
+    xp: 20
+  },
+  {
+    id:'m8_2', ch:8, name:'arping', title:'שלח ARP Request ידנית',
+    desc:'השתמש ב-arping לשליחת ARP Request לכתובת IP ברשת.',
+    hints:['הקלד: sudo arping -c 3 192.168.1.1','arping שולח ARP Request ישירות','תקבל בחזרה את ה-MAC Address'],
+    goal:'לקבל ARP Reply עם MAC',
+    commands:{
+      'sudo arping -c 3 192.168.1.1': () => [
+        '<span class="out-dim">ARPING 192.168.1.1 from 192.168.1.5 eth0</span>',
+        '<span class="out-ok">60 bytes from d4:be:d9:11:22:33 (192.168.1.1): index=0 time=1.2ms</span>',
+        '<span class="out-ok">60 bytes from d4:be:d9:11:22:33 (192.168.1.1): index=1 time=0.9ms</span>',
+        '<span class="out-ok">60 bytes from d4:be:d9:11:22:33 (192.168.1.1): index=2 time=1.1ms</span>',
+        '<span class="out-dim">--- 192.168.1.1 statistics ---</span>',
+        '<span class="out-ok">3 packets transmitted, 3 received</span>',
+      ],
+      'arping 192.168.1.1': () => ['<span class="out-err">arping: need root. Try: sudo arping</span>'],
+    },
+    successCmd:'sudo arping -c 3 192.168.1.1',
+    xp: 30
+  },
+
+  /* ─ פרק 9 ─ */
+  {
+    id:'m9_1', ch:9, name:'bridge fdb', title:'ראה MAC Table של Bridge',
+    desc:'הצג את MAC Address Table של ה-Bridge/Switch ב-Linux.',
+    hints:['הקלד: bridge fdb show','כל שורה = MAC שנלמד על פורט מסויים','dst = הממשק שממנו נלמד'],
+    goal:'לראות MAC Table',
+    commands:{
+      'bridge fdb show': () => [
+        '<span class="out-ok">d4:be:d9:11:22:33 dev eth0 master br0 permanent</span>',
+        '<span class="out-ok">aa:bb:cc:dd:ee:ff dev eth0 master br0 offload</span>',
+        '<span class="out-ok">ff:ff:ff:ff:ff:ff dev eth0 self permanent</span>',
+        '<span class="out-ok">01:00:5e:00:00:01 dev eth0 self permanent</span>',
+      ],
+      'ip link show':    () => ipLinkOutput(),
+    },
+    successCmd:'bridge fdb show',
+    xp: 25
+  },
+
+  /* ─ פרק 10 ─ */
+  {
+    id:'m10_1', ch:10, name:'iwconfig WiFi', title:'הצג פרטי WiFi',
+    desc:'הצג פרטי כרטיס ה-WiFi: SSID, תדר, עוצמת אות, קצב.',
+    hints:['הקלד: iwconfig wlan0','או: iw dev wlan0 info','תראה: SSID, Frequency, Signal level, Bit Rate'],
+    goal:'לראות פרטי WiFi',
+    commands:{
+      'iwconfig wlan0': () => [
+        '<span class="out-ok">wlan0     IEEE 802.11  ESSID:"MyNetwork"</span>',
+        '<span class="out-ok">          Mode:Managed  Frequency:<span class="out-yw">2.437 GHz</span>  Channel:6</span>',
+        '<span class="out-ok">          Bit Rate=<span class="out-yw">72.2 Mb/s</span>   Tx-Power=20 dBm</span>',
+        '<span class="out-ok">          Link Quality=65/70  Signal level=<span class="out-yw">-45 dBm</span></span>',
+      ],
+      'iwconfig': () => [
+        '<span class="out-ok">wlan0  IEEE 802.11 ESSID:"MyNetwork" Freq:2.437GHz Rate:72.2Mb/s Signal:-45dBm</span>',
+        '<span class="out-dim">eth0   no wireless extensions.</span>',
+      ],
+      'iw dev wlan0 info': () => [
+        '<span class="out-dim">Interface wlan0</span>',
+        '<span class="out-ok">  ifindex 3  type managed  channel 6 (2437 MHz)</span>',
+      ],
+    },
+    successCmd:'iwconfig wlan0',
+    xp: 20
+  },
+
+  /* ─ פרק 11 ─ */
+  {
+    id:'m11_1', ch:11, name:'מסע פקטה', title:'עקוב אחרי מסע מלא',
+    desc:'שלב ping + traceroute + nslookup לתיאור מסע פקטה מלא מ-DHCP עד HTTP.',
+    hints:['שלב 1: ip addr show (קבלת IP)','שלב 2: nslookup google.com (DNS)','שלב 3: traceroute google.com (hops)'],
+    goal:'להריץ את כל 3 הפקודות',
+    commands:{
+      'ip addr show':          () => ipAddrOutput(),
+      'nslookup google.com':   () => nslookupOutput('google.com','142.250.74.46'),
+      'traceroute google.com': () => tracertOutput('google.com'),
+      'ping google.com':       () => pingOutput('google.com','142.250.74.46',4,[22,23,21,22]),
+    },
+    successCmd:'traceroute google.com',
+    xp: 35
+  },
+
+  /* ─ פרק 12 ─ */
+  {
+    id:'m12_1', ch:12, name:'select() שרת', title:'הרץ שרת multi-client עם select()',
+    desc:'הרץ שרת Python שמשתמש ב-select() לטיפול בלקוחות מרובים.',
+    hints:['הקלד: python3 server_select.py','השרת יאזין ב-localhost:9000','פתח לקוח עם: nc localhost 9000'],
+    goal:'להריץ שרת select()',
+    commands:{
+      'python3 server_select.py': () => [
+        '<span class="out-dim">[*] Server starting on 0.0.0.0:9000</span>',
+        '<span class="out-ok">[+] Listening for connections... (Ctrl+C to stop)</span>',
+        '<span class="out-dim">[*] select() waiting...</span>',
+        '<span class="out-ok">[+] New client connected: 127.0.0.1:49152</span>',
+        '<span class="out-ok">[+] New client connected: 127.0.0.1:49153</span>',
+        '<span class="out-dim">[*] Data from 127.0.0.1:49152 — "Hello"</span>',
+        '<span class="out-dim">[*] Data from 127.0.0.1:49153 — "World"</span>',
+      ],
+      'cat server_select.py': () => [
+        '<span class="out-pur">import</span> socket, select',
+        'server = socket.socket(); server.bind((<span class="out-ok">"0.0.0.0"</span>, <span class="out-yw">9000</span>))',
+        'server.listen(<span class="out-yw">5</span>); clients = []',
+        '<span class="out-pur">while True</span>:',
+        '    rlist, _, _ = select.select([server] + clients, [], [])',
+        '    <span class="out-pur">for</span> s <span class="out-pur">in</span> rlist:',
+        '        <span class="out-pur">if</span> s <span class="out-pur">is</span> server: clients.append(server.accept()[<span class="out-yw">0</span>])',
+        '        <span class="out-pur">else</span>: data = s.recv(<span class="out-yw">1024</span>)',
+      ],
+    },
+    successCmd:'python3 server_select.py',
+    xp: 40
+  }
+,
+
+  {
+    id:'m3_3', ch:3, name:'Follow TCP Stream', title:'עקוב אחרי TCP Stream ב-tcpdump',
+    desc:'לכוד TCP stream שלם — SYN עד FIN — וראה את כל ה-Handshake.',
+    hints:['הקלד: sudo tcpdump -i eth0 tcp -c 8 -n','כל שורה = packet אחד','חפש Flags [S], [S.], [.] = Three-Way Handshake'],
+    goal:'לראות TCP stream שלם',
+    commands:{
+      'sudo tcpdump -i eth0 tcp -c 8 -n': function(){ return [
+        '<span class="out-dim">tcpdump: listening on eth0, link-type EN10MB</span>',
+        '<span class="out-ok">10:30:01.1 IP 192.168.1.5.49200 > 142.250.74.46.80: Flags [<span style="color:var(--yw)">S</span>], seq 1000, win 64240</span>',
+        '<span class="out-ok">10:30:01.2 IP 142.250.74.46.80 > 192.168.1.5.49200: Flags [<span style="color:var(--yw)">S.</span>], seq 2000, ack 1001</span>',
+        '<span class="out-ok">10:30:01.2 IP 192.168.1.5.49200 > 142.250.74.46.80: Flags [<span style="color:var(--yw)">.</span>], ack 2001</span>',
+        '<span class="out-dim">10:30:01.3 IP 192.168.1.5.49200 > 142.250.74.46.80: Flags [P.], GET / HTTP/1.1</span>',
+        '<span class="out-dim">10:30:01.5 IP 142.250.74.46.80 > 192.168.1.5.49200: Flags [P.], HTTP/1.1 200 OK</span>',
+        '<span class="out-ok">10:30:01.6 IP 192.168.1.5.49200 > 142.250.74.46.80: Flags [<span style="color:var(--yw)">F.</span>], fin</span>',
+        '<span class="out-ok">10:30:01.7 IP 142.250.74.46.80 > 192.168.1.5.49200: Flags [<span style="color:var(--yw)">F.</span>], fin ack</span>',
+        '<span class="out-dim">8 packets captured — Full TCP lifecycle: SYN→SYN+ACK→ACK→data→FIN ✓</span>',
+      ]; }
+    },
+    successCmd:'sudo tcpdump -i eth0 tcp -c 8 -n',
+    xp: 30
+  },
+  {
+    id:'m4_3', ch:4, name:'HTTP Headers', title:'בדוק HTTP Headers עם curl -I',
+    desc:'שלח HTTP HEAD request וראה רק את ה-Headers — Status Code, Content-Type, Server.',
+    hints:['הקלד: curl -I http://httpbin.org','הדגל -I = HEAD request (headers בלבד)','תראה: HTTP/1.1 200 OK + Content-Type + Server'],
+    goal:'לקבל HTTP headers',
+    commands:{
+      'curl -I http://httpbin.org': function(){ return [
+        '<span class="out-ok">HTTP/1.1 200 OK</span>',
+        '<span class="out-dim">Date: Mon, 24 Mar 2026 10:00:00 GMT</span>',
+        '<span class="out-dim">Content-Type: text/html; charset=utf-8</span>',
+        '<span class="out-dim">Content-Length: 9593</span>',
+        '<span class="out-dim">Connection: keep-alive</span>',
+        '<span class="out-ok">Server: gunicorn/19.9.0</span>',
+        '<span class="out-dim">Access-Control-Allow-Origin: *</span>',
+      ]; },
+      'curl -I https://google.com': function(){ return [
+        '<span class="out-ok">HTTP/2 301</span>',
+        '<span class="out-dim">location: https://www.google.com/</span>',
+        '<span class="out-dim">content-type: text/html; charset=UTF-8</span>',
+        '<span class="out-ok">server: gws</span>',
+      ]; },
+      'curl -I http://example.com': function(){ return [
+        '<span class="out-ok">HTTP/1.1 200 OK</span>',
+        '<span class="out-dim">Content-Type: text/html; charset=UTF-8</span>',
+        '<span class="out-dim">Content-Length: 1256</span>',
+      ]; }
+    },
+    successCmd:'curl -I http://httpbin.org',
+    xp: 20
+  },
+  {
+    id:'m5_2', ch:5, name:'Scapy ARP', title:'בנה ARP Request עם Scapy',
+    desc:'השתמש ב-Scapy לשליחת ARP Request ידנית לגילוי MAC של Gateway.',
+    hints:['הקלד: python3 scapy_arp.py','הקוד: Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst="192.168.1.1")','ARP Request נשלח ל-Broadcast Ethernet'],
+    goal:'לקבל ARP Reply עם MAC',
+    commands:{
+      'python3 scapy_arp.py': function(){ return [
+        '<span class="out-dim">Begin emission (ARP Request to 192.168.1.1)</span>',
+        '<span class="out-ok">Finished sending 1 packets.</span>',
+        '<span class="out-ok">Received ARP Reply:</span>',
+        '<span class="out-ok">  192.168.1.1 is at <span style="color:var(--yw)">d4:be:d9:11:22:33</span></span>',
+        '<span class="out-dim">1 packet answered.</span>',
+      ]; },
+      'cat scapy_arp.py': function(){ return [
+        '<span class="out-pur">from</span> scapy.all <span class="out-pur">import</span> *',
+        'pkt = Ether(dst=<span class="out-ok">"ff:ff:ff:ff:ff:ff"</span>)/ARP(pdst=<span class="out-ok">"192.168.1.1"</span>)',
+        'resp = srp1(pkt, timeout=<span class="out-yw">2</span>, verbose=<span class="out-yw">0</span>)',
+        '<span class="out-pur">if</span> resp:',
+        '    <span class="out-pur">print</span>(<span class="out-ok">f"{resp.psrc} is at {resp.hwsrc}"</span>)',
+      ]; }
+    },
+    successCmd:'python3 scapy_arp.py',
+    xp: 35
+  }
+];
+
+function pingOutput(host, ip, count, times) {
+  var lines = ['<span class="out-dim">PING '+host+' ('+ip+'): 56 data bytes</span>'];
+  for (var i=0; i<count; i++)
+    lines.push('<span class="out-ok">64 bytes from '+ip+': icmp_seq='+i+' ttl=55 time='+times[i]+' ms</span>');
+  lines.push('<span class="out-dim">--- '+host+' ping statistics ---</span>');
+  lines.push('<span class="out-ok">'+count+' packets transmitted, '+count+' received, 0% packet loss</span>');
+  return lines;
+}
+
+function tracertOutput(host) {
+  var ips = ['192.168.1.1','212.179.0.1','62.219.0.1','80.77.64.1','104.26.0.1','142.250.74.46'];
+  var times = [1,8,12,35,95,180];
+  var lines = ['<span class="out-dim">traceroute to '+host+', 30 hops max</span>'];
+  for (var i=0; i<ips.length; i++) {
+    var t = times[i];
+    lines.push('<span class="out-'+(t>100?'yw':'ok')+'">'+(i+1)+'  '+t+'ms  '+ips[i]+'</span>');
+  }
+  lines.push('<span class="out-dim">Trace complete.</span>');
+  return lines;
+}
+
+function nslookupOutput(host, ip) {
+  return [
+    '<span class="out-dim">Server:  8.8.8.8</span>',
+    '<span class="out-dim">Address: 8.8.8.8#53</span>',
+    '<span class="out-dim">Non-authoritative answer:</span>',
+    '<span class="out-ok">Name: '+host+'</span>',
+    '<span class="out-ok">Address: '+ip+'</span>',
+  ];
+}
+
+function tcpdumpOutput(n) {
+  var protos = ['TCP','UDP','TCP','ICMP','TCP','UDP'];
+  var lines = ['<span class="out-dim">tcpdump: listening on eth0</span>'];
+  for (var i=0; i<n; i++) {
+    var p = protos[i%protos.length];
+    lines.push('<span class="out-ok">10:14:2'+i+'.'+i+' IP 192.168.1.5 > 8.8.8.'+i+': '+p+'</span>');
+  }
+  lines.push('<span class="out-dim">'+n+' packets captured</span>');
+  return lines;
+}
+
+function netstatOutput() {
+  return [
+    '<span class="out-dim">Proto Recv-Q Send-Q Local Address    Foreign Address  State</span>',
+    '<span class="out-ok">tcp   0      0      0.0.0.0:22       0.0.0.0:*        LISTEN</span>',
+    '<span class="out-ok">tcp   0      0      0.0.0.0:80       0.0.0.0:*        LISTEN</span>',
+    '<span class="out-ok">tcp   0      0      127.0.0.1:9000   0.0.0.0:*        LISTEN</span>',
+    '<span class="out-ok">tcp   0      0      192.168.1.5:49152  142.250.74.46:80  ESTABLISHED</span>',
+    '<span class="out-ok">udp   0      0      0.0.0.0:53       0.0.0.0:*</span>',
+  ];
+}
+
+function ipAddrOutput() {
+  return [
+    '<span class="out-dim">1: lo: &lt;LOOPBACK,UP&gt;</span>',
+    '<span class="out-ok">    inet 127.0.0.1/8 scope host lo</span>',
+    '<span class="out-dim">2: eth0: &lt;BROADCAST,MULTICAST,UP&gt;</span>',
+    '<span class="out-ok">    inet 192.168.1.5/24 brd 192.168.1.255 scope global eth0</span>',
+    '<span class="out-dim">    link/ether d4:be:d9:d6:0c:2a brd ff:ff:ff:ff:ff:ff</span>',
+    '<span class="out-dim">3: wlan0: &lt;BROADCAST,MULTICAST,UP&gt;</span>',
+    '<span class="out-ok">    inet 192.168.1.7/24 scope global wlan0</span>',
+  ];
+}
+
+function ifconfigOutput() {
+  return [
+    '<span class="out-ok">eth0: flags=4163&lt;UP,BROADCAST,RUNNING&gt;  mtu 1500</span>',
+    '<span class="out-ok">      inet 192.168.1.5  netmask 255.255.255.0  broadcast 192.168.1.255</span>',
+    '<span class="out-dim">      ether d4:be:d9:d6:0c:2a  txqueuelen 1000</span>',
+  ];
+}
+
+function routeOutput() {
+  return [
+    '<span class="out-ok">default via 192.168.1.1 dev eth0 proto dhcp</span>',
+    '<span class="out-ok">192.168.1.0/24 dev eth0 proto kernel scope link src 192.168.1.5</span>',
+  ];
+}
+
+function arpOutput() {
+  return [
+    '<span class="out-dim">Address          HWtype  HWaddress           Flags Iface</span>',
+    '<span class="out-ok">192.168.1.1      ether   d4:be:d9:11:22:33   C     eth0</span>',
+    '<span class="out-ok">192.168.1.10     ether   aa:bb:cc:dd:ee:ff   C     eth0</span>',
+  ];
+}
+
+function ipLinkOutput() {
+  return [
+    '<span class="out-dim">1: lo: &lt;LOOPBACK,UP&gt;</span>',
+    '<span class="out-ok">2: eth0: &lt;BROADCAST,MULTICAST,UP&gt; mtu 1500</span>',
+    '<span class="out-ok">3: wlan0: &lt;BROADCAST,MULTICAST,UP&gt; mtu 1500</span>',
+  ];
+}
+
+
+
+
+var BUILT_IN = {
+  'clear':    function(){ clearTerm(); return []; },
+  'help':     function(){ return [
+    '<span class="out-info">פקודות זמינות:</span>',
+    '<span class="out-ok">ping &lt;host&gt;</span>         <span class="out-dim">בדיקת קישוריות</span>',
+    '<span class="out-ok">traceroute &lt;host&gt;</span>   <span class="out-dim">מסלול חבילה</span>',
+    '<span class="out-ok">nslookup &lt;host&gt;</span>     <span class="out-dim">שאילתת DNS</span>',
+    '<span class="out-ok">ip addr show</span>         <span class="out-dim">כתובות IP</span>',
+    '<span class="out-ok">ip route show</span>        <span class="out-dim">טבלת ניתוב</span>',
+    '<span class="out-ok">netstat -tuln</span>        <span class="out-dim">פורטים פתוחים</span>',
+    '<span class="out-ok">arp -n</span>               <span class="out-dim">ARP cache</span>',
+    '<span class="out-ok">ifconfig</span>             <span class="out-dim">ממשקי רשת</span>',
+    '<span class="out-ok">iwconfig</span>             <span class="out-dim">WiFi</span>',
+    '<span class="out-ok">cat &lt;file&gt;</span>          <span class="out-dim">הצג קובץ</span>',
+    '<span class="out-ok">python3 &lt;file&gt;</span>      <span class="out-dim">הרץ Python</span>',
+    '<span class="out-ok">clear</span>                <span class="out-dim">נקה מסך</span>',
+  ]; },
+  'whoami':   function(){ return ['<span class="out-ok">student</span>']; },
+  'pwd':      function(){ return ['<span class="out-ok">/home/student</span>']; },
+  'ls':       function(){ return ['<span class="out-ok">client.py  server.py  server_select.py  scapy_ping.py  scapy_arp.py</span>']; },
+  'date':     function(){ return ['<span class="out-ok">'+new Date().toString()+'</span>']; },
+  'uname -a': function(){ return ['<span class="out-dim">Linux networks-lab 5.15.0 x86_64 GNU/Linux</span>']; },
+  'echo hello':function(){ return ['<span class="out-ok">hello</span>']; },
+  'hostname': function(){ return ['<span class="out-ok">networks-lab</span>']; },
+};
+
+
+
+/* ════════════════════════
+   STATE
+════════════════════════ */
+var S = {
+  xp: parseInt(localStorage.getItem('nwpro_xp')||'0'),
+  done: JSON.parse(localStorage.getItem('nwpro_done')||'[]'),
+  curMission: null,
+  curCh: null,
+  hist: [], histIdx: -1
+};
+document.getElementById('xpTotal').textContent = S.xp;
+
+/* ════════════════════════
+   NAV
+════════════════════════ */
+function go(id) {
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  var map = {landing:0, learn:1, 'terminal-screen':2};
+  var tabs = document.querySelectorAll('.nav-btn');
+  if (map[id] !== undefined && tabs[map[id]]) tabs[map[id]].classList.add('active');
+  if (id === 'terminal-screen') {
+    var ti = document.getElementById('termIn');
+    if (ti) setTimeout(function(){ ti.focus(); }, 50);
+  }
+}
+
+/* ════════════════════════
+   BUILD HOME GRID
+════════════════════════ */
+(function() {
+  var g = document.getElementById('homeGrid');
+  CHAPTERS.forEach(function(ch) {
+    var mc = MISSIONS.filter(function(m){ return m.ch===ch.n; }).length;
+    var card = document.createElement('div');
+    card.className = 'ch-card';
+    card.style.setProperty('--cc', ch.color);
+    card.onclick = function(e) {
+      if (!e.target.classList.contains('cc-btn')) {
+        go('learn'); loadCh(ch.n);
+      }
+    };
+    card.innerHTML =
+      '<div class="cc-n">פרק ' + String(ch.n).padStart(2,'0') + '</div>' +
+      '<span class="cc-icon">' + ch.icon + '</span>' +
+      '<div class="cc-name">' + ch.name + '</div>' +
+      '<div class="cc-desc">' + ch.desc.slice(0,60) + '...</div>' +
+      '<div class="cc-acts">' +
+        '<button class="cc-btn" onclick="go(\'learn\');loadCh('+ch.n+')">📖 למד</button>' +
+        (mc ? '<button class="cc-btn term" onclick="go(\'terminal-screen\');loadMission(getMissionForCh('+ch.n+'))">⌨️ '+mc+'</button>' : '') +
+      '</div>';
+    g.appendChild(card);
+  });
+})();
+
+function getMissionForCh(n) {
+  return MISSIONS.find(function(m){ return m.ch===n; });
+}
+
+/* ════════════════════════
+   BUILD LEARN SIDEBAR
+════════════════════════ */
+function buildSidebar() {
+  var sb = document.getElementById('lSidebar');
+  sb.innerHTML = '<span class="sb-lbl">תוכן עניינים</span>';
+  CHAPTERS.forEach(function(ch) {
+    var wrap = document.createElement('div');
+
+    var btn = document.createElement('div');
+    btn.className = 'sb-ch' + (S.curCh===ch.n ? ' active' : '');
+    btn.id = 'sbch'+ch.n;
+    btn.innerHTML = '<span class="sb-ch-num">' + String(ch.n).padStart(2,'0') + '</span>' + ch.icon + ' ' + ch.name;
+    btn.onclick = function(){ loadCh(ch.n); };
+
+    var secs = document.createElement('div');
+    secs.className = 'sb-secs' + (S.curCh===ch.n ? ' open' : '');
+    secs.id = 'sbsecs'+ch.n;
+    ch.sections.forEach(function(sec, i) {
+      var s = document.createElement('button');
+      s.className = 'sb-sec';
+      s.id = 'sbsec_'+ch.n+'_'+i;
+      s.textContent = sec;
+      s.onclick = function(e) {
+        e.stopPropagation();
+        scrollToSection(ch.n, i);
+      };
+      secs.appendChild(s);
+    });
+
+    wrap.appendChild(btn); wrap.appendChild(secs);
+    sb.appendChild(wrap);
+  });
+}
+
+/* ════════════════════════
+   LOAD CHAPTER
+════════════════════════ */
+function loadCh(n) {
+  S.curCh = n;
+  var ch = CHAPTERS.find(function(c){ return c.n===n; });
+  if (!ch) return;
+
+  // sidebar active
+  document.querySelectorAll('.sb-ch').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.sb-secs').forEach(function(s){ s.classList.remove('open'); });
+  var sb = document.getElementById('sbch'+n);
+  if (sb) sb.classList.add('active');
+  var ss = document.getElementById('sbsecs'+n);
+  if (ss) ss.classList.add('open');
+
+  // content
+  var prev = n>1  ? '<button class="ch-nav-btn" onclick="loadCh('+(n-1)+')">← פרק '+(n-1)+'</button>' : '<span></span>';
+  var next = n<12 ? '<button class="ch-nav-btn ch-nav-next" onclick="loadCh('+(n+1)+')">פרק '+(n+1)+' →</button>' : '<span></span>';
+
+  var lc = document.getElementById('lContent');
+  lc.innerHTML =
+    '<div class="ch-eyebrow">פרק ' + String(n).padStart(2,'0') + ' מתוך 12</div>' +
+    '<h1 class="ch-title">' + ch.icon + ' ' + ch.name + '</h1>' +
+    '<p class="ch-desc">' + ch.desc + '</p>' +
+    '<div class="divider"></div>' +
+    ch.content() +
+    '<div class="ch-nav">' + prev +
+      '<span style="flex:1;text-align:center;font-family:var(--mono);font-size:11px;color:var(--dim2)">' + n + ' / 12</span>' +
+      next +
+    '</div>';
+
+  window.scrollTo({top:0, behavior:'instant'});
+
+  // scroll highlight
+  window.onscroll = function() { highlightSections(n); updateReadBar(); };
+  updateReadBar();
+}
+
+function updateReadBar() {
+  var total = document.documentElement.scrollHeight - window.innerHeight;
+  var pct = total > 0 ? Math.min(100, window.scrollY / total * 100) : 0;
+  document.getElementById('readBar').style.width = pct + '%';
+}
+
+function highlightSections(chN) {
+  var secs = document.querySelectorAll('.learn-section');
+  var active = 0;
+  secs.forEach(function(s, i) {
+    if (s.getBoundingClientRect().top < 120) active = i;
+  });
+  document.querySelectorAll('.sb-sec').forEach(function(b){ b.classList.remove('active'); });
+  var ab = document.getElementById('sbsec_'+chN+'_'+active);
+  if (ab) ab.classList.add('active');
+}
+
+/* ════════════════════════
+   SCROLL TO SECTION
+════════════════════════ */
+function scrollToSection(chN, idx) {
+  if (chN !== S.curCh) {
+    loadCh(chN);
+    setTimeout(function(){ doScroll(idx); }, 80);
+  } else {
+    doScroll(idx);
+  }
+}
+
+function doScroll(idx) {
+  var secs = document.querySelectorAll('.learn-section');
+  if (secs[idx]) {
+    var top = secs[idx].getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({top: top, behavior: 'smooth'});
+  }
+}
+
+/* ════════════════════════
+   BUILD MISSION LIST
+════════════════════════ */
+(function() {
+  var list = document.getElementById('missionList');
+  MISSIONS.forEach(function(m, idx) {
+    var done = S.done.indexOf(m.id) >= 0;
+    var item = document.createElement('div');
+    item.className = 'm-item' + (done ? ' done' : '');
+    item.id = 'mi_'+m.id;
+    item.innerHTML =
+      '<div class="m-num">'+(idx+1)+'</div>' +
+      '<div class="m-info"><div class="m-name">'+m.name+'</div><div class="m-ch">פרק '+m.ch+'</div></div>' +
+      (done ? '<div class="m-check">✓</div>' : '');
+    item.onclick = function(){ loadMission(m); };
+    list.appendChild(item);
+  });
+  updateProgress();
+})();
+
+function updateProgress() {
+  var pct = S.done.length / MISSIONS.length * 100;
+  document.getElementById('msProg').style.width = pct + '%';
+}
+
+/* ════════════════════════
+   LOAD MISSION
+════════════════════════ */
+function loadMission(m) {
+  if (!m) return;
+  S.curMission = m;
+
+  document.querySelectorAll('.m-item').forEach(function(x){ x.classList.remove('active'); });
+  var mi = document.getElementById('mi_'+m.id);
+  if (mi) mi.classList.add('active');
+
+  document.getElementById('mcTitle').textContent = m.title;
+  document.getElementById('mcDesc').textContent  = m.desc;
+
+  var hh = document.getElementById('mcHints');
+  hh.innerHTML = '';
+  m.hints.forEach(function(h) {
+    var d = document.createElement('div');
+    d.className = 'mc-hint';
+    d.textContent = h;
+    hh.appendChild(d);
+  });
+
+  clearTerm();
+  tPrint('<span class="out-info">══ ' + m.title + ' ══</span>');
+  tPrint('<span class="out-dim">' + m.desc + '</span>');
+  tPrint('<span class="out-dim">רמז: ' + m.hints[0] + '</span>');
+  tPrint('');
+  document.getElementById('termIn').focus();
+}
+
+/* ════════════════════════
+   TERMINAL ENGINE
+════════════════════════ */
+function tPrint(html) {
+  var out = document.getElementById('termOut');
+  var d = document.createElement('div');
+  d.className = 'out-line';
+  d.innerHTML = html;
+  out.appendChild(d);
+  out.scrollTop = out.scrollHeight;
+}
+
+function clearTerm() {
+  document.getElementById('termOut').innerHTML = '';
+}
+
+function runCmd(raw) {
+  raw = raw.trim();
+  if (!raw) return;
+
+  S.hist.unshift(raw); S.histIdx = -1;
+
+  tPrint('<span class="out-ps1">student@lab:~$</span> <span class="out-cmd">' + esc(raw) + '</span>');
+
+  var lines = [];
+
+  if (BUILT_IN[raw]) {
+    lines = BUILT_IN[raw]();
+  } else if (S.curMission && S.curMission.commands && S.curMission.commands[raw]) {
+    lines = S.curMission.commands[raw]();
+    if (raw === S.curMission.successCmd) completeMission(S.curMission);
+  } else {
+    lines = globalCmds(raw);
+  }
+
+  lines.forEach(function(l){ tPrint(l); });
+  tPrint('');
+}
+
+function globalCmds(cmd) {
+  for (var i = 0; i < MISSIONS.length; i++) {
+    var m = MISSIONS[i];
+    if (m.commands && m.commands[cmd]) {
+      return m.commands[cmd]();
+    }
+  }
+  var base = cmd.split(' ')[0];
+  var known = ['ping','traceroute','tracert','nslookup','ip','ifconfig','netstat',
+               'arp','iwconfig','tcpdump','curl','nc','arping','bridge','ss',
+               'route','dhclient','sudo','python3','cat'];
+  if (known.indexOf(base) >= 0) {
+    return ['<span class="out-err">'+esc(cmd)+': ארגומנטים שגויים. נסה: help</span>'];
+  }
+  return ['<span class="out-err">command not found: '+esc(base)+'</span>'];
+}
+
+function completeMission(m) {
+  if (S.done.indexOf(m.id) >= 0) return;
+  S.done.push(m.id);
+  localStorage.setItem('nwpro_done', JSON.stringify(S.done));
+  S.xp += m.xp;
+  localStorage.setItem('nwpro_xp', S.xp);
+  document.getElementById('xpTotal').textContent = S.xp;
+
+  var el = document.createElement('div');
+  el.className = 'out-success';
+  el.innerHTML = '🎯 משימה הושלמה! <strong>+'+m.xp+' XP</strong>';
+  document.getElementById('termOut').appendChild(el);
+  document.getElementById('termOut').scrollTop = 99999;
+
+  var mi = document.getElementById('mi_'+m.id);
+  if (mi) {
+    mi.classList.add('done');
+    if (!mi.querySelector('.m-check')) {
+      var ck = document.createElement('div'); ck.className='m-check'; ck.textContent='✓';
+      mi.appendChild(ck);
+    }
+  }
+
+  showXpPop(m.xp);
+  updateProgress();
+}
+
+function showXpPop(xp) {
+  var d = document.createElement('div');
+  d.className = 'xp-pop';
+  d.textContent = '+' + xp + ' XP ⚡';
+  d.style.left = (window.innerWidth/2 - 40) + 'px';
+  d.style.top  = (window.innerHeight/2) + 'px';
+  document.body.appendChild(d);
+  setTimeout(function(){ d.remove(); }, 1300);
+}
+
+function onKey(e) {
+  var inp = document.getElementById('termIn');
+  if (e.key === 'Enter') {
+    var v = inp.value; inp.value = ''; runCmd(v);
+  } else if (e.key === 'ArrowUp') {
+    S.histIdx = Math.min(S.histIdx+1, S.hist.length-1);
+    inp.value = S.hist[S.histIdx] || ''; e.preventDefault();
+  } else if (e.key === 'ArrowDown') {
+    S.histIdx = Math.max(S.histIdx-1, -1);
+    inp.value = S.histIdx >= 0 ? S.hist[S.histIdx] : ''; e.preventDefault();
+  } else if (e.key === 'Tab') {
+    e.preventDefault();
+    var v = inp.value;
+    var all = Object.keys(BUILT_IN);
+    MISSIONS.forEach(function(m){ if(m.commands) all = all.concat(Object.keys(m.commands)); });
+    var match = all.find(function(c){ return c.startsWith(v) && c !== v; });
+    if (match) inp.value = match;
+  }
+}
+
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* INIT */
+buildSidebar();
+
+// init terminal
+(function() {
+  var S = { curCh: null };
+  window.S = S;
+  buildMissionList();
+})();
+</script>
+</body>
+</html>

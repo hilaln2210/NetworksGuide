@@ -150,15 +150,30 @@ function ProLockScreen({ onUnlock, isEn }) {
   )
 }
 
-export function LabsTab() {
+// Map content.js track IDs → LabsTab TRACKS IDs
+const TRACK_ID_MAP = { networking: 'networks', cyber: 'security', devops: 'devops', linux: 'linux', webapi: 'webapi' }
+
+export function LabsTab({ trackId }) {
   const { lang } = useLang()
   const isEn = lang === 'en'
   const [activeLab, setActiveLab] = useState(null)
-  const [activeTrack, setActiveTrack] = useState('networks')
   const [unlocked, setUnlocked] = useState(() => isProUnlocked())
+
+  const activeTrack = TRACK_ID_MAP[trackId] || 'networks'
 
   if (!unlocked) {
     return <ProLockScreen onUnlock={() => setUnlocked(true)} isEn={isEn} />
+  }
+
+  // Networks track → terminal simulator
+  if (activeTrack === 'networks') {
+    return (
+      <iframe
+        src="/learn/networks/terminal.html"
+        title="Terminal Simulator"
+        style={{ width: '100%', height: 'calc(100vh - 140px)', border: 'none', display: 'block' }}
+      />
+    )
   }
 
   if (activeLab) {
@@ -224,26 +239,6 @@ export function LabsTab() {
       <p style={{ textAlign: 'center', color: 'var(--text-muted, #6b7280)', marginBottom: '20px', fontSize: '0.95rem' }}>
         {isEn ? 'Hands-on simulations — practice real-world scenarios in your browser' : 'סימולציות מעשיות — תרגול תרחישים אמיתיים ישירות בדפדפן'}
       </p>
-
-      {/* Track selector */}
-      <div style={{ display: 'flex', gap: '8px', justifyContent: 'center', marginBottom: '24px', flexWrap: 'wrap' }}>
-        {TRACKS.map(t => (
-          <button
-            key={t.id}
-            onClick={() => setActiveTrack(t.id)}
-            style={{
-              padding: '8px 20px', borderRadius: '20px', fontSize: '0.9rem', fontWeight: 600,
-              cursor: 'pointer', transition: 'all 0.15s',
-              background: activeTrack === t.id ? 'var(--accent, #0891b2)' : 'var(--bg-secondary, #f3f4f6)',
-              color: activeTrack === t.id ? '#fff' : 'var(--text, #1f2937)',
-              border: activeTrack === t.id ? 'none' : '1px solid var(--border, #e5e7eb)',
-            }}
-          >
-            {t.label[lang] || t.label.he}
-            <span style={{ marginInlineStart: '6px', opacity: 0.75, fontSize: '0.8rem' }}>({t.labs.length})</span>
-          </button>
-        ))}
-      </div>
 
       {/* Lab cards */}
       <div style={{ display: 'grid', gap: '14px' }}>

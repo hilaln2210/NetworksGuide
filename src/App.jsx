@@ -1170,7 +1170,7 @@ function App() {
       {activeTab === 'labs' && (
         <div className="tab-content" style={{ padding: 0 }}>
           <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
-            <LabsTab />
+            <LabsTab trackId={activeTrack?.id} />
           </Suspense>
         </div>
       )}
