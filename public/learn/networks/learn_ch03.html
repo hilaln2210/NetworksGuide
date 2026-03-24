@@ -673,6 +673,16 @@ nav {
 .ch-nav-next:hover { background:rgba(0,212,255,.12); }
 </style>
 <style>
+/* Hide internal nav when embedded in iframe */
+.nav-tabs, #amb, .hero-stats, .hero-badge, .hero-cta,
+.curr-grid, canvas#netCanvas, .hero { display: none !important; }
+#landing { display: none !important; }
+body { padding-top: 0 !important; }
+.screen { padding-top: 8px !important; }
+.learn-layout { min-height: auto !important; }
+.learn-content { height: auto !important; overflow-y: visible !important; }
+</style>
+<style>
 /* mobile-fix */
 html, body { overflow-x: hidden; }
 @media (max-width: 800px) {

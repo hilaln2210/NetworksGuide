@@ -49,6 +49,17 @@ chapter_names = [
     "Sockets מתקדם",
 ]
 
+HIDE_NAV_CSS = """<style>
+/* Hide internal nav when embedded in iframe */
+.nav-tabs, #amb, .hero-stats, .hero-badge, .hero-cta,
+.curr-grid, canvas#netCanvas, .hero { display: none !important; }
+#landing { display: none !important; }
+body { padding-top: 0 !important; }
+.screen { padding-top: 8px !important; }
+.learn-layout { min-height: auto !important; }
+.learn-content { height: auto !important; overflow-y: visible !important; }
+</style>"""
+
 for i, name in enumerate(chapter_names, start=1):
     startup = f"""<script>
 window.addEventListener('load', function() {{
@@ -58,7 +69,8 @@ window.addEventListener('load', function() {{
   }} catch(e) {{ setTimeout(function(){{ showScreen('learn'); openChapter({i}); }}, 200); }}
 }});
 </script>"""
-    html = raw.replace("</body>", startup + "\n</body>", 1)
+    html = raw.replace("</head>", HIDE_NAV_CSS + "\n</head>", 1)
+    html = html.replace("</body>", startup + "\n</body>", 1)
     html = inject_mobile_fix(html)
     fname = f"learn_ch{i:02d}.html"
     with open(os.path.join(OUT, fname), "w", encoding="utf-8") as f:

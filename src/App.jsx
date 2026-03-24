@@ -886,17 +886,23 @@ function App() {
                 <iframe
                   src={page.src}
                   title={page.title}
-                  style={{ width: '100%', border: 'none', display: 'block', minHeight: '60vh' }}
+                  style={{ width: '100%', border: 'none', display: 'block', minHeight: 'calc(100vh - 80px)' }}
                   onLoad={(e) => {
                     try {
                       const resize = () => {
-                        const h = e.target.contentDocument.documentElement.scrollHeight
+                        const doc = e.target.contentDocument
+                        const h = Math.max(
+                          doc.documentElement.scrollHeight,
+                          doc.body ? doc.body.scrollHeight : 0,
+                          window.innerHeight - 80
+                        )
                         if (h > 0) e.target.style.height = h + 'px'
                       }
                       resize()
                       setTimeout(resize, 400)
                       setTimeout(resize, 1200)
-                    } catch { e.target.style.height = '100vh' }
+                      setTimeout(resize, 3000)
+                    } catch { e.target.style.height = 'calc(100vh - 80px)' }
                   }}
                 />
               ) : (

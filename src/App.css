@@ -1988,32 +1988,43 @@ html {
   padding: 0;
   overflow: hidden;
   border-radius: var(--radius-xl);
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Content area: reduce padding when showing an iframe page */
+.content-area:has(.page-content iframe) {
+  padding: 0.5rem 0.75rem;
+}
+
+/* Page header stays tight above iframe */
+.content-area:has(.page-content iframe) .page-header {
+  padding: 0.5rem 0.5rem 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 @media (max-width: 800px) {
   /* iframe pages — edge-to-edge on mobile */
   .page-content:has(iframe) {
-    border-radius: 12px;
-    margin: 0 -1.25rem; /* cancel .content-area padding */
+    margin: 0 -0.75rem;
     border-radius: 0;
     border-left: none;
     border-right: none;
   }
 
-  /* less padding around content area on mobile for iframe pages */
-  .content-area {
-    padding: 0.75rem;
+  .content-area:has(.page-content iframe) {
+    padding: 0.5rem 0.75rem;
   }
 
-  /* page header tighter on mobile */
   .page-header {
     padding: 0.75rem 0 0.5rem;
   }
 }
 
 @media (max-width: 480px) {
-  .content-area {
-    padding: 0.5rem;
+  .content-area:has(.page-content iframe) {
+    padding: 0.25rem 0.5rem;
   }
 
   .page-content:has(iframe) {
