@@ -18,7 +18,6 @@
   --blue:    #6366f1;
   --blue2:   #818cf8;
   --blue3:   #c7d2fe;
-  --blue-glow: rgba(99,102,241,0.15);
   --green:   #10b981;
   --green2:  #34d399;
   --red:     #f43f5e;
@@ -26,751 +25,328 @@
   --amber:   #f59e0b;
   --amber2:  #fbbf24;
   --cyan:    #06b6d4;
+  --cyan2:   #22d3ee;
   --purple:  #a855f7;
+  --purple2: #c084fc;
   --text:    #e2e8f0;
   --text-mid:#94a3b8;
   --text-dim:#475569;
   --code-bg: #090910;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans Hebrew','Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(99,102,241,.022) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;top:-10%;right:-10%;width:55%;height:55%;background:radial-gradient(ellipse,rgba(99,102,241,.04) 0%,transparent 60%);pointer-events:none;z-index:0;}
+.container{max-width:1060px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
 
-body {
-  font-family: 'Noto Sans Hebrew', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(11,11,15,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:48px;display:flex;align-items:center;padding:0 24px;gap:0;}
+.nav-brand{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--blue2);margin-left:20px;letter-spacing:.5px;white-space:nowrap;}
+.nav-tabs{display:flex;height:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.nav-tab{font-family:'JetBrains Mono',monospace;font-size:11px;padding:0 16px;height:100%;border:none;background:none;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:6px;}
+.nav-tab:hover{color:var(--text-mid);}
+.nav-tab.active{color:var(--blue2);border-bottom-color:var(--blue);font-weight:600;}
+.nav-clock{margin-right:auto;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);}
 
-/* Noise texture */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: .6;
-}
+/* HERO */
+.hero{padding:52px 0 40px;border-bottom:1px solid var(--border);}
+.hero-ey{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--blue2);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.hero-ey::before{content:'//';color:var(--text-dim);}
+.hero h1{font-family:'Inter',sans-serif;font-size:clamp(40px,7vw,76px);font-weight:700;line-height:1;letter-spacing:-1px;margin-bottom:14px;}
+.hero h1 .w1{color:var(--text);}
+.hero h1 .amp{color:var(--blue2);}
+.hero h1 .w2{color:transparent;-webkit-text-stroke:1.5px var(--blue2);}
+.hero-desc{font-size:15px;color:var(--text-mid);max-width:520px;line-height:1.75;margin-bottom:32px;}
+.stats-row{display:inline-grid;grid-template-columns:repeat(4,auto);border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--surface);}
+.stat{padding:13px 22px;border-left:1px solid var(--border);text-align:center;}
+.stat:first-child{border-left:none;}
+.stat-n{font-family:'JetBrains Mono',monospace;font-size:25px;font-weight:700;color:var(--blue2);display:block;line-height:1;}
+.stat-l{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;display:block;}
 
-/* Gradient orb */
-body::after {
-  content: '';
-  position: fixed;
-  top: -30%;
-  right: -20%;
-  width: 70vw;
-  height: 70vw;
-  background: radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 0;
-}
+/* SECTION */
+.section{display:none;}
+.section.active{display:block;}
+.sec-inner{padding:32px 0 64px;}
 
-.container { max-width: 1040px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-
-/* ── NAV ── */
-.nav {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(11,11,15,0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 0 24px;
-  display: flex; align-items: center; height: 52px; gap: 0;
-}
-
-.nav-brand {
-  font-family: 'Inter', 'Noto Sans Hebrew', sans-serif;
-  font-size: 14px; font-weight: 800;
-  color: var(--blue2);
-  letter-spacing: -.3px;
-  margin-left: 24px;
-  white-space: nowrap;
-}
-
-.nav-tabs { display: flex; height: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-
-.nav-tab {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; letter-spacing: .5px;
-  padding: 0 18px; height: 100%;
-  border: none; background: none;
-  color: var(--text-dim);
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all .15s;
-  white-space: nowrap;
-  display: flex; align-items: center; gap: 6px;
-}
-
-.nav-tab:hover { color: var(--text-mid); }
-.nav-tab.active { color: var(--blue2); border-bottom-color: var(--blue); font-weight: 600; }
-
-.nav-dot {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--green); flex-shrink: 0;
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-
-@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.7)} }
-
-/* ── HERO ── */
-.hero { padding: 72px 0 56px; }
-
-.hero-eyebrow {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; letter-spacing: 3px;
-  color: var(--blue);
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  display: flex; align-items: center; gap: 12px;
-}
-
-.hero-eyebrow::before { content: '//'; color: var(--text-dim); }
-
-.hero h1 {
-  font-family: 'Inter', 'Noto Sans Hebrew', sans-serif;
-  font-size: clamp(48px, 8vw, 96px);
-  font-weight: 800;
-  line-height: .92;
-  letter-spacing: -1px;
-  margin-bottom: 22px;
-}
-
-.hero h1 .w1 { color: var(--text); display: block; }
-.hero h1 .w2 { display: block; color: transparent; -webkit-text-stroke: 1.5px var(--blue); }
-.hero h1 .amp { color: var(--blue2); }
-
-.hero-desc {
-  font-size: 16px; color: var(--text-mid);
-  max-width: 520px; line-height: 1.75;
-  margin-bottom: 40px; font-weight: 300;
-}
-
-/* Stats grid */
-.stats {
-  display: inline-grid;
-  grid-template-columns: repeat(4, auto);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  background: var(--surface);
-}
-
-.stat {
-  padding: 16px 24px;
-  border-left: 1px solid var(--border);
-  text-align: center;
-}
-.stat:first-child { border-left: none; }
-
-.stat-n {
-  font-family: 'Inter', 'Noto Sans Hebrew', sans-serif;
-  font-size: 30px; font-weight: 800;
-  color: var(--blue2);
-  display: block; line-height: 1;
-}
-
-.stat-l {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; letter-spacing: 1.5px;
-  color: var(--text-dim); text-transform: uppercase;
-  margin-top: 3px; display: block;
-}
-
-/* ── SECTION ── */
-.section { display: none; }
-.section.active { display: block; }
-.sec-body { padding: 36px 0 64px; }
-
-/* ── CHAPTERS ── */
-.chapters { display: flex; flex-direction: column; gap: 2px; }
-
-.ch {
-  background: var(--card);
-  border: 1px solid var(--border);
-  overflow: hidden;
-  transition: border-color .2s;
-}
-
-.ch:first-child { border-radius: 12px 12px 0 0; }
-.ch:last-child  { border-radius: 0 0 12px 12px; }
-.ch:hover { border-color: var(--border2); }
-.ch.open { border-color: rgba(99,102,241,.4); box-shadow: 0 0 0 1px rgba(99,102,241,.1); }
-
-.ch-trigger {
-  padding: 18px 22px;
-  cursor: pointer;
-  display: flex; align-items: center; gap: 16px;
-  user-select: none;
-}
-
-.ch-method {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; font-weight: 600;
-  padding: 3px 9px; border-radius: 5px;
-  min-width: 50px; text-align: center;
-  flex-shrink: 0;
-}
-
-.m-get    { background: rgba(16,185,129,.12); color: var(--green2);  border: 1px solid rgba(16,185,129,.25); }
-.m-post   { background: rgba(99,102,241,.12); color: var(--blue2);   border: 1px solid rgba(99,102,241,.25); }
-.m-put    { background: rgba(245,158,11,.1);  color: var(--amber2);  border: 1px solid rgba(245,158,11,.25); }
-.m-ws     { background: rgba(168,85,247,.1);  color: var(--purple);  border: 1px solid rgba(168,85,247,.25); }
-.m-test   { background: rgba(6,182,212,.1);   color: var(--cyan);    border: 1px solid rgba(6,182,212,.25); }
-
-.ch-info { flex: 1; min-width: 0; }
-
-.ch-title {
-  font-family: 'Inter', 'Noto Sans Hebrew', sans-serif;
-  font-size: 16px; font-weight: 700;
-  color: var(--text);
-  margin-bottom: 3px; line-height: 1.2;
-}
-
-.ch-sub { font-size: 12px; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-.ch-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-
-.badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; padding: 2px 7px;
-  border-radius: 4px; letter-spacing: .5px;
-}
-
-.b-blue   { background: rgba(99,102,241,.12); color: var(--blue2);  border: 1px solid rgba(99,102,241,.2); }
-.b-green  { background: rgba(16,185,129,.1);  color: var(--green2); border: 1px solid rgba(16,185,129,.2); }
-.b-red    { background: rgba(244,63,94,.1);   color: var(--red2);   border: 1px solid rgba(244,63,94,.2); }
-.b-amber  { background: rgba(245,158,11,.1);  color: var(--amber2); border: 1px solid rgba(245,158,11,.2); }
-.b-purple { background: rgba(168,85,247,.1);  color: var(--purple); border: 1px solid rgba(168,85,247,.2); }
-
-.ch-time { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); }
-.ch-arrow { color: var(--text-dim); font-size: 13px; transition: transform .3s, color .2s; }
-.ch.open .ch-arrow { transform: rotate(90deg); color: var(--blue); }
-
-/* CHAPTER BODY */
-.ch-body { display: none; border-top: 1px solid var(--border); }
-.ch.open .ch-body { display: block; }
-.ch-inner { padding: 24px 22px; }
-
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-@media(max-width:680px){ .two-col { grid-template-columns: 1fr; } }
-
-.sec-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; letter-spacing: 2px;
-  text-transform: uppercase; color: var(--blue2);
-  margin-bottom: 12px;
-  display: flex; align-items: center; gap: 8px;
-}
-.sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
-
-.learn-list { display: flex; flex-direction: column; gap: 8px; }
-
-.li {
-  display: flex; gap: 10px;
-  font-size: 13px; color: var(--text-mid);
-  line-height: 1.55; align-items: flex-start;
-}
-
-.li::before { content:'→'; color:var(--blue); font-size:11px; margin-top:2px; flex-shrink:0; font-family:'JetBrains Mono',monospace; }
-
-/* CODE BLOCK */
-.code {
-  background: var(--code-bg);
-  border: 1px solid var(--border);
-  border-radius: 8px; padding: 16px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px; line-height: 1.8;
-  overflow-x: auto; margin-top: 12px;
-}
-
-.ck  { color: var(--blue2); }
-.cs  { color: var(--green2); }
-.cn  { color: var(--amber2); }
-.cc  { color: var(--text-dim); font-style: italic; }
-.cok { color: var(--green); }
-.cer { color: var(--red2); }
-.ch_ { color: var(--cyan); }
-.cp  { color: var(--purple); }
+/* CHAPTERS */
+.chapters{display:flex;flex-direction:column;gap:2px;}
+.ch{background:var(--card);border:1px solid var(--border);overflow:hidden;transition:border-color .2s;}
+.ch:first-child{border-radius:10px 10px 0 0;}
+.ch:last-child{border-radius:0 0 10px 10px;}
+.ch:hover{border-color:var(--border2);}
+.ch.open{border-color:rgba(99,102,241,.4);}
+.ch-trigger{padding:15px 20px;cursor:pointer;display:flex;align-items:center;gap:13px;user-select:none;}
+.ch-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);min-width:44px;letter-spacing:1px;}
+.ch-meth{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:3px 8px;border-radius:4px;min-width:48px;text-align:center;flex-shrink:0;}
+.m-get{background:rgba(16,185,129,.12);color:var(--green2);border:1px solid rgba(16,185,129,.25);}
+.m-post{background:rgba(99,102,241,.12);color:var(--blue2);border:1px solid rgba(99,102,241,.25);}
+.m-put{background:rgba(245,158,11,.1);color:var(--amber2);border:1px solid rgba(245,158,11,.25);}
+.m-ws{background:rgba(168,85,247,.1);color:var(--purple2);border:1px solid rgba(168,85,247,.25);}
+.m-test{background:rgba(6,182,212,.1);color:var(--cyan2);border:1px solid rgba(6,182,212,.25);}
+.ch-info{flex:1;min-width:0;}
+.ch-title{font-family:'Inter',sans-serif;font-size:15px;font-weight:600;color:var(--text);margin-bottom:2px;line-height:1.2;}
+.ch-sub{font-size:12px;color:var(--text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ch-meta{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.badge{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 7px;border-radius:4px;letter-spacing:.5px;}
+.b-blue{background:rgba(99,102,241,.12);color:var(--blue2);border:1px solid rgba(99,102,241,.2);}
+.b-green{background:rgba(16,185,129,.1);color:var(--green2);border:1px solid rgba(16,185,129,.2);}
+.b-red{background:rgba(244,63,94,.1);color:var(--red2);border:1px solid rgba(244,63,94,.2);}
+.b-amber{background:rgba(245,158,11,.1);color:var(--amber2);border:1px solid rgba(245,158,11,.2);}
+.b-purple{background:rgba(168,85,247,.1);color:var(--purple2);border:1px solid rgba(168,85,247,.2);}
+.ch-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);}
+.ch-arr{color:var(--text-dim);font-size:13px;transition:transform .3s,color .2s;}
+.ch.open .ch-arr{transform:rotate(90deg);color:var(--blue2);}
+.ch-body{display:none;border-top:1px solid var(--border);}
+.ch.open .ch-body{display:block;}
+.ch-inner{padding:22px 20px;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:680px){.two-col{grid-template-columns:1fr;}}
+.sec-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blue2);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.sec-lbl::after{content:'';flex:1;height:1px;background:var(--border);}
+.llist{display:flex;flex-direction:column;gap:7px;}
+.li{font-size:13px;color:var(--text-mid);line-height:1.55;display:flex;gap:10px;align-items:flex-start;}
+.li::before{content:'→';color:var(--blue2);font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:2px;flex-shrink:0;}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;}
 
 /* INCIDENT */
-.incident {
-  background: linear-gradient(135deg, rgba(244,63,94,.06), rgba(251,113,133,.03));
-  border: 1px solid rgba(244,63,94,.2);
-  border-right: 4px solid var(--red);
-  border-radius: 8px; padding: 16px 18px;
-}
+.incident{background:linear-gradient(135deg,rgba(244,63,94,.05),rgba(251,113,133,.03));border:1px solid rgba(244,63,94,.2);border-right:4px solid var(--red);border-radius:8px;padding:15px 17px;}
+.inc-badge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--red2);text-transform:uppercase;margin-bottom:7px;}
+.inc-title{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--text);margin-bottom:7px;line-height:1.3;}
+.inc-desc{font-size:12px;color:var(--text-mid);line-height:1.75;}
+.inc-desc strong{color:var(--amber2);font-weight:600;}
 
-.inc-badge { font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:1.5px; color:var(--red2); text-transform:uppercase; margin-bottom:8px; }
-.inc-title { font-family:'Inter','Noto Sans Hebrew',sans-serif; font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px; }
-.inc-desc { font-size:12px; color:var(--text-mid); line-height:1.7; }
+/* CODE */
+.code{background:var(--code-bg);border:1px solid var(--border);border-radius:8px;padding:14px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.8;overflow-x:auto;margin-top:12px;}
+.ck{color:var(--blue2);}.cs{color:var(--green2);}.cn{color:var(--amber2);}.cc{color:var(--text-dim);font-style:italic;}.cok{color:var(--green);}.cer{color:var(--red2);}.ch_{color:var(--cyan2);}
 
-/* PRO TIP */
-.pro-tip {
-  margin-top: 14px;
-  background: rgba(99,102,241,.06);
-  border: 1px solid rgba(99,102,241,.2);
-  border-radius: 8px; padding: 12px 16px;
-  font-size: 13px; color: var(--text-mid); line-height:1.65;
-  display: flex; gap: 10px;
-}
-.pro-tip strong { color: var(--blue2); }
+/* TIP */
+.pro-tip{margin-top:14px;background:rgba(99,102,241,.04);border:1px solid rgba(99,102,241,.15);border-radius:6px;padding:11px 14px;font-size:13px;color:var(--text-mid);line-height:1.65;display:flex;gap:10px;}
+.pro-tip strong{color:var(--blue2);}
 
-.tags-row { display:flex; gap:5px; flex-wrap:wrap; margin-top:10px; }
+/* LABS */
+.labs-list{display:flex;flex-direction:column;gap:14px;}
+.lab{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.lab-head{padding:16px 20px;display:flex;align-items:center;gap:12px;cursor:pointer;border-bottom:1px solid transparent;transition:background .15s;}
+.lab-head:hover{background:var(--surface);}
+.lab.open .lab-head{border-bottom-color:var(--border);background:var(--surface);}
+.lab-ico{font-size:22px;}
+.lab-info{flex:1;}
+.lab-name{font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.lab-sub{font-size:12px;color:var(--text-dim);}
+.diff{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 7px;border-radius:4px;letter-spacing:.5px;}
+.d-easy{background:rgba(16,185,129,.1);color:var(--green2);border:1px solid rgba(16,185,129,.25);}
+.d-medium{background:rgba(245,158,11,.1);color:var(--amber2);border:1px solid rgba(245,158,11,.25);}
+.d-hard{background:rgba(244,63,94,.1);color:var(--red2);border:1px solid rgba(244,63,94,.25);}
+.lab-chev{color:var(--text-dim);font-size:13px;transition:transform .3s;}
+.lab.open .lab-chev{transform:rotate(90deg);color:var(--blue2);}
+.lab-body{display:none;padding:20px;}
+.lab.open .lab-body{display:block;}
+.lab-goal{font-size:14px;color:var(--text-mid);border-right:3px solid var(--blue);padding-right:13px;margin-bottom:16px;line-height:1.65;}
+.lab-steps{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.lab-step{display:flex;gap:10px;font-size:13px;color:var(--text-mid);line-height:1.55;align-items:flex-start;}
+.sn{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--blue2);background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);border-radius:3px;padding:1px 6px;min-width:28px;text-align:center;margin-top:2px;flex-shrink:0;}
 
-/* ── LABS ── */
-.labs-list { display: flex; flex-direction: column; gap: 16px; }
+/* ANSWER */
+.ans-btn{display:inline-flex;align-items:center;gap:7px;margin-top:12px;padding:8px 15px;background:transparent;border:1px solid rgba(99,102,241,.3);color:var(--blue2);border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.5px;cursor:pointer;transition:all .2s;}
+.ans-btn:hover{background:rgba(99,102,241,.08);}
+.ans-btn.open{background:rgba(99,102,241,.08);border-color:var(--blue2);}
+.ans-box{display:none;margin-top:12px;background:rgba(99,102,241,.03);border:1px solid rgba(99,102,241,.15);border-radius:8px;padding:18px;animation:fadeUp .2s ease;}
+.ans-box.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.ans-head{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--blue2);margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+.ans-head::after{content:'';flex:1;height:1px;background:rgba(99,102,241,.2);}
+.ans-item{display:flex;gap:10px;margin-bottom:10px;font-size:13px;color:var(--text-mid);line-height:1.65;align-items:flex-start;}
+.ans-item:last-child{margin-bottom:0;}
+.an{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--blue2);background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);border-radius:3px;padding:1px 5px;min-width:26px;text-align:center;flex-shrink:0;margin-top:2px;}
+.ans-highlight{background:rgba(6,182,212,.05);border-right:3px solid var(--cyan);padding:9px 13px;border-radius:5px;font-size:12px;color:var(--text-mid);line-height:1.7;margin-top:10px;}
+.ans-warn{background:rgba(244,63,94,.05);border:1px solid rgba(244,63,94,.2);padding:9px 13px;border-radius:5px;font-size:12px;color:var(--red2);line-height:1.65;margin-top:10px;}
 
-.lab {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px; overflow: hidden;
-  transition: border-color .2s;
-}
+/* ═══ EMULATOR ═══ */
+.emu-wrap{margin-top:18px;border:1px solid var(--border2);border-radius:10px;overflow:hidden;background:var(--code-bg);}
+.emu-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:8px 14px;display:flex;align-items:center;gap:8px;}
+.emu-dots{display:flex;gap:5px;}
+.ed{width:10px;height:10px;border-radius:50%;}
+.ed-r{background:#ff5f57;}.ed-y{background:#febc2e;}.ed-g{background:#28c840;}
+.emu-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-right:auto;}
+.emu-run{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:5px 14px;background:var(--blue);color:#fff;border:none;border-radius:4px;cursor:pointer;transition:all .15s;letter-spacing:.5px;}
+.emu-run:hover{background:var(--blue2);box-shadow:0 0 12px rgba(99,102,241,.4);}
+.emu-run:active{transform:scale(.97);}
+.emu-run.running{background:var(--amber);color:#000;}
+.emu-clear{font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 10px;background:transparent;color:var(--text-dim);border:1px solid var(--border2);border-radius:4px;cursor:pointer;transition:all .15s;}
+.emu-clear:hover{border-color:var(--blue2);color:var(--blue2);}
 
-.lab-head {
-  padding: 18px 22px;
-  display: flex; align-items: center; gap: 14px;
-  cursor: pointer;
-  border-bottom: 1px solid transparent;
-  transition: background .2s;
-}
+/* Input area */
+.emu-input-wrap{padding:12px 14px;border-bottom:1px solid var(--border);}
+.emu-input-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:1px;margin-bottom:6px;}
+.emu-select{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:7px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;margin-bottom:8px;}
+.emu-select:focus{border-color:var(--blue2);}
+.emu-textarea{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:8px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;resize:vertical;min-height:60px;line-height:1.6;}
+.emu-textarea:focus{border-color:var(--blue2);}
+.emu-input-row{display:flex;gap:8px;flex-wrap:wrap;}
+.emu-input{flex:1;min-width:120px;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:7px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;}
+.emu-input:focus{border-color:var(--blue2);}
 
-.lab-head:hover { background: var(--surface); }
-.lab.open .lab-head { border-bottom-color: var(--border); background: var(--surface); }
+/* Output terminal */
+.emu-output{min-height:140px;max-height:320px;overflow-y:auto;padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.85;color:var(--text-mid);}
+.emu-output .t-ok{color:var(--green2);}
+.emu-output .t-err{color:var(--red2);}
+.emu-output .t-key{color:var(--blue2);}
+.emu-output .t-val{color:var(--amber2);}
+.emu-output .t-status-ok{color:var(--green);}
+.emu-output .t-status-err{color:var(--red2);}
+.emu-output .t-status-warn{color:var(--amber2);}
+.emu-output .t-dim{color:var(--text-dim);}
+.emu-output .t-head{color:var(--cyan2);}
+.emu-output .t-prompt{color:var(--blue2);}
+.emu-empty{color:var(--text-dim);font-style:italic;}
 
-.lab-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px; color: var(--text-dim);
-  min-width: 20px; letter-spacing: 1px;
-}
+/* QUIZ */
+.quiz-top{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px;text-align:center;margin-bottom:22px;}
+.quiz-top h2{font-family:'Inter',sans-serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:7px;}
+.quiz-top p{font-size:13px;color:var(--text-dim);}
+.q-prog-bg{background:rgba(255,255,255,.05);border-radius:20px;height:3px;margin:16px 0 0;overflow:hidden;}
+.q-prog{height:100%;border-radius:20px;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .4s;}
+.q-prog-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);text-align:left;margin-top:4px;}
+.q-list{display:flex;flex-direction:column;gap:11px;}
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px;transition:border-color .3s;}
+.q-card.c-ok{border-color:var(--green);background:rgba(16,185,129,.03);}
+.q-card.c-fail{border-color:var(--red);background:rgba(244,63,94,.03);}
+.q-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.q-idx{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--blue2);letter-spacing:2px;}
+.q-tag{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);border:1px solid var(--border);padding:1px 6px;border-radius:3px;}
+.q-text{font-size:15px;font-weight:600;color:var(--text);margin-bottom:13px;line-height:1.5;}
+.q-opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+@media(max-width:500px){.q-opts{grid-template-columns:1fr;}}
+.q-opt{padding:10px 13px;border:1px solid var(--border);border-radius:5px;background:var(--surface);cursor:pointer;font-size:12px;color:var(--text-mid);text-align:right;transition:all .15s;line-height:1.45;}
+.q-opt:hover:not(.locked){border-color:var(--blue);color:var(--blue2);background:rgba(99,102,241,.06);}
+.q-opt.hit{border-color:var(--green)!important;background:rgba(16,185,129,.1)!important;color:var(--green2)!important;font-weight:600;}
+.q-opt.miss{border-color:var(--red)!important;background:rgba(244,63,94,.1)!important;color:var(--red2)!important;}
+.q-opt.locked{cursor:default;}
+.q-exp{margin-top:10px;padding:10px 13px;background:rgba(99,102,241,.05);border-right:3px solid var(--blue2);border-radius:5px;font-size:12px;color:var(--text-mid);line-height:1.7;display:none;}
+.q-exp.show{display:block;animation:fadeUp .2s ease;}
+.score-box{background:var(--card);border:1px solid var(--border2);border-radius:10px;padding:44px 28px;text-align:center;margin-top:22px;display:none;position:relative;overflow:hidden;}
+.score-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue),var(--purple),var(--blue),transparent);}
+.score-box.show{display:block;animation:fadeUp .4s ease;}
+.score-http{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);margin-bottom:10px;}
+.score-big{font-family:'Inter',sans-serif;font-size:76px;font-weight:700;color:var(--blue2);line-height:1;letter-spacing:-2px;}
+.score-big .frac{font-size:34px;color:var(--text-dim);vertical-align:middle;}
+.score-status{font-family:'JetBrains Mono',monospace;font-size:14px;margin-top:5px;}
+.score-msg{font-size:17px;font-weight:600;color:var(--text);margin-top:12px;}
+.score-sub{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim);margin-top:5px;}
+.score-acts{display:flex;justify-content:center;gap:12px;margin-top:22px;flex-wrap:wrap;}
+.btn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:11px 22px;border-radius:5px;cursor:pointer;transition:all .2s;letter-spacing:.5px;border:1px solid;min-height:42px;display:inline-flex;align-items:center;}
+.btn-blue{background:var(--blue);color:#fff;border-color:var(--blue);font-weight:700;}
+.btn-blue:hover{box-shadow:0 4px 16px rgba(99,102,241,.4);}
+.btn-ghost{background:transparent;color:var(--text-dim);border-color:var(--border2);}
+.btn-ghost:hover{border-color:var(--blue2);color:var(--blue2);}
 
-.lab-icon-box {
-  width: 40px; height: 40px; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 19px; flex-shrink: 0;
-  background: var(--bg2); border: 1px solid var(--border);
-}
+/* GAME */
+.game-shell{background:var(--code-bg);border:1px solid var(--border2);border-radius:10px;overflow:hidden;}
+.game-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;}
+.gbar-dots{display:flex;gap:5px;}
+.gd{width:10px;height:10px;border-radius:50%;}
+.gd-r{background:#ff5f57;}.gd-y{background:#febc2e;}.gd-g{background:#28c840;}
+.game-title-bar{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-right:auto;}
+.game-scorebar{font-family:'JetBrains Mono',monospace;font-size:11px;display:flex;gap:14px;}
+.gs-s{color:var(--amber2);}.gs-l{color:var(--red2);}.gs-lv{color:var(--purple2);}
+.game-body{padding:26px;}
+.game-q{font-family:'Inter',sans-serif;font-size:18px;font-weight:600;color:var(--text);margin-bottom:7px;line-height:1.35;}
+.game-hint{font-size:13px;color:var(--text-dim);margin-bottom:20px;font-style:italic;}
+.game-opts{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:16px;}
+@media(max-width:580px){.game-opts{grid-template-columns:repeat(2,1fr);}}
+.g-opt{padding:13px 6px;border-radius:7px;cursor:pointer;text-align:center;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;transition:all .15s;border:2px solid transparent;user-select:none;}
+.go-200{background:rgba(16,185,129,.12);color:var(--green2);border-color:rgba(16,185,129,.3);}
+.go-301{background:rgba(245,158,11,.1);color:var(--amber2);border-color:rgba(245,158,11,.3);}
+.go-404{background:rgba(244,63,94,.1);color:var(--red2);border-color:rgba(244,63,94,.3);}
+.go-500{background:rgba(168,85,247,.1);color:var(--purple2);border-color:rgba(168,85,247,.3);}
+.go-401{background:rgba(6,182,212,.1);color:var(--cyan2);border-color:rgba(6,182,212,.3);}
+.go-403{background:rgba(99,102,241,.12);color:var(--blue2);border-color:rgba(99,102,241,.3);}
+.go-429{background:rgba(251,191,36,.1);color:#fbbf24;border-color:rgba(251,191,36,.3);}
+.go-503{background:rgba(244,114,182,.1);color:#f472b6;border-color:rgba(244,114,182,.3);}
+.go-400{background:rgba(244,63,94,.1);color:var(--red2);border-color:rgba(244,63,94,.3);}
+.go-302{background:rgba(245,158,11,.1);color:var(--amber2);border-color:rgba(245,158,11,.3);}
+.go-422{background:rgba(244,63,94,.1);color:var(--red2);border-color:rgba(244,63,94,.3);}
+.go-405{background:rgba(6,182,212,.1);color:var(--cyan2);border-color:rgba(6,182,212,.3);}
+.go-201{background:rgba(16,185,129,.12);color:var(--green2);border-color:rgba(16,185,129,.3);}
+.go-502{background:rgba(168,85,247,.1);color:var(--purple2);border-color:rgba(168,85,247,.3);}
+.go-304{background:rgba(245,158,11,.1);color:var(--amber2);border-color:rgba(245,158,11,.3);}
+.g-opt:hover:not(.locked){transform:translateY(-2px);box-shadow:0 5px 14px rgba(0,0,0,.3);}
+.g-opt.correct{transform:scale(1.05);box-shadow:0 0 18px rgba(16,185,129,.4);}
+.g-opt.wrong{opacity:.4;transform:scale(.95);}
+.g-opt.locked{cursor:default;}
+.g-opt small{display:block;font-size:9px;font-weight:400;opacity:.7;margin-top:2px;}
+.game-feedback{text-align:center;font-size:14px;font-weight:600;min-height:22px;}
+.fb-ok{color:var(--green2);}.fb-err{color:var(--red2);}
+.game-prog-wrap{background:rgba(255,255,255,.05);border-radius:20px;height:3px;margin-top:14px;overflow:hidden;}
+.game-prog-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:20px;transition:width .4s;}
+.game-end{display:none;text-align:center;padding:36px 20px;}
+.game-end.show{display:block;}
+.ge-emoji{font-size:50px;margin-bottom:12px;}
+.ge-title{font-family:'Inter',sans-serif;font-size:24px;font-weight:700;color:var(--text);margin-bottom:7px;}
+.ge-score{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--blue2);margin-bottom:8px;}
+.ge-msg{font-size:13px;color:var(--text-dim);margin-bottom:22px;}
+.game-help{margin-top:14px;background:rgba(99,102,241,.04);border:1px solid rgba(99,102,241,.15);border-radius:6px;padding:11px 15px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);line-height:1.65;}
 
-.lab-info { flex: 1; }
-.lab-name { font-family:'Inter','Noto Sans Hebrew',sans-serif; font-size:16px; font-weight:700; color:var(--text); margin-bottom:3px; }
-.lab-sub  { font-size:12px; color:var(--text-dim); }
+/* FOOTER */
+.site-footer{text-align:center;padding:26px;border-top:1px solid var(--border);}
+.site-footer p{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:2px;}
 
-.diff {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px; padding: 3px 8px; border-radius: 4px; letter-spacing:.5px;
-}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+::-webkit-scrollbar-thumb:hover{background:var(--blue);}
 
-.d-easy   { background:rgba(16,185,129,.1); color:var(--green2); border:1px solid rgba(16,185,129,.25); }
-.d-medium { background:rgba(245,158,11,.1); color:var(--amber2); border:1px solid rgba(245,158,11,.25); }
-.d-hard   { background:rgba(244,63,94,.1);  color:var(--red2);   border:1px solid rgba(244,63,94,.25); }
-
-.lab-chev { color:var(--text-dim); font-size:14px; transition:transform .3s; }
-.lab.open .lab-chev { transform:rotate(90deg); color:var(--blue); }
-
-.lab-body { display:none; padding:22px; }
-.lab.open .lab-body { display:block; }
-
-.lab-goal {
-  font-size:14px; color:var(--text-mid); line-height:1.65;
-  border-right:3px solid var(--blue); padding-right:14px;
-  margin-bottom:18px; font-style:italic;
-}
-
-.lab-steps { display:flex; flex-direction:column; gap:9px; margin-bottom:14px; }
-
-.lab-step {
-  display:flex; gap:12px; align-items:flex-start;
-  font-size:13px; color:var(--text-mid); line-height:1.55;
-}
-
-.sn {
-  font-family:'JetBrains Mono',monospace; font-size:10px;
-  color:var(--blue2); background:rgba(99,102,241,.1);
-  border:1px solid rgba(99,102,241,.2); border-radius:4px;
-  padding:1px 6px; min-width:30px; text-align:center;
-  margin-top:2px; flex-shrink:0;
-}
-
-/* QUESTION BOX */
-.q-box {
-  background: var(--surface);
-  border: 1px solid var(--border2);
-  border-radius: 8px; padding: 14px 16px;
-  margin: 12px 0;
-}
-.q-box-label { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--blue2); letter-spacing:2px; text-transform:uppercase; margin-bottom:6px; }
-.q-box-text { font-size:14px; font-weight:600; color:var(--text); line-height:1.5; }
-
-/* ANSWER BTN */
-.ans-btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 14px; padding: 9px 18px;
-  background: transparent;
-  border: 1px solid rgba(99,102,241,.35);
-  color: var(--blue2); border-radius: 6px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; letter-spacing: .5px;
-  cursor: pointer; transition: all .2s;
-}
-.ans-btn:hover { background: rgba(99,102,241,.1); border-color: var(--blue2); }
-.ans-btn.open  { background: rgba(99,102,241,.1); border-color: var(--blue2); }
-
-.ans-box {
-  display: none;
-  margin-top: 14px;
-  background: rgba(99,102,241,.04);
-  border: 1px solid rgba(99,102,241,.18);
-  border-radius: 10px; padding: 20px;
-  animation: fadeUp .25s ease;
-}
-.ans-box.show { display: block; }
-@keyframes fadeUp { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
-
-.ans-head {
-  font-family:'JetBrains Mono',monospace; font-size:9px;
-  letter-spacing:2px; text-transform:uppercase;
-  color:var(--blue2); margin-bottom:14px;
-  display:flex; align-items:center; gap:8px;
-}
-.ans-head::after { content:''; flex:1; height:1px; background:rgba(99,102,241,.2); }
-
-.ans-item {
-  display:flex; gap:12px; margin-bottom:12px;
-  font-size:13px; color:var(--text-mid); line-height:1.65;
-  align-items:flex-start;
-}
-.ans-item:last-child { margin-bottom:0; }
-
-.an {
-  font-family:'JetBrains Mono',monospace; font-size:10px;
-  color:var(--blue2); background:rgba(99,102,241,.1);
-  border:1px solid rgba(99,102,241,.2); border-radius:4px;
-  padding:1px 6px; min-width:28px; text-align:center;
-  flex-shrink:0; margin-top:2px;
-}
-
-.ans-highlight {
-  background: rgba(6,182,212,.05);
-  border-right: 3px solid var(--cyan);
-  padding: 11px 14px; border-radius: 6px;
-  font-size: 12px; color: var(--text-mid); line-height:1.7;
-  margin-top: 12px;
-}
-
-.ans-warn {
-  background: rgba(244,63,94,.05);
-  border: 1px solid rgba(244,63,94,.2);
-  padding: 11px 14px; border-radius: 6px;
-  font-size: 12px; color: var(--red2); line-height:1.65;
-  margin-top: 10px;
-}
-
-/* ── QUIZ ── */
-.quiz-top {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px; padding: 32px;
-  text-align: center; margin-bottom: 24px;
-}
-
-.quiz-top h2 {
-  font-family: 'Inter', 'Noto Sans Hebrew', sans-serif;
-  font-size: 32px; font-weight: 800;
-  color: var(--text); margin-bottom: 8px; letter-spacing: -1px;
-}
-
-.quiz-top p { font-size: 13px; color: var(--text-dim); }
-
-.q-prog-bg { background:rgba(255,255,255,.05); border-radius:20px; height:3px; margin:18px 0 0; overflow:hidden; }
-.q-prog { height:100%; border-radius:20px; background:linear-gradient(90deg,var(--blue),var(--purple)); transition:width .4s; }
-.q-prog-lbl { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); text-align:left; margin-top:5px; }
-
-.q-list { display:flex; flex-direction:column; gap:12px; }
-
-.q-card {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 10px; padding: 22px; transition: border-color .3s;
-}
-.q-card.c-ok   { border-color:var(--green);  background:rgba(16,185,129,.04); }
-.q-card.c-fail { border-color:var(--red);    background:rgba(244,63,94,.04); }
-
-.q-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
-.q-idx { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--blue2); letter-spacing:2px; }
-.q-tag { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dim); border:1px solid var(--border); padding:2px 6px; border-radius:4px; }
-.q-text { font-size:15px; font-weight:600; color:var(--text); margin-bottom:14px; line-height:1.5; }
-
-.q-opts { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-@media(max-width:520px){ .q-opts { grid-template-columns:1fr; } }
-
-.q-opt {
-  padding:11px 14px; border:1px solid var(--border);
-  border-radius:7px; background:var(--surface);
-  cursor:pointer; font-size:12px; color:var(--text-mid);
-  text-align:right; transition:all .15s; line-height:1.45;
-}
-.q-opt:hover:not(.locked) { border-color:var(--blue); color:var(--blue2); background:rgba(99,102,241,.06); }
-.q-opt.hit  { border-color:var(--green)!important; background:rgba(16,185,129,.1)!important; color:var(--green2)!important; font-weight:600; }
-.q-opt.miss { border-color:var(--red)!important; background:rgba(244,63,94,.1)!important; color:var(--red2)!important; }
-.q-opt.locked { cursor:default; }
-
-.q-exp {
-  margin-top:12px; padding:11px 14px;
-  background:rgba(99,102,241,.06); border-right:3px solid var(--blue);
-  border-radius:6px; font-size:12px; color:var(--text-mid); line-height:1.7;
-  display:none;
-}
-.q-exp.show { display:block; animation:fadeUp .25s ease; }
-
-/* SCORE */
-.score-box {
-  background:var(--card); border:1px solid var(--blue);
-  border-radius:14px; padding:48px 32px;
-  text-align:center; margin-top:24px; display:none;
-  position:relative; overflow:hidden;
-}
-.score-box::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:2px;
-  background:linear-gradient(90deg,transparent,var(--blue),var(--purple),var(--blue),transparent);
-}
-.score-box.show { display:block; animation:fadeUp .4s ease; }
-
-.score-http { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--text-dim); margin-bottom:10px; }
-.score-big { font-family:'Inter','Noto Sans Hebrew',sans-serif; font-size:84px; font-weight:800; color:var(--blue2); line-height:1; letter-spacing:-3px; }
-.score-big .frac { font-size:38px; color:var(--text-dim); vertical-align:middle; }
-.score-status { font-family:'JetBrains Mono',monospace; font-size:15px; margin-top:6px; }
-.score-msg { font-size:17px; font-weight:600; color:var(--text); margin-top:14px; }
-.score-sub { font-size:12px; color:var(--text-dim); margin-top:6px; font-family:'JetBrains Mono',monospace; }
-
-.score-acts { display:flex; justify-content:center; gap:12px; margin-top:26px; flex-wrap:wrap; }
-
-.btn {
-  font-family:'JetBrains Mono',monospace; font-size:11px;
-  padding:12px 24px; border-radius:7px;
-  cursor:pointer; text-decoration:none; display:inline-block;
-  transition:all .2s; letter-spacing:.5px; border:1px solid;
-  min-height:44px; display:inline-flex; align-items:center;
-}
-.btn-blue  { background:var(--blue); color:#fff; border-color:var(--blue); font-weight:700; }
-.btn-blue:hover { box-shadow:0 0 24px rgba(99,102,241,.5); transform:translateY(-1px); }
-.btn-ghost { background:transparent; color:var(--text-dim); border-color:var(--border2); }
-.btn-ghost:hover { border-color:var(--blue2); color:var(--blue2); }
-
-/* ── GAME ── */
-.game-shell {
-  background: var(--code-bg);
-  border: 1px solid var(--border2);
-  border-radius: 12px; overflow: hidden;
-  box-shadow: 0 0 60px rgba(99,102,241,.08);
-}
-
-.game-titlebar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 10px 16px;
-  display: flex; align-items: center; gap: 10px;
-}
-
-.tb-dots { display:flex; gap:6px; }
-.td { width:11px; height:11px; border-radius:50%; }
-.td-r{background:#ff5f57;} .td-y{background:#febc2e;} .td-g{background:#28c840;}
-
-.tb-title { font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--text-dim); margin-right:auto; }
-
-.game-scorebar {
-  font-family:'JetBrains Mono',monospace; font-size:11px;
-  display:flex; gap:16px;
-}
-
-.gs-score { color:var(--amber2); }
-.gs-lives { color:var(--red2); }
-.gs-level { color:var(--purple); }
-
-.game-body { padding: 28px; }
-
-.game-q {
-  font-family: 'Inter', 'Noto Sans Hebrew', sans-serif;
-  font-size: 20px; font-weight: 700;
-  color: var(--text); margin-bottom: 8px; line-height: 1.35;
-}
-
-.game-hint { font-size:13px; color:var(--text-dim); margin-bottom:22px; font-style:italic; }
-
-.game-opts {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px; margin-bottom: 18px;
-}
-@media(max-width:580px){ .game-opts { grid-template-columns: repeat(2,1fr); } }
-
-.g-opt {
-  padding: 14px 8px; border-radius: 8px; cursor: pointer;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 15px; font-weight: 700;
-  text-align: center; transition: all .15s;
-  border: 2px solid transparent; user-select: none;
-}
-
-.go-200 { background:rgba(16,185,129,.12); color:var(--green2);  border-color:rgba(16,185,129,.3); }
-.go-301 { background:rgba(245,158,11,.1);  color:var(--amber2);  border-color:rgba(245,158,11,.3); }
-.go-404 { background:rgba(244,63,94,.1);   color:var(--red2);    border-color:rgba(244,63,94,.3); }
-.go-500 { background:rgba(168,85,247,.1);  color:var(--purple);  border-color:rgba(168,85,247,.3); }
-.go-401 { background:rgba(6,182,212,.1);   color:var(--cyan);    border-color:rgba(6,182,212,.3); }
-.go-403 { background:rgba(99,102,241,.12); color:var(--blue2);   border-color:rgba(99,102,241,.3); }
-.go-429 { background:rgba(251,191,36,.1);  color:#fbbf24;        border-color:rgba(251,191,36,.3); }
-.go-503 { background:rgba(244,114,182,.1); color:#f472b6;        border-color:rgba(244,114,182,.3); }
-.go-400 { background:rgba(244,63,94,.1);   color:var(--red2);    border-color:rgba(244,63,94,.3); }
-.go-302 { background:rgba(245,158,11,.1);  color:var(--amber2);  border-color:rgba(245,158,11,.3); }
-.go-422 { background:rgba(244,63,94,.1);   color:var(--red2);    border-color:rgba(244,63,94,.3); }
-.go-405 { background:rgba(6,182,212,.1);   color:var(--cyan);    border-color:rgba(6,182,212,.3); }
-.go-201 { background:rgba(16,185,129,.12); color:var(--green2);  border-color:rgba(16,185,129,.3); }
-.go-502 { background:rgba(168,85,247,.1);  color:var(--purple);  border-color:rgba(168,85,247,.3); }
-.go-304 { background:rgba(245,158,11,.1);  color:var(--amber2);  border-color:rgba(245,158,11,.3); }
-
-.g-opt:hover:not(.locked) { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,.3); }
-.g-opt.correct { transform:scale(1.05); box-shadow:0 0 20px rgba(16,185,129,.4); }
-.g-opt.wrong   { opacity:.4; transform:scale(.95); }
-.g-opt.locked  { cursor:default; }
-
-.g-opt small { display:block; font-size:9px; font-weight:400; opacity:.7; margin-top:3px; }
-
-.game-feedback { text-align:center; font-size:14px; font-weight:600; min-height:22px; transition:all .2s; }
-.fb-ok  { color:var(--green2); }
-.fb-err { color:var(--red2); }
-
-.game-progress-wrap {
-  margin-top: 16px;
-  background: rgba(255,255,255,.05);
-  border-radius: 20px; height: 3px; overflow: hidden;
-}
-
-.game-progress-fill {
-  height: 100%; border-radius: 20px;
-  background: linear-gradient(90deg, var(--green), var(--blue));
-  transition: width .4s;
-}
-
-.game-end {
-  display: none;
-  text-align: center; padding: 40px 24px;
-}
-.game-end.show { display: block; }
-
-.ge-emoji { font-size: 54px; margin-bottom: 14px; }
-.ge-title { font-family:'Inter','Noto Sans Hebrew',sans-serif; font-size:28px; font-weight:800; color:var(--text); margin-bottom:8px; letter-spacing:-1px; }
-.ge-score { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--blue2); margin-bottom:6px; }
-.ge-msg { font-size:14px; color:var(--text-dim); margin-bottom:24px; }
-
-.game-help {
-  background: rgba(99,102,241,.05);
-  border: 1px solid rgba(99,102,241,.15);
-  border-radius: 8px; padding: 12px 16px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px; color: var(--text-dim);
-  line-height: 1.65; margin-top: 16px;
-}
-
-/* ── FOOTER ── */
-.site-footer {
-  text-align: center; padding: 32px; border-top: 1px solid var(--border);
-  position: relative; z-index: 1;
-}
-.site-footer p { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); letter-spacing:2px; }
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width:4px; height:4px; }
-::-webkit-scrollbar-track { background:var(--bg); }
-::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
-::-webkit-scrollbar-thumb:hover { background:var(--blue); }
-
-/* ── MOBILE ── */
 @media(max-width:768px){
-  .container { padding:0 16px; }
-  .nav { padding:0 16px; }
-  .nav-brand { font-size:13px; margin-left:14px; }
-  .nav-tab { padding:0 12px; font-size:10px; }
-  .hero { padding:44px 0 36px; }
-  .hero h1 { font-size:clamp(40px,10vw,72px); letter-spacing:-2px; }
-  .hero-desc { font-size:15px; }
-  .stats { grid-template-columns:1fr 1fr; width:100%; }
-  .stat { border-left:none; border-top:1px solid var(--border); }
-  .stat:nth-child(1),.stat:nth-child(2) { border-top:none; }
-  .stat:nth-child(odd) { border-left:none; }
-  .stat:nth-child(even) { border-left:1px solid var(--border); }
-  .ch-trigger { padding:14px 16px; gap:12px; }
-  .ch-title { font-size:14px; }
-  .ch-inner { padding:18px 16px; }
+  .container{padding:0 16px;}
+  .nav{padding:0 14px;}
+  .nav-clock{display:none;}
+  .hero{padding:36px 0 28px;}
+  .stats-row{width:100%;grid-template-columns:1fr 1fr;}
+  .stat{border-left:none;border-top:1px solid var(--border);}
+  .stat:nth-child(1),.stat:nth-child(2){border-top:none;}
+  .stat:nth-child(even){border-left:1px solid var(--border);}
+  .emu-input-row{flex-direction:column;}
 }
-
 @media(max-width:480px){
-  .container { padding:0 12px; }
-  .nav { padding:0 12px; height:46px; }
-  .nav-brand { font-size:12px; margin-left:10px; }
-  .nav-tab { font-size:9px; padding:0 9px; }
-  .nav-dot { display:none; }
-  .hero { padding:28px 0 24px; }
-  .hero h1 { font-size:clamp(36px,12vw,56px); letter-spacing:-1.5px; }
-  .hero-eyebrow { font-size:9px; }
-  .hero-desc { font-size:13px; line-height:1.7; margin-bottom:24px; }
-  .hero-eyebrow::before { display:none; }
-  .stats { grid-template-columns:1fr 1fr; width:100%; border-radius:8px; }
-  .stat-n { font-size:24px; }
-  .stat-l { font-size:8px; }
-  .sec-body { padding:24px 0 44px; }
-  .ch-trigger { padding:12px 13px; gap:10px; }
-  .ch-method { font-size:9px; padding:2px 7px; min-width:40px; }
-  .ch-title { font-size:13px; }
-  .ch-sub { font-size:11px; }
-  .ch-time { display:none; }
-  .ch-right { gap:6px; }
-  .ch-inner { padding:14px 13px; }
-  .sec-label { font-size:8px; }
-  .li { font-size:12px; }
-  .code { font-size:10.5px; padding:12px; }
-  .incident { padding:12px 14px; border-right-width:3px; }
-  .inc-title { font-size:14px; }
-  .inc-desc { font-size:11px; }
-  .pro-tip { font-size:12px; padding:11px 13px; }
-  .labs-list { gap:12px; }
-  .lab-head { padding:13px 14px; gap:10px; }
-  .lab-icon-box { width:34px; height:34px; font-size:16px; }
-  .lab-name { font-size:14px; }
-  .lab-sub { font-size:11px; }
-  .lab-body { padding:15px 13px; }
-  .lab-goal { font-size:13px; }
-  .lab-step { font-size:12px; }
-  .sn { font-size:9px; min-width:26px; }
-  .ans-item { font-size:12px; }
-  .ans-highlight,.ans-warn { font-size:11px; }
-  .quiz-top { padding:22px 16px; border-radius:10px; }
-  .quiz-top h2 { font-size:24px; }
-  .q-card { padding:14px 12px; }
-  .q-text { font-size:14px; margin-bottom:12px; }
-  .q-opts { grid-template-columns:1fr; gap:6px; }
-  .q-opt { font-size:12px; padding:11px 13px; min-height:44px; display:flex; align-items:center; }
-  .q-exp { font-size:11px; }
-  .score-big { font-size:64px; }
-  .score-big .frac { font-size:30px; }
-  .score-msg { font-size:15px; }
-  .score-acts { flex-direction:column; gap:8px; }
-  .btn { justify-content:center; width:100%; }
-  .game-body { padding:18px 14px; }
-  .game-q { font-size:17px; }
-  .game-hint { font-size:12px; margin-bottom:16px; }
-  .game-opts { gap:8px; }
-  .g-opt { font-size:13px; padding:12px 6px; border-radius:7px; }
-  .ge-title { font-size:22px; }
-  .game-help { font-size:10px; }
-  .site-footer { padding:20px 12px; }
-  .site-footer p { font-size:9px; letter-spacing:1px; }
+  .container{padding:0 12px;}
+  .nav{padding:0 12px;height:46px;}
+  .nav-tab{font-size:10px;padding:0 10px;}
+  .nav-brand{font-size:11px;margin-left:10px;}
+  .hero{padding:24px 0 20px;}
+  .hero h1{font-size:clamp(34px,11vw,52px);}
+  .hero-desc{font-size:13px;}
+  .stat-n{font-size:22px;}
+  .sec-inner{padding:20px 0 44px;}
+  .ch-trigger{padding:11px 12px;gap:9px;}
+  .ch-title{font-size:13px;}
+  .ch-sub{display:none;}
+  .ch-time{display:none;}
+  .ch-inner{padding:14px 12px;}
+  .li{font-size:12px;}
+  .lab-head{padding:12px 13px;}
+  .lab-name{font-size:13px;}
+  .lab-body{padding:14px 13px;}
+  .lab-goal{font-size:13px;}
+  .lab-step{font-size:12px;}
+  .ans-item{font-size:12px;}
+  .emu-output{font-size:10.5px;}
+  .q-card{padding:14px 12px;}
+  .q-text{font-size:14px;}
+  .q-opts{grid-template-columns:1fr;gap:6px;}
+  .q-opt{font-size:12px;padding:10px 12px;min-height:44px;display:flex;align-items:center;}
+  .score-big{font-size:58px;}
+  .score-acts{flex-direction:column;}
+  .btn{width:100%;justify-content:center;}
+  .game-body{padding:16px 13px;}
+  .game-q{font-size:16px;}
+  .game-opts{gap:7px;}
+  .g-opt{font-size:12px;padding:11px 5px;}
 }
-
-@supports (padding: max(0px)){
-  .nav { padding-left:max(16px,env(safe-area-inset-left)); padding-right:max(16px,env(safe-area-inset-right)); }
-  .container { padding-left:max(12px,env(safe-area-inset-left)); padding-right:max(12px,env(safe-area-inset-right)); }
-  .site-footer { padding-bottom:max(20px,env(safe-area-inset-bottom)); }
+@supports(padding:max(0px)){
+  .nav{padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right));}
+  .container{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));}
+  .site-footer{padding-bottom:max(18px,env(safe-area-inset-bottom));}
 }
 </style>
 
@@ -787,111 +363,848 @@ body::after {
 <script src="/_bridge.js"></script>
 </head>
 <body>
-<div class="container">
 <div class="lab open" id="lb6">
-        <div class="lab-head" onclick="toggleLab('lb6')">
-          <span class="lab-num">06</span>
-          <div class="lab-icon-box">💥</div>
-          <div class="lab-info">
-            <div class="lab-name">Load Testing עם k6 — מצא את נקודת השבירה</div>
-            <div class="lab-sub">Virtual Users · Thresholds · Stages · p95 · Bottleneck Analysis</div>
+  <div class="lab-head" onclick="toggleLab('lb6')">
+    <span class="lab-ico">💥</span>
+    <div class="lab-info"><div class="lab-name">מעבדה 6 — Load Test Visualizer</div><div class="lab-sub">Virtual Users · Stages · p95 Latency · Error Rate · Bottleneck</div></div>
+    <span class="diff d-hard">HARD</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-body" style="display:block">
+    <div class="lab-goal">הרץ Load Test ממדומה וראה בדיוק מה קורה כש-VUs עולים — כמה VUs לפני שה-p95 עובר 500ms?</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="sn">01</span>הגדר Stages: Ramp-up → Steady → Peak → Ramp-down</div>
+      <div class="lab-step"><span class="sn">02</span>לחץ Run Test — עקוב אחרי p95 Latency בזמן אמת</div>
+      <div class="lab-step"><span class="sn">03</span>מצא ב-כמה VUs ה-p95 עובר 500ms (Threshold)</div>
+      <div class="lab-step"><span class="sn">04</span>שנה ל-Optimized Mode — ראה את ההשפעה של Connection Pool</div>
+    </div>
+
+    <div class="emu-wrap">
+      <div class="emu-bar">
+        <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+        <span class="emu-title">k6 Load Test Simulator</span>
+        <button class="emu-clear" onclick="k6Reset()">reset</button>
+        <button class="emu-run" id="k6btn" onclick="k6Run()">▶ Run Test</button>
+      </div>
+      <div class="emu-input-wrap">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div>
+            <div class="emu-input-label">Max VUs</div>
+            <input class="emu-input" id="k6-max-vus" type="number" value="200" min="10" max="500" style="width:100%">
           </div>
-          <span class="diff d-hard">HARD</span>
-          <span class="lab-chev">▶</span>
-        </div>
-        <div class="lab-body" style="display:block">
-          <div class="lab-goal">כמה Virtual Users יכול ה-API שלך לעמוד בהם לפני שה-p95 Latency חוצה 500ms? מצא את זה.</div>
-          <div class="lab-steps">
-            <div class="lab-step"><span class="sn">01</span>התקן k6: <code>brew install k6</code> | <code>docker run -i grafana/k6 run -</code> | Windows: <code>winget install k6</code></div>
-            <div class="lab-step"><span class="sn">02</span>כתוב Test Script עם 4 Stages: Ramp-up → Steady → Peak → Ramp-down (ראה קוד למטה)</div>
-            <div class="lab-step"><span class="sn">03</span>הגדר Thresholds: <code>p(95) &lt; 500</code>, <code>http_req_failed &lt; 0.01</code></div>
-            <div class="lab-step"><span class="sn">04</span>הרץ ועקוב: <code>k6 run --out json=results.json script.js</code></div>
-            <div class="lab-step"><span class="sn">05</span>נתח: באיזה Stage התחיל ה-p95 לעלות? מה ה-Bottleneck — CPU, DB Connections, Memory?</div>
+          <div>
+            <div class="emu-input-label">p95 Threshold (ms)</div>
+            <input class="emu-input" id="k6-threshold" type="number" value="500" min="100" max="2000" style="width:100%">
           </div>
-
-          <button class="ans-btn" onclick="toggleAns('a6')"><span id="a6i">▶</span> הצג Script + Analysis Guide</button>
-          <div class="ans-box" id="a6">
-            <div class="ans-head">✅ k6 Script + Bottleneck Analysis</div>
-            <div class="code"><span class="cc">// k6-script.js</span>
-<span class="ck">import</span> http <span class="ck">from</span> <span class="cs">'k6/http'</span>;
-<span class="ck">import</span> { check, sleep } <span class="ck">from</span> <span class="cs">'k6'</span>;
-
-<span class="ck">export const</span> options = {
-  stages: [
-    { duration: <span class="cs">'2m'</span>, target: <span class="cn">50</span>  },  <span class="cc">// Ramp-up to 50 VUs</span>
-    { duration: <span class="cs">'3m'</span>, target: <span class="cn">50</span>  },  <span class="cc">// Steady at 50</span>
-    { duration: <span class="cs">'2m'</span>, target: <span class="cn">200</span> },  <span class="cc">// Spike to 200</span>
-    { duration: <span class="cs">'3m'</span>, target: <span class="cn">200</span> },  <span class="cc">// Steady at 200</span>
-    { duration: <span class="cs">'2m'</span>, target: <span class="cn">0</span>   },  <span class="cc">// Ramp-down</span>
-  ],
-  thresholds: {
-    <span class="cs">'http_req_duration'</span>: [<span class="cs">'p(95)<500'</span>],  <span class="cc">// p95 < 500ms</span>
-    <span class="cs">'http_req_failed'</span>: [<span class="cs">'rate<0.01'</span>],   <span class="cc">// < 1% errors</span>
-  },
-};
-
-<span class="ck">export default function</span> () {
-  <span class="ck">const</span> res = http.get(<span class="cs">'http://localhost:3000/api/users'</span>);
-  check(res, {
-    <span class="cs">'status 200'</span>: (r) => r.status === <span class="cn">200</span>,
-    <span class="cs">'body not empty'</span>: (r) => r.body.length > <span class="cn">0</span>,
-  });
-  sleep(<span class="cn">1</span>);  <span class="cc">// VU מחכה שנייה בין בקשות (think time)</span>
-}</div>
-            <div class="ans-item"><span class="an">💡</span><div><strong>Bottleneck Analysis:</strong><br>
-              p95 עולה בSteady State → CPU Bound → הוסף CPU/Workers<br>
-              p95 מתפוצץ בSpike → DB Connections → הגדל Connection Pool<br>
-              Memory גדל ולא יורד → Memory Leak → Heap Profiling<br>
-              Errors פתאומיים → Rate Limit שפגעת בו → הגדל Limits
-            </div></div>
-            <div class="ans-highlight">💡 <strong>p95 vs Average:</strong> Average מסתיר בעיות. p95 = 95% מהRequests היו מהירים מזה. 5% האיטיים = ה-Users הכי ממורמרים. בפרודקשן תמיד עבוד עם Percentiles, לא Averages.</div>
-            <div class="ans-warn">⚠️ הרץ Load Tests <strong>על Environment שאינו Production</strong>. אם חייב Production — הרץ בשעות לא שיא, עם gradual ramp-up, ויד על Stop Button.</div>
+          <div>
+            <div class="emu-input-label">Mode</div>
+            <select class="emu-select" id="k6-mode">
+              <option value="normal">Normal API</option>
+              <option value="optimized">Optimized (Pool)</option>
+              <option value="slow">Slow DB Queries</option>
+            </select>
           </div>
         </div>
       </div>
-
+      <div style="padding:14px 16px;border-top:1px solid var(--border)">
+        <canvas id="k6canvas" height="160" style="width:100%;border-radius:4px;background:#070710"></canvas>
+      </div>
+      <div class="emu-output" id="k6out" style="min-height:100px"><span class="emu-empty">הגדר פרמטרים ולחץ Run Test...</span></div>
     </div>
-  </div></div>
 
-  
-</div><!-- /container -->
-
-<footer class="site-footer">
-  <p>// WEB &amp; APIS PRO · REQUEST · RESPOND · REPEAT //</p>
-</footer>
+    <button class="ans-btn" onclick="toggleAns('a6')"><span id="a6i">▶</span> הצג תשובות</button>
+    <div class="ans-box" id="a6">
+      <div class="ans-head">✅ תשובות</div>
+      <div class="ans-item"><span class="an">03</span><div><strong>Breaking Point:</strong> בדרך כלל נראה p95 יציב עד ~50-80 VUs, אחר כך עולה בחדות. ה-"Knee" של הגרף = נקודת השבירה. מעבר לה — כל VU נוסף מזיק.</div></div>
+      <div class="ans-item"><span class="an">04</span><div><strong>Connection Pool:</strong> ללא Pool — כל Request פותח חיבור חדש ל-DB = overhead. עם Pool = חיבורים קיימים ממתינים. ההבדל: פי 2-5 יותר VUs לפני Threshold.</div></div>
+      <div class="ans-item"><span class="an">👁️</span><div><strong>p95 vs Average:</strong> Average מסתיר בעיות. p95 = 95% מהRequests היו מהירים מזה. ה-5% האיטיים = המשתמשים הכי ממורמרים. תמיד Percentiles, לא Averages.</div></div>
+      <div class="ans-warn">⚠️ הרץ Load Tests על Staging Environment. בProduction — רק בשעות לא שיא, עם Gradual Ramp-up ויד על Stop Button.</div>
+    </div>
+  </div>
 </div>
+
+</div><!-- /labs-list -->
+</div></div>
+
+<!-- ════ QUIZ ════ -->
 <script>
+// ── Clock ──
+setInterval(()=>{const el=document.getElementById('clk');if(el)el.textContent=new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})+' 🌍';},1000);
 
-// ── TABS ── (split-file mode: tabs navigate between files)
-function switchTab(id, el) {
-  // In split mode each file only has one section — just show it
-  const sec = document.getElementById(id);
-  if (sec) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    sec.classList.add('active');
+// ── Tabs ──
+function switchTab(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  const sec=document.getElementById(id);if(sec)sec.classList.add('active');
+  if(el&&el.classList)el.classList.add('active');
+  if(id==='game')startGame();
+}
+
+// ── Chapters / Labs ──
+function toggleCh(id){document.getElementById(id).classList.toggle('open');}
+function toggleLab(id){document.getElementById(id).classList.toggle('open');}
+const _lb1=document.getElementById('lb1');if(_lb1)_lb1.classList.add('open');
+
+// ── Answer Toggle ──
+function toggleAns(id){
+  const box=document.getElementById(id),btn=box.previousElementSibling,icon=document.getElementById(id+'i');
+  const open=box.classList.contains('show');
+  box.classList.toggle('show');btn.classList.toggle('open');
+  if(icon)icon.textContent=open?'▶':'▼';
+  btn.childNodes[1].textContent=' '+(open?'הצג תשובות':'הסתר תשובות');
+}
+
+// ══════════════════════════════════
+// EMULATOR HELPERS
+// ══════════════════════════════════
+function emuClear(id){const el=document.getElementById(id);if(el)el.innerHTML='<span class="emu-empty">נוקה...</span>';}
+function emuPrint(id,html,append=true){
+  const el=document.getElementById(id);if(!el)return;
+  if(!append)el.innerHTML='';
+  const d=document.createElement('div');d.innerHTML=html;el.appendChild(d);
+  if(append&&el.firstChild&&el.firstChild.classList&&el.firstChild.classList.contains('emu-empty'))el.firstChild.remove();
+  el.scrollTop=el.scrollHeight;
+}
+
+// ── LAB 1: HTTP Emulator ──
+const HTTPBIN={
+  get:{status:200,headers:{'Content-Type':'application/json','X-Request-Id':'7f3a9b2c','Cache-Control':'no-cache'},body:{url:'https://httpbin.org/get',headers:{Host:'httpbin.org','User-Agent':'Mozilla/5.0'},origin:'93.172.45.12'}},
+  post:{status:200,headers:{'Content-Type':'application/json'},body:{url:'https://httpbin.org/post',json:null,headers:{}}},
+  'status/301':{status:301,headers:{'Location':'https://httpbin.org/get','Content-Type':'text/html'},body:'',chain:[{status:301,location:'https://httpbin.org/get'},{status:200}]},
+  'status/404':{status:404,headers:{'Content-Type':'application/json'},body:{type:'https://httpbin.org/errors/not-found',title:'Not Found',status:404}},
+  'status/500':{status:500,headers:{'Content-Type':'application/json'},body:{type:'https://httpbin.org/errors/server-error',title:'Internal Server Error',status:500}},
+  'delay/1':{status:200,headers:{'Content-Type':'application/json','X-Response-Time':'1024ms'},body:{delayed:true,duration:1},delay:1000},
+  headers:{status:200,headers:{'Content-Type':'application/json'},body:{headers:{Host:'httpbin.org','Accept':'application/json'}}},
+  bearer:{status:401,headers:{'Content-Type':'application/json','WWW-Authenticate':'Bearer realm="httpbin"'},body:{message:'Unauthorized — missing or invalid token'},requiresAuth:true}
+};
+
+function statusColor(code){if(code<300)return 't-status-ok';if(code<400)return 't-status-warn';return 't-status-err';}
+
+async function runLab1(){
+  const method=document.getElementById('e1method').value;
+  const urlKey=document.getElementById('e1url').value;
+  const body=document.getElementById('e1body').value;
+  const auth=document.getElementById('e1auth').value.trim();
+  const btn=document.getElementById('e1btn');
+  
+  btn.textContent='⏳ Sending...';btn.classList.add('running');btn.disabled=true;
+  emuClear('e1out');
+  
+  const data=HTTPBIN[urlKey]||HTTPBIN.get;
+  
+  // Check auth requirement
+  if(data.requiresAuth&&!auth){
+    await delay(300);
+    emuPrint('e1out',`<span class="t-prompt">$</span> curl -v https://httpbin.org/${urlKey}`);
+    await delay(200);
+    printRequest(method,urlKey,auth,body);
+    await delay(400);
+    printResponse({...data,status:401});
+    btn.textContent='▶ Send Request';btn.classList.remove('running');btn.disabled=false;
+    return;
   }
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  if (el && el.classList) el.classList.add('active');
+  if(data.requiresAuth&&auth){
+    const successData={status:200,headers:{'Content-Type':'application/json'},body:{authenticated:true,token:auth.replace('Bearer ','').substring(0,20)+'...'}};
+    await delay(300);
+    emuPrint('e1out',`<span class="t-prompt">$</span> curl -v -H "Authorization: ${auth.substring(0,20)}..." https://httpbin.org/${urlKey}`);
+    printRequest(method,urlKey,auth,body);
+    await delay(500);
+    printResponse(successData);
+    btn.textContent='▶ Send Request';btn.classList.remove('running');btn.disabled=false;
+    return;
+  }
+  
+  await delay(200);
+  emuPrint('e1out',`<span class="t-prompt">$</span> curl -v -X ${method} https://httpbin.org/${urlKey}`);
+  await delay(100);
+  printRequest(method,urlKey,auth,body);
+  
+  if(data.delay)await delay(data.delay);
+  else await delay(300+Math.random()*400);
+  
+  // Chain for redirects
+  if(data.chain){
+    data.chain.forEach((step,i)=>{
+      if(step.location)emuPrint('e1out',`\n<span class="t-dim">* Redirect → ${step.location}</span>`);
+    });
+  }
+  
+  if(method==='POST'&&data.body&&data.body.json!==undefined){
+    try{data.body.json=JSON.parse(body);}catch(e){data.body.json={raw:body};}
+  }
+  
+  printResponse(data);
+  btn.textContent='▶ Send Request';btn.classList.remove('running');btn.disabled=false;
 }
 
-// ── CHAPTERS / LABS ──
-function toggleCh(id) { document.getElementById(id).classList.toggle('open'); }
-function toggleLab(id) { document.getElementById(id).classList.toggle('open'); }
-const _lb1 = document.getElementById('lb1'); if (_lb1) _lb1.classList.add('open');
-
-// ── ANSWER TOGGLE ──
-function toggleAns(id) {
-  const box = document.getElementById(id);
-  const btn = box.previousElementSibling;
-  const icon = document.getElementById(id + 'i');
-  const isOpen = box.classList.contains('show');
-  box.classList.toggle('show');
-  btn.classList.toggle('open');
-  icon.textContent = isOpen ? '▶' : '▼';
-  btn.childNodes[1].textContent = ' ' + (isOpen ? 'הצג תשובה מלאה' : 'הסתר תשובה');
+function printRequest(method,urlKey,auth,body){
+  emuPrint('e1out',`\n<span class="t-dim">* Trying 44.194.175.62:443...</span>`);
+  emuPrint('e1out',`<span class="t-dim">* Connected to httpbin.org</span>`);
+  emuPrint('e1out',`<span class="t-dim">* TLS 1.3, cipher: TLS_AES_128_GCM_SHA256</span>\n`);
+  emuPrint('e1out',`<span class="t-key">&gt;</span> ${method} /${urlKey} HTTP/2`);
+  emuPrint('e1out',`<span class="t-key">&gt;</span> Host: httpbin.org`);
+  emuPrint('e1out',`<span class="t-key">&gt;</span> Accept: application/json`);
+  if(auth)emuPrint('e1out',`<span class="t-key">&gt;</span> Authorization: ${auth.substring(0,30)}...`);
+  if(method!=='GET'&&body){
+    emuPrint('e1out',`<span class="t-key">&gt;</span> Content-Type: application/json`);
+    emuPrint('e1out',`<span class="t-key">&gt;</span> Content-Length: ${body.length}`);
+  }
+  emuPrint('e1out','<span class="t-key">&gt;</span>');
 }
 
-// ── QUIZ ──
+function printResponse(data){
+  const sc=statusColor(data.status);
+  emuPrint('e1out',`\n<span class="${sc}">&lt;</span> HTTP/2 <span class="${sc}">${data.status}</span>`);
+  Object.entries(data.headers||{}).forEach(([k,v])=>{
+    emuPrint('e1out',`<span class="t-head">&lt;</span> <span class="t-key">${k}:</span> ${v}`);
+  });
+  emuPrint('e1out','<span class="t-dim">&lt;</span>');
+  if(data.body&&typeof data.body==='object'&&Object.keys(data.body).length>0){
+    emuPrint('e1out',`\n<span class="t-dim">// Response Body:</span>`);
+    emuPrint('e1out',syntaxHighlight(JSON.stringify(data.body,null,2)));
+  }
+  const ms=100+Math.floor(Math.random()*300);
+  emuPrint('e1out',`\n<span class="t-dim">* Connection closed. Timing: DNS:12ms Connect:28ms TLS:45ms TTFB:${ms}ms</span>`);
+}
+
+function syntaxHighlight(json){
+  return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,match=>{
+    let cls='t-val';
+    if(/^"/.test(match)){if(/:$/.test(match)){cls='t-key';match=match.replace(/":$/,'"')+'<span style="color:var(--text-mid)">:</span>';}else{cls='t-val';}}
+    else if(/true|false/.test(match))cls='t-status-ok';
+    else if(/null/.test(match))cls='t-dim';
+    return`<span class="${cls}">${match}</span>`;
+  });
+}
+
+// ── LAB 2: REST API Simulator ──
+let restDB=[
+  {id:1,name:'Alice Chen',email:'alice@example.com',role:'admin',createdAt:'2024-01-10'},
+  {id:2,name:'Bob Levy',email:'bob@example.com',role:'developer',createdAt:'2024-01-12'},
+];
+let restNextId=3;
+
+function runLab2(){
+  const method=document.getElementById('e2method').value;
+  const endpoint=document.getElementById('e2endpoint').value;
+  const bodyStr=document.getElementById('e2body').value;
+  
+  emuClear('e2out');
+  const idMatch=endpoint.match(/\/users\/(\d+)/);
+  const id=idMatch?parseInt(idMatch[1]):null;
+  let status,headers={'Content-Type':'application/json'},body;
+  
+  if(method==='GET'&&endpoint==='/users'){
+    status=200;body=restDB;
+  }else if(method==='GET'&&id!==null){
+    const user=restDB.find(u=>u.id===id);
+    if(!user){status=404;body={type:'https://api.example.com/errors/not-found',title:'User Not Found',status:404,detail:`User with id ${id} does not exist`,instance:endpoint};}
+    else{status=200;body=user;}
+  }else if(method==='POST'&&endpoint==='/users'){
+    let parsed;
+    try{parsed=JSON.parse(bodyStr);}catch(e){
+      status=400;body={type:'https://api.example.com/errors/parse-error',title:'Invalid JSON',status:400,detail:e.message,instance:endpoint};
+      printRestResponse(method,endpoint,status,headers,body);return;
+    }
+    if(!parsed.name){
+      status=400;body={type:'https://api.example.com/errors/validation',title:'Validation Failed',status:400,detail:"Field 'name' is required",errors:[{field:'name',message:'required'}],instance:endpoint};
+    }else if(!parsed.email){
+      status=400;body={type:'https://api.example.com/errors/validation',title:'Validation Failed',status:400,detail:"Field 'email' is required",errors:[{field:'email',message:'required'}],instance:endpoint};
+    }else{
+      const newUser={id:restNextId++,...parsed,createdAt:new Date().toISOString().split('T')[0]};
+      restDB.push(newUser);
+      status=201;body=newUser;
+      headers['Location']=`/api/v1/users/${newUser.id}`;
+    }
+  }else if((method==='PUT'||method==='PATCH')&&id!==null){
+    const idx=restDB.findIndex(u=>u.id===id);
+    if(idx===-1){status=404;body={type:'https://api.example.com/errors/not-found',title:'Not Found',status:404,detail:`User ${id} not found`,instance:endpoint};}
+    else{
+      let parsed;try{parsed=JSON.parse(bodyStr);}catch(e){parsed={};}
+      if(method==='PUT')restDB[idx]={id,createdAt:restDB[idx].createdAt,...parsed};
+      else restDB[idx]={...restDB[idx],...parsed};
+      status=200;body=restDB[idx];
+    }
+  }else if(method==='DELETE'&&id!==null){
+    const idx=restDB.findIndex(u=>u.id===id);
+    if(idx===-1){status=404;body={type:'https://api.example.com/errors/not-found',title:'Not Found',status:404,detail:`User ${id} not found`,instance:endpoint};}
+    else{restDB.splice(idx,1);status=204;body=null;}
+  }else{
+    status=405;body={type:'https://api.example.com/errors/method-not-allowed',title:'Method Not Allowed',status:405,detail:`${method} not allowed on ${endpoint}`,instance:endpoint};
+  }
+  printRestResponse(method,endpoint,status,headers,body);
+}
+
+function printRestResponse(method,endpoint,status,headers,body){
+  const sc=statusColor(status);
+  emuPrint('e2out',`<span class="t-prompt">→</span> <span class="t-key">${method}</span> /api/v1${endpoint}`);
+  emuPrint('e2out',`<span class="${sc}">← HTTP ${status} ${httpStatusText(status)}</span>`);
+  Object.entries(headers).forEach(([k,v])=>emuPrint('e2out',`<span class="t-dim">${k}: ${v}</span>`));
+  if(body!==null&&body!==undefined){
+    emuPrint('e2out','\n'+syntaxHighlight(JSON.stringify(body,null,2)));
+  }
+  if(status===204)emuPrint('e2out','<span class="t-dim">(No Content — Resource deleted)</span>');
+}
+
+function httpStatusText(code){
+  const m={200:'OK',201:'Created',204:'No Content',301:'Moved Permanently',400:'Bad Request',401:'Unauthorized',403:'Forbidden',404:'Not Found',405:'Method Not Allowed',429:'Too Many Requests',500:'Internal Server Error'};
+  return m[code]||'Unknown';
+}
+
+// ── LAB 3: JWT Playground ──
+function b64url(str){return btoa(str).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');}
+function b64decode(str){try{return JSON.parse(atob(str.replace(/-/g,'+').replace(/_/g,'/')));}catch(e){return null;}}
+
+let jwtSecret='my-super-secret-key-2024';
+
+function jwtSign(){
+  emuClear('e3out');
+  let payload;
+  try{payload=JSON.parse(document.getElementById('e3payload').value);}
+  catch(e){emuPrint('e3out',`<span class="t-err">❌ Invalid JSON: ${e.message}</span>`);return;}
+  
+  const header={alg:'HS256',typ:'JWT'};
+  const hPart=b64url(JSON.stringify(header));
+  const pPart=b64url(JSON.stringify(payload));
+  const sig=b64url(`HMAC-SHA256(${hPart}.${pPart},secret)`).substring(0,43);
+  const token=`${hPart}.${pPart}.${sig}`;
+  
+  document.getElementById('e3token').value=token;
+  emuPrint('e3out','<span class="t-key">── JWT Structure ──</span>');
+  emuPrint('e3out',`\n<span class="t-head">HEADER</span> (algorithm + type):`);
+  emuPrint('e3out',syntaxHighlight(JSON.stringify(header,null,2)));
+  emuPrint('e3out',`\n<span class="t-val">PAYLOAD</span> (claims — <span class="t-err">BASE64 ONLY, NOT encrypted!</span>):`);
+  emuPrint('e3out',syntaxHighlight(JSON.stringify(payload,null,2)));
+  emuPrint('e3out',`\n<span class="t-status-ok">SIGNATURE</span>:`);
+  emuPrint('e3out',`HMAC_SHA256(<span class="t-head">${hPart.substring(0,20)}...</span>.<span class="t-val">${pPart.substring(0,20)}...</span>, "${jwtSecret}")`);
+  emuPrint('e3out',`\n<span class="t-dim">── Full Token ──</span>`);
+  emuPrint('e3out',`<span class="t-head">${hPart}</span>.<span class="t-val">${pPart}</span>.<span class="t-status-ok">${sig}</span>`);
+  emuPrint('e3out',`\n<span class="t-dim">⚠️  ה-Payload גלוי לכל מי שמפרק את ה-Token (Base64 ≠ הצפנה)</span>`);
+}
+
+function jwtVerify(){
+  emuClear('e3out');
+  const token=document.getElementById('e3token').value.trim();
+  if(!token){emuPrint('e3out','<span class="t-err">❌ הדבק JWT Token בשדה למטה</span>');return;}
+  
+  const parts=token.split('.');
+  if(parts.length!==3){emuPrint('e3out','<span class="t-err">❌ JWT לא תקין — חייב 3 חלקים מופרדים בנקודות</span>');return;}
+  
+  const header=b64decode(parts[0]);
+  const payload=b64decode(parts[1]);
+  
+  emuPrint('e3out','<span class="t-key">── Verifying JWT ──</span>');
+  emuPrint('e3out',`\n<span class="t-dim">1. Decode Header:</span> ${header?JSON.stringify(header):'invalid base64'}`);
+  emuPrint('e3out',`<span class="t-dim">2. Decode Payload:</span>`);
+  if(payload)emuPrint('e3out',syntaxHighlight(JSON.stringify(payload,null,2)));
+  
+  // Check if signature matches "our" tokens
+  const expectedSig=b64url(`HMAC-SHA256(${parts[0]}.${parts[1]},secret)`).substring(0,43);
+  const sigValid=parts[2]===expectedSig;
+  
+  emuPrint('e3out',`\n<span class="t-dim">3. Verify Signature:</span>`);
+  if(sigValid){
+    emuPrint('e3out','<span class="t-status-ok">✅ Signature VALID</span>');
+    if(payload&&payload.exp&&payload.exp<Date.now()/1000){
+      emuPrint('e3out','<span class="t-err">⏰ TokenExpiredError: jwt expired</span>');
+      emuPrint('e3out','<span class="t-dim">{"error":"TokenExpiredError","message":"jwt expired at '+new Date(payload.exp*1000).toISOString()+'"}</span>');
+    }else{
+      emuPrint('e3out','<span class="t-status-ok">✅ Token is valid and not expired</span>');
+    }
+  }else{
+    emuPrint('e3out','<span class="t-err">❌ JsonWebTokenError: invalid signature</span>');
+    emuPrint('e3out','<span class="t-dim">הSignature לא תואמת — ה-Payload שונה לאחר החתימה</span>');
+  }
+}
+
+function jwtLoginFlow(){
+  emuClear('e3out');
+  const steps=[
+    ()=>emuPrint('e3out','<span class="t-key">── Login Flow ──</span>'),
+    ()=>emuPrint('e3out','\n<span class="t-prompt">Client →</span> POST /auth/login {"email":"dana@co.io","password":"***"}'),
+    ()=>emuPrint('e3out','<span class="t-dim">Server: bcrypt.compare(password, hash)... ✓</span>'),
+    ()=>emuPrint('e3out','<span class="t-dim">Server: jwt.sign({sub:42,role:"user"}, ACCESS_SECRET, {expiresIn:"15m"})</span>'),
+    ()=>emuPrint('e3out','<span class="t-dim">Server: jwt.sign({sub:42}, REFRESH_SECRET, {expiresIn:"7d"})</span>'),
+    ()=>emuPrint('e3out','\n<span class="t-status-ok">Server → 200 OK</span>'),
+    ()=>emuPrint('e3out','<span class="t-key">Set-Cookie:</span> refreshToken=eyJ...; HttpOnly; Secure; SameSite=Strict'),
+    ()=>emuPrint('e3out',syntaxHighlight('{"accessToken":"eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI0MiIsInJvbGUiOiJ1c2VyIn0.sig"}')),
+    ()=>emuPrint('e3out','\n<span class="t-dim">Client: saves accessToken in MEMORY (not localStorage!)</span>'),
+    ()=>emuPrint('e3out','\n<span class="t-prompt">Client →</span> GET /api/profile'),
+    ()=>emuPrint('e3out','<span class="t-key">Authorization:</span> Bearer eyJhbGci...'),
+    ()=>emuPrint('e3out','<span class="t-status-ok">Server → 200 OK</span>'),
+    ()=>emuPrint('e3out',syntaxHighlight('{"id":42,"name":"Dana","role":"user"}')),
+  ];
+  steps.forEach((s,i)=>setTimeout(s,i*180));
+}
+
+function jwtExpiredFlow(){
+  emuClear('e3out');
+  const expiredToken='eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0MiIsImV4cCI6MTYwMDAwMDAwMH0.expired';
+  const steps=[
+    ()=>emuPrint('e3out','<span class="t-key">── Expired Token Flow ──</span>'),
+    ()=>emuPrint('e3out','\n<span class="t-prompt">Client →</span> GET /api/data'),
+    ()=>emuPrint('e3out',`<span class="t-key">Authorization:</span> Bearer ${expiredToken.substring(0,40)}...`),
+    ()=>emuPrint('e3out','\n<span class="t-err">Server → 401 Unauthorized</span>'),
+    ()=>emuPrint('e3out',syntaxHighlight('{"error":"TokenExpiredError","message":"jwt expired","expiredAt":"2020-09-13T12:26:40Z"}')),
+    ()=>emuPrint('e3out','\n<span class="t-dim">Client: access token expired → try refresh...</span>'),
+    ()=>emuPrint('e3out','\n<span class="t-prompt">Client →</span> POST /auth/refresh'),
+    ()=>emuPrint('e3out','<span class="t-dim">(Refresh Token sent automatically via HttpOnly Cookie)</span>'),
+    ()=>emuPrint('e3out','\n<span class="t-status-ok">Server → 200 OK</span>'),
+    ()=>emuPrint('e3out',syntaxHighlight('{"accessToken":"eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI0MiIsImV4cCI6MTcyMH0.newsig"}')),
+    ()=>emuPrint('e3out','\n<span class="t-status-ok">✅ New Access Token received — retrying original request...</span>'),
+  ];
+  steps.forEach((s,i)=>setTimeout(s,i*200));
+}
+
+// ── LAB 4: WebSocket Simulator ──
+let wsConnected=false,wsTypingTimerA=null,wsTypingTimerB=null;
+
+function delay(ms){return new Promise(r=>setTimeout(r,ms));}
+
+function wsLog(html){emuPrint('ws-log',html);}
+
+function wsConnect(){
+  if(wsConnected)return;
+  wsConnected=true;
+  document.getElementById('ws-conn-btn').textContent='⚡ Connected';
+  document.getElementById('ws-conn-btn').style.background='var(--green)';
+  const steps=[
+    ()=>wsLog('<span class="t-dim">── Connecting ──</span>'),
+    ()=>wsLog('<span class="t-dim">Client A: GET /socket.io/?transport=websocket HTTP/1.1</span>'),
+    ()=>wsLog('<span class="t-dim">Client A: Upgrade: websocket | Connection: Upgrade</span>'),
+    ()=>wsLog('<span class="t-status-ok">Server → 101 Switching Protocols</span>'),
+    ()=>wsLog('<span class="t-dim">Client B: Connected (same handshake)</span>'),
+    ()=>wsLog('<span class="t-status-ok">✅ Both clients joined #general</span>'),
+    ()=>wsLog('<span class="t-dim">Server → Dana joined the room</span>'),
+    ()=>wsLog('<span class="t-dim">Server → Yossi joined the room</span>'),
+    ()=>wsLog('\n<span class="t-dim">── Ready to chat ──</span>'),
+  ];
+  steps.forEach((s,i)=>setTimeout(s,i*150));
+}
+
+function wsSend(who){
+  if(!wsConnected){wsLog('<span class="t-err">❌ לא מחובר — לחץ Connect Both קודם</span>');return;}
+  const input=document.getElementById(`ws-msg-${who.toLowerCase()}`);
+  const msg=input.value.trim();
+  if(!msg)return;
+  input.value='';
+  const from=who==='A'?'Dana':'Yossi';
+  const to=who==='A'?'Yossi':'Dana';
+  const clr=who==='A'?'var(--blue2)':'var(--purple2)';
+  wsLog(`\n<span style="color:${clr}">[${from}]</span> → Room #general: <span class="t-val">"${escHtml(msg)}"</span>`);
+  wsLog(`<span class="t-dim">Server: io.to('general').emit('message', {text, from:'${from}', at:${Date.now()}})</span>`);
+  wsLog(`<span style="color:${clr==='var(--blue2)'?'var(--purple2)':'var(--blue2)'}">[${to}]</span> <span class="t-status-ok">✉ "${escHtml(msg)}"</span>`);
+  // Clear typing
+  document.getElementById(`ws-typing-${who.toLowerCase()}`).textContent='';
+}
+
+function wsTyping(who){
+  if(!wsConnected)return;
+  const from=who==='A'?'Dana':'Yossi';
+  const targetId=`ws-typing-${who==='A'?'b':'a'}`;
+  document.getElementById(targetId).textContent=`${from} מקליד...`;
+  const timerKey=who==='A'?'wsTypingTimerA':'wsTypingTimerB';
+  if(window[timerKey])clearTimeout(window[timerKey]);
+  window[timerKey]=setTimeout(()=>{document.getElementById(targetId).textContent='';},2000);
+}
+
+function wsClear(){
+  document.getElementById('ws-log').innerHTML='<span class="emu-empty">Log נוקה...</span>';
+  wsConnected=false;
+  document.getElementById('ws-conn-btn').textContent='▶ Connect Both';
+  document.getElementById('ws-conn-btn').style.background='';
+  document.getElementById('ws-typing-a').textContent='';
+  document.getElementById('ws-typing-b').textContent='';
+}
+
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+// ── LAB 5: Rate Limiting + ETag ──
+let rlRemaining=10,rlLimit=10,rlResetTimer=null,rlResetSeconds=60;
+let etagValue=null,bwSaved=0;
+
+function rlReset(){
+  rlRemaining=10;rlLimit=10;rlResetSeconds=60;bwSaved=0;etagValue=null;
+  if(rlResetTimer)clearInterval(rlResetTimer);rlResetTimer=null;
+  updateRlUI();
+  document.getElementById('etag-val').textContent='none';
+  document.getElementById('bw-saved').textContent='0 KB';
+}
+
+function updateRlUI(){
+  const pct=(rlRemaining/rlLimit)*100;
+  const bar=document.getElementById('rl-bar');
+  bar.style.width=pct+'%';
+  bar.style.background=pct>50?'var(--green2)':pct>20?'var(--amber2)':'var(--red2)';
+  document.getElementById('rl-remaining').textContent=rlRemaining;
+  document.getElementById('rl-reset').textContent=rlResetSeconds+'s';
+}
+
+function startRlTimer(){
+  if(rlResetTimer)return;
+  rlResetTimer=setInterval(()=>{
+    rlResetSeconds--;
+    if(rlResetSeconds<=0){
+      rlRemaining=rlLimit;rlResetSeconds=60;
+      emuPrint('e5out','<span class="t-status-ok">✅ Rate Limit reset — ' + rlLimit + ' requests available</span>');
+    }
+    updateRlUI();
+  },1000);
+}
+
+function rlSend(count){
+  startRlTimer();
+  let printed=0;
+  const fire=()=>{
+    if(printed>=count)return;
+    const ms=Math.floor(100+Math.random()*200);
+    if(rlRemaining>0){
+      rlRemaining--;
+      updateRlUI();
+      const remaining=rlRemaining;
+      emuPrint('e5out',`<span class="t-status-ok">← 200 OK</span>  <span class="t-dim">X-RateLimit-Limit: ${rlLimit}  </span><span class="t-key">X-RateLimit-Remaining: ${remaining}</span>  <span class="t-dim">${ms}ms</span>`);
+    }else{
+      emuPrint('e5out',`<span class="t-err">← 429 Too Many Requests</span>  <span class="t-dim">Retry-After: ${rlResetSeconds}s</span>`);
+      emuPrint('e5out',syntaxHighlight('{"type":"https://api.co/errors/rate-limit","title":"Too Many Requests","status":429,"retryAfter":'+rlResetSeconds+'}'));
+    }
+    printed++;
+    if(printed<count)setTimeout(fire,80);
+  };
+  fire();
+}
+
+function etagGet(){
+  startRlTimer();
+  if(!etagValue){
+    // First request - generate ETag
+    const data={users:[{id:1,name:'Alice'},{id:2,name:'Bob'}],total:2};
+    const hash='"'+Math.abs(JSON.stringify(data).split('').reduce((a,c)=>((a<<5)-a)+c.charCodeAt(0),0)).toString(16)+'"';
+    etagValue=hash;
+    bwSaved=0;
+    document.getElementById('etag-val').textContent=hash;
+    if(rlRemaining>0){rlRemaining--;updateRlUI();}
+    emuPrint('e5out',`\n<span class="t-prompt">→ GET /api/users (no cache)</span>`);
+    emuPrint('e5out',`<span class="t-status-ok">← 200 OK</span>`);
+    emuPrint('e5out',`<span class="t-key">ETag:</span> ${hash}`);
+    emuPrint('e5out',`<span class="t-key">Cache-Control:</span> public, max-age=0, must-revalidate`);
+    emuPrint('e5out',syntaxHighlight(JSON.stringify(data,null,2)));
+    emuPrint('e5out',`<span class="t-dim">Body size: ${JSON.stringify(data).length} bytes sent</span>`);
+  }else{
+    // Conditional request
+    const bodySize=120;
+    bwSaved+=bodySize;
+    document.getElementById('bw-saved').textContent=(bwSaved/1024).toFixed(1)+' KB';
+    if(rlRemaining>0){rlRemaining--;updateRlUI();}
+    emuPrint('e5out',`\n<span class="t-prompt">→ GET /api/users</span>`);
+    emuPrint('e5out',`<span class="t-key">If-None-Match:</span> ${etagValue}`);
+    emuPrint('e5out',`<span class="t-status-warn">← 304 Not Modified</span>`);
+    emuPrint('e5out',`<span class="t-dim">Content-Length: 0 (No Body — resource unchanged)</span>`);
+    emuPrint('e5out',`<span class="t-status-ok">✅ חסכנו ${bodySize} bytes ב-Bandwidth</span>`);
+  }
+}
+
+// ── LAB 6: k6 Visualizer ──
+let k6Running=false,k6Interval=null;
+let k6Points={vus:[],p95:[],rps:[],errors:[]};
+
+function k6Reset(){
+  if(k6Interval)clearInterval(k6Interval);k6Interval=null;k6Running=false;
+  k6Points={vus:[],p95:[],rps:[],errors:[]};
+  const btn=document.getElementById('k6btn');btn.textContent='▶ Run Test';btn.classList.remove('running');btn.disabled=false;
+  const canvas=document.getElementById('k6canvas');
+  if(canvas){const ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);}
+  emuClear('k6out');
+}
+
+function k6Run(){
+  if(k6Running)return;
+  k6Running=true;
+  k6Points={vus:[],p95:[],rps:[],errors:[]};
+  const btn=document.getElementById('k6btn');btn.textContent='⏳ Running...';btn.classList.add('running');btn.disabled=true;
+  
+  const maxVUs=parseInt(document.getElementById('k6-max-vus').value)||200;
+  const threshold=parseInt(document.getElementById('k6-threshold').value)||500;
+  const mode=document.getElementById('k6-mode').value;
+  
+  emuClear('k6out');
+  emuPrint('k6out','<span class="t-key">── k6 Load Test Starting ──</span>');
+  emuPrint('k6out',`<span class="t-dim">Stages: ramp-up → steady → peak (${maxVUs} VUs) → ramp-down</span>`);
+  emuPrint('k6out',`<span class="t-dim">Threshold: p95 < ${threshold}ms | error rate < 1%</span>\n`);
+  
+  const totalSteps=40;
+  let step=0;
+  
+  k6Interval=setInterval(()=>{
+    if(step>=totalSteps){
+      clearInterval(k6Interval);k6Running=false;
+      k6PrintSummary(maxVUs,threshold,mode);
+      btn.textContent='▶ Run Test';btn.classList.remove('running');btn.disabled=false;
+      return;
+    }
+    
+    const progress=step/totalSteps;
+    let vus;
+    if(progress<0.2)vus=Math.floor(maxVUs*0.25*(progress/0.2));
+    else if(progress<0.4)vus=Math.floor(maxVUs*0.25);
+    else if(progress<0.6)vus=Math.floor(maxVUs*0.25+maxVUs*0.75*((progress-0.4)/0.2));
+    else if(progress<0.75)vus=maxVUs;
+    else vus=Math.floor(maxVUs*(1-(progress-0.75)/0.25));
+    
+    // Calculate latency based on VUs and mode
+    const baseLatency=mode==='optimized'?30:mode==='slow'?200:60;
+    const scaleFactor=mode==='optimized'?0.8:mode==='slow'?3.5:1.5;
+    const breakPoint=mode==='optimized'?maxVUs*0.8:mode==='slow'?maxVUs*0.3:maxVUs*0.55;
+    let p95;
+    if(vus<breakPoint)p95=baseLatency+vus*(threshold*0.4/breakPoint)+(Math.random()-0.5)*20;
+    else p95=threshold*0.6+(vus-breakPoint)*scaleFactor*2+(Math.random()-0.5)*40;
+    p95=Math.max(baseLatency,Math.round(p95));
+    
+    const rps=Math.round(vus*0.8*(1-Math.max(0,p95-threshold)/(threshold*3)));
+    const errRate=p95>threshold*1.2?((p95-threshold*1.2)/(threshold*0.5)*5).toFixed(1):0;
+    
+    k6Points.vus.push(vus);k6Points.p95.push(p95);k6Points.rps.push(rps);k6Points.errors.push(errRate);
+    
+    k6DrawChart(threshold);
+    
+    if(step%5===0||vus===maxVUs){
+      const pColor=p95>threshold?'t-err':p95>threshold*0.8?'t-status-warn':'t-status-ok';
+      const eColor=errRate>0?'t-err':'t-dim';
+      emuPrint('k6out',`VUs: <span class="t-key">${String(vus).padStart(3)}</span>  p95: <span class="${pColor}">${String(p95).padStart(5)}ms</span>  RPS: <span class="t-val">${String(rps).padStart(4)}</span>  errors: <span class="${eColor}">${errRate}%</span>${p95>threshold?' <span class="t-err">⚠ THRESHOLD BREACH</span>':''}`);
+    }
+    step++;
+  },200);
+}
+
+function k6DrawChart(threshold){
+  const canvas=document.getElementById('k6canvas');
+  if(!canvas)return;
+  canvas.width=canvas.offsetWidth*window.devicePixelRatio||600;
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  const W=canvas.width,H=canvas.height;
+  const pts=k6Points.p95;if(!pts.length)return;
+  const maxP=Math.max(...pts,threshold*1.5);
+  const pad={l:40,r:15,t:15,b:25};
+  
+  // Grid
+  ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y=pad.t+(H-pad.t-pad.b)*(1-i/4);
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(W-pad.r,y);ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,0.3)';ctx.font=`${10*window.devicePixelRatio}px JetBrains Mono`;ctx.textAlign='right';
+    ctx.fillText(Math.round(maxP*i/4)+'ms',pad.l-4,y+4);
+  }
+  
+  // Threshold line
+  const threshY=pad.t+(H-pad.t-pad.b)*(1-threshold/maxP);
+  ctx.strokeStyle='rgba(251,191,36,0.6)';ctx.lineWidth=1.5*window.devicePixelRatio;ctx.setLineDash([5,5]);
+  ctx.beginPath();ctx.moveTo(pad.l,threshY);ctx.lineTo(W-pad.r,threshY);ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='rgba(251,191,36,0.8)';ctx.font=`${9*window.devicePixelRatio}px JetBrains Mono`;ctx.textAlign='left';
+  ctx.fillText(`p95 threshold ${threshold}ms`,pad.l+4,threshY-4);
+  
+  // p95 line
+  if(pts.length<2)return;
+  ctx.beginPath();
+  pts.forEach((v,i)=>{
+    const x=pad.l+(W-pad.l-pad.r)*i/(pts.length-1);
+    const y=pad.t+(H-pad.t-pad.b)*(1-v/maxP);
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.strokeStyle='#818cf8';ctx.lineWidth=2*window.devicePixelRatio;ctx.stroke();
+  
+  // VUs line
+  const maxVU=Math.max(...k6Points.vus)||1;
+  ctx.beginPath();
+  k6Points.vus.forEach((v,i)=>{
+    const x=pad.l+(W-pad.l-pad.r)*i/(k6Points.vus.length-1);
+    const y=pad.t+(H-pad.t-pad.b)*(1-v/maxVU*0.8);
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.strokeStyle='rgba(52,211,153,0.5)';ctx.lineWidth=1.5*window.devicePixelRatio;ctx.stroke();
+}
+
+function k6PrintSummary(maxVUs,threshold,mode){
+  const pts=k6Points.p95;
+  const avgP95=Math.round(pts.reduce((a,b)=>a+b,0)/pts.length);
+  const maxP95=Math.max(...pts);
+  const breachIdx=pts.findIndex(p=>p>threshold);
+  const breachVUs=breachIdx>=0?k6Points.vus[breachIdx]:null;
+  const totalReqs=k6Points.rps.reduce((a,b)=>a+b,0)*0.2;
+  
+  emuPrint('k6out','\n<span class="t-key">══════════════ TEST SUMMARY ══════════════</span>');
+  emuPrint('k6out',`Total Requests:    <span class="t-val">${Math.round(totalReqs).toLocaleString()}</span>`);
+  emuPrint('k6out',`Peak VUs:          <span class="t-val">${maxVUs}</span>`);
+  emuPrint('k6out',`Avg p95:           <span class="${avgP95>threshold?'t-err':'t-status-ok'}">${avgP95}ms</span>`);
+  emuPrint('k6out',`Max p95:           <span class="${maxP95>threshold?'t-err':'t-status-ok'}">${maxP95}ms</span>`);
+  if(breachVUs){
+    emuPrint('k6out',`Threshold breach:  <span class="t-err">at ${breachVUs} VUs (p95 > ${threshold}ms)</span>`);
+    emuPrint('k6out',`\n<span class="t-err">✗ THRESHOLD VIOLATED</span>`);
+    if(mode==='slow')emuPrint('k6out','<span class="t-dim">💡 Bottleneck: Slow DB Queries — add indexes or Connection Pool</span>');
+    else emuPrint('k6out','<span class="t-dim">💡 Bottleneck: likely DB Connection Pool — increase pool size</span>');
+  }else{
+    emuPrint('k6out',`\n<span class="t-status-ok">✓ All thresholds passed</span>`);
+  }
+  if(mode==='optimized')emuPrint('k6out','<span class="t-status-ok">🚀 Connection Pool: active — sustained higher load</span>');
+}
+
+// ══════════════════════════════════
+// QUIZ
+// ══════════════════════════════════
+const QS=[
+  {q:"איזה Status Code מוחזר כש-Resource לא קיים?",tag:"Status Codes",opts:["400 Bad Request","401 Unauthorized","404 Not Found","503 Service Unavailable"],ans:2,exp:"404 Not Found — ה-Resource שביקשת לא קיים. 400 = הבקשה עצמה שגויה. 401 = לא מאומת. 503 = שרת לא זמין."},
+  {q:"מה ההבדל בין 401 ל-403?",tag:"Status Codes",opts:["אין הבדל","401 = לא מזוהה, 403 = מזוהה אך אסור","401 = Server Error","401 עבור API בלבד"],ans:1,exp:"401 Unauthorized = לא מאומת (שלח Credentials). 403 Forbidden = מאומת אבל אין הרשאה. שם 'Unauthorized' הוא טעות היסטורית — הכוונה Unauthenticated."},
+  {q:"מה JWT?",tag:"Auth",opts:["JSON Web Template","JavaScript Widget Token","JSON Web Token — Token מקודד עם Signature","Java Web Technology"],ans:2,exp:"JWT = JSON Web Token. 3 חלקים: Header, Payload, Signature. הכל Base64 מקודד — גלוי לכולם! Signature מאמת שהתוכן לא שונה. לעולם אל תשמור סיסמה ב-Payload."},
+  {q:"מה idempotent בהקשר HTTP?",tag:"REST",opts:["בקשה שתמיד מחזירה 200","בקשה שאפשר לשלוח פעמיים ולקבל אותה תוצאה","בקשה ללא Body","בקשה עם Caching"],ans:1,exp:"Idempotent = הפעלה חוזרת נותנת אותה תוצאה. GET, PUT, DELETE = Idempotent. POST = לא (יוצר resource חדש). חשוב ל-Retry Logic."},
+  {q:"מה CORS ולמה הוא קיים?",tag:"Security",opts:["Cache Object Resource System","Cross-Origin Resource Sharing — מגן מ-Cross-Site Attacks","Compressed Output Response Size","Certificate Origin System"],ans:1,exp:"CORS = Cross-Origin Resource Sharing. הדפדפן חוסם JavaScript מ-origin אחד מלגשת ל-API באחר. מגן מ-CSRF Attacks."},
+  {q:"מה הבעיה עם JWT ב-localStorage?",tag:"Security",opts:["JWT גדול מדי","XSS יכול לגנוב אותו — JavaScript יכול לקרוא localStorage","לא ניתן לשלוח ב-Headers","לא Persistent"],ans:1,exp:"localStorage נגיש לכל JavaScript בדף — כולל XSS Scripts. HttpOnly Cookie לא נגיש ל-JS. לכן: Refresh Token ב-HttpOnly Cookie, Access Token ב-Memory."},
+  {q:"מה Cache-Control: no-cache אומר?",tag:"Caching",opts:["לא לשמור Cache בכלל","לבקש אימות תוקף לפני שימוש ב-Cache","למחוק Cache קיים","לשמור רק ב-Browser"],ans:1,exp:"no-cache ≠ 'אל תשמור'. המשמעות: שמור Cache, אבל תמיד בקש מהשרת לאמת לפני שימוש. לא לשמור בכלל = no-store."},
+  {q:"מה GraphQL פותר שREST לא?",tag:"GraphQL",opts:["GraphQL מהיר יותר","Over-fetching ו-Under-fetching — Client מגדיר בדיוק מה לקבל","GraphQL יותר מאובטח","GraphQL עם SQL בלבד"],ans:1,exp:"Over-fetching: REST מחזיר שדות שלא צריך. Under-fetching: צריך מספר Requests. GraphQL = שאילתה אחת שמחזירה בדיוק מה שהוגדר."},
+  {q:"מה WebSocket לעומת HTTP?",tag:"Real-Time",opts:["זהים לחלוטין","WebSocket = Full-Duplex, HTTP = Request/Response חד-כיווני","WebSocket רק ב-Mobile","WebSocket יותר מאובטח"],ans:1,exp:"HTTP = Client שולח → Server עונה. WebSocket = חיבור פתוח קבוע. Server יכול לשלוח ל-Client בלי שיבקש. Full-Duplex."},
+  {q:"מה Rate Limiting Code נכון?",tag:"Performance",opts:["400 Bad Request","401 Unauthorized","429 Too Many Requests","503 Service Unavailable"],ans:2,exp:"429 Too Many Requests הוא הקוד הסטנדרטי. הוסף: Retry-After Header ו-X-RateLimit-Remaining."},
+  {q:"מה OAuth 2.0 + PKCE?",tag:"Auth",opts:["Hash של Password","Flow מאובטח ל-Auth ב-Public Clients ללא Client Secret","Type של JWT","DB Auth Protocol"],ans:1,exp:"PKCE מונע Code Interception Attacks ב-Mobile Apps ו-SPAs שלא יכולים לשמור Client Secret. Code Verifier + Code Challenge."},
+  {q:"מה Webhook?",tag:"API Design",opts:["Web Security Hook","HTTP Callback — Server שולח ל-Client כשיש Event","Type של API Key","Widget Hook"],ans:1,exp:"Webhook = Push Notification ל-API. במקום Polling, Server שולח Request כשיש Event. Stripe, GitHub, Slack. תמיד אמת Signature!"},
+  {q:"מה Idempotency Key?",tag:"API Design",opts:["JWT Key","UUID למניעת כפילויות ב-Retries","Cache Key","DB Primary Key"],ans:1,exp:"UUID שנשלח ב-Header: Idempotency-Key: uuid. אם Request נשלח פעמיים (Network retry), Server מחזיר תשובה שמורה. קריטי ל-Payments."},
+  {q:"מה N+1 Problem ב-GraphQL?",tag:"GraphQL",opts:["Query עם יותר מ-1 שדה","Query שגורם ל-N DB Queries לכל N Records","Error ב-GraphQL","מחזיר יותר מ-N Results"],ans:1,exp:"N+1: 10 Users עם Orders → 1+10 Queries = 11. DataLoader: 1+1 = 2 Queries. חיסכון של 82% ב-DB Round Trips."},
+  {q:"מה ETag ב-HTTP?",tag:"Caching",opts:["Encryption Tag","Hash של Resource לבדיקת Freshness","Error Tag","Event Tag"],ans:1,exp:"ETag = Hash של תוכן. Browser שולח: If-None-Match. אם לא השתנה → 304 Not Modified ללא Body. חוסך Bandwidth."},
+  {q:"מה הבדל PUT ל-PATCH?",tag:"REST",opts:["אין הבדל","PUT = החלפה מלאה, PATCH = עדכון חלקי","PUT ל-Create","PUT יותר מאובטח"],ans:1,exp:"PUT = שלח Resource שלם (שדה שלא שלחת יתאפס). PATCH = שלח רק מה שרוצה לשנות. שניהם Idempotent."},
+  {q:"מה הסטנדרט לError Response ב-API?",tag:"REST",opts:["כל API לבד","RFC 7807 Problem Details","YAML Error Format","JSON:API Error Schema"],ans:1,exp:'RFC 7807: {"type":"URL","title":"Error","status":400,"detail":"...","instance":"/api/..."}. Clients יכולים לטפל ב-Errors אוניברסלית.'},
+  {q:"מה SSE לעומת WebSocket?",tag:"Real-Time",opts:["SSE = Full-Duplex","SSE = One-Way Server Push, WS = Full-Duplex. SSE פשוט יותר","SSE מהיר יותר","זהים"],ans:1,exp:"SSE = Server שולח ל-Client בלבד. פשוט, Auto-Reconnect, HTTP/2 Native. לNotifications, Feeds = SSE. לChat, Gaming = WebSocket."},
+  {q:"מה gRPC?",tag:"API Design",opts:["Google Remote Procedure Call — Protocol Buffers, מהיר מ-REST","Google REST Client","גרסה חדשה של HTTP","GraphQL Remote Client"],ans:0,exp:"gRPC = Protocol Buffers (Binary, לא JSON) + HTTP/2. פי 5-10 מהיר מ-REST. Streaming דו-כיווני. מושלם ל-Microservices."},
+  {q:"מה Circuit Breaker Pattern?",tag:"API Design",opts:["Firewall Rule","Pattern שמפסיק לשלוח לשירות תקוע — מונע Cascading Failures","API Key Rotation","Cache Invalidation"],ans:1,exp:"Circuit Breaker: שגיאות חוזרות → Circuit נפתח → Error מיידי. אחרי Timeout → Half-Open → מנסה שוב. מונע Thundering Herd."},
+];
+
+let qAnswered=0,qScore=0;
+function buildQuiz(){
+  const list=document.getElementById('qList');list.innerHTML='';qAnswered=0;qScore=0;
+  document.getElementById('scoreBox').classList.remove('show');updateProg();
+  QS.forEach((q,i)=>{
+    const c=document.createElement('div');c.className='q-card';c.id='qc'+i;
+    c.innerHTML=`<div class="q-top"><span class="q-idx">${String(i+1).padStart(2,'0')}/20</span><span class="q-tag">${q.tag}</span></div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts">${q.opts.map((o,j)=>`<div class="q-opt" onclick="pick(${i},${j})" id="o_${i}_${j}">${o}</div>`).join('')}</div>
+      <div class="q-exp" id="exp_${i}">${q.exp}</div>`;
+    list.appendChild(c);
+  });
+}
+function pick(qi,oi){
+  const q=QS[qi];
+  document.querySelectorAll(`[id^="o_${qi}_"]`).forEach(el=>el.classList.add('locked'));
+  if(oi===q.ans){document.getElementById(`o_${qi}_${oi}`).classList.add('hit');document.getElementById('qc'+qi).classList.add('c-ok');qScore++;}
+  else{document.getElementById(`o_${qi}_${oi}`).classList.add('miss');document.getElementById(`o_${qi}_${q.ans}`).classList.add('hit');document.getElementById('qc'+qi).classList.add('c-fail');}
+  document.getElementById('exp_'+qi).classList.add('show');qAnswered++;updateProg();
+  if(qAnswered===QS.length)setTimeout(showScore,500);
+}
+function updateProg(){const pct=qAnswered/QS.length*100;document.getElementById('qp').style.width=pct+'%';document.getElementById('qpl').textContent=`${qAnswered}/20 נענו`;}
+function showScore(){
+  const pct=Math.round(qScore/QS.length*100);
+  document.getElementById('scoreBox').classList.add('show');
+  document.getElementById('scoreBig').innerHTML=`${qScore}<span class="frac">/20</span>`;
+  let http,status,msg,sub;
+  if(pct>=90){http='HTTP/2 200 OK';status='✅ 200 OK';msg='Response: מושלם. Senior Engineer?';sub='כל API שתכתוב יאהב אותך.';}
+  else if(pct>=75){http='HTTP/2 206 Partial Content';status='📦 206 Partial';msg='קרוב! עוד קצת תרגול';sub='חזור על Auth ו-Caching.';}
+  else if(pct>=55){http='HTTP/2 304 Not Modified';status='🔄 304 Not Modified';msg='בינוני — יש מה לשפר';sub='תרגל את המעבדות.';}
+  else{http="HTTP/2 418 I'm a teapot";status="☕ 418 I'm a Teapot";msg='גם RFC 2324 הוא ידע.';sub='חזור ל-CH01.';}
+  document.getElementById('scoreHttp').textContent=http;document.getElementById('scoreStatus').textContent=status;
+  document.getElementById('scoreMsg').textContent=msg;document.getElementById('scoreSub').textContent=sub;
+  document.getElementById('scoreBox').scrollIntoView({behavior:'smooth'});
+}
+function restartQuiz(){buildQuiz();window.scrollTo({top:document.getElementById('quiz').offsetTop-80,behavior:'smooth'});}
+buildQuiz();
+
+// ══════════════════════════════════
+// GAME
+// ══════════════════════════════════
+const STATUSES=[
+  {code:200,cls:'go-200',name:'OK'},{code:301,cls:'go-301',name:'Moved Permanently'},
+  {code:404,cls:'go-404',name:'Not Found'},{code:500,cls:'go-500',name:'Internal Server Error'},
+  {code:401,cls:'go-401',name:'Unauthorized'},{code:403,cls:'go-403',name:'Forbidden'},
+  {code:429,cls:'go-429',name:'Too Many Requests'},{code:503,cls:'go-503',name:'Service Unavailable'},
+];
+const EXTRA=[
+  {code:204,cls:'go-200',name:'No Content'},{code:400,cls:'go-400',name:'Bad Request'},
+  {code:302,cls:'go-302',name:'Found (Temp Redirect)'},{code:422,cls:'go-422',name:'Unprocessable Entity'},
+  {code:405,cls:'go-405',name:'Method Not Allowed'},{code:201,cls:'go-201',name:'Created'},
+  {code:502,cls:'go-502',name:'Bad Gateway'},{code:304,cls:'go-304',name:'Not Modified'},
+];
+const ALL_STATUS=[...STATUSES,...EXTRA];
+const GQUESTIONS=[
+  {desc:"המשאב קיים, הכל עבד מצוין",hint:"הצלחה מושלמת",ans:200},
+  {desc:"הכתובת עברה ל-URL חדש לתמיד",hint:"Redirect קבוע — SEO friendly",ans:301},
+  {desc:"הדף שחיפשת לא קיים",hint:"Resource לא נמצא",ans:404},
+  {desc:"קוד צד שרת קרס",hint:"לא אשמת ה-Client",ans:500},
+  {desc:"שלחת בקשה בלי להתחבר",hint:"מי אתה? לא מכירים",ans:401},
+  {desc:"מחובר, אבל אין לך גישה",hint:"Authenticated but not Authorized",ans:403},
+  {desc:"שלחת יותר מדי בקשות מהר",hint:"Rate Limit — Slow down!",ans:429},
+  {desc:"שרת לא יכול לעבד כרגע",hint:"≠ 500. עמוס/למטה זמנית",ans:503},
+  {desc:"הצליח, אין תוכן להחזיר",hint:"DELETE בהצלחה",ans:204},
+  {desc:"ה-Client שלח JSON שבור",hint:"תקינות הבקשה — Client fault",ans:400},
+  {desc:"Redirect זמני ל-URL אחר",hint:"כמו 301 אבל לא permanent",ans:302},
+  {desc:"שדה חובה חסר ב-Form",hint:"Input תקין אבל Logic לא",ans:422},
+  {desc:"Method לא נתמך ב-Endpoint הזה",hint:"DELETE על Read-Only resource",ans:405},
+  {desc:"POST הצליח ויצר Resource חדש",hint:"שונה מ-200",ans:201},
+  {desc:"Gateway קיבל תגובה שגויה",hint:"Error בשרת מאחורי",ans:502},
+  {desc:"Resource לא השתנה — Cache תקף",hint:"ה-ETag תואמת",ans:304},
+];
+let gScore=0,gLives=3,gLevel=1,gAsked=[];
+function startGame(){
+  gScore=0;gLives=3;gLevel=1;gAsked=[];
+  document.getElementById('gameResult').classList.remove('show');
+  document.getElementById('gameBody').style.display='block';
+  updateGameUI();nextQuestion();
+}
+function updateGameUI(){
+  document.getElementById('gScore').textContent=gScore;
+  document.getElementById('gLives').textContent='❤️'.repeat(gLives)+'🖤'.repeat(3-gLives);
+  document.getElementById('gLevel').textContent=gLevel;
+}
+function getOptions(ansCode){
+  const pool=gLevel<=2?STATUSES.slice(0,4):gLevel<=4?STATUSES:ALL_STATUS;
+  const correct=ALL_STATUS.find(s=>s.code===ansCode)||pool[0];
+  const others=pool.filter(s=>s.code!==ansCode).sort(()=>Math.random()-.5).slice(0,3);
+  return[...others,correct].sort(()=>Math.random()-.5);
+}
+function nextQuestion(){
+  const rem=GQUESTIONS.filter((_,i)=>!gAsked.includes(i));
+  if(!rem.length||gLives<=0){endGame();return;}
+  const idx=GQUESTIONS.indexOf(rem[Math.floor(Math.random()*rem.length)]);
+  gAsked.push(idx);
+  const cur=GQUESTIONS[idx];window._curQ=cur;
+  document.getElementById('gQuestion').textContent=cur.desc;
+  document.getElementById('gHint').textContent='💭 '+cur.hint;
+  document.getElementById('gFeedback').textContent='';document.getElementById('gFeedback').className='game-feedback';
+  const opts=getOptions(cur.ans);
+  document.getElementById('gOptions').innerHTML=opts.map(o=>`<div class="g-opt ${o.cls}" onclick="gameAnswer(${o.code},this)">${o.code}<small>${o.name}</small></div>`).join('');
+  document.getElementById('gProgress').style.width=(gAsked.length/GQUESTIONS.length*100)+'%';
+  gLevel=Math.min(4,Math.floor(gScore/3)+1);updateGameUI();
+}
+function gameAnswer(code,el){
+  const q=window._curQ;
+  document.querySelectorAll('.g-opt').forEach(o=>o.classList.add('locked'));
+  const fb=document.getElementById('gFeedback');
+  if(code===q.ans){
+    el.classList.add('correct');gScore+=gLevel;
+    fb.textContent=`✅ נכון! +${gLevel}pts`;fb.className='game-feedback fb-ok';
+    updateGameUI();setTimeout(nextQuestion,900);
+  }else{
+    el.classList.add('wrong');gLives--;
+    const correct=[...document.querySelectorAll('.g-opt')].find(o=>o.getAttribute('onclick')&&o.getAttribute('onclick').includes(`gameAnswer(${q.ans},`));
+    if(correct)correct.classList.add('correct');
+    fb.textContent=`❌ התשובה: ${q.ans} ${ALL_STATUS.find(s=>s.code===q.ans)?.name||''}`;fb.className='game-feedback fb-err';
+    updateGameUI();if(gLives<=0){setTimeout(endGame,1200);return;}setTimeout(nextQuestion,1400);
+  }
+}
+function endGame(){
+  document.getElementById('gameBody').style.display='none';
+  const r=document.getElementById('gameResult');r.classList.add('show');
+  let emoji,title,msg;
+  if(gScore>=30){emoji='🏆';title='HTTP Master!';msg=`ניקוד ${gScore} — Senior Engineer Material.`;}
+  else if(gScore>=18){emoji='⭐';title='טוב מאוד!';msg=`ניקוד ${gScore} — עוד קצת ותהיה Master.`;}
+  else if(gScore>=10){emoji='📖';title='בינוני';msg=`ניקוד ${gScore} — חזור על Status Codes.`;}
+  else{emoji='☕';title="418 I'm a Teapot";msg=`גם זה Status Code. חזור ל-basics.`;}
+  document.getElementById('grEmoji').textContent=emoji;document.getElementById('grTitle').textContent=title;
+  document.getElementById('grScore').textContent=`ניקוד: ${gScore}`;document.getElementById('grMsg').textContent=msg;
+}
+startGame();
 </script>
 </body>
 </html>

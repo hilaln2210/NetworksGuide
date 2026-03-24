@@ -1,35 +1,33 @@
 #!/usr/bin/env python3
-"""Split web_apis_*.html into standalone chapter/lab/quiz files."""
+"""Split web_apis_pro_course.html into standalone chapter/lab/quiz files."""
 
 import os
 import re
 
-SRC_DIR = "/home/hila/Desktop/NetworksGuide/מסלול Web & APIs "
-OUT     = "/home/hila/Desktop/NetworksGuide/public/learn/webapi"
+SRC = "/home/hila/Desktop/NetworksGuide/מסלול Web & APIs /web_apis_pro_course.html"
+OUT = "/home/hila/Desktop/NetworksGuide/public/learn/webapi"
 os.makedirs(OUT, exist_ok=True)
 
-# ── helpers ──────────────────────────────────────────────────────────────────
+with open(SRC, encoding="utf-8") as f:
+    raw = f.read()
 
-def load(fname):
-    with open(os.path.join(SRC_DIR, fname), encoding="utf-8") as f:
-        return f.read()
+# ── 1. Extract <head> ──────────────────────────────────────────────────────
+head_match = re.search(r'<head>(.*?)</head>', raw, re.DOTALL)
+head_inner = head_match.group(1) if head_match else ""
 
-def extract_head(raw):
-    m = re.search(r'<head>(.*?)</head>', raw, re.DOTALL)
-    return m.group(1) if m else ""
+# ── 2. Extract shared <script> ─────────────────────────────────────────────
+script_match = re.search(r'(<script\b[^>]*>.*?</script>)', raw, re.DOTALL)
+shared_js = script_match.group(1) if script_match else ""
 
-def extract_script(raw):
-    m = re.search(r'(<script\b[^>]*>.*?</script>)', raw, re.DOTALL)
-    return m.group(1) if m else ""
+# ── 3. Extract <body> ──────────────────────────────────────────────────────
+body_match = re.search(r'<body>(.*?)</body>', raw, re.DOTALL)
+body = body_match.group(1) if body_match else raw
 
-def extract_body(raw):
-    m = re.search(r'<body>(.*?)</body>', raw, re.DOTALL)
-    return m.group(1) if m else raw
+# Strip the shared <script> from body
+body = re.sub(r'<script\b[^>]*>.*?</script>', '', body, flags=re.DOTALL)
 
-def strip_nav(body):
-    return re.sub(r'<nav\b[^>]*>.*?</nav>', '', body, flags=re.DOTALL)
-
-def make_html(head_inner, body_content, shared_js):
+# ── 4. HTML wrapper ────────────────────────────────────────────────────────
+def make_html(body_content):
     return f"""<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -48,96 +46,87 @@ def write(fname, html):
         f.write(html)
     print(f"  Wrote {fname}  ({len(html):,} chars)")
 
-# ════════════════════════════════════════════════════════════════════════════
-# 1. LEARN — 8 chapters (c1–c8)
-# ════════════════════════════════════════════════════════════════════════════
+# ── 5. Find section boundaries ─────────────────────────────────────────────
+learn_m = re.search(r'<div\s+id="learn"\s+class="section[^"]*"', body)
+labs_m  = re.search(r'<div\s+id="labs"\s+class="section[^"]*"',  body)
+quiz_m  = re.search(r'<div\s+id="quiz"\s+class="section[^"]*"',  body)
+
+learn_start = learn_m.start() if learn_m else 0
+labs_start  = labs_m.start()  if labs_m  else len(body)
+quiz_start  = quiz_m.start()  if quiz_m  else len(body)
+
+# ── 6. Learn — 8 chapters ─────────────────────────────────────────────────
 print("\n── Learn ──")
-raw_learn  = load("web_apis_learn.html")
-head_learn = extract_head(raw_learn)
-js_learn   = extract_script(raw_learn)
-body_learn = strip_nav(extract_body(raw_learn))
-body_learn = re.sub(r'<script\b[^>]*>.*?</script>', '', body_learn, flags=re.DOTALL)
+learn_body = body[learn_start:labs_start]
 
-ch_positions = [m.start() for m in re.finditer(r'<div\s+class="ch"\s+id="c\d+"', body_learn)]
-num_chapters = len(ch_positions)
-
-ch_names = [
-    "HTTP — הפרוטוקול שמריץ את האינטרנט",
-    "REST API — תכנון שנעשה נכון",
-    "GraphQL — בקש רק מה שאתה צריך",
-    "Authentication & Authorization",
-    "WebSockets & Real-Time",
-    "Performance & Caching",
-    "API Design Patterns & Architecture",
-    "API Testing, Docs & Versioning",
-]
-
-body_end = len(body_learn)
+ch_positions = [m.start() for m in re.finditer(r'<div\s+class="ch"\s+id="c\d+"', learn_body)]
+num_ch = len(ch_positions)
+print(f"  Found {num_ch} chapters")
 
 for i, start in enumerate(ch_positions):
-    end = ch_positions[i + 1] if i + 1 < num_chapters else body_end
-    chunk = body_learn[start:end].rstrip()
+    end = ch_positions[i + 1] if i + 1 < num_ch else len(learn_body)
+    chunk = learn_body[start:end].rstrip()
 
+    # Auto-open
     chunk = re.sub(
         r'<div\s+class="ch"\s+id="c' + str(i + 1) + r'"',
         f'<div class="ch open" id="c{i+1}"',
         chunk, count=1
     )
-    chunk = re.sub(
-        r'(<div\s+class="ch-body")',
-        r'\1 style="display:block"',
-        chunk
-    )
+    chunk = re.sub(r'(<div\s+class="ch-body")', r'\1 style="display:block"', chunk)
 
-    body_content = f'<div class="container">\n{chunk}\n</div>'
-    html = make_html(head_learn, body_content, js_learn)
+    html = make_html(chunk)
     write(f"learn_ch{i+1:02d}.html", html)
 
-# ════════════════════════════════════════════════════════════════════════════
-# 2. LABS — 6 labs (lb1–lb6)
-# ════════════════════════════════════════════════════════════════════════════
+# ── 7. Labs — 6 labs ──────────────────────────────────────────────────────
 print("\n── Labs ──")
-raw_labs  = load("web_apis_labs.html")
-head_labs = extract_head(raw_labs)
-js_labs   = extract_script(raw_labs)
-body_labs = strip_nav(extract_body(raw_labs))
-body_labs = re.sub(r'<script\b[^>]*>.*?</script>', '', body_labs, flags=re.DOTALL)
+labs_body = body[labs_start:quiz_start]
 
-lb_positions = [m.start() for m in re.finditer(r'<div\s+class="lab"\s+id="lb\d+"', body_labs)]
-num_labs = len(lb_positions)
-
-body_labs_end = len(body_labs)
+lb_positions = [m.start() for m in re.finditer(r'<div\s+class="lab"\s+id="lb\d+"', labs_body)]
+num_lb = len(lb_positions)
+print(f"  Found {num_lb} labs")
 
 for i, start in enumerate(lb_positions):
-    end = lb_positions[i + 1] if i + 1 < num_labs else body_labs_end
-    chunk = body_labs[start:end].rstrip()
+    end = lb_positions[i + 1] if i + 1 < num_lb else len(labs_body)
+    chunk = labs_body[start:end].rstrip()
 
+    # Auto-open
     chunk = re.sub(
         r'<div\s+class="lab"\s+id="lb' + str(i + 1) + r'"',
         f'<div class="lab open" id="lb{i+1}"',
         chunk, count=1
     )
-    chunk = re.sub(
-        r'(<div\s+class="lab-body")',
-        r'\1 style="display:block"',
-        chunk
-    )
+    chunk = re.sub(r'(<div\s+class="lab-body")', r'\1 style="display:block"', chunk)
 
-    body_content = f'<div class="container">\n{chunk}\n</div>'
-    html = make_html(head_labs, body_content, js_labs)
+    html = make_html(chunk)
     write(f"lab_ch{i+1:02d}.html", html)
 
-# ════════════════════════════════════════════════════════════════════════════
-# 3. QUIZ — copy as-is (inject_bridge.py handles bridge + light CSS)
-# ════════════════════════════════════════════════════════════════════════════
+# ── 8. Quiz ────────────────────────────────────────────────────────────────
 print("\n── Quiz ──")
-raw_quiz = load("web_apis_quiz.html")
-quiz_out = os.path.join(OUT, "quiz_game.html")
-with open(quiz_out, "w", encoding="utf-8") as f:
-    f.write(raw_quiz)
-print(f"  Wrote quiz_game.html  ({len(raw_quiz):,} chars)")
+quiz_chunk = body[quiz_start:].rstrip()
+quiz_chunk = quiz_chunk.replace('id="quiz" class="section"', 'id="quiz" class="section active"', 1)
+quiz_html = make_html(quiz_chunk)
+write("quiz_game.html", quiz_html)
 
-# ════════════════════════════════════════════════════════════════════════════
+# ── 9. Add XP to quiz ─────────────────────────────────────────────────────
+quiz_path = os.path.join(OUT, "quiz_game.html")
+with open(quiz_path, encoding="utf-8") as f:
+    qtext = f.read()
+
+xp_line = "    try { window.parent.postMessage({ type: 'ng_xp', amount: 10 }, '*'); } catch(e) {}"
+if "ng_xp" not in qtext:
+    qtext = re.sub(
+        r'(qScore\+\+;)',
+        r'\1\n' + xp_line,
+        qtext, count=1
+    )
+    with open(quiz_path, "w", encoding="utf-8") as f:
+        f.write(qtext)
+    print("  Added XP postMessage to quiz")
+else:
+    print("  XP already present in quiz")
+
+# ── Done ───────────────────────────────────────────────────────────────────
 print(f"\nDone! {OUT}")
 files = sorted(os.listdir(OUT))
 print(f"Total: {len(files)} files")
