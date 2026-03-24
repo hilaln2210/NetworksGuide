@@ -29,7 +29,7 @@ const FirewallSim = lazy(() => import('./components/FirewallSim').then(m => ({ d
 const HTTPRequestSim = lazy(() => import('./components/HTTPRequestSim').then(m => ({ default: m.HTTPRequestSim })))
 const PingSim = lazy(() => import('./components/PingSim').then(m => ({ default: m.PingSim })))
 import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName, resetXP, LEVELS } from './utils/xp'
-import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll, getTodayMinutes, addSessionMinutes, formatMinutes, getCompletedChapters, getTotalQuizCorrect, getLearningPace, getReadPages, getQuizScore } from './utils/progress'
+import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll, getTodayMinutes, addSessionMinutes, formatMinutes, getCompletedChapters, getTotalQuizCorrect, getLearningPace, getReadPages, getQuizScore, QUIZ_KEY } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
 import { processHtmlBidi, renderBidiText } from './utils/bidi.jsx'
 import { notifyVisit } from './utils/tgNotify.js'
@@ -742,7 +742,7 @@ function App() {
                   <span className="chapter-num">{t('chapter')} {i + 1}</span>
                   <span className="chapter-title">{isEn ? (getEnChapterTitle(ch.id) || ch.title) : ch.title}</span>
                   <div className="chapter-footer">
-                    <span className="chapter-pages">{ch.pages.length} {t('pages')}</span>
+                    {ch.pages[0]?.type !== 'html_page' && <span className="chapter-pages">{ch.pages.length} {t('pages')}</span>}
                     {prog > 0 && (
                       <div className="chapter-prog-bar">
                         <div className="chapter-prog-fill" style={{ width: `${prog}%` }} />
@@ -897,7 +897,6 @@ function App() {
 
       {activeTab === 'stats' && (() => {
         const allRead = getReadPages()
-        const QUIZ_KEY = 'networks_quiz_scores'
         const quizData = (() => { try { return JSON.parse(localStorage.getItem(QUIZ_KEY) || '{}') } catch { return {} } })()
         const quizEntries = Object.entries(quizData).filter(([, v]) => v && typeof v === 'object' && v.total > 0)
         const avgScore = quizEntries.length > 0

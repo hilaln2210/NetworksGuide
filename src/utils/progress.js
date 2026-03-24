@@ -43,7 +43,7 @@ export function getLastPosition() {
   try { return JSON.parse(localStorage.getItem(POSITION_KEY) || 'null') } catch { return null }
 }
 
-const QUIZ_KEY = 'networks_quiz_scores'
+export const QUIZ_KEY = 'networks_quiz_scores'
 
 export function saveQuizScore(chapterId, score, total) {
   try {
