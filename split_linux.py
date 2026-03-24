@@ -186,6 +186,7 @@ for i, start in enumerate(lb_positions):
 
 # ── 9. Extract quiz section ───────────────────────────────────────────────────
 quiz_chunk = body[quiz_start:].rstrip()
+quiz_chunk = quiz_chunk.replace('id="quiz" class="section"', 'id="quiz" class="section active"', 1)
 quiz_html = make_html("Linux PRO — Quiz", quiz_chunk)
 quiz_path = os.path.join(OUT, "quiz_game.html")
 with open(quiz_path, "w", encoding="utf-8") as f:
