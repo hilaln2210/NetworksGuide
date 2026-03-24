@@ -130,6 +130,27 @@ terminal_page = f"""<!DOCTYPE html>
 <script>
 {patched_script}
 </script>
+<script>
+/* Force mission list build after all scripts have run and MISSIONS is final */
+(function() {{
+  var list = document.getElementById('missionList');
+  if (!list || list.children.length > 0) return;
+  MISSIONS.forEach(function(m, idx) {{
+    var done = S.done.indexOf(m.id) >= 0;
+    var item = document.createElement('div');
+    item.className = 'm-item' + (done ? ' done' : '');
+    item.id = 'mi_' + m.id;
+    item.innerHTML =
+      '<div class="m-num">' + (idx + 1) + '</div>' +
+      '<div class="m-info"><div class="m-name">' + m.name + '</div>' +
+      '<div class="m-ch">\u05e4\u05e8\u05e7 ' + m.ch + '</div></div>' +
+      (done ? '<div class="m-check">\u2713</div>' : '');
+    item.onclick = function() {{ loadMission(m); }};
+    list.appendChild(item);
+  }});
+  if (typeof updateProgress === 'function') updateProgress();
+}})();
+</script>
 </body>
 </html>"""
 
