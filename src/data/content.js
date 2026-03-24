@@ -90,12 +90,21 @@ export const tracks = [
   {
     id: 'webapi',
     title: 'Web ו-APIs',
-    subtitle: 'HTTP/HTTPS, REST APIs, JWT, דפדפנים וכלים — הבנה מעמיקה של הווב',
+    subtitle: 'HTTP, REST, GraphQL, Auth, WebSockets, Performance — 8 פרקים',
     icon: '🌍',
     color: '#06b6d4',
     level: 'מתחיל–בינוני',
-    locked: true,
-    chapters: []
+    quizSrc: '/learn/webapi/quiz_game.html',
+    chapters: [
+      { id: 301, title: "HTTP — הפרוטוקול שמריץ את האינטרנט",  pages: [{ type: "html_page", title: "HTTP",                       src: "/learn/webapi/learn_ch01.html" }] },
+      { id: 302, title: "REST API — תכנון שנעשה נכון",          pages: [{ type: "html_page", title: "REST API",                   src: "/learn/webapi/learn_ch02.html" }] },
+      { id: 303, title: "GraphQL — בקש רק מה שאתה צריך",       pages: [{ type: "html_page", title: "GraphQL",                    src: "/learn/webapi/learn_ch03.html" }] },
+      { id: 304, title: "Authentication & Authorization",        pages: [{ type: "html_page", title: "Auth",                       src: "/learn/webapi/learn_ch04.html" }] },
+      { id: 305, title: "WebSockets & Real-Time",               pages: [{ type: "html_page", title: "WebSockets",                 src: "/learn/webapi/learn_ch05.html" }] },
+      { id: 306, title: "Performance & Caching",                pages: [{ type: "html_page", title: "Performance & Caching",      src: "/learn/webapi/learn_ch06.html" }] },
+      { id: 307, title: "API Design Patterns & Architecture",   pages: [{ type: "html_page", title: "API Design Patterns",        src: "/learn/webapi/learn_ch07.html" }] },
+      { id: 308, title: "API Testing, Docs & Versioning",       pages: [{ type: "html_page", title: "API Testing & Versioning",   src: "/learn/webapi/learn_ch08.html" }] },
+    ]
   },
   {
     id: 'redteam',

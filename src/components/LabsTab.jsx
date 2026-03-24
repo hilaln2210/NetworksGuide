@@ -46,6 +46,18 @@ const TRACKS = [
       { id: 'dev-ch07', chapter: { he: 'פרק 6', en: 'Chapter 6' }, title: { he: '🔐 Secrets Management עם HashiCorp Vault', en: '🔐 Secrets Management with HashiCorp Vault' }, description: { he: 'ניהול סודות, API keys וסיסמאות בצורה מאובטחת עם Vault.', en: 'Manage secrets, API keys and passwords securely with Vault.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 160, src: '/learn/devops/lab_ch07.html' },
     ],
   },
+  {
+    id: 'webapi',
+    label: { he: '🌍 Web ו-APIs', en: '🌍 Web & APIs' },
+    labs: [
+      { id: 'web-ch01', chapter: { he: 'פרק 1', en: 'Chapter 1' }, title: { he: '🌐 HTTP בחשיפה מלאה עם curl',            en: '🌐 HTTP Deep Dive with curl'              }, description: { he: 'ניתוח בקשות HTTP, Headers, Status Codes וניפוי תגובות עם curl.', en: 'Analyze HTTP requests, headers, status codes and debug responses with curl.' }, difficulty: { he: 'מתחיל',  en: 'Beginner'     }, xp: 100, src: '/learn/webapi/lab_ch01.html' },
+      { id: 'web-ch02', chapter: { he: 'פרק 2', en: 'Chapter 2' }, title: { he: '⚙️ בנה REST API עם Node.js + Express',  en: '⚙️ Build REST API with Node.js + Express' }, description: { he: 'פיתוח REST API מאפס — routes, middleware, error handling.', en: 'Build REST API from scratch — routes, middleware, error handling.' },           difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 130, src: '/learn/webapi/lab_ch02.html' },
+      { id: 'web-ch03', chapter: { he: 'פרק 4', en: 'Chapter 4' }, title: { he: '🔑 Auth: JWT + Refresh Tokens',          en: '🔑 Auth: JWT + Refresh Tokens'            }, description: { he: 'יישום Authentication מלא: JWT, Refresh Tokens, שמירת sessions.', en: 'Implement full Authentication: JWT, Refresh Tokens, session management.' },    difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 140, src: '/learn/webapi/lab_ch03.html' },
+      { id: 'web-ch04', chapter: { he: 'פרק 5', en: 'Chapter 5' }, title: { he: '💬 WebSocket Chat בזמן אמת',            en: '💬 WebSocket Real-Time Chat'              }, description: { he: 'בניית צ\'אט בזמן אמת עם WebSocket, Socket.io, rooms ו-events.', en: 'Build real-time chat with WebSocket, Socket.io, rooms and events.' },          difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 130, src: '/learn/webapi/lab_ch04.html' },
+      { id: 'web-ch05', chapter: { he: 'פרק 6', en: 'Chapter 6' }, title: { he: '🚦 Rate Limiting & API Gateway',         en: '🚦 Rate Limiting & API Gateway'           }, description: { he: 'הגנת API עם Rate Limiting, API Gateway, Throttling ו-Circuit Breaker.', en: 'Protect API with Rate Limiting, API Gateway, Throttling and Circuit Breaker.' }, difficulty: { he: 'מתקדם', en: 'Advanced'     }, xp: 150, src: '/learn/webapi/lab_ch05.html' },
+      { id: 'web-ch06', chapter: { he: 'פרק 8', en: 'Chapter 8' }, title: { he: '📈 API Load Testing עם k6',             en: '📈 API Load Testing with k6'              }, description: { he: 'בדיקות עומס על API עם k6 — Virtual Users, ramps, thresholds.', en: 'Load testing API with k6 — Virtual Users, ramps, thresholds.' },               difficulty: { he: 'מתקדם',  en: 'Advanced'     }, xp: 150, src: '/learn/webapi/lab_ch06.html' },
+    ],
+  },
 ]
 
 const DIFFICULTY_COLORS = {
