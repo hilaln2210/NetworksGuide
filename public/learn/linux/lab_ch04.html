@@ -1063,6 +1063,28 @@ body::after {
   }
   .site-footer { padding-bottom: max(18px, env(safe-area-inset-bottom)); }
 }
+
+<style id="linux-emu-css">
+.emu-wrap{margin-top:18px;border:1px solid var(--border2);border-radius:10px;overflow:hidden;background:#020402;}
+.emu-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:8px 14px;display:flex;align-items:center;gap:8px;}
+.emu-dots{display:flex;gap:5px;}
+.ed{width:10px;height:10px;border-radius:50%;}
+.ed-r{background:#ff5f57;}.ed-y{background:#febc2e;}.ed-g{background:#28c840;}
+.emu-ttl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-right:auto;}
+.emu-gbtn{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:5px 12px;background:rgba(88,166,255,.15);color:var(--blue);border:1px solid rgba(88,166,255,.3);border-radius:4px;cursor:pointer;transition:all .15s;}
+.emu-gbtn:hover{background:rgba(88,166,255,.25);}
+.emu-sbtn{font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 10px;background:transparent;color:var(--text-dim);border:1px solid var(--border2);border-radius:4px;cursor:pointer;transition:all .15s;}
+.emu-sbtn:hover{border-color:var(--blue);color:var(--blue);}
+.emu-iw{padding:9px 14px;border-bottom:1px solid var(--border);}
+.emu-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:1px;margin-bottom:4px;}
+.emu-inp{background:#0a0f0a;border:1px solid var(--border2);color:#e2e2e2;padding:7px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;width:100%;}
+.emu-inp:focus{border-color:var(--blue);}
+.emu-ta{width:100%;background:#0a0f0a;border:1px solid var(--border2);color:#e2e2e2;padding:8px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;resize:vertical;min-height:90px;line-height:1.6;}
+.emu-ta:focus{border-color:var(--blue);}
+.emu-row{display:flex;gap:6px;flex-wrap:wrap;}
+.emu-out{min-height:130px;max-height:300px;overflow-y:auto;padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.85;color:#8b949e;}
+.emu-out .ok{color:#3fb950;} .emu-out .err{color:#f85149;} .emu-out .key{color:#58a6ff;} .emu-out .val{color:#e3b341;} .emu-out .dim{color:#484f58;} .emu-out .hi{color:#39c5cf;} .emu-out .warn{color:#fbbf24;} .emu-out .em{color:#484f58;font-style:italic;} .emu-out .prompt{color:#3fb950;} .emu-out .perm{color:#f85149;}
+</style>
 </style>
 
 <style>
@@ -1116,7 +1138,33 @@ html, body { overflow-x: hidden; }
             <div class="lab-step"><span class="sn">05</span>עצור את הראשון לפי PID: <code>kill [PID]</code></div>
             <div class="lab-step"><span class="sn">06</span>פתח <code>top</code>, חכה 5 שניות, לחץ q לצאת. מה עמודת %CPU?</div>
           </div>
-          <button class="ans-btn" onclick="toggleAns('a4')"><span id="a4i">▶</span> הצג תשובות</button>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-ttl">bash — student@linux:~$ (process lab)</span>
+    <button class="emu-sbtn" onclick="lxC('lx4out')">clear</button>
+    <button class="emu-gbtn" onclick="lxLab4Reset()">&#8635; reset</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-lbl">הקלד פקודה:</div>
+    <div class="emu-row">
+      <input class="emu-inp" id="lx4inp" style="flex:1" placeholder="sleep 300 &" onkeydown="if(event.key==='Enter')lxLab4Run()">
+      <button class="emu-gbtn" onclick="lxLab4Run()">&#9166; Enter</button>
+    </div>
+    <div style="margin-top:6px;display:flex;gap:5px;flex-wrap:wrap">
+      <button class="emu-sbtn" onclick="lx4q('sleep 300 &')">sleep &</button>
+      <button class="emu-sbtn" onclick="lx4q('jobs')">jobs</button>
+      <button class="emu-sbtn" onclick="lx4q('ps aux | grep sleep')">ps grep</button>
+      <button class="emu-sbtn" onclick="lx4q('kill %1')">kill %1</button>
+      <button class="emu-sbtn" onclick="lx4q('top -bn1')">top</button>
+      <button class="emu-sbtn" onclick="lx4q('kill -9 1234')">kill -9</button>
+    </div>
+  </div>
+  <div class="emu-out" id="lx4out"><span class="em">הקלד פקודה...</span></div>
+</div>
+
+              <button class="ans-btn" onclick="toggleAns('a4')"><span id="a4i">▶</span> הצג תשובות</button>
           <div class="ans-box" id="a4">
             <div class="ans-head">✅ תשובות</div>
             <div class="ans-item"><span class="an">03</span><div><code>jobs</code> מציג: <code>[1]- Running sleep 300</code>, <code>[2]+ Running sleep 400</code>. הסימן + = Job הנוכחי (אחרון).</div></div>
@@ -2383,6 +2431,752 @@ window.simBoot = simBoot;
 window.simRun = simRun;
 
 })(); // end IIFE
+
+
+// ════════════ LINUX LAB EMULATORS ════════════
+
+function lxC(id){const el=document.getElementById(id);if(el)el.innerHTML='<span class="em">נוקה...</span>';}
+function lxP(id,html,append=true){
+  const el=document.getElementById(id);if(!el)return;
+  if(!append)el.innerHTML='';
+  const d=document.createElement('div');d.innerHTML=html;el.appendChild(d);
+  if(append&&el.firstChild&&el.firstChild.classList&&el.firstChild.classList.contains('em'))el.firstChild.remove();
+  el.scrollTop=el.scrollHeight;
+}
+function lxDelay(ms){return new Promise(r=>setTimeout(r,ms));}
+
+// ── LAB 1: Filesystem Navigation ──
+let lx1fs = {
+  cwd: '/home/student',
+  dirs: {
+    '/home/student': ['documents', 'downloads', '.bashrc', '.profile', 'notes.txt'],
+    '/home/student/documents': ['report.pdf', 'notes.md', 'todo.txt'],
+    '/home/student/downloads': ['archive.tar.gz', 'image.png'],
+    '/home/student/lab1': [],
+    '/tmp': ['session.lock', 'tmpfile123'],
+    '/etc': ['hosts', 'passwd', 'nginx', 'ssh'],
+  },
+  files: {
+    '/home/student/notes.txt': 'Hello Linux!\nThis is my notes file.\nLine 3.',
+    '/home/student/.bashrc': '# .bashrc\nexport PATH="$HOME/bin:$PATH"\nalias ll="ls -la"',
+    '/home/student/documents/todo.txt': '1. Learn Linux\n2. Write scripts\n3. Master the terminal',
+  }
+};
+
+function lx1q(v){document.getElementById('lx1inp').value=v;document.getElementById('lx1inp').focus();}
+
+function lxPrompt(lab){
+  const fss={1:lx1fs};
+  const fs=fss[lab]||lx1fs;
+  const cwd=fs.cwd;
+  const short=cwd.replace('/home/student','~');
+  return `<span class="prompt">student@linux</span><span class="dim">:</span><span class="key">${short}</span><span class="dim">$</span>`;
+}
+
+function lxLab1Reset(){
+  lx1fs.cwd='/home/student';
+  lx1fs.dirs['/home/student']=lx1fs.dirs['/home/student'].filter(f=>f!=='test.txt'&&f!=='lab1');
+  lxC('lx1out');
+  lxP('lx1out','<span class="dim">Reset. מיקום: /home/student</span>');
+}
+
+function lxLab1Run(){
+  const raw=document.getElementById('lx1inp').value.trim();
+  document.getElementById('lx1inp').value='';
+  if(!raw)return;
+  lxP('lx1out',`${lxPrompt(1)} ${raw}`);
+  const out=lx1exec(raw);
+  if(out)lxP('lx1out',out);
+}
+
+function lx1exec(cmd){
+  const fs=lx1fs;
+  const parts=cmd.trim().split(/\s+/);
+  const c=parts[0];
+
+  if(c==='pwd') return `<span class="val">${fs.cwd}</span>`;
+
+  if(c==='ls'){
+    const flags=parts.filter(p=>p.startsWith('-')).join('');
+    const target=parts.find(p=>!p.startsWith('-')&&p!=='ls')||fs.cwd;
+    const abs=target.startsWith('/')?target:fs.cwd+'/'+target;
+    const entries=fs.dirs[abs]||fs.dirs[fs.cwd]||[];
+    if(flags.includes('l')||flags.includes('a')){
+      const all=flags.includes('a')?['.','..', ...entries]:entries;
+      return ['<span class="dim">total '+(all.length*4)+'</span>',
+        ...all.map(e=>{
+          const isDir=fs.dirs[fs.cwd+'/'+e]!==undefined||e==='.'||e==='..';
+          const hidden=e.startsWith('.');
+          const perm=isDir?'drwxr-xr-x':'<span class="perm">-rw-r--r--</span>';
+          const col=isDir?'<span class="key">'+e+'</span>':(hidden?'<span class="dim">'+e+'</span>':e);
+          return `${perm} 1 student student  ${(Math.random()*4096|0).toString().padStart(5)} Jan 15 10:23 ${col}`;
+        })
+      ].join('\n');
+    }
+    return entries.map(e=>fs.dirs[fs.cwd+'/'+e]!==undefined?`<span class="key">${e}</span>`:e).join('  ');
+  }
+
+  if(c==='cd'){
+    const dest=parts[1]||'/home/student';
+    let abs;
+    if(dest==='~'||dest===undefined)abs='/home/student';
+    else if(dest==='..')abs=fs.cwd.split('/').slice(0,-1).join('/')||'/';
+    else if(dest.startsWith('/'))abs=dest;
+    else abs=fs.cwd+'/'+dest;
+    if(fs.dirs[abs]!==undefined){fs.cwd=abs;return '';}
+    return `<span class="err">bash: cd: ${dest}: No such file or directory</span>`;
+  }
+
+  if(c==='mkdir'){
+    const p=parts.includes('-p');
+    const name=parts.find(x=>!x.startsWith('-')&&x!=='mkdir');
+    if(!name)return '<span class="err">mkdir: missing operand</span>';
+    const abs=name.startsWith('/')?name:fs.cwd+'/'+name;
+    const base=abs.split('/').slice(0,-1).join('/');
+    const dirName=abs.split('/').pop();
+    if(fs.dirs[abs])return '';
+    if(!fs.dirs[base]&&!p)return `<span class="err">mkdir: cannot create directory '${name}': No such file or directory</span>`;
+    fs.dirs[abs]=[];
+    if(fs.dirs[base])fs.dirs[base].push(dirName);
+    return `<span class="ok">Directory '${name}' created</span>`;
+  }
+
+  if(c==='touch'){
+    const name=parts[1];if(!name)return '<span class="err">touch: missing operand</span>';
+    const abs=name.startsWith('/')?name:fs.cwd+'/'+name;
+    if(!fs.files[abs]){
+      fs.files[abs]='';
+      if(fs.dirs[fs.cwd]&&!fs.dirs[fs.cwd].includes(name))fs.dirs[fs.cwd].push(name);
+    }
+    return `<span class="ok">'${name}' created (empty)</span>`;
+  }
+
+  if(c==='rm'){
+    const name=parts.find(p=>!p.startsWith('-')&&p!=='rm');
+    if(!name)return '<span class="err">rm: missing operand</span>';
+    const abs=name.startsWith('/')?name:fs.cwd+'/'+name;
+    if(fs.files[abs]){
+      delete fs.files[abs];
+      fs.dirs[fs.cwd]=fs.dirs[fs.cwd].filter(f=>f!==name);
+      return `<span class="ok">'${name}' removed</span>`;
+    }
+    if(fs.dirs[abs]){
+      if(!parts.includes('-r')&&!parts.includes('-rf'))
+        return `<span class="err">rm: cannot remove '${name}': Is a directory. Use rm -r</span>`;
+      delete fs.dirs[abs];
+      fs.dirs[fs.cwd]=fs.dirs[fs.cwd].filter(f=>f!==name);
+      return `<span class="ok">Directory '${name}' removed</span>`;
+    }
+    return `<span class="err">rm: cannot remove '${name}': No such file or directory</span>`;
+  }
+
+  if(c==='cat'){
+    const name=parts[1];if(!name)return '<span class="err">cat: missing operand</span>';
+    const abs=name.startsWith('/')?name:fs.cwd+'/'+name;
+    if(fs.files[abs]!==undefined)return fs.files[abs].replace(/\n/g,'<br>');
+    if(fs.dirs[abs])return `<span class="err">cat: ${name}: Is a directory</span>`;
+    return `<span class="err">cat: ${name}: No such file or directory</span>`;
+  }
+
+  if(c==='tree'){
+    const lines=['<span class="key">'+fs.cwd+'</span>'];
+    const entries=fs.dirs[fs.cwd]||[];
+    entries.forEach((e,i)=>{
+      const isLast=i===entries.length-1;
+      const prefix=isLast?'└── ':'├── ';
+      const isDir=fs.dirs[fs.cwd+'/'+e];
+      lines.push(prefix+(isDir?`<span class="key">${e}/</span>`:e));
+      if(isDir&&fs.dirs[fs.cwd+'/'+e].length){
+        fs.dirs[fs.cwd+'/'+e].forEach(sub=>{
+          lines.push((isLast?'    ':'│   ')+'└── '+sub);
+        });
+      }
+    });
+    lines.push(`\n<span class="dim">${entries.length} items</span>`);
+    return lines.join('\n');
+  }
+
+  if(c==='echo'){
+    const rest=parts.slice(1).join(' ');
+    const redirect=rest.includes('>>');
+    const out=redirect?rest.split('>>')[0].trim().replace(/^"|"$/g,''):rest.replace(/^"|"$/g,'');
+    return out;
+  }
+
+  if(c==='clear')return '<br>'.repeat(3);
+  if(c==='whoami')return 'student';
+  if(c==='id')return '<span class="val">uid=1000(student) gid=1000(student) groups=1000(student),27(sudo)</span>';
+  if(c==='uname')return parts.includes('-a')?'Linux linux-lab 6.1.0-debian #1 SMP x86_64 GNU/Linux':'Linux';
+  if(c==='date')return new Date().toString();
+  if(c==='history')return ['  1  pwd','  2  ls -la','  3  cd documents','  4  cat notes.txt','  5  '+cmd].join('\n');
+
+  return `<span class="err">bash: ${c}: command not found</span>\n<span class="dim">Hint: type 'help' for available commands</span>`;
+}
+
+// ── LAB 2: File Reading & Search ──
+const LX2_FILES = {
+  'app.log': `2024-01-15 10:00:01 INFO  Server started on port 3000
+2024-01-15 10:00:05 INFO  Database connected to postgres://db:5432
+2024-01-15 10:01:23 INFO  GET /api/users 200 12ms user_id=42
+2024-01-15 10:01:45 INFO  POST /api/orders 201 34ms user_id=42
+2024-01-15 10:02:11 WARN  Slow query detected: 342ms query=SELECT * FROM orders
+2024-01-15 10:02:33 INFO  GET /api/products 200 8ms
+2024-01-15 10:03:01 ERROR Database connection timeout after 5000ms
+2024-01-15 10:03:01 ERROR Retrying connection (attempt 1/3)
+2024-01-15 10:03:06 INFO  Database reconnected
+2024-01-15 10:04:15 INFO  GET /api/users 200 11ms user_id=15
+2024-01-15 10:04:52 ERROR Failed to process payment: timeout from stripe API
+2024-01-15 10:05:01 WARN  Memory usage high: 87%
+2024-01-15 10:05:33 INFO  GET /health 200 2ms
+2024-01-15 10:06:11 ERROR Database connection timeout after 5000ms
+2024-01-15 10:06:11 ERROR Retrying connection (attempt 1/3)
+2024-01-15 10:06:16 ERROR Max retries exceeded - giving up
+2024-01-15 10:06:16 ERROR Service DEGRADED - falling back to read-only mode
+2024-01-15 10:07:01 INFO  GET /health 200 2ms
+2024-01-15 10:08:44 INFO  POST /api/users 201 28ms
+2024-01-15 10:09:01 INFO  Graceful shutdown initiated`,
+  'access.log': `192.168.1.100 - - [15/Jan/2024:10:01:23] "GET /api/users HTTP/1.1" 200 1234
+192.168.1.100 - - [15/Jan/2024:10:01:45] "POST /api/orders HTTP/1.1" 201 567
+10.0.0.5 - - [15/Jan/2024:10:02:11] "GET /api/products HTTP/1.1" 200 4321
+192.168.1.200 - - [15/Jan/2024:10:03:55] "GET /admin HTTP/1.1" 403 89
+10.0.0.99 - - [15/Jan/2024:10:04:01] "GET /../../../etc/passwd HTTP/1.1" 400 0
+192.168.1.100 - - [15/Jan/2024:10:04:15] "GET /api/users HTTP/1.1" 200 1456
+10.0.0.5 - - [15/Jan/2024:10:05:33] "GET /health HTTP/1.1" 200 45`,
+};
+
+function lx2q(v){document.getElementById('lx2inp').value=v;document.getElementById('lx2inp').focus();}
+function lxLab2Reset(){lxC('lx2out');lxP('lx2out','<span class="dim">Files ready: app.log (20 lines), access.log (7 lines)</span>');}
+
+function lxLab2Run(){
+  const raw=document.getElementById('lx2inp').value.trim();
+  document.getElementById('lx2inp').value='';
+  if(!raw)return;
+  lxP('lx2out',`<span class="prompt">student@linux</span><span class="dim">:~/logs$</span> ${raw}`);
+  lxP('lx2out',lx2exec(raw));
+}
+
+function lx2exec(cmd){
+  // Handle pipes
+  if(cmd.includes('|')){
+    const parts=cmd.split('|').map(p=>p.trim());
+    let data=lx2getFileData(parts[0]);
+    for(let i=1;i<parts.length;i++){
+      const p=parts[i];
+      if(p.startsWith('grep ')){
+        const term=p.replace(/^grep\s+(-\w+\s+)?/,'').replace(/['"]/g,'').split(/\s+/)[0];
+        data=data.split('\n').filter(l=>l.includes(term)).join('\n');
+      }else if(p.startsWith('wc -l')){
+        return `<span class="val">${data.split('\n').filter(Boolean).length}</span>`;
+      }else if(p==='sort'){
+        data=data.split('\n').sort().join('\n');
+      }else if(p.startsWith('uniq -c')){
+        const counts={};
+        data.split('\n').forEach(l=>{counts[l]=(counts[l]||0)+1;});
+        return Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<span class="val">${String(v).padStart(4)}</span> ${k}`).join('\n');
+      }else if(p.startsWith('head')){
+        const n=parseInt(p.match(/-(\d+)/)?.[1])||10;
+        data=data.split('\n').slice(0,n).join('\n');
+      }else if(p.startsWith('tail')){
+        const n=parseInt(p.match(/-(\d+)/)?.[1])||10;
+        data=data.split('\n').slice(-n).join('\n');
+      }else if(p.startsWith('awk')){
+        // basic awk: awk '{print $N}'
+        const colM=p.match(/print \$(\d+)/);
+        if(colM){
+          const col=parseInt(colM[1])-1;
+          data=data.split('\n').map(l=>l.split(/\s+/)[col]||'').join('\n');
+        }
+      }
+    }
+    return data?data.replace(/\n/g,'<br>'):'<span class="dim">(no output)</span>';
+  }
+  return lx2getFileData(cmd);
+}
+
+function lx2getFileData(cmd){
+  const parts=cmd.trim().split(/\s+/);
+  const c=parts[0];
+  const file=parts.find(p=>!p.startsWith('-')&&p!==c);
+  const flags=parts.filter(p=>p.startsWith('-')).join('');
+
+  const getContent=(f)=>{
+    if(LX2_FILES[f])return LX2_FILES[f];
+    if(f==='/var/log/syslog')return `Jan 15 10:00:01 linux kernel: Linux version 6.1.0\nJan 15 10:00:02 linux systemd[1]: Started kernel\nJan 15 10:01:00 linux sshd[1234]: Server listening on 0.0.0.0 port 22\nJan 15 10:02:00 linux nginx[5678]: start: process started`;
+    return null;
+  };
+
+  if(c==='cat'){
+    const content=getContent(file);
+    if(!content)return `<span class="err">cat: ${file}: No such file or directory</span>`;
+    return content.split('\n').map(l=>{
+      if(l.includes('ERROR'))return `<span class="err">${l}</span>`;
+      if(l.includes('WARN'))return `<span class="warn">${l}</span>`;
+      if(l.includes('403')||l.includes('400'))return `<span class="warn">${l}</span>`;
+      return l;
+    }).join('<br>');
+  }
+
+  if(c==='grep'){
+    const pat=parts[1]?.replace(/['"]/g,'');
+    const f=parts[2];
+    const content=getContent(f);
+    if(!content)return `<span class="err">grep: ${f}: No such file or directory</span>`;
+    const matches=content.split('\n').filter(l=>l.includes(pat));
+    if(!matches.length)return '<span class="dim">(no matches)</span>';
+    const colored=matches.map(l=>l.replace(new RegExp(pat,'g'),`<span class="err">${pat}</span>`));
+    return colored.join('<br>')+`\n<span class="dim">(${matches.length} matches)</span>`;
+  }
+
+  if(c==='head'){
+    const n=parseInt(flags.replace('-',''))||parseInt(parts.find(p=>/^\d+$/.test(p)))||10;
+    const content=getContent(file||parts[parts.length-1]);
+    if(!content)return `<span class="err">head: ${file}: No such file or directory</span>`;
+    return content.split('\n').slice(0,n).join('<br>');
+  }
+
+  if(c==='tail'){
+    const n=parseInt(flags.replace(/-/g,'').replace('f',''))||10;
+    const content=getContent(file||parts[parts.length-1]);
+    if(!content)return `<span class="err">tail: ${file}: No such file or directory</span>`;
+    const lines=content.split('\n').slice(-n);
+    return lines.map(l=>l.includes('ERROR')?`<span class="err">${l}</span>`:l).join('<br>');
+  }
+
+  if(c==='wc'){
+    const content=getContent(file);
+    if(!content)return `<span class="err">wc: ${file}: No such file or directory</span>`;
+    const lines=content.split('\n').length;
+    const words=content.split(/\s+/).length;
+    const bytes=content.length;
+    if(flags.includes('l'))return `<span class="val">${lines}</span> ${file}`;
+    return `<span class="val">${lines}</span> <span class="val">${words}</span> <span class="val">${bytes}</span> ${file}`;
+  }
+
+  if(c==='ls'){
+    return Object.keys(LX2_FILES).concat(['access.log']).join('  ');
+  }
+
+  return `<span class="err">bash: ${c}: command not found</span>`;
+}
+
+// ── LAB 3: Permissions ──
+let lx3state = { execBit: false };
+function lx3q(v){document.getElementById('lx3inp').value=v;document.getElementById('lx3inp').focus();}
+function lxLab3Reset(){lx3state.execBit=false;lxC('lx3out');lxP('lx3out','<span class="dim">Reset. hello.sh קיים ללא הרשאת הרצה.</span>');}
+
+function lxLab3Run(){
+  const raw=document.getElementById('lx3inp').value.trim();
+  document.getElementById('lx3inp').value='';
+  if(!raw)return;
+  lxP('lx3out',`<span class="prompt">student@linux</span><span class="dim">:~/scripts$</span> ${raw}`);
+  lxP('lx3out',lx3exec(raw));
+}
+
+function lx3exec(cmd){
+  const parts=cmd.trim().split(/\s+/);
+  const c=parts[0];
+
+  if(c==='ls'&&parts.includes('-l')){
+    const perm=lx3state.execBit?'-rwxr-xr-x':'-rw-r--r--';
+    return `${perm} 1 student student  67 Jan 15 10:23 <span class="${lx3state.execBit?'ok':'dim'}">hello.sh</span>`;
+  }
+
+  if(cmd==='./hello.sh'||cmd==='bash hello.sh'){
+    if(!lx3state.execBit&&cmd==='./hello.sh')
+      return `<span class="err">bash: ./hello.sh: Permission denied</span>\n<span class="dim">💡 Use: chmod +x hello.sh</span>`;
+    return `<span class="ok">שלום מה-Script!</span>\n<span class="ok">Current user: student</span>\n<span class="ok">Date: ${new Date().toLocaleDateString('he-IL')}</span>`;
+  }
+
+  if(c==='chmod'){
+    const mode=parts[1];const file=parts[2];
+    if(file!=='hello.sh')return `<span class="err">chmod: ${file}: No such file or directory</span>`;
+    if(mode==='+x'||mode==='755'||mode==='744'){
+      lx3state.execBit=true;
+      return `<span class="ok">chmod +x hello.sh ✓  (permissions: -rwxr-xr-x)</span>`;
+    }
+    if(mode==='644'||mode==='-x'||mode==='600'){
+      lx3state.execBit=false;
+      return `<span class="warn">Execution bit removed. permissions: -rw-r--r--</span>`;
+    }
+    return `<span class="dim">Mode ${mode} applied</span>`;
+  }
+
+  if(c==='stat'&&parts[1]==='hello.sh'){
+    const perm=lx3state.execBit?'0755/-rwxr-xr-x':'0644/-rw-r--r--';
+    return `  File: hello.sh\n  Size: 67\nAccess: (${perm})\n   Uid: 1000 (student)\n   Gid: 1000 (student)`;
+  }
+
+  if(cmd==='sudo cat /etc/shadow'){
+    return `<span class="warn">root:$6$rounds=5000$randomsalt$hash:19740:0:99999:7:::</span>
+<span class="warn">student:$6$rounds=5000$anothersalt$hash2:19740:0:99999:7:::</span>
+<span class="dim">// /etc/shadow requires sudo — password hashes visible</span>
+<span class="dim">// These are bcrypt/sha512 hashes — not plaintext passwords</span>`;
+  }
+
+  if(cmd.startsWith('sudo ')){
+    return `<span class="warn">[sudo] password for student: </span>\n<span class="ok">Command executed as root</span>`;
+  }
+
+  return `<span class="err">bash: ${parts[0]}: ${parts[1]?'No such file: '+parts[1]:'command not found'}</span>`;
+}
+
+// ── LAB 4: Processes ──
+let lx4procs = [];
+let lx4pidCounter = 1200;
+
+function lx4q(v){document.getElementById('lx4inp').value=v;document.getElementById('lx4inp').focus();}
+function lxLab4Reset(){lx4procs=[];lx4pidCounter=1200;lxC('lx4out');lxP('lx4out','<span class="dim">Reset. אין תהליכי Background.</span>');}
+
+function lxLab4Run(){
+  const raw=document.getElementById('lx4inp').value.trim();
+  document.getElementById('lx4inp').value='';
+  if(!raw)return;
+  lxP('lx4out',`<span class="prompt">student@linux</span><span class="dim">:~$</span> ${raw}`);
+  lxP('lx4out',lx4exec(raw));
+}
+
+function lx4exec(cmd){
+  const parts=cmd.trim().split(/\s+/);
+  const c=parts[0];
+
+  if(cmd.includes('sleep')&&cmd.endsWith('&')){
+    const sec=parseInt(parts[1])||300;
+    lx4pidCounter++;
+    const pid=lx4pidCounter;
+    const jobNum=lx4procs.length+1;
+    lx4procs.push({pid,cmd:`sleep ${sec}`,job:jobNum,status:'Running'});
+    return `[${jobNum}] <span class="val">${pid}</span>`;
+  }
+
+  if(c==='jobs'){
+    if(!lx4procs.length)return '<span class="dim">no background jobs</span>';
+    return lx4procs.map(p=>`[${p.job}]  <span class="ok">${p.status.padEnd(8)}</span>  ${p.cmd}  <span class="dim">(PID: ${p.pid})</span>`).join('\n');
+  }
+
+  if(c==='ps'){
+    const grep=cmd.includes('grep ')?cmd.split('grep ')[1]?.replace(/['"]/g,''):'';
+    const base=[
+      {pid:1,user:'root',cpu:'0.0',mem:'0.1',cmd:'systemd'},
+      {pid:2,user:'root',cpu:'0.0',mem:'0.0',cmd:'kthreadd'},
+      {pid:855,user:'root',cpu:'0.0',mem:'0.3',cmd:'/usr/sbin/sshd'},
+      {pid:1001,user:'student',cpu:'0.1',mem:'0.4',cmd:'-bash'},
+    ];
+    const all=[...base,...lx4procs.map(p=>({pid:p.pid,user:'student',cpu:'0.0',mem:'0.0',cmd:p.cmd}))];
+    const filtered=grep?all.filter(p=>p.cmd.includes(grep)):all;
+    const header='<span class="key">USER       PID  %CPU %MEM COMMAND</span>';
+    const rows=filtered.map(p=>`student    <span class="val">${String(p.pid).padEnd(5)}</span> ${p.cpu||'0.0'}  ${p.mem||'0.0'}  ${p.cmd.includes('sleep')?`<span class="hi">${p.cmd}</span>`:p.cmd}`);
+    return [header,...rows].join('\n');
+  }
+
+  if(c==='kill'){
+    const sig=parts.find(p=>p.startsWith('-'))||'-15';
+    const target=parts.find(p=>!p.startsWith('-')&&p!=='kill');
+    if(target&&target.startsWith('%')){
+      const jobNum=parseInt(target.slice(1));
+      const idx=lx4procs.findIndex(p=>p.job===jobNum);
+      if(idx>=0){const p=lx4procs.splice(idx,1)[0];return `[${jobNum}]  <span class="warn">Terminated</span>   ${p.cmd}`;}
+      return `<span class="err">bash: kill: %${jobNum}: no such job</span>`;
+    }
+    const pid=parseInt(target);
+    const idx=lx4procs.findIndex(p=>p.pid===pid);
+    if(idx>=0){const p=lx4procs.splice(idx,1)[0];return `<span class="ok">Process ${pid} (${p.cmd}) killed with signal ${sig.replace('-','')}</span>`;}
+    if(pid===1)return `<span class="err">kill: (1): Operation not permitted</span>`;
+    return `<span class="err">kill: (${pid}): No such process</span>`;
+  }
+
+  if(c==='top'&&parts.includes('-bn1')){
+    return `<span class="key">top - ${new Date().toLocaleTimeString('he-IL')} up 2:34,  1 user</span>
+Tasks: ${20+lx4procs.length} total, 1 running, ${19+lx4procs.length} sleeping
+<span class="val">%Cpu(s):  2.3 us, 0.5 sy,  0.0 ni, 96.8 id</span>
+MiB Mem: 8192.0 total, 5432.1 free, 1876.3 used
+<span class="key">  PID USER      %CPU %MEM  COMMAND</span>
+  855 root       0.3  0.3  sshd
+ 1001 student    0.1  0.4  bash
+${lx4procs.map(p=>`<span class="hi"> ${p.pid} student    0.0  0.0  ${p.cmd}</span>`).join('\n')}`;
+  }
+
+  if(c==='fg'){
+    const jobNum=parseInt(parts[1]?.replace('%',''))||1;
+    const proc=lx4procs.find(p=>p.job===jobNum);
+    if(!proc)return `<span class="err">fg: %${jobNum}: no such job</span>`;
+    return `${proc.cmd}\n<span class="dim">^C</span>\n<span class="warn">Process interrupted — Ctrl+C</span>`;
+  }
+
+  if(c==='bg'){
+    return `<span class="dim">[1]+ ${lx4procs[0]?.cmd||'sleep 300'} &</span>`;
+  }
+
+  return `<span class="err">bash: ${c}: command not found</span>`;
+}
+
+// ── LAB 5: Bash Scripting ──
+const LX5_SCRIPTS = {
+  forloop: `#!/bin/bash
+set -euo pipefail
+
+echo "Counting files in current directory:"
+count=0
+
+for file in /home/student/documents/*.txt; do
+    if [ -f "$file" ]; then
+        echo "  Found: \$(basename $file)"
+        ((count++))
+    fi
+done
+
+echo ""
+echo "Total .txt files: $count"`,
+
+  checker: `#!/bin/bash
+# System health checker
+
+DISK_THRESHOLD=80
+MEM_THRESHOLD=90
+
+echo "=== System Health Check ==="
+echo "Date: \$(date)"
+echo ""
+
+# Disk usage
+DISK=\$(df / | awk 'NR==2 {print $5}' | tr -d '%')
+if [ $DISK -gt $DISK_THRESHOLD ]; then
+    echo "WARNING: Disk usage \${DISK}% (threshold: \${DISK_THRESHOLD}%)"
+else
+    echo "OK: Disk usage \${DISK}%"
+fi
+
+# Argument check
+if [ $# -eq 0 ]; then
+    echo ""
+    echo "Usage: $0 [hostname]"
+    exit 0
+fi
+
+echo "Checking host: $1"
+echo "Done."`,
+};
+
+function lx5arg(a){document.getElementById('lx5args').value=a;}
+function lx5load(name){
+  if(LX5_SCRIPTS[name])document.getElementById('lx5code').value=LX5_SCRIPTS[name];
+}
+
+function lxLab5Run(){
+  const code=document.getElementById('lx5code').value;
+  const argsStr=document.getElementById('lx5args').value.trim();
+  const args=argsStr?argsStr.split(/\s+/):[];
+  lxC('lx5out');
+
+  lxP('lx5out',`<span class="dim">$ bash script.sh ${argsStr}</span>`);
+  lxP('lx5out','<span class="dim">─────────────────</span>');
+
+  // Simulate script execution
+  const lines=code.split('\n');
+  const output=[];
+  const vars={};
+
+  // Replace $1, $2... with args
+  const resolve=(s)=>{
+    let r=s;
+    args.forEach((a,i)=>{r=r.replace(new RegExp('\\${'+(i+1)+'}|\\$'+(i+1),'g'),a);});
+    r=r.replace(/\$\{?(\w+)\}?/g,(m,k)=>vars[k]||m);
+    r=r.replace(/\$#/g,String(args.length));
+    r=r.replace(/\$0/g,'script.sh');
+    r=r.replace(/\$@/g,args.join(' '));
+    r=r.replace(/\$\?/g,'0');
+    r=r.replace(/\$\(date\)/g,new Date().toLocaleString('he-IL'));
+    r=r.replace(/\$\(date \+[^)]+\)/g,new Date().toISOString().split('T')[0]);
+    r=r.replace(/\$\(basename ([^)]+)\)/g,(_,p)=>p.split('/').pop());
+    return r;
+  };
+
+  let i=0;let skipUntilFi=false;let skipUntilDone=false;let forItems=[];let forVar='';
+
+  while(i<lines.length){
+    const line=lines[i].trim();
+    i++;
+    if(!line||line.startsWith('#')||line.startsWith('set ')||line.startsWith('#!/')){continue;}
+
+    if(skipUntilFi){if(line==='fi')skipUntilFi=false;continue;}
+
+    // Variable assignment
+    if(/^[A-Z_a-z]\w*=/.test(line)&&!line.startsWith('if')&&!line.startsWith('for')){
+      const [k,...rest]=line.split('=');
+      let val=rest.join('=').replace(/^["']|["']$/g,'');
+      val=resolve(val);
+      // Eval simple subshell: $(...)
+      if(val.includes('$(')){ val=val.replace(/\$\(date\)/g,new Date().toLocaleString('he-IL')).replace(/\$\(date \+[^)]+\)/g,new Date().toISOString().split('T')[0]).replace(/\$\(.*?\)/g,'[simulated]'); }
+      vars[k]=val;
+      continue;
+    }
+
+    if(line.startsWith('if [ ')||line.startsWith('if [')){
+      // Simple condition check
+      const cond=line.replace(/^if \[?\[?\s*/,'').replace(/\s*\]?\]?\s*;\s*then$/,'');
+      const srcDir=vars['SOURCE']||args[0]||'/home/student';
+      let result=false;
+      if(cond.includes('-d')){ result=srcDir==='/home/student'||srcDir.startsWith('/home')||srcDir==='/tmp'; }
+      else if(cond.includes('-f')){ result=true; }
+      else if(cond.includes('-eq')||cond.includes('-gt')||cond.includes('-lt')){
+        const m=cond.match(/(\d+)\s+(-\w+)\s+(\d+)/);
+        if(m){const a=parseInt(m[1]),op=m[2],b=parseInt(m[3]);
+          result=op==='-gt'?a>b:op==='-lt'?a<b:a===b;}
+      }
+      else if(cond.includes('$#')){const m=cond.match(/\$#\s+(-\w+)\s+(\d+)/);if(m)result=m[1]==='-eq'?args.length===parseInt(m[2]):args.length>0;}
+      if(!result)skipUntilFi=true;
+      continue;
+    }
+    if(line==='else'){skipUntilFi=!skipUntilFi;continue;}
+    if(line==='fi')continue;
+
+    if(line.startsWith('for ')){
+      const m=line.match(/for (\w+) in ([^;]+)/);
+      if(m){
+        forVar=m[1];
+        let items=m[2].trim();
+        if(items.includes('*.txt')){
+          forItems=['/home/student/documents/todo.txt','/home/student/notes.txt'];
+        } else {
+          items=resolve(items);
+          forItems=items.split(/\s+/);
+        }
+      }
+      continue;
+    }
+    if(line==='do')continue;
+    if(line==='done'){forVar='';forItems=[];continue;}
+
+    // echo
+    if(line.startsWith('echo ')){
+      let msg=line.slice(5).replace(/^["']|["']$/g,'');
+      msg=resolve(msg);
+      if(forVar&&forItems.length){
+        for(const item of forItems){
+          vars[forVar]=item;
+          let m2=line.slice(5).replace(/^["']|["']$/g,'');
+          m2=m2.replace(new RegExp('\\$\\{?'+forVar+'\\}?','g'),item);
+          m2=resolve(m2);
+          if(m2.includes('ERROR')||m2.includes('WARNING')||m2.includes('WARNING'))
+            output.push(`<span class="warn">${m2}</span>`);
+          else output.push(`<span class="ok">${m2}</span>`);
+        }
+        continue;
+      }
+      if(msg.includes('Error')||msg.includes('ERROR'))output.push(`<span class="err">${msg}</span>`);
+      else if(msg.includes('OK')||msg.includes('Done')||msg.includes('complete'))output.push(`<span class="ok">${msg}</span>`);
+      else if(msg.includes('WARNING')||msg.includes('WARN'))output.push(`<span class="warn">${msg}</span>`);
+      else output.push(msg);
+      continue;
+    }
+
+    if(line.startsWith('exit')){
+      const exitParts=line.split(/\s+/);
+      const code=parseInt(exitParts[1])||0;
+      if(code!==0){output.push(`<span class="err">exit ${code}</span>`);break;}
+      break;
+    }
+  }
+
+  if(!output.length)output.push('<span class="dim">(no output)</span>');
+  output.forEach(l=>lxP('lx5out',l));
+  lxP('lx5out',`<span class="dim">─────────────────</span>`);
+  lxP('lx5out',`<span class="dim">exit code: 0</span>`);
+}
+
+// ── LAB 6: Troubleshooting nginx ──
+let lx6state = {
+  nginxStatus: 'stopped',
+  port80occupant: 'apache2',
+  port80pid: 3456,
+  nginxConfigOk: true,
+};
+
+function lx6q(v){document.getElementById('lx6inp').value=v;document.getElementById('lx6inp').focus();}
+function lxLab6Reset(){
+  lx6state={nginxStatus:'stopped',port80occupant:'apache2',port80pid:3456,nginxConfigOk:true};
+  lxC('lx6out');
+  lxP('lx6out','<span class="warn">State reset. nginx עצור. apache2 תופס פורט 80 (PID 3456).</span>');
+}
+
+function lxLab6Run(){
+  const raw=document.getElementById('lx6inp').value.trim();
+  document.getElementById('lx6inp').value='';
+  if(!raw)return;
+  lxP('lx6out',`<span class="prompt">student@linux</span><span class="dim">:~$</span> ${raw}`);
+  lxP('lx6out',lx6exec(raw));
+}
+
+function lx6exec(cmd){
+  const s=lx6state;
+
+  if(cmd==='systemctl status nginx'||cmd==='sudo systemctl status nginx'){
+    if(s.nginxStatus==='running')
+      return `● nginx.service - A high performance web server\n     <span class="ok">Active: active (running)</span> since ${new Date().toLocaleTimeString('he-IL')}\n   Process: 7890 ExecStart=/usr/sbin/nginx\n  <span class="ok">● Listening on port 80 ✓</span>`;
+    if(s.nginxStatus==='failed')
+      return `● nginx.service - A high performance web server\n     <span class="err">Active: failed</span> (Result: exit-code)\n  Process: ExecStart=/usr/sbin/nginx (code=exited, status=1/FAILURE)\n\n<span class="warn">nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)</span>`;
+    return `● nginx.service - A high performance web server\n     <span class="dim">Active: inactive (dead)</span>\n  nginx has not been started`;
+  }
+
+  if(cmd==='sudo systemctl start nginx'||cmd==='systemctl start nginx'){
+    if(s.port80occupant){
+      s.nginxStatus='failed';
+      return `<span class="err">Job for nginx.service failed.</span>\n<span class="dim">See: systemctl status nginx.service</span>\n<span class="dim">    journalctl -u nginx.service</span>`;
+    }
+    s.nginxStatus='running';
+    return `<span class="ok">● nginx started successfully</span>`;
+  }
+
+  if(cmd==='sudo systemctl stop nginx'||cmd==='systemctl stop nginx'){
+    s.nginxStatus='stopped';
+    return `<span class="ok">nginx stopped</span>`;
+  }
+
+  if(cmd==='journalctl -u nginx -n 20'||cmd==='journalctl -u nginx.service -n 20'||cmd==='sudo journalctl -u nginx -n 20'){
+    return `<span class="dim">Jan 15 10:23:01 linux nginx[7890]: nginx: the configuration file /etc/nginx/nginx.conf syntax is ok</span>
+<span class="err">Jan 15 10:23:01 linux nginx[7890]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)</span>
+<span class="err">Jan 15 10:23:01 linux systemd[1]: nginx.service: Control process exited with error code</span>
+<span class="err">Jan 15 10:23:01 linux systemd[1]: Failed to start nginx.service</span>
+<span class="dim">💡 Port 80 is already in use by another process!</span>`;
+  }
+
+  if(cmd==='ss -tlnp | grep :80'||cmd==='ss -tlnp'||cmd.includes('lsof')&&cmd.includes('80')){
+    if(s.port80occupant)
+      return `LISTEN  0  511  0.0.0.0:80  0.0.0.0:*  users:(("<span class="warn">${s.port80occupant}</span>",pid=<span class="val">${s.port80pid}</span>,fd=6))`;
+    return `<span class="dim">(no process listening on :80)</span>`;
+  }
+
+  if(cmd.includes('kill')&&(cmd.includes('lsof')||cmd.includes('3456')||cmd.includes(':80'))){
+    if(s.port80occupant){
+      const prev=s.port80occupant;
+      s.port80occupant=null;s.port80pid=null;
+      return `<span class="ok">Killed ${prev} (PID ${lx6state.port80pid||3456})</span>\n<span class="ok">Port 80 is now free</span>`;
+    }
+    return '<span class="dim">No process on port 80</span>';
+  }
+
+  if(cmd==='sudo systemctl stop apache2'||cmd==='systemctl stop apache2'){
+    s.port80occupant=null;s.port80pid=null;
+    return `<span class="ok">apache2 stopped — port 80 is now free</span>`;
+  }
+
+  if(cmd==='nginx -t'||cmd==='sudo nginx -t'){
+    return `nginx: the configuration file /etc/nginx/nginx.conf syntax is ok\n<span class="ok">nginx: configuration file /etc/nginx/nginx.conf test is successful</span>`;
+  }
+
+  if(cmd.startsWith('curl ')){
+    if(s.nginxStatus==='running')
+      return `<span class="ok">HTTP/1.1 200 OK\nServer: nginx/1.24.0\nContent-Type: text/html</span>`;
+    return `<span class="err">curl: (7) Failed to connect to localhost port 80: Connection refused</span>`;
+  }
+
+  if(cmd==='sudo apt install nginx -y'||cmd==='apt install nginx -y')
+    return `<span class="ok">Reading package lists... Done\nnginx is already the newest version (1.24.0).</span>`;
+
+  if(cmd.startsWith('sudo ')||cmd.startsWith('systemctl'))
+    return `<span class="ok">Command executed</span>`;
+
+  return `<span class="err">bash: ${cmd.split(' ')[0]}: command not found</span>`;
+}
 
 </script>
 </body>
