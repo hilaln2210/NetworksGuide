@@ -66,6 +66,43 @@ export const tracks = [
       { id: 209, title: "DevSecOps — אבטחה שנבנית, לא מודבקת",        pages: [{ type: "html_page", title: "DevSecOps",                           src: "/learn/devops/learn_ch09.html" }] },
     ]
   }
+  // ── LOCKED / COMING SOON ──
+  {
+    id: 'research',
+    title: 'חקר רשתות',
+    subtitle: 'Wireshark, BGP, DNS, HTTP/2, eBPF, TLS, Container Networking',
+    icon: '🔬',
+    color: '#8b5cf6',
+    level: 'מתקדם',
+    chapters: []
+  },
+  {
+    id: 'linux',
+    title: 'מערכות ולינוקס',
+    subtitle: 'פקודות, הרשאות, Bash, כלי רשת ופתרון תקלות — הבסיס לכל איש IT',
+    icon: '🐧',
+    color: '#f59e0b',
+    level: 'מתחיל–בינוני',
+    chapters: []
+  },
+  {
+    id: 'webapi',
+    title: 'Web ו-APIs',
+    subtitle: 'HTTP/HTTPS, REST APIs, JWT, דפדפנים וכלים — הבנה מעמיקה של הווב',
+    icon: '🌍',
+    color: '#06b6d4',
+    level: 'מתחיל–בינוני',
+    chapters: []
+  },
+  {
+    id: 'redteam',
+    title: 'Red Team — פריצה אתית',
+    subtitle: 'Kali Linux, XSS, SQLi, סריקה ופריצה אתית — מהבסיס לתרגול',
+    icon: '🔴',
+    color: '#dc2626',
+    level: 'בינוני–מתקדם',
+    chapters: []
+  },
 ]
 
 // Backward compatibility — defaults to networking track chapters
