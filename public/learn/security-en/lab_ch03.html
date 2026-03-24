@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
 
 <meta charset="UTF-8">
@@ -494,8 +494,8 @@ body::after {
   <div class="lab-body" style="display:block">
     <div class="lab-goal">Understand SQL Injection from the ground up — attack DVWA manually, then see why Prepared Statements prevent it.</div>
     <div class="lab-steps">
-      <div class="lab-step"><span class="sn">01</span>הפעל DVWA (Docker: <code>docker run -p 80:80 vulnerables/web-dvwa</code>). הגדר Security Level: Low.</div>
-      <div class="lab-step"><span class="sn">02</span>ב-SQL Injection Tab, הזן: <code>' OR '1'='1</code> — what comes back?</div>
+      <div class="lab-step"><span class="sn">01</span>Launch DVWA (Docker: <code>docker run -p 80:80 vulnerables/web-dvwa</code>). Set Security Level: Low.</div>
+      <div class="lab-step"><span class="sn">02</span>In the SQL Injection Tab, enter: <code>' OR '1'='1</code> — what comes back?</div>
       <div class="lab-step"><span class="sn">03</span>Find column count: <code>' ORDER BY 1--</code>, <code>' ORDER BY 2--</code> until you get an error</div>
       <div class="lab-step"><span class="sn">04</span>Extract table names: <code>' UNION SELECT table_name,2 FROM information_schema.tables--</code></div>
       <div class="lab-step"><span class="sn">05</span>Dump hashes: <code>' UNION SELECT user,password FROM users--</code></div>
@@ -638,7 +638,7 @@ function pick(qi, oi) {
 
 function updateProg() {
   document.getElementById('qp').style.width = (qAns / QS.length * 100) + '%';
-  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} נענו`;
+  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} answered`;
 }
 
 function showScore() {

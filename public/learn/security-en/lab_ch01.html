@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
 
 <meta charset="UTF-8">
@@ -497,7 +497,7 @@ body::after {
       <div class="lab-step"><span class="sn">01</span>Host Discovery: <code>nmap -sn 192.168.1.0/24</code> — who is alive?</div>
       <div class="lab-step"><span class="sn">02</span>TCP SYN Scan: <code>nmap -sS -p 1-1000 &lt;target&gt;</code> — open ports</div>
       <div class="lab-step"><span class="sn">03</span>Service Version Detection: <code>nmap -sV -sC &lt;target&gt;</code> — service versions</div>
-      <div class="lab-step"><span class="sn">04</span>OS Detection: <code>nmap -O &lt;target&gt;</code> — איזה OS רץ</div>
+      <div class="lab-step"><span class="sn">04</span>OS Detection: <code>nmap -O &lt;target&gt;</code> — which OS is running</div>
       <div class="lab-step"><span class="sn">05</span>Save results: <code>nmap -oA scan_results &lt;target&gt;</code> — saves XML, Grepable, Normal formats</div>
       <div class="lab-step"><span class="sn">06</span>Use Metasploitable2 as Target (free VM) — try to identify at least one vulnerable service</div>
     </div>
@@ -526,7 +526,7 @@ body::after {
     <div class="ans-box" id="a1">
       <div class="ans-head">✅ Answers — Nmap</div>
       <div class="ans-item"><span class="an">01</span><div><strong>Host Discovery:</strong> <code>-sn</code> (Ping Scan) sends ICMP Echo + TCP SYN to 443 + TCP ACK to 80. Returns a list of live hosts without port scanning. Fast for initial network mapping.</div></div>
-      <div class="ans-item"><span class="an">02</span><div><strong>SYN Scan ("Stealth"):</strong> שולח SYN, if SYN-ACK received → port is open. Sends RST immediately (no full Handshake). Less log noise than Full Connect Scan. Requires Sudo.</div></div>
+      <div class="ans-item"><span class="an">02</span><div><strong>SYN Scan ("Stealth"):</strong> sends SYN, if SYN-ACK received → port is open. Sends RST immediately (no full Handshake). Less log noise than Full Connect Scan. Requires Sudo.</div></div>
       <div class="ans-item"><span class="an">03</span><div><strong>-sV:</strong> attempts to identify Service version. <strong>-sC:</strong> runs basic NSE Scripts (Default Scripts). Together: <code>nmap -sV -sC -p 22,80,443,3306 &lt;target&gt;</code> = the most common combo.</div></div>
       <div class="ans-item"><span class="an">06</span><div><strong>Common Metasploitable2 vulnerable services:</strong> FTP (21) with anonymous login, SSH (22) with old version, Samba (139/445) with ms08-067, MySQL (3306) with no password, DVWA (80).</div></div>
       <div class="ans-note">💡 <strong>Important:</strong> Only scan networks and systems you have permission to scan. Unauthorized network scanning is a criminal offense in most countries. For practice: use Metasploitable, TryHackMe, or HackTheBox.</div>
@@ -629,7 +629,7 @@ function pick(qi, oi) {
 
 function updateProg() {
   document.getElementById('qp').style.width = (qAns / QS.length * 100) + '%';
-  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} נענו`;
+  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} answered`;
 }
 
 function showScore() {

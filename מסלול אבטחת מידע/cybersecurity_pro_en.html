@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cybersecurity PRO</title>
@@ -478,11 +477,117 @@ body::after {
 .emu-out .ok{color:#34d399;}.emu-out .err{color:#f87171;}.emu-out .key{color:#818cf8;}.emu-out .val{color:#fbbf24;}.emu-out .dim{color:#475569;}.emu-out .warn{color:#fbbf24;}.emu-out .hi{color:#22d3ee;}.emu-out .em{color:#475569;font-style:italic;}.emu-out .red{color:#f43f5e;}
 </style>
 </style>
-
-<script src="/_bridge.js"></script>
 </head>
 <body>
-<div class="ch open" id="c3">
+
+<nav class="nav">
+  <span class="nav-brand">🔐 Cybersecurity PRO</span>
+  <div class="nav-tabs">
+    <button class="nav-tab active" id="tb-learn" onclick="switchTab('learn',this)">📚 Learn</button>
+    <button class="nav-tab" id="tb-labs"  onclick="switchTab('labs',this)">🧪 Labs</button>
+    <button class="nav-tab" id="tb-quiz"  onclick="switchTab('quiz',this)">🎯 Quiz</button>
+    <button class="nav-tab" id="tb-game"  onclick="switchTab('game',this)">🎮 Game</button>
+  </div>
+  <span class="nav-clock" id="clk"></span>
+</nav>
+
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">PRO TRACK · 2025</div>
+  <h1><span class="w1">Cyber</span><br><span class="w2">Security</span></h1>
+  <p class="hero-desc">From CIA Triad to Penetration Testing — the tools, methodologies, and breaches that shaped cybersecurity. Because those who don't think like attackers can't defend.</p>
+  <div class="stats-row">
+    <div class="stat"><span class="stat-n">8</span><span class="stat-l">Chapters</span></div>
+    <div class="stat"><span class="stat-n">6</span><span class="stat-l">Labs</span></div>
+    <div class="stat"><span class="stat-n">20</span><span class="stat-l">Questions</span></div>
+    <div class="stat"><span class="stat-n">🎮</span><span class="stat-l">Game</span></div>
+  </div>
+</div>
+
+<!-- ════════════ LEARN ════════════ -->
+<div id="learn" class="section active"><div class="sec-inner">
+<div class="chapters">
+
+<div class="ch" id="c1">
+  <div class="ch-trigger" onclick="toggleCh('c1')">
+    <span class="ch-num">01/08</span><div class="ch-icon">🛡️</div>
+    <div class="ch-info">
+      <div class="ch-name">Information Security Fundamentals — CIA Triad</div>
+      <div class="ch-desc">Confidentiality, Integrity, Availability, Threat Modeling, Risk</div>
+    </div>
+    <div class="ch-meta"><span class="chip chip-b">CORE</span><span class="ch-time">⏱ 40m</span><span class="ch-chev">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="sec-label">What You'll Learn</div>
+        <div class="learn-list">
+          <div class="li">CIA Triad — Confidentiality, Integrity, Availability: the three pillars</div>
+          <div class="li">Threat Modeling — STRIDE, PASTA: mapping risks before writing code</div>
+          <div class="li">Risk Management — Likelihood × Impact, Risk Appetite</div>
+          <div class="li">Security Controls — Preventive, Detective, Corrective, Deterrent</div>
+          <div class="li">Defense in Depth — layered security and why one layer is never enough</div>
+          <div class="li">Principle of Least Privilege — minimum permissions for every entity</div>
+        </div>
+        <div class="chips-row"><span class="chip chip-b">CIA</span><span class="chip chip-a">STRIDE</span><span class="chip chip-g">Risk</span></div>
+      </div>
+      <div>
+        <div class="sec-label">Famous Breach</div>
+        <div class="incident">
+          <div class="inc-badge">🔴 BREACH — 2017 / Equifax</div>
+          <div class="inc-title">143 Million Americans Exposed Because of an Uninstalled Patch</div>
+          <div class="inc-desc">
+            In July 2017, Equifax — one of the world's largest credit rating agencies — discovered that attackers had been inside their network for <strong>76 days</strong>, silently, undetected. They stole names, Social Security numbers, dates of birth, addresses, and credit card numbers of 143 million Americans.<br><br>
+            Entry was via a known Apache Struts vulnerability (CVE-2017-5638) — a patch had been available two months prior. Equifax never applied it. <strong>All three CIA pillars were violated:</strong> Confidentiality (data stolen), Integrity (unclear what else was modified), Availability (service shut down during response). Cost: $700M in settlements.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box"><span>💡</span><span><strong>CIA in Practice:</strong> When designing a system, ask for each data asset: what's the damage if exposed? (C) If modified? (I) If unavailable? (A). The answers determine how much to invest in protection.</span></div>
+  </div></div>
+</div>
+
+<div class="ch" id="c2">
+  <div class="ch-trigger" onclick="toggleCh('c2')">
+    <span class="ch-num">02/08</span><div class="ch-icon">🎣</div>
+    <div class="ch-info">
+      <div class="ch-name">Social Engineering & Phishing</div>
+      <div class="ch-desc">Phishing, Spear Phishing, Vishing, Pretexting, BEC</div>
+    </div>
+    <div class="ch-meta"><span class="chip chip-r">THREAT</span><span class="ch-time">⏱ 45m</span><span class="ch-chev">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="sec-label">What You'll Learn</div>
+        <div class="learn-list">
+          <div class="li">Phishing vs Spear Phishing — the difference between mass fishing and targeted attacks</div>
+          <div class="li">Vishing & Smishing — phone and SMS attacks</div>
+          <div class="li">BEC (Business Email Compromise) — impersonating CEO/CFO</div>
+          <div class="li">Pretexting — fabricating a scenario to extract information</div>
+          <div class="li">Indicators of Phishing — how to identify a suspicious email</div>
+          <div class="li">Security Awareness Training — how to train employees</div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-label">Famous Breach</div>
+        <div class="incident">
+          <div class="inc-badge">🔴 BREACH — 2020 / Twitter</div>
+          <div class="inc-title">130 Celebrity Accounts Compromised — By a 17-Year-Old</div>
+          <div class="inc-desc">
+            In July 2020, Twitter accounts of Barack Obama, Joe Biden, Elon Musk, Jeff Bezos, Apple, and Uber simultaneously posted "bitcoin doubling" messages. Within hours they collected $120,000.<br><br>
+            The weapon wasn't sophisticated code. <strong>A 17-year-old from Florida called Twitter employees</strong>, impersonated an internal IT staffer, and convinced them to hand over access to an admin tool. From there he could reset passwords and access any account. The entire attack took a few hours. Advanced technical security is irrelevant when the weakest link is a human who answers the phone.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box"><span>💡</span><span><strong>Phishing Red Flags:</strong> Artificial urgency ("agree within 24 hours"), requests to bypass normal procedures, subtle domain typos (paypa1.com), URL that doesn't match the link text, requests for credentials. When in doubt — assume phishing.</span></div>
+  </div></div>
+</div>
+
+<div class="ch" id="c3">
   <div class="ch-trigger" onclick="toggleCh('c3')">
     <span class="ch-num">03/08</span><div class="ch-icon">🔒</div>
     <div class="ch-info">
@@ -491,7 +596,7 @@ body::after {
     </div>
     <div class="ch-meta"><span class="chip chip-p">CRYPTO</span><span class="ch-time">⏱ 60m</span><span class="ch-chev">▶</span></div>
   </div>
-  <div class="ch-body" style="display:block"><div class="ch-inner">
+  <div class="ch-body"><div class="ch-inner">
     <div class="ch-grid">
       <div>
         <div class="sec-label">What You'll Learn</div>
@@ -526,7 +631,612 @@ hashed = bcrypt.hashpw(password.encode(), salt)
 <span class="cc"># bcrypt("password", salt, 12) ← years to crack</span></div>
   </div></div>
 </div>
-<script>
+
+<div class="ch" id="c4">
+  <div class="ch-trigger" onclick="toggleCh('c4')">
+    <span class="ch-num">04/08</span><div class="ch-icon">🌐</div>
+    <div class="ch-info">
+      <div class="ch-name">Network Security — Firewalls, IDS, VPN</div>
+      <div class="ch-desc">Network Segmentation, Zero Trust, NGFW, IDS/IPS, VPN, DNS Security</div>
+    </div>
+    <div class="ch-meta"><span class="chip chip-c">NETWORK</span><span class="ch-time">⏱ 55m</span><span class="ch-chev">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="sec-label">What You'll Learn</div>
+        <div class="learn-list">
+          <div class="li">Firewall Types — Stateless, Stateful, NGFW, WAF</div>
+          <div class="li">IDS vs IPS — detection vs prevention, Signature vs Anomaly</div>
+          <div class="li">Network Segmentation — DMZ, VLANs, Micro-segmentation</div>
+          <div class="li">Zero Trust Network — "Never Trust, Always Verify"</div>
+          <div class="li">VPN — IPSec, SSL/TLS VPN, Split Tunneling</div>
+          <div class="li">DNS Security — DNS over HTTPS, DNSSEC, DNS Filtering</div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-label">Famous Breach</div>
+        <div class="incident">
+          <div class="inc-badge">🔴 RANSOMWARE — 2021 / Colonial Pipeline</div>
+          <div class="inc-title">The Largest US Fuel Pipeline Shut Down — One Password Stolen from the Dark Web</div>
+          <div class="inc-desc">
+            DarkSide, a Russian Ransomware group, breached Colonial Pipeline — the pipeline supplying 45% of fuel to the US East Coast. Entry was via a <strong>legacy VPN account whose password was found on the Dark Web</strong> from a previous breach.<br><br>
+            The account had no MFA. No alerting on anomalous logins. Within hours 100GB was encrypted and $4.4M ransom was demanded. Colonial paid. Fuel was scarce across the East Coast for an entire week. The FBI recovered some bitcoin, but total economic damage was in the billions. Two controls would have prevented this: MFA and Password Hygiene.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box"><span>💡</span><span><strong>Zero Trust in Practice:</strong> Never assume a user inside the internal network is trusted. Every resource access requires fresh Authentication + Authorization. Micro-segmentation = even if an attacker enters one segment, they cannot move laterally.</span></div>
+  </div></div>
+</div>
+
+<div class="ch" id="c5">
+  <div class="ch-trigger" onclick="toggleCh('c5')">
+    <span class="ch-num">05/08</span><div class="ch-icon">🦠</div>
+    <div class="ch-info">
+      <div class="ch-name">Malware — Types, Detection & Prevention</div>
+      <div class="ch-desc">Ransomware, Trojans, Rootkits, APT, Supply Chain, Indicators of Compromise</div>
+    </div>
+    <div class="ch-meta"><span class="chip chip-r">MALWARE</span><span class="ch-time">⏱ 50m</span><span class="ch-chev">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="sec-label">What You'll Learn</div>
+        <div class="learn-list">
+          <div class="li">Ransomware — Double Extortion, RaaS model, attack phases</div>
+          <div class="li">APT (Advanced Persistent Threat) — nation-state actors, long-term persistence</div>
+          <div class="li">Supply Chain Attack — injecting malware into legitimate software</div>
+          <div class="li">Rootkits — deep concealment at the Kernel level</div>
+          <div class="li">IOC — Indicators of Compromise: File Hashes, IPs, Domains</div>
+          <div class="li">EDR — Endpoint Detection and Response, Behavioral Analysis</div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-label">Famous Breach</div>
+        <div class="incident">
+          <div class="inc-badge">🔴 SUPPLY CHAIN — 2020 / SolarWinds</div>
+          <div class="inc-title">Backdoor in a Legitimate Software Update Hit 18,000 Organizations</div>
+          <div class="inc-desc">
+            APT29 — a Russian hacker group — successfully injected malicious code directly into the build process of SolarWinds Orion, a network monitoring tool used by US government agencies, Fortune 500 companies, and the US Treasury.<br><br>
+            <strong>The malicious code (SUNBURST) was hidden inside a legitimate update</strong> that organizations downloaded willingly. 18,000 organizations installed it. The backdoor "slept" for 12-14 days before activating (to evade Sandboxes). It then beaconed to Command & Control servers and granted full access. The breach was only discovered when another security firm (FireEye) noticed someone trying to register an additional MFA device on an employee account.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<div class="ch" id="c6">
+  <div class="ch-trigger" onclick="toggleCh('c6')">
+    <span class="ch-num">06/08</span><div class="ch-icon">⚔️</div>
+    <div class="ch-info">
+      <div class="ch-name">Penetration Testing — Think Like an Attacker</div>
+      <div class="ch-desc">Methodology, Recon, Exploitation, Post-Exploitation, Reporting, OWASP</div>
+    </div>
+    <div class="ch-meta"><span class="chip chip-g">PENTEST</span><span class="ch-time">⏱ 70m</span><span class="ch-chev">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="sec-label">What You'll Learn</div>
+        <div class="learn-list">
+          <div class="li">Pentest Phases — Recon, Scanning, Exploitation, Post-Exploitation, Reporting</div>
+          <div class="li">Black Box / Gray Box / White Box — differences and when to use each</div>
+          <div class="li">OWASP Top 10 — the most common vulnerabilities in Web Apps</div>
+          <div class="li">MITRE ATT&amp;CK Framework — mapping attacker tactics and techniques</div>
+          <div class="li">Tools — Nmap, Burp Suite, Metasploit, Nikto, sqlmap</div>
+          <div class="li">Responsible Disclosure — the ethics of security research</div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-label">Famous Breach</div>
+        <div class="incident">
+          <div class="inc-badge">🔴 SQL INJECTION — 2009 / Heartland</div>
+          <div class="inc-title">130 Million Credit Cards Stolen via SQL Injection</div>
+          <div class="inc-desc">
+            Heartland Payment Systems processed 100 million transactions per month. In 2009 it was discovered that attackers had been in their network for <strong>months</strong>, via initial access gained through a simple SQL Injection on a login page.<br><br>
+            After entry, they planted a Packet Sniffer that captured internal network traffic and harvested card data during processing — before encryption. 130 million cards. Cost: $145M in damages. Heartland's CEO later said: "The vulnerability was known, it had a patch, no one felt responsible for applying it."
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="code-block"><span class="cc"># SQL Injection — what happens internally</span>
+<span class="cc"># Input: ' OR '1'='1</span>
+query = <span class="cs">f"SELECT * FROM users WHERE user='{username}' AND pass='{password}'"</span>
+<span class="cc"># becomes: SELECT * FROM users WHERE user='' OR '1'='1' AND pass=''</span>
+<span class="co"># always returns rows!</span>
+
+<span class="cc"># ✅ Prepared Statement</span>
+cursor.execute(<span class="cs">"SELECT * FROM users WHERE user=? AND pass=?"</span>, (username, password))</div>
+  </div></div>
+</div>
+
+<div class="ch" id="c7">
+  <div class="ch-trigger" onclick="toggleCh('c7')">
+    <span class="ch-num">07/08</span><div class="ch-icon">🚨</div>
+    <div class="ch-info">
+      <div class="ch-name">SOC & Incident Response</div>
+      <div class="ch-desc">SIEM, IR Phases, Forensics, Threat Hunting, Kill Chain, Playbooks</div>
+    </div>
+    <div class="ch-meta"><span class="chip chip-b">SOC</span><span class="ch-time">⏱ 60m</span><span class="ch-chev">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="sec-label">What You'll Learn</div>
+        <div class="learn-list">
+          <div class="li">IR Phases — Preparation, Detection, Containment, Eradication, Recovery, Lessons</div>
+          <div class="li">SIEM — Log Aggregation, Correlation Rules, Alerts, Dashboards</div>
+          <div class="li">Kill Chain — the 7 stages of a Cyber Attack</div>
+          <div class="li">Dwell Time — average time an attacker resides before detection (average: 197 days)</div>
+          <div class="li">Threat Hunting — proactively searching for IOCs in the network</div>
+          <div class="li">Forensics — Evidence Preservation, Chain of Custody, Memory Analysis</div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-label">Famous Breach</div>
+        <div class="incident">
+          <div class="inc-badge">🔴 APT — 2013 / Target</div>
+          <div class="inc-title">40 Million Credit Cards — Through an HVAC Vendor</div>
+          <div class="inc-desc">
+            In November 2013, during Thanksgiving, attackers stole data from 40 million credit cards at Target. The entry point: a <strong>third-party HVAC vendor</strong> that had network access to Target for billing purposes.<br><br>
+            What's most chilling: <strong>Target had a FireEye system that detected the malware and sent an Alert</strong> — and did nothing with it. A SOC team in Bangalore saw the alert, escalated to US leadership, and leadership decided not to act. 6 weeks later — the breach was discovered externally. The painful lesson: Detection without Response is worthless.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box"><span>💡</span><span><strong>SANS IR Process:</strong> Preparation → Identification → Containment → Eradication → Recovery → Lessons Learned. <strong>Containment before Eradication</strong> — before cleaning, verify the attacker has no way back. Preserve Evidence before Cleanup — you'll need it for forensics.</span></div>
+  </div></div>
+</div>
+
+<div class="ch" id="c8">
+  <div class="ch-trigger" onclick="toggleCh('c8')">
+    <span class="ch-num">08/08</span><div class="ch-icon">☁️</div>
+    <div class="ch-info">
+      <div class="ch-name">Cloud Security & Compliance</div>
+      <div class="ch-desc">Shared Responsibility, IAM, CSPM, GDPR, SOC2, Data Classification</div>
+    </div>
+    <div class="ch-meta"><span class="chip chip-p">CLOUD</span><span class="ch-time">⏱ 55m</span><span class="ch-chev">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="sec-label">What You'll Learn</div>
+        <div class="learn-list">
+          <div class="li">Shared Responsibility Model — what AWS/Azure protect vs. what you protect</div>
+          <div class="li">IAM Best Practices — MFA, Least Privilege, Root Account, Service Roles</div>
+          <div class="li">CSPM — Cloud Security Posture Management, Misconfigurations</div>
+          <div class="li">Data Classification — Public, Internal, Confidential, Restricted</div>
+          <div class="li">GDPR — the 72-hour rule, Right to be Forgotten, DPA</div>
+          <div class="li">SOC2 Type II — Trust Services Criteria, Audit Reports</div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-label">Famous Breach</div>
+        <div class="incident">
+          <div class="inc-badge">🔴 MISCONFIGURATION — 2019 / Capital One</div>
+          <div class="inc-title">100 Million Customers Exposed — SSRF + Misconfigured IAM Role</div>
+          <div class="inc-desc">
+            In 2019, the Capital One breach exposed data of 100 million US and Canadian customers. The attacker, Paige Thompson, a former AWS employee, exploited <strong>SSRF (Server-Side Request Forgery)</strong> in Capital One's Web Application Firewall.<br><br>
+            She sent a request that caused the server to query the AWS Metadata Service and retrieve IAM Role credentials. That Role, due to misconfiguration, <strong>had overly broad permissions to S3 Buckets</strong> containing customer data. Lesson: IMDSv2 (prevents SSRF to Metadata), Least Privilege for IAM Roles, and CSPM that auto-detects misconfigurations.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box"><span>💡</span><span><strong>GDPR 72 Hours:</strong> In the event of a Data Breach posing a risk to individuals' rights, you must report to the Data Protection Authority within 72 hours of becoming aware. Not from when the breach occurred — from when you first became <em>aware</em> of it. After 72 hours: fines up to 4% of annual global turnover.</span></div>
+  </div></div>
+</div>
+
+</div><!-- /chapters -->
+</div></div>
+
+<!-- ════════════ LABS ════════════ -->
+<div id="labs" class="section"><div class="sec-inner">
+<div class="labs-list">
+
+<div class="lab" id="lb1">
+  <div class="lab-head" onclick="toggleLab('lb1')">
+    <span class="lab-emoji">🔍</span>
+    <div class="lab-info">
+      <div class="lab-name">Lab 1 — Network Scanning with Nmap</div>
+      <div class="lab-sub">Host Discovery · Port Scanning · Service Detection · OS Fingerprinting</div>
+    </div>
+    <span class="diff d-easy">EASY</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-body">
+    <div class="lab-goal">Learn to scan a network and map open ports, services, and versions — the first step in every Pentest.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="sn">01</span>Host Discovery: <code>nmap -sn 192.168.1.0/24</code> — who is alive?</div>
+      <div class="lab-step"><span class="sn">02</span>TCP SYN Scan: <code>nmap -sS -p 1-1000 &lt;target&gt;</code> — open ports</div>
+      <div class="lab-step"><span class="sn">03</span>Service Version Detection: <code>nmap -sV -sC &lt;target&gt;</code> — service versions</div>
+      <div class="lab-step"><span class="sn">04</span>OS Detection: <code>nmap -O &lt;target&gt;</code> — which OS is running</div>
+      <div class="lab-step"><span class="sn">05</span>Save results: <code>nmap -oA scan_results &lt;target&gt;</code> — saves XML, Grepable, Normal formats</div>
+      <div class="lab-step"><span class="sn">06</span>Use Metasploitable2 as Target (free VM) — try to identify at least one vulnerable service</div>
+    </div>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-title">nmap simulator — target: 192.168.1.105 (Metasploitable2)</span>
+    <button class="emu-clr-btn" onclick="cyC('cy1out')">clear</button>
+    <button class="emu-run-btn" id="cy1btn" onclick="cyLab1()">&#9654; Run Scan</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-lbl">Select scan type:</div>
+    <select class="emu-sel" id="cy1cmd">
+      <option value="sn">nmap -sn 192.168.1.0/24 &nbsp;&nbsp;(Host Discovery)</option>
+      <option value="sS">nmap -sS -p 1-1000 192.168.1.105 &nbsp;&nbsp;(SYN Scan)</option>
+      <option value="sV">nmap -sV -sC 192.168.1.105 &nbsp;&nbsp;(Service + Default Scripts)</option>
+      <option value="O">nmap -O 192.168.1.105 &nbsp;&nbsp;(OS Detection)</option>
+      <option value="full">nmap -sV -sC -p- 192.168.1.105 &nbsp;&nbsp;(Full Port Scan)</option>
+    </select>
+  </div>
+  <div class="emu-out" id="cy1out"><span class="em">Select scan type and click Run Scan...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a1')"><span id="a1i">▶</span> Show Answers</button>
+    <div class="ans-box" id="a1">
+      <div class="ans-head">✅ Answers — Nmap</div>
+      <div class="ans-item"><span class="an">01</span><div><strong>Host Discovery:</strong> <code>-sn</code> (Ping Scan) sends ICMP Echo + TCP SYN to 443 + TCP ACK to 80. Returns a list of live hosts without port scanning. Fast for initial network mapping.</div></div>
+      <div class="ans-item"><span class="an">02</span><div><strong>SYN Scan ("Stealth"):</strong> sends SYN, if SYN-ACK received → port is open. Sends RST immediately (no full Handshake). Less log noise than Full Connect Scan. Requires Sudo.</div></div>
+      <div class="ans-item"><span class="an">03</span><div><strong>-sV:</strong> attempts to identify Service version. <strong>-sC:</strong> runs basic NSE Scripts (Default Scripts). Together: <code>nmap -sV -sC -p 22,80,443,3306 &lt;target&gt;</code> = the most common combo.</div></div>
+      <div class="ans-item"><span class="an">06</span><div><strong>Common Metasploitable2 vulnerable services:</strong> FTP (21) with anonymous login, SSH (22) with old version, Samba (139/445) with ms08-067, MySQL (3306) with no password, DVWA (80).</div></div>
+      <div class="ans-note">💡 <strong>Important:</strong> Only scan networks and systems you have permission to scan. Unauthorized network scanning is a criminal offense in most countries. For practice: use Metasploitable, TryHackMe, or HackTheBox.</div>
+    </div>
+  </div>
+</div>
+
+<div class="lab" id="lb2">
+  <div class="lab-head" onclick="toggleLab('lb2')">
+    <span class="lab-emoji">📧</span>
+    <div class="lab-info">
+      <div class="lab-name">Lab 2 — Phishing Email Analysis</div>
+      <div class="lab-sub">Header Analysis · SPF/DKIM/DMARC · IOCs · Malicious Links</div>
+    </div>
+    <span class="diff d-easy">EASY</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-body">
+    <div class="lab-goal">Analyze a real Phishing email — identify Red Flags, check Headers, expose dangerous links safely.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="sn">01</span>Open a suspicious email in Raw/Source View — check From, Reply-To, Return-Path</div>
+      <div class="lab-step"><span class="sn">02</span>Check SPF/DKIM/DMARC in Email Headers — is the domain authorized to send?</div>
+      <div class="lab-step"><span class="sn">03</span>Hover (don't click!) over links — does the URL match the text?</div>
+      <div class="lab-step"><span class="sn">04</span>Check links at VirusTotal.com — paste the URL without visiting it</div>
+      <div class="lab-step"><span class="sn">05</span>If there's an Attachment: check its Hash (sha256sum) on VirusTotal</div>
+      <div class="lab-step"><span class="sn">06</span>Write a brief report: Sender, what the email is trying to steal, IOCs (IPs, URLs, Hashes)</div>
+    </div>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-title">phishing email analyzer</span>
+    <button class="emu-clr-btn" onclick="cyC('cy2out')">clear</button>
+    <button class="emu-run-btn" onclick="cyLab2()">&#128269; Analyze</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-lbl">Select email sample:</div>
+    <select class="emu-sel" id="cy2sample" onchange="cy2Preview()">
+      <option value="paypal">PayPal &#8212; "Your account has been suspended" (Classic Phishing)</option>
+      <option value="ceo">CEO Fraud &#8212; "Urgent Transfer" (BEC)</option>
+      <option value="it">IT Department &#8212; "Password Reset" (Vishing)</option>
+      <option value="legit">Bank &#8212; Account Update (Legitimate!)</option>
+    </select>
+    <div class="emu-lbl">Email Headers (edit freely):</div>
+    <textarea class="emu-ta" id="cy2hdr" style="min-height:70px"></textarea>
+  </div>
+  <div class="emu-out" id="cy2out"><span class="em">Select a sample and click Analyze...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a2')"><span id="a2i">▶</span> Show Answers</button>
+    <div class="ans-box" id="a2">
+      <div class="ans-head">✅ Answers — Phishing Analysis</div>
+      <div class="ans-item"><span class="an">02</span><div><strong>SPF/DKIM/DMARC:</strong><br>
+        SPF: Is the Sending IP authorized to send from this domain? (Received-SPF: pass/fail)<br>
+        DKIM: Is the email digitally signed and unmodified? (DKIM-Signature header)<br>
+        DMARC: What to do if SPF/DKIM fails? (none/quarantine/reject)<br>
+        Sophisticated phishing can pass SPF if the domain is paypa1.com (not paypal.com).
+      </div></div>
+      <div class="ans-item"><span class="an">03</span><div><strong>5 Classic Red Flags:</strong> (1) Sender: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c4b7b1b4b4abb6b084b4a5bdb4a5a8e9b7a1a7b1b6adb0bdeaaaa1b0">[email&#160;protected]</a> ← not paypal.com, (2) Reply-To different from From, (3) URL: http://paypal.com.verify-account.xyz, (4) urgency: "Your account will be suspended in 24 hours", (5) Generic greeting: "Dear Customer" instead of your name.</div></div>
+      <div class="ans-item"><span class="an">05</span><div><strong>Hash Analysis:</strong> <code>sha256sum suspicious_file.pdf</code> → Hash → VirusTotal. If 0/70 → unknown (doesn't mean safe). If 40/70 → recognized as Malware. Save the Hash as an IOC in your report.</div></div>
+      <div class="ans-note">💡 <strong>Useful tools:</strong> MXToolbox (SPF/DMARC checking), VirusTotal (URLs/Files), URLScan.io (safe URL screenshot), PhishTool (full analysis). Never open a suspicious Attachment on your real machine — use a Sandbox.</div>
+    </div>
+  </div>
+</div>
+
+<div class="lab" id="lb3">
+  <div class="lab-head" onclick="toggleLab('lb3')">
+    <span class="lab-emoji">💉</span>
+    <div class="lab-info">
+      <div class="lab-name">Lab 3 — SQL Injection with DVWA</div>
+      <div class="lab-sub">Manual SQLi · sqlmap · Blind SQLi · Prepared Statements</div>
+    </div>
+    <span class="diff d-medium">MEDIUM</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-body">
+    <div class="lab-goal">Understand SQL Injection from the ground up — attack DVWA manually, then see why Prepared Statements prevent it.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="sn">01</span>Launch DVWA (Docker: <code>docker run -p 80:80 vulnerables/web-dvwa</code>). Set Security Level: Low.</div>
+      <div class="lab-step"><span class="sn">02</span>In the SQL Injection Tab, enter: <code>' OR '1'='1</code> — what comes back?</div>
+      <div class="lab-step"><span class="sn">03</span>Find column count: <code>' ORDER BY 1--</code>, <code>' ORDER BY 2--</code> until you get an error</div>
+      <div class="lab-step"><span class="sn">04</span>Extract table names: <code>' UNION SELECT table_name,2 FROM information_schema.tables--</code></div>
+      <div class="lab-step"><span class="sn">05</span>Dump hashes: <code>' UNION SELECT user,password FROM users--</code></div>
+      <div class="lab-step"><span class="sn">06</span>Set Security Level to High and see that the same payload no longer works — why?</div>
+    </div>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-title">DVWA SQL Injection Lab</span>
+    <button class="emu-clr-btn" onclick="cyC('cy3out')">clear</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-row" style="align-items:center;gap:8px;margin-bottom:7px">
+      <span class="emu-lbl" style="margin:0;white-space:nowrap">Security Level:</span>
+      <select class="emu-sel" id="cy3lvl" style="width:auto;margin:0;padding:5px 10px;flex:1">
+        <option value="low">Low &#8212; Vulnerable</option>
+        <option value="high">High &#8212; Prepared Statements</option>
+      </select>
+    </div>
+    <div class="emu-lbl">Enter User ID (or SQLi Payload):</div>
+    <div class="emu-row">
+      <input class="emu-inp" id="cy3in" style="flex:1" placeholder="1" onkeydown="if(event.key==='Enter')cyLab3()">
+      <button class="emu-run-btn" onclick="cyLab3()">Submit</button>
+    </div>
+    <div style="margin-top:7px;display:flex;gap:5px;flex-wrap:wrap">
+      <button class="emu-clr-btn" onclick="cy3q('1')">ID: 1</button>
+      <button class="emu-clr-btn" onclick="cy3q(&quot;' OR '1'='1&quot;)">OR 1=1</button>
+      <button class="emu-clr-btn" onclick="cy3q(&quot;' ORDER BY 2--&quot;)">ORDER BY</button>
+      <button class="emu-clr-btn" onclick="cy3q(&quot;' UNION SELECT user,password FROM users--&quot;)">UNION Dump</button>
+    </div>
+  </div>
+  <div class="emu-out" id="cy3out"><span class="em">Enter ID and click Submit...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a3')"><span id="a3i">▶</span> Show Answers</button>
+    <div class="ans-box" id="a3">
+      <div class="ans-head">✅ Answers — SQL Injection</div>
+      <div class="ans-item"><span class="an">02</span><div><strong>' OR '1'='1:</strong> Query becomes: <code>SELECT * FROM users WHERE id='' OR '1'='1'</code>. Condition always true → returns all rows. Vulnerability: Input is inserted directly into the Query without sanitization.</div></div>
+      <div class="ans-item"><span class="an">04</span><div><strong>UNION Attack:</strong> allows appending an additional Query to the original. Condition: same column count and types. information_schema = the built-in MySQL "database map" — contains names of all tables.</div></div>
+      <div class="ans-item"><span class="an">05</span><div><strong>DVWA Users Table:</strong> The returned hashes are MD5. Can be cracked at CrackStation.net (Rainbow Tables). Admin: 5f4dcc3b5aa765d61d8327deb882cf99 = "password". This is why MD5 is forbidden for passwords.</div></div>
+      <div class="ans-item"><span class="an">06</span><div><strong>High Level:</strong> DVWA adds a Token to the Request. SQL Security Level High level uses-Prepared Statements: <code>$stmt = $db->prepare("SELECT * FROM users WHERE id=?"); $stmt->execute([$id])</code>. Input becomes a parameter, not part of the Query.</div></div>
+      <div class="ans-warn">⚠️ Run this exercise only on your own local DVWA. SQL Injection on systems without permission = criminal offense.</div>
+    </div>
+  </div>
+</div>
+
+<div class="lab" id="lb4">
+  <div class="lab-head" onclick="toggleLab('lb4')">
+    <span class="lab-emoji">🔓</span>
+    <div class="lab-info">
+      <div class="lab-name">Lab 4 — Password Cracking with Hashcat</div>
+      <div class="lab-sub">MD5 vs bcrypt · Dictionary Attack · Rainbow Tables · Salting</div>
+    </div>
+    <span class="diff d-medium">MEDIUM</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-body">
+    <div class="lab-goal">Understand the performance difference between MD5 and bcrypt — and why the choice of Hash Algorithm is life or death.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="sn">01</span>Generate a Hash: <code>echo -n "password123" | md5sum</code> and <code>python3 -c "import bcrypt; print(bcrypt.hashpw(b'password123', bcrypt.gensalt(12)))"</code></div>
+      <div class="lab-step"><span class="sn">02</span>Install Hashcat: <code>sudo apt install hashcat</code> (or Windows binary)</div>
+      <div class="lab-step"><span class="sn">03</span>Dictionary Attack on MD5: <code>hashcat -m 0 -a 0 hash.txt rockyou.txt</code></div>
+      <div class="lab-step"><span class="sn">04</span>Try the same Dictionary against bcrypt (<code>-m 3200</code>) — compare the speed</div>
+      <div class="lab-step"><span class="sn">05</span>Check CrackStation.net — paste an MD5 Hash and see how fast it cracks</div>
+      <div class="lab-step"><span class="sn">06</span>Compare: MD5 on a good GPU = 50 billion hashes/second. bcrypt(12) = 20,000 hashes/second.</div>
+    </div>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-title">password hash &amp; crack laboratory</span>
+    <button class="emu-clr-btn" onclick="cyC('cy4out')">clear</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-lbl">Enter password:</div>
+    <div class="emu-row">
+      <input class="emu-inp" id="cy4pw" style="flex:1" value="password123">
+      <button class="emu-run-btn" onclick="cyLab4Hash()">&#128296; Hash</button>
+    </div>
+    <div style="margin-top:7px;display:flex;gap:5px;flex-wrap:wrap">
+      <button class="emu-run-btn" style="background:var(--red2)" onclick="cyLab4Crack()">&#128165; Crack MD5</button>
+      <button class="emu-run-btn" style="background:var(--green2);color:#000" onclick="cyLab4Speed()">&#9889; Speed Compare</button>
+    </div>
+  </div>
+  <div class="emu-out" id="cy4out"><span class="em">Enter password and click Hash...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a4')"><span id="a4i">▶</span> Show Answers</button>
+    <div class="ans-box" id="a4">
+      <div class="ans-head">✅ Answers — Password Cracking</div>
+      <div class="ans-item"><span class="an">03</span><div><strong>rockyou.txt:</strong> A file from 2009 containing 14 million real passwords from the RockYou breach. "password123", "123456", "qwerty" — all in there. Dictionary Attack checks every password on the list. MD5 of "password" is cracked in under a second.</div></div>
+      <div class="ans-item"><span class="an">04</span><div><strong>bcrypt(12) vs MD5:</strong><br>
+        MD5: Modern GPU = ~50 billion hashes/second<br>
+        bcrypt(10): ~20,000 hashes/second<br>
+        bcrypt(12): ~5,000 hashes/second<br>
+        Difference: factor of 10 million. Rockyou (14M) vs MD5 = seconds. vs bcrypt(12) = years.
+      </div></div>
+      <div class="ans-item"><span class="an">06</span><div><strong>Salt protects against Rainbow Tables:</strong> Rainbow Table = a pre-computed lookup of MD5("password")→Hash. When adding a random Salt: MD5("password"+Salt) → Hash unique per user. Rainbow Table doesn't help because it didn't precompute this Salt. bcrypt has Salt built in.</div></div>
+      <div class="ans-note">💡 <strong>Right choice in 2024:</strong> bcrypt(12) for most use cases. argon2id for high-security (defeats GPU attacks and ASIC attacks). scrypt as an alternative. Never MD5, SHA1, SHA256 directly for passwords — they're too fast.</div>
+    </div>
+  </div>
+</div>
+
+<div class="lab" id="lb5">
+  <div class="lab-head" onclick="toggleLab('lb5')">
+    <span class="lab-emoji">🦈</span>
+    <div class="lab-info">
+      <div class="lab-name">Lab 5 — Wireshark: Network Traffic Analysis</div>
+      <div class="lab-sub">Packet Capture · HTTP Analysis · ARP Spoofing · Credentials in Cleartext</div>
+    </div>
+    <span class="diff d-medium">MEDIUM</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-body">
+    <div class="lab-goal">Capture and analyze network traffic — see what passes in Cleartext, detect ARP Spoofing, find Credentials.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="sn">01</span>Open Wireshark, select Network Interface, click Start Capture</div>
+      <div class="lab-step"><span class="sn">02</span>On the other machine — browse to an HTTP site (not HTTPS): <code>http://example.com</code></div>
+      <div class="lab-step"><span class="sn">03</span>Filter: <code>http</code> — see all HTTP Requests. Click GET and Follow TCP Stream</div>
+      <div class="lab-step"><span class="sn">04</span>Filter: <code>http.request.method == "POST"</code> — look for Login Requests with credentials</div>
+      <div class="lab-step"><span class="sn">05</span>Filter: <code>arp</code> — check for ARP Spoofing: same IP → two MAC Addresses?</div>
+      <div class="lab-step"><span class="sn">06</span>Statistics → Conversations → IPv4: see who is talking to whom and how much data</div>
+    </div>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-title">wireshark packet capture simulator</span>
+    <button class="emu-clr-btn" onclick="cy5Stop()">&#9632; Stop</button>
+    <button class="emu-run-btn" id="cy5btn" onclick="cy5Start()">&#9654; Capture</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-row" style="align-items:flex-end;gap:7px">
+      <div style="flex:1">
+        <div class="emu-lbl">Display Filter:</div>
+        <input class="emu-inp" id="cy5fil" placeholder='http  /  arp  /  ip.addr == 192.168.1.1' onkeydown="if(event.key==='Enter')cy5Filter()">
+      </div>
+      <button class="emu-run-btn" onclick="cy5Filter()" style="margin-bottom:0">Apply</button>
+    </div>
+    <div style="margin-top:7px;display:flex;gap:5px;flex-wrap:wrap">
+      <button class="emu-clr-btn" onclick="cy5Scene('http_login')">&#128139; HTTP Login</button>
+      <button class="emu-clr-btn" onclick="cy5Scene('arp_spoof')">&#127913; ARP Spoof</button>
+      <button class="emu-clr-btn" onclick="cy5Scene('normal')">&#128225; Normal Traffic</button>
+    </div>
+  </div>
+  <div class="emu-out" id="cy5out" style="min-height:160px"><span class="em">Click Capture to start...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a5')"><span id="a5i">▶</span> Show Answers</button>
+    <div class="ans-box" id="a5">
+      <div class="ans-head">✅ Answers — Wireshark</div>
+      <div class="ans-item"><span class="an">03</span><div><strong>Follow TCP Stream:</strong> Right-click on Packet → Follow → TCP Stream. See the entire conversation in Cleartext. In unencrypted HTTP: Headers, Cookies, Body — all visible. <strong>This is why HTTPS is mandatory for every site.</strong></div></div>
+      <div class="ans-item"><span class="an">04</span><div><strong>POST + Credentials:</strong> In unencrypted HTTP, a Login Form sends POST with username=admin&password=mypassword in the Body. In Wireshark this is completely visible. In HTTPS — the Body is encrypted and unreadable.</div></div>
+      <div class="ans-item"><span class="an">05</span><div><strong>ARP Spoofing detection:</strong> ARP Reply showing IP X linked to MAC A, then another ARP Reply showing IP X linked to MAC B = Spoofing. The attacker sends fake ARP Replies to route traffic through their machine (Man-in-the-Middle).</div></div>
+      <div class="ans-note">💡 <strong>Useful filters:</strong> <code>dns</code> = all DNS queries. <code>ip.addr == 192.168.1.1</code> = traffic from/to IP. <code>tcp.port == 443</code> = HTTPS. <code>!(arp or icmp)</code> = hide ARP &amp; Ping Noise. <code>http contains "password"</code> = search for "password" in HTTP.</div>
+    </div>
+  </div>
+</div>
+
+<div class="lab" id="lb6">
+  <div class="lab-head" onclick="toggleLab('lb6')">
+    <span class="lab-emoji">🏴</span>
+    <div class="lab-info">
+      <div class="lab-name">Lab 6 — CTF: TryHackMe / HackTheBox</div>
+      <div class="lab-sub">Full Attack Chain · Recon · Exploitation · Privilege Escalation · Post-Exploitation</div>
+    </div>
+    <span class="diff d-hard">HARD</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-body">
+    <div class="lab-goal">Run a complete attack chain from Recon to Root — on a legitimate machine on TryHackMe or HackTheBox.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="sn">01</span>Register on TryHackMe (free). Connect VPN: <code>sudo openvpn your_file.ovpn</code></div>
+      <div class="lab-step"><span class="sn">02</span>Recommended beginner Rooms: "Basic Pentesting" or "Mr. Robot". Click Deploy Machine.</div>
+      <div class="lab-step"><span class="sn">03</span>Recon: <code>nmap -sV -sC -p- &lt;machine-ip&gt;</code> — map all ports</div>
+      <div class="lab-step"><span class="sn">04</span>Web Enumeration: <code>gobuster dir -u http://&lt;ip&gt; -w /usr/share/wordlists/dirbuster/medium.txt</code></div>
+      <div class="lab-step"><span class="sn">05</span>Exploitation: use Searchsploit/Metasploit for the vulnerability you found</div>
+      <div class="lab-step"><span class="sn">06</span>Privilege Escalation: <code>sudo -l</code>, <code>find / -perm -4000</code> (SUID), LinPEAS</div>
+    </div>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-title">CTF attack chain &#8212; 10.10.10.42 (Metasploitable)</span>
+    <button class="emu-clr-btn" onclick="cyC('cy6out')">clear</button>
+    <button class="emu-run-btn" onclick="cyLab6()">&#9654; Run Phase</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-lbl">Select attack phase:</div>
+    <select class="emu-sel" id="cy6ph">
+      <option value="recon">1. Recon &#8212; nmap -sV -sC -p-</option>
+      <option value="enum">2. Enumeration &#8212; gobuster + nikto</option>
+      <option value="exploit">3. Exploitation &#8212; Apache Path Traversal</option>
+      <option value="shell">4. Reverse Shell &#8212; nc listener</option>
+      <option value="privesc">5. Privilege Escalation &#8212; sudo -l + SUID</option>
+      <option value="loot">6. Post-Exploitation &#8212; /etc/shadow dump</option>
+    </select>
+  </div>
+  <div class="emu-out" id="cy6out"><span class="em">Select phase and click Run Phase...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a6')"><span id="a6i">▶</span> Show Walkthrough + Tips</button>
+    <div class="ans-box" id="a6">
+      <div class="ans-head">✅ Walkthrough + Post-Exploitation Checklist</div>
+      <div class="ans-item"><span class="an">04</span><div><strong>Gobuster / Directory Enumeration:</strong> searching for hidden directories and pages. Common finds: /admin, /login, /backup, /config, /robots.txt. robots.txt tells Google what not to crawl — and tells attackers what to target.</div></div>
+      <div class="ans-item"><span class="an">05</span><div><strong>Searchsploit:</strong> <code>searchsploit "Apache 2.4.49"</code> → returns known CVEs with ready Exploit Code. <code>searchsploit -m exploit/path</code> → copies to current directory. Metasploit: <code>use exploit/multi/handler</code> → listens for a Reverse Shell.</div></div>
+      <div class="ans-item"><span class="an">06</span><div><strong>PrivEsc Checklist:</strong><br>
+        <code>sudo -l</code> → what can be run with sudo?<br>
+        <code>find / -perm -4000 2>/dev/null</code> → SUID Binaries (run as root)<br>
+        <code>cat /etc/crontab</code> → Cron Jobs running as root with a writable Script<br>
+        <code>env</code> → Variables with Secrets?<br>
+        LinPEAS: Script automated script that checks everything — the fastest way to find PrivEsc vectors
+      </div></div>
+      <div class="ans-note">💡 <strong>TryHackMe Rooms for Beginners:</strong> "Pre-Security Path" → "Jr Penetration Tester" → "CompTIA Pentest+". 90% free. HackTheBox — more advanced, requires completing a Box before gaining access. OWASP WebGoat = intentionally vulnerable Web App for practice.</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /labs-list -->
+</div></div>
+
+<!-- ════════════ QUIZ ════════════ -->
+<div id="quiz" class="section"><div class="sec-inner">
+  <div class="quiz-top">
+    <h2>🎯 Cybersecurity Quiz</h2>
+    <p>20 questions · real breaches · full explanation for every answer</p>
+    <div class="q-prog-bg"><div class="q-prog" id="qp" style="width:0%"></div></div>
+    <div class="q-prog-lbl" id="qpl">0 / 20 answered</div>
+  </div>
+  <div class="q-list" id="qList"></div>
+  <div class="score-box" id="scoreBox">
+    <div class="score-big" id="scoreBig">--<span class="frac">/20</span></div>
+    <div class="score-pct" id="scorePct"></div>
+    <div class="score-msg" id="scoreMsg"></div>
+    <div class="score-sub" id="scoreSub"></div>
+    <div class="score-acts">
+      <button class="btn btn-blue" onclick="restartQuiz()">🔄 Try Again</button>
+      <button class="btn btn-ghost" onclick="switchTab('game',document.getElementById('tb-game'))">🎮 Play Game</button>
+    </div>
+  </div>
+</div></div>
+
+<!-- ════════════ GAME ════════════ -->
+<div id="game" class="section"><div class="sec-inner">
+  <div class="game-shell">
+    <div class="game-bar">
+      <div class="gbar-dots"><div class="gd gd-r"></div><div class="gd gd-y"></div><div class="gd gd-g"></div></div>
+      <span class="game-title-bar">cyber-concept-matcher — classify the threat</span>
+      <div class="game-scorebar">
+        <span class="gs-s">score: <span id="gScore">0</span></span>
+        <span class="gs-l">lives: <span id="gLives">❤️❤️❤️</span></span>
+        <span class="gs-lv">level: <span id="gLevel">1</span></span>
+      </div>
+    </div>
+    <div class="game-body" id="gameBody">
+      <div class="game-q" id="gQ">Loading...</div>
+      <div class="game-hint" id="gH"></div>
+      <div class="game-opts" id="gOpts"></div>
+      <div class="game-feedback" id="gFb"></div>
+      <div class="game-prog-wrap"><div class="game-prog-fill" id="gProg" style="width:0%"></div></div>
+    </div>
+    <div class="game-end" id="gameEnd">
+      <div class="ge-emoji" id="geEmoji">🏆</div>
+      <div class="ge-title" id="geTitle"></div>
+      <div class="ge-score" id="geScore"></div>
+      <div class="ge-msg" id="geMsg"></div>
+      <button class="btn btn-blue" onclick="startGame()" style="margin:0 auto">🔄 Play Again</button>
+    </div>
+  </div>
+  <div class="game-help">
+    <strong style="color:var(--blue2)">How to play:</strong> Each description → choose the correct security domain. As Level rises — more categories. Tip: CIA = fundamentals · Crypto = encryption · Network = network security · Social Eng = human factor · Malware = malicious code · Pentest = attack · SOC = defense
+  </div>
+</div></div>
+
+</div><!-- /container -->
+
+<footer class="site-footer">
+  <p>// CYBERSECURITY PRO — THINK LIKE AN ATTACKER, DEFEND LIKE A GUARDIAN //</p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── Clock ──
 setInterval(() => {
   const el = document.getElementById('clk');

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
 
 <meta charset="UTF-8">
@@ -532,7 +532,7 @@ body::after {
         DMARC: What to do if SPF/DKIM fails? (none/quarantine/reject)<br>
         Sophisticated phishing can pass SPF if the domain is paypa1.com (not paypal.com).
       </div></div>
-      <div class="ans-item"><span class="an">03</span><div><strong>5 Classic Red Flags:</strong> (1) Sender: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c4b7b1b4b4abb6b084b4a5bdb4a5a8e9b7a1a7b1b6adb0bdeaaaa1b0">[email&#160;protected]</a> ← לא paypal.com, (2) Reply-To different from From, (3) URL: http://paypal.com.verify-account.xyz, (4) urgency: "Your account will be suspended in 24 hours", (5) Generic greeting: "Dear Customer" instead of your name.</div></div>
+      <div class="ans-item"><span class="an">03</span><div><strong>5 Classic Red Flags:</strong> (1) Sender: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c4b7b1b4b4abb6b084b4a5bdb4a5a8e9b7a1a7b1b6adb0bdeaaaa1b0">[email&#160;protected]</a> ← not paypal.com, (2) Reply-To different from From, (3) URL: http://paypal.com.verify-account.xyz, (4) urgency: "Your account will be suspended in 24 hours", (5) Generic greeting: "Dear Customer" instead of your name.</div></div>
       <div class="ans-item"><span class="an">05</span><div><strong>Hash Analysis:</strong> <code>sha256sum suspicious_file.pdf</code> → Hash → VirusTotal. If 0/70 → unknown (doesn't mean safe). If 40/70 → recognized as Malware. Save the Hash as an IOC in your report.</div></div>
       <div class="ans-note">💡 <strong>Useful tools:</strong> MXToolbox (SPF/DMARC checking), VirusTotal (URLs/Files), URLScan.io (safe URL screenshot), PhishTool (full analysis). Never open a suspicious Attachment on your real machine — use a Sandbox.</div>
     </div>
@@ -634,7 +634,7 @@ function pick(qi, oi) {
 
 function updateProg() {
   document.getElementById('qp').style.width = (qAns / QS.length * 100) + '%';
-  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} נענו`;
+  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} answered`;
 }
 
 function showScore() {

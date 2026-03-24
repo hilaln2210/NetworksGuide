@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
 
 <meta charset="UTF-8">
@@ -494,9 +494,9 @@ body::after {
   <div class="lab-body" style="display:block">
     <div class="lab-goal">Understand the performance difference between MD5 and bcrypt — and why the choice of Hash Algorithm is life or death.</div>
     <div class="lab-steps">
-      <div class="lab-step"><span class="sn">01</span>צור Hash: <code>echo -n "password123" | md5sum</code> ו-<code>python3 -c "import bcrypt; print(bcrypt.hashpw(b'password123', bcrypt.gensalt(12)))"</code></div>
-      <div class="lab-step"><span class="sn">02</span>התקן Hashcat: <code>sudo apt install hashcat</code> (או Windows binary)</div>
-      <div class="lab-step"><span class="sn">03</span>Dictionary Attack על MD5: <code>hashcat -m 0 -a 0 hash.txt rockyou.txt</code></div>
+      <div class="lab-step"><span class="sn">01</span>Generate a Hash: <code>echo -n "password123" | md5sum</code> and <code>python3 -c "import bcrypt; print(bcrypt.hashpw(b'password123', bcrypt.gensalt(12)))"</code></div>
+      <div class="lab-step"><span class="sn">02</span>Install Hashcat: <code>sudo apt install hashcat</code> (or Windows binary)</div>
+      <div class="lab-step"><span class="sn">03</span>Dictionary Attack on MD5: <code>hashcat -m 0 -a 0 hash.txt rockyou.txt</code></div>
       <div class="lab-step"><span class="sn">04</span>Try the same Dictionary against bcrypt (<code>-m 3200</code>) — compare the speed</div>
       <div class="lab-step"><span class="sn">05</span>Check CrackStation.net — paste an MD5 Hash and see how fast it cracks</div>
       <div class="lab-step"><span class="sn">06</span>Compare: MD5 on a good GPU = 50 billion hashes/second. bcrypt(12) = 20,000 hashes/second.</div>
@@ -633,7 +633,7 @@ function pick(qi, oi) {
 
 function updateProg() {
   document.getElementById('qp').style.width = (qAns / QS.length * 100) + '%';
-  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} נענו`;
+  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} answered`;
 }
 
 function showScore() {

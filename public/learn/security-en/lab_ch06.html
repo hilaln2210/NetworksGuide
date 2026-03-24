@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
 
 <meta charset="UTF-8">
@@ -523,16 +523,16 @@ body::after {
   <div class="emu-out" id="cy6out"><span class="em">Select phase and click Run Phase...</span></div>
 </div>
 
-        <button class="ans-btn" onclick="toggleAns('a6')"><span id="a6i">▶</span> הצג Walkthrough + Tips</button>
+        <button class="ans-btn" onclick="toggleAns('a6')"><span id="a6i">▶</span> Show Walkthrough + Tips</button>
     <div class="ans-box" id="a6">
       <div class="ans-head">✅ Walkthrough + Post-Exploitation Checklist</div>
       <div class="ans-item"><span class="an">04</span><div><strong>Gobuster / Directory Enumeration:</strong> searching for hidden directories and pages. Common finds: /admin, /login, /backup, /config, /robots.txt. robots.txt tells Google what not to crawl — and tells attackers what to target.</div></div>
-      <div class="ans-item"><span class="an">05</span><div><strong>Searchsploit:</strong> <code>searchsploit "Apache 2.4.49"</code> → returns known CVEs with Exploit Code מוכן. <code>searchsploit -m exploit/path</code> → copies to current directory. Metasploit: <code>use exploit/multi/handler</code> → listens for a Reverse Shell.</div></div>
+      <div class="ans-item"><span class="an">05</span><div><strong>Searchsploit:</strong> <code>searchsploit "Apache 2.4.49"</code> → returns known CVEs with ready Exploit Code. <code>searchsploit -m exploit/path</code> → copies to current directory. Metasploit: <code>use exploit/multi/handler</code> → listens for a Reverse Shell.</div></div>
       <div class="ans-item"><span class="an">06</span><div><strong>PrivEsc Checklist:</strong><br>
         <code>sudo -l</code> → what can be run with sudo?<br>
         <code>find / -perm -4000 2>/dev/null</code> → SUID Binaries (run as root)<br>
         <code>cat /etc/crontab</code> → Cron Jobs running as root with a writable Script<br>
-        <code>env</code> → Variables עם Secrets?<br>
+        <code>env</code> → Variables with Secrets?<br>
         LinPEAS: Script automated script that checks everything — the fastest way to find PrivEsc vectors
       </div></div>
       <div class="ans-note">💡 <strong>TryHackMe Rooms for Beginners:</strong> "Pre-Security Path" → "Jr Penetration Tester" → "CompTIA Pentest+". 90% free. HackTheBox — more advanced, requires completing a Box before gaining access. OWASP WebGoat = intentionally vulnerable Web App for practice.</div>
@@ -640,7 +640,7 @@ function pick(qi, oi) {
 
 function updateProg() {
   document.getElementById('qp').style.width = (qAns / QS.length * 100) + '%';
-  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} נענו`;
+  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} answered`;
 }
 
 function showScore() {

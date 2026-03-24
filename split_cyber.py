@@ -3,9 +3,10 @@
 
 import os
 import re
-
-SRC = "/home/hila/Desktop/NetworksGuide/מסלול אבטחת מידע/cybersecurity_pro_course.html"
-OUT = "/home/hila/Desktop/NetworksGuide/public/learn/security"
+import sys
+_args = sys.argv[1:]
+SRC = _args[0] if _args else "/home/hila/Desktop/NetworksGuide/מסלול אבטחת מידע/cybersecurity_pro_course.html"
+OUT = _args[1] if len(_args) > 1 else "/home/hila/Desktop/NetworksGuide/public/learn/security"
 os.makedirs(OUT, exist_ok=True)
 
 with open(SRC, encoding="utf-8") as f:
