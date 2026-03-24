@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Web & APIs PRO</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
   --bg:      #0b0b0f;
@@ -509,7 +509,7 @@ body::after {
   padding:11px 14px; border:1px solid var(--border);
   border-radius:7px; background:var(--surface);
   cursor:pointer; font-size:12px; color:var(--text-mid);
-  text-align:right; transition:all .15s; line-height:1.45;
+  text-align:left; transition:all .15s; line-height:1.45;
 }
 .q-opt:hover:not(.locked) { border-color:var(--blue); color:var(--blue2); background:rgba(99,102,241,.06); }
 .q-opt.hit  { border-color:var(--green)!important; background:rgba(16,185,129,.1)!important; color:var(--green2)!important; font-weight:600; }
@@ -787,7 +787,7 @@ body::after {
 .analogy {
   background: linear-gradient(135deg, rgba(99,102,241,.06), rgba(6,182,212,.04));
   border: 1px solid rgba(99,102,241,.2);
-  border-right: 4px solid var(--blue2);
+  border-left: 4px solid var(--blue2);
   border-radius: 8px;
   padding: 14px 16px;
   margin: 14px 0;
@@ -877,7 +877,7 @@ body::after {
   content: '';
   position: absolute;
   top: 100%;
-  right: 12px;
+  left: 12px;
   border: 6px solid transparent;
   border-top-color: var(--border2);
 }
@@ -974,97 +974,125 @@ body::after {
 
 </style>
 
-<style id="ng-light">
-[data-theme="light"] {
-  --bg: #f8f9ff; --bg2: #f0f1fb;
-  --surface: #ffffff; --card: #fafafe;
-  --border: #dde0f5; --border2: #c8ccee;
-  --text: #1e1b4b; --text-mid: #3730a3; --text-dim: #6366f1;
-  --blue: #4338ca; --blue2: #4f46e5; --blue3: #818cf8;
-  --blue-glow: rgba(67,56,202,0.1); --code-bg: #f0f0ff;
-}
-</style>
 <script src="/_bridge.js"></script>
 </head>
 <body>
-<div class="ch open" id="c7">
-        <div class="ch-trigger" onclick="toggleCh('c7')">
-          <span class="ch-method m-post">ARCH</span>
+<div class="ch open" id="c1">
+        <div class="ch-trigger" onclick="toggleCh('c1')">
+          <span class="ch-method m-get">GET</span>
           <div class="ch-info">
-            <div class="ch-title">API Design Patterns</div>
-            <div class="ch-sub">API Gateway, BFF, Webhooks, gRPC, Circuit Breaker, OpenAPI</div>
+            <div class="ch-title">HTTP — The Protocol That Runs the Internet</div>
+            <div class="ch-sub">Request, Response, Headers, Methods, Status Codes, HTTP/2, HTTP/3</div>
           </div>
-          <div class="ch-right"><span class="badge b-blue">ARCH</span><span class="ch-time">⏱ 75m</span><span class="ch-arrow">▶</span></div>
+          <div class="ch-right"><span class="badge b-blue">CORE</span><span class="ch-time">⏱ 50m</span><span class="ch-arrow">▶</span></div>
         </div>
         <div class="ch-body" style="display:block"><div class="ch-inner">
 
           <div class="ch-intro">
-            כשיש לך יותר מ-API אחד, מספר Clients, ומיקרו-שירותים — צריך <strong>ארכיטקטורה</strong>.
-            הפרק הזה על Patterns שמופיעים שוב ושוב בחברות גדולות: API Gateway, BFF, Webhooks, Circuit Breaker.
+            Every time you open a website, send a message, or search Google — your browser sends an <strong>HTTP</strong> request to a remote server. HTTP is the fundamental language the whole web speaks. Before we understand APIs — we need to understand the language itself.
           </div>
 
-          <div class="sec-lbl">API Gateway — שוער בכניסה</div>
           <div class="analogy">
-            <span class="analogy-icon">🏨</span>
-            <strong>API Gateway כמו קונסיירז' במלון:</strong><br>
-            במקום שכל אורח ילך ישירות לשף/ניקיון/חשמלאי — פונה לקונסיירז' שמנתב לכולם.<br>
-            <strong>API Gateway עושה:</strong> Auth (מי אתה?), Rate Limiting, Logging, ניתוב לשירות הנכון — <em>במקום אחד</em>.
+            <span class="analogy-icon">📬</span>
+            <strong>HTTP Like a Very Organized Postal System:</strong><br>
+            Every request is an envelope with a precise address, message type (letter? package? form?), and content. Every reply comes with a code: "Delivered ✅", "Not Found ❌", "Postal failure 💥".
+            You don't contact the recipient directly — everything goes through the system.
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">BFF — API שנתפר לClient</div>
+          <div class="sec-lbl">Request — What You Send</div>
           <div class="build-step">
             <div class="bs-item">
-              <span class="bs-num">בעיה</span>
-              <div>Web App צריך נתונים מלאים. Mobile App צריך גרסה רזה לחסוך Bandwidth. CLI צריך פורמט שונה. API אחד לא מתאים לכולם.</div>
+              <span class="bs-num">Method</span>
+              <div><strong>What do you want to do?</strong><br>
+                <code>GET</code> — give me information (read only)<br>
+                <code>POST</code> — create something new<br>
+                <code>PUT</code> — fully replace something existing<br>
+                <code>PATCH</code> — partially update something existing<br>
+                <code>DELETE</code> — delete something
+              </div>
             </div>
             <div class="bs-item">
-              <span class="bs-num">BFF</span>
-              <div>Backend for Frontend — API נפרד לכל Client. Web BFF, Mobile BFF, CLI BFF. כל אחד מחזיר בדיוק מה שה-Client צריך.</div>
+              <span class="bs-num">URL</span>
+              <div><strong>Where to?</strong> The exact address: <code>https://api.example.com/users/42</code><br>
+                <code>https://</code> = secure protocol<br>
+                <code>api.example.com</code> = the domain / server<br>
+                <code>/users/42</code> = the specific Endpoint
+              </div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">Headers</span>
+              <div><strong>Metadata about the request:</strong><br>
+                <code>Content-Type: application/json</code> — "sending you JSON"<br>
+                <code>Authorization: Bearer eyJ...</code> — "here's my token"<br>
+                <code>Accept: application/json</code> — "I expect to receive JSON"
+              </div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">Body</span>
+              <div><strong>The content itself</strong> (only in POST/PUT/PATCH):<br>
+                <code>{"name": "Dana", "email": "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="482c292629082d30292538242d662b2725">[email&#160;protected]</a>"}</code><br>
+                GET has no Body — all data is in the URL itself.
+              </div>
             </div>
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">Webhooks — Push במקום Poll</div>
+          <div class="sec-lbl" style="margin-top:20px">Status Codes — What Was the Answer</div>
           <div class="analogy">
-            <span class="analogy-icon">🔔</span>
-            <strong>Webhook כמו התראת Push:</strong><br>
-            <strong>Polling</strong> = כל דקה שואל "יש הזמנה חדשה?" — בזבוז גדול.<br>
-            <strong>Webhook</strong> = Stripe שולח לך HTTP POST ברגע שיש תשלום.<br><br>
-            אתה נותן ל-Stripe את ה-URL שלך. הם "דוחפים" אליך עדכון כשקורה משהו.
+            <span class="analogy-icon">🚦</span>
+            <strong>5 categories, one number tells the whole story:</strong><br>
+            <strong style="color:var(--text-dim)">1xx</strong> — Informational (rare)<br>
+            <strong style="color:var(--green2)">2xx</strong> — ✅ Success (200 OK, 201 Created, 204 No Content)<br>
+            <strong style="color:var(--amber2)">3xx</strong> — ↗️ Redirect (301 Moved, 304 Not Modified)<br>
+            <strong style="color:var(--red2)">4xx</strong> — ❌ Client error (400 Bad Request, 401 Unauthorized, 404 Not Found, 429 Too Many Requests)<br>
+            <strong style="color:var(--red2)">5xx</strong> — 💥 Server error (500 Internal Error, 503 Service Unavailable)
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">Circuit Breaker — מניעת קריסה מדבקת</div>
-          <div class="analogy">
-            <span class="analogy-icon">⚡</span>
-            <strong>Circuit Breaker כמו ממסר חשמלי:</strong><br>
-            כשיש קצר — ממסר מתנתק כדי שהאש לא תתפשט.<br>
-            כשה-Payment Service קורס — Circuit Breaker מפסיק לשלוח בקשות אליו (במקום לחכות Timeout כל פעם) ומחזיר שגיאה מיידית. אחרי Timeout — מנסה שוב בהדרגה.
+          <div class="sec-lbl" style="margin-top:20px">HTTP/1.1 → HTTP/2 → HTTP/3</div>
+          <div class="build-step">
+            <div class="bs-item">
+              <span class="bs-num">1.1</span>
+              <div><strong>HTTP/1.1 (1997)</strong> — one request at a time per connection. Like a queue at checkout — everyone waits for the one in front.</div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">2</span>
+              <div><strong>HTTP/2 (2015)</strong> — multiple requests in parallel on the same connection (Multiplexing). Header Compression. 2-3x faster.</div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">3</span>
+              <div><strong>HTTP/3 (2022)</strong> — runs on UDP instead of TCP. If a Packet is lost — only its Stream waits. Great on Mobile.</div>
+            </div>
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">אירוע אמיתי</div>
+          <div class="why-matters">
+            <span>💡</span>
+            <span><strong>Statelessness — a core principle:</strong> every HTTP request is completely independent. The server doesn't remember your previous visit. That's why you send a Token with every request — the server doesn't "remember" that you logged in.</span>
+          </div>
+
+          <div class="sec-lbl" style="margin-top:20px">Real Incident</div>
           <div class="incident">
-            <div class="inc-badge">🔴 CASCADE — 2022 / Meta</div>
-            <div class="inc-title">איך ניסיון לתקן עצמו גרם לקריסה של Instagram</div>
+            <div class="inc-badge">🔴 BREACH — 2020 / Zoom</div>
+            <div class="inc-title">How Zoom Calls Between Americans Were Routed Through China</div>
             <div class="inc-desc">
-              Backend הואט → Clients שלחו Retries ללא Exponential Backoff. כל Retry → יותר Load → יותר Retries → <strong>Thundering Herd</strong>.<br><br>
-              Circuit Breaker + Exponential Backoff היו מונעים: "נכשל פעם 1 → חכה 1 שנ'. פעם 2 → חכה 2 שנ'. פעם 3 → חכה 4 שנ'."<br><br>
-              Jitter (אקראיות קטנה) מונע שכולם ינסו שוב בדיוק באותו רגע.
+              In early 2020, Citizen Lab discovered that Zoom's encryption keys were being routed through servers in China — even when both parties were in the US.<br><br>
+              The reason: a routing mechanism that found the <strong>nearest available server</strong> — without checking geographic location. A server in China responded faster? The key went through there.<br><br>
+              The fix: adding Geo-Fencing — a rule saying "keys for American calls stay on American servers only." Cost: $1 billion in settlements.
             </div>
           </div>
 
-          <div class="glossary" id="glos7">
-            <div class="glossary-head" onclick="toggleGlos('glos7')">
-              <span>📖 מילון מושגים — פרק זה</span>
+          <div class="glossary" id="glos1">
+            <div class="glossary-head" onclick="toggleGlos('glos1')">
+              <span>📖 Glossary — This Chapter</span>
               <span class="glossary-arr">▶</span>
             </div>
             <div class="glossary-body">
-              <div class="glos-item"><span class="glos-term">API Gateway</span><span class="glos-def">שרת שיושב לפני כל ה-APIs. מטפל ב-Auth, Rate Limiting, Routing. Kong, AWS API GW.</span></div>
-              <div class="glos-item"><span class="glos-term">BFF</span><span class="glos-def">Backend for Frontend — API ייחודי לכל סוג Client: Web, Mobile, CLI.</span></div>
-              <div class="glos-item"><span class="glos-term">Webhook</span><span class="glos-def">Server שולח HTTP POST ל-URL שלך כשקורה אירוע. Push במקום Poll.</span></div>
-              <div class="glos-item"><span class="glos-term">Circuit Breaker</span><span class="glos-def">Pattern שמפסיק לשלוח לService תקוע. מונע Cascading Failure.</span></div>
-              <div class="glos-item"><span class="glos-term">Exponential Backoff</span><span class="glos-def">המתנה גוברת בין Retries: 1s → 2s → 4s → 8s. מונע הצפת שרת.</span></div>
-              <div class="glos-item"><span class="glos-term">Jitter</span><span class="glos-def">אקראיות קטנה ב-Backoff כדי שכולם לא ינסו שוב בדיוק אותו רגע.</span></div>
-              <div class="glos-item"><span class="glos-term">Thundering Herd</span><span class="glos-def">גל של בקשות שמגיעות בבת אחת — בד"כ Retries מסונכרנים. מרסק שרתים.</span></div>
-              <div class="glos-item"><span class="glos-term">gRPC</span><span class="glos-def">Google RPC — Binary protocol מהיר. Protocol Buffers במקום JSON. מצוין ל-Microservices.</span></div>
+              <div class="glos-item"><span class="glos-term">HTTP</span><span class="glos-def">HyperText Transfer Protocol — the communication language of the internet. Every request and response between Browser and Server.</span></div>
+              <div class="glos-item"><span class="glos-term">GET / POST / PUT / DELETE</span><span class="glos-def">HTTP Methods — define the type of operation. GET=read, POST=create, PUT=replace, DELETE=delete.</span></div>
+              <div class="glos-item"><span class="glos-term">Status Code</span><span class="glos-def">3-digit number in the response. 200=OK, 404=not found, 500=server error.</span></div>
+              <div class="glos-item"><span class="glos-term">Headers</span><span class="glos-def">Metadata about the request/response. Content-Type, Authorization, Cache-Control.</span></div>
+              <div class="glos-item"><span class="glos-term">Body</span><span class="glos-def">The content itself — the JSON you send or receive.</span></div>
+              <div class="glos-item"><span class="glos-term">Stateless</span><span class="glos-def">Every request is independent. The server doesn't "remember" previous requests.</span></div>
+              <div class="glos-item"><span class="glos-term">HTTPS</span><span class="glos-def">HTTP + TLS — encryption. Everything between browser and server is encrypted and unreadable to third parties.</span></div>
+              <div class="glos-item"><span class="glos-term">Multiplexing</span><span class="glos-def">HTTP/2's ability to send multiple requests in parallel over the same TCP connection.</span></div>
             </div>
           </div>
 

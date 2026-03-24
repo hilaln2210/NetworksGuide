@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Web & APIs PRO</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
   --bg:      #0b0b0f;
@@ -509,7 +509,7 @@ body::after {
   padding:11px 14px; border:1px solid var(--border);
   border-radius:7px; background:var(--surface);
   cursor:pointer; font-size:12px; color:var(--text-mid);
-  text-align:right; transition:all .15s; line-height:1.45;
+  text-align:left; transition:all .15s; line-height:1.45;
 }
 .q-opt:hover:not(.locked) { border-color:var(--blue); color:var(--blue2); background:rgba(99,102,241,.06); }
 .q-opt.hit  { border-color:var(--green)!important; background:rgba(16,185,129,.1)!important; color:var(--green2)!important; font-weight:600; }
@@ -787,7 +787,7 @@ body::after {
 .analogy {
   background: linear-gradient(135deg, rgba(99,102,241,.06), rgba(6,182,212,.04));
   border: 1px solid rgba(99,102,241,.2);
-  border-right: 4px solid var(--blue2);
+  border-left: 4px solid var(--blue2);
   border-radius: 8px;
   padding: 14px 16px;
   margin: 14px 0;
@@ -877,7 +877,7 @@ body::after {
   content: '';
   position: absolute;
   top: 100%;
-  right: 12px;
+  left: 12px;
   border: 6px solid transparent;
   border-top-color: var(--border2);
 }
@@ -974,16 +974,6 @@ body::after {
 
 </style>
 
-<style id="ng-light">
-[data-theme="light"] {
-  --bg: #f8f9ff; --bg2: #f0f1fb;
-  --surface: #ffffff; --card: #fafafe;
-  --border: #dde0f5; --border2: #c8ccee;
-  --text: #1e1b4b; --text-mid: #3730a3; --text-dim: #6366f1;
-  --blue: #4338ca; --blue2: #4f46e5; --blue3: #818cf8;
-  --blue-glow: rgba(67,56,202,0.1); --code-bg: #f0f0ff;
-}
-</style>
 <script src="/_bridge.js"></script>
 </head>
 <body>
@@ -999,72 +989,72 @@ body::after {
         <div class="ch-body" style="display:block"><div class="ch-inner">
 
           <div class="ch-intro">
-            כשיש לך יותר מ-API אחד, מספר Clients, ומיקרו-שירותים — צריך <strong>ארכיטקטורה</strong>.
-            הפרק הזה על Patterns שמופיעים שוב ושוב בחברות גדולות: API Gateway, BFF, Webhooks, Circuit Breaker.
+            When you have more than one API, multiple Clients, and microservices — you need <strong>architecture</strong>.
+            This chapter covers Patterns that appear again and again at large companies: API Gateway, BFF, Webhooks, Circuit Breaker.
           </div>
 
-          <div class="sec-lbl">API Gateway — שוער בכניסה</div>
+          <div class="sec-lbl">API Gateway — The Gatekeeper</div>
           <div class="analogy">
             <span class="analogy-icon">🏨</span>
-            <strong>API Gateway כמו קונסיירז' במלון:</strong><br>
-            במקום שכל אורח ילך ישירות לשף/ניקיון/חשמלאי — פונה לקונסיירז' שמנתב לכולם.<br>
-            <strong>API Gateway עושה:</strong> Auth (מי אתה?), Rate Limiting, Logging, ניתוב לשירות הנכון — <em>במקום אחד</em>.
+            <strong>API Gateway Like a Hotel Concierge:</strong><br>
+            Instead of every guest going directly to the chef/cleaning/electrician — they go to the concierge who routes to everyone.<br>
+            <strong>API Gateway does:</strong> Auth (who are you?), Rate Limiting, Logging, routing to the right service — <em>in one place</em>.
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">BFF — API שנתפר לClient</div>
+          <div class="sec-lbl" style="margin-top:18px">BFF — API Tailored to Each Client</div>
           <div class="build-step">
             <div class="bs-item">
-              <span class="bs-num">בעיה</span>
-              <div>Web App צריך נתונים מלאים. Mobile App צריך גרסה רזה לחסוך Bandwidth. CLI צריך פורמט שונה. API אחד לא מתאים לכולם.</div>
+              <span class="bs-num">Problem</span>
+              <div>Web App needs full data. Mobile App needs a lean version to save Bandwidth. CLI needs a different format. One API doesn't fit all.</div>
             </div>
             <div class="bs-item">
               <span class="bs-num">BFF</span>
-              <div>Backend for Frontend — API נפרד לכל Client. Web BFF, Mobile BFF, CLI BFF. כל אחד מחזיר בדיוק מה שה-Client צריך.</div>
+              <div>Backend for Frontend — a separate API for each Client. Web BFF, Mobile BFF, CLI BFF. Each returns exactly what that Client needs.</div>
             </div>
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">Webhooks — Push במקום Poll</div>
+          <div class="sec-lbl" style="margin-top:18px">Webhooks — Push Instead of Poll</div>
           <div class="analogy">
             <span class="analogy-icon">🔔</span>
-            <strong>Webhook כמו התראת Push:</strong><br>
-            <strong>Polling</strong> = כל דקה שואל "יש הזמנה חדשה?" — בזבוז גדול.<br>
-            <strong>Webhook</strong> = Stripe שולח לך HTTP POST ברגע שיש תשלום.<br><br>
-            אתה נותן ל-Stripe את ה-URL שלך. הם "דוחפים" אליך עדכון כשקורה משהו.
+            <strong>Webhook Like a Push Notification:</strong><br>
+            <strong>Polling</strong> = every minute asking "is there a new order?" — huge waste.<br>
+            <strong>Webhook</strong> = Stripe sends you an HTTP POST the moment there's a payment.<br><br>
+            You give Stripe your URL. They "push" you an update when something happens.
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">Circuit Breaker — מניעת קריסה מדבקת</div>
+          <div class="sec-lbl" style="margin-top:18px">Circuit Breaker — Preventing Cascading Failure</div>
           <div class="analogy">
             <span class="analogy-icon">⚡</span>
-            <strong>Circuit Breaker כמו ממסר חשמלי:</strong><br>
-            כשיש קצר — ממסר מתנתק כדי שהאש לא תתפשט.<br>
-            כשה-Payment Service קורס — Circuit Breaker מפסיק לשלוח בקשות אליו (במקום לחכות Timeout כל פעם) ומחזיר שגיאה מיידית. אחרי Timeout — מנסה שוב בהדרגה.
+            <strong>Circuit Breaker Like an Electrical Fuse:</strong><br>
+            When there's a short circuit — the fuse trips so the fire doesn't spread.<br>
+            When the Payment Service crashes — Circuit Breaker stops sending requests to it (instead of waiting for Timeout every time) and returns an error immediately. After a Timeout — tries again gradually.
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">אירוע אמיתי</div>
+          <div class="sec-lbl" style="margin-top:18px">Real Incident</div>
           <div class="incident">
             <div class="inc-badge">🔴 CASCADE — 2022 / Meta</div>
-            <div class="inc-title">איך ניסיון לתקן עצמו גרם לקריסה של Instagram</div>
+            <div class="inc-title">How Auto-Recovery Caused Instagram to Crash</div>
             <div class="inc-desc">
-              Backend הואט → Clients שלחו Retries ללא Exponential Backoff. כל Retry → יותר Load → יותר Retries → <strong>Thundering Herd</strong>.<br><br>
-              Circuit Breaker + Exponential Backoff היו מונעים: "נכשל פעם 1 → חכה 1 שנ'. פעם 2 → חכה 2 שנ'. פעם 3 → חכה 4 שנ'."<br><br>
-              Jitter (אקראיות קטנה) מונע שכולם ינסו שוב בדיוק באותו רגע.
+              Backend slowed → Clients sent Retries without Exponential Backoff. Every Retry → more Load → more Retries → <strong>Thundering Herd</strong>.<br><br>
+              Circuit Breaker + Exponential Backoff would have prevented it: "fail 1 → wait 1s. fail 2 → wait 2s. fail 3 → wait 4s."<br><br>
+              Jitter (small randomness) prevents everyone from retrying at exactly the same moment.
             </div>
           </div>
 
           <div class="glossary" id="glos7">
             <div class="glossary-head" onclick="toggleGlos('glos7')">
-              <span>📖 מילון מושגים — פרק זה</span>
+              <span>📖 Glossary — This Chapter</span>
               <span class="glossary-arr">▶</span>
             </div>
             <div class="glossary-body">
-              <div class="glos-item"><span class="glos-term">API Gateway</span><span class="glos-def">שרת שיושב לפני כל ה-APIs. מטפל ב-Auth, Rate Limiting, Routing. Kong, AWS API GW.</span></div>
-              <div class="glos-item"><span class="glos-term">BFF</span><span class="glos-def">Backend for Frontend — API ייחודי לכל סוג Client: Web, Mobile, CLI.</span></div>
-              <div class="glos-item"><span class="glos-term">Webhook</span><span class="glos-def">Server שולח HTTP POST ל-URL שלך כשקורה אירוע. Push במקום Poll.</span></div>
-              <div class="glos-item"><span class="glos-term">Circuit Breaker</span><span class="glos-def">Pattern שמפסיק לשלוח לService תקוע. מונע Cascading Failure.</span></div>
-              <div class="glos-item"><span class="glos-term">Exponential Backoff</span><span class="glos-def">המתנה גוברת בין Retries: 1s → 2s → 4s → 8s. מונע הצפת שרת.</span></div>
-              <div class="glos-item"><span class="glos-term">Jitter</span><span class="glos-def">אקראיות קטנה ב-Backoff כדי שכולם לא ינסו שוב בדיוק אותו רגע.</span></div>
-              <div class="glos-item"><span class="glos-term">Thundering Herd</span><span class="glos-def">גל של בקשות שמגיעות בבת אחת — בד"כ Retries מסונכרנים. מרסק שרתים.</span></div>
-              <div class="glos-item"><span class="glos-term">gRPC</span><span class="glos-def">Google RPC — Binary protocol מהיר. Protocol Buffers במקום JSON. מצוין ל-Microservices.</span></div>
+              <div class="glos-item"><span class="glos-term">API Gateway</span><span class="glos-def">Server that sits in front of all APIs. Handles Auth, Rate Limiting, Routing. Kong, AWS API GW.</span></div>
+              <div class="glos-item"><span class="glos-term">BFF</span><span class="glos-def">Backend for Frontend — unique API for each Client type: Web, Mobile, CLI.</span></div>
+              <div class="glos-item"><span class="glos-term">Webhook</span><span class="glos-def">Server sends HTTP POST to your URL when an event occurs. Push instead of Poll.</span></div>
+              <div class="glos-item"><span class="glos-term">Circuit Breaker</span><span class="glos-def">Pattern that stops sending to a broken Service. Prevents Cascading Failure.</span></div>
+              <div class="glos-item"><span class="glos-term">Exponential Backoff</span><span class="glos-def">Increasing wait between Retries: 1s → 2s → 4s → 8s. Prevents server flooding.</span></div>
+              <div class="glos-item"><span class="glos-term">Jitter</span><span class="glos-def">Small randomness in Backoff so everyone doesn't retry at exactly the same moment.</span></div>
+              <div class="glos-item"><span class="glos-term">Thundering Herd</span><span class="glos-def">A wave of requests arriving simultaneously — usually synchronized Retries. Crushes servers.</span></div>
+              <div class="glos-item"><span class="glos-term">gRPC</span><span class="glos-def">Google RPC — fast Binary protocol. Protocol Buffers instead of JSON. Excellent for Microservices.</span></div>
             </div>
           </div>
 

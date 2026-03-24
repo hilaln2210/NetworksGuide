@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Web & APIs PRO</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
   --bg:      #0b0b0f;
@@ -509,7 +509,7 @@ body::after {
   padding:11px 14px; border:1px solid var(--border);
   border-radius:7px; background:var(--surface);
   cursor:pointer; font-size:12px; color:var(--text-mid);
-  text-align:right; transition:all .15s; line-height:1.45;
+  text-align:left; transition:all .15s; line-height:1.45;
 }
 .q-opt:hover:not(.locked) { border-color:var(--blue); color:var(--blue2); background:rgba(99,102,241,.06); }
 .q-opt.hit  { border-color:var(--green)!important; background:rgba(16,185,129,.1)!important; color:var(--green2)!important; font-weight:600; }
@@ -787,7 +787,7 @@ body::after {
 .analogy {
   background: linear-gradient(135deg, rgba(99,102,241,.06), rgba(6,182,212,.04));
   border: 1px solid rgba(99,102,241,.2);
-  border-right: 4px solid var(--blue2);
+  border-left: 4px solid var(--blue2);
   border-radius: 8px;
   padding: 14px 16px;
   margin: 14px 0;
@@ -877,7 +877,7 @@ body::after {
   content: '';
   position: absolute;
   top: 100%;
-  right: 12px;
+  left: 12px;
   border: 6px solid transparent;
   border-top-color: var(--border2);
 }
@@ -974,102 +974,184 @@ body::after {
 
 </style>
 
-<style id="ng-light">
-[data-theme="light"] {
-  --bg: #f8f9ff; --bg2: #f0f1fb;
-  --surface: #ffffff; --card: #fafafe;
-  --border: #dde0f5; --border2: #c8ccee;
-  --text: #1e1b4b; --text-mid: #3730a3; --text-dim: #6366f1;
-  --blue: #4338ca; --blue2: #4f46e5; --blue3: #818cf8;
-  --blue-glow: rgba(67,56,202,0.1); --code-bg: #f0f0ff;
-}
-</style>
 <script src="/_bridge.js"></script>
 </head>
 <body>
-<div class="ch open" id="c7">
-        <div class="ch-trigger" onclick="toggleCh('c7')">
-          <span class="ch-method m-post">ARCH</span>
+<div class="ch open" id="c0">
+        <div class="ch-trigger" onclick="toggleCh('c0')">
+          <span class="ch-method m-get" style="background:rgba(16,185,129,.12);color:var(--green2);border-color:rgba(16,185,129,.25)">00</span>
           <div class="ch-info">
-            <div class="ch-title">API Design Patterns</div>
-            <div class="ch-sub">API Gateway, BFF, Webhooks, gRPC, Circuit Breaker, OpenAPI</div>
+            <div class="ch-title">What is an API? — From Zero</div>
+            <div class="ch-sub">Complete beginner · No prior knowledge · Real-life analogies</div>
           </div>
-          <div class="ch-right"><span class="badge b-blue">ARCH</span><span class="ch-time">⏱ 75m</span><span class="ch-arrow">▶</span></div>
+          <div class="ch-meta">
+            <span class="badge b-green">Beginner</span>
+            <span class="ch-time">⏱ 25m</span>
+            <span class="ch-arr">▶</span>
+          </div>
         </div>
         <div class="ch-body" style="display:block"><div class="ch-inner">
 
+          <!-- INTRO -->
           <div class="ch-intro">
-            כשיש לך יותר מ-API אחד, מספר Clients, ומיקרו-שירותים — צריך <strong>ארכיטקטורה</strong>.
-            הפרק הזה על Patterns שמופיעים שוב ושוב בחברות גדולות: API Gateway, BFF, Webhooks, Circuit Breaker.
+            Before we talk about HTTP, REST, JSON and Endpoints — we need to answer one question:
+            <strong>What actually happens when an app "talks" to a server?</strong><br><br>
+            When you open Waze, order food, or sign in with Google — every one of those moments involves an <strong>API</strong>. This chapter explains what that means from scratch, no prior knowledge needed.
           </div>
 
-          <div class="sec-lbl">API Gateway — שוער בכניסה</div>
+          <!-- SECTION 1: What is an API -->
+          <div class="sec-lbl">What is an API?</div>
+
           <div class="analogy">
-            <span class="analogy-icon">🏨</span>
-            <strong>API Gateway כמו קונסיירז' במלון:</strong><br>
-            במקום שכל אורח ילך ישירות לשף/ניקיון/חשמלאי — פונה לקונסיירז' שמנתב לכולם.<br>
-            <strong>API Gateway עושה:</strong> Auth (מי אתה?), Rate Limiting, Logging, ניתוב לשירות הנכון — <em>במקום אחד</em>.
+            <span class="analogy-icon">🍽️</span>
+            <strong>The Restaurant Analogy:</strong><br>
+            Imagine a restaurant. You (the customer) are in the dining room. The kitchen is the server. You don't enter the kitchen — you call the waiter.<br><br>
+            <strong>The API is the waiter.</strong><br>
+            You order (Request), the waiter goes to the kitchen, and brings back your dish (Response). You don't know — and don't need to know — how the cooking works.
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">BFF — API שנתפר לClient</div>
           <div class="build-step">
             <div class="bs-item">
-              <span class="bs-num">בעיה</span>
-              <div>Web App צריך נתונים מלאים. Mobile App צריך גרסה רזה לחסוך Bandwidth. CLI צריך פורמט שונה. API אחד לא מתאים לכולם.</div>
+              <span class="bs-num">01</span>
+              <div><strong>API</strong> = Application Programming Interface = an interface that lets two pieces of software talk to each other. It's not special code — it's an <strong>agreement</strong>: "send me a request in this format and I'll return a response in this format."</div>
             </div>
             <div class="bs-item">
-              <span class="bs-num">BFF</span>
-              <div>Backend for Frontend — API נפרד לכל Client. Web BFF, Mobile BFF, CLI BFF. כל אחד מחזיר בדיוק מה שה-Client צריך.</div>
+              <span class="bs-num">02</span>
+              <div><strong>Real-world example:</strong> When you click "Login with Google" — the app sends a request to Google's API, Google checks who you are, and returns: "This is Dana, their email is <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="245d4b57574d644349454d480a474b49">[email&#160;protected]</a>". The app got the info without ever knowing your password.</div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">03</span>
+              <div><strong>Why does this matter?</strong> Almost every modern app is built from APIs — maps apps buy a mapping API, food delivery apps connect a restaurant API, a payment API, and a location API. APIs are the "pipes" that connect everything.</div>
             </div>
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">Webhooks — Push במקום Poll</div>
+          <!-- SECTION 2: Client & Server -->
+          <div class="sec-lbl" style="margin-top:20px">Client & Server — Who Talks to Whom?</div>
+
           <div class="analogy">
-            <span class="analogy-icon">🔔</span>
-            <strong>Webhook כמו התראת Push:</strong><br>
-            <strong>Polling</strong> = כל דקה שואל "יש הזמנה חדשה?" — בזבוז גדול.<br>
-            <strong>Webhook</strong> = Stripe שולח לך HTTP POST ברגע שיש תשלום.<br><br>
-            אתה נותן ל-Stripe את ה-URL שלך. הם "דוחפים" אליך עדכון כשקורה משהו.
+            <span class="analogy-icon">📞</span>
+            <strong>The Phone Call Analogy:</strong><br>
+            <strong>Client</strong> = the caller (asks questions, sends requests)<br>
+            <strong>Server</strong> = the answerer (holds data, processes requests)<br><br>
+            Your browser is a Client. When you open youtube.com — the browser contacts YouTube's servers and requests: "Give me the homepage." The server responds with HTML, images, and video.
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">Circuit Breaker — מניעת קריסה מדבקת</div>
-          <div class="analogy">
-            <span class="analogy-icon">⚡</span>
-            <strong>Circuit Breaker כמו ממסר חשמלי:</strong><br>
-            כשיש קצר — ממסר מתנתק כדי שהאש לא תתפשט.<br>
-            כשה-Payment Service קורס — Circuit Breaker מפסיק לשלוח בקשות אליו (במקום לחכות Timeout כל פעם) ומחזיר שגיאה מיידית. אחרי Timeout — מנסה שוב בהדרגה.
+          <div class="why-matters">
+            <span>💡</span>
+            <span><strong>Key point:</strong> Client and Server can be anything. A mobile app is a Client. A browser is a Client. Even one server can be a Client of another server — when they talk to each other.</span>
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">אירוע אמיתי</div>
-          <div class="incident">
-            <div class="inc-badge">🔴 CASCADE — 2022 / Meta</div>
-            <div class="inc-title">איך ניסיון לתקן עצמו גרם לקריסה של Instagram</div>
-            <div class="inc-desc">
-              Backend הואט → Clients שלחו Retries ללא Exponential Backoff. כל Retry → יותר Load → יותר Retries → <strong>Thundering Herd</strong>.<br><br>
-              Circuit Breaker + Exponential Backoff היו מונעים: "נכשל פעם 1 → חכה 1 שנ'. פעם 2 → חכה 2 שנ'. פעם 3 → חכה 4 שנ'."<br><br>
-              Jitter (אקראיות קטנה) מונע שכולם ינסו שוב בדיוק באותו רגע.
+          <!-- SECTION 3: What is HTTP -->
+          <div class="sec-lbl" style="margin-top:20px">HTTP — The Language of the Internet</div>
+
+          <div class="ch-intro" style="border:none;padding-bottom:0;margin-bottom:10px">
+            If the API is the waiter, then <strong>HTTP is the language they speak</strong>. When your browser requests a page — it sends a message in HTTP format. The server responds in HTTP.
+          </div>
+
+          <div class="build-step">
+            <div class="bs-item">
+              <span class="bs-num">Ask</span>
+              <div>
+                <strong>Request</strong> — Client sends to the server:<br>
+                <code>GET /api/users/42</code> — "Give me the details of user 42"<br>
+                <code>POST /api/orders</code> — "Create a new order with these details"<br>
+                <code>DELETE /api/posts/7</code> — "Delete post number 7"
+              </div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">Receive</span>
+              <div>
+                <strong>Response</strong> — Server returns:<br>
+                <code>200 OK</code> — success, here's the data<br>
+                <code>404 Not Found</code> — couldn't find what you asked for<br>
+                <code>500 Server Error</code> — something went wrong on my end
+              </div>
             </div>
           </div>
 
-          <div class="glossary" id="glos7">
-            <div class="glossary-head" onclick="toggleGlos('glos7')">
-              <span>📖 מילון מושגים — פרק זה</span>
+          <div class="analogy">
+            <span class="analogy-icon">🔢</span>
+            <strong>Status Codes — numbers that tell the story:</strong><br>
+            200-299 = ✅ Success<br>
+            300-399 = ↗️ Redirect<br>
+            400-499 = ❌ Client error<br>
+            500-599 = 💥 Server error<br><br>
+            Just like grades in school — the number tells you at a glance whether it passed or failed.
+          </div>
+
+          <!-- SECTION 4: What is JSON -->
+          <div class="sec-lbl" style="margin-top:20px">JSON — The Data Format</div>
+
+          <div class="ch-intro" style="border:none;padding-bottom:0;margin-bottom:10px">
+            We sent a request, got a response — but <strong>what format does the data come in?</strong> Almost always in <span class="tip"><span class="tip-word">JSON</span><span class="tip-box"><span class="tip-title">JSON</span>JavaScript Object Notation — simple text format for data. Readable by humans and machines.</span></span>.
+          </div>
+
+          <div class="build-step">
+            <div class="bs-item">
+              <span class="bs-num">What</span>
+              <div>
+                <strong>JSON looks like this:</strong><br>
+                <code>{ "name": "Dana", "age": 28, "city": "Tel Aviv" }</code><br><br>
+                It's just organized text. A key (name) followed by a value ("Dana"). Every API you interact with will return JSON like this with the data you requested.
+              </div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">Why</span>
+              <div>
+                <strong>Why JSON and not something else?</strong><br>
+                Because every programming language can read it. Python, JavaScript, Java — they all "speak" JSON. It became the native language of the Web.
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 5: Putting it all together -->
+          <div class="sec-lbl" style="margin-top:20px">Putting It Together — What Happens When You Open a Food App?</div>
+
+          <div class="build-step">
+            <div class="bs-item">
+              <span class="bs-num">1</span>
+              <div>The app (Client) sends an HTTP request to the server: <code>GET /api/restaurants?city=tlv</code></div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">2</span>
+              <div>The server receives the request and fetches restaurants from the database</div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">3</span>
+              <div>The server returns JSON: <code>[{"name": "Burger Place", "rating": 4.8}, ...]</code></div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">4</span>
+              <div>The app reads the JSON and displays the restaurants on screen</div>
+            </div>
+          </div>
+
+          <div class="why-matters">
+            <span>🎯</span>
+            <span><strong>The moment it all connects:</strong> Every chapter ahead dives deeper into one step of this process. HTTP → REST → Auth → WebSockets. But the foundation is always: <strong>Client asks, Server answers, JSON returns data</strong>.</span>
+          </div>
+
+          <!-- GLOSSARY -->
+          <div class="glossary" id="glos0">
+            <div class="glossary-head" onclick="toggleGlos('glos0')">
+              <span>📖 Glossary — This Chapter</span>
               <span class="glossary-arr">▶</span>
             </div>
             <div class="glossary-body">
-              <div class="glos-item"><span class="glos-term">API Gateway</span><span class="glos-def">שרת שיושב לפני כל ה-APIs. מטפל ב-Auth, Rate Limiting, Routing. Kong, AWS API GW.</span></div>
-              <div class="glos-item"><span class="glos-term">BFF</span><span class="glos-def">Backend for Frontend — API ייחודי לכל סוג Client: Web, Mobile, CLI.</span></div>
-              <div class="glos-item"><span class="glos-term">Webhook</span><span class="glos-def">Server שולח HTTP POST ל-URL שלך כשקורה אירוע. Push במקום Poll.</span></div>
-              <div class="glos-item"><span class="glos-term">Circuit Breaker</span><span class="glos-def">Pattern שמפסיק לשלוח לService תקוע. מונע Cascading Failure.</span></div>
-              <div class="glos-item"><span class="glos-term">Exponential Backoff</span><span class="glos-def">המתנה גוברת בין Retries: 1s → 2s → 4s → 8s. מונע הצפת שרת.</span></div>
-              <div class="glos-item"><span class="glos-term">Jitter</span><span class="glos-def">אקראיות קטנה ב-Backoff כדי שכולם לא ינסו שוב בדיוק אותו רגע.</span></div>
-              <div class="glos-item"><span class="glos-term">Thundering Herd</span><span class="glos-def">גל של בקשות שמגיעות בבת אחת — בד"כ Retries מסונכרנים. מרסק שרתים.</span></div>
-              <div class="glos-item"><span class="glos-term">gRPC</span><span class="glos-def">Google RPC — Binary protocol מהיר. Protocol Buffers במקום JSON. מצוין ל-Microservices.</span></div>
+              <div class="glos-item"><span class="glos-term">API</span><span class="glos-def">An interface that lets two pieces of software communicate. Like a waiter between customer and kitchen.</span></div>
+              <div class="glos-item"><span class="glos-term">Client</span><span class="glos-def">The one who sends requests — browser, app, any code that calls an API.</span></div>
+              <div class="glos-item"><span class="glos-term">Server</span><span class="glos-def">The one that receives requests and returns responses — holds data and logic.</span></div>
+              <div class="glos-item"><span class="glos-term">HTTP</span><span class="glos-def">HyperText Transfer Protocol — the language of the internet. Rules for the format of requests and responses.</span></div>
+              <div class="glos-item"><span class="glos-term">Request</span><span class="glos-def">The message the Client sends to the Server. Includes: what you want to do + which address.</span></div>
+              <div class="glos-item"><span class="glos-term">Response</span><span class="glos-def">The Server's reply. Includes: whether it succeeded (Status Code) + the data itself.</span></div>
+              <div class="glos-item"><span class="glos-term">Status Code</span><span class="glos-def">A 3-digit number summarizing the request result. 200=success, 404=not found, 500=server error.</span></div>
+              <div class="glos-item"><span class="glos-term">JSON</span><span class="glos-def">A text format for data. Looks like: {"key": "value"}. The standard format of the Web.</span></div>
+              <div class="glos-item"><span class="glos-term">Endpoint</span><span class="glos-def">A specific address in an API. For example /api/users is the users Endpoint.</span></div>
             </div>
           </div>
 
-          </div></div>
-      </div>
+        </div></div>
+      </div><!-- /c0 -->
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 </body>
 </html>

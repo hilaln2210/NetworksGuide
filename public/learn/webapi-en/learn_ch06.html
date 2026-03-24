@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Web & APIs PRO</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
   --bg:      #0b0b0f;
@@ -509,7 +509,7 @@ body::after {
   padding:11px 14px; border:1px solid var(--border);
   border-radius:7px; background:var(--surface);
   cursor:pointer; font-size:12px; color:var(--text-mid);
-  text-align:right; transition:all .15s; line-height:1.45;
+  text-align:left; transition:all .15s; line-height:1.45;
 }
 .q-opt:hover:not(.locked) { border-color:var(--blue); color:var(--blue2); background:rgba(99,102,241,.06); }
 .q-opt.hit  { border-color:var(--green)!important; background:rgba(16,185,129,.1)!important; color:var(--green2)!important; font-weight:600; }
@@ -787,7 +787,7 @@ body::after {
 .analogy {
   background: linear-gradient(135deg, rgba(99,102,241,.06), rgba(6,182,212,.04));
   border: 1px solid rgba(99,102,241,.2);
-  border-right: 4px solid var(--blue2);
+  border-left: 4px solid var(--blue2);
   border-radius: 8px;
   padding: 14px 16px;
   margin: 14px 0;
@@ -877,7 +877,7 @@ body::after {
   content: '';
   position: absolute;
   top: 100%;
-  right: 12px;
+  left: 12px;
   border: 6px solid transparent;
   border-top-color: var(--border2);
 }
@@ -974,97 +974,81 @@ body::after {
 
 </style>
 
-<style id="ng-light">
-[data-theme="light"] {
-  --bg: #f8f9ff; --bg2: #f0f1fb;
-  --surface: #ffffff; --card: #fafafe;
-  --border: #dde0f5; --border2: #c8ccee;
-  --text: #1e1b4b; --text-mid: #3730a3; --text-dim: #6366f1;
-  --blue: #4338ca; --blue2: #4f46e5; --blue3: #818cf8;
-  --blue-glow: rgba(67,56,202,0.1); --code-bg: #f0f0ff;
-}
-</style>
 <script src="/_bridge.js"></script>
 </head>
 <body>
-<div class="ch open" id="c7">
-        <div class="ch-trigger" onclick="toggleCh('c7')">
-          <span class="ch-method m-post">ARCH</span>
+<div class="ch open" id="c5">
+        <div class="ch-trigger" onclick="toggleCh('c5')">
+          <span class="ch-method m-ws">WS</span>
           <div class="ch-info">
-            <div class="ch-title">API Design Patterns</div>
-            <div class="ch-sub">API Gateway, BFF, Webhooks, gRPC, Circuit Breaker, OpenAPI</div>
+            <div class="ch-title">WebSockets & Real-Time</div>
+            <div class="ch-sub">WebSocket, SSE, Long Polling, WebRTC, Socket.io, Scaling</div>
           </div>
-          <div class="ch-right"><span class="badge b-blue">ARCH</span><span class="ch-time">⏱ 75m</span><span class="ch-arrow">▶</span></div>
+          <div class="ch-right"><span class="badge b-purple">REAL-TIME</span><span class="ch-time">⏱ 60m</span><span class="ch-arrow">▶</span></div>
         </div>
         <div class="ch-body" style="display:block"><div class="ch-inner">
 
           <div class="ch-intro">
-            כשיש לך יותר מ-API אחד, מספר Clients, ומיקרו-שירותים — צריך <strong>ארכיטקטורה</strong>.
-            הפרק הזה על Patterns שמופיעים שוב ושוב בחברות גדולות: API Gateway, BFF, Webhooks, Circuit Breaker.
+            HTTP is Request-Response: you ask, the server answers, the connection closes. But what if <strong>the server needs to push you an update</strong> — a new WhatsApp message, a stock price changing, a live location? It can't wait for you to ask. That's where WebSockets and SSE come in.
           </div>
 
-          <div class="sec-lbl">API Gateway — שוער בכניסה</div>
           <div class="analogy">
-            <span class="analogy-icon">🏨</span>
-            <strong>API Gateway כמו קונסיירז' במלון:</strong><br>
-            במקום שכל אורח ילך ישירות לשף/ניקיון/חשמלאי — פונה לקונסיירז' שמנתב לכולם.<br>
-            <strong>API Gateway עושה:</strong> Auth (מי אתה?), Rate Limiting, Logging, ניתוב לשירות הנכון — <em>במקום אחד</em>.
+            <span class="analogy-icon">📞</span>
+            <strong>HTTP vs WebSocket:</strong><br>
+            <strong>HTTP</strong> = SMS. Send a message, get a reply, conversation ends. Every question needs a new SMS.<br>
+            <strong>WebSocket</strong> = a phone call. Open connection, both sides talk continuously, until someone hangs up.<br><br>
+            WebSocket starts as HTTP, then "upgrades" to a persistent two-way connection.
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">BFF — API שנתפר לClient</div>
+          <div class="sec-lbl">WebSocket Handshake — How It Works</div>
           <div class="build-step">
             <div class="bs-item">
-              <span class="bs-num">בעיה</span>
-              <div>Web App צריך נתונים מלאים. Mobile App צריך גרסה רזה לחסוך Bandwidth. CLI צריך פורמט שונה. API אחד לא מתאים לכולם.</div>
+              <span class="bs-num">1</span>
+              <div>Client sends a regular HTTP request with a special Header: <code>Upgrade: websocket</code></div>
             </div>
             <div class="bs-item">
-              <span class="bs-num">BFF</span>
-              <div>Backend for Frontend — API נפרד לכל Client. Web BFF, Mobile BFF, CLI BFF. כל אחד מחזיר בדיוק מה שה-Client צריך.</div>
+              <span class="bs-num">2</span>
+              <div>Server confirms: returns <code>101 Switching Protocols</code></div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">3</span>
+              <div>The TCP connection stays open. Now both sides can send Messages whenever — no new request needed.</div>
             </div>
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">Webhooks — Push במקום Poll</div>
+          <div class="sec-lbl" style="margin-top:18px">SSE — When You Only Need One Direction</div>
           <div class="analogy">
-            <span class="analogy-icon">🔔</span>
-            <strong>Webhook כמו התראת Push:</strong><br>
-            <strong>Polling</strong> = כל דקה שואל "יש הזמנה חדשה?" — בזבוז גדול.<br>
-            <strong>Webhook</strong> = Stripe שולח לך HTTP POST ברגע שיש תשלום.<br><br>
-            אתה נותן ל-Stripe את ה-URL שלך. הם "דוחפים" אליך עדכון כשקורה משהו.
+            <span class="analogy-icon">📻</span>
+            <strong>SSE Like a Radio Broadcast:</strong><br>
+            Server sends, Client receives — one-directional. Client can't send back on the same Channel.<br>
+            <strong>When is SSE better than WebSocket?</strong> Notifications, Live Feed, Dashboard Updates — when you only need to receive updates, not send.<br>
+            <strong>Advantage:</strong> simpler, built-in Auto-Reconnect, works over HTTP/2.
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">Circuit Breaker — מניעת קריסה מדבקת</div>
-          <div class="analogy">
-            <span class="analogy-icon">⚡</span>
-            <strong>Circuit Breaker כמו ממסר חשמלי:</strong><br>
-            כשיש קצר — ממסר מתנתק כדי שהאש לא תתפשט.<br>
-            כשה-Payment Service קורס — Circuit Breaker מפסיק לשלוח בקשות אליו (במקום לחכות Timeout כל פעם) ומחזיר שגיאה מיידית. אחרי Timeout — מנסה שוב בהדרגה.
-          </div>
-
-          <div class="sec-lbl" style="margin-top:18px">אירוע אמיתי</div>
+          <div class="sec-lbl" style="margin-top:18px">Real Incident</div>
           <div class="incident">
-            <div class="inc-badge">🔴 CASCADE — 2022 / Meta</div>
-            <div class="inc-title">איך ניסיון לתקן עצמו גרם לקריסה של Instagram</div>
+            <div class="inc-badge">🔴 OUTAGE — 2020 / Discord</div>
+            <div class="inc-title">COVID Broke Discord in a Week</div>
             <div class="inc-desc">
-              Backend הואט → Clients שלחו Retries ללא Exponential Backoff. כל Retry → יותר Load → יותר Retries → <strong>Thundering Herd</strong>.<br><br>
-              Circuit Breaker + Exponential Backoff היו מונעים: "נכשל פעם 1 → חכה 1 שנ'. פעם 2 → חכה 2 שנ'. פעם 3 → חכה 4 שנ'."<br><br>
-              Jitter (אקראיות קטנה) מונע שכולם ינסו שוב בדיוק באותו רגע.
+              COVID brought growth from 2M to 5M Concurrent WebSocket Connections in days. <strong>Years of planned growth happened in a week.</strong><br><br>
+              WebSocket differs from HTTP: every user holds an <em>open, persistent</em> connection. 5M open connections = a completely different type of load.<br><br>
+              The solution: Redis Pub/Sub — every WebSocket server listens for events through Redis, so a message from Server A reaches a User connected to Server B.
             </div>
           </div>
 
-          <div class="glossary" id="glos7">
-            <div class="glossary-head" onclick="toggleGlos('glos7')">
-              <span>📖 מילון מושגים — פרק זה</span>
+          <div class="glossary" id="glos5">
+            <div class="glossary-head" onclick="toggleGlos('glos5')">
+              <span>📖 Glossary — This Chapter</span>
               <span class="glossary-arr">▶</span>
             </div>
             <div class="glossary-body">
-              <div class="glos-item"><span class="glos-term">API Gateway</span><span class="glos-def">שרת שיושב לפני כל ה-APIs. מטפל ב-Auth, Rate Limiting, Routing. Kong, AWS API GW.</span></div>
-              <div class="glos-item"><span class="glos-term">BFF</span><span class="glos-def">Backend for Frontend — API ייחודי לכל סוג Client: Web, Mobile, CLI.</span></div>
-              <div class="glos-item"><span class="glos-term">Webhook</span><span class="glos-def">Server שולח HTTP POST ל-URL שלך כשקורה אירוע. Push במקום Poll.</span></div>
-              <div class="glos-item"><span class="glos-term">Circuit Breaker</span><span class="glos-def">Pattern שמפסיק לשלוח לService תקוע. מונע Cascading Failure.</span></div>
-              <div class="glos-item"><span class="glos-term">Exponential Backoff</span><span class="glos-def">המתנה גוברת בין Retries: 1s → 2s → 4s → 8s. מונע הצפת שרת.</span></div>
-              <div class="glos-item"><span class="glos-term">Jitter</span><span class="glos-def">אקראיות קטנה ב-Backoff כדי שכולם לא ינסו שוב בדיוק אותו רגע.</span></div>
-              <div class="glos-item"><span class="glos-term">Thundering Herd</span><span class="glos-def">גל של בקשות שמגיעות בבת אחת — בד"כ Retries מסונכרנים. מרסק שרתים.</span></div>
-              <div class="glos-item"><span class="glos-term">gRPC</span><span class="glos-def">Google RPC — Binary protocol מהיר. Protocol Buffers במקום JSON. מצוין ל-Microservices.</span></div>
+              <div class="glos-item"><span class="glos-term">WebSocket</span><span class="glos-def">Protocol for persistent two-way connection. Starts as HTTP and upgrades to Full-Duplex.</span></div>
+              <div class="glos-item"><span class="glos-term">SSE</span><span class="glos-def">Server-Sent Events — one-way push from Server to Client. Simple, Auto-Reconnect.</span></div>
+              <div class="glos-item"><span class="glos-term">Long Polling</span><span class="glos-def">Client sends a request, Server "holds" it until there's news. Less efficient than WebSocket.</span></div>
+              <div class="glos-item"><span class="glos-term">Handshake</span><span class="glos-def">Process of opening a WebSocket connection — HTTP Upgrade Request + 101 Response.</span></div>
+              <div class="glos-item"><span class="glos-term">Full-Duplex</span><span class="glos-def">Both sides send and receive simultaneously. A phone call is Full-Duplex, SMS is not.</span></div>
+              <div class="glos-item"><span class="glos-term">Redis Pub/Sub</span><span class="glos-def">Publish-subscribe mechanism in Redis. Allows N servers to share Real-Time events.</span></div>
+              <div class="glos-item"><span class="glos-term">Sticky Sessions</span><span class="glos-def">Load Balancer that ensures the same User always reaches the same Server — important for WebSocket.</span></div>
             </div>
           </div>
 

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Web & APIs PRO</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
   --bg:      #0b0b0f;
@@ -509,7 +509,7 @@ body::after {
   padding:11px 14px; border:1px solid var(--border);
   border-radius:7px; background:var(--surface);
   cursor:pointer; font-size:12px; color:var(--text-mid);
-  text-align:right; transition:all .15s; line-height:1.45;
+  text-align:left; transition:all .15s; line-height:1.45;
 }
 .q-opt:hover:not(.locked) { border-color:var(--blue); color:var(--blue2); background:rgba(99,102,241,.06); }
 .q-opt.hit  { border-color:var(--green)!important; background:rgba(16,185,129,.1)!important; color:var(--green2)!important; font-weight:600; }
@@ -787,7 +787,7 @@ body::after {
 .analogy {
   background: linear-gradient(135deg, rgba(99,102,241,.06), rgba(6,182,212,.04));
   border: 1px solid rgba(99,102,241,.2);
-  border-right: 4px solid var(--blue2);
+  border-left: 4px solid var(--blue2);
   border-radius: 8px;
   padding: 14px 16px;
   margin: 14px 0;
@@ -877,7 +877,7 @@ body::after {
   content: '';
   position: absolute;
   top: 100%;
-  right: 12px;
+  left: 12px;
   border: 6px solid transparent;
   border-top-color: var(--border2);
 }
@@ -974,97 +974,129 @@ body::after {
 
 </style>
 
-<style id="ng-light">
-[data-theme="light"] {
-  --bg: #f8f9ff; --bg2: #f0f1fb;
-  --surface: #ffffff; --card: #fafafe;
-  --border: #dde0f5; --border2: #c8ccee;
-  --text: #1e1b4b; --text-mid: #3730a3; --text-dim: #6366f1;
-  --blue: #4338ca; --blue2: #4f46e5; --blue3: #818cf8;
-  --blue-glow: rgba(67,56,202,0.1); --code-bg: #f0f0ff;
-}
-</style>
 <script src="/_bridge.js"></script>
 </head>
 <body>
-<div class="ch open" id="c7">
-        <div class="ch-trigger" onclick="toggleCh('c7')">
-          <span class="ch-method m-post">ARCH</span>
+<div class="ch open" id="c2">
+        <div class="ch-trigger" onclick="toggleCh('c2')">
+          <span class="ch-method m-get">REST</span>
           <div class="ch-info">
-            <div class="ch-title">API Design Patterns</div>
-            <div class="ch-sub">API Gateway, BFF, Webhooks, gRPC, Circuit Breaker, OpenAPI</div>
+            <div class="ch-title">REST API — Design Done Right</div>
+            <div class="ch-sub">Resources, Naming, Versioning, Pagination, Idempotency, RFC 7807</div>
           </div>
-          <div class="ch-right"><span class="badge b-blue">ARCH</span><span class="ch-time">⏱ 75m</span><span class="ch-arrow">▶</span></div>
+          <div class="ch-right"><span class="badge b-green">REST</span><span class="ch-time">⏱ 60m</span><span class="ch-arrow">▶</span></div>
         </div>
         <div class="ch-body" style="display:block"><div class="ch-inner">
 
           <div class="ch-intro">
-            כשיש לך יותר מ-API אחד, מספר Clients, ומיקרו-שירותים — צריך <strong>ארכיטקטורה</strong>.
-            הפרק הזה על Patterns שמופיעים שוב ושוב בחברות גדולות: API Gateway, BFF, Webhooks, Circuit Breaker.
+            HTTP is a <em>protocol</em> — a language. REST is an <em>architectural style</em> — rules for designing your API on top of HTTP. Most APIs you'll encounter (GitHub, Stripe, Twitter) are REST APIs. But a poorly designed REST API is one of the most frustrating things.
           </div>
 
-          <div class="sec-lbl">API Gateway — שוער בכניסה</div>
           <div class="analogy">
-            <span class="analogy-icon">🏨</span>
-            <strong>API Gateway כמו קונסיירז' במלון:</strong><br>
-            במקום שכל אורח ילך ישירות לשף/ניקיון/חשמלאי — פונה לקונסיירז' שמנתב לכולם.<br>
-            <strong>API Gateway עושה:</strong> Auth (מי אתה?), Rate Limiting, Logging, ניתוב לשירות הנכון — <em>במקום אחד</em>.
+            <span class="analogy-icon">🗂️</span>
+            <strong>REST Like a Well-Organized Library:</strong><br>
+            A library has <strong>Resources</strong> (books, authors, categories) — each with a clear address.
+            You don't say "give me John's science books" — you go to <code>/authors/john/books?genre=science</code>.
+            The URL describes <em>what</em> you're looking for, the Method describes <em>what</em> you're doing.
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">BFF — API שנתפר לClient</div>
+          <div class="sec-lbl">Rule 1 — Resource Naming</div>
           <div class="build-step">
             <div class="bs-item">
-              <span class="bs-num">בעיה</span>
-              <div>Web App צריך נתונים מלאים. Mobile App צריך גרסה רזה לחסוך Bandwidth. CLI צריך פורמט שונה. API אחד לא מתאים לכולם.</div>
+              <span class="bs-num">❌</span>
+              <div><strong>Wrong naming (RPC-style):</strong><br>
+                <code>/getUser?id=42</code><br>
+                <code>/createNewOrder</code><br>
+                <code>/deleteUserAccount/5</code><br>
+                The URL describes an <em>action</em> — this is not REST.
+              </div>
             </div>
             <div class="bs-item">
-              <span class="bs-num">BFF</span>
-              <div>Backend for Frontend — API נפרד לכל Client. Web BFF, Mobile BFF, CLI BFF. כל אחד מחזיר בדיוק מה שה-Client צריך.</div>
+              <span class="bs-num">✅</span>
+              <div><strong>Correct naming (Resource-style):</strong><br>
+                <code>GET /users/42</code> — read user<br>
+                <code>POST /orders</code> — create order<br>
+                <code>DELETE /users/5</code> — delete user<br>
+                The URL describes an <em>entity</em>, the Method describes an <em>action</em>.
+              </div>
             </div>
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">Webhooks — Push במקום Poll</div>
+          <div class="sec-lbl" style="margin-top:18px">Rule 2 — Idempotency</div>
           <div class="analogy">
-            <span class="analogy-icon">🔔</span>
-            <strong>Webhook כמו התראת Push:</strong><br>
-            <strong>Polling</strong> = כל דקה שואל "יש הזמנה חדשה?" — בזבוז גדול.<br>
-            <strong>Webhook</strong> = Stripe שולח לך HTTP POST ברגע שיש תשלום.<br><br>
-            אתה נותן ל-Stripe את ה-URL שלך. הם "דוחפים" אליך עדכון כשקורה משהו.
+            <span class="analogy-icon">🔁</span>
+            <strong>Idempotency = "safe to send twice without side effects":</strong><br>
+            Imagine you clicked "Pay" in a food app and the network dropped — unknown if the order went through. Is it safe to click again?<br><br>
+            <code>GET</code>, <code>PUT</code>, <code>DELETE</code> — yes. Send as many times as you want — same result.<br>
+            <code>POST</code> — no! Send twice = two orders. That's why Stripe uses Idempotency Keys.
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">Circuit Breaker — מניעת קריסה מדבקת</div>
-          <div class="analogy">
-            <span class="analogy-icon">⚡</span>
-            <strong>Circuit Breaker כמו ממסר חשמלי:</strong><br>
-            כשיש קצר — ממסר מתנתק כדי שהאש לא תתפשט.<br>
-            כשה-Payment Service קורס — Circuit Breaker מפסיק לשלוח בקשות אליו (במקום לחכות Timeout כל פעם) ומחזיר שגיאה מיידית. אחרי Timeout — מנסה שוב בהדרגה.
+          <div class="sec-lbl" style="margin-top:18px">Rule 3 — Versioning</div>
+          <div class="build-step">
+            <div class="bs-item">
+              <span class="bs-num">Why?</span>
+              <div>An API that people use can't "just change" — 10,000 apps would break. You need versions.</div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">How?</span>
+              <div>
+                <strong>URL (most common):</strong> <code>/api/v1/users</code> → <code>/api/v2/users</code><br>
+                <strong>Header:</strong> <code>Accept: application/vnd.api+json;version=2</code><br>
+                <strong>Query Param:</strong> <code>/api/users?version=2</code>
+              </div>
+            </div>
           </div>
 
-          <div class="sec-lbl" style="margin-top:18px">אירוע אמיתי</div>
+          <div class="sec-lbl" style="margin-top:18px">Rule 4 — Pagination</div>
+          <div class="build-step">
+            <div class="bs-item">
+              <span class="bs-num">Problem</span>
+              <div><strong>What if there are a million users?</strong> Don't return everything — return pages.</div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">OFFSET</span>
+              <div><code>GET /users?limit=20&offset=40</code> — "give me 20 starting at row 40"<br>
+                <strong>Problem:</strong> if a user is added during scrolling — you'll miss a row. Heavy on the DB for large tables.
+              </div>
+            </div>
+            <div class="bs-item">
+              <span class="bs-num">Cursor</span>
+              <div><code>GET /users?limit=20&after=user_abc123</code> — "give me 20 after this user"<br>
+                <strong>Better:</strong> faster, no missed data. This is what Twitter/Instagram use.
+              </div>
+            </div>
+          </div>
+
+          <div class="why-matters">
+            <span>💡</span>
+            <span><strong>RFC 7807 — Standard Error Response:</strong> Instead of returning <code>{"error": "bad"}</code> — return: <code>{"type": "...", "title": "Validation Failed", "status": 400, "detail": "email is required"}</code>. Every Client can handle errors in a consistent way.</span>
+          </div>
+
+          <div class="sec-lbl" style="margin-top:18px">Real Incident</div>
           <div class="incident">
-            <div class="inc-badge">🔴 CASCADE — 2022 / Meta</div>
-            <div class="inc-title">איך ניסיון לתקן עצמו גרם לקריסה של Instagram</div>
+            <div class="inc-badge">🔴 BREAK — 2018 / Twitter</div>
+            <div class="inc-title">When Twitter Killed Millions of Apps in One Day</div>
             <div class="inc-desc">
-              Backend הואט → Clients שלחו Retries ללא Exponential Backoff. כל Retry → יותר Load → יותר Retries → <strong>Thundering Herd</strong>.<br><br>
-              Circuit Breaker + Exponential Backoff היו מונעים: "נכשל פעם 1 → חכה 1 שנ'. פעם 2 → חכה 2 שנ'. פעם 3 → חכה 4 שנ'."<br><br>
-              Jitter (אקראיות קטנה) מונע שכולם ינסו שוב בדיוק באותו רגע.
+              In 2013, Twitter announced the deprecation of API v1 for 2018. 5 years seemed like a lot — but 2018 arrived and many apps crashed.<br><br>
+              The problem: <strong>no Sunset Header</strong> telling every Client "I'm closing on date X." Developers who didn't follow the blog learned the news when their service went down.<br><br>
+              The lesson that became a standard: <code>Sunset: Sat, 01 Jan 2018 00:00:00 GMT</code> in every Response + 6 months of parallel support.
             </div>
           </div>
 
-          <div class="glossary" id="glos7">
-            <div class="glossary-head" onclick="toggleGlos('glos7')">
-              <span>📖 מילון מושגים — פרק זה</span>
+          <div class="glossary" id="glos2">
+            <div class="glossary-head" onclick="toggleGlos('glos2')">
+              <span>📖 Glossary — This Chapter</span>
               <span class="glossary-arr">▶</span>
             </div>
             <div class="glossary-body">
-              <div class="glos-item"><span class="glos-term">API Gateway</span><span class="glos-def">שרת שיושב לפני כל ה-APIs. מטפל ב-Auth, Rate Limiting, Routing. Kong, AWS API GW.</span></div>
-              <div class="glos-item"><span class="glos-term">BFF</span><span class="glos-def">Backend for Frontend — API ייחודי לכל סוג Client: Web, Mobile, CLI.</span></div>
-              <div class="glos-item"><span class="glos-term">Webhook</span><span class="glos-def">Server שולח HTTP POST ל-URL שלך כשקורה אירוע. Push במקום Poll.</span></div>
-              <div class="glos-item"><span class="glos-term">Circuit Breaker</span><span class="glos-def">Pattern שמפסיק לשלוח לService תקוע. מונע Cascading Failure.</span></div>
-              <div class="glos-item"><span class="glos-term">Exponential Backoff</span><span class="glos-def">המתנה גוברת בין Retries: 1s → 2s → 4s → 8s. מונע הצפת שרת.</span></div>
-              <div class="glos-item"><span class="glos-term">Jitter</span><span class="glos-def">אקראיות קטנה ב-Backoff כדי שכולם לא ינסו שוב בדיוק אותו רגע.</span></div>
-              <div class="glos-item"><span class="glos-term">Thundering Herd</span><span class="glos-def">גל של בקשות שמגיעות בבת אחת — בד"כ Retries מסונכרנים. מרסק שרתים.</span></div>
-              <div class="glos-item"><span class="glos-term">gRPC</span><span class="glos-def">Google RPC — Binary protocol מהיר. Protocol Buffers במקום JSON. מצוין ל-Microservices.</span></div>
+              <div class="glos-item"><span class="glos-term">REST</span><span class="glos-def">Representational State Transfer — an architectural style for APIs. Not a language, not a protocol — a set of rules.</span></div>
+              <div class="glos-item"><span class="glos-term">Resource</span><span class="glos-def">An entity in the API — user, order, product. Represented by a unique URL.</span></div>
+              <div class="glos-item"><span class="glos-term">Endpoint</span><span class="glos-def">A specific address in the API. /users is one Endpoint, /users/42 is another.</span></div>
+              <div class="glos-item"><span class="glos-term">Idempotency</span><span class="glos-def">An operation you can repeat and get the same result. GET/PUT/DELETE are Idempotent, POST is not.</span></div>
+              <div class="glos-item"><span class="glos-term">Pagination</span><span class="glos-def">Returning data in pages instead of all at once. OFFSET-based or Cursor-based.</span></div>
+              <div class="glos-item"><span class="glos-term">Versioning</span><span class="glos-def">API version management — v1, v2. Allows changing the API without breaking existing Clients.</span></div>
+              <div class="glos-item"><span class="glos-term">RFC 7807</span><span class="glos-def">Standard for API error message format. Defines fields: type, title, status, detail.</span></div>
+              <div class="glos-item"><span class="glos-term">Sunset Header</span><span class="glos-def">HTTP Header announcing when an API will close: Sunset: Sat, 01 Jan 2025 00:00:00 GMT</span></div>
             </div>
           </div>
 
