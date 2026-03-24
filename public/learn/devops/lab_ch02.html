@@ -480,6 +480,45 @@ body::after {
   .container { padding-left:max(12px,env(safe-area-inset-left)); padding-right:max(12px,env(safe-area-inset-right)); }
   .site-footer { padding-bottom:max(18px,env(safe-area-inset-bottom)); }
 }
+
+<style id="devops-emu-css">
+.emu-wrap{margin-top:18px;border:1px solid var(--border2);border-radius:10px;overflow:hidden;background:#070705;}
+.emu-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:8px 14px;display:flex;align-items:center;gap:8px;}
+.emu-dots{display:flex;gap:5px;}
+.ed{width:10px;height:10px;border-radius:50%;}
+.ed-r{background:#ff5f57;}.ed-y{background:#febc2e;}.ed-g{background:#28c840;}
+.emu-ttl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-mid);margin-right:auto;}
+.emu-btn{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:5px 14px;background:var(--orange);color:#fff;border:none;border-radius:4px;cursor:pointer;transition:all .15s;letter-spacing:.5px;}
+.emu-btn:hover{background:var(--orange2);}
+.emu-btn.spin{background:var(--amber2);color:#000;}
+.emu-btn-s{font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 10px;background:transparent;color:var(--text-dim);border:1px solid var(--border2);border-radius:4px;cursor:pointer;transition:all .15s;}
+.emu-btn-s:hover{border-color:var(--orange2);color:var(--orange2);}
+.emu-iw{padding:10px 14px;border-bottom:1px solid var(--border);}
+.emu-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:1px;margin-bottom:5px;}
+.emu-sel{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:6px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;margin-bottom:6px;}
+.emu-sel:focus{border-color:var(--orange2);}
+.emu-inp{background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:7px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;width:100%;}
+.emu-inp:focus{border-color:var(--orange2);}
+.emu-ta{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:8px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;resize:vertical;min-height:60px;line-height:1.6;}
+.emu-ta:focus{border-color:var(--orange2);}
+.emu-row{display:flex;gap:7px;flex-wrap:wrap;}
+.emu-out{min-height:130px;max-height:300px;overflow-y:auto;padding:13px 15px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.85;color:var(--text-mid);}
+.emu-out .ok{color:#4ade80;} .emu-out .err{color:#f87171;} .emu-out .key{color:#f97316;} .emu-out .val{color:#facc15;} .emu-out .dim{color:#4a4a3a;} .emu-out .hi{color:#38bdf8;} .emu-out .warn{color:#fbbf24;} .emu-out .em{color:#4a4a3a;font-style:italic;} .emu-out .pu{color:#c084fc;}
+/* Pipeline viz */
+.pipe-viz{display:flex;gap:0;padding:10px 14px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:4px;}
+.pv-job{font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 10px;border-radius:5px;border:1px solid var(--border2);color:var(--text-dim);display:flex;align-items:center;gap:5px;transition:all .3s;}
+.pv-job.running{border-color:var(--orange);color:var(--orange2);background:rgba(249,115,22,.08);}
+.pv-job.pass{border-color:var(--green);color:var(--green);background:rgba(74,222,128,.08);}
+.pv-job.fail{border-color:var(--red);color:var(--red);background:rgba(248,113,113,.08);}
+.pv-arrow{color:var(--text-dim);font-size:10px;align-self:center;}
+/* Blue/Green viz */
+.bg-viz{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border);}
+.bg-env{border:1px solid var(--border2);border-radius:6px;padding:10px 12px;text-align:center;}
+.bg-env.active{border-color:var(--orange);background:rgba(249,115,22,.06);}
+.bg-env-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);margin-bottom:4px;}
+.bg-env-ver{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;color:var(--text);}
+.bg-traffic{text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange2);margin-top:4px;}
+</style>
 </style>
 
 <style id="ng-light">
@@ -512,7 +551,31 @@ body::after {
       <div class="lab-step"><span class="step-dot">04</span>הפעל HPA: <code>kubectl autoscale deployment myapp --min=2 --max=10 --cpu-percent=70</code></div>
       <div class="lab-step"><span class="step-dot">05</span>כנס ל-Pod ל-Debug: <code>kubectl exec -it &lt;pod&gt; -- sh</code> ו-<code>kubectl describe pod &lt;pod&gt;</code></div>
     </div>
-    <button class="ans-btn" onclick="toggleAns('a2')"><span id="a2i">▶</span> הצג תשובה</button>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-ttl">kubectl simulator &#8212; cluster: minikube</span>
+    <button class="emu-btn-s" onclick="dvC('dv2out')">clear</button>
+    <button class="emu-btn" id="dv2btn" onclick="dvLab2()">&#9654; Run</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-lbl">בחר פקודה:</div>
+    <select class="emu-sel" id="dv2cmd">
+      <option value="apply">kubectl apply -f deployment.yaml</option>
+      <option value="get_pods">kubectl get pods -w</option>
+      <option value="describe">kubectl describe pod myapp-xxx</option>
+      <option value="logs">kubectl logs myapp-xxx --tail=30</option>
+      <option value="rollout">kubectl rollout status deployment/myapp</option>
+      <option value="hpa">kubectl get hpa</option>
+      <option value="crash_pod">kubectl describe pod (CrashLoopBackOff)</option>
+      <option value="undo">kubectl rollout undo deployment/myapp</option>
+    </select>
+  </div>
+  <div class="emu-out" id="dv2out"><span class="em">בחר פקודה ולחץ Run...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a2')"><span id="a2i">▶</span> הצג תשובה</button>
     <div class="ans-box" id="a2">
       <div class="ans-head">✅ תשובות — Kubernetes</div>
       <div class="ans-item"><span class="an">02</span><div><strong>Deployment YAML חיוני:</strong><br>
@@ -753,6 +816,728 @@ function endGame(){
 }
 
 startGame();
+
+// ════════════ DEVOPS EMULATORS ════════════
+
+function dvC(id){const el=document.getElementById(id);if(el)el.innerHTML='<span class="em">נוקה...</span>';}
+function dvP(id,html,append=true){
+  const el=document.getElementById(id);if(!el)return;
+  if(!append)el.innerHTML='';
+  const d=document.createElement('div');d.innerHTML=html;el.appendChild(d);
+  if(append&&el.firstChild&&el.firstChild.classList&&el.firstChild.classList.contains('em'))el.firstChild.remove();
+  el.scrollTop=el.scrollHeight;
+}
+function dvDelay(ms){return new Promise(r=>setTimeout(r,ms));}
+
+// ── LAB 1: Docker ──
+async function dvLab1(){
+  const cmd=document.getElementById('dv1cmd').value;
+  const btn=document.getElementById('dv1btn');
+  btn.textContent='⏳ Running...';btn.classList.add('spin');btn.disabled=true;
+  dvC('dv1out');
+
+  const ops={
+    build:{
+      lines:[
+        '<span class="dim">$ docker build -t myapp:v1 .</span>',
+        '<span class="dim">Sending build context to Docker daemon  4.096kB</span>',
+        'Step 1/8 : <span class="key">FROM node:20-alpine AS builder</span>',
+        '<span class="dim"> ---> a1b2c3d4e5f6</span>',
+        'Step 2/8 : <span class="key">WORKDIR /app</span>',
+        'Step 3/8 : <span class="key">COPY package*.json .</span>',
+        'Step 4/8 : <span class="key">RUN npm ci</span>',
+        '<span class="dim">added 245 packages in 8.3s</span>',
+        'Step 5/8 : <span class="key">COPY . .</span>',
+        'Step 6/8 : <span class="key">RUN npm run build</span>',
+        '<span class="dim">> myapp@1.0.0 build</span>',
+        '<span class="dim">> tsc --outDir dist</span>',
+        'Step 7/8 : <span class="key">FROM node:20-alpine AS runtime</span>',
+        'Step 8/8 : <span class="key">USER app</span>',
+        '<span class="ok">Successfully built f1e2d3c4b5a6</span>',
+        '<span class="ok">Successfully tagged myapp:v1</span>',
+        '',
+        '<span class="dim">$ docker images myapp</span>',
+        '<span class="key">REPOSITORY  TAG   IMAGE ID       SIZE</span>',
+        '<span class="ok">myapp       v1    f1e2d3c4b5a6   118MB</span>',
+        '<span class="dim">node        20    a1b2c3d4e5f6   1.12GB  ← builder stage NOT included</span>',
+      ],delay:2500
+    },
+    run:{
+      lines:[
+        '<span class="dim">$ docker run -p 3000:3000 --name app myapp:v1</span>',
+        '',
+        '<span class="hi">Server started on port 3000</span>',
+        '<span class="dim">Database connection: postgresql://db:5432/myapp ✓</span>',
+        '<span class="ok">GET /health → 200 OK</span>',
+        '<span class="dim">Waiting for connections...</span>',
+        '',
+        '<span class="dim">$ docker ps</span>',
+        '<span class="key">CONTAINER ID  IMAGE     STATUS         PORTS</span>',
+        '<span class="ok">a3f7b1c2d4e5  myapp:v1  Up 3 seconds   0.0.0.0:3000->3000/tcp</span>',
+      ],delay:1200
+    },
+    compose:{
+      lines:[
+        '<span class="dim">$ docker compose up --build</span>',
+        '<span class="dim">[+] Building 12.3s</span>',
+        '<span class="dim"> ✔ app  Built</span>',
+        '<span class="hi">[+] Running 3/3</span>',
+        '<span class="ok"> ✔ Network myapp_default  Created</span>',
+        '<span class="ok"> ✔ Container myapp-db-1   Started</span>',
+        '<span class="ok"> ✔ Container myapp-app-1  Started</span>',
+        'db-1   | <span class="dim">PostgreSQL init complete</span>',
+        'db-1   | <span class="ok">database system is ready to accept connections</span>',
+        'app-1  | <span class="warn">Waiting for db:5432...</span>',
+        'app-1  | <span class="ok">DB connection established</span>',
+        'app-1  | <span class="hi">Server listening on :3000</span>',
+        '',
+        '<span class="ok">✅ Stack healthy — curl http://localhost:3000/health</span>',
+      ],delay:2800
+    },
+    exec:{
+      lines:[
+        '<span class="dim">$ docker exec -it app sh</span>',
+        '<span class="ok">/ $ whoami</span>',
+        '<span class="ok">app  ← non-root user ✓</span>',
+        '<span class="ok">/ $ pwd</span>',
+        '/app',
+        '<span class="ok">/ $ ls -la</span>',
+        '<span class="dim">total 28</span>',
+        '<span class="ok">drwxr-xr-x  4 app  app  dist/</span>',
+        '<span class="ok">-rw-r--r--  1 app  app  package.json</span>',
+        '<span class="dim">drwxr-xr-x  1 root root ../  ← /app parent owned by root</span>',
+        '<span class="ok">/ $ ps aux</span>',
+        '<span class="key">PID  USER  COMMAND</span>',
+        '<span class="ok">1    app   node dist/index.js</span>',
+        '<span class="dim">7    app   sh</span>',
+        '<span class="ok">/ $ cat /etc/os-release | head -2</span>',
+        '<span class="dim">NAME="Alpine Linux"</span>',
+        '<span class="dim">VERSION_ID=3.19.0</span>',
+      ],delay:1500
+    },
+    logs:{
+      lines:[
+        '<span class="dim">$ docker logs --tail 50 app</span>',
+        '<span class="hi">2024-01-15T10:23:01 Server started on :3000</span>',
+        '<span class="ok">2024-01-15T10:23:05 GET /api/users 200 12ms</span>',
+        '<span class="ok">2024-01-15T10:23:07 POST /api/users 201 34ms</span>',
+        '<span class="ok">2024-01-15T10:23:09 GET /api/users/42 200 8ms</span>',
+        '<span class="warn">2024-01-15T10:23:11 GET /api/users/999 404 5ms</span>',
+        '<span class="err">2024-01-15T10:23:14 ERROR DB connection timeout after 5000ms</span>',
+        '<span class="err">2024-01-15T10:23:14 Retrying in 2s (attempt 1/3)</span>',
+        '<span class="ok">2024-01-15T10:23:16 DB reconnected successfully</span>',
+        '<span class="ok">2024-01-15T10:23:18 GET /health 200 2ms</span>',
+      ],delay:800
+    },
+    stats:{
+      lines:[
+        '<span class="dim">$ docker stats --no-stream</span>',
+        '<span class="key">NAME    CPU%   MEM USAGE/LIMIT    MEM%   NET I/O       BLOCK I/O</span>',
+        '<span class="ok">app     2.3%   87MiB / 512MiB    17%    1.2MB/450kB   0B/0B</span>',
+        '<span class="ok">db      0.8%   142MiB / 512MiB   27%    890kB/1.1MB   12MB/4MB</span>',
+        '',
+        '<span class="dim">Memory: 17% — healthy</span>',
+        '<span class="dim">CPU: 2.3% — idle</span>',
+        '<span class="ok">✅ Both containers within resource limits</span>',
+      ],delay:600
+    },
+    crash:{
+      lines:[
+        '<span class="dim">$ docker run bad-app:v1</span>',
+        '<span class="err">Error: Cannot find module \'/app/dist/index.js\'</span>',
+        '<span class="err">    at Function.Module._resolveFilename</span>',
+        '',
+        '<span class="dim">$ docker inspect bad-app --format="{{.State}}"</span>',
+        '<span class="err">{Status:exited ExitCode:1 OOMKilled:false}</span>',
+        '',
+        '<span class="dim">$ docker logs bad-app --previous</span>',
+        '<span class="err">npm run build: command not found</span>',
+        '<span class="warn">💡 ExitCode 1 = crash. ExitCode 137 = OOM Killed (Out of Memory)</span>',
+        '<span class="warn">💡 Add HEALTHCHECK to Dockerfile for automatic restart detection</span>',
+      ],delay:1000
+    }
+  };
+
+  const op=ops[cmd];
+  for(const line of op.lines){await dvDelay(100);dvP('dv1out',line||'&nbsp;');}
+  await dvDelay(op.delay-op.lines.length*100);
+  btn.textContent='▶ Run';btn.classList.remove('spin');btn.disabled=false;
+}
+
+// ── LAB 2: kubectl ──
+async function dvLab2(){
+  const cmd=document.getElementById('dv2cmd').value;
+  const btn=document.getElementById('dv2btn');
+  btn.textContent='⏳...';btn.classList.add('spin');btn.disabled=true;
+  dvC('dv2out');
+
+  const ops={
+    apply:{delay:1200,lines:[
+      '<span class="dim">$ kubectl apply -f deployment.yaml</span>',
+      '<span class="ok">deployment.apps/myapp created</span>',
+      '<span class="ok">service/myapp-svc created</span>',
+      '<span class="ok">configmap/myapp-config created</span>',
+      '',
+      '<span class="dim">$ kubectl get pods</span>',
+      '<span class="key">NAME                     READY   STATUS              RESTARTS</span>',
+      '<span class="warn">myapp-7d9b8c6f4-x2k9p   0/1     ContainerCreating   0</span>',
+      '<span class="warn">myapp-7d9b8c6f4-m3n7q   0/1     ContainerCreating   0</span>',
+      '<span class="ok">myapp-7d9b8c6f4-x2k9p   1/1     Running             0</span>',
+      '<span class="ok">myapp-7d9b8c6f4-m3n7q   1/1     Running             0</span>',
+    ]},
+    get_pods:{delay:2000,lines:[
+      '<span class="dim">$ kubectl get pods -w</span>',
+      '<span class="key">NAME                     READY   STATUS    RESTARTS   AGE</span>',
+      '<span class="ok">myapp-7d9b8c6f4-x2k9p   1/1     Running   0          2m</span>',
+      '<span class="ok">myapp-7d9b8c6f4-m3n7q   1/1     Running   0          2m</span>',
+      '<span class="warn">myapp-7d9b8c6f4-p9r1s   0/1     Pending   0          3s</span>',
+      '<span class="warn">myapp-7d9b8c6f4-p9r1s   0/1     Init:0/1  0          5s</span>',
+      '<span class="ok">myapp-7d9b8c6f4-p9r1s   1/1     Running   0          18s</span>',
+      '<span class="dim">^C — Ctrl+C to stop watching</span>',
+    ]},
+    describe:{delay:800,lines:[
+      '<span class="dim">$ kubectl describe pod myapp-7d9b8c6f4-x2k9p</span>',
+      '<span class="key">Name:</span>         myapp-7d9b8c6f4-x2k9p',
+      '<span class="key">Status:</span>       Running',
+      '<span class="key">IP:</span>           10.244.0.12',
+      '<span class="key">Containers:</span>',
+      '  <span class="hi">myapp:</span>',
+      '    Image:    myapp:v2.1.0',
+      '    Limits:   cpu:500m memory:512Mi',
+      '    Requests: cpu:100m memory:128Mi',
+      '    <span class="ok">Liveness:  http-get :3000/health</span>',
+      '    <span class="ok">Readiness: http-get :3000/ready</span>',
+      '<span class="key">Events:</span>',
+      '  <span class="ok">Normal  Pulled    Pulled image "myapp:v2.1.0"</span>',
+      '  <span class="ok">Normal  Created   Created container myapp</span>',
+      '  <span class="ok">Normal  Started   Started container myapp</span>',
+    ]},
+    logs:{delay:600,lines:[
+      '<span class="dim">$ kubectl logs myapp-7d9b8c6f4-x2k9p --tail=30</span>',
+      '<span class="hi">2024-01-15T10:23:01Z Server started on :3000</span>',
+      '<span class="ok">2024-01-15T10:23:04Z GET /ready 200 2ms</span>',
+      '<span class="ok">2024-01-15T10:23:07Z GET /health 200 1ms</span>',
+      '<span class="ok">2024-01-15T10:23:10Z POST /api/orders 201 45ms</span>',
+      '<span class="warn">2024-01-15T10:23:12Z WARN slow query: 342ms</span>',
+      '<span class="ok">2024-01-15T10:23:15Z GET /health 200 1ms</span>',
+    ]},
+    rollout:{delay:2500,lines:[
+      '<span class="dim">$ kubectl rollout status deployment/myapp</span>',
+      'Waiting for deployment "myapp" rollout to finish: <span class="warn">0 of 2 updated replicas available</span>',
+      'Waiting for deployment "myapp" rollout to finish: <span class="warn">1 of 2 updated replicas available</span>',
+      '<span class="ok">deployment "myapp" successfully rolled out</span>',
+      '',
+      '<span class="dim">$ kubectl rollout history deployment/myapp</span>',
+      '<span class="key">REVISION  CHANGE-CAUSE</span>',
+      '<span class="dim">1         image=myapp:v1.0.0</span>',
+      '<span class="ok">2         image=myapp:v2.1.0 ← current</span>',
+    ]},
+    hpa:{delay:500,lines:[
+      '<span class="dim">$ kubectl get hpa</span>',
+      '<span class="key">NAME    REFERENCE          TARGETS   MINPODS  MAXPODS  REPLICAS</span>',
+      '<span class="ok">myapp   Deployment/myapp   12%/70%   2        10       2</span>',
+      '',
+      '<span class="dim">// CPU at 12% — below 70% threshold → no scaling</span>',
+      '<span class="dim">// Simulating load spike...</span>',
+      '<span class="warn">myapp   Deployment/myapp   84%/70%   2        10       2 → scaling up</span>',
+      '<span class="ok">myapp   Deployment/myapp   71%/70%   2        10       4 → stable</span>',
+    ]},
+    crash_pod:{delay:600,lines:[
+      '<span class="dim">$ kubectl describe pod myapp-crashed-xxx</span>',
+      '<span class="err">Status: CrashLoopBackOff</span>',
+      '<span class="key">Events:</span>',
+      '  <span class="err">Warning BackOff: Back-off restarting failed container</span>',
+      '  <span class="err">Warning Failed:  Error: failed to create containerd task</span>',
+      '',
+      '<span class="dim">$ kubectl logs myapp-crashed-xxx --previous</span>',
+      '<span class="err">Error: ENOENT: no such file or directory, open \'/app/config.json\'</span>',
+      '<span class="warn">💡 Config file missing — ConfigMap not mounted correctly</span>',
+      '<span class="warn">💡 Check: kubectl describe configmap myapp-config</span>',
+    ]},
+    undo:{delay:1500,lines:[
+      '<span class="dim">$ kubectl rollout undo deployment/myapp</span>',
+      'deployment.apps/myapp rolled back',
+      '',
+      '<span class="dim">$ kubectl rollout status deployment/myapp</span>',
+      '<span class="warn">Waiting for deployment rollout: 1 old replicas pending termination</span>',
+      '<span class="ok">deployment "myapp" successfully rolled out</span>',
+      '',
+      '<span class="dim">$ kubectl rollout history deployment/myapp</span>',
+      '<span class="key">REVISION  CHANGE-CAUSE</span>',
+      '<span class="ok">1         image=myapp:v1.0.0 ← restored</span>',
+      '<span class="dim">3         image=myapp:v2.1.0 (was current)</span>',
+    ]},
+  };
+
+  const op=ops[cmd];
+  for(const line of op.lines){await dvDelay(90);dvP('dv2out',line||'&nbsp;');}
+  btn.textContent='▶ Run';btn.classList.remove('spin');btn.disabled=false;
+}
+
+// ── LAB 3: GitHub Actions Pipeline ──
+function dv3Reset(){
+  ['pj-test','pj-build','pj-staging','pj-prod'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.className='pv-job';
+  });
+}
+
+async function dvLab3(){
+  const scenario=document.getElementById('dv3scenario').value;
+  const btn=document.getElementById('dv3btn');
+  btn.textContent='⏳ Running...';btn.classList.add('spin');btn.disabled=true;
+  dvC('dv3out');
+  dv3Reset();
+
+  const jobs=['pj-test','pj-build','pj-staging','pj-prod'];
+  const labels=['test','build','staging','production'];
+
+  dvP('dv3out','<span class="key">── Push to main → Pipeline triggered ──</span>');
+  dvP('dv3out',`<span class="dim">Commit: abc1234  "feat: add user endpoint"</span>`);
+  dvP('dv3out',`<span class="dim">Branch: main | Runner: ubuntu-latest</span>\n`);
+
+  const scenarios={
+    success:[
+      {ok:true,  log:['<span class="ok">✓ npm test passed (23 tests)</span>','<span class="ok">✓ Coverage: 87% (threshold: 80%)</span>']},
+      {ok:true,  log:['<span class="ok">✓ docker build -t myapp:abc1234</span>','<span class="ok">✓ docker push myorg/myapp:abc1234</span>']},
+      {ok:true,  log:['<span class="ok">✓ kubectl set image deployment/myapp myapp=myorg/myapp:abc1234</span>','<span class="ok">✓ Staging health check passed</span>']},
+      {ok:true,  log:['<span class="warn">⏳ Waiting for manual approval...</span>','<span class="ok">✓ Approved by: dana@company.io</span>','<span class="ok">✓ Production deployed successfully</span>']},
+    ],
+    test_fail:[
+      {ok:false, log:['<span class="warn">✓ npm test — running 23 tests...</span>','<span class="err">✗ 3 tests failed</span>','<span class="err">✗ Coverage: 72% (below threshold 80%)</span>','<span class="err">Error: Process completed with exit code 1</span>']},
+      {skip:true,log:['<span class="dim">skipped — test job failed</span>']},
+      {skip:true,log:['<span class="dim">skipped</span>']},
+      {skip:true,log:['<span class="dim">skipped</span>']},
+    ],
+    build_fail:[
+      {ok:true,  log:['<span class="ok">✓ 23/23 tests passed (91%)</span>']},
+      {ok:false, log:['<span class="dim">docker build...</span>','<span class="err">COPY ./src /app/src</span>','<span class="err">COPY failed: file not found in build context: src/</span>','<span class="err">Error: exit code 1</span>']},
+      {skip:true,log:['<span class="dim">skipped</span>']},
+      {skip:true,log:['<span class="dim">skipped</span>']},
+    ],
+    secret_leak:[
+      {ok:false, log:['<span class="dim">Running tests...</span>','<span class="warn">echo "DB_PASS=SuperSecret123"  ← Debug line in test</span>','<span class="err">Secret scanning: DETECTED hardcoded credential!</span>','<span class="err">Pattern: password/token in workflow logs</span>','<span class="err">Job failed — secret leaked to logs</span>']},
+      {skip:true,log:['<span class="dim">skipped</span>']},
+      {skip:true,log:['<span class="dim">skipped</span>']},
+      {skip:true,log:['<span class="dim">skipped</span>']},
+    ],
+  };
+
+  const steps=scenarios[scenario];
+  for(let i=0;i<jobs.length;i++){
+    const jobEl=document.getElementById(jobs[i]);
+    const step=steps[i];
+    if(step.skip){jobEl.className='pv-job';dvP('dv3out',`<span class="dim">→ ${labels[i]}: skipped</span>`);continue;}
+    jobEl.className='pv-job running';
+    dvP('dv3out',`\n<span class="key">── Job: ${labels[i]} ──</span>`);
+    await dvDelay(600);
+    for(const l of step.log){dvP('dv3out',l);await dvDelay(200);}
+    await dvDelay(400);
+    jobEl.className=step.ok?'pv-job pass':'pv-job fail';
+    if(!step.ok)break;
+  }
+
+  btn.textContent='▶ Trigger Push';btn.classList.remove('spin');btn.disabled=false;
+}
+
+// ── LAB 4: Terraform ──
+async function dvLab4(){
+  const cmd=document.getElementById('dv4cmd').value;
+  const btn=document.getElementById('dv4btn');
+  btn.textContent='⏳...';btn.classList.add('spin');btn.disabled=true;
+  dvC('dv4out');
+
+  const ops={
+    init:{delay:1500,lines:[
+      '<span class="dim">$ terraform init</span>',
+      '',
+      'Initializing the backend...',
+      '<span class="ok">✓ Successfully configured the backend "s3"!</span>',
+      '',
+      'Initializing provider plugins...',
+      '<span class="dim">- Finding hashicorp/aws versions matching "~> 5.0"...</span>',
+      '<span class="ok">- Installing hashicorp/aws v5.31.0...</span>',
+      '<span class="ok">- Installed hashicorp/aws v5.31.0</span>',
+      '',
+      '<span class="ok">Terraform has been successfully initialized!</span>',
+    ]},
+    plan:{delay:1200,lines:[
+      '<span class="dim">$ terraform plan</span>',
+      '',
+      'Terraform used the selected providers to generate the following execution plan.',
+      '',
+      '<span class="ok">  # aws_vpc.main will be created</span>',
+      '  + resource "aws_vpc" "main" {',
+      '      <span class="hi">+ cidr_block = "10.0.0.0/16"</span>',
+      '      + enable_dns_hostnames = true',
+      '    }',
+      '',
+      '<span class="ok">  # aws_subnet.public will be created</span>',
+      '<span class="ok">  # aws_internet_gateway.main will be created</span>',
+      '<span class="warn">  # aws_security_group.web will be created</span>',
+      '',
+      '<span class="key">Plan: 7 to add, 0 to change, 0 to destroy.</span>',
+      '<span class="dim">─────────────────────────────────────────</span>',
+      '<span class="ok">✅ Review plan before apply!</span>',
+    ]},
+    apply:{delay:2500,lines:[
+      '<span class="dim">$ terraform apply -auto-approve</span>',
+      '',
+      '<span class="ok">aws_vpc.main: Creating...</span>',
+      '<span class="ok">aws_vpc.main: Creation complete after 2s [id=vpc-0abc1234]</span>',
+      '<span class="ok">aws_subnet.public: Creating...</span>',
+      '<span class="ok">aws_subnet.public: Creation complete after 1s [id=subnet-0def5678]</span>',
+      '<span class="ok">aws_internet_gateway.main: Creating...</span>',
+      '<span class="ok">aws_internet_gateway.main: Creation complete [id=igw-0ghi9012]</span>',
+      '',
+      '<span class="key">Apply complete! Resources: 7 added, 0 changed, 0 destroyed.</span>',
+      '',
+      '<span class="hi">Outputs:</span>',
+      '  vpc_id = "vpc-0abc1234"',
+      '  public_subnet_id = "subnet-0def5678"',
+    ]},
+    plan_destroy:{delay:800,lines:[
+      '<span class="dim">$ terraform plan -destroy</span>',
+      '',
+      '<span class="err">  # aws_db_instance.main will be destroyed</span>',
+      '  - resource "aws_db_instance" "main" {',
+      '      <span class="err">- identifier = "prod-postgres-db"</span>',
+      '      <span class="err">- storage_gb = 100</span>',
+      '    }',
+      '',
+      '<span class="err">  # aws_vpc.main will be destroyed</span>',
+      '<span class="err">  # aws_subnet.public will be destroyed</span>',
+      '',
+      '<span class="err">Plan: 0 to add, 0 to change, 7 to destroy.</span>',
+      '<span class="warn">⚠ REVIEW CAREFULLY before running terraform destroy!</span>',
+    ]},
+    destroy_protected:{delay:600,lines:[
+      '<span class="dim">$ terraform destroy</span>',
+      '',
+      '<span class="err">╷</span>',
+      '<span class="err">│ Error: Instance cannot be destroyed</span>',
+      '<span class="err">│</span>',
+      '<span class="err">│   on main.tf line 42:</span>',
+      '<span class="err">│   lifecycle { prevent_destroy = true }</span>',
+      '<span class="err">│</span>',
+      '<span class="err">│ Resource aws_db_instance.main has lifecycle.prevent_destroy set</span>',
+      '<span class="err">│ to true. To allow this object to be destroyed, remove this</span>',
+      '<span class="err">│ attribute from the configuration and apply again.</span>',
+      '<span class="err">╵</span>',
+      '',
+      '<span class="ok">✅ prevent_destroy saved the production DB!</span>',
+    ]},
+    state:{delay:400,lines:[
+      '<span class="dim">$ terraform state list</span>',
+      'aws_internet_gateway.main',
+      'aws_route_table.public',
+      'aws_route_table_association.public',
+      '<span class="ok">aws_security_group.web</span>',
+      '<span class="warn">aws_db_instance.main   ← lifecycle.prevent_destroy=true</span>',
+      '<span class="ok">aws_subnet.public</span>',
+      '<span class="ok">aws_vpc.main</span>',
+      '',
+      '<span class="dim">State file: s3://my-tfstate/prod/terraform.tfstate</span>',
+      '<span class="dim">Lock: DynamoDB table tf-lock</span>',
+    ]},
+    drift:{delay:1000,lines:[
+      '<span class="dim">$ terraform plan  (after manual change in AWS console)</span>',
+      '',
+      '<span class="warn">  # aws_security_group.web will be updated in-place</span>',
+      '  ~ resource "aws_security_group" "web" {',
+      '      <span class="warn">~ ingress port 22 (was closed) → open  ← DRIFT DETECTED!</span>',
+      '      <span class="ok">  ingress port 443: unchanged</span>',
+      '    }',
+      '',
+      '<span class="err">Plan: 0 to add, 1 to change, 0 to destroy.</span>',
+      '<span class="warn">⚠ Configuration drift detected!</span>',
+      '<span class="dim">Someone opened port 22 manually in AWS Console.</span>',
+      '<span class="dim">terraform apply will revert to declared state.</span>',
+    ]},
+  };
+
+  const op=ops[cmd];
+  for(const line of op.lines){await dvDelay(85);dvP('dv4out',line||'&nbsp;');}
+  btn.textContent='▶ Run';btn.classList.remove('spin');btn.disabled=false;
+}
+
+// ── LAB 5: Prometheus / PromQL ──
+function dv5set(q){document.getElementById('dv5q').value=q;}
+
+const DV5_RESULTS={
+  'rate(http_requests_total[5m])':{
+    result:[
+      '{job="myapp",instance="app:3000",method="GET",path="/api/users"}  → <span class="ok">142.3</span> req/s',
+      '{job="myapp",instance="app:3000",method="POST",path="/api/users"} → <span class="ok">8.7</span> req/s',
+      '{job="myapp",instance="app:3000",method="DELETE"}                 → <span class="warn">0.2</span> req/s',
+    ],
+    note:'Total request rate per second, averaged over 5 minutes.'
+  },
+  error_rate:{
+    result:[
+      '{job="myapp",path="/api/users"}   → <span class="ok">0.12%</span>  ← below 1% threshold',
+      '{job="myapp",path="/api/orders"}  → <span class="err">1.87%</span>  ← ABOVE THRESHOLD!',
+      '{job="myapp",path="/api/health"}  → <span class="ok">0.00%</span>',
+    ],
+    note:'Error rate = 5xx responses / total responses × 100'
+  },
+  p99_latency:{
+    result:[
+      '{job="myapp",path="/api/users"}   → <span class="ok">145ms</span>',
+      '{job="myapp",path="/api/orders"}  → <span class="warn">487ms</span>  ← close to SLO',
+      '{job="myapp",path="/api/search"}  → <span class="err">1243ms</span> ← SLO breach!',
+    ],
+    note:'99th percentile response time. 1% of requests take longer than this.'
+  },
+};
+
+async function dvLab5(){
+  const q=document.getElementById('dv5q').value.trim();
+  dvC('dv5out');
+
+  dvP('dv5out',`<span class="dim">$ promtool query instant http://localhost:9090</span>`);
+  dvP('dv5out',`<span class="key">Query: ${q}</span>\n`);
+  await dvDelay(400);
+
+  let key='rate(http_requests_total[5m])';
+  if(q.includes('5..')&&q.includes('100'))key='error_rate';
+  else if(q.includes('histogram_quantile'))key='p99_latency';
+
+  const data=DV5_RESULTS[key]||DV5_RESULTS['rate(http_requests_total[5m])'];
+  dvP('dv5out','<span class="key">Results at '+new Date().toLocaleTimeString('he-IL')+':</span>');
+  for(const r of data.result){dvP('dv5out',r);await dvDelay(150);}
+  dvP('dv5out',`\n<span class="dim">${data.note}</span>`);
+
+  if(key==='error_rate'){
+    dvP('dv5out','\n<span class="warn">⚠ /api/orders error rate (1.87%) exceeds threshold!</span>');
+  }
+}
+
+async function dvLab5Alert(){
+  dvC('dv5out');
+  const steps=[
+    '<span class="key">── Alert Rule Evaluation ──</span>',
+    '<span class="dim">Rule: HighErrorRate</span>',
+    '<span class="dim">expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.01</span>',
+    '<span class="dim">for: 2m  (must be true for 2min before firing)</span>',
+    '',
+    '<span class="dim">14:22:00  PENDING  — error rate 1.87% > 1% threshold</span>',
+    '<span class="dim">14:23:00  PENDING  — still 1.92%  (1 min elapsed)</span>',
+    '<span class="err">14:24:00  FIRING   — 2m elapsed → Alert sent to Alertmanager!</span>',
+    '',
+    '<span class="key">── Alertmanager → Slack ──</span>',
+    '<span class="err">[FIRING] HighErrorRate</span>',
+    '<span class="err">severity: critical</span>',
+    '<span class="err">summary: "Error rate 1.92% on /api/orders"</span>',
+    '<span class="err">runbook: https://wiki.company.io/runbooks/high-error-rate</span>',
+  ];
+  for(const s of steps){await dvDelay(300);dvP('dv5out',s);}
+}
+
+// ── LAB 6: Blue/Green ──
+let dv6State={blueVer:'v1.0',greenVer:null,activeEnv:'blue',trafficBlue:100};
+
+function dv6Reset(){
+  dv6State={blueVer:'v1.0',greenVer:null,activeEnv:'blue',trafficBlue:100};
+  dv6UpdateViz();
+  dvC('dv6out');
+  dvP('dv6out','<span class="em">State reset. לחץ Deploy Green v2 להתחלה...</span>');
+}
+
+function dv6UpdateViz(){
+  const blueEl=document.getElementById('dv6blue');
+  const greenEl=document.getElementById('dv6green');
+  const blueVer=document.getElementById('dv6blue-ver');
+  const greenVer=document.getElementById('dv6green-ver');
+  const blueT=document.getElementById('dv6blue-traffic');
+  const greenT=document.getElementById('dv6green-traffic');
+  if(!blueEl)return;
+
+  blueEl.className='bg-env'+(dv6State.activeEnv==='blue'?' active':'');
+  greenEl.className='bg-env'+(dv6State.activeEnv==='green'?' active':'');
+  blueVer.textContent=dv6State.blueVer;
+  greenVer.textContent=dv6State.greenVer||'not deployed';
+  blueT.textContent=(dv6State.trafficBlue===100?'← 100% Traffic':dv6State.trafficBlue===0?'0% (standby)':'← '+dv6State.trafficBlue+'% Traffic');
+  greenT.textContent=(dv6State.trafficBlue===0?'← 100% Traffic':dv6State.trafficBlue===100?'0% Traffic':'← '+(100-dv6State.trafficBlue)+'% Traffic');
+}
+
+async function dv6Deploy(){
+  if(dv6State.greenVer){dvP('dv6out','<span class="warn">Green already deployed. לחץ Switch Traffic.</span>');return;}
+  dvC('dv6out');
+  const steps=[
+    '<span class="key">── Deploying Green v2.0 ──</span>',
+    '<span class="dim">$ kubectl apply -f deployment-green.yaml</span>',
+    '<span class="dim">deployment.apps/myapp-green created</span>',
+    '<span class="warn">myapp-green-xxx   0/2   ContainerCreating</span>',
+    '<span class="ok">myapp-green-xxx   1/2   Running</span>',
+    '<span class="ok">myapp-green-xxx   2/2   Running ✓</span>',
+    '',
+    '<span class="dim">$ kubectl rollout status deployment/myapp-green</span>',
+    '<span class="ok">Waiting for rollout to finish: 2 of 2 updated replicas available</span>',
+    '<span class="ok">deployment "myapp-green" successfully rolled out</span>',
+    '',
+    '<span class="ok">✅ Green v2.0 healthy — Service still points to Blue v1.0</span>',
+    '<span class="dim">לחץ Switch Traffic כשמוכן</span>',
+  ];
+  for(const s of steps){await dvDelay(250);dvP('dv6out',s);}
+  dv6State.greenVer='v2.0';
+  dv6UpdateViz();
+}
+
+async function dv6Switch(){
+  if(!dv6State.greenVer){dvP('dv6out','<span class="err">Deploy Green first!</span>');return;}
+  if(dv6State.activeEnv==='green'){dvP('dv6out','<span class="warn">Traffic already on Green.</span>');return;}
+  dvC('dv6out');
+  const steps=[
+    '<span class="key">── Switching Traffic → Green ──</span>',
+    '<span class="dim">$ kubectl patch service myapp \\</span>',
+    `<span class="dim">  -p '{"spec":{"selector":{"version":"v2"}}}'</span>`,
+    '',
+    '<span class="dim">service/myapp patched</span>',
+    '<span class="ok">✅ Traffic switched in &lt;1 second — Zero Downtime!</span>',
+    '',
+    '<span class="dim">Monitoring for 60s...</span>',
+    '<span class="ok">Error rate: 0.1% ✓</span>',
+    '<span class="ok">p95 latency: 142ms ✓</span>',
+    '<span class="ok">All health checks passing ✓</span>',
+    '',
+    '<span class="ok">✅ Green v2.0 is now production. Blue v1.0 on standby.</span>',
+  ];
+  for(const s of steps){await dvDelay(280);dvP('dv6out',s);}
+  dv6State.activeEnv='green';dv6State.trafficBlue=0;
+  dv6UpdateViz();
+}
+
+async function dv6Rollback(){
+  if(dv6State.activeEnv==='blue'){dvP('dv6out','<span class="warn">כבר על Blue. אין צורך ב-Rollback.</span>');return;}
+  dvC('dv6out');
+  const steps=[
+    '<span class="err">── Rollback! Issue detected in Green ──</span>',
+    '<span class="err">Error rate spike: 8.3% → Rolling back immediately</span>',
+    '',
+    `<span class="dim">$ kubectl patch service myapp -p '{"spec":{"selector":{"version":"v1"}}}'</span>`,
+    '<span class="ok">service/myapp patched — Traffic back on Blue v1.0</span>',
+    '',
+    '<span class="ok">Rollback complete in &lt;1 second</span>',
+    '<span class="ok">Error rate: 0.1% ← normal</span>',
+    '',
+    '<span class="dim">Blue v1.0 is production. Green v2.0 isolated for debugging.</span>',
+  ];
+  for(const s of steps){await dvDelay(250);dvP('dv6out',s);}
+  dv6State.activeEnv='blue';dv6State.trafficBlue=100;
+  dv6UpdateViz();
+}
+
+// ── LAB 7: HashiCorp Vault ──
+let vaultState={initialized:false,kv:{},dynamicLeases:[]};
+
+async function dvLab7(){
+  const cmd=document.getElementById('dv7cmd').value;
+  const btn=document.getElementById('dv7btn');
+  btn.textContent='⏳...';btn.classList.add('spin');btn.disabled=true;
+  dvC('dv7out');
+
+  const ops={
+    init:{delay:1500,lines:[
+      '<span class="dim">$ vault server -dev</span>',
+      '',
+      '<span class="warn">=== WARNING: Dev mode is enabled! ===</span>',
+      '<span class="warn">Dev mode does NOT persist data across restarts.</span>',
+      '<span class="warn">Do NOT use dev mode in production.</span>',
+      '',
+      '<span class="ok">Vault server started!</span>',
+      '<span class="hi">Root Token: hvs.CAESIJ... (save this!)</span>',
+      '',
+      '<span class="dim">$ export VAULT_ADDR=http://127.0.0.1:8200</span>',
+      '<span class="dim">$ export VAULT_TOKEN=hvs.CAESIJ...</span>',
+      '<span class="ok">✅ Vault dev server ready at :8200</span>',
+    ]},
+    enable:{delay:800,lines:[
+      '<span class="dim">$ vault secrets enable -path=secret kv-v2</span>',
+      '<span class="ok">Success! Enabled the kv-v2 secrets engine at: secret/</span>',
+      '',
+      '<span class="dim">$ vault secrets list</span>',
+      '<span class="key">Path      Type     Description</span>',
+      '<span class="ok">secret/   kv       key/value store v2</span>',
+      '<span class="dim">sys/      system   system endpoints</span>',
+      '',
+      '<span class="dim">KV v2 supports versioning — old secrets are preserved</span>',
+    ]},
+    put:{delay:600,lines:[
+      '<span class="dim">$ vault kv put secret/myapp db_password=s3cr3t api_key=abc123</span>',
+      '<span class="ok">====== Secret Path ======</span>',
+      '<span class="ok">secret/data/myapp</span>',
+      '',
+      '<span class="key">======= Metadata =======</span>',
+      '<span class="hi">created_time    2024-01-15T10:23:01.234Z</span>',
+      '<span class="hi">version         1</span>',
+      '',
+      '<span class="dim">Secret stored. Accessible via API or Vault Agent.</span>',
+      '<span class="dim">✅ NOT stored in ENV variables or config files</span>',
+    ]},
+    get:{delay:500,lines:[
+      '<span class="dim">$ vault kv get secret/myapp</span>',
+      '',
+      '<span class="key">====== Secret Path ======</span>',
+      'secret/data/myapp',
+      '',
+      '<span class="key">======= Metadata =======</span>',
+      'version    1',
+      'created    2024-01-15T10:23:01Z',
+      '',
+      '<span class="key">====== Data ======</span>',
+      '<span class="key">Key            Value</span>',
+      '<span class="ok">api_key    →   abc123</span>',
+      '<span class="ok">db_password →  s3cr3t</span>',
+      '',
+      '<span class="dim">$ vault kv get -field=db_password secret/myapp</span>',
+      '<span class="val">s3cr3t</span>',
+    ]},
+    dynamic:{delay:1800,lines:[
+      '<span class="dim">$ vault read database/creds/my-role</span>',
+      '',
+      '<span class="ok">Key                Value</span>',
+      '<span class="ok">lease_id           database/creds/my-role/8eba2...</span>',
+      '<span class="warn">lease_duration     1h  ← expires automatically!</span>',
+      '<span class="hi">lease_renewable    true</span>',
+      '<span class="ok">password           A1s-jKm9vXq3Rpn7... (random!)</span>',
+      '<span class="ok">username           v-token-my-role-8eba2</span>',
+      '',
+      '<span class="dim">// Vault created a real PostgreSQL user</span>',
+      '<span class="dim">// After 1 hour → Vault deletes the user automatically</span>',
+      '<span class="ok">✅ Dynamic Secrets: even if stolen, expire in 1 hour</span>',
+    ]},
+    lease:{delay:700,lines:[
+      '<span class="dim">$ vault lease renew database/creds/my-role/8eba2...</span>',
+      '<span class="ok">Key             Value</span>',
+      '<span class="ok">lease_duration  1h  ← renewed for another hour</span>',
+      '',
+      '<span class="dim">$ vault lease revoke database/creds/my-role/8eba2...</span>',
+      '<span class="ok">All revocations from this request were successful.</span>',
+      '',
+      '<span class="dim">// DB user deleted immediately — credential invalid</span>',
+      '<span class="ok">✅ Instant revocation — breach mitigation in seconds</span>',
+    ]},
+    k8s:{delay:900,lines:[
+      '<span class="dim">$ vault auth enable kubernetes</span>',
+      '<span class="ok">Success! Enabled kubernetes auth method at: kubernetes/</span>',
+      '',
+      '<span class="dim">$ vault write auth/kubernetes/config kubernetes_host=...',
+      '',
+      '<span class="dim">// Pod YAML annotation:</span>',
+      '<span class="hi">vault.hashicorp.com/agent-inject: "true"</span>',
+      '<span class="hi">vault.hashicorp.com/agent-inject-secret-config: "secret/myapp"</span>',
+      '',
+      '<span class="dim">// Vault Agent Sidecar injects secrets to /vault/secrets/config</span>',
+      '<span class="ok">// App reads from file — never sees Vault Token directly</span>',
+      '<span class="ok">✅ Zero-Secret Application — credentials never in ENV vars</span>',
+    ]},
+  };
+
+  const op=ops[cmd];
+  for(const line of op.lines){await dvDelay(90);dvP('dv7out',line||'&nbsp;');}
+  btn.textContent='▶ Run';btn.classList.remove('spin');btn.disabled=false;
+}
+
 </script>
 </body>
 </html>
