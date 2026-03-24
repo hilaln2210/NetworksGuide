@@ -2642,6 +2642,7 @@ function completeMission(m) {
   S.xp += m.xp;
   localStorage.setItem('nwpro_xp', S.xp);
   document.getElementById('xpTotal').textContent = S.xp;
+  try { window.parent.postMessage({ type: 'ng_xp', amount: m.xp }, '*'); } catch(e) {}
 
   // show success in terminal
   var succEl = document.createElement('div');

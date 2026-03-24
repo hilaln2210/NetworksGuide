@@ -694,6 +694,7 @@ function onPick() {
     G.xp += xpEarned;
     document.getElementById('xpNum').textContent = G.xp;
     showXpPop(xpEarned, this);
+    try { window.parent.postMessage({ type: 'ng_xp', amount: xpEarned }, '*'); } catch(e) {}
     G.streak++;
     G.maxStreak = Math.max(G.maxStreak, G.streak);
   } else {
