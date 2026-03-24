@@ -449,6 +449,65 @@ nav {
 
 @media(max-width: 768px) { .term-layout { grid-template-columns: 1fr; } }
 
+/* Mobile terminal overrides */
+@media(max-width: 600px) {
+  .mission-sidebar {
+    position: static !important; height: auto !important;
+    border-left: none !important; border-bottom: 1px solid var(--brd);
+    padding: 12px 0 4px !important;
+  }
+  .ms-header { padding: 0 14px 10px !important; }
+  .ms-title { font-size: 14px !important; }
+  .ms-sub { display: none; }
+  /* Horizontal scrollable pills */
+  #missionList {
+    display: flex !important; flex-direction: row !important;
+    overflow-x: auto; overflow-y: hidden;
+    padding: 0 10px 10px; gap: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  #missionList::-webkit-scrollbar { display: none; }
+  .mission-item {
+    flex-direction: column !important; align-items: center !important;
+    padding: 8px 12px !important; border-radius: 10px !important;
+    border: 1px solid var(--brd) !important; border-right: none !important;
+    min-width: 72px; flex-shrink: 0; text-align: center; gap: 4px !important;
+    white-space: nowrap;
+  }
+  .mission-item.active { border-color: rgba(16,185,129,.4) !important; background: rgba(16,185,129,.08) !important; }
+  .mi-ch { display: none; }
+  .mi-name { font-size: 11px !important; }
+  .mi-num { width: 20px !important; height: 20px !important; font-size: 9px !important; }
+  .term-main { padding: 14px 12px !important; gap: 14px !important; height: auto !important; }
+  .mission-card { padding: 16px !important; border-radius: 12px !important; }
+  .mc-title { font-size: 18px !important; }
+  .mc-desc { font-size: 13px !important; }
+  .terminal-wrap { min-height: 300px !important; border-radius: 10px !important; }
+  .term-output { font-size: 12px !important; padding: 12px 12px !important; }
+  .term-ps1 { font-size: 12px !important; }
+  .term-input { font-size: 16px !important; } /* prevent iOS zoom */
+  .term-input-row { padding: 8px 12px !important; }
+  /* Quick-command buttons */
+  .term-quick-cmds { display: flex !important; }
+}
+
+/* Quick command buttons (hidden on desktop) */
+.term-quick-cmds {
+  display: none;
+  flex-wrap: wrap; gap: 6px; padding: 8px 12px;
+  background: rgba(0,0,0,.15); border-top: 1px solid var(--brd);
+  flex-shrink: 0;
+}
+.tqc-btn {
+  font-family: var(--mono); font-size: 11px; padding: 5px 10px;
+  border-radius: 6px; border: 1px solid var(--brd);
+  background: rgba(255,255,255,.04); color: var(--dim2);
+  cursor: pointer; white-space: nowrap; transition: all .12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tqc-btn:active { background: rgba(0,212,255,.12); color: var(--ac); border-color: rgba(0,212,255,.3); }
+
 /* Mission sidebar */
 .mission-sidebar {
   background: var(--surf); border-left: 1px solid var(--brd);
@@ -751,7 +810,16 @@ html, body { overflow-x: hidden; }
         </div>
         <div class="term-input-row">
           <span class="term-ps1">student@lab:~$&nbsp;</span>
-          <input class="term-input" id="termInput" type="text" autocomplete="off" spellcheck="false" placeholder="הקלד פקודה..." onkeydown="onTermKey(event)">
+          <input class="term-input" id="termInput" type="text"
+            autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"
+            inputmode="text" enterkeyhint="send"
+            placeholder="הקלד פקודה..." onkeydown="onTermKey(event)">
+        </div>
+        <div class="term-quick-cmds" id="termQuickCmds">
+          <button class="tqc-btn" onclick="quickCmd('hint')">💡 hint</button>
+          <button class="tqc-btn" onclick="quickCmd('help')">❓ help</button>
+          <button class="tqc-btn" onclick="quickCmd('missions')">📋 missions</button>
+          <button class="tqc-btn" onclick="quickCmd('clear')">🗑 clear</button>
         </div>
       </div>
     </div>
@@ -2449,6 +2517,13 @@ function termPrint(html) {
 
 function clearTerm() {
   document.getElementById('termOutput').innerHTML = '';
+}
+
+function quickCmd(cmd) {
+  var inp = document.getElementById('termInput');
+  if (inp) { inp.value = cmd; inp.focus(); }
+  runCommand(cmd);
+  if (inp) inp.value = '';
 }
 
 var BUILT_IN = {
