@@ -87,6 +87,7 @@ export const uiStrings = {
   chapter_list: { he: 'רשימת פרקים →', en: '→ Chapter list' },
   page_read: { he: '✅ נקרא', en: '✅ Read' },
   go_to_quiz: { he: '🎯 עבור לחידון של הפרק', en: '🎯 Go to chapter quiz' },
+  go_to_labs: { he: '🧪 עבור למעבדות', en: '🧪 Go to Labs' },
   prev_btn: { he: 'הקודם →', en: '← Previous' },
   next_btn: { he: '← הבא', en: 'Next →' },
   sim_unavailable: { he: 'הדמיה לא זמינה', en: 'Simulation not available' },

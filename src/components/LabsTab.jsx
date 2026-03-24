@@ -150,28 +150,47 @@ export function LabsTab() {
   }
 
   if (activeLab) {
+    const track = TRACKS.find(t => t.id === activeTrack) || TRACKS[0]
+    const labIdx = track.labs.findIndex(l => l.id === activeLab.id)
+    const prevLab = labIdx > 0 ? track.labs[labIdx - 1] : null
+    const nextLab = labIdx < track.labs.length - 1 ? track.labs[labIdx + 1] : null
+    const btnStyle = {
+      background: 'var(--bg-secondary, #f3f4f6)',
+      border: '1px solid var(--border, #e5e7eb)',
+      borderRadius: '8px', padding: '6px 14px',
+      cursor: 'pointer', fontSize: '0.9rem',
+      color: 'var(--text, #1f2937)', whiteSpace: 'nowrap',
+    }
     return (
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <div style={{
-          display: 'flex', alignItems: 'center', gap: '12px',
-          padding: '12px 20px', borderBottom: '1px solid var(--border, #e5e7eb)',
-          background: 'var(--bg, #fff)',
+          display: 'flex', alignItems: 'center', gap: '10px',
+          padding: '10px 16px', borderBottom: '1px solid var(--border, #e5e7eb)',
+          background: 'var(--bg, #fff)', flexWrap: 'wrap',
         }}>
-          <button
-            onClick={() => setActiveLab(null)}
-            style={{
-              background: 'var(--bg-secondary, #f3f4f6)',
-              border: '1px solid var(--border, #e5e7eb)',
-              borderRadius: '8px', padding: '6px 14px',
-              cursor: 'pointer', fontSize: '0.9rem',
-              color: 'var(--text, #1f2937)',
-            }}
-          >
-            {isEn ? '← Back to Labs' : '→ חזרה למעבדות'}
+          <button onClick={() => setActiveLab(null)} style={btnStyle}>
+            {isEn ? '← Labs' : '→ מעבדות'}
           </button>
-          <span style={{ fontWeight: 600, color: 'var(--text, #1f2937)' }}>
+          <span style={{ fontWeight: 600, color: 'var(--text, #1f2937)', flex: 1, fontSize: '0.95rem' }}>
             {activeLab.title[lang] || activeLab.title.he}
           </span>
+          <span style={{ fontSize: '0.8rem', color: 'var(--text-muted, #6b7280)', whiteSpace: 'nowrap' }}>
+            {isEn ? `Lab ${labIdx + 1} / ${track.labs.length}` : `מעבדה ${labIdx + 1} / ${track.labs.length}`}
+          </span>
+          {prevLab && (
+            <button onClick={() => setActiveLab(prevLab)} style={btnStyle}>
+              {isEn ? '← Prev' : '→ קודמת'}
+            </button>
+          )}
+          {nextLab ? (
+            <button onClick={() => setActiveLab(nextLab)} style={{ ...btnStyle, background: 'var(--primary, #0891b2)', color: '#fff', border: 'none', fontWeight: 600 }}>
+              {isEn ? 'Next Lab →' : '← מעבדה הבאה'}
+            </button>
+          ) : (
+            <span style={{ fontSize: '0.85rem', color: 'var(--success, #16a34a)', fontWeight: 600, whiteSpace: 'nowrap' }}>
+              {isEn ? '✅ Last lab!' : '✅ מעבדה אחרונה!'}
+            </span>
+          )}
         </div>
         <iframe
           src={activeLab.src}

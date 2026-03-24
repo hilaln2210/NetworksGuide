@@ -843,6 +843,15 @@ function App() {
                 >
                   {t('go_to_quiz')}
                 </button>
+                {currentChapter === trackChapters.length - 1 && (
+                  <button
+                    className="go-to-quiz-btn"
+                    style={{ background: 'var(--success, #16a34a)', marginTop: '8px' }}
+                    onClick={() => setActiveTab('labs')}
+                  >
+                    {t('go_to_labs')}
+                  </button>
+                )}
               </div>
             )}
 
