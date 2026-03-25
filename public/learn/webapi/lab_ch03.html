@@ -1,11 +1,28 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" id="root">
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web & APIs PRO</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Web &amp; APIs PRO | ווב ו-APIs</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600;700&display=swap');
+
+/* ── LANG SYSTEM ── */
+#root { direction:rtl; }
+#root.en { direction:ltr; }
+.he  { display:inline; }
+.he-b{ display:block;  }
+.en  { display:none;   }
+.en-b{ display:none;   }
+#root.en .he  { display:none;   }
+#root.en .he-b{ display:none;   }
+#root.en .en  { display:inline; }
+#root.en .en-b{ display:block;  }
+body { font-family:'Noto Sans Hebrew','Inter',sans-serif; }
+#root.en body,#root.en { font-family:'Inter',sans-serif; }
+
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Hebrew:wght@400;500;600;700&display=swap');
 
 :root {
@@ -348,9 +365,25 @@ body::after{content:'';position:fixed;top:-10%;right:-10%;width:55%;height:55%;b
   .container{padding-left:max(12px,env(safe-area-inset-left));padding-right:max(12px,env(safe-area-inset-right));}
   .site-footer{padding-bottom:max(18px,env(safe-area-inset-bottom));}
 }
+
+
+/* LANG TOGGLE BUTTON */
+.lang-btn{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;padding:4px 11px;border:1px solid var(--blue);border-radius:20px;background:rgba(99,102,241,.1);color:var(--blue2);cursor:pointer;transition:all .2s;letter-spacing:.5px;flex-shrink:0;margin-right:10px;}
+#root.en .lang-btn{margin-right:0;margin-left:10px;}
+.lang-btn:hover{background:rgba(99,102,241,.2);}
+
+/* LTR fixes */
+#root.en .incident{border-right:none;border-left:4px solid var(--red);}
+#root.en .analogy{border-right:none;border-left:4px solid var(--blue2);}
+#root.en .q-opt{text-align:left;}
+#root.en .q-exp{border-right:none;border-left:3px solid var(--blue2);}
+#root.en .ans-note{border-right:none;border-left:3px solid var(--cyan);}
+#root.en .lab-goal{border-right:none;border-left:3px solid var(--blue);padding-right:0;padding-left:13px;}
+#root.en .bs-item::before{right:auto;left:20px;}
+#root.en .nav-clock{margin-right:0;margin-left:auto;}
+#root.en .emu-ttl{margin-right:0;margin-left:auto;}
 </style>
 
-<script src="/_bridge.js"></script>
 <style id="ng-fix">
 /* NG responsive: prevent horizontal overflow, fix media, code scrolling */
 body { overflow-x: hidden; }
@@ -369,6 +402,7 @@ table { display: block; overflow-x: auto; max-width: 100%; }
   --blue-glow: rgba(67,56,202,0.1); --code-bg: #f0f0ff;
 }
 </style>
+<script src="/_bridge.js"></script>
 </head>
 <body>
 <div class="lab open" id="lb3">
@@ -422,31 +456,290 @@ table { display: block; overflow-x: auto; max-width: 100%; }
 
 <!-- LAB 4: WebSocket Chat -->
 <script>
-// ── Clock ──
-setInterval(()=>{const el=document.getElementById('clk');if(el)el.textContent=new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})+' 🌍';},1000);
+// ── LANG ──
+function isEn(){ return document.getElementById('root').classList.contains('en'); }
 
-// ── Tabs ──
+function toggleLang() {
+  const root = document.getElementById('root');
+  const btn  = document.getElementById('langBtn');
+  root.classList.toggle('en');
+  btn.textContent = root.classList.contains('en') ? 'עב' : 'EN';
+  buildQuiz();
+}
+
+// ── CLOCK ──
+setInterval(()=>{
+  const el=document.getElementById('clk');
+  if(el) el.textContent=new Date().toLocaleTimeString(isEn()?'en-US':'he-IL',{hour:'2-digit',minute:'2-digit'})+' 🌍';
+},1000);
+
+// ── TABS ──
 function switchTab(id,el){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
-  const sec=document.getElementById(id);if(sec)sec.classList.add('active');
+  const s=document.getElementById(id);if(s)s.classList.add('active');
   if(el&&el.classList)el.classList.add('active');
   if(id==='game')startGame();
 }
 
-// ── Chapters / Labs ──
+// ── CHAPTERS / LABS ──
 function toggleCh(id){document.getElementById(id).classList.toggle('open');}
 function toggleLab(id){document.getElementById(id).classList.toggle('open');}
+function toggleGlos(id){const el=document.getElementById(id);if(el)el.classList.toggle('open');}
+const _c0=document.getElementById('c0');if(_c0)_c0.classList.add('open');
 const _lb1=document.getElementById('lb1');if(_lb1)_lb1.classList.add('open');
 
-// ── Answer Toggle ──
+// ── ANSWER TOGGLE ──
 function toggleAns(id){
-  const box=document.getElementById(id),btn=box.previousElementSibling,icon=document.getElementById(id+'i');
-  const open=box.classList.contains('show');
+  const box=document.getElementById(id);
+  const btn=box.previousElementSibling;
+  const icon=document.getElementById(id+'i');
+  const isOpen=box.classList.contains('show');
   box.classList.toggle('show');btn.classList.toggle('open');
-  if(icon)icon.textContent=open?'▶':'▼';
-  btn.childNodes[1].textContent=' '+(open?'הצג תשובות':'הסתר תשובות');
+  if(icon)icon.textContent=isOpen?'▶':'▼';
+  btn.childNodes[1].textContent=' '+(isOpen?(isEn()?'Show Answers':'הצג תשובות'):(isEn()?'Hide Answers':'הסתר תשובות'));
 }
+
+// ── QUIZ ──
+const QS=[
+  {q:"איזה Status Code מוחזר כש-Resource לא קיים?",tag:"Status Codes",opts:["400 Bad Request","401 Unauthorized","404 Not Found","503 Service Unavailable"],ans:2,exp:"404 Not Found — ה-Resource שביקשת לא קיים. 400 = הבקשה עצמה שגויה. 401 = לא מאומת. 503 = שרת לא זמין."},
+  {q:"מה ההבדל בין 401 ל-403?",tag:"Status Codes",opts:["אין הבדל","401 = לא מזוהה, 403 = מזוהה אך אסור","401 = Server Error","401 עבור API בלבד"],ans:1,exp:"401 Unauthorized = לא מאומת (שלח Credentials). 403 Forbidden = מאומת אבל אין הרשאה. שם 'Unauthorized' הוא טעות היסטורית — הכוונה Unauthenticated."},
+  {q:"מה JWT?",tag:"Auth",opts:["JSON Web Template","JavaScript Widget Token","JSON Web Token — Token מקודד עם Signature","Java Web Technology"],ans:2,exp:"JWT = JSON Web Token. 3 חלקים: Header, Payload, Signature. הכל Base64 מקודד — גלוי לכולם! Signature מאמת שהתוכן לא שונה. לעולם אל תשמור סיסמה ב-Payload."},
+  {q:"מה idempotent בהקשר HTTP?",tag:"REST",opts:["בקשה שתמיד מחזירה 200","בקשה שאפשר לשלוח פעמיים ולקבל אותה תוצאה","בקשה ללא Body","בקשה עם Caching"],ans:1,exp:"Idempotent = הפעלה חוזרת נותנת אותה תוצאה. GET, PUT, DELETE = Idempotent. POST = לא (יוצר resource חדש). חשוב ל-Retry Logic."},
+  {q:"מה CORS ולמה הוא קיים?",tag:"Security",opts:["Cache Object Resource System","Cross-Origin Resource Sharing — מגן מ-Cross-Site Attacks","Compressed Output Response Size","Certificate Origin System"],ans:1,exp:"CORS = Cross-Origin Resource Sharing. הדפדפן חוסם JavaScript מ-origin אחד מלגשת ל-API באחר. מגן מ-CSRF Attacks."},
+  {q:"מה הבעיה עם JWT ב-localStorage?",tag:"Security",opts:["JWT גדול מדי","XSS יכול לגנוב אותו — JavaScript יכול לקרוא localStorage","לא ניתן לשלוח ב-Headers","לא Persistent"],ans:1,exp:"localStorage נגיש לכל JavaScript בדף — כולל XSS Scripts. HttpOnly Cookie לא נגיש ל-JS. לכן: Refresh Token ב-HttpOnly Cookie, Access Token ב-Memory."},
+  {q:"מה Cache-Control: no-cache אומר?",tag:"Caching",opts:["לא לשמור Cache בכלל","לבקש אימות תוקף לפני שימוש ב-Cache","למחוק Cache קיים","לשמור רק ב-Browser"],ans:1,exp:"no-cache ≠ 'אל תשמור'. המשמעות: שמור Cache, אבל תמיד בקש מהשרת לאמת לפני שימוש. לא לשמור בכלל = no-store."},
+  {q:"מה GraphQL פותר שREST לא?",tag:"GraphQL",opts:["GraphQL מהיר יותר","Over-fetching ו-Under-fetching — Client מגדיר בדיוק מה לקבל","GraphQL יותר מאובטח","GraphQL עם SQL בלבד"],ans:1,exp:"Over-fetching: REST מחזיר שדות שלא צריך. Under-fetching: צריך מספר Requests. GraphQL = שאילתה אחת שמחזירה בדיוק מה שהוגדר."},
+  {q:"מה WebSocket לעומת HTTP?",tag:"Real-Time",opts:["זהים לחלוטין","WebSocket = Full-Duplex, HTTP = Request/Response חד-כיווני","WebSocket רק ב-Mobile","WebSocket יותר מאובטח"],ans:1,exp:"HTTP = Client שולח → Server עונה. WebSocket = חיבור פתוח קבוע. Server יכול לשלוח ל-Client בלי שיבקש. Full-Duplex."},
+  {q:"מה Rate Limiting Code נכון?",tag:"Performance",opts:["400 Bad Request","401 Unauthorized","429 Too Many Requests","503 Service Unavailable"],ans:2,exp:"429 Too Many Requests הוא הקוד הסטנדרטי. הוסף: Retry-After Header ו-X-RateLimit-Remaining."},
+  {q:"מה OAuth 2.0 + PKCE?",tag:"Auth",opts:["Hash של Password","Flow מאובטח ל-Auth ב-Public Clients ללא Client Secret","Type של JWT","DB Auth Protocol"],ans:1,exp:"PKCE מונע Code Interception Attacks ב-Mobile Apps ו-SPAs שלא יכולים לשמור Client Secret. Code Verifier + Code Challenge."},
+  {q:"מה Webhook?",tag:"API Design",opts:["Web Security Hook","HTTP Callback — Server שולח ל-Client כשיש Event","Type של API Key","Widget Hook"],ans:1,exp:"Webhook = Push Notification ל-API. במקום Polling, Server שולח Request כשיש Event. Stripe, GitHub, Slack. תמיד אמת Signature!"},
+  {q:"מה Idempotency Key?",tag:"API Design",opts:["JWT Key","UUID למניעת כפילויות ב-Retries","Cache Key","DB Primary Key"],ans:1,exp:"UUID שנשלח ב-Header: Idempotency-Key: uuid. אם Request נשלח פעמיים (Network retry), Server מחזיר תשובה שמורה. קריטי ל-Payments."},
+  {q:"מה N+1 Problem ב-GraphQL?",tag:"GraphQL",opts:["Query עם יותר מ-1 שדה","Query שגורם ל-N DB Queries לכל N Records","Error ב-GraphQL","מחזיר יותר מ-N Results"],ans:1,exp:"N+1: 10 Users עם Orders → 1+10 Queries = 11. DataLoader: 1+1 = 2 Queries. חיסכון של 82% ב-DB Round Trips."},
+  {q:"מה ETag ב-HTTP?",tag:"Caching",opts:["Encryption Tag","Hash של Resource לבדיקת Freshness","Error Tag","Event Tag"],ans:1,exp:"ETag = Hash של תוכן. Browser שולח: If-None-Match. אם לא השתנה → 304 Not Modified ללא Body. חוסך Bandwidth."},
+  {q:"מה הבדל PUT ל-PATCH?",tag:"REST",opts:["אין הבדל","PUT = החלפה מלאה, PATCH = עדכון חלקי","PUT ל-Create","PUT יותר מאובטח"],ans:1,exp:"PUT = שלח Resource שלם (שדה שלא שלחת יתאפס). PATCH = שלח רק מה שרוצה לשנות. שניהם Idempotent."},
+  {q:"מה הסטנדרט לError Response ב-API?",tag:"REST",opts:["כל API לבד","RFC 7807 Problem Details","YAML Error Format","JSON:API Error Schema"],ans:1,exp:'RFC 7807: {"type":"URL","title":"Error","status":400,"detail":"...","instance":"/api/..."}. Clients יכולים לטפל ב-Errors אוניברסלית.'},
+  {q:"מה SSE לעומת WebSocket?",tag:"Real-Time",opts:["SSE = Full-Duplex","SSE = One-Way Server Push, WS = Full-Duplex. SSE פשוט יותר","SSE מהיר יותר","זהים"],ans:1,exp:"SSE = Server שולח ל-Client בלבד. פשוט, Auto-Reconnect, HTTP/2 Native. לNotifications, Feeds = SSE. לChat, Gaming = WebSocket."},
+  {q:"מה gRPC?",tag:"API Design",opts:["Google Remote Procedure Call — Protocol Buffers, מהיר מ-REST","Google REST Client","גרסה חדשה של HTTP","GraphQL Remote Client"],ans:0,exp:"gRPC = Protocol Buffers (Binary, לא JSON) + HTTP/2. פי 5-10 מהיר מ-REST. Streaming דו-כיווני. מושלם ל-Microservices."},
+  {q:"מה Circuit Breaker Pattern?",tag:"API Design",opts:["Firewall Rule","Pattern שמפסיק לשלוח לשירות תקוע — מונע Cascading Failures","API Key Rotation","Cache Invalidation"],ans:1,exp:"Circuit Breaker: שגיאות חוזרות → Circuit נפתח → Error מיידי. אחרי Timeout → Half-Open → מנסה שוב. מונע Thundering Herd."},
+];
+
+const QS_EN = [
+  {q:"Which Status Code is returned when a Resource doesn't exist?",tag:"Status Codes",opts:["400 Bad Request","401 Unauthorized","404 Not Found","503 Service Unavailable"],ans:2,exp:"404 Not Found — the Resource you requested doesn't exist. 400 = the request itself is bad. 401 = not authenticated. 503 = server unavailable."},
+  {q:"What is the difference between 401 and 403?",tag:"Status Codes",opts:["No difference","401 = not authenticated (who are you?), 403 = authenticated but not authorized","401 = server error, 403 = client error","401 = no content, 403 = redirect"],ans:1,exp:"401 Unauthorized = you haven't authenticated. 403 Forbidden = authenticated but no permission. Always return 404 instead of 403 for sensitive resources (don't reveal they exist)."},
+  {q:"What is JWT?",tag:"Auth",opts:["A database","JSON Web Token — encoded token with Header, Payload, Signature","A REST framework","A type of API key"],ans:1,exp:"JWT = Header.Payload.Signature, Base64 encoded. The Payload is VISIBLE to anyone — not encrypted. The Signature verifies no tampering. Never store passwords in the Payload!"},
+  {q:"What does CORS protect against?",tag:"Security",opts:["SQL Injection","XSS","Malicious requests from a different domain to your API","DDoS"],ans:2,exp:"CORS = Cross-Origin Resource Sharing. Prevents a malicious script on evil.com from calling your-bank.com/api. The browser blocks the request unless your-bank.com explicitly allows evil.com in CORS headers."},
+  {q:"What is the difference between PUT and PATCH?",tag:"REST",opts:["No difference","PUT replaces the entire resource, PATCH updates partial fields","PUT creates, PATCH updates","PUT = read, PATCH = write"],ans:1,exp:"PUT replaces the ENTIRE resource — omitted fields are deleted. PATCH updates only the specified fields. PATCH is preferred for partial updates as it's more bandwidth-efficient."},
+  {q:"What does 304 Not Modified mean?",tag:"Caching",opts:["Resource was deleted","Server error","Content unchanged — use your cached version","Redirect to new URL"],ans:2,exp:"304 Not Modified = the client sent If-None-Match with an ETag, the content hasn't changed, so the server returns 304 without body. 0% bandwidth cost — the client uses its cache."},
+  {q:"What is an Idempotent request?",tag:"REST",opts:["Any GET request","A request that can be repeated multiple times with the same result","A request that creates a new resource","An encrypted request"],ans:1,exp:"Idempotent = the same result no matter how many times you call it. GET, PUT, DELETE are idempotent. POST is NOT — calling twice creates two resources. Stripe uses Idempotency-Key header to make POST idempotent."},
+  {q:"What is OAuth 2.0?",tag:"Auth",opts:["A password encryption algorithm","An authorization framework — 'Login with Google/GitHub'","A REST standard","A JWT variant"],ans:1,exp:"OAuth 2.0 = Authorization Framework. Allows an app to access resources on your behalf without seeing your password. 'Login with Google' = OAuth 2.0 Authorization Code Flow."},
+  {q:"What is rate limiting?",tag:"Security",opts:["API response speed","Limiting number of requests per time period — protects from DDoS/abuse","Maximum payload size","Connection timeout"],ans:1,exp:"Rate Limiting = cap on how many requests a client can make per period. Returns 429 Too Many Requests + Retry-After header. Implemented with Token Bucket or Leaky Bucket algorithms."},
+  {q:"What is WebSocket?",tag:"Real-Time",opts:["HTTP/2","A persistent two-way connection — server can push to client anytime","An authentication method","A caching protocol"],ans:1,exp:"WebSocket = persistent TCP connection. Starts as HTTP, upgrades with 'Upgrade: websocket' header → 101 Switching Protocols. Unlike HTTP, the server can send data without the client asking."},
+  {q:"What is the difference between REST and GraphQL?",tag:"REST",opts:["REST is faster","REST returns fixed data from the server, GraphQL lets the client define exactly what to receive","REST is newer","No difference"],ans:1,exp:"REST: server decides what fields to return → over-fetching or under-fetching. GraphQL: client specifies exactly which fields → efficient. GraphQL solves the N+1 problem with DataLoader."},
+  {q:"What is OpenAPI?",tag:"Docs",opts:["An open-source database","A YAML/JSON format describing an API — generates Docs + SDK + Tests","An authentication standard","A REST framework"],ans:1,exp:"OpenAPI (formerly Swagger) = specification format for APIs. From one Spec: generate interactive Docs (Swagger UI), Client SDK in any language, automated Contract Tests."},
+  {q:"What does 429 Too Many Requests mean?",tag:"Status Codes",opts:["Server error","Request too large","Rate Limit exceeded — slow down","Authentication required"],ans:2,exp:"429 = you exceeded the Rate Limit. Server returns Retry-After header indicating how long to wait. Client should implement Exponential Backoff — don't immediately retry!"},
+  {q:"What is SSE (Server-Sent Events)?",tag:"Real-Time",opts:["WebSocket variant","One-way server→client push over HTTP — simpler than WebSocket","Encrypted HTTP","Two-way streaming"],ans:1,exp:"SSE = one-directional push: server→client only. Simpler than WebSocket, built-in Auto-Reconnect, works over HTTP/2. Ideal for: Notifications, Live Feed, Dashboard updates."},
+  {q:"What is ETag?",tag:"Caching",opts:["A type of API token","A hash of content that enables checking 'did it change?'","An encryption header","A CORS header"],ans:1,exp:"ETag = hash of the response content. Client stores it and sends If-None-Match: 'etag' on next request. If unchanged → 304 No Body. Saves 100% bandwidth."},
+  {q:"What is the Richardson Maturity Model?",tag:"REST",opts:["A testing framework","4 REST levels — from plain HTTP to full HATEOAS","A caching model","An auth model"],ans:1,exp:"Level 0: one URL, one method. Level 1: Resources (/users, /orders). Level 2: HTTP Methods (GET/POST/PUT/DELETE). Level 3: HATEOAS — API explains itself through links."},
+  {q:"What is the N+1 problem in GraphQL?",tag:"GraphQL",opts:["GraphQL has more than 1 endpoint","Fetching N records causes N+1 DB queries","GraphQL supports up to N+1 nested queries","A type of security vulnerability"],ans:1,exp:"N+1 = querying 10 users with their orders = 1 query for users + 10 queries for orders = 11 queries. Solution: DataLoader — batches all order queries into 1. From 11 to 2."},
+  {q:"What is Webhook?",tag:"Design",opts:["A type of WebSocket","HTTP request server sends to your URL when an event occurs — push instead of poll","A REST method","An authentication mechanism"],ans:1,exp:"Webhook = reverse API. Instead of you polling 'any new orders?' every minute — Stripe sends POST to your URL the moment a payment occurs. You provide the URL, they push to it."},
+  {q:"What does the Content-Type: application/json header mean?",tag:"HTTP",opts:["Request must be encrypted","The body is JSON format","Requires authentication","Response will be in JSON"],ans:1,exp:"Content-Type = what format the BODY is in. application/json = 'I'm sending you JSON.' The server must parse it accordingly. Without this header, many servers return 415 Unsupported Media Type."},
+  {q:"What is Cache-Control: no-cache?",tag:"Caching",opts:["Never cache this response","Store but always validate freshness before using","No compression","Private cache only"],ans:1,exp:"no-cache does NOT mean 'don't cache' — it means 'store but always validate with the server before using.' If unchanged → 304. If changed → new response. Contrast with no-store which truly never caches."}
+];
+
+let qAns=0,qOk=0;
+
+function buildQuiz(){
+  const list=document.getElementById('qList');if(!list)return;
+  list.innerHTML='';qAns=0;qOk=0;
+  document.getElementById('scoreBox').classList.remove('show');
+  document.getElementById('qp').style.width='0%';
+  document.getElementById('qpl').textContent='0 / 20';
+  const qs=isEn()?QS_EN:QS;
+  qs.forEach((q,i)=>{
+    const c=document.createElement('div');
+    c.className='q-card';c.id='qc'+i;
+    c.innerHTML=`<div class="q-top"><span class="q-idx">${String(i+1).padStart(2,'0')}/20</span><span class="q-tag">${q.tag}</span></div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-opts">${q.opts.map((o,j)=>`<div class="q-opt" onclick="pick(${i},${j})" id="o_${i}_${j}">${o}</div>`).join('')}</div>
+      <div class="q-exp" id="exp_${i}">${q.exp}</div>`;
+    list.appendChild(c);
+  });
+}
+
+function pick(qi,oi){
+  const qs=isEn()?QS_EN:QS;
+  const q=qs[qi];
+  document.querySelectorAll(`[id^="o_${qi}_"]`).forEach(el=>el.classList.add('locked'));
+  if(oi===q.ans){document.getElementById(`o_${qi}_${oi}`).classList.add('hit');document.getElementById('qc'+qi).classList.add('c-ok');qOk++;}
+  else{document.getElementById(`o_${qi}_${oi}`).classList.add('miss');document.getElementById(`o_${qi}_${q.ans}`).classList.add('hit');document.getElementById('qc'+qi).classList.add('c-fail');}
+  document.getElementById('exp_'+qi).classList.add('show');
+  qAns++;
+  document.getElementById('qp').style.width=(qAns/qs.length*100)+'%';
+  document.getElementById('qpl').textContent=`${qAns} / ${qs.length}`;
+  if(qAns===qs.length)setTimeout(showScore,500);
+}
+
+function showScore(){
+  const qs=isEn()?QS_EN:QS;
+  const pct=Math.round(qOk/qs.length*100);
+  document.getElementById('scoreBox').classList.add('show');
+  document.getElementById('scoreBig').innerHTML=`${qOk}<span class="frac">/${qs.length}</span>`;
+  document.getElementById('scorePct').textContent=pct+'%';
+  const msgs=isEn()
+    ?pct>=90?['API Architect! 🏗️','Senior level. Go build something.']
+    :pct>=75?['Mid-Level Developer','Review Auth & Caching']
+    :pct>=55?['Junior Developer','Practice the labs and retry']
+    :['404 Knowledge Not Found','Back to the chapters']
+    :pct>=90?['API Architect! 🏗️','רמת Senior. לך לבנות משהו.']
+    :pct>=75?['Mid-Level Developer','חזור על Auth & Caching']
+    :pct>=55?['Junior Developer','תרגל המעבדות ונסה שוב']
+    :['404 Knowledge Not Found','חזור לפרקים'];
+  document.getElementById('scoreMsg').textContent=msgs[0];
+  document.getElementById('scoreSub').textContent=msgs[1];
+  document.getElementById('scoreBox').scrollIntoView({behavior:'smooth'});
+}
+
+function restartQuiz(){buildQuiz();}
+buildQuiz();
+
+// ── GAME ──
+const GQUESTIONS=[
+  {desc:"המשאב קיים, הכל עבד מצוין",hint:"הצלחה מושלמת",ans:200},
+  {desc:"הכתובת עברה ל-URL חדש לתמיד",hint:"Redirect קבוע — SEO friendly",ans:301},
+  {desc:"הדף שחיפשת לא קיים",hint:"Resource לא נמצא",ans:404},
+  {desc:"קוד צד שרת קרס",hint:"לא אשמת ה-Client",ans:500},
+  {desc:"שלחת בקשה בלי להתחבר",hint:"מי אתה? לא מכירים",ans:401},
+  {desc:"מחובר, אבל אין לך גישה",hint:"Authenticated but not Authorized",ans:403},
+  {desc:"שלחת יותר מדי בקשות מהר",hint:"Rate Limit — Slow down!",ans:429},
+  {desc:"שרת לא יכול לעבד כרגע",hint:"≠ 500. עמוס/למטה זמנית",ans:503},
+  {desc:"הצליח, אין תוכן להחזיר",hint:"DELETE בהצלחה",ans:204},
+  {desc:"ה-Client שלח JSON שבור",hint:"תקינות הבקשה — Client fault",ans:400},
+  {desc:"Redirect זמני ל-URL אחר",hint:"כמו 301 אבל לא permanent",ans:302},
+  {desc:"שדה חובה חסר ב-Form",hint:"Input תקין אבל Logic לא",ans:422},
+  {desc:"Method לא נתמך ב-Endpoint הזה",hint:"DELETE על Read-Only resource",ans:405},
+  {desc:"POST הצליח ויצר Resource חדש",hint:"שונה מ-200",ans:201},
+  {desc:"Gateway קיבל תגובה שגויה",hint:"Error בשרת מאחורי",ans:502},
+  {desc:"Resource לא השתנה — Cache תקף",hint:"ה-ETag תואמת",ans:304},
+];
+const GQUESTIONS_EN = [
+  {desc:"Resource exists, everything worked perfectly",hint:"Perfect success",ans:200},
+  {desc:"URL has permanently moved to a new address",hint:"Permanent Redirect — SEO friendly",ans:301},
+  {desc:"The page you requested doesn't exist",hint:"Resource not found",ans:404},
+  {desc:"Server-side code crashed",hint:"Not the Client's fault",ans:500},
+  {desc:"Request sent without authentication",hint:"Who are you? Don't know you",ans:401},
+  {desc:"Authenticated but no access permission",hint:"Authenticated but not Authorized",ans:403},
+  {desc:"Too many requests too fast",hint:"Rate Limit — Slow down!",ans:429},
+  {desc:"Server can't process right now",hint:"≠ 500. Busy or temporarily down",ans:503},
+  {desc:"Success, but no content to return",hint:"Successful DELETE",ans:204},
+  {desc:"Client sent malformed JSON",hint:"Request validity — Client fault",ans:400},
+  {desc:"Temporary redirect to different URL",hint:"Like 301 but not permanent",ans:302},
+  {desc:"Required form field is missing",hint:"Valid input but logic fails",ans:422},
+  {desc:"Method not supported on this Endpoint",hint:"DELETE on Read-Only resource",ans:405},
+  {desc:"POST succeeded and created new Resource",hint:"Different from 200",ans:201},
+  {desc:"Gateway received a bad response",hint:"Error from server behind",ans:502},
+  {desc:"Resource unchanged — Cache is valid",hint:"ETag matches",ans:304},
+];
+
+const ALL_CODES=[200,201,204,301,302,304,400,401,403,404,405,422,429,500,502,503];
+let gScore_=0,gLives_=3,gStreak_=0,gAsked_=[];
+
+function isEn_(){ return document.getElementById('root').classList.contains('en'); }
+
+function startGame(){
+  gScore_=0;gLives_=3;gStreak_=0;gAsked_=[];
+  document.getElementById('gameEnd').style.display='none';
+  document.getElementById('gameBody').style.display='block';
+  updateGBar(); nextGQ();
+}
+
+function updateGBar(){
+  document.getElementById('gScore').textContent=gScore_;
+  document.getElementById('gLives').textContent='❤️'.repeat(gLives_)+'🖤'.repeat(3-gLives_);
+  document.getElementById('gStreak').textContent=gStreak_;
+}
+
+function getActiveCodes(){
+  const base=[200,404,500,401];
+  if(gScore_>=4)base.push(201,400);
+  if(gScore_>=8)base.push(403,429);
+  if(gScore_>=12)base.push(204,503,302);
+  if(gScore_>=16)base.push(301,304,405,422,502);
+  return base;
+}
+
+function nextGQ(){
+  const gqs=isEn_()?GQUESTIONS_EN:GQUESTIONS;
+  const rem=gqs.filter((_,i)=>!gAsked_.includes(i));
+  if(!rem.length||gLives_<=0){endGame();return;}
+  const q=rem[Math.floor(Math.random()*rem.length)];
+  gAsked_.push(gqs.indexOf(q));
+  window._gcq=q;
+  document.getElementById('gQ').textContent=q.desc;
+  document.getElementById('gH').textContent='💭 '+q.hint;
+  document.getElementById('gFb').textContent='';
+  const codes=getActiveCodes();
+  // ensure correct answer is included
+  if(!codes.includes(q.ans))codes[codes.length-1]=q.ans;
+  // shuffle
+  const shuffled=codes.sort(()=>Math.random()-.5).slice(0,Math.min(codes.length,8));
+  if(!shuffled.includes(q.ans))shuffled[0]=q.ans;
+  const opts=shuffled.sort((a,b)=>a-b);
+  document.getElementById('gOpts').innerHTML=opts.map(c=>
+    `<div class="g-opt" onclick="gAns(${c},this)">${c}</div>`
+  ).join('');
+  document.getElementById('gProg').style.width=(gAsked_.length/gqs.length*100)+'%';
+}
+
+function gAns(code,el){
+  const q=window._gcq;
+  document.querySelectorAll('.g-opt').forEach(o=>o.classList.add('locked'));
+  const fb=document.getElementById('gFb');
+  if(code===q.ans){
+    el.classList.add('g-correct');
+    gScore_+=1+Math.min(gStreak_,3);gStreak_++;
+    fb.textContent=(isEn_()?'✅ Correct! +':'✅ נכון! +')+(1+Math.min(gStreak_-1,3))+'pts';
+    fb.className='game-feedback fb-ok';
+    updateGBar();setTimeout(nextGQ,800);
+  }else{
+    el.classList.add('g-wrong');gLives_--;gStreak_=0;
+    const correct=[...document.querySelectorAll('.g-opt')].find(o=>o.textContent==q.ans);
+    if(correct)correct.classList.add('g-correct');
+    fb.textContent=(isEn_()?'❌ Answer: ':'❌ התשובה: ')+q.ans;
+    fb.className='game-feedback fb-err';
+    updateGBar();
+    if(gLives_<=0){setTimeout(endGame,1200);return;}
+    setTimeout(nextGQ,1400);
+  }
+}
+
+function endGame(){
+  document.getElementById('gameBody').style.display='none';
+  document.getElementById('gameEnd').style.display='block';
+  const en=isEn_();
+  let emoji,title,msg;
+  if(gScore_>=20){emoji='🏆';title=en?'API Master!':'API Master!';msg=en?'Perfect. Go build production APIs.':'מושלם. לך לבנות APIs בפרודקשן.';}
+  else if(gScore_>=12){emoji='🛠️';title=en?'Senior Dev':'Senior Dev';msg=en?'Strong. Review rare codes.':'חזק. חזור על Codes נדירים.';}
+  else if(gScore_>=6){emoji='🔍';title=en?'Mid Developer':'Mid Developer';msg=en?'Good. Practice more.':'טוב. תרגל עוד.';}
+  else{emoji='📖';title=en?'404 Score Not Found':'404 Score Not Found';msg=en?'Back to the chapters.':'חזור לפרקים.';}
+  document.getElementById('geEmoji').textContent=emoji;
+  document.getElementById('geTitle').textContent=title;
+  document.getElementById('geScore').textContent='score: '+gScore_;
+  document.getElementById('geMsg').textContent=msg;
+}
+
+startGame();
+
+// ── EMULATORS (from pro course) ──
+
+// ── Clock ──
+setInterval(()=>{const el=document.getElementById('clk');if(el)el.textContent=new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'})+' 🌍';},1000);
+
+// ── Tabs ──
+// function switchTab defined above
+
+// ── Chapters / Labs ──
+// function toggleCh defined above
 
 // ══════════════════════════════════
 // EMULATOR HELPERS
@@ -1045,108 +1338,14 @@ function k6PrintSummary(maxVUs,threshold,mode){
 // ══════════════════════════════════
 // QUIZ
 // ══════════════════════════════════
-const QS=[
-  {q:"איזה Status Code מוחזר כש-Resource לא קיים?",tag:"Status Codes",opts:["400 Bad Request","401 Unauthorized","404 Not Found","503 Service Unavailable"],ans:2,exp:"404 Not Found — ה-Resource שביקשת לא קיים. 400 = הבקשה עצמה שגויה. 401 = לא מאומת. 503 = שרת לא זמין."},
-  {q:"מה ההבדל בין 401 ל-403?",tag:"Status Codes",opts:["אין הבדל","401 = לא מזוהה, 403 = מזוהה אך אסור","401 = Server Error","401 עבור API בלבד"],ans:1,exp:"401 Unauthorized = לא מאומת (שלח Credentials). 403 Forbidden = מאומת אבל אין הרשאה. שם 'Unauthorized' הוא טעות היסטורית — הכוונה Unauthenticated."},
-  {q:"מה JWT?",tag:"Auth",opts:["JSON Web Template","JavaScript Widget Token","JSON Web Token — Token מקודד עם Signature","Java Web Technology"],ans:2,exp:"JWT = JSON Web Token. 3 חלקים: Header, Payload, Signature. הכל Base64 מקודד — גלוי לכולם! Signature מאמת שהתוכן לא שונה. לעולם אל תשמור סיסמה ב-Payload."},
-  {q:"מה idempotent בהקשר HTTP?",tag:"REST",opts:["בקשה שתמיד מחזירה 200","בקשה שאפשר לשלוח פעמיים ולקבל אותה תוצאה","בקשה ללא Body","בקשה עם Caching"],ans:1,exp:"Idempotent = הפעלה חוזרת נותנת אותה תוצאה. GET, PUT, DELETE = Idempotent. POST = לא (יוצר resource חדש). חשוב ל-Retry Logic."},
-  {q:"מה CORS ולמה הוא קיים?",tag:"Security",opts:["Cache Object Resource System","Cross-Origin Resource Sharing — מגן מ-Cross-Site Attacks","Compressed Output Response Size","Certificate Origin System"],ans:1,exp:"CORS = Cross-Origin Resource Sharing. הדפדפן חוסם JavaScript מ-origin אחד מלגשת ל-API באחר. מגן מ-CSRF Attacks."},
-  {q:"מה הבעיה עם JWT ב-localStorage?",tag:"Security",opts:["JWT גדול מדי","XSS יכול לגנוב אותו — JavaScript יכול לקרוא localStorage","לא ניתן לשלוח ב-Headers","לא Persistent"],ans:1,exp:"localStorage נגיש לכל JavaScript בדף — כולל XSS Scripts. HttpOnly Cookie לא נגיש ל-JS. לכן: Refresh Token ב-HttpOnly Cookie, Access Token ב-Memory."},
-  {q:"מה Cache-Control: no-cache אומר?",tag:"Caching",opts:["לא לשמור Cache בכלל","לבקש אימות תוקף לפני שימוש ב-Cache","למחוק Cache קיים","לשמור רק ב-Browser"],ans:1,exp:"no-cache ≠ 'אל תשמור'. המשמעות: שמור Cache, אבל תמיד בקש מהשרת לאמת לפני שימוש. לא לשמור בכלל = no-store."},
-  {q:"מה GraphQL פותר שREST לא?",tag:"GraphQL",opts:["GraphQL מהיר יותר","Over-fetching ו-Under-fetching — Client מגדיר בדיוק מה לקבל","GraphQL יותר מאובטח","GraphQL עם SQL בלבד"],ans:1,exp:"Over-fetching: REST מחזיר שדות שלא צריך. Under-fetching: צריך מספר Requests. GraphQL = שאילתה אחת שמחזירה בדיוק מה שהוגדר."},
-  {q:"מה WebSocket לעומת HTTP?",tag:"Real-Time",opts:["זהים לחלוטין","WebSocket = Full-Duplex, HTTP = Request/Response חד-כיווני","WebSocket רק ב-Mobile","WebSocket יותר מאובטח"],ans:1,exp:"HTTP = Client שולח → Server עונה. WebSocket = חיבור פתוח קבוע. Server יכול לשלוח ל-Client בלי שיבקש. Full-Duplex."},
-  {q:"מה Rate Limiting Code נכון?",tag:"Performance",opts:["400 Bad Request","401 Unauthorized","429 Too Many Requests","503 Service Unavailable"],ans:2,exp:"429 Too Many Requests הוא הקוד הסטנדרטי. הוסף: Retry-After Header ו-X-RateLimit-Remaining."},
-  {q:"מה OAuth 2.0 + PKCE?",tag:"Auth",opts:["Hash של Password","Flow מאובטח ל-Auth ב-Public Clients ללא Client Secret","Type של JWT","DB Auth Protocol"],ans:1,exp:"PKCE מונע Code Interception Attacks ב-Mobile Apps ו-SPAs שלא יכולים לשמור Client Secret. Code Verifier + Code Challenge."},
-  {q:"מה Webhook?",tag:"API Design",opts:["Web Security Hook","HTTP Callback — Server שולח ל-Client כשיש Event","Type של API Key","Widget Hook"],ans:1,exp:"Webhook = Push Notification ל-API. במקום Polling, Server שולח Request כשיש Event. Stripe, GitHub, Slack. תמיד אמת Signature!"},
-  {q:"מה Idempotency Key?",tag:"API Design",opts:["JWT Key","UUID למניעת כפילויות ב-Retries","Cache Key","DB Primary Key"],ans:1,exp:"UUID שנשלח ב-Header: Idempotency-Key: uuid. אם Request נשלח פעמיים (Network retry), Server מחזיר תשובה שמורה. קריטי ל-Payments."},
-  {q:"מה N+1 Problem ב-GraphQL?",tag:"GraphQL",opts:["Query עם יותר מ-1 שדה","Query שגורם ל-N DB Queries לכל N Records","Error ב-GraphQL","מחזיר יותר מ-N Results"],ans:1,exp:"N+1: 10 Users עם Orders → 1+10 Queries = 11. DataLoader: 1+1 = 2 Queries. חיסכון של 82% ב-DB Round Trips."},
-  {q:"מה ETag ב-HTTP?",tag:"Caching",opts:["Encryption Tag","Hash של Resource לבדיקת Freshness","Error Tag","Event Tag"],ans:1,exp:"ETag = Hash של תוכן. Browser שולח: If-None-Match. אם לא השתנה → 304 Not Modified ללא Body. חוסך Bandwidth."},
-  {q:"מה הבדל PUT ל-PATCH?",tag:"REST",opts:["אין הבדל","PUT = החלפה מלאה, PATCH = עדכון חלקי","PUT ל-Create","PUT יותר מאובטח"],ans:1,exp:"PUT = שלח Resource שלם (שדה שלא שלחת יתאפס). PATCH = שלח רק מה שרוצה לשנות. שניהם Idempotent."},
-  {q:"מה הסטנדרט לError Response ב-API?",tag:"REST",opts:["כל API לבד","RFC 7807 Problem Details","YAML Error Format","JSON:API Error Schema"],ans:1,exp:'RFC 7807: {"type":"URL","title":"Error","status":400,"detail":"...","instance":"/api/..."}. Clients יכולים לטפל ב-Errors אוניברסלית.'},
-  {q:"מה SSE לעומת WebSocket?",tag:"Real-Time",opts:["SSE = Full-Duplex","SSE = One-Way Server Push, WS = Full-Duplex. SSE פשוט יותר","SSE מהיר יותר","זהים"],ans:1,exp:"SSE = Server שולח ל-Client בלבד. פשוט, Auto-Reconnect, HTTP/2 Native. לNotifications, Feeds = SSE. לChat, Gaming = WebSocket."},
-  {q:"מה gRPC?",tag:"API Design",opts:["Google Remote Procedure Call — Protocol Buffers, מהיר מ-REST","Google REST Client","גרסה חדשה של HTTP","GraphQL Remote Client"],ans:0,exp:"gRPC = Protocol Buffers (Binary, לא JSON) + HTTP/2. פי 5-10 מהיר מ-REST. Streaming דו-כיווני. מושלם ל-Microservices."},
-  {q:"מה Circuit Breaker Pattern?",tag:"API Design",opts:["Firewall Rule","Pattern שמפסיק לשלוח לשירות תקוע — מונע Cascading Failures","API Key Rotation","Cache Invalidation"],ans:1,exp:"Circuit Breaker: שגיאות חוזרות → Circuit נפתח → Error מיידי. אחרי Timeout → Half-Open → מנסה שוב. מונע Thundering Herd."},
-];
+// QS defined above
 
 let qAnswered=0,qScore=0;
-function buildQuiz(){
-  const list=document.getElementById('qList');list.innerHTML='';qAnswered=0;qScore=0;
-  document.getElementById('scoreBox').classList.remove('show');updateProg();
-  QS.forEach((q,i)=>{
-    const c=document.createElement('div');c.className='q-card';c.id='qc'+i;
-    c.innerHTML=`<div class="q-top"><span class="q-idx">${String(i+1).padStart(2,'0')}/20</span><span class="q-tag">${q.tag}</span></div>
-      <div class="q-text">${q.q}</div>
-      <div class="q-opts">${q.opts.map((o,j)=>`<div class="q-opt" onclick="pick(${i},${j})" id="o_${i}_${j}">${o}</div>`).join('')}</div>
-      <div class="q-exp" id="exp_${i}">${q.exp}</div>`;
-    list.appendChild(c);
-  });
-}
-function pick(qi,oi){
-  const q=QS[qi];
-  document.querySelectorAll(`[id^="o_${qi}_"]`).forEach(el=>el.classList.add('locked'));
-  if(oi===q.ans){document.getElementById(`o_${qi}_${oi}`).classList.add('hit');document.getElementById('qc'+qi).classList.add('c-ok');qScore++;}
-  else{document.getElementById(`o_${qi}_${oi}`).classList.add('miss');document.getElementById(`o_${qi}_${q.ans}`).classList.add('hit');document.getElementById('qc'+qi).classList.add('c-fail');}
-  document.getElementById('exp_'+qi).classList.add('show');qAnswered++;updateProg();
-  if(qAnswered===QS.length)setTimeout(showScore,500);
-}
+// function buildQuiz defined above
+// function pick defined above
 function updateProg(){const pct=qAnswered/QS.length*100;document.getElementById('qp').style.width=pct+'%';document.getElementById('qpl').textContent=`${qAnswered}/20 נענו`;}
-function showScore(){
-  const pct=Math.round(qScore/QS.length*100);
-  document.getElementById('scoreBox').classList.add('show');
-  document.getElementById('scoreBig').innerHTML=`${qScore}<span class="frac">/20</span>`;
-  let http,status,msg,sub;
-  if(pct>=90){http='HTTP/2 200 OK';status='✅ 200 OK';msg='Response: מושלם. Senior Engineer?';sub='כל API שתכתוב יאהב אותך.';}
-  else if(pct>=75){http='HTTP/2 206 Partial Content';status='📦 206 Partial';msg='קרוב! עוד קצת תרגול';sub='חזור על Auth ו-Caching.';}
-  else if(pct>=55){http='HTTP/2 304 Not Modified';status='🔄 304 Not Modified';msg='בינוני — יש מה לשפר';sub='תרגל את המעבדות.';}
-  else{http="HTTP/2 418 I'm a teapot";status="☕ 418 I'm a Teapot";msg='גם RFC 2324 הוא ידע.';sub='חזור ל-CH01.';}
-  document.getElementById('scoreHttp').textContent=http;document.getElementById('scoreStatus').textContent=status;
-  document.getElementById('scoreMsg').textContent=msg;document.getElementById('scoreSub').textContent=sub;
-  document.getElementById('scoreBox').scrollIntoView({behavior:'smooth'});
-}
-function restartQuiz(){buildQuiz();window.scrollTo({top:document.getElementById('quiz').offsetTop-80,behavior:'smooth'});}
-buildQuiz();
-
-// ══════════════════════════════════
-// GAME
-// ══════════════════════════════════
-const STATUSES=[
-  {code:200,cls:'go-200',name:'OK'},{code:301,cls:'go-301',name:'Moved Permanently'},
-  {code:404,cls:'go-404',name:'Not Found'},{code:500,cls:'go-500',name:'Internal Server Error'},
-  {code:401,cls:'go-401',name:'Unauthorized'},{code:403,cls:'go-403',name:'Forbidden'},
-  {code:429,cls:'go-429',name:'Too Many Requests'},{code:503,cls:'go-503',name:'Service Unavailable'},
-];
-const EXTRA=[
-  {code:204,cls:'go-200',name:'No Content'},{code:400,cls:'go-400',name:'Bad Request'},
-  {code:302,cls:'go-302',name:'Found (Temp Redirect)'},{code:422,cls:'go-422',name:'Unprocessable Entity'},
-  {code:405,cls:'go-405',name:'Method Not Allowed'},{code:201,cls:'go-201',name:'Created'},
-  {code:502,cls:'go-502',name:'Bad Gateway'},{code:304,cls:'go-304',name:'Not Modified'},
-];
-const ALL_STATUS=[...STATUSES,...EXTRA];
-const GQUESTIONS=[
-  {desc:"המשאב קיים, הכל עבד מצוין",hint:"הצלחה מושלמת",ans:200},
-  {desc:"הכתובת עברה ל-URL חדש לתמיד",hint:"Redirect קבוע — SEO friendly",ans:301},
-  {desc:"הדף שחיפשת לא קיים",hint:"Resource לא נמצא",ans:404},
-  {desc:"קוד צד שרת קרס",hint:"לא אשמת ה-Client",ans:500},
-  {desc:"שלחת בקשה בלי להתחבר",hint:"מי אתה? לא מכירים",ans:401},
-  {desc:"מחובר, אבל אין לך גישה",hint:"Authenticated but not Authorized",ans:403},
-  {desc:"שלחת יותר מדי בקשות מהר",hint:"Rate Limit — Slow down!",ans:429},
-  {desc:"שרת לא יכול לעבד כרגע",hint:"≠ 500. עמוס/למטה זמנית",ans:503},
-  {desc:"הצליח, אין תוכן להחזיר",hint:"DELETE בהצלחה",ans:204},
-  {desc:"ה-Client שלח JSON שבור",hint:"תקינות הבקשה — Client fault",ans:400},
-  {desc:"Redirect זמני ל-URL אחר",hint:"כמו 301 אבל לא permanent",ans:302},
-  {desc:"שדה חובה חסר ב-Form",hint:"Input תקין אבל Logic לא",ans:422},
-  {desc:"Method לא נתמך ב-Endpoint הזה",hint:"DELETE על Read-Only resource",ans:405},
-  {desc:"POST הצליח ויצר Resource חדש",hint:"שונה מ-200",ans:201},
-  {desc:"Gateway קיבל תגובה שגויה",hint:"Error בשרת מאחורי",ans:502},
-  {desc:"Resource לא השתנה — Cache תקף",hint:"ה-ETag תואמת",ans:304},
-];
-let gScore=0,gLives=3,gLevel=1,gAsked=[];
-function startGame(){
-  gScore=0;gLives=3;gLevel=1;gAsked=[];
-  document.getElementById('gameResult').classList.remove('show');
-  document.getElementById('gameBody').style.display='block';
-  updateGameUI();nextQuestion();
-}
+// function showScore defined above
+// function restartQuiz defined above
 function updateGameUI(){
   document.getElementById('gScore').textContent=gScore;
   document.getElementById('gLives').textContent='❤️'.repeat(gLives)+'🖤'.repeat(3-gLives);
@@ -1188,18 +1387,9 @@ function gameAnswer(code,el){
     updateGameUI();if(gLives<=0){setTimeout(endGame,1200);return;}setTimeout(nextQuestion,1400);
   }
 }
-function endGame(){
-  document.getElementById('gameBody').style.display='none';
-  const r=document.getElementById('gameResult');r.classList.add('show');
-  let emoji,title,msg;
-  if(gScore>=30){emoji='🏆';title='HTTP Master!';msg=`ניקוד ${gScore} — Senior Engineer Material.`;}
-  else if(gScore>=18){emoji='⭐';title='טוב מאוד!';msg=`ניקוד ${gScore} — עוד קצת ותהיה Master.`;}
-  else if(gScore>=10){emoji='📖';title='בינוני';msg=`ניקוד ${gScore} — חזור על Status Codes.`;}
-  else{emoji='☕';title="418 I'm a Teapot";msg=`גם זה Status Code. חזור ל-basics.`;}
-  document.getElementById('grEmoji').textContent=emoji;document.getElementById('grTitle').textContent=title;
-  document.getElementById('grScore').textContent=`ניקוד: ${gScore}`;document.getElementById('grMsg').textContent=msg;
-}
+// function endGame defined above
 startGame();
+
 </script>
 </body>
 </html>
