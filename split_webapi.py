@@ -34,7 +34,7 @@ body = body_match.group(1) if body_match else raw
 body = re.sub(r'<script\b[^>]*>.*?</script>', '', body, flags=re.DOTALL)
 
 # ── 4. HTML wrapper ────────────────────────────────────────────────────────
-html_attrs = 'lang="he" dir="rtl" id="root"' if LANG == "he" else 'lang="en" id="root" class="en"'
+html_attrs = 'lang="he" dir="rtl" id="root"' if LANG == "he" else 'lang="en" dir="ltr" id="root"'
 
 def make_html(body_content):
     return f"""<!DOCTYPE html>
