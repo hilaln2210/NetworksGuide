@@ -1443,5 +1443,18 @@ e4:8d:8c:aa:11:22  Port3   300s
 </table>
 </section>
 </div>
+<script>
+// Listen for font-size and theme from parent app
+window.addEventListener('message', function(e) {
+  if (!e.data || !e.data.ng) return;
+  if (e.data.ng === 'font') {
+    var map = { small: '14px', normal: '16px', large: '18px' };
+    document.documentElement.style.fontSize = map[e.data.size] || '16px';
+  }
+  if (e.data.ng === 'theme') {
+    document.documentElement.classList.toggle('dark', !!e.data.dark);
+  }
+});
+</script>
 </body>
 </html>

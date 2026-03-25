@@ -1468,5 +1468,18 @@ username=omer&password=1234</pre></div>
 <p>לכל שאילתת DNS יש <strong>Transaction ID</strong> (16-bit) לזיהוי. הלקוח שולח עם ID מסוים, השרת עונה עם אותו ID.</p>
 </section>
 </div>
+<script>
+// Listen for font-size and theme from parent app
+window.addEventListener('message', function(e) {
+  if (!e.data || !e.data.ng) return;
+  if (e.data.ng === 'font') {
+    var map = { small: '14px', normal: '16px', large: '18px' };
+    document.documentElement.style.fontSize = map[e.data.size] || '16px';
+  }
+  if (e.data.ng === 'theme') {
+    document.documentElement.classList.toggle('dark', !!e.data.dark);
+  }
+});
+</script>
 </body>
 </html>

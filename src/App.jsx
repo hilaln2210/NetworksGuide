@@ -913,6 +913,9 @@ function App() {
                   style={{ width: '100%', border: 'none', display: 'block', minHeight: 'calc(100vh - 80px)' }}
                   onLoad={(e) => {
                     try {
+                      e.target.contentWindow.postMessage({ ng: 'lang', lang }, '*')
+                      e.target.contentWindow.postMessage({ ng: 'font', size: fontSize }, '*')
+                      e.target.contentWindow.postMessage({ ng: 'theme', dark: darkMode }, '*')
                       const resize = () => {
                         const doc = e.target.contentDocument
                         const h = Math.max(
@@ -978,6 +981,8 @@ function App() {
               onLoad={(e) => {
                 try {
                   e.target.contentWindow.postMessage({ ng: 'lang', lang }, '*')
+                  e.target.contentWindow.postMessage({ ng: 'font', size: fontSize }, '*')
+                  e.target.contentWindow.postMessage({ ng: 'theme', dark: darkMode }, '*')
                   const resize = () => {
                     const h = e.target.contentDocument?.documentElement?.scrollHeight
                     if (h > 100) e.target.style.height = h + 'px'

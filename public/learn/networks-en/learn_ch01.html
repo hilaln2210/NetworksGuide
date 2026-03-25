@@ -1410,5 +1410,18 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 15 180ms  157.240.22.35  ← Facebook!</pre></div></section><section class="learn-section"><span class="sec-label">05 — DNS</span><h2 class="sec-h">DNS — Domain Name System</h2><p>Humans remember names. Computers use IPs. DNS translates between them — the internet's phone book.</p><div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">nslookup www.facebook.com</span></div><pre class="code-body">Name:    www.facebook.com
 Address: 157.240.22.35</pre></div></section><section class="learn-section"><span class="sec-label">06 — Tools</span><h2 class="sec-h">Command Line Tools</h2><table class="tbl"><tr><th>Tool</th><th>Purpose</th><th>Example</th></tr><tr><td>ping</td><td>Connectivity + response time</td><td>ping google.com</td></tr><tr><td>tracert</td><td>All hops to destination</td><td>tracert -d 8.8.8.8</td></tr><tr><td>nslookup</td><td>Translate name to IP</td><td>nslookup github.com</td></tr><tr><td>ipconfig</td><td>Your IP, Gateway, DNS</td><td>ipconfig /all</td></tr></table></section>
 </div>
+<script>
+// Listen for font-size and theme from parent app
+window.addEventListener('message', function(e) {
+  if (!e.data || !e.data.ng) return;
+  if (e.data.ng === 'font') {
+    var map = { small: '14px', normal: '16px', large: '18px' };
+    document.documentElement.style.fontSize = map[e.data.size] || '16px';
+  }
+  if (e.data.ng === 'theme') {
+    document.documentElement.classList.toggle('dark', !!e.data.dark);
+  }
+});
+</script>
 </body>
 </html>
