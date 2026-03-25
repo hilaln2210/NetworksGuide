@@ -140,9 +140,15 @@ export function LabsTab({ trackId }) {
     return <ProLockScreen onUnlock={() => setUnlocked(true)} isEn={isEn} />
   }
 
+  // Tracks that have separate EN lab files (HE path → EN path)
+  const EN_LAB_TRACKS = { security: 'security-en', webapi: 'webapi-en' }
+
   if (activeLab) {
     const track = TRACKS.find(t => t.id === activeTrack) || TRACKS[0]
     const labIdx = track.labs.findIndex(l => l.id === activeLab.id)
+    const labSrc = (isEn && EN_LAB_TRACKS[activeTrack])
+      ? activeLab.src.replace(`/learn/${activeTrack}/`, `/learn/${EN_LAB_TRACKS[activeTrack]}/`)
+      : activeLab.src
     const prevLab = labIdx > 0 ? track.labs[labIdx - 1] : null
     const nextLab = labIdx < track.labs.length - 1 ? track.labs[labIdx + 1] : null
     const btnStyle = {
@@ -184,12 +190,14 @@ export function LabsTab({ trackId }) {
           )}
         </div>
         <iframe
-          src={activeLab.src}
+          key={labSrc}
+          src={labSrc}
           title={activeLab.title[lang] || activeLab.title.he}
           style={{ flex: 1, border: 'none', width: '100%', minHeight: '600px' }}
           allow="fullscreen"
           onLoad={(e) => {
             try { e.target.contentWindow.postMessage({ ng: 'lang', lang }, '*') } catch {}
+            try { e.target.contentWindow.postMessage({ ng: 'font', size: localStorage.getItem('ng_font_size') || 'normal' }, '*') } catch {}
           }}
         />
       </div>
