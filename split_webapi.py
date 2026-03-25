@@ -104,12 +104,17 @@ for i, m in enumerate(ch_matches):
     html = make_html(chunk)
     write(f"learn_ch{i+1:02d}.html", html)
 
-# ── 7. Labs (Hebrew only — no English labs in bilingual file) ──────────────
-if labs_m and LANG == "he":
-    print("\n── Labs ──")
+# ── 7. Labs (bilingual — mission-card format or legacy lab format) ─────────
+if labs_m:
+    print(f"\n── Labs ({LANG}) ──")
     labs_body = body[labs_start:quiz_start]
 
-    lb_positions = [m.start() for m in re.finditer(r'<div\s+class="lab"\s+id="lb\d+"', labs_body)]
+    # Try new mission-card format first
+    lb_positions = [m.start() for m in re.finditer(r'<div\s+class="mission-card">', labs_body)]
+    if not lb_positions:
+        # Fallback to legacy lab format
+        lb_positions = [m.start() for m in re.finditer(r'<div\s+class="lab"\s+id="lb\d+"', labs_body)]
+
     num_lb = len(lb_positions)
     print(f"  Found {num_lb} labs")
 
@@ -117,6 +122,7 @@ if labs_m and LANG == "he":
         end = lb_positions[i + 1] if i + 1 < num_lb else len(labs_body)
         chunk = labs_body[start:end].rstrip()
 
+        # Legacy format: auto-open
         chunk = re.sub(
             r'<div\s+class="lab"\s+id="lb' + str(i + 1) + r'"',
             f'<div class="lab open" id="lb{i+1}"',

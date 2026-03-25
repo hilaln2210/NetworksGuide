@@ -1346,88 +1346,166 @@ code-block { background:var(--code-bg); border:1px solid var(--border2); border-
 
 </head>
 <body>
-<div class="ch open" id="c7_en">
-        <div class="ch-trigger" onclick="toggleCh('c7_en')">
-          <span class="ch-method m-post">ARCH</span>
-          <div class="ch-info">
-            <div class="ch-title">API Design Patterns</div>
-            <div class="ch-sub">API Gateway, BFF, Webhooks, gRPC, Circuit Breaker, OpenAPI</div>
+<div class="mission-card">
+        <div class="mission-header">
+          <div class="mission-emoji">🏗️</div>
+          <div class="mission-meta">
+            <div class="mission-title">
+              <span class="he">בנה API — חנות מוצרים</span>
+              <span class="en">Build an API — Product Store</span>
+            </div>
+            <div class="mission-story">
+              <span class="he">אתה ה-API Developer של חנות חדשה. צריך לוודא ש-CRUD עובד — ושגיאות Validation מוחזרות כמו שצריך.</span>
+              <span class="en">You're the API Developer for a new store. Verify that CRUD works — and that Validation errors return correctly.</span>
+            </div>
           </div>
-          <div class="ch-right"><span class="badge b-blue">ARCH</span><span class="ch-time">⏱ 75m</span><span class="ch-arrow">▶</span></div>
+          <div class="mission-badge" id="mission2-badge">
+            <span class="mb-todo">
+              <span class="he">0 / 5</span>
+              <span class="en">0 / 5</span>
+            </span>
+          </div>
         </div>
-        <div class="ch-body" style="display:block"><div class="ch-inner">
 
-          <div class="ch-intro">
-            When you have more than one API, multiple Clients, and microservices — you need <strong>architecture</strong>.
-            This chapter covers Patterns that appear again and again at large companies: API Gateway, BFF, Webhooks, Circuit Breaker.
+        <div class="mission-steps-row">
+          <div class="he-b mission-steps" id="ms-he-2">
+        <div class="mission-step" id="step2_1">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
           </div>
-
-          <div class="sec-lbl">API Gateway — The Gatekeeper</div>
-          <div class="analogy">
-            <span class="analogy-icon">🏨</span>
-            <strong>API Gateway Like a Hotel Concierge:</strong><br>
-            Instead of every guest going directly to the chef/cleaning/electrician — they go to the concierge who routes to everyone.<br>
-            <strong>API Gateway does:</strong> Auth (who are you?), Rate Limiting, Logging, routing to the right service — <em>in one place</em>.
+          <div class="ms-content">
+            <div class="ms-title">GET /api/products — קרא את כל המוצרים</div>
+            <div class="ms-hint">בדוק שמוחזרים מוצרים</div>
           </div>
-
-          <div class="sec-lbl" style="margin-top:18px">BFF — API Tailored to Each Client</div>
-          <div class="build-step">
-            <div class="bs-item">
-              <span class="bs-num">Problem</span>
-              <div>Web App needs full data. Mobile App needs a lean version to save Bandwidth. CLI needs a different format. One API doesn't fit all.</div>
-            </div>
-            <div class="bs-item">
-              <span class="bs-num">BFF</span>
-              <div>Backend for Frontend — a separate API for each Client. Web BFF, Mobile BFF, CLI BFF. Each returns exactly what that Client needs.</div>
-            </div>
+        </div>
+        <div class="mission-step" id="step2_2">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
           </div>
-
-          <div class="sec-lbl" style="margin-top:18px">Webhooks — Push Instead of Poll</div>
-          <div class="analogy">
-            <span class="analogy-icon">🔔</span>
-            <strong>Webhook Like a Push Notification:</strong><br>
-            <strong>Polling</strong> = every minute asking "is there a new order?" — huge waste.<br>
-            <strong>Webhook</strong> = Stripe sends you an HTTP POST the moment there's a payment.<br><br>
-            You give Stripe your URL. They "push" you an update when something happens.
+          <div class="ms-content">
+            <div class="ms-title">POST עם מוצר חדש</div>
+            <div class="ms-hint">ודא שמקבלים 201 Created</div>
           </div>
-
-          <div class="sec-lbl" style="margin-top:18px">Circuit Breaker — Preventing Cascading Failure</div>
-          <div class="analogy">
-            <span class="analogy-icon">⚡</span>
-            <strong>Circuit Breaker Like an Electrical Fuse:</strong><br>
-            When there's a short circuit — the fuse trips so the fire doesn't spread.<br>
-            When the Payment Service crashes — Circuit Breaker stops sending requests to it (instead of waiting for Timeout every time) and returns an error immediately. After a Timeout — tries again gradually.
+        </div>
+        <div class="mission-step" id="step2_3">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
           </div>
-
-          <div class="sec-lbl" style="margin-top:18px">Real Incident</div>
-          <div class="incident">
-            <div class="inc-badge">🔴 CASCADE — 2022 / Meta</div>
-            <div class="inc-title">How Auto-Recovery Caused Instagram to Crash</div>
-            <div class="inc-desc">
-              Backend slowed → Clients sent Retries without Exponential Backoff. Every Retry → more Load → more Retries → <strong>Thundering Herd</strong>.<br><br>
-              Circuit Breaker + Exponential Backoff would have prevented it: "fail 1 → wait 1s. fail 2 → wait 2s. fail 3 → wait 4s."<br><br>
-              Jitter (small randomness) prevents everyone from retrying at exactly the same moment.
-            </div>
+          <div class="ms-content">
+            <div class="ms-title">PUT /42 — עדכן מחיר</div>
+            <div class="ms-hint">שנה את ה-method ל-PUT ועדכן</div>
           </div>
-
-          <div class="glossary" id="glos7_en">
-            <div class="glossary-head" onclick="toggleGlos('glos7_en')">
-              <span>📖 Glossary — This Chapter</span>
-              <span class="glossary-arr">▶</span>
-            </div>
-            <div class="glossary-body">
-              <div class="glos-item"><span class="glos-term">API Gateway</span><span class="glos-def">Server that sits in front of all APIs. Handles Auth, Rate Limiting, Routing. Kong, AWS API GW.</span></div>
-              <div class="glos-item"><span class="glos-term">BFF</span><span class="glos-def">Backend for Frontend — unique API for each Client type: Web, Mobile, CLI.</span></div>
-              <div class="glos-item"><span class="glos-term">Webhook</span><span class="glos-def">Server sends HTTP POST to your URL when an event occurs. Push instead of Poll.</span></div>
-              <div class="glos-item"><span class="glos-term">Circuit Breaker</span><span class="glos-def">Pattern that stops sending to a broken Service. Prevents Cascading Failure.</span></div>
-              <div class="glos-item"><span class="glos-term">Exponential Backoff</span><span class="glos-def">Increasing wait between Retries: 1s → 2s → 4s → 8s. Prevents server flooding.</span></div>
-              <div class="glos-item"><span class="glos-term">Jitter</span><span class="glos-def">Small randomness in Backoff so everyone doesn't retry at exactly the same moment.</span></div>
-              <div class="glos-item"><span class="glos-term">Thundering Herd</span><span class="glos-def">A wave of requests arriving simultaneously — usually synchronized Retries. Crushes servers.</span></div>
-              <div class="glos-item"><span class="glos-term">gRPC</span><span class="glos-def">Google RPC — fast Binary protocol. Protocol Buffers instead of JSON. Excellent for Microservices.</span></div>
-            </div>
+        </div>
+        <div class="mission-step" id="step2_4">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
           </div>
+          <div class="ms-content">
+            <div class="ms-title">POST עם שדות חסרים</div>
+            <div class="ms-hint">ראה שגיאת Validation</div>
+          </div>
+        </div>
+        <div class="mission-step" id="step2_5">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
+          </div>
+          <div class="ms-content">
+            <div class="ms-title">DELETE /42 — מחק</div>
+            <div class="ms-hint">ודא שמוחזר 204 No Content</div>
+          </div>
+        </div></div>
+          <div class="en-b mission-steps" id="ms-en-2">
+        <div class="mission-step" id="step2_1_en">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
+          </div>
+          <div class="ms-content">
+            <div class="ms-title">GET /api/products — read all products</div>
+            <div class="ms-hint">Verify products are returned</div>
+          </div>
+        </div>
+        <div class="mission-step" id="step2_2_en">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
+          </div>
+          <div class="ms-content">
+            <div class="ms-title">POST a new product</div>
+            <div class="ms-hint">Make sure you get 201 Created</div>
+          </div>
+        </div>
+        <div class="mission-step" id="step2_3_en">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
+          </div>
+          <div class="ms-content">
+            <div class="ms-title">PUT /42 — update price</div>
+            <div class="ms-hint">Switch to PUT method and update</div>
+          </div>
+        </div>
+        <div class="mission-step" id="step2_4_en">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
+          </div>
+          <div class="ms-content">
+            <div class="ms-title">POST with missing fields</div>
+            <div class="ms-hint">See the Validation error</div>
+          </div>
+        </div>
+        <div class="mission-step" id="step2_5_en">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
+          </div>
+          <div class="ms-content">
+            <div class="ms-title">DELETE /42 — delete it</div>
+            <div class="ms-hint">Verify 204 No Content is returned</div>
+          </div>
+        </div></div>
+        </div>
 
-          </div></div>
+        <div class="mission-emu">
+<div class="api-tool">
+  <div class="api-tool-bar">
+    <div class="atb-dots"><span></span><span></span><span></span></div>
+    <span class="atb-title">REST API Playground — /api/products</span>
+    <div class="atb-actions">
+      <button class="atb-btn-ghost" onclick="emuClear('e2out')">Clear</button>
+      <button class="atb-btn-run" id="e2btn" onclick="runLab2()">▶ Run</button>
+    </div>
+  </div>
+  <div class="api-tool-url-row">
+    <select class="api-method-sel" id="e2method">
+      <option style="color:#34d399">GET</option>
+      <option style="color:#fbbf24">POST</option>
+      <option style="color:#818cf8">PUT</option>
+      <option style="color:#fb7185">DELETE</option>
+    </select>
+    <select class="api-url-sel" id="e2endpoint">
+      <option value="list">/ — List products</option>
+      <option value="single">/42 — Get product #42</option>
+      <option value="create">/ — Create product (POST)</option>
+      <option value="update">/42 — Update product (PUT)</option>
+      <option value="delete">/42 — Delete product (DELETE)</option>
+      <option value="invalid">/ — Missing required fields</option>
+    </select>
+    <textarea class="api-body-ta" id="e2body" placeholder='{"name":"Keyboard","price":299}' rows="2"></textarea>
+  </div>
+  <div class="api-response-pane" id="e2out">
+    <div class="api-placeholder">
+      <span class="api-placeholder-icon">→</span>
+      <span class="he">בחר method + endpoint ולחץ Run</span>
+      <span class="en">Select method + endpoint and hit Run</span>
+    </div>
+  </div>
+</div>
+        </div>
+
+        <div class="mission-success" id="mission2-success" style="display:none">
+          <div class="ms-success-icon">✅</div>
+          <div class="ms-success-text">
+            <span class="he">🎉 CRUD מלא! זכור: POST=201, PUT=200, DELETE=204, שגיאות Validation=422.</span>
+            <span class="en">🎉 Full CRUD! Remember: POST=201, PUT=200, DELETE=204, Validation errors=422.</span>
+          </div>
+        </div>
       </div>
 <script>
 
@@ -2666,6 +2744,22 @@ startGame();
 
 
 
+
+// Listen for language sync from parent app
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.ng === 'lang') {
+    var root = document.getElementById('root');
+    if (!root) return;
+    var btn = document.getElementById('langBtn');
+    var wantEn = e.data.lang === 'en';
+    var isEn = root.classList.contains('en');
+    if (wantEn !== isEn) {
+      root.classList.toggle('en');
+      if (btn) btn.textContent = wantEn ? 'עב' : 'EN';
+      if (typeof buildQuiz === 'function') buildQuiz();
+    }
+  }
+});
 </script>
 </body>
 </html>

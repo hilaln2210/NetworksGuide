@@ -1346,88 +1346,151 @@ code-block { background:var(--code-bg); border:1px solid var(--border2); border-
 
 </head>
 <body>
-<div class="ch open" id="c7_en">
-        <div class="ch-trigger" onclick="toggleCh('c7_en')">
-          <span class="ch-method m-post">ARCH</span>
-          <div class="ch-info">
-            <div class="ch-title">API Design Patterns</div>
-            <div class="ch-sub">API Gateway, BFF, Webhooks, gRPC, Circuit Breaker, OpenAPI</div>
+<div class="mission-card">
+        <div class="mission-header">
+          <div class="mission-emoji">🕵️</div>
+          <div class="mission-meta">
+            <div class="mission-title">
+              <span class="he">חקירת HTTP — Endpoint שנכשל</span>
+              <span class="en">HTTP Investigation — A Failing Endpoint</span>
+            </div>
+            <div class="mission-story">
+              <span class="he">Production alert: לקוחות לא מצליחים לגשת לדוחות. הצוות טוען ש-API מחזיר 401 במקום 200. האם באמת בעיית Auth? בדוק.</span>
+              <span class="en">Production alert: customers can't access reports. The team says the API returns 401 instead of 200. Is it really an auth issue? Find out.</span>
+            </div>
           </div>
-          <div class="ch-right"><span class="badge b-blue">ARCH</span><span class="ch-time">⏱ 75m</span><span class="ch-arrow">▶</span></div>
+          <div class="mission-badge" id="mission1-badge">
+            <span class="mb-todo">
+              <span class="he">0 / 4</span>
+              <span class="en">0 / 4</span>
+            </span>
+          </div>
         </div>
-        <div class="ch-body" style="display:block"><div class="ch-inner">
 
-          <div class="ch-intro">
-            When you have more than one API, multiple Clients, and microservices — you need <strong>architecture</strong>.
-            This chapter covers Patterns that appear again and again at large companies: API Gateway, BFF, Webhooks, Circuit Breaker.
+        <div class="mission-steps-row">
+          <div class="he-b mission-steps" id="ms-he-1">
+        <div class="mission-step" id="step1_1">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
           </div>
-
-          <div class="sec-lbl">API Gateway — The Gatekeeper</div>
-          <div class="analogy">
-            <span class="analogy-icon">🏨</span>
-            <strong>API Gateway Like a Hotel Concierge:</strong><br>
-            Instead of every guest going directly to the chef/cleaning/electrician — they go to the concierge who routes to everyone.<br>
-            <strong>API Gateway does:</strong> Auth (who are you?), Rate Limiting, Logging, routing to the right service — <em>in one place</em>.
+          <div class="ms-content">
+            <div class="ms-title">שלח GET /get ללא Auth</div>
+            <div class="ms-hint">ראה מה קורה ללא Token</div>
           </div>
-
-          <div class="sec-lbl" style="margin-top:18px">BFF — API Tailored to Each Client</div>
-          <div class="build-step">
-            <div class="bs-item">
-              <span class="bs-num">Problem</span>
-              <div>Web App needs full data. Mobile App needs a lean version to save Bandwidth. CLI needs a different format. One API doesn't fit all.</div>
-            </div>
-            <div class="bs-item">
-              <span class="bs-num">BFF</span>
-              <div>Backend for Frontend — a separate API for each Client. Web BFF, Mobile BFF, CLI BFF. Each returns exactly what that Client needs.</div>
-            </div>
+        </div>
+        <div class="mission-step" id="step1_2">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
           </div>
-
-          <div class="sec-lbl" style="margin-top:18px">Webhooks — Push Instead of Poll</div>
-          <div class="analogy">
-            <span class="analogy-icon">🔔</span>
-            <strong>Webhook Like a Push Notification:</strong><br>
-            <strong>Polling</strong> = every minute asking "is there a new order?" — huge waste.<br>
-            <strong>Webhook</strong> = Stripe sends you an HTTP POST the moment there's a payment.<br><br>
-            You give Stripe your URL. They "push" you an update when something happens.
+          <div class="ms-content">
+            <div class="ms-title">שלח GET /auth עם Bearer token</div>
+            <div class="ms-hint">הוסף "test-token" בשדה Bearer</div>
           </div>
-
-          <div class="sec-lbl" style="margin-top:18px">Circuit Breaker — Preventing Cascading Failure</div>
-          <div class="analogy">
-            <span class="analogy-icon">⚡</span>
-            <strong>Circuit Breaker Like an Electrical Fuse:</strong><br>
-            When there's a short circuit — the fuse trips so the fire doesn't spread.<br>
-            When the Payment Service crashes — Circuit Breaker stops sending requests to it (instead of waiting for Timeout every time) and returns an error immediately. After a Timeout — tries again gradually.
+        </div>
+        <div class="mission-step" id="step1_3">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
           </div>
-
-          <div class="sec-lbl" style="margin-top:18px">Real Incident</div>
-          <div class="incident">
-            <div class="inc-badge">🔴 CASCADE — 2022 / Meta</div>
-            <div class="inc-title">How Auto-Recovery Caused Instagram to Crash</div>
-            <div class="inc-desc">
-              Backend slowed → Clients sent Retries without Exponential Backoff. Every Retry → more Load → more Retries → <strong>Thundering Herd</strong>.<br><br>
-              Circuit Breaker + Exponential Backoff would have prevented it: "fail 1 → wait 1s. fail 2 → wait 2s. fail 3 → wait 4s."<br><br>
-              Jitter (small randomness) prevents everyone from retrying at exactly the same moment.
-            </div>
+          <div class="ms-content">
+            <div class="ms-title">שלח POST /post עם JSON body</div>
+            <div class="ms-hint">הוסף {"report":"q4"} ב-body</div>
           </div>
-
-          <div class="glossary" id="glos7_en">
-            <div class="glossary-head" onclick="toggleGlos('glos7_en')">
-              <span>📖 Glossary — This Chapter</span>
-              <span class="glossary-arr">▶</span>
-            </div>
-            <div class="glossary-body">
-              <div class="glos-item"><span class="glos-term">API Gateway</span><span class="glos-def">Server that sits in front of all APIs. Handles Auth, Rate Limiting, Routing. Kong, AWS API GW.</span></div>
-              <div class="glos-item"><span class="glos-term">BFF</span><span class="glos-def">Backend for Frontend — unique API for each Client type: Web, Mobile, CLI.</span></div>
-              <div class="glos-item"><span class="glos-term">Webhook</span><span class="glos-def">Server sends HTTP POST to your URL when an event occurs. Push instead of Poll.</span></div>
-              <div class="glos-item"><span class="glos-term">Circuit Breaker</span><span class="glos-def">Pattern that stops sending to a broken Service. Prevents Cascading Failure.</span></div>
-              <div class="glos-item"><span class="glos-term">Exponential Backoff</span><span class="glos-def">Increasing wait between Retries: 1s → 2s → 4s → 8s. Prevents server flooding.</span></div>
-              <div class="glos-item"><span class="glos-term">Jitter</span><span class="glos-def">Small randomness in Backoff so everyone doesn't retry at exactly the same moment.</span></div>
-              <div class="glos-item"><span class="glos-term">Thundering Herd</span><span class="glos-def">A wave of requests arriving simultaneously — usually synchronized Retries. Crushes servers.</span></div>
-              <div class="glos-item"><span class="glos-term">gRPC</span><span class="glos-def">Google RPC — fast Binary protocol. Protocol Buffers instead of JSON. Excellent for Microservices.</span></div>
-            </div>
+        </div>
+        <div class="mission-step" id="step1_4">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
           </div>
+          <div class="ms-content">
+            <div class="ms-title">גלה מה מחזיר 500</div>
+            <div class="ms-hint">נסה את ה-endpoint /crash</div>
+          </div>
+        </div></div>
+          <div class="en-b mission-steps" id="ms-en-1">
+        <div class="mission-step" id="step1_1_en">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
+          </div>
+          <div class="ms-content">
+            <div class="ms-title">Send GET /get without Auth</div>
+            <div class="ms-hint">See what happens without a Token</div>
+          </div>
+        </div>
+        <div class="mission-step" id="step1_2_en">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
+          </div>
+          <div class="ms-content">
+            <div class="ms-title">Send GET /auth with Bearer token</div>
+            <div class="ms-hint">Add "test-token" in the Bearer field</div>
+          </div>
+        </div>
+        <div class="mission-step" id="step1_3_en">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
+          </div>
+          <div class="ms-content">
+            <div class="ms-title">Send POST /post with JSON body</div>
+            <div class="ms-hint">Add {"report":"q4"} in the body</div>
+          </div>
+        </div>
+        <div class="mission-step" id="step1_4_en">
+          <div class="ms-check">
+            <div class="ms-check-inner"></div>
+          </div>
+          <div class="ms-content">
+            <div class="ms-title">Find what returns 500</div>
+            <div class="ms-hint">Try the /crash endpoint</div>
+          </div>
+        </div></div>
+        </div>
 
-          </div></div>
+        <div class="mission-emu">
+<div class="api-tool">
+  <div class="api-tool-bar">
+    <div class="atb-dots"><span></span><span></span><span></span></div>
+    <span class="atb-title">HTTP Request Builder</span>
+    <div class="atb-actions">
+      <button class="atb-btn-ghost" onclick="emuClear('e1out')">Clear</button>
+      <button class="atb-btn-run" id="e1btn" onclick="runLab1()">▶ Send</button>
+    </div>
+  </div>
+  <div class="api-tool-url-row">
+    <select class="api-method-sel" id="e1method">
+      <option style="color:#34d399">GET</option>
+      <option style="color:#fbbf24">POST</option>
+      <option style="color:#818cf8">PUT</option>
+      <option style="color:#fb7185">DELETE</option>
+    </select>
+    <select class="api-url-sel" id="e1url">
+      <option value="get">/api/users — List all users</option>
+      <option value="post">/api/users — Create new user</option>
+      <option value="notfound">/api/users/999 — Resource not found</option>
+      <option value="auth">/api/admin — Auth required</option>
+      <option value="slow">/api/slow — Slow endpoint (timeout)</option>
+      <option value="error">/api/crash — Server error</option>
+    </select>
+    <div class="api-body-toggle" id="e1body-wrap" style="display:none">
+      <textarea class="api-body-ta" id="e1body" placeholder='{"name":"Dana","email":"dana@example.com"}' rows="3"></textarea>
+    </div>
+    <input class="api-auth-inp" id="e1auth" placeholder="Bearer token (optional)">
+  </div>
+  <div class="api-response-pane" id="e1out">
+    <div class="api-placeholder">
+      <span class="api-placeholder-icon">→</span>
+      <span class="he">לחץ Send לשליחת הבקשה</span>
+      <span class="en">Hit Send to make the request</span>
+    </div>
+  </div>
+</div>
+        </div>
+
+        <div class="mission-success" id="mission1-success" style="display:none">
+          <div class="ms-success-icon">✅</div>
+          <div class="ms-success-text">
+            <span class="he">🎉 מצוין! הבנת את ההבדל בין 200/401/500. בפרודקשן — תמיד בדוק קודם אם הבקשה בכלל מגיעה לשרת.</span>
+            <span class="en">🎉 Excellent! You understand the difference between 200/401/500. In production — always check first if the request even reaches the server.</span>
+          </div>
+        </div>
       </div>
 <script>
 
@@ -2666,6 +2729,22 @@ startGame();
 
 
 
+
+// Listen for language sync from parent app
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.ng === 'lang') {
+    var root = document.getElementById('root');
+    if (!root) return;
+    var btn = document.getElementById('langBtn');
+    var wantEn = e.data.lang === 'en';
+    var isEn = root.classList.contains('en');
+    if (wantEn !== isEn) {
+      root.classList.toggle('en');
+      if (btn) btn.textContent = wantEn ? 'עב' : 'EN';
+      if (typeof buildQuiz === 'function') buildQuiz();
+    }
+  }
+});
 </script>
 </body>
 </html>
