@@ -375,6 +375,13 @@ function App() {
   const { lang, setLang, t } = useLang()
   const isEn = lang === 'en'
 
+  // Notify all iframes when language changes
+  useEffect(() => {
+    document.querySelectorAll('iframe').forEach(f => {
+      try { f.contentWindow.postMessage({ ng: 'lang', lang }, '*') } catch {}
+    })
+  }, [lang])
+
   const trackChapters = activeTrack?.chapters || []
   const chapter = trackChapters[currentChapter]
   const page = chapter?.pages[currentPage]
@@ -961,6 +968,7 @@ function App() {
               style={{ width: '100%', border: 'none', display: 'block', minHeight: '80vh' }}
               onLoad={(e) => {
                 try {
+                  e.target.contentWindow.postMessage({ ng: 'lang', lang }, '*')
                   const resize = () => {
                     const h = e.target.contentDocument?.documentElement?.scrollHeight
                     if (h > 100) e.target.style.height = h + 'px'

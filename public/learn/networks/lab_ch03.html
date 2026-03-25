@@ -7175,6 +7175,21 @@ function goTo(id) {
   var sc = document.getElementById(id);
   if (sc) sc.classList.add('on');
 }
+
+// Listen for language sync from parent app
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.ng === 'lang' && e.data.lang && e.data.lang !== LANG) {
+    LANG = e.data.lang;
+    document.getElementById('langBtn').textContent = LANG === 'he' ? 'EN' : 'עב';
+    document.documentElement.lang = LANG;
+    document.documentElement.dir  = LANG === 'he' ? 'rtl' : 'ltr';
+    applyLangUI();
+    if (CUR_CH) loadCh(CUR_CH);
+    buildSidebar();
+    buildLabSidebar();
+    buildLabWelcome();
+  }
+});
 startLab(3);
 </script>
 </body>

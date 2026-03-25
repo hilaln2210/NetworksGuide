@@ -1635,6 +1635,23 @@ function cyLab6(){
 /* ═══════════════════════════════════════════════════════════════════════════
    END CY-LAB-FNS
    ═══════════════════════════════════════════════════════════════════════════ */
+
+// Listen for language sync from parent app
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.ng === 'lang') {
+    var root = document.getElementById('root');
+    var btn = document.getElementById('langBtn');
+    var wantEn = e.data.lang === 'en';
+    var isEn = root.classList.contains('en');
+    if (wantEn !== isEn) {
+      root.classList.toggle('en');
+      if (btn) btn.textContent = wantEn ? 'עב' : 'EN';
+      if (typeof buildQuiz === 'function') buildQuiz();
+      if (typeof startGame === 'function') startGame();
+      if (typeof updateProg === 'function') updateProg();
+    }
+  }
+});
 </script>
 </body>
 </html>

@@ -188,6 +188,9 @@ export function LabsTab({ trackId }) {
           title={activeLab.title[lang] || activeLab.title.he}
           style={{ flex: 1, border: 'none', width: '100%', minHeight: '600px' }}
           allow="fullscreen"
+          onLoad={(e) => {
+            try { e.target.contentWindow.postMessage({ ng: 'lang', lang }, '*') } catch {}
+          }}
         />
       </div>
     )
