@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" id="root">
+<html lang="en" dir="ltr" id="root" class="en">
 <head>
 
 <meta charset="UTF-8">
@@ -1115,114 +1115,50 @@ html, body { overflow-x: hidden; }
 </style>
 </head>
 <body>
-<div id="labs" class="section active">
-  <div class="section-inner">
-    <div class="labs-list"><div class="mission-card" 
-id="lb3">
-      <div class="mission-hdr">
-        <div class="mission-icon">🔐</div>
-        <div class="mission-info">
-          <div class="mission-title">
-            <span class="he">מבדק הרשאות</span>
-            <span class="en">Permissions Audit</span>
-          </div>
-          <div class="mission-story">
-            <span class="he">קובץ חשוב נגיש לכולם. תקן את ההרשאות.</span>
-            <span class="en">A sensitive file is accessible to everyone. Fix its permissions.</span>
-          </div>
-        </div>
-        <div class="mission-badge" id="mb3">
-          <span class="he">0 / 4</span><span class="en">0 / 4</span>
-        </div>
-      </div>
-      <div class="mission-steps-wrap">
-        <div class="he-b mission-steps"><div class="ms-step" id="step3_1">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">ls -la — ראה הרשאות נוכחיות</div></div>
-        </div><div class="ms-step" id="step3_2">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod 600 secret.txt — הגבל גישה</div></div>
-        </div><div class="ms-step" id="step3_3">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod +x run.sh — הוסף execute</div></div>
-        </div><div class="ms-step" id="step3_4">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chown student: file.txt — שנה בעלות</div></div>
-        </div></div>
-        <div class="en-b mission-steps"><div class="ms-step" id="step3_1_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">ls -la — see current permissions</div></div>
-        </div><div class="ms-step" id="step3_2_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod 600 secret.txt — restrict access</div></div>
-        </div><div class="ms-step" id="step3_3_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod +x run.sh — add execute bit</div></div>
-        </div><div class="ms-step" id="step3_4_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chown student: file.txt — change ownership</div></div>
-        </div></div>
-      </div>
-      <div class="mission-emu"><div class="emu-wrap">
-  <div class="emu-bar">
-    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
-    <span class="emu-ttl">bash — student@linux:~/scripts$</span>
-    <button class="emu-sbtn" onclick="lxC('lx3out')">clear</button>
-    <button class="emu-gbtn" onclick="lxLab3Reset()">&#8635; reset</button>
+<div class="container">
+<div class="ch open" id="c4_en">
+  <div class="ch-trigger" onclick="toggleCh('c4_en')">
+    <span class="ch-num">04/10</span>
+    <div class="ch-icon-box" style="background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.25)">🔐</div>
+    <div class="ch-info">
+      <div class="ch-name">Permissions and Users</div>
+      <div class="ch-desc">chmod · chown · sudo · groups · umask · ACL</div>
+    </div>
+    <div class="ch-meta"><span class="badge b-red">SECURITY</span><span class="ch-time">⏱ 30m</span><span class="ch-chevron">▶</span></div>
   </div>
-  <div class="emu-iw">
-    <div class="emu-lbl">הקלד פקודה (קובץ: hello.sh מוכן, ללא הרשאת הרצה):</div>
-    <div class="emu-row">
-      <input class="emu-inp" id="lx3inp" style="flex:1" placeholder="ls -l hello.sh" onkeydown="if(event.key==='Enter')lxLab3Run()">
-      <button class="emu-gbtn" onclick="lxLab3Run()">&#9166; Enter</button>
+  <div class="ch-body" style="display:block"><div class="ch-inner">
+    <div class="ch-intro"><strong>Linux permissions are the first line of defense for every server.</strong> A world-writable config file is a vulnerability. chmod 777 in production is a red flag. This chapter gives you the mental model that makes permissions intuitive.</div>
+    <div class="analogy"><span class="analogy-icon">🏢</span><strong>Permissions like building access cards:</strong><br><strong>Owner</strong> = employee who owns the office — full access (rwx = 7)<br><strong>Group</strong> = the team — shared access (r-x = 5)<br><strong>Others</strong> = public lobby only (r-- = 4 or --- = 0)<br><br><code>chmod 755</code> = Owner:rwx(7) Group:r-x(5) Others:r-x(5)</div>
+    <div class="sec-label-lx">What you'll learn</div>
+    <div class="learn-list">
+      <div class="li">Permission bits — r(4), w(2), x(1) for Owner, Group, Others</div>
+      <div class="li">chmod — numeric (755, 644) and symbolic (u+x, go-w) modes</div>
+      <div class="li">chown / chgrp — changing ownership of files and directories</div>
+      <div class="li">sudo vs su — privilege escalation the safe way</div>
+      <div class="li">Special bits — setuid (passwd), setgid, sticky bit (/tmp)</div>
+      <div class="li">umask — default permissions for newly created files</div>
     </div>
-    <div style="margin-top:6px;display:flex;gap:5px;flex-wrap:wrap">
-      <button class="emu-sbtn" onclick="lx3q('ls -l hello.sh')">ls -l</button>
-      <button class="emu-sbtn" onclick="lx3q('./hello.sh')">./hello.sh</button>
-      <button class="emu-sbtn" onclick="lx3q('chmod +x hello.sh')">chmod +x</button>
-      <button class="emu-sbtn" onclick="lx3q('chmod 644 hello.sh')">chmod 644</button>
-      <button class="emu-sbtn" onclick="lx3q('stat hello.sh')">stat</button>
-      <button class="emu-sbtn" onclick="lx3q('sudo cat /etc/shadow')">sudo shadow</button>
+    <div class="build-step" style="margin-top:14px">
+      <div class="bs-item"><span class="bs-num">Read</span><div><code>ls -la</code> shows <code>-rwxr-xr-x</code>. First char = type (- file, d dir, l symlink). Next 9 = 3×(owner group others).</div></div>
+      <div class="bs-item"><span class="bs-num">chmod</span><div><code>chmod 644 file.txt</code> — Owner: rw-, Group: r--, Others: r--. Standard for config and text files.</div></div>
+      <div class="bs-item"><span class="bs-num">Execute</span><div><code>chmod +x script.sh</code> — adds execute bit. Required to run any script directly: ./script.sh</div></div>
+      <div class="bs-item"><span class="bs-num">chown</span><div><code>chown www-data:www-data /var/www/html/</code> — give web server ownership. -R for recursive.</div></div>
+      <div class="bs-item"><span class="bs-num">sudo</span><div><code>sudo command</code> — runs as root. Logged to /var/log/auth.log. Safer than a full root shell.</div></div>
     </div>
-  </div>
-  <div class="emu-out" id="lx3out"><span class="em">הקלד פקודה...</span></div>
-</div></div>
-      <button class="ans-btn" onclick="toggleAns('a3')"><span id="a3i">▶</span> הצג תשובות</button>
-          <div class="ans-box" id="a3">
-            <div class="ans-head">✅ תשובות</div>
-            <div class="ans-item"><span class="an">02</span><div>השגיאה: <code>-bash: ./hello.sh: Permission denied</code>. הקובץ קיים אבל אין הרשאת הרצה.</div></div>
-            <div class="ans-item"><span class="an">06</span><div>Octal 644 = rw-r--r--<br>6 = 4(r) + 2(w) = rw-<br>4 = 4(r) = r--<br>Owner יכול לקרוא וכתוב. שאר רק לקרוא.</div></div>
-            <div class="ans-note">💡 <strong>Octal קל לזכור:</strong> r=4, w=2, x=1. חבר: 7=rwx, 6=rw-, 5=r-x, 4=r--. הפרמטר הנפוץ: <code>chmod 755</code> לScript ו-<code>chmod 644</code> לקבצי טקסט.</div>
-          </div>
-      <div class="mission-success" id="ms3" style="display:none">
-        <span class="ms-icon">✅</span>
-        <div class="ms-msg">
-          <span class="he">🎉 הרשאות תקינות! 600 = רק בעלים יכול לקרוא ולכתוב. 755 = כולם יכולים להריץ. 644 = קבצי config.</span>
-          <span class="en">🎉 Permissions fixed! 600 = owner-only read/write. 755 = everyone can execute. 644 = standard config files.</span>
-        </div>
+    <div class="why-matters"><span>💡</span><span><strong>chmod 777 is a security anti-pattern.</strong> World-writable means any user or process on the system can modify or execute. Always use the minimum permissions required — principle of least privilege.</span></div>
+    <div class="glossary" id="glos4_en"><div class="glossary-head" onclick="toggleGlos('glos4_en')"><span>📖 Glossary</span><span class="glos-arr">▶</span></div>
+      <div class="glossary-body">
+        <div class="glos-item"><span class="glos-term">chmod 755</span><span class="glos-def">Owner: rwx(7) | Group: r-x(5) | Others: r-x(5). Standard for executables and directories.</span></div>
+        <div class="glos-item"><span class="glos-term">chmod 644</span><span class="glos-def">Owner: rw-(6) | Group: r--(4) | Others: r--(4). Standard for config and text files.</span></div>
+        <div class="glos-item"><span class="glos-term">sudo</span><span class="glos-def">Run a single command as root. All invocations are logged. Requires membership in the sudo/wheel group.</span></div>
+        <div class="glos-item"><span class="glos-term">setuid bit</span><span class="glos-def">Allows a file to run with its owner's privileges. /usr/bin/passwd uses this to write to /etc/shadow.</span></div>
+        <div class="glos-item"><span class="glos-term">umask</span><span class="glos-def">Default permission mask subtracted from 666 (files) or 777 (dirs). umask 022 → files get 644, dirs get 755.</span></div>
+        <div class="glos-item"><span class="glos-term">Sticky bit</span><span class="glos-def">On a directory, only the owner of a file can delete it. Used on /tmp to prevent users deleting each other's files.</span></div>
       </div>
     </div>
-
-    <div c
-
-    <div class="lx-qbtns lx-challenge-btns">
-      <div class="lx-challenge-label">
-        <span class="he">🎯 תרגילים נוספים:</span>
-        <span class="en">🎯 More challenges:</span>
-      </div>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chmod 755 hello.sh')">chmod 755</button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chmod 600 secret.txt')">chmod 600</button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chmod u+x,o-r hello.sh')">
-        <span class="he">symbolic mode</span><span class="en">symbolic mode</span>
-      </button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('umask')">umask</button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('find . -perm -4000')">
-        <span class="he">מצא SUID</span><span class="en">find SUID</span>
-      </button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chown student:student hello.sh')">chown</button>
-    </div>
-lass="mission-card"
-</div></div>
+  </div></div>
+</div>
+</div>
 <script>
 
 const _QS_HE = [

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" id="root">
+<html lang="en" dir="ltr" id="root" class="en">
 <head>
 
 <meta charset="UTF-8">
@@ -1115,114 +1115,50 @@ html, body { overflow-x: hidden; }
 </style>
 </head>
 <body>
-<div id="labs" class="section active">
-  <div class="section-inner">
-    <div class="labs-list"><div class="mission-card" 
-id="lb3">
-      <div class="mission-hdr">
-        <div class="mission-icon">🔐</div>
-        <div class="mission-info">
-          <div class="mission-title">
-            <span class="he">מבדק הרשאות</span>
-            <span class="en">Permissions Audit</span>
-          </div>
-          <div class="mission-story">
-            <span class="he">קובץ חשוב נגיש לכולם. תקן את ההרשאות.</span>
-            <span class="en">A sensitive file is accessible to everyone. Fix its permissions.</span>
-          </div>
-        </div>
-        <div class="mission-badge" id="mb3">
-          <span class="he">0 / 4</span><span class="en">0 / 4</span>
-        </div>
-      </div>
-      <div class="mission-steps-wrap">
-        <div class="he-b mission-steps"><div class="ms-step" id="step3_1">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">ls -la — ראה הרשאות נוכחיות</div></div>
-        </div><div class="ms-step" id="step3_2">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod 600 secret.txt — הגבל גישה</div></div>
-        </div><div class="ms-step" id="step3_3">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod +x run.sh — הוסף execute</div></div>
-        </div><div class="ms-step" id="step3_4">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chown student: file.txt — שנה בעלות</div></div>
-        </div></div>
-        <div class="en-b mission-steps"><div class="ms-step" id="step3_1_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">ls -la — see current permissions</div></div>
-        </div><div class="ms-step" id="step3_2_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod 600 secret.txt — restrict access</div></div>
-        </div><div class="ms-step" id="step3_3_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod +x run.sh — add execute bit</div></div>
-        </div><div class="ms-step" id="step3_4_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chown student: file.txt — change ownership</div></div>
-        </div></div>
-      </div>
-      <div class="mission-emu"><div class="emu-wrap">
-  <div class="emu-bar">
-    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
-    <span class="emu-ttl">bash — student@linux:~/scripts$</span>
-    <button class="emu-sbtn" onclick="lxC('lx3out')">clear</button>
-    <button class="emu-gbtn" onclick="lxLab3Reset()">&#8635; reset</button>
+<div class="container">
+<div class="ch open" id="c7_en">
+  <div class="ch-trigger" onclick="toggleCh('c7_en')">
+    <span class="ch-num">07/10</span>
+    <div class="ch-icon-box" style="background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.25)">🌐</div>
+    <div class="ch-info">
+      <div class="ch-name">Networking Basics</div>
+      <div class="ch-desc">ping · curl · ssh · ss · dig · ip addr · nmap</div>
+    </div>
+    <div class="ch-meta"><span class="badge b-blue">NETWORK</span><span class="ch-time">⏱ 30m</span><span class="ch-chevron">▶</span></div>
   </div>
-  <div class="emu-iw">
-    <div class="emu-lbl">הקלד פקודה (קובץ: hello.sh מוכן, ללא הרשאת הרצה):</div>
-    <div class="emu-row">
-      <input class="emu-inp" id="lx3inp" style="flex:1" placeholder="ls -l hello.sh" onkeydown="if(event.key==='Enter')lxLab3Run()">
-      <button class="emu-gbtn" onclick="lxLab3Run()">&#9166; Enter</button>
+  <div class="ch-body" style="display:block"><div class="ch-inner">
+    <div class="ch-intro"><strong>Your server is connected to the world. You need to test that connection, debug it when it breaks, and secure it.</strong> curl, ssh, and ss are tools you'll use every single day in production.</div>
+    <div class="analogy"><span class="analogy-icon">📡</span><strong>Network tools like postal services:</strong><br><strong>ping</strong> = knock on the door — "Is anyone home?"<br><strong>curl</strong> = send a letter and wait for the reply<br><strong>ssh</strong> = a secure private tunnel to a remote building<br><strong>ss</strong> = building directory — "who's listening at which port?"<br><strong>dig</strong> = phone book lookup — translate hostname to IP</div>
+    <div class="sec-label-lx">What you'll learn</div>
+    <div class="learn-list">
+      <div class="li">ping / traceroute — test connectivity and trace the network path hop by hop</div>
+      <div class="li">curl — make HTTP requests, inspect headers, test APIs from the terminal</div>
+      <div class="li">ssh — remote access, key-based auth, port forwarding, tunneling</div>
+      <div class="li">ss / netstat — view open ports and active TCP connections</div>
+      <div class="li">dig / nslookup — query DNS: A, AAAA, MX, NS, TXT records</div>
+      <div class="li">ip addr / ifconfig — view and configure network interfaces</div>
     </div>
-    <div style="margin-top:6px;display:flex;gap:5px;flex-wrap:wrap">
-      <button class="emu-sbtn" onclick="lx3q('ls -l hello.sh')">ls -l</button>
-      <button class="emu-sbtn" onclick="lx3q('./hello.sh')">./hello.sh</button>
-      <button class="emu-sbtn" onclick="lx3q('chmod +x hello.sh')">chmod +x</button>
-      <button class="emu-sbtn" onclick="lx3q('chmod 644 hello.sh')">chmod 644</button>
-      <button class="emu-sbtn" onclick="lx3q('stat hello.sh')">stat</button>
-      <button class="emu-sbtn" onclick="lx3q('sudo cat /etc/shadow')">sudo shadow</button>
+    <div class="build-step" style="margin-top:14px">
+      <div class="bs-item"><span class="bs-num">Test</span><div><code>ping -c 4 google.com</code> — send 4 packets. Shows round-trip time (ms) and packet loss (%).</div></div>
+      <div class="bs-item"><span class="bs-num">HTTP</span><div><code>curl -I https://example.com</code> — headers only. <code>-v</code> = verbose. <code>-X POST -d '{"key":"val"}'</code> for POST.</div></div>
+      <div class="bs-item"><span class="bs-num">SSH</span><div><code>ssh -i ~/.ssh/id_rsa <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6c3c5d3c4f6c5d3c4c0d3c498d5d9db">[email&#160;protected]</a></code> — key-based auth. Never use passwords on production servers.</div></div>
+      <div class="bs-item"><span class="bs-num">Ports</span><div><code>ss -tlnp</code> — TCP Listening Numeric with Process. Replaces netstat on modern systems.</div></div>
+      <div class="bs-item"><span class="bs-num">DNS</span><div><code>dig google.com A</code> — query A record. <code>+short</code> for just the IP. <code>@8.8.8.8</code> to query Google DNS.</div></div>
     </div>
-  </div>
-  <div class="emu-out" id="lx3out"><span class="em">הקלד פקודה...</span></div>
-</div></div>
-      <button class="ans-btn" onclick="toggleAns('a3')"><span id="a3i">▶</span> הצג תשובות</button>
-          <div class="ans-box" id="a3">
-            <div class="ans-head">✅ תשובות</div>
-            <div class="ans-item"><span class="an">02</span><div>השגיאה: <code>-bash: ./hello.sh: Permission denied</code>. הקובץ קיים אבל אין הרשאת הרצה.</div></div>
-            <div class="ans-item"><span class="an">06</span><div>Octal 644 = rw-r--r--<br>6 = 4(r) + 2(w) = rw-<br>4 = 4(r) = r--<br>Owner יכול לקרוא וכתוב. שאר רק לקרוא.</div></div>
-            <div class="ans-note">💡 <strong>Octal קל לזכור:</strong> r=4, w=2, x=1. חבר: 7=rwx, 6=rw-, 5=r-x, 4=r--. הפרמטר הנפוץ: <code>chmod 755</code> לScript ו-<code>chmod 644</code> לקבצי טקסט.</div>
-          </div>
-      <div class="mission-success" id="ms3" style="display:none">
-        <span class="ms-icon">✅</span>
-        <div class="ms-msg">
-          <span class="he">🎉 הרשאות תקינות! 600 = רק בעלים יכול לקרוא ולכתוב. 755 = כולם יכולים להריץ. 644 = קבצי config.</span>
-          <span class="en">🎉 Permissions fixed! 600 = owner-only read/write. 755 = everyone can execute. 644 = standard config files.</span>
-        </div>
+    <div class="why-matters"><span>💡</span><span><strong>SSH key-based auth:</strong> Generate with <code>ssh-keygen -t ed25519</code>. Copy to server: <code>ssh-copy-id user@server</code>. Then disable passwords: <code>PasswordAuthentication no</code> in /etc/ssh/sshd_config. This is non-negotiable for any public server.</span></div>
+    <div class="glossary" id="glos7_en"><div class="glossary-head" onclick="toggleGlos('glos7_en')"><span>📖 Glossary</span><span class="glos-arr">▶</span></div>
+      <div class="glossary-body">
+        <div class="glos-item"><span class="glos-term">curl</span><span class="glos-def">Client URL — transfer data to/from servers. Supports HTTP, HTTPS, FTP, and 20+ protocols. The Swiss army knife of HTTP.</span></div>
+        <div class="glos-item"><span class="glos-term">SSH</span><span class="glos-def">Secure Shell — encrypted remote terminal. Port 22. Always prefer key-based auth over passwords.</span></div>
+        <div class="glos-item"><span class="glos-term">ss -tlnp</span><span class="glos-def">Socket Statistics: TCP, Listening, Numeric (no DNS lookup), with Process name. Fast replacement for netstat.</span></div>
+        <div class="glos-item"><span class="glos-term">dig</span><span class="glos-def">Domain Information Groper — DNS lookup tool. dig domain A for IPv4, AAAA for IPv6, MX for mail, NS for nameservers.</span></div>
+        <div class="glos-item"><span class="glos-term">Port</span><span class="glos-def">Virtual endpoint: 22=SSH, 80=HTTP, 443=HTTPS, 3306=MySQL, 5432=PostgreSQL, 6379=Redis.</span></div>
+        <div class="glos-item"><span class="glos-term">traceroute</span><span class="glos-def">Shows each router hop from source to destination, with round-trip time at each hop. Diagnoses where packets are dropping.</span></div>
       </div>
     </div>
-
-    <div c
-
-    <div class="lx-qbtns lx-challenge-btns">
-      <div class="lx-challenge-label">
-        <span class="he">🎯 תרגילים נוספים:</span>
-        <span class="en">🎯 More challenges:</span>
-      </div>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chmod 755 hello.sh')">chmod 755</button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chmod 600 secret.txt')">chmod 600</button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chmod u+x,o-r hello.sh')">
-        <span class="he">symbolic mode</span><span class="en">symbolic mode</span>
-      </button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('umask')">umask</button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('find . -perm -4000')">
-        <span class="he">מצא SUID</span><span class="en">find SUID</span>
-      </button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chown student:student hello.sh')">chown</button>
-    </div>
-lass="mission-card"
-</div></div>
+  </div></div>
+</div>
+</div>
 <script>
 
 const _QS_HE = [

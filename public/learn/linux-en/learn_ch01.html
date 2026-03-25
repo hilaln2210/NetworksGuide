@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" id="root">
+<html lang="en" dir="ltr" id="root" class="en">
 <head>
 
 <meta charset="UTF-8">
@@ -1115,114 +1115,50 @@ html, body { overflow-x: hidden; }
 </style>
 </head>
 <body>
-<div id="labs" class="section active">
-  <div class="section-inner">
-    <div class="labs-list"><div class="mission-card" 
-id="lb3">
-      <div class="mission-hdr">
-        <div class="mission-icon">🔐</div>
-        <div class="mission-info">
-          <div class="mission-title">
-            <span class="he">מבדק הרשאות</span>
-            <span class="en">Permissions Audit</span>
-          </div>
-          <div class="mission-story">
-            <span class="he">קובץ חשוב נגיש לכולם. תקן את ההרשאות.</span>
-            <span class="en">A sensitive file is accessible to everyone. Fix its permissions.</span>
-          </div>
-        </div>
-        <div class="mission-badge" id="mb3">
-          <span class="he">0 / 4</span><span class="en">0 / 4</span>
-        </div>
-      </div>
-      <div class="mission-steps-wrap">
-        <div class="he-b mission-steps"><div class="ms-step" id="step3_1">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">ls -la — ראה הרשאות נוכחיות</div></div>
-        </div><div class="ms-step" id="step3_2">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod 600 secret.txt — הגבל גישה</div></div>
-        </div><div class="ms-step" id="step3_3">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod +x run.sh — הוסף execute</div></div>
-        </div><div class="ms-step" id="step3_4">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chown student: file.txt — שנה בעלות</div></div>
-        </div></div>
-        <div class="en-b mission-steps"><div class="ms-step" id="step3_1_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">ls -la — see current permissions</div></div>
-        </div><div class="ms-step" id="step3_2_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod 600 secret.txt — restrict access</div></div>
-        </div><div class="ms-step" id="step3_3_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod +x run.sh — add execute bit</div></div>
-        </div><div class="ms-step" id="step3_4_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chown student: file.txt — change ownership</div></div>
-        </div></div>
-      </div>
-      <div class="mission-emu"><div class="emu-wrap">
-  <div class="emu-bar">
-    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
-    <span class="emu-ttl">bash — student@linux:~/scripts$</span>
-    <button class="emu-sbtn" onclick="lxC('lx3out')">clear</button>
-    <button class="emu-gbtn" onclick="lxLab3Reset()">&#8635; reset</button>
+<div class="container">
+<div class="ch open" id="c1_en">
+  <div class="ch-trigger" onclick="toggleCh('c1_en')">
+    <span class="ch-num">01/10</span>
+    <div class="ch-icon-box" style="background:rgba(63,185,80,.08);border-color:rgba(63,185,80,.25)">🐧</div>
+    <div class="ch-info">
+      <div class="ch-name">What is Linux and Why Learn It?</div>
+      <div class="ch-desc">OS · Kernel · Distributions · Terminal vs GUI · WSL</div>
+    </div>
+    <div class="ch-meta"><span class="badge b-green">START</span><span class="ch-time">⏱ 30m</span><span class="ch-chevron">▶</span></div>
   </div>
-  <div class="emu-iw">
-    <div class="emu-lbl">הקלד פקודה (קובץ: hello.sh מוכן, ללא הרשאת הרצה):</div>
-    <div class="emu-row">
-      <input class="emu-inp" id="lx3inp" style="flex:1" placeholder="ls -l hello.sh" onkeydown="if(event.key==='Enter')lxLab3Run()">
-      <button class="emu-gbtn" onclick="lxLab3Run()">&#9166; Enter</button>
+  <div class="ch-body" style="display:block"><div class="ch-inner">
+    <div class="ch-intro">Before typing a single command — <strong>why Linux?</strong> 96% of the world's servers run Linux. AWS, GCP, Docker, Kubernetes — all Linux. There's no way to avoid it as a developer, DevOps engineer, or security professional.</div>
+    <div class="analogy"><span class="analogy-icon">🏗️</span><strong>Linux like a building:</strong><br><strong>Kernel</strong> = the infrastructure everyone depends on. <strong>Distribution</strong> = the furnished apartment on top. <strong>Terminal</strong> = a direct phone line to the engineer — no middleman.</div>
+    <div class="sec-label-lx">What you'll learn</div>
+    <div class="learn-list">
+      <div class="li">What is an Operating System — what the OS actually does</div>
+      <div class="li">Kernel vs Distribution — the difference between Linux and Ubuntu</div>
+      <div class="li">Why Linux — servers, cloud, DevOps, security all run on it</div>
+      <div class="li">Terminal vs GUI — why the terminal is more powerful</div>
+      <div class="li">How to open a Terminal — macOS, Windows (WSL), Linux</div>
+      <div class="li">Shell vs Terminal vs Bash — clearing up the confusion</div>
     </div>
-    <div style="margin-top:6px;display:flex;gap:5px;flex-wrap:wrap">
-      <button class="emu-sbtn" onclick="lx3q('ls -l hello.sh')">ls -l</button>
-      <button class="emu-sbtn" onclick="lx3q('./hello.sh')">./hello.sh</button>
-      <button class="emu-sbtn" onclick="lx3q('chmod +x hello.sh')">chmod +x</button>
-      <button class="emu-sbtn" onclick="lx3q('chmod 644 hello.sh')">chmod 644</button>
-      <button class="emu-sbtn" onclick="lx3q('stat hello.sh')">stat</button>
-      <button class="emu-sbtn" onclick="lx3q('sudo cat /etc/shadow')">sudo shadow</button>
+    <div class="build-step" style="margin-top:14px">
+      <div class="bs-item"><span class="bs-num">OS</span><div>Operating System — software layer between hardware and applications. Manages memory, files, processes, network.</div></div>
+      <div class="bs-item"><span class="bs-num">Kernel</span><div>The core of Linux — talks directly to hardware. Created 1991 by Linus Torvalds. ~30M lines of code today.</div></div>
+      <div class="bs-item"><span class="bs-num">Distro</span><div>Kernel + Package Manager + default tools. Ubuntu=beginners, Debian=production, Alpine=Docker, Arch=control.</div></div>
+      <div class="bs-item"><span class="bs-num">Shell/Terminal</span><div>Terminal = the window. Shell (bash/zsh) = the interpreter that runs your commands. You type in Terminal, bash executes.</div></div>
+      <div class="bs-item"><span class="bs-num">WSL</span><div>Windows Subsystem for Linux — a real Linux kernel inside Windows. No VM needed. Run: <code>wsl</code> in PowerShell.</div></div>
     </div>
-  </div>
-  <div class="emu-out" id="lx3out"><span class="em">הקלד פקודה...</span></div>
-</div></div>
-      <button class="ans-btn" onclick="toggleAns('a3')"><span id="a3i">▶</span> הצג תשובות</button>
-          <div class="ans-box" id="a3">
-            <div class="ans-head">✅ תשובות</div>
-            <div class="ans-item"><span class="an">02</span><div>השגיאה: <code>-bash: ./hello.sh: Permission denied</code>. הקובץ קיים אבל אין הרשאת הרצה.</div></div>
-            <div class="ans-item"><span class="an">06</span><div>Octal 644 = rw-r--r--<br>6 = 4(r) + 2(w) = rw-<br>4 = 4(r) = r--<br>Owner יכול לקרוא וכתוב. שאר רק לקרוא.</div></div>
-            <div class="ans-note">💡 <strong>Octal קל לזכור:</strong> r=4, w=2, x=1. חבר: 7=rwx, 6=rw-, 5=r-x, 4=r--. הפרמטר הנפוץ: <code>chmod 755</code> לScript ו-<code>chmod 644</code> לקבצי טקסט.</div>
-          </div>
-      <div class="mission-success" id="ms3" style="display:none">
-        <span class="ms-icon">✅</span>
-        <div class="ms-msg">
-          <span class="he">🎉 הרשאות תקינות! 600 = רק בעלים יכול לקרוא ולכתוב. 755 = כולם יכולים להריץ. 644 = קבצי config.</span>
-          <span class="en">🎉 Permissions fixed! 600 = owner-only read/write. 755 = everyone can execute. 644 = standard config files.</span>
-        </div>
+    <div class="why-matters"><span>💡</span><span><strong>Everything is a file:</strong> In Linux, devices (/dev/sda), processes (/proc/1234), network sockets — all represented as files. This is what makes pipes and redirection so powerful.</span></div>
+    <div class="glossary" id="glos1_en"><div class="glossary-head" onclick="toggleGlos('glos1_en')"><span>📖 Glossary</span><span class="glos-arr">▶</span></div>
+      <div class="glossary-body">
+        <div class="glos-item"><span class="glos-term">Kernel</span><span class="glos-def">Core of the OS — manages hardware, memory, processes. Never touched directly.</span></div>
+        <div class="glos-item"><span class="glos-term">Distribution</span><span class="glos-def">Packaged Linux: Ubuntu, Fedora, Arch. Same kernel, different defaults and package managers.</span></div>
+        <div class="glos-item"><span class="glos-term">Shell</span><span class="glos-def">Command interpreter: bash, zsh, fish. Translates your commands into kernel syscalls.</span></div>
+        <div class="glos-item"><span class="glos-term">WSL</span><span class="glos-def">Windows Subsystem for Linux — real Linux kernel inside Windows without a VM. WSL2 uses a lightweight VM.</span></div>
+        <div class="glos-item"><span class="glos-term">Terminal</span><span class="glos-def">The application that runs a Shell. gnome-terminal, iTerm2, Windows Terminal — they're all just windows for a Shell.</span></div>
+        <div class="glos-item"><span class="glos-term">PATH</span><span class="glos-def">List of directories the shell searches for commands. echo $PATH shows yours. Commands only work if their directory is in PATH.</span></div>
       </div>
     </div>
-
-    <div c
-
-    <div class="lx-qbtns lx-challenge-btns">
-      <div class="lx-challenge-label">
-        <span class="he">🎯 תרגילים נוספים:</span>
-        <span class="en">🎯 More challenges:</span>
-      </div>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chmod 755 hello.sh')">chmod 755</button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chmod 600 secret.txt')">chmod 600</button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chmod u+x,o-r hello.sh')">
-        <span class="he">symbolic mode</span><span class="en">symbolic mode</span>
-      </button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('umask')">umask</button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('find . -perm -4000')">
-        <span class="he">מצא SUID</span><span class="en">find SUID</span>
-      </button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chown student:student hello.sh')">chown</button>
-    </div>
-lass="mission-card"
-</div></div>
+  </div></div>
+</div>
+</div>
 <script>
 
 const _QS_HE = [

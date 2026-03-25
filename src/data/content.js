@@ -1,7 +1,7 @@
 
 // ===== TRACKS =====
 // Each track is a self-contained learning path with its own chapters.
-// Chapter IDs: Networking=1-99, Cyber=101-199, WebAPI=300-399
+// Chapter IDs: Networking=1-99, Cyber=101-199, WebAPI=300-399, Linux=400-499
 
 export const tracks = [
   {
@@ -66,6 +66,27 @@ export const tracks = [
       { id: 306, title: "Performance & Caching",                pages: [{ type: "html_page", title: "Performance & Caching",      src: "/learn/webapi/learn_ch07.html", srcEn: "/learn/webapi-en/learn_ch07.html" }] },
       { id: 307, title: "API Design Patterns & Architecture",   pages: [{ type: "html_page", title: "API Design Patterns",        src: "/learn/webapi/learn_ch08.html", srcEn: "/learn/webapi-en/learn_ch08.html" }] },
       { id: 308, title: "API Testing, Docs & Load Testing",     pages: [{ type: "html_page", title: "API Testing & Versioning",   src: "/learn/webapi/learn_ch09.html", srcEn: "/learn/webapi-en/learn_ch09.html" }] },
+    ]
+  },
+  {
+    id: 'linux',
+    title: 'מערכות לינוקס',
+    subtitle: 'Terminal, Bash, הרשאות, תהליכים, רשת, Scripting — 10 פרקים + 6 מעבדות',
+    icon: '🐧',
+    color: '#00ff88',
+    level: 'מתחיל–מתקדם',
+    quizSrc: '/learn/linux/quiz_game.html',
+    chapters: [
+      { id: 400, title: "🐧 מה זה לינוקס ולמה ללמוד אותו?",    pages: [{ type: "html_page", title: "מה זה לינוקס",              src: "/learn/linux/learn_ch01.html", srcEn: "/learn/linux-en/learn_ch01.html" }] },
+      { id: 401, title: "📁 ניווט בתיקיות וקבצים",               pages: [{ type: "html_page", title: "ניווט בתיקיות וקבצים",      src: "/learn/linux/learn_ch02.html", srcEn: "/learn/linux-en/learn_ch02.html" }] },
+      { id: 402, title: "📝 קריאה וכתיבה של קבצים",              pages: [{ type: "html_page", title: "קריאה וכתיבה של קבצים",     src: "/learn/linux/learn_ch03.html", srcEn: "/learn/linux-en/learn_ch03.html" }] },
+      { id: 403, title: "🔐 הרשאות ומשתמשים",                    pages: [{ type: "html_page", title: "הרשאות ומשתמשים",           src: "/learn/linux/learn_ch04.html", srcEn: "/learn/linux-en/learn_ch04.html" }] },
+      { id: 404, title: "🔗 Pipes ו-Redirection",                pages: [{ type: "html_page", title: "Pipes ו-Redirection",       src: "/learn/linux/learn_ch05.html", srcEn: "/learn/linux-en/learn_ch05.html" }] },
+      { id: 405, title: "⚙️ Processes — תהליכים וניהולם",         pages: [{ type: "html_page", title: "Processes",                 src: "/learn/linux/learn_ch06.html", srcEn: "/learn/linux-en/learn_ch06.html" }] },
+      { id: 406, title: "🌐 רשת בסיסית",                         pages: [{ type: "html_page", title: "רשת בסיסית",                src: "/learn/linux/learn_ch07.html", srcEn: "/learn/linux-en/learn_ch07.html" }] },
+      { id: 407, title: "📦 ניהול תוכנות וחבילות",                pages: [{ type: "html_page", title: "ניהול תוכנות וחבילות",       src: "/learn/linux/learn_ch08.html", srcEn: "/learn/linux-en/learn_ch08.html" }] },
+      { id: 408, title: "💻 Bash Scripting — אוטומציה ראשונה",    pages: [{ type: "html_page", title: "Bash Scripting",            src: "/learn/linux/learn_ch09.html", srcEn: "/learn/linux-en/learn_ch09.html" }] },
+      { id: 409, title: "🔍 Logs, חיפוש ו-Troubleshooting",      pages: [{ type: "html_page", title: "Logs ו-Troubleshooting",    src: "/learn/linux/learn_ch10.html", srcEn: "/learn/linux-en/learn_ch10.html" }] },
     ]
   },
   // ── LOCKED — בעריכה ──

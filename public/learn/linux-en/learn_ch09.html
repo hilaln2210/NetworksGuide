@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" id="root">
+<html lang="en" dir="ltr" id="root" class="en">
 <head>
 
 <meta charset="UTF-8">
@@ -1115,114 +1115,50 @@ html, body { overflow-x: hidden; }
 </style>
 </head>
 <body>
-<div id="labs" class="section active">
-  <div class="section-inner">
-    <div class="labs-list"><div class="mission-card" 
-id="lb3">
-      <div class="mission-hdr">
-        <div class="mission-icon">🔐</div>
-        <div class="mission-info">
-          <div class="mission-title">
-            <span class="he">מבדק הרשאות</span>
-            <span class="en">Permissions Audit</span>
-          </div>
-          <div class="mission-story">
-            <span class="he">קובץ חשוב נגיש לכולם. תקן את ההרשאות.</span>
-            <span class="en">A sensitive file is accessible to everyone. Fix its permissions.</span>
-          </div>
-        </div>
-        <div class="mission-badge" id="mb3">
-          <span class="he">0 / 4</span><span class="en">0 / 4</span>
-        </div>
-      </div>
-      <div class="mission-steps-wrap">
-        <div class="he-b mission-steps"><div class="ms-step" id="step3_1">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">ls -la — ראה הרשאות נוכחיות</div></div>
-        </div><div class="ms-step" id="step3_2">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod 600 secret.txt — הגבל גישה</div></div>
-        </div><div class="ms-step" id="step3_3">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod +x run.sh — הוסף execute</div></div>
-        </div><div class="ms-step" id="step3_4">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chown student: file.txt — שנה בעלות</div></div>
-        </div></div>
-        <div class="en-b mission-steps"><div class="ms-step" id="step3_1_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">ls -la — see current permissions</div></div>
-        </div><div class="ms-step" id="step3_2_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod 600 secret.txt — restrict access</div></div>
-        </div><div class="ms-step" id="step3_3_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chmod +x run.sh — add execute bit</div></div>
-        </div><div class="ms-step" id="step3_4_en">
-          <div class="ms-chk"><div class="ms-chk-inner"></div></div>
-          <div class="ms-txt"><div class="ms-step-title">chown student: file.txt — change ownership</div></div>
-        </div></div>
-      </div>
-      <div class="mission-emu"><div class="emu-wrap">
-  <div class="emu-bar">
-    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
-    <span class="emu-ttl">bash — student@linux:~/scripts$</span>
-    <button class="emu-sbtn" onclick="lxC('lx3out')">clear</button>
-    <button class="emu-gbtn" onclick="lxLab3Reset()">&#8635; reset</button>
+<div class="container">
+<div class="ch open" id="c9_en">
+  <div class="ch-trigger" onclick="toggleCh('c9_en')">
+    <span class="ch-num">09/10</span>
+    <div class="ch-icon-box" style="background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.25)">📜</div>
+    <div class="ch-info">
+      <div class="ch-name">Bash Scripting — First Automation</div>
+      <div class="ch-desc">Variables · if/else · loops · functions · cron · set -euo pipefail</div>
+    </div>
+    <div class="ch-meta"><span class="badge b-amber">AUTOMATION</span><span class="ch-time">⏱ 40m</span><span class="ch-chevron">▶</span></div>
   </div>
-  <div class="emu-iw">
-    <div class="emu-lbl">הקלד פקודה (קובץ: hello.sh מוכן, ללא הרשאת הרצה):</div>
-    <div class="emu-row">
-      <input class="emu-inp" id="lx3inp" style="flex:1" placeholder="ls -l hello.sh" onkeydown="if(event.key==='Enter')lxLab3Run()">
-      <button class="emu-gbtn" onclick="lxLab3Run()">&#9166; Enter</button>
+  <div class="ch-body" style="display:block"><div class="ch-inner">
+    <div class="ch-intro"><strong>Bash scripting transforms one-time commands into reusable, schedulable, automated tools.</strong> Any task you do more than twice should be a script: backup, deploy, health check, log rotation, cleanup — all automatable with bash.</div>
+    <div class="analogy"><span class="analogy-icon">🤖</span><strong>A bash script like a recipe card:</strong><br>Instead of re-reading each step every time you cook — write it once.<br><br><strong>Variables</strong> = named ingredients | <strong>if/else</strong> = conditional steps<br><strong>for loop</strong> = "for each vegetable, chop and add"<br><strong>Functions</strong> = named sub-recipes | <strong>cron</strong> = the kitchen timer</div>
+    <div class="sec-label-lx">What you'll learn</div>
+    <div class="learn-list">
+      <div class="li">Shebang #!/bin/bash, chmod +x, and how scripts execute</div>
+      <div class="li">Variables — $VAR, ${VAR:-default}, $1 $2 $# (positional args), $? (exit code)</div>
+      <div class="li">if/elif/else — conditions with [ ], [[ ]], and -f -d -z -n flags</div>
+      <div class="li">for / while / until loops — iteration over lists, ranges, files</div>
+      <div class="li">Functions — define once, call many times, local variables</div>
+      <div class="li">cron / crontab — schedule scripts to run automatically</div>
     </div>
-    <div style="margin-top:6px;display:flex;gap:5px;flex-wrap:wrap">
-      <button class="emu-sbtn" onclick="lx3q('ls -l hello.sh')">ls -l</button>
-      <button class="emu-sbtn" onclick="lx3q('./hello.sh')">./hello.sh</button>
-      <button class="emu-sbtn" onclick="lx3q('chmod +x hello.sh')">chmod +x</button>
-      <button class="emu-sbtn" onclick="lx3q('chmod 644 hello.sh')">chmod 644</button>
-      <button class="emu-sbtn" onclick="lx3q('stat hello.sh')">stat</button>
-      <button class="emu-sbtn" onclick="lx3q('sudo cat /etc/shadow')">sudo shadow</button>
+    <div class="build-step" style="margin-top:14px">
+      <div class="bs-item"><span class="bs-num">Start</span><div>Line 1: <code>#!/bin/bash</code>. Then <code>chmod +x script.sh</code>. Run: <code>./script.sh</code> or <code>bash script.sh</code>.</div></div>
+      <div class="bs-item"><span class="bs-num">Variables</span><div><code>NAME="Alice"</code> — no spaces around =. Use as <code>"$NAME"</code> (always quote to handle spaces in values).</div></div>
+      <div class="bs-item"><span class="bs-num">Condition</span><div><code>if [ -f "/etc/nginx.conf" ]; then echo "exists"; else echo "missing"; fi</code></div></div>
+      <div class="bs-item"><span class="bs-num">Loop</span><div><code>for file in *.log; do gzip "$file" &amp;&amp; echo "Compressed $file"; done</code></div></div>
+      <div class="bs-item"><span class="bs-num">Cron</span><div><code>crontab -e</code> → add: <code>0 2 * * * /home/user/backup.sh &gt;&gt; /var/log/backup.log 2&gt;&amp;1</code></div></div>
     </div>
-  </div>
-  <div class="emu-out" id="lx3out"><span class="em">הקלד פקודה...</span></div>
-</div></div>
-      <button class="ans-btn" onclick="toggleAns('a3')"><span id="a3i">▶</span> הצג תשובות</button>
-          <div class="ans-box" id="a3">
-            <div class="ans-head">✅ תשובות</div>
-            <div class="ans-item"><span class="an">02</span><div>השגיאה: <code>-bash: ./hello.sh: Permission denied</code>. הקובץ קיים אבל אין הרשאת הרצה.</div></div>
-            <div class="ans-item"><span class="an">06</span><div>Octal 644 = rw-r--r--<br>6 = 4(r) + 2(w) = rw-<br>4 = 4(r) = r--<br>Owner יכול לקרוא וכתוב. שאר רק לקרוא.</div></div>
-            <div class="ans-note">💡 <strong>Octal קל לזכור:</strong> r=4, w=2, x=1. חבר: 7=rwx, 6=rw-, 5=r-x, 4=r--. הפרמטר הנפוץ: <code>chmod 755</code> לScript ו-<code>chmod 644</code> לקבצי טקסט.</div>
-          </div>
-      <div class="mission-success" id="ms3" style="display:none">
-        <span class="ms-icon">✅</span>
-        <div class="ms-msg">
-          <span class="he">🎉 הרשאות תקינות! 600 = רק בעלים יכול לקרוא ולכתוב. 755 = כולם יכולים להריץ. 644 = קבצי config.</span>
-          <span class="en">🎉 Permissions fixed! 600 = owner-only read/write. 755 = everyone can execute. 644 = standard config files.</span>
-        </div>
+    <div class="why-matters"><span>💡</span><span><strong>set -euo pipefail</strong> — add this right after the shebang in every script. <code>-e</code> exits on error, <code>-u</code> treats unset variables as errors, <code>-o pipefail</code> catches failures in pipes. Prevents silent failures that corrupt production data.</span></div>
+    <div class="glossary" id="glos9_en"><div class="glossary-head" onclick="toggleGlos('glos9_en')"><span>📖 Glossary</span><span class="glos-arr">▶</span></div>
+      <div class="glossary-body">
+        <div class="glos-item"><span class="glos-term">Shebang</span><span class="glos-def">#!/bin/bash — first line specifying the interpreter. #!/usr/bin/env bash is more portable (finds bash in PATH).</span></div>
+        <div class="glos-item"><span class="glos-term">$?</span><span class="glos-def">Exit code of the last command. 0 = success. Any non-zero = failure. Always check after critical commands.</span></div>
+        <div class="glos-item"><span class="glos-term">$1 $2 $#</span><span class="glos-def">Positional parameters passed to the script. $0 = script name. $# = count of arguments. $@ = all arguments as array.</span></div>
+        <div class="glos-item"><span class="glos-term">cron</span><span class="glos-def">Daemon running scheduled commands. crontab -e edits your schedule. Format: minute hour day month weekday command.</span></div>
+        <div class="glos-item"><span class="glos-term">set -e</span><span class="glos-def">Exit immediately if any command returns non-zero. Without this, scripts continue executing after errors.</span></div>
+        <div class="glos-item"><span class="glos-term">$(command)</span><span class="glos-def">Command substitution — runs command in subshell and inserts its stdout. TODAY=$(date +%F) captures today's date.</span></div>
       </div>
     </div>
-
-    <div c
-
-    <div class="lx-qbtns lx-challenge-btns">
-      <div class="lx-challenge-label">
-        <span class="he">🎯 תרגילים נוספים:</span>
-        <span class="en">🎯 More challenges:</span>
-      </div>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chmod 755 hello.sh')">chmod 755</button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chmod 600 secret.txt')">chmod 600</button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chmod u+x,o-r hello.sh')">
-        <span class="he">symbolic mode</span><span class="en">symbolic mode</span>
-      </button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('umask')">umask</button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('find . -perm -4000')">
-        <span class="he">מצא SUID</span><span class="en">find SUID</span>
-      </button>
-      <button class="lx-qbtn lx-qbtn-chal" onclick="lx3q('chown student:student hello.sh')">chown</button>
-    </div>
-lass="mission-card"
-</div></div>
+  </div></div>
+</div>
+</div>
 <script>
 
 const _QS_HE = [

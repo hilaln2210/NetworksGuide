@@ -3,1088 +3,1100 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Linux PRO — מסלול מקצועי</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Linux PRO | מערכות לינוקס</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+Hebrew:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Martian+Mono:wght@300;400;500;600;700&family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
 
+/* ═══════════════════════════════════════════════════════════════
+   LINUX PRO — DESIGN SYSTEM
+   Aesthetic: Phosphor green on near-black. Monospace everything.
+   Sharp corners, grid texture, glow accents. No softness.
+   ═══════════════════════════════════════════════════════════════ */
 :root {
-  --bg:       #0d1117;
-  --bg2:      #111820;
-  --surface:  #161b22;
-  --card:     #1c2128;
-  --border:   #30363d;
-  --border2:  #3d444d;
-  --green:    #3fb950;
-  --green2:   #2ea043;
-  --green3:   #112d20;
-  --green-dim:#0d2016;
-  --amber:    #e3b341;
-  --amber2:   #d29922;
-  --red:      #f85149;
-  --blue:     #58a6ff;
-  --cyan:     #39c5cf;
-  --text:     #e6edf3;
-  --text-mid: #8b949e;
-  --text-dim: #484f58;
-  --cursor:   #58a6ff;
-  --phosphor: rgba(88,166,255,0.03);
+  --bg:    #040406;
+  --bg2:   #080810;
+  --surf:  #0e0e18;
+  --card:  #111120;
+  --card2: #15152a;
+  --b0:    #1a1a30;
+  --b1:    #242440;
+  --b2:    #323258;
+
+  /* Phosphor green */
+  --g:     #00ff88;
+  --g2:    #00cc6a;
+  --g3:    rgba(0,255,136,.12);
+  --gg:    rgba(0,255,136,.06);
+  --gs:    0 0 20px rgba(0,255,136,.35);
+
+  /* Amber */
+  --am:    #ffb454;
+  --am2:   rgba(255,180,84,.12);
+
+  /* Blue */
+  --bl:    #7eb8f7;
+  --bl2:   rgba(126,184,247,.1);
+
+  /* Red */
+  --re:    #ff4d6a;
+  --re2:   rgba(255,77,106,.1);
+
+  /* Cyan */
+  --cy:    #4de8e8;
+
+  /* Purple */
+  --pu:    #b48bfa;
+
+  --tx:    #dde1f0;
+  --tx2:   #686b8a;
+  --tx3:   #2e3050;
+
+  --fm: 'Martian Mono', 'IBM Plex Mono', monospace;
+  --fd: 'Syne', 'Noto Sans Hebrew', sans-serif;
+  --fb: 'Martian Mono', 'Noto Sans Hebrew', monospace;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* ── BASE ────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
 
 body {
-  font-family: 'Noto Sans Hebrew', sans-serif;
   background: var(--bg);
-  color: var(--text);
+  color: var(--tx);
+  font-family: var(--fb);
   min-height: 100vh;
   overflow-x: hidden;
-  cursor: default;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Subtle dot pattern */
+/* ── BACKGROUNDS ─────────────────────────────────────────────── */
+/* Micro-grid */
 body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(88,166,255,0.025) 1px, transparent 1px);
-  background-size: 28px 28px;
-  pointer-events: none;
-  z-index: 0;
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,255,136,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,.018) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
-/* Ambient glow */
+/* Radial glow pools */
 body::after {
-  content: '';
-  position: fixed;
-  top: -10%;
-  right: -10%;
-  width: 60%;
-  height: 60%;
-  background: radial-gradient(ellipse at 80% 20%,
-    rgba(88,166,255,0.04) 0%,
-    transparent 55%);
-  pointer-events: none;
-  z-index: 0;
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 40% at 8% 12%,  rgba(0,255,136,.055) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 95% 88%,  rgba(0,204,106,.04)  0%, transparent 50%),
+    radial-gradient(ellipse 50% 60% at 50% 50%,  rgba(0,0,0,0)        0%, var(--bg) 100%);
 }
 
+/* ── LANG ────────────────────────────────────────────────────── */
+#root { direction: rtl; }
+#root.en { direction: ltr; }
+.he   { display:inline;  } .he-b { display:block;  }
+.en   { display:none;    } .en-b { display:none;    }
+#root.en .he   { display:none;    } #root.en .he-b { display:none;    }
+#root.en .en   { display:inline;  } #root.en .en-b { display:block;   }
+#root.en body, #root.en { font-family: 'Martian Mono', sans-serif; }
+
+/* ── NAV ─────────────────────────────────────────────────────── */
+.nav, .tmux-bar {
+  position: sticky; top: 0; z-index: 200;
+  height: 46px;
+  background: rgba(4,4,6,.94);
+  backdrop-filter: blur(24px) saturate(160%);
+  border-bottom: 1px solid var(--b0);
+  display: flex; align-items: center;
+  padding: 0 24px; gap: 0;
+}
+.nav::after, .tmux-bar::after {
+  content:'';
+  position:absolute; bottom:-1px; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, transparent 5%, var(--g2) 30%, var(--g) 50%, var(--g2) 70%, transparent 95%);
+  opacity: .25;
+}
+
+/* Brand */
+.nav-brand {
+  font-family: var(--fm);
+  font-size: 11px; font-weight: 600;
+  color: var(--g);
+  letter-spacing: 2px;
+  margin-left: 24px;
+  white-space: nowrap;
+  text-shadow: var(--gs);
+  display: flex; align-items: center; gap: 8px;
+  flex-shrink: 0;
+}
+#root.en .nav-brand { margin-left: 0; margin-right: 24px; }
+
+.nav-brand-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--g);
+  box-shadow: 0 0 10px var(--g), 0 0 4px var(--g);
+  animation: blink 1.4s steps(1) infinite;
+}
+@keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+
+/* Tabs */
+.nav-tabs, .tmux-left + * { display:flex; height:100%; overflow-x:auto; }
+
+/* tmux-style tabs */
+.nav-tab, .tmux-tab {
+  font-family: var(--fm);
+  font-size: 10px; font-weight: 400;
+  padding: 0 16px; height: 100%;
+  border: none; background: transparent;
+  color: var(--tx3);
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: color .12s, border-color .12s;
+  white-space: nowrap;
+  letter-spacing: .5px;
+  display: flex; align-items: center; gap: 6px;
+}
+.nav-tab:hover, .tmux-tab:hover { color: var(--tx2); }
+.nav-tab.active, .tmux-tab.active {
+  color: var(--g);
+  border-bottom-color: var(--g);
+  text-shadow: 0 0 8px rgba(0,255,136,.4);
+}
+
+/* Nav right */
+.nav-right {
+  margin-right: auto;
+  display: flex; align-items: center; gap: 10px;
+}
+#root.en .nav-right { margin-right: 0; margin-left: auto; }
+
+/* tmux compat */
+.tmux-left { display:flex; align-items:center; gap:8px; margin-left:18px; font-family:var(--fm); font-size:11px; color:var(--tx3); letter-spacing:1px; flex-shrink:0; }
+#root.en .tmux-left { margin-left:0; margin-right:18px; }
+.tmux-right, .nav-clock {
+  font-family: var(--fm);
+  font-size: 10px; color: var(--tx3);
+  margin-right: auto; letter-spacing: 1px;
+}
+#root.en .tmux-right, #root.en .nav-clock { margin-right: 0; margin-left: auto; }
+
+.lang-btn {
+  font-family: var(--fm);
+  font-size: 9px; font-weight: 600;
+  padding: 4px 10px;
+  border: 1px solid var(--b1);
+  background: var(--gg);
+  color: var(--g2);
+  cursor: pointer;
+  letter-spacing: 2px;
+  transition: all .18s;
+  text-transform: uppercase;
+}
+.lang-btn:hover {
+  border-color: var(--g);
+  color: var(--g);
+  background: var(--g3);
+  box-shadow: 0 0 14px rgba(0,255,136,.2);
+}
+
+/* ── CONTAINER ───────────────────────────────────────────────── */
 .container {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 0 24px;
-  position: relative;
-  z-index: 1;
+  padding: 0 28px;
+  position: relative; z-index: 1;
 }
 
-/* ═══════════════════════════════════════
-   TOP BAR — tmux-style
-═══════════════════════════════════════ */
-.tmux-bar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--surface);
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  height: 32px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 0;
-  user-select: none;
-  border-bottom: 1px solid var(--border2);
-}
-
-.tmux-left {
-  background: rgba(88,166,255,0.08);
-  color: var(--blue);
-  padding: 0 16px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  border-left: 3px solid var(--blue);
-}
-
-.tmux-tabs {
-  display: flex;
-  height: 100%;
-}
-
-.tmux-tab {
-  padding: 0 16px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all .15s;
-  border: none;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  white-space: nowrap;
-}
-
-.tmux-tab.inactive { background: var(--surface); color: var(--text-mid); }
-.tmux-tab.inactive:hover { background: var(--card); color: var(--text); }
-.tmux-tab.active { background: rgba(88,166,255,0.12); color: var(--blue); font-weight: 700; border-bottom: 2px solid var(--blue); }
-
-.tmux-right {
-  margin-right: auto;
-  padding: 0 14px;
-  font-size: 10px;
-  font-weight: 400;
-  opacity: .7;
-  white-space: nowrap;
-}
-
-/* ═══════════════════════════════════════
-   HERO
-═══════════════════════════════════════ */
+/* ── HERO ────────────────────────────────────────────────────── */
 .hero {
-  padding: 56px 0 44px;
+  padding: 84px 0 68px;
+  border-bottom: 1px solid var(--b0);
   position: relative;
-  z-index: 1;
-  border-bottom: 1px solid var(--border);
+  overflow: hidden;
 }
-
-.hero-prompt {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: var(--text-mid);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 0;
+/* Decorative watermark */
+.hero::before {
+  content: 'LINUX';
+  position: absolute;
+  font-family: var(--fm);
+  font-size: 200px; font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,255,136,.04);
+  letter-spacing: -12px;
+  top: 50%; right: -50px;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  pointer-events: none; user-select: none;
+  z-index: 0;
 }
+.hero > * { position: relative; z-index: 1; }
 
-.prompt-user { color: var(--blue); }
-.prompt-at   { color: var(--text-dim); }
-.prompt-host { color: var(--cyan); }
-.prompt-path { color: var(--blue); }
-.prompt-dollar { color: var(--text); margin: 0 8px; }
+.hero-tag {
+  font-family: var(--fm);
+  font-size: 9px; letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--g2);
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 26px;
+  opacity: .7;
+}
+.hero-tag::before { content: '>'; color: var(--g); font-size: 11px; }
+.hero-tag::after  {
+  content: '';
+  width: 80px; height: 1px;
+  background: linear-gradient(90deg, var(--g2), transparent);
+}
 
 .hero h1 {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(44px, 8vw, 88px);
+  font-family: var(--fd);
+  font-size: clamp(72px, 11vw, 120px);
   font-weight: 800;
-  line-height: .92;
-  letter-spacing: -2px;
-  margin-bottom: 18px;
-  color: var(--text);
-  text-shadow: none;
+  line-height: .88;
+  letter-spacing: -4px;
+  margin-bottom: 26px;
 }
-
-.hero h1 .dim { color: var(--text-dim); font-weight: 300; }
+.hero h1 .w1 { color: var(--tx); display: block; }
+.hero h1 .w2 {
+  display: block;
+  color: var(--g);
+  text-shadow:
+    0 0 60px rgba(0,255,136,.5),
+    0 0 120px rgba(0,255,136,.2);
+}
 
 .hero-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  color: var(--text-mid);
-  margin-bottom: 32px;
-  font-weight: 300;
-  max-width: 560px;
-  line-height: 1.75;
-  letter-spacing: -0.2px;
+  font-family: var(--fm);
+  font-size: 12px;
+  color: var(--tx2);
+  max-width: 460px;
+  line-height: 1.9;
+  margin-bottom: 44px;
+  border-right: 1px solid var(--b1);
+  padding-right: 18px;
+  letter-spacing: .2px;
 }
+#root.en .hero-sub { border-right: none; border-left: 1px solid var(--b1); padding-right: 0; padding-left: 18px; }
 
-/* UPTIME STATS */
-.uptime-row {
+.stats-row {
   display: flex;
-  gap: 0;
-  flex-wrap: wrap;
-  font-family: 'JetBrains Mono', monospace;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  overflow: hidden;
-  display: inline-flex;
+  border: 1px solid var(--b0);
+  background: var(--surf);
+  width: fit-content;
+  position: relative;
 }
-
-.ut-item {
-  padding: 12px 22px;
-  border-left: 1px solid var(--border);
+.stats-row::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background: linear-gradient(90deg, var(--g2), transparent);
+}
+.stat {
+  padding: 16px 26px;
+  border-left: 1px solid var(--b0);
   text-align: center;
 }
-
-.ut-item:first-child { border-left: none; }
-
-.ut-val {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--blue);
-  display: block;
-  line-height: 1;
-  text-shadow: none;
+.stat:first-child { border-left: none; }
+#root.en .stat { border-left: none; border-right: 1px solid var(--b0); }
+#root.en .stat:first-child { border-right: none; }
+.stat-n {
+  font-family: var(--fm);
+  font-size: 32px; font-weight: 700;
+  color: var(--g);
+  display: block; line-height: 1;
+  text-shadow: var(--gs);
 }
-
-.ut-key {
-  font-size: 9px;
-  color: var(--text-dim);
-  letter-spacing: 1.5px;
+.stat-l {
+  font-family: var(--fm);
+  font-size: 8px; letter-spacing: 2px;
   text-transform: uppercase;
-  margin-top: 4px;
-  display: block;
+  color: var(--tx3); display: block; margin-top: 5px;
 }
 
-/* Blinking cursor */
-@keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
-.cursor { display: inline-block; width: 8px; height: 16px; background: var(--green); animation: blink 1s infinite; vertical-align: middle; margin-right: 2px; }
+/* ── SECTION ─────────────────────────────────────────────────── */
+.section          { display: none; }
+.section.active   { display: block; }
+.section-inner    { padding: 38px 0 80px; }
 
-/* ═══════════════════════════════════════
-   SECTIONS
-═══════════════════════════════════════ */
-.section { display: none; }
-.section.active { display: block; }
-.section-inner { padding: 36px 0 60px; }
-
-/* ═══════════════════════════════════════
-   CHAPTERS — man page style
-═══════════════════════════════════════ */
+/* ── CHAPTERS ────────────────────────────────────────────────── */
 .chapters { display: flex; flex-direction: column; gap: 2px; }
 
 .ch {
-  border: 1px solid var(--border);
-  border-radius: 0;
-  overflow: hidden;
-  transition: all .2s;
   background: var(--card);
+  border: 1px solid var(--b0);
+  position: relative;
+  overflow: hidden;
+  transition: border-color .18s;
 }
-
-.ch:first-child { border-radius: 8px 8px 0 0; }
-.ch:last-child  { border-radius: 0 0 8px 8px; }
-.ch:hover { border-color: var(--border2); }
-.ch.open  { border-color: rgba(88,166,255,.3); }
+.ch:first-child { border-radius: 2px 2px 0 0; }
+.ch:last-child  { border-radius: 0 0 2px 2px; }
+.ch:hover       { border-color: var(--b1); }
+.ch.open        { border-color: var(--g2); }
+/* Green left bar on open */
+.ch.open::before {
+  content: '';
+  position: absolute; top: 0; bottom: 0; right: 0; width: 2px;
+  background: linear-gradient(180deg, var(--g), transparent 80%);
+}
+#root.en .ch.open::before { right: auto; left: 0; }
 
 .ch-trigger {
-  padding: 16px 20px;
+  padding: 14px 18px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  display: flex; align-items: center; gap: 14px;
   user-select: none;
+  transition: background .12s;
 }
+.ch-trigger:hover { background: rgba(0,255,136,.02); }
 
 .ch-num {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text-dim);
-  min-width: 48px;
-  letter-spacing: 1px;
+  font-family: var(--fm);
+  font-size: 9px; color: var(--tx3);
+  min-width: 34px; letter-spacing: 1.5px;
+  flex-shrink: 0;
 }
-
 .ch-icon-box {
-  width: 38px; height: 38px;
-  border: 1px solid var(--border2);
-  border-radius: 6px;
-  background: var(--green3);
+  width: 34px; height: 34px;
+  border: 1px solid var(--b1);
+  background: var(--surf);
   display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
+  font-size: 16px; flex-shrink: 0;
 }
-
 .ch-info { flex: 1; min-width: 0; }
-
 .ch-name {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--blue);
-  margin-bottom: 3px;
-  line-height: 1.2;
+  font-family: var(--fd);
+  font-size: 14px; font-weight: 700;
+  color: var(--tx);
+  margin-bottom: 2px; line-height: 1.2;
 }
-
 .ch-desc {
-  font-size: 12px;
-  color: var(--text-dim);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-family: var(--fm);
+  font-size: 10px; color: var(--tx3);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-
-.ch-meta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-
-.ch-time {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text-dim);
+.ch-meta  { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.ch-time  { font-family: var(--fm); font-size: 9px; color: var(--tx3); }
+.ch-chevron {
+  font-family: var(--fm);
+  color: var(--tx3); font-size: 10px;
+  transition: transform .28s, color .15s;
 }
+.ch.open .ch-chevron { transform: rotate(90deg); color: var(--g); }
 
-.ch-chevron { color: var(--text-dim); transition: transform .3s, color .2s; font-size: 14px; }
-.ch.open .ch-chevron { transform: rotate(90deg); color: var(--blue); }
-
-/* BADGE */
+/* badges */
 .badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  padding: 2px 7px;
-  border-radius: 3px;
-  letter-spacing: .5px;
+  font-family: var(--fm);
+  font-size: 8px; padding: 2px 7px;
+  letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;
 }
+.b-green  { background: var(--g3);  color: var(--g);  border: 1px solid rgba(0,255,136,.25); }
+.b-blue   { background: var(--bl2); color: var(--bl); border: 1px solid rgba(126,184,247,.2); }
+.b-amber  { background: var(--am2); color: var(--am); border: 1px solid rgba(255,180,84,.2); }
+.b-red    { background: var(--re2); color: var(--re); border: 1px solid rgba(255,77,106,.2); }
+.b-cyan   { background: rgba(77,232,232,.08); color: var(--cy); border: 1px solid rgba(77,232,232,.2); }
+.b-purple { background: rgba(180,139,250,.08); color: var(--pu); border: 1px solid rgba(180,139,250,.2); }
+.b-core   { background: var(--g3);  color: var(--g);  border: 1px solid rgba(0,255,136,.25); }
 
-.b-core   { background: rgba(88,166,255,.1); color: var(--blue); border: 1px solid rgba(88,166,255,.25); }
-.b-sys    { background: rgba(0,255,238,.08); color: var(--cyan); border: 1px solid rgba(0,255,238,.2); }
-.b-adv    { background: rgba(255,204,0,.08); color: var(--amber); border: 1px solid rgba(255,204,0,.2); }
-.b-hard   { background: rgba(255,68,68,.08); color: var(--red); border: 1px solid rgba(255,68,68,.2); }
-.b-sec    { background: rgba(68,170,255,.08); color: var(--blue); border: 1px solid rgba(68,170,255,.2); }
-
-/* CHAPTER BODY */
-.ch-body { display: none; border-top: 1px solid var(--border); }
+/* ch body */
+.ch-body  { display: none; border-top: 1px solid var(--b0); }
 .ch.open .ch-body { display: block; }
-.ch-inner { padding: 24px 20px; }
+.ch-inner { padding: 22px 22px 22px 20px; }
 
-/* man-page section label */
-.man-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.sec-label-lx {
+  font-family: var(--fm);
+  font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--g2); margin-bottom: 11px;
+  display: flex; align-items: center; gap: 10px; opacity: .6;
 }
-.man-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.sec-label-lx::after { content:''; flex:1; height:1px; background:var(--b0); }
 
-.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-@media(max-width:680px){ .two-col { grid-template-columns: 1fr; } }
-
-/* LEARN ITEMS */
-.learn-list { display: flex; flex-direction: column; gap: 8px; }
-
+.learn-list { display: flex; flex-direction: column; gap: 6px; }
 .li {
-  display: flex;
-  gap: 10px;
-  font-size: 13px;
-  color: var(--text-mid);
-  line-height: 1.55;
-  align-items: flex-start;
+  font-family: var(--fm);
+  font-size: 12px; color: var(--tx2);
+  line-height: 1.6;
+  display: flex; gap: 10px; align-items: flex-start;
 }
-
 .li::before {
-  content: '▸';
-  color: var(--green2);
-  font-size: 11px;
-  margin-top: 2px;
-  flex-shrink: 0;
+  content: '//'; color: var(--g2); opacity: .5;
+  font-family: var(--fm); font-size: 10px;
+  flex-shrink: 0; margin-top: 2px;
 }
 
-/* CODE BLOCK — real terminal */
-.term {
-  background: #020402;
-  border: 1px solid var(--border2);
-  border-radius: 8px;
-  padding: 16px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  line-height: 1.85;
-  overflow-x: auto;
-  margin-top: 10px;
-  position: relative;
-}
-
-.term-bar {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 24px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  padding: 0 10px;
-  gap: 6px;
-  border-radius: 8px 8px 0 0;
-}
-
-.term-dot { width: 10px; height: 10px; border-radius: 50%; }
-.td-r { background: #ff5f57; }
-.td-y { background: #febc2e; }
-.td-g { background: #28c840; }
-
-.term-title {
-  margin-right: auto;
-  font-size: 10px;
-  color: var(--text-dim);
-  letter-spacing: 1px;
-}
-
-.term-content { margin-top: 20px; }
-
-.t-p   { color: var(--green); }     /* prompt */
-.t-cmd { color: #e2e2e2; }          /* command */
-.t-f   { color: var(--amber); }     /* flag */
-.t-s   { color: #86efac; }          /* string */
-.t-o   { color: var(--text-mid); }  /* output */
-.t-c   { color: var(--text-dim); font-style: italic; } /* comment */
-.t-e   { color: var(--red); }       /* error */
-.t-ok  { color: var(--green); }     /* success */
-.t-h   { color: var(--cyan); }      /* highlight */
-
-/* STORY BOX — "מה הלך עגול" */
-.story {
-  background: linear-gradient(135deg, rgba(255,204,0,.04), rgba(255,68,68,.03));
-  border: 1px solid rgba(255,204,0,.2);
-  border-right: 4px solid var(--amber);
-  border-radius: 8px;
-  padding: 16px 18px;
-}
-
-.story-badge {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: var(--amber);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.story-title {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 6px;
-}
-
-.story-text {
-  font-family: 'Crimson Pro', serif;
-  font-size: 14px;
-  color: var(--text-mid);
-  line-height: 1.7;
-}
-
-/* PRO TIP */
-.pro-tip {
-  margin-top: 14px;
-  background: rgba(88,166,255,.04);
-  border: 1px solid rgba(88,166,255,.15);
-  border-radius: 6px;
-  padding: 12px 15px;
-  font-size: 13px;
-  color: var(--text-mid);
-  line-height: 1.6;
-  display: flex;
-  gap: 10px;
-}
-
-.pro-tip strong { color: var(--blue); }
-.pt-icon { flex-shrink: 0; }
-
-.badges-row { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 10px; }
-
-/* ═══════════════════════════════════════
-   LABS
-═══════════════════════════════════════ */
-.labs-list { display: flex; flex-direction: column; gap: 16px; }
-
-.lab {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.lab-head {
-  padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  cursor: pointer;
-  border-bottom: 1px solid transparent;
-  transition: background .2s;
-}
-
-.lab-head:hover { background: rgba(255,255,255,0.03); }
-.lab.open .lab-head { border-bottom-color: var(--border2); background: rgba(88,166,255,0.04); }
-
-.lab-icon { font-size: 22px; }
-.lab-info { flex: 1; }
-
-.lab-name {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--blue);
-  margin-bottom: 3px;
-}
-
-.lab-sub { font-size: 12px; color: var(--text-dim); }
-
-.diff {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  padding: 3px 8px;
-  border-radius: 3px;
-  letter-spacing: .5px;
-}
-
-.d-easy   { background: rgba(63,185,80,.1); color: var(--green); border:1px solid rgba(63,185,80,.3); }
-.d-medium { background: rgba(255,204,0,.1); color: var(--amber); border:1px solid rgba(255,204,0,.3); }
-.d-hard   { background: rgba(255,68,68,.1); color: var(--red); border:1px solid rgba(255,68,68,.3); }
-
-.lab-chev { color: var(--text-dim); font-size: 14px; transition: transform .3s; }
-.lab.open .lab-chev { transform: rotate(90deg); color: var(--blue); }
-
-.lab-body { display: none; padding: 20px; }
-.lab.open .lab-body { display: block; }
-
-.lab-goal {
-  font-family: 'Crimson Pro', serif;
-  font-size: 15px;
-  font-style: italic;
-  color: var(--text-mid);
-  border-right: 3px solid var(--blue);
+/* ch inner components */
+.ch-intro {
+  font-family: var(--fm);
+  font-size: 13px; color: var(--tx2); line-height: 1.85;
+  padding: 0 0 16px 0;
+  border-bottom: 1px solid var(--b0);
+  margin-bottom: 18px;
+  border-right: 2px solid var(--g2);
   padding-right: 14px;
-  margin-bottom: 16px;
-  line-height: 1.6;
+}
+#root.en .ch-intro { border-right:none; border-left:2px solid var(--g2); padding-right:0; padding-left:14px; }
+.ch-intro strong { color: var(--tx); }
+.ch-intro code {
+  font-family: var(--fm); font-size: 11px;
+  background: var(--g3); color: var(--g);
+  padding: 0px 5px;
 }
 
-.lab-steps { display: flex; flex-direction: column; gap: 9px; margin-bottom: 14px; }
+.analogy {
+  background: linear-gradient(135deg, rgba(0,255,136,.04), rgba(0,204,106,.02));
+  border: 1px solid rgba(0,255,136,.1);
+  border-right: 3px solid var(--g2);
+  padding: 13px 15px; margin: 13px 0;
+  font-family: var(--fm);
+  font-size: 12px; color: var(--tx2); line-height: 1.8;
+}
+#root.en .analogy { border-right:1px solid rgba(0,255,136,.1); border-left:3px solid var(--g2); }
+.analogy strong { color: var(--g); }
+.analogy-icon { font-size: 17px; margin-left: 7px; }
+#root.en .analogy-icon { margin-left: 0; margin-right: 7px; }
+.analogy code { font-family:var(--fm); font-size:11px; background:var(--g3); color:var(--g); padding:0 4px; }
 
-.lab-step {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  font-size: 13px;
-  color: var(--text-mid);
-  line-height: 1.5;
+.build-step  { display: flex; flex-direction: column; gap: 8px; margin: 13px 0; }
+.bs-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 10px 12px;
+  background: var(--surf); border: 1px solid var(--b0);
+  font-family: var(--fm);
+  font-size: 12px; color: var(--tx2); line-height: 1.65;
+  position: relative;
+  transition: border-color .15s;
+}
+.bs-item:hover { border-color: var(--b1); }
+.bs-item::before {
+  content:''; position:absolute;
+  bottom:-9px; right:16px;
+  width:1px; height:9px; background:var(--b1);
+}
+#root.en .bs-item::before { right:auto; left:16px; }
+.bs-item:last-child::before { display: none; }
+.bs-num {
+  font-family: var(--fm); font-size: 9px; font-weight: 600;
+  color: var(--g); background: var(--g3);
+  border: 1px solid rgba(0,255,136,.2);
+  padding: 2px 7px; min-width: 30px; text-align: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.bs-item strong { color: var(--tx); }
+.bs-item code {
+  font-family: var(--fm); font-size: 11px;
+  background: var(--g3); color: var(--g); padding: 0 4px;
 }
 
-.sn {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--blue);
-  background: rgba(88,166,255,.1);
-  border: 1px solid rgba(88,166,255,.2);
-  border-radius: 3px;
-  padding: 1px 6px;
-  min-width: 30px;
-  text-align: center;
-  margin-top: 2px;
-  flex-shrink: 0;
+.why-matters {
+  background: rgba(0,255,136,.03);
+  border: 1px solid rgba(0,255,136,.1);
+  padding: 11px 14px; margin: 13px 0;
+  font-family: var(--fm);
+  font-size: 12px; color: var(--tx2); line-height: 1.75;
+  display: flex; gap: 9px; align-items: flex-start;
 }
+.why-matters strong { color: var(--g); }
 
-/* ANSWER BUTTON */
-.ans-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 14px;
-  padding: 8px 16px;
-  background: transparent;
-  border: 1px solid rgba(88,166,255,.3);
-  color: var(--blue);
-  border-radius: 4px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 1px;
+.tip-box {
+  margin-top: 12px;
+  background: var(--bl2); border: 1px solid rgba(126,184,247,.12);
+  padding: 10px 13px;
+  font-family: var(--fm);
+  font-size: 12px; color: var(--tx2); line-height: 1.7;
+  display: flex; gap: 9px;
+}
+.tip-box strong { color: var(--bl); }
+
+.glossary { margin-top: 16px; border: 1px solid var(--b0); overflow: hidden; }
+.glossary-head {
+  background: var(--surf); padding: 8px 12px;
   cursor: pointer;
-  transition: all .2s;
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--fm); font-size: 8px;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--g2); user-select: none; opacity: .6;
+  transition: opacity .15s;
 }
-
-.ans-btn:hover { background: rgba(88,166,255,.08); }
-.ans-btn.open  { background: rgba(88,166,255,.08); border-color: var(--blue); }
-
-.ans-box {
-  display: none;
-  margin-top: 14px;
-  background: rgba(88,166,255,.03);
-  border: 1px solid rgba(88,166,255,.15);
-  border-radius: 8px;
-  padding: 18px;
-  animation: slideIn .2s ease;
+.glossary-head:hover { opacity: 1; }
+.glos-arr { transition: transform .28s; font-size: 10px; }
+.glossary.open .glos-arr { transform: rotate(90deg); }
+.glossary-body { display: none; padding: 11px; }
+.glossary.open .glossary-body { display: block; }
+.glos-item {
+  display: flex; gap: 10px; padding: 6px 0;
+  border-bottom: 1px solid var(--b0);
+  font-family: var(--fm); font-size: 11px; line-height: 1.6;
 }
+.glos-item:last-child { border-bottom: none; }
+.glos-term { font-family: var(--fm); color: var(--g); font-size: 10px; font-weight: 500; min-width: 130px; flex-shrink: 0; }
+.glos-def  { color: var(--tx2); }
 
-.ans-box.show { display: block; }
+/* ── LABS (MISSION) ──────────────────────────────────────────── */
+.labs-list { display: flex; flex-direction: column; gap: 18px; }
 
-@keyframes slideIn { from{opacity:0;transform:translateY(-5px)} to{opacity:1;transform:translateY(0)} }
-
-.ans-head {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.mission-card {
+  background: var(--card);
+  border: 1px solid var(--b0);
+  overflow: hidden;
+  position: relative;
+  transition: border-color .18s;
 }
-
-.ans-head::after { content:''; flex:1; height:1px; background: rgba(88,166,255,.2); }
-
-.ans-item {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 12px;
-  font-size: 13px;
-  color: var(--text-mid);
-  line-height: 1.6;
-  align-items: flex-start;
+.mission-card:hover { border-color: var(--b1); }
+/* Top accent line */
+.mission-card::before {
+  content:'';
+  position:absolute; top:0; left:10%; right:10%; height:1px;
+  background: linear-gradient(90deg, transparent, var(--g2), transparent);
+  opacity: 0; transition: opacity .3s;
 }
+.mission-card:hover::before { opacity: 1; }
 
-.ans-item:last-child { margin-bottom: 0; }
-
-.an {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--blue);
-  background: rgba(88,166,255,.1);
-  border: 1px solid rgba(88,166,255,.2);
-  border-radius: 3px;
-  padding: 1px 6px;
-  min-width: 30px;
-  text-align: center;
+.mission-hdr {
+  padding: 17px 20px;
+  display: flex; align-items: flex-start; gap: 14px;
+  border-bottom: 1px solid var(--b0);
+}
+.mission-icon {
+  font-size: 22px; width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--surf); border: 1px solid var(--b1);
   flex-shrink: 0;
-  margin-top: 2px;
+}
+.mission-info { flex: 1; min-width: 0; }
+.mission-title {
+  font-family: var(--fd);
+  font-size: 14px; font-weight: 700;
+  color: var(--tx); margin-bottom: 5px;
+}
+.mission-story {
+  font-family: var(--fm);
+  font-size: 11px; color: var(--tx2); line-height: 1.7; font-style: italic;
+}
+.mission-badge {
+  font-family: var(--fm); font-size: 10px;
+  padding: 3px 10px;
+  background: var(--surf); border: 1px solid var(--b1);
+  color: var(--tx3); white-space: nowrap; flex-shrink: 0;
+  transition: all .3s;
+}
+.mission-badge.mb-done {
+  background: var(--g3); border-color: rgba(0,255,136,.35);
+  color: var(--g); box-shadow: 0 0 12px rgba(0,255,136,.15);
 }
 
-.ans-note {
-  background: rgba(0,255,238,.04);
-  border-right: 3px solid var(--blue);
-  padding: 10px 13px;
-  border-radius: 5px;
-  font-size: 12px;
-  color: var(--text-mid);
-  line-height: 1.65;
-  margin-top: 10px;
+.mission-steps-wrap {
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--b0);
+  background: rgba(0,255,136,.01);
+}
+.mission-steps { display: flex; flex-direction: column; gap: 7px; }
+
+.ms-step {
+  display: flex; gap: 10px; align-items: center;
+  padding: 8px 11px;
+  background: var(--surf); border: 1px solid var(--b0);
+  transition: all .25s;
+}
+.ms-step.ms-done {
+  background: rgba(0,255,136,.04);
+  border-color: rgba(0,255,136,.2);
+}
+/* Square checkbox in monospace style */
+.ms-chk {
+  width: 16px; height: 16px; flex-shrink: 0;
+  border: 1px solid var(--b1);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--fm); font-size: 10px; font-weight: 700;
+  color: transparent; transition: all .25s;
+}
+.ms-step.ms-done .ms-chk {
+  background: var(--g); border-color: var(--g);
+  color: var(--bg); box-shadow: 0 0 8px rgba(0,255,136,.4);
+}
+.ms-step.ms-done .ms-chk::after { content: '✓'; }
+.ms-step-title {
+  font-family: var(--fm); font-size: 11px; font-weight: 400;
+  color: var(--tx3); transition: color .25s;
+}
+.ms-step.ms-done .ms-step-title { color: var(--g); }
+
+.mission-emu    { padding: 16px 20px; border-bottom: 1px solid var(--b0); }
+.mission-success {
+  padding: 14px 20px;
+  display: flex; gap: 12px; align-items: flex-start;
+  background: linear-gradient(135deg, rgba(0,255,136,.06), transparent);
+  animation: slide-in .4s ease;
+}
+@keyframes slide-in { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:none} }
+.ms-icon { font-size: 18px; flex-shrink: 0; }
+.ms-msg  {
+  font-family: var(--fm);
+  font-size: 11px; color: var(--g); line-height: 1.7;
 }
 
-.ans-warn {
-  background: rgba(255,68,68,.05);
-  border: 1px solid rgba(255,68,68,.2);
-  padding: 10px 13px;
-  border-radius: 5px;
-  font-size: 12px;
-  color: #ff8888;
-  line-height: 1.65;
-  margin-top: 10px;
+/* Lab goal + steps + answer box (compat) */
+.lab-goal {
+  font-family: var(--fm);
+  font-size: 12.5px; color: var(--tx2);
+  border-right: 2px solid var(--g2);
+  padding-right: 12px; margin-bottom: 14px; line-height: 1.7;
+}
+#root.en .lab-goal { border-right:none; border-left:2px solid var(--g2); padding-right:0; padding-left:12px; }
+.lab-steps  { display:flex; flex-direction:column; gap:7px; margin-bottom:12px; }
+.lab-step   { display:flex; gap:9px; font-family:var(--fm); font-size:12px; color:var(--tx2); line-height:1.6; align-items:flex-start; }
+.sn         { font-family:var(--fm); font-size:9px; color:var(--g); background:var(--g3); border:1px solid rgba(0,255,136,.2); padding:1px 5px; min-width:24px; text-align:center; flex-shrink:0; margin-top:2px; }
+.ans-btn    { display:inline-flex; align-items:center; gap:7px; margin-top:10px; padding:6px 13px; background:transparent; border:1px solid var(--b1); color:var(--tx3); font-family:var(--fm); font-size:9px; letter-spacing:1.5px; cursor:pointer; transition:all .18s; }
+.ans-btn:hover { border-color:var(--g); color:var(--g); }
+.ans-btn.open  { background:var(--g3); border-color:var(--g2); color:var(--g); }
+.ans-box    { display:none; margin-top:10px; background:rgba(0,255,136,.03); border:1px solid rgba(0,255,136,.12); padding:14px; animation:slide-in .2s ease; }
+.ans-box.show  { display:block; }
+.ans-head   { font-family:var(--fm); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--g2); margin-bottom:9px; display:flex; align-items:center; gap:8px; opacity:.6; }
+.ans-head::after { content:''; flex:1; height:1px; background:rgba(0,255,136,.12); }
+.ans-item   { display:flex; gap:9px; margin-bottom:8px; font-family:var(--fm); font-size:12px; color:var(--tx2); line-height:1.65; align-items:flex-start; }
+.an         { font-family:var(--fm); font-size:9px; color:var(--g); background:var(--g3); border:1px solid rgba(0,255,136,.2); padding:1px 5px; min-width:24px; text-align:center; flex-shrink:0; margin-top:2px; }
+.ans-note   { background:rgba(77,232,232,.05); border-right:2px solid var(--cy); padding:8px 12px; font-family:var(--fm); font-size:11px; color:var(--tx2); line-height:1.7; margin-top:8px; }
+#root.en .ans-note { border-right:none; border-left:2px solid var(--cy); }
+
+/* ── EMULATORS ───────────────────────────────────────────────── */
+.emu-wrap  {
+  border: 1px solid var(--b1);
+  overflow: hidden; background: var(--bg2);
+}
+.emu-bar  {
+  background: var(--surf); border-bottom: 1px solid var(--b0);
+  padding: 7px 11px;
+  display: flex; align-items: center; gap: 7px;
+}
+.emu-dots  { display:flex; gap:4px; }
+.ed        { width:9px; height:9px; border-radius:50%; }
+.ed-r{background:#ff5f57;}.ed-y{background:#febc2e;}.ed-g{background:#28c840;}
+.emu-ttl   { font-family:var(--fm); font-size:10px; color:var(--tx3); margin-right:auto; }
+#root.en .emu-ttl { margin-right:0; margin-left:auto; }
+.emu-run-btn {
+  font-family:var(--fm); font-size:9px; font-weight:600;
+  padding:4px 12px; background:var(--g); color:var(--bg);
+  border:none; cursor:pointer; letter-spacing:1px;
+  transition:all .15s;
+}
+.emu-run-btn:hover { box-shadow:0 0 14px rgba(0,255,136,.35); }
+.emu-run-btn.running { background:var(--am); color:var(--bg); }
+.emu-clr-btn {
+  font-family:var(--fm); font-size:9px;
+  padding:4px 9px; background:transparent;
+  color:var(--tx3); border:1px solid var(--b1); cursor:pointer; transition:all .15s;
+}
+.emu-clr-btn:hover { border-color:var(--g); color:var(--g); }
+.emu-iw   { padding:9px 11px; border-bottom:1px solid var(--b0); }
+.emu-lbl  { font-family:var(--fm); font-size:8px; color:var(--tx3); letter-spacing:2px; text-transform:uppercase; margin-bottom:5px; }
+.emu-sel  { width:100%; background:var(--surf); border:1px solid var(--b1); color:var(--tx); padding:5px 9px; font-family:var(--fm); font-size:11px; outline:none; margin-bottom:5px; }
+.emu-sel:focus { border-color:var(--g); }
+.emu-inp  { background:var(--surf); border:1px solid var(--b1); color:var(--tx); padding:5px 9px; font-family:var(--fm); font-size:11px; outline:none; width:100%; }
+.emu-inp:focus { border-color:var(--g); }
+.emu-ta   { width:100%; background:var(--surf); border:1px solid var(--b1); color:var(--tx); padding:7px 9px; font-family:var(--fm); font-size:11px; outline:none; resize:vertical; min-height:50px; line-height:1.6; }
+.emu-ta:focus { border-color:var(--g); }
+.emu-row  { display:flex; gap:5px; flex-wrap:wrap; }
+.emu-out, .lx-out {
+  min-height:110px; max-height:250px; overflow-y:auto;
+  padding:10px 12px;
+  font-family:var(--fm); font-size:11px; line-height:1.9; color:var(--tx2);
+}
+.emu-out .ok,.lx-out .t-ok,.lx-out .t-prompt { color:var(--g); }
+.emu-out .err,.lx-out .t-err { color:var(--re); }
+.emu-out .key,.lx-out .t-key { color:var(--bl); }
+.emu-out .val,.lx-out .t-val { color:var(--am); }
+.emu-out .dim,.lx-out .t-dim { color:var(--tx3); }
+.emu-out .hi, .lx-out .t-hi  { color:var(--cy); }
+.emu-out .warn { color:var(--am); }
+.lx-out .t-path  { color:var(--g2); }
+.lx-out .t-dir   { color:var(--bl); }
+.lx-out .t-file  { color:var(--tx); }
+.lx-out .t-exec  { color:var(--cy); }
+.lx-out .t-h     { color:var(--am); }
+.lx-out .t-s     { color:var(--g); }
+.lx-out .t-cmd   { color:var(--g); font-weight:600; }
+/* quick-cmd buttons */
+.lx-qbtns { display:flex; flex-wrap:wrap; gap:5px; padding:9px 11px; border-top:1px solid var(--b0); }
+.lx-qbtn  {
+  font-family:var(--fm); font-size:10px;
+  padding:4px 10px; background:var(--surf);
+  border:1px solid var(--b1); color:var(--tx3);
+  cursor:pointer; transition:all .15s;
+}
+.lx-qbtn:hover { border-color:var(--g); color:var(--g); background:var(--g3); }
+.lx-inp-area {
+  display:flex; align-items:center; gap:7px;
+  padding:7px 11px; border-top:1px solid var(--b0);
+  background:var(--surf);
+}
+.lx-prompt { font-family:var(--fm); font-size:11px; color:var(--g); flex-shrink:0; }
+.lx-inp    { flex:1; background:transparent; border:none; font-family:var(--fm); font-size:11px; color:var(--g); outline:none; caret-color:var(--g); }
+.lx-go     { font-family:var(--fm); font-size:9px; font-weight:600; padding:4px 11px; background:var(--g); color:var(--bg); border:none; cursor:pointer; transition:box-shadow .15s; }
+.lx-go:hover { box-shadow:0 0 12px rgba(0,255,136,.35); }
+
+/* game-terminal (original terminal sim) */
+.game-terminal {
+  border: 1px solid var(--b1); overflow:hidden;
+  position:relative;
+}
+.game-terminal::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--g),transparent); opacity:.25;
+}
+.gt-bar {
+  background:var(--card2); border-bottom:1px solid var(--b0);
+  padding:7px 13px; display:flex; align-items:center; gap:9px;
+}
+.gt-dots { display:flex; gap:4px; }
+.gt-dot  { width:9px; height:9px; border-radius:50%; }
+.gd-r{background:#ff5f57;}.gd-y{background:#febc2e;}.gd-g{background:#28c840;}
+.gt-title { font-family:var(--fm); font-size:10px; color:var(--tx3); flex:1; letter-spacing:.5px; }
+.gt-score-display { font-family:var(--fm); font-size:10px; display:flex; gap:12px; color:var(--tx3); }
+.gt-screen {
+  min-height:200px; max-height:300px; overflow-y:auto;
+  padding:12px 15px; font-family:var(--fm); font-size:12px; line-height:1.85; color:var(--tx2);
+}
+.gt-input-area {
+  display:flex; align-items:center; gap:8px;
+  padding:7px 11px; border-top:1px solid var(--b0); background:var(--surf);
+}
+.gt-input-prompt { font-family:var(--fm); font-size:11px; color:var(--tx2); flex-shrink:0; }
+.gt-user  { color:var(--g2); }
+.gt-at    { color:var(--tx3); }
+.gt-host  { color:var(--bl); }
+.gt-path  { color:var(--cy); }
+.gt-dollar{ color:var(--tx2); }
+.gt-input {
+  flex:1; background:transparent; border:none;
+  font-family:var(--fm); font-size:12px; color:var(--g);
+  outline:none; caret-color:var(--g);
+}
+.gt-enter-btn {
+  font-family:var(--fm); font-size:10px; font-weight:600;
+  padding:4px 11px; background:var(--g); color:var(--bg);
+  border:none; cursor:pointer; transition:box-shadow .15s;
+}
+.gt-enter-btn:hover { box-shadow:0 0 12px rgba(0,255,136,.35); }
+.game-tip {
+  margin-top:12px;
+  background:rgba(0,255,136,.03); border:1px solid rgba(0,255,136,.1);
+  padding:10px 14px;
+  font-family:var(--fm); font-size:11px; color:var(--tx3); line-height:1.7;
 }
 
-/* ═══════════════════════════════════════
-   QUIZ
-═══════════════════════════════════════ */
+/* ── QUIZ ────────────────────────────────────────────────────── */
 .quiz-header {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 28px;
-  text-align: center;
-  margin-bottom: 24px;
+  background:var(--card); border:1px solid var(--b0);
+  padding:24px; margin-bottom:20px; text-align:center;
+  position:relative; overflow:hidden;
 }
-
-.quiz-header h2 {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--green);
-  text-shadow: none;
-  margin-bottom: 8px;
+.quiz-header::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--g),transparent); opacity:.3;
 }
+.quiz-header h2 { font-family:var(--fd); font-size:22px; font-weight:700; color:var(--tx); margin-bottom:5px; }
+.quiz-header p  { font-family:var(--fm); font-size:11px; color:var(--tx3); }
+.q-prog-bg { background:var(--b0); height:2px; margin:13px 0 0; overflow:hidden; }
+.q-prog    { height:100%; background:linear-gradient(90deg,var(--g),var(--cy)); transition:width .4s; }
+.q-p, .q-prog-lbl { font-family:var(--fm); font-size:9px; color:var(--tx3); text-align:left; margin-top:4px; letter-spacing:1px; }
 
-.quiz-header p { font-size: 13px; color: var(--text-dim); }
-
-.q-prog-bg { background: rgba(255,255,255,.05); border-radius:20px; height:3px; margin:16px 0 0; overflow:hidden; }
-.q-prog { height:100%; border-radius:20px; background: var(--blue); transition:width .4s; }
-.q-prog-lbl { font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--text-dim); text-align:left; margin-top:5px; letter-spacing:1px; }
-
-.q-list { display: flex; flex-direction: column; gap: 12px; }
-
-.q-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 20px;
-  transition: border-color .3s;
+.q-list { display:flex; flex-direction:column; gap:9px; }
+.q-card { background:var(--card); border:1px solid var(--b0); padding:17px; transition:border-color .25s; }
+.q-card.c-ok   { border-color:var(--g);  background:rgba(0,255,136,.02); }
+.q-card.c-fail { border-color:var(--re); background:rgba(255,77,106,.02); }
+.q-top  { display:flex; justify-content:space-between; align-items:center; margin-bottom:9px; }
+.q-idx  { font-family:var(--fm); font-size:9px; color:var(--g2); letter-spacing:2px; opacity:.6; }
+.q-tag  { font-family:var(--fm); font-size:9px; color:var(--tx3); border:1px solid var(--b0); padding:1px 6px; }
+.q-text { font-family:var(--fd); font-size:14px; font-weight:600; color:var(--tx); margin-bottom:12px; line-height:1.45; }
+.q-opts { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+.q-opt  {
+  padding:9px 12px;
+  border:1px solid var(--b1); background:var(--surf);
+  cursor:pointer; font-family:var(--fm); font-size:11px;
+  color:var(--tx2); text-align:right; transition:all .12s; line-height:1.4;
 }
-
-.q-card.c-ok   { border-color: var(--green); background: rgba(63,185,80,.04); }
-.q-card.c-fail { border-color: var(--red);   background: rgba(255,68,68,.03); }
-
-.q-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.q-idx { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--green); letter-spacing:2px; }
-.q-tag { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dim); border:1px solid var(--border); padding:1px 6px; border-radius:3px; }
-.q-text { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 14px; line-height: 1.5; }
-
-.q-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
-@media(max-width:500px){ .q-opts { grid-template-columns: 1fr; } }
-
-.q-opt {
-  padding: 10px 13px;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  background: var(--surface);
-  cursor: pointer;
-  font-size: 12px;
-  color: var(--text-mid);
-  text-align: right;
-  transition: all .15s;
-  line-height: 1.45;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.q-opt:hover:not(.locked) { border-color: var(--blue); color: var(--blue); background: rgba(88,166,255,.06); }
-.q-opt.hit  { border-color: var(--green)!important; background: rgba(63,185,80,.1)!important; color: var(--green)!important; font-weight: 700; }
-.q-opt.miss { border-color: var(--red)!important; background: rgba(255,68,68,.1)!important; color: var(--red)!important; }
-.q-opt.locked { cursor: default; }
-
+#root.en .q-opt { text-align:left; }
+.q-opt:hover:not(.locked) { border-color:var(--g); color:var(--g); background:var(--g3); }
+.q-opt.hit  { border-color:var(--g)!important;  background:rgba(0,255,136,.1)!important; color:var(--g)!important;  font-weight:600; }
+.q-opt.miss { border-color:var(--re)!important; background:rgba(255,77,106,.08)!important; color:var(--re)!important; }
+.q-opt.locked { cursor:default; }
 .q-exp {
-  margin-top: 10px;
-  padding: 10px 13px;
-  background: rgba(88,166,255,.04);
-  border-right: 3px solid var(--blue);
-  border-radius: 5px;
-  font-size: 12px;
-  color: var(--text-mid);
-  line-height: 1.65;
-  display: none;
+  margin-top:9px; padding:8px 12px;
+  background:rgba(0,255,136,.04); border-right:2px solid var(--g2);
+  font-family:var(--fm); font-size:11px; color:var(--tx2); line-height:1.75; display:none;
 }
-
-.q-exp.show { display: block; animation: slideIn .2s ease; }
+#root.en .q-exp { border-right:none; border-left:2px solid var(--g2); }
+.q-exp.show { display:block; animation:slide-in .2s ease; }
 
 .score-box {
-  background: var(--card);
-  border: 1px solid var(--border2);
-  border-radius: 10px;
-  padding: 44px 28px;
-  text-align: center;
-  margin-top: 24px;
-  display: none;
+  background:var(--card); border:1px solid var(--b1);
+  padding:44px 28px; text-align:center; margin-top:20px; display:none;
+  position:relative; overflow:hidden;
+}
+.score-box::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--g),transparent);
+}
+.score-box.show { display:block; animation:slide-in .4s ease; }
+.score-big  { font-family:var(--fm); font-size:70px; font-weight:700; color:var(--g); line-height:1; text-shadow:var(--gs); }
+.score-of   { font-size:28px; color:var(--tx3); }
+.score-pct  { font-family:var(--fm); font-size:13px; color:var(--tx3); margin-top:4px; }
+.score-msg  { font-family:var(--fd); font-size:17px; font-weight:700; color:var(--tx); margin-top:10px; }
+.score-sub  { font-family:var(--fm); font-size:11px; color:var(--tx3); margin-top:4px; }
+.score-acts { display:flex; justify-content:center; gap:10px; margin-top:20px; flex-wrap:wrap; }
+
+.btn-green {
+  font-family:var(--fm); font-size:11px; font-weight:600;
+  padding:9px 20px; background:var(--g); color:var(--bg);
+  border:none; cursor:pointer; letter-spacing:1px; transition:all .18s;
+}
+.btn-green:hover { box-shadow:0 4px 20px rgba(0,255,136,.35); }
+.btn-ghost {
+  font-family:var(--fm); font-size:11px;
+  padding:9px 20px; background:transparent; color:var(--tx2);
+  border:1px solid var(--b1); cursor:pointer; letter-spacing:.5px; transition:all .18s;
+}
+.btn-ghost:hover { border-color:var(--g); color:var(--g); }
+.btn, .btn-action { font-family:var(--fm); font-size:11px; padding:8px 18px; cursor:pointer; transition:all .18s; }
+.btn-action { background:var(--g); color:var(--bg); border:none; font-weight:600; }
+.btn-action:hover { box-shadow:0 0 16px rgba(0,255,136,.3); }
+
+/* ── DEBUG GAME ──────────────────────────────────────────────── */
+.dbg-shell {
+  background:var(--card); border:1px solid var(--b1);
+  position:relative; overflow:hidden;
+}
+.dbg-shell::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--g),transparent); opacity:.35;
+}
+.dbg-topbar {
+  background:var(--card2); border-bottom:1px solid var(--b0);
+  padding:9px 17px; display:flex; justify-content:space-between; align-items:center;
+}
+.dbg-topbar-left  { display:flex; align-items:center; gap:12px; }
+.dbg-prog-lbl     { font-family:var(--fm); font-size:9px; color:var(--tx3); letter-spacing:2px; }
+.dbg-ch-title     { font-family:var(--fd); font-size:13px; font-weight:700; color:var(--tx); }
+.dbg-stats        { display:flex; gap:16px; }
+.dbg-stat         { display:flex; flex-direction:column; align-items:center; gap:1px; }
+.dbg-stat-lbl     { font-family:var(--fm); font-size:7px; letter-spacing:2px; text-transform:uppercase; color:var(--tx3); }
+.dbg-stat-val     { font-family:var(--fm); font-size:13px; font-weight:700; color:var(--tx); }
+.dbg-prog-bar     { height:2px; background:var(--b0); }
+.dbg-prog-fill    { height:100%; background:linear-gradient(90deg,var(--g),var(--cy)); transition:width .5s; }
+.dbg-body         { padding:20px 22px; }
+.dbg-scenario     {
+  font-family:var(--fm);
+  font-size:12px; color:var(--tx2); line-height:1.8;
+  margin-bottom:14px; padding:10px 13px;
+  background:rgba(0,255,136,.03);
+  border-right:2px solid var(--g2);
+}
+#root.en .dbg-scenario { border-right:none; border-left:2px solid var(--g2); }
+.dbg-request-wrap { border:1px solid var(--b1); overflow:hidden; margin-bottom:15px; background:var(--bg2); }
+.dbg-req-label    {
+  padding:5px 11px; background:var(--surf); border-bottom:1px solid var(--b0);
+  font-family:var(--fm); font-size:8px; letter-spacing:2.5px; text-transform:uppercase; color:var(--tx3);
+  display:flex; align-items:center; gap:7px;
+}
+.dbg-req-dot      { width:5px; height:5px; border-radius:50%; background:var(--g); }
+.dbg-request      { font-family:var(--fm); font-size:11px; line-height:1.75; padding:11px 12px; color:var(--tx2); white-space:pre-wrap; margin:0; }
+.dbg-question     { font-family:var(--fd); font-size:14px; font-weight:700; color:var(--tx); margin-bottom:12px; line-height:1.4; }
+.dbg-opts         { display:grid; grid-template-columns:1fr 1fr; gap:7px; margin-bottom:12px; }
+@media(max-width:500px){.dbg-opts{grid-template-columns:1fr;}.q-opts{grid-template-columns:1fr;}}
+.dbg-opt {
+  padding:10px 12px; background:var(--surf); border:1px solid var(--b1);
+  font-family:var(--fm); font-size:11px; color:var(--tx2); text-align:right;
+  cursor:pointer; transition:all .12s; line-height:1.4;
+}
+#root.en .dbg-opt { text-align:left; }
+.dbg-opt:hover:not(:disabled) { border-color:var(--g); color:var(--g); background:var(--g3); }
+.dbg-opt:disabled { cursor:default; }
+.dbg-correct { border-color:var(--g)!important;  background:rgba(0,255,136,.1)!important;  color:var(--g)!important;  font-weight:600; }
+.dbg-wrong   { border-color:var(--re)!important; background:rgba(255,77,106,.08)!important; color:var(--re)!important; }
+.dbg-feedback { font-family:var(--fm); font-size:12px; font-weight:700; min-height:20px; margin-bottom:8px; }
+.dbg-ok  { color:var(--g);  }
+.dbg-err { color:var(--re); }
+.dbg-explain {
+  background:rgba(0,255,136,.04); border:1px solid rgba(0,255,136,.12);
+  padding:10px 13px;
+  font-family:var(--fm); font-size:11px; color:var(--tx2); line-height:1.8;
+  animation:slide-in .25s ease;
+}
+.game-over       { display:none; text-align:center; padding:38px 20px; }
+.game-over.show  { display:block; }
+.go-emoji        { font-size:48px; margin-bottom:12px; }
+.go-title        { font-family:var(--fd); font-size:24px; font-weight:700; color:var(--tx); margin-bottom:6px; }
+.go-score        { font-family:var(--fm); font-size:13px; color:var(--g); margin-bottom:6px; }
+.go-msg          { font-family:var(--fm); font-size:12px; color:var(--tx2); margin-bottom:20px; }
+
+/* ── FOOTER ──────────────────────────────────────────────────── */
+.site-footer {
+  text-align:center; padding:22px;
+  border-top:1px solid var(--b0);
+  position:relative;
+}
+.site-footer::before {
+  content:'';
+  position:absolute; top:0; left:30%; right:30%; height:1px;
+  background:linear-gradient(90deg,transparent,var(--g2),transparent); opacity:.3;
+}
+.site-footer p { font-family:var(--fm); font-size:9px; color:var(--tx3); letter-spacing:3px; text-transform:uppercase; }
+
+/* ── SCROLLBAR ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width:3px; height:3px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--b1); }
+::-webkit-scrollbar-thumb:hover { background:var(--g2); }
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media(max-width:768px){
+  .container{padding:0 14px;}
+  .nav,.tmux-bar{padding:0 14px;}
+  .nav-clock,.tmux-right{display:none;}
+  .hero{padding:48px 0 36px;}
+  .hero::before{font-size:80px;right:-20px;}
+  .hero h1{font-size:clamp(52px,14vw,80px);}
+  .stats-row{width:100%;}
+  .stat{flex:1;}
+}
+@media(max-width:480px){
+  .nav-tab,.tmux-tab{font-size:9px;padding:0 10px;}
+  .ch-desc,.ch-time{display:none;}
+  .hero h1{letter-spacing:-2px;}
+}
+
+
+/* ══ PRO TIPS ═══════════════════════════════════════════════════════════ */
+.pro-tips {
+  margin-top: 18px;
+  border: 1px solid rgba(0,255,136,.18);
+  background: linear-gradient(135deg, rgba(0,255,136,.04) 0%, rgba(0,204,106,.02) 100%);
   position: relative;
   overflow: hidden;
 }
-
-.score-box::before {
+/* Subtle corner accent */
+.pro-tips::after {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  top: 0; right: 0;
+  width: 60px; height: 60px;
+  background: linear-gradient(225deg, rgba(0,255,136,.08) 0%, transparent 60%);
+  pointer-events: none;
 }
-
-.score-box.show { display: block; animation: slideIn .4s ease; }
-
-.score-big {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 80px;
-  font-weight: 800;
-  color: var(--blue);
-  line-height: 1;
-  text-shadow: none;
-  letter-spacing: -3px;
-}
-
-.score-pct { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--text-dim); margin-top:6px; }
-.score-msg { font-family:'Crimson Pro',serif; font-size:20px; font-style:italic; color:var(--text); margin-top:12px; }
-.score-sub { font-size:12px; color:var(--text-dim); margin-top:6px; font-family:'JetBrains Mono',monospace; }
-
-.score-acts { display:flex; justify-content:center; gap:12px; margin-top:24px; flex-wrap:wrap; }
-
-.btn {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  padding: 11px 22px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  display: inline-block;
-  transition: all .2s;
-  letter-spacing: .5px;
-  border: 1px solid;
-  min-height: 42px;
-}
-
-.btn-green { background: var(--blue); color: #0d1117; border-color: var(--blue); font-weight:700; }
-.btn-green:hover { box-shadow: 0 4px 16px rgba(88,166,255,.3); }
-.btn-ghost { background: transparent; color: var(--text-dim); border-color: var(--border2); }
-.btn-ghost:hover { border-color: var(--green); color: var(--green); }
-
-/* ═══════════════════════════════════════
-   GAME — Terminal Simulator
-═══════════════════════════════════════ */
-.game-terminal {
-  background: #020402;
-  border: 1px solid var(--border2);
-  border-radius: 10px;
-  overflow: hidden;
-  font-family: 'JetBrains Mono', monospace;
-  box-shadow: 0 4px 24px rgba(0,0,0,.4);
-}
-
-.gt-bar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 8px 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.gt-dots { display:flex; gap:5px; }
-.gt-dot { width:10px; height:10px; border-radius:50%; }
-.gd-r { background:#ff5f57; } .gd-y { background:#febc2e; } .gd-g { background:#28c840; }
-
-.gt-title {
-  margin-right: auto;
-  font-size: 10px;
-  color: var(--text-dim);
-  letter-spacing: 1px;
-}
-
-.gt-score-display {
-  font-size: 11px;
-  color: var(--amber);
-  display: flex;
-  gap: 14px;
-}
-
-.gt-screen {
-  min-height: 220px;
-  max-height: 320px;
-  overflow-y: auto;
-  padding: 16px;
-  line-height: 1.7;
-  font-size: 12px;
-  scroll-behavior: smooth;
-}
-
-.gt-line { margin-bottom: 2px; }
-.gt-prompt-line { display: flex; gap: 6px; margin-top: 8px; margin-bottom: 2px; }
-.gt-user { color: var(--blue); }
-.gt-at   { color: var(--text-dim); }
-.gt-host { color: var(--cyan); }
-.gt-path { color: var(--blue); }
-.gt-dollar { color: var(--text); }
-.gt-typed { color: #e2e2e2; }
-.gt-out  { color: var(--text-mid); }
-.gt-ok   { color: var(--green); }
-.gt-err  { color: var(--red); }
-.gt-hint { color: var(--amber); opacity: .8; font-style: italic; }
-.gt-sys  { color: var(--cyan); }
-
-.gt-input-area {
-  border-top: 1px solid var(--border);
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: #010301;
-}
-
-.gt-input-prompt { font-size: 12px; white-space: nowrap; }
-
-.gt-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #e2e2e2;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  caret-color: var(--green);
-  direction: ltr;
-}
-
-.gt-enter-btn {
-  background: rgba(88,166,255,.1);
-  border: 1px solid rgba(88,166,255,.25);
-  color: var(--blue);
-  border-radius: 4px;
-  padding: 4px 10px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  cursor: pointer;
-  transition: all .15s;
-}
-
-.gt-enter-btn:hover { background: rgba(88,166,255,.2); }
-
-.gt-bottom {
-  padding: 14px 16px;
-  border-top: 1px solid var(--border);
-  background: var(--surface);
-}
-
-.gt-mission {
-  font-size: 12px;
-  color: var(--text-mid);
-  margin-bottom: 8px;
-  line-height: 1.5;
-}
-
-.gt-mission strong { color: var(--amber); font-family: 'JetBrains Mono', monospace; }
-
-.gt-progress-row {
+.pt-header {
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(0,255,136,.12);
+  background: rgba(0,255,136,.04);
+  font-family: var(--fm);
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--g);
+  opacity: .8;
+}
+.pt-icon { font-size: 13px; }
+
+.pt-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.pt-item {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid rgba(0,255,136,.07);
+  transition: background .15s;
+}
+.pt-item:last-child { border-bottom: none; }
+.pt-item:hover { background: rgba(0,255,136,.03); }
+
+.pt-key {
+  font-family: var(--fm);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--g);
+  padding: 10px 14px;
+  min-width: 220px;
+  flex-shrink: 0;
+  border-left: 2px solid transparent;
+  transition: border-color .15s;
+  line-height: 1.5;
+}
+.pt-item:hover .pt-key {
+  border-left-color: var(--g);
+}
+#root.en .pt-key {
+  border-left: none;
+  border-right: 2px solid transparent;
+}
+#root.en .pt-item:hover .pt-key {
+  border-right-color: var(--g);
 }
 
-.gt-prog-bg { flex: 1; background: rgba(255,255,255,.06); border-radius:20px; height:4px; overflow:hidden; }
-.gt-prog-fill { height:100%; border-radius:20px; background: var(--blue); transition: width .5s; }
-.gt-prog-lbl { font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--text-dim); letter-spacing:1px; }
-
-.gt-end {
-  text-align: center;
-  padding: 32px 20px;
-  display: none;
+.pt-val {
+  font-family: var(--fm);
+  font-size: 11.5px;
+  color: var(--tx2);
+  padding: 10px 14px;
+  line-height: 1.75;
+  flex: 1;
+  border-right: 1px solid rgba(0,255,136,.07);
+}
+#root.en .pt-val {
+  border-right: none;
+  border-left: 1px solid rgba(0,255,136,.07);
 }
 
-.gt-end.show { display: block; }
-.gt-end-icon { font-size: 52px; margin-bottom: 12px; }
-.gt-end-title { font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:800; color:var(--green); margin-bottom:8px; text-shadow:none; }
-.gt-end-score { font-family:'JetBrains Mono',monospace; font-size:14px; color:var(--amber); margin-bottom:8px; }
-.gt-end-msg { font-family:'Crimson Pro',serif; font-size:15px; color:var(--text-mid); font-style:italic; margin-bottom:20px; }
-
-.game-tip {
-  background: rgba(88,166,255,.04);
-  border: 1px solid rgba(88,166,255,.15);
-  border-radius: 6px;
-  padding: 12px 16px;
-  font-size: 12px;
-  color: var(--text-mid);
-  line-height: 1.6;
-  margin-top: 16px;
-  font-family: 'JetBrains Mono', monospace;
+.pt-val code {
+  font-family: var(--fm);
+  font-size: 10.5px;
+  background: rgba(0,255,136,.1);
+  color: var(--g);
+  padding: 0 4px;
+  border: 1px solid rgba(0,255,136,.15);
 }
+.pt-val strong { color: var(--tx); }
 
-/* ═══════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════ */
-.site-footer {
-  text-align: center;
-  padding: 28px;
-  border-top: 1px solid var(--border);
-  margin-top: 0;
-  position: relative;
-  z-index: 1;
+@media(max-width:600px) {
+  .pt-item    { flex-direction: column; }
+  .pt-key     { min-width: 0; border-left: 2px solid var(--g3); border-bottom: 1px solid rgba(0,255,136,.08); padding-bottom: 4px; }
+  #root.en .pt-key { border-left: none; border-right: none; border-left: 2px solid var(--g3); }
+  .pt-val     { padding-top: 6px; border-right: none; border-left: 2px solid rgba(0,255,136,.07); }
 }
+/* ══ END PRO TIPS ════════════════════════════════════════════════════════ */
 
-.site-footer p {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text-dim);
-  letter-spacing: 2px;
+/* ══ CHALLENGE BUTTONS ══════════════════════════════════════════════════ */
+.lx-challenge-btns {
+  background: rgba(0,255,136,.02);
+  border-top: 1px solid rgba(0,255,136,.1) !important;
+  padding: 10px 11px !important;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
 }
-
-/* ═══════════════════════════════════════
-   SCROLLBAR
-═══════════════════════════════════════ */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
-::-webkit-scrollbar-thumb:hover { background: var(--blue); }
-
-/* ═══════════════════════════════════════
-   MOBILE
-═══════════════════════════════════════ */
-@media(max-width:768px){
-  .container { padding: 0 16px; }
-  .tmux-bar { height: 26px; overflow-x: auto; }
-  .tmux-left { padding: 0 10px; font-size: 11px; }
-  .tmux-tab { padding: 0 12px; font-size: 10px; }
-  .tmux-right { display: none; }
-  .hero { padding: 36px 0 28px; }
-  .hero h1 { font-size: clamp(38px, 10vw, 64px); }
-  .hero-sub { font-size: 17px; }
-  .uptime-row { width: 100%; }
-  .ut-item { flex: 1; padding: 10px 12px; }
-  .ut-val { font-size: 22px; }
-  .ch-trigger { padding: 13px 14px; gap: 12px; }
-  .ch-name { font-size: 13px; }
-  .ch-time { display: none; }
-  .ch-inner { padding: 18px 14px; }
-  .gt-screen { max-height: 250px; font-size: 11px; }
+.lx-challenge-label {
+  font-family: var(--fm);
+  font-size: 9px;
+  color: var(--g2);
+  letter-spacing: 1.5px;
+  width: 100%;
+  margin-bottom: 2px;
+  opacity: .7;
 }
-
-@media(max-width:480px){
-  .container { padding: 0 12px; }
-  .tmux-bar { font-size: 10px; }
-  .tmux-left { font-size: 10px; gap: 5px; }
-  .tmux-tab { font-size: 9px; padding: 0 10px; }
-  .hero { padding: 26px 0 20px; }
-  .hero h1 { font-size: clamp(34px, 12vw, 56px); letter-spacing: -1px; }
-  .hero-sub { font-size: 15px; margin-bottom: 20px; }
-  .hero-prompt { font-size: 11px; flex-wrap: wrap; }
-  .uptime-row { display: grid; grid-template-columns: 1fr 1fr; border-radius: 6px; width: 100%; }
-  .ut-item { border-left: none; border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); }
-  .ut-item:nth-child(odd) { border-left: none; }
-  .ut-val { font-size: 20px; }
-  .ut-key { font-size: 8px; }
-  .section-inner { padding: 24px 0 40px; }
-  .ch-trigger { padding: 12px 12px; gap: 10px; }
-  .ch-icon-box { width: 32px; height: 32px; font-size: 15px; flex-shrink: 0; }
-  .ch-name { font-size: 13px; line-height: 1.2; }
-  .ch-desc { font-size: 11px; }
-  .ch-meta { gap: 6px; }
-  .ch-inner { padding: 14px 12px; }
-  .man-label { font-size: 8px; }
-  .li { font-size: 12px; }
-  .term { font-size: 10.5px; }
-  .story { padding: 12px 14px; }
-  .story-text { font-size: 13px; }
-  .pro-tip { font-size: 12px; }
-  .lab-head { padding: 12px 13px; gap: 10px; }
-  .lab-icon { font-size: 18px; }
-  .lab-name { font-size: 13px; }
-  .lab-sub { font-size: 11px; }
-  .lab-body { padding: 14px 13px; }
-  .lab-goal { font-size: 13px; }
-  .lab-step { font-size: 12px; }
-  .ans-item { font-size: 12px; }
-  .quiz-header h2 { font-size: 22px; }
-  .q-card { padding: 14px 12px; }
-  .q-text { font-size: 14px; margin-bottom: 12px; }
-  .q-opts { grid-template-columns: 1fr; gap: 6px; }
-  .q-opt { font-size: 11px; padding: 10px 12px; min-height: 44px; display: flex; align-items: center; }
-  .q-exp { font-size: 11px; }
-  .score-big { font-size: 60px; }
-  .score-msg { font-size: 17px; }
-  .score-acts { flex-direction: column; gap: 8px; }
-  .btn { text-align: center; width: 100%; min-height: 44px; }
-  .gt-screen { min-height: 180px; max-height: 220px; font-size: 11px; padding: 12px; }
-  .gt-input-area { padding: 8px 12px; }
-  .gt-input { font-size: 11px; }
-  .gt-bottom { padding: 12px 13px; }
-  .gt-mission { font-size: 11px; }
-  .gt-end-title { font-size: 18px; }
-  .site-footer { padding: 18px 12px; }
+.lx-qbtn-chal {
+  background: rgba(0,255,136,.06) !important;
+  border-color: rgba(0,255,136,.2) !important;
+  color: var(--g) !important;
 }
-
-@supports (padding: max(0px)) {
-  .tmux-bar {
-    padding-left: max(0px, env(safe-area-inset-left));
-    padding-right: max(0px, env(safe-area-inset-right));
-  }
-  .container {
-    padding-left: max(12px, env(safe-area-inset-left));
-    padding-right: max(12px, env(safe-area-inset-right));
-  }
-  .site-footer { padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+.lx-qbtn-chal:hover {
+  background: rgba(0,255,136,.14) !important;
+  border-color: var(--g) !important;
+  box-shadow: 0 0 8px rgba(0,255,136,.2);
 }
-
-<style id="linux-emu-css">
-.emu-wrap{margin-top:18px;border:1px solid var(--border2);border-radius:10px;overflow:hidden;background:#020402;}
-.emu-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:8px 14px;display:flex;align-items:center;gap:8px;}
-.emu-dots{display:flex;gap:5px;}
-.ed{width:10px;height:10px;border-radius:50%;}
-.ed-r{background:#ff5f57;}.ed-y{background:#febc2e;}.ed-g{background:#28c840;}
-.emu-ttl{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-right:auto;}
-.emu-gbtn{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;padding:5px 12px;background:rgba(88,166,255,.15);color:var(--blue);border:1px solid rgba(88,166,255,.3);border-radius:4px;cursor:pointer;transition:all .15s;}
-.emu-gbtn:hover{background:rgba(88,166,255,.25);}
-.emu-sbtn{font-family:'JetBrains Mono',monospace;font-size:10px;padding:5px 10px;background:transparent;color:var(--text-dim);border:1px solid var(--border2);border-radius:4px;cursor:pointer;transition:all .15s;}
-.emu-sbtn:hover{border-color:var(--blue);color:var(--blue);}
-.emu-iw{padding:9px 14px;border-bottom:1px solid var(--border);}
-.emu-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);letter-spacing:1px;margin-bottom:4px;}
-.emu-inp{background:#0a0f0a;border:1px solid var(--border2);color:#e2e2e2;padding:7px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;width:100%;}
-.emu-inp:focus{border-color:var(--blue);}
-.emu-ta{width:100%;background:#0a0f0a;border:1px solid var(--border2);color:#e2e2e2;padding:8px 10px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;resize:vertical;min-height:90px;line-height:1.6;}
-.emu-ta:focus{border-color:var(--blue);}
-.emu-row{display:flex;gap:6px;flex-wrap:wrap;}
-.emu-out{min-height:130px;max-height:300px;overflow-y:auto;padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.85;color:#8b949e;}
-.emu-out .ok{color:#3fb950;} .emu-out .err{color:#f85149;} .emu-out .key{color:#58a6ff;} .emu-out .val{color:#e3b341;} .emu-out .dim{color:#484f58;} .emu-out .hi{color:#39c5cf;} .emu-out .warn{color:#fbbf24;} .emu-out .em{color:#484f58;font-style:italic;} .emu-out .prompt{color:#3fb950;} .emu-out .perm{color:#f85149;}
-</style>
+/* ══ END CHALLENGE BUTTONS ══════════════════════════════════════════════ */
 </style>
 
 <style>
@@ -1097,95 +1109,176 @@ html, body { overflow-x: hidden; }
 }
 @media (max-width: 480px) {
   .container { padding: 0 6px; }
-  .ch, .lab { padding: 12px 8px; }
+  .ch, .lab, .mission-card { padding: 12px 8px; }
   pre { padding: 10px 8px; }
-}
-</style>
-<script src="/_bridge.js"></script>
-<style id="ng-fix">
-/* NG responsive: prevent horizontal overflow, fix media, code scrolling */
-body { overflow-x: hidden; }
-img { max-width: 100% !important; height: auto !important; }
-pre, .code-body, .code-block { overflow-x: auto !important; max-width: 100%; }
-table { display: block; overflow-x: auto; max-width: 100%; }
-@media (max-width: 480px) { body { font-size: 14px; } }
-</style>
-<style id="ng-light">
-[data-theme="light"] {
-  --bg: #f4fbf4; --bg2: #ebf5eb;
-  --surface: #ffffff; --card: #f7fbf7;
-  --border: #c8e8c8; --border2: #a8d8a8;
-  --text: #0d250d; --text-mid: #1a4a1a; --text-dim: #2d6e2d;
-  --green: #16a34a; --green2: #15803d; --green3: #bbf7d0; --green-dim: #166534;
-  --cursor: #16a34a; --phosphor: rgba(22,163,74,0.08);
 }
 </style>
 </head>
 <body>
-<div id="quiz" class="section active"><div class="section-inner">
+<div id="quiz" class="section active">
+  <div class="section-inner">
     <div class="quiz-header">
-      <h2>$ man quiz<span class="cursor"></span></h2>
-      <p>20 שאלות · בסיס לינוקס · כל תשובה = הסבר</p>
+      <h2>$ man quiz</h2>
+      <p>
+        <span class="he">20 שאלות · בסיס לינוקס · כל תשובה מוסברת</span>
+        <span class="en">20 questions · Linux fundamentals · every answer explained</span>
+      </p>
       <div class="q-prog-bg"><div class="q-prog" id="qp" style="width:0%"></div></div>
-      <div class="q-prog-lbl" id="qpl">0 / 20 answered</div>
+      <div class="q-p" id="qpl">0 / 20</div>
     </div>
     <div class="q-list" id="qList"></div>
     <div class="score-box" id="scoreBox">
-      <div class="score-big" id="scoreBig">--/20</div>
+      <div class="score-big" id="scoreBig">--<span class="score-of">/20</span></div>
       <div class="score-pct" id="scorePct"></div>
       <div class="score-msg" id="scoreMsg"></div>
       <div class="score-sub" id="scoreSub"></div>
       <div class="score-acts">
-        <button class="btn btn-green" onclick="restartQuiz()">↺ restart</button>
-        <button class="btn btn-ghost" onclick="switchTab('game',document.querySelectorAll('.tmux-tab')[3])">$ play game</button>
+        <button class="btn-green" onclick="restartQuiz()">
+          🔄 <span class="he">נסה שוב</span><span class="en">Try Again</span>
+        </button>
+        <button class="btn-ghost" onclick="switchTab('game',document.getElementById('tt-game'))">
+          $ <span class="he">למשחק</span><span class="en">Play Game</span>
+        </button>
       </div>
     </div>
-  </div></div>
+  </div>
+</div>
 
-  <!-- ═══════════ GAME ═══════════ -->
-  <div id="game" class="section"><div class="section-inner">
-
-    <div class="game-terminal">
-      <div class="gt-bar">
-        <div class="gt-dots">
-          <div class="gt-dot gd-r"></div>
-          <div class="gt-dot gd-y"></div>
-          <div class="gt-dot gd-g"></div>
+<div id="game" class="section">
+  <div class="section-inner">
+    <div class="dbg-shell">
+      <div class="dbg-topbar">
+        <div class="dbg-topbar-left">
+          <span class="dbg-prog-lbl" id="dbg-prog-lbl">01 / 12</span>
+          <span class="dbg-ch-title" id="dbg-title"></span>
         </div>
-        <span class="gt-title">bash — student@linux-lab:~ (simulator)</span>
-        <div class="gt-score-display">
-          <span id="sim-cmds" style="color:var(--blue)">0 פקודות</span>
-          <span id="sim-streak" style="color:var(--amber)"></span>
+        <div class="dbg-stats">
+          <div class="dbg-stat">
+            <span class="dbg-stat-lbl">score</span>
+            <span class="dbg-stat-val" id="dbg-score">0</span>
+          </div>
+          <div class="dbg-stat">
+            <span class="dbg-stat-lbl">lives</span>
+            <span class="dbg-stat-val" id="dbg-lives">❤️❤️❤️</span>
+          </div>
         </div>
       </div>
-
-      <div class="gt-screen" id="simScreen"></div>
-
-      <div class="gt-input-area" id="simInputArea">
-        <span class="gt-input-prompt" id="simPrompt">
-          <span class="gt-user">student</span><span class="gt-at">@</span><span class="gt-host">linux-lab</span><span style="color:var(--text-dim)">:</span><span class="gt-path" id="simCwdDisplay">~</span><span class="gt-dollar"> $ </span>
-        </span>
-        <input class="gt-input" id="simInput" placeholder="הקלד פקודה Linux..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" dir="ltr">
-        <button class="gt-enter-btn" onclick="simRun()">&#x23CE;</button>
+      <div class="dbg-prog-bar"><div class="dbg-prog-fill" id="dbg-prog-fill"></div></div>
+      <div id="gameBody" class="dbg-body">
+        <div class="dbg-scenario" id="dbg-scenario"></div>
+        <div class="dbg-request-wrap">
+          <div class="dbg-req-label">
+            <span class="dbg-req-dot"></span>
+            <span class="he">תרחיש</span><span class="en">scenario</span>
+          </div>
+          <pre class="dbg-request" id="dbg-request"></pre>
+        </div>
+        <div class="dbg-question" id="dbg-question"></div>
+        <div class="dbg-opts" id="dbg-opts"></div>
+        <div class="dbg-feedback" id="dbg-feedback"></div>
+        <div class="dbg-explain" id="dbg-explain" style="display:none"></div>
+      </div>
+      <div id="gameEnd" class="game-over">
+        <div class="go-emoji" id="geEmoji">🏆</div>
+        <div class="go-title" id="geTitle"></div>
+        <div class="go-score" id="geScore"></div>
+        <div class="go-msg" id="geMsg"></div>
+        <button class="btn-green" onclick="startGame()" style="margin:0 auto">$ restart</button>
       </div>
     </div>
-
-    <div class="game-tip" style="margin-top:12px">
-      <strong style="color:var(--green)">&#x1F4BB; טרמינל אמיתי!</strong> — הקלד פקודות Linux ותקבל פלט אמיתי.
-      מקש &#x2191; להיסטוריה, Tab להשלמה אוטומטית.
-      נסה: <code>help</code> לרשימת כל הפקודות.
+    <div style="display:none">
+      <div id="simScreen"></div>
+      <input id="simInput" type="text">
+      <span id="simCwdDisplay"></span>
+      <span id="sim-cmds"></span>
+      <span id="sim-streak"></span>
     </div>
+    <div class="game-tip">
+      <span class="he-b">🐧 <strong style="color:var(--g)">Debug the Command:</strong> קרא את התרחיש, בחר פקודה נכונה. כל אתגר מסביר למה בסוף.</span>
+      <span class="en-b">🐧 <strong style="color:var(--g)">Debug the Command:</strong> Read the scenario, pick the right command. Every challenge explains why at the end.</span>
+    </div>
+  </div>
+</div>
 
-  </div></div>
-
-</div><!-- /container -->
-
-<footer class="site-footer">
-  <p>// LINUX MASTERY PRO — $ echo "knowledge is power" //</p>
-</footer>
-
-
+</div>
 <script>
+
+const _QS_HE = [
+  { q:"מה הפקודה להצגת ה-Directory הנוכחי?", tag:"ניווט", opts:["ls","pwd","cd","dir"], ans:1, exp:"pwd = Print Working Directory. מציג את הנתיב המלא של התיקייה שאתה נמצא בה. לדוגמה: /home/student/Documents" },
+  { q:"איך יוצרים תיקייה חדשה בשם 'projects'?", tag:"קבצים", opts:["touch projects","mkdir projects","create projects","new projects"], ans:1, exp:"mkdir = Make Directory. mkdir -p יוצר גם תיקיות ביניים שלא קיימות. לדוגמה: mkdir -p a/b/c יוצר את כל שלושת הרמות." },
+  { q:"מה ההבדל בין > ל->>?", tag:"כתיבה", opts:["אין הבדל",">> יוצר קובץ חדש, > מוסיף","> מחליף, >> מוסיף לסוף","> מהיר יותר"], ans:2, exp:"> (Redirect) מחליף את תוכן הקובץ. >> (Append) מוסיף לסוף בלי למחוק. echo 'שורה' > file.txt = מחליף. echo 'שורה' >> file.txt = מוסיף." },
+  { q:"איך מציגים קבצים מוסתרים ב-ls?", tag:"ניווט", opts:["ls -h","ls -a","ls -l","ls -r"], ans:1, exp:"ls -a = all. קבצים שמתחילים ב-נקודה (כמו .bashrc) הם מוסתרים. ls -la מציג גם מוסתרים עם פרטים מלאים." },
+  { q:"מה הפקודה לחיפוש טקסט בקובץ?", tag:"חיפוש", opts:["find","search","grep","locate"], ans:2, exp:"grep = Global Regular Expression Print. grep 'error' file.txt מחפש את המילה error. grep -i = case insensitive. grep -r = חיפוש רקורסיבי בתיקיות." },
+  { q:"איך מעניקים הרשאת הרצה לקובץ?", tag:"הרשאות", opts:["chmod +r file","chmod +x file","chmod +w file","chmod +e file"], ans:1, exp:"chmod +x מוסיף הרשאת Execute לכולם. בלי זה, Script לא רץ. ls -l יראה x בהרשאות: -rwxr-xr-x" },
+  { q:"מה הפקודה לעצירת תהליך לפי PID?", tag:"תהליכים", opts:["stop PID","end PID","kill PID","halt PID"], ans:2, exp:"kill PID שולח SIGTERM — בקשה מנומסת לסיום. kill -9 PID שולח SIGKILL — עצירה בכוח. תמיד נסה kill רגיל קודם." },
+  { q:"מה ~ (טילדה) מייצגת?", tag:"ניווט", opts:["Root /","תיקיית הבית של המשתמש","תיקייה נסתרת","תיקייה זמנית"], ans:1, exp:"~ = Home Directory של המשתמש הנוכחי. בדרך כלל /home/username. cd ~ = חזרה ל-Home מכל מקום. echo ~ יציג את הנתיב." },
+  { q:"מה עושה הפקודה tail -f?", tag:"לוגים", opts:["מציג סוף קובץ פעם אחת","עוקב אחרי קובץ בזמן אמת","מחפש בסוף הקובץ","מוחק שורות אחרונות"], ans:1, exp:"tail -f (Follow) מציג שורות חדשות שנוספות לקובץ בזמן אמת. אידיאלי לניטור Logs. Ctrl+C לעצירה." },
+  { q:"מה | (Pipe) עושה?", tag:"Pipe", opts:["מחלק קובץ לחלקים","מעביר Output של פקודה אחת ל-Input של הבאה","יוצר קובץ חדש","מציג שורות במקביל"], ans:1, exp:"Pipe מחבר פקודות. ls | wc -l = ls מפיק רשימה, wc -l סופר שורות. כך אפשר לשרשר: ls | sort | uniq | head -10" },
+  { q:"מה הפקודה להצגת שימוש בדיסק?", tag:"מערכת", opts:["mem -h","disk -h","df -h","du -h"], ans:2, exp:"df = Disk Free. df -h = Human Readable (GB/MB). du -sh folder/ = גודל תיקייה ספציפית. -h = Human readable בשני הכלים." },
+  { q:"איך מציגים 10 השורות הראשונות של קובץ?", tag:"קבצים", opts:["first 10 file","top file","head file","cat -10 file"], ans:2, exp:"head file = 10 שורות ראשונות. head -20 file = 20 שורות. tail = שורות אחרונות. tail -5 file = 5 שורות אחרונות." },
+  { q:"מה sudo עושה?", tag:"הרשאות", opts:["מחק קבצים מוגנים","מריץ פקודה עם הרשאות root","מציג משתמשים","מחסום גישה לתיקיות"], ans:1, exp:"sudo = Super User DO. מריץ את הפקודה הבאה עם הרשאות Administrator (root). נדרש לשינויים במערכת. כל פקודה עם sudo מתועדת ב-/var/log/auth.log" },
+  { q:"מה הפקודה לבדיקה האם שרת זמין?", tag:"רשת", opts:["check host","test server","ping host","connect host"], ans:2, exp:"ping host שולח ICMP packets ומחכה לתגובה. ping -c 4 google.com שולח 4 packets. אם אין תגובה = שרת לא נגיש או חוסם ICMP." },
+  { q:"מה chmod 755 אומר?", tag:"הרשאות", opts:["Owner: הכל, Group: rx, Others: rx","Owner: rw, Group: r, Others: r","Owner: r, Group: rw, Others: rx","הכל לכולם"], ans:0, exp:"7=rwx (4+2+1), 5=r-x (4+1). chmod 755 = Owner כל הרשאות, Group ו-Others קריאה+הרצה. הגדרה נפוצה ל-Scripts ו-Directories." },
+  { q:"מה הפקודה לחיפוש קבצים לפי שם?", tag:"חיפוש", opts:["locate -name","grep -r","find / -name","search -f"], ans:2, exp:"find / -name '*.txt' מחפש כל קבצי .txt. find . -name 'config*' מחפש בתיקייה הנוכחית. 2>/dev/null מסתיר שגיאות Permission." },
+  { q:"מה ps aux מציג?", tag:"תהליכים", opts:["רק תהליכים שלך","כל התהליכים הרצים במערכת","תהליכים שנכשלו","תהליכים ב-background בלבד"], ans:1, exp:"ps aux = כל התהליכים (a=all users, u=user format, x=כולל background). מציג: USER, PID, %CPU, %MEM, COMMAND. grep אחריו לסינון." },
+  { q:"מה הפקודה לקריאת Log של שירות?", tag:"לוגים", opts:["cat /var/log/service","systemlog service","journalctl -u service","readlog service"], ans:2, exp:"journalctl -u nginx מציג Log של nginx. -n 50 = 50 שורות אחרונות. -f = Follow (זמן אמת). --since '1 hour ago' = שעה אחרונה." },
+  { q:"מה קורה כש-לוחצים Ctrl+C בטרמינל?", tag:"בסיס", opts:["מדביקים טקסט","עוצרים את התהליך הנוכחי","מנקים את המסך","יוצאים מה-Terminal"], ans:1, exp:"Ctrl+C שולח SIGINT לתהליך הנוכחי — בקשת עצירה. Ctrl+Z = מאכסן ב-background (suspend). Ctrl+D = סגירת Session. Ctrl+L = נקה מסך." },
+  { q:"מה הפקודה להצגת גודל זיכרון RAM?", tag:"מערכת", opts:["ram -h","memory -h","free -h","mem status"], ans:2, exp:"free -h מציג Total/Used/Free RAM ו-Swap. -h = Human Readable. /proc/meminfo לפרטים מלאים יותר. htop מציג גרפית." },
+];
+const QS_EN = [
+  {q:"What command shows your current directory?",tag:"Navigation",opts:["ls","pwd","cd","dir"],ans:1,exp:"pwd = Print Working Directory. Always run when you're lost in the filesystem. Shows the full absolute path from /."},
+  {q:"How do you create nested directories in one command?",tag:"Navigation",opts:["mkdir projects/web/src","mkdir -p projects/web/src","mkdirs projects/web/src","md -r projects/web/src"],ans:1,exp:"mkdir -p creates all parent directories as needed. Without -p, mkdir would fail if any parent doesn't exist yet."},
+  {q:"What is the difference between > and >>?",tag:"Redirection",opts:["> appends, >> overwrites","They are identical","> overwrites the file, >> appends to it","> reads from file, >> writes"],ans:2,exp:"> redirects stdout and OVERWRITES the file. >> APPENDS to it. Using > on an existing file permanently destroys its contents."},
+  {q:"How do you show hidden files with ls?",tag:"Files",opts:["ls -h","ls -a","ls -l","ls --hidden"],ans:1,exp:"ls -a (all) shows files starting with a dot. These are hidden files in Linux. Combine with -l for full details: ls -la"},
+  {q:"What command searches for text inside files?",tag:"Files",opts:["find","search","grep","locate"],ans:2,exp:"grep searches by pattern. grep -n shows line numbers, -i is case-insensitive, -r recurses directories, -v inverts match."},
+  {q:"What does chmod 755 mean?",tag:"Permissions",opts:["Read-only for everyone","Owner: rwx(7), Group: r-x(5), Others: r-x(5)","Full permissions for all users","Owner: rw, no access for others"],ans:1,exp:"7=rwx(4+2+1), 5=r-x(4+0+1). chmod 755 is standard for executables and directories. chmod 644 (rw-r--r--) is standard for files."},
+  {q:"What command stops a process gracefully by PID?",tag:"Processes",opts:["stop 1234","terminate 1234","kill 1234","end 1234"],ans:2,exp:"kill PID sends SIGTERM (signal 15) — requests graceful shutdown. kill -9 PID sends SIGKILL — immediate forced kill. Always try SIGTERM first."},
+  {q:"What does ~ represent in a path?",tag:"Navigation",opts:["Root directory /","Current directory .","Home directory of the current user","Parent directory .."],ans:2,exp:"~ expands to the home directory of the current user. cd ~ or just cd goes home. ~/projects = /home/username/projects. Works in any path context."},
+  {q:"What does 'tail -f file' do?",tag:"Files",opts:["Shows last file in directory","Shows last 10 lines then exits","Follows file live — prints new lines as they appear","Deletes the end of a file"],ans:2,exp:"tail -f (follow) keeps the file open and prints new lines as they're appended. Essential for monitoring live production logs. Ctrl+C to stop."},
+  {q:"What does the | (pipe) operator do?",tag:"Pipes",opts:["Creates a new file","Connects stdout of left command to stdin of right","Runs two commands simultaneously","Redirects stderr"],ans:1,exp:"Pipe chains commands in memory — no temp files. cat log | grep ERROR | wc -l counts error lines. Data flows left-to-right through each processor."},
+  {q:"What command shows disk space usage per filesystem?",tag:"System",opts:["du -h","ls -s","df -h","disk usage"],ans:2,exp:"df -h (Disk Free, human-readable) shows space per mounted filesystem. du -sh /dir shows usage of a specific directory. Run both when disk is full."},
+  {q:"How do you give a script execute permission?",tag:"Permissions",opts:["chmod -x script.sh","chmod +x script.sh","chown +x script.sh","execute script.sh"],ans:1,exp:"chmod +x adds the execute bit. Without it, ./script.sh fails with 'Permission denied'. Required for any script you want to run directly."},
+  {q:"What does sudo do?",tag:"Permissions",opts:["Switch user permanently to root","Run a single command as superuser","Create a new sudo user","List all commands available"],ans:1,exp:"sudo (Superuser Do) runs one command as root. The invocation is logged to /var/log/auth.log. Safer than a full root shell with su -."},
+  {q:"What command checks if a remote server is reachable?",tag:"Network",opts:["curl","ssh","ping","netstat"],ans:2,exp:"ping sends ICMP echo requests and measures round-trip time. ping -c 4 host sends 4 packets. Shows latency in ms and packet loss percentage."},
+  {q:"What does 'ps aux' show?",tag:"Processes",opts:["Network connections","All running processes with CPU and memory usage","Disk partitions","Installed packages"],ans:1,exp:"ps aux: a=all users, u=user-oriented format (shows %CPU, %MEM), x=include processes without terminal. Full snapshot of every running process."},
+  {q:"What command finds files modified in the last 7 days?",tag:"Files",opts:["ls -mtime -7","grep -mtime -7 .","find . -mtime -7","locate -mtime -7"],ans:2,exp:"find . -mtime -7 finds files modified less than 7 days ago. -mtime +7 = older than 7 days. Add -name '*.conf' to filter by extension."},
+  {q:"What does 'set -euo pipefail' do in a bash script?",tag:"Scripting",opts:["Sets the script's encoding","Exits on error, treats unset vars as errors, catches pipe failures","Enables verbose mode","Sets the PATH variable"],ans:1,exp:"-e exits on any error, -u treats unset variables as errors, -o pipefail catches failures in pipes. Add after the shebang in every production script."},
+  {q:"What command reads systemd service logs?",tag:"System",opts:["cat /var/log/service","tail service.log","journalctl -u service-name","syslog show service"],ans:2,exp:"journalctl -u nginx shows nginx's logs. -f follows live updates, --since '1 hour ago' filters by time, -xe shows recent errors with context."},
+  {q:"What is the OOM Killer?",tag:"System",opts:["A command to kill processes","Linux kernel mechanism that kills processes when RAM is exhausted","A firewall rule","An error in the filesystem"],ans:1,exp:"Out-of-Memory Killer — when RAM runs out, the kernel scores processes and kills the one with the highest oom_score. Check: dmesg | grep -i 'killed process'"},
+  {q:"What does 'kill -9' do vs regular 'kill'?",tag:"Processes",opts:["They are identical","kill -9 is faster","kill -9 sends SIGKILL (forced, no cleanup), kill sends SIGTERM (graceful)","kill -9 only works as root"],ans:2,exp:"SIGTERM (15) = 'please shut down gracefully'. SIGKILL (9) = kernel removes process immediately, no cleanup. Databases can corrupt data with kill -9. Always try SIGTERM first."}
+];
+
+const CMD_CHALLENGES_HE = [
+  {title:"קובץ נעלם",scenario:"מנהל מבקש לוודא שקובץ config קיים לפני הרצת backup.",request:"אתה ב: /home/admin\nצריך לבדוק אם /etc/backup.conf קיים",question:"איזו פקודה בודקת אם קובץ קיים?",opts:["cat /etc/backup.conf","ls /etc/backup.conf","[ -f /etc/backup.conf ] && echo exists","grep -f /etc/backup.conf"],ans:2,explain:"[ -f path ] בודק אם file קיים. && echo exists מדפיס רק אם הבדיקה עברה. זה הבסיס לכל script שמשתמש בקבצים."},
+  {title:"מי אוכל CPU?",scenario:"שרת איטי. צריך למצוא איזה process אוכל את ה-CPU.",request:"top מציג process עם 95% CPU\nצריך לעצור אותו בעדינות",question:"מה שולח SIGTERM לפי PID?",opts:["stop PID","kill PID","kill -9 PID","killall PID"],ans:1,explain:"kill PID שולח SIGTERM — בקשה עדינה לסגור. kill -9 = force kill ללא ניקוי. תמיד תנסה SIGTERM קודם, במיוחד עם דאטאבייסים."},
+  {title:"דיסק מלא",scenario:"שרת מפסיק לקבל בקשות. הודעת שגיאה: No space left on device.",request:"צריך לזהות איזה directory אוכל את הדיסק",question:"איזו פקודה מציגה גודל כל subdirectory?",opts:["ls -lh /","df -h","du -sh /*","find / -size +1G"],ans:2,explain:"du -sh /* מציג גודל של כל directory שתחת / — מחפש את הזכאי. df -h מציג שימוש כולל, לא פירוט לפי folder."},
+  {title:"Port תפוס",scenario:"ניסיון להפעיל nginx נכשל: Address already in use on port 80.",request:"צריך לזהות מי משתמש ב-port 80",question:"איזו פקודה מציגה איזה process על port 80?",opts:["netstat 80","ps aux | grep 80","lsof -i :80","ss -p 80"],ans:2,explain:"lsof -i :80 (List Open Files on port 80) מציג בדיוק איזה process תפוס את הפורט עם ה-PID שלו. ss -tlnp גם עובד ויותר מהיר."},
+  {title:"Log חי",scenario:"deploy חדש עלה ויש report על errors. צריך לעקוב אחרי הלוגים בזמן אמת.",request:"קובץ: /var/log/app/production.log\nרוצה לראות רק שורות עם ERROR",question:"איזו פקודה עוקבת אחרי logs בזמן אמת ומסננת?",opts:["cat /var/log/app/production.log | grep ERROR","tail /var/log/app/production.log","tail -f /var/log/app/production.log | grep ERROR","watch grep ERROR /var/log/app/production.log"],ans:2,explain:"tail -f עוקב אחרי קובץ בזמן אמת. Pipe ל-grep מסנן רק שורות עם ERROR. זה ה-combo הכי שכיח ב-production debugging."},
+  {title:"קובץ ענק",scenario:"נגמר מקום בדיסק. חשוד: logs ישנים. צריך למצוא קבצים גדולים מ-100MB.",request:"חפש ב-/var קבצים גדולים מ-100MB",question:"איזו פקודה מתאימה?",opts:["ls -lh /var | grep G","du -sh /var/*","find /var -size +100M -type f","df -h /var"],ans:2,explain:"find /var -size +100M -type f מחפש קבצים (type f) גדולים מ-100MB. הוסף -exec ls -lh {} \\; לראות פרטים. הדרך הנכונה לחפש לפי גודל."},
+  {title:"Cron שבור",scenario:"backup script לא רץ כבר שבוע. crontab נראה תקין.",request:"0 2 * * * /home/admin/backup.sh\nהscript לא מתבצע",question:"מה הסיבה הנפוצה ביותר לכשל?",opts:["שגיאה בשעה","חסרה הרשאת execute לscript","cron לא פועל","PATH שגוי ב-cron"],ans:1,explain:"chmod +x backup.sh הוא הצעד הראשון שמשכחים. cron רץ עם PATH מוגבל מאוד — הוסף PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin בתחילת crontab."},
+  {title:"Process שנדלק מחדש",scenario:"service קורס כל 5 דקות. OOM Killer החלטה?",request:"צריך לבדוק אם ה-OOM Killer פעל",question:"איפה מוצאים ראיות ל-OOM kill?",opts:["ps aux | grep killed","journalctl -xe | grep kill","dmesg | grep -i 'killed process'","top | grep oom"],ans:2,explain:"dmesg (kernel ring buffer) מכיל הודעות ה-OOM Killer. grep -i 'killed process' מחפש בלי תלות ב-case. אם רואה שורה שם — process נהרג בגלל מחסור בזיכרון."},
+  {title:"קובץ Config שגוי",scenario:"nginx לא עולה אחרי שינוי הגדרות. לא ברור איפה השגיאה.",request:"הקובץ: /etc/nginx/nginx.conf\nשגיאה לא ברורה",question:"איזו פקודה בודקת syntax של nginx.conf?",opts:["cat /etc/nginx/nginx.conf | grep error","nginx -t","nginx --check","systemctl status nginx | grep syntax"],ans:1,explain:"nginx -t (test) בודק את ה-config ומציג בדיוק איפה יש שגיאה. לרוב services יש פקודה כזו: apache2ctl configtest, sshd -t. חסוך restart שמפיל הכל."},
+  {title:"חיפוש בLogs",scenario:"צריך לדעת כמה פעמים error מסוים הופיע ב-7 ימים אחרונים.",request:"קבצי log: /var/log/app/*.log\nמחפש: 'ConnectionTimeout'",question:"איזו פקודה סופרת את כל ההופעות?",opts:["find /var/log/app -name '*.log' | grep ConnectionTimeout","ls /var/log/app/*.log | grep -c ConnectionTimeout","grep -r 'ConnectionTimeout' /var/log/app/*.log | wc -l","cat /var/log/app/*.log | grep ConnectionTimeout"],ans:2,explain:"grep -r בכל הקבצים מוצא כל שורה עם ConnectionTimeout. Pipe ל-wc -l סופר השורות. הוסף --include='*.log' לבטיחות. זה הדפוס הנכון לספור אירועים בlogs."},
+  {title:"Environment Variable",scenario:"script bash מקבל שגיאה: 'DB_HOST: unbound variable'",request:"#!/bin/bash\nset -euo pipefail\necho $DB_HOST",question:"מה הסיבה לשגיאה?",opts:["DB_HOST מכיל שרת לא נגיש","set -u גורמת לשגיאה על משתנה לא מוגדר","echo לא תומך ב-variables","DB_HOST שמור למערכת"],ans:1,explain:"set -u (nounset) גורמת לbash לצאת עם שגיאה אם משתמשים במשתנה שלא הוגדר. פתרון: export DB_HOST=value לפני הרצה, או שנה ל-${DB_HOST:-localhost} לnull-safety."},
+  {title:"SSH נכשל",scenario:"ssh user@server.com נכשל עם 'Permission denied (publickey)'",request:"id_rsa.pub הועלה לשרת\nאבל עדיין נכשל",question:"מה הבעיה הנפוצה ביותר?",opts:["מפתח פג תוקף","authorized_keys permissions שגויים (צריך 600)","שרת ה-SSH כבוי","IP חסום ב-firewall"],ans:1,explain:"~/.ssh/authorized_keys חייב להיות 600 (rw-------). אם 644 או 777 — SSH מתעלם ממנו כי אחרים יכולים לכתוב. תיקון: chmod 600 ~/.ssh/authorized_keys וגם chmod 700 ~/.ssh"}
+];
+
+const CMD_CHALLENGES_EN = [
+  {title:"Missing File",scenario:"Manager asks you to verify a config file exists before running backup.",request:"You're at: /home/admin\nNeed to check if /etc/backup.conf exists",question:"Which command checks if a file exists?",opts:["cat /etc/backup.conf","ls /etc/backup.conf","[ -f /etc/backup.conf ] && echo exists","grep -f /etc/backup.conf"],ans:2,explain:"[ -f path ] tests if a regular file exists. && echo exists only prints if the test passed. This is the foundation of any script that depends on files being present."},
+  {title:"CPU Hog",scenario:"Server is slow. Need to find which process is consuming CPU.",request:"top shows a process at 95% CPU\nNeed to stop it gracefully",question:"What sends SIGTERM by PID?",opts:["stop PID","kill PID","kill -9 PID","killall PID"],ans:1,explain:"kill PID sends SIGTERM — a polite request to shut down. kill -9 = forced kill with no cleanup. Always try SIGTERM first, especially with databases."},
+  {title:"Disk Full",scenario:"Server stops accepting requests. Error: No space left on device.",request:"Need to identify which directory is consuming disk space",question:"Which command shows the size of each subdirectory?",opts:["ls -lh /","df -h","du -sh /*","find / -size +1G"],ans:2,explain:"du -sh /* shows the size of each directory under / — find the culprit. df -h shows overall usage, not per-folder breakdown. du is the right tool here."},
+  {title:"Port in Use",scenario:"Starting nginx fails: Address already in use on port 80.",request:"Need to identify which process is using port 80",question:"Which command shows which process is on port 80?",opts:["netstat 80","ps aux | grep 80","lsof -i :80","ss -p 80"],ans:2,explain:"lsof -i :80 (List Open Files on port 80) shows exactly which process owns the port with its PID. ss -tlnp is also correct and faster on modern systems."},
+  {title:"Live Log Monitoring",scenario:"New deploy went out and there are error reports. Need to follow logs in real-time.",request:"File: /var/log/app/production.log\nWant to see only lines containing ERROR",question:"Which command follows logs live and filters them?",opts:["cat /var/log/app/production.log | grep ERROR","tail /var/log/app/production.log","tail -f /var/log/app/production.log | grep ERROR","watch grep ERROR /var/log/app/production.log"],ans:2,explain:"tail -f follows the file in real-time. Piping to grep filters to only ERROR lines. This is the most common combination in production debugging."},
+  {title:"Giant File",scenario:"Disk is full. Suspected: old logs. Need to find files larger than 100MB.",request:"Search /var for files larger than 100MB",question:"Which command is appropriate?",opts:["ls -lh /var | grep G","du -sh /var/*","find /var -size +100M -type f","df -h /var"],ans:2,explain:"find /var -size +100M -type f searches for files (type f) larger than 100MB. Add -exec ls -lh {} \\; to see details. The correct way to search by file size."},
+  {title:"Broken Cron",scenario:"Backup script hasn't run in a week. The crontab looks correct.",request:"0 2 * * * /home/admin/backup.sh\nScript never executes",question:"What is the most common cause?",opts:["Wrong time syntax","Script missing execute permission","cron daemon is stopped","Wrong PATH in cron"],ans:1,explain:"chmod +x backup.sh is the step everyone forgets. cron also runs with a very limited PATH — add PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin at the top of your crontab."},
+  {title:"Restarting Process",scenario:"Service crashes every 5 minutes. OOM Killer suspect?",request:"Need to check if the OOM Killer was involved",question:"Where do you find evidence of OOM kills?",opts:["ps aux | grep killed","journalctl -xe | grep kill","dmesg | grep -i 'killed process'","top | grep oom"],ans:2,explain:"dmesg (kernel ring buffer) contains OOM Killer messages. grep -i 'killed process' is case-insensitive. If you see a line there — a process was killed due to memory exhaustion."},
+  {title:"Bad Config File",scenario:"nginx won't start after a config change. The error isn't clear.",request:"File: /etc/nginx/nginx.conf\nUnclear error",question:"Which command validates nginx.conf syntax?",opts:["cat /etc/nginx/nginx.conf | grep error","nginx -t","nginx --check","systemctl status nginx | grep syntax"],ans:1,explain:"nginx -t (test) validates the config and shows exactly where the error is. Most services have this: apache2ctl configtest, sshd -t. Use this before every restart."},
+  {title:"Log Search",scenario:"Need to know how many times a specific error appeared in the last 7 days.",request:"Log files: /var/log/app/*.log\nLooking for: 'ConnectionTimeout'",question:"Which command counts all occurrences?",opts:["find /var/log/app -name '*.log' | grep ConnectionTimeout","ls /var/log/app/*.log | grep -c ConnectionTimeout","grep -r 'ConnectionTimeout' /var/log/app/*.log | wc -l","cat /var/log/app/*.log | grep ConnectionTimeout"],ans:2,explain:"grep -r searches all files and returns each matching line. Piping to wc -l counts lines. Add --include='*.log' for safety. This is the correct pattern for counting events across log files."},
+  {title:"Environment Variable",scenario:"Bash script fails with: 'DB_HOST: unbound variable'",request:"#!/bin/bash\nset -euo pipefail\necho $DB_HOST",question:"What causes this error?",opts:["DB_HOST contains an unreachable server","set -u causes an error on undefined variables","echo doesn't support variables","DB_HOST is reserved by the system"],ans:1,explain:"set -u (nounset) makes bash exit with an error if you use an undefined variable. Fix: export DB_HOST=value before running, or use ${DB_HOST:-localhost} for null-safety."},
+  {title:"SSH Failure",scenario:"ssh user@server.com fails with 'Permission denied (publickey)'",request:"id_rsa.pub was uploaded to the server\nBut it still fails",question:"What is the most common cause?",opts:["Key has expired","authorized_keys permissions are wrong (needs 600)","SSH server is down","IP is blocked by firewall"],ans:1,explain:"~/.ssh/authorized_keys must be 600 (rw-------). If it's 644 or 777, SSH ignores it because others could write to it. Fix: chmod 600 ~/.ssh/authorized_keys and chmod 700 ~/.ssh"}
+];
+
+
 // ===== CLOCK =====
 setInterval(() => {
   const now = new Date();
@@ -1220,7 +1313,8 @@ function toggleAns(id) {
 }
 
 // ===== QUIZ =====
-const QS = [
+// const QS = // moved to _QS_HE above
+const __QS_UNUSED__ = [
   { q:"מה הפקודה להצגת ה-Directory הנוכחי?", tag:"ניווט", opts:["ls","pwd","cd","dir"], ans:1, exp:"pwd = Print Working Directory. מציג את הנתיב המלא של התיקייה שאתה נמצא בה. לדוגמה: /home/student/Documents" },
   { q:"איך יוצרים תיקייה חדשה בשם 'projects'?", tag:"קבצים", opts:["touch projects","mkdir projects","create projects","new projects"], ans:1, exp:"mkdir = Make Directory. mkdir -p יוצר גם תיקיות ביניים שלא קיימות. לדוגמה: mkdir -p a/b/c יוצר את כל שלושת הרמות." },
   { q:"מה ההבדל בין > ל->>?", tag:"כתיבה", opts:["אין הבדל",">> יוצר קובץ חדש, > מוסיף","> מחליף, >> מוסיף לסוף","> מהיר יותר"], ans:2, exp:"> (Redirect) מחליף את תוכן הקובץ. >> (Append) מוסיף לסוף בלי למחוק. echo 'שורה' > file.txt = מחליף. echo 'שורה' >> file.txt = מוסיף." },
@@ -1251,7 +1345,7 @@ function buildQuiz() {
   qAns = 0; qScore = 0;
   document.getElementById('scoreBox').classList.remove('show');
   updateQProg();
-  QS.forEach((q, i) => {
+  getQS().forEach((q, i) => {
     const c = document.createElement('div');
     c.className = 'q-card'; c.id = 'qc'+i;
     c.innerHTML = `
@@ -1259,12 +1353,13 @@ function buildQuiz() {
       <div class="q-text">${q.q}</div>
       <div class="q-opts">${q.opts.map((o,j)=>`<div class="q-opt" onclick="pick(${i},${j})" id="o_${i}_${j}">${o}</div>`).join('')}</div>
       <div class="q-exp" id="exp_${i}">${q.exp}</div>`;
-    list.appendChild(c);
+    list.appendChild(c
+);
   });
 }
 
 function pick(qi, oi) {
-  const q = QS[qi];
+  const q = getQS()[qi];
   document.querySelectorAll(`[id^="o_${qi}_"]`).forEach(el => el.classList.add('locked'));
   if (oi === q.ans) {
     document.getElementById(`o_${qi}_${oi}`).classList.add('hit');
@@ -1277,17 +1372,17 @@ function pick(qi, oi) {
   }
   document.getElementById('exp_'+qi).classList.add('show');
   qAns++; updateQProg();
-  if (qAns === QS.length) setTimeout(showScore, 500);
+  if (qAns === getQS().length) setTimeout(showScore, 500);
 }
 
 function updateQProg() {
-  const pct = (qAns/QS.length)*100;
+  const pct = (qAns/getQS().length)*100;
   document.getElementById('qp').style.width = pct+'%';
-  document.getElementById('qpl').textContent = `${qAns}/${QS.length} answered`;
+  document.getElementById('qpl').textContent = `${qAns}/${getQS().length} answered`;
 }
 
 function showScore() {
-  const pct = Math.round((qScore/QS.length)*100);
+  const pct = Math.round((qScore/getQS().length)*100);
   const sb = document.getElementById('scoreBox'); sb.classList.add('show');
   document.getElementById('scoreBig').textContent = `${qScore}/20`;
   document.getElementById('scorePct').textContent = `${pct}%`;
@@ -3185,6 +3280,631 @@ function lx6exec(cmd){
 
   return `<span class="err">bash: ${cmd.split(' ')[0]}: command not found</span>`;
 }
+
+function lxToggleGlos(id){const el=document.getElementById(id);if(el)el.classList.toggle("open");}
+const _lxc1=document.getElementById("c1");if(_lxc1)_lxc1.classList.add("open");
+
+
+// ══ DEBUG THE COMMAND — GAME ENGINE ═══════════════════════════════════════
+var dbgScore=0, dbgLives=3, dbgIdx=0, dbgAnswered=0, dbgTotal=0, dbgOrder=[];
+
+function getChallenges(){return isEn()?CMD_CHALLENGES_EN:CMD_CHALLENGES_HE;}
+
+function startGame(){
+  var ch=getChallenges();
+  dbgScore=0;dbgLives=3;dbgIdx=0;dbgAnswered=0;dbgTotal=ch.length;
+  dbgOrder=ch.map(function(_,i){return i;}).sort(function(){return Math.random()-.5;});
+  document.getElementById('gameEnd').style.display='none';
+  document.getElementById('gameBody').style.display='block';
+  renderChallenge();
+}
+
+function renderChallenge(){
+  var ch=getChallenges();
+  if(dbgIdx>=dbgTotal||dbgLives<=0){endGame();return;}
+  var c=ch[dbgOrder[dbgIdx]];
+  document.getElementById('dbg-title').textContent=c.title;
+  document.getElementById('dbg-scenario').textContent=c.scenario;
+  document.getElementById('dbg-request').textContent=c.request;
+  document.getElementById('dbg-question').textContent=c.question;
+  document.getElementById('dbg-explain').style.display='none';
+  document.getElementById('dbg-feedback').textContent='';
+  document.getElementById('dbg-feedback').className='dbg-feedback';
+  var opts=document.getElementById('dbg-opts');opts.innerHTML='';
+  c.opts.forEach(function(o,i){
+    var b=document.createElement('button');
+    b.className='dbg-opt';b.textContent=o;
+    b.onclick=function(){answerChallenge(i,c);};
+    opts.appendChild(b);
+  });
+  document.getElementById('dbg-prog-fill').style.width=(dbgAnswered/dbgTotal*100)+'%';
+  document.getElementById('dbg-prog-lbl').textContent=(dbgAnswered+1)+' / '+dbgTotal;
+  document.getElementById('dbg-score').textContent=dbgScore;
+  document.getElementById('dbg-lives').textContent='❤️'.repeat(dbgLives)+'🖤'.repeat(3-dbgLives);
+}
+
+function answerChallenge(chosen,c){
+  var opts=document.querySelectorAll('.dbg-opt');
+  opts.forEach(function(b){b.disabled=true;});
+  var fb=document.getElementById('dbg-feedback');
+  if(chosen===c.ans){
+    opts[chosen].classList.add('dbg-correct');dbgScore+=10;
+    fb.textContent=isEn()?'✅ Correct! +10 pts':'✅ נכון! +10 נקודות';
+    fb.className='dbg-feedback dbg-ok';
+  }else{
+    opts[chosen].classList.add('dbg-wrong');opts[c.ans].classList.add('dbg-correct');
+    dbgLives--;
+    fb.textContent=isEn()?'❌ Wrong — see explanation':'❌ לא נכון — ראה הסבר';
+    fb.className='dbg-feedback dbg-err';
+  }
+  document.getElementById('dbg-explain').textContent='💡 '+c.explain;
+  document.getElementById('dbg-explain').style.display='block';
+  dbgAnswered++;dbgIdx++;
+  document.getElementById('dbg-prog-fill').style.width=(dbgAnswered/dbgTotal*100)+'%';
+  document.getElementById('dbg-score').textContent=dbgScore;
+  document.getElementById('dbg-lives').textContent='❤️'.repeat(dbgLives)+'🖤'.repeat(3-dbgLives);
+  if(dbgLives<=0||dbgIdx>=dbgTotal){setTimeout(endGame,2200);}
+  else{setTimeout(renderChallenge,2200);}
+}
+
+function endGame(){
+  document.getElementById('gameBody').style.display='none';
+  var end=document.getElementById('gameEnd');end.style.display='block';
+  var pct=Math.round(dbgScore/(dbgTotal*10)*100);
+  var en=isEn();
+  var e,t,m;
+  if(pct>=90){e='🏆';t='Linux Master!';m=en?'Terminal is your native language.':'הטרמינל הוא שפת האם שלך.';}
+  else if(pct>=70){e='🐧';t='Senior SysAdmin';m=en?'Solid. Review permissions and process signals.':'חזק. חזור על הרשאות ו-signals.';}
+  else if(pct>=50){e='🔍';t=en?'Junior Linux':'Junior Linux';m=en?'Good foundation. Practice the labs.':'בסיס טוב. תרגל את המעבדות.';}
+  else{e='📖';t='Permission Denied';m=en?'Back to the chapters.':'חזור לפרקים.';}
+  document.getElementById('geEmoji').textContent=e;
+  document.getElementById('geTitle').textContent=t;
+  document.getElementById('geScore').textContent=dbgScore+' / '+(dbgTotal*10)+' pts ('+pct+'%)';
+  document.getElementById('geMsg').textContent=m;
+}
+// ══ END DEBUG THE COMMAND ══════════════════════════════════════════════════
+
+
+// ══ MISSION SYSTEM ════════════════════════════════════════════════════════
+var MS = {
+  1:{done:new Set(),total:4},2:{done:new Set(),total:4},
+  3:{done:new Set(),total:4},4:{done:new Set(),total:4},
+  5:{done:new Set(),total:4},6:{done:new Set(),total:4}
+};
+
+function completeStep(lab, sid) {
+  var m = MS[lab]; if (!m || m.done.has(sid)) return;
+  m.done.add(sid);
+  [sid, sid+'_en'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.add('ms-done');
+  });
+  var badge = document.getElementById('mb'+lab);
+  if (badge) {
+    var done = m.done.size;
+    badge.innerHTML = '<span class="he">'+done+' / '+m.total+'</span><span class="en">'+done+' / '+m.total+'</span>';
+    if (done >= m.total) {
+      badge.classList.add('mb-done');
+      badge.innerHTML = '<span class="he">✅ הושלם!</span><span class="en">✅ Done!</span>';
+      var succ = document.getElementById('ms'+lab);
+      if (succ) { succ.style.display='flex'; setTimeout(function(){succ.scrollIntoView({behavior:'smooth',block:'nearest'});},100); }
+    }
+  }
+}
+
+// Patch lab buttons to track mission progress
+// We add onclick observers to the quick-command buttons
+document.addEventListener('DOMContentLoaded', function() {
+  // Lab 1 quick commands
+  document.querySelectorAll('[onclick*="lx1q("]').forEach(function(btn) {
+    var orig = btn.getAttribute('onclick');
+    btn.addEventListener('click', function() {
+      var cmd = (orig.match(/lx1q\('([^']+)'\)/) || [])[1] || '';
+      completeStep(1,'step1_1');
+      if(cmd.indexOf('ls')>=0) completeStep(1,'step1_2');
+      if(cmd.indexOf('cat /etc')>=0||cmd.indexOf('release')>=0) completeStep(1,'step1_4');
+      setTimeout(function(){if(document.querySelectorAll('[onclick*="lx1q("]').length>=3)completeStep(1,'step1_3');},100);
+    });
+  });
+  // Lab 2 quick commands
+  document.querySelectorAll('[onclick*="lx2q("]').forEach(function(btn) {
+    var orig = btn.getAttribute('onclick');
+    btn.addEventListener('click', function() {
+      var cmd = (orig.match(/lx2q\('([^']+)'\)/) || [])[1] || '';
+      if(cmd.indexOf('grep')>=0) completeStep(2,'step2_1');
+      if(cmd.indexOf('-c')>=0) completeStep(2,'step2_2');
+      if(cmd.indexOf('tail')>=0) completeStep(2,'step2_3');
+      if(cmd.indexOf('awk')>=0) completeStep(2,'step2_4');
+    });
+  });
+  // Lab 3 quick commands (chmod, chown)
+  document.querySelectorAll('[onclick*="lx3q("]').forEach(function(btn) {
+    var orig = btn.getAttribute('onclick');
+    btn.addEventListener('click', function() {
+      var cmd = (orig.match(/lx3q\('([^']+)'\)/) || [])[1] || '';
+      completeStep(3,'step3_1');
+      if(cmd.indexOf('chmod 6')>=0||cmd.indexOf('chmod 7')>=0) completeStep(3,'step3_2');
+      if(cmd.indexOf('+x')>=0) completeStep(3,'step3_3');
+      if(cmd.indexOf('chown')>=0) completeStep(3,'step3_4');
+    });
+  });
+  // Lab 4 quick commands (sleep &, jobs, kill)
+  document.querySelectorAll('[onclick*="lx4q("]').forEach(function(btn) {
+    var orig = btn.getAttribute('onclick');
+    btn.addEventListener('click', function() {
+      var cmd = (orig.match(/lx4q\('([^']+)'\)/) || [])[1] || '';
+      completeStep(4,'step4_1');
+      if(cmd.indexOf('sleep')>=0&&cmd.indexOf('&')>=0) completeStep(4,'step4_2');
+      if(cmd.indexOf('jobs')>=0) completeStep(4,'step4_3');
+      if(cmd.indexOf('kill')>=0) completeStep(4,'step4_4');
+    });
+  });
+  // Lab 5 (bash script)
+  document.querySelectorAll('[onclick*="lxLab5Run"]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      completeStep(5,'step5_1'); completeStep(5,'step5_2');
+    });
+  });
+  document.querySelectorAll('[onclick*="lx5arg("]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      completeStep(5,'step5_3');
+      setTimeout(function(){completeStep(5,'step5_4');},500);
+    });
+  });
+  // Lab 6 (troubleshooting)
+  document.querySelectorAll('[onclick*="lx6q("]').forEach(function(btn) {
+    var orig = btn.getAttribute('onclick');
+    btn.addEventListener('click', function() {
+      var cmd = (orig.match(/lx6q\('([^']+)'\)/) || [])[1] || '';
+      completeStep(6,'step6_1');
+      if(cmd.indexOf('status')>=0) completeStep(6,'step6_2');
+      if(cmd.indexOf('lsof')>=0) completeStep(6,'step6_3');
+      if(cmd.indexOf('df')>=0||cmd.indexOf('journalctl')>=0) completeStep(6,'step6_4');
+    });
+  });
+  // Also intercept Run buttons for labs 1-4,6
+  ['lxLab1Run','lxLab2Run','lxLab3Run','lxLab4Run','lxLab6Run'].forEach(function(fnName, idx) {
+    var labN = idx+1 < 5 ? idx+1 : 6;
+    document.querySelectorAll('[onclick*="'+fnName+'"]').forEach(function(btn) {
+      btn.addEventListener('click', function() { completeStep(labN,'step'+labN+'_1'); });
+    });
+  });
+});
+// ══ END MISSION SYSTEM ════════════════════════════════════════════════════ ════════════════════════════════════════════════════ ════════════════════════════════════════════════════
+
+
+function isEn(){return document.getElementById('root').classList.contains('en');}
+function toggleLang(){
+  document.getElementById('root').classList.toggle('en');
+  document.getElementById('langBtn').textContent=isEn()?'עב':'EN';
+  buildQuiz();
+}
+function getQS(){return isEn()?QS_EN:_QS_HE;}
+function toggleGlos(id){var el=document.getElementById(id);if(el)el.classList.toggle('open');}
+
+
+// ══ EXTENDED LAB COMMANDS ══════════════════════════════════════════════════
+
+// ── Lab 1 extensions ──
+const _orig_lx1exec = lx1exec;
+function lx1exec(cmd) {
+  const parts = cmd.trim().split(/\s+/);
+  const c0 = parts[0];
+
+  // echo > redirect
+  if (cmd.includes('>') && c0 === 'echo') {
+    const m = cmd.match(/echo\s+"?([^"]+)"?\s*>\s*(\S+)/);
+    if (m) {
+      const content = m[1], fname = m[2];
+      const abs = fname.startsWith('/') ? fname : lx1fs.cwd + '/' + fname;
+      lx1fs.files[abs] = content;
+      if (!lx1fs.dirs[lx1fs.cwd].includes(fname)) lx1fs.dirs[lx1fs.cwd].push(fname);
+      return '<span class="ok">written to ' + fname + '</span>';
+    }
+  }
+
+  // cp
+  if (c0 === 'cp') {
+    const src = parts[1], dst = parts[2];
+    if (!src || !dst) return '<span class="err">cp: missing operand</span>';
+    const absS = src.startsWith('/') ? src : lx1fs.cwd + '/' + src;
+    const absD = dst.startsWith('/') ? dst : lx1fs.cwd + '/' + dst;
+    if (lx1fs.files[absS] !== undefined) {
+      lx1fs.files[absD] = lx1fs.files[absS];
+      lx1fs.dirs[lx1fs.cwd].push(dst);
+      return '<span class="ok">\'' + src + '\' → \'' + dst + '\'</span>';
+    }
+    return '<span class="err">cp: \'' + src + '\': No such file</span>';
+  }
+
+  // mv (rename)
+  if (c0 === 'mv') {
+    const src = parts[1], dst = parts[2];
+    if (!src || !dst) return '<span class="err">mv: missing operand</span>';
+    const absS = src.startsWith('/') ? src : lx1fs.cwd + '/' + src;
+    const absD = dst.startsWith('/') ? dst : lx1fs.cwd + '/' + dst;
+    if (lx1fs.files[absS] !== undefined) {
+      lx1fs.files[absD] = lx1fs.files[absS];
+      delete lx1fs.files[absS];
+      lx1fs.dirs[lx1fs.cwd] = lx1fs.dirs[lx1fs.cwd].filter(f => f !== src);
+      lx1fs.dirs[lx1fs.cwd].push(dst);
+      return '<span class="ok">\'' + src + '\' renamed to \'' + dst + '\'</span>';
+    }
+    return '<span class="err">mv: \'' + src + '\': No such file</span>';
+  }
+
+  // find
+  if (c0 === 'find') {
+    const ext = cmd.match(/-name\s+["']?\*\.(\w+)["']?/);
+    const nameMatch = cmd.match(/-name\s+["']?([^"'\s]+)["']?/);
+    const results = [];
+    Object.keys(lx1fs.files).forEach(function(path) {
+      const fname = path.split('/').pop();
+      if (ext && fname.endsWith('.' + ext[1])) results.push(path);
+      else if (nameMatch && !nameMatch[1].startsWith('*.') && fname === nameMatch[1]) results.push(path);
+    });
+    if (!ext && !nameMatch) {
+      return Object.keys(lx1fs.files).concat(Object.keys(lx1fs.dirs))
+        .map(function(p){return '<span class="val">' + p + '</span>';}).join('<br>');
+    }
+    return results.length
+      ? results.map(function(p){return '<span class="val">' + p + '</span>';}).join('<br>')
+      : '<span class="dim">(no matches)</span>';
+  }
+
+  // wc
+  if (c0 === 'wc') {
+    const fname = parts[parts.length - 1];
+    const abs = fname.startsWith('/') ? fname : lx1fs.cwd + '/' + fname;
+    if (lx1fs.files[abs] !== undefined) {
+      const lines = (lx1fs.files[abs].match(/\n/g) || []).length + 1;
+      const words = lx1fs.files[abs].split(/\s+/).filter(Boolean).length;
+      const bytes = lx1fs.files[abs].length;
+      if (parts.includes('-l')) return '<span class="val">' + lines + '</span> ' + fname;
+      if (parts.includes('-w')) return '<span class="val">' + words + '</span> ' + fname;
+      return '<span class="val">' + lines + '\t' + words + '\t' + bytes + '</span> ' + fname;
+    }
+    return '<span class="err">wc: ' + fname + ': No such file</span>';
+  }
+
+  return _orig_lx1exec(cmd);
+}
+
+// ── Lab 2 extensions ──
+const _orig_lx2exec = lx2exec;
+function lx2exec(cmd) {
+  const raw = cmd.trim();
+  // grep -n (with line numbers)
+  if (raw.match(/^grep\s+-n\s+/)) {
+    const m = raw.match(/grep\s+-n\s+(\S+)\s+(\S+)/);
+    if (m) {
+      const term = m[1].replace(/'/g,''), file = m[2];
+      const data = lx2getFileData('cat ' + file);
+      if (!data) return '<span class="err">grep: ' + file + ': No such file</span>';
+      const results = data.split('\n').map(function(l,i){return {n:i+1,l:l};})
+        .filter(function(x){return x.l.toLowerCase().includes(term.toLowerCase());})
+        .map(function(x){
+          return '<span class="val">' + x.n + '</span>:<span class="ok">' +
+            x.l.replace(new RegExp(term,'gi'), function(s){return '<span class="hi">'+s+'</span>';}) + '</span>';
+        });
+      return results.length ? results.join('<br>') : '<span class="dim">(no matches)</span>';
+    }
+  }
+  // grep -v (invert)
+  if (raw.match(/^grep\s+-v\s+/)) {
+    const m = raw.match(/grep\s+-v\s+(\S+)\s+(\S+)/);
+    if (m) {
+      const term = m[1].replace(/'/g,''), file = m[2];
+      const data = lx2getFileData('cat ' + file);
+      const results = data.split('\n').filter(function(l){return !l.includes(term);});
+      return results.join('<br>') || '<span class="dim">(all lines matched)</span>';
+    }
+  }
+  // grep -c (count)
+  if (raw.match(/^grep\s+-c\s+/)) {
+    const m = raw.match(/grep\s+-c\s+(\S+)\s+(\S+)/);
+    if (m) {
+      const term = m[1].replace(/'/g,''), file = m[2];
+      const data = lx2getFileData('cat ' + file);
+      const count = data.split('\n').filter(function(l){return l.includes(term);}).length;
+      return '<span class="val">' + count + '</span>';
+    }
+  }
+  // tail -f simulation
+  if (raw.match(/^tail\s+-f\s+/)) {
+    const file = raw.split(/\s+/).pop();
+    return '<span class="ok">Following ' + file + '... (simulated)</span><br>' +
+      '<span class="dim">2025-01-15 10:23:45 INFO  Request processed in 45ms</span><br>' +
+      '<span class="err">2025-01-15 10:23:46 ERROR DB connection timeout after 5000ms</span><br>' +
+      '<span class="dim">2025-01-15 10:23:47 INFO  Retry attempt 1/3</span><br>' +
+      '<span class="ok">2025-01-15 10:23:48 INFO  Connection restored</span><br>' +
+      '<span class="hi">^C (Ctrl+C to stop in real terminal)</span>';
+  }
+  // cut
+  if (raw.startsWith('cut ')) {
+    const dFlag = raw.match(/-d\s*[:\s]*(\S)/);
+    const fFlag = raw.match(/-f\s*(\d+)/);
+    const file = raw.split(/\s+/).pop();
+    if (file === '/etc/passwd') {
+      const users = ['root','daemon','bin','sys','student','www-data','postgres'];
+      const d = dFlag ? dFlag[1] : '\t';
+      const f = fFlag ? parseInt(fFlag[1])-1 : 0;
+      return users.map(function(u){
+        const fields = [u,'x','0','0',u,'/home/'+u,'/bin/bash'];
+        return '<span class="val">' + (fields[f] || fields[0]) + '</span>';
+      }).join('<br>');
+    }
+  }
+  // sed
+  if (raw.startsWith('sed ')) {
+    const m = raw.match(/sed\s+'?s\/([^/]+)\/([^/]*)\/g?'?\s+(\S+)/);
+    if (m) {
+      const from = m[1], to = m[2], file = m[3];
+      const data = lx2getFileData('cat ' + file);
+      if (!data) return '<span class="err">sed: ' + file + ': No such file</span>';
+      const replaced = data.replace(new RegExp(from, 'g'),
+        '<span class="ok">' + to + '</span>');
+      return replaced.replace(/\n/g,'<br>');
+    }
+  }
+  return _orig_lx2exec(cmd);
+}
+
+// ── Lab 3 extensions ──
+const _orig_lx3exec = lx3exec;
+// Permissions state
+var lx3perms = { 'hello.sh':'755', 'secret.txt':'644', 'config.ini':'644', 'run.sh':'644' };
+var lx3owner = { 'hello.sh':'student', 'secret.txt':'root', 'config.ini':'root', 'run.sh':'student' };
+
+function lx3exec(cmd) {
+  const parts = cmd.trim().split(/\s+/);
+  const c0 = parts[0];
+
+  if (c0 === 'umask') {
+    return '<span class="val">0022</span>\n<span class="dim"># new files → 644, new dirs → 755</span>';
+  }
+
+  if (c0 === 'chown') {
+    const who = parts[1], fname = parts[2];
+    if (!who || !fname) return '<span class="err">chown: missing operand</span>';
+    const f = fname.split('/').pop();
+    if (lx3owner[f] !== undefined) {
+      lx3owner[f] = who.split(':')[0];
+      return '<span class="ok">owner of \'' + f + '\' changed to ' + who + '</span>';
+    }
+    return '<span class="err">chown: cannot access \'' + fname + '\': No such file</span>';
+  }
+
+  if (c0 === 'find' && cmd.includes('-perm')) {
+    return '<span class="val">/usr/bin/passwd</span>  <span class="dim">(setuid bit — runs as root)</span>\n' +
+      '<span class="val">/usr/bin/sudo</span>    <span class="dim">(setuid bit — runs as root)</span>\n' +
+      '<span class="val">/usr/bin/su</span>      <span class="dim">(setuid bit — runs as root)</span>';
+  }
+
+  // chmod symbolic mode (u+x, go-r etc)
+  if (c0 === 'chmod') {
+    const mode = parts[1], fname = parts.slice(2).join(' ') || parts[parts.length-1];
+    const f = fname.split('/').pop();
+    if (!mode || !fname) return '<span class="err">chmod: missing operand</span>';
+
+    let octal = lx3perms[f] || '644';
+    let o = parseInt(octal, 8);
+
+    const symM = mode.match(/^([ugoa]*)([+\-=])([rwx]+)$/);
+    if (symM) {
+      const who = symM[1] || 'a', op = symM[2], perms = symM[3];
+      let bits = 0;
+      if (perms.includes('r')) bits |= 4;
+      if (perms.includes('w')) bits |= 2;
+      if (perms.includes('x')) bits |= 1;
+      const apply = function(pos) {
+        const shift = pos * 3;
+        if (op === '+') o |= (bits << shift);
+        else if (op === '-') o &= ~(bits << shift);
+        else if (op === '=') { o &= ~(7 << shift); o |= (bits << shift); }
+      };
+      if (who.includes('u') || who.includes('a')) apply(2);
+      if (who.includes('g') || who.includes('a')) apply(1);
+      if (who.includes('o') || who.includes('a')) apply(0);
+      octal = o.toString(8).padStart(3,'0');
+    } else if (/^\d+$/.test(mode)) {
+      octal = mode.padStart(3,'0');
+      o = parseInt(octal, 8);
+    }
+
+    if (lx3perms[f] !== undefined) lx3perms[f] = octal;
+    const fmtPerm = function(n) {
+      return (n&4?'r':'-') + (n&2?'w':'-') + (n&1?'x':'-');
+    };
+    const uPerm = fmtPerm((o>>6)&7), gPerm = fmtPerm((o>>3)&7), oPerm = fmtPerm(o&7);
+    return '<span class="ok">chmod</span> ' + mode + ' ' + fname + '\n' +
+      '<span class="dim">new permissions: </span><span class="val">-' + uPerm + gPerm + oPerm + '</span> <span class="dim">(' + octal + ')</span>';
+  }
+
+  return _orig_lx3exec(cmd);
+}
+
+// ── Lab 4 extensions ──
+const _orig_lx4exec = lx4exec;
+function lx4exec(cmd) {
+  const parts = cmd.trim().split(/\s+/);
+  const c0 = parts[0];
+
+  if (c0 === 'pgrep') {
+    const name = parts[1] || '';
+    if (name === 'sleep') return '<span class="val">4721\n4722</span>';
+    if (name === 'nginx') return '<span class="val">1142\n1143\n1144</span>';
+    return '<span class="dim">(no process found)</span>';
+  }
+
+  if (c0 === 'kill' && parts[1] === '-l') {
+    return [
+      ' <span class="val">1) SIGHUP</span>   <span class="val">2) SIGINT</span>   <span class="val">3) SIGQUIT</span>  <span class="val">4) SIGILL</span>',
+      ' <span class="val">9) SIGKILL</span>  <span class="val">15) SIGTERM</span>  <span class="val">18) SIGCONT</span>  <span class="val">19) SIGSTOP</span>',
+      '<span class="dim"># 15=graceful, 9=force, 1=reload, 18/19=pause/resume</span>'
+    ].join('\n');
+  }
+
+  if (c0 === 'nice') {
+    const nFlag = cmd.match(/-n\s+(-?\d+)/);
+    const niceness = nFlag ? nFlag[1] : '0';
+    const subcmd = parts.slice(parts.findIndex(function(p){return !p.startsWith('-') && p !== 'nice' && !/^\d+$/.test(p);}) || 2).join(' ');
+    const pid = Math.floor(Math.random() * 30000) + 1000;
+    return '<span class="ok">[' + pid + '] background</span>\n' +
+      '<span class="dim">niceness: </span><span class="val">' + niceness + '</span>' +
+      '<span class="dim"> (range: -20=highest to 19=lowest)</span>';
+  }
+
+  if (c0 === 'ps' && cmd.includes('--sort')) {
+    return [
+      '<span class="dim">USER       PID  %CPU %MEM    VSZ   RSS COMMAND</span>',
+      '<span class="err">student   4891  87.3  2.1 234512  8432 python3 cpu_hog.py</span>',
+      '<span class="val">www-data  1142   4.2  1.8 198234  7124 nginx: worker</span>',
+      '<span class="dim">student   4721   0.1  0.0   7832   512 sleep 300</span>',
+      '<span class="dim">postgres  2341   0.0  3.4 412832 13456 postgres: autovacuum</span>',
+      '<span class="dim">root      1001   0.0  0.1  12432   456 sshd</span>'
+    ].join('\n');
+  }
+
+  return _orig_lx4exec(cmd);
+}
+
+// ── Lab 5: Bash script challenges ──
+function lx5run_challenge(type) {
+  const out = document.getElementById('lx5out');
+  if (!out) return;
+  const isHE = !document.getElementById('root').classList.contains('en');
+  const code = {
+    'for_loop': {
+      code: '#!/bin/bash\nfor i in 1 2 3 4 5; do\n  echo "Item: $i"\ndone',
+      output: 'Item: 1\nItem: 2\nItem: 3\nItem: 4\nItem: 5',
+      tip: isHE ? 'for loop רץ על רשימה. {1..10} = טווח. for f in *.log = על קבצים.' : 'for loops iterate over lists. {1..10} = range. for f in *.log = iterate files.'
+    },
+    'if_else': {
+      code: '#!/bin/bash\nFILE="/etc/passwd"\nif [ -f "$FILE" ]; then\n  echo "File exists: $FILE"\nelse\n  echo "Not found"\nfi',
+      output: 'File exists: /etc/passwd',
+      tip: isHE ? '-f = קובץ קיים, -d = תיקייה, -z = string ריק, -n = לא ריק, -eq = שווה (מספר).' : '-f = file exists, -d = directory, -z = string empty, -n = not empty, -eq = equal (number).'
+    },
+    'function_def': {
+      code: '#!/bin/bash\ngreet() {\n  local name="$1"\n  echo "Hello, $name!"\n  return 0\n}\n\ngreet "World"\ngreet "Linux"',
+      output: 'Hello, World!\nHello, Linux!',
+      tip: isHE ? 'local = משתנה מקומי לfunction. $1 = פרמטר ראשון. return 0 = הצלחה.' : 'local = function-scoped variable. $1 = first parameter. return 0 = success.'
+    },
+    'while_loop': {
+      code: '#!/bin/bash\ncount=1\nwhile [ $count -le 5 ]; do\n  echo "Count: $count"\n  ((count++))\ndone',
+      output: 'Count: 1\nCount: 2\nCount: 3\nCount: 4\nCount: 5',
+      tip: isHE ? '-le = less or equal. ((count++)) = increment. while true = infinite loop (זהירות!).' : '-le = less or equal. ((count++)) = increment. while true = infinite loop (careful!).'
+    },
+    'trap_cleanup': {
+      code: '#!/bin/bash\nset -e\nTMPFILE=$(mktemp)\ntrap "rm -f $TMPFILE; echo Cleaned up" EXIT\n\necho "Working..." > $TMPFILE\ncat $TMPFILE\n# script exits cleanly, trap runs automatically',
+      output: 'Working...\nCleaned up',
+      tip: isHE ? 'trap [cmd] EXIT — רץ תמיד כשscript מסיים, גם אחרי שגיאה. מונע temp files שנשארים לנצח.' : 'trap [cmd] EXIT — runs always when script exits, even after errors. Prevents leftover temp files.'
+    },
+    'getopts': {
+      code: '#!/bin/bash\nwhile getopts "e:v" opt; do\n  case $opt in\n    e) ENV="$OPTARG" ;;\n    v) VERBOSE=1    ;;\n  esac\ndone\necho "ENV: ${ENV:-dev}"\n[ "$VERBOSE" ] && echo "Verbose mode ON"',
+      output: '$ ./script.sh -e prod -v\nENV: prod\nVerbose mode ON',
+      tip: isHE ? 'getopts = flags אמיתיים ל-script שלך. "e:" = -e מקבל ארגומנט. "v" = flag בלי ארגומנט.' : 'getopts = real flags for your script. "e:" = -e takes argument. "v" = flag without argument.'
+    }
+  }[type];
+
+  if (!code) return;
+
+  out.innerHTML = [
+    '<span class="t-dim">$ cat script.sh</span>',
+    '<span class="t-s">' + code.code.replace(/\n/g,'<br>').replace(/ /g,'&nbsp;') + '</span>',
+    '',
+    '<span class="t-dim">$ bash script.sh</span>',
+    '<span class="t-ok">' + code.output.replace(/\n/g,'<br>') + '</span>',
+    '',
+    '<span class="t-val">💡 ' + code.tip + '</span>'
+  ].join('<br>');
+}
+
+// ── Lab 6 extensions ──
+const _orig_lx6exec = lx6exec;
+function lx6exec(cmd) {
+  const raw = cmd.trim();
+  const c0 = raw.split(/\s+/)[0];
+
+  if (c0 === 'df') {
+    return [
+      '<span class="dim">Filesystem      Size  Used Avail Use% Mounted on</span>',
+      '<span class="val">/dev/sda1        50G   38G  9.5G  80% /</span>',
+      '<span class="dim">tmpfs           2.0G  1.2M  2.0G   1% /dev/shm</span>',
+      '<span class="err">/dev/sdb1        10G  9.8G  200M  98% /var/log</span>  <span class="hi">← almost full!</span>',
+      '<span class="dim">/dev/sdc1       100G   45G   55G  45% /data</span>'
+    ].join('\n');
+  }
+
+  if (c0 === 'du') {
+    return [
+      '<span class="err">4.2G\t/var/log/app</span>',
+      '<span class="val">892M\t/var/log/nginx</span>',
+      '<span class="dim">234M\t/var/log/syslog</span>',
+      '<span class="dim"> 45M\t/var/log/auth.log</span>',
+      '<span class="dim">  2M\t/var/log/kern.log</span>',
+      '<span class="hi">→ /var/log/app is the culprit. Check log rotation.</span>'
+    ].join('\n');
+  }
+
+  if (raw.startsWith('lsof -i')) {
+    const port = raw.match(/:(\d+)/)?.[1] || '80';
+    if (port === '80') {
+      return [
+        '<span class="dim">COMMAND  PID     USER   FD   TYPE DEVICE SIZE/OFF NODE NAME</span>',
+        '<span class="val">apache2  3421    www-data  4u  IPv4  12345  TCP *:http (LISTEN)</span>',
+        '<span class="hi">→ apache2 (PID 3421) is using port 80 — not nginx!</span>',
+        '<span class="dim">Fix: sudo systemctl stop apache2 && sudo systemctl start nginx</span>'
+      ].join('\n');
+    }
+    return '<span class="dim">(no process using port ' + port + ')</span>';
+  }
+
+  if (raw.startsWith('journalctl -xe')) {
+    return [
+      '<span class="val">-- Logs begin at Mon 2025-01-13, end at Wed 2025-01-15 --</span>',
+      '<span class="err">Jan 15 10:23:41 server nginx[4521]: bind() to 0.0.0.0:80 failed (98: Address in use)</span>',
+      '<span class="err">Jan 15 10:23:41 server nginx[4521]: nginx: [emerg] still could not bind()</span>',
+      '<span class="hi">→ Port 80 already in use. Check: lsof -i :80</span>'
+    ].join('\n');
+  }
+
+  if (c0 === 'free') {
+    return [
+      '<span class="dim">              total        used        free      shared  buff/cache   available</span>',
+      '<span class="val">Mem:            15G         12G        512M        234M        2.8G        3.2G</span>',
+      '<span class="err">Swap:            2G        1.9G        102M</span>',
+      '<span class="hi">→ Swap is nearly full! RAM pressure is high. Check top for memory hogs.</span>'
+    ].join('\n');
+  }
+
+  if (raw.startsWith('dmesg')) {
+    return [
+      '<span class="dim">[1234567.890] eth0: renamed from veth3a2f1b</span>',
+      '<span class="err">[1234891.234] Out of memory: Kill process 8821 (java) score 892 or sacrifice child</span>',
+      '<span class="err">[1234891.235] Killed process 8821 (java) total-vm:2048000kB</span>',
+      '<span class="hi">→ OOM Killer struck! Java process killed. Increase RAM or fix memory leak.</span>',
+      '<span class="dim">[1234999.100] EXT4-fs (sda1): re-mounted. Opts: errors=remount-ro</span>'
+    ].join('\n');
+  }
+
+  if (c0 === 'uptime') {
+    return '<span class="val"> 10:23:44 up 47 days,  3:12,  2 users,  load average: <span class="err">4.23, 3.87, 3.91</span></span>\n<span class="hi">→ Load avg > CPU cores (assuming 2). System is overloaded!</span>';
+  }
+
+  if (c0 === 'vmstat') {
+    return [
+      '<span class="dim">procs ----memory---- ---swap-- -----io---- -system-- ------cpu-----</span>',
+      '<span class="dim"> r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa</span>',
+      '<span class="err"> 4  2 1945M 524288  12345 234567  124  234   890  2341 1234 5678 45 12 38  5</span>',
+      '<span class="hi">→ si/so > 0: swapping happening. b > 0: processes blocked on I/O. High wa: disk bottleneck.</span>'
+    ].join('\n');
+  }
+
+  return _orig_lx6exec(cmd);
+}
+
+// ══ END EXTENDED LAB COMMANDS ══════════════════════════════════════════════
 
 </script>
 </body>
