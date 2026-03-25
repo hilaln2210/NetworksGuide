@@ -382,6 +382,15 @@ function App() {
     })
   }, [lang])
 
+  // Listen for language switch requests from iframes (e.g. networks static files)
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.data?.ng_switch_lang) setLang(lang === 'he' ? 'en' : 'he')
+    }
+    window.addEventListener('message', handler)
+    return () => window.removeEventListener('message', handler)
+  }, [lang, setLang])
+
   const trackChapters = activeTrack?.chapters || []
   const chapter = trackChapters[currentChapter]
   const page = chapter?.pages[currentPage]
