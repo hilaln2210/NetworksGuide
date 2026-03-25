@@ -7,7 +7,7 @@ Generates:
 """
 import os, re, json
 
-SRC    = "/home/hila/Desktop/NetworksGuide/מסלול רשתות תקשורת/networks_course.html"
+SRC    = "/home/hila/Desktop/NetworksGuide/מסלול רשתות תקשורת/learn.html"
 OUT_HE = "/home/hila/Desktop/NetworksGuide/public/learn/networks"
 OUT_EN = "/home/hila/Desktop/NetworksGuide/public/learn/networks-en"
 os.makedirs(OUT_HE, exist_ok=True)
