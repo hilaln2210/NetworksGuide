@@ -1,7 +1,7 @@
 
 // ===== TRACKS =====
 // Each track is a self-contained learning path with its own chapters.
-// Chapter IDs: Networking=1-99, Cyber=101-199, WebAPI=300-399, Linux=400-499
+// Chapter IDs: Networking=1-99, Cyber=101-199, WebAPI=300-399, Linux=400-499, Crypto=500-599
 
 export const tracks = [
   {
@@ -87,6 +87,27 @@ export const tracks = [
       { id: 407, title: "📦 ניהול תוכנות וחבילות",                pages: [{ type: "html_page", title: "ניהול תוכנות וחבילות",       src: "/learn/linux/learn_ch08.html", srcEn: "/learn/linux-en/learn_ch08.html" }] },
       { id: 408, title: "💻 Bash Scripting — אוטומציה ראשונה",    pages: [{ type: "html_page", title: "Bash Scripting",            src: "/learn/linux/learn_ch09.html", srcEn: "/learn/linux-en/learn_ch09.html" }] },
       { id: 409, title: "🔍 Logs, חיפוש ו-Troubleshooting",      pages: [{ type: "html_page", title: "Logs ו-Troubleshooting",    src: "/learn/linux/learn_ch10.html", srcEn: "/learn/linux-en/learn_ch10.html" }] },
+    ]
+  },
+  {
+    id: 'crypto',
+    title: 'קריפטוגרפיה',
+    subtitle: 'Caesar, XOR, AES, Hashing, bcrypt, תקיפות — 10 פרקים + 6 מעבדות',
+    icon: '🔐',
+    color: '#f0b90b',
+    level: 'מתחיל–מתקדם',
+    quizSrc: '/learn/crypto/quiz_game.html',
+    chapters: [
+      { id: 500, title: "🔑 מבוא לקריפטוגרפיה",                    pages: [{ type: "html_page", title: "מבוא לקריפטוגרפיה",          src: "/learn/crypto/learn_ch01.html", srcEn: "/learn/crypto-en/learn_ch01.html" }] },
+      { id: 501, title: "🔄 קידוד vs הצפנה vs גיבוב",              pages: [{ type: "html_page", title: "Encoding vs Encryption",       src: "/learn/crypto/learn_ch02.html", srcEn: "/learn/crypto-en/learn_ch02.html" }] },
+      { id: 502, title: "🏛️ צפנים קלאסיים — Caesar, Vigenère",     pages: [{ type: "html_page", title: "Classical Ciphers",            src: "/learn/crypto/learn_ch03.html", srcEn: "/learn/crypto-en/learn_ch03.html" }] },
+      { id: 503, title: "⊕ XOR — הבסיס של הצפנה מודרנית",          pages: [{ type: "html_page", title: "XOR",                         src: "/learn/crypto/learn_ch04.html", srcEn: "/learn/crypto-en/learn_ch04.html" }] },
+      { id: 504, title: "🧱 Block Ciphers — AES, DES, מצבי פעולה", pages: [{ type: "html_page", title: "Block Ciphers — AES",          src: "/learn/crypto/learn_ch05.html", srcEn: "/learn/crypto-en/learn_ch05.html" }] },
+      { id: 505, title: "🌊 Stream Ciphers — ChaCha20",             pages: [{ type: "html_page", title: "Stream Ciphers",               src: "/learn/crypto/learn_ch06.html", srcEn: "/learn/crypto-en/learn_ch06.html" }] },
+      { id: 506, title: "#️⃣ Hashing — MD5, SHA, Salt",              pages: [{ type: "html_page", title: "Hashing",                      src: "/learn/crypto/learn_ch07.html", srcEn: "/learn/crypto-en/learn_ch07.html" }] },
+      { id: 507, title: "🔒 שמירת סיסמאות — bcrypt, Argon2",       pages: [{ type: "html_page", title: "Password Storage",             src: "/learn/crypto/learn_ch08.html", srcEn: "/learn/crypto-en/learn_ch08.html" }] },
+      { id: 508, title: "🎲 Random Numbers וניהול מפתחות",          pages: [{ type: "html_page", title: "Random & Key Management",      src: "/learn/crypto/learn_ch09.html", srcEn: "/learn/crypto-en/learn_ch09.html" }] },
+      { id: 509, title: "💥 תקיפת הצפנה — Brute Force, Side Channel", pages: [{ type: "html_page", title: "Breaking Encryption",      src: "/learn/crypto/learn_ch10.html", srcEn: "/learn/crypto-en/learn_ch10.html" }] },
     ]
   },
   // ── LOCKED — בעריכה ──

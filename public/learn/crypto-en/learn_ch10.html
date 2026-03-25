@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" id="root" class="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Crypto PRO | קריפטוגרפיה</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg:    #04060a;
+  --bg2:   #080c14;
+  --surf:  #0c1220;
+  --card:  #101828;
+  --card2: #14202e;
+  --b0:    #1a2640;
+  --b1:    #243050;
+  --b2:    #324060;
+
+  --g:     #f0b90b;
+  --g2:    #d4a017;
+  --g3:    rgba(240,185,11,.12);
+  --gg:    rgba(240,185,11,.06);
+  --gs:    0 0 20px rgba(240,185,11,.35);
+
+  --am:    #ff9f43;
+  --am2:   rgba(255,159,67,.12);
+  --bl:    #60a5fa;
+  --bl2:   rgba(96,165,250,.1);
+  --re:    #ff4d6a;
+  --re2:   rgba(255,77,106,.1);
+  --cy:    #22d3ee;
+  --pu:    #a78bfa;
+
+  --tx:    #e2e8f0;
+  --tx2:   #7a8ba8;
+  --tx3:   #2e3a50;
+
+  --fm: 'JetBrains Mono', 'Fira Code', monospace;
+  --fd: 'Syne', 'Noto Sans Hebrew', sans-serif;
+  --fb: 'JetBrains Mono', 'Noto Sans Hebrew', monospace;
+}
+
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font-family: var(--fb);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root { direction: rtl; }
+#root.en { direction: ltr; }
+.he   { display:inline;  } .he-b { display:block;  }
+.en   { display:none;    } .en-b { display:none;    }
+#root.en .he   { display:none;    } #root.en .he-b { display:none;    }
+#root.en .en   { display:inline;  } #root.en .en-b { display:block;   }
+#root.en body, #root.en { font-family: 'JetBrains Mono', sans-serif; }
+
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(240,185,11,.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(240,185,11,.015) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+body::after {
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 40% at 8% 12%, rgba(240,185,11,.05) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 95% 88%, rgba(167,139,250,.04) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 60% at 50% 50%, rgba(0,0,0,0) 0%, var(--bg) 100%);
+}
+
+.container { max-width:860px; margin:0 auto; padding:0 20px; position:relative; z-index:1; }
+.section { display:none; }
+.section.active { display:block; }
+.section-inner { max-width:860px; margin:0 auto; padding:0 20px; }
+
+/* NAV */
+.nav {
+  position:sticky; top:0; z-index:200;
+  height:46px;
+  background:rgba(4,6,10,.94);
+  backdrop-filter:blur(24px) saturate(160%);
+  border-bottom:1px solid var(--b0);
+  display:flex; align-items:center;
+  padding:0 24px; gap:0;
+}
+.nav-brand {
+  font-family:var(--fm); font-size:12px; font-weight:700;
+  color:var(--g); letter-spacing:1px;
+  display:flex; align-items:center; gap:8px;
+  margin-inline-end:20px; white-space:nowrap;
+}
+.nav-brand-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--g); box-shadow:0 0 8px var(--g);
+  animation:blink 1.4s steps(1) infinite;
+}
+.nav-tabs { display:flex; gap:0; flex:1; }
+.nav-tab {
+  background:none; border:none; cursor:pointer;
+  height:46px; padding:0 16px;
+  font-family:var(--fm); font-size:10px; font-weight:600;
+  color:var(--tx3); letter-spacing:1px; text-transform:uppercase;
+  border-bottom:2px solid transparent;
+  transition:color .15s, border-color .15s;
+}
+.nav-tab:hover { color:var(--tx2); }
+.nav-tab.active { color:var(--g); border-bottom-color:var(--g); }
+.lang-btn {
+  background:var(--surf); border:1px solid var(--b1);
+  color:var(--tx2); font-family:var(--fm); font-size:9px;
+  font-weight:700; padding:4px 10px; cursor:pointer;
+  letter-spacing:1px; transition:all .15s;
+}
+.lang-btn:hover { border-color:var(--g); color:var(--g); }
+
+/* HERO */
+.hero {
+  padding:84px 0 68px;
+  border-bottom:1px solid var(--b0);
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:'CRYPTO';
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-family:var(--fd); font-size:200px; font-weight:800;
+  color:var(--g); opacity:.03; pointer-events:none; white-space:nowrap;
+}
+.hero-tag {
+  font-family:var(--fm); font-size:10px; font-weight:600;
+  color:var(--g2); letter-spacing:3px; text-transform:uppercase;
+  margin-bottom:20px;
+}
+.hero h1 {
+  font-family:var(--fd); font-size:clamp(60px,10vw,110px);
+  font-weight:800; line-height:.92; letter-spacing:-2px;
+}
+.hero h1 .w1 { color:var(--tx); }
+.hero h1 .w2 { color:var(--g); text-shadow:0 0 60px rgba(240,185,11,.5); }
+.hero-sub {
+  font-size:13px; color:var(--tx2); margin-top:18px;
+  max-width:520px; line-height:1.8;
+}
+.stats-row {
+  display:flex; gap:24px; margin-top:32px;
+  padding:14px 0; border-top:1px solid var(--b0);
+}
+.stat { display:flex; flex-direction:column; gap:2px; }
+.stat-n { font-family:var(--fm); font-size:26px; font-weight:700; color:var(--g); }
+.stat-l { font-family:var(--fm); font-size:9px; color:var(--tx3); letter-spacing:1.5px; text-transform:uppercase; }
+
+/* CHAPTERS */
+.chapters { display:flex; flex-direction:column; gap:6px; padding:28px 0; }
+.ch {
+  background:var(--card); border:1px solid var(--b0);
+  position:relative; overflow:hidden;
+  transition:border-color .25s;
+}
+.ch.open { border-color:var(--g2); }
+.ch.open::before {
+  content:''; position:absolute; top:0; bottom:0; right:0; width:2px;
+  background:var(--g);
+}
+.ch-trigger {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 18px; cursor:pointer;
+  transition:background .15s;
+}
+.ch-trigger:hover { background:rgba(240,185,11,.02); }
+.ch-num {
+  font-family:var(--fm); font-size:9px; font-weight:600;
+  color:var(--tx3); letter-spacing:1px; min-width:38px;
+}
+.ch-icon-box {
+  width:34px; height:34px; border-radius:6px;
+  background:rgba(240,185,11,.08); border:1px solid rgba(240,185,11,.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0;
+}
+.ch-info { flex:1; min-width:0; }
+.ch-name {
+  font-family:var(--fb); font-size:13px; font-weight:600;
+  color:var(--tx); line-height:1.4;
+}
+.ch-desc {
+  font-family:var(--fm); font-size:10px; color:var(--tx2);
+  margin-top:2px; line-height:1.5;
+}
+.ch-meta { display:flex; align-items:center; gap:8px; flex-shrink:0; }
+.ch-time { font-family:var(--fm); font-size:10px; color:var(--tx3); }
+.ch-chevron {
+  font-size:10px; color:var(--tx3);
+  transition:transform .28s, color .15s;
+}
+.ch.open .ch-chevron { transform:rotate(90deg); color:var(--g); }
+
+.badge {
+  font-family:var(--fm); font-size:8px; padding:2px 7px;
+  letter-spacing:1.5px; text-transform:uppercase; font-weight:600;
+}
+.b-core   { background:var(--g3); color:var(--g); }
+.b-green  { background:var(--g3); color:var(--g); }
+.b-blue   { background:var(--bl2); color:var(--bl); }
+.b-amber  { background:var(--am2); color:var(--am); }
+.b-red    { background:var(--re2); color:var(--re); }
+.b-cyan   { background:rgba(34,211,238,.08); color:var(--cy); }
+.b-purple { background:rgba(167,139,250,.08); color:var(--pu); }
+
+.ch-body { display:none; border-top:1px solid var(--b0); }
+.ch.open .ch-body { display:block; }
+.ch-inner { padding:20px 18px 24px; }
+
+/* CONTENT COMPONENTS */
+.ch-intro {
+  font-size:13px; color:var(--tx2); line-height:1.9;
+  padding-bottom:16px; border-bottom:1px solid var(--b0);
+  margin-bottom:16px;
+}
+.ch-intro strong { color:var(--g); }
+
+.analogy {
+  background:rgba(240,185,11,.04); border:1px solid rgba(240,185,11,.12);
+  border-right:3px solid var(--g2);
+  padding:12px 14px; margin-bottom:16px;
+  font-size:12px; color:var(--tx2); line-height:1.8;
+}
+.analogy-icon { font-size:18px; margin-inline-end:8px; }
+.analogy strong { color:var(--g); }
+
+.sec-label-lx {
+  font-family:var(--fm); font-size:9px; font-weight:700;
+  color:var(--g2); letter-spacing:2px; text-transform:uppercase;
+  margin-bottom:8px;
+}
+.learn-list { display:flex; flex-direction:column; gap:4px; margin-bottom:16px; }
+.li {
+  font-family:var(--fm); font-size:12px; color:var(--tx2);
+  display:flex; gap:10px; align-items:flex-start; line-height:1.7;
+}
+.li::before { content:'//'; color:var(--g2); opacity:.5; font-size:11px; flex-shrink:0; }
+
+.build-step { display:flex; flex-direction:column; gap:0; margin-bottom:16px; }
+.bs-item {
+  display:flex; gap:12px; align-items:flex-start;
+  padding:10px 12px; background:var(--surf); border:1px solid var(--b0);
+  margin-bottom:-1px; font-size:12px; color:var(--tx2); line-height:1.7;
+  position:relative;
+}
+.bs-num {
+  font-family:var(--fm); font-size:10px; font-weight:700;
+  color:var(--g); background:rgba(240,185,11,.08);
+  padding:2px 8px; white-space:nowrap; flex-shrink:0;
+  border:1px solid rgba(240,185,11,.15);
+}
+.bs-item strong { color:var(--tx); }
+.bs-item code { background:rgba(240,185,11,.08); color:var(--g); padding:1px 5px; font-size:11px; }
+
+.why-matters {
+  display:flex; gap:10px; align-items:flex-start;
+  padding:10px 14px; margin:14px 0;
+  background:rgba(96,165,250,.04); border:1px solid rgba(96,165,250,.12);
+  font-size:12px; color:var(--tx2); line-height:1.8;
+}
+.why-matters strong { color:var(--bl); }
+.why-matters code { background:rgba(96,165,250,.08); color:var(--bl); padding:1px 5px; font-size:11px; }
+
+.glossary {
+  background:var(--surf); border:1px solid var(--b0);
+  margin-top:14px;
+}
+.glossary-head {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:9px 14px; cursor:pointer;
+  font-family:var(--fm); font-size:11px; color:var(--tx2);
+}
+.glossary-head:hover { background:rgba(240,185,11,.02); }
+.glos-arr { font-size:9px; transition:transform .2s; }
+.glossary.open .glos-arr { transform:rotate(90deg); }
+.glossary-body { display:none; border-top:1px solid var(--b0); padding:10px 14px; }
+.glossary.open .glossary-body { display:block; }
+.glos-item { display:flex; gap:10px; padding:4px 0; font-size:11px; }
+.glos-term { font-weight:600; color:var(--g); min-width:100px; flex-shrink:0; }
+.glos-def { color:var(--tx2); line-height:1.6; }
+
+.pro-tips { margin-top:16px; }
+.pt-header {
+  font-family:var(--fm); font-size:11px; font-weight:600;
+  color:var(--am); margin-bottom:8px;
+  display:flex; align-items:center; gap:6px;
+}
+.pt-grid { display:grid; grid-template-columns:1fr; gap:6px; }
+.pt-item {
+  background:var(--surf); border:1px solid var(--b0);
+  padding:10px 12px;
+}
+.pt-key { font-size:11px; font-weight:600; color:var(--g); margin-bottom:4px; }
+.pt-val { font-size:11px; color:var(--tx2); line-height:1.7; }
+.pt-val code { background:rgba(240,185,11,.08); color:var(--g); padding:1px 5px; font-size:10px; }
+
+/* CODE BLOCKS */
+.code-block {
+  background:var(--bg2); border:1px solid var(--b0);
+  margin:12px 0; overflow:hidden;
+}
+.code-bar {
+  background:var(--surf); border-bottom:1px solid var(--b0);
+  padding:6px 12px; display:flex; align-items:center; gap:6px;
+  font-family:var(--fm); font-size:9px; color:var(--tx3);
+}
+.code-bar .dot { width:7px; height:7px; border-radius:50%; }
+.code-bar .r { background:#ff5f57; }
+.code-bar .y { background:#febc2e; }
+.code-bar .g { background:#28c840; }
+.code-body {
+  padding:12px 14px; font-family:var(--fm); font-size:11px;
+  color:var(--tx2); line-height:1.8; overflow-x:auto; white-space:pre;
+}
+.code-body .kw { color:var(--pu); }
+.code-body .str { color:var(--g); }
+.code-body .cmt { color:var(--tx3); font-style:italic; }
+.code-body .fn { color:var(--bl); }
+.code-body .num { color:var(--am); }
+
+/* LABS / MISSIONS */
+.labs-list { display:flex; flex-direction:column; gap:10px; padding:28px 0; }
+.mission-card {
+  background:var(--card); border:1px solid var(--b0);
+  overflow:hidden;
+}
+.mission-hdr {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 18px;
+}
+.mission-icon { font-size:22px; }
+.mission-info { flex:1; }
+.mission-title { font-size:13px; font-weight:600; color:var(--tx); }
+.mission-story { font-size:11px; color:var(--tx2); margin-top:3px; line-height:1.6; }
+.mission-badge {
+  font-family:var(--fm); font-size:10px; padding:3px 10px;
+  background:var(--surf); border:1px solid var(--b1);
+  color:var(--tx3); white-space:nowrap; flex-shrink:0;
+}
+.mission-badge.mb-done {
+  background:var(--g3); border-color:rgba(240,185,11,.35);
+  color:var(--g); box-shadow:0 0 12px rgba(240,185,11,.15);
+}
+
+.mission-steps-wrap { padding:0 18px 14px; }
+.mission-steps { display:flex; flex-direction:column; gap:4px; }
+.ms-step {
+  display:flex; gap:10px; align-items:center;
+  padding:8px 11px;
+  background:var(--surf); border:1px solid var(--b0);
+  transition:all .25s;
+}
+.ms-step.ms-done { background:rgba(240,185,11,.04); border-color:rgba(240,185,11,.2); }
+.ms-chk {
+  width:16px; height:16px; flex-shrink:0;
+  border:1px solid var(--b1);
+  display:flex; align-items:center; justify-content:center;
+  font-size:10px; transition:all .25s;
+}
+.ms-step.ms-done .ms-chk {
+  background:var(--g); border-color:var(--g);
+  color:var(--bg); box-shadow:0 0 8px rgba(240,185,11,.4);
+}
+.ms-step.ms-done .ms-chk-inner::after { content:'✓'; }
+.ms-step-title { font-size:12px; color:var(--tx2); }
+
+.mission-emu { padding:0 18px 14px; }
+.emu-wrap {
+  border:1px solid var(--b1); overflow:hidden;
+  background:var(--bg2);
+}
+.emu-bar {
+  background:var(--surf); border-bottom:1px solid var(--b0);
+  padding:7px 11px;
+  display:flex; align-items:center; gap:7px;
+}
+.emu-dots { display:flex; gap:4px; }
+.ed { width:9px; height:9px; border-radius:50%; }
+.ed-r{ background:#ff5f57; } .ed-y{ background:#febc2e; } .ed-g{ background:#28c840; }
+.emu-ttl { font-family:var(--fm); font-size:10px; color:var(--tx2); flex:1; }
+.emu-sbtn, .emu-gbtn {
+  font-family:var(--fm); font-size:9px; padding:3px 10px;
+  border:1px solid var(--b1); cursor:pointer;
+  background:var(--surf); color:var(--tx2);
+  transition:all .12s;
+}
+.emu-gbtn { border-color:rgba(240,185,11,.3); color:var(--g); }
+.emu-gbtn:hover { background:var(--g3); }
+.emu-iw { padding:10px 12px; border-bottom:1px solid var(--b0); }
+.emu-lbl { font-family:var(--fm); font-size:9px; color:var(--tx3); margin-bottom:5px; letter-spacing:1px; }
+.emu-row { display:flex; gap:6px; }
+.emu-inp {
+  flex:1; background:var(--bg); border:1px solid var(--b1);
+  color:var(--g); font-family:var(--fm); font-size:12px;
+  padding:7px 10px; outline:none;
+}
+.emu-inp:focus { border-color:var(--g); box-shadow:0 0 8px rgba(240,185,11,.15); }
+.emu-out {
+  min-height:110px; max-height:250px; overflow-y:auto;
+  padding:10px 12px;
+  font-family:var(--fm); font-size:11px; line-height:1.9; color:var(--tx2);
+}
+.emu-out .ok { color:var(--g); }
+.emu-out .err { color:var(--re); }
+.emu-out .key { color:var(--bl); }
+.emu-out .val { color:var(--am); }
+.emu-out .hi { color:var(--cy); }
+
+.lx-qbtns { display:flex; flex-wrap:wrap; gap:4px; padding:8px 12px; border-top:1px solid var(--b0); }
+.lx-qbtn {
+  font-family:var(--fm); font-size:9px; padding:4px 10px;
+  background:var(--surf); border:1px solid var(--b0);
+  color:var(--tx2); cursor:pointer; transition:all .12s;
+}
+.lx-qbtn:hover { border-color:var(--g); color:var(--g); }
+
+.ans-btn {
+  display:block; width:100%; margin-top:10px;
+  background:var(--surf); border:1px solid var(--b0);
+  color:var(--tx2); font-family:var(--fm); font-size:11px;
+  padding:9px; cursor:pointer; text-align:right;
+  transition:all .15s;
+}
+.ans-btn:hover { border-color:var(--g); color:var(--g); }
+.ans-box { display:none; margin-top:6px; }
+.ans-box.show { display:block; }
+.ans-head { font-size:12px; font-weight:600; color:var(--g); margin-bottom:8px; }
+.ans-item {
+  display:flex; gap:10px; padding:6px 0; font-size:11px; color:var(--tx2); line-height:1.7;
+  border-bottom:1px solid var(--b0);
+}
+.an { font-weight:600; color:var(--g); min-width:24px; }
+.ans-note {
+  margin-top:8px; padding:8px 12px; font-size:11px;
+  background:rgba(240,185,11,.04); border-right:2px solid var(--g2);
+  color:var(--tx2); line-height:1.7;
+}
+
+.mission-success {
+  display:none; align-items:center; gap:10px;
+  padding:12px 18px; background:rgba(240,185,11,.04);
+  border-top:1px solid rgba(240,185,11,.15);
+}
+.ms-icon { font-size:20px; }
+.ms-msg { font-size:12px; color:var(--g); }
+
+.lx-challenge-btns { padding:8px 12px; }
+.lx-challenge-label { font-family:var(--fm); font-size:10px; color:var(--tx3); margin-bottom:6px; }
+.lx-qbtn-chal { background:rgba(240,185,11,.04); border-color:rgba(240,185,11,.15); }
+
+/* QUIZ */
+.quiz-header {
+  background:var(--card); border:1px solid var(--b0);
+  padding:24px; margin-bottom:20px; text-align:center;
+}
+.quiz-header h2 { font-family:var(--fm); font-size:18px; color:var(--g); margin-bottom:6px; }
+.quiz-header p { font-size:12px; color:var(--tx2); }
+.q-prog-bg { height:3px; background:var(--b0); margin-top:14px; }
+.q-prog { height:100%; background:var(--g); width:0%; transition:width .4s; }
+.q-p { font-family:var(--fm); font-size:10px; color:var(--tx3); margin-top:6px; }
+.q-list { display:flex; flex-direction:column; gap:8px; }
+.q-card {
+  background:var(--card); border:1px solid var(--b0);
+  padding:17px; transition:border-color .25s;
+}
+.q-card.c-ok { border-color:var(--g); background:rgba(240,185,11,.02); }
+.q-card.c-fail { border-color:var(--re); background:rgba(255,77,106,.02); }
+.q-top { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
+.q-idx { font-family:var(--fm); font-size:10px; font-weight:700; color:var(--g); }
+.q-tag { font-family:var(--fm); font-size:9px; color:var(--tx3); background:var(--surf); padding:2px 6px; }
+.q-text { font-size:13px; color:var(--tx); margin-bottom:10px; line-height:1.6; }
+.q-opts { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+.q-opt {
+  padding:9px 12px; border:1px solid var(--b1); background:var(--surf);
+  cursor:pointer; font-family:var(--fm); font-size:11px;
+  color:var(--tx2); text-align:right; transition:all .12s; line-height:1.4;
+}
+.q-opt:hover:not(.locked) { border-color:var(--g); color:var(--g); background:var(--g3); }
+.q-opt.hit { border-color:var(--g)!important; background:rgba(240,185,11,.1)!important; color:var(--g)!important; font-weight:600; }
+.q-opt.miss { border-color:var(--re)!important; background:rgba(255,77,106,.08)!important; color:var(--re)!important; }
+.q-exp { margin-top:9px; padding:8px 12px; background:rgba(240,185,11,.04); border-right:2px solid var(--g2); display:none; font-size:11px; color:var(--tx2); line-height:1.7; }
+.q-exp.show { display:block; animation:slide-in .2s ease; }
+
+.score-box {
+  background:var(--card); border:1px solid var(--b1);
+  padding:44px 28px; text-align:center; margin-top:20px;
+  display:none;
+}
+.score-box.show { display:block; animation:slide-in .4s ease; }
+.score-big { font-family:var(--fm); font-size:70px; font-weight:700; color:var(--g); line-height:1; text-shadow:var(--gs); }
+.score-of { font-size:22px; color:var(--tx3); }
+.score-pct { font-family:var(--fm); font-size:14px; color:var(--tx2); margin-top:8px; }
+.score-msg { font-size:14px; color:var(--g); margin-top:12px; }
+.score-sub { font-size:11px; color:var(--tx3); margin-top:4px; }
+.score-acts { margin-top:20px; display:flex; gap:10px; justify-content:center; }
+.btn-green {
+  background:var(--g); color:var(--bg); border:none;
+  font-family:var(--fm); font-size:11px; font-weight:600;
+  padding:10px 22px; cursor:pointer; transition:all .15s;
+}
+.btn-green:hover { box-shadow:var(--gs); }
+.btn-ghost {
+  background:none; border:1px solid var(--b1); color:var(--tx2);
+  font-family:var(--fm); font-size:11px; padding:10px 22px; cursor:pointer;
+}
+
+/* GAME */
+.dbg-shell { background:var(--card); border:1px solid var(--b1); position:relative; overflow:hidden; }
+.dbg-topbar {
+  background:var(--card2); border-bottom:1px solid var(--b0);
+  padding:9px 17px; display:flex; justify-content:space-between; align-items:center;
+}
+.dbg-topbar-left { display:flex; align-items:center; gap:12px; }
+.dbg-prog-lbl { font-family:var(--fm); font-size:10px; color:var(--tx3); }
+.dbg-ch-title { font-family:var(--fm); font-size:11px; color:var(--tx); font-weight:600; }
+.dbg-stats { display:flex; gap:16px; }
+.dbg-stat { text-align:center; }
+.dbg-stat-lbl { font-family:var(--fm); font-size:8px; color:var(--tx3); letter-spacing:1px; text-transform:uppercase; }
+.dbg-stat-val { font-family:var(--fm); font-size:14px; font-weight:700; color:var(--g); }
+.dbg-prog-bar { height:2px; background:var(--b0); }
+.dbg-prog-fill { height:100%; background:var(--g); transition:width .4s; }
+.dbg-body { padding:20px 17px; }
+.dbg-scenario {
+  font-size:12px; color:var(--tx2); line-height:1.8;
+  margin-bottom:14px; padding:10px 13px;
+  background:rgba(240,185,11,.03); border-right:2px solid var(--g2);
+}
+.dbg-request-wrap { margin-bottom:14px; }
+.dbg-req-label {
+  font-family:var(--fm); font-size:9px; color:var(--tx3);
+  letter-spacing:1px; margin-bottom:4px;
+  display:flex; align-items:center; gap:6px;
+}
+.dbg-req-dot { width:5px; height:5px; border-radius:50%; background:var(--g); }
+.dbg-request {
+  background:var(--bg2); border:1px solid var(--b0);
+  padding:10px 12px; font-family:var(--fm); font-size:11px;
+  color:var(--g); line-height:1.7; white-space:pre-wrap;
+}
+.dbg-question { font-size:13px; color:var(--tx); margin-bottom:12px; font-weight:500; }
+.dbg-opts { display:grid; grid-template-columns:1fr 1fr; gap:7px; }
+.dbg-opt {
+  padding:10px 12px; background:var(--surf); border:1px solid var(--b1);
+  font-family:var(--fm); font-size:11px; color:var(--tx2); text-align:right;
+  cursor:pointer; transition:all .12s; line-height:1.4;
+}
+.dbg-opt:hover:not(:disabled) { border-color:var(--g); color:var(--g); background:var(--g3); }
+.dbg-correct { border-color:var(--g)!important; background:rgba(240,185,11,.1)!important; color:var(--g)!important; font-weight:600; }
+.dbg-wrong { border-color:var(--re)!important; background:rgba(255,77,106,.08)!important; color:var(--re)!important; }
+.dbg-feedback {
+  margin-top:10px; padding:8px 12px;
+  font-family:var(--fm); font-size:11px; line-height:1.7; display:none;
+}
+.dbg-feedback.show { display:block; animation:slide-in .2s ease; }
+.dbg-explain { margin-top:8px; padding:8px 12px; background:rgba(240,185,11,.04); border-right:2px solid var(--g2); font-size:11px; color:var(--tx2); line-height:1.7; }
+.game-over { display:none; text-align:center; padding:38px 20px; }
+.game-over.show { display:block; }
+.go-emoji { font-size:48px; margin-bottom:12px; }
+.go-title { font-family:var(--fd); font-size:24px; font-weight:700; color:var(--tx); }
+.go-score { font-family:var(--fm); font-size:36px; font-weight:700; color:var(--g); margin:10px 0; }
+.go-msg { font-size:12px; color:var(--tx2); margin-bottom:16px; }
+.game-tip {
+  margin-top:12px; padding:10px 14px; background:var(--card);
+  border:1px solid var(--b0); font-size:11px; color:var(--tx2); line-height:1.7;
+}
+
+/* FOOTER */
+.site-footer {
+  padding:28px 20px; text-align:center;
+  font-family:var(--fm); font-size:10px; color:var(--tx3);
+  letter-spacing:2px; border-top:1px solid var(--b0);
+}
+
+/* ANIMATIONS */
+@keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+@keyframes slide-in { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:none} }
+
+/* RESPONSIVE */
+@media(max-width:768px) {
+  .container, .section-inner { padding:0 14px; }
+  .nav { padding:0 14px; }
+  .hero { padding:48px 0 36px; }
+  .hero h1 { font-size:clamp(48px,12vw,80px); }
+  .stats-row { width:100%; }
+  .stat { flex:1; }
+}
+@media(max-width:480px) {
+  .nav-tab { font-size:9px; padding:0 10px; }
+  .ch-desc, .ch-time { display:none; }
+  .dbg-opts, .q-opts { grid-template-columns:1fr; }
+}
+</style>
+
+<style>
+html, body { overflow-x: hidden; }
+@media (max-width: 800px) {
+  .container { padding: 0 12px; }
+  pre, code { font-size: 0.78rem; }
+  table { font-size: 0.82rem; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 6px; }
+  .ch, .mission-card { padding: 12px 8px; }
+  pre { padding: 10px 8px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="ch open" id="c10_en">
+  <div class="ch-trigger" onclick="toggleCh('c10_en')">
+    <span class="ch-num">10/10</span>
+    <div class="ch-icon-box">💥</div>
+    <div class="ch-info">
+      <div class="ch-name">Breaking Encryption — Brute Force, Side Channel, Padding Oracle</div>
+      <div class="ch-desc">How crypto gets broken — and how to defend</div>
+    </div>
+    <div class="ch-meta"><span class="badge b-red">ATTACK</span><span class="ch-time">⏱ 25m</span><span class="ch-chevron">▶</span></div>
+  </div>
+  <div class="ch-body" style="display:block"><div class="ch-inner">
+    <div class="ch-intro">Encryption itself almost never gets broken. What breaks — <strong>the way it's implemented</strong>. Weak key, reused nonce, timing leak, padding error. Let's learn the attacks.</div>
+    <div class="build-step" style="margin-top:14px">
+      <div class="bs-item"><span class="bs-num">Brute Force</span><div>56 bits: 2⁵⁶ = hours. 128 bits: 2¹²⁸ = billions of years. 256 bits: unbreakable. Solution: <strong>long key.</strong></div></div>
+      <div class="bs-item"><span class="bs-num">Side Channel</span><div>Measuring response <strong>time</strong>, <strong>power</strong> consumption, or CPU <strong>acoustic</strong> noise. Fix: constant-time code.</div></div>
+      <div class="bs-item"><span class="bs-num">Padding Oracle</span><div>Server returning "padding error" vs "decryption error" — leaks info bit by bit. BEAST/POODLE exploited this.</div></div>
+    </div>
+    <div class="why-matters"><span>💡</span><span><strong>Heartbleed (2014):</strong> Didn't break AES — broke OpenSSL <strong>implementation</strong>. Buffer over-read exposed private keys from RAM. 17% of servers were vulnerable.</span></div>
+    <div class="glossary" id="glos10_en"><div class="glossary-head" onclick="crToggleGlos('glos10_en')"><span>📖 Glossary</span><span class="glos-arr">▶</span></div><div class="glossary-body">
+      <div class="glos-item"><span class="glos-term">Brute Force</span><span class="glos-def">Trying all combinations. Only works on short keys.</span></div>
+      <div class="glos-item"><span class="glos-term">Side Channel</span><span class="glos-def">Information leaking from implementation — not the algorithm.</span></div>
+      <div class="glos-item"><span class="glos-term">Padding Oracle</span><span class="glos-def">Using padding error messages to decrypt.</span></div>
+      <div class="glos-item"><span class="glos-term">Constant-Time</span><span class="glos-def">Code that runs in the same time for any input. Prevents timing attacks.</span></div>
+    </div></div>
+  </div></div>
+</div>
+
+    </div></div></div>
+  </div>
+</div>
+
+<!-- ═══════════════ LABS ═══════════════ -->
+</div>
+<script>
+/* ═══════════════ CORE ═══════════════ */
+function isEn(){ return document.getElementById('root').classList.contains('en'); }
+function toggleLang(){
+  document.getElementById('root').classList.toggle('en');
+  document.getElementById('langBtn').textContent = isEn() ? 'עב' : 'EN';
+  buildQuiz();
+}
+function switchTab(id, btn){
+  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(function(t){ t.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  if(id==='game' && !_gameStarted) startGame();
+}
+function toggleCh(id){
+  var el=document.getElementById(id);
+  if(el) el.classList.toggle('open');
+}
+function crToggleGlos(id){
+  var el=document.getElementById(id);
+  if(el) el.classList.toggle('open');
+}
+function crC(id){ var el=document.getElementById(id); if(el) el.innerHTML=''; }
+
+/* ═══════════════ MISSION TRACKING ═══════════════ */
+var MS = {
+  1:{done:new Set(),total:3}, 2:{done:new Set(),total:3},
+  3:{done:new Set(),total:3}, 4:{done:new Set(),total:3},
+  5:{done:new Set(),total:3}, 6:{done:new Set(),total:3}
+};
+function completeStep(lab,sid){
+  var m=MS[lab]; if(!m||m.done.has(sid)) return;
+  m.done.add(sid);
+  [sid,sid+'_en'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.classList.add('ms-done');
+  });
+  var badge=document.getElementById('mb'+lab);
+  if(badge){
+    var d=m.done.size;
+    badge.innerHTML='<span class="he">'+d+' / '+m.total+'</span><span class="en">'+d+' / '+m.total+'</span>';
+    if(d>=m.total){
+      badge.classList.add('mb-done');
+      var succ=document.getElementById('ms'+lab);
+      if(succ) succ.style.display='flex';
+    }
+  }
+}
+
+/* ═══════════════ LAB 1: CAESAR ═══════════════ */
+function caesarShift(text,shift){
+  return text.split('').map(function(c){
+    if(c>='A'&&c<='Z') return String.fromCharCode(((c.charCodeAt(0)-65+shift+26)%26)+65);
+    if(c>='a'&&c<='z') return String.fromCharCode(((c.charCodeAt(0)-97+shift+26)%26)+97);
+    return c;
+  }).join('');
+}
+function crLab1Run(){
+  var txt=document.getElementById('cr1inp').value.toUpperCase();
+  var shift=parseInt(document.getElementById('cr1shift').value)||3;
+  if(!txt) return;
+  var enc=caesarShift(txt,shift);
+  var out=document.getElementById('cr1out');
+  out.innerHTML+='<div><span class="key">INPUT:</span> '+txt+'</div>';
+  out.innerHTML+='<div><span class="key">SHIFT:</span> <span class="val">'+shift+'</span></div>';
+  out.innerHTML+='<div><span class="ok">OUTPUT:</span> <span class="val">'+enc+'</span></div><div>---</div>';
+  if(txt==='HELLO'&&shift===3) completeStep(1,'step1_1');
+  if(txt==='KHOOR'&&shift===-3||txt==='KHOOR'&&shift===23) completeStep(1,'step1_2');
+}
+function crLab1Q(text,shift){
+  document.getElementById('cr1inp').value=text;
+  document.getElementById('cr1shift').value=shift;
+  crLab1Run();
+}
+function crLab1Brute(text){
+  var out=document.getElementById('cr1out');
+  out.innerHTML+='<div><span class="key">BRUTE FORCE:</span> '+text+'</div>';
+  for(var i=1;i<=25;i++){
+    var dec=caesarShift(text,-i);
+    var mark=(i===3)?'<span class="ok"> ← FOUND!</span>':'';
+    out.innerHTML+='<div><span class="val">shift '+i+':</span> '+dec+mark+'</div>';
+  }
+  out.innerHTML+='<div>---</div>';
+  completeStep(1,'step1_3');
+}
+function crLab1Reset(){ crC('cr1out'); MS[1].done=new Set(); }
+
+/* ═══════════════ LAB 2: XOR ═══════════════ */
+function xorStrings(text,key){
+  var result=[];
+  for(var i=0;i<text.length;i++){
+    result.push(text.charCodeAt(i)^key.charCodeAt(i%key.length));
+  }
+  return result;
+}
+function crLab2Run(){
+  var txt=document.getElementById('cr2inp').value;
+  var key=document.getElementById('cr2key').value;
+  if(!txt||!key) return;
+  var xored=xorStrings(txt,key);
+  var hex=xored.map(function(b){return b.toString(16).padStart(2,'0')}).join(' ');
+  var out=document.getElementById('cr2out');
+  out.innerHTML+='<div><span class="key">TEXT:</span> "'+txt+'" → '+txt.split('').map(function(c){return c.charCodeAt(0).toString(2).padStart(8,'0')}).join(' ')+'</div>';
+  out.innerHTML+='<div><span class="key">KEY:</span>  "'+key+'" → '+key.split('').map(function(c){return c.charCodeAt(0).toString(2).padStart(8,'0')}).join(' ')+'</div>';
+  out.innerHTML+='<div><span class="ok">XOR:</span>  '+xored.map(function(b){return b.toString(2).padStart(8,'0')}).join(' ')+'</div>';
+  out.innerHTML+='<div><span class="val">HEX:</span>  '+hex+'</div>';
+  var back=xored.map(function(b,i){return String.fromCharCode(b^key.charCodeAt(i%key.length))}).join('');
+  out.innerHTML+='<div><span class="hi">DECRYPT:</span> "'+back+'" (XOR again with same key)</div><div>---</div>';
+  completeStep(2,'step2_1');
+  if(txt!==back) completeStep(2,'step2_2');
+  completeStep(2,'step2_3');
+}
+function crLab2Q(t,k){ document.getElementById('cr2inp').value=t; document.getElementById('cr2key').value=k; crLab2Run(); }
+
+/* ═══════════════ LAB 3: BASE64 & HEX ═══════════════ */
+function crLab3Run(mode){
+  var txt=document.getElementById('cr3inp').value;
+  if(!txt) return;
+  var out=document.getElementById('cr3out');
+  if(mode==='b64e'){
+    var enc=btoa(txt);
+    out.innerHTML+='<div><span class="key">TEXT:</span> "'+txt+'"</div>';
+    out.innerHTML+='<div><span class="ok">BASE64:</span> <span class="val">'+enc+'</span></div><div>---</div>';
+    if(txt.toLowerCase()==='hello') completeStep(3,'step3_1');
+  } else if(mode==='hex'){
+    var h=txt.split('').map(function(c){return c.charCodeAt(0).toString(16).padStart(2,'0')}).join(' ');
+    out.innerHTML+='<div><span class="key">TEXT:</span> "'+txt+'"</div>';
+    out.innerHTML+='<div><span class="ok">HEX:</span> <span class="val">'+h+'</span></div><div>---</div>';
+    if(txt.toLowerCase()==='hello') completeStep(3,'step3_2');
+  } else if(mode==='b64d'){
+    try{
+      var dec=atob(txt);
+      out.innerHTML+='<div><span class="key">BASE64:</span> "'+txt+'"</div>';
+      out.innerHTML+='<div><span class="ok">DECODED:</span> <span class="val">'+dec+'</span></div><div>---</div>';
+      if(txt==='U2VjdXJpdHk=') completeStep(3,'step3_3');
+    }catch(e){
+      out.innerHTML+='<div><span class="err">ERROR: Invalid Base64</span></div>';
+    }
+  }
+}
+function crLab3Q(t,m){ document.getElementById('cr3inp').value=t; crLab3Run(m); }
+
+/* ═══════════════ LAB 4: HASH ═══════════════ */
+var _commonHashes={
+  'password':'5f4dcc3b5aa765d61d8327deb882cf99',
+  '123456':'e10adc3949ba59abbe56e057f20f883e',
+  'admin':'21232f297a57a5a743894a0e4a801fc3',
+  'letmein':'0d107d09f5bbe40cade3de5c71e9e9b7',
+  'qwerty':'d8578edf8458ce06fbc5bb76a58c5ca4',
+  'abc123':'e99a18c428cb38d5f260853678922e03',
+  'monkey':'d0763edaa9d9bd2a9516280e9044d885',
+  'master':'eb0a191797624dd3a48fa681d3061212',
+  'dragon':'8621ffdbc5698829397d97767ac13db3',
+  'login':'d56b699830e77ba53855679cb1d252da'
+};
+async function sha256(text){
+  var enc=new TextEncoder().encode(text);
+  var buf=await crypto.subtle.digest('SHA-256',enc);
+  return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+}
+function simpleMD5(text){
+  // Lookup for common passwords
+  return _commonHashes[text]||null;
+}
+async function crLab4Run(mode){
+  var txt=document.getElementById('cr4inp').value;
+  if(!txt) return;
+  var out=document.getElementById('cr4out');
+  if(mode==='sha256'){
+    var h=await sha256(txt);
+    out.innerHTML+='<div><span class="key">INPUT:</span> "'+txt+'"</div>';
+    out.innerHTML+='<div><span class="ok">SHA-256:</span> <span class="val" style="word-break:break-all">'+h+'</span></div>';
+    out.innerHTML+='<div><span class="hi">LENGTH:</span> 64 hex chars = 256 bits</div><div>---</div>';
+    if(txt==='password') completeStep(4,'step4_1');
+  } else if(mode==='md5'){
+    var h=simpleMD5(txt);
+    if(h){
+      out.innerHTML+='<div><span class="key">INPUT:</span> "'+txt+'"</div>';
+      out.innerHTML+='<div><span class="ok">MD5:</span> <span class="val">'+h+'</span></div>';
+      out.innerHTML+='<div><span class="hi">LENGTH:</span> 32 hex chars = 128 bits</div><div>---</div>';
+    } else {
+      out.innerHTML+='<div><span class="err">MD5 only available for common passwords in this demo</span></div>';
+    }
+  } else if(mode==='identify'){
+    var len=txt.replace(/\s/g,'').length;
+    var type='Unknown';
+    if(len===32) type='MD5 (128-bit)';
+    else if(len===40) type='SHA-1 (160-bit)';
+    else if(len===64) type='SHA-256 (256-bit)';
+    else if(len===128) type='SHA-512 (512-bit)';
+    out.innerHTML+='<div><span class="key">HASH:</span> '+txt.substring(0,40)+'...</div>';
+    out.innerHTML+='<div><span class="ok">LENGTH:</span> '+len+' hex chars</div>';
+    out.innerHTML+='<div><span class="val">TYPE:</span> <span class="hi">'+type+'</span></div><div>---</div>';
+    completeStep(4,'step4_2');
+  } else if(mode==='crack'){
+    out.innerHTML+='<div><span class="key">CRACKING:</span> '+txt.substring(0,32)+'...</div>';
+    out.innerHTML+='<div><span class="hi">Dictionary attack with 10 common passwords...</span></div>';
+    var found=false;
+    for(var pw in _commonHashes){
+      if(_commonHashes[pw]===txt){
+        out.innerHTML+='<div><span class="ok">✅ CRACKED!</span> "'+txt.substring(0,32)+'..." = <span class="val">"'+pw+'"</span></div><div>---</div>';
+        found=true; break;
+      }
+    }
+    if(!found){
+      var h=await sha256('password');
+      if(h===txt){
+        out.innerHTML+='<div><span class="ok">✅ CRACKED!</span> SHA-256 match = <span class="val">"password"</span></div><div>---</div>';
+        found=true;
+      }
+    }
+    if(!found) out.innerHTML+='<div><span class="err">❌ Not found in dictionary. Try a stronger attack or longer wordlist.</span></div><div>---</div>';
+    completeStep(4,'step4_3');
+  }
+}
+function crLab4Q(t,m){ document.getElementById('cr4inp').value=t; crLab4Run(m); }
+
+/* ═══════════════ LAB 5: AES (SIMPLIFIED) ═══════════════ */
+function simpleAESBlock(block,key){
+  // Simplified demonstration — XOR-based block cipher simulation
+  var result=[];
+  for(var i=0;i<block.length;i++){
+    result.push(block.charCodeAt(i)^key.charCodeAt(i%key.length));
+  }
+  return result.map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+}
+function crLab5Run(mode){
+  var txt=document.getElementById('cr5inp').value;
+  var key=document.getElementById('cr5key').value;
+  if(!txt||!key) return;
+  if(key.length<16) key=(key+'0000000000000000').substring(0,16);
+  var out=document.getElementById('cr5out');
+  // Pad to 16-byte blocks
+  while(txt.length%16!==0) txt+='\x00';
+  var blocks=[];
+  for(var i=0;i<txt.length;i+=16) blocks.push(txt.substring(i,i+16));
+
+  if(mode==='ecb'){
+    out.innerHTML+='<div><span class="key">MODE:</span> <span class="err">ECB</span> (each block encrypted independently)</div>';
+    var prev='';
+    blocks.forEach(function(b,idx){
+      var enc=simpleAESBlock(b,key);
+      var dup=(enc===prev)?' <span class="err">← SAME! Pattern leak!</span>':'';
+      out.innerHTML+='<div><span class="val">Block '+(idx+1)+':</span> '+enc+dup+'</div>';
+      prev=enc;
+    });
+    out.innerHTML+='<div><span class="err">⚠ Identical blocks → identical ciphertext. ECB is broken!</span></div><div>---</div>';
+    completeStep(5,'step5_1');
+  } else {
+    out.innerHTML+='<div><span class="key">MODE:</span> <span class="ok">CBC</span> (chained blocks with IV)</div>';
+    var iv=Array.from({length:16},function(){return Math.floor(Math.random()*256)});
+    out.innerHTML+='<div><span class="hi">IV:</span> '+iv.map(function(b){return b.toString(16).padStart(2,'0')}).join('')+'</div>';
+    var prevBlock=iv;
+    blocks.forEach(function(b,idx){
+      var xored='';
+      for(var j=0;j<b.length;j++){
+        xored+=String.fromCharCode(b.charCodeAt(j)^(prevBlock[j]||0));
+      }
+      var enc=simpleAESBlock(xored,key);
+      out.innerHTML+='<div><span class="val">Block '+(idx+1)+':</span> '+enc+'</div>';
+      prevBlock=enc.match(/.{2}/g).map(function(h){return parseInt(h,16)});
+    });
+    out.innerHTML+='<div><span class="ok">✓ All blocks different — CBC is secure.</span></div><div>---</div>';
+    completeStep(5,'step5_2');
+    completeStep(5,'step5_3');
+  }
+}
+
+/* ═══════════════ LAB 6: PASSWORD STRENGTH ═══════════════ */
+var _commonPasswords=['password','123456','12345678','qwerty','abc123','monkey','master','dragon','letmein','login','admin','welcome','iloveyou','shadow','sunshine','trustno1'];
+function crLab6Run(){
+  var pw=document.getElementById('cr6inp').value;
+  if(!pw) return;
+  var out=document.getElementById('cr6out');
+  var len=pw.length;
+  var hasLower=/[a-z]/.test(pw), hasUpper=/[A-Z]/.test(pw);
+  var hasNum=/[0-9]/.test(pw), hasSpec=/[^a-zA-Z0-9]/.test(pw);
+  var poolSize=(hasLower?26:0)+(hasUpper?26:0)+(hasNum?10:0)+(hasSpec?32:0);
+  if(poolSize===0) poolSize=26;
+  var entropy=Math.log2(Math.pow(poolSize,len));
+  var guessesPerSec=1e10;
+  var seconds=Math.pow(2,entropy)/guessesPerSec;
+  var timeStr;
+  if(seconds<1) timeStr='< 1 second';
+  else if(seconds<60) timeStr=Math.round(seconds)+' seconds';
+  else if(seconds<3600) timeStr=Math.round(seconds/60)+' minutes';
+  else if(seconds<86400) timeStr=Math.round(seconds/3600)+' hours';
+  else if(seconds<31536000) timeStr=Math.round(seconds/86400)+' days';
+  else if(seconds<31536000*1000) timeStr=Math.round(seconds/31536000)+' years';
+  else timeStr=seconds.toExponential(1)+' years';
+  var isCommon=_commonPasswords.indexOf(pw.toLowerCase())>=0;
+  var strength = isCommon?'TERRIBLE':entropy<28?'WEAK':entropy<36?'FAIR':entropy<60?'GOOD':entropy<80?'STRONG':'EXCELLENT';
+  var color = isCommon||entropy<28?'var(--re)':entropy<36?'var(--am)':entropy<60?'var(--bl)':'var(--g)';
+  out.innerHTML+='<div><span class="key">PASSWORD:</span> "'+pw+'"</div>';
+  out.innerHTML+='<div><span class="key">LENGTH:</span> '+len+' chars</div>';
+  out.innerHTML+='<div><span class="key">POOL:</span> '+poolSize+' chars ('+[hasLower?'a-z':'',hasUpper?'A-Z':'',hasNum?'0-9':'',hasSpec?'special':''].filter(Boolean).join(', ')+')</div>';
+  out.innerHTML+='<div><span class="key">ENTROPY:</span> '+entropy.toFixed(1)+' bits</div>';
+  if(isCommon) out.innerHTML+='<div><span class="err">⚠ In top 20 common passwords list!</span></div>';
+  out.innerHTML+='<div><span class="key">CRACK TIME:</span> <span style="color:'+color+'">'+timeStr+'</span> (10B guesses/sec)</div>';
+  out.innerHTML+='<div><span class="key">STRENGTH:</span> <span style="color:'+color+';font-weight:700">'+strength+'</span></div><div>---</div>';
+  if(pw==='password'||isCommon) completeStep(6,'step6_1');
+  if(hasSpec&&hasUpper&&hasNum) completeStep(6,'step6_2');
+  if(pw.split(' ').length>=3) completeStep(6,'step6_3');
+}
+function crLab6Q(pw){ document.getElementById('cr6inp').value=pw; crLab6Run(); }
+
+/* ═══════════════ QUIZ ═══════════════ */
+var _QS_HE = [
+  { q:"מה ההבדל העיקרי בין Encoding ל-Encryption?", tag:"בסיס", opts:["Encoding הפיך, Encryption לא","Encoding לא דורש מפתח, Encryption כן","שניהם זהים","Encoding בטוח יותר"], ans:1, exp:"Encoding (כמו Base64) הוא שינוי פורמט — כל אחד יכול להפוך. Encryption דורש מפתח סודי." },
+  { q:"מה עושה פעולת XOR?", tag:"XOR", opts:["כפל בינארי","חיבור בינארי","שונים=1, זהים=0","שונים=0, זהים=1"], ans:2, exp:"XOR: 0⊕0=0, 1⊕1=0, 0⊕1=1, 1⊕0=1. שונים=1, זהים=0. הבסיס של הצפנה." },
+  { q:"כמה אפשרויות יש ב-Caesar Cipher?", tag:"קלאסי", opts:["256","26","52","128"], ans:1, exp:"26 הזזות אפשריות (A-Z). Brute force תוך שניות." },
+  { q:"מה זה One-Time Pad?", tag:"XOR", opts:["הצפנה עם מפתח קצר","הצפנה עם מפתח אקראי באורך ההודעה","סוג של Hash","Block Cipher מיוחד"], ans:1, exp:"OTP = מפתח אקראי באורך ההודעה. בלתי שביר מתמטית (Shannon 1949). אבל לא מעשי." },
+  { q:"למה ECB mode שבור?", tag:"AES", opts:["המפתח קצר מדי","אין padding","בלוקים זהים → ciphertext זהה","הוא איטי מדי"], ans:2, exp:"ECB מצפין כל בלוק בנפרד. בלוקים זהים בplaintext → בלוקים זהים בciphertext. חושף דפוסים." },
+  { q:"מה גודל הבלוק של AES?", tag:"AES", opts:["64 ביט","128 ביט","256 ביט","512 ביט"], ans:1, exp:"AES עובד עם בלוקים של 128 ביט (16 בתים). גודל המפתח יכול להיות 128/192/256." },
+  { q:"מה זה IV (Initialization Vector)?", tag:"AES", opts:["סוג מפתח","ערך אקראי שמבטיח ciphertext שונה","Password hash","Block cipher"], ans:1, exp:"IV = ערך אקראי שמצורף לכל הצפנה. מבטיח שאותו plaintext+key → ciphertext שונה." },
+  { q:"מה ההבדל בין Stream Cipher ל-Block Cipher?", tag:"סימטרי", opts:["Stream מצפין ביט-ביט, Block מצפין בלוקים","אין הבדל","Stream בטוח יותר","Block מהיר יותר"], ans:0, exp:"Stream Cipher מצפין ביט אחרי ביט עם keystream. Block Cipher מצפין בלוקים קבועים (128 ביט ב-AES)." },
+  { q:"מה שבור ב-RC4?", tag:"Stream", opts:["המפתח קצר","Bias בbytes הראשונים + WEP crack","הוא איטי","אין תמיכה בnonce"], ans:1, exp:"RC4 יש bias סטטיסטי בbytes הראשונים. WEP WiFi נשבר בגלל RC4. אל תשתמש." },
+  { q:"מה עושה SHA-256?", tag:"Hash", opts:["מצפין טקסט","יוצר hash חד-כיווני באורך 256 ביט","מפענח סיסמאות","דוחס קבצים"], ans:1, exp:"SHA-256 יוצר 'טביעת אצבע' של 256 ביט מכל input. חד-כיווני — אי אפשר לחזור." },
+  { q:"מה זה Collision ב-Hash?", tag:"Hash", opts:["שני inputs עם אותו hash","Hash שנכשל","Hash ארוך מדי","סוג של Salt"], ans:0, exp:"Collision = שני inputs שונים שנותנים אותו hash. אם קל למצוא = ה-hash שבור (כמו MD5)." },
+  { q:"למה Salt חשוב?", tag:"Hash", opts:["מאיץ את ה-hash","מונע Rainbow Table attacks","מגדיל את אורך הסיסמה","מצפין את ה-hash"], ans:1, exp:"Salt = ערך אקראי ייחודי לכל סיסמה. מונע שימוש בטבלאות hash מוכנות מראש (Rainbow Tables)." },
+  { q:"למה SHA-256 לא מספיק לסיסמאות?", tag:"KDF", opts:["הוא לא מספיק ארוך","הוא מהיר מדי — מיליארד בשנייה","הוא שבור","הוא חד-כיווני מדי"], ans:1, exp:"SHA-256 מהיר מדי: מחשב מודרני מחשב ~1B hashes/sec. Brute force על סיסמה פשוטה = שניות." },
+  { q:"מה מיוחד ב-Argon2?", tag:"KDF", opts:["הוא הכי מהיר","הוא Memory-hard — דורש RAM","הוא הכי ישן","הוא Symmetric cipher"], ans:1, exp:"Argon2 = memory-hard KDF. דורש MB של RAM לכל hash. GPU/ASIC לא עוזרים כי הם דלים בRAM." },
+  { q:"מה זה CSPRNG?", tag:"Random", opts:["Cipher Suite Protocol","Cryptographically Secure PRNG","Certificate Signing Request","Client-Server Protocol"], ans:1, exp:"CSPRNG = מחולל מספרים פסאודו-אקראיים שבטוח לcrypto. /dev/urandom, crypto.getRandomValues()." },
+  { q:"מה קרה ב-PlayStation 3 hack?", tag:"Random", opts:["שברו AES","השתמשו בnonce קבוע בECDSA","גנבו סיסמאות","Brute force על RSA"], ans:1, exp:"Sony השתמשה במספר אקראי קבוע (!) בחתימת ECDSA. תוקפים חילצו את המפתח הפרטי." },
+  { q:"מה זה Side Channel Attack?", tag:"התקפות", opts:["מתקפה על האלגוריתם","מתקפה על הimplementation — timing, power","Social engineering","Brute force"], ans:1, exp:"Side Channel = מידע שדולף מהyimplementation: זמן תגובה, צריכת חשמל, רעש. לא מהאלגוריתם עצמו." },
+  { q:"מה זה Padding Oracle Attack?", tag:"התקפות", opts:["Brute force על padding","שימוש בהודעות שגיאת padding לפענוח","מתקפה על Oracle DB","מתקפה על RSA padding"], ans:1, exp:"שרת שמחזיר 'padding error' vs 'decryption error' — חושף מידע ביט אחרי ביט. BEAST/POODLE." },
+  { q:"מה ההמלצה לmode ב-AES היום?", tag:"AES", opts:["ECB","CBC","GCM (AEAD)","OFB"], ans:2, exp:"AES-GCM = הצפנה + אימות (AEAD). הסטנדרט של TLS 1.3. מונע tampering + חושף שינויים." },
+  { q:"מה Kerckhoffs's Principle?", tag:"בסיס", opts:["המפתח חייב להיות ארוך","המערכת בטוחה גם אם הכל ידוע חוץ מהמפתח","ההצפנה חייבת להיות מהירה","צריך שני מפתחות"], ans:1, exp:"Kerckhoffs: המערכת חייבת להיות בטוחה גם אם התוקף יודע הכל חוץ מהמפתח. Security ≠ Obscurity." }
+];
+var _QS_EN = [
+  { q:"What's the main difference between Encoding and Encryption?", tag:"Basics", opts:["Encoding is reversible, Encryption isn't","Encoding needs no key, Encryption does","They're the same","Encoding is more secure"], ans:1, exp:"Encoding (like Base64) is format conversion — anyone can reverse it. Encryption requires a secret key." },
+  { q:"What does XOR do?", tag:"XOR", opts:["Binary multiplication","Binary addition","Different=1, Same=0","Different=0, Same=1"], ans:2, exp:"XOR: 0⊕0=0, 1⊕1=0, 0⊕1=1, 1⊕0=1. Different=1, Same=0. Foundation of encryption." },
+  { q:"How many possibilities does Caesar Cipher have?", tag:"Classical", opts:["256","26","52","128"], ans:1, exp:"26 possible shifts (A-Z). Brute force in seconds." },
+  { q:"What is a One-Time Pad?", tag:"XOR", opts:["Encryption with a short key","Encryption with random key same length as message","A type of Hash","Special Block Cipher"], ans:1, exp:"OTP = random key same length as the message. Mathematically unbreakable (Shannon 1949). But impractical." },
+  { q:"Why is ECB mode broken?", tag:"AES", opts:["Key too short","No padding","Identical blocks → identical ciphertext","Too slow"], ans:2, exp:"ECB encrypts each block independently. Identical plaintext blocks → identical ciphertext blocks. Reveals patterns." },
+  { q:"What is AES block size?", tag:"AES", opts:["64 bits","128 bits","256 bits","512 bits"], ans:1, exp:"AES operates on 128-bit (16 byte) blocks. Key size can be 128/192/256 bits." },
+  { q:"What is an IV (Initialization Vector)?", tag:"AES", opts:["A type of key","Random value ensuring different ciphertext","Password hash","Block cipher"], ans:1, exp:"IV = random value added to each encryption. Ensures same plaintext+key → different ciphertext each time." },
+  { q:"Difference between Stream Cipher and Block Cipher?", tag:"Symmetric", opts:["Stream encrypts bit-by-bit, Block encrypts blocks","No difference","Stream is more secure","Block is faster"], ans:0, exp:"Stream Cipher encrypts bit by bit with a keystream. Block Cipher encrypts fixed blocks (128 bits in AES)." },
+  { q:"What's broken in RC4?", tag:"Stream", opts:["Short key","Bias in first bytes + WEP crack","Too slow","No nonce support"], ans:1, exp:"RC4 has statistical bias in first bytes. WEP WiFi was cracked because of RC4. Don't use it." },
+  { q:"What does SHA-256 do?", tag:"Hash", opts:["Encrypts text","Creates a one-way 256-bit hash","Decrypts passwords","Compresses files"], ans:1, exp:"SHA-256 creates a 256-bit 'fingerprint' from any input. One-way — can't be reversed." },
+  { q:"What is a Hash Collision?", tag:"Hash", opts:["Two inputs with the same hash","A failed hash","Hash too long","A type of Salt"], ans:0, exp:"Collision = two different inputs producing the same hash. Easy to find = hash is broken (like MD5)." },
+  { q:"Why is Salt important?", tag:"Hash", opts:["Speeds up hashing","Prevents Rainbow Table attacks","Increases password length","Encrypts the hash"], ans:1, exp:"Salt = unique random value per password. Prevents use of pre-computed hash tables (Rainbow Tables)." },
+  { q:"Why isn't SHA-256 enough for passwords?", tag:"KDF", opts:["Not long enough","Too fast — billions per second","It's broken","Too one-way"], ans:1, exp:"SHA-256 is too fast: modern hardware computes ~1B hashes/sec. Brute force on simple passwords = seconds." },
+  { q:"What's special about Argon2?", tag:"KDF", opts:["It's the fastest","It's Memory-hard — requires RAM","It's the oldest","It's a Symmetric cipher"], ans:1, exp:"Argon2 = memory-hard KDF. Requires MB of RAM per hash. GPU/ASIC don't help because they lack RAM." },
+  { q:"What is CSPRNG?", tag:"Random", opts:["Cipher Suite Protocol","Cryptographically Secure PRNG","Certificate Signing Request","Client-Server Protocol"], ans:1, exp:"CSPRNG = pseudo-random number generator safe for crypto. /dev/urandom, crypto.getRandomValues()." },
+  { q:"What happened in the PS3 hack?", tag:"Random", opts:["Broke AES","Used constant nonce in ECDSA","Stole passwords","Brute force on RSA"], ans:1, exp:"Sony used a constant (!) random number in ECDSA signing. Attackers extracted the private key." },
+  { q:"What is a Side Channel Attack?", tag:"Attacks", opts:["Attack on algorithm","Attack on implementation — timing, power","Social engineering","Brute force"], ans:1, exp:"Side Channel = info leaking from implementation: response time, power consumption, noise. Not from the algorithm." },
+  { q:"What is a Padding Oracle Attack?", tag:"Attacks", opts:["Brute force on padding","Using padding error messages to decrypt","Attack on Oracle DB","Attack on RSA padding"], ans:1, exp:"Server returning 'padding error' vs 'decryption error' — leaks info bit by bit. BEAST/POODLE exploited this." },
+  { q:"Recommended AES mode today?", tag:"AES", opts:["ECB","CBC","GCM (AEAD)","OFB"], ans:2, exp:"AES-GCM = encryption + authentication (AEAD). TLS 1.3 standard. Prevents tampering + detects changes." },
+  { q:"What is Kerckhoffs's Principle?", tag:"Basics", opts:["Key must be long","System secure even if everything known except key","Encryption must be fast","Need two keys"], ans:1, exp:"Kerckhoffs: system must be secure even if attacker knows everything except the key. Security ≠ Obscurity." }
+];
+
+var _qScore=0, _qTotal=0, _qAnswered=0;
+function buildQuiz(){
+  var qs=isEn()?_QS_EN:_QS_HE;
+  _qTotal=qs.length; _qScore=0; _qAnswered=0;
+  var html='';
+  qs.forEach(function(q,i){
+    html+='<div class="q-card" id="q'+i+'">';
+    html+='<div class="q-top"><span class="q-idx">Q'+(i+1)+'</span><span class="q-tag">'+q.tag+'</span></div>';
+    html+='<div class="q-text">'+q.q+'</div>';
+    html+='<div class="q-opts">';
+    q.opts.forEach(function(o,j){
+      html+='<button class="q-opt" onclick="ansQz('+i+','+j+')">'+o+'</button>';
+    });
+    html+='</div>';
+    html+='<div class="q-exp" id="q'+i+'-exp">'+q.exp+'</div>';
+    html+='</div>';
+  });
+  document.getElementById('qList').innerHTML=html;
+  document.getElementById('qp').style.width='0%';
+  document.getElementById('qpl').textContent='0 / '+_qTotal;
+  document.getElementById('scoreBox').classList.remove('show');
+}
+function ansQz(qi,oi){
+  var qs=isEn()?_QS_EN:_QS_HE;
+  var card=document.getElementById('q'+qi);
+  if(card.classList.contains('c-ok')||card.classList.contains('c-fail')) return;
+  var btns=card.querySelectorAll('.q-opt');
+  btns.forEach(function(b){b.classList.add('locked')});
+  if(oi===qs[qi].ans){
+    btns[oi].classList.add('hit');
+    card.classList.add('c-ok');
+    _qScore++;
+  } else {
+    btns[oi].classList.add('miss');
+    btns[qs[qi].ans].classList.add('hit');
+    card.classList.add('c-fail');
+  }
+  _qAnswered++;
+  var expEl=document.getElementById('q'+qi+'-exp');
+  if(expEl) expEl.classList.add('show');
+  document.getElementById('qp').style.width=(_qAnswered/_qTotal*100)+'%';
+  document.getElementById('qpl').textContent=_qAnswered+' / '+_qTotal;
+  if(_qAnswered>=_qTotal) showScore();
+}
+function showScore(){
+  var pct=Math.round(_qScore/_qTotal*100);
+  document.getElementById('scoreBig').innerHTML=_qScore+'<span class="score-of">/'+_qTotal+'</span>';
+  document.getElementById('scorePct').textContent=pct+'%';
+  var msg=pct>=90?(isEn()?'Crypto Master!':'מאסטר קריפטו!'):pct>=70?(isEn()?'Well done!':'כל הכבוד!'):pct>=50?(isEn()?'Good start!':'התחלה טובה!'):(isEn()?'Keep studying!':'המשך ללמוד!');
+  document.getElementById('scoreMsg').textContent=msg;
+  document.getElementById('scoreBox').classList.add('show');
+}
+function restartQuiz(){ buildQuiz(); }
+
+/* ═══════════════ GAME ═══════════════ */
+var _gameStarted=false;
+var _CH_HE = [
+  {title:"Caesar Cipher",scenario:"קיבלת הודעה מוצפנת: KHOOR ZRUOG",request:"הודעה מוצפנת ב-Caesar Cipher.\nצריך לפענח.",question:"מה ה-shift של ההצפנה?",opts:["1","3","5","13"],ans:1,exp:"KHOOR ZRUOG עם shift 3 = HELLO WORLD. K→H, H→E, O→L."},
+  {title:"Encoding vs Encryption",scenario:"ראית JWT token עם header: eyJhbGciOiJIUzI1NiJ9",request:"JWT header שנראה מוצפן.",question:"איך לפענח את ה-header?",opts:["AES decrypt","RSA decrypt","Base64 decode","SHA-256 reverse"],ans:2,exp:"JWT headers הם Base64. eyJhbGciOiJIUzI1NiJ9 = {\"alg\":\"HS256\"}. קידוד, לא הצפנה."},
+  {title:"XOR Attack",scenario:"שני ciphertexts הוצפנו עם אותו מפתח XOR:\nC1 = 0x4A, C2 = 0x5B",request:"C1 = P1 ⊕ K\nC2 = P2 ⊕ K",question:"מה C1 ⊕ C2 שווה?",opts:["P1 ⊕ P2","K ⊕ K","P1 ⊕ K","אי אפשר לדעת"],ans:0,exp:"C1⊕C2 = (P1⊕K)⊕(P2⊕K) = P1⊕P2. המפתח מתבטל! זו מתקפת Two-Time Pad."},
+  {title:"AES Mode",scenario:"צריך להצפין תמונה. הבוס אומר 'תשתמש ב-AES'.",request:"הצפנת תמונה עם AES.\nאיזה mode?",question:"באיזה mode אסור להשתמש?",opts:["GCM","CBC","CTR","ECB"],ans:3,exp:"ECB מצפין כל בלוק בנפרד. בתמונה — פיקסלים זהים → בלוקים זהים. הפינגווין המפורסם."},
+  {title:"Hash Identification",scenario:"מצאת hash בDB: 5f4dcc3b5aa765d61d8327deb882cf99",request:"Hash: 5f4dcc3b5aa765d61d8327deb882cf99\nLength: 32 hex chars",question:"איזה סוג hash זה?",opts:["SHA-256","SHA-1","MD5","bcrypt"],ans:2,exp:"32 hex chars = 128 bits = MD5. SHA-1=40, SHA-256=64. bcrypt מתחיל ב-$2b$."},
+  {title:"Password Storage",scenario:"אתה בונה מערכת login חדשה.\nצריך לשמור סיסמאות.",request:"בחר את הדרך הבטוחה\nלאחסן סיסמאות.",question:"איך לשמור את הסיסמאות?",opts:["SHA-256","MD5 + salt","Plaintext + encryption","Argon2 + salt"],ans:3,exp:"Argon2 + salt = ההמלצה הנוכחית. Memory-hard KDF. SHA-256 מהיר מדי, MD5 שבור."},
+  {title:"Nonce Reuse",scenario:"מערכת הצפנה שלך משתמשת ב-ChaCha20.\nמישהו בצוות hardcode את ה-nonce.",request:"ChaCha20 עם nonce קבוע.\nאותו nonce לכל הודעה.",question:"מה הסיכון?",opts:["אין סיכון","Two-Time Pad attack — C1⊕C2=P1⊕P2","Brute force","Padding Oracle"],ans:1,exp:"Nonce חוזר = Two-Time Pad. C1⊕C2 = P1⊕P2. המפתח מתבטל ואפשר לחלץ plaintext."},
+  {title:"Side Channel",scenario:"שרת בודק סיסמה תו-תו.\nאם תו לא נכון — חוזר מיד.",request:"Login check:\nfor i in range(len(pw)):\n  if pw[i] != input[i]:\n    return False\nreturn True",question:"מה הבעיה בקוד?",opts:["אין salt","Timing attack — זמן תגובה חושף אורך","SQL injection","Buffer overflow"],ans:1,exp:"בדיקה תו-תו עם return מוקדם = timing attack. סיסמה ארוכה יותר נכון = תגובה איטית יותר."},
+  {title:"Random Numbers",scenario:"קוד JavaScript יוצר מפתח הצפנה:\nvar key = Math.random().toString(16)",request:"var key = Math.random()\n  .toString(16).slice(2);",question:"מה הבעיה?",opts:["המפתח קצר מדי","Math.random() לא CSPRNG","אין IV","חסר salt"],ans:1,exp:"Math.random() = PRNG דטרמיניסטי. לא בטוח לcrypto. צריך crypto.getRandomValues()."},
+  {title:"Heartbleed",scenario:"שרת OpenSSL פגיע ל-Heartbleed.\nתוקף שולח heartbeat request.",request:"Heartbeat request:\nPayload: 1 byte\nClaimed length: 65535 bytes",question:"מה התוקף יקבל?",opts:["Error message","תוכן RAM של השרת — כולל מפתחות","רק ה-1 byte","Connection reset"],ans:1,exp:"Heartbleed: השרת מחזיר bytes לפי claimed length, לא actual length. 65KB מRAM — כולל מפתחות פרטיים."},
+  {title:"Rainbow Tables",scenario:"DB של 1M סיסמאות נגנב.\nכולן MD5 בלי salt.",request:"1,000,000 MD5 hashes\nNo salt. Standard passwords.",question:"כמה זמן לפרוץ 80% מהסיסמאות?",opts:["שנים","חודשים","ימים","דקות — עם Rainbow Table"],ans:3,exp:"Rainbow Table מוכנה מראש = lookup מיידי. 80% מסיסמאות נפוצות ימצאו תוך דקות. Salt מונע את זה."},
+  {title:"AEAD",scenario:"צריך להצפין API request.\nגם לוודא שהנתונים לא שונו.",request:"Encrypt + Authenticate\nAPI request data.",question:"איזה scheme מתאים?",opts:["AES-ECB","AES-CBC","AES-GCM","ROT13"],ans:2,exp:"AES-GCM = AEAD. מצפין + מאמת שהנתונים לא שונו. הסטנדרט של TLS 1.3."}
+];
+var _CH_EN = [
+  {title:"Caesar Cipher",scenario:"You received an encrypted message: KHOOR ZRUOG",request:"Message encrypted with Caesar Cipher.\nNeed to decrypt.",question:"What's the shift value?",opts:["1","3","5","13"],ans:1,exp:"KHOOR ZRUOG with shift 3 = HELLO WORLD. K→H, H→E, O→L."},
+  {title:"Encoding vs Encryption",scenario:"You see a JWT token header: eyJhbGciOiJIUzI1NiJ9",request:"JWT header that looks encrypted.",question:"How to decode the header?",opts:["AES decrypt","RSA decrypt","Base64 decode","SHA-256 reverse"],ans:2,exp:"JWT headers are Base64. eyJhbGciOiJIUzI1NiJ9 = {\"alg\":\"HS256\"}. Encoding, not encryption."},
+  {title:"XOR Attack",scenario:"Two ciphertexts encrypted with same XOR key:\nC1 = 0x4A, C2 = 0x5B",request:"C1 = P1 ⊕ K\nC2 = P2 ⊕ K",question:"What does C1 ⊕ C2 equal?",opts:["P1 ⊕ P2","K ⊕ K","P1 ⊕ K","Can't determine"],ans:0,exp:"C1⊕C2 = (P1⊕K)⊕(P2⊕K) = P1⊕P2. Key cancels out! This is the Two-Time Pad attack."},
+  {title:"AES Mode",scenario:"Need to encrypt an image. Boss says 'use AES'.",request:"Encrypting an image with AES.\nWhich mode?",question:"Which mode must you NOT use?",opts:["GCM","CBC","CTR","ECB"],ans:3,exp:"ECB encrypts each block independently. In images — identical pixels → identical blocks. The famous penguin."},
+  {title:"Hash Identification",scenario:"Found hash in DB: 5f4dcc3b5aa765d61d8327deb882cf99",request:"Hash: 5f4dcc3b5aa765d61d8327deb882cf99\nLength: 32 hex chars",question:"What type of hash is this?",opts:["SHA-256","SHA-1","MD5","bcrypt"],ans:2,exp:"32 hex chars = 128 bits = MD5. SHA-1=40, SHA-256=64. bcrypt starts with $2b$."},
+  {title:"Password Storage",scenario:"Building a new login system.\nNeed to store passwords.",request:"Choose the secure way\nto store passwords.",question:"How to store the passwords?",opts:["SHA-256","MD5 + salt","Plaintext + encryption","Argon2 + salt"],ans:3,exp:"Argon2 + salt = current recommendation. Memory-hard KDF. SHA-256 too fast, MD5 broken."},
+  {title:"Nonce Reuse",scenario:"Your encryption uses ChaCha20.\nSomeone hardcoded the nonce.",request:"ChaCha20 with fixed nonce.\nSame nonce for every message.",question:"What's the risk?",opts:["No risk","Two-Time Pad attack — C1⊕C2=P1⊕P2","Brute force","Padding Oracle"],ans:1,exp:"Reused nonce = Two-Time Pad. C1⊕C2 = P1⊕P2. Key cancels and plaintext leaks."},
+  {title:"Side Channel",scenario:"Server checks password char by char.\nReturns immediately on mismatch.",request:"Login check:\nfor i in range(len(pw)):\n  if pw[i] != input[i]:\n    return False\nreturn True",question:"What's wrong with this code?",opts:["No salt","Timing attack — response time reveals length","SQL injection","Buffer overflow"],ans:1,exp:"Char-by-char check with early return = timing attack. Longer correct prefix = slower response."},
+  {title:"Random Numbers",scenario:"JavaScript code generates encryption key:\nvar key = Math.random().toString(16)",request:"var key = Math.random()\n  .toString(16).slice(2);",question:"What's the problem?",opts:["Key too short","Math.random() isn't CSPRNG","No IV","Missing salt"],ans:1,exp:"Math.random() = deterministic PRNG. Not safe for crypto. Use crypto.getRandomValues()."},
+  {title:"Heartbleed",scenario:"OpenSSL server vulnerable to Heartbleed.\nAttacker sends heartbeat request.",request:"Heartbeat request:\nPayload: 1 byte\nClaimed length: 65535 bytes",question:"What will the attacker get?",opts:["Error message","Server RAM contents — including keys","Just the 1 byte","Connection reset"],ans:1,exp:"Heartbleed: server returns bytes based on claimed length, not actual. 65KB from RAM — including private keys."},
+  {title:"Rainbow Tables",scenario:"DB of 1M passwords stolen.\nAll MD5 without salt.",request:"1,000,000 MD5 hashes\nNo salt. Standard passwords.",question:"How long to crack 80% of passwords?",opts:["Years","Months","Days","Minutes — with Rainbow Table"],ans:3,exp:"Pre-computed Rainbow Table = instant lookup. 80% of common passwords found in minutes. Salt prevents this."},
+  {title:"AEAD",scenario:"Need to encrypt an API request.\nAlso verify data hasn't been tampered with.",request:"Encrypt + Authenticate\nAPI request data.",question:"Which scheme fits?",opts:["AES-ECB","AES-CBC","AES-GCM","ROT13"],ans:2,exp:"AES-GCM = AEAD. Encrypts + verifies data integrity. TLS 1.3 standard."}
+];
+
+var dbgScore=0,dbgLives=3,dbgIdx=0,dbgTotal=0,dbgOrder=[];
+function getChallenges(){ return isEn()?_CH_EN:_CH_HE; }
+function startGame(){
+  _gameStarted=true;
+  var ch=getChallenges();
+  dbgScore=0; dbgLives=3; dbgIdx=0; dbgTotal=ch.length;
+  dbgOrder=ch.map(function(_,i){return i}).sort(function(){return Math.random()-.5});
+  document.getElementById('gameEnd').className='game-over';
+  document.getElementById('gameBody').style.display='block';
+  document.getElementById('dbg-score').textContent='0';
+  document.getElementById('dbg-lives').textContent='❤️❤️❤️';
+  renderChallenge();
+}
+function renderChallenge(){
+  var ch=getChallenges();
+  if(dbgIdx>=dbgTotal||dbgLives<=0){ endGame(); return; }
+  var c=ch[dbgOrder[dbgIdx]];
+  document.getElementById('dbg-prog-lbl').textContent=(dbgIdx+1)+' / '+dbgTotal;
+  document.getElementById('dbg-prog-fill').style.width=(dbgIdx/dbgTotal*100)+'%';
+  document.getElementById('dbg-title').textContent=c.title;
+  document.getElementById('dbg-scenario').textContent=c.scenario;
+  document.getElementById('dbg-request').textContent=c.request;
+  document.getElementById('dbg-question').textContent=c.question;
+  document.getElementById('dbg-feedback').className='dbg-feedback';
+  document.getElementById('dbg-feedback').textContent='';
+  document.getElementById('dbg-explain').style.display='none';
+  var opts=document.getElementById('dbg-opts');
+  opts.innerHTML='';
+  c.opts.forEach(function(o,i){
+    var b=document.createElement('button');
+    b.className='dbg-opt';
+    b.textContent=o;
+    b.onclick=function(){ answerChallenge(i,c); };
+    opts.appendChild(b);
+  });
+}
+function answerChallenge(chosen,c){
+  var opts=document.querySelectorAll('.dbg-opt');
+  opts.forEach(function(b){b.disabled=true});
+  var fb=document.getElementById('dbg-feedback');
+  var exp=document.getElementById('dbg-explain');
+  if(chosen===c.ans){
+    opts[chosen].classList.add('dbg-correct');
+    dbgScore+=10;
+    fb.innerHTML='<span style="color:var(--g)">✅ '+(isEn()?'Correct!':'נכון!')+'</span>';
+  } else {
+    opts[chosen].classList.add('dbg-wrong');
+    opts[c.ans].classList.add('dbg-correct');
+    dbgLives--;
+    fb.innerHTML='<span style="color:var(--re)">❌ '+(isEn()?'Wrong!':'טעות!')+'</span>';
+  }
+  fb.className='dbg-feedback show';
+  exp.textContent=c.exp;
+  exp.style.display='block';
+  document.getElementById('dbg-score').textContent=dbgScore;
+  document.getElementById('dbg-lives').textContent='❤️'.repeat(dbgLives)+'🖤'.repeat(3-dbgLives);
+  dbgIdx++;
+  setTimeout(renderChallenge,2500);
+}
+function endGame(){
+  document.getElementById('gameBody').style.display='none';
+  var ge=document.getElementById('gameEnd');
+  ge.className='game-over show';
+  var pct=Math.round(dbgScore/(dbgTotal*10)*100);
+  document.getElementById('geEmoji').textContent=pct>=80?'🏆':pct>=50?'🔐':'💀';
+  document.getElementById('geTitle').textContent=pct>=80?(isEn()?'Crypto Expert!':'מומחה קריפטו!'):pct>=50?(isEn()?'Good work!':'עבודה טובה!'):(isEn()?'Keep learning!':'המשך ללמוד!');
+  document.getElementById('geScore').textContent=dbgScore+' / '+(dbgTotal*10);
+  document.getElementById('geMsg').textContent=pct+'% '+(isEn()?'correct':'נכון');
+  document.getElementById('dbg-prog-fill').style.width='100%';
+}
+
+/* ═══════════════ INIT ═══════════════ */
+buildQuiz();
+
+/* ═══════════════ postMessage bridge ═══════════════ */
+window.addEventListener('message', function(e) {
+  if (!e.data) return;
+  if (e.data.type === 'setLang') {
+    var root = document.getElementById('root');
+    if (e.data.lang === 'en' && !root.classList.contains('en')) { root.classList.add('en'); document.getElementById('langBtn').textContent='עב'; buildQuiz(); }
+    if (e.data.lang === 'he' && root.classList.contains('en')) { root.classList.remove('en'); document.getElementById('langBtn').textContent='EN'; buildQuiz(); }
+  }
+  if (e.data.type === 'setTheme') {
+    // crypto course is always dark
+  }
+});
+</script>
+</body>
+</html>
