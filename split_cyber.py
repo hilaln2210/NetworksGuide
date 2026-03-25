@@ -27,7 +27,7 @@ body = body_match.group(1) if body_match else raw
 body = re.sub(r'<script\b[^>]*>.*?</script>', '', body, flags=re.DOTALL)
 body = re.sub(r'<nav\b[^>]*>.*?</nav>', '', body, flags=re.DOTALL)
 
-html_attrs = 'lang="he" dir="rtl"' if LANG == "he" else 'lang="en"'
+html_attrs = 'lang="he" dir="rtl" id="root"' if LANG == "he" else 'lang="en" dir="ltr" id="root" class="en"'
 
 def make_html(content):
     return f"""<!DOCTYPE html>
