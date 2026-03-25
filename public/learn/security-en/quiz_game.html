@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" id="root">
+<html lang="en" dir="ltr" id="root">
 <head>
 
 <meta charset="UTF-8">
@@ -476,6 +476,8 @@ body::after {
 .emu-row{display:flex;gap:7px;flex-wrap:wrap;}
 .emu-out{min-height:130px;max-height:300px;overflow-y:auto;padding:13px 15px;font-family:'JetBrains Mono',monospace;font-size:11.5px;line-height:1.85;color:var(--text-mid);}
 .emu-out .ok{color:#34d399;}.emu-out .err{color:#f87171;}.emu-out .key{color:#818cf8;}.emu-out .val{color:#fbbf24;}.emu-out .dim{color:#475569;}.emu-out .warn{color:#fbbf24;}.emu-out .hi{color:#22d3ee;}.emu-out .em{color:#475569;font-style:italic;}.emu-out .red{color:#f43f5e;}
+
+html#root { display: block !important; }
 </style>
 </style>
 
@@ -498,6 +500,7 @@ table { display: block; overflow-x: auto; max-width: 100%; }
 </style>
 </head>
 <body>
+<div style="position:fixed;top:12px;left:12px;z-index:9999;"><button class="lang-btn" onclick="toggleLang()" id="langBtn" style="font-family:monospace;font-size:11px;font-weight:700;padding:6px 14px;border:1px solid rgba(100,120,160,0.5);border-radius:20px;background:rgba(30,40,60,0.85);color:#93c5fd;cursor:pointer;letter-spacing:.8px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 2px 8px rgba(0,0,0,0.3);">עב</button></div>
 <div id="quiz" class="section active"><div class="sec-inner">
   <div class="quiz-top">
     <h2>🎯 Cybersecurity Quiz</h2>
