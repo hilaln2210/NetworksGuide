@@ -462,17 +462,17 @@ body::after {
 
 /* QUIZ */
 .quiz-header {
-  background:var(--card); border:1px solid var(--b0);
-  padding:24px; margin-bottom:20px; text-align:center;
+  background:linear-gradient(135deg, #101828 0%, #1a2640 100%); border:1px solid var(--b1);
+  padding:28px; margin-bottom:20px; text-align:center;
 }
 .quiz-header h2 { font-family:var(--fm); font-size:18px; color:var(--g); margin-bottom:6px; }
-.quiz-header p { font-size:12px; color:var(--tx2); }
+.quiz-header p { font-size:12px; color:var(--tx); }
 .q-prog-bg { height:3px; background:var(--b0); margin-top:14px; }
 .q-prog { height:100%; background:var(--g); width:0%; transition:width .4s; }
 .q-p { font-family:var(--fm); font-size:10px; color:var(--tx3); margin-top:6px; }
 .q-list { display:flex; flex-direction:column; gap:8px; }
 .q-card {
-  background:var(--card); border:1px solid var(--b0);
+  background:linear-gradient(135deg, #141e2e 0%, #19243a 100%); border:1px solid var(--b1);
   padding:17px; transition:border-color .25s;
 }
 .q-card.c-ok { border-color:var(--g); background:rgba(240,185,11,.02); }
@@ -494,7 +494,7 @@ body::after {
 .q-exp.show { display:block; animation:slide-in .2s ease; }
 
 .score-box {
-  background:var(--card); border:1px solid var(--b1);
+  background:linear-gradient(135deg, #141e2e 0%, #1a2640 100%); border:1px solid var(--b1);
   padding:44px 28px; text-align:center; margin-top:20px;
   display:none;
 }
@@ -576,6 +576,61 @@ body::after {
   border:1px solid var(--b0); font-size:11px; color:var(--tx2); line-height:1.7;
 }
 
+/* PER-CHAPTER MINI QUIZ */
+.ch-quiz {
+  margin-top:20px; padding-top:16px; border-top:1px solid var(--b0);
+}
+.ch-quiz-title {
+  font-family:var(--fm); font-size:12px; font-weight:700;
+  color:var(--g); letter-spacing:1px; margin-bottom:10px;
+}
+.ch-q {
+  background:linear-gradient(135deg, #141e2e 0%, #19243a 100%);
+  border:1px solid var(--b1); padding:12px 14px; margin-bottom:8px;
+  transition:border-color .25s;
+}
+.ch-q.cq-ok { border-color:var(--g); }
+.ch-q.cq-fail { border-color:var(--re); }
+.ch-q-text { font-size:12px; color:var(--tx); margin-bottom:8px; line-height:1.6; }
+.ch-q-opts { display:grid; grid-template-columns:1fr 1fr; gap:5px; }
+.ch-q-opt {
+  padding:7px 10px; border:1px solid var(--b1); background:var(--surf);
+  cursor:pointer; font-family:var(--fm); font-size:10px;
+  color:var(--tx2); text-align:right; transition:all .12s; line-height:1.4;
+}
+.ch-q-opt:hover:not(.locked) { border-color:var(--g); color:var(--g); background:var(--g3); }
+.ch-q-opt.cq-hit { border-color:var(--g)!important; background:rgba(240,185,11,.1)!important; color:var(--g)!important; font-weight:600; }
+.ch-q-opt.cq-miss { border-color:var(--re)!important; background:rgba(255,77,106,.08)!important; color:var(--re)!important; }
+.ch-q-exp {
+  display:none; margin-top:8px; padding:7px 10px;
+  background:rgba(240,185,11,.04); border-right:2px solid var(--g2);
+  font-size:10px; color:var(--tx2); line-height:1.7;
+}
+.ch-q-exp.show { display:block; animation:slide-in .2s ease; }
+
+/* INLINE PRACTICE TOOL */
+.ch-practice {
+  margin-top:16px; padding:14px; background:var(--bg2);
+  border:1px solid var(--b1); overflow:hidden;
+}
+.ch-practice-title {
+  font-family:var(--fm); font-size:11px; font-weight:700;
+  color:var(--am); margin-bottom:10px;
+  display:flex; align-items:center; gap:6px;
+}
+.ch-practice .emu-row { display:flex; gap:6px; margin-bottom:8px; }
+.ch-practice .emu-inp {
+  flex:1; background:var(--bg); border:1px solid var(--b1);
+  color:var(--g); font-family:var(--fm); font-size:12px;
+  padding:7px 10px; outline:none;
+}
+.ch-practice .emu-inp:focus { border-color:var(--g); box-shadow:0 0 8px rgba(240,185,11,.15); }
+.ch-practice .emu-out {
+  min-height:60px; max-height:160px; overflow-y:auto;
+  padding:8px 10px; background:var(--bg); border:1px solid var(--b0);
+  font-family:var(--fm); font-size:11px; line-height:1.8; color:var(--tx2);
+}
+
 /* FOOTER */
 .site-footer {
   padding:28px 20px; text-align:center;
@@ -652,7 +707,34 @@ html, body { overflow-x: hidden; }
       <div class="glos-item"><span class="glos-term">Hash</span><span class="glos-def">פונקציה חד-כיוונית. כל שינוי → hash אחר לחלוטין.</span></div>
       <div class="glos-item"><span class="glos-term">Digest</span><span class="glos-def">התוצאה של Hash. "טביעת אצבע" דיגיטלית.</span></div>
     </div></div>
-  </div></div>
+  
+<div class="ch-quiz">
+  <div class="ch-quiz-title">🧪 בדוק את עצמך</div>
+  <div class="ch-q">
+    <div class="ch-q-text">מה זה Base64?</div>
+    <div class="ch-q-opts">
+      <button class="ch-q-opt" onclick="chkQ(this,0,1,'cqe2_1')">הצפנה בטוחה</button>
+      <button class="ch-q-opt" onclick="chkQ(this,1,1,'cqe2_1')">קידוד — לא הגנה, כל אחד יכול להפוך</button>
+      <button class="ch-q-opt" onclick="chkQ(this,2,1,'cqe2_1')">Hash חד-כיווני</button>
+    </div>
+    <div class="ch-q-exp" id="cqe2_1">Base64 = קידוד פורמט בלבד. כל אחד יכול לפענח. אפס אבטחה.</div>
+  </div>
+  <div class="ch-q">
+    <div class="ch-q-text">מה ההבדל בין Encryption ל-Hashing?</div>
+    <div class="ch-q-opts">
+      <button class="ch-q-opt" onclick="chkQ(this,0,0,'cqe2_2')">Encryption דו-כיווני, Hashing חד-כיווני</button>
+      <button class="ch-q-opt" onclick="chkQ(this,1,0,'cqe2_2')">שניהם זהים</button>
+      <button class="ch-q-opt" onclick="chkQ(this,2,0,'cqe2_2')">Hashing דורש מפתח</button>
+    </div>
+    <div class="ch-q-exp" id="cqe2_2">Encryption = דו-כיווני עם מפתח. Hashing = חד-כיווני, אין חזרה. שימושים שונים לחלוטין.</div>
+  </div>
+</div>
+<div class="ch-practice">
+  <div class="ch-practice-title">🔬 תרגול — Base64</div>
+  <div class="emu-row"><input class="emu-inp" id="pr2inp" placeholder="Hello"><button class="emu-gbtn" onclick="prB64('pr2inp','pr2out','encode')">→ Base64</button><button class="emu-gbtn" onclick="prB64('pr2inp','pr2out','decode')">Base64 →</button></div>
+  <div class="emu-out" id="pr2out"></div>
+</div>
+</div></div>
 </div>
 
 <!-- CH 03 HE -->
@@ -1166,20 +1248,89 @@ function endGame(){
   document.getElementById('dbg-prog-fill').style.width='100%';
 }
 
+/* ═══════════════ PER-CHAPTER MINI QUIZ ═══════════════ */
+function chkQ(btn, chosen, correct, expId) {
+  var card = btn.closest('.ch-q');
+  if (card.classList.contains('cq-ok') || card.classList.contains('cq-fail')) return;
+  var btns = card.querySelectorAll('.ch-q-opt');
+  btns.forEach(function(b){ b.classList.add('locked'); });
+  if (chosen === correct) {
+    btn.classList.add('cq-hit');
+    card.classList.add('cq-ok');
+  } else {
+    btn.classList.add('cq-miss');
+    btns[correct].classList.add('cq-hit');
+    card.classList.add('cq-fail');
+  }
+  var exp = document.getElementById(expId);
+  if (exp) exp.classList.add('show');
+}
+
+/* ═══════════════ INLINE PRACTICE TOOLS ═══════════════ */
+function prCaesar(inputId, shiftId, outId) {
+  var txt = document.getElementById(inputId).value.toUpperCase();
+  var shift = parseInt(document.getElementById(shiftId).value) || 3;
+  if (!txt) return;
+  var enc = caesarShift(txt, shift);
+  document.getElementById(outId).innerHTML += '<div><span class="ok">' + txt + '</span> → shift ' + shift + ' → <span class="val">' + enc + '</span></div>';
+}
+function prXor(inputId, keyId, outId) {
+  var txt = document.getElementById(inputId).value;
+  var key = document.getElementById(keyId).value;
+  if (!txt || !key) return;
+  var xored = xorStrings(txt, key);
+  var hex = xored.map(function(b){return b.toString(16).padStart(2,'0')}).join(' ');
+  var back = xored.map(function(b,i){return String.fromCharCode(b^key.charCodeAt(i%key.length))}).join('');
+  document.getElementById(outId).innerHTML += '<div>"' + txt + '" ⊕ "' + key + '" → <span class="val">' + hex + '</span> → decrypt: <span class="ok">"' + back + '"</span></div>';
+}
+function prB64(inputId, outId, mode) {
+  var txt = document.getElementById(inputId).value;
+  if (!txt) return;
+  if (mode === 'encode') {
+    document.getElementById(outId).innerHTML += '<div>"' + txt + '" → <span class="val">' + btoa(txt) + '</span></div>';
+  } else {
+    try { document.getElementById(outId).innerHTML += '<div>"' + txt + '" → <span class="ok">' + atob(txt) + '</span></div>'; }
+    catch(e) { document.getElementById(outId).innerHTML += '<div class="err">Invalid Base64</div>'; }
+  }
+}
+async function prHash(inputId, outId) {
+  var txt = document.getElementById(inputId).value;
+  if (!txt) return;
+  var h = await sha256(txt);
+  document.getElementById(outId).innerHTML += '<div>SHA-256("' + txt + '") = <span class="val" style="word-break:break-all">' + h + '</span></div>';
+}
+function prPasswd(inputId, outId) {
+  var pw = document.getElementById(inputId).value;
+  if (!pw) return;
+  var len = pw.length;
+  var pool = (/[a-z]/.test(pw)?26:0)+(/[A-Z]/.test(pw)?26:0)+(/[0-9]/.test(pw)?10:0)+(/[^a-zA-Z0-9]/.test(pw)?32:0);
+  if (!pool) pool = 26;
+  var ent = Math.log2(Math.pow(pool, len));
+  var sec = Math.pow(2, ent) / 1e10;
+  var t = sec<1?'< 1s':sec<60?Math.round(sec)+'s':sec<3600?Math.round(sec/60)+'m':sec<86400?Math.round(sec/3600)+'h':sec<31536000?Math.round(sec/86400)+'d':sec.toExponential(1)+' years';
+  var s = _commonPasswords.indexOf(pw.toLowerCase())>=0?'TERRIBLE':ent<28?'WEAK':ent<36?'FAIR':ent<60?'GOOD':'STRONG';
+  var c = ent<36?'var(--re)':ent<60?'var(--am)':'var(--g)';
+  document.getElementById(outId).innerHTML += '<div>"'+pw+'" → '+ent.toFixed(0)+' bits → <span style="color:'+c+';font-weight:700">'+s+'</span> ('+t+')</div>';
+}
+
 /* ═══════════════ INIT ═══════════════ */
 buildQuiz();
 
 /* ═══════════════ postMessage bridge ═══════════════ */
 window.addEventListener('message', function(e) {
   if (!e.data) return;
-  if (e.data.type === 'setLang') {
+  /* App sends { ng: 'lang', lang: 'en'|'he' } */
+  if (e.data.ng === 'lang' || e.data.type === 'setLang') {
+    var lang = e.data.lang;
     var root = document.getElementById('root');
-    if (e.data.lang === 'en' && !root.classList.contains('en')) { root.classList.add('en'); document.getElementById('langBtn').textContent='עב'; buildQuiz(); }
-    if (e.data.lang === 'he' && root.classList.contains('en')) { root.classList.remove('en'); document.getElementById('langBtn').textContent='EN'; buildQuiz(); }
+    if (lang === 'en' && !root.classList.contains('en')) { root.classList.add('en'); document.getElementById('langBtn').textContent='עב'; buildQuiz(); }
+    if (lang === 'he' && root.classList.contains('en')) { root.classList.remove('en'); document.getElementById('langBtn').textContent='EN'; buildQuiz(); }
   }
-  if (e.data.type === 'setTheme') {
-    // crypto course is always dark
+  if (e.data.ng === 'font') {
+    var map = { small: '14px', normal: '16px', large: '18px' };
+    document.documentElement.style.fontSize = map[e.data.size] || '16px';
   }
+  if (e.data.ng === 'theme') { /* crypto course is always dark */ }
 });
 </script>
 </body>
