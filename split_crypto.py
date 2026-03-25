@@ -90,18 +90,18 @@ print(f"HE chapters: {len(he_ch)}, EN chapters: {len(en_ch)}")
 
 # ── 8. Names ─────────────────────────────────────────────────────────────────
 he_names = [
-    "מבוא לקריפטוגרפיה", "קידוד vs הצפנה vs גיבוב",
-    "צפנים קלאסיים", "XOR — הבסיס של הצפנה מודרנית",
-    "Block Ciphers — AES", "Stream Ciphers — ChaCha20",
-    "Hashing — MD5, SHA, Salt", "שמירת סיסמאות — bcrypt, Argon2",
-    "Random Numbers וניהול מפתחות", "תקיפת הצפנה",
+    "יסודות — Encryption vs Hashing vs Encoding", "אלגוריתמים — Hands-on",
+    "Crypto בעולם האמיתי", "Blockchain ומערכות קריפטו",
+    "ארנקים דיגיטליים", "Wallet Intelligence — מודיעין ארנקים",
+    "זיהוי Scams", "התקפות קריפטו — Red Team",
+    "כלים", "מעבדה סופית — Final Challenge",
 ]
 en_names = [
-    "Introduction to Cryptography", "Encoding vs Encryption vs Hashing",
-    "Classical Ciphers", "XOR — Foundation of Modern Encryption",
-    "Block Ciphers — AES", "Stream Ciphers — ChaCha20",
-    "Hashing — MD5, SHA, Salt", "Password Storage — bcrypt, Argon2",
-    "Random Numbers & Key Management", "Breaking Encryption",
+    "Foundations — Encryption vs Hashing vs Encoding", "Crypto Algorithms — Hands-on",
+    "Crypto in the Real World", "Blockchain & Crypto Systems",
+    "Digital Wallets", "Wallet Intelligence",
+    "Scam Detection", "Crypto Attacks — Red Team",
+    "Tools", "Final Challenge Lab",
 ]
 
 def auto_open(chunk, ch_id):
@@ -136,7 +136,10 @@ for i, start in enumerate(en_ch):
 # ── 11. Labs (bilingual) ────────────────────────────────────────────────────
 lb_pos = []
 for i in range(1, 7):
+    # Try both id="lb1" and id="lab1" patterns
     m = re.search(r'id="lb' + str(i) + r'"', body)
+    if not m:
+        m = re.search(r'id="lab' + str(i) + r'"', body)
     if m:
         lb_pos.append(m.start())
 
@@ -147,8 +150,8 @@ labs_header_end = lb_pos[0] if lb_pos else quiz_start
 labs_header = body[labs_start:labs_header_end]
 
 lab_names = [
-    "Caesar Cipher", "XOR Encryption", "Base64 & Hex",
-    "Hash Cracker", "AES Encryption", "Password Strength",
+    "Crack the Hash", "JWT Decoder & Forger", "Certificate Analyzer",
+    "Wallet Tracker", "Scam Detector", "Break Weak Encryption",
 ]
 
 print(f"Labs: {len(lb_pos)}")

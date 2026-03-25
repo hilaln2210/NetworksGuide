@@ -373,7 +373,7 @@ body::after {
   background:var(--g); border-color:var(--g);
   color:var(--bg); box-shadow:0 0 8px rgba(240,185,11,.4);
 }
-.ms-step.ms-done .ms-chk-inner::after { content:'✓'; }
+.ms-step.ms-done .ms-chk-inner::after { content:'\2713'; }
 .ms-step-title { font-size:12px; color:var(--tx2); }
 
 .mission-emu { padding:0 18px 14px; }
@@ -677,81 +677,87 @@ html, body { overflow-x: hidden; }
 <div class="ch open" id="c4">
   <div class="ch-trigger" onclick="toggleCh('c4')">
     <span class="ch-num">04/10</span>
-    <div class="ch-icon-box">⊕</div>
+    <div class="ch-icon-box">⛓️</div>
     <div class="ch-info">
-      <div class="ch-name">XOR — הבסיס של הצפנה מודרנית</div>
-      <div class="ch-desc">פעולת XOR, One-Time Pad, למה XOR הוא כל כך מושלם</div>
+      <div class="ch-name">Blockchain ומערכות קריפטו</div>
+      <div class="ch-desc">Blocks, Hashes, Consensus, Smart Contracts</div>
     </div>
-    <div class="ch-meta"><span class="badge b-core">CORE</span><span class="ch-time">⏱ 25m</span><span class="ch-chevron">▶</span></div>
+    <div class="ch-meta"><span class="badge b-amber">CHAIN</span><span class="ch-time">25m</span><span class="ch-chevron">&#9654;</span></div>
   </div>
   <div class="ch-body" style="display:block"><div class="ch-inner">
-    <div class="ch-intro"><strong>XOR</strong> (Exclusive OR) — פעולה בינארית פשוטה אחת שעליה נבנית <strong>כל ההצפנה המודרנית</strong>. AES, ChaCha20, RC4 — כולם משתמשים ב-XOR.</div>
-    <div class="analogy"><span class="analogy-icon">💡</span><strong>XOR כמו מתג אור:</strong><br>0⊕0=0 (כיבוי+כיבוי=כבוי). 1⊕1=0. 0⊕1=1. 1⊕0=1. <strong>שונים=1, זהים=0</strong>. והקסם: A⊕B⊕B = A (הפיך!).</div>
+    <div class="ch-intro"><strong>Blockchain הוא לא רק Bitcoin.</strong> זה מבנה נתונים קריפטוגרפי שמאפשר אמון בלי גורם מרכזי. כל בלוק מוצמד לקודם באמצעות hash.</div>
+    <div class="analogy"><span class="analogy-icon">📒</span><strong>Blockchain = פנקס חשבונות שמשוכפל אצל כולם.</strong> כל עמוד (בלוק) מכיל hash של העמוד הקודם. שינוי עמוד אחד → כל מה שאחריו נשבר.</div>
     <div class="sec-label-lx">מה לומדים</div>
     <div class="learn-list">
-      <div class="li">XOR truth table — 4 המקרים</div>
-      <div class="li">למה XOR מושלם להצפנה — הפיכות, אחידות</div>
-      <div class="li">One-Time Pad — הצפנה בלתי שבירה תאורטית</div>
-      <div class="li">למה OTP לא מעשי — בעיית חלוקת המפתח</div>
-      <div class="li">XOR על bytes — איך מצפינים טקסט אמיתי</div>
+      <div class="li">מה זה Blockchain — distributed ledger</div>
+      <div class="li">Blocks: header, transactions, hash, nonce</div>
+      <div class="li">Transactions: inputs, outputs, fees</div>
+      <div class="li">Smart Contracts — Ethereum, Solidity</div>
+      <div class="li">Gas fees — עלות חישוב על blockchain</div>
+      <div class="li">Consensus: Proof of Work vs Proof of Stake</div>
     </div>
-    <div class="build-step" style="margin-top:14px">
-      <div class="bs-item"><span class="bs-num">XOR</span><div><code>01001000 ⊕ 11110000 = 10111000</code>. הפיך: <code>10111000 ⊕ 11110000 = 01001000</code>. אותה פעולה!</div></div>
-      <div class="bs-item"><span class="bs-num">OTP</span><div>מפתח אקראי באורך ההודעה. <strong>בלתי שביר מתמטית</strong> (Shannon הוכיח, 1949). אבל: מפתח חד-פעמי + באותו אורך = לא מעשי.</div></div>
-      <div class="bs-item"><span class="bs-num">Stream</span><div>במקום מפתח אקראי אמיתי — יוצרים רצף <strong>פסאודו-אקראי</strong> ממפתח קצר. זה stream cipher.</div></div>
+    <div class="build-step">
+      <div class="bs-item"><span class="bs-num">BLOCK</span><div>כל בלוק: <code>prevHash + transactions + nonce + timestamp</code> → SHA-256 → hash של הבלוק. שינוי בית אחד → hash שונה → השרשרת נשברת.</div></div>
+      <div class="bs-item"><span class="bs-num">TX</span><div><strong>Transaction:</strong> Input (מאיפה הכסף) + Output (לאן) + Fee (לכורה). חתום ב-ECDSA עם ה-Private Key של השולח.</div></div>
+      <div class="bs-item"><span class="bs-num">POW</span><div><strong>Proof of Work:</strong> מצא nonce שגורם ל-hash להתחיל ב-N אפסים. Bitcoin: ~10 דקות לבלוק. צורך אנרגיה אדירה.</div></div>
+      <div class="bs-item"><span class="bs-num">POS</span><div><strong>Proof of Stake:</strong> Ethereum 2.0. שם ETH כ-stake, נבחר אקראית לאמת. חוסך 99.9% אנרגיה.</div></div>
+      <div class="bs-item"><span class="bs-num">SC</span><div><strong>Smart Contract:</strong> קוד שרץ על blockchain. Solidity ב-Ethereum. כמו חוזה שמבצע את עצמו אוטומטית.</div></div>
     </div>
-    <div class="why-matters"><span>💡</span><span><strong>Two-Time Pad Attack:</strong> אם משתמשים באותו מפתח פעמיים: <code>C1⊕C2 = P1⊕P2</code> — חשוף! לכן <strong>לעולם</strong> לא לחזור על מפתח.</span></div>
-    <div class="glossary" id="glos4"><div class="glossary-head" onclick="crToggleGlos('glos4')"><span>📖 מילון מושגים — פרק זה</span><span class="glos-arr">▶</span></div><div class="glossary-body">
-      <div class="glos-item"><span class="glos-term">XOR (⊕)</span><span class="glos-def">Exclusive OR. שונים=1, זהים=0. הבסיס של הצפנה.</span></div>
-      <div class="glos-item"><span class="glos-term">One-Time Pad</span><span class="glos-def">הצפנה מושלמת: מפתח אקראי באורך ההודעה. לא מעשי.</span></div>
-      <div class="glos-item"><span class="glos-term">PRNG</span><span class="glos-def">Pseudo-Random Number Generator. יוצר רצף "אקראי" ממפתח.</span></div>
+    <div class="why-matters"><span>💡</span><span><strong>51% Attack:</strong> אם שחקן שולט ב-51% מכוח החישוב — יכול לכתוב מחדש היסטוריה. ב-2019 Ethereum Classic הותקף כך, $1.1M נגנב.</span></div>
+    <div class="glossary" id="glos4"><div class="glossary-head" onclick="crToggleGlos('glos4')"><span>📖 מילון מושגים</span><span class="glos-arr">&#9654;</span></div><div class="glossary-body">
+      <div class="glos-item"><span class="glos-term">Hash</span><span class="glos-def">טביעת אצבע קריפטוגרפית של בלוק.</span></div>
+      <div class="glos-item"><span class="glos-term">Nonce</span><span class="glos-def">מספר שהכורה משנה עד שה-hash עומד בתנאי.</span></div>
+      <div class="glos-item"><span class="glos-term">Gas</span><span class="glos-def">יחידת מדידה לעלות חישוב ב-Ethereum.</span></div>
+      <div class="glos-item"><span class="glos-term">Merkle Tree</span><span class="glos-def">עץ hash שמאפשר אימות יעיל של transactions.</span></div>
     </div></div>
-  
-<div class="ch-quiz">
-  <div class="ch-quiz-title">🧪 בדוק את עצמך</div>
-  <div class="ch-q">
-    <div class="ch-q-text">מה קורה כש-XOR אותו ערך פעמיים? A ⊕ B ⊕ B = ?</div>
-    <div class="ch-q-opts">
-      <button class="ch-q-opt" onclick="chkQ(this,0,0,'cqe4_1')">A — חוזרים למקור</button>
-      <button class="ch-q-opt" onclick="chkQ(this,1,0,'cqe4_1')">B</button>
-      <button class="ch-q-opt" onclick="chkQ(this,2,0,'cqe4_1')">0</button>
+    <div class="ch-quiz">
+      <div class="ch-quiz-title">// CHECKPOINT</div>
+      <div class="ch-q" id="cq4_1">
+        <div class="ch-q-text">מה קורה כשמשנים transaction בבלוק ישן?</div>
+        <div class="ch-q-opts">
+          <button class="ch-q-opt" onclick="chkQ(this,0,0,'cq4_1e')">כל הבלוקים שאחריו נשברים</button>
+          <button class="ch-q-opt" onclick="chkQ(this,1,0,'cq4_1e')">רק הבלוק הזה משתנה</button>
+          <button class="ch-q-opt" onclick="chkQ(this,2,0,'cq4_1e')">אין השפעה</button>
+          <button class="ch-q-opt" onclick="chkQ(this,3,0,'cq4_1e')">רק הבלוק הבא נשבר</button>
+        </div>
+        <div class="ch-q-exp" id="cq4_1e">כל בלוק מכיל hash של הקודם. שינוי בלוק → hash משתנה → כל השרשרת שאחריו לא תקינה.</div>
+      </div>
+      <div class="ch-q" id="cq4_2">
+        <div class="ch-q-text">ההבדל העיקרי בין PoW ל-PoS?</div>
+        <div class="ch-q-opts">
+          <button class="ch-q-opt" onclick="chkQ(this,0,1,'cq4_2e')">אין הבדל</button>
+          <button class="ch-q-opt" onclick="chkQ(this,1,1,'cq4_2e')">PoW = אנרגיה, PoS = stake כלכלי</button>
+          <button class="ch-q-opt" onclick="chkQ(this,2,1,'cq4_2e')">PoS ישן יותר</button>
+          <button class="ch-q-opt" onclick="chkQ(this,3,1,'cq4_2e')">PoW בטוח יותר תמיד</button>
+        </div>
+        <div class="ch-q-exp" id="cq4_2e">PoW = כוח חישוב (אנרגיה). PoS = שם כסף כ-stake. Ethereum עבר ל-PoS ב-2022 וחסך 99.9% אנרגיה.</div>
+      </div>
     </div>
-    <div class="ch-q-exp" id="cqe4_1">A⊕B⊕B = A. XOR הפיך! זה הקסם — אותה פעולה מצפינה ומפענחת.</div>
-  </div>
-  <div class="ch-q">
-    <div class="ch-q-text">למה One-Time Pad לא מעשי?</div>
-    <div class="ch-q-opts">
-      <button class="ch-q-opt" onclick="chkQ(this,0,1,'cqe4_2')">הוא איטי</button>
-      <button class="ch-q-opt" onclick="chkQ(this,1,1,'cqe4_2')">מפתח באורך ההודעה + חד-פעמי = אי אפשר לחלק</button>
-      <button class="ch-q-opt" onclick="chkQ(this,2,1,'cqe4_2')">הוא לא בטוח</button>
-    </div>
-    <div class="ch-q-exp" id="cqe4_2">OTP = מפתח אקראי באורך ההודעה, חד-פעמי. איך מעבירים מפתח בגודל 1GB בצורה מאובטחת?</div>
-  </div>
-</div>
-<div class="ch-practice">
-  <div class="ch-practice-title">🔬 תרגול — XOR</div>
-  <div class="emu-row"><input class="emu-inp" id="pr4inp" placeholder="Hi"><input class="emu-inp" id="pr4key" placeholder="K" style="width:80px"><button class="emu-gbtn" onclick="prXor('pr4inp','pr4key','pr4out')">⊕ XOR</button></div>
-  <div class="emu-out" id="pr4out"></div>
-</div>
-</div></div>
+  </div></div>
 </div>
 
 <!-- CH 05 HE -->
 </div>
 <script>
-/* ═══════════════ CORE ═══════════════ */
+/* ═══════════════ CORE FUNCTIONS ═══════════════ */
 function isEn(){ return document.getElementById('root').classList.contains('en'); }
 function toggleLang(){
-  document.getElementById('root').classList.toggle('en');
-  document.getElementById('langBtn').textContent = isEn() ? 'עב' : 'EN';
+  var r=document.getElementById('root');
+  if(r.classList.contains('en')){ r.classList.remove('en'); document.getElementById('langBtn').textContent='EN'; }
+  else { r.classList.add('en'); document.getElementById('langBtn').textContent='עב'; }
   buildQuiz();
 }
-function switchTab(id, btn){
-  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('active'); });
-  document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav-tab').forEach(function(t){ t.classList.remove('active'); });
+function switchTab(id,btn){
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active')});
+  document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active')});
+  var el=document.getElementById(id);
+  if(el) el.classList.add('active');
   if(btn) btn.classList.add('active');
-  if(id==='game' && !_gameStarted) startGame();
+  if(id==='quiz') buildQuiz();
+  if(id==='game' && !_gameStarted){
+    document.getElementById('gameEnd').className='game-over show';
+    document.getElementById('gameBody').style.display='none';
+  }
 }
 function toggleCh(id){
   var el=document.getElementById(id);
@@ -761,127 +767,48 @@ function crToggleGlos(id){
   var el=document.getElementById(id);
   if(el) el.classList.toggle('open');
 }
-function crC(id){ var el=document.getElementById(id); if(el) el.innerHTML=''; }
 
 /* ═══════════════ MISSION TRACKING ═══════════════ */
-var MS = {
-  1:{done:new Set(),total:3}, 2:{done:new Set(),total:3},
-  3:{done:new Set(),total:3}, 4:{done:new Set(),total:3},
-  5:{done:new Set(),total:3}, 6:{done:new Set(),total:3}
-};
-function completeStep(lab,sid){
-  var m=MS[lab]; if(!m||m.done.has(sid)) return;
-  m.done.add(sid);
-  [sid,sid+'_en'].forEach(function(id){
-    var el=document.getElementById(id);
-    if(el) el.classList.add('ms-done');
-  });
-  var badge=document.getElementById('mb'+lab);
-  if(badge){
-    var d=m.done.size;
-    badge.innerHTML='<span class="he">'+d+' / '+m.total+'</span><span class="en">'+d+' / '+m.total+'</span>';
-    if(d>=m.total){
-      badge.classList.add('mb-done');
-      var succ=document.getElementById('ms'+lab);
-      if(succ) succ.style.display='flex';
-    }
+var MS={};
+function completeStep(lab,stepId){
+  if(!MS[lab]) MS[lab]={};
+  if(MS[lab][stepId]) return;
+  MS[lab][stepId]=true;
+  var el=document.getElementById('lab'+lab+'_s'+(stepId.charAt(stepId.length-1)));
+  if(!el){
+    var parts=stepId.split('_s');
+    el=document.getElementById('lab'+lab+'_s'+parts[1]);
+  }
+  if(el) el.classList.add('ms-done');
+  var total=document.querySelectorAll('#lab'+lab+' .ms-step').length;
+  var done=document.querySelectorAll('#lab'+lab+' .ms-step.ms-done').length;
+  var badge=document.getElementById('lab'+lab+'badge');
+  if(badge) badge.textContent=done+'/'+total;
+  if(done>=total){
+    badge.classList.add('mb-done');
+    var succ=document.getElementById('lab'+lab+'done');
+    if(succ) succ.style.display='flex';
   }
 }
 
-/* ═══════════════ LAB 1: CAESAR ═══════════════ */
+/* ═══════════════ UTILITY FUNCTIONS ═══════════════ */
+async function sha256(text){
+  var enc=new TextEncoder().encode(text);
+  var buf=await crypto.subtle.digest('SHA-256',enc);
+  return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
+}
 function caesarShift(text,shift){
   return text.split('').map(function(c){
-    if(c>='A'&&c<='Z') return String.fromCharCode(((c.charCodeAt(0)-65+shift+26)%26)+65);
-    if(c>='a'&&c<='z') return String.fromCharCode(((c.charCodeAt(0)-97+shift+26)%26)+97);
+    if(c>='A'&&c<='Z') return String.fromCharCode(((c.charCodeAt(0)-65+shift)%26+26)%26+65);
+    if(c>='a'&&c<='z') return String.fromCharCode(((c.charCodeAt(0)-97+shift)%26+26)%26+97);
     return c;
   }).join('');
 }
-function crLab1Run(){
-  var txt=document.getElementById('cr1inp').value.toUpperCase();
-  var shift=parseInt(document.getElementById('cr1shift').value)||3;
-  if(!txt) return;
-  var enc=caesarShift(txt,shift);
-  var out=document.getElementById('cr1out');
-  out.innerHTML+='<div><span class="key">INPUT:</span> '+txt+'</div>';
-  out.innerHTML+='<div><span class="key">SHIFT:</span> <span class="val">'+shift+'</span></div>';
-  out.innerHTML+='<div><span class="ok">OUTPUT:</span> <span class="val">'+enc+'</span></div><div>---</div>';
-  if(txt==='HELLO'&&shift===3) completeStep(1,'step1_1');
-  if(txt==='KHOOR'&&shift===-3||txt==='KHOOR'&&shift===23) completeStep(1,'step1_2');
-}
-function crLab1Q(text,shift){
-  document.getElementById('cr1inp').value=text;
-  document.getElementById('cr1shift').value=shift;
-  crLab1Run();
-}
-function crLab1Brute(text){
-  var out=document.getElementById('cr1out');
-  out.innerHTML+='<div><span class="key">BRUTE FORCE:</span> '+text+'</div>';
-  for(var i=1;i<=25;i++){
-    var dec=caesarShift(text,-i);
-    var mark=(i===3)?'<span class="ok"> ← FOUND!</span>':'';
-    out.innerHTML+='<div><span class="val">shift '+i+':</span> '+dec+mark+'</div>';
-  }
-  out.innerHTML+='<div>---</div>';
-  completeStep(1,'step1_3');
-}
-function crLab1Reset(){ crC('cr1out'); MS[1].done=new Set(); }
-
-/* ═══════════════ LAB 2: XOR ═══════════════ */
 function xorStrings(text,key){
   var result=[];
-  for(var i=0;i<text.length;i++){
-    result.push(text.charCodeAt(i)^key.charCodeAt(i%key.length));
-  }
+  for(var i=0;i<text.length;i++) result.push(text.charCodeAt(i)^key.charCodeAt(i%key.length));
   return result;
 }
-function crLab2Run(){
-  var txt=document.getElementById('cr2inp').value;
-  var key=document.getElementById('cr2key').value;
-  if(!txt||!key) return;
-  var xored=xorStrings(txt,key);
-  var hex=xored.map(function(b){return b.toString(16).padStart(2,'0')}).join(' ');
-  var out=document.getElementById('cr2out');
-  out.innerHTML+='<div><span class="key">TEXT:</span> "'+txt+'" → '+txt.split('').map(function(c){return c.charCodeAt(0).toString(2).padStart(8,'0')}).join(' ')+'</div>';
-  out.innerHTML+='<div><span class="key">KEY:</span>  "'+key+'" → '+key.split('').map(function(c){return c.charCodeAt(0).toString(2).padStart(8,'0')}).join(' ')+'</div>';
-  out.innerHTML+='<div><span class="ok">XOR:</span>  '+xored.map(function(b){return b.toString(2).padStart(8,'0')}).join(' ')+'</div>';
-  out.innerHTML+='<div><span class="val">HEX:</span>  '+hex+'</div>';
-  var back=xored.map(function(b,i){return String.fromCharCode(b^key.charCodeAt(i%key.length))}).join('');
-  out.innerHTML+='<div><span class="hi">DECRYPT:</span> "'+back+'" (XOR again with same key)</div><div>---</div>';
-  completeStep(2,'step2_1');
-  if(txt!==back) completeStep(2,'step2_2');
-  completeStep(2,'step2_3');
-}
-function crLab2Q(t,k){ document.getElementById('cr2inp').value=t; document.getElementById('cr2key').value=k; crLab2Run(); }
-
-/* ═══════════════ LAB 3: BASE64 & HEX ═══════════════ */
-function crLab3Run(mode){
-  var txt=document.getElementById('cr3inp').value;
-  if(!txt) return;
-  var out=document.getElementById('cr3out');
-  if(mode==='b64e'){
-    var enc=btoa(txt);
-    out.innerHTML+='<div><span class="key">TEXT:</span> "'+txt+'"</div>';
-    out.innerHTML+='<div><span class="ok">BASE64:</span> <span class="val">'+enc+'</span></div><div>---</div>';
-    if(txt.toLowerCase()==='hello') completeStep(3,'step3_1');
-  } else if(mode==='hex'){
-    var h=txt.split('').map(function(c){return c.charCodeAt(0).toString(16).padStart(2,'0')}).join(' ');
-    out.innerHTML+='<div><span class="key">TEXT:</span> "'+txt+'"</div>';
-    out.innerHTML+='<div><span class="ok">HEX:</span> <span class="val">'+h+'</span></div><div>---</div>';
-    if(txt.toLowerCase()==='hello') completeStep(3,'step3_2');
-  } else if(mode==='b64d'){
-    try{
-      var dec=atob(txt);
-      out.innerHTML+='<div><span class="key">BASE64:</span> "'+txt+'"</div>';
-      out.innerHTML+='<div><span class="ok">DECODED:</span> <span class="val">'+dec+'</span></div><div>---</div>';
-      if(txt==='U2VjdXJpdHk=') completeStep(3,'step3_3');
-    }catch(e){
-      out.innerHTML+='<div><span class="err">ERROR: Invalid Base64</span></div>';
-    }
-  }
-}
-function crLab3Q(t,m){ document.getElementById('cr3inp').value=t; crLab3Run(m); }
-
-/* ═══════════════ LAB 4: HASH ═══════════════ */
 var _commonHashes={
   'password':'5f4dcc3b5aa765d61d8327deb882cf99',
   '123456':'e10adc3949ba59abbe56e057f20f883e',
@@ -894,203 +821,328 @@ var _commonHashes={
   'dragon':'8621ffdbc5698829397d97767ac13db3',
   'login':'d56b699830e77ba53855679cb1d252da'
 };
-async function sha256(text){
-  var enc=new TextEncoder().encode(text);
-  var buf=await crypto.subtle.digest('SHA-256',enc);
-  return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0')}).join('');
-}
-function simpleMD5(text){
-  // Lookup for common passwords
-  return _commonHashes[text]||null;
-}
-async function crLab4Run(mode){
-  var txt=document.getElementById('cr4inp').value;
+var _commonPasswords=['password','123456','12345678','qwerty','abc123','monkey','master','dragon','letmein','login','admin','welcome','iloveyou','shadow','sunshine','trustno1'];
+
+/* ═══════════════ INLINE PRACTICE TOOLS ═══════════════ */
+function prB64(inputId,outId,mode){
+  var txt=document.getElementById(inputId).value;
   if(!txt) return;
-  var out=document.getElementById('cr4out');
+  if(mode==='encode') document.getElementById(outId).innerHTML+='<div>"'+txt+'" → <span class="val">'+btoa(txt)+'</span></div>';
+  else { try { document.getElementById(outId).innerHTML+='<div>"'+txt+'" → <span class="ok">'+atob(txt)+'</span></div>'; } catch(e){ document.getElementById(outId).innerHTML+='<div class="err">Invalid Base64</div>'; }}
+}
+async function prHash(inputId,outId){
+  var txt=document.getElementById(inputId).value;
+  if(!txt) return;
+  var h=await sha256(txt);
+  document.getElementById(outId).innerHTML+='<div>SHA-256("'+txt+'") = <span class="val" style="word-break:break-all">'+h+'</span></div>';
+}
+function prJWT(inputId,outId){
+  var jwt=document.getElementById(inputId).value.trim();
+  if(!jwt) return;
+  var parts=jwt.split('.');
+  if(parts.length<2){ document.getElementById(outId).innerHTML+='<div class="err">Invalid JWT — need at least 2 dots</div>'; return; }
+  var out=document.getElementById(outId);
+  try{
+    var header=JSON.parse(atob(parts[0].replace(/-/g,'+').replace(/_/g,'/')));
+    var payload=JSON.parse(atob(parts[1].replace(/-/g,'+').replace(/_/g,'/')));
+    out.innerHTML+='<div><span class="key">HEADER:</span> <span class="val">'+JSON.stringify(header,null,2)+'</span></div>';
+    out.innerHTML+='<div><span class="key">PAYLOAD:</span> <span class="ok">'+JSON.stringify(payload,null,2)+'</span></div>';
+    out.innerHTML+='<div><span class="key">SIGNATURE:</span> <span class="hi">'+(parts[2]||'(none)')+'</span></div>';
+    out.innerHTML+='<div><span class="err">⚠ Payload is NOT encrypted — only Base64 encoded!</span></div><div>---</div>';
+  }catch(e){ out.innerHTML+='<div class="err">Failed to decode: '+e.message+'</div>'; }
+}
+function prJWTCrack(inputId,outId){
+  var jwt=document.getElementById(inputId).value.trim();
+  var out=document.getElementById(outId);
+  if(!jwt){ out.innerHTML+='<div class="err">Paste a JWT token first</div>'; return; }
+  var parts=jwt.split('.');
+  if(parts.length<3){ out.innerHTML+='<div class="err">Invalid JWT</div>'; return; }
+  var weakSecrets=['secret','password','123456','admin','key','jwt','token','test','hello','changeme'];
+  out.innerHTML+='<div><span class="key">BRUTE FORCE:</span> Trying '+weakSecrets.length+' common secrets...</div>';
+  weakSecrets.forEach(function(s){
+    out.innerHTML+='<div><span class="val">Trying:</span> "'+s+'" ...</div>';
+  });
+  out.innerHTML+='<div><span class="ok">⚠ In real attack: hashcat -m 16500 jwt.txt wordlist.txt</span></div>';
+  out.innerHTML+='<div><span class="hi">TIP: Always use long, random secrets for JWT signing</span></div><div>---</div>';
+}
+function prEthScan(inputId,outId){
+  var addr=document.getElementById(inputId).value.trim();
+  var out=document.getElementById(outId);
+  if(!addr||!addr.startsWith('0x')){ out.innerHTML+='<div class="err">Enter valid Ethereum address (0x...)</div>'; return; }
+  var known={
+    '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045':{name:'Vitalik Buterin',bal:'~1,200 ETH',txs:'1,847',label:'Ethereum Founder',risk:'LOW'},
+    '0x098B716B8Aaf21512996dC57EB0615e2383E2f96':{name:'Ronin Bridge Exploiter',bal:'0 ETH (moved)',txs:'43',label:'Lazarus Group',risk:'CRITICAL'},
+  };
+  var info=known[addr];
+  if(info){
+    out.innerHTML+='<div><span class="key">ADDRESS:</span> '+addr.substring(0,10)+'...'+addr.substring(38)+'</div>';
+    out.innerHTML+='<div><span class="key">LABEL:</span> <span class="val">'+info.name+'</span> ('+info.label+')</div>';
+    out.innerHTML+='<div><span class="key">BALANCE:</span> <span class="ok">'+info.bal+'</span></div>';
+    out.innerHTML+='<div><span class="key">TRANSACTIONS:</span> '+info.txs+'</div>';
+    out.innerHTML+='<div><span class="key">RISK:</span> <span style="color:'+(info.risk==='CRITICAL'?'var(--re)':'var(--g)')+'">'+info.risk+'</span></div><div>---</div>';
+  } else {
+    out.innerHTML+='<div><span class="key">ADDRESS:</span> '+addr.substring(0,10)+'...'+addr.substring(Math.max(38,addr.length-4))+'</div>';
+    out.innerHTML+='<div><span class="key">LABEL:</span> <span class="val">Unknown</span></div>';
+    out.innerHTML+='<div><span class="key">BALANCE:</span> <span class="ok">'+((Math.random()*100).toFixed(2))+' ETH</span></div>';
+    out.innerHTML+='<div><span class="key">TRANSACTIONS:</span> '+(Math.floor(Math.random()*500))+'</div>';
+    out.innerHTML+='<div><span class="key">RISK:</span> <span class="hi">MEDIUM — Unknown wallet</span></div><div>---</div>';
+  }
+}
+function prTokenAnalyze(inputId,outId){
+  var out=document.getElementById(outId);
+  out.innerHTML+='<div><span class="key">ANALYZING TOKEN...</span></div>';
+  out.innerHTML+='<div><span class="val">Contract:</span> Checking source code...</div>';
+  out.innerHTML+='<div><span class="val">Liquidity:</span> Checking LP lock...</div>';
+  var flags=Math.floor(Math.random()*4)+1;
+  out.innerHTML+='<div><span class="err">⚠ RED FLAGS FOUND: '+flags+'</span></div>';
+  if(flags>=2) out.innerHTML+='<div><span class="err">- Hidden transfer restrictions</span></div>';
+  if(flags>=3) out.innerHTML+='<div><span class="err">- LP unlocked — rug pull risk</span></div>';
+  out.innerHTML+='<div><span class="hi">TIP: Use tokensniffer.com and honeypot.is for real analysis</span></div><div>---</div>';
+}
+async function prCyberChef(inputId,opId,outId){
+  var txt=document.getElementById(inputId).value;
+  var op=document.getElementById(opId).value;
+  var out=document.getElementById(outId);
+  if(!txt) return;
+  var result='';
+  if(op==='b64e') result=btoa(txt);
+  else if(op==='b64d'){ try{result=atob(txt)}catch(e){result='ERROR: Invalid Base64'} }
+  else if(op==='hex') result=txt.split('').map(function(c){return c.charCodeAt(0).toString(16).padStart(2,'0')}).join(' ');
+  else if(op==='rot13') result=txt.replace(/[a-zA-Z]/g,function(c){return String.fromCharCode((c<='Z'?90:122)>=(c=c.charCodeAt(0)+13)?c:c-26)});
+  else if(op==='rev') result=txt.split('').reverse().join('');
+  else if(op==='upper') result=txt.toUpperCase();
+  else if(op==='sha256') result=await sha256(txt);
+  out.innerHTML+='<div><span class="key">'+op.toUpperCase()+':</span> <span class="val">'+result+'</span></div>';
+}
+
+/* ═══════════════ LAB FUNCTIONS ═══════════════ */
+async function crLab1Run(mode){
+  var txt=document.getElementById('cr1inp').value;
+  if(!txt) return;
+  var out=document.getElementById('cr1out');
   if(mode==='sha256'){
     var h=await sha256(txt);
-    out.innerHTML+='<div><span class="key">INPUT:</span> "'+txt+'"</div>';
-    out.innerHTML+='<div><span class="ok">SHA-256:</span> <span class="val" style="word-break:break-all">'+h+'</span></div>';
-    out.innerHTML+='<div><span class="hi">LENGTH:</span> 64 hex chars = 256 bits</div><div>---</div>';
-    if(txt==='password') completeStep(4,'step4_1');
-  } else if(mode==='md5'){
-    var h=simpleMD5(txt);
-    if(h){
-      out.innerHTML+='<div><span class="key">INPUT:</span> "'+txt+'"</div>';
-      out.innerHTML+='<div><span class="ok">MD5:</span> <span class="val">'+h+'</span></div>';
-      out.innerHTML+='<div><span class="hi">LENGTH:</span> 32 hex chars = 128 bits</div><div>---</div>';
-    } else {
-      out.innerHTML+='<div><span class="err">MD5 only available for common passwords in this demo</span></div>';
-    }
+    out.innerHTML+='<div><span class="key">SHA-256("'+txt+'"):</span></div><div><span class="val" style="word-break:break-all">'+h+'</span></div><div>---</div>';
+    if(txt==='password') completeStep(1,'s1');
   } else if(mode==='identify'){
     var len=txt.replace(/\s/g,'').length;
-    var type='Unknown';
-    if(len===32) type='MD5 (128-bit)';
-    else if(len===40) type='SHA-1 (160-bit)';
-    else if(len===64) type='SHA-256 (256-bit)';
-    else if(len===128) type='SHA-512 (512-bit)';
-    out.innerHTML+='<div><span class="key">HASH:</span> '+txt.substring(0,40)+'...</div>';
-    out.innerHTML+='<div><span class="ok">LENGTH:</span> '+len+' hex chars</div>';
-    out.innerHTML+='<div><span class="val">TYPE:</span> <span class="hi">'+type+'</span></div><div>---</div>';
-    completeStep(4,'step4_2');
+    var type=len===32?'MD5 (128-bit)':len===40?'SHA-1 (160-bit)':len===64?'SHA-256 (256-bit)':len===128?'SHA-512 (512-bit)':'Unknown ('+len+' chars)';
+    out.innerHTML+='<div><span class="key">LENGTH:</span> '+len+' hex chars</div><div><span class="ok">TYPE:</span> <span class="hi">'+type+'</span></div><div>---</div>';
+    completeStep(1,'s2');
   } else if(mode==='crack'){
-    out.innerHTML+='<div><span class="key">CRACKING:</span> '+txt.substring(0,32)+'...</div>';
-    out.innerHTML+='<div><span class="hi">Dictionary attack with 10 common passwords...</span></div>';
+    out.innerHTML+='<div><span class="hi">Dictionary attack (10 common passwords)...</span></div>';
     var found=false;
     for(var pw in _commonHashes){
       if(_commonHashes[pw]===txt){
-        out.innerHTML+='<div><span class="ok">✅ CRACKED!</span> "'+txt.substring(0,32)+'..." = <span class="val">"'+pw+'"</span></div><div>---</div>';
+        out.innerHTML+='<div><span class="ok">CRACKED!</span> "'+txt.substring(0,20)+'..." = <span class="val">"'+pw+'"</span></div><div>---</div>';
         found=true; break;
       }
     }
-    if(!found){
-      var h=await sha256('password');
-      if(h===txt){
-        out.innerHTML+='<div><span class="ok">✅ CRACKED!</span> SHA-256 match = <span class="val">"password"</span></div><div>---</div>';
-        found=true;
-      }
-    }
-    if(!found) out.innerHTML+='<div><span class="err">❌ Not found in dictionary. Try a stronger attack or longer wordlist.</span></div><div>---</div>';
-    completeStep(4,'step4_3');
+    if(!found) out.innerHTML+='<div class="err">Not found in dictionary.</div><div>---</div>';
+    completeStep(1,'s3');
   }
 }
-function crLab4Q(t,m){ document.getElementById('cr4inp').value=t; crLab4Run(m); }
-
-/* ═══════════════ LAB 5: AES (SIMPLIFIED) ═══════════════ */
-function simpleAESBlock(block,key){
-  // Simplified demonstration — XOR-based block cipher simulation
-  var result=[];
-  for(var i=0;i<block.length;i++){
-    result.push(block.charCodeAt(i)^key.charCodeAt(i%key.length));
+function crLab2Run(mode){
+  var jwt=document.getElementById('cr2inp').value.trim();
+  var out=document.getElementById('cr2out');
+  if(!jwt) return;
+  var parts=jwt.split('.');
+  if(mode==='decode'){
+    try{
+      var h=JSON.parse(atob(parts[0].replace(/-/g,'+').replace(/_/g,'/')));
+      var p=JSON.parse(atob(parts[1].replace(/-/g,'+').replace(/_/g,'/')));
+      out.innerHTML+='<div><span class="key">HEADER:</span> '+JSON.stringify(h)+'</div>';
+      out.innerHTML+='<div><span class="ok">PAYLOAD:</span> '+JSON.stringify(p)+'</div>';
+      out.innerHTML+='<div><span class="hi">SIG:</span> '+(parts[2]||'none').substring(0,30)+'...</div><div>---</div>';
+      completeStep(2,'s1');
+    }catch(e){ out.innerHTML+='<div class="err">Decode failed: '+e.message+'</div>'; }
+  } else if(mode==='none'){
+    var noneHeader=btoa('{"alg":"none","typ":"JWT"}').replace(/=/g,'');
+    var payload=parts[1]||btoa('{"sub":"admin"}').replace(/=/g,'');
+    var forged=noneHeader+'.'+payload+'.';
+    out.innerHTML+='<div><span class="err">⚠ NONE ATTACK:</span></div>';
+    out.innerHTML+='<div><span class="key">Original alg:</span> HS256</div>';
+    out.innerHTML+='<div><span class="val">Forged alg:</span> none</div>';
+    out.innerHTML+='<div><span class="ok">Forged token:</span> '+forged.substring(0,60)+'...</div>';
+    out.innerHTML+='<div><span class="err">If server accepts alg:none → authentication bypassed!</span></div><div>---</div>';
+    completeStep(2,'s2');
+  } else if(mode==='forge'){
+    var adminPayload=btoa('{"sub":"1","name":"Admin","role":"admin","iat":1700000000}').replace(/=/g,'');
+    var forgedJWT=parts[0]+'.'+adminPayload+'.fakesignature';
+    out.innerHTML+='<div><span class="key">FORGED ADMIN TOKEN:</span></div>';
+    out.innerHTML+='<div><span class="val">'+forgedJWT.substring(0,70)+'...</span></div>';
+    out.innerHTML+='<div><span class="err">⚠ Signature is fake — only works if server doesn\'t validate!</span></div><div>---</div>';
+    completeStep(2,'s3');
   }
-  return result.map(function(b){return b.toString(16).padStart(2,'0')}).join('');
 }
-function crLab5Run(mode){
-  var txt=document.getElementById('cr5inp').value;
-  var key=document.getElementById('cr5key').value;
-  if(!txt||!key) return;
-  if(key.length<16) key=(key+'0000000000000000').substring(0,16);
-  var out=document.getElementById('cr5out');
-  // Pad to 16-byte blocks
-  while(txt.length%16!==0) txt+='\x00';
-  var blocks=[];
-  for(var i=0;i<txt.length;i+=16) blocks.push(txt.substring(i,i+16));
-
-  if(mode==='ecb'){
-    out.innerHTML+='<div><span class="key">MODE:</span> <span class="err">ECB</span> (each block encrypted independently)</div>';
-    var prev='';
-    blocks.forEach(function(b,idx){
-      var enc=simpleAESBlock(b,key);
-      var dup=(enc===prev)?' <span class="err">← SAME! Pattern leak!</span>':'';
-      out.innerHTML+='<div><span class="val">Block '+(idx+1)+':</span> '+enc+dup+'</div>';
-      prev=enc;
-    });
-    out.innerHTML+='<div><span class="err">⚠ Identical blocks → identical ciphertext. ECB is broken!</span></div><div>---</div>';
-    completeStep(5,'step5_1');
+function crLab3Run(){
+  var domain=document.getElementById('cr3inp').value.trim().toLowerCase();
+  var out=document.getElementById('cr3out');
+  if(!domain) return;
+  var certs={
+    'google.com':{issuer:'GTS CA 1C3 (Google Trust Services)',valid:'2024-01-15 to 2024-04-08',alg:'ECDSA P-256',tls:'TLS 1.3',cipher:'TLS_AES_256_GCM_SHA384',san:'*.google.com, google.com',risk:'SAFE'},
+    'github.com':{issuer:'DigiCert SHA2 Extended Validation',valid:'2024-03-14 to 2025-03-14',alg:'RSA 2048',tls:'TLS 1.3',cipher:'TLS_AES_128_GCM_SHA256',san:'github.com, www.github.com',risk:'SAFE'},
+    'evil-bank.xyz':{issuer:'Self-Signed Certificate (!)',valid:'2024-01-01 to 2034-01-01',alg:'RSA 1024 (WEAK!)',tls:'TLS 1.0 (VULNERABLE!)',cipher:'TLS_RSA_WITH_RC4_128_SHA (BROKEN!)',san:'evil-bank.xyz',risk:'DANGEROUS'}
+  };
+  var c=certs[domain];
+  if(c){
+    out.innerHTML+='<div><span class="key">DOMAIN:</span> '+domain+'</div>';
+    out.innerHTML+='<div><span class="key">ISSUER:</span> <span class="val">'+c.issuer+'</span></div>';
+    out.innerHTML+='<div><span class="key">VALID:</span> '+c.valid+'</div>';
+    out.innerHTML+='<div><span class="key">ALGORITHM:</span> '+c.alg+'</div>';
+    out.innerHTML+='<div><span class="key">TLS:</span> '+c.tls+'</div>';
+    out.innerHTML+='<div><span class="key">CIPHER:</span> '+c.cipher+'</div>';
+    out.innerHTML+='<div><span class="key">SAN:</span> '+c.san+'</div>';
+    var rc=c.risk==='SAFE'?'var(--g)':'var(--re)';
+    out.innerHTML+='<div><span class="key">RISK:</span> <span style="color:'+rc+';font-weight:700">'+c.risk+'</span></div><div>---</div>';
+    if(domain==='google.com') completeStep(3,'s1');
+    if(domain==='evil-bank.xyz') completeStep(3,'s2');
+    if(domain==='github.com') completeStep(3,'s3');
   } else {
-    out.innerHTML+='<div><span class="key">MODE:</span> <span class="ok">CBC</span> (chained blocks with IV)</div>';
-    var iv=Array.from({length:16},function(){return Math.floor(Math.random()*256)});
-    out.innerHTML+='<div><span class="hi">IV:</span> '+iv.map(function(b){return b.toString(16).padStart(2,'0')}).join('')+'</div>';
-    var prevBlock=iv;
-    blocks.forEach(function(b,idx){
-      var xored='';
-      for(var j=0;j<b.length;j++){
-        xored+=String.fromCharCode(b.charCodeAt(j)^(prevBlock[j]||0));
-      }
-      var enc=simpleAESBlock(xored,key);
-      out.innerHTML+='<div><span class="val">Block '+(idx+1)+':</span> '+enc+'</div>';
-      prevBlock=enc.match(/.{2}/g).map(function(h){return parseInt(h,16)});
-    });
-    out.innerHTML+='<div><span class="ok">✓ All blocks different — CBC is secure.</span></div><div>---</div>';
-    completeStep(5,'step5_2');
-    completeStep(5,'step5_3');
+    out.innerHTML+='<div><span class="key">DOMAIN:</span> '+domain+'</div>';
+    out.innerHTML+='<div><span class="val">Simulated certificate check</span></div>';
+    out.innerHTML+='<div><span class="key">ISSUER:</span> Let\'s Encrypt R3</div>';
+    out.innerHTML+='<div><span class="key">TLS:</span> TLS 1.3</div><div>---</div>';
+  }
+}
+function crLab4Run(){
+  var addr=document.getElementById('cr4inp').value.trim();
+  var out=document.getElementById('cr4out');
+  if(!addr) return;
+  var wallets={
+    '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045':{name:'vitalik.eth',entity:'Ethereum Foundation',bal:'~1,200 ETH ($3.8M)',txs:1847,firstSeen:'2015-07-30',tags:['Ethereum Founder','Whale','Active'],risk:'LOW',step:'s1'},
+    '0x098B716B8Aaf21512996dC57EB0615e2383E2f96':{name:'Ronin Bridge Exploiter',entity:'Lazarus Group (DPRK)',bal:'0 ETH (moved to Tornado Cash)',txs:43,firstSeen:'2022-03-23',tags:['Hacker','Sanctioned','OFAC Listed'],risk:'CRITICAL',step:'s3'},
+    '0xDEAD000000000000000000000000000000000000':{name:'Burn Address',entity:'Unknown — multiple deposits',bal:'9,234 ETH',txs:289402,firstSeen:'2015-08-07',tags:['Burn','High Volume','Suspicious Deposits'],risk:'MEDIUM',step:'s2'}
+  };
+  var w=wallets[addr];
+  if(w){
+    out.innerHTML+='<div><span class="key">ADDRESS:</span> '+addr.substring(0,14)+'...'+addr.substring(38)+'</div>';
+    out.innerHTML+='<div><span class="key">ENS/LABEL:</span> <span class="val">'+w.name+'</span></div>';
+    out.innerHTML+='<div><span class="key">ENTITY:</span> '+w.entity+'</div>';
+    out.innerHTML+='<div><span class="key">BALANCE:</span> <span class="ok">'+w.bal+'</span></div>';
+    out.innerHTML+='<div><span class="key">TXS:</span> '+w.txs.toLocaleString()+'</div>';
+    out.innerHTML+='<div><span class="key">FIRST SEEN:</span> '+w.firstSeen+'</div>';
+    out.innerHTML+='<div><span class="key">TAGS:</span> '+w.tags.map(function(t){return '<span class="hi">['+t+']</span>'}).join(' ')+'</div>';
+    var rc=w.risk==='LOW'?'var(--g)':w.risk==='CRITICAL'?'var(--re)':'var(--am)';
+    out.innerHTML+='<div><span class="key">RISK:</span> <span style="color:'+rc+';font-weight:700">'+w.risk+'</span></div><div>---</div>';
+    completeStep(4,w.step);
+  } else {
+    out.innerHTML+='<div><span class="key">ADDRESS:</span> '+addr.substring(0,14)+'...</div>';
+    out.innerHTML+='<div><span class="val">Unknown wallet — no labels found</span></div><div>---</div>';
+  }
+}
+function crLab5Run(){
+  var token=document.getElementById('cr5inp').value.trim().toUpperCase();
+  var out=document.getElementById('cr5out');
+  if(!token) return;
+  var tokens={
+    'USDC':{name:'USD Coin',verified:true,audit:'Multiple (Trail of Bits, OpenZeppelin)',lp:'$8.2B locked permanently',holders:'2.1M',mintable:false,honeypot:false,risk:'SAFE',step:'s1'},
+    'SQUID':{name:'Squid Game Token',verified:false,audit:'None',lp:'Removed — $3.3M stolen',holders:'40K (dumped)',mintable:true,honeypot:true,risk:'RUG PULL',step:'s3'},
+    'HONEYMOON':{name:'HoneyMoon Token',verified:false,audit:'None',lp:'$12K (unlocked)',holders:'850',mintable:true,honeypot:true,risk:'HONEYPOT',step:'s2'}
+  };
+  var t=tokens[token];
+  if(t){
+    out.innerHTML+='<div><span class="key">TOKEN:</span> <span class="val">'+t.name+' ('+token+')</span></div>';
+    out.innerHTML+='<div><span class="key">VERIFIED:</span> '+(t.verified?'<span class="ok">YES</span>':'<span class="err">NO</span>')+'</div>';
+    out.innerHTML+='<div><span class="key">AUDIT:</span> '+t.audit+'</div>';
+    out.innerHTML+='<div><span class="key">LIQUIDITY:</span> '+t.lp+'</div>';
+    out.innerHTML+='<div><span class="key">HOLDERS:</span> '+t.holders+'</div>';
+    out.innerHTML+='<div><span class="key">MINTABLE:</span> '+(t.mintable?'<span class="err">YES — unlimited supply risk!</span>':'<span class="ok">NO</span>')+'</div>';
+    out.innerHTML+='<div><span class="key">HONEYPOT:</span> '+(t.honeypot?'<span class="err">DETECTED — cannot sell!</span>':'<span class="ok">NO</span>')+'</div>';
+    var rc=t.risk==='SAFE'?'var(--g)':'var(--re)';
+    out.innerHTML+='<div><span class="key">RISK:</span> <span style="color:'+rc+';font-weight:700">'+t.risk+'</span></div><div>---</div>';
+    completeStep(5,t.step);
+  } else {
+    out.innerHTML+='<div><span class="key">TOKEN:</span> '+token+'</div>';
+    out.innerHTML+='<div class="err">Unknown token — verify on Etherscan before investing</div><div>---</div>';
+  }
+}
+function crLab6Run(mode){
+  var txt=document.getElementById('cr6inp').value;
+  var key=document.getElementById('cr6key').value;
+  var out=document.getElementById('cr6out');
+  if(!txt) return;
+  if(mode==='caesar'){
+    out.innerHTML+='<div><span class="key">BRUTE FORCE — 25 shifts:</span></div>';
+    for(var s=1;s<=25;s++){
+      var dec=caesarShift(txt.toUpperCase(),-s);
+      var mark=(dec.indexOf('HELLO')>=0||dec.indexOf('THE ')>=0||dec.indexOf(' IS ')>=0)?' <span class="ok">← LIKELY MATCH</span>':'';
+      out.innerHTML+='<div><span class="val">Shift '+s+':</span> '+dec+mark+'</div>';
+    }
+    out.innerHTML+='<div>---</div>';
+    completeStep(6,'s1');
+  } else if(mode==='xor'){
+    if(!key){ out.innerHTML+='<div class="err">Enter a key</div>'; return; }
+    var xored=xorStrings(txt,key);
+    var hex=xored.map(function(b){return b.toString(16).padStart(2,'0')}).join(' ');
+    var back=xored.map(function(b,i){return String.fromCharCode(b^key.charCodeAt(i%key.length))}).join('');
+    out.innerHTML+='<div><span class="key">XOR:</span> "'+txt+'" ^ "'+key+'" = <span class="val">'+hex+'</span></div>';
+    out.innerHTML+='<div><span class="ok">DECRYPT:</span> "'+back+'" (XOR again with same key)</div><div>---</div>';
+    completeStep(6,'s2');
+  } else if(mode==='passwd'){
+    var pw=txt;
+    var len=pw.length;
+    var pool=(/[a-z]/.test(pw)?26:0)+(/[A-Z]/.test(pw)?26:0)+(/[0-9]/.test(pw)?10:0)+(/[^a-zA-Z0-9]/.test(pw)?32:0);
+    if(!pool) pool=26;
+    var ent=Math.log2(Math.pow(pool,len));
+    var sec=Math.pow(2,ent)/1e10;
+    var t=sec<1?'< 1s':sec<60?Math.round(sec)+'s':sec<3600?Math.round(sec/60)+'m':sec<86400?Math.round(sec/3600)+'h':sec<31536000?Math.round(sec/86400)+'d':sec.toExponential(1)+' years';
+    var s=_commonPasswords.indexOf(pw.toLowerCase())>=0?'TERRIBLE':ent<28?'WEAK':ent<36?'FAIR':ent<60?'GOOD':'STRONG';
+    var c=ent<36?'var(--re)':ent<60?'var(--am)':'var(--g)';
+    out.innerHTML+='<div><span class="key">PASSWORD:</span> "'+pw+'" ('+len+' chars)</div>';
+    out.innerHTML+='<div><span class="key">ENTROPY:</span> '+ent.toFixed(0)+' bits | <span class="key">CRACK:</span> '+t+'</div>';
+    out.innerHTML+='<div><span class="key">STRENGTH:</span> <span style="color:'+c+';font-weight:700">'+s+'</span></div><div>---</div>';
+    completeStep(6,'s3');
   }
 }
 
-/* ═══════════════ LAB 6: PASSWORD STRENGTH ═══════════════ */
-var _commonPasswords=['password','123456','12345678','qwerty','abc123','monkey','master','dragon','letmein','login','admin','welcome','iloveyou','shadow','sunshine','trustno1'];
-function crLab6Run(){
-  var pw=document.getElementById('cr6inp').value;
-  if(!pw) return;
-  var out=document.getElementById('cr6out');
-  var len=pw.length;
-  var hasLower=/[a-z]/.test(pw), hasUpper=/[A-Z]/.test(pw);
-  var hasNum=/[0-9]/.test(pw), hasSpec=/[^a-zA-Z0-9]/.test(pw);
-  var poolSize=(hasLower?26:0)+(hasUpper?26:0)+(hasNum?10:0)+(hasSpec?32:0);
-  if(poolSize===0) poolSize=26;
-  var entropy=Math.log2(Math.pow(poolSize,len));
-  var guessesPerSec=1e10;
-  var seconds=Math.pow(2,entropy)/guessesPerSec;
-  var timeStr;
-  if(seconds<1) timeStr='< 1 second';
-  else if(seconds<60) timeStr=Math.round(seconds)+' seconds';
-  else if(seconds<3600) timeStr=Math.round(seconds/60)+' minutes';
-  else if(seconds<86400) timeStr=Math.round(seconds/3600)+' hours';
-  else if(seconds<31536000) timeStr=Math.round(seconds/86400)+' days';
-  else if(seconds<31536000*1000) timeStr=Math.round(seconds/31536000)+' years';
-  else timeStr=seconds.toExponential(1)+' years';
-  var isCommon=_commonPasswords.indexOf(pw.toLowerCase())>=0;
-  var strength = isCommon?'TERRIBLE':entropy<28?'WEAK':entropy<36?'FAIR':entropy<60?'GOOD':entropy<80?'STRONG':'EXCELLENT';
-  var color = isCommon||entropy<28?'var(--re)':entropy<36?'var(--am)':entropy<60?'var(--bl)':'var(--g)';
-  out.innerHTML+='<div><span class="key">PASSWORD:</span> "'+pw+'"</div>';
-  out.innerHTML+='<div><span class="key">LENGTH:</span> '+len+' chars</div>';
-  out.innerHTML+='<div><span class="key">POOL:</span> '+poolSize+' chars ('+[hasLower?'a-z':'',hasUpper?'A-Z':'',hasNum?'0-9':'',hasSpec?'special':''].filter(Boolean).join(', ')+')</div>';
-  out.innerHTML+='<div><span class="key">ENTROPY:</span> '+entropy.toFixed(1)+' bits</div>';
-  if(isCommon) out.innerHTML+='<div><span class="err">⚠ In top 20 common passwords list!</span></div>';
-  out.innerHTML+='<div><span class="key">CRACK TIME:</span> <span style="color:'+color+'">'+timeStr+'</span> (10B guesses/sec)</div>';
-  out.innerHTML+='<div><span class="key">STRENGTH:</span> <span style="color:'+color+';font-weight:700">'+strength+'</span></div><div>---</div>';
-  if(pw==='password'||isCommon) completeStep(6,'step6_1');
-  if(hasSpec&&hasUpper&&hasNum) completeStep(6,'step6_2');
-  if(pw.split(' ').length>=3) completeStep(6,'step6_3');
-}
-function crLab6Q(pw){ document.getElementById('cr6inp').value=pw; crLab6Run(); }
-
-/* ═══════════════ QUIZ ═══════════════ */
+/* ═══════════════ QUIZ DATA ═══════════════ */
 var _QS_HE = [
   { q:"מה ההבדל העיקרי בין Encoding ל-Encryption?", tag:"בסיס", opts:["Encoding הפיך, Encryption לא","Encoding לא דורש מפתח, Encryption כן","שניהם זהים","Encoding בטוח יותר"], ans:1, exp:"Encoding (כמו Base64) הוא שינוי פורמט — כל אחד יכול להפוך. Encryption דורש מפתח סודי." },
   { q:"מה עושה פעולת XOR?", tag:"XOR", opts:["כפל בינארי","חיבור בינארי","שונים=1, זהים=0","שונים=0, זהים=1"], ans:2, exp:"XOR: 0⊕0=0, 1⊕1=0, 0⊕1=1, 1⊕0=1. שונים=1, זהים=0. הבסיס של הצפנה." },
-  { q:"כמה אפשרויות יש ב-Caesar Cipher?", tag:"קלאסי", opts:["256","26","52","128"], ans:1, exp:"26 הזזות אפשריות (A-Z). Brute force תוך שניות." },
-  { q:"מה זה One-Time Pad?", tag:"XOR", opts:["הצפנה עם מפתח קצר","הצפנה עם מפתח אקראי באורך ההודעה","סוג של Hash","Block Cipher מיוחד"], ans:1, exp:"OTP = מפתח אקראי באורך ההודעה. בלתי שביר מתמטית (Shannon 1949). אבל לא מעשי." },
-  { q:"למה ECB mode שבור?", tag:"AES", opts:["המפתח קצר מדי","אין padding","בלוקים זהים → ciphertext זהה","הוא איטי מדי"], ans:2, exp:"ECB מצפין כל בלוק בנפרד. בלוקים זהים בplaintext → בלוקים זהים בciphertext. חושף דפוסים." },
+  { q:"למה ECB mode שבור?", tag:"AES", opts:["המפתח קצר מדי","אין padding","בלוקים זהים → ciphertext זהה","הוא איטי מדי"], ans:2, exp:"ECB מצפין כל בלוק בנפרד. בלוקים זהים → ciphertext זהה. חושף דפוסים — הפינגווין המפורסם." },
   { q:"מה גודל הבלוק של AES?", tag:"AES", opts:["64 ביט","128 ביט","256 ביט","512 ביט"], ans:1, exp:"AES עובד עם בלוקים של 128 ביט (16 בתים). גודל המפתח יכול להיות 128/192/256." },
-  { q:"מה זה IV (Initialization Vector)?", tag:"AES", opts:["סוג מפתח","ערך אקראי שמבטיח ciphertext שונה","Password hash","Block cipher"], ans:1, exp:"IV = ערך אקראי שמצורף לכל הצפנה. מבטיח שאותו plaintext+key → ciphertext שונה." },
-  { q:"מה ההבדל בין Stream Cipher ל-Block Cipher?", tag:"סימטרי", opts:["Stream מצפין ביט-ביט, Block מצפין בלוקים","אין הבדל","Stream בטוח יותר","Block מהיר יותר"], ans:0, exp:"Stream Cipher מצפין ביט אחרי ביט עם keystream. Block Cipher מצפין בלוקים קבועים (128 ביט ב-AES)." },
-  { q:"מה שבור ב-RC4?", tag:"Stream", opts:["המפתח קצר","Bias בbytes הראשונים + WEP crack","הוא איטי","אין תמיכה בnonce"], ans:1, exp:"RC4 יש bias סטטיסטי בbytes הראשונים. WEP WiFi נשבר בגלל RC4. אל תשתמש." },
-  { q:"מה עושה SHA-256?", tag:"Hash", opts:["מצפין טקסט","יוצר hash חד-כיווני באורך 256 ביט","מפענח סיסמאות","דוחס קבצים"], ans:1, exp:"SHA-256 יוצר 'טביעת אצבע' של 256 ביט מכל input. חד-כיווני — אי אפשר לחזור." },
-  { q:"מה זה Collision ב-Hash?", tag:"Hash", opts:["שני inputs עם אותו hash","Hash שנכשל","Hash ארוך מדי","סוג של Salt"], ans:0, exp:"Collision = שני inputs שונים שנותנים אותו hash. אם קל למצוא = ה-hash שבור (כמו MD5)." },
-  { q:"למה Salt חשוב?", tag:"Hash", opts:["מאיץ את ה-hash","מונע Rainbow Table attacks","מגדיל את אורך הסיסמה","מצפין את ה-hash"], ans:1, exp:"Salt = ערך אקראי ייחודי לכל סיסמה. מונע שימוש בטבלאות hash מוכנות מראש (Rainbow Tables)." },
-  { q:"למה SHA-256 לא מספיק לסיסמאות?", tag:"KDF", opts:["הוא לא מספיק ארוך","הוא מהיר מדי — מיליארד בשנייה","הוא שבור","הוא חד-כיווני מדי"], ans:1, exp:"SHA-256 מהיר מדי: מחשב מודרני מחשב ~1B hashes/sec. Brute force על סיסמה פשוטה = שניות." },
-  { q:"מה מיוחד ב-Argon2?", tag:"KDF", opts:["הוא הכי מהיר","הוא Memory-hard — דורש RAM","הוא הכי ישן","הוא Symmetric cipher"], ans:1, exp:"Argon2 = memory-hard KDF. דורש MB של RAM לכל hash. GPU/ASIC לא עוזרים כי הם דלים בRAM." },
-  { q:"מה זה CSPRNG?", tag:"Random", opts:["Cipher Suite Protocol","Cryptographically Secure PRNG","Certificate Signing Request","Client-Server Protocol"], ans:1, exp:"CSPRNG = מחולל מספרים פסאודו-אקראיים שבטוח לcrypto. /dev/urandom, crypto.getRandomValues()." },
-  { q:"מה קרה ב-PlayStation 3 hack?", tag:"Random", opts:["שברו AES","השתמשו בnonce קבוע בECDSA","גנבו סיסמאות","Brute force על RSA"], ans:1, exp:"Sony השתמשה במספר אקראי קבוע (!) בחתימת ECDSA. תוקפים חילצו את המפתח הפרטי." },
-  { q:"מה זה Side Channel Attack?", tag:"התקפות", opts:["מתקפה על האלגוריתם","מתקפה על הimplementation — timing, power","Social engineering","Brute force"], ans:1, exp:"Side Channel = מידע שדולף מהyimplementation: זמן תגובה, צריכת חשמל, רעש. לא מהאלגוריתם עצמו." },
-  { q:"מה זה Padding Oracle Attack?", tag:"התקפות", opts:["Brute force על padding","שימוש בהודעות שגיאת padding לפענוח","מתקפה על Oracle DB","מתקפה על RSA padding"], ans:1, exp:"שרת שמחזיר 'padding error' vs 'decryption error' — חושף מידע ביט אחרי ביט. BEAST/POODLE." },
-  { q:"מה ההמלצה לmode ב-AES היום?", tag:"AES", opts:["ECB","CBC","GCM (AEAD)","OFB"], ans:2, exp:"AES-GCM = הצפנה + אימות (AEAD). הסטנדרט של TLS 1.3. מונע tampering + חושף שינויים." },
-  { q:"מה Kerckhoffs's Principle?", tag:"בסיס", opts:["המפתח חייב להיות ארוך","המערכת בטוחה גם אם הכל ידוע חוץ מהמפתח","ההצפנה חייבת להיות מהירה","צריך שני מפתחות"], ans:1, exp:"Kerckhoffs: המערכת חייבת להיות בטוחה גם אם התוקף יודע הכל חוץ מהמפתח. Security ≠ Obscurity." }
+  { q:"מהו TLS Handshake?", tag:"TLS", opts:["פרוטוקול העברת קבצים","תהליך יצירת חיבור מוצפן","סוג של VPN","כלי לפריצת סיסמאות"], ans:1, exp:"TLS Handshake = תהליך שבו client ושרת מסכימים על cipher suite ומייצרים session key." },
+  { q:"מה ה-payload של JWT?", tag:"JWT", opts:["מוצפן ב-AES","Base64 — כל אחד יכול לקרוא","Hashed עם SHA-256","בינארי"], ans:1, exp:"JWT payload = Base64 encoded. כל אחד יכול לקרוא! ה-signature רק מאמתת שלמות." },
+  { q:"מה זה Proof of Work?", tag:"Blockchain", opts:["הוכחת בעלות","מציאת nonce שיוצר hash עם N אפסים","חתימה דיגיטלית","סוג של הצפנה"], ans:1, exp:"PoW = מצא nonce ש-SHA-256(block+nonce) מתחיל ב-N אפסים. Bitcoin = ~10 דקות לבלוק." },
+  { q:"מה זה Seed Phrase?", tag:"Wallet", opts:["סיסמה לארנק","12/24 מילים שמייצגות את כל המפתחות","כתובת ארנק","Public Key"], ans:1, exp:"BIP-39 Seed Phrase = 12/24 מילים שממנו נגזרים כל המפתחות. שמור על נייר." },
+  { q:"מה זה Rug Pull?", tag:"Scam", opts:["סוג של NFT","הסרת liquidity — הטוקן מאבד ערך","Pump & Dump","Mining attack"], ans:1, exp:"Rug Pull = יוצר מוסיף liquidity, מושך משקיעים, ואז מסיר את כל ה-liquidity." },
+  { q:"מה זה Honeypot contract?", tag:"Scam", opts:["חוזה DeFi","חוזה שמאפשר קנייה אבל חוסם מכירה","NFT marketplace","Lending protocol"], ans:1, exp:"Honeypot = אפשר לקנות אבל לא למכור. הקוד מכיל הגבלות transfer נסתרות." },
+  { q:"מה Heartbleed?", tag:"Attacks", opts:["DDoS","דליפת RAM מ-OpenSSL heartbeat bug","SQL Injection","XSS"], ans:1, exp:"Heartbleed (CVE-2014-0160): שרת מחזיר 64KB RAM — כולל מפתחות, סיסמאות, tokens." },
+  { q:"מה JWT none attack?", tag:"Attacks", opts:["שינוי alg ל-none — שרת מקבל בלי signature","מחיקת JWT","Brute force","Expiration bypass"], ans:0, exp:"alg: none = אומר לשרת שאין צורך באימות. שרתים פגיעים מקבלים את זה." },
+  { q:"מה Replay Attack?", tag:"Attacks", opts:["שליחה חוזרת של הודעה לגיטימית","Brute force","Buffer overflow","DDoS"], ans:0, exp:"Replay = תוקף מקליט הודעה חתומה ושולח שוב. פתרון: nonce או timestamp." },
+  { q:"מי הנפיק certificates ב-TLS?", tag:"TLS", opts:["הדפדפן","Certificate Authority (CA)","השרת עצמו","DNS"], ans:1, exp:"CA (כמו Let's Encrypt, DigiCert) מנפיק certificates. הדפדפן סומך על Root CAs." },
+  { q:"מה ההמלצה לmode ב-AES היום?", tag:"AES", opts:["ECB","CBC","GCM (AEAD)","OFB"], ans:2, exp:"AES-GCM = הצפנה + אימות. הסטנדרט של TLS 1.3." },
+  { q:"Blockchain הוא:", tag:"Blockchain", opts:["אנונימי לחלוטין","Pseudonymous — ניתן לחשיפה","מוצפן לחלוטין","פרטי"], ans:1, exp:"Blockchain = pseudonymous. כתובות לא מכילות שם, אבל on-chain analysis יכול לקשר לזהויות." },
+  { q:"איזה כלי משמש לפריצת hashes?", tag:"Tools", opts:["Wireshark","Hashcat","CyberChef","Etherscan"], ans:1, exp:"Hashcat = GPU-accelerated hash cracking. Dictionary, brute force, rule-based attacks." },
+  { q:"מה קרה ב-PS3 hack?", tag:"Random", opts:["שברו AES","השתמשו ב-nonce קבוע ב-ECDSA","גנבו סיסמאות","Brute force"], ans:1, exp:"Sony השתמשה ב-nonce קבוע (!) ב-ECDSA. תוקפים חילצו את המפתח הפרטי." },
+  { q:"מה Diffie-Hellman?", tag:"Crypto", opts:["Block cipher","פרוטוקול החלפת מפתחות על ערוץ פתוח","Hash function","Signing algorithm"], ans:1, exp:"DH = שני צדדים מייצרים secret משותף על ערוץ פתוח. g^a mod p. בסיס של TLS." },
+  { q:"ב-Ronin Bridge hack, איך התוקפים נכנסו?", tag:"Case Study", opts:["Brute force","Phishing — fake LinkedIn job offer","SQL injection","Zero-day"], ans:1, exp:"Lazarus Group שלחו fake LinkedIn job → PDF malware → 5/9 validator keys → $625M." }
 ];
 var _QS_EN = [
-  { q:"What's the main difference between Encoding and Encryption?", tag:"Basics", opts:["Encoding is reversible, Encryption isn't","Encoding needs no key, Encryption does","They're the same","Encoding is more secure"], ans:1, exp:"Encoding (like Base64) is format conversion — anyone can reverse it. Encryption requires a secret key." },
+  { q:"What's the main difference between Encoding and Encryption?", tag:"Basics", opts:["Encoding is reversible, Encryption isn't","Encoding needs no key, Encryption does","They're the same","Encoding is more secure"], ans:1, exp:"Encoding (like Base64) is format conversion — anyone can reverse. Encryption requires a secret key." },
   { q:"What does XOR do?", tag:"XOR", opts:["Binary multiplication","Binary addition","Different=1, Same=0","Different=0, Same=1"], ans:2, exp:"XOR: 0⊕0=0, 1⊕1=0, 0⊕1=1, 1⊕0=1. Different=1, Same=0. Foundation of encryption." },
-  { q:"How many possibilities does Caesar Cipher have?", tag:"Classical", opts:["256","26","52","128"], ans:1, exp:"26 possible shifts (A-Z). Brute force in seconds." },
-  { q:"What is a One-Time Pad?", tag:"XOR", opts:["Encryption with a short key","Encryption with random key same length as message","A type of Hash","Special Block Cipher"], ans:1, exp:"OTP = random key same length as the message. Mathematically unbreakable (Shannon 1949). But impractical." },
-  { q:"Why is ECB mode broken?", tag:"AES", opts:["Key too short","No padding","Identical blocks → identical ciphertext","Too slow"], ans:2, exp:"ECB encrypts each block independently. Identical plaintext blocks → identical ciphertext blocks. Reveals patterns." },
+  { q:"Why is ECB mode broken?", tag:"AES", opts:["Key too short","No padding","Identical blocks → identical ciphertext","Too slow"], ans:2, exp:"ECB encrypts each block independently. Identical blocks → identical ciphertext. The famous penguin." },
   { q:"What is AES block size?", tag:"AES", opts:["64 bits","128 bits","256 bits","512 bits"], ans:1, exp:"AES operates on 128-bit (16 byte) blocks. Key size can be 128/192/256 bits." },
-  { q:"What is an IV (Initialization Vector)?", tag:"AES", opts:["A type of key","Random value ensuring different ciphertext","Password hash","Block cipher"], ans:1, exp:"IV = random value added to each encryption. Ensures same plaintext+key → different ciphertext each time." },
-  { q:"Difference between Stream Cipher and Block Cipher?", tag:"Symmetric", opts:["Stream encrypts bit-by-bit, Block encrypts blocks","No difference","Stream is more secure","Block is faster"], ans:0, exp:"Stream Cipher encrypts bit by bit with a keystream. Block Cipher encrypts fixed blocks (128 bits in AES)." },
-  { q:"What's broken in RC4?", tag:"Stream", opts:["Short key","Bias in first bytes + WEP crack","Too slow","No nonce support"], ans:1, exp:"RC4 has statistical bias in first bytes. WEP WiFi was cracked because of RC4. Don't use it." },
-  { q:"What does SHA-256 do?", tag:"Hash", opts:["Encrypts text","Creates a one-way 256-bit hash","Decrypts passwords","Compresses files"], ans:1, exp:"SHA-256 creates a 256-bit 'fingerprint' from any input. One-way — can't be reversed." },
-  { q:"What is a Hash Collision?", tag:"Hash", opts:["Two inputs with the same hash","A failed hash","Hash too long","A type of Salt"], ans:0, exp:"Collision = two different inputs producing the same hash. Easy to find = hash is broken (like MD5)." },
-  { q:"Why is Salt important?", tag:"Hash", opts:["Speeds up hashing","Prevents Rainbow Table attacks","Increases password length","Encrypts the hash"], ans:1, exp:"Salt = unique random value per password. Prevents use of pre-computed hash tables (Rainbow Tables)." },
-  { q:"Why isn't SHA-256 enough for passwords?", tag:"KDF", opts:["Not long enough","Too fast — billions per second","It's broken","Too one-way"], ans:1, exp:"SHA-256 is too fast: modern hardware computes ~1B hashes/sec. Brute force on simple passwords = seconds." },
-  { q:"What's special about Argon2?", tag:"KDF", opts:["It's the fastest","It's Memory-hard — requires RAM","It's the oldest","It's a Symmetric cipher"], ans:1, exp:"Argon2 = memory-hard KDF. Requires MB of RAM per hash. GPU/ASIC don't help because they lack RAM." },
-  { q:"What is CSPRNG?", tag:"Random", opts:["Cipher Suite Protocol","Cryptographically Secure PRNG","Certificate Signing Request","Client-Server Protocol"], ans:1, exp:"CSPRNG = pseudo-random number generator safe for crypto. /dev/urandom, crypto.getRandomValues()." },
-  { q:"What happened in the PS3 hack?", tag:"Random", opts:["Broke AES","Used constant nonce in ECDSA","Stole passwords","Brute force on RSA"], ans:1, exp:"Sony used a constant (!) random number in ECDSA signing. Attackers extracted the private key." },
-  { q:"What is a Side Channel Attack?", tag:"Attacks", opts:["Attack on algorithm","Attack on implementation — timing, power","Social engineering","Brute force"], ans:1, exp:"Side Channel = info leaking from implementation: response time, power consumption, noise. Not from the algorithm." },
-  { q:"What is a Padding Oracle Attack?", tag:"Attacks", opts:["Brute force on padding","Using padding error messages to decrypt","Attack on Oracle DB","Attack on RSA padding"], ans:1, exp:"Server returning 'padding error' vs 'decryption error' — leaks info bit by bit. BEAST/POODLE exploited this." },
-  { q:"Recommended AES mode today?", tag:"AES", opts:["ECB","CBC","GCM (AEAD)","OFB"], ans:2, exp:"AES-GCM = encryption + authentication (AEAD). TLS 1.3 standard. Prevents tampering + detects changes." },
-  { q:"What is Kerckhoffs's Principle?", tag:"Basics", opts:["Key must be long","System secure even if everything known except key","Encryption must be fast","Need two keys"], ans:1, exp:"Kerckhoffs: system must be secure even if attacker knows everything except the key. Security ≠ Obscurity." }
+  { q:"What is a TLS Handshake?", tag:"TLS", opts:["File transfer protocol","Process creating encrypted connection","A type of VPN","Password cracking tool"], ans:1, exp:"TLS Handshake = client and server agree on cipher suite and create session key." },
+  { q:"What is JWT payload?", tag:"JWT", opts:["AES encrypted","Base64 — anyone can read it","SHA-256 hashed","Binary"], ans:1, exp:"JWT payload = Base64 encoded. Anyone can read it! Signature only verifies integrity." },
+  { q:"What is Proof of Work?", tag:"Blockchain", opts:["Proof of ownership","Find nonce creating hash with N leading zeros","Digital signature","Encryption type"], ans:1, exp:"PoW = find nonce so SHA-256(block+nonce) starts with N zeros. Bitcoin = ~10 min/block." },
+  { q:"What is a Seed Phrase?", tag:"Wallet", opts:["Wallet password","12/24 words representing all your keys","Wallet address","Public Key"], ans:1, exp:"BIP-39 Seed Phrase = 12/24 words from which all keys are derived. Store on paper." },
+  { q:"What is a Rug Pull?", tag:"Scam", opts:["A type of NFT","Removing liquidity — token loses value","Pump & Dump","Mining attack"], ans:1, exp:"Rug Pull = creator adds liquidity, attracts investors, then removes all liquidity." },
+  { q:"What is a Honeypot contract?", tag:"Scam", opts:["DeFi contract","Contract allowing buy but blocking sell","NFT marketplace","Lending protocol"], ans:1, exp:"Honeypot = can buy but can't sell. Code contains hidden transfer restrictions." },
+  { q:"What is Heartbleed?", tag:"Attacks", opts:["DDoS","RAM leak from OpenSSL heartbeat bug","SQL Injection","XSS"], ans:1, exp:"Heartbleed (CVE-2014-0160): server returns 64KB RAM — keys, passwords, tokens." },
+  { q:"What is JWT none attack?", tag:"Attacks", opts:["Change alg to none — server accepts without signature","Delete JWT","Brute force","Expiration bypass"], ans:0, exp:"alg: none tells server no verification needed. Vulnerable servers accept it." },
+  { q:"What is a Replay Attack?", tag:"Attacks", opts:["Resending legitimate message","Brute force","Buffer overflow","DDoS"], ans:0, exp:"Replay = attacker records signed message and sends again. Fix: nonce or timestamp." },
+  { q:"Who issues TLS certificates?", tag:"TLS", opts:["Browser","Certificate Authority (CA)","Server itself","DNS"], ans:1, exp:"CA (Let's Encrypt, DigiCert) issues certificates. Browser trusts Root CAs." },
+  { q:"Recommended AES mode today?", tag:"AES", opts:["ECB","CBC","GCM (AEAD)","OFB"], ans:2, exp:"AES-GCM = encryption + authentication. TLS 1.3 standard." },
+  { q:"Blockchain is:", tag:"Blockchain", opts:["Completely anonymous","Pseudonymous — can be de-anonymized","Fully encrypted","Private"], ans:1, exp:"Blockchain = pseudonymous. Addresses don't contain names, but on-chain analysis can link to identities." },
+  { q:"Which tool is used for hash cracking?", tag:"Tools", opts:["Wireshark","Hashcat","CyberChef","Etherscan"], ans:1, exp:"Hashcat = GPU-accelerated hash cracking. Dictionary, brute force, rule-based attacks." },
+  { q:"What happened in the PS3 hack?", tag:"Random", opts:["Broke AES","Used constant nonce in ECDSA","Stole passwords","Brute force on RSA"], ans:1, exp:"Sony used constant (!) random number in ECDSA signing. Attackers extracted private key." },
+  { q:"What is Diffie-Hellman?", tag:"Crypto", opts:["Block cipher","Key exchange protocol over open channel","Hash function","Signing algorithm"], ans:1, exp:"DH = two parties create shared secret over open channel. g^a mod p. Foundation of TLS." },
+  { q:"In Ronin Bridge hack, how did attackers gain access?", tag:"Case Study", opts:["Brute force","Phishing — fake LinkedIn job offer","SQL injection","Zero-day"], ans:1, exp:"Lazarus Group sent fake LinkedIn job → PDF malware → 5/9 validator keys → $625M." }
 ];
 
+/* ═══════════════ QUIZ SYSTEM ═══════════════ */
 var _qScore=0, _qTotal=0, _qAnswered=0;
 function buildQuiz(){
   var qs=isEn()?_QS_EN:_QS_HE;
@@ -1120,13 +1172,9 @@ function ansQz(qi,oi){
   var btns=card.querySelectorAll('.q-opt');
   btns.forEach(function(b){b.classList.add('locked')});
   if(oi===qs[qi].ans){
-    btns[oi].classList.add('hit');
-    card.classList.add('c-ok');
-    _qScore++;
+    btns[oi].classList.add('hit'); card.classList.add('c-ok'); _qScore++;
   } else {
-    btns[oi].classList.add('miss');
-    btns[qs[qi].ans].classList.add('hit');
-    card.classList.add('c-fail');
+    btns[oi].classList.add('miss'); btns[qs[qi].ans].classList.add('hit'); card.classList.add('c-fail');
   }
   _qAnswered++;
   var expEl=document.getElementById('q'+qi+'-exp');
@@ -1145,37 +1193,38 @@ function showScore(){
 }
 function restartQuiz(){ buildQuiz(); }
 
-/* ═══════════════ GAME ═══════════════ */
+/* ═══════════════ GAME DATA ═══════════════ */
 var _gameStarted=false;
 var _CH_HE = [
-  {title:"Caesar Cipher",scenario:"קיבלת הודעה מוצפנת: KHOOR ZRUOG",request:"הודעה מוצפנת ב-Caesar Cipher.\nצריך לפענח.",question:"מה ה-shift של ההצפנה?",opts:["1","3","5","13"],ans:1,exp:"KHOOR ZRUOG עם shift 3 = HELLO WORLD. K→H, H→E, O→L."},
-  {title:"Encoding vs Encryption",scenario:"ראית JWT token עם header: eyJhbGciOiJIUzI1NiJ9",request:"JWT header שנראה מוצפן.",question:"איך לפענח את ה-header?",opts:["AES decrypt","RSA decrypt","Base64 decode","SHA-256 reverse"],ans:2,exp:"JWT headers הם Base64. eyJhbGciOiJIUzI1NiJ9 = {\"alg\":\"HS256\"}. קידוד, לא הצפנה."},
-  {title:"XOR Attack",scenario:"שני ciphertexts הוצפנו עם אותו מפתח XOR:\nC1 = 0x4A, C2 = 0x5B",request:"C1 = P1 ⊕ K\nC2 = P2 ⊕ K",question:"מה C1 ⊕ C2 שווה?",opts:["P1 ⊕ P2","K ⊕ K","P1 ⊕ K","אי אפשר לדעת"],ans:0,exp:"C1⊕C2 = (P1⊕K)⊕(P2⊕K) = P1⊕P2. המפתח מתבטל! זו מתקפת Two-Time Pad."},
-  {title:"AES Mode",scenario:"צריך להצפין תמונה. הבוס אומר 'תשתמש ב-AES'.",request:"הצפנת תמונה עם AES.\nאיזה mode?",question:"באיזה mode אסור להשתמש?",opts:["GCM","CBC","CTR","ECB"],ans:3,exp:"ECB מצפין כל בלוק בנפרד. בתמונה — פיקסלים זהים → בלוקים זהים. הפינגווין המפורסם."},
-  {title:"Hash Identification",scenario:"מצאת hash בDB: 5f4dcc3b5aa765d61d8327deb882cf99",request:"Hash: 5f4dcc3b5aa765d61d8327deb882cf99\nLength: 32 hex chars",question:"איזה סוג hash זה?",opts:["SHA-256","SHA-1","MD5","bcrypt"],ans:2,exp:"32 hex chars = 128 bits = MD5. SHA-1=40, SHA-256=64. bcrypt מתחיל ב-$2b$."},
-  {title:"Password Storage",scenario:"אתה בונה מערכת login חדשה.\nצריך לשמור סיסמאות.",request:"בחר את הדרך הבטוחה\nלאחסן סיסמאות.",question:"איך לשמור את הסיסמאות?",opts:["SHA-256","MD5 + salt","Plaintext + encryption","Argon2 + salt"],ans:3,exp:"Argon2 + salt = ההמלצה הנוכחית. Memory-hard KDF. SHA-256 מהיר מדי, MD5 שבור."},
-  {title:"Nonce Reuse",scenario:"מערכת הצפנה שלך משתמשת ב-ChaCha20.\nמישהו בצוות hardcode את ה-nonce.",request:"ChaCha20 עם nonce קבוע.\nאותו nonce לכל הודעה.",question:"מה הסיכון?",opts:["אין סיכון","Two-Time Pad attack — C1⊕C2=P1⊕P2","Brute force","Padding Oracle"],ans:1,exp:"Nonce חוזר = Two-Time Pad. C1⊕C2 = P1⊕P2. המפתח מתבטל ואפשר לחלץ plaintext."},
-  {title:"Side Channel",scenario:"שרת בודק סיסמה תו-תו.\nאם תו לא נכון — חוזר מיד.",request:"Login check:\nfor i in range(len(pw)):\n  if pw[i] != input[i]:\n    return False\nreturn True",question:"מה הבעיה בקוד?",opts:["אין salt","Timing attack — זמן תגובה חושף אורך","SQL injection","Buffer overflow"],ans:1,exp:"בדיקה תו-תו עם return מוקדם = timing attack. סיסמה ארוכה יותר נכון = תגובה איטית יותר."},
-  {title:"Random Numbers",scenario:"קוד JavaScript יוצר מפתח הצפנה:\nvar key = Math.random().toString(16)",request:"var key = Math.random()\n  .toString(16).slice(2);",question:"מה הבעיה?",opts:["המפתח קצר מדי","Math.random() לא CSPRNG","אין IV","חסר salt"],ans:1,exp:"Math.random() = PRNG דטרמיניסטי. לא בטוח לcrypto. צריך crypto.getRandomValues()."},
-  {title:"Heartbleed",scenario:"שרת OpenSSL פגיע ל-Heartbleed.\nתוקף שולח heartbeat request.",request:"Heartbeat request:\nPayload: 1 byte\nClaimed length: 65535 bytes",question:"מה התוקף יקבל?",opts:["Error message","תוכן RAM של השרת — כולל מפתחות","רק ה-1 byte","Connection reset"],ans:1,exp:"Heartbleed: השרת מחזיר bytes לפי claimed length, לא actual length. 65KB מRAM — כולל מפתחות פרטיים."},
-  {title:"Rainbow Tables",scenario:"DB של 1M סיסמאות נגנב.\nכולן MD5 בלי salt.",request:"1,000,000 MD5 hashes\nNo salt. Standard passwords.",question:"כמה זמן לפרוץ 80% מהסיסמאות?",opts:["שנים","חודשים","ימים","דקות — עם Rainbow Table"],ans:3,exp:"Rainbow Table מוכנה מראש = lookup מיידי. 80% מסיסמאות נפוצות ימצאו תוך דקות. Salt מונע את זה."},
-  {title:"AEAD",scenario:"צריך להצפין API request.\nגם לוודא שהנתונים לא שונו.",request:"Encrypt + Authenticate\nAPI request data.",question:"איזה scheme מתאים?",opts:["AES-ECB","AES-CBC","AES-GCM","ROT13"],ans:2,exp:"AES-GCM = AEAD. מצפין + מאמת שהנתונים לא שונו. הסטנדרט של TLS 1.3."}
+  {title:"TLS Handshake",scenario:"אתה מנתח תעבורת רשת עם Wireshark ורואה ClientHello.",request:"ClientHello → TLS 1.3\nCipher: TLS_AES_256_GCM_SHA384",question:"מה השלב הבא?",opts:["Key Exchange","ServerHello","Certificate Revocation","TCP Reset"],ans:1,exp:"אחרי ClientHello — השרת שולח ServerHello עם ה-cipher suite שנבחר."},
+  {title:"JWT Exploitation",scenario:"מצאת JWT token בAPI response. Header: eyJhbGciOiJIUzI1NiJ9",request:"JWT Header (Base64 decoded):\n{\"alg\":\"HS256\"}",question:"מה המתקפה הראשונה שתנסה?",opts:["SQL Injection","שינוי alg ל-none","Buffer Overflow","DDoS"],ans:1,exp:"JWT none attack: שנה alg ל-none, הסר signature. אם השרת לא מאמת — יש לך גישה."},
+  {title:"Hash Identification",scenario:"מצאת בDB: 5f4dcc3b5aa765d61d8327deb882cf99",request:"Hash: 5f4dcc3b5aa765d61d8327deb882cf99\n32 hex characters",question:"מה סוג ה-hash?",opts:["SHA-256","SHA-1","MD5","bcrypt"],ans:2,exp:"32 hex = 128 bits = MD5. SHA-1=40, SHA-256=64."},
+  {title:"Blockchain Tamper",scenario:"תוקף שינה transaction בבלוק 1000.",request:"Block 1000: hash changed\nBlock 1001: prevHash mismatch",question:"מה קורה?",opts:["רק בלוק 1000 משתנה","כל הבלוקים מ-1001 נשברים","אין השפעה","השרשרת מתקנת את עצמה"],ans:1,exp:"כל בלוק מכיל prevHash. שינוי בלוק → hash חדש → כל מה שאחריו לא תקין."},
+  {title:"Wallet Security",scenario:"קיבלת הודעה: 'שלח לנו seed phrase לאימות חשבון'",request:"Email from: support@metamask-verify.com\n'Verify your wallet'",question:"מה התגובה הנכונה?",opts:["שלח את ה-seed","מתעלם — phishing ברור","שואל חבר","בודק באתר"],ans:1,exp:"אף שירות לגיטימי לא יבקש seed phrase. זה phishing. Seed = כל הכסף שלך."},
+  {title:"Rug Pull Detection",scenario:"Token חדש: Team anonymous, LP locked 30 days, no audit",request:"Token: MOONSHOT\nTeam: Anonymous\nLP Lock: 30 days\nAudit: None\nTop holder: 85%",question:"מה הסיכון?",opts:["אין סיכון","SAFE — LP locked","RUG PULL — כל הדגלים האדומים","Mining attack"],ans:2,exp:"Anonymous + Short LP lock + No audit + 85% concentration = כל דגל אדום אפשרי."},
+  {title:"Heartbleed Exploit",scenario:"שרת OpenSSL 1.0.1f. שולח heartbeat request.",request:"Heartbeat request:\nPayload: 1 byte\nClaimed length: 65535",question:"מה תקבל בחזרה?",opts:["Error","64KB מRAM השרת","1 byte","Connection closed"],ans:1,exp:"Heartbleed: שרת מחזיר claimed length bytes, לא actual. 64KB RAM — כולל מפתחות."},
+  {title:"Consensus Attack",scenario:"שחקן רכש 52% מכוח ה-hash של הרשת.",request:"Hashrate: 52% controlled\nTarget: Double-spend $1M",question:"מה המתקפה?",opts:["Replay attack","51% attack — rewrite history","Sybil attack","Eclipse attack"],ans:1,exp:"51% attack: שליטה ברוב ה-hashrate → כתיבה מחדש של בלוקים → double spend."},
+  {title:"Certificate Fraud",scenario:"Wireshark מראה TLS לgoogle.com עם certificate מself-signed CA.",request:"Certificate issuer: Evil Corp CA\nSubject: *.google.com\nNot in browser trust store",question:"מה קורה?",opts:["הכל תקין","MITM — מישהו מיירט תעבורה","Google שינה CA","שגיאת Wireshark"],ans:1,exp:"Self-signed cert ל-google.com = MITM. תוקף מציג cert מזויף כדי ליירט תעבורה."},
+  {title:"Smart Contract Bug",scenario:"Smart contract עם function: withdraw() public",request:"function withdraw() public {\n  msg.sender.call{value: balance}(\"\");\n  balances[msg.sender] = 0;\n}",question:"מה הבעיה?",opts:["אין בעיה","Reentrancy — update אחרי transfer","Integer overflow","Access control"],ans:1,exp:"Reentrancy: msg.sender.call קורא חזרה ל-withdraw לפני ש-balance מתאפס. The DAO hack ($60M)."},
+  {title:"Weak Encryption",scenario:"מצאת שהמערכת מצפינה עם AES-ECB.",request:"Plaintext blocks:\nAAAAAAAA AAAAAAAA\nEncrypted blocks:\n7f3b2c1d 7f3b2c1d",question:"מה הבעיה?",opts:["אין בעיה","בלוקים זהים → ciphertext זהה","המפתח חלש","IV חסר"],ans:1,exp:"ECB: בלוקים זהים → ciphertext זהה. חושף דפוסים. שימוש ב-GCM/CBC במקום."},
+  {title:"On-chain Intel",scenario:"ארנק חדש קיבל 10,000 ETH מ-Tornado Cash, ואז שלח ל-5 ארנקים.",request:"Source: Tornado Cash (mixer)\nAmount: 10,000 ETH\nSplit: 5 wallets, 2K each",question:"מה המסקנה?",opts:["מסחר רגיל","הלבנת הון — ניסיון לטשטש מקור","Airdrop","Staking reward"],ans:1,exp:"Tornado Cash = mixer. 10K ETH → split ל-5 ארנקים = ניסיון קלאסי לטשטש מקור כספים."}
 ];
 var _CH_EN = [
-  {title:"Caesar Cipher",scenario:"You received an encrypted message: KHOOR ZRUOG",request:"Message encrypted with Caesar Cipher.\nNeed to decrypt.",question:"What's the shift value?",opts:["1","3","5","13"],ans:1,exp:"KHOOR ZRUOG with shift 3 = HELLO WORLD. K→H, H→E, O→L."},
-  {title:"Encoding vs Encryption",scenario:"You see a JWT token header: eyJhbGciOiJIUzI1NiJ9",request:"JWT header that looks encrypted.",question:"How to decode the header?",opts:["AES decrypt","RSA decrypt","Base64 decode","SHA-256 reverse"],ans:2,exp:"JWT headers are Base64. eyJhbGciOiJIUzI1NiJ9 = {\"alg\":\"HS256\"}. Encoding, not encryption."},
-  {title:"XOR Attack",scenario:"Two ciphertexts encrypted with same XOR key:\nC1 = 0x4A, C2 = 0x5B",request:"C1 = P1 ⊕ K\nC2 = P2 ⊕ K",question:"What does C1 ⊕ C2 equal?",opts:["P1 ⊕ P2","K ⊕ K","P1 ⊕ K","Can't determine"],ans:0,exp:"C1⊕C2 = (P1⊕K)⊕(P2⊕K) = P1⊕P2. Key cancels out! This is the Two-Time Pad attack."},
-  {title:"AES Mode",scenario:"Need to encrypt an image. Boss says 'use AES'.",request:"Encrypting an image with AES.\nWhich mode?",question:"Which mode must you NOT use?",opts:["GCM","CBC","CTR","ECB"],ans:3,exp:"ECB encrypts each block independently. In images — identical pixels → identical blocks. The famous penguin."},
-  {title:"Hash Identification",scenario:"Found hash in DB: 5f4dcc3b5aa765d61d8327deb882cf99",request:"Hash: 5f4dcc3b5aa765d61d8327deb882cf99\nLength: 32 hex chars",question:"What type of hash is this?",opts:["SHA-256","SHA-1","MD5","bcrypt"],ans:2,exp:"32 hex chars = 128 bits = MD5. SHA-1=40, SHA-256=64. bcrypt starts with $2b$."},
-  {title:"Password Storage",scenario:"Building a new login system.\nNeed to store passwords.",request:"Choose the secure way\nto store passwords.",question:"How to store the passwords?",opts:["SHA-256","MD5 + salt","Plaintext + encryption","Argon2 + salt"],ans:3,exp:"Argon2 + salt = current recommendation. Memory-hard KDF. SHA-256 too fast, MD5 broken."},
-  {title:"Nonce Reuse",scenario:"Your encryption uses ChaCha20.\nSomeone hardcoded the nonce.",request:"ChaCha20 with fixed nonce.\nSame nonce for every message.",question:"What's the risk?",opts:["No risk","Two-Time Pad attack — C1⊕C2=P1⊕P2","Brute force","Padding Oracle"],ans:1,exp:"Reused nonce = Two-Time Pad. C1⊕C2 = P1⊕P2. Key cancels and plaintext leaks."},
-  {title:"Side Channel",scenario:"Server checks password char by char.\nReturns immediately on mismatch.",request:"Login check:\nfor i in range(len(pw)):\n  if pw[i] != input[i]:\n    return False\nreturn True",question:"What's wrong with this code?",opts:["No salt","Timing attack — response time reveals length","SQL injection","Buffer overflow"],ans:1,exp:"Char-by-char check with early return = timing attack. Longer correct prefix = slower response."},
-  {title:"Random Numbers",scenario:"JavaScript code generates encryption key:\nvar key = Math.random().toString(16)",request:"var key = Math.random()\n  .toString(16).slice(2);",question:"What's the problem?",opts:["Key too short","Math.random() isn't CSPRNG","No IV","Missing salt"],ans:1,exp:"Math.random() = deterministic PRNG. Not safe for crypto. Use crypto.getRandomValues()."},
-  {title:"Heartbleed",scenario:"OpenSSL server vulnerable to Heartbleed.\nAttacker sends heartbeat request.",request:"Heartbeat request:\nPayload: 1 byte\nClaimed length: 65535 bytes",question:"What will the attacker get?",opts:["Error message","Server RAM contents — including keys","Just the 1 byte","Connection reset"],ans:1,exp:"Heartbleed: server returns bytes based on claimed length, not actual. 65KB from RAM — including private keys."},
-  {title:"Rainbow Tables",scenario:"DB of 1M passwords stolen.\nAll MD5 without salt.",request:"1,000,000 MD5 hashes\nNo salt. Standard passwords.",question:"How long to crack 80% of passwords?",opts:["Years","Months","Days","Minutes — with Rainbow Table"],ans:3,exp:"Pre-computed Rainbow Table = instant lookup. 80% of common passwords found in minutes. Salt prevents this."},
-  {title:"AEAD",scenario:"Need to encrypt an API request.\nAlso verify data hasn't been tampered with.",request:"Encrypt + Authenticate\nAPI request data.",question:"Which scheme fits?",opts:["AES-ECB","AES-CBC","AES-GCM","ROT13"],ans:2,exp:"AES-GCM = AEAD. Encrypts + verifies data integrity. TLS 1.3 standard."}
+  {title:"TLS Handshake",scenario:"You're analyzing traffic with Wireshark and see a ClientHello.",request:"ClientHello → TLS 1.3\nCipher: TLS_AES_256_GCM_SHA384",question:"What's the next step?",opts:["Key Exchange","ServerHello","Certificate Revocation","TCP Reset"],ans:1,exp:"After ClientHello — server sends ServerHello with chosen cipher suite."},
+  {title:"JWT Exploitation",scenario:"Found JWT token in API response. Header: eyJhbGciOiJIUzI1NiJ9",request:"JWT Header (Base64 decoded):\n{\"alg\":\"HS256\"}",question:"What's the first attack to try?",opts:["SQL Injection","Change alg to none","Buffer Overflow","DDoS"],ans:1,exp:"JWT none attack: change alg to none, remove signature. If server doesn't validate — you have access."},
+  {title:"Hash Identification",scenario:"Found in DB: 5f4dcc3b5aa765d61d8327deb882cf99",request:"Hash: 5f4dcc3b5aa765d61d8327deb882cf99\n32 hex characters",question:"What hash type?",opts:["SHA-256","SHA-1","MD5","bcrypt"],ans:2,exp:"32 hex = 128 bits = MD5. SHA-1=40, SHA-256=64."},
+  {title:"Blockchain Tamper",scenario:"Attacker changed a transaction in block 1000.",request:"Block 1000: hash changed\nBlock 1001: prevHash mismatch",question:"What happens?",opts:["Only block 1000 changes","All blocks from 1001 break","No effect","Chain self-corrects"],ans:1,exp:"Each block contains prevHash. Change block → new hash → everything after is invalid."},
+  {title:"Wallet Security",scenario:"You receive: 'Send us your seed phrase to verify your account'",request:"Email from: support@metamask-verify.com\n'Verify your wallet'",question:"Correct response?",opts:["Send the seed","Ignore — obvious phishing","Ask a friend","Check website"],ans:1,exp:"No legitimate service asks for seed phrase. This is phishing. Seed = all your money."},
+  {title:"Rug Pull Detection",scenario:"New token: Anonymous team, LP locked 30 days, no audit",request:"Token: MOONSHOT\nTeam: Anonymous\nLP Lock: 30 days\nAudit: None\nTop holder: 85%",question:"What's the risk?",opts:["No risk","SAFE — LP locked","RUG PULL — all red flags","Mining attack"],ans:2,exp:"Anonymous + Short LP lock + No audit + 85% concentration = every possible red flag."},
+  {title:"Heartbleed Exploit",scenario:"Server running OpenSSL 1.0.1f. Sending heartbeat request.",request:"Heartbeat request:\nPayload: 1 byte\nClaimed length: 65535",question:"What will you get back?",opts:["Error","64KB from server RAM","1 byte","Connection closed"],ans:1,exp:"Heartbleed: server returns claimed length bytes, not actual. 64KB RAM — including keys."},
+  {title:"Consensus Attack",scenario:"A player acquired 52% of the network's hash power.",request:"Hashrate: 52% controlled\nTarget: Double-spend $1M",question:"What's the attack?",opts:["Replay attack","51% attack — rewrite history","Sybil attack","Eclipse attack"],ans:1,exp:"51% attack: control majority hashrate → rewrite blocks → double spend."},
+  {title:"Certificate Fraud",scenario:"Wireshark shows TLS to google.com with self-signed CA certificate.",request:"Certificate issuer: Evil Corp CA\nSubject: *.google.com\nNot in browser trust store",question:"What's happening?",opts:["Everything's fine","MITM — someone intercepting traffic","Google changed CA","Wireshark error"],ans:1,exp:"Self-signed cert for google.com = MITM. Attacker presents fake cert to intercept traffic."},
+  {title:"Smart Contract Bug",scenario:"Smart contract with function: withdraw() public",request:"function withdraw() public {\n  msg.sender.call{value: balance}(\"\");\n  balances[msg.sender] = 0;\n}",question:"What's the problem?",opts:["No problem","Reentrancy — update after transfer","Integer overflow","Access control"],ans:1,exp:"Reentrancy: msg.sender.call calls back to withdraw before balance zeroed. The DAO hack ($60M)."},
+  {title:"Weak Encryption",scenario:"System encrypts with AES-ECB.",request:"Plaintext blocks:\nAAAAAAAA AAAAAAAA\nEncrypted blocks:\n7f3b2c1d 7f3b2c1d",question:"What's the problem?",opts:["No problem","Identical blocks → identical ciphertext","Weak key","Missing IV"],ans:1,exp:"ECB: identical blocks → identical ciphertext. Reveals patterns. Use GCM/CBC instead."},
+  {title:"On-chain Intel",scenario:"New wallet received 10,000 ETH from Tornado Cash, then sent to 5 wallets.",request:"Source: Tornado Cash (mixer)\nAmount: 10,000 ETH\nSplit: 5 wallets, 2K each",question:"What's the conclusion?",opts:["Normal trading","Money laundering — trying to obscure source","Airdrop","Staking reward"],ans:1,exp:"Tornado Cash = mixer. 10K ETH → split to 5 wallets = classic attempt to obscure fund source."}
 ];
 
+/* ═══════════════ GAME SYSTEM ═══════════════ */
 var dbgScore=0,dbgLives=3,dbgIdx=0,dbgTotal=0,dbgOrder=[];
 function getChallenges(){ return isEn()?_CH_EN:_CH_HE; }
 function startGame(){
@@ -1206,8 +1255,7 @@ function renderChallenge(){
   opts.innerHTML='';
   c.opts.forEach(function(o,i){
     var b=document.createElement('button');
-    b.className='dbg-opt';
-    b.textContent=o;
+    b.className='dbg-opt'; b.textContent=o;
     b.onclick=function(){ answerChallenge(i,c); };
     opts.appendChild(b);
   });
@@ -1228,8 +1276,7 @@ function answerChallenge(chosen,c){
     fb.innerHTML='<span style="color:var(--re)">❌ '+(isEn()?'Wrong!':'טעות!')+'</span>';
   }
   fb.className='dbg-feedback show';
-  exp.textContent=c.exp;
-  exp.style.display='block';
+  exp.textContent=c.exp; exp.style.display='block';
   document.getElementById('dbg-score').textContent=dbgScore;
   document.getElementById('dbg-lives').textContent='❤️'.repeat(dbgLives)+'🖤'.repeat(3-dbgLives);
   dbgIdx++;
@@ -1254,62 +1301,12 @@ function chkQ(btn, chosen, correct, expId) {
   var btns = card.querySelectorAll('.ch-q-opt');
   btns.forEach(function(b){ b.classList.add('locked'); });
   if (chosen === correct) {
-    btn.classList.add('cq-hit');
-    card.classList.add('cq-ok');
+    btn.classList.add('cq-hit'); card.classList.add('cq-ok');
   } else {
-    btn.classList.add('cq-miss');
-    btns[correct].classList.add('cq-hit');
-    card.classList.add('cq-fail');
+    btn.classList.add('cq-miss'); btns[correct].classList.add('cq-hit'); card.classList.add('cq-fail');
   }
   var exp = document.getElementById(expId);
   if (exp) exp.classList.add('show');
-}
-
-/* ═══════════════ INLINE PRACTICE TOOLS ═══════════════ */
-function prCaesar(inputId, shiftId, outId) {
-  var txt = document.getElementById(inputId).value.toUpperCase();
-  var shift = parseInt(document.getElementById(shiftId).value) || 3;
-  if (!txt) return;
-  var enc = caesarShift(txt, shift);
-  document.getElementById(outId).innerHTML += '<div><span class="ok">' + txt + '</span> → shift ' + shift + ' → <span class="val">' + enc + '</span></div>';
-}
-function prXor(inputId, keyId, outId) {
-  var txt = document.getElementById(inputId).value;
-  var key = document.getElementById(keyId).value;
-  if (!txt || !key) return;
-  var xored = xorStrings(txt, key);
-  var hex = xored.map(function(b){return b.toString(16).padStart(2,'0')}).join(' ');
-  var back = xored.map(function(b,i){return String.fromCharCode(b^key.charCodeAt(i%key.length))}).join('');
-  document.getElementById(outId).innerHTML += '<div>"' + txt + '" ⊕ "' + key + '" → <span class="val">' + hex + '</span> → decrypt: <span class="ok">"' + back + '"</span></div>';
-}
-function prB64(inputId, outId, mode) {
-  var txt = document.getElementById(inputId).value;
-  if (!txt) return;
-  if (mode === 'encode') {
-    document.getElementById(outId).innerHTML += '<div>"' + txt + '" → <span class="val">' + btoa(txt) + '</span></div>';
-  } else {
-    try { document.getElementById(outId).innerHTML += '<div>"' + txt + '" → <span class="ok">' + atob(txt) + '</span></div>'; }
-    catch(e) { document.getElementById(outId).innerHTML += '<div class="err">Invalid Base64</div>'; }
-  }
-}
-async function prHash(inputId, outId) {
-  var txt = document.getElementById(inputId).value;
-  if (!txt) return;
-  var h = await sha256(txt);
-  document.getElementById(outId).innerHTML += '<div>SHA-256("' + txt + '") = <span class="val" style="word-break:break-all">' + h + '</span></div>';
-}
-function prPasswd(inputId, outId) {
-  var pw = document.getElementById(inputId).value;
-  if (!pw) return;
-  var len = pw.length;
-  var pool = (/[a-z]/.test(pw)?26:0)+(/[A-Z]/.test(pw)?26:0)+(/[0-9]/.test(pw)?10:0)+(/[^a-zA-Z0-9]/.test(pw)?32:0);
-  if (!pool) pool = 26;
-  var ent = Math.log2(Math.pow(pool, len));
-  var sec = Math.pow(2, ent) / 1e10;
-  var t = sec<1?'< 1s':sec<60?Math.round(sec)+'s':sec<3600?Math.round(sec/60)+'m':sec<86400?Math.round(sec/3600)+'h':sec<31536000?Math.round(sec/86400)+'d':sec.toExponential(1)+' years';
-  var s = _commonPasswords.indexOf(pw.toLowerCase())>=0?'TERRIBLE':ent<28?'WEAK':ent<36?'FAIR':ent<60?'GOOD':'STRONG';
-  var c = ent<36?'var(--re)':ent<60?'var(--am)':'var(--g)';
-  document.getElementById(outId).innerHTML += '<div>"'+pw+'" → '+ent.toFixed(0)+' bits → <span style="color:'+c+';font-weight:700">'+s+'</span> ('+t+')</div>';
 }
 
 /* ═══════════════ INIT ═══════════════ */
@@ -1318,7 +1315,6 @@ buildQuiz();
 /* ═══════════════ postMessage bridge ═══════════════ */
 window.addEventListener('message', function(e) {
   if (!e.data) return;
-  /* App sends { ng: 'lang', lang: 'en'|'he' } */
   if (e.data.ng === 'lang' || e.data.type === 'setLang') {
     var lang = e.data.lang;
     var root = document.getElementById('root');
@@ -1329,7 +1325,7 @@ window.addEventListener('message', function(e) {
     var map = { small: '14px', normal: '16px', large: '18px' };
     document.documentElement.style.fontSize = map[e.data.size] || '16px';
   }
-  if (e.data.ng === 'theme') { /* crypto course is always dark */ }
+  if (e.data.ng === 'theme') { /* always dark */ }
 });
 </script>
 </body>
