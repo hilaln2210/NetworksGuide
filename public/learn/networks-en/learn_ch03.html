@@ -2,12 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📖 למידה — רשתות מחשבים PRO</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
   /* ── Palette: clean blue-slate ── */
@@ -1390,7 +1389,23 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   cursor: pointer; font-family: var(--f-body); font-size: .9rem;
 }
 
-  </style>
+/* ══ RTL fixes ══ */
+.code-block, pre.code-body, .code-body {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.diagram {
+  direction: ltr;
+  text-align: left;
+}
+.tbl {
+  direction: inherit;
+}
+.tbl th, .tbl td {
+  text-align: start;
+}
+</style>
 
 </head>
 <body>
@@ -1400,81 +1415,112 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 <p class="ch-desc">Five-layer model, Encapsulation, Decapsulation, Headers, Display/Capture Filters</p>
 <div class="divider"></div>
 <section class="learn-section">
-<span class="sec-label">01 — מודל 5 שכבות</span>
-<h2 class="sec-h">מודל חמש השכבות</h2>
-<p>האינטרנט מכיל מיליארדי רכיבים מיצרנים שונים. כיצד הם מדברים ביניהם? הפתרון: <strong>חלוקה לשכבות</strong>. כל שכבה מסתירה מורכבות מהשכבה שמעליה.</p>
-<table class="tbl"><tr><th>#</th><th>שכבה</th><th>פרוטוקולים</th><th>כתובת</th></tr>
-<tr><td>5</td><td>אפליקציה</td><td>HTTP, DNS, SMTP, DHCP</td><td>—</td></tr>
-<tr><td>4</td><td>תעבורה</td><td>TCP, UDP</td><td>Port</td></tr>
-<tr><td>3</td><td>רשת</td><td>IP, ICMP</td><td>IP Address</td></tr>
-<tr><td>2</td><td>קו</td><td>Ethernet, WiFi</td><td>MAC Address</td></tr>
-<tr><td>1</td><td>פיזית</td><td>כבלים, WiFi, סיב אופטי</td><td>—</td></tr>
+<span class="sec-label">01 — 5-Layer Model</span>
+<h2 class="sec-h">The 5-Layer TCP/IP Model</h2>
+<p>The internet consists of billions of devices from different manufacturers all communicating seamlessly. This is possible because of the layered model — each layer does one job and talks to adjacent layers through defined interfaces.</p>
+<table class="tbl"><tr><th>Layer</th><th>Name</th><th>Protocols</th><th>Device</th></tr>
+<tr><td>5</td><td>Application</td><td>HTTP, DNS, FTP, SSH</td><td>Browser, App</td></tr>
+<tr><td>4</td><td>Transport</td><td>TCP, UDP</td><td>OS</td></tr>
+<tr><td>3</td><td>Network</td><td>IP, ICMP</td><td>Router</td></tr>
+<tr><td>2</td><td>Data Link</td><td>Ethernet, WiFi, ARP</td><td>Switch, NIC</td></tr>
+<tr><td>1</td><td>Physical</td><td>Cables, Radio, Light</td><td>Cable, NIC</td></tr>
 </table>
-<div class="callout tip">💡 <strong>הסכם חסוי:</strong> כל שכבה "מסכימה" עם השכבה המקבילה אצל הצד השני — ולא צריכה לדעת איך השכבות הנמוכות עובדות.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — Encapsulation</span>
-<h2 class="sec-h">Encapsulation ו-Decapsulation</h2>
-<p><strong>Encapsulation (כימוס)</strong>: בשליחה — כל שכבה מוסיפה <strong>Header</strong> שלה (עוטפת את הנתונים). <strong>Decapsulation (קילוף)</strong>: בקבלה — כל שכבה מסירה את ה-Header שלה.</p>
-<div class="diagram">
-<div style="font-size:12px;direction:ltr;text-align:left;padding:12px 16px;line-height:2">
-<div><strong>שליחה (Encapsulation):</strong></div>
-<div>Data</div>
-<div>[ TCP Header ] + Data</div>
-<div>[ IP Header ] + [ TCP Header ] + Data</div>
-<div>[ Eth Header ] + [ IP Header ] + [ TCP Header ] + Data + [ Eth Trailer ]</div>
+<h2 class="sec-h">Encapsulation — Wrapping Data</h2>
+<p>As data travels down the layers, each layer <strong>wraps</strong> the data with its own header. This is called encapsulation. At the receiver, each layer <strong>unwraps</strong> its header (decapsulation).</p>
+<div class="diagram"><div class="dg-row">
+  <div class="dg-box b" style="font-size:11px">HTTP Data</div>
+  <div class="dg-arr">+TCP header ──▶</div>
+  <div class="dg-box g" style="font-size:11px">TCP Segment</div>
+</div><div class="dg-row" style="margin-top:6px">
+  <div class="dg-box g" style="font-size:11px">TCP Segment</div>
+  <div class="dg-arr">+IP header ──▶</div>
+  <div class="dg-box p" style="font-size:11px">IP Packet</div>
+</div><div class="dg-row" style="margin-top:6px">
+  <div class="dg-box p" style="font-size:11px">IP Packet</div>
+  <div class="dg-arr">+Ethernet header ──▶</div>
+  <div class="dg-box gr" style="font-size:11px">Ethernet Frame</div>
 </div></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">03 — Header</span>
-<h2 class="sec-h">מה מכיל Header?</h2>
-<p>ה-Header מכיל מידע לשליטה ובקרה. לדוגמה:</p>
-<table class="tbl"><tr><th>שכבה</th><th>Header מכיל</th></tr>
-<tr><td>Layer 3 (IP)</td><td>src IP, dst IP, TTL, Protocol</td></tr>
-<tr><td>Layer 4 (TCP)</td><td>src Port, dst Port, Seq, ACK, Flags</td></tr>
-<tr><td>Layer 2 (Ethernet)</td><td>src MAC, dst MAC, Type</td></tr>
+<span class="sec-label">03 — Headers</span>
+<h2 class="sec-h">What Each Layer Adds</h2>
+<table class="tbl"><tr><th>Layer</th><th>Unit</th><th>Header Contains</th></tr>
+<tr><td>4 — Transport</td><td>Segment</td><td>Source port, Dest port, Seq, ACK, Flags</td></tr>
+<tr><td>3 — Network</td><td>Packet</td><td>Source IP, Dest IP, TTL, Protocol</td></tr>
+<tr><td>2 — Data Link</td><td>Frame</td><td>Source MAC, Dest MAC, EtherType, CRC</td></tr>
 </table>
+<div class="callout note">📝 <strong>Key insight:</strong> IP addresses (Layer 3) stay constant end-to-end. MAC addresses (Layer 2) change at every router hop.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — Wireshark</span>
-<h2 class="sec-h">Wireshark</h2>
-<p>Wireshark לוכד ומציג את כל הפקטות שעוברות בכרטיס הרשת. ניתן לראות Headers של כל שכבה, ואפילו סיסמאות בטקסט גלוי!</p>
-<div class="callout warn">⚠️ שימוש ב-Wireshark ברשת של אחרים ללא אישור = לא חוקי.</div>
+<h2 class="sec-h">Wireshark — Packet Analyzer</h2>
+<p>Wireshark captures live network traffic and displays it decoded by protocol. It puts the NIC into <strong>promiscuous mode</strong> — capturing all frames, not just those addressed to your machine.</p>
+<p>Each row in Wireshark = one packet. Clicking a row shows all layers decoded: Frame → Ethernet → IP → TCP → HTTP.</p>
+<div class="callout tip">💡 On a <strong>Switch</strong> you only see your own traffic + broadcasts. On a <strong>Hub</strong> you see everyone's traffic. For switch capture: use port mirroring (SPAN).</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">05 — Filters</span>
-<h2 class="sec-h">Display Filter vs Capture Filter</h2>
-<table class="tbl"><tr><th>סוג</th><th>מסנן</th><th>Syntax</th></tr>
-<tr><td><strong>Display Filter</strong></td><td>מה <em>מוצג</em> — ניתן לשנות בכל עת</td><td><code>http</code>, <code>ip.addr==8.8.8.8</code></td></tr>
-<tr><td><strong>Capture Filter</strong></td><td>מה <em>נלכד</em> — דורש הפסקה</td><td><code>host 8.8.8.8</code>, <code>port 80</code></td></tr>
-</table>
-<table class="tbl"><tr><th>Display Filter</th><th>מה מציג</th></tr>
-<tr><td><code>http</code></td><td>רק HTTP packets</td></tr>
-<tr><td><code>ip.addr == 8.8.8.8</code></td><td>src או dst = 8.8.8.8</td></tr>
-<tr><td><code>tcp.port == 80</code></td><td>TCP על פורט 80</td></tr>
-<tr><td><code>dns</code></td><td>רק DNS</td></tr>
-<tr><td><code>tcp.flags.syn == 1</code></td><td>רק SYN packets</td></tr>
+<h2 class="sec-h">Wireshark Display Filters</h2>
+<table class="tbl"><tr><th>Filter</th><th>Shows</th></tr>
+<tr><td><code>http</code></td><td>HTTP only</td></tr>
+<tr><td><code>tcp.port == 443</code></td><td>HTTPS traffic</td></tr>
+<tr><td><code>ip.addr == 8.8.8.8</code></td><td>Traffic to/from 8.8.8.8</td></tr>
+<tr><td><code>arp</code></td><td>ARP requests and replies</td></tr>
+<tr><td><code>icmp</code></td><td>Ping traffic</td></tr>
+<tr><td><code>dns</code></td><td>DNS queries</td></tr>
+<tr><td><code>tcp.flags.syn == 1</code></td><td>TCP SYN packets</td></tr>
 </table>
 </section>
+
+<section class="learn-section">
+<span class="sec-label">06 — Troubleshooting</span>
+<h2 class="sec-h">Common Wireshark Issues</h2>
+<table class="tbl"><tr><th>Problem</th><th>Cause</th><th>Fix</th></tr>
+<tr><td>No traffic captured</td><td>Wrong interface selected</td><td>Choose correct NIC from interface list</td></tr>
+<tr><td>HTTPS shows as TLS (encrypted)</td><td>TLS encrypts payload</td><td>Use pre-master secret log for decryption, or test with HTTP</td></tr>
+<tr><td>Only seeing own traffic</td><td>Connected to Switch (normal)</td><td>Configure SPAN port on managed switch</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">07 — Cheat Sheet</span>
+<h2 class="sec-h">HTTP Status Codes</h2>
+<table class="tbl"><tr><th>Code</th><th>Meaning</th></tr>
+<tr><td>200</td><td>OK — success</td></tr>
+<tr><td>301</td><td>Moved Permanently (redirect)</td></tr>
+<tr><td>404</td><td>Not Found</td></tr>
+<tr><td>500</td><td>Internal Server Error</td></tr>
+</table>
+<div class="callout tip">💡 2xx = success, 3xx = redirect, 4xx = client error, 5xx = server error</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Exam Questions</span>
+<h2 class="sec-h">Common Exam Questions</h2>
+<div class="callout note">❓ <strong>What is encapsulation?</strong><br>Each layer adds its own header to the data from the layer above. The result is nested headers. Decapsulation reverses this at the receiver.</div>
+<div class="callout note">❓ <strong>What does promiscuous mode do?</strong><br>Tells the NIC to capture ALL frames on the network, not just those addressed to it. Required for Wireshark to see other machines' traffic.</div>
+<div class="callout note">❓ <strong>What is the difference between capture filter and display filter?</strong><br>Capture filter (BPF syntax) decides what to record. Display filter hides/shows from already-captured data. For learning: capture all, filter display.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — Comparisons</span>
+<h2 class="sec-h">OSI (7 layers) vs TCP/IP (5 layers)</h2>
+<table class="tbl"><tr><th>TCP/IP</th><th>OSI</th></tr>
+<tr><td>Application (5)</td><td>Application (7) + Presentation (6) + Session (5)</td></tr>
+<tr><td>Transport (4)</td><td>Transport (4)</td></tr>
+<tr><td>Network (3)</td><td>Network (3)</td></tr>
+<tr><td>Data Link (2)</td><td>Data Link (2)</td></tr>
+<tr><td>Physical (1)</td><td>Physical (1)</td></tr>
+</table>
+<div class="callout note">📝 OSI = theoretical framework. TCP/IP = practical internet model. In practice, people often say "Layer 7" meaning Application.</div>
+</section>
 </div>
-<script>
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
-
-
-</script>
 </body>
 </html>

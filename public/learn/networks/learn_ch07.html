@@ -2,12 +2,11 @@
 <html lang="he" dir="rtl">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📖 למידה — רשתות מחשבים PRO</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
   /* ── Palette: clean blue-slate ── */
@@ -1390,7 +1389,23 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   cursor: pointer; font-family: var(--f-body); font-size: .9rem;
 }
 
-  </style>
+/* ══ RTL fixes ══ */
+.code-block, pre.code-body, .code-body {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.diagram {
+  direction: ltr;
+  text-align: left;
+}
+.tbl {
+  direction: inherit;
+}
+.tbl th, .tbl td {
+  text-align: start;
+}
+</style>
 
 </head>
 <body>
@@ -1528,20 +1543,5 @@ Hosts:     .1 עד .254 (254 מחשבים)</pre></div>
 </table>
 </section>
 </div>
-<script>
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
-
-
-</script>
 </body>
 </html>

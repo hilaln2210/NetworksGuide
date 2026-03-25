@@ -2,12 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📖 למידה — רשתות מחשבים PRO</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
   /* ── Palette: clean blue-slate ── */
@@ -1390,7 +1389,23 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   cursor: pointer; font-family: var(--f-body); font-size: .9rem;
 }
 
-  </style>
+/* ══ RTL fixes ══ */
+.code-block, pre.code-body, .code-body {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.diagram {
+  direction: ltr;
+  text-align: left;
+}
+.tbl {
+  direction: inherit;
+}
+.tbl th, .tbl td {
+  text-align: start;
+}
+</style>
 
 </head>
 <body>
@@ -1408,21 +1423,49 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
  4   *     *    *        ← no response
 15 180ms  157.240.22.35  ← Facebook!</pre></div></section><section class="learn-section"><span class="sec-label">05 — DNS</span><h2 class="sec-h">DNS — Domain Name System</h2><p>Humans remember names. Computers use IPs. DNS translates between them — the internet's phone book.</p><div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">nslookup www.facebook.com</span></div><pre class="code-body">Name:    www.facebook.com
 Address: 157.240.22.35</pre></div></section><section class="learn-section"><span class="sec-label">06 — Tools</span><h2 class="sec-h">Command Line Tools</h2><table class="tbl"><tr><th>Tool</th><th>Purpose</th><th>Example</th></tr><tr><td>ping</td><td>Connectivity + response time</td><td>ping google.com</td></tr><tr><td>tracert</td><td>All hops to destination</td><td>tracert -d 8.8.8.8</td></tr><tr><td>nslookup</td><td>Translate name to IP</td><td>nslookup github.com</td></tr><tr><td>ipconfig</td><td>Your IP, Gateway, DNS</td><td>ipconfig /all</td></tr></table></section>
+<section class="learn-section">
+<span class="sec-label">07 — Troubleshooting</span>
+<h2 class="sec-h">Troubleshooting — Step by Step</h2>
+<table class="tbl"><tr><th>Symptom</th><th>Common Cause</th><th>Fix</th></tr>
+<tr><td>ping fails</td><td>Firewall blocks ICMP / host is down</td><td>Try <code>ping 8.8.8.8</code> (not DNS). If works — DNS issue. If not — routing issue.</td></tr>
+<tr><td>tracert shows * * *</td><td>Router blocks TTL-exceeded</td><td>Normal. Continue to next hop. All * — firewall filtering.</td></tr>
+<tr><td>nslookup error</td><td>DNS server unreachable</td><td>Try <code>nslookup google.com 8.8.8.8</code> with public DNS</td></tr>
+<tr><td>ipconfig shows 169.254.x.x</td><td>DHCP failed — APIPA address</td><td>Run <code>ipconfig /release</code> then <code>ipconfig /renew</code></td></tr>
+<tr><td>Internet down but LAN works</td><td>Wrong Default Gateway</td><td>Check gateway in ipconfig. Ping the gateway itself.</td></tr>
+</table>
+<div class="callout tip">💡 <strong>Troubleshooting order:</strong> Layer 1 (cable?) → Layer 2 (ARP?) → Layer 3 (IP/Gateway?) → Layer 7 (DNS/App?)</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Cheat Sheet — Chapter 1</h2>
+<table class="tbl"><tr><th>Command</th><th>Use</th><th>Useful Flag</th></tr>
+<tr><td><code>ping &lt;host&gt;</code></td><td>Connectivity + latency</td><td><code>-c 1</code> (Linux) / <code>-n 1</code> (Windows) = one ping</td></tr>
+<tr><td><code>traceroute -n &lt;host&gt;</code></td><td>Hop path</td><td><code>-n</code> = no DNS (faster)</td></tr>
+<tr><td><code>nslookup &lt;domain&gt;</code></td><td>DNS resolution</td><td><code>nslookup domain 8.8.8.8</code> = specific server</td></tr>
+<tr><td><code>ip addr</code></td><td>Show IP addresses</td><td><code>ip addr show eth0</code> = specific interface</td></tr>
+<tr><td><code>ip route</code></td><td>Routing table</td><td><code>ip route get 8.8.8.8</code> = which route used</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — Exam Questions</span>
+<h2 class="sec-h">Common Exam Questions</h2>
+<div class="callout note">❓ <strong>What is the difference between ping and traceroute?</strong><br>ping tests connectivity to one host and measures RTT. traceroute shows every hop along the path — allows pinpointing where a problem occurs.</div>
+<div class="callout note">❓ <strong>Why does traceroute show * * *?</strong><br>The router at that hop blocks ICMP Time Exceeded. Not necessarily an error — many routers are configured this way for security.</div>
+<div class="callout note">❓ <strong>ping to 8.8.8.8 works but ping to google.com fails?</strong><br>DNS problem — DNS server unreachable. The network itself is fine.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — Comparisons</span>
+<h2 class="sec-h">DNS vs ARP vs DHCP</h2>
+<table class="tbl"><tr><th>Protocol</th><th>Translates</th><th>Layer</th><th>Cache</th></tr>
+<tr><td><strong>DNS</strong></td><td>Name → IP</td><td>L7</td><td>ipconfig /flushdns</td></tr>
+<tr><td><strong>ARP</strong></td><td>IP → MAC</td><td>L2</td><td>arp -d</td></tr>
+<tr><td><strong>DHCP</strong></td><td>Assigns IP+Mask+GW+DNS</td><td>L7/UDP</td><td>Lease on server</td></tr>
+</table>
+<div class="callout tip">💡 Order: DHCP → ARP for router → DNS → TCP → HTTP</div>
+</section>
 </div>
-<script>
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
-
-
-</script>
 </body>
 </html>

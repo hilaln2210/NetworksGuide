@@ -2,12 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📖 למידה — רשתות מחשבים PRO</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
   /* ── Palette: clean blue-slate ── */
@@ -1390,7 +1389,23 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   cursor: pointer; font-family: var(--f-body); font-size: .9rem;
 }
 
-  </style>
+/* ══ RTL fixes ══ */
+.code-block, pre.code-body, .code-body {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.diagram {
+  direction: ltr;
+  text-align: left;
+}
+.tbl {
+  direction: inherit;
+}
+.tbl th, .tbl td {
+  text-align: start;
+}
+</style>
 
 </head>
 <body>
@@ -1401,101 +1416,135 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 <div class="divider"></div>
 <section class="learn-section">
 <span class="sec-label">01 — Socket</span>
-<h2 class="sec-h">מה זה Socket?</h2>
-<p>Socket הוא <strong>נקודת קצה של חיבור</strong> בין שתי תוכנות. דמיינו צינור — מה שנכנס בצד אחד יוצא בצד השני. Socket = קצה אחד של הצינור.</p>
-<p>אנלוגיה מהפרק: <strong>כתובת IP = בניין</strong>, <strong>Port = מספר דירה</strong>. Socket = תיבת הדואר של דירה ספציפית בבניין ספציפי.</p>
-<div class="callout note">📝 Socket מאפשר תקשורת בין: שתי תוכנות על אותו מחשב, או תוכנות על מחשבים שונים ברחבי העולם.</div>
+<h2 class="sec-h">What is a Socket?</h2>
+<p>A socket is a software endpoint for network communication — like a telephone handset. Two programs communicate by each opening a socket and connecting them together.</p>
+<p>In Python: <code>import socket</code> gives access to the network. Every TCP connection requires two sockets — one on each end.</p>
+<div class="callout tip">💡 <strong>Analogy:</strong> Socket = phone jack. IP = phone number. Port = extension number. You call a specific extension at a specific number.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">02 — כתובת Socket</span>
-<h2 class="sec-h">IP + Port = כתובת Socket</h2>
-<p>כתובת Socket = <code>IP:Port</code>. הטווח: פורטים 0–65535. Well-Known ports (0–1023) שמורים לפרוטוקולים ידועים:</p>
-<table class="tbl"><tr><th>Port</th><th>פרוטוקול</th></tr>
-<tr><td>80</td><td>HTTP</td></tr>
-<tr><td>443</td><td>HTTPS</td></tr>
-<tr><td>22</td><td>SSH</td></tr>
+<span class="sec-label">02 — IP + Port</span>
+<h2 class="sec-h">IP Address + Port Number</h2>
+<p>Every network message needs two pieces of information: <strong>IP address</strong> (which machine) and <strong>Port</strong> (which application on that machine).</p>
+<table class="tbl"><tr><th>Port</th><th>Service</th></tr>
+<tr><td>80</td><td>HTTP (web)</td></tr>
+<tr><td>443</td><td>HTTPS (secure web)</td></tr>
+<tr><td>22</td><td>SSH (remote shell)</td></tr>
 <tr><td>53</td><td>DNS</td></tr>
-<tr><td>8820</td><td>מותאם אישית (דוגמה בספר)</td></tr>
 </table>
-<p><code>127.0.0.1</code> = <strong>Loopback</strong> = "אני". לחיבורים על אותו מחשב. <code>0.0.0.0</code> = "קבל חיבורים מכולם".</p>
+<div class="callout note">📝 Ports 0–1023 are <strong>Well-Known</strong> — require root/admin to bind. Ports 1024–65535 are available to any application.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">03 — API הלקוח</span>
-<h2 class="sec-h">קוד לקוח — Python</h2>
+<span class="sec-label">03 — Client Code</span>
+<h2 class="sec-h">TCP Client</h2>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">client.py</span></div>
 <pre class="code-body"><span class="kw">import</span> socket
 
-my_socket = socket.socket()
-my_socket.connect((<span class="st">'1.2.3.4'</span>, <span class="nu">8820</span>))   <span class="cm"># IP + Port</span>
-my_socket.send(<span class="st">'Omer'</span>.encode())
-data = my_socket.recv(<span class="nu">1024</span>)              <span class="cm"># BLOCKING!</span>
-<span class="kw">print</span>(<span class="st">'Server said:'</span>, data.decode())
-my_socket.close()                           <span class="cm"># חשוב!</span></pre></div>
-<p>לבדיקה על אותו מחשב — משתמשים ב-<code>127.0.0.1</code> במקום IP.</p>
+s = socket.socket()                    <span class="cm"># create TCP socket</span>
+s.connect((<span class="st">'127.0.0.1'</span>, <span class="nu">9001</span>))        <span class="cm"># connect to server</span>
+s.send(<span class="st">b'Hello!'</span>)                     <span class="cm"># send bytes</span>
+response = s.recv(<span class="nu">1024</span>)               <span class="cm"># receive up to 1024 bytes</span>
+<span class="kw">print</span>(response.decode())
+s.close()</pre></div>
+<div class="callout tip">💡 Always send <strong>bytes</strong> (b'...'), not strings. Use <code>.encode()</code> to convert string → bytes and <code>.decode()</code> for bytes → string.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">04 — API השרת</span>
-<h2 class="sec-h">קוד שרת — שני Sockets!</h2>
-<div class="callout warn">⚠️ <strong>לשרת יש תמיד שני Sockets:</strong> server_socket (מאזין לחיבורים), ו-client_socket (מדבר עם לקוח ספציפי). אל תבלבל!</div>
+<span class="sec-label">04 — Server Code</span>
+<h2 class="sec-h">TCP Server</h2>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server.py</span></div>
 <pre class="code-body"><span class="kw">import</span> socket
 
-server_socket = socket.socket()
-server_socket.bind((<span class="st">'0.0.0.0'</span>, <span class="nu">8820</span>))  <span class="cm"># קבל מכל IP</span>
-server_socket.listen(<span class="nu">1</span>)                  <span class="cm"># התחל להאזין</span>
+server = socket.socket()
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="nu">1</span>)
+server.bind((<span class="st">''</span>, <span class="nu">9001</span>))             <span class="cm"># listen on all interfaces, port 9001</span>
+server.listen(<span class="nu">5</span>)                       <span class="cm"># queue up to 5 pending connections</span>
 
-(client_socket, addr) = server_socket.accept()  <span class="cm"># BLOCKING!</span>
-<span class="kw">print</span>(<span class="st">'Connected from:'</span>, addr)
-
-name = client_socket.recv(<span class="nu">1024</span>).decode()
-client_socket.send((<span class="st">'Hello '</span> + name).encode())
-
+client_socket, addr = server.accept() <span class="cm"># BLOCKS until client connects</span>
+<span class="kw">print</span>(<span class="st">f'Connected: </span>{addr}<span class="st">'</span>)
+data = client_socket.recv(<span class="nu">1024</span>)
+client_socket.send(<span class="st">b'Got it!'</span>)
 client_socket.close()
-server_socket.close()</pre></div>
-<p>סדר חובה בשרת: <code>socket()</code> → <code>bind()</code> → <code>listen()</code> → <code>accept()</code> → <code>send/recv</code> → <code>close()</code></p>
+server.close()</pre></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">05 — recv() ריקה</span>
-<h2 class="sec-h">recv() מחרוזת ריקה = ניתוק!</h2>
-<p>כשמחשב מרוחק <strong>סוגר</strong> את החיבור — <code>recv()</code> מחזירה מחרוזת <strong>ריקה</strong> (<code>""</code>). זהו הסימן לניתוק!</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">זיהוי ניתוק</span></div>
-<pre class="code-body">data = client_socket.recv(<span class="nu">1024</span>).decode()
-<span class="kw">if</span> data == <span class="st">""</span>:
-    <span class="kw">print</span>(<span class="st">"Client disconnected!"</span>)
-    client_socket.close()
-    <span class="kw">break</span></pre></div>
+<span class="sec-label">05 — Empty recv()</span>
+<h2 class="sec-h">What does empty recv() mean?</h2>
+<p>When <code>recv()</code> returns <code>b''</code> (empty bytes) — the other side has <strong>closed the connection</strong>. This is not an error — it is the normal TCP close signal.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Handling disconnect</span></div>
+<pre class="code-body"><span class="kw">while True</span>:
+    data = client_socket.recv(<span class="nu">1024</span>)
+    <span class="kw">if</span> data == <span class="st">b''</span>:              <span class="cm"># client disconnected</span>
+        client_socket.close()
+        <span class="kw">break</span>
+    <span class="kw">print</span>(<span class="st">'Received:'</span>, data.decode())</pre></div>
+<div class="callout warn">⚠️ Never ignore empty recv(). If you do, select() will keep returning that socket as "readable" and you'll loop forever receiving empty data.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">06 — שרת פקודות</span>
-<h2 class="sec-h">שרת פקודות מתקדם</h2>
-<p>שרת שמקבל בקשות בגודל קבוע (4 bytes) ומחזיר תגובה בהתאם:</p>
-<table class="tbl"><tr><th>פקודה</th><th>תגובה</th><th>מודול Python</th></tr>
-<tr><td><code>TIME</code></td><td>השעה הנוכחית</td><td><code>import time</code></td></tr>
-<tr><td><code>NAME</code></td><td>שם השרת</td><td>מחרוזת קבועה</td></tr>
-<tr><td><code>RAND</code></td><td>מספר רנדומלי 1–10</td><td><code>import random</code></td></tr>
-<tr><td><code>EXIT</code></td><td>ניתוק</td><td><code>break</code></td></tr>
+<span class="sec-label">06 — Command Server</span>
+<h2 class="sec-h">Request-Response Protocol</h2>
+<p>A common pattern: client sends a command, server responds. This is how HTTP, FTP, and many custom protocols work.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Command server pattern</span></div>
+<pre class="code-body"><span class="kw">while True</span>:
+    cmd = client.recv(<span class="nu">1024</span>).decode().strip()
+    <span class="kw">if</span> cmd == <span class="st">'TIME'</span>:
+        client.send(<span class="kw">str</span>(__import__(<span class="st">'time'</span>).time()).encode())
+    <span class="kw">elif</span> cmd == <span class="st">'QUIT'</span>:
+        client.close(); <span class="kw">break</span>
+    <span class="kw">else</span>:
+        client.send(<span class="st">b'UNKNOWN COMMAND'</span>)</pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">07 — Troubleshooting</span>
+<h2 class="sec-h">Common Errors</h2>
+<table class="tbl"><tr><th>Error</th><th>Cause</th><th>Fix</th></tr>
+<tr><td><code>ConnectionRefusedError</code></td><td>No server listening on that port</td><td>Start server first, check correct port</td></tr>
+<tr><td><code>Address already in use</code></td><td>Port taken from previous run</td><td>Add <code>SO_REUSEADDR</code> before bind()</td></tr>
+<tr><td><code>recv()</code> hangs</td><td>No data arriving</td><td>Use <code>s.settimeout(5)</code></td></tr>
+<tr><td><code>UnicodeDecodeError</code></td><td>recv() returns bytes not str</td><td>Use <code>data.decode('utf-8')</code></td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Python Sockets Quick Reference</h2>
+<table class="tbl"><tr><th>Operation</th><th>Code</th></tr>
+<tr><td>Create TCP socket</td><td><code>s = socket.socket()</code></td></tr>
+<tr><td>Reuse port</td><td><code>s.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)</code></td></tr>
+<tr><td>Server bind+listen</td><td><code>s.bind(('', 9001)); s.listen(5)</code></td></tr>
+<tr><td>Accept connection</td><td><code>client, addr = s.accept()</code></td></tr>
+<tr><td>Connect (client)</td><td><code>s.connect(('host', port))</code></td></tr>
+<tr><td>Send bytes</td><td><code>s.send(b'data')</code> or <code>s.sendall(b'data')</code></td></tr>
+<tr><td>Receive</td><td><code>data = s.recv(1024)</code></td></tr>
+<tr><td>Check disconnect</td><td><code>if data == b'': ...</code></td></tr>
+<tr><td>Set timeout</td><td><code>s.settimeout(5.0)</code></td></tr>
+<tr><td>Close</td><td><code>s.close()</code></td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — Exam Questions</span>
+<h2 class="sec-h">Common Exam Questions</h2>
+<div class="callout note">❓ <strong>What is the difference between bind() and connect()?</strong><br>bind() = Server — attaches to a local port to listen for incoming connections. connect() = Client — initiates a TCP connection to a remote server's IP:port.</div>
+<div class="callout note">❓ <strong>Why doesn't recv() always return all the data?</strong><br>TCP is a stream protocol — data can arrive in fragments across multiple recv() calls. Always read in a loop based on expected length or a delimiter.</div>
+<div class="callout note">❓ <strong>What does SO_REUSEADDR do?</strong><br>Allows reusing a port immediately after the server restarts, without waiting for the OS TIME_WAIT timeout (~60 seconds).</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — Comparisons</span>
+<h2 class="sec-h">TCP vs UDP Sockets</h2>
+<table class="tbl"><tr><th></th><th>TCP (SOCK_STREAM)</th><th>UDP (SOCK_DGRAM)</th></tr>
+<tr><td>Connection</td><td>connect() + accept()</td><td>sendto() / recvfrom() directly</td></tr>
+<tr><td>Reliability</td><td>Guaranteed delivery</td><td>Fire-and-forget</td></tr>
+<tr><td>Order</td><td>Preserved</td><td>Not guaranteed</td></tr>
+<tr><td>Speed</td><td>Slower (overhead)</td><td>Faster</td></tr>
+<tr><td>Use cases</td><td>HTTP, SSH, FTP</td><td>DNS, VoIP, Gaming</td></tr>
 </table>
 </section>
 </div>
-<script>
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
-
-
-</script>
 </body>
 </html>

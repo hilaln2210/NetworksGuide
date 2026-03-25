@@ -2,12 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📖 למידה — רשתות מחשבים PRO</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
   /* ── Palette: clean blue-slate ── */
@@ -1390,7 +1389,23 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   cursor: pointer; font-family: var(--f-body); font-size: .9rem;
 }
 
-  </style>
+/* ══ RTL fixes ══ */
+.code-block, pre.code-body, .code-body {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.diagram {
+  direction: ltr;
+  text-align: left;
+}
+.tbl {
+  direction: inherit;
+}
+.tbl th, .tbl td {
+  text-align: start;
+}
+</style>
 
 </head>
 <body>
@@ -1400,76 +1415,99 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 <p class="ch-desc">Bit, AM/FM, ADSL, CAT5, WiFi Half Duplex, optical fiber, repeaters</p>
 <div class="divider"></div>
 <section class="learn-section">
-<span class="sec-label">01 — ביט</span>
-<h2 class="sec-h">ביט — האטום של המידע</h2>
-<p><strong>מטרת השכבה הפיזית: להעביר ביט יחיד בין רכיבי מחשוב.</strong></p>
-<p>ביט (bit) = BInary digiT = ספרה בינארית. יכול להחזיק <strong>0 או 1 בלבד</strong>. כל שאר השכבות מניחות שניתן להעביר ביטים.</p>
-<p>שלושה תווכים עיקריים: <strong>כבלי מתכת</strong> (נחושת), <strong>אוויר</strong> (WiFi, מיקרוגל), <strong>סיבים אופטיים</strong> (זכוכית/פלסטיק).</p>
+<span class="sec-label">01 — Bit</span>
+<h2 class="sec-h">Bit — The Atom of Information</h2>
+<p><strong>The Physical Layer's goal: transmit a single bit between computing devices.</strong></p>
+<p>Bit (bit) = BInary digiT = binary digit. Can hold <strong>only 0 or 1</strong>. All other layers assume bits can be transmitted.</p>
+<p>Three main media: <strong>Metal cables</strong> (copper), <strong>Air</strong> (WiFi, microwave), <strong>Optical fiber</strong> (glass/plastic).</p>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — AM vs FM</span>
-<h2 class="sec-h">AM ו-FM — שיטות אפנון</h2>
-<p><strong>Modulation (אפנון)</strong> = הרכבת גל מידע על גבי גל "נושא". שתי שיטות עיקריות:</p>
-<table class="tbl"><tr><th>שיטה</th><th>מה משתנה</th><th>עמידות לרעשים</th></tr>
-<tr><td><strong>AM</strong> (Amplitude Modulation)</td><td>גובה הגל (אמפליטודה)</td><td>חלשה — רעש = שינוי אמפליטודה</td></tr>
-<tr><td><strong>FM</strong> (Frequency Modulation)</td><td>תדר הגל</td><td>חזקה — רעש משנה אמפליטודה, לא תדר</td></tr>
+<h2 class="sec-h">AM and FM — Modulation Methods</h2>
+<p><strong>Modulation</strong> = encoding data onto a carrier wave. Two main methods:</p>
+<table class="tbl"><tr><th>Method</th><th>What changes</th><th>Noise resistance</th></tr>
+<tr><td><strong>AM</strong> (Amplitude Modulation)</td><td>Wave height (amplitude)</td><td>Weak — noise = amplitude change</td></tr>
+<tr><td><strong>FM</strong> (Frequency Modulation)</td><td>Wave frequency</td><td>Strong — noise changes amplitude, not frequency</td></tr>
 </table>
-<div class="callout tip">💡 <strong>למה FM נשמע טוב יותר מ-AM?</strong> כי מידע ב-FM מוצפן בתדר. רעש חשמלי = שינוי אמפליטודה — לא פוגע בתדר → FM עמיד!</div>
+<div class="callout tip">💡 <strong>Why FM sounds better than AM?</strong> FM data is encoded in frequency. Electrical noise = amplitude change — doesn't affect frequency → FM is resistant!</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — ADSL</span>
 <h2 class="sec-h">ADSL</h2>
-<p>ADSL מנצל תדרים גבוהים (מעל 20KHz) על <strong>כבל הטלפון הנחושת הקיים</strong>. מודם קלאסי מוגבל לתדרי קול (20KHz). ADSL = 100MHz+ = מהיר פי מיליון!</p>
-<p>ביצועי ADSL תלויים ב<strong>מרחק ממרכזייה</strong> — ככל שרחוק יותר, איכות הסיגנל יורדת.</p>
+<p>ADSL uses high frequencies (above 20KHz) on <strong>existing copper phone wire</strong>. Classic modems are limited to voice frequencies (20KHz). ADSL uses up to 1.1MHz — millions of times faster!</p>
+<p>ADSL performance depends on <strong>distance from the exchange</strong> — the farther away, the weaker the signal quality.</p>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — CAT5 & Ethernet</span>
-<h2 class="sec-h">כבלי CAT ו-Ethernet</h2>
-<p>כבלי CAT = כבלי זוגות מפותלים (Twisted Pair). המספר מציין איכות הבידוד:</p>
-<table class="tbl"><tr><th>כבל</th><th>מהירות מקסימלית</th><th>שימוש</th></tr>
-<tr><td>CAT3</td><td>10 Mbps</td><td>ישן, טלפוניה</td></tr>
-<tr><td>CAT5</td><td>100 Mbps</td><td>Fast Ethernet</td></tr>
+<h2 class="sec-h">CAT Cables and Ethernet</h2>
+<p>CAT cables = Twisted Pair cables. The number indicates insulation quality:</p>
+<table class="tbl"><tr><th>Cable</th><th>Max Speed</th><th>Use</th></tr>
+<tr><td>CAT5</td><td>100 Mbps</td><td>Old, Fast Ethernet</td></tr>
 <tr><td>CAT5e</td><td>1 Gbps</td><td>Gigabit Ethernet</td></tr>
-<tr><td>CAT6</td><td>10 Gbps</td><td>משרדים מודרניים</td></tr>
+<tr><td>CAT6</td><td>10 Gbps</td><td>Modern offices</td></tr>
 </table>
-<p>כבל CAT5 מכיל <strong>8 חוטים (4 זוגות)</strong>. ב-10Base-T: 2 זוגות בשימוש (TX + RX).</p>
+<p>CAT5 cable contains <strong>8 wires (4 pairs)</strong>. In 10Base-T: 2 pairs used (TX + RX).</p>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">05 — WiFi</span>
 <h2 class="sec-h">WiFi — Half Duplex!</h2>
-<p>WiFi פועל ב-<strong>Half Duplex</strong> — רק צד אחד מדבר בכל פעם. הסיבה: תדר שידור יחיד משותף. <strong>ככל שיש יותר מחשבים על AP — הקצב מתחלק ביניהם!</strong></p>
-<table class="tbl"><tr><th>תדר</th><th>יתרון</th><th>חיסרון</th></tr>
-<tr><td>2.4GHz</td><td>טווח ארוך, חודר קירות</td><td>איטי יותר, עמוס</td></tr>
-<tr><td>5GHz</td><td>מהיר יותר, פחות הפרעות</td><td>טווח קצר, לא חודר קירות</td></tr>
+<p>WiFi operates in <strong>Half Duplex</strong> — only one side talks at a time. Reason: single shared transmission frequency. <strong>More devices on an AP → bandwidth is divided between them!</strong></p>
+<table class="tbl"><tr><th>Frequency</th><th>Advantage</th><th>Disadvantage</th></tr>
+<tr><td>2.4GHz</td><td>Long range, penetrates walls</td><td>Slower, congested</td></tr>
+<tr><td>5GHz</td><td>Faster, less interference</td><td>Short range, poor wall penetration</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">06 — סיב אופטי</span>
-<h2 class="sec-h">סיב אופטי וממסרים</h2>
-<p>סיב אופטי = קרן אור בתוך זכוכית/פלסטיק. <strong>100 Terabit/s למרחק מעל 100 ק"מ!</strong></p>
-<p>יתרונות: עמיד להפרעות חשמליות, לא משדר לסביבה, מרחקים ארוכים. חיסרון: יקר, שביר.</p>
-<p><strong>ממסר (Relay)</strong>: לאורכים גדולים מדי — ממסרים מגבירים ומשדרים הלאה. כבלים תת-ימיים בין יבשות = עשרות ממסרים לאורך אלפי ק"מ.</p>
+<span class="sec-label">06 — Optical Fiber</span>
+<h2 class="sec-h">Optical Fiber and Repeaters</h2>
+<p>Optical fiber = light beam inside glass/plastic. <strong>100 Terabit/s over distances exceeding 100 km!</strong></p>
+<p>Advantages: immune to electrical interference, doesn't radiate signals, long distances. Disadvantage: expensive, fragile.</p>
+<p><strong>Repeater (Relay)</strong>: for very long distances — repeaters amplify and retransmit. Undersea cables between continents = dozens of repeaters over thousands of km.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">07 — Troubleshooting</span>
+<h2 class="sec-h">Common Physical Layer Issues</h2>
+<table class="tbl"><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
+<tr><td>Switch port LED off</td><td>Faulty cable / NIC disconnected</td><td>Replace cable, check <code>ip link show</code></td></tr>
+<tr><td>100Mbps instead of 1Gbps</td><td>CAT5 cable (not CAT5e)</td><td>Replace with CAT5e/CAT6</td></tr>
+<tr><td>WiFi slow with many users</td><td>Half-Duplex — all share frequency</td><td>Add AP, switch to 5GHz</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Cable Types Reference</h2>
+<table class="tbl"><tr><th>Type</th><th>Speed</th><th>Distance</th><th>Use</th></tr>
+<tr><td>CAT5e</td><td>1 Gbps</td><td>100m</td><td>Home/office standard</td></tr>
+<tr><td>CAT6</td><td>10 Gbps</td><td>55m</td><td>Data centers</td></tr>
+<tr><td>Fiber OM3</td><td>10 Gbps</td><td>300m</td><td>Multi-mode short range</td></tr>
+<tr><td>Fiber OS2</td><td>100 Gbps+</td><td>10km+</td><td>Single-mode long range</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — Exam Questions</span>
+<h2 class="sec-h">Common Exam Questions</h2>
+<div class="callout note">❓ <strong>Why is FM more noise-resistant than AM?</strong><br>AM encodes data in amplitude. Electrical noise changes amplitude → corrupts data. FM encodes data in frequency. Noise changes amplitude but NOT frequency → FM is resistant.</div>
+<div class="callout note">❓ <strong>What is CSMA/CD and why don't modern networks need it?</strong><br>Carrier Sense Multiple Access/Collision Detection — Ethernet collision handling. Modern Full-Duplex switches eliminate collisions entirely → CSMA/CD unnecessary.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — Comparisons</span>
+<h2 class="sec-h">Wired vs Wireless</h2>
+<table class="tbl"><tr><th></th><th>Ethernet (cable)</th><th>WiFi</th></tr>
+<tr><td>Duplex</td><td>Full Duplex</td><td>Half Duplex</td></tr>
+<tr><td>Speed</td><td>1-100 Gbps</td><td>Up to ~9.6 Gbps (WiFi 6)</td></tr>
+<tr><td>Reliability</td><td>Very high</td><td>Environment-dependent</td></tr>
+<tr><td>Security</td><td>Physical access needed</td><td>WPA3 encryption required</td></tr>
+</table>
 </section>
 </div>
-<script>
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
-
-
-</script>
 </body>
 </html>

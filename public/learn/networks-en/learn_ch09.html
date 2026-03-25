@@ -2,12 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📖 למידה — רשתות מחשבים PRO</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
   /* ── Palette: clean blue-slate ── */
@@ -1390,7 +1389,23 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   cursor: pointer; font-family: var(--f-body); font-size: .9rem;
 }
 
-  </style>
+/* ══ RTL fixes ══ */
+.code-block, pre.code-body, .code-body {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.diagram {
+  direction: ltr;
+  text-align: left;
+}
+.tbl {
+  direction: inherit;
+}
+.tbl th, .tbl td {
+  text-align: start;
+}
+</style>
 
 </head>
 <body>
@@ -1401,61 +1416,83 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 <div class="divider"></div>
 <section class="learn-section">
 <span class="sec-label">01 — Hub</span>
-<h2 class="sec-h">Hub (רכזת) — Layer 1</h2>
-<p>Hub הוא רכיב <strong>Layer 1 (פיזי)</strong>. אינו מכיר כתובות Ethernet או IP. כשמחשב שולח מסגרת — Hub <strong>מעתיק ושולח לכל הפורטים</strong>, חוץ מממנו הגיעה.</p>
-<div class="callout warn">⚠️ <strong>Hub = Wireshark בחינם:</strong> כל מחשב ברשת Hub רואה את התעבורה של כולם!</div>
+<h2 class="sec-h">Hub (Repeater) — Layer 1</h2>
+<p>A Hub is a <strong>Layer 1 (Physical)</strong> device. It has no awareness of MAC addresses or IP addresses. When a device sends a frame — the Hub <strong>copies and sends it to ALL ports</strong> except the one it arrived on.</p>
+<div class="callout warn">⚠️ <strong>Hub = free Wireshark:</strong> Any device on a Hub network sees everyone else's traffic!</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — Switch</span>
-<h2 class="sec-h">Switch (מתג) — Layer 2</h2>
-<p>Switch הוא רכיב <strong>Layer 2</strong>. מכיר כתובות MAC. שולח כל מסגרת <strong>רק לפורט הרלוונטי</strong>.</p>
-<p>Switch מכיר גם Checksum — אם מסגרת פגומה, הוא <strong>זורק</strong> אותה (לא כמו Hub שמעביר הכל).</p>
+<h2 class="sec-h">Switch — Layer 2</h2>
+<p>A Switch is a <strong>Layer 2</strong> device. It learns MAC addresses and sends each frame <strong>only to the relevant port</strong>.</p>
+<p>A Switch also understands CRC checksums — if a frame is corrupted, it <strong>drops</strong> it (unlike a Hub which forwards everything).</p>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — MAC Table + Flooding</span>
-<h2 class="sec-h">MAC Table ו-Flooding</h2>
-<p>Switch בונה <strong>MAC Table</strong> על-ידי למידה: כל מסגרת שמגיעה — Switch מוסיף לטבלה: <code>src_MAC → Port</code>.</p>
-<p>כשה-dst MAC <strong>לא ידוע</strong> בטבלה — Switch עושה <strong>Flooding</strong>: שולח לכל הפורטים (כמו Hub). Switch חדש = Flooding לכל מסגרת עד שלמד את הרשת.</p>
+<h2 class="sec-h">MAC Table and Flooding</h2>
+<p>A Switch builds its <strong>MAC Table</strong> by learning: every arriving frame → Switch records: <code>src_MAC → Port</code>.</p>
+<p>When the destination MAC is <strong>unknown</strong> in the table → Switch performs <strong>Flooding</strong>: sends to all ports (like a Hub). A new switch floods every frame until it has learned the network.</p>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Switch MAC Table</span></div>
 <pre class="code-body">MAC               Port    Timeout
 --------------------------
 d4:be:d9:d6:0c:2a  Port1   300s
 e4:8d:8c:aa:11:22  Port3   300s
-(כל ערך נמחק אחרי timeout)</pre></div>
+(entries expire after timeout)</pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — Router</span>
-<h2 class="sec-h">Router (נתב) — Layer 3</h2>
-<p>Router הוא רכיב <strong>Layer 3</strong>. מכיר כתובות IP ו-Subnet Masks. <strong>מחליט על מסלול הניתוב</strong> של כל חבילה. משתמש בטבלאות ניתוב דינאמיות שמתעדכנות כשמשתנה הרשת.</p>
+<h2 class="sec-h">Router — Layer 3</h2>
+<p>A Router is a <strong>Layer 3</strong> device. It understands IP addresses and Subnet Masks. It <strong>decides the routing path</strong> for each packet. Uses dynamic routing tables that update as the network changes.</p>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">05 — השוואה</span>
-<h2 class="sec-h">טבלת השוואה</h2>
-<table class="tbl"><tr><th>רכיב</th><th>Layer</th><th>מכיר</th><th>פעולה</th></tr>
-<tr><td><strong>Hub</strong></td><td>1 (פיזי)</td><td>כלום</td><td>שולח לכל הפורטים תמיד</td></tr>
-<tr><td><strong>Switch</strong></td><td>2 (קו)</td><td>MAC</td><td>שולח רק ליעד. Flooding אם לא מכיר dst.</td></tr>
-<tr><td><strong>Router</strong></td><td>3 (רשת)</td><td>IP + Subnet</td><td>מנתב בין רשתות. Default Gateway.</td></tr>
+<span class="sec-label">05 — Comparison</span>
+<h2 class="sec-h">Comparison Table</h2>
+<table class="tbl"><tr><th>Device</th><th>Layer</th><th>Knows</th><th>Action</th></tr>
+<tr><td><strong>Hub</strong></td><td>1 (Physical)</td><td>Nothing</td><td>Sends to ALL ports always</td></tr>
+<tr><td><strong>Switch</strong></td><td>2 (Data Link)</td><td>MAC</td><td>Sends to destination only. Floods if dst unknown.</td></tr>
+<tr><td><strong>Router</strong></td><td>3 (Network)</td><td>IP + Subnet</td><td>Routes between networks. Default Gateway.</td></tr>
 </table>
 </section>
+
+<section class="learn-section">
+<span class="sec-label">06 — Troubleshooting</span>
+<h2 class="sec-h">Common Issues</h2>
+<table class="tbl"><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
+<tr><td>Switch floods all traffic</td><td>MAC Table not yet learned</td><td>Normal for a few seconds — entries expire every 300s</td></tr>
+<tr><td>Broadcast storm</td><td>Switching loop without STP</td><td>Enable Spanning Tree Protocol, disconnect redundant cables</td></tr>
+<tr><td>Can't reach another network</td><td>Missing router / wrong gateway</td><td>ping gateway, check routing table</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">07 — Cheat Sheet</span>
+<h2 class="sec-h">Hub vs Switch vs Router</h2>
+<table class="tbl"><tr><th>Device</th><th>OSI Layer</th><th>Knows</th><th>Action</th><th>Wireshark sees</th></tr>
+<tr><td>Hub</td><td>1</td><td>Nothing</td><td>Always floods</td><td>Everything</td></tr>
+<tr><td>Switch</td><td>2</td><td>MAC</td><td>Unicast to dst. Flood if unknown.</td><td>Own traffic + broadcasts</td></tr>
+<tr><td>Router</td><td>3</td><td>IP + Subnet</td><td>Route between networks</td><td>Depends on segment</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Exam Questions</span>
+<h2 class="sec-h">Common Exam Questions</h2>
+<div class="callout note">❓ <strong>New switch — no MACs learned. A sends to B. What happens?</strong><br>Flooding: switch sends to all ports (like Hub). When B replies — switch learns B's MAC. After that: Unicast.</div>
+<div class="callout note">❓ <strong>What is STP and why is it necessary?</strong><br>Spanning Tree Protocol — prevents loops in switching. Without STP, a frame can loop forever between two connected switches.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — Comparisons</span>
+<h2 class="sec-h">Collision Domain vs Broadcast Domain</h2>
+<table class="tbl"><tr><th>Concept</th><th>Hub</th><th>Switch</th><th>Router</th></tr>
+<tr><td>Collision Domain</td><td>All ports = one domain</td><td>Each port = separate domain</td><td>Each port = separate domain</td></tr>
+<tr><td>Broadcast Domain</td><td>All ports = one domain</td><td>All ports = one domain</td><td>Each port = separate domain</td></tr>
+</table>
+<div class="callout tip">💡 Routers break Broadcast Domains. Switches do not. That's why DHCP doesn't cross routers without a DHCP Relay Agent.</div>
+</section>
 </div>
-<script>
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
-
-
-</script>
 </body>
 </html>

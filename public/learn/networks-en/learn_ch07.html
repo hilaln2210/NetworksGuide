@@ -2,12 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📖 למידה — רשתות מחשבים PRO</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
   /* ── Palette: clean blue-slate ── */
@@ -1390,7 +1389,23 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   cursor: pointer; font-family: var(--f-body); font-size: .9rem;
 }
 
-  </style>
+/* ══ RTL fixes ══ */
+.code-block, pre.code-body, .code-body {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.diagram {
+  direction: ltr;
+  text-align: left;
+}
+.tbl {
+  direction: inherit;
+}
+.tbl th, .tbl td {
+  text-align: start;
+}
+</style>
 
 </head>
 <body>
@@ -1402,21 +1417,21 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 <section class="learn-section">
 <span class="sec-label">01 — IP Header</span>
 <h2 class="sec-h">IP Header</h2>
-<p>כל חבילה IP כוללת Header עם שדות חיוניים:</p>
-<table class="tbl"><tr><th>שדה</th><th>גודל</th><th>תיאור</th></tr>
+<p>Every IP packet includes a Header with essential fields:</p>
+<table class="tbl"><tr><th>Field</th><th>Size</th><th>Description</th></tr>
 <tr><td>Version</td><td>4 bits</td><td>4 = IPv4, 6 = IPv6</td></tr>
-<tr><td>TTL</td><td>1 byte</td><td>Time To Live — מונע לולאות</td></tr>
+<tr><td>TTL</td><td>1 byte</td><td>Time To Live — prevents loops</td></tr>
 <tr><td>Protocol</td><td>1 byte</td><td>6=TCP, 17=UDP, 1=ICMP</td></tr>
-<tr><td>Source IP</td><td>4 bytes</td><td>כתובת השולח</td></tr>
-<tr><td>Destination IP</td><td>4 bytes</td><td>כתובת היעד</td></tr>
+<tr><td>Source IP</td><td>4 bytes</td><td>Sender's address</td></tr>
+<tr><td>Destination IP</td><td>4 bytes</td><td>Recipient's address</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — Subnet Mask</span>
-<h2 class="sec-h">Subnet Mask — מסיכת רשת</h2>
-<p>Subnet Mask מגדיר כמה bits מה-IP = Network ID וכמה = Host ID.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">חישוב Subnet</span></div>
+<h2 class="sec-h">Subnet Mask</h2>
+<p>Subnet Mask defines how many bits of the IP = Network ID and how many = Host ID.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Subnet calculation</span></div>
 <pre class="code-body">IP:   192.168.5.30   = 11000000.10101000.00000101.00011110
 Mask: 255.255.255.0  = 11111111.11111111.11111111.00000000
       (= /24)
@@ -1425,76 +1440,105 @@ Mask: 255.255.255.0  = 11111111.11111111.11111111.00000000
 
 Network:   192.168.5.0    (IP AND Mask)
 Broadcast: 192.168.5.255  (Network OR NOT Mask)
-Hosts:     .1 עד .254 (254 מחשבים)</pre></div>
-<div class="callout tip">💡 <strong>חישוב מהיר:</strong> /24 = 256 כתובות, 254 שמישות. /16 = 65536 כתובות. /8 = 16M כתובות.</div>
+Hosts:     .1 to .254 (254 computers)</pre></div>
+<div class="callout tip">💡 <strong>Quick calc:</strong> /24 = 256 addresses, 254 usable. /16 = 65536 addresses. /8 = 16M addresses.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — DHCP</span>
 <h2 class="sec-h">DHCP — D.O.R.A</h2>
-<p>DHCP מחלק כתובות IP אוטומטית. תהליך 4 שלבים:</p>
+<p>DHCP automatically distributes IP addresses. 4-step process:</p>
 <div class="diagram"><div class="dg-row">
-  <div class="dg-box b" style="font-size:11px">1. Discover<br>Broadcast<br>"מי שרת DHCP?"</div>
+  <div class="dg-box b" style="font-size:11px">1. Discover<br>Broadcast<br>"Who's DHCP server?"</div>
   <div class="dg-arr">──▶</div>
-  <div class="dg-box g" style="font-size:11px">2. Offer<br>"אני! IP=192.168.1.5"</div>
+  <div class="dg-box g" style="font-size:11px">2. Offer<br>"Me! IP=192.168.1.5"</div>
 </div><div class="dg-row" style="margin-top:8px">
-  <div class="dg-box b" style="font-size:11px">4. ACK<br>✓ מאשר</div>
+  <div class="dg-box b" style="font-size:11px">4. ACK<br>✓ Confirmed</div>
   <div class="dg-arr">◀──</div>
-  <div class="dg-box g" style="font-size:11px">3. Request<br>"אני רוצה .5"</div>
+  <div class="dg-box g" style="font-size:11px">3. Request<br>"I want .5"</div>
 </div></div>
-<p>DHCP מחלק: <strong>IP, Subnet Mask, Default Gateway, DNS Server</strong>.</p>
-<p>חשוב: DHCP Discover נשלח ב-<strong>Broadcast</strong> כי המחשב עדיין לא יודע את IP שרת ה-DHCP.</p>
+<p>DHCP assigns: <strong>IP, Subnet Mask, Default Gateway, DNS Server</strong>.</p>
+<p>Important: DHCP Discover is sent as <strong>Broadcast</strong> because the computer doesn't know the DHCP server's IP yet.</p>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — NAT</span>
 <h2 class="sec-h">NAT — Network Address Translation</h2>
-<p>כתובות פרטיות (192.168.x.x / 10.x.x.x) לא ניתן לראות מהאינטרנט. NAT בנתב מתרגם:</p>
-<table class="tbl"><tr><th>כיוון</th><th>מה קורה</th></tr>
-<tr><td>יציאה (LAN → WAN)</td><td>src IP: 192.168.x.x → IP ציבורי של הנתב</td></tr>
-<tr><td>כניסה (WAN → LAN)</td><td>dst IP: IP ציבורי → 192.168.x.x המקורי</td></tr>
+<p>Private addresses (192.168.x.x / 10.x.x.x) are not visible from the internet. NAT in the router translates:</p>
+<table class="tbl"><tr><th>Direction</th><th>What happens</th></tr>
+<tr><td>Outgoing (LAN → WAN)</td><td>src IP: 192.168.x.x → router's public IP</td></tr>
+<tr><td>Incoming (WAN → LAN)</td><td>dst IP: public IP → original 192.168.x.x</td></tr>
 </table>
-<div class="callout note">📝 Google רואה רק את ה-IP הציבורי של הנתב — לא את המחשב הפרטי. לכן כל הבית נראה כ-"IP אחד".</div>
+<div class="callout note">📝 Google only sees the router's public IP — not the private computer. That's why the entire household appears as "one IP".</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">05 — Routing + TTL</span>
-<h2 class="sec-h">Routing Table ו-TTL</h2>
-<p>לכל נתב יש <strong>Routing Table</strong> — טבלה שמחליטה לאן לשלוח כל חבילה. כל חבילה שלא מתאימה לחוק ספציפי → <strong>Default Gateway</strong>.</p>
-<p><strong>TTL (Time To Live)</strong>: שדה ב-IP Header. כל נתב מוריד ב-1. כשמגיע ל-0 → חבילה נזרקת + ICMP Time Exceeded. זה הבסיס ל-traceroute!</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">איך traceroute עובד</span></div>
-<pre class="code-body">שלח IP(TTL=1) → R1 מוריד ל-0 → זורק + שולח ICMP Time Exceeded
-שלח IP(TTL=2) → R1→1→ R2 מוריד ל-0 → זורק + ICMP
-שלח IP(TTL=3) → R1→R2→ R3 מוריד ל-0 → זורק + ICMP
-...עד שמגיעים ליעד</pre></div>
+<h2 class="sec-h">Routing Table and TTL</h2>
+<p>Every router has a <strong>Routing Table</strong> — a table that decides where to send each packet. Any packet that doesn't match a specific rule → <strong>Default Gateway</strong>.</p>
+<p><strong>TTL (Time To Live)</strong>: a field in the IP Header. Every router decrements it by 1. When it reaches 0 → packet discarded + ICMP Time Exceeded. This is the basis for traceroute!</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">How traceroute works</span></div>
+<pre class="code-body">Send IP(TTL=1) → R1 decrements to 0 → drops + sends ICMP Time Exceeded
+Send IP(TTL=2) → R1→1→ R2 decrements to 0 → drops + ICMP
+Send IP(TTL=3) → R1→R2→ R3 decrements to 0 → drops + ICMP
+...until destination reached</pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">06 — ICMP</span>
 <h2 class="sec-h">ICMP — Internet Control Message Protocol</h2>
-<p>פרוטוקול עזר ל-IP. מיועד לאבחון תקלות.</p>
-<table class="tbl"><tr><th>Type</th><th>שם</th><th>שימוש</th></tr>
-<tr><td>8</td><td>Echo Request</td><td>ping שולח</td></tr>
-<tr><td>0</td><td>Echo Reply</td><td>ping מקבל</td></tr>
+<p>Helper protocol for IP. Designed for network diagnostics.</p>
+<table class="tbl"><tr><th>Type</th><th>Name</th><th>Use</th></tr>
+<tr><td>8</td><td>Echo Request</td><td>ping sends</td></tr>
+<tr><td>0</td><td>Echo Reply</td><td>ping receives</td></tr>
 <tr><td>11</td><td>Time Exceeded</td><td>TTL=0 → traceroute</td></tr>
-<tr><td>3</td><td>Destination Unreachable</td><td>לא ניתן להגיע</td></tr>
+<tr><td>3</td><td>Destination Unreachable</td><td>Can't reach</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">07 — Troubleshooting</span>
+<h2 class="sec-h">Common IP/Routing Issues</h2>
+<table class="tbl"><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
+<tr><td>Destination unreachable</td><td>No route / gateway unreachable</td><td>Check <code>ip route</code>, ping gateway itself</td></tr>
+<tr><td>TTL expired in transit</td><td>Routing loop / TTL too small</td><td>traceroute reveals the loop location</td></tr>
+<tr><td>Duplicate IP on network</td><td>Two devices with same IP</td><td><code>arp -a</code> shows different MAC for same IP</td></tr>
+<tr><td>NAT not working</td><td>Masquerading not configured</td><td>Check iptables MASQUERADE rule</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Subnet Quick Reference</h2>
+<table class="tbl"><tr><th>CIDR</th><th>Subnet Mask</th><th>Hosts</th><th>Example</th></tr>
+<tr><td>/8</td><td>255.0.0.0</td><td>16,777,214</td><td>10.0.0.0/8</td></tr>
+<tr><td>/16</td><td>255.255.0.0</td><td>65,534</td><td>172.16.0.0/16</td></tr>
+<tr><td>/24</td><td>255.255.255.0</td><td>254</td><td>192.168.1.0/24</td></tr>
+<tr><td>/30</td><td>255.255.255.252</td><td>2</td><td>Point-to-point</td></tr>
+<tr><td>/32</td><td>255.255.255.255</td><td>1</td><td>Single host</td></tr>
+</table>
+<div class="callout tip">💡 <strong>Private ranges:</strong> 10.0.0.0/8 · 172.16.0.0/12 · 192.168.0.0/16 — not routable on internet</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — Exam Questions</span>
+<h2 class="sec-h">Common Exam Questions</h2>
+<div class="callout note">❓ <strong>IP 192.168.5.30/24 — what is Network and Broadcast?</strong><br>Network: 192.168.5.0 (all host bits = 0). Broadcast: 192.168.5.255 (all host bits = 1). Hosts: .1 to .254</div>
+<div class="callout note">❓ <strong>What is the difference between Static NAT, Dynamic NAT, and PAT?</strong><br>Static NAT: one private IP ↔ one public IP (1:1). Dynamic NAT: pool of public IPs. PAT (Masquerading): entire LAN shares one public IP, differentiated by port.</div>
+<div class="callout note">❓ <strong>What is APIPA (169.254.x.x)?</strong><br>Auto-assigned address when DHCP fails. Indicates DHCP server is unreachable. Fix: ipconfig /release then /renew.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — Comparisons</span>
+<h2 class="sec-h">IPv4 vs IPv6</h2>
+<table class="tbl"><tr><th></th><th>IPv4</th><th>IPv6</th></tr>
+<tr><td>Size</td><td>32 bits (4 bytes)</td><td>128 bits (16 bytes)</td></tr>
+<tr><td>Addresses</td><td>~4.3 billion</td><td>~340 undecillion</td></tr>
+<tr><td>Notation</td><td>192.168.1.1</td><td>2001:db8::1</td></tr>
+<tr><td>NAT</td><td>Required (few addresses)</td><td>Not required</td></tr>
+<tr><td>Broadcast</td><td>Yes</td><td>No → Multicast instead</td></tr>
 </table>
 </section>
 </div>
-<script>
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
-
-
-</script>
 </body>
 </html>

@@ -2,12 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📖 למידה — רשתות מחשבים PRO</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
   /* ── Palette: clean blue-slate ── */
@@ -1390,7 +1389,23 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   cursor: pointer; font-family: var(--f-body); font-size: .9rem;
 }
 
-  </style>
+/* ══ RTL fixes ══ */
+.code-block, pre.code-body, .code-body {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.diagram {
+  direction: ltr;
+  text-align: left;
+}
+.tbl {
+  direction: inherit;
+}
+.tbl th, .tbl td {
+  text-align: start;
+}
+</style>
 
 </head>
 <body>
@@ -1401,86 +1416,128 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 <div class="divider"></div>
 <section class="learn-section">
 <span class="sec-label">01 — HTTP Request</span>
-<h2 class="sec-h">HTTP Request (בקשה)</h2>
-<p>כל בקשה HTTP מורכבת מ: <strong>Request Line</strong>, <strong>Headers</strong>, שורה ריקה, ו-<strong>Body</strong> (ב-POST).</p>
+<h2 class="sec-h">HTTP Request Structure</h2>
+<p>An HTTP request has three parts: <strong>Request Line</strong> (method + URL + version), <strong>Headers</strong>, and optionally a <strong>Body</strong>. The blank line separates headers from body.</p>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP GET Request</span></div>
-<pre class="code-body"><span class="kw">GET</span> /search?q=python HTTP/1.1
-<span class="cm">Host:</span> www.google.com
-<span class="cm">User-Agent:</span> Mozilla/5.0
-<span class="cm">Accept:</span> text/html
-<span class="cm">(שורה ריקה — הסוף!)</span></pre></div>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP POST Request</span></div>
-<pre class="code-body"><span class="kw">POST</span> /login HTTP/1.1
-<span class="cm">Host:</span> www.facebook.com
-<span class="cm">Content-Length:</span> 28
-<span class="cm">(שורה ריקה)</span>
-username=omer&password=1234</pre></div>
-<div class="callout tip">💡 <strong>GET vs POST:</strong> GET מבקש מידע (פרמטרים ב-URL). POST שולח מידע (בגוף הבקשה, נסתר). כרטיסי אשראי → POST!</div>
+<pre class="code-body">GET /index.html HTTP/1.1\r\n
+Host: www.example.com\r\n
+User-Agent: Mozilla/5.0\r\n
+Accept: text/html\r\n
+\r\n
+(no body for GET)</pre></div>
+<table class="tbl"><tr><th>Method</th><th>Purpose</th><th>Has Body?</th></tr>
+<tr><td>GET</td><td>Retrieve resource</td><td>No</td></tr>
+<tr><td>POST</td><td>Submit data</td><td>Yes</td></tr>
+<tr><td>PUT</td><td>Update resource</td><td>Yes</td></tr>
+<tr><td>DELETE</td><td>Remove resource</td><td>No</td></tr>
+<tr><td>HEAD</td><td>Headers only (no body)</td><td>No</td></tr>
+</table>
+<div class="callout note">📝 <code>\r\n</code> = CRLF (Carriage Return + Line Feed) — required by HTTP spec. Blank line (<code>\r\n\r\n</code>) marks end of headers.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — HTTP Response</span>
-<h2 class="sec-h">HTTP Response (תגובה)</h2>
+<h2 class="sec-h">HTTP Response Structure</h2>
+<p>A response starts with the <strong>Status Line</strong>, then headers, then the body (HTML, JSON, image, etc.).</p>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP Response</span></div>
-<pre class="code-body"><span class="st">HTTP/1.1 200 OK</span>
-<span class="cm">Content-Type:</span> text/html; charset=utf-8
-<span class="cm">Content-Length:</span> 4823
-<span class="cm">Set-Cookie:</span> session=abc123
-<span class="cm">(שורה ריקה)</span>
+<pre class="code-body">HTTP/1.1 200 OK\r\n
+Content-Type: text/html; charset=UTF-8\r\n
+Content-Length: 1256\r\n
+Date: Mon, 25 Mar 2026 14:00:00 GMT\r\n
+\r\n
+&lt;!DOCTYPE html&gt;
 &lt;html&gt;...&lt;/html&gt;</pre></div>
+<div class="callout tip">💡 <strong>Important headers:</strong> Content-Type (what type of data), Content-Length (size in bytes), Cache-Control (caching rules), Set-Cookie (create cookie).</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — URL</span>
-<h2 class="sec-h">URL — Universal Resource Locator</h2>
-<p>מבנה URL: <code>scheme://host/path?query</code></p>
+<h2 class="sec-h">URL Structure</h2>
+<p>A URL (Uniform Resource Locator) identifies a specific resource on the web:</p>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">URL anatomy</span></div>
-<pre class="code-body">https://www.ynet.co.il/news/article/1234?lang=he
-  ^       ^              ^      ^           ^
-  scheme  host           path   resource    query</pre></div>
-<p>כשהשרת מקבל בקשה ל-<code>/folder_a/folder_b/file.txt</code> — הוא מחפש את הקובץ ב-<strong>Root Directory</strong> שלו (לדוגמה: <code>C:\\wwwrootolder_aolder_bile.txt</code>).</p>
+<pre class="code-body">https://www.example.com:443/path/page.html?key=val#section
+^^^^^   ^^^^^^^^^^^^^^^ ^^^  ^^^^^^^^^^^^^^ ^^^^^^^^ ^^^^^^^
+scheme  hostname        port path           query    fragment</pre></div>
+<p><strong>Root Directory:</strong> The folder the server configured as the website base. A request to <code>/page.html</code> maps to <code>rootdir/page.html</code>. A request to <code>/</code> returns <code>index.html</code> by default.</p>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — Status Codes</span>
-<h2 class="sec-h">קודי סטטוס HTTP</h2>
-<table class="tbl"><tr><th>קוד</th><th>משמעות</th><th>מתי</th></tr>
-<tr><td><strong>200 OK</strong></td><td>הצלחה</td><td>הבקשה טופלה בהצלחה</td></tr>
-<tr><td><strong>301</strong></td><td>Moved Permanently</td><td>http → https redirect</td></tr>
-<tr><td><strong>400</strong></td><td>Bad Request</td><td>שגיאה בבקשה</td></tr>
-<tr><td><strong>403 Forbidden</strong></td><td>אין הרשאה</td><td>אתה לא מורשה</td></tr>
-<tr><td><strong>404 Not Found</strong></td><td>לא נמצא</td><td>ה-URL לא קיים</td></tr>
-<tr><td><strong>500</strong></td><td>Internal Server Error</td><td>באג בשרת</td></tr>
+<h2 class="sec-h">HTTP Status Codes</h2>
+<table class="tbl"><tr><th>Code</th><th>Meaning</th><th>When</th></tr>
+<tr><td><strong>200</strong></td><td>OK</td><td>Request succeeded</td></tr>
+<tr><td><strong>201</strong></td><td>Created</td><td>POST created resource</td></tr>
+<tr><td><strong>301</strong></td><td>Moved Permanently</td><td>HTTP→HTTPS redirect</td></tr>
+<tr><td><strong>302</strong></td><td>Found (Temp Redirect)</td><td>Login redirects</td></tr>
+<tr><td><strong>400</strong></td><td>Bad Request</td><td>Malformed syntax</td></tr>
+<tr><td><strong>401</strong></td><td>Unauthorized</td><td>Authentication required</td></tr>
+<tr><td><strong>403</strong></td><td>Forbidden</td><td>No permission</td></tr>
+<tr><td><strong>404</strong></td><td>Not Found</td><td>Resource doesn't exist</td></tr>
+<tr><td><strong>500</strong></td><td>Internal Server Error</td><td>Bug in server code</td></tr>
+<tr><td><strong>503</strong></td><td>Service Unavailable</td><td>Overloaded / maintenance</td></tr>
 </table>
+<div class="callout tip">💡 <strong>Rule of thumb:</strong> 2xx = success, 3xx = redirect, 4xx = client error, 5xx = server error</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">05 — DNS Records</span>
-<h2 class="sec-h">DNS Resource Records</h2>
-<p>שרת DNS שומר <strong>Resource Records</strong> מסוגים שונים:</p>
-<table class="tbl"><tr><th>Type</th><th>מחזיר</th><th>דוגמה</th></tr>
-<tr><td><strong>A</strong></td><td>IPv4 address</td><td>google.com → 142.250.74.46</td></tr>
-<tr><td><strong>AAAA</strong></td><td>IPv6 address</td><td>google.com → 2607:f8b0:...</td></tr>
-<tr><td><strong>MX</strong></td><td>שרת מייל של הדומיין</td><td>gmail.com → aspmx.l.google.com</td></tr>
-<tr><td><strong>CNAME</strong></td><td>Alias לשם אחר</td><td>www.github.com → github.com</td></tr>
+<h2 class="sec-h">DNS Record Types</h2>
+<table class="tbl"><tr><th>Record</th><th>Maps</th><th>Example</th></tr>
+<tr><td><strong>A</strong></td><td>Domain → IPv4</td><td>google.com → 142.250.74.46</td></tr>
+<tr><td><strong>AAAA</strong></td><td>Domain → IPv6</td><td>google.com → 2607:f8b0:...</td></tr>
+<tr><td><strong>CNAME</strong></td><td>Alias → another domain</td><td>www.site.com → site.com</td></tr>
+<tr><td><strong>MX</strong></td><td>Domain → mail server</td><td>example.com → mail.example.com</td></tr>
+<tr><td><strong>TXT</strong></td><td>Domain → text</td><td>SPF, DKIM, verification</td></tr>
+<tr><td><strong>NS</strong></td><td>Zone → nameservers</td><td>example.com → ns1.registrar.com</td></tr>
 </table>
-<p>לכל שאילתת DNS יש <strong>Transaction ID</strong> (16-bit) לזיהוי. הלקוח שולח עם ID מסוים, השרת עונה עם אותו ID.</p>
+<div class="callout note">📝 DNS TTL (Time To Live) = how long to cache the result. Low TTL = quick updates, more queries. High TTL = fewer queries, slow to update.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">06 — Troubleshooting</span>
+<h2 class="sec-h">Common HTTP Issues</h2>
+<table class="tbl"><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
+<tr><td>DNS not resolving</td><td>DNS server unreachable / UDP:53 blocked</td><td><code>nslookup google.com 8.8.8.8</code> — bypass local DNS</td></tr>
+<tr><td>HTTP 404</td><td>Wrong path / file deleted</td><td>Check URL and server root directory config</td></tr>
+<tr><td>HTTP 500</td><td>Bug in server code</td><td>Check server logs — client-side is fine</td></tr>
+<tr><td>Redirect loop</td><td>301/302 points back to itself</td><td>Check redirect rules in server config</td></tr>
+</table>
+<div class="callout tip">💡 <strong>Well-Known Ports:</strong> 20/21=FTP, 22=SSH, 25=SMTP, 53=DNS, 80=HTTP, 110=POP3, 143=IMAP, 443=HTTPS, 3389=RDP</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">07 — Cheat Sheet</span>
+<h2 class="sec-h">Application Layer Protocols</h2>
+<table class="tbl"><tr><th>Protocol</th><th>Port</th><th>Transport</th><th>Use</th></tr>
+<tr><td>HTTP</td><td>80</td><td>TCP</td><td>Web pages</td></tr>
+<tr><td>HTTPS</td><td>443</td><td>TCP+TLS</td><td>Encrypted web</td></tr>
+<tr><td>DNS</td><td>53</td><td>UDP (usually)</td><td>Name resolution</td></tr>
+<tr><td>DHCP</td><td>67/68</td><td>UDP</td><td>IP assignment</td></tr>
+<tr><td>SSH</td><td>22</td><td>TCP</td><td>Encrypted remote shell</td></tr>
+<tr><td>SMTP</td><td>25/587</td><td>TCP</td><td>Send email</td></tr>
+<tr><td>FTP</td><td>20/21</td><td>TCP</td><td>File transfer</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Exam Questions</span>
+<h2 class="sec-h">Common Exam Questions</h2>
+<div class="callout note">❓ <strong>What is the difference between GET and POST?</strong><br>GET: requests data, parameters in URL, cacheable, idempotent. POST: sends data in body, not cached, changes server state. Never send passwords in GET (visible in URL).</div>
+<div class="callout note">❓ <strong>What is HTTP Stateless?</strong><br>HTTP doesn't remember previous requests. Each request is independent. Cookies and Sessions add state on top of stateless HTTP.</div>
+<div class="callout note">❓ <strong>What is Root Directory in an HTTP server?</strong><br>The base folder the programmer configured as the website root. GET /page.html → rootdir/page.html. GET / → rootdir/index.html by default.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — Comparisons</span>
+<h2 class="sec-h">HTTP vs HTTPS</h2>
+<table class="tbl"><tr><th></th><th>HTTP</th><th>HTTPS</th></tr>
+<tr><td>Port</td><td>80</td><td>443</td></tr>
+<tr><td>Encryption</td><td>❌ Plaintext</td><td>✅ TLS encrypted</td></tr>
+<tr><td>Authentication</td><td>❌ None</td><td>✅ Server certificate</td></tr>
+<tr><td>Performance</td><td>Slightly faster</td><td>Small TLS overhead</td></tr>
+<tr><td>Today</td><td>Almost unused</td><td>Absolute standard</td></tr>
+</table>
 </section>
 </div>
-<script>
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
-
-
-</script>
 </body>
 </html>

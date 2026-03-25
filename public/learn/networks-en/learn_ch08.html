@@ -2,12 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📖 למידה — רשתות מחשבים PRO</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
   /* ── Palette: clean blue-slate ── */
@@ -1390,7 +1389,23 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   cursor: pointer; font-family: var(--f-body); font-size: .9rem;
 }
 
-  </style>
+/* ══ RTL fixes ══ */
+.code-block, pre.code-body, .code-body {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.diagram {
+  direction: ltr;
+  text-align: left;
+}
+.tbl {
+  direction: inherit;
+}
+.tbl th, .tbl td {
+  text-align: start;
+}
+</style>
 
 </head>
 <body>
@@ -1402,77 +1417,105 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 <section class="learn-section">
 <span class="sec-label">01 — MAC Address</span>
 <h2 class="sec-h">MAC Address</h2>
-<p>כתובת MAC = כתובת פיזית של כרטיס הרשת. <strong>6 bytes (48 bits)</strong>. צרובה בכרטיס בייצור.</p>
-<table class="tbl"><tr><th>חלק</th><th>גודל</th><th>תיאור</th></tr>
-<tr><td><strong>Vendor ID (OUI)</strong></td><td>3 bytes ראשונים</td><td>מזהה יצרן כרטיס הרשת</td></tr>
-<tr><td><strong>Host ID</strong></td><td>3 bytes אחרונים</td><td>מזהה ייחודי של הכרטיס</td></tr>
+<p>MAC address = physical address of the network card. <strong>6 bytes (48 bits)</strong>. Burned into the card at manufacturing.</p>
+<table class="tbl"><tr><th>Part</th><th>Size</th><th>Description</th></tr>
+<tr><td><strong>Vendor ID (OUI)</strong></td><td>First 3 bytes</td><td>Identifies the NIC manufacturer</td></tr>
+<tr><td><strong>Host ID</strong></td><td>Last 3 bytes</td><td>Unique identifier for this card</td></tr>
 </table>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">דוגמה</span></div>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Example</span></div>
 <pre class="code-body">D4:BE:D9 : D6:0C:2A
 ^^^^^^^^^   ^^^^^^^^^
 Vendor ID   Host ID
-(Intel)     (ייחודי)</pre></div>
-<p>Wireshark מציג את שם היצרן אוטומטית בעמודת Source/Destination.</p>
+(Intel)     (unique)</pre></div>
+<p>Wireshark automatically displays the vendor name in the Source/Destination columns.</p>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — Ethernet Frame</span>
-<h2 class="sec-h">מבנה Ethernet Frame</h2>
-<table class="tbl"><tr><th>שדה</th><th>גודל</th><th>תיאור</th></tr>
-<tr><td>Preamble</td><td>8 bytes</td><td>סנכרון — לא מוצג ב-Wireshark!</td></tr>
-<tr><td>Destination MAC</td><td>6 bytes</td><td>MAC של היעד (hop הבא בלבד)</td></tr>
-<tr><td>Source MAC</td><td>6 bytes</td><td>MAC של השולח</td></tr>
+<h2 class="sec-h">Ethernet Frame Structure</h2>
+<table class="tbl"><tr><th>Field</th><th>Size</th><th>Description</th></tr>
+<tr><td>Preamble</td><td>8 bytes</td><td>Synchronization — NOT shown in Wireshark!</td></tr>
+<tr><td>Destination MAC</td><td>6 bytes</td><td>MAC of destination (next hop only)</td></tr>
+<tr><td>Source MAC</td><td>6 bytes</td><td>MAC of sender</td></tr>
 <tr><td>Type / EtherType</td><td>2 bytes</td><td>0x0800=IPv4, 0x0806=ARP, 0x86DD=IPv6</td></tr>
-<tr><td>Data (Payload)</td><td>46–1500 bytes</td><td>ה-IP packet</td></tr>
-<tr><td>CRC32 (FCS)</td><td>4 bytes</td><td>Checksum — לא מוצג ב-Wireshark!</td></tr>
+<tr><td>Data (Payload)</td><td>46–1500 bytes</td><td>The IP packet</td></tr>
+<tr><td>CRC32 (FCS)</td><td>4 bytes</td><td>Checksum — NOT shown in Wireshark!</td></tr>
 </table>
-<div class="callout warn">⚠️ <strong>MAC vs IP:</strong> MAC = Layer 2 = hop נוכחי בלבד. IP = Layer 3 = מקצה לקצה. <strong>MAC משתנה בכל hop, IP נשאר קבוע!</strong></div>
+<div class="callout warn">⚠️ <strong>MAC vs IP:</strong> MAC = Layer 2 = current hop only. IP = Layer 3 = end-to-end. <strong>MAC changes at every hop, IP stays constant!</strong></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — Preamble & CRC</span>
-<h2 class="sec-h">מדוע Preamble ו-CRC לא ב-Wireshark?</h2>
-<p><strong>Preamble</strong> (8 bytes): רצף סנכרון שמאפשר לכרטיס הרשת לזהות תחילת מסגרת. כרטיס הרשת <em>מסיר אותו</em> לפני שהתוכנה רואה את הנתונים.</p>
-<p><strong>CRC32</strong>: כרטיס הרשת <em>בודק</em> אותו — אם תקין מסיר, אם פגום זורק את המסגרת כולה. Wireshark רואה רק מה שהכרטיס העביר לתוכנה.</p>
+<h2 class="sec-h">Why Preamble and CRC Don't Appear in Wireshark</h2>
+<p><strong>Preamble</strong> (8 bytes): synchronization sequence that allows the NIC to detect the start of a frame. The NIC <em>strips it</em> before the software sees the data.</p>
+<p><strong>CRC32</strong>: the NIC <em>verifies</em> it — if valid it strips it, if corrupted it drops the entire frame. Wireshark only sees what the NIC passed to the software.</p>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — ARP</span>
 <h2 class="sec-h">ARP — Address Resolution Protocol</h2>
-<p>ARP ממיר <strong>IP → MAC</strong>. נחוץ כי Ethernet Frame דורש MAC יעד. לא ניתן לבנות Frame ללא MAC.</p>
+<p>ARP converts <strong>IP → MAC</strong>. Needed because Ethernet Frames require a destination MAC. Can't build a Frame without a MAC.</p>
 <div class="diagram"><div class="dg-row">
-  <div class="dg-box b" style="font-size:11px">A (10.0.0.1)<br>"מי יש MAC<br>של 10.0.0.2?"<br>→ Broadcast</div>
-  <div class="dg-arr">──▶ לכולם</div>
-  <div class="dg-box g" style="font-size:11px">B (10.0.0.2)<br>"אני!<br>MAC=aa:bb:cc:11:22:33"<br>← Unicast ל-A</div>
+  <div class="dg-box b" style="font-size:11px">A (10.0.0.1)<br>"Who has MAC<br>of 10.0.0.2?"<br>→ Broadcast</div>
+  <div class="dg-arr">──▶ to all</div>
+  <div class="dg-box g" style="font-size:11px">B (10.0.0.2)<br>"Me!<br>MAC=aa:bb:cc:11:22:33"<br>← Unicast to A</div>
 </div></div>
-<p>התשובה נשמרת ב-<strong>ARP Cache</strong>: <code>arp -a</code> (הצגה), <code>arp -d &lt;IP&gt;</code> (מחיקה).</p>
-<div class="callout tip">💡 <strong>ARP Request</strong> = Broadcast (ff:ff:ff:ff:ff:ff). <strong>ARP Reply</strong> = Unicast ישירות לשואל.</div>
+<p>The reply is stored in the <strong>ARP Cache</strong>: <code>arp -a</code> (display), <code>arp -d &lt;IP&gt;</code> (delete).</p>
+<div class="callout tip">💡 <strong>ARP Request</strong> = Broadcast (ff:ff:ff:ff:ff:ff). <strong>ARP Reply</strong> = Unicast directly to requester.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">05 — Broadcast/Unicast/Multicast</span>
-<h2 class="sec-h">סוגי כתובות MAC</h2>
-<table class="tbl"><tr><th>סוג</th><th>כתובת</th><th>שימוש</th></tr>
-<tr><td><strong>Broadcast</strong></td><td>ff:ff:ff:ff:ff:ff</td><td>ARP Request, DHCP Discover — לכולם</td></tr>
-<tr><td><strong>Unicast</strong></td><td>כל כתובת רגילה</td><td>לכרטיס רשת ספציפי</td></tr>
-<tr><td><strong>Multicast</strong></td><td>bit ראשון = 1<br>דוגמה: 01:00:5e:xx:xx:xx</td><td>לקבוצה — multicast groups</td></tr>
+<span class="sec-label">05 — Broadcast/Unicast</span>
+<h2 class="sec-h">MAC Address Types</h2>
+<table class="tbl"><tr><th>Type</th><th>Address</th><th>Use</th></tr>
+<tr><td><strong>Broadcast</strong></td><td>ff:ff:ff:ff:ff:ff</td><td>ARP Request, DHCP Discover — to everyone</td></tr>
+<tr><td><strong>Unicast</strong></td><td>Any regular address</td><td>To a specific NIC</td></tr>
+<tr><td><strong>Multicast</strong></td><td>bit 1 = 1<br>e.g.: 01:00:5e:xx:xx:xx</td><td>To a group — multicast groups</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">06 — Troubleshooting</span>
+<h2 class="sec-h">Common MAC/ARP Issues</h2>
+<table class="tbl"><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
+<tr><td>ARP Spoofing attack</td><td>Attacker sends fake ARP Replies</td><td>Dynamic ARP Inspection on Switch. HTTPS protects content.</td></tr>
+<tr><td>Computer can't reach router</td><td>Stale ARP cache / router replaced</td><td><code>arp -d 192.168.1.1</code> then ping again</td></tr>
+<tr><td>Wireshark shows wrong MAC</td><td>MAC Spoofing — manual MAC change</td><td>Compare with known OUI for that device</td></tr>
+<tr><td>Broadcast storm</td><td>Switching loop without STP</td><td>Enable Spanning Tree Protocol</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">07 — Cheat Sheet</span>
+<h2 class="sec-h">Ethernet Frame Reference</h2>
+<table class="tbl"><tr><th>Field</th><th>Size</th><th>Content</th><th>Note</th></tr>
+<tr><td>Preamble</td><td>7 bytes</td><td>10101010...</td><td>Sync — not in Wireshark</td></tr>
+<tr><td>SFD</td><td>1 byte</td><td>10101011</td><td>Start Frame Delimiter</td></tr>
+<tr><td>Dst MAC</td><td>6 bytes</td><td>Next hop</td><td>Changes at every hop!</td></tr>
+<tr><td>Src MAC</td><td>6 bytes</td><td>Sender</td><td>Changes at every hop!</td></tr>
+<tr><td>EtherType</td><td>2 bytes</td><td>0x0800=IPv4</td><td>0x0806=ARP, 0x86DD=IPv6</td></tr>
+<tr><td>Payload</td><td>46-1500</td><td>IP packet</td><td>MTU=1500 bytes</td></tr>
+<tr><td>CRC32</td><td>4 bytes</td><td>Checksum</td><td>Not in Wireshark</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Exam Questions</span>
+<h2 class="sec-h">Common Exam Questions</h2>
+<div class="callout note">❓ <strong>What is the difference between MAC and IP? What changes at each hop?</strong><br>IP = end-to-end address, stays constant throughout the journey. MAC = current hop address only, changes at every router. The router builds a new Ethernet Frame with new MACs at each hop.</div>
+<div class="callout note">❓ <strong>Why don't Preamble and CRC appear in Wireshark?</strong><br>Preamble — NIC strips it before passing to OS. CRC — if invalid, frame is discarded before Wireshark sees it; if valid, stripped by NIC hardware.</div>
+<div class="callout note">❓ <strong>What is Promiscuous Mode?</strong><br>NIC mode where ALL frames on the network are captured, not just those addressed to this device. Wireshark enables this automatically for sniffing.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — Comparisons</span>
+<h2 class="sec-h">Unicast vs Broadcast vs Multicast</h2>
+<table class="tbl"><tr><th>Type</th><th>MAC</th><th>IP</th><th>Who receives</th><th>Example</th></tr>
+<tr><td>Unicast</td><td>Specific address</td><td>Specific IP</td><td>One device</td><td>HTTP, SSH</td></tr>
+<tr><td>Broadcast</td><td>ff:ff:ff:ff:ff:ff</td><td>x.x.x.255</td><td>Everyone in subnet</td><td>ARP, DHCP</td></tr>
+<tr><td>Multicast</td><td>01:00:5e:xx:xx:xx</td><td>224.0.0.0/4</td><td>Subscribed group</td><td>OSPF, Video</td></tr>
 </table>
 </section>
 </div>
-<script>
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
-
-
-</script>
 </body>
 </html>

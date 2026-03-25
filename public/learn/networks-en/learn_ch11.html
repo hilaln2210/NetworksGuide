@@ -2,12 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📖 למידה — רשתות מחשבים PRO</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
   /* ── Palette: clean blue-slate ── */
@@ -1390,7 +1389,23 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   cursor: pointer; font-family: var(--f-body); font-size: .9rem;
 }
 
-  </style>
+/* ══ RTL fixes ══ */
+.code-block, pre.code-body, .code-body {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.diagram {
+  direction: ltr;
+  text-align: left;
+}
+.tbl {
+  direction: inherit;
+}
+.tbl th, .tbl td {
+  text-align: start;
+}
+</style>
 
 </head>
 <body>
@@ -1400,68 +1415,96 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 <p class="ch-desc">DHCP→ARP→DNS→TCP→HTTP, NAT, MAC changes per hop, IP stays fixed</p>
 <div class="divider"></div>
 <section class="learn-section">
-<span class="sec-label">01 — נקודת הפתיחה</span>
-<h2 class="sec-h">מה המחשב יודע כשמתחבר לרשת?</h2>
-<p>כשמחשב מתחבר לרשת לראשונה, הוא יודע <strong>רק דבר אחד</strong>: את כתובת ה-MAC של כרטיס הרשת שלו (צרובה בחומרה).</p>
-<p>הוא <strong>לא יודע</strong>: כתובת IP שלו, Subnet Mask, Default Gateway, DNS Server.</p>
+<span class="sec-label">01 — Starting Point</span>
+<h2 class="sec-h">What Does a Computer Know When It Connects?</h2>
+<p>When a computer connects to a network for the first time, it knows <strong>only one thing</strong>: the MAC address of its network card (burned into hardware).</p>
+<p>It does <strong>NOT know</strong>: its own IP address, Subnet Mask, Default Gateway, DNS Server.</p>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — DHCP</span>
-<h2 class="sec-h">שלב 1: קבלת IP ב-DHCP</h2>
-<p>המחשב שולח DHCP Discover ב-<strong>Broadcast</strong> (כי לא יודע IP של שרת DHCP). שרת DHCP עונה עם: IP, Mask, Gateway, DNS.</p>
-<div class="callout note">📝 <strong>Broadcast Domain:</strong> DHCP Discover לא עובר נתבים. המחשב, שרת DHCP, והנתב חייבים להיות באותה רשת (מחוברים ב-Switch ישיר).</div>
+<h2 class="sec-h">Step 1: Getting an IP via DHCP</h2>
+<p>The computer sends a DHCP Discover as a <strong>Broadcast</strong> (because it doesn't know the DHCP server's IP). The DHCP server responds with: IP, Mask, Gateway, DNS.</p>
+<div class="callout note">📝 <strong>Broadcast Domain:</strong> DHCP Discover doesn't cross routers. The computer, DHCP server, and router must be on the same network (directly connected via Switch).</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — ARP</span>
-<h2 class="sec-h">שלב 2: ARP לגילוי MAC של הנתב</h2>
-<p>שרת DNS נמצא ב-Subnet אחר → חבילה חייבת לעבור דרך Default Gateway. אבל אנחנו יודעים רק את ה-IP של הנתב — צריכים MAC!</p>
-<p>שולחים ARP Request לנתב → Switch עושה Flooding (לא מכיר עדיין MAC של הנתב) → נתב עונה → Switch לומד → שולחים DNS Query.</p>
+<h2 class="sec-h">Step 2: ARP to Find Router's MAC</h2>
+<p>The DNS server is on a different subnet → the packet must go through the Default Gateway. But we only know the router's IP — we need its MAC!</p>
+<p>Send ARP Request to router → Switch floods it (doesn't know router's MAC yet) → Router replies → Switch learns → Send DNS Query.</p>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — DNS Query</span>
-<h2 class="sec-h">שלב 3: DNS Query</h2>
-<p>שולחים DNS Query לשרת DNS (דרך הנתב). בדרך: <strong>MAC src/dst משתנה בכל hop</strong> (כי Layer 2 = hop נוכחי), אבל <strong>IP src/dst נשאר קבוע</strong> (כי Layer 3 = מקצה לקצה).</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">כתובות בחבילה שנשלחת מהמחשב לנתב</span></div>
-<pre class="code-body">Layer 2: src=MAC_המחשב, dst=MAC_הנתב   ← משתנה בכל hop!
-Layer 3: src=192.168.0.5, dst=2.2.2.2  ← קבוע לאורך כל הדרך</pre></div>
+<h2 class="sec-h">Step 3: DNS Query</h2>
+<p>Send DNS Query to DNS server (through router). Along the way: <strong>MAC src/dst changes at every hop</strong> (Layer 2 = current hop only), but <strong>IP src/dst stays constant</strong> (Layer 3 = end-to-end).</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Addresses in packet from PC to router</span></div>
+<pre class="code-body">Layer 2: src=PC_MAC, dst=Router_MAC   ← changes at every hop!
+Layer 3: src=192.168.0.5, dst=2.2.2.2  ← constant throughout</pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">05 — TCP + HTTP</span>
-<h2 class="sec-h">שלבים 4–5: Three-Way Handshake + HTTP</h2>
-<p>קיבלנו IP של Facebook. כעת פותחים חיבור TCP (Handshake), ולאחר מכן שולחים HTTP GET Request.</p>
-<p><strong>NAT</strong>: ביציאה — הנתב מחליף src IP (192.168.x.x → IP ציבורי). Facebook רואה רק את ה-IP הציבורי של הנתב. בכניסה — הנתב מחליף dst חזרה לפרטי.</p>
+<h2 class="sec-h">Steps 4–5: Three-Way Handshake + HTTP</h2>
+<p>We received Facebook's IP. Now open a TCP connection (Handshake), then send the HTTP GET Request.</p>
+<p><strong>NAT</strong>: outgoing — router replaces src IP (192.168.x.x → public IP). Facebook only sees the router's public IP. Incoming — router reverses back to private.</p>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">06 — המסע המלא</span>
-<h2 class="sec-h">סיכום: המסע המלא</h2>
-<table class="tbl"><tr><th>שלב</th><th>פרוטוקול</th><th>מה קורה</th></tr>
-<tr><td>1</td><td>DHCP</td><td>מקבל IP, Mask, Gateway, DNS</td></tr>
-<tr><td>2</td><td>ARP</td><td>מגלה MAC של הנתב (Gateway)</td></tr>
-<tr><td>3</td><td>DNS</td><td>מגלה IP של Facebook</td></tr>
-<tr><td>4</td><td>TCP (Handshake)</td><td>פותח חיבור ל-Facebook</td></tr>
-<tr><td>5</td><td>HTTP</td><td>שולח GET, מקבל HTML</td></tr>
+<span class="sec-label">06 — Full Journey</span>
+<h2 class="sec-h">Summary: The Complete Journey</h2>
+<table class="tbl"><tr><th>Step</th><th>Protocol</th><th>What happens</th></tr>
+<tr><td>1</td><td>DHCP</td><td>Get IP, Mask, Gateway, DNS</td></tr>
+<tr><td>2</td><td>ARP</td><td>Find MAC of router (Gateway)</td></tr>
+<tr><td>3</td><td>DNS</td><td>Resolve Facebook's IP</td></tr>
+<tr><td>4</td><td>TCP (Handshake)</td><td>Open connection to Facebook</td></tr>
+<tr><td>5</td><td>HTTP</td><td>Send GET, receive HTML</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">07 — Troubleshooting</span>
+<h2 class="sec-h">Troubleshooting the Full Journey</h2>
+<table class="tbl"><tr><th>Step</th><th>Symptom</th><th>Fix</th></tr>
+<tr><td>DHCP</td><td>169.254.x.x address</td><td>ipconfig /renew, check DHCP server</td></tr>
+<tr><td>ARP</td><td>Can't reach router</td><td>ping gateway, arp -d &lt;gateway&gt;</td></tr>
+<tr><td>DNS</td><td>Name not resolving</td><td>nslookup domain 8.8.8.8</td></tr>
+<tr><td>TCP</td><td>SYN not reaching dest</td><td>traceroute to site, check firewall</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Full Journey Summary</h2>
+<table class="tbl"><tr><th>Step</th><th>Protocol</th><th>Layer</th><th>What happens</th></tr>
+<tr><td>1</td><td>DHCP</td><td>L7/UDP</td><td>Get IP, Mask, GW, DNS</td></tr>
+<tr><td>2</td><td>ARP</td><td>L2</td><td>Router IP → Router MAC</td></tr>
+<tr><td>3</td><td>DNS</td><td>L7/UDP:53</td><td>Domain → Dest IP</td></tr>
+<tr><td>4</td><td>TCP SYN</td><td>L4</td><td>Open connection — Handshake</td></tr>
+<tr><td>5</td><td>HTTP GET</td><td>L7</td><td>Request page</td></tr>
+<tr><td>6</td><td>HTTP 200</td><td>L7</td><td>Receive HTML/CSS/JS</td></tr>
+<tr><td>7</td><td>TCP FIN</td><td>L4</td><td>Close connection</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — Exam Questions</span>
+<h2 class="sec-h">Common Exam Questions</h2>
+<div class="callout note">❓ <strong>What happens to MAC when a packet crosses a router?</strong><br>Router removes old Ethernet frame, builds new one: MAC src = router's MAC, MAC dst = next hop's MAC (via ARP). IP header stays unchanged (only TTL decrements).</div>
+<div class="callout note">❓ <strong>Why must DHCP Discover be sent as Broadcast?</strong><br>Chicken-and-egg: to send to DHCP server you need its IP, but you need DHCP to get an IP. Solution: broadcast (255.255.255.255) reaches everyone including DHCP server.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — Comparisons</span>
+<h2 class="sec-h">Same Subnet vs Different Subnet</h2>
+<table class="tbl"><tr><th></th><th>Same Subnet</th><th>Different Subnet</th></tr>
+<tr><td>ARP</td><td>Directly to destination IP</td><td>To Default Gateway</td></tr>
+<tr><td>MAC dst</td><td>Destination's MAC</td><td>Router's MAC</td></tr>
+<tr><td>Router needed?</td><td>No</td><td>Yes</td></tr>
+<tr><td>Example</td><td>192.168.1.5 → 192.168.1.10</td><td>192.168.1.5 → 8.8.8.8</td></tr>
 </table>
 </section>
 </div>
-<script>
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
-
-
-</script>
 </body>
 </html>

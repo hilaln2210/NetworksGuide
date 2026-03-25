@@ -2,12 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📖 למידה — רשתות מחשבים PRO</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
   /* ── Palette: clean blue-slate ── */
@@ -1390,7 +1389,23 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   cursor: pointer; font-family: var(--f-body); font-size: .9rem;
 }
 
-  </style>
+/* ══ RTL fixes ══ */
+.code-block, pre.code-body, .code-body {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.diagram {
+  direction: ltr;
+  text-align: left;
+}
+.tbl {
+  direction: inherit;
+}
+.tbl th, .tbl td {
+  text-align: start;
+}
+</style>
 
 </head>
 <body>
@@ -1400,33 +1415,33 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 <p class="ch-desc">select(), blocking, rlist/wlist/xlist, open_client_sockets, messages_to_send</p>
 <div class="divider"></div>
 <section class="learn-section">
-<span class="sec-label">01 — הבעיה</span>
-<h2 class="sec-h">הבעיה עם שרת לקוח אחד</h2>
-<p>בפרק 2 כתבנו שרת שמטפל בלקוח אחד. כדי לטפל בנוסף — סגרנו את הראשון. Facebook עם לקוח אחד בו-זמנית?</p>
-<p>הבעיה: <code>accept()</code> ו-<code>recv()</code> הן <strong>blocking</strong> — מקפיאות את התוכנה עד שמגיע משהו. בזמן שמחכים ל-recv מלקוח A — לקוח B לא יכול להתחבר.</p>
+<span class="sec-label">01 — The Problem</span>
+<h2 class="sec-h">The Problem with Single-Client Servers</h2>
+<p>In chapter 2 we wrote a server handling one client. To handle another — we had to close the first. Facebook with one simultaneous client?</p>
+<p>The problem: <code>accept()</code> and <code>recv()</code> are <strong>blocking</strong> — they freeze the program until something arrives. While waiting for recv from client A — client B can't connect.</p>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — select()</span>
-<h2 class="sec-h">select() — הפתרון</h2>
-<p><code>select()</code> בודקת אילו Sockets <em>מוכנים</em> לפעולה — ללא blocking. מקבלת 3 רשימות ומחזירה 3 רשימות:</p>
+<h2 class="sec-h">select() — The Solution</h2>
+<p><code>select()</code> checks which Sockets are <em>ready</em> for operation — without blocking. Takes 3 lists and returns 3 lists:</p>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">select()</span></div>
 <pre class="code-body"><span class="kw">import</span> select
 
-<span class="cm"># קלט: 3 רשימות (read, write, error)</span>
+<span class="cm"># input: 3 lists (read, write, error)</span>
 rlist, wlist, xlist = select.select(
-    [server_socket] + open_client_sockets,  <span class="cm"># לקריאה</span>
-    open_client_sockets,                     <span class="cm"># לכתיבה</span>
-    []                                       <span class="cm"># לשגיאות</span>
+    [server_socket] + open_client_sockets,  <span class="cm"># read</span>
+    open_client_sockets,                     <span class="cm"># write</span>
+    []                                       <span class="cm"># errors</span>
 )
 
-<span class="cm"># rlist = Sockets שמוכנים עכשיו לקריאה</span>
-<span class="cm"># wlist = Sockets שמוכנים עכשיו לכתיבה</span></pre></div>
+<span class="cm"># rlist = Sockets ready to read NOW</span>
+<span class="cm"># wlist = Sockets ready to write NOW</span></pre></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">03 — server_socket ב-rlist</span>
-<h2 class="sec-h">server_socket ב-rlist = לקוח חדש!</h2>
+<span class="sec-label">03 — server_socket in rlist</span>
+<h2 class="sec-h">server_socket in rlist = New Client!</h2>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server_select.py</span></div>
 <pre class="code-body">open_client_sockets = []
 
@@ -1436,30 +1451,27 @@ rlist, wlist, xlist = select.select(
 
     <span class="kw">for</span> current_socket <span class="kw">in</span> rlist:
         <span class="kw">if</span> current_socket <span class="kw">is</span> server_socket:
-            <span class="cm"># לקוח חדש מתחבר</span>
+            <span class="cm"># new client connecting</span>
             (new_socket, addr) = server_socket.accept()
             open_client_sockets.append(new_socket)
         <span class="kw">else</span>:
-            <span class="cm"># מידע מלקוח קיים</span>
+            <span class="cm"># data from existing client</span>
             data = current_socket.recv(<span class="nu">1024</span>)
-            <span class="kw">if</span> data == <span class="st">""</span>:
+            <span class="kw">if not</span> data:
                 open_client_sockets.remove(current_socket)
-                current_socket.close()
-            <span class="kw">else</span>:
-                <span class="cm"># טפל בנתונים...</span>
-                pass</pre></div>
+                current_socket.close()</pre></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">04 — client ב-rlist</span>
-<h2 class="sec-h">לקוח ב-rlist = נתונים זמינים</h2>
-<p>כשלקוח קיים מופיע ב-rlist — יש נתונים לקרוא. <code>recv()</code> מיד תחזיר נתונים (לא תחסום). אם מחזירה <code>""</code> — הלקוח התנתק → הסר מ-<code>open_client_sockets</code>.</p>
+<span class="sec-label">04 — client in rlist</span>
+<h2 class="sec-h">Client in rlist = Data Available</h2>
+<p>When an existing client appears in rlist — data is ready to read. <code>recv()</code> will return immediately (won't block). If it returns <code>b""</code> — client disconnected → remove from <code>open_client_sockets</code>.</p>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">05 — messages_to_send</span>
-<h2 class="sec-h">messages_to_send — שליחה מדורגת</h2>
-<p>לא ניתן לשלוח לכל לקוח מיד — Socket אולי לא מוכן. פתרון: שמור הודעות ב-<code>messages_to_send</code>, שלח רק ל-Sockets ב-wlist.</p>
+<h2 class="sec-h">messages_to_send — Queued Sending</h2>
+<p>Can't send to every client immediately — the socket may not be ready. Solution: store messages in <code>messages_to_send</code>, only send to sockets in wlist.</p>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">messages_to_send</span></div>
 <pre class="code-body">messages_to_send = []  <span class="cm"># list of (socket, data)</span>
 
@@ -1470,21 +1482,60 @@ rlist, wlist, xlist = select.select(
             client_socket.send(data)
             messages_to_send.remove(message)</pre></div>
 </section>
+
+<section class="learn-section">
+<span class="sec-label">06 — Troubleshooting</span>
+<h2 class="sec-h">Common select() Issues</h2>
+<table class="tbl"><tr><th>Error</th><th>Cause</th><th>Fix</th></tr>
+<tr><td>recv always returns b""</td><td>Client disconnected, not removed</td><td>if not data: remove from list; close()</td></tr>
+<tr><td>select on closed socket</td><td>Socket not removed before close</td><td>Remove from list BEFORE close()</td></tr>
+<tr><td>messages_to_send grows</td><td>Client not in wlist (busy)</td><td>Add timeout, remove dead sockets</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">07 — Cheat Sheet</span>
+<h2 class="sec-h">Full select() Server Template</h2>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server_select.py — complete</span></div>
+<pre class="code-body"><span class="kw">import</span> socket, select
+
+server = socket.socket()
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="nu">1</span>)
+server.bind((<span class="st">''</span>, <span class="nu">9001</span>)); server.listen(<span class="nu">5</span>)
+open_clients = []; messages_to_send = []
+
+<span class="kw">while True</span>:
+    rlist, wlist, _ = select.select(
+        [server] + open_clients, open_clients, [])
+    <span class="kw">for</span> sock <span class="kw">in</span> rlist:
+        <span class="kw">if</span> sock <span class="kw">is</span> server:
+            c, _ = server.accept(); open_clients.append(c)
+        <span class="kw">else</span>:
+            d = sock.recv(<span class="nu">1024</span>)
+            <span class="kw">if not</span> d: open_clients.remove(sock); sock.close()
+            <span class="kw">else</span>: messages_to_send.append((sock, d.upper()))
+    <span class="kw">for</span> s, m <span class="kw">in</span> messages_to_send[:]:
+        <span class="kw">if</span> s <span class="kw">in</span> wlist: s.send(m); messages_to_send.remove((s,m))</pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Exam Questions</span>
+<h2 class="sec-h">Common Exam Questions</h2>
+<div class="callout note">❓ <strong>Why is server_socket in rlist and not wlist?</strong><br>server_socket.accept() is a READ operation (waiting for new client). wlist = sockets ready for WRITING — not relevant to a listening server socket.</div>
+<div class="callout note">❓ <strong>What happens if we don't remove a dead socket from open_clients?</strong><br>select() returns it as readable every iteration, recv() returns b"" → infinite empty loop consuming 100% CPU. Always: if not data: remove + close.</div>
+<div class="callout note">❓ <strong>Why not send directly in the rlist loop?</strong><br>Socket may not be ready for writing (buffer full). Sending to a non-ready socket → blocking or error. messages_to_send + wlist = safe pattern.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — Comparisons</span>
+<h2 class="sec-h">select() vs Threading vs asyncio</h2>
+<table class="tbl"><tr><th></th><th>select()</th><th>Threading</th><th>asyncio</th></tr>
+<tr><td>Model</td><td>I/O multiplexing</td><td>Thread per client</td><td>Coroutines</td></tr>
+<tr><td>Complexity</td><td>Medium</td><td>Simple</td><td>Complex</td></tr>
+<tr><td>Performance</td><td>Good up to ~1000 clients</td><td>GIL-limited</td><td>Excellent for 10K+ clients</td></tr>
+<tr><td>In course</td><td>✅ Taught</td><td>Extension</td><td>Out of scope</td></tr>
+</table>
+</section>
 </div>
-<script>
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
-
-
-</script>
 </body>
 </html>

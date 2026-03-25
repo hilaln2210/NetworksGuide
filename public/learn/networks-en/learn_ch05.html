@@ -2,12 +2,11 @@
 <html lang="en" dir="ltr">
 <head>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>📖 למידה — רשתות מחשבים PRO</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>רשתות מחשבים Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
   /* ── Palette: clean blue-slate ── */
@@ -1390,7 +1389,23 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   cursor: pointer; font-family: var(--f-body); font-size: .9rem;
 }
 
-  </style>
+/* ══ RTL fixes ══ */
+.code-block, pre.code-body, .code-body {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: embed;
+}
+.diagram {
+  direction: ltr;
+  text-align: left;
+}
+.tbl {
+  direction: inherit;
+}
+.tbl th, .tbl td {
+  text-align: start;
+}
+</style>
 
 </head>
 <body>
@@ -1400,93 +1415,110 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 <p class="ch-desc">sniff(), lfilter, prn, send(), sendp(), sr(), sr1() — packet building</p>
 <div class="divider"></div>
 <section class="learn-section">
-<span class="sec-label">01 — מה Scapy?</span>
-<h2 class="sec-h">Scapy — כלי רשת ב-Python</h2>
-<p>Scapy היא ספריית Python חיצונית שמאפשרת: <strong>בניית חבילות</strong> לכל שכבה, <strong>הסנפה</strong>, <strong>שליחה וקבלה</strong>. Sockets = שכבת אפליקציה בלבד. Scapy = כל שכבה.</p>
-<div class="callout note">📝 Scapy רצה <em>מעל</em> Python — כל הפונקציות של Python עובדות גם בתוכה (<code>print</code>, <code>dir</code>, לולאות וכו').</div>
+<span class="sec-label">01 — What is Scapy?</span>
+<h2 class="sec-h">Scapy — Python Packet Crafter</h2>
+<p>Scapy is a Python library that lets you <strong>build, send, receive, and analyze</strong> network packets at any layer — from Ethernet frames to HTTP requests. It bypasses the OS network stack, giving you full control over every bit.</p>
+<div class="callout warn">⚠️ Scapy requires <strong>root/admin</strong> privileges because raw sockets need kernel-level access. Always run: <code>sudo scapy</code> or <code>sudo python3 script.py</code></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">02 — בניית חבילה</span>
-<h2 class="sec-h">בניית חבילות — אופרטור /</h2>
-<p>חבילה בנויה שכבה על שכבה עם האופרטור <code>/</code>:</p>
+<span class="sec-label">02 — Building Packets</span>
+<h2 class="sec-h">Building Packets — The / Operator</h2>
+<p>Scapy uses <strong>/</strong> to stack protocol layers. Each layer wraps the one above it:</p>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Scapy</span></div>
 <pre class="code-body"><span class="kw">from</span> scapy.all <span class="kw">import</span> *
 
-<span class="cm"># חבילה IP בלבד</span>
-pkt = IP(dst=<span class="st">"8.8.8.8"</span>)
-
-<span class="cm"># IP + ICMP (ping)</span>
-pkt = IP(dst=<span class="st">"8.8.8.8"</span>) / ICMP()
-
-<span class="cm"># IP + TCP</span>
-pkt = IP(dst=<span class="st">"1.2.3.4"</span>) / TCP(dport=<span class="nu">80</span>)
-
-<span class="cm"># IP + UDP + DNS Query</span>
+pkt = IP(dst=<span class="st">"8.8.8.8"</span>) / ICMP()          <span class="cm"># ping packet</span>
+pkt = IP(dst=<span class="st">"1.2.3.4"</span>) / TCP(dport=<span class="nu">80</span>)   <span class="cm"># TCP SYN</span>
 pkt = IP(dst=<span class="st">"8.8.8.8"</span>) / UDP(dport=<span class="nu">53</span>) / DNS(rd=<span class="nu">1</span>, qd=DNSQR(qname=<span class="st">"google.com"</span>))
 
-pkt.show()  <span class="cm"># הצגת כל השדות</span></pre></div>
+pkt.show()   <span class="cm"># display all fields</span></pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — sniff()</span>
-<h2 class="sec-h">הסנפה עם sniff()</h2>
+<h2 class="sec-h">Capturing with sniff()</h2>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">sniff parameters</span></div>
-<pre class="code-body"><span class="cm"># lfilter = פונקציית סינון (True = לכד, False = דלג)</span>
-<span class="cm"># prn = callback לכל חבילה שנלכדה</span>
-<span class="cm"># count = כמה לכוד (0 = אינסוף)</span>
-<span class="cm"># store = 0 → לא שמור בזיכרון</span>
+<pre class="code-body"><span class="cm"># lfilter = Python function: True = capture, False = skip</span>
+<span class="cm"># prn = callback for each captured packet</span>
+<span class="cm"># count = how many (0 = infinite)</span>
+<span class="cm"># store = 0 → don't keep in memory</span>
 
 sniff(
     lfilter=<span class="kw">lambda</span> p: DNS <span class="kw">in</span> p,
     prn=<span class="kw">lambda</span> p: p[DNS].qd.qname,
-    store=<span class="nu">0</span>
+    count=<span class="nu">5</span>
 )
-
-<span class="cm"># שרשרת הקריאות:</span>
-<span class="cm"># חבילה נלכדת → lfilter בודק → אם True → prn מופעל</span></pre></div>
+<span class="cm"># Flow: packet captured → lfilter checks → if True → prn called</span></pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — send/sr/sr1</span>
-<h2 class="sec-h">שליחה — Layer 3</h2>
-<table class="tbl"><tr><th>פונקציה</th><th>Layer</th><th>מה עושה</th></tr>
-<tr><td><code>send(pkt)</code></td><td>L3</td><td>שולח, לא מחכה לתגובה</td></tr>
-<tr><td><code>sr(pkt)</code></td><td>L3</td><td>שולח ומחכה לתגובות מרובות. מחזיר (answered, unanswered)</td></tr>
-<tr><td><code>sr1(pkt)</code></td><td>L3</td><td>שולח ומחכה לתגובה <strong>אחת בלבד</strong></td></tr>
+<h2 class="sec-h">Sending — Layer 3</h2>
+<table class="tbl"><tr><th>Function</th><th>Layer</th><th>What it does</th></tr>
+<tr><td><code>send(pkt)</code></td><td>L3</td><td>Send, don't wait for response</td></tr>
+<tr><td><code>sr(pkt)</code></td><td>L3</td><td>Send and receive multiple responses. Returns (answered, unanswered)</td></tr>
+<tr><td><code>sr1(pkt)</code></td><td>L3</td><td>Send and wait for <strong>one response only</strong></td></tr>
 </table>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">sr1 example — ping</span></div>
-<pre class="code-body">resp = sr1(IP(dst=<span class="st">"8.8.8.8"</span>) / ICMP())
+<pre class="code-body">resp = sr1(IP(dst=<span class="st">"8.8.8.8"</span>) / ICMP(), timeout=<span class="nu">2</span>, verbose=<span class="nu">0</span>)
 <span class="kw">print</span>(resp[IP].src)   <span class="cm"># 8.8.8.8</span></pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">05 — sendp</span>
-<h2 class="sec-h">sendp — שליחה Layer 2</h2>
-<p><code>sendp()</code> שולח ברמת Layer 2 — כולל Ethernet header. מאפשר שליטה מלאה ב-MAC source/destination.</p>
+<h2 class="sec-h">sendp — Layer 2 Sending</h2>
+<p><code>sendp()</code> sends at Layer 2 — including Ethernet header. Gives full control over src/dst MAC addresses.</p>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">sendp example</span></div>
-<pre class="code-body"><span class="cm"># שליחה עם Ethernet header מלא</span>
+<pre class="code-body"><span class="cm"># send with full Ethernet header</span>
 pkt = Ether(dst=<span class="st">"ff:ff:ff:ff:ff:ff"</span>) / IP(dst=<span class="st">"192.168.1.1"</span>) / ICMP()
 sendp(pkt)
 
-<span class="cm"># ההבדל: send() = Layer 3 (OS מוסיף Ethernet)</span>
-<span class="cm">#         sendp() = Layer 2 (אתה שולט על Ethernet)</span></pre></div>
+<span class="cm"># send() = Layer 3 (OS adds Ethernet)</span>
+<span class="cm"># sendp() = Layer 2 (you control Ethernet)</span></pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">06 — Troubleshooting</span>
+<h2 class="sec-h">Common Scapy Issues</h2>
+<table class="tbl"><tr><th>Error</th><th>Cause</th><th>Fix</th></tr>
+<tr><td><code>PermissionError</code></td><td>Raw sockets need root</td><td>Run with <code>sudo</code></td></tr>
+<tr><td><code>sr1</code> returns None</td><td>Timeout — no response</td><td>Check firewall, increase timeout=5</td></tr>
+<tr><td>sniff captures nothing</td><td>Wrong interface</td><td>Add <code>iface="eth0"</code></td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">07 — Cheat Sheet</span>
+<h2 class="sec-h">Scapy Quick Reference</h2>
+<table class="tbl"><tr><th>Action</th><th>Code</th></tr>
+<tr><td>ICMP ping</td><td><code>sr1(IP(dst='8.8.8.8')/ICMP(), timeout=2, verbose=0)</code></td></tr>
+<tr><td>TCP SYN</td><td><code>sr1(IP(dst='x')/TCP(dport=80,flags='S'))</code></td></tr>
+<tr><td>DNS query</td><td><code>sr1(IP(dst='8.8.8.8')/UDP(dport=53)/DNS(rd=1,qd=DNSQR(qname='g.com')))</code></td></tr>
+<tr><td>Sniff ICMP</td><td><code>sniff(filter='icmp', count=5, prn=lambda p: p.summary())</code></td></tr>
+<tr><td>Show packet</td><td><code>pkt.show()</code></td></tr>
+<tr><td>Read pcap</td><td><code>rdpcap('file.pcap')</code></td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Exam Questions</span>
+<h2 class="sec-h">Common Exam Questions</h2>
+<div class="callout note">❓ <strong>What does the / operator do in Scapy?</strong><br>Stacks protocol layers. IP()/TCP() = TCP segment inside IP packet. Each layer wraps the one above it — same as real network encapsulation.</div>
+<div class="callout note">❓ <strong>Difference between send() and sendp()?</strong><br>send() = Layer 3, OS adds Ethernet automatically. sendp() = Layer 2, you specify Ether(dst=...) yourself for full MAC control.</div>
+<div class="callout note">❓ <strong>What does lfilter do in sniff()?</strong><br>A Python lambda that filters packets. True = keep, False = discard. More flexible than BPF string filter — can check any packet field.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — Comparisons</span>
+<h2 class="sec-h">Scapy vs Python socket</h2>
+<table class="tbl"><tr><th></th><th>socket (Python)</th><th>Scapy</th></tr>
+<tr><td>Layer</td><td>L4+ (TCP/UDP)</td><td>L2-L7 (everything)</td></tr>
+<tr><td>Control</td><td>Limited — OS manages L3/L2</td><td>Full — every field</td></tr>
+<tr><td>Root required</td><td>No</td><td>Yes</td></tr>
+<tr><td>Use case</td><td>Applications</td><td>Research, pentesting, learning</td></tr>
+</table>
 </section>
 </div>
-<script>
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
-
-
-</script>
 </body>
 </html>
