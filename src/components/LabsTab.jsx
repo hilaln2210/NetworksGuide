@@ -2,7 +2,50 @@ import { useState, useEffect } from 'react'
 import { useLang } from '../utils/language.jsx'
 import { isProUnlocked, validateCode } from '../utils/proAccess.js'
 
-const TRACKS = []
+const TRACKS = [
+  {
+    id: 'networks',
+    label: { he: '🌐 רשתות מחשבים', en: '🌐 Computer Networks' },
+    labs: [
+      { id: 'net-ch01', chapter: { he: 'פרק 1',  en: 'Chapter 1'  }, title: { he: '🌐 תחילת מסע — איך עובד האינטרנט?',  en: '🌐 How the Internet Works'      }, description: { he: 'מה קורה כשמקלידים URL? מסע packet בין שכבות הרשת ופרוטוקולים בסיסיים.', en: 'What happens when you type a URL? Packet journey across network layers.' }, difficulty: { he: 'מתחיל',  en: 'Beginner'     }, xp: 100, src: '/learn/networks/lab_ch01.html' },
+      { id: 'net-ch02', chapter: { he: 'פרק 2',  en: 'Chapter 2'  }, title: { he: '🔌 תכנות ב-Sockets',                  en: '🔌 Socket Programming'          }, description: { he: 'Socket API: TCP vs UDP, חיבורים, ports, שליחת נתונים בין client ל-server.', en: 'Socket API: TCP vs UDP, connections, ports, sending data between client and server.' }, difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 120, src: '/learn/networks/lab_ch02.html' },
+      { id: 'net-ch03', chapter: { he: 'פרק 3',  en: 'Chapter 3'  }, title: { he: '🦈 Wireshark ומודל חמש שכבות',        en: '🦈 Wireshark & Five-Layer Model' }, description: { he: 'ניתוח packets בזמן אמת עם Wireshark, זיהוי שכבות ופרוטוקולים.', en: 'Real-time packet analysis with Wireshark, layer identification and protocols.' }, difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 130, src: '/learn/networks/lab_ch03.html' },
+      { id: 'net-ch04', chapter: { he: 'פרק 4',  en: 'Chapter 4'  }, title: { he: '📡 שכבת האפליקציה',                   en: '📡 Application Layer'           }, description: { he: 'תרגול HTTP, DNS, SMTP — בניית בקשות, קריאת תגובות ובדיקת headers.', en: 'Practice HTTP, DNS, SMTP — building requests, reading responses, inspecting headers.' }, difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 130, src: '/learn/networks/lab_ch04.html' },
+      { id: 'net-ch05', chapter: { he: 'פרק 5',  en: 'Chapter 5'  }, title: { he: '🐍 Scapy — Packet Crafting',           en: '🐍 Scapy — Packet Crafting'     }, description: { he: 'יצירת packets מאפס עם Scapy: TCP SYN, ICMP ping, שינוי שדות.', en: 'Craft packets from scratch with Scapy: TCP SYN, ICMP ping, field manipulation.' }, difficulty: { he: 'מתקדם',  en: 'Advanced'     }, xp: 150, src: '/learn/networks/lab_ch05.html' },
+      { id: 'net-ch06', chapter: { he: 'פרק 6',  en: 'Chapter 6'  }, title: { he: '🚚 שכבת התעבורה',                     en: '🚚 Transport Layer'             }, description: { he: 'TCP Handshake, flow control, congestion control, UDP vs TCP.', en: 'TCP Handshake, flow control, congestion control, UDP vs TCP.' }, difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 130, src: '/learn/networks/lab_ch06.html' },
+      { id: 'net-ch07', chapter: { he: 'פרק 7',  en: 'Chapter 7'  }, title: { he: '🗺️ שכבת הרשת',                       en: '🗺️ Network Layer'              }, description: { he: 'IP addressing, routing, subnetting, CIDR — חישובי subnet ומעקב routing.', en: 'IP addressing, routing, subnetting, CIDR — subnet calculations and routing.' }, difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 140, src: '/learn/networks/lab_ch07.html' },
+      { id: 'net-ch08', chapter: { he: 'פרק 8',  en: 'Chapter 8'  }, title: { he: '🔗 שכבת הקו',                         en: '🔗 Data Link Layer'             }, description: { he: 'MAC addresses, ARP, Ethernet frames, switching — ניתוח frames.', en: 'MAC addresses, ARP, Ethernet frames, switching — frame analysis.' }, difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 130, src: '/learn/networks/lab_ch08.html' },
+      { id: 'net-ch09', chapter: { he: 'פרק 9',  en: 'Chapter 9'  }, title: { he: '🔧 רכיבי רשת',                        en: '🔧 Network Devices'             }, description: { he: 'Hub vs Switch vs Router vs Firewall — הבדלים ובחירת הרכיב הנכון.', en: 'Hub vs Switch vs Router vs Firewall — differences and choosing the right device.' }, difficulty: { he: 'מתחיל',  en: 'Beginner'     }, xp: 110, src: '/learn/networks/lab_ch09.html' },
+      { id: 'net-ch10', chapter: { he: 'פרק 10', en: 'Chapter 10' }, title: { he: '⚡ השכבה הפיזית',                     en: '⚡ Physical Layer'              }, description: { he: 'bits, סיגנלים, כבלים, קידודים ורוחב פס — הבסיס הפיזי של הרשת.', en: 'Bits, signals, cables, encodings and bandwidth — the physical foundation.' }, difficulty: { he: 'מתחיל',  en: 'Beginner'     }, xp: 110, src: '/learn/networks/lab_ch10.html' },
+      { id: 'net-ch11', chapter: { he: 'פרק 11', en: 'Chapter 11' }, title: { he: '📦 איך הכל מתחבר',                    en: '📦 How It All Connects'         }, description: { he: 'מסע packet מלא מהאפליקציה עד לחוטים — encapsulation דרך כל שכבות המודל.', en: 'Full packet journey from application to wire — encapsulation through all layers.' }, difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 130, src: '/learn/networks/lab_ch11.html' },
+      { id: 'net-ch12', chapter: { he: 'פרק 12', en: 'Chapter 12' }, title: { he: '⚙️ תכנות Sockets מתקדם',              en: '⚙️ Advanced Socket Programming' }, description: { he: 'non-blocking sockets, select/epoll, multi-client servers ו-async I/O.', en: 'Non-blocking sockets, select/epoll, multi-client servers and async I/O.' }, difficulty: { he: 'מתקדם',  en: 'Advanced'     }, xp: 160, src: '/learn/networks/lab_ch12.html' },
+    ],
+  },
+  {
+    id: 'security',
+    label: { he: '🔒 אבטחת מידע', en: '🔒 Cybersecurity' },
+    labs: [
+      { id: 'sec-ch01', chapter: { he: 'פרק 1', en: 'Chapter 1' }, title: { he: '🔍 Network Scanning עם Nmap', en: '🔍 Network Scanning with Nmap' }, description: { he: 'סריקת רשתות, גילוי hosts ושירותים פתוחים עם Nmap.', en: 'Network scanning, host discovery and open service detection with Nmap.' }, difficulty: { he: 'מתחיל', en: 'Beginner' }, xp: 110, src: '/learn/security/lab_ch01.html' },
+      { id: 'sec-ch02', chapter: { he: 'פרק 2', en: 'Chapter 2' }, title: { he: '🎣 Phishing Email Analysis', en: '🎣 Phishing Email Analysis' }, description: { he: 'ניתוח מיילים פישינג, זיהוי סימני מניפולציה וטכניקות Social Engineering.', en: 'Analyzing phishing emails, identifying manipulation signs and Social Engineering.' }, difficulty: { he: 'מתחיל', en: 'Beginner' }, xp: 110, src: '/learn/security/lab_ch02.html' },
+      { id: 'sec-ch03', chapter: { he: 'פרק 3', en: 'Chapter 3' }, title: { he: '💉 SQL Injection עם DVWA', en: '💉 SQL Injection with DVWA' }, description: { he: 'ניצול חולשות SQL Injection ב-DVWA — הבנת המתקפה והגנה.', en: 'Exploiting SQL Injection vulnerabilities in DVWA — attack and defense.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/security/lab_ch03.html' },
+      { id: 'sec-ch04', chapter: { he: 'פרק 4', en: 'Chapter 4' }, title: { he: '🔓 Password Cracking עם Hashcat', en: '🔓 Password Cracking with Hashcat' }, description: { he: 'פיצוח סיסמאות מוצפנות עם Hashcat — dictionary attacks ו-brute force.', en: 'Cracking hashed passwords with Hashcat — dictionary attacks and brute force.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 140, src: '/learn/security/lab_ch04.html' },
+      { id: 'sec-ch05', chapter: { he: 'פרק 5', en: 'Chapter 5' }, title: { he: '🦈 Wireshark — ניתוח תעבורת רשת', en: '🦈 Wireshark — Network Traffic Analysis' }, description: { he: 'ניתוח packets בזמן אמת עם Wireshark, זיהוי תעבורה חשודה.', en: 'Real-time packet analysis with Wireshark, detecting suspicious traffic.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/security/lab_ch05.html' },
+      { id: 'sec-ch06', chapter: { he: 'פרק 6', en: 'Chapter 6' }, title: { he: '🏴 CTF Challenge: TryHackMe / HackTheBox', en: '🏴 CTF Challenge: TryHackMe / HackTheBox' }, description: { he: 'פתרון אתגר CTF מעשי — שילוב כל הכלים שנלמדו.', en: 'Solving a practical CTF challenge — combining all learned tools.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 160, src: '/learn/security/lab_ch06.html' },
+    ],
+  },
+  {
+    id: 'webapi',
+    label: { he: '🌍 Web ו-APIs', en: '🌍 Web & APIs' },
+    labs: [
+      { id: 'web-ch01', chapter: { he: 'פרק 1', en: 'Chapter 1' }, title: { he: '🌐 HTTP בחשיפה מלאה עם curl',            en: '🌐 HTTP Deep Dive with curl'              }, description: { he: 'ניתוח בקשות HTTP, Headers, Status Codes וניפוי תגובות עם curl.', en: 'Analyze HTTP requests, headers, status codes and debug responses with curl.' }, difficulty: { he: 'מתחיל',  en: 'Beginner'     }, xp: 100, src: '/learn/webapi/lab_ch01.html' },
+      { id: 'web-ch02', chapter: { he: 'פרק 2', en: 'Chapter 2' }, title: { he: '⚙️ בנה REST API עם Node.js + Express',  en: '⚙️ Build REST API with Node.js + Express' }, description: { he: 'פיתוח REST API מאפס — routes, middleware, error handling.', en: 'Build REST API from scratch — routes, middleware, error handling.' },           difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 130, src: '/learn/webapi/lab_ch02.html' },
+      { id: 'web-ch03', chapter: { he: 'פרק 4', en: 'Chapter 4' }, title: { he: '🔑 Auth: JWT + Refresh Tokens',          en: '🔑 Auth: JWT + Refresh Tokens'            }, description: { he: 'יישום Authentication מלא: JWT, Refresh Tokens, שמירת sessions.', en: 'Implement full Authentication: JWT, Refresh Tokens, session management.' },    difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 140, src: '/learn/webapi/lab_ch03.html' },
+      { id: 'web-ch04', chapter: { he: 'פרק 5', en: 'Chapter 5' }, title: { he: '💬 WebSocket Chat בזמן אמת',            en: '💬 WebSocket Real-Time Chat'              }, description: { he: 'בניית צ\'אט בזמן אמת עם WebSocket, Socket.io, rooms ו-events.', en: 'Build real-time chat with WebSocket, Socket.io, rooms and events.' },          difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 130, src: '/learn/webapi/lab_ch04.html' },
+      { id: 'web-ch05', chapter: { he: 'פרק 6', en: 'Chapter 6' }, title: { he: '🚦 Rate Limiting & API Gateway',         en: '🚦 Rate Limiting & API Gateway'           }, description: { he: 'הגנת API עם Rate Limiting, API Gateway, Throttling ו-Circuit Breaker.', en: 'Protect API with Rate Limiting, API Gateway, Throttling and Circuit Breaker.' }, difficulty: { he: 'מתקדם', en: 'Advanced'     }, xp: 150, src: '/learn/webapi/lab_ch05.html' },
+      { id: 'web-ch06', chapter: { he: 'פרק 8', en: 'Chapter 8' }, title: { he: '📈 API Load Testing עם k6',             en: '📈 API Load Testing with k6'              }, description: { he: 'בדיקות עומס על API עם k6 — Virtual Users, ramps, thresholds.', en: 'Load testing API with k6 — Virtual Users, ramps, thresholds.' },               difficulty: { he: 'מתקדם',  en: 'Advanced'     }, xp: 150, src: '/learn/webapi/lab_ch06.html' },
+    ],
+  },
+]
 
 const DIFFICULTY_COLORS = {
   'מתחיל': { bg: 'rgba(5,150,105,0.1)', color: '#047857' },
@@ -83,7 +126,7 @@ function ProLockScreen({ onUnlock, isEn }) {
 }
 
 // Map content.js track IDs → LabsTab TRACKS IDs
-const TRACK_ID_MAP = {}
+const TRACK_ID_MAP = { networking: 'networks', cyber: 'security', webapi: 'webapi' }
 
 export function LabsTab({ trackId }) {
   const { lang } = useLang()
