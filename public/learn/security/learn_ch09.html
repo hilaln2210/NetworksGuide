@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he" dir="rtl">
 <head>
 
 <meta charset="UTF-8">
@@ -362,43 +362,84 @@ table { display: block; overflow-x: auto; max-width: 100%; }
 <script src="/_bridge.js"></script>
 </head>
 <body>
-<div class="ch open" id="c2_en">
-  <div class="ch-trigger" onclick="toggleCh('c2_en')">
-    <span class="ch-num">02/08</span><div class="ch-icon">🎣</div>
+<div class="ch open" id="c8">
+  <div class="ch-trigger" onclick="toggleCh('c8')">
+    <span class="ch-num">08/08</span><div class="ch-icon">☁️</div>
     <div class="ch-info">
-      <div class="ch-name">Social Engineering & Phishing</div>
-      <div class="ch-desc">Phishing, Spear Phishing, Vishing, Pretexting, BEC</div>
+      <div class="ch-name">Cloud Security & Compliance</div>
+      <div class="ch-desc">Shared Responsibility, IAM, CSPM, GDPR, SOC2, Data Classification</div>
     </div>
-    <div class="ch-meta"><span class="chip chip-r">THREAT</span><span class="ch-time">⏱ 45m</span><span class="ch-chev">▶</span></div>
+    <div class="ch-meta"><span class="chip chip-p">CLOUD</span><span class="ch-time">⏱ 55m</span><span class="ch-chev">▶</span></div>
   </div>
   <div class="ch-body" style="display:block"><div class="ch-inner">
-    <div class="ch-grid">
-      <div>
-        <div class="sec-label">What You'll Learn</div>
-        <div class="learn-list">
-          <div class="li">Phishing vs Spear Phishing — the difference between mass fishing and targeted attacks</div>
-          <div class="li">Vishing & Smishing — phone and SMS attacks</div>
-          <div class="li">BEC (Business Email Compromise) — impersonating CEO/CFO</div>
-          <div class="li">Pretexting — fabricating a scenario to extract information</div>
-          <div class="li">Indicators of Phishing — how to identify a suspicious email</div>
-          <div class="li">Security Awareness Training — how to train employees</div>
-        </div>
-      </div>
-      <div>
-        <div class="sec-label">Famous Breach</div>
-        <div class="incident">
-          <div class="inc-badge">🔴 BREACH — 2020 / Twitter</div>
-          <div class="inc-title">130 Celebrity Accounts Compromised — By a 17-Year-Old</div>
-          <div class="inc-desc">
-            In July 2020, Twitter accounts of Barack Obama, Joe Biden, Elon Musk, Jeff Bezos, Apple, and Uber simultaneously posted "bitcoin doubling" messages. Within hours they collected $120,000.<br><br>
-            The weapon wasn't sophisticated code. <strong>A 17-year-old from Florida called Twitter employees</strong>, impersonated an internal IT staffer, and convinced them to hand over access to an admin tool. From there he could reset passwords and access any account. The entire attack took a few hours. Advanced technical security is irrelevant when the weakest link is a human who answers the phone.
+
+          <div class="ch-intro">
+            <strong>הענן לא הוריד ממך את האחריות על אבטחה — הוא שינה מה אתה אחראי לו.</strong>
+            Shared Responsibility Model: הספק מגן על התשתית, אתה מגן על הנתונים, ההגדרות, והגישות.
+            Misconfiguration היא סיבת הפרצות הגדולה ביותר בענן — לרוב לא פריצה מתוחכמת, סתם Bucket פתוח.
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="tip-box"><span>💡</span><span><strong>Phishing Red Flags:</strong> Artificial urgency ("agree within 24 hours"), requests to bypass normal procedures, subtle domain typos (paypa1.com), URL that doesn't match the link text, requests for credentials. When in doubt — assume phishing.</span></div>
+
+          <div class="analogy">
+            <span class="analogy-icon">☁️</span>
+            <strong>Shared Responsibility כמו שכירת דירה:</strong><br>
+            <strong>בעל הבית (AWS/Azure/GCP):</strong> מגן על הבניין — קירות, חשמל, גג.<br>
+            <strong>שוכר (אתה):</strong> אחראי על מה שבפנים — לנעול דלת, לא להשאיר מפתח מתחת לשטיח.<br><br>
+            S3 Bucket פתוח לPublic? <strong>זו שגיאה שלך, לא של AWS.</strong>
+          </div>
+
+          <div class="sec-label">מה לומדים</div>
+          <div class="learn-list">
+            <div class="li">Shared Responsibility Model — מה AWS/Azure מגנים, מה אתה מגן</div>
+            <div class="li">IAM Best Practices — MFA, Least Privilege, Root Account, Service Roles</div>
+            <div class="li">CSPM — Cloud Security Posture Management, Misconfigurations</div>
+            <div class="li">Data Classification — Public, Internal, Confidential, Restricted</div>
+            <div class="li">GDPR — ה-72 שעות, Right to be Forgotten, DPA</div>
+            <div class="li">SOC2 Type II — Trust Services Criteria, Audit Reports</div>
+          </div>
+
+          <div class="sec-label" style="margin-top:18px">IAM — הרשאות בענן</div>
+          <div class="build-step">
+            <div class="bs-item"><span class="bs-num">Root</span><div><strong>Root Account = God Mode.</strong> לא ניתן להגביל ב-IAM Policy. שמור ב-Safe פיזי. אל תשתמש לעולם לעבודה שוטפת.</div></div>
+            <div class="bs-item"><span class="bs-num">MFA</span><div><strong>MFA על הכל:</strong> Root, IAM Users, Assumed Roles. Colonial Pipeline נפרצה כי לא היה MFA על VPN.</div></div>
+            <div class="bs-item"><span class="bs-num">Roles</span><div><strong>Service Roles במקום Access Keys:</strong> EC2 Instance, Lambda — נותנים להם Role עם הרשאות מינימליות. אין Secret בקוד.</div></div>
+            <div class="bs-item"><span class="bs-num">CSPM</span><div><strong>Cloud Security Posture Management:</strong> כלי שסורק אוטומטית Misconfigurations — S3 Bucket פתוח, Security Group רחב מדי.</div></div>
+          </div>
+
+          <div class="sec-label" style="margin-top:18px">כשל אגדי — Capital One 2019</div>
+          <div class="incident">
+            <div class="inc-badge">🔴 MISCONFIGURATION — 2019 / Capital One</div>
+            <div class="inc-title">100 מיליון לקוחות נחשפו — SSRF + Misconfigured IAM Role</div>
+            <div class="inc-desc">
+              SSRF ב-WAF גרם לשרת לקרוא AWS Metadata Service ולקבל Credentials של IAM Role. <strong>ה-Role, בגלל Misconfiguration, היה עם הרשאות רחבות מדי ל-S3 Buckets.</strong><br><br>
+              הפתרון: IMDSv2 (מונע SSRF), Least Privilege ל-IAM, CSPM שזיהה ה-Misconfiguration אוטומטית.
+            </div>
+          </div>
+
+          <div class="why-matters">
+            <span>💡</span>
+            <span><strong>GDPR 72 שעות:</strong> פרצה שמסכנת זכויות אנשים → חובת דיווח לרשות הגנת הפרטיות תוך 72 שעות מרגע שנודע לך. לא מרגע הפרצה — מרגע שהיית מודע אליה. קנס עד 4% מהמחזור השנתי הגלובלי.</span>
+          </div>
+
+          <div class="glossary" id="glos8">
+            <div class="glossary-head" onclick="cyToggleGlos('glos8')">
+              <span>📖 מילון מושגים — פרק זה</span><span class="glos-arr">▶</span>
+            </div>
+            <div class="glossary-body">
+              <div class="glos-item"><span class="glos-term">Shared Responsibility</span><span class="glos-def">ספק הענן מגן על "Security OF the Cloud", הלקוח מגן על "Security IN the Cloud".</span></div>
+              <div class="glos-item"><span class="glos-term">IAM</span><span class="glos-def">Identity and Access Management — ניהול זהויות והרשאות בענן. Users, Roles, Policies.</span></div>
+              <div class="glos-item"><span class="glos-term">CSPM</span><span class="glos-def">Cloud Security Posture Management — כלי שמזהה Misconfigurations אוטומטית. Prisma, Wiz.</span></div>
+              <div class="glos-item"><span class="glos-term">SSRF</span><span class="glos-def">Server-Side Request Forgery — גורם לשרת לבקש URL שהתוקף מכתיב. שימש בCapital One.</span></div>
+              <div class="glos-item"><span class="glos-term">GDPR</span><span class="glos-def">General Data Protection Regulation — חוק פרטיות אירופי. 72 שעות לדיווח פרצה, קנס עד 4%.</span></div>
+              <div class="glos-item"><span class="glos-term">SOC2 Type II</span><span class="glos-def">דוח ביקורת שמאשר שהארגון עומד ב-Trust Services Criteria לאורך תקופה (לא רגע אחד).</span></div>
+              <div class="glos-item"><span class="glos-term">IMDSv2</span><span class="glos-def">גרסה מאובטחת של AWS Metadata Service. מחייב Session Token — מונע SSRF פשוט.</span></div>
+              <div class="glos-item"><span class="glos-term">Data Classification</span><span class="glos-def">סיווג נתונים: Public, Internal, Confidential, Restricted. קובע רמת ההגנה הנדרשת.</span></div>
+            </div>
+          </div>
+
   </div></div>
 </div>
+</div>
+<div class="en-b">
 <script>
 // ── LANG TOGGLE ──
 function toggleLang() {
