@@ -27,28 +27,6 @@ export const uiStrings = {
   start: { he: '← התחל', en: 'Start →' },
 
   // ===== Track titles / subtitles / levels =====
-track_cyber_title: { he: 'אבטחת מידע', en: 'Cybersecurity' },
-  track_cyber_subtitle: { he: 'CIA Triad, קריפטוגרפיה, Malware, Penetration Testing, SOC — 8 פרקים + 6 מעבדות', en: 'CIA Triad, cryptography, malware, penetration testing, SOC — 8 chapters + 6 labs' },
-  track_cyber_level: { he: 'בינוני–מתקדם', en: 'Intermediate–Advanced' },
-  track_devops_title: { he: 'DevOps & Cloud', en: 'DevOps & Cloud' },
-  track_devops_subtitle: { he: 'Docker, Kubernetes, CI/CD, Terraform, Observability, AWS — 9 פרקים + 7 מעבדות', en: 'Docker, Kubernetes, CI/CD, Terraform, Observability, AWS — 9 chapters + 7 labs' },
-  track_devops_level: { he: 'בינוני–מתקדם', en: 'Intermediate–Advanced' },
-  track_research_title: { he: 'חקר רשתות', en: 'Network Research' },
-  track_research_subtitle: { he: 'Wireshark, BGP, DNS, HTTP/2, eBPF, TLS, Container Networking', en: 'Wireshark, BGP, DNS, HTTP/2, eBPF, TLS, Container Networking' },
-  track_research_level: { he: 'מתקדם', en: 'Advanced' },
-
-  // ===== New tracks =====
-  track_linux_title: { he: 'מערכות ולינוקס', en: 'System & Linux' },
-  track_linux_subtitle: { he: 'Filesystem, Process, Bash, systemd, Storage, Security Hardening — 10 פרקים + 6 מעבדות', en: 'Filesystem, Process, Bash, systemd, Storage, Security Hardening — 10 chapters + 6 labs' },
-  track_linux_level: { he: 'מתחיל–בינוני', en: 'Beginner–Intermediate' },
-
-  track_webapi_title: { he: 'Web ו-APIs', en: 'Web & APIs' },
-  track_webapi_subtitle: { he: 'HTTP, REST, GraphQL, Auth, WebSockets, Performance, API Design — 8 פרקים + 6 מעבדות', en: 'HTTP, REST, GraphQL, Auth, WebSockets, Performance, API Design — 8 chapters + 6 labs' },
-  track_webapi_level: { he: 'מתחיל–בינוני', en: 'Beginner–Intermediate' },
-
-  track_redteam_title: { he: 'Red Team — פריצה אתית', en: 'Red Team — Ethical Hacking' },
-  track_redteam_subtitle: { he: 'Kali Linux, XSS, SQLi, סריקה ופריצה אתית — מהבסיס לתרגול', en: 'Kali Linux, XSS, SQLi, scanning & ethical hacking — from basics to practice' },
-  track_redteam_level: { he: 'בינוני–מתקדם', en: 'Intermediate–Advanced' },
 
   track_secdev_title: { he: 'פיתוח מאובטח ו-AI Security', en: 'Secure Development & AI Security' },
   track_secdev_subtitle: { he: 'OWASP Top 10, Secure Coding, API Security, Prompt Injection — פיתוח בטוח', en: 'OWASP Top 10, Secure Coding, API Security, Prompt Injection — build safe' },

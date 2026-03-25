@@ -2,57 +2,7 @@ import { useState, useEffect } from 'react'
 import { useLang } from '../utils/language.jsx'
 import { isProUnlocked, validateCode } from '../utils/proAccess.js'
 
-const TRACKS = [
-  {
-    id: 'security',
-    label: { he: '🔒 אבטחת מידע', en: '🔒 Cybersecurity' },
-    labs: [
-      { id: 'sec-ch01', chapter: { he: 'פרק 1', en: 'Chapter 1' }, title: { he: '🔍 Network Scanning עם Nmap', en: '🔍 Network Scanning with Nmap' }, description: { he: 'סריקת רשתות, גילוי hosts ושירותים פתוחים עם Nmap.', en: 'Network scanning, host discovery and open service detection with Nmap.' }, difficulty: { he: 'מתחיל', en: 'Beginner' }, xp: 110, src: '/learn/security/lab_ch01.html' },
-      { id: 'sec-ch02', chapter: { he: 'פרק 2', en: 'Chapter 2' }, title: { he: '🎣 Phishing Email Analysis', en: '🎣 Phishing Email Analysis' }, description: { he: 'ניתוח מיילים פישינג, זיהוי סימני מניפולציה וטכניקות Social Engineering.', en: 'Analyzing phishing emails, identifying manipulation signs and Social Engineering.' }, difficulty: { he: 'מתחיל', en: 'Beginner' }, xp: 110, src: '/learn/security/lab_ch02.html' },
-      { id: 'sec-ch03', chapter: { he: 'פרק 3', en: 'Chapter 3' }, title: { he: '💉 SQL Injection עם DVWA', en: '💉 SQL Injection with DVWA' }, description: { he: 'ניצול חולשות SQL Injection ב-DVWA — הבנת המתקפה והגנה.', en: 'Exploiting SQL Injection vulnerabilities in DVWA — attack and defense.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/security/lab_ch03.html' },
-      { id: 'sec-ch04', chapter: { he: 'פרק 4', en: 'Chapter 4' }, title: { he: '🔓 Password Cracking עם Hashcat', en: '🔓 Password Cracking with Hashcat' }, description: { he: 'פיצוח סיסמאות מוצפנות עם Hashcat — dictionary attacks ו-brute force.', en: 'Cracking hashed passwords with Hashcat — dictionary attacks and brute force.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 140, src: '/learn/security/lab_ch04.html' },
-      { id: 'sec-ch05', chapter: { he: 'פרק 5', en: 'Chapter 5' }, title: { he: '🦈 Wireshark — ניתוח תעבורת רשת', en: '🦈 Wireshark — Network Traffic Analysis' }, description: { he: 'ניתוח packets בזמן אמת עם Wireshark, זיהוי תעבורה חשודה.', en: 'Real-time packet analysis with Wireshark, detecting suspicious traffic.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/security/lab_ch05.html' },
-      { id: 'sec-ch06', chapter: { he: 'פרק 6', en: 'Chapter 6' }, title: { he: '🏴 CTF Challenge: TryHackMe / HackTheBox', en: '🏴 CTF Challenge: TryHackMe / HackTheBox' }, description: { he: 'פתרון אתגר CTF מעשי — שילוב כל הכלים שנלמדו.', en: 'Solving a practical CTF challenge — combining all learned tools.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 160, src: '/learn/security/lab_ch06.html' },
-    ],
-  },
-  {
-    id: 'devops',
-    label: { he: '☁️ DevOps & Cloud', en: '☁️ DevOps & Cloud' },
-    labs: [
-      { id: 'dev-ch01', chapter: { he: 'פרק 3', en: 'Chapter 3' }, title: { he: '🐳 Docker: בנה ופרוס אפליקציה ראשונה', en: '🐳 Docker: Build and Deploy First App' }, description: { he: 'בניית Docker image, הרצת containers ופרסום לפרודקשן.', en: 'Build Docker image, run containers and deploy to production.' }, difficulty: { he: 'מתחיל', en: 'Beginner' }, xp: 110, src: '/learn/devops/lab_ch01.html' },
-      { id: 'dev-ch02', chapter: { he: 'פרק 4', en: 'Chapter 4' }, title: { he: '☸️ Kubernetes Local עם minikube', en: '☸️ Kubernetes Local with minikube' }, description: { he: 'הרצת cluster מקומי עם minikube, deployments, services ו-scaling.', en: 'Run local cluster with minikube, deployments, services and scaling.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/devops/lab_ch02.html' },
-      { id: 'dev-ch03', chapter: { he: 'פרק 5', en: 'Chapter 5' }, title: { he: '⚙️ GitHub Actions CI/CD Pipeline', en: '⚙️ GitHub Actions CI/CD Pipeline' }, description: { he: 'בניית pipeline אוטומטי — build, test, deploy עם GitHub Actions.', en: 'Build automated pipeline — build, test, deploy with GitHub Actions.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/devops/lab_ch03.html' },
-      { id: 'dev-ch04', chapter: { he: 'פרק 6', en: 'Chapter 6' }, title: { he: '🏗️ Terraform: הרם AWS Infrastructure מאפס', en: '🏗️ Terraform: Provision AWS Infrastructure' }, description: { he: 'כתיבת Terraform ראשון, הרמת EC2 + VPC + S3 על AWS.', en: 'Write first Terraform, provision EC2 + VPC + S3 on AWS.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 150, src: '/learn/devops/lab_ch04.html' },
-      { id: 'dev-ch05', chapter: { he: 'פרק 7', en: 'Chapter 7' }, title: { he: '📊 Prometheus + Grafana Stack', en: '📊 Prometheus + Grafana Stack' }, description: { he: 'הקמת monitoring stack מלא עם Prometheus, Grafana ו-AlertManager.', en: 'Set up full monitoring stack with Prometheus, Grafana and AlertManager.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 140, src: '/learn/devops/lab_ch05.html' },
-      { id: 'dev-ch06', chapter: { he: 'פרק 4', en: 'Chapter 4' }, title: { he: '🔵 Blue/Green Deployment ב-K8s', en: '🔵 Blue/Green Deployment in K8s' }, description: { he: 'Zero-downtime deployment עם Blue/Green strategy ב-Kubernetes.', en: 'Zero-downtime deployment with Blue/Green strategy in Kubernetes.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 150, src: '/learn/devops/lab_ch06.html' },
-      { id: 'dev-ch07', chapter: { he: 'פרק 6', en: 'Chapter 6' }, title: { he: '🔐 Secrets Management עם HashiCorp Vault', en: '🔐 Secrets Management with HashiCorp Vault' }, description: { he: 'ניהול סודות, API keys וסיסמאות בצורה מאובטחת עם Vault.', en: 'Manage secrets, API keys and passwords securely with Vault.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 160, src: '/learn/devops/lab_ch07.html' },
-    ],
-  },
-  {
-    id: 'webapi',
-    label: { he: '🌍 Web ו-APIs', en: '🌍 Web & APIs' },
-    labs: [
-      { id: 'web-ch01', chapter: { he: 'פרק 1', en: 'Chapter 1' }, title: { he: '🌐 HTTP בחשיפה מלאה עם curl',            en: '🌐 HTTP Deep Dive with curl'              }, description: { he: 'ניתוח בקשות HTTP, Headers, Status Codes וניפוי תגובות עם curl.', en: 'Analyze HTTP requests, headers, status codes and debug responses with curl.' }, difficulty: { he: 'מתחיל',  en: 'Beginner'     }, xp: 100, src: '/learn/webapi/lab_ch01.html' },
-      { id: 'web-ch02', chapter: { he: 'פרק 2', en: 'Chapter 2' }, title: { he: '⚙️ בנה REST API עם Node.js + Express',  en: '⚙️ Build REST API with Node.js + Express' }, description: { he: 'פיתוח REST API מאפס — routes, middleware, error handling.', en: 'Build REST API from scratch — routes, middleware, error handling.' },           difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 130, src: '/learn/webapi/lab_ch02.html' },
-      { id: 'web-ch03', chapter: { he: 'פרק 4', en: 'Chapter 4' }, title: { he: '🔑 Auth: JWT + Refresh Tokens',          en: '🔑 Auth: JWT + Refresh Tokens'            }, description: { he: 'יישום Authentication מלא: JWT, Refresh Tokens, שמירת sessions.', en: 'Implement full Authentication: JWT, Refresh Tokens, session management.' },    difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 140, src: '/learn/webapi/lab_ch03.html' },
-      { id: 'web-ch04', chapter: { he: 'פרק 5', en: 'Chapter 5' }, title: { he: '💬 WebSocket Chat בזמן אמת',            en: '💬 WebSocket Real-Time Chat'              }, description: { he: 'בניית צ\'אט בזמן אמת עם WebSocket, Socket.io, rooms ו-events.', en: 'Build real-time chat with WebSocket, Socket.io, rooms and events.' },          difficulty: { he: 'בינוני',  en: 'Intermediate' }, xp: 130, src: '/learn/webapi/lab_ch04.html' },
-      { id: 'web-ch05', chapter: { he: 'פרק 6', en: 'Chapter 6' }, title: { he: '🚦 Rate Limiting & API Gateway',         en: '🚦 Rate Limiting & API Gateway'           }, description: { he: 'הגנת API עם Rate Limiting, API Gateway, Throttling ו-Circuit Breaker.', en: 'Protect API with Rate Limiting, API Gateway, Throttling and Circuit Breaker.' }, difficulty: { he: 'מתקדם', en: 'Advanced'     }, xp: 150, src: '/learn/webapi/lab_ch05.html' },
-      { id: 'web-ch06', chapter: { he: 'פרק 8', en: 'Chapter 8' }, title: { he: '📈 API Load Testing עם k6',             en: '📈 API Load Testing with k6'              }, description: { he: 'בדיקות עומס על API עם k6 — Virtual Users, ramps, thresholds.', en: 'Load testing API with k6 — Virtual Users, ramps, thresholds.' },               difficulty: { he: 'מתקדם',  en: 'Advanced'     }, xp: 150, src: '/learn/webapi/lab_ch06.html' },
-    ],
-  },
-  {
-    id: 'linux',
-    label: { he: '🐧 מערכות ולינוקס', en: '🐧 System & Linux' },
-    labs: [
-      { id: 'lnx-ch01', chapter: { he: 'פרק 2', en: 'Chapter 2' }, title: { he: '🗂️ Filesystem Archaeology',            en: '🗂️ Filesystem Archaeology'         }, description: { he: 'חקירת מבנה הקבצים, hardlinks, inodes, find ו-lsof.', en: 'Explore filesystem structure, hardlinks, inodes, find and lsof.' }, difficulty: { he: 'מתחיל', en: 'Beginner' }, xp: 110, src: '/learn/linux/lab_ch01.html' },
-      { id: 'lnx-ch02', chapter: { he: 'פרק 4', en: 'Chapter 4' }, title: { he: '⚙️ Bash Script ברמת Production',       en: '⚙️ Production-Grade Bash Script'   }, description: { he: 'כתיבת סקריפט Bash מקצועי עם error handling, logging ו-flags.', en: 'Write professional Bash script with error handling, logging and flags.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/linux/lab_ch02.html' },
-      { id: 'lnx-ch03', chapter: { he: 'פרק 5', en: 'Chapter 5' }, title: { he: '🔍 Log Analysis Kung-Fu',               en: '🔍 Log Analysis Kung-Fu'            }, description: { he: 'ניתוח לוגים עם grep, awk, sed, sort, uniq — מציאת דפוסים ושגיאות.', en: 'Analyze logs with grep, awk, sed, sort, uniq — find patterns and errors.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 130, src: '/learn/linux/lab_ch03.html' },
-      { id: 'lnx-ch04', chapter: { he: 'פרק 3', en: 'Chapter 3' }, title: { he: '🧠 Process & Memory Forensics',         en: '🧠 Process & Memory Forensics'     }, description: { he: 'חקירת תהליכים, זיכרון ו-CPU עם ps, top, htop, strace, lsof.', en: 'Investigate processes, memory and CPU with ps, top, htop, strace, lsof.' }, difficulty: { he: 'בינוני', en: 'Intermediate' }, xp: 140, src: '/learn/linux/lab_ch04.html' },
-      { id: 'lnx-ch05', chapter: { he: 'פרק 8', en: 'Chapter 8' }, title: { he: '🔧 systemd Service ברמה מקצועית',      en: '🔧 Production systemd Service'     }, description: { he: 'כתיבת systemd unit file, Type=notify, journald, restart policies.', en: 'Write systemd unit file, Type=notify, journald, restart policies.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 150, src: '/learn/linux/lab_ch05.html' },
-      { id: 'lnx-ch06', chapter: { he: 'פרק 10', en: 'Chapter 10' }, title: { he: '🔒 SSH Hardening + Fail2ban',         en: '🔒 SSH Hardening + Fail2ban'       }, description: { he: 'הקשחת SSH: key-only auth, port change, fail2ban, UFW rules.', en: 'Harden SSH: key-only auth, port change, fail2ban, UFW rules.' }, difficulty: { he: 'מתקדם', en: 'Advanced' }, xp: 150, src: '/learn/linux/lab_ch06.html' },
-    ],
-  },
-]
+const TRACKS = []
 
 const DIFFICULTY_COLORS = {
   'מתחיל': { bg: 'rgba(5,150,105,0.1)', color: '#047857' },
@@ -133,7 +83,7 @@ function ProLockScreen({ onUnlock, isEn }) {
 }
 
 // Map content.js track IDs → LabsTab TRACKS IDs
-const TRACK_ID_MAP = { cyber: 'security', devops: 'devops', linux: 'linux', webapi: 'webapi' }
+const TRACK_ID_MAP = {}
 
 export function LabsTab({ trackId }) {
   const { lang } = useLang()
