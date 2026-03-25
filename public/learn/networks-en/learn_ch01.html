@@ -1217,90 +1217,179 @@ section#lab {
   opacity: 0;
   transition: opacity .3s;
 }
+
+/* ══ QUIZ ══ */
+section#quiz { height: calc(100vh - 52px); overflow: hidden; }
+.quiz-layout { height: 100%; display: flex; flex-direction: column; }
+
+/* Home screen */
+.quiz-home {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 32px 24px; text-align: center; gap: 16px;
+}
+.quiz-home-icon { font-size: 3rem; }
+.quiz-home-h { font-size: 1.6rem; font-weight: 800; color: var(--ink); }
+.quiz-home-p { font-size: .95rem; color: var(--dim); max-width: 400px; }
+.quiz-home-modes { display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap; justify-content: center; }
+.qz-mode-btn {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px; padding: 20px 28px;
+  background: var(--surface); border: 2px solid var(--border);
+  border-radius: 14px; cursor: pointer; transition: all .15s;
+  font-family: var(--f-body); min-width: 120px;
+}
+.qz-mode-btn:hover { border-color: var(--ac); background: var(--ac-lt); transform: translateY(-2px); }
+.qz-mode-icon { font-size: 1.5rem; }
+.qz-mode-n { font-size: 1.8rem; font-weight: 800; color: var(--ac); }
+.qz-mode-l { font-size: .78rem; color: var(--dim); font-weight: 600; }
+.quiz-best {
+  font-size: .85rem; color: var(--dim);
+  padding: 6px 16px; background: var(--bg);
+  border-radius: 20px; border: 1px solid var(--border);
+}
+
+/* Game */
+.quiz-game {
+  flex: 1; display: flex; flex-direction: column;
+  min-height: 0; background: var(--bg);
+}
+
+/* HUD */
+.quiz-hud {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 20px; background: var(--surface);
+  border-bottom: 1px solid var(--border); flex-shrink: 0;
+}
+.qz-hud-left, .qz-hud-right { display: flex; gap: 16px; align-items: center; min-width: 100px; }
+.qz-hud-right { justify-content: flex-end; }
+.qz-stat { text-align: center; }
+.qz-stat-v { display: block; font-size: 1.1rem; font-weight: 800; color: var(--ink); }
+.qz-stat-l { display: block; font-size: .65rem; color: var(--dim); text-transform: uppercase; letter-spacing: .06em; }
+
+/* Timer */
+.qz-timer-wrap { position: relative; width: 44px; height: 44px; }
+.qz-timer-svg { transform: rotate(-90deg); width: 44px; height: 44px; }
+.qz-timer-bg  { fill: none; stroke: var(--border); stroke-width: 4; }
+.qz-timer-arc {
+  fill: none; stroke: #3fb950; stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 113.1; stroke-dashoffset: 0;
+  transition: stroke-dashoffset .9s linear, stroke .3s;
+}
+.qz-timer-num {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .85rem; font-weight: 800; color: #e6edf3;
+}
+.qz-quit-btn {
+  background: none; border: 1px solid var(--border);
+  color: var(--dim); width: 28px; height: 28px;
+  border-radius: 50%; cursor: pointer; font-size: .8rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+}
+.qz-quit-btn:hover { background: var(--rd-lt); color: var(--rd); border-color: var(--rd); }
+
+/* Question area */
+.quiz-q-area {
+  flex: 1; overflow-y: auto; padding: 20px 24px 24px;
+  display: flex; flex-direction: column; gap: 12px;
+  max-width: 720px; margin: 0 auto; width: 100%;
+  box-sizing: border-box;
+}
+.qz-cat {
+  font-size: .72rem; font-weight: 700; color: var(--ac);
+  text-transform: uppercase; letter-spacing: .08em;
+}
+.qz-q {
+  font-size: 1.05rem; font-weight: 700; color: var(--ink);
+  line-height: 1.45;
+}
+.qz-snip {
+  background: var(--code-bg); border-radius: 8px;
+  padding: 10px 12px; font-family: var(--f-mono);
+  font-size: .78rem; color: #e2e8f0;
+  overflow-x: auto;
+}
+.qz-opts { display: flex; flex-direction: column; gap: 8px; }
+.qz-opt {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: 9px; padding: 10px 14px; cursor: pointer;
+  font-family: var(--f-body); font-size: .9rem; text-align: start;
+  transition: border-color .12s, background .12s;
+}
+.qz-opt:hover:not(:disabled) { border-color: var(--ac); background: var(--ac-lt); }
+.qz-opt.correct { border-color: var(--gr); background: var(--gr-lt); }
+.qz-opt.wrong   { border-color: var(--rd); background: var(--rd-lt); }
+.qz-opt:disabled { cursor: default; }
+.qz-lbl {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--border); color: var(--dim);
+  font-size: .72rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.qz-opt.correct .qz-lbl { background: var(--gr); color: #fff; }
+.qz-opt.wrong   .qz-lbl { background: var(--rd); color: #fff; }
+.qz-txt { flex: 1; line-height: 1.4; }
+
+/* Feedback */
+.qz-feedback { display: none; }
+.qz-fb-top {
+  font-size: 1rem; font-weight: 700; padding: 8px 12px;
+  border-radius: 8px; margin-bottom: 8px;
+}
+.qz-fb-top.ok  { background: var(--gr-lt); color: var(--gr); }
+.qz-fb-top.bad { background: var(--rd-lt); color: var(--rd); }
+.qz-pts { font-size: .85rem; background: rgba(0,0,0,.08); padding: 1px 6px; border-radius: 20px; margin-inline-start: 6px; }
+.qz-fb-exp {
+  font-size: .85rem; color: var(--dim); line-height: 1.55;
+  padding: 8px 12px; background: var(--bg);
+  border-radius: 8px; border: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+.qz-next-btn {
+  background: var(--ac); color: #fff; border: none;
+  padding: 10px 24px; border-radius: 8px; cursor: pointer;
+  font-family: var(--f-body); font-size: .9rem; font-weight: 600;
+  transition: background .15s;
+}
+.qz-next-btn:hover { background: var(--ac-h); }
+
+/* Result */
+.quiz-result {
+  flex: 1; display: none; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 32px 24px; text-align: center; gap: 16px;
+}
+.qzr-ring { position: relative; width: 130px; height: 130px; }
+.qzr-ring svg { transform: rotate(-90deg); width: 130px; height: 130px; }
+.qzr-bg  { fill: none; stroke: var(--border); stroke-width: 8; }
+.qzr-arc { fill: none; stroke-width: 8; stroke-linecap: round; stroke-dasharray: 314; stroke-dashoffset: 314; transition: stroke-dashoffset 1s ease; }
+.qzr-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.qzr-pct   { font-size: 1.5rem; font-weight: 800; color: var(--ink); }
+.qzr-grade { font-size: .9rem; font-weight: 700; color: var(--dim); }
+.qzr-title { font-size: 1.2rem; font-weight: 700; }
+.qzr-stats { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.qzrs      { text-align: center; }
+.qzrs-v    { font-size: 1.4rem; font-weight: 800; }
+.qzrs-l    { font-size: .68rem; color: var(--dim); text-transform: uppercase; letter-spacing: .05em; }
+.qzr-score { font-size: 1rem; font-weight: 700; color: var(--ac); }
+.qzr-btns  { display: flex; gap: 12px; }
+.qzr-btn-again {
+  background: var(--ac); color: #fff; border: none;
+  padding: 10px 22px; border-radius: 8px; cursor: pointer;
+  font-family: var(--f-body); font-size: .9rem; font-weight: 600;
+}
+.qzr-btn-home {
+  background: var(--surface); border: 1.5px solid var(--border);
+  color: var(--dim); padding: 10px 22px; border-radius: 8px;
+  cursor: pointer; font-family: var(--f-body); font-size: .9rem;
+}
 </style>
 
-<style id="ng-fix">
-/* NG: Noto Sans Hebrew for nikud */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
-:root {
-  --f-body: 'Noto Sans Hebrew', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-body { font-family: var(--f-body); }
-
-/* NG: Networks dark mode (inverts the light :root defaults) */
-[data-theme="dark"] {
-  --bg:      #0b1020;
-  --surface: #131928;
-  --border:  #1e2d45; --border2: #263550;
-  --ink:     #e2e8f0; --ink2: #cbd5e1;
-  --dim:     #94a3b8; --dim2:  #64748b;
-  --ac:      #60a5fa; --ac-h: #93c5fd; --ac-lt: rgba(96,165,250,0.1);
-  --gr:      #4ade80; --gr-lt: rgba(74,222,128,0.08);
-  --rd:      #f87171; --rd-lt: rgba(248,113,113,0.08);
-  --yw:      #fbbf24; --yw-lt: rgba(251,191,36,0.08);
-  --pu:      #c084fc;
-  --code-bg: #0d1b2e;
-}
-[data-theme="dark"] body     { background: var(--bg) !important; color: var(--ink) !important; }
-[data-theme="dark"] pre      { background: var(--code-bg) !important; color: #cdd6f4 !important; }
-[data-theme="dark"] code     { background: rgba(96,165,250,0.08) !important; color: var(--ac) !important; }
-[data-theme="dark"] .header-bar,
-[data-theme="dark"] nav      { background: rgba(11,16,32,0.95) !important; border-color: var(--border) !important; }
-
-/* NG: Terminal — collapse sidebar on mobile */
-@media (max-width: 640px) {
-  .trm-layout {
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto 1fr;
-    height: auto !important;
-    min-height: 100vh;
-  }
-  .trm-missions {
-    max-height: 220px;
-    border-inline-end: none !important;
-    border-bottom: 1px solid #21262d;
-  }
-  .trm-wrap { max-height: 60vh !important; }
-}
-
-/* NG: Learn chapters — collapse sidebar on mobile */
-@media (max-width: 680px) {
-  .learn-layout {
-    flex-direction: column !important;
-    height: auto !important;
-    overflow: visible !important;
-  }
-  .l-sb { display: none !important; }
-  .l-content {
-    width: 100% !important; min-width: 0 !important;
-    padding: 16px 14px 60px !important;
-    overflow-y: visible !important; height: auto !important;
-  }
-}
-
-/* NG: Universal */
-body { overflow-x: hidden; }
-img  { max-width: 100% !important; height: auto !important; }
-pre, .code-body, .code-block { overflow-x: auto !important; max-width: 100%; }
-table { display: block; overflow-x: auto; max-width: 100%; }
-@media (max-width: 480px) { body { font-size: 14px; } }
-
-</style>
-<style id="ng-light">
-[data-theme="light"] {
-  --bg: #f0f6ff;
-  --surface: #ffffff;
-  --border: #dce8f8; --border2: #c0d4f0;
-  --ink: #0f172a; --ink2: #1e293b;
-  --dim: #2a4a6a; --dim2: #475569;
-  --ac: #0284c7; --ac-h: #0369a1; --ac-lt: rgba(2,132,199,0.08);
-  --gr: #059669; --gr-lt: rgba(5,150,105,0.06);
-  --rd: #dc2626; --rd-lt: rgba(220,38,38,0.06);
-  --yw: #d97706; --yw-lt: rgba(217,119,6,0.06);
-  --pu: #7c3aed; --code-bg: #1e293b;
-}
-</style>
-<script src="/_bridge.js"></script>
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
