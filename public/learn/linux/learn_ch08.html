@@ -1101,6 +1101,15 @@ html, body { overflow-x: hidden; }
   pre { padding: 10px 8px; }
 }
 </style>
+<script src="/_bridge.js"></script>
+<style id="ng-fix">
+/* NG responsive: prevent horizontal overflow, fix media, code scrolling */
+body { overflow-x: hidden; }
+img { max-width: 100% !important; height: auto !important; }
+pre, .code-body, .code-block { overflow-x: auto !important; max-width: 100%; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 480px) { body { font-size: 14px; } }
+</style>
 <style id="ng-light">
 [data-theme="light"] {
   --bg: #f4fbf4; --bg2: #ebf5eb;
@@ -1111,7 +1120,6 @@ html, body { overflow-x: hidden; }
   --cursor: #16a34a; --phosphor: rgba(22,163,74,0.08);
 }
 </style>
-<script src="/_bridge.js"></script>
 </head>
 <body>
 <div class="container">

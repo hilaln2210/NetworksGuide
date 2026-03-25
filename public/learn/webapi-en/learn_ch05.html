@@ -975,6 +975,24 @@ body::after {
 </style>
 
 <script src="/_bridge.js"></script>
+<style id="ng-fix">
+/* NG responsive: prevent horizontal overflow, fix media, code scrolling */
+body { overflow-x: hidden; }
+img { max-width: 100% !important; height: auto !important; }
+pre, .code-body, .code-block { overflow-x: auto !important; max-width: 100%; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 480px) { body { font-size: 14px; } }
+</style>
+<style id="ng-light">
+[data-theme="light"] {
+  --bg: #f8f9ff; --bg2: #f0f1fb;
+  --surface: #ffffff; --card: #fafafe;
+  --border: #dde0f5; --border2: #c8ccee;
+  --text: #1e1b4b; --text-mid: #3730a3; --text-dim: #6366f1;
+  --blue: #4338ca; --blue2: #4f46e5; --blue3: #818cf8;
+  --blue-glow: rgba(67,56,202,0.1); --code-bg: #f0f0ff;
+}
+</style>
 </head>
 <body>
 <div class="ch open" id="c4">

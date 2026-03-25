@@ -80,17 +80,88 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .bl{font-size:12px;color:var(--mt);margin-top:2px;}
 .rbtn{background:linear-gradient(135deg,var(--ac2),#4f46e5);border:none;color:#fff;padding:14px 36px;border-radius:10px;font-family:var(--sans);font-size:16px;font-weight:600;cursor:pointer;}
 </style>
+<script src="/_bridge.js"></script>
+<style id="ng-fix">
+/* NG: Noto Sans Hebrew for nikud */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
+:root {
+  --f-body: 'Noto Sans Hebrew', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+body { font-family: var(--f-body); }
+
+/* NG: Networks dark mode (inverts the light :root defaults) */
+[data-theme="dark"] {
+  --bg:      #0b1020;
+  --surface: #131928;
+  --border:  #1e2d45; --border2: #263550;
+  --ink:     #e2e8f0; --ink2: #cbd5e1;
+  --dim:     #94a3b8; --dim2:  #64748b;
+  --ac:      #60a5fa; --ac-h: #93c5fd; --ac-lt: rgba(96,165,250,0.1);
+  --gr:      #4ade80; --gr-lt: rgba(74,222,128,0.08);
+  --rd:      #f87171; --rd-lt: rgba(248,113,113,0.08);
+  --yw:      #fbbf24; --yw-lt: rgba(251,191,36,0.08);
+  --pu:      #c084fc;
+  --code-bg: #0d1b2e;
+}
+[data-theme="dark"] body     { background: var(--bg) !important; color: var(--ink) !important; }
+[data-theme="dark"] pre      { background: var(--code-bg) !important; color: #cdd6f4 !important; }
+[data-theme="dark"] code     { background: rgba(96,165,250,0.08) !important; color: var(--ac) !important; }
+[data-theme="dark"] .header-bar,
+[data-theme="dark"] nav      { background: rgba(11,16,32,0.95) !important; border-color: var(--border) !important; }
+
+/* NG: Terminal — collapse sidebar on mobile */
+@media (max-width: 640px) {
+  .trm-layout {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto 1fr;
+    height: auto !important;
+    min-height: 100vh;
+  }
+  .trm-missions {
+    max-height: 220px;
+    border-inline-end: none !important;
+    border-bottom: 1px solid #21262d;
+  }
+  .trm-wrap { max-height: 60vh !important; }
+}
+
+/* NG: Learn chapters — collapse sidebar on mobile */
+@media (max-width: 680px) {
+  .learn-layout {
+    flex-direction: column !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .l-sb { display: none !important; }
+  .l-content {
+    width: 100% !important; min-width: 0 !important;
+    padding: 16px 14px 60px !important;
+    overflow-y: visible !important; height: auto !important;
+  }
+}
+
+/* NG: Universal */
+body { overflow-x: hidden; }
+img  { max-width: 100% !important; height: auto !important; }
+pre, .code-body, .code-block { overflow-x: auto !important; max-width: 100%; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 480px) { body { font-size: 14px; } }
+
+</style>
 <style id="ng-light">
 [data-theme="light"] {
-  --bg: #f0f6ff; --bg2: #e8f0ff;
-  --surf: #ffffff; --surf2: #f5f8ff;
-  --brd: #ccd8f0; --brd2: #b8c8e8;
-  --ac: #0284c7; --ac2: #7c3aed;
-  --txt: #0f1f35; --txt2: #3a5a7a; --txt3: #5a7a9a;
-  --gr: #059669; --yw: #d97706; --rd: #dc2626;
+  --bg: #f0f6ff;
+  --surface: #ffffff;
+  --border: #dce8f8; --border2: #c0d4f0;
+  --ink: #0f172a; --ink2: #1e293b;
+  --dim: #2a4a6a; --dim2: #475569;
+  --ac: #0284c7; --ac-h: #0369a1; --ac-lt: rgba(2,132,199,0.08);
+  --gr: #059669; --gr-lt: rgba(5,150,105,0.06);
+  --rd: #dc2626; --rd-lt: rgba(220,38,38,0.06);
+  --yw: #d97706; --yw-lt: rgba(217,119,6,0.06);
+  --pu: #7c3aed; --code-bg: #1e293b;
 }
 </style>
-<script src="/_bridge.js"></script>
 </head>
 <body>
 <div class="wrap">

@@ -1,11 +1,24 @@
 #!/usr/bin/env python3
 """
-Inject _bridge.js + light-mode CSS into every public HTML file.
+Inject _bridge.js + light-mode CSS + fix/responsive CSS into every public HTML file.
 Run from the NetworksGuide project root.
+
+Skip logic:
+  - File has /_bridge.js AND id="ng-fix" → already fully injected, skip.
+  - Otherwise → strip old ng-light/ng-fix, re-inject fresh blocks + bridge.
 """
 import os, re
 
 PUBLIC_DIR = os.path.join(os.path.dirname(__file__), 'public')
+
+# ── Universal responsive/UX fixes applied to every track ──────────────────────
+_UNIVERSAL = """\
+/* NG responsive: prevent horizontal overflow, fix media, code scrolling */
+body { overflow-x: hidden; }
+img { max-width: 100% !important; height: auto !important; }
+pre, .code-body, .code-block { overflow-x: auto !important; max-width: 100%; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 480px) { body { font-size: 14px; } }"""
 
 # ── Light-mode CSS per file category ──────────────────────────────────────────
 LIGHT = {
@@ -46,64 +59,22 @@ LIGHT = {
   --text: #1c1b15; --text-dim: #5c5a50; --text-mid: #78756a;
 }""",
 
-    # /learn/networks/ files — SPA copies of networks_pro.html
-    'networks_spa': """\
+    # Networks files: :root is light by default.
+    # [data-theme="light"] fine-tunes; [data-theme="dark"] is added in FIX.
+    'networks': """\
 [data-theme="light"] {
-  --bg: #f0f6ff; --bg1: #e8f0ff;
-  --surf: #ffffff; --s2: #f0f5ff; --s3: #e8f0ff;
-  --brd: #c8d8f0; --brd2: #b0c4e8;
-  --ac: #0284c7; --ac2: #7c3aed;
-  --txt: #0f1f35; --dim: #2a4a6a; --dim2: #334155;
-  --gr: #059669; --yw: #d97706; --rd: #dc2626; --pk: #db2777;
-}
-/* Fix hardcoded #fff text — chapter & section titles */
-[data-theme="light"] .ch-title,
-[data-theme="light"] .section-h,
-[data-theme="light"] .concept-title,
-[data-theme="light"] .alert-title,
-[data-theme="light"] .curr-name,
-[data-theme="light"] .ms-title,
-[data-theme="light"] .mc-title,
-[data-theme="light"] .hstat-val,
-[data-theme="light"] .nav-logo,
-[data-theme="light"] .hero-title { color: #0f1f35 !important; }
-
-/* Summary table */
-[data-theme="light"] .sum-tbl th { background: #dce8f8 !important; color: #0284c7 !important; }
-[data-theme="light"] .sum-tbl td:first-child { color: #0f1f35 !important; }
-[data-theme="light"] .sum-tbl tr:nth-child(even) td { background: rgba(2,132,199,0.04) !important; }
-
-/* Alert boxes — keep colored bg but fix title */
-[data-theme="light"] .alert-box.info { background: rgba(2,132,199,0.08) !important; border-color: rgba(2,132,199,0.3) !important; }
-[data-theme="light"] .alert-box.tip  { background: rgba(5,150,105,0.08) !important; border-color: rgba(5,150,105,0.3) !important; }
-[data-theme="light"] .alert-box.warn { background: rgba(217,119,6,0.08) !important; border-color: rgba(217,119,6,0.3) !important; }
-
-/* Concept cards */
-[data-theme="light"] .concept { background: #f0f5ff !important; border-color: #c8d8f0 !important; }
-
-/* Mission elements */
-[data-theme="light"] .mi-num { background: rgba(2,132,199,0.08) !important; border-color: #c8d8f0 !important; }
-[data-theme="light"] .mission-item:hover { background: rgba(2,132,199,0.05) !important; }
-
-/* Buttons with near-invisible bg */
-[data-theme="light"] .tqc-btn { background: rgba(2,132,199,0.06) !important; color: #334155 !important; }
-
-/* Nav */
-[data-theme="light"] .nav-tab { color: #2a4a6a !important; }
-[data-theme="light"] .header-bar { background: rgba(240,246,255,0.95) !important; border-color: #c8d8f0 !important; }""",
-
-    # /labs/networks/ — pre-built terminal lab files
-    'networks_lab': """\
-[data-theme="light"] {
-  --bg: #f0f6ff; --bg2: #e8f0ff;
-  --surf: #ffffff; --surf2: #f5f8ff;
-  --brd: #ccd8f0; --brd2: #b8c8e8;
-  --ac: #0284c7; --ac2: #7c3aed;
-  --txt: #0f1f35; --txt2: #3a5a7a; --txt3: #5a7a9a;
-  --gr: #059669; --yw: #d97706; --rd: #dc2626;
+  --bg: #f0f6ff;
+  --surface: #ffffff;
+  --border: #dce8f8; --border2: #c0d4f0;
+  --ink: #0f172a; --ink2: #1e293b;
+  --dim: #2a4a6a; --dim2: #475569;
+  --ac: #0284c7; --ac-h: #0369a1; --ac-lt: rgba(2,132,199,0.08);
+  --gr: #059669; --gr-lt: rgba(5,150,105,0.06);
+  --rd: #dc2626; --rd-lt: rgba(220,38,38,0.06);
+  --yw: #d97706; --yw-lt: rgba(217,119,6,0.06);
+  --pu: #7c3aed; --code-bg: #1e293b;
 }""",
 
-    # /labs/sec-*.html, /labs/soc-lab.html, /labs/ch*.html
     'security_lab': """\
 [data-theme="light"] {
   --bg: #f8fafc; --bg2: #f1f5f9; --bg3: #e8eef5;
@@ -116,20 +87,98 @@ LIGHT = {
 }""",
 }
 
+# ── Fix / responsive CSS per file category ────────────────────────────────────
+FIX = {
+    'webapi':       _UNIVERSAL,
+    'linux':        _UNIVERSAL,
+    'security':     _UNIVERSAL,
+    'devops':       _UNIVERSAL,
+    'security_lab': _UNIVERSAL,
+
+    # Networks: add Noto Sans Hebrew + dark mode + terminal/learn mobile fixes
+    'networks': """\
+/* NG: Noto Sans Hebrew for nikud */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
+:root {
+  --f-body: 'Noto Sans Hebrew', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+body { font-family: var(--f-body); }
+
+/* NG: Networks dark mode (inverts the light :root defaults) */
+[data-theme="dark"] {
+  --bg:      #0b1020;
+  --surface: #131928;
+  --border:  #1e2d45; --border2: #263550;
+  --ink:     #e2e8f0; --ink2: #cbd5e1;
+  --dim:     #94a3b8; --dim2:  #64748b;
+  --ac:      #60a5fa; --ac-h: #93c5fd; --ac-lt: rgba(96,165,250,0.1);
+  --gr:      #4ade80; --gr-lt: rgba(74,222,128,0.08);
+  --rd:      #f87171; --rd-lt: rgba(248,113,113,0.08);
+  --yw:      #fbbf24; --yw-lt: rgba(251,191,36,0.08);
+  --pu:      #c084fc;
+  --code-bg: #0d1b2e;
+}
+[data-theme="dark"] body     { background: var(--bg) !important; color: var(--ink) !important; }
+[data-theme="dark"] pre      { background: var(--code-bg) !important; color: #cdd6f4 !important; }
+[data-theme="dark"] code     { background: rgba(96,165,250,0.08) !important; color: var(--ac) !important; }
+[data-theme="dark"] .header-bar,
+[data-theme="dark"] nav      { background: rgba(11,16,32,0.95) !important; border-color: var(--border) !important; }
+
+/* NG: Terminal — collapse sidebar on mobile */
+@media (max-width: 640px) {
+  .trm-layout {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto 1fr;
+    height: auto !important;
+    min-height: 100vh;
+  }
+  .trm-missions {
+    max-height: 220px;
+    border-inline-end: none !important;
+    border-bottom: 1px solid #21262d;
+  }
+  .trm-wrap { max-height: 60vh !important; }
+}
+
+/* NG: Learn chapters — collapse sidebar on mobile */
+@media (max-width: 680px) {
+  .learn-layout {
+    flex-direction: column !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  .l-sb { display: none !important; }
+  .l-content {
+    width: 100% !important; min-width: 0 !important;
+    padding: 16px 14px 60px !important;
+    overflow-y: visible !important; height: auto !important;
+  }
+}
+
+/* NG: Universal */
+body { overflow-x: hidden; }
+img  { max-width: 100% !important; height: auto !important; }
+pre, .code-body, .code-block { overflow-x: auto !important; max-width: 100%; }
+table { display: block; overflow-x: auto; max-width: 100%; }
+@media (max-width: 480px) { body { font-size: 14px; } }
+""",
+}
+
 
 def get_category(filepath):
     rel = os.path.relpath(filepath, PUBLIC_DIR).replace('\\', '/')
     parts = rel.split('/')
     if parts[0] == 'learn' and len(parts) > 1:
         sub = parts[1]
-        if sub == 'webapi':   return 'webapi'
-        if sub == 'linux':    return 'linux'
-        if sub == 'security': return 'security'
-        if sub == 'devops':   return 'devops'
-        if sub == 'networks': return 'networks_spa'
+        base = sub[:-3] if sub.endswith('-en') else sub  # strip -en suffix
+        if base == 'webapi':    return 'webapi'
+        if base == 'linux':     return 'linux'
+        if base == 'security':  return 'security'
+        if base == 'devops':    return 'devops'
+        if base == 'networks':  return 'networks'
     if parts[0] == 'labs':
         if len(parts) > 1 and parts[1] == 'networks':
-            return 'networks_lab'
+            return 'networks'
         return 'security_lab'
     return None
 
@@ -138,24 +187,33 @@ def inject_file(filepath):
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    if '/_bridge.js' in content:
+    has_bridge = '/_bridge.js' in content
+    has_fix    = 'id="ng-fix"' in content
+
+    # Already fully processed — skip
+    if has_bridge and has_fix:
         return 'skipped'
 
+    # Strip old blocks (may have wrong CSS from previous runs)
+    content = re.sub(r'<style id="ng-light">.*?</style>\n?', '', content, flags=re.DOTALL)
+    content = re.sub(r'<style id="ng-fix">.*?</style>\n?',   '', content, flags=re.DOTALL)
+
     cat = get_category(filepath)
-    light_block = ''
-    if cat and cat in LIGHT:
-        light_block = f'<style id="ng-light">\n{LIGHT[cat]}\n</style>\n'
 
-    inject = light_block + '<script src="/_bridge.js"></script>\n'
+    fix_block   = f'<style id="ng-fix">\n{FIX[cat]}\n</style>\n'   if cat and cat in FIX   else ''
+    light_block = f'<style id="ng-light">\n{LIGHT[cat]}\n</style>\n' if cat and cat in LIGHT else ''
+    bridge_tag  = '' if has_bridge else '<script src="/_bridge.js"></script>\n'
+
+    inject = fix_block + light_block + bridge_tag
+    if not inject.strip():
+        return 'skipped'
+
     new_content = re.sub(r'</head>', inject + '</head>', content, count=1, flags=re.IGNORECASE)
-
     if new_content == content:
-        # No </head> found — append before </html>
         new_content = re.sub(r'</html>', inject + '</html>', content, count=1, flags=re.IGNORECASE)
 
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(new_content)
-
     return 'ok'
 
 
