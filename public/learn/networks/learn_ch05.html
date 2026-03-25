@@ -1219,7 +1219,6 @@ section#lab {
 }
 </style>
 
-<script src="/_bridge.js"></script>
 <style id="ng-fix">
 /* NG: Noto Sans Hebrew for nikud */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
@@ -1301,22 +1300,142 @@ table { display: block; overflow-x: auto; max-width: 100%; }
   --pu: #7c3aed; --code-bg: #1e293b;
 }
 </style>
+<script src="/_bridge.js"></script>
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-  <div id="chContent"></div>
+<div class="ch-eyebrow">פרק 05 מתוך 12</div>
+<h1 class="ch-title">🐍 Scapy</h1>
+<p class="ch-desc">sniff(), lfilter, prn, send(), sendp(), sr(), sr1() — בניית חבילות</p>
+<div class="divider"></div>
+<section class="learn-section">
+<span class="sec-label">01 — מה Scapy?</span>
+<h2 class="sec-h">Scapy — כלי רשת ב-Python</h2>
+<p>Scapy היא ספריית Python חיצונית שמאפשרת: <strong>בניית חבילות</strong> לכל שכבה, <strong>הסנפה</strong>, <strong>שליחה וקבלה</strong>. Sockets = שכבת אפליקציה בלבד. Scapy = כל שכבה.</p>
+<div class="callout note">📝 Scapy רצה <em>מעל</em> Python — כל הפונקציות של Python עובדות גם בתוכה (<code>print</code>, <code>dir</code>, לולאות וכו').</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">02 — בניית חבילה</span>
+<h2 class="sec-h">בניית חבילות — אופרטור /</h2>
+<p>חבילה בנויה שכבה על שכבה עם האופרטור <code>/</code>:</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Scapy</span></div>
+<pre class="code-body"><span class="kw">from</span> scapy.all <span class="kw">import</span> *
+
+<span class="cm"># חבילה IP בלבד</span>
+pkt = IP(dst=<span class="st">"8.8.8.8"</span>)
+
+<span class="cm"># IP + ICMP (ping)</span>
+pkt = IP(dst=<span class="st">"8.8.8.8"</span>) / ICMP()
+
+<span class="cm"># IP + TCP</span>
+pkt = IP(dst=<span class="st">"1.2.3.4"</span>) / TCP(dport=<span class="nu">80</span>)
+
+<span class="cm"># IP + UDP + DNS Query</span>
+pkt = IP(dst=<span class="st">"8.8.8.8"</span>) / UDP(dport=<span class="nu">53</span>) / DNS(rd=<span class="nu">1</span>, qd=DNSQR(qname=<span class="st">"google.com"</span>))
+
+pkt.show()  <span class="cm"># הצגת כל השדות</span></pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">03 — sniff()</span>
+<h2 class="sec-h">הסנפה עם sniff()</h2>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">sniff parameters</span></div>
+<pre class="code-body"><span class="cm"># lfilter = פונקציית סינון (True = לכד, False = דלג)</span>
+<span class="cm"># prn = callback לכל חבילה שנלכדה</span>
+<span class="cm"># count = כמה לכוד (0 = אינסוף)</span>
+<span class="cm"># store = 0 → לא שמור בזיכרון</span>
+
+sniff(
+    lfilter=<span class="kw">lambda</span> p: DNS <span class="kw">in</span> p,
+    prn=<span class="kw">lambda</span> p: p[DNS].qd.qname,
+    store=<span class="nu">0</span>
+)
+
+<span class="cm"># שרשרת הקריאות:</span>
+<span class="cm"># חבילה נלכדת → lfilter בודק → אם True → prn מופעל</span></pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">04 — send/sr/sr1</span>
+<h2 class="sec-h">שליחה — Layer 3</h2>
+<table class="tbl"><tr><th>פונקציה</th><th>Layer</th><th>מה עושה</th></tr>
+<tr><td><code>send(pkt)</code></td><td>L3</td><td>שולח, לא מחכה לתגובה</td></tr>
+<tr><td><code>sr(pkt)</code></td><td>L3</td><td>שולח ומחכה לתגובות מרובות. מחזיר (answered, unanswered)</td></tr>
+<tr><td><code>sr1(pkt)</code></td><td>L3</td><td>שולח ומחכה לתגובה <strong>אחת בלבד</strong></td></tr>
+</table>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">sr1 example — ping</span></div>
+<pre class="code-body">resp = sr1(IP(dst=<span class="st">"8.8.8.8"</span>) / ICMP())
+<span class="kw">print</span>(resp[IP].src)   <span class="cm"># 8.8.8.8</span></pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">05 — sendp</span>
+<h2 class="sec-h">sendp — שליחה Layer 2</h2>
+<p><code>sendp()</code> שולח ברמת Layer 2 — כולל Ethernet header. מאפשר שליטה מלאה ב-MAC source/destination.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">sendp example</span></div>
+<pre class="code-body"><span class="cm"># שליחה עם Ethernet header מלא</span>
+pkt = Ether(dst=<span class="st">"ff:ff:ff:ff:ff:ff"</span>) / IP(dst=<span class="st">"192.168.1.1"</span>) / ICMP()
+sendp(pkt)
+
+<span class="cm"># ההבדל: send() = Layer 3 (OS מוסיף Ethernet)</span>
+<span class="cm">#         sendp() = Layer 2 (אתה שולט על Ethernet)</span></pre></div>
+</section>
+<section class="learn-section">
+<span class="sec-label">07 — תקלות נפוצות</span>
+<h2 class="sec-h">Troubleshooting — Scapy</h2>
+<table class="tbl"><tr><th>שגיאה</th><th>סיבה</th><th>פתרון</th></tr>
+<tr><td><code>PermissionError</code> בשליחה</td><td>Scapy דורש הרשאות root ל-raw sockets</td><td>הרץ עם <code>sudo python3</code> או <code>sudo scapy</code></td></tr>
+<tr><td><code>sr1</code> מחזיר None</td><td>timeout — אין תגובה</td><td>בדוק firewall. נסה <code>timeout=5</code>. ודא שה-IP נגיש</td></tr>
+<tr><td>sniff לא לוכד כלום</td><td>ממשק רשת שגוי</td><td>ציין <code>iface="eth0"</code> או <code>iface="Wi-Fi"</code></td></tr>
+<tr><td>Checksum שגוי ב-Wireshark</td><td>Scapy מחשב checksum אוטומטי — לפעמים OS offload מבלבל</td><td>נורמלי. ה-checksum מחושב נכון בפועל</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Cheat Sheet — Scapy</h2>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Scapy Quick Reference</span></div>
+<pre class="code-body"><span class="cm"># בנייה</span>
+pkt = IP(dst=<span class="st">"8.8.8.8"</span>) / ICMP()          <span class="cm"># ping</span>
+pkt = IP(dst=<span class="st">"8.8.8.8"</span>) / TCP(dport=<span class="nu">80</span>)  <span class="cm"># TCP SYN</span>
+pkt = IP() / UDP(dport=<span class="nu">53</span>) / DNS(rd=<span class="nu">1</span>, qd=DNSQR(qname=<span class="st">"google.com"</span>))
+
+<span class="cm"># שליחה</span>
+send(pkt)              <span class="cm"># L3, לא מחכה</span>
+sendp(pkt, iface=<span class="st">"eth0"</span>) <span class="cm"># L2</span>
+resp = sr1(pkt, timeout=<span class="nu">2</span>)  <span class="cm"># L3, תגובה אחת</span>
+ans, unans = sr(pkt)   <span class="cm"># L3, תגובות מרובות</span>
+
+<span class="cm"># הצגה</span>
+pkt.show()             <span class="cm"># כל השדות</span>
+pkt.summary()          <span class="cm"># שורה אחת</span>
+hexdump(pkt)           <span class="cm"># hex dump</span>
+
+<span class="cm"># sniff</span>
+sniff(count=<span class="nu">10</span>, filter=<span class="st">"icmp"</span>, prn=<span class="kw">lambda</span> p: p.summary())
+pkts = rdpcap(<span class="st">"file.pcap"</span>)  <span class="cm"># קרא pcap</span></pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — שאלות בחינה</span>
+<h2 class="sec-h">שאלות בחינה נפוצות</h2>
+<div class="callout note">❓ <strong>מה ההבדל בין send ל-sendp?</strong><br>send() — Layer 3: OS מוסיף Ethernet header אוטומטית. sendp() — Layer 2: אתה שולט על Ethernet header המלא (src/dst MAC).</div>
+<div class="callout note">❓ <strong>מה ההבדל בין sr ל-sr1?</strong><br>sr() — שולח ומחכה לתגובות מרובות, מחזיר (answered, unanswered). sr1() — מחזיר תגובה אחת בלבד ועוצר. לרוב sr1 מספיק.</div>
+<div class="callout note">❓ <strong>מה lfilter ב-sniff?</strong><br>פונקציית Python שמקבלת חבילה ומחזירה True/False. רק חבילות שמחזירות True נלכדות. יעיל יותר מ-filter string לפילטרים מורכבים.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — השוואות</span>
+<h2 class="sec-h">Scapy vs socket Python</h2>
+<table class="tbl"><tr><th></th><th>socket (Python)</th><th>Scapy</th></tr>
+<tr><td>שכבה</td><td>L4+ (TCP/UDP)</td><td>L2-L7 (הכל)</td></tr>
+<tr><td>שליטה</td><td>מוגבלת — OS מנהל L3/L2</td><td>מלאה — כל שדה</td></tr>
+<tr><td>הרשאות</td><td>משתמש רגיל</td><td>root נדרש</td></tr>
+<tr><td>שימוש</td><td>אפליקציות רשת</td><td>מחקר, penetration testing</td></tr>
+<tr><td>קלות</td><td>פשוט לשימוש יומיומי</td><td>עוצמתי אבל מורכב</td></tr>
+</table>
+</section>
 </div>
-<script>
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chContent').innerHTML =
-    '<div class="ch-eyebrow">פרק 05 מתוך 12</div>' +
-    '<h1 class="ch-title">🐍 Scapy</h1>' +
-    '<p class="ch-desc">sniff(), lfilter, prn, שכבות חבילה, send/sr/sr1</p>' +
-    '<div class="divider"></div>' +
-    buildCh5();
-});
-</script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 
 <meta charset="UTF-8">
@@ -1304,131 +1304,76 @@ table { display: block; overflow-x: auto; max-width: 100%; }
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-<div class="ch-eyebrow">פרק 02 מתוך 12</div>
-<h1 class="ch-title">🔌 תכנות Sockets</h1>
-<p class="ch-desc">socket(), connect(), bind(), listen(), accept(), send(), recv(), close(), 127.0.0.1, שרת פקודות</p>
+<div class="ch-eyebrow">Chapter 04 of 12</div>
+<h1 class="ch-title">📡 Application Layer</h1>
+<p class="ch-desc">HTTP GET/POST, URL, Status Codes, Headers, DNS Resource Records</p>
 <div class="divider"></div>
 <section class="learn-section">
-<span class="sec-label">01 — Socket</span>
-<h2 class="sec-h">מה זה Socket?</h2>
-<p>Socket הוא <strong>נקודת קצה של חיבור</strong> בין שתי תוכנות. דמיינו צינור — מה שנכנס בצד אחד יוצא בצד השני. Socket = קצה אחד של הצינור.</p>
-<p>אנלוגיה מהפרק: <strong>כתובת IP = בניין</strong>, <strong>Port = מספר דירה</strong>. Socket = תיבת הדואר של דירה ספציפית בבניין ספציפי.</p>
-<div class="callout note">📝 Socket מאפשר תקשורת בין: שתי תוכנות על אותו מחשב, או תוכנות על מחשבים שונים ברחבי העולם.</div>
+<span class="sec-label">01 — HTTP Request</span>
+<h2 class="sec-h">HTTP Request (בקשה)</h2>
+<p>כל בקשה HTTP מורכבת מ: <strong>Request Line</strong>, <strong>Headers</strong>, שורה ריקה, ו-<strong>Body</strong> (ב-POST).</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP GET Request</span></div>
+<pre class="code-body"><span class="kw">GET</span> /search?q=python HTTP/1.1
+<span class="cm">Host:</span> www.google.com
+<span class="cm">User-Agent:</span> Mozilla/5.0
+<span class="cm">Accept:</span> text/html
+<span class="cm">(שורה ריקה — הסוף!)</span></pre></div>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP POST Request</span></div>
+<pre class="code-body"><span class="kw">POST</span> /login HTTP/1.1
+<span class="cm">Host:</span> www.facebook.com
+<span class="cm">Content-Length:</span> 28
+<span class="cm">(שורה ריקה)</span>
+username=omer&password=1234</pre></div>
+<div class="callout tip">💡 <strong>GET vs POST:</strong> GET מבקש מידע (פרמטרים ב-URL). POST שולח מידע (בגוף הבקשה, נסתר). כרטיסי אשראי → POST!</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">02 — כתובת Socket</span>
-<h2 class="sec-h">IP + Port = כתובת Socket</h2>
-<p>כתובת Socket = <code>IP:Port</code>. הטווח: פורטים 0–65535. Well-Known ports (0–1023) שמורים לפרוטוקולים ידועים:</p>
-<table class="tbl"><tr><th>Port</th><th>פרוטוקול</th></tr>
-<tr><td>80</td><td>HTTP</td></tr>
-<tr><td>443</td><td>HTTPS</td></tr>
-<tr><td>22</td><td>SSH</td></tr>
-<tr><td>53</td><td>DNS</td></tr>
-<tr><td>8820</td><td>מותאם אישית (דוגמה בספר)</td></tr>
-</table>
-<p><code>127.0.0.1</code> = <strong>Loopback</strong> = "אני". לחיבורים על אותו מחשב. <code>0.0.0.0</code> = "קבל חיבורים מכולם".</p>
+<span class="sec-label">02 — HTTP Response</span>
+<h2 class="sec-h">HTTP Response (תגובה)</h2>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP Response</span></div>
+<pre class="code-body"><span class="st">HTTP/1.1 200 OK</span>
+<span class="cm">Content-Type:</span> text/html; charset=utf-8
+<span class="cm">Content-Length:</span> 4823
+<span class="cm">Set-Cookie:</span> session=abc123
+<span class="cm">(שורה ריקה)</span>
+&lt;html&gt;...&lt;/html&gt;</pre></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">03 — API הלקוח</span>
-<h2 class="sec-h">קוד לקוח — Python</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">client.py</span></div>
-<pre class="code-body"><span class="kw">import</span> socket
-
-my_socket = socket.socket()
-my_socket.connect((<span class="st">'1.2.3.4'</span>, <span class="nu">8820</span>))   <span class="cm"># IP + Port</span>
-my_socket.send(<span class="st">'Omer'</span>.encode())
-data = my_socket.recv(<span class="nu">1024</span>)              <span class="cm"># BLOCKING!</span>
-<span class="kw">print</span>(<span class="st">'Server said:'</span>, data.decode())
-my_socket.close()                           <span class="cm"># חשוב!</span></pre></div>
-<p>לבדיקה על אותו מחשב — משתמשים ב-<code>127.0.0.1</code> במקום IP.</p>
+<span class="sec-label">03 — URL</span>
+<h2 class="sec-h">URL — Universal Resource Locator</h2>
+<p>מבנה URL: <code>scheme://host/path?query</code></p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">URL anatomy</span></div>
+<pre class="code-body">https://www.ynet.co.il/news/article/1234?lang=he
+  ^       ^              ^      ^           ^
+  scheme  host           path   resource    query</pre></div>
+<p>כשהשרת מקבל בקשה ל-<code>/folder_a/folder_b/file.txt</code> — הוא מחפש את הקובץ ב-<strong>Root Directory</strong> שלו (לדוגמה: <code>C:\\wwwrootolder_aolder_bile.txt</code>).</p>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">04 — API השרת</span>
-<h2 class="sec-h">קוד שרת — שני Sockets!</h2>
-<div class="callout warn">⚠️ <strong>לשרת יש תמיד שני Sockets:</strong> server_socket (מאזין לחיבורים), ו-client_socket (מדבר עם לקוח ספציפי). אל תבלבל!</div>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server.py</span></div>
-<pre class="code-body"><span class="kw">import</span> socket
-
-server_socket = socket.socket()
-server_socket.bind((<span class="st">'0.0.0.0'</span>, <span class="nu">8820</span>))  <span class="cm"># קבל מכל IP</span>
-server_socket.listen(<span class="nu">1</span>)                  <span class="cm"># התחל להאזין</span>
-
-(client_socket, addr) = server_socket.accept()  <span class="cm"># BLOCKING!</span>
-<span class="kw">print</span>(<span class="st">'Connected from:'</span>, addr)
-
-name = client_socket.recv(<span class="nu">1024</span>).decode()
-client_socket.send((<span class="st">'Hello '</span> + name).encode())
-
-client_socket.close()
-server_socket.close()</pre></div>
-<p>סדר חובה בשרת: <code>socket()</code> → <code>bind()</code> → <code>listen()</code> → <code>accept()</code> → <code>send/recv</code> → <code>close()</code></p>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">05 — recv() ריקה</span>
-<h2 class="sec-h">recv() מחרוזת ריקה = ניתוק!</h2>
-<p>כשמחשב מרוחק <strong>סוגר</strong> את החיבור — <code>recv()</code> מחזירה מחרוזת <strong>ריקה</strong> (<code>""</code>). זהו הסימן לניתוק!</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">זיהוי ניתוק</span></div>
-<pre class="code-body">data = client_socket.recv(<span class="nu">1024</span>).decode()
-<span class="kw">if</span> data == <span class="st">""</span>:
-    <span class="kw">print</span>(<span class="st">"Client disconnected!"</span>)
-    client_socket.close()
-    <span class="kw">break</span></pre></div>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">06 — שרת פקודות</span>
-<h2 class="sec-h">שרת פקודות מתקדם</h2>
-<p>שרת שמקבל בקשות בגודל קבוע (4 bytes) ומחזיר תגובה בהתאם:</p>
-<table class="tbl"><tr><th>פקודה</th><th>תגובה</th><th>מודול Python</th></tr>
-<tr><td><code>TIME</code></td><td>השעה הנוכחית</td><td><code>import time</code></td></tr>
-<tr><td><code>NAME</code></td><td>שם השרת</td><td>מחרוזת קבועה</td></tr>
-<tr><td><code>RAND</code></td><td>מספר רנדומלי 1–10</td><td><code>import random</code></td></tr>
-<tr><td><code>EXIT</code></td><td>ניתוק</td><td><code>break</code></td></tr>
+<span class="sec-label">04 — Status Codes</span>
+<h2 class="sec-h">קודי סטטוס HTTP</h2>
+<table class="tbl"><tr><th>קוד</th><th>משמעות</th><th>מתי</th></tr>
+<tr><td><strong>200 OK</strong></td><td>הצלחה</td><td>הבקשה טופלה בהצלחה</td></tr>
+<tr><td><strong>301</strong></td><td>Moved Permanently</td><td>http → https redirect</td></tr>
+<tr><td><strong>400</strong></td><td>Bad Request</td><td>שגיאה בבקשה</td></tr>
+<tr><td><strong>403 Forbidden</strong></td><td>אין הרשאה</td><td>אתה לא מורשה</td></tr>
+<tr><td><strong>404 Not Found</strong></td><td>לא נמצא</td><td>ה-URL לא קיים</td></tr>
+<tr><td><strong>500</strong></td><td>Internal Server Error</td><td>באג בשרת</td></tr>
 </table>
 </section>
+
 <section class="learn-section">
-<span class="sec-label">07 — תקלות נפוצות</span>
-<h2 class="sec-h">Troubleshooting — Python Sockets</h2>
-<table class="tbl"><tr><th>שגיאה</th><th>סיבה</th><th>פתרון</th></tr>
-<tr><td><code>ConnectionRefusedError</code></td><td>אין מאזין בפורט</td><td>הרץ Server לפני Client</td></tr>
-<tr><td><code>Address already in use</code></td><td>פורט תפוס</td><td><code>s.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)</code></td></tr>
-<tr><td><code>recv()</code> תקוע</td><td>אין נתונים</td><td><code>s.settimeout(5)</code></td></tr>
-<tr><td>recv מחזיר <code>b""</code></td><td>החיבור נסגר</td><td><code>if data == b"": break</code></td></tr>
-<tr><td><code>UnicodeDecodeError</code></td><td>recv מחזיר bytes</td><td><code>data.decode('utf-8')</code></td></tr>
+<span class="sec-label">05 — DNS Records</span>
+<h2 class="sec-h">DNS Resource Records</h2>
+<p>שרת DNS שומר <strong>Resource Records</strong> מסוגים שונים:</p>
+<table class="tbl"><tr><th>Type</th><th>מחזיר</th><th>דוגמה</th></tr>
+<tr><td><strong>A</strong></td><td>IPv4 address</td><td>google.com → 142.250.74.46</td></tr>
+<tr><td><strong>AAAA</strong></td><td>IPv6 address</td><td>google.com → 2607:f8b0:...</td></tr>
+<tr><td><strong>MX</strong></td><td>שרת מייל של הדומיין</td><td>gmail.com → aspmx.l.google.com</td></tr>
+<tr><td><strong>CNAME</strong></td><td>Alias לשם אחר</td><td>www.github.com → github.com</td></tr>
 </table>
-</section>
-<section class="learn-section">
-<span class="sec-label">08 — Cheat Sheet</span>
-<h2 class="sec-h">Cheat Sheet — Python Sockets</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server.py</span></div>
-<pre class="code-body"><span class="kw">import</span> socket
-s = socket.socket()
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="nu">1</span>)
-s.bind((<span class="st">''</span>, <span class="nu">9001</span>)); s.listen(<span class="nu">5</span>)
-client, addr = s.accept()
-data = client.recv(<span class="nu">1024</span>)
-client.send(<span class="st">b'pong'</span>)
-client.close(); s.close()</pre></div>
-</section>
-<section class="learn-section">
-<span class="sec-label">09 — שאלות בחינה</span>
-<h2 class="sec-h">שאלות בחינה נפוצות</h2>
-<div class="callout note">❓ <strong>מה ההבדל בין bind ל-connect?</strong><br>bind = Server — קובע IP:Port להאזין. connect = Client — פותח חיבור לשרת.</div>
-<div class="callout note">❓ <strong>למה recv לא מחזיר תמיד את כל הנתונים?</strong><br>TCP הוא stream — הנתונים יכולים להגיע בחלקים. קרא ב-loop לפי Content-Length.</div>
-<div class="callout note">❓ <strong>מה blocking vs non-blocking?</strong><br>Blocking: recv עוצר עד שיש נתונים. Non-blocking: מחזיר מיד עם שגיאה. select() = הפתרון האלגנטי.</div>
-</section>
-<section class="learn-section">
-<span class="sec-label">10 — השוואות</span>
-<h2 class="sec-h">TCP vs UDP Socket ב-Python</h2>
-<table class="tbl"><tr><th></th><th>TCP SOCK_STREAM</th><th>UDP SOCK_DGRAM</th></tr>
-<tr><td>חיבור</td><td>connect() + accept()</td><td>sendto / recvfrom</td></tr>
-<tr><td>אמינות</td><td>מובטחת</td><td>לא מובטחת</td></tr>
-<tr><td>שימוש</td><td>HTTP, SSH</td><td>DNS, VoIP</td></tr>
-</table>
+<p>לכל שאילתת DNS יש <strong>Transaction ID</strong> (16-bit) לזיהוי. הלקוח שולח עם ID מסוים, השרת עונה עם אותו ID.</p>
 </section>
 </div>
 </body>

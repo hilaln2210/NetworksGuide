@@ -1219,7 +1219,6 @@ section#lab {
 }
 </style>
 
-<script src="/_bridge.js"></script>
 <style id="ng-fix">
 /* NG: Noto Sans Hebrew for nikud */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
@@ -1301,22 +1300,114 @@ table { display: block; overflow-x: auto; max-width: 100%; }
   --pu: #7c3aed; --code-bg: #1e293b;
 }
 </style>
+<script src="/_bridge.js"></script>
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-  <div id="chContent"></div>
+<div class="ch-eyebrow">פרק 10 מתוך 12</div>
+<h1 class="ch-title">⚡ השכבה הפיזית</h1>
+<p class="ch-desc">ביט, AM/FM, ADSL, CAT5, WiFi Half Duplex, סיב אופטי, ממסרים</p>
+<div class="divider"></div>
+<section class="learn-section">
+<span class="sec-label">01 — ביט</span>
+<h2 class="sec-h">ביט — האטום של המידע</h2>
+<p><strong>מטרת השכבה הפיזית: להעביר ביט יחיד בין רכיבי מחשוב.</strong></p>
+<p>ביט (bit) = BInary digiT = ספרה בינארית. יכול להחזיק <strong>0 או 1 בלבד</strong>. כל שאר השכבות מניחות שניתן להעביר ביטים.</p>
+<p>שלושה תווכים עיקריים: <strong>כבלי מתכת</strong> (נחושת), <strong>אוויר</strong> (WiFi, מיקרוגל), <strong>סיבים אופטיים</strong> (זכוכית/פלסטיק).</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">02 — AM vs FM</span>
+<h2 class="sec-h">AM ו-FM — שיטות אפנון</h2>
+<p><strong>Modulation (אפנון)</strong> = הרכבת גל מידע על גבי גל "נושא". שתי שיטות עיקריות:</p>
+<table class="tbl"><tr><th>שיטה</th><th>מה משתנה</th><th>עמידות לרעשים</th></tr>
+<tr><td><strong>AM</strong> (Amplitude Modulation)</td><td>גובה הגל (אמפליטודה)</td><td>חלשה — רעש = שינוי אמפליטודה</td></tr>
+<tr><td><strong>FM</strong> (Frequency Modulation)</td><td>תדר הגל</td><td>חזקה — רעש משנה אמפליטודה, לא תדר</td></tr>
+</table>
+<div class="callout tip">💡 <strong>למה FM נשמע טוב יותר מ-AM?</strong> כי מידע ב-FM מוצפן בתדר. רעש חשמלי = שינוי אמפליטודה — לא פוגע בתדר → FM עמיד!</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">03 — ADSL</span>
+<h2 class="sec-h">ADSL</h2>
+<p>ADSL מנצל תדרים גבוהים (מעל 20KHz) על <strong>כבל הטלפון הנחושת הקיים</strong>. מודם קלאסי מוגבל לתדרי קול (20KHz). ADSL = 100MHz+ = מהיר פי מיליון!</p>
+<p>ביצועי ADSL תלויים ב<strong>מרחק ממרכזייה</strong> — ככל שרחוק יותר, איכות הסיגנל יורדת.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">04 — CAT5 & Ethernet</span>
+<h2 class="sec-h">כבלי CAT ו-Ethernet</h2>
+<p>כבלי CAT = כבלי זוגות מפותלים (Twisted Pair). המספר מציין איכות הבידוד:</p>
+<table class="tbl"><tr><th>כבל</th><th>מהירות מקסימלית</th><th>שימוש</th></tr>
+<tr><td>CAT3</td><td>10 Mbps</td><td>ישן, טלפוניה</td></tr>
+<tr><td>CAT5</td><td>100 Mbps</td><td>Fast Ethernet</td></tr>
+<tr><td>CAT5e</td><td>1 Gbps</td><td>Gigabit Ethernet</td></tr>
+<tr><td>CAT6</td><td>10 Gbps</td><td>משרדים מודרניים</td></tr>
+</table>
+<p>כבל CAT5 מכיל <strong>8 חוטים (4 זוגות)</strong>. ב-10Base-T: 2 זוגות בשימוש (TX + RX).</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">05 — WiFi</span>
+<h2 class="sec-h">WiFi — Half Duplex!</h2>
+<p>WiFi פועל ב-<strong>Half Duplex</strong> — רק צד אחד מדבר בכל פעם. הסיבה: תדר שידור יחיד משותף. <strong>ככל שיש יותר מחשבים על AP — הקצב מתחלק ביניהם!</strong></p>
+<table class="tbl"><tr><th>תדר</th><th>יתרון</th><th>חיסרון</th></tr>
+<tr><td>2.4GHz</td><td>טווח ארוך, חודר קירות</td><td>איטי יותר, עמוס</td></tr>
+<tr><td>5GHz</td><td>מהיר יותר, פחות הפרעות</td><td>טווח קצר, לא חודר קירות</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">06 — סיב אופטי</span>
+<h2 class="sec-h">סיב אופטי וממסרים</h2>
+<p>סיב אופטי = קרן אור בתוך זכוכית/פלסטיק. <strong>100 Terabit/s למרחק מעל 100 ק"מ!</strong></p>
+<p>יתרונות: עמיד להפרעות חשמליות, לא משדר לסביבה, מרחקים ארוכים. חיסרון: יקר, שביר.</p>
+<p><strong>ממסר (Relay)</strong>: לאורכים גדולים מדי — ממסרים מגבירים ומשדרים הלאה. כבלים תת-ימיים בין יבשות = עשרות ממסרים לאורך אלפי ק"מ.</p>
+</section>
+<section class="learn-section">
+<span class="sec-label">07 — תקלות נפוצות</span>
+<h2 class="sec-h">Troubleshooting — שכבה פיזית</h2>
+<table class="tbl"><tr><th>תסמין</th><th>סיבה</th><th>פתרון</th></tr>
+<tr><td>אור LED כבה ב-Switch port</td><td>כבל פגום / כרטיס רשת מנותק</td><td>החלף כבל. בדוק <code>ip link show</code></td></tr>
+<tr><td>מהירות 100Mbps במקום 1Gbps</td><td>כבל CAT5 (לא CAT5e) / auto-negotiation כשל</td><td>החלף כבל CAT5e/CAT6. בדוק <code>ethtool eth0</code></td></tr>
+<tr><td>WiFi איטי כשיש הרבה מחשבים</td><td>Half-Duplex — כולם חולקים תדר</td><td>הוסף AP נוסף. עבור ל-5GHz (פחות עמוס)</td></tr>
+<tr><td>אות WiFi חלש</td><td>מרחק / קירות / הפרעות</td><td>הזז AP. החלף ל-5GHz קרוב או 2.4GHz למרחק</td></tr>
+<tr><td>packet loss בסיב אופטי</td><td>כיפוף חד / חיבור מלוכלך</td><td>נקה קונקטורים. אל תכופף סיב מתחת לרדיוס מינימלי</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Cheat Sheet — כבלי רשת</h2>
+<table class="tbl"><tr><th>סוג</th><th>מהירות</th><th>מרחק</th><th>שימוש</th></tr>
+<tr><td>CAT5</td><td>100 Mbps</td><td>100m</td><td>ישן — לא מומלץ</td></tr>
+<tr><td>CAT5e</td><td>1 Gbps</td><td>100m</td><td>בית ומשרד</td></tr>
+<tr><td>CAT6</td><td>10 Gbps</td><td>55m</td><td>data center</td></tr>
+<tr><td>CAT6a</td><td>10 Gbps</td><td>100m</td><td>data center מומלץ</td></tr>
+<tr><td>סיב OM3</td><td>10 Gbps</td><td>300m</td><td>multi-mode fiber</td></tr>
+<tr><td>סיב OS2</td><td>100 Gbps+</td><td>10km+</td><td>single-mode, ISP</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — שאלות בחינה</span>
+<h2 class="sec-h">שאלות בחינה נפוצות</h2>
+<div class="callout note">❓ <strong>למה FM עמיד יותר לרעש מאשר AM?</strong><br>ב-AM המידע מקודד ב-אמפליטודה. רעש חשמלי משנה אמפליטודה — קורס המידע. ב-FM המידע מקודד ב-תדר. רעש משנה אמפליטודה אבל לא תדר — FM עמיד.</div>
+<div class="callout note">❓ <strong>מה CSMA/CD ולמה WiFi לא משתמש בו?</strong><br>CSMA/CD (Carrier Sense Multiple Access / Collision Detection) — Ethernet שמע לפני שידור, מגלה collision. WiFi לא יכול לשמוע תוך כדי שידור (Half-Duplex) → משתמש ב-CSMA/CA (Collision Avoidance).</div>
+<div class="callout note">❓ <strong>מה זה MTU ולמה 1500?</strong><br>Maximum Transmission Unit — גודל מקסימלי של IP packet ב-Ethernet frame. 1500 bytes = standard Ethernet. גדול יותר → fragmentation. Jumbo Frames = 9000 bytes ב-data centers.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — השוואות</span>
+<h2 class="sec-h">Wired vs Wireless</h2>
+<table class="tbl"><tr><th></th><th>Ethernet (כבל)</th><th>WiFi</th></tr>
+<tr><td>Duplex</td><td>Full Duplex</td><td>Half Duplex</td></tr>
+<tr><td>מהירות</td><td>1-100 Gbps</td><td>עד ~9.6 Gbps (WiFi 6)</td></tr>
+<tr><td>אמינות</td><td>גבוהה מאוד</td><td>תלויה בסביבה</td></tr>
+<tr><td>אבטחה</td><td>פיזית</td><td>WPA3 נדרש</td></tr>
+<tr><td>mobility</td><td>ניידות אפסית</td><td>מלאה</td></tr>
+</table>
+</section>
 </div>
-<script>
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chContent').innerHTML =
-    '<div class="ch-eyebrow">פרק 10 מתוך 12</div>' +
-    '<h1 class="ch-title">⚡ השכבה הפיזית</h1>' +
-    '<p class="ch-desc">ביט, גלים, AM/FM, אנלוגי/דיגיטלי, ADSL, CAT5, WiFi, סיב אופטי</p>' +
-    '<div class="divider"></div>' +
-    buildCh10();
-});
-</script>
 </body>
 </html>

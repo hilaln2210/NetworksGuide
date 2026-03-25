@@ -1219,7 +1219,6 @@ section#lab {
 }
 </style>
 
-<script src="/_bridge.js"></script>
 <style id="ng-fix">
 /* NG: Noto Sans Hebrew for nikud */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
@@ -1301,22 +1300,123 @@ table { display: block; overflow-x: auto; max-width: 100%; }
   --pu: #7c3aed; --code-bg: #1e293b;
 }
 </style>
+<script src="/_bridge.js"></script>
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-  <div id="chContent"></div>
+<div class="ch-eyebrow">פרק 03 מתוך 12</div>
+<h1 class="ch-title">🦈 Wireshark ומודל 5 שכבות</h1>
+<p class="ch-desc">מודל חמש השכבות, Encapsulation, Decapsulation, Header, Display/Capture Filter</p>
+<div class="divider"></div>
+<section class="learn-section">
+<span class="sec-label">01 — מודל 5 שכבות</span>
+<h2 class="sec-h">מודל חמש השכבות</h2>
+<p>האינטרנט מכיל מיליארדי רכיבים מיצרנים שונים. כיצד הם מדברים ביניהם? הפתרון: <strong>חלוקה לשכבות</strong>. כל שכבה מסתירה מורכבות מהשכבה שמעליה.</p>
+<table class="tbl"><tr><th>#</th><th>שכבה</th><th>פרוטוקולים</th><th>כתובת</th></tr>
+<tr><td>5</td><td>אפליקציה</td><td>HTTP, DNS, SMTP, DHCP</td><td>—</td></tr>
+<tr><td>4</td><td>תעבורה</td><td>TCP, UDP</td><td>Port</td></tr>
+<tr><td>3</td><td>רשת</td><td>IP, ICMP</td><td>IP Address</td></tr>
+<tr><td>2</td><td>קו</td><td>Ethernet, WiFi</td><td>MAC Address</td></tr>
+<tr><td>1</td><td>פיזית</td><td>כבלים, WiFi, סיב אופטי</td><td>—</td></tr>
+</table>
+<div class="callout tip">💡 <strong>הסכם חסוי:</strong> כל שכבה "מסכימה" עם השכבה המקבילה אצל הצד השני — ולא צריכה לדעת איך השכבות הנמוכות עובדות.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">02 — Encapsulation</span>
+<h2 class="sec-h">Encapsulation ו-Decapsulation</h2>
+<p><strong>Encapsulation (כימוס)</strong>: בשליחה — כל שכבה מוסיפה <strong>Header</strong> שלה (עוטפת את הנתונים). <strong>Decapsulation (קילוף)</strong>: בקבלה — כל שכבה מסירה את ה-Header שלה.</p>
+<div class="diagram">
+<div style="font-size:12px;direction:ltr;text-align:left;padding:12px 16px;line-height:2">
+<div><strong>שליחה (Encapsulation):</strong></div>
+<div>Data</div>
+<div>[ TCP Header ] + Data</div>
+<div>[ IP Header ] + [ TCP Header ] + Data</div>
+<div>[ Eth Header ] + [ IP Header ] + [ TCP Header ] + Data + [ Eth Trailer ]</div>
+</div></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">03 — Header</span>
+<h2 class="sec-h">מה מכיל Header?</h2>
+<p>ה-Header מכיל מידע לשליטה ובקרה. לדוגמה:</p>
+<table class="tbl"><tr><th>שכבה</th><th>Header מכיל</th></tr>
+<tr><td>Layer 3 (IP)</td><td>src IP, dst IP, TTL, Protocol</td></tr>
+<tr><td>Layer 4 (TCP)</td><td>src Port, dst Port, Seq, ACK, Flags</td></tr>
+<tr><td>Layer 2 (Ethernet)</td><td>src MAC, dst MAC, Type</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">04 — Wireshark</span>
+<h2 class="sec-h">Wireshark</h2>
+<p>Wireshark לוכד ומציג את כל הפקטות שעוברות בכרטיס הרשת. ניתן לראות Headers של כל שכבה, ואפילו סיסמאות בטקסט גלוי!</p>
+<div class="callout warn">⚠️ שימוש ב-Wireshark ברשת של אחרים ללא אישור = לא חוקי.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">05 — Filters</span>
+<h2 class="sec-h">Display Filter vs Capture Filter</h2>
+<table class="tbl"><tr><th>סוג</th><th>מסנן</th><th>Syntax</th></tr>
+<tr><td><strong>Display Filter</strong></td><td>מה <em>מוצג</em> — ניתן לשנות בכל עת</td><td><code>http</code>, <code>ip.addr==8.8.8.8</code></td></tr>
+<tr><td><strong>Capture Filter</strong></td><td>מה <em>נלכד</em> — דורש הפסקה</td><td><code>host 8.8.8.8</code>, <code>port 80</code></td></tr>
+</table>
+<table class="tbl"><tr><th>Display Filter</th><th>מה מציג</th></tr>
+<tr><td><code>http</code></td><td>רק HTTP packets</td></tr>
+<tr><td><code>ip.addr == 8.8.8.8</code></td><td>src או dst = 8.8.8.8</td></tr>
+<tr><td><code>tcp.port == 80</code></td><td>TCP על פורט 80</td></tr>
+<tr><td><code>dns</code></td><td>רק DNS</td></tr>
+<tr><td><code>tcp.flags.syn == 1</code></td><td>רק SYN packets</td></tr>
+</table>
+</section>
+<section class="learn-section">
+<span class="sec-label">07 — תקלות נפוצות</span>
+<h2 class="sec-h">Troubleshooting — Wireshark ו-HTTP</h2>
+<table class="tbl"><tr><th>תסמין</th><th>סיבה</th><th>פתרון</th></tr>
+<tr><td>Wireshark לא מציג תעבורה</td><td>ממשק רשת לא נבחר / promiscuous mode כבוי</td><td>בחר ממשק נכון. ב-Switch — צריך port mirroring</td></tr>
+<tr><td>HTTPS מוצפן — לא רואה HTTP</td><td>TLS מצפין את ה-payload</td><td>השתמש ב-Wireshark SSL Decryption עם מפתח, או נסה HTTP רגיל</td></tr>
+<tr><td>HTTP 301/302</td><td>Redirect — השרת מפנה לכתובת אחרת</td><td>עקוב אחרי Location header. הדפדפן עושה זאת אוטומטית</td></tr>
+<tr><td>HTTP 404</td><td>Resource לא קיים בשרת</td><td>בדוק URL. ייתכן שהקובץ נמחק או נתיב שגוי</td></tr>
+<tr><td>HTTP 500</td><td>שגיאת שרת פנימית</td><td>בעיה בצד השרת — לא בלקוח</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Cheat Sheet — HTTP Status Codes</h2>
+<table class="tbl"><tr><th>קוד</th><th>משמעות</th><th>נפוץ ב</th></tr>
+<tr><td><strong>200</strong></td><td>OK — הצליח</td><td>כל GET/POST תקין</td></tr>
+<tr><td><strong>301</strong></td><td>Moved Permanently</td><td>HTTP → HTTPS redirect</td></tr>
+<tr><td><strong>302</strong></td><td>Found (Temporary Redirect)</td><td>Login redirects</td></tr>
+<tr><td><strong>400</strong></td><td>Bad Request</td><td>Syntax שגוי בבקשה</td></tr>
+<tr><td><strong>401</strong></td><td>Unauthorized</td><td>אימות נדרש</td></tr>
+<tr><td><strong>403</strong></td><td>Forbidden</td><td>אין הרשאה</td></tr>
+<tr><td><strong>404</strong></td><td>Not Found</td><td>Resource לא קיים</td></tr>
+<tr><td><strong>500</strong></td><td>Internal Server Error</td><td>bug בשרת</td></tr>
+<tr><td><strong>503</strong></td><td>Service Unavailable</td><td>עומס / maintenance</td></tr>
+</table>
+<div class="callout tip">💡 <strong>כלל אצבע:</strong> 2xx = הצלחה, 3xx = redirect, 4xx = שגיאת לקוח, 5xx = שגיאת שרת</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — שאלות בחינה</span>
+<h2 class="sec-h">שאלות בחינה נפוצות</h2>
+<div class="callout note">❓ <strong>מה ההבדל בין GET ל-POST?</strong><br>GET — בקשת מידע, הפרמטרים ב-URL, ניתן לשמירה ב-cache. POST — שליחת מידע לשרת, הנתונים ב-body, לא נשמר ב-cache. GET אינו מתאים לסיסמאות (גלוי ב-URL).</div>
+<div class="callout note">❓ <strong>מה זה Stateless ב-HTTP?</strong><br>HTTP לא זוכר בקשות קודמות. כל בקשה עצמאית. לכן Cookie/Session נדרשים לשמירת מצב (לדוגמה: "המשתמש מחובר").</div>
+<div class="callout note">❓ <strong>מה ההבדל בין HTTP/1.0 ל-HTTP/1.1?</strong><br>HTTP/1.0 — חיבור TCP חדש לכל בקשה (סגירה אחרי כל response). HTTP/1.1 — Keep-Alive: חיבור TCP אחד לבקשות מרובות. HTTP/2 — multiplexing: בקשות מרובות על חיבור אחד במקביל.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — השוואות</span>
+<h2 class="sec-h">HTTP vs HTTPS</h2>
+<table class="tbl"><tr><th></th><th>HTTP</th><th>HTTPS</th></tr>
+<tr><td>פורט</td><td>80</td><td>443</td></tr>
+<tr><td>הצפנה</td><td>❌ גלוי לכולם</td><td>✅ TLS מצפין</td></tr>
+<tr><td>אימות</td><td>❌ אין</td><td>✅ Certificate מאמת זהות</td></tr>
+<tr><td>ביצועים</td><td>מהיר מעט יותר</td><td>overhead TLS קטן</td></tr>
+<tr><td>שימוש היום</td><td>כמעט לא בשימוש</td><td>Standard מוחלט</td></tr>
+</table>
+</section>
 </div>
-<script>
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chContent').innerHTML =
-    '<div class="ch-eyebrow">פרק 03 מתוך 12</div>' +
-    '<h1 class="ch-title">🦈 Wireshark</h1>' +
-    '<p class="ch-desc">Encapsulation, Decapsulation, Display Filter, Capture Filter</p>' +
-    '<div class="divider"></div>' +
-    buildCh3();
-});
-</script>
 </body>
 </html>

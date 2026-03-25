@@ -1219,7 +1219,6 @@ section#lab {
 }
 </style>
 
-<script src="/_bridge.js"></script>
 <style id="ng-fix">
 /* NG: Noto Sans Hebrew for nikud */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
@@ -1301,22 +1300,135 @@ table { display: block; overflow-x: auto; max-width: 100%; }
   --pu: #7c3aed; --code-bg: #1e293b;
 }
 </style>
+<script src="/_bridge.js"></script>
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-  <div id="chContent"></div>
+<div class="ch-eyebrow">פרק 01 מתוך 12</div>
+<h1 class="ch-title">🌐 תחילת מסע</h1>
+<p class="ch-desc">WWW, Client/Server, IP, GeoIP, ענן, DNS, ping, tracert, nslookup</p>
+<div class="divider"></div>
+<section class="learn-section">
+<span class="sec-label">01 — WWW</span>
+<h2 class="sec-h">World Wide Web</h2>
+<p>כשאומרים "אינטרנט" מתכוונים בדרך כלל ל-<strong>WWW (World Wide Web)</strong> — אוסף עמודי אינטרנט המקושרים זה לזה כמו רשת קורי עכביש. כל עמוד יכול להיות בצד אחד של העולם, וקישור (Link) מחבר ביניהם.</p>
+<p>כשמקלידים <code>www.facebook.com</code> בדפדפן — מה קורה? Facebook זקוק לשלושה דברים: <strong>Hosting</strong>, <strong>עיצוב</strong>, ו<strong>תקשורת</strong>. הספר עוסק בתקשורת.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">02 — Client & Server</span>
+<h2 class="sec-h">מודל Client-Server</h2>
+<p>צורת התקשורת הנפוצה ביותר באינטרנט. ה-<strong>Client</strong> יוזם ושולח <em>Request (בקשה)</em>. ה-<strong>Server</strong> ממתין, מקבל, ומחזיר <em>Response (תגובה)</em>.</p>
+<div class="diagram"><div class="dg-row">
+  <div class="dg-box b">💻 Client</div>
+  <div class="dg-arr">Request ──▶</div>
+  <div class="dg-box gr">☁️ ענן</div>
+  <div class="dg-arr">──▶</div>
+  <div class="dg-box g">🗄️ Server</div>
+</div><div class="dg-row" style="margin-top:6px">
+  <div class="dg-box b"></div>
+  <div class="dg-arr">◀── Response</div>
+  <div class="dg-box gr"></div>
+  <div class="dg-arr">◀──</div>
+  <div class="dg-box g"></div>
+</div></div>
+<div class="callout tip">💡 <strong>מי הלקוח ומי השרת?</strong> כשגולשים ל-YouTube: הדפדפן שלך = Client, שרת YouTube = Server. כשמשחקים Multiplayer: המחשב שלך = Client, שרת המשחק = Server.</div>
+<div class="callout note">📝 Client תמיד יוזם. Server תמיד מחכה. זה ההבדל המהותי.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">03 — כתובת IP</span>
+<h2 class="sec-h">IP Address</h2>
+<p>לכל הודעה ברשת יש <strong>כתובת מקור</strong> ו<strong>כתובת יעד</strong> — כמו דואר. הכתובות נקראות <strong>IP Addresses</strong>. IPv4 מורכב מ-4 מספרים (0–255) מופרדים בנקודות:</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">דוגמה</span></div>
+<pre class="code-body">192.168.1.5    ← מחשב ביתי
+8.8.8.8        ← Google DNS
+31.13.72.65    ← Facebook
+127.0.0.1      ← Loopback (אתה עצמך)</pre></div>
+<p><strong>GeoIP</strong>: לפעמים ניתן להסיק מיקום גיאוגרפי מכתובת IP. לדוגמה, 8.8.8.8 = Google, ארה"ב.</p>
+<div class="callout warn">⚠️ <strong>למה 300.5.1.8 לא חוקית?</strong> כי כל מספר חייב להיות בין 0 ל-255. 300 &gt; 255.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">04 — ענן + Hops</span>
+<h2 class="sec-h">ענן האינטרנט וה-Hops</h2>
+<p>המחשב שלנו <strong>אינו מחובר ישירות</strong> לשרת Facebook. ההודעה עוברת דרך עשרות רכיבים. כל רכיב = <strong>Hop</strong>. ה-traceroute מציג כל תחנה:</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">tracert -d www.facebook.com</span></div>
+<pre class="code-body"> 1    &lt;1ms  192.168.1.1      ← נתב ביתי
+ 2    5ms   212.179.37.1    ← ספקית אינטרנט
+ 3   12ms   80.77.64.1
+ 4-14  ...  (רכיבי ביניים)
+15  180ms   157.240.22.35   ← Facebook!</pre></div>
+<p><code>tracert -d</code> = ה-d מדלג על DNS lookup בכל hop (מהיר יותר). ב-Linux: <code>traceroute -n</code>.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">05 — DNS</span>
+<h2 class="sec-h">DNS — Domain Name System</h2>
+<p>בני אדם זוכרים שמות. מחשבים עובדים עם IP. DNS מתרגם ביניהם. כל פנייה ל-URL מתחילה בשאילתת DNS.</p>
+<div class="diagram"><div class="dg-row">
+  <div class="dg-box b" style="font-size:12px">💻 "www.google.com?"</div>
+  <div class="dg-arr">──▶</div>
+  <div class="dg-box p" style="font-size:12px">🔍 DNS Server</div>
+  <div class="dg-arr">──▶</div>
+  <div class="dg-box g" style="font-size:12px">"142.250.74.46"</div>
+</div></div>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">nslookup www.facebook.com</span></div>
+<pre class="code-body">Server:  192.168.1.1
+Name:    www.facebook.com
+Address: 157.240.22.35</pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">06 — כלים</span>
+<h2 class="sec-h">כלי שורת הפקודה</h2>
+<table class="tbl"><tr><th>כלי</th><th>מה עושה</th><th>דוגמה</th></tr>
+<tr><td><code>ping</code></td><td>בדיקת קישוריות + זמן תגובה (ms)</td><td><code>ping google.com</code></td></tr>
+<tr><td><code>tracert</code></td><td>כל ה-Hops בדרך ליעד</td><td><code>tracert -d 8.8.8.8</code></td></tr>
+<tr><td><code>nslookup</code></td><td>תרגום שם → IP</td><td><code>nslookup github.com</code></td></tr>
+<tr><td><code>ipconfig</code></td><td>IP שלך, Gateway, DNS</td><td><code>ipconfig /all</code></td></tr>
+</table>
+</section>
+<section class="learn-section">
+<span class="sec-label">07 — תקלות נפוצות</span>
+<h2 class="sec-h">Troubleshooting — שלב אחר שלב</h2>
+<table class="tbl"><tr><th>תסמין</th><th>סיבה נפוצה</th><th>פתרון</th></tr>
+<tr><td>ping נכשל</td><td>Firewall חוסם ICMP / host מכובה</td><td>נסה <code>ping 8.8.8.8</code> (לא DNS). אם עובד — בעיית DNS. אם לא — בעיית routing</td></tr>
+<tr><td>tracert תקוע ב-*</td><td>נתב חוסם TTL-exceeded</td><td>נורמלי. המשך ל-hop הבא. אם כולם * — firewall מסנן</td></tr>
+<tr><td>nslookup שגיאה</td><td>שרת DNS לא זמין</td><td>נסה <code>nslookup google.com 8.8.8.8</code> עם DNS ציבורי</td></tr>
+<tr><td>ipconfig מראה 169.254.x.x</td><td>DHCP נכשל — כתובת APIPA</td><td>הרץ <code>ipconfig /release</code> ואז <code>ipconfig /renew</code></td></tr>
+<tr><td>אינטרנט לא עובד אבל LAN כן</td><td>Default Gateway שגוי</td><td>בדוק gateway ב-ipconfig. ping ל-gateway עצמו</td></tr>
+</table>
+<div class="callout tip">💡 <strong>סדר בדיקה:</strong> Layer 1 (כבל?) → Layer 2 (ARP?) → Layer 3 (IP/Gateway?) → Layer 7 (DNS/App?)</div>
+</section>
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Cheat Sheet — פרק 1</h2>
+<table class="tbl"><tr><th>פקודה</th><th>שימוש</th><th>פרמטר שימושי</th></tr>
+<tr><td><code>ping &lt;host&gt;</code></td><td>קישוריות + latency</td><td><code>-n 1</code> = פינג אחד</td></tr>
+<tr><td><code>tracert -d &lt;host&gt;</code></td><td>מסלול hops</td><td><code>-d</code> = ללא DNS (מהיר)</td></tr>
+<tr><td><code>nslookup &lt;domain&gt;</code></td><td>פענוח DNS</td><td><code>nslookup domain 8.8.8.8</code></td></tr>
+<tr><td><code>ipconfig /all</code></td><td>כל פרטי הרשת</td><td><code>/release</code> / <code>/renew</code></td></tr>
+<tr><td><code>ipconfig /flushdns</code></td><td>ניקוי DNS cache</td><td>—</td></tr>
+</table>
+</section>
+<section class="learn-section">
+<span class="sec-label">09 — שאלות בחינה</span>
+<h2 class="sec-h">שאלות בחינה נפוצות</h2>
+<div class="callout note">❓ <strong>מה ההבדל בין ping ל-tracert?</strong><br>ping בודק קישוריות ל-host אחד ומחזיר RTT. tracert מציג את כל ה-hops בדרך — מאפשר לאתר היכן התקלה.</div>
+<div class="callout note">❓ <strong>למה tracert מציג * * *?</strong><br>הנתב חוסם ICMP Time Exceeded. לא בהכרח תקלה — נתבים רבים מוגדרים כך מטעמי אבטחה.</div>
+<div class="callout note">❓ <strong>ping ל-8.8.8.8 עובד אבל ping ל-google.com נכשל?</strong><br>בעיית DNS — שרת ה-DNS לא נגיש. הרשת עצמה תקינה.</div>
+</section>
+<section class="learn-section">
+<span class="sec-label">10 — השוואות</span>
+<h2 class="sec-h">DNS vs ARP vs DHCP</h2>
+<table class="tbl"><tr><th>פרוטוקול</th><th>ממיר</th><th>שכבה</th><th>cache</th></tr>
+<tr><td><strong>DNS</strong></td><td>שם → IP</td><td>L7</td><td><code>ipconfig /flushdns</code></td></tr>
+<tr><td><strong>ARP</strong></td><td>IP → MAC</td><td>L2</td><td><code>arp -d</code></td></tr>
+<tr><td><strong>DHCP</strong></td><td>מחלק IP+Mask+GW+DNS</td><td>L7/UDP</td><td>Lease בשרת</td></tr>
+</table>
+<div class="callout tip">💡 סדר: DHCP → ARP לנתב → DNS → TCP → HTTP</div>
+</section>
 </div>
-<script>
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chContent').innerHTML =
-    '<div class="ch-eyebrow">פרק 01 מתוך 12</div>' +
-    '<h1 class="ch-title">🌐 תחילת מסע</h1>' +
-    '<p class="ch-desc">Client/Server, כתובות IP, DNS, ping, traceroute, ענן האינטרנט</p>' +
-    '<div class="divider"></div>' +
-    buildCh1();
-});
-</script>
 </body>
 </html>

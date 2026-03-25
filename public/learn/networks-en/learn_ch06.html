@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 
 <meta charset="UTF-8">
@@ -1304,130 +1304,92 @@ table { display: block; overflow-x: auto; max-width: 100%; }
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-<div class="ch-eyebrow">פרק 02 מתוך 12</div>
-<h1 class="ch-title">🔌 תכנות Sockets</h1>
-<p class="ch-desc">socket(), connect(), bind(), listen(), accept(), send(), recv(), close(), 127.0.0.1, שרת פקודות</p>
+<div class="ch-eyebrow">Chapter 06 of 12</div>
+<h1 class="ch-title">🚦 Transport Layer</h1>
+<p class="ch-desc">TCP, UDP, Ports, Three-Way Handshake, Seq/ACK, Checksum, Window, netstat</p>
 <div class="divider"></div>
 <section class="learn-section">
-<span class="sec-label">01 — Socket</span>
-<h2 class="sec-h">מה זה Socket?</h2>
-<p>Socket הוא <strong>נקודת קצה של חיבור</strong> בין שתי תוכנות. דמיינו צינור — מה שנכנס בצד אחד יוצא בצד השני. Socket = קצה אחד של הצינור.</p>
-<p>אנלוגיה מהפרק: <strong>כתובת IP = בניין</strong>, <strong>Port = מספר דירה</strong>. Socket = תיבת הדואר של דירה ספציפית בבניין ספציפי.</p>
-<div class="callout note">📝 Socket מאפשר תקשורת בין: שתי תוכנות על אותו מחשב, או תוכנות על מחשבים שונים ברחבי העולם.</div>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">02 — כתובת Socket</span>
-<h2 class="sec-h">IP + Port = כתובת Socket</h2>
-<p>כתובת Socket = <code>IP:Port</code>. הטווח: פורטים 0–65535. Well-Known ports (0–1023) שמורים לפרוטוקולים ידועים:</p>
-<table class="tbl"><tr><th>Port</th><th>פרוטוקול</th></tr>
-<tr><td>80</td><td>HTTP</td></tr>
-<tr><td>443</td><td>HTTPS</td></tr>
-<tr><td>22</td><td>SSH</td></tr>
-<tr><td>53</td><td>DNS</td></tr>
-<tr><td>8820</td><td>מותאם אישית (דוגמה בספר)</td></tr>
-</table>
-<p><code>127.0.0.1</code> = <strong>Loopback</strong> = "אני". לחיבורים על אותו מחשב. <code>0.0.0.0</code> = "קבל חיבורים מכולם".</p>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">03 — API הלקוח</span>
-<h2 class="sec-h">קוד לקוח — Python</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">client.py</span></div>
-<pre class="code-body"><span class="kw">import</span> socket
-
-my_socket = socket.socket()
-my_socket.connect((<span class="st">'1.2.3.4'</span>, <span class="nu">8820</span>))   <span class="cm"># IP + Port</span>
-my_socket.send(<span class="st">'Omer'</span>.encode())
-data = my_socket.recv(<span class="nu">1024</span>)              <span class="cm"># BLOCKING!</span>
-<span class="kw">print</span>(<span class="st">'Server said:'</span>, data.decode())
-my_socket.close()                           <span class="cm"># חשוב!</span></pre></div>
-<p>לבדיקה על אותו מחשב — משתמשים ב-<code>127.0.0.1</code> במקום IP.</p>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">04 — API השרת</span>
-<h2 class="sec-h">קוד שרת — שני Sockets!</h2>
-<div class="callout warn">⚠️ <strong>לשרת יש תמיד שני Sockets:</strong> server_socket (מאזין לחיבורים), ו-client_socket (מדבר עם לקוח ספציפי). אל תבלבל!</div>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server.py</span></div>
-<pre class="code-body"><span class="kw">import</span> socket
-
-server_socket = socket.socket()
-server_socket.bind((<span class="st">'0.0.0.0'</span>, <span class="nu">8820</span>))  <span class="cm"># קבל מכל IP</span>
-server_socket.listen(<span class="nu">1</span>)                  <span class="cm"># התחל להאזין</span>
-
-(client_socket, addr) = server_socket.accept()  <span class="cm"># BLOCKING!</span>
-<span class="kw">print</span>(<span class="st">'Connected from:'</span>, addr)
-
-name = client_socket.recv(<span class="nu">1024</span>).decode()
-client_socket.send((<span class="st">'Hello '</span> + name).encode())
-
-client_socket.close()
-server_socket.close()</pre></div>
-<p>סדר חובה בשרת: <code>socket()</code> → <code>bind()</code> → <code>listen()</code> → <code>accept()</code> → <code>send/recv</code> → <code>close()</code></p>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">05 — recv() ריקה</span>
-<h2 class="sec-h">recv() מחרוזת ריקה = ניתוק!</h2>
-<p>כשמחשב מרוחק <strong>סוגר</strong> את החיבור — <code>recv()</code> מחזירה מחרוזת <strong>ריקה</strong> (<code>""</code>). זהו הסימן לניתוק!</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">זיהוי ניתוק</span></div>
-<pre class="code-body">data = client_socket.recv(<span class="nu">1024</span>).decode()
-<span class="kw">if</span> data == <span class="st">""</span>:
-    <span class="kw">print</span>(<span class="st">"Client disconnected!"</span>)
-    client_socket.close()
-    <span class="kw">break</span></pre></div>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">06 — שרת פקודות</span>
-<h2 class="sec-h">שרת פקודות מתקדם</h2>
-<p>שרת שמקבל בקשות בגודל קבוע (4 bytes) ומחזיר תגובה בהתאם:</p>
-<table class="tbl"><tr><th>פקודה</th><th>תגובה</th><th>מודול Python</th></tr>
-<tr><td><code>TIME</code></td><td>השעה הנוכחית</td><td><code>import time</code></td></tr>
-<tr><td><code>NAME</code></td><td>שם השרת</td><td>מחרוזת קבועה</td></tr>
-<tr><td><code>RAND</code></td><td>מספר רנדומלי 1–10</td><td><code>import random</code></td></tr>
-<tr><td><code>EXIT</code></td><td>ניתוק</td><td><code>break</code></td></tr>
+<span class="sec-label">01 — פורטים</span>
+<h2 class="sec-h">פורטים — מזהה התוכנה</h2>
+<p>שכבת התעבורה מעבירה מידע מ<strong>תכנית לתכנית</strong> (לא רק ממחשב למחשב). הפורט מזהה את התוכנה הספציפית.</p>
+<p>אנלוגיה מהפרק: IP = כתובת בניין, Port = מספר דירה. תעבורה ל-IP:80 מגיעה לדירה 80 (שרת HTTP).</p>
+<table class="tbl"><tr><th>Port</th><th>פרוטוקול</th><th>הערה</th></tr>
+<tr><td>80</td><td>HTTP</td><td>Well-Known</td></tr>
+<tr><td>443</td><td>HTTPS</td><td>Well-Known</td></tr>
+<tr><td>53</td><td>DNS</td><td>Well-Known</td></tr>
+<tr><td>22</td><td>SSH</td><td>Well-Known</td></tr>
+<tr><td>0–1023</td><td>Well-Known Ports</td><td>דורשים הרשאת root</td></tr>
+<tr><td>1024–65535</td><td>Dynamic Ports</td><td>כל אחד יכול להשתמש</td></tr>
 </table>
 </section>
+
 <section class="learn-section">
-<span class="sec-label">07 — תקלות נפוצות</span>
-<h2 class="sec-h">Troubleshooting — Python Sockets</h2>
-<table class="tbl"><tr><th>שגיאה</th><th>סיבה</th><th>פתרון</th></tr>
-<tr><td><code>ConnectionRefusedError</code></td><td>אין מאזין בפורט</td><td>הרץ Server לפני Client</td></tr>
-<tr><td><code>Address already in use</code></td><td>פורט תפוס</td><td><code>s.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)</code></td></tr>
-<tr><td><code>recv()</code> תקוע</td><td>אין נתונים</td><td><code>s.settimeout(5)</code></td></tr>
-<tr><td>recv מחזיר <code>b""</code></td><td>החיבור נסגר</td><td><code>if data == b"": break</code></td></tr>
-<tr><td><code>UnicodeDecodeError</code></td><td>recv מחזיר bytes</td><td><code>data.decode('utf-8')</code></td></tr>
+<span class="sec-label">02 — TCP vs UDP</span>
+<h2 class="sec-h">TCP ו-UDP</h2>
+<table class="tbl"><tr><th>תכונה</th><th>TCP</th><th>UDP</th></tr>
+<tr><td>חיבור</td><td>מבוסס-חיבור (Handshake)</td><td>ללא חיבור</td></tr>
+<tr><td>אמינות</td><td>מובטחת — ACK לכל packet</td><td>לא מובטחת</td></tr>
+<tr><td>סדר</td><td>שמור — Seq numbers</td><td>לא מובטח</td></tr>
+<tr><td>מהירות</td><td>איטי יותר (overhead)</td><td>מהיר</td></tr>
+<tr><td>שימוש</td><td>HTTP, SSH, SMTP, FTP</td><td>DNS, Streaming, VoIP</td></tr>
+<tr><td>Header</td><td>20+ bytes</td><td>8 bytes בלבד</td></tr>
 </table>
 </section>
+
 <section class="learn-section">
-<span class="sec-label">08 — Cheat Sheet</span>
-<h2 class="sec-h">Cheat Sheet — Python Sockets</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server.py</span></div>
-<pre class="code-body"><span class="kw">import</span> socket
-s = socket.socket()
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="nu">1</span>)
-s.bind((<span class="st">''</span>, <span class="nu">9001</span>)); s.listen(<span class="nu">5</span>)
-client, addr = s.accept()
-data = client.recv(<span class="nu">1024</span>)
-client.send(<span class="st">b'pong'</span>)
-client.close(); s.close()</pre></div>
+<span class="sec-label">03 — Three-Way Handshake</span>
+<h2 class="sec-h">TCP Three-Way Handshake</h2>
+<p>לפני שליחת נתונים ב-TCP — חייבים לבצע Handshake לפתיחת הקישור:</p>
+<div class="diagram" style="direction:ltr;text-align:left">
+<div style="padding:12px 16px;font-family:monospace;font-size:13px;line-height:2.2">
+<div><span style="color:#3b82f6">Client</span> ──── SYN (seq=x) ──────────────▶ <span style="color:#10b981">Server</span></div>
+<div><span style="color:#3b82f6">Client</span> ◀─── SYN+ACK (seq=y, ack=x+1) ── <span style="color:#10b981">Server</span></div>
+<div><span style="color:#3b82f6">Client</span> ──── ACK (seq=x+1, ack=y+1) ──▶ <span style="color:#10b981">Server</span></div>
+<div style="color:#6b7280;margin-top:8px">         ← Connection Established →</div>
+</div></div>
+<p>סגירת חיבור: ה-FIN flag. אחד הצדדים שולח FIN, השני עונה ACK + FIN, הראשון עונה ACK.</p>
 </section>
+
 <section class="learn-section">
-<span class="sec-label">09 — שאלות בחינה</span>
-<h2 class="sec-h">שאלות בחינה נפוצות</h2>
-<div class="callout note">❓ <strong>מה ההבדל בין bind ל-connect?</strong><br>bind = Server — קובע IP:Port להאזין. connect = Client — פותח חיבור לשרת.</div>
-<div class="callout note">❓ <strong>למה recv לא מחזיר תמיד את כל הנתונים?</strong><br>TCP הוא stream — הנתונים יכולים להגיע בחלקים. קרא ב-loop לפי Content-Length.</div>
-<div class="callout note">❓ <strong>מה blocking vs non-blocking?</strong><br>Blocking: recv עוצר עד שיש נתונים. Non-blocking: מחזיר מיד עם שגיאה. select() = הפתרון האלגנטי.</div>
+<span class="sec-label">04 — Seq & ACK</span>
+<h2 class="sec-h">Sequence & Acknowledgement Numbers</h2>
+<p><strong>Seq</strong> = מספר ה-byte הראשון בסגמנט. <strong>ACK</strong> = ה-Seq הבא שמצפה לקבל (= Seq שהתקבל + גודל הנתונים).</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">דוגמה: שליחת "Hello" (5 bytes)</span></div>
+<pre class="code-body">Client → Server: Seq=100, data="Hello" (5 bytes)
+Server → Client: ACK=105  ← 100+5, "קיבלתי עד byte 104, מחכה ל-105"
+Client → Server: Seq=105, data="World" (5 bytes)
+Server → Client: ACK=110</pre></div>
+<div class="callout note">📝 SYN ו-FIN נחשבים כ-1 byte לצורכי חישוב ACK — למרות שאינם מכילים נתונים.</div>
 </section>
+
 <section class="learn-section">
-<span class="sec-label">10 — השוואות</span>
-<h2 class="sec-h">TCP vs UDP Socket ב-Python</h2>
-<table class="tbl"><tr><th></th><th>TCP SOCK_STREAM</th><th>UDP SOCK_DGRAM</th></tr>
-<tr><td>חיבור</td><td>connect() + accept()</td><td>sendto / recvfrom</td></tr>
-<tr><td>אמינות</td><td>מובטחת</td><td>לא מובטחת</td></tr>
-<tr><td>שימוש</td><td>HTTP, SSH</td><td>DNS, VoIP</td></tr>
+<span class="sec-label">05 — Checksum</span>
+<h2 class="sec-h">Checksum — גילוי שגיאות</h2>
+<p>Checksum מוודא שהנתונים לא נפגמו בדרך. מחושב על ה-Header <strong>וגם</strong> על הנתונים עצמם.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">דוגמה: Checksum = סכום ספרות</span></div>
+<pre class="code-body">מספר טלפון: 054-5555555
+Checksum = 0+5+4+5+5+5+5+5+5+5 = <span class="st">44</span>
+
+השרת קיבל: 654-5555555  (6 במקום 0!)
+בדיקה: 6+5+4+5+5+5+5+5+5+5 = <span class="kw">50 ≠ 44</span>  → שגיאה!</pre></div>
+<p>ב-TCP/IP: Checksum = One's Complement Sum של כל ה-16-bit words.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">06 — netstat</span>
+<h2 class="sec-h">netstat</h2>
+<p>מציג חיבורי רשת פעילים וסטטוסם:</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">netstat -an</span></div>
+<pre class="code-body">Proto  Local Address        Foreign Address     State
+TCP    0.0.0.0:80           0.0.0.0:*           LISTENING
+TCP    192.168.1.5:54231    142.250.74.46:443   ESTABLISHED
+TCP    192.168.1.5:8820     192.168.1.6:52311   ESTABLISHED
+UDP    0.0.0.0:53           0.0.0.0:*</pre></div>
+<table class="tbl"><tr><th>State</th><th>משמעות</th></tr>
+<tr><td>LISTENING</td><td>השרת ממתין לחיבורים</td></tr>
+<tr><td>ESTABLISHED</td><td>חיבור פעיל</td></tr>
+<tr><td>TIME_WAIT</td><td>ממתין אחרי סגירה</td></tr>
+<tr><td>CLOSE_WAIT</td><td>הצד השני ביקש לסגור</td></tr>
 </table>
 </section>
 </div>

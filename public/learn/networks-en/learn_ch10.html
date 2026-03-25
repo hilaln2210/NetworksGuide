@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 
 <meta charset="UTF-8">
@@ -1304,131 +1304,65 @@ table { display: block; overflow-x: auto; max-width: 100%; }
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-<div class="ch-eyebrow">פרק 02 מתוך 12</div>
-<h1 class="ch-title">🔌 תכנות Sockets</h1>
-<p class="ch-desc">socket(), connect(), bind(), listen(), accept(), send(), recv(), close(), 127.0.0.1, שרת פקודות</p>
+<div class="ch-eyebrow">Chapter 10 of 12</div>
+<h1 class="ch-title">⚡ Physical Layer</h1>
+<p class="ch-desc">Bit, AM/FM, ADSL, CAT5, WiFi Half Duplex, optical fiber, repeaters</p>
 <div class="divider"></div>
 <section class="learn-section">
-<span class="sec-label">01 — Socket</span>
-<h2 class="sec-h">מה זה Socket?</h2>
-<p>Socket הוא <strong>נקודת קצה של חיבור</strong> בין שתי תוכנות. דמיינו צינור — מה שנכנס בצד אחד יוצא בצד השני. Socket = קצה אחד של הצינור.</p>
-<p>אנלוגיה מהפרק: <strong>כתובת IP = בניין</strong>, <strong>Port = מספר דירה</strong>. Socket = תיבת הדואר של דירה ספציפית בבניין ספציפי.</p>
-<div class="callout note">📝 Socket מאפשר תקשורת בין: שתי תוכנות על אותו מחשב, או תוכנות על מחשבים שונים ברחבי העולם.</div>
+<span class="sec-label">01 — ביט</span>
+<h2 class="sec-h">ביט — האטום של המידע</h2>
+<p><strong>מטרת השכבה הפיזית: להעביר ביט יחיד בין רכיבי מחשוב.</strong></p>
+<p>ביט (bit) = BInary digiT = ספרה בינארית. יכול להחזיק <strong>0 או 1 בלבד</strong>. כל שאר השכבות מניחות שניתן להעביר ביטים.</p>
+<p>שלושה תווכים עיקריים: <strong>כבלי מתכת</strong> (נחושת), <strong>אוויר</strong> (WiFi, מיקרוגל), <strong>סיבים אופטיים</strong> (זכוכית/פלסטיק).</p>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">02 — כתובת Socket</span>
-<h2 class="sec-h">IP + Port = כתובת Socket</h2>
-<p>כתובת Socket = <code>IP:Port</code>. הטווח: פורטים 0–65535. Well-Known ports (0–1023) שמורים לפרוטוקולים ידועים:</p>
-<table class="tbl"><tr><th>Port</th><th>פרוטוקול</th></tr>
-<tr><td>80</td><td>HTTP</td></tr>
-<tr><td>443</td><td>HTTPS</td></tr>
-<tr><td>22</td><td>SSH</td></tr>
-<tr><td>53</td><td>DNS</td></tr>
-<tr><td>8820</td><td>מותאם אישית (דוגמה בספר)</td></tr>
+<span class="sec-label">02 — AM vs FM</span>
+<h2 class="sec-h">AM ו-FM — שיטות אפנון</h2>
+<p><strong>Modulation (אפנון)</strong> = הרכבת גל מידע על גבי גל "נושא". שתי שיטות עיקריות:</p>
+<table class="tbl"><tr><th>שיטה</th><th>מה משתנה</th><th>עמידות לרעשים</th></tr>
+<tr><td><strong>AM</strong> (Amplitude Modulation)</td><td>גובה הגל (אמפליטודה)</td><td>חלשה — רעש = שינוי אמפליטודה</td></tr>
+<tr><td><strong>FM</strong> (Frequency Modulation)</td><td>תדר הגל</td><td>חזקה — רעש משנה אמפליטודה, לא תדר</td></tr>
 </table>
-<p><code>127.0.0.1</code> = <strong>Loopback</strong> = "אני". לחיבורים על אותו מחשב. <code>0.0.0.0</code> = "קבל חיבורים מכולם".</p>
+<div class="callout tip">💡 <strong>למה FM נשמע טוב יותר מ-AM?</strong> כי מידע ב-FM מוצפן בתדר. רעש חשמלי = שינוי אמפליטודה — לא פוגע בתדר → FM עמיד!</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">03 — API הלקוח</span>
-<h2 class="sec-h">קוד לקוח — Python</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">client.py</span></div>
-<pre class="code-body"><span class="kw">import</span> socket
-
-my_socket = socket.socket()
-my_socket.connect((<span class="st">'1.2.3.4'</span>, <span class="nu">8820</span>))   <span class="cm"># IP + Port</span>
-my_socket.send(<span class="st">'Omer'</span>.encode())
-data = my_socket.recv(<span class="nu">1024</span>)              <span class="cm"># BLOCKING!</span>
-<span class="kw">print</span>(<span class="st">'Server said:'</span>, data.decode())
-my_socket.close()                           <span class="cm"># חשוב!</span></pre></div>
-<p>לבדיקה על אותו מחשב — משתמשים ב-<code>127.0.0.1</code> במקום IP.</p>
+<span class="sec-label">03 — ADSL</span>
+<h2 class="sec-h">ADSL</h2>
+<p>ADSL מנצל תדרים גבוהים (מעל 20KHz) על <strong>כבל הטלפון הנחושת הקיים</strong>. מודם קלאסי מוגבל לתדרי קול (20KHz). ADSL = 100MHz+ = מהיר פי מיליון!</p>
+<p>ביצועי ADSL תלויים ב<strong>מרחק ממרכזייה</strong> — ככל שרחוק יותר, איכות הסיגנל יורדת.</p>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">04 — API השרת</span>
-<h2 class="sec-h">קוד שרת — שני Sockets!</h2>
-<div class="callout warn">⚠️ <strong>לשרת יש תמיד שני Sockets:</strong> server_socket (מאזין לחיבורים), ו-client_socket (מדבר עם לקוח ספציפי). אל תבלבל!</div>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server.py</span></div>
-<pre class="code-body"><span class="kw">import</span> socket
-
-server_socket = socket.socket()
-server_socket.bind((<span class="st">'0.0.0.0'</span>, <span class="nu">8820</span>))  <span class="cm"># קבל מכל IP</span>
-server_socket.listen(<span class="nu">1</span>)                  <span class="cm"># התחל להאזין</span>
-
-(client_socket, addr) = server_socket.accept()  <span class="cm"># BLOCKING!</span>
-<span class="kw">print</span>(<span class="st">'Connected from:'</span>, addr)
-
-name = client_socket.recv(<span class="nu">1024</span>).decode()
-client_socket.send((<span class="st">'Hello '</span> + name).encode())
-
-client_socket.close()
-server_socket.close()</pre></div>
-<p>סדר חובה בשרת: <code>socket()</code> → <code>bind()</code> → <code>listen()</code> → <code>accept()</code> → <code>send/recv</code> → <code>close()</code></p>
+<span class="sec-label">04 — CAT5 & Ethernet</span>
+<h2 class="sec-h">כבלי CAT ו-Ethernet</h2>
+<p>כבלי CAT = כבלי זוגות מפותלים (Twisted Pair). המספר מציין איכות הבידוד:</p>
+<table class="tbl"><tr><th>כבל</th><th>מהירות מקסימלית</th><th>שימוש</th></tr>
+<tr><td>CAT3</td><td>10 Mbps</td><td>ישן, טלפוניה</td></tr>
+<tr><td>CAT5</td><td>100 Mbps</td><td>Fast Ethernet</td></tr>
+<tr><td>CAT5e</td><td>1 Gbps</td><td>Gigabit Ethernet</td></tr>
+<tr><td>CAT6</td><td>10 Gbps</td><td>משרדים מודרניים</td></tr>
+</table>
+<p>כבל CAT5 מכיל <strong>8 חוטים (4 זוגות)</strong>. ב-10Base-T: 2 זוגות בשימוש (TX + RX).</p>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">05 — recv() ריקה</span>
-<h2 class="sec-h">recv() מחרוזת ריקה = ניתוק!</h2>
-<p>כשמחשב מרוחק <strong>סוגר</strong> את החיבור — <code>recv()</code> מחזירה מחרוזת <strong>ריקה</strong> (<code>""</code>). זהו הסימן לניתוק!</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">זיהוי ניתוק</span></div>
-<pre class="code-body">data = client_socket.recv(<span class="nu">1024</span>).decode()
-<span class="kw">if</span> data == <span class="st">""</span>:
-    <span class="kw">print</span>(<span class="st">"Client disconnected!"</span>)
-    client_socket.close()
-    <span class="kw">break</span></pre></div>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">06 — שרת פקודות</span>
-<h2 class="sec-h">שרת פקודות מתקדם</h2>
-<p>שרת שמקבל בקשות בגודל קבוע (4 bytes) ומחזיר תגובה בהתאם:</p>
-<table class="tbl"><tr><th>פקודה</th><th>תגובה</th><th>מודול Python</th></tr>
-<tr><td><code>TIME</code></td><td>השעה הנוכחית</td><td><code>import time</code></td></tr>
-<tr><td><code>NAME</code></td><td>שם השרת</td><td>מחרוזת קבועה</td></tr>
-<tr><td><code>RAND</code></td><td>מספר רנדומלי 1–10</td><td><code>import random</code></td></tr>
-<tr><td><code>EXIT</code></td><td>ניתוק</td><td><code>break</code></td></tr>
+<span class="sec-label">05 — WiFi</span>
+<h2 class="sec-h">WiFi — Half Duplex!</h2>
+<p>WiFi פועל ב-<strong>Half Duplex</strong> — רק צד אחד מדבר בכל פעם. הסיבה: תדר שידור יחיד משותף. <strong>ככל שיש יותר מחשבים על AP — הקצב מתחלק ביניהם!</strong></p>
+<table class="tbl"><tr><th>תדר</th><th>יתרון</th><th>חיסרון</th></tr>
+<tr><td>2.4GHz</td><td>טווח ארוך, חודר קירות</td><td>איטי יותר, עמוס</td></tr>
+<tr><td>5GHz</td><td>מהיר יותר, פחות הפרעות</td><td>טווח קצר, לא חודר קירות</td></tr>
 </table>
 </section>
+
 <section class="learn-section">
-<span class="sec-label">07 — תקלות נפוצות</span>
-<h2 class="sec-h">Troubleshooting — Python Sockets</h2>
-<table class="tbl"><tr><th>שגיאה</th><th>סיבה</th><th>פתרון</th></tr>
-<tr><td><code>ConnectionRefusedError</code></td><td>אין מאזין בפורט</td><td>הרץ Server לפני Client</td></tr>
-<tr><td><code>Address already in use</code></td><td>פורט תפוס</td><td><code>s.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)</code></td></tr>
-<tr><td><code>recv()</code> תקוע</td><td>אין נתונים</td><td><code>s.settimeout(5)</code></td></tr>
-<tr><td>recv מחזיר <code>b""</code></td><td>החיבור נסגר</td><td><code>if data == b"": break</code></td></tr>
-<tr><td><code>UnicodeDecodeError</code></td><td>recv מחזיר bytes</td><td><code>data.decode('utf-8')</code></td></tr>
-</table>
-</section>
-<section class="learn-section">
-<span class="sec-label">08 — Cheat Sheet</span>
-<h2 class="sec-h">Cheat Sheet — Python Sockets</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server.py</span></div>
-<pre class="code-body"><span class="kw">import</span> socket
-s = socket.socket()
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="nu">1</span>)
-s.bind((<span class="st">''</span>, <span class="nu">9001</span>)); s.listen(<span class="nu">5</span>)
-client, addr = s.accept()
-data = client.recv(<span class="nu">1024</span>)
-client.send(<span class="st">b'pong'</span>)
-client.close(); s.close()</pre></div>
-</section>
-<section class="learn-section">
-<span class="sec-label">09 — שאלות בחינה</span>
-<h2 class="sec-h">שאלות בחינה נפוצות</h2>
-<div class="callout note">❓ <strong>מה ההבדל בין bind ל-connect?</strong><br>bind = Server — קובע IP:Port להאזין. connect = Client — פותח חיבור לשרת.</div>
-<div class="callout note">❓ <strong>למה recv לא מחזיר תמיד את כל הנתונים?</strong><br>TCP הוא stream — הנתונים יכולים להגיע בחלקים. קרא ב-loop לפי Content-Length.</div>
-<div class="callout note">❓ <strong>מה blocking vs non-blocking?</strong><br>Blocking: recv עוצר עד שיש נתונים. Non-blocking: מחזיר מיד עם שגיאה. select() = הפתרון האלגנטי.</div>
-</section>
-<section class="learn-section">
-<span class="sec-label">10 — השוואות</span>
-<h2 class="sec-h">TCP vs UDP Socket ב-Python</h2>
-<table class="tbl"><tr><th></th><th>TCP SOCK_STREAM</th><th>UDP SOCK_DGRAM</th></tr>
-<tr><td>חיבור</td><td>connect() + accept()</td><td>sendto / recvfrom</td></tr>
-<tr><td>אמינות</td><td>מובטחת</td><td>לא מובטחת</td></tr>
-<tr><td>שימוש</td><td>HTTP, SSH</td><td>DNS, VoIP</td></tr>
-</table>
+<span class="sec-label">06 — סיב אופטי</span>
+<h2 class="sec-h">סיב אופטי וממסרים</h2>
+<p>סיב אופטי = קרן אור בתוך זכוכית/פלסטיק. <strong>100 Terabit/s למרחק מעל 100 ק"מ!</strong></p>
+<p>יתרונות: עמיד להפרעות חשמליות, לא משדר לסביבה, מרחקים ארוכים. חיסרון: יקר, שביר.</p>
+<p><strong>ממסר (Relay)</strong>: לאורכים גדולים מדי — ממסרים מגבירים ומשדרים הלאה. כבלים תת-ימיים בין יבשות = עשרות ממסרים לאורך אלפי ק"מ.</p>
 </section>
 </div>
 </body>

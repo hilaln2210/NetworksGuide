@@ -1219,7 +1219,6 @@ section#lab {
 }
 </style>
 
-<script src="/_bridge.js"></script>
 <style id="ng-fix">
 /* NG: Noto Sans Hebrew for nikud */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
@@ -1301,22 +1300,115 @@ table { display: block; overflow-x: auto; max-width: 100%; }
   --pu: #7c3aed; --code-bg: #1e293b;
 }
 </style>
+<script src="/_bridge.js"></script>
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-  <div id="chContent"></div>
+<div class="ch-eyebrow">פרק 08 מתוך 12</div>
+<h1 class="ch-title">🔗 שכבת הקו</h1>
+<p class="ch-desc">MAC Address (Vendor ID + Host ID), Ethernet Frame, ARP, Broadcast/Unicast/Multicast</p>
+<div class="divider"></div>
+<section class="learn-section">
+<span class="sec-label">01 — MAC Address</span>
+<h2 class="sec-h">MAC Address</h2>
+<p>כתובת MAC = כתובת פיזית של כרטיס הרשת. <strong>6 bytes (48 bits)</strong>. צרובה בכרטיס בייצור.</p>
+<table class="tbl"><tr><th>חלק</th><th>גודל</th><th>תיאור</th></tr>
+<tr><td><strong>Vendor ID (OUI)</strong></td><td>3 bytes ראשונים</td><td>מזהה יצרן כרטיס הרשת</td></tr>
+<tr><td><strong>Host ID</strong></td><td>3 bytes אחרונים</td><td>מזהה ייחודי של הכרטיס</td></tr>
+</table>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">דוגמה</span></div>
+<pre class="code-body">D4:BE:D9 : D6:0C:2A
+^^^^^^^^^   ^^^^^^^^^
+Vendor ID   Host ID
+(Intel)     (ייחודי)</pre></div>
+<p>Wireshark מציג את שם היצרן אוטומטית בעמודת Source/Destination.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">02 — Ethernet Frame</span>
+<h2 class="sec-h">מבנה Ethernet Frame</h2>
+<table class="tbl"><tr><th>שדה</th><th>גודל</th><th>תיאור</th></tr>
+<tr><td>Preamble</td><td>8 bytes</td><td>סנכרון — לא מוצג ב-Wireshark!</td></tr>
+<tr><td>Destination MAC</td><td>6 bytes</td><td>MAC של היעד (hop הבא בלבד)</td></tr>
+<tr><td>Source MAC</td><td>6 bytes</td><td>MAC של השולח</td></tr>
+<tr><td>Type / EtherType</td><td>2 bytes</td><td>0x0800=IPv4, 0x0806=ARP, 0x86DD=IPv6</td></tr>
+<tr><td>Data (Payload)</td><td>46–1500 bytes</td><td>ה-IP packet</td></tr>
+<tr><td>CRC32 (FCS)</td><td>4 bytes</td><td>Checksum — לא מוצג ב-Wireshark!</td></tr>
+</table>
+<div class="callout warn">⚠️ <strong>MAC vs IP:</strong> MAC = Layer 2 = hop נוכחי בלבד. IP = Layer 3 = מקצה לקצה. <strong>MAC משתנה בכל hop, IP נשאר קבוע!</strong></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">03 — Preamble & CRC</span>
+<h2 class="sec-h">מדוע Preamble ו-CRC לא ב-Wireshark?</h2>
+<p><strong>Preamble</strong> (8 bytes): רצף סנכרון שמאפשר לכרטיס הרשת לזהות תחילת מסגרת. כרטיס הרשת <em>מסיר אותו</em> לפני שהתוכנה רואה את הנתונים.</p>
+<p><strong>CRC32</strong>: כרטיס הרשת <em>בודק</em> אותו — אם תקין מסיר, אם פגום זורק את המסגרת כולה. Wireshark רואה רק מה שהכרטיס העביר לתוכנה.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">04 — ARP</span>
+<h2 class="sec-h">ARP — Address Resolution Protocol</h2>
+<p>ARP ממיר <strong>IP → MAC</strong>. נחוץ כי Ethernet Frame דורש MAC יעד. לא ניתן לבנות Frame ללא MAC.</p>
+<div class="diagram"><div class="dg-row">
+  <div class="dg-box b" style="font-size:11px">A (10.0.0.1)<br>"מי יש MAC<br>של 10.0.0.2?"<br>→ Broadcast</div>
+  <div class="dg-arr">──▶ לכולם</div>
+  <div class="dg-box g" style="font-size:11px">B (10.0.0.2)<br>"אני!<br>MAC=aa:bb:cc:11:22:33"<br>← Unicast ל-A</div>
+</div></div>
+<p>התשובה נשמרת ב-<strong>ARP Cache</strong>: <code>arp -a</code> (הצגה), <code>arp -d &lt;IP&gt;</code> (מחיקה).</p>
+<div class="callout tip">💡 <strong>ARP Request</strong> = Broadcast (ff:ff:ff:ff:ff:ff). <strong>ARP Reply</strong> = Unicast ישירות לשואל.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">05 — Broadcast/Unicast/Multicast</span>
+<h2 class="sec-h">סוגי כתובות MAC</h2>
+<table class="tbl"><tr><th>סוג</th><th>כתובת</th><th>שימוש</th></tr>
+<tr><td><strong>Broadcast</strong></td><td>ff:ff:ff:ff:ff:ff</td><td>ARP Request, DHCP Discover — לכולם</td></tr>
+<tr><td><strong>Unicast</strong></td><td>כל כתובת רגילה</td><td>לכרטיס רשת ספציפי</td></tr>
+<tr><td><strong>Multicast</strong></td><td>bit ראשון = 1<br>דוגמה: 01:00:5e:xx:xx:xx</td><td>לקבוצה — multicast groups</td></tr>
+</table>
+</section>
+<section class="learn-section">
+<span class="sec-label">07 — תקלות נפוצות</span>
+<h2 class="sec-h">Troubleshooting — MAC ו-ARP</h2>
+<table class="tbl"><tr><th>תסמין</th><th>סיבה</th><th>פתרון</th></tr>
+<tr><td>ARP Spoofing</td><td>תוקף שולח ARP Replies מזויפים</td><td>השתמש ב-Dynamic ARP Inspection בSwitch. HTTPS מגן על התוכן</td></tr>
+<tr><td>מחשב לא מגיע לנתב</td><td>ARP cache מיושן / נתב החלפה</td><td><code>arp -d 192.168.1.1</code> ואז ping מחדש</td></tr>
+<tr><td>Wireshark מציג MAC שגוי</td><td>MAC Spoofing — שינוי MAC ידני</td><td>השווה ל-OUI הידוע של הכרטיס</td></tr>
+<tr><td>Broadcast storm</td><td>לולאת Switching ללא STP</td><td>הפעל Spanning Tree Protocol בSwitch</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Cheat Sheet — Ethernet Frame</h2>
+<table class="tbl"><tr><th>שדה</th><th>גודל</th><th>תוכן</th><th>הערה</th></tr>
+<tr><td>Preamble</td><td>7 bytes</td><td>10101010...</td><td>סנכרון — לא ב-Wireshark</td></tr>
+<tr><td>SFD</td><td>1 byte</td><td>10101011</td><td>Start Frame Delimiter</td></tr>
+<tr><td>Dst MAC</td><td>6 bytes</td><td>hop הבא</td><td>משתנה בכל hop!</td></tr>
+<tr><td>Src MAC</td><td>6 bytes</td><td>שולח</td><td>משתנה בכל hop!</td></tr>
+<tr><td>EtherType</td><td>2 bytes</td><td>0x0800=IPv4</td><td>0x0806=ARP, 0x86DD=IPv6</td></tr>
+<tr><td>Payload</td><td>46-1500</td><td>IP packet</td><td>MTU=1500 bytes</td></tr>
+<tr><td>CRC32</td><td>4 bytes</td><td>Checksum</td><td>לא ב-Wireshark</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — שאלות בחינה</span>
+<h2 class="sec-h">שאלות בחינה נפוצות</h2>
+<div class="callout note">❓ <strong>מה ההבדל בין MAC ל-IP? מה משתנה בכל hop?</strong><br>IP — כתובת מקצה לקצה, נשארת קבועה לאורך כל הדרך. MAC — כתובת hop נוכחי בלבד, משתנה בכל נתב. הנתב מחליף Ethernet Frame חדש לפי ARP.</div>
+<div class="callout note">❓ <strong>למה Preamble ו-CRC לא מופיעים ב-Wireshark?</strong><br>Preamble — כרטיס הרשת מסיר לפני העברה לOS. CRC — אם שגוי הframe נזרק לפני שWireshark רואה אותו; אם תקין מוסר.</div>
+<div class="callout note">❓ <strong>מה זה Promiscuous Mode?</strong><br>מצב שבו כרטיס רשת לוכד את כל ה-frames ברשת, לא רק אלה המיועדים אליו. Wireshark מפעיל זאת אוטומטית לצורך sniffing.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — השוואות</span>
+<h2 class="sec-h">Unicast vs Broadcast vs Multicast</h2>
+<table class="tbl"><tr><th>סוג</th><th>MAC</th><th>IP</th><th>מי מקבל</th><th>דוגמה</th></tr>
+<tr><td>Unicast</td><td>כתובת ספציפית</td><td>IP ספציפי</td><td>מכשיר אחד</td><td>HTTP, SSH</td></tr>
+<tr><td>Broadcast</td><td>ff:ff:ff:ff:ff:ff</td><td>x.x.x.255</td><td>כולם ב-subnet</td><td>ARP, DHCP</td></tr>
+<tr><td>Multicast</td><td>01:00:5e:xx:xx:xx</td><td>224.0.0.0/4</td><td>קבוצה</td><td>OSPF, Video streaming</td></tr>
+</table>
+</section>
 </div>
-<script>
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chContent').innerHTML =
-    '<div class="ch-eyebrow">פרק 08 מתוך 12</div>' +
-    '<h1 class="ch-title">🔗 שכבת הקו</h1>' +
-    '<p class="ch-desc">Ethernet, MAC Address, ARP, Ethernet Frame, Hub vs Switch</p>' +
-    '<div class="divider"></div>' +
-    buildCh8();
-});
-</script>
 </body>
 </html>

@@ -1219,7 +1219,6 @@ section#lab {
 }
 </style>
 
-<script src="/_bridge.js"></script>
 <style id="ng-fix">
 /* NG: Noto Sans Hebrew for nikud */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
@@ -1301,22 +1300,94 @@ table { display: block; overflow-x: auto; max-width: 100%; }
   --pu: #7c3aed; --code-bg: #1e293b;
 }
 </style>
+<script src="/_bridge.js"></script>
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-  <div id="chContent"></div>
+<div class="ch-eyebrow">פרק 09 מתוך 12</div>
+<h1 class="ch-title">🔀 רכיבי רשת</h1>
+<p class="ch-desc">Hub (Layer 1), Switch (Layer 2, MAC Table, Flooding), Router (Layer 3)</p>
+<div class="divider"></div>
+<section class="learn-section">
+<span class="sec-label">01 — Hub</span>
+<h2 class="sec-h">Hub (רכזת) — Layer 1</h2>
+<p>Hub הוא רכיב <strong>Layer 1 (פיזי)</strong>. אינו מכיר כתובות Ethernet או IP. כשמחשב שולח מסגרת — Hub <strong>מעתיק ושולח לכל הפורטים</strong>, חוץ מממנו הגיעה.</p>
+<div class="callout warn">⚠️ <strong>Hub = Wireshark בחינם:</strong> כל מחשב ברשת Hub רואה את התעבורה של כולם!</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">02 — Switch</span>
+<h2 class="sec-h">Switch (מתג) — Layer 2</h2>
+<p>Switch הוא רכיב <strong>Layer 2</strong>. מכיר כתובות MAC. שולח כל מסגרת <strong>רק לפורט הרלוונטי</strong>.</p>
+<p>Switch מכיר גם Checksum — אם מסגרת פגומה, הוא <strong>זורק</strong> אותה (לא כמו Hub שמעביר הכל).</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">03 — MAC Table + Flooding</span>
+<h2 class="sec-h">MAC Table ו-Flooding</h2>
+<p>Switch בונה <strong>MAC Table</strong> על-ידי למידה: כל מסגרת שמגיעה — Switch מוסיף לטבלה: <code>src_MAC → Port</code>.</p>
+<p>כשה-dst MAC <strong>לא ידוע</strong> בטבלה — Switch עושה <strong>Flooding</strong>: שולח לכל הפורטים (כמו Hub). Switch חדש = Flooding לכל מסגרת עד שלמד את הרשת.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Switch MAC Table</span></div>
+<pre class="code-body">MAC               Port    Timeout
+--------------------------
+d4:be:d9:d6:0c:2a  Port1   300s
+e4:8d:8c:aa:11:22  Port3   300s
+(כל ערך נמחק אחרי timeout)</pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">04 — Router</span>
+<h2 class="sec-h">Router (נתב) — Layer 3</h2>
+<p>Router הוא רכיב <strong>Layer 3</strong>. מכיר כתובות IP ו-Subnet Masks. <strong>מחליט על מסלול הניתוב</strong> של כל חבילה. משתמש בטבלאות ניתוב דינאמיות שמתעדכנות כשמשתנה הרשת.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">05 — השוואה</span>
+<h2 class="sec-h">טבלת השוואה</h2>
+<table class="tbl"><tr><th>רכיב</th><th>Layer</th><th>מכיר</th><th>פעולה</th></tr>
+<tr><td><strong>Hub</strong></td><td>1 (פיזי)</td><td>כלום</td><td>שולח לכל הפורטים תמיד</td></tr>
+<tr><td><strong>Switch</strong></td><td>2 (קו)</td><td>MAC</td><td>שולח רק ליעד. Flooding אם לא מכיר dst.</td></tr>
+<tr><td><strong>Router</strong></td><td>3 (רשת)</td><td>IP + Subnet</td><td>מנתב בין רשתות. Default Gateway.</td></tr>
+</table>
+</section>
+<section class="learn-section">
+<span class="sec-label">07 — תקלות נפוצות</span>
+<h2 class="sec-h">Troubleshooting — רכיבי רשת</h2>
+<table class="tbl"><tr><th>תסמין</th><th>סיבה</th><th>פתרון</th></tr>
+<tr><td>Switch עושה Flooding לכולם</td><td>MAC Table לא למד / פג תוקף</td><td>נורמלי למספר שניות. בדוק אם MAC table מתמלא</td></tr>
+<tr><td>Broadcast storm</td><td>לולאת Switching (ללא STP)</td><td>הפעל Spanning Tree. נתק כבלים מיותרים</td></tr>
+<tr><td>Wireshark רואה הכל ב-Hub, לא ב-Switch</td><td>Switch שולח רק ליעד</td><td>לוגי. להסנפת Switch — השתמש ב-port mirroring/SPAN</td></tr>
+<tr><td>מחשב לא מגיע לרשת אחרת</td><td>Router חסר / Default Gateway שגוי</td><td>ping ל-gateway. בדוק routing table בנתב</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Cheat Sheet — Hub vs Switch vs Router</h2>
+<table class="tbl"><tr><th>רכיב</th><th>OSI Layer</th><th>מכיר</th><th>שולח ל</th><th>רואה Wireshark</th></tr>
+<tr><td>Hub</td><td>L1</td><td>כלום</td><td>כל הפורטים</td><td>הכל (כולל שלך)</td></tr>
+<tr><td>Switch</td><td>L2</td><td>MAC</td><td>פורט יעד בלבד</td><td>Unicast אליך + Broadcast</td></tr>
+<tr><td>Router</td><td>L3</td><td>IP + Subnet</td><td>לפי routing table</td><td>תלוי ב-segment</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — שאלות בחינה</span>
+<h2 class="sec-h">שאלות בחינה נפוצות</h2>
+<div class="callout note">❓ <strong>Switch חדש לא מכיר אף MAC. מה קורה כשA שולח ל-B?</strong><br>Flooding: Switch שולח לכל הפורטים (כמו Hub). כשB עונה — Switch לומד את MAC של B. לאחר מכן Unicast.</div>
+<div class="callout note">❓ <strong>מה STP ולמה הוא נחוץ?</strong><br>Spanning Tree Protocol — מונע לולאות ב-Switching. ללא STP, frame יכול לסובב לנצח בין שני Switchים המחוברים בכפולה.</div>
+<div class="callout note">❓ <strong>מה ההבדל בין Router ל-Layer 3 Switch?</strong><br>שניהם מנתבים לפי IP. Router — חיבור בין רשתות שונות (LAN/WAN). L3 Switch — ניתוב מהיר בין VLANs באותו data center.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — השוואות</span>
+<h2 class="sec-h">Collision Domain vs Broadcast Domain</h2>
+<table class="tbl"><tr><th>מושג</th><th>Hub</th><th>Switch</th><th>Router</th></tr>
+<tr><td>Collision Domain</td><td>כל הפורטים — domain אחד</td><td>כל פורט — domain נפרד</td><td>כל פורט — domain נפרד</td></tr>
+<tr><td>Broadcast Domain</td><td>כל הרשת — domain אחד</td><td>כל הרשת — domain אחד</td><td>כל פורט — domain נפרד</td></tr>
+</table>
+<div class="callout tip">💡 Router בוקע Broadcast Domains. Switch לא. לכן DHCP לא עובר נתבים ללא DHCP Relay.</div>
+</section>
 </div>
-<script>
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chContent').innerHTML =
-    '<div class="ch-eyebrow">פרק 09 מתוך 12</div>' +
-    '<h1 class="ch-title">🔀 רכיבי רשת</h1>' +
-    '<p class="ch-desc">Hub vs Switch vs Router — שכבות, MAC Table, Flooding, ARP</p>' +
-    '<div class="divider"></div>' +
-    buildCh9();
-});
-</script>
 </body>
 </html>

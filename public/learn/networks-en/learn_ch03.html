@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 
 <meta charset="UTF-8">
@@ -1304,130 +1304,69 @@ table { display: block; overflow-x: auto; max-width: 100%; }
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-<div class="ch-eyebrow">פרק 02 מתוך 12</div>
-<h1 class="ch-title">🔌 תכנות Sockets</h1>
-<p class="ch-desc">socket(), connect(), bind(), listen(), accept(), send(), recv(), close(), 127.0.0.1, שרת פקודות</p>
+<div class="ch-eyebrow">Chapter 03 of 12</div>
+<h1 class="ch-title">🦈 Wireshark & Five-Layer Model</h1>
+<p class="ch-desc">Five-layer model, Encapsulation, Decapsulation, Headers, Display/Capture Filters</p>
 <div class="divider"></div>
 <section class="learn-section">
-<span class="sec-label">01 — Socket</span>
-<h2 class="sec-h">מה זה Socket?</h2>
-<p>Socket הוא <strong>נקודת קצה של חיבור</strong> בין שתי תוכנות. דמיינו צינור — מה שנכנס בצד אחד יוצא בצד השני. Socket = קצה אחד של הצינור.</p>
-<p>אנלוגיה מהפרק: <strong>כתובת IP = בניין</strong>, <strong>Port = מספר דירה</strong>. Socket = תיבת הדואר של דירה ספציפית בבניין ספציפי.</p>
-<div class="callout note">📝 Socket מאפשר תקשורת בין: שתי תוכנות על אותו מחשב, או תוכנות על מחשבים שונים ברחבי העולם.</div>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">02 — כתובת Socket</span>
-<h2 class="sec-h">IP + Port = כתובת Socket</h2>
-<p>כתובת Socket = <code>IP:Port</code>. הטווח: פורטים 0–65535. Well-Known ports (0–1023) שמורים לפרוטוקולים ידועים:</p>
-<table class="tbl"><tr><th>Port</th><th>פרוטוקול</th></tr>
-<tr><td>80</td><td>HTTP</td></tr>
-<tr><td>443</td><td>HTTPS</td></tr>
-<tr><td>22</td><td>SSH</td></tr>
-<tr><td>53</td><td>DNS</td></tr>
-<tr><td>8820</td><td>מותאם אישית (דוגמה בספר)</td></tr>
+<span class="sec-label">01 — מודל 5 שכבות</span>
+<h2 class="sec-h">מודל חמש השכבות</h2>
+<p>האינטרנט מכיל מיליארדי רכיבים מיצרנים שונים. כיצד הם מדברים ביניהם? הפתרון: <strong>חלוקה לשכבות</strong>. כל שכבה מסתירה מורכבות מהשכבה שמעליה.</p>
+<table class="tbl"><tr><th>#</th><th>שכבה</th><th>פרוטוקולים</th><th>כתובת</th></tr>
+<tr><td>5</td><td>אפליקציה</td><td>HTTP, DNS, SMTP, DHCP</td><td>—</td></tr>
+<tr><td>4</td><td>תעבורה</td><td>TCP, UDP</td><td>Port</td></tr>
+<tr><td>3</td><td>רשת</td><td>IP, ICMP</td><td>IP Address</td></tr>
+<tr><td>2</td><td>קו</td><td>Ethernet, WiFi</td><td>MAC Address</td></tr>
+<tr><td>1</td><td>פיזית</td><td>כבלים, WiFi, סיב אופטי</td><td>—</td></tr>
 </table>
-<p><code>127.0.0.1</code> = <strong>Loopback</strong> = "אני". לחיבורים על אותו מחשב. <code>0.0.0.0</code> = "קבל חיבורים מכולם".</p>
+<div class="callout tip">💡 <strong>הסכם חסוי:</strong> כל שכבה "מסכימה" עם השכבה המקבילה אצל הצד השני — ולא צריכה לדעת איך השכבות הנמוכות עובדות.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">03 — API הלקוח</span>
-<h2 class="sec-h">קוד לקוח — Python</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">client.py</span></div>
-<pre class="code-body"><span class="kw">import</span> socket
-
-my_socket = socket.socket()
-my_socket.connect((<span class="st">'1.2.3.4'</span>, <span class="nu">8820</span>))   <span class="cm"># IP + Port</span>
-my_socket.send(<span class="st">'Omer'</span>.encode())
-data = my_socket.recv(<span class="nu">1024</span>)              <span class="cm"># BLOCKING!</span>
-<span class="kw">print</span>(<span class="st">'Server said:'</span>, data.decode())
-my_socket.close()                           <span class="cm"># חשוב!</span></pre></div>
-<p>לבדיקה על אותו מחשב — משתמשים ב-<code>127.0.0.1</code> במקום IP.</p>
+<span class="sec-label">02 — Encapsulation</span>
+<h2 class="sec-h">Encapsulation ו-Decapsulation</h2>
+<p><strong>Encapsulation (כימוס)</strong>: בשליחה — כל שכבה מוסיפה <strong>Header</strong> שלה (עוטפת את הנתונים). <strong>Decapsulation (קילוף)</strong>: בקבלה — כל שכבה מסירה את ה-Header שלה.</p>
+<div class="diagram">
+<div style="font-size:12px;direction:ltr;text-align:left;padding:12px 16px;line-height:2">
+<div><strong>שליחה (Encapsulation):</strong></div>
+<div>Data</div>
+<div>[ TCP Header ] + Data</div>
+<div>[ IP Header ] + [ TCP Header ] + Data</div>
+<div>[ Eth Header ] + [ IP Header ] + [ TCP Header ] + Data + [ Eth Trailer ]</div>
+</div></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">04 — API השרת</span>
-<h2 class="sec-h">קוד שרת — שני Sockets!</h2>
-<div class="callout warn">⚠️ <strong>לשרת יש תמיד שני Sockets:</strong> server_socket (מאזין לחיבורים), ו-client_socket (מדבר עם לקוח ספציפי). אל תבלבל!</div>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server.py</span></div>
-<pre class="code-body"><span class="kw">import</span> socket
-
-server_socket = socket.socket()
-server_socket.bind((<span class="st">'0.0.0.0'</span>, <span class="nu">8820</span>))  <span class="cm"># קבל מכל IP</span>
-server_socket.listen(<span class="nu">1</span>)                  <span class="cm"># התחל להאזין</span>
-
-(client_socket, addr) = server_socket.accept()  <span class="cm"># BLOCKING!</span>
-<span class="kw">print</span>(<span class="st">'Connected from:'</span>, addr)
-
-name = client_socket.recv(<span class="nu">1024</span>).decode()
-client_socket.send((<span class="st">'Hello '</span> + name).encode())
-
-client_socket.close()
-server_socket.close()</pre></div>
-<p>סדר חובה בשרת: <code>socket()</code> → <code>bind()</code> → <code>listen()</code> → <code>accept()</code> → <code>send/recv</code> → <code>close()</code></p>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">05 — recv() ריקה</span>
-<h2 class="sec-h">recv() מחרוזת ריקה = ניתוק!</h2>
-<p>כשמחשב מרוחק <strong>סוגר</strong> את החיבור — <code>recv()</code> מחזירה מחרוזת <strong>ריקה</strong> (<code>""</code>). זהו הסימן לניתוק!</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">זיהוי ניתוק</span></div>
-<pre class="code-body">data = client_socket.recv(<span class="nu">1024</span>).decode()
-<span class="kw">if</span> data == <span class="st">""</span>:
-    <span class="kw">print</span>(<span class="st">"Client disconnected!"</span>)
-    client_socket.close()
-    <span class="kw">break</span></pre></div>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">06 — שרת פקודות</span>
-<h2 class="sec-h">שרת פקודות מתקדם</h2>
-<p>שרת שמקבל בקשות בגודל קבוע (4 bytes) ומחזיר תגובה בהתאם:</p>
-<table class="tbl"><tr><th>פקודה</th><th>תגובה</th><th>מודול Python</th></tr>
-<tr><td><code>TIME</code></td><td>השעה הנוכחית</td><td><code>import time</code></td></tr>
-<tr><td><code>NAME</code></td><td>שם השרת</td><td>מחרוזת קבועה</td></tr>
-<tr><td><code>RAND</code></td><td>מספר רנדומלי 1–10</td><td><code>import random</code></td></tr>
-<tr><td><code>EXIT</code></td><td>ניתוק</td><td><code>break</code></td></tr>
+<span class="sec-label">03 — Header</span>
+<h2 class="sec-h">מה מכיל Header?</h2>
+<p>ה-Header מכיל מידע לשליטה ובקרה. לדוגמה:</p>
+<table class="tbl"><tr><th>שכבה</th><th>Header מכיל</th></tr>
+<tr><td>Layer 3 (IP)</td><td>src IP, dst IP, TTL, Protocol</td></tr>
+<tr><td>Layer 4 (TCP)</td><td>src Port, dst Port, Seq, ACK, Flags</td></tr>
+<tr><td>Layer 2 (Ethernet)</td><td>src MAC, dst MAC, Type</td></tr>
 </table>
 </section>
+
 <section class="learn-section">
-<span class="sec-label">07 — תקלות נפוצות</span>
-<h2 class="sec-h">Troubleshooting — Python Sockets</h2>
-<table class="tbl"><tr><th>שגיאה</th><th>סיבה</th><th>פתרון</th></tr>
-<tr><td><code>ConnectionRefusedError</code></td><td>אין מאזין בפורט</td><td>הרץ Server לפני Client</td></tr>
-<tr><td><code>Address already in use</code></td><td>פורט תפוס</td><td><code>s.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)</code></td></tr>
-<tr><td><code>recv()</code> תקוע</td><td>אין נתונים</td><td><code>s.settimeout(5)</code></td></tr>
-<tr><td>recv מחזיר <code>b""</code></td><td>החיבור נסגר</td><td><code>if data == b"": break</code></td></tr>
-<tr><td><code>UnicodeDecodeError</code></td><td>recv מחזיר bytes</td><td><code>data.decode('utf-8')</code></td></tr>
+<span class="sec-label">04 — Wireshark</span>
+<h2 class="sec-h">Wireshark</h2>
+<p>Wireshark לוכד ומציג את כל הפקטות שעוברות בכרטיס הרשת. ניתן לראות Headers של כל שכבה, ואפילו סיסמאות בטקסט גלוי!</p>
+<div class="callout warn">⚠️ שימוש ב-Wireshark ברשת של אחרים ללא אישור = לא חוקי.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">05 — Filters</span>
+<h2 class="sec-h">Display Filter vs Capture Filter</h2>
+<table class="tbl"><tr><th>סוג</th><th>מסנן</th><th>Syntax</th></tr>
+<tr><td><strong>Display Filter</strong></td><td>מה <em>מוצג</em> — ניתן לשנות בכל עת</td><td><code>http</code>, <code>ip.addr==8.8.8.8</code></td></tr>
+<tr><td><strong>Capture Filter</strong></td><td>מה <em>נלכד</em> — דורש הפסקה</td><td><code>host 8.8.8.8</code>, <code>port 80</code></td></tr>
 </table>
-</section>
-<section class="learn-section">
-<span class="sec-label">08 — Cheat Sheet</span>
-<h2 class="sec-h">Cheat Sheet — Python Sockets</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server.py</span></div>
-<pre class="code-body"><span class="kw">import</span> socket
-s = socket.socket()
-s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="nu">1</span>)
-s.bind((<span class="st">''</span>, <span class="nu">9001</span>)); s.listen(<span class="nu">5</span>)
-client, addr = s.accept()
-data = client.recv(<span class="nu">1024</span>)
-client.send(<span class="st">b'pong'</span>)
-client.close(); s.close()</pre></div>
-</section>
-<section class="learn-section">
-<span class="sec-label">09 — שאלות בחינה</span>
-<h2 class="sec-h">שאלות בחינה נפוצות</h2>
-<div class="callout note">❓ <strong>מה ההבדל בין bind ל-connect?</strong><br>bind = Server — קובע IP:Port להאזין. connect = Client — פותח חיבור לשרת.</div>
-<div class="callout note">❓ <strong>למה recv לא מחזיר תמיד את כל הנתונים?</strong><br>TCP הוא stream — הנתונים יכולים להגיע בחלקים. קרא ב-loop לפי Content-Length.</div>
-<div class="callout note">❓ <strong>מה blocking vs non-blocking?</strong><br>Blocking: recv עוצר עד שיש נתונים. Non-blocking: מחזיר מיד עם שגיאה. select() = הפתרון האלגנטי.</div>
-</section>
-<section class="learn-section">
-<span class="sec-label">10 — השוואות</span>
-<h2 class="sec-h">TCP vs UDP Socket ב-Python</h2>
-<table class="tbl"><tr><th></th><th>TCP SOCK_STREAM</th><th>UDP SOCK_DGRAM</th></tr>
-<tr><td>חיבור</td><td>connect() + accept()</td><td>sendto / recvfrom</td></tr>
-<tr><td>אמינות</td><td>מובטחת</td><td>לא מובטחת</td></tr>
-<tr><td>שימוש</td><td>HTTP, SSH</td><td>DNS, VoIP</td></tr>
+<table class="tbl"><tr><th>Display Filter</th><th>מה מציג</th></tr>
+<tr><td><code>http</code></td><td>רק HTTP packets</td></tr>
+<tr><td><code>ip.addr == 8.8.8.8</code></td><td>src או dst = 8.8.8.8</td></tr>
+<tr><td><code>tcp.port == 80</code></td><td>TCP על פורט 80</td></tr>
+<tr><td><code>dns</code></td><td>רק DNS</td></tr>
+<tr><td><code>tcp.flags.syn == 1</code></td><td>רק SYN packets</td></tr>
 </table>
 </section>
 </div>

@@ -1219,7 +1219,6 @@ section#lab {
 }
 </style>
 
-<script src="/_bridge.js"></script>
 <style id="ng-fix">
 /* NG: Noto Sans Hebrew for nikud */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
@@ -1301,22 +1300,127 @@ table { display: block; overflow-x: auto; max-width: 100%; }
   --pu: #7c3aed; --code-bg: #1e293b;
 }
 </style>
+<script src="/_bridge.js"></script>
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-  <div id="chContent"></div>
+<div class="ch-eyebrow">פרק 04 מתוך 12</div>
+<h1 class="ch-title">📡 שכבת האפליקציה</h1>
+<p class="ch-desc">HTTP GET/POST, URL, Status Codes, Headers, DNS Records (A/AAAA/MX/CNAME)</p>
+<div class="divider"></div>
+<section class="learn-section">
+<span class="sec-label">01 — HTTP Request</span>
+<h2 class="sec-h">HTTP Request (בקשה)</h2>
+<p>כל בקשה HTTP מורכבת מ: <strong>Request Line</strong>, <strong>Headers</strong>, שורה ריקה, ו-<strong>Body</strong> (ב-POST).</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP GET Request</span></div>
+<pre class="code-body"><span class="kw">GET</span> /search?q=python HTTP/1.1
+<span class="cm">Host:</span> www.google.com
+<span class="cm">User-Agent:</span> Mozilla/5.0
+<span class="cm">Accept:</span> text/html
+<span class="cm">(שורה ריקה — הסוף!)</span></pre></div>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP POST Request</span></div>
+<pre class="code-body"><span class="kw">POST</span> /login HTTP/1.1
+<span class="cm">Host:</span> www.facebook.com
+<span class="cm">Content-Length:</span> 28
+<span class="cm">(שורה ריקה)</span>
+username=omer&password=1234</pre></div>
+<div class="callout tip">💡 <strong>GET vs POST:</strong> GET מבקש מידע (פרמטרים ב-URL). POST שולח מידע (בגוף הבקשה, נסתר). כרטיסי אשראי → POST!</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">02 — HTTP Response</span>
+<h2 class="sec-h">HTTP Response (תגובה)</h2>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP Response</span></div>
+<pre class="code-body"><span class="st">HTTP/1.1 200 OK</span>
+<span class="cm">Content-Type:</span> text/html; charset=utf-8
+<span class="cm">Content-Length:</span> 4823
+<span class="cm">Set-Cookie:</span> session=abc123
+<span class="cm">(שורה ריקה)</span>
+&lt;html&gt;...&lt;/html&gt;</pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">03 — URL</span>
+<h2 class="sec-h">URL — Universal Resource Locator</h2>
+<p>מבנה URL: <code>scheme://host/path?query</code></p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">URL anatomy</span></div>
+<pre class="code-body">https://www.ynet.co.il/news/article/1234?lang=he
+  ^       ^              ^      ^           ^
+  scheme  host           path   resource    query</pre></div>
+<p>כשהשרת מקבל בקשה ל-<code>/folder_a/folder_b/file.txt</code> — הוא מחפש את הקובץ ב-<strong>Root Directory</strong> שלו (לדוגמה: <code>C:\\wwwrootolder_aolder_bile.txt</code>).</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">04 — Status Codes</span>
+<h2 class="sec-h">קודי סטטוס HTTP</h2>
+<table class="tbl"><tr><th>קוד</th><th>משמעות</th><th>מתי</th></tr>
+<tr><td><strong>200 OK</strong></td><td>הצלחה</td><td>הבקשה טופלה בהצלחה</td></tr>
+<tr><td><strong>301</strong></td><td>Moved Permanently</td><td>http → https redirect</td></tr>
+<tr><td><strong>400</strong></td><td>Bad Request</td><td>שגיאה בבקשה</td></tr>
+<tr><td><strong>403 Forbidden</strong></td><td>אין הרשאה</td><td>אתה לא מורשה</td></tr>
+<tr><td><strong>404 Not Found</strong></td><td>לא נמצא</td><td>ה-URL לא קיים</td></tr>
+<tr><td><strong>500</strong></td><td>Internal Server Error</td><td>באג בשרת</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">05 — DNS Records</span>
+<h2 class="sec-h">DNS Resource Records</h2>
+<p>שרת DNS שומר <strong>Resource Records</strong> מסוגים שונים:</p>
+<table class="tbl"><tr><th>Type</th><th>מחזיר</th><th>דוגמה</th></tr>
+<tr><td><strong>A</strong></td><td>IPv4 address</td><td>google.com → 142.250.74.46</td></tr>
+<tr><td><strong>AAAA</strong></td><td>IPv6 address</td><td>google.com → 2607:f8b0:...</td></tr>
+<tr><td><strong>MX</strong></td><td>שרת מייל של הדומיין</td><td>gmail.com → aspmx.l.google.com</td></tr>
+<tr><td><strong>CNAME</strong></td><td>Alias לשם אחר</td><td>www.github.com → github.com</td></tr>
+</table>
+<p>לכל שאילתת DNS יש <strong>Transaction ID</strong> (16-bit) לזיהוי. הלקוח שולח עם ID מסוים, השרת עונה עם אותו ID.</p>
+</section>
+<section class="learn-section">
+<span class="sec-label">07 — תקלות נפוצות</span>
+<h2 class="sec-h">Troubleshooting — שכבת האפליקציה</h2>
+<table class="tbl"><tr><th>תסמין</th><th>סיבה</th><th>פתרון</th></tr>
+<tr><td>DNS לא מגיב</td><td>שרת DNS מנותק / UDP:53 חסום</td><td><code>nslookup google.com 8.8.8.8</code> — עקוף DNS מקומי</td></tr>
+<tr><td>SMTP Error 550</td><td>כתובת נמען לא קיימת / blacklist</td><td>בדוק כתובת, בדוק SPF/DKIM records</td></tr>
+<tr><td>FTP passive mode fails</td><td>Firewall חוסם פורטי data</td><td>עבור ל-SFTP (פורט 22) או תקן firewall rules</td></tr>
+<tr><td>SSH connection refused</td><td>sshd לא רץ / פורט 22 חסום</td><td><code>sudo systemctl start ssh</code> בשרת</td></tr>
+</table>
+<div class="callout tip">💡 <strong>Well-Known Ports לזכור:</strong> 20/21=FTP, 22=SSH, 25=SMTP, 53=DNS, 80=HTTP, 110=POP3, 143=IMAP, 443=HTTPS, 3389=RDP</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Cheat Sheet — פרוטוקולי Application Layer</h2>
+<table class="tbl"><tr><th>פרוטוקול</th><th>פורט</th><th>Transport</th><th>שימוש</th></tr>
+<tr><td>HTTP</td><td>80</td><td>TCP</td><td>דפי אינטרנט</td></tr>
+<tr><td>HTTPS</td><td>443</td><td>TCP+TLS</td><td>דפי אינטרנט מוצפנים</td></tr>
+<tr><td>DNS</td><td>53</td><td>UDP (בד"כ)</td><td>פענוח שמות</td></tr>
+<tr><td>DHCP</td><td>67/68</td><td>UDP</td><td>חלוקת כתובות IP</td></tr>
+<tr><td>SSH</td><td>22</td><td>TCP</td><td>גישה מרחוק מוצפנת</td></tr>
+<tr><td>SMTP</td><td>25/587</td><td>TCP</td><td>שליחת מייל</td></tr>
+<tr><td>FTP</td><td>20/21</td><td>TCP</td><td>העברת קבצים</td></tr>
+<tr><td>RDP</td><td>3389</td><td>TCP</td><td>Remote Desktop</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — שאלות בחינה</span>
+<h2 class="sec-h">שאלות בחינה נפוצות</h2>
+<div class="callout note">❓ <strong>למה DNS משתמש ב-UDP ולא TCP?</strong><br>שאילתות DNS קטנות (רוב &lt;512 bytes) — UDP מהיר יותר ולא דורש Handshake. אם התגובה גדולה (Zone Transfer) — DNS עובר ל-TCP.</div>
+<div class="callout note">❓ <strong>מה ההבדל בין IMAP ל-POP3?</strong><br>POP3 — מוריד מיילים ומוחק מהשרת. IMAP — סנכרון: המיילים נשארים בשרת, נגישים ממכשירים מרובים.</div>
+<div class="callout note">❓ <strong>מה זה Root Directory בשרת HTTP?</strong><br>תיקייה שהמתכנת הגדיר כבסיס האתר. בקשה ל-<code>/page.html</code> = <code>C:\wwwroot\page.html</code>. בקשה ל-<code>/</code> מחזירה <code>index.html</code>.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — השוואות</span>
+<h2 class="sec-h">TCP vs UDP — מתי להשתמש?</h2>
+<table class="tbl"><tr><th>קריטריון</th><th>בחר TCP</th><th>בחר UDP</th></tr>
+<tr><td>אמינות</td><td>חייבת (קבצים, HTTP)</td><td>לא קריטית (streaming)</td></tr>
+<tr><td>סדר</td><td>חייב להישמר</td><td>לא חשוב</td></tr>
+<tr><td>latency</td><td>לא קריטי</td><td>קריטי (VoIP, gaming)</td></tr>
+<tr><td>broadcast</td><td>לא אפשרי</td><td>אפשרי</td></tr>
+<tr><td>דוגמאות</td><td>HTTP, SSH, FTP, SMTP</td><td>DNS, DHCP, VoIP, NTP</td></tr>
+</table>
+</section>
 </div>
-<script>
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chContent').innerHTML =
-    '<div class="ch-eyebrow">פרק 04 מתוך 12</div>' +
-    '<h1 class="ch-title">📡 שכבת האפליקציה</h1>' +
-    '<p class="ch-desc">HTTP GET/POST, Status Codes, Headers, URL, DNS, Root Directory</p>' +
-    '<div class="divider"></div>' +
-    buildCh4();
-});
-</script>
 </body>
 </html>

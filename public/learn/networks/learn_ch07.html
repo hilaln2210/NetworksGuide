@@ -1219,7 +1219,6 @@ section#lab {
 }
 </style>
 
-<script src="/_bridge.js"></script>
 <style id="ng-fix">
 /* NG: Noto Sans Hebrew for nikud */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
@@ -1301,22 +1300,142 @@ table { display: block; overflow-x: auto; max-width: 100%; }
   --pu: #7c3aed; --code-bg: #1e293b;
 }
 </style>
+<script src="/_bridge.js"></script>
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-  <div id="chContent"></div>
+<div class="ch-eyebrow">פרק 07 מתוך 12</div>
+<h1 class="ch-title">🌍 שכבת הרשת</h1>
+<p class="ch-desc">IP Header, Subnet Mask, DHCP DORA, NAT, Routing Table, Default Gateway, TTL, ICMP</p>
+<div class="divider"></div>
+<section class="learn-section">
+<span class="sec-label">01 — IP Header</span>
+<h2 class="sec-h">IP Header</h2>
+<p>כל חבילה IP כוללת Header עם שדות חיוניים:</p>
+<table class="tbl"><tr><th>שדה</th><th>גודל</th><th>תיאור</th></tr>
+<tr><td>Version</td><td>4 bits</td><td>4 = IPv4, 6 = IPv6</td></tr>
+<tr><td>TTL</td><td>1 byte</td><td>Time To Live — מונע לולאות</td></tr>
+<tr><td>Protocol</td><td>1 byte</td><td>6=TCP, 17=UDP, 1=ICMP</td></tr>
+<tr><td>Source IP</td><td>4 bytes</td><td>כתובת השולח</td></tr>
+<tr><td>Destination IP</td><td>4 bytes</td><td>כתובת היעד</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">02 — Subnet Mask</span>
+<h2 class="sec-h">Subnet Mask — מסיכת רשת</h2>
+<p>Subnet Mask מגדיר כמה bits מה-IP = Network ID וכמה = Host ID.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">חישוב Subnet</span></div>
+<pre class="code-body">IP:   192.168.5.30   = 11000000.10101000.00000101.00011110
+Mask: 255.255.255.0  = 11111111.11111111.11111111.00000000
+      (= /24)
+                                                 ^^^^^^^^^
+                                                 Host ID
+
+Network:   192.168.5.0    (IP AND Mask)
+Broadcast: 192.168.5.255  (Network OR NOT Mask)
+Hosts:     .1 עד .254 (254 מחשבים)</pre></div>
+<div class="callout tip">💡 <strong>חישוב מהיר:</strong> /24 = 256 כתובות, 254 שמישות. /16 = 65536 כתובות. /8 = 16M כתובות.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">03 — DHCP</span>
+<h2 class="sec-h">DHCP — D.O.R.A</h2>
+<p>DHCP מחלק כתובות IP אוטומטית. תהליך 4 שלבים:</p>
+<div class="diagram"><div class="dg-row">
+  <div class="dg-box b" style="font-size:11px">1. Discover<br>Broadcast<br>"מי שרת DHCP?"</div>
+  <div class="dg-arr">──▶</div>
+  <div class="dg-box g" style="font-size:11px">2. Offer<br>"אני! IP=192.168.1.5"</div>
+</div><div class="dg-row" style="margin-top:8px">
+  <div class="dg-box b" style="font-size:11px">4. ACK<br>✓ מאשר</div>
+  <div class="dg-arr">◀──</div>
+  <div class="dg-box g" style="font-size:11px">3. Request<br>"אני רוצה .5"</div>
+</div></div>
+<p>DHCP מחלק: <strong>IP, Subnet Mask, Default Gateway, DNS Server</strong>.</p>
+<p>חשוב: DHCP Discover נשלח ב-<strong>Broadcast</strong> כי המחשב עדיין לא יודע את IP שרת ה-DHCP.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">04 — NAT</span>
+<h2 class="sec-h">NAT — Network Address Translation</h2>
+<p>כתובות פרטיות (192.168.x.x / 10.x.x.x) לא ניתן לראות מהאינטרנט. NAT בנתב מתרגם:</p>
+<table class="tbl"><tr><th>כיוון</th><th>מה קורה</th></tr>
+<tr><td>יציאה (LAN → WAN)</td><td>src IP: 192.168.x.x → IP ציבורי של הנתב</td></tr>
+<tr><td>כניסה (WAN → LAN)</td><td>dst IP: IP ציבורי → 192.168.x.x המקורי</td></tr>
+</table>
+<div class="callout note">📝 Google רואה רק את ה-IP הציבורי של הנתב — לא את המחשב הפרטי. לכן כל הבית נראה כ-"IP אחד".</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">05 — Routing + TTL</span>
+<h2 class="sec-h">Routing Table ו-TTL</h2>
+<p>לכל נתב יש <strong>Routing Table</strong> — טבלה שמחליטה לאן לשלוח כל חבילה. כל חבילה שלא מתאימה לחוק ספציפי → <strong>Default Gateway</strong>.</p>
+<p><strong>TTL (Time To Live)</strong>: שדה ב-IP Header. כל נתב מוריד ב-1. כשמגיע ל-0 → חבילה נזרקת + ICMP Time Exceeded. זה הבסיס ל-traceroute!</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">איך traceroute עובד</span></div>
+<pre class="code-body">שלח IP(TTL=1) → R1 מוריד ל-0 → זורק + שולח ICMP Time Exceeded
+שלח IP(TTL=2) → R1→1→ R2 מוריד ל-0 → זורק + ICMP
+שלח IP(TTL=3) → R1→R2→ R3 מוריד ל-0 → זורק + ICMP
+...עד שמגיעים ליעד</pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">06 — ICMP</span>
+<h2 class="sec-h">ICMP — Internet Control Message Protocol</h2>
+<p>פרוטוקול עזר ל-IP. מיועד לאבחון תקלות.</p>
+<table class="tbl"><tr><th>Type</th><th>שם</th><th>שימוש</th></tr>
+<tr><td>8</td><td>Echo Request</td><td>ping שולח</td></tr>
+<tr><td>0</td><td>Echo Reply</td><td>ping מקבל</td></tr>
+<tr><td>11</td><td>Time Exceeded</td><td>TTL=0 → traceroute</td></tr>
+<tr><td>3</td><td>Destination Unreachable</td><td>לא ניתן להגיע</td></tr>
+</table>
+</section>
+<section class="learn-section">
+<span class="sec-label">07 — תקלות נפוצות</span>
+<h2 class="sec-h">Troubleshooting — IP ו-Routing</h2>
+<table class="tbl"><tr><th>תסמין</th><th>סיבה</th><th>פתרון</th></tr>
+<tr><td>Destination unreachable</td><td>אין route ל-IP / gateway לא נגיש</td><td>בדוק <code>ip route</code>. ping ל-gateway עצמו</td></tr>
+<tr><td>TTL expired in transit</td><td>לולאת routing / TTL קטן מדי</td><td>traceroute יראה היכן הלולאה. בדוק routing tables</td></tr>
+<tr><td>DHCP לא מחלק כתובות</td><td>שרת DHCP מנותק / Scope מלא</td><td>בדוק שרת DHCP. נקה leases ישנות</td></tr>
+<tr><td>IP כפול ברשת</td><td>שני מכשירים עם אותו IP</td><td><code>arp -a</code> יראה MAC שונה לאותו IP. שנה אחד</td></tr>
+<tr><td>NAT לא עובד</td><td>Masquerading לא מוגדר</td><td>בדוק iptables MASQUERADE rule בנתב Linux</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Cheat Sheet — Subnet מהיר</h2>
+<table class="tbl"><tr><th>CIDR</th><th>Subnet Mask</th><th>מספר hosts</th><th>דוגמה</th></tr>
+<tr><td>/8</td><td>255.0.0.0</td><td>16,777,214</td><td>10.0.0.0/8 (Class A)</td></tr>
+<tr><td>/16</td><td>255.255.0.0</td><td>65,534</td><td>172.16.0.0/16 (Class B)</td></tr>
+<tr><td>/24</td><td>255.255.255.0</td><td>254</td><td>192.168.1.0/24 (Class C)</td></tr>
+<tr><td>/25</td><td>255.255.255.128</td><td>126</td><td>חצי רשת C</td></tr>
+<tr><td>/30</td><td>255.255.255.252</td><td>2</td><td>Point-to-point links</td></tr>
+<tr><td>/32</td><td>255.255.255.255</td><td>1</td><td>Host ספציפי</td></tr>
+</table>
+<div class="callout tip">💡 <strong>Private ranges:</strong> 10.0.0.0/8 · 172.16.0.0/12 · 192.168.0.0/16 — לא ניתן לראות מהאינטרנט</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — שאלות בחינה</span>
+<h2 class="sec-h">שאלות בחינה נפוצות</h2>
+<div class="callout note">❓ <strong>כתובת IP 192.168.5.30/24 — מה ה-Network ומה ה-Broadcast?</strong><br>Network: 192.168.5.0 (כל bits של host = 0). Broadcast: 192.168.5.255 (כל bits של host = 1). Hosts: .1 עד .254</div>
+<div class="callout note">❓ <strong>מה ההבדל בין Static NAT ל-Dynamic NAT ל-PAT?</strong><br>Static NAT: IP פרטי אחד ↔ IP ציבורי אחד (1:1). Dynamic NAT: pool של IPs ציבוריים. PAT (Masquerading): כל ה-LAN ← IP ציבורי אחד, מובדלים לפי port.</div>
+<div class="callout note">❓ <strong>מה APIPA (169.254.x.x)?</strong><br>Automatic Private IP Addressing — כתובת שWindows/Linux מקצה לעצמו אם DHCP נכשל. מצביע על בעיית DHCP.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — השוואות</span>
+<h2 class="sec-h">IPv4 vs IPv6</h2>
+<table class="tbl"><tr><th></th><th>IPv4</th><th>IPv6</th></tr>
+<tr><td>גודל</td><td>32 bits (4 bytes)</td><td>128 bits (16 bytes)</td></tr>
+<tr><td>כתובות</td><td>~4.3 מיליארד</td><td>~340 אנדצילון</td></tr>
+<tr><td>כתיבה</td><td>192.168.1.1</td><td>2001:db8::1</td></tr>
+<tr><td>Header</td><td>20+ bytes</td><td>40 bytes קבוע</td></tr>
+<tr><td>NAT</td><td>נדרש (כתובות מעטות)</td><td>לא נדרש</td></tr>
+<tr><td>Broadcast</td><td>יש</td><td>לא קיים → Multicast</td></tr>
+<tr><td>אימוץ</td><td>~99% תעבורה</td><td>גדל — ~40%+ כיום</td></tr>
+</table>
+</section>
 </div>
-<script>
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chContent').innerHTML =
-    '<div class="ch-eyebrow">פרק 07 מתוך 12</div>' +
-    '<h1 class="ch-title">🌍 שכבת הרשת</h1>' +
-    '<p class="ch-desc">IP, Subnet Mask, NAT, Routing Table, DHCP, TTL, traceroute</p>' +
-    '<div class="divider"></div>' +
-    buildCh7();
-});
-</script>
 </body>
 </html>

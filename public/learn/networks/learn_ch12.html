@@ -1219,7 +1219,6 @@ section#lab {
 }
 </style>
 
-<script src="/_bridge.js"></script>
 <style id="ng-fix">
 /* NG: Noto Sans Hebrew for nikud */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@300;400;500;600;700&display=swap');
@@ -1301,22 +1300,149 @@ table { display: block; overflow-x: auto; max-width: 100%; }
   --pu: #7c3aed; --code-bg: #1e293b;
 }
 </style>
+<script src="/_bridge.js"></script>
 </head>
 <body>
 <div style="max-width:860px;margin:0 auto;padding:24px 16px 80px;">
-  <div id="chContent"></div>
+<div class="ch-eyebrow">פרק 12 מתוך 12</div>
+<h1 class="ch-title">⚙️ Sockets מתקדם</h1>
+<p class="ch-desc">select(), blocking, rlist/wlist/xlist, open_client_sockets, messages_to_send</p>
+<div class="divider"></div>
+<section class="learn-section">
+<span class="sec-label">01 — הבעיה</span>
+<h2 class="sec-h">הבעיה עם שרת לקוח אחד</h2>
+<p>בפרק 2 כתבנו שרת שמטפל בלקוח אחד. כדי לטפל בנוסף — סגרנו את הראשון. Facebook עם לקוח אחד בו-זמנית?</p>
+<p>הבעיה: <code>accept()</code> ו-<code>recv()</code> הן <strong>blocking</strong> — מקפיאות את התוכנה עד שמגיע משהו. בזמן שמחכים ל-recv מלקוח A — לקוח B לא יכול להתחבר.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">02 — select()</span>
+<h2 class="sec-h">select() — הפתרון</h2>
+<p><code>select()</code> בודקת אילו Sockets <em>מוכנים</em> לפעולה — ללא blocking. מקבלת 3 רשימות ומחזירה 3 רשימות:</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">select()</span></div>
+<pre class="code-body"><span class="kw">import</span> select
+
+<span class="cm"># קלט: 3 רשימות (read, write, error)</span>
+rlist, wlist, xlist = select.select(
+    [server_socket] + open_client_sockets,  <span class="cm"># לקריאה</span>
+    open_client_sockets,                     <span class="cm"># לכתיבה</span>
+    []                                       <span class="cm"># לשגיאות</span>
+)
+
+<span class="cm"># rlist = Sockets שמוכנים עכשיו לקריאה</span>
+<span class="cm"># wlist = Sockets שמוכנים עכשיו לכתיבה</span></pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">03 — server_socket ב-rlist</span>
+<h2 class="sec-h">server_socket ב-rlist = לקוח חדש!</h2>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server_select.py</span></div>
+<pre class="code-body">open_client_sockets = []
+
+<span class="kw">while True</span>:
+    rlist, wlist, xlist = select.select(
+        [server_socket] + open_client_sockets, open_client_sockets, [])
+
+    <span class="kw">for</span> current_socket <span class="kw">in</span> rlist:
+        <span class="kw">if</span> current_socket <span class="kw">is</span> server_socket:
+            <span class="cm"># לקוח חדש מתחבר</span>
+            (new_socket, addr) = server_socket.accept()
+            open_client_sockets.append(new_socket)
+        <span class="kw">else</span>:
+            <span class="cm"># מידע מלקוח קיים</span>
+            data = current_socket.recv(<span class="nu">1024</span>)
+            <span class="kw">if</span> data == <span class="st">""</span>:
+                open_client_sockets.remove(current_socket)
+                current_socket.close()
+            <span class="kw">else</span>:
+                <span class="cm"># טפל בנתונים...</span>
+                pass</pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">04 — client ב-rlist</span>
+<h2 class="sec-h">לקוח ב-rlist = נתונים זמינים</h2>
+<p>כשלקוח קיים מופיע ב-rlist — יש נתונים לקרוא. <code>recv()</code> מיד תחזיר נתונים (לא תחסום). אם מחזירה <code>""</code> — הלקוח התנתק → הסר מ-<code>open_client_sockets</code>.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">05 — messages_to_send</span>
+<h2 class="sec-h">messages_to_send — שליחה מדורגת</h2>
+<p>לא ניתן לשלוח לכל לקוח מיד — Socket אולי לא מוכן. פתרון: שמור הודעות ב-<code>messages_to_send</code>, שלח רק ל-Sockets ב-wlist.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">messages_to_send</span></div>
+<pre class="code-body">messages_to_send = []  <span class="cm"># list of (socket, data)</span>
+
+<span class="kw">def</span> send_waiting_messages(wlist):
+    <span class="kw">for</span> message <span class="kw">in</span> messages_to_send[:]:
+        (client_socket, data) = message
+        <span class="kw">if</span> client_socket <span class="kw">in</span> wlist:
+            client_socket.send(data)
+            messages_to_send.remove(message)</pre></div>
+</section>
+<section class="learn-section">
+<span class="sec-label">07 — תקלות נפוצות</span>
+<h2 class="sec-h">Troubleshooting — select() Server</h2>
+<table class="tbl"><tr><th>שגיאה</th><th>סיבה</th><th>פתרון</th></tr>
+<tr><td>select מחזיר server_socket בכל iteration</td><td>לקוח חדש מתחבר כל הזמן / server socket תמיד ב-rlist</td><td>נורמלי אם לקוחות מתחברים. אם לא — בדוק שה-server socket ב-rlist</td></tr>
+<tr><td>recv מחזיר b"" בלי disconnect ברור</td><td>לקוח סגר חיבור</td><td>if data == b"": remove from open_clients; socket.close()</td></tr>
+<tr><td>שגיאה: select על socket סגור</td><td>לא הסרת socket מהרשימה לפני סגירה</td><td>הסר מ-open_client_sockets לפני close()</td></tr>
+<tr><td>messages_to_send גדל ללא עצור</td><td>client לא ב-wlist (עמוס) / נשלח לsocket סגור</td><td>הוסף בדיקת timeout. הסר sockets מתות</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Cheat Sheet</span>
+<h2 class="sec-h">Cheat Sheet — select() Server</h2>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server_select.py — תבנית מלאה</span></div>
+<pre class="code-body"><span class="kw">import</span> socket, select
+
+server = socket.socket()
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, <span class="nu">1</span>)
+server.bind((<span class="st">''</span>, <span class="nu">9001</span>))
+server.listen(<span class="nu">5</span>)
+open_clients = []
+messages_to_send = []  <span class="cm"># [(socket, data), ...]</span>
+
+<span class="kw">while True</span>:
+    rlist, wlist, _ = select.select(
+        [server] + open_clients,
+        open_clients, [])
+
+    <span class="kw">for</span> sock <span class="kw">in</span> rlist:
+        <span class="kw">if</span> sock <span class="kw">is</span> server:
+            client, _ = server.accept()
+            open_clients.append(client)
+        <span class="kw">else</span>:
+            data = sock.recv(<span class="nu">1024</span>)
+            <span class="kw">if not</span> data:
+                open_clients.remove(sock); sock.close()
+            <span class="kw">else</span>:
+                messages_to_send.append((sock, data.upper()))
+
+    <span class="kw">for</span> sock, msg <span class="kw">in</span> messages_to_send[:]:
+        <span class="kw">if</span> sock <span class="kw">in</span> wlist:
+            sock.send(msg)
+            messages_to_send.remove((sock, msg))</pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">09 — שאלות בחינה</span>
+<h2 class="sec-h">שאלות בחינה נפוצות</h2>
+<div class="callout note">❓ <strong>למה server_socket נמצא ב-rlist ולא ב-wlist?</strong><br>server_socket.accept() היא פעולת קריאה (מחכה ללקוח חדש). wlist = sockets מוכנות לכתיבה — לא רלוונטי לserver socket שרק מאזין.</div>
+<div class="callout note">❓ <strong>מה יקרה אם לא נסיר socket ממת מ-open_clients?</strong><br>select יחזיר אותה כ-readable בכל iteration, recv תחזיר b"", נכנס ללולאה אינסופית. תמיד: if not data: remove + close.</div>
+<div class="callout note">❓ <strong>למה לא לשלוח ישירות ב-rlist loop?</strong><br>Socket אולי לא מוכן לכתיבה (buffer מלא). שליחה ל-socket לא מוכן → blocking או שגיאה. messages_to_send + wlist = בטוח.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">10 — השוואות</span>
+<h2 class="sec-h">select() vs Threading vs asyncio</h2>
+<table class="tbl"><tr><th></th><th>select()</th><th>Threading</th><th>asyncio</th></tr>
+<tr><td>מודל</td><td>I/O multiplexing</td><td>thread לכל client</td><td>coroutines</td></tr>
+<tr><td>סיבוכיות</td><td>בינוני</td><td>פשוט</td><td>מורכב</td></tr>
+<tr><td>ביצועים</td><td>טוב עד ~1000 clients</td><td>GIL מגביל</td><td>מצוין לאלפי clients</td></tr>
+<tr><td>בקורס</td><td>✅ נלמד</td><td>השלמה</td><td>מחוץ לתחום</td></tr>
+</table>
+</section>
 </div>
-<script>
-
-
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chContent').innerHTML =
-    '<div class="ch-eyebrow">פרק 12 מתוך 12</div>' +
-    '<h1 class="ch-title">⚙️ Sockets מתקדם</h1>' +
-    '<p class="ch-desc">select(), blocking vs non-blocking, multi-client, Chat Protocol</p>' +
-    '<div class="divider"></div>' +
-    buildCh12();
-});
-</script>
 </body>
 </html>
