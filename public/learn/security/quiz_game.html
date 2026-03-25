@@ -409,6 +409,36 @@ html#root { display: block !important; }
 
 
 <script>
+// Listen for font-size and theme from parent app
+window.addEventListener('message', function(e) {
+  if (!e.data || !e.data.ng) return;
+  if (e.data.ng === 'font') {
+    var map = { small: '14px', normal: '16px', large: '18px' };
+    document.documentElement.style.fontSize = map[e.data.size] || '16px';
+  }
+  if (e.data.ng === 'theme') {
+    document.documentElement.classList.toggle('dark', !!e.data.dark);
+  }
+});
+// Listen for language sync from parent app
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.ng === 'lang') {
+    var root = document.getElementById('root');
+    if (!root) return;
+    var btn = document.getElementById('langBtn');
+    var wantEn = e.data.lang === 'en';
+    var isEn = root.classList.contains('en');
+    if (wantEn !== isEn) {
+      root.classList.toggle('en');
+      if (btn) btn.textContent = wantEn ? 'עב' : 'EN';
+      if (typeof buildQuiz === 'function') buildQuiz();
+      if (typeof startGame === 'function') startGame();
+      if (typeof updateProg === 'function') updateProg();
+    }
+  }
+});
+
+
 // ── LANG TOGGLE ──
 function toggleLang() {
   const root = document.getElementById('root');
@@ -740,35 +770,9 @@ function endGame() {
 
 startGame();
 
-// Listen for language sync from parent app
-window.addEventListener('message', function(e) {
-  if (e.data && e.data.ng === 'lang') {
-    var root = document.getElementById('root');
-    if (!root) return;
-    var btn = document.getElementById('langBtn');
-    var wantEn = e.data.lang === 'en';
-    var isEn = root.classList.contains('en');
-    if (wantEn !== isEn) {
-      root.classList.toggle('en');
-      if (btn) btn.textContent = wantEn ? 'עב' : 'EN';
-      if (typeof buildQuiz === 'function') buildQuiz();
-      if (typeof startGame === 'function') startGame();
-      if (typeof updateProg === 'function') updateProg();
-    }
-  }
-});
 
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
+
+
 </script>
 </body>
 </html>

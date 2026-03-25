@@ -1431,6 +1431,33 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 
 
 <script>
+// Listen for font-size and theme from parent app
+window.addEventListener('message', function(e) {
+  if (!e.data || !e.data.ng) return;
+  if (e.data.ng === 'font') {
+    var map = { small: '14px', normal: '16px', large: '18px' };
+    document.documentElement.style.fontSize = map[e.data.size] || '16px';
+  }
+  if (e.data.ng === 'theme') {
+    document.documentElement.classList.toggle('dark', !!e.data.dark);
+  }
+});
+// Listen for language sync from parent app
+window.addEventListener('message', function(e) {
+  if (e.data && e.data.ng === 'lang' && e.data.lang && e.data.lang !== LANG) {
+    LANG = e.data.lang;
+    document.getElementById('langBtn').textContent = LANG === 'he' ? 'EN' : 'עב';
+    document.documentElement.lang = LANG;
+    document.documentElement.dir  = LANG === 'he' ? 'rtl' : 'ltr';
+    applyLangUI();
+    if (CUR_CH) loadCh(CUR_CH);
+    buildSidebar();
+    buildLabSidebar();
+    buildLabWelcome();
+  }
+});
+
+
 /* ══ TD ══ */
 var TERMINAL_DATA = {
   1: {
@@ -7176,33 +7203,10 @@ function goTo(id) {
   if (sc) sc.classList.add('on');
 }
 
-// Listen for language sync from parent app
-window.addEventListener('message', function(e) {
-  if (e.data && e.data.ng === 'lang' && e.data.lang && e.data.lang !== LANG) {
-    LANG = e.data.lang;
-    document.getElementById('langBtn').textContent = LANG === 'he' ? 'EN' : 'עב';
-    document.documentElement.lang = LANG;
-    document.documentElement.dir  = LANG === 'he' ? 'rtl' : 'ltr';
-    applyLangUI();
-    if (CUR_CH) loadCh(CUR_CH);
-    buildSidebar();
-    buildLabSidebar();
-    buildLabWelcome();
-  }
-});
+
 startLab(3);
 
-// Listen for font-size and theme from parent app
-window.addEventListener('message', function(e) {
-  if (!e.data || !e.data.ng) return;
-  if (e.data.ng === 'font') {
-    var map = { small: '14px', normal: '16px', large: '18px' };
-    document.documentElement.style.fontSize = map[e.data.size] || '16px';
-  }
-  if (e.data.ng === 'theme') {
-    document.documentElement.classList.toggle('dark', !!e.data.dark);
-  }
-});
+
 </script>
 </body>
 </html>
