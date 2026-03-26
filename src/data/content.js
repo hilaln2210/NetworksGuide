@@ -5,6 +5,18 @@
 
 export const tracks = [
   {
+    id: 'networking',
+    title: 'רשתות מחשבים',
+    subtitle: 'איך עובד האינטרנט, Sockets, Wireshark, TCP/IP, Scapy ועוד — 12 פרקים',
+    icon: '🌐',
+    color: '#0891b2',
+    level: 'מתחיל–מתקדם',
+    fullPage: true,
+    chapters: [
+      { id: 1, title: "רשתות מחשבים — קורס מלא", pages: [{ type: "html_page", title: "Networks Course", src: "/learn/networks/networks_course.html" }] },
+    ]
+  },
+  {
     id: 'webapi',
     title: 'Web ו-APIs',
     subtitle: 'HTTP, REST, GraphQL, Auth, WebSockets, Performance, API Design — 8 פרקים',
