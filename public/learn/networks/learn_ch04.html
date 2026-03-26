@@ -1404,6 +1404,209 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 .tbl th, .tbl td {
   text-align: start;
 }
+
+/* ═══════════════════════════════════════════
+   NETWORKS COURSE — RESPONSIVE
+   Breakpoints: 1024px | 768px | 480px
+═══════════════════════════════════════════ */
+
+/* ── TABLET (≤1024px) ── */
+@media (max-width: 1024px) {
+  .land-hero {
+    grid-template-columns: 1fr;
+    padding: 48px 32px 40px;
+    gap: 28px;
+    text-align: center;
+  }
+  .land-hero > div:first-child { min-width: 0; }
+  .land-grid { grid-template-columns: repeat(3, 1fr); }
+  .l-content { padding: 32px 28px 80px; }
+  .lab-layout { grid-template-columns: 200px 1fr; }
+  .learn-layout { grid-template-columns: 200px 1fr; }
+}
+
+/* ── MOBILE (≤768px) ── */
+@media (max-width: 768px) {
+  /* NAV */
+  .nav {
+    padding: 0 8px;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-logo { font-size: .85rem; white-space: nowrap; flex-shrink: 0; }
+  .nav-tab  { font-size: .72rem; padding: 4px 9px; white-space: nowrap; flex-shrink: 0; }
+  .nav-right, .nav-actions { gap: 5px; }
+  .lang-btn { font-size: .68rem; padding: 3px 8px; }
+  .xp-pill, .xp-badge { font-size: .68rem; padding: 2px 8px; }
+
+  /* HERO */
+  .land-hero {
+    grid-template-columns: 1fr;
+    padding: 28px 16px 32px;
+    gap: 20px;
+    text-align: center;
+  }
+  .land-hero > div:first-child { min-width: 0; }
+  .hero-h { font-size: clamp(1.7rem, 7vw, 2.4rem); }
+  .hero-p { font-size: .9rem; }
+  .hero-stats { justify-content: center; flex-wrap: wrap; gap: 16px; }
+  .hero-cta, .hero-btn { width: 100%; max-width: 260px; }
+
+  /* LAND GRID */
+  .land-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .land-card { padding: 12px 10px; }
+
+  /* LEARN LAYOUT — sidebar hidden, full width */
+  .learn-layout {
+    display: block;
+    max-width: 100%;
+  }
+  .l-sb {
+    display: none;
+    position: fixed;
+    top: 52px;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    bottom: 0;
+    width: 100% !important;
+    min-width: 0 !important;
+    z-index: 200;
+    height: calc(100vh - 52px);
+    border: none;
+    border-bottom: 1px solid var(--border);
+    overflow-y: auto;
+  }
+  .l-sb.open { display: block; }
+  .l-content {
+    padding: 16px 14px 60px;
+    max-width: 100%;
+  }
+
+  /* LAB LAYOUT */
+  .lab-layout {
+    display: block;
+    height: auto;
+  }
+  section#lab {
+    height: auto;
+    overflow: visible;
+  }
+  .lab-sb {
+    display: none;
+    position: fixed;
+    top: 52px;
+    left: 0; right: 0; bottom: 0;
+    width: 100% !important;
+    z-index: 200;
+    height: calc(100vh - 52px);
+    overflow-y: auto;
+    border: none;
+  }
+  .lab-sb.open { display: block; }
+  #labMain {
+    height: auto;
+    overflow: visible;
+    padding: 16px 14px;
+  }
+
+  /* MOBILE SIDEBAR TOGGLE */
+  .sb-mob-toggle {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--dim);
+    font-family: var(--f-body, sans-serif);
+    font-size: .82rem;
+    padding: 9px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 16px;
+  }
+  .sb-mob-toggle-arrow { margin-inline-start: auto; }
+
+  /* OVERLAY */
+  .mob-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    z-index: 199;
+  }
+  .mob-overlay.show { display: block; }
+
+  /* TABLES */
+  .tbl, table.tbl {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    min-width: 0;
+    width: 100%;
+  }
+  .tbl th, .tbl td,
+  table.tbl th, table.tbl td {
+    font-size: .78rem;
+    padding: 6px 10px;
+    min-width: 72px;
+    white-space: normal;
+  }
+
+  /* CODE */
+  pre.code-body, .code-body { font-size: .74rem; }
+  .code-block { margin: 12px 0; }
+
+  /* CALLOUTS */
+  .callout, .note-box, .warn-box, .tip-box { font-size: .82rem; padding: 10px 12px; }
+
+  /* TERMINAL */
+  .term-wrap, #termWrap { font-size: .72rem; }
+
+  /* MCQ LAB */
+  .lq-card, .mcq-card { padding: 16px 12px; }
+  .lq-opt, .mcq-opt   { padding: 9px 11px; font-size: .85rem; }
+  .lq-foot, .mcq-foot { flex-direction: column; gap: 8px; }
+  .lq-btn, .mcq-btn   { width: 100%; text-align: center; }
+
+  /* QUIZ */
+  .quiz-hud { padding: 10px 12px; gap: 8px; }
+  .quiz-q-area { padding: 18px 12px; }
+  .qz-q { font-size: .95rem; }
+  .qz-opt { padding: 9px 11px; }
+  .quiz-home { padding: 24px 14px; }
+  .qz-mode-btn { padding: 12px 16px; min-width: 88px; }
+
+  /* CHAPTER NAV */
+  .ch-nav, .ch-nav-bottom { flex-wrap: wrap; gap: 6px; }
+  .ch-nav-cur { width: 100%; text-align: center; order: -1; }
+  .ch-nav-btn { font-size: .78rem; padding: 6px 12px; }
+
+  /* RESULT SCREENS */
+  .lqr-btns, .qzr-btns { flex-direction: column; gap: 8px; }
+  .lqr-btn, .qzr-btn   { width: 100%; }
+  .lqr-stats, .qzr-stats { gap: 8px; flex-wrap: wrap; justify-content: center; }
+
+  /* LAB WELCOME */
+  .lab-ch-grid, .lw-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 8px; }
+  .lw-icon { font-size: 32px; }
+  .lw-h { font-size: 1.3rem; }
+}
+
+/* ── SMALL MOBILE (≤480px) ── */
+@media (max-width: 480px) {
+  .land-grid { grid-template-columns: 1fr 1fr; }
+  .hero-h { font-size: 1.7rem; }
+  .nav-tab { padding: 4px 7px; }
+  .hero-stats { gap: 12px; }
+  .lab-ch-grid, .lw-grid { grid-template-columns: repeat(3, 1fr) !important; }
+  .qz-mode-btn { min-width: 76px; padding: 10px 12px; }
+  pre.code-body { font-size: .7rem; }
+  .l-content { padding: 14px 12px 60px; }
+  #labMain { padding: 14px 12px; }
+}
+
 </style>
 </head>
 <body>
@@ -1422,6 +1625,7 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 </nav>
 
 <!-- ══ LANDING ══ -->
+<div class="mob-overlay" id="mobOverlay" onclick="closeMobSidebar()"></div>
 <section class="screen on" id="landing">
 <div class="land-hero">
   <div>
@@ -1451,7 +1655,7 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
 <!-- ══ LAB ══ -->
 <section class="screen" id="lab">
 <div class="lab-layout">
-  <div class="lab-sb">
+  <div class="lab-sb" id="labSb">
     <div class="lab-sb-head">
       <div class="lab-sb-title" id="labSbTitle">⚗️ מעבדה</div>
       <div class="lab-sb-sub" id="labSbSub">171 שאלות · 12 פרקים</div>
@@ -1470,6 +1674,9 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   </div>
 </div>
 </section>
+
+
+
 
 
 
@@ -7591,6 +7798,7 @@ function toggleLang() {
   document.documentElement.lang = LANG;
   document.documentElement.dir  = LANG === 'he' ? 'rtl' : 'ltr';
   applyLangUI();
+  buildLandGrid();
   if (CUR_CH) loadCh(CUR_CH);
   buildSidebar();
   buildLabSidebar();
@@ -8090,6 +8298,7 @@ function toggleLang() {
   document.documentElement.lang = LANG;
   document.documentElement.dir  = LANG === 'he' ? 'rtl' : 'ltr';
   applyLangUI();
+  buildLandGrid();
   if (CUR_CH) loadCh(CUR_CH);
   buildSidebar();
   buildLabSidebar();
@@ -8569,6 +8778,141 @@ buildLabSidebar();
 buildLabWelcome();
 applyLangUI();
 initQuiz();
+
+
+/* ═══════════════════════════════════════════
+   MOBILE SIDEBAR — Networks Course
+═══════════════════════════════════════════ */
+function isMobWidth() { return window.innerWidth <= 768; }
+
+function openMobSidebar(id) {
+  var sb = document.getElementById(id);
+  var ov = document.getElementById('mobOverlay');
+  if (sb) { sb.classList.add('open'); sb.style.display = 'block'; }
+  if (ov) ov.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMobSidebar() {
+  ['lSidebar','labSb'].forEach(function(id) {
+    var sb = document.getElementById(id);
+    if (sb) { sb.classList.remove('open'); if (isMobWidth()) sb.style.display = ''; }
+  });
+  var ov = document.getElementById('mobOverlay');
+  if (ov) ov.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+function injectNetworksMobileToggles() {
+  if (!isMobWidth()) return;
+
+  // Learn sidebar toggle
+  var lc = document.getElementById('lContent');
+  if (lc && !document.getElementById('netLearnToggle')) {
+    var btn = document.createElement('button');
+    btn.id = 'netLearnToggle';
+    btn.className = 'sb-mob-toggle';
+    var isHe = (typeof LANG !== 'undefined') ? LANG === 'he' : true;
+    btn.innerHTML = '📚 <span id="netLearnToggleLbl">' + (isHe ? 'בחר פרק' : 'Choose chapter') + '</span><span class="sb-mob-toggle-arrow">▾</span>';
+    btn.onclick = function() { openMobSidebar('lSidebar'); };
+    lc.insertBefore(btn, lc.firstChild);
+  }
+
+  // Lab sidebar toggle
+  var labMain = document.getElementById('labMain');
+  if (labMain && !document.getElementById('netLabToggle')) {
+    var btn2 = document.createElement('button');
+    btn2.id = 'netLabToggle';
+    btn2.className = 'sb-mob-toggle';
+    var isHe2 = (typeof LANG !== 'undefined') ? LANG === 'he' : true;
+    btn2.innerHTML = '🧪 <span id="netLabToggleLbl">' + (isHe2 ? 'בחר פרק' : 'Choose chapter') + '</span><span class="sb-mob-toggle-arrow">▾</span>';
+    btn2.onclick = function() { openMobSidebar('labSb'); };
+    labMain.insertBefore(btn2, labMain.firstChild);
+  }
+}
+
+// Patch goTo to close sidebar + inject toggles
+(function() {
+  var _goTo = typeof goTo === 'function' ? goTo : null;
+  if (_goTo) {
+    goTo = function(screen) {
+      _goTo(screen);
+      closeMobSidebar();
+      setTimeout(injectNetworksMobileToggles, 80);
+    };
+  }
+})();
+
+// Patch loadCh to close sidebar on mobile
+(function() {
+  var _loadCh = typeof loadCh === 'function' ? loadCh : null;
+  if (_loadCh) {
+    loadCh = function(n) {
+      _loadCh(n);
+      if (isMobWidth()) closeMobSidebar();
+    };
+  }
+})();
+
+// Patch startLab
+(function() {
+  var _startLab = typeof startLab === 'function' ? startLab : null;
+  if (_startLab) {
+    startLab = function(n) {
+      _startLab(n);
+      if (isMobWidth()) closeMobSidebar();
+    };
+  }
+})();
+
+// Toggle label update on lang change
+(function() {
+  var _applyLangUI = typeof applyLangUI === 'function' ? applyLangUI : null;
+  if (_applyLangUI) {
+    applyLangUI = function() {
+      _applyLangUI();
+      var isHe = (typeof LANG !== 'undefined') ? LANG === 'he' : true;
+      var tl = document.getElementById('netLearnToggleLbl');
+      var ll = document.getElementById('netLabToggleLbl');
+      if (tl) tl.textContent = isHe ? 'בחר פרק' : 'Choose chapter';
+      if (ll) ll.textContent = isHe ? 'בחר פרק' : 'Choose chapter';
+    };
+  }
+})();
+
+// Resize handler
+window.addEventListener('resize', function() {
+  if (!isMobWidth()) {
+    closeMobSidebar();
+    var sb  = document.getElementById('lSidebar');
+    var lsb = document.getElementById('labSb');
+    if (sb)  { sb.style.display  = ''; sb.classList.remove('open'); }
+    if (lsb) { lsb.style.display = ''; lsb.classList.remove('open'); }
+  }
+});
+
+// Swipe gestures
+(function() {
+  var sx = 0;
+  document.addEventListener('touchstart', function(e) { sx = e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - sx;
+    var screen = document.querySelector('.screen.active, section.active');
+    if (!screen) return;
+    var sid = screen.id;
+    if (dx > 60 && sx < 30) {
+      if (sid === 'learn') openMobSidebar('lSidebar');
+      if (sid === 'lab')   openMobSidebar('labSb');
+    }
+    if (dx < -60) closeMobSidebar();
+  }, {passive:true});
+})();
+
+// Init on load
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(injectNetworksMobileToggles, 200);
+});
+
 
 /* Auto-navigate to chapter 4 */
 setTimeout(function(){ goTo('learn'); loadCh(4); }, 200);
