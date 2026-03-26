@@ -726,65 +726,39 @@ function App() {
         </button>
 
         <div className="header-collapsible">
-          <div className="header-top">
-            <div className="header-title-wrap">
+          {/* Row 1: Brand + Toolbar */}
+          <div className="header-row-1">
+            <div className="header-brand">
               <button className="track-back-btn" onClick={handleBackToTracks} title={t('all_tracks')}>
-                {t('all_tracks')}
+                {isEn ? '←' : '→'}
               </button>
-              <h1 style={{ color: activeTrack.color }}>
-                {activeTrack.icon} {trackI18n(activeTrack, 'title', t, lang)}
+              <h1 className="header-track-title" style={{ '--track-clr': activeTrack.color }}>
+                <span className="header-track-icon">{activeTrack.icon}</span>
+                {trackI18n(activeTrack, 'title', t, lang)}
               </h1>
             </div>
-            <div className="header-stats">
-              <div className="stat-chip stat-xp">
-                <span className="stat-num">{xp}</span>
-                <span className="stat-label">{level.emoji} XP</span>
-              </div>
-              <div className="stat-chip stat-progress" title={`${totalRead} ${t('pages_of')} ${totalPagesAllChapters}`}>
-                <span className="stat-num">{overallPct}%</span>
-                <span className="stat-label">{t('stat_progress')}</span>
-              </div>
-              <div className={`stat-chip stat-time${todayMinutes > 0 ? ' active' : ''}`}>
-                <span className="stat-num" dir="ltr">{formatMinutes(todayMinutes, lang)}</span>
-                <span className="stat-label">{t('stat_today')}</span>
-              </div>
-              <div className="stat-chip">
-                <span className="stat-num">{streak}</span>
-                <span className="stat-label">{t('stat_streak')}</span>
-              </div>
-              <button
-                className="lang-toggle-btn"
-                onClick={() => setLang(isEn ? 'he' : 'en')}
-                title={isEn ? t('lang_tooltip_en') : t('lang_tooltip_he')}
-              >
+            <div className="header-toolbar">
+              <button className="toolbar-btn" onClick={() => setLang(isEn ? 'he' : 'en')} title={isEn ? t('lang_tooltip_en') : t('lang_tooltip_he')}>
                 {t('lang_toggle')}
               </button>
               {gender && (
-                <button className="gender-toggle-btn" onClick={toggleGender} title={t('toggle_gender')}>
+                <button className="toolbar-btn" onClick={toggleGender} title={t('toggle_gender')}>
                   {gender === 'female' ? '👩' : '👨'}
                 </button>
               )}
-              <button className="font-size-btn" onClick={() => cycleFontSize(-1)} disabled={fontSize === 'small'} title={t('font_size')}>
-                A-
-              </button>
-              <button className="font-size-btn" onClick={() => cycleFontSize(1)} disabled={fontSize === 'large'} title={t('font_size')}>
-                A+
-              </button>
-              <button className="dark-mode-btn" onClick={() => setDarkMode(d => !d)} title={darkMode ? 'Light mode' : 'Dark mode'}>
+              <button className="toolbar-btn" onClick={() => cycleFontSize(-1)} disabled={fontSize === 'small'}>A-</button>
+              <button className="toolbar-btn" onClick={() => cycleFontSize(1)} disabled={fontSize === 'large'}>A+</button>
+              <div className="toolbar-sep" />
+              <button className="toolbar-btn" onClick={() => setDarkMode(d => !d)} title={darkMode ? 'Light' : 'Dark'}>
                 {darkMode ? '☀️' : '🌙'}
               </button>
-              <button className="dark-mode-btn" onClick={() => setShowGlossary(true)} title={isEn ? 'Glossary' : 'מילון מונחים'}>
-                📚
-              </button>
-              <button className="dark-mode-btn" onClick={() => setShowExamMode(true)} title={isEn ? 'Exam Mode' : 'מצב בחינה'}>
-                📝
-              </button>
+              <button className="toolbar-btn" onClick={() => setShowGlossary(true)} title={isEn ? 'Glossary' : 'מילון מונחים'}>📚</button>
+              <button className="toolbar-btn" onClick={() => setShowExamMode(true)} title={isEn ? 'Exam' : 'בחינה'}>📝</button>
               <Suspense fallback={null}>
                 <ShareProgress lang={lang} tracks={tracks} compact />
               </Suspense>
-              <button className="reset-settings-btn" onClick={() => setShowResetModal(true)} title={t('settings')}>
-                ⚙️
-              </button>
+              <div className="toolbar-sep" />
+              <button className="toolbar-btn" onClick={() => setShowResetModal(true)} title={t('settings')}>⚙️</button>
               <UserMenu
                 user={authUser}
                 onSignIn={(u) => setAuthUser(u)}
@@ -801,25 +775,45 @@ function App() {
             </div>
           </div>
 
-          {/* Level bar */}
-          <div className="level-bar-wrap">
-            <div className="level-label">
-              <span>{level.emoji} {levelName}</span>
-              {nextLevel && <span className="level-next">{isEn ? '→' : '←'} {nextLevelName} ({nextLevel.min - xp} {t('xp_remaining')})</span>}
+          {/* Row 2: Stats + Progress */}
+          <div className="header-row-2">
+            <div className="header-stats-row">
+              <div className="stat-pill stat-xp">
+                <span className="stat-icon">{level.emoji}</span>
+                <span className="stat-val">{xp}</span>
+                <span className="stat-lbl">XP</span>
+              </div>
+              <div className="stat-pill stat-progress" title={`${totalRead} / ${totalPagesAllChapters}`}>
+                <span className="stat-icon">📊</span>
+                <span className="stat-val">{overallPct}%</span>
+              </div>
+              <div className={`stat-pill stat-time${todayMinutes > 0 ? ' active' : ''}`}>
+                <span className="stat-icon">⏱️</span>
+                <span className="stat-val" dir="ltr">{formatMinutes(todayMinutes, lang)}</span>
+              </div>
+              {streak > 0 && (
+                <div className="stat-pill stat-streak">
+                  <span className="stat-icon">🔥</span>
+                  <span className="stat-val">{streak}</span>
+                </div>
+              )}
             </div>
-            <div className="level-bar">
-              <div className="level-fill" style={{ width: `${lvlProgress}%` }} />
-            </div>
-          </div>
 
-          {/* Daily goal bar */}
-          <div className="daily-goal-wrap">
-            <span className="daily-goal-label">
-              {goalMet ? t('daily_goal_met') : `${t('daily_goal_pre')} ${formatMinutes(todayMinutes, lang)} / ${DAILY_GOAL_MIN}m`}
-              {goalMet && <span className="daily-goal-done"> 🏆</span>}
-            </span>
-            <div className="daily-goal-bar">
-              <div className={`daily-goal-fill${goalMet ? ' goal-met' : ''}`} style={{ width: `${goalPct}%` }} />
+            <div className="header-bars">
+              <div className="header-bar-group">
+                <div className="bar-label">
+                  <span>{level.emoji} {levelName}</span>
+                  {nextLevel && <span className="bar-label-sub">{isEn ? '→' : '←'} {nextLevelName}</span>}
+                </div>
+                <div className="bar-track"><div className="bar-fill bar-fill-xp" style={{ width: `${lvlProgress}%` }} /></div>
+              </div>
+              <div className="header-bar-group">
+                <div className="bar-label">
+                  <span>{goalMet ? (isEn ? 'Goal met!' : 'יעד הושג!') : `${formatMinutes(todayMinutes, lang)} / ${DAILY_GOAL_MIN}m`}</span>
+                  {goalMet && <span className="bar-label-sub">🏆</span>}
+                </div>
+                <div className="bar-track"><div className={`bar-fill bar-fill-goal${goalMet ? ' goal-met' : ''}`} style={{ width: `${goalPct}%` }} /></div>
+              </div>
             </div>
           </div>
 
