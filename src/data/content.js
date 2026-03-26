@@ -62,6 +62,18 @@ export const tracks = [
     ]
   },
   {
+    id: 'linux',
+    title: 'מערכות לינוקס',
+    subtitle: 'Terminal, Bash, הרשאות, תהליכים, רשת, Scripting — 10 פרקים',
+    icon: '🐧',
+    color: '#00ff88',
+    level: 'מתחיל–מתקדם',
+    fullPage: true,
+    chapters: [
+      { id: 400, title: "מערכות לינוקס — קורס מלא", pages: [{ type: "html_page", title: "Linux Course", src: "/learn/linux/linux_course.html" }] },
+    ]
+  },
+  {
     id: 'crypto',
     title: 'Blockchain & Crypto Forensics',
     subtitle: 'בלוקצ\'יין, ארנקים, On-Chain Analysis, Scam Detection, מיקסרים, Cross-Chain — 12 פרקים',
