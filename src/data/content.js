@@ -5,30 +5,6 @@
 
 export const tracks = [
   {
-    id: 'networking',
-    title: 'רשתות מחשבים',
-    subtitle: 'איך עובד האינטרנט, Sockets, Wireshark, TCP/IP, Scapy ועוד — 12 פרקים',
-    icon: '🌐',
-    color: '#0891b2',
-    level: 'מתחיל–מתקדם',
-    fullPage: true,
-    quizSrc: '/learn/networks/quiz_game.html',
-    chapters: [
-      { id: 1,  title: "🌐 תחילת מסע",              pages: [{ type: "html_page", title: "תחילת מסע",              src: "/learn/networks/learn_ch01.html", srcEn: "/learn/networks-en/learn_ch01.html" }] },
-      { id: 2,  title: "🔌 תכנות Sockets",           pages: [{ type: "html_page", title: "תכנות Sockets",           src: "/learn/networks/learn_ch02.html", srcEn: "/learn/networks-en/learn_ch02.html" }] },
-      { id: 3,  title: "🦈 Wireshark ומודל 5 שכבות", pages: [{ type: "html_page", title: "Wireshark ומודל 5 שכבות", src: "/learn/networks/learn_ch03.html", srcEn: "/learn/networks-en/learn_ch03.html" }] },
-      { id: 4,  title: "📡 שכבת האפליקציה",          pages: [{ type: "html_page", title: "שכבת האפליקציה",          src: "/learn/networks/learn_ch04.html", srcEn: "/learn/networks-en/learn_ch04.html" }] },
-      { id: 5,  title: "🐍 Scapy",                   pages: [{ type: "html_page", title: "Scapy",                   src: "/learn/networks/learn_ch05.html", srcEn: "/learn/networks-en/learn_ch05.html" }] },
-      { id: 6,  title: "🚦 שכבת התעבורה",            pages: [{ type: "html_page", title: "שכבת התעבורה",            src: "/learn/networks/learn_ch06.html", srcEn: "/learn/networks-en/learn_ch06.html" }] },
-      { id: 7,  title: "🌍 שכבת הרשת",               pages: [{ type: "html_page", title: "שכבת הרשת",               src: "/learn/networks/learn_ch07.html", srcEn: "/learn/networks-en/learn_ch07.html" }] },
-      { id: 8,  title: "🔗 שכבת הקו",                pages: [{ type: "html_page", title: "שכבת הקו",                src: "/learn/networks/learn_ch08.html", srcEn: "/learn/networks-en/learn_ch08.html" }] },
-      { id: 9,  title: "🔀 רכיבי רשת",               pages: [{ type: "html_page", title: "רכיבי רשת",               src: "/learn/networks/learn_ch09.html", srcEn: "/learn/networks-en/learn_ch09.html" }] },
-      { id: 10, title: "⚡ השכבה הפיזית",             pages: [{ type: "html_page", title: "השכבה הפיזית",             src: "/learn/networks/learn_ch10.html", srcEn: "/learn/networks-en/learn_ch10.html" }] },
-      { id: 11, title: "🧩 איך הכל מתחבר",           pages: [{ type: "html_page", title: "איך הכל מתחבר",           src: "/learn/networks/learn_ch11.html", srcEn: "/learn/networks-en/learn_ch11.html" }] },
-      { id: 12, title: "⚙️ Sockets מתקדם",           pages: [{ type: "html_page", title: "Sockets מתקדם",           src: "/learn/networks/learn_ch12.html", srcEn: "/learn/networks-en/learn_ch12.html" }] },
-    ]
-  },
-  {
     id: 'webapi',
     title: 'Web ו-APIs',
     subtitle: 'HTTP, REST, GraphQL, Auth, WebSockets, Performance, API Design — 8 פרקים',

