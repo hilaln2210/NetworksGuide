@@ -2468,9 +2468,10 @@ function buildSidebar() {
 }
 
 /* ── LOAD CHAPTER ── */
+var _readChapters={};
 function loadCh(n) {
   CUR_CH = n;
-  try{parent.postMessage({type:'ng_xp',amount:5},'*')}catch(e){}
+  if(!_readChapters[n]){_readChapters[n]=true;try{parent.postMessage({type:'ng_xp',amount:5},'*')}catch(e){}}
   var isHe  = LANG === 'he';
   var ch    = CHAPTERS.find(function(c){ return c.n === n; });
   var data  = isHe ? ch.he : ch.en;
