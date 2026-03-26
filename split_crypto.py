@@ -121,95 +121,36 @@ for i in range(12):
     )
     write(OUT_EN, f"learn_ch{n:02d}.html", make_html("en", "ltr", body))
 
-# ── 6. Generate terminal.html (standalone lab) ────────────────────────────
-print("\n── Terminal ──")
+# ── 6. Generate full-page standalone files ─────────────────────────────────
+# The quiz and lab need the FULL HTML (all sections + all JS) to work.
+# We patch the raw HTML to auto-navigate to the right tab on load.
+print("\n── Full-page standalone files ──")
 
-lab_m = re.search(r'<section[^>]*id="lab"[^>]*>(.*?)</section>', raw, re.DOTALL)
-lab_html = lab_m.group(0) if lab_m else ""
-lab_html = re.sub(r'class="screen"', 'class="screen on"', lab_html, count=1)
-
-script_m = re.search(r'<script>(.*)</script>', raw, re.DOTALL)
-full_script = script_m.group(1) if script_m else ""
-
-for eid in ['xpTotal', 'homeGrid', 'lSidebar', 'lContent']:
-    full_script = full_script.replace(
-        f"document.getElementById('{eid}')",
-        f"(document.getElementById('{eid}')||{{}})"
-    )
-
-terminal_page = f"""<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-{head_inner}
-</head>
-<body>
-{lab_html}
-<script>
-{full_script}
-/* Force init for standalone page */
-buildLabSidebar();
-buildLabWelcome();
-applyLangUI();
-</script>
-</body>
-</html>"""
-
-fp = os.path.join(OUT_HE, "terminal.html")
-with open(fp, "w", encoding="utf-8") as f:
-    f.write(terminal_page)
-print(f"  Wrote terminal.html  ({len(terminal_page):,} chars)")
-
-# ── 6b. Generate quiz_game.html (standalone quiz) ─────────────────────────
-print("\n── Quiz ──")
-
-quiz_m = re.search(r'<section[^>]*id="quiz"[^>]*>(.*?)</section>', raw, re.DOTALL)
-quiz_html = quiz_m.group(0) if quiz_m else ""
-quiz_html = re.sub(r'class="screen"', 'class="screen on"', quiz_html, count=1)
-
-quiz_page = f"""<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-{head_inner}
-</head>
-<body>
-{quiz_html}
-<script>
-{full_script}
-/* Force init for standalone quiz page */
-applyLangUI();
-</script>
-</body>
-</html>"""
-
+# quiz_game.html — full HTML, auto-switch to quiz tab
+quiz_raw = raw.replace('</script>', """
+/* Auto-switch to quiz tab on load */
+setTimeout(function(){ goTo('quiz'); }, 200);
+</script>""", 1)
 fp = os.path.join(OUT_HE, "quiz_game.html")
 with open(fp, "w", encoding="utf-8") as f:
-    f.write(quiz_page)
-print(f"  Wrote quiz_game.html  ({len(quiz_page):,} chars)")
+    f.write(quiz_raw)
+print(f"  Wrote quiz_game.html  ({len(quiz_raw):,} chars)")
 
-# ── 6c. Generate lab.html (standalone lab) ────────────────────────────────
-print("\n── Lab ──")
-
-lab_page = f"""<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-{head_inner}
-</head>
-<body>
-{lab_html}
-<script>
-{full_script}
-/* Force init for standalone lab page */
-buildLabSidebar();
-buildLabWelcome();
-applyLangUI();
-</script>
-</body>
-</html>"""
-
+# lab.html — full HTML, auto-switch to lab tab
+lab_raw = raw.replace('</script>', """
+/* Auto-switch to lab tab on load */
+setTimeout(function(){ goTo('lab'); }, 200);
+</script>""", 1)
 fp = os.path.join(OUT_HE, "lab.html")
 with open(fp, "w", encoding="utf-8") as f:
-    f.write(lab_page)
-print(f"  Wrote lab.html  ({len(lab_page):,} chars)")
+    f.write(lab_raw)
+print(f"  Wrote lab.html  ({len(lab_raw):,} chars)")
+
+# terminal.html — full HTML as-is (default learn tab)
+fp = os.path.join(OUT_HE, "terminal.html")
+with open(fp, "w", encoding="utf-8") as f:
+    f.write(raw)
+print(f"  Wrote terminal.html  ({len(raw):,} chars)")
 
 # ── 7. Print chapter metadata for content.js update ───────────────────────
 print("\n── Chapter metadata (for content.js) ──")

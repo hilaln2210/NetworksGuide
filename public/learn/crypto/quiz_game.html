@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Crypto Forensics & Blockchain Intelligence</title>
@@ -252,10 +251,80 @@ li{margin-bottom:4px}
 .lc-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--ink3);text-align:center;padding:60px;gap:12px}
 .lc-placeholder-icon{font-size:2.5rem}
 </style>
-
 </head>
 <body>
-<section class="screen on" id="quiz">
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo" onclick="goTo('landing')" id="logoText">⛓ Crypto<span>Forensics</span></div>
+  <button class="nav-tab on" data-screen="landing" onclick="goTo('landing')" id="navLearn">🏠 <span id="navHomeLbl">ראשי</span></button>
+  <button class="nav-tab" data-screen="learn" onclick="goTo('learn')" id="navLearnBtn">📖 <span id="navLearnLbl">למידה</span></button>
+  <button class="nav-tab" data-screen="lab" onclick="goTo('lab')" id="navLabBtn">🧪 <span id="navLabLbl">מעבדה</span></button>
+  <button class="nav-tab" data-screen="quiz" onclick="goTo('quiz')" id="navQuizBtn">⚡ <span id="navQuizLbl">חידון</span></button>
+  <div class="nav-right">
+    <div class="xp-badge">⚡ <span id="xpTotal">0</span> XP</div>
+    <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+  </div>
+</nav>
+
+<!-- READ BAR -->
+<div class="read-bar"><div class="read-fill" id="readFill"></div></div>
+
+<!-- LANDING -->
+<section class="screen active" id="landing">
+  <div class="hero">
+    <div>
+      <div class="hero-tag" id="heroTag">COURSE — 12 CHAPTERS</div>
+      <h1 class="hero-h" id="heroH">Crypto<br><i>Forensics</i></h1>
+      <p class="hero-p" id="heroP">12 פרקים · מתחילים למתקדמים · 85 שאלות</p>
+      <div class="hero-stats">
+        <div class="hs"><div class="hs-n">12</div><div class="hs-l" id="statsChapters">פרקים</div></div>
+        <div class="hs"><div class="hs-n">85</div><div class="hs-l" id="statsQuestions">שאלות</div></div>
+        <div class="hs"><div class="hs-n">5</div><div class="hs-l" id="statsSkills">מיומנויות</div></div>
+      </div>
+      <button class="hero-btn" id="heroCta" onclick="goTo('learn');loadCh(1)">התחל →</button>
+    </div>
+    <div class="land-grid" id="landGrid"></div>
+  </div>
+</section>
+
+<!-- LEARN -->
+<section class="screen" id="learn">
+  <div class="learn-layout">
+    <div class="sidebar">
+      <div class="sb-title" id="sbTitle">פרקים</div>
+      <div id="sbList"></div>
+    </div>
+    <div class="learn-content" id="learnContent">
+      <div class="lc-placeholder">
+        <div class="lc-placeholder-icon">⛓</div>
+        <p id="lcPlaceholder">בחר פרק להתחלה</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAB -->
+<section class="screen" id="lab">
+  <div class="lab-layout">
+    <div class="lab-sb">
+      <div class="lab-sb-title" id="labSbTitle">מעבדה</div>
+      <div id="labSbList"></div>
+    </div>
+    <div class="lab-content" id="labContent">
+      <div class="lab-welcome" id="labWelcome">
+        <div class="lab-welcome-icon">🧪</div>
+        <h2 class="lab-welcome-h" id="labWelcomeH">בחר פרק לתרגול</h2>
+        <p class="lab-welcome-p" id="labWelcomeP">85 שאלות · הסברים מפורטים</p>
+        <div class="lab-ch-grid" id="labChGrid"></div>
+      </div>
+      <div id="lqArea" style="display:none"></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="screen" id="quiz">
   <div class="quiz-layout">
     <div class="quiz-home" id="quizHome">
       <div class="quiz-home-icon">⚡</div>
@@ -309,8 +378,8 @@ li{margin-bottom:4px}
     <div class="quiz-result" id="quizResult" style="display:none"></div>
   </div>
 </section>
-<script>
 
+<script>
 
 var CHAPTERS = [
   {
@@ -2011,7 +2080,7 @@ function onLabPick(btn, di, correctDi, origIdx) {
   var next = document.getElementById('lqNext');
   if (next) next.disabled = false;
 
-  if (ok) { XP += 10; var xpEl=(document.getElementById('xpTotal')||{}); if(xpEl) xpEl.textContent=XP; }
+  if (ok) { XP += 10; var xpEl=document.getElementById('xpTotal'); if(xpEl) xpEl.textContent=XP; }
 }
 
 function lqAdvance() {
@@ -2168,7 +2237,7 @@ function onQuizPick(btn, di, correctDi, origIdx) {
     QUIZ.correct++;
     QUIZ.maxStreak = Math.max(QUIZ.maxStreak, QUIZ.streak);
     XP += 15;
-    var xpEl=(document.getElementById('xpTotal')||{}); if(xpEl) xpEl.textContent=XP;
+    var xpEl=document.getElementById('xpTotal'); if(xpEl) xpEl.textContent=XP;
   } else {
     QUIZ.streak = 0;
   }
@@ -2266,8 +2335,8 @@ function init() {
 document.addEventListener('DOMContentLoaded', init);
 
 
-/* Force init for standalone quiz page */
-applyLangUI();
+/* Auto-switch to quiz tab on load */
+setTimeout(function(){ goTo('quiz'); }, 200);
 </script>
 </body>
 </html>
