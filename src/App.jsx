@@ -825,8 +825,8 @@ function App() {
         const pc = usePageContent(page, lang, chapter?.id, currentPage)
         const chTitle = isEn ? (getEnChapterTitle(chapter?.id) || chapter?.title) : chapter?.title
         return (
-        <div className="layout">
-          <nav className={`sidebar${mobileShowContent ? ' sidebar--mobile-hidden' : ''}`}>
+        <div className={`layout${activeTrack?.fullPage ? ' layout--fullpage' : ''}`}>
+          <nav className={`sidebar${mobileShowContent ? ' sidebar--mobile-hidden' : ''}${activeTrack?.fullPage ? ' sidebar--hidden' : ''}`}>
             <h3>{t('table_of_contents')}</h3>
             {trackChapters.map((ch, i) => {
               const compositeId = trackChapterId(activeTrack.id, ch.id)
@@ -879,13 +879,16 @@ function App() {
             </div>
           </nav>
 
-          <main className="content-area" ref={contentAreaRef} onScroll={handleContentScroll}>
+          <main className={`content-area${activeTrack?.fullPage ? ' content-area--fullpage' : ''}`} ref={contentAreaRef} onScroll={handleContentScroll}>
+            {!activeTrack?.fullPage && (
             <button
               className="mobile-menu-back-btn"
               onClick={() => setMobileShowContent(false)}
             >
               {t('chapter_list')}
             </button>
+            )}
+            {!activeTrack?.fullPage && (
             <div className="page-header" ref={pageHeaderRef}>
               <span className="page-type-badge" style={getBadgeStyle(page.type)}>
                 {getPageTypeLabel(page.type, t)}
@@ -900,6 +903,7 @@ function App() {
               </button>
               <h2>{pc.title}</h2>
             </div>
+            )}
 
             <article key={`${currentChapter}-${currentPage}`} className="page-content">
               {page.type === 'questions' ? (
@@ -913,7 +917,7 @@ function App() {
                   src={(lang === 'en' && page.srcEn) ? page.srcEn : page.src}
                   title={page.title}
                   style={activeTrack?.fullPage
-                    ? { width: '100%', border: 'none', display: 'block', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, height: '100vh', zIndex: 999 }
+                    ? { width: '100%', border: 'none', display: 'block', height: '100%', minHeight: '100vh' }
                     : { width: '100%', border: 'none', display: 'block', minHeight: 'calc(100vh - 80px)' }
                   }
                   onLoad={(e) => {
