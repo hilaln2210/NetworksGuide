@@ -31,9 +31,6 @@ export const uiStrings = {
   track_networking_subtitle: { he: 'Sockets, Wireshark, TCP/IP, שכבות הרשת, Scapy ועוד — 12 פרקים מהבסיס למתקדם', en: 'Sockets, Wireshark, TCP/IP, network layers, Scapy and more — 12 chapters' },
   track_networking_level: { he: 'מתחיל–מתקדם', en: 'Beginner–Advanced' },
 
-  track_cyber_title: { he: 'אבטחת מידע', en: 'Cybersecurity' },
-  track_cyber_subtitle: { he: 'CIA Triad, קריפטוגרפיה, Malware, Penetration Testing, SOC — 9 פרקים + 6 מעבדות', en: 'CIA Triad, cryptography, malware, penetration testing, SOC — 9 chapters + 6 labs' },
-  track_cyber_level: { he: 'מתחיל–מתקדם', en: 'Beginner–Advanced' },
 
 
 
