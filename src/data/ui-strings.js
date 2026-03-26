@@ -35,9 +35,6 @@ export const uiStrings = {
   track_cyber_subtitle: { he: 'CIA Triad, קריפטוגרפיה, Malware, Penetration Testing, SOC — 9 פרקים + 6 מעבדות', en: 'CIA Triad, cryptography, malware, penetration testing, SOC — 9 chapters + 6 labs' },
   track_cyber_level: { he: 'מתחיל–מתקדם', en: 'Beginner–Advanced' },
 
-  track_webapi_title: { he: 'Web ו-APIs', en: 'Web & APIs' },
-  track_webapi_subtitle: { he: 'HTTP, REST, GraphQL, Auth, WebSockets, Performance, API Design — 9 פרקים + 6 מעבדות', en: 'HTTP, REST, GraphQL, Auth, WebSockets, Performance, API Design — 9 chapters + 6 labs' },
-  track_webapi_level: { he: 'מתחיל–בינוני', en: 'Beginner–Intermediate' },
 
 
   track_secdev_title: { he: 'פיתוח מאובטח ו-AI Security', en: 'Secure Development & AI Security' },
