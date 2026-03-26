@@ -96,6 +96,7 @@ export const tracks = [
     icon: '🔗',
     color: '#f59e0b',
     level: 'מתחיל–מתקדם',
+    fullPage: true,
     quizSrc: '/learn/crypto/quiz_game.html',
     chapters: [
       { id: 500, title: "🔗 בלוקצ'יין — איך עובד",                pages: [{ type: "html_page", title: "Blockchain",               src: "/learn/crypto/learn_ch01.html", srcEn: "/learn/crypto-en/learn_ch01.html" }] },

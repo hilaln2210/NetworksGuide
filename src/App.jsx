@@ -775,7 +775,8 @@ function App() {
           </Suspense>
         </div>
 
-        {/* Tab navigation */}
+        {/* Tab navigation — hidden for fullPage tracks (they have their own tabs) */}
+        {!activeTrack?.fullPage && (
         <div className="app-tabs">
           {TAB_KEYS.map(key => (
             <button
@@ -788,6 +789,7 @@ function App() {
             </button>
           ))}
         </div>
+        )}
       </header>
 
       {/* ===== XP FLOAT ===== */}
