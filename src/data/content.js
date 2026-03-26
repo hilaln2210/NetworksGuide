@@ -29,30 +29,6 @@ export const tracks = [
     ]
   },
   {
-    id: 'webapi',
-    title: 'Web ו-APIs',
-    subtitle: 'HTTP, REST, GraphQL, Auth, WebSockets, Performance, API Design — 8 פרקים',
-    icon: '🌍',
-    color: '#06b6d4',
-    level: 'מתחיל–בינוני',
-    fullPage: true,
-    chapters: [
-      { id: 300, title: "Web & APIs — קורס מלא", pages: [{ type: "html_page", title: "Web & APIs Course", src: "/learn/webapi/web_apis_course.html" }] },
-    ]
-  },
-  {
-    id: 'linux',
-    title: 'מערכות לינוקס',
-    subtitle: 'Terminal, Bash, הרשאות, תהליכים, רשת, Scripting — 10 פרקים',
-    icon: '🐧',
-    color: '#00ff88',
-    level: 'מתחיל–מתקדם',
-    fullPage: true,
-    chapters: [
-      { id: 400, title: "מערכות לינוקס — קורס מלא", pages: [{ type: "html_page", title: "Linux Course", src: "/learn/linux/linux_course.html" }] },
-    ]
-  },
-  {
     id: 'crypto',
     title: 'Blockchain & Crypto Forensics',
     subtitle: 'בלוקצ\'יין, ארנקים, On-Chain Analysis, Scam Detection, מיקסרים, Cross-Chain — 12 פרקים',
