@@ -99,46 +99,56 @@ function TrackPicker({ tracks, onSelect }) {
         >
           {t('lang_toggle')}
         </button>
-        <div className="track-picker-logo">🌐</div>
+        <div className="track-picker-logo-wrap">
+          <div className="track-picker-logo-glow" />
+          <div className="track-picker-logo">🌐</div>
+        </div>
         <h1 className="track-picker-title">{t('app_title')}</h1>
         <p className="track-picker-subtitle">{t('pick_track')}</p>
       </div>
 
       <div className="track-intro">
         <div className="track-intro-section">
-          <h3>{isEn ? '🗺️ Recommended Path' : '🗺️ סדר לימוד מומלץ'}</h3>
+          <h3>{isEn ? '🗺️ Recommended Learning Path' : '🗺️ סדר לימוד מומלץ'}</h3>
           <div className="track-intro-path">
-            <span className="track-intro-step" style={{ '--step-color': '#0891b2' }}>🌐 {isEn ? 'Networks' : 'רשתות'}</span>
-            <span className="track-intro-arrow">{isEn ? '→' : '←'}</span>
-            <span className="track-intro-step" style={{ '--step-color': '#06b6d4' }}>🌍 {isEn ? 'Web & APIs' : 'Web ו-APIs'}</span>
-            <span className="track-intro-arrow">{isEn ? '→' : '←'}</span>
-            <span className="track-intro-step" style={{ '--step-color': '#00ff88' }}>🐧 {isEn ? 'Linux' : 'לינוקס'}</span>
-            <span className="track-intro-arrow">{isEn ? '→' : '←'}</span>
-            <span className="track-intro-step" style={{ '--step-color': '#f59e0b' }}>🔗 {isEn ? 'Crypto' : 'קריפטו'}</span>
+            <div className="path-step" style={{ '--step-color': '#0891b2' }}>
+              <span className="path-num">1</span>
+              <span className="path-icon">🌐</span>
+              <span className="path-name">{isEn ? 'Networks' : 'רשתות'}</span>
+            </div>
+            <div className="path-connector" />
+            <div className="path-step" style={{ '--step-color': '#00ff88' }}>
+              <span className="path-num">2</span>
+              <span className="path-icon">🐧</span>
+              <span className="path-name">{isEn ? 'Linux' : 'לינוקס'}</span>
+            </div>
+            <div className="path-connector" />
+            <div className="path-step" style={{ '--step-color': '#06b6d4' }}>
+              <span className="path-num">3</span>
+              <span className="path-icon">🌍</span>
+              <span className="path-name">{isEn ? 'Web & APIs' : 'Web ו-APIs'}</span>
+            </div>
+            <div className="path-connector" />
+            <div className="path-step" style={{ '--step-color': '#ef4444' }}>
+              <span className="path-num">4</span>
+              <span className="path-icon">🔐</span>
+              <span className="path-name">{isEn ? 'Cyber' : 'אבטחת מידע'}</span>
+            </div>
+            <div className="path-connector" />
+            <div className="path-step" style={{ '--step-color': '#f59e0b' }}>
+              <span className="path-num">5</span>
+              <span className="path-icon">🔗</span>
+              <span className="path-name">{isEn ? 'Crypto' : 'קריפטו'}</span>
+            </div>
           </div>
         </div>
-        <div className="track-intro-cards">
-          <div className="track-intro-card">
-            <span className="track-intro-card-icon">📖</span>
-            <div>
-              <strong>{isEn ? 'Self-paced learning' : 'למידה עצמאית'}</strong>
-              <p>{isEn ? 'Each chapter has theory, code examples, and interactive quizzes' : 'כל פרק כולל תיאוריה, דוגמאות קוד וחידונים אינטראקטיביים'}</p>
-            </div>
-          </div>
-          <div className="track-intro-card">
-            <span className="track-intro-card-icon">⚡</span>
-            <div>
-              <strong>{isEn ? 'Earn XP as you learn' : 'צברו XP תוך כדי למידה'}</strong>
-              <p>{isEn ? 'Complete chapters and quizzes to level up and track your progress' : 'השלימו פרקים וחידונים כדי לעלות רמה ולעקוב אחרי ההתקדמות'}</p>
-            </div>
-          </div>
-          <div className="track-intro-card">
-            <span className="track-intro-card-icon">🌙</span>
-            <div>
-              <strong>{isEn ? 'Dark mode available' : 'מצב כהה זמין'}</strong>
-              <p>{isEn ? 'Press D or click the moon icon to toggle dark mode' : 'לחצו D או על אייקון הירח למעבר למצב כהה'}</p>
-            </div>
-          </div>
+        <div className="track-intro-features">
+          <div className="feature-pill"><span>📖</span> {isEn ? 'Theory + Code' : 'תיאוריה + קוד'}</div>
+          <div className="feature-pill"><span>⚡</span> {isEn ? 'Earn XP' : 'צברו XP'}</div>
+          <div className="feature-pill"><span>📝</span> {isEn ? 'Exams' : 'מבחנים'}</div>
+          <div className="feature-pill"><span>🌙</span> {isEn ? 'Dark Mode' : 'מצב כהה'}</div>
+          <div className="feature-pill"><span>📚</span> {isEn ? 'Glossary' : 'מילון מונחים'}</div>
+          <div className="feature-pill"><span>🌍</span> {isEn ? 'HE / EN' : 'עברית / English'}</div>
         </div>
       </div>
 
