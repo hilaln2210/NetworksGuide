@@ -13,6 +13,10 @@ const TroubleshootingTab = lazy(() => import('./components/TroubleshootingTab').
 const CreditsTab = lazy(() => import('./components/CreditsTab').then(m => ({ default: m.CreditsTab })))
 const LabsTab = lazy(() => import('./components/LabsTab').then(m => ({ default: m.LabsTab })))
 const SearchBar = lazy(() => import('./components/SearchBar').then(m => ({ default: m.SearchBar })))
+const Glossary = lazy(() => import('./components/Glossary').then(m => ({ default: m.Glossary })))
+const ChapterNotes = lazy(() => import('./components/ChapterNotes').then(m => ({ default: m.ChapterNotes })))
+const ShareProgress = lazy(() => import('./components/ShareProgress').then(m => ({ default: m.ShareProgress })))
+const ExamMode = lazy(() => import('./components/ExamMode').then(m => ({ default: m.ExamMode })))
 
 // Lazy-loaded simulations
 const Confetti = lazy(() => import('./components/Confetti').then(m => ({ default: m.Confetti })))
@@ -250,6 +254,8 @@ function App() {
   })
   const [showConfetti, setShowConfetti] = useState(false)
   const [bookmarksOpen, setBookmarksOpen] = useState(true)
+  const [showGlossary, setShowGlossary] = useState(false)
+  const [showExamMode, setShowExamMode] = useState(false)
   const [fontSize, setFontSize] = useState(() => {
     try { return localStorage.getItem('ng_font_size') || 'normal' } catch { return 'normal' }
   })
@@ -767,6 +773,9 @@ function App() {
               <button className="dark-mode-btn" onClick={() => setDarkMode(d => !d)} title={darkMode ? 'Light mode' : 'Dark mode'}>
                 {darkMode ? '☀️' : '🌙'}
               </button>
+              <button className="dark-mode-btn" onClick={() => setShowGlossary(true)} title={isEn ? 'Glossary' : 'מילון מונחים'}>
+                📚
+              </button>
               <button className="reset-settings-btn" onClick={() => setShowResetModal(true)} title={t('settings')}>
                 ⚙️
               </button>
@@ -1033,12 +1042,20 @@ function App() {
             </nav>
             )}
           </main>
+          <Suspense fallback={null}>
+            <ChapterNotes trackId={activeTrack?.id} chapterId={chapter?.id} lang={lang} />
+          </Suspense>
         </div>
         )
       })()}
 
       {activeTab === 'quiz' && (
         <div className="tab-content">
+          <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
+            <button className="exam-trigger-btn" onClick={() => setShowExamMode(true)}>
+              📝 {isEn ? 'Exam Mode' : 'מצב בחינה'}
+            </button>
+          </div>
           {activeTrack?.quizSrc ? (
             <iframe
               key={(lang === 'en' && activeTrack.quizSrcEn) ? activeTrack.quizSrcEn : activeTrack.quizSrc}
@@ -1252,6 +1269,11 @@ function App() {
                 </div>
               </div>
             </div>
+            <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
+              <Suspense fallback={null}>
+                <ShareProgress lang={lang} tracks={tracks} />
+              </Suspense>
+            </div>
           </div>
         </div>
         )
@@ -1461,6 +1483,20 @@ function ResetModal({ onClose, onReset, gender }) {
           </button>
         </div>
       </div>
+      {showGlossary && (
+        <Suspense fallback={null}>
+          <Glossary isOpen={showGlossary} onClose={() => setShowGlossary(false)} lang={lang} />
+        </Suspense>
+      )}
+      {showExamMode && (
+        <Suspense fallback={null}>
+          <ExamMode lang={lang} onClose={() => setShowExamMode(false)} onXP={(amount) => {
+            addXP(amount)
+            setXpFloat(`+${amount} XP`)
+            setTimeout(() => setXpFloat(null), 2000)
+          }} />
+        </Suspense>
+      )}
     </div>
   )
 }
