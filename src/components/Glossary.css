@@ -1,0 +1,319 @@
+/* ===== GLOSSARY MODAL ===== */
+
+.glossary-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: glossary-fade-in 0.18s ease;
+  padding: 1rem;
+}
+
+@keyframes glossary-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.glossary-modal {
+  background: var(--bg-elevated, rgba(255, 255, 255, 0.97));
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg, 16px);
+  width: 100%;
+  max-width: 600px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+  color: var(--text);
+  animation: glossary-slide-up 0.22s ease;
+  overflow: hidden;
+}
+
+@keyframes glossary-slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ── Header ── */
+.glossary-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 0;
+  flex-shrink: 0;
+}
+
+.glossary-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.glossary-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1;
+}
+
+.glossary-close-btn:hover {
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+/* ── Search ── */
+.glossary-search-wrap {
+  padding: 14px 24px 0;
+  flex-shrink: 0;
+}
+
+.glossary-search {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  background: var(--bg-card, rgba(255, 255, 255, 0.92));
+  border: 1.5px solid var(--glass-border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.glossary-search::placeholder {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.glossary-search:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* ── Category Filters ── */
+.glossary-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 12px 24px 0;
+  flex-shrink: 0;
+}
+
+.glossary-filter-btn {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.17s;
+  border: 1.5px solid var(--glass-border);
+  background: transparent;
+  color: var(--text-muted);
+}
+
+.glossary-filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.glossary-filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Category-specific active colors */
+.glossary-filter-btn.cat-networking.active {
+  background: #0891b2;
+  border-color: #0891b2;
+}
+
+.glossary-filter-btn.cat-webapi.active {
+  background: #06b6d4;
+  border-color: #06b6d4;
+}
+
+.glossary-filter-btn.cat-linux.active {
+  background: #059669;
+  border-color: #059669;
+}
+
+.glossary-filter-btn.cat-crypto.active {
+  background: #d97706;
+  border-color: #d97706;
+}
+
+/* ── Term List ── */
+.glossary-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.glossary-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.glossary-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.glossary-list::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 999px;
+}
+
+.glossary-item {
+  padding: 0.85rem 1rem;
+  background: var(--bg-card, rgba(255, 255, 255, 0.92));
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  transition: background 0.15s, border-color 0.15s, transform 0.12s;
+}
+
+.glossary-item:hover {
+  border-color: rgba(8, 145, 178, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 12px rgba(8, 145, 178, 0.08);
+}
+
+.glossary-item-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+}
+
+.glossary-term {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+.glossary-badge {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.glossary-badge.badge-networking {
+  background: #0891b2;
+}
+
+.glossary-badge.badge-webapi {
+  background: #06b6d4;
+}
+
+.glossary-badge.badge-linux {
+  background: #059669;
+}
+
+.glossary-badge.badge-crypto {
+  background: #d97706;
+}
+
+.glossary-definition {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* ── Empty State ── */
+.glossary-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ── Count ── */
+.glossary-count {
+  text-align: center;
+  padding: 6px 0 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] .glossary-modal {
+  background: var(--bg-elevated);
+}
+
+[data-theme="dark"] .glossary-search {
+  background: var(--bg-mid, #1e293b);
+}
+
+[data-theme="dark"] .glossary-item {
+  background: rgba(30, 41, 59, 0.7);
+}
+
+[data-theme="dark"] .glossary-item:hover {
+  background: rgba(30, 41, 59, 0.9);
+  border-color: rgba(6, 182, 212, 0.35);
+  box-shadow: 0 3px 12px rgba(6, 182, 212, 0.08);
+}
+
+[data-theme="dark"] .glossary-badge.badge-networking {
+  background: rgba(8, 145, 178, 0.85);
+}
+
+[data-theme="dark"] .glossary-badge.badge-webapi {
+  background: rgba(6, 182, 212, 0.85);
+}
+
+[data-theme="dark"] .glossary-badge.badge-linux {
+  background: rgba(5, 150, 105, 0.85);
+}
+
+[data-theme="dark"] .glossary-badge.badge-crypto {
+  background: rgba(217, 119, 6, 0.85);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .glossary-backdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .glossary-modal {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .glossary-header,
+  .glossary-search-wrap,
+  .glossary-filters {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .glossary-list {
+    padding: 12px 16px 16px;
+  }
+}

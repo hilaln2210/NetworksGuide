@@ -1,0 +1,53 @@
+export const glossaryTerms = [
+  // ── Networking ──
+  { term: 'DNS', termHe: 'מערכת שמות מתחם', definition: 'Translates domain names (like google.com) to IP addresses', definitionHe: 'ממירה שמות דומיין (כמו google.com) לכתובות IP', category: 'networking' },
+  { term: 'TCP', termHe: 'פרוטוקול בקרת שידור', definition: 'Reliable, connection-oriented transport protocol with error checking and ordering', definitionHe: 'פרוטוקול תעבורה אמין מבוסס חיבור, עם בדיקת שגיאות וסדר הגעה', category: 'networking' },
+  { term: 'UDP', termHe: 'פרוטוקול דאטהגרם', definition: 'Fast, connectionless transport protocol without delivery guarantees', definitionHe: 'פרוטוקול תעבורה מהיר ללא חיבור וללא אחריות על משלוח', category: 'networking' },
+  { term: 'IP Address', termHe: 'כתובת IP', definition: 'Unique numerical label assigned to each device on a network', definitionHe: 'מספר ייחודי שמוקצה לכל מכשיר ברשת', category: 'networking' },
+  { term: 'Subnet', termHe: 'תת-רשת', definition: 'A logical subdivision of an IP network into smaller segments', definitionHe: 'חלוקה לוגית של רשת IP לקטעים קטנים יותר', category: 'networking' },
+  { term: 'NAT', termHe: 'תרגום כתובות רשת', definition: 'Translates private IP addresses to public ones for internet access', definitionHe: 'ממיר כתובות IP פרטיות לציבוריות לצורך גישה לאינטרנט', category: 'networking' },
+  { term: 'DHCP', termHe: 'פרוטוקול הקצאת כתובות', definition: 'Automatically assigns IP addresses and network settings to devices', definitionHe: 'מקצה אוטומטית כתובות IP והגדרות רשת למכשירים', category: 'networking' },
+  { term: 'Firewall', termHe: 'חומת אש', definition: 'Monitors and filters network traffic based on security rules', definitionHe: 'מנטר ומסנן תעבורת רשת לפי כללי אבטחה', category: 'networking' },
+  { term: 'Router', termHe: 'נתב', definition: 'Forwards data packets between different networks using routing tables', definitionHe: 'מעביר חבילות מידע בין רשתות שונות באמצעות טבלאות ניתוב', category: 'networking' },
+  { term: 'Switch', termHe: 'מתג', definition: 'Connects devices within the same network and forwards frames by MAC address', definitionHe: 'מחבר מכשירים באותה רשת ומעביר מסגרות לפי כתובת MAC', category: 'networking' },
+  { term: 'VLAN', termHe: 'רשת וירטואלית', definition: 'Logically segments a physical network into isolated broadcast domains', definitionHe: 'מחלקת רשת פיזית לדומייני שידור מבודדים באופן לוגי', category: 'networking' },
+  { term: 'OSI Model', termHe: 'מודל OSI', definition: 'Seven-layer reference model describing how network communication works', definitionHe: 'מודל התייחסות בן 7 שכבות שמתאר איך תקשורת רשת עובדת', category: 'networking' },
+  { term: 'ARP', termHe: 'פרוטוקול זיהוי כתובות', definition: 'Resolves IP addresses to MAC (hardware) addresses on a local network', definitionHe: 'ממיר כתובות IP לכתובות MAC (חומרה) ברשת מקומית', category: 'networking' },
+  { term: 'BGP', termHe: 'פרוטוקול ניתוב גבולי', definition: 'The routing protocol that connects autonomous systems across the internet', definitionHe: 'פרוטוקול הניתוב שמחבר מערכות אוטונומיות באינטרנט', category: 'networking' },
+
+  // ── Web & APIs ──
+  { term: 'HTTP', termHe: 'פרוטוקול העברת היפרטקסט', definition: 'The foundation protocol for data communication on the web', definitionHe: 'פרוטוקול הבסיס לתקשורת נתונים באינטרנט', category: 'webapi' },
+  { term: 'HTTPS', termHe: 'HTTP מאובטח', definition: 'HTTP encrypted with TLS/SSL for secure communication', definitionHe: 'HTTP מוצפן באמצעות TLS/SSL לתקשורת מאובטחת', category: 'webapi' },
+  { term: 'REST API', termHe: 'ממשק REST', definition: 'Architectural style for web services using HTTP methods (GET, POST, PUT, DELETE)', definitionHe: 'סגנון אדריכלי לשירותי ווב המשתמש בפעולות HTTP (GET, POST, PUT, DELETE)', category: 'webapi' },
+  { term: 'JSON', termHe: 'פורמט JSON', definition: 'Lightweight data-interchange format using key-value pairs and arrays', definitionHe: 'פורמט קל להחלפת נתונים המשתמש בזוגות מפתח-ערך ומערכים', category: 'webapi' },
+  { term: 'WebSocket', termHe: 'ווב-סוקט', definition: 'Full-duplex communication channel over a single TCP connection', definitionHe: 'ערוץ תקשורת דו-כיווני על חיבור TCP יחיד', category: 'webapi' },
+  { term: 'SSL/TLS', termHe: 'שכבת שקעים מאובטחים', definition: 'Cryptographic protocols providing secure communication over networks', definitionHe: 'פרוטוקולים קריפטוגרפיים המספקים תקשורת מאובטחת ברשתות', category: 'webapi' },
+  { term: 'CDN', termHe: 'רשת אספקת תוכן', definition: 'Distributed servers that cache content close to end users for faster delivery', definitionHe: 'שרתים מבוזרים ששומרים תוכן קרוב למשתמשים לטעינה מהירה', category: 'webapi' },
+  { term: 'OAuth', termHe: 'פרוטוקול הרשאה', definition: 'Authorization framework that lets apps access resources on behalf of users', definitionHe: 'מסגרת הרשאה שמאפשרת לאפליקציות לגשת למשאבים בשם המשתמש', category: 'webapi' },
+  { term: 'Cookie', termHe: 'עוגייה', definition: 'Small data file stored in the browser to maintain state between requests', definitionHe: 'קובץ נתונים קטן שנשמר בדפדפן לשמירת מצב בין בקשות', category: 'webapi' },
+  { term: 'CORS', termHe: 'שיתוף משאבים בין מקורות', definition: 'Browser mechanism that allows or restricts cross-origin HTTP requests', definitionHe: 'מנגנון דפדפן שמאפשר או חוסם בקשות HTTP ממקורות שונים', category: 'webapi' },
+
+  // ── Linux ──
+  { term: 'Kernel', termHe: 'גרעין', definition: 'Core of the operating system managing hardware, memory, and processes', definitionHe: 'ליבת מערכת ההפעלה שמנהלת חומרה, זיכרון ותהליכים', category: 'linux' },
+  { term: 'Shell', termHe: 'מעטפת', definition: 'Command-line interpreter that executes user commands (e.g., Bash, Zsh)', definitionHe: 'מפרש שורת פקודה שמריץ פקודות משתמש (למשל Bash, Zsh)', category: 'linux' },
+  { term: 'chmod', termHe: 'שינוי הרשאות', definition: 'Command to change file permissions (read, write, execute) in Linux', definitionHe: 'פקודה לשינוי הרשאות קובץ (קריאה, כתיבה, הרצה) בלינוקס', category: 'linux' },
+  { term: 'SSH', termHe: 'גישה מאובטחת מרחוק', definition: 'Encrypted protocol for secure remote login and command execution', definitionHe: 'פרוטוקול מוצפן לכניסה מרחוק מאובטחת והרצת פקודות', category: 'linux' },
+  { term: 'Process', termHe: 'תהליך', definition: 'A running instance of a program managed by the operating system', definitionHe: 'מופע פעיל של תוכנית שמנוהל על ידי מערכת ההפעלה', category: 'linux' },
+  { term: 'Daemon', termHe: 'שירות רקע', definition: 'Background process that runs continuously without user interaction', definitionHe: 'תהליך רקע שרץ ברציפות ללא אינטראקציה עם המשתמש', category: 'linux' },
+  { term: 'Package Manager', termHe: 'מנהל חבילות', definition: 'Tool for installing, updating, and removing software (apt, yum, dnf)', definitionHe: 'כלי להתקנה, עדכון והסרה של תוכנות (apt, yum, dnf)', category: 'linux' },
+  { term: 'Cron', termHe: 'מתזמן משימות', definition: 'Time-based job scheduler that runs commands at specified intervals', definitionHe: 'מתזמן משימות מבוסס זמן שמריץ פקודות במרווחים קבועים', category: 'linux' },
+  { term: 'iptables', termHe: 'טבלאות סינון', definition: 'Linux firewall tool for configuring packet filtering rules', definitionHe: 'כלי חומת אש בלינוקס להגדרת כללי סינון חבילות', category: 'linux' },
+  { term: 'Pipe', termHe: 'צינור', definition: 'Mechanism to pass output of one command as input to another using |', definitionHe: 'מנגנון להעברת פלט של פקודה אחת כקלט לאחרת באמצעות |', category: 'linux' },
+
+  // ── Crypto / Blockchain ──
+  { term: 'Blockchain', termHe: 'בלוקצ\'יין', definition: 'Distributed ledger of linked blocks, each containing verified transactions', definitionHe: 'ספר חשבונות מבוזר של בלוקים מקושרים, כל אחד מכיל עסקאות מאומתות', category: 'crypto' },
+  { term: 'Hash Function', termHe: 'פונקציית גיבוב', definition: 'One-way function that converts data into a fixed-length unique fingerprint', definitionHe: 'פונקציה חד-כיוונית שממירה נתונים לטביעת אצבע ייחודית באורך קבוע', category: 'crypto' },
+  { term: 'Public Key', termHe: 'מפתח ציבורי', definition: 'Cryptographic key shared openly for encryption or identity verification', definitionHe: 'מפתח קריפטוגרפי שמשותף בגלוי להצפנה או אימות זהות', category: 'crypto' },
+  { term: 'Private Key', termHe: 'מפתח פרטי', definition: 'Secret cryptographic key used to decrypt data or sign transactions', definitionHe: 'מפתח קריפטוגרפי סודי לפענוח נתונים או חתימה על עסקאות', category: 'crypto' },
+  { term: 'Smart Contract', termHe: 'חוזה חכם', definition: 'Self-executing code on a blockchain that runs when conditions are met', definitionHe: 'קוד שמתבצע אוטומטית על בלוקצ\'יין כשתנאים מסוימים מתקיימים', category: 'crypto' },
+  { term: 'Wallet', termHe: 'ארנק דיגיטלי', definition: 'Software or hardware that stores cryptographic keys for managing digital assets', definitionHe: 'תוכנה או חומרה ששומרת מפתחות קריפטוגרפיים לניהול נכסים דיגיטליים', category: 'crypto' },
+  { term: 'Consensus', termHe: 'מנגנון הסכמה', definition: 'Algorithm by which network nodes agree on the current state (PoW, PoS)', definitionHe: 'אלגוריתם שבו צמתי הרשת מסכימים על המצב הנוכחי (PoW, PoS)', category: 'crypto' },
+  { term: 'Mining', termHe: 'כריית מטבעות', definition: 'Process of validating transactions and adding blocks using computational power', definitionHe: 'תהליך אימות עסקאות והוספת בלוקים באמצעות כוח חישובי', category: 'crypto' },
+  { term: 'DeFi', termHe: 'פיננסים מבוזרים', definition: 'Financial services built on blockchain without traditional intermediaries', definitionHe: 'שירותים פיננסיים בנויים על בלוקצ\'יין ללא מתווכים מסורתיים', category: 'crypto' },
+  { term: 'NFT', termHe: 'אסימון ייחודי', definition: 'Non-fungible token representing unique digital ownership on a blockchain', definitionHe: 'אסימון לא-ניתן להחלפה שמייצג בעלות דיגיטלית ייחודית על בלוקצ\'יין', category: 'crypto' },
+]
