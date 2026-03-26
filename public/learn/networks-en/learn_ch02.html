@@ -7779,6 +7779,25 @@ var CUR_CH = 0;
 var XP = parseInt(localStorage.getItem('nw_xp') || '0');
 var LAB = { ch: 0, questions: [], cur: 0, ans: [], answered: false };
 
+/* ── XP SYNC WITH PARENT APP ── */
+function syncXPDisplay() {
+  var el = document.getElementById('xpTotal');
+  if (el) el.textContent = XP;
+}
+window.addEventListener('message', function(e) {
+  if (!e.data) return;
+  if (e.data.type === 'ng_xp_sync' || e.data.ng === 'xp_sync') {
+    var appXP = parseInt(e.data.xp) || 0;
+    if (appXP > XP) { XP = appXP; localStorage.setItem('nw_xp', XP); syncXPDisplay(); }
+  }
+  if (e.data.type === 'ng_xp_add') {
+    XP += parseInt(e.data.amount) || 0;
+    localStorage.setItem('nw_xp', XP);
+    syncXPDisplay();
+  }
+});
+try { parent.postMessage({ type: 'ng_xp_request' }, '*'); } catch(e) {}
+
 /* ══════════════════════════════════════════
    NAVIGATION
 ══════════════════════════════════════════ */

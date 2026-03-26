@@ -2311,6 +2311,27 @@ var CUR_CH  = 0;
 var XP      = 0;
 var LAB     = { ch: 0, cur: 0, ans: [], questions: [] };
 
+/* ── XP SYNC WITH PARENT APP ── */
+function syncXPDisplay() {
+  var el = document.getElementById('xpTotal');
+  if (el) el.textContent = XP;
+}
+window.addEventListener('message', function(e) {
+  if (!e.data) return;
+  /* App sends current XP state */
+  if (e.data.type === 'ng_xp_sync' || e.data.ng === 'xp_sync') {
+    var appXP = parseInt(e.data.xp) || 0;
+    if (appXP > XP) { XP = appXP; syncXPDisplay(); }
+  }
+  /* App sends XP increment (from other sources) */
+  if (e.data.type === 'ng_xp_add') {
+    XP += parseInt(e.data.amount) || 0;
+    syncXPDisplay();
+  }
+});
+/* Request initial XP from parent app on load */
+try { parent.postMessage({ type: 'ng_xp_request' }, '*'); } catch(e) {}
+
 /* ── NAVIGATION ── */
 function goTo(screen) {
   document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });

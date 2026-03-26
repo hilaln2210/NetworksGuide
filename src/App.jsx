@@ -266,21 +266,34 @@ function App() {
     })
   }, [])
 
-  // Listen for XP earned inside iframes (terminal, quiz)
+  // Listen for XP earned inside iframes (terminal, quiz) + XP sync requests
   useEffect(() => {
     function onIframeMessage(e) {
-      if (!e.data || e.data.type !== 'ng_xp') return
+      if (!e.data) return
+      // Course iframe requests current XP
+      if (e.data.type === 'ng_xp_request') {
+        document.querySelectorAll('iframe').forEach(f => {
+          try { f.contentWindow.postMessage({ type: 'ng_xp_sync', xp: xp }, '*') } catch {}
+        })
+        return
+      }
+      // Course iframe reports earned XP
+      if (e.data.type !== 'ng_xp') return
       const amount = parseInt(e.data.amount) || 0
       if (amount <= 0) return
       const result = addXP(amount)
       setXp(result.after)
       setXpFloat(`+${amount} XP`)
       setTimeout(() => setXpFloat(null), 1200)
+      // Sync back to iframe so its display updates
+      document.querySelectorAll('iframe').forEach(f => {
+        try { f.contentWindow.postMessage({ type: 'ng_xp_sync', xp: result.after }, '*') } catch {}
+      })
       if (authUser) pushProgress(authUser.uid)
     }
     window.addEventListener('message', onIframeMessage)
     return () => window.removeEventListener('message', onIframeMessage)
-  }, [authUser]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [authUser, xp]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Push progress on important actions (page read, quiz, etc.)
   const syncToCloud = useCallback(() => {
