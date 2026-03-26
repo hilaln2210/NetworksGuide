@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DevOps PRO — מסלול מקצועי</title>
@@ -520,28 +519,727 @@ body::after {
 .bg-traffic{text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--orange2);margin-top:4px;}
 </style>
 </style>
-
-<script src="/_bridge.js"></script>
-<style id="ng-fix">
-/* NG responsive: prevent horizontal overflow, fix media, code scrolling */
-body { overflow-x: hidden; }
-img { max-width: 100% !important; height: auto !important; }
-pre, .code-body, .code-block { overflow-x: auto !important; max-width: 100%; }
-table { display: block; overflow-x: auto; max-width: 100%; }
-@media (max-width: 480px) { body { font-size: 14px; } }
-</style>
-<style id="ng-light">
-[data-theme="light"] {
-  --bg: #faf9f5; --surface: #ffffff; --card: #fffdf8; --card2: #fff8f0;
-  --border: #e8e4d8; --border2: #d8d2c0;
-  --orange: #ea580c; --orange2: #f97316;
-  --green: #16a34a; --green2: #22c55e; --yellow: #ca8a04; --blue: #0284c7; --red: #dc2626;
-  --text: #1c1b15; --text-dim: #5c5a50; --text-mid: #78756a;
-}
-</style>
 </head>
 <body>
-<div class="lab open" id="lb6">
+
+<!-- PIPELINE NAV -->
+<nav class="pipe-nav">
+  <span class="pipe-brand">⚙ DevOps PRO</span>
+  <div class="pipe-steps">
+    <button class="pipe-btn active" id="tb-learn" onclick="switchTab('learn',this)">📚 למידה</button>
+    <span class="pipe-arrow">→</span>
+    <button class="pipe-btn" id="tb-labs" onclick="switchTab('labs',this)">🧪 מעבדות</button>
+    <span class="pipe-arrow">→</span>
+    <button class="pipe-btn" id="tb-quiz" onclick="switchTab('quiz',this)">🎯 חידון</button>
+    <span class="pipe-arrow">→</span>
+    <button class="pipe-btn" id="tb-game" onclick="switchTab('game',this)">🎮 משחק</button>
+  </div>
+  <span class="pipe-clock" id="clk"></span>
+</nav>
+
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">PRO TRACK · 2025</div>
+  <h1>Dev<span class="accent">Ops</span></h1>
+  <p class="hero-desc">מ-Culture ועד Pipeline — הכלים, המנטליות, והתקריות שעיצבו את ה-DevOps המודרני. כי Code שלא מגיע לפרודקשן הוא בדיחה יקרה.</p>
+  <div class="stats-row">
+    <div class="stat"><span class="stat-n">9</span><span class="stat-l">פרקים</span></div>
+    <div class="stat"><span class="stat-n">7</span><span class="stat-l">מעבדות</span></div>
+    <div class="stat"><span class="stat-n">20</span><span class="stat-l">שאלות</span></div>
+    <div class="stat"><span class="stat-n">🎮</span><span class="stat-l">משחק</span></div>
+  </div>
+</div>
+
+<!-- ══════════ LEARN ══════════ -->
+<div id="learn" class="section active"><div class="sec-inner">
+<div class="chapters">
+
+<div class="ch" id="c1">
+  <div class="ch-trigger" onclick="toggleCh('c1')">
+    <span class="ch-num">01/09</span><div class="ch-icon">🔄</div>
+    <div class="ch-info"><div class="ch-name">מה זה DevOps — תרבות לפני טכנולוגיה</div><div class="ch-desc">CALMS, Three Ways, DORA Metrics, Wall of Confusion</div></div>
+    <div class="ch-meta"><span class="chip chip-o">CORE</span><span class="ch-time">⏱ 40m</span><span class="ch-chevron">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-body-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="section-head">מה לומדים</div>
+        <div class="learn-list">
+          <div class="learn-li">CALMS Framework — Culture, Automation, Lean, Measurement, Sharing</div>
+          <div class="learn-li">The Three Ways — Flow, Feedback, Continuous Learning</div>
+          <div class="learn-li">Wall of Confusion — למה Dev ו-Ops שנאו אחד את השני היסטורית</div>
+          <div class="learn-li">DORA Metrics — 4 המדדים שמגדירים ביצועי DevOps (Deployment Frequency, Lead Time, MTTR, Change Failure Rate)</div>
+          <div class="learn-li">SRE vs DevOps — מה ההבדל ואיפה Google נכנסת לתמונה</div>
+        </div>
+        <div class="chips-row"><span class="chip chip-o">CALMS</span><span class="chip chip-b">DORA</span><span class="chip chip-g">SRE</span></div>
+      </div>
+      <div>
+        <div class="section-head">כשל אגדי</div>
+        <div class="incident">
+          <div class="incident-badge">🔴 OUTAGE — 2021 / Facebook</div>
+          <div class="incident-title">6 שעות בלי Facebook, Instagram ו-WhatsApp בגלל שורת קונפיג אחת</div>
+          <div class="incident-desc">
+            ב-4 באוקטובר 2021, מהנדס ב-Facebook ביצע שינוי ב-BGP (Border Gateway Protocol) — פרוטוקול שמספר לנתבים ברחבי האינטרנט איך להגיע לשרתי Facebook. הפקודה ששלח הסירה בטעות את כל ה-BGP Routes של Facebook מהאינטרנט.<br><br>
+            תוך שניות, שרתי DNS של Facebook נעלמו מהאינטרנט. 3 מיליארד משתמשים לא יכלו להתחבר. הבעיה האמיתית: <strong>גם המהנדסים לא יכלו להיכנס לשרתים כדי לתקן</strong> — כי כלי הניהול הפנימיים גם הם רצו על אותה תשתית שנפלה. צוותים טסו פיזית למרכזי נתונים כדי לאפס ציוד ידנית. עלות: מאות מיליוני דולרים בהכנסות שאבדו ועוד 6 מיליארד דולר ירידה בשווי המניה ביום אחד.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box"><span>💡</span><span><strong>DORA בפרקטיקה:</strong> חברות Elite מפרסות קוד לפרודקשן כמה פעמים ביום, Lead Time של שעות, ו-MTTR (Mean Time to Restore) של פחות משעה. חברות Low Performers מפרסות פעם בחודשיים ומשחזרים אחרי יותר משבוע. DevOps הוא לא כלי — הוא השפה שמייצרת את הפער הזה.</span></div>
+  </div></div>
+</div>
+
+<div class="ch" id="c2">
+  <div class="ch-trigger" onclick="toggleCh('c2')">
+    <span class="ch-num">02/09</span><div class="ch-icon">🐧</div>
+    <div class="ch-info"><div class="ch-name">Linux & Shell — ה-OS של ה-DevOps Engineer</div><div class="ch-desc">Bash Scripting, Process Management, Networking, Systemd</div></div>
+    <div class="ch-meta"><span class="chip chip-o">CORE</span><span class="ch-time">⏱ 60m</span><span class="ch-chevron">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-body-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="section-head">מה לומדים</div>
+        <div class="learn-list">
+          <div class="learn-li">Bash Scripting — set -euo pipefail, Trap, Functions, Error Handling</div>
+          <div class="learn-li">Process Management — ps, top, kill, systemd, journalctl</div>
+          <div class="learn-li">Networking — ss, ip, tcpdump, curl verbose, DNS troubleshooting</div>
+          <div class="learn-li">File System — Permissions, Inodes, /proc, /sys</div>
+          <div class="learn-li">Text Processing — grep, awk, sed, jq לJSON</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-head">כשל אגדי</div>
+        <div class="incident">
+          <div class="incident-badge">💥 BUG — 2016 / GitLab</div>
+          <div class="incident-title">rm -rf ששלח ל-Production בטעות</div>
+          <div class="incident-desc">
+            Script ב-GitLab ניסה לנקות תיקיית עבודה זמנית בשרת Staging. בעיה קטנה: המשתנה שהחזיק את הנתיב לא הוגדר נכון, אז הפקודה הייתה בפועל <strong>rm -rf /</strong> — מחיקה של הכל מה-Root.<br><br>
+            המהנדס הבחין בבעיה אחרי 5 דקות — אבל 300GB של נתוני פרודקשן כבר נמחקו. מסתבר שמתוך 5 מנגנוני גיבוי שה-Runbook של GitLab תיאר, <strong>אף אחד לא עבד כראוי</strong>. GitLab הכריזה על האירוע בשקיפות מלאה, שידרה Live את שחזור הנתונים, וסיימה עם 6 שעות Downtime. הלקח שהפך לסטנדרט: set -u ב-Bash מונע שימוש במשתנה ריק, וגיבויים חייבים לעבור בדיקת שחזור תקופתית.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cmd-block"><span class="cmt">#!/bin/bash — Production-grade Script</span>
+<span class="ok">set</span> -euo pipefail  <span class="cmt"># fail fast, no unbound vars, pipe errors</span>
+<span class="ok">trap</span> <span class="str">'echo "Error on line $LINENO" >&2'</span> ERR
+<span class="ok">trap</span> <span class="str">'rm -f "$tmpfile"'</span> EXIT
+tmpfile=$(<span class="ok">mktemp</span>)
+<span class="cmt"># $tmpfile נמחק אוטומטית גם אם הScript נכשל</span></div>
+  </div></div>
+</div>
+
+<div class="ch" id="c3">
+  <div class="ch-trigger" onclick="toggleCh('c3')">
+    <span class="ch-num">03/09</span><div class="ch-icon">🐳</div>
+    <div class="ch-info"><div class="ch-name">Docker & Containers — ארוז פעם, הרץ בכל מקום</div><div class="ch-desc">Dockerfile, Layers, Compose, Registry, Security, Multi-stage</div></div>
+    <div class="ch-meta"><span class="chip chip-b">DOCKER</span><span class="ch-time">⏱ 70m</span><span class="ch-chevron">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-body-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="section-head">מה לומדים</div>
+        <div class="learn-list">
+          <div class="learn-li">Image Layers — Copy-on-Write, Layer Caching, מה מייקר Builds</div>
+          <div class="learn-li">Multi-stage Builds — Build Image vs Runtime Image, הפחתת גודל</div>
+          <div class="learn-li">docker-compose — Services, Networks, Volumes, Depends-on</div>
+          <div class="learn-li">Container Security — Non-root User, Read-only FS, Secrets, Scan</div>
+          <div class="learn-li">Registry — Docker Hub, ECR, GCR, Harbor, Image Signing</div>
+        </div>
+        <div class="chips-row"><span class="chip chip-b">Docker</span><span class="chip chip-g">Compose</span><span class="chip chip-r">Security</span></div>
+      </div>
+      <div>
+        <div class="section-head">כשל אגדי</div>
+        <div class="incident">
+          <div class="incident-badge">🔴 BREACH — 2019 / Docker Hub</div>
+          <div class="incident-title">190,000 חשבונות נחשפו כולל GitHub Tokens</div>
+          <div class="incident-desc">
+            גורם לא מורשה השיג גישה לבסיס הנתונים של Docker Hub. 190,000 חשבונות נחשפו — כולל Hashed Passwords. אבל הנזק האמיתי היה ב-GitHub ו-Bitbucket Tokens שמפתחים שמרו לצורך Automated Builds.<br><br>
+            מפתחים שחיברו את חשבון Docker שלהם ל-GitHub נתנו ל-Docker Hub הרשאות לקרוא ולעיתים לכתוב לRepositories שלהם. <strong>הTokenים האלה אפשרו גישה לקוד מקור, Secrets בקוד, ו-Private Repositories</strong>. Docker Hub שלחה מייל שביקש לבטל את כל ה-Tokens — אבל רק חלק מהמפתחים פעלו מהר מספיק. הלקח: Tokens צריכים להיות Scoped (הרשאות מינימליות), ותמיד לסבב אותם לאחר אירוע חשיפה.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cmd-block"><span class="cmt"># Multi-stage build — Production Image קטן</span>
+<span class="ok">FROM</span> <span class="hi">node:20-alpine</span> <span class="ok">AS</span> builder
+WORKDIR /app
+COPY package*.json .
+RUN npm ci
+COPY . .
+RUN npm run build
+
+<span class="ok">FROM</span> <span class="hi">node:20-alpine</span> <span class="ok">AS</span> runtime
+RUN addgroup -S app &amp;&amp; adduser -S app -G app
+WORKDIR /app
+COPY --from=builder /app/dist ./dist
+USER app  <span class="cmt"># ← חובה! אף פעם לא root</span>
+CMD [<span class="str">"node"</span>, <span class="str">"dist/index.js"</span>]</div>
+  </div></div>
+</div>
+
+<div class="ch" id="c4">
+  <div class="ch-trigger" onclick="toggleCh('c4')">
+    <span class="ch-num">04/09</span><div class="ch-icon">☸️</div>
+    <div class="ch-info"><div class="ch-name">Kubernetes — ניצח את הכאוס</div><div class="ch-desc">Pods, Deployments, Services, Ingress, HPA, RBAC, Helm</div></div>
+    <div class="ch-meta"><span class="chip chip-p">K8S</span><span class="ch-time">⏱ 90m</span><span class="ch-chevron">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-body-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="section-head">מה לומדים</div>
+        <div class="learn-list">
+          <div class="learn-li">Pod, Deployment, ReplicaSet — ההיררכיה ומה כל אחד עושה</div>
+          <div class="learn-li">Service Types — ClusterIP, NodePort, LoadBalancer, Ingress</div>
+          <div class="learn-li">ConfigMap & Secret — הפרדת קונפיג מ-Image</div>
+          <div class="learn-li">HPA — Horizontal Pod Autoscaler, Scaling לפי CPU/Custom Metrics</div>
+          <div class="learn-li">RBAC — Roles, ClusterRoles, Bindings, ServiceAccounts</div>
+          <div class="learn-li">Helm — Package Manager ל-K8s, Charts, Values, Releases</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-head">כשל אגדי</div>
+        <div class="incident">
+          <div class="incident-badge">🔴 OUTAGE — 2021 / Slack</div>
+          <div class="incident-title">שדרוג K8s שהשתיק Manifests בשקט</div>
+          <div class="incident-desc">
+            Slack ביצעה שדרוג גרסת Kubernetes — פעולה שגרתית. הבעיה: Kubernetes 1.16 הסיר API Versions שהיו Deprecated (כגון <strong>apps/v1beta1</strong> ל-Deployments), בלי להחזיר שגיאה — הוא פשוט התעלם מה-Manifests.<br><br>
+            Deployments שנפרסו נראו "בסדר" ב-kubectl אבל בפועל לא עדכנו כלום. Pods ישנים המשיכו לרוץ עם קוד ישן. הצוות גילה את הבעיה רק כששמו לב שגרסאות קוד חדשות לא הגיעו לפרודקשן. <strong>הלקח: תמיד להריץ kubectl --dry-run=server לפני שדרוג K8s</strong>, ולבדוק Deprecated APIs עם כלים כמו pluto.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box"><span>💡</span><span><strong>Rolling Update בבטחה:</strong> <code>maxUnavailable: 0, maxSurge: 1</code> = תמיד יש Pod חדש לפני שהישן יורד. הוסף <code>readinessProbe</code> שבודק שה-App באמת מוכן — K8s לא ישלח Traffic לPod עד שה-Probe עובר.</span></div>
+  </div></div>
+</div>
+
+<div class="ch" id="c5">
+  <div class="ch-trigger" onclick="toggleCh('c5')">
+    <span class="ch-num">05/09</span><div class="ch-icon">🚀</div>
+    <div class="ch-info"><div class="ch-name">CI/CD — מקוד לפרודקשן בלי לגעת</div><div class="ch-desc">GitHub Actions, GitLab CI, Jenkins, Pipelines, Testing, Environments</div></div>
+    <div class="ch-meta"><span class="chip chip-g">CI/CD</span><span class="ch-time">⏱ 75m</span><span class="ch-chevron">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-body-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="section-head">מה לומדים</div>
+        <div class="learn-list">
+          <div class="learn-li">Pipeline Stages — Source → Build → Test → Security Scan → Deploy</div>
+          <div class="learn-li">GitHub Actions — Workflows, Jobs, Steps, Runners, Secrets, Reusable</div>
+          <div class="learn-li">Environments — Dev, Staging, Production, Manual Approvals</div>
+          <div class="learn-li">Testing בPipeline — Unit, Integration, E2E, Coverage Gates</div>
+          <div class="learn-li">Deployment Strategies — Rolling, Blue/Green, Canary</div>
+          <div class="learn-li">GitOps — ArgoCD, Flux, Declarative State</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-head">כשל אגדי</div>
+        <div class="incident">
+          <div class="incident-badge">💸 COSTLY — 2022 / Startup</div>
+          <div class="incident-title">Pipeline ששלח Secrets ל-Logs</div>
+          <div class="incident-desc">
+            Startup בנתה Pipeline ב-GitHub Actions שהדפיסה Debug Logs מפורטים — כולל ערכי Environment Variables. AWS_SECRET_KEY, DATABASE_PASSWORD ו-Stripe API Keys הופיעו ב-Pipeline Logs שהיו גלויים לכל חברי הOrg.<br><br>
+            מפתח לשעבר שעזב את החברה (אבל שמר גישת Read לLogs לכמה שבועות) ראה את ה-Credentials ושכר AWS Resources בחשבון החברה. <strong>חשבון AWS הגיע ל-$47,000 תוך 48 שעות</strong>. הלקח: לעולם אל תדפיסו ENV Vars ב-Logs. בGitHub Actions השתמשו ב-<code>add-mask</code> לכל Secret, ובדקו ש-Secrets לא מופיעים ב-Artifacts.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cmd-block"><span class="cmt"># GitHub Actions — production-grade workflow</span>
+<span class="ky">name:</span> <span class="str">Deploy to Production</span>
+<span class="ky">on:</span>
+  push:
+    branches: [main]
+
+<span class="ky">jobs:</span>
+  deploy:
+    <span class="ky">runs-on:</span> ubuntu-latest
+    <span class="ky">environment:</span> production  <span class="cmt"># ← דורש Manual Approval</span>
+    <span class="ky">steps:</span>
+      - <span class="ky">uses:</span> actions/checkout@v4
+      - <span class="ky">name:</span> Add secret mask
+        <span class="ky">run:</span> echo "::add-mask::${{ secrets.DB_PASS }}"
+      - <span class="ky">name:</span> Build &amp; Push Docker
+        <span class="ky">run:</span> docker build -t myapp:${{ github.sha }} .</div>
+  </div></div>
+</div>
+
+<div class="ch" id="c6">
+  <div class="ch-trigger" onclick="toggleCh('c6')">
+    <span class="ch-num">06/09</span><div class="ch-icon">🏗️</div>
+    <div class="ch-info"><div class="ch-name">Infrastructure as Code — Terraform & Ansible</div><div class="ch-desc">Providers, State, Modules, Idempotency, Drift Detection</div></div>
+    <div class="ch-meta"><span class="chip chip-o">IaC</span><span class="ch-time">⏱ 80m</span><span class="ch-chevron">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-body-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="section-head">מה לומדים</div>
+        <div class="learn-list">
+          <div class="learn-li">Terraform — Providers, Resources, Variables, Outputs, State File</div>
+          <div class="learn-li">State Management — Remote State (S3+DynamoDB), State Locking</div>
+          <div class="learn-li">Modules — שימוש חוזר, Public Registry, ניהול גרסאות</div>
+          <div class="learn-li">Ansible — Inventory, Playbooks, Roles, Idempotency</div>
+          <div class="learn-li">Drift Detection — מה קורה כשהמציאות שונה מה-State</div>
+          <div class="learn-li">Pulumi — IaC בשפות תכנות (Python, TypeScript)</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-head">כשל אגדי</div>
+        <div class="incident">
+          <div class="incident-badge">💥 INCIDENT — 2022 / SaaS Co.</div>
+          <div class="incident-title">terraform destroy שנועד ל-Staging מחק Production</div>
+          <div class="incident-desc">
+            DevOps Engineer הריץ <strong>terraform destroy</strong> להסרת Staging Environment. הבעיה: הוא עבד בTerminal עם שני Sessions פתוחים — אחד ל-Staging ואחד ל-Production. הפקודה רצה בSession הלא נכון.<br><br>
+            תוך 3 דקות: RDS Database, EKS Cluster, VPC, ו-S3 Buckets של Production נמחקו. אין Recycle Bin ל-AWS Infrastructure. גיבוי RDS האחרון היה בן 4 שעות. שחזור ל-95% מהנתונים לקח 11 שעות.<br><br>
+            <strong>הלקח שהפך לסטנדרט:</strong> הוסף <code>prevent_destroy = true</code> ל-Resources קריטיים ב-Terraform, השתמש ב-Workspaces בנפרד, ועשה <code>terraform plan</code> תמיד לפני Destroy.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<div class="ch" id="c7">
+  <div class="ch-trigger" onclick="toggleCh('c7')">
+    <span class="ch-num">07/09</span><div class="ch-icon">📊</div>
+    <div class="ch-info"><div class="ch-name">Observability — ראה, הבן, פעל</div><div class="ch-desc">Metrics, Logs, Traces, Prometheus, Grafana, OpenTelemetry</div></div>
+    <div class="ch-meta"><span class="chip chip-y">OBS</span><span class="ch-time">⏱ 70m</span><span class="ch-chevron">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-body-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="section-head">מה לומדים</div>
+        <div class="learn-list">
+          <div class="learn-li">Three Pillars — Metrics (מה), Logs (למה), Traces (איפה)</div>
+          <div class="learn-li">Prometheus — Scraping, PromQL, Alertmanager, Recording Rules</div>
+          <div class="learn-li">Grafana — Dashboards, Data Sources, Alerting, Annotations</div>
+          <div class="learn-li">OpenTelemetry — Distributed Tracing, Spans, Context Propagation</div>
+          <div class="learn-li">SLI/SLO/SLA — מדדי זמינות, Error Budgets, Burn Rate Alerts</div>
+          <div class="learn-li">ELK Stack — Elasticsearch, Logstash, Kibana, Structured Logging</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-head">כשל אגדי</div>
+        <div class="incident">
+          <div class="incident-badge">🔴 SILENT FAIL — 2020 / FinTech</div>
+          <div class="incident-title">שירות שנכשל בשקט 3 שבועות ללא התראה</div>
+          <div class="incident-desc">
+            Payment Service של חברת FinTech החל להחזיר שגיאות ל-0.3% מהעסקאות. לא מספיק להפיל Alerts. לא מספיק שמשתמשים יתלוננו בהמוניהם. אבל מספיק כדי שתוך 3 שבועות, <strong>$2.3 מיליון בתשלומים "נעלמו"</strong> — נדחו בשקט ולא נסחו מחדש.<br><br>
+            הBug אותר בסופו של דבר בTrace שגרתי שמישהו עשה ידנית. אם היה OpenTelemetry עם Error Rate Alert על כל Endpoint בנפרד (ולא רק כולל) — הבעיה הייתה נתפסת ב-15 דקות. <strong>הלקח: Alerting על Percentiles (p99, p95) ולא רק Averages.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cmd-block"><span class="cmt"># PromQL — Alert על Error Rate גבוה</span>
+<span class="ok">alert:</span> HighErrorRate
+<span class="ok">expr:</span> |
+  rate(http_requests_total{status=~<span class="str">"5.."</span>}[5m])
+  / rate(http_requests_total[5m]) &gt; <span class="hi">0.01</span>
+<span class="ok">for:</span> 2m
+<span class="ok">labels:</span>
+  severity: critical
+<span class="ok">annotations:</span>
+  summary: <span class="str">"Error rate {{ $value | humanizePercentage }}"</span></div>
+  </div></div>
+</div>
+
+<div class="ch" id="c8">
+  <div class="ch-trigger" onclick="toggleCh('c8')">
+    <span class="ch-num">08/09</span><div class="ch-icon">☁️</div>
+    <div class="ch-info"><div class="ch-name">Cloud — AWS, Azure, GCP לעומק</div><div class="ch-desc">IAM, VPC, EC2, S3, RDS, Lambda, Cost Optimization</div></div>
+    <div class="ch-meta"><span class="chip chip-b">CLOUD</span><span class="ch-time">⏱ 85m</span><span class="ch-chevron">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-body-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="section-head">מה לומדים</div>
+        <div class="learn-list">
+          <div class="learn-li">IAM — Least Privilege, Roles vs Users, Policy JSON, STS</div>
+          <div class="learn-li">VPC — Subnets, Security Groups, NACLs, VPN, Peering</div>
+          <div class="learn-li">Compute — EC2 Types, Spot Instances, Auto Scaling Groups</div>
+          <div class="learn-li">Storage — S3 Classes, Lifecycle, EBS vs EFS vs S3</div>
+          <div class="learn-li">Serverless — Lambda, API Gateway, Cost Model</div>
+          <div class="learn-li">FinOps — Cost Allocation Tags, Reserved Instances, Savings Plans</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-head">כשל אגדי</div>
+        <div class="incident">
+          <div class="incident-badge">💸 COSTLY — 2023 / AI Startup</div>
+          <div class="incident-title">חשבון AWS של $180,000 בחודש אחד מ-Spot Instances</div>
+          <div class="incident-desc">
+            Startup בתחום AI הפעילה אימוני ML על Spot Instances ב-AWS — זול ויעיל. אבל הם לא הגדירו Budget Alerts, לא Limit על Concurrent Jobs, ולא Idle Timeout.<br><br>
+            Job אחד שנכשל החל ל"Retry" עצמו בלולאה — כל Retry פתח Instance חדש, ואף Alarm לא הפעיל. תוך 30 ימים: <strong>$180,000 על GPU Instances שרצו ריקים ב-Retry Loop</strong>. AWS ביצעה החזר חלקי, אבל החברה הוגבלה ל-Billing Cap מאז. הלקח: כל Job ML חייב Max Runtime, Budget Alert ב-50% ו-80%, ו-Notification מיידי על חיוב חריג.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+</div>
+
+<div class="ch" id="c9">
+  <div class="ch-trigger" onclick="toggleCh('c9')">
+    <span class="ch-num">09/09</span><div class="ch-icon">🔐</div>
+    <div class="ch-info"><div class="ch-name">DevSecOps — אבטחה שנבנית, לא מודבקת</div><div class="ch-desc">SAST, DAST, SCA, Secrets Management, Supply Chain Security</div></div>
+    <div class="ch-meta"><span class="chip chip-r">SECURITY</span><span class="ch-time">⏱ 65m</span><span class="ch-chevron">▶</span></div>
+  </div>
+  <div class="ch-body"><div class="ch-body-inner">
+    <div class="ch-grid">
+      <div>
+        <div class="section-head">מה לומדים</div>
+        <div class="learn-list">
+          <div class="learn-li">Shift Left — בדיקות אבטחה בשלב ה-PR, לא אחרי Deploy</div>
+          <div class="learn-li">SAST — Static Analysis (Semgrep, SonarQube), Code Scanning</div>
+          <div class="learn-li">SCA — Dependency Scanning (Snyk, Trivy), CVE Management</div>
+          <div class="learn-li">Secrets Management — HashiCorp Vault, AWS Secrets Manager, git-secrets</div>
+          <div class="learn-li">Supply Chain Security — SBOM, Sigstore, Container Signing</div>
+          <div class="learn-li">OWASP Top 10 לDevOps — הסיכונים הנפוצים ב-CI/CD Pipeline</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-head">כשל אגדי</div>
+        <div class="incident">
+          <div class="incident-badge">🔴 SUPPLY CHAIN — 2020 / SolarWinds</div>
+          <div class="incident-title">Backdoor בתוך עדכון תוכנה לגיטימי</div>
+          <div class="incident-desc">
+            APT29 — קבוצת האקרים רוסית — הצליחה להחדיר קוד זדוני לתהליך ה-Build של SolarWinds Orion, תוכנת ניטור רשתות שמשמשת 18,000+ ארגונים כולל סוכנויות ממשל אמריקאיות.<br><br>
+            המתקפה לא פרצה את ה-Application — היא <strong>פרצה את ה-Build Pipeline</strong>. הCICD של SolarWinds לא אימת חתימות על Build Artifacts, לא בדק Integrity של הקוד לפני Compilation, ולא זיהה שינויים לא מורשים ב-Source. 18,000 ארגונים הורידו את ה-Backdoor מרצונם כ"עדכון שגרתי". <strong>הלקח: Build Provenance, SBOM, ו-Signed Artifacts הם חובה, לא בחירה.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tip-box"><span>💡</span><span><strong>Trivy בכל Pipeline:</strong> <code>trivy image myapp:latest</code> סורק Image לפני Push לRegistry. <code>trivy fs .</code> סורק Dependencies. מגדיר <code>--exit-code 1 --severity CRITICAL</code> = Pipeline נכשל אם יש CVE קריטי. זה 3 דקות הוספה לPipeline שחוסכות אסון.</span></div>
+  </div></div>
+</div>
+
+</div><!-- /chapters -->
+</div></div>
+
+<!-- ══════════ LABS ══════════ -->
+<div id="labs" class="section"><div class="sec-inner">
+<div class="labs-list">
+
+<div class="lab" id="lb1">
+  <div class="lab-top" onclick="toggleLab('lb1')">
+    <span class="lab-emoji">🐳</span>
+    <div class="lab-header-info">
+      <div class="lab-name">מעבדה 1 — Docker: בנה ופרוס אפליקציה ראשונה</div>
+      <div class="lab-sub">Dockerfile · Multi-stage · Compose · Debug · Non-root</div>
+    </div>
+    <span class="diff-badge d-easy">EASY</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-content">
+    <div class="lab-goal">בנה Node.js app, ארוז אותה ב-Docker עם Multi-stage Build, הרץ עם Compose כולל DB, ולמד לדבג קונטיינרים.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="step-dot">01</span>כתוב Dockerfile עם Multi-stage Build ל-Node.js app. שלב 1: Build. שלב 2: Runtime עם non-root user.</div>
+      <div class="lab-step"><span class="step-dot">02</span>הוסף <code>docker-compose.yml</code> עם app + PostgreSQL + Volume לפרסיסטנסי.</div>
+      <div class="lab-step"><span class="step-dot">03</span>הרץ <code>docker compose up --build</code> ובדוק שה-app מדבר עם ה-DB.</div>
+      <div class="lab-step"><span class="step-dot">04</span>כנס לקונטיינר: <code>docker exec -it &lt;id&gt; sh</code> — חקור File System, בדוק Processes.</div>
+      <div class="lab-step"><span class="step-dot">05</span>גרום לאפליקציה לקרוס — קרא <code>docker logs --tail 50 &lt;id&gt;</code> ו-<code>docker inspect &lt;id&gt;</code>.</div>
+    </div>
+    <div class="cmd-block"><span class="prompt">$</span> docker build <span class="flag">-t</span> myapp:v1 .
+<span class="prompt">$</span> docker run <span class="flag">-p</span> 3000:3000 <span class="flag">--name</span> test myapp:v1
+<span class="prompt">$</span> docker exec <span class="flag">-it</span> test sh
+<span class="prompt">$</span> docker stats  <span class="cmt"># CPU + Memory בזמן אמת</span></div>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-ttl">docker terminal</span>
+    <button class="emu-btn-s" onclick="dvC('dv1out')">clear</button>
+    <button class="emu-btn" id="dv1btn" onclick="dvLab1()">&#9654; Run</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-lbl">בחר פקודה:</div>
+    <select class="emu-sel" id="dv1cmd">
+      <option value="build">docker build -t myapp:v1 .</option>
+      <option value="run">docker run -p 3000:3000 --name app myapp:v1</option>
+      <option value="compose">docker compose up --build</option>
+      <option value="exec">docker exec -it app sh (explore filesystem)</option>
+      <option value="logs">docker logs --tail 50 app</option>
+      <option value="stats">docker stats --no-stream</option>
+      <option value="crash">docker run bad-app:v1 (crash simulation)</option>
+    </select>
+  </div>
+  <div class="emu-out" id="dv1out"><span class="em">בחר פקודה ולחץ Run...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a1')"><span id="a1i">▶</span> הצג תשובה</button>
+    <div class="ans-box" id="a1">
+      <div class="ans-head">✅ תשובות — Docker</div>
+      <div class="ans-item"><span class="an">01</span><div><strong>Dockerfile Multi-stage:</strong><br>
+        שלב Builder: <code>FROM node:20-alpine AS builder → npm ci → npm run build</code><br>
+        שלב Runtime: <code>FROM node:20-alpine → adduser app → COPY --from=builder /app/dist → USER app → CMD ["node","dist/index.js"]</code><br>
+        תוצאה: Image של ~120MB במקום ~1GB. הNode_modules של Dev לא נכנסים לRuntime Image.
+      </div></div>
+      <div class="ans-item"><span class="an">02</span><div><strong>docker-compose.yml:</strong><br>
+<code>services:<br>
+  app: { build: ., depends_on: [db], environment: [DB_HOST=db] }<br>
+  db: { image: postgres:15, volumes: [pgdata:/var/lib/postgresql/data] }<br>
+volumes: { pgdata: {} }</code><br>
+depends_on מבטיח שDB עולה לפני App — אבל לא מבטיח שPostgres <em>מוכן</em>. הוסף healthcheck!
+      </div></div>
+      <div class="ans-item"><span class="an">05</span><div><strong>דיבוג קריסה:</strong> <code>docker logs --tail 100 &lt;id&gt;</code> — ראה Error. <code>docker inspect &lt;id&gt; | jq '.[0].State'</code> — ראה ExitCode ו-OOMKilled. ExitCode 137 = killed by OOM Killer (אזל זיכרון).</div></div>
+      <div class="ans-note">💡 <strong>Non-root חובה:</strong> Docker רץ כ-root בברירת מחדל. אם קוד זדוני מתבצע בקונטיינר, הוא יכול לצאת מה-Container בתנאים מסוימים. <code>USER app</code> לפני CMD = Privilege Escalation הרבה יותר קשה.</div>
+    </div>
+  </div>
+</div>
+
+<div class="lab" id="lb2">
+  <div class="lab-top" onclick="toggleLab('lb2')">
+    <span class="lab-emoji">☸️</span>
+    <div class="lab-header-info">
+      <div class="lab-name">מעבדה 2 — Kubernetes Local עם minikube</div>
+      <div class="lab-sub">Deployment · Service · ConfigMap · HPA · kubectl debug</div>
+    </div>
+    <span class="diff-badge d-easy">EASY</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-content">
+    <div class="lab-goal">הפעל K8s מקומי, פרוס אפליקציה עם Deployment ו-Service, הגדר ConfigMap, ובדוק Scaling.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="step-dot">01</span><code>minikube start --driver=docker</code> — הפעל cluster מקומי.</div>
+      <div class="lab-step"><span class="step-dot">02</span>כתוב <code>deployment.yaml</code> עם 2 Replicas, Liveness/Readiness Probes, ו-Resource Limits.</div>
+      <div class="lab-step"><span class="step-dot">03</span>הוסף <code>ConfigMap</code> לEnvironment Variables ו-<code>Service</code> מסוג NodePort.</div>
+      <div class="lab-step"><span class="step-dot">04</span>הפעל HPA: <code>kubectl autoscale deployment myapp --min=2 --max=10 --cpu-percent=70</code></div>
+      <div class="lab-step"><span class="step-dot">05</span>כנס ל-Pod ל-Debug: <code>kubectl exec -it &lt;pod&gt; -- sh</code> ו-<code>kubectl describe pod &lt;pod&gt;</code></div>
+    </div>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-ttl">kubectl simulator &#8212; cluster: minikube</span>
+    <button class="emu-btn-s" onclick="dvC('dv2out')">clear</button>
+    <button class="emu-btn" id="dv2btn" onclick="dvLab2()">&#9654; Run</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-lbl">בחר פקודה:</div>
+    <select class="emu-sel" id="dv2cmd">
+      <option value="apply">kubectl apply -f deployment.yaml</option>
+      <option value="get_pods">kubectl get pods -w</option>
+      <option value="describe">kubectl describe pod myapp-xxx</option>
+      <option value="logs">kubectl logs myapp-xxx --tail=30</option>
+      <option value="rollout">kubectl rollout status deployment/myapp</option>
+      <option value="hpa">kubectl get hpa</option>
+      <option value="crash_pod">kubectl describe pod (CrashLoopBackOff)</option>
+      <option value="undo">kubectl rollout undo deployment/myapp</option>
+    </select>
+  </div>
+  <div class="emu-out" id="dv2out"><span class="em">בחר פקודה ולחץ Run...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a2')"><span id="a2i">▶</span> הצג תשובה</button>
+    <div class="ans-box" id="a2">
+      <div class="ans-head">✅ תשובות — Kubernetes</div>
+      <div class="ans-item"><span class="an">02</span><div><strong>Deployment YAML חיוני:</strong><br>
+        <code>resources: { requests: {cpu: "100m", memory: "128Mi"}, limits: {cpu: "500m", memory: "512Mi"} }</code><br>
+        <code>readinessProbe: { httpGet: {path: /health, port: 3000}, initialDelaySeconds: 10 }</code><br>
+        בלי Resources = HPA לא יכול לעבוד (לא יודע כמה CPU ל-Pod). בלי Probes = K8s שולח Traffic לPod לפני שמוכן.
+      </div></div>
+      <div class="ans-item"><span class="an">05</span><div><strong>Debug Workflow:</strong><br>
+        <code>kubectl get pods</code> → Status = CrashLoopBackOff?<br>
+        <code>kubectl logs &lt;pod&gt; --previous</code> → ראה מה היה ב-Crash האחרון<br>
+        <code>kubectl describe pod &lt;pod&gt;</code> → Events בתחתית = סיבת הבעיה ב-99% מהמקרים<br>
+        <code>kubectl debug &lt;pod&gt; -it --image=busybox</code> → Pod Debug Container בלי לשנות את ה-App
+      </div></div>
+      <div class="ans-note">💡 <strong>ImagePullBackOff</strong> = K8s לא מצליח להוריד Image. בדוק: שם Image שגוי? Private Registry בלי ImagePullSecret? Rate Limit של Docker Hub? <code>kubectl describe pod</code> יגיד לך בדיוק.</div>
+    </div>
+  </div>
+</div>
+
+<div class="lab" id="lb3">
+  <div class="lab-top" onclick="toggleLab('lb3')">
+    <span class="lab-emoji">🚀</span>
+    <div class="lab-header-info">
+      <div class="lab-name">מעבדה 3 — GitHub Actions CI/CD Pipeline</div>
+      <div class="lab-sub">Workflow · Jobs · Docker Build · Tests · Environment · Approval</div>
+    </div>
+    <span class="diff-badge d-easy">EASY</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-content">
+    <div class="lab-goal">בנה Pipeline מלא: בדיקות אוטומטיות → Build Docker Image → Deploy לStaging → Approval ידני → Deploy לProduction.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="step-dot">01</span>צור <code>.github/workflows/ci-cd.yml</code> עם trigger על push ל-main ועל PRs.</div>
+      <div class="lab-step"><span class="step-dot">02</span>Job 1 — test: הרץ Unit Tests עם Coverage Report. Job נכשל אם Coverage &lt; 80%.</div>
+      <div class="lab-step"><span class="step-dot">03</span>Job 2 — build: Build ו-Push Docker Image עם Tag לפי <code>github.sha</code>.</div>
+      <div class="lab-step"><span class="step-dot">04</span>Job 3 — deploy-staging: Deploy אוטומטי לStagting Environment.</div>
+      <div class="lab-step"><span class="step-dot">05</span>Job 4 — deploy-prod: עם <code>environment: production</code> (Manual Approval). פרוס רק אחרי אישור.</div>
+    </div>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-ttl">GitHub Actions Pipeline Simulator</span>
+    <button class="emu-btn-s" onclick="dvC('dv3out');dv3Reset()">reset</button>
+    <button class="emu-btn" id="dv3btn" onclick="dvLab3()">&#9654; Trigger Push</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-row" style="align-items:center;gap:10px;margin-bottom:8px">
+      <span class="emu-lbl" style="margin:0;white-space:nowrap">Scenario:</span>
+      <select class="emu-sel" id="dv3scenario" style="width:auto;flex:1;margin:0;padding:5px 10px">
+        <option value="success">&#10003; All Jobs Pass</option>
+        <option value="test_fail">&#10007; Tests Fail (coverage 72%)</option>
+        <option value="build_fail">&#10007; Docker Build Fails</option>
+        <option value="secret_leak">&#10007; Secret Detected in Logs</option>
+      </select>
+    </div>
+    <div class="pipe-viz" id="dv3viz">
+      <div class="pv-job" id="pj-test">&#128221; test</div>
+      <div class="pv-arrow">&#8594;</div>
+      <div class="pv-job" id="pj-build">&#127802; build</div>
+      <div class="pv-arrow">&#8594;</div>
+      <div class="pv-job" id="pj-staging">&#128640; staging</div>
+      <div class="pv-arrow">&#8594;</div>
+      <div class="pv-job" id="pj-prod">&#9989; production</div>
+    </div>
+  </div>
+  <div class="emu-out" id="dv3out"><span class="em">לחץ Trigger Push להרצת Pipeline...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a3')"><span id="a3i">▶</span> הצג תשובה</button>
+    <div class="ans-box" id="a3">
+      <div class="ans-head">✅ תשובות — GitHub Actions</div>
+      <div class="ans-item"><span class="an">02</span><div><strong>Coverage Gate:</strong><br>
+        <code>- run: npm test -- --coverage --coverageThreshold='{"global":{"lines":80}}'</code><br>
+        כשהTest Runner יחזיר Exit Code 1 אם Coverage נמוכה מ-80% — Job נכשל אוטומטית ו-Pipeline עוצר.
+      </div></div>
+      <div class="ans-item"><span class="an">03</span><div><strong>Docker Build ועם SHA Tag:</strong><br>
+        <code>- name: Build and push<br>
+        &nbsp;&nbsp;uses: docker/build-push-action@v5<br>
+        &nbsp;&nbsp;with:<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;push: true<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;tags: myorg/myapp:${{ github.sha }},myorg/myapp:latest</code><br>
+        SHA Tag = Immutable. תמיד יודעים איזה Commit מריץ בProduction.
+      </div></div>
+      <div class="ans-item"><span class="an">05</span><div><strong>Environment + Approval:</strong> ב-GitHub Settings → Environments → production → הוסף Required Reviewers. כשJob מגיע לstep עם <code>environment: production</code> — Pipeline מחכה לאישור בממשק GitHub.</div></div>
+      <div class="ans-warn">⚠️ <strong>Secrets בPipeline:</strong> לעולם אל תעשו <code>echo $SECRET</code>. השתמשו ב-<code>echo "::add-mask::${{ secrets.MY_SECRET }}"</code> בתחילת הWorkflow — GitHub ימסך אוטומטית את הערך בכל הLogs.</div>
+    </div>
+  </div>
+</div>
+
+<div class="lab" id="lb4">
+  <div class="lab-top" onclick="toggleLab('lb4')">
+    <span class="lab-emoji">🏗️</span>
+    <div class="lab-header-info">
+      <div class="lab-name">מעבדה 4 — Terraform: הרם AWS Infrastructure מאפס</div>
+      <div class="lab-sub">VPC · EC2 · S3 · Remote State · Variables · Modules</div>
+    </div>
+    <span class="diff-badge d-medium">MEDIUM</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-content">
+    <div class="lab-goal">בנה Infrastructure מלא ב-AWS עם Terraform: VPC, Subnets, EC2, S3, ו-Remote State ב-S3 עם Lock ב-DynamoDB.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="step-dot">01</span>צור <code>main.tf</code> עם AWS Provider. הגדר Remote State Backend עם S3 + DynamoDB.</div>
+      <div class="lab-step"><span class="step-dot">02</span>כתוב Module ל-VPC: Public ו-Private Subnets, Internet Gateway, Route Tables.</div>
+      <div class="lab-step"><span class="step-dot">03</span>הוסף EC2 Instance ב-Public Subnet עם Security Group שמאפשר רק פורט 443.</div>
+      <div class="lab-step"><span class="step-dot">04</span><code>terraform plan -out=tfplan</code> — בדוק מה הולך להיווצר לפני Apply.</div>
+      <div class="lab-step"><span class="step-dot">05</span>הוסף <code>lifecycle { prevent_destroy = true }</code> ל-DB Resource. נסה <code>terraform destroy</code> — מה קורה?</div>
+    </div>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-ttl">terraform simulator &#8212; provider: aws</span>
+    <button class="emu-btn-s" onclick="dvC('dv4out')">clear</button>
+    <button class="emu-btn" id="dv4btn" onclick="dvLab4()">&#9654; Run</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-lbl">בחר פקודה:</div>
+    <select class="emu-sel" id="dv4cmd">
+      <option value="init">terraform init</option>
+      <option value="plan">terraform plan</option>
+      <option value="apply">terraform apply -auto-approve</option>
+      <option value="plan_destroy">terraform plan -destroy</option>
+      <option value="destroy_protected">terraform destroy (prevent_destroy)</option>
+      <option value="state">terraform state list</option>
+      <option value="drift">terraform plan (drift detected)</option>
+    </select>
+  </div>
+  <div class="emu-out" id="dv4out"><span class="em">בחר פקודה ולחץ Run...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a4')"><span id="a4i">▶</span> הצג תשובה</button>
+    <div class="ans-box" id="a4">
+      <div class="ans-head">✅ תשובות — Terraform</div>
+      <div class="ans-item"><span class="an">01</span><div><strong>Remote State Backend:</strong><br>
+        <code>terraform { backend "s3" { bucket = "my-tfstate" key = "prod/terraform.tfstate" region = "us-east-1" dynamodb_table = "tf-lock" } }</code><br>
+        DynamoDB נועל את ה-State כשמישהו מריץ Apply — מונע שני אנשים מלשנות Infrastructure במקביל ולגרום Conflict.
+      </div></div>
+      <div class="ans-item"><span class="an">04</span><div><strong>terraform plan:</strong> <code>+</code> = Resource חדש שייווצר. <code>-</code> = Resource שיימחק. <code>~</code> = Resource שישתנה. ראה <code>-/+</code>? זה Resource שייהרס וייווצר מחדש — DB שכזה = Downtime.</div></div>
+      <div class="ans-item"><span class="an">05</span><div><strong>prevent_destroy:</strong> <code>terraform destroy</code> יחזיר שגיאה: <em>"Instance cannot be destroyed"</em>. זה לא נעילת Cloud — זה הגנה ב-Terraform בלבד. AWS עצמו לא יודע על זה. אפשר לעקוף בהסרת הלייף-ציקל ואז Destroy.</div></div>
+      <div class="ans-note">💡 <strong>Rule of thumb:</strong> <code>terraform plan</code> תמיד לפני <code>apply</code>. <code>terraform plan -destroy</code> לפני <code>destroy</code>. תמיד תסתכל על מה הRedLine שנמחק. "Looks good to me" לחצת Apply בלי לקרוא = כרטיס Lottery.</div>
+    </div>
+  </div>
+</div>
+
+<div class="lab" id="lb5">
+  <div class="lab-top" onclick="toggleLab('lb5')">
+    <span class="lab-emoji">📊</span>
+    <div class="lab-header-info">
+      <div class="lab-name">מעבדה 5 — Prometheus + Grafana Monitoring Stack</div>
+      <div class="lab-sub">Scraping · PromQL · Dashboard · Alerts · SLO</div>
+    </div>
+    <span class="diff-badge d-medium">MEDIUM</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-content">
+    <div class="lab-goal">הקם Stack מלא של Monitoring: Prometheus סורק Metrics, Grafana מציג Dashboard, Alertmanager שולח התראות.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="step-dot">01</span>הרץ עם Docker Compose: Prometheus + Grafana + Node Exporter + App עם /metrics endpoint.</div>
+      <div class="lab-step"><span class="step-dot">02</span>כתוב <code>prometheus.yml</code> עם scrape_config לApp ול-Node Exporter.</div>
+      <div class="lab-step"><span class="step-dot">03</span>ב-Grafana: חבר Prometheus כ-Data Source, בנה Dashboard עם Request Rate, Error Rate, Latency p99.</div>
+      <div class="lab-step"><span class="step-dot">04</span>כתוב Alert Rule ב-Prometheus: Alert אם Error Rate עולה על 1% למשך 2 דקות.</div>
+      <div class="lab-step"><span class="step-dot">05">גרום לApp לשלוח שגיאות — ראה שהAlert מופעל ב-Alertmanager.</div>
+    </div>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-ttl">PromQL playground &#8212; Prometheus</span>
+    <button class="emu-btn-s" onclick="dvC('dv5out')">clear</button>
+    <button class="emu-btn" id="dv5btn" onclick="dvLab5()">&#9654; Execute</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-lbl">PromQL Query:</div>
+    <div class="emu-row" style="margin-bottom:7px">
+      <input class="emu-inp" id="dv5q" style="flex:1" value="rate(http_requests_total[5m])" onkeydown="if(event.key==='Enter')dvLab5()">
+    </div>
+    <div style="display:flex;gap:5px;flex-wrap:wrap">
+      <button class="emu-btn-s" onclick="dv5set('rate(http_requests_total[5m])')">Request Rate</button>
+      <button class="emu-btn-s" onclick="dv5set('rate(http_requests_total{status=~&quot;5..&quot;}[5m])/rate(http_requests_total[5m])*100')">Error Rate %</button>
+      <button class="emu-btn-s" onclick="dv5set('histogram_quantile(0.99, rate(http_duration_seconds_bucket[5m]))')">p99 Latency</button>
+      <button class="emu-btn-s" onclick="dvLab5Alert()">&#128276; Fire Alert</button>
+    </div>
+  </div>
+  <div class="emu-out" id="dv5out"><span class="em">הזן PromQL query ולחץ Execute...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a5')"><span id="a5i">▶</span> הצג תשובה</button>
+    <div class="ans-box" id="a5">
+      <div class="ans-head">✅ תשובות — Prometheus + Grafana</div>
+      <div class="ans-item"><span class="an">02</span><div><strong>prometheus.yml בסיסי:</strong><br>
+        <code>scrape_configs:<br>
+        - job_name: 'myapp'<br>
+        &nbsp;&nbsp;static_configs: [{targets: ['app:3000']}]<br>
+        - job_name: 'node'<br>
+        &nbsp;&nbsp;static_configs: [{targets: ['node-exporter:9100']}]</code><br>
+        כל 15 שניות (ברירת מחדל) Prometheus יסרוק /metrics מכל Target.
+      </div></div>
+      <div class="ans-item"><span class="an">03</span><div><strong>PromQL ל-Golden Signals:</strong><br>
+        Request Rate: <code>rate(http_requests_total[5m])</code><br>
+        Error Rate %: <code>rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) * 100</code><br>
+        p99 Latency: <code>histogram_quantile(0.99, rate(http_duration_seconds_bucket[5m]))</code>
+      </div></div>
+      <div class="ans-item"><span class="an">04</span><div><strong>Alert Rule:</strong><br>
+        <code>- alert: HighErrorRate<br>
+        &nbsp;&nbsp;expr: rate(http_errors_total[5m]) / rate(http_requests_total[5m]) &gt; 0.01<br>
+        &nbsp;&nbsp;for: 2m<br>
+        &nbsp;&nbsp;labels: {severity: critical}</code><br>
+        <code>for: 2m</code> = Alert מופעל רק אחרי 2 דקות רצופות — מונע Flapping על Spikes חולפים.
+      </div></div>
+      <div class="ans-note">💡 <strong>The Four Golden Signals</strong> (Google SRE): Latency, Traffic, Errors, Saturation. אם אתם מנטרים רק 4 דברים — אלה הם. כל מערכת שניתן למדוד אותה לפי ה-4 האלה = מספיק בשביל SLO סביר.</div>
+    </div>
+  </div>
+</div>
+
+<div class="lab" id="lb6">
   <div class="lab-top" onclick="toggleLab('lb6')">
     <span class="lab-emoji">🔵</span>
     <div class="lab-header-info">
@@ -605,6 +1303,122 @@ table { display: block; overflow-x: auto; max-width: 100%; }
     </div>
   </div>
 </div>
+
+<div class="lab" id="lb7">
+  <div class="lab-top" onclick="toggleLab('lb7')">
+    <span class="lab-emoji">🔐</span>
+    <div class="lab-header-info">
+      <div class="lab-name">מעבדה 7 — Secrets Management עם HashiCorp Vault</div>
+      <div class="lab-sub">Init · Unseal · KV Store · Dynamic Secrets · K8s Auth</div>
+    </div>
+    <span class="diff-badge d-hard">HARD</span><span class="lab-chev">▶</span>
+  </div>
+  <div class="lab-content">
+    <div class="lab-goal">הגדר Vault, שמור Secrets, ממש Dynamic DB Credentials שפגות אוטומטית, וחבר ל-Kubernetes.</div>
+    <div class="lab-steps">
+      <div class="lab-step"><span class="step-dot">01</span><code>vault server -dev</code> — Server פיתוח. לProduction: <code>vault operator init + vault operator unseal × 3</code></div>
+      <div class="lab-step"><span class="step-dot">02</span>הפעל KV Secrets Engine: <code>vault secrets enable -path=secret kv-v2</code></div>
+      <div class="lab-step"><span class="step-dot">03</span>שמור Secret: <code>vault kv put secret/myapp db_password=s3cr3t</code></div>
+      <div class="lab-step"><span class="step-dot">04</span>הפעל Database Secrets Engine עם PostgreSQL. בקש Dynamic Credentials: <code>vault read database/creds/my-role</code></div>
+      <div class="lab-step"><span class="step-dot">05</span>חבר ל-Kubernetes: הפעל Kubernetes Auth Method ב-Vault. הגדר Vault Agent Injector ב-K8s.</div>
+    </div>
+
+<div class="emu-wrap">
+  <div class="emu-bar">
+    <div class="emu-dots"><div class="ed ed-r"></div><div class="ed ed-y"></div><div class="ed ed-g"></div></div>
+    <span class="emu-ttl">HashiCorp Vault simulator</span>
+    <button class="emu-btn-s" onclick="dvC('dv7out')">clear</button>
+    <button class="emu-btn" id="dv7btn" onclick="dvLab7()">&#9654; Run</button>
+  </div>
+  <div class="emu-iw">
+    <div class="emu-lbl">בחר פקודה:</div>
+    <select class="emu-sel" id="dv7cmd">
+      <option value="init">vault server -dev (start dev server)</option>
+      <option value="enable">vault secrets enable -path=secret kv-v2</option>
+      <option value="put">vault kv put secret/myapp db_password=s3cr3t api_key=abc123</option>
+      <option value="get">vault kv get secret/myapp</option>
+      <option value="dynamic">vault read database/creds/my-role (dynamic credentials)</option>
+      <option value="lease">vault lease renew / revoke</option>
+      <option value="k8s">vault auth enable kubernetes</option>
+    </select>
+  </div>
+  <div class="emu-out" id="dv7out"><span class="em">בחר פקודה ולחץ Run...</span></div>
+</div>
+
+        <button class="ans-btn" onclick="toggleAns('a7')"><span id="a7i">▶</span> הצג תשובה</button>
+    <div class="ans-box" id="a7">
+      <div class="ans-head">✅ תשובות — HashiCorp Vault</div>
+      <div class="ans-item"><span class="an">01</span><div><strong>Production Init:</strong><br>
+        <code>vault operator init</code> מחזיר <strong>5 Unseal Keys + Root Token</strong>. שמור בנפרד (שלושה אנשים שונים אוחזים 3 מ-5 Keys = Shamir Secret Sharing). אסור לאחסן Root Token — השתמש בו פעם אחת ל-Admin ואז בטל.</div></div>
+      <div class="ans-item"><span class="an">04</span><div><strong>Dynamic Credentials:</strong> Vault יוצר User ב-PostgreSQL עם Lease Time (נניח שעה). אחרי שעה — Vault מוחק את ה-User אוטומטית. אם Credentials נגנבו, הם פגים. <strong>זה ההבדל מSecurity בין Static Secrets לDynamic Secrets.</strong></div></div>
+      <div class="ans-item"><span class="an">05</span><div><strong>K8s Auth + Vault Agent:</strong> Pod מקבל Annotation: <code>vault.hashicorp.com/agent-inject-secret-config: "secret/myapp"</code>. Vault Agent (Sidecar) מתחבר ל-Vault ומכניס Secret לקובץ בVolume. App קורא מהקובץ. App לא יודע ולא מחזיק Vault Token.</div></div>
+      <div class="ans-warn">⚠️ <strong>-dev Mode:</strong> Vault בDev Mode שומר הכל בזיכרון ומאתחל בכל Restart. מעולה לפיתוח, <strong>אסור בProduction</strong>. בProduction: Storage Backend (Raft/Consul), TLS, HA Mode עם 3 Nodes לפחות.</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /labs-list -->
+</div></div>
+
+<!-- ══════════ QUIZ ══════════ -->
+<div id="quiz" class="section"><div class="sec-inner">
+  <div class="quiz-top">
+    <h2>🎯 חידון DevOps PRO</h2>
+    <p>20 שאלות · אירועים אמיתיים · הסבר לכל תשובה</p>
+    <div class="q-prog-bg"><div class="q-prog" id="qp" style="width:0%"></div></div>
+    <div class="q-prog-lbl" id="qpl">0 / 20 נענו</div>
+  </div>
+  <div class="q-list" id="qList"></div>
+  <div class="score-box" id="scoreBox">
+    <div class="score-big" id="scoreBig">--<span class="frac">/20</span></div>
+    <div class="score-pct" id="scorePct"></div>
+    <div class="score-msg" id="scoreMsg"></div>
+    <div class="score-sub" id="scoreSub"></div>
+    <div class="score-acts">
+      <button class="btn btn-orange" onclick="restartQuiz()">🔄 נסה שוב</button>
+      <button class="btn btn-ghost" onclick="switchTab('game',document.getElementById('tb-game'))">🎮 למשחק</button>
+    </div>
+  </div>
+</div></div>
+
+<!-- ══════════ GAME ══════════ -->
+<div id="game" class="section"><div class="sec-inner">
+  <div class="game-wrap">
+    <div class="game-bar">
+      <div class="gbar-dots"><div class="gd gd-r"></div><div class="gd gd-y"></div><div class="gd gd-g"></div></div>
+      <span class="game-title">devops-concept-matcher — level up your pipeline knowledge</span>
+      <div class="game-scorebar">
+        <span class="gs-s">score: <span id="gScore">0</span></span>
+        <span class="gs-l">lives: <span id="gLives">❤️❤️❤️</span></span>
+        <span class="gs-lv">level: <span id="gLevel">1</span></span>
+      </div>
+    </div>
+    <div class="game-body" id="gameBody">
+      <div class="game-q" id="gQ">טוען...</div>
+      <div class="game-hint" id="gH"></div>
+      <div class="game-opts" id="gOpts"></div>
+      <div class="game-feedback" id="gFb"></div>
+      <div class="game-prog-wrap"><div class="game-prog-fill" id="gProg" style="width:0%"></div></div>
+    </div>
+    <div class="game-end" id="gameEnd">
+      <div class="ge-emoji" id="geEmoji">🏆</div>
+      <div class="ge-title" id="geTitle"></div>
+      <div class="ge-score" id="geScore"></div>
+      <div class="ge-msg"   id="geMsg"></div>
+      <button class="btn btn-orange" onclick="startGame()" style="margin:0 auto">🔄 שחק שוב</button>
+    </div>
+  </div>
+  <div class="game-help">
+    <strong style="color:var(--orange2)">איך לשחק:</strong> כל תיאור → בחר את הקטגוריה הנכונה בDevOps. ככל שמתקדמים, הקטגוריות נעשות דומות יותר. טיפ: CI/CD = Pipeline אוטומטי · IaC = קוד שמנהל Infrastructure · Observability = ניטור + Logs + Traces
+  </div>
+</div></div>
+
+</div><!-- /container -->
+
+<footer class="site-footer">
+  <p>// DEVOPS PRO TRACK — CODE · BUILD · SHIP · MONITOR · REPEAT //</p>
+</footer>
+
 <script>
 // ── Clock ──
 setInterval(() => {
