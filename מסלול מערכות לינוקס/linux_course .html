@@ -239,6 +239,19 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   .header-xp{display:none}
   .tabs-bar{overflow-x:auto}
 }
+
+.did-you-know {
+  background: linear-gradient(135deg, rgba(99,102,241,0.07), rgba(168,85,247,0.05));
+  border: 1px solid rgba(99,102,241,0.22);
+  border-right: 3px solid #818cf8;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 0 0 22px 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+.did-you-know strong { color: #a5b4fc; }
 </style>
 </head>
 <body>
@@ -482,7 +495,7 @@ he:{
   lbTitle:'// תוצאות',labExplain:'💡 הסבר:',
   points:'נק\'',of:'מתוך',question:'שאלה',
   optLetters:['א','ב','ג','ד'],playerName:'אתה',unknownPlayer:'שחקן',pct:'% נכון',
-  learn:[`
+  learn:[`<div class="did-you-know">💡 <strong>ידעת?</strong> Linux מריץ 96.3% מהשרתים ב-top 1 מיליון אתרים בעולם, 100% מ-500 מחשבי העל החזקים בעולם, כל מכשיר Android, ו-ISS — תחנת החלל הבינלאומית. את כנראה משתמשת בו עשרות פעמים ביום בלי לדעת.</div>
 <div class="section-title">מה זה Linux?</div>
 <p class="prose">Linux הוא גרעין (kernel) ממשפחת Unix, פותח ב-1991 ע"י Linus Torvalds. הגרעין הוא שכבת התוכנה שמנהלת את החומרה ומספקת שירותים לתוכנות. ה"Linux" שרוב האנשים מכירים הוא בעצם GNU/Linux — גרעין Linux עם כלי GNU.</p>
 <div class="grid-3">
@@ -509,9 +522,11 @@ he:{
 <tr><td>Arch Linux</td><td>-</td><td>pacman</td><td>מתקדמים, גמישות מלאה</td></tr>
 <tr><td>Alpine</td><td>-</td><td>apk</td><td>Docker, minimal</td></tr>
 </tbody></table></div>
-<div class="callout callout-info"><strong>💡 Kernel vs OS:</strong> Linux = גרעין בלבד. כשאומרים "Linux" ב-server context הכוונה היא לרוב ל-distro שלם כמו Ubuntu 22.04 LTS.</div>`,
+<div class="callout callout-info"><strong>💡 Kernel vs OS:</strong> Linux = גרעין בלבד. כשאומרים "Linux" ב-server context הכוונה היא לרוב ל-distro שלם כמו Ubuntu 22.04 LTS.</div>
+<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: CrowdStrike — יולי 2024, 8.5M Windows קרסו</div><div class="incident-body">עדכון פגום ל-Falcon sensor גרם ל-8.5M מחשבים ל-BSOD בו-זמנית. טיסות בוטלו, בתי חולים הושבתו, ובנקים נסגרו. הפסד: מעל $5 מיליארד. מערכות Linux הושפעו הרבה פחות — kernel module isolation, rollback מהיר, ו-package management מבוקר. <strong>Update strategy = infrastructure strategy.</strong></div></div>`,
 
-`<div class="section-title">Filesystem Hierarchy Standard (FHS)</div>
+`<div class="did-you-know">💡 <strong>ידעת?</strong> כשמוחקים קובץ ב-Linux רק ה-directory entry נמחק — הנתונים נשארים בדיסק עד שמשהו אחר כותב עליהם. כלי שחזור כמו <code class="inline-code">extundelete</code> יכולים להחזיר קבצים "מחוקים".</div>
+<div class="section-title">Filesystem Hierarchy Standard (FHS)</div>
 <div class="table-wrap"><table class="data-table"><thead><tr><th>ספרייה</th><th>תוכן</th></tr></thead><tbody>
 <tr><td><code class="inline-code">/</code></td><td>שורש — כל מה שקיים מתחת לכאן</td></tr>
 <tr><td><code class="inline-code">/etc</code></td><td>קבצי תצורה של המערכת</td></tr>
@@ -543,9 +558,11 @@ ls -la /etc/passwd    <span class="comment"># -rw-r--r-- 1 root root</span></cod
 <pre class="code-block"><code>ln /etc/hosts /tmp/hosts_hard  <span class="comment"># hard link</span>
 ln -s /etc/nginx/nginx.conf ~/nginx.conf  <span class="comment"># symlink</span>
 stat /etc/passwd  <span class="comment"># הצג inode, נתונים</span>
-df -i  <span class="comment"># בדוק שימוש ב-inodes</span></code></pre>`,
+df -i  <span class="comment"># בדוק שימוש ב-inodes</span></code></pre>
+<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: GitLab — מחיקת Production DB בשגגה (2017)</div><div class="incident-body">מהנדס GitLab ניסה למחוק נתונים מ-staging, אבל היה מחובר ל-production. הריץ <code class="inline-code">rm -rf</code> על 300GB. LVM snapshot מ-6 שעות קודם הציל חלקית. אבדו ~6 שעות של נתונים של 5000 משתמשים. <strong>הלקח: production processes לא צריכים הרשאות מחיקה.</strong></div></div>`,
 
-`<div class="section-title">ניווט וצפייה בקבצים</div>
+`<div class="did-you-know">💡 <strong>ידעת?</strong> grep נקרא על שם פקודת vi: <code class="inline-code">g/re/p</code>. Doug McIlroy המציא את pipe (<code class="inline-code">|</code>) ב-1973 ואמר שזה "הרעיון הכי טוב שיצא מ-Unix". כל pipeline שאת כותבת היום הוא ירושה ישירה ממנו.</div>
+<div class="section-title">ניווט וצפייה בקבצים</div>
 <pre class="code-block"><code>ls -lah --color    <span class="comment"># רשימה מפורטת עם human-readable sizes</span>
 ls -lt             <span class="comment"># מיון לפי זמן שינוי</span>
 find / -name "*.log" -mtime -7  <span class="comment"># קבצי log שהשתנו ב-7 ימים</span>
@@ -567,9 +584,11 @@ command 2> err.txt   <span class="comment"># redirect stderr</span>
 command &> all.txt   <span class="comment"># שניהם לאותו קובץ</span>
 command >> log.txt   <span class="comment"># append (לא מחליף)</span>
 diff <(sort a.txt) <(sort b.txt)  <span class="comment"># השווה output של פקודות</span></code></pre>
-<div class="callout callout-warn"><strong>⚠️ rm -rf:</strong> אין Trash ב-Linux CLI. <code class="inline-code">rm -rf /</code> מוחק הכל מיידית. תמיד בדקי פעמיים לפני ביצוע!</div>`,
+<div class="callout callout-warn"><strong>⚠️ rm -rf:</strong> אין Trash ב-Linux CLI. <code class="inline-code">rm -rf /</code> מוחק הכל מיידית. תמיד בדקי פעמיים לפני ביצוע!</div>
+<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Knight Capital — $440M נעלמו ב-45 דקות (2012)</div><div class="incident-body">Knight Capital פרסה update ל-8 שרתים — שרת אחד הוחמץ. הסקריפט לא בדק exit codes. תוך 45 דקות: 4M trades שגויים, הפסד $440M. <strong>בדיקת exit codes, <code class="inline-code">set -e</code>, ו-<code class="inline-code">diff</code> לאימות deployment — ההבדל בין deploy רגיל לאסון.</strong></div></div>`,
 
-`<div class="section-title">ניהול משתמשים</div>
+`<div class="did-you-know">💡 <strong>ידעת?</strong> ה-permission model של Linux (rwxrwxrwx) מבוסס על Unix משנות ה-70. כשגוגל מריצה containers, כל אחד רץ כ-user עם הרשאות מינימליות — Principal of Least Privilege. זה הרעיון שמאחורי <code class="inline-code">chmod 600</code> ל-SSH keys.</div>
+<div class="section-title">ניהול משתמשים</div>
 <pre class="code-block"><code>useradd -m -s /bin/bash alice  <span class="comment"># צור משתמש עם home ו-shell</span>
 passwd alice                    <span class="comment"># קבע סיסמה</span>
 usermod -aG sudo alice          <span class="comment"># הוסף ל-group sudo</span>
@@ -590,9 +609,11 @@ last -n 20                      <span class="comment"># 20 כניסות אחרו
 <tr><td><code class="inline-code">chmod +x script</code></td><td>הוסף הרצה לכולם</td></tr>
 <tr><td><code class="inline-code">chmod -R 750 dir</code></td><td>רקורסיבי על כל הספרייה</td></tr>
 </tbody></table></div>
-<div class="callout callout-danger"><strong>🚨 SSH Key Permissions:</strong> אם ה-private key לא <code class="inline-code">chmod 600</code>, SSH יסרב להשתמש בו עם שגיאה "Permissions too open".</div>`,
+<div class="callout callout-danger"><strong>🚨 SSH Key Permissions:</strong> אם ה-private key לא <code class="inline-code">chmod 600</code>, SSH יסרב להשתמש בו עם שגיאה "Permissions too open".</div>
+<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Uber Data Breach — 2016, 57M משתמשים</div><div class="incident-body">האקרים מצאו GitHub repo של Uber עם AWS credentials בקוד. גישה ל-S3 buckets עם נתוני 57M משתמשים. Uber שילמה $100K לשתיקה. <strong><code class="inline-code">chmod 600</code> על credentials, <code class="inline-code">.gitignore</code> ל-<code class="inline-code">*.env</code>, <code class="inline-code">git-secrets</code> — credentials בקוד = פרצה מובטחת.</strong></div></div>`,
 
-`<div class="section-title">צפייה ב-Processes</div>
+`<div class="did-you-know">💡 <strong>ידעת?</strong> כשהדפדפן קופא ולוחצים Force Quit — זה SIGKILL. גם ב-macOS, גם ב-Windows. כל process manager מודרני — Docker, Kubernetes, systemd — משתמש באותם signals שהומצאו ב-Unix בשנות ה-70.</div>
+<div class="section-title">צפייה ב-Processes</div>
 <pre class="code-block"><code>ps aux                  <span class="comment"># כל התהליכים עם %CPU, %MEM</span>
 ps aux --sort=-%cpu | head -10  <span class="comment"># top 10 לפי CPU</span>
 pstree -p               <span class="comment"># עץ תהליכים עם PIDs</span>
@@ -623,9 +644,11 @@ disown %1         <span class="comment"># נתק job מה-shell</span></code></p
 <span class="comment"># דקה שעה יום-בחודש חודש יום-בשבוע</span>
 0 2 * * * /backup.sh    <span class="comment"># כל יום ב-02:00</span>
 */5 * * * * check.sh    <span class="comment"># כל 5 דקות</span>
-0 0 1 * * monthly.sh    <span class="comment"># ראשון בכל חודש</span></code></pre>`,
+0 0 1 * * monthly.sh    <span class="comment"># ראשון בכל חודש</span></code></pre>
+<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Amazon AWS US-East-1 — 2017, חצי האינטרנט נפל</div><div class="incident-body">מהנדס AWS ניסה להסיר מספר קטן של servers. טעות בפקודה הסירה הרבה יותר. S3 crashed — Slack, GitHub, Quora, Trello down. נזק: $150M+. <strong><code class="inline-code">Restart=always</code> ב-systemd, monitoring, graceful shutdown — תהליך שמת בשקט גרוע מתהליך שקורס ומרים alarm.</strong></div></div>`,
 
-`<div class="section-title">כלי רשת בסיסיים</div>
+`<div class="did-you-know">💡 <strong>ידעת?</strong> SSH הומצא ב-1995 על ידי Tatu Ylönen אחרי שגילה שמישהו sniff את הרשת באוניברסיטה שלו ואוסף סיסמאות. הוא כתב SSH ב-2 שבועות. כל חיבור SSH שאת פותחת היום משתמש בפרוטוקול שכתב אדם אחד בתגובה לאירוע אמיתי.</div>
+<div class="section-title">כלי רשת בסיסיים</div>
 <pre class="code-block"><code>ip addr show           <span class="comment"># כל ה-interfaces וה-IPs</span>
 ip route show          <span class="comment"># טבלת routing</span>
 ip link set eth0 up    <span class="comment"># הדלק interface</span>
@@ -653,9 +676,11 @@ ufw status verbose
 <span class="comment"># iptables (מורכב יותר)</span>
 iptables -L -n -v          <span class="comment"># הצג חוקים</span>
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT</code></pre>
-<div class="callout callout-danger"><strong>🚨 Always allow SSH before enabling firewall!</strong> אם תחסמי port 22 לפני שמוודאים שהוא פתוח — תאבדי גישה לשרת.</div>`,
+<div class="callout callout-danger"><strong>🚨 Always allow SSH before enabling firewall!</strong> אם תחסמי port 22 לפני שמוודאים שהוא פתוח — תאבדי גישה לשרת.</div>
+<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: SolarWinds — 2020, פריצה לתשתיות ממשלת ארה"ב</div><div class="incident-body">האקרים שתלו backdoor ב-SolarWinds update. 18,000 ארגונים כולל NSA ו-Pentagon התקינו. ה-backdoor פתח reverse SSH tunnel. <strong><code class="inline-code">ss -tulnp</code> — connections חשודים, <code class="inline-code">last</code>/<code class="inline-code">lastb</code> — login history חריג. Network monitoring הוא לא פרנויה — זה hygiene.</strong></div></div>`,
 
-`<div class="section-title">apt (Debian/Ubuntu)</div>
+`<div class="did-you-know">💡 <strong>ידעת?</strong> חבילת npm <code class="inline-code">left-pad</code> — 11 שורות קוד — הוסרה ב-2016 ושברה אלפי פרויקטים כולל React. XZ Utils backdoor 2024 הראה שתוקפים מוכנים להשקיע שנתיים להכניס שורה אחת של קוד זדוני לpackage.</div>
+<div class="section-title">apt (Debian/Ubuntu)</div>
 <pre class="code-block"><code>apt update               <span class="comment"># עדכן רשימת חבילות</span>
 apt upgrade              <span class="comment"># עדכן חבילות מותקנות</span>
 apt install nginx        <span class="comment"># התקן</span>
@@ -676,9 +701,11 @@ rpm -qa | grep nginx     <span class="comment"># בדוק עם rpm</span></code>
 make -j\$(nproc)          <span class="comment"># compile עם כל הcores</span>
 make install
 make uninstall           <span class="comment"># אם תומך</span></code></pre>
-<div class="callout callout-info"><strong>💡 snap vs flatpak vs AppImage:</strong> snap = Ubuntu, flatpak = Fedora/Universal, AppImage = no install needed. לserver — תמיד העדף package manager של ה-distro.</div>`,
+<div class="callout callout-info"><strong>💡 snap vs flatpak vs AppImage:</strong> snap = Ubuntu, flatpak = Fedora/Universal, AppImage = no install needed. לserver — תמיד העדף package manager של ה-distro.</div>
+<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: XZ Utils Backdoor — 2024, backdoor בספריית compression</div><div class="incident-body">תוקף בילה שנתיים בבניית אמון בפרויקט XZ Utils (נמצאת בכל Linux distro). הוסיף backdoor ל-SSH login ללא סיסמה. התגלה במקרה ע"י מהנדס Microsoft שהבחין ב-500ms overhead ב-SSH. <strong><code class="inline-code">apt-mark hold xz-utils</code>, <code class="inline-code">debsums -c</code> — supply chain attack, הסיכון הכי קשה לזיהוי.</strong></div></div>`,
 
-`<div class="section-title">Bash Script בסיסי</div>
+`<div class="did-you-know">💡 <strong>ידעת?</strong> Apollo 11 ב-1969 נחת על הירח עם 4KB RAM. סקריפטי bash שאת כותבת היום חזקים ממנו פי 4 מיליון. כוח bash נמצא בפשטות — כלים קטנים שעושים דבר אחד ועושים אותו טוב.</div>
+<div class="section-title">Bash Script בסיסי</div>
 <pre class="code-block"><code>#!/bin/bash
 set -euo pipefail   <span class="comment"># exit on error, undefined vars, pipe fails</span>
 
@@ -725,7 +752,8 @@ check_service() {
   fi
 }
 
-check_service nginx || systemctl start nginx</code></pre>`
+check_service nginx || systemctl start nginx</code></pre>
+<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Cloudflare — 2023, סקריפט שמחק את עצמו</div><div class="incident-body">סקריפט Cloudflare מחק directory שהוא עצמו נמצא בו. המשיך לרוץ (כבר בזיכרון) אבל לא ניתן להפעיל מחדש. חלקים מהתשתית היו down. <strong><code class="inline-code">set -euo pipefail</code>, בדיקת paths לפני מחיקה, dry-run mode — סקריפט ללא הגנות = weapon pointed at your infrastructure.</strong></div></div>`
   ],
   cheat:[
 `<div class="callout callout-success"><strong>📋 דף רמאות — פרק 0: מבוא Linux</strong></div>
@@ -873,7 +901,7 @@ en:{
   lbTitle:'// Leaderboard',labExplain:'💡 Explanation:',
   points:'pts',of:'of',question:'Question',
   optLetters:['A','B','C','D'],playerName:'You',unknownPlayer:'Player',pct:'% correct',
-  learn:[`
+  learn:[`<div class="did-you-know">💡 <strong>Did you know?</strong> Linux runs 96.3% of the top 1 million web servers, 100% of the world's 500 fastest supercomputers, every Android device, and the ISS. You probably use it dozens of times a day without knowing it.</div>
 <div class="section-title">What is Linux?</div>
 <p class="prose">Linux is a Unix-family kernel developed in 1991 by Linus Torvalds. The kernel is the software layer that manages hardware and provides services to applications. What most people call "Linux" is actually GNU/Linux — the Linux kernel combined with GNU tools.</p>
 <div class="grid-3">
@@ -900,9 +928,11 @@ en:{
 <tr><td>Arch Linux</td><td>-</td><td>pacman</td><td>Advanced, full flexibility</td></tr>
 <tr><td>Alpine</td><td>-</td><td>apk</td><td>Docker, minimal</td></tr>
 </tbody></table></div>
-<div class="callout callout-info"><strong>💡 Kernel vs OS:</strong> Linux = kernel only. When people say "Linux" in a server context they usually mean a full distro like Ubuntu 22.04 LTS.</div>`,
+<div class="callout callout-info"><strong>💡 Kernel vs OS:</strong> Linux = kernel only. When people say "Linux" in a server context they usually mean a full distro like Ubuntu 22.04 LTS.</div>
+<div class="incident-box"><div class="incident-title">🔥 Real Incident: CrowdStrike — July 2024, 8.5M Windows machines crashed</div><div class="incident-body">A faulty Falcon sensor update caused 8.5M Windows machines to BSOD simultaneously. Flights cancelled, hospitals shut down, banks closed. Loss: over $5 billion. Linux systems were far less affected — kernel module isolation, fast rollback, controlled versioning. <strong>Update strategy = infrastructure strategy.</strong></div></div>`,
 
-`<div class="section-title">Filesystem Hierarchy Standard (FHS)</div>
+`<div class="did-you-know">💡 <strong>Did you know?</strong> When you delete a file in Linux only the directory entry is removed — data stays on disk until overwritten. Recovery tools like <code class="inline-code">extundelete</code> can restore "deleted" files.</div>
+<div class="section-title">Filesystem Hierarchy Standard (FHS)</div>
 <div class="table-wrap"><table class="data-table"><thead><tr><th>Directory</th><th>Contents</th></tr></thead><tbody>
 <tr><td><code class="inline-code">/</code></td><td>Root — everything exists below here</td></tr>
 <tr><td><code class="inline-code">/etc</code></td><td>System configuration files</td></tr>
@@ -934,9 +964,11 @@ ls -la /etc/passwd    <span class="comment"># -rw-r--r-- 1 root root</span></cod
 <pre class="code-block"><code>ln /etc/hosts /tmp/hosts_hard  <span class="comment"># hard link</span>
 ln -s /etc/nginx/nginx.conf ~/nginx.conf  <span class="comment"># symlink</span>
 stat /etc/passwd  <span class="comment"># show inode, data</span>
-df -i  <span class="comment"># check inode usage</span></code></pre>`,
+df -i  <span class="comment"># check inode usage</span></code></pre>
+<div class="incident-box"><div class="incident-title">🔥 Real Incident: GitLab — accidental Production DB deletion (2017)</div><div class="incident-body">A GitLab engineer tried to delete staging data but was connected to production. Ran <code class="inline-code">rm -rf</code> on 300GB. An LVM snapshot from 6 hours earlier partially saved them — ~6 hours of data from 5000 users was lost. <strong>Production processes shouldn't have delete permissions.</strong></div></div>`,
 
-`<div class="section-title">Navigation and File Viewing</div>
+`<div class="did-you-know">💡 <strong>Did you know?</strong> grep is named after the vi command <code class="inline-code">g/re/p</code>. Doug McIlroy invented the pipe (<code class="inline-code">|</code>) in 1973 and called it "the best idea that ever came out of Unix". Every pipeline you write today is his direct legacy.</div>
+<div class="section-title">Navigation and File Viewing</div>
 <pre class="code-block"><code>ls -lah --color    <span class="comment"># detailed list with human-readable sizes</span>
 ls -lt             <span class="comment"># sort by modification time</span>
 find / -name "*.log" -mtime -7  <span class="comment"># log files changed in 7 days</span>
@@ -957,9 +989,11 @@ command > out.txt    <span class="comment"># redirect stdout</span>
 command 2> err.txt   <span class="comment"># redirect stderr</span>
 command &> all.txt   <span class="comment"># both to same file</span>
 command >> log.txt   <span class="comment"># append (don't overwrite)</span></code></pre>
-<div class="callout callout-warn"><strong>⚠️ rm -rf:</strong> No Trash in Linux CLI. <code class="inline-code">rm -rf /</code> deletes everything instantly. Always double-check before running!</div>`,
+<div class="callout callout-warn"><strong>⚠️ rm -rf:</strong> No Trash in Linux CLI. <code class="inline-code">rm -rf /</code> deletes everything instantly. Always double-check before running!</div>
+<div class="incident-box"><div class="incident-title">🔥 Real Incident: Knight Capital — $440M vanished in 45 minutes (2012)</div><div class="incident-body">Knight Capital deployed an update to 8 servers — one was missed. The script didn't check exit codes. Within 45 minutes: 4M erroneous trades, $440M loss. <strong>Checking exit codes, <code class="inline-code">set -e</code>, and <code class="inline-code">diff</code> for deployment validation — the difference between a deploy and a disaster.</strong></div></div>`,
 
-`<div class="section-title">User Management</div>
+`<div class="did-you-know">💡 <strong>Did you know?</strong> Linux's permission model dates to Unix in the 1970s. When Google runs containers, each runs as a specific user with minimal permissions — Principle of Least Privilege. That's the idea behind <code class="inline-code">chmod 600</code> for SSH keys.</div>
+<div class="section-title">User Management</div>
 <pre class="code-block"><code>useradd -m -s /bin/bash alice  <span class="comment"># create user with home and shell</span>
 passwd alice                    <span class="comment"># set password</span>
 usermod -aG sudo alice          <span class="comment"># add to sudo group</span>
@@ -980,9 +1014,11 @@ last -n 20                      <span class="comment"># last 20 logins</span></c
 <tr><td><code class="inline-code">chmod +x script</code></td><td>add execute for everyone</td></tr>
 <tr><td><code class="inline-code">chmod -R 750 dir</code></td><td>recursive on entire directory</td></tr>
 </tbody></table></div>
-<div class="callout callout-danger"><strong>🚨 SSH Key Permissions:</strong> If the private key isn't <code class="inline-code">chmod 600</code>, SSH will refuse to use it with "Permissions too open" error.</div>`,
+<div class="callout callout-danger"><strong>🚨 SSH Key Permissions:</strong> If the private key isn't <code class="inline-code">chmod 600</code>, SSH will refuse to use it with "Permissions too open" error.</div>
+<div class="incident-box"><div class="incident-title">🔥 Real Incident: Uber Data Breach — 2016, 57M users</div><div class="incident-body">Hackers found a private Uber GitHub repo with AWS credentials in the code. They accessed S3 buckets with data of 57M users and 600K drivers. Uber paid $100K to stay quiet. <strong><code class="inline-code">chmod 600</code> on credentials, <code class="inline-code">.gitignore</code> for <code class="inline-code">*.env</code>, <code class="inline-code">git-secrets</code> — credentials in code = guaranteed breach.</strong></div></div>`,
 
-`<div class="section-title">Viewing Processes</div>
+`<div class="did-you-know">💡 <strong>Did you know?</strong> When your browser freezes and you click Force Quit — that's SIGKILL. On macOS and Windows too. Every modern process manager — Docker, Kubernetes, systemd — uses the same signals invented in Unix in the 1970s.</div>
+<div class="section-title">Viewing Processes</div>
 <pre class="code-block"><code>ps aux                  <span class="comment"># all processes with %CPU, %MEM</span>
 ps aux --sort=-%cpu | head -10  <span class="comment"># top 10 by CPU</span>
 pstree -p               <span class="comment"># process tree with PIDs</span>
@@ -1011,9 +1047,11 @@ nohup cmd &       <span class="comment"># keep running after logout</span></code
 <span class="comment"># min hour day-of-month month day-of-week</span>
 0 2 * * * /backup.sh    <span class="comment"># every day at 02:00</span>
 */5 * * * * check.sh    <span class="comment"># every 5 minutes</span>
-0 0 1 * * monthly.sh    <span class="comment"># first of every month</span></code></pre>`,
+0 0 1 * * monthly.sh    <span class="comment"># first of every month</span></code></pre>
+<div class="incident-box"><div class="incident-title">🔥 Real Incident: Amazon AWS US-East-1 — 2017, half the internet went down</div><div class="incident-body">An AWS engineer tried to remove a few servers. A command mistake removed far more. S3 crashed — Slack, GitHub, Quora, Trello all down. Damage: $150M+. <strong><code class="inline-code">Restart=always</code> in systemd, PID monitoring, graceful shutdown — a process that dies silently is worse than one that crashes loudly.</strong></div></div>`,
 
-`<div class="section-title">Basic Network Tools</div>
+`<div class="did-you-know">💡 <strong>Did you know?</strong> SSH was invented in 1995 by Tatu Ylönen after discovering someone was sniffing his university network collecting passwords. He wrote SSH in 2 weeks. Every SSH connection you open today uses that same protocol.</div>
+<div class="section-title">Basic Network Tools</div>
 <pre class="code-block"><code>ip addr show           <span class="comment"># all interfaces and IPs</span>
 ip route show          <span class="comment"># routing table</span>
 ip link set eth0 up    <span class="comment"># bring interface up</span>
@@ -1040,9 +1078,11 @@ ufw status verbose
 <span class="comment"># iptables (more complex)</span>
 iptables -L -n -v          <span class="comment"># show rules</span>
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT</code></pre>
-<div class="callout callout-danger"><strong>🚨 Always allow SSH before enabling firewall!</strong> If you block port 22 before verifying it's open — you'll lose server access.</div>`,
+<div class="callout callout-danger"><strong>🚨 Always allow SSH before enabling firewall!</strong> If you block port 22 before verifying it's open — you'll lose server access.</div>
+<div class="incident-box"><div class="incident-title">🔥 Real Incident: SolarWinds — 2020, US government infrastructure breach</div><div class="incident-body">Russian hackers planted a backdoor in SolarWinds Orion update. 18,000 organizations including NSA and Pentagon installed it. The backdoor opened a reverse SSH tunnel. <strong><code class="inline-code">ss -tulnp</code> for suspicious connections, <code class="inline-code">last</code>/<code class="inline-code">lastb</code> for unusual login history. Network monitoring isn't paranoia — it's hygiene.</strong></div></div>`,
 
-`<div class="section-title">apt (Debian/Ubuntu)</div>
+`<div class="did-you-know">💡 <strong>Did you know?</strong> The npm <code class="inline-code">left-pad</code> package — 11 lines of code — was removed in 2016 and broke thousands of projects including React. The XZ Utils backdoor of 2024 showed attackers willing to invest two years to insert one malicious line into a package.</div>
+<div class="section-title">apt (Debian/Ubuntu)</div>
 <pre class="code-block"><code>apt update               <span class="comment"># update package list</span>
 apt upgrade              <span class="comment"># upgrade installed packages</span>
 apt install nginx        <span class="comment"># install</span>
@@ -1062,9 +1102,11 @@ rpm -qa | grep nginx     <span class="comment"># check with rpm</span></code></p
 make -j\$(nproc)          <span class="comment"># compile with all cores</span>
 make install
 make uninstall           <span class="comment"># if supported</span></code></pre>
-<div class="callout callout-info"><strong>💡 snap vs flatpak vs AppImage:</strong> snap = Ubuntu, flatpak = Fedora/Universal, AppImage = no install needed. For servers — always prefer distro's own package manager.</div>`,
+<div class="callout callout-info"><strong>💡 snap vs flatpak vs AppImage:</strong> snap = Ubuntu, flatpak = Fedora/Universal, AppImage = no install needed. For servers — always prefer distro's own package manager.</div>
+<div class="incident-box"><div class="incident-title">🔥 Real Incident: XZ Utils Backdoor — 2024, backdoor in a compression library</div><div class="incident-body">An attacker spent two years building trust in XZ Utils (in every Linux distro). Added a backdoor for passwordless SSH login. Discovered by accident by a Microsoft engineer who noticed 500ms SSH overhead. <strong><code class="inline-code">apt-mark hold xz-utils</code>, <code class="inline-code">debsums -c</code> — supply chain attack, the hardest risk to detect.</strong></div></div>`,
 
-`<div class="section-title">Basic Bash Script</div>
+`<div class="did-you-know">💡 <strong>Did you know?</strong> Apollo 11 in 1969 landed on the moon with 4KB RAM. Bash scripts you write today are 4 million times more powerful. The power of bash lies in simplicity — small tools that do one thing well.</div>
+<div class="section-title">Basic Bash Script</div>
 <pre class="code-block"><code>#!/bin/bash
 set -euo pipefail   <span class="comment"># exit on error, undefined vars, pipe fails</span>
 
@@ -1103,7 +1145,8 @@ check_service() {
   }
 }
 
-check_service nginx || systemctl start nginx</code></pre>`
+check_service nginx || systemctl start nginx</code></pre>
+<div class="incident-box"><div class="incident-title">🔥 Real Incident: Cloudflare — 2023, script that deleted itself</div><div class="incident-body">A Cloudflare script deleted the directory it was running from. It kept running (already in memory) but couldn't restart. Parts of infrastructure went down. <strong><code class="inline-code">set -euo pipefail</code>, check paths before deletion, dry-run mode — a script without safeguards is a weapon pointed at your infrastructure.</strong></div></div>`
   ],
   cheat:[
 `<div class="callout callout-success"><strong>📋 Cheat Sheet — Chapter 0: Linux Intro</strong></div>
@@ -1611,8 +1654,6 @@ C.en.cheat.push(
 </div>`
 );
 // ===== CHAPTERS 8-11 CONTENT =====
-// These get appended to C.he.learn and C.en.learn after the base content is defined
-
 const EXTRA_CONTENT = {
 he: {
   names: ['systemd ו-Services','ניהול דיסקים ואחסון','אבטחת מערכת','ביצועים וניטור'],
@@ -1623,7 +1664,8 @@ he: {
     'ufw, iptables, fail2ban, auditd, SELinux, hardening checklist — מערכת מאובטחת',
     'top, vmstat, iostat, sar, perf, profiling — אבחון ופתרון בעיות ביצועים'
   ],
-  learn: [`
+  learn: [`<div class="did-you-know">💡 <strong>ידעת?</strong> systemd נכתב ב-2010 על ידי Lennart Poettering וגרם לאחת המחלוקות הגדולות בהיסטוריה של Linux. חלק מהמפתחים שנאו אותו כל כך שהם fork-ו Debian רק בגללו (Devuan). כיום הוא מריץ 97% מה-Linux servers בעולם — כי הוא פשוט עובד טוב יותר.</div>
+
 <div class="section-title">מה זה systemd?</div>
 <p class="prose">systemd הוא ה-init system המודרני של Linux — תהליך ראשון (PID 1) שמתחיל את כל שאר השירותים. מחליף את SysV init ו-Upstart. מנהל services, mounts, timers, sockets ועוד.</p>
 <div class="grid-3">
@@ -1682,9 +1724,10 @@ WantedBy=timers.target
 
 systemctl enable --now backup.timer
 systemctl list-timers        <span class="comment"># הצג כל timers</span></code></pre>
-<div class="incident-box"><div class="incident-title">⚠️ שגיאה נפוצה: "Failed to enable unit: Unit is masked"</div><div class="incident-body">שירות masked = מנוטרל לגמרי. פתרון: <code class="inline-code">systemctl unmask nginx</code> ואז <code class="inline-code">systemctl enable nginx</code>.</div></div>`,
+<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Slack — Down 5 שעות (2021)</div><div class="incident-body">ב-4 ינואר 2021, יום החזרה לעבודה, Slack היה down כמעט 5 שעות. שינוי configuration גרם ל-services להתחיל ולהיכשל ב-loop. <code class="inline-code">StartLimitIntervalSec</code> ו-<code class="inline-code">StartLimitBurst</code> מגבילים restart loops. <code class="inline-code">journalctl -f</code> ברגע הראשון מציג את הסיבה. <strong>הפסד: $100M+ בשווי שוק ביום אחד.</strong></div></div>`,
 
-`<div class="section-title">מבנה Disk ו-Partitions</div>
+`<div class="did-you-know">💡 <strong>ידעת?</strong> LVM הומצא כדי לפתור בעיה שכל sysadmin מכיר: partition מלא כשהשני ריק. עם LVM אפשר להרחיב partition חי — בלי downtime, בלי data migration, תוך דקה.</div>
+<div class="section-title">מבנה Disk ו-Partitions</div>
 <pre class="code-block"><code>lsblk -f                <span class="comment"># עץ דיסקים עם filesystems</span>
 fdisk -l /dev/sda       <span class="comment"># פרטי partition table</span>
 blkid                   <span class="comment"># UUIDs ו-filesystem types</span>
@@ -1728,9 +1771,11 @@ UUID=abc123 /var ext4 defaults,noatime 0 2
 tmpfs /tmp tmpfs defaults,size=2G 0 0
 
 mount -a     <span class="comment"># mount הכל מ-fstab</span>
-findmnt      <span class="comment"># הצג כל mounts בצורה יפה</span></code></pre>`,
+findmnt      <span class="comment"># הצג כל mounts בצורה יפה</span></code></pre>
+<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: OVH Data Center — 2021, 10,000+ שרתים נשרפו</div><div class="incident-body">ב-10 מרץ 2021, מרכז הנתונים הגדול של OVH בשטרסבורג נשרף לחלוטין. 10,000+ שרתים, 3.6M אתרים offline. חברות שאיבדו הכל לא היה להן backup off-site. RAID מגן מ-disk failure — לא מאש. <strong>Backup = לפחות 3 עותקים ב-2 מיקומים שונים.</strong></div></div>`,
 
-`<div class="section-title">Hardening Checklist</div>
+`<div class="did-you-know">💡 <strong>ידעת?</strong> מתקפת סייבר מתרחשת כל 39 שניות (מחקר Clark School 2007). 95% מהצלחות נובעות מ-misconfiguration — לא מ-zero-day. הגדרות ברירת המחדל של Linux בטוחות ב-general, אבל כל שינוי שאת עושה יכול לפתוח חור.</div>
+<div class="section-title">Hardening Checklist</div>
 <div class="grid-2">
 <div class="card"><div class="card-icon">🔒</div><div class="card-title">SSH Hardening</div><div class="card-body">PermitRootLogin no · PasswordAuthentication no · MaxAuthTries 3 · AllowUsers alice · Port 2222</div></div>
 <div class="card"><div class="card-icon">🛡️</div><div class="card-title">Firewall</div><div class="card-body">ufw default deny incoming · allow only needed ports · rate limiting on SSH · block known bad IPs</div></div>
@@ -1770,9 +1815,10 @@ auditctl -a always,exit -F arch=b64 -S execve -k exec
 <span class="comment"># חפש events:</span>
 ausearch -k passwd-changes -ts today
 aureport --login --summary</code></pre>
-<div class="incident-box"><div class="incident-title">⚠️ Real Incident: SolarWinds 2020</div><div class="incident-body">Supply chain attack — קוד זדוני הוחדר ל-build pipeline. לקחים: verify checksums, audit build systems, principle of least privilege, network segmentation.</div></div>`,
+<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Equifax — 2017, 147M אמריקאים נפגעו</div><div class="incident-body">Equifax דיווחה על דליפה של נתוני 147M אמריקאים — SSN, תאריכי לידה, מספרי אשראי. הסיבה: Apache Struts vulnerability ידועה שלא תוקנה 2 חודשים אחרי שpatch שוחרר. <code class="inline-code">unattended-upgrades</code> ו-fail2ban היו יכולים למנוע. <strong>Equifax שילמו $700M בפשרה.</strong></div></div>`,
 
-`<div class="section-title">USE Method — מדריך לאבחון</div>
+`<div class="did-you-know">💡 <strong>ידעת?</strong> Brendan Gregg מנטפליקס המציא Flame Graphs ו-USE Method. כלים שפיתח — <code class="inline-code">perf</code>, <code class="inline-code">eBPF</code>, <code class="inline-code">bpftrace</code> — חסכו לנטפליקס $10M+ בשנה בעלויות cloud.</div>
+<div class="section-title">USE Method — מדריך לאבחון</div>
 <div class="callout callout-info"><strong>USE = Utilization, Saturation, Errors</strong> — לכל resource (CPU, Memory, Disk, Network) בדוק שלושת המדדים לפני אבחון.</div>
 <div class="section-title">CPU Analysis</div>
 <pre class="code-block"><code>top -bn1 | head -20       <span class="comment"># snapshot חד-פעמי</span>
@@ -1816,7 +1862,8 @@ iftop                     <span class="comment"># live bandwidth by connection</
   <div class="flow-step"><div class="flow-step-icon">🌐</div><div class="flow-step-label">ss<br>sar -n</div></div>
   <div class="flow-arrow">→</div>
   <div class="flow-step"><div class="flow-step-icon">🔍</div><div class="flow-step-label">perf<br>strace</div></div>
-</div>`
+</div>
+<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Twitter Fail Whale (2008-2012)</div><div class="incident-body">בין 2008 ל-2012 Twitter היה down כל כך הרבה שה"Fail Whale" הפך לmeme תרבותי. 400 tweets/sec ב-2008 → 400,000/sec ב-2012. <code class="inline-code">vmstat</code> ו-<code class="inline-code">iostat</code> גילו disk I/O bottlenecks. Redis הפחית DB queries ב-80%. <strong>Performance monitoring הוא ה-difference בין uptime ל-Fail Whale.</strong></div></div>`
   ],
   cheat: [`
 <div class="callout callout-success"><strong>📋 דף רמאות — פרק 8: systemd</strong></div>
@@ -1895,7 +1942,8 @@ en: {
     'ufw, iptables, fail2ban, auditd, SELinux, hardening checklist — secure your system',
     'top, vmstat, iostat, sar, perf, profiling — diagnose and fix performance issues'
   ],
-  learn: [`
+  learn: [`<div class="did-you-know">💡 <strong>Did you know?</strong> systemd was written in 2010 by Lennart Poettering and sparked one of the biggest controversies in Linux history. Some developers forked Debian just because of it (Devuan). Today it runs 97% of Linux servers worldwide — because it simply works better.</div>
+
 <div class="section-title">What is systemd?</div>
 <p class="prose">systemd is the modern Linux init system — the first process (PID 1) that starts all other services. It replaces SysV init and Upstart. Manages services, mounts, timers, sockets, and more.</p>
 <div class="grid-3">
@@ -1951,9 +1999,10 @@ WantedBy=timers.target
 
 systemctl enable --now backup.timer
 systemctl list-timers        <span class="comment"># show all timers</span></code></pre>
-<div class="incident-box"><div class="incident-title">⚠️ Common Error: "Failed to enable unit: Unit is masked"</div><div class="incident-body">A masked service is completely disabled. Fix: <code class="inline-code">systemctl unmask nginx</code> then <code class="inline-code">systemctl enable nginx</code>.</div></div>`,
+<div class="incident-box"><div class="incident-title">🔥 Real Incident: Slack — Down 5 hours (2021)</div><div class="incident-body">On January 4, 2021 — first day back after the holiday — Slack was down for 5 hours. A configuration change caused services to restart and fail in a loop. <code class="inline-code">StartLimitIntervalSec</code> and <code class="inline-code">StartLimitBurst</code> limit restart loops. <code class="inline-code">journalctl -f</code> immediately shows the real cause. <strong>Loss: $100M+ in market cap in one day.</strong></div></div>`,
 
-`<div class="section-title">Disk and Partition Structure</div>
+`<div class="did-you-know">💡 <strong>Did you know?</strong> LVM was invented to solve a problem every sysadmin knows: one partition is full while the other is empty. With LVM you can extend a live partition — no downtime, no data migration, in under a minute.</div>
+<div class="section-title">Disk and Partition Structure</div>
 <pre class="code-block"><code>lsblk -f                <span class="comment"># disk tree with filesystems</span>
 fdisk -l /dev/sda       <span class="comment"># partition table details</span>
 blkid                   <span class="comment"># UUIDs and filesystem types</span>
@@ -1986,9 +2035,11 @@ mkfs.ext4 /dev/data_vg/data_lv
 
 <span class="comment"># Extend LV while in use!</span>
 lvextend -L +20G /dev/data_vg/data_lv
-resize2fs /dev/data_vg/data_lv <span class="comment"># extend filesystem</span></code></pre>`,
+resize2fs /dev/data_vg/data_lv <span class="comment"># extend filesystem</span></code></pre>
+<div class="incident-box"><div class="incident-title">🔥 Real Incident: OVH Data Center — 2021, 10,000+ servers burned</div><div class="incident-body">On March 10, 2021, OVH's largest data center in Strasbourg burned completely. 10,000+ servers, 3.6M websites offline. Companies that lost everything had no off-site backup. RAID protects from disk failure — not fire. <strong>Backup = at least 3 copies in 2 different locations.</strong></div></div>`,
 
-`<div class="section-title">Hardening Checklist</div>
+`<div class="did-you-know">💡 <strong>Did you know?</strong> A cyberattack occurs every 39 seconds (Clark School 2007). 95% of successful attacks come from misconfiguration — not zero-days. Linux defaults are generally safe, but every change you make can open a hole.</div>
+<div class="section-title">Hardening Checklist</div>
 <div class="grid-2">
 <div class="card"><div class="card-icon">🔒</div><div class="card-title">SSH Hardening</div><div class="card-body">PermitRootLogin no · PasswordAuthentication no · MaxAuthTries 3 · AllowUsers alice · Port 2222</div></div>
 <div class="card"><div class="card-icon">🛡️</div><div class="card-title">Firewall</div><div class="card-body">ufw default deny incoming · allow only needed ports · rate limiting on SSH · block known bad IPs</div></div>
@@ -2015,9 +2066,10 @@ fail2ban-client set sshd unbanip 1.2.3.4</code></pre>
 auditctl -w /etc/sudoers -p rwxa -k sudo-changes
 ausearch -k passwd-changes -ts today
 aureport --login --summary</code></pre>
-<div class="incident-box"><div class="incident-title">⚠️ Real Incident: SolarWinds 2020</div><div class="incident-body">Supply chain attack — malicious code injected into build pipeline. Lessons: verify checksums, audit build systems, principle of least privilege, network segmentation.</div></div>`,
+<div class="incident-box"><div class="incident-title">🔥 Real Incident: Equifax — 2017, 147M Americans affected</div><div class="incident-body">Equifax disclosed a breach of 147M Americans' data — SSNs, birth dates, credit card numbers. Cause: a known Apache Struts vulnerability left unpatched for 2 months after a patch was released. <code class="inline-code">unattended-upgrades</code> and fail2ban could have prevented it. <strong>Equifax paid $700M in settlement.</strong></div></div>`,
 
-`<div class="section-title">USE Method — Diagnostic Guide</div>
+`<div class="did-you-know">💡 <strong>Did you know?</strong> Brendan Gregg from Netflix invented Flame Graphs and the USE Method. Tools he developed — <code class="inline-code">perf</code>, <code class="inline-code">eBPF</code>, <code class="inline-code">bpftrace</code> — saved Netflix $10M+ per year in cloud costs.</div>
+<div class="section-title">USE Method — Diagnostic Guide</div>
 <div class="callout callout-info"><strong>USE = Utilization, Saturation, Errors</strong> — For every resource (CPU, Memory, Disk, Network) check all three metrics before diagnosing.</div>
 <div class="section-title">CPU Analysis</div>
 <pre class="code-block"><code>top -bn1 | head -20       <span class="comment"># one-shot snapshot</span>
@@ -2051,7 +2103,8 @@ iotop                     <span class="comment"># top disk I/O (requires root)</
   <div class="flow-step"><div class="flow-step-icon">🌐</div><div class="flow-step-label">ss<br>sar -n</div></div>
   <div class="flow-arrow">→</div>
   <div class="flow-step"><div class="flow-step-icon">🔍</div><div class="flow-step-label">perf<br>strace</div></div>
-</div>`
+</div>
+<div class="incident-box"><div class="incident-title">🔥 Real Incident: Twitter Fail Whale (2008-2012)</div><div class="incident-body">Between 2008 and 2012, Twitter was down so often that the "Fail Whale" became a cultural meme. 400 tweets/sec in 2008 → 400,000/sec in 2012. <code class="inline-code">vmstat</code> and <code class="inline-code">iostat</code> revealed disk I/O bottlenecks. Redis reduced DB queries by 80%. <strong>Performance monitoring is the difference between uptime and Fail Whale.</strong></div></div>`
   ],
   cheat: [`
 <div class="callout callout-success"><strong>📋 Cheat Sheet — Chapter 8: systemd</strong></div>

@@ -3544,54 +3544,14 @@ function applyLang(lang) {
   if (activeTab === 'game') renderGame(state.currentChapter);
 }
 
-// Normalize option lengths so correct answer is NOT detectable by being longest
-function _normalizeOptions(q) {
-  const lens = q.o.map(o => o.length);
-  const wrongLens = lens.filter((_, i) => i !== q.a);
-  const maxWrong = Math.max(...wrongLens);
-  const cap = maxWrong; // cap at longest wrong answer
-  const newOpts = q.o.map(o => {
-    if (o.length <= cap) return o;
-    let trimmed = o.slice(0, cap);
-    const lastSpace = trimmed.lastIndexOf(' ');
-    if (lastSpace > cap * 0.5) trimmed = trimmed.slice(0, lastSpace);
-    return trimmed;
-  });
-  return { ...q, o: newOpts };
-}
-
-// Shuffle answer options while keeping correct answer index in sync
-function _shuffleOptions(q) {
-  const norm = _normalizeOptions(q);
-  const idx = [0,1,2,3];
-  for (let i = idx.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [idx[i], idx[j]] = [idx[j], idx[i]];
-  }
-  return { ...norm, o: idx.map(i => norm.o[i]), a: idx.indexOf(norm.a) };
-}
-function _shuffleAll(qs) { return qs.map(q => _shuffleOptions(q)); }
-
-const _sqCache = {}, _sgCache = {};
-
 function getQuizData(chId) {
-  const key = currentLang + '-' + chId;
-  if (!_sqCache[key]) {
-    const raw = currentLang === 'en' ? (QUIZZES_EN[chId] || QUIZZES[chId]) : QUIZZES[chId];
-    _sqCache[key] = _shuffleAll(raw);
-  }
-  return _sqCache[key];
+  return currentLang === 'en' ? (QUIZZES_EN[chId] || QUIZZES[chId]) : QUIZZES[chId];
 }
 function getLabData(chId) {
   return currentLang === 'en' ? (LABS_EN[chId] || LABS[chId]) : LABS[chId];
 }
 function getGameData(chId) {
-  const key = currentLang + '-g-' + chId;
-  if (!_sgCache[key]) {
-    const raw = currentLang === 'en' ? (GAME_QS_EN[chId] || GAME_QS[chId]) : GAME_QS[chId];
-    _sgCache[key] = _shuffleAll(raw);
-  }
-  return _sgCache[key];
+  return currentLang === 'en' ? (GAME_QS_EN[chId] || GAME_QS[chId]) : GAME_QS[chId];
 }
 
 // ==================== INIT ====================

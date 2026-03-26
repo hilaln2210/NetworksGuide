@@ -140,7 +140,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .quiz-meta{font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-bottom:10px;display:flex;justify-content:space-between}
 .quiz-q{font-size:16px;font-weight:600;color:var(--text);margin-bottom:18px;line-height:1.5}
 .quiz-opts{display:flex;flex-direction:column;gap:8px}
-.quiz-opt{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .12s;text-align:right;font-size:13px;color:var(--text-dim);width:100%;min-height:48px}
+.quiz-opt{display:flex;align-items:center;gap:12px;padding:11px 14px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .12s;text-align:right;font-size:13px;color:var(--text-dim);width:100%}
 .quiz-opt:hover:not(.disabled){border-color:var(--border2);color:var(--text);background:var(--accent-dim)}
 .quiz-opt.selected{border-color:var(--accent3);background:rgba(59,130,246,0.08);color:var(--text)}
 .quiz-opt.correct{border-color:var(--green)!important;background:rgba(22,163,74,0.08)!important;color:var(--green)!important}
@@ -239,19 +239,6 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   .header-xp{display:none}
   .tabs-bar{overflow-x:auto}
 }
-
-.did-you-know {
-  background: linear-gradient(135deg, rgba(99,102,241,0.07), rgba(168,85,247,0.05));
-  border: 1px solid rgba(99,102,241,0.22);
-  border-right: 3px solid #818cf8;
-  border-radius: 8px;
-  padding: 14px 18px;
-  margin: 0 0 22px 0;
-  font-size: 13px;
-  color: var(--text-muted);
-  line-height: 1.65;
-}
-.did-you-know strong { color: #a5b4fc; }
 </style>
 </head>
 <body>
@@ -495,7 +482,7 @@ he:{
   lbTitle:'// תוצאות',labExplain:'💡 הסבר:',
   points:'נק\'',of:'מתוך',question:'שאלה',
   optLetters:['א','ב','ג','ד'],playerName:'אתה',unknownPlayer:'שחקן',pct:'% נכון',
-  learn:[`<div class="did-you-know">💡 <strong>ידעת?</strong> Linux מריץ 96.3% מהשרתים ב-top 1 מיליון אתרים בעולם, 100% מ-500 מחשבי העל החזקים בעולם, כל מכשיר Android, ו-ISS — תחנת החלל הבינלאומית. את כנראה משתמשת בו עשרות פעמים ביום בלי לדעת.</div>
+  learn:[`
 <div class="section-title">מה זה Linux?</div>
 <p class="prose">Linux הוא גרעין (kernel) ממשפחת Unix, פותח ב-1991 ע"י Linus Torvalds. הגרעין הוא שכבת התוכנה שמנהלת את החומרה ומספקת שירותים לתוכנות. ה"Linux" שרוב האנשים מכירים הוא בעצם GNU/Linux — גרעין Linux עם כלי GNU.</p>
 <div class="grid-3">
@@ -522,11 +509,9 @@ he:{
 <tr><td>Arch Linux</td><td>-</td><td>pacman</td><td>מתקדמים, גמישות מלאה</td></tr>
 <tr><td>Alpine</td><td>-</td><td>apk</td><td>Docker, minimal</td></tr>
 </tbody></table></div>
-<div class="callout callout-info"><strong>💡 Kernel vs OS:</strong> Linux = גרעין בלבד. כשאומרים "Linux" ב-server context הכוונה היא לרוב ל-distro שלם כמו Ubuntu 22.04 LTS.</div>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: CrowdStrike — יולי 2024, 8.5M Windows קרסו</div><div class="incident-body">עדכון פגום ל-Falcon sensor גרם ל-8.5M מחשבים ל-BSOD בו-זמנית. טיסות בוטלו, בתי חולים הושבתו, ובנקים נסגרו. הפסד: מעל $5 מיליארד. מערכות Linux הושפעו הרבה פחות — kernel module isolation, rollback מהיר, ו-package management מבוקר. <strong>Update strategy = infrastructure strategy.</strong></div></div>`,
+<div class="callout callout-info"><strong>💡 Kernel vs OS:</strong> Linux = גרעין בלבד. כשאומרים "Linux" ב-server context הכוונה היא לרוב ל-distro שלם כמו Ubuntu 22.04 LTS.</div>`,
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> כשמוחקים קובץ ב-Linux רק ה-directory entry נמחק — הנתונים נשארים בדיסק עד שמשהו אחר כותב עליהם. כלי שחזור כמו <code class="inline-code">extundelete</code> יכולים להחזיר קבצים "מחוקים".</div>
-<div class="section-title">Filesystem Hierarchy Standard (FHS)</div>
+`<div class="section-title">Filesystem Hierarchy Standard (FHS)</div>
 <div class="table-wrap"><table class="data-table"><thead><tr><th>ספרייה</th><th>תוכן</th></tr></thead><tbody>
 <tr><td><code class="inline-code">/</code></td><td>שורש — כל מה שקיים מתחת לכאן</td></tr>
 <tr><td><code class="inline-code">/etc</code></td><td>קבצי תצורה של המערכת</td></tr>
@@ -558,11 +543,9 @@ ls -la /etc/passwd    <span class="comment"># -rw-r--r-- 1 root root</span></cod
 <pre class="code-block"><code>ln /etc/hosts /tmp/hosts_hard  <span class="comment"># hard link</span>
 ln -s /etc/nginx/nginx.conf ~/nginx.conf  <span class="comment"># symlink</span>
 stat /etc/passwd  <span class="comment"># הצג inode, נתונים</span>
-df -i  <span class="comment"># בדוק שימוש ב-inodes</span></code></pre>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: GitLab — מחיקת Production DB בשגגה (2017)</div><div class="incident-body">מהנדס GitLab ניסה למחוק נתונים מ-staging, אבל היה מחובר ל-production. הריץ <code class="inline-code">rm -rf</code> על 300GB. LVM snapshot מ-6 שעות קודם הציל חלקית. אבדו ~6 שעות של נתונים של 5000 משתמשים. <strong>הלקח: production processes לא צריכים הרשאות מחיקה.</strong></div></div>`,
+df -i  <span class="comment"># בדוק שימוש ב-inodes</span></code></pre>`,
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> grep נקרא על שם פקודת vi: <code class="inline-code">g/re/p</code>. Doug McIlroy המציא את pipe (<code class="inline-code">|</code>) ב-1973 ואמר שזה "הרעיון הכי טוב שיצא מ-Unix". כל pipeline שאת כותבת היום הוא ירושה ישירה ממנו.</div>
-<div class="section-title">ניווט וצפייה בקבצים</div>
+`<div class="section-title">ניווט וצפייה בקבצים</div>
 <pre class="code-block"><code>ls -lah --color    <span class="comment"># רשימה מפורטת עם human-readable sizes</span>
 ls -lt             <span class="comment"># מיון לפי זמן שינוי</span>
 find / -name "*.log" -mtime -7  <span class="comment"># קבצי log שהשתנו ב-7 ימים</span>
@@ -584,11 +567,9 @@ command 2> err.txt   <span class="comment"># redirect stderr</span>
 command &> all.txt   <span class="comment"># שניהם לאותו קובץ</span>
 command >> log.txt   <span class="comment"># append (לא מחליף)</span>
 diff <(sort a.txt) <(sort b.txt)  <span class="comment"># השווה output של פקודות</span></code></pre>
-<div class="callout callout-warn"><strong>⚠️ rm -rf:</strong> אין Trash ב-Linux CLI. <code class="inline-code">rm -rf /</code> מוחק הכל מיידית. תמיד בדקי פעמיים לפני ביצוע!</div>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Knight Capital — $440M נעלמו ב-45 דקות (2012)</div><div class="incident-body">Knight Capital פרסה update ל-8 שרתים — שרת אחד הוחמץ. הסקריפט לא בדק exit codes. תוך 45 דקות: 4M trades שגויים, הפסד $440M. <strong>בדיקת exit codes, <code class="inline-code">set -e</code>, ו-<code class="inline-code">diff</code> לאימות deployment — ההבדל בין deploy רגיל לאסון.</strong></div></div>`,
+<div class="callout callout-warn"><strong>⚠️ rm -rf:</strong> אין Trash ב-Linux CLI. <code class="inline-code">rm -rf /</code> מוחק הכל מיידית. תמיד בדקי פעמיים לפני ביצוע!</div>`,
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> ה-permission model של Linux (rwxrwxrwx) מבוסס על Unix משנות ה-70. כשגוגל מריצה containers, כל אחד רץ כ-user עם הרשאות מינימליות — Principal of Least Privilege. זה הרעיון שמאחורי <code class="inline-code">chmod 600</code> ל-SSH keys.</div>
-<div class="section-title">ניהול משתמשים</div>
+`<div class="section-title">ניהול משתמשים</div>
 <pre class="code-block"><code>useradd -m -s /bin/bash alice  <span class="comment"># צור משתמש עם home ו-shell</span>
 passwd alice                    <span class="comment"># קבע סיסמה</span>
 usermod -aG sudo alice          <span class="comment"># הוסף ל-group sudo</span>
@@ -609,11 +590,9 @@ last -n 20                      <span class="comment"># 20 כניסות אחרו
 <tr><td><code class="inline-code">chmod +x script</code></td><td>הוסף הרצה לכולם</td></tr>
 <tr><td><code class="inline-code">chmod -R 750 dir</code></td><td>רקורסיבי על כל הספרייה</td></tr>
 </tbody></table></div>
-<div class="callout callout-danger"><strong>🚨 SSH Key Permissions:</strong> אם ה-private key לא <code class="inline-code">chmod 600</code>, SSH יסרב להשתמש בו עם שגיאה "Permissions too open".</div>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Uber Data Breach — 2016, 57M משתמשים</div><div class="incident-body">האקרים מצאו GitHub repo של Uber עם AWS credentials בקוד. גישה ל-S3 buckets עם נתוני 57M משתמשים. Uber שילמה $100K לשתיקה. <strong><code class="inline-code">chmod 600</code> על credentials, <code class="inline-code">.gitignore</code> ל-<code class="inline-code">*.env</code>, <code class="inline-code">git-secrets</code> — credentials בקוד = פרצה מובטחת.</strong></div></div>`,
+<div class="callout callout-danger"><strong>🚨 SSH Key Permissions:</strong> אם ה-private key לא <code class="inline-code">chmod 600</code>, SSH יסרב להשתמש בו עם שגיאה "Permissions too open".</div>`,
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> כשהדפדפן קופא ולוחצים Force Quit — זה SIGKILL. גם ב-macOS, גם ב-Windows. כל process manager מודרני — Docker, Kubernetes, systemd — משתמש באותם signals שהומצאו ב-Unix בשנות ה-70.</div>
-<div class="section-title">צפייה ב-Processes</div>
+`<div class="section-title">צפייה ב-Processes</div>
 <pre class="code-block"><code>ps aux                  <span class="comment"># כל התהליכים עם %CPU, %MEM</span>
 ps aux --sort=-%cpu | head -10  <span class="comment"># top 10 לפי CPU</span>
 pstree -p               <span class="comment"># עץ תהליכים עם PIDs</span>
@@ -644,11 +623,9 @@ disown %1         <span class="comment"># נתק job מה-shell</span></code></p
 <span class="comment"># דקה שעה יום-בחודש חודש יום-בשבוע</span>
 0 2 * * * /backup.sh    <span class="comment"># כל יום ב-02:00</span>
 */5 * * * * check.sh    <span class="comment"># כל 5 דקות</span>
-0 0 1 * * monthly.sh    <span class="comment"># ראשון בכל חודש</span></code></pre>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Amazon AWS US-East-1 — 2017, חצי האינטרנט נפל</div><div class="incident-body">מהנדס AWS ניסה להסיר מספר קטן של servers. טעות בפקודה הסירה הרבה יותר. S3 crashed — Slack, GitHub, Quora, Trello down. נזק: $150M+. <strong><code class="inline-code">Restart=always</code> ב-systemd, monitoring, graceful shutdown — תהליך שמת בשקט גרוע מתהליך שקורס ומרים alarm.</strong></div></div>`,
+0 0 1 * * monthly.sh    <span class="comment"># ראשון בכל חודש</span></code></pre>`,
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> SSH הומצא ב-1995 על ידי Tatu Ylönen אחרי שגילה שמישהו sniff את הרשת באוניברסיטה שלו ואוסף סיסמאות. הוא כתב SSH ב-2 שבועות. כל חיבור SSH שאת פותחת היום משתמש בפרוטוקול שכתב אדם אחד בתגובה לאירוע אמיתי.</div>
-<div class="section-title">כלי רשת בסיסיים</div>
+`<div class="section-title">כלי רשת בסיסיים</div>
 <pre class="code-block"><code>ip addr show           <span class="comment"># כל ה-interfaces וה-IPs</span>
 ip route show          <span class="comment"># טבלת routing</span>
 ip link set eth0 up    <span class="comment"># הדלק interface</span>
@@ -676,11 +653,9 @@ ufw status verbose
 <span class="comment"># iptables (מורכב יותר)</span>
 iptables -L -n -v          <span class="comment"># הצג חוקים</span>
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT</code></pre>
-<div class="callout callout-danger"><strong>🚨 Always allow SSH before enabling firewall!</strong> אם תחסמי port 22 לפני שמוודאים שהוא פתוח — תאבדי גישה לשרת.</div>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: SolarWinds — 2020, פריצה לתשתיות ממשלת ארה"ב</div><div class="incident-body">האקרים שתלו backdoor ב-SolarWinds update. 18,000 ארגונים כולל NSA ו-Pentagon התקינו. ה-backdoor פתח reverse SSH tunnel. <strong><code class="inline-code">ss -tulnp</code> — connections חשודים, <code class="inline-code">last</code>/<code class="inline-code">lastb</code> — login history חריג. Network monitoring הוא לא פרנויה — זה hygiene.</strong></div></div>`,
+<div class="callout callout-danger"><strong>🚨 Always allow SSH before enabling firewall!</strong> אם תחסמי port 22 לפני שמוודאים שהוא פתוח — תאבדי גישה לשרת.</div>`,
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> חבילת npm <code class="inline-code">left-pad</code> — 11 שורות קוד — הוסרה ב-2016 ושברה אלפי פרויקטים כולל React. XZ Utils backdoor 2024 הראה שתוקפים מוכנים להשקיע שנתיים להכניס שורה אחת של קוד זדוני לpackage.</div>
-<div class="section-title">apt (Debian/Ubuntu)</div>
+`<div class="section-title">apt (Debian/Ubuntu)</div>
 <pre class="code-block"><code>apt update               <span class="comment"># עדכן רשימת חבילות</span>
 apt upgrade              <span class="comment"># עדכן חבילות מותקנות</span>
 apt install nginx        <span class="comment"># התקן</span>
@@ -701,11 +676,9 @@ rpm -qa | grep nginx     <span class="comment"># בדוק עם rpm</span></code>
 make -j\$(nproc)          <span class="comment"># compile עם כל הcores</span>
 make install
 make uninstall           <span class="comment"># אם תומך</span></code></pre>
-<div class="callout callout-info"><strong>💡 snap vs flatpak vs AppImage:</strong> snap = Ubuntu, flatpak = Fedora/Universal, AppImage = no install needed. לserver — תמיד העדף package manager של ה-distro.</div>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: XZ Utils Backdoor — 2024, backdoor בספריית compression</div><div class="incident-body">תוקף בילה שנתיים בבניית אמון בפרויקט XZ Utils (נמצאת בכל Linux distro). הוסיף backdoor ל-SSH login ללא סיסמה. התגלה במקרה ע"י מהנדס Microsoft שהבחין ב-500ms overhead ב-SSH. <strong><code class="inline-code">apt-mark hold xz-utils</code>, <code class="inline-code">debsums -c</code> — supply chain attack, הסיכון הכי קשה לזיהוי.</strong></div></div>`,
+<div class="callout callout-info"><strong>💡 snap vs flatpak vs AppImage:</strong> snap = Ubuntu, flatpak = Fedora/Universal, AppImage = no install needed. לserver — תמיד העדף package manager של ה-distro.</div>`,
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> Apollo 11 ב-1969 נחת על הירח עם 4KB RAM. סקריפטי bash שאת כותבת היום חזקים ממנו פי 4 מיליון. כוח bash נמצא בפשטות — כלים קטנים שעושים דבר אחד ועושים אותו טוב.</div>
-<div class="section-title">Bash Script בסיסי</div>
+`<div class="section-title">Bash Script בסיסי</div>
 <pre class="code-block"><code>#!/bin/bash
 set -euo pipefail   <span class="comment"># exit on error, undefined vars, pipe fails</span>
 
@@ -752,8 +725,7 @@ check_service() {
   fi
 }
 
-check_service nginx || systemctl start nginx</code></pre>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Cloudflare — 2023, סקריפט שמחק את עצמו</div><div class="incident-body">סקריפט Cloudflare מחק directory שהוא עצמו נמצא בו. המשיך לרוץ (כבר בזיכרון) אבל לא ניתן להפעיל מחדש. חלקים מהתשתית היו down. <strong><code class="inline-code">set -euo pipefail</code>, בדיקת paths לפני מחיקה, dry-run mode — סקריפט ללא הגנות = weapon pointed at your infrastructure.</strong></div></div>`
+check_service nginx || systemctl start nginx</code></pre>`
   ],
   cheat:[
 `<div class="callout callout-success"><strong>📋 דף רמאות — פרק 0: מבוא Linux</strong></div>
@@ -901,7 +873,7 @@ en:{
   lbTitle:'// Leaderboard',labExplain:'💡 Explanation:',
   points:'pts',of:'of',question:'Question',
   optLetters:['A','B','C','D'],playerName:'You',unknownPlayer:'Player',pct:'% correct',
-  learn:[`<div class="did-you-know">💡 <strong>Did you know?</strong> Linux runs 96.3% of the top 1 million web servers, 100% of the world's 500 fastest supercomputers, every Android device, and the ISS. You probably use it dozens of times a day without knowing it.</div>
+  learn:[`
 <div class="section-title">What is Linux?</div>
 <p class="prose">Linux is a Unix-family kernel developed in 1991 by Linus Torvalds. The kernel is the software layer that manages hardware and provides services to applications. What most people call "Linux" is actually GNU/Linux — the Linux kernel combined with GNU tools.</p>
 <div class="grid-3">
@@ -928,11 +900,9 @@ en:{
 <tr><td>Arch Linux</td><td>-</td><td>pacman</td><td>Advanced, full flexibility</td></tr>
 <tr><td>Alpine</td><td>-</td><td>apk</td><td>Docker, minimal</td></tr>
 </tbody></table></div>
-<div class="callout callout-info"><strong>💡 Kernel vs OS:</strong> Linux = kernel only. When people say "Linux" in a server context they usually mean a full distro like Ubuntu 22.04 LTS.</div>
-<div class="incident-box"><div class="incident-title">🔥 Real Incident: CrowdStrike — July 2024, 8.5M Windows machines crashed</div><div class="incident-body">A faulty Falcon sensor update caused 8.5M Windows machines to BSOD simultaneously. Flights cancelled, hospitals shut down, banks closed. Loss: over $5 billion. Linux systems were far less affected — kernel module isolation, fast rollback, controlled versioning. <strong>Update strategy = infrastructure strategy.</strong></div></div>`,
+<div class="callout callout-info"><strong>💡 Kernel vs OS:</strong> Linux = kernel only. When people say "Linux" in a server context they usually mean a full distro like Ubuntu 22.04 LTS.</div>`,
 
-`<div class="did-you-know">💡 <strong>Did you know?</strong> When you delete a file in Linux only the directory entry is removed — data stays on disk until overwritten. Recovery tools like <code class="inline-code">extundelete</code> can restore "deleted" files.</div>
-<div class="section-title">Filesystem Hierarchy Standard (FHS)</div>
+`<div class="section-title">Filesystem Hierarchy Standard (FHS)</div>
 <div class="table-wrap"><table class="data-table"><thead><tr><th>Directory</th><th>Contents</th></tr></thead><tbody>
 <tr><td><code class="inline-code">/</code></td><td>Root — everything exists below here</td></tr>
 <tr><td><code class="inline-code">/etc</code></td><td>System configuration files</td></tr>
@@ -964,11 +934,9 @@ ls -la /etc/passwd    <span class="comment"># -rw-r--r-- 1 root root</span></cod
 <pre class="code-block"><code>ln /etc/hosts /tmp/hosts_hard  <span class="comment"># hard link</span>
 ln -s /etc/nginx/nginx.conf ~/nginx.conf  <span class="comment"># symlink</span>
 stat /etc/passwd  <span class="comment"># show inode, data</span>
-df -i  <span class="comment"># check inode usage</span></code></pre>
-<div class="incident-box"><div class="incident-title">🔥 Real Incident: GitLab — accidental Production DB deletion (2017)</div><div class="incident-body">A GitLab engineer tried to delete staging data but was connected to production. Ran <code class="inline-code">rm -rf</code> on 300GB. An LVM snapshot from 6 hours earlier partially saved them — ~6 hours of data from 5000 users was lost. <strong>Production processes shouldn't have delete permissions.</strong></div></div>`,
+df -i  <span class="comment"># check inode usage</span></code></pre>`,
 
-`<div class="did-you-know">💡 <strong>Did you know?</strong> grep is named after the vi command <code class="inline-code">g/re/p</code>. Doug McIlroy invented the pipe (<code class="inline-code">|</code>) in 1973 and called it "the best idea that ever came out of Unix". Every pipeline you write today is his direct legacy.</div>
-<div class="section-title">Navigation and File Viewing</div>
+`<div class="section-title">Navigation and File Viewing</div>
 <pre class="code-block"><code>ls -lah --color    <span class="comment"># detailed list with human-readable sizes</span>
 ls -lt             <span class="comment"># sort by modification time</span>
 find / -name "*.log" -mtime -7  <span class="comment"># log files changed in 7 days</span>
@@ -989,11 +957,9 @@ command > out.txt    <span class="comment"># redirect stdout</span>
 command 2> err.txt   <span class="comment"># redirect stderr</span>
 command &> all.txt   <span class="comment"># both to same file</span>
 command >> log.txt   <span class="comment"># append (don't overwrite)</span></code></pre>
-<div class="callout callout-warn"><strong>⚠️ rm -rf:</strong> No Trash in Linux CLI. <code class="inline-code">rm -rf /</code> deletes everything instantly. Always double-check before running!</div>
-<div class="incident-box"><div class="incident-title">🔥 Real Incident: Knight Capital — $440M vanished in 45 minutes (2012)</div><div class="incident-body">Knight Capital deployed an update to 8 servers — one was missed. The script didn't check exit codes. Within 45 minutes: 4M erroneous trades, $440M loss. <strong>Checking exit codes, <code class="inline-code">set -e</code>, and <code class="inline-code">diff</code> for deployment validation — the difference between a deploy and a disaster.</strong></div></div>`,
+<div class="callout callout-warn"><strong>⚠️ rm -rf:</strong> No Trash in Linux CLI. <code class="inline-code">rm -rf /</code> deletes everything instantly. Always double-check before running!</div>`,
 
-`<div class="did-you-know">💡 <strong>Did you know?</strong> Linux's permission model dates to Unix in the 1970s. When Google runs containers, each runs as a specific user with minimal permissions — Principle of Least Privilege. That's the idea behind <code class="inline-code">chmod 600</code> for SSH keys.</div>
-<div class="section-title">User Management</div>
+`<div class="section-title">User Management</div>
 <pre class="code-block"><code>useradd -m -s /bin/bash alice  <span class="comment"># create user with home and shell</span>
 passwd alice                    <span class="comment"># set password</span>
 usermod -aG sudo alice          <span class="comment"># add to sudo group</span>
@@ -1014,11 +980,9 @@ last -n 20                      <span class="comment"># last 20 logins</span></c
 <tr><td><code class="inline-code">chmod +x script</code></td><td>add execute for everyone</td></tr>
 <tr><td><code class="inline-code">chmod -R 750 dir</code></td><td>recursive on entire directory</td></tr>
 </tbody></table></div>
-<div class="callout callout-danger"><strong>🚨 SSH Key Permissions:</strong> If the private key isn't <code class="inline-code">chmod 600</code>, SSH will refuse to use it with "Permissions too open" error.</div>
-<div class="incident-box"><div class="incident-title">🔥 Real Incident: Uber Data Breach — 2016, 57M users</div><div class="incident-body">Hackers found a private Uber GitHub repo with AWS credentials in the code. They accessed S3 buckets with data of 57M users and 600K drivers. Uber paid $100K to stay quiet. <strong><code class="inline-code">chmod 600</code> on credentials, <code class="inline-code">.gitignore</code> for <code class="inline-code">*.env</code>, <code class="inline-code">git-secrets</code> — credentials in code = guaranteed breach.</strong></div></div>`,
+<div class="callout callout-danger"><strong>🚨 SSH Key Permissions:</strong> If the private key isn't <code class="inline-code">chmod 600</code>, SSH will refuse to use it with "Permissions too open" error.</div>`,
 
-`<div class="did-you-know">💡 <strong>Did you know?</strong> When your browser freezes and you click Force Quit — that's SIGKILL. On macOS and Windows too. Every modern process manager — Docker, Kubernetes, systemd — uses the same signals invented in Unix in the 1970s.</div>
-<div class="section-title">Viewing Processes</div>
+`<div class="section-title">Viewing Processes</div>
 <pre class="code-block"><code>ps aux                  <span class="comment"># all processes with %CPU, %MEM</span>
 ps aux --sort=-%cpu | head -10  <span class="comment"># top 10 by CPU</span>
 pstree -p               <span class="comment"># process tree with PIDs</span>
@@ -1047,11 +1011,9 @@ nohup cmd &       <span class="comment"># keep running after logout</span></code
 <span class="comment"># min hour day-of-month month day-of-week</span>
 0 2 * * * /backup.sh    <span class="comment"># every day at 02:00</span>
 */5 * * * * check.sh    <span class="comment"># every 5 minutes</span>
-0 0 1 * * monthly.sh    <span class="comment"># first of every month</span></code></pre>
-<div class="incident-box"><div class="incident-title">🔥 Real Incident: Amazon AWS US-East-1 — 2017, half the internet went down</div><div class="incident-body">An AWS engineer tried to remove a few servers. A command mistake removed far more. S3 crashed — Slack, GitHub, Quora, Trello all down. Damage: $150M+. <strong><code class="inline-code">Restart=always</code> in systemd, PID monitoring, graceful shutdown — a process that dies silently is worse than one that crashes loudly.</strong></div></div>`,
+0 0 1 * * monthly.sh    <span class="comment"># first of every month</span></code></pre>`,
 
-`<div class="did-you-know">💡 <strong>Did you know?</strong> SSH was invented in 1995 by Tatu Ylönen after discovering someone was sniffing his university network collecting passwords. He wrote SSH in 2 weeks. Every SSH connection you open today uses that same protocol.</div>
-<div class="section-title">Basic Network Tools</div>
+`<div class="section-title">Basic Network Tools</div>
 <pre class="code-block"><code>ip addr show           <span class="comment"># all interfaces and IPs</span>
 ip route show          <span class="comment"># routing table</span>
 ip link set eth0 up    <span class="comment"># bring interface up</span>
@@ -1078,11 +1040,9 @@ ufw status verbose
 <span class="comment"># iptables (more complex)</span>
 iptables -L -n -v          <span class="comment"># show rules</span>
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT</code></pre>
-<div class="callout callout-danger"><strong>🚨 Always allow SSH before enabling firewall!</strong> If you block port 22 before verifying it's open — you'll lose server access.</div>
-<div class="incident-box"><div class="incident-title">🔥 Real Incident: SolarWinds — 2020, US government infrastructure breach</div><div class="incident-body">Russian hackers planted a backdoor in SolarWinds Orion update. 18,000 organizations including NSA and Pentagon installed it. The backdoor opened a reverse SSH tunnel. <strong><code class="inline-code">ss -tulnp</code> for suspicious connections, <code class="inline-code">last</code>/<code class="inline-code">lastb</code> for unusual login history. Network monitoring isn't paranoia — it's hygiene.</strong></div></div>`,
+<div class="callout callout-danger"><strong>🚨 Always allow SSH before enabling firewall!</strong> If you block port 22 before verifying it's open — you'll lose server access.</div>`,
 
-`<div class="did-you-know">💡 <strong>Did you know?</strong> The npm <code class="inline-code">left-pad</code> package — 11 lines of code — was removed in 2016 and broke thousands of projects including React. The XZ Utils backdoor of 2024 showed attackers willing to invest two years to insert one malicious line into a package.</div>
-<div class="section-title">apt (Debian/Ubuntu)</div>
+`<div class="section-title">apt (Debian/Ubuntu)</div>
 <pre class="code-block"><code>apt update               <span class="comment"># update package list</span>
 apt upgrade              <span class="comment"># upgrade installed packages</span>
 apt install nginx        <span class="comment"># install</span>
@@ -1102,11 +1062,9 @@ rpm -qa | grep nginx     <span class="comment"># check with rpm</span></code></p
 make -j\$(nproc)          <span class="comment"># compile with all cores</span>
 make install
 make uninstall           <span class="comment"># if supported</span></code></pre>
-<div class="callout callout-info"><strong>💡 snap vs flatpak vs AppImage:</strong> snap = Ubuntu, flatpak = Fedora/Universal, AppImage = no install needed. For servers — always prefer distro's own package manager.</div>
-<div class="incident-box"><div class="incident-title">🔥 Real Incident: XZ Utils Backdoor — 2024, backdoor in a compression library</div><div class="incident-body">An attacker spent two years building trust in XZ Utils (in every Linux distro). Added a backdoor for passwordless SSH login. Discovered by accident by a Microsoft engineer who noticed 500ms SSH overhead. <strong><code class="inline-code">apt-mark hold xz-utils</code>, <code class="inline-code">debsums -c</code> — supply chain attack, the hardest risk to detect.</strong></div></div>`,
+<div class="callout callout-info"><strong>💡 snap vs flatpak vs AppImage:</strong> snap = Ubuntu, flatpak = Fedora/Universal, AppImage = no install needed. For servers — always prefer distro's own package manager.</div>`,
 
-`<div class="did-you-know">💡 <strong>Did you know?</strong> Apollo 11 in 1969 landed on the moon with 4KB RAM. Bash scripts you write today are 4 million times more powerful. The power of bash lies in simplicity — small tools that do one thing well.</div>
-<div class="section-title">Basic Bash Script</div>
+`<div class="section-title">Basic Bash Script</div>
 <pre class="code-block"><code>#!/bin/bash
 set -euo pipefail   <span class="comment"># exit on error, undefined vars, pipe fails</span>
 
@@ -1145,8 +1103,7 @@ check_service() {
   }
 }
 
-check_service nginx || systemctl start nginx</code></pre>
-<div class="incident-box"><div class="incident-title">🔥 Real Incident: Cloudflare — 2023, script that deleted itself</div><div class="incident-body">A Cloudflare script deleted the directory it was running from. It kept running (already in memory) but couldn't restart. Parts of infrastructure went down. <strong><code class="inline-code">set -euo pipefail</code>, check paths before deletion, dry-run mode — a script without safeguards is a weapon pointed at your infrastructure.</strong></div></div>`
+check_service nginx || systemctl start nginx</code></pre>`
   ],
   cheat:[
 `<div class="callout callout-success"><strong>📋 Cheat Sheet — Chapter 0: Linux Intro</strong></div>
@@ -1654,6 +1611,8 @@ C.en.cheat.push(
 </div>`
 );
 // ===== CHAPTERS 8-11 CONTENT =====
+// These get appended to C.he.learn and C.en.learn after the base content is defined
+
 const EXTRA_CONTENT = {
 he: {
   names: ['systemd ו-Services','ניהול דיסקים ואחסון','אבטחת מערכת','ביצועים וניטור'],
@@ -1664,8 +1623,7 @@ he: {
     'ufw, iptables, fail2ban, auditd, SELinux, hardening checklist — מערכת מאובטחת',
     'top, vmstat, iostat, sar, perf, profiling — אבחון ופתרון בעיות ביצועים'
   ],
-  learn: [`<div class="did-you-know">💡 <strong>ידעת?</strong> systemd נכתב ב-2010 על ידי Lennart Poettering וגרם לאחת המחלוקות הגדולות בהיסטוריה של Linux. חלק מהמפתחים שנאו אותו כל כך שהם fork-ו Debian רק בגללו (Devuan). כיום הוא מריץ 97% מה-Linux servers בעולם — כי הוא פשוט עובד טוב יותר.</div>
-
+  learn: [`
 <div class="section-title">מה זה systemd?</div>
 <p class="prose">systemd הוא ה-init system המודרני של Linux — תהליך ראשון (PID 1) שמתחיל את כל שאר השירותים. מחליף את SysV init ו-Upstart. מנהל services, mounts, timers, sockets ועוד.</p>
 <div class="grid-3">
@@ -1724,10 +1682,9 @@ WantedBy=timers.target
 
 systemctl enable --now backup.timer
 systemctl list-timers        <span class="comment"># הצג כל timers</span></code></pre>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Slack — Down 5 שעות (2021)</div><div class="incident-body">ב-4 ינואר 2021, יום החזרה לעבודה, Slack היה down כמעט 5 שעות. שינוי configuration גרם ל-services להתחיל ולהיכשל ב-loop. <code class="inline-code">StartLimitIntervalSec</code> ו-<code class="inline-code">StartLimitBurst</code> מגבילים restart loops. <code class="inline-code">journalctl -f</code> ברגע הראשון מציג את הסיבה. <strong>הפסד: $100M+ בשווי שוק ביום אחד.</strong></div></div>`,
+<div class="incident-box"><div class="incident-title">⚠️ שגיאה נפוצה: "Failed to enable unit: Unit is masked"</div><div class="incident-body">שירות masked = מנוטרל לגמרי. פתרון: <code class="inline-code">systemctl unmask nginx</code> ואז <code class="inline-code">systemctl enable nginx</code>.</div></div>`,
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> LVM הומצא כדי לפתור בעיה שכל sysadmin מכיר: partition מלא כשהשני ריק. עם LVM אפשר להרחיב partition חי — בלי downtime, בלי data migration, תוך דקה.</div>
-<div class="section-title">מבנה Disk ו-Partitions</div>
+`<div class="section-title">מבנה Disk ו-Partitions</div>
 <pre class="code-block"><code>lsblk -f                <span class="comment"># עץ דיסקים עם filesystems</span>
 fdisk -l /dev/sda       <span class="comment"># פרטי partition table</span>
 blkid                   <span class="comment"># UUIDs ו-filesystem types</span>
@@ -1771,11 +1728,9 @@ UUID=abc123 /var ext4 defaults,noatime 0 2
 tmpfs /tmp tmpfs defaults,size=2G 0 0
 
 mount -a     <span class="comment"># mount הכל מ-fstab</span>
-findmnt      <span class="comment"># הצג כל mounts בצורה יפה</span></code></pre>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: OVH Data Center — 2021, 10,000+ שרתים נשרפו</div><div class="incident-body">ב-10 מרץ 2021, מרכז הנתונים הגדול של OVH בשטרסבורג נשרף לחלוטין. 10,000+ שרתים, 3.6M אתרים offline. חברות שאיבדו הכל לא היה להן backup off-site. RAID מגן מ-disk failure — לא מאש. <strong>Backup = לפחות 3 עותקים ב-2 מיקומים שונים.</strong></div></div>`,
+findmnt      <span class="comment"># הצג כל mounts בצורה יפה</span></code></pre>`,
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> מתקפת סייבר מתרחשת כל 39 שניות (מחקר Clark School 2007). 95% מהצלחות נובעות מ-misconfiguration — לא מ-zero-day. הגדרות ברירת המחדל של Linux בטוחות ב-general, אבל כל שינוי שאת עושה יכול לפתוח חור.</div>
-<div class="section-title">Hardening Checklist</div>
+`<div class="section-title">Hardening Checklist</div>
 <div class="grid-2">
 <div class="card"><div class="card-icon">🔒</div><div class="card-title">SSH Hardening</div><div class="card-body">PermitRootLogin no · PasswordAuthentication no · MaxAuthTries 3 · AllowUsers alice · Port 2222</div></div>
 <div class="card"><div class="card-icon">🛡️</div><div class="card-title">Firewall</div><div class="card-body">ufw default deny incoming · allow only needed ports · rate limiting on SSH · block known bad IPs</div></div>
@@ -1815,10 +1770,9 @@ auditctl -a always,exit -F arch=b64 -S execve -k exec
 <span class="comment"># חפש events:</span>
 ausearch -k passwd-changes -ts today
 aureport --login --summary</code></pre>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Equifax — 2017, 147M אמריקאים נפגעו</div><div class="incident-body">Equifax דיווחה על דליפה של נתוני 147M אמריקאים — SSN, תאריכי לידה, מספרי אשראי. הסיבה: Apache Struts vulnerability ידועה שלא תוקנה 2 חודשים אחרי שpatch שוחרר. <code class="inline-code">unattended-upgrades</code> ו-fail2ban היו יכולים למנוע. <strong>Equifax שילמו $700M בפשרה.</strong></div></div>`,
+<div class="incident-box"><div class="incident-title">⚠️ Real Incident: SolarWinds 2020</div><div class="incident-body">Supply chain attack — קוד זדוני הוחדר ל-build pipeline. לקחים: verify checksums, audit build systems, principle of least privilege, network segmentation.</div></div>`,
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> Brendan Gregg מנטפליקס המציא Flame Graphs ו-USE Method. כלים שפיתח — <code class="inline-code">perf</code>, <code class="inline-code">eBPF</code>, <code class="inline-code">bpftrace</code> — חסכו לנטפליקס $10M+ בשנה בעלויות cloud.</div>
-<div class="section-title">USE Method — מדריך לאבחון</div>
+`<div class="section-title">USE Method — מדריך לאבחון</div>
 <div class="callout callout-info"><strong>USE = Utilization, Saturation, Errors</strong> — לכל resource (CPU, Memory, Disk, Network) בדוק שלושת המדדים לפני אבחון.</div>
 <div class="section-title">CPU Analysis</div>
 <pre class="code-block"><code>top -bn1 | head -20       <span class="comment"># snapshot חד-פעמי</span>
@@ -1862,8 +1816,7 @@ iftop                     <span class="comment"># live bandwidth by connection</
   <div class="flow-step"><div class="flow-step-icon">🌐</div><div class="flow-step-label">ss<br>sar -n</div></div>
   <div class="flow-arrow">→</div>
   <div class="flow-step"><div class="flow-step-icon">🔍</div><div class="flow-step-label">perf<br>strace</div></div>
-</div>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Twitter Fail Whale (2008-2012)</div><div class="incident-body">בין 2008 ל-2012 Twitter היה down כל כך הרבה שה"Fail Whale" הפך לmeme תרבותי. 400 tweets/sec ב-2008 → 400,000/sec ב-2012. <code class="inline-code">vmstat</code> ו-<code class="inline-code">iostat</code> גילו disk I/O bottlenecks. Redis הפחית DB queries ב-80%. <strong>Performance monitoring הוא ה-difference בין uptime ל-Fail Whale.</strong></div></div>`
+</div>`
   ],
   cheat: [`
 <div class="callout callout-success"><strong>📋 דף רמאות — פרק 8: systemd</strong></div>
@@ -1942,8 +1895,7 @@ en: {
     'ufw, iptables, fail2ban, auditd, SELinux, hardening checklist — secure your system',
     'top, vmstat, iostat, sar, perf, profiling — diagnose and fix performance issues'
   ],
-  learn: [`<div class="did-you-know">💡 <strong>Did you know?</strong> systemd was written in 2010 by Lennart Poettering and sparked one of the biggest controversies in Linux history. Some developers forked Debian just because of it (Devuan). Today it runs 97% of Linux servers worldwide — because it simply works better.</div>
-
+  learn: [`
 <div class="section-title">What is systemd?</div>
 <p class="prose">systemd is the modern Linux init system — the first process (PID 1) that starts all other services. It replaces SysV init and Upstart. Manages services, mounts, timers, sockets, and more.</p>
 <div class="grid-3">
@@ -1999,10 +1951,9 @@ WantedBy=timers.target
 
 systemctl enable --now backup.timer
 systemctl list-timers        <span class="comment"># show all timers</span></code></pre>
-<div class="incident-box"><div class="incident-title">🔥 Real Incident: Slack — Down 5 hours (2021)</div><div class="incident-body">On January 4, 2021 — first day back after the holiday — Slack was down for 5 hours. A configuration change caused services to restart and fail in a loop. <code class="inline-code">StartLimitIntervalSec</code> and <code class="inline-code">StartLimitBurst</code> limit restart loops. <code class="inline-code">journalctl -f</code> immediately shows the real cause. <strong>Loss: $100M+ in market cap in one day.</strong></div></div>`,
+<div class="incident-box"><div class="incident-title">⚠️ Common Error: "Failed to enable unit: Unit is masked"</div><div class="incident-body">A masked service is completely disabled. Fix: <code class="inline-code">systemctl unmask nginx</code> then <code class="inline-code">systemctl enable nginx</code>.</div></div>`,
 
-`<div class="did-you-know">💡 <strong>Did you know?</strong> LVM was invented to solve a problem every sysadmin knows: one partition is full while the other is empty. With LVM you can extend a live partition — no downtime, no data migration, in under a minute.</div>
-<div class="section-title">Disk and Partition Structure</div>
+`<div class="section-title">Disk and Partition Structure</div>
 <pre class="code-block"><code>lsblk -f                <span class="comment"># disk tree with filesystems</span>
 fdisk -l /dev/sda       <span class="comment"># partition table details</span>
 blkid                   <span class="comment"># UUIDs and filesystem types</span>
@@ -2035,11 +1986,9 @@ mkfs.ext4 /dev/data_vg/data_lv
 
 <span class="comment"># Extend LV while in use!</span>
 lvextend -L +20G /dev/data_vg/data_lv
-resize2fs /dev/data_vg/data_lv <span class="comment"># extend filesystem</span></code></pre>
-<div class="incident-box"><div class="incident-title">🔥 Real Incident: OVH Data Center — 2021, 10,000+ servers burned</div><div class="incident-body">On March 10, 2021, OVH's largest data center in Strasbourg burned completely. 10,000+ servers, 3.6M websites offline. Companies that lost everything had no off-site backup. RAID protects from disk failure — not fire. <strong>Backup = at least 3 copies in 2 different locations.</strong></div></div>`,
+resize2fs /dev/data_vg/data_lv <span class="comment"># extend filesystem</span></code></pre>`,
 
-`<div class="did-you-know">💡 <strong>Did you know?</strong> A cyberattack occurs every 39 seconds (Clark School 2007). 95% of successful attacks come from misconfiguration — not zero-days. Linux defaults are generally safe, but every change you make can open a hole.</div>
-<div class="section-title">Hardening Checklist</div>
+`<div class="section-title">Hardening Checklist</div>
 <div class="grid-2">
 <div class="card"><div class="card-icon">🔒</div><div class="card-title">SSH Hardening</div><div class="card-body">PermitRootLogin no · PasswordAuthentication no · MaxAuthTries 3 · AllowUsers alice · Port 2222</div></div>
 <div class="card"><div class="card-icon">🛡️</div><div class="card-title">Firewall</div><div class="card-body">ufw default deny incoming · allow only needed ports · rate limiting on SSH · block known bad IPs</div></div>
@@ -2066,10 +2015,9 @@ fail2ban-client set sshd unbanip 1.2.3.4</code></pre>
 auditctl -w /etc/sudoers -p rwxa -k sudo-changes
 ausearch -k passwd-changes -ts today
 aureport --login --summary</code></pre>
-<div class="incident-box"><div class="incident-title">🔥 Real Incident: Equifax — 2017, 147M Americans affected</div><div class="incident-body">Equifax disclosed a breach of 147M Americans' data — SSNs, birth dates, credit card numbers. Cause: a known Apache Struts vulnerability left unpatched for 2 months after a patch was released. <code class="inline-code">unattended-upgrades</code> and fail2ban could have prevented it. <strong>Equifax paid $700M in settlement.</strong></div></div>`,
+<div class="incident-box"><div class="incident-title">⚠️ Real Incident: SolarWinds 2020</div><div class="incident-body">Supply chain attack — malicious code injected into build pipeline. Lessons: verify checksums, audit build systems, principle of least privilege, network segmentation.</div></div>`,
 
-`<div class="did-you-know">💡 <strong>Did you know?</strong> Brendan Gregg from Netflix invented Flame Graphs and the USE Method. Tools he developed — <code class="inline-code">perf</code>, <code class="inline-code">eBPF</code>, <code class="inline-code">bpftrace</code> — saved Netflix $10M+ per year in cloud costs.</div>
-<div class="section-title">USE Method — Diagnostic Guide</div>
+`<div class="section-title">USE Method — Diagnostic Guide</div>
 <div class="callout callout-info"><strong>USE = Utilization, Saturation, Errors</strong> — For every resource (CPU, Memory, Disk, Network) check all three metrics before diagnosing.</div>
 <div class="section-title">CPU Analysis</div>
 <pre class="code-block"><code>top -bn1 | head -20       <span class="comment"># one-shot snapshot</span>
@@ -2103,8 +2051,7 @@ iotop                     <span class="comment"># top disk I/O (requires root)</
   <div class="flow-step"><div class="flow-step-icon">🌐</div><div class="flow-step-label">ss<br>sar -n</div></div>
   <div class="flow-arrow">→</div>
   <div class="flow-step"><div class="flow-step-icon">🔍</div><div class="flow-step-label">perf<br>strace</div></div>
-</div>
-<div class="incident-box"><div class="incident-title">🔥 Real Incident: Twitter Fail Whale (2008-2012)</div><div class="incident-body">Between 2008 and 2012, Twitter was down so often that the "Fail Whale" became a cultural meme. 400 tweets/sec in 2008 → 400,000/sec in 2012. <code class="inline-code">vmstat</code> and <code class="inline-code">iostat</code> revealed disk I/O bottlenecks. Redis reduced DB queries by 80%. <strong>Performance monitoring is the difference between uptime and Fail Whale.</strong></div></div>`
+</div>`
   ],
   cheat: [`
 <div class="callout callout-success"><strong>📋 Cheat Sheet — Chapter 8: systemd</strong></div>
@@ -2176,210 +2123,130 @@ iotop                     <span class="comment"># top disk I/O (requires root)</
 }};
 const QUIZZES = {
 0:[
-  {q:"מה ההבדל בין Linux ל-GNU/Linux?",
-   o:["שניהם שמות שונים לאותה מערכת הפעלה","Linux = kernel בלבד, GNU/Linux = kernel + GNU tools","GNU/Linux = כלי GNU בלבד, ללא kernel","Linux כולל גם ממשק גרפי וkde"],
-   a:1,e:"Linux הוא הגרעין. GNU/Linux = kernel + כלי GNU שבלעדיהם הגרעין לא שמיש."},
-  {q:"איזה distro הכי מתאים לDocker ו-containers?",
-   o:["Ubuntu — נפוצה ותומכת בdocker","Fedora — bleeding edge עם docker","Alpine — ~5MB, קטנה ובטוחה","Debian — stable ותומכת בdocker"],
-   a:2,e:"Alpine Linux ~5MB ומאובטחת. רוב base images של Docker מבוססות עליה."},
-  {q:"מה תפקיד /proc במערכת?",
-   o:["מחזיק קבצי config של המערכת","Virtual FS עם נתוני kernel בזמן אמת","מחזיק קבצים זמניים של תהליכים","מחזיק binaries ו-executables"],
-   a:1,e:"/proc = virtual filesystem, לא על דיסק. מכיל מידע חי על תהליכים וkernel."},
-  {q:"apt vs dnf — מה ההבדל?",
-   o:["apt מהיר יותר, dnf איטי יחסית","apt לDebian/Ubuntu, dnf לFedora/RHEL","שניהם אותו כלי, שמות שונים","dnf מיושן, apt הגרסה החדשה"],
-   a:1,e:"apt = Debian/Ubuntu. dnf = Dandified YUM של RHEL/Fedora/CentOS. מנהלי חבילות שונים."},
-  {q:"System Call הוא:",
-   o:["פקודת bash מובנית בshell כמו cd","ממשק API בין user space לkernel","כלי ניהול חבילות כמו apt","תהליך daemon ברקע המערכת"],
-   a:1,e:"System calls = API בין user space לkernel. דוגמאות: open(), read(), write(), fork()."}
+  {q:"מה ההבדל בין Linux ל-GNU/Linux?",o:["אותו הדבר","Linux = kernel בלבד, GNU/Linux = kernel + כלי GNU","GNU/Linux = kernel בלבד","Linux כולל GUI"],a:1,e:"Linux הוא הגרעין שפיתח Torvalds. GNU/Linux הוא המערכת השלמה עם כלי GNU שבלעדיהם הגרעין לא שמיש."},
+  {q:"איזה distro מומלץ לסביבת Docker ו-minimal?",o:["Ubuntu","Fedora","Alpine Linux","Arch Linux"],a:2,e:"Alpine Linux מפורסמת בגודלה הזעיר (5MB) ואבטחתה. רוב תמונות Docker מבוססות עליה."},
+  {q:"מה הפונקציה של /proc?",o:["קבצי תצורה","Virtual filesystem עם מידע על kernel ותהליכים","קבצים זמניים","Binaries של המערכת"],a:1,e:"/proc היא virtual filesystem — לא קיימת על דיסק. מכילה מידע חי על תהליכים, kernel, ו-hardware."},
+  {q:"מה ההבדל בין apt לדnf?",o:["apt מהיר יותר","apt לDebian/Ubuntu, dnf לRHEL/Fedora","אין הבדל","dnf ישן יותר מapt"],a:1,e:"apt = Advanced Package Tool של Debian/Ubuntu. dnf = Dandified YUM של RHEL/Fedora/CentOS. מנהלי חבילות שונים."},
+  {q:"מה System Call?",o:["פקודת bash","ממשק בין user space ל-kernel","מנהל חבילות","תהליך מערכת"],a:1,e:"System calls הם ה-API בין תוכניות user space לבין הkernel. דוגמאות: open(), read(), write(), fork()."}
 ],
 1:[
-  {q:"מה מכיל /etc?",
-   o:["executables ו-binaries של users","קבצי תצורה ו-configuration של המערכת","קבצים זמניים של session פעיל","log files ו-journal של services"],
-   a:1,e:"/etc מכיל configuration: /etc/passwd, /etc/nginx/, /etc/ssh/ ועוד."},
-  {q:"chmod 644 נותן הרשאות:",
-   o:["rwxrwxrwx — הכל פתוח לכולם","rw-rw-rw- — כתיבה לכל המשתמשים","rw-r--r-- — owner כותב, שאר קוראים","rwxr-xr-x — executable לשאר"],
-   a:2,e:"6=rw(owner), 4=r(group), 4=r(others) → rw-r--r--. הגדרה טיפוסית לקבצי תוכן."},
-  {q:"inode מכיל:",
-   o:["שם הקובץ ו-full path שלו","metadata: permissions, owner, timestamps","תוכן הקובץ עצמו ממש","רשימת ספריות ו-directory entries"],
-   a:1,e:"Inode = permissions, owner, timestamps. שם הקובץ נמצא ב-directory entry בלבד."},
-  {q:"ההבדל בין hard link לsymlink:",
-   o:["אין הבדל, שניהם מצביעים לקובץ","hard link = inode משותף, symlink = pointer לpath","symlink = inode זהה, hard link = path","hard link = עובד על directories בלבד"],
-   a:1,e:"Hard link = אותו inode. Symlink = מצביע לpath ונשבר אם המקור נמחק."},
-  {q:"SSH private key דורש הרשאות:",
-   o:["chmod 777 — גישה מלאה לכולם","chmod 755 — standard executable file","chmod 644 — readable לgroup ואחרים","chmod 600 — read/write לowner בלבד"],
-   a:3,e:"chmod 600 = rw------- = owner בלבד. SSH מסרב להשתמש ב-key עם הרשאות רחבות."}
+  {q:"מה מכיל /etc?",o:["Executables של users","קבצי תצורה של המערכת","Temporary files","Log files"],a:1,e:"/etc = et cetera = שונות. מכיל קבצי configuration של המערכת: /etc/passwd, /etc/nginx/, /etc/ssh/."},
+  {q:"chmod 644 נותן הרשאות:",o:["rwxrwxrwx","rw-rw-rw-","rw-r--r--","rwxr-xr-x"],a:2,e:"6=rw (owner), 4=r (group), 4=r (others) → rw-r--r--. הגדרה טיפוסית לקבצי תוכן."},
+  {q:"מה inode?",o:["שם הקובץ","מבנה נתונים עם metadata של קובץ (permissions, owner, size)","תוכן הקובץ","ספרייה ב-filesystem"],a:1,e:"Inode מכיל: permissions, owner, timestamps, גודל, pointers לblocks. שם הקובץ נמצא ב-directory entry, לא ב-inode."},
+  {q:"מה ההבדל בין hard link ל-symlink?",o:["אין הבדל","Hard link = אותו inode, symlink = pointer לpath","Symlink = אותו inode, hard link = pointer","Hard link עובד על directories"],a:1,e:"Hard link מצביע לאותו inode. מחיקת המקור לא משפיעה. Symlink מצביע לpath — נשבר אם המקור נמחק."},
+  {q:"ssh private key צריך הרשאות:",o:["chmod 777","chmod 755","chmod 644","chmod 600"],a:3,e:"chmod 600 = rw------- = רק owner יכול לקרוא ולכתוב. SSH מסרב לפתוח key עם הרשאות רחבות יותר."}
 ],
 2:[
-  {q:"מה מחזיר grep -v?",
-   o:["שורות שמכילות את ה-pattern","שורות שלא מכילות את ה-pattern","שורות ריקות ו-whitespace בלבד","את הקובץ כולו ללא שינוי"],
-   a:1,e:"-v = invert match. מחזיר שורות בלי ה-pattern. שימושי לסינון רעש מlogs."},
-  {q:"מה מדפיס awk '{print $2}'?",
-   o:["את השורה הספציפית מספר 2","את עמודה מספר 2 מכל שורה","כל שורה פעמיים ברצף","רק את 2 השורות הראשונות"],
-   a:1,e:"awk מפצל לfields לפי whitespace. $2 = field שני בכל שורה. שימושי לlog analysis."},
-  {q:"ההבדל בין > ל->> ב-redirect:",
-   o:["> מוסיף, >> מוחק ומחליף",">> מוסיף לסוף, > מוחק ומחליף","שניהם עושים בדיוק אותו הדבר",">> תמיד יוצר קובץ חדש ריק"],
-   a:1,e:"> = overwrite — מוחק קיים. >> = append — מוסיף לסוף. שגיאה ב-> תמחק log!"},
-  {q:"find -mtime -7 מחזירה:",
-   o:["קבצים ישנים מ-7 ימים ומעלה","קבצים שהשתנו ב-7 הימים האחרונים","קבצים בגודל של בדיוק 7MB","קבצים עם יותר מ-7 hard links"],
-   a:1,e:"-mtime -7 = שינוי בפחות מ-7 ימים. -mtime +7 = יותר מ-7 ימים אחורה."},
-  {q:"set -euo pipefail עושה:",
-   o:["מגדיר encoding לסקריפט bash","יוצא בשגיאה, vars לא מוגדרים, pipe fail","מאפשר verbose ו-debug mode","מגדיר PATH ו-environment variables"],
-   a:1,e:"-e=exit on error, -u=undefined var error, -o pipefail = pipe failure exits."}
+  {q:"הפקודה grep -v מוציאה:",o:["שורות שמכילות pattern","שורות שלא מכילות pattern","שורות ריקות בלבד","כל הפלט"],a:1,e:"-v = invert. grep -v 'DEBUG' מחזירה את כל השורות שאין בהן 'DEBUG'. שימושי לסינון רעש."},
+  {q:"מה עושה awk '{print $2}'?",o:["מדפיס שורה 2","מדפיס עמודה 2 מכל שורה","מחפש pattern 2","מספר 2 שורות"],a:1,e:"awk מפצל כל שורה לfields לפי whitespace. $2 הוא field השני. שימושי לlog analysis ועיבוד קבצים."},
+  {q:"מה ההבדל בין > ל->>?",o:["> append, >> overwrite","> overwrite, >> append","שניהם זהים",">> יוצר קובץ חדש"],a:1,e:"> overwrite — מוחק תוכן קיים ויוצר מחדש. >> append — מוסיף לסוף קיים. שגיאה ב-> יכולה למחוק log חשוב!"},
+  {q:"find / -mtime -7 מוצאת קבצים:",o:["ישנים מ-7 ימים","שהשתנו ב-7 הימים האחרונים","בגודל 7MB","עם 7 hard links"],a:1,e:"-mtime -7 = modification time פחות מ-7 ימים אחורה. -mtime +7 = יותר מ-7 ימים. שימושי לאיתור קבצים שנוצרו לאחרונה."},
+  {q:"what does 'set -euo pipefail' do in bash?",o:["מגדיר משתנים","גורם לסקריפט לצאת עם שגיאה, בלי משתנים לא מוגדרים, ועם pipe failures","מגדיר encoding","מאפשר debugging"],a:1,e:"-e = exit on error, -u = error on undefined variables, -o pipefail = pipe failure = script failure. best practice לסקריפטים."}
 ],
 3:[
-  {q:"usermod -aG sudo alice עושה:",
-   o:["מוחק alice מ-group sudo","מוסיף alice ל-sudo ושומר groups אחרים","מחליף את כל groups של alice","יוצר group sudo חדש במערכת"],
-   a:1,e:"-a = append, שמור groups קיימים! בלי -a: alice תאבד את שאר ה-groups שלה."},
-  {q:"/etc/sudoers עורכים בבטחה עם:",
-   o:["nano — עורך ידידותי ופשוט","vi — עורך ותיק ועוצמתי","visudo — עורך עם syntax check","cat — מאפשר צפייה ועריכה"],
-   a:2,e:"visudo בודק syntax לפני שמירה. עריכה עם vi/nano עלולה לנעול את כל sudo access."},
-  {q:"id alice מחזירה:",
-   o:["סיסמה מוצפנת של alice","uid, gid וגרופים של המשתמש alice","הרשאות הרצה ו-execute של alice","היסטוריית כניסות ו-logins של alice"],
-   a:1,e:"id מחזיר: uid=1001(alice) gid=1001(alice) groups=1001(alice),27(sudo)."},
-  {q:"chmod +x script.sh נותן:",
-   o:["execute permission לowner בלבד","execute permission לכל המשתמשים","מוחק execute מכל המשתמשים","שקול לחלוטין לchmod 777"],
-   a:1,e:"+x = a+x = execute לכולם. לowner בלבד: chmod u+x. לgroup: chmod g+x."},
-  {q:"umask 022 על קבצים חדשים נותן:",
-   o:["777 — גישה פתוחה לכולם","755 — rwxr-xr-x standard exec","644 — rw-r--r-- owner כותב","600 — rw owner בלבד"],
-   a:2,e:"umask מחסיר מdefault 666. 666 - 022 = 644 = rw-r--r--."}
+  {q:"usermod -aG sudo alice מבצע:",o:["מוחק alice מsudo","מוסיף alice לgroup sudo","מחליף את כל הgroups של alice בsudo","יוצר user sudo חדש"],a:1,e:"-a = append (שמור groups קיימים), -G = groups. בלי -a: alice תהיה רק בgroup sudo ותאבד שאר ה-groups!"},
+  {q:"קובץ /etc/sudoers נערך עם:",o:["nano","vi","visudo","cat"],a:2,e:"visudo בודק syntax לפני שמירה. עריכה ישירה עם vi/nano יכולה ליצור קובץ שגוי ולנעול החוצה את כל ה-sudo access."},
+  {q:"הפקודה id alice מחזירה:",o:["סיסמת alice","uid, gid ו-groups של alice","רשות הרצת alice","היסטוריית כניסות"],a:1,e:"id מחזיר: uid=1001(alice) gid=1001(alice) groups=1001(alice),27(sudo). שימושי לאימות הרשאות."},
+  {q:"chmod +x script.sh:",o:["נותן הרשאת ביצוע לowner בלבד","נותן הרשאת ביצוע לכולם (owner, group, others)","מוחק הרשאת ביצוע","שקול ל-chmod 777"],a:1,e:"+x ללא ציון מי = a+x = הוסף execute לכולם. לתת לowner בלבד: u+x. לgroup: g+x."},
+  {q:"umask 022 גורם לקבצים חדשים לקבל הרשאות:",o:["777","755","644","600"],a:2,e:"umask מחסיר מ-default (666 לקבצים). 666 - 022 = 644 = rw-r--r--. לsprites: 777 - 022 = 755 = rwxr-xr-x."}
 ],
 4:[
-  {q:"ההבדל בין SIGTERM לSIGKILL:",
-   o:["SIGKILL עדיף תמיד לשימוש","SIGTERM = בקשה לסיום, SIGKILL = הרג בכוח","SIGTERM הורג מיידית ובכוח","שני הsignals זהים בתוצאה"],
-   a:1,e:"SIGTERM(15) = בקשה מנומסת, process יכול לנקות. SIGKILL(9) = kernel מסיים מיידית."},
-  {q:"SIGHUP שנשלח ל-nginx עושה:",
-   o:["כיבוי nginx לחלוטין","הפעלה מחדש של nginx","reload configuration ללא downtime","העברה ל-background mode"],
-   a:2,e:"SIGHUP לdaemons כמו nginx ו-sshd = reload config ללא הפסקת שירות."},
-  {q:"nohup command & מריץ:",
-   o:["בforeground כרגיל","בbackground, מסתיים עם logout","בbackground, ממשיך אחרי logout","פותח terminal נפרד חדש"],
-   a:2,e:"nohup = מתעלם מSIGHUP. & = background. ביחד: ממשיך לרוץ גם אחרי logout."},
-  {q:"crontab '*/15 * * * *' מריץ:",
-   o:["כל 15 שניות בדיוק","כל 15 דקות בדיוק","כל 15 שעות בדיוק","ב-15 לכל חודש"],
-   a:1,e:"*/15 בשדה דקות = כל 15 דקות. */n = כל n יחידות של אותו שדה."},
-  {q:"ps aux --sort=-%cpu ממיין לפי:",
-   o:["PID בסדר עולה","אחוז CPU בסדר יורד","אחוז CPU בסדר עולה","תהליכים פעילים בלבד"]
-   ,a:1,e:"--sort=-%cpu = descending על %CPU. (- = יורד). top consumers יופיעו ראשונים."}
+  {q:"מה ההבדל בין SIGTERM ל-SIGKILL?",o:["SIGKILL עדיף תמיד","SIGTERM = בקשה לסיום (ניתן לתפוס), SIGKILL = הרג מיידי (לא ניתן לתפוס)","SIGTERM = הרג מיידי","אין הבדל"],a:1,e:"SIGTERM (15) = בקשה מנומסת, התהליך יכול לנקות ולסגור בעצמו. SIGKILL (9) = kernel מסיים מיידית, אין cleanup. תמיד נסי SIGTERM קודם."},
+  {q:"SIGHUP ל-nginx עושה:",o:["מכבה nginx","מריץ nginx מחדש","מבצע reload של configuration","שולח nginx לbackground"],a:2,e:"SIGHUP = Hangup. לdaemons כמו nginx ו-sshd — מבצע reload של config ללא הפסקת שירות. kill -HUP $(pidof nginx)."},
+  {q:"nohup command & מריץ:",o:["ב-foreground","ב-background, נסיים עם logout","ב-background, ממשיך אחרי logout","בterminal חדש"],a:2,e:"nohup מתעלם מSIGHUP (שנשלח ב-logout). & שולח לbackground. ביחד: התהליך ממשיך גם לאחר שמתנתקים."},
+  {q:"cron '*/15 * * * *' רץ:",o:["פעם ב-15 שניות","פעם ב-15 דקות","פעם ב-15 שעות","ב-15 לכל חודש"],a:1,e:"*/15 בשדה דקות = כל 15 דקות. */n בכל שדה = כל n יחידות של אותו שדה."},
+  {q:"ps aux --sort=-%cpu מציג:",o:["תהליכים לפי PID","תהליכים מהגדול לקטן לפי %CPU","תהליכים מהקטן לגדול","תהליכים פעילים בלבד"],a:1,e:"--sort=-%cpu = מיין לפי %CPU בסדר יורד (- = יורד). ps aux | head -10 אחרי זה יראה top consumers."}
 ],
 5:[
-  {q:"ss -tulnp מציג:",
-   o:["SSH sessions פעילים","TCP/UDP ports פתוחים ותהליכים","כל network interfaces","חוקי firewall פעילים"],
-   a:1,e:"ss = socket statistics. -tulnp: TCP+UDP listening, numbers, processes."},
-  {q:"ssh-copy-id user@host עושה:",
-   o:["מעתיקה קובץ דרך SSH","מוסיפה public key ל-authorized_keys","מייצרת keypair חדש בשרת","מגדירה SSH config file"],
-   a:1,e:"מוסיפה public key ל-~/.ssh/authorized_keys. לאחר מכן אין צורך בסיסמה."},
-  {q:"ed25519 עדיף על RSA ל-SSH כי:",
-   o:["ישן ומוכר לכל המפתחים","קצר, מהיר, אבטחה כ-RSA 3072bit","ארוך יותר ולכן בטוח יותר","רק Ubuntu תומכת בו"],
-   a:1,e:"ed25519 = elliptic curve. 256bit שקול ל-RSA 3072bit. מהיר וקצר יותר."},
-  {q:"ufw allow 22 לפני ufw enable — למה?",
-   o:["לאפשר FTP לשרת","לאפשר SSH לפני חסימת הכל","לאפשר HTTP לאתרים","לאפשר ICMP ו-ping"],
-   a:1,e:"אם מפעילים firewall לפני allow SSH — כל החיבורים ייחסמו ותאבד גישה לשרת."},
-  {q:"rsync -avz src/ user@host:dst/ עושה:",
-   o:["מוחק src אחרי העתקה","מסנכרן דרך SSH עם compression","מעתיק קובץ יחיד בלבד","יוצר backup מוצפן מלא"],
-   a:1,e:"-a=archive, -v=verbose, -z=compress. rsync מעביר רק שינויים — יעיל יותר מscp."}
+  {q:"ss -tulnp מציג:",o:["SSH connections פעילים","TCP/UDP ports פתוחים עם תהליכים","כל interfaces ברשת","חוקי firewall"],a:1,e:"ss = socket statistics. -t TCP, -u UDP, -l listening, -n numbers (לא DNS), -p processes. מחליף את netstat."},
+  {q:"מה מבצעת הפקודה ssh-copy-id user@host?",o:["מעתיקה קובץ דרך SSH","מוסיפה את ה-public key שלי ל-~/.ssh/authorized_keys של host","מייצרת keypair חדש","מגדירה SSH config"],a:1,e:"ssh-copy-id מוסיפה את ה-public key שלך ל-authorized_keys בshrver. לאחר מכן ניתן להתחבר ללא סיסמה."},
+  {q:"ed25519 עדיף על RSA ל-SSH כי:",o:["ישן יותר ומוכר יותר","קצר יותר ומהיר יותר עם אבטחה שקולה","ארוך יותר = יותר בטוח","רק Ubuntu תומכת בו"],a:1,e:"ed25519 = elliptic curve. מפתח של 256 bit שקול ל-3072 bit RSA. מהיר, קצר, ואין חולשות RSA (PKCS#1 padding)."},
+  {q:"ufw allow 22/tcp לפני ufw enable — למה חשוב?",o:["לאפשר FTP","לאפשר SSH לפני שמפעילים firewall, אחרת ייחסם גישה לשרת","לאפשר HTTP","לאפשר ping"],a:1,e:"אם מפעילים ufw לפני שמאפשרים SSH (port 22), כל החיבורים ייחסמו ותאבד גישה לשרת מרחוק. irreversible ללא גישה פיזית!"},
+  {q:"rsync -avz src/ user@host:dst/ מבצע:",o:["מחיקת src","sync של src לdst דרך SSH עם compression","העתקת קובץ אחד","backup מוצפן"],a:1,e:"-a = archive (recursive + permissions + timestamps), -v = verbose, -z = compress. rsync מעביר רק שינויים (delta), הרבה יותר יעיל מscp."}
 ],
 6:[
-  {q:"apt remove לעומת apt purge:",
-   o:["שניהם זהים לחלוטין","remove = binary, purge = binary + config files","purge מהיר יותר מremove","remove מסיר תלויות אוטומטית"],
-   a:1,e:"remove שומר config files. purge מסיר הכל. אחרי purge: fresh install אפשרי."},
-  {q:"make -j$(nproc) עושה:",
-   o:["מריץ job יחיד בלבד","מריץ במקביל עם כל ה-CPU cores","מבצע install אחרי compile","בודק dependencies בלבד"],
-   a:1,e:"nproc = CPU cores count. -j N = N jobs במקביל. מאיץ compilation משמעותית."},
-  {q:"apt autoremove מסיר:",
-   o:["archive cache ישן","חבילות orphan שאינן נדרשות","log files ישנים","temporary files ו-cache"],
-   a:1,e:"תלויות שהותקנו לחבילה שהוסרה. autoremove מוחק אותן כשאינן צריכות עוד."},
-  {q:"dpkg -l | grep nginx עושה:",
-   o:["מתקין nginx מחדש","בודק אם nginx מותקן וגרסתו","מסיר nginx לחלוטין","מציג logs של nginx"],
-   a:1,e:"dpkg -l = רשימת חבילות מותקנות. ii=installed, rc=removed+config, un=unknown."},
-  {q:"snap packages שונות מapt packages כי:",
-   o:["קטנות יותר מpackages רגילות","self-contained + sandboxed לכל distro","מהירות יותר בריצה","חופשיות לחלוטין מתלויות"],
-   a:1,e:"snap = self-contained עם כל התלויות. עובדת על כל distro עם snapd. sandboxed."}
+  {q:"ההבדל בין apt remove ל-apt purge:",o:["אין הבדל","remove = מסיר binary, purge = מסיר גם config files","purge = מהיר יותר","remove = מסיר תלויות"],a:1,e:"remove שומר config files (ב-/etc). purge מסיר הכל כולל config. אחרי purge ניתן להתקין מחדש כ-fresh install."},
+  {q:"make -j$(nproc) בcompile from source:",o:["מריץ פקודה אחת","מריץ make עם כמות ה-cores הזמינה","מבצע install","בודק dependencies"],a:1,e:"nproc מחזיר מספר ה-CPU cores. -j N = N jobs במקביל. מאיץ compilation משמעותית על מכונות multi-core."},
+  {q:"apt autoremove מנקה:",o:["קבצי cache","חבילות שהותקנו כתלויות ואינן נדרשות יותר","log files","temporary files"],a:1,e:"כשמסירים חבילה, תלויותיה לא מוסרות אוטומטית. autoremove מזהה ומסיר חבילות orphan."},
+  {q:"dpkg -l | grep nginx:",o:["מתקין nginx","בודק אם nginx מותקן ומה הגרסה","מסיר nginx","מציג logs של nginx"],a:1,e:"dpkg -l = list installed packages. grep מסנן לnginx. פלט: 'ii' = installed, 'rc' = removed but config remains, 'un' = unknown."},
+  {q:"snap packages שונות מapt כי:",o:["מהירות יותר","sandboxed, מכילות את כל התלויות, עובדות על כל distro","קטנות יותר","ישנות יותר"],a:1,e:"snap = self-contained package עם כל התלויות. עובדת על כל distro שמריץ snapd. sandboxed = אבטחה טובה יותר אך overhead גדול יותר."}
 ],
 7:[
-  {q:"#!/bin/bash בתחילת סקריפט נקרא:",
-   o:["comment לתיעוד בלבד","shebang — מציין interpreter לריצה","variable מובנה של bash","function call ראשונית"],
-   a:1,e:"Shebang (#!) מציין לkernel איזה interpreter. #!/bin/bash. #!/usr/bin/python3."},
-  {q:"set -e בbash script עושה:",
-   o:["מגדיר encoding לסקריפט","יוצא מיידית כשפקודה נכשלת","מאפשר verbose ו-debug","מגדיר PATH ו-variables"],
-   a:1,e:"-e = exit immediately on error. בלי -e, הסקריפט ממשיך אחרי שגיאות — מסוכן."},
-  {q:"[[ -f /etc/passwd ]] בודק:",
-   o:["אם /etc/passwd הוא directory","אם קיים כ-regular file בלבד","אם ניתן לכתיבה ל-owner","אם הקובץ ריק לגמרי"],
-   a:1,e:"-f = regular file exists. -d=directory, -e=any type, -r=readable, -z=string empty."},
-  {q:"$(command) ב-bash נקרא:",
-   o:["subshell ריצה נפרדת","command substitution — מחזיר output","variable expansion מיוחד","arithmetic expansion בלבד"],
-   a:1,e:"Command substitution: TODAY=$(date +%Y-%m-%d). Command רץ ומחזיר output למשתנה."},
-  {q:"local var_name בפונקציה bash:",
-   o:["מגדיר global variable","מגדיר variable מקומי לפונקציה","מייבא variable חיצוני","מוחק variable קיים"],
-   a:1,e:"local = variable בscope הפונקציה בלבד. בלי local — global ועלול לדרוס משתנים חיצוניים."}
+  {q:"#!/bin/bash בתחילת סקריפט נקרא:",o:["Comment","Shebang — מציין interpreter","Variable","Function call"],a:1,e:"Shebang (#!) = מציין ל-kernel איזה interpreter להשתמש. #!/bin/bash = bash. #!/usr/bin/env python3 = python3."},
+  {q:"set -e בסקריפט bash:",o:["מגדיר encoding","גורם לסקריפט לצאת כשפקודה נכשלת","מאפשר debugging","מגדיר PATH"],a:1,e:"-e = exit immediately on error. בלי -e, הסקריפט ממשיך גם אחרי שגיאות, מה שעלול לגרום לנזק."},
+  {q:"[[ -f /etc/passwd ]] בודק:",o:["אם /etc/passwd הוא ספרייה","אם /etc/passwd קיים כקובץ רגיל","אם /etc/passwd ניתן לכתיבה","אם /etc/passwd ריק"],a:1,e:"-f = regular file exists. -d = directory, -e = exists (any type), -r = readable, -w = writable, -x = executable, -z = string empty."},
+  {q:"$(command) ב-bash נקרא:",o:["Subshell","Command substitution — מריץ פקודה ומחזיר output","Variable expansion","Arithmetic expansion"],a:1,e:"Command substitution: TODAY=$(date +%Y-%m-%d) שומר את output של date במשתנה. גרסה ישנה: `date` (backticks) — עדיף להשתמש ב-$()."},
+  {q:"local variable_name בפונקציה bash:",o:["מגדיר global variable","מגדיר variable מקומי לפונקציה בלבד","מייבא variable חיצוני","מוחק variable"],a:1,e:"local מגדיר variable שקיים רק בscope של הפונקציה. בלי local — כל משתנה הוא global ועלול לדרוס משתנים חיצוניים."}
 ]};
 
 const LABS = {
 0:[
-  {q:"כתבי את הפקודה שמציגה את גרסת ה-kernel הנוכחי.",a:"uname -r\n# גם:\nuname -a\ncat /proc/version",e:"uname -r = kernel release. uname -a = כל המידע."},
-  {q:"איך מוצאים איזה distro מותקן?",a:"cat /etc/os-release\n# או:\nlsb_release -a",e:"/etc/os-release הוא הסטנדרט המודרני."},
-  {q:"מה ההבדל בין /tmp ל-/var/tmp?",a:"/tmp: נמחק בreboot.\n/var/tmp: נשמר.\nls -la /tmp /var/tmp",e:"/tmp יכול להימחק ב-boot. /var/tmp נשמר."},
-  {q:"כתבי פקודה שמציגה שימוש ב-RAM.",a:"free -h\ncat /proc/meminfo",e:"free -h = human-readable. available = זמין לאפליקציות."}
+  {q:"כתבי את הפקודה שמציגה את גרסת ה-kernel הנוכחי.",a:"uname -r\n# גם:\nuname -a  # פרטים מלאים\ncat /proc/version",e:"uname -r = kernel release. uname -a = כל המידע: hostname, kernel, arch. /proc/version מכיל גרסה מפורטת."},
+  {q:"איך מוצאים איזה distro מותקן?",a:"cat /etc/os-release\n# או:\nlsb_release -a\n# או:\ncat /etc/issue",e:"/etc/os-release הוא הסטנדרט המודרני. lsb_release -a עובד על Debian/Ubuntu. /etc/issue מציג הודעת login."},
+  {q:"מה ההבדל בין /tmp ל-/var/tmp?",a:"/tmp: נמחק בכל reboot. מתאים לקבצים זמניים קצרי-חיים.\n/var/tmp: נשמר בין reboots. מתאים לקבצים זמניים שצריך לשרוד restart.\n\nבדיקה:\nls -la /tmp /var/tmp",e:"POSIX מגדיר ש-/tmp יכול להימחק ב-boot. /var/tmp נשמר. אל תסמכו על /tmp לדברים חשובים שחוצים reboot."},
+  {q:"כתבי פקודה שמציגה את כמות ה-RAM הפנויה והמשומשת.",a:"free -h\n# פירוט:\ncat /proc/meminfo\n# גם:\nfree -h --si  # ב-SI units (1000 לא 1024)",e:"free -h = human-readable. שדות: total, used, free, shared, buff/cache, available. 'available' הוא המספר האמיתי לאפליקציות."}
 ],
 1:[
-  {q:"מה הפקודה שמציגה inode number של קובץ?",a:"ls -i /etc/passwd\nstat /etc/passwd",e:"ls -i מציג inode. stat מציג הכל."},
-  {q:"צרי hard link בשם /tmp/hosts_backup ל-/etc/hosts.",a:"ln /etc/hosts /tmp/hosts_backup\nls -i /etc/hosts /tmp/hosts_backup",e:"שני הקבצים חולקים inode. מחיקת אחד לא מוחקת נתונים."},
-  {q:"קובץ chmod 644 — איך מוסיפים execute לowner?",a:"chmod u+x filename\n# או:\nchmod 744 filename",e:"u+x מוסיף execute לowner בלבד."},
-  {q:"מצאי קבצים ב-/var/log גדולים מ-50MB.",a:"find /var/log -size +50M -type f\nfind /var/log -size +50M -type f -exec ls -lh {} \\;",e:"+50M = גדול מ-50MB. -type f = קבצים בלבד."}
+  {q:"מה הפקודה שמציגה את ה-inode number של קובץ?",a:"ls -i /etc/passwd\n# פרטים מלאים:\nstat /etc/passwd\n# כל ה-inodes בספרייה:\nls -il /etc/",e:"ls -i מציג inode number לפני שם הקובץ. stat מציג הכל: inode, permissions, timestamps, number of hard links, size."},
+  {q:"צרי hard link בשם /tmp/hosts_backup לקובץ /etc/hosts.",a:"ln /etc/hosts /tmp/hosts_backup\n# אמת שהinode זהה:\nls -i /etc/hosts /tmp/hosts_backup\nstat /etc/hosts | grep 'Links'\n# יראה Links: 2",e:"שני הקבצים חולקים inode זהה. מחיקת אחד לא תמחק את הנתונים — רק כשמספר ה-hard links יורד ל-0 הנתונים נמחקים."},
+  {q:"קובץ קיים עם chmod 644. כיצד מוסיפים הרשאת execute לowner בלבד?",a:"chmod u+x filename\n# או:\nchmod 744 filename\n\n# אמת:\nls -la filename\n# צריך להראות: -rwxr--r--",e:"u = user (owner), g = group, o = others, a = all. + מוסיף, - מסיר, = מגדיר בדיוק. u+x מוסיף execute לowner בלבד."},
+  {q:"מצאי את כל הקבצים ב-/var/log גדולים מ-50MB.",a:"find /var/log -size +50M -type f\n# עם גדלים:\nfind /var/log -size +50M -type f -exec ls -lh {} \\;\n# או:\ndu -sh /var/log/* | sort -rh | head -10",e:"+50M = גדול מ-50MB. -type f = קבצים בלבד (לא ספריות). du -sh + sort יעזור לזהות ספריות כבדות."}
 ],
 2:[
-  {q:"מצאי 10 שורות שגיאה נפוצות ב-/var/log/syslog.",a:"grep -i 'error' /var/log/syslog | awk '{print $5}' | sort | uniq -c | sort -rn | head -10",e:"pipeline: grep → awk → sort → uniq -c → sort -rn → head."},
-  {q:"כתבי פקודה שמחפשת קבצי .conf עם 'timeout'.",a:"grep -rl 'timeout' /etc/ 2>/dev/null\ngrep -rn 'timeout' /etc/ 2>/dev/null",e:"-r recursive, -l שמות קבצים, -n שורות."},
-  {q:"השתמשי ב-sed להחלפת 'localhost' ב-'127.0.0.1'.",a:"sed 's/localhost/127.0.0.1/g' config.txt\nsed -i.bak 's/localhost/127.0.0.1/g' config.txt",e:"s=substitute, g=global. -i.bak יוצר גיבוי."},
-  {q:"כתבי pipeline שמציג 5 IPs עם הכי הרבה חיבורים.",a:"awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head -5",e:"awk→sort→uniq -c→sort -rn→head -5."}
+  {q:"מצאי את 10 שורות השגיאה הנפוצות ביותר ב-/var/log/syslog.",a:"grep -i 'error' /var/log/syslog | awk '{print $5}' | sort | uniq -c | sort -rn | head -10\n# גישה פשוטה יותר:\ngrep -i 'error' /var/log/syslog | wc -l",e:"pipeline: grep מסנן → awk חולץ שדה → sort מסדר → uniq -c מונה → sort -rn מסדר לפי כמות → head 10 ראשונים."},
+  {q:"כתבי פקודה שמחפשת את כל קבצי .conf ב-/etc ומכילים את המילה 'timeout'.",a:"grep -rl 'timeout' /etc/*.conf 2>/dev/null\n# גם בsub-directories:\ngrep -rl 'timeout' /etc/ 2>/dev/null\n# עם הצגת השורות:\ngrep -rn 'timeout' /etc/ 2>/dev/null",e:"-r recursive, -l הצג שמות קבצים בלבד (לא תוכן), -n הוסף מספרי שורות. 2>/dev/null מסתיר שגיאות permission denied."},
+  {q:"השתמשי ב-sed להחלפת כל המופעים של 'localhost' ב-'127.0.0.1' בקובץ config.",a:"sed 's/localhost/127.0.0.1/g' config.txt\n# שינוי in-place:\nsed -i 's/localhost/127.0.0.1/g' config.txt\n# גיבוי לפני שינוי:\nsed -i.bak 's/localhost/127.0.0.1/g' config.txt",e:"s = substitute, g = global (כל המופעים, לא רק הראשון). -i = in-place edit. -i.bak יוצר גיבוי config.txt.bak לפני שינוי."},
+  {q:"כתבי pipeline שמציג את 5 ה-IP addresses שהתחברו הכי הרבה ל-web server.",a:"awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head -5\n# לapache:\nawk '{print $1}' /var/log/apache2/access.log | sort | uniq -c | sort -rn | head -5",e:"awk $1 = עמודה ראשונה (IP). sort מסדר → uniq -c מונה ייחודיים → sort -rn לפי כמות → head -5 חמישה ראשונים."}
 ],
 3:[
-  {q:"צרי משתמש 'devuser' עם bash ו-group 'developers'.",a:"groupadd developers\nuseradd -m -s /bin/bash -G developers devuser\npasswd devuser",e:"-m=home, -s=shell, -G=groups."},
-  {q:"כיצד alice תריץ systemctl restart nginx ללא סיסמה?",a:"visudo\nalice ALL=(ALL) NOPASSWD: /bin/systemctl restart nginx\nsudo -l -U alice",e:"NOPASSWD: + נתיב מלא. תמיד visudo."},
-  {q:"מצאי קבצים world-writable ב-/home מ-7 ימים אחרונים.",a:"find /home -mtime -7 -perm -o+w -type f\nfind /home -mtime -7 -perm -o+w -type f -ls",e:"-perm -o+w = world-writable. סיכון אבטחה."},
-  {q:"כיצד בודקים מי עשה מה עם sudo?",a:"grep sudo /var/log/auth.log\njournalctl _COMM=sudo\ngrep 'sudo:' /var/log/auth.log | tail -20",e:"כל sudo נרשם ב-auth.log עם user, terminal, פקודה."}
+  {q:"צרי משתמש 'devuser' עם bash shell, הכניסי לgroup 'developers', וקבעי סיסמה.",a:"# צור group אם לא קיים:\ngroupadd developers\n\n# צור user:\nuseradd -m -s /bin/bash -G developers devuser\n\n# קבע סיסמה:\npasswd devuser\n\n# אמת:\nid devuser\ngrep devuser /etc/passwd",e:"-m יוצר home directory, -s מגדיר shell, -G מוסיף לgroups נוספים. ב-Debian יש להוסיף -G עם group קיים."},
+  {q:"כיצד מגדירים ש-alice יכולה להריץ systemctl restart nginx ללא סיסמה?",a:"# ערוך sudoers:\nvisudo\n\n# הוסף שורה:\nalice ALL=(ALL) NOPASSWD: /bin/systemctl restart nginx\n\n# בדיקה:\nsudo -l -U alice",e:"NOPASSWD: מאפשר פקודה ספציפית ללא סיסמה. ציין נתיב מלא. תמיד השתמש ב-visudo — עורך עם syntax check."},
+  {q:"מה הפקודה למציאת כל הקבצים ב-/home שנוצרו ב-7 ימים אחרונים עם הרשאות world-writable?",a:"find /home -mtime -7 -perm -o+w -type f\n# עם פרטים:\nfind /home -mtime -7 -perm -o+w -type f -ls\n# הצג ופרט:\nfind /home -mtime -7 -perm /o+w -type f -exec ls -la {} \\;",e:"-perm -o+w = world-writable. קבצים world-writable בhome directory הם סיכון אבטחה — כל משתמש יכול לכתוב אליהם."},
+  {q:"כיצד בודקים מי עשה מה עם sudo?",a:"# Ubuntu/Debian:\ngrep sudo /var/log/auth.log\n\n# RHEL/CentOS:\ngrep sudo /var/log/secure\n\n# journalctl:\njournalctl _COMM=sudo\n\n# פילטר:\ngrep 'sudo:' /var/log/auth.log | tail -20",e:"כל פקודת sudo נרשמת ב-auth.log עם: timestamp, user, terminal, working directory, והפקודה שהורצה. חשוב לaudit."}
 ],
 4:[
-  {q:"כיצד מוצאים תהליך שמאזין על port 8080?",a:"ss -tulnp | grep ':8080'\nlsof -i :8080\nnetstat -tulnp | grep ':8080'",e:"ss -tulnp = modern. lsof -i :8080. דורשים sudo."},
-  {q:"כתבי cron job להרצת /opt/backup.sh כל ראשון ב-03:00.",a:"crontab -e\n0 3 * * 0 /opt/backup.sh\ncrontab -l",e:"שדות: דקה שעה יום חודש יום-שבוע. 0=ראשון."},
-  {q:"PID 1234 לא מגיב — מה הצעדים הנכונים?",a:"kill -15 1234\nsleep 5\nps -p 1234\nkill -9 1234",e:"תמיד SIGTERM קודם. SIGKILL רק אם SIGTERM לא עוזר."},
-  {q:"כיצד מוצאים zombie processes?",a:"ps aux | grep 'Z'\nkill -CHLD <parent_pid>",e:"לא ניתן kill -9. kill הparent גורם לinit לנקות."}
+  {q:"כיצד מוצאים איזה תהליך מאזין על port 8080?",a:"ss -tulnp | grep ':8080'\n# או:\nlsof -i :8080\n# או:\nfuser 8080/tcp\n# ישן:\nnetstat -tulnp | grep ':8080'",e:"ss -tulnp = modern tool. lsof -i :8080 = list open files on port. fuser = find process using resource. כולם דורשים sudo לראות תהליכי users אחרים."},
+  {q:"כתבי cron job שמריץ /opt/backup.sh כל יום ראשון ב-03:00.",a:"crontab -e\n# הוסף:\n0 3 * * 0 /opt/backup.sh\n\n# 0 = ראשון (0=ראשון, 6=שבת)\n# אמת:\ncrontab -l",e:"שדות: דקה שעה יום-חודש חודש יום-שבוע. 0 בשדה יום-שבוע = ראשון. גם 7 = ראשון ב-cron."},
+  {q:"תהליך עם PID 1234 לא מגיב. מה הצעדים הנכונים לסיומו?",a:"# שלב 1: נסה graceful\nkill -15 1234  # או: kill 1234\n\n# המתן 5-10 שניות\nsleep 5\n\n# בדוק אם עדיין רץ:\nps -p 1234\n\n# שלב 2: force kill\nkill -9 1234\n\n# בדיקה:\nps -p 1234  # צריך להיות ריק",e:"תמיד נסי SIGTERM (15) קודם — מאפשר לתהליך לנקות resources. SIGKILL (9) רק אם SIGTERM לא עוזר. SIGKILL לא מאפשר cleanup."},
+  {q:"כיצד מוצאים zombie processes ומה עושים איתם?",a:"# מצא zombies:\nps aux | grep 'Z'\n# או:\nps aux --no-headers | awk '$8~/^Z/{print $1,$2,$11}'\n\n# Zombie = כבר מת, מחכה לparent לקרוא exit code\n# לא ניתן לkill zombie עם kill -9!\n# הפתרון: kill את ה-PARENT:\nkill -CHLD <parent_pid>\n# או restart הparent process",e:"Zombie = תהליך שסיים אבל הparent לא קרא wait(). אי אפשר לkill zombie ישירות. kill הparent גורם לinit לאמץ ולנקות את הzombie."}
 ],
 5:[
-  {q:"כיצד בודקים אם port 443 פתוח על שרת חיצוני?",a:"nc -zv example.com 443\ncurl -I https://example.com\nnmap -p 443 example.com",e:"nc -zv = zero I/O + verbose. curl -I = HEAD request."},
-  {q:"הגדרי SSH config שמחברת ל-myserver.com בשם 'prod'.",a:"cat >> ~/.ssh/config << 'EOF'\nHost prod\n    HostName myserver.com\n    User alice\n    IdentityFile ~/.ssh/prod_key\nEOF\nchmod 600 ~/.ssh/config",e:"~/.ssh/config = SSH aliases. chmod 600 חובה."},
-  {q:"כתבי פקודה שבודקת ping ומדפיסה UP/DOWN.",a:"HOST='8.8.8.8'\nping -c1 -W1 \"$HOST\" &>/dev/null && echo UP || echo DOWN",e:"-c1=packet אחד. -W1=timeout שנייה."},
-  {q:"כיצד מגדירים IP סטטי ב-Ubuntu 20.04+?",a:"sudo nano /etc/netplan/00-installer-config.yaml\nnetwork:\n  ethernets:\n    eth0:\n      addresses: [192.168.1.100/24]\nsudo netplan apply",e:"Ubuntu 18.04+ = netplan עם YAML."}
+  {q:"כיצד בודקים אם port 443 פתוח על שרת חיצוני?",a:"# עם curl:\ncurl -I https://example.com\n\n# עם nc (netcat):\nnc -zv example.com 443\n\n# עם telnet:\ntelnet example.com 443\n\n# עם nmap:\nnmap -p 443 example.com",e:"nc -zv = zero I/O mode (בדוק בלבד) + verbose. מחזיר 0 אם פתוח. curl -I = HTTP HEAD request. שתיהן עובדות על כל port."},
+  {q:"הגדרי SSH config שמחברת ל-myserver.com בשם 'prod' עם user 'alice' ו-key ספציפי.",a:"# ערכי ~/.ssh/config:\ncat >> ~/.ssh/config << 'EOF'\nHost prod\n    HostName myserver.com\n    User alice\n    IdentityFile ~/.ssh/prod_key\n    Port 22\nEOF\n\nchmod 600 ~/.ssh/config\n\n# שימוש:\nssh prod",e:"~/.ssh/config מאפשר aliases לחיבורי SSH. 'ssh prod' יחבר עם כל ההגדרות. שמור לו chmod 600 כמו private key."},
+  {q:"כתבי פקודה שבודקת אם שרת מגיב ל-ping ומדפיסה סטטוס.",a:"HOST=\"8.8.8.8\"\nif ping -c1 -W1 \"$HOST\" &>/dev/null; then\n  echo \"$HOST is UP\"\nelse\n  echo \"$HOST is DOWN\"\nfi\n\n# one-liner:\nping -c1 8.8.8.8 &>/dev/null && echo UP || echo DOWN",e:"-c1 = שלח packet אחד. -W1 = timeout 1 שנייה. &>/dev/null מסתיר output. && / || = one-liner if/else."},
+  {q:"כיצד מגדירים IP סטטי ב-Ubuntu 20.04+?",a:"# ערוך /etc/netplan/00-installer-config.yaml:\nsudo nano /etc/netplan/00-installer-config.yaml\n\n# תוכן:\nnetwork:\n  version: 2\n  ethernets:\n    eth0:\n      addresses:\n        - 192.168.1.100/24\n      gateway4: 192.168.1.1\n      nameservers:\n        addresses: [8.8.8.8, 8.8.4.4]\n\n# החל:\nsudo netplan apply",e:"Ubuntu 18.04+ משתמשת ב-netplan עם YAML. netplan apply מחיל שינויים. netplan try מחיל עם rollback אוטומטי."}
 ],
 6:[
-  {q:"כיצד מוצאים 10 חבילות גדולות ב-Debian?",a:"dpkg-query -Wf '${Installed-Size}\\t${Package}\\n' | sort -rn | head -10",e:"dpkg-query = installed size. sort -rn = יורד."},
-  {q:"כיצד מתקינים גרסה ספציפית עם apt?",a:"apt-cache policy nginx\napt install nginx=1.18.0-6ubuntu14\napt-mark hold nginx",e:"apt-mark hold = מנע upgrade."},
-  {q:"כיצד מאמתים שחבילה מותקנת תקינה?",a:"dpkg --verify nginx\ndpkg -L nginx\ndpkg -S /usr/sbin/nginx",e:"dpkg --verify = checksums. dpkg -L = קבצים."},
-  {q:"כיצד מנקים cache של apt?",a:"apt autoremove\napt clean\napt autoclean",e:"clean = כל archives. autoclean = ישנות. autoremove = orphaned."}
+  {q:"כיצד מוצאים את 10 החבילות הגדולות ביותר על מערכת Debian?",a:"dpkg-query -Wf '${Installed-Size}\\t${Package}\\n' | sort -rn | head -10\n# עם apt:\napt list --installed 2>/dev/null | wc -l\n# גודל ספריות:\ndu -sh /usr/* | sort -rh | head -10",e:"dpkg-query מחזיר installed size בKB. sort -rn = מספרי יורד. שימושי לניקוי מקום."},
+  {q:"כיצד מתקינים חבילה ישנה יותר (downgrade) ב-apt?",a:"# מצא גרסאות זמינות:\napt-cache policy nginx\n\n# התקן גרסה ספציפית:\napt install nginx=1.18.0-6ubuntu14\n\n# Lock גרסה (מנע upgrade):\napt-mark hold nginx\n\n# בדוק locked:\napt-mark showhold",e:"apt-cache policy מציג גרסאות זמינות. apt-mark hold מונע שינוי גרסה בupgrade. showhold מציג locked packages."},
+  {q:"כיצד מאמתים שחבילה מותקנת תקינה ושלמה?",a:"# Debian/Ubuntu:\ndpkg --verify nginx\n# בדוק קבצים:\ndpkg -L nginx  # קבצים ששייכים לחבילה\ndpkg -S /usr/sbin/nginx  # איזו חבילה הכילה קובץ זה\n\n# RHEL:\nrpm -V nginx",e:"dpkg --verify בודק checksums. dpkg -L מציג כל הקבצים של החבילה. dpkg -S = לאיזו חבילה שייך קובץ נתון."},
+  {q:"כיצד מנקים את cache של apt לפינוי מקום?",a:"# הצג גודל cache:\ndu -sh /var/cache/apt/archives/\n\n# נקה חבילות לא נדרשות:\napt autoremove\n\n# נקה cache:\napt clean  # מחק archive files\napt autoclean  # מחק רק ישנות\n\n# סיכום:\ndu -sh /var/cache/apt/",e:"apt clean מוחק את כל הarchive files (.deb) מהcache. autoclean מוחק רק גרסאות שלא ניתן עוד להוריד. autoremove מסיר orphaned packages."}
 ],
 7:[
-  {q:"כתבי script שבודק אם web server פעיל.",a:"#!/bin/bash\nif ! curl -sf http://localhost &>/dev/null; then\n  echo 'DOWN' | mail -s 'Alert' admin@example.com\nfi",e:"curl -sf = silent+fail. ! = negation."},
-  {q:"כתבי script לbackup עם מחיקה של ישנים מ-7 ימים.",a:"#!/bin/bash\nDATE=$(date +%Y%m%d)\ntar -czf \"/backups/backup_$DATE.tar.gz\" /var/www\nfind /backups -mtime +7 -delete",e:"find -mtime +7 = ישן מ-7 ימים."},
-  {q:"כיצד עוברים על קבצים בbash?",a:"for file in /var/log/*.log; do\n  gzip \"$file\"\ndone\n# בטוח:\nfind /var/log -name '*.log' | while IFS= read -r file; do echo \"$file\"; done",e:"for glob = פשוט. find+while = בטוח עם spaces."},
-  {q:"כתבי function שמדפיסה עם timestamp ו-severity.",a:"log() {\n  local level=\"$1\"; shift\n  echo \"[$(date +%T)] [$level] $*\" | tee -a /var/log/script.log\n}\nlog INFO 'OK'\nlog ERROR 'Fail'",e:"local = scope הפונקציה. tee = קובץ + stdout."}
+  {q:"כתבי סקריפט שבודק אם שרת web פעיל ושולח התראה אם לא.",a:"#!/bin/bash\nset -euo pipefail\n\nURL=\"http://localhost:80\"\nEMAIL=\"admin@example.com\"\n\nif ! curl -sf \"$URL\" > /dev/null; then\n  echo \"Web server DOWN at $(date)\" | mail -s \"ALERT: Web server down\" \"$EMAIL\"\n  systemctl restart nginx\nfi",e:"curl -sf = silent + fail on HTTP error. ! = negation. mail = send email (requires mailutils). שפר עם retry logic ו-logging."},
+  {q:"כתבי סקריפט שמאחסן backup ומוחק backups ישנים מ-7 ימים.",a:"#!/bin/bash\nBACKUP_DIR=\"/backups\"\nSOURCE=\"/var/www\"\nDATE=$(date +%Y%m%d_%H%M%S)\n\n# צור backup\ntar -czf \"$BACKUP_DIR/backup_$DATE.tar.gz\" \"$SOURCE\"\n\n# מחק ישנים מ-7 ימים\nfind \"$BACKUP_DIR\" -name 'backup_*.tar.gz' -mtime +7 -delete\n\necho \"Backup done: backup_$DATE.tar.gz\"",e:"tar -czf = create compressed. DATE לשם ייחודי. find -mtime +7 = ישן מ-7 ימים. -delete = מחק. add logging ו-error handling בproduction."},
+  {q:"כיצד עוברים על קבצים בספרייה בbash ומבצעים פעולה על כל אחד?",a:"# for loop על pattern:\nfor file in /var/log/*.log; do\n  echo \"Processing: $file\"\n  gzip \"$file\"\ndone\n\n# find + while read (בטוח עם spaces בשמות):\nfind /var/log -name '*.log' | while IFS= read -r file; do\n  echo \"$file\"\ndone",e:"for glob = פשוט ויעיל. find + while read = בטוח יותר עם שמות קבצים עם spaces. IFS= ו--r מונעים בעיות עם whitespace ו-backslash."},
+  {q:"כתבי function שמדפיסה הודעה עם timestamp ורמת severity.",a:"#!/bin/bash\nLOG_FILE=\"/var/log/myscript.log\"\n\nlog() {\n  local level=\"$1\"\n  shift\n  local msg=\"$*\"\n  local timestamp\n  timestamp=$(date '+%Y-%m-%d %H:%M:%S')\n  echo \"[$timestamp] [$level] $msg\" | tee -a \"$LOG_FILE\"\n}\n\nlog INFO \"Script started\"\nlog WARN \"Low disk space\"\nlog ERROR \"Connection failed\"",e:"local = משתנים מקומיים. shift אחרי $1 גורם ל-$* להכיל את שאר הארגומנטים. tee = כתוב לקובץ וגם לstdout. timestamp בISO format לsorting."}
 ]};
 
 const GAME_QS = {
 0:[
   {q:"מי פיתח את Linux?",o:["Richard Stallman","Linus Torvalds","Dennis Ritchie","Ken Thompson"],a:1},
-  {q:"Alpine מתאימה לDocker כי היא:",o:["הכי נפוצה","הכי קטנה ובטוחה","הכי מהירה","הכי ישנה"],a:1},
-  {q:"/proc מכיל:",o:["config files","virtual FS לkernel","temp files","binaries"],a:1},
-  {q:"apt = package manager של:",o:["RHEL","Arch Linux","Ubuntu/Debian","Fedora"],a:2},
-  {q:"Kernel הוא:",o:["כל ה-OS","ממשק גרפי","ליבת המערכת","package manager"],a:2},
-  {q:"/dev מכיל:",o:["documents","device files","executables","logs"],a:1},
-  {q:"Linux נוצר ב:",o:["1984","1991","1995","2000"],a:1},
-  {q:"/etc מכיל:",o:["executables","temp files","config files","logs"],a:2}
+  {q:"איזה distro הכי קטן לDocker?",o:["Ubuntu","Debian","Alpine","Fedora"],a:2},
+  {q:"/proc הוא:",o:["קבצי config","Virtual filesystem","Temp files","User data"],a:1},
+  {q:"package manager של Ubuntu:",o:["rpm","pacman","apt","dnf"],a:2},
+  {q:"Kernel = ?",o:["OS שלם","ממשק גרפי","ליבת המערכת","Package manager"],a:2},
+  {q:"מה /dev מכיל?",o:["Documentation","Device files","Executables","Logs"],a:1},
+  {q:"שנת פיתוח Linux:",o:["1984","1991","1995","2000"],a:1},
+  {q:"/etc מכיל:",o:["Executables","Temp files","Config files","Logs"],a:2}
 ],
 1:[
-  {q:"chmod 755 =",o:["rwxrwxrwx","rwxr-xr-x","rw-r--r--","rwx------"],a:1},
-  {q:"r = ערך octal:",o:["1","2","4","8"],a:2},
-  {q:"SSH private key צריך:",o:["chmod 777","chmod 755","chmod 644","chmod 600"],a:3},
-  {q:"hard link =",o:["pointer לpath","אותו inode","קובץ מוצפן","symlink"],a:1},
-  {q:"stat מציג:",o:["תוכן קובץ","inode ומטאדאטה","הרשאות בלבד","גודל בלבד"],a:1},
-  {q:"/var מכיל:",o:["user homes","logs ו-databases","config files","binaries"],a:1},
+  {q:"chmod 755 = ?",o:["rwxrwxrwx","rwxr-xr-x","rw-r--r--","rwx------"],a:1},
+  {q:"r=? בhexadecimal chmod",o:["1","2","4","8"],a:2},
+  {q:"SSH private key צריך chmod:",o:["777","755","644","600"],a:3},
+  {q:"hard link = ?",o:["pointer לpath","אותו inode","קובץ מוצפן","symlink"],a:1},
+  {q:"stat file מציג:",o:["תוכן הקובץ","inode ומטאדאטה","הרשאות בלבד","גודל בלבד"],a:1},
+  {q:"/var מכיל:",o:["User homes","Variable data (logs, db)","Config","Binaries"],a:1},
   {q:"chmod 644 =",o:["rwxrwxrwx","rwxr-xr-x","rw-r--r--","rw-rw-rw-"],a:2},
   {q:"df -i בודק:",o:["disk space","inode usage","network","memory"],a:1}
 ],
@@ -2387,269 +2254,189 @@ const GAME_QS = {
   {q:"grep -v מחזיר:",o:["matches","non-matches","empty lines","all"],a:1},
   {q:"> redirect:",o:["append","overwrite","stderr","pipe"],a:1},
   {q:">> redirect:",o:["overwrite","append","stderr","pipe"],a:1},
-  {q:"awk '{print $2}' =",o:["שורה 2","עמודה 2","שורות 2+","2 תווים"],a:1},
-  {q:"sed 's/a/b/g' =",o:["מחק a","החלף a→b","החלף b→a","מחק b"],a:1},
-  {q:"find -mtime -7:",o:["ישן 7+","שינוי ב-7 ימים","7MB","7 links"],a:1},
-  {q:"wc -l =",o:["מילים","שורות","תווים","bytes"],a:1},
-  {q:"pipe | מחבר:",o:["stdin→file","stdout→stdin הבא","stderr→stdout","processes"],a:1}
+  {q:"awk '{print $2}' = ?",o:["שורה 2","עמודה 2","שורות 2+","2 תווים"],a:1},
+  {q:"sed 's/a/b/g' = ?",o:["מחק a","החלף a→b כולם","החלף b→a","מחק b"],a:1},
+  {q:"find -mtime -7:",o:["קבצים בני 7 יום+","קבצים שינויו ב7 ימים","גדול מ7MB","קבצים ב7"],a:1},
+  {q:"wc -l = ?",o:["ספור מילים","ספור שורות","ספור תווים","גודל"],a:1},
+  {q:"pipe | מחבר:",o:["stdin לfile","stdout של אחד לstdin של הבא","stderr לstdout","processes"],a:1}
 ],
 3:[
   {q:"useradd -m יוצר:",o:["group","home directory","password","SSH key"],a:1},
   {q:"usermod -aG sudo alice:",o:["מוחק מsudo","מוסיף לsudo","מחליף groups","מוחק alice"],a:1},
-  {q:"visudo עדיף על vi כי:",o:["מהיר יותר","syntax check","GUI","זהים"],a:1},
-  {q:"id alice מחזיר:",o:["password","uid/gid/groups","history","permissions"],a:1},
-  {q:"chmod +x נותן:",o:["read","execute לכולם","מסיר","write"],a:1},
-  {q:"umask 022 + 666 =",o:["777","755","644","600"],a:2},
-  {q:"who מציג:",o:["who files","מחובר כעת","כל users","policy"],a:1},
-  {q:"userdel -r מוחק:",o:["user בלבד","user + home","group","password"],a:1}
+  {q:"visudo עדיף על vi /etc/sudoers כי:",o:["מהיר יותר","מוסיף syntax check","מוסיף GUI","שניהם זהים"],a:1},
+  {q:"id alice מחזיר:",o:["password","uid/gid/groups","login history","permissions"],a:1},
+  {q:"chmod +x =",o:["הוסף read","הוסף execute לכולם","הסר permissions","הוסף write"],a:1},
+  {q:"umask 022 + default 666 =",o:["777","755","644","600"],a:2},
+  {q:"who מציג:",o:["קבצי who","מי מחובר כעת","כל users","password policy"],a:1},
+  {q:"userdel -r מוחק:",o:["user בלבד","user + home directory","group","password"],a:1}
 ],
 4:[
   {q:"SIGTERM מספר:",o:["1","9","15","19"],a:2},
   {q:"SIGKILL מספר:",o:["1","9","15","19"],a:1},
-  {q:"SIGHUP לdaemon =",o:["כיבוי","הרג","reload config","pause"],a:2},
-  {q:"nohup cmd & =",o:["foreground","background+logout","background+survive","terminal חדש"],a:2},
-  {q:"crontab -e:",o:["הצג","ערוך","מחק","הפעל"],a:1},
-  {q:"ps aux =",o:["active only","all processes","system","user"],a:1},
-  {q:"jobs =",o:["כל processes","background בshell","system","cron"],a:1},
-  {q:"kill -9 שולח:",o:["SIGTERM","SIGHUP","SIGKILL","SIGINT"],a:2}
+  {q:"SIGHUP ל-daemon = ?",o:["כבה","הרג","reload config","pause"],a:2},
+  {q:"nohup cmd & = ?",o:["foreground","background + exits with logout","background + survives logout","background only"],a:2},
+  {q:"crontab -e:",o:["הצג crons","ערוך crons","מחק crons","הפעל cron"],a:1},
+  {q:"ps aux = ?",o:["active processes only","all processes","system processes","user processes"],a:1},
+  {q:"jobs = ?",o:["כל processes","background jobs בshell הנוכחי","system jobs","cron jobs"],a:1},
+  {q:"kill -9 1234 שולח:",o:["SIGTERM","SIGHUP","SIGKILL","SIGINT"],a:2}
 ],
 5:[
-  {q:"ss -tulnp מציג:",o:["SSH sessions","open ports","firewall","interfaces"],a:1},
+  {q:"ss -tulnp מציג:",o:["SSH sessions","open ports","firewall rules","network interfaces"],a:1},
   {q:"ssh-keygen -t ed25519 יוצר:",o:["RSA key","DSA key","ed25519 keypair","certificate"],a:2},
-  {q:"scp =",o:["secure copy SSH","symlink copy","system copy","soft copy"],a:0},
+  {q:"scp = ?",o:["secure copy over SSH","symlink copy","system copy","soft copy"],a:0},
   {q:"port SSH ברירת מחדל:",o:["21","22","23","80"],a:1},
-  {q:"ufw allow 22 לפני enable:",o:["לאפשר FTP","לא לחסום SSH","לאפשר HTTP","לאפשר ICMP"],a:1},
-  {q:"rsync -z =",o:["recursive","verbose","compress","delete"],a:2},
-  {q:"ip addr =",o:["edit IP","show interfaces","routing","firewall"],a:1},
-  {q:"traceroute מציג:",o:["test port","packet route","ping","DNS"],a:1}
+  {q:"ufw allow 22/tcp לפני ufw enable כדי:",o:["לאפשר FTP","לא לחסום SSH","לאפשר HTTP","לאפשר ICMP"],a:1},
+  {q:"rsync -z = ?",o:["recursive","verbose","compress","delete"],a:2},
+  {q:"ip addr = ?",o:["edit IP","show interfaces and IPs","routing table","firewall"],a:1},
+  {q:"traceroute = ?",o:["test port","show packet route","ping","DNS lookup"],a:1}
 ],
 6:[
-  {q:"apt update =",o:["עדכן חבילות","עדכן רשימה","התקן","הסר"],a:1},
-  {q:"apt purge vs remove:",o:["זהים","purge = binary+config","remove = config","purge מהיר"],a:1},
-  {q:"dpkg -l מציג:",o:["log","installed packages","deps","info"],a:1},
-  {q:"make -j$(nproc) =",o:["job אחד","parallel+cores","install","configure"],a:1},
-  {q:"apt autoremove =",o:["הסר הכל","הסר orphans","cache","עדכן"],a:1},
-  {q:"snap =",o:["קטנות","self-contained+sandboxed","מהיר","ללא deps"],a:1},
-  {q:"dnf = של:",o:["Debian","Ubuntu","RHEL/Fedora","Arch"],a:2},
-  {q:"rpm -qa | grep nginx:",o:["מתקין","בודק אם מותקן","מסיר","מעדכן"],a:1}
+  {q:"apt update = ?",o:["עדכן חבילות","עדכן רשימת חבילות","התקן הכל","הסר ישנות"],a:1},
+  {q:"apt purge vs remove:",o:["זהים","purge מוחק גם config","remove מוחק config","purge מהיר יותר"],a:1},
+  {q:"dpkg -l מציג:",o:["log","installed packages","dependencies","package info"],a:1},
+  {q:"make -j$(nproc) = ?",o:["run 1 job","run jobs = CPU cores","install","configure"],a:1},
+  {q:"apt autoremove = ?",o:["הסר הכל","הסר orphaned dependencies","נקה cache","עדכן"],a:1},
+  {q:"snap packages = ?",o:["קטנות יותר","self-contained + sandboxed","faster","no dependencies"],a:1},
+  {q:"dnf = package manager של:",o:["Debian","Ubuntu","RHEL/Fedora","Arch"],a:2},
+  {q:"rpm -qa | grep nginx:",o:["מתקין nginx","בודק אם nginx מותקן","מסיר nginx","מעדכן nginx"],a:1}
 ],
 7:[
-  {q:"#!/bin/bash =",o:["comment","shebang","variable","function"],a:1},
-  {q:"set -e =",o:["encoding","exit on error","debug","environment"],a:1},
-  {q:"$() =",o:["subshell","command substitution","arithmetic","string"],a:1},
-  {q:"[[ -f file ]] בודק:",o:["permissions","exists as file","size","owner"],a:1},
-  {q:"local var =",o:["global","function-scoped","readonly","exported"],a:1},
-  {q:"set -u =",o:["update","undefined error","unset","upper"],a:1},
-  {q:"IFS =",o:["If Field","Internal Field Separator","Input Format","Index"],a:1},
-  {q:"tee =",o:["copy file","file AND stdout","redirect stderr","pipe"],a:1}
+  {q:"#!/bin/bash = ?",o:["comment","shebang","variable","function"],a:1},
+  {q:"set -e = ?",o:["set encoding","exit on error","enable debug","set environment"],a:1},
+  {q:"$() = ?",o:["subshell","command substitution","arithmetic","string"],a:1},
+  {q:"[[ -f file ]] בודק:",o:["file permissions","file exists and is regular","file size","file owner"],a:1},
+  {q:"local variable = ?",o:["global","function-scoped","readonly","exported"],a:1},
+  {q:"set -u = ?",o:["update","error on undefined variables","unset","upper case"],a:1},
+  {q:"IFS = ?",o:["If Field Separator","Internal Field Separator","Input Format String","Index Field Set"],a:1},
+  {q:"tee command = ?",o:["copy file","write to file AND stdout","redirect stderr","pipe"],a:1}
 ]};
 
 const QUIZZES_EN = {
 0:[
-  {q:"What's the difference between Linux and GNU/Linux?",
-   o:["Both names for the same OS","Linux = kernel only, GNU/Linux = kernel + GNU tools","GNU/Linux = GNU tools only, no kernel","Linux includes a graphical interface"],
-   a:1,e:"Linux is the kernel. GNU/Linux = kernel + GNU tools without which it isn't usable."},
-  {q:"Which distro is smallest and best for Docker containers?",
-   o:["Ubuntu — popular and supports Docker","Fedora — bleeding edge with Docker","Alpine — ~5MB, small and secure","Debian — very stable and supports Docker"],
-   a:2,e:"Alpine Linux is ~5MB and security-focused. Most Docker base images use it."},
-  {q:"What is the role of /proc in the system?",
-   o:["Holds system configuration files","Virtual FS with live kernel/process data","Holds temporary files of processes","Holds executables and system binaries"],
-   a:1,e:"/proc is a virtual filesystem, not on disk. Contains live kernel and process information."},
-  {q:"apt vs dnf — what's the difference?",
-   o:["apt is faster, dnf is slower","apt for Debian/Ubuntu, dnf for RHEL/Fedora","Both are the same tool with different names","dnf is outdated, apt is the newer version"],
-   a:1,e:"apt = Debian/Ubuntu. dnf = Dandified YUM for RHEL/Fedora/CentOS. Different package managers."},
-  {q:"A System Call is:",
-   o:["A built-in shell command in bash","API interface between user space and kernel","A software package management tool","A background daemon running on the system"],
-   a:1,e:"System calls = API between user space and kernel. Examples: open(), read(), write(), fork()."}
+  {q:"What's the difference between Linux and GNU/Linux?",o:["Same thing","Linux = kernel only, GNU/Linux = kernel + GNU tools","GNU/Linux = kernel only","Linux includes GUI"],a:1,e:"Linux is the kernel developed by Torvalds. GNU/Linux is the complete system with GNU tools without which the kernel alone isn't usable."},
+  {q:"Which distro is best for Docker/minimal environments?",o:["Ubuntu","Fedora","Alpine Linux","Arch Linux"],a:2,e:"Alpine Linux is famous for its tiny size (5MB) and security focus. Most Docker images are based on it."},
+  {q:"What is /proc?",o:["Config files","Virtual filesystem with kernel and process info","Temporary files","System binaries"],a:1,e:"/proc is a virtual filesystem — doesn't exist on disk. Contains live info about processes, kernel, and hardware."},
+  {q:"What's the difference between apt and dnf?",o:["apt is faster","apt for Debian/Ubuntu, dnf for RHEL/Fedora","No difference","dnf is older than apt"],a:1,e:"apt = Advanced Package Tool for Debian/Ubuntu. dnf = Dandified YUM for RHEL/Fedora/CentOS. Different package managers."},
+  {q:"What is a System Call?",o:["A bash command","Interface between user space and kernel","Package manager","System process"],a:1,e:"System calls are the API between user space programs and the kernel. Examples: open(), read(), write(), fork()."}
 ],
 1:[
-  {q:"What does /etc contain?",
-   o:["User executables and system binaries","System configuration and config files","Temporary files of the current session","Log files and service journal files"],
-   a:1,e:"/etc holds configuration: /etc/passwd, /etc/nginx/, /etc/ssh/ and more."},
-  {q:"chmod 644 gives:",
-   o:["rwxrwxrwx — everything open for all","rw-rw-rw- — write access for all users","rw-r--r-- — owner writes, others read","rwxr-xr-x — executable for others too"],
-   a:2,e:"6=rw(owner), 4=r(group), 4=r(others) → rw-r--r--. Typical for content files."},
-  {q:"An inode contains:",
-   o:["The filename and its full path","Metadata: permissions, owner, timestamps","The actual content of the file itself","A list of directories and their entries"],
-   a:1,e:"Inode = permissions, owner, timestamps. Filename is in directory entry, not the inode."},
-  {q:"Difference between hard link and symlink:",
-   o:["No difference, both point to files","Hard link = shared inode, symlink = path pointer","Symlink = shared inode, hard link = path","Hard link only works on directories"],
-   a:1,e:"Hard link = same inode. Symlink = points to path and breaks if source is deleted."},
-  {q:"SSH private key requires permissions:",
-   o:["chmod 777 — full open access","chmod 755 — standard executable file","chmod 644 — readable by group and others","chmod 600 — owner read/write only"],
-   a:3,e:"chmod 600 = rw------- = owner only. SSH refuses keys with broader permissions."}
+  {q:"What does /etc contain?",o:["User executables","System configuration files","Temporary files","Log files"],a:1,e:"/etc = et cetera. Contains system configuration files: /etc/passwd, /etc/nginx/, /etc/ssh/."},
+  {q:"chmod 644 gives permissions:",o:["rwxrwxrwx","rw-rw-rw-","rw-r--r--","rwxr-xr-x"],a:2,e:"6=rw (owner), 4=r (group), 4=r (others) → rw-r--r--. Typical for content files."},
+  {q:"What is an inode?",o:["File name","Data structure with file metadata (permissions, owner, size)","File content","Filesystem directory"],a:1,e:"Inode contains: permissions, owner, timestamps, size, pointers to blocks. The filename is in the directory entry, not the inode."},
+  {q:"Difference between hard link and symlink?",o:["No difference","Hard link = same inode, symlink = pointer to path","Symlink = same inode, hard link = pointer","Hard link works on directories"],a:1,e:"Hard link points to the same inode. Deleting the original has no effect. Symlink points to a path — breaks if the target is deleted."},
+  {q:"SSH private key needs permissions:",o:["chmod 777","chmod 755","chmod 644","chmod 600"],a:3,e:"chmod 600 = rw------- = only owner can read and write. SSH refuses to use a key with broader permissions."}
 ],
 2:[
-  {q:"What does grep -v return?",
-   o:["Lines containing the pattern","Lines NOT containing the pattern","Only empty and whitespace lines","The entire file without any changes"],
-   a:1,e:"-v = invert match. Returns lines that don't match. Useful for filtering log noise."},
-  {q:"What does awk '{print $2}' print?",
-   o:["Only the specific line number 2","Column number 2 from every line","Every line printed two times","Only the first 2 lines of input"],
-   a:1,e:"awk splits into fields. $2 = second field per line. Useful for log analysis."},
-  {q:"Difference between > and >> in redirect:",
-   o:["> appends, >> overwrites and replaces",">> appends to end, > replaces content","Both do exactly the same thing",">> always creates a brand new empty file"],
-   a:1,e:"> overwrites existing content. >> appends to end. Wrong use of > can delete a log!"},
-  {q:"find -mtime -7 returns:",
-   o:["Files older than 7 days or more","Files modified in the last 7 days","Files that are exactly 7MB in size","Files with more than 7 hard links"],
-   a:1,e:"-mtime -7 = modified less than 7 days ago. -mtime +7 = more than 7 days back."},
-  {q:"set -euo pipefail does:",
-   o:["Sets encoding for the bash script","Exits on errors, undefined vars, pipe fail","Enables verbose and full debug mode","Sets PATH and all environment variables"],
-   a:1,e:"-e=exit on error, -u=undefined var error, -o pipefail=pipe failure exits script."}
+  {q:"grep -v outputs:",o:["Lines containing pattern","Lines NOT containing pattern","Only empty lines","All output"],a:1,e:"-v = invert. grep -v 'DEBUG' returns all lines that don't contain 'DEBUG'. Useful for filtering noise."},
+  {q:"What does awk '{print $2}' do?",o:["Prints line 2","Prints column 2 from each line","Searches for pattern 2","Counts 2 lines"],a:1,e:"awk splits each line into fields by whitespace. $2 is the second field. Useful for log analysis and file processing."},
+  {q:"Difference between > and >>?",o:["> append, >> overwrite","> overwrite, >> append","Both identical",">> creates new file"],a:1,e:"> overwrite — deletes existing content and recreates. >> append — adds to end of existing. Mistake with > can delete important logs!"},
+  {q:"find / -mtime -7 finds files:",o:["Older than 7 days","Modified in the last 7 days","Exactly 7MB","With 7 hard links"],a:1,e:"-mtime -7 = modification time less than 7 days back. -mtime +7 = more than 7 days. Useful for finding recently created files."},
+  {q:"What does 'set -euo pipefail' do in bash?",o:["Defines variables","Exits on error, undefined variables, and pipe failures","Sets encoding","Enables debugging"],a:1,e:"-e = exit on error, -u = error on undefined variables, -o pipefail = pipe failure = script failure. Best practice for scripts."}
 ],
 3:[
-  {q:"usermod -aG sudo alice does:",
-   o:["Removes alice from the sudo group","Adds alice to sudo and keeps other groups","Replaces all of alice's group memberships","Creates a new sudo group on the system"],
-   a:1,e:"-a = append, keep existing groups! Without -a: alice loses all her other groups."},
-  {q:"/etc/sudoers should be safely edited with:",
-   o:["nano — user-friendly and simple editor","vi — traditional fast and powerful editor","visudo — editor with built-in syntax check","cat — allows both viewing and editing"],
-   a:2,e:"visudo checks syntax before saving. Using vi/nano can lock out all sudo access."},
-  {q:"The command id alice returns:",
-   o:["Alice's encrypted password hash","uid, gid and group memberships of the user","Execution permissions and rights of alice","Login history and session info of alice"],
-   a:1,e:"id returns: uid=1001(alice) gid=1001(alice) groups=1001(alice),27(sudo)."},
-  {q:"chmod +x script.sh gives:",
-   o:["Execute permission for the owner only","Execute permission for all users","Removes execute from all users","Is fully equivalent to chmod 777"],
-   a:1,e:"+x = a+x = execute for all. Owner only: chmod u+x. Group: chmod g+x."},
-  {q:"umask 022 — new files get:",
-   o:["777 — full open access for all","755 — rwxr-xr-x standard exec","644 — rw-r--r-- owner writes","600 — rw owner read/write only"],
-   a:2,e:"umask subtracts from default 666. 666 - 022 = 644 = rw-r--r--."}
+  {q:"usermod -aG sudo alice does:",o:["Removes alice from sudo","Adds alice to sudo group","Replaces all alice's groups with sudo","Creates new sudo user"],a:1,e:"-a = append (keep existing groups), -G = groups. Without -a: alice would only be in sudo group and lose all others!"},
+  {q:"The /etc/sudoers file should be edited with:",o:["nano","vi","visudo","cat"],a:2,e:"visudo checks syntax before saving. Direct editing with vi/nano can create an invalid file and lock out all sudo access."},
+  {q:"The 'id alice' command returns:",o:["Alice's password","uid, gid and groups of alice","Alice's run permissions","Login history"],a:1,e:"id returns: uid=1001(alice) gid=1001(alice) groups=1001(alice),27(sudo). Useful for verifying permissions."},
+  {q:"chmod +x script.sh:",o:["Gives execute only to owner","Gives execute permission to everyone (owner, group, others)","Removes execute permission","Equivalent to chmod 777"],a:1,e:"+x without specifying who = a+x = add execute for all. Owner only: u+x. Group: g+x."},
+  {q:"umask 022 causes new files to get permissions:",o:["777","755","644","600"],a:2,e:"umask subtracts from default (666 for files). 666 - 022 = 644 = rw-r--r--. For directories: 777 - 022 = 755 = rwxr-xr-x."}
 ],
 4:[
-  {q:"Difference between SIGTERM and SIGKILL:",
-   o:["SIGKILL is always better to use","SIGTERM = stop request, SIGKILL = force kill","SIGTERM kills immediately and forcefully","Both signals produce identical results"],
-   a:1,e:"SIGTERM(15) = polite request, can clean up. SIGKILL(9) = kernel kills immediately."},
-  {q:"SIGHUP sent to nginx does:",
-   o:["Shuts nginx down completely","Restarts nginx as a fresh new process","Reloads configuration without downtime","Moves nginx to background mode"],
-   a:2,e:"SIGHUP to daemons like nginx or sshd = reload config without service interruption."},
-  {q:"nohup command & runs:",
-   o:["In foreground as normal","In background, stops when logging out","In background, continues after logout","Opens a separate new terminal window"],
-   a:2,e:"nohup = ignores SIGHUP. & = background. Together: keeps running after logout."},
-  {q:"crontab '*/15 * * * *' runs:",
-   o:["Every exactly 15 seconds","Every exactly 15 minutes","Every exactly 15 hours","On the 15th of every month"],
-   a:1,e:"*/15 in minutes field = every 15 minutes. */n = every n units of that field."},
-  {q:"ps aux --sort=-%cpu sorts by:",
-   o:["Ascending PID order number","Descending %CPU — highest user first","Ascending %CPU — lowest user first","Only currently active processes"]
-   ,a:1,e:"--sort=-%cpu = descending (- = descending). Top CPU consumers appear first."}
+  {q:"Difference between SIGTERM and SIGKILL?",o:["SIGKILL is always better","SIGTERM = termination request (catchable), SIGKILL = immediate kill (uncatchable)","SIGTERM = immediate kill","No difference"],a:1,e:"SIGTERM (15) = polite request, process can clean up and close itself. SIGKILL (9) = kernel terminates immediately, no cleanup. Always try SIGTERM first."},
+  {q:"SIGHUP to nginx does:",o:["Shuts down nginx","Restarts nginx","Reloads configuration","Sends nginx to background"],a:2,e:"SIGHUP = Hangup. For daemons like nginx and sshd — reloads config without service interruption. kill -HUP $(pidof nginx)."},
+  {q:"nohup command & runs:",o:["In foreground","In background, stops on logout","In background, continues after logout","In a new terminal"],a:2,e:"nohup ignores SIGHUP (sent on logout). & sends to background. Together: process continues even after disconnecting."},
+  {q:"cron '*/15 * * * *' runs:",o:["Every 15 seconds","Every 15 minutes","Every 15 hours","On the 15th of every month"],a:1,e:"*/15 in minutes field = every 15 minutes. */n in any field = every n units of that field."},
+  {q:"ps aux --sort=-%cpu shows:",o:["Processes by PID","Processes from highest to lowest %CPU","Processes from lowest to highest","Active processes only"],a:1,e:"--sort=-%cpu = sort by %CPU descending (- = descending). ps aux | head -10 after that shows top consumers."}
 ],
 5:[
-  {q:"ss -tulnp shows:",
-   o:["Active SSH sessions only","Open TCP/UDP ports and their processes","All available network interfaces","Currently active firewall rules"],
-   a:1,e:"ss = socket statistics. -tulnp: TCP+UDP listening, numbers, processes."},
-  {q:"ssh-copy-id user@host does:",
-   o:["Copies a file securely via SSH","Adds your public key to authorized_keys","Generates a new keypair on the server","Configures the remote SSH config file"],
-   a:1,e:"Adds public key to ~/.ssh/authorized_keys. No password needed for login after."},
-  {q:"ed25519 is better than RSA for SSH because:",
-   o:["It is older and more widely familiar","Short, fast, as secure as RSA 3072bit","Longer key always means more secure","Only Ubuntu and Debian support it"],
-   a:1,e:"ed25519 = elliptic curve. 256-bit equivalent to RSA 3072-bit. Faster and shorter."},
-  {q:"ufw allow 22 before ufw enable — why?",
-   o:["To allow FTP access to the server","To allow SSH before blocking everything","To allow HTTP for web servers","To allow ICMP and ping testing"],
-   a:1,e:"Enable firewall before allowing SSH — all connections block, you lose server access."},
-  {q:"rsync -avz src/ user@host:dst/ does:",
-   o:["Deletes src directory after copying","Syncs via SSH with data compression","Copies only a single specified file","Creates a fully encrypted backup"],
-   a:1,e:"-a=archive, -v=verbose, -z=compress. rsync transfers only changes — more efficient."}
+  {q:"ss -tulnp shows:",o:["Active SSH connections","Open TCP/UDP ports with processes","All network interfaces","Firewall rules"],a:1,e:"ss = socket statistics. -t TCP, -u UDP, -l listening, -n numbers (not DNS), -p processes. Replaces netstat."},
+  {q:"What does ssh-copy-id user@host do?",o:["Copies a file via SSH","Adds my public key to ~/.ssh/authorized_keys on host","Generates a new keypair","Configures SSH config"],a:1,e:"ssh-copy-id adds your public key to authorized_keys on the server. After that you can connect without a password."},
+  {q:"ed25519 is better than RSA for SSH because:",o:["It's older and more familiar","Shorter and faster with equivalent security","Longer = more secure","Only Ubuntu supports it"],a:1,e:"ed25519 = elliptic curve. 256-bit key equivalent to 3072-bit RSA. Fast, short, and no RSA vulnerabilities."},
+  {q:"Why run 'ufw allow 22/tcp' before 'ufw enable'?",o:["To allow FTP","To allow SSH before enabling firewall, otherwise access is blocked","To allow HTTP","To allow ping"],a:1,e:"If you enable ufw before allowing SSH (port 22), all connections will be blocked and you'll lose remote server access. Irreversible without physical access!"},
+  {q:"rsync -avz src/ user@host:dst/ does:",o:["Deletes src","Syncs src to dst over SSH with compression","Copies one file","Encrypted backup"],a:1,e:"-a = archive (recursive + permissions + timestamps), -v = verbose, -z = compress. rsync transfers only changes (delta), much more efficient than scp."}
 ],
 6:[
-  {q:"apt remove vs apt purge:",
-   o:["Both tools are completely identical","remove = binary, purge = binary + config files","purge runs faster than remove always","remove also removes dependencies too"],
-   a:1,e:"remove keeps config files. purge removes everything. After purge: fresh install works."},
-  {q:"make -j$(nproc) does:",
-   o:["Runs only a single sequential job","Runs parallel jobs using all CPU cores","Performs install step after compile","Only checks build dependencies"],
-   a:1,e:"nproc = CPU core count. -j N = N parallel jobs. Significantly speeds up compilation."},
-  {q:"apt autoremove removes:",
-   o:["Old archive cache package files","Orphaned packages no longer required","Old service and system log files","Temporary files and build cache"],
-   a:1,e:"Dependencies installed for a removed package. autoremove removes when unneeded."},
-  {q:"dpkg -l | grep nginx does:",
-   o:["Reinstalls nginx package silently","Checks if nginx is installed and version","Removes nginx package completely","Shows nginx service log output"],
-   a:1,e:"dpkg -l = list installed packages. ii=installed, rc=removed+config, un=unknown."},
-  {q:"snap packages differ from apt packages because:",
-   o:["They are always much smaller","Self-contained and sandboxed for any distro","They run significantly faster always","They have absolutely no dependencies"],
-   a:1,e:"snap = self-contained with all dependencies. Works on any distro with snapd. Sandboxed."}
+  {q:"Difference between apt remove and apt purge:",o:["No difference","remove = removes binary, purge = also removes config files","purge = faster","remove = removes dependencies"],a:1,e:"remove keeps config files (in /etc). purge removes everything including config. After purge you can reinstall as a fresh install."},
+  {q:"make -j$(nproc) in compile from source:",o:["Runs one job","Runs make with the number of available cores","Performs install","Checks dependencies"],a:1,e:"nproc returns number of CPU cores. -j N = N parallel jobs. Significantly speeds up compilation on multi-core machines."},
+  {q:"apt autoremove cleans:",o:["Cache files","Packages installed as dependencies that are no longer needed","Log files","Temporary files"],a:1,e:"When you remove a package, its dependencies aren't automatically removed. autoremove identifies and removes orphaned packages."},
+  {q:"dpkg -l | grep nginx:",o:["Installs nginx","Checks if nginx is installed and its version","Removes nginx","Shows nginx logs"],a:1,e:"dpkg -l = list installed packages. grep filters for nginx. Output: 'ii' = installed, 'rc' = removed but config remains, 'un' = unknown."},
+  {q:"snap packages differ from apt because:",o:["They're smaller","Self-contained + sandboxed, work on any distro","They're faster","No dependencies"],a:1,e:"snap = self-contained package with all dependencies. Works on any distro running snapd. Sandboxed = better security but larger overhead."}
 ],
 7:[
-  {q:"#!/bin/bash at the top of a script is called:",
-   o:["A standard comment for documentation","Shebang — specifies which interpreter runs","A built-in bash shell variable","An automatic initial function call"],
-   a:1,e:"Shebang (#!) tells the kernel which interpreter. #!/bin/bash. #!/usr/bin/python3."},
-  {q:"set -e in a bash script does:",
-   o:["Sets the file encoding of the script","Exits immediately when any command fails","Enables full verbose and debug output","Sets all PATH and environment variables"],
-   a:1,e:"-e = exit immediately on error. Without it, script continues after errors — dangerous."},
-  {q:"[[ -f /etc/passwd ]] checks:",
-   o:["If /etc/passwd is a directory type","If it exists only as a regular file","If it is writable by the file owner","If the file is completely and entirely empty"],
-   a:1,e:"-f = regular file exists. -d=directory, -e=any type, -r=readable, -z=string empty."},
-  {q:"$(command) in bash is called:",
-   o:["A completely separate subshell run","Command substitution — captures output","A special type of variable expansion","An arithmetic calculation expansion"],
-   a:1,e:"Command substitution: TODAY=$(date +%Y-%m-%d). Command runs and its output is captured."},
-  {q:"local var_name inside a bash function:",
-   o:["Defines a global scope variable","Defines a variable only local to function","Imports a variable from outer scope","Deletes and unsets an existing variable"],
-   a:1,e:"local creates variable in function scope only. Without local — global, may overwrite others."}
+  {q:"#!/bin/bash at the start of a script is called:",o:["Comment","Shebang — specifies the interpreter","Variable","Function call"],a:1,e:"Shebang (#!) tells the kernel which interpreter to use. #!/bin/bash = bash. #!/usr/bin/env python3 = python3."},
+  {q:"set -e in bash script:",o:["Sets encoding","Causes script to exit when a command fails","Enables debugging","Sets PATH"],a:1,e:"-e = exit immediately on error. Without -e, the script continues even after errors, which can cause damage."},
+  {q:"[[ -f /etc/passwd ]] checks:",o:["If /etc/passwd is a directory","If /etc/passwd exists as a regular file","If /etc/passwd is writable","If /etc/passwd is empty"],a:1,e:"-f = regular file exists. -d = directory, -e = exists (any type), -r = readable, -w = writable, -x = executable, -z = string empty."},
+  {q:"$(command) in bash is called:",o:["Subshell","Command substitution — runs command and returns output","Variable expansion","Arithmetic expansion"],a:1,e:"Command substitution: TODAY=$(date +%Y-%m-%d) stores date output in variable. Old form: `date` (backticks) — prefer $()."},
+  {q:"'local variable_name' in bash function:",o:["Defines global variable","Defines variable local to the function only","Imports external variable","Deletes variable"],a:1,e:"local defines a variable that only exists in the function's scope. Without local — all variables are global and may overwrite external ones."}
 ]};
 
 const LABS_EN = {
 0:[
-  {q:"Write the command that shows the current kernel version.",a:"uname -r\nuname -a\ncat /proc/version",e:"uname -r = kernel release. uname -a = full details."},
-  {q:"How do you find which distro is installed?",a:"cat /etc/os-release\nlsb_release -a",e:"/etc/os-release is the modern standard."},
-  {q:"What's the difference between /tmp and /var/tmp?",a:"/tmp: cleared every reboot.\n/var/tmp: persists across reboots.",e:"POSIX allows /tmp to be cleared at boot. /var/tmp persists."},
-  {q:"Write a command that shows free and used RAM.",a:"free -h\ncat /proc/meminfo",e:"free -h = human-readable. 'available' = real number for apps."}
+  {q:"Write the command that shows the current kernel version.",a:"uname -r\n# Also:\nuname -a  # full details\ncat /proc/version",e:"uname -r = kernel release. uname -a = everything: hostname, kernel, arch. /proc/version contains detailed version info."},
+  {q:"How do you find which distro is installed?",a:"cat /etc/os-release\n# or:\nlsb_release -a\n# or:\ncat /etc/issue",e:"/etc/os-release is the modern standard. lsb_release -a works on Debian/Ubuntu. /etc/issue shows the login message."},
+  {q:"What's the difference between /tmp and /var/tmp?",a:"/tmp: cleared on every reboot. Good for short-lived temporary files.\n/var/tmp: persists across reboots. For temp files that need to survive restart.\n\nCheck:\nls -la /tmp /var/tmp",e:"POSIX defines that /tmp may be cleared at boot. /var/tmp is preserved. Don't rely on /tmp for anything important that crosses a reboot."},
+  {q:"Write a command that shows free and used RAM.",a:"free -h\n# Details:\ncat /proc/meminfo\n# Also:\nfree -h --si  # in SI units (1000 not 1024)",e:"free -h = human-readable. Fields: total, used, free, shared, buff/cache, available. 'available' is the real number for applications."}
 ],
 1:[
-  {q:"What command shows a file's inode number?",a:"ls -i /etc/passwd\nstat /etc/passwd",e:"ls -i shows inode. stat shows everything."},
-  {q:"Create a hard link named /tmp/hosts_backup to /etc/hosts.",a:"ln /etc/hosts /tmp/hosts_backup\nls -i /etc/hosts /tmp/hosts_backup",e:"Both share same inode. Deleting one doesn't remove data."},
-  {q:"File has chmod 644. How do you add execute only for owner?",a:"chmod u+x filename\nchmod 744 filename",e:"u+x adds execute to owner only."},
-  {q:"Find all files in /var/log larger than 50MB.",a:"find /var/log -size +50M -type f\nfind /var/log -size +50M -type f -exec ls -lh {} \\;",e:"+50M = larger than 50MB. -type f = files only."}
+  {q:"What command shows a file's inode number?",a:"ls -i /etc/passwd\n# Full details:\nstat /etc/passwd\n# All inodes in directory:\nls -il /etc/",e:"ls -i shows inode number before filename. stat shows everything: inode, permissions, timestamps, number of hard links, size."},
+  {q:"Create a hard link named /tmp/hosts_backup to /etc/hosts.",a:"ln /etc/hosts /tmp/hosts_backup\n# Verify same inode:\nls -i /etc/hosts /tmp/hosts_backup\nstat /etc/hosts | grep 'Links'\n# Shows Links: 2",e:"Both files share the same inode. Deleting one doesn't delete the data — only when link count drops to 0 is data removed."},
+  {q:"A file has chmod 644. How do you add execute permission only for the owner?",a:"chmod u+x filename\n# or:\nchmod 744 filename\n\n# Verify:\nls -la filename\n# Should show: -rwxr--r--",e:"u = user (owner), g = group, o = others, a = all. + adds, - removes, = sets exactly. u+x adds execute to owner only."},
+  {q:"Find all files in /var/log larger than 50MB.",a:"find /var/log -size +50M -type f\n# With sizes:\nfind /var/log -size +50M -type f -exec ls -lh {} \\;\n# Or:\ndu -sh /var/log/* | sort -rh | head -10",e:"+50M = larger than 50MB. -type f = files only (not directories). du -sh + sort helps identify heavy directories."}
 ],
 2:[
-  {q:"Find the 10 most common error lines in /var/log/syslog.",a:"grep -i 'error' /var/log/syslog | awk '{print $5}' | sort | uniq -c | sort -rn | head -10",e:"grep→awk→sort→uniq -c→sort -rn→head. Classic log pipeline."},
-  {q:"Find all .conf files in /etc containing 'timeout'.",a:"grep -rl 'timeout' /etc/ 2>/dev/null\ngrep -rn 'timeout' /etc/ 2>/dev/null",e:"-r recursive, -l filenames, -n line numbers."},
-  {q:"Use sed to replace 'localhost' with '127.0.0.1'.",a:"sed 's/localhost/127.0.0.1/g' config.txt\nsed -i.bak 's/localhost/127.0.0.1/g' config.txt",e:"s=substitute, g=global. -i.bak creates backup."},
-  {q:"Write pipeline showing top 5 IPs by connection count.",a:"awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head -5",e:"awk→sort→uniq -c→sort -rn→head -5."}
+  {q:"Find the 10 most common error lines in /var/log/syslog.",a:"grep -i 'error' /var/log/syslog | awk '{print $5}' | sort | uniq -c | sort -rn | head -10\n# Simpler:\ngrep -i 'error' /var/log/syslog | wc -l",e:"Pipeline: grep filters → awk extracts field → sort orders → uniq -c counts → sort -rn by count → head 10 first."},
+  {q:"Find all .conf files in /etc that contain the word 'timeout'.",a:"grep -rl 'timeout' /etc/*.conf 2>/dev/null\n# Including subdirectories:\ngrep -rl 'timeout' /etc/ 2>/dev/null\n# With line numbers:\ngrep -rn 'timeout' /etc/ 2>/dev/null",e:"-r recursive, -l show filenames only (not content), -n add line numbers. 2>/dev/null hides permission denied errors."},
+  {q:"Use sed to replace all occurrences of 'localhost' with '127.0.0.1' in a config file.",a:"sed 's/localhost/127.0.0.1/g' config.txt\n# In-place:\nsed -i 's/localhost/127.0.0.1/g' config.txt\n# Backup before changing:\nsed -i.bak 's/localhost/127.0.0.1/g' config.txt",e:"s = substitute, g = global (all occurrences, not just first). -i = in-place edit. -i.bak creates config.txt.bak backup before change."},
+  {q:"Write a pipeline showing the top 5 IPs that connected most to a web server.",a:"awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head -5\n# For apache:\nawk '{print $1}' /var/log/apache2/access.log | sort | uniq -c | sort -rn | head -5",e:"awk $1 = first column (IP). sort orders → uniq -c counts unique → sort -rn by count → head -5 first five."}
 ],
 3:[
-  {q:"Create user 'devuser' with bash shell and 'developers' group.",a:"groupadd developers\nuseradd -m -s /bin/bash -G developers devuser\npasswd devuser",e:"-m=home, -s=shell, -G=groups."},
-  {q:"Allow alice to run systemctl restart nginx without password.",a:"visudo\nalice ALL=(ALL) NOPASSWD: /bin/systemctl restart nginx",e:"NOPASSWD: + full path. Always use visudo."},
-  {q:"Find world-writable files in /home modified in last 7 days.",a:"find /home -mtime -7 -perm -o+w -type f",e:"-perm -o+w = world-writable. Security risk."},
-  {q:"How do you check who used sudo and when?",a:"grep sudo /var/log/auth.log\njournalctl _COMM=sudo",e:"Every sudo is logged in auth.log with user and command."}
+  {q:"Create user 'devuser' with bash shell, add to 'developers' group, and set a password.",a:"# Create group if not exists:\ngroupadd developers\n\n# Create user:\nuseradd -m -s /bin/bash -G developers devuser\n\n# Set password:\npasswd devuser\n\n# Verify:\nid devuser\ngrep devuser /etc/passwd",e:"-m creates home directory, -s sets shell, -G adds to additional groups. On Debian add -G with existing group."},
+  {q:"How do you configure alice to run 'systemctl restart nginx' without a password?",a:"# Edit sudoers:\nvisudo\n\n# Add line:\nalice ALL=(ALL) NOPASSWD: /bin/systemctl restart nginx\n\n# Verify:\nsudo -l -U alice",e:"NOPASSWD: allows specific command without password. Specify full path. Always use visudo — editor with syntax check."},
+  {q:"Find all files in /home created in the last 7 days with world-writable permissions.",a:"find /home -mtime -7 -perm -o+w -type f\n# With details:\nfind /home -mtime -7 -perm -o+w -type f -ls",e:"-perm -o+w = world-writable. World-writable files in home directory are a security risk — any user can write to them."},
+  {q:"How do you check who did what with sudo?",a:"# Ubuntu/Debian:\ngrep sudo /var/log/auth.log\n\n# RHEL/CentOS:\ngrep sudo /var/log/secure\n\n# journalctl:\njournalctl _COMM=sudo\n\n# Filter:\ngrep 'sudo:' /var/log/auth.log | tail -20",e:"Every sudo command is logged in auth.log with: timestamp, user, terminal, working directory, and the command run. Important for auditing."}
 ],
 4:[
-  {q:"How do you find which process is listening on port 8080?",a:"ss -tulnp | grep ':8080'\nlsof -i :8080",e:"ss -tulnp = modern. lsof -i :8080. Need sudo."},
-  {q:"Write cron job to run /opt/backup.sh every Sunday at 03:00.",a:"crontab -e\n0 3 * * 0 /opt/backup.sh\ncrontab -l",e:"min hr day month weekday. 0=Sunday."},
-  {q:"PID 1234 unresponsive. What are the correct steps?",a:"kill -15 1234\nsleep 5\nps -p 1234\nkill -9 1234",e:"Always SIGTERM first. SIGKILL only if needed."},
-  {q:"How do you find and handle zombie processes?",a:"ps aux | grep 'Z'\nkill -CHLD <parent_pid>",e:"Cannot kill -9 zombie. Kill parent for cleanup."}
+  {q:"How do you find which process is listening on port 8080?",a:"ss -tulnp | grep ':8080'\n# or:\nlsof -i :8080\n# or:\nfuser 8080/tcp\n# older:\nnetstat -tulnp | grep ':8080'",e:"ss -tulnp = modern tool. lsof -i :8080 = list open files on port. fuser = find process using resource. All require sudo for other users' processes."},
+  {q:"Write a cron job that runs /opt/backup.sh every Sunday at 03:00.",a:"crontab -e\n# Add:\n0 3 * * 0 /opt/backup.sh\n\n# 0 = Sunday (0=Sunday, 6=Saturday)\n# Verify:\ncrontab -l",e:"Fields: minute hour day-of-month month day-of-week. 0 in day-of-week = Sunday. 7 also = Sunday in cron."},
+  {q:"A process with PID 1234 is unresponsive. What are the correct steps to terminate it?",a:"# Step 1: try graceful\nkill -15 1234  # or: kill 1234\n\n# Wait 5-10 seconds\nsleep 5\n\n# Check if still running:\nps -p 1234\n\n# Step 2: force kill\nkill -9 1234\n\n# Verify:\nps -p 1234  # should be empty",e:"Always try SIGTERM (15) first — allows the process to clean up resources. SIGKILL (9) only if SIGTERM doesn't work. SIGKILL doesn't allow cleanup."},
+  {q:"How do you find zombie processes and what do you do with them?",a:"# Find zombies:\nps aux | grep 'Z'\n\n# Zombie = already dead, waiting for parent to read exit code\n# Cannot kill zombie with kill -9!\n# Solution: kill the PARENT:\nkill -CHLD <parent_pid>\n# Or restart the parent process",e:"Zombie = process that finished but parent hasn't called wait(). Can't kill zombie directly. Kill parent causes init to adopt and clean up the zombie."}
 ],
 5:[
-  {q:"How do you check if port 443 is open externally?",a:"nc -zv example.com 443\ncurl -I https://example.com",e:"nc -zv = zero I/O + verbose. curl -I = HEAD."},
-  {q:"Configure SSH config connecting to myserver.com as 'prod'.",a:"cat >> ~/.ssh/config << 'EOF'\nHost prod\n    HostName myserver.com\n    User alice\nEOF\nchmod 600 ~/.ssh/config",e:"~/.ssh/config = SSH aliases. chmod 600 required."},
-  {q:"Write a command that checks ping and prints UP/DOWN.",a:"ping -c1 -W1 8.8.8.8 &>/dev/null && echo UP || echo DOWN",e:"-c1=1 packet. -W1=1s timeout."},
-  {q:"How do you configure static IP on Ubuntu 20.04+?",a:"sudo nano /etc/netplan/00-installer-config.yaml\n# addresses: [192.168.1.100/24]\nsudo netplan apply",e:"Ubuntu 18.04+ uses netplan with YAML."}
+  {q:"How do you check if port 443 is open on an external server?",a:"# With curl:\ncurl -I https://example.com\n\n# With nc (netcat):\nnc -zv example.com 443\n\n# With nmap:\nnmap -p 443 example.com",e:"nc -zv = zero I/O mode (check only) + verbose. Returns 0 if open. curl -I = HTTP HEAD request. Both work on any port."},
+  {q:"Configure SSH config that connects to myserver.com as 'prod' with user 'alice' and specific key.",a:"# Edit ~/.ssh/config:\ncat >> ~/.ssh/config << 'EOF'\nHost prod\n    HostName myserver.com\n    User alice\n    IdentityFile ~/.ssh/prod_key\n    Port 22\nEOF\n\nchmod 600 ~/.ssh/config\n\n# Usage:\nssh prod",e:"~/.ssh/config allows SSH aliases. 'ssh prod' connects with all settings. Keep chmod 600 like private key."},
+  {q:"Write a command that checks if a server responds to ping and prints status.",a:"HOST=\"8.8.8.8\"\nif ping -c1 -W1 \"$HOST\" &>/dev/null; then\n  echo \"$HOST is UP\"\nelse\n  echo \"$HOST is DOWN\"\nfi\n\n# one-liner:\nping -c1 8.8.8.8 &>/dev/null && echo UP || echo DOWN",e:"-c1 = send 1 packet. -W1 = timeout 1 second. &>/dev/null hides output. && / || = one-liner if/else."},
+  {q:"How do you configure a static IP on Ubuntu 20.04+?",a:"# Edit /etc/netplan/00-installer-config.yaml:\nsudo nano /etc/netplan/00-installer-config.yaml\n\n# Content:\nnetwork:\n  version: 2\n  ethernets:\n    eth0:\n      addresses:\n        - 192.168.1.100/24\n      gateway4: 192.168.1.1\n      nameservers:\n        addresses: [8.8.8.8, 8.8.4.4]\n\n# Apply:\nsudo netplan apply",e:"Ubuntu 18.04+ uses netplan with YAML. netplan apply applies changes. netplan try applies with automatic rollback."}
 ],
 6:[
-  {q:"How do you find the 10 largest packages on Debian?",a:"dpkg-query -Wf '${Installed-Size}\\t${Package}\\n' | sort -rn | head -10",e:"dpkg-query = installed size. sort -rn = descending."},
-  {q:"How do you install a specific version with apt?",a:"apt-cache policy nginx\napt install nginx=1.18.0-6ubuntu14\napt-mark hold nginx",e:"apt-mark hold prevents upgrades."},
-  {q:"How do you verify a package is correctly installed?",a:"dpkg --verify nginx\ndpkg -L nginx\ndpkg -S /usr/sbin/nginx",e:"--verify = checksums. -L = file list. -S = ownership."},
-  {q:"How do you clean apt cache to free disk space?",a:"apt autoremove\napt clean\napt autoclean",e:"clean = all archives. autoclean = old versions. autoremove = orphaned."}
+  {q:"How do you find the 10 largest packages on a Debian system?",a:"dpkg-query -Wf '${Installed-Size}\\t${Package}\\n' | sort -rn | head -10\n# Directory sizes:\ndu -sh /usr/* | sort -rh | head -10",e:"dpkg-query returns installed size in KB. sort -rn = numeric descending. Useful for freeing up space."},
+  {q:"How do you install an older version (downgrade) with apt?",a:"# Find available versions:\napt-cache policy nginx\n\n# Install specific version:\napt install nginx=1.18.0-6ubuntu14\n\n# Lock version (prevent upgrade):\napt-mark hold nginx\n\n# Check locked:\napt-mark showhold",e:"apt-cache policy shows available versions. apt-mark hold prevents version change on upgrade. showhold shows locked packages."},
+  {q:"How do you verify a package is installed correctly and completely?",a:"# Debian/Ubuntu:\ndpkg --verify nginx\n# Check files:\ndpkg -L nginx  # files belonging to package\ndpkg -S /usr/sbin/nginx  # which package owns this file\n\n# RHEL:\nrpm -V nginx",e:"dpkg --verify checks checksums. dpkg -L shows all package files. dpkg -S = which package owns a given file."},
+  {q:"How do you clean apt cache to free up space?",a:"# Show cache size:\ndu -sh /var/cache/apt/archives/\n\n# Clean unused packages:\napt autoremove\n\n# Clean cache:\napt clean  # delete archive files\napt autoclean  # delete only old ones\n\n# Summary:\ndu -sh /var/cache/apt/",e:"apt clean deletes all archive (.deb) files from cache. autoclean deletes only versions that can no longer be downloaded. autoremove removes orphaned packages."}
 ],
 7:[
-  {q:"Write a script that checks if web server is up.",a:"#!/bin/bash\nif ! curl -sf http://localhost &>/dev/null; then\n  echo 'DOWN' | mail -s 'Alert' admin@example.com\nfi",e:"curl -sf = silent+fail. ! = negation."},
-  {q:"Write script to backup and delete files older than 7 days.",a:"#!/bin/bash\nDATE=$(date +%Y%m%d)\ntar -czf \"/backups/backup_$DATE.tar.gz\" /var/www\nfind /backups -mtime +7 -delete",e:"find -mtime +7 = older than 7 days."},
-  {q:"How do you iterate over files in a directory in bash?",a:"for file in /var/log/*.log; do\n  gzip \"$file\"\ndone\nfind /var/log -name '*.log' | while IFS= read -r file; do echo \"$file\"; done",e:"for glob = simple. find+while = safer with spaces."},
-  {q:"Write a function that logs with timestamp and severity.",a:"log() {\n  local level=\"$1\"; shift\n  echo \"[$(date +%T)] [$level] $*\" | tee -a /var/log/script.log\n}\nlog INFO 'OK'",e:"local = function scope. tee = file + stdout."}
+  {q:"Write a script that checks if a web server is running and sends an alert if not.",a:"#!/bin/bash\nset -euo pipefail\n\nURL=\"http://localhost:80\"\nEMAIL=\"admin@example.com\"\n\nif ! curl -sf \"$URL\" > /dev/null; then\n  echo \"Web server DOWN at $(date)\" | mail -s \"ALERT: Web server down\" \"$EMAIL\"\n  systemctl restart nginx\nfi",e:"curl -sf = silent + fail on HTTP error. ! = negation. mail = send email (requires mailutils). Improve with retry logic and logging."},
+  {q:"Write a script that creates a backup and deletes backups older than 7 days.",a:"#!/bin/bash\nBACKUP_DIR=\"/backups\"\nSOURCE=\"/var/www\"\nDATE=$(date +%Y%m%d_%H%M%S)\n\n# Create backup\ntar -czf \"$BACKUP_DIR/backup_$DATE.tar.gz\" \"$SOURCE\"\n\n# Delete older than 7 days\nfind \"$BACKUP_DIR\" -name 'backup_*.tar.gz' -mtime +7 -delete\n\necho \"Backup done: backup_$DATE.tar.gz\"",e:"tar -czf = create compressed. DATE for unique name. find -mtime +7 = older than 7 days. -delete = delete. Add logging and error handling in production."},
+  {q:"How do you iterate over files in a directory in bash and perform an action on each?",a:"# for loop with pattern:\nfor file in /var/log/*.log; do\n  echo \"Processing: $file\"\n  gzip \"$file\"\ndone\n\n# find + while read (safe with spaces in names):\nfind /var/log -name '*.log' | while IFS= read -r file; do\n  echo \"$file\"\ndone",e:"for glob = simple and efficient. find + while read = safer with filenames containing spaces. IFS= and -r prevent issues with whitespace and backslash."},
+  {q:"Write a function that prints a message with timestamp and severity level.",a:"#!/bin/bash\nLOG_FILE=\"/var/log/myscript.log\"\n\nlog() {\n  local level=\"$1\"\n  shift\n  local msg=\"$*\"\n  local timestamp\n  timestamp=$(date '+%Y-%m-%d %H:%M:%S')\n  echo \"[$timestamp] [$level] $msg\" | tee -a \"$LOG_FILE\"\n}\n\nlog INFO \"Script started\"\nlog WARN \"Low disk space\"\nlog ERROR \"Connection failed\"",e:"local = local variables. shift after $1 makes $* contain remaining arguments. tee = write to file AND stdout. Timestamp in ISO format for sorting."}
 ]};
 
 const GAME_QS_EN = {
 0:[
   {q:"Who created Linux?",o:["Richard Stallman","Linus Torvalds","Dennis Ritchie","Ken Thompson"],a:1},
-  {q:"Alpine is best for Docker because:",o:["Most popular","Smallest and most secure","Fastest runtime","Most established"],a:1},
-  {q:"/proc contains:",o:["config files","virtual FS for kernel","temp files","binaries"],a:1},
-  {q:"apt is package manager for:",o:["RHEL","Arch Linux","Ubuntu/Debian","Fedora"],a:2},
-  {q:"The kernel is:",o:["The full OS","The GUI","The system core","The package manager"],a:2},
-  {q:"/dev contains:",o:["documents","device files","executables","logs"],a:1},
-  {q:"Linux was created in:",o:["1984","1991","1995","2000"],a:1},
-  {q:"/etc contains:",o:["executables","temp files","config files","logs"],a:2}
+  {q:"Best distro for Docker/minimal?",o:["Ubuntu","Debian","Alpine","Fedora"],a:2},
+  {q:"/proc is:",o:["Config files","Virtual filesystem","Temp files","User data"],a:1},
+  {q:"Ubuntu's package manager:",o:["rpm","pacman","apt","dnf"],a:2},
+  {q:"Kernel = ?",o:["Full OS","GUI","System core","Package manager"],a:2},
+  {q:"What does /dev contain?",o:["Documentation","Device files","Executables","Logs"],a:1},
+  {q:"Linux created in:",o:["1984","1991","1995","2000"],a:1},
+  {q:"/etc contains:",o:["Executables","Temp files","Config files","Logs"],a:2}
 ],
 1:[
-  {q:"chmod 755 =",o:["rwxrwxrwx","rwxr-xr-x","rw-r--r--","rwx------"],a:1},
-  {q:"r = octal value:",o:["1","2","4","8"],a:2},
-  {q:"SSH private key needs:",o:["chmod 777","chmod 755","chmod 644","chmod 600"],a:3},
-  {q:"Hard link =",o:["path pointer","same inode","encrypted","symlink"],a:1},
-  {q:"stat shows:",o:["content","inode+metadata","permissions only","size only"],a:1},
-  {q:"/var contains:",o:["user homes","logs and databases","config","binaries"],a:1},
+  {q:"chmod 755 = ?",o:["rwxrwxrwx","rwxr-xr-x","rw-r--r--","rwx------"],a:1},
+  {q:"r = ? in octal chmod",o:["1","2","4","8"],a:2},
+  {q:"SSH private key needs chmod:",o:["777","755","644","600"],a:3},
+  {q:"Hard link = ?",o:["Pointer to path","Same inode","Encrypted file","Symlink"],a:1},
+  {q:"stat file shows:",o:["File content","Inode and metadata","Permissions only","Size only"],a:1},
+  {q:"/var contains:",o:["User homes","Variable data (logs, db)","Config","Binaries"],a:1},
   {q:"chmod 644 =",o:["rwxrwxrwx","rwxr-xr-x","rw-r--r--","rw-rw-rw-"],a:2},
   {q:"df -i checks:",o:["disk space","inode usage","network","memory"],a:1}
 ],
@@ -2657,62 +2444,264 @@ const GAME_QS_EN = {
   {q:"grep -v returns:",o:["matches","non-matches","empty lines","all"],a:1},
   {q:"> redirect:",o:["append","overwrite","stderr","pipe"],a:1},
   {q:">> redirect:",o:["overwrite","append","stderr","pipe"],a:1},
-  {q:"awk '{print $2}' =",o:["line 2","column 2","lines 2+","2 chars"],a:1},
-  {q:"sed 's/a/b/g' =",o:["delete a","replace a→b","replace b→a","delete b"],a:1},
-  {q:"find -mtime -7:",o:["7+ days old","modified in 7 days","7MB","7 links"],a:1},
-  {q:"wc -l =",o:["words","lines","chars","bytes"],a:1},
-  {q:"pipe | connects:",o:["stdin→file","stdout→stdin next","stderr→stdout","processes"],a:1}
+  {q:"awk '{print $2}' = ?",o:["Line 2","Column 2","Lines 2+","2 chars"],a:1},
+  {q:"sed 's/a/b/g' = ?",o:["Delete a","Replace a→b all","Replace b→a","Delete b"],a:1},
+  {q:"find -mtime -7:",o:["7+ days old","Modified in 7 days","7MB size","In /7"],a:1},
+  {q:"wc -l = ?",o:["Count words","Count lines","Count chars","Size"],a:1},
+  {q:"pipe | connects:",o:["stdin to file","stdout of one to stdin of next","stderr to stdout","processes"],a:1}
 ],
 3:[
   {q:"useradd -m creates:",o:["group","home directory","password","SSH key"],a:1},
-  {q:"usermod -aG sudo alice:",o:["remove from sudo","add to sudo","replace groups","delete alice"],a:1},
-  {q:"visudo vs vi /etc/sudoers:",o:["faster","syntax check","GUI","identical"],a:1},
-  {q:"id alice returns:",o:["password","uid/gid/groups","history","permissions"],a:1},
-  {q:"chmod +x gives:",o:["read","execute for all","remove","write"],a:1},
-  {q:"umask 022 + 666 =",o:["777","755","644","600"],a:2},
-  {q:"who shows:",o:["who files","logged in now","all users","policy"],a:1},
-  {q:"userdel -r removes:",o:["user only","user + home","group","password"],a:1}
+  {q:"usermod -aG sudo alice:",o:["Remove from sudo","Add to sudo","Replace all groups","Delete alice"],a:1},
+  {q:"visudo vs vi /etc/sudoers:",o:["Faster","Adds syntax check","Adds GUI","Same"],a:1},
+  {q:"id alice returns:",o:["password","uid/gid/groups","login history","permissions"],a:1},
+  {q:"chmod +x =",o:["Add read","Add execute for all","Remove permissions","Add write"],a:1},
+  {q:"umask 022 + default 666 =",o:["777","755","644","600"],a:2},
+  {q:"who shows:",o:["who files","currently logged in","all users","password policy"],a:1},
+  {q:"userdel -r deletes:",o:["user only","user + home directory","group","password"],a:1}
 ],
 4:[
   {q:"SIGTERM number:",o:["1","9","15","19"],a:2},
   {q:"SIGKILL number:",o:["1","9","15","19"],a:1},
-  {q:"SIGHUP to daemon =",o:["shutdown","kill","reload config","pause"],a:2},
-  {q:"nohup cmd & =",o:["foreground","background+logout","background+survive","new terminal"],a:2},
-  {q:"crontab -e:",o:["show","edit","delete","run"],a:1},
-  {q:"ps aux =",o:["active only","all processes","system","user"],a:1},
-  {q:"jobs =",o:["all processes","background in shell","system","cron"],a:1},
-  {q:"kill -9 sends:",o:["SIGTERM","SIGHUP","SIGKILL","SIGINT"],a:2}
+  {q:"SIGHUP to daemon = ?",o:["shutdown","kill","reload config","pause"],a:2},
+  {q:"nohup cmd & = ?",o:["foreground","background + exits with logout","background + survives logout","background only"],a:2},
+  {q:"crontab -e:",o:["Show crons","Edit crons","Delete crons","Run cron"],a:1},
+  {q:"ps aux = ?",o:["Active only","All processes","System processes","User processes"],a:1},
+  {q:"jobs = ?",o:["All processes","Background jobs in current shell","System jobs","Cron jobs"],a:1},
+  {q:"kill -9 1234 sends:",o:["SIGTERM","SIGHUP","SIGKILL","SIGINT"],a:2}
 ],
 5:[
-  {q:"ss -tulnp shows:",o:["SSH sessions","open ports","firewall","interfaces"],a:1},
-  {q:"ssh-keygen -t ed25519 creates:",o:["RSA key","DSA key","ed25519 keypair","certificate"],a:2},
-  {q:"scp =",o:["secure copy SSH","symlink copy","system copy","soft copy"],a:0},
+  {q:"ss -tulnp shows:",o:["SSH sessions","Open ports","Firewall rules","Network interfaces"],a:1},
+  {q:"ssh-keygen -t ed25519 creates:",o:["RSA key","DSA key","ed25519 keypair","Certificate"],a:2},
+  {q:"scp = ?",o:["Secure copy over SSH","Symlink copy","System copy","Soft copy"],a:0},
   {q:"Default SSH port:",o:["21","22","23","80"],a:1},
-  {q:"ufw allow 22 before enable to:",o:["allow FTP","not block SSH","allow HTTP","allow ICMP"],a:1},
-  {q:"rsync -z =",o:["recursive","verbose","compress","delete"],a:2},
-  {q:"ip addr =",o:["edit IP","show interfaces","routing","firewall"],a:1},
-  {q:"traceroute shows:",o:["test port","packet route","ping","DNS"],a:1}
+  {q:"ufw allow 22/tcp before ufw enable to:",o:["Allow FTP","Not block SSH","Allow HTTP","Allow ICMP"],a:1},
+  {q:"rsync -z = ?",o:["recursive","verbose","compress","delete"],a:2},
+  {q:"ip addr = ?",o:["Edit IP","Show interfaces and IPs","Routing table","Firewall"],a:1},
+  {q:"traceroute = ?",o:["Test port","Show packet route","Ping","DNS lookup"],a:1}
 ],
 6:[
-  {q:"apt update =",o:["upgrade packages","update list","install all","remove old"],a:1},
-  {q:"apt purge vs remove:",o:["identical","purge removes config too","remove removes config","purge faster"],a:1},
-  {q:"dpkg -l shows:",o:["log","installed packages","deps","info"],a:1},
-  {q:"make -j$(nproc) =",o:["single job","parallel+cores","install","configure"],a:1},
-  {q:"apt autoremove =",o:["remove all","remove orphans","clean cache","update"],a:1},
-  {q:"snap =",o:["smaller","self-contained+sandboxed","faster","no deps"],a:1},
-  {q:"dnf is for:",o:["Debian","Ubuntu","RHEL/Fedora","Arch"],a:2},
-  {q:"rpm -qa | grep nginx:",o:["installs","checks installed","removes","updates"],a:1}
+  {q:"apt update = ?",o:["Update packages","Update package list","Install all","Remove old"],a:1},
+  {q:"apt purge vs remove:",o:["Same","purge removes config too","remove removes config","purge faster"],a:1},
+  {q:"dpkg -l shows:",o:["log","installed packages","dependencies","package info"],a:1},
+  {q:"make -j$(nproc) = ?",o:["Run 1 job","Run jobs = CPU cores","Install","Configure"],a:1},
+  {q:"apt autoremove = ?",o:["Remove all","Remove orphaned dependencies","Clean cache","Update"],a:1},
+  {q:"snap packages = ?",o:["Smaller","Self-contained + sandboxed","Faster","No dependencies"],a:1},
+  {q:"dnf = package manager for:",o:["Debian","Ubuntu","RHEL/Fedora","Arch"],a:2},
+  {q:"rpm -qa | grep nginx:",o:["Installs nginx","Checks if installed","Removes nginx","Updates nginx"],a:1}
 ],
 7:[
-  {q:"#!/bin/bash =",o:["comment","shebang","variable","function"],a:1},
-  {q:"set -e =",o:["encoding","exit on error","debug","environment"],a:1},
-  {q:"$() =",o:["subshell","command substitution","arithmetic","string"],a:1},
-  {q:"[[ -f file ]] checks:",o:["permissions","exists as file","size","owner"],a:1},
-  {q:"local var =",o:["global","function-scoped","readonly","exported"],a:1},
-  {q:"set -u =",o:["update","undefined error","unset","uppercase"],a:1},
-  {q:"IFS =",o:["If Field","Internal Field Separator","Input Format","Index"],a:1},
-  {q:"tee =",o:["copy file","file AND stdout","redirect stderr","pipe only"],a:1}
+  {q:"#!/bin/bash = ?",o:["comment","shebang","variable","function"],a:1},
+  {q:"set -e = ?",o:["set encoding","exit on error","enable debug","set environment"],a:1},
+  {q:"$() = ?",o:["subshell","command substitution","arithmetic","string"],a:1},
+  {q:"[[ -f file ]] checks:",o:["file permissions","file exists and is regular","file size","file owner"],a:1},
+  {q:"local variable = ?",o:["global","function-scoped","readonly","exported"],a:1},
+  {q:"set -u = ?",o:["update","error on undefined variables","unset","upper case"],a:1},
+  {q:"IFS = ?",o:["If Field Separator","Internal Field Separator","Input Format String","Index Field Set"],a:1},
+  {q:"tee command = ?",o:["copy file","write to file AND stdout","redirect stderr","pipe"],a:1}
 ]};
+
+// Chapters 8-11 data
+Object.assign(QUIZZES, {
+8:[
+  {q:"איך יוצאים מ-vim ללא שמירה?",o:[":exit",":q!",":quit","Ctrl+C"],a:1,e:":q! = quit + force (ה-! מבטל התראות). :wq = שמור וצא. :w = שמור בלבד."},
+  {q:"מה המצב הברירת-מחדל בפתיחת vim?",o:["Insert Mode","Visual Mode","Normal Mode","Command Mode"],a:2,e:"vim תמיד נפתח ב-Normal Mode. לעריכה לחץ i (insert). ESC תמיד חוזר ל-Normal Mode."},
+  {q:"בvim, הפקודה :%s/foo/bar/g מחליפה:",o:["שורה ראשונה בלבד","כל המופעים בקובץ","שורה נוכחית","פקודה לא חוקית"],a:1,e:"% = כל הקובץ, s = substitute, /g = global (כל המופעים בשורה, לא רק הראשון)."},
+  {q:"מה עושה dd בvim Normal Mode?",o:["מוחק תו","מוחק שורה שלמה","Undo","מפעיל Delete mode"],a:1,e:"dd מוחק שורה שלמה ושומר ב-clipboard. p מדביק. 5dd מוחק 5 שורות. yy מעתיק שורה."},
+  {q:"Ctrl+v בvim פותח:",o:["Paste","Visual Block Mode","Version info","Vertical split"],a:1,e:"Visual Block Mode מאפשר בחירת עמודות. שימושי להוספת תגובה לתחילת שורות מרובות."}
+],
+9:[
+  {q:"מה עושה systemctl daemon-reload?",o:["מאתחל את המחשב","טוען מחדש unit files מדיסק ללא restart","מפעיל מחדש את systemd","מנקה journal logs"],a:1,e:"חובה להריץ אחרי שינוי unit files ב-/etc/systemd/system/. ללא זה, systemd לא ירגיש בשינויים."},
+  {q:"systemctl enable --now nginx עושה:",o:["רק מפעיל nginx","רק מגדיר לboot","מגדיר לboot + מפעיל מיד","בודק תצורה"],a:2,e:"--now = start immediately. enable = הוסף לboot. שקול ל: systemctl enable nginx && systemctl start nginx."},
+  {q:"journalctl -u nginx -f מציג:",o:["כל ה-logs","logs של nginx בזמן אמת","רק שגיאות","logs של nginx בשעה האחרונה"],a:1,e:"-u = unit, -f = follow (כמו tail -f). Ctrl+C לעצור. journalctl --since '1 hour ago' לפילטר זמן."},
+  {q:"Restart=always בunit file:",o:["מאתחל בכל startup","מריץ מחדש תמיד אחרי סיום","מריץ מחדש רק בשגיאה","מונע restart"],a:1,e:"always = restart גם עם exit code 0. on-failure = רק בשגיאה. on-abnormal = גם על signals ו-timeout."},
+  {q:"WantedBy=multi-user.target אומר:",o:["הservice דורש GUI","הservice מתחיל ב-multi-user mode (שרתים)","הservice מריץ כmore than one user","הservice דורש network"],a:1,e:"multi-user.target = runlevel 3 (לשרתים, ללא GUI). graphical.target = runlevel 5 (עם GUI). default על רוב שרתים = multi-user.target."}
+],
+10:[
+  {q:"הפקודה lsblk -f מציגה:",o:["רק block devices","block devices עם filesystem type, UUID ו-mount point","רק partitions","רק mounted filesystems"],a:1,e:"-f = filesystem info. מציגה: NAME, FSTYPE, UUID, MOUNTPOINTS. שימושי ל-/etc/fstab ולהבין מה מחובר איפה."},
+  {q:"mkfs.ext4 /dev/sdb1 מבצע:",o:["מחק partition","יוצר partition","מפרמט partition כ-ext4","בודק filesystem"],a:2,e:"mkfs = make filesystem. ext4 הוא filesystem הנפוץ ב-Linux. XFS מועדף לשרתים גדולים. BTRFS לfeatures מתקדמים."},
+  {q:"היתרון העיקרי של LVM:",o:["מהיר יותר מpartitions רגילים","גמישות — הרחבה/כיווץ ב-runtime, snapshots","בטוח יותר","קל יותר להגדרה"],a:1,e:"LVM מאפשר: resize ללא downtime, snapshots למחשב (לפני עדכון), striping לביצועים, mirroring לזמינות."},
+  {q:"lvextend -L +50G /dev/vg/lv ואז resize2fs /dev/vg/lv — מה הסדר הנכון?",o:["resize2fs קודם","lvextend קודם, ואז resize2fs","אפשר בסדר כלשהו","רק lvextend, ללא resize2fs"],a:1,e:"lvextend מגדיל את ה-LV (block device). resize2fs מרחיב את ה-filesystem להשתמש במקום החדש. עם -r ב-lvextend זה אוטומטי."},
+  {q:"UUID ב-/etc/fstab עדיף על שם device כי:",o:["UUID קצר יותר","UUID לא משתנה אם disk order משתנה, device name כן","UUID מהיר יותר","שניהם זהים"],a:1,e:"sda, sdb יכולים להחליף מקום אחרי reboot אם מוסיפים disks. UUID קבוע ל-filesystem וחד-ערכי."}
+],
+11:[
+  {q:"strace -p 1234 עושה:",o:["kills process 1234","מציג memory של process 1234","מציג system calls של process 1234","מציג network traffic של process 1234"],a:2,e:"strace = trace system calls. מציג כל קריאה ל-kernel: open(), read(), write(), connect(). שימושי לdebug של hang ושגיאות."},
+  {q:"tcpdump -i eth0 port 80 מציג:",o:["רק HTTP responses","כל traffic על eth0 ל/מport 80","רק connections חדשות","HTTP headers בלבד"],a:1,e:"tcpdump מציג raw packets. -i = interface, port 80 = filter. -w file.pcap שומר לWireshark. -A מציג ASCII."},
+  {q:"vmstat 1 5 מציג:",o:["5 virtual machines","VM statistics פעם אחת","stats של memory כל שנייה 5 פעמים","5 המשתנים הכבדים"],a:2,e:"vmstat [interval] [count]: r=run queue, b=blocked, si/so=swap in/out, bi/bo=block in/out, us/sy/id=cpu%."},
+  {q:"dmesg | grep -i error שימושי כאשר:",o:["יש שגיאות ב-application log","יש hardware errors, kernel panics, driver failures","יש בעיות רשת","יש בעיות permissions"],a:1,e:"dmesg = kernel ring buffer. מציג hardware events, driver messages, oom-killer, filesystem errors. אחד הצעדים הראשונים בtroubleshooting."},
+  {q:"iotop מציג:",o:["כמו top אבל לnetwork","כמו top אבל לdisk I/O per process","I/O של OS","disk usage"],a:1,e:"iotop = I/O version של top. מציג read/write בשנייה per process. שימושי כשיש disk I/O גבוה ורוצים לדעת מי אשם."}
+]});
+
+Object.assign(LABS, {
+8:[
+  {q:"כתבי את רצף המקשים ב-vim לפתיחת קובץ, כתיבת שורה, ושמירה.",a:"vim myfile.txt\n# בפתיחה: Normal Mode\ni                    # כנס Insert Mode\n# כתוב: Hello, Linux!\nHello, Linux!\nESC                  # חזור Normal Mode\n:w                   # שמור\n:q                   # צא (או :wq ביחד)",e:"הרצף הבסיסי של vim: פתח → i → כתוב → ESC → :wq. הטעות הנפוצה: שכחת ESC לפני :wq."},
+  {q:"כיצד מחפשים ומחליפים 'localhost' ב-'production.server.com' בכל vim buffer?",a:"# בvim Normal Mode:\n:%s/localhost/production.server.com/g\n\n# עם אישור לכל החלפה:\n:%s/localhost/production.server.com/gc\n\n# רק בשורות 5-15:\n:5,15s/localhost/production.server.com/g",e:"% = כל הקובץ, /g = כל מופע בשורה. /gc = confirm = שואל לפני כל החלפה: y/n/a(all)/q(quit)."},
+  {q:"כיצד מוחקים שורות 10-20 ב-vim?",a:":10,20d\n# או ב-Visual mode:\n# לחץ 10G לשורה 10\n# V לVisual Line mode\n# 10j לסמן 10 שורות\n# d למחיקה",e:":10,20d = delete range. ניתן גם: gg (תחילת קובץ) ואז /:pattern לחיפוש. u לundo אם נמחק בטעות."},
+  {q:"פתחי vim עם שני קבצים זה לצד זה. כיצד מתנועות ביניהם?",a:"vim -O file1.txt file2.txt    # פתח עם vertical split\n# או בתוך vim:\n:vsplit file2.txt              # vertical split\n:split file2.txt               # horizontal split\n\n# מעבר בין חלוניות:\nCtrl+w h                       # שמאל\nCtrl+w l                       # ימין\nCtrl+w w                       # הבא",e:"split windows = panes ב-vim. Ctrl+w + direction לניווט. :close לסגור pane. :only לסגור את כולם חוץ מהנוכחי."}
+],
+9:[
+  {q:"כתבי unit file ל-service שמריץ Python script ב-/opt/monitor.py כ-user 'monitor'.",a:"# /etc/systemd/system/monitor.service\n[Unit]\nDescription=Monitor Service\nAfter=network.target\n\n[Service]\nType=simple\nUser=monitor\nExecStart=/usr/bin/python3 /opt/monitor.py\nRestart=on-failure\nRestartSec=10\nStandardOutput=journal\nStandardError=journal\n\n[Install]\nWantedBy=multi-user.target\n\n# הפעלה:\nsystemctl daemon-reload\nsystemctl enable --now monitor",e:"After=network.target = המתן לרשת. Restart=on-failure = restart רק בשגיאה. StandardOutput=journal = logs ל-journald."},
+  {q:"כיצד בודקים מה גרם ל-service להיכשל ב-5 הדקות האחרונות?",a:"# שיטה 1 - journalctl\njournalctl -u myservice --since '5 minutes ago'\n\n# שיטה 2 - systemctl status (כולל שורות אחרונות)\nsystemctl status myservice\n\n# שיטה 3 - logs עם priority\njournalctl -u myservice -p err\n\n# שיטה 4 - כולל context\njournalctl -u myservice -xe",e:"-p err = רק errors. -xe = errors + context שורות. systemctl status מציג גם exit code ו-signal. ExecStart path שגוי = הטעות הנפוצה ביותר."},
+  {q:"הגדרי timer systemd שמריץ backup script כל יום ב-02:00.",a:"# /etc/systemd/system/backup.service\n[Unit]\nDescription=Daily Backup\n\n[Service]\nType=oneshot\nExecStart=/opt/backup.sh\n\n# /etc/systemd/system/backup.timer\n[Unit]\nDescription=Run backup daily at 02:00\n\n[Timer]\nOnCalendar=*-*-* 02:00:00\nPersistent=true\n\n[Install]\nWantedBy=timers.target\n\n# הפעלה:\nsystemctl enable --now backup.timer\nsystemctl list-timers",e:"Timer = המלצה על cron. Persistent=true = אם המחשב היה כבוי בשעת הריצה, ירוץ בהזדמנות הראשונה. list-timers מציג הריצה הבאה."},
+  {q:"כיצד מציגים את כל ה-services שנכשלו?",a:"systemctl list-units --state=failed\n# או:\nsystemctl --failed\n# פרטים על service ספציפי:\nsystemctl status <failed-service>\n# איפוס failed state:\nsystemctl reset-failed <service>",e:"list-units --state=failed = כל היחידות הנכשלות. reset-failed מנקה ה-failed state אחרי טיפול בבעיה. חשוב לbash scripts ל-monitoring."}
+],
+10:[
+  {q:"הצג את כל ה-block devices עם filesystem types ו-mount points.",a:"lsblk -f\n# פירוט יותר:\nblkid\n# עם גדלים:\nlsblk -f -o NAME,FSTYPE,UUID,SIZE,MOUNTPOINTS",e:"lsblk -f = filesystem info. MOUNTPOINTS מראה איפה mounted. UUID חשוב ל-/etc/fstab. blkid מציג UUID לכל device."},
+  {q:"צרי partition חדש ב-/dev/sdb, פרמטי אותו כ-ext4, ועגני ל-/mnt/data.",a:"# partition\nfdisk /dev/sdb\n# בתוך fdisk: n (new), p (primary), Enter, Enter, w (write)\n\n# פרמוט\nmkfs.ext4 /dev/sdb1\n\n# עגן\nmkdir -p /mnt/data\nmount /dev/sdb1 /mnt/data\n\n# אמת\ndf -h /mnt/data\nlsblk /dev/sdb\n\n# עגן קבוע (reboot)\necho 'UUID=<uuid> /mnt/data ext4 defaults 0 2' >> /etc/fstab",e:"fdisk n=new, p=primary, Enter=default start/end, w=write. mkfs.ext4 לפרמוט. /etc/fstab לעגינה קבועה — השתמש ב-UUID לא בsdb1."},
+  {q:"כיצד מרחיבים LVM volume ב-50GB ללא downtime?",a:"# בדוק מצב נוכחי\nvgs  # Volume Group space\nlvs  # Logical Volumes\n\n# הרחב LV\nlvextend -L +50G /dev/datavg/datalv\n\n# הרחב filesystem (ext4)\nresize2fs /dev/datavg/datalv\n\n# לxfs:\nxfs_growfs /mnt/mountpoint\n\n# אמת\ndf -h /mnt/data",e:"LVM מאפשר resize בלי unmount! lvextend מגדיל ה-LV. resize2fs/xfs_growfs מגדיל ה-FS. עם lvextend -r הכל אוטומטי."},
+  {q:"כיצד יוצרים snapshot של LVM לפני עדכון חשוב?",a:"# צור snapshot\nlvcreate -L 10G -s -n snap_before_update /dev/datavg/datalv\n\n# בצע עדכון...\n\n# אם נדרש rollback:\nlevt --merge /dev/datavg/snap_before_update\nreboot  # merge מתבצע ב-boot\n\n# מחק snapshot אחרי וידוא\nlvremove /dev/datavg/snap_before_update",e:"-s = snapshot, -L 10G = גודל snapshot (לשינויים בלבד, לא לdata קיים). merge לRollback. best practice: snapshot לפני apt upgrade גדול."}
+],
+11:[
+  {q:"תהליך תלוי (hung). כיצד מאבחנים מה הוא עושה?",a:"# מצא PID\nps aux | grep <procname>\n\n# בדוק system calls\nstrace -p <PID>\n\n# בדוק קבצים פתוחים\nlsof -p <PID>\n\n# בדוק network connections\nss -p | grep <PID>\n\n# בדוק /proc\ncat /proc/<PID>/status\ncat /proc/<PID>/stack",e:"strace מראה אם התהליך תקוע ב-IO (read/write שלא חוזר). lsof מראה אילו קבצים/sockets פתוחים. /proc/PID/stack מציג kernel stack trace."},
+  {q:"השרת איטי. כיצד מאתרים את צוואר הבקבוק?",a:"# CPU\ntop  # או htop\nmpstat -P ALL 1\n\n# Memory\nfree -h\ncat /proc/meminfo | grep -i swap\n\n# Disk I/O\niostat -x 1 5\niotop  # מי גורם לI/O\n\n# Network\niftop -i eth0\nss -s  # socket stats\n\n# שורת בסיס מהירה:\nvmstat 1 5",e:"Workflow: CPU → Memory → I/O → Network. vmstat יחד: r>cpu_count = CPU bottleneck, bi/bo גדול = I/O bottleneck, si/so > 0 = swap = memory bottleneck."},
+  {q:"כיצד תופסים network traffic בין server ל-database?",a:"# תפוס traffic ל-MySQL (port 3306)\ntcpdump -i any port 3306 -w /tmp/db_traffic.pcap\n\n# תפוס ל-IP ספציפי\ntcpdump -i eth0 host 192.168.1.20 -w /tmp/traffic.pcap\n\n# קרא את הcapture\ntcpdump -r /tmp/db_traffic.pcap\n\n# הצג ASCII\ntcpdump -r /tmp/db_traffic.pcap -A | head -50\n\n# פתח עם Wireshark (בDesktop)\nwireshark /tmp/db_traffic.pcap",e:"-w שומר לpcap לניתוח מאוחר יותר. -r קורא pcap. -A = ASCII output. port 3306=MySQL, 5432=PostgreSQL, 6379=Redis. Ctrl+C לעצור capture."},
+  {q:"שרת נגמר לו מקום בדיסק. כיצד מאתרים מה תופס את המקום?",a:"# מצב כללי\ndf -h\n\n# מצא ספריות גדולות\ndu -sh /* 2>/dev/null | sort -rh | head -10\ndu -sh /var/* | sort -rh | head -10\n\n# קבצי log גדולים\nfind /var/log -type f -size +100M -exec ls -lh {} \\;\n\n# קבצים שנמחקו אבל עדיין פתוחים\nlsof | grep deleted | awk '{print $7, $9}' | sort -rn | head\n\n# ניקוי logs\njournalctl --vacuum-size=1G",e:"du -sh /* = ספריות ב-root. sort -rh = מספרי+human readable יורד. lsof grep deleted = קבצים שנמחקו אבל תהליך עדיין מחזיק file descriptor = לא מתפנים!"}
+]});
+
+Object.assign(GAME_QS, {
+8:[
+  {q:"איך יוצאים מ-vim?",o:[":quit","ESC + :q!","Ctrl+C","Alt+F4"],a:1},
+  {q:"מצב ברירת-מחדל של vim:",o:["Insert","Visual","Normal","Command"],a:2},
+  {q:"i בvim =",o:["Insert mode","Info","Indent","Ignore"],a:0},
+  {q:"dd בvim =",o:["Debug","Delete line","Duplicate","Done"],a:1},
+  {q:":wq =",o:["quit only","save only","save + quit","write queue"],a:2},
+  {q:"/ בvim Normal mode =",o:["division","search forward","visual","command"],a:1},
+  {q:"u בvim =",o:["undo","up","update","unix"],a:0},
+  {q:":%s/a/b/g מחליף:",o:["שורה ראשונה","שורה נוכחית","כל הקובץ","לא חוקי"],a:2}
+],
+9:[
+  {q:"systemctl daemon-reload נדרש אחרי:",o:["start","שינוי unit file","reboot","install"],a:1},
+  {q:"journalctl -f = ?",o:["filter errors","follow real-time","find unit","format json"],a:1},
+  {q:"Restart=always =",o:["restart on failure only","restart always","never restart","restart on boot"],a:1},
+  {q:"multi-user.target = runlevel",o:["1","3","5","6"],a:1},
+  {q:"systemctl enable --now =",o:["enable only","start only","enable + start","enable + reboot"],a:2},
+  {q:".timer units מחליפים:",o:["systemd","cron","init","udev"],a:1},
+  {q:"Type=oneshot =",o:["הservice רץ פעם אחת ויוצא","הservice תמיד רץ","שגיאה","single user"],a:0},
+  {q:"WantedBy=multi-user.target = ",o:["GUI required","server mode boot","user required","network required"],a:1}
+],
+10:[
+  {q:"lsblk -f מציג:",o:["רק sizes","FS type + UUID + mount","רק devices","partitions בלבד"],a:1},
+  {q:"mkfs.ext4 = ?",o:["mount","format as ext4","check filesystem","delete"],a:1},
+  {q:"LVM = ?",o:["Linux Volume Machine","Logical Volume Manager","Large Virtual Memory","Linux VM"],a:1},
+  {q:"lvextend -L +50G = ?",o:["create LV","shrink LV by 50G","extend LV by 50G","delete LV"],a:2},
+  {q:"UUID ב-/etc/fstab עדיף כי:",o:["קצר יותר","stable, לא משתנה","מהיר יותר","שניהם זהים"],a:1},
+  {q:"pvcreate יוצר:",o:["partition","Physical Volume","Volume Group","Logical Volume"],a:1},
+  {q:"umount = ?",o:["delete device","detach filesystem","format","create mount point"],a:1},
+  {q:"resize2fs אחרי lvextend = ?",o:["חובה לxfs","לא נדרש","מרחיב FS להשתמש במקום החדש","מוחק data"],a:2}
+],
+11:[
+  {q:"strace = ?",o:["storage trace","system call trace","stack trace","stat race"],a:1},
+  {q:"tcpdump -i eth0 port 80 =",o:["HTTP responses only","כל traffic על eth0:80","DNS only","HTTPS only"],a:1},
+  {q:"dmesg מציג:",o:["app logs","kernel ring buffer","user logs","network logs"],a:1},
+  {q:"iotop = ?",o:["I/O top processes","internet ops","IO operations total","iptables ops"],a:0},
+  {q:"vmstat r > cpu_count = ?",o:["memory issue","CPU bottleneck","disk issue","network issue"],a:1},
+  {q:"lsof | grep deleted = ?",o:["deleted users","files נמחקו אבל עדיין פתוחים","deleted dirs","broken symlinks"],a:1},
+  {q:"perf top = ?",o:["performance report","live CPU profiler","package info","process timing"],a:1},
+  {q:"iftop -i eth0 = ?",o:["interface info","bandwidth per connection","firewall stats","IP table"],a:1}
+]});
+
+const QUIZZES_EN_NEW = {
+8:[
+  {q:"How do you quit vim without saving?",o:[":exit",":q!",":quit","Ctrl+C"],a:1,e:":q! = quit + force (! overrides warnings). :wq = save and quit. :w = save only."},
+  {q:"Default mode when opening vim:",o:["Insert Mode","Visual Mode","Normal Mode","Command Mode"],a:2,e:"vim always opens in Normal Mode. Press i to enter Insert mode for editing. ESC always returns to Normal Mode."},
+  {q:"In vim, :%s/foo/bar/g replaces:",o:["First line only","All occurrences in the file","Current line only","Invalid command"],a:1,e:"% = entire file, s = substitute, /g = global (all occurrences per line, not just first)."},
+  {q:"What does dd do in vim Normal Mode?",o:["Deletes a character","Deletes the entire line","Undo","Activates Delete mode"],a:1,e:"dd deletes the entire line and saves to clipboard. p pastes. 5dd deletes 5 lines. yy copies a line."},
+  {q:"Ctrl+v in vim opens:",o:["Paste","Visual Block Mode","Version info","Vertical split"],a:1,e:"Visual Block Mode allows column selection. Useful for adding a comment to the start of multiple lines."}
+],
+9:[
+  {q:"What does 'systemctl daemon-reload' do?",o:["Reboots the computer","Reloads unit files from disk without restart","Restarts systemd","Clears journal logs"],a:1,e:"Must run after changing unit files in /etc/systemd/system/. Without it, systemd won't notice changes."},
+  {q:"'systemctl enable --now nginx' does:",o:["Only starts nginx","Only sets up for boot","Sets up for boot + starts immediately","Checks configuration"],a:2,e:"--now = start immediately. enable = add to boot. Equivalent to: systemctl enable nginx && systemctl start nginx."},
+  {q:"'journalctl -u nginx -f' shows:",o:["All logs","nginx logs in real time","Errors only","nginx logs from the last hour"],a:1,e:"-u = unit, -f = follow (like tail -f). Ctrl+C to stop. journalctl --since '1 hour ago' for time filtering."},
+  {q:"Restart=always in unit file:",o:["Restarts on every startup","Always restarts after exit","Restarts only on failure","Prevents restart"],a:1,e:"always = restart even with exit code 0. on-failure = only on error. on-abnormal = also on signals and timeout."},
+  {q:"WantedBy=multi-user.target means:",o:["Service requires GUI","Service starts in multi-user mode (servers)","Service runs as multiple users","Service requires network"],a:1,e:"multi-user.target = runlevel 3 (servers, no GUI). graphical.target = runlevel 5 (with GUI). Most servers default to multi-user.target."}
+],
+10:[
+  {q:"lsblk -f shows:",o:["Only block devices","Block devices with filesystem type, UUID and mount point","Only partitions","Only mounted filesystems"],a:1,e:"-f = filesystem info. Shows: NAME, FSTYPE, UUID, MOUNTPOINTS. Useful for /etc/fstab and understanding what is mounted where."},
+  {q:"mkfs.ext4 /dev/sdb1 does:",o:["Deletes partition","Creates partition","Formats partition as ext4","Checks filesystem"],a:2,e:"mkfs = make filesystem. ext4 is the most common Linux filesystem. XFS preferred for large servers. BTRFS for advanced features."},
+  {q:"The main advantage of LVM:",o:["Faster than regular partitions","Flexibility — resize/shrink at runtime, snapshots","More secure","Easier to configure"],a:1,e:"LVM allows: resize without downtime, snapshots (before updates), striping for performance, mirroring for availability."},
+  {q:"lvextend -L +50G then resize2fs — what's the correct order?",o:["resize2fs first","lvextend first, then resize2fs","Either order works","Only lvextend, no resize2fs needed"],a:1,e:"lvextend grows the LV (block device). resize2fs expands the filesystem to use the new space. With -r flag in lvextend it's automatic."},
+  {q:"UUID in /etc/fstab is preferred over device name because:",o:["UUID is shorter","UUID doesn't change if disk order changes, device names do","UUID is faster","Both are identical"],a:1,e:"sda, sdb can swap positions after reboot when adding disks. UUID is fixed to the filesystem and globally unique."}
+],
+11:[
+  {q:"strace -p 1234 does:",o:["Kills process 1234","Shows memory of process 1234","Shows system calls of process 1234","Shows network traffic of process 1234"],a:2,e:"strace = trace system calls. Shows every kernel call: open(), read(), write(), connect(). Useful for debugging hangs and errors."},
+  {q:"tcpdump -i eth0 port 80 shows:",o:["Only HTTP responses","All traffic on eth0 to/from port 80","Only new connections","HTTP headers only"],a:1,e:"tcpdump shows raw packets. -i = interface, port 80 = filter. -w file.pcap saves for Wireshark. -A shows ASCII."},
+  {q:"vmstat 1 5 shows:",o:["5 virtual machines","VM statistics once","Stats every second, 5 times","5 heaviest variables"],a:2,e:"vmstat [interval] [count]: r=run queue, b=blocked, si/so=swap in/out, bi/bo=block in/out, us/sy/id=cpu%."},
+  {q:"'dmesg | grep -i error' is useful when:",o:["There are errors in application logs","There are hardware errors, kernel panics, driver failures","There are network issues","There are permission issues"],a:1,e:"dmesg = kernel ring buffer. Shows hardware events, driver messages, oom-killer, filesystem errors. One of the first steps in troubleshooting."},
+  {q:"iotop shows:",o:["Like top but for network","Like top but for disk I/O per process","OS I/O","Disk usage"],a:1,e:"iotop = I/O version of top. Shows read/write per second per process. Useful when disk I/O is high and you want to know who's responsible."}
+]};
+
+const LABS_EN_NEW = {
+8:[
+  {q:"Write the vim key sequence to open a file, write a line, and save.",a:"vim myfile.txt\n# On open: Normal Mode\ni                    # Enter Insert Mode\n# Type: Hello, Linux!\nHello, Linux!\nESC                  # Return to Normal Mode\n:w                   # Save\n:q                   # Quit (or :wq together)",e:"The basic vim sequence: open → i → type → ESC → :wq. Common mistake: forgetting ESC before :wq."},
+  {q:"How do you search and replace 'localhost' with 'production.server.com' throughout the vim buffer?",a:"# In vim Normal Mode:\n:%s/localhost/production.server.com/g\n\n# With confirmation for each replacement:\n:%s/localhost/production.server.com/gc\n\n# Only in lines 5-15:\n:5,15s/localhost/production.server.com/g",e:"% = entire file, /g = every occurrence per line. /gc = confirm = asks before each replacement: y/n/a(all)/q(quit)."},
+  {q:"How do you delete lines 10-20 in vim?",a:":10,20d\n# Or in Visual mode:\n# Press 10G to line 10\n# V for Visual Line mode\n# 10j to mark 10 lines\n# d to delete",e:":10,20d = delete range. Also: gg (file start) then /:pattern to search. u for undo if accidentally deleted."},
+  {q:"Open vim with two files side by side. How do you move between them?",a:"vim -O file1.txt file2.txt    # open with vertical split\n# or inside vim:\n:vsplit file2.txt              # vertical split\n:split file2.txt               # horizontal split\n\n# Move between panes:\nCtrl+w h                       # left\nCtrl+w l                       # right\nCtrl+w w                       # next",e:"Split windows = panes in vim. Ctrl+w + direction to navigate. :close to close pane. :only to close all except current."}
+],
+9:[
+  {q:"Write a unit file for a service that runs a Python script at /opt/monitor.py as user 'monitor'.",a:"# /etc/systemd/system/monitor.service\n[Unit]\nDescription=Monitor Service\nAfter=network.target\n\n[Service]\nType=simple\nUser=monitor\nExecStart=/usr/bin/python3 /opt/monitor.py\nRestart=on-failure\nRestartSec=10\nStandardOutput=journal\nStandardError=journal\n\n[Install]\nWantedBy=multi-user.target\n\n# Activate:\nsystemctl daemon-reload\nsystemctl enable --now monitor",e:"After=network.target = wait for network. Restart=on-failure = restart only on error. StandardOutput=journal = logs to journald."},
+  {q:"How do you check what caused a service to fail in the last 5 minutes?",a:"# Method 1 - journalctl\njournalctl -u myservice --since '5 minutes ago'\n\n# Method 2 - systemctl status (includes recent lines)\nsystemctl status myservice\n\n# Method 3 - logs with priority\njournalctl -u myservice -p err\n\n# Method 4 - with context\njournalctl -u myservice -xe",e:"-p err = errors only. -xe = errors + context lines. systemctl status also shows exit code and signal. Wrong ExecStart path = most common mistake."},
+  {q:"Set up a systemd timer that runs a backup script every day at 02:00.",a:"# /etc/systemd/system/backup.service\n[Unit]\nDescription=Daily Backup\n\n[Service]\nType=oneshot\nExecStart=/opt/backup.sh\n\n# /etc/systemd/system/backup.timer\n[Unit]\nDescription=Run backup daily at 02:00\n\n[Timer]\nOnCalendar=*-*-* 02:00:00\nPersistent=true\n\n[Install]\nWantedBy=timers.target\n\n# Activate:\nsystemctl enable --now backup.timer\nsystemctl list-timers",e:"Timer = recommended replacement for cron. Persistent=true = if computer was off at scheduled time, runs at next opportunity. list-timers shows next run time."},
+  {q:"How do you show all failed services?",a:"systemctl list-units --state=failed\n# or:\nsystemctl --failed\n# Details on specific service:\nsystemctl status <failed-service>\n# Reset failed state:\nsystemctl reset-failed <service>",e:"list-units --state=failed = all failed units. reset-failed clears the failed state after handling the issue. Important for bash monitoring scripts."}
+],
+10:[
+  {q:"Show all block devices with filesystem types and mount points.",a:"lsblk -f\n# More detail:\nblkid\n# With sizes:\nlsblk -f -o NAME,FSTYPE,UUID,SIZE,MOUNTPOINTS",e:"lsblk -f = filesystem info. MOUNTPOINTS shows where mounted. UUID important for /etc/fstab. blkid shows UUID for each device."},
+  {q:"Create a new partition on /dev/sdb, format it as ext4, and mount it to /mnt/data.",a:"# Partition\nfdisk /dev/sdb\n# Inside fdisk: n (new), p (primary), Enter, Enter, w (write)\n\n# Format\nmkfs.ext4 /dev/sdb1\n\n# Mount\nmkdir -p /mnt/data\nmount /dev/sdb1 /mnt/data\n\n# Verify\ndf -h /mnt/data\nlsblk /dev/sdb\n\n# Permanent mount (survive reboot)\necho 'UUID=<uuid> /mnt/data ext4 defaults 0 2' >> /etc/fstab",e:"fdisk: n=new, p=primary, Enter=default start/end, w=write. mkfs.ext4 to format. /etc/fstab for permanent mount — use UUID not sdb1."},
+  {q:"How do you extend an LVM volume by 50GB without downtime?",a:"# Check current state\nvgs  # Volume Group space\nlvs  # Logical Volumes\n\n# Extend LV\nlvextend -L +50G /dev/datavg/datalv\n\n# Extend filesystem (ext4)\nresize2fs /dev/datavg/datalv\n\n# For xfs:\nxfs_growfs /mnt/mountpoint\n\n# Verify\ndf -h /mnt/data",e:"LVM allows resize without unmounting! lvextend grows the LV. resize2fs/xfs_growfs grows the FS. With lvextend -r it's all automatic."},
+  {q:"How do you create an LVM snapshot before an important update?",a:"# Create snapshot\nlvcreate -L 10G -s -n snap_before_update /dev/datavg/datalv\n\n# Perform update...\n\n# If rollback needed:\nlvconvert --merge /dev/datavg/snap_before_update\nreboot  # merge happens at boot\n\n# Delete snapshot after verification\nlvremove /dev/datavg/snap_before_update",e:"-s = snapshot, -L 10G = snapshot size (for changes only, not existing data). merge for rollback. Best practice: snapshot before large apt upgrade."}
+],
+11:[
+  {q:"A process is hung. How do you diagnose what it's doing?",a:"# Find PID\nps aux | grep <procname>\n\n# Check system calls\nstrace -p <PID>\n\n# Check open files\nlsof -p <PID>\n\n# Check network connections\nss -p | grep <PID>\n\n# Check /proc\ncat /proc/<PID>/status\ncat /proc/<PID>/stack",e:"strace shows if process is stuck on IO (read/write not returning). lsof shows which files/sockets are open. /proc/PID/stack shows kernel stack trace."},
+  {q:"The server is slow. How do you identify the bottleneck?",a:"# CPU\ntop  # or htop\nmpstat -P ALL 1\n\n# Memory\nfree -h\ncat /proc/meminfo | grep -i swap\n\n# Disk I/O\niostat -x 1 5\niotop  # who causes I/O\n\n# Network\niftop -i eth0\nss -s  # socket stats\n\n# Quick baseline:\nvmstat 1 5",e:"Workflow: CPU → Memory → I/O → Network. vmstat together: r>cpu_count = CPU bottleneck, bi/bo high = I/O bottleneck, si/so > 0 = swap = memory bottleneck."},
+  {q:"How do you capture network traffic between a server and database?",a:"# Capture traffic to MySQL (port 3306)\ntcpdump -i any port 3306 -w /tmp/db_traffic.pcap\n\n# Capture to specific IP\ntcpdump -i eth0 host 192.168.1.20 -w /tmp/traffic.pcap\n\n# Read the capture\ntcpdump -r /tmp/db_traffic.pcap\n\n# Show ASCII\ntcpdump -r /tmp/db_traffic.pcap -A | head -50",e:"-w saves to pcap for later analysis. -r reads pcap. -A = ASCII output. port 3306=MySQL, 5432=PostgreSQL, 6379=Redis. Ctrl+C to stop capture."},
+  {q:"The server is out of disk space. How do you find what's consuming it?",a:"# Overall state\ndf -h\n\n# Find large directories\ndu -sh /* 2>/dev/null | sort -rh | head -10\ndu -sh /var/* | sort -rh | head -10\n\n# Large log files\nfind /var/log -type f -size +100M -exec ls -lh {} \\;\n\n# Files deleted but still open\nlsof | grep deleted | awk '{print $7, $9}' | sort -rn | head\n\n# Clean logs\njournalctl --vacuum-size=1G",e:"du -sh /* = directories at root. sort -rh = numeric+human readable descending. lsof grep deleted = files deleted but process still holds file descriptor = don't free until process closes!"}
+]};
+
+const GAME_QS_EN_NEW = {
+8:[
+  {q:"How to quit vim without saving?",o:[":exit","ESC + :q!","Ctrl+C","Alt+F4"],a:1},
+  {q:"vim default mode:",o:["Insert","Visual","Normal","Command"],a:2},
+  {q:"i in vim =",o:["Insert mode","Info","Indent","Ignore"],a:0},
+  {q:"dd in vim =",o:["Debug","Delete line","Duplicate","Done"],a:1},
+  {q:":wq =",o:["quit only","save only","save + quit","write queue"],a:2},
+  {q:"/ in vim Normal mode =",o:["division","search forward","visual","command"],a:1},
+  {q:"u in vim =",o:["undo","up","update","unix"],a:0},
+  {q:":%s/a/b/g replaces:",o:["first line","current line","entire file","invalid"],a:2}
+],
+9:[
+  {q:"daemon-reload needed after:",o:["start","changing unit file","reboot","install"],a:1},
+  {q:"journalctl -f = ?",o:["filter errors","follow real-time","find unit","format json"],a:1},
+  {q:"Restart=always =",o:["restart on failure only","always restart","never restart","restart on boot"],a:1},
+  {q:"multi-user.target = runlevel",o:["1","3","5","6"],a:1},
+  {q:"systemctl enable --now =",o:["enable only","start only","enable + start","enable + reboot"],a:2},
+  {q:".timer units replace:",o:["systemd","cron","init","udev"],a:1},
+  {q:"Type=oneshot =",o:["runs once and exits","always running","error","single user"],a:0},
+  {q:"WantedBy=multi-user.target = ",o:["GUI required","server mode boot","user required","network required"],a:1}
+],
+10:[
+  {q:"lsblk -f shows:",o:["sizes only","FS type + UUID + mount","devices only","partitions only"],a:1},
+  {q:"mkfs.ext4 = ?",o:["mount","format as ext4","check filesystem","delete"],a:1},
+  {q:"LVM = ?",o:["Linux Volume Machine","Logical Volume Manager","Large Virtual Memory","Linux VM"],a:1},
+  {q:"lvextend -L +50G = ?",o:["create LV","shrink by 50G","extend by 50G","delete LV"],a:2},
+  {q:"UUID in /etc/fstab preferred because:",o:["shorter","stable, doesn't change","faster","same"],a:1},
+  {q:"pvcreate creates:",o:["partition","Physical Volume","Volume Group","Logical Volume"],a:1},
+  {q:"umount = ?",o:["delete device","detach filesystem","format","create mount"],a:1},
+  {q:"resize2fs after lvextend = ?",o:["required for xfs","not needed","expands FS to use new space","deletes data"],a:2}
+],
+11:[
+  {q:"strace = ?",o:["storage trace","system call trace","stack trace","stat race"],a:1},
+  {q:"tcpdump -i eth0 port 80 =",o:["HTTP responses only","all traffic on eth0:80","DNS only","HTTPS only"],a:1},
+  {q:"dmesg shows:",o:["app logs","kernel ring buffer","user logs","network logs"],a:1},
+  {q:"iotop = ?",o:["I/O top processes","internet ops","IO operations total","iptables ops"],a:0},
+  {q:"vmstat r > cpu_count = ?",o:["memory issue","CPU bottleneck","disk issue","network issue"],a:1},
+  {q:"lsof | grep deleted = ?",o:["deleted users","files deleted but still open","deleted dirs","broken symlinks"],a:1},
+  {q:"perf top = ?",o:["performance report","live CPU profiler","package info","process timing"],a:1},
+  {q:"iftop -i eth0 = ?",o:["interface info","bandwidth per connection","firewall stats","IP table"],a:1}
+]};
+
+// Merge new EN data
+Object.assign(QUIZZES_EN, QUIZZES_EN_NEW);
+Object.assign(LABS_EN, LABS_EN_NEW);
+Object.assign(GAME_QS_EN, GAME_QS_EN_NEW);
 // ===================================================================
 // LINUX TERMINAL SIMULATOR
 // Chapters with terminal: 2 (commands), 3 (permissions), 4 (processes),
@@ -3791,59 +3780,9 @@ function mergedC(lang) {
   };
 }
 
-// Normalize option lengths so correct answer is NOT detectable by being longest
-function normalizeOptions(q) {
-  const lens = q.o.map(o => o.length);
-  const wrongLens = lens.filter((_, i) => i !== q.a);
-  const maxWrong = Math.max(...wrongLens);
-  // Cap correct answer at longest wrong answer (no tolerance)
-  const cap = maxWrong;
-  const newOpts = q.o.map(o => {
-    if (o.length <= cap) return o;
-    let trimmed = o.slice(0, cap);
-    const lastSpace = trimmed.lastIndexOf(' ');
-    if (lastSpace > cap * 0.5) trimmed = trimmed.slice(0, lastSpace);
-    return trimmed;
-  });
-  return { ...q, o: newOpts };
-}
-
-// Shuffle answer options while keeping correct answer index in sync
-function shuffleOptions(q) {
-  const norm = normalizeOptions(q);
-  const indices = [0,1,2,3];
-  for (let i = indices.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [indices[i], indices[j]] = [indices[j], indices[i]];
-  }
-  return { ...norm, o: indices.map(i => norm.o[i]), a: indices.indexOf(norm.a) };
-}
-
-function shuffleQuestions(qs) {
-  return qs.map(q => shuffleOptions(q));
-}
-
-// Cache shuffled questions per chapter per language to stay consistent within a session
-const _shuffledQ = {};
-const _shuffledG = {};
-
-function getQ(i) {
-  const key = currentLang + '-' + i;
-  if (!_shuffledQ[key]) {
-    const raw = (currentLang==='en' ? (QUIZZES_EN[i]||QUIZZES[i]) : QUIZZES[i]) || QUIZZES[0];
-    _shuffledQ[key] = shuffleQuestions(raw);
-  }
-  return _shuffledQ[key];
-}
+function getQ(i) { return (currentLang==='en' ? (QUIZZES_EN[i]||QUIZZES[i]) : QUIZZES[i]) || QUIZZES[0]; }
 function getL(i) { return (currentLang==='en' ? (LABS_EN[i]||LABS[i]) : LABS[i]) || LABS[0]; }
-function getG(i) {
-  const key = currentLang + '-' + i;
-  if (!_shuffledG[key]) {
-    const raw = (currentLang==='en' ? (GAME_QS_EN[i]||GAME_QS[i]) : GAME_QS[i]) || GAME_QS[0];
-    _shuffledG[key] = shuffleQuestions(raw);
-  }
-  return _shuffledG[key];
-}
+function getG(i) { return (currentLang==='en' ? (GAME_QS_EN[i]||GAME_QS[i]) : GAME_QS[i]) || GAME_QS[0]; }
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
