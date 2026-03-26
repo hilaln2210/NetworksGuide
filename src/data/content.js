@@ -29,6 +29,18 @@ export const tracks = [
     ]
   },
   {
+    id: 'webapi',
+    title: 'Web ו-APIs',
+    subtitle: 'HTTP, REST, GraphQL, Auth, WebSockets, Performance, API Design — 8 פרקים',
+    icon: '🌍',
+    color: '#06b6d4',
+    level: 'מתחיל–בינוני',
+    fullPage: true,
+    chapters: [
+      { id: 300, title: "Web & APIs — קורס מלא", pages: [{ type: "html_page", title: "Web & APIs Course", src: "/learn/webapi/web_apis_course.html" }] },
+    ]
+  },
+  {
     id: 'linux',
     title: 'מערכות לינוקס',
     subtitle: 'Terminal, Bash, הרשאות, תהליכים, רשת, Scripting — 10 פרקים',
