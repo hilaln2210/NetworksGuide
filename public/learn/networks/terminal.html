@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>רשתות מחשבים Pro</title>
@@ -1406,10 +1405,51 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   text-align: start;
 }
 </style>
-
 </head>
 <body>
-<section class="screen on" id="lab">
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" id="logoText">רשתות <i>מחשבים</i></div>
+  <div class="nav-tabs">
+    <button class="nav-tab on" data-screen="landing" onclick="goTo('landing')">🏠 ראשי</button>
+    <button class="nav-tab" data-screen="learn" onclick="goTo('learn')">📖 למידה</button>
+    <button class="nav-tab" data-screen="lab" onclick="goTo('lab')">⚗️ מעבדה</button>
+    <button class="nav-tab" data-screen="quiz" onclick="goTo('quiz')" id="quizNavBtn">⚡ חידון</button>
+  </div>
+  <button class="nav-lang" id="langBtn" onclick="toggleLang()">EN</button>
+  <div class="nav-xp">⚡ <span id="xpTotal">0</span></div>
+</nav>
+
+<!-- ══ LANDING ══ -->
+<section class="screen on" id="landing">
+<div class="land-hero">
+  <div>
+    <div class="hero-tag" id="heroTag">COURSE — 12 CHAPTERS</div>
+    <h1 class="hero-h" id="heroH">רשתות<br><i>מחשבים</i></h1>
+    <p class="hero-p" id="heroP">12 פרקים · תוכן מלא לפי הספר · 171 שאלות מעבדה</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-n">12</div><div class="hs-l">CHAPTERS</div></div>
+      <div class="hs"><div class="hs-n">171</div><div class="hs-l">QUESTIONS</div></div>
+      <div class="hs"><div class="hs-n">5</div><div class="hs-l">LAYERS</div></div>
+    </div>
+    <button class="hero-btn" id="heroCta" onclick="goTo('learn');loadCh(1)">התחל ←</button>
+  </div>
+  <div class="land-grid" id="landGrid"></div>
+</div>
+</section>
+
+<!-- ══ LEARN ══ -->
+<section class="screen" id="learn">
+  <div id="readBar"></div>
+  <div class="learn-layout">
+    <div class="l-sb" id="lSidebar"></div>
+    <div class="l-content" id="lContent"><p style="color:var(--dim2)" id="lPlaceholder">בחר פרק...</p></div>
+  </div>
+</section>
+
+<!-- ══ LAB ══ -->
+<section class="screen" id="lab">
 <div class="lab-layout">
   <div class="lab-sb">
     <div class="lab-sb-head">
@@ -1430,8 +1470,51 @@ section#quiz { height: calc(100vh - 52px); overflow: hidden; }
   </div>
 </div>
 </section>
-<script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ══ QUIZ ══ -->
+<section class="screen" id="quiz"><div class="quiz-layout" id="quizLayout"><div class="quiz-home" id="quizHome"><div class="quiz-home-icon">⚡</div><h2 class="quiz-home-h" id="qzHomeH">חידון</h2><p class="quiz-home-p" id="qzHomeP">ענה מהר</p><div class="quiz-home-modes"><button class="qz-mode-btn" onclick="startQuiz(10)"><span class="qz-mode-icon">🔥</span><span class="qz-mode-n">10</span><span class="qz-mode-l" id="qzLbl10">מהיר</span></button><button class="qz-mode-btn" onclick="startQuiz(20)"><span class="qz-mode-icon">⚡</span><span class="qz-mode-n">20</span><span class="qz-mode-l" id="qzLbl20">מרתון</span></button><button class="qz-mode-btn" onclick="startQuiz('all')"><span class="qz-mode-icon">🏆</span><span class="qz-mode-n">∞</span><span class="qz-mode-l" id="qzLblAll">הכל</span></button></div><div class="quiz-best" id="quizBest"></div></div><div class="quiz-game" id="quizGame" style="display:none"><div class="quiz-hud"><div class="qz-hud-left"><div class="qz-stat"><span class="qz-stat-v" id="qzScore">0</span><span class="qz-stat-l" id="qzScoreLbl">ניקוד</span></div><div class="qz-stat"><span class="qz-stat-v" id="qzStreak">0</span><span class="qz-stat-l" id="qzStreakLbl">רצף</span></div></div><div class="qz-timer-wrap"><svg class="qz-timer-svg" viewBox="0 0 44 44"><circle class="qz-timer-bg" cx="22" cy="22" r="18"/><circle class="qz-timer-arc" id="qzTimerArc" cx="22" cy="22" r="18"/></svg><span class="qz-timer-num" id="qzTimerNum">15</span></div><div class="qz-hud-right"><div class="qz-stat"><span class="qz-stat-v" id="qzNum">1/10</span><span class="qz-stat-l" id="qzNumLbl">שאלה</span></div><button class="qz-quit-btn" onclick="quitQuiz()">✕</button></div></div><div class="quiz-q-area" id="quizQArea"><div class="qz-cat" id="qzCat"></div><div class="qz-q" id="qzQ"></div><div class="qz-opts" id="qzOpts"></div><div class="qz-feedback" id="qzFeedback"></div></div></div><div class="quiz-result" id="quizResult" style="display:none"></div></div></section>
+<script>
 /* TD */
 var TERMINAL_DATA = {
   1: {
@@ -2226,7 +2309,7 @@ function checkMissionDone(mission, td) {
 
   XP += 10;
   localStorage.setItem('nw_xp', XP);
-  var xpEl = (document.getElementById('xpTotal')||{});
+  var xpEl = document.getElementById('xpTotal');
   if (xpEl) xpEl.textContent = XP;
 
   printTermLine(
@@ -2339,7 +2422,7 @@ function renderQuizQ() {
   document.getElementById('qzNum').textContent    = (QUIZ.cur + 1) + ' / ' + QUIZ.total;
 
   /* Category */
-  document.getElementById('qzCat').textContent = ch.icon + ' ' + data.name + (q.cat ? ' · ' + q.cat : '');
+  document.getElementById('qzCat').textContent = ch.icon + ' ' + data.name + (q.cat ? ' · ' + (LANG==='he' ? q.cat : (q.cat_en || q.cat)) : '');
 
   /* Question */
   document.getElementById('qzQ').textContent = isHe ? q.q : (q.q_en || q.q);
@@ -2516,7 +2599,7 @@ function showQuizResult() {
   var xpGain = Math.round(QUIZ.score / 10);
   XP += xpGain;
   localStorage.setItem('nw_xp', XP);
-  var xpEl = (document.getElementById('xpTotal')||{});
+  var xpEl = document.getElementById('xpTotal');
   if (xpEl) xpEl.textContent = XP;
 
   var grade  = pct>=90?'S':pct>=80?'A':pct>=70?'B':pct>=60?'C':'D';
@@ -5401,6 +5484,7 @@ var LAB_DATA = {
   1: [
   {
     cat: "Client & Server",
+    cat_en: "Client & Server",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d2\u05d3\u05e8\u05d4 \u05e9\u05dc Client \u05d5\u05de\u05d4 \u05e9\u05dc Server? \u05de\u05d9 \u05d9\u05d5\u05d6\u05dd \u05d0\u05ea \u05d4\u05ea\u05e7\u05e9\u05d5\u05e8\u05ea?",
     q_en: "What is the definition of Client and Server? Who initiates communication?",
@@ -5412,6 +5496,7 @@ var LAB_DATA = {
   },
   {
     cat: "Request & Response",
+    cat_en: "Request & Response",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df Request \u05dc\u05d1\u05d9\u05df Response? \u05de\u05d4 \u05db\u05dc \u05d0\u05d7\u05d3 \u05de\u05db\u05d9\u05dc?",
     q_en: "What is an IP address? What are the valid values of each byte in IPv4?",
@@ -5423,6 +5508,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05db\u05ea\u05d5\u05d1\u05d5\u05ea IP",
+    cat_en: "IP Addresses",
     snip: null,
     q: "\u05de\u05d4 \u05de\u05d1\u05e0\u05d4 \u05db\u05ea\u05d5\u05d1\u05ea IP? \u05dc\u05de\u05d4 300.5.1.8 \u05d0\u05d9\u05e0\u05d4 \u05db\u05ea\u05d5\u05d1\u05ea \u05d7\u05d5\u05e7\u05d9\u05ea?",
     q_en: "What is DNS and what problem does it solve?",
@@ -5434,6 +5520,7 @@ var LAB_DATA = {
   },
   {
     cat: "ping",
+    cat_en: "ping",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05db\u05dc\u05d9 ping \u05e0\u05d5\u05e2\u05d3 \u05dc\u05e2\u05e9\u05d5\u05ea? \u05de\u05d4 \u05e0\u05d9\u05ea\u05df \u05dc\u05dc\u05de\u05d5\u05d3 \u05de\u05d4\u05e4\u05dc\u05d8 \u05d4\u05d6\u05d4?",
     q_en: "What does tracert -d do? What does the -d flag mean?",
@@ -5445,6 +5532,7 @@ var LAB_DATA = {
   },
   {
     cat: "DNS",
+    cat_en: "DNS",
     snip: null,
     q: "\u05dc\u05de\u05d4 \u05e6\u05e8\u05d9\u05da DNS? \u05de\u05d4 \u05d4\u05d1\u05e2\u05d9\u05d4 \u05e9\u05d4\u05d5\u05d0 \u05e4\u05d5\u05ea\u05e8?",
     q_en: "What is GeoIP and why is it not always accurate?",
@@ -5456,6 +5544,7 @@ var LAB_DATA = {
   },
   {
     cat: "nslookup",
+    cat_en: "nslookup",
     snip: null,
     q: "\u05de\u05d4 nslookup \u05e2\u05d5\u05e9\u05d4? \u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05e0\u05d5 \u05dc-ping?",
     q_en: "What is ipconfig /flushdns used for?",
@@ -5467,6 +5556,7 @@ var LAB_DATA = {
   },
   {
     cat: "Hop & tracert",
+    cat_en: "Hop & tracert",
     snip: null,
     q: "\u05de\u05d4 Hop? \u05de\u05d4 tracert \u05de\u05e6\u05d9\u05d2? \u05de\u05d4 \u05d4\u05d3\u05d2\u05dc -d \u05e2\u05d5\u05e9\u05d4?",
     q_en: "What is the difference between ping google.com and ping 8.8.8.8?",
@@ -5478,6 +5568,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e0\u05d9\u05ea\u05d5\u05d7 tracert",
+    cat_en: "tracert Analysis",
     snip: null,
     q: "\u05de\u05d4 \u05e0\u05d9\u05ea\u05df \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de\u05e7\u05e4\u05d9\u05e6\u05d4 \u05d2\u05d3\u05d5\u05dc\u05d4 \u05d1\u05d6\u05de\u05df \u05d1\u05d9\u05df hop 3 (12ms) \u05dc-hop 10 (145ms)?",
     q_en: "What is a Hop in the context of traceroute?",
@@ -5489,6 +5580,7 @@ var LAB_DATA = {
   },
   {
     cat: "GeoIP",
+    cat_en: "GeoIP",
     snip: null,
     q: "\u05de\u05d4 GeoIP? \u05de\u05d3\u05d5\u05e2 \u05d4\u05d5\u05d0 \u05dc\u05d0 \u05d0\u05de\u05d9\u05df \u05dc\u05d7\u05dc\u05d5\u05d8\u05d9\u05df?",
     q_en: "Why does tracert sometimes show * * * for some hops?",
@@ -5500,6 +5592,7 @@ var LAB_DATA = {
   },
   {
     cat: "WWW",
+    cat_en: "WWW",
     snip: null,
     q: "\u05de\u05d4 WWW? \u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df WWW \u05dc\u05d0\u05d9\u05e0\u05d8\u05e8\u05e0\u05d8?",
     q_en: "What is the Loopback address and what is it used for?",
@@ -5511,6 +5604,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05db\u05ea\u05d5\u05d1\u05ea \u05de\u05e7\u05d5\u05e8 \u05d5\u05d9\u05e2\u05d3",
+    cat_en: "Source and Destination",
     snip: null,
     q: "\u05de\u05d4 \u05d9\u05d4\u05d9\u05d5 \u05db\u05ea\u05d5\u05d1\u05d5\u05ea \u05d4\u05de\u05e7\u05d5\u05e8 \u05d5\u05d4\u05d9\u05e2\u05d3 \u05d1-Response \u05e9\u05d7\u05d5\u05d6\u05e8 \u05de-Facebook?",
     q_en: "What is the difference between a public IP and a private IP?",
@@ -5522,6 +5616,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e2\u05e0\u05df \u05d4\u05d0\u05d9\u05e0\u05d8\u05e8\u05e0\u05d8",
+    cat_en: "Internet Cloud",
     snip: null,
     q: "\u05de\u05d3\u05d5\u05e2 \u05dc\u05d0 \u05de\u05d7\u05d5\u05d1\u05e8\u05d9\u05dd \u05d9\u05e9\u05d9\u05e8\u05d5\u05ea \u05dc-Facebook? \u05de\u05d4 \u05ea\u05e4\u05e7\u05d9\u05d3\u05d5 \u05e9\u05dc \u05e2\u05e0\u05df \u05d4\u05d0\u05d9\u05e0\u05d8\u05e8\u05e0\u05d8?",
     q_en: "If ping to 8.8.8.8 succeeds but ping to google.com fails \u2014 what is the problem?",
@@ -5533,6 +5628,7 @@ var LAB_DATA = {
   },
   {
     cat: "DNS \u2014 \u05e1\u05d3\u05e8 \u05d4\u05e4\u05e2\u05d5\u05dc\u05d5\u05ea",
+    cat_en: "DNS \u2014 Operation Order",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05e1\u05d3\u05e8 \u05d4\u05e0\u05db\u05d5\u05df \u05e9\u05dc \u05d4\u05e4\u05e2\u05d5\u05dc\u05d5\u05ea \u05db\u05e9\u05de\u05e7\u05dc\u05d9\u05d3\u05d9\u05dd www.facebook.com \u05d5\u05dc\u05d5\u05d7\u05e6\u05d9\u05dd Enter?",
     q_en: "What does ipconfig /all show that ipconfig alone does not?",
@@ -5544,6 +5640,7 @@ var LAB_DATA = {
   },
   {
     cat: "View Page Source",
+    cat_en: "View Page Source",
     snip: null,
     q: "\u05de\u05d4 \u05e8\u05d5\u05d0\u05d9\u05dd \u05db\u05e9\u05dc\u05d5\u05d7\u05e6\u05d9\u05dd 'View Page Source' \u05d1\u05d0\u05ea\u05e8? \u05de\u05d4 \u05d6\u05d4 \u05de\u05dc\u05de\u05d3?",
     q_en: "What is APIPA (169.254.x.x)?",
@@ -5555,6 +5652,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e1\u05d9\u05db\u05d5\u05dd \u05db\u05dc\u05d9\u05dd",
+    cat_en: "Tools Summary",
     snip: null,
     q: "\u05d4\u05ea\u05d0\u05dd: (\u05d0) \u05d1\u05d3\u05d9\u05e7\u05ea \u05e7\u05d9\u05e9\u05d5\u05e8\u05d9\u05d5\u05ea + \u05d6\u05de\u05df \u05ea\u05d2\u05d5\u05d1\u05d4  (\u05d1) \u05ea\u05e8\u05d2\u05d5\u05dd \u05e9\u05dd \u05d3\u05d5\u05de\u05d9\u05d9\u05df \u2192 IP  (\u05d2) \u05d4\u05e6\u05d2\u05ea \u05db\u05dc \u05d4-Hops \u05d1\u05d3\u05e8\u05da",
     q_en: "What is the Cloud in network terms?",
@@ -5568,6 +5666,7 @@ var LAB_DATA = {
   2: [
   {
     cat: "\u05de\u05d4 \u05d6\u05d4 Socket?",
+    cat_en: "What is a Socket?",
     snip: null,
     q: "\u05de\u05d4\u05d9 \u05d4\u05d4\u05d2\u05d3\u05e8\u05d4 \u05e9\u05dc Socket? \u05de\u05d4 \u05d4\u05d0\u05e0\u05dc\u05d5\u05d2\u05d9\u05d4 \u05e9\u05d1\u05e4\u05e8\u05e7?",
     q_en: "What is socket.socket() in Python? What are the default parameters?",
@@ -5579,6 +5678,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05db\u05ea\u05d5\u05d1\u05ea Socket",
+    cat_en: "Socket Address",
     snip: null,
     q: "\u05de\u05d4 \u05e9\u05e0\u05d9 \u05d4\u05de\u05e8\u05db\u05d9\u05d1\u05d9\u05dd \u05e9\u05dc \u05db\u05ea\u05d5\u05d1\u05ea Socket? \u05de\u05d4 \u05ea\u05e4\u05e7\u05d9\u05d3 \u05db\u05dc \u05d0\u05d7\u05d3?",
     q_en: "What is the difference between bind() and connect()?",
@@ -5590,6 +5690,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e1\u05d3\u05e8 \u05e4\u05d5\u05e0\u05e7\u05e6\u05d9\u05d5\u05ea \u2014 \u05dc\u05e7\u05d5\u05d7",
+    cat_en: "Function Order \u2014 Client",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05e1\u05d3\u05e8 \u05d4\u05e0\u05db\u05d5\u05df \u05e9\u05dc \u05e7\u05e8\u05d9\u05d0\u05d5\u05ea \u05d4-API \u05d1\u05e6\u05d3 \u05d4\u05dc\u05e7\u05d5\u05d7?",
     q_en: "Why doesn't recv() always return all the data?",
@@ -5601,6 +5702,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e1\u05d3\u05e8 \u05e4\u05d5\u05e0\u05e7\u05e6\u05d9\u05d5\u05ea \u2014 \u05e9\u05e8\u05ea",
+    cat_en: "Function Order \u2014 Server",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05e1\u05d3\u05e8 \u05d4\u05e0\u05db\u05d5\u05df \u05e9\u05dc \u05e7\u05e8\u05d9\u05d0\u05d5\u05ea \u05d4-API \u05d1\u05e6\u05d3 \u05d4\u05e9\u05e8\u05ea?",
     q_en: "What does recv() return when the other side closes the connection?",
@@ -5612,6 +5714,7 @@ var LAB_DATA = {
   },
   {
     cat: "accept() \u2014 blocking",
+    cat_en: "accept() \u2014 blocking",
     snip: null,
     q: "\u05de\u05d4 accept() \u05e2\u05d5\u05e9\u05d4? \u05dc\u05de\u05d4 \u05d4\u05d9\u05d0 blocking?",
     q_en: "What is SO_REUSEADDR used for?",
@@ -5623,6 +5726,7 @@ var LAB_DATA = {
   },
   {
     cat: "recv() \u2014 blocking",
+    cat_en: "recv() \u2014 blocking",
     snip: null,
     q: "\u05de\u05d4 recv() \u05e2\u05d5\u05e9\u05d4? \u05de\u05d4 \u05de\u05d7\u05e8\u05d5\u05d6\u05ea \u05e8\u05d9\u05e7\u05d4 \u05de\u05e6\u05d9\u05d9\u05e0\u05ea?",
     q_en: "What is the difference between blocking and non-blocking socket?",
@@ -5634,6 +5738,7 @@ var LAB_DATA = {
   },
   {
     cat: "0.0.0.0 \u05d5-127.0.0.1",
+    cat_en: "0.0.0.0 and 127.0.0.1",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df 0.0.0.0 \u05dc-127.0.0.1? \u05dc\u05de\u05d4 \u05d4\u05e9\u05e8\u05ea \u05de\u05e9\u05ea\u05de\u05e9 \u05d1-0.0.0.0 \u05d5\u05d4\u05dc\u05e7\u05d5\u05d7 \u05d1-127.0.0.1?",
     q_en: "What is the port number used for in TCP/IP?",
@@ -5645,6 +5750,7 @@ var LAB_DATA = {
   },
   {
     cat: "server_socket vs client_socket",
+    cat_en: "server_socket vs client_socket",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df server_socket \u05dc-client_socket \u05d1\u05e9\u05e8\u05ea?",
     q_en: "What is listen(backlog) and what does the backlog parameter mean?",
@@ -5656,6 +5762,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e4\u05d5\u05e8\u05d8\u05d9\u05dd",
+    cat_en: "Ports",
     snip: null,
     q: "\u05dc\u05e7\u05d5\u05d7 \u05de\u05ea\u05d7\u05d1\u05e8 \u05dc\u05e9\u05e8\u05ea HTTP. \u05de\u05d4 \u05e4\u05d5\u05e8\u05d8 \u05d4\u05d9\u05e2\u05d3? \u05de\u05d4 \u05e4\u05d5\u05e8\u05d8 \u05d4\u05de\u05e7\u05d5\u05e8 \u05e9\u05dc \u05d4\u05dc\u05e7\u05d5\u05d7?",
     q_en: "What does s.send() return?",
@@ -5667,6 +5774,7 @@ var LAB_DATA = {
   },
   {
     cat: "close()",
+    cat_en: "close()",
     snip: null,
     q: "\u05de\u05d4 \u05e7\u05d5\u05e8\u05d4 \u05d0\u05dd \u05dc\u05d0 \u05e7\u05d5\u05e8\u05d0\u05d9\u05dd \u05dc-close() \u05d1\u05e1\u05d5\u05e3? \u05de\u05d4 \u05d4\u05e4\u05ea\u05e8\u05d5\u05df?",
     q_en: "What is the difference between SOCK_STREAM and SOCK_DGRAM?",
@@ -5678,6 +5786,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e7\u05d5\u05d3 \u05dc\u05e7\u05d5\u05d7",
+    cat_en: "Client Code",
     snip: null,
     q: "\u05db\u05de\u05d4 \u05e9\u05d5\u05e8\u05d5\u05ea \u05e7\u05d5\u05d3 \u05e4\u05d9\u05d9\u05ea\u05d5\u05df \u05e0\u05d3\u05e8\u05e9\u05d5\u05ea \u05dc\u05dc\u05e7\u05d5\u05d7 \u05d1\u05e1\u05d9\u05e1\u05d9? \u05de\u05d4 \u05db\u05dc \u05e9\u05dc\u05d1 \u05e2\u05d5\u05e9\u05d4?",
     q_en: "What does s.settimeout(5) do?",
@@ -5689,6 +5798,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e9\u05e8\u05ea \u05e4\u05e7\u05d5\u05d3\u05d5\u05ea",
+    cat_en: "Command Server",
     snip: null,
     q: "\u05de\u05d3\u05d5\u05e2 \u05db\u05dc \u05e4\u05e7\u05d5\u05d3\u05d4 \u05d1-TIME/NAME/RAND/EXIT \u05d4\u05d9\u05d0 \u05d1\u05d3\u05d9\u05d5\u05e7 4 bytes? \u05de\u05d4 \u05d4\u05d9\u05ea\u05e8\u05d5\u05df?",
     q_en: "What is client.close() used for? What happens if we forget?",
@@ -5700,6 +5810,7 @@ var LAB_DATA = {
   },
   {
     cat: "listen() \u2014 \u05e4\u05e8\u05de\u05d8\u05e8",
+    cat_en: "listen() \u2014 parameter",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05e4\u05e8\u05de\u05d8\u05e8 \u05e9\u05dc listen() \u05de\u05d2\u05d3\u05d9\u05e8?",
     q_en: "How does s.connect() initiate a TCP handshake?",
@@ -5711,6 +5822,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e9\u05e8\u05ea \u05d4\u05d3\u05d9\u05dd",
+    cat_en: "Echo Server",
     snip: null,
     q: "\u05de\u05d4 \u05e9\u05e8\u05ea \u05d4\u05d3\u05d9\u05dd (echo server) \u05e2\u05d5\u05e9\u05d4? \u05d0\u05d9\u05da \u05de\u05de\u05de\u05e9\u05d9\u05dd \u05d0\u05d5\u05ea\u05d5?",
     q_en: "What is the UnicodeDecodeError when working with sockets?",
@@ -5722,6 +5834,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e1\u05d9\u05db\u05d5\u05dd \u2014 \u05e9\u05e8\u05ea vs \u05dc\u05e7\u05d5\u05d7",
+    cat_en: "Summary \u2014 Server vs Client",
     snip: null,
     q: "\u05d0\u05d9\u05dc\u05d5 \u05e4\u05d5\u05e0\u05e7\u05e6\u05d9\u05d5\u05ea \u05e9\u05d9\u05d9\u05db\u05d5\u05ea \u05dc\u05dc\u05e7\u05d5\u05d7 \u05d1\u05dc\u05d1\u05d3? \u05d0\u05d9\u05dc\u05d5 \u05dc\u05e9\u05e8\u05ea \u05d1\u05dc\u05d1\u05d3? \u05d0\u05d9\u05dc\u05d5 \u05dc\u05e9\u05e0\u05d9\u05d4\u05dd?",
     q_en: "What is the maximum valid port number and why?",
@@ -5735,6 +5848,7 @@ var LAB_DATA = {
   3: [
   {
     cat: "\u05de\u05d5\u05d3\u05dc \u05e9\u05db\u05d1\u05d5\u05ea - \u05dc\u05de\u05d4",
+    cat_en: "Layer Model \u2014 Why",
     snip: null,
     q: "\u05de\u05d3\u05d5\u05e2 \u05e0\u05d5\u05e6\u05e8 \u05de\u05d5\u05d3\u05dc \u05d4\u05e9\u05db\u05d1\u05d5\u05ea \u05dc\u05e8\u05e9\u05ea\u05d5\u05ea? \u05d0\u05d9\u05d6\u05d5 \u05d1\u05e2\u05d9\u05d4 \u05d4\u05d5\u05d0 \u05d1\u05d0 \u05dc\u05e4\u05ea\u05d5\u05e8?",
     q_en: "What is the OSI model? How many layers does it have?",
@@ -5746,6 +5860,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05de\u05d5\u05d3\u05dc \u05e9\u05db\u05d1\u05d5\u05ea - \u05e2\u05d9\u05e7\u05e8\u05d5\u05df",
+    cat_en: "Layer Model \u2014 Principle",
     snip: null,
     q: "\u05de\u05d4\u05d5 \u05d4\u05e2\u05d9\u05e7\u05e8\u05d5\u05df \u05d4\u05de\u05e8\u05db\u05d6\u05d9 \u05e9\u05dc \u05de\u05d5\u05d3\u05dc \u05e9\u05db\u05d1\u05d5\u05ea? \u05de\u05d4 \u05de\u05e1\u05ea\u05d9\u05e8\u05d4 \u05db\u05dc \u05e9\u05db\u05d1\u05d4 \u05de\u05d4\u05e9\u05db\u05d1\u05d4 \u05e9\u05de\u05e2\u05dc\u05d9\u05d4?",
     q_en: "What is the role of the Network (Layer 3) layer?",
@@ -5757,6 +5872,7 @@ var LAB_DATA = {
   },
   {
     cat: "5 \u05d4\u05e9\u05db\u05d1\u05d5\u05ea - \u05d6\u05d9\u05d4\u05d5\u05d9",
+    cat_en: "5 Layers \u2014 Identification",
     snip: null,
     q: "\u05e4\u05e7\u05d8\u05d4 TCP/IP \u05e0\u05e9\u05dc\u05d7\u05ea. \u05e9\u05db\u05d1\u05d4 3 \u05de\u05d5\u05e1\u05d9\u05e4\u05d4 Header. \u05de\u05d4 \u05de\u05db\u05d9\u05dc \u05d4-Header \u05e9\u05dc \u05e9\u05db\u05d1\u05d4 3?",
     q_en: "What is Wireshark used for?",
@@ -5768,6 +5884,7 @@ var LAB_DATA = {
   },
   {
     cat: "Encapsulation",
+    cat_en: "Encapsulation",
     snip: null,
     q: "\u05de\u05d4 \u05d6\u05d4 Encapsulation (\u05db\u05d9\u05de\u05d5\u05e1) \u05d5\u05de\u05d4 \u05d4-Decapsulation? \u05d4\u05d9\u05db\u05df \u05db\u05dc \u05ea\u05d4\u05dc\u05d9\u05da \u05de\u05ea\u05e8\u05d7\u05e9?",
     q_en: "What is Encapsulation in the OSI model?",
@@ -5779,6 +5896,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e4\u05e8\u05d5\u05d8\u05d5\u05e7\u05d5\u05dc",
+    cat_en: "Protocol",
     snip: null,
     q: "\u05de\u05d4\u05d5 \u05e4\u05e8\u05d5\u05d8\u05d5\u05e7\u05d5\u05dc \u05d5\u05de\u05d3\u05d5\u05e2 \u05d4\u05d5\u05d0 \u05d4\u05db\u05e8\u05d7\u05d9 \u05d1\u05ea\u05e7\u05e9\u05d5\u05e8\u05ea \u05e8\u05e9\u05ea\u05d5\u05ea?",
     q_en: "In Wireshark: what does a filter like 'http' or 'tcp.port==80' do?",
@@ -5790,6 +5908,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05de\u05d3\u05d5\u05e2 \u05e4\u05e7\u05d8\u05d5\u05ea?",
+    cat_en: "Why Packets?",
     snip: null,
     q: "\u05dc\u05de\u05d4 \u05de\u05d9\u05d3\u05e2 \u05de\u05d7\u05d5\u05dc\u05e7 \u05dc\u05e4\u05e7\u05d8\u05d5\u05ea \u05d5\u05dc\u05d0 \u05e0\u05e9\u05dc\u05d7 \u05db\u05e8\u05e6\u05e3 \u05d1\u05d9\u05d8\u05d9\u05dd \u05e8\u05e6\u05d9\u05e3 \u05d0\u05d7\u05d3? \u05e6\u05d9\u05d9\u05e0\u05d5 \u05e9\u05ea\u05d9 \u05e1\u05d9\u05d1\u05d5\u05ea \u05de\u05d4\u05e4\u05e8\u05e7.",
     q_en: "What is the role of the Transport layer (Layer 4)?",
@@ -5801,6 +5920,7 @@ var LAB_DATA = {
   },
   {
     cat: "Wireshark - Display Filter",
+    cat_en: "Wireshark - Display Filter",
     snip: null,
     q: "\u05de\u05d4 \u05d9\u05e6\u05d9\u05d2 \u05d4\u05e4\u05d9\u05dc\u05d8\u05e8 \u05d4\u05d6\u05d4 \u05d1-Wireshark? \u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df ip.src \u05dc\u05d1\u05d9\u05df ip.addr?",
     q_en: "What is the difference between a capture filter and a display filter in Wireshark?",
@@ -5812,6 +5932,7 @@ var LAB_DATA = {
   },
   {
     cat: "Wireshark - Capture vs Display",
+    cat_en: "Wireshark - Capture vs Display",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df Display Filter \u05dc\u05d1\u05d9\u05df Capture Filter \u05d1-Wireshark?",
     q_en: "What is the role of the Data Link layer (Layer 2)?",
@@ -5823,6 +5944,7 @@ var LAB_DATA = {
   },
   {
     cat: "Wireshark - \u05ea\u05e6\u05d5\u05d2\u05d4",
+    cat_en: "Wireshark \u2014 Display",
     snip: null,
     q: "\u05de\u05d4\u05dd 4 \u05d4\u05d7\u05dc\u05e7\u05d9\u05dd \u05d4\u05e8\u05d0\u05e9\u05d9\u05d9\u05dd \u05d1\u05d7\u05dc\u05d5\u05df \u05d4\u05d4\u05e1\u05e0\u05e4\u05d4 \u05e9\u05dc Wireshark \u05dc\u05e4\u05d9 \u05d4\u05e4\u05e8\u05e7?",
     q_en: "What is promiscuous mode in Wireshark?",
@@ -5834,6 +5956,7 @@ var LAB_DATA = {
   },
   {
     cat: "Wireshark - Promiscuous Mode",
+    cat_en: "Wireshark - Promiscuous Mode",
     snip: null,
     q: "\u05de\u05d4 \u05d6\u05d4 Promiscuous Mode ('\u05de\u05e6\u05d1 \u05e4\u05e8\u05d5\u05e5') \u05d1-Wireshark? \u05de\u05d4 \u05e8\u05d5\u05d0\u05d9\u05dd \u05d1\u05d5 \u05e9\u05dc\u05d0 \u05e8\u05d5\u05d0\u05d9\u05dd \u05d1\u05dc\u05e2\u05d3\u05d9\u05d5?",
     q_en: "In which layer does IP operate? What does it add?",
@@ -5845,6 +5968,7 @@ var LAB_DATA = {
   },
   {
     cat: "Follow TCP Stream",
+    cat_en: "Follow TCP Stream",
     snip: null,
     q: "\u05de\u05d4 \u05e8\u05d5\u05d0\u05d9\u05dd \u05d1\u05d7\u05dc\u05d5\u05df Follow TCP Stream \u05d1-Wireshark? \u05de\u05d4 \u05d4'\u05e7\u05e1\u05dd' \u05e9\u05d4\u05d5\u05d0 \u05de\u05d0\u05e4\u05e9\u05e8?",
     q_en: "What is the 5-layer TCP/IP model?",
@@ -5856,6 +5980,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05d4\u05e1\u05e0\u05e4\u05ea \u05e1\u05d9\u05e1\u05de\u05d4",
+    cat_en: "Password Sniffing",
     snip: null,
     q: "\u05d1\u05ea\u05e8\u05d2\u05d9\u05dc 3.2 \u05d4\u05e1\u05e0\u05d9\u05e4\u05d5 \u05e1\u05d9\u05e1\u05de\u05d4 \u05e9\u05e0\u05e9\u05dc\u05d7\u05d4 \u05dc\u05d0\u05ea\u05e8 HTTP. \u05de\u05d4 \u05d6\u05d4 \u05de\u05dc\u05de\u05d3? \u05dc\u05de\u05d4 \u05db\u05d9\u05d5\u05dd \u05d6\u05d4 \u05e4\u05d7\u05d5\u05ea \u05de\u05e1\u05d5\u05db\u05df?",
     q_en: "What is the role of the Application layer (Layer 7)?",
@@ -5869,6 +5994,7 @@ var LAB_DATA = {
   4: [
   {
     cat: "HTTP \u05d1\u05e1\u05d9\u05e1",
+    cat_en: "HTTP Basics",
     snip: null,
     q: "\u05de\u05d4 \u05e9\u05dc\u05d5\u05e9\u05ea \u05d7\u05dc\u05e7\u05d9 \u05d4\u05d1\u05e7\u05e9\u05d4 \u05e9\u05de\u05d5\u05e6\u05d2\u05ea? \u05de\u05d4 \u05ea\u05e4\u05e7\u05d9\u05d3 \u05d4\u05e9\u05d5\u05e8\u05d4 \u05d4\u05e8\u05d9\u05e7\u05d4?",
     q_en: "What is the difference between GET and POST in HTTP?",
@@ -5880,6 +6006,7 @@ var LAB_DATA = {
   },
   {
     cat: "HTTP \u05d1\u05e1\u05d9\u05e1",
+    cat_en: "HTTP Basics",
     snip: null,
     q: "\u05de\u05d4 \u05e9\u05dc\u05d5\u05e9\u05ea \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05e9\u05de\u05db\u05d9\u05dc\u05d4 \u05e9\u05d5\u05e8\u05ea \u05d4\u05ea\u05d2\u05d5\u05d1\u05d4? \u05de\u05d4 Content-Type \u05d0\u05d5\u05de\u05e8 \u05dc\u05dc\u05e7\u05d5\u05d7?",
     q_en: "What is HTTP Stateless?",
@@ -5891,6 +6018,7 @@ var LAB_DATA = {
   },
   {
     cat: "Status Codes",
+    cat_en: "Status Codes",
     snip: null,
     q: "\u05de\u05d4 \u05e7\u05d5\u05d3 200, 301, 404 \u05d5-500 \u05d0\u05d5\u05de\u05e8\u05d9\u05dd? \u05dc\u05d0\u05d9\u05d6\u05d4 \u05e7\u05d8\u05d2\u05d5\u05e8\u05d9\u05d4 \u05db\u05dc \u05d0\u05d7\u05d3 \u05e9\u05d9\u05d9\u05da?",
     q_en: "What does HTTP status code 404 mean? What about 200 and 500?",
@@ -5902,6 +6030,7 @@ var LAB_DATA = {
   },
   {
     cat: "Status Codes",
+    cat_en: "Status Codes",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05dc\u05e7\u05d5\u05d7 \u05e2\u05d5\u05e9\u05d4 \u05db\u05e9\u05de\u05e7\u05d1\u05dc 301 Moved Permanently? \u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05de-302?",
     q_en: "What is the difference between HTTP/1.0 and HTTP/1.1?",
@@ -5913,6 +6042,7 @@ var LAB_DATA = {
   },
   {
     cat: "GET vs POST",
+    cat_en: "GET vs POST",
     snip: null,
     q: "\u05de\u05d3\u05d5\u05e2 \u05dc\u05d0 \u05e0\u05d9\u05ea\u05df \u05dc\u05d4\u05e2\u05dc\u05d5\u05ea \u05ea\u05de\u05d5\u05e0\u05d4 \u05e9\u05dc 1MB \u05d1-GET? \u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d4\u05de\u05d4\u05d5\u05ea\u05d9 \u05d1\u05d9\u05df GET \u05dc-POST?",
     q_en: "What does the HTTP Host header do?",
@@ -5924,6 +6054,7 @@ var LAB_DATA = {
   },
   {
     cat: "GET Parameters",
+    cat_en: "GET Parameters",
     snip: null,
     q: "\u05db\u05d9\u05e6\u05d3 \u05de\u05e2\u05d1\u05d9\u05e8\u05d9\u05dd \u05db\u05de\u05d4 \u05e4\u05e8\u05de\u05d8\u05e8\u05d9\u05dd \u05d1\u05d1\u05e7\u05e9\u05ea GET? \u05de\u05d4 \u05ea\u05e4\u05e7\u05d9\u05d3 ? \u05d5-&?",
     q_en: "What is the difference between HTTP and HTTPS?",
@@ -5935,6 +6066,7 @@ var LAB_DATA = {
   },
   {
     cat: "HTTP Headers",
+    cat_en: "HTTP Headers",
     snip: null,
     q: "\u05de\u05d4 \u05ea\u05e4\u05e7\u05d9\u05d3 HTTP Headers? \u05de\u05d9 \u05d9\u05db\u05d5\u05dc \u05dc\u05e9\u05dc\u05d5\u05d7 \u05d0\u05d5\u05ea\u05dd \u2014 \u05dc\u05e7\u05d5\u05d7, \u05e9\u05e8\u05ea, \u05d0\u05d5 \u05e9\u05e0\u05d9\u05d4\u05dd?",
     q_en: "What is Root Directory in an HTTP server?",
@@ -5946,6 +6078,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e9\u05e8\u05ea HTTP",
+    cat_en: "HTTP Server",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df \u05e9\u05e8\u05ea HTTP \u05e1\u05d8\u05d8\u05d9 \u05dc\u05d3\u05d9\u05e0\u05de\u05d9? \u05d0\u05d9\u05d6\u05d4 \u05e1\u05d5\u05d2 \u05d1\u05e0\u05d9\u05e0\u05d5 \u05d1\u05ea\u05e8\u05d2\u05d9\u05dc calculate-next?",
     q_en: "What does curl -v show?",
@@ -5957,6 +6090,7 @@ var LAB_DATA = {
   },
   {
     cat: "URL \u05d5-Root",
+    cat_en: "URL and Root Directory",
     snip: null,
     q: "\u05de\u05d4 \u05d6\u05d4 Root Directory? \u05db\u05e9\u05dc\u05e7\u05d5\u05d7 \u05de\u05d1\u05e7\u05e9 / (slash \u05d1\u05d5\u05d3\u05d3) \u2014 \u05de\u05d4 \u05d4\u05e9\u05e8\u05ea \u05de\u05d7\u05d6\u05d9\u05e8?",
     q_en: "What is Content-Type header used for?",
@@ -5968,6 +6102,7 @@ var LAB_DATA = {
   },
   {
     cat: "Wireshark + HTTP",
+    cat_en: "Wireshark + HTTP",
     snip: null,
     q: "\u05d1\u05ea\u05e8\u05d2\u05d9\u05dc 4.1 \u05d4\u05e1\u05e0\u05e4\u05e0\u05d5 HTTP. \u05db\u05de\u05d4 \u05e4\u05e7\u05d8\u05d5\u05ea \u05e8\u05d0\u05d9\u05e0\u05d5 \u05dc\u05d2\u05dc\u05d9\u05e9\u05d4 \u05e4\u05e9\u05d5\u05d8\u05d4? \u05de\u05d4 \u05db\u05dc \u05d0\u05d7\u05ea?",
     q_en: "What does HTTP 301 vs 302 mean?",
@@ -5979,6 +6114,7 @@ var LAB_DATA = {
   },
   {
     cat: "DNS",
+    cat_en: "DNS",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df DNS record \u05de\u05e1\u05d5\u05d2 A \u05dc\u05d1\u05d9\u05df CNAME? \u05de\u05d0\u05d9\u05e4\u05d4 \u05d4\u05d3\u05e4\u05d3\u05e4\u05df \u05d9\u05d5\u05d3\u05e2 \u05dc\u05d0\u05d9\u05e4\u05d4 \u05dc\u05e9\u05dc\u05d5\u05d7 HTTP?",
     q_en: "What is the HTTP request format?",
@@ -5990,6 +6126,7 @@ var LAB_DATA = {
   },
   {
     cat: "GET vs POST \u2013 \u05e2\u05de\u05d5\u05e7",
+    cat_en: "GET vs POST \u2014 Deep Dive",
     snip: null,
     q: "\u05d1\u05ea\u05e8\u05d2\u05d9\u05dc Ynet \u05d1\u05e4\u05e8\u05e7: \u05dc\u05de\u05d4 \u05e9\u05dc\u05d9\u05d7\u05ea \u05ea\u05d2\u05d5\u05d1\u05d4 \u05dc\u05db\u05ea\u05d1\u05d4 \u05de\u05e9\u05ea\u05de\u05e9\u05ea \u05d1-POST \u05d5\u05dc\u05d0 \u05d1-GET?",
     q_en: "What is python3 -m http.server used for?",
@@ -6003,6 +6140,7 @@ var LAB_DATA = {
   5: [
   {
     cat: "Scapy \u05d1\u05e1\u05d9\u05e1",
+    cat_en: "Scapy Basics",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df Sockets \u05dc-Scapy? \u05de\u05d4 Scapy \u05de\u05d0\u05e4\u05e9\u05e8\u05ea \u05e9Sockets \u05dc\u05d0 \u05de\u05d0\u05e4\u05e9\u05e8\u05ea?",
     q_en: "What is Scapy and why does it require root permissions?",
@@ -6014,6 +6152,7 @@ var LAB_DATA = {
   },
   {
     cat: "sniff()",
+    cat_en: "sniff()",
     snip: null,
     q: "\u05de\u05d4 \u05e2\u05d5\u05e9\u05d4 sniff()? \u05dc\u05de\u05d4 \u05d4\u05d9\u05d0 blocking \u05d5\u05d6\u05d4 \u05d7\u05e9\u05d5\u05d1?",
     q_en: "What does the / operator do in Scapy?",
@@ -6025,6 +6164,7 @@ var LAB_DATA = {
   },
   {
     cat: "lfilter \u05d5-prn",
+    cat_en: "lfilter and prn",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df lfilter \u05dc\u05d1\u05d9\u05df prn? \u05de\u05d4 \u05d4\u05e9\u05e8\u05e9\u05e8\u05ea \u05e9\u05de\u05ea\u05d1\u05e6\u05e2\u05ea?",
     q_en: "What is the difference between send() and sendp() in Scapy?",
@@ -6036,6 +6176,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05d2\u05d9\u05e9\u05d4 \u05dc\u05e9\u05db\u05d1\u05d5\u05ea",
+    cat_en: "Layer Access",
     snip: null,
     q: "\u05de\u05d4 \u05e2\u05e8\u05da opcode=0 \u05d0\u05d5\u05de\u05e8? \u05de\u05d4 qtype=1 \u05d0\u05d5\u05de\u05e8?",
     q_en: "What does sr1() return?",
@@ -6047,6 +6188,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05d1\u05e0\u05d9\u05d9\u05ea \u05e4\u05e7\u05d8\u05d5\u05ea",
+    cat_en: "Packet Crafting",
     snip: null,
     q: "\u05de\u05d4 Scapy \u05de\u05de\u05dc\u05d0 \u05d0\u05d5\u05d8\u05d5\u05de\u05d8\u05d9\u05ea \u05db\u05e9\u05d9\u05d5\u05e6\u05e8\u05d9\u05dd IP()? \u05de\u05d4 show() \u05de\u05e6\u05d9\u05d2 \u05d1\u05e0\u05d5\u05e1\u05e3 \u05e2\u05dc \u05d4\u05e6\u05d2\u05d4 \u05d9\u05e9\u05d9\u05e8\u05d4?",
     q_en: "What is sniff() in Scapy?",
@@ -6058,6 +6200,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05d0\u05d5\u05e4\u05e8\u05d8\u05d5\u05e8 /",
+    cat_en: "The / Operator",
     snip: null,
     q: "\u05de\u05d4 \u05e2\u05d5\u05e9\u05d4 \u05d0\u05d5\u05e4\u05e8\u05d8\u05d5\u05e8 / \u05d1\u05d9\u05df \u05e9\u05db\u05d1\u05d5\u05ea Scapy? \u05de\u05d4 \u05d4\u05e7\u05e9\u05e8 \u05dc-Encapsulation?",
     q_en: "What does pkt.show() display?",
@@ -6069,6 +6212,7 @@ var LAB_DATA = {
   },
   {
     cat: "HTTP \u05d1-Scapy",
+    cat_en: "HTTP in Scapy",
     snip: null,
     q: "\u05dc\u05de\u05d4 \u05dc\u05d0 \u05e0\u05d9\u05ea\u05df \u05dc\u05db\u05ea\u05d5\u05d1 'HTTP in packet' \u05d1-Scapy? \u05d0\u05d9\u05da \u05de\u05e1\u05e0\u05e0\u05d9\u05dd HTTP GET?",
     q_en: "What is the difference between sr() and sr1() in Scapy?",
@@ -6080,6 +6224,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e9\u05dc\u05d9\u05d7\u05d4",
+    cat_en: "Sending",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df send() \u05dc\u05d1\u05d9\u05df sr() \u05d5-sr1()?",
     q_en: "What is lfilter in sniff()?",
@@ -6091,6 +6236,7 @@ var LAB_DATA = {
   },
   {
     cat: "Resolving",
+    cat_en: "Resolving",
     snip: null,
     q: "\u05de\u05d4 \u05d6\u05d4 Resolving \u05d1-Scapy? \u05de\u05ea\u05d9 \u05d1\u05e4\u05d5\u05e2\u05dc \u05de\u05ea\u05d1\u05e6\u05e2 \u05ea\u05e8\u05d2\u05d5\u05dd \u05d4\u05e9\u05dd \u05dc-IP?",
     q_en: "How do you build a DNS query in Scapy?",
@@ -6102,6 +6248,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e9\u05db\u05d1\u05d5\u05ea \u05d1-Scapy",
+    cat_en: "Layers in Scapy",
     snip: null,
     q: "\u05de\u05d4 Scapy \u05de\u05e1\u05d9\u05e7 \u05d0\u05d5\u05d8\u05d5\u05de\u05d8\u05d9\u05ea \u05db\u05e9\u05de\u05e6\u05d9\u05d9\u05e0\u05d9\u05dd dport=80? \u05de\u05d4 type=0x800 \u05d0\u05d5\u05de\u05e8?",
     q_en: "What is ARP and how do you send an ARP request with Scapy?",
@@ -6113,6 +6260,7 @@ var LAB_DATA = {
   },
   {
     cat: "import \u05d1-Script",
+    cat_en: "import in Script",
     snip: null,
     q: "\u05d0\u05d9\u05da \u05de\u05e8\u05d9\u05e6\u05d9\u05dd Scapy \u05de\u05e7\u05d5\u05d1\u05e5 .py \u05d5\u05dc\u05d0 \u05de-interpreter? \u05de\u05d4 \u05d4\u05e9\u05d5\u05e8\u05d4 \u05d4\u05d7\u05d9\u05d5\u05e0\u05d9\u05ea?",
     q_en: "What does rdpcap() do in Scapy?",
@@ -6124,6 +6272,7 @@ var LAB_DATA = {
   },
   {
     cat: "DNS Monitoring \u2014 \u05ea\u05e8\u05d2\u05d9\u05dc 5.1",
+    cat_en: "DNS Monitoring \u2014 Exercise 5.1",
     snip: null,
     q: "\u05dc\u05de\u05d4 \u05e6\u05e8\u05d9\u05da ipconfig /flushdns \u05dc\u05e4\u05e0\u05d9 \u05d4\u05d4\u05e1\u05e0\u05e4\u05d4? \u05de\u05d4 \u05e7\u05d5\u05e8\u05d4 \u05d1\u05dc\u05e2\u05d3\u05d9\u05d5?",
     q_en: "What is TTL and how does Scapy use it for traceroute?",
@@ -6137,6 +6286,7 @@ var LAB_DATA = {
   6: [
   {
     cat: "\u05e4\u05d5\u05e8\u05d8\u05d9\u05dd",
+    cat_en: "Ports",
     snip: null,
     q: "\u05de\u05d4 \u05d6\u05d4 Port \u05d5\u05dc\u05de\u05d4 \u05d4\u05d5\u05d0 \u05e0\u05d7\u05d5\u05e5? \u05de\u05d4 \u05d4\u05d4\u05e7\u05d1\u05dc\u05d4 \u05dc\u05d1\u05e0\u05d9\u05d9\u05df \u05d5\u05d3\u05d9\u05e8\u05d4 \u05e9\u05de\u05d5\u05e1\u05d1\u05e8\u05ea \u05d1\u05e4\u05e8\u05e7?",
     q_en: "What is the Three-Way Handshake in TCP?",
@@ -6148,6 +6298,7 @@ var LAB_DATA = {
   },
   {
     cat: "netstat",
+    cat_en: "netstat",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df LISTENING \u05dc\u05d1\u05d9\u05df ESTABLISHED? \u05de\u05ea\u05d9 \u05de\u05d5\u05e4\u05d9\u05e2\u05d5\u05ea \u05e9\u05ea\u05d9 \u05d4\u05e9\u05d5\u05e8\u05d5\u05ea \u05d9\u05d7\u05d3?",
     q_en: "What is the ACK number and how is it calculated?",
@@ -6159,6 +6310,7 @@ var LAB_DATA = {
   },
   {
     cat: "TCP vs UDP",
+    cat_en: "TCP vs UDP",
     snip: null,
     q: "\u05de\u05ea\u05d9 \u05e0\u05d1\u05d7\u05e8 TCP \u05d5\u05de\u05ea\u05d9 UDP? \u05e7\u05d1\u05e2 \u05dc\u05db\u05dc \u05de\u05e7\u05e8\u05d4: \u05d4\u05d5\u05e8\u05d3\u05ea \u05e7\u05d5\u05d1\u05e5, DNS, \u05e9\u05d9\u05d7\u05ea Skype, \u05d4\u05e2\u05dc\u05d0\u05ea \u05ea\u05de\u05d5\u05e0\u05d4.",
     q_en: "What is the difference between TCP and UDP?",
@@ -6170,6 +6322,7 @@ var LAB_DATA = {
   },
   {
     cat: "UDP Header",
+    cat_en: "UDP Header",
     snip: null,
     q: "\u05de\u05d4 \u05e9\u05d3\u05d4 Length \u05d1-UDP \u05de\u05e6\u05d9\u05d9\u05df? \u05d4\u05d0\u05dd \u05e8\u05e7 Header, \u05e8\u05e7 Data, \u05d0\u05d5 \u05e9\u05e0\u05d9\u05d4\u05dd?",
     q_en: "What does netstat -an show?",
@@ -6181,6 +6334,7 @@ var LAB_DATA = {
   },
   {
     cat: "Checksum",
+    cat_en: "Checksum",
     snip: null,
     q: "\u05de\u05d4 Checksum \u05d5\u05de\u05d4 \u05d4\u05d5\u05d0 \u05de\u05d2\u05dc\u05d4? \u05de\u05d4 \u05d4\u05d5\u05d0 \u05dc\u05d0 \u05de\u05d2\u05dc\u05d4?",
     q_en: "What are TCP flags and what does each one mean?",
@@ -6192,6 +6346,7 @@ var LAB_DATA = {
   },
   {
     cat: "UDP Socket",
+    cat_en: "UDP Socket",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d4\u05de\u05e2\u05e9\u05d9 \u05d1\u05e7\u05d5\u05d3 \u05d1\u05d9\u05df TCP \u05dc-UDP Socket? \u05de\u05d4 \u05e0\u05e2\u05dc\u05dd \u05d1-UDP?",
     q_en: "What is TCP Window Size?",
@@ -6203,6 +6358,7 @@ var LAB_DATA = {
   },
   {
     cat: "TCP Sequence Numbers",
+    cat_en: "TCP Sequence Numbers",
     snip: null,
     q: "\u05de\u05d4 \u05d9\u05d4\u05d9\u05d5 \u05e2\u05e8\u05db\u05d9 \u05d4-ACK \u05d0\u05d7\u05e8\u05d9 \u05e7\u05d1\u05dc\u05ea \u05db\u05dc \u05d7\u05d1\u05d9\u05dc\u05d4?",
     q_en: "What is the TIME_WAIT state?",
@@ -6214,6 +6370,7 @@ var LAB_DATA = {
   },
   {
     cat: "Three-Way Handshake",
+    cat_en: "Three-Way Handshake",
     snip: null,
     q: "\u05de\u05d4 \u05d9\u05d4\u05d9\u05d5 \u05e2\u05e8\u05db\u05d9 ACK \u05d1\u05d7\u05d1\u05d9\u05dc\u05d4 2, \u05d5\u05e2\u05e8\u05db\u05d9 Seq \u05d5-ACK \u05d1\u05d7\u05d1\u05d9\u05dc\u05d4 3?",
     q_en: "What is the difference between TCP SYN and RST?",
@@ -6225,6 +6382,7 @@ var LAB_DATA = {
   },
   {
     cat: "Three-Way Handshake",
+    cat_en: "Three-Way Handshake",
     snip: null,
     q: "\u05d1\u05dc\u05d7\u05d9\u05e6\u05ea \u05d9\u05d3: \u05dc\u05e7\u05d5\u05d7 ISN=500, \u05e9\u05e8\u05ea ISN=200. \u05de\u05d4 Seq \u05d5-ACK \u05d1\u05db\u05dc \u05e9\u05dc\u05d1?",
     q_en: "What does ss -tlnp show on Linux?",
@@ -6236,6 +6394,7 @@ var LAB_DATA = {
   },
   {
     cat: "Seq/ACK \u05d7\u05d9\u05e9\u05d5\u05d1",
+    cat_en: "Seq/ACK Calculation",
     snip: null,
     q: "\u05de\u05d4 ACK \u05d1\u05ea\u05d2\u05d5\u05d1\u05ea \u05d4\u05e9\u05e8\u05ea? \u05de\u05d4 Seq \u05d5-ACK \u05d1\u05d7\u05d1\u05d9\u05dc\u05ea \u05d4\u05dc\u05e7\u05d5\u05d7 \u05d4\u05e9\u05dc\u05d9\u05e9\u05d9\u05ea?",
     q_en: "What is TCP Checksum?",
@@ -6247,6 +6406,7 @@ var LAB_DATA = {
   },
   {
     cat: "TCP Flags",
+    cat_en: "TCP Flags",
     snip: null,
     q: "\u05de\u05d4 \u05e7\u05d5\u05e8\u05d4 \u05db\u05e9\u05e9\u05d5\u05dc\u05d7\u05d9\u05dd SYN \u05dc\u05e4\u05d5\u05e8\u05d8 \u05e1\u05d2\u05d5\u05e8? \u05de\u05d4 \u05d4\u05d4\u05e9\u05dc\u05db\u05d4 \u05dcPort Scanning?",
     q_en: "What is a Well-Known Port?",
@@ -6258,6 +6418,7 @@ var LAB_DATA = {
   },
   {
     cat: "TCP Scapy",
+    cat_en: "TCP Scapy",
     snip: null,
     q: "\u05d1\u05e9\u05dc\u05d1 2, \u05dc\u05de\u05d4 seq=resp[TCP].ack \u05d5-ack=resp[TCP].seq+1?",
     q_en: "What is TCP Slow Start?",
@@ -6269,6 +6430,7 @@ var LAB_DATA = {
   },
   {
     cat: "UDP Scapy",
+    cat_en: "UDP Scapy",
     snip: null,
     q: "\u05dc\u05de\u05d4 \u05d1\u05d7\u05e8\u05e0\u05d5 dport=53 \u05d5-rd=1? \u05de\u05d4 \u05e2\u05d5\u05e9\u05d4 sr1() \u05db\u05d0\u05df?",
     q_en: "What is the ESTABLISHED state in TCP?",
@@ -6280,6 +6442,7 @@ var LAB_DATA = {
   },
   {
     cat: "ISN \u05e8\u05e0\u05d3\u05d5\u05de\u05dc\u05d9",
+    cat_en: "Random ISN",
     snip: null,
     q: "\u05de\u05d3\u05d5\u05e2 \u05d4-ISN \u05e0\u05d1\u05d7\u05e8 \u05d1\u05d0\u05d5\u05e4\u05df \u05e8\u05e0\u05d3\u05d5\u05de\u05dc\u05d9 \u05d5\u05dc\u05d0 \u05ea\u05de\u05d9\u05d3 0?",
     q_en: "What is lsof -i :80 used for?",
@@ -6291,6 +6454,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05d8\u05d1\u05dc\u05ea \u05d4\u05e9\u05d5\u05d5\u05d0\u05d4",
+    cat_en: "Comparison Table",
     snip: null,
     q: "\u05de\u05d4 \u05e9\u05dc\u05d5\u05e9\u05ea \u05d4\u05de\u05e0\u05d2\u05e0\u05d5\u05e0\u05d9\u05dd \u05e9\u05dc TCP \u05dc\u05d0\u05de\u05d9\u05e0\u05d5\u05ea? \u05d4\u05d0\u05dd UDP \u05de\u05db\u05d9\u05dc \u05d0\u05d7\u05d3 \u05de\u05d4\u05dd?",
     q_en: "What is nc (netcat)?",
@@ -6304,6 +6468,7 @@ var LAB_DATA = {
   7: [
   {
     cat: "\u05db\u05ea\u05d5\u05d1\u05d5\u05ea IP",
+    cat_en: "IP Addresses",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df Network ID \u05dc\u05d1\u05d9\u05df Host ID? \u05de\u05d4 \u05de\u05d2\u05d3\u05d9\u05e8 \u05d0\u05d7\u05d3 \u05dc\u05d7\u05dc\u05e7?",
     q_en: "What is an IP address and what is the difference between IPv4 and IPv6?",
@@ -6315,6 +6480,7 @@ var LAB_DATA = {
   },
   {
     cat: "Subnet Mask",
+    cat_en: "Subnet Mask",
     snip: null,
     q: "\u05de\u05d9 \u05de\u05d4\u05db\u05ea\u05d5\u05d1\u05d5\u05ea \u05e0\u05de\u05e6\u05d0\u05ea \u05d1\u05d0\u05d5\u05ea\u05d4 \u05e8\u05e9\u05ea \u05db\u05de\u05d5 200.100.5.3 \u05e2\u05dd \u05de\u05e1\u05db\u05d4 /16?",
     q_en: "What is a Subnet Mask and how is it used?",
@@ -6326,6 +6492,7 @@ var LAB_DATA = {
   },
   {
     cat: "Subnet Mask",
+    cat_en: "Subnet Mask",
     snip: null,
     q: "\u05e2\u05dd \u05de\u05e1\u05db\u05d4 /8 \u2014 \u05de\u05d4 \u05d4-Network ID \u05d5\u05d0\u05d9\u05d6\u05d5 \u05de\u05d4\u05db\u05ea\u05d5\u05d1\u05d5\u05ea \u05d1\u05e8\u05e9\u05ea?",
     q_en: "What is DHCP and what does it assign?",
@@ -6337,6 +6504,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05db\u05ea\u05d5\u05d1\u05d5\u05ea \u05de\u05d9\u05d5\u05d7\u05d3\u05d5\u05ea",
+    cat_en: "Special Addresses",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05de\u05e9\u05de\u05e2\u05d5\u05ea \u05e9\u05dc \u05db\u05dc \u05d0\u05d7\u05ea: 255.255.255.255, 127.0.0.1, 0.0.0.0?",
     q_en: "What is NAT and why is it needed?",
@@ -6348,6 +6516,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05db\u05ea\u05d5\u05d1\u05d5\u05ea \u05e4\u05e8\u05d8\u05d9\u05d5\u05ea",
+    cat_en: "Private Addresses",
     snip: null,
     q: "\u05de\u05d4 \u05e9\u05dc\u05d5\u05e9\u05ea \u05d4\u05d8\u05d5\u05d5\u05d7\u05d9\u05dd \u05e9\u05dc \u05db\u05ea\u05d5\u05d1\u05d5\u05ea \u05e4\u05e8\u05d8\u05d9\u05d5\u05ea? \u05de\u05d3\u05d5\u05e2 \u05e0\u05d5\u05e6\u05e8\u05d5?",
     q_en: "What is the Default Gateway?",
@@ -6359,6 +6528,7 @@ var LAB_DATA = {
   },
   {
     cat: "NAT",
+    cat_en: "NAT",
     snip: null,
     q: "\u05de\u05d4 Google \u05e8\u05d5\u05d0\u05d4 \u05db\u05de\u05e7\u05d5\u05e8 \u05d4\u05d1\u05e7\u05e9\u05d4? \u05de\u05d4 \u05d4\u05e0\u05ea\u05d1 \u05de\u05e9\u05e0\u05d4 \u05d5\u05d0\u05d9\u05da?",
     q_en: "What is TTL in IP? What happens when it reaches 0?",
@@ -6370,6 +6540,7 @@ var LAB_DATA = {
   },
   {
     cat: "Routing Table",
+    cat_en: "Routing Table",
     snip: null,
     q: "\u05d7\u05d1\u05d9\u05dc\u05d4 \u05e2\u05dd dst=100.200.5.8 \u2014 \u05dc\u05d0\u05d9\u05d6\u05d4 Interface? \u05d7\u05d1\u05d9\u05dc\u05d4 \u05e2\u05dd dst=5.5.5.5?",
     q_en: "What is ARP and why is it needed?",
@@ -6381,6 +6552,7 @@ var LAB_DATA = {
   },
   {
     cat: "Routing Table",
+    cat_en: "Routing Table",
     snip: null,
     q: "\u05d7\u05d1\u05d9\u05dc\u05d4 \u05e2\u05dd dst=192.168.14.5 \u2014 \u05dc\u05d0\u05d9\u05d6\u05d4 Interface? \u05de\u05d3\u05d5\u05e2?",
     q_en: "What is CIDR notation (/24, /16)?",
@@ -6392,6 +6564,7 @@ var LAB_DATA = {
   },
   {
     cat: "ICMP",
+    cat_en: "ICMP",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05e0\u05ea\u05d1 \u05e9\u05d5\u05dc\u05d7 \u05db\u05e9-TTL \u05de\u05d2\u05d9\u05e2 \u05dc-0? \u05de\u05d4 \u05de\u05db\u05d9\u05dc \u05d4-ICMP \u05e9\u05d4\u05d5\u05d0 \u05e9\u05d5\u05dc\u05d7?",
     q_en: "What does ip route get [IP] do on Linux?",
@@ -6403,6 +6576,7 @@ var LAB_DATA = {
   },
   {
     cat: "TTL",
+    cat_en: "TTL",
     snip: null,
     q: "\u05de\u05d4 \u05e2\u05e8\u05da TTL \u05db\u05e9\u05d4\u05d7\u05d1\u05d9\u05dc\u05d4 \u05de\u05d2\u05d9\u05e2\u05d4 \u05dcR3? \u05de\u05d4 R1 \u05e2\u05d5\u05e9\u05d4 \u05d1\u05e1\u05d9\u05d1\u05d5\u05d1 \u05d4\u05e9\u05e0\u05d9?",
     q_en: "What is the difference between a router and a switch?",
@@ -6414,6 +6588,7 @@ var LAB_DATA = {
   },
   {
     cat: "Traceroute",
+    cat_en: "Traceroute",
     snip: null,
     q: "\u05de\u05d4 resp[IP].src \u05de\u05d7\u05d6\u05d9\u05e8 \u05e2\u05d1\u05d5\u05e8 TTL=1? \u05de\u05d4 \u05d4\u05dc\u05d5\u05dc\u05d0\u05d4 \u05d1\u05d5\u05d3\u05e7\u05ea \u05d1-if?",
     q_en: "What is a Broadcast address?",
@@ -6425,6 +6600,7 @@ var LAB_DATA = {
   },
   {
     cat: "DHCP",
+    cat_en: "DHCP",
     snip: null,
     q: "\u05de\u05d4 4 \u05d4\u05d4\u05d5\u05d3\u05e2\u05d5\u05ea \u05e9\u05dc DHCP? \u05de\u05d4 \u05de\u05d9\u05d5\u05d7\u05d3 \u05d1\u05db\u05ea\u05d5\u05d1\u05d5\u05ea \u05e9\u05dc DHCP Discover?",
     q_en: "What is the routing table and how does a router use it?",
@@ -6436,6 +6612,7 @@ var LAB_DATA = {
   },
   {
     cat: "DHCP",
+    cat_en: "DHCP",
     snip: null,
     q: "\u05de\u05d4 \u05d4-Lease Time \u05d1-DHCP? \u05de\u05d4 \u05e7\u05d5\u05e8\u05d4 \u05db\u05e9\u05e4\u05d2 \u05ea\u05d5\u05e7\u05e4\u05d5?",
     q_en: "What is ICMP and what is it used for?",
@@ -6447,6 +6624,7 @@ var LAB_DATA = {
   },
   {
     cat: "ICMP Scapy",
+    cat_en: "ICMP Scapy",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05e2\u05e8\u05da \u05e9-Scapy \u05e9\u05dd \u05d1-ICMP Type \u05d5-Code \u05db\u05d1\u05e8\u05d9\u05e8\u05ea \u05de\u05d7\u05d3\u05dc? \u05de\u05d4 resp[IP].src \u05de\u05d7\u05d6\u05d9\u05e8?",
     q_en: "What are private IP ranges?",
@@ -6458,6 +6636,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05db\u05dc\u05d9\u05dd",
+    cat_en: "Tools",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df ipconfig \u05dc\u05d1\u05d9\u05df route print? \u05de\u05d4 \u05db\u05dc \u05d0\u05d7\u05d3 \u05de\u05e6\u05d9\u05d2?",
     q_en: "What is ipcalc used for?",
@@ -6471,6 +6650,7 @@ var LAB_DATA = {
   8: [
   {
     cat: "\u05e9\u05db\u05d1\u05ea \u05d4\u05e7\u05d5",
+    cat_en: "Data Link Layer",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df \u05ea\u05e4\u05e7\u05d9\u05d3 \u05e9\u05db\u05d1\u05ea \u05d4\u05e7\u05d5 \u05dc\u05d1\u05d9\u05df \u05e9\u05db\u05d1\u05ea \u05d4\u05e8\u05e9\u05ea?",
     q_en: "What is a MAC address? How is it structured?",
@@ -6482,6 +6662,7 @@ var LAB_DATA = {
   },
   {
     cat: "MAC Address",
+    cat_en: "MAC Address",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df \u05db\u05ea\u05d5\u05d1\u05ea MAC \u05dc\u05db\u05ea\u05d5\u05d1\u05ea IP? \u05de\u05d4 \u05db\u05dc \u05d0\u05d7\u05ea \u05de\u05d9\u05d9\u05e6\u05d2\u05ea?",
     q_en: "What is the difference between MAC and IP address?",
@@ -6493,6 +6674,7 @@ var LAB_DATA = {
   },
   {
     cat: "MAC Address",
+    cat_en: "MAC Address",
     snip: null,
     q: "\u05de\u05d4 \u05e0\u05d9\u05ea\u05df \u05dc\u05d4\u05e1\u05d9\u05e7 \u05de-3 \u05d4bytes \u05d4\u05e8\u05d0\u05e9\u05d5\u05e0\u05d9\u05dd \u05d4\u05d6\u05d4\u05d9\u05dd D4:BE:D9?",
     q_en: "What is an Ethernet Frame? What are its fields?",
@@ -6504,6 +6686,7 @@ var LAB_DATA = {
   },
   {
     cat: "Ethernet Frame",
+    cat_en: "Ethernet Frame",
     snip: null,
     q: "\u05de\u05d4 \u05ea\u05e4\u05e7\u05d9\u05d3 \u05e9\u05d3\u05d4 Type? \u05de\u05d4 \u05d4\u05e2\u05e8\u05da 0x0800 \u05de\u05e6\u05d9\u05d9\u05df?",
     q_en: "Why don't Preamble and CRC appear in Wireshark?",
@@ -6515,6 +6698,7 @@ var LAB_DATA = {
   },
   {
     cat: "Ethernet Frame",
+    cat_en: "Ethernet Frame",
     snip: null,
     q: "\u05dc\u05de\u05d4 Preamble \u05d5-CRC32 \u05dc\u05d0 \u05de\u05d5\u05e4\u05d9\u05e2\u05d9\u05dd \u05d1-Wireshark?",
     q_en: "What is ARP Request vs ARP Reply?",
@@ -6526,6 +6710,7 @@ var LAB_DATA = {
   },
   {
     cat: "Layer 2 vs 3",
+    cat_en: "Layer 2 vs 3",
     snip: null,
     q: "\u05de\u05d4 \u05db\u05ea\u05d5\u05d1\u05ea \u05d4-MAC \u05e9\u05dc \u05d4\u05d9\u05e2\u05d3 \u05d1\u05e9\u05db\u05d1\u05d4 2 \u05db\u05e9\u05d4\u05de\u05d7\u05e9\u05d1 \u05e9\u05d5\u05dc\u05d7 \u05dc-Ynet? \u05d5\u05dc\u05de\u05d4 \u05d6\u05d5 \u05dc\u05d0 \u05db\u05ea\u05d5\u05d1\u05ea MAC \u05e9\u05dc Ynet?",
     q_en: "What is the difference between Broadcast, Unicast, and Multicast?",
@@ -6537,6 +6722,7 @@ var LAB_DATA = {
   },
   {
     cat: "ARP",
+    cat_en: "ARP",
     snip: null,
     q: "\u05dc\u05de\u05d4 \u05e6\u05e8\u05d9\u05da ARP? \u05de\u05d3\u05d5\u05e2 \u05dc\u05d0 \u05de\u05e1\u05e4\u05d9\u05e7\u05d4 \u05db\u05ea\u05d5\u05d1\u05ea \u05d4-IP \u05e9\u05dc \u05d4\u05d9\u05e2\u05d3?",
     q_en: "What is OUI (Organizationally Unique Identifier)?",
@@ -6548,6 +6734,7 @@ var LAB_DATA = {
   },
   {
     cat: "ARP",
+    cat_en: "ARP",
     snip: null,
     q: "\u05dc-ARP Request \u05e0\u05e9\u05dc\u05d7 \u05dc-Broadcast \u05d5\u05e2\u05d5\u05e0\u05d4 \u05e8\u05e7 \u05d1' \u2014 \u05de\u05d3\u05d5\u05e2 \u05e9\u05d0\u05e8 \u05d4\u05de\u05d7\u05e9\u05d1\u05d9\u05dd \u05dc\u05d0 \u05e2\u05d5\u05e0\u05d9\u05dd?",
     q_en: "What is ARP Cache Poisoning?",
@@ -6559,6 +6746,7 @@ var LAB_DATA = {
   },
   {
     cat: "ARP",
+    cat_en: "ARP",
     snip: null,
     q: "\u05de\u05d7\u05e9\u05d1 A (10.0.0.1/8) \u05e8\u05d5\u05e6\u05d4 \u05dc\u05e9\u05dc\u05d5\u05d7 \u05dc-Google (3.3.3.3). \u05dc-ARP Request \u05dc-MAC \u05e9\u05dc \u05de\u05d9?",
     q_en: "What is tcpdump and how is it used?",
@@ -6570,6 +6758,7 @@ var LAB_DATA = {
   },
   {
     cat: "Hub vs Switch",
+    cat_en: "Hub vs Switch",
     snip: null,
     q: "\u05de\u05d7\u05e9\u05d1 A \u05d1-Hub \u05e9\u05d5\u05dc\u05d7 \u05de\u05e1\u05d2\u05e8\u05ea \u05dc-B. \u05de\u05d7\u05e9\u05d1 C \u05de\u05d7\u05d5\u05d1\u05e8 \u05dc\u05d0\u05d5\u05ea\u05d5 Hub. \u05de\u05d4 C \u05de\u05e7\u05d1\u05dc?",
     q_en: "What is MTU (Maximum Transmission Unit)?",
@@ -6581,6 +6770,7 @@ var LAB_DATA = {
   },
   {
     cat: "Switch \u2014 \u05dc\u05de\u05d9\u05d3\u05d4",
+    cat_en: "Switch \u2014 Learning",
     snip: null,
     q: "\u05de\u05d4 Switch \u05d7\u05d3\u05e9 \u05e2\u05d5\u05e9\u05d4 \u05db\u05e9\u05d4\u05d5\u05d0 \u05dc\u05d0 \u05de\u05db\u05d9\u05e8 \u05d0\u05ea MAC \u05e9\u05dc B? \u05de\u05d4 \u05d4\u05d5\u05d0 \u05dc\u05d5\u05de\u05d3?",
     q_en: "What does ip link show display?",
@@ -6592,6 +6782,7 @@ var LAB_DATA = {
   },
   {
     cat: "Switch \u2014 \u05dc\u05de\u05d9\u05d3\u05d4",
+    cat_en: "Switch \u2014 Learning",
     snip: null,
     q: "\u05db\u05e2\u05ea \u05e9-Switch \u05de\u05db\u05d9\u05e8 A \u05d1-Port 1 \u2014 \u05de\u05d4 \u05d4\u05d5\u05d0 \u05e2\u05d5\u05e9\u05d4 \u05db\u05e9\u05d1' \u05e9\u05d5\u05dc\u05d7 \u05dc-\u05d0'?",
     q_en: "What does arping do?",
@@ -6603,6 +6794,7 @@ var LAB_DATA = {
   },
   {
     cat: "Layer 2 vs 3",
+    cat_en: "Layer 2 vs 3",
     snip: null,
     q: "\u05d1\u05e0\u05ea\u05d1 \u05d4\u05d1\u05d0 \u05d1\u05d3\u05e8\u05da, \u05de\u05d4 \u05d9\u05e9\u05ea\u05e0\u05d4 \u05d1\u05e9\u05db\u05d1\u05d4 2 \u05d5\u05de\u05d4 \u05dc\u05d0?",
     q_en: "What is Promiscuous Mode?",
@@ -6614,6 +6806,7 @@ var LAB_DATA = {
   },
   {
     cat: "Scapy Layer 2",
+    cat_en: "Scapy Layer 2",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df send() \u05dc\u05d1\u05d9\u05df sendp()? \u05de\u05d4 Scapy \u05e2\u05d5\u05e9\u05d4 \u05d0\u05d5\u05d8\u05d5\u05de\u05d8\u05d9\u05ea \u05d1-send()?",
     q_en: "What is Spanning Tree Protocol (STP)?",
@@ -6625,6 +6818,7 @@ var LAB_DATA = {
   },
   {
     cat: "ARP Cache",
+    cat_en: "ARP Cache",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05de\u05e9\u05de\u05e2\u05d5\u05ea \u05e9\u05dc 'dynamic' \u05dc\u05e2\u05d5\u05de\u05ea 'static' \u05d1-ARP Cache? \u05de\u05d4 \u05d4\u05db\u05ea\u05d5\u05d1\u05ea 192.168.14.255?",
     q_en: "What is a VLAN?",
@@ -6638,6 +6832,7 @@ var LAB_DATA = {
   9: [
   {
     cat: "\u05e8\u05db\u05d9\u05d1 \u05e0\u05db\u05d5\u05df",
+    cat_en: "Correct Component",
     snip: null,
     q: "\u05d0\u05d9\u05d6\u05d4 \u05e8\u05db\u05d9\u05d1 \u05de\u05d1\u05d3\u05d9\u05dc \u05d1\u05d9\u05df \u05d1\u05e7\u05e9\u05ea \u05de\u05d9\u05d9\u05dc \u05dc\u05d1\u05e7\u05e9\u05ea HTTP \u05e2\u05dc \u05d0\u05d5\u05ea\u05d5 \u05e9\u05e8\u05ea? \u05d1\u05d0\u05d9\u05d6\u05d4 \u05e9\u05db\u05d1\u05d4?",
     q_en: "What is a Hub and how does it work?",
@@ -6649,6 +6844,7 @@ var LAB_DATA = {
   },
   {
     cat: "Hub",
+    cat_en: "Hub",
     snip: null,
     q: "A \u05e9\u05d5\u05dc\u05d7 \u05de\u05e1\u05d2\u05e8\u05ea \u05de\u05d9\u05d5\u05e2\u05d3\u05ea \u05dc-B. \u05de\u05d4 \u05de\u05e7\u05d1\u05dc\u05d9\u05dd B, C, D \u05d1\u05e4\u05d5\u05e2\u05dc?",
     q_en: "What is a Switch and how does it differ from a Hub?",
@@ -6660,6 +6856,7 @@ var LAB_DATA = {
   },
   {
     cat: "Switch \u2014 \u05dc\u05de\u05d9\u05d3\u05d4",
+    cat_en: "Switch \u2014 Learning",
     snip: null,
     q: "Switch \u05d7\u05d3\u05e9, A \u05e9\u05d5\u05dc\u05d7 \u05dc-B (MAC \u05e9\u05dc B \u05dc\u05d0 \u05d1\u05d8\u05d1\u05dc\u05d4). \u05de\u05d4 Switch \u05e2\u05d5\u05e9\u05d4? \u05de\u05d4 \u05d4\u05d5\u05d0 \u05dc\u05d5\u05de\u05d3?",
     q_en: "What is MAC Table Flooding and why does a new switch do it?",
@@ -6671,6 +6868,7 @@ var LAB_DATA = {
   },
   {
     cat: "Switch \u2014 \u05d8\u05d1\u05dc\u05d4",
+    cat_en: "Switch \u2014 Table",
     snip: null,
     q: "B \u05e9\u05d5\u05dc\u05d7 \u05de\u05e1\u05d2\u05e8\u05ea \u05dc-A. C \u05e9\u05d5\u05dc\u05d7 \u05de\u05e1\u05d2\u05e8\u05ea \u05dc-A. \u05de\u05d4 \u05e9\u05d5\u05e0\u05d4 \u05d1\u05d9\u05df \u05e9\u05ea\u05d9 \u05d4\u05e4\u05e2\u05d5\u05dc\u05d5\u05ea?",
     q_en: "What is a Router and why is it Layer 3?",
@@ -6682,6 +6880,7 @@ var LAB_DATA = {
   },
   {
     cat: "Switch \u2014 Broadcast",
+    cat_en: "Switch \u2014 Broadcast",
     snip: null,
     q: "A \u05e9\u05d5\u05dc\u05d7 Broadcast (FF:FF:FF:FF:FF:FF). Switch \u05de\u05db\u05d9\u05e8 \u05d0\u05ea \u05db\u05dc \u05d4\u05de\u05d7\u05e9\u05d1\u05d9\u05dd. \u05de\u05d4 \u05e7\u05d5\u05e8\u05d4?",
     q_en: "What is the difference between a Collision Domain and a Broadcast Domain?",
@@ -6693,6 +6892,7 @@ var LAB_DATA = {
   },
   {
     cat: "Router",
+    cat_en: "Router",
     snip: null,
     q: "\u05dc\u05de\u05d4 A \u05dc\u05d0 \u05d9\u05db\u05d5\u05dc \u05dc\u05e9\u05dc\u05d5\u05d7 \u05dc-B \u05d9\u05e9\u05d9\u05e8\u05d5\u05ea \u05d1-Layer 2? \u05de\u05d4 \u05ea\u05e4\u05e7\u05d9\u05d3 \u05d4-Router \u05db\u05d0\u05df?",
     q_en: "What is MAC Address Spoofing?",
@@ -6704,6 +6904,7 @@ var LAB_DATA = {
   },
   {
     cat: "ARP + Router",
+    cat_en: "ARP + Router",
     snip: null,
     q: "A \u05e9\u05d5\u05dc\u05d7 ARP \u2014 \u05dc\u05d0\u05d9\u05d6\u05d4 IP? \u05d5\u05de\u05d3\u05d5\u05e2 \u05dc\u05d0 \u05dcGoogle\u05d9\u05e9\u05d9\u05e8\u05d5\u05ea?",
     q_en: "What is the difference between Half-Duplex and Full-Duplex?",
@@ -6715,6 +6916,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e9\u05db\u05d1\u05d5\u05ea",
+    cat_en: "Layers",
     snip: null,
     q: "\u05d4\u05ea\u05d0\u05dd \u05e9\u05db\u05d1\u05d4 \u05dc\u05e8\u05db\u05d9\u05d1. \u05de\u05d4 \u05db\u05dc \u05e9\u05db\u05d1\u05d4 \u05d0\u05d5\u05de\u05e8\u05ea \u05e2\u05dc \u05d9\u05db\u05d5\u05dc\u05d5\u05ea \u05d4\u05e8\u05db\u05d9\u05d1?",
     q_en: "What is SPAN/Port Mirroring on a Switch?",
@@ -6726,6 +6928,7 @@ var LAB_DATA = {
   },
   {
     cat: "Switch vs Hub \u2014 \u05e4\u05e8\u05d8\u05d9\u05d5\u05ea",
+    cat_en: "Switch vs Hub \u2014 Privacy",
     snip: null,
     q: "Wireshark \u05de\u05d5\u05e4\u05e2\u05dc \u05e2\u05dc '\u05de\u05d9\u05e9\u05d4\u05d5 \u05e8\u05e2' \u05d4\u05de\u05d7\u05d5\u05d1\u05e8 \u05dc-Hub, \u05d5\u05e2\u05dc \u05d0\u05d7\u05d3 \u05d0\u05d7\u05e8 \u05d4\u05de\u05d7\u05d5\u05d1\u05e8 \u05dc-Switch. \u05de\u05d4 \u05db\u05dc \u05d0\u05d7\u05d3 \u05e8\u05d5\u05d0\u05d4?",
     q_en: "What is CAM Table Overflow attack?",
@@ -6737,6 +6940,7 @@ var LAB_DATA = {
   },
   {
     cat: "Router \u2014 Routing Table",
+    cat_en: "Router \u2014 Routing Table",
     snip: null,
     q: "\u05d7\u05d1\u05d9\u05dc\u05d4 \u05e2\u05dd dst=192.168.0.55 \u2014 \u05dc\u05d0\u05df? \u05d7\u05d1\u05d9\u05dc\u05d4 \u05e2\u05dd dst=8.8.8.8 \u2014 \u05dc\u05d0\u05df?",
     q_en: "What is a Layer 3 Switch?",
@@ -6748,6 +6952,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e9\u05d0\u05dc\u05ea \u05d0\u05ea\u05d2\u05e8 \u2014 \u05e9\u05db\u05d1\u05d5\u05ea",
+    cat_en: "Challenge \u2014 Layers",
     snip: null,
     q: "Router \u05de\u05e7\u05d1\u05dc \u05d0\u05ea \u05d4\u05e4\u05e7\u05d8\u05d4. \u05de\u05d4 \u05d4\u05d5\u05d0 \u05de\u05e9\u05e0\u05d4 \u05dc\u05e4\u05e0\u05d9 \u05e9\u05de\u05e2\u05d1\u05d9\u05e8 \u05dcB?",
     q_en: "What is a Switch's MAC Table (CAM Table)?",
@@ -6759,6 +6964,7 @@ var LAB_DATA = {
   },
   {
     cat: "Switch \u2014 Collision Domain",
+    cat_en: "Switch — Collision Domain",
     snip: null,
     q: "Switch \u05e4\u05d5\u05ea\u05e8 \u05d4\u05ea\u05e0\u05d2\u05e9\u05d5\u05d9\u05d5\u05ea, Hub \u05dc\u05d0. \u05de\u05d3\u05d5\u05e2 Switch \u05de\u05d5\u05e0\u05e2 \u05d4\u05ea\u05e0\u05d2\u05e9\u05d5\u05d9\u05d5\u05ea?",
     q_en: "What is Broadcast Storm and how is it caused?",
@@ -6770,6 +6976,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05d4-Router \u05d4\u05d1\u05d9\u05ea\u05d9",
+    cat_en: "Home Router",
     snip: null,
     q: "\u05de\u05d4 \u05d4-Router \u05d4\u05d1\u05d9\u05ea\u05d9 \u05e9\u05dc\u05da \u05e2\u05d5\u05e9\u05d4 \u05e9Router '\u05d8\u05d4\u05d5\u05e8' \u05dc\u05d0 \u05e2\u05d5\u05e9\u05d4?",
     q_en: "What is the difference between Access Port and Trunk Port on a Switch?",
@@ -6781,6 +6988,7 @@ var LAB_DATA = {
   },
   {
     cat: "Switch \u2014 \u05e1\u05d9\u05db\u05d5\u05dd",
+    cat_en: "Switch \u2014 Summary",
     snip: null,
     q: "C \u05e9\u05d5\u05dc\u05d7 Broadcast. Switch \u05de\u05db\u05d9\u05e8 \u05d0\u05ea \u05db\u05d5\u05dc\u05dd. \u05de\u05d4 \u05d4\u05d5\u05d0 \u05e2\u05d5\u05e9\u05d4?",
     q_en: "What is ARP Poisoning and how does it work?",
@@ -6792,6 +7000,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05d4\u05e9\u05d5\u05d5\u05d0\u05d4 \u05e1\u05d5\u05e4\u05d9\u05ea",
+    cat_en: "Final Comparison",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d4\u05d1\u05e1\u05d9\u05e1\u05d9 \u05d1\u05d9\u05d5\u05ea\u05e8 \u05d1\u05d9\u05df Hub, Switch, Router \u2014 \u05d1\u05e9\u05ea\u05d9 \u05de\u05d9\u05dc\u05d9\u05dd \u05dc\u05db\u05dc \u05d0\u05d7\u05d3?",
     q_en: "What happens when a Switch receives a frame with destination ff:ff:ff:ff:ff:ff?",
@@ -6805,6 +7014,7 @@ var LAB_DATA = {
   10: [
   {
     cat: "\u05e9\u05db\u05d1\u05d4 \u05e4\u05d9\u05d6\u05d9\u05ea",
+    cat_en: "Physical Layer",
     snip: null,
     q: "\u05de\u05d4 \u05de\u05d8\u05e8\u05ea \u05d4\u05e9\u05db\u05d1\u05d4 \u05d4\u05e4\u05d9\u05d6\u05d9\u05ea? \u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05e9\u05dc\u05d4 \u05de\u05db\u05dc \u05e9\u05d0\u05e8 \u05d4\u05e9\u05db\u05d1\u05d5\u05ea?",
     q_en: "What is the role of the Physical Layer (Layer 1)?",
@@ -6816,6 +7026,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e7\u05d5\u05d3 \u05de\u05d5\u05e8\u05e1",
+    cat_en: "Morse Code",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df \u05e0\u05e7\u05d5\u05d3\u05d4 \u05dc\u05e7\u05d5 \u05d1\u05e7\u05d5\u05d3 \u05de\u05d5\u05e8\u05e1? \u05de\u05d4 \u05e2\u05d9\u05e7\u05e8\u05d5\u05df \u05d4\u05e7\u05d9\u05d3\u05d5\u05d3?",
     q_en: "What is the difference between AM and FM modulation?",
@@ -6827,6 +7038,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05de\u05d0\u05e4\u05d9\u05d9\u05e0\u05d9 \u05d2\u05dc",
+    cat_en: "Wave Properties",
     snip: null,
     q: "\u05d1\u05e9\u05e8\u05d8\u05d5\u05d8: \u05de\u05d4 A \u05de\u05e1\u05de\u05dc? \u05de\u05d4 \u03bb \u05de\u05e1\u05de\u05dc? \u05d0\u05d9\u05d6\u05d4 \u05e7\u05e9\u05e8 \u05d1\u05d9\u05df \u05ea\u05d3\u05e8 \u05dc\u05d0\u05d5\u05e8\u05da \u05d2\u05dc?",
     q_en: "What is ADSL and why is it faster than a regular modem?",
@@ -6838,6 +7050,7 @@ var LAB_DATA = {
   },
   {
     cat: "AM \u05dc\u05e2\u05d5\u05de\u05ea FM",
+    cat_en: "AM vs FM",
     snip: null,
     q: "\u05dc\u05de\u05d4 \u05e8\u05d3\u05d9\u05d5 FM \u05e0\u05e9\u05de\u05e2 \u05d8\u05d5\u05d1 \u05d9\u05d5\u05ea\u05e8 \u05de-AM? \u05de\u05d4 \u05d4\u05e1\u05d9\u05d1\u05d4 \u05d4\u05e4\u05d9\u05d6\u05d9\u05ea?",
     q_en: "What are CAT5, CAT5e, CAT6 cables?",
@@ -6849,6 +7062,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05d0\u05e0\u05dc\u05d5\u05d2\u05d9 vs \u05d3\u05d9\u05d2\u05d9\u05d8\u05dc\u05d9",
+    cat_en: "Analog vs Digital",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df \u05ea\u05e7\u05dc\u05d9\u05d8 \u05dc-CD? \u05de\u05d4 \u05d9\u05ea\u05e8\u05d5\u05df \u05d4\u05d3\u05d9\u05d2\u05d9\u05d8\u05dc\u05d9?",
     q_en: "Why is WiFi Half-Duplex?",
@@ -6860,6 +7074,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05d8\u05dc\u05e4\u05d5\u05df \u2014 \u05e9\u05db\u05d1\u05d4 \u05e4\u05d9\u05d6\u05d9\u05ea",
+    cat_en: "Phone \u2014 Physical Layer",
     snip: null,
     q: "\u05d4\u05d8\u05dc\u05e4\u05d5\u05df \u05e4\u05d5\u05e2\u05dc \u05d1\u05e9\u05db\u05d1\u05d4 \u05d4\u05e4\u05d9\u05d6\u05d9\u05ea \u05d1\u05dc\u05d1\u05d3 \u2014 \u05de\u05d4 \u05d6\u05d4 \u05d0\u05d5\u05de\u05e8? \u05de\u05d4 \u05d4\u05d5\u05d0 \u05dc\u05d0 \u05e2\u05d5\u05e9\u05d4?",
     q_en: "What is optical fiber and what are its advantages?",
@@ -6871,6 +7086,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05de\u05d5\u05d3\u05dd ADSL",
+    cat_en: "ADSL Modem",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05e1\u05d9\u05d1\u05d4 \u05d4\u05e2\u05d9\u05e7\u05e8\u05d9\u05ea \u05e9-ADSL \u05de\u05d4\u05d9\u05e8 \u05e4\u05d9 333,000 \u05de\u05de\u05d5\u05d3\u05dd 300bps?",
     q_en: "What is a repeater and why is it needed?",
@@ -6882,6 +7098,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e4\u05d9\u05dc\u05d8\u05e8 ADSL",
+    cat_en: "ADSL Filter",
     snip: null,
     q: "\u05de\u05d4 \u05e4\u05d9\u05dc\u05d8\u05e8 ADSL \u05e2\u05d5\u05e9\u05d4? \u05dc\u05de\u05d4 \u05e0\u05e7\u05e8\u05d0 \u05e4\u05d9\u05dc\u05d8\u05e8 \u05d5\u05dc\u05d0 \u05de\u05e4\u05e6\u05dc \u05e4\u05e9\u05d5\u05d8?",
     q_en: "What is the difference between 2.4GHz and 5GHz WiFi?",
@@ -6893,6 +7110,7 @@ var LAB_DATA = {
   },
   {
     cat: "CAT5 \u05d5-Ethernet",
+    cat_en: "CAT5 and Ethernet",
     snip: null,
     q: "\u05de\u05d3\u05d5\u05e2 \u05db\u05d1\u05dc \u05de\u05d5\u05e6\u05dc\u05d1 (Crossover) \u05e0\u05d3\u05e8\u05e9 \u05dc\u05d7\u05d9\u05d1\u05d5\u05e8 \u05d9\u05e9\u05d9\u05e8 \u05d1\u05d9\u05df \u05e9\u05e0\u05d9 \u05de\u05d7\u05e9\u05d1\u05d9\u05dd?",
     q_en: "What is Bit vs Byte?",
@@ -6904,6 +7122,7 @@ var LAB_DATA = {
   },
   {
     cat: "Full/Half Duplex",
+    cat_en: "Full/Half Duplex",
     snip: null,
     q: "\u05dc\u05de\u05d4 WiFi = Half Duplex? \u05de\u05d4 \u05d4\u05d4\u05e9\u05dc\u05db\u05d4 \u05db\u05e9\u05d9\u05e9 10 \u05de\u05d7\u05e9\u05d1\u05d9\u05dd \u05e2\u05dc \u05d0\u05d5\u05ea\u05d5 AP?",
     q_en: "What is CSMA/CD and how does it work?",
@@ -6915,6 +7134,7 @@ var LAB_DATA = {
   },
   {
     cat: "WiFi \u05ea\u05d3\u05e8\u05d9\u05dd",
+    cat_en: "WiFi Frequencies",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d1\u05d9\u05df WiFi 2.4GHz \u05dc-5GHz? \u05de\u05ea\u05d9 \u05db\u05dc \u05d0\u05d7\u05d3 \u05e2\u05d3\u05d9\u05e3?",
     q_en: "What is PoE (Power over Ethernet)?",
@@ -6926,6 +7146,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e1\u05d9\u05d1 \u05d0\u05d5\u05e4\u05d8\u05d9",
+    cat_en: "Optical Fiber",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d9\u05ea\u05e8\u05d5\u05df \u05d4\u05d2\u05d3\u05d5\u05dc \u05e9\u05dc \u05e1\u05d9\u05d1 \u05d0\u05d5\u05e4\u05d8\u05d9 \u05e2\u05dc \u05e4\u05e0\u05d9 \u05db\u05d1\u05dc \u05e0\u05d7\u05d5\u05e9\u05ea \u05d1\u05e9\u05e0\u05d9 \u05de\u05d3\u05d3\u05d9\u05dd?",
     q_en: "What is the difference between Single-Mode and Multi-Mode fiber?",
@@ -6937,6 +7158,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05de\u05de\u05e1\u05e8 Relay",
+    cat_en: "Relay",
     snip: null,
     q: "\u05db\u05d9\u05e6\u05d3 \u05e0\u05d9\u05ea\u05df \u05dc\u05d4\u05e2\u05d1\u05d9\u05e8 \u05e1\u05d9\u05d1 \u05d0\u05d5\u05e4\u05d8\u05d9 \u05dc\u05de\u05e8\u05d7\u05e7 \u05e9\u05dc 1,000 \u05e7\"\u05de \u05d0\u05dd \u05d4\u05e1\u05d9\u05d1 \u05de\u05d7\u05d6\u05d9\u05e7 \u05e2\u05d3 100 \u05e7\"\u05de?",
     q_en: "What is interference and how does it affect WiFi?",
@@ -6948,6 +7170,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05de\u05d9\u05e7\u05e8\u05d5\u05d2\u05dc",
+    cat_en: "Microwave",
     snip: null,
     q: "\u05de\u05d3\u05d5\u05e2 \u05d0\u05e0\u05d8\u05e0\u05d5\u05ea \u05de\u05d9\u05e7\u05e8\u05d5\u05d2\u05dc \u05d4\u05df \u05db\u05d9\u05d5\u05d5\u05e0\u05d9\u05d5\u05ea? \u05de\u05d4 \u05d4\u05d7\u05d9\u05e1\u05e8\u05d5\u05df \u05d4\u05d2\u05d3\u05d5\u05dc \u05e9\u05dc\u05d4\u05df?",
     q_en: "What is bandwidth vs latency?",
@@ -6959,6 +7182,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05d0\u05d9\u05e0\u05d8\u05d2\u05e8\u05e6\u05d9\u05d4",
+    cat_en: "Integration",
     snip: null,
     q: "\u05de\u05e1\u05e2 \u05e4\u05e7\u05d8\u05d4 \u05de\u05d4\u05de\u05d7\u05e9\u05d1 \u05e9\u05dc\u05da \u05d1\u05d9\u05e9\u05e8\u05d0\u05dc \u05dc\u05e9\u05e8\u05ea \u05d1\u05d0\u05e8\u05d4\"\u05d1 \u2014 \u05d0\u05d9\u05dc\u05d5 \u05ea\u05d5\u05d5\u05db\u05d9\u05dd \u05e4\u05d9\u05d6\u05d9\u05d9\u05dd \u05d4\u05d9\u05d0 \u05e2\u05d5\u05d1\u05e8\u05ea?",
     q_en: "What is a Network Interface Card (NIC)?",
@@ -6972,6 +7196,7 @@ var LAB_DATA = {
   11: [
   {
     cat: "DHCP \u2014 \u05e9\u05dc\u05d1 1",
+    cat_en: "DHCP \u2014 Step 1",
     snip: null,
     q: "\u05de\u05d7\u05e9\u05d1 \u05de\u05ea\u05d7\u05d1\u05e8 \u05dc\u05e8\u05e9\u05ea. \u05de\u05d4 \u05d4\u05d5\u05d0 \u05d9\u05d5\u05d3\u05e2 \u05db\u05e8\u05d2\u05e2, \u05d5\u05de\u05d4 \u05d4\u05d5\u05d0 \u05e6\u05e8\u05d9\u05da \u05dc\u05d2\u05dc\u05d5\u05ea? \u05de\u05d4 \u05d4\u05d5\u05d3\u05e2\u05ea DHCP Discover \u05db\u05d5\u05dc\u05dc\u05ea?",
     q_en: "What does a computer know when it first connects to a network?",
@@ -6983,6 +7208,7 @@ var LAB_DATA = {
   },
   {
     cat: "DHCP \u2014 Switch",
+    cat_en: "DHCP \u2014 Switch",
     snip: null,
     q: "\u05db\u05e9\u05d4\u05de\u05d7\u05e9\u05d1 \u05e9\u05d5\u05dc\u05d7 DHCP Discover \u2014 \u05de\u05d4 Switch \u05dc\u05d5\u05de\u05d3? \u05de\u05d4 \u05d4\u05d5\u05d0 \u05e2\u05d5\u05e9\u05d4 \u05e2\u05dd \u05d4\u05de\u05e1\u05d2\u05e8\u05ea?",
     q_en: "What is the order of protocols when you open a website for the first time?",
@@ -6994,6 +7220,7 @@ var LAB_DATA = {
   },
   {
     cat: "ARP \u2014 \u05e9\u05dc\u05d1 2",
+    cat_en: "ARP \u2014 Step 2",
     snip: null,
     q: "\u05d4\u05de\u05d7\u05e9\u05d1 \u05e6\u05e8\u05d9\u05da \u05dc\u05e9\u05dc\u05d5\u05d7 DNS Query \u05dc-2.2.2.2. \u05d4\u05d5\u05d0 \u05e9\u05d5\u05dc\u05d7 ARP \u2014 \u05dc\u05d0\u05d9\u05d6\u05d4 IP? \u05dc\u05de\u05d4?",
     q_en: "Why must DHCP Discover be sent as Broadcast?",
@@ -7005,6 +7232,7 @@ var LAB_DATA = {
   },
   {
     cat: "Layer 2 vs 3 \u2014 ARP Reply",
+    cat_en: "Layer 2 vs 3 \u2014 ARP Reply",
     snip: null,
     q: "\u05de\u05d4 \u05d9\u05d4\u05d9\u05d5 \u05db\u05ea\u05d5\u05d1\u05d5\u05ea MAC \u05d5-IP \u05d1\u05d7\u05d1\u05d9\u05dc\u05ea \u05d4-DNS Query \u05e9\u05e0\u05e9\u05dc\u05d7\u05ea?",
     q_en: "What happens to MAC addresses as a packet travels across the internet?",
@@ -7016,6 +7244,7 @@ var LAB_DATA = {
   },
   {
     cat: "TTL \u2014 \u05e0\u05ea\u05d1\u05d9\u05dd",
+    cat_en: "TTL \u2014 Routers",
     snip: null,
     q: "\u05de\u05d4 \u05d4-TTL \u05db\u05e9\u05de\u05d2\u05d9\u05e2 \u05dc-DNS? \u05de\u05d4 Switch \u05e2\u05d5\u05e9\u05d4 \u05dc-TTL?",
     q_en: "What does NAT change in the packet as it leaves the network?",
@@ -7027,6 +7256,7 @@ var LAB_DATA = {
   },
   {
     cat: "DNS \u2014 \u05e9\u05dc\u05d1 3",
+    cat_en: "DNS \u2014 Step 3",
     snip: null,
     q: "\u05de\u05d4 Transaction ID \u05d1-DNS? \u05de\u05d4 \u05e7\u05d5\u05e8\u05d4 \u05dc\u05d5 \u05d1\u05ea\u05e9\u05d5\u05d1\u05d4?",
     q_en: "What is a Broadcast Domain and why doesn't DHCP cross routers?",
@@ -7038,6 +7268,7 @@ var LAB_DATA = {
   },
   {
     cat: "TCP \u2014 \u05e9\u05dc\u05d1 4",
+    cat_en: "TCP \u2014 Step 4",
     snip: null,
     q: "\u05de\u05d4 \u05d9\u05d4\u05d9\u05d5 \u05e4\u05d5\u05e8\u05d8\u05d9 src \u05d5-dst \u05d1\u05e7\u05d9\u05e9\u05d5\u05e8 TCP \u05dc\u05de\u05d7\u05e9\u05d1 Facebook \u05d1\u05d1\u05e7\u05e9\u05ea HTTP?",
     q_en: "What is the difference between same-subnet and different-subnet communication?",
@@ -7049,6 +7280,7 @@ var LAB_DATA = {
   },
   {
     cat: "TCP Handshake \u2014 \u05d7\u05d9\u05e9\u05d5\u05d1",
+    cat_en: "TCP Handshake \u2014 Calculation",
     snip: null,
     q: "\u05d4\u05e9\u05dc\u05dd \u05d0\u05ea \u05e9\u05d3\u05d5\u05ea Seq \u05d5-ACK \u05d1\u05e9\u05dc\u05d5\u05e9\u05ea \u05d4\u05e6\u05e2\u05d3\u05d9\u05dd:",
     q_en: "What happens during the TCP Handshake phase when opening a website?",
@@ -7060,6 +7292,7 @@ var LAB_DATA = {
   },
   {
     cat: "HTTP \u2014 \u05e9\u05dc\u05d1 5",
+    cat_en: "HTTP \u2014 Step 5",
     snip: null,
     q: "\u05d0\u05d7\u05e8\u05d9 Handshake \u2014 \u05d0\u05d9\u05da \u05e0\u05e8\u05d0\u05d9\u05ea \u05d1\u05e7\u05e9\u05ea HTTP \u05dc\u05d3\u05e3 \u05d4\u05d1\u05d9\u05ea \u05e9\u05dc Facebook? \u05de\u05d4 \u05d4\u05ea\u05e9\u05d5\u05d1\u05d4 \u05d4\u05e6\u05e4\u05d5\u05d9\u05d4?",
     q_en: "What does the ARP process look like when connecting to a new router?",
@@ -7071,6 +7304,7 @@ var LAB_DATA = {
   },
   {
     cat: "NAT \u2014 \u05e9\u05dc\u05d1 6",
+    cat_en: "NAT \u2014 Step 6",
     snip: null,
     q: "\u05de\u05d7\u05e9\u05d1 \u05e9\u05d5\u05dc\u05d7 HTTP \u05dc-Facebook. \u05de\u05d4 Facebook \u05e8\u05d5\u05d0\u05d4? \u05de\u05d4 \u05de\u05d7\u05e9\u05d1 \u05e8\u05d5\u05d0\u05d4 \u05d1\u05ea\u05e9\u05d5\u05d1\u05d4?",
     q_en: "What is a DNS Recursive Query?",
@@ -7082,6 +7316,7 @@ var LAB_DATA = {
   },
   {
     cat: "MAC \u05d1\u05db\u05dc Hop",
+    cat_en: "MAC at Each Hop",
     snip: null,
     q: "\u05de\u05d4 \u05e7\u05d5\u05e8\u05d4 \u05dc-MAC src \u05d5-dst \u05d1\u05db\u05dc hop? \u05d5\u05de\u05d4 \u05dc\u05d0 \u05de\u05e9\u05ea\u05e0\u05d4?",
     q_en: "What is DNS TTL and DNS Caching?",
@@ -7093,6 +7328,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05d0\u05d9\u05e0\u05d8\u05d2\u05e8\u05e6\u05d9\u05d4",
+    cat_en: "Integration",
     snip: null,
     q: "Switch \u05de\u05d5\u05e8\u05d9\u05d3 TTL? Switch \u05de\u05d7\u05dc\u05d9\u05e3 MAC? Switch \u05de\u05e0\u05ea\u05d1 \u05dc\u05e4\u05d9 IP? \u05de\u05d4 \u05e0\u05db\u05d5\u05df?",
     q_en: "What is HTTP Keep-Alive and why does it matter for website performance?",
@@ -7104,6 +7340,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e1\u05d3\u05e8 \u05d4\u05e4\u05e8\u05d5\u05d8\u05d5\u05e7\u05d5\u05dc\u05d9\u05dd",
+    cat_en: "Protocol Order",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05e1\u05d3\u05e8 \u05d4\u05e0\u05db\u05d5\u05df \u05e9\u05dc \u05d4\u05e4\u05e8\u05d5\u05d8\u05d5\u05e7\u05d5\u05dc\u05d9\u05dd \u05db\u05e9\u05de\u05d7\u05e9\u05d1 \u05de\u05ea\u05d7\u05d1\u05e8 \u05dc\u05e8\u05e9\u05ea \u05d5\u05d2\u05d5\u05dc\u05e9 \u05dcFacebook \u05d1\u05e4\u05e2\u05dd \u05d4\u05e8\u05d0\u05e9\u05d5\u05e0\u05d4?",
     q_en: "What is TLS and why is it used with HTTPS?",
@@ -7115,6 +7352,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05de\u05d4 \u05e0\u05ea\u05d1 \u05e2\u05d5\u05e9\u05d4 \u05dc\u05e4\u05e7\u05d8\u05d4",
+    cat_en: "What Router Does to Packet",
     snip: null,
     q: "\u05e0\u05ea\u05d1 \u05de\u05e7\u05d1\u05dc \u05e4\u05e7\u05d8\u05d4. \u05de\u05d4 \u05d4\u05d5\u05d0 \u05e2\u05d5\u05e9\u05d4 \u05dc\u05d4 \u05dc\u05e4\u05e0\u05d9 \u05e9\u05de\u05e2\u05d1\u05d9\u05e8 \u05d4\u05dc\u05d0\u05d4? (3 \u05e4\u05e2\u05d5\u05dc\u05d5\u05ea)",
     q_en: "What is the role of the Default Gateway in the full packet journey?",
@@ -7126,6 +7364,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e9\u05d0\u05dc\u05ea \u05e1\u05d9\u05db\u05d5\u05dd",
+    cat_en: "Summary Question",
     snip: null,
     q: "\u05de\u05d4 \u05e2\u05d5\u05d1\u05e8 \u05d0\u05ea \u05db\u05dc \u05d7\u05de\u05e9 \u05d4\u05e9\u05db\u05d1\u05d5\u05ea \u05db\u05e9\u05de\u05d7\u05e9\u05d1 \u05de\u05e7\u05d1\u05dc IP \u05d5\u05d0\u05d6 \u05d2\u05d5\u05dc\u05e9? \u05de\u05d4 \u05d9\u05d9\u05d7\u05d5\u05d3\u05d9 \u05dc\u05db\u05dc \u05e9\u05db\u05d1\u05d4?",
     q_en: "What is DHCP Lease and what happens when it expires?",
@@ -7139,6 +7378,7 @@ var LAB_DATA = {
   12: [
   {
     cat: "Blocking",
+    cat_en: "Blocking",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d1\u05e2\u05d9\u05d4 \u05e2\u05dd accept() \u05d5-recv() \u05d1\u05e9\u05e8\u05ea \u05e9\u05de\u05d8\u05e4\u05dc \u05d1\u05dc\u05e7\u05d5\u05d7\u05d5\u05ea \u05de\u05e8\u05d5\u05d1\u05d9\u05dd?",
     q_en: "What problem does select() solve?",
@@ -7150,6 +7390,7 @@ var LAB_DATA = {
   },
   {
     cat: "select()",
+    cat_en: "select()",
     snip: null,
     q: "\u05de\u05d4 select() \u05de\u05e7\u05d1\u05dc\u05ea \u05db\u05e7\u05dc\u05d8? \u05de\u05d4 \u05d4\u05d9\u05d0 \u05de\u05d7\u05d6\u05d9\u05e8\u05d4?",
     q_en: "What are the 3 lists passed to select()?",
@@ -7161,6 +7402,7 @@ var LAB_DATA = {
   },
   {
     cat: "server_socket \u05d1-rlist",
+    cat_en: "server_socket in rlist",
     snip: null,
     q: "\u05d0\u05dd server_socket \u05e0\u05de\u05e6\u05d0 \u05d1-rlist \u2014 \u05de\u05d4 \u05d6\u05d4 \u05d0\u05d5\u05de\u05e8? \u05de\u05d4 \u05e2\u05d5\u05e9\u05d9\u05dd?",
     q_en: "What does it mean when server_socket appears in rlist?",
@@ -7172,6 +7414,7 @@ var LAB_DATA = {
   },
   {
     cat: "client_socket \u05d1-rlist",
+    cat_en: "client_socket in rlist",
     snip: null,
     q: "\u05d0\u05dd client_socket \u05e0\u05de\u05e6\u05d0 \u05d1-rlist \u2014 \u05de\u05d4 \u05d6\u05d4 \u05d0\u05d5\u05de\u05e8? \u05d5\u05de\u05d4 data==\"\" \u05de\u05e6\u05d9\u05d9\u05df?",
     q_en: "What does it mean when a client socket appears in rlist?",
@@ -7183,6 +7426,7 @@ var LAB_DATA = {
   },
   {
     cat: "wlist",
+    cat_en: "wlist",
     snip: null,
     q: "\u05dc\u05de\u05d4 \u05d4\u05e2\u05d1\u05e8\u05e0\u05d5 \u05d0\u05ea open_client_sockets \u05db\u05e4\u05e8\u05de\u05d8\u05e8 \u05e9\u05e0\u05d9? \u05de\u05d4 wlist \u05de\u05d7\u05d6\u05d9\u05e8?",
     q_en: "What is messages_to_send and why is it needed?",
@@ -7194,6 +7438,7 @@ var LAB_DATA = {
   },
   {
     cat: "messages_to_send",
+    cat_en: "messages_to_send",
     snip: null,
     q: "\u05dc\u05de\u05d4 \u05dc\u05d0 \u05e9\u05d5\u05dc\u05d7\u05d9\u05dd send() \u05d9\u05e9\u05d9\u05e8\u05d5\u05ea? \u05dc\u05de\u05d4 \u05e9\u05d5\u05de\u05e8\u05d9\u05dd \u05d1-messages_to_send?",
     q_en: "Why must we remove a disconnected socket from open_clients?",
@@ -7205,6 +7450,7 @@ var LAB_DATA = {
   },
   {
     cat: "send_waiting_messages",
+    cat_en: "send_waiting_messages",
     snip: null,
     q: "\u05de\u05d4 \u05e7\u05d5\u05e8\u05d4 \u05dc\u05d4\u05d5\u05d3\u05e2\u05d4 \u05e9\u05dc\u05e7\u05d5\u05d7 \u05d4\u05d9\u05e2\u05d3 \u05e9\u05dc\u05d4 \u05dc\u05d0 \u05d1-wlist?",
     q_en: "What does select() return when timeout=0?",
@@ -7216,6 +7462,7 @@ var LAB_DATA = {
   },
   {
     cat: "[server_socket]+open_clients",
+    cat_en: "[server_socket]+open_clients",
     snip: null,
     q: "\u05dc\u05de\u05d4 \u05e9\u05e8\u05e9\u05e8\u05e0\u05d5 [server_socket] + open_client_sockets? \u05de\u05d4 \u05d4\u05d9\u05d4 \u05e7\u05d5\u05e8\u05d4 \u05d0\u05dd \u05e9\u05dc\u05d7\u05e0\u05d5 \u05e8\u05e7 open_client_sockets?",
     q_en: "Why does select() include [server_socket] + open_client_sockets in rlist?",
@@ -7227,6 +7474,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e4\u05e8\u05d5\u05d8\u05d5\u05e7\u05d5\u05dc \u2014 parsing",
+    cat_en: "Protocol \u2014 Parsing",
     snip: null,
     q: "\u05d0\u05d9\u05da \u05d4\u05e9\u05e8\u05ea \u05de\u05e4\u05e8\u05e9 \u05d0\u05ea \u05d4\u05d4\u05d5\u05d3\u05e2\u05d4? \u05de\u05d4 \u05db\u05dc \u05e9\u05d3\u05d4?",
     q_en: "What is the difference between send() and sendall() in Python?",
@@ -7238,6 +7486,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e4\u05e8\u05d5\u05d8\u05d5\u05e7\u05d5\u05dc \u2014 \u05e4\u05e7\u05d5\u05d3\u05d5\u05ea",
+    cat_en: "Protocol \u2014 Commands",
     snip: null,
     q: "Omer \u05e8\u05d5\u05e6\u05d4 \u05dc\u05d4\u05e2\u05d9\u05e3 \u05d0\u05ea Avi. \u05de\u05d4 \u05d4\u05d4\u05d5\u05d3\u05e2\u05d4 \u05e9\u05d9\u05e9\u05dc\u05d7? (Omer=4 \u05ea\u05d5\u05d5\u05d9\u05dd, Avi=3 \u05ea\u05d5\u05d5\u05d9\u05dd)",
     q_en: "What is socket timeout and how does it affect select()?",
@@ -7249,6 +7498,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05d4\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e8\u05d8\u05d9\u05ea DM",
+    cat_en: "Private Message DM",
     snip: null,
     q: "\u05de\u05d4 \u05de\u05d9\u05d9\u05d7\u05d3 \u05d4\u05d5\u05d3\u05e2\u05d4 \u05e4\u05e8\u05d8\u05d9\u05ea (\u05e4\u05e7\u05d5\u05d3\u05d4 5) \u05dc\u05e2\u05d5\u05de\u05ea \u05d4\u05d5\u05d3\u05e2\u05ea \u05e6'\u05d0\u05d8 \u05e8\u05d2\u05d9\u05dc\u05d4?",
     q_en: "How do you broadcast a message to all connected clients?",
@@ -7260,6 +7510,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05dc\u05e7\u05d5\u05d7 \u05d1-select",
+    cat_en: "Client in select",
     snip: null,
     q: "\u05d1\u05e6'\u05d0\u05d8 \u2014 \u05d2\u05dd \u05d4\u05dc\u05e7\u05d5\u05d7 \u05e6\u05e8\u05d9\u05da select(). \u05dc\u05de\u05d4? \u05de\u05d4 \u05e9\u05ea\u05d9 \u05d4\u05e4\u05e2\u05d5\u05dc\u05d5\u05ea \u05d4\u05de\u05e7\u05d1\u05d9\u05dc\u05d5\u05ea \u05e9\u05dc\u05d5?",
     q_en: "What is the maximum number of clients select() can handle?",
@@ -7271,6 +7522,7 @@ var LAB_DATA = {
   },
   {
     cat: "chat \u2014 Broadcast",
+    cat_en: "chat \u2014 Broadcast",
     snip: null,
     q: "\u05d1\u05e6'\u05d0\u05d8 \u2014 \u05db\u05e9\u05dc\u05e7\u05d5\u05d7 \u05e9\u05d5\u05dc\u05d7 \u05d4\u05d5\u05d3\u05e2\u05d4, \u05dc\u05d0\u05d9\u05dc\u05d5 \u05dc\u05e7\u05d5\u05d7\u05d5\u05ea \u05d4\u05e9\u05e8\u05ea \u05de\u05e2\u05d1\u05d9\u05e8? \u05d5\u05dc\u05d0\u05d9\u05d6\u05d4 \u05dc\u05d0?",
     q_en: "What is a non-blocking server vs a threaded server?",
@@ -7282,6 +7534,7 @@ var LAB_DATA = {
   },
   {
     cat: "admin \u2014 @",
+    cat_en: "admin \u2014 @",
     snip: null,
     q: "\u05de\u05e0\u05d4\u05dc \u05de\u05e0\u05e1\u05d4 \u05dc\u05de\u05e0\u05d5\u05ea \u05de\u05e9\u05ea\u05de\u05e9 \u05e8\u05d2\u05d9\u05dc. \u05de\u05d4 \u05d4\u05d1\u05d3\u05d9\u05e7\u05d4 \u05e9\u05d4\u05e9\u05e8\u05ea \u05e6\u05e8\u05d9\u05da \u05dc\u05d1\u05e6\u05e2? \u05de\u05d4 \u05e7\u05d5\u05e8\u05d4 \u05dc-'@talmid'?",
     q_en: "What happens if you call recv() on a socket that's not in rlist?",
@@ -7293,6 +7546,7 @@ var LAB_DATA = {
   },
   {
     cat: "\u05e1\u05d9\u05db\u05d5\u05dd select()",
+    cat_en: "select() Summary",
     snip: null,
     q: "\u05de\u05d4 \u05d4\u05d4\u05d1\u05d3\u05dc \u05d4\u05de\u05d4\u05d5\u05ea\u05d9 \u05d1\u05d9\u05df \u05e9\u05e8\u05ea \u05de\u05e4\u05e8\u05e7 2 \u05dc\u05e9\u05e8\u05ea \u05e2\u05dd select()? \u05de\u05d4 select() \u05de\u05d0\u05e4\u05e9\u05e8\u05ea?",
     q_en: "What is the difference between server.accept() and client.recv()?",
@@ -7380,15 +7634,7 @@ function applyLangUI() {
   set('heroP', ui.heroP);
   var cta = document.getElementById('heroCta');
   if (cta) cta.textContent = ui.heroCta;
-  (document.getElementById('xpTotal')||{}).textContent = XP;
-  // Update page title
-  document.title = isHe ? 'רשתות מחשבים Pro' : 'Computer Networks Pro';
-  // Update learn placeholder
-  var lph = document.getElementById('lPlaceholder');
-  if (lph) lph.textContent = isHe ? 'בחר פרק...' : 'Select a chapter...';
-  // Update document direction
-  document.documentElement.dir = isHe ? 'rtl' : 'ltr';
-  document.documentElement.lang = isHe ? 'he' : 'en';
+  document.getElementById('xpTotal').textContent = XP;
   // Quiz labels
   var isHe = LANG === 'he';
   var qzHomeH = document.getElementById('qzHomeH');
@@ -7440,7 +7686,7 @@ function buildLandGrid() {
    LEARN — SIDEBAR + CONTENT
 ══════════════════════════════════════════ */
 function buildSidebar() {
-  var sb = (document.getElementById('lSidebar')||{});
+  var sb = document.getElementById('lSidebar');
   if (!sb) return;
   sb.innerHTML = '';
   CHAPTERS.forEach(function(ch) {
@@ -7483,7 +7729,7 @@ function loadCh(n) {
   var prevN = n > 1  ? '<button class="ch-nav-btn" onclick="loadCh('+(n-1)+')">' + (LANG==='he' ? '← פרק '+(n-1) : '← Ch '+(n-1)) + '</button>' : '<span></span>';
   var nextN = n < 12 ? '<button class="ch-nav-btn" onclick="loadCh('+(n+1)+')">' + (LANG==='he' ? 'פרק '+(n+1)+' →' : 'Ch '+(n+1)+' →') + '</button>' : '<span></span>';
 
-  (document.getElementById('lContent')||{}).innerHTML =
+  document.getElementById('lContent').innerHTML =
     '<div class="ch-nav">' + prevN + '<span class="ch-nav-cur">' + ch.icon + ' ' + data.name + '</span>' + nextN + '</div>' +
     data.content() +
     '<div class="ch-nav ch-nav-bottom">' + prevN + '<span></span>' + nextN + '</div>';
@@ -7723,7 +7969,7 @@ function onLabPick(e) {
   var next = document.getElementById('lqNext');
   if (next) next.disabled = false;
 
-  if (ok) { XP += 5; localStorage.setItem('nw_xp', XP); (document.getElementById('xpTotal')||{}).textContent = XP; }
+  if (ok) { XP += 5; localStorage.setItem('nw_xp', XP); document.getElementById('xpTotal').textContent = XP; }
   LAB.cur++;
 }
 
@@ -7746,7 +7992,7 @@ function showLabResult() {
   if (lcbfill) lcbfill.style.width = pct + '%';
   updateLabOverall();
   XP += ok * 5; localStorage.setItem('nw_xp', XP);
-  (document.getElementById('xpTotal')||{}).textContent = XP;
+  document.getElementById('xpTotal').textContent = XP;
   // Quiz labels
   var qzHomeH = document.getElementById('qzHomeH');
   var qzHomeP = document.getElementById('qzHomeP');
@@ -7887,7 +8133,7 @@ function applyLangUI() {
   set('heroP', ui.heroP);
   var cta = document.getElementById('heroCta');
   if (cta) cta.textContent = ui.heroCta;
-  (document.getElementById('xpTotal')||{}).textContent = XP;
+  document.getElementById('xpTotal').textContent = XP;
   // Quiz labels
   var isHe = LANG === 'he';
   var qzHomeH = document.getElementById('qzHomeH');
@@ -7939,7 +8185,7 @@ function buildLandGrid() {
    LEARN — SIDEBAR + CONTENT
 ══════════════════════════════════════════ */
 function buildSidebar() {
-  var sb = (document.getElementById('lSidebar')||{});
+  var sb = document.getElementById('lSidebar');
   if (!sb) return;
   sb.innerHTML = '';
   CHAPTERS.forEach(function(ch) {
@@ -7982,7 +8228,7 @@ function loadCh(n) {
   var prevN = n > 1  ? '<button class="ch-nav-btn" onclick="loadCh('+(n-1)+')">' + (LANG==='he' ? '← פרק '+(n-1) : '← Ch '+(n-1)) + '</button>' : '<span></span>';
   var nextN = n < 12 ? '<button class="ch-nav-btn" onclick="loadCh('+(n+1)+')">' + (LANG==='he' ? 'פרק '+(n+1)+' →' : 'Ch '+(n+1)+' →') + '</button>' : '<span></span>';
 
-  (document.getElementById('lContent')||{}).innerHTML =
+  document.getElementById('lContent').innerHTML =
     '<div class="ch-nav">' + prevN + '<span class="ch-nav-cur">' + ch.icon + ' ' + data.name + '</span>' + nextN + '</div>' +
     data.content() +
     '<div class="ch-nav ch-nav-bottom">' + prevN + '<span></span>' + nextN + '</div>';
@@ -8222,7 +8468,7 @@ function onLabPick(e) {
   var next = document.getElementById('lqNext');
   if (next) next.disabled = false;
 
-  if (ok) { XP += 5; localStorage.setItem('nw_xp', XP); (document.getElementById('xpTotal')||{}).textContent = XP; }
+  if (ok) { XP += 5; localStorage.setItem('nw_xp', XP); document.getElementById('xpTotal').textContent = XP; }
   LAB.cur++;
 }
 
@@ -8245,7 +8491,7 @@ function showLabResult() {
   if (lcbfill) lcbfill.style.width = pct + '%';
   updateLabOverall();
   XP += ok * 5; localStorage.setItem('nw_xp', XP);
-  (document.getElementById('xpTotal')||{}).textContent = XP;
+  document.getElementById('xpTotal').textContent = XP;
   // Quiz labels
   var qzHomeH = document.getElementById('qzHomeH');
   var qzHomeP = document.getElementById('qzHomeP');
@@ -8324,10 +8570,8 @@ buildLabWelcome();
 applyLangUI();
 initQuiz();
 
-/* Force init for standalone page */
-buildLabSidebar();
-buildLabWelcome();
-applyLangUI();
+/* Auto-switch to lab tab on load */
+setTimeout(function(){ goTo('lab'); }, 200);
 </script>
 </body>
 </html>

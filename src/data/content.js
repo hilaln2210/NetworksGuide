@@ -11,6 +11,7 @@ export const tracks = [
     icon: '🌐',
     color: '#0891b2',
     level: 'מתחיל–מתקדם',
+    fullPage: true,
     quizSrc: '/learn/networks/quiz_game.html',
     chapters: [
       { id: 1,  title: "🌐 תחילת מסע",              pages: [{ type: "html_page", title: "תחילת מסע",              src: "/learn/networks/learn_ch01.html", srcEn: "/learn/networks-en/learn_ch01.html" }] },
