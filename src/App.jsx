@@ -85,6 +85,49 @@ const trackI18n = (track, field, t, lang) => {
   return val !== key ? val : track[field]
 }
 
+// ===== What's New Modal =====
+const WHATS_NEW_VERSION = '2026-03-26'
+const WHATS_NEW_ITEMS = [
+  { icon: '🔐', he: 'מסלול אבטחת מידע', en: 'Cybersecurity Track', descHe: 'חדש! CIA Triad, קריפטוגרפיה, Malware, Penetration Testing, SOC — 9 פרקים', descEn: 'New! CIA Triad, cryptography, malware, penetration testing, SOC — 9 chapters' },
+  { icon: '🌙', he: 'מצב כהה בכל מקום', en: 'Dark Mode Everywhere', descHe: 'מצב כהה מסונכרן עם כל הקורסים, החידונים והמעבדות — לחצו D', descEn: 'Dark mode now syncs with all courses, quizzes, and labs — press D' },
+  { icon: '📝', he: 'מצב בחינה', en: 'Exam Mode', descHe: 'בחנו את עצמכם: 20/30/50 שאלות, טיימר, ציון ותעודה להורדה', descEn: 'Test yourself: 20/30/50 questions, timer, score, downloadable certificate' },
+  { icon: '📚', he: 'מילון מונחים', en: 'IT Glossary', descHe: '40 מונחי מפתח מכל המסלולים עם חיפוש וסינון לפי קטגוריה', descEn: '40 key terms across all tracks with search and category filters' },
+  { icon: '📤', he: 'שיתוף התקדמות', en: 'Share Progress', descHe: 'צרו כרטיס התקדמות יפה לשיתוף עם חברים', descEn: 'Generate a beautiful progress card to share with friends' },
+  { icon: '📝', he: 'הערות אישיות', en: 'Personal Notes', descHe: 'הוסיפו הערות על כל פרק — נשמרות מקומית ותמיד זמינות', descEn: 'Add notes on any chapter — saved locally, always available' },
+  { icon: '🔤', he: 'סנכרון גודל פונט', en: 'Font Size Sync', descHe: 'כפתורי A-/A+ עכשיו משנים גודל טקסט גם בתוך הקורסים', descEn: 'A-/A+ buttons now resize text inside all courses too' },
+  { icon: '✨', he: 'Header חדש', en: 'Redesigned Header', descHe: 'עיצוב נקי בשתי שורות עם toolbar מסודר ופסי התקדמות inline', descEn: 'Cleaner 2-row layout with organized toolbar and progress bars' },
+]
+
+function WhatsNewModal({ onDismiss }) {
+  const { lang } = useLang()
+  const isEn = lang === 'en'
+  return (
+    <div className="wn-overlay" onClick={onDismiss}>
+      <div className="wn-modal" dir={isEn ? 'ltr' : 'rtl'} onClick={e => e.stopPropagation()}>
+        <div className="wn-modal-header">
+          <span className="wn-modal-badge">NEW</span>
+          <h2>{isEn ? "What's New" : 'מה חדש'}</h2>
+          <p className="wn-modal-sub">{isEn ? 'Check out the latest features and improvements' : 'הנה הפיצ\'רים והשיפורים האחרונים'}</p>
+        </div>
+        <div className="wn-modal-list">
+          {WHATS_NEW_ITEMS.map((item, i) => (
+            <div className="wn-modal-item" key={i}>
+              <span className="wn-modal-icon">{item.icon}</span>
+              <div>
+                <strong>{isEn ? item.en : item.he}</strong>
+                <p>{isEn ? item.descEn : item.descHe}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <button className="wn-modal-dismiss" onClick={onDismiss}>
+          {isEn ? 'Got it!' : 'הבנתי!'}
+        </button>
+      </div>
+    </div>
+  )
+}
+
 // ===== Track Picker =====
 function TrackPicker({ tracks, onSelect }) {
   const { lang, setLang, t } = useLang()
@@ -151,71 +194,6 @@ function TrackPicker({ tracks, onSelect }) {
           <div className="feature-pill"><span>🌍</span> {isEn ? 'HE / EN' : 'עברית / English'}</div>
         </div>
       </div>
-
-      <details className="whats-new">
-        <summary className="whats-new-toggle">
-          <span className="whats-new-badge">NEW</span>
-          {isEn ? " What's New" : ' מה חדש'}
-        </summary>
-        <div className="whats-new-content">
-          <div className="whats-new-item">
-            <span className="wn-icon">🔐</span>
-            <div>
-              <strong>{isEn ? 'Cybersecurity Track' : 'מסלול אבטחת מידע'}</strong>
-              <p>{isEn ? 'New! CIA Triad, cryptography, malware, penetration testing, SOC — 9 chapters' : 'חדש! CIA Triad, קריפטוגרפיה, Malware, Penetration Testing, SOC — 9 פרקים'}</p>
-            </div>
-          </div>
-          <div className="whats-new-item">
-            <span className="wn-icon">🌙</span>
-            <div>
-              <strong>{isEn ? 'Dark Mode Everywhere' : 'מצב כהה בכל מקום'}</strong>
-              <p>{isEn ? 'Dark mode now syncs with all courses, quizzes, and labs — press D to toggle' : 'מצב כהה עכשיו מסונכרן עם כל הקורסים, החידונים והמעבדות — לחצו D'}</p>
-            </div>
-          </div>
-          <div className="whats-new-item">
-            <span className="wn-icon">📝</span>
-            <div>
-              <strong>{isEn ? 'Exam Mode' : 'מצב בחינה'}</strong>
-              <p>{isEn ? 'Test yourself: 20/30/50 questions, timer, score, and downloadable certificate' : 'בחנו את עצמכם: 20/30/50 שאלות, טיימר, ציון ותעודה להורדה'}</p>
-            </div>
-          </div>
-          <div className="whats-new-item">
-            <span className="wn-icon">📚</span>
-            <div>
-              <strong>{isEn ? 'IT Glossary' : 'מילון מונחים'}</strong>
-              <p>{isEn ? '40 key terms across all tracks with search and category filters' : '40 מונחי מפתח מכל המסלולים עם חיפוש וסינון לפי קטגוריה'}</p>
-            </div>
-          </div>
-          <div className="whats-new-item">
-            <span className="wn-icon">📤</span>
-            <div>
-              <strong>{isEn ? 'Share Progress' : 'שיתוף התקדמות'}</strong>
-              <p>{isEn ? 'Generate a beautiful progress card image to share with friends' : 'צרו כרטיס התקדמות יפה לשיתוף עם חברים'}</p>
-            </div>
-          </div>
-          <div className="whats-new-item">
-            <span className="wn-icon">📝</span>
-            <div>
-              <strong>{isEn ? 'Personal Notes' : 'הערות אישיות'}</strong>
-              <p>{isEn ? 'Add notes on any chapter — saved locally and always available' : 'הוסיפו הערות על כל פרק — נשמרות מקומית ותמיד זמינות'}</p>
-            </div>
-          </div>
-          <div className="whats-new-item">
-            <span className="wn-icon">🔤</span>
-            <div>
-              <strong>{isEn ? 'Font Size Sync' : 'סנכרון גודל פונט'}</strong>
-              <p>{isEn ? 'A-/A+ buttons now resize text inside all courses too' : 'כפתורי A-/A+ עכשיו משנים גודל טקסט גם בתוך הקורסים'}</p>
-            </div>
-          </div>
-          <div className="whats-new-item">
-            <span className="wn-icon">✨</span>
-            <div>
-              <strong>{isEn ? 'Redesigned Header' : 'Header חדש'}</strong>
-              <p>{isEn ? 'Cleaner 2-row layout with organized toolbar and inline progress bars' : 'עיצוב נקי בשתי שורות עם toolbar מסודר ופסי התקדמות inline'}</p>
-            </div>
-          </div>
-        </div>
-      </details>
 
       <div className="track-grid">
         {tracks.map(track => {
@@ -331,6 +309,9 @@ function App() {
   const [bookmarksOpen, setBookmarksOpen] = useState(true)
   const [showGlossary, setShowGlossary] = useState(false)
   const [showExamMode, setShowExamMode] = useState(false)
+  const [showWhatsNew, setShowWhatsNew] = useState(() => {
+    try { return localStorage.getItem('ng_whats_new_seen') !== WHATS_NEW_VERSION } catch { return true }
+  })
   const [fontSize, setFontSize] = useState(() => {
     try { return localStorage.getItem('ng_font_size') || 'normal' } catch { return 'normal' }
   })
@@ -767,6 +748,12 @@ function App() {
       <div className="app" dir={isEn ? 'ltr' : 'rtl'}>
         {ResetBanner}
         {!gender && <GenderPicker onSelect={handleGenderSelect} />}
+        {showWhatsNew && (
+          <WhatsNewModal onDismiss={() => {
+            setShowWhatsNew(false)
+            try { localStorage.setItem('ng_whats_new_seen', WHATS_NEW_VERSION) } catch {}
+          }} />
+        )}
         <TrackPicker tracks={tracks} onSelect={handleSelectTrack} />
         {xpFloat && <div className="xp-float-global">{xpFloat}</div>}
         <AdminHighlight context={{}} />
