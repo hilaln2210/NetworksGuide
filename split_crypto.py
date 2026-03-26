@@ -90,67 +90,44 @@ def write(path, fname, html):
         f.write(html)
     print(f"  Wrote {fname}  ({len(html):,} chars)")
 
-# ── 5. Generate Hebrew + English learn chapters ────────────────────────────
-print("\n── Learn chapters (Hebrew) ──")
+# ── 5. Generate chapter files as FULL HTML with auto-nav ─────────────────
+# Each chapter file = full course HTML, auto-navigates to that chapter.
+# This gives the user full access to learn/lab/quiz tabs from every chapter.
+print("\n── Learn chapters (Full HTML, Hebrew) ──")
 for i in range(12):
     n = i + 1
-    he_name, he_desc, en_name, en_desc, icon = extract_chapter_meta(raw, n)
-    content = he_blocks[i] if i < len(he_blocks) else ""
+    ch_raw = raw.replace('</script>', f"""
+/* Auto-navigate to chapter {n} */
+setTimeout(function(){{ goTo('learn'); loadCh({n}); }}, 200);
+</script>""", 1)
+    write(OUT_HE, f"learn_ch{n:02d}.html", ch_raw)
 
-    body = (
-        f'<div class="ch-eyebrow">פרק {n:02d} מתוך 12</div>\n'
-        f'<h1 class="ch-title">{icon} {he_name}</h1>\n'
-        f'<p class="ch-desc">{he_desc}</p>\n'
-        f'<div class="divider"></div>\n'
-        f'{content}'
-    )
-    write(OUT_HE, f"learn_ch{n:02d}.html", make_html("he", "rtl", body))
-
-print("\n── Learn chapters (English) ──")
+print("\n── Learn chapters (Full HTML, English) ──")
 for i in range(12):
     n = i + 1
-    he_name, he_desc, en_name, en_desc, icon = extract_chapter_meta(raw, n)
-    content = en_blocks[i] if i < len(en_blocks) else ""
+    # For English: auto-switch language + navigate to chapter
+    ch_raw = raw.replace('</script>', f"""
+/* Auto-navigate to chapter {n} in English */
+setTimeout(function(){{ toggleLang(); goTo('learn'); loadCh({n}); }}, 200);
+</script>""", 1)
+    write(OUT_EN, f"learn_ch{n:02d}.html", ch_raw)
 
-    body = (
-        f'<div class="ch-eyebrow">Chapter {n:02d} of 12</div>\n'
-        f'<h1 class="ch-title">{icon} {en_name}</h1>\n'
-        f'<p class="ch-desc">{en_desc}</p>\n'
-        f'<div class="divider"></div>\n'
-        f'{content}'
-    )
-    write(OUT_EN, f"learn_ch{n:02d}.html", make_html("en", "ltr", body))
+# ── 6. Generate quiz + lab standalone files ──────────────────────────────
+print("\n── Standalone files ──")
 
-# ── 6. Generate full-page standalone files ─────────────────────────────────
-# The quiz and lab need the FULL HTML (all sections + all JS) to work.
-# We patch the raw HTML to auto-navigate to the right tab on load.
-print("\n── Full-page standalone files ──")
-
-# quiz_game.html — full HTML, auto-switch to quiz tab
 quiz_raw = raw.replace('</script>', """
 /* Auto-switch to quiz tab on load */
 setTimeout(function(){ goTo('quiz'); }, 200);
 </script>""", 1)
-fp = os.path.join(OUT_HE, "quiz_game.html")
-with open(fp, "w", encoding="utf-8") as f:
-    f.write(quiz_raw)
-print(f"  Wrote quiz_game.html  ({len(quiz_raw):,} chars)")
+write(OUT_HE, "quiz_game.html", quiz_raw)
 
-# lab.html — full HTML, auto-switch to lab tab
 lab_raw = raw.replace('</script>', """
 /* Auto-switch to lab tab on load */
 setTimeout(function(){ goTo('lab'); }, 200);
 </script>""", 1)
-fp = os.path.join(OUT_HE, "lab.html")
-with open(fp, "w", encoding="utf-8") as f:
-    f.write(lab_raw)
-print(f"  Wrote lab.html  ({len(lab_raw):,} chars)")
+write(OUT_HE, "lab.html", lab_raw)
 
-# terminal.html — full HTML as-is (default learn tab)
-fp = os.path.join(OUT_HE, "terminal.html")
-with open(fp, "w", encoding="utf-8") as f:
-    f.write(raw)
-print(f"  Wrote terminal.html  ({len(raw):,} chars)")
+write(OUT_HE, "terminal.html", raw)
 
 # ── 7. Print chapter metadata for content.js update ───────────────────────
 print("\n── Chapter metadata (for content.js) ──")
