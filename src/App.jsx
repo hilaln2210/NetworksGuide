@@ -99,6 +99,45 @@ function TrackPicker({ tracks, onSelect }) {
         <h1 className="track-picker-title">{t('app_title')}</h1>
         <p className="track-picker-subtitle">{t('pick_track')}</p>
       </div>
+
+      <div className="track-intro">
+        <div className="track-intro-section">
+          <h3>{isEn ? '🗺️ Recommended Path' : '🗺️ סדר לימוד מומלץ'}</h3>
+          <div className="track-intro-path">
+            <span className="track-intro-step" style={{ '--step-color': '#0891b2' }}>🌐 {isEn ? 'Networks' : 'רשתות'}</span>
+            <span className="track-intro-arrow">{isEn ? '→' : '←'}</span>
+            <span className="track-intro-step" style={{ '--step-color': '#06b6d4' }}>🌍 {isEn ? 'Web & APIs' : 'Web ו-APIs'}</span>
+            <span className="track-intro-arrow">{isEn ? '→' : '←'}</span>
+            <span className="track-intro-step" style={{ '--step-color': '#00ff88' }}>🐧 {isEn ? 'Linux' : 'לינוקס'}</span>
+            <span className="track-intro-arrow">{isEn ? '→' : '←'}</span>
+            <span className="track-intro-step" style={{ '--step-color': '#f59e0b' }}>🔗 {isEn ? 'Crypto' : 'קריפטו'}</span>
+          </div>
+        </div>
+        <div className="track-intro-cards">
+          <div className="track-intro-card">
+            <span className="track-intro-card-icon">📖</span>
+            <div>
+              <strong>{isEn ? 'Self-paced learning' : 'למידה עצמאית'}</strong>
+              <p>{isEn ? 'Each chapter has theory, code examples, and interactive quizzes' : 'כל פרק כולל תיאוריה, דוגמאות קוד וחידונים אינטראקטיביים'}</p>
+            </div>
+          </div>
+          <div className="track-intro-card">
+            <span className="track-intro-card-icon">⚡</span>
+            <div>
+              <strong>{isEn ? 'Earn XP as you learn' : 'צברו XP תוך כדי למידה'}</strong>
+              <p>{isEn ? 'Complete chapters and quizzes to level up and track your progress' : 'השלימו פרקים וחידונים כדי לעלות רמה ולעקוב אחרי ההתקדמות'}</p>
+            </div>
+          </div>
+          <div className="track-intro-card">
+            <span className="track-intro-card-icon">🌙</span>
+            <div>
+              <strong>{isEn ? 'Dark mode available' : 'מצב כהה זמין'}</strong>
+              <p>{isEn ? 'Press D or click the moon icon to toggle dark mode' : 'לחצו D או על אייקון הירח למעבר למצב כהה'}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="track-grid">
         {tracks.map(track => {
           const totalPages = track.chapters.reduce((s, c) => s + c.pages.length, 0)
