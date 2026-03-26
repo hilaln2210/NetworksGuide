@@ -17,6 +17,18 @@ export const tracks = [
     ]
   },
   {
+    id: 'cyber',
+    title: 'אבטחת מידע',
+    subtitle: 'CIA Triad, קריפטוגרפיה, Malware, Penetration Testing, SOC — 9 פרקים',
+    icon: '🔐',
+    color: '#ef4444',
+    level: 'מתחיל–מתקדם',
+    fullPage: true,
+    chapters: [
+      { id: 100, title: "אבטחת מידע — קורס מלא", pages: [{ type: "html_page", title: "Cybersecurity Course", src: "/learn/security/cyber_course.html" }] },
+    ]
+  },
+  {
     id: 'webapi',
     title: 'Web ו-APIs',
     subtitle: 'HTTP, REST, GraphQL, Auth, WebSockets, Performance, API Design — 8 פרקים',
