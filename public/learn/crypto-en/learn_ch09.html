@@ -250,6 +250,216 @@ ol,ul{padding-inline-start:20px;color:var(--ink2);line-height:2}
 li{margin-bottom:4px}
 .lc-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--ink3);text-align:center;padding:60px;gap:12px}
 .lc-placeholder-icon{font-size:2.5rem}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — TABLET & MOBILE
+   Breakpoints: 1024px | 768px | 480px
+═══════════════════════════════════════════ */
+
+/* ── TABLET (≤1024px) ── */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 40px 40px;
+    gap: 32px;
+    text-align: center;
+  }
+  .hero-h { font-size: 2.6rem; }
+  .hero-stats { justify-content: center; }
+  .land-grid { grid-template-columns: repeat(3, 1fr); max-width: 100%; }
+
+  .learn-content { padding: 28px 32px; }
+  .lab-content   { padding: 28px 32px; }
+
+  .hero > div:first-child { order: 1; }
+  .land-grid { order: 2; }
+}
+
+/* ── MOBILE (≤768px) ── */
+@media (max-width: 768px) {
+  :root { --nav-h: 48px; --sb-w: 0px; }
+
+  /* NAV — compact, scrollable */
+  .nav { padding: 0 10px; gap: 0; overflow-x: auto; }
+  .nav-logo { font-size: .9rem; white-space: nowrap; }
+  .nav-tab  { font-size: .75rem; padding: 5px 10px; white-space: nowrap; flex-shrink: 0; }
+  .xp-badge { font-size: .7rem; padding: 3px 8px; }
+  .lang-btn { font-size: .7rem; padding: 3px 8px; }
+  .nav-right { gap: 6px; }
+
+  /* HERO — single column */
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 28px 20px 40px;
+    gap: 24px;
+    text-align: center;
+    min-height: unset;
+  }
+  .hero-h { font-size: 2rem; }
+  .hero-p { font-size: .92rem; }
+  .hero-stats { justify-content: center; gap: 20px; }
+  .hs-n { font-size: 1.5rem; }
+  .hero-btn { width: 100%; max-width: 280px; }
+
+  /* LAND GRID — 2 cols on mobile */
+  .land-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .lc-name { font-size: .82rem; }
+  .lc-desc { font-size: .7rem; display: none; }
+
+  /* LEARN — hide sidebar, full width content */
+  .learn-layout {
+    display: block;
+  }
+  .sidebar {
+    display: none;
+  }
+  .sidebar.open {
+    display: block;
+    position: fixed;
+    top: var(--nav-h);
+    left: 0; right: 0; bottom: 0;
+    z-index: 200;
+    height: calc(100vh - var(--nav-h));
+    border: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .learn-content {
+    padding: 20px 16px;
+    max-width: 100%;
+  }
+  .sec-h { font-size: 1.15rem; }
+
+  /* MOBILE SIDEBAR TOGGLE BTN */
+  .sb-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--ink2);
+    font-family: var(--f-body);
+    font-size: .82rem;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 16px;
+    width: 100%;
+  }
+  .sb-toggle-icon { margin-inline-start: auto; transition: transform .2s; }
+  .sb-toggle.open .sb-toggle-icon { transform: rotate(180deg); }
+
+  /* SIDEBAR OVERLAY */
+  .sb-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 199;
+  }
+  .sb-overlay.show { display: block; }
+
+  /* LAB */
+  .lab-layout { display: block; }
+  .lab-sb { display: none; }
+  .lab-sb.open {
+    display: block;
+    position: fixed;
+    top: var(--nav-h);
+    left: 0; right: 0; bottom: 0;
+    z-index: 200;
+    height: calc(100vh - var(--nav-h));
+  }
+  .lab-content { padding: 20px 16px; max-width: 100%; }
+  .lab-ch-grid { grid-template-columns: repeat(4, 1fr); }
+
+  /* TABLES — horizontal scroll */
+  .tbl-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 14px 0; }
+  .tbl { min-width: 400px; margin: 0; }
+
+  /* CODE BLOCKS */
+  pre.code-body { font-size: .75rem; }
+
+  /* CALLOUTS */
+  .callout { font-size: .82rem; }
+
+  /* NAV BOTTOM (ch navigation) */
+  .ch-nav { flex-wrap: wrap; gap: 8px; }
+  .ch-nav-cur { width: 100%; text-align: center; order: -1; }
+
+  /* LAB MCQ */
+  .lq-card { padding: 18px 14px; }
+  .lq-q { font-size: .95rem; }
+  .lq-opt { padding: 10px 12px; }
+  .lq-foot { flex-direction: column; gap: 8px; }
+  .lq-btn { width: 100%; text-align: center; }
+
+  /* LAB RESULT */
+  .lqr-stats { gap: 8px; }
+  .lqrs { padding: 10px 14px; min-width: 64px; }
+  .lqr-btns { flex-direction: column; }
+  .lqr-btn { width: 100%; }
+
+  /* QUIZ */
+  .quiz-hud { padding: 10px 14px; gap: 8px; }
+  .qz-stat-v { font-size: .95rem; }
+  .quiz-q-area { padding: 20px 14px; }
+  .qz-q { font-size: .95rem; }
+  .qz-opt { padding: 10px 12px; }
+  .quiz-home { padding: 24px 16px; }
+  .quiz-home-h { font-size: 1.6rem; }
+  .quiz-home-modes { gap: 10px; }
+  .qz-mode-btn { padding: 14px 18px; min-width: 90px; }
+  .qzr-btns { flex-direction: column; }
+  .qzr-btn { width: 100%; }
+  .qzr-stats { gap: 8px; }
+  .qzrs { min-width: 64px; padding: 10px 14px; }
+
+  /* WELCOME GRID */
+  .lab-ch-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+}
+
+/* ── SMALL MOBILE (≤480px) ── */
+@media (max-width: 480px) {
+  .hero-h { font-size: 1.7rem; }
+  .land-grid { grid-template-columns: 1fr 1fr; }
+  .nav-tab span { display: none; }  /* icons only on very small screens */
+  .nav-tab { padding: 5px 8px; font-size: 1rem; }
+  .lab-ch-grid { grid-template-columns: repeat(3, 1fr); }
+  .hero-stats { gap: 14px; }
+  .hs-n { font-size: 1.3rem; }
+  .qz-mode-btn { min-width: 78px; padding: 12px 14px; }
+  .lq-header { flex-wrap: wrap; gap: 8px; }
+}
+
+
+/* Tables inside dynamic content — scroll on mobile */
+@media (max-width: 768px) {
+  .learn-content, .lab-content {
+    overflow-x: hidden;
+  }
+  .learn-section .tbl,
+  .lq-card .tbl {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    min-width: 0;
+    width: 100%;
+  }
+  .learn-section .tbl th,
+  .learn-section .tbl td {
+    min-width: 80px;
+    white-space: normal;
+    font-size: .78rem;
+    padding: 6px 10px;
+  }
+  /* Hero on mobile — center everything */
+  .hero > div:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -270,16 +480,19 @@ li{margin-bottom:4px}
 <!-- READ BAR -->
 <div class="read-bar"><div class="read-fill" id="readFill"></div></div>
 
+<!-- Sidebar overlay -->
+<div class="sb-overlay" id="sbOverlay" onclick="closeSidebar()"></div>
+
 <!-- LANDING -->
 <section class="screen active" id="landing">
   <div class="hero">
     <div>
       <div class="hero-tag" id="heroTag">COURSE — 12 CHAPTERS</div>
       <h1 class="hero-h" id="heroH">Crypto<br><i>Forensics</i></h1>
-      <p class="hero-p" id="heroP">12 פרקים · מתחילים למתקדמים · 85 שאלות</p>
+      <p class="hero-p" id="heroP">13 פרקים · מתחילים למתקדמים · 95 שאלות</p>
       <div class="hero-stats">
-        <div class="hs"><div class="hs-n">12</div><div class="hs-l" id="statsChapters">פרקים</div></div>
-        <div class="hs"><div class="hs-n">85</div><div class="hs-l" id="statsQuestions">שאלות</div></div>
+        <div class="hs"><div class="hs-n">13</div><div class="hs-l" id="statsChapters">פרקים</div></div>
+        <div class="hs"><div class="hs-n">95</div><div class="hs-l" id="statsQuestions">שאלות</div></div>
         <div class="hs"><div class="hs-n">5</div><div class="hs-l" id="statsSkills">מיומנויות</div></div>
       </div>
       <button class="hero-btn" id="heroCta" onclick="goTo('learn');loadCh(1)">התחל →</button>
@@ -291,7 +504,7 @@ li{margin-bottom:4px}
 <!-- LEARN -->
 <section class="screen" id="learn">
   <div class="learn-layout">
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
       <div class="sb-title" id="sbTitle">פרקים</div>
       <div id="sbList"></div>
     </div>
@@ -307,7 +520,7 @@ li{margin-bottom:4px}
 <!-- LAB -->
 <section class="screen" id="lab">
   <div class="lab-layout">
-    <div class="lab-sb">
+    <div class="lab-sb" id="labSb">
       <div class="lab-sb-title" id="labSbTitle">מעבדה</div>
       <div id="labSbList"></div>
     </div>
@@ -315,7 +528,7 @@ li{margin-bottom:4px}
       <div class="lab-welcome" id="labWelcome">
         <div class="lab-welcome-icon">🧪</div>
         <h2 class="lab-welcome-h" id="labWelcomeH">בחר פרק לתרגול</h2>
-        <p class="lab-welcome-p" id="labWelcomeP">85 שאלות · הסברים מפורטים</p>
+        <p class="lab-welcome-p" id="labWelcomeP">95 שאלות · הסברים מפורטים</p>
         <div class="lab-ch-grid" id="labChGrid"></div>
       </div>
       <div id="lqArea" style="display:none"></div>
@@ -380,8 +593,255 @@ li{margin-bottom:4px}
 </section>
 
 <script>
-
 var CHAPTERS = [
+  {
+    n: 0, icon: "🌐", color: "#94a3b8",
+    he: {
+      name: "מבוא — יסודות קריפטו",
+      desc: "מה זה כסף דיגיטלי, היסטוריה, Cryptography, סוגי מטבעות, קריפטו ופשע",
+      sections: ["מה זה כסף דיגיטלי?", "היסטוריה קצרה", "קריפטוגרפיה — הבסיס", "סוגי מטבעות", "קריפטו ופשע", "כלי מבוא", "תרגיל מבוא", "שאלות"],
+      content: function() { return `
+<section class="learn-section">
+<span class="sec-label">01 — מה זה כסף דיגיטלי?</span>
+<h2 class="sec-h">הרעיון שמאחורי קריפטו</h2>
+<p>כסף תמיד היה מידע — ערך שנשמר ומועבר. מטבעות זהב, שטרות נייר, חשבון בנק — כולם ייצוגים של אמון. <strong>קריפטו</strong> שאל: מה אם נוכל להעביר ערך ישירות בין שני אנשים, ללא בנק, ללא מתווך?</p>
+<table class="tbl">
+<tr><th>סוג כסף</th><th>מתווך</th><th>שקיפות</th><th>שליטה</th></tr>
+<tr><td>מזומן</td><td>בנק מרכזי</td><td>אפסית</td><td>ממשלה</td></tr>
+<tr><td>כרטיס אשראי</td><td>בנק + VISA</td><td>אפסית</td><td>חברה פרטית</td></tr>
+<tr><td>Bitcoin</td><td>אין</td><td>מלאה</td><td>הרשת</td></tr>
+</table>
+<div class="callout tip">💡 <strong>הרעיון המרכזי:</strong> במקום לסמוך על בנק שיאמר "כן, לאלי יש $100" — הרשת כולה יודעת זאת. אי אפשר לזייף, אי אפשר לכפול.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">02 — היסטוריה קצרה</span>
+<h2 class="sec-h">מ-Cypherpunks ל-Bitcoin</h2>
+<p>הרעיון לא נולד ב-2009. <strong>הCypherpunks</strong> — קבוצת האקרים ואנרכיסטים קריפטוגרפים — חלמו על מזומן דיגיטלי אנונימי כבר בשנות ה-80 וה-90.</p>
+<table class="tbl">
+<tr><th>שנה</th><th>אירוע</th></tr>
+<tr><td>1983</td><td>David Chaum — DigiCash, מזומן דיגיטלי ראשון עם פרטיות</td></tr>
+<tr><td>1997</td><td>Adam Back — Hashcash (Proof of Work ראשון)</td></tr>
+<tr><td>1998</td><td>Wei Dai — b-money, רעיון ל-decentralized currency</td></tr>
+<tr><td>2008</td><td>Satoshi Nakamoto מפרסם White Paper: "Bitcoin: A Peer-to-Peer Electronic Cash System"</td></tr>
+<tr><td>2009</td><td>הבלוק הראשון — Genesis Block. Reward: 50 BTC</td></tr>
+<tr><td>2010</td><td>עסקת Bitcoin ראשונה: 10,000 BTC עבור 2 פיצות</td></tr>
+<tr><td>2015</td><td>Ethereum — Smart Contracts, הרחבת הרעיון</td></tr>
+<tr><td>2017</td><td>ICO Boom — אלפי tokens. רוב הונאות</td></tr>
+<tr><td>2022</td><td>FTX קורס — $8 מיליארד נגנבים. רגולציה מתהדקת</td></tr>
+</table>
+<div class="callout note">📝 <strong>Genesis Block Message:</strong> Satoshi הטמין בתוך הבלוק הראשון את הכותרת: <em>"The Times 03/Jan/2009 Chancellor on brink of second bailout for banks"</em> — הצהרה נגד המערכת הפיננסית המסורתית.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">03 — Cryptography — הבסיס</span>
+<h2 class="sec-h">הצפנה שמאחורי הכל</h2>
+<p>קריפטוגרפיה = מדע שמירת סודות. ב-Blockchain משתמשים בשניים:</p>
+<table class="tbl">
+<tr><th>כלי</th><th>שימוש</th><th>דוגמה</th></tr>
+<tr><td><strong>Hash Function</strong></td><td>טביעת אצבע של נתונים — חד-כיוונית</td><td>SHA-256, Keccak-256</td></tr>
+<tr><td><strong>Asymmetric Crypto</strong></td><td>זוג מפתחות Public/Private לחתימה ואימות</td><td>ECDSA (secp256k1)</td></tr>
+</table>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Hash — חד כיוני</span></div>
+<pre class="code-body">קלט: "שלום עולם"
+פלט: 2cf24dba5fb0a30e26e83b2ac5b9e29e...
+
+אי אפשר לחזור מהפלט לקלט.
+שינוי תו אחד = פלט שונה לחלוטין.</pre></div>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">חתימה דיגיטלית</span></div>
+<pre class="code-body">Private Key  →  חותם על עסקה
+Public Key   →  כל אחד יכול לאמת
+Address      →  Hash(Public Key) = כתובת ציבורית</pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">04 — סוגי מטבעות</span>
+<h2 class="sec-h">לא כל קריפטו שווה</h2>
+<table class="tbl">
+<tr><th>קטגוריה</th><th>מטרה</th><th>דוגמאות</th></tr>
+<tr><td><strong>Layer 1</strong></td><td>רשת בלוקצ'יין עצמאית</td><td>Bitcoin, Ethereum, Solana, TRON</td></tr>
+<tr><td><strong>Stablecoin</strong></td><td>מחיר קבוע = $1</td><td>USDT, USDC, DAI</td></tr>
+<tr><td><strong>DeFi Token</strong></td><td>ממשל/תגמול בפרוטוקול</td><td>UNI, AAVE, MKR</td></tr>
+<tr><td><strong>NFT</strong></td><td>נכס דיגיטלי ייחודי</td><td>CryptoPunks, BAYC</td></tr>
+<tr><td><strong>Privacy Coin</strong></td><td>אנונימיות מוגברת</td><td>Monero (XMR), Zcash (ZEC)</td></tr>
+<tr><td><strong>Meme Coin</strong></td><td>ספקולציה / תרבות</td><td>DOGE, SHIB, PEPE</td></tr>
+</table>
+<div class="callout warn">⚠️ <strong>Forensics:</strong> USDT (Tether) על TRON הוא המטבע הנפוץ ביותר בפשע קריפטו — מהיר, זול, נפוץ. Tether Ltd. יכולה להקפיא כתובות. FBI ביקש זאת עשרות פעמים.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">05 — למה קריפטו ופשע?</span>
+<h2 class="sec-h">הקשר לפשיעה ולחקירה</h2>
+<p>קריפטו אינו מטבע פשע — אבל מאפיינים ספציפיים מושכים פעילות עברית:</p>
+<table class="tbl">
+<tr><th>מאפיין</th><th>שימוש לגיטימי</th><th>שימוש עברייני</th></tr>
+<tr><td>Pseudonymous</td><td>פרטיות פיננסית</td><td>הסתרת זהות</td></tr>
+<tr><td>Borderless</td><td>העברות בינ"ל זולות</td><td>עקיפת סנקציות</td></tr>
+<tr><td>Irreversible</td><td>סיום עסקה ללא מחלוקת</td><td>קשה לשחזר לאחר גניבה</td></tr>
+<tr><td>Programmable</td><td>Smart Contracts, DeFi</td><td>Scams אוטומטיים</td></tr>
+</table>
+<div class="callout note">📝 <strong>נתון:</strong> לפי Chainalysis 2024 Crime Report — $24.2 מיליארד עברו דרך כתובות קריפטו פליליות ב-2023. 70% מהם USDT על TRON.</div>
+<p>אבל — <strong>Blockchain שקוף יותר ממזומן</strong>. כל עסקה נשמרת לנצח. מעקב קריפטו הוביל לסגירת Silk Road, מעצר של חטיפות, ולשחזור מיליארדים.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">06 — כלי מבוא</span>
+<h2 class="sec-h">היכן להתחיל לחקור</h2>
+<table class="tbl">
+<tr><th>כלי</th><th>שימוש</th><th>מחיר</th></tr>
+<tr><td>Etherscan.io</td><td>Explorer Ethereum — עסקאות, Tokens, Contracts</td><td>חינם</td></tr>
+<tr><td>Blockchain.com</td><td>Explorer Bitcoin</td><td>חינם</td></tr>
+<tr><td>Tronscan.org</td><td>Explorer TRON (USDT-TRC20)</td><td>חינם</td></tr>
+<tr><td>Blockchair.com</td><td>Multi-chain search</td><td>חינם (בסיסי)</td></tr>
+<tr><td>CryptoScamDB</td><td>מאגר כתובות Scam ידועות</td><td>חינם</td></tr>
+<tr><td>Chainalysis Reactor</td><td>ניתוח מקצועי עם attribution</td><td>מסחרי</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">07 — תרגיל מבוא</span>
+<h2 class="sec-h">🎯 תרגיל: הכרת הכלים</h2>
+<div class="callout note">📝 <strong>משימה 1 — Bitcoin:</strong> פתח blockchain.com/explorer וחפש את Genesis Block (Block #0).<br>
+מה ההודעה הנסתרת בתוכו?</div>
+<div class="callout note">📝 <strong>משימה 2 — Ethereum:</strong> פתח etherscan.io וחפש: <code>0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe</code><br>
+כמה ETH יש בארנק? של מי הוא?</div>
+<div class="callout note">📝 <strong>משימה 3 — USDT:</strong> פתח tronscan.org וחפש: <code>TRon1qeN6e9BrEUAEH9LwLBMJW1Jp3F...</code><br>
+(חפש ארנק USDT-TRC20 אחד מהחדשות)</div>
+<div class="callout tip">💡 כל הכלים חינמיים ולא דורשים הרשמה לתרגילי מבוא.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — שאלות בחינה</span>
+<h2 class="sec-h">שאלות חזרה</h2>
+<div class="callout note">❓ <strong>מדוע Bitcoin נחשב Pseudonymous ולא Anonymous?</strong><br>כל עסקה גלויה לציבור — מי שולח, מקבל, כמה. אבל הכתובת לא קשורה לשם אמיתי אוטומטית. עם מספיק ניתוח — ניתן לקשר לזהות.</div>
+<div class="callout note">❓ <strong>מהו הבלוק הראשון בהיסטוריה של Bitcoin?</strong><br>Genesis Block (Block #0) — נכרה ב-3 ינואר 2009 על ידי Satoshi Nakamoto. מכיל הודעה על כשל הבנקים. 50 BTC שנשמרו ולא ניתנים להוצאה.</div>
+<div class="callout note">❓ <strong>למה USDT-TRC20 פופולרי בפשע?</strong><br>עמלות נמוכות (<$1), מהיר (3 שניות), נפוץ ברחבי העולם, ניתן להמרה מהירה למזומן. Tether יכולה לקפיא כתובות — אבל רק לאחר דיווח.</div>
+</section>
+`; }
+    },
+    en: {
+      name: "Intro — Crypto Fundamentals",
+      desc: "Digital money, history, cryptography, coin types, crypto and crime",
+      sections: ["What is Digital Money?", "A Brief History", "Cryptography — Foundation", "Coin Types", "Crypto and Crime", "Intro Tools", "Intro Exercise", "Exam Questions"],
+      content: function() { return `
+<section class="learn-section">
+<span class="sec-label">01 — What is Digital Money?</span>
+<h2 class="sec-h">The Idea Behind Crypto</h2>
+<p>Money has always been information — value stored and transferred. Gold coins, paper bills, bank accounts — all representations of trust. <strong>Crypto</strong> asked: what if we could transfer value directly between two people, without a bank, without an intermediary?</p>
+<table class="tbl">
+<tr><th>Money Type</th><th>Intermediary</th><th>Transparency</th><th>Control</th></tr>
+<tr><td>Cash</td><td>Central bank</td><td>Zero</td><td>Government</td></tr>
+<tr><td>Credit card</td><td>Bank + VISA</td><td>Zero</td><td>Private company</td></tr>
+<tr><td>Bitcoin</td><td>None</td><td>Full</td><td>The network</td></tr>
+</table>
+<div class="callout tip">💡 <strong>Core idea:</strong> Instead of trusting a bank to say "yes, Alice has $100" — the entire network knows this. Cannot be faked, cannot be doubled.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">02 — A Brief History</span>
+<h2 class="sec-h">From Cypherpunks to Bitcoin</h2>
+<p>The idea wasn't born in 2009. <strong>The Cypherpunks</strong> — a group of hackers and cryptographic anarchists — dreamed of anonymous digital cash as far back as the 1980s and 90s.</p>
+<table class="tbl">
+<tr><th>Year</th><th>Event</th></tr>
+<tr><td>1983</td><td>David Chaum — DigiCash, first digital cash with privacy</td></tr>
+<tr><td>1997</td><td>Adam Back — Hashcash (first Proof of Work)</td></tr>
+<tr><td>1998</td><td>Wei Dai — b-money, concept for decentralized currency</td></tr>
+<tr><td>2008</td><td>Satoshi Nakamoto publishes White Paper: "Bitcoin: A Peer-to-Peer Electronic Cash System"</td></tr>
+<tr><td>2009</td><td>First block — Genesis Block. Reward: 50 BTC</td></tr>
+<tr><td>2010</td><td>First Bitcoin transaction: 10,000 BTC for 2 pizzas</td></tr>
+<tr><td>2015</td><td>Ethereum — Smart Contracts, expanding the idea</td></tr>
+<tr><td>2017</td><td>ICO Boom — thousands of tokens. Most were scams</td></tr>
+<tr><td>2022</td><td>FTX collapses — $8 billion stolen. Regulation tightens</td></tr>
+</table>
+<div class="callout note">📝 <strong>Genesis Block Message:</strong> Satoshi embedded in the first block: <em>"The Times 03/Jan/2009 Chancellor on brink of second bailout for banks"</em> — a statement against the traditional financial system.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">03 — Cryptography — The Foundation</span>
+<h2 class="sec-h">The Encryption Behind Everything</h2>
+<p>Cryptography = the science of keeping secrets. Blockchain uses two main tools:</p>
+<table class="tbl">
+<tr><th>Tool</th><th>Use</th><th>Example</th></tr>
+<tr><td><strong>Hash Function</strong></td><td>Data fingerprint — one-way only</td><td>SHA-256, Keccak-256</td></tr>
+<tr><td><strong>Asymmetric Crypto</strong></td><td>Public/Private key pair for signing and verification</td><td>ECDSA (secp256k1)</td></tr>
+</table>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Hash — One Way</span></div>
+<pre class="code-body">Input:  "Hello World"
+Output: 2cf24dba5fb0a30e26e83b2ac5b9e29e...
+
+Cannot reverse from output to input.
+Change one character = completely different output.</pre></div>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Digital Signature</span></div>
+<pre class="code-body">Private Key  →  signs a transaction
+Public Key   →  anyone can verify
+Address      →  Hash(Public Key) = public address</pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">04 — Types of Coins</span>
+<h2 class="sec-h">Not All Crypto Is Equal</h2>
+<table class="tbl">
+<tr><th>Category</th><th>Purpose</th><th>Examples</th></tr>
+<tr><td><strong>Layer 1</strong></td><td>Independent blockchain network</td><td>Bitcoin, Ethereum, Solana, TRON</td></tr>
+<tr><td><strong>Stablecoin</strong></td><td>Fixed price = $1</td><td>USDT, USDC, DAI</td></tr>
+<tr><td><strong>DeFi Token</strong></td><td>Governance/rewards in protocol</td><td>UNI, AAVE, MKR</td></tr>
+<tr><td><strong>NFT</strong></td><td>Unique digital asset</td><td>CryptoPunks, BAYC</td></tr>
+<tr><td><strong>Privacy Coin</strong></td><td>Enhanced anonymity</td><td>Monero (XMR), Zcash (ZEC)</td></tr>
+<tr><td><strong>Meme Coin</strong></td><td>Speculation / culture</td><td>DOGE, SHIB, PEPE</td></tr>
+</table>
+<div class="callout warn">⚠️ <strong>Forensics:</strong> USDT (Tether) on TRON is the most common coin in crypto crime — fast, cheap, widespread. Tether Ltd. can freeze addresses. FBI has requested this dozens of times.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">05 — Why Crypto and Crime?</span>
+<h2 class="sec-h">The Connection to Crime and Investigation</h2>
+<p>Crypto is not a crime currency — but specific characteristics attract criminal activity:</p>
+<table class="tbl">
+<tr><th>Feature</th><th>Legitimate Use</th><th>Criminal Use</th></tr>
+<tr><td>Pseudonymous</td><td>Financial privacy</td><td>Identity concealment</td></tr>
+<tr><td>Borderless</td><td>Cheap international transfers</td><td>Sanctions evasion</td></tr>
+<tr><td>Irreversible</td><td>Final settlement without dispute</td><td>Hard to recover after theft</td></tr>
+<tr><td>Programmable</td><td>Smart Contracts, DeFi</td><td>Automated scams</td></tr>
+</table>
+<div class="callout note">📝 <strong>Stat:</strong> Per Chainalysis 2024 Crime Report — $24.2 billion passed through criminal crypto addresses in 2023. 70% of that was USDT on TRON.</div>
+<p>But — <strong>Blockchain is more transparent than cash</strong>. Every transaction is stored forever. Crypto tracing led to the closure of Silk Road, kidnapping arrests, and recovery of billions.</p>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">06 — Intro Tools</span>
+<h2 class="sec-h">Where to Start Investigating</h2>
+<table class="tbl">
+<tr><th>Tool</th><th>Use</th><th>Price</th></tr>
+<tr><td>Etherscan.io</td><td>Ethereum explorer — txs, tokens, contracts</td><td>Free</td></tr>
+<tr><td>Blockchain.com</td><td>Bitcoin explorer</td><td>Free</td></tr>
+<tr><td>Tronscan.org</td><td>TRON explorer (USDT-TRC20)</td><td>Free</td></tr>
+<tr><td>Blockchair.com</td><td>Multi-chain search</td><td>Free (basic)</td></tr>
+<tr><td>CryptoScamDB</td><td>Known scam address database</td><td>Free</td></tr>
+<tr><td>Chainalysis Reactor</td><td>Professional analysis with attribution</td><td>Commercial</td></tr>
+</table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">07 — Intro Exercise</span>
+<h2 class="sec-h">🎯 Exercise: Getting to Know the Tools</h2>
+<div class="callout note">📝 <strong>Task 1 — Bitcoin:</strong> Open blockchain.com/explorer and find the Genesis Block (Block #0).<br>
+What is the hidden message inside it?</div>
+<div class="callout note">📝 <strong>Task 2 — Ethereum:</strong> Open etherscan.io and search: <code>0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe</code><br>
+How much ETH does the wallet hold? Who owns it?</div>
+<div class="callout note">📝 <strong>Task 3 — USDT:</strong> Open tronscan.org and find any USDT-TRC20 wallet from recent news.</div>
+<div class="callout tip">💡 All tools are free and require no registration for intro exercises.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">08 — Exam Questions</span>
+<h2 class="sec-h">Review Questions</h2>
+<div class="callout note">❓ <strong>Why is Bitcoin considered Pseudonymous and not Anonymous?</strong><br>Every transaction is publicly visible — who sends, receives, how much. But the address is not automatically tied to a real name. With enough analysis, it can be linked to an identity.</div>
+<div class="callout note">❓ <strong>What is the first block in Bitcoin's history?</strong><br>Genesis Block (Block #0) — mined on January 3, 2009 by Satoshi Nakamoto. Contains a message about bank failures. 50 BTC stored and unspendable.</div>
+<div class="callout note">❓ <strong>Why is USDT-TRC20 popular in crime?</strong><br>Low fees (&lt;$1), fast (3 seconds), widespread globally, easily converted to cash. Tether can freeze addresses — but only after reporting.</div>
+</section>
+`; }
+    }
+  },
   {
     n: 1, icon: "🔗", color: "#f59e0b",
     he: {
@@ -959,6 +1419,98 @@ Status: Success ✓</pre></div></section>
 ];
 
 var LAB_DATA = {
+  0: [
+  {
+    cat: "מבוא", cat_en: "Introduction",
+    snip: null,
+    q: "מה הייתה ההודעה שהטמין Satoshi ב-Genesis Block?", q_en: "What message did Satoshi embed in the Genesis Block?",
+    a: ["The Times 03/Jan/2009 Chancellor on brink of second bailout for banks", "Bitcoin: A Peer-to-Peer Electronic Cash System", "Hello World — Genesis", "In cryptography we trust"],
+    a_en: ["The Times 03/Jan/2009 Chancellor on brink of second bailout for banks", "Bitcoin: A Peer-to-Peer Electronic Cash System", "Hello World — Genesis", "In cryptography we trust"],
+    c: 0,
+    e: "Genesis Block מכיל כותרת של ה-Times מ-3 ינואר 2009 — הצהרה נגד המערכת הבנקאית.", e_en: "The Genesis Block contains a Times headline from January 3, 2009 — a statement against the banking system."
+  },
+  {
+    cat: "היסטוריה", cat_en: "History",
+    snip: null,
+    q: "כמה BTC שולמו עבור שתי פיצות ב-2010?", q_en: "How many BTC were paid for two pizzas in 2010?",
+    a: ["10,000 BTC", "1 BTC", "100 BTC", "0.1 BTC"],
+    a_en: ["10,000 BTC", "1 BTC", "100 BTC", "0.1 BTC"],
+    c: 0,
+    e: "ב-22 מאי 2010, Laszlo Hanyecz שילם 10,000 BTC עבור שתי פיצות — עסקת Bitcoin הממשית הראשונה.", e_en: "On May 22, 2010, Laszlo Hanyecz paid 10,000 BTC for two pizzas — the first real-world Bitcoin transaction."
+  },
+  {
+    cat: "קריפטוגרפיה", cat_en: "Cryptography",
+    snip: null,
+    q: "מה פונקציית Hash חד-כיוונית?", q_en: "What is a one-way hash function?",
+    a: ["פונקציה שקל לחשב קדימה אך בלתי אפשרי להפוך", "פונקציה סימטרית עם מפתח", "פונקציה שמוסיפה padding לנתונים", "פונקציה לדחיסת נתונים"],
+    a_en: ["Function easy to compute forward but impossible to reverse", "Symmetric function with key", "Function that adds padding to data", "Data compression function"],
+    c: 0,
+    e: "חד-כיוניות: קל לחשב SHA256(x)=y, אבל מy לא ניתן למצוא x. זה מה שהופך Hash לטביעת אצבע אמינה.", e_en: "One-way: easy to compute SHA256(x)=y, but from y you cannot find x. This is what makes Hash a reliable fingerprint."
+  },
+  {
+    cat: "מטבעות", cat_en: "Coin Types",
+    snip: null,
+    q: "מהו Stablecoin?", q_en: "What is a Stablecoin?",
+    a: ["מטבע קריפטו שמחירו מוצמד לנכס יציב כמו דולר", "מטבע ישן ויציב כמו Bitcoin", "מטבע שלא ניתן לקנות", "מטבע של בנק מרכזי"],
+    a_en: ["Crypto coin pegged to a stable asset like the dollar", "Old and stable coin like Bitcoin", "A coin that cannot be purchased", "Central bank digital currency"],
+    c: 0,
+    e: "USDT, USDC = Stablecoins. כל אחד שווה $1 תמיד. מאפשר להחזיק 'דולר' בבלוקצ'יין ללא חשיפה לתנודות מחיר.", e_en: "USDT, USDC = Stablecoins. Each worth exactly $1. Allows holding 'dollars' on blockchain without price volatility exposure."
+  },
+  {
+    cat: "פשע ופורנזיקה", cat_en: "Crime & Forensics",
+    snip: null,
+    q: "לפי Chainalysis 2024, איזה מטבע שלט בעסקאות פליליות ב-2023?", q_en: "According to Chainalysis 2024, which coin dominated criminal transactions in 2023?",
+    a: ["USDT על TRON", "Bitcoin", "Monero", "Ethereum"],
+    a_en: ["USDT on TRON", "Bitcoin", "Monero", "Ethereum"],
+    c: 0,
+    e: "70% מהעסקאות הפליליות ב-2023 היו USDT-TRC20. זול, מהיר, ונפוץ ברחבי העולם.", e_en: "70% of criminal transactions in 2023 were USDT-TRC20. Cheap, fast, and widespread globally."
+  },
+  {
+    cat: "כלים", cat_en: "Tools",
+    snip: null,
+    q: "איזה Explorer מתאים לחקירת עסקת USDT ב-TRON?", q_en: "Which explorer is suitable for investigating a USDT transaction on TRON?",
+    a: ["Tronscan.org", "Etherscan.io", "Blockchain.com", "Mempool.space"],
+    a_en: ["Tronscan.org", "Etherscan.io", "Blockchain.com", "Mempool.space"],
+    c: 0,
+    e: "USDT-TRC20 פועל על TRON. Tronscan הוא ה-Explorer הרשמי של TRON.", e_en: "USDT-TRC20 runs on TRON. Tronscan is TRON's official explorer."
+  },
+  {
+    cat: "היסטוריה", cat_en: "History",
+    snip: null,
+    q: "מה היה Silk Road?", q_en: "What was Silk Road?",
+    a: ["שוק Dark Web שקיבל תשלום ב-Bitcoin — נסגר על ידי FBI ב-2013", "Exchange קריפטו ראשון", "מיקסר Bitcoin", "רשת Node של Bitcoin"],
+    a_en: ["Dark Web marketplace accepting Bitcoin payment — shut down by FBI in 2013", "First crypto exchange", "Bitcoin mixer", "Bitcoin node network"],
+    c: 0,
+    e: "Silk Road = שוק סמים ב-Dark Web. Bitcoin tracing הוביל לסגירתו ולמעצר Ross Ulbricht. נקודת מפנה בפורנזיקת קריפטו.", e_en: "Silk Road = drug market on Dark Web. Bitcoin tracing led to its shutdown and Ross Ulbricht's arrest. Turning point in crypto forensics."
+  },
+  {
+    cat: "קריפטוגרפיה", cat_en: "Cryptography",
+    snip: null,
+    q: "מה ECDSA?", q_en: "What is ECDSA?",
+    a: ["Elliptic Curve Digital Signature Algorithm — אלגוריתם חתימה בבלוקצ'יין", "Encrypted Currency Data Storage Algorithm", "External Chain Data Sharing Algorithm", "Enhanced Crypto Defense Security Algorithm"],
+    a_en: ["Elliptic Curve Digital Signature Algorithm — signing algorithm in blockchain", "Encrypted Currency Data Storage Algorithm", "External Chain Data Sharing Algorithm", "Enhanced Crypto Defense Security Algorithm"],
+    c: 0,
+    e: "ECDSA על עקומת secp256k1 = שיטת החתימה של Bitcoin ו-Ethereum. מאפשר חתימה עם Private Key ואימות עם Public Key.", e_en: "ECDSA on secp256k1 curve = Bitcoin and Ethereum's signing method. Enables signing with Private Key and verification with Public Key."
+  },
+  {
+    cat: "Pseudonymous", cat_en: "Pseudonymous",
+    snip: null,
+    q: "מה ההבדל בין Pseudonymous ל-Anonymous?", q_en: "What is the difference between Pseudonymous and Anonymous?",
+    a: ["Pseudonymous: פעולות גלויות, זהות נסתרת. Anonymous: לא ניתן לעקוב כלל", "שניהם זהים", "Pseudonymous: מלא אנונימי. Anonymous: חלקי", "Pseudonymous: רק ל-Bitcoin. Anonymous: רק ל-Monero"],
+    a_en: ["Pseudonymous: actions visible, identity hidden. Anonymous: cannot trace at all", "Both identical", "Pseudonymous: fully anonymous. Anonymous: partial", "Pseudonymous: Bitcoin only. Anonymous: Monero only"],
+    c: 0,
+    e: "Bitcoin = Pseudonymous. עסקאות גלויות לכל, אך כתובת לא קשורה לשם אוטומטית. עם מספיק ניתוח — ניתן לזהות.", e_en: "Bitcoin = Pseudonymous. Transactions visible to all, but address not automatically linked to a name. With enough analysis — identity possible."
+  },
+  {
+    cat: "מבוא לפורנזיקה", cat_en: "Forensics Intro",
+    snip: null,
+    q: "מדוע Blockchain קל יותר לחקירה ממזומן?", q_en: "Why is blockchain easier to investigate than cash?",
+    a: ["כל עסקה נשמרת לצמיתות ופומבית — לא ניתן למחוק", "כי המדינה שולטת בו", "כי יש KYC לכולם", "כי לא ניתן להעביר"],
+    a_en: ["Every transaction stored permanently and publicly — cannot be deleted", "Because the government controls it", "Because everyone has KYC", "Because it cannot be transferred"],
+    c: 0,
+    e: "Blockchain = ledger ציבורי נצחי. מזומן לא משאיר עקבות. Bitcoin משאיר עקבות לנצח — יתרון עצום לחוקרים.", e_en: "Blockchain = eternal public ledger. Cash leaves no traces. Bitcoin leaves traces forever — enormous advantage for investigators."
+  },
+  ],
   1: [
   {
     cat: "בלוקצ'יין — בסיס", cat_en: "Blockchain Basics",
@@ -1792,14 +2344,14 @@ function applyLangUI() {
     navHome:    'ראשי', navLearn: 'למידה', navLab: 'מעבדה', navQuiz: 'חידון',
     heroTag:    'COURSE — 12 CHAPTERS',
     heroH:      'Crypto<br><i>Forensics</i>',
-    heroP:      '12 פרקים · מתחילים למתקדמים · 85 שאלות',
+    heroP:      '13 פרקים · מתחילים למתקדמים · 95 שאלות',
     heroCta:    'התחל →',
     statsChapters: 'פרקים', statsQuestions: 'שאלות', statsSkills: 'מיומנויות',
     sbTitle:    'פרקים',
     lcPlaceholder: 'בחר פרק להתחלה',
     labSbTitle: 'מעבדה',
     labWelcomeH:'בחר פרק לתרגול',
-    labWelcomeP:'85 שאלות · הסברים מפורטים',
+    labWelcomeP:'95 שאלות · הסברים מפורטים',
     qzHomeH:    'חידון טריוויה',
     qzHomeP:    'ענה על שאלות מהר ככל האפשר — כל שנייה שווה נקודות!',
     qzLbl10:    'שאלות מהירות', qzLbl20: 'מרתון', qzLblAll: 'כל השאלות',
@@ -1809,14 +2361,14 @@ function applyLangUI() {
     navHome:    'Home', navLearn: 'Learn', navLab: 'Lab', navQuiz: 'Quiz',
     heroTag:    'COURSE — 12 CHAPTERS',
     heroH:      'Crypto<br><i>Forensics</i>',
-    heroP:      '12 chapters · Beginner to Advanced · 85 questions',
+    heroP:      '13 chapters · Beginner to Advanced · 95 questions',
     heroCta:    'Start →',
     statsChapters: 'Chapters', statsQuestions: 'Questions', statsSkills: 'Skills',
     sbTitle:    'Chapters',
     lcPlaceholder: 'Choose a chapter to begin',
     labSbTitle: 'Lab',
     labWelcomeH:'Choose a chapter',
-    labWelcomeP:'85 questions · Detailed explanations',
+    labWelcomeP:'95 questions · Detailed explanations',
     qzHomeH:    'Trivia Quiz',
     qzHomeP:    'Answer as fast as you can — every second counts!',
     qzLbl10:    'Quick Round', qzLbl20: 'Marathon', qzLblAll: 'All Questions',
@@ -1908,7 +2460,7 @@ function loadCh(n) {
   if (btns[n-1]) btns[n-1].classList.add('active');
 
   // prev/next labels
-  var prevL = n > 1     ? (isHe ? '→ פרק ' + (n-1) : '← Ch '+(n-1)) : null;
+  var prevL = n > 0     ? (isHe ? '→ פרק ' + (n-1) : '← Ch '+(n-1)) : null;
   var nextL = n < total ? (isHe ? 'פרק '+(n+1)+' ←' : 'Ch '+(n+1)+' →') : null;
 
   var navTop = '<div class="ch-nav">' +
@@ -2333,6 +2885,126 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+/* ═══════════════════════════════════════════
+   MOBILE SIDEBAR — toggle, overlay, swipe
+═══════════════════════════════════════════ */
+function isMobile() { return window.innerWidth <= 768; }
+
+function openSidebar(id) {
+  var sb  = document.getElementById(id);
+  var ov  = document.getElementById('sbOverlay');
+  if (sb) sb.classList.add('open');
+  if (ov) ov.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSidebar() {
+  ['sidebar','labSb'].forEach(function(id) {
+    var sb = document.getElementById(id);
+    if (sb) sb.classList.remove('open');
+  });
+  var ov = document.getElementById('sbOverlay');
+  if (ov) ov.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// Inject mobile toggle button into learn/lab content areas
+function injectMobileToggles() {
+  if (!isMobile()) return;
+
+  // Learn toggle
+  var lc = document.getElementById('learnContent');
+  if (lc && !document.getElementById('sbToggleBtn')) {
+    var btn = document.createElement('button');
+    btn.id = 'sbToggleBtn';
+    btn.className = 'sb-toggle';
+    btn.innerHTML = '📚 <span id="sbToggleLbl">' + (LANG==='he'?'בחר פרק':'Choose chapter') + '</span><span class="sb-toggle-icon">▼</span>';
+    btn.onclick = function() { openSidebar('sidebar'); };
+    lc.insertBefore(btn, lc.firstChild);
+  }
+
+  // Lab toggle — add if lab content visible
+  var labC = document.getElementById('labContent');
+  if (labC && !document.getElementById('labSbToggleBtn')) {
+    var btn2 = document.createElement('button');
+    btn2.id = 'labSbToggleBtn';
+    btn2.className = 'sb-toggle';
+    btn2.innerHTML = '🧪 <span id="labSbToggleLbl">' + (LANG==='he'?'בחר פרק':'Choose chapter') + '</span><span class="sb-toggle-icon">▼</span>';
+    btn2.onclick = function() { openSidebar('labSb'); };
+    labC.insertBefore(btn2, labC.firstChild);
+  }
+}
+
+// Close sidebar when chapter selected on mobile
+var _origLoadCh = loadCh;
+loadCh = function(n) {
+  _origLoadCh(n);
+  if (isMobile()) closeSidebar();
+};
+
+var _origStartLab = startLab;
+startLab = function(n) {
+  _origStartLab(n);
+  if (isMobile()) closeSidebar();
+};
+
+// Update toggle labels on lang change
+var _origApplyLangUI = applyLangUI;
+applyLangUI = function() {
+  _origApplyLangUI();
+  var tl = document.getElementById('sbToggleLbl');
+  var ll = document.getElementById('labSbToggleLbl');
+  if (tl) tl.textContent = LANG==='he' ? 'בחר פרק' : 'Choose chapter';
+  if (ll) ll.textContent = LANG==='he' ? 'בחר פרק' : 'Choose chapter';
+};
+
+// Re-inject on screen change
+var _origGoTo = goTo;
+goTo = function(screen) {
+  _origGoTo(screen);
+  closeSidebar();
+  setTimeout(injectMobileToggles, 50);
+};
+
+// Handle resize — show/hide sidebar correctly
+window.addEventListener('resize', function() {
+  if (!isMobile()) {
+    closeSidebar();
+    var sb  = document.getElementById('sidebar');
+    var lsb = document.getElementById('labSb');
+    if (sb)  { sb.style.display  = ''; sb.classList.remove('open'); }
+    if (lsb) { lsb.style.display = ''; lsb.classList.remove('open'); }
+  }
+});
+
+// Swipe left to open sidebar (mobile gesture)
+(function() {
+  var startX = 0;
+  document.addEventListener('touchstart', function(e) {
+    startX = e.touches[0].clientX;
+  }, {passive: true});
+  document.addEventListener('touchend', function(e) {
+    var dx = e.changedTouches[0].clientX - startX;
+    var screen = document.querySelector('.screen.active');
+    if (!screen) return;
+    var sid = screen.id;
+    // Swipe right from left edge → open sidebar
+    if (dx > 60 && startX < 30) {
+      if (sid === 'learn') openSidebar('sidebar');
+      if (sid === 'lab')   openSidebar('labSb');
+    }
+    // Swipe left → close sidebar
+    if (dx < -60) closeSidebar();
+  }, {passive: true});
+})();
+
+// Override init to inject mobile toggles
+var _origInit = init;
+init = function() {
+  _origInit();
+  setTimeout(injectMobileToggles, 100);
+};
 
 
 /* Auto-navigate to chapter 9 in English */
