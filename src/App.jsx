@@ -37,6 +37,7 @@ import { onAuthChange } from './utils/auth.js'
 import { pullProgress, pushProgress, startAutoSync, stopAutoSync } from './utils/cloudSync.js'
 import { UserMenu } from './components/UserMenu.jsx'
 import { useLang } from './utils/language.jsx'
+import { injectIframeTheme } from './utils/iframeTheme.js'
 import './App.css'
 
 const TAB_KEYS = ['learn', 'quiz', 'labs', 'stats', 'bugs', 'credits']
@@ -368,8 +369,9 @@ function App() {
     if (!meta) { meta = document.createElement('meta'); meta.name = 'theme-color'; document.head.appendChild(meta) }
     meta.content = darkMode ? '#0f172a' : '#f0f9ff'
     try { localStorage.setItem('ng_dark_mode', darkMode ? '1' : '0') } catch {}
-    // Notify all iframes
+    // Inject theme into all iframes (same-origin direct access + postMessage fallback)
     document.querySelectorAll('iframe').forEach(f => {
+      injectIframeTheme(f, darkMode)
       try { f.contentWindow.postMessage({ ng: 'theme', dark: darkMode }, '*') } catch {}
     })
   }, [darkMode])
@@ -938,6 +940,7 @@ function App() {
                       e.target.contentWindow.postMessage({ ng: 'lang', lang }, '*')
                       e.target.contentWindow.postMessage({ ng: 'font', size: fontSize }, '*')
                       e.target.contentWindow.postMessage({ ng: 'theme', dark: darkMode }, '*')
+                      injectIframeTheme(e.target, darkMode)
                       if (activeTrack?.fullPage) return
                       const resize = () => {
                         const doc = e.target.contentDocument
@@ -1008,6 +1011,7 @@ function App() {
                   e.target.contentWindow.postMessage({ ng: 'lang', lang }, '*')
                   e.target.contentWindow.postMessage({ ng: 'font', size: fontSize }, '*')
                   e.target.contentWindow.postMessage({ ng: 'theme', dark: darkMode }, '*')
+                  injectIframeTheme(e.target, darkMode)
                   const resize = () => {
                     const h = e.target.contentDocument?.documentElement?.scrollHeight
                     if (h > 100) e.target.style.height = h + 'px'

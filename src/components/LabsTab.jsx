@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLang } from '../utils/language.jsx'
 import { isProUnlocked, validateCode } from '../utils/proAccess.js'
+import { injectIframeTheme } from '../utils/iframeTheme.js'
 
 const TRACKS = [
   {
@@ -186,6 +187,8 @@ export function LabsTab({ trackId }) {
           onLoad={(e) => {
             try { e.target.contentWindow.postMessage({ ng: 'lang', lang }, '*') } catch {}
             try { e.target.contentWindow.postMessage({ ng: 'font', size: localStorage.getItem('ng_font_size') || 'normal' }, '*') } catch {}
+            const dark = localStorage.getItem('ng_dark_mode') === '1'
+            injectIframeTheme(e.target, dark)
           }}
         />
       </div>
