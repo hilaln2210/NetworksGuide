@@ -943,7 +943,7 @@ function App() {
               )}
             </article>
 
-            {currentPage === totalPages - 1 && (
+            {currentPage === totalPages - 1 && !activeTrack?.fullPage && (
               <div className="go-to-quiz-wrap">
                 <button
                   className="go-to-quiz-btn"
@@ -966,11 +966,13 @@ function App() {
               </div>
             )}
 
+            {!activeTrack?.fullPage && (
             <nav className="page-navigation">
               <button className="nav-btn prev" onClick={goPrev} disabled={!canGoPrev}>{t('prev_btn')}</button>
               <span className="page-counter">{t('chapter')} {currentChapter + 1} | {currentPage + 1}/{totalPages}</span>
               <button className="nav-btn next" onClick={goNext} disabled={!canGoNext}>{t('next_btn')}</button>
             </nav>
+            )}
           </main>
         </div>
         )
