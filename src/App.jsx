@@ -41,7 +41,7 @@ import { onAuthChange } from './utils/auth.js'
 import { pullProgress, pushProgress, startAutoSync, stopAutoSync } from './utils/cloudSync.js'
 import { UserMenu } from './components/UserMenu.jsx'
 import { useLang } from './utils/language.jsx'
-import { injectIframeTheme } from './utils/iframeTheme.js'
+import { injectIframeTheme, injectIframeFont } from './utils/iframeTheme.js'
 import './App.css'
 
 const TAB_KEYS = ['learn', 'quiz', 'labs', 'stats', 'bugs', 'credits']
@@ -367,6 +367,7 @@ function App() {
     try { localStorage.setItem('ng_font_size', next) } catch {}
     // Notify all iframes
     document.querySelectorAll('iframe').forEach(f => {
+      injectIframeFont(f, next)
       try { f.contentWindow.postMessage({ ng: 'font', size: next }, '*') } catch {}
     })
   }
@@ -999,6 +1000,7 @@ function App() {
                       e.target.contentWindow.postMessage({ ng: 'font', size: fontSize }, '*')
                       e.target.contentWindow.postMessage({ ng: 'theme', dark: darkMode }, '*')
                       injectIframeTheme(e.target, darkMode)
+                      injectIframeFont(e.target, fontSize)
                       if (activeTrack?.fullPage) return
                       const resize = () => {
                         const doc = e.target.contentDocument
@@ -1078,6 +1080,7 @@ function App() {
                   e.target.contentWindow.postMessage({ ng: 'font', size: fontSize }, '*')
                   e.target.contentWindow.postMessage({ ng: 'theme', dark: darkMode }, '*')
                   injectIframeTheme(e.target, darkMode)
+                  injectIframeFont(e.target, fontSize)
                   const resize = () => {
                     const h = e.target.contentDocument?.documentElement?.scrollHeight
                     if (h > 100) e.target.style.height = h + 'px'

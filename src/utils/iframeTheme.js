@@ -82,3 +82,13 @@ export function injectIframeTheme(iframe, dark) {
     style.textContent = IFRAME_THEME_CSS
   } catch (e) { /* cross-origin or not loaded yet */ }
 }
+
+const ZOOM = { small: 0.85, normal: 1.0, large: 1.18 }
+
+export function injectIframeFont(iframe, size) {
+  try {
+    const doc = iframe.contentDocument
+    if (!doc) return
+    doc.documentElement.style.zoom = ZOOM[size] || 1.0
+  } catch (e) { /* cross-origin or not loaded yet */ }
+}
