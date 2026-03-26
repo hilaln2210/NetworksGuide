@@ -912,12 +912,16 @@ function App() {
                 <iframe
                   src={(lang === 'en' && page.srcEn) ? page.srcEn : page.src}
                   title={page.title}
-                  style={{ width: '100%', border: 'none', display: 'block', minHeight: 'calc(100vh - 80px)' }}
+                  style={activeTrack?.fullPage
+                    ? { width: '100%', border: 'none', display: 'block', height: 'calc(100vh - 60px)', overflow: 'hidden' }
+                    : { width: '100%', border: 'none', display: 'block', minHeight: 'calc(100vh - 80px)' }
+                  }
                   onLoad={(e) => {
                     try {
                       e.target.contentWindow.postMessage({ ng: 'lang', lang }, '*')
                       e.target.contentWindow.postMessage({ ng: 'font', size: fontSize }, '*')
                       e.target.contentWindow.postMessage({ ng: 'theme', dark: darkMode }, '*')
+                      if (activeTrack?.fullPage) return
                       const resize = () => {
                         const doc = e.target.contentDocument
                         const h = Math.max(
