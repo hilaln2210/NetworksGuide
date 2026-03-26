@@ -776,6 +776,12 @@ function App() {
               <button className="dark-mode-btn" onClick={() => setShowGlossary(true)} title={isEn ? 'Glossary' : 'מילון מונחים'}>
                 📚
               </button>
+              <button className="dark-mode-btn" onClick={() => setShowExamMode(true)} title={isEn ? 'Exam Mode' : 'מצב בחינה'}>
+                📝
+              </button>
+              <Suspense fallback={null}>
+                <ShareProgress lang={lang} tracks={tracks} compact />
+              </Suspense>
               <button className="reset-settings-btn" onClick={() => setShowResetModal(true)} title={t('settings')}>
                 ⚙️
               </button>

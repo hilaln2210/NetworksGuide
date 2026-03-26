@@ -162,7 +162,7 @@ function drawCard(canvas, { lang, tracks }) {
   ctx.fillText('networksguide.com', W / 2, dynamicH - 8)
 }
 
-export function ShareProgress({ lang, tracks }) {
+export function ShareProgress({ lang, tracks, compact = false }) {
   const canvasRef = useRef(null)
   const [busy, setBusy] = useState(false)
   const isHe = lang !== 'en'
@@ -208,8 +208,8 @@ export function ShareProgress({ lang, tracks }) {
 
   return (
     <>
-      <button className="share-progress-btn" onClick={handleShare} disabled={busy}>
-        📤 {isHe ? 'שתף התקדמות' : 'Share Progress'}
+      <button className={compact ? 'dark-mode-btn' : 'share-progress-btn'} onClick={handleShare} disabled={busy} title={isHe ? 'שתף התקדמות' : 'Share Progress'}>
+        {compact ? '📤' : <>📤 {isHe ? 'שתף התקדמות' : 'Share Progress'}</>}
       </button>
       <canvas ref={canvasRef} className="share-progress-canvas" />
     </>
