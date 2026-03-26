@@ -1309,6 +1309,20 @@ function App() {
         chapterId: activeTab === 'learn' ? chapter?.id : undefined,
         pageTitle: activeTab === 'learn' ? page?.title : undefined,
       }} />
+      {showGlossary && (
+        <Suspense fallback={null}>
+          <Glossary isOpen={showGlossary} onClose={() => setShowGlossary(false)} lang={lang} />
+        </Suspense>
+      )}
+      {showExamMode && (
+        <Suspense fallback={null}>
+          <ExamMode lang={lang} onClose={() => setShowExamMode(false)} onXP={(amount) => {
+            addXP(amount)
+            setXpFloat(`+${amount} XP`)
+            setTimeout(() => setXpFloat(null), 2000)
+          }} />
+        </Suspense>
+      )}
     </div>
   )
 }
@@ -1483,20 +1497,6 @@ function ResetModal({ onClose, onReset, gender }) {
           </button>
         </div>
       </div>
-      {showGlossary && (
-        <Suspense fallback={null}>
-          <Glossary isOpen={showGlossary} onClose={() => setShowGlossary(false)} lang={lang} />
-        </Suspense>
-      )}
-      {showExamMode && (
-        <Suspense fallback={null}>
-          <ExamMode lang={lang} onClose={() => setShowExamMode(false)} onXP={(amount) => {
-            addXP(amount)
-            setXpFloat(`+${amount} XP`)
-            setTimeout(() => setXpFloat(null), 2000)
-          }} />
-        </Suspense>
-      )}
     </div>
   )
 }
