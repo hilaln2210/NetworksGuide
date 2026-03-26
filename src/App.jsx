@@ -913,7 +913,7 @@ function App() {
                   src={(lang === 'en' && page.srcEn) ? page.srcEn : page.src}
                   title={page.title}
                   style={activeTrack?.fullPage
-                    ? { width: '100%', border: 'none', display: 'block', height: 'calc(100vh - 60px)', overflow: 'hidden' }
+                    ? { width: '100%', border: 'none', display: 'block', position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, height: '100vh', zIndex: 999 }
                     : { width: '100%', border: 'none', display: 'block', minHeight: 'calc(100vh - 80px)' }
                   }
                   onLoad={(e) => {
