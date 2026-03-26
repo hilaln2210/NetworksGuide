@@ -2518,6 +2518,7 @@ function checkMissionDone(mission, td) {
   localStorage.setItem('nw_xp', XP);
   var xpEl = document.getElementById('xpTotal');
   if (xpEl) xpEl.textContent = XP;
+  try{parent.postMessage({type:'ng_xp',amount:15},'*')}catch(e){}
 
   printTermLine(
     '<span class="trm-success">✓ ' +
@@ -2540,6 +2541,7 @@ function checkMissionDone(mission, td) {
     XP += 50;
     localStorage.setItem('nw_xp', XP);
     if (xpEl) xpEl.textContent = XP;
+    try{parent.postMessage({type:'ng_xp',amount:50},'*')}catch(e){}
   }
 }
 
@@ -2808,6 +2810,8 @@ function showQuizResult() {
   localStorage.setItem('nw_xp', XP);
   var xpEl = document.getElementById('xpTotal');
   if (xpEl) xpEl.textContent = XP;
+  try{parent.postMessage({type:'ng_xp',amount:xpGain},'*')}catch(e){}
+  if(pct>=90){try{parent.postMessage({type:'ng_xp',amount:50},'*')}catch(e){}}
 
   var grade  = pct>=90?'S':pct>=80?'A':pct>=70?'B':pct>=60?'C':'D';
   var arcOff = 2 * Math.PI * 50 * (1 - pct/100);
@@ -7926,6 +7930,7 @@ function buildSidebar() {
 
 function loadCh(n) {
   CUR_CH = n;
+  try{parent.postMessage({type:'ng_xp',amount:5},'*')}catch(e){}
   var ch   = CHAPTERS.find(function(c){ return c.n===n; });
   if (!ch) return;
   var data = LANG === 'he' ? ch.he : ch.en;
@@ -8426,6 +8431,7 @@ function buildSidebar() {
 
 function loadCh(n) {
   CUR_CH = n;
+  try{parent.postMessage({type:'ng_xp',amount:5},'*')}catch(e){}
   var ch   = CHAPTERS.find(function(c){ return c.n===n; });
   if (!ch) return;
   var data = LANG === 'he' ? ch.he : ch.en;

@@ -2449,6 +2449,7 @@ function buildSidebar() {
 /* ── LOAD CHAPTER ── */
 function loadCh(n) {
   CUR_CH = n;
+  try{parent.postMessage({type:'ng_xp',amount:5},'*')}catch(e){}
   var isHe  = LANG === 'he';
   var ch    = CHAPTERS.find(function(c){ return c.n === n; });
   var data  = isHe ? ch.he : ch.en;
@@ -2632,7 +2633,7 @@ function onLabPick(btn, di, correctDi, origIdx) {
   var next = document.getElementById('lqNext');
   if (next) next.disabled = false;
 
-  if (ok) { XP += 10; var xpEl=document.getElementById('xpTotal'); if(xpEl) xpEl.textContent=XP; }
+  if (ok) { XP += 10; var xpEl=document.getElementById('xpTotal'); if(xpEl) xpEl.textContent=XP; try{parent.postMessage({type:'ng_xp',amount:15},'*')}catch(e){} }
 }
 
 function lqAdvance() {
@@ -2790,6 +2791,7 @@ function onQuizPick(btn, di, correctDi, origIdx) {
     QUIZ.maxStreak = Math.max(QUIZ.maxStreak, QUIZ.streak);
     XP += 15;
     var xpEl=document.getElementById('xpTotal'); if(xpEl) xpEl.textContent=XP;
+    try{parent.postMessage({type:'ng_xp',amount:15},'*')}catch(e){}
   } else {
     QUIZ.streak = 0;
   }
