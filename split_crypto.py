@@ -159,6 +159,58 @@ with open(fp, "w", encoding="utf-8") as f:
     f.write(terminal_page)
 print(f"  Wrote terminal.html  ({len(terminal_page):,} chars)")
 
+# ── 6b. Generate quiz_game.html (standalone quiz) ─────────────────────────
+print("\n── Quiz ──")
+
+quiz_m = re.search(r'<section[^>]*id="quiz"[^>]*>(.*?)</section>', raw, re.DOTALL)
+quiz_html = quiz_m.group(0) if quiz_m else ""
+quiz_html = re.sub(r'class="screen"', 'class="screen on"', quiz_html, count=1)
+
+quiz_page = f"""<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+{head_inner}
+</head>
+<body>
+{quiz_html}
+<script>
+{full_script}
+/* Force init for standalone quiz page */
+applyLangUI();
+</script>
+</body>
+</html>"""
+
+fp = os.path.join(OUT_HE, "quiz_game.html")
+with open(fp, "w", encoding="utf-8") as f:
+    f.write(quiz_page)
+print(f"  Wrote quiz_game.html  ({len(quiz_page):,} chars)")
+
+# ── 6c. Generate lab.html (standalone lab) ────────────────────────────────
+print("\n── Lab ──")
+
+lab_page = f"""<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+{head_inner}
+</head>
+<body>
+{lab_html}
+<script>
+{full_script}
+/* Force init for standalone lab page */
+buildLabSidebar();
+buildLabWelcome();
+applyLangUI();
+</script>
+</body>
+</html>"""
+
+fp = os.path.join(OUT_HE, "lab.html")
+with open(fp, "w", encoding="utf-8") as f:
+    f.write(lab_page)
+print(f"  Wrote lab.html  ({len(lab_page):,} chars)")
+
 # ── 7. Print chapter metadata for content.js update ───────────────────────
 print("\n── Chapter metadata (for content.js) ──")
 for i in range(12):
