@@ -60,20 +60,8 @@ export const tracks = [
     color: '#f59e0b',
     level: 'מתחיל–מתקדם',
     fullPage: true,
-    quizSrc: '/learn/crypto/quiz_game.html',
     chapters: [
-      { id: 500, title: "🔗 בלוקצ'יין — איך עובד",                pages: [{ type: "html_page", title: "Blockchain",               src: "/learn/crypto/learn_ch01.html", srcEn: "/learn/crypto-en/learn_ch01.html" }] },
-      { id: 501, title: "👛 ארנקים — סוגים ומבנה",                 pages: [{ type: "html_page", title: "Wallets",                  src: "/learn/crypto/learn_ch02.html", srcEn: "/learn/crypto-en/learn_ch02.html" }] },
-      { id: 502, title: "🌐 Wallet Domains",                       pages: [{ type: "html_page", title: "Wallet Domains",           src: "/learn/crypto/learn_ch03.html", srcEn: "/learn/crypto-en/learn_ch03.html" }] },
-      { id: 503, title: "🔍 On-Chain Analysis",                    pages: [{ type: "html_page", title: "On-Chain Analysis",        src: "/learn/crypto/learn_ch04.html", srcEn: "/learn/crypto-en/learn_ch04.html" }] },
-      { id: 504, title: "🕵️ זיהוי בעלי ארנקים",                   pages: [{ type: "html_page", title: "Wallet Attribution",       src: "/learn/crypto/learn_ch05.html", srcEn: "/learn/crypto-en/learn_ch05.html" }] },
-      { id: 505, title: "🚨 Scam Wallets — זיהוי",                 pages: [{ type: "html_page", title: "Scam Detection",           src: "/learn/crypto/learn_ch06.html", srcEn: "/learn/crypto-en/learn_ch06.html" }] },
-      { id: 506, title: "🌊 מיקסרים ו-Tumbling",                   pages: [{ type: "html_page", title: "Mixers & Tumbling",        src: "/learn/crypto/learn_ch07.html", srcEn: "/learn/crypto-en/learn_ch07.html" }] },
-      { id: 507, title: "🏦 Exchanges — CEX & DEX",                pages: [{ type: "html_page", title: "Exchanges",                src: "/learn/crypto/learn_ch08.html", srcEn: "/learn/crypto-en/learn_ch08.html" }] },
-      { id: 508, title: "🎨 NFT ו-Smart Contracts",                pages: [{ type: "html_page", title: "NFT & Smart Contracts",    src: "/learn/crypto/learn_ch09.html", srcEn: "/learn/crypto-en/learn_ch09.html" }] },
-      { id: 509, title: "🌉 Cross-Chain Tracing",                  pages: [{ type: "html_page", title: "Cross-Chain Tracing",      src: "/learn/crypto/learn_ch10.html", srcEn: "/learn/crypto-en/learn_ch10.html" }] },
-      { id: 510, title: "🔏 Privacy Coins",                        pages: [{ type: "html_page", title: "Privacy Coins",            src: "/learn/crypto/learn_ch11.html", srcEn: "/learn/crypto-en/learn_ch11.html" }] },
-      { id: 511, title: "⚖️ Case Study — חקירה מלאה",              pages: [{ type: "html_page", title: "Case Study",               src: "/learn/crypto/learn_ch12.html", srcEn: "/learn/crypto-en/learn_ch12.html" }] },
+      { id: 500, title: "Blockchain & Crypto Forensics — קורס מלא", pages: [{ type: "html_page", title: "Crypto Course", src: "/learn/crypto/crypto_course.html" }] },
     ]
   },
   // ── LOCKED — בעריכה ──
