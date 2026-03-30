@@ -64,6 +64,18 @@ export const tracks = [
       { id: 500, title: "Blockchain & Crypto Forensics — קורס מלא", pages: [{ type: "html_page", title: "Crypto Course", src: "/learn/crypto/crypto_course.html" }] },
     ]
   },
+  {
+    id: 'ai-agents',
+    title: 'AI Agents & Multi-Agent Systems',
+    subtitle: 'סוכנים חכמים, מערכות מרובות סוכנים, LLM Agents, כלים, זיכרון, תכנון — קורס מלא',
+    icon: '🤖',
+    color: '#8b5cf6',
+    level: 'מתחיל–מתקדם',
+    fullPage: true,
+    chapters: [
+      { id: 600, title: "AI Agents — קורס מלא", pages: [{ type: "html_page", title: "AI Agents Course", src: "/learn/ai-agents/ai_agents_course.html" }] },
+    ]
+  },
   // ── LOCKED — בעריכה ──
   {
     id: 'research',
