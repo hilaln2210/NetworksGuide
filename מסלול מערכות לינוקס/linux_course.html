@@ -229,15 +229,38 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 
 @media(max-width:860px){
   :root{--sidebar:0px}
-  .sidebar{transform:translateX(100%);transition:transform .25s;width:272px}
+  .sidebar{transform:translateX(100%);transition:transform .25s;width:276px}
   .sidebar.open{transform:translateX(0)}
   .main{margin-right:0}
-  .tab-panels{padding:20px 16px 40px}
-  .ch-hero{padding:24px 16px 0}
+  .tab-panels{padding:14px 14px 60px}
+  .ch-hero{padding:18px 14px 0}
   .grid-2,.grid-3,.game-opts,.cheat-grid{grid-template-columns:1fr}
   .mobile-btn{display:flex}
   .header-xp{display:none}
-  .tabs-bar{overflow-x:auto}
+  .tabs-bar{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tabs-bar::-webkit-scrollbar{display:none}
+  .tab-btn{flex-shrink:0;padding:0 12px;font-size:11px}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .code-block{font-size:11px;padding:12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .flow-row{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;gap:6px;padding:12px 10px}
+  .flow-step{min-width:68px;padding:8px 6px}
+  .flow-step-icon{font-size:16px}
+  .flow-step-label{font-size:9px}
+  .flow-arrow{font-size:13px;flex-shrink:0}
+  .quiz-opt,.mch-opt{font-size:12px;padding:9px 11px}
+  .quiz-q{font-size:13px}
+  .game-q{font-size:14px;min-height:40px}
+  .game-opt{font-size:11px;padding:10px 8px}
+  .ch-title{font-size:19px}
+  .card-body{font-size:11px}
+}
+@media(max-width:480px){
+  .cheat-grid{grid-template-columns:1fr}
+  .tab-btn{padding:0 10px;font-size:10px}
+  .ch-title{font-size:17px}
+  .prose{font-size:13px}
+  .game-start-card{padding:24px 16px}
+  .quiz-q-card{padding:16px}
 }
 
 .did-you-know {
@@ -252,6 +275,16 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   line-height: 1.65;
 }
 .did-you-know strong { color: #a5b4fc; }
+
+.credits-bar{background:var(--bg3);border-top:1px solid var(--border);padding:24px 36px;margin-top:40px}
+.credits-title{font-family:var(--display);font-size:10px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:700}
+.credits-grid{display:flex;flex-wrap:wrap;gap:20px}
+.credit-group{flex:1;min-width:160px}
+.credit-group-title{font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:6px;font-family:var(--display)}
+.credit-item{font-size:11px;color:var(--text-muted);line-height:1.7}
+.credit-item a{color:var(--accent2);text-decoration:none}
+.credit-item a:hover{text-decoration:underline}
+@media(max-width:860px){.credits-bar{padding:18px 14px}.credits-grid{flex-direction:column;gap:12px}}
 </style>
 </head>
 <body>
@@ -464,6 +497,30 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
     <div class="tab-panel" id="11-cheat"><div id="cheat-11"></div></div>
   </div>
 </section>
+<div class="credits-bar" id="credits-bar">
+  <div class="credits-title" id="credits-title-label">// Sources &amp; Credits</div>
+  <div class="credits-grid">
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-research">Research &amp; Sources</div>
+      <div class="credit-item">The Linux Documentation Project</div>
+      <div class="credit-item">GNU/Linux man pages</div>
+      <div class="credit-item">TLDP Advanced Bash-Scripting Guide</div>
+      <div class="credit-item">Linux Kernel Documentation</div>
+    </div>
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-tech">Technical Docs</div>
+      <div class="credit-item"><a href="https://man7.org/linux/man-pages/" target="_blank">man7.org</a></div>
+      <div class="credit-item"><a href="https://www.gnu.org/software/bash/manual/" target="_blank">Bash Manual</a></div>
+      <div class="credit-item"><a href="https://kernel.org/doc/" target="_blank">kernel.org docs</a></div>
+    </div>
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-built">Built With</div>
+      <div class="credit-item">Claude (Anthropic) — content &amp; design</div>
+      <div class="credit-item">Vanilla JS + CSS</div>
+      <div class="credit-item" id="credits-version">Version 2.0 — 2025</div>
+    </div>
+  </div>
+</div>
 </main>
 <script>
 const C = {
@@ -495,266 +552,616 @@ he:{
   lbTitle:'// תוצאות',labExplain:'💡 הסבר:',
   points:'נק\'',of:'מתוך',question:'שאלה',
   optLetters:['א','ב','ג','ד'],playerName:'אתה',unknownPlayer:'שחקן',pct:'% נכון',
-  learn:[`<div class="did-you-know">💡 <strong>ידעת?</strong> Linux מריץ 96.3% מהשרתים ב-top 1 מיליון אתרים בעולם, 100% מ-500 מחשבי העל החזקים בעולם, כל מכשיר Android, ו-ISS — תחנת החלל הבינלאומית. את כנראה משתמשת בו עשרות פעמים ביום בלי לדעת.</div>
-<div class="section-title">מה זה Linux?</div>
-<p class="prose">Linux הוא גרעין (kernel) ממשפחת Unix, פותח ב-1991 ע"י Linus Torvalds. הגרעין הוא שכבת התוכנה שמנהלת את החומרה ומספקת שירותים לתוכנות. ה"Linux" שרוב האנשים מכירים הוא בעצם GNU/Linux — גרעין Linux עם כלי GNU.</p>
+  learn:[
+`<div class="did-you-know">💡 <strong>ידעת?</strong> ב-1991, Linus Torvalds היה סטודנט בן 21 בהלסינקי שרצה מערכת הפעלה שתרוץ על המחשב הביתי שלו. הוא כתב הודעה קצרה לפורום: "אני עושה מערכת הפעלה חינמית (כבדרך אגב, רק תחביב)." כיום, 96% מהשרתים בעולם, כל מכשיר Android, ו-100% מהמחשבים העל-יכולת בעולם — מריצים את ה-kernel שלו.</div>
+
+<div class="section-title">מה זה Linux ולמה כולם משתמשים בו?</div>
+<p class="prose">Linux הוא לא מערכת הפעלה שלמה — הוא <em>kernel</em>. ה-kernel הוא הליבה שמנהלת את החומרה: מי מקבל זמן מעבד, מי יכול לגשת לדיסק, איך הזיכרון מחולק. Linux לבדו לא עושה כלום. מה שאנחנו מכירים כ-"Linux" הוא שילוב של Linux kernel עם אלפי תוכניות שפותחו על ידי מפתחים ברחבי העולם תחת רישיון GPL — חינמי לשימוש, שינוי, והפצה.</p>
+<p class="prose">למה Linux ניצח? כי הוא חינמי, יציב, ניתן להתאמה, ורץ על כל דבר — מהגלקסי בכיסך ועד לשרתי Google שמשרתים מיליארדי משתמשים. כשתפתחי שרת cloud, תכתבי Docker container, תבני CI/CD pipeline — את עובדת על Linux. אין בחירה אחרת. זו השפה שהאינטרנט כתוב בה.</p>
+
 <div class="grid-3">
-<div class="card"><div class="card-icon">🐧</div><div class="card-title">Kernel</div><div class="card-body">ליבת המערכת — מנהל CPU, זיכרון, I/O, device drivers ותהליכים.</div></div>
-<div class="card"><div class="card-icon">🔧</div><div class="card-title">GNU Tools</div><div class="card-body">כלי מערכת: bash, ls, grep, gcc. בלעדיהם הגרעין לבדו לא שמיש.</div></div>
-<div class="card"><div class="card-icon">📦</div><div class="card-title">Distros</div><div class="card-body">Ubuntu, Fedora, Debian, Arch — גרעין זהה, ניהול חבילות ותצורה שונים.</div></div>
+<div class="card"><div class="card-icon">🐧</div><div class="card-title">Linux Kernel</div><div class="card-body">ה-kernel עצמו — שכבת התוכנה שמדברת עם החומרה. מנהל memory, CPU scheduling, device drivers, system calls.</div></div>
+<div class="card"><div class="card-icon">🐚</div><div class="card-title">Shell</div><div class="card-body">ממשק שמאפשר לך לדבר עם ה-kernel. Bash, Zsh, Fish — כולם מתרגמים פקודות שלך לsystem calls שה-kernel מבין.</div></div>
+<div class="card"><div class="card-icon">📦</div><div class="card-title">Distribution</div><div class="card-body">Kernel + כלים + package manager + הגדרות. Ubuntu, Debian, Fedora, Arch — הפצות שונות, אותו kernel.</div></div>
 </div>
-<div class="section-title">ארכיטקטורה</div>
+
+<div class="section-title">ארכיטקטורה — כיצד Linux בנוי</div>
+<p class="prose">חשבי על Linux כעוגה בשכבות. בתחתית — החומרה: CPU, RAM, דיסק, כרטיס רשת. מעליה — ה-kernel שמדבר עם החומרה דרך drivers. מעליו — System Libraries (כמו glibc) שמספקות API נוח לתוכנות. ומעל הכל — תוכנות המשתמש: shell, editors, servers, כל מה שמריצים.</p>
 <div class="flow-row">
-  <div class="flow-step"><div class="flow-step-icon">💻</div><div class="flow-step-label">User Space</div></div>
-  <div class="flow-arrow">↕</div>
-  <div class="flow-step"><div class="flow-step-icon">🔌</div><div class="flow-step-label">System Calls</div></div>
-  <div class="flow-arrow">↕</div>
-  <div class="flow-step"><div class="flow-step-icon">⚙️</div><div class="flow-step-label">Kernel Space</div></div>
-  <div class="flow-arrow">↕</div>
-  <div class="flow-step"><div class="flow-step-icon">🖥️</div><div class="flow-step-label">Hardware</div></div>
+  <div class="flow-step"><div class="flow-step-icon">💻</div><div class="flow-step-label">Hardware<br>CPU, RAM, Disk</div></div>
+  <div class="flow-arrow">←</div>
+  <div class="flow-step"><div class="flow-step-icon">🐧</div><div class="flow-step-label">Kernel<br>Drivers, Memory</div></div>
+  <div class="flow-arrow">←</div>
+  <div class="flow-step"><div class="flow-step-icon">📚</div><div class="flow-step-label">Libraries<br>glibc, POSIX</div></div>
+  <div class="flow-arrow">←</div>
+  <div class="flow-step"><div class="flow-step-icon">🐚</div><div class="flow-step-label">Shell<br>Bash, Zsh</div></div>
+  <div class="flow-arrow">←</div>
+  <div class="flow-step"><div class="flow-step-icon">👩‍💻</div><div class="flow-step-label">Apps<br>nginx, python</div></div>
 </div>
-<div class="section-title">הפצות נפוצות</div>
-<div class="table-wrap"><table class="data-table"><thead><tr><th>הפצה</th><th>בסיס</th><th>Package Manager</th><th>שימוש</th></tr></thead><tbody>
-<tr><td>Ubuntu</td><td>Debian</td><td>apt / snap</td><td>Desktop, ענן, מתחילים</td></tr>
-<tr><td>Debian</td><td>-</td><td>apt</td><td>שרתים יציבים</td></tr>
-<tr><td>RHEL/CentOS</td><td>Red Hat</td><td>yum / dnf</td><td>Enterprise</td></tr>
-<tr><td>Fedora</td><td>Red Hat</td><td>dnf</td><td>מפתחים, bleeding edge</td></tr>
-<tr><td>Arch Linux</td><td>-</td><td>pacman</td><td>מתקדמים, גמישות מלאה</td></tr>
-<tr><td>Alpine</td><td>-</td><td>apk</td><td>Docker, minimal</td></tr>
+
+<div class="section-title">הפצות — איזו לבחור ולמה?</div>
+<p class="prose">ההפצה היא "הטעם" של Linux שאת בוחרת. כולן מריצות את אותו kernel, אבל שונות בpackage manager, בתדירות עדכונים, ובקהל היעד. אם את עובדת בענן — כמעט בטוח Ubuntu או Amazon Linux. אם enterprise — Red Hat. אם אהבת ניסויים — Arch.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>הפצה</th><th>Package Manager</th><th>מי משתמש</th><th>מאפיין</th></tr></thead><tbody>
+<tr><td><strong>Ubuntu</strong></td><td>apt</td><td>Developers, Cloud, Desktop</td><td>הנפוצה ביותר, documentation מעולה</td></tr>
+<tr><td><strong>Debian</strong></td><td>apt</td><td>Servers, Sysadmins</td><td>יציבות מעל הכל, עדכונים איטיים</td></tr>
+<tr><td><strong>RHEL / CentOS Stream</strong></td><td>dnf</td><td>Enterprise, בנקים, ממשלות</td><td>תמיכה מסחרית, מחזור חיים ארוך</td></tr>
+<tr><td><strong>Fedora</strong></td><td>dnf</td><td>Developers שרוצים חדש</td><td>bleeding-edge, מה שRedHat יאמץ בעוד שנה</td></tr>
+<tr><td><strong>Arch Linux</strong></td><td>pacman</td><td>Power users</td><td>rolling release, בני תמותה לא מומלצים</td></tr>
+<tr><td><strong>Alpine Linux</strong></td><td>apk</td><td>Docker containers</td><td>5MB בלבד — Docker images זעירים</td></tr>
 </tbody></table></div>
-<div class="callout callout-info"><strong>💡 Kernel vs OS:</strong> Linux = גרעין בלבד. כשאומרים "Linux" ב-server context הכוונה היא לרוב ל-distro שלם כמו Ubuntu 22.04 LTS.</div>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: CrowdStrike — יולי 2024, 8.5M Windows קרסו</div><div class="incident-body">עדכון פגום ל-Falcon sensor גרם ל-8.5M מחשבים ל-BSOD בו-זמנית. טיסות בוטלו, בתי חולים הושבתו, ובנקים נסגרו. הפסד: מעל $5 מיליארד. מערכות Linux הושפעו הרבה פחות — kernel module isolation, rollback מהיר, ו-package management מבוקר. <strong>Update strategy = infrastructure strategy.</strong></div></div>`,
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> כשמוחקים קובץ ב-Linux רק ה-directory entry נמחק — הנתונים נשארים בדיסק עד שמשהו אחר כותב עליהם. כלי שחזור כמו <code class="inline-code">extundelete</code> יכולים להחזיר קבצים "מחוקים".</div>
-<div class="section-title">Filesystem Hierarchy Standard (FHS)</div>
-<div class="table-wrap"><table class="data-table"><thead><tr><th>ספרייה</th><th>תוכן</th></tr></thead><tbody>
-<tr><td><code class="inline-code">/</code></td><td>שורש — כל מה שקיים מתחת לכאן</td></tr>
-<tr><td><code class="inline-code">/etc</code></td><td>קבצי תצורה של המערכת</td></tr>
-<tr><td><code class="inline-code">/var</code></td><td>נתונים משתנים: logs, databases, spool</td></tr>
-<tr><td><code class="inline-code">/home</code></td><td>ספריות בית של משתמשים</td></tr>
-<tr><td><code class="inline-code">/tmp</code></td><td>קבצים זמניים, נמחק ב-reboot</td></tr>
-<tr><td><code class="inline-code">/proc</code></td><td>virtual FS — מידע על תהליכים ו-kernel</td></tr>
-<tr><td><code class="inline-code">/dev</code></td><td>device files — דיסקים, TTY, null</td></tr>
-<tr><td><code class="inline-code">/usr/bin</code></td><td>קבצים הרצאים של משתמשים</td></tr>
-<tr><td><code class="inline-code">/sbin</code></td><td>פקודות admin (shutdown, fdisk...)</td></tr>
+<div class="real-world-box">
+  <div class="real-world-title">🌍 למה DevOps חייבים Linux?</div>
+  <div class="real-world-body">
+    כשמקימים שרת AWS EC2, תקבלי Amazon Linux (מבוסס RHEL) או Ubuntu Server. כשבונים Docker image — הבסיס הוא Alpine או Ubuntu. כשכותבים Kubernetes manifest — ה-nodes רצים Linux. כשמגדירים nginx, PostgreSQL, Redis, Kafka — כולם תוכנות Linux שנוצרו לLinux.<br><br>
+    Windows Server קיים ומשמש בארגונים מסוימים, אבל ב-2025 — אם את בונה web infrastructure, microservices, ו-cloud-native applications — Linux הוא הבית שלך. המוקדם שלומדים אותו, כך חוסכים חודשים של frustration.
+  </div>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> ב-Linux, "הכל הוא קובץ" — זה לא מטאפורה. הדיסק הקשיח שלך? קובץ ב-/dev/sda. כרטיס הרשת? קובץ ב-/dev/eth0. רשימת התהליכים הרצים? קובץ ב-/proc. המדפסת? /dev/lp0. הרעיון הזה מ-1969 עדיין בלב Linux כיום, ומה שהופך אותו לגמיש בצורה שאין לה מקבילה.</div>
+
+<div class="section-title">מבנה תיקיות Linux — מפה לשטח</div>
+<p class="prose">בניגוד ל-Windows שבו כל דיסק מקבל אות משלו (C:, D:), Linux הוא עץ אחד שמתחיל מ-root — הנקודה "/" בראש הכל. מתחת ל-"/" מסתעפות תיקיות שלכל אחת תפקיד מוגדר. זה לא שרירותי — זה תקן FHS (Filesystem Hierarchy Standard) שמגדיר מה שייך לאן.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>תיקייה</th><th>מה יש שם</th><th>דוגמה</th></tr></thead><tbody>
+<tr><td><code>/</code></td><td>Root — שורש כל מה שיש</td><td>הנקודה הגבוהה ביותר</td></tr>
+<tr><td><code>/etc</code></td><td>קבצי תצורה של המערכת</td><td>/etc/nginx/nginx.conf, /etc/passwd</td></tr>
+<tr><td><code>/var</code></td><td>נתונים שמשתנים (logs, databases)</td><td>/var/log/syslog</td></tr>
+<tr><td><code>/usr</code></td><td>תוכנות שמותקנות למשתמשים</td><td>/usr/bin/python3</td></tr>
+<tr><td><code>/home</code></td><td>תיקיות בית של משתמשים</td><td>/home/alice</td></tr>
+<tr><td><code>/tmp</code></td><td>קבצים זמניים — נמחקים ב-reboot</td><td>temp files</td></tr>
+<tr><td><code>/proc</code></td><td>Virtual FS — מידע על processes</td><td>/proc/1234/status</td></tr>
+<tr><td><code>/dev</code></td><td>Device files — כל חומרה</td><td>/dev/sda, /dev/null</td></tr>
 </tbody></table></div>
-<div class="section-title">הרשאות קבצים</div>
-<div class="perm-box">
-  <div class="perm-seg perm-d">d</div>
-  <div class="perm-seg"><span class="perm-r">r</span><span class="perm-w">w</span><span class="perm-x">x</span></div>
-  <div class="perm-seg"><span class="perm-r">r</span><span class="perm-dash">-</span><span class="perm-x">x</span></div>
-  <div class="perm-seg"><span class="perm-r">r</span><span class="perm-dash">-</span><span class="perm-dash">-</span></div>
-</div>
-<p class="prose">סוג · owner (rwx) · group (r-x) · others (r--) · קריאה=4, כתיבה=2, הרצה=1</p>
-<pre class="code-block"><code>chmod 755 script.sh   <span class="comment"># rwxr-xr-x</span>
-chmod u+x file        <span class="comment"># הוסף הרצה ל-owner</span>
-chown alice:devs file <span class="comment"># שנה owner ו-group</span>
-ls -la /etc/passwd    <span class="comment"># -rw-r--r-- 1 root root</span></code></pre>
-<div class="section-title">Inodes ו-Links</div>
-<div class="grid-2">
-<div class="card"><div class="card-icon">🔗</div><div class="card-title">Hard Link</div><div class="card-body">מצביע נוסף לאותו inode. מחיקת המקור לא מוחקת הנתונים. לא עובד על directories או cross-filesystem.</div></div>
-<div class="card"><div class="card-icon">↪️</div><div class="card-title">Symbolic Link (Symlink)</div><div class="card-body">קובץ שמצביע על path. כמו Windows shortcut. עובד על directories, יכול להיות broken.</div></div>
-</div>
-<pre class="code-block"><code>ln /etc/hosts /tmp/hosts_hard  <span class="comment"># hard link</span>
-ln -s /etc/nginx/nginx.conf ~/nginx.conf  <span class="comment"># symlink</span>
-stat /etc/passwd  <span class="comment"># הצג inode, נתונים</span>
-df -i  <span class="comment"># בדוק שימוש ב-inodes</span></code></pre>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: GitLab — מחיקת Production DB בשגגה (2017)</div><div class="incident-body">מהנדס GitLab ניסה למחוק נתונים מ-staging, אבל היה מחובר ל-production. הריץ <code class="inline-code">rm -rf</code> על 300GB. LVM snapshot מ-6 שעות קודם הציל חלקית. אבדו ~6 שעות של נתונים של 5000 משתמשים. <strong>הלקח: production processes לא צריכים הרשאות מחיקה.</strong></div></div>`,
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> grep נקרא על שם פקודת vi: <code class="inline-code">g/re/p</code>. Doug McIlroy המציא את pipe (<code class="inline-code">|</code>) ב-1973 ואמר שזה "הרעיון הכי טוב שיצא מ-Unix". כל pipeline שאת כותבת היום הוא ירושה ישירה ממנו.</div>
-<div class="section-title">ניווט וצפייה בקבצים</div>
-<pre class="code-block"><code>ls -lah --color    <span class="comment"># רשימה מפורטת עם human-readable sizes</span>
-ls -lt             <span class="comment"># מיון לפי זמן שינוי</span>
-find / -name "*.log" -mtime -7  <span class="comment"># קבצי log שהשתנו ב-7 ימים</span>
-find /var -size +100M           <span class="comment"># קבצים גדולים מ-100MB</span>
-tree -L 2 /etc                  <span class="comment"># הצג עץ עומק 2</span></code></pre>
-<div class="section-title">חיפוש ו-Text Processing</div>
-<pre class="code-block"><code>grep -rn "ERROR" /var/log/    <span class="comment"># חפש רקורסיבי עם מספרי שורות</span>
-grep -v "DEBUG" app.log       <span class="comment"># הוצא שורות DEBUG</span>
-grep -E "^(ERROR|WARN)" log   <span class="comment"># regex מורחב</span>
-awk '{print $1,$4}' access.log <span class="comment"># הדפס עמודות 1 ו-4</span>
-sed 's/old/new/g' file.txt    <span class="comment"># החלף טקסט</span>
-cut -d: -f1 /etc/passwd        <span class="comment"># חתוך עמודה 1 (שמות משתמשים)</span>
-sort -k2 -n data.txt | uniq -c <span class="comment"># מיין ומנה ייחודיים</span></code></pre>
-<div class="section-title">Pipes ו-Redirects</div>
-<pre class="code-block"><code>cat access.log | grep 404 | wc -l   <span class="comment"># ספור שגיאות 404</span>
-ps aux | grep nginx | grep -v grep   <span class="comment"># מצא תהליכי nginx</span>
-command > out.txt    <span class="comment"># redirect stdout</span>
-command 2> err.txt   <span class="comment"># redirect stderr</span>
-command &> all.txt   <span class="comment"># שניהם לאותו קובץ</span>
-command >> log.txt   <span class="comment"># append (לא מחליף)</span>
-diff <(sort a.txt) <(sort b.txt)  <span class="comment"># השווה output של פקודות</span></code></pre>
-<div class="callout callout-warn"><strong>⚠️ rm -rf:</strong> אין Trash ב-Linux CLI. <code class="inline-code">rm -rf /</code> מוחק הכל מיידית. תמיד בדקי פעמיים לפני ביצוע!</div>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Knight Capital — $440M נעלמו ב-45 דקות (2012)</div><div class="incident-body">Knight Capital פרסה update ל-8 שרתים — שרת אחד הוחמץ. הסקריפט לא בדק exit codes. תוך 45 דקות: 4M trades שגויים, הפסד $440M. <strong>בדיקת exit codes, <code class="inline-code">set -e</code>, ו-<code class="inline-code">diff</code> לאימות deployment — ההבדל בין deploy רגיל לאסון.</strong></div></div>`,
+<div class="section-title">הרשאות קבצים — rwx ומה שמאחוריהם</div>
+<p class="prose">כשמריצים <code>ls -l</code> ורואים <code>-rwxr-xr--</code> — זה לא אקראי. כל תו מספר סיפור. בואי נפרק את זה לחלקים:</p>
+<pre class="code-block"><code>-rwxr-xr--  2  alice  devs  4096  Jan 15 10:30  script.sh
+│││││││││└─ others: r-- = קריאה בלבד
+│││││││└──── group: r-x = קריאה + הרצה
+│││││└──────── owner: rwx = קריאה + כתיבה + הרצה
+│└──────────── סוג: - = קובץ, d = תיקייה, l = symlink
+└───────────── 10 תווי permissions</code></pre>
+<p class="prose">כל קובץ שייך ל<strong>owner</strong> (בעלים), ל<strong>group</strong> (קבוצה), ולכולם (<strong>others</strong>). לכל אחד יש שלוש הרשאות: r=read (קריאה, ערך=4), w=write (כתיבה, ערך=2), x=execute (הרצה, ערך=1). מחברים לקבל מספר: 7=rwx, 6=rw-, 5=r-x, 4=r--.</p>
+<pre class="code-block"><code><span class="comment"># chmod — שינוי הרשאות</span>
+chmod 755 script.sh   <span class="comment"># owner=rwx, group=r-x, others=r-x</span>
+chmod 600 id_rsa      <span class="comment"># owner=rw-, אחרים=--- (SSH key!)</span>
+chmod +x deploy.sh    <span class="comment"># הוסף הרצה לכולם</span>
+chmod u+x,g-w file    <span class="comment"># symbolic: הוסף x לowner, הסר w מgroup</span>
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> ה-permission model של Linux (rwxrwxrwx) מבוסס על Unix משנות ה-70. כשגוגל מריצה containers, כל אחד רץ כ-user עם הרשאות מינימליות — Principal of Least Privilege. זה הרעיון שמאחורי <code class="inline-code">chmod 600</code> ל-SSH keys.</div>
-<div class="section-title">ניהול משתמשים</div>
-<pre class="code-block"><code>useradd -m -s /bin/bash alice  <span class="comment"># צור משתמש עם home ו-shell</span>
-passwd alice                    <span class="comment"># קבע סיסמה</span>
-usermod -aG sudo alice          <span class="comment"># הוסף ל-group sudo</span>
-userdel -r alice                <span class="comment"># מחק משתמש + home</span>
-id alice                        <span class="comment"># uid=1001 gid=1001 groups=...</span>
-who / w                         <span class="comment"># מי מחובר כרגע</span>
-last -n 20                      <span class="comment"># 20 כניסות אחרונות</span></code></pre>
-<div class="section-title">sudo ו-privileges</div>
-<div class="grid-2">
-<div class="card"><div class="card-icon">⚡</div><div class="card-title">sudo</div><div class="card-body">מריץ פקודה אחת כ-root. מתועד ב-/var/log/auth.log. עדיף על su לכל שימוש.</div></div>
-<div class="card"><div class="card-icon">📋</div><div class="card-title">sudoers</div><div class="card-body">/etc/sudoers מגדיר מי יכול לעשות מה. <code class="inline-code">alice ALL=(ALL) NOPASSWD: /bin/systemctl</code></div></div>
-</div>
-<div class="section-title">chmod — מספרים ו-Symbols</div>
-<div class="table-wrap"><table class="data-table"><thead><tr><th>פקודה</th><th>משמעות</th></tr></thead><tbody>
-<tr><td><code class="inline-code">chmod 755 file</code></td><td>rwxr-xr-x — owner הכל, שאר r+x</td></tr>
-<tr><td><code class="inline-code">chmod 644 file</code></td><td>rw-r--r-- — קבצים רגילים</td></tr>
-<tr><td><code class="inline-code">chmod 600 key</code></td><td>rw------- — SSH private key</td></tr>
-<tr><td><code class="inline-code">chmod +x script</code></td><td>הוסף הרצה לכולם</td></tr>
-<tr><td><code class="inline-code">chmod -R 750 dir</code></td><td>רקורסיבי על כל הספרייה</td></tr>
-</tbody></table></div>
-<div class="callout callout-danger"><strong>🚨 SSH Key Permissions:</strong> אם ה-private key לא <code class="inline-code">chmod 600</code>, SSH יסרב להשתמש בו עם שגיאה "Permissions too open".</div>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Uber Data Breach — 2016, 57M משתמשים</div><div class="incident-body">האקרים מצאו GitHub repo של Uber עם AWS credentials בקוד. גישה ל-S3 buckets עם נתוני 57M משתמשים. Uber שילמה $100K לשתיקה. <strong><code class="inline-code">chmod 600</code> על credentials, <code class="inline-code">.gitignore</code> ל-<code class="inline-code">*.env</code>, <code class="inline-code">git-secrets</code> — credentials בקוד = פרצה מובטחת.</strong></div></div>`,
+<span class="comment"># chown — שינוי בעלות</span>
+chown alice:devs file     <span class="comment"># owner=alice, group=devs</span>
+chown -R www-data /var/www <span class="comment"># recursive — לכל מה שבתיקייה</span></code></pre>
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> כשהדפדפן קופא ולוחצים Force Quit — זה SIGKILL. גם ב-macOS, גם ב-Windows. כל process manager מודרני — Docker, Kubernetes, systemd — משתמש באותם signals שהומצאו ב-Unix בשנות ה-70.</div>
-<div class="section-title">צפייה ב-Processes</div>
-<pre class="code-block"><code>ps aux                  <span class="comment"># כל התהליכים עם %CPU, %MEM</span>
-ps aux --sort=-%cpu | head -10  <span class="comment"># top 10 לפי CPU</span>
-pstree -p               <span class="comment"># עץ תהליכים עם PIDs</span>
-top / htop              <span class="comment"># real-time (htop = צבעוני ויותר ידידותי)</span>
-lsof -p 1234            <span class="comment"># קבצים פתוחים של process 1234</span>
-lsof -i :80             <span class="comment"># מי מאזין על port 80</span></code></pre>
-<div class="section-title">Signals ו-Kill</div>
-<div class="table-wrap"><table class="data-table"><thead><tr><th>Signal</th><th>מספר</th><th>משמעות</th></tr></thead><tbody>
-<tr><td>SIGTERM</td><td>15</td><td>בקשה נעימה לסיום (ניתן לתפוס)</td></tr>
-<tr><td>SIGKILL</td><td>9</td><td>הרג מיידי — לא ניתן לתפוס</td></tr>
-<tr><td>SIGHUP</td><td>1</td><td>Reload config (nginx, sshd...)</td></tr>
-<tr><td>SIGINT</td><td>2</td><td>Ctrl+C מהטרמינל</td></tr>
-<tr><td>SIGSTOP</td><td>19</td><td>עצור תהליך (Ctrl+Z)</td></tr>
-</tbody></table></div>
-<pre class="code-block"><code>kill -15 1234    <span class="comment"># בקש סיום מסודר</span>
-kill -9 1234     <span class="comment"># הרג בכוח (אחרון בתור)</span>
-killall nginx    <span class="comment"># הרג לפי שם</span>
-pkill -u alice   <span class="comment"># הרג כל תהליכי משתמש alice</span></code></pre>
-<div class="section-title">Jobs ו-Background</div>
-<pre class="code-block"><code>command &         <span class="comment"># הרץ ב-background</span>
-jobs              <span class="comment"># הצג background jobs</span>
-fg %1             <span class="comment"># החזר job 1 ל-foreground</span>
-bg %1             <span class="comment"># המשך job 1 ב-background</span>
-nohup cmd &       <span class="comment"># המשך לרוץ אחרי logout</span>
-disown %1         <span class="comment"># נתק job מה-shell</span></code></pre>
-<div class="section-title">Cron</div>
-<pre class="code-block"><code>crontab -e   <span class="comment"># ערוך cron jobs</span>
-<span class="comment"># דקה שעה יום-בחודש חודש יום-בשבוע</span>
-0 2 * * * /backup.sh    <span class="comment"># כל יום ב-02:00</span>
-*/5 * * * * check.sh    <span class="comment"># כל 5 דקות</span>
-0 0 1 * * monthly.sh    <span class="comment"># ראשון בכל חודש</span></code></pre>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Amazon AWS US-East-1 — 2017, חצי האינטרנט נפל</div><div class="incident-body">מהנדס AWS ניסה להסיר מספר קטן של servers. טעות בפקודה הסירה הרבה יותר. S3 crashed — Slack, GitHub, Quora, Trello down. נזק: $150M+. <strong><code class="inline-code">Restart=always</code> ב-systemd, monitoring, graceful shutdown — תהליך שמת בשקט גרוע מתהליך שקורס ומרים alarm.</strong></div></div>`,
+<div class="section-title">Inodes — מה Linux באמת שומר על קבצים</div>
+<p class="prose">ב-Linux, שם הקובץ והנתונים שלו הם שני דברים נפרדים. ה-inode הוא הרשומה הפנימית שמכילה את כל המידע על קובץ: גודל, הרשאות, timestamps, ואיפה הנתונים בדיסק — אבל לא את השם. השם הוא רק pointer ל-inode. זה מאפשר דברים מרתקים:</p>
+<pre class="code-block"><code><span class="comment"># Hard link — שני שמות לאותו inode</span>
+ln file.txt backup.txt
+<span class="comment"># מחיקת file.txt לא מוחקת הנתונים — backup.txt עדיין מצביע ל-inode</span>
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> SSH הומצא ב-1995 על ידי Tatu Ylönen אחרי שגילה שמישהו sniff את הרשת באוניברסיטה שלו ואוסף סיסמאות. הוא כתב SSH ב-2 שבועות. כל חיבור SSH שאת פותחת היום משתמש בפרוטוקול שכתב אדם אחד בתגובה לאירוע אמיתי.</div>
-<div class="section-title">כלי רשת בסיסיים</div>
-<pre class="code-block"><code>ip addr show           <span class="comment"># כל ה-interfaces וה-IPs</span>
-ip route show          <span class="comment"># טבלת routing</span>
-ip link set eth0 up    <span class="comment"># הדלק interface</span>
-ss -tulnp              <span class="comment"># ports פתוחים עם תהליכים (חדיש)</span>
-netstat -tulnp         <span class="comment"># ישן אך נפוץ</span>
-ping -c 4 8.8.8.8      <span class="comment"># בדוק connectivity</span>
-traceroute google.com  <span class="comment"># נתיב packets</span>
-curl -I https://site   <span class="comment"># בדוק HTTP headers</span>
-wget -O - url          <span class="comment"># הורד ל-stdout</span></code></pre>
-<div class="section-title">SSH</div>
-<pre class="code-block"><code>ssh user@host              <span class="comment"># חיבור בסיסי</span>
-ssh -i ~/.ssh/key user@h   <span class="comment"># עם private key</span>
-ssh -L 8080:localhost:80 h <span class="comment"># local port forwarding</span>
-ssh-keygen -t ed25519      <span class="comment"># צור keypair (ed25519 מומלץ)</span>
-ssh-copy-id user@host      <span class="comment"># העתק public key לשרת</span>
-scp file user@host:/path   <span class="comment"># העתק קובץ</span>
-rsync -avz src/ user@h:dst <span class="comment"># sync ספריות</span></code></pre>
-<div class="section-title">iptables / firewall</div>
-<pre class="code-block"><code><span class="comment"># UFW (Ubuntu — פשוט)</span>
-ufw allow 22/tcp
-ufw allow 80/tcp
-ufw enable
-ufw status verbose
+<span class="comment"># Soft link (symlink) — קיצור דרך</span>
+ln -s /var/log/nginx/access.log ~/logs/nginx
+<span class="comment"># כמו shortcut ב-Windows — אם מקור נמחק, הlink שבור</span>
 
-<span class="comment"># iptables (מורכב יותר)</span>
-iptables -L -n -v          <span class="comment"># הצג חוקים</span>
-iptables -A INPUT -p tcp --dport 443 -j ACCEPT</code></pre>
-<div class="callout callout-danger"><strong>🚨 Always allow SSH before enabling firewall!</strong> אם תחסמי port 22 לפני שמוודאים שהוא פתוח — תאבדי גישה לשרת.</div>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: SolarWinds — 2020, פריצה לתשתיות ממשלת ארה"ב</div><div class="incident-body">האקרים שתלו backdoor ב-SolarWinds update. 18,000 ארגונים כולל NSA ו-Pentagon התקינו. ה-backdoor פתח reverse SSH tunnel. <strong><code class="inline-code">ss -tulnp</code> — connections חשודים, <code class="inline-code">last</code>/<code class="inline-code">lastb</code> — login history חריג. Network monitoring הוא לא פרנויה — זה hygiene.</strong></div></div>`,
+<span class="comment"># בדיקת inode number</span>
+ls -li file.txt backup.txt
+<span class="comment"># אם מספר ה-inode זהה — hard link</span></code></pre>
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> חבילת npm <code class="inline-code">left-pad</code> — 11 שורות קוד — הוסרה ב-2016 ושברה אלפי פרויקטים כולל React. XZ Utils backdoor 2024 הראה שתוקפים מוכנים להשקיע שנתיים להכניס שורה אחת של קוד זדוני לpackage.</div>
-<div class="section-title">apt (Debian/Ubuntu)</div>
-<pre class="code-block"><code>apt update               <span class="comment"># עדכן רשימת חבילות</span>
-apt upgrade              <span class="comment"># עדכן חבילות מותקנות</span>
-apt install nginx        <span class="comment"># התקן</span>
-apt remove nginx         <span class="comment"># הסר (שמור config)</span>
-apt purge nginx          <span class="comment"># הסר הכל כולל config</span>
-apt autoremove           <span class="comment"># נקה תלויות לא נדרשות</span>
-apt search "web server"  <span class="comment"># חפש חבילות</span>
-apt show nginx           <span class="comment"># פרטי חבילה</span>
-dpkg -l | grep nginx     <span class="comment"># בדוק אם מותקן</span></code></pre>
-<div class="section-title">dnf/yum (RHEL/Fedora)</div>
-<pre class="code-block"><code>dnf install httpd        <span class="comment"># התקן</span>
-dnf update               <span class="comment"># עדכן הכל</span>
-dnf search nginx         <span class="comment"># חפש</span>
-dnf list installed       <span class="comment"># מותקנים</span>
-rpm -qa | grep nginx     <span class="comment"># בדוק עם rpm</span></code></pre>
-<div class="section-title">Compile from Source</div>
-<pre class="code-block"><code>./configure --prefix=/usr/local
-make -j\$(nproc)          <span class="comment"># compile עם כל הcores</span>
-make install
-make uninstall           <span class="comment"># אם תומך</span></code></pre>
-<div class="callout callout-info"><strong>💡 snap vs flatpak vs AppImage:</strong> snap = Ubuntu, flatpak = Fedora/Universal, AppImage = no install needed. לserver — תמיד העדף package manager של ה-distro.</div>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: XZ Utils Backdoor — 2024, backdoor בספריית compression</div><div class="incident-body">תוקף בילה שנתיים בבניית אמון בפרויקט XZ Utils (נמצאת בכל Linux distro). הוסיף backdoor ל-SSH login ללא סיסמה. התגלה במקרה ע"י מהנדס Microsoft שהבחין ב-500ms overhead ב-SSH. <strong><code class="inline-code">apt-mark hold xz-utils</code>, <code class="inline-code">debsums -c</code> — supply chain attack, הסיכון הכי קשה לזיהוי.</strong></div></div>`,
+<div class="real-world-box">
+  <div class="real-world-title">🌍 למה chmod 600 על SSH keys?</div>
+  <div class="real-world-body">
+    כשמנסים להתחבר ב-SSH עם key שהרשאות שלו "פתוחות מדי", SSH מסרב עם שגיאה: "Permissions 0644 for id_rsa are too open." למה? כי SSH מניח שאם אחרים יכולים לקרוא את ה-private key שלך — ה-key נפגע.<br><br>
+    600 = rw------- = רק owner יכול לקרוא ולכתוב. אף אחד אחר לא רואה כלום. זה לא נוחות — זה דרישת אבטחה שSSH enforces בקפדנות. כלל אצבע: כל private key, קובץ עם סיסמאות, ו-.env — chmod 600 תמיד.
+  </div>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> Doug McIlroy המציא את pipe ( | ) ב-1973 ואמר שזה "הרעיון הכי טוב שיצא מ-Unix." כל pipeline שאת כותבת היום — cat file | grep error | sort | uniq -c — הוא ירושה ישירה ממנו. במקום תוכנות ענקיות שעושות הכל, Unix בנה כלים קטנים שכל אחד עושה דבר אחד מצוין — ומחבר אותם יחד.</div>
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> Apollo 11 ב-1969 נחת על הירח עם 4KB RAM. סקריפטי bash שאת כותבת היום חזקים ממנו פי 4 מיליון. כוח bash נמצא בפשטות — כלים קטנים שעושים דבר אחד ועושים אותו טוב.</div>
-<div class="section-title">Bash Script בסיסי</div>
-<pre class="code-block"><code>#!/bin/bash
-set -euo pipefail   <span class="comment"># exit on error, undefined vars, pipe fails</span>
+<div class="section-title">ניווט וצפייה בקבצים — הבסיס שחוזרים אליו</div>
+<p class="prose">לפני שרצים ל-vim ו-docker — צריך לדעת לנוע. הפקודות האלה הן כמו ללכת ברחוב: pwd אומרת "איפה אני", cd מזיזה, ls מראה מה סביבי. נשמע פשוט — אבל flags הנכונים חוסכים דקות של scroll.</p>
+<pre class="code-block"><code><span class="comment"># ls — הרשמה האמיתית</span>
+ls -lah           <span class="comment"># l=long, a=hidden files, h=human readable sizes</span>
+ls -lt            <span class="comment"># מיון לפי זמן שינוי (החדש ביותר למעלה)</span>
+ls -lS            <span class="comment"># מיון לפי גודל</span>
+ls -R /etc        <span class="comment"># recursive — כל תת-תיקייה</span>
 
-NAME="World"
-echo "Hello, \${NAME}!"
+<span class="comment"># find — חיפוש קבצים (חזק מgrep לחיפוש לפי metadata)</span>
+find /var/log -name "*.log" -mtime -7    <span class="comment"># logs שהשתנו ב-7 ימים האחרונים</span>
+find /home -size +100M -type f           <span class="comment"># קבצים גדולים מ-100MB</span>
+find . -perm /222 -type f               <span class="comment"># קבצים שניתן לכתוב אליהם</span>
+find /tmp -name "*.tmp" -delete          <span class="comment"># מצא ומחק</span></code></pre>
+
+<div class="section-title">grep — אמנות החיפוש בטקסט</div>
+<p class="prose">grep הוא אחד הכלים הכי חזקים שיש לך. הוא קורא שורות, בודק אם הן תואמות pattern, ומחזיר את אלה שכן. מה שהופך אותו לחזק הם ה-flags — כל אחד מוסיף יכולת.</p>
+<pre class="code-block"><code><span class="comment"># grep — חיפוש בסיסי ומתקדם</span>
+grep "ERROR" app.log               <span class="comment"># חפש "ERROR" בקובץ</span>
+grep -i "error" app.log            <span class="comment"># case-insensitive</span>
+grep -n "ERROR" app.log            <span class="comment"># הצג מספרי שורות</span>
+grep -r "TODO" ./src               <span class="comment"># recursive בכל ה-src</span>
+grep -v "DEBUG" app.log            <span class="comment"># הוצא שורות עם DEBUG (invert)</span>
+grep -c "ERROR" app.log            <span class="comment"># ספור כמה שורות</span>
+grep -A 3 "CRITICAL" app.log       <span class="comment"># 3 שורות אחרי כל match</span>
+grep -E "^(ERROR|WARN)" app.log    <span class="comment"># Extended regex — OR</span>
+
+<span class="comment"># awk — עיבוד עמודות</span>
+awk '{print $1, $4}' access.log    <span class="comment"># הדפס עמודה 1 ו-4</span>
+awk -F: '{print $1}' /etc/passwd   <span class="comment"># delimiter=: פרינט username</span>
+awk '$7 == 404' access.log         <span class="comment"># שורות שה-status code הוא 404</span>
+
+<span class="comment"># sed — חיפוש והחלפה</span>
+sed 's/old/new/g' file.txt         <span class="comment"># החלף כל "old" ב-"new"</span>
+sed -i 's/localhost/prod.db/g' config.env  <span class="comment"># ישירות בקובץ (-i = in-place)</span>
+sed -n '10,20p' file.txt           <span class="comment"># הדפס שורות 10 עד 20</span></code></pre>
+
+<div class="section-title">Pipes ו-Redirects — הדבק שמחבר הכל</div>
+<p class="prose">Pipe ( | ) לוקח את ה-output של פקודה אחת ומזין אותו כ-input לפקודה הבאה. זה הרעיון שבנה את Unix. כל כלי עושה דבר אחד מצוין — ו-pipe מחבר אותם לpipeline חזק.</p>
+<pre class="code-block"><code><span class="comment"># Redirects — ניתוב output</span>
+command > file.txt     <span class="comment"># כתוב output לקובץ (דרוס)</span>
+command >> file.txt    <span class="comment"># הוסף לסוף הקובץ (append)</span>
+command 2> errors.txt  <span class="comment"># כתוב stderr לקובץ</span>
+command &> all.txt     <span class="comment"># stdout + stderr יחד</span>
+command < input.txt    <span class="comment"># קרא stdin מקובץ</span>
+command 2>/dev/null    <span class="comment"># זרוק שגיאות לאפס</span>
+
+<span class="comment"># Pipelines אמיתיים שתשתמשי בהם</span>
+cat access.log | grep "404" | awk '{print $7}' | sort | uniq -c | sort -rn | head -10
+<span class="comment"># ← מוצאת 10 ה-URLs הכי נפוצות עם 404</span>
+
+ps aux | grep nginx | grep -v grep | awk '{print $2}'
+<span class="comment"># ← מוצאת PIDs של nginx processes</span>
+
+df -h | awk 'NR>1 {print $5, $6}' | sort -rn
+<span class="comment"># ← מוצאת partition-ים עם אחוז שימוש גבוה</span></code></pre>
+
+<div class="section-title">כלי טקסט חיוניים</div>
+<pre class="code-block"><code><span class="comment"># צפייה בקבצים</span>
+cat file.txt          <span class="comment"># הדפס כל הקובץ</span>
+less file.txt         <span class="comment"># דפדוף (q ליציאה, /search)</span>
+head -n 20 file.txt   <span class="comment"># 20 שורות ראשונות</span>
+tail -n 50 file.txt   <span class="comment"># 50 שורות אחרונות</span>
+tail -f /var/log/syslog  <span class="comment"># live — עוקב אחרי קובץ בזמן אמת</span>
+wc -l file.txt        <span class="comment"># ספור שורות</span>
+
+<span class="comment"># sort ו-uniq — לניתוח נתונים</span>
+sort -u names.txt         <span class="comment"># מיון + הסרת כפילויות</span>
+sort -rn numbers.txt      <span class="comment"># מיון מספרי הפוך</span>
+uniq -c sorted.txt        <span class="comment"># ספור כפילויות (חייב sort לפני)</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 One-liner שחוסך שעות: ניתוח access log</div>
+  <div class="real-world-body">
+    השרת איטי? לפני שפותחים APM יקר, מריצים:<br>
+    <code>cat /var/log/nginx/access.log | awk '{print $7}' | sort | uniq -c | sort -rn | head -20</code><br><br>
+    תקבלי את 20 ה-endpoints הכי נפוצים. אם /api/search מופיע 50,000 פעם ב-hour ו-/api/checkout פעם אחת — יש לך caching opportunity ברורה. ניתוח שDBA גובה עליו $500 — נגמר ב-10 שניות עם pipes.
+  </div>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> ה-permission model של Linux מבוסס על Unix משנות ה-70 — ועדיין מהווה ברית ברזל של אבטחה. כשגוגל, אמזון ומיקרוסופט מריצות containers בשרתים שלהן, כל container רץ כ-user עם UID ייחודי, permissions מינימליות, ומבודד מה-host. Principle of Least Privilege — העיקרון שכל משתמש וכל תהליך מקבלים בדיוק מה שהם צריכים ולא יותר — הוא עמוד השדרה של כל מערכת לינוקס מאובטחת.</div>
+
+<div class="section-title">משתמשים וקבוצות — מי הם ומה הם עושים</div>
+<p class="prose">בLinux, כל תהליך שרץ, כל קובץ שנשמר, כל פעולה שמבוצעת — שייכת למשתמש. root הוא המשתמש הכי-עוצמתי — הוא יכול הכל, לגעת בכל קובץ, להרוג כל תהליך, למחוק את עצמו. לכן עובדים עם users רגילים ומשתמשים ב-sudo רק כשצריך, ולא יותר.</p>
+<pre class="code-block"><code><span class="comment"># ניהול משתמשים</span>
+useradd -m -s /bin/bash alice      <span class="comment"># -m=צור home, -s=default shell</span>
+passwd alice                        <span class="comment"># קבע/שנה סיסמה</span>
+usermod -aG sudo alice             <span class="comment"># הוסף לgroup sudo (-a=append!)</span>
+usermod -aG docker alice           <span class="comment"># הוסף לgroup docker</span>
+userdel -r alice                   <span class="comment"># מחק משתמש + home (-r=remove home)</span>
+
+<span class="comment"># מידע על משתמשים</span>
+id alice                           <span class="comment"># uid=1001 gid=1001 groups=1001,27(sudo)</span>
+whoami                             <span class="comment"># מי אני עכשיו</span>
+who                                <span class="comment"># מי מחובר</span>
+last -n 20                         <span class="comment"># 20 כניסות אחרונות</span>
+cat /etc/passwd | grep alice       <span class="comment"># שורת passwd: user:x:uid:gid:name:home:shell</span>
+
+<span class="comment"># קבוצות</span>
+groupadd devteam                   <span class="comment"># צור קבוצה</span>
+gpasswd -a alice devteam           <span class="comment"># הוסף משתמש לקבוצה</span>
+groups alice                       <span class="comment"># אילו קבוצות יש לalice</span></code></pre>
+
+<div class="section-title">sudo — הדרך הנכונה לבצע פעולות root</div>
+<p class="prose">sudo (Super User DO) מאפשר למשתמש רגיל לבצע פקודות ספציפיות כ-root — עם log של כל פעולה, עם דרישת סיסמה, ועם שליטה מדויקת על מה מותר. זו הדרך הנכונה לתת הרשאות — לא "פשוט תיכנסו כroot".</p>
+<pre class="code-block"><code><span class="comment"># שימוש ב-sudo</span>
+sudo apt update                    <span class="comment"># הרץ פקודה אחת כroot</span>
+sudo -u postgres psql              <span class="comment"># הרץ כמשתמש ספציפי</span>
+sudo -i                            <span class="comment"># פתח shell כroot (שים לב!)</span>
+sudo !!                            <span class="comment"># הרץ מחדש את הפקודה האחרונה עם sudo</span>
+
+<span class="comment"># /etc/sudoers — מי יכול מה</span>
+<span class="comment"># ערוך תמיד עם visudo — מונע שגיאות תחביר שיסגרו אותך</span>
+sudo visudo
+
+<span class="comment"># דוגמאות לrules:</span>
+alice ALL=(ALL:ALL) ALL            <span class="comment"># alice יכולה הכל</span>
+bob ALL=(ALL) NOPASSWD: /bin/systemctl restart nginx  <span class="comment"># בלי סיסמה לפקודה ספציפית</span>
+%devteam ALL=(ALL) /usr/bin/apt    <span class="comment"># כל קבוצת devteam יכולה apt</span></code></pre>
+
+<div class="section-title">chmod ו-chown — שליטה מלאה בהרשאות</div>
+<p class="prose">chmod ו-chown הן שתי הפקודות הכי חשובות לניהול הרשאות. chmod משנה <em>מה מותר לעשות</em> עם קובץ. chown משנה <em>למי שייך</em> הקובץ.</p>
+<pre class="code-block"><code><span class="comment"># chmod — שינוי הרשאות (numeric)</span>
+chmod 755 script.sh    <span class="comment"># rwxr-xr-x: owner=rwx, group=r-x, others=r-x</span>
+chmod 644 index.html   <span class="comment"># rw-r--r--: owner=rw, כולם=r</span>
+chmod 600 ~/.ssh/id_rsa  <span class="comment"># rw-------: רק owner, SSH key!</span>
+chmod 700 private_dir  <span class="comment"># rwx------: רק owner רואה</span>
+
+<span class="comment"># chmod — symbolic (קריא יותר)</span>
+chmod u+x script.sh    <span class="comment"># הוסף execute לuser</span>
+chmod g-w file.txt     <span class="comment"># הסר write מgroup</span>
+chmod o= file.txt      <span class="comment"># הסר הכל מothers</span>
+chmod -R 755 /var/www  <span class="comment"># recursive לכל התיקייה</span>
+
+<span class="comment"># chown — שינוי בעלות</span>
+chown alice file.txt          <span class="comment"># שנה owner</span>
+chown alice:devs file.txt     <span class="comment"># שנה owner + group</span>
+chown -R www-data:www-data /var/www  <span class="comment"># recursive</span>
+
+<span class="comment"># umask — ברירת מחדל לקבצים חדשים</span>
+umask 022              <span class="comment"># קבצים חדשים יוצאים 644, תיקיות 755</span>
+umask 077              <span class="comment"># קבצים חדשים יוצאים 600 — פרטיות מקסימלית</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 הרשאות שגויות — הטעות הכי נפוצה ב-production</div>
+  <div class="real-world-body">
+    תרחיש אמיתי שקורה כל הזמן: מפתח מעלה קבצים לשרת nginx ורץ <code>chmod 777 /var/www/html</code> כי "זה הכי קל". הוא צודק — זה עובד. אבל עכשיו כל משתמש בשרת (כולל www-data שמריץ nginx, כולל ה-attacker שמצא injection) יכול לכתוב קבצים לשם.<br><br>
+    הגדרה נכונה: <code>chown -R www-data:www-data /var/www/html</code> + <code>chmod -R 755 /var/www/html</code>. nginx יכול לקרוא. המפתח (אם באותה group) יכול לכתוב. כולם אחרים — קריאה בלבד.
+  </div>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> כל תוכנית שרצה ב-Linux היא תהליך (process) עם PID ייחודי. גם ה-shell שאת עובדת בו הוא תהליך. גם הbrowser שפתח את הקורס הזה. systemd עם PID 1 הוא ה-"אב" של כל התהליכים — הדבר הראשון שה-kernel מריץ, שמריץ כל השאר.</div>
+
+<div class="section-title">מה קורה כשמריצים פקודה?</div>
+<p class="prose">כשמקלידים <code>python3 server.py</code> ולוחצים Enter, הshell קורא ל-fork() — יוצר עותק של עצמו — ואחר כך קורא ל-exec() שמחליף את העותק בתוכנית החדשה. ה-process החדש מקבל PID משלו, יורש environment variables, ו-file descriptors מהshell, ומתחיל לרוץ.</p>
+<pre class="code-block"><code><span class="comment"># ps — Process Status</span>
+ps aux                   <span class="comment"># כל התהליכים + user, CPU, RAM, command</span>
+ps aux | grep nginx      <span class="comment"># מצא תהליכי nginx</span>
+ps -ef --forest          <span class="comment"># עץ תהליכים — מי הוליד מי</span>
+
+<span class="comment"># top / htop — מוניטור real-time</span>
+top                      <span class="comment"># קרא: CPU%, MEM%, PID, COMMAND</span>
+htop                     <span class="comment"># גרסה יפה יותר (צריך apt install htop)</span>
+<span class="comment"># ב-top: P=מיין לפי CPU, M=לפי RAM, k=kill, q=quit</span>
+
+<span class="comment"># pgrep/pkill — חיפוש לפי שם</span>
+pgrep nginx              <span class="comment"># החזר PIDs של nginx</span>
+pgrep -la python         <span class="comment"># PIDs + command line</span>
+
+<span class="comment"># מידע על תהליך ספציפי</span>
+ls /proc/1234/           <span class="comment"># כל המידע על PID 1234</span>
+cat /proc/1234/status    <span class="comment"># state, memory, uid</span>
+lsof -p 1234             <span class="comment"># קבצים שפתוחים על ידי process</span></code></pre>
+
+<div class="section-title">Signals — שפת התקשורת עם תהליכים</div>
+<p class="prose">הדרך לדבר עם תהליכים היא דרך signals. Signal הוא הודעה קצרה שה-kernel שולח לתהליך. לכל signal יש מספר ושם. חלקם אפשר לתפוס ולטפל בהם, חלקם אי אפשר.</p>
+<pre class="code-block"><code><span class="comment"># Signals חשובים</span>
+kill -15 PID    <span class="comment"># SIGTERM — "אנא סגור בצורה מסודרת" (ברירת מחדל)</span>
+kill -9 PID     <span class="comment"># SIGKILL — "מת עכשיו, אין ברירה" (לא ניתן לתפוס)</span>
+kill -1 PID     <span class="comment"># SIGHUP — "reload config" (nginx, apache)</span>
+kill -2 PID     <span class="comment"># SIGINT — מה שCtrl+C שולח</span>
+
+<span class="comment"># killall / pkill — לפי שם</span>
+killall nginx           <span class="comment"># SIGTERM לכל nginx</span>
+pkill -9 python         <span class="comment"># SIGKILL לכל python</span>
+pkill -HUP nginx        <span class="comment"># reload nginx</span>
+
+<span class="comment"># תמיד נסי SIGTERM לפני SIGKILL</span>
+<span class="comment"># SIGKILL לא מאפשר cleanup — נתונים עלולים לאבד</span></code></pre>
+
+<div class="section-title">Background Jobs ו-nohup</div>
+<p class="prose">כשרצים תהליך בשרת, לא רוצים שהוא יפסיק כשסוגרים את הsession. יש כמה דרכים להשאיר תהליכים חיים:</p>
+<pre class="code-block"><code><span class="comment"># & — הרץ ב-background</span>
+python3 server.py &         <span class="comment"># מחזיר PID, ממשיכה לעבוד</span>
+jobs                        <span class="comment"># רשימת background jobs</span>
+fg 1                        <span class="comment"># החזר job 1 ל-foreground</span>
+bg 1                        <span class="comment"># המשך job 1 ב-background</span>
+
+<span class="comment"># nohup — המשך גם אחרי logout</span>
+nohup python3 server.py > server.log 2>&1 &
+<span class="comment"># nohup: מתעלם מSIGHUP</span>
+<span class="comment"># > server.log: stdout לקובץ</span>
+<span class="comment"># 2>&1: stderr גם לשם</span>
+<span class="comment"># &: ב-background</span>
+
+<span class="comment"># screen / tmux — הרבה יותר טוב מnohup</span>
+screen -S mysession    <span class="comment"># פתח session חדשה</span>
+<span class="comment"># Ctrl+A D לנתק (הsession ממשיכה)</span>
+screen -r mysession    <span class="comment"># חזור לsession</span></code></pre>
+
+<div class="section-title">Cron — תזמון משימות</div>
+<p class="prose">Cron הוא scheduler שמריץ פקודות בזמנים מוגדרים. כל user יכול להגדיר cron jobs משלו. הsyntax נראה מפחיד בהתחלה אבל יש pattern פשוט.</p>
+<pre class="code-block"><code><span class="comment"># crontab -e — ערוך cron jobs</span>
+# דקה  שעה  יום_בחודש  חודש  יום_בשבוע  פקודה
+  0     2      *          *      *         /home/alice/backup.sh
+  <span class="comment"># ← כל יום ב-2:00 בלילה</span>
+
+  */15  *      *          *      *         /usr/bin/check_health.sh
+  <span class="comment"># ← כל 15 דקות</span>
+
+  0     9      *          *      1         /home/alice/weekly_report.py
+  <span class="comment"># ← כל שני ב-9:00</span>
+
+  0     0      1          *      *         /usr/bin/monthly_cleanup.sh
+  <span class="comment"># ← ב-1 לכל חודש</span>
+
+<span class="comment"># crontab -l — הצג jobs</span>
+<span class="comment"># crontab -r — מחק הכל (היזהרי!)</span>
+
+<span class="comment"># לוגים של cron</span>
+grep CRON /var/log/syslog   <span class="comment"># Ubuntu</span>
+journalctl -u cron          <span class="comment"># systemd</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 SIGTERM vs SIGKILL — הטעות של Beginners</div>
+  <div class="real-world-body">
+    כשתהליך לא מגיב, הreaction הראשוני הוא <code>kill -9</code>. זה עובד — אבל יכול לגרום נזק. אפליקציה שמבצעת כתיבה למסד נתונים ומקבלת SIGKILL — עלולה להשאיר transaction פתוחה, לשחית נתונים, או להשאיר lock שלא ישוחרר.<br><br>
+    הסדר הנכון: (1) <code>kill -15 PID</code> — אנא צא בצורה מסודרת. המתן 10 שניות. (2) עדיין חי? <code>kill -9 PID</code>. SIGTERM נותן לתהליך להתנקות: לסגור connections, לשמור state, לשחרר locks. SIGKILL הוא emergency brake — רק כשאין ברירה.
+  </div>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> כשמריצים פינג לשרת שנמצא ביפן מישראל, הpackets עוברים דרך עשרות routers ב-4 יבשות — ומחזירים תשובה בפחות מ-200ms. כל ה-routing, ה-NAT, ה-DNS — עובד שקוף מאחורי הקלעים. הפקודות שנלמד כאן חושפות בדיוק מה קורה.</div>
+
+<div class="section-title">כלי אבחון רשת — הסיפור מאחורי הפקודות</div>
+<p class="prose">לפני שנלמד את הפקודות, חשוב להבין מה הן בודקות. רשת Linux פועלת בשכבות: physical (כרטיס רשת), network (IP), transport (TCP/UDP), application. כל כלי בודק שכבה שונה — וביחד הם נותנים תמונה מלאה.</p>
+<pre class="code-block"><code><span class="comment"># ip — הכלי המודרני (מחליף ifconfig)</span>
+ip addr                    <span class="comment"># כל ה-interfaces + IP addresses</span>
+ip addr show eth0          <span class="comment"># ספציפי לinterface</span>
+ip route                   <span class="comment"># routing table — איפה כל packet יוצא</span>
+ip route add 10.0.0.0/8 via 192.168.1.1  <span class="comment"># הוסף route</span>
+ip link set eth0 up/down   <span class="comment"># הדלק/כבה interface</span>
+
+<span class="comment"># ss — בדיקת ports ו-connections (מחליף netstat)</span>
+ss -tlnp                   <span class="comment"># t=TCP, l=listening, n=numeric, p=process</span>
+ss -tulnp                  <span class="comment"># גם UDP</span>
+ss -tnp | grep ESTABLISHED <span class="comment"># חיבורים פעילים</span>
+ss -tnp sport = :443       <span class="comment"># רק port 443</span>
+
+<span class="comment"># ping ו-traceroute</span>
+ping -c 4 google.com       <span class="comment"># 4 packets — בדיקת חיבור</span>
+traceroute google.com      <span class="comment"># כל ה-hops בדרך</span>
+mtr google.com             <span class="comment"># traceroute + ping real-time (apt install mtr)</span>
+
+<span class="comment"># DNS</span>
+nslookup google.com        <span class="comment"># שאל DNS</span>
+dig google.com A           <span class="comment"># DNS query מפורט</span>
+dig +short google.com      <span class="comment"># רק ה-IPs</span>
+cat /etc/resolv.conf       <span class="comment"># DNS servers שמוגדרים</span>
+cat /etc/hosts             <span class="comment"># local overrides</span></code></pre>
+
+<div class="section-title">SSH — יותר מסתם Remote Shell</div>
+<p class="prose">SSH (Secure Shell) הוא פרוטוקול מוצפן שמאפשר remote access לשרתים. אבל SSH הוא הרבה יותר מ-"shell מרחוק" — הוא tunnel מוצפן שאפשר להעביר דרכו קבצים, tunnels, port forwarding, ואפילו GUI applications.</p>
+<pre class="code-block"><code><span class="comment"># SSH בסיסי</span>
+ssh alice@server.com           <span class="comment"># התחבר כ-alice</span>
+ssh -p 2222 alice@server.com  <span class="comment"># port שאינו 22</span>
+ssh -i ~/.ssh/mykey alice@server.com  <span class="comment"># עם key ספציפי</span>
+
+<span class="comment"># SSH keys — הדרך הנכונה (לא סיסמאות)</span>
+ssh-keygen -t ed25519 -C "alice@company.com"  <span class="comment"># צור key pair</span>
+ssh-copy-id alice@server.com                  <span class="comment"># העתק public key לשרת</span>
+<span class="comment"># מעכשיו: ssh ללא סיסמה</span>
+
+<span class="comment"># ~/.ssh/config — קיצורי דרך</span>
+Host prod
+    HostName server.company.com
+    User alice
+    IdentityFile ~/.ssh/prod_key
+    Port 2222
+<span class="comment"># עכשיו פשוט: ssh prod</span>
+
+<span class="comment"># SCP ו-rsync — העברת קבצים</span>
+scp file.txt alice@server.com:~/     <span class="comment"># העלה קובץ</span>
+scp alice@server.com:~/log.txt .     <span class="comment"># הורד קובץ</span>
+rsync -avz ./src alice@server.com:~/ <span class="comment"># sync תיקייה (רק שינויים)</span>
+rsync -avz --delete ./web/ alice@server.com:/var/www/  <span class="comment"># deploy</span>
+
+<span class="comment"># SSH Tunneling — port forwarding</span>
+ssh -L 8080:localhost:80 alice@server.com
+<span class="comment"># ← local:8080 מועבר לserver:80</span>
+<span class="comment"># ← גישה לservicess פנימיים דרך SSH tunnel</span></code></pre>
+
+<div class="section-title">Firewall — iptables ו-ufw</div>
+<p class="prose">iptables הוא ה-firewall המובנה בLinux. הוא חזק מאוד — ומסובך מאוד. ufw (Uncomplicated Firewall) הוא wrapper שהופך את זה לניהול פשוט. בשרתי production, השניים נמצאים — iptables עובד מאחורי הקלעים, ufw נותן interface נוח.</p>
+<pre class="code-block"><code><span class="comment"># ufw — פשוט ויעיל לשרתי Ubuntu</span>
+sudo ufw status            <span class="comment"># מצב נוכחי</span>
+sudo ufw enable            <span class="comment"># הפעל</span>
+sudo ufw allow 22          <span class="comment"># אפשר SSH</span>
+sudo ufw allow 80          <span class="comment"># אפשר HTTP</span>
+sudo ufw allow 443         <span class="comment"># אפשר HTTPS</span>
+sudo ufw allow from 10.0.0.0/8 to any port 5432  <span class="comment"># Postgres רק מ-private network</span>
+sudo ufw deny 8080         <span class="comment"># חסום</span>
+sudo ufw delete allow 8080 <span class="comment"># מחק rule</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 SSH key לעומת סיסמה — למה זה לא אופציונלי</div>
+  <div class="real-world-body">
+    שרת עם SSH פתוח לinternett ללא הגדרת key-only יקבל עשרות אלפי ניסיונות brute force ביום — bots אוטומטיים שמנסים שמות משתמש וסיסמאות נפוצות. מנהלי מערכת שמסתכלים ב-/var/log/auth.log בשרת חדש רואים לפעמים עשרות ניסיונות לדקה.<br><br>
+    הגדרת <code>PasswordAuthentication no</code> ב-/etc/ssh/sshd_config מסיימת את הבעיה. עם key-based auth, brute force בלתי אפשרי — הkey הוא 2048+ bits, מה שלוקח יותר זמן לפרוץ מגיל היקום.
+  </div>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> ה-Package Manager של Linux פתר ב-1998 בעיה שWindows עדיין לא פתרה לגמרי ב-2025: dependency hell. כשמתקינים תוכנה, apt/dnf מחשבים אוטומטית את כל ה-dependencies, מורידים הכל לפי הסדר הנכון, ומתקינים בצורה אטומית. להסרה — אותו הדבר. זה נשמע פשוט. זה לא.</div>
+
+<div class="section-title">apt — Package Manager של Debian/Ubuntu</div>
+<p class="prose">apt (Advanced Package Tool) הוא ה-package manager שמנהל תוכנות בUbuntu ובDebian. הוא מחזיק registry של עשרות אלפי packages, יודע מה תלוי במה, ומבצע התקנה/עדכון/הסרה בצורה אמינה. apt עובד עם repositories — שרתים שמחזיקים packages. כשמריצים apt update, הוא מוריד את הרשימה העדכנית מהrepositories.</p>
+<pre class="code-block"><code><span class="comment"># עדכון ראשוני — תמיד לפני התקנה</span>
+sudo apt update             <span class="comment"># עדכן רשימת packages (לא מתקין כלום)</span>
+sudo apt upgrade            <span class="comment"># עדכן packages מותקנים</span>
+sudo apt full-upgrade       <span class="comment"># עדכן + טפל בconflicts</span>
+
+<span class="comment"># התקנה</span>
+sudo apt install nginx      <span class="comment"># התקן nginx</span>
+sudo apt install -y nginx   <span class="comment"># אשר אוטומטית (לscripts)</span>
+sudo apt install nginx postgresql python3  <span class="comment"># כמה packages</span>
+
+<span class="comment"># הסרה</span>
+sudo apt remove nginx       <span class="comment"># הסר (שמור config files)</span>
+sudo apt purge nginx        <span class="comment"># הסר כולל config</span>
+sudo apt autoremove         <span class="comment"># נקה dependencies שלא צריך</span>
+
+<span class="comment"># חיפוש ומידע</span>
+apt search "web server"     <span class="comment"># חפש packages</span>
+apt show nginx              <span class="comment"># מידע על package</span>
+dpkg -l | grep nginx        <span class="comment"># האם מותקן?</span>
+dpkg -L nginx               <span class="comment"># אילו קבצים package מותקן</span>
+
+<span class="comment"># repositories — איפה apt מחפש</span>
+cat /etc/apt/sources.list
+ls /etc/apt/sources.list.d/  <span class="comment"># repos נוספים (PPA)</span>
+sudo add-apt-repository ppa:deadsnakes/python  <span class="comment"># הוסף PPA</span></code></pre>
+
+<div class="section-title">dnf/yum — Package Manager של RHEL/Fedora</div>
+<p class="prose">dnf (Dandified YUM) הוא ה-package manager של Red Hat Enterprise Linux, Fedora, וCentOS Stream. הsyntax דומה מאוד לapt אבל יש הבדלים. ב-RHEL-based systems, ה-repositories נקראים repos ומנוהלים קצת שונה.</p>
+<pre class="code-block"><code><span class="comment"># dnf — מקביל ל-apt</span>
+sudo dnf check-update       <span class="comment"># בדוק עדכונים (כמו apt update)</span>
+sudo dnf update             <span class="comment"># עדכן הכל</span>
+sudo dnf install nginx      <span class="comment"># התקן</span>
+sudo dnf remove nginx       <span class="comment"># הסר</span>
+sudo dnf search postgresql  <span class="comment"># חפש</span>
+sudo dnf info nginx         <span class="comment"># מידע</span>
+
+<span class="comment"># repositories ב-RHEL</span>
+sudo dnf repolist           <span class="comment"># repos פעילים</span>
+sudo dnf config-manager --enable epel  <span class="comment"># הפעל EPEL repo</span></code></pre>
+
+<div class="section-title">systemd — ניהול שירותים</div>
+<p class="prose">systemd הוא ה-init system של רוב הDistributions המודרניות. הוא מריץ services, מנהל אותם, מפקח עליהם, ומאפשר לראות logs שלהם. כשמתקינים nginx, הוא לא מופעל אוטומטית — צריך לנהל אותו דרך systemctl.</p>
+<pre class="code-block"><code><span class="comment"># systemctl — ניהול שירותים</span>
+sudo systemctl start nginx    <span class="comment"># הפעל</span>
+sudo systemctl stop nginx     <span class="comment"># עצור</span>
+sudo systemctl restart nginx  <span class="comment"># הפעל מחדש</span>
+sudo systemctl reload nginx   <span class="comment"># reload config ללא restart</span>
+sudo systemctl status nginx   <span class="comment"># מצב + לוגים אחרונים</span>
+sudo systemctl enable nginx   <span class="comment"># הפעל אוטומטית בboot</span>
+sudo systemctl disable nginx  <span class="comment"># בטל הפעלה בboot</span>
+systemctl list-units --type=service  <span class="comment"># כל השירותים</span>
+
+<span class="comment"># journalctl — לוגים של systemd</span>
+journalctl -u nginx           <span class="comment"># לוגים של nginx</span>
+journalctl -u nginx -f        <span class="comment"># live (כמו tail -f)</span>
+journalctl -u nginx --since "1 hour ago"  <span class="comment"># שעה אחרונה</span>
+journalctl -p err             <span class="comment"># רק errors</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 apt vs pip vs npm — מתי כל אחד?</div>
+  <div class="real-world-body">
+    כלל אצבע שחוסך כאבי ראש: apt מתקין system-level software (nginx, postgresql, python3-dev). pip מתקין Python libraries (django, requests). npm מתקין Node packages (express, react). אל תערבבי.<br><br>
+    הטעות הנפוצה: <code>sudo pip install requests</code> במקום <code>pip install requests</code> בvirtual environment. התקנה עם sudo כותבת ל-system Python ועלולה לשבור packages שהמערכת מסתמכת עליהם. כלל: pip תמיד בתוך venv, npm תמיד בתוך project directory.
+  </div>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> Shell scripting הוא ה-"דבק" של DevOps. כל CI/CD pipeline, כל deployment script, כל monitoring check — תחת הקישוט היפה של YAML ו-JSON — מריץ bash scripts. לא צריך להיות מומחה ב-bash, אבל להבין את הבסיס חוסך שעות של debugging וגם מאפשר לקרוא ולהבין scripts שאחרים כתבו.</div>
+
+<div class="section-title">Bash Script — מהתחלה</div>
+<p class="prose">Script הוא קובץ טקסט שמכיל פקודות. כשמריצים אותו, bash מבצע כל שורה בסדר. הכוח: אפשר לאוטומט כל דבר. הסיכון: script שרץ אוטומטית בלי בדיקות יכול לגרום נזק אמיתי. לכן נלמד לכתוב scripts נכון מההתחלה.</p>
+<pre class="code-block"><code><span class="comment">#!/bin/bash</span>
+<span class="comment"># שורה ראשונה: shebang — אמור לLinux במה להריץ</span>
+<span class="comment"># bash != sh != zsh — חשוב לציין במפורש</span>
+set -euo pipefail
+<span class="comment"># -e: צא אם פקודה נכשלת</span>
+<span class="comment"># -u: שגיאה על variable לא מוגדר</span>
+<span class="comment"># -o pipefail: צא אם פקודה ב-pipe נכשלת</span>
+<span class="comment"># ← שלושת אלה מונעים 80% מהבאגים בscripts</span>
 
 <span class="comment"># Variables</span>
-TODAY=\$(date +%Y-%m-%d)
-FILES=\$(ls *.txt 2>/dev/null | wc -l)
-echo "Today: \$TODAY, TXT files: \$FILES"</code></pre>
-<div class="section-title">Conditionals ו-Loops</div>
-<pre class="code-block"><code><span class="comment"># if/else</span>
-if [[ -f /etc/nginx/nginx.conf ]]; then
-  echo "nginx installed"
-elif [[ -f /etc/apache2/apache2.conf ]]; then
-  echo "apache installed"
+NAME="Alice"
+echo "Hello, $NAME"
+echo "Hello, \${NAME}World"   <span class="comment"># {} להפרדה</span>
+
+DATE=$(date +%Y-%m-%d)       <span class="comment"># הרץ פקודה ושמור output</span>
+FILES=$(ls /var/log/*.log)   <span class="comment"># שמור רשימת קבצים</span>
+
+<span class="comment"># Arguments</span>
+echo "Script: $0"            <span class="comment"># שם הscript</span>
+echo "First arg: $1"         <span class="comment"># argument ראשון</span>
+echo "All args: $@"          <span class="comment"># כל ה-arguments</span>
+echo "Count: $#"             <span class="comment"># כמה arguments</span></code></pre>
+
+<div class="section-title">Conditionals ו-Loops — ה-logic של Scripts</div>
+<pre class="code-block"><code><span class="comment"># if — בדיקות</span>
+if [ -f "/etc/nginx/nginx.conf" ]; then
+    echo "nginx config exists"
+elif [ -d "/etc/nginx" ]; then
+    echo "nginx dir exists but no config"
 else
-  echo "no web server"
+    echo "nginx not installed"
 fi
 
-<span class="comment"># for loop</span>
-for server in web1 web2 db1; do
-  echo "Checking \$server..."
-  ping -c1 "\$server" &>/dev/null && echo "UP" || echo "DOWN"
+<span class="comment"># תנאים נפוצים</span>
+[ -f file ]     <span class="comment"># קובץ קיים</span>
+[ -d dir ]      <span class="comment"># תיקייה קיימת</span>
+[ -z "$VAR" ]   <span class="comment"># string ריקה</span>
+[ -n "$VAR" ]   <span class="comment"># string לא ריקה</span>
+[ "$A" == "$B" ] <span class="comment"># strings שוות</span>
+[ $NUM -gt 10 ] <span class="comment"># מספרי: gt, lt, ge, le, eq, ne</span>
+
+<span class="comment"># for loops</span>
+for file in /var/log/*.log; do
+    echo "Processing: $file"
+    wc -l "$file"
+done
+
+for i in {1..5}; do
+    echo "Round $i"
 done
 
 <span class="comment"># while loop</span>
-while IFS=: read -r user _; do
-  echo "User: \$user"
-done < /etc/passwd</code></pre>
+while true; do
+    echo "Checking health..."
+    curl -sf http://localhost/health || echo "DOWN!"
+    sleep 30
+done</code></pre>
+
 <div class="section-title">Functions ו-Error Handling</div>
-<pre class="code-block"><code>log() {
-  echo "[\$(date +%T)] \$*" | tee -a /var/log/myscript.log
+<pre class="code-block"><code><span class="comment">#!/bin/bash</span>
+set -euo pipefail
+
+<span class="comment"># Functions — קוד שניתן לשימוש חוזר</span>
+log() {
+    echo "[$(date +%H:%M:%S)] $*"
 }
 
-check_service() {
-  local service="\$1"
-  if systemctl is-active --quiet "\$service"; then
-    log "\$service is running"
-    return 0
-  else
-    log "ERROR: \$service is down!"
-    return 1
-  fi
+backup_db() {
+    local db_name=$1     <span class="comment"># local = רק בתוך הfunction</span>
+    local output_file="backup_\${db_name}_$(date +%Y%m%d).sql"
+    log "Starting backup of $db_name"
+    pg_dump "$db_name" > "$output_file"
+    log "Backup complete: $output_file"
 }
 
-check_service nginx || systemctl start nginx</code></pre>
-<div class="incident-box"><div class="incident-title">🔥 אירוע אמיתי: Cloudflare — 2023, סקריפט שמחק את עצמו</div><div class="incident-body">סקריפט Cloudflare מחק directory שהוא עצמו נמצא בו. המשיך לרוץ (כבר בזיכרון) אבל לא ניתן להפעיל מחדש. חלקים מהתשתית היו down. <strong><code class="inline-code">set -euo pipefail</code>, בדיקת paths לפני מחיקה, dry-run mode — סקריפט ללא הגנות = weapon pointed at your infrastructure.</strong></div></div>`
-  ],
+<span class="comment"># Exit codes — 0 = הצלחה, כל מספר אחר = שגיאה</span>
+if ! command -v nginx &> /dev/null; then
+    echo "Error: nginx not installed" >&2    <span class="comment"># stderr</span>
+    exit 1
+fi
+
+<span class="comment"># trap — cleanup כשscript נכשל</span>
+cleanup() {
+    log "Cleaning up temp files..."
+    rm -f /tmp/myapp_lock
+}
+trap cleanup EXIT    <span class="comment"># קרא לcleanup כשscript יוצא (גם בשגיאה)</span>
+
+<span class="comment"># שימוש</span>
+log "Starting deployment"
+backup_db "production"
+log "Deployment complete"</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Script אמיתי: Deployment עם Rollback</div>
+  <div class="real-world-body">
+    <pre>#!/bin/bash
+set -euo pipefail
+APP_DIR="/var/www/myapp"
+BACKUP_DIR="/var/backups/myapp"
+
+rollback() {
+    echo "Deployment failed — rolling back"
+    cp -r "$BACKUP_DIR/last" "$APP_DIR"
+    systemctl restart myapp
+    exit 1
+}
+trap rollback ERR  # אם משהו נכשל, rollback אוטומטי
+
+cp -r "$APP_DIR" "$BACKUP_DIR/last"  # גיבוי
+git pull origin main
+npm install --production
+npm run build
+systemctl restart myapp
+echo "Deployment successful"</pre>
+    כל שגיאה בדרך מפעילה rollback אוטומטי. זה script שבטוח יותר ממה שרוב pipelines עושים.
+  </div>
+</div>`
+],
   cheat:[
 `<div class="callout callout-success"><strong>📋 דף רמאות — פרק 0: מבוא Linux</strong></div>
 <div class="cheat-grid">
@@ -3863,7 +4270,13 @@ function applyLang(lang) {
   document.documentElement.setAttribute('lang', lang==='he'?'he':'en');
   document.documentElement.setAttribute('dir', lang==='he'?'rtl':'ltr');
   document.getElementById('langBtn').textContent = lang==='he'?'🇬🇧 EN':'🇮🇱 HE';
-  document.getElementById('sbLabel').textContent = Lc.sbLabel;
+
+  // Credits translation
+  const _cl = {he:{title:'// מקורות ותודות',r:'מחקר ומקורות',t:'תיעוד טכני',b:'נבנה עם',v:'גרסה 2.0 — 2025'},en:{title:'// Sources & Credits',r:'Research & Sources',t:'Technical Docs',b:'Built With',v:'Version 2.0 — 2025'}};
+  const _cld = _cl[lang]||_cl.he;
+  ['credits-title-label','credits-research','credits-tech','credits-built','credits-version'].forEach((id,i)=>{
+    const el=document.getElementById(id); if(el) el.textContent=[_cld.title,_cld.r,_cld.t,_cld.b,_cld.v][i];
+  });  document.getElementById('sbLabel').textContent = Lc.sbLabel;
   document.getElementById('headerChName').textContent = Lc.names[state.cur]||'';
 
   for (let i=0; i<TOTAL_CHAPTERS; i++) {
