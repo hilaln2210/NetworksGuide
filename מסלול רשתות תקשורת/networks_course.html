@@ -2758,12 +2758,9 @@ function qzAllQuestions() {
 }
 
 /* ── start ── */
-function startQuiz(count, chN) {
-  var all = qzAllQuestions();
-  if (chN) all = all.filter(function(item){ return item.n === chN; });
-  all = qzShuffle(all);
+function startQuiz(count) {
+  var all = qzShuffle(qzAllQuestions());
   QUIZ.questions = count === 'all' ? all : all.slice(0, Math.min(count, all.length));
-  QUIZ._chFilter = chN || 0;
   QUIZ.total     = QUIZ.questions.length;
   QUIZ.cur       = 0;
   QUIZ.score     = 0;
@@ -3041,6 +3038,8 @@ function initQuiz() {
   updateQuizBest();
 }
 
+
+
 var CHAPTERS = [
   {
     n: 1, icon: "🌐", color: "#3b82f6",
@@ -3051,141 +3050,203 @@ var CHAPTERS = [
       content: function() { return `
 <section class="learn-section">
 <span class="sec-label">01 — WWW לעומת האינטרנט</span>
-<h2 class="sec-h">לא אותו דבר</h2>
-<p><strong>האינטרנט</strong> — תשתית פיזית גלובלית: כבלי fiber תת-ימיים, נתבים, ISPs. קיים מ-1969 (ARPANET).<br>
-<strong>WWW</strong> — שירות שרץ <em>מעל</em> האינטרנט: עמודי HTML המחוברים בקישורים. הומצא ב-CERN ב-1991.</p>
-<table class="tbl"><tr><th>שירות</th><th>פרוטוקול</th><th>מה זה</th></tr>
-<tr><td>WWW</td><td>HTTP/HTTPS</td><td>דפי אינטרנט</td></tr>
-<tr><td>Email</td><td>SMTP, IMAP</td><td>דואר אלקטרוני</td></tr>
-<tr><td>קבצים</td><td>FTP, SFTP</td><td>העברת קבצים</td></tr>
-<tr><td>שיחות</td><td>VoIP, WebRTC</td><td>Zoom, WhatsApp</td></tr>
+<h2 class="sec-h">שני דברים שונים לגמרי — ורוב האנשים מבלבלים ביניהם</h2>
+<p>כשמישהו אומר "האינטרנט לא עובד" — הוא כנראה מתכוון ל-WWW. אבל אלו שני דברים שונים לחלוטין, ולהבין את ההבדל זו נקודת הפתיחה של כל הקורס הזה.</p>
+<p><strong>האינטרנט</strong> הוא תשתית פיזית גלובלית. הוא מורכב מכבלי fiber תת-ימיים שחוצים את האוקיינוסים, מגדלי תקשורת, נתבים (routers) בכל נקודת מפגש, ועשרות אלפי ספקיות אינטרנט (ISPs) ברחבי העולם שמחוברות אחת לשנייה. האינטרנט כבר קיים מאז 1969, כשה-ARPANET חיבר בין ארבע אוניברסיטאות אמריקאיות. בשלב ההוא — לא היה אף אתר אינטרנט. לא היה Google, לא היה פייסבוק. רק מחשבים שיכלו לשלוח מסרים זה לזה.</p>
+<p><strong>ה-WWW (World Wide Web)</strong> הוא שירות שרץ <em>מעל</em> האינטרנט — ממש כמו שאפליקציית WhatsApp רצה מעל הרשת הסלולרית. Tim Berners-Lee המציא אותו ב-1991 בזמן שעבד ב-CERN בשוויץ. הרעיון היה פשוט: עמודי HTML שמקושרים אחד לשני בקישורים. פתאום, במקום לדעת כתובת IP של כל שרת, יכולת ללחוץ קישור ולעבור ממסמך למסמך בקלות.</p>
+<table class="tbl">
+<tr><th>שירות</th><th>פרוטוקול</th><th>קיים מאז</th><th>מה זה</th></tr>
+<tr><td>האינטרנט עצמו</td><td>IP/TCP</td><td>1969</td><td>התשתית הפיזית — כבלים, נתבים, ISPs</td></tr>
+<tr><td>WWW</td><td>HTTP/HTTPS</td><td>1991</td><td>דפי אינטרנט שמקושרים אחד לשני</td></tr>
+<tr><td>Email</td><td>SMTP, IMAP, POP3</td><td>1971</td><td>דואר אלקטרוני — קיים לפני ה-WWW!</td></tr>
+<tr><td>שיחות קוליות</td><td>VoIP, WebRTC</td><td>~2000</td><td>Zoom, WhatsApp, Google Meet</td></tr>
+<tr><td>הורדת קבצים</td><td>FTP, BitTorrent</td><td>1971</td><td>העברת קבצים ישירות</td></tr>
 </table>
+<div class="callout note">📝 <strong>עובדה מפתיעה:</strong> Email קיים מ-1971 — 20 שנה לפני ה-WWW. כשהמציאו את האינטרנט, הדבר הראשון שעשו איתו היה לשלוח מיילים. ה-WWW הוא רק אחד מהשירותים הרבים שרצים על גבי האינטרנט.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — Client-Server</span>
-<h2 class="sec-h">מי מתחיל?</h2>
-<p><strong>Client</strong> — יוזם ושולח Request.<br><strong>Server</strong> — מחכה ומחזיר Response.<br>Client <em>תמיד</em> מתחיל. תמיד.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP GET</span></div>
-<pre class="code-body">Client → GET /index.html HTTP/1.1
-Server → HTTP/1.1 200 OK ...</pre></div>
-<table class="tbl"><tr><th>תרחיש</th><th>Client</th><th>Server</th></tr>
-<tr><td>גלישה ל-YouTube</td><td>דפדפן</td><td>שרתי Google</td></tr>
-<tr><td>WhatsApp</td><td>טלפון</td><td>שרתי Meta</td></tr>
-<tr><td>Minecraft Multiplayer</td><td>המשחק שלך</td><td>Game Server</td></tr>
+<h2 class="sec-h">הסכם לא כתוב שמסדיר כל תקשורת באינטרנט</h2>
+<p>כמעט כל תקשורת באינטרנט מתבססת על מודל אחד פשוט: יש צד אחד שמבקש (Client) וצד שני שמספק (Server). ה-Client תמיד יוזם — הוא שולח את הבקשה הראשונה. ה-Server תמיד מחכה — הוא לעולם לא "מתחיל שיחה" בעצמו.</p>
+<p>תחשבו על זה כמו מסעדה. אתם (ה-Client) מחליטים מתי להיכנס, קוראים את התפריט ומזמינים. המלצר (ה-Server) יושב שם ומחכה, ורק כשאתם פונים אליו — הוא מגיב. המלצר לעולם לא יגיע לשולחן שלכם ויאמר "אתם רוצים שניצל?" בלי שביקשתם.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">זרימת תקשורת בסיסית</span></div>
+<pre class="code-body">💻 Client                           🗄️ Server
+    |                                    |
+    |---  GET /index.html HTTP/1.1  ---->|   ← הלקוח מבקש
+    |                                    |
+    |<--- HTTP/1.1 200 OK            ----|   ← השרת עונה
+    |     Content-Type: text/html        |
+    |     (תוכן הדף)                     |
+    |                                    |</pre></div>
+<table class="tbl">
+<tr><th>תרחיש</th><th>מי ה-Client?</th><th>מי ה-Server?</th><th>מה הבקשה?</th></tr>
+<tr><td>גלישה ל-YouTube</td><td>הדפדפן שלך</td><td>שרתי Google בארה"ב</td><td>GET /watch?v=xxxxx</td></tr>
+<tr><td>שליחת WhatsApp</td><td>האפליקציה בטלפון</td><td>שרתי Meta</td><td>POST /send_message</td></tr>
+<tr><td>Spotify מנגן שיר</td><td>האפליקציה שלך</td><td>שרתי Spotify</td><td>GET /stream/track_id</td></tr>
+<tr><td>כניסה לאתר</td><td>הדפדפן</td><td>שרת האתר</td><td>POST /login</td></tr>
 </table>
-<div class="callout note">📝 <strong>P2P</strong> — ב-BitTorrent כל peer הוא גם Client וגם Server. אין שרת מרכזי.</div>
+<div class="callout warn">⚡ <strong>מה זה P2P — ולמה הוא שונה?</strong> ב-BitTorrent וב-WebRTC (Zoom), כל משתמש הוא גם Client וגם Server בו-זמנית. ב-Zoom למשל, הווידאו שלך עובר ישירות לאנשים האחרים — לא דרך שרת מרכזי. זה נקרא Peer-to-Peer. היתרון: מהיר יותר, זול יותר. החיסרון: קשה יותר לנהל, קשה לעבור Firewalls.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — כתובת IP</span>
-<h2 class="sec-h">כתובת הדואר של הרשת</h2>
-<p>IPv4 — 32 סיביות, 4 מספרים 0–255 מופרדים בנקודות.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">כתובות חשובות</span></div>
-<pre class="code-body">127.0.0.1        loopback — לעולם לא יוצא לרשת
-192.168.0.0/16   private — רשת ביתית
-10.0.0.0/8       private — ארגוני
-172.16.0.0/12    private — datacenter
-8.8.8.8          Google DNS
-1.1.1.1          Cloudflare DNS</pre></div>
-<table class="tbl"><tr><th>כתובת</th><th>תקינה?</th><th>מדוע</th></tr>
-<tr><td>192.168.1.5</td><td>✅</td><td>כל אוקטט 0–255</td></tr>
-<tr><td>256.0.0.1</td><td>❌</td><td>256 &gt; 255</td></tr>
-<tr><td>10.0.0.256</td><td>❌</td><td>256 &gt; 255</td></tr>
-</table>
+<h2 class="sec-h">הכתובת שכל מכשיר מחובר לאינטרנט חייב לקיים</h2>
+<p>דמיינו את האינטרנט כמערכת דואר עולמית ענקית. כדי שמכתב יגיע ליעדו, הוא חייב לשאת כתובת. ברשת — הכתובת הזו נקראת IP Address. כל packet (חבילת נתונים) שנשלחת ברשת נושא כתובת מקור (מי שלח) וכתובת יעד (לאן לשלוח).</p>
+<p><strong>IPv4</strong> — הגרסה הוותיקה, עדיין הנפוצה ביותר. בנויה מ-32 סיביות (bits), שמיוצגות כ-4 מספרים בין 0 ל-255 מופרדים בנקודות. לדוגמה: <code>192.168.1.5</code>. בסך הכל יש כ-4.3 מיליארד כתובות IPv4 אפשריות — מספר שנשמע עצום אבל הסתיים לאחר שכמות המכשירים המחוברים פיצחה אותו ב-2011.</p>
+<p><strong>IPv6</strong> — הגרסה החדשה. בנויה מ-128 סיביות, מספקת מספר כתובות שמספיק לתת כתובת ייחודית לכל אטום על פני כדור הארץ, ועדיין ישארו. נראה כך: <code>2607:f8b0:4004:c08::8a</code>. המעבר אליו מתקדם לאט אבל בטוח.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">כתובות חשובות שחייבים לדעת</span></div>
+<pre class="code-body">127.0.0.1        Loopback — "אני עצמי". packet לכתובת זו
+                 לעולם לא יוצא לרשת. שימושי לפיתוח.
+
+192.168.0.0/16   Private — כתובות ביתיות/משרדיות.
+10.0.0.0/8       Private — כתובות ארגוניות גדולות.
+172.16.0.0/12    Private — datacenters וענן.
+                 → שלוש הטווחים האלה לא ניתנים לניתוב
+                   באינטרנט הציבורי. NAT מאפשר להם
+                   "לדבר" עם העולם.
+
+8.8.8.8          Google Public DNS — כמעט תמיד עובד
+1.1.1.1          Cloudflare DNS — הכי מהיר בעולם
+169.254.x.x      APIPA — DHCP נכשל, OS הקצה כתובת
+                 עצמאית. אין גישה לאינטרנט.</pre></div>
+<div class="callout note">📝 <strong>למה 300.5.1.8 אינה כתובת חוקית?</strong> כל אחד מ-4 המספרים ב-IPv4 חייב להיות בין 0 ל-255 — כי הוא מיוצג על ידי byte אחד (8 bits), ו-2^8 = 256 ערכים אפשריים (0 עד 255). המספר 300 גדול מ-255, ולכן אי אפשר לייצג אותו ב-byte אחד.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — DNS</span>
-<h2 class="sec-h">ספר הטלפונים של האינטרנט</h2>
-<p>DNS מתרגם שם דומיין לכתובת IP. ללא DNS היינו מקלידים IPs במקום שמות.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">תהליך Resolution</span></div>
-<pre class="code-body">1. בדוק cache מקומי
-2. שאל Recursive Resolver (ISP)
-3. Root DNS (.)
-4. TLD DNS (.com)
-5. Authoritative DNS (google.com)
-6. תשובה: 142.250.80.46
+<h2 class="sec-h">למה אתם לא צריכים לזכור 142.250.80.46 כדי לגלוש לGoogle</h2>
+<p>מחשבים עובדים עם מספרים. בני אדם זוכרים שמות. DNS הוא מערכת ענקית ומבוזרת שמתרגמת בין השניים — היא הופכת את <code>google.com</code> ל-<code>142.250.80.46</code>. בלי DNS, הייתם צריכים לזכור IP לכל אתר שאתם מבקרים בו.</p>
+<p>כשאתם מקלידים כתובת אתר, המחשב שלכם עובר תהליך של 5 שלבים למצוא את ה-IP. ברוב המקרים התהליך הזה לוקח פחות מ-5 מילישניות — מהיר כל כך שאף פעם לא שמים לב.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">DNS Resolution — המסע המלא</span></div>
+<pre class="code-body">שלב 1: Cache מקומי
+  המחשב בודק: "כבר פתרתי google.com לאחרונה?"
+  אם כן — תשובה מיידית, 0ms.
 
-dig google.com          # lookup
-dig +trace google.com   # כל השלבים</pre></div>
-<table class="tbl"><tr><th>Record</th><th>מה מכיל</th><th>דוגמה</th></tr>
-<tr><td>A</td><td>שם — IPv4</td><td>google.com — 142.250.80.46</td></tr>
-<tr><td>AAAA</td><td>שם — IPv6</td><td>google.com — 2607:f8b0::200e</td></tr>
-<tr><td>CNAME</td><td>שם — שם אחר</td><td>www — example.com</td></tr>
-<tr><td>MX</td><td>שרת מייל</td><td>gmail.com — mail.google.com</td></tr>
+שלב 2: Recursive Resolver (שרת ה-DNS של ה-ISP)
+  אם לא בcache — שואל את שרת ה-DNS של Bezeq/HOT/etc.
+  הוא מחזיק cache ענק — סיכוי גבוה שיש לו תשובה.
+
+שלב 3: Root DNS Server
+  אם גם שם לא — שואל אחד מ-13 Root Servers.
+  הם מכירים רק שרתי TLD: "google.COM? שאל את .COM"
+
+שלב 4: TLD Server
+  .COM Server: "google.com? שאל את 216.239.34.10"
+
+שלב 5: Authoritative DNS Server
+  שרת ה-DNS של Google עצמו: "142.250.80.46"
+
+  dig google.com          # שאל DNS
+  dig +trace google.com   # ראה את כל השלבים בפועל</pre></div>
+<table class="tbl">
+<tr><th>סוג Record</th><th>מה הוא עושה</th><th>דוגמה מהחיים</th></tr>
+<tr><td><strong>A</strong></td><td>שם דומיין — כתובת IPv4</td><td>google.com — 142.250.80.46</td></tr>
+<tr><td><strong>AAAA</strong></td><td>שם דומיין — כתובת IPv6</td><td>google.com — 2607:f8b0::200e</td></tr>
+<tr><td><strong>CNAME</strong></td><td>שם — שם אחר (alias)</td><td>www.example.com — example.com</td></tr>
+<tr><td><strong>MX</strong></td><td>שרת Email לדומיין</td><td>gmail.com — aspmx.l.google.com</td></tr>
+<tr><td><strong>TXT</strong></td><td>טקסט חופשי — לאימות</td><td>SPF, DKIM — אנטי-ספאם</td></tr>
+<tr><td><strong>NS</strong></td><td>אילו שרתים מנהלים את הדומיין</td><td>example.com NS — ns1.example.com</td></tr>
 </table>
-<div class="callout note">📝 DNS משתמש ב-<strong>UDP port 53</strong>. Query קצר — אין צורך ב-TCP handshake. כשתשובה גדולה מ-512 bytes — עובר ל-TCP.</div>
+<div class="callout tip">💡 <strong>TTL — כמה זמן לזכור תשובה?</strong> לכל DNS Record יש TTL (Time To Live) — מספר שניות שעד אליהן מותר לשמור את התשובה ב-Cache. TTL של 3600 = שעה. אחרי שעה — כולם צריכים לשאול מחדש. לכן כשמחליפים IP של שרת, לוקח זמן עד שכולם "מרגישים" את השינוי.</div>
+<div class="callout note">📝 <strong>DNS משתמש ב-UDP Port 53 — ולמה?</strong> DNS queries קצרות מאוד (בדרך כלל פחות מ-512 bytes). UDP פשוט יותר — אין Handshake, שולחים ומקבלים תשובה. אם הpacket אובד — שואלים שוב. TCP משמש רק כשהתשובה גדולה מ-512 bytes (למשל Zone Transfer).</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">05 — Hops</span>
-<h2 class="sec-h">התחנות בדרך</h2>
-<p>Packet לא עובר ישירות ממחשבך לשרת. הוא עובר דרך עשרות נתבים — כל נתב הוא Hop.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">traceroute</span></div>
-<pre class="code-body">traceroute -n 8.8.8.8   # Linux/Mac
-tracert -d 8.8.8.8      # Windows
+<span class="sec-label">05 — Hops ו-Routing</span>
+<h2 class="sec-h">כשאתם שולחים הודעה, היא עוברת דרך עשרות נתבים</h2>
+<p>אחד המיתוסים הגדולים על האינטרנט הוא שנתונים עוברים ישירות ממחשב לשרת. במציאות, כל packet עובר דרך שרשרת של נתבים (Routers) — כל אחד מהם מחליט לאן להעביר את הpacket הלאה. כל נתב בדרך נקרא <strong>Hop</strong>.</p>
+<p>חשבו על זה כמו טיסת קונקשן: אתם טסים מתל אביב לטוקיו, אבל לא ישירות. עוברים דרך פרנקפורט, אחר כך דרך בייג'ינג. כל שדה תעופה שעוצרים בו הוא Hop. הנתבים פועלים בדיוק ככה — כל אחד מסתכל על ה-IP היעד ומחליט "לאיפה הכי מהיר להעביר את זה הלאה?"</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">traceroute — ראה כל hop בדרך</span></div>
+<pre class="code-body"># Linux/Mac:
+traceroute -n 8.8.8.8    # -n = ללא DNS lookup (מהיר יותר)
 
- 1   2ms  192.168.1.1    ← נתב ביתי
- 2   9ms  212.179.37.1   ← ISP
- 3  88ms  74.125.50.237  ← Google backbone
- 4  90ms  8.8.8.8        ← יעד!
- *  * *                  ← חסימת ICMP, לא בעיה</pre></div>
-<div class="callout note">📝 <strong>TTL</strong> — כל packet יוצא עם TTL (64 או 128). כל hop מוריד 1. כש-TTL=0 הנתב זורק ושולח ICMP Time Exceeded. traceroute מנצל זאת.</div>
+# Windows:
+tracert -d 8.8.8.8       # -d = ללא DNS lookup
+
+# פלט אמיתי לדוגמה:
+ 1   1ms  192.168.1.1     ← הnתב הביתי שלך
+ 2   8ms  212.179.37.1    ← הISP (Bezeq/Hot)
+ 3  12ms  80.77.64.1      ← backbone של ISP
+ 4  88ms  74.125.50.237   ← Google backbone
+ 5  90ms  8.8.8.8         ← יעד!
+
+# * * * = הנתב חוסם ICMP Time Exceeded
+#         זה לא אומר שיש בעיה — רק שהנתב
+#         לא מגיב לבקשות traceroute</pre></div>
+<p>כל packet מתחיל עם שדה TTL (Time To Live) — מספר שמתחיל מ-64 או 128. כל נתב בדרך מוריד את ה-TTL ב-1. אם ה-TTL מגיע ל-0 לפני שהpacket הגיע ליעד — הנתב זורק אותו ושולח הודעת "ICMP Time Exceeded" חזרה. זה בדיוק המנגנון שtraceroute מנצל: הוא שולח packets עם TTL=1, TTL=2, TTL=3... ואוסף את הודעות ה-ICMP כדי לגלות את כל הנתבים בדרך.</p>
+<div class="callout warn">⚡ <strong>BGP — פרוטוקול שמחזיק את האינטרנט יחד</strong> איך נתב יודע לאן לשלוח packet ל-8.8.8.8? הוא מסתמך על BGP (Border Gateway Protocol) — פרוטוקול שבו כל ISP מכריז "אני יכול להגיע לכתובות האלה". הנתבים בונים Routing Tables ענקיות. ב-2008, Pakistan Telecom הכריזה בטעות שהיא הנתיב לYouTube — ו-75 מיליון משתמשים איבדו גישה במשך שעתיים.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">06 — כלים</span>
-<h2 class="sec-h">ה-Toolkit הבסיסי</h2>
-<table class="tbl"><tr><th>פקודה</th><th>מה עושה</th><th>דוגמה</th></tr>
-<tr><td><code>ping</code></td><td>קישוריות + RTT</td><td><code>ping -c 4 8.8.8.8</code></td></tr>
-<tr><td><code>traceroute</code></td><td>כל ה-hops</td><td><code>traceroute -n 8.8.8.8</code></td></tr>
-<tr><td><code>dig</code></td><td>DNS lookup</td><td><code>dig A google.com</code></td></tr>
-<tr><td><code>mtr</code></td><td>traceroute + ping real-time</td><td><code>mtr 8.8.8.8</code></td></tr>
-<tr><td><code>ip addr</code></td><td>כתובות ממשקים</td><td><code>ip addr show</code></td></tr>
-<tr><td><code>ss</code></td><td>connections פעילות</td><td><code>ss -tlnp</code></td></tr>
-<tr><td><code>curl</code></td><td>HTTP request</td><td><code>curl -I https://google.com</code></td></tr>
+<span class="sec-label">06 — הכלים שכל מהנדס חייב לדעת</span>
+<h2 class="sec-h">ארגז הכלים היומיומי לאבחון בעיות רשת</h2>
+<p>מהנדס רשת טוב לא מנחש — הוא בודק. יש קבוצה של פקודות שבכל פעם שמשהו לא עובד, תוכלו לרוץ אותן ולהבין בדיוק היכן הבעיה. ללמוד אותן בעל-פה.</p>
+<table class="tbl">
+<tr><th>פקודה</th><th>מה היא בודקת</th><th>דוגמה</th><th>מה לחפש</th></tr>
+<tr><td><code>ping</code></td><td>האם היעד מגיב? כמה זמן לוקח?</td><td><code>ping -c 4 8.8.8.8</code></td><td>RTT ממוצע, packet loss%</td></tr>
+<tr><td><code>traceroute</code></td><td>כל הnops בדרך ליעד</td><td><code>traceroute -n 8.8.8.8</code></td><td>איפה ה-hop האיטי?</td></tr>
+<tr><td><code>mtr</code></td><td>traceroute + ping בזמן אמת</td><td><code>mtr 8.8.8.8</code></td><td>loss% לכל hop בנפרד</td></tr>
+<tr><td><code>dig</code></td><td>שאל DNS — קבל IP</td><td><code>dig A google.com</code></td><td>כתובת IP, TTL</td></tr>
+<tr><td><code>ip addr</code></td><td>מה ה-IP שלי?</td><td><code>ip addr show</code></td><td>כתובת IP, Interface</td></tr>
+<tr><td><code>ip route</code></td><td>מה ה-Default Gateway?</td><td><code>ip route show</code></td><td>default via X.X.X.X</td></tr>
+<tr><td><code>ss</code></td><td>אילו ports פתוחים?</td><td><code>ss -tlnp</code></td><td>מה מאזין על איזה port?</td></tr>
+<tr><td><code>curl</code></td><td>שלח HTTP request</td><td><code>curl -I https://google.com</code></td><td>Status Code, Headers</td></tr>
 </table>
+<div class="callout tip">💡 <strong>הסדר הנכון לאבחון:</strong> תמיד עבדו מהקרוב לרחוק. קודם בדקו שיש IP (<code>ip addr</code>), אחר כך שה-Gateway מגיב (<code>ping 192.168.1.1</code>), אחר כך שיש קישוריות לאינטרנט (<code>ping 8.8.8.8</code>), ורק אחר כך בדקו DNS (<code>dig google.com</code>). אל תקפצו ישירות ל"DNS לא עובד" לפני שבדקתם את הצעדים הקודמים.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">🔥 — סיפור אמיתי</span>
-<h2 class="sec-h">פקיסטן "גונבת" את YouTube — 2008</h2>
-<p>ב-24 בפברואר 2008, Pakistan Telecom הכריזה בטעות שהיא הנתיב ל-YouTube. BGP — הפרוטוקול שמחבר ISPs — האמין לה. תוך דקות <strong>75 מיליון משתמשים</strong> איבדו גישה ל-YouTube למשך שעתיים. YouTube פעל — רק לא ניתן היה להגיע אליו.</p>
-<div class="callout warn">⚡ BGP מבוסס אמון. RPKI מוסיף חתימה קריפטוגרפית — אבל אימוץ עדיין חלקי.</div>
+<span class="sec-label">🔥 — סיפור אמיתי: כשפקיסטן גנבה את YouTube</span>
+<h2 class="sec-h">8 פברואר 2008 — הרגע שהאינטרנט הפסיק לעבוד</h2>
+<p>ב-24 בפברואר 2008, Pakistan Telecom קיבלה הוראה מהממשלה הפקיסטנית לחסום את YouTube (בגלל סרטון פוגעני). במקום לחסום גישה מקומית בלבד, הטכנאים ביצעו טעות ענקית: הם הכריזו ב-BGP שכתובות ה-IP של YouTube שייכות לרשת שלהם.</p>
+<p>BGP — הפרוטוקול שמסיר את כל האינטרנט — מבוסס אמון. כשISP מכריז "אני הדרך ל-208.65.153.0/24", שאר ה-ISPs בעולם מאמינים לו ומעדכנים את ה-Routing Tables שלהם. תוך 2 דקות, כל ה-traffic לYouTube בעולם ניותב לפקיסטן — ושם נבלע. YouTube עצמו פעל מצוין, אבל איש לא יכול היה להגיע אליו.</p>
+<p>75 מיליון משתמשים ברחבי העולם לא יכלו לגשת ל-YouTube. זה נמשך כשעתיים עד שISPs גדולים זיהו את הבעיה וביטלו את ה-route. זה היה הרגע שכל העולם הבין כמה ה-BGP פגיע.</p>
+<div class="callout note">📝 <strong>מה השתנה מאז?</strong> RPKI (Resource Public Key Infrastructure) הוא הפתרון — מוסיף חתימה קריפטוגרפית לכל הכרזת BGP, כך שניתן לאמת שה-ISP באמת הבעלים של ה-prefix. נכון ל-2024, כ-50% מה-prefixes ברחבי העולם חתומים. לא מספיק, אבל מתקדמים.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">☀️ — שימוש יומיומי</span>
-<h2 class="sec-h">מה קורה כשמקלידים google.com</h2>
-<table class="tbl"><tr><th>#</th><th>שלב</th><th>פרוטוקול</th><th>זמן</th></tr>
-<tr><td>1</td><td>DNS cache מקומי</td><td>OS</td><td>0ms</td></tr>
-<tr><td>2</td><td>DNS Query</td><td>UDP:53</td><td>5–20ms</td></tr>
-<tr><td>3</td><td>TCP Handshake</td><td>TCP:443</td><td>10–80ms</td></tr>
-<tr><td>4</td><td>TLS Handshake</td><td>TLS 1.3</td><td>30–100ms</td></tr>
-<tr><td>5</td><td>HTTP GET /</td><td>HTTP/2</td><td>1–5ms</td></tr>
-<tr><td>6</td><td>קבלת HTML + Render</td><td>Browser</td><td>100–500ms</td></tr>
+<span class="sec-label">☀️ — מה קורה ב-8 שניות כשמקלידים google.com</span>
+<h2 class="sec-h">המסע המלא של בקשה אחת</h2>
+<p>הסתכלו על כרטיסיית הרשת בפיתוח כלי דפדפן (F12 — Network). תראו שגלישה ל-Google מלווה בעשרות requests. הנה מה שקורה ברקע בסדר מדויק:</p>
+<table class="tbl">
+<tr><th>#</th><th>שלב</th><th>פרוטוקול</th><th>זמן טיפוסי</th><th>מה קורה</th></tr>
+<tr><td>1</td><td>בדיקת DNS Cache</td><td>OS</td><td>0ms</td><td>האם כבר פתרנו google.com?</td></tr>
+<tr><td>2</td><td>DNS Query</td><td>UDP:53</td><td>5–20ms</td><td>שואלים שרת DNS — מקבלים IP</td></tr>
+<tr><td>3</td><td>TCP SYN</td><td>TCP:443</td><td>10–80ms</td><td>פותחים חיבור לשרת Google</td></tr>
+<tr><td>4</td><td>TLS Handshake</td><td>TLS 1.3</td><td>10–30ms</td><td>מצפינים את הערוץ</td></tr>
+<tr><td>5</td><td>HTTP GET /</td><td>HTTP/2</td><td>1–5ms</td><td>מבקשים את דף הבית</td></tr>
+<tr><td>6</td><td>קבלת HTML</td><td>HTTP/2</td><td>50–200ms</td><td>מקבלים את ה-HTML</td></tr>
+<tr><td>7</td><td>Render + בקשות נוספות</td><td>HTTP/2</td><td>100–500ms</td><td>CSS, JS, תמונות</td></tr>
 </table>
+<div class="callout tip">💡 <strong>למה Google מהיר כל כך?</strong> ראשית, Google מפעיל CDN עם נקודות נוכחות בכל העולם — כשאתם ניגשים, אתם לא מגיעים לשרת בארה"ב אלא לשרת הקרוב אליכם ביותר. שנית, Chrome ו-Google משתמשים ב-QUIC (HTTP/3) — פרוטוקול שבנו Google עצמם כדי לקצר את זמן ה-connection setup. שלישית, Google מבצע DNS prefetching — מחשב IPs לקישורים בעמוד עוד לפני שלחצתם.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">🔧 — Troubleshooting</span>
-<h2 class="sec-h">אין אינטרנט — אבחן שלב אחרי שלב</h2>
-<table class="tbl"><tr><th>תסמין</th><th>בדיקה</th><th>תיקון</th></tr>
-<tr><td>אין כלום</td><td><code>ip addr show</code></td><td><code>ip link set eth0 up</code></td></tr>
-<tr><td>IP אבל אין גישה</td><td><code>ping 192.168.1.1</code></td><td>Restart router</td></tr>
-<tr><td>Gateway אבל אין אינטרנט</td><td><code>ping 8.8.8.8</code></td><td>בדוק ISP</td></tr>
-<tr><td>IP עובד, שם לא</td><td><code>dig @8.8.8.8 google.com</code></td><td><code>echo "nameserver 8.8.8.8" &gt; /etc/resolv.conf</code></td></tr>
-<tr><td>Port לא מגיב</td><td><code>ss -tlnp | grep :80</code></td><td><code>python3 -m http.server 80</code></td></tr>
+<span class="sec-label">🔧 — Troubleshooting: אין אינטרנט — מה עושים?</span>
+<h2 class="sec-h">תהליך אבחון מסודר שעובד 95% מהפעמים</h2>
+<p>כשהאינטרנט לא עובד, רוב האנשים מיד פונים ל"Restart router". זה לא גישה — זו ניחוש. גישה מקצועית היא בדיקה שיטתית מהקרוב לרחוק:</p>
+<table class="tbl">
+<tr><th>שלב</th><th>בדיקה</th><th>פקודה</th><th>תוצאה טובה</th><th>תיקון אם נכשל</th></tr>
+<tr><td>1</td><td>יש IP בכלל?</td><td><code>ip addr show</code></td><td>כתובת 192.168.x.x</td><td><code>ip link set eth0 up</code></td></tr>
+<tr><td>2</td><td>ה-Gateway מגיב?</td><td><code>ping 192.168.1.1</code></td><td>reply תוך 1ms</td><td>Restart router, בדוק כבל</td></tr>
+<tr><td>3</td><td>יש קישוריות לאינטרנט?</td><td><code>ping 8.8.8.8</code></td><td>reply תוך 20-100ms</td><td>בעיה ב-ISP — התקשר</td></tr>
+<tr><td>4</td><td>DNS עובד?</td><td><code>dig @8.8.8.8 google.com</code></td><td>מחזיר IP</td><td><code>echo "nameserver 8.8.8.8" &gt; /etc/resolv.conf</code></td></tr>
+<tr><td>5</td><td>אתר ספציפי נגיש?</td><td><code>curl -I https://google.com</code></td><td>HTTP 200</td><td><code>mtr google.com</code> — מצא hop בעייתי</td></tr>
+<tr><td>6</td><td>Port ספציפי מאזין?</td><td><code>ss -tlnp | grep :80</code></td><td>מציג תהליך</td><td><code>python3 -m http.server 80</code></td></tr>
 </table>
+<div class="callout warn">⚡ <strong>169.254.x.x — סימן אזהרה</strong> אם <code>ip addr show</code> מחזיר כתובת שמתחילה ב-169.254, זה APIPA. המחשב ניסה לקבל IP מ-DHCP, לא קיבל תשובה, ו-הקצה לעצמו כתובת אקראית. אין גישה לאינטרנט. פתרון: <code>sudo dhclient eth0</code> (Linux) או <code>ipconfig /renew</code> (Windows).</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">💼 — ראיון</span>
-<h2 class="sec-h">שאלות נפוצות</h2>
-<div class="callout note">❓ <strong>מה ההבדל בין Latency ל-Bandwidth?</strong><br>Latency — זמן שlpacket מגיע (ms). Bandwidth — כמה data בשנייה (Mbps). רשת רחבה עם latency גבוה — גרועה לגיימינג.</div>
-<div class="callout note">❓ <strong>ping עובד אבל אתר לא נגיש — למה?</strong><br>ping ל-8.8.8.8 בודק IP. אתר לא נגיש — בדוק DNS: <code>dig google.com</code>.</div>
-<div class="callout note">❓ <strong>מה יקרה אם DNS נפל?</strong><br>שמות דומיין לא נגישים. IP ישיר עדיין עובד. מגדירים Primary + Secondary DNS.</div>
+<span class="sec-label">💼 — שאלות ראיון — מה באמת שואלים</span>
+<h2 class="sec-h">שאלות שחוזרות בראיונות ב-Google, Amazon, Cisco</h2>
+<div class="callout note">❓ <strong>"מה ההבדל בין Latency ל-Bandwidth, ולמה שניהם חשובים?"</strong><br><br>
+Latency הוא הזמן שלוקח לpacket להגיע מנקודה א' לנקודה ב' — נמדד ב-milliseconds. Bandwidth הוא כמה נתונים ניתן להעביר בשנייה — נמדד ב-Mbps או Gbps. הטעות הנפוצה היא לחשוב שBandwidth גבוה בהכרח אומר חוויה טובה. לא נכון. בגיימינג, latency של 10ms עם bandwidth של 10Mbps עדיף הרבה על latency של 100ms עם bandwidth של 1Gbps — כי בגיימינג השרת שלח לך frame חדש, ואתה צריך שהוא יגיע מהר. Bandwidth לא עוזר אם הpackets מתמהמהים.</div>
+<div class="callout note">❓ <strong>"ping ל-8.8.8.8 עובד, אבל google.com לא נטען. מה הבעיה?"</strong><br><br>
+זו שאלה קלאסית. ping ל-IP מוכיח שהNetwork Layer (Layer 3) עובד — יש connectivity לאינטרנט. אבל גלישה לאתר לפי שם דורשת DNS. אם DNS לא עובד, הדפדפן לא יכול לתרגם "google.com" ל-IP. הבדיקה: <code>dig @8.8.8.8 google.com</code>. אם זה עובד = בעיה בשרת DNS המקומי. פתרון: שנה את ה-DNS Server ל-8.8.8.8 ידנית.</div>
+<div class="callout note">❓ <strong>"מה יקרה אם שני שרתי DNS — ה-Primary וה-Secondary — שניהם ייפלו?"</strong><br><br>
+תשובה קצרה: גישה לשמות דומיין תפסיק לעבוד. אבל גישה ב-IP ישיר תמשיך לעבוד. אם תדעו את ה-IP הישיר של שרת, אפשר לגשת אליו בלי DNS. בארגונים גדולים, תמיד מגדירים לפחות שני שרתי DNS (Primary + Secondary) ו-GeoDNS שמנתב לפי מיקום. לעולם לא לסמוך על שרת DNS אחד בלבד.</div>
 </section>
 `; }
     },
@@ -3344,121 +3405,205 @@ tracert -d 8.8.8.8      # Windows
       sections: ["מה זה Socket", "כתובת Socket", "API לקוח", "API שרת", "recv ריקה", "C10K ו-asyncio", "WebSockets", "Troubleshooting", "ראיון"],
       content: function() { return `
 <section class="learn-section">
-<span class="sec-label">01 — מה זה Socket</span>
-<h2 class="sec-h">נקודת קצה של חיבור</h2>
-<p>Socket — שילוב של <strong>IP + Port</strong> שמזהה חיבור ספציפי בין שתי תוכניות. כמו כתובת דירה מדויקת: IP הוא הבניין, Port הוא מספר הדירה.</p>
-<table class="tbl"><tr><th>Port</th><th>שירות</th><th>פרוטוקול</th></tr>
-<tr><td>80</td><td>HTTP</td><td>TCP</td></tr>
-<tr><td>443</td><td>HTTPS</td><td>TCP</td></tr>
-<tr><td>22</td><td>SSH</td><td>TCP</td></tr>
-<tr><td>53</td><td>DNS</td><td>UDP</td></tr>
-<tr><td>0–1023</td><td>Well-Known</td><td>דורשים root</td></tr>
-<tr><td>1024–65535</td><td>Dynamic</td><td>כל אחד</td></tr>
+<span class="sec-label">01 — מה זה Socket?</span>
+<h2 class="sec-h">נקודת הקצה של כל חיבור רשת — הדבר שמאפשר לתוכניות לדבר</h2>
+<p>כל פעם שאפליקציה שולחת או מקבלת נתונים ברשת — היא עושה זאת דרך Socket. Socket הוא בעצם שילוב של שתי כתובות: <strong>IP Address</strong> שמזהה את המחשב, ו-<strong>Port Number</strong> שמזהה את התוכנית הספציפית על אותו מחשב.</p>
+<p>תחשבו על בניין דירות. כתובת הבניין היא ה-IP — היא מזהה איפה הבניין ממוקם. מספר הדירה הוא ה-Port — הוא מזהה לאיזה דיירה בדיוק להגיע. Socket הוא תיבת הדואר של דירה ספציפית בבניין ספציפי.</p>
+<p>כשגולשים לאתר, הדפדפן שלכם פותח Socket עם Port אקראי (נניח 54321) ומתחבר ל-Port 443 (HTTPS) בשרת. שני ה-Sockets יחד יוצרים connection ייחודי: <code>IP-שלך:54321 ↔ IP-שרת:443</code>.</p>
+<table class="tbl">
+<tr><th>Port</th><th>שירות</th><th>למה ה-Port הזה?</th></tr>
+<tr><td>80</td><td>HTTP</td><td>נקבע ב-1991 כשהמציאו את WWW</td></tr>
+<tr><td>443</td><td>HTTPS</td><td>HTTP + TLS, הגרסה המוצפנת</td></tr>
+<tr><td>22</td><td>SSH</td><td>גישה מרוחקת מאובטחת</td></tr>
+<tr><td>53</td><td>DNS</td><td>UDP בעיקר — queries קצרות</td></tr>
+<tr><td>25</td><td>SMTP</td><td>שליחת Email</td></tr>
+<tr><td>3306</td><td>MySQL</td><td>מסד נתונים</td></tr>
+<tr><td>0–1023</td><td>Well-Known Ports</td><td>דורשים הרשאת root/admin</td></tr>
+<tr><td>1024–49151</td><td>Registered Ports</td><td>לאפליקציות ספציפיות</td></tr>
+<tr><td>49152–65535</td><td>Dynamic/Ephemeral</td><td>Clients משתמשים בהם אוטומטית</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">02 — API לקוח</span>
-<h2 class="sec-h">4 פקודות לחיבור</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">client.py</span></div>
+<span class="sec-label">02 — API הלקוח — 4 פקודות לחיבור</span>
+<h2 class="sec-h">קוד Python שמתחבר לשרת ושולח בקשה</h2>
+<p>צד הלקוח בתכנות Sockets פשוט יחסית — יש לו 4 פקודות בסיסיות. הסדר חשוב: יוצרים Socket, מתחברים, שולחים, מקבלים, סוגרים.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">client.py — חיבור בסיסי</span></div>
 <pre class="code-body">import socket
 
-s = socket.socket()                    # צור socket
-s.connect(('93.184.216.34', 80))       # התחבר לשרת
-s.send(b'GET / HTTP/1.0\\r\\n\\r\\n')      # שלח בקשה
-data = s.recv(4096)                    # קבל תשובה
-s.close()
-print(data.decode())</pre></div>
+# שלב 1: יצירת Socket
+# socket.AF_INET = IPv4 | socket.SOCK_STREAM = TCP
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# שלב 2: חיבור לשרת
+# מספקים (IP או hostname, Port) כ-tuple
+s.connect(('93.184.216.34', 80))
+
+# שלב 3: שליחת נתונים
+# חייב bytes (b"..."), לא string
+s.send(b'GET / HTTP/1.0\\r\\nHost: example.com\\r\\n\\r\\n')
+
+# שלב 4: קבלת תשובה
+# 4096 = מקסימום bytes לקרוא בפעם אחת
+data = s.recv(4096)
+print(data.decode())
+
+# שלב 5: סגירה
+s.close()</pre></div>
+<div class="callout note">📝 <strong>למה <code>b"..."</code> ולא <code>"..."</code>?</strong> רשת עובדת עם bytes — מספרים בין 0 ל-255. Python מבחין בין strings (טקסט עם encoding) ל-bytes (raw data). לפני שליחה תמיד צריך להמיר: <code>"שלום".encode('utf-8')</code> או להשתמש ישירות ב-<code>b"..."</code> לASCII.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">03 — API שרת</span>
-<h2 class="sec-h">5 פקודות להאזנה</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server.py</span></div>
+<span class="sec-label">03 — API השרת — 5 פקודות להאזנה</span>
+<h2 class="sec-h">קוד Python שמאזין לחיבורים נכנסים</h2>
+<p>השרת מורכב יותר מהלקוח — הוא צריך להיות מוכן לחיבורים רבים, ולא לדעת מתי הם יגיעו. הפקודה <code>accept()</code> היא ה-"נקודת חיכוי" — התוכנית נעצרת שם עד שלקוח מתחבר.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">server.py — שרת בסיסי</span></div>
 <pre class="code-body">import socket
 
-server = socket.socket()
-server.bind(('0.0.0.0', 8080))    # הקשב על כל ממשק
-server.listen(5)                   # תור לקוחות ממתינים
+# שלב 1: יצירת Socket
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# אפשרות חשובה: לא לחכות 60 שניות אחרי Restart
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+# שלב 2: bind — "תהיה זמין על הPort הזה"
+# '0.0.0.0' = הקשב על כל ממשקי הרשת
+# '127.0.0.1' = הקשב רק מהמחשב עצמו
+server.bind(('0.0.0.0', 8080))
+
+# שלב 3: listen — מוכן לקבל חיבורים
+# הפרמטר 5 = גודל תור ממתינים
+server.listen(5)
+print("שרת מאזין על port 8080...")
 
 while True:
-    client, addr = server.accept() # BLOCKING — מחכה ללקוח
-    data = client.recv(1024)       # BLOCKING — מחכה לנתונים
-    if not data:                   # מחרוזת ריקה = נתק
-        client.close()
+    # שלב 4: accept — BLOCKING! מחכה ללקוח חדש
+    # מחזיר: socket חדש + כתובת הלקוח
+    client_socket, client_address = server.accept()
+    print(f"חיבור חדש מ: {client_address}")
+
+    # שלב 5: קרא ועבד
+    data = client_socket.recv(1024)
+
+    # recv מחזיר b"" (bytes ריקים) = הלקוח ניתק
+    if not data:
+        client_socket.close()
         continue
-    client.send(b'Hello! ' + data)
-    client.close()</pre></div>
-<div class="callout note">📝 <code>0.0.0.0</code> — הקשב על כל ממשקי הרשת. <code>127.0.0.1</code> — רק מהמחשב עצמו.</div>
+
+    # שלח תשובה
+    client_socket.send(b'HTTP/1.0 200 OK\\r\\n\\r\\nHello!')
+    client_socket.close()</pre></div>
+<div class="callout tip">💡 <strong>ההבדל בין <code>server_socket</code> ל-<code>client_socket</code>:</strong> השרת מחזיק שני סוגי Sockets. ה-<code>server_socket</code> הוא ה"שומר" — הוא רק מקשיב ומקבל חיבורים חדשים. לכל לקוח שמתחבר, <code>accept()</code> מחזיר <code>client_socket</code> חדש לגמרי — Socket ייעודי לתקשורת עם הלקוח הספציפי הזה. זה כמו פקיד קבלה (server_socket) שמקבל לקוחות ומפנה כל אחד לעובד ייעודי (client_socket).</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">04 — recv() ריקה</span>
-<h2 class="sec-h">איתות ניתוק</h2>
-<p><code>recv()</code> מחזירה <code>b''</code> (מחרוזת ריקה) כשהחיבור נסגר. תמיד בדוק זאת.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">טיפול נכון</span></div>
-<pre class="code-body">data = client.recv(1024)
-if not data:           # ריק = ניתוק
-    client.close()
-    break
-# אחרת — עבד את הנתונים</pre></div>
+<span class="sec-label">04 — recv() ריקה — איתות הניתוק</span>
+<h2 class="sec-h">כשהשרת מקבל bytes ריקים — הלקוח עזב</h2>
+<p>TCP הוא פרוטוקול מוכוון חיבור. כשהחיבור נסגר (הלקוח סגר את ה-Socket, הקריסה, הניתוק) — ה-OS שולח FIN packet. כשהשרת קורא <code>recv()</code> ומקבל <code>b""</code> (bytes ריקים), זה אומר שהלקוח סיים את החיבור.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">טיפול נכון בניתוק</span></div>
+<pre class="code-body"># ❌ שגוי — לא בודק ניתוק
+while True:
+    data = client.recv(1024)
+    process(data)  # יריץ עם data ריק לנצח!
+
+# ✅ נכון — בודק ניתוק
+while True:
+    data = client.recv(1024)
+    if not data:          # b"" = ניתוק
+        print("לקוח ניתק")
+        client.close()
+        break
+    process(data)         # רק אם קיבלנו נתונים אמיתיים</pre></div>
+<div class="callout warn">⚡ <strong>אל תשכחו <code>close()</code>!</strong> כל Socket שלא נסגר תופס משאבים ב-OS — File Descriptor. ב-Linux המוגדר כברירת מחדל, לכל תהליך יש מקסימום 1024 FDs. שרת שלא סוגר Sockets ימצה את המגבלה ויקרוס. השתמשו תמיד ב-<code>try/finally</code> כדי לוודא סגירה.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">05 — C10K ו-asyncio</span>
-<h2 class="sec-h">מדוע Thread לכל לקוח לא עובד</h2>
-<p>Thread בלינוקס — 8MB RAM. מיליון לקוחות — 8TB RAM. לא ריאלי. הפתרון: event loop.</p>
-<table class="tbl"><tr><th>גישה</th><th>מקסימום connections</th><th>שימוש</th></tr>
-<tr><td>Thread per client</td><td>~10,000</td><td>legacy</td></tr>
-<tr><td>select()</td><td>~1,000 (FD_SETSIZE)</td><td>Python 2</td></tr>
-<tr><td>epoll (Linux)</td><td>1M+</td><td>nginx, Node.js</td></tr>
-<tr><td>asyncio</td><td>1M+</td><td>FastAPI, aiohttp</td></tr>
+<span class="sec-label">05 — C10K — למה Thread לכל לקוח לא עובד בscale</span>
+<h2 class="sec-h">הבעיה שהולידה את nginx, Node.js ו-asyncio</h2>
+<p>ב-1999, מהנדס בשם Dan Kegel כתב מאמר עם שאלה פשוטה: "How do I handle 10,000 simultaneous clients on a single server?" — ה-C10K Problem. בגישת Thread-per-Client הנאיבית, 10,000 לקוחות = 10,000 threads. Thread ב-Linux עולה ~8MB. 10,000 × 8MB = 80GB RAM רק בשביל threads. זה לא ריאלי.</p>
+<p>הפתרון שהתפתח: <strong>Event Loop</strong>. במקום thread נפרד לכל לקוח, יש thread אחד שבודק באופן מחזורי מי מוכן. כשלקוח שלח נתונים — מטפלים בו. כשלקוח ממתין — עוברים לבא.</p>
+<table class="tbl">
+<tr><th>גישה</th><th>מקסימום Connections</th><th>RAM Overhead</th><th>דוגמאות</th></tr>
+<tr><td>Thread per Client</td><td>~5,000–10,000</td><td>8MB לthread</td><td>Apache (legacy mode)</td></tr>
+<tr><td>select() / poll()</td><td>~1,000 (מוגבל ל-FD_SETSIZE)</td><td>O(n) scan</td><td>Python 2 era</td></tr>
+<tr><td>epoll (Linux)</td><td>1,000,000+</td><td>O(1) per event</td><td>nginx, Node.js, Redis</td></tr>
+<tr><td>asyncio (Python)</td><td>1,000,000+</td><td>~2KB per coroutine</td><td>FastAPI, aiohttp</td></tr>
 </table>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">asyncio server</span></div>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">asyncio — שרת מודרני שמטפל במיליון לקוחות</span></div>
 <pre class="code-body">import asyncio
 
-async def handle(reader, writer):
+async def handle_client(reader, writer):
+    # async/await = הפונקציה "מחכה" בלי לחסום threads אחרים
     data = await reader.read(1024)
-    writer.write(b'Echo: ' + data)
-    await writer.drain()
+    if data:
+        writer.write(b'Echo: ' + data)
+        await writer.drain()  # מחכה שהBuffer יתרוקן
     writer.close()
 
 async def main():
-    server = await asyncio.start_server(handle, '0.0.0.0', 8888)
+    # start_server מאזין ומפעיל handle_client לכל לקוח חדש
+    server = await asyncio.start_server(handle_client, '0.0.0.0', 8888)
+    print('מאזין על port 8888...')
     async with server:
         await server.serve_forever()
 
+# asyncio.run() מריץ את ה-event loop
 asyncio.run(main())</pre></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">06 — WebSockets</span>
-<h2 class="sec-h">כשHTTP לא מספיק</h2>
-<p>HTTP — Request-Response. הלקוח שואל, השרת עונה, גמרנו. WhatsApp, Google Docs — צריכים שהשרת ידחוף עדכונים ללקוח בלי שביקש. פה נכנסים WebSockets.</p>
-<table class="tbl"><tr><th>פרוטוקול</th><th>כיוון</th><th>שימוש</th></tr>
-<tr><td>HTTP</td><td>Client בלבד</td><td>דפים, REST APIs</td></tr>
-<tr><td>SSE</td><td>Server בלבד</td><td>News feed, מניות</td></tr>
-<tr><td>WebSocket</td><td>שני הכיוונים</td><td>Chat, gaming, trading</td></tr>
+<span class="sec-label">06 — WebSockets: כשHTTP לא מספיק</span>
+<h2 class="sec-h">מודל Request-Response שבור לreal-time</h2>
+<p>HTTP הוא פרוטוקול Request-Response. הלקוח שואל, השרת עונה, החיבור נסגר (או עובר ל-Keep-Alive). זה מצוין לגלישה לדפים. אבל מה עם WhatsApp? איך הטלפון שלכם יודע שהגיע הודעה חדשה — הרי הטלפון לא "שאל" כל שנייה?</p>
+<p>הפתרון הישן נקרא <strong>Polling</strong> — הלקוח שואל כל שנייה "יש הודעות?" — מבזבז bandwidth ועדיין איטי. הפתרון המודרני: <strong>WebSockets</strong> — חיבור TCP קבוע ופתוח בין הלקוח לשרת, שבו שני הצדדים יכולים לשלוח הודעות בכל עת.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">WebSocket Upgrade — איך HTTP הופך ל-WS</span></div>
+<pre class="code-body"># 1. Client שולח HTTP Upgrade Request:
+GET /chat HTTP/1.1
+Host: chat.example.com
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+
+# 2. Server עונה 101 Switching Protocols:
+HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+
+# 3. מעכשיו — חיבור TCP פתוח, שני הצדדים שולחים בחופשיות!
+# ws://  = WebSocket
+# wss:// = WebSocket מוצפן (כמו https)</pre></div>
+<table class="tbl">
+<tr><th>פרוטוקול</th><th>כיוון</th><th>מה מתאים לו</th><th>חיסרון</th></tr>
+<tr><td>HTTP (REST)</td><td>Client — Server בלבד</td><td>דפים, APIs, CRUD</td><td>Client חייב לבקש — לא real-time</td></tr>
+<tr><td>Server-Sent Events</td><td>Server — Client בלבד</td><td>News feed, מניות, logs</td><td>Client לא יכול לשלוח</td></tr>
+<tr><td>WebSocket</td><td>שני הכיוונים בחופשיות</td><td>Chat, Gaming, Trading, Collaboration</td><td>יקר יותר לscale</td></tr>
+<tr><td>gRPC Streaming</td><td>שני הכיוונים</td><td>Microservices, ML inference</td><td>דורש protobuf, לא human-readable</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">🔧 — Troubleshooting</span>
-<h2 class="sec-h">שגיאות Socket נפוצות</h2>
-<table class="tbl"><tr><th>שגיאה</th><th>סיבה</th><th>תיקון</th></tr>
-<tr><td>Connection Refused</td><td>שרת לא מאזין</td><td><code>ss -tlnp | grep PORT</code> ואז הפעל שרת</td></tr>
-<tr><td>Address already in use</td><td>Port תפוס</td><td><code>SO_REUSEADDR</code> או <code>kill $(lsof -ti:PORT)</code></td></tr>
-<tr><td>Connection Timeout</td><td>Firewall חוסם</td><td><code>iptables -A INPUT -p tcp --dport PORT -j ACCEPT</code></td></tr>
-<tr><td>Broken pipe</td><td>לקוח ניתק באמצע</td><td>בדוק <code>recv() == b''</code></td></tr>
+<span class="sec-label">🔧 — Troubleshooting: שגיאות Socket נפוצות</span>
+<h2 class="sec-h">מה כל שגיאה אומרת ואיך מתקנים</h2>
+<table class="tbl">
+<tr><th>שגיאה</th><th>המשמעות האמיתית</th><th>אבחון</th><th>תיקון</th></tr>
+<tr><td><code>Connection Refused</code></td><td>שום תהליך לא מאזין על ה-Port הזה</td><td><code>ss -tlnp | grep :PORT</code></td><td>הפעל את השרת: <code>python3 server.py</code></td></tr>
+<tr><td><code>Address already in use</code></td><td>Port תפוס — כנראה מריץ כבר, או TIME_WAIT</td><td><code>ss -tlnp | grep :PORT</code></td><td>הוסף <code>SO_REUSEADDR</code> או <code>kill $(lsof -ti:PORT)</code></td></tr>
+<tr><td><code>Connection timed out</code></td><td>Firewall חוסם, שרת לא מגיב, routing בעיה</td><td><code>ping IP</code> ואח"כ <code>traceroute</code></td><td>בדוק <code>iptables -L</code> / <code>nft list ruleset</code></td></tr>
+<tr><td><code>Connection reset</code></td><td>הצד השני סגר בפתאומיות</td><td>Wireshark: חפש RST packet</td><td>בדוק logs בשרת</td></tr>
+<tr><td><code>Broken pipe</code></td><td>ניסית לשלוח אחרי שהחיבור נסגר</td><td>קורה כשלקוח ניתק</td><td>בדוק <code>if not recv_data: break</code></td></tr>
 </table>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">💼 — ראיון</span>
-<h2 class="sec-h">שאלות נפוצות</h2>
-<div class="callout note">❓ <strong>מה ההבדל בין TCP ל-UDP socket?</strong><br>TCP — מבוסס חיבור, אמין, סדר מובטח. UDP — ללא חיבור, מהיר, ייתכן אובדן.</div>
-<div class="callout note">❓ <strong>מה <code>listen(5)</code> אומר?</strong><br>גודל התור של לקוחות שממתינים לפני <code>accept()</code>. לא מספר לקוחות מחוברים.</div>
-<div class="callout note">❓ <strong>מה הבדל בין <code>send()</code> ל-<code>sendall()</code>?</strong><br><code>send()</code> עשוי לשלוח פחות ממה שביקשת. <code>sendall()</code> מבטיח שהכל נשלח.</div>
+<span class="sec-label">💼 — שאלות ראיון</span>
+<h2 class="sec-h">מה שואלים על Sockets בראיונות טכניים</h2>
+<div class="callout note">❓ <strong>"מה ההבדל בין TCP Socket ל-UDP Socket?"</strong><br><br>
+TCP Socket (<code>SOCK_STREAM</code>) מבטיח: הנתונים יגיעו, יגיעו בסדר הנכון, לא יהיו כפילויות. הוא עושה זאת עם Handshake, ACKs, ו-Retransmission. UDP Socket (<code>SOCK_DGRAM</code>) שולח ושוכח — מהיר יותר, אבל packets יכולים ללכת לאיבוד, להגיע לא בסדר, או להגיע כפולים. TCP מתאים לHTML, SSH, APIs. UDP מתאים ל-DNS, Streaming, Gaming.</div>
+<div class="callout note">❓ <strong>"מה SO_REUSEADDR ולמה זה חשוב?"</strong><br><br>
+כשסוגרים Socket ב-TCP, הוא נכנס למצב TIME_WAIT למשך ~60-120 שניות. בתקופה הזו, ה-OS לא ייתן לkefale bind על אותו Port שוב. SO_REUSEADDR אומר ל-OS "בסדר, תן לי להשתמש בPort הזה גם אם הוא ב-TIME_WAIT." חיוני לפיתוח — אחרת אחרי כל restart צריך לחכות דקות.</div>
+<div class="callout note">❓ <strong>"מה ההבדל בין <code>0.0.0.0</code> ל-<code>127.0.0.1</code> ב-bind?"</strong><br><br>
+<code>0.0.0.0</code> = הקשב על כל ממשקי הרשת — כל מי שמתחבר, מכל כיוון, יוכל להגיע לשרת. <code>127.0.0.1</code> = הקשב רק על ה-loopback interface — רק תהליכים על אותו מחשב יכולים להתחבר. בdevelopment לעיתים משתמשים ב-127.0.0.1 מסיבות אבטחה. ב-production משתמשים ב-0.0.0.0.</div>
 </section>
 `; }
     },
@@ -3551,98 +3696,120 @@ if not data:           # empty = disconnect
       sections: ["מודל 5 שכבות", "Encapsulation", "Wireshark", "Display Filters", "TShark CLI", "Troubleshooting", "ראיון"],
       content: function() { return `
 <section class="learn-section">
-<span class="sec-label">01 — מודל 5 שכבות</span>
-<h2 class="sec-h">איך מיליארד רכיבים מדברים ביניהם</h2>
-<p>מודל השכבות מסתיר מורכבות. כל שכבה מדברת רק עם השכבה שמעליה ומתחתיה.</p>
-<table class="tbl"><tr><th>#</th><th>שכבה</th><th>פרוטוקולים</th><th>כתובת</th><th>כלי debug</th></tr>
-<tr><td>5</td><td>אפליקציה</td><td>HTTP, DNS, SMTP</td><td>—</td><td>curl, dig</td></tr>
-<tr><td>4</td><td>תעבורה</td><td>TCP, UDP</td><td>Port</td><td>ss, netstat</td></tr>
-<tr><td>3</td><td>רשת</td><td>IP, ICMP</td><td>IP Address</td><td>ping, traceroute</td></tr>
-<tr><td>2</td><td>קו</td><td>Ethernet, WiFi</td><td>MAC</td><td>Wireshark, arp</td></tr>
-<tr><td>1</td><td>פיזית</td><td>כבלים, WiFi signal</td><td>—</td><td>ethtool</td></tr>
+<span class="sec-label">01 — מודל 5 השכבות</span>
+<h2 class="sec-h">איך מיליארד מכשירים מיצרנים שונים מצליחים לדבר אחד עם השני</h2>
+<p>חשבו על בעיה: יש מיליארדי מחשבים, טלפונים, מצלמות אבטחה, מכוניות וטוסטרים מחוברים לאינטרנט. הם מיוצרים על ידי אלפי חברות שונות, מריצים מערכות הפעלה שונות, ומשתמשים בחומרה שונה. איך כולם מצליחים לתקשר?</p>
+<p>הפתרון הגאוני: חלקו את הבעיה לשכבות. כל שכבה עוסקת בבעיה אחת בלבד ומסתירה את המורכבות מהשכבה שמעליה. שכבה 1 לא יודעת שיש שכבה 5. שכבה 5 לא יודעת שיש כבלים. כל שכבה "מדברת" רק עם השכבה שמעליה ומתחתיה.</p>
+<table class="tbl">
+<tr><th>שכבה</th><th>שם</th><th>מה היא עושה</th><th>פרוטוקולים</th><th>כתובת</th></tr>
+<tr><td>5</td><td>אפליקציה</td><td>מה מוצג למשתמש</td><td>HTTP, DNS, SMTP, SSH, FTP</td><td>URL, שם דומיין</td></tr>
+<tr><td>4</td><td>תעבורה</td><td>מי מקבל את הנתונים (תוכנה)</td><td>TCP, UDP, QUIC</td><td>Port Number</td></tr>
+<tr><td>3</td><td>רשת</td><td>לאן מוביל (מחשב)</td><td>IP, ICMP, BGP, OSPF</td><td>IP Address</td></tr>
+<tr><td>2</td><td>קו / Data Link</td><td>hop הבא (גשר)</td><td>Ethernet, WiFi, ARP</td><td>MAC Address</td></tr>
+<tr><td>1</td><td>פיזית</td><td>bit אחד על תווך</td><td>כבלים, WiFi signals, fiber</td><td>אין</td></tr>
 </table>
-<div class="callout note">📝 OSI מגדיר 7 שכבות (מוסיף Session, Presentation). בפועל משתמשים ב-5 שכבות TCP/IP. בראיונות — שואלים על שניהם.</div>
+<div class="callout note">📝 <strong>OSI vs TCP/IP — שאלת ראיון נפוצה:</strong> OSI מגדיר 7 שכבות (מוסיף Session ו-Presentation). TCP/IP המעשי משתמש ב-4-5 שכבות. בעבודה תראו TCP/IP. בראיונות תשאלו על OSI. פשרה: דעו את 5 השכבות של TCP/IP, וזכרו ש-OSI מפצל את Application ל-3.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — Encapsulation</span>
-<h2 class="sec-h">Header על Header</h2>
-<p>כל שכבה עוטפת את הנתונים עם Header משלה. בצד המקבל — הפוך.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">שליחה (Encapsulation)</span></div>
-<pre class="code-body">Data
-  → [TCP Header | Data]           שכבה 4
-  → [IP Header | TCP | Data]      שכבה 3
-  → [ETH Header | IP | TCP | Data | CRC]  שכבה 2
-  → ביטים על הכבל                 שכבה 1</pre></div>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">קבלה (Decapsulation)</span></div>
-<pre class="code-body">ביטים מהכבל
-  → Ethernet frame בדוק CRC
-  → IP packet — בדוק Destination IP
-  → TCP segment — בדוק Port
-  → Data מועבר לאפליקציה</pre></div>
+<h2 class="sec-h">כל שכבה עוטפת את הנתונים עם Header משלה</h2>
+<p>כשאתם שולחים הודעה, כל שכבה מוסיפה מידע משלה לpacket — כמו מעטפות בתוך מעטפות. בצד המקבל, כל שכבה פותחת את המעטפה שלה ומעבירה את הנוכן לשכבה שמעליה.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Encapsulation — ה"עטיפה" של packet</span></div>
+<pre class="code-body">שליחה (מלמעלה למטה):
+
+Data (HTTP message)
+    ↓ שכבה 4 מוסיפה TCP Header
+[TCP Header | Data]
+    ↓ שכבה 3 מוסיפה IP Header  
+[IP Header | TCP Header | Data]
+    ↓ שכבה 2 מוסיפה Ethernet Header + CRC
+[ETH Header | IP Header | TCP Header | Data | CRC]
+    ↓ שכבה 1 ממירה לביטים
+1010001011010001...
+
+קבלה (מלמטה למעלה):
+
+ביטים מהכבל
+    ↓ שכבה 2 בודקת MAC ו-CRC
+[ETH Header | IP Header | TCP Header | Data | CRC]
+    ↓ שכבה 3 בודקת IP יעד
+[IP Header | TCP Header | Data]
+    ↓ שכבה 4 בודקת Port, מרכיב מחדש
+[TCP Header | Data]
+    ↓ שכבה 5 מקבלת Data
+HTTP message — מועבר לדפדפן</pre></div>
+<div class="callout tip">💡 <strong>למה Encapsulation חכם?</strong> כל שכבה יכולה להחליף את הפרוטוקול שלה בלי לפגוע בשאר. שרת HTTP לא יודע ולא אכפת לו אם נוסעים ב-Ethernet, WiFi, 5G או Fiber. HTTP מדבר עם TCP, TCP מדבר עם IP, IP מדבר עם Ethernet. כל שכבה מופשטת מאחרות.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">03 — Wireshark</span>
-<h2 class="sec-h">מיקרוסקופ לרשת</h2>
-<p>Wireshark מציג כל packet שעובר בממשק הרשת. שלושה אזורים:</p>
-<table class="tbl"><tr><th>אזור</th><th>מה מראה</th></tr>
-<tr><td>Packet List</td><td>רשימת כל ה-packets — זמן, IP, פרוטוקול, מידע</td></tr>
-<tr><td>Packet Details</td><td>פרוש שכבות — לחץ ▶ לפתיחה</td></tr>
-<tr><td>Packet Bytes</td><td>bytes גולמיים ב-hex</td></tr>
-</table>
-<div class="callout note">📝 <strong>Promiscuous Mode</strong> — ברירת מחדל: Wireshark רואה רק traffic של המחשב שלך. ב-Promiscuous Mode ברשת Hub — רואה traffic של כולם.</div>
+<span class="sec-label">03 — Wireshark: מיקרוסקופ לרשת</span>
+<h2 class="sec-h">הכלי שכל מהנדס רשת חייב לדעת להשתמש בו</h2>
+<p>Wireshark מאפשר לראות כל packet שעובר בממשק הרשת של המחשב שלכם — ממש כמו האזנה לשיחה. הוא פותח את כל שכבות ה-Encapsulation ומציג כל שדה בנפרד. אם אתם אי פעם שואלים "למה הדף לא נטען?" — Wireshark יגיד לכם בדיוק מה קורה.</p>
+<p>ממשק Wireshark מחולק לשלושה אזורים עיקריים: ה-Packet List שמציג רשימה של כל הpackets עם מידע בסיסי, ה-Packet Details שפורס את כל שכבות הpacket שנבחר, וה-Packet Bytes שמציג את הbytes הגולמיים ב-hexadecimal.</p>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">04 — Display Filters</span>
-<h2 class="sec-h">מסננים חיוניים</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Display Filters — Wireshark</span></div>
-<pre class="code-body">ip.addr == 8.8.8.8              # כל traffic ל/מ-Google
-tcp.port == 443                  # HTTPS בלבד
-http.response.code == 404        # שגיאות 404
-dns && dns.flags.response == 1   # DNS responses
-tcp.flags.syn == 1               # פתיחות חיבור
-tcp.analysis.retransmission      # packet loss
-ssl.handshake.type == 1          # TLS Client Hello
+<span class="sec-label">04 — Wireshark Display Filters</span>
+<h2 class="sec-h">איך לסנן את הקול ולמצוא מה שמחפשים</h2>
+<p>בגלישה רגילה, Wireshark תופס מאות packets לשנייה — רעש עצום. Display Filters מאפשרים לצמצם לבדיוק מה שמעניין. הפילטרים כתובים בשפה פשוטה ואינטואיטיבית.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Display Filters חיוניים</span></div>
+<pre class="code-body">ip.addr == 8.8.8.8          כל traffic ל/מ-Google DNS
+tcp.port == 443             HTTPS בלבד
+http.response.code == 404   כל שגיאות 404
+dns.flags.response == 1     רק DNS תשובות (לא queries)
+tcp.flags.syn == 1          פתיחות חיבור חדשות
+tcp.analysis.retransmission packets שאובדו ונשלחו שוב
+ssl.handshake.type == 1     TLS Client Hello
+http.request                כל בקשות HTTP
+ip.src == 192.168.1.100     רק מהמחשב הזה
 
-# AND / OR
-ip.src == 192.168.1.1 && tcp
-http || dns</pre></div>
+# שילובים:
+ip.addr == 8.8.8.8 && dns   DNS traffic לGoogle
+http || dns                  HTTP ו-DNS ביחד</pre></div>
+<div class="callout tip">💡 <strong>Follow TCP Stream:</strong> לחצו ימני על packet — Follow — TCP Stream. Wireshark מאסוף את כל הpackets של החיבור הזה ומציג את התוכן בצורה קריאה — תראו את ה-HTTP request ואת ה-HTML שחזר, בפורמט של שיחה.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">05 — TShark CLI</span>
-<h2 class="sec-h">Wireshark ב-Terminal</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">TShark</span></div>
-<pre class="code-body"># הקלטה
-tcpdump -i eth0 -w capture.pcap
-tshark -i eth0 -f "port 80"
+<span class="sec-label">05 — TShark: Wireshark ב-Terminal</span>
+<h2 class="sec-h">לנתח traffic על שרתי production ללא GUI</h2>
+<p>ב-production אין GUI. כשצריך לאבחן בעיה על שרת לינוקס, משתמשים ב-TShark (Wireshark CLI) או tcpdump. אלה הכלים שמהנדסי DevOps וSRE משתמשים בהם יומיומית.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">TShark ו-tcpdump</span></div>
+<pre class="code-body"># הקלטה בזמן אמת
+tcpdump -i eth0 -w capture.pcap           # שמור לקובץ
+tshark -i eth0 -f "port 80"              # הצג HTTP בזמן אמת
 
-# ניתוח
-tshark -r capture.pcap
-tshark -r capture.pcap -q -z io,phs   # protocol hierarchy
+# ניתוח קובץ קיים
+tshark -r capture.pcap                    # הצג הכל
+tshark -r capture.pcap -Y "http"         # רק HTTP
 
-# Follow TCP Stream — ראה שיחה מלאה
-# ב-Wireshark: Click packet → Follow → TCP Stream</pre></div>
+# סטטיסטיקות
+tshark -r capture.pcap -q -z io,phs      # Protocol hierarchy
+
+# חלץ קבצים מ-capture
+tshark -r capture.pcap --export-objects http,/tmp/files/</pre></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">🔧 — Troubleshooting</span>
-<h2 class="sec-h">אבחון עם Wireshark</h2>
-<table class="tbl"><tr><th>בעיה</th><th>Filter</th><th>מה לחפש</th></tr>
-<tr><td>איטיות</td><td><code>tcp.analysis.retransmission</code></td><td>הרבה retransmissions — packet loss</td></tr>
-<tr><td>אתר לא נגיש</td><td><code>dns</code></td><td>DNS query ללא response</td></tr>
-<tr><td>HTTPS לא עובד</td><td><code>ssl.handshake</code></td><td>Handshake נכשל — בעיית Certificate</td></tr>
-<tr><td>חיבור נופל</td><td><code>tcp.flags.rst == 1</code></td><td>RST packets — מי מאפס?</td></tr>
+<span class="sec-label">🔧 — Troubleshooting עם Wireshark</span>
+<h2 class="sec-h">איך Wireshark מגלה כל בעיה רשתית</h2>
+<table class="tbl">
+<tr><th>בעיה</th><th>Filter</th><th>מה לחפש</th></tr>
+<tr><td>הדף לא נטען</td><td><code>dns</code></td><td>DNS query ללא response — DNS נפל</td></tr>
+<tr><td>HTTPS שבור</td><td><code>ssl.handshake</code></td><td>Handshake נעצר = Certificate בעיה</td></tr>
+<tr><td>חיבור איטי</td><td><code>tcp.analysis.retransmission</code></td><td>הרבה retransmissions = packet loss</td></tr>
+<tr><td>חיבור נקטע</td><td><code>tcp.flags.rst == 1</code></td><td>RST packet — מי שלח reset?</td></tr>
+<tr><td>API לא עונה</td><td><code>http.response.code >= 500</code></td><td>500 errors = בעיה בשרת</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">💼 — ראיון</span>
-<h2 class="sec-h">שאלות נפוצות</h2>
-<div class="callout note">❓ <strong>כמה פעמים packet עובר Network Layer בדרך S→R→D?</strong><br>שתי פעמים — ב-S ו-ב-D. ב-R הוא עובר Data Link (L2) בלבד לכל hop.</div>
-<div class="callout note">❓ <strong>מה Encapsulation?</strong><br>כל שכבה מוסיפה Header לנתונים מהשכבה שמעליה. בצד המקבל — Decapsulation מסיר Headers.</div>
+<h2 class="sec-h">שאלות נפוצות על מודל השכבות</h2>
+<div class="callout note">❓ <strong>"כמה פעמים packet עובר דרך Network Layer (L3) בדרך מ-S דרך Router ל-D?"</strong><br><br>
+שתי פעמים — פעם ב-S (כשנשלח) ופעם ב-D (כשמגיע). ה-Router עצמו פועל ב-L3, אבל הוא לא "עובר" את L3 כ-endpoint — הוא מעבד את ה-IP Header ומחליט על ניתוב. Data Link Layer (L2) עובר שלוש פעמים: ב-S, ב-Router, ו-ב-D — כי ה-MAC משתנה בכל hop.</div>
+<div class="callout note">❓ <strong>"מה ההבדל בין Display Filter ל-Capture Filter?"</strong><br><br>
+Capture Filter (BPF syntax) מסנן packets לפני שנכנסים ל-Wireshark — כלומר packets שלא תואמים ה-filter לא נשמרים בכלל. Display Filter מסנן packets שכבר נלכדו — הdata עדיין בזיכרון, רק לא מוצג. Capture Filter יעיל יותר בביצועים, Display Filter גמיש יותר.</div>
 </section>
 `; }
     },
@@ -3708,95 +3875,163 @@ ssl.handshake.type == 1</pre></div>
       content: function() { return `
 <section class="learn-section">
 <span class="sec-label">01 — HTTP Request</span>
-<h2 class="sec-h">מבנה הבקשה</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">GET Request</span></div>
-<pre class="code-body">GET /search?q=python HTTP/1.1
-Host: www.google.com
-User-Agent: Mozilla/5.0
-Accept: text/html
-(שורה ריקה — סיום headers)</pre></div>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">POST Request</span></div>
+<h2 class="sec-h">המבנה המדויק של כל בקשה שהדפדפן שולח</h2>
+<p>HTTP הוא פרוטוקול טקסטואלי — כל בקשה היא טקסט רגיל שאדם יכול לקרוא. זה בכוונה, כדי שיהיה קל לDebug. כל HTTP Request בנוי משלושה חלקים: שורת הבקשה (Request Line), כותרות (Headers), וגוף (Body).</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP GET Request — אנטומיה מלאה</span></div>
+<pre class="code-body">GET /search?q=python HTTP/1.1          ← Request Line
+Host: www.google.com                    ← Header חובה ב-HTTP/1.1
+User-Agent: Mozilla/5.0 (...)          ← מי שולח (דפדפן, curl, bot?)
+Accept: text/html,application/json     ← מה אני מוכן לקבל
+Accept-Language: he-IL,he;q=0.9       ← באיזו שפה
+Accept-Encoding: gzip, deflate        ← כפוי? מהיר יותר
+Connection: keep-alive                 ← אל תסגור חיבור אחרי בקשה
+                                        ← שורה ריקה = סיום Headers
+                                        ← (GET אין Body)</pre></div>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP POST Request — כשיש Body</span></div>
 <pre class="code-body">POST /login HTTP/1.1
 Host: www.github.com
-Content-Type: application/json
-Content-Length: 42
-(שורה ריקה)
-{"username": "alice", "password": "s3cr3t"}</pre></div>
+Content-Type: application/json         ← מה פורמט ה-Body
+Content-Length: 42                     ← כמה bytes ה-Body
+Authorization: Bearer eyJhbG...        ← token אימות
+
+                                        ← שורה ריקה הכרחית!
+{"username": "alice", "password": "s3cr3t"}   ← Body</pre></div>
+<div class="callout warn">⚡ <strong>כרטיסי אשראי וסיסמאות — תמיד POST!</strong> GET שמה את הנתונים ב-URL: <code>/login?password=1234</code>. ה-URL נשמר ב-browser history, ב-server logs, ב-proxy logs. כל מי שיש לו גישה ל-logs רואה את הסיסמה. POST שמה נתונים ב-Body שלא נרשם ב-URL.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">02 — Status Codes</span>
-<h2 class="sec-h">מה השרת עונה</h2>
-<table class="tbl"><tr><th>קוד</th><th>משמעות</th><th>דוגמה</th></tr>
-<tr><td>200</td><td>OK</td><td>הצלחה</td></tr>
-<tr><td>201</td><td>Created</td><td>משאב נוצר (POST)</td></tr>
-<tr><td>301</td><td>Moved Permanently</td><td>redirect קבוע</td></tr>
-<tr><td>302</td><td>Found</td><td>redirect זמני</td></tr>
-<tr><td>400</td><td>Bad Request</td><td>בקשה שגויה</td></tr>
-<tr><td>401</td><td>Unauthorized</td><td>צריך התחברות</td></tr>
-<tr><td>403</td><td>Forbidden</td><td>אין הרשאה</td></tr>
-<tr><td>404</td><td>Not Found</td><td>דף לא קיים</td></tr>
-<tr><td>500</td><td>Internal Server Error</td><td>באג בשרת</td></tr>
-<tr><td>503</td><td>Service Unavailable</td><td>שרת עמוס/מושבת</td></tr>
+<span class="sec-label">02 — HTTP Response</span>
+<h2 class="sec-h">מה השרת מחזיר וכיצד הדפדפן מפרש זאת</h2>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">HTTP Response מלא</span></div>
+<pre class="code-body">HTTP/1.1 200 OK                         ← Status Line
+Content-Type: text/html; charset=UTF-8  ← איך לפרש ה-Body
+Content-Length: 1256                    ← גודל ה-Body
+Cache-Control: max-age=3600            ← שמור cache שעה
+Set-Cookie: session=abc123; Secure     ← הגדר cookie
+X-Frame-Options: DENY                  ← מניעת Clickjacking
+
+                                        ← שורה ריקה
+<!DOCTYPE html>...                      ← Body</pre></div>
+<table class="tbl">
+<tr><th>Status Code</th><th>קטגוריה</th><th>משמעות</th><th>תרחיש</th></tr>
+<tr><td>200 OK</td><td>2xx — הצלחה</td><td>בקשה טופלה בהצלחה</td><td>דף נטען, API ענה</td></tr>
+<tr><td>201 Created</td><td>2xx — הצלחה</td><td>משאב נוצר</td><td>POST שיצר record חדש</td></tr>
+<tr><td>301 Moved Permanently</td><td>3xx — redirect</td><td>כתובת השתנתה לצמיתות</td><td>http — https redirect</td></tr>
+<tr><td>302 Found</td><td>3xx — redirect</td><td>כתובת זמנית אחרת</td><td>לאחר login, redirect לדף</td></tr>
+<tr><td>400 Bad Request</td><td>4xx — שגיאת לקוח</td><td>הבקשה שגויה</td><td>JSON לא תקין ב-Body</td></tr>
+<tr><td>401 Unauthorized</td><td>4xx — שגיאת לקוח</td><td>לא מאומת</td><td>חסר Authorization header</td></tr>
+<tr><td>403 Forbidden</td><td>4xx — שגיאת לקוח</td><td>מאומת, אין הרשאה</td><td>משתמש רגיל ניגש לAdmin</td></tr>
+<tr><td>404 Not Found</td><td>4xx — שגיאת לקוח</td><td>משאב לא קיים</td><td>דף נמחק</td></tr>
+<tr><td>429 Too Many Requests</td><td>4xx — שגיאת לקוח</td><td>Rate Limit</td><td>קראת API יותר מדי פעמים</td></tr>
+<tr><td>500 Internal Server Error</td><td>5xx — שגיאת שרת</td><td>באג בשרת</td><td>Exception לא נתפס</td></tr>
+<tr><td>503 Service Unavailable</td><td>5xx — שגיאת שרת</td><td>שרת לא זמין</td><td>עומס, maintenance</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — GET vs POST</span>
-<h2 class="sec-h">מתי כל אחד</h2>
-<table class="tbl"><tr><th>תכונה</th><th>GET</th><th>POST</th></tr>
-<tr><td>נתונים</td><td>ב-URL: ?q=python</td><td>ב-Body (נסתר)</td></tr>
-<tr><td>גודל</td><td>~2KB מקסימום</td><td>ללא הגבלה</td></tr>
-<tr><td>Bookmark</td><td>ניתן</td><td>לא</td></tr>
-<tr><td>מטרה</td><td>קבלת מידע</td><td>שליחה/שינוי</td></tr>
-<tr><td>דוגמה</td><td>חיפוש Google</td><td>שליחת תגובה, העלאת קובץ</td></tr>
+<h2 class="sec-h">שני פעלים שונים עם מטרות שונות לחלוטין</h2>
+<p>HTTP מגדיר 9 methods (פעלים), אבל 90% מה-traffic הוא GET ו-POST. ההבדל ביניהם לא רק טכני — הוא סמנטי. GET אומר "תן לי מידע". POST אומר "עשה משהו עם המידע הזה".</p>
+<table class="tbl">
+<tr><th>תכונה</th><th>GET</th><th>POST</th></tr>
+<tr><td>נתונים</td><td>ב-URL: <code>?q=python&page=2</code></td><td>ב-Body (נסתר מה-URL)</td></tr>
+<tr><td>גודל מקסימלי</td><td>~2,000–8,000 תווים (תלוי browser)</td><td>ללא הגבלה (בפועל GBs)</td></tr>
+<tr><td>Idempotent?</td><td>✅ כן — קריאה חוזרת = אותה תוצאה</td><td>❌ לא — כל קריאה עשויה לשנות state</td></tr>
+<tr><td>ניתן לBookmark?</td><td>✅ כן — ה-URL מכיל הכל</td><td>❌ לא — ה-Body לא שמור</td></tr>
+<tr><td>נשמר בCache?</td><td>✅ כן — ברירת מחדל</td><td>❌ לא — ברירת מחדל</td></tr>
+<tr><td>שימוש</td><td>חיפוש, קריאת דפים, APIs שמחזירים data</td><td>Login, העלאת קבצים, יצירת records</td></tr>
 </table>
-<div class="callout warn">⚡ כרטיסי אשראי, סיסמאות — תמיד POST. GET נשמר ב-URL history וב-logs.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — TLS/HTTPS</span>
-<h2 class="sec-h">ה-🔒 בדפדפן — איך עובד</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">TLS 1.3 Handshake</span></div>
-<pre class="code-body">1. Client Hello  → "תומך TLS 1.3, הנה cipher suites"
-2. Server Hello  ← "נשתמש AES-256-GCM + Certificate"
-3. Client Verify → [מאמת Certificate מול CA]
-4. Finished      ↔ מוצפן מכאן ואילך
-
-TLS 1.2: 2 RTT  |  TLS 1.3: 1 RTT  |  0-RTT: reconnect</pre></div>
-<table class="tbl"><tr><th>מושג</th><th>הסבר</th></tr>
-<tr><td>CA</td><td>Certificate Authority — גוף שחותם על תעודות (Let's Encrypt, DigiCert)</td></tr>
-<tr><td>Perfect Forward Secrecy</td><td>מפתח חדש לכל session — גנבת private key לא חושפת sessions ישנים</td></tr>
-<tr><td>HSTS</td><td>Header שמכריח HTTPS לעולם — אי אפשר לחזור ל-HTTP</td></tr>
+<h2 class="sec-h">כיצד 🔒 בדפדפן מגן על הסיסמה שלכם</h2>
+<p>HTTP הוא plain text — כל מי שיכול לתפוס את הpackets (ISP, WiFi operator, government) יכול לקרוא הכל. TLS (Transport Layer Security) מוסיף שכבת הצפנה מעל HTTP, הופך אותו ל-HTTPS, וגם מאמת שאתם באמת מדברים עם google.com ולא עם תוקף.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">TLS 1.3 Handshake — הפרוטוקול שמאבטח הכל</span></div>
+<pre class="code-body">Client                              Server
+  |                                    |
+  |-- Client Hello ------------------>|
+  |   "תומך TLS 1.3, הנה cipher list"  |
+  |                                    |
+  |<- Server Hello -------------------|
+  |   "נשתמש AES-256-GCM"             |
+  |<- Certificate --------------------|
+  |   "הנה תעודה חתומה ע"י DigiCert"   |
+  |                                    |
+  |   [מאמת Certificate מול CA list]  |
+  |   [מוודא: זה באמת google.com?]    |
+  |                                    |
+  |-- Finished ---------------------->|
+  |                                    |
+  |=== מוצפן לחלוטין מכאן ואילך ====|</pre></div>
+<table class="tbl">
+<tr><th>מושג</th><th>הסבר פשוט</th></tr>
+<tr><td>Certificate Authority (CA)</td><td>גוף מהימן (DigiCert, Let's Encrypt) שחותם על תעודות. הדפדפן מגיע עם רשימה של ~150 CAs שהוא סומך עליהם.</td></tr>
+<tr><td>Perfect Forward Secrecy</td><td>מפתח הצפנה חדש לכל session. אפילו אם מישהו יגנוב את ה-Private Key של השרת בעוד 10 שנים — לא יוכל לפענח sessions ישנים.</td></tr>
+<tr><td>HSTS</td><td>Header שאומר לדפדפן "לעולם אל תגיע לאתר הזה ב-HTTP, רק HTTPS". גם אם המשתמש כותב http:// ידנית.</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">05 — REST vs GraphQL vs gRPC</span>
-<h2 class="sec-h">מלחמת ה-APIs — 2025</h2>
-<table class="tbl"><tr><th>סגנון</th><th>איך עובד</th><th>מתי לבחור</th></tr>
-<tr><td>REST</td><td>HTTP verbs + URL resources</td><td>רוב ה-APIs, פשוט, universal</td></tr>
-<tr><td>GraphQL</td><td>Query language — בקש בדיוק מה שצריך</td><td>mobile apps, over-fetching בעיה</td></tr>
-<tr><td>gRPC</td><td>Protocol Buffers על HTTP/2</td><td>microservices, מהיר פי 5-10 מ-REST</td></tr>
+<span class="sec-label">05 — REST, GraphQL, gRPC</span>
+<h2 class="sec-h">שלושה פרדיגמות שונות לבניית APIs</h2>
+<p>כשבונים שירות שאחרים צריכים לקרוא לו, צריך להחליט באיזה "שפה" תדברו. כל פרדיגמה מתאימה לצרכים שונים.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">REST vs GraphQL — הבעיה בפועל</span></div>
+<pre class="code-body"># REST — לקבל פרופיל משתמש עם posts:
+GET /users/123         → {name, email, age, ...}
+GET /users/123/posts   → [{title, body, date}, ...]
+GET /users/123/friends → [{name, ...}, ...]
+# 3 requests נפרדים = 3×RTT
+
+# GraphQL — הכל בפעם אחת:
+query {
+  user(id: "123") {
+    name
+    email
+    posts { title }       ← רק title, לא כל השדות
+    friends { name }
+  }
+}
+# 1 request, בדיוק מה שצריך
+
+# Facebook המציאה GraphQL ב-2012 בדיוק בגלל הבעיה הזו</pre></div>
+<table class="tbl">
+<tr><th>סגנון</th><th>מתי להשתמש</th><th>יתרון</th><th>חיסרון</th></tr>
+<tr><td><strong>REST</strong></td><td>רוב ה-APIs, Simple CRUD</td><td>פשוט, universal, HTTP caching</td><td>Over/Under-fetching</td></tr>
+<tr><td><strong>GraphQL</strong></td><td>Mobile apps, data-heavy UIs</td><td>בדיוק מה שצריך, flexible</td><td>מורכב, caching קשה</td></tr>
+<tr><td><strong>gRPC</strong></td><td>Microservices, internal APIs</td><td>מהיר פי 5-10, streaming, type-safe</td><td>לא human-readable</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">🔧 — Troubleshooting</span>
-<h2 class="sec-h">בעיות HTTP נפוצות</h2>
-<table class="tbl"><tr><th>בעיה</th><th>בדיקה</th><th>תיקון</th></tr>
-<tr><td>404 בכל דף</td><td><code>curl -I URL</code></td><td>בדוק URL ונתיב בשרת</td></tr>
-<tr><td>SSL Error</td><td><code>curl -v https://site.com</code></td><td>בדוק תוקף Certificate: <code>openssl s_client -connect</code></td></tr>
-<tr><td>CORS Error</td><td>Browser console</td><td>הוסף <code>Access-Control-Allow-Origin</code> header בשרת</td></tr>
-<tr><td>500 Server Error</td><td>Server logs</td><td>בדוק logs: <code>journalctl -u nginx</code></td></tr>
-</table>
+<span class="sec-label">🔧 — Troubleshooting HTTP</span>
+<h2 class="sec-h">curl — הכלי שמאפשר לAבחן כל בעיה HTTP</h2>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">curl לאבחון</span></div>
+<pre class="code-body">curl -I https://google.com              # Headers בלבד — מה Status Code?
+curl -v https://google.com             # verbose — ראה הכל, כולל TLS
+curl -w "%{time_total}\\n" google.com   # כמה זמן לוקח?
+
+# Debug timing מפורט:
+curl -w "
+DNS: %{time_namelookup}s
+Connect: %{time_connect}s
+TLS: %{time_appconnect}s
+Total: %{time_total}s
+" https://google.com
+
+# שלח POST עם JSON:
+curl -X POST https://api.example.com/login \\
+  -H "Content-Type: application/json" \\
+  -d '{"user":"alice","pass":"secret"}'</pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">💼 — ראיון</span>
-<h2 class="sec-h">שאלות נפוצות</h2>
-<div class="callout note">❓ <strong>מה ההבדל בין 401 ל-403?</strong><br>401 — לא מזוהה (צריך להתחבר). 403 — מזוהה אבל אין הרשאה.</div>
-<div class="callout note">❓ <strong>HTTP Idempotent — מה זה?</strong><br>פעולה שניתן לבצע פעמים רבות עם אותה תוצאה. GET, PUT, DELETE — idempotent. POST — לא.</div>
+<h2 class="sec-h">שאלות HTTP שחוזרות בראיונות</h2>
+<div class="callout note">❓ <strong>"מה ההבדל בין 401 ל-403?"</strong><br><br>
+401 Unauthorized = לא מזוהה. המשמעות האמיתית היא "אני לא יודע מי אתה — אנא התחבר." 403 Forbidden = מזוהה אבל אין הרשאה. "אני יודע מי אתה, אבל אין לך רשות לגשת לזה." הנקודה המבלבלת: 401 נקרא "Unauthorized" אבל משמש ל-Authentication (מי אתה?), לא Authorization (מה אתה יכול?).</div>
+<div class="callout note">❓ <strong>"מה HTTP Idempotency ולמה זה חשוב?"</strong><br><br>
+פעולה Idempotent היא כזו שביצוע פעמים רבות נותן אותה תוצאה כמו פעם אחת. GET, PUT, DELETE הם Idempotent. POST הוא לא — כל POST יוצר record חדש. זה חשוב ב-Retry Logic: אם חיבור נפסק ולא יודעים אם הבקשה הגיעה — safe לנסות שוב GET/PUT. POST עלול ליצור כפילויות.</div>
 </section>
 `; }
     },
@@ -3858,83 +4093,112 @@ Accept: text/html
       sections: ["מה Scapy", "בניית packet", "sniff()", "send/sr/sr1", "ARP ב-Scapy", "DNS Monitoring", "Troubleshooting", "ראיון"],
       content: function() { return `
 <section class="learn-section">
-<span class="sec-label">01 — מה Scapy</span>
-<h2 class="sec-h">Sockets על סטרואידים</h2>
-<p>Sockets פועלים בשכבה 5 (אפליקציה). Scapy פועלת בכל שכבה — בונה, שולחת ומנתחת packets ב-Python.</p>
-<table class="tbl"><tr><th>יכולת</th><th>Socket</th><th>Scapy</th></tr>
-<tr><td>HTTP request</td><td>✅</td><td>✅</td></tr>
-<tr><td>ICMP ping</td><td>❌</td><td>✅</td></tr>
-<tr><td>ARP</td><td>❌</td><td>✅</td></tr>
-<tr><td>TCP SYN בלבד</td><td>❌</td><td>✅</td></tr>
-<tr><td>Packet crafting</td><td>❌</td><td>✅</td></tr>
+<span class="sec-label">01 — מה זה Scapy ולמה הוא מיוחד</span>
+<h2 class="sec-h">Python library שמאפשרת לגעת בכל שכבה של הרשת</h2>
+<p>Socket API פועל בשכבה 5 — האפליקציה. הוא לא נותן לכם לגעת ב-TCP headers, ב-IP headers, או ב-Ethernet frames. Scapy היא ספריית Python שמאפשרת לבנות packets מאפס לכל שכבה, לשלוח אותם, ולנתח packets נכנסים.</p>
+<p>זה כמו ההבדל בין נסיעה במכונית (Socket — נוח אבל מוגבל) לבין פירוק המנוע ושינוי כל חלק (Scapy — עוצמתי ומדויק). Scapy משמשת לpentest, לresearch, לאוטומציה ולteaching.</p>
+<table class="tbl">
+<tr><th>יכולת</th><th>Socket</th><th>Scapy</th></tr>
+<tr><td>שלח HTTP request</td><td>✅</td><td>✅</td></tr>
+<tr><td>שלח ICMP ping</td><td>❌ (דורש raw socket + root)</td><td>✅</td></tr>
+<tr><td>בנה ARP packet</td><td>❌</td><td>✅</td></tr>
+<tr><td>שלח TCP SYN בלי ACK</td><td>❌</td><td>✅</td></tr>
+<tr><td>זייף MAC/IP מקור</td><td>❌</td><td>✅</td></tr>
+<tr><td>הסנפה (sniffing)</td><td>❌</td><td>✅</td></tr>
 </table>
+<div class="callout warn">⚡ <strong>Scapy דורש root!</strong> גישה ישירה לשכבות רשת נמוכות דורשת הרשאות מערכת. הריצו תמיד <code>sudo python3</code> או <code>sudo scapy</code>. אל תריצו כroot בproduction.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">02 — בניית Packet</span>
-<h2 class="sec-h">אופרטור / — שכבה על שכבה</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">בניית packets</span></div>
+<span class="sec-label">02 — בניית Packets עם האופרטור /</span>
+<h2 class="sec-h">כל שכבה מוסיפים עם / — כמו Encapsulation ב-מציאות</h2>
+<p>הגאוניות של Scapy היא ש-/ הוא לא חלוקה — הוא אופרטור שמשרשר שכבות. <code>IP() / TCP()</code> אומר "IP packet שמכיל TCP segment". זה מדמה בדיוק את Encapsulation שלמדנו.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">בניית packets — מהפשוט למורכב</span></div>
 <pre class="code-body">from scapy.all import *
 
-# IP בלבד
-pkt = IP(dst="8.8.8.8")
-
-# IP + ICMP (ping)
+# ICMP Ping — הפשוט ביותר
 pkt = IP(dst="8.8.8.8") / ICMP()
+pkt.show()        # ראה כל השדות
+# Scapy ממלא אוטומטית: src IP, checksum, id
 
-# IP + TCP (SYN)
-pkt = IP(dst="8.8.8.8") / TCP(dport=80, flags="S")
+# TCP SYN — תחילת handshake
+syn = IP(dst="example.com") / TCP(dport=80, flags="S")
 
-# IP + UDP + DNS
-pkt = IP(dst="8.8.8.8") / UDP(dport=53) / DNS(rd=1, qd=DNSQR(qname="google.com"))
+# UDP + DNS Query
+dns_q = IP(dst="8.8.8.8") / UDP(dport=53) / \\
+        DNS(rd=1, qd=DNSQR(qname="google.com"))
 
-pkt.show()   # הצג את כל השדות</pre></div>
-<div class="callout note">📝 Scapy ממלא שדות אוטומטית — checksum, source IP, MAC. אפשר לדרוס כל שדה.</div>
+# ARP Request — מי יש לו 192.168.1.1?
+arp = ARP(op="who-has", pdst="192.168.1.1")
+
+# Ethernet + ARP (Layer 2 — שלח ל-broadcast)
+arp_pkt = Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst="192.168.1.1")</pre></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">03 — sniff()</span>
-<h2 class="sec-h">הסנפה וניתוח</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">sniff</span></div>
+<span class="sec-label">03 — sniff() — הסנפה וניתוח בזמן אמת</span>
+<h2 class="sec-h">תפוס packets מהרשת ועבד אותם ב-Python</h2>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">sniff — דוגמאות מעשיות</span></div>
 <pre class="code-body">from scapy.all import *
 
-# הסנף DNS queries
-def print_dns(pkt):
+# הסנפה בסיסית — 10 packets
+pkts = sniff(count=10)
+
+# עם BPF filter — רק DNS
+dns_pkts = sniff(filter="udp port 53", count=5)
+
+# עם callback — עיבוד real-time
+def analyze(pkt):
     if pkt.haslayer(DNS) and pkt[DNS].qr == 0:
-        print("DNS query:", pkt[DNS].qd.qname)
+        print(f"DNS Query: {pkt[DNS].qd.qname.decode()}")
 
-sniff(
-    filter="udp port 53",
-    prn=print_dns,
-    count=10        # 0 = אינסוף
-)</pre></div>
+sniff(filter="udp port 53", prn=analyze, count=20)
+
+# הסנפה על interface ספציפי
+sniff(iface="eth0", filter="tcp port 80", count=10)
+
+# שמירה לקובץ pcap
+pkts = sniff(count=100)
+wrpcap("capture.pcap", pkts)
+
+# קריאת pcap קיים
+saved = rdpcap("capture.pcap")</pre></div>
+<div class="callout note">📝 <strong>BPF Filters ב-Scapy:</strong> ה-filter parameter משתמש ב-Berkeley Packet Filter syntax — אותו syntax כמו tcpdump. "tcp port 80", "host 8.8.8.8", "udp and dst port 53". זה מסנן ברמת ה-OS לפני שpackets נכנסים ל-Python.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">04 — send / sr / sr1</span>
-<h2 class="sec-h">שליחה וקבלה</h2>
-<table class="tbl"><tr><th>פונקציה</th><th>מה עושה</th></tr>
-<tr><td><code>send()</code></td><td>שלח L3, לא מחכה לתשובה</td></tr>
-<tr><td><code>sendp()</code></td><td>שלח L2 (Ethernet frame), לא מחכה</td></tr>
-<tr><td><code>sr()</code></td><td>שלח + קבל כל התשובות</td></tr>
-<tr><td><code>sr1()</code></td><td>שלח + קבל תשובה ראשונה בלבד</td></tr>
-</table>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">ping ב-Scapy</span></div>
-<pre class="code-body">pkt = IP(dst="8.8.8.8") / ICMP()
-resp = sr1(pkt, timeout=2)
-if resp:
-    print("RTT:", resp.time - pkt.sent_time, "s")
-    print("From:", resp[IP].src)</pre></div>
+<span class="sec-label">04 — send, sr, sr1</span>
+<h2 class="sec-h">שליחה וקבלה — מה ההבדל בין הפונקציות</h2>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">כל פונקציית שליחה</span></div>
+<pre class="code-body">from scapy.all import *
+
+# send() — שלח L3, לא מחכה לתשובה
+send(IP(dst="8.8.8.8") / ICMP())
+
+# sendp() — שלח L2 (Ethernet frame), לא מחכה
+sendp(Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst="192.168.1.1"))
+
+# sr() — שלח + קבל כל התשובות
+answered, unanswered = sr(IP(dst="8.8.8.8") / ICMP(), timeout=2)
+
+# sr1() — שלח + קבל תשובה ראשונה בלבד (נפוץ יותר)
+reply = sr1(IP(dst="8.8.8.8") / ICMP(), timeout=2)
+if reply:
+    print(f"תשובה מ: {reply[IP].src}, TTL={reply[IP].ttl}")
+else:
+    print("timeout — אין תשובה")</pre></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">🔧 — Troubleshooting</span>
-<h2 class="sec-h">בעיות Scapy נפוצות</h2>
-<table class="tbl"><tr><th>בעיה</th><th>סיבה</th><th>תיקון</th></tr>
-<tr><td>PermissionError</td><td>Scapy דורש root</td><td><code>sudo python3 script.py</code></td></tr>
-<tr><td>sr1() מחזיר None</td><td>Firewall חוסם או timeout</td><td>הגדל timeout, בדוק filter</td></tr>
-<tr><td>DNS לא מגיב</td><td>OS cache — query לא יוצא</td><td><code>systemd-resolve --flush-caches</code></td></tr>
-<tr><td>import error</td><td>Scapy לא מותקן</td><td><code>pip install scapy</code></td></tr>
+<span class="sec-label">🔧 — Troubleshooting Scapy</span>
+<h2 class="sec-h">שגיאות נפוצות ואיך לפתור</h2>
+<table class="tbl">
+<tr><th>בעיה</th><th>סיבה</th><th>תיקון</th></tr>
+<tr><td><code>PermissionError</code></td><td>Scapy דורש root לגישה לשכבות נמוכות</td><td><code>sudo python3 script.py</code></td></tr>
+<tr><td><code>sr1()</code> מחזיר None</td><td>Firewall חוסם, timeout קצר, שרת לא מגיב</td><td>הגדל <code>timeout=5</code>, בדוק <code>filter</code></td></tr>
+<tr><td>DNS לא מגיב ב-sniff</td><td>OS cache — query לא יוצא לרשת</td><td><code>resolvectl flush-caches</code> (Linux)</td></tr>
+<tr><td>Import error</td><td>Scapy לא מותקן</td><td><code>pip install scapy</code></td></tr>
+<tr><td>אין packets ב-sniff</td><td>filter שגוי, interface שגוי</td><td>נסה ללא filter ראשית</td></tr>
 </table>
 </section>
 `; }
@@ -3987,108 +4251,135 @@ if resp:
       sections: ["פורטים", "TCP vs UDP", "Three-Way Handshake", "Seq ו-ACK", "Congestion Control", "TIME_WAIT", "netstat/ss", "Troubleshooting", "ראיון"],
       content: function() { return `
 <section class="learn-section">
-<span class="sec-label">01 — פורטים</span>
-<h2 class="sec-h">מזהה התוכנה</h2>
-<p>IP מזהה מחשב. Port מזהה תוכנה ספציפית על אותו מחשב. Packet מגיע ל-IP:Port — נמסר לתוכנה הנכונה.</p>
-<table class="tbl"><tr><th>Port</th><th>שירות</th></tr>
-<tr><td>80</td><td>HTTP</td></tr>
-<tr><td>443</td><td>HTTPS</td></tr>
-<tr><td>22</td><td>SSH</td></tr>
-<tr><td>25</td><td>SMTP (שליחת מייל)</td></tr>
-<tr><td>3306</td><td>MySQL</td></tr>
-<tr><td>5432</td><td>PostgreSQL</td></tr>
-</table>
+<span class="sec-label">01 — פורטים: מזהה התוכנה</span>
+<h2 class="sec-h">איך ה-OS יודע לאיזה תוכנה למסור כל packet</h2>
+<p>IP Address מזהה מחשב. אבל על מחשב אחד יכולות לרוץ עשרות תוכנות שצריכות לקבל נתונים: דפדפן, Slack, Spotify, SSH client. Port הוא המספר שמפנה כל packet לתוכנה הנכונה.</p>
+<p>חשבו על בניין משרדים. ה-IP הוא כתובת הבניין. ה-Port הוא מספר החדר. Packet שמגיע ל-IP:80 הולך לחדר 80 — שם יושב שרת ה-HTTP. Packet שמגיע ל-IP:22 הולך לחדר 22 — שם יושב SSH.</p>
+<div class="callout note">📝 <strong>Ephemeral Ports — הפורטים שהדפדפן בוחר:</strong> כשהדפדפן שלכם פותח connection לgoogle.com:443, הוא בוחר Port מקורי אקראי (נניח 54321) מהטווח 49152–65535. הServеr רואה: "קיבלתי connection מ-[IP שלך]:54321 ל-[IP Google]:443". כשגולשים לאתר נוסף — port אחר אקראי.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">02 — TCP vs UDP</span>
-<h2 class="sec-h">מהימן לעומת מהיר</h2>
-<table class="tbl"><tr><th>תכונה</th><th>TCP</th><th>UDP</th></tr>
-<tr><td>חיבור</td><td>Handshake</td><td>ללא</td></tr>
-<tr><td>אמינות</td><td>ACK, Retransmit</td><td>אין</td></tr>
-<tr><td>סדר</td><td>מובטח</td><td>לא מובטח</td></tr>
-<tr><td>מהירות</td><td>איטי יותר</td><td>מהיר יותר</td></tr>
-<tr><td>שימוש</td><td>HTTP, SSH, FTP</td><td>DNS, Video, Gaming</td></tr>
+<span class="sec-label">02 — TCP לעומת UDP</span>
+<h2 class="sec-h">שני פרוטוקולים שונים לצרכים שונים</h2>
+<p>שכבת התעבורה מציעה שני פרוטוקולים עם trade-offs שונים. TCP מבטיח שכל byte יגיע — בסדר הנכון, בלי כפילויות, בלי אובדן. UDP שולח ולא אכפת לו — מהיר אבל לא אמין.</p>
+<table class="tbl">
+<tr><th>תכונה</th><th>TCP</th><th>UDP</th></tr>
+<tr><td>חיבור</td><td>Three-Way Handshake לפני שליחה</td><td>ללא — שולח ישר</td></tr>
+<tr><td>אמינות</td><td>ACK, Retransmission אוטומטי</td><td>אין — packet אבד? לא יודע</td></tr>
+<tr><td>סדר</td><td>מוסר ב-sequence number — מסודר תמיד</td><td>יכול להגיע לא בסדר</td></tr>
+<tr><td>Flow Control</td><td>Receive Window — לא יציף את המקבל</td><td>אין</td></tr>
+<tr><td>Overhead</td><td>20+ bytes header + Handshake</td><td>8 bytes header בלבד</td></tr>
+<tr><td>מתי משתמשים</td><td>HTTP/HTTPS, SSH, FTP, Email</td><td>DNS, Video Streaming, Gaming, VoIP</td></tr>
 </table>
+<div class="callout tip">💡 <strong>למה DNS משתמש ב-UDP?</strong> DNS query היא קצרה מאוד — שאלה ותשובה בכמה עשרות bytes. הזמן שTCP Three-Way Handshake לוקח (SYN, SYN-ACK, ACK) ארוך יותר מה-query עצמו. UDP: שלח query, קבל תשובה — 1 RTT. TCP: SYN, SYN-ACK, ACK, query, תשובה — 2 RTT. לכן DNS = UDP.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — Three-Way Handshake</span>
-<h2 class="sec-h">הסכם לפני שיחה</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">TCP Handshake</span></div>
-<pre class="code-body">Client                        Server
-  |--- SYN, Seq=100 --------->|   "רוצה לדבר"
-  |<-- SYN-ACK, Seq=200,      |   "אשמח, Seq שלי 200"
-  |         ACK=101 ----------|
-  |--- ACK=201 -------------->|   "מוסכם"
-  |                           |
-  |=== DATA ==================|   מתחיל תקשורת</pre></div>
-<div class="callout note">📝 ISN (Initial Sequence Number) — אקראי כדי למנוע התקפות session hijacking.</div>
+<h2 class="sec-h">ההסכם שנחתם לפני כל TCP Connection</h2>
+<p>לפני שבית של bytes נשלח ב-TCP, שני הצדדים חייבים "להסכים" על הפרמטרים של החיבור. הסכם זה לוקח שלושה שלבים: SYN, SYN-ACK, ACK. לכן "Three-Way Handshake".</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Handshake מלא עם Sequence Numbers</span></div>
+<pre class="code-body">Client (ISN=100)                    Server (ISN=200)
+    |                                    |
+    |--- SYN, Seq=100 ----------------->|  "אני רוצה לדבר, Seq שלי=100"
+    |                                    |
+    |<-- SYN-ACK, Seq=200, ACK=101 -----|  "הסכמתי. שלי=200, קיבלתי 100"
+    |                                    |
+    |--- ACK, Seq=101, ACK=201 -------->|  "קיבלתי 200. חיבור מוכן!"
+    |                                    |
+    |=== DATA ===========================|  עכשיו שולחים נתונים
+
+# ISN (Initial Sequence Number) = אקראי!
+# מונע Sequence Number Guessing attacks</pre></div>
+<div class="callout note">📝 <strong>למה ISN אקראי ולא 0?</strong> אם ISN תמיד היה 0, תוקף יכול היה לנחש את Sequence Numbers הבאים ולזייף packets. ISN אקראי (מחושב מseed קריפטוגרפי) הופך זאת בלתי אפשרי.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — Congestion Control</span>
-<h2 class="sec-h">איך TCP לא קורס את האינטרנט</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Slow Start — Congestion Avoidance</span></div>
-<pre class="code-body">Slow Start:
-  cwnd = 1 MSS
-  כל ACK → cwnd × 2  (אקספוננציאלי)
-  1 → 2 → 4 → 8 ...
+<h2 class="sec-h">המנגנון שמונע מ-TCP להפיל את האינטרנט</h2>
+<p>דמיינו שכל 5 מיליארד משתמשי האינטרנט שולחים packets בו-זמנית בלי לאט. הרשת הייתה קורסת. TCP Congestion Control הוא המנגנון שגורם לכל connection לוסת את עצמו בהתאם למצב הרשת.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Slow Start ו-Congestion Avoidance</span></div>
+<pre class="code-body">שלב 1: Slow Start
+  cwnd (Congestion Window) = 1 MSS (1500 bytes לרוב)
+  כל ACK → cwnd × 2 (גדילה אקספוננציאלית!)
+  1 → 2 → 4 → 8 → 16 → 32 ...MSS
 
-Congestion Avoidance (אחרי ssthresh):
-  כל RTT → cwnd + 1  (ליניארי)
+שלב 2: Congestion Avoidance (אחרי ssthresh)
+  כל RTT → cwnd + 1 MSS (גדילה ליניארית, זהירה)
 
-Packet Loss:
+שלב 3: איתור Loss (packet אובד)
+  Duplicate ACKs × 3 → "כנראה congestion"
   ssthresh = cwnd / 2
-  cwnd = 1  → Slow Start מחדש</pre></div>
-<table class="tbl"><tr><th>אלגוריתם</th><th>שימוש</th><th>יתרון</th></tr>
-<tr><td>CUBIC</td><td>Linux default</td><td>גדול מהר אחרי loss</td></tr>
-<tr><td>BBR</td><td>Google (YouTube, Gmail)</td><td>מודד bandwidth ישירות — לא מחכה ל-loss</td></tr>
-</table>
+  cwnd = 1 → חזרה ל-Slow Start
+
+CUBIC (ברירת מחדל ב-Linux):
+  גדל מהר אחרי loss, מואט קרוב ל-max
+
+BBR (Google, 2016 — YouTube/Gmail):
+  לא מחכה ל-loss, מודד bandwidth ישירות
+  latency נמוך יותר, throughput גבוה יותר</pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">05 — TIME_WAIT</span>
-<h2 class="sec-h">הרוח של TCP</h2>
-<p>אחרי סגירת חיבור TCP — Socket נשאר ב-TIME_WAIT כ-60–120 שניות. מונע בלבול עם packets ישנים.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">בדיקה ותיקון</span></div>
-<pre class="code-body">ss -an | grep TIME_WAIT | wc -l   # כמה?
+<h2 class="sec-h">למה Socket חי עוד 60-120 שניות אחרי סגירה</h2>
+<p>כשסוגרים TCP Connection, הוא לא נסגר מיד. הוא עובר ל-TIME_WAIT למשך 2 × MSL (Maximum Segment Lifetime, בדרך כלל 60 שניות). המטרה: לוודא שכל packets שעדיין בדרך (delayed packets) יתקבלו ויוסרו לפני שה-Port יאפשר connection חדש.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">TIME_WAIT בפועל</span></div>
+<pre class="code-body">ss -an | grep TIME_WAIT | wc -l    # כמה connections ב-TIME_WAIT?
 
-# תיקון ב-production:
+# שרת עמוס: אלפי TIME_WAIT = bottleneck
+# כי Ephemeral Ports (32768-60999) = 28,231 בלבד
+
+# פתרונות:
+# 1. SO_REUSEADDR - הכי פשוט
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-# או ב-Linux:
-sysctl net.ipv4.tcp_fin_timeout=15</pre></div>
+
+# 2. Keep-Alive + Connection Pool — פחות connections בכלל
+# (requests.Session() ב-Python HTTP)
+
+# 3. Linux kernel parameter:
+# sysctl net.ipv4.tcp_fin_timeout=15</pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">06 — ss ו-netstat</span>
-<h2 class="sec-h">מי מאזין?</h2>
+<h2 class="sec-h">בדיקת מי מאזין ומי מחובר</h2>
 <div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">ss — הכלי המודרני</span></div>
-<pre class="code-body">ss -tlnp          # TCP, Listening, Numeric, Process
-ss -an            # כל ה-connections
-ss -s             # סטטיסטיקות
+<pre class="code-body">ss -tlnp     # TCP, Listening, Numeric, Process
+# -t = TCP only
+# -l = רק listening sockets
+# -n = numeric (לא DNS lookup)
+# -p = הצג process name + PID
 
-# פלט לדוגמה:
-State   Recv-Q  Send-Q  Local Address:Port  Peer Address:Port
-LISTEN  0       128     0.0.0.0:80         0.0.0.0:*      users:(("nginx",pid=1234))</pre></div>
+# פלט:
+# State   Recv-Q  Local Address:Port  Process
+# LISTEN  0       0.0.0.0:80          users:(("nginx",pid=1234))
+# LISTEN  0       0.0.0.0:443         users:(("nginx",pid=1234))
+
+ss -an | grep ESTABLISHED | wc -l  # כמה connections פעילים?
+ss -s                               # סטטיסטיקות מלאות</pre></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">🔧 — Troubleshooting</span>
-<h2 class="sec-h">בעיות TCP נפוצות</h2>
-<table class="tbl"><tr><th>תסמין</th><th>בדיקה</th><th>תיקון</th></tr>
-<tr><td>Port לא מאזין</td><td><code>ss -tlnp | grep :PORT</code></td><td><code>python3 -m http.server PORT</code> או הפעל שרת</td></tr>
-<tr><td>Retransmissions</td><td>Wireshark: <code>tcp.analysis.retransmission</code></td><td>בדוק packet loss ב-mtr</td></tr>
-<tr><td>High TIME_WAIT</td><td><code>ss -an | grep TIME_WAIT</code></td><td><code>SO_REUSEADDR</code> + Connection Pool</td></tr>
-<tr><td>SYN_SENT תקוע</td><td><code>ss -an | grep SYN_SENT</code></td><td>Firewall חוסם — בדוק <code>iptables -L</code></td></tr>
+<span class="sec-label">🔧 — Troubleshooting TCP</span>
+<h2 class="sec-h">בעיות TCP נפוצות ואיך לאבחן</h2>
+<table class="tbl">
+<tr><th>תסמין</th><th>בדיקה</th><th>תיקון</th></tr>
+<tr><td>Connection Refused</td><td><code>ss -tlnp | grep :PORT</code></td><td>אם ריק: הפעל שרת. אם יש: בדוק Firewall</td></tr>
+<tr><td>Connection Timeout</td><td><code>traceroute IP</code></td><td>Firewall חוסם, בדוק <code>iptables -L</code></td></tr>
+<tr><td>איטיות</td><td>Wireshark: <code>tcp.analysis.retransmission</code></td><td>Packet loss — בדוק <code>mtr</code></td></tr>
+<tr><td>Port לא מאזין</td><td><code>ss -tlnp | grep :PORT</code></td><td><code>python3 -m http.server PORT</code></td></tr>
+<tr><td>Address in use</td><td><code>ss -tlnp | grep PORT</code></td><td><code>SO_REUSEADDR</code> בקוד</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">💼 — ראיון</span>
-<h2 class="sec-h">שאלות נפוצות</h2>
-<div class="callout note">❓ <strong>מדוע ISN אקראי?</strong><br>ISN קבוע מאפשר Session Hijacking — תוקף יכול לנחש Seq numbers ולהזריק packets.</div>
-<div class="callout note">❓ <strong>מה ההבדל בין Flow Control ל-Congestion Control?</strong><br>Flow Control — מגביל לפי קצב הקבלה של הצד השני (Receive Window). Congestion Control — מגביל לפי מצב הרשת.</div>
+<h2 class="sec-h">שאלות TCP שאוהבים לשאול</h2>
+<div class="callout note">❓ <strong>"מה ההבדל בין Flow Control ל-Congestion Control?"</strong><br><br>
+Flow Control מגן על המקבל — הוא מאט את השולח כדי שלא יציף את ה-Receive Buffer של המקבל. אם המקבל איטי ב-processing, הוא מקטין את ה-Receive Window שהוא מדווח לשולח, והשולח מאט. Congestion Control מגן על הרשת — הוא מאט כשיש אובדן packets, כדי לא לגרום לcongestion ברשת. שניהם חשובים ועובדים בו-זמנית.</div>
+<div class="callout note">❓ <strong>"מה קורה אם שולחים SYN לPort סגור?"</strong><br><br>
+השרת עונה ב-RST (Reset) — "אין כאן שירות". זה בדיוק מה שPort Scanner כמו nmap מנצל: שולח SYN לכל port, אם מקבל RST = סגור, אם מקבל SYN-ACK = פתוח. כמה OS configurations ולא עונים כלל ל-SYN לport סגור (drop silently) — זה קשה יותר לזיהוי.</div>
 </section>
 `; }
     },
@@ -4145,85 +4436,160 @@ LISTEN  0       128     0.0.0.0:80         0.0.0.0:*      users:(("nginx",pid=12
       content: function() { return `
 <section class="learn-section">
 <span class="sec-label">01 — IP Header</span>
-<h2 class="sec-h">מה בתוך כל Packet</h2>
-<table class="tbl"><tr><th>שדה</th><th>גודל</th><th>מה זה</th></tr>
-<tr><td>Version</td><td>4 bits</td><td>4=IPv4, 6=IPv6</td></tr>
-<tr><td>TTL</td><td>1 byte</td><td>מונע לולאות</td></tr>
-<tr><td>Protocol</td><td>1 byte</td><td>6=TCP, 17=UDP, 1=ICMP</td></tr>
-<tr><td>Source IP</td><td>4 bytes</td><td>כתובת שולח</td></tr>
-<tr><td>Dest IP</td><td>4 bytes</td><td>כתובת יעד</td></tr>
+<h2 class="sec-h">מה מסתתר בתוך כל packet שעובר ברשת</h2>
+<p>כל packet שנשלח דרך האינטרנט מכיל שני חלקים: Header ו-Payload. ה-Payload הוא הנתונים האמיתיים (HTML, תמונה, הודעה). ה-Header הוא "מעטפת" שמכילה מידע ניהולי שהרשת צריכה כדי לנתב את ה-packet ליעדו. כל router שה-packet עובר דרכו קורא את ה-Header ומחליט לאן להעביר הלאה.</p>
+<table class="tbl">
+<tr><th>שדה</th><th>גודל</th><th>מה מכיל</th><th>ערכים נפוצים</th></tr>
+<tr><td>Version</td><td>4 bits</td><td>גרסת IP</td><td>4 = IPv4, 6 = IPv6</td></tr>
+<tr><td>IHL</td><td>4 bits</td><td>אורך ה-Header בwordsים</td><td>5 (= 20 bytes, ללא options)</td></tr>
+<tr><td>TTL</td><td>8 bits</td><td>מונה hops שנותרו</td><td>64 (Linux), 128 (Windows), 255 (Cisco)</td></tr>
+<tr><td>Protocol</td><td>8 bits</td><td>מה בתוך ה-payload</td><td>6=TCP, 17=UDP, 1=ICMP</td></tr>
+<tr><td>Source IP</td><td>32 bits</td><td>כתובת השולח</td><td>192.168.1.100</td></tr>
+<tr><td>Destination IP</td><td>32 bits</td><td>כתובת היעד</td><td>142.250.80.46</td></tr>
+<tr><td>Checksum</td><td>16 bits</td><td>בדיקת שלמות ה-Header</td><td>מחושב אוטומטית</td></tr>
 </table>
+<div class="callout note">📝 <strong>למה TTL?</strong> בלי TTL, packet שנשלח לכתובת שגויה היה מסתובב בין נתבים לנצח — routing loop. TTL מוריד את עצמו ב-1 בכל hop. כשמגיע ל-0, הנתב זורק את ה-packet ושולח הודעת ICMP Time Exceeded לשולח. ב-Linux ה-default הוא 64 — מספיק ל-64 hops, שזה יותר ממספיק לכל נקודה בעולם.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">02 — CIDR וSubnet</span>
-<h2 class="sec-h">כמה hosts בכל רשת</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">CIDR notation</span></div>
-<pre class="code-body">192.168.1.0/24   → 256 כתובות   (2^8)
-10.0.0.0/8       → 16M כתובות   (2^24)
-8.8.8.8/32       → כתובת בודדת
+<span class="sec-label">02 — CIDR וSubnets</span>
+<h2 class="sec-h">כיצד מחלקים את מרחב כתובות ה-IP לרשתות</h2>
+<p>לא כל כתובת IP עומדת בפני עצמה. כתובות מאורגנות ב-Subnets — קבוצות של כתובות שחולקות "קידומת" (prefix) משותפת. ה-CIDR notation (Classless Inter-Domain Routing) מבטאת זאת ע"י מספר הביטים של הPrefix: <code>192.168.1.0/24</code> אומר שה-24 bits הראשונים קבועים, ו-8 bits האחרים משמשים ל-host addresses.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">CIDR — חישובים שחייבים להיות שגורים</span></div>
+<pre class="code-body">Prefix  Subnet Mask      כתובות    Usable Hosts  שימוש
+/8      255.0.0.0        16,777,216  16,777,214   ISP backbone
+/16     255.255.0.0      65,536      65,534        Campus network
+/24     255.255.255.0    256         254           רשת משרד/בית
+/25     255.255.255.128  128         126           חציית subnet
+/26     255.255.255.192  64          62            VLAN קטן
+/30     255.255.255.252  4           2             Point-to-Point link
+/32     255.255.255.255  1           1             כתובת ספציפית
 
-# /24 → 24 bits = Network, 8 bits = Host
-# Subnet Mask: /24 = 255.255.255.0
-#              /16 = 255.255.0.0
-#              /8  = 255.0.0.0</pre></div>
-<table class="tbl"><tr><th>Prefix</th><th>Hosts</th><th>שימוש</th></tr>
-<tr><td>/30</td><td>4 (2 usable)</td><td>Point-to-Point links</td></tr>
-<tr><td>/24</td><td>256</td><td>רשת ביתית/משרד</td></tr>
-<tr><td>/16</td><td>65,536</td><td>Campus, datacenter</td></tr>
-<tr><td>/0</td><td>כל האינטרנט</td><td>Default route</td></tr>
-</table>
+# חישוב:
+# Hosts = 2^(32 - prefix) - 2
+# /24: 2^8 = 256, פחות Network ו-Broadcast = 254
+# /26: 2^6 = 64, פחות 2 = 62
+
+# Network Address (ראשונה):  192.168.1.0  — לא ניתנת לhost
+# Broadcast (אחרונה):        192.168.1.255 — נשלחת לכולם
+# Usable range:              192.168.1.1 — 192.168.1.254</pre></div>
+<div class="callout tip">💡 <strong>טריק לראיון — מי באותה רשת?</strong> <code>192.168.1.50</code> ו-<code>192.168.1.200</code> ב-/24 — אותה רשת ✅. <code>192.168.1.50</code> ו-<code>192.168.2.50</code> ב-/24 — רשתות שונות ❌. האם <code>192.168.1.130</code> ב-/26 (64 כתובות) שייך לרשת <code>192.168.1.128/26</code>? כן — range הוא 128–191.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — NAT</span>
-<h2 class="sec-h">מיליארד מחשבים — IP אחד</h2>
-<p>IPv4 = 4.3 מיליארד כתובות — נגמרו ב-2011. NAT מאפשר לרשת שלמה לצאת לאינטרנט עם IP ציבורי אחד.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">איך NAT עובד</span></div>
-<pre class="code-body">192.168.1.100:54321 → google.com:80
-       ↓ Router (NAT)
-82.80.100.5:12345 → google.com:80
+<h2 class="sec-h">איך מיליארד מכשירים בבתים משתמשים בפחות מ-IP ציבורי לבית</h2>
+<p>IPv4 מספק כ-4.3 מיליארד כתובות — מספר שנשמע עצום, אבל כבר אזל ב-2011. הפתרון שמאפשר לכל בית להחזיק עשרות מכשירים עם IP ציבורי אחד בלבד נקרא <strong>NAT — Network Address Translation</strong>.</p>
+<p>כשמחשב ב-192.168.1.100 שולח request ל-Google, ה-router ביתי מחליף את ה-Source IP מ-192.168.1.100 ל-IP הציבורי שלו (נניח 82.80.5.1), ושומר בטבלה את המיפוי. כשהתשובה מגיעה מ-Google ל-82.80.5.1, ה-router בודק את הטבלה ומעביר למחשב המקורי.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">NAT Table — מה Router שומר</span></div>
+<pre class="code-body">Internal              External              Destination
+192.168.1.100:54321   82.80.5.1:12001      142.250.80.46:443
+192.168.1.101:54322   82.80.5.1:12002      142.250.80.46:443
+192.168.1.102:8080    82.80.5.1:12003      8.8.8.8:53
 
-# Router שומר טבלה:
-# 82.80.100.5:12345 ↔ 192.168.1.100:54321
-# תשובה מגיעה ל-12345 → Router מפנה ל-192.168.1.100</pre></div>
+# כשתשובה מגיעה ל-82.80.5.1:12001
+# Router מחפש בטבלה: מי שלח לport 12001?
+# תשובה: 192.168.1.100:54321
+# מעביר את הpacket פנימה</pre></div>
+<div class="callout warn">⚡ <strong>החיסרון של NAT:</strong> מחשב מאחורי NAT לא יכול לקבל connections נכנסים — רק יוצאים. לכן כשגיימינג מחייב "Port Forwarding" — מגדירים ל-router לאן להעביר connection נכנס לport מסוים. גם P2P apps כמו BitTorrent נאבקים עם NAT ומשתמשים בטכניקות כמו UPnP ו-STUN לעקוף אותו.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — DHCP</span>
-<h2 class="sec-h">IP אוטומטי — 4 שלבים</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">DORA</span></div>
-<pre class="code-body">Client                    DHCP Server
-  |-- Discover (Broadcast) -->|  "מישהו שמע? צריך IP"
-  |<-- Offer ------------------|  "הנה IP: 192.168.1.50"
-  |-- Request (Broadcast) -->|  "אני רוצה את 192.168.1.50"
-  |<-- ACK ------------------|  "מאושר! ל-24 שעות"</pre></div>
-<div class="callout note">📝 DHCP Discover — Broadcast (255.255.255.255) כי המחשב לא יודע IP של שרת ה-DHCP. לא עובר Router!</div>
+<h2 class="sec-h">ה-protocol שמעניק כתובת IP אוטומטית לכל מכשיר חדש</h2>
+<p>כשחיברתם מחשב חדש לרשת הביתית — איך קיבל כתובת IP? לא הגדרתם אחת ידנית. DHCP (Dynamic Host Configuration Protocol) עשה זאת אוטומטית. DHCP מקצה IP, Subnet Mask, Default Gateway ו-DNS Server בארבעה שלבים שמכונים DORA.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">DORA — ארבעת שלבי DHCP</span></div>
+<pre class="code-body">Client (PC חדש)              DHCP Server (Router)
+      |                             |
+      |-- Discover (Broadcast) ---->|
+      |   Src: 0.0.0.0              |  "מישהו שמע? אני צריך IP"
+      |   Dst: 255.255.255.255      |  (Broadcast — לכולם!)
+      |                             |
+      |<-- Offer -------------------|
+      |   "הנה הצעה: 192.168.1.50   |
+      |    GW: 192.168.1.1          |
+      |    DNS: 8.8.8.8"            |
+      |                             |
+      |-- Request (Broadcast) ----->|
+      |   "אני רוצה 192.168.1.50"  |  (עדיין broadcast — אולי יש שניים)
+      |                             |
+      |<-- ACK ---------------------|
+      |   "מאושר! ל-24 שעות (Lease)"|
+
+# למה Discover נשלח Broadcast?
+# המחשב לא יודע כלום — לא IP, לא כתובת שרת DHCP
+# Broadcast 255.255.255.255 מגיע לכולם ברשת
+# DHCP Server שומע ועונה</pre></div>
+<div class="callout note">📝 <strong>DHCP Lease — הכתובת זמנית!</strong> DHCP לא נותן IP לצמיתות — הוא נותן "lease" לזמן מוגדר (לרוב 24 שעות). לפני הסיום, הלקוח מחדש את ה-lease. אם לא — הכתובת חוזרת ל-pool. לכן IP שלכם ב-WiFi עלול להשתנות לאחר כמה ימים.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">05 — BGP</span>
-<h2 class="sec-h">הפרוטוקול שמחזיק את האינטרנט</h2>
-<p>האינטרנט מורכב מ-~80,000 Autonomous Systems. BGP מאפשר להם לשתף מידע על נתיבים.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">BGP path selection</span></div>
-<pre class="code-body">AS1 מכריז: "אני מגיע ל-8.8.0.0/16"
-AS2 שמע מ-AS1, מכריז: "דרכי לAS1 ולAS1's prefixes"
+<h2 class="sec-h">הפרוטוקול שמחבר את כל ISPs בעולם</h2>
+<p>האינטרנט בנוי ממעל 80,000 רשתות עצמאיות שנקראות <strong>Autonomous Systems (AS)</strong>. כל ISP, כל חברת ענן גדולה, כל אוניברסיטה גדולה — הם AS נפרד. BGP (Border Gateway Protocol) הוא ה-protocol שמאפשר ל-AS-ים לשתף מידע על נתיבים ביניהם.</p>
+<p>כשמחשב שלכם שולח packet ל-Google, ה-router של ה-ISP שלכם צריך לדעת לאן לשלוח. הוא יודע כי קיבל BGP announcements מהשכנים שלו. "אני יכול להגיע ל-AS15169 (Google) דרך AS1299 ב-2 hops". ה-router בוחר את הנתיב הטוב ביותר לפי פרמטרים שונים.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">BGP — עקרונות בסיסיים</span></div>
+<pre class="code-body"># כל AS מקבל מספר ייחודי (ASN):
+# AS15169 = Google
+# AS16509 = Amazon AWS
+# AS8551  = Bezeq (ישראל)
+# AS13335 = Cloudflare
 
-# Routing decision:
-# AS-PATH קצר יותר = עדיף
-# LOCAL_PREF גבוה יותר = עדיף</pre></div>
-<div class="callout warn">⚡ BGP Hijack — ISP מכריז על prefix שלא שלו. 2010: China Telecom חטפה 15% מהאינטרנט ל-18 דקות.</div>
+# AS מכריז על ה-prefixes שלו:
+# "AS15169 מחזיק 8.8.0.0/16, 172.217.0.0/16..."
+
+# שכנים מעבירים הכרזות הלאה:
+# AS8551 → AS3549 → AS15169: "דרכי לGoogleב-2 hops"
+# AS8551 → AS1299 → AS15169: "דרכי לGoogle ב-2 hops גם"
+
+# BGP בוחר נתיב לפי:
+# 1. AS-PATH קצר יותר עדיף
+# 2. Local Preference (מדיניות פנימית)
+# 3. MED (Multi-Exit Discriminator)</pre></div>
+<div class="callout warn">⚡ <strong>BGP Hijacking — כשמישהו "גונב" prefix:</strong> BGP מבוסס אמון לחלוטין. אם AS אחד מכריז על prefix שלא שלו — שאר ה-AS-ים עשויים להאמין לו ולשלוח traffic אליו. ב-2010, China Telecom הכריזה על 37,000 prefixes שלא שלה — 15% מהאינטרנט עבר דרכה ל-18 דקות. הפתרון: RPKI — חתימה קריפטוגרפית על prefixes.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">🔧 — Troubleshooting</span>
-<h2 class="sec-h">בעיות Layer 3</h2>
-<table class="tbl"><tr><th>בעיה</th><th>בדיקה</th><th>תיקון</th></tr>
-<tr><td>אין IP</td><td><code>ip addr show</code></td><td><code>sudo dhclient eth0</code></td></tr>
-<tr><td>169.254.x.x</td><td>APIPA — DHCP כשל</td><td><code>sudo dhclient eth0</code></td></tr>
-<tr><td>אין default route</td><td><code>ip route show</code></td><td><code>ip route add default via 192.168.1.1</code></td></tr>
-<tr><td>TTL Exceeded</td><td><code>traceroute -n dest</code></td><td>בדוק routing loop</td></tr>
+<span class="sec-label">06 — Routing Table</span>
+<h2 class="sec-h">הטבלה שכל router ומחשב משתמשים לכל החלטת ניתוב</h2>
+<p>כל מכשיר רשת — גם המחשב שלכם — מחזיק Routing Table. כשpacket צריך להישלח, ה-OS בודק את הטבלה ומוצא את ה-route המתאים ביותר (הclosest match — longest prefix match). אם אין route מתאים — הpacket נזרק, אלא אם קיים Default Route.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">ip route — הטבלה בפועל</span></div>
+<pre class="code-body">$ ip route show
+default via 192.168.1.1 dev eth0       # Default Gateway
+192.168.1.0/24 dev eth0 proto kernel  # הרשת המקומית ישירות
+10.0.0.0/8 via 10.8.0.1 dev tun0      # VPN route
+
+# Longest Prefix Match:
+# packet ל-192.168.1.50:
+#   default /0 — match
+#   192.168.1.0/24 — match, יותר ספציפי!
+#   נבחר: 192.168.1.0/24 → שלח ישירות ל-eth0
+
+# packet ל-8.8.8.8:
+#   רק default /0 מתאים
+#   שלח ל-192.168.1.1 (Gateway)</pre></div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">🔧 — Troubleshooting Layer 3</span>
+<h2 class="sec-h">אבחון בעיות ניתוב בשיטה מסודרת</h2>
+<table class="tbl">
+<tr><th>תסמין</th><th>בדיקה</th><th>פקודה</th><th>תיקון</th></tr>
+<tr><td>אין IP כלל</td><td>כרטיס רשת עלה?</td><td><code>ip addr show</code></td><td><code>sudo dhclient eth0</code></td></tr>
+<tr><td>IP 169.254.x.x</td><td>DHCP כשל</td><td><code>ip addr show</code></td><td><code>sudo dhclient eth0</code></td></tr>
+<tr><td>Gateway לא מגיב</td><td><code>ping 192.168.1.1</code></td><td><code>ip route show</code></td><td>בדוק כבל, restart router</td></tr>
+<tr><td>אין route ל-8.8.8.8</td><td>חסר Default GW</td><td><code>ip route show</code></td><td><code>ip route add default via 192.168.1.1</code></td></tr>
+<tr><td>packet loop</td><td>traceroute חוזר לאותו IP</td><td><code>traceroute -n 8.8.8.8</code></td><td>בדוק routing table inconsistencies</td></tr>
 </table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">💼 — ראיון</span>
+<h2 class="sec-h">שאלות Layer 3 שחוזרות בראיונות</h2>
+<div class="callout note">❓ <strong>"כמה hosts יש ב-/26?"</strong><br><br>
+/26 = 6 bits ל-host = 2^6 = 64 כתובות. מחסרים את כתובת הרשת (הראשונה) ואת ה-Broadcast (האחרונה) = 62 usable hosts. טיפ לראיון: 2^(32-prefix) - 2 = מספר ה-hosts. ל-/24: 2^8 - 2 = 254.</div>
+<div class="callout note">❓ <strong>"מה ההבדל בין Static Route ל-Dynamic Routing?"</strong><br><br>
+Static Route — admin מוסיף ידנית: <code>ip route add 10.0.0.0/8 via 10.8.0.1</code>. פשוט, קבוע, לא מסתגל לשינויים. מתאים לרשתות קטנות. Dynamic Routing — פרוטוקולים (OSPF, BGP, EIGRP) מגלים topology אוטומטית ומסתגלים לשינויים. מתאים לרשתות גדולות ומורכבות.</div>
 </section>
 `; }
     },
@@ -4273,84 +4639,121 @@ Server: ACK ← "confirmed! for 24 hours"</pre></div>
       content: function() { return `
 <section class="learn-section">
 <span class="sec-label">01 — MAC Address</span>
-<h2 class="sec-h">כתובת פיזית</h2>
-<p>MAC — 6 bytes (48 bits), צרוב בכרטיס הרשת ביצור. מזהה ייחודי לכל כרטיס בעולם.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">מבנה MAC</span></div>
-<pre class="code-body">D4:BE:D9 : D6:0C:2A
-^^^^^^^^   ^^^^^^^^^
-Vendor ID  Host ID
-(Intel)    (ייחודי)</pre></div>
-<table class="tbl"><tr><th>תכונה</th><th>MAC</th><th>IP</th></tr>
-<tr><td>שכבה</td><td>Layer 2</td><td>Layer 3</td></tr>
-<tr><td>שינוי</td><td>קבוע (חומרה)</td><td>משתנה</td></tr>
-<tr><td>טווח</td><td>LAN בלבד</td><td>גלובלי</td></tr>
-<tr><td>פורמט</td><td>AA:BB:CC:DD:EE:FF</td><td>192.168.1.1</td></tr>
-</table>
+<h2 class="sec-h">הכתובת הפיזית שצרובה בכל כרטיס רשת</h2>
+<p>בעוד IP Address הוא כתובת לוגית שניתן לשנות ומשמשת לניתוב גלובלי, MAC Address (Media Access Control) הוא כתובת פיזית שצרובה בחומרה בזמן הייצור — או לפחות כך היה פעם. MAC משמש לתקשורת בתוך ה-LAN בלבד. כשpacket עובר Router, ה-MAC משתנה — ה-IP לא.</p>
+<p>MAC Address הוא 48 bits (6 bytes), מוצג כהקסדצימלי מופרד בנקודתיים: <code>D4:BE:D9:D6:0C:2A</code>. שלושת הbytes הראשונים הם ה-OUI (Organizationally Unique Identifier) — מזהה היצרן. שלושת האחרונים הם מזהה ייחודי של הכרטיס עצמו.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">MAC Address — מבנה ובדיקה</span></div>
+<pre class="code-body">D4:BE:D9  :  D6:0C:2A
+^^^^^^^^^    ^^^^^^^^^
+OUI           Device ID
+(Intel)       (ייחודי לכרטיס)
+
+# בדיקה ב-Linux:
+ip link show              # מציג MAC של כל interface
+ip link show eth0         # ספציפי
+
+# שינוי MAC (spoofing — לצורכי privacy או testing):
+sudo ip link set eth0 address 00:11:22:33:44:55
+
+# כתובות מיוחדות:
+FF:FF:FF:FF:FF:FF   # Broadcast — מגיע לכולם ב-LAN
+01:xx:xx:xx:xx:xx   # Multicast — לקבוצה מסוימת</pre></div>
+<div class="callout note">📝 <strong>MAC Spoofing — לגיטימי ונפוץ:</strong> iOS ו-Android מ-2021 משנים MAC אוטומטית לכל רשת WiFi חדשה — Privacy Feature. זה מונע מהרשת לזהות שהמכשיר שלכם ביקר שם קודם. כשמחברים ל-WiFi מוכרת, מחזירים את ה-MAC המקורי. לא פריצה — תכונה שמגן על פרטיות.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — Ethernet Frame</span>
-<h2 class="sec-h">מבנה המסגרת</h2>
-<table class="tbl"><tr><th>שדה</th><th>גודל</th><th>תיאור</th></tr>
-<tr><td>Preamble</td><td>8 bytes</td><td>סנכרון — לא מוצג ב-Wireshark</td></tr>
-<tr><td>Dest MAC</td><td>6 bytes</td><td>MAC יעד</td></tr>
-<tr><td>Src MAC</td><td>6 bytes</td><td>MAC מקור</td></tr>
-<tr><td>Type</td><td>2 bytes</td><td>0x0800=IPv4, 0x0806=ARP</td></tr>
-<tr><td>Data</td><td>46–1500 bytes</td><td>IP packet</td></tr>
-<tr><td>CRC</td><td>4 bytes</td><td>בדיקת שגיאות — לא מוצג ב-Wireshark</td></tr>
+<h2 class="sec-h">המבנה המדויק של כל frame שעובר בכבל</h2>
+<p>בזמן שIP packet הוא יחידת הנתונים בשכבה 3, ה-Ethernet Frame הוא יחידת הנתונים בשכבה 2. כל IP packet "עטוף" בתוך Ethernet Frame לפני שנשלח על הכבל. Frame קטן מדי (פחות מ-64 bytes) — נזרק. Frame גדול מדי (מעל 1518 bytes — ה-MTU הסטנדרטי) — מפוצל.</p>
+<table class="tbl">
+<tr><th>שדה</th><th>גודל</th><th>מה מכיל</th><th>הערה</th></tr>
+<tr><td>Preamble</td><td>7 bytes</td><td>10101010... — סנכרון</td><td>לא מוצג ב-Wireshark</td></tr>
+<tr><td>SFD</td><td>1 byte</td><td>10101011 — "Frame מתחיל"</td><td>לא מוצג ב-Wireshark</td></tr>
+<tr><td>Destination MAC</td><td>6 bytes</td><td>MAC היעד</td><td>FF:FF:FF:FF:FF:FF = Broadcast</td></tr>
+<tr><td>Source MAC</td><td>6 bytes</td><td>MAC השולח</td><td>משתנה בכל Router!</td></tr>
+<tr><td>EtherType</td><td>2 bytes</td><td>מה בתוך ה-Payload</td><td>0x0800=IPv4, 0x86DD=IPv6, 0x0806=ARP</td></tr>
+<tr><td>Payload (Data)</td><td>46–1500 bytes</td><td>IP packet</td><td>46 מינימום (padding אם פחות)</td></tr>
+<tr><td>FCS (CRC)</td><td>4 bytes</td><td>בדיקת שלמות</td><td>לא מוצג ב-Wireshark</td></tr>
 </table>
+<div class="callout tip">💡 <strong>למה Preamble ו-FCS לא מוצגים ב-Wireshark?</strong> כרטיס הרשת (NIC) מסיר אותם לפני שמעביר ל-OS. ה-NIC בודק את ה-CRC — אם יש שגיאה בשידור, ה-frame נזרק שם, ל-OS לא מגיע כלום. Wireshark רואה רק מה שמגיע ל-OS.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — ARP</span>
-<h2 class="sec-h">IP — MAC: תרגום שכבות</h2>
-<p>כשיודעים IP אבל צריך MAC לשליחה ב-Ethernet — ARP מוצא אותו.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">ARP Request/Reply</span></div>
-<pre class="code-body">A שולח ARP Request (Broadcast):
-  "מי יש לו 192.168.1.1? ספר לי את MAC שלך"
-  Dest MAC: FF:FF:FF:FF:FF:FF (Broadcast)
+<h2 class="sec-h">הגשר בין כתובות IP לכתובות MAC</h2>
+<p>שכבה 3 עובדת עם IP, שכבה 2 עובדת עם MAC. כשמחשב א' רוצה לשלוח ל-192.168.1.50 — הוא יודע את ה-IP, אבל צריך את ה-MAC כדי לבנות Ethernet Frame. ARP (Address Resolution Protocol) מתרגם IP למAC.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">ARP — Request ו-Reply</span></div>
+<pre class="code-body">מחשב A רוצה לשלוח ל-192.168.1.50:
 
-B עם 192.168.1.1 עונה (Unicast):
-  "אני! MAC שלי D4:BE:D9:D6:0C:2A"
+1. ARP Request (Broadcast לכולם):
+   Src MAC: D4:BE:D9:D6:0C:2A (MAC של A)
+   Dst MAC: FF:FF:FF:FF:FF:FF (Broadcast!)
+   "מי יש לו IP 192.168.1.50? תגיד לי MAC שלך"
 
-arp -n                # הצג ARP cache
-ip neigh show         # מודרני יותר</pre></div>
-<div class="callout warn">⚡ ARP Spoofing — תוקף מגיב ל-ARP Requests עם MAC שלו. Man-in-the-Middle. הגנה: Dynamic ARP Inspection ב-switches.</div>
+2. מחשב B (שיש לו 192.168.1.50) עונה (Unicast):
+   Src MAC: AA:BB:CC:DD:EE:FF (MAC של B)
+   Dst MAC: D4:BE:D9:D6:0C:2A (ישירות ל-A)
+   "אני! MAC שלי AA:BB:CC:DD:EE:FF"
+
+3. A שומר ב-ARP Cache (לכמה דקות):
+   192.168.1.50 → AA:BB:CC:DD:EE:FF
+
+# בדיקת ARP Cache:
+ip neigh show      # מודרני
+arp -n             # ישן</pre></div>
+<div class="callout warn">⚡ <strong>ARP Spoofing — Man-in-the-Middle קלאסי:</strong> תוקף ברשת שלכם יכול לשלוח ARP Reply מזויף: "192.168.1.1 (ה-router) — MAC שלי הוא XX:XX:XX". כל המחשבים ברשת יעדכנו ARP Cache ויתחילו לשלוח כל ה-traffic לתוקף. הוא יעביר הלאה (MITM). הגנה: Dynamic ARP Inspection ב-enterprise switches.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — VLAN</span>
-<h2 class="sec-h">רשתות לוגיות על Switch אחד</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">802.1Q VLAN Tagging</span></div>
-<pre class="code-body"># Ethernet Frame + VLAN tag:
-[DST MAC | SRC MAC | 0x8100 | VLAN ID | Type | Data | CRC]
-                              ^^^^^^^^^
-                          12 bits = 4096 VLANs אפשריים
+<h2 class="sec-h">הפרדה לוגית בלי לקנות תשתית פיזית נפרדת</h2>
+<p>בארגון, רוצים שמחשבי הנהלה לא יוכלו לתקשר עם מחשבי עובדים, למרות שכולם על אותה תשתית פיזית. VLAN (Virtual LAN) מאפשר ליצור רשתות לוגיות נפרדות על Switch אחד פיזי. כל VLAN הוא broadcast domain עצמאי — מחשב ב-VLAN 10 לא שומע Broadcasts של VLAN 20.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">802.1Q — כיצד VLAN tag נוסף לFrame</span></div>
+<pre class="code-body">Frame רגיל:
+[Dst MAC | Src MAC | EtherType | Data | CRC]
 
-# VLAN 10 = Engineering
-# VLAN 20 = Finance
-# על אותו כבל פיזי — מבודלים לחלוטין</pre></div>
-<table class="tbl"><tr><th>Port type</th><th>מה עושה</th></tr>
-<tr><td>Access Port</td><td>חיבור לend-device — VLAN אחד</td></tr>
-<tr><td>Trunk Port</td><td>בין switches — מרובה VLANs עם 802.1Q tags</td></tr>
-</table>
+Frame עם 802.1Q VLAN tag:
+[Dst MAC | Src MAC | 0x8100 | VLAN ID | EtherType | Data | CRC]
+                    ^^^^^^^^  ^^^^^^^^^
+                    Tag ID    12 bits = VLANs 1-4094
+
+# Port Types:
+# Access Port — חיבור ל-end device (PC, Printer)
+#   מקבל/שולח frames ללא VLAN tag
+#   שייך ל-VLAN אחד בלבד
+#
+# Trunk Port — בין switches, או Switch ל-Router
+#   frames כוללים VLAN tag
+#   מעביר מרובה VLANs על כבל אחד</pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">05 — STP</span>
-<h2 class="sec-h">מניעת Broadcast Storm</h2>
-<p>Loop ב-Ethernet — frame מסתובב לנצח ומשתכפל. STP חוסם ports ספציפיים ליצירת עץ ללא loops.</p>
-<div class="callout warn">⚡ 2018 — רשת גדולה נפלה 6 שעות כי switch חדש נחבר עם STP מכובה. Frame אחד — Broadcast Storm — כל switch ב-100% CPU.</div>
+<h2 class="sec-h">מניעת Broadcast Storms שיכולות לקרוס רשת שלמה</h2>
+<p>Ethernet לא מטפל ב-loops — אם תחברו שני switches בשני כבלים, Broadcast frame (כמו ARP Request) יתחיל לרוץ בין השניים לנצח, מכפיל את עצמו בכל פעם. תוך שניות — כל ה-bandwidth נבלע, כל switch ב-100% CPU — Broadcast Storm.</p>
+<p>STP (Spanning Tree Protocol) פותר זאת ע"י בחירת Root Bridge וחסימת Ports מסוימים כדי ליצור עץ (tree) ללא loops. RSTP — Rapid STP — הגרסה המודרנית שמתכנסת בשניות במקום דקות.</p>
+<div class="callout warn">⚡ <strong>2018 — Broadcast Storm שהפיל אוניברסיטה שלמה:</strong> עובד IT חיבר switch חדש לרשת עם STP מכובה. Loop נוצר. תוך 30 שניות — כל ה-WiFi ו-Ethernet בקמפוס נפלו. 40,000 סטודנטים. 6 שעות עד שמצאו ונתקו את ה-switch. לעולם אל תכבו STP.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">🔧 — Troubleshooting</span>
-<h2 class="sec-h">בעיות Layer 2</h2>
-<table class="tbl"><tr><th>בעיה</th><th>בדיקה</th><th>תיקון</th></tr>
-<tr><td>ARP לא מגיב</td><td><code>arping 192.168.1.1</code></td><td>בדוק VLAN configuration</td></tr>
-<tr><td>MAC כפול</td><td><code>arp -n | sort | uniq -d</code></td><td>ARP Spoofing — הפעל DAI</td></tr>
-<tr><td>Broadcast Storm</td><td>Wireshark — flood של frames</td><td>בדוק STP, הסר loop פיזי</td></tr>
+<span class="sec-label">🔧 — Troubleshooting Layer 2</span>
+<h2 class="sec-h">בעיות Layer 2 שחוזרות ואיך לפתור</h2>
+<table class="tbl">
+<tr><th>תסמין</th><th>חשד</th><th>בדיקה</th><th>תיקון</th></tr>
+<tr><td>אין תקשורת ברשת מקומית</td><td>ARP לא עובד</td><td><code>arping 192.168.1.1</code></td><td>בדוק VLAN configuration</td></tr>
+<tr><td>תקשורת לסירוגין עם שכן</td><td>ARP Spoofing</td><td><code>ip neigh show</code> — MAC משתנה?</td><td>הפעל Dynamic ARP Inspection</td></tr>
+<tr><td>כל הרשת קרסה, load גבוה</td><td>Broadcast Storm</td><td>Wireshark — flood של frames</td><td>נתק switches אחד אחד עד שנפסק</td></tr>
+<tr><td>VLAN לא עובד</td><td>Port config שגוי</td><td>בדוק Access/Trunk config</td><td>הגדר VLAN ID נכון על Port</td></tr>
 </table>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">💼 — ראיון</span>
+<h2 class="sec-h">שאלות Layer 2 שחוזרות</h2>
+<div class="callout note">❓ <strong>"מה משתנה בכל Router hop — IP או MAC?"</strong><br><br>
+MAC משתנה בכל hop — Source MAC הופך ל-MAC של ה-Router, Destination MAC הופך ל-MAC של ה-Router הבא (או היעד אם ב-LAN). IP לא משתנה — Source IP ו-Destination IP נשארים קבועים לאורך כל המסע (למעט NAT). הסיבה: MAC הוא כתובת מקומית לcurrent hop, IP הוא כתובת גלובלית לכל המסע.</div>
+<div class="callout note">❓ <strong>"מה ההבדל בין Hub ל-Switch?"</strong><br><br>
+Hub פועל ב-Layer 1 — מקבל סיגנל ומשדר לכל הPorts, ללא הבנה של frames. Switch פועל ב-Layer 2 — לומד MAC addresses, בונה MAC Table, ושולח frames רק לPort שבו נמצא ה-MAC. Hub יוצר collision domain אחד לכולם. כל Port ב-Switch הוא collision domain נפרד. מסיבה זו Hub נעלם מהעולם — Switch יעיל אינסוף יותר.</div>
 </section>
 `; }
     },
@@ -4388,70 +4791,94 @@ B with 192.168.1.1 replies (Unicast):
       content: function() { return `
 <section class="learn-section">
 <span class="sec-label">01 — Hub</span>
-<h2 class="sec-h">Layer 1 — לא יודע כלום</h2>
-<p>Hub — רכיב Layer 1. כשמחשב שולח frame — Hub מעתיק לכל הפורטים. אינו מכיר MAC או IP.</p>
-<div class="callout warn">⚡ Hub = Wireshark בחינם: כל מחשב ברשת Hub רואה traffic של כולם. לכן Hub נמצא רק במוזיאונים ב-2025.</div>
+<h2 class="sec-h">הרכיב שגרם לכולם לראות traffic של כולם</h2>
+<p>Hub הוא הרכיב הפשוט ביותר בהיסטוריית הרשתות — ופשטותו היא גם חולשתו. כשמחשב שולח frame דרך Hub, ה-Hub מעתיק אותו לכל הPorts האחרים, ללא יוצא מן הכלל. הוא לא בודק MAC, לא בודק IP, לא מבין כלום. הוא רק מחזק ומעתיק.</p>
+<p>המשמעות הביטחונית הייתה עצומה: כל מחשב ברשת Hub ראה traffic של כולם. פתיחת Wireshark ב-Promiscuous Mode הספיקה כדי לתפוס סיסמאות, emails, וכל תוכן שעבר ב-plain text. זו הסיבה שHubs נעלמו לחלוטין מהעולם.</p>
+<div class="callout warn">⚡ <strong>Hub לעומת Switch — ההבדל בביצועים:</strong> ברשת Hub של 10 מחשבים, כולם חולקים bandwidth אחת. אם Bandwidth הוא 100Mbps, כל מחשב מקבל בפועל כ-10Mbps בממוצע. Switch נותן לכל מחשב 100Mbps מלא — כי כל Port הוא collision domain נפרד.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — Switch ו-MAC Table</span>
-<h2 class="sec-h">Layer 2 — לומד ושולח בחוכמה</h2>
-<p>Switch לומד MAC addresses ושולח כל frame רק לפורט הנכון.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">MAC Table Learning</span></div>
-<pre class="code-body">A שולח frame לB:
-  Switch: "MAC של A הגיע מPort 1" → רשום ב-table
-  B לא ב-table → Flood (שלח לכולם חוץ מPort 1)
-  B עונה:
-  Switch: "MAC של B הגיע מPort 3" → רשום
+<h2 class="sec-h">כיצד Switch לומד איפה כל מחשב ומשתמש בידע הזה</h2>
+<p>Switch הוא Layer 2 device שלומד לאן לשלוח כל frame, בלי לשלוח לכולם. הוא עושה זאת ע"י בנייה הדרגתית של MAC Table — טבלה שמקשרת בין MAC Address לPort שדרכו הגיע.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">כיצד Switch לומד — שלב אחרי שלב</span></div>
+<pre class="code-body">Switch חדש, MAC Table ריקה לחלוטין.
 
-# עכשיו:
-A → B: Switch שולח רק לPort 3 (Unicast)
-# לא יותר Flood</pre></div>
+A (Port 1) שולח frame ל-B (MAC של B לא ידוע):
+  Switch: "MAC של A הגיע מPort 1" → רשום בטבלה
+  MAC של B לא בטבלה → Flood: שלח לכל Ports חוץ מPort 1
+  B מקבל את ה-frame
+
+B (Port 3) עונה ל-A:
+  Switch: "MAC של B הגיע מPort 3" → רשום בטבלה
+  MAC של A ידוע: Port 1 → שלח רק לPort 1
+
+עכשיו:
+  כל frame A→B: שלח ישירות לPort 3 בלבד
+  כל frame B→A: שלח ישירות לPort 1 בלבד
+  C,D,E לא רואים כלום — פרטיות!
+
+# MAC Table (Aging ~300 שניות):
+# MAC                 Port    Age
+# D4:BE:D9:D6:0C:2A  Port 1  0 sec
+# AA:BB:CC:DD:EE:FF  Port 3  0 sec</pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — Router</span>
-<h2 class="sec-h">Layer 3 — מחבר רשתות</h2>
-<p>Router מחליט לאן לשלוח packet לפי Routing Table. מחליף MAC Address בכל hop — IP נשאר קבוע.</p>
-<table class="tbl"><tr><th>רכיב</th><th>שכבה</th><th>מה משתנה ב-hop</th></tr>
-<tr><td>Hub</td><td>L1</td><td>כלום</td></tr>
-<tr><td>Switch</td><td>L2</td><td>כלום (עובד בתוך LAN)</td></tr>
-<tr><td>Router</td><td>L3</td><td>MAC Source + MAC Dest משתנים</td></tr>
+<h2 class="sec-h">הרכיב שמחבר רשתות שונות ומחליט על ניתוב גלובלי</h2>
+<p>Switch עובד בתוך LAN — הוא לא יכול לשלוח frame מ-192.168.1.x לרשת 10.0.0.x. Router הוא ה-Layer 3 device שמסוגל לכך. הוא מבין IP, בודק Routing Table, ומחליט איך לנתב כל packet בין רשתות שונות.</p>
+<p>דבר חשוב שרבים לא יודעים: בכל Router hop, ה-Source MAC ו-Destination MAC של ה-Ethernet Frame משתנים — Router מסיר את ה-Frame הישן ובונה Frame חדש עם ה-MAC של ה-hop הבא. ה-Source IP ו-Destination IP — לא משתנים.</p>
+<table class="tbl">
+<tr><th>רכיב</th><th>שכבה</th><th>מבין מה</th><th>מה משתנה בכל hop</th></tr>
+<tr><td>Hub</td><td>L1</td><td>סיגנל בלבד</td><td>כלום</td></tr>
+<tr><td>Switch</td><td>L2</td><td>MAC Address</td><td>כלום (בתוך LAN)</td></tr>
+<tr><td>Router</td><td>L3</td><td>IP Address</td><td>MAC Source + MAC Dest</td></tr>
+<tr><td>Firewall</td><td>L3-L7</td><td>IP + Port + Application</td><td>אפשרי הכל</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">04 — Firewall ו-IDS/WAF</span>
-<h2 class="sec-h">שכבות הגנה</h2>
-<table class="tbl"><tr><th>כלי</th><th>שכבה</th><th>מה עושה</th><th>דוגמות</th></tr>
-<tr><td>Stateless Firewall</td><td>L3-L4</td><td>חוסם לפי IP+Port</td><td>iptables rules</td></tr>
-<tr><td>Stateful Firewall</td><td>L3-L4</td><td>מכיר connections</td><td>AWS Security Groups</td></tr>
-<tr><td>NGFW</td><td>L3-L7</td><td>Application-aware, TLS inspection</td><td>Palo Alto, Fortinet</td></tr>
-<tr><td>IDS</td><td>L3-L7</td><td>מזהה התקפות — לא חוסם</td><td>Snort, Suricata</td></tr>
-<tr><td>IPS</td><td>L3-L7</td><td>מזהה וחוסם</td><td>Suricata inline</td></tr>
-<tr><td>WAF</td><td>L7</td><td>SQL injection, XSS, OWASP</td><td>Cloudflare WAF, AWS WAF</td></tr>
+<span class="sec-label">04 — Firewall, IDS, WAF</span>
+<h2 class="sec-h">שלוש שכבות הגנה שונות לשלוש מטרות שונות</h2>
+<p>אנשים מבלבלים לעתים קרובות בין שלושת הרכיבים האלה כי כולם "בטחון רשת". אבל הם עובדים ברמות שונות, בודקים דברים שונים, ומגינים על דברים שונים.</p>
+<table class="tbl">
+<tr><th>רכיב</th><th>שכבה</th><th>מה הוא בודק</th><th>מה הוא עושה</th><th>דוגמאות</th></tr>
+<tr><td>Stateless Firewall</td><td>L3-L4</td><td>IP + Port</td><td>חוסם לפי rules קבועים</td><td>iptables, AWS Security Groups (basic)</td></tr>
+<tr><td>Stateful Firewall</td><td>L3-L4</td><td>IP + Port + Connection State</td><td>מכיר connections — מאפשר return traffic</td><td>AWS Security Groups, iptables conntrack</td></tr>
+<tr><td>NGFW</td><td>L3-L7</td><td>Application + Content</td><td>בודק תוכן, מפענח TLS</td><td>Palo Alto, Fortinet, Check Point</td></tr>
+<tr><td>IDS</td><td>L3-L7</td><td>Patterns של התקפות</td><td>מזהה, לא חוסם — מתריע</td><td>Snort, Suricata (passive)</td></tr>
+<tr><td>IPS</td><td>L3-L7</td><td>Patterns של התקפות</td><td>מזהה וחוסם inline</td><td>Suricata (inline), IPS modules</td></tr>
+<tr><td>WAF</td><td>L7</td><td>HTTP/HTTPS בלבד</td><td>SQL Injection, XSS, OWASP Top 10</td><td>Cloudflare WAF, AWS WAF, ModSecurity</td></tr>
 </table>
+<div class="callout tip">💡 <strong>למה צריך WAF בנוסף ל-Firewall?</strong> Firewall חוסם: "Block port 22 מכל העולם". WAF מבין HTTP: "הבקשה הזו מכילה <code>'; DROP TABLE users; --</code> — SQL Injection!" Firewall רואה רק IP:443 — valid. WAF פותח את ה-request ובודק תוכן.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">05 — Load Balancer</span>
-<h2 class="sec-h">איך Facebook מטפל במיליארד requests ביום</h2>
-<table class="tbl"><tr><th>שיטה</th><th>איך</th><th>מתי</th></tr>
-<tr><td>Round Robin</td><td>שרת הבא ברשימה</td><td>Stateless APIs</td></tr>
-<tr><td>Least Connections</td><td>שרת עם הכי פחות connections</td><td>Long-lived connections</td></tr>
-<tr><td>IP Hash</td><td>hash(IP) — שרת קבוע</td><td>Session affinity</td></tr>
-<tr><td>Weighted</td><td>שרתים חזקים קבלים יותר</td><td>Mixed hardware</td></tr>
+<h2 class="sec-h">כיצד אתרים גדולים מטפלים במיליוני בקשות ביום</h2>
+<p>שרת אחד יכול לטפל בכמה אלפי requests בשנייה. Facebook מקבל מיליוני requests בשנייה. הפתרון: Load Balancer — רכיב שמפזר את ה-traffic בין מאות ואלפי שרתים.</p>
+<table class="tbl">
+<tr><th>אלגוריתם</th><th>כיצד פועל</th><th>מתאים ל</th></tr>
+<tr><td>Round Robin</td><td>שרת הבא ברשימה, ברוטציה</td><td>Stateless APIs, בקשות דומות בגודל</td></tr>
+<tr><td>Least Connections</td><td>שרת עם הכי פחות connections פעילים</td><td>Long-lived connections, WebSockets</td></tr>
+<tr><td>IP Hash</td><td>hash(IP) — שרת קבוע לאותו IP</td><td>Session affinity, caching per server</td></tr>
+<tr><td>Weighted</td><td>שרתים חזקים מקבלים יותר traffic</td><td>Heterogeneous hardware</td></tr>
+<tr><td>Least Response Time</td><td>שרת שמגיב הכי מהר</td><td>SLA-sensitive applications</td></tr>
 </table>
+<div class="callout note">📝 <strong>Health Checks — Load Balancer לא שולח לשרת מת:</strong> כל כמה שניות, Load Balancer שולח HTTP GET ל-/health לכל שרת. שרת שלא עונה — מוצא מה-pool. שרת שחוזר — מתווסף בחזרה. בלי Health Checks, 1/N מה-traffic הולך לשרת קרוס.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">🔧 — Troubleshooting</span>
-<h2 class="sec-h">בעיות רכיבי רשת</h2>
-<table class="tbl"><tr><th>בעיה</th><th>רכיב חשוד</th><th>בדיקה</th></tr>
-<tr><td>כל ה-LAN איטי</td><td>Hub/Broadcast Storm</td><td>Wireshark — צפה ב-traffic</td></tr>
-<tr><td>מחשב מסוים לא מגיע</td><td>Switch — MAC table</td><td><code>ip neigh show</code></td></tr>
-<tr><td>Connection Refused מחוץ ל-LAN</td><td>Firewall</td><td><code>iptables -L -n -v</code> / <code>nft list ruleset</code></td></tr>
-<tr><td>שרת אחד עמוס</td><td>Load Balancer</td><td>בדוק health checks</td></tr>
+<span class="sec-label">🔧 — Troubleshooting רכיבי רשת</span>
+<h2 class="sec-h">בעיות נפוצות לפי רכיב</h2>
+<table class="tbl">
+<tr><th>תסמין</th><th>רכיב חשוד</th><th>בדיקה</th></tr>
+<tr><td>כל ה-LAN איטי, CPU Switch גבוה</td><td>Broadcast Storm</td><td>Wireshark — flood של ARP</td></tr>
+<tr><td>מחשב מסוים לא מגיב</td><td>Switch — port issue</td><td><code>ping IP</code> ואח"כ <code>arp -n</code></td></tr>
+<tr><td>Connection Refused מחוץ ל-LAN</td><td>Firewall חוסם</td><td><code>iptables -L -n -v</code></td></tr>
+<tr><td>503 Service Unavailable</td><td>Load Balancer — כל שרתים מתו</td><td>בדוק health checks</td></tr>
+<tr><td>traffic עובר לשרת לא נכון</td><td>Load Balancer rules שגויים</td><td>בדוק routing rules + stick sessions</td></tr>
 </table>
 </section>
 `; }
@@ -4494,85 +4921,88 @@ Now: A→B goes only to Port 3</pre></div>
       sections: ["ביטים", "AM ו-FM", "ADSL", "CAT5/6 ו-Ethernet", "סיב אופטי", "WiFi", "5G", "Troubleshooting", "ראיון"],
       content: function() { return `
 <section class="learn-section">
-<span class="sec-label">01 — ביטים</span>
-<h2 class="sec-h">יחידת המידע הבסיסית</h2>
-<p>מטרת השכבה הפיזית — להעביר ביט אחד בין שני רכיבים. כל שאר השכבות מניחות שזה אפשרי.</p>
-<table class="tbl"><tr><th>תווך</th><th>מהירות</th><th>מרחק</th><th>עלות</th></tr>
-<tr><td>כבל נחושת (CAT6)</td><td>10 Gbps</td><td>100m</td><td>נמוכה</td></tr>
-<tr><td>Fiber Multi-Mode</td><td>100 Gbps</td><td>550m</td><td>בינונית</td></tr>
-<tr><td>Fiber Single-Mode</td><td>400 Gbps+</td><td>80 ק"מ</td><td>גבוהה</td></tr>
-<tr><td>WiFi 5</td><td>3.5 Gbps</td><td>30-50m</td><td>נמוכה</td></tr>
-<tr><td>5G mmWave</td><td>20 Gbps</td><td>300m</td><td>גבוהה</td></tr>
+<span class="sec-label">01 — ביטים על תווך פיזי</span>
+<h2 class="sec-h">כיצד 0 ו-1 הופכים לאות פיזי</h2>
+<p>בסופו של דבר, כל email שנשלחתם, כל סרטון שצפיתם, כל הודעה — הכל הופך לביטים: 0s ו-1s. השכבה הפיזית אחראית על פעולה אחת בלבד: לשדר bit אחד מנקודה לנקודה. היא לא מבינה frames, לא מבינה IPs. היא יודעת רק: "עכשיו שלח 1, עכשיו שלח 0".</p>
+<p>כיצד מייצגים 0 ו-1 פיזית? תלוי בתווך. בכבל נחושת — הבדלי מתח. בסיב אופטי — פולסי אור. ב-WiFi — גלי רדיו. בכל מקרה, צריך שיטת Modulation — דרך לקודד מידע על גל או על מתח חשמלי.</p>
+<table class="tbl">
+<tr><th>תווך</th><th>מהירות</th><th>מרחק מקסימלי</th><th>עלות</th><th>שימוש</th></tr>
+<tr><td>CAT5e (נחושת)</td><td>1 Gbps</td><td>100m</td><td>נמוכה</td><td>משרדים, בתים</td></tr>
+<tr><td>CAT6a (נחושת)</td><td>10 Gbps</td><td>100m</td><td>בינונית</td><td>Datacenters, server rooms</td></tr>
+<tr><td>Fiber Multi-Mode</td><td>100 Gbps</td><td>550m</td><td>בינונית</td><td>בתוך datacenter</td></tr>
+<tr><td>Fiber Single-Mode</td><td>400 Gbps+</td><td>80+ ק"מ</td><td>גבוהה</td><td>בין ערים, בין datacenters</td></tr>
+<tr><td>WiFi 5 (802.11ac)</td><td>3.5 Gbps</td><td>35m</td><td>נמוכה</td><td>בתים, משרדים</td></tr>
+<tr><td>WiFi 6 (802.11ax)</td><td>9.6 Gbps</td><td>35m</td><td>בינונית</td><td>סביבות צפופות</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">02 — AM ו-FM</span>
-<h2 class="sec-h">Modulation — הרכבת מידע על גל</h2>
-<table class="tbl"><tr><th>שיטה</th><th>מה משתנה</th><th>עמידות ל-noise</th></tr>
-<tr><td>AM (Amplitude Modulation)</td><td>גובה הגל</td><td>נמוכה</td></tr>
-<tr><td>FM (Frequency Modulation)</td><td>תדר הגל</td><td>גבוהה</td></tr>
-<tr><td>QAM (WiFi/Cable)</td><td>גובה + פאזה</td><td>גבוהה מאוד</td></tr>
+<span class="sec-label">02 — Modulation</span>
+<h2 class="sec-h">כיצד קודדים מידע על גל אלקטרומגנטי</h2>
+<p>גל אלקטרומגנטי מאופיין בשלושה פרמטרים: אמפליטודה (גובה הגל), תדר (כמה מחזורים בשנייה), ופאזה (מתי המחזור מתחיל). Modulation היא שיטת קידוד מידע על ידי שינוי אחד מהפרמטרים האלה.</p>
+<table class="tbl">
+<tr><th>שיטה</th><th>מה משתנה</th><th>עמידות ל-noise</th><th>יעילות</th><th>שימוש</th></tr>
+<tr><td>AM</td><td>אמפליטודה</td><td>נמוכה — noise משנה אמפליטודה</td><td>נמוכה</td><td>רדיו AM</td></tr>
+<tr><td>FM</td><td>תדר</td><td>גבוהה — noise לא משנה תדר</td><td>בינונית</td><td>רדיו FM</td></tr>
+<tr><td>QAM-64</td><td>גובה + פאזה</td><td>גבוהה</td><td>6 bits לסמל</td><td>WiFi 4/5, Cable</td></tr>
+<tr><td>QAM-256</td><td>גובה + פאזה</td><td>בינונית — רגיש יותר</td><td>8 bits לסמל</td><td>WiFi 5, 4G</td></tr>
+<tr><td>QAM-1024</td><td>גובה + פאזה</td><td>נמוכה — דורש signal טוב</td><td>10 bits לסמל</td><td>WiFi 6</td></tr>
 </table>
-<div class="callout note">📝 WiFi 6 משתמש ב-1024-QAM — 10 bits לסמל אחד. WiFi 4 השתמש ב-64-QAM (6 bits). יותר bits לסמל — יותר throughput, אבל רגיש יותר ל-interference.</div>
+<div class="callout note">📝 <strong>QAM-1024 ב-WiFi 6 — למה זה חשוב?</strong> WiFi 4 השתמש ב-QAM-64 = 6 bits לסמל. WiFi 6 משתמש ב-QAM-1024 = 10 bits לסמל. פי 1.67 יותר data באותה כמות שידורים. אבל QAM-1024 דורש SNR (Signal-to-Noise Ratio) גבוה מאוד — קרובים ל-AP ו-channel נקי. מרחוק — WiFi 6 נסוג אוטומטית ל-QAM נמוך יותר.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — סיב אופטי</span>
-<h2 class="sec-h">Single-Mode vs Multi-Mode</h2>
-<table class="tbl"><tr><th>תכונה</th><th>Multi-Mode</th><th>Single-Mode</th></tr>
-<tr><td>קוטר ליבה</td><td>50/62.5 μm</td><td>9 μm</td></tr>
-<tr><td>מקור אור</td><td>LED</td><td>Laser</td></tr>
-<tr><td>מרחק</td><td>עד 550m</td><td>עד 80 ק"מ</td></tr>
-<tr><td>מהירות</td><td>100 Gbps</td><td>400 Gbps+</td></tr>
-<tr><td>שימוש</td><td>בתוך datacenter</td><td>בין datacenters, ISP</td></tr>
+<h2 class="sec-h">כיצד אור מחליף חשמל ומרחיב את הרשת לאלפי קילומטרים</h2>
+<p>סיב אופטי הוא חוט זכוכית דקיק שמוביל אור. הסיב מנצל את עיקרון ה-Total Internal Reflection — אור שנכנס בזווית נכונה מוחזר מהדפנות בלי לצאת, ומגיע לקצה השני בלי הפסד משמעותי לאורך כבל ארוך.</p>
+<table class="tbl">
+<tr><th>תכונה</th><th>Multi-Mode</th><th>Single-Mode</th></tr>
+<tr><td>קוטר ליבה</td><td>50 או 62.5 μm</td><td>9 μm — דקיק כשערה</td></tr>
+<tr><td>מקור אור</td><td>LED זול</td><td>Laser יקר</td></tr>
+<tr><td>מרחק</td><td>עד 550m</td><td>עד 80 ק"מ (ומעלה עם amplifiers)</td></tr>
+<tr><td>מהירות</td><td>עד 100 Gbps</td><td>400 Gbps ומעלה</td></tr>
+<tr><td>עלות</td><td>זולה יותר</td><td>יקרה יותר</td></tr>
+<tr><td>שימוש</td><td>בתוך datacenter</td><td>בין ערים, ISP backbone, submarine cables</td></tr>
 </table>
+<div class="callout tip">💡 <strong>כבלי תת-ים — עמוד השדרה של האינטרנט:</strong> 99% מה-traffic בין יבשות עובר דרך כבלי fiber תת-ימיים. יש כ-400 כבלים שחוצים את האוקיינוסים. Google, Meta, Amazon השקיעו ב-כבלים פרטיים. כבל אחד יכול לשאת 250 Tbps — מספיק לכל ה-traffic של האינטרנט לפני 20 שנה.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — WiFi</span>
-<h2 class="sec-h">תדרים, Standards, OFDMA</h2>
-<table class="tbl"><tr><th>Standard</th><th>תדר</th><th>מהירות</th><th>טווח</th></tr>
-<tr><td>WiFi 4 (802.11n)</td><td>2.4/5 GHz</td><td>600 Mbps</td><td>70m</td></tr>
-<tr><td>WiFi 5 (802.11ac)</td><td>5 GHz</td><td>3.5 Gbps</td><td>35m</td></tr>
-<tr><td>WiFi 6 (802.11ax)</td><td>2.4/5 GHz</td><td>9.6 Gbps</td><td>30m</td></tr>
-<tr><td>WiFi 6E</td><td>2.4/5/6 GHz</td><td>9.6 Gbps</td><td>15m</td></tr>
-</table>
-<div class="callout note">📝 <strong>OFDMA ב-WiFi 6</strong> — מפצל channel ל-sub-channels. שולח לעשרות משתמשים בו-זמנית. WiFi 5 שלח לאחד בכל פעם.</div>
-<div class="callout note">📝 <strong>Half Duplex</strong> — WiFi לא יכול לשדר ולקלוט בו-זמנית. 10 מחשבים על AP אחד — חולקים bandwidth. Ethernet מודרני — Full Duplex.</div>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">🔧 — Troubleshooting</span>
-<h2 class="sec-h">בעיות פיזיות</h2>
-<table class="tbl"><tr><th>בעיה</th><th>בדיקה</th><th>תיקון</th></tr>
-<tr><td>ממשק לא עולה</td><td><code>ethtool eth0</code></td><td>בדוק כבל, port ב-switch</td></tr>
-<tr><td>WiFi איטי</td><td><code>iwconfig</code> — בדוק signal</td><td>קרב ל-AP, שנה channel</td></tr>
-<tr><td>Duplex mismatch</td><td><code>ethtool eth0 | grep Duplex</code></td><td><code>ethtool -s eth0 duplex full autoneg on</code></td></tr>
-</table>
-</section>
-
-<section class="learn-section">
-<span class="sec-label">🔧 — Troubleshooting</span>
-<h2 class="sec-h">אבחון פיזי</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">כלים פיזיים</span></div>
-<pre class="code-body"># בדוק מהירות + duplex
-ethtool eth0
-# Speed: 1000Mb/s | Duplex: Full | Link: yes
-
-# WiFi signal
-iwconfig wlan0
-# Signal level=-65 dBm (טוב), -85 dBm (גרוע)
-
-# errors על interface
-ip -s link show eth0</pre></div>
+<h2 class="sec-h">כיצד WiFi עובד ולמה הוא Half Duplex</h2>
+<p>WiFi (IEEE 802.11) משתמש בגלי רדיו לשידור נתונים. בניגוד לEthernet שבו לכל מחשב יש כבל פרטי, כל המחשבים ב-WiFi חולקים את אותו ה"אוויר". זה יוצר אתגר: רק אחד יכול לשדר בכל פעם — אחרת ה-signals מתנגשים ומתבלבלים.</p>
+<p>לכן WiFi הוא Half Duplex — לא ניתן לשדר ולקלוט בו-זמנית על אותה תדר. המחשב משתמש ב-CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance) — מאזין לאוויר, ואם פנוי — שודר. אם תפוס — מחכה זמן אקראי ומנסה שוב.</p>
 <table class="tbl">
-<tr><th>תסמין</th><th>בדיקה</th><th>תיקון</th></tr>
-<tr><td>Interface לא עולה</td><td><code>ethtool eth0</code></td><td>בדוק כבל, port ב-switch</td></tr>
-<tr><td>WiFi איטי</td><td><code>iwconfig wlan0</code></td><td>קרב ל-AP, שנה channel</td></tr>
-<tr><td>Errors גדלים</td><td><code>ip -s link show eth0</code></td><td>החלף כבל, בדוק duplex mismatch</td></tr>
+<tr><th>גנרציה</th><th>תדר</th><th>Bandwidth מקסימלי</th><th>Modulation</th><th>מאפיין עיקרי</th></tr>
+<tr><td>WiFi 4 (802.11n)</td><td>2.4/5 GHz</td><td>600 Mbps</td><td>QAM-64</td><td>MIMO ראשון</td></tr>
+<tr><td>WiFi 5 (802.11ac)</td><td>5 GHz</td><td>3.5 Gbps</td><td>QAM-256</td><td>MU-MIMO, Beamforming</td></tr>
+<tr><td>WiFi 6 (802.11ax)</td><td>2.4/5 GHz</td><td>9.6 Gbps</td><td>QAM-1024</td><td>OFDMA — שידור מקביל</td></tr>
+<tr><td>WiFi 6E</td><td>2.4/5/6 GHz</td><td>9.6 Gbps</td><td>QAM-1024</td><td>ספקטרום 6 GHz פנוי</td></tr>
 </table>
-</section>`; }
+<div class="callout note">📝 <strong>OFDMA — המהפכה של WiFi 6:</strong> WiFi 5 שלח למשתמש אחד בכל פעם — גם אם 50 מכשירים ממתינים. WiFi 6 עם OFDMA מפצל את ה-channel לעשרות Resource Units קטנים ושולח לעשרות מכשירים בו-זמנית. בסביבות צפופות (מלון, כנס, אצטדיון) — WiFi 6 פי 4 יעיל יותר מWiFi 5.</div>
+</section>
+
+<section class="learn-section">
+<span class="sec-label">🔧 — Troubleshooting פיזי</span>
+<h2 class="sec-h">אבחון בעיות בשכבה הפיזית</h2>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">כלים לאבחון Layer 1</span></div>
+<pre class="code-body"># בדיקת כרטיס רשת:
+ethtool eth0
+# Speed: 1000Mb/s | Duplex: Full | Link detected: yes
+
+# WiFi signal:
+iwconfig wlan0
+# Bit Rate=144.4 Mb/s   Signal level=-65 dBm   Noise level=-95 dBm
+# Signal guide: -50 excellent, -60 good, -70 fair, -80 poor
+
+# errors בinterface:
+ip -s link show eth0
+# RX errors: X  dropped: Y  — packet loss!
+
+# בדיקת Duplex mismatch:
+ethtool eth0 | grep -E "Speed|Duplex"</pre></div>
+</section>
+`; }
     },
     en: {
       name: "Physical Layer",
@@ -4611,91 +5041,139 @@ ip -s link show eth0</pre></div>
       content: function() { return `
 <section class="learn-section">
 <span class="sec-label">01 — נקודת הפתיחה</span>
-<h2 class="sec-h">מה המחשב יודע בהתחברות ראשונה</h2>
-<p>המחשב מתחבר לרשת. הוא יודע <strong>דבר אחד בלבד</strong>: MAC Address שלו (צרוב בכרטיס).</p>
-<p>הוא לא יודע: IP שלו, Subnet Mask, Default Gateway, DNS Server. הכל צריך לגלות.</p>
+<h2 class="sec-h">מה המחשב יודע ברגע שמחברים כבל רשת</h2>
+<p>ברגע שחיברתם כבל רשת למחשב חדש, הוא יודע בדיוק דבר אחד: ה-MAC Address שלו, שצרוב בכרטיס הרשת. הוא לא יודע מה ה-IP שלו, מה ה-Subnet Mask, מה ה-Default Gateway, ומה ה-DNS Server. כל המידע הזה צריך להגיע ממקום אחר — ו-DHCP הוא שיספק אותו.</p>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">02 — מסע מלא: google.com</span>
-<h2 class="sec-h">DHCP — ARP — DNS — TCP — HTTP</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">סדר הפעולות המלא</span></div>
-<pre class="code-body">1. DHCP Discover (Broadcast)
-   → מקבל: IP=192.168.1.100, GW=192.168.1.1, DNS=8.8.8.8
+<span class="sec-label">02 — המסע המלא: מ-"חיברתי כבל" ועד "ראיתי דף"</span>
+<h2 class="sec-h">DHCP — ARP — DNS — TCP — TLS — HTTP — כל שלב בפרוט</h2>
+<p>בואו נעקוב אחרי כל packet, כל protocol, כל החלטה שמתקבלת — מרגע חיבור המחשב לרשת עד שדף Google מוצג על המסך. זהו תהליך שלוקח פחות משנייה, אבל מכיל שכבות ושכבות של protocols שעובדים ביחד.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">שלב 1: DHCP — "מי נתן לי כתובת?"</span></div>
+<pre class="code-body">המחשב שולח DHCP Discover:
+  Src IP:  0.0.0.0        (אין עדיין IP!)
+  Dst IP:  255.255.255.255 (Broadcast)
+  Src MAC: D4:BE:D9:D6:0C:2A (MAC שלנו)
+  Dst MAC: FF:FF:FF:FF:FF:FF (Broadcast)
 
-2. ARP לGateway
-   → "מה ה-MAC של 192.168.1.1?"
-   → מקבל MAC של Router
+Router עונה עם DHCP Offer:
+  IP מוצע: 192.168.1.100
+  Subnet:  255.255.255.0
+  Gateway: 192.168.1.1
+  DNS:     8.8.8.8
+  Lease:   24 שעות
 
-3. DNS Query (UDP 53)
-   Src: 192.168.1.100  Dst: 8.8.8.8
-   L2: MAC-Client → MAC-Router  (ישתנה בכל hop!)
-   → מקבל: google.com = 142.250.80.46
+המחשב שולח DHCP Request (Broadcast — "רוצה את 192.168.1.100")
+Router שולח DHCP ACK ("מאושר!")
 
-4. TCP Handshake (SYN→SYN-ACK→ACK)
-   → חיבור ל-142.250.80.46:443
+עכשיו המחשב מוגדר:
+  IP:      192.168.1.100
+  Gateway: 192.168.1.1
+  DNS:     8.8.8.8</pre></div>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">שלב 2: ARP — "מה ה-MAC של ה-Gateway?"</span></div>
+<pre class="code-body">כדי לשלוח ל-Google, צריך לשלוח ל-Gateway (192.168.1.1)
+כדי לשלוח ל-Gateway, צריך את ה-MAC שלו
 
-5. TLS Handshake
-   → ערוץ מוצפן
+ARP Request (Broadcast):
+  "מי יש לו 192.168.1.1? ספר לי את MAC שלך"
 
-6. HTTP GET /
-   → HTML חוזר</pre></div>
-<div class="callout note">📝 <strong>מה משתנה בכל Hop?</strong><br>MAC Source + MAC Dest — משתנים בכל Router. IP Source + IP Dest — קבועים לאורך כל הדרך.</div>
+Router עונה:
+  "אני! MAC שלי: B4:FB:E4:11:22:33"
+
+המחשב שומר ב-ARP Cache:
+  192.168.1.1 → B4:FB:E4:11:22:33</pre></div>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">שלב 3: DNS — "מה ה-IP של google.com?"</span></div>
+<pre class="code-body">UDP Packet אל 8.8.8.8:53:
+  Ethernet: Src=MAC-שלנו, Dst=MAC-Router (B4:FB:E4:11:22:33)
+  IP:       Src=192.168.1.100, Dst=8.8.8.8
+  DNS:      "מה ה-IP של google.com?"
+
+שים לב: MAC = Router, כי 8.8.8.8 מחוץ ל-LAN
+Router מחליף MAC בכל hop — IP נשאר!
+
+DNS תשובה: google.com → 142.250.80.46</pre></div>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">שלב 4-6: TCP — TLS — HTTP</span></div>
+<pre class="code-body">TCP SYN ל-142.250.80.46:443
+  → TCP SYN-ACK ← Google
+  → TCP ACK → Google
+  (Three-Way Handshake מוסבר בפרק 6)
+
+TLS Handshake:
+  → Client Hello → Google
+  ← Server Hello + Certificate ←
+  → Verify Certificate, Finished →
+  ← Finished ←
+  (ערוץ מוצפן מכאן)
+
+HTTP/2 GET /:
+  → GET / HTTP/2 → Google
+  ← HTTP/2 200 OK + HTML ←
+
+Browser מעבד HTML, שולח עשרות בקשות נוספות
+לCSS, JavaScript, תמונות, fonts...</pre></div>
+<div class="callout tip">💡 <strong>מה משתנה ב-MAC לאורך המסע?</strong> Packet מ-192.168.1.100 ל-142.250.80.46 עובר דרך 10-15 Routers. בכל Router: MAC Source ו-Destination מתחלפים. ה-IP Source (192.168.1.100) וה-IP Destination (142.250.80.46) — לא משתנים. זו הסיבה שנאמר "MAC הוא local, IP הוא global".</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — Cloud Networking</span>
-<h2 class="sec-h">VPC — ה-LAN של הענן</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">AWS VPC טיפוסי</span></div>
-<pre class="code-body">VPC: 10.0.0.0/16
+<h2 class="sec-h">כיצד VPC ב-AWS מדמה רשת פיזית שלמה</h2>
+<p>כשיוצרים account ב-AWS ומפעילים שרת (EC2), הוא לא "צף" בחלל. הוא ממוקם בתוך VPC (Virtual Private Cloud) — רשת וירטואלית מבודדת שאתם שולטים בה לחלוטין. VPC מדמה את כל מושגי הרשת שלמדנו — Subnets, Routing Tables, Gateways — בענן.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">ארכיטקטורת VPC טיפוסית</span></div>
+<pre class="code-body">VPC: 10.0.0.0/16 (65,536 כתובות)
 ├── Public Subnet: 10.0.1.0/24
-│   └── Web Server (10.0.1.10) + Public IP
-│       [Internet Gateway → Internet]
+│   ├── Web Server (10.0.1.10)  ← יש Public IP
+│   └── Load Balancer           ← נגיש מהאינטרנט
+│   Internet Gateway → [Internet]
+│
 ├── Private Subnet: 10.0.2.0/24
-│   └── App Server (10.0.2.10)
-│       [NAT Gateway → Internet (יוצא בלבד)]
+│   └── App Server (10.0.2.10)  ← אין Public IP
+│   NAT Gateway → Internet (יוצא בלבד)
+│
 └── Private Subnet: 10.0.3.0/24
-    └── Database (10.0.3.10) [ללא גישה מהאינטרנט]</pre></div>
-<table class="tbl"><tr><th>רכיב</th><th>אנלוגיה</th></tr>
-<tr><td>VPC</td><td>LAN פיזי</td></tr>
-<tr><td>Subnet</td><td>VLAN</td></tr>
-<tr><td>Security Group</td><td>Stateful Firewall לinstance</td></tr>
-<tr><td>Internet Gateway</td><td>Router + NAT</td></tr>
-<tr><td>VPC Peering</td><td>Site-to-site VPN</td></tr>
+    └── Database (10.0.3.10)    ← מבודד לחלוטין</pre></div>
+<table class="tbl">
+<tr><th>רכיב VPC</th><th>מה זה בעולם פיזי</th><th>מה הוא עושה</th></tr>
+<tr><td>VPC</td><td>רשת LAN פרטית</td><td>הגדרת מרחב כתובות</td></tr>
+<tr><td>Subnet</td><td>VLAN</td><td>חלוקה לוגית פנימית</td></tr>
+<tr><td>Internet Gateway</td><td>Router + NAT</td><td>גישה לאינטרנט</td></tr>
+<tr><td>NAT Gateway</td><td>NAT ב-router</td><td>גישה יוצאת מ-private subnets</td></tr>
+<tr><td>Security Group</td><td>Stateful Firewall</td><td>פתיחת/סגירת ports לinstance</td></tr>
+<tr><td>VPC Peering</td><td>Dedicated link בין רשתות</td><td>חיבור בין VPCs שונים</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — Container Networking</span>
-<h2 class="sec-h">Docker ו-Kubernetes</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Docker Networks</span></div>
-<pre class="code-body"># רשתות Docker:
-docker network ls
-# bridge  — default, containers על אותו host
-# host    — container משתמש ב-network של host
-# overlay — בין hosts (Swarm/K8s)
+<h2 class="sec-h">כיצד Docker ו-Kubernetes מנהלים רשתות וירטואליות</h2>
+<p>Docker containers לא חיים ברשת הפיזית הרגילה. לכל container יש Network Interface משלו, IP Address משלו, ו-Routing Rules משלו — כל זה בתוך ה-OS של ה-host, בלי חומרה נפרדת. Kubernetes הוסיף שכבה נוספת — כל Pod מקבל IP ייחודי שניתן לglobal routing בתוך ה-cluster.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Docker ו-Kubernetes Networking</span></div>
+<pre class="code-body"># Docker — networks:
+docker network ls        # רשימת רשתות
+docker network inspect bridge  # ה-default network
 
-# בדיקת IP של container:
-docker inspect CONTAINER | grep IPAddress
+# IP של container:
+docker inspect CONTAINER_ID | grep IPAddress
 
-# debug רשת:
-docker exec -it CONTAINER ss -tlnp</pre></div>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Kubernetes</span></div>
-<pre class="code-body"># כל Pod = IP ייחודי
-kubectl get pods -o wide
+# בדיקת connectivity בין containers:
+docker exec -it container_a ping container_b
 
-# Service = IP קבוע לקבוצת Pods
+# Kubernetes — כל Pod מקבל IP:
+kubectl get pods -o wide     # IPs של כל pods
+
+# Service = IP קבוע, load balancer ל-pods
 kubectl describe service my-svc
 
-# debug connectivity:
-kubectl exec -it pod-a -- curl http://pod-b-svc:8080</pre></div>
+# Debug connectivity:
+kubectl exec -it pod-a -- curl http://my-service:8080</pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">💼 — ראיון</span>
-<h2 class="sec-h">שאלות אינטגרציה</h2>
-<div class="callout note">❓ <strong>Switch מוריד TTL?</strong><br>לא. Switch פועל בLayer 2 ולא נוגע ב-IP Header. רק Router מוריד TTL.</div>
-<div class="callout note">❓ <strong>MACs משתנים, IPs לא — מה הסיבה?</strong><br>MAC — כתובת מקומית לhop הנוכחי. IP — כתובת גלובלית לכל המסע. Router מחליף MAC לכתובת ה-hop הבא.</div>
+<h2 class="sec-h">שאלות אינטגרציה שאוהבים לשאול</h2>
+<div class="callout note">❓ <strong>"ה-Switch מוריד TTL?"</strong><br><br>
+לא. Switch פועל ב-Layer 2 ולא נוגע ב-IP Header בכלל. רק Router מוריד TTL — כי רק Router פועל ב-Layer 3 ומעבד IP Headers. Switch מסתכל על MAC בלבד ולא "יודע" שיש IP packet בפנים.</div>
+<div class="callout note">❓ <strong>"מה קורה אם ה-DHCP Server לא מגיב?"</strong><br><br>
+המחשב ינסה כמה פעמים (לרוב 4 פעמים ב-30 שניות), ואם אין תגובה — יקצה לעצמו כתובת APIPA: 169.254.x.x. כתובת זו מאפשרת תקשורת רק עם מחשבים אחרים ב-LAN שגם להם כשל DHCP — אין גישה לאינטרנט. פתרון: <code>sudo dhclient eth0</code>.</div>
 </section>
 `; }
     },
@@ -4735,90 +5213,139 @@ kubectl exec -it pod-a -- curl http://pod-b-svc:8080</pre></div>
       content: function() { return `
 <section class="learn-section">
 <span class="sec-label">01 — הבעיה עם Blocking</span>
-<h2 class="sec-h">שרת שמטפל בלקוח אחד</h2>
-<p><code>accept()</code> ו-<code>recv()</code> — Blocking: מקפיאות את התוכנה עד שמגיע משהו. בזמן שמחכים ל-recv מלקוח A — לקוח B לא יכול להתחבר.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">הבעיה</span></div>
+<h2 class="sec-h">מדוע שרת Socket בסיסי יכול לטפל בלקוח אחד בלבד</h2>
+<p>כששבנו שרת Socket פשוט בפרק 2, הוא סבל מבעיה מהותית: <code>accept()</code> ו-<code>recv()</code> הן blocking calls — הן עוצרות את ביצוע התוכנית עד שמשהו קורה. כשהשרת מחכה ל-recv מלקוח א', לקוח ב' שמנסה להתחבר — לא מקבל מענה. הוא ממתין ב-queue, ואם ה-queue מלא — מקבל Connection Refused.</p>
+<p>זה מקביל לקופה בסופרמרקט עם קופאי אחד שמטפל בכל לקוח מהתחלה עד סוף, כולל ממתין שיחפש בארנק. כל שאר הלקוחות עומדים בתור. הפתרון: להוסיף קופאים (threads), או לעבוד בצורה חכמה יותר (event loop).</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">הבעיה ממחישה</span></div>
 <pre class="code-body">while True:
-    client = server.accept()  # מחכה ללקוח
-    data = client.recv(1024)  # מחכה לdata
-    # בזמן שמחכים — אף לקוח אחר לא יכול להתחבר!</pre></div>
+    client, addr = server.accept()   # עוצר כאן עד לקוח חדש
+    data = client.recv(1024)         # עוצר כאן עד נתונים
+    client.send(b"Echo: " + data)
+    # בזמן שמחכים לrecv מלקוח א'...
+    # לקוח ב' מנסה להתחבר — אין מענה!
+    # לקוח ג', ד', ה' — כולם ממתינים</pre></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">02 — select()</span>
-<h2 class="sec-h">הפתרון — IO Multiplexing</h2>
-<p><code>select()</code> בודקת אילו sockets מוכנים — ללא blocking.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">select() loop</span></div>
+<span class="sec-label">02 — select() — IO Multiplexing</span>
+<h2 class="sec-h">פתרון C10K ברמה בסיסית — עם thread אחד</h2>
+<p><code>select()</code> היא פונקציה שמאפשרת לבדוק כמה sockets בבת אחת — בלי להיחסם. היא מקבלת רשימות של sockets ומחזירה אילו מהם "מוכנים" — כלומר יש data לקרוא, או buffer פנוי לכתיבה. כך thread אחד יכול לנהל אלפי לקוחות.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">select() — שרת שמטפל במרובה לקוחות</span></div>
 <pre class="code-body">import select, socket
 
 server = socket.socket()
 server.bind(('0.0.0.0', 8080))
 server.listen()
 
+# רשימת כל ה-sockets שאנו מנהלים
 open_clients = []
+messages_to_send = []  # (socket, data) שממתינים לשליחה
 
 while True:
-    rlist, wlist, _ = select.select(
-        [server] + open_clients,  # מי מוכן לקריאה?
-        open_clients,              # מי מוכן לכתיבה?
-        []
-    )
-    for s in rlist:
+    # rlist = מי מוכן לקריאה?
+    # wlist = מי מוכן לכתיבה?
+    rlist = [server] + open_clients
+    wlist = [s for s, _ in messages_to_send]
+
+    readable, writable, _ = select.select(rlist, wlist, [])
+
+    for s in readable:
         if s is server:
+            # לקוח חדש מתחבר
             client, addr = server.accept()
             open_clients.append(client)
+            print(f"חיבור חדש: {addr}")
         else:
+            # לקוח קיים שלח נתונים
             data = s.recv(1024)
-            if not data:
+            if not data:  # ריקה = ניתק
                 open_clients.remove(s)
-                s.close()</pre></div>
+                s.close()
+            else:
+                messages_to_send.append((s, b"Echo: " + data))
+
+    for s in writable:
+        # שלח לsockets שמוכנים
+        for i, (sock, msg) in enumerate(messages_to_send):
+            if sock is s:
+                sock.send(msg)
+                messages_to_send.pop(i)
+                break</pre></div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">03 — gRPC</span>
-<h2 class="sec-h">מהיר פי 10 מREST</h2>
-<p>REST שולח JSON — קריא לאדם, בזבזני לרשת. gRPC שולח Protocol Buffers — binary, קומפקטי.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">.proto definition</span></div>
-<pre class="code-body">syntax = "proto3";
+<h2 class="sec-h">כאשר REST/JSON איטי מדי — Binary Protocol</h2>
+<p>REST עם JSON הוא universal ו-human readable, אבל JSON הוא verbose: מרכאות, נקודתיים, מרווחים — overhead גדול. gRPC (Google Remote Procedure Call) משתמש ב-Protocol Buffers — binary serialization שקומפקטי פי 3-10 מJSON ומהיר פי 5-10 ב-serialization.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Protocol Buffers — הגדרת API</span></div>
+<pre class="code-body">// user.proto — מגדירים את ה-API בשפה נייטרלית
+syntax = "proto3";
+
 service UserService {
   rpc GetUser (UserRequest) returns (UserResponse);
-  rpc StreamUsers (Empty) returns (stream UserResponse);
+  rpc ListUsers (Empty) returns (stream UserResponse);
+  rpc UpdateUser (UserRequest) returns (UserResponse);
 }
-message UserRequest { string user_id = 1; }
+
+message UserRequest {
+  string user_id = 1;
+}
+
 message UserResponse {
-  string name  = 1;
-  string email = 2;
-  int32  age   = 3;
-}</pre></div>
-<table class="tbl"><tr><th>תכונה</th><th>REST/JSON</th><th>gRPC/Protobuf</th></tr>
-<tr><td>גודל payload</td><td>גדול</td><td>קטן פי 3-10</td></tr>
-<tr><td>מהירות</td><td>baseline</td><td>מהיר פי 5-10</td></tr>
-<tr><td>Streaming</td><td>SSE נפרד</td><td>מובנה</td></tr>
-<tr><td>קריאות אנושית</td><td>✅</td><td>❌ (דורש codegen)</td></tr>
+  string user_id = 1;
+  string name    = 2;
+  string email   = 3;
+  int32  age     = 4;
+  bool   active  = 5;
+}
+
+# protoc מייצר קוד ל-Python, Go, Java, C++, Node...
+# Client ו-Server מקבלים קוד auto-generated</pre></div>
+<table class="tbl">
+<tr><th>תכונה</th><th>REST/JSON</th><th>gRPC/Protobuf</th></tr>
+<tr><td>גודל Payload</td><td>{"name": "Alice", "age": 30}</td><td>binary: ~6 bytes</td></tr>
+<tr><td>מהירות Serialize</td><td>baseline</td><td>מהיר פי 5-10</td></tr>
+<tr><td>Streaming</td><td>SSE נפרד, לא מובנה</td><td>server/client/bi-directional מובנה</td></tr>
+<tr><td>Type Safety</td><td>רק ב-runtime</td><td>בcompile time</td></tr>
+<tr><td>Human Readable</td><td>✅</td><td>❌ (צריך protoc לqecode)</td></tr>
+<tr><td>Browser Support</td><td>✅ ישיר</td><td>❌ דורש grpc-web proxy</td></tr>
 </table>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — Circuit Breaker</span>
-<h2 class="sec-h">Cascade Failure — מניעה</h2>
-<p>Service A קורא ל-Service B שנפל. ללא Circuit Breaker — אלפי requests timeout — A גם קורס.</p>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">מצבי Circuit Breaker</span></div>
-<pre class="code-body">CLOSED  → הכל תקין, requests עוברים
-   ↓ N failures
-OPEN    → חוסם הכל, מחזיר error מיידי
-   ↓ timeout
-HALF-OPEN → מאפשר request אחד לבדיקה
-   ↓ success → CLOSED
-   ↓ failure → OPEN</pre></div>
+<h2 class="sec-h">כיצד מונעים Cascade Failure כשservice אחד נופל</h2>
+<p>בארכיטקטורת microservices, service A קורא ל-B, B קורא ל-C. אם C קורס — B שולח אלפי requests שמחכים לtimeout (נניח 30 שניות). B מציף ב-threads ממתינים. A שולח אלפי requests ל-B שלא עונה. A מציף גם הוא. כל המערכת קורסת — Cascade Failure.</p>
+<p>Circuit Breaker הוא Pattern שמונע זאת. כמו מפסק חשמל בבית — כשיש עומס יתר, הוא "נפתח" ומנתק את הזרם. במקרה שלנו: כשservice מזהה שהיעד לא עונה — הוא מפסיק לשלוח אליו ומחזיר error מיידי, בלי לחכות לtimeout.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Circuit Breaker — שלושת מצבי המפסק</span></div>
+<pre class="code-body">CLOSED (רגיל)
+  → כל requests עוברים
+  → סופרים כשלונות
+  → אחרי N כשלונות ← עובר ל-OPEN
+
+OPEN (חסום)
+  → כל requests נכשלים מיידית — אין חיכוי לtimeout!
+  → לקוח מקבל error ב-~1ms במקום 30 שניות
+  → אחרי Timeout period (נניח 60 שניות) ← עובר ל-HALF-OPEN
+
+HALF-OPEN (בדיקה)
+  → מאפשר request אחד לעבור
+  → הצליח? → חזרה ל-CLOSED
+  → נכשל? → חזרה ל-OPEN
+
+# ספריות: resilience4j (Java), polly (C#), pybreaker (Python)
+# Netflix Hystrix — הפופולרי ביותר, עכשיו deprecated לטובת resilience4j</pre></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">🔧 — Troubleshooting</span>
-<h2 class="sec-h">בעיות Sockets מתקדמות</h2>
-<table class="tbl"><tr><th>בעיה</th><th>סיבה</th><th>תיקון</th></tr>
-<tr><td>Server לא מגיב ללקוחות חדשים</td><td>Blocking ב-recv</td><td>החלף ל-select() או asyncio</td></tr>
-<tr><td>Memory leak</td><td>sockets לא נסגרים</td><td>תמיד <code>s.close()</code> ב-finally</td></tr>
-<tr><td>Cascade failure</td><td>dependency נפל</td><td>Circuit Breaker + timeout</td></tr>
+<span class="sec-label">🔧 — Troubleshooting Sockets מתקדם</span>
+<h2 class="sec-h">בעיות נפוצות בproduction</h2>
+<table class="tbl">
+<tr><th>בעיה</th><th>סיבה</th><th>בדיקה</th><th>תיקון</th></tr>
+<tr><td>שרת תקוע, לא עונה ללקוחות חדשים</td><td>Blocking ב-recv, thread pool מלא</td><td><code>ss -an | grep :PORT</code></td><td>switch לasyncio/select</td></tr>
+<tr><td>File descriptor limit</td><td>יותר מ-1024 connections</td><td><code>ulimit -n</code></td><td><code>ulimit -n 65536</code> ב-startup</td></tr>
+<tr><td>Cascade Failure</td><td>dependency שנפל</td><td>logs + metrics</td><td>Circuit Breaker + Timeout</td></tr>
+<tr><td>Memory Leak</td><td>sockets לא נסגרים</td><td><code>ss -an | wc -l</code> גדל?</td><td>תמיד <code>close()</code> ב-finally</td></tr>
 </table>
 </section>
 `; }
@@ -4868,77 +5395,118 @@ for s in rlist:
       content: function() { return `
 <section class="learn-section">
 <span class="sec-label">01 — QUIC ו-HTTP/3</span>
-<h2 class="sec-h">TCP killer? לא ממש. אבל קרוב.</h2>
-<p>HTTP/3 (2022) רץ על QUIC — פרוטוקול חדש של Google שמריץ TCP-like reliability מעל UDP.</p>
-<table class="tbl"><tr><th>תכונה</th><th>HTTP/1.1 (TCP)</th><th>HTTP/2 (TCP)</th><th>HTTP/3 (QUIC)</th></tr>
+<h2 class="sec-h">Google שמחה לבנות TCP מחדש, ובנתה QUIC במקום</h2>
+<p>TCP קיים מ-1974. הוא מצוין, אבל יש לו בעיות מובנות שקשה לתקן — כי כל שינוי ב-TCP דורש עדכון ל-OS של מיליארדי מכשירים. Google הציעה פתרון אחר: בנו protocol חדש לגמרי שרץ מעל UDP, ועשו אותו partial ל-application layer כדי שניתן לעדכן בלי לשנות OS.</p>
+<p>הפרוטוקול הזה הוא QUIC, ו-HTTP/3 רץ מעליו. ב-2022, IETF אישר HTTP/3 כ-standard רשמי. נכון ל-2024, כ-35% מה-web traffic עובר על HTTP/3.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">הבעיות שQUIC פותר</span></div>
+<pre class="code-body">בעיה 1: Head-of-Line Blocking
+  HTTP/2 על TCP: packet אחד אבוד עוצר כל ה-streams
+  QUIC: כל stream עצמאי — packet אבוד עוצר רק stream אחד
+
+בעיה 2: Connection Setup
+  TCP + TLS 1.2: 2 RTT לpחיבור + 2 RTT ל-TLS = 4 RTT
+  TCP + TLS 1.3: 1 RTT + 1 RTT = 2 RTT
+  QUIC: 1 RTT (כולל crypto)
+  QUIC 0-RTT: 0 RTT לחיבורים חוזרים!
+
+בעיה 3: WiFi → 4G (Network Handover)
+  TCP: IP שינה = connection מת = הכל מחדש
+  QUIC: Connection ID — connection ממשיך גם אחרי שינוי IP!</pre></div>
+<table class="tbl">
+<tr><th>תכונה</th><th>HTTP/1.1</th><th>HTTP/2</th><th>HTTP/3 (QUIC)</th></tr>
 <tr><td>Multiplexing</td><td>❌</td><td>✅ אבל HoL Blocking</td><td>✅ ללא HoL</td></tr>
-<tr><td>Connection Setup</td><td>1.5 RTT</td><td>1.5 RTT + TLS</td><td>0-RTT (resumption)</td></tr>
-<tr><td>WiFi — 4G</td><td>חיבור נקטע</td><td>חיבור נקטע</td><td>ממשיך — Connection ID</td></tr>
+<tr><td>Header Compression</td><td>❌</td><td>✅ HPACK</td><td>✅ QPACK</td></tr>
+<tr><td>Connection Setup</td><td>1 RTT + TLS</td><td>1 RTT + TLS</td><td>1 RTT, 0-RTT resumption</td></tr>
+<tr><td>Mobile Friendly</td><td>גרוע</td><td>בינוני</td><td>מצוין — Connection Migration</td></tr>
+<tr><td>שימוש נוכחי</td><td>Legacy sites</td><td>רוב ה-web</td><td>~35% ו-גדל</td></tr>
 </table>
-<div class="callout note">📝 <strong>Head-of-Line Blocking</strong> — ב-HTTP/2+TCP: packet אחד אבוד מעכב את כל ה-streams. ב-QUIC: כל stream עצמאי — packet אבוד מעכב רק אותו.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">02 — eBPF</span>
-<h2 class="sec-h">מהפכה בתוך Kernel</h2>
-<p>eBPF — הרצת קוד מאומת בתוך Linux kernel ללא שינוי kernel source. Hook לכל event: network packet, syscall, disk IO.</p>
-<table class="tbl"><tr><th>שימוש</th><th>כלי</th><th>מה עושה</th></tr>
-<tr><td>DDoS Mitigation</td><td>XDP + eBPF</td><td>חוסם packets לפני TCP/IP stack — 25M pps</td></tr>
-<tr><td>Kubernetes CNI</td><td>Cilium</td><td>networking בין Pods עם eBPF במקום iptables</td></tr>
-<tr><td>Observability</td><td>BPF CO-RE</td><td>trace syscalls, network, CPU ללא overhead</td></tr>
-<tr><td>Security</td><td>Falco, Tetragon</td><td>זיהוי התנהגות חשודה ב-runtime</td></tr>
+<h2 class="sec-h">מהפכה בתוך Linux Kernel שמשנה networking, security ו-observability</h2>
+<p>eBPF (extended Berkeley Packet Filter) מאפשר להריץ code מאומת ישירות בתוך Linux kernel — בלי לשנות kernel source ובלי לטעון kernel module. זה כמו plug-in system לkernel. ה-code רץ על events: network packet, syscall, disk IO, function call.</p>
+<p>מדוע זה מהפכני? כי עד לeBPF, כדי להוסיף logic לkernel צריך לכתוב kernel module — מסוכן, דורש reboot, עלול לקרוס את המערכת. eBPF בטוח — ה-verifier בודק שה-code לא יקרוס, ויש limitations מובנות.</p>
+<table class="tbl">
+<tr><th>שימוש</th><th>כיצד eBPF עוזר</th><th>כלי</th></tr>
+<tr><td>DDoS Mitigation</td><td>חוסם packets ב-XDP לפני TCP/IP stack — 25M pps</td><td>Cloudflare, Facebook</td></tr>
+<tr><td>Kubernetes CNI</td><td>מחליף iptables בnetworking בין pods — מהיר פי 10</td><td>Cilium</td></tr>
+<tr><td>Observability</td><td>trace כל syscall, function call, בלי overhead</td><td>bpftrace, BCC</td></tr>
+<tr><td>Security</td><td>זיהוי התנהגות חשודה ב-runtime</td><td>Falco, Tetragon</td></tr>
+<tr><td>Performance</td><td>profile ב-production בלי לעצור</td><td>BPF CO-RE, perf</td></tr>
 </table>
+<div class="callout tip">💡 <strong>eBPF ו-Kubernetes:</strong> כל רשת Kubernetes מסורתית השתמשה ב-iptables להפניית traffic. iptables = list נקראת מתחילתה לכל packet. 10,000 rules = איטי מאוד. Cilium עם eBPF מחליף iptables ב-hash map — O(1) במקום O(n). בcluster גדול: 10x ביצועים טובים יותר.</div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">03 — SASE ו-Zero Trust</span>
-<h2 class="sec-h">הרשת של עידן העבודה מרחוק</h2>
-<table class="tbl"><tr><th>מושג</th><th>VPN מסורתי</th><th>SASE / Zero Trust</th></tr>
-<tr><td>גישה</td><td>לכל הרשת</td><td>לאפליקציה ספציפית</td></tr>
-<tr><td>Latency</td><td>גבוה — דרך HQ</td><td>נמוך — לנקודת Edge קרובה</td></tr>
-<tr><td>Implicit Trust</td><td>כן — "בתוך הרשת = בטוח"</td><td>לא — "אל תאמין לאף אחד"</td></tr>
-<tr><td>דוגמאות</td><td>OpenVPN, Cisco AnyConnect</td><td>Cloudflare Access, Zscaler</td></tr>
+<span class="sec-label">03 — Zero Trust ו-SASE</span>
+<h2 class="sec-h">מה COVID שינה בדרך שארגונים חושבים על רשת</h2>
+<p>המודל המסורתי של אבטחת רשת: "מי שבתוך הרשת — מהימן. מי שמחוץ — לא מהימן". VPN נתן גישה ל"תוך הרשת". הבעיה: ב-2020, כולם עבדו מהבית. ה"תוך" נעלם. וגם כשמישהו קיבל גישה ל-VPN — הוא קיבל גישה לכל הרשת, לא רק למה שהוא צריך.</p>
+<p>Zero Trust: "אל תאמין לאף אחד, גם אם הוא בפנים. אמת תמיד." כל request צריך authentication, כל גישה מבוססת על least privilege, כל connection מאומת בזמן אמת.</p>
+<table class="tbl">
+<tr><th>תכונה</th><th>VPN מסורתי</th><th>Zero Trust / SASE</th></tr>
+<tr><td>מה מקבלים</td><td>גישה לכל הרשת</td><td>גישה לאפליקציה ספציפית בלבד</td></tr>
+<tr><td>Latency</td><td>גבוה — דרך ה-datacenter המרכזי</td><td>נמוך — לנקודת Edge הקרובה</td></tr>
+<tr><td>Trust Model</td><td>"בפנים = בטוח"</td><td>"Verify Always, Trust Nobody"</td></tr>
+<tr><td>Session Re-auth</td><td>פעם אחת ב-VPN login</td><td>כל request מאומת</td></tr>
+<tr><td>Visibility</td><td>מינימלית</td><td>מלאה — כל access מוגן</td></tr>
 </table>
-<div class="callout warn">⚡ SolarWinds 2020 — תוקפים השיגו VPN credentials ועברו laterally לכל הרשת. Zero Trust: גישה לservice ספציפי בלבד, least privilege.</div>
+<div class="callout warn">⚡ <strong>SolarWinds 2020 — מה הלקח:</strong> תוקפים קיבלו גישה ל-VPN של ספקית software. משם — lateral movement חופשי לכל הרשת של 18,000 לקוחות, כולל ממשלת ארה"ב. Zero Trust היה מגביל אותם לservice אחד בלבד שאליו קיבלו גישה ראשונית.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">04 — IPv6</span>
-<h2 class="sec-h">כבר לא "העתיד"</h2>
-<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">IPv6 basics</span></div>
-<pre class="code-body"># IPv4: 32 bits = 4.3 מיליארד כתובות (נגמרו 2011)
-# IPv6: 128 bits = 340 undecillion כתובות
+<h2 class="sec-h">הפרוטוקול שמחכים לו 25 שנה — ומגיע סוף סוף</h2>
+<p>IPv4 אזל ב-2011. IPv6 הוצג ב-1998. מדוע לקח 25+ שנה לאמץ אותו? הבעיה הקלאסית של Chicken-and-Egg: ISPs לא הפעילו IPv6 כי לקוחות לא דרשו, לקוחות לא דרשו כי sites לא תמכו, sites לא תמכו כי servers לא תמכו, וחוזר חלילה. NAT עזר "לפתור" את מחסור IPv4 וסיר את הדחיפות.</p>
+<div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">IPv6 — יסודות</span></div>
+<pre class="code-body">IPv4: 32 bits = 4,294,967,296 כתובות (נגמרו!)
+IPv6: 128 bits = 340 undecillion = 340 × 10^36
+
+כתובת IPv6:
+2607:f8b0:4004:0c08:0000:0000:0000:200e
+# מייצגת: 8 קבוצות × 16 bits
+
+# קיצורים:
+# ::  = קבוצות אפסים ברצף
+2607:f8b0:4004:c08::200e  # (קיצור)
 
 # כתובות חשובות:
-::1                    loopback (=127.0.0.1)
-fe80::/10              Link-Local (נוצרת אוטומטית)
-2001:db8::/32          Documentation (RFC)
-::/0                   Default route
+::1           loopback (כמו 127.0.0.1)
+fe80::/10     Link-Local — נוצרת אוטומטית לכל interface
+::/0          Default route (כמו 0.0.0.0/0)
 
-# Link-Local:
-ip addr show           # fe80::... נוצרת לכל interface</pre></div>
-<div class="callout note">📝 אימוץ IPv6 עולמי 2024: ~42%. Google, Facebook, Cloudflare — תומכים מלא. ISPs ישראלים — חלקי.</div>
+# בדיקה:
+ip -6 addr show   # כתובות IPv6
+ping6 ::1         # loopback IPv6
+
+# 2024: ~42% מה-web traffic הוא IPv6 (Google statistics)</pre></div>
 </section>
 
 <section class="learn-section">
-<span class="sec-label">05 — iproute2 — כלים מודרניים</span>
-<h2 class="sec-h">net-tools מת — iproute2 חי</h2>
-<table class="tbl"><tr><th>פקודה ישנה</th><th>פקודה מודרנית</th><th>הסבר</th></tr>
-<tr><td><code>ifconfig</code></td><td><code>ip addr show</code></td><td>כתובות ממשקים</td></tr>
-<tr><td><code>route</code></td><td><code>ip route show</code></td><td>routing table</td></tr>
-<tr><td><code>arp</code></td><td><code>ip neigh show</code></td><td>ARP cache</td></tr>
-<tr><td><code>netstat -tlnp</code></td><td><code>ss -tlnp</code></td><td>פורטים פתוחים</td></tr>
-<tr><td><code>netstat -rn</code></td><td><code>ip route</code></td><td>routing</td></tr>
+<span class="sec-label">05 — iproute2</span>
+<h2 class="sec-h">הכלים המודרניים שמחליפים ifconfig ו-netstat</h2>
+<p>net-tools — החבילה שכוללת <code>ifconfig</code>, <code>netstat</code>, <code>route</code>, <code>arp</code> — לא מתוחזקת מ-2001. היא לא תומכת ב-network namespaces, ב-VLANs, ב-IPv6 כמו שצריך. <code>iproute2</code> היא החלפה המלאה, ומ-Ubuntu 20.04 ואילך <code>ifconfig</code> לא מותקן כברירת מחדל.</p>
+<table class="tbl">
+<tr><th>ישן (net-tools)</th><th>חדש (iproute2)</th><th>מה עושה</th></tr>
+<tr><td><code>ifconfig</code></td><td><code>ip addr show</code></td><td>כתובות IP ו-interfaces</td></tr>
+<tr><td><code>ifconfig eth0 up</code></td><td><code>ip link set eth0 up</code></td><td>הפעלת interface</td></tr>
+<tr><td><code>route -n</code></td><td><code>ip route show</code></td><td>routing table</td></tr>
+<tr><td><code>route add</code></td><td><code>ip route add</code></td><td>הוספת route</td></tr>
+<tr><td><code>arp -n</code></td><td><code>ip neigh show</code></td><td>ARP cache</td></tr>
+<tr><td><code>netstat -tlnp</code></td><td><code>ss -tlnp</code></td><td>listening ports</td></tr>
+<tr><td><code>netstat -an</code></td><td><code>ss -an</code></td><td>כל connections</td></tr>
 </table>
-<div class="callout note">📝 net-tools (ifconfig, netstat) — לא מתוחזק מ-2001. iproute2 — תומך network namespaces (Docker/K8s), VLANs, IPv6. ב-Ubuntu 20.04+ ifconfig לא מותקן כברירת מחדל.</div>
 </section>
 
 <section class="learn-section">
 <span class="sec-label">💼 — ראיון מודרני</span>
-<h2 class="sec-h">שאלות 2024-2025</h2>
-<div class="callout note">❓ <strong>מה ההבדל בין VPN ל-Zero Trust?</strong><br>VPN — גישה לכל הרשת אחרי authentication. Zero Trust — גישה לאפליקציה ספציפית בלבד, עם continuous verification.</div>
-<div class="callout note">❓ <strong>למה QUIC טוב ל-mobile?</strong><br>Connection ID — מאפשר לשנות IP (WiFi — 4G) ללא disconnect. TCP: IP שינה = חיבור מת.</div>
-<div class="callout note">❓ <strong>מה eBPF מאפשר שiptables לא?</strong><br>XDP עם eBPF פועל לפני TCP/IP stack — פי 25 מהיר יותר. Cilium מחליף iptables ב-K8s.</div>
+<h2 class="sec-h">שאלות 2024-2025 שחייבים לדעת לענות עליהן</h2>
+<div class="callout note">❓ <strong>"מה ההבדל בין VPN ל-Zero Trust?"</strong><br><br>
+VPN נותן גישה לרשת שלמה — לקוח מתחבר ל-VPN ופתאום הוא "בתוך הרשת" עם גישה לכל. Zero Trust נותן גישה לאפליקציה ספציפית בלבד, עם authentication מתמשך, ומבוסס על identity ולא על network location. VPN מניח שמי שבתוך הרשת מהימן. Zero Trust מניח שאף אחד לא מהימן עד שמוכיח אחרת.</div>
+<div class="callout note">❓ <strong>"למה QUIC טוב יותר ממיליארד ל-mobile?"</strong><br><br>
+כשנוסעים ברכבת ועוברים מתא WiFi לרשת סלולרית, ה-IP שלכם משתנה. ב-TCP — כל connection מת, כל download מתחיל מחדש. ב-QUIC — Connection ID קבוע, שאינו תלוי ב-IP. ה-connection ממשיך בצורה חלקה. ב-mobile — זה הבדל בין חוויה נוראה לנסיעה נהדרת.</div>
+<div class="callout note">❓ <strong>"מה eBPF מאפשר שלא היה אפשרי קודם?"</strong><br><br>
+לפני eBPF, כדי להוסיף logic לkernel (למשל: חסום packet מסוים לפני שמגיע ל-TCP/IP stack) — צריך kernel module. module שגוי = kernel panic = server מת. eBPF: כתוב code בC מוגבל, verifier בודק שהוא בטוח, רץ בkernel בלי סיכון. Cloudflare משתמש בeBPF+XDP לחסום DDoS של 25 מיליון packets לשנייה — בלי שפוגע ב-traffic לגיטימי.</div>
 </section>
 `; }
     },
