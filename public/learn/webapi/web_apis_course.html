@@ -635,18 +635,35 @@ body::before {
 .cheat-key { color: var(--text-muted); }
 .cheat-val { font-family: var(--mono); color: var(--green); font-size: 12px; }
 
-@media (max-width: 900px) {
-  :root { --sidebar: 0px; }
-  .sidebar { transform: translateX(100%); transition: transform 0.3s; width: 280px; }
-  .sidebar.open { transform: translateX(0); }
-  .main { margin-right: 0; }
-  .tab-panels { padding: 24px 20px 40px; }
-  .ch-hero { padding: 28px 20px 0; }
-  .grid-2, .grid-3, .game-opts, .cheat-grid { grid-template-columns: 1fr; }
-  .mobile-btn { display: flex; }
-  .header-xp { display: none; }
-  .tabs-bar { overflow-x: auto; }
-  .tab-btn { padding: 0 14px; font-size: 12px; }
+@media(max-width:900px){
+  :root{--sidebar:0px}
+  .sidebar{transform:translateX(100%);transition:transform .25s;width:280px}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-right:0}
+  .tab-panels{padding:14px 14px 60px}
+  .ch-hero{padding:18px 14px 0}
+  .grid-2,.grid-3,.game-opts,.cheat-grid{grid-template-columns:1fr}
+  .mobile-btn{display:flex}
+  .header-xp{display:none}
+  .tabs-bar{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tabs-bar::-webkit-scrollbar{display:none}
+  .tab-btn{flex-shrink:0;padding:0 12px;font-size:11px}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .code-block{font-size:11px;padding:12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .flow-row{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;gap:6px;padding:12px 10px}
+  .flow-step{min-width:68px;padding:8px 6px}
+  .flow-step-icon{font-size:16px}
+  .flow-step-label{font-size:9px}
+  .flow-arrow{font-size:13px;flex-shrink:0}
+  .quiz-opt{font-size:12px;padding:9px 11px}
+  .game-opt{font-size:11px;padding:10px 8px}
+}
+@media(max-width:480px){
+  .cheat-grid{grid-template-columns:1fr}
+  .tab-btn{padding:0 10px;font-size:10px}
+  .prose{font-size:13px}
+  .game-start-card{padding:24px 16px}
+  .quiz-q-card{padding:16px}
 }
 /* ===== LANG TOGGLE ===== */
 .lang-btn {
@@ -673,6 +690,16 @@ body::before {
 }
 .lang-btn .lang-flag { font-size: 15px; }
 [lang="en"] .lang-btn { }
+
+.credits-bar{background:var(--bg3);border-top:1px solid var(--border);padding:24px 36px;margin-top:40px}
+.credits-title{font-family:var(--display);font-size:10px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:700}
+.credits-grid{display:flex;flex-wrap:wrap;gap:20px}
+.credit-group{flex:1;min-width:160px}
+.credit-group-title{font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:6px;font-family:var(--display)}
+.credit-item{font-size:11px;color:var(--text-muted);line-height:1.7}
+.credit-item a{color:var(--accent2);text-decoration:none}
+.credit-item a:hover{text-decoration:underline}
+@media(max-width:860px){.credits-bar{padding:18px 14px}.credits-grid{flex-direction:column;gap:12px}}
 </style>
 <style>
 .did-you-know {
@@ -844,6 +871,30 @@ body::before {
     <div class="tab-panel" id="7-cheat"><div id="cheat-content-7"></div></div>
   </div>
 </section>
+<div class="credits-bar" id="credits-bar">
+  <div class="credits-title" id="credits-title-label">// Sources &amp; Credits</div>
+  <div class="credits-grid">
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-research">Research &amp; Sources</div>
+      <div class="credit-item">MDN Web Docs (Mozilla)</div>
+      <div class="credit-item">RFC 7230-7235 (HTTP/1.1)</div>
+      <div class="credit-item">OpenAPI Specification</div>
+      <div class="credit-item">REST API Design Rulebook</div>
+    </div>
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-tech">Technical Docs</div>
+      <div class="credit-item"><a href="https://developer.mozilla.org" target="_blank">MDN Web Docs</a></div>
+      <div class="credit-item"><a href="https://swagger.io/docs/" target="_blank">Swagger / OpenAPI</a></div>
+      <div class="credit-item"><a href="https://www.rfc-editor.org" target="_blank">IETF RFCs</a></div>
+    </div>
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-built">Built With</div>
+      <div class="credit-item">Claude (Anthropic) — content &amp; design</div>
+      <div class="credit-item">Vanilla JS + CSS</div>
+      <div class="credit-item" id="credits-version">Version 2.0 — 2025</div>
+    </div>
+  </div>
+</div>
 </main>
 <script>
 const CONTENT = {

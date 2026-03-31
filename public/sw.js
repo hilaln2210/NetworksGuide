@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ng-v9';
+const CACHE_NAME = 'ng-v10';
 const PRECACHE = ['/', '/index.html'];
 
 self.addEventListener('install', (e) => {
