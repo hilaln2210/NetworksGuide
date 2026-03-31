@@ -374,6 +374,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   <button class="ch-btn" id="nav-5" onclick="showChapter(5)"><span class="ch-num">5</span><span class="ch-title-text" id="chname-5"></span><span class="ch-stars" id="stars-5"></span></button>
   <button class="ch-btn" id="nav-6" onclick="showChapter(6)"><span class="ch-num">6</span><span class="ch-title-text" id="chname-6"></span><span class="ch-stars" id="stars-6"></span></button>
   <button class="ch-btn" id="nav-7" onclick="showChapter(7)"><span class="ch-num">7</span><span class="ch-title-text" id="chname-7"></span><span class="ch-stars" id="stars-7"></span></button>
+  <button class="ch-btn" id="nav-8" onclick="showChapter(8)"><span class="ch-num">8</span><span class="ch-title-text" id="chname-8"></span><span class="ch-stars" id="stars-8"></span></button>
 </nav>
 <main class="main" id="main">
 <section class="chapter active" id="ch-0">
@@ -496,6 +497,21 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
     <div class="tab-panel" id="7-cheat"><div id="cheat-7"></div></div>
   </div>
 </section>
+<section class="chapter" id="ch-8">
+  <div class="ch-hero" data-num="08">
+    <div class="ch-tag" id="chtag-8"></div>
+    <h1 class="ch-title" id="chtitle-8"></h1>
+    <p class="ch-desc" id="chdesc-8"></p>
+    <div class="tabs-bar" id="tabs-8"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="8-learn"><div id="learn-8"></div></div>
+    <div class="tab-panel" id="8-quiz"><div class="quiz-wrap" id="quiz-8"></div></div>
+    <div class="tab-panel" id="8-lab"><div class="lab-wrap" id="lab-8"></div></div>
+    <div class="tab-panel" id="8-game"><div class="game-wrap" id="game-8"></div></div>
+    <div class="tab-panel" id="8-cheat"><div id="cheat-8"></div></div>
+  </div>
+</section>
 <div class="credits-bar" id="credits-bar">
   <div class="credits-title" id="credits-title-label">// Sources &amp; Credits</div>
   <div class="credits-grid">
@@ -536,8 +552,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 const C = {
 he:{
   dir:'rtl',lang:'he',langBtn:'🇬🇧 EN',sbLabel:'פרקים',
-  names:['מבוא לאבטחה','קריפטוגרפיה','אבטחת רשתות','Web Security','Authentication & IAM','Malware & Social Eng','Incident Response','Compliance & Risk'],
-  tags:['// פרק 00','// פרק 01','// פרק 02','// פרק 03','// פרק 04','// פרק 05','// פרק 06','// פרק 07'],
+  names:['מבוא לאבטחה','קריפטוגרפיה','אבטחת רשתות','Web Security','Authentication & IAM','Malware & Social Eng','Incident Response','Compliance & Risk','תקלות נפוצות'],
+  tags:['// פרק 00','// פרק 01','// פרק 02','// פרק 03','// פרק 04','// פרק 05','// פרק 06','// פרק 07','// פרק 08'],
   descs:[
     'CIA Triad, threat modeling, attack surface ו-defense in depth — הבסיס של כל מקצועי אבטחה',
     'Symmetric, asymmetric, hashing, PKI ו-TLS — כיצד הצפנה מגנה על הנתונים שלנו',
@@ -806,6 +822,76 @@ Header.Payload.Signature
     ב-2018 גנבו האקרים נתוני כרטיסי אשראי ופרטים אישיים של 500,000 לקוחות British Airways. הפריצה נמשכה חודשיים. ICO (הרגולטור הבריטי) קנסה את British Airways בתחילה £183 מיליון — 1.5% ממחזורה. בסוף הסתדרו על £20 מיליון עקב COVID-19.<br><br>
     מה שנכשל: Skimming script הוזרק לאתר, נתוני לקוחות נשלחו לשרת חיצוני. Detection לקח חודשיים. <strong>הלקח: Content Security Policy ו-Subresource Integrity היו מונעים את ה-injection. פשוט ולא יקר — אם יישמת.</strong>
   </div>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> רוב שגיאות האבטחה שמשתמשים רגילים נתקלים בהן אינן באגים — המערכת עושה בדיוק מה שהיא אמורה: מגינה עליך. ה-SSH warning המפורסם לא אומר שמשהו השתבש. הוא אומר שמשהו חשוד קורה — ושאתה צריך לעצור ולחשוב לפני שממשיכים.</div>
+
+<div class="section-title">SSH — Warning: Remote Host Identification Has Changed</div>
+<p class="prose">זו אחת ההודעות המבהילות ביותר שמפתח יכול לראות. פתחת טרמינל, הקלדת ssh ל-server.com, וקיבלת חסימה מלאה עם אזהרה על MITM attack אפשרי. מה קורה בפועל?</p>
+<p class="prose">בפעם הראשונה שהתחברת לשרת, SSH שמר "טביעת אצבע" (fingerprint) של השרת בקובץ known_hosts. עכשיו השרת מציג fingerprint שונה — ו-SSH מסרב להמשיך כדי להגן עליך מ-Man-in-the-Middle: מצב שבו תוקף ברשת שלך מתחזה לשרת ומאזין לכל מה שאתה שולח.</p>
+<pre class="code-block"><code>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (MITM attack)
+Offending RSA key in ~/.ssh/known_hosts:5
+Host key verification failed.</code></pre>
+
+<div class="grid-2">
+<div class="card"><div class="card-icon">🚨</div><div class="card-title">מתי זו סכנה אמיתית?</div><div class="card-body">תוקף ברשת שלך מנסה להתחזות לשרת. הוא תופס את החיבור ומציג מפתח מזויף. אם ממשיכים — כל מה שמוקלד (כולל סיסמאות) עובר דרכו. זה MITM attack קלאסי.</div></div>
+<div class="card"><div class="card-icon">✅</div><div class="card-title">מתי זה לגיטימי לחלוטין?</div><div class="card-body">השרת הותקן מחדש (reinstall). ה-IP עבר לשרת אחר. המנהל סיבב את ה-keys בכוונה. AWS/GCP/Azure החליפו instance. בכל אלה — fingerprint משתנה מסיבה טכנית, לא כי יש תוקף.</div></div>
+</div>
+
+<p class="prose"><strong>איך מחליטים מה לעשות?</strong> שאל את המנהל של השרת: "עשית משהו שיכול לשנות את ה-host key לאחרונה?" אם כן — בטוח להמשיך אחרי מחיקת השורה הישנה. אם לא — אל תמשיך ודווח לצוות אבטחה.</p>
+<pre class="code-block"><code><span class="comment"># פתרון: מחק את הrecord הישן מ-known_hosts</span>
+ssh-keygen -R server.com
+<span class="comment"># או ידנית: ערוך ~/.ssh/known_hosts ומחק שורה 5</span>
+
+<span class="comment"># לאחר מכן: התחבר שוב ואמת fingerprint</span>
+ssh user@server.com
+<span class="comment"># SSH יציג fingerprint חדש — בדוק שמתאים לשרת</span></code></pre>
+
+<div class="section-title">SSL/TLS Certificate Errors — "Your connection is not private"</div>
+<p class="prose">הדפדפן מציג מסך אדום עם NET::ERR_CERT_AUTHORITY_INVALID. זה לא קפריזה — הדפדפן מגן עליך. אבל לא כל שגיאת certificate היא מתקפה. חשוב להבין מה כל קוד שגיאה אומר לפני שמחליטים להתעלם ממנה (שגיאות מסוימות לא מאפשרות להתעלם — בצדק).</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>קוד שגיאה</th><th>משמעות</th><th>גורם נפוץ</th><th>מה לעשות</th></tr></thead><tbody>
+<tr><td><code>ERR_CERT_AUTHORITY_INVALID</code></td><td>ה-CA לא מוכר</td><td>Self-signed cert, פרוקסי ארגוני</td><td>בדוק עם IT — ייתכן שצריך CA cert של הארגון</td></tr>
+<tr><td><code>ERR_CERT_DATE_INVALID</code></td><td>Certificate פג תוקף</td><td>השרת לא חידש Let's Encrypt בזמן</td><td>המתן לתיקון מצד השרת — אל תמשיך</td></tr>
+<tr><td><code>ERR_CERT_COMMON_NAME_INVALID</code></td><td>Domain לא תואם</td><td>Certificate של domain אחר</td><td>ודא שהכתובת נכונה — ייתכן phishing</td></tr>
+<tr><td><code>ERR_CERT_REVOKED</code></td><td>Certificate בוטל</td><td>Certificate נגנב ובוטל בחירום</td><td><strong>אל תמשיך בשום מקרה</strong></td></tr>
+</tbody></table></div>
+
+<div class="section-title">403 vs 401 — לא אותו דבר</div>
+<p class="prose">שתי שגיאות HTTP שנראות דומות אבל אומרות דברים שונים לגמרי, ולכל אחת פתרון אחר לגמרי:</p>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🔐</div><div class="card-title">401 Unauthorized — "לא מזהים אותך"</div><div class="card-body">לא הזנת credentials, או הם שגויים. הפתרון: התחבר עם חשבון תקין. לאחר התחברות — ייתכן שתוכל לגשת. האם מותר לך לגשת עדיין לא נבדק.</div></div>
+<div class="card"><div class="card-icon">🚫</div><div class="card-title">403 Forbidden — "מזהים אותך, אבל לא"</div><div class="card-body">המערכת יודעת מי אתה ומחליטה שאסור לך. לא יעזור להתחבר שוב. צריך הרשאות אחרות. לעתים קרובות מבלבל devs שמנסים להתחבר שוב ושוב.</div></div>
+</div>
+
+<div class="section-title">CORS Error — שגיאה של הדפדפן, לא של השרת</div>
+<p class="prose">שגיאה נפוצה מאוד: "Access to fetch at api.example.com from origin localhost:3000 has been blocked by CORS policy". CORS הוא מנגנון אבטחה של הדפדפן שמונע מאתר אחד לגשת ל-API של אתר אחר ללא אישור מפורש. הטעות הנפוצה ביותר: ניסיון לפתור אותה בצד הלקוח.</p>
+<pre class="code-block"><code><span class="comment"># CORS נאכף על ידי הדפדפן — לא ניתן לפתור בצד הלקוח</span>
+
+<span class="comment"># הפתרון: headers בצד השרת</span>
+Access-Control-Allow-Origin: https://your-frontend.com
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+Access-Control-Allow-Headers: Content-Type, Authorization
+
+<span class="comment"># בפיתוח מקומי: proxy בVite</span>
+<span class="comment"># vite.config.js: server.proxy = { '/api': 'http://localhost:8000' }</span></code></pre>
+
+<div class="section-title">JWT Errors — Token פג, חתימה שגויה, ועוד</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>שגיאה</th><th>משמעות</th><th>הפתרון</th></tr></thead><tbody>
+<tr><td><code>TokenExpiredError</code></td><td>ה-token ישן מדי</td><td>השתמש ב-refresh token לקבלת token חדש</td></tr>
+<tr><td><code>invalid signature</code></td><td>נחתם עם secret אחר</td><td>ודא שה-JWT_SECRET זהה בין כל השרתים</td></tr>
+<tr><td><code>jwt malformed</code></td><td>Token פגום</td><td>בדוק שה-header מלא: Authorization: Bearer &lt;token&gt;</td></tr>
+<tr><td><code>NotBeforeError</code></td><td>Token עדיין לא תקף (nbf)</td><td>שעון השרת לא מסונכרן — הוסף NTP</td></tr>
+</tbody></table></div>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 תרחיש אמיתי: "ה-API שלנו לא עובד בבית קפה"</div>
+  <div class="real-world-body">
+    צוות פיתוח דיווח שה-API שלהם עובד בכל מקום — חוץ מרשת ה-WiFi של בית הקפה שעבדו ממנו. הסיבה: בית הקפה השתמש ב-SSL inspection — מנגנון שמפענח ומצפין מחדש תעבורת HTTPS לצורך monitoring. הדפדפן קיבל certificate של בית הקפה במקום certificate של ה-API.<br><br>
+    השגיאה: CORS headers לא הגיעו נכון, ו-SSL validation נכשל. הפתרון: VPN. <strong>הלקח: HTTPS לא אומר שאף אחד לא נמצא באמצע. אומר שהחיבור מוצפן — אבל ל<em>מי</em> בדיוק תלוי ב-certificate שמקבלים.</strong>
+  </div>
 </div>`
   ],
   cheat:[
@@ -924,6 +1010,21 @@ Header.Payload.Signature
 <div class="cheat-item"><span class="cheat-key">Accept</span><span class="cheat-val">קבלה מודעת</span></div>
 <div class="cheat-item"><span class="cheat-key">Avoid</span><span class="cheat-val">הימנעות</span></div>
 </div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 סיכום — תקלות נפוצות</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">SSH / TLS</div>
+<div class="cheat-item"><span class="cheat-key">Host key changed</span><span class="cheat-val">שאל מנהל קודם</span></div>
+<div class="cheat-item"><span class="cheat-key">CERT_REVOKED</span><span class="cheat-val">אל תמשיך אף פעם</span></div>
+<div class="cheat-item"><span class="cheat-key">CERT_EXPIRED</span><span class="cheat-val">המתן לחידוש</span></div>
+<div class="cheat-item"><span class="cheat-key">ssh-keygen -R</span><span class="cheat-val">מחק record ישן</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">HTTP / JWT / CORS</div>
+<div class="cheat-item"><span class="cheat-key">401</span><span class="cheat-val">לא מזוהה</span></div>
+<div class="cheat-item"><span class="cheat-key">403</span><span class="cheat-val">מזוהה, אסור</span></div>
+<div class="cheat-item"><span class="cheat-key">JWT invalid sig</span><span class="cheat-val">SECRET שונה</span></div>
+<div class="cheat-item"><span class="cheat-key">CORS</span><span class="cheat-val">תקן ב-server headers</span></div>
+</div>
 </div>`
   ]
 },
@@ -931,7 +1032,7 @@ Header.Payload.Signature
 en:{
   dir:'ltr',lang:'en',langBtn:'🇮🇱 HE',sbLabel:'Chapters',
   names:['Intro to Security','Cryptography','Network Security','Web Security','Authentication & IAM','Malware & Social Eng','Incident Response','Compliance & Risk'],
-  tags:['// Chapter 00','// Chapter 01','// Chapter 02','// Chapter 03','// Chapter 04','// Chapter 05','// Chapter 06','// Chapter 07'],
+  tags:['// Chapter 00','// Chapter 01','// Chapter 02','// Chapter 03','// Chapter 04','// Chapter 05','// Chapter 06','// Chapter 07','// Chapter 08'],
   descs:[
     'CIA Triad, threat modeling, attack surface and defense in depth — the foundation every security professional needs',
     'Symmetric, asymmetric, hashing, PKI and TLS — how encryption protects our data',
@@ -1176,6 +1277,73 @@ last && lastb                 <span class="comment"># login history + failures</
     The largest GDPR fine in history: the Irish regulator fined Meta for transferring European users' data to the US without adequate protection mechanisms.<br><br>
     <strong>The implication for every org:</strong> EU-to-US data transfers require Standard Contractual Clauses (SCCs) or Adequacy Decision. "The data is in an American cloud" isn't enough. Privacy by Design and Data Minimization are not optional.
   </div>
+</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> Most security errors regular users encounter are not bugs — the system is doing exactly what it is supposed to do: protecting you. The famous SSH warning does not mean something broke. It means something suspicious may be happening and you should stop and think before proceeding.</div>
+
+<div class="section-title">SSH — Warning: Remote Host Identification Has Changed</div>
+<p class="prose">This is one of the most alarming messages a developer can see. You open a terminal, type ssh to server.com, and get a full block with a warning about a possible MITM attack. What is actually happening?</p>
+<p class="prose">The first time you connected to this server, SSH saved a fingerprint of the server in the known_hosts file. Now the server presents a different fingerprint — and SSH refuses to continue to protect you from a Man-in-the-Middle attack: a situation where an attacker on your network impersonates the server and listens to everything you send.</p>
+<pre class="code-block"><code>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (MITM attack)
+Offending RSA key in ~/.ssh/known_hosts:5
+Host key verification failed.</code></pre>
+
+<div class="grid-2">
+<div class="card"><div class="card-icon">🚨</div><div class="card-title">When is it a real threat?</div><div class="card-body">An attacker on your network is impersonating the server. They intercept your connection and present a fake key. If you proceed — everything you type (including passwords) passes through them. This is a classic MITM attack.</div></div>
+<div class="card"><div class="card-icon">✅</div><div class="card-title">When is it completely legitimate?</div><div class="card-body">The server was reinstalled. The IP moved to a different server. The admin intentionally rotated keys. AWS/GCP/Azure replaced an instance. In all these cases the fingerprint changes for a technical reason, not because there is an attacker.</div></div>
+</div>
+
+<p class="prose"><strong>How to decide?</strong> Ask the server admin: "Did you do anything recently that could change the host key?" If yes — safe to proceed after removing the old record. If no — do not proceed and report to your security team.</p>
+<pre class="code-block"><code><span class="comment"># Fix: remove the old record from known_hosts</span>
+ssh-keygen -R server.com
+<span class="comment"># Or manually edit ~/.ssh/known_hosts and delete line 5</span>
+
+<span class="comment"># Then reconnect and verify the fingerprint matches</span>
+ssh user@server.com</code></pre>
+
+<div class="section-title">SSL/TLS Certificate Errors — "Your connection is not private"</div>
+<p class="prose">The browser shows a red screen with NET::ERR_CERT_AUTHORITY_INVALID. The browser is protecting you. But not every certificate error is an attack — and it matters which error code you are looking at before deciding whether to click through (some errors correctly prevent clicking through entirely).</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Error Code</th><th>Meaning</th><th>Common Cause</th><th>What to do</th></tr></thead><tbody>
+<tr><td><code>ERR_CERT_AUTHORITY_INVALID</code></td><td>CA not recognized</td><td>Self-signed cert, corporate proxy</td><td>Check with IT — may need to install org CA cert</td></tr>
+<tr><td><code>ERR_CERT_DATE_INVALID</code></td><td>Certificate expired</td><td>Server failed to renew Let's Encrypt</td><td>Wait for server fix — do not proceed</td></tr>
+<tr><td><code>ERR_CERT_COMMON_NAME_INVALID</code></td><td>Domain mismatch</td><td>Certificate for a different domain</td><td>Verify URL is correct — possible phishing site</td></tr>
+<tr><td><code>ERR_CERT_REVOKED</code></td><td>Certificate revoked</td><td>Certificate was stolen and emergency-revoked</td><td><strong>Do not proceed under any circumstances</strong></td></tr>
+</tbody></table></div>
+
+<div class="section-title">403 vs 401 — Not the Same Thing</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🔐</div><div class="card-title">401 Unauthorized — "We do not know who you are"</div><div class="card-body">No credentials provided, or they are wrong. Solution: log in with a valid account. Whether you would be allowed in after login is still unknown at this point.</div></div>
+<div class="card"><div class="card-icon">🚫</div><div class="card-title">403 Forbidden — "We know you, but no"</div><div class="card-body">The system knows your identity and denies access. Logging in again will not help. You need different permissions. Commonly confuses devs who keep retrying the login.</div></div>
+</div>
+
+<div class="section-title">CORS Error — Browser Error, Not Server Error</div>
+<pre class="code-block"><code><span class="comment"># CORS is enforced by the browser — cannot be fixed client-side</span>
+
+<span class="comment"># Fix: add headers on the SERVER side</span>
+Access-Control-Allow-Origin: https://your-frontend.com
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE
+Access-Control-Allow-Headers: Content-Type, Authorization
+
+<span class="comment"># In local dev: use a proxy in Vite</span>
+<span class="comment"># vite.config.js: server.proxy = { '/api': 'http://localhost:8000' }</span></code></pre>
+
+<div class="section-title">JWT Errors</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Error</th><th>Meaning</th><th>Fix</th></tr></thead><tbody>
+<tr><td><code>TokenExpiredError</code></td><td>Token is too old</td><td>Use refresh token to get a new access token</td></tr>
+<tr><td><code>invalid signature</code></td><td>Signed with different secret</td><td>Ensure JWT_SECRET is identical across all servers</td></tr>
+<tr><td><code>jwt malformed</code></td><td>Token is corrupted or incomplete</td><td>Check header is complete: Authorization: Bearer &lt;token&gt;</td></tr>
+<tr><td><code>NotBeforeError</code></td><td>Token not yet valid (nbf)</td><td>Server clock not synced — configure NTP</td></tr>
+</tbody></table></div>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Real scenario: "Our API only breaks at the coffee shop"</div>
+  <div class="real-world-body">
+    A dev team reported their API worked everywhere except the coffee shop WiFi they worked from. Reason: the coffee shop used SSL inspection — a mechanism that decrypts and re-encrypts HTTPS traffic for monitoring. The browser received the coffee shop certificate instead of the API certificate.<br><br>
+    CORS headers did not arrive correctly and SSL validation failed. Fix: VPN. <strong>Lesson: HTTPS does not mean no one is in the middle. It means the connection is encrypted — but to exactly whom depends on which certificate you accept.</strong>
+  </div>
 </div>`
   ],
   cheat:[
@@ -1293,6 +1461,21 @@ last && lastb                 <span class="comment"># login history + failures</
 <div class="cheat-item"><span class="cheat-key">Transfer</span><span class="cheat-val">Insurance</span></div>
 <div class="cheat-item"><span class="cheat-key">Accept</span><span class="cheat-val">Conscious acceptance</span></div>
 <div class="cheat-item"><span class="cheat-key">Avoid</span><span class="cheat-val">Don't do it</span></div>
+</div>
+</div>`,
+`<div class="callout callout-success"><strong>📋 Summary — Common Errors</strong></div>
+<div class="cheat-grid">
+<div class="cheat-card"><div class="cheat-card-title">SSH / TLS</div>
+<div class="cheat-item"><span class="cheat-key">Host key changed</span><span class="cheat-val">Ask admin first</span></div>
+<div class="cheat-item"><span class="cheat-key">CERT_REVOKED</span><span class="cheat-val">Never proceed</span></div>
+<div class="cheat-item"><span class="cheat-key">CERT_EXPIRED</span><span class="cheat-val">Wait for renewal</span></div>
+<div class="cheat-item"><span class="cheat-key">ssh-keygen -R</span><span class="cheat-val">Remove old record</span></div>
+</div>
+<div class="cheat-card"><div class="cheat-card-title">HTTP / JWT / CORS</div>
+<div class="cheat-item"><span class="cheat-key">401</span><span class="cheat-val">Not identified</span></div>
+<div class="cheat-item"><span class="cheat-key">403</span><span class="cheat-val">Identified, forbidden</span></div>
+<div class="cheat-item"><span class="cheat-key">JWT invalid sig</span><span class="cheat-val">Different SECRET</span></div>
+<div class="cheat-item"><span class="cheat-key">CORS</span><span class="cheat-val">Fix on server headers</span></div>
 </div>
 </div>`
   ]
@@ -1732,6 +1915,8 @@ const ILABS = {
 ],
 };
 
+
+ILABS[8] = [{"type": "classify", "q": "סווגי כל שגיאה לסוג הנכון", "items": [{"id": "a", "text": "WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED", "ans": "SSH"}, {"id": "b", "text": "ERR_CERT_DATE_INVALID", "ans": "TLS"}, {"id": "c", "text": "401 Unauthorized", "ans": "HTTP"}, {"id": "d", "text": "TokenExpiredError", "ans": "JWT"}, {"id": "e", "text": "ERR_CERT_REVOKED", "ans": "TLS"}, {"id": "f", "text": "Access blocked by CORS policy", "ans": "CORS"}, {"id": "g", "text": "403 Forbidden", "ans": "HTTP"}, {"id": "h", "text": "jwt malformed", "ans": "JWT"}], "categories": ["🔑 SSH", "🔒 TLS/SSL", "🌐 HTTP", "🎫 JWT", "🚧 CORS"], "catKeys": ["SSH", "TLS", "HTTP", "JWT", "CORS"], "explain": "SSH=host key mismatch. TLS/SSL=certificate errors. HTTP status codes (401/403). JWT=token validation. CORS=cross-origin browser policy."}, {"type": "mchoice", "q": "קיבלת SSH warning על שינוי host key בשרת production. המנהל לא זמין. מה עושים?", "options": [{"text": "ממשיכים — צריך לתקן bug דחוף", "correct": false, "feedback": "❌ מתקפת MITM בדיוק כך נראית. תוקף שיושב בין אותך לשרת לא ישבית אותך — הוא יאפשר לחיבור 'להצליח' תוך כדי האזנה. אסור להמשיך."}, {"text": "ממתינים עד שהמנהל זמין ומאמתים איתו", "correct": true, "feedback": "✅ נכון. פעולה בודדת של bug fix לא שווה סיכון של חשיפת credentials ל-production server. המתן, אמת, אחר כך עבוד."}, {"text": "מנסים מרשת אחרת — ייתכן שהרשת שלנו בעיה", "correct": false, "feedback": "⚠️ חלקית נכון — לנסות מרשת אחרת זה בדיקה סבירה. אבל אם ה-warning מופיע גם מרשת אחרת, זה מחמיר את החשש. עדיין צריך אימות עם המנהל."}, {"text": "מוחקים known_hosts כולו ומתחברים", "correct": false, "feedback": "❌ מחיקת known_hosts כולו מסיר את ההגנה מכל השרתים. וגם זה לא יאמת שה-fingerprint החדש אמיתי — אתה פשוט מפסיק לבדוק."}], "explain": "Security vs urgency: בproduction, כל חשש ל-MITM עוצר הכל. אין bug שדחוף מספיק כדי לסכן credentials של שרת production."}];
 const ILABS_EN = {
 0:[
   {
@@ -2159,6 +2344,7 @@ const ILABS_EN = {
   },
 ],
 };
+ILABS_EN[8] = [{"type": "classify", "q": "Classify each error into the correct category", "items": [{"id": "a", "text": "WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED", "ans": "SSH"}, {"id": "b", "text": "ERR_CERT_DATE_INVALID", "ans": "TLS"}, {"id": "c", "text": "401 Unauthorized", "ans": "HTTP"}, {"id": "d", "text": "TokenExpiredError", "ans": "JWT"}, {"id": "e", "text": "ERR_CERT_REVOKED", "ans": "TLS"}, {"id": "f", "text": "Access blocked by CORS policy", "ans": "CORS"}, {"id": "g", "text": "403 Forbidden", "ans": "HTTP"}, {"id": "h", "text": "jwt malformed", "ans": "JWT"}], "categories": ["🔑 SSH", "🔒 TLS/SSL", "🌐 HTTP", "🎫 JWT", "🚧 CORS"], "catKeys": ["SSH", "TLS", "HTTP", "JWT", "CORS"], "explain": "SSH=host key mismatch. TLS/SSL=certificate errors. HTTP status codes (401/403). JWT=token validation. CORS=cross-origin browser policy."}, {"type": "mchoice", "q": "You receive an SSH host key warning on a production server. The admin is unavailable. What do you do?", "options": [{"text": "Proceed — there is an urgent bug to fix", "correct": false, "feedback": "A MITM attack looks exactly like this. An attacker sitting between you and the server will not block you — they will let the connection appear to succeed while listening. Do not proceed."}, {"text": "Wait until the admin is available and verify with them", "correct": true, "feedback": "Correct. A single bug fix is not worth the risk of exposing credentials on a production server. Wait, verify, then work."}, {"text": "Try from a different network — it might be a local issue", "correct": false, "feedback": "Partially valid — trying from another network is a reasonable check. But if the warning appears from a different network too, that makes it more serious. You still need admin verification."}, {"text": "Delete the entire known_hosts file and reconnect", "correct": false, "feedback": "Deleting all of known_hosts removes protection for every server. And it does not verify the new fingerprint is genuine — you are just stopping the check."}], "explain": "Security vs urgency: in production, any suspicion of MITM stops everything. No bug is urgent enough to risk production server credentials."}];
 // Balanced quiz/lab/game data — normalizeOptions in engine handles length bias
 
 const QUIZZES = {
@@ -2219,6 +2405,8 @@ const QUIZZES = {
   {q:"SOC 2 Type II שונה מType I כי:",o:["תקן שונה לחלוטין","בודק על פני תקופת זמן, לא רגע אחד","זול יותר","לארגונים קטנים"],a:1,e:"Type I = snapshot ביום נתון. Type II = audit על 6-12 חודשים, מוכיח שהבקרות עובדות לאורך זמן."}
 ]};
 
+
+QUIZZES[8] = [{"q": "SSH מציג 'WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED' — מה עושים ראשית?", "o": ["ממשיכים — זה כנראה טעות", "שואלים את מנהל השרת אם עשה שינוי ל-keys", "מוחקים את known_hosts כולו", "מתקינים מחדש SSH"], "a": 1, "e": "ראשית מאמתים עם המנהל — שמא השרת הותקן מחדש. רק אם מוודאים שהשינוי לגיטימי — מוחקים את הרשומה הספציפית ומתחברים שוב."}, {"q": "ERR_CERT_REVOKED — מה עושים?", "o": ["לוחצים Continue — זה רק אזהרה", "ממשיכים בIncognito mode", "לא ממשיכים בשום מקרה", "מנקים cache"], "a": 2, "e": "Certificate revoked פירושו שה-certificate בוטל בחירום — לרוב בגלל שנגנב. החיבור לא בטוח. אין מצב שבו ממשיכים."}, {"q": "מה ההבדל בין 401 ל-403?", "o": ["401=שרת, 403=דפדפן", "401=לא מזוהה, 403=מזוהה אבל אסור", "401=חמור, 403=קל", "זהים לחלוטין"], "a": 1, "e": "401 Unauthorized: המערכת לא יודעת מי אתה. 403 Forbidden: המערכת יודעת — ומחליטה שאסור לך. להתחבר שוב יפתור 401, לא 403."}, {"q": "CORS error — איפה מתקנים?", "o": ["בצד הלקוח — JavaScript", "בdns", "בצד השרת — headers", "בדפדפן — הגדרות"], "a": 2, "e": "CORS נאכף על ידי הדפדפן אבל נפתר בצד השרת. מוסיפים Access-Control-Allow-Origin בresponse של השרת. בפיתוח מקומי — proxy ב-Vite/Webpack."}, {"q": "JWT 'invalid signature' — מה הגורם הכי נפוץ?", "o": ["token ישן מדי", "JWT_SECRET שונה בין שרתים", "חיבור אינטרנט חלש", "גרסת Node ישנה"], "a": 1, "e": "אם השרת שיצר את ה-token משתמש ב-secret אחד ושרת האימות משתמש באחר — החתימה לא מתאימה. JWT_SECRET חייב להיות זהה."}];
 const QUIZZES_EN = {
 0:[
   {q:"What does CIA Triad stand for?",o:["Cryptography, Integrity, Authentication","Confidentiality, Integrity, Availability","Control, Identity, Access","Cyber, Intel, Analysis"],a:1,e:"CIA = Confidentiality, Integrity, Availability. Three pillars of every security policy."},
@@ -2343,6 +2531,8 @@ const LABS_EN = {
 7:[
   {q:"Your company is developing a medical app. What regulations apply and what must be implemented?",a:"Applicable regulations:\n\n1. GDPR (if serving EU):\n   - Health data = Special Category Data (enhanced protection)\n   - DPIA required before launch\n   - 72h breach notification\n   - Data minimization\n\n2. HIPAA (if serving US):\n   - PHI must be encrypted\n   - BAA with every cloud provider\n   - Audit logs on all access\n\nTechnical implementation:\n✅ Encryption at rest (AES-256) and in transit (TLS 1.3)\n✅ Role-based access: doctor sees only their patients\n✅ Audit log on every data access\n✅ Data retention policy\n✅ Breach response plan\n✅ Annual security training"}
 ]};
+QUIZZES_EN[8] = [{"q": "SSH shows 'WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED' — what is the first thing to do?", "o": ["Proceed — it is probably a mistake", "Ask the server admin if they made any key changes", "Delete the entire known_hosts file", "Reinstall SSH"], "a": 1, "e": "First verify with the admin — perhaps the server was reinstalled. Only after confirming the change is legitimate should you delete the specific record and reconnect."}, {"q": "ERR_CERT_REVOKED — what do you do?", "o": ["Click Continue — it is just a warning", "Try Incognito mode", "Do not proceed under any circumstances", "Clear browser cache"], "a": 2, "e": "A revoked certificate means it was emergency-revoked — usually because it was stolen. The connection is not safe. There is no scenario in which you should proceed."}, {"q": "What is the difference between 401 and 403?", "o": ["401=server, 403=browser", "401=not identified, 403=identified but forbidden", "401=serious, 403=minor", "They are identical"], "a": 1, "e": "401 Unauthorized: the system does not know who you are. 403 Forbidden: the system knows you — and decides you are not allowed. Logging in again fixes 401, not 403."}, {"q": "CORS error — where do you fix it?", "o": ["Client side — JavaScript", "In DNS", "Server side — response headers", "Browser settings"], "a": 2, "e": "CORS is enforced by the browser but solved on the server. Add Access-Control-Allow-Origin to the server response headers. In local dev — use a proxy in Vite/Webpack."}, {"q": "JWT 'invalid signature' — most common cause?", "o": ["Token is too old", "JWT_SECRET differs between servers", "Weak internet connection", "Old Node.js version"], "a": 1, "e": "If the server that created the token uses one secret and the verification server uses another — the signature does not match. JWT_SECRET must be identical across all servers."}];
+
 
 const GAME_QS = {
 0:[
@@ -2426,6 +2616,8 @@ const GAME_QS = {
   {q:"PCI DSS נדרש למי שמעבד:",o:["medical data","credit card data","user emails","GPS data"],a:1}
 ]};
 
+
+GAME_QS[8] = [{"q": "SSH MITM warning — מה עושים ראשית?", "o": ["ממשיכים", "שואלים מנהל", "מוחקים known_hosts", "מתקינים מחדש"], "a": 1}, {"q": "ERR_CERT_REVOKED — אפשר להמשיך?", "o": ["כן", "רק incognito", "לא, בשום מקרה", "רק HTTP"], "a": 2}, {"q": "401 = ?", "o": ["אסור לך", "לא מזוהה", "שרת down", "timeout"], "a": 1}, {"q": "403 = ?", "o": ["לא מזוהה", "אסור לך", "שרת down", "timeout"], "a": 1}, {"q": "CORS נפתר ב?", "o": ["JavaScript", "DNS", "Server headers", "Browser settings"], "a": 2}, {"q": "JWT invalid signature = ?", "o": ["Token ישן", "Secret שונה", "חיבור חלש", "Node ישן"], "a": 1}, {"q": "ssh-keygen -R server.com עושה?", "o": ["מוחק SSH", "מוחק known_hosts record", "מחדש keys", "בודק fingerprint"], "a": 1}, {"q": "HTTPS = הצפנה — אבל MITM אפשרי?", "o": ["לא, HTTPS מגן", "כן, תלוי ב-certificate שמקבלים", "רק ב-HTTP", "לא ברשת פרטית"], "a": 1}];
 const GAME_QS_EN = {
 0:[
   {q:"CIA Triad stands for:",o:["Confidentiality, Integrity, Availability","Control, Identity, Access","Crypto, Intel, Auth","Cyber, Info, Assurance"],a:0},
@@ -2507,6 +2699,7 @@ const GAME_QS_EN = {
   {q:"DPIA required for:",o:["Every app","High-risk data processing","Regular login","Backup"],a:1},
   {q:"PCI DSS required for who processes:",o:["Medical data","Credit card data","User emails","GPS data"],a:1}
 ]};
+GAME_QS_EN[8] = [{"q": "SSH MITM warning — first action?", "o": ["Proceed", "Ask admin", "Delete known_hosts", "Reinstall"], "a": 1}, {"q": "ERR_CERT_REVOKED — can you proceed?", "o": ["Yes", "Incognito only", "No, never", "HTTP only"], "a": 2}, {"q": "401 means?", "o": ["You are forbidden", "Not identified", "Server down", "Timeout"], "a": 1}, {"q": "403 means?", "o": ["Not identified", "You are forbidden", "Server down", "Timeout"], "a": 1}, {"q": "CORS is fixed on?", "o": ["JavaScript", "DNS", "Server headers", "Browser settings"], "a": 2}, {"q": "JWT invalid signature =?", "o": ["Token expired", "Different secret", "Weak connection", "Old Node"], "a": 1}, {"q": "ssh-keygen -R server.com does?", "o": ["Deletes SSH", "Removes known_hosts record", "Regenerates keys", "Checks fingerprint"], "a": 1}, {"q": "HTTPS encrypted — but MITM possible?", "o": ["No, HTTPS prevents it", "Yes, depends on which certificate you accept", "Only on HTTP", "Not on private networks"], "a": 1}];
 // HTML escape for safe rendering of item text
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
@@ -2724,7 +2917,7 @@ function markLabDone(chId,i){
 const state = {cur:0, tabs:{}, quiz:{}, game:{}, xp:0, stars:{}};
 let currentLang = 'he';
 let gameTimer = null;
-const TOTAL_CHAPTERS = 8;
+const TOTAL_CHAPTERS = 9;
 
 // ===== HELPERS =====
 function L() { return currentLang==='he' ? C.he : C.en; }
