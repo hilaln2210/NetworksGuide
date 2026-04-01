@@ -132,9 +132,9 @@ function WhatsNewModal({ onDismiss }) {
 function TrackPicker({ tracks, onSelect }) {
   const { lang, setLang, t } = useLang()
   const isEn = lang === 'en'
-  const [enrichUnlocked, setEnrichUnlocked] = React.useState(localStorage.getItem('enrichment_unlocked') === 'true')
-  const [showEnrichInput, setShowEnrichInput] = React.useState(false)
-  const [enrichCode, setEnrichCode] = React.useState('')
+  const [enrichUnlocked, setEnrichUnlocked] = useState(localStorage.getItem('enrichment_unlocked') === 'true')
+  const [showEnrichInput, setShowEnrichInput] = useState(false)
+  const [enrichCode, setEnrichCode] = useState('')
   return (
     <div className="track-picker" dir={isEn ? 'ltr' : 'rtl'}>
       <div className="track-picker-header">
