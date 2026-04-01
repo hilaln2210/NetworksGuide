@@ -183,6 +183,12 @@ function TrackPicker({ tracks, onSelect }) {
               <span className="path-icon">🔗</span>
               <span className="path-name">{isEn ? 'Crypto' : 'קריפטו'}</span>
             </div>
+            <div className="path-connector" />
+            <div className="path-step" style={{ '--step-color': '#8b5cf6' }}>
+              <span className="path-num">6</span>
+              <span className="path-icon">🤖</span>
+              <span className="path-name">{isEn ? 'AI Agents' : 'AI Agents'}</span>
+            </div>
           </div>
         </div>
         <div className="track-intro-features">
