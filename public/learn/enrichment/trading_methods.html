@@ -119,6 +119,37 @@ em{color:#1e40af;font-style:normal;font-weight:600}
   .nav-btn{padding:11px 14px;font-size:.83rem}
   .tab{font-size:.7rem;padding:8px 10px}
 }
+
+/* ── Clean Charts ── */
+.chart-container { margin: 16px 0; background: #fff; border: 1.5px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+.chart-title-bar { background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 8px 14px; font-size: .75rem; font-weight: 700; color: #475569; text-align: center; }
+.chart-body { padding: 16px 14px 10px; }
+.chart-visual { position: relative; height: 120px; margin-bottom: 24px; }
+/* Bar chart bars */
+.bar-chart { display: flex; align-items: flex-end; gap: 4px; height: 100%; }
+.bar { flex: 1; border-radius: 4px 4px 0 0; min-width: 0; transition: opacity .2s; }
+.bar.up { background: linear-gradient(180deg, #22c55e, #16a34a); }
+.bar.dn { background: linear-gradient(180deg, #ef4444, #dc2626); }
+.bar.neu { background: linear-gradient(180deg, #94a3b8, #64748b); }
+/* Line chart via SVG inline */
+.chart-labels { display: flex; justify-content: space-between; padding: 0 4px; }
+.chart-label { font-size: .65rem; color: #94a3b8; font-family: monospace; text-align: center; }
+/* Stats row */
+.chart-stats { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+.chart-stat { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 5px 10px; text-align: center; min-width: 70px; }
+.chart-stat .cs-n { font-size: .95rem; font-weight: 900; font-family: monospace; display: block; }
+.chart-stat .cs-l { font-size: .62rem; color: #64748b; display: block; margin-top: 1px; }
+.cs-n.g { color: #16a34a; }
+.cs-n.r { color: #dc2626; }
+.cs-n.b { color: #1e40af; }
+/* Annotations */
+.chart-note { background: #f1f5f9; border-radius: 0 0 10px 10px; padding: 8px 14px; font-size: .74rem; color: #475569; text-align: center; border-top: 1px solid #e2e8f0; }
+/* Level lines */
+.level-chart { position: relative; padding: 8px 0; }
+.level-line { display: flex; align-items: center; gap: 8px; margin: 6px 0; font-size: .75rem; }
+.level-price { font-family: monospace; font-weight: 700; min-width: 45px; text-align: end; }
+.level-bar { flex: 1; height: 2px; border-radius: 99px; }
+.level-label { font-size: .72rem; font-weight: 700; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -172,53 +203,49 @@ em{color:#1e40af;font-style:normal;font-weight:600}
     <div class="ex-body">
       <p>Moving Average (MA) הוא ממוצע המחיר של המניה ב-X ימים אחרונים. הוא "מחליק" את התנודות היומיות ומראה לאן המניה בעצם הולכת.</p>
       <p>הכי חשובים: <strong>MA50</strong> (ממוצע 50 ימים — מגמה קצרה-בינונית) ו-<strong>MA200</strong> (ממוצע 200 ימים — מגמה ארוכה). הכלל: <em>מניה שמחירה מעל MA50 שמעל MA200 — נמצאת במגמה עולה חזקה.</em></p>
-      <div class="chart"><pre>
-  מניה ****  (מחיר)
-          ****
- _ _ _ _ _ _ _****_ _ _  MA50
- _ _ _ _ _ _ _ _ _ _****  MA200
- 
- מניה מעל MA50 שמעל MA200 = ✅ תנאי ראשון מתקיים</pre></div>
-      <div class="ca amber">
-        <span class="ca-title">⚠️ מה זה אומר בפועל?</span>
-        <p>אם מניה נמצאת <strong>מתחת</strong> ל-MA200 — היא במגמה יורדת ארוכת-טווח. לא כדאי לקנות נגד מגמה ארוכה. המתינו שתעבור מעל MA200 לפני שאתם שוקלים כניסה.</p>
-      </div>
+      <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;margin:16px 0;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+  <div style="background:#f8fafc;border-bottom:1px solid #e2e8f0;padding:8px 14px;font-size:.76rem;font-weight:700;color:#475569;text-align:center">מחיר מעל MA50 שמעל MA200 = מגמה עולה</div>
+  <div style="padding:10px 12px 8px">
+    <svg viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;direction:ltr">
+      <polygon points="8,88 55,72 100,58 145,44 190,32 240,20 290,12 312,8 312,100 8,100" fill="#1e40af15"/>
+      <line x1="8" y1="95" x2="295" y2="48" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <line x1="8" y1="88" x2="295" y2="36" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <polyline points="8,88 55,72 100,58 145,44 190,32 240,20 290,12 312,8" fill="none" stroke="#1e40af" stroke-width="2.5" stroke-linejoin="round"/>
+      <text x="297" y="12" font-size="8" fill="#1e40af" font-weight="bold">מחיר</text>
+      <text x="297" y="38" font-size="8" fill="#f59e0b" font-weight="bold">MA50</text>
+      <text x="297" y="52" font-size="8" fill="#ef4444" font-weight="bold">MA200</text>
+    </svg>
+    <div style="display:flex;gap:14px;justify-content:center;margin-top:8px;flex-wrap:wrap">
+      <span style="display:flex;align-items:center;gap:5px;font-size:.75rem;color:#1e40af"><span style="display:block;width:18px;height:2.5px;background:#1e40af;border-radius:2px"></span>מחיר</span>
+      <span style="display:flex;align-items:center;gap:5px;font-size:.75rem;color:#f59e0b"><span style="display:block;width:18px;height:2px;background:#f59e0b;border-radius:2px;opacity:.7"></span>MA50</span>
+      <span style="display:flex;align-items:center;gap:5px;font-size:.75rem;color:#ef4444"><span style="display:block;width:18px;height:2px;background:#ef4444;border-radius:2px;opacity:.7"></span>MA200</span>
     </div>
   </div>
-
-  <div class="ex-box">
-    <div class="ex-hdr"><span class="ex-badge">כלי 2</span><span class="ex-title">RSI — מד הלחץ</span></div>
-    <div class="ex-body">
-      <p>RSI הוא מספר בין 0 ל-100 שמודד <strong>כמה מהר ועד כמה המניה זזה</strong> לאחרונה. הוא עונה על שאלה אחת: "האם המניה עלתה יותר מדי מהר, ועשויה לירד? או ירדה יותר מדי מהר, ועשויה להיתפס?"</p>
-      <table class="compare">
-        <tr><th>RSI</th><th>מה זה אומר</th><th>מה לעשות</th></tr>
-        <tr><td><strong>מעל 70</strong></td><td>עלתה מהר מדי — "Overbought"</td><td><span class="tag-r">לא לקנות</span></td></tr>
-        <tr><td><strong>50–70</strong></td><td>מגמה חיובית בריאה</td><td><span class="tag-g">אזור טוב</span></td></tr>
-        <tr><td><strong>30–50</strong></td><td>מגמה שלילית, אך לא קיצונית</td><td>המתינו</td></tr>
-        <tr><td><strong>מתחת 30</strong></td><td>ירדה מהר מדי — "Oversold"</td><td><span class="tag-g">עשויה לקפוץ</span></td></tr>
-      </table>
-      <div class="ca blue">
-        <span class="ca-title">💡 איך משתמשים ב-RSI נכון</span>
-        <p>RSI לבד לא מספיק. מניה יכולה להיות RSI 80 ולהמשיך לעלות שבועות. הכוח שלו הוא ב<strong>Divergence</strong>: המחיר עולה לשיא חדש, אבל ה-RSI עושה שיא נמוך יותר — זה סימן שהעלייה מאבדת כוח.</p>
-      </div>
-    </div>
+  <div style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:7px 12px;font-size:.74rem;color:#475569;text-align:center">מחיר מעל שניהם = מגמה עולה בריאה ✅ | מחיר מתחת MA200 = אל תקנו</div>
+</div>
   </div>
 
   <div class="ex-box">
     <div class="ex-hdr"><span class="ex-badge">כלי 3</span><span class="ex-title">Support &amp; Resistance — רצפה ותקרה</span></div>
-    <div class="ex-body">
-      <p>כל מניה מגיעה לרמות מחיר מסוימות שבהן היא "עוצרת". <strong>Support</strong> הוא מחיר שממנו המניה קפצה למעלה כבר כמה פעמים — "הרצפה". <strong>Resistance</strong> הוא מחיר שממנו ירדה כמה פעמים — "התקרה".</p>
-      <p>למה הרמות האלה עובדות? כי אנשים זוכרים. מי שקנה ב-$100 לפני חצי שנה, המניה ירדה ל-$70, ועכשיו חזרה ל-$100 — רוצה "לצאת בשווה" ומוכר. זה יוצר לחץ מכירה בדיוק ב-$100.</p>
-      <div class="chart"><pre>
- $110 |    רצה לכאן      ← Resistance = תקרה
- $100 |====================================
-  $90 |       ***   ***
-  $80 |   ***     *
-  $70 |====================================  ← Support = רצפה
-  $65 |
-
- כל פעם שהמניה נוגעת ב-$70 — קונים נכנסים וסוגרים
- כל פעם שנוגעת ב-$100 — מוכרים נכנסים ומורידים</pre></div>
+    <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;margin:16px 0;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+  <div style="background:#f8fafc;border-bottom:1px solid #e2e8f0;padding:8px 14px;font-size:.76rem;font-weight:700;color:#475569;text-align:center">Support ו-Resistance — רצפה ותקרה</div>
+  <div style="padding:10px 12px 6px">
+    <svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;direction:ltr">
+      <line x1="8" y1="18" x2="312" y2="18" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,3"/>
+      <text x="160" y="13" text-anchor="middle" font-size="8" fill="#ef4444" font-weight="bold">תקרה — Resistance $100</text>
+      <line x1="8" y1="102" x2="312" y2="102" stroke="#16a34a" stroke-width="2" stroke-dasharray="6,3"/>
+      <text x="160" y="116" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">רצפה — Support $70</text>
+      <polygon points="8,102 48,72 85,88 120,55 155,72 188,38 222,58 256,22 292,40 312,18 312,108 8,108" fill="#1e40af15"/>
+      <polyline points="8,102 48,72 85,88 120,55 155,72 188,38 222,58 256,22 292,40 312,18" fill="none" stroke="#1e40af" stroke-width="2.5" stroke-linejoin="round"/>
+      <text x="12" y="96" font-size="13" fill="#16a34a">↑</text>
+      <text x="157" y="96" font-size="13" fill="#16a34a">↑</text>
+      <text x="186" y="34" font-size="13" fill="#ef4444">↓</text>
+      <text x="254" y="34" font-size="13" fill="#ef4444">↓</text>
+    </svg>
+  </div>
+  <div style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:7px 12px;font-size:.74rem;color:#475569;text-align:center">↑ נוגעת ב-Support = קונים נכנסים | ↓ נוגעת ב-Resistance = מוכרים נכנסים</div>
+</div>
+</div>סים ומורידים</pre></div>
       <div class="ca green">
         <span class="ca-title">✅ הנקודה הכי חשובה</span>
         <p>כשמניה פורצת מעל Resistance — הוא הופך ל-Support. $100 שהייתה "תקרה" — אחרי הפריצה הופכת ל"רצפה". זה נקרא Role Reversal, וזה אחד הדברים הכי עקביים בניתוח טכני.</p>
@@ -255,19 +282,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
         </div>
       </div>
 
-      <div class="chart"><pre>
- Nvidia מרץ–מאי 2023
-
- $320 |                              ****
- $300 |                         ****
- $285 |                    ****
- $270 |****  ****  ****               ← Support חזק!
-      +--+---+---+---+---+---+---
-       מרץ  אפר  מאי  יון  יול
-
- RSI:  38 ← קרוב לאזור הכניסה
- MA50: מניה מעליה ✅
- Vol:  עלה בדיוק כשנגעה ב-$270 ✅</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> Nvidia מרץ–מאי 2023</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $320 |                              ****</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $300 |                         ****</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $285 |                    ****</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $270 |****  ****  ****               ← Support חזק!</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">      +--+---+---+---+---+---+---</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">       מרץ  אפר  מאי  יון  יול</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> RSI:  38 ← קרוב לאזור הכניסה</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> MA50: מניה מעליה ✅</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> Vol:  עלה בדיוק כשנגעה ב-$270 ✅</div></div>
 
       <div class="nums">
         <div class="num-card"><span class="num-n">$272</span><span class="num-l">כניסה — Support</span></div>
@@ -290,14 +305,19 @@ em{color:#1e40af;font-style:normal;font-weight:600}
     <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">RSI בין 30–55 — לא "חמה" מדי, יש מקום לעלייה</span></div>
     <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">קרובה לרמת Support שהוכחה לפחות פעמיים</span></div>
     <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">Volume גבוה יותר מהממוצע ביום הכניסה</span></div>
-    <div class="rule"><span class="rule-dot r">✗</span><span class="rule-text">פחות מ-3 תנאים מתקיימים — לא נכנסים</span></div>
-    <div class="rule"><span class="rule-dot r">✗</span><span class="rule-text">Earnings בשבוע הקרוב — ממתינים אחרי הדוח</span></div>
+    <div class="rule"><span class=<div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;margin:16px 0;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+  <div style="background:#f8fafc;border-bottom:1px solid #e2e8f0;padding:8px 14px;font-size:.76rem;font-weight:700;color:#475569;text-align:center">Nvidia 2023 — עלייה של +257% תוך שנה</div>
+  <div style="padding:10px 12px 6px">
+    <svg viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;direction:ltr">
+      <polygon points="8,78 8.0,78.0 58.7,75.2 109.3,70.7 160.0,52.3 210.7,30.3 261.3,21.2 312.0,12.0 312.0,78.0" fill="#1e40af15"/>
+      <polyline points="8.0,78.0 58.7,75.2 109.3,70.7 160.0,52.3 210.7,30.3 261.3,21.2 312.0,12.0" fill="none" stroke="#1e40af" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="58.7" cy="75.2" r="5.5" fill="#16a34a" stroke="#fff" stroke-width="1.5"/><text x="58.7" y="64.2" text-anchor="middle" font-size="7.5" font-weight="bold" fill="#16a34a">כניסה $155</text><circle cx="312.0" cy="12.0" r="5.5" fill="#ef4444" stroke="#fff" stroke-width="1.5"/><text x="312.0" y="28.0" text-anchor="middle" font-size="7.5" font-weight="bold" fill="#ef4444">יציאה $500</text><text x="8.0" y="97" text-anchor="middle" font-size="7" fill="#94a3b8" font-family="monospace">ינו</text><text x="58.7" y="97" text-anchor="middle" font-size="7" fill="#94a3b8" font-family="monospace">מרץ</text><text x="109.3" y="97" text-anchor="middle" font-size="7" fill="#94a3b8" font-family="monospace">מאי</text><text x="160.0" y="97" text-anchor="middle" font-size="7" fill="#94a3b8" font-family="monospace">יול</text><text x="210.7" y="97" text-anchor="middle" font-size="7" fill="#94a3b8" font-family="monospace">ספט</text><text x="261.3" y="97" text-anchor="middle" font-size="7" fill="#94a3b8" font-family="monospace">נוב</text><text x="312.0" y="97" text-anchor="middle" font-size="7" fill="#94a3b8" font-family="monospace">דצמ</text>
+    </svg>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:10px"><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:7px;padding:7px 10px;text-align:center;min-width:72px"><span style="display:block;font-size:.95rem;font-weight:900;font-family:monospace;color:#16a34a">$155</span><span style="display:block;font-size:.63rem;color:#64748b;margin-top:1px">כניסה ינואר</span></div><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:7px;padding:7px 10px;text-align:center;min-width:72px"><span style="display:block;font-size:.95rem;font-weight:900;font-family:monospace;color:#ef4444">$500</span><span style="display:block;font-size:.63rem;color:#64748b;margin-top:1px">יציאה דצמבר</span></div><div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:7px;padding:7px 10px;text-align:center;min-width:72px"><span style="display:block;font-size:.95rem;font-weight:900;font-family:monospace;color:#1e40af">+257%</span><span style="display:block;font-size:.63rem;color:#64748b;margin-top:1px">תוך שנה</span></div></div>
   </div>
-
-  <div class="summary">
-    <h3>📋 סיכום השיטה</h3>
-    <div class="sum-row"><span class="sum-label">מה זה</span><span class="sum-val">קנייה לפי גרף בלבד — Support, RSI, MA מסכימים</span></div>
-    <div class="sum-row"><span class="sum-label">משך עסקה</span><span class="sum-val">1–6 שבועות</span></div>
+  
+</div>
+</div>class="sum-row"><span class="sum-label">משך עסקה</span><span class="sum-val">1–6 שבועות</span></div>
     <div class="sum-row"><span class="sum-label">זמן נדרש</span><span class="sum-val">15 דקות ביום — בדיקה בסגירת שוק</span></div>
     <div class="sum-row"><span class="sum-label">פוטנציאל</span><span class="sum-val">8%–25% לעסקה טובה</span></div>
     <div class="sum-row"><span class="sum-label">Stop Loss</span><span class="sum-val">מתחת לרמת Support — לרוב 5%–8%</span></div>
@@ -344,18 +364,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
     <div class="ex-hdr"><span class="ex-badge">סוג א'</span><span class="ex-title">קנייה ב-Pullback — ירידה בתוך מגמה עולה</span></div>
     <div class="ex-body">
       <p>המניה נמצאת במגמה עולה, אבל ירדה מעט בשבוע האחרון — "Pullback". זה הזמן הכי טוב להיכנס: הרוח גבית, והמחיר זול יחסית למגמה.</p>
-      <div class="chart"><pre>
-   מגמה עולה עם Pullback:
-
- $130 |              ****
- $125 |         ****    ← יצאת כאן
- $118 |      ***
- $112 |   **   *** ← Pullback — ירד קצת
- $108 | **        *** ← נכנסת כאן!
-      +--+---+---+---+---
-       שב1  שב2  שב3  שב4
-
- ← נכנסים כשהירידה נעצרת ומגמה ממשיכה</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">   מגמה עולה עם Pullback:</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $130 |              ****</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $125 |         ****    ← יצאת כאן</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $118 |      ***</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $112 |   **   *** ← Pullback — ירד קצת</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $108 | **        *** ← נכנסת כאן!</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">      +--+---+---+---+---</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">       שב1  שב2  שב3  שב4</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> ← נכנסים כשהירידה נעצרת ומגמה ממשיכה</div></div>
     </div>
   </div>
 
@@ -363,18 +372,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
     <div class="ex-hdr"><span class="ex-badge">סוג ב'</span><span class="ex-title">קנייה על פריצת Resistance — המניה שוברת תקרה</span></div>
     <div class="ex-body">
       <p>המניה הייתה תקועה תחת רמה מסוימת שבועות. פתאום שוברת אותה עם Volume גבוה. זה Swing Trader אוהב — תנועה ברורה עם מומנטום.</p>
-      <div class="chart"><pre>
-   פריצת Resistance:
-
- $110 |               ****  ← מגיעים לכאן
- $105 |           ****
- $100 |========== RESISTANCE ========= ← פריצה!
-  $98 |  ***  ***  ***   ← תקועה שבועות
-  $95 | *
-      +--+---+---+---+---
-       שב1  שב2  שב3  שב4  שב5
-
- ← נכנסים ביום הפריצה, כשסגרה מעל $100</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">   פריצת Resistance:</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $110 |               ****  ← מגיעים לכאן</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $105 |           ****</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $100 |========== RESISTANCE ========= ← פריצה!</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">  $98 |  ***  ***  ***   ← תקועה שבועות</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">  $95 | *</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">      +--+---+---+---+---</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">       שב1  שב2  שב3  שב4  שב5</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> ← נכנסים ביום הפריצה, כשסגרה מעל $100</div></div>
     </div>
   </div>
 
@@ -389,12 +387,23 @@ em{color:#1e40af;font-style:normal;font-weight:600}
       <p>ספטמבר 2023: Apple ירדה 10% בתוך שלושה שבועות — ירידה שוק כללית, לא בעיה ב-Apple עצמה. הגרף הראה Pullback לאזור Support ב-$167 עם RSI שירד ל-42.</p>
 
       <div class="story">
-        <div class="story-step">
-          <div class="story-num">1</div>
-          <div class="story-text"><strong>זיהוי:</strong> Apple ב-Pullback. ירדה מ-$187 ל-$167. MA200 ב-$165 — כמה שניות מתחתנו. RSI = 42. Support ב-$165–$167 שהוכח ארבע פעמים.</div>
-        </div>
-        <div class="story-step">
-          <div class="story-num">2</div>
+        <div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;overflow:hidden;margin:16px 0;box-shadow:0 1px 4px rgba(0,0,0,.06)">
+  <div style="background:#f8fafc;border-bottom:1px solid #e2e8f0;padding:8px 14px;font-size:.76rem;font-weight:700;color:#475569;text-align:center">Pullback — ירידה קטנה בתוך מגמה עולה = הזדמנות</div>
+  <div style="padding:10px 12px 6px">
+    <svg viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;direction:ltr">
+      <line x1="8" y1="100" x2="312" y2="14" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,4" opacity="0.4"/>
+      <polygon points="8,100 50,78 90,62 118,76 150,68 190,45 230,28 280,14 312,10 312,108 8,108" fill="#1e40af15"/>
+      <polyline points="8,100 50,78 90,62 118,76 150,68 190,45 230,28 280,14 312,10" fill="none" stroke="#1e40af" stroke-width="2.5" stroke-linejoin="round"/>
+      <rect x="94" y="56" width="65" height="28" rx="5" fill="#f59e0b15" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="127" y="73" text-anchor="middle" font-size="8" fill="#f59e0b" font-weight="bold">Pullback</text>
+      <circle cx="150" cy="68" r="6" fill="#16a34a" stroke="#fff" stroke-width="1.5"/>
+      <text x="150" y="87" text-anchor="middle" font-size="8" fill="#16a34a" font-weight="bold">כניסה!</text>
+      <circle cx="312" cy="10" r="6" fill="#ef4444" stroke="#fff" stroke-width="1.5"/>
+      <text x="293" y="8" text-anchor="end" font-size="8" fill="#ef4444" font-weight="bold">יציאה</text>
+    </svg>
+  </div>
+  <div style="background:#f8fafc;border-top:1px solid #e2e8f0;padding:7px 12px;font-size:.74rem;color:#475569;text-align:center">המגמה עולה → ירידה קטנה (Pullback) → קנו כשנעצרת ← זה הRisk:Reward הכי טוב</div>
+</div>m">2</div>
           <div class="story-text"><strong>תוכנית לפני כניסה:</strong> כניסה ב-$168. Stop Loss ב-$161 (מתחת MA200 ו-Support). Target ב-$184 (Resistance קודם). סיכון: $7. פוטנציאל: $16. יחס 1:2.3.</div>
         </div>
         <div class="story-step">
@@ -407,18 +416,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
         </div>
       </div>
 
-      <div class="chart"><pre>
- Apple ספטמבר–אוקטובר 2023
-
- $187 | ***                         Resistance
- $180 |    ***                 ****
- $175 |       ***         ****
- $168 |          ***  *** ← כניסה כאן!
- $165 |_ _ _ _ _ _ _ _ _ _ _ _ _ _  Support/MA200
- $161 |  (Stop Loss כאן)
-
-      +--+---+---+---+---+---
-       ספ  ספ  אוק  אוק  אוק</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> Apple ספטמבר–אוקטובר 2023</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $187 | ***                         Resistance</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $180 |    ***                 ****</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $175 |       ***         ****</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $168 |          ***  *** ← כניסה כאן!</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $165 |_ _ _ _ _ _ _ _ _ _ _ _ _ _  Support/MA200</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $161 |  (Stop Loss כאן)</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">      +--+---+---+---+---+---</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">       ספ  ספ  אוק  אוק  אוק</div></div>
 
       <div class="nums">
         <div class="num-card"><span class="num-n">$168</span><span class="num-l">כניסה</span></div>
@@ -458,16 +456,9 @@ em{color:#1e40af;font-style:normal;font-weight:600}
   <div class="rule-box">
     <span class="rule-title">ארבעת הכללים שלפני כל Swing Trade</span>
     <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">יש Support ברור שהוכח לפחות פעמיים</span></div>
-    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">יחס סיכון:רווח לפחות 1:2 (מסכנים $1, מרוויחים $2)</span></div>
-    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">RSI לא מעל 65 — לא "חמה" מדי</span></div>
-    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">אין Earnings בשבוע הקרוב — יכול לשנות הכל</span></div>
-    <div class="rule"><span class="rule-dot r">✗</span><span class="rule-text">לא מזזים Stop Loss לרעתנו — אף פעם</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">יחס סיכון:רווח לפחות 1:2 (מסכנים $1, מרוויחים $2)</span></div><div style="background:#f1f5f9;border-radius:8px;padding:14px 14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">Finviz Volume Filters:</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">"Volume over 1M"      — נזילות מינימלית, נמנעים מ-Penny Stocks</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">"Volume over 2M"      — מניות פעילות יותר</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">"Relative Volume 1.5" — נסחרה פי 1.5 מהממוצע היום</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">"Relative Volume 2+"  — פעילות חריגה — אות לחדשות/מוסדיים</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">הטוב ביותר לסינון: Relative Volume מעל 2 + עלייה</div></div>">לא מזזים Stop Loss לרעתנו — אף פעם</span></div>
   </div>
-
-  <div class="summary">
-    <h3>📋 סיכום השיטה</h3>
-    <div class="sum-row"><span class="sum-label">מה זה</span><span class="sum-val">תפיסת גל קצר של 2–5 ימים עם תוכנית יציאה ברורה</span></div>
-    <div class="sum-row"><span class="sum-label">משך עסקה</span><span class="sum-val">3–5 שבועות בממוצע</span></div>
+<div style="background:#f1f5f9;border-radius:8px;padding:14px 14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">MACD Signal:</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">MACD עולה מעל Signal Line = התחלת מגמה חיובית → קנה</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">MACD יורד מתחת Signal Line = התחלת מגמה שלילית → שקול מכירה</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">MACD מעל 0 = מגמה כללית חיובית</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">MACD מתחת 0 = מגמה כללית שלילית</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">ב-Finviz: Technical → MACD → "Bull" או "Bear"</div></div>">3–5 שבועות בממוצע</span></div>
     <div class="sum-row"><span class="sum-label">זמן נדרש</span><span class="sum-val">בדיקה פעם ביום — 10–20 דקות</span></div>
     <div class="sum-row"><span class="sum-label">פוטנציאל</span><span class="sum-val">8%–30% לעסקה. עסקה מצוינת = 50%+</span></div>
     <div class="sum-row"><span class="sum-label">הסיכון העיקרי</span><span class="sum-val">חדשות בלילה יכולות לשנות הכל</span></div>
@@ -535,19 +526,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
 
       <p>מי שניתח את השאלות שלנו ב-2022: האם Nvidia השתנתה לרע? כלל לא — הם עדיין חברת הגרפיקה הטובה בעולם. האם הסיבה זמנית? כן — ריבית תרד בסוף, גיימינג יחזור. כמה זמן? שנה-שנתיים. מוכן לחכות? כן.</p>
 
-      <div class="chart"><pre>
- Nvidia 2021–2024
-
- $900 |                                    ****
- $700 |                              ****
- $500 |                         ****
- $330 | ***                ****
- $250 |    ***        ****
- $160 |       ***  ***   ← קנה בירידה כאן!
- $112 |          **      ← שפל
-      +--+---+---+---+---+---+---+---
-       נוב  מרץ  יול  נוב  מרץ  יול  נוב
-       2021  2022       2022  2023      2023</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> Nvidia 2021–2024</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $900 |                                    ****</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $700 |                              ****</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $500 |                         ****</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $330 | ***                ****</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $250 |    ***        ****</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $160 |       ***  ***   ← קנה בירידה כאן!</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $112 |          **      ← שפל</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">      +--+---+---+---+---+---+---+---</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">       נוב  מרץ  יול  נוב  מרץ  יול  נוב</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">       2021  2022       2022  2023      2023</div></div>
 
       <div class="nums">
         <div class="num-card"><span class="num-n r">$112</span><span class="num-l">שפל אוק' 2022</span></div>
@@ -642,19 +621,8 @@ em{color:#1e40af;font-style:normal;font-weight:600}
   <table class="compare">
     <tr><th>סימן</th><th>Gap אמיתי ✅</th><th>Gap Fill מסוכן ⚠️</th></tr>
     <tr><td>Volume</td><td><span class="tag-g">פי 3–5 מהממוצע</span></td><td><span class="tag-r">ממוצע או פחות</span></td></tr>
-    <tr><td>סיבה</td><td><span class="tag-g">Earnings חזק, FDA, עסקה</span></td><td><span class="tag-r">גרפית בלבד, ללא חדשות</span></td></tr>
-    <tr><td>בשעה הראשונה</td><td><span class="tag-g">ממשיכה לעלות</span></td><td><span class="tag-r">מתחילה לרדת</span></td></tr>
-    <tr><td>Gap גודל</td><td><span class="tag-g">5%–20%</span></td><td><span class="tag-r">פחות מ-3% — חלש</span></td></tr>
-    <tr><td>שוק כללי</td><td><span class="tag-g">S&P 500 ירוק</span><br></td><td><span class="tag-r">S&P 500 אדום</span></td></tr>
-  </table>
-
-  <div class="sec">
-    <span class="sec-label">דוגמה מלאה</span>
-    <div class="sec-h">Netflix אוקטובר 2023 — Gap אחרי Earnings</div>
-  </div>
-
-  <div class="ex-box">
-    <div class="ex-hdr"><span class="ex-badge">NFLX</span><span class="ex-title">Netflix — Gap &amp; Go מלא, 19 אוקטובר 2023</span></div>
+    <tr><t<div style="background:#f1f5f9;border-radius:8px;padding:14px 14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">מהצילום:</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">CALM:  EPS Est $0.70  — הרף שצריך לעבור</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">LW:    EPS Est $0.61  — טרם דיווחה</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">NG:    EPS Est -$0.04 — ציפייה להפסד! (חברת כרייה בפיתוח)</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">אם NG תפרסם הפסד של -$0.02 בלבד:</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">זה Beat! כי -$0.02 > -$0.04</div></div>/span></td></tr>
+    <tr><td>Gap גודל</td><td><span clas<div style="background:#f1f5f9;border-radius:8px;padding:14px 14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">נוסחה: EPS Sur% = ((Act - Est) / |Est|) × 100</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">CALM: (($1.06 - $0.70) / $0.70) × 100 = +52.3%</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">EPS Sur%    | משמעות          | תגובה</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">------------|-----------------|--------------------</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">מעל +20%   | Beat ענקי        | Gap Up חזק</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">+5% עד +20%| Beat משמעותי    | עלייה 3%-10%</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">0% עד +5%  | Beat קטן        | תגובה קטנה</div><div style="font-family:monospace;font-siz<div style="background:#f1f5f9;border-radius:8px;padding:14px 14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">CALM מהצילום:</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">EPS Act (Non-GAAP): $1.06</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">EPS GAAP Act:       $1.06  ← זהה! = שקיפות מלאה ✅</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height<div style="background:#f1f5f9;border-radius:8px;padding:14px 14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">מהצילום — CALM:</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">Revenue Est: $642.48M</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">Revenue Act: $666.95M  (+$24.5M מעל ציפייה)</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">Revenue Sur:  +3.81%</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">EPS Beat +52% + Revenue Beat +3.8% = Beat כפול ✅</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">Beat כפול = הסיבה לעלייה של +4.5% ביום</div></div>color:#334155;line-height:1.7;padding:1px 0">שאלו: האם ההוצאות האלה באמת חד-פעמיות?</div></div>/span></div>
     <div class="ex-body">
       <p>Netflix פרסמה תוצאות רבעוניות ב-18 לאוקטובר אחרי סגירת שוק. התוצאות הפתיעו לטובה — הוסיפו 8.76 מיליון מנויים, הרבה מעל ציפיות. המניה סגרה ב-$388.</p>
 
@@ -675,18 +643,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
         </div>
       </div>
 
-      <div class="chart"><pre>
- Netflix 19 אוקטובר 2023
-
- $480 |          ***
- $473 |       ***   ***   ← יצאנו כאן
- $465 |    ***
- $458 |   *
- $451 |  * ← נכנסנו כאן
- $446 | *  ← פתיחה (Gap Up 15%)
-      = = = = = = = = = =  סגירה אתמול $388
-      +--+---+---+---+---+---
-       9:30 9:45 10:15 11:00 11:30 12:00</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> Netflix 19 אוקטובר 2023</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $480 |          ***</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $473 |       ***   ***   ← יצאנו כאן</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $465 |    ***</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $458 |   *</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $451 |  * ← נכנסנו כאן</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $446 | *  ← פתיחה (Gap Up 15%)</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">      = = = = = = = = = =  סגירה אתמול $388</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">      +--+---+---+---+---+---</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">       9:30 9:45 10:15 11:00 11:30 12:00</div></div>
 
       <div class="nums">
         <div class="num-card"><span class="num-n">$388</span><span class="num-l">סגירה אמש</span></div>
@@ -708,21 +665,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
 
   <p>לא כל Gap ממשיך. לפעמים מניה פותחת ב-Gap גדול ואז <strong>ממלאת את ה-Gap</strong> — חוזרת בדיוק לאיפה שנסגרה אתמול. אלה Gaps שנוצרים מפחד/אופוריה קצרת-מועד.</p>
 
-  <div class="chart"><pre>
- Gap Fill — המלכודת הקלאסית
-
- $110 | * ← נפתח כאן (Gap Up)
- $107 |   *
- $104 |     *
- $101 |       *  ← אנשים קנו כאן
-  $99 |         *
-  $97 |           *  ← Stop Loss הוציא
-  $95 |             *
-  $92 |               **  ← Gap Fill!
-  $90 |= = = = = = = = = =  סגירה אתמול
-  
-  מי שקנה ב-$101 ויצא ב-Stop Loss = הפסד
-  מי שהחזיק = הפסד גדול יותר</pre></div>
+  <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> Gap Fill — המלכודת הקלאסית</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $110 | * ← נפתח כאן (Gap Up)</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $107 |   *</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $104 |     *</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> $101 |       *  ← אנשים קנו כאן</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">  $99 |         *</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">  $97 |           *  ← Stop Loss הוציא</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">  $95 |             *</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">  $92 |               **  ← Gap Fill!</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">  $90 |= = = = = = = = = =  סגירה אתמול</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">  מי שקנה ב-$101 ויצא ב-Stop Loss = הפסד</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap">  מי שהחזיק = הפסד גדול יותר</div></div>
 
   <div class="rule-box">
     <span class="rule-title">כללי Gap &amp; Go</span>
@@ -738,11 +681,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
   <div class="summary">
     <h3>📋 סיכום השיטה</h3>
     <div class="sum-row"><span class="sum-label">מה זה</span><span class="sum-val">ניצול תנועה של שעות הבוקר לאחר Gap גדול עם Volume</span></div>
-    <div class="sum-row"><span class="sum-label">משך עסקה</span><span class="sum-val">30 דקות עד 4 שעות</span></div>
-    <div class="sum-row"><span class="sum-label">מתי פעיל</span><span class="sum-val">16:30–20:00 שעון ישראל (פתיחת NYSE)</span></div>
-    <div class="sum-row"><span class="sum-label">פוטנציאל</span><span class="sum-val">2%–15% ביום אחד בעסקות הטובות</span></div>
-    <div class="sum-row"><span class="sum-label">הסיכון העיקרי</span><span class="sum-val">Gap Fill — מניה חוזרת לנקודת הפתיחה</span></div>
-    <div class="sum-row"><span class="sum-label">מתאים ל</span><span class="sum-val">מי שיכול לעקוב בשעות הפתיחה האמריקאית</span></div>
+    <div class="sum-row"><span class="sum-label">משך עסקה</span><span class="sum-<div style="background:#f1f5f9;border-radius:8px;padding:14px 14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch"><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">מה לחפש ב-Earnings Calendar:</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">EPS Sur% מעל +10%   = Beat משמעותי — בדקו Gap Up</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">EPS Sur% מעל +20%   = Beat חזק — פוטנציאל Gap &amp; Go</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">EPS Sur% מעל +50%   = Beat ענק (כמו CALM) — אבל בדקו Market Cap</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">1-Day Change מעל +5% = השוק הגיב חיובי — בדקו המשך</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">1-Day Change מתחת -5% = אפשרות Buy the Dip לאחר בדיקה</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">Market Cap מינימום: $500M — מתחת לכך = Penny Stock territory</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">BMO = Gap בפתיחה (9:30 ארה"ב = 16:30 ישראל)</div><div style="font-family:monospace;font-size:.76rem;color:#334155;line-height:1.7;padding:1px 0">AMC = Gap למחרת בבוקר (הלילה = הסיכון)</div></div>span><span class="sum-val">מי שיכול לעקוב בשעות הפתיחה האמריקאית</span></div>
   </div>
 
   <div class="ca blue">
@@ -811,15 +750,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
     <div class="ex-hdr"><span class="ex-badge">VOL</span><span class="ex-title">Volume — כמה כסף נכנס</span></div>
     <div class="ex-body">
       <p>Volume הוא מספר המניות שנסחרו ביום. הוא <strong>המאמת של כל סיגנל אחר</strong>. עלייה ללא Volume = לא אמינה. פריצה ללא Volume = לרוב מזויפת.</p>
-      <div class="chart"><pre>
- Finviz Volume Filters:
-
- "Volume over 1M"      — נזילות מינימלית, נמנעים מ-Penny Stocks
- "Volume over 2M"      — מניות פעילות יותר
- "Relative Volume 1.5" — נסחרה פי 1.5 מהממוצע היום
- "Relative Volume 2+"  — פעילות חריגה — אות לחדשות/מוסדיים
-
- הטוב ביותר לסינון: Relative Volume מעל 2 + עלייה</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> Finviz Volume Filters:</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> "Volume over 1M"      — נזילות מינימלית, נמנעים מ-Penny Stocks</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> "Volume over 2M"      — מניות פעילות יותר</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> "Relative Volume 1.5" — נסחרה פי 1.5 מהממוצע היום</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> "Relative Volume 2+"  — פעילות חריגה — אות לחדשות/מוסדיים</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> הטוב ביותר לסינון: Relative Volume מעל 2 + עלייה</div></div>
       <div class="ca amber">
         <span class="ca-title">⚠️ למה Relative Volume חשוב יותר מ-Volume מוחלט</span>
         <p>Apple נסחרת בממוצע 60 מיליון מניות ביום. Nvidia — 40 מיליון. מניה קטנה — 500,000. "Volume גבוה" שונה לכל מניה. Relative Volume (RVol) אומר: <em>האם היום יש יותר מהממוצע שלה?</em> RVol 2.5 = פי 2.5 מהרגיל — זה חריג לכל מניה שהיא.</p>
@@ -831,16 +762,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
     <div class="ex-hdr"><span class="ex-badge">MACD</span><span class="ex-title">MACD — מתי המגמה מתחלפת</span></div>
     <div class="ex-body">
       <p>MACD (Moving Average Convergence Divergence) הוא האינדיקטור שמראה <strong>מתי מגמה אחת מסתיימת ואחרת מתחילה</strong>. פחות שימושי ב-Finviz לסינון, אבל חיוני כשבודקים גרף ספציפי.</p>
-      <div class="chart"><pre>
- MACD Signal:
-
- MACD עולה מעל Signal Line = התחלת מגמה חיובית → קנה
- MACD יורד מתחת Signal Line = התחלת מגמה שלילית → שקול מכירה
-
- MACD מעל 0 = מגמה כללית חיובית
- MACD מתחת 0 = מגמה כללית שלילית
-
- ב-Finviz: Technical → MACD → "Bull" או "Bear"</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> MACD Signal:</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> MACD עולה מעל Signal Line = התחלת מגמה חיובית → קנה</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> MACD יורד מתחת Signal Line = התחלת מגמה שלילית → שקול מכירה</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> MACD מעל 0 = מגמה כללית חיובית</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> MACD מתחת 0 = מגמה כללית שלילית</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> ב-Finviz: Technical → MACD → "Bull" או "Bear"</div></div>
     </div>
   </div>
 
@@ -1000,14 +922,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
     <div class="ex-hdr"><span class="ex-badge">EPS EST</span><span class="ex-title">ציפיית האנליסטים — הרף שצריך לעבור</span></div>
     <div class="ex-body">
       <p>EPS Est = Earnings Per Share Estimate — ממוצע תחזיות וול סטריט לרווח למניה. <strong>השוק לא מתמחר את הרווח עצמו — הוא מתמחר את ההפתעה.</strong> הרף הזה הוא כל מה שחשוב.</p>
-      <div class="chart"><pre>
- מהצילום:
- CALM:  EPS Est $0.70  — הרף שצריך לעבור
- LW:    EPS Est $0.61  — טרם דיווחה
- NG:    EPS Est -$0.04 — ציפייה להפסד! (חברת כרייה בפיתוח)
-
- אם NG תפרסם הפסד של -$0.02 בלבד:
- זה Beat! כי -$0.02 > -$0.04</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> מהצילום:</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> CALM:  EPS Est $0.70  — הרף שצריך לעבור</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> LW:    EPS Est $0.61  — טרם דיווחה</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> NG:    EPS Est -$0.04 — ציפייה להפסד! (חברת כרייה בפיתוח)</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> אם NG תפרסם הפסד של -$0.02 בלבד:</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> זה Beat! כי -$0.02 > -$0.04</div></div>
     </div>
   </div>
 
@@ -1023,17 +938,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
     <div class="ex-hdr"><span class="ex-badge">EPS SUR%</span><span class="ex-title">ההפתעה באחוזים — המספר שמניע את המחיר</span></div>
     <div class="ex-body">
       <p>זהו <strong>הפרמטר הכי חשוב ב-Earnings לסוחר.</strong> לא הרווח המוחלט — ההפתעה באחוזים.</p>
-      <div class="chart"><pre>
- נוסחה: EPS Sur% = ((Act - Est) / |Est|) × 100
-
- CALM: (($1.06 - $0.70) / $0.70) × 100 = +52.3%
-
- EPS Sur%    | משמעות          | תגובה
- ------------|-----------------|--------------------
- מעל +20%   | Beat ענקי        | Gap Up חזק
- +5% עד +20%| Beat משמעותי    | עלייה 3%-10%
- 0% עד +5%  | Beat קטן        | תגובה קטנה
- מתחת -5%   | Miss            | ירידה / Gap Down</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> נוסחה: EPS Sur% = ((Act - Est) / |Est|) × 100</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> CALM: (($1.06 - $0.70) / $0.70) × 100 = +52.3%</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> EPS Sur%    | משמעות          | תגובה</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> ------------|-----------------|--------------------</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> מעל +20%   | Beat ענקי        | Gap Up חזק</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> +5% עד +20%| Beat משמעותי    | עלייה 3%-10%</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> 0% עד +5%  | Beat קטן        | תגובה קטנה</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> מתחת -5%   | Miss            | ירידה / Gap Down</div></div>
     </div>
   </div>
 
@@ -1047,14 +952,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
         <tr><td>מי משתמש?</td><td>אנליסטים, Wall Street</td><td>רגולטורים, השוואות חשבונאיות</td></tr>
         <tr><td>גובה</td><td>לרוב גבוה יותר ("יפה")</td><td>לרוב נמוך יותר (שמרני)</td></tr>
       </table>
-      <div class="chart"><pre>
- CALM מהצילום:
- EPS Act (Non-GAAP): $1.06
- EPS GAAP Act:       $1.06  ← זהה! = שקיפות מלאה ✅
-
- סימן אזהרה:
- EPS Act $2.00 אבל GAAP $0.30 = $1.70 "מנוקה"
- שאלו: האם ההוצאות האלה באמת חד-פעמיות?</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> CALM מהצילום:</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> EPS Act (Non-GAAP): $1.06</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> EPS GAAP Act:       $1.06  ← זהה! = שקיפות מלאה ✅</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> סימן אזהרה:</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> EPS Act $2.00 אבל GAAP $0.30 = $1.70 "מנוקה"</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> שאלו: האם ההוצאות האלה באמת חד-פעמיות?</div></div>
     </div>
   </div>
 
@@ -1062,14 +960,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
     <div class="ex-hdr"><span class="ex-badge">REVENUE EST / ACT</span><span class="ex-title">הכנסות — המחצית הכי חשובה של הסיפור</span></div>
     <div class="ex-body">
       <p>Revenue = ההכנסות הגולמיות לפני כל הוצאה. אי אפשר "להנדס" Revenue כמו EPS. <strong>Revenue Beat = חברה מוכרת יותר — זה בר-קיימא.</strong></p>
-      <div class="chart"><pre>
- מהצילום — CALM:
- Revenue Est: $642.48M
- Revenue Act: $666.95M  (+$24.5M מעל ציפייה)
- Revenue Sur:  +3.81%
-
- EPS Beat +52% + Revenue Beat +3.8% = Beat כפול ✅
- Beat כפול = הסיבה לעלייה של +4.5% ביום</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> מהצילום — CALM:</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> Revenue Est: $642.48M</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> Revenue Act: $666.95M  (+$24.5M מעל ציפייה)</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> Revenue Sur:  +3.81%</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> EPS Beat +52% + Revenue Beat +3.8% = Beat כפול ✅</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> Beat כפול = הסיבה לעלייה של +4.5% ביום</div></div>
       <table class="compare">
         <tr><th>תרחיש</th><th>EPS</th><th>Revenue</th><th>תגובה</th></tr>
         <tr><td>Beat כפול</td><td><span class="tag-g">Beat</span></td><td><span class="tag-g">Beat</span></td><td><span class="tag-g">עלייה חזקה — הכי טוב</span></td></tr>
@@ -1152,20 +1043,7 @@ em{color:#1e40af;font-style:normal;font-weight:600}
   <div class="ex-box">
     <div class="ex-hdr"><span class="ex-badge">🔍</span><span class="ex-title">הפרמטרים שמחפשים לאחר הדוח — לפי הצילום שלך</span></div>
     <div class="ex-body">
-      <div class="chart"><pre>
- מה לחפש ב-Earnings Calendar:
-
- EPS Sur% מעל +10%   = Beat משמעותי — בדקו Gap Up
- EPS Sur% מעל +20%   = Beat חזק — פוטנציאל Gap &amp; Go
- EPS Sur% מעל +50%   = Beat ענק (כמו CALM) — אבל בדקו Market Cap
- 
- 1-Day Change מעל +5% = השוק הגיב חיובי — בדקו המשך
- 1-Day Change מתחת -5% = אפשרות Buy the Dip לאחר בדיקה
- 
- Market Cap מינימום: $500M — מתחת לכך = Penny Stock territory
- 
- BMO = Gap בפתיחה (9:30 ארה"ב = 16:30 ישראל)
- AMC = Gap למחרת בבוקר (הלילה = הסיכון)</pre></div>
+      <div style="background:#f1f5f9;border-radius:8px;padding:14px;margin:12px 0;overflow-x:auto;-webkit-overflow-scrolling:touch;direction:ltr;text-align:left"><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> מה לחפש ב-Earnings Calendar:</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> EPS Sur% מעל +10%   = Beat משמעותי — בדקו Gap Up</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> EPS Sur% מעל +20%   = Beat חזק — פוטנציאל Gap &amp; Go</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> EPS Sur% מעל +50%   = Beat ענק (כמו CALM) — אבל בדקו Market Cap</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> 1-Day Change מעל +5% = השוק הגיב חיובי — בדקו המשך</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> 1-Day Change מתחת -5% = אפשרות Buy the Dip לאחר בדיקה</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> Market Cap מינימום: $500M — מתחת לכך = Penny Stock territory</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> BMO = Gap בפתיחה (9:30 ארה"ב = 16:30 ישראל)</div><div style="font-family:monospace;font-size:.74rem;color:#334155;line-height:1.7;white-space:nowrap"> AMC = Gap למחרת בבוקר (הלילה = הסיכון)</div></div>
     </div>
   </div>
 
