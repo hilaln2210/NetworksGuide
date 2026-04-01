@@ -1107,7 +1107,7 @@ function App() {
                 <ThinkOutsidePage page={page} lang={lang} chapterId={chapter?.id} pageIdx={currentPage} />
               ) : page.type === 'html_page' ? (
                 <iframe
-                  src={(lang === 'en' && page.srcEn) ? page.srcEn : page.src}
+                  src={(() => { const s = (lang === 'en' && page.srcEn) ? page.srcEn : page.src; return s + (s.includes('?') ? '&' : '?') + 'v=' + __APP_VERSION__ })()}
                   title={page.title}
                   style={activeTrack?.fullPage
                     ? { width: '100%', border: 'none', display: 'block', height: '100%', minHeight: '100vh' }
