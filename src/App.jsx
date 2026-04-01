@@ -1,5 +1,5 @@
 import { useState, useEffect, useLayoutEffect, useCallback, useRef, lazy, Suspense } from 'react'
-import { tracks, enrichmentTracks } from './data/content'
+import { tracks, enrichmentTracks, ENRICHMENT_PASSCODE } from './data/content'
 import { contentEn } from './data/content_en'
 import { ThinkOutsideBox } from './components/ThinkOutsideBox'
 import { KeyTip } from './components/KeyTip'
@@ -132,6 +132,9 @@ function WhatsNewModal({ onDismiss }) {
 function TrackPicker({ tracks, onSelect }) {
   const { lang, setLang, t } = useLang()
   const isEn = lang === 'en'
+  const [enrichUnlocked, setEnrichUnlocked] = React.useState(localStorage.getItem('enrichment_unlocked') === 'true')
+  const [showEnrichInput, setShowEnrichInput] = React.useState(false)
+  const [enrichCode, setEnrichCode] = React.useState('')
   return (
     <div className="track-picker" dir={isEn ? 'ltr' : 'rtl'}>
       <div className="track-picker-header">
@@ -247,40 +250,61 @@ function TrackPicker({ tracks, onSelect }) {
         })}
       </div>
 
-      {/* ── Enrichment Courses ── */}
+      {/* ── Enrichment Courses (locked) ── */}
       {enrichmentTracks && enrichmentTracks.length > 0 && (
         <>
           <div style={{ margin: '32px 0 16px', textAlign: 'center' }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '6px 20px', borderRadius: '20px', background: 'var(--surface, #f8fafc)', border: '1px solid var(--border, #e2e8f0)' }}>
-              <span style={{ fontSize: '1.1rem' }}>🎓</span>
+            <div
+              onClick={() => !enrichUnlocked && setShowEnrichInput(!showEnrichInput)}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '6px 20px', borderRadius: '20px', background: 'var(--surface, #f8fafc)', border: '1px solid var(--border, #e2e8f0)', cursor: enrichUnlocked ? 'default' : 'pointer', opacity: enrichUnlocked ? 1 : 0.7, transition: 'opacity 0.2s' }}
+            >
+              <span style={{ fontSize: '1.1rem' }}>{enrichUnlocked ? '🎓' : '🔒'}</span>
               <span style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text, #1e293b)', letterSpacing: '0.5px' }}>{lang === 'he' ? 'קורסי העשרה' : 'Enrichment Courses'}</span>
             </div>
-          </div>
-          <div className="track-grid">
-            {enrichmentTracks.map(track => {
-              const isEmpty = track.chapters.length === 0
-              return (
-                <button
-                  key={track.id}
-                  className="track-card"
-                  onClick={() => !isEmpty && onSelect(track)}
-                  disabled={isEmpty}
-                  style={{ '--track-color': track.color }}
-                >
-                  <div className="track-card-icon">{track.icon}</div>
-                  <div className="track-card-body">
-                    <div className="track-card-title">{trackI18n(track, 'title', t, lang)}</div>
-                    <div className="track-card-subtitle">{trackI18n(track, 'subtitle', t, lang)}</div>
-                    <div className="track-card-meta">
-                      <span className="track-card-level">{trackI18n(track, 'level', t, lang)}</span>
-                      <span className="track-card-chapters">{track.chapterCount || track.chapters.length} {t('chapters_count')}</span>
-                    </div>
-                    <div className="track-card-start">{t('start')}</div>
-                  </div>
+            {showEnrichInput && !enrichUnlocked && (
+              <div style={{ marginTop: '12px', display: 'flex', justifyContent: 'center', gap: '8px' }}>
+                <input
+                  type="password"
+                  value={enrichCode}
+                  onChange={e => setEnrichCode(e.target.value)}
+                  onKeyDown={e => { if (e.key === 'Enter') { if (enrichCode === ENRICHMENT_PASSCODE) { localStorage.setItem('enrichment_unlocked', 'true'); setEnrichUnlocked(true); setShowEnrichInput(false); } setEnrichCode(''); } }}
+                  placeholder={lang === 'he' ? 'הכנס קוד...' : 'Enter code...'}
+                  style={{ padding: '6px 12px', borderRadius: '8px', border: '1px solid var(--border, #e2e8f0)', fontSize: '0.9rem', width: '140px', textAlign: 'center' }}
+                  autoFocus
+                />
+                <button onClick={() => { if (enrichCode === ENRICHMENT_PASSCODE) { localStorage.setItem('enrichment_unlocked', 'true'); setEnrichUnlocked(true); setShowEnrichInput(false); } setEnrichCode(''); }} style={{ padding: '6px 16px', borderRadius: '8px', border: 'none', background: '#10b981', color: '#fff', fontWeight: 600, cursor: 'pointer', fontSize: '0.85rem' }}>
+                  {lang === 'he' ? 'פתח' : 'Unlock'}
                 </button>
-              )
-            })}
+              </div>
+            )}
           </div>
+          {enrichUnlocked && (
+            <div className="track-grid">
+              {enrichmentTracks.map(track => {
+                const isEmpty = track.chapters.length === 0
+                return (
+                  <button
+                    key={track.id}
+                    className="track-card"
+                    onClick={() => !isEmpty && onSelect(track)}
+                    disabled={isEmpty}
+                    style={{ '--track-color': track.color }}
+                  >
+                    <div className="track-card-icon">{track.icon}</div>
+                    <div className="track-card-body">
+                      <div className="track-card-title">{trackI18n(track, 'title', t, lang)}</div>
+                      <div className="track-card-subtitle">{trackI18n(track, 'subtitle', t, lang)}</div>
+                      <div className="track-card-meta">
+                        <span className="track-card-level">{trackI18n(track, 'level', t, lang)}</span>
+                        <span className="track-card-chapters">{track.chapterCount || track.chapters.length} {t('chapters_count')}</span>
+                      </div>
+                      <div className="track-card-start">{t('start')}</div>
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
+          )}
         </>
       )}
     </div>

@@ -105,7 +105,7 @@ export const tracks = [
   },
 ]
 
-// ===== ENRICHMENT COURSES =====
+// ===== ENRICHMENT COURSES (hidden behind passcode) =====
 export const enrichmentTracks = [
   {
     id: 'trading-methods',
@@ -121,6 +121,7 @@ export const enrichmentTracks = [
     ]
   },
 ]
+export const ENRICHMENT_PASSCODE = '1234'
 
 // Backward compatibility — defaults to first track chapters
 export const chapters = tracks[0].chapters
