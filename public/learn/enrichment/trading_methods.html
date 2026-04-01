@@ -5,890 +5,1198 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
 <style>
-/* ── RESET & BASE ── */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{font-size:16px;-webkit-text-size-adjust:100%}
-body{
-  background:#f8fafc;
-  color:#1e293b;
-  font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
-  font-size:15px;
-  line-height:1.7;
-  /* prevent horizontal overflow */
-  overflow-x:hidden;
-  max-width:100vw;
-}
+html{-webkit-text-size-adjust:100%}
+body{background:#f8fafc;color:#1e293b;font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;font-size:15px;line-height:1.75;overflow-x:hidden;max-width:100vw}
 
-/* ── HEADER — sticky so tabs always visible ── */
-.hdr{
-  background:#1e40af;
-  padding:16px 16px 0;
-  position:sticky;
-  top:0;
-  z-index:100;
-  /* shadow so content scrolls under it */
-  box-shadow:0 2px 12px rgba(0,0,0,.2);
-}
-h1{font-size:1.25rem;font-weight:900;color:#fff;letter-spacing:-.02em}
-.hdr p{color:#bfdbfe;font-size:.8rem;margin:3px 0 12px}
-
-/* ── TABS — scrollable, no jump ── */
-.tabs{
-  display:flex;
-  gap:3px;
-  overflow-x:auto;
-  overflow-y:hidden;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  scroll-behavior:smooth;
-  padding-bottom:1px;
-}
+/* ── HEADER ── */
+.hdr{background:#1e40af;padding:16px 16px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.hdr-top{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+h1{font-size:1.2rem;font-weight:900;color:#fff}
+.hdr-sub{color:#93c5fd;font-size:.78rem}
+.tabs{display:flex;gap:3px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:1px}
 .tabs::-webkit-scrollbar{display:none}
-.tab{
-  background:rgba(255,255,255,.15);
-  border:none;
-  color:#bfdbfe;
-  font-size:.75rem;
-  font-weight:700;
-  padding:9px 14px;
-  border-radius:7px 7px 0 0;
-  cursor:pointer;
-  white-space:nowrap;
-  font-family:inherit;
-  flex-shrink:0;
-  /* large enough touch target */
-  min-height:40px;
-  transition:background .15s;
-}
+.tab{background:rgba(255,255,255,.13);border:none;color:#bfdbfe;font-size:.76rem;font-weight:700;padding:9px 13px;border-radius:7px 7px 0 0;cursor:pointer;white-space:nowrap;font-family:inherit;flex-shrink:0;min-height:40px;transition:background .12s}
 .tab.on{background:#f8fafc;color:#1e40af}
-.tab:active{opacity:.7}
 
-/* ── PAGES ── */
-.pg{
-  display:none;
-  padding:20px 16px 100px; /* 100px for disclaimer + safe area */
-  max-width:600px;
-  margin:0 auto;
-  /* prevent content from being cut */
-  min-height:calc(100vh - 90px);
-}
+/* ── PAGE ── */
+.pg{display:none;max-width:640px;margin:0 auto;padding:24px 16px 110px}
 .pg.on{display:block}
 
-/* ── TYPOGRAPHY ── */
-.num{font-size:.65rem;font-weight:800;color:#1e40af;text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px}
-.title{font-size:1.7rem;font-weight:900;color:#0f172a;letter-spacing:-.03em;line-height:1.1;margin-bottom:8px}
-.pill{
-  display:inline-block;
-  background:#eff6ff;
-  border:1.5px solid #bfdbfe;
-  color:#1e40af;
-  font-size:.85rem;
-  font-weight:700;
-  padding:5px 14px;
-  border-radius:99px;
-  margin-bottom:20px;
-}
-.slbl{font-size:.65rem;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.1em;margin:24px 0 6px}
-.sh{font-size:1.05rem;font-weight:800;color:#0f172a;margin-bottom:10px}
-p{color:#334155;margin-bottom:12px;font-size:.92rem}
-strong{color:#0f172a}
+/* ── METHOD INTRO ── */
+.m-num{font-size:.65rem;font-weight:800;color:#3b82f6;text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px}
+.m-title{font-size:1.9rem;font-weight:900;color:#0f172a;letter-spacing:-.03em;line-height:1.1;margin-bottom:10px}
+.m-tag{display:inline-block;background:#eff6ff;border:1.5px solid #bfdbfe;color:#1e40af;font-size:.88rem;font-weight:700;padding:5px 16px;border-radius:99px;margin-bottom:22px}
 
-/* ── BOXES ── */
-.box{
-  background:#fff;
-  border:1.5px solid #e2e8f0;
-  border-radius:12px;
-  overflow:hidden;
-  margin:14px 0;
-  box-shadow:0 1px 6px rgba(0,0,0,.06);
-}
-.bxhdr{
-  background:#1e40af;
-  color:#fff;
-  padding:10px 14px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:.83rem;
-  font-weight:700;
-}
-.badge{
-  background:rgba(255,255,255,.2);
-  border-radius:5px;
-  padding:2px 8px;
-  font-size:.76rem;
-  font-weight:800;
-  font-family:monospace;
-  flex-shrink:0;
-}
-.bxbody{padding:14px}
+/* ── SECTION HEADERS ── */
+.sec{margin:28px 0 10px}
+.sec-label{font-size:.62rem;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.12em;display:block;margin-bottom:5px}
+.sec-h{font-size:1.15rem;font-weight:800;color:#0f172a;line-height:1.3}
 
-/* ── PRE / CODE — key fix for mobile ── */
-.pre-wrap{
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  margin:12px 0;
-  border-radius:8px;
-  background:#f1f5f9;
-}
-pre{
-  background:#f1f5f9;
-  border-radius:8px;
-  padding:14px 12px;
-  font-size:.7rem;
-  line-height:1.6;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  direction:ltr;
-  text-align:left;
-  font-family:'Courier New',Consolas,monospace;
-  color:#334155;
-  white-space:pre;
-  /* ensure it doesn't break page layout */
-  max-width:100%;
-  word-break:normal;
-  display:block;
-}
-
-/* ── NUMBERS ROW ── */
-.nums{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin:14px 0;
-}
-.nc{
-  background:#f8fafc;
-  border:1.5px solid #e2e8f0;
-  border-radius:8px;
-  padding:10px 4px;
-  text-align:center;
-}
-.nn{display:block;font-size:1rem;font-weight:900;color:#1e40af;font-family:monospace;word-break:break-all}
-.nn.g{color:#16a34a}.nn.r{color:#dc2626}
-.nl{font-size:.65rem;color:#64748b;margin-top:2px;line-height:1.3}
+/* ── BODY TEXT ── */
+p{color:#334155;margin-bottom:14px;font-size:.93rem;line-height:1.75}
+strong{color:#0f172a;font-weight:700}
+em{color:#1e40af;font-style:normal;font-weight:600}
 
 /* ── CALLOUTS ── */
-.ca{
-  border-radius:8px;
-  padding:12px 14px;
-  margin:12px 0;
-  font-size:.88rem;
-  line-height:1.6;
-}
-.ca.b{background:#eff6ff;border-right:3px solid #1e40af}
-.ca.g{background:#f0fdf4;border-right:3px solid #16a34a}
-.ca.a{background:#fffbeb;border-right:3px solid #f59e0b}
-.ca.r{background:#fef2f2;border-right:3px solid #dc2626}
+.ca{border-radius:10px;padding:14px 16px;margin:14px 0;font-size:.9rem;line-height:1.65}
+.ca p{margin:0;font-size:.9rem}
+.ca.blue{background:#eff6ff;border-right:3px solid #1e40af}
+.ca.green{background:#f0fdf4;border-right:3px solid #16a34a}
+.ca.amber{background:#fffbeb;border-right:3px solid #f59e0b}
+.ca.red{background:#fef2f2;border-right:3px solid #dc2626}
+.ca-title{font-weight:800;color:#0f172a;display:block;margin-bottom:5px;font-size:.88rem}
 
-/* ── STEPS ── */
-.steps{margin:12px 0}
-.step{
-  display:flex;
-  gap:12px;
-  padding:11px 0;
-  border-bottom:1px solid #f1f5f9;
-  align-items:flex-start;
-}
-.step:last-child{border-bottom:none}
-.sn{
-  min-width:30px;height:30px;
-  background:#1e40af;color:#fff;
-  border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;font-weight:800;
-  flex-shrink:0;margin-top:1px;
-}
-.st{font-size:.9rem;color:#334155;line-height:1.55}
+/* ── EXAMPLE BOX ── */
+.ex-box{background:#fff;border:1.5px solid #e2e8f0;border-radius:14px;overflow:hidden;margin:18px 0;box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.ex-hdr{background:#0f172a;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px}
+.ex-badge{background:#1e40af;border-radius:6px;padding:3px 10px;font-size:.8rem;font-weight:900;font-family:monospace}
+.ex-title{font-size:.88rem;font-weight:700;color:#e2e8f0}
+.ex-body{padding:18px 16px}
 
-/* ── PRO/CON ── */
-.pc{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
-.pro{background:#f0fdf4;border-radius:8px;padding:12px}
-.con{background:#fef2f2;border-radius:8px;padding:12px}
-.pro h4{color:#16a34a;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
-.con h4{color:#dc2626;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
-.pro li,.con li{font-size:.84rem;color:#334155;margin-bottom:5px;list-style:none;padding-right:2px}
+/* ── STORY / STEP ── */
+.story{display:flex;flex-direction:column;gap:0}
+.story-step{display:flex;gap:14px;padding:13px 0;border-bottom:1px solid #f1f5f9;align-items:flex-start}
+.story-step:last-child{border-bottom:none}
+.story-num{min-width:32px;height:32px;background:#1e40af;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;flex-shrink:0;margin-top:1px}
+.story-num.green{background:#16a34a}
+.story-num.amber{background:#f59e0b}
+.story-num.red{background:#dc2626}
+.story-text{font-size:.9rem;color:#334155;line-height:1.65}
+.story-text strong{color:#0f172a}
+
+/* ── CHART ── */
+.chart{background:#f1f5f9;border-radius:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:14px 0}
+.chart pre{font-family:'Courier New',Consolas,monospace;font-size:.7rem;line-height:1.6;color:#334155;direction:ltr;text-align:left;white-space:pre;padding:14px 14px;min-width:280px}
+
+/* ── NUMBERS ── */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.num-card{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:10px;padding:11px 6px;text-align:center}
+.num-n{display:block;font-size:1.05rem;font-weight:900;font-family:monospace;color:#1e40af}
+.num-n.g{color:#16a34a}.num-n.r{color:#dc2626}
+.num-l{font-size:.66rem;color:#64748b;margin-top:2px;line-height:1.3;display:block}
+
+/* ── RULE BOX ── */
+.rule-box{background:#0f172a;border-radius:10px;padding:16px;margin:14px 0}
+.rule-box .rule-title{color:#93c5fd;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;display:block}
+.rule{display:flex;gap:10px;margin-bottom:9px;align-items:flex-start}
+.rule:last-child{margin-bottom:0}
+.rule-dot{color:#22c55e;font-size:1rem;flex-shrink:0;line-height:1.4}
+.rule-dot.r{color:#ef4444}
+.rule-text{color:#e2e8f0;font-size:.86rem;line-height:1.55}
+
+/* ── COMPARE TABLE ── */
+.compare{width:100%;border-collapse:collapse;margin:14px 0;font-size:.84rem}
+.compare th{background:#f1f5f9;color:#64748b;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:9px 10px;text-align:start;border-bottom:1.5px solid #e2e8f0}
+.compare td{padding:9px 10px;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:top}
+.compare tr:last-child td{border-bottom:none}
+.compare tr:hover td{background:#fafafa}
+.tag-g{background:#dcfce7;color:#15803d;border-radius:4px;padding:1px 7px;font-size:.72rem;font-weight:700;white-space:nowrap}
+.tag-r{background:#fee2e2;color:#b91c1c;border-radius:4px;padding:1px 7px;font-size:.72rem;font-weight:700;white-space:nowrap}
 
 /* ── SUMMARY ── */
-.sum{
-  background:linear-gradient(135deg,#eff6ff,#f0fdf4);
-  border:1.5px solid #bfdbfe;
-  border-radius:12px;
-  padding:16px;
-  margin-top:22px;
-}
-.sum h3{font-size:.95rem;font-weight:800;color:#0f172a;margin-bottom:10px}
-.sr{display:flex;gap:8px;margin-bottom:7px;font-size:.85rem;line-height:1.4}
-.sl{color:#64748b;font-weight:600;min-width:80px;flex-shrink:0}
-.sv{color:#0f172a}
+.summary{background:linear-gradient(135deg,#eff6ff 0%,#f0fdf4 100%);border:1.5px solid #bfdbfe;border-radius:14px;padding:18px;margin-top:24px}
+.summary h3{font-size:1rem;font-weight:800;color:#0f172a;margin-bottom:12px}
+.sum-row{display:flex;gap:10px;margin-bottom:8px;font-size:.87rem;line-height:1.45}
+.sum-label{color:#64748b;font-weight:700;min-width:85px;flex-shrink:0}
+.sum-val{color:#0f172a}
 
-/* ── NAV BUTTONS ── */
-.nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:28px;
-  padding-top:16px;
-  border-top:1.5px solid #e2e8f0;
-  gap:8px;
-}
-.nb{
-  background:#1e40af;
-  color:#fff;
-  border:none;
-  padding:12px 20px;
-  border-radius:8px;
-  font-size:.88rem;
-  font-weight:700;
-  cursor:pointer;
-  font-family:inherit;
-  /* large touch target */
-  min-height:44px;
-  transition:background .15s;
-}
-.nb:active{background:#1e3a8a}
-.nb:disabled{background:#e2e8f0;color:#94a3b8;cursor:default}
-.nc2{font-size:.75rem;color:#94a3b8;white-space:nowrap}
+/* ── NAV ── */
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:30px;padding-top:18px;border-top:1.5px solid #e2e8f0;gap:8px}
+.nav-btn{background:#1e40af;color:#fff;border:none;padding:12px 22px;border-radius:9px;font-size:.9rem;font-weight:700;cursor:pointer;font-family:inherit;min-height:46px;transition:opacity .12s}
+.nav-btn:active{opacity:.75}
+.nav-btn:disabled{background:#e2e8f0;color:#94a3b8}
+.nav-cur{font-size:.75rem;color:#94a3b8;white-space:nowrap}
 
-/* ── DISCLAIMER — fixed bottom with safe area ── */
-.disc{
-  background:#fffbeb;
-  border-top:1px solid #fde68a;
-  padding:10px 16px;
-  padding-bottom:calc(10px + env(safe-area-inset-bottom, 0px));
-  font-size:.72rem;
-  color:#92400e;
-  text-align:center;
-  position:fixed;
-  bottom:0;left:0;right:0;
-  z-index:99;
-  line-height:1.4;
-}
+/* ── DISCLAIMER ── */
+.disc{background:#fffbeb;border-top:1px solid #fde68a;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));font-size:.72rem;color:#92400e;text-align:center;position:fixed;bottom:0;left:0;right:0;z-index:99;line-height:1.45}
 
-/* ── SMALL SCREENS (<380px) ── */
+/* ── MOBILE ── */
 @media(max-width:380px){
-  .title{font-size:1.4rem}
-  pre{font-size:.65rem}
-  .nums{gap:5px}
-  .nn{font-size:.9rem}
+  .m-title{font-size:1.5rem}
+  .chart pre{font-size:.63rem}
+  .num-n{font-size:.92rem}
+  .nav-btn{padding:11px 14px;font-size:.83rem}
   .tab{font-size:.7rem;padding:8px 10px}
-  .nb{padding:11px 14px;font-size:.82rem}
-  .pc{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
 <div class="hdr">
-  <h1>📈 שיטות מסחר</h1>
-  <p>10 שיטות · דוגמאות אמיתיות · בשפה פשוטה</p>
+  <div class="hdr-top">
+    <h1>📈 שיטות מסחר</h1>
+    <span class="hdr-sub">הסבר מלא + דוגמה אמיתית לכל שיטה</span>
+  </div>
   <div class="tabs" id="tabs">
-    <button class="tab on"  onclick="show(0)">1·קנה והחזק</button>
-    <button class="tab" onclick="show(1)">2·מגמה</button>
-    <button class="tab" onclick="show(2)">3·קנה בירידה</button>
-    <button class="tab" onclick="show(3)">4·סכום קבוע</button>
-    <button class="tab" onclick="show(4)">5·פריצת שיא</button>
-    <button class="tab" onclick="show(5)">6·חדשות</button>
-    <button class="tab" onclick="show(6)">7·Swing</button>
-    <button class="tab" onclick="show(7)">8·Gap&amp;Go</button>
-    <button class="tab" onclick="show(8)">9·Earnings</button>
-    <button class="tab" onclick="show(9)">10·Momentum</button>
-    <button class="tab" onclick="show(10)">11·טכני בלבד</button>
+    <button class="tab on"  onclick="show(0)">1 · ניתוח טכני</button>
+    <button class="tab"     onclick="show(1)">2 · Swing Trading</button>
+    <button class="tab"     onclick="show(2)">3 · קנה בירידה</button>
+    <button class="tab"     onclick="show(3)">4 · Gap &amp; Go</button>
+    <button class="tab" onclick="show(4)">5 · אינדיקטורים</button>
+    <button class="tab" onclick="show(5)">6 · לוח Earnings</button>
   </div>
 </div>
 
+<!-- ════════════════════════════════
+     שיטה 1 — ניתוח טכני בלבד
+════════════════════════════════ -->
 <div class="pg on" id="p0">
-  <div class="num">שיטה 1 מתוך 10</div>
-  <div class="title">קנה והחזק</div>
-  <div class="pill">💡 במילה אחת: סבלנות</div>
-  <p>קונים מניה של חברה טובה — ופשוט מחזיקים. לא מוכרים כשהשוק יורד, לא מנסים לנחש מתי לצאת. פשוט קונים ומחכים שנים. זו השיטה של <strong>Warren Buffett</strong>. לא מרגשת — אבל ב-10–20 שנה מנצחת את רוב השיטות.</p>
-  <div class="ca b">📌 <strong>ההנחה:</strong> חברות טובות גדלות עם הזמן. גם אם ירדו מחר — בעוד 10 שנים יהיו גבוה יותר.</div>
-  <div class="box">
-    <div class="bxhdr"><span class="badge">AAPL</span> Apple — 2014 עד 2024</div>
-    <div class="bxbody">
-      <p>קנית מניה ב-<strong>$18</strong> ב-2014. לא עשית כלום. ב-2024 היא שווה <strong>$185</strong>.</p>
-<pre>
-$185 |                          *
-$130 |                     *
- $80 |               *
- $40 |          *
- $18 | *
-     +----+----+----+----+----
-     2014 2016 2018 2020 2022
-</pre>
-      <div class="nums">
-        <div class="nc"><span class="nn">$18</span><div class="nl">קנייה 2014</div></div>
-        <div class="nc"><span class="nn g">$185</span><div class="nl">מחיר 2024</div></div>
-        <div class="nc"><span class="nn g">+928%</span><div class="nl">ב-10 שנים</div></div>
+  <div class="m-num">שיטה 1 מתוך 4</div>
+  <div class="m-title">ניתוח טכני בלבד</div>
+  <div class="m-tag">📊 רק הגרף — בלי לקרוא חדשות</div>
+
+  <div class="sec">
+    <span class="sec-label">הרעיון הבסיסי</span>
+    <div class="sec-h">הגרף כבר יודע הכל — לפני שאתם יודעים</div>
+  </div>
+
+  <p>ניתוח טכני מבוסס על רעיון פשוט: <strong>כל מידע שקיים על חברה — כבר מגולם במחיר.</strong> כשמוסדיים גדולים (קרנות שמנהלות מיליארדים) יודעים שמשהו טוב הולך לקרות, הם מתחילים לקנות. הקנייה שלהם מופיעה על הגרף — בצורת עלייה בנפח ובמחיר — לפני שהחדשות יוצאות לציבור.</p>
+
+  <p>לכן, הטכנאי לא צריך לדעת אם Apple מכרה יותר אייפונים השנה. הוא רואה שהגרף מראה דפוס מסוים, שהנפח עלה, שיש תמיכה ברמה מסוימת — ומחליט על פי זה בלבד.</p>
+
+  <div class="ca blue">
+    <span class="ca-title">🧠 למה זה עובד?</span>
+    <p>בני אדם מגיבים לפחד ולתאווה בצורה דומה מאז ומתמיד. הגרפים רושמים את הפסיכולוגיה הזו. דפוסים שחזרו על עצמם ב-1990 — חוזרים גם ב-2024. לא כי יש חוק טבע, אלא כי בני אדם לא השתנו.</p>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">שלושת הכלים שמספיקים</span>
+    <div class="sec-h">לא צריך עשרים אינדיקטורים — צריך שלושה שמסכימים</div>
+  </div>
+
+  <p>הטעות של רוב המתחילים היא לצבור אינדיקטורים על הגרף עד שהם לא רואים כלום. בפועל, שלושה כלים מספיקים — ובתנאי שכולם מצביעים לאותו כיוון.</p>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">כלי 1</span><span class="ex-title">Moving Average — קו המגמה</span></div>
+    <div class="ex-body">
+      <p>Moving Average (MA) הוא ממוצע המחיר של המניה ב-X ימים אחרונים. הוא "מחליק" את התנודות היומיות ומראה לאן המניה בעצם הולכת.</p>
+      <p>הכי חשובים: <strong>MA50</strong> (ממוצע 50 ימים — מגמה קצרה-בינונית) ו-<strong>MA200</strong> (ממוצע 200 ימים — מגמה ארוכה). הכלל: <em>מניה שמחירה מעל MA50 שמעל MA200 — נמצאת במגמה עולה חזקה.</em></p>
+      <div class="chart"><pre>
+  מניה ****  (מחיר)
+          ****
+ _ _ _ _ _ _ _****_ _ _  MA50
+ _ _ _ _ _ _ _ _ _ _****  MA200
+ 
+ מניה מעל MA50 שמעל MA200 = ✅ תנאי ראשון מתקיים</pre></div>
+      <div class="ca amber">
+        <span class="ca-title">⚠️ מה זה אומר בפועל?</span>
+        <p>אם מניה נמצאת <strong>מתחת</strong> ל-MA200 — היא במגמה יורדת ארוכת-טווח. לא כדאי לקנות נגד מגמה ארוכה. המתינו שתעבור מעל MA200 לפני שאתם שוקלים כניסה.</p>
       </div>
-      <div class="ca a">🤔 ב-2018 ירדה 40%. ב-2020 ירדה 30%. מי שמכר מפחד — הפסיד. מי שהחזיק — הרוויח פי 10.</div>
     </div>
   </div>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><strong>בחרו חברה שאתם מאמינים בה</strong> — גדולה, ותיקה, עדיין גדלה. Apple, Microsoft, Google.</div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><strong>קנו ושכחו</strong> — כמו לקנות דירה. לא בודקים מחיר כל יום.</div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><strong>לא מוכרים בירידות</strong> — כל ירידה גדולה בהיסטוריה התאוששה.</div></div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">כלי 2</span><span class="ex-title">RSI — מד הלחץ</span></div>
+    <div class="ex-body">
+      <p>RSI הוא מספר בין 0 ל-100 שמודד <strong>כמה מהר ועד כמה המניה זזה</strong> לאחרונה. הוא עונה על שאלה אחת: "האם המניה עלתה יותר מדי מהר, ועשויה לירד? או ירדה יותר מדי מהר, ועשויה להיתפס?"</p>
+      <table class="compare">
+        <tr><th>RSI</th><th>מה זה אומר</th><th>מה לעשות</th></tr>
+        <tr><td><strong>מעל 70</strong></td><td>עלתה מהר מדי — "Overbought"</td><td><span class="tag-r">לא לקנות</span></td></tr>
+        <tr><td><strong>50–70</strong></td><td>מגמה חיובית בריאה</td><td><span class="tag-g">אזור טוב</span></td></tr>
+        <tr><td><strong>30–50</strong></td><td>מגמה שלילית, אך לא קיצונית</td><td>המתינו</td></tr>
+        <tr><td><strong>מתחת 30</strong></td><td>ירדה מהר מדי — "Oversold"</td><td><span class="tag-g">עשויה לקפוץ</span></td></tr>
+      </table>
+      <div class="ca blue">
+        <span class="ca-title">💡 איך משתמשים ב-RSI נכון</span>
+        <p>RSI לבד לא מספיק. מניה יכולה להיות RSI 80 ולהמשיך לעלות שבועות. הכוח שלו הוא ב<strong>Divergence</strong>: המחיר עולה לשיא חדש, אבל ה-RSI עושה שיא נמוך יותר — זה סימן שהעלייה מאבדת כוח.</p>
+      </div>
+    </div>
   </div>
-  <div class="pc">
-    <div class="pro"><h4>✅ יתרונות</h4><ul><li>לא צריך לעקוב כל יום</li><li>מנצחת רוב השיטות</li><li>עמלות נמוכות</li></ul></div>
-    <div class="con"><h4>⚠️ חסרונות</h4><ul><li>כסף תקוע שנים</li><li>חברה גרועה = הפסד</li><li>דורש סבלנות בירידות</li></ul></div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">כלי 3</span><span class="ex-title">Support &amp; Resistance — רצפה ותקרה</span></div>
+    <div class="ex-body">
+      <p>כל מניה מגיעה לרמות מחיר מסוימות שבהן היא "עוצרת". <strong>Support</strong> הוא מחיר שממנו המניה קפצה למעלה כבר כמה פעמים — "הרצפה". <strong>Resistance</strong> הוא מחיר שממנו ירדה כמה פעמים — "התקרה".</p>
+      <p>למה הרמות האלה עובדות? כי אנשים זוכרים. מי שקנה ב-$100 לפני חצי שנה, המניה ירדה ל-$70, ועכשיו חזרה ל-$100 — רוצה "לצאת בשווה" ומוכר. זה יוצר לחץ מכירה בדיוק ב-$100.</p>
+      <div class="chart"><pre>
+ $110 |    רצה לכאן      ← Resistance = תקרה
+ $100 |====================================
+  $90 |       ***   ***
+  $80 |   ***     *
+  $70 |====================================  ← Support = רצפה
+  $65 |
+
+ כל פעם שהמניה נוגעת ב-$70 — קונים נכנסים וסוגרים
+ כל פעם שנוגעת ב-$100 — מוכרים נכנסים ומורידים</pre></div>
+      <div class="ca green">
+        <span class="ca-title">✅ הנקודה הכי חשובה</span>
+        <p>כשמניה פורצת מעל Resistance — הוא הופך ל-Support. $100 שהייתה "תקרה" — אחרי הפריצה הופכת ל"רצפה". זה נקרא Role Reversal, וזה אחד הדברים הכי עקביים בניתוח טכני.</p>
+      </div>
+    </div>
   </div>
-  <div class="sum"><h3>📋 סיכום</h3>
-    <div class="sr"><span class="sl">מתאים ל:</span><span class="sv">כולם, מי שאין לו זמן לעקוב</span></div>
-    <div class="sr"><span class="sl">אופק זמן:</span><span class="sv">5 שנים ומעלה</span></div>
-    <div class="sr"><span class="sl">זמן בשבוע:</span><span class="sv">כמעט אפס</span></div>
-    <div class="sr"><span class="sl">סיכון:</span><span class="sv">בינוני</span></div>
+
+  <div class="sec">
+    <span class="sec-label">דוגמה מלאה</span>
+    <div class="sec-h">Nvidia אפריל 2023 — כניסה טכנית צעד אחר צעד</div>
   </div>
-  <div class="nav"><button class="nb" disabled>←</button><span class="nc2">1 / 10</span><button class="nb" onclick="show(1)">הבא →</button></div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">NVDA</span><span class="ex-title">Nvidia — ניתוח טכני מלא, ללא חדשות</span></div>
+    <div class="ex-body">
+      <p>דמיינו שאתם לא יודעים מה Nvidia עושה. יש לכם רק גרף. הנה מה רואים:</p>
+
+      <div class="story">
+        <div class="story-step">
+          <div class="story-num">1</div>
+          <div class="story-text"><strong>מגמה:</strong> המניה נמצאת מעל MA50 שנמצאת מעל MA200. תנאי ראשון — ✅ מגמה עולה.</div>
+        </div>
+        <div class="story-step">
+          <div class="story-num">2</div>
+          <div class="story-text"><strong>Support:</strong> המניה ירדה לאזור $270 שלוש פעמים בחודשים האחרונים — ובכל פעם קפצה. זו "רצפה" מוכחת.</div>
+        </div>
+        <div class="story-step">
+          <div class="story-num">3</div>
+          <div class="story-text"><strong>RSI:</strong> ירד ל-38. לא Oversold קיצוני, אבל בטווח שבו נוצרות כניסות טובות על Support.</div>
+        </div>
+        <div class="story-step">
+          <div class="story-num green">4</div>
+          <div class="story-text"><strong>שלושת הכלים הסכימו</strong> — מגמה עולה + Support מוכח + RSI נמוך. זה נקרא Confluence. כאן נכנסים.</div>
+        </div>
+      </div>
+
+      <div class="chart"><pre>
+ Nvidia מרץ–מאי 2023
+
+ $320 |                              ****
+ $300 |                         ****
+ $285 |                    ****
+ $270 |****  ****  ****               ← Support חזק!
+      +--+---+---+---+---+---+---
+       מרץ  אפר  מאי  יון  יול
+
+ RSI:  38 ← קרוב לאזור הכניסה
+ MA50: מניה מעליה ✅
+ Vol:  עלה בדיוק כשנגעה ב-$270 ✅</pre></div>
+
+      <div class="nums">
+        <div class="num-card"><span class="num-n">$272</span><span class="num-l">כניסה — Support</span></div>
+        <div class="num-card"><span class="num-n">$258</span><span class="num-l">Stop Loss — מתחת Support</span></div>
+        <div class="num-card"><span class="num-n g">$310</span><span class="num-l">Target — Resistance</span></div>
+      </div>
+
+      <p>שלושה שבועות אחר כך — Nvidia הגיעה ל-$308. <strong>רווח של 13%</strong> — בלי לקרוא מילה על החברה.</p>
+
+      <div class="ca amber">
+        <span class="ca-title">⚠️ מה היה עושה Stop Loss?</span>
+        <p>אם Nvidia הייתה יורדת מתחת ל-$258 — Support נשבר. המשמעות: הסיפור השתנה, יש לחץ מכירה שאנחנו לא מבינים. יוצאים עם הפסד של ~5% ולא מחכים שיהפוך ל-30%.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <span class="rule-title">הכללים לפני כל כניסה טכנית</span>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">מניה מעל MA50 שמעל MA200 — מגמה כללית חיובית</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">RSI בין 30–55 — לא "חמה" מדי, יש מקום לעלייה</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">קרובה לרמת Support שהוכחה לפחות פעמיים</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">Volume גבוה יותר מהממוצע ביום הכניסה</span></div>
+    <div class="rule"><span class="rule-dot r">✗</span><span class="rule-text">פחות מ-3 תנאים מתקיימים — לא נכנסים</span></div>
+    <div class="rule"><span class="rule-dot r">✗</span><span class="rule-text">Earnings בשבוע הקרוב — ממתינים אחרי הדוח</span></div>
+  </div>
+
+  <div class="summary">
+    <h3>📋 סיכום השיטה</h3>
+    <div class="sum-row"><span class="sum-label">מה זה</span><span class="sum-val">קנייה לפי גרף בלבד — Support, RSI, MA מסכימים</span></div>
+    <div class="sum-row"><span class="sum-label">משך עסקה</span><span class="sum-val">1–6 שבועות</span></div>
+    <div class="sum-row"><span class="sum-label">זמן נדרש</span><span class="sum-val">15 דקות ביום — בדיקה בסגירת שוק</span></div>
+    <div class="sum-row"><span class="sum-label">פוטנציאל</span><span class="sum-val">8%–25% לעסקה טובה</span></div>
+    <div class="sum-row"><span class="sum-label">Stop Loss</span><span class="sum-val">מתחת לרמת Support — לרוב 5%–8%</span></div>
+    <div class="sum-row"><span class="sum-label">כלי חינמי</span><span class="sum-val">TradingView.com — כל האינדיקטורים</span></div>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" disabled>←</button>
+    <span class="nav-cur">1 / 4</span>
+    <button class="nav-btn" onclick="show(1)">הבא: Swing →</button>
+  </div>
 </div>
 
+<!-- ════════════════════════════════
+     שיטה 2 — Swing Trading
+════════════════════════════════ -->
 <div class="pg" id="p1">
-  <div class="num">שיטה 2 מתוך 10</div>
-  <div class="title">מסחר עם מגמה</div>
-  <div class="pill">💡 במילה אחת: תרכוב על הגל</div>
-  <p>מניה שכבר עולה — נוטה להמשיך לעלות לתקופה. השיטה אומרת: <strong>הצטרף לגל שכבר רץ</strong> — לא לנחש מי יהיה הגל הבא.</p>
-  <div class="ca b">📌 <strong>הכלל הזהב:</strong> "המגמה היא חברתך עד שהיא נשברת."</div>
-  <div class="box">
-    <div class="bxhdr"><span class="badge">NVDA</span> Nvidia — הגל הגדול של 2023</div>
-    <div class="bxbody">
-      <p>בתחילת 2023 Nvidia עלתה בגלל בום הבינה המלאכותית. מי שזיהה את המגמה — הרוויח המון.</p>
-<pre>
-$500 |                              *
-$400 |                         *
-$280 |                    *
-$180 |          *   &lt;-- נכנסת כאן
-$140 | *
-     +--+---+---+---+---+---+---
-      ינו  מרץ  מאי  יול  ספט  דצמ
-</pre>
-      <div class="nums">
-        <div class="nc"><span class="nn">$140</span><div class="nl">ינואר 2023</div></div>
-        <div class="nc"><span class="nn g">$500</span><div class="nl">דצמבר 2023</div></div>
-        <div class="nc"><span class="nn g">+257%</span><div class="nl">תוך שנה!</div></div>
-      </div>
-      <div class="ca a">⚠️ כל גל נגמר. Nvidia ב-2024 ירדה 30% לפני שחזרה. מי שנכנס בשיא — חכה הרבה.</div>
+  <div class="m-num">שיטה 2 מתוך 4</div>
+  <div class="m-title">Swing Trading</div>
+  <div class="m-tag">🏄 2–5 ימים על גל קצר</div>
+
+  <div class="sec">
+    <span class="sec-label">הרעיון הבסיסי</span>
+    <div class="sec-h">כל מניה "מתנדנדת" — קנו בתחתית, מכרו בפסגה</div>
+  </div>
+
+  <p>אפילו מניה שעולה לאורך שנים — לא עולה בקו ישר. היא עולה שבועיים, יורדת מעט, עולה שוב. כמו גלים בים. Swing Trading אומר: <strong>לא מנסים לרכוב על הגל כולו. מנסים לתפוס את הגל הקרוב — ולצאת לפני שהוא מתהפך.</strong></p>
+
+  <p>ההבדל מניתוח טכני רגיל: ב-Swing Trading אתם יודעים מראש בדיוק <em>מה ה-Target שלכם</em>, <em>מה ה-Stop Loss שלכם</em>, ו-<em>כמה ימים אתם מוכנים להחזיק</em>. כל זה מוחלט לפני הכניסה.</p>
+
+  <div class="ca blue">
+    <span class="ca-title">🎯 למה זה שונה מ"סתם לקנות ולחכות"?</span>
+    <p>ב-Swing Trading יש <strong>תוכנית יציאה ברורה</strong> — לא "אמכור כשארגיש שהגיע הזמן". הגדרתם: "נכנסתי ב-$90, אם יגיע ל-$105 — אמכור, אם יירד ל-$84 — אמכור". ברגע הכניסה אתם יודעים את כל שלושת המספרים האלה.</p>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">כיצד מוצאים Swing Trade</span>
+    <div class="sec-h">מה לחפש בגרף</div>
+  </div>
+
+  <p>יש שני סוגי כניסות עיקריות ב-Swing Trading:</p>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">סוג א'</span><span class="ex-title">קנייה ב-Pullback — ירידה בתוך מגמה עולה</span></div>
+    <div class="ex-body">
+      <p>המניה נמצאת במגמה עולה, אבל ירדה מעט בשבוע האחרון — "Pullback". זה הזמן הכי טוב להיכנס: הרוח גבית, והמחיר זול יחסית למגמה.</p>
+      <div class="chart"><pre>
+   מגמה עולה עם Pullback:
+
+ $130 |              ****
+ $125 |         ****    ← יצאת כאן
+ $118 |      ***
+ $112 |   **   *** ← Pullback — ירד קצת
+ $108 | **        *** ← נכנסת כאן!
+      +--+---+---+---+---
+       שב1  שב2  שב3  שב4
+
+ ← נכנסים כשהירידה נעצרת ומגמה ממשיכה</pre></div>
     </div>
   </div>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><strong>עולה כמה חודשים ברצף?</strong> — לפחות 2–3 חודשים של עלייה עקבית.</div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><strong>הרבה אנשים קונים?</strong> — Volume גבוה = מגמה חזקה.</div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><strong>יש סיבה אמיתית?</strong> — Nvidia = AI. מגמה עם סיבה = חזקה יותר.</div></div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">סוג ב'</span><span class="ex-title">קנייה על פריצת Resistance — המניה שוברת תקרה</span></div>
+    <div class="ex-body">
+      <p>המניה הייתה תקועה תחת רמה מסוימת שבועות. פתאום שוברת אותה עם Volume גבוה. זה Swing Trader אוהב — תנועה ברורה עם מומנטום.</p>
+      <div class="chart"><pre>
+   פריצת Resistance:
+
+ $110 |               ****  ← מגיעים לכאן
+ $105 |           ****
+ $100 |========== RESISTANCE ========= ← פריצה!
+  $98 |  ***  ***  ***   ← תקועה שבועות
+  $95 | *
+      +--+---+---+---+---
+       שב1  שב2  שב3  שב4  שב5
+
+ ← נכנסים ביום הפריצה, כשסגרה מעל $100</pre></div>
+    </div>
   </div>
-  <div class="pc">
-    <div class="pro"><h4>✅ יתרונות</h4><ul><li>רווחים גדולים מהר</li><li>לא צריך לנחש</li></ul></div>
-    <div class="con"><h4>⚠️ חסרונות</h4><ul><li>גל נגמר בלי אזהרה</li><li>מניות חמות = תנודתיות</li></ul></div>
+
+  <div class="sec">
+    <span class="sec-label">דוגמה מלאה</span>
+    <div class="sec-h">Apple ספטמבר 2023 — Swing מלא עם כל הפרטים</div>
   </div>
-  <div class="sum"><h3>📋 סיכום</h3>
-    <div class="sr"><span class="sl">מתאים ל:</span><span class="sv">מי שעוקב כמה פעמים בשבוע</span></div>
-    <div class="sr"><span class="sl">אופק זמן:</span><span class="sv">שבועות–חודשים</span></div>
-    <div class="sr"><span class="sl">סיכון:</span><span class="sv">בינוני–גבוה</span></div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">AAPL</span><span class="ex-title">Apple — Swing Trade, ספטמבר 2023</span></div>
+    <div class="ex-body">
+      <p>ספטמבר 2023: Apple ירדה 10% בתוך שלושה שבועות — ירידה שוק כללית, לא בעיה ב-Apple עצמה. הגרף הראה Pullback לאזור Support ב-$167 עם RSI שירד ל-42.</p>
+
+      <div class="story">
+        <div class="story-step">
+          <div class="story-num">1</div>
+          <div class="story-text"><strong>זיהוי:</strong> Apple ב-Pullback. ירדה מ-$187 ל-$167. MA200 ב-$165 — כמה שניות מתחתנו. RSI = 42. Support ב-$165–$167 שהוכח ארבע פעמים.</div>
+        </div>
+        <div class="story-step">
+          <div class="story-num">2</div>
+          <div class="story-text"><strong>תוכנית לפני כניסה:</strong> כניסה ב-$168. Stop Loss ב-$161 (מתחת MA200 ו-Support). Target ב-$184 (Resistance קודם). סיכון: $7. פוטנציאל: $16. יחס 1:2.3.</div>
+        </div>
+        <div class="story-step">
+          <div class="story-num">3</div>
+          <div class="story-text"><strong>כניסה:</strong> ב-27 לספטמבר, Apple נגעה ב-$168 עם Volume שעלה — נכנסים.</div>
+        </div>
+        <div class="story-step">
+          <div class="story-num green">4</div>
+          <div class="story-text"><strong>יציאה:</strong> אחרי 5 שבועות, Apple הגיעה ל-$182. לא הגענו ל-Target המלא — אבל לקחנו רווח של $14 = <strong>+8.3%</strong> ב-5 שבועות.</div>
+        </div>
+      </div>
+
+      <div class="chart"><pre>
+ Apple ספטמבר–אוקטובר 2023
+
+ $187 | ***                         Resistance
+ $180 |    ***                 ****
+ $175 |       ***         ****
+ $168 |          ***  *** ← כניסה כאן!
+ $165 |_ _ _ _ _ _ _ _ _ _ _ _ _ _  Support/MA200
+ $161 |  (Stop Loss כאן)
+
+      +--+---+---+---+---+---
+       ספ  ספ  אוק  אוק  אוק</pre></div>
+
+      <div class="nums">
+        <div class="num-card"><span class="num-n">$168</span><span class="num-l">כניסה</span></div>
+        <div class="num-card"><span class="num-n r">$161</span><span class="num-l">Stop Loss</span></div>
+        <div class="num-card"><span class="num-n g">+10.4%</span><span class="num-l">רווח בפועל</span></div>
+      </div>
+    </div>
   </div>
-  <div class="nav"><button class="nb" onclick="show(0)">← הקודם</button><span class="nc2">2 / 10</span><button class="nb" onclick="show(2)">הבא →</button></div>
+
+  <div class="sec">
+    <span class="sec-label">ניהול העסקה</span>
+    <div class="sec-h">מה עושים אחרי שנכנסים — זה מה שמפריד בין מרוויחים למפסידים</div>
+  </div>
+
+  <p>הכניסה קלה. הקושי הוא מה שקורה אחרי. הנה שלושת המצבים שיקרו — ומה לעשות בכל אחד:</p>
+
+  <div class="story">
+    <div class="story-step">
+      <div class="story-num green">A</div>
+      <div class="story-text"><strong>המניה עולה לעבר ה-Target:</strong> לא עושים כלום. לא "נועלים רווחים" מוקדם מדי. מחכים ל-Target שהגדרתם מראש — ואז מוכרים. גרסה מתקדמת: מוכרים מחצית ב-Target, מחכים עם השנייה קצת יותר.</div>
+    </div>
+    <div class="story-step">
+      <div class="story-num amber">B</div>
+      <div class="story-text"><strong>המניה לא זזה — תקועה:</strong> אחרי שבוע-שבועיים בלי תנועה — שקלו יציאה. הכסף שלכם "תקוע" ויכול לעבוד במקום אחר. זמן הוא גם עלות.</div>
+    </div>
+    <div class="story-step">
+      <div class="story-num red">C</div>
+      <div class="story-text"><strong>המניה יורדת לאזור ה-Stop Loss:</strong> יוצאים. לא מחכים, לא מתפללים שתחזור. Stop Loss שאתם לא מקיימים — הוא לא Stop Loss, הוא ניחוש.</div>
+    </div>
+  </div>
+
+  <div class="ca red">
+    <span class="ca-title">🚨 הטעות הכי נפוצה ב-Swing Trading</span>
+    <p>להחזיק מניה שהגיעה ל-Stop Loss ו"לתת לה עוד קצת". ב-90% מהמקרים — היא ממשיכה לרדת. ה-Stop Loss קיים מסיבה: הוא אומר "הסיפור שבו האמנת השתנה — צא."</p>
+  </div>
+
+  <div class="rule-box">
+    <span class="rule-title">ארבעת הכללים שלפני כל Swing Trade</span>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">יש Support ברור שהוכח לפחות פעמיים</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">יחס סיכון:רווח לפחות 1:2 (מסכנים $1, מרוויחים $2)</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">RSI לא מעל 65 — לא "חמה" מדי</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">אין Earnings בשבוע הקרוב — יכול לשנות הכל</span></div>
+    <div class="rule"><span class="rule-dot r">✗</span><span class="rule-text">לא מזזים Stop Loss לרעתנו — אף פעם</span></div>
+  </div>
+
+  <div class="summary">
+    <h3>📋 סיכום השיטה</h3>
+    <div class="sum-row"><span class="sum-label">מה זה</span><span class="sum-val">תפיסת גל קצר של 2–5 ימים עם תוכנית יציאה ברורה</span></div>
+    <div class="sum-row"><span class="sum-label">משך עסקה</span><span class="sum-val">3–5 שבועות בממוצע</span></div>
+    <div class="sum-row"><span class="sum-label">זמן נדרש</span><span class="sum-val">בדיקה פעם ביום — 10–20 דקות</span></div>
+    <div class="sum-row"><span class="sum-label">פוטנציאל</span><span class="sum-val">8%–30% לעסקה. עסקה מצוינת = 50%+</span></div>
+    <div class="sum-row"><span class="sum-label">הסיכון העיקרי</span><span class="sum-val">חדשות בלילה יכולות לשנות הכל</span></div>
+    <div class="sum-row"><span class="sum-label">מתאים ל</span><span class="sum-val">מי שרוצה לסחור בלי לשבת על המסך כל היום</span></div>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" onclick="show(0)">← ניתוח טכני</button>
+    <span class="nav-cur">2 / 4</span>
+    <button class="nav-btn" onclick="show(2)">הבא: קנה בירידה →</button>
+  </div>
 </div>
 
+<!-- ════════════════════════════════
+     שיטה 3 — קנה בירידה
+════════════════════════════════ -->
 <div class="pg" id="p2">
-  <div class="num">שיטה 3 מתוך 10</div>
-  <div class="title">קנייה בירידה</div>
-  <div class="pill">💡 במילה אחת: מבצע</div>
-  <p>חברה טובה נופלת בגלל סיבה זמנית — זו הזדמנות לקנות אותה <strong>בזול</strong>. כמו Zara ב-40% הנחה — הבגדים לא נהיו גרועים, פשוט יש מכירה.</p>
-  <div class="ca b">📌 <strong>המפתח:</strong> עובד רק על חברות טובות. צריך להבדיל בין ירידה זמנית לבעיה אמיתית.</div>
-  <div class="box">
-    <div class="bxhdr"><span class="badge">AMZN</span> Amazon — COVID מרץ 2020</div>
-    <div class="bxbody">
-      <p>מרץ 2020: כל השוק קרס. Amazon ירדה 25%. אבל Amazon נהייתה רק יותר רלוונטית — אנשים קנו יותר online בגלל המגפה.</p>
-<pre>
-$3,800 |                              *
-$2,170 | ****               *
-$1,626 |     ****  &lt;-- קנייה כאן
-       +--+---+---+---+---+---+---
-        ינו  מרץ  מאי  יול  ספט  ינו
-        2020                     2021
-</pre>
+  <div class="m-num">שיטה 3 מתוך 4</div>
+  <div class="m-title">קנה בירידה</div>
+  <div class="m-tag">🛍️ חברה טובה במחיר מבצע</div>
+
+  <div class="sec">
+    <span class="sec-label">הרעיון הבסיסי</span>
+    <div class="sec-h">השוק מגזים בתגובה לחדשות — בשני הכיוונים</div>
+  </div>
+
+  <p>כשיוצאות חדשות רעות — אנשים מפחדים ומוכרים. לפעמים הם מוכרים הרבה יותר ממה שמוצדק. מניה שווה $100 צונחת ל-$65 בגלל בעיה שבעוד שנה לא תהיה רלוונטית. <strong>קנה בירידה אומרת: היה אחד שקונה כשכולם מוכרים.</strong></p>
+
+  <p>זו השיטה שWillem Buffett תיאר כ"פחד כשאחרים תאבים, ותאווה כשאחרים פוחדים". קל לומר. קשה מאוד לבצע — כי כשכולם מוכרים מפחד, גם אתם תרגישו את הפחד.</p>
+
+  <div class="ca amber">
+    <span class="ca-title">⚠️ ההבדל הכי חשוב: "מבצע" לעומת "בעיה אמיתית"</span>
+    <p>לא כל ירידה היא הזדמנות. צריך לשאול: <strong>האם הסיבה לירידה היא זמנית, או שמשהו אמיתי נשבר?</strong> Amazon שירדה בגלל COVID — זמנית. חברת טלפונים שירדה כי Apple גנבה לה את כל הלקוחות — בעיה אמיתית.</p>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">כיצד מחליטים</span>
+    <div class="sec-h">שלוש שאלות לפני שקונים בירידה</div>
+  </div>
+
+  <div class="story">
+    <div class="story-step">
+      <div class="story-num">1</div>
+      <div class="story-text"><strong>האם החברה עצמה השתנה לרע?</strong> — אם אפל ירדה בגלל מלחמת סחר בין ארה"ב לסין, היא עדיין מוכרת מיליארדי מוצרים. אם אפל ירדה כי אנדרואיד גנב לה 40% מהשוק — זו בעיה אמיתית.</div>
+    </div>
+    <div class="story-step">
+      <div class="story-num">2</div>
+      <div class="story-text"><strong>כמה ירדה ביחס לסיבה?</strong> — חדשות רעות שגרמו לירידה של 5% = מתאים. חדשות רעות שגרמו לירידה של 40% = השוק מגזים, ייתכן הזדמנות.</div>
+    </div>
+    <div class="story-step">
+      <div class="story-num">3</div>
+      <div class="story-text"><strong>כמה זמן עד שהבעיה תיפתר?</strong> — מגפה = שנה-שנתיים. ריבית גבוהה = שנה-שלוש. פיצוץ מפעל = חצי שנה. אם אתם מוכנים לחכות — שקלו כניסה.</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">דוגמה מלאה</span>
+    <div class="sec-h">Nvidia אחרי הקריסה של 2022 — ירידה של 65%</div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">NVDA</span><span class="ex-title">Nvidia 2022 — ירידה של 65%, ומה שקרה אחר כך</span></div>
+    <div class="ex-body">
+      <p>בין נובמבר 2021 לאוקטובר 2022, Nvidia ירדה מ-$330 ל-$112 — ירידה של <strong>65%</strong>. הסיבות: ריבית עלתה, שוק הגיימינג האט, הכנסות ירדו. פחד ענק בשוק.</p>
+
+      <p>מי שניתח את השאלות שלנו ב-2022: האם Nvidia השתנתה לרע? כלל לא — הם עדיין חברת הגרפיקה הטובה בעולם. האם הסיבה זמנית? כן — ריבית תרד בסוף, גיימינג יחזור. כמה זמן? שנה-שנתיים. מוכן לחכות? כן.</p>
+
+      <div class="chart"><pre>
+ Nvidia 2021–2024
+
+ $900 |                                    ****
+ $700 |                              ****
+ $500 |                         ****
+ $330 | ***                ****
+ $250 |    ***        ****
+ $160 |       ***  ***   ← קנה בירידה כאן!
+ $112 |          **      ← שפל
+      +--+---+---+---+---+---+---+---
+       נוב  מרץ  יול  נוב  מרץ  יול  נוב
+       2021  2022       2022  2023      2023</pre></div>
+
       <div class="nums">
-        <div class="nc"><span class="nn r">$1,626</span><div class="nl">שפל COVID</div></div>
-        <div class="nc"><span class="nn g">$3,800</span><div class="nl">שנה אחר כך</div></div>
-        <div class="nc"><span class="nn g">+133%</span><div class="nl">תוך שנה!</div></div>
+        <div class="num-card"><span class="num-n r">$112</span><span class="num-l">שפל אוק' 2022</span></div>
+        <div class="num-card"><span class="num-n">$160</span><span class="num-l">כניסה (אחרי אישור)</span></div>
+        <div class="num-card"><span class="num-n g">+462%</span><span class="num-l">עד סוף 2023</span></div>
+      </div>
+
+      <div class="ca green">
+        <span class="ca-title">✅ מה שקרה</span>
+        <p>מי שקנה ב-$160 בתחילת 2023 — כשה-AI Boom התחיל, Nvidia הפכה ל"חברת הכי חשובה בעולם". ב-$900 בסוף 2023. <strong>+462%</strong>. לא כי הם ניחשו את ה-AI — כי הם קנו חברה מצוינת במחיר מבצע ב-65% הנחה.</p>
       </div>
     </div>
   </div>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><strong>בנו "רשימת רצון"</strong> — חברות שתרצו לקנות אם תרדנה.</div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><strong>קבעו מחיר</strong> — "אקנה Apple אם תרד ל-$150" — וחכו.</div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><strong>שאלו: מה הסיבה?</strong> — אם זמנית — קנו. אם בעיה אמיתית — לא.</div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><strong>קנו בחלקים</strong> — לא הכל בבת אחת. קנו 30%, אם ירדה עוד — קנו עוד 30%.</div></div>
+
+  <div class="sec">
+    <span class="sec-label">הטכניקה המעשית</span>
+    <div class="sec-h">איך קונים בירידה בלי לקנות "בסכין נופלת"</div>
   </div>
-  <div class="pc">
-    <div class="pro"><h4>✅ יתרונות</h4><ul><li>קונים בזול</li><li>פוטנציאל רווח גבוה</li></ul></div>
-    <div class="con"><h4>⚠️ חסרונות</h4><ul><li>ירידה יכולה להמשיך</li><li>קשה רגשית לקנות כשכולם מוכרים</li></ul></div>
+
+  <p>"לתפוס סכין נופלת" — ביטוי שמתאר מי שקנה מניה שעוד ממשיכה לרדת. כדי למנוע זאת, לא קונים בחד פעמיות — קונים בחלקים:</p>
+
+  <div class="story">
+    <div class="story-step">
+      <div class="story-num">1</div>
+      <div class="story-text"><strong>קנייה ראשונה — 30% מהסכום:</strong> כשהמניה ירדה 20%–30% ממחיר השיא ואתם מאמינים שהסיבה זמנית. לא כל הכסף — רק חלק.</div>
+    </div>
+    <div class="story-step">
+      <div class="story-num">2</div>
+      <div class="story-text"><strong>קנייה שנייה — עוד 30%:</strong> אם המניה ירדה עוד 10%–15%. עכשיו עלות ממוצעת נמוכה יותר. זה נקרא Averaging Down — ורק לחברות שאתם בטוחים בהן.</div>
+    </div>
+    <div class="story-step">
+      <div class="story-num">3</div>
+      <div class="story-text"><strong>קנייה שלישית — 40% הנותרים:</strong> כשהגרף מראה שהירידה נעצרת — Volume יורד, יש Hammer Candle, RSI עולה מ-Oversold. עכשיו הכניסה הכי בטוחה.</div>
+    </div>
+    <div class="story-step">
+      <div class="story-num green">4</div>
+      <div class="story-text"><strong>סבלנות:</strong> זו לא שיטה לשבוע. מחזיקים חודשים עד שהשוק "מכיר" בשווי האמיתי של החברה. אורח הנפש זה הכלי הכי חשוב.</div>
+    </div>
   </div>
-  <div class="sum"><h3>📋 סיכום</h3>
-    <div class="sr"><span class="sl">מתאים ל:</span><span class="sv">מי שיציב רגשית בירידות</span></div>
-    <div class="sr"><span class="sl">אופק זמן:</span><span class="sv">חודשים–שנים</span></div>
-    <div class="sr"><span class="sl">סיכון:</span><span class="sv">בינוני</span></div>
+
+  <div class="ca red">
+    <span class="ca-title">🚨 מתי לא לקנות בירידה</span>
+    <p>אם הירידה נובעת מ: הונאה/חשד להונאה בחברה, מתחרה שגנב את כל השוק, מוצר עיקרי שהפך לא רלוונטי, חוב ענק שלא יכולים להחזיר — אלה לא "מבצעים", אלה בעיות אמיתיות. חברות כמו Kodak, Blockbuster, Nokia — ירדו ולא חזרו.</p>
   </div>
-  <div class="nav"><button class="nb" onclick="show(1)">← הקודם</button><span class="nc2">3 / 10</span><button class="nb" onclick="show(3)">הבא →</button></div>
+
+  <div class="summary">
+    <h3>📋 סיכום השיטה</h3>
+    <div class="sum-row"><span class="sum-label">מה זה</span><span class="sum-val">קנייה של חברה טובה כשהשוק מגזים בתגובה שלילית</span></div>
+    <div class="sum-row"><span class="sum-label">משך עסקה</span><span class="sum-val">חודשים עד שנה-שנתיים</span></div>
+    <div class="sum-row"><span class="sum-label">זמן נדרש</span><span class="sum-val">שעה בחודש — לא שיטה אקטיבית</span></div>
+    <div class="sum-row"><span class="sum-label">פוטנציאל</span><span class="sum-val">50%–500% בעסקות הטובות ביותר</span></div>
+    <div class="sum-row"><span class="sum-label">הסיכון העיקרי</span><span class="sum-val">לטעות בין "ירידה זמנית" לבין "חברה גרועה"</span></div>
+    <div class="sum-row"><span class="sum-label">מתאים ל</span><span class="sum-val">מי שמוכן לחכות ורגשית יציב בירידות</span></div>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" onclick="show(1)">← Swing Trading</button>
+    <span class="nav-cur">3 / 4</span>
+    <button class="nav-btn" onclick="show(3)">הבא: Gap &amp; Go →</button>
+  </div>
 </div>
 
+<!-- ════════════════════════════════
+     שיטה 4 — Gap & Go
+════════════════════════════════ -->
 <div class="pg" id="p3">
-  <div class="num">שיטה 4 מתוך 10</div>
-  <div class="title">סכום קבוע כל חודש</div>
-  <div class="pill">💡 במילה אחת: קצת כל חודש</div>
-  <p>כל חודש, ב-1 לחודש, מפקידים <strong>אותו סכום</strong> — נניח 500 ש"ח — וקונים מניות. לא משנה מה המחיר. זה נקרא <strong>DCA — Dollar-Cost Averaging</strong>.</p>
-  <div class="ca g">🎯 <strong>הקסם:</strong> כשמחיר גבוה — קונים פחות יחידות. כשנמוך — קונים יותר. עם הזמן העלות הממוצעת יוצאת טובה מאוד.</div>
-  <div class="box">
-    <div class="bxhdr"><span class="badge">SPY</span> 500 ש"ח לחודש — 10 שנים</div>
-    <div class="bxbody">
-<pre>
-חודש   | מחיר | 500 ש"ח = כמה יחידות
--------|------|---------------------
-ינואר  | 100  | 5.0 יחידות
-פברואר |  80  | 6.25 יחידות &lt;-- יותר!
-מרץ    | 110  | 4.5 יחידות
-</pre>
+  <div class="m-num">שיטה 4 מתוך 4</div>
+  <div class="m-title">Gap &amp; Go</div>
+  <div class="m-tag">⚡ פתיחה בקפיצה — ורוב היום עולה</div>
+
+  <div class="sec">
+    <span class="sec-label">הרעיון הבסיסי</span>
+    <div class="sec-h">מניה שפתחה גבוה מאתמול — לרוב ממשיכה לעלות</div>
+  </div>
+
+  <p>המסחר בארה"ב נסגר בלילה ונפתח שוב בבוקר. בלילה יוצאות חדשות — תוצאות רבעוניות, אישורי FDA, רכישות, הכרזות. כשחדשות טובות יוצאות אחרי סגירת שוק, המניה פותחת למחרת גבוה משמעותית ממה שנסגרה. הפער הזה נקרא <strong>Gap Up</strong>.</p>
+
+  <p>Gap &amp; Go אומרת: <strong>כשמניה פותחת עם Gap גדול ועם Volume ענקי — המומנטום לרוב ממשיך לפחות את שעות הבוקר הראשונות.</strong> נכנסים מהר, מרוויחים מהמשך העלייה, ויוצאים לפני שהגל נגמר.</p>
+
+  <div class="ca blue">
+    <span class="ca-title">📌 למה Gap ממשיך לעלות?</span>
+    <p>כשמניה פותחת ב-Gap גדול — אנשים שלא הגיבו מהר מספיק רוצים להיכנס "לפני שתמשיך". זה יוצר גל קנייה שדוחף אותה גבוה יותר. בנוסף, Short Sellers (אנשים שמהמרים שהמניה תרד) חייבים לסגור פוזיציה בהפסד — וזה מוסיף קנייה נוספת.</p>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">Gap אמיתי לעומת מלכודת</span>
+    <div class="sec-h">הכי חשוב — לדעת אם Gap ימשיך או ייסגר</div>
+  </div>
+
+  <p>לא כל Gap ממשיך לעלות. יש Gaps שנפתחים גבוה ואז חוזרים בחדות לנקודת הסגירה של אתמול — "Gap Fill". זו המלכודת הקלאסית של מתחילים: קנו כי "עלתה", ואז ירדה חזרה.</p>
+
+  <table class="compare">
+    <tr><th>סימן</th><th>Gap אמיתי ✅</th><th>Gap Fill מסוכן ⚠️</th></tr>
+    <tr><td>Volume</td><td><span class="tag-g">פי 3–5 מהממוצע</span></td><td><span class="tag-r">ממוצע או פחות</span></td></tr>
+    <tr><td>סיבה</td><td><span class="tag-g">Earnings חזק, FDA, עסקה</span></td><td><span class="tag-r">גרפית בלבד, ללא חדשות</span></td></tr>
+    <tr><td>בשעה הראשונה</td><td><span class="tag-g">ממשיכה לעלות</span></td><td><span class="tag-r">מתחילה לרדת</span></td></tr>
+    <tr><td>Gap גודל</td><td><span class="tag-g">5%–20%</span></td><td><span class="tag-r">פחות מ-3% — חלש</span></td></tr>
+    <tr><td>שוק כללי</td><td><span class="tag-g">S&P 500 ירוק</span><br></td><td><span class="tag-r">S&P 500 אדום</span></td></tr>
+  </table>
+
+  <div class="sec">
+    <span class="sec-label">דוגמה מלאה</span>
+    <div class="sec-h">Netflix אוקטובר 2023 — Gap אחרי Earnings</div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">NFLX</span><span class="ex-title">Netflix — Gap &amp; Go מלא, 19 אוקטובר 2023</span></div>
+    <div class="ex-body">
+      <p>Netflix פרסמה תוצאות רבעוניות ב-18 לאוקטובר אחרי סגירת שוק. התוצאות הפתיעו לטובה — הוסיפו 8.76 מיליון מנויים, הרבה מעל ציפיות. המניה סגרה ב-$388.</p>
+
+      <p>למחרת בבוקר, ב-9:30, NFLX פתחה ב-<strong>$446</strong> — Gap של <strong>15%</strong>. Volume בשעה הראשונה: פי 6 מהממוצע. כל הסימנים של Gap אמיתי.</p>
+
+      <div class="story">
+        <div class="story-step">
+          <div class="story-num">1</div>
+          <div class="story-text"><strong>9:30 — פתיחה:</strong> המניה נפתחת ב-$446. Volume ענקי. האם ממשיכה לעלות או חוזרת? מחכים 5–10 דקות לראות כיוון.</div>
+        </div>
+        <div class="story-step">
+          <div class="story-num">2</div>
+          <div class="story-text"><strong>9:38 — כניסה:</strong> המניה הגיעה ל-$451 — ממשיכה. נכנסים ב-$451. Stop Loss מתחת לנמוך של הבוקר — $442.</div>
+        </div>
+        <div class="story-step">
+          <div class="story-num green">3</div>
+          <div class="story-text"><strong>11:15 — יציאה:</strong> המניה הגיעה ל-$473. Volume מתחיל לרדת — הגל מאט. מוכרים ב-$471. רווח: <strong>+$20 למניה = +4.4%</strong> בפחות משתי שעות.</div>
+        </div>
+      </div>
+
+      <div class="chart"><pre>
+ Netflix 19 אוקטובר 2023
+
+ $480 |          ***
+ $473 |       ***   ***   ← יצאנו כאן
+ $465 |    ***
+ $458 |   *
+ $451 |  * ← נכנסנו כאן
+ $446 | *  ← פתיחה (Gap Up 15%)
+      = = = = = = = = = =  סגירה אתמול $388
+      +--+---+---+---+---+---
+       9:30 9:45 10:15 11:00 11:30 12:00</pre></div>
+
       <div class="nums">
-        <div class="nc"><span class="nn">60k</span><div class="nl">הפקדתם</div></div>
-        <div class="nc"><span class="nn g">~110k</span><div class="nl">שווי בסוף</div></div>
-        <div class="nc"><span class="nn g">+83%</span><div class="nl">רווח</div></div>
+        <div class="num-card"><span class="num-n">$388</span><span class="num-l">סגירה אמש</span></div>
+        <div class="num-card"><span class="num-n">$451</span><span class="num-l">כניסה</span></div>
+        <div class="num-card"><span class="num-n g">+2.2%</span><span class="num-l">רווח ב-80 דקות</span></div>
+      </div>
+
+      <div class="ca amber">
+        <span class="ca-title">⚠️ מה קרה אחר הצהריים</span>
+        <p>Netflix ירדה בחזרה ל-$450 עד סוף היום. מי שנכנס ב-Gap ולא יצא — איבד את הרווח. זו הנקודה המרכזית ב-Gap &amp; Go: <strong>לרוב הרווח מתרחש בשעות הבוקר. אחר הצהריים — מגמה לרדת.</strong></p>
       </div>
     </div>
   </div>
-  <div class="pc">
-    <div class="pro"><h4>✅ יתרונות</h4><ul><li>לא צריך לנחש מתי להיכנס</li><li>מתאים לכל תקציב</li><li>ניתן לאוטומציה</li></ul></div>
-    <div class="con"><h4>⚠️ חסרונות</h4><ul><li>דורש משמעת חודשית</li></ul></div>
+
+  <div class="sec">
+    <span class="sec-label">הסכנה הגדולה</span>
+    <div class="sec-h">Gap Fill — כשמניה חוזרת לנקודת ההתחלה</div>
   </div>
-  <div class="sum"><h3>📋 סיכום</h3>
-    <div class="sr"><span class="sl">מתאים ל:</span><span class="sv">כולם — במיוחד מתחילים</span></div>
-    <div class="sr"><span class="sl">אופק זמן:</span><span class="sv">10–30 שנה</span></div>
-    <div class="sr"><span class="sl">זמן בחודש:</span><span class="sv">5 דקות</span></div>
-    <div class="sr"><span class="sl">סיכון:</span><span class="sv">נמוך–בינוני</span></div>
+
+  <p>לא כל Gap ממשיך. לפעמים מניה פותחת ב-Gap גדול ואז <strong>ממלאת את ה-Gap</strong> — חוזרת בדיוק לאיפה שנסגרה אתמול. אלה Gaps שנוצרים מפחד/אופוריה קצרת-מועד.</p>
+
+  <div class="chart"><pre>
+ Gap Fill — המלכודת הקלאסית
+
+ $110 | * ← נפתח כאן (Gap Up)
+ $107 |   *
+ $104 |     *
+ $101 |       *  ← אנשים קנו כאן
+  $99 |         *
+  $97 |           *  ← Stop Loss הוציא
+  $95 |             *
+  $92 |               **  ← Gap Fill!
+  $90 |= = = = = = = = = =  סגירה אתמול
+  
+  מי שקנה ב-$101 ויצא ב-Stop Loss = הפסד
+  מי שהחזיק = הפסד גדול יותר</pre></div>
+
+  <div class="rule-box">
+    <span class="rule-title">כללי Gap &amp; Go</span>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">Volume פי 3+ מהממוצע ב-15 הדקות הראשונות</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">יש סיבה ברורה — Earnings, עסקה, הכרזה חדשה</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">בשעה הראשונה ממשיכה לעלות — לא נסגרת</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text">S&P 500 ירוק — שוק כללי תומך</span></div>
+    <div class="rule"><span class="rule-dot r">✗</span><span class="rule-text">לא נכנסים אחרי שעלתה 20%+ מהפתיחה — מאוחר מדי</span></div>
+    <div class="rule"><span class="rule-dot r">✗</span><span class="rule-text">לא מחזיקים לאחר 12:00 — רוב ה-Gap &amp; Go נגמרים בצהריים</span></div>
+    <div class="rule"><span class="rule-dot r">✗</span><span class="rule-text">Stop Loss תמיד מתחת לנמוך של שעה הראשונה</span></div>
   </div>
-  <div class="nav"><button class="nb" onclick="show(2)">← הקודם</button><span class="nc2">4 / 10</span><button class="nb" onclick="show(4)">הבא →</button></div>
+
+  <div class="summary">
+    <h3>📋 סיכום השיטה</h3>
+    <div class="sum-row"><span class="sum-label">מה זה</span><span class="sum-val">ניצול תנועה של שעות הבוקר לאחר Gap גדול עם Volume</span></div>
+    <div class="sum-row"><span class="sum-label">משך עסקה</span><span class="sum-val">30 דקות עד 4 שעות</span></div>
+    <div class="sum-row"><span class="sum-label">מתי פעיל</span><span class="sum-val">16:30–20:00 שעון ישראל (פתיחת NYSE)</span></div>
+    <div class="sum-row"><span class="sum-label">פוטנציאל</span><span class="sum-val">2%–15% ביום אחד בעסקות הטובות</span></div>
+    <div class="sum-row"><span class="sum-label">הסיכון העיקרי</span><span class="sum-val">Gap Fill — מניה חוזרת לנקודת הפתיחה</span></div>
+    <div class="sum-row"><span class="sum-label">מתאים ל</span><span class="sum-val">מי שיכול לעקוב בשעות הפתיחה האמריקאית</span></div>
+  </div>
+
+  <div class="ca blue">
+    <span class="ca-title">🏁 סיימתם את כל 4 השיטות</span>
+    <p><strong>המלצה:</strong> התחילו עם ניתוח טכני + Swing Trading — אפשר לתרגל ערב-ערב בלי לשבת על המסך. Gap &amp; Go דורש נוכחות בשעות שלרוב אנחנו עובדים. קנה בירידה דורש סבלנות שנבנית עם הזמן.</p>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" onclick="show(2)">← קנה בירידה</button>
+    <span class="nav-cur">4 / 4</span>
+    <button class="nav-btn" onclick="show(4)">הבא: אינדיקטורים →</button>
+  </div>
 </div>
 
 <div class="pg" id="p4">
-  <div class="num">שיטה 5 מתוך 10</div>
-  <div class="title">פריצת שיא</div>
-  <div class="pill">💡 במילה אחת: פריצה</div>
-  <p>כל מניה עוצרת לפעמים ב"תקרה" — מחיר שממנו היא נדחפת חזרה. כשהיא שוברת את התקרה — זה נקרא <strong>פריצה</strong>, ולרוב מסמן עלייה גדולה.</p>
-  <div class="box">
-    <div class="bxhdr"><span class="badge">TSLA</span> Tesla — פריצת 2020</div>
-    <div class="bxbody">
-      <p>Tesla הייתה תקועה בסביבות $200 כמה חודשים. ביוני 2020 פרצה עם Volume גדול.</p>
-<pre>
-$900 |                                   *
-$600 |                         *
-$350 |                    *
-$200 |= = = = = "תקרה" = = = = = = = =
-$180 | *  *  *  *
-           ^ פריצה! כניסה כאן
-     +--+---+---+---+---+---+---
-       ינו  מרץ  מאי  יול  ספט  נוב
-       2020
-</pre>
-      <div class="nums">
-        <div class="nc"><span class="nn">$200</span><div class="nl">מחיר הפריצה</div></div>
-        <div class="nc"><span class="nn g">$900</span><div class="nl">6 חודשים אחר כך</div></div>
-        <div class="nc"><span class="nn g">+350%</span><div class="nl">אחרי הפריצה</div></div>
+  <div class="m-num">שיטה 5 מתוך 6</div>
+  <div class="m-title">אינדיקטורים טכניים ב-Finviz</div>
+  <div class="m-tag">📡 הסינון שמוצא הזדמנויות לפני כולם</div>
+
+  <div class="sec">
+    <span class="sec-label">מה זה Finviz</span>
+    <div class="sec-h">מנוע חיפוש למניות — מוצא בשניות מה שהיה לוקח שעות</div>
+  </div>
+
+  <p>Finviz (finviz.com) הוא כלי חינמי שמאפשר לסנן את כל 8,000+ המניות הנסחרות בארה"ב לפי עשרות קריטריונים — טכניים, פונדמנטליים, וביצועיים. במקום לפתוח גרף של כל מניה בנפרד, Finviz מחזיר רשימה של מניות שכבר עומדות בתנאים שהגדרתם.</p>
+
+  <p>הנה האינדיקטורים הטכניים שמשמעותם הכי חשובה — ואיך כל אחד עוזר לבנות שיטת מסחר:</p>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">RSI</span><span class="ex-title">Relative Strength Index — עוצמת המגמה</span></div>
+    <div class="ex-body">
+      <p>ה-RSI ב-Finviz מסמן <strong>האם מניה עלתה או ירדה מהר מדי</strong> ביחס לתנועה ה"נורמלית" שלה. נע בין 0 ל-100.</p>
+      <table class="compare">
+        <tr><th>ערך RSI</th><th>מה זה אומר</th><th>שימוש</th></tr>
+        <tr><td><strong>מעל 70</strong></td><td>Overbought — עלתה מהר מדי</td><td><span class="tag-r">לא לקנות עכשיו</span></td></tr>
+        <tr><td><strong>50–70</strong></td><td>מגמה חיובית בריאה</td><td><span class="tag-g">אזור כניסה טוב</span></td></tr>
+        <tr><td><strong>30–50</strong></td><td>מגמה שלילית, לא קיצונית</td><td>המתינו</td></tr>
+        <tr><td><strong>מתחת 30</strong></td><td>Oversold — ירדה מהר מדי</td><td><span class="tag-g">עשויה לקפוץ</span></td></tr>
+      </table>
+      <div class="ca blue">
+        <span class="ca-title">💡 איך מסננים ב-Finviz</span>
+        <p>Screener ← Technical ← RSI(14) ← "Oversold (30)" — מקבלים את כל המניות שה-RSI שלהן מתחת ל-30. משם מחפשים אילו מהן נגעו ב-Support חזק = כניסה פוטנציאלית.</p>
       </div>
     </div>
   </div>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><strong>מצאו מניה תקועה</strong> — עולה ויורדת באותה רמה לפחות חודשיים.</div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><strong>חכו לפריצה</strong> — המניה עוברת מעל התקרה וסוגרת מעליה.</div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><strong>בדקו Volume</strong> — הרבה קונים ביום הפריצה = פריצה אמיתית.</div></div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">SMA</span><span class="ex-title">Simple Moving Average — מגמה לפי ממוצע</span></div>
+    <div class="ex-body">
+      <p>Finviz מאפשר לסנן לפי מיקום המחיר ביחס לממוצע נע. זה אחד הסינונים <strong>הכי חשובים</strong> — כי הוא מראה בבת אחת אם מניה נמצאת במגמה עולה או יורדת.</p>
+      <table class="compare">
+        <tr><th>פילטר Finviz</th><th>מה זה מחפש</th><th>שימוש</th></tr>
+        <tr><td>Price above SMA20</td><td>מחיר מעל ממוצע 20 יום — מגמה קצרה חיובית</td><td>Day Trading, Swing קצר</td></tr>
+        <tr><td>Price above SMA50</td><td>מחיר מעל ממוצע 50 יום — מגמה בינונית חיובית</td><td>Swing Trading</td></tr>
+        <tr><td>Price above SMA200</td><td>מחיר מעל ממוצע 200 יום — Bull Market למניה</td><td>כל סוגי הכניסות</td></tr>
+        <tr><td>SMA20 above SMA50</td><td>ממוצע קצר מעל ארוך — מגמה מתחזקת</td><td>סיגנל חיובי חזק</td></tr>
+      </table>
+      <div class="ca green">
+        <span class="ca-title">✅ שילוב מנצח</span>
+        <p>סנן: <strong>Price above SMA50 AND SMA50 above SMA200</strong> — קבלתם רשימה של מניות שנמצאות בעלייה בריאה, לא "שורפות" מדי מהר, ושהמגמה הארוכה תומכת. זה הבסיס לכל Swing Trade טוב.</p>
+      </div>
+    </div>
   </div>
-  <div class="pc">
-    <div class="pro"><h4>✅ יתרונות</h4><ul><li>נקודת כניסה ברורה</li><li>פוטנציאל לרווח גדול</li></ul></div>
-    <div class="con"><h4>⚠️ חסרונות</h4><ul><li>פריצות מזויפות — נפוצות</li><li>דורש מעקב שוטף</li></ul></div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">VOL</span><span class="ex-title">Volume — כמה כסף נכנס</span></div>
+    <div class="ex-body">
+      <p>Volume הוא מספר המניות שנסחרו ביום. הוא <strong>המאמת של כל סיגנל אחר</strong>. עלייה ללא Volume = לא אמינה. פריצה ללא Volume = לרוב מזויפת.</p>
+      <div class="chart"><pre>
+ Finviz Volume Filters:
+
+ "Volume over 1M"      — נזילות מינימלית, נמנעים מ-Penny Stocks
+ "Volume over 2M"      — מניות פעילות יותר
+ "Relative Volume 1.5" — נסחרה פי 1.5 מהממוצע היום
+ "Relative Volume 2+"  — פעילות חריגה — אות לחדשות/מוסדיים
+
+ הטוב ביותר לסינון: Relative Volume מעל 2 + עלייה</pre></div>
+      <div class="ca amber">
+        <span class="ca-title">⚠️ למה Relative Volume חשוב יותר מ-Volume מוחלט</span>
+        <p>Apple נסחרת בממוצע 60 מיליון מניות ביום. Nvidia — 40 מיליון. מניה קטנה — 500,000. "Volume גבוה" שונה לכל מניה. Relative Volume (RVol) אומר: <em>האם היום יש יותר מהממוצע שלה?</em> RVol 2.5 = פי 2.5 מהרגיל — זה חריג לכל מניה שהיא.</p>
+      </div>
+    </div>
   </div>
-  <div class="sum"><h3>📋 סיכום</h3>
-    <div class="sr"><span class="sl">מתאים ל:</span><span class="sv">מי שעוקב כל שבוע</span></div>
-    <div class="sr"><span class="sl">אופק זמן:</span><span class="sv">שבועות–חודשים</span></div>
-    <div class="sr"><span class="sl">סיכון:</span><span class="sv">בינוני–גבוה</span></div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">MACD</span><span class="ex-title">MACD — מתי המגמה מתחלפת</span></div>
+    <div class="ex-body">
+      <p>MACD (Moving Average Convergence Divergence) הוא האינדיקטור שמראה <strong>מתי מגמה אחת מסתיימת ואחרת מתחילה</strong>. פחות שימושי ב-Finviz לסינון, אבל חיוני כשבודקים גרף ספציפי.</p>
+      <div class="chart"><pre>
+ MACD Signal:
+
+ MACD עולה מעל Signal Line = התחלת מגמה חיובית → קנה
+ MACD יורד מתחת Signal Line = התחלת מגמה שלילית → שקול מכירה
+
+ MACD מעל 0 = מגמה כללית חיובית
+ MACD מתחת 0 = מגמה כללית שלילית
+
+ ב-Finviz: Technical → MACD → "Bull" או "Bear"</pre></div>
+    </div>
   </div>
-  <div class="nav"><button class="nb" onclick="show(3)">← הקודם</button><span class="nc2">5 / 10</span><button class="nb" onclick="show(5)">הבא →</button></div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">52W</span><span class="ex-title">52-Week High/Low — היכן המניה ביחס לשנה שעברה</span></div>
+    <div class="ex-body">
+      <p>Finviz מציג את מיקום המחיר ביחס לגבוה ולנמוך של 52 השבועות האחרונים. זה כלי פסיכולוגי חשוב — <strong>מניות שמגיעות לשיא חדש של 52 שבועות לרוב ממשיכות לשיאים חדשים.</strong></p>
+      <table class="compare">
+        <tr><th>מצב</th><th>משמעות</th><th>אסטרטגיה</th></tr>
+        <tr><td>New 52W High</td><td>המניה בשיא שנה — מחסומים הוסרו</td><td><span class="tag-g">Breakout — שקלו כניסה</span></td></tr>
+        <tr><td>Near 52W High (0–3%)</td><td>קרובה לפריצה</td><td>עקבו — פריצה קרובה</td></tr>
+        <tr><td>Near 52W Low (0–3%)</td><td>קרובה לשפל — עלולה להמשיך</td><td><span class="tag-r">זהירות — לא לתפוס סכין</span></td></tr>
+        <tr><td>50% מ-52W High</td><td>ירדה חצי משיא — ירידה קשה</td><td>רק ל-Buy the Dip עם סיבה</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">BETA</span><span class="ex-title">Beta — כמה המניה "קיצונית"</span></div>
+    <div class="ex-body">
+      <p>Beta מודד את <strong>תנודתיות המניה ביחס לשוק הכללי</strong>. Beta 1 = זזה כמו השוק. Beta 2 = זזה פי שניים — עולה יותר, יורדת יותר.</p>
+      <table class="compare">
+        <tr><th>Beta</th><th>אופי המניה</th><th>מתאים ל</th></tr>
+        <tr><td>מתחת ל-0.5</td><td>יציבה מאוד — Utilities, פרמצבטיקה</td><td>משקיעים שמרניים</td></tr>
+        <tr><td>0.5–1.0</td><td>פחות תנודתית מהשוק</td><td>Swing ארוך</td></tr>
+        <tr><td>1.0–1.5</td><td>תנודתיות נורמלית</td><td>Swing רגיל</td></tr>
+        <tr><td>1.5–3.0</td><td>תנודתית מאוד — Tech, Biotech</td><td>Gap &amp; Go, Momentum</td></tr>
+        <tr><td>מעל 3</td><td>קיצונית — מניות קטנות</td><td><span class="tag-r">סיכון גבוה מאוד</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="sec">
+    <span class="sec-label">שיטת מסחר מנצחת עם Finviz</span>
+    <div class="sec-h">הסינון שמוצא עסקות — לפני שכולם רואים אותן</div>
+  </div>
+
+  <p>הנה הסינון המדויק שמשלב את כל האינדיקטורים לשיטה אחת לוגית. פתחו Finviz Screener ובחרו:</p>
+
+  <div class="rule-box">
+    <span class="rule-title">Swing Trade Scanner — הגדרות מדויקות</span>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text"><strong>Market Cap: Mid to Large</strong> — מניות מ-$2B ומעלה. מספיק נזילות, לא Penny Stock.</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text"><strong>Price: Over $10</strong> — נמנעים ממניות זבל.</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text"><strong>Average Volume: Over 500K</strong> — אפשר לקנות ולמכור בלי להזיז מחיר.</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text"><strong>RSI(14): 30–50</strong> — לא "חמה" מדי. יש מקום לעלייה.</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text"><strong>SMA200: Price above SMA200</strong> — מגמה ארוכת-טווח חיובית.</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text"><strong>Performance: Down 5–10% over 4 weeks</strong> — ירדה קצת = Pullback. הזדמנות לכניסה.</span></div>
+    <div class="rule"><span class="rule-dot r">✗</span><span class="rule-text"><strong>לא לקנות לפני Earnings</strong> — בדקו ב-Earnings Calendar שאין דוח בשבועיים הקרובים.</span></div>
+  </div>
+
+  <p>הסינון הזה ייתן לכם <strong>5–20 מניות ביום</strong> שעומדות בכל התנאים. מכאן בודקים כל אחת בגרף — מחפשים Support ברור וכניסה.</p>
+
+  <div class="summary">
+    <h3>📋 סיכום</h3>
+    <div class="sum-row"><span class="sum-label">מה זה</span><span class="sum-val">סינון 8,000 מניות לרשימה קצרה של הזדמנויות</span></div>
+    <div class="sum-row"><span class="sum-label">זמן נדרש</span><span class="sum-val">10–20 דקות בערב — לפני יום המסחר</span></div>
+    <div class="sum-row"><span class="sum-label">כלי</span><span class="sum-val">finviz.com/screener — גרסה חינמית מספיקה</span></div>
+    <div class="sum-row"><span class="sum-label">תוצר</span><span class="sum-val">רשימת מועמדים לבדיקת גרף מעמיקה</span></div>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" onclick="show(3)">← Gap &amp; Go</button>
+    <span class="nav-cur">5 / 6</span>
+    <button class="nav-btn" onclick="show(5)">הבא: לוח Earnings →</button>
+  </div>
 </div>
 
 <div class="pg" id="p5">
-  <div class="num">שיטה 6 מתוך 10</div>
-  <div class="title">מסחר על חדשות</div>
-  <div class="pill">💡 במילה אחת: לקרוא חדשות לפני כולם</div>
-  <p>חדשות גדולות = תנועת מחיר גדולה. אישור תרופה, רכישת חברה, דוח מעולה — כל אלה מזיזים מניה 10%–40% ביום.</p>
-  <div class="box">
-    <div class="bxhdr"><span class="badge">PFE</span> Pfizer — יום הכרזת החיסון, נוב' 2020</div>
-    <div class="bxbody">
-      <p>9.11.2020: Pfizer הודיעה שהחיסון עובד. כל מניות שנפגעו מCOVID זינקו.</p>
-<pre>
-חברה            | לפני  | אחרי  | שינוי
-----------------|-------|-------|------
-Pfizer          | $38.5 | $44.2 | +15%
-Delta Airlines  | $32.0 | $37.8 | +18%
-Royal Caribbean | $52.0 | $72.8 | +40%
-</pre>
+  <div class="m-num">שיטה 6 מתוך 6</div>
+  <div class="m-title">לוח Earnings — הנשק הסודי</div>
+  <div class="m-tag">📅 לדעת מתי כל חברה מפרסמת תוצאות</div>
+
+  <div class="sec">
+    <span class="sec-label">מה רואים בצילום המסך שלך</span>
+    <div class="sec-h">Finviz Earnings Calendar — המידע שמשנה עסקות</div>
+  </div>
+
+  <p>בצילום המסך שצירפת רואים את לוח ה-Earnings של Finviz ליום <strong>1 באפריל 2026</strong>. הלוח מציג מספר עמודות קריטיות — כל אחת מספרת סיפור אחר:</p>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">עמודות</span><span class="ex-title">מה כל עמודה אומרת לך</span></div>
+    <div class="ex-body">
+      <table class="compare">
+        <tr><th>עמודה</th><th>מה זה</th><th>למה חשוב</th></tr>
+        <tr><td><strong>Time (BMO/AMC)</strong></td><td>BMO = Before Market Open. AMC = After Market Close</td><td>BMO = Gap בפתיחה. AMC = Gap בלילה לפני.</td></tr>
+        <tr><td><strong>EPS Est</strong></td><td>ציפיית האנליסטים לרווח למניה</td><td>הרף שצריך לעבור</td></tr>
+        <tr><td><strong>EPS Act</strong></td><td>הרווח בפועל (אם כבר דווח)</td><td>מעל Est = Beat, מתחת = Miss</td></tr>
+        <tr><td><strong>EPS Sur%</strong></td><td>כמה אחוז הכה/פספס את הציפייה</td><td>המספר שמניע את המחיר</td></tr>
+        <tr><td><strong>Revenue Act</strong></td><td>הכנסות בפועל</td><td>EPS טוב + Revenue טוב = תגובה חזקה</td></tr>
+        <tr><td><strong>1-Day Change</strong></td><td>שינוי המחיר ביום הדוח</td><td>איך השוק הגיב בפועל</td></tr>
+      </table>
     </div>
   </div>
-  <div class="ca r">⛔ <strong>חשוב מאוד:</strong> מסחר על מידע לא ציבורי (Insider Trading) הוא פלילי. מותר לסחור רק אחרי שהחדשות ציבוריות לכולם.</div>
-  <div class="sum"><h3>📋 סיכום</h3>
-    <div class="sr"><span class="sl">מתאים ל:</span><span class="sv">מי שעוקב אחרי חדשות</span></div>
-    <div class="sr"><span class="sl">אופק זמן:</span><span class="sv">שעות–ימים</span></div>
-    <div class="sr"><span class="sl">סיכון:</span><span class="sv">גבוה</span></div>
-  </div>
-  <div class="nav"><button class="nb" onclick="show(4)">← הקודם</button><span class="nc2">6 / 10</span><button class="nb" onclick="show(6)">הבא →</button></div>
-</div>
 
-<div class="pg" id="p6">
-  <div class="num">שיטה 7 מתוך 10</div>
-  <div class="title">Swing Trading</div>
-  <div class="pill">💡 במילה אחת: נדנדה קצרה</div>
-  <p>כל מניה לא עולה בקו ישר — היא עולה, יורדת קצת, עולה שוב. Swing Trading אומרת: <strong>קנו בתחתית הנדנדה, מכרו בפסגה</strong> — תוך כמה ימים.</p>
-  <div class="box">
-    <div class="bxhdr"><span class="badge">META</span> Meta — Swing קצר, ינואר 2023</div>
-    <div class="bxbody">
-      <p>Meta נגעה ב-$90 — מחיר שכבר פעמיים עצר ירידה. Swing Trader קנה שם.</p>
-<pre>
-$135 |                    * &lt;-- יציאה
-$115 |               *
- $97 |          *
- $90 | *  &lt;-- כניסה (רמת תמיכה)
-     +--+---+---+---+---
-      יום יום יום יום יום
-       1   2   3   4   5
-</pre>
-      <div class="nums">
-        <div class="nc"><span class="nn">$90</span><div class="nl">כניסה יום 1</div></div>
-        <div class="nc"><span class="nn g">$135</span><div class="nl">יציאה יום 5</div></div>
-        <div class="nc"><span class="nn g">+50%</span><div class="nl">ב-5 ימים!</div></div>
+  <div class="sec">
+    <span class="sec-label">כל עמודה בפירוט</span>
+    <div class="sec-h">מה כל שדה אומר — ואיך לקרוא אותו נכון</div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">TICKER</span><span class="ex-title">הסימול — שם המניה בבורסה</span></div>
+    <div class="ex-body">
+      <p>הסימול הוא הזיהוי הרשמי של המניה. AAPL = Apple, CALM = Cal-Maine Foods. <strong>לחיצה על הסימול ב-Finviz פותחת את כרטיס המניה המלא</strong> — גרף, אינדיקטורים, חדשות, פרטים פיננסיים. כשרואים Earnings מעניין — לחצו שם קודם כל.</p>
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">COMPANY</span><span class="ex-title">שם החברה — ה-Context שמסביר הכל</span></div>
+    <div class="ex-body">
+      <p>שם החברה אומר מה ה-Sector שלה. זה קריטי — כי כל Sector מושפע מגורמים שונים לגמרי.</p>
+      <table class="compare">
+        <tr><th>חברה מהצילום</th><th>Sector</th><th>מה משפיע עליה</th></tr>
+        <tr><td>Cal-Maine (CALM)</td><td>Agriculture</td><td>מחיר ביצים, מגפות עוף</td></tr>
+        <tr><td>Conagra (CAG)</td><td>Consumer Staples</td><td>אינפלציה, הרגלי צריכה</td></tr>
+        <tr><td>Lamb Weston (LW)</td><td>Food Processing</td><td>ביקוש ממסעדות, מחיר תפוחי אדמה</td></tr>
+        <tr><td>Novagold (NG)</td><td>Mining / Gold</td><td>מחיר זהב, גיאופוליטיקה</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">TIME</span><span class="ex-title">BMO vs AMC — הבדל של לילה שלם</span></div>
+    <div class="ex-body">
+      <p>זו אחת העמודות הכי חשובות לסוחר — כי היא קובעת מתי תראו את תגובת השוק, ומה הסיכון שלכם.</p>
+      <table class="compare">
+        <tr><th></th><th>BMO — לפני פתיחת שוק</th><th>AMC — אחרי סגירת שוק</th></tr>
+        <tr><td>מתי מתפרסם?</td><td>לפני 9:30 ארה"ב (16:30 ישראל)</td><td>אחרי 16:00 ארה"ב (23:00 ישראל)</td></tr>
+        <tr><td>מתי תגובת שוק?</td><td>Gap בפתיחה — אותו יום</td><td>Gap בפתיחה — למחרת</td></tr>
+        <tr><td>הסיכון</td><td>נמוך — רואים Gap בפתיחה</td><td>גבוה — מחזיקים לילה</td></tr>
+      </table>
+      <div class="ca red">
+        <span class="ca-title">🚨 AMC = סיכון לילה</span>
+        <p>מניה שמפרסמת AMC ויש לכם פוזיציה — אתם מחזיקים את הלילה. הדוח יוצא ב-23:00 ישראל, המניה יכולה לנפול 20%, ולפתוח ב-Gap Down. <strong>לא ניתן לצאת באמצע הלילה.</strong></p>
       </div>
-      <div class="ca a">⚠️ אם Meta הייתה יורדת מתחת ל-$85 — Stop Loss. יוצאים בהפסד קטן בלי וויכוח.</div>
     </div>
   </div>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><strong>מצאו מניה שנגעה ב"רצפה"</strong> — מחיר שכבר כמה פעמים עצר ירידה.</div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><strong>הגדירו לפני הכניסה</strong> — Target (לאן רוצים) ו-Stop Loss (אם ירדה — יוצאים).</div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><strong>יצאו כשהגעתם ל-Target</strong> — לא להיות חמדנים.</div></div>
-  </div>
-  <div class="pc">
-    <div class="pro"><h4>✅ יתרונות</h4><ul><li>לא צריך מסך כל היום</li><li>רווחים תוך ימים</li><li>ניתן לשלב עם עבודה</li></ul></div>
-    <div class="con"><h4>⚠️ חסרונות</h4><ul><li>חדשות בלילה יכולות להפתיע</li><li>צריך משמעת לצאת בהפסד</li></ul></div>
-  </div>
-  <div class="sum"><h3>📋 סיכום</h3>
-    <div class="sr"><span class="sl">משך עסקה:</span><span class="sv">2–7 ימים</span></div>
-    <div class="sr"><span class="sl">זמן ביום:</span><span class="sv">15–30 דקות (ערב)</span></div>
-    <div class="sr"><span class="sl">פוטנציאל:</span><span class="sv">5%–50% לעסקה</span></div>
-    <div class="sr"><span class="sl">סיכון:</span><span class="sv">בינוני–גבוה</span></div>
-  </div>
-  <div class="nav"><button class="nb" onclick="show(5)">← הקודם</button><span class="nc2">7 / 10</span><button class="nb" onclick="show(7)">הבא →</button></div>
-</div>
 
-<div class="pg" id="p7">
-  <div class="num">שיטה 8 מתוך 10</div>
-  <div class="title">Gap &amp; Go</div>
-  <div class="pill">💡 במילה אחת: פתיחה בקפיצה</div>
-  <p>בלילה יכולות לצאת חדשות — ואז המניה פותחת מחר <strong>הרבה יותר גבוה</strong>. הפער הזה נקרא <strong>Gap</strong>. כשמניה פותחת עם Gap גדול — לרוב ממשיכה לעלות עוד.</p>
-  <div class="box">
-    <div class="bxhdr"><span class="badge">NFLX</span> Netflix — Gap אחרי Earnings, אוק' 2023</div>
-    <div class="bxbody">
-      <p>Netflix סגרה ב-$390. לאחר שוק פרסמה תוצאות מעולות. למחרת פתחה ב-$453.</p>
-<pre>
-סגירה אתמול: $390
-= = = = (לילה) = = =
-$453 | * &lt;-- פתיחה! Gap 16%!
-$460 |   *  &lt;-- ממשיכה לעלות
-$468 |     *  &lt;-- שיא
-$462 |       *
-     +--+---+---+---
-      9:30 10:00 11:00
-</pre>
-      <div class="nums">
-        <div class="nc"><span class="nn">$390</span><div class="nl">סגירה אתמול</div></div>
-        <div class="nc"><span class="nn g">$468</span><div class="nl">שיא יום מחר</div></div>
-        <div class="nc"><span class="nn g">+20%</span><div class="nl">תוך שעות!</div></div>
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">MKT CAP</span><span class="ex-title">שווי החברה — הפרמטר שקובע מה בטוח לסחור</span></div>
+    <div class="ex-body">
+      <p>Market Cap = מחיר המניה × מספר המניות. <strong>לא מחיר למניה — שווי כל החברה.</strong></p>
+      <table class="compare">
+        <tr><th>גודל</th><th>Market Cap</th><th>מסחר</th></tr>
+        <tr><td>Large Cap</td><td>מעל $10B — CAG ($7.2B בגבול)</td><td><span class="tag-g">בטוח, נזיל</span></td></tr>
+        <tr><td>Mid Cap</td><td>$2B–$10B — CALM ($3.9B), LW ($5.7B)</td><td>טוב ל-Swing</td></tr>
+        <tr><td>Small Cap</td><td>$300M–$2B — PENG ($962M)</td><td>תנודתי יותר</td></tr>
+        <tr><td>Micro/Nano</td><td>מתחת $50M — RENX ($6.7M!)</td><td><span class="tag-r">לא לגעת</span></td></tr>
+      </table>
+      <div class="ca red">
+        <span class="ca-title">🚨 RENX מהצילום — +62% ל-Market Cap של $6.7M</span>
+        <p>חברה ששווה $6.7 מיליון. עלייה של 62% יכולה לקרות כי מישהו קנה בכמה מאות אלפי דולרים. זה לא "מניה חמה" — זה רעש. <strong>Micro Cap = מניפולציות קלות.</strong></p>
       </div>
-      <div class="ca r">🚨 <strong>Gap Fill:</strong> לפעמים מניה עולה בפתיחה ואז יורדת חזרה. מי שנכנס מאוחר — הפסיד. כניסה מהירה + Stop Loss קרוב.</div>
     </div>
   </div>
-  <div class="pc">
-    <div class="pro"><h4>✅ יתרונות</h4><ul><li>רווח גדול מהר</li><li>ניתן לצפות מראש</li></ul></div>
-    <div class="con"><h4>⚠️ חסרונות</h4><ul><li>Gap Fill יכול לנגב הכל</li><li>שוק ארה"ב = 16:30 ישראל</li></ul></div>
-  </div>
-  <div class="sum"><h3>📋 סיכום</h3>
-    <div class="sr"><span class="sl">משך עסקה:</span><span class="sv">שעה–יום</span></div>
-    <div class="sr"><span class="sl">מתי פעיל:</span><span class="sv">16:30–18:30 שעון ישראל</span></div>
-    <div class="sr"><span class="sl">פוטנציאל:</span><span class="sv">2%–20% ביום</span></div>
-    <div class="sr"><span class="sl">סיכון:</span><span class="sv">גבוה מאוד</span></div>
-  </div>
-  <div class="nav"><button class="nb" onclick="show(6)">← הקודם</button><span class="nc2">8 / 10</span><button class="nb" onclick="show(8)">הבא →</button></div>
-</div>
 
-<div class="pg" id="p8">
-  <div class="num">שיטה 9 מתוך 10</div>
-  <div class="title">Earnings Play</div>
-  <div class="pill">💡 במילה אחת: לנחש לפני הדוח</div>
-  <p>כל חברה מפרסמת תוצאות פעם ב-3 חודשים. ביום הזה המניה יכולה לזוז <strong>10%–40%</strong> לכיוון כלשהו.</p>
-  <div class="box">
-    <div class="bxhdr"><span class="badge">GOOG</span> Google — שני צדדים הפוכים</div>
-    <div class="bxbody">
-<pre>
-אוק' 2023 — Google הפתיעה לטובה:
-  לפני:  $139
-  בוקר: $155 &lt;-- Gap Up 11% בלילה! [+]
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">EPS EST</span><span class="ex-title">ציפיית האנליסטים — הרף שצריך לעבור</span></div>
+    <div class="ex-body">
+      <p>EPS Est = Earnings Per Share Estimate — ממוצע תחזיות וול סטריט לרווח למניה. <strong>השוק לא מתמחר את הרווח עצמו — הוא מתמחר את ההפתעה.</strong> הרף הזה הוא כל מה שחשוב.</p>
+      <div class="chart"><pre>
+ מהצילום:
+ CALM:  EPS Est $0.70  — הרף שצריך לעבור
+ LW:    EPS Est $0.61  — טרם דיווחה
+ NG:    EPS Est -$0.04 — ציפייה להפסד! (חברת כרייה בפיתוח)
 
-אפר' 2022 — Google איכזבה:
-  לפני:  $134
-  בוקר: $112 &lt;-- Gap Down 16%! [-]
-</pre>
-      <div class="nums">
-        <div class="nc"><span class="nn g">+11%</span><div class="nl">תרחיש טוב</div></div>
-        <div class="nc"><span class="nn r">-16%</span><div class="nl">תרחיש רע</div></div>
-        <div class="nc"><span class="nn">לילה!</span><div class="nl">שניהם תוך לילה</div></div>
+ אם NG תפרסם הפסד של -$0.02 בלבד:
+ זה Beat! כי -$0.02 > -$0.04</pre></div>
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">EPS ACT</span><span class="ex-title">הרווח בפועל — מה שקרה באמת</span></div>
+    <div class="ex-body">
+      <p>EPS Act = הרווח למניה שדווח בפועל. כשמתפרסם — המניה מגיבה <strong>מיידית</strong> ב-After-Hours. עד שהשוק נפתח, המחיר כבר מגלם את ההפתעה.</p>
+      <p>מהצילום — רק CALM דיווחה EPS Act ($1.06). שאר המניות: עמודה ריקה — עדיין לא פרסמו.</p>
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">EPS SUR%</span><span class="ex-title">ההפתעה באחוזים — המספר שמניע את המחיר</span></div>
+    <div class="ex-body">
+      <p>זהו <strong>הפרמטר הכי חשוב ב-Earnings לסוחר.</strong> לא הרווח המוחלט — ההפתעה באחוזים.</p>
+      <div class="chart"><pre>
+ נוסחה: EPS Sur% = ((Act - Est) / |Est|) × 100
+
+ CALM: (($1.06 - $0.70) / $0.70) × 100 = +52.3%
+
+ EPS Sur%    | משמעות          | תגובה
+ ------------|-----------------|--------------------
+ מעל +20%   | Beat ענקי        | Gap Up חזק
+ +5% עד +20%| Beat משמעותי    | עלייה 3%-10%
+ 0% עד +5%  | Beat קטן        | תגובה קטנה
+ מתחת -5%   | Miss            | ירידה / Gap Down</pre></div>
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">EPS GAAP</span><span class="ex-title">GAAP vs Non-GAAP — שתי אמיתות שונות</span></div>
+    <div class="ex-body">
+      <p>חברות מציגות שני מספרים: <strong>Non-GAAP</strong> (מה שהן רוצות שתסתכלו עליו) ו-<strong>GAAP</strong> (לפי כללי חשבונאות רשמיים — כולל הכל).</p>
+      <table class="compare">
+        <tr><th></th><th>Non-GAAP (EPS Act)</th><th>GAAP Act</th></tr>
+        <tr><td>מה כולל?</td><td>"רווח ליבה" — מנקה פיצויים, פיטורים</td><td>הכל ללא יוצא מן הכלל</td></tr>
+        <tr><td>מי משתמש?</td><td>אנליסטים, Wall Street</td><td>רגולטורים, השוואות חשבונאיות</td></tr>
+        <tr><td>גובה</td><td>לרוב גבוה יותר ("יפה")</td><td>לרוב נמוך יותר (שמרני)</td></tr>
+      </table>
+      <div class="chart"><pre>
+ CALM מהצילום:
+ EPS Act (Non-GAAP): $1.06
+ EPS GAAP Act:       $1.06  ← זהה! = שקיפות מלאה ✅
+
+ סימן אזהרה:
+ EPS Act $2.00 אבל GAAP $0.30 = $1.70 "מנוקה"
+ שאלו: האם ההוצאות האלה באמת חד-פעמיות?</pre></div>
+    </div>
+  </div>
+
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">REVENUE EST / ACT</span><span class="ex-title">הכנסות — המחצית הכי חשובה של הסיפור</span></div>
+    <div class="ex-body">
+      <p>Revenue = ההכנסות הגולמיות לפני כל הוצאה. אי אפשר "להנדס" Revenue כמו EPS. <strong>Revenue Beat = חברה מוכרת יותר — זה בר-קיימא.</strong></p>
+      <div class="chart"><pre>
+ מהצילום — CALM:
+ Revenue Est: $642.48M
+ Revenue Act: $666.95M  (+$24.5M מעל ציפייה)
+ Revenue Sur:  +3.81%
+
+ EPS Beat +52% + Revenue Beat +3.8% = Beat כפול ✅
+ Beat כפול = הסיבה לעלייה של +4.5% ביום</pre></div>
+      <table class="compare">
+        <tr><th>תרחיש</th><th>EPS</th><th>Revenue</th><th>תגובה</th></tr>
+        <tr><td>Beat כפול</td><td><span class="tag-g">Beat</span></td><td><span class="tag-g">Beat</span></td><td><span class="tag-g">עלייה חזקה — הכי טוב</span></td></tr>
+        <tr><td>EPS Beat בלבד</td><td><span class="tag-g">Beat</span></td><td><span class="tag-r">Miss</span></td><td>חשד לקיצוצים — תגובה חלשה</td></tr>
+        <tr><td>Revenue Beat בלבד</td><td><span class="tag-r">Miss</span></td><td><span class="tag-g">Beat</span></td><td>ירידה מתונה בלבד</td></tr>
+        <tr><td>Miss כפול</td><td><span class="tag-r">Miss</span></td><td><span class="tag-r">Miss</span></td><td><span class="tag-r">Gap Down — הכי גרוע</span></td></tr>
+      </table>
+      <div class="ca blue">
+        <span class="ca-title">💡 EPS Beat ללא Revenue Beat — למה חשוד?</span>
+        <p>אם חברה הכתה ב-EPS אבל פספסה ב-Revenue — ייתכן שהרווח שופר על ידי קיצוץ הוצאות, לא מכירה יותר. זה לא בר-קיימא. שוק חכם מזהה את זה ולפעמים <em>מוכר</em> גם אחרי EPS Beat.</p>
       </div>
-      <div class="ca r">🚨 לישון עם עמדה פתוחה לפני Earnings = סיכון ענק. יכול לקום עם -20%. לא מחזיקים לילה לפני דוח.</div>
     </div>
   </div>
-  <div class="steps">
-    <div class="step"><div class="sn">A</div><div class="st"><strong>אחרי הדוח (בטוח יותר):</strong> חכו לתוצאות. אם טובות — קנו בפתיחה מחר.</div></div>
-    <div class="step"><div class="sn">B</div><div class="st"><strong>לפני הדוח (מסוכן):</strong> נכנסים יום לפני. רווח גדול — או הפסד גדול.</div></div>
-  </div>
-  <div class="ca b">📌 <strong>כלי חינמי:</strong> earningswhispers.com — לוח כל ה-Earnings. תראו מי מפרסם ומתי.</div>
-  <div class="sum"><h3>📋 סיכום</h3>
-    <div class="sr"><span class="sl">משך עסקה:</span><span class="sv">2–3 ימים</span></div>
-    <div class="sr"><span class="sl">פוטנציאל:</span><span class="sv">10%–40% ב-24 שעות</span></div>
-    <div class="sr"><span class="sl">סיכון:</span><span class="sv">גבוה מאוד</span></div>
-  </div>
-  <div class="nav"><button class="nb" onclick="show(7)">← הקודם</button><span class="nc2">9 / 11</span><button class="nb" onclick="show(9)">הבא →</button></div>
-</div>
 
-<div class="pg" id="p9">
-  <div class="num">שיטה 10 מתוך 10</div>
-  <div class="title">Momentum</div>
-  <div class="pill">💡 במילה אחת: הכי חם של היום</div>
-  <p>כל יום יש מניות שפורצות — עולות 10%, 20%, לפעמים 50%. Momentum אומרת: <strong>מצאו מי הכי חם היום ותרכבו על הגל בשעות הראשונות</strong>.</p>
-  <div class="box">
-    <div class="bxhdr"><span class="badge">GME</span> GameStop — ינואר 2021</div>
-    <div class="bxbody">
-<pre>
-שבוע 1:  $19  -- התחלה
-שבוע 2:  $43  -- כולם מדברים עליה
-שבוע 3:  $350 -- שיא!
-שבוע 4:  $40  -- קריסה
+  <div class="sec">
+    <span class="sec-label">ניתוח הדוגמאות מהצילום שלך</span>
+    <div class="sec-h">מה אפשר ללמוד מה-Earnings של ה-1 לאפריל 2026</div>
+  </div>
 
-נכנסת ב-$43, יצאת ב-$200: +365% [+]
-נכנסת ב-$300, יצאת ב-$40:  -87%  [-]
-</pre>
-      <div class="nums">
-        <div class="nc"><span class="nn g">+365%</span><div class="nl">מי שיצא בזמן</div></div>
-        <div class="nc"><span class="nn r">-87%</span><div class="nl">מי שנכנס בשיא</div></div>
-        <div class="nc"><span class="nn">10 ימים</span><div class="nl">שניהם!</div></div>
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">CALM</span><span class="ex-title">Cal-Maine Foods — Beat ענק, תגובה חיובית</span></div>
+    <div class="ex-body">
+      <p>Cal-Maine דיווחה ב-BMO (לפני פתיחה). הכתה ציפיות ב-<strong>+52.30%</strong> — EPS של $1.06 לעומת ציפייה של $0.70. Revenue הגיע ל-$666.95M לעומת ציפייה של $642.48M.</p>
+      <p>תגובת השוק: <strong>+4.50%</strong> ביום אחד. זו תגובה מדודה — Beat ענק, אבל לא Gap &amp; Go אגרסיבי. למה? כי המניה כנראה כבר "תמחרה" ציפייה לתוצאות טובות.</p>
+      <div class="ca green">
+        <span class="ca-title">✅ מה זה מלמד</span>
+        <p>Beat של +52% הוא יוצא דופן. אבל תגובה של רק +4.5% מציגה שהשוק כבר ציפה לתוצאות טובות — "Buy the rumor, sell the news". לא כל Beat מייצר Gap &amp; Go. צריך לבדוק גם <em>כמה המניה עלתה לפני הדוח.</em></p>
       </div>
-      <div class="ca r">🚨 Momentum שנגמר — נגמר בלי אזהרה. Stop Loss חובה. אל תיכנסו אחרי שעלתה 30% כבר.</div>
-    </div>
-  </div>
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><strong>נכנסים מוקדם</strong> — לא אחרי שעלתה 30%.</div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><strong>Stop Loss קרוב</strong> — 5%–8% מתחת לכניסה.</div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><strong>לקחו רווח חלקי</strong> — עלתה 10%? מכרו חצי.</div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><strong>לא מחזיקים לילה</strong> — יוצאים לפני סגירת שוק.</div></div>
-  </div>
-  <div class="ca b">📌 <strong>איפה מוצאים מניות חמות?</strong> finviz.com סננו Volume over 500%.</div>
-  <div class="pc">
-    <div class="pro"><h4>✅ יתרונות</h4><ul><li>פוטנציאל ענקי מהר</li><li>קל לזהות</li></ul></div>
-    <div class="con"><h4>⚠️ חסרונות</h4><ul><li>הכי מסוכן מכל השיטות</li><li>FOMO גורם לכניסה מאוחרת</li></ul></div>
-  </div>
-  <div class="sum"><h3>📋 סיכום</h3>
-    <div class="sr"><span class="sl">משך עסקה:</span><span class="sv">שעות–יום</span></div>
-    <div class="sr"><span class="sl">פוטנציאל:</span><span class="sv">10%–100%+ ביום</span></div>
-    <div class="sr"><span class="sl">סיכון:</span><span class="sv">⚠️ גבוה מאוד — לא למתחילים</span></div>
-  </div>
-  <div class="ca g">🏁 <strong>סיימתם את כל 10 השיטות!</strong> מסלול מומלץ: התחילו עם קנה והחזק + DCA. אחרי שנה — Swing. רק אחר כך Gap, Earnings, Momentum.</div>
-  <div class="nav"><button class="nb" onclick="show(8)">← הקודם</button><span class="nc2">10 / 11</span><button class="nb" onclick="show(10)">הבא →</button></div>
-</div>
-
-
-<div class="pg" id="p10">
-  <div class="num">שיטה 11 מתוך 11</div>
-  <div class="title">מסחר טכני בלבד</div>
-  <div class="pill">💡 במילה אחת: רק הגרף</div>
-
-  <p>יש שיטה שלמה של מסחר שמתעלמת לחלוטין מחדשות, מדוחות כספיים, ממנכ"לים — ומסתמכת <strong>אך ורק על הגרף עצמו</strong>. הרעיון: <em>כל מה שקורה בחברה כבר מגולם במחיר.</em> לא צריך לדעת למה — רק לראות לאן.</p>
-
-  <div class="ca b">📌 <strong>הלוגיקה:</strong> אם מוסדיים גדולים (קרנות, בנקים) יודעים חדשות טובות — הם מתחילים לקנות. הקנייה שלהם מופיעה על הגרף לפני שהחדשות יוצאות. הגרף "מספר" מה הכסף הגדול עושה.</div>
-
-  <div class="slbl">הכלים שמשתמשים בהם</div>
-  <div class="sh">5 כלים טכניים שמספיק לדעת</div>
-
-  <div class="box">
-    <div class="bxhdr"><span class="badge">כלי 1</span> קו ממוצע — MA(50) ו-MA(200)</div>
-    <div class="bxbody">
-      <p>ממוצע מחיר המניה ב-50 ימים האחרונים (ו-200). כשהמניה <strong>מעל</strong> הקו — מגמה חיובית. <strong>מתחת</strong> — שלילית. פשוט מאוד.</p>
-<pre>
-MA(50) ו-MA(200) — מה לחפש
-
-$180 | מניה ****           &lt;-- מעל MA = טוב
-     |         ****
-$160 |_ _ _ _ _ _ _****_ _ MA(50)
-     |                 ****
-$140 |_ _ _ _ _ _ _ _ _ _ _****_ MA(200)
-
-כלל: מניה מעל MA(50) שמעל MA(200) = מגמה חזקה
-     "Golden Cross" = MA(50) חוצה מעל MA(200) = קנייה
-</pre>
     </div>
   </div>
 
-  <div class="box">
-    <div class="bxhdr"><span class="badge">כלי 2</span> RSI — "מד הלחץ"</div>
-    <div class="bxbody">
-      <p>RSI הוא מספר בין 0 ל-100 שמודד אם מניה עלתה יותר מדי מהר (ואז עשויה לרדת) או ירדה יותר מדי (ואז עשויה לעלות).</p>
-<pre>
-RSI   | פירוש               | מה לעשות
-------|---------------------|----------
-70+   | "חם מדי" — overbought| שקלו למכור / לא לקנות
-50–70 | מגמה חיובית נורמלית | המשיכו לאחוז
-30–50 | מגמה שלילית נורמלית | המתינו
-30-   | "קר מדי" — oversold  | עשויה להיתפס למעלה
-
-דוגמה: מניה שהייתה ב-RSI 28 ועלתה ל-45
-        = סיגנל שהמצב משתנה, שקלו כניסה
-</pre>
-    </div>
-  </div>
-
-  <div class="box">
-    <div class="bxhdr"><span class="badge">כלי 3</span> Support ו-Resistance — "רצפה ותקרה"</div>
-    <div class="bxbody">
-      <p>כל מניה מגיעה לרמות מחיר מסוימות שממנן היא נדחפת חזרה. "רצפה" = מחיר שממנו עולה. "תקרה" = מחיר שממנו יורדת. אלה הנקודות שמסחרים בהן.</p>
-<pre>
-$200 |= = = = = = = תקרה = = = = = = =
-$185 |      ***        ***
-$170 |   ***   ***  ***   ***
-$155 |***         ***        ***
-$140 |_ _ _ _ _ _ _ רצפה _ _ _ _ _ _
-
-אסטרטגיה:
-  קנייה: כשמניה קרובה ל"רצפה" ומתחילה לעלות
-  מכירה: כשמניה קרובה ל"תקרה"
-  Stop Loss: מתחת ל"רצפה"
-</pre>
-    </div>
-  </div>
-
-  <div class="box">
-    <div class="bxhdr"><span class="badge">כלי 4</span> MACD — "מתי המגמה משתנה"</div>
-    <div class="bxbody">
-      <p>MACD הוא קו שמראה מתי מגמה מתחילה להתחזק או להיחלש. כשקו ה-MACD חוצה מעל קו ה-Signal — סיגנל קנייה. כשיורד מתחתיו — סיגנל מכירה.</p>
-<pre>
-MACD Cross — סיגנל קנייה
-
-        Signal Line
-   _ _ _/_ _ _ _ _ _
-  /                   &lt;-- MACD מעל Signal = קנה!
- /__ MACD
-       \_ _ _ _ _ _ _
-                      &lt;-- MACD מתחת Signal = מכור
-
-הכלל: חפשו Cross ב-Timeframe יומי לאמינות גבוהה
-</pre>
-    </div>
-  </div>
-
-  <div class="box">
-    <div class="bxhdr"><span class="badge">כלי 5</span> Volume — "הכסף הגדול"</div>
-    <div class="bxbody">
-      <p>Volume = כמה מניות נסחרו היום. זה הכלי הכי חשוב. בלי Volume — שום סיגנל אחר לא אמין.</p>
-<pre>
-מה Volume אומר:
-
-תנועה     | Volume  | משמעות
-----------|---------|---------------------------
-עלייה     | גבוה   | קנייה אמיתית של כסף גדול
-עלייה     | נמוך   | חלש — עלול להתהפך
-ירידה     | גבוה   | מכירה אמיתית — היזהרו
-ירידה     | נמוך   | לחץ קטן — עשוי להתייצב
-
-כלל: Volume גבוה = כסף מוסדי פעיל = אמין
-</pre>
-    </div>
-  </div>
-
-  <div class="slbl">דוגמה מלאה — רק גרף, אפס חדשות</div>
-  <div class="sh">איך נראית כניסה טכנית מושלמת</div>
-
-  <div class="box">
-    <div class="bxhdr"><span class="badge">MSFT</span> Microsoft — כניסה טכנית, אפריל 2023</div>
-    <div class="bxbody">
-      <p>ב-אפריל 2023, Microsoft הגיעה לרמת Support ב-$270 שכבר 3 פעמים עצרה ירידה. RSI ירד ל-38 (קרוב ל-oversold). MACD התחיל לעלות. Volume עלה.</p>
-      <p>טכנאי שראה זאת לא צריך היה לדעת שום דבר על Microsoft — הגרף סיפר הכל.</p>
-<pre>
-Microsoft — ניתוח טכני בלבד
-
-$320 |                              ****
-$300 |                         ****
-$285 |                    ****
-$270 |****  ****  ****               &lt;-- Support חזק!
-     +--+---+---+---+---+---+---+---
-      ינו  פבר  מרץ  אפר  מאי  יול
-
-RSI:  38  &lt;-- Oversold, עשויה לקפוץ
-MACD: חוצה מעל Signal ב-אפריל &lt;-- סיגנל קנייה
-VOL:  פי 2.5 מהממוצע ב-אפריל &lt;-- כסף גדול נכנס!
-
-תוצאה: נכנסת ב-$272, יצאת ב-$305 = +12% ב-3 שבועות
-</pre>
-      <div class="nums">
-        <div class="nc"><span class="nn">$272</span><div class="nl">כניסה</div></div>
-        <div class="nc"><span class="nn g">$305</span><div class="nl">יציאה</div></div>
-        <div class="nc"><span class="nn g">+12%</span><div class="nl">ב-3 שבועות</div></div>
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">RENX</span><span class="ex-title">RenX Enterprises — +62.51% ביום אחד!</span></div>
+    <div class="ex-body">
+      <p>RENX עלתה <strong>+62.51%</strong> ביום אחד. Market Cap קטן ($6.71M) — מניה קטנה מאוד. EPS Est: -$0.10 (ציפייה להפסד). עדיין עלתה 62%.</p>
+      <div class="ca red">
+        <span class="ca-title">🚨 זהירות — לא מה שנראה</span>
+        <p>מניות עם Market Cap של $6.71M (פחות מ-7 מיליון דולר!) הן <strong>Penny Stocks למעשה</strong>. עלייה של 62% על Volume קטן = מניפולציה אפשרית, Pump &amp; Dump, או חדשות קטנות שמזיזות מניה קטנה בקלות. <strong>לא לגעת בלי מחקר מעמיק.</strong></p>
       </div>
-      <div class="ca g">✅ <strong>שלושה אינדיקטורים הסכימו</strong> — Support, RSI, MACD — כולם אמרו "קנה". זה נקרא "Confluence" — כשכמה כלים מצביעים לאותו כיוון.</div>
     </div>
   </div>
 
-  <div class="slbl">כיצד בונים שיטת מסחר טכנית</div>
-  <div class="sh">הכללים שצריכים להיות כתובים לפני הכניסה</div>
-
-  <div class="steps">
-    <div class="step"><div class="sn">1</div><div class="st"><strong>בחרו Timeframe</strong> — גרף יומי (D) לעסקות של שבועות. גרף שעתי (H1) לעסקות של ימים. היצמדו לאחד.</div></div>
-    <div class="step"><div class="sn">2</div><div class="st"><strong>דרשו לפחות 2–3 אינדיקטורים שמסכימים</strong> — Support + RSI נמוך + MACD Cross = Confluence. אינדיקטור אחד לא מספיק.</div></div>
-    <div class="step"><div class="sn">3</div><div class="st"><strong>הגדירו כניסה ברורה</strong> — לא "נכנס כשזה נראה טוב". אלא: "נכנס כשמניה נוגעת ב-$270 ו-RSI מתחת 40 ו-MACD חוצה."</div></div>
-    <div class="step"><div class="sn">4</div><div class="st"><strong>Stop Loss תמיד</strong> — מתחת לרמת ה-Support שנכנסתם עליה. אם Support שבור — הסיפור השתנה.</div></div>
-    <div class="step"><div class="sn">5</div><div class="st"><strong>Target = פי 2–3 מה-Stop Loss</strong> — אם Stop Loss הוא $10 מהכניסה — Target מינימום $20–$30 מעל.</div></div>
-  </div>
-
-  <div class="ca a">⚠️ <strong>מה לא לעשות:</strong> לא לחפש אינדיקטורים שיאמרו לכם מה שאתם <em>רוצים</em> לשמוע. זה נקרא Confirmation Bias — ורואים אותו אצל רוב המפסידים. אם הגרף לא ברור — לא נכנסים. "כשיש ספק — אין ספק."</div>
-
-  <div class="box">
-    <div class="bxhdr"><span class="badge">📋</span> טבלת אינדיקטורים — מה בודקים לפני כניסה</div>
-    <div class="bxbody">
-<pre>
-אינדיקטור | מה בודקים          | ירוק (כניסה)   | אדום (לא כניסה)
-----------|---------------------|----------------|----------------
-MA(50/200)| מניה מעל שניהם?    | כן             | לא
-RSI       | כמה?               | 30–50 (עולה)   | 70+ (יורד)
-MACD      | חצה מעל Signal?    | כן             | לא
-Support   | קרובה לרצפה?       | כן             | באוויר
-Volume    | גבוה מהממוצע?      | פי 1.5+        | ממוצע/פחות
-
-3+ ירוקים = שקלו כניסה
-פחות מ-3  = המתינו
-</pre>
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">CAG</span><span class="ex-title">Conagra Brands — ירידה למרות Earnings</span></div>
+    <div class="ex-body">
+      <p>Conagra (חברת מזון גדולה, $7.22B Market Cap) ירדה <strong>-4.01%</strong> ביום הדוח. EPS Est: $0.40 — עדיין לא דווח EPS Act בצילום. אבל ירידה של 4% מרמזת שהתוצאות לא עמדו בציפיות, או שה-Guidance (תחזית לרבעון הבא) אכזבה.</p>
+      <div class="ca amber">
+        <span class="ca-title">⚠️ "Beat אבל ירד" — תופעה נפוצה</span>
+        <p>חברה יכולה להכות ציפיות ועדיין לרדת — אם הנמיכה Guidance (תחזית עתידית). השוק מסתכל <em>קדימה</em>, לא אחורה. Beat של הרבעון שעבר לא חשוב אם הרבעון הבא צפוי להיות חלש.</p>
+      </div>
     </div>
   </div>
 
-  <div class="pc">
-    <div class="pro"><h4>✅ יתרונות</h4><ul><li>לא צריך לקרוא חדשות</li><li>כללים ברורים — פחות רגש</li><li>עובד על כל מניה בכל שוק</li><li>ניתן לבצע ב-15 דקות ביום</li></ul></div>
-    <div class="con"><h4>⚠️ חסרונות</h4><ul><li>חדשות פתאומיות יכולות לנפץ את הגרף</li><li>דורש תרגול — להכיר דפוסים</li><li>אינדיקטורים לא תמיד מסכימים</li><li>לא עובד בשווקים "שוגעים"</li></ul></div>
+  <div class="sec">
+    <span class="sec-label">איך משתמשים בלוח Earnings לבניית עסקות</span>
+    <div class="sec-h">שלוש שיטות שמשתמשות בלוח</div>
   </div>
 
-  <div class="sum"><h3>📋 סיכום</h3>
-    <div class="sr"><span class="sl">מתאים ל:</span><span class="sv">מי שרוצה שיטה ללא חדשות, עם כללים ברורים</span></div>
-    <div class="sr"><span class="sl">אופק זמן:</span><span class="sv">ימים עד חודשים (תלוי ב-Timeframe)</span></div>
-    <div class="sr"><span class="sl">זמן ביום:</span><span class="sv">15–30 דקות בבוקר/ערב</span></div>
-    <div class="sr"><span class="sl">פוטנציאל:</span><span class="sv">10%–50% לעסקה טובה</span></div>
-    <div class="sr"><span class="sl">סיכון:</span><span class="sv">בינוני — עם Stop Loss מסודר</span></div>
-    <div class="sr"><span class="sl">כלי מומלץ:</span><span class="sv">TradingView.com — חינמי, כל האינדיקטורים</span></div>
+  <div class="story">
+    <div class="story-step">
+      <div class="story-num">1</div>
+      <div class="story-text">
+        <strong>לפני הדוח — ציד הזדמנויות:</strong> כל ראשון/שני בשבוע — בדקו מי מפרסם דוח בשבוע הקרוב. מצאו מניות שנמצאות בעלייה חזקה לפני הדוח (ציפייה חיובית). שקלו כניסה קטנה — אבל <em>תמיד</em> צאו לפני הדוח אם אתם לא רוצים להחזיק את הסיכון.
+      </div>
+    </div>
+    <div class="story-step">
+      <div class="story-num">2</div>
+      <div class="story-text">
+        <strong>אחרי הדוח — Gap &amp; Go:</strong> כשמניה דיווחה Beat גדול (<strong>EPS Sur% חיובי ומשמעותי</strong>) ו-Revenue Beat, ופתחה עם Gap — כניסה בשעה הראשונה כ-Gap &amp; Go. בדיוק כמו CALM היום — +4.5% היה ניתן לנצל.
+      </div>
+    </div>
+    <div class="story-step">
+      <div class="story-num green">3</div>
+      <div class="story-text">
+        <strong>לאחר Miss — קנה בירידה:</strong> חברה טובה שפספסה ציפיות וירדה 10%–20% ביום הדוח — אפשרות ל-Buy the Dip. שאלו: האם המניה ירדה יותר ממה שמוצדק? האם זו בעיה זמנית? זה בדיוק מה שקרה ל-CAG היום.
+      </div>
+    </div>
   </div>
 
-  <div class="nav"><button class="nb" onclick="show(9)">← הקודם</button><span class="nc2">11 / 11</span><button class="nb" onclick="show(0)">חזרה ↺</button></div>
+  <div class="ex-box">
+    <div class="ex-hdr"><span class="ex-badge">🔍</span><span class="ex-title">הפרמטרים שמחפשים לאחר הדוח — לפי הצילום שלך</span></div>
+    <div class="ex-body">
+      <div class="chart"><pre>
+ מה לחפש ב-Earnings Calendar:
+
+ EPS Sur% מעל +10%   = Beat משמעותי — בדקו Gap Up
+ EPS Sur% מעל +20%   = Beat חזק — פוטנציאל Gap &amp; Go
+ EPS Sur% מעל +50%   = Beat ענק (כמו CALM) — אבל בדקו Market Cap
+ 
+ 1-Day Change מעל +5% = השוק הגיב חיובי — בדקו המשך
+ 1-Day Change מתחת -5% = אפשרות Buy the Dip לאחר בדיקה
+ 
+ Market Cap מינימום: $500M — מתחת לכך = Penny Stock territory
+ 
+ BMO = Gap בפתיחה (9:30 ארה"ב = 16:30 ישראל)
+ AMC = Gap למחרת בבוקר (הלילה = הסיכון)</pre></div>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <span class="rule-title">שגרת הערב — 20 דקות שבונות עסקות</span>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text"><strong>18:00:</strong> פתחו Finviz Earnings Calendar לשבוע הקרוב. סמנו מי מפרסם.</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text"><strong>18:05:</strong> הריצו Screener לפי הפילטרים מהשיטה הקודמת. קבלו רשימת מועמדים.</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text"><strong>18:10:</strong> לכל מניה ברשימה — בדקו גרף ב-TradingView. יש Support? RSI נמוך? Volume עולה?</span></div>
+    <div class="rule"><span class="rule-dot">✓</span><span class="rule-text"><strong>18:20:</strong> הגדירו כניסה, Stop Loss, Target. כתבו את שלושת המספרים לפני שמשנים.</span></div>
+    <div class="rule"><span class="rule-dot r">✗</span><span class="rule-text"><strong>אל תחזיקו מניה שיש לה Earnings בשבוע הקרוב</strong> — אלא אם זה אסטרטגיה מכוונת.</span></div>
+  </div>
+
+  <div class="summary">
+    <h3>📋 סיכום</h3>
+    <div class="sum-row"><span class="sum-label">מה זה</span><span class="sum-val">לוח תוצאות רבעוניות שמגדיר הזדמנויות ומועדי סיכון</span></div>
+    <div class="sum-row"><span class="sum-label">שימוש עיקרי</span><span class="sum-val">לדעת מתי <em>לא</em> להיות במניה, ומתי יש Gap הזדמנות</span></div>
+    <div class="sum-row"><span class="sum-label">EPS Sur% חיובי</span><span class="sum-val">Beat — מניה עשויה לעלות. מעל +15% = בדקו Gap &amp; Go</span></div>
+    <div class="sum-row"><span class="sum-label">EPS Sur% שלילי</span><span class="sum-val">Miss — בדקו Buy the Dip רק אם חברה בסיסית טובה</span></div>
+    <div class="sum-row"><span class="sum-label">כלי</span><span class="sum-val">finviz.com/calendar — חינמי לחלוטין</span></div>
+  </div>
+
+  <div class="ca blue">
+    <span class="ca-title">🏁 סיכום כל 6 השיטות</span>
+    <p><strong>שגרה מנצחת:</strong> ערב — Finviz Screener (שיטה 5) + בדיקת Earnings Calendar (שיטה 6). בוקר — ביצוע לפי ניתוח טכני (שיטה 1). עסקות פתוחות — ניהול לפי Swing Trading (שיטה 2). ירידות — Buy the Dip על חברות שבחנתם (שיטה 3). דוחות טובים — Gap &amp; Go (שיטה 4).</p>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" onclick="show(4)">← אינדיקטורים</button>
+    <span class="nav-cur">6 / 6</span>
+    <button class="nav-btn" onclick="show(0)">התחלה ↺</button>
+  </div>
 </div>
 
 <div class="disc">⚠️ לחינוך בלבד · אינו ייעוץ השקעות · מסחר כרוך בסיכון אובדן הון</div>
@@ -904,18 +1212,13 @@ function show(n) {
   for (i = 0; i < tabs.length; i++) {
     tabs[i].className = i === n ? 'tab on' : 'tab';
   }
-  // Scroll page to top
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
-  // Scroll active tab into view
   try {
     var tabsEl = document.getElementById('tabs');
     var activeTab = tabs[n];
     if (tabsEl && activeTab) {
-      var tabLeft = activeTab.offsetLeft;
-      var tabWidth = activeTab.offsetWidth;
-      var containerWidth = tabsEl.offsetWidth;
-      tabsEl.scrollLeft = tabLeft - (containerWidth / 2) + (tabWidth / 2);
+      tabsEl.scrollLeft = activeTab.offsetLeft - (tabsEl.offsetWidth / 2) + (activeTab.offsetWidth / 2);
     }
   } catch(e) {}
 }
