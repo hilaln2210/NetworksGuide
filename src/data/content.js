@@ -105,5 +105,22 @@ export const tracks = [
   },
 ]
 
+// ===== ENRICHMENT COURSES =====
+export const enrichmentTracks = [
+  {
+    id: 'trading-methods',
+    title: 'שיטות מסחר',
+    subtitle: 'Day Trading, Swing, Scalping, Price Action, Risk Management — קורס מלא',
+    icon: '📈',
+    color: '#10b981',
+    level: 'מתחיל–מתקדם',
+    fullPage: true,
+    chapterCount: 8,
+    chapters: [
+      { id: 700, title: "שיטות מסחר — קורס מלא", pages: [{ type: "html_page", title: "Trading Methods", src: "/learn/enrichment/trading_methods.html" }] },
+    ]
+  },
+]
+
 // Backward compatibility — defaults to first track chapters
 export const chapters = tracks[0].chapters

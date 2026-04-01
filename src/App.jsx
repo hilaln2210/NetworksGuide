@@ -1,5 +1,5 @@
 import { useState, useEffect, useLayoutEffect, useCallback, useRef, lazy, Suspense } from 'react'
-import { tracks } from './data/content'
+import { tracks, enrichmentTracks } from './data/content'
 import { contentEn } from './data/content_en'
 import { ThinkOutsideBox } from './components/ThinkOutsideBox'
 import { KeyTip } from './components/KeyTip'
@@ -240,6 +240,43 @@ function TrackPicker({ tracks, onSelect }) {
           )
         })}
       </div>
+
+      {/* ── Enrichment Courses ── */}
+      {enrichmentTracks && enrichmentTracks.length > 0 && (
+        <>
+          <div style={{ margin: '32px 0 16px', textAlign: 'center' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '6px 20px', borderRadius: '20px', background: 'var(--surface, #f8fafc)', border: '1px solid var(--border, #e2e8f0)' }}>
+              <span style={{ fontSize: '1.1rem' }}>🎓</span>
+              <span style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text, #1e293b)', letterSpacing: '0.5px' }}>{lang === 'he' ? 'קורסי העשרה' : 'Enrichment Courses'}</span>
+            </div>
+          </div>
+          <div className="track-grid">
+            {enrichmentTracks.map(track => {
+              const isEmpty = track.chapters.length === 0
+              return (
+                <button
+                  key={track.id}
+                  className="track-card"
+                  onClick={() => !isEmpty && onSelect(track)}
+                  disabled={isEmpty}
+                  style={{ '--track-color': track.color }}
+                >
+                  <div className="track-card-icon">{track.icon}</div>
+                  <div className="track-card-body">
+                    <div className="track-card-title">{trackI18n(track, 'title', t, lang)}</div>
+                    <div className="track-card-subtitle">{trackI18n(track, 'subtitle', t, lang)}</div>
+                    <div className="track-card-meta">
+                      <span className="track-card-level">{trackI18n(track, 'level', t, lang)}</span>
+                      <span className="track-card-chapters">{track.chapterCount || track.chapters.length} {t('chapters_count')}</span>
+                    </div>
+                    <div className="track-card-start">{t('start')}</div>
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+        </>
+      )}
     </div>
   )
 }
