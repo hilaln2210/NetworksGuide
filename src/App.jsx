@@ -221,7 +221,7 @@ function TrackPicker({ tracks, onSelect }) {
                 <div className="track-card-subtitle">{trackI18n(track, 'subtitle', t, lang)}</div>
                 <div className="track-card-meta">
                   <span className="track-card-level">{trackI18n(track, 'level', t, lang)}</span>
-                  {!isEmpty && !isLocked && <span className="track-card-chapters">{track.chapters.length} {t('chapters_count')}</span>}
+                  {!isEmpty && !isLocked && <span className="track-card-chapters">{track.chapterCount || track.chapters.length} {t('chapters_count')}</span>}
                   {isEmpty && !isLocked && <span className="track-card-soon">{t('coming_soon')}</span>}
                 </div>
                 {isLocked && <div className="track-card-editing">{t('being_edited')}</div>}
@@ -1259,7 +1259,7 @@ function App() {
                   <div key={track.id} style={{ marginBottom: '14px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
                       <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>{track.icon} {trackI18n(track, 'title', t, lang)}</span>
-                      <span style={{ fontSize: '0.8rem', color: 'var(--text-muted, #6b7280)' }}>{pct}% &middot; {compCh}/{track.chapters.length} {t('stats_chapters_done')}</span>
+                      <span style={{ fontSize: '0.8rem', color: 'var(--text-muted, #6b7280)' }}>{pct}% &middot; {compCh}/{track.chapterCount || track.chapters.length} {t('stats_chapters_done')}</span>
                     </div>
                     <div style={barBg}>
                       <div style={{ height: '100%', borderRadius: '8px', background: track.color || '#0891b2', width: `${pct}%`, transition: 'width 0.5s' }} />

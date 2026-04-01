@@ -7,11 +7,12 @@ export const tracks = [
   {
     id: 'networking',
     title: 'רשתות מחשבים',
-    subtitle: 'איך עובד האינטרנט, Sockets, Wireshark, TCP/IP, Scapy ועוד — 12 פרקים',
+    subtitle: 'איך עובד האינטרנט, Sockets, Wireshark, TCP/IP, Scapy ועוד — 13 פרקים',
     icon: '🌐',
     color: '#0891b2',
     level: 'מתחיל–מתקדם',
     fullPage: true,
+    chapterCount: 13,
     chapters: [
       { id: 1, title: "רשתות מחשבים — קורס מלא", pages: [{ type: "html_page", title: "Networks Course", src: "/learn/networks/networks_course.html" }] },
     ]
@@ -24,6 +25,7 @@ export const tracks = [
     color: '#ef4444',
     level: 'מתחיל–מתקדם',
     fullPage: true,
+    chapterCount: 9,
     chapters: [
       { id: 100, title: "אבטחת מידע — קורס מלא", pages: [{ type: "html_page", title: "Cybersecurity Course", src: "/learn/security/cyber_course.html" }] },
     ]
@@ -36,6 +38,7 @@ export const tracks = [
     color: '#06b6d4',
     level: 'מתחיל–בינוני',
     fullPage: true,
+    chapterCount: 8,
     chapters: [
       { id: 300, title: "Web & APIs — קורס מלא", pages: [{ type: "html_page", title: "Web & APIs Course", src: "/learn/webapi/web_apis_course.html" }] },
     ]
@@ -48,6 +51,7 @@ export const tracks = [
     color: '#00ff88',
     level: 'מתחיל–מתקדם',
     fullPage: true,
+    chapterCount: 10,
     chapters: [
       { id: 400, title: "מערכות לינוקס — קורס מלא", pages: [{ type: "html_page", title: "Linux Course", src: "/learn/linux/linux_course.html" }] },
     ]
@@ -60,6 +64,7 @@ export const tracks = [
     color: '#f59e0b',
     level: 'מתחיל–מתקדם',
     fullPage: true,
+    chapterCount: 12,
     chapters: [
       { id: 500, title: "Blockchain & Crypto Forensics — קורס מלא", pages: [{ type: "html_page", title: "Crypto Course", src: "/learn/crypto/crypto_course.html" }] },
     ]
@@ -67,11 +72,12 @@ export const tracks = [
   {
     id: 'ai-agents',
     title: 'AI Agents & Multi-Agent Systems',
-    subtitle: 'סוכנים חכמים, מערכות מרובות סוכנים, LLM Agents, כלים, זיכרון, תכנון — קורס מלא',
+    subtitle: 'סוכנים חכמים, מערכות מרובות סוכנים, LLM Agents, כלים, זיכרון, תכנון — 10 פרקים',
     icon: '🤖',
     color: '#8b5cf6',
     level: 'מתחיל–מתקדם',
     fullPage: true,
+    chapterCount: 10,
     chapters: [
       { id: 600, title: "AI Agents — קורס מלא", pages: [{ type: "html_page", title: "AI Agents Course", src: "/learn/ai-agents/ai_agents_course.html" }] },
     ]
