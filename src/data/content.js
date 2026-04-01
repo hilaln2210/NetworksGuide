@@ -117,7 +117,7 @@ export const enrichmentTracks = [
     fullPage: true,
     chapterCount: 11,
     chapters: [
-      { id: 700, title: "שיטות מסחר — קורס מלא", pages: [{ type: "html_page", title: "Trading Methods", src: "/learn/enrichment/trading_methods.html" }] },
+      { id: 700, title: "שיטות מסחר — קורס מלא", pages: [{ type: "html_page", title: "Trading Methods", src: "/learn/enrichment/trading_methods.html?v=20260402" }] },
     ]
   },
 ]
