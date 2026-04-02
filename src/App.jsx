@@ -192,6 +192,18 @@ function TrackPicker({ tracks, onSelect }) {
               <span className="path-icon">🤖</span>
               <span className="path-name">{isEn ? 'AI Agents' : 'AI Agents'}</span>
             </div>
+            <div className="path-connector" />
+            <div className="path-step" style={{ '--step-color': '#8b5cf6' }}>
+              <span className="path-num">7</span>
+              <span className="path-icon">🔬</span>
+              <span className="path-name">{isEn ? 'Net Research' : 'חקר רשתות'}</span>
+            </div>
+            <div className="path-connector" />
+            <div className="path-step" style={{ '--step-color': '#dc2626' }}>
+              <span className="path-num">8</span>
+              <span className="path-icon">🔴</span>
+              <span className="path-name">{isEn ? 'Red Team' : 'Red Team'}</span>
+            </div>
           </div>
         </div>
         <div className="track-intro-features">
