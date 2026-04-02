@@ -1,0 +1,2579 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Computer Networks Course</title>
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #ffffff;
+  --bg2:       #f8f9fa;
+  --bg3:       #f1f3f5;
+  --surface:   #ffffff;
+  --border:    #e9ecef;
+  --border2:   #dee2e6;
+  --accent:    #1d6b9c;
+  --accent2:   #e8f4fd;
+  --accentfg:  #ffffff;
+  --text:      #212529;
+  --text2:     #495057;
+  --text3:     #868e96;
+  --green:     #2f9e44;
+  --red:       #e03131;
+  --orange:    #e8590c;
+  --mono:      'Courier New', 'Consolas', monospace;
+  --sans:      -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --r:         6px;
+  --r2:        12px;
+  --shadow:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow2:   0 4px 12px rgba(0,0,0,.10);
+}
+
+html, body { height: 100%; font-family: var(--sans); background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* ── HEADER ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; height: 56px; z-index: 200;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 20px; gap: 16px;
+}
+.header-logo {
+  font-weight: 700; font-size: 15px; color: var(--text);
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+}
+.header-logo-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+}
+.header-chname { font-size: 13px; color: var(--text3); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lang-btn {
+  font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: var(--r);
+  border: 1px solid var(--border2); background: var(--bg2); color: var(--text2);
+  cursor: pointer; flex-shrink: 0; transition: all .15s;
+}
+.lang-btn:hover { background: var(--accent); color: var(--accentfg); border-color: var(--accent); }
+.menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 6px; color: var(--text2); }
+
+/* ── CHAPTER NAV BAR ── */
+.ch-nav {
+  position: fixed; top: 56px; left: 0; right: 0; z-index: 150;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  overflow-x: auto; display: flex; padding: 0 20px; gap: 4px;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.ch-nav::-webkit-scrollbar { display: none; }
+.ch-btn {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 14px 6px; gap: 2px; border: none; background: none;
+  cursor: pointer; border-bottom: 2px solid transparent;
+  color: var(--text3); transition: all .15s; flex-shrink: 0; min-width: 56px;
+}
+.ch-btn:hover { color: var(--text2); background: var(--bg2); }
+.ch-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.ch-num { font-size: 11px; font-weight: 700; font-family: var(--mono); }
+.ch-title-text { font-size: 10px; max-width: 72px; text-align: center; line-height: 1.2; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.ch-stars { font-size: 9px; color: var(--orange); min-height: 10px; }
+
+/* ── LAYOUT ── */
+.main { padding-top: 104px; min-height: 100vh; max-width: 900px; margin: 0 auto; padding-left: 24px; padding-right: 24px; padding-bottom: 60px; }
+
+/* ── CHAPTER SECTION ── */
+.chapter { display: none; }
+.chapter.active { display: block; }
+
+/* ── CHAPTER HERO ── */
+.ch-hero {
+  padding: 36px 0 28px; border-bottom: 1px solid var(--border); margin-bottom: 32px;
+}
+.ch-tag { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; font-family: var(--mono); }
+.ch-title { font-size: 28px; font-weight: 800; line-height: 1.2; color: var(--text); margin-bottom: 10px; letter-spacing: -.02em; }
+.ch-desc { font-size: 14px; color: var(--text3); line-height: 1.5; max-width: 580px; margin-bottom: 20px; }
+.tabs-bar { display: flex; gap: 4px; }
+.tab-btn {
+  padding: 7px 16px; font-size: 13px; font-weight: 500; border-radius: var(--r);
+  border: 1px solid transparent; background: var(--bg3); color: var(--text3);
+  cursor: pointer; transition: all .15s;
+}
+.tab-btn:hover { background: var(--bg2); color: var(--text2); border-color: var(--border2); }
+.tab-btn.active { background: var(--accent); color: var(--accentfg); border-color: var(--accent); }
+
+/* ── TAB PANELS ── */
+.tab-panels { }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── LEARN CONTENT ── */
+.did-you-know {
+  background: var(--bg2); border-left: 3px solid var(--accent);
+  padding: 14px 16px; border-radius: 0 var(--r) var(--r) 0;
+  font-size: 13.5px; color: var(--text2); margin-bottom: 28px; line-height: 1.6;
+}
+.section-title {
+  font-size: 18px; font-weight: 700; color: var(--text); margin: 32px 0 12px;
+  letter-spacing: -.01em;
+}
+.section-title:first-of-type { margin-top: 0; }
+.prose {
+  font-size: 15px; color: var(--text2); line-height: 1.75; margin-bottom: 14px;
+}
+.prose code, code {
+  font-family: var(--mono); font-size: 12.5px; background: var(--bg3);
+  padding: 1px 5px; border-radius: 3px; color: var(--text);
+}
+
+/* ── CODE BLOCKS ── */
+.code-block {
+  background: #1e1e2e; border-radius: var(--r2); padding: 18px 20px;
+  margin: 16px 0; overflow-x: auto;
+}
+.code-block code {
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.7;
+  background: none; padding: 0; color: #cdd6f4; display: block;
+}
+.comment { color: #6c7086; }
+.key { color: #89b4fa; }
+.str { color: #a6e3a1; }
+.val { color: #fab387; }
+
+/* ── GRID ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin: 16px 0 24px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--r2);
+  padding: 18px; display: flex; flex-direction: column; gap: 6px;
+  box-shadow: var(--shadow);
+}
+.card-icon { font-size: 22px; }
+.card-title { font-size: 13px; font-weight: 700; color: var(--text); }
+.card-body { font-size: 13px; color: var(--text3); line-height: 1.55; }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; margin: 16px 0 24px; border-radius: var(--r2); border: 1px solid var(--border); box-shadow: var(--shadow); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table thead { background: var(--bg3); }
+.data-table th { padding: 10px 14px; text-align: left; font-weight: 600; color: var(--text2); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; border-bottom: 1px solid var(--border); }
+.data-table td { padding: 10px 14px; color: var(--text2); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--bg2); }
+
+/* ── FLOW ── */
+.flow-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 16px 0 24px; padding: 20px; background: var(--bg2); border-radius: var(--r2); border: 1px solid var(--border); }
+.flow-step { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.flow-step-icon { font-size: 22px; }
+.flow-step-label { font-size: 10px; color: var(--text3); line-height: 1.3; max-width: 64px; }
+.flow-arrow { color: var(--accent); font-size: 16px; font-weight: 700; flex-shrink: 0; }
+
+/* ── CALLOUTS ── */
+.callout { padding: 12px 16px; border-radius: var(--r); font-size: 13.5px; line-height: 1.6; margin: 16px 0; }
+.callout-info { background: #eff6ff; border-left: 3px solid #3b82f6; color: #1e40af; }
+.callout-warn { background: #fffbeb; border-left: 3px solid #f59e0b; color: #92400e; }
+.callout-tip  { background: #f0fdf4; border-left: 3px solid #22c55e; color: #14532d; }
+.callout-success { background: var(--bg2); border: 1px solid var(--border); color: var(--text2); border-radius: var(--r); padding: 10px 14px; margin-bottom: 14px; }
+
+/* ── REAL-WORLD BOX ── */
+.real-world-box {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 20px; margin: 24px 0;
+  box-shadow: var(--shadow);
+}
+.real-world-title { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
+.real-world-body { font-size: 13.5px; color: var(--text2); line-height: 1.7; }
+
+/* ── BADGE ── */
+.badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; font-family: var(--mono); }
+.badge-new  { background: #dcfce7; color: #166534; }
+.badge-hot  { background: #fee2e2; color: #991b1b; }
+.badge-exp  { background: #fffbeb; color: #92400e; }
+.badge-prod { background: #eff6ff; color: #1e40af; }
+
+/* ── CHEAT SHEET ── */
+.cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; margin-top: 8px; }
+.cheat-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; }
+.cheat-card-title { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .06em; font-family: var(--mono); }
+.cheat-item { display: flex; justify-content: space-between; gap: 8px; padding: 4px 0; border-bottom: 1px solid var(--border); font-size: 12.5px; }
+.cheat-item:last-child { border-bottom: none; }
+.cheat-key { font-family: var(--mono); color: var(--accent); font-weight: 600; font-size: 11.5px; flex-shrink: 0; }
+.cheat-val { color: var(--text3); text-align: right; font-size: 11.5px; }
+
+/* ── GAME ── */
+.game-start-card { max-width: 420px; margin: 0 auto; text-align: center; padding: 48px 24px; }
+.game-icon { font-size: 48px; margin-bottom: 16px; }
+.game-start-title { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 8px; letter-spacing: -.02em; }
+.game-start-desc { font-size: 14px; color: var(--text3); margin-bottom: 24px; }
+.game-rules { display: flex; justify-content: center; gap: 24px; margin-bottom: 28px; }
+.game-rule { font-size: 13px; color: var(--text2); }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: var(--r); font-size: 14px; font-weight: 600; border: none; cursor: pointer; transition: all .15s; }
+.btn-primary { background: var(--accent); color: var(--accentfg); }
+.btn-primary:hover { opacity: .9; transform: translateY(-1px); box-shadow: var(--shadow2); }
+.btn-ghost { background: var(--bg2); color: var(--text2); border: 1px solid var(--border2); }
+.btn-ghost:hover { background: var(--bg3); }
+.game-hud { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding: 12px 16px; background: var(--bg2); border-radius: var(--r); border: 1px solid var(--border); }
+.hud-score { font-size: 20px; font-weight: 800; color: var(--accent); font-family: var(--mono); }
+.hud-timer { font-size: 14px; font-weight: 600; color: var(--text2); font-family: var(--mono); }
+.game-q-text { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 20px; line-height: 1.5; }
+.game-opts { display: flex; flex-direction: column; gap: 10px; }
+.game-opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px; border-radius: var(--r); border: 1.5px solid var(--border);
+  background: var(--bg); cursor: pointer; transition: all .15s;
+  font-size: 14px; color: var(--text2); font-weight: 500;
+}
+.game-opt:hover { border-color: var(--accent); color: var(--text); background: var(--bg2); }
+.game-opt.correct { border-color: var(--green); background: #f0fdf4; color: var(--green); }
+.game-opt.wrong   { border-color: var(--red); background: #fff1f2; color: var(--red); }
+.opt-letter { width: 24px; height: 24px; border-radius: 50%; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; color: var(--text3); font-family: var(--mono); }
+.game-result-card { max-width: 420px; margin: 40px auto 0; text-align: center; }
+.result-score { font-size: 56px; font-weight: 900; color: var(--accent); font-family: var(--mono); margin-bottom: 4px; }
+.result-label { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 24px; }
+.result-btns { display: flex; gap: 10px; justify-content: center; }
+
+/* ── QUIZ ── */
+.quiz-wrap { max-width: 680px; }
+.quiz-progress { display: flex; gap: 4px; margin-bottom: 24px; }
+.quiz-prog-dot { flex: 1; height: 3px; border-radius: 2px; background: var(--border2); }
+.quiz-prog-dot.done { background: var(--accent); }
+.quiz-prog-dot.current { background: var(--accent); opacity: .5; }
+.quiz-q-text { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 20px; line-height: 1.5; }
+.quiz-opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.quiz-opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 16px; border-radius: var(--r); border: 1.5px solid var(--border);
+  background: var(--bg); cursor: pointer; transition: all .15s;
+  font-size: 14px; color: var(--text2);
+}
+.quiz-opt:hover { border-color: var(--accent); }
+.quiz-opt.selected { border-color: var(--accent); background: var(--bg2); color: var(--text); }
+.quiz-opt.correct { border-color: var(--green); background: #f0fdf4; }
+.quiz-opt.wrong   { border-color: var(--red); background: #fff1f2; }
+.quiz-explain { padding: 12px 16px; background: var(--bg2); border-radius: var(--r); font-size: 13.5px; color: var(--text2); margin: 12px 0; line-height: 1.6; border-left: 3px solid var(--accent); }
+.quiz-actions { display: flex; gap: 10px; }
+.quiz-result { text-align: center; padding: 40px 20px; }
+.qr-score { font-size: 52px; font-weight: 900; font-family: var(--mono); color: var(--accent); }
+.qr-label { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 24px; }
+
+/* ── LAB ── */
+.lab-wrap { max-width: 720px; }
+
+/* ── CREDITS ── */
+.credits-bar { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 48px; }
+.credits-title { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; font-family: var(--mono); }
+.credits-grid { display: flex; flex-wrap: wrap; gap: 24px; }
+.credit-group { flex: 1; min-width: 140px; }
+.credit-group-title { font-size: 11px; font-weight: 700; color: var(--text2); margin-bottom: 8px; }
+.credit-item { font-size: 12px; color: var(--text3); line-height: 1.8; }
+.credit-item a { color: var(--accent); text-decoration: none; }
+.credit-item a:hover { text-decoration: underline; }
+
+/* ── MOBILE ── */
+@media (max-width: 700px) {
+  .main { padding-top: 100px; padding-left: 16px; padding-right: 16px; }
+  .ch-title { font-size: 22px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .menu-btn { display: block; }
+  .flow-row { gap: 4px; padding: 14px; }
+  .flow-step-label { font-size: 9px; max-width: 54px; }
+  .game-rules { gap: 14px; }
+  .quiz-actions { flex-wrap: wrap; }
+}
+@media (max-width: 480px) {
+  .ch-nav { padding: 0 12px; }
+  .ch-btn { padding: 8px 10px; min-width: 46px; }
+  .ch-title-text { max-width: 56px; font-size: 9px; }
+}
+
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-logo">
+    <div class="header-logo-dot"></div>
+    <span>Networks</span>
+  </div>
+  <span class="header-chname" id="headerChName"></span>
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
+</header>
+
+<nav class="ch-nav" id="sidebar">
+  <div class="sb-label" id="sbLabel" style="display:none"></div>
+  
+  <button class="ch-btn" id="nav-0" onclick="showChapter(0)"><span class="ch-num">00</span><span class="ch-title-text" id="chname-0"></span><span class="ch-stars" id="stars-0"></span></button>
+  <button class="ch-btn" id="nav-1" onclick="showChapter(1)"><span class="ch-num">01</span><span class="ch-title-text" id="chname-1"></span><span class="ch-stars" id="stars-1"></span></button>
+  <button class="ch-btn" id="nav-2" onclick="showChapter(2)"><span class="ch-num">02</span><span class="ch-title-text" id="chname-2"></span><span class="ch-stars" id="stars-2"></span></button>
+  <button class="ch-btn" id="nav-3" onclick="showChapter(3)"><span class="ch-num">03</span><span class="ch-title-text" id="chname-3"></span><span class="ch-stars" id="stars-3"></span></button>
+  <button class="ch-btn" id="nav-4" onclick="showChapter(4)"><span class="ch-num">04</span><span class="ch-title-text" id="chname-4"></span><span class="ch-stars" id="stars-4"></span></button>
+  <button class="ch-btn" id="nav-5" onclick="showChapter(5)"><span class="ch-num">05</span><span class="ch-title-text" id="chname-5"></span><span class="ch-stars" id="stars-5"></span></button>
+  <button class="ch-btn" id="nav-6" onclick="showChapter(6)"><span class="ch-num">06</span><span class="ch-title-text" id="chname-6"></span><span class="ch-stars" id="stars-6"></span></button>
+  <button class="ch-btn" id="nav-7" onclick="showChapter(7)"><span class="ch-num">07</span><span class="ch-title-text" id="chname-7"></span><span class="ch-stars" id="stars-7"></span></button>
+</nav>
+
+<main class="main" id="main">
+
+<section class="chapter" id="ch-0">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-0"></div>
+    <h1 class="ch-title" id="chtitle-0"></h1>
+    <p class="ch-desc" id="chdesc-0"></p>
+    <div class="tabs-bar" id="tabs-0"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="0-learn"><div id="learn-0"></div></div>
+    <div class="tab-panel" id="0-quiz"><div class="quiz-wrap" id="quiz-0"></div></div>
+    <div class="tab-panel" id="0-lab"><div class="lab-wrap" id="lab-0"></div></div>
+    <div class="tab-panel" id="0-game"><div class="game-wrap" id="game-0"></div></div>
+    <div class="tab-panel" id="0-cheat"><div id="cheat-0"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-1">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-1"></div>
+    <h1 class="ch-title" id="chtitle-1"></h1>
+    <p class="ch-desc" id="chdesc-1"></p>
+    <div class="tabs-bar" id="tabs-1"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="1-learn"><div id="learn-1"></div></div>
+    <div class="tab-panel" id="1-quiz"><div class="quiz-wrap" id="quiz-1"></div></div>
+    <div class="tab-panel" id="1-lab"><div class="lab-wrap" id="lab-1"></div></div>
+    <div class="tab-panel" id="1-game"><div class="game-wrap" id="game-1"></div></div>
+    <div class="tab-panel" id="1-cheat"><div id="cheat-1"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-2">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-2"></div>
+    <h1 class="ch-title" id="chtitle-2"></h1>
+    <p class="ch-desc" id="chdesc-2"></p>
+    <div class="tabs-bar" id="tabs-2"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="2-learn"><div id="learn-2"></div></div>
+    <div class="tab-panel" id="2-quiz"><div class="quiz-wrap" id="quiz-2"></div></div>
+    <div class="tab-panel" id="2-lab"><div class="lab-wrap" id="lab-2"></div></div>
+    <div class="tab-panel" id="2-game"><div class="game-wrap" id="game-2"></div></div>
+    <div class="tab-panel" id="2-cheat"><div id="cheat-2"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-3">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-3"></div>
+    <h1 class="ch-title" id="chtitle-3"></h1>
+    <p class="ch-desc" id="chdesc-3"></p>
+    <div class="tabs-bar" id="tabs-3"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="3-learn"><div id="learn-3"></div></div>
+    <div class="tab-panel" id="3-quiz"><div class="quiz-wrap" id="quiz-3"></div></div>
+    <div class="tab-panel" id="3-lab"><div class="lab-wrap" id="lab-3"></div></div>
+    <div class="tab-panel" id="3-game"><div class="game-wrap" id="game-3"></div></div>
+    <div class="tab-panel" id="3-cheat"><div id="cheat-3"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-4">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-4"></div>
+    <h1 class="ch-title" id="chtitle-4"></h1>
+    <p class="ch-desc" id="chdesc-4"></p>
+    <div class="tabs-bar" id="tabs-4"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="4-learn"><div id="learn-4"></div></div>
+    <div class="tab-panel" id="4-quiz"><div class="quiz-wrap" id="quiz-4"></div></div>
+    <div class="tab-panel" id="4-lab"><div class="lab-wrap" id="lab-4"></div></div>
+    <div class="tab-panel" id="4-game"><div class="game-wrap" id="game-4"></div></div>
+    <div class="tab-panel" id="4-cheat"><div id="cheat-4"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-5">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-5"></div>
+    <h1 class="ch-title" id="chtitle-5"></h1>
+    <p class="ch-desc" id="chdesc-5"></p>
+    <div class="tabs-bar" id="tabs-5"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="5-learn"><div id="learn-5"></div></div>
+    <div class="tab-panel" id="5-quiz"><div class="quiz-wrap" id="quiz-5"></div></div>
+    <div class="tab-panel" id="5-lab"><div class="lab-wrap" id="lab-5"></div></div>
+    <div class="tab-panel" id="5-game"><div class="game-wrap" id="game-5"></div></div>
+    <div class="tab-panel" id="5-cheat"><div id="cheat-5"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-6">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-6"></div>
+    <h1 class="ch-title" id="chtitle-6"></h1>
+    <p class="ch-desc" id="chdesc-6"></p>
+    <div class="tabs-bar" id="tabs-6"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="6-learn"><div id="learn-6"></div></div>
+    <div class="tab-panel" id="6-quiz"><div class="quiz-wrap" id="quiz-6"></div></div>
+    <div class="tab-panel" id="6-lab"><div class="lab-wrap" id="lab-6"></div></div>
+    <div class="tab-panel" id="6-game"><div class="game-wrap" id="game-6"></div></div>
+    <div class="tab-panel" id="6-cheat"><div id="cheat-6"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-7">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-7"></div>
+    <h1 class="ch-title" id="chtitle-7"></h1>
+    <p class="ch-desc" id="chdesc-7"></p>
+    <div class="tabs-bar" id="tabs-7"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="7-learn"><div id="learn-7"></div></div>
+    <div class="tab-panel" id="7-quiz"><div class="quiz-wrap" id="quiz-7"></div></div>
+    <div class="tab-panel" id="7-lab"><div class="lab-wrap" id="lab-7"></div></div>
+    <div class="tab-panel" id="7-game"><div class="game-wrap" id="game-7"></div></div>
+    <div class="tab-panel" id="7-cheat"><div id="cheat-7"></div></div>
+  </div>
+</section>
+<div class="credits-bar" id="credits-bar">
+  <div class="credits-title" id="credits-title-label">// Sources & Credits</div>
+  <div class="credits-grid">
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-research">Research</div>
+      <div class="credit-item">Kurose &amp; Ross — Computer Networking</div>
+      <div class="credit-item">Cloudflare Blog &amp; Docs</div>
+      <div class="credit-item">IETF RFCs — ietf.org</div>
+    </div>
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-tech">Tools</div>
+      <div class="credit-item"><a href="https://wireshark.org" target="_blank">Wireshark</a></div>
+      <div class="credit-item"><a href="https://nmap.org" target="_blank">Nmap</a></div>
+      <div class="credit-item"><a href="https://bgp.he.net" target="_blank">Hurricane Electric BGP</a></div>
+    </div>
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-built">Built With</div>
+      <div class="credit-item">Claude (Anthropic)</div>
+      <div class="credit-item" id="credits-version">v2.0 — 2025</div>
+    </div>
+  </div>
+</div>
+</main>
+
+</body>
+</html>
+<script>
+const C = {
+he:{
+  dir:'rtl',lang:'he',langBtn:'🇬🇧 EN',sbLabel:'פרקים',
+  names:["Wireshark — ניתוח תעבורת", "BGP — פרוטוקול הניתוב הגלובלי", "DNS — עומק ואבטחה", "HTTP/2 ו-HTTP/3 — המהפכה", "TLS — מבפנים", "eBPF — Linux Superpower", "Container Networking", "Network Performance Tuning"],
+  tags:["// פרק 00", "// פרק 01", "// פרק 02", "// פרק 03", "// פרק 04", "// פרק 05", "// פרק 06", "// פרק 07"],
+  descs:["Capture filters, display filters, TCP streams, dissectors, ניתוח HTTP/TLS", "AS numbers, BGP sessions, path attributes, route hijacking, RPKI", "DNSSEC, DNS over HTTPS, DNS amplification DDoS, split-horizon, resolver internals", "Multiplexing, Server Push, Header Compression, QUIC, HTTP/3 על UDP", "TLS 1.3 handshake, cipher suites, certificates, OCSP, certificate transparency", "eBPF programs, XDP, network observability, Cilium, eBPF vs iptables", "Docker networking, Kubernetes CNI, overlay networks, service mesh, eBPF vs iptables", "TCP tuning, kernel parameters, congestion control, RDMA, zero-copy networking"],
+  tabs:['📖 למידה','🎮 משחק','📋 סיכום'],
+  tabKeys:['learn','game','cheat'],
+  gameTitle:'QUIZ',gameDesc:'ענה מהר. כל תשובה נכונה = +10 נקודות.',
+  gameStart:'▶ התחל',gameSeconds:'שניות',gameQuestions:'שאלות',gameXP:'+10 XP',
+  gameAgain:'🔄 שוב',gameToCheat:'📋 סיכום ←',
+  quizPrev:'→ הקודם',quizNext:'הבא ←',quizSubmit:'שלח ✓',
+  quizExplain:'💡 הסבר:',quizToLab:'',quizAgain:'🔄 שוב',
+  resultLabels:['נסי שוב!','עוד קצת...','טוב!','כל הכבוד!','מצוין!','מושלם! 🎯'],
+  lbTitle:'// לוח תוצאות',labExplain:'💡 הסבר:',
+  points:"נק'",of:'מתוך',question:'שאלה',
+  optLetters:['א','ב','ג','ד'],playerName:'את',unknownPlayer:'שחקן',pct:'% נכון',
+  learn:[
+`<div class="did-you-know">💡 <strong>ידעת?</strong> Wireshark פותח ב-1998 על ידי Gerald Combs בשם Ethereal. ב-2006 שונה השם ל-Wireshark. כיום הוא הכלי המשמש יותר מכל אחר לניתוח רשת — security researchers, developers, ו-network engineers ברחבי העולם. הוא מציג כל packet שעובר בממשק הרשת שלך בפירוט מלא.</div>
+
+<div class="section-title">כיצד Wireshark עובד — מבפנים</div>
+<p class="prose">Wireshark משתמש ב-libpcap (Linux) או WinPcap/Npcap (Windows) כדי להכניס את כרטיס הרשת שלך ל-promiscuous mode — מצב שבו הוא מאזין לכל ה-packets ברשת, לא רק לאלה שמיועדים לו. כל packet שעובר נשמר ב-buffer ומוצג ב-real-time. Wireshark מפרק (dissects) כל packet לפרוטוקולים שלו: Ethernet frame ← IP packet ← TCP segment ← HTTP message.</p>
+<p class="prose">הממשק מחולק לשלושה חלקים: Packet List (רשימת כל ה-packets לפי זמן), Packet Details (פירוט מלא של ה-packet שנבחר — כל שכבה וכל field), ו-Packet Bytes (ייצוג hex של ה-bytes הגולמיים). להבין את שלושת החלקים יחד — זה מה שהופך Wireshark למכשיר דיאגנוסטי אמיתי.</p>
+
+<div class="section-title">Capture Filters — לפני שמקליטים</div>
+<p class="prose">Capture filters נכתבים ב-BPF (Berkeley Packet Filter) syntax ופועלים ב-kernel level לפני שהpackets מגיעים ל-Wireshark. זה קריטי ב-busy networks — ללא filter הbuffer מתמלא מהר ו-Wireshark מאבד packets. כתוב את ה-filter לפני שלוחצים Start.</p>
+<pre class="code-block"><code><span class="comment"># Capture Filters — BPF syntax</span>
+host 192.168.1.100          <span class="comment"># traffic מ/אל IP ספציפי</span>
+port 443                    <span class="comment"># רק HTTPS</span>
+port 80 or port 443         <span class="comment"># HTTP ו-HTTPS</span>
+net 192.168.1.0/24          <span class="comment"># כל הsubnet</span>
+not port 22                 <span class="comment"># הכל חוץ מSSH</span>
+tcp and host 10.0.0.5       <span class="comment"># TCP בלבד מ-host ספציפי</span></code></pre>
+
+<div class="section-title">Display Filters — אחרי שמקליטים</div>
+<p class="prose">Display filters מסננים מה מוצג מתוך ה-capture הקיים מבלי למחוק packets. הסינטקס שונה לגמרי מCapture filters — הוא מבוסס על שמות שדות מהdissectors. אפשר לסנן לפי כל field בכל פרוטוקול.</p>
+<pre class="code-block"><code><span class="comment"># Display Filters — Wireshark syntax</span>
+ip.addr == 192.168.1.100     <span class="comment"># IP כלשהו</span>
+ip.src == 10.0.0.5          <span class="comment"># source IP בלבד</span>
+tcp.port == 443              <span class="comment"># HTTPS</span>
+http.request.method == "GET" <span class="comment"># GET requests בלבד</span>
+dns.qry.name contains "google" <span class="comment"># DNS queries לgoogle</span>
+tcp.flags.syn == 1 && tcp.flags.ack == 0  <span class="comment"># רק SYN (חיבורים חדשים)</span>
+frame.time_delta > 1        <span class="comment"># packets עם gap מעל שנייה</span>
+tls.handshake.type == 1     <span class="comment"># TLS Client Hello</span></code></pre>
+
+<div class="section-title">TCP Stream — לראות שיחה שלמה</div>
+<p class="prose">אחת הפיצ'רים החזקות ביותר: לחיצה ימנית על TCP packet ← Follow ← TCP Stream מראה את כל ה-conversation בין שני hosts — request ו-response ביחד, בצבעים שונים. זה מאפשר לראות HTTP requests/responses, SMTP conversations, ו-כל שיחת TCP בייצוג קריא.</p>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Case Study: debugging slow API עם Wireshark</div>
+  <div class="real-world-body">
+    API call לוקח 3 שניות. הdeveloper טוען שה-backend מהיר. איך מכריעים? Wireshark על client. Filter: <code>ip.addr == api.server.com && tcp</code>. בודק TCP stream time deltas. גילוי: ה-TLS handshake לוקח 2.3 שניות — Server response time היה 0.1 שניות. הבעיה: DNS resolution ל-api.server.com לקחה 2.2 שניות (TTL נמוך מדי, 60 שניות, ו-high DNS load). פתרון: העלאת TTL ל-300.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">Wireshark הופך מכלי מפחיד לכלי שגרתי ברגע שמבינים שלושה תרחישים ספציפיים. לא צריך להבין כל packet — צריך לדעת לשאול את השאלה הנכונה.</p>
+
+<div class="section-title">תרחיש 1: למה ה-API איטי?</div>
+<p class="prose">פותחים Wireshark, מגדירים capture filter <code>host api.server.com</code>, ומריצים את ה-request. עכשיו בוחרים packet כלשהו מה-response, לוחצים ימני ← Follow ← TCP Stream. רואים מתי ה-SYN נשלח, מתי ה-SYN-ACK חזר, מתי ה-TLS Handshake הסתיים, ומתי ה-data הגיע. ה-delta בין SYN ל-data — זה ה-latency האמיתית. אם TLS לוקח 800ms מתוך 900ms — ה-בעיה היא DNS או certificate validation, לא ה-server.</p>
+<pre class="code-block"><code><span class="comment"># Workflow: API latency debug</span>
+1. Wireshark ← Capture ← Interface שלך
+2. Capture Filter: host api.example.com
+3. הרץ request
+4. Stop capture
+5. Display Filter: tcp.stream eq 0
+6. Statistics ← TCP Stream Graphs ← Time Sequence (tcptrace)
+   <span class="comment"># רואה בדיוק איפה הזמן הולך</span></code></pre>
+
+<div class="section-title">תרחיש 2: מה המחשב שולח ברשת?</div>
+<p class="prose">כדי לראות כל ה-traffic שמחשב שלך מייצר, אין צורך ב-filter. פשוט מריצים capture ל-30 שניות ואז: Statistics ← Protocol Hierarchy. מקבלים breakdown מלא — כמה TCP, כמה UDP, כמה DNS, כמה HTTP. אם רואים protocol לא מוכר — display filter על שמו וממשיכים לחקור.</p>
+
+<div class="section-title">תרחיש 3: אימות SSL Certificate בפועל</div>
+<pre class="code-block"><code><span class="comment"># Display filter לראות TLS Handshake בלבד</span>
+tls.handshake.type == 1   <span class="comment"># Client Hello</span>
+tls.handshake.type == 2   <span class="comment"># Server Hello</span>
+tls.handshake.type == 11  <span class="comment"># Certificate</span>
+
+<span class="comment"># לחץ על Certificate packet ←</span>
+<span class="comment"># Transport Layer Security →</span>
+<span class="comment"># TLSv1.3 Record Layer →</span>
+<span class="comment"># Handshake Protocol: Certificate →</span>
+<span class="comment"># Certificates → רואה subject, issuer, expiry</span></code></pre>
+
+<div class="callout callout-tip"><strong>💡 טיפ מהיר:</strong> תמיד שמור captures ב-.pcap לפני שסוגרים. <code>File ← Save As ← incident_2025_01_15.pcap</code>. Captures שנשמרים = ראיות שאפשר לנתח מחדש, לשתף עם צוות, ולהשוות לover time.</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> BGP מנהל את הניתוב של כל האינטרנט — אבל הוא פועל על trust בלבד. אין authentication ל-route announcements. כל AS יכול "להכריז" שהוא יודע route לכל IP בעולם, וה-internet יאמין. זה גרם לעשרות BGP hijacking incidents — כולל ב-2010 כש-China Telecom "ניתבה" 15% מתעבורת האינטרנט דרך שרתים סינים.</div>
+
+<div class="section-title">מהו BGP ולמה הוא קיים?</div>
+<p class="prose">BGP (Border Gateway Protocol) הוא ה-EGP (Exterior Gateway Protocol) של האינטרנט — הפרוטוקול שמחבר בין Autonomous Systems. AS (Autonomous System) הוא רשת שנמצאת תחת ניהול אחד — ISP, חברת ענן, אוניברסיטה, בנק. לכל AS יש ASN (Autonomous System Number) ייחודי. Israel Internet Association הוא AS47886. Google הוא AS15169. Amazon AWS הוא AS16509. כשpacket צריך לנסוע מ-AS אחד לאחר, BGP מחליט איך.</p>
+<p class="prose">בניגוד ל-OSPF שמחפש shortest path בתוך רשת אחת, BGP הוא policy-based routing. ISP יכול להחליט שהוא מעדיף לשלוח traffic דרך AS מסוים מסיבות עסקיות — לא רק technical. Peering agreements, transit costs, ו-political considerations כולם משפיעים על BGP decisions.</p>
+
+<div class="section-title">BGP Sessions ו-Peers</div>
+<pre class="code-block"><code><span class="comment"># BGP דורש TCP session על port 179</span>
+<span class="comment"># iBGP — between routers in same AS</span>
+<span class="comment"># eBGP — between routers in different AS</span>
+
+<span class="comment"># BGP States (state machine)</span>
+Idle → Connect → Active → OpenSent → OpenConfirm → Established
+
+<span class="comment"># בדיקת BGP sessions ב-Linux (FRRouting)</span>
+vtysh -c "show bgp summary"
+<span class="comment"># Neighbor      AS  MsgRcvd  MsgSent  Up/Down  State/PfxRcd</span>
+<span class="comment"># 10.0.0.1   65001    12450    12300   1d02h     450</span></code></pre>
+
+<div class="section-title">BGP Path Attributes — כיצד בוחרים route</div>
+<p class="prose">כשיש כמה paths לאותו prefix, BGP בוחר לפי רשימת attributes מסודרת. ה-decision process מסתכל על כל attribute לפי סדר מוגדר עד שמוצא tie-breaker.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>סדר</th><th>Attribute</th><th>ערך עדיף</th></tr></thead><tbody>
+<tr><td>1</td><td>Weight (Cisco)</td><td>גבוה יותר</td></tr>
+<tr><td>2</td><td>Local Preference</td><td>גבוה יותר (default 100)</td></tr>
+<tr><td>3</td><td>Locally originated</td><td>network/aggregate</td></tr>
+<tr><td>4</td><td>AS Path length</td><td>קצר יותר</td></tr>
+<tr><td>5</td><td>Origin</td><td>IGP > EGP > incomplete</td></tr>
+<tr><td>6</td><td>MED</td><td>נמוך יותר</td></tr>
+<tr><td>7</td><td>eBGP > iBGP</td><td>eBGP מועדף</td></tr>
+</tbody></table></div>
+
+<div class="section-title">BGP Hijacking ו-RPKI</div>
+<p class="prose">BGP Hijacking קורה כש-AS מכריז על prefix שלא שייך לו. ה-internet מאמין ל-announcement, ו-traffic מתחיל לזרום לAS הלא נכון. RPKI (Resource Public Key Infrastructure) הוא מנגנון שמוסיף cryptographic validation: כל prefix signed ע"י owner לגיטימי. Router שתומך ב-RPKI ידחה announcements לא חתומות.</p>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 MyEtherWallet BGP Hijack — $150K בקריפטו נגנב</div>
+  <div class="real-world-body">
+    אפריל 2018: AS10297 (eNet Inc, Ohio) הכריזה על BGP prefix של Amazon Route 53 DNS. כל queries ל-myetherwallet.com הופנו ל-phishing server. המתקפה נמשכה 2 שעות. משתמשים שהתחברו קיבלו TLS certificate מ-CA לא אמין — אבל רבים לחצו "proceed anyway".<br><br>
+    הלקח הכפול: RPKI היה מונע את ה-BGP hijack. Certificate pinning ב-browser היה מונע את ה-phishing. שניהם לא היו מיושמים.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">רוב developers לא מגדירים BGP ישירות — אבל כולם נתקלים בבעיות שנגרמות ממנו. הידע הפרקטי כאן: כיצד לאבחן BGP בעיות, כיצד לקרוא BGP looking glasses, וכיצד לבדוק routing מהארגון שלך.</p>
+
+<div class="section-title">Looking Glass — לראות Internet Routing</div>
+<p class="prose">Looking Glass הוא interface ציבורי לrouter של ISP גדול שמאפשר לשאול שאלות BGP. זה הכלי האמיתי לאבחון "למה traffic ממדינה X מגיע בנתיב שגוי?"</p>
+<pre class="code-block"><code><span class="comment"># כלים ציבוריים:</span>
+https://lg.he.net          <span class="comment"># Hurricane Electric — הנפוץ ביותר</span>
+https://bgp.tools           <span class="comment"># בדוק כל ASN ו-prefix</span>
+https://bgpview.io          <span class="comment"># ויזואלי, מצוין</span>
+
+<span class="comment"># מה לשאול:</span>
+<span class="comment"># "show route 8.8.8.8" ← כיצד מגיעים ל-Google DNS</span>
+<span class="comment"># "show bgp 1.1.1.1" ← AS Path ל-Cloudflare</span>
+
+<span class="comment"># בדיקה מ-terminal:</span>
+traceroute -A 8.8.8.8   <span class="comment"># -A מציג ASN בכל hop</span>
+mtr --aslookup google.com  <span class="comment"># live + ASN</span></code></pre>
+
+<div class="section-title">כיצד לזהות BGP Hijack</div>
+<p class="prose">אם site שעבד פתאום לא מגיב, ו-traceroute מראה hops לא מוכרים — כדאי לבדוק ב-BGP tools. הסימנים: AS Path שמשתנה פתאום, traffic שעובר דרך מדינה לא צפויה, latency שקפצה פי 3-5 ללא שינוי בתשתית.</p>
+<pre class="code-block"><code><span class="comment"># בדיקת AS Path שינוי</span>
+curl -s "https://stat.ripe.net/data/bgp-state/data.json?resource=8.8.8.8" | python3 -m json.tool | grep "asns"
+<span class="comment"># השווה ל-AS Path הרגיל — שינוי = דגל אדום</span>
+
+<span class="comment"># RPKI validation check</span>
+curl -s "https://rpki-validator.realmv6.org/api/v1/validity/AS15169/8.8.8.0/24"</code></pre>
+
+<div class="callout callout-tip"><strong>💡 מתי זה רלוונטי לך?</strong> אם אתה מנהל CDN, בונה infrastructure ב-multiple regions, או מאבחן latency anomalies — BGP looking glasses הם הכלי הראשון לבדוק.</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> DNS הוא הפרוטוקול שמשמש הכי הרבה ל-malware communication. Researchers מצאו שיותר מ-90% מה-malware משתמש ב-DNS לC2 (Command & Control). למה? כי port 53 כמעט תמיד פתוח, DNS traffic נראה לגיטימי, ו-DNS queries קטנות ולא מחשידות.</div>
+
+<div class="section-title">DNS Resolver Internals — מה קורה בפנים</div>
+<p class="prose">כשמחשב שואל "מה ה-IP של google.com", הוא פונה ל-recursive resolver — לרוב של ה-ISP, או 8.8.8.8 (Google), או 1.1.1.1 (Cloudflare). ה-resolver הוא זה שעושה את כל העבודה: פונה ל-root servers, TLD servers, ו-authoritative servers. הlclient עצמו לא פונה ישירות לאף שרת — רק לresolver.</p>
+<p class="prose">Caching הוא מה שהופך DNS לסקיילאבילי. כל תשובה מגיעה עם TTL (Time To Live) — הזמן שהresolver יכול לshlot אותה. google.com עם TTL של 300 שניות = הresolver שומר את התשובה 5 דקות ולא שואל שוב. ריצת <code>dig +trace google.com</code> מציגה את כל השלבים בזמן אמת.</p>
+
+<div class="section-title">DNSSEC — אימות cryptographic</div>
+<p class="prose">DNS רגיל אינו מאומת — resolver מאמין לכל תשובה שמקבל. DNSSEC (DNS Security Extensions) מוסיף digital signatures לכל record. כל zone חותמת את ה-records שלה עם private key, ו-resolver שתומך ב-DNSSEC מאמת את החתימה לפני שמחזיר תשובה. DNSSEC לא מצפין — הוא רק מאמת שהתשובה אמיתית.</p>
+<pre class="code-block"><code><span class="comment"># בדיקת DNSSEC</span>
+dig +dnssec google.com A
+<span class="comment"># RRSIG record = signature על ה-A record</span>
+
+dig +short DS google.com @8.8.8.8
+<span class="comment"># DS record = Delegation Signer — hash של child zone key</span>
+
+<span class="comment"># DoH — DNS over HTTPS</span>
+curl -s "https://dns.google/resolve?name=google.com&type=A" | jq .
+<span class="comment"># DNS בתוך HTTPS — ISP לא רואה queries</span>
+
+<span class="comment"># DoT — DNS over TLS (port 853)</span>
+kdig @1.1.1.1 +tls google.com</code></pre>
+
+<div class="section-title">DNS Attacks</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">💥</div><div class="card-title">DNS Amplification DDoS</div><div class="card-body">תוקף שולח DNS queries עם IP מזויף (spoofed source) לresolvers פתוחים. DNS response גדול פי 50-100 מה-query. Resolver שולח את ה-response לקורבן. Amplification factor: 100x. הגנה: BCP38 filtering, disable open resolvers.</div></div>
+<div class="card"><div class="card-icon">🎭</div><div class="card-title">DNS Cache Poisoning</div><div class="card-body">תוקף "מרעיל" את ה-cache של resolver עם תשובה מזויפת. בDan Kaminsky attack (2008): race condition בDNS שאפשר cache poisoning על כל resolver. נפתר עם source port randomization. DNSSEC פותר לגמרי.</div></div>
+<div class="card"><div class="card-icon">🚇</div><div class="card-title">DNS Tunneling</div><div class="card-body">מחביא נתונים בDNS queries. Malware מקודד data ב-subdomain: "dGF1c2Vy.evil.com". ה-"query" עובר לDNS server של התוקף שמפענח. זיהוי: queries ארוכות, subdomains עם base64, נפח חריג.</div></div>
+<div class="card"><div class="card-icon">🔀</div><div class="card-title">Split-Horizon DNS</div><div class="card-body">אותו domain נותן תשובות שונות לפי מקור ה-query. internal.company.com מחזיר 10.0.0.5 לmachines מבפנים, ומחזיר NXDOMAIN לבחוץ. VPN split tunneling מסתמך על זה.</div></div>
+</div>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 DNS Tunneling Detection — כיצד מזהים</div>
+  <div class="real-world-body">
+    חברות אבטחה כמו Cisco Umbrella מנתחות DNS traffic לזיהוי tunneling. Signs: queries ארוכות מ-50 תווים, entropy גבוה ב-subdomain (נראה כמו base64), אותו domain מקבל עשרות queries לדקה, responses שמכילות נתונים במקום IPs.<br><br>
+    בניית detection: <code>cat dns.log | awk '{print length($5), $5}' | sort -rn | head -20</code> — מצא queries ארוכות. אם רואה subdomains כמו "aGVsbG8gd29ybGQ" — זה base64 ל-"hello world". זה tunneling.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">DNS בעיות הן בין הנפוצות ביותר ב-production. "Site לא מגיב", "Certificate error", "Email לא מגיע" — כולם מתחילים בבדיקת DNS. הכלים הבאים הם שגרה יומיומית.</p>
+
+<div class="section-title">Playbook: DNS Debug</div>
+<pre class="code-block"><code><span class="comment"># שלב 1: האם DNS record קיים?</span>
+dig +short mysite.com A
+dig +short mysite.com AAAA
+<span class="comment"># אם ריק — record חסר. אם לא ריק — ממשיכים.</span>
+
+<span class="comment"># שלב 2: האם הבעיה ב-DNS הספציפי שלי?</span>
+dig mysite.com @8.8.8.8    <span class="comment"># שאל Google DNS</span>
+dig mysite.com @1.1.1.1    <span class="comment"># שאל Cloudflare DNS</span>
+dig mysite.com @9.9.9.9    <span class="comment"># שאל Quad9</span>
+<span class="comment"># אם תשובות שונות — cache poisoning או propagation בעיה</span>
+
+<span class="comment"># שלב 3: TTL — כמה עוד צריך לחכות?</span>
+dig mysite.com | grep -E "ANSWER|[0-9]+\\s+IN"
+<span class="comment"># 300 IN A = עוד 300 שניות עד שcache מתחדש</span>
+
+<span class="comment"># שלב 4: Propagation check</span>
+<span class="comment"># https://dnschecker.org — רואה מה DNS servers ברחבי העולם רואים</span></code></pre>
+
+<div class="section-title">Email לא מגיע — SPF/DKIM/DMARC</div>
+<pre class="code-block"><code><span class="comment"># בדוק SPF record</span>
+dig TXT mysite.com | grep spf
+<span class="comment"># v=spf1 include:_spf.google.com ~all ← נכון</span>
+<span class="comment"># אם חסר → email עלול ללכת לspam</span>
+
+<span class="comment"># בדוק DMARC</span>
+dig TXT _dmarc.mysite.com
+<span class="comment"># v=DMARC1; p=reject ← הגנה מלאה</span>
+<span class="comment"># v=DMARC1; p=none ← monitoring בלבד — לשדרג</span>
+
+<span class="comment"># כלי לבדיקה מלאה:</span>
+<span class="comment"># https://mxtoolbox.com/SuperTool.aspx</span></code></pre>
+
+<div class="section-title">הגדרת DNS Records ב-Production</div>
+<p class="prose">TTL נמוך (60 שניות) = שינויים מהירים, אבל יותר DNS queries ועומס. TTL גבוה (3600+) = יציבות, אבל שינויים לוקחים שעה להתפשט. הכלל: הורד TTL ל-300 שעה לפני deployment, בצע שינוי, החזר TTL ל-3600 אחרי שמוודאים שעובד.</p>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> HTTP/1.1 פורסם ב-1997 ועדיין רץ על מיליארדי חיבורים. HTTP/2 (2015) הביא multiplexing שחסך 30-50% load time. HTTP/3 (2022) ניתק מ-TCP לגמרי ועבר ל-QUIC על UDP — ומשפר latency ב-30% על רשתות גרועות. TikTok, Google, Facebook — כולם HTTP/3.</div>
+
+<div class="section-title">מה היה שבור ב-HTTP/1.1</div>
+<p class="prose">HTTP/1.1 עם keep-alive אפשר כמה requests על חיבור אחד — אבל לפי הסדר. Request B לא יכול להתחיל עד ש-Request A מסתיים. זה נקרא Head-of-Line Blocking. דף עם 100 resources גרם לbrowsers לפתוח 6 חיבורים מקביליים לכל domain — פתרון workaround שיצר overhead ולא פתר את הבעיה האמיתית.</p>
+<p class="prose">בנוסף, HTTP headers נשלחו מחדש בכל request. Cookie header של 500 bytes שנשלח ב-100 requests = 50KB של data overhead לbessentially מידע שלא השתנה. בדפדוף מובייל על 3G — זה משמעותי.</p>
+
+<div class="section-title">HTTP/2 — הפתרון</div>
+<pre class="code-block"><code><span class="comment"># HTTP/2 Key Features</span>
+
+<span class="comment"># 1. Binary Protocol (לא text)</span>
+<span class="comment"># HTTP/1: GET /index.html HTTP/1.1
+Host: example.com</span>
+<span class="comment"># HTTP/2: binary frames — מהיר לparse, פחות שגיאות</span>
+
+<span class="comment"># 2. Multiplexing — requests מקביליים על connection אחד</span>
+Stream 1: GET /index.html  →  ← Response
+Stream 3: GET /style.css   →  ← Response
+Stream 5: GET /app.js      →  ← Response (כולם בו-זמנית!)
+
+<span class="comment"># 3. Header Compression (HPACK)</span>
+<span class="comment"># Request 1: שולח כל ה-headers</span>
+<span class="comment"># Request 2: שולח רק את מה שהשתנה — 90% חיסכון</span>
+
+<span class="comment"># 4. Server Push — Server שולח בלי request</span>
+<span class="comment"># Browser מבקש index.html → Server שולח גם style.css ו-app.js</span>
+
+<span class="comment"># בדיקה</span>
+curl -I --http2 https://www.google.com | head -3
+<span class="comment"># HTTP/2 200</span></code></pre>
+
+<div class="section-title">HTTP/3 ו-QUIC — TCP שמת, חי ה-UDP</div>
+<p class="prose">HTTP/2 פתר Head-of-Line Blocking ב-application layer, אבל TCP עדיין סבל ממנו ב-transport layer: packet אחד שאבד עוצר את כל ה-streams עד שישוחזר. QUIC (Quick UDP Internet Connections) פתר זאת על ידי מעבר ל-UDP עם reliability מובנית per-stream. כל stream עצמאי — packet שאבד ב-stream 3 לא עוצר stream 1 ו-5.</p>
+<pre class="code-block"><code><span class="comment"># QUIC Advantages</span>
+<span class="comment"># 1. 0-RTT Connection: client שמכיר את השרת</span>
+<span class="comment">#    מתחבר ומשלח data בpacket הראשון (לעומת TCP: 3-way handshake)</span>
+
+<span class="comment"># 2. Connection Migration</span>
+<span class="comment">#    מחשב שמחליף מWiFi לcellular לא מאבד connection</span>
+<span class="comment">#    QUIC connection ID לא תלוי ב-IP או port</span>
+
+<span class="comment"># 3. Encrypted by default</span>
+<span class="comment">#    QUIC = TLS 1.3 מובנה, לא optional</span>
+
+<span class="comment"># בדיקה האם site תומך HTTP/3</span>
+curl -I --http3 https://www.cloudflare.com
+<span class="comment"># alt-svc: h3=":443" ← האתר תומך HTTP/3</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 HTTP/2 Server Push — הפיצ'ר שנכשל</div>
+  <div class="real-world-body">
+    Server Push נראה מבריק בתיאוריה: server שולח resources לפני שהbrowser מבקש. בפרקטיקה — נכשל. browsers לא תמיד רצו את ה-pushed resources (כבר ב-cache). bandwidth בוזבז. Chrome הסיר תמיכה ב-Server Push ב-2022.<br><br>
+    HTTP/3 תיקן גישה אחרת: Early Hints (HTTP 103) — server שולח "hint" על resources שיגיעו, browser מתחיל לdownload תוך כדי שה-main response מגיע. פחות aggressive, הרבה יותר אפקטיבי בפרקטיקה.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">רוב ה-web servers תומכים ב-HTTP/2 כיום — אבל לא תמיד מוגדרים נכון. הנה איך בודקים, מאפשרים, ומכוונים.</p>
+
+<div class="section-title">בדיקה: האם Site שלי ב-HTTP/2?</div>
+<pre class="code-block"><code><span class="comment"># curl — בדוק protocol</span>
+curl -sI --http2 https://mysite.com | head -1
+<span class="comment"># HTTP/2 200 ← מוגדר</span>
+<span class="comment"># HTTP/1.1 200 ← צריך לאפשר</span>
+
+<span class="comment"># מה ה-server תומך?</span>
+curl -sI https://mysite.com | grep -i "alt-svc"
+<span class="comment"># alt-svc: h3=":443" ← גם HTTP/3!</span>
+
+<span class="comment"># Chrome DevTools → Network → Protocol column</span>
+<span class="comment"># h2 = HTTP/2, h3 = HTTP/3, http/1.1 = ישן</span></code></pre>
+
+<div class="section-title">הפעלת HTTP/2 ב-nginx</div>
+<pre class="code-block"><code><span class="comment"># nginx.conf</span>
+server {
+    listen 443 ssl http2;   <span class="comment"># ← הוסף http2</span>
+    listen [::]:443 ssl http2;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256;
+
+    <span class="comment"># HTTP/2 push hints (better than Server Push)</span>
+    add_header Link "&lt;/style.css&gt;; rel=preload; as=style";
+    add_header Link "&lt;/app.js&gt;; rel=preload; as=script";
+}
+
+<span class="comment"># בדיקה אחרי שינוי:</span>
+nginx -t && systemctl reload nginx
+curl -sI --http2 https://mysite.com | head -2</code></pre>
+
+<div class="section-title">HTTP/3 ב-Cloudflare (הדרך הקלה)</div>
+<p class="prose">אם האתר מאחורי Cloudflare: Speed ← Optimization ← Protocol Optimization ← HTTP/3 ← Enable. Cloudflare מטפל בהכל — ה-origin server ממשיך לדבר HTTP/1.1 או HTTP/2 עם Cloudflare, והvisitors מקבלים HTTP/3.</p>
+
+<div class="callout callout-tip"><strong>💡 מדידת ביצועים אמיתית:</strong> <code>curl -w "time_connect: %{time_connect}\\ntime_appconnect: %{time_appconnect}\\ntime_total: %{time_total}\\n" -o /dev/null -s https://mysite.com</code> — <code>time_appconnect</code> כולל TLS. ההפרש בין connect לappconnect = TLS overhead.</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> TLS 1.3 (2018) הפחית את ה-handshake מ-2 round trips ל-1. זה אולי נשמע קטן — אבל על connection בין ניו יורק ללונדון (70ms RTT), זה חיסכון של 70ms בכל חיבור HTTPS. Google מדווחת שזה שיפר latency ב-40% לusers ב-high-latency connections.</div>
+
+<div class="section-title">TLS Handshake — TLS 1.2 vs 1.3</div>
+<p class="prose">TLS Handshake הוא הטקס שקורה לפני שdata מוצפן. Browser ו-server מסכימים על: איזה cipher לשמש, מאמתים את ה-certificate, ומייצרים session keys שישמשו להצפנת ה-data. TLS 1.3 פישט את התהליך משמעותית לעומת TLS 1.2.</p>
+<pre class="code-block"><code><span class="comment"># TLS 1.2 — 2 Round Trips</span>
+Client → Server: ClientHello (cipher list)
+Server → Client: ServerHello + Certificate + ServerHelloDone
+Client → Server: ClientKeyExchange + ChangeCipherSpec + Finished
+Server → Client: ChangeCipherSpec + Finished
+↑ 2 round trips לפני שdata זורם
+
+<span class="comment"># TLS 1.3 — 1 Round Trip</span>
+Client → Server: ClientHello + key_share (Diffie-Hellman public key)
+Server → Client: ServerHello + key_share + Certificate + Finished
+Client → Server: Finished
+↑ 1 round trip. ↑ 0-RTT resumption לconnections חוזרים</code></pre>
+
+<div class="section-title">Cipher Suites — מה מוצפן במה</div>
+<p class="prose">Cipher Suite הוא "חבילה" של algorithms שמגדירה: key exchange (כיצד מחליפים keys), authentication (כיצד מאמתים), encryption (כיצד מצפינים data), ו-MAC (כיצד מאמתים integrity). TLS 1.3 הגביל ל-5 cipher suites בלבד — כולם חזקים. TLS 1.2 תמך ב-300+, כולל חלשים.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>חלק</th><th>TLS 1.3</th><th>TLS 1.2 (legacy)</th></tr></thead><tbody>
+<tr><td>Key Exchange</td><td>ECDHE only</td><td>RSA, DHE, ECDHE</td></tr>
+<tr><td>Auth</td><td>RSA / ECDSA</td><td>+ DSA (weak)</td></tr>
+<tr><td>Encryption</td><td>AES-GCM, ChaCha20</td><td>+ RC4 (broken!), 3DES</td></tr>
+<tr><td>MAC</td><td>Built into AEAD</td><td>SHA-1 (weak), SHA-256</td></tr>
+</tbody></table></div>
+
+<div class="section-title">Certificates ו-PKI</div>
+<p class="prose">Certificate הוא "תעודת זהות" של server — חתומה על ידי Certificate Authority (CA) שה-browser סומך עליה. Certificate מכיל: domain name, public key, תאריך תפוגה, ו-digital signature של ה-CA. Browser מאמת: האם ה-CA מוכר? האם ה-domain מתאים? האם עדיין תקף?</p>
+<pre class="code-block"><code><span class="comment"># בדיקת certificate</span>
+openssl s_client -connect google.com:443 -showcerts 2>/dev/null | openssl x509 -noout -text | grep -E "Subject:|Issuer:|Not After"
+
+<span class="comment"># Certificate Transparency — log public של כל certificates</span>
+<span class="comment"># https://crt.sh/?q=google.com</span>
+<span class="comment"># רואה כל certificate שהונפק ל-google.com אי פעם</span>
+
+<span class="comment"># OCSP Stapling — בדיקת revocation</span>
+openssl s_client -connect google.com:443 -status 2>/dev/null | grep -A 17 'OCSP Response'</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 DigiNotar Hack — כיצד CA נפרץ</div>
+  <div class="real-world-body">
+    2011: DigiNotar (CA הולנדי) נפרץ. האקרים הנפיקו certificate מזויף ל-*.google.com. כ-300,000 איראנים שניסו לגשת ל-Gmail קיבלו certificate שעבר validation — Chrome אמר "מחובר בבטחה". אבל ה-man-in-the-middle קרא את כל ה-traffic.<br><br>
+    Certificate Transparency נוצר בדיוק בגלל DigiNotar: כל certificate חייב להירשם ב-public log. Browser שמקבל certificate שלא רשום — מסרב. זה מאפשר לzהות מיד כשCA הנפיק certificate לא מורשה.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">TLS misconfiguration היא אחת הסיבות הנפוצות ל-security findings. הכלים הבאים עוזרים לוודא שההגדרה נכונה לפני שמישהו אחר מוצא את הבעיה.</p>
+
+<div class="section-title">SSL Labs — בדיקה מקיפה</div>
+<p class="prose">SSL Labs של Qualys הוא הסטנדרט לבדיקת TLS configuration. https://ssllabs.com/ssltest — מזין domain, מקבל ציון A/B/C/F עם פירוט מלא: cipher suites, certificate chain, supported protocols, HSTS. מטרה: ציון A+.</p>
+
+<div class="section-title">בדיקות מ-Terminal</div>
+<pre class="code-block"><code><span class="comment"># מה ה-TLS version שהשרת משתמש?</span>
+openssl s_client -connect mysite.com:443 -tls1_3 2>/dev/null | grep "Protocol"
+openssl s_client -connect mysite.com:443 2>/dev/null | grep "Protocol\\|Cipher"
+
+<span class="comment"># בדוק certificate expiry</span>
+echo | openssl s_client -connect mysite.com:443 2>/dev/null |   openssl x509 -noout -dates
+<span class="comment"># notAfter=Dec 15 12:00:00 2025 GMT</span>
+
+<span class="comment"># בדוק cipher suites שהשרת מקבל</span>
+nmap --script ssl-enum-ciphers -p 443 mysite.com
+<span class="comment"># A = strong, B = acceptable, C/D = weak — חסום!</span>
+
+<span class="comment"># testssl.sh — הכי מקיף</span>
+./testssl.sh mysite.com
+<span class="comment"># https://testssl.sh — עובד גם offline</span></code></pre>
+
+<div class="section-title">nginx TLS config מומלצת (2025)</div>
+<pre class="code-block"><code>ssl_protocols TLSv1.2 TLSv1.3;
+ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384;
+ssl_prefer_server_ciphers off;   <span class="comment"># TLS 1.3 בוחר בעצמו</span>
+ssl_session_cache shared:SSL:10m;
+ssl_session_timeout 1d;
+ssl_session_tickets off;
+
+<span class="comment"># HSTS — אמור לbrowser: רק HTTPS לעולם</span>
+add_header Strict-Transport-Security "max-age=63072000" always;
+
+<span class="comment"># OCSP Stapling — פחות latency ב-revocation check</span>
+ssl_stapling on;
+ssl_stapling_verify on;
+resolver 8.8.8.8 8.8.4.4 valid=300s;</code></pre>
+
+<div class="callout callout-warn"><strong>⚠️ Certificate expiry monitoring:</strong> Let's Encrypt מחדשת אוטומטית — אבל רק אם certbot cron עובד. הגדר alert ב-30, 14, ו-7 ימים לפני expiry. <code>echo | openssl s_client -connect mysite.com:443 2>/dev/null | openssl x509 -noout -checkend 604800</code> — exit code 1 = פוקע בשבוע הקרוב.</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> eBPF (extended Berkeley Packet Filter) מאפשר להריץ programs ב-kernel space ללא כתיבת kernel module. Netflix, Google, Facebook, Cloudflare — כולם משתמשים ב-eBPF לnetwork observability, security, ו-performance. Meta דיווחה שהחלפת iptables ב-eBPF חסכה 30% CPU בשרתי production.</div>
+
+<div class="section-title">מה זה eBPF ולמה זה מהפכני</div>
+<p class="prose">eBPF (extended Berkeley Packet Filter) מאפשר לך לכתוב programs קטנים שרצים בתוך ה-Linux kernel — בצורה בטוחה. לפני eBPF, אם רצית לעשות משהו מתקדם ב-kernel (כמו לנטר כל system call, לבלוק packets ב-hardware level), היית צריך לכתוב kernel module — סיכון ל-system crash, תהליך מסובך. עם eBPF: כותבים ב-C, מקמפלים ל-eBPF bytecode, ה-kernel verifier מאמת שה-program בטוח, ומריצים.</p>
+<p class="prose">ה-verifier הוא המפתח: הוא בודק שה-program לא יכנס ללולאה אינסופית, לא יגשת לזיכרון לא מורשה, ולא יגרום ל-crash. אם הוא עובר verification — ה-kernel מריץ אותו ב-JIT compiled mode, כמעט מהיר כמו native code.</p>
+
+<div class="section-title">Hook Points — איפה eBPF רץ</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">⚡</div><div class="card-title">XDP — eXpress Data Path</div><div class="card-body">הכי מוקדם ב-network stack — רץ ב-driver לפני שה-kernel רואה את ה-packet. מהיר מאוד: עד 24M packets/sec לcore. שימוש: DDoS mitigation, load balancing ב-Cloudflare.</div></div>
+<div class="card"><div class="card-icon">🔍</div><div class="card-title">kprobes / tracepoints</div><div class="card-body">Hook לכל kernel function. "כל פעם שמתבצע sys_write — תן לי את הdata." monitoring מלא של כל syscall ללא שינוי בcodebase.</div></div>
+<div class="card"><div class="card-icon">🔒</div><div class="card-title">LSM Hooks — Security</div><div class="card-body">Security checks. "אל תאפשר ל-process הזה לפתוח קבצים מחוץ ל-/tmp." Falco ו-Tetragon משתמשים בזה לruntime security.</div></div>
+<div class="card"><div class="card-icon">📊</div><div class="card-title">Network TC — Traffic Control</div><div class="card-body">Ingress ו-egress traffic shaping. Cilium (Kubernetes CNI) כולו בנוי על eBPF TC hooks — במקום iptables.</div></div>
+</div>
+
+<div class="section-title">eBPF Tools — מה קיים כבר</div>
+<pre class="code-block"><code><span class="comment"># bcc tools — עשרות tools מוכנים</span>
+execsnoop          <span class="comment"># trace כל exec() syscall</span>
+tcptracer          <span class="comment"># trace TCP connections</span>
+biolatency         <span class="comment"># disk I/O latency histogram</span>
+funclatency -u curl_perform  <span class="comment"># latency של function ספציפית</span>
+
+<span class="comment"># bpftrace — one-liners</span>
+bpftrace -e 'kprobe:tcp_connect { printf("connect: %s
+", comm); }'
+<span class="comment"># trace כל TCP connection עם שם הprocess</span>
+
+bpftrace -e 'tracepoint:syscalls:sys_enter_openat { printf("%s %s
+", comm, str(args->filename)); }'
+<span class="comment"># trace כל קובץ שנפתח</span>
+
+<span class="comment"># XDP drop — DDoS mitigation</span>
+<span class="comment"># program שמzrop כל packet מ-IP ספציפי לפני שה-kernel רואה</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Cloudflare ו-XDP — DDoS mitigation בmiraכle speed</div>
+  <div class="real-world-body">
+    Cloudflare מקבל מתקפות DDoS של 1+ Tbps. iptables לא מסוגל לעמוד בקצב — ה-kernel overhead של netfilter גורם ל-CPU saturation לפני שה-packets נחסמים. XDP רץ לפני netfilter, לפני kernel network stack, בdriver level.<br><br>
+    עם XDP, Cloudflare חוסמת 26 מיליון packets לשנייה מ-CPU בודד. ה-packet מגיע ל-NIC, XDP program רץ ב-nanoseconds ומחזיר XDP_DROP, ה-packet לעולם לא נכנס ל-kernel. זה ההבדל בין DDoS שמוריד שרת לDDoS שלא מורגש.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">לא צריך לכתוב eBPF program בעצמך כדי להפיק ממנו ערך. עשרות כלים מוכנים קיימים — חלקם חזקים מ-strace, tcpdump, ו-top ביחד.</p>
+
+<div class="section-title">bcc-tools — התקנה ושימוש מיידי</div>
+<pre class="code-block"><code><span class="comment"># Ubuntu/Debian</span>
+sudo apt install bpfcc-tools linux-headers-$(uname -r)
+
+<span class="comment"># execsnoop — כל process שנוצר ב-system</span>
+sudo execsnoop-bpfcc
+<span class="comment"># מצוין לאבחון: "מה מריץ cron job הזה בפועל?"</span>
+
+<span class="comment"># tcpconnect — כל TCP connection חדש</span>
+sudo tcpconnect-bpfcc
+<span class="comment"># PID  COMM    IP SADDR       DADDR       DPORT</span>
+<span class="comment"># 1234 curl    4  192.168.1.5  93.184.216.34  443</span>
+
+<span class="comment"># opensnoop — כל קובץ שנפתח</span>
+sudo opensnoop-bpfcc -p 1234
+<span class="comment"># מצוין לאבחון: "למה process זה איטי?" → רואה I/O</span>
+
+<span class="comment"># biolatency — latency של disk I/O כhistogram</span>
+sudo biolatency-bpfcc -D 10 1
+<span class="comment"># מציג distribution של disk latency ב-10 שניות</span></code></pre>
+
+<div class="section-title">bpftrace — one-liners עוצמתיים</div>
+<pre class="code-block"><code><span class="comment"># כמה זמן לוקח כל DNS query?</span>
+sudo bpftrace -e 'kprobe:udp_sendmsg { @start[tid]=nsecs; }
+  kretprobe:udp_recvmsg /@start[tid]/ {
+    @us = hist((nsecs-@start[tid])/1000); delete(@start[tid]); }'
+
+<span class="comment"># איזה process פותח הכי הרבה קבצים?</span>
+sudo bpftrace -e 'tracepoint:syscalls:sys_enter_openat { @[comm] = count(); }' -c 10
+
+<span class="comment"># network latency per process</span>
+sudo bpftrace -e 'kprobe:tcp_sendmsg { @[comm] = count(); }'</code></pre>
+
+<div class="callout callout-tip"><strong>💡 Practical use case:</strong> Production server איטי ולא יודעים למה. מריצים <code>execsnoop</code> ל-30 שניות — רואים שcron job מריץ script כל 10 שניות שמתחיל 15 processes. זה לא נראה ב-top, לא נראה ב-ps, לא נראה בשום log — רק ב-eBPF tracing.</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> Kubernetes ב-production עם 1000 nodes ו-10,000 pods יכול להגיע ל-100,000 iptables rules. כל connection בודק את כולן לפי סדר — O(n) complexity. זה הסיבה שחברות עוברות ל-eBPF/Cilium — O(1) lookup עם hash maps במקום linear iptables chains.</div>
+
+<div class="section-title">Docker Networking — מה קורה מתחת</div>
+<p class="prose">כשמריצים Docker container, הוא מקבל network namespace משלו — ממשק רשת וירטואלי, routing table, ו-firewall rules נפרדים לחלוטין מה-host. Docker יוצר virtual ethernet pair (veth): קצה אחד בcontainer (eth0), קצה שני ב-host (vethXXXXX). ה-host מחבר את כל ה-veth interfaces ל-docker0 bridge.</p>
+<pre class="code-block"><code><span class="comment"># Docker Network Modes</span>
+<span class="comment"># bridge (default) — isolated, NAT לחוץ</span>
+docker run --network bridge nginx
+
+<span class="comment"># host — משתף network namespace עם host</span>
+docker run --network host nginx    <span class="comment"># ← nginx שמע על port 80 של host ישירות</span>
+
+<span class="comment"># none — אין רשת</span>
+docker run --network none alpine   <span class="comment"># ← isolated לחלוטין</span>
+
+<span class="comment"># בדיקת Docker networks</span>
+docker network ls
+docker network inspect bridge
+ip addr show docker0               <span class="comment"># bridge interface ב-host</span>
+ip link | grep veth                <span class="comment"># veth pairs</span></code></pre>
+
+<div class="section-title">Kubernetes Networking — Pod-to-Pod</div>
+<p class="prose">Kubernetes מחייב: כל Pod מקבל IP ייחודי. כל Pod יכול לתקשר עם כל Pod אחר בלי NAT. זה נשמע פשוט — אבל במציאות זה מורכב: Pods על nodes שונים צריכים לדבר, ויש לנהל routing בין כל ה-nodes. CNI (Container Network Interface) הוא ה-plugin שעושה זאת.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>CNI</th><th>גישה</th><th>מתאים ל</th></tr></thead><tbody>
+<tr><td><strong>Flannel</strong></td><td>VXLAN overlay</td><td>פשוט, כל cloud</td></tr>
+<tr><td><strong>Calico</strong></td><td>BGP routing</td><td>performance, network policies</td></tr>
+<tr><td><strong>Cilium</strong></td><td>eBPF</td><td>scale גדול, observability</td></tr>
+<tr><td><strong>Weave</strong></td><td>overlay mesh</td><td>multi-cloud</td></tr>
+</tbody></table></div>
+
+<div class="section-title">Service Mesh — Istio ו-Linkerd</div>
+<p class="prose">Service mesh מוסיף layer של infrastructure בין microservices: mTLS (encryption בין כל services), traffic management (routing, retries, circuit breakers), ו-observability (traces, metrics, logs). Istio מבוסס על Envoy proxy sidecar — container נוסף בכל Pod שמיירט את כל ה-traffic.</p>
+<pre class="code-block"><code><span class="comment"># Istio — Service Mesh בפועל</span>
+<span class="comment"># כל Pod מקבל Envoy sidecar אוטומטית</span>
+kubectl get pods -n production
+<span class="comment"># payment-service-7d9f8  2/2  Running ← 2/2 = app + envoy</span>
+
+<span class="comment"># mTLS בין services — automatic</span>
+<span class="comment"># Envoy A מצפין, Envoy B מפענח — app לא יודעת</span>
+
+<span class="comment"># VXLAN Overlay — איך Flannel עובד</span>
+<span class="comment"># Pod A (10.244.1.5) ← vxlan → Pod B (10.244.2.8) על node אחר</span>
+<span class="comment"># Ethernet frame מוכנסת ל-UDP packet (VXLAN encapsulation)</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 iptables scale problem ב-Kubernetes</div>
+  <div class="real-world-body">
+    LinkedIn דיווחה: Kubernetes cluster עם 1000+ nodes. כל node מריץ kube-proxy שמתרגם Services ל-iptables rules. עם 10,000 services — 170,000 iptables rules לnode. כל packet scan = O(n) = latency overhead משמעותי. CPU usage גדל linearly עם כל Service חדש.<br><br>
+    הפתרון שאימצו: מעבר ל-Cilium. eBPF hash maps = O(1) lookup. CPU usage לnetworking ירד ב-35%. Latency ירד ב-20%. המעבר לקח 6 חודשי עבודה, אבל הביא ROI ברור.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">כשcontainer "לא מתחבר לDB" או "לא מגיע לservice X" — הנה הplaybook הסטנדרטי לאבחון.</p>
+
+<div class="section-title">Docker Networking Debug</div>
+<pre class="code-block"><code><span class="comment"># מה ה-network של container?</span>
+docker inspect my_container | jq '.[0].NetworkSettings.Networks'
+
+<span class="comment"># ping בין containers (צריך להיות ב-same network)</span>
+docker exec container_a ping container_b
+docker exec container_a ping container_b_ip
+
+<span class="comment"># בדוק ports</span>
+docker port my_container     <span class="comment"># מה מוforward?</span>
+ss -tlnp | grep docker       <span class="comment"># מה ה-host מאזין?</span>
+
+<span class="comment"># logs של DNS בdocker</span>
+docker exec my_container cat /etc/resolv.conf
+<span class="comment"># nameserver 127.0.0.11 ← Docker embedded DNS</span>
+
+<span class="comment"># network לא מגיב? בדוק iptables rules שDocker הוסיף:</span>
+sudo iptables -L DOCKER -n -v</code></pre>
+
+<div class="section-title">Kubernetes: Pod לא מגיע ל-Service</div>
+<pre class="code-block"><code><span class="comment"># שלב 1: האם Service קיים עם הport הנכון?</span>
+kubectl get svc my-service -o yaml | grep -A5 "ports:"
+
+<span class="comment"># שלב 2: האם Endpoints קיימים? (= Pods שעברו readiness)</span>
+kubectl get endpoints my-service
+<span class="comment"># אם ריק → Pod לא ready, selector לא מתאים, או readinessProbe נכשל</span>
+
+<span class="comment"># שלב 3: בדוק DNS מבפנים</span>
+kubectl run debug --image=busybox --rm -it -- nslookup my-service
+kubectl run debug --image=busybox --rm -it -- nslookup my-service.namespace.svc.cluster.local
+
+<span class="comment"># שלב 4: בדוק connectivity ישירות</span>
+kubectl exec -it my-pod -- curl http://my-service:8080/health
+
+<span class="comment"># שלב 5: Network Policy בעיה?</span>
+kubectl get networkpolicies -A
+<span class="comment"># אם יש policies → בדוק שיש allow rule מה-pod שלך</span></code></pre>
+
+<div class="section-title">Service Mesh Debug (Istio)</div>
+<pre class="code-block"><code><span class="comment"># Envoy proxy logs (כל request עובר דרכו)</span>
+kubectl logs my-pod -c istio-proxy | tail -20
+
+<span class="comment"># mTLS בעיה? בדוק PeerAuthentication</span>
+kubectl get peerauthentication -A
+
+<span class="comment"># Traffic לא זורם? bבדוק VirtualService</span>
+kubectl get virtualservice my-vs -o yaml</code></pre>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> Linux kernel default TCP buffer הוא 4MB. Google מריץ TCP buffer של 256MB בין datacenters. ההבדל? על link של 10Gbps עם 100ms RTT (high BDP — Bandwidth Delay Product), buffer קטן מדי גורם ל-TCP window לא לנצל את כל הbandwidth. נוסחה: BDP = bandwidth × RTT = 10Gbps × 0.1s = 1Gb = 125MB buffer needed.</div>
+
+<div class="section-title">TCP Tuning — sysctl Parameters</div>
+<p class="prose">TCP performance בLinux נשלטת על ידי עשרות kernel parameters שאפשר לשנות ב-runtime דרך sysctl. ה-defaults מיועדים ל"average" case — latency נמוכה, bandwidth בינונית. לhigh-performance environments (10Gbps+, cross-datacenter), נדרשת כוונון מדויק.</p>
+<pre class="code-block"><code><span class="comment"># בדיקת TCP buffer settings נוכחיים</span>
+sysctl net.core.rmem_max       <span class="comment"># max receive buffer</span>
+sysctl net.ipv4.tcp_rmem       <span class="comment"># min default max</span>
+sysctl net.ipv4.tcp_wmem       <span class="comment"># send buffers</span>
+
+<span class="comment"># Tuning לhigh-bandwidth long-distance</span>
+sysctl -w net.core.rmem_max=268435456     <span class="comment"># 256MB</span>
+sysctl -w net.core.wmem_max=268435456
+sysctl -w net.ipv4.tcp_rmem="4096 87380 268435456"
+sysctl -w net.ipv4.tcp_wmem="4096 65536 268435456"
+
+<span class="comment"># TCP Congestion Control</span>
+sysctl net.ipv4.tcp_congestion_control   <span class="comment"># current: cubic</span>
+sysctl -w net.ipv4.tcp_congestion_control=bbr  <span class="comment"># Google's BBR</span>
+<span class="comment"># BBR: bandwidth-based, לא loss-based. מיטב לhigh-BDP paths</span></code></pre>
+
+<div class="section-title">TCP Congestion Control — Cubic vs BBR</div>
+<p class="prose">TCP Congestion Control הוא המנגנון שמחליט בכמה נתונים לשלוח. כשיש packet loss — congestion assumed, TCP מפחית window. הבעיה: על modern high-speed networks, packet loss לא תמיד אומר congestion (עלול להיות bit error). BBR (Bottleneck Bandwidth and RTT) של Google (2016) שינה גישה: מד bandwidth ו-RTT בנפרד, שלח בtemporeconciliation — ולא בheuristic loss-based.</p>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🔲</div><div class="card-title">CUBIC (default)</div><div class="card-body">Loss-based: מגדיל window עד שיש loss, ואז מקטין. עובד טוב ב-LAN. על high-latency WAN (100ms+) — slow convergence.</div></div>
+<div class="card"><div class="card-icon">🚀</div><div class="card-title">BBR (Google)</div><div class="card-body">Model-based: מחשב bottleneck bandwidth ו-RTT. לא מסתמך על loss. YouTube דיווח על 4% throughput improvement ו-14% latency reduction after enabling BBR.</div></div>
+</div>
+
+<div class="section-title">Zero-Copy ו-RDMA</div>
+<pre class="code-block"><code><span class="comment"># Zero-Copy — sendfile() vs read()+write()</span>
+<span class="comment"># Traditional:</span>
+disk → kernel buffer → user buffer → socket buffer → NIC
+<span class="comment"># 4 copies! 4 context switches!</span>
+
+<span class="comment"># Zero-Copy (sendfile):</span>
+disk → kernel buffer → NIC (DMA direct)
+<span class="comment"># 0 user-space copies. nginx ו-kafka משתמשים בזה</span>
+
+<span class="comment"># SO_ZEROCOPY socket option (Linux 4.14+)</span>
+setsockopt(sock, SOL_SOCKET, SO_ZEROCOPY, &one, sizeof(one));
+send(sock, buf, len, MSG_ZEROCOPY);
+
+<span class="comment"># RDMA — Remote Direct Memory Access</span>
+<span class="comment"># Write directly to remote machine's RAM ללא CPU involvement</span>
+<span class="comment"># Latency: 1-3 microseconds (vs TCP: 10-100μs)</span>
+<span class="comment"># משמש ב-HPC, financial trading, GPU clusters</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Google BBR — מה היה ולמה שינו</div>
+  <div class="real-world-body">
+    לפני BBR: YouTube על TCP CUBIC. בmobile networks עם packet buffering (bufferbloat), CUBIC מפרש delay כcongestion ומפחית throughput. Videos היו מufering — לא כי bandwidth נמוך, אלא כי CUBIC היה conservative מדי.<br><br>
+    אחרי BBR: Google enable BBR ב-WAN links. ממדידות פנימיות: throughput עלה ב-2,700% על RTT גבוה. Latency ירד ב-75%. YouTube video start time ירד ב-20%. B-squared improvement.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">לפני שמשנים kernel parameters בproduction — מדדים. לפני מדידה — baseline. הנה הworkflow הסטנדרטי.</p>
+
+<div class="section-title">Baseline Measurement</div>
+<pre class="code-block"><code><span class="comment"># iperf3 — מדידת bandwidth אמיתית</span>
+<span class="comment"># על server:</span>
+iperf3 -s
+
+<span class="comment"># על client:</span>
+iperf3 -c server_ip -t 30       <span class="comment"># 30 שניות TCP</span>
+iperf3 -c server_ip -u -b 1G   <span class="comment"># UDP, 1Gbps target</span>
+iperf3 -c server_ip -P 4       <span class="comment"># 4 parallel streams</span>
+
+<span class="comment"># ping — latency ו-jitter</span>
+ping -c 100 server_ip | tail -1
+<span class="comment"># rtt min/avg/max/mdev = 0.5/1.2/3.8/0.4 ms</span>
+<span class="comment"># mdev = jitter — חשוב לVoIP ו-gaming</span>
+
+<span class="comment"># ss — TCP socket statistics</span>
+ss -ti dst server_ip   <span class="comment"># מראה congestion control info</span>
+<span class="comment"># rto:xxx rtt:x.x AdvMSS:xxxx</span></code></pre>
+
+<div class="section-title">BBR הפעלה (Linux 4.9+)</div>
+<pre class="code-block"><code><span class="comment"># בדוק מה נוכחי</span>
+sysctl net.ipv4.tcp_congestion_control
+<span class="comment"># cubic ← default</span>
+
+<span class="comment"># הפעל BBR</span>
+echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
+
+<span class="comment"># אמת</span>
+sysctl net.ipv4.tcp_congestion_control
+<span class="comment"># bbr ← </span>
+lsmod | grep bbr
+<span class="comment"># tcp_bbr  20480  14 ← טעון</span>
+
+<span class="comment"># מדוד לפני ואחרי עם iperf3</span>
+<span class="comment"># על WAN links עם latency >20ms — BBR תמיד עדיף</span></code></pre>
+
+<div class="section-title">TCP Buffer Tuning לhigh-bandwidth</div>
+<pre class="code-block"><code><span class="comment"># חישוב BDP = bandwidth × RTT</span>
+<span class="comment"># 1Gbps × 50ms RTT = 50Mb = 6.25MB buffer needed</span>
+
+<span class="comment"># הוסף ל-/etc/sysctl.conf:</span>
+net.core.rmem_max = 67108864       <span class="comment"># 64MB max receive</span>
+net.core.wmem_max = 67108864       <span class="comment"># 64MB max send</span>
+net.ipv4.tcp_rmem = 4096 87380 67108864
+net.ipv4.tcp_wmem = 4096 65536 67108864
+net.ipv4.tcp_mtu_probing = 1       <span class="comment"># MTU Path Discovery</span>
+
+sysctl -p   <span class="comment"># apply without reboot</span></code></pre>
+
+<div class="callout callout-tip"><strong>💡 Rule of thumb:</strong> על LAN — default settings מצוינים. על WAN עם latency >50ms ו-bandwidth >100Mbps — כל המדדים שלמעלה רלוונטיים. תמיד מדוד לפני ואחרי, ותמיד ב-staging לפני production.</div>`
+  ],
+  cheat:[
+`<div class="callout callout-success"><strong>📋 Wireshark — ניתוח תעבורת</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">promiscuous mode</span></div><div class="cheat-item"><span class="cheat-key">Capture=kernel level, Display=UI</span></div><div class="cheat-item"><span class="cheat-key">capture filters</span></div><div class="cheat-item"><span class="cheat-key">שיחה שלמה בין שני hosts</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 BGP — פרוטוקול הניתוב הגלובלי</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">TCP 179</span></div><div class="cheat-item"><span class="cheat-key">Autonomous System</span></div><div class="cheat-item"><span class="cheat-key">policy + attributes</span></div><div class="cheat-item"><span class="cheat-key">יותר עדיף</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 DNS — עומק ואבטחה</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">authentication/signatures</span></div><div class="cheat-item"><span class="cheat-key">spoofed UDP queries</span></div><div class="cheat-item"><span class="cheat-key">DNS over HTTPS</span></div><div class="cheat-item"><span class="cheat-key">כמה זמן cache</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 HTTP/2 ו-HTTP/3 — המהפכה</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">request B ממתין ל-A</span></div><div class="cheat-item"><span class="cheat-key">כמה streams על connection אחד</span></div><div class="cheat-item"><span class="cheat-key">header compression</span></div><div class="cheat-item"><span class="cheat-key">UDP</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 TLS — מבפנים</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">1</span></div><div class="cheat-item"><span class="cheat-key">key exchange + auth + encrypt + MAC</span></div><div class="cheat-item"><span class="cheat-key">חתימה על certificates</span></div><div class="cheat-item"><span class="cheat-key">DigiNotar</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 eBPF — Linux Superpower</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">kernel space</span></div><div class="cheat-item"><span class="cheat-key">safety — no crash/infinite loop</span></div><div class="cheat-item"><span class="cheat-key">רץ לפני kernel network stack</span></div><div class="cheat-item"><span class="cheat-key">eBPF</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Container Networking</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">דרך docker0 bridge</span></div><div class="cheat-item"><span class="cheat-key">virtual ethernet pair</span></div><div class="cheat-item"><span class="cheat-key">IP ייחודי לכל pod ללא NAT</span></div><div class="cheat-item"><span class="cheat-key">eBPF</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Network Performance Tuning</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">bandwidth × RTT</span></div><div class="cheat-item"><span class="cheat-key">BBR=model-based, CUBIC=loss-based</span></div><div class="cheat-item"><span class="cheat-key">CPU copies ו-context switches</span></div><div class="cheat-item"><span class="cheat-key">1-3 microseconds</span></div></div></div>`
+  ]
+},
+en:{
+  dir:'ltr',lang:'en',langBtn:'🇮🇱 HE',sbLabel:'Chapters',
+  names:["Wireshark — Traffic Analysis", "BGP — The Internet's Routing Protocol", "DNS — Advanced & Security", "HTTP/2 & HTTP/3 — The Revolution", "TLS — Under the Hood", "eBPF — Linux Superpower", "Container Networking", "Network Performance Tuning"],
+  tags:["// Chapter 00", "// Chapter 01", "// Chapter 02", "// Chapter 03", "// Chapter 04", "// Chapter 05", "// Chapter 06", "// Chapter 07"],
+  descs:["Capture filters, display filters, TCP streams, dissectors, HTTP/TLS analysis", "AS numbers, BGP sessions, path attributes, route hijacking, RPKI", "DNSSEC, DNS over HTTPS, DNS amplification DDoS, split-horizon, resolver internals", "Multiplexing, Server Push, Header Compression, QUIC, HTTP/3 on UDP", "TLS 1.3 handshake, cipher suites, certificates, OCSP, certificate transparency", "eBPF programs, XDP, network observability, Cilium, eBPF vs iptables", "Docker networking, Kubernetes CNI, overlay networks, service mesh, eBPF vs iptables", "TCP tuning, kernel parameters, congestion control, RDMA, zero-copy networking"],
+  tabs:['📖 Learn','🎮 Game','📋 Summary'],
+  tabKeys:['learn','game','cheat'],
+  gameTitle:'QUIZ',gameDesc:'Answer fast. Every correct answer = +10 points.',
+  gameStart:'▶ Start',gameSeconds:'seconds',gameQuestions:'questions',gameXP:'+10 XP',
+  gameAgain:'🔄 Again',gameToCheat:'📋 Summary →',
+  quizPrev:'← Prev',quizNext:'Next →',quizSubmit:'Submit ✓',
+  quizExplain:'💡 Explanation:',quizToLab:'',quizAgain:'🔄 Again',
+  resultLabels:['Try again!','Almost...','Good!','Well done!','Excellent!','Perfect! 🎯'],
+  lbTitle:'// Leaderboard',labExplain:'💡 Explanation:',
+  points:'pts',of:'of',question:'Question',
+  optLetters:['A','B','C','D'],playerName:'You',unknownPlayer:'Player',pct:'% correct',
+  learn:[
+`<div class="did-you-know">💡 <strong>Did you know?</strong> Wireshark was created in 1998 by Gerald Combs under the name Ethereal. In 2006 it was renamed Wireshark. Today it is the most widely used network analysis tool in the world — used by security researchers, developers, and network engineers everywhere. It shows every packet passing through your network interface in full detail.</div>
+
+<div class="section-title">How Wireshark Works — Under the Hood</div>
+<p class="prose">Wireshark uses libpcap (Linux) or WinPcap/Npcap (Windows) to put your network card into promiscuous mode — a state where it listens to all packets on the network, not just those addressed to it. Every packet that passes is stored in a buffer and displayed in real time. Wireshark then dissects each packet into its protocols: Ethernet frame, IP packet, TCP segment, HTTP message.</p>
+<p class="prose">The interface is divided into three sections: Packet List (all packets by time), Packet Details (full breakdown of the selected packet — every layer and field), and Packet Bytes (hex representation of the raw bytes). Understanding all three together is what turns Wireshark into a real diagnostic tool.</p>
+
+<div class="section-title">Capture Filters — Before You Record</div>
+<p class="prose">Capture filters are written in BPF (Berkeley Packet Filter) syntax and operate at the kernel level before packets reach Wireshark. This is critical on busy networks — without a filter the buffer fills quickly and Wireshark drops packets. Write your filter before clicking Start.</p>
+<pre class="code-block"><code><span class="comment"># Capture Filters — BPF syntax</span>
+host 192.168.1.100          <span class="comment"># traffic from/to specific IP</span>
+port 443                    <span class="comment"># HTTPS only</span>
+port 80 or port 443         <span class="comment"># HTTP and HTTPS</span>
+net 192.168.1.0/24          <span class="comment"># entire subnet</span>
+not port 22                 <span class="comment"># everything except SSH</span>
+tcp and host 10.0.0.5       <span class="comment"># TCP only from specific host</span></code></pre>
+
+<div class="section-title">Display Filters — After Recording</div>
+<p class="prose">Display filters filter what is shown from an existing capture without deleting packets. The syntax is completely different from capture filters — it is based on field names from the dissectors. You can filter by any field in any protocol.</p>
+<pre class="code-block"><code><span class="comment"># Display Filters — Wireshark syntax</span>
+ip.addr == 192.168.1.100     <span class="comment"># any IP</span>
+ip.src == 10.0.0.5           <span class="comment"># source IP only</span>
+tcp.port == 443              <span class="comment"># HTTPS</span>
+http.request.method == "GET" <span class="comment"># GET requests only</span>
+dns.qry.name contains "google" <span class="comment"># DNS queries for google</span>
+tcp.flags.syn == 1 && tcp.flags.ack == 0  <span class="comment"># SYN only (new connections)</span>
+frame.time_delta > 1         <span class="comment"># packets with gap over 1 second</span>
+tls.handshake.type == 1      <span class="comment"># TLS Client Hello</span></code></pre>
+
+<div class="section-title">TCP Stream — Seeing a Full Conversation</div>
+<p class="prose">One of the most powerful features: right-click on a TCP packet, Follow, TCP Stream shows the entire conversation between two hosts — request and response together in different colors. This lets you read HTTP requests and responses, SMTP conversations, and any TCP exchange in readable form.</p>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Case Study: Debugging a slow API with Wireshark</div>
+  <div class="real-world-body">
+    An API call takes 3 seconds. The developer claims the backend is fast. How do you decide? Wireshark on the client. Filter: <code>ip.addr == api.server.com && tcp</code>. Check TCP stream time deltas. Discovery: the TLS handshake takes 2.3 seconds — server response time was 0.1 seconds. The problem: DNS resolution for api.server.com took 2.2 seconds (TTL too low, 60 seconds, and high DNS load). Fix: raise TTL to 300.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">Wireshark becomes a routine tool once you know three specific scenarios. You do not need to understand every packet — you need to know how to ask the right question.</p>
+
+<div class="section-title">Scenario 1: Why is the API slow?</div>
+<p class="prose">Open Wireshark, set capture filter <code>host api.server.com</code>, run the request. Right-click any response packet and choose Follow → TCP Stream. You can see exactly when SYN was sent, when SYN-ACK returned, when TLS Handshake completed, and when data arrived. The delta between SYN and data is the real latency. If TLS takes 800ms out of 900ms — the problem is DNS or certificate validation, not the server.</p>
+<pre class="code-block"><code><span class="comment"># Workflow: API latency debug</span>
+1. Wireshark ← Capture ← your interface
+2. Capture Filter: host api.example.com
+3. Run request
+4. Stop capture
+5. Display Filter: tcp.stream eq 0
+6. Statistics ← TCP Stream Graphs ← Time Sequence</code></pre>
+
+<div class="section-title">Scenario 2: What is my computer sending on the network?</div>
+<p class="prose">No filter needed. Just run a capture for 30 seconds, then: Statistics → Protocol Hierarchy. You get a full breakdown — how much TCP, UDP, DNS, HTTP. If you see an unknown protocol — apply a display filter on its name and investigate further.</p>
+
+<div class="section-title">Scenario 3: Inspecting an SSL Certificate</div>
+<pre class="code-block"><code><span class="comment"># Display filter to show TLS Handshake only</span>
+tls.handshake.type == 1   <span class="comment"># Client Hello</span>
+tls.handshake.type == 2   <span class="comment"># Server Hello</span>
+tls.handshake.type == 11  <span class="comment"># Certificate</span>
+
+<span class="comment"># Click Certificate packet →</span>
+<span class="comment"># Transport Layer Security →</span>
+<span class="comment"># TLSv1.3 Record Layer → Handshake Protocol: Certificate</span>
+<span class="comment"># → Certificates → see subject, issuer, expiry</span></code></pre>
+
+<div class="callout callout-tip"><strong>💡 Quick tip:</strong> Always save captures as .pcap before closing. <code>File → Save As → incident_2025_01_15.pcap</code>. Saved captures are evidence you can re-analyze, share with your team, and compare over time.</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> BGP manages the routing of the entire internet — but it operates on trust alone. There is no authentication for route announcements. Any AS can "announce" that it knows a route to any IP in the world, and the internet will believe it. This has caused dozens of BGP hijacking incidents — including in 2010 when China Telecom "routed" 15% of internet traffic through Chinese servers.</div>
+
+<div class="section-title">What is BGP and Why Does it Exist?</div>
+<p class="prose">BGP (Border Gateway Protocol) is the EGP (Exterior Gateway Protocol) of the internet — the protocol that connects Autonomous Systems. An AS (Autonomous System) is a network under single management — an ISP, cloud company, university, or bank. Each AS has a unique ASN (Autonomous System Number). Israel Internet Association is AS47886. Google is AS15169. Amazon AWS is AS16509. When a packet needs to travel from one AS to another, BGP decides how.</p>
+<p class="prose">Unlike OSPF which finds the shortest path within a single network, BGP is policy-based routing. An ISP can decide to send traffic through a specific AS for business reasons — not just technical ones. Peering agreements, transit costs, and political considerations all influence BGP decisions.</p>
+
+<div class="section-title">BGP Sessions and Peers</div>
+<pre class="code-block"><code><span class="comment"># BGP requires TCP session on port 179</span>
+<span class="comment"># iBGP — between routers in same AS</span>
+<span class="comment"># eBGP — between routers in different AS</span>
+
+<span class="comment"># BGP States (state machine)</span>
+Idle → Connect → Active → OpenSent → OpenConfirm → Established
+
+<span class="comment"># Check BGP sessions on Linux (FRRouting)</span>
+vtysh -c "show bgp summary"
+<span class="comment"># Neighbor      AS  MsgRcvd  MsgSent  Up/Down  State/PfxRcd</span>
+<span class="comment"># 10.0.0.1   65001    12450    12300   1d02h     450</span></code></pre>
+
+<div class="section-title">BGP Path Attributes — How a Route is Chosen</div>
+<p class="prose">When there are multiple paths to the same prefix, BGP selects based on an ordered list of attributes. The decision process examines each attribute in a fixed order until it finds a tie-breaker.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Order</th><th>Attribute</th><th>Preferred Value</th></tr></thead><tbody>
+<tr><td>1</td><td>Weight (Cisco)</td><td>Higher</td></tr>
+<tr><td>2</td><td>Local Preference</td><td>Higher (default 100)</td></tr>
+<tr><td>3</td><td>Locally originated</td><td>network/aggregate</td></tr>
+<tr><td>4</td><td>AS Path length</td><td>Shorter</td></tr>
+<tr><td>5</td><td>Origin</td><td>IGP > EGP > incomplete</td></tr>
+<tr><td>6</td><td>MED</td><td>Lower</td></tr>
+<tr><td>7</td><td>eBGP vs iBGP</td><td>eBGP preferred</td></tr>
+</tbody></table></div>
+
+<div class="section-title">BGP Hijacking and RPKI</div>
+<p class="prose">BGP Hijacking occurs when an AS announces a prefix it does not own. The internet believes the announcement and traffic starts flowing to the wrong AS. RPKI (Resource Public Key Infrastructure) adds cryptographic validation: every prefix is signed by its legitimate owner. A router that supports RPKI will reject unsigned announcements.</p>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 MyEtherWallet BGP Hijack — $150K in Crypto Stolen</div>
+  <div class="real-world-body">
+    April 2018: AS10297 (eNet Inc, Ohio) announced a BGP prefix belonging to Amazon Route 53 DNS. All queries for myetherwallet.com were redirected to a phishing server. The attack lasted 2 hours. Users who connected received a TLS certificate from an untrusted CA — but many clicked "proceed anyway."<br><br>
+    The double lesson: RPKI would have prevented the BGP hijack. Certificate pinning in the browser would have prevented the phishing. Neither was implemented.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">Most developers do not configure BGP directly — but everyone encounters problems caused by it. The practical knowledge here: how to diagnose BGP issues, how to read BGP looking glasses, and how to check routing from your organization.</p>
+
+<div class="section-title">Looking Glass — Seeing Internet Routing</div>
+<p class="prose">A looking glass is a public interface to a major ISP's router that lets you query BGP. This is the real tool for diagnosing "why is traffic from country X taking a wrong path?"</p>
+<pre class="code-block"><code><span class="comment"># Public tools:</span>
+https://lg.he.net          <span class="comment"># Hurricane Electric — most popular</span>
+https://bgp.tools           <span class="comment"># check any ASN and prefix</span>
+https://bgpview.io          <span class="comment"># visual, excellent</span>
+
+<span class="comment"># What to query:</span>
+<span class="comment"># "show route 8.8.8.8" ← how to reach Google DNS</span>
+<span class="comment"># "show bgp 1.1.1.1" ← AS Path to Cloudflare</span>
+
+<span class="comment"># From terminal:</span>
+traceroute -A 8.8.8.8   <span class="comment"># -A shows ASN at each hop</span>
+mtr --aslookup google.com  <span class="comment"># live + ASN</span></code></pre>
+
+<div class="section-title">How to Identify a BGP Hijack</div>
+<p class="prose">If a site that was working suddenly does not respond, and traceroute shows unfamiliar hops — check with BGP tools. Signs: AS Path that changes suddenly, traffic routed through an unexpected country, latency that jumped 3-5x without infrastructure changes.</p>
+<pre class="code-block"><code><span class="comment"># Check AS Path change</span>
+curl -s "https://stat.ripe.net/data/bgp-state/data.json?resource=8.8.8.8" | python3 -m json.tool | grep "asns"
+<span class="comment"># Compare to normal AS Path — a change is a red flag</span>
+
+<span class="comment"># RPKI validation check</span>
+curl -s "https://rpki-validator.realmv6.org/api/v1/validity/AS15169/8.8.8.0/24"</code></pre>
+
+<div class="callout callout-tip"><strong>💡 When is this relevant to you?</strong> If you manage a CDN, build infrastructure across multiple regions, or diagnose latency anomalies — BGP looking glasses are the first tool to check.</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> DNS is the protocol most used for malware communication. Researchers found that over 90% of malware uses DNS for C2 (Command and Control). Why? Because port 53 is almost always open, DNS traffic looks legitimate, and DNS queries are small and unsuspicious.</div>
+
+<div class="section-title">DNS Resolver Internals — What Happens Inside</div>
+<p class="prose">When a computer asks "what is the IP of google.com", it contacts a recursive resolver — usually from the ISP, or 8.8.8.8 (Google), or 1.1.1.1 (Cloudflare). The resolver does all the work: it contacts root servers, TLD servers, and authoritative servers. The client itself does not contact any server directly — only the resolver.</p>
+<p class="prose">Caching is what makes DNS scalable. Every response comes with a TTL (Time To Live) — the time the resolver can cache it. google.com with a TTL of 300 seconds means the resolver stores the answer for 5 minutes and does not ask again. Running <code>dig +trace google.com</code> shows every step in real time.</p>
+
+<div class="section-title">DNSSEC — Cryptographic Validation</div>
+<p class="prose">Regular DNS is unauthenticated — the resolver trusts every response it receives. DNSSEC (DNS Security Extensions) adds digital signatures to every record. Each zone signs its records with a private key, and a DNSSEC-aware resolver validates the signature before returning an answer. DNSSEC does not encrypt — it only validates that the answer is authentic.</p>
+<pre class="code-block"><code><span class="comment"># Check DNSSEC</span>
+dig +dnssec google.com A
+<span class="comment"># RRSIG record = signature on the A record</span>
+
+dig +short DS google.com @8.8.8.8
+<span class="comment"># DS record = Delegation Signer — hash of child zone key</span>
+
+<span class="comment"># DoH — DNS over HTTPS</span>
+curl -s "https://dns.google/resolve?name=google.com&type=A" | jq .
+<span class="comment"># DNS inside HTTPS — ISP cannot see queries</span>
+
+<span class="comment"># DoT — DNS over TLS (port 853)</span>
+kdig @1.1.1.1 +tls google.com</code></pre>
+
+<div class="section-title">DNS Attacks</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">💥</div><div class="card-title">DNS Amplification DDoS</div><div class="card-body">Attacker sends DNS queries with a spoofed source IP to open resolvers. DNS response is 50-100x larger than the query. Resolver sends the response to the victim. Amplification factor: 100x. Defense: BCP38 filtering, disable open resolvers.</div></div>
+<div class="card"><div class="card-icon">🎭</div><div class="card-title">DNS Cache Poisoning</div><div class="card-body">Attacker "poisons" the resolver cache with a forged answer. In the Dan Kaminsky attack (2008): a race condition in DNS allowed cache poisoning on any resolver. Fixed with source port randomization. DNSSEC fixes it completely.</div></div>
+<div class="card"><div class="card-icon">🚇</div><div class="card-title">DNS Tunneling</div><div class="card-body">Hides data inside DNS queries. Malware encodes data in a subdomain: "dGF1c2Vy.evil.com". The "query" reaches the attacker's DNS server which decodes it. Detection: long queries, base64 subdomains, unusual volume.</div></div>
+<div class="card"><div class="card-icon">🔀</div><div class="card-title">Split-Horizon DNS</div><div class="card-body">Same domain returns different answers based on query source. internal.company.com returns 10.0.0.5 to internal machines, and NXDOMAIN to the outside. VPN split tunneling relies on this.</div></div>
+</div>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 DNS Tunneling Detection — How to Identify</div>
+  <div class="real-world-body">
+    Security companies like Cisco Umbrella analyze DNS traffic to detect tunneling. Signs: queries longer than 50 characters, high entropy in the subdomain (looks like base64), the same domain receiving dozens of queries per minute, responses containing data instead of IPs.<br><br>
+    Building detection: <code>cat dns.log | awk '{print length($5), $5}' | sort -rn | head -20</code> — find long queries. If you see subdomains like "aGVsbG8gd29ybGQ" — that is base64 for "hello world". That is tunneling.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">DNS problems are among the most common in production. "Site not responding", "Certificate error", "Email not arriving" — all start with a DNS check. The tools below are everyday routine.</p>
+
+<div class="section-title">DNS Debug Playbook</div>
+<pre class="code-block"><code><span class="comment"># Step 1: Does the DNS record exist?</span>
+dig +short mysite.com A
+dig +short mysite.com AAAA
+<span class="comment"># If empty — record missing. If not — continue.</span>
+
+<span class="comment"># Step 2: Is the problem with my specific DNS?</span>
+dig mysite.com @8.8.8.8    <span class="comment"># ask Google DNS</span>
+dig mysite.com @1.1.1.1    <span class="comment"># ask Cloudflare DNS</span>
+dig mysite.com @9.9.9.9    <span class="comment"># ask Quad9</span>
+<span class="comment"># Different answers = cache poisoning or propagation issue</span>
+
+<span class="comment"># Step 3: TTL — how long to wait?</span>
+dig mysite.com | grep -E "ANSWER|[0-9]+\\s+IN"
+<span class="comment"># 300 IN A = 300 more seconds until cache refreshes</span>
+
+<span class="comment"># Step 4: Propagation check</span>
+<span class="comment"># https://dnschecker.org — see what DNS servers worldwide see</span></code></pre>
+
+<div class="section-title">Email Not Arriving — SPF/DKIM/DMARC</div>
+<pre class="code-block"><code><span class="comment"># Check SPF record</span>
+dig TXT mysite.com | grep spf
+<span class="comment"># v=spf1 include:_spf.google.com ~all ← correct</span>
+<span class="comment"># If missing → email may go to spam</span>
+
+<span class="comment"># Check DMARC</span>
+dig TXT _dmarc.mysite.com
+<span class="comment"># v=DMARC1; p=reject ← full protection</span>
+<span class="comment"># v=DMARC1; p=none ← monitoring only — upgrade this</span>
+
+<span class="comment"># Full check tool:</span>
+<span class="comment"># https://mxtoolbox.com/SuperTool.aspx</span></code></pre>
+
+<div class="section-title">Setting DNS Records in Production</div>
+<p class="prose">Low TTL (60 seconds) = fast changes, but more DNS queries and load. High TTL (3600+) = stability, but changes take an hour to propagate. The rule: lower TTL to 300 an hour before deployment, make the change, restore TTL to 3600 after verifying it works.</p>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> HTTP/1.1 was published in 1997 and still runs on billions of connections. HTTP/2 (2015) brought multiplexing that saved 30-50% load time. HTTP/3 (2022) broke away from TCP entirely and moved to QUIC on UDP — improving latency by 30% on poor networks. TikTok, Google, Facebook — all running HTTP/3.</div>
+
+<div class="section-title">What Was Broken in HTTP/1.1</div>
+<p class="prose">HTTP/1.1 with keep-alive allowed multiple requests on one connection — but sequentially. Request B cannot start until Request A finishes. This is called Head-of-Line Blocking. A page with 100 resources caused browsers to open 6 parallel connections per domain — a workaround that created overhead and did not solve the real problem.</p>
+<p class="prose">In addition, HTTP headers were sent again with every request. A 500-byte Cookie header sent with 100 requests equals 50KB of overhead for data that had not changed. On mobile browsing over 3G — that is significant.</p>
+
+<div class="section-title">HTTP/2 — The Solution</div>
+<pre class="code-block"><code><span class="comment"># HTTP/2 Key Features</span>
+
+<span class="comment"># 1. Binary Protocol (not text)</span>
+<span class="comment"># HTTP/1: GET /index.html HTTP/1.1
+Host: example.com</span>
+<span class="comment"># HTTP/2: binary frames — faster to parse, fewer errors</span>
+
+<span class="comment"># 2. Multiplexing — parallel requests on one connection</span>
+Stream 1: GET /index.html  →  ← Response
+Stream 3: GET /style.css   →  ← Response
+Stream 5: GET /app.js      →  ← Response (all concurrent!)
+
+<span class="comment"># 3. Header Compression (HPACK)</span>
+<span class="comment"># Request 1: sends all headers</span>
+<span class="comment"># Request 2: sends only what changed — 90% savings</span>
+
+<span class="comment"># 4. Server Push — server sends without request</span>
+<span class="comment"># Browser requests index.html → server also sends style.css and app.js</span>
+
+<span class="comment"># Check</span>
+curl -I --http2 https://www.google.com | head -3
+<span class="comment"># HTTP/2 200</span></code></pre>
+
+<div class="section-title">HTTP/3 and QUIC — TCP Is Dead, Long Live UDP</div>
+<p class="prose">HTTP/2 solved Head-of-Line Blocking at the application layer, but TCP still suffered from it at the transport layer: one lost packet stops all streams until it is recovered. QUIC (Quick UDP Internet Connections) solved this by moving to UDP with per-stream built-in reliability. Each stream is independent — a lost packet in stream 3 does not stop streams 1 and 5.</p>
+<pre class="code-block"><code><span class="comment"># QUIC Advantages</span>
+<span class="comment"># 1. 0-RTT Connection: client that knows the server</span>
+<span class="comment">#    connects and sends data in the first packet</span>
+<span class="comment">#    (vs TCP: 3-way handshake before any data)</span>
+
+<span class="comment"># 2. Connection Migration</span>
+<span class="comment">#    Computer switching from WiFi to cellular does not lose connection</span>
+<span class="comment">#    QUIC connection ID is not tied to IP or port</span>
+
+<span class="comment"># 3. Encrypted by default</span>
+<span class="comment">#    QUIC = TLS 1.3 built in, not optional</span>
+
+<span class="comment"># Check whether a site supports HTTP/3</span>
+curl -I --http3 https://www.cloudflare.com
+<span class="comment"># alt-svc: h3=":443" means the site supports HTTP/3</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 HTTP/2 Server Push — The Feature That Failed</div>
+  <div class="real-world-body">
+    Server Push looked brilliant in theory: the server sends resources before the browser requests them. In practice — it failed. Browsers did not always want the pushed resources (already in cache). Bandwidth was wasted. Chrome removed Server Push support in 2022.<br><br>
+    HTTP/3 tried a different approach: Early Hints (HTTP 103) — the server sends a "hint" about resources that will arrive, the browser starts downloading while the main response is still on its way. Less aggressive, far more effective in practice.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">Most web servers support HTTP/2 today — but are not always configured correctly. Here is how to check, enable, and tune.</p>
+
+<div class="section-title">Check: Is My Site Using HTTP/2?</div>
+<pre class="code-block"><code><span class="comment"># curl — check protocol</span>
+curl -sI --http2 https://mysite.com | head -1
+<span class="comment"># HTTP/2 200 ← configured</span>
+<span class="comment"># HTTP/1.1 200 ← needs enabling</span>
+
+<span class="comment"># What does the server support?</span>
+curl -sI https://mysite.com | grep -i "alt-svc"
+<span class="comment"># alt-svc: h3=":443" ← HTTP/3 too!</span>
+
+<span class="comment"># Chrome DevTools → Network → Protocol column</span>
+<span class="comment"># h2 = HTTP/2, h3 = HTTP/3, http/1.1 = old</span></code></pre>
+
+<div class="section-title">Enabling HTTP/2 in nginx</div>
+<pre class="code-block"><code><span class="comment"># nginx.conf</span>
+server {
+    listen 443 ssl http2;   <span class="comment"># ← add http2</span>
+    listen [::]:443 ssl http2;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256;
+
+    <span class="comment"># HTTP/2 preload hints (better than Server Push)</span>
+    add_header Link "&lt;/style.css&gt;; rel=preload; as=style";
+    add_header Link "&lt;/app.js&gt;; rel=preload; as=script";
+}
+
+<span class="comment"># Verify after change:</span>
+nginx -t && systemctl reload nginx
+curl -sI --http2 https://mysite.com | head -2</code></pre>
+
+<div class="section-title">HTTP/3 via Cloudflare (the easy way)</div>
+<p class="prose">If your site is behind Cloudflare: Speed → Optimization → Protocol Optimization → HTTP/3 → Enable. Cloudflare handles everything — the origin server continues speaking HTTP/1.1 or HTTP/2 with Cloudflare, and visitors get HTTP/3.</p>
+
+<div class="callout callout-tip"><strong>💡 Real performance measurement:</strong> <code>curl -w "time_connect: %{time_connect}\\ntime_appconnect: %{time_appconnect}\\ntime_total: %{time_total}\\n" -o /dev/null -s https://mysite.com</code> — <code>time_appconnect</code> includes TLS. The difference between connect and appconnect = TLS overhead.</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> TLS 1.3 (2018) reduced the handshake from 2 round trips to 1. That may sound small — but on a connection between New York and London (70ms RTT), that is a 70ms saving on every HTTPS connection. Google reports this improved latency by 40% for users on high-latency connections.</div>
+
+<div class="section-title">TLS Handshake — TLS 1.2 vs 1.3</div>
+<p class="prose">The TLS Handshake is the ceremony that happens before data is encrypted. Browser and server agree on: which cipher to use, authenticate the certificate, and generate session keys that will be used to encrypt data. TLS 1.3 simplified the process significantly compared to TLS 1.2.</p>
+<pre class="code-block"><code><span class="comment"># TLS 1.2 — 2 Round Trips</span>
+Client → Server: ClientHello (cipher list)
+Server → Client: ServerHello + Certificate + ServerHelloDone
+Client → Server: ClientKeyExchange + ChangeCipherSpec + Finished
+Server → Client: ChangeCipherSpec + Finished
+↑ 2 round trips before data flows
+
+<span class="comment"># TLS 1.3 — 1 Round Trip</span>
+Client → Server: ClientHello + key_share (Diffie-Hellman public key)
+Server → Client: ServerHello + key_share + Certificate + Finished
+Client → Server: Finished
+↑ 1 round trip. ↑ 0-RTT resumption for repeat connections</code></pre>
+
+<div class="section-title">Cipher Suites — What Encrypts What</div>
+<p class="prose">A Cipher Suite is a "package" of algorithms that defines: key exchange (how keys are exchanged), authentication (how identity is verified), encryption (how data is encrypted), and MAC (how integrity is verified). TLS 1.3 limited choices to 5 cipher suites only — all strong. TLS 1.2 supported 300+, including weak ones.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Component</th><th>TLS 1.3</th><th>TLS 1.2 (legacy)</th></tr></thead><tbody>
+<tr><td>Key Exchange</td><td>ECDHE only</td><td>RSA, DHE, ECDHE</td></tr>
+<tr><td>Auth</td><td>RSA / ECDSA</td><td>+ DSA (weak)</td></tr>
+<tr><td>Encryption</td><td>AES-GCM, ChaCha20</td><td>+ RC4 (broken!), 3DES</td></tr>
+<tr><td>MAC</td><td>Built into AEAD</td><td>SHA-1 (weak), SHA-256</td></tr>
+</tbody></table></div>
+
+<div class="section-title">Certificates and PKI</div>
+<p class="prose">A certificate is the server's "identity card" — signed by a Certificate Authority (CA) that the browser trusts. A certificate contains: domain name, public key, expiry date, and the CA's digital signature. The browser verifies: is the CA recognized? Does the domain match? Is it still valid?</p>
+<pre class="code-block"><code><span class="comment"># Inspect a certificate</span>
+openssl s_client -connect google.com:443 -showcerts 2>/dev/null | openssl x509 -noout -text | grep -E "Subject:|Issuer:|Not After"
+
+<span class="comment"># Certificate Transparency — public log of all certificates</span>
+<span class="comment"># https://crt.sh/?q=google.com</span>
+<span class="comment"># Shows every certificate ever issued for google.com</span>
+
+<span class="comment"># OCSP Stapling — revocation check</span>
+openssl s_client -connect google.com:443 -status 2>/dev/null | grep -A 17 'OCSP Response'</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 DigiNotar Hack — How a CA Was Compromised</div>
+  <div class="real-world-body">
+    2011: DigiNotar (a Dutch CA) was breached. Attackers issued a fraudulent certificate for *.google.com. Around 300,000 Iranians trying to access Gmail received a certificate that passed validation — Chrome said "connected securely." But the man-in-the-middle was reading all the traffic.<br><br>
+    Certificate Transparency was created precisely because of DigiNotar: every certificate must be registered in a public log. A browser that receives an unregistered certificate refuses it. This allows immediate detection when a CA issues an unauthorized certificate.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">TLS misconfiguration is one of the most common security findings. The tools below help verify your configuration is correct before someone else finds the problem.</p>
+
+<div class="section-title">SSL Labs — Comprehensive Check</div>
+<p class="prose">SSL Labs by Qualys is the standard for TLS configuration testing. Go to https://ssllabs.com/ssltest — enter your domain, get a grade A/B/C/F with full details: cipher suites, certificate chain, supported protocols, HSTS. Target: grade A+.</p>
+
+<div class="section-title">Tests from Terminal</div>
+<pre class="code-block"><code><span class="comment"># What TLS version does the server use?</span>
+openssl s_client -connect mysite.com:443 -tls1_3 2>/dev/null | grep "Protocol"
+openssl s_client -connect mysite.com:443 2>/dev/null | grep "Protocol\\|Cipher"
+
+<span class="comment"># Check certificate expiry</span>
+echo | openssl s_client -connect mysite.com:443 2>/dev/null |   openssl x509 -noout -dates
+<span class="comment"># notAfter=Dec 15 12:00:00 2025 GMT</span>
+
+<span class="comment"># Check cipher suites the server accepts</span>
+nmap --script ssl-enum-ciphers -p 443 mysite.com
+<span class="comment"># A = strong, B = acceptable, C/D = weak — block!</span>
+
+<span class="comment"># testssl.sh — most comprehensive</span>
+./testssl.sh mysite.com
+<span class="comment"># https://testssl.sh — works offline too</span></code></pre>
+
+<div class="section-title">Recommended nginx TLS Config (2025)</div>
+<pre class="code-block"><code>ssl_protocols TLSv1.2 TLSv1.3;
+ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384;
+ssl_prefer_server_ciphers off;
+ssl_session_cache shared:SSL:10m;
+ssl_session_timeout 1d;
+ssl_session_tickets off;
+
+<span class="comment"># HSTS — tell browser: HTTPS only forever</span>
+add_header Strict-Transport-Security "max-age=63072000" always;
+
+<span class="comment"># OCSP Stapling — less latency on revocation check</span>
+ssl_stapling on;
+ssl_stapling_verify on;
+resolver 8.8.8.8 8.8.4.4 valid=300s;</code></pre>
+
+<div class="callout callout-warn"><strong>⚠️ Certificate expiry monitoring:</strong> Let's Encrypt auto-renews — but only if the certbot cron is working. Set alerts at 30, 14, and 7 days before expiry. <code>echo | openssl s_client -connect mysite.com:443 2>/dev/null | openssl x509 -noout -checkend 604800</code> — exit code 1 means it expires within a week.</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> eBPF (extended Berkeley Packet Filter) lets you run programs in kernel space without writing a kernel module. Netflix, Google, Facebook, Cloudflare — all use eBPF for network observability, security, and performance. Meta reported that replacing iptables with eBPF saved 30% CPU on production servers.</div>
+
+<div class="section-title">What is eBPF and Why is it Revolutionary</div>
+<p class="prose">eBPF lets you write small programs that run inside the Linux kernel — safely. Before eBPF, if you wanted to do something advanced in the kernel (like monitoring every system call, or blocking packets at hardware level), you had to write a kernel module — risking a system crash, a complex process. With eBPF: write in C, compile to eBPF bytecode, the kernel verifier checks the program is safe, and run it.</p>
+<p class="prose">The verifier is the key: it checks the program cannot enter an infinite loop, cannot access unauthorized memory, and cannot cause a crash. If it passes verification — the kernel runs it in JIT compiled mode, almost as fast as native code.</p>
+
+<div class="section-title">Hook Points — Where eBPF Runs</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">⚡</div><div class="card-title">XDP — eXpress Data Path</div><div class="card-body">The earliest point in the network stack — runs in the driver before the kernel sees the packet. Very fast: up to 24M packets/sec per core. Use: DDoS mitigation, load balancing at Cloudflare.</div></div>
+<div class="card"><div class="card-icon">🔍</div><div class="card-title">kprobes / tracepoints</div><div class="card-body">Hook into any kernel function. "Every time sys_write is called — give me the data." Full monitoring of every syscall without changing any codebase.</div></div>
+<div class="card"><div class="card-icon">🔒</div><div class="card-title">LSM Hooks — Security</div><div class="card-body">Security checks. "Do not allow this process to open files outside /tmp." Falco and Tetragon use this for runtime security.</div></div>
+<div class="card"><div class="card-icon">📊</div><div class="card-title">Network TC — Traffic Control</div><div class="card-body">Ingress and egress traffic shaping. Cilium (Kubernetes CNI) is built entirely on eBPF TC hooks — replacing iptables.</div></div>
+</div>
+
+<div class="section-title">eBPF Tools — What Already Exists</div>
+<pre class="code-block"><code><span class="comment"># bcc tools — dozens of ready-made tools</span>
+execsnoop          <span class="comment"># trace every exec() syscall</span>
+tcptracer          <span class="comment"># trace TCP connections</span>
+biolatency         <span class="comment"># disk I/O latency histogram</span>
+funclatency -u curl_perform  <span class="comment"># latency of a specific function</span>
+
+<span class="comment"># bpftrace — one-liners</span>
+bpftrace -e 'kprobe:tcp_connect { printf("connect: %s
+", comm); }'
+<span class="comment"># trace every TCP connection with process name</span>
+
+bpftrace -e 'tracepoint:syscalls:sys_enter_openat { printf("%s %s
+", comm, str(args->filename)); }'
+<span class="comment"># trace every file opened</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Cloudflare and XDP — DDoS Mitigation at Miraculous Speed</div>
+  <div class="real-world-body">
+    Cloudflare receives DDoS attacks of 1+ Tbps. iptables cannot keep up with the rate — the kernel overhead of netfilter causes CPU saturation before packets are blocked. XDP runs before netfilter, before the kernel network stack, at the driver level.<br><br>
+    With XDP, Cloudflare blocks 26 million packets per second from a single CPU. The packet arrives at the NIC, the XDP program runs in nanoseconds and returns XDP_DROP, the packet never enters the kernel. That is the difference between a DDoS that takes a server down and one that goes unnoticed.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">You do not need to write eBPF programs yourself to get value from them. Dozens of ready-made tools exist — some more powerful than strace, tcpdump, and top combined.</p>
+
+<div class="section-title">bcc-tools — Install and Use Immediately</div>
+<pre class="code-block"><code><span class="comment"># Ubuntu/Debian</span>
+sudo apt install bpfcc-tools linux-headers-$(uname -r)
+
+<span class="comment"># execsnoop — every process created on the system</span>
+sudo execsnoop-bpfcc
+<span class="comment"># Great for debugging: "what does this cron job actually run?"</span>
+
+<span class="comment"># tcpconnect — every new TCP connection</span>
+sudo tcpconnect-bpfcc
+<span class="comment"># PID  COMM    IP SADDR       DADDR       DPORT</span>
+<span class="comment"># 1234 curl    4  192.168.1.5  93.184.216.34  443</span>
+
+<span class="comment"># opensnoop — every file opened</span>
+sudo opensnoop-bpfcc -p 1234
+<span class="comment"># Great for debugging: "why is this process slow?" → see I/O</span>
+
+<span class="comment"># biolatency — disk I/O latency as histogram</span>
+sudo biolatency-bpfcc -D 10 1</code></pre>
+
+<div class="section-title">bpftrace — Powerful One-liners</div>
+<pre class="code-block"><code><span class="comment"># How long does each DNS query take?</span>
+sudo bpftrace -e 'kprobe:udp_sendmsg { @start[tid]=nsecs; }
+  kretprobe:udp_recvmsg /@start[tid]/ {
+    @us = hist((nsecs-@start[tid])/1000); delete(@start[tid]); }'
+
+<span class="comment"># Which process opens the most files?</span>
+sudo bpftrace -e 'tracepoint:syscalls:sys_enter_openat { @[comm] = count(); }' -c 10</code></pre>
+
+<div class="callout callout-tip"><strong>💡 Practical use case:</strong> Production server is slow and you do not know why. Run <code>execsnoop</code> for 30 seconds — you see a cron job spawning 15 processes every 10 seconds. Not visible in top, not in ps, not in any log — only in eBPF tracing.</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> Kubernetes in production with 1000 nodes and 10,000 pods can reach 100,000 iptables rules. Every connection checks all of them in order — O(n) complexity. That is why companies move to eBPF/Cilium — O(1) lookup with hash maps instead of linear iptables chains.</div>
+
+<div class="section-title">Docker Networking — What Happens Underneath</div>
+<p class="prose">When you run a Docker container, it gets its own network namespace — a virtual network interface, routing table, and firewall rules completely separate from the host. Docker creates a virtual ethernet pair (veth): one end in the container (eth0), the other on the host (vethXXXXX). The host connects all veth interfaces to the docker0 bridge.</p>
+<pre class="code-block"><code><span class="comment"># Docker Network Modes</span>
+<span class="comment"># bridge (default) — isolated, NAT to outside</span>
+docker run --network bridge nginx
+
+<span class="comment"># host — shares network namespace with host</span>
+docker run --network host nginx    <span class="comment"># nginx listens on host port 80 directly</span>
+
+<span class="comment"># none — no network</span>
+docker run --network none alpine   <span class="comment"># completely isolated</span>
+
+<span class="comment"># Inspect Docker networks</span>
+docker network ls
+docker network inspect bridge
+ip addr show docker0               <span class="comment"># bridge interface on host</span>
+ip link | grep veth                <span class="comment"># veth pairs</span></code></pre>
+
+<div class="section-title">Kubernetes Networking — Pod-to-Pod</div>
+<p class="prose">Kubernetes requires: every Pod gets a unique IP. Every Pod can communicate with every other Pod without NAT. That sounds simple — but in practice it is complex: Pods on different nodes need to talk, and routing must be managed between all nodes. CNI (Container Network Interface) is the plugin that does this.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>CNI</th><th>Approach</th><th>Best For</th></tr></thead><tbody>
+<tr><td><strong>Flannel</strong></td><td>VXLAN overlay</td><td>Simple, any cloud</td></tr>
+<tr><td><strong>Calico</strong></td><td>BGP routing</td><td>Performance, network policies</td></tr>
+<tr><td><strong>Cilium</strong></td><td>eBPF</td><td>Large scale, observability</td></tr>
+<tr><td><strong>Weave</strong></td><td>Overlay mesh</td><td>Multi-cloud</td></tr>
+</tbody></table></div>
+
+<div class="section-title">Service Mesh — Istio and Linkerd</div>
+<p class="prose">A service mesh adds an infrastructure layer between microservices: mTLS (encryption between all services), traffic management (routing, retries, circuit breakers), and observability (traces, metrics, logs). Istio is based on the Envoy proxy sidecar — an extra container in every Pod that intercepts all traffic.</p>
+<pre class="code-block"><code><span class="comment"># Istio — Service Mesh in practice</span>
+<span class="comment"># Every Pod gets an Envoy sidecar automatically</span>
+kubectl get pods -n production
+<span class="comment"># payment-service-7d9f8  2/2  Running ← 2/2 = app + envoy</span>
+
+<span class="comment"># mTLS between services — automatic</span>
+<span class="comment"># Envoy A encrypts, Envoy B decrypts — app does not know</span>
+
+<span class="comment"># VXLAN Overlay — how Flannel works</span>
+<span class="comment"># Pod A (10.244.1.5) ← vxlan → Pod B (10.244.2.8) on different node</span>
+<span class="comment"># Ethernet frame inserted into UDP packet (VXLAN encapsulation)</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 The iptables Scale Problem in Kubernetes</div>
+  <div class="real-world-body">
+    LinkedIn reported: Kubernetes cluster with 1000+ nodes. Every node runs kube-proxy that translates Services into iptables rules. With 10,000 services — 170,000 iptables rules per node. Every packet scan is O(n) — significant latency overhead. CPU usage grows linearly with every new Service.<br><br>
+    The solution they adopted: move to Cilium. eBPF hash maps are O(1) lookup. Networking CPU usage dropped 35%. Latency dropped 20%. The migration took 6 months of work, but delivered clear ROI.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">When a container "cannot connect to the DB" or "cannot reach service X" — here is the standard diagnostic playbook.</p>
+
+<div class="section-title">Docker Networking Debug</div>
+<pre class="code-block"><code><span class="comment"># What network is the container on?</span>
+docker inspect my_container | jq '.[0].NetworkSettings.Networks'
+
+<span class="comment"># ping between containers (must be on same network)</span>
+docker exec container_a ping container_b
+docker exec container_a ping container_b_ip
+
+<span class="comment"># Check ports</span>
+docker port my_container     <span class="comment"># what is forwarded?</span>
+ss -tlnp | grep docker       <span class="comment"># what is the host listening on?</span>
+
+<span class="comment"># Check DNS inside docker</span>
+docker exec my_container cat /etc/resolv.conf
+<span class="comment"># nameserver 127.0.0.11 ← Docker embedded DNS</span>
+
+<span class="comment"># Network not responding? Check iptables rules Docker added:</span>
+sudo iptables -L DOCKER -n -v</code></pre>
+
+<div class="section-title">Kubernetes: Pod Cannot Reach a Service</div>
+<pre class="code-block"><code><span class="comment"># Step 1: Does the Service exist with the right port?</span>
+kubectl get svc my-service -o yaml | grep -A5 "ports:"
+
+<span class="comment"># Step 2: Are there Endpoints? (= Pods that passed readiness)</span>
+kubectl get endpoints my-service
+<span class="comment"># If empty → Pod not ready, selector mismatch, or readinessProbe failing</span>
+
+<span class="comment"># Step 3: Check DNS from inside</span>
+kubectl run debug --image=busybox --rm -it -- nslookup my-service
+kubectl run debug --image=busybox --rm -it -- nslookup my-service.namespace.svc.cluster.local
+
+<span class="comment"># Step 4: Check connectivity directly</span>
+kubectl exec -it my-pod -- curl http://my-service:8080/health
+
+<span class="comment"># Step 5: Network Policy issue?</span>
+kubectl get networkpolicies -A</code></pre>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> The Linux kernel default TCP buffer is 4MB. Google runs TCP buffers of 256MB between datacenters. The difference? On a 10Gbps link with 100ms RTT (high BDP — Bandwidth Delay Product), a small buffer causes the TCP window to fail to utilize full bandwidth. Formula: BDP = bandwidth x RTT = 10Gbps x 0.1s = 1Gb = 125MB buffer needed.</div>
+
+<div class="section-title">TCP Tuning — sysctl Parameters</div>
+<p class="prose">TCP performance in Linux is controlled by dozens of kernel parameters changeable at runtime via sysctl. The defaults are designed for an "average" case — low latency, medium bandwidth. For high-performance environments (10Gbps+, cross-datacenter), precise tuning is required.</p>
+<pre class="code-block"><code><span class="comment"># Check current TCP buffer settings</span>
+sysctl net.core.rmem_max       <span class="comment"># max receive buffer</span>
+sysctl net.ipv4.tcp_rmem       <span class="comment"># min default max</span>
+sysctl net.ipv4.tcp_wmem       <span class="comment"># send buffers</span>
+
+<span class="comment"># Tuning for high-bandwidth long-distance</span>
+sysctl -w net.core.rmem_max=268435456     <span class="comment"># 256MB</span>
+sysctl -w net.core.wmem_max=268435456
+sysctl -w net.ipv4.tcp_rmem="4096 87380 268435456"
+sysctl -w net.ipv4.tcp_wmem="4096 65536 268435456"
+
+<span class="comment"># TCP Congestion Control</span>
+sysctl net.ipv4.tcp_congestion_control   <span class="comment"># current: cubic</span>
+sysctl -w net.ipv4.tcp_congestion_control=bbr  <span class="comment"># Google's BBR</span>
+<span class="comment"># BBR: bandwidth-based, not loss-based. Best for high-BDP paths</span></code></pre>
+
+<div class="section-title">TCP Congestion Control — Cubic vs BBR</div>
+<p class="prose">TCP Congestion Control is the mechanism that decides how much data to send. When there is packet loss — congestion is assumed, TCP reduces the window. The problem: on modern high-speed networks, packet loss does not always mean congestion. BBR (Bottleneck Bandwidth and RTT) from Google (2016) changed the approach: measure bandwidth and RTT separately, send based on a bottleneck model — not heuristic loss detection.</p>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🔲</div><div class="card-title">CUBIC (default)</div><div class="card-body">Loss-based: grows window until loss, then shrinks. Works well on LAN. On high-latency WAN (100ms+) — slow convergence.</div></div>
+<div class="card"><div class="card-icon">🚀</div><div class="card-title">BBR (Google)</div><div class="card-body">Model-based: calculates bottleneck bandwidth and RTT. Does not rely on loss. YouTube reported 4% throughput improvement and 14% latency reduction after enabling BBR.</div></div>
+</div>
+
+<div class="section-title">Zero-Copy and RDMA</div>
+<pre class="code-block"><code><span class="comment"># Zero-Copy — sendfile() vs read()+write()</span>
+<span class="comment"># Traditional:</span>
+disk → kernel buffer → user buffer → socket buffer → NIC
+<span class="comment"># 4 copies! 4 context switches!</span>
+
+<span class="comment"># Zero-Copy (sendfile):</span>
+disk → kernel buffer → NIC (DMA direct)
+<span class="comment"># 0 user-space copies. nginx and kafka use this</span>
+
+<span class="comment"># SO_ZEROCOPY socket option (Linux 4.14+)</span>
+setsockopt(sock, SOL_SOCKET, SO_ZEROCOPY, &one, sizeof(one));
+send(sock, buf, len, MSG_ZEROCOPY);
+
+<span class="comment"># RDMA — Remote Direct Memory Access</span>
+<span class="comment"># Write directly to remote machine's RAM without CPU involvement</span>
+<span class="comment"># Latency: 1-3 microseconds (vs TCP: 10-100us)</span>
+<span class="comment"># Used in HPC, financial trading, GPU clusters</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Google BBR — What Was Wrong and Why They Changed</div>
+  <div class="real-world-body">
+    Before BBR: YouTube on TCP CUBIC. On mobile networks with packet buffering (bufferbloat), CUBIC interprets delay as congestion and reduces throughput. Videos were buffering — not because bandwidth was low, but because CUBIC was too conservative.<br><br>
+    After BBR: Google enabled BBR on WAN links. From internal measurements: throughput increased 2,700% on high RTT. Latency dropped 75%. YouTube video start time dropped 20%.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">Before changing kernel parameters in production — measure. Before measuring — establish a baseline. Here is the standard workflow.</p>
+
+<div class="section-title">Baseline Measurement</div>
+<pre class="code-block"><code><span class="comment"># iperf3 — real bandwidth measurement</span>
+<span class="comment"># On server:</span>
+iperf3 -s
+
+<span class="comment"># On client:</span>
+iperf3 -c server_ip -t 30       <span class="comment"># 30 seconds TCP</span>
+iperf3 -c server_ip -u -b 1G   <span class="comment"># UDP, 1Gbps target</span>
+iperf3 -c server_ip -P 4       <span class="comment"># 4 parallel streams</span>
+
+<span class="comment"># ping — latency and jitter</span>
+ping -c 100 server_ip | tail -1
+<span class="comment"># rtt min/avg/max/mdev = 0.5/1.2/3.8/0.4 ms</span>
+<span class="comment"># mdev = jitter — important for VoIP and gaming</span></code></pre>
+
+<div class="section-title">Enabling BBR (Linux 4.9+)</div>
+<pre class="code-block"><code><span class="comment"># Check current</span>
+sysctl net.ipv4.tcp_congestion_control
+<span class="comment"># cubic ← default</span>
+
+<span class="comment"># Enable BBR</span>
+echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
+
+<span class="comment"># Verify</span>
+sysctl net.ipv4.tcp_congestion_control
+<span class="comment"># bbr</span>
+
+<span class="comment"># Measure before and after with iperf3</span>
+<span class="comment"># On WAN links with latency >20ms — BBR always wins</span></code></pre>
+
+<div class="section-title">TCP Buffer Tuning for High Bandwidth</div>
+<pre class="code-block"><code><span class="comment"># Calculate BDP = bandwidth × RTT</span>
+<span class="comment"># 1Gbps × 50ms RTT = 50Mb = 6.25MB buffer needed</span>
+
+<span class="comment"># Add to /etc/sysctl.conf:</span>
+net.core.rmem_max = 67108864
+net.core.wmem_max = 67108864
+net.ipv4.tcp_rmem = 4096 87380 67108864
+net.ipv4.tcp_wmem = 4096 65536 67108864
+net.ipv4.tcp_mtu_probing = 1
+
+sysctl -p   <span class="comment"># apply without reboot</span></code></pre>
+
+<div class="callout callout-tip"><strong>💡 Rule of thumb:</strong> On LAN — default settings are fine. On WAN with latency >50ms and bandwidth >100Mbps — all the tuning above is relevant. Always measure before and after, always test in staging before production.</div>`
+  ],
+  cheat:[
+`<div class="callout callout-success"><strong>📋 Wireshark — Traffic Analysis</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">promiscuous mode</span></div><div class="cheat-item"><span class="cheat-key">Capture=kernel, Display=UI</span></div><div class="cheat-item"><span class="cheat-key">capture filters</span></div><div class="cheat-item"><span class="cheat-key">full conversation</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 BGP — The Internet's Routing Protocol</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">TCP 179</span></div><div class="cheat-item"><span class="cheat-key">Autonomous System</span></div><div class="cheat-item"><span class="cheat-key">policy + attributes</span></div><div class="cheat-item"><span class="cheat-key">more preferred</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 DNS — Advanced & Security</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">authentication/signatures</span></div><div class="cheat-item"><span class="cheat-key">spoofed UDP queries</span></div><div class="cheat-item"><span class="cheat-key">DNS over HTTPS</span></div><div class="cheat-item"><span class="cheat-key">cache duration</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 HTTP/2 & HTTP/3 — The Revolution</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">request B waits for A</span></div><div class="cheat-item"><span class="cheat-key">multiple streams on one connection</span></div><div class="cheat-item"><span class="cheat-key">header compression</span></div><div class="cheat-item"><span class="cheat-key">UDP</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 TLS — Under the Hood</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">1</span></div><div class="cheat-item"><span class="cheat-key">key exchange + auth + encrypt + MAC</span></div><div class="cheat-item"><span class="cheat-key">signs certificates</span></div><div class="cheat-item"><span class="cheat-key">DigiNotar</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 eBPF — Linux Superpower</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">kernel space</span></div><div class="cheat-item"><span class="cheat-key">safety — no crash/infinite loop</span></div><div class="cheat-item"><span class="cheat-key">runs before kernel network stack</span></div><div class="cheat-item"><span class="cheat-key">eBPF</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Container Networking</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">through docker0 bridge</span></div><div class="cheat-item"><span class="cheat-key">virtual ethernet pair</span></div><div class="cheat-item"><span class="cheat-key">unique IP per pod without NAT</span></div><div class="cheat-item"><span class="cheat-key">eBPF</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Network Performance Tuning</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">bandwidth × RTT</span></div><div class="cheat-item"><span class="cheat-key">BBR=model-based, CUBIC=loss-based</span></div><div class="cheat-item"><span class="cheat-key">CPU copies and context switches</span></div><div class="cheat-item"><span class="cheat-key">1-3 microseconds</span></div></div></div>`
+  ]
+}};
+var GAME_QS={},GAME_QS_EN={},QUIZZES={},QUIZZES_EN={},ILABS={},ILABS_EN={};
+GAME_QS[0]=[{"q": "Wireshark מכניס כרטיס רשת ל:", "o": ["normal mode", "promiscuous mode", "monitor mode", "stealth mode"], "a": 1}, {"q": "Capture filter vs Display filter:", "o": ["זהים", "Capture=kernel level, Display=UI", "Display=kernel, Capture=UI", "אין הבדל"], "a": 1}, {"q": "BPF syntax משמש ל:", "o": ["display filters", "capture filters", "both", "neither"], "a": 1}, {"q": "Follow TCP Stream מראה:", "o": ["packets בלבד", "שיחה שלמה בין שני hosts", "רק headers", "רק payload"], "a": 1}, {"q": "tcp.flags.syn==1 && tcp.flags.ack==0 מציג:", "o": ["כל TCP", "חיבורים חדשים בלבד", "סגירות בלבד", "ACKs"], "a": 1}, {"q": "Packet Bytes בWireshark מראה:", "o": ["text", "hex גולמי", "JSON", "binary ASCII"], "a": 1}, {"q": "Wireshark נוצר בשנת:", "o": ["1985", "1994", "1998", "2006"], "a": 2}, {"q": "frame.time_delta > 1 מוצא:", "o": ["packets גדולים", "gaps של מעל שנייה", "שגיאות TCP", "SYN packets"], "a": 1}];
+GAME_QS_EN[0]=[{"q": "Wireshark puts NIC into:", "o": ["normal mode", "promiscuous mode", "monitor mode", "stealth mode"], "a": 1}, {"q": "Capture vs Display filter:", "o": ["identical", "Capture=kernel, Display=UI", "Display=kernel, Capture=UI", "no difference"], "a": 1}, {"q": "BPF syntax is for:", "o": ["display filters", "capture filters", "both", "neither"], "a": 1}, {"q": "Follow TCP Stream shows:", "o": ["packets only", "full conversation", "headers only", "payload only"], "a": 1}, {"q": "tcp.flags.syn==1 && tcp.flags.ack==0 shows:", "o": ["all TCP", "new connections only", "closures only", "ACKs only"], "a": 1}, {"q": "Packet Bytes in Wireshark shows:", "o": ["text", "raw hex", "JSON", "binary ASCII"], "a": 1}, {"q": "Wireshark was created in:", "o": ["1985", "1994", "1998", "2006"], "a": 2}, {"q": "frame.time_delta > 1 finds:", "o": ["large packets", "gaps over 1 second", "TCP errors", "SYN packets"], "a": 1}];
+GAME_QS[1]=[{"q": "BGP רץ על:", "o": ["UDP 179", "TCP 179", "UDP 53", "TCP 80"], "a": 1}, {"q": "AS = ?", "o": ["Address Space", "Autonomous System", "Advanced Security", "Application Server"], "a": 1}, {"q": "BGP בוחר route לפי:", "o": ["shortest path", "policy + attributes", "bandwidth", "latency"], "a": 1}, {"q": "Local Preference: ערך גבוה יותר =", "o": ["פחות עדיף", "יותר עדיף", "זהה", "תלוי"], "a": 1}, {"q": "RPKI פותר:", "o": ["DDoS", "BGP hijacking", "DNS spoofing", "SSL stripping"], "a": 1}, {"q": "iBGP = ?", "o": ["בין AS", "בתוך אותו AS", "internet BGP", "internal BGP v1"], "a": 1}, {"q": "BGP Hijack של China Telecom היה ב:", "o": ["2008", "2010", "2013", "2018"], "a": 1}, {"q": "AS Path length: עדיף:", "o": ["ארוך", "קצר", "שווה", "תלוי ב-MED"], "a": 1}];
+GAME_QS_EN[1]=[{"q": "BGP runs on:", "o": ["UDP 179", "TCP 179", "UDP 53", "TCP 80"], "a": 1}, {"q": "AS stands for:", "o": ["Address Space", "Autonomous System", "Advanced Security", "Application Server"], "a": 1}, {"q": "BGP selects routes by:", "o": ["shortest path", "policy + attributes", "bandwidth", "latency"], "a": 1}, {"q": "Higher Local Preference means:", "o": ["less preferred", "more preferred", "equal", "depends"], "a": 1}, {"q": "RPKI solves:", "o": ["DDoS", "BGP hijacking", "DNS spoofing", "SSL stripping"], "a": 1}, {"q": "iBGP = ?", "o": ["between AS", "within same AS", "internet BGP", "internal v1"], "a": 1}, {"q": "China Telecom BGP incident was in:", "o": ["2008", "2010", "2013", "2018"], "a": 1}, {"q": "AS Path length preference:", "o": ["longer", "shorter", "equal", "depends on MED"], "a": 1}];
+GAME_QS[2]=[{"q": "DNSSEC מוסיף:", "o": ["הצפנה", "authentication/signatures", "compression", "caching"], "a": 1}, {"q": "DNS Amplification משתמש ב:", "o": ["TCP SYN", "spoofed UDP queries", "ICMP", "ARP"], "a": 1}, {"q": "DoH = ?", "o": ["DNS over HTTP", "DNS over HTTPS", "DNSSEC over HTTP", "Dynamic over HTTPS"], "a": 1}, {"q": "DNS TTL קובע:", "o": ["כמה queries מותר", "כמה זמן cache", "גודל response", "port"], "a": 1}, {"q": "Split-Horizon DNS נותן:", "o": ["תשובה אחת לכולם", "תשובות שונות לפי מקור", "DNSSEC בלבד", "UDP בלבד"], "a": 1}, {"q": "DNS Tunneling מסתיר data ב:", "o": ["HTTPS payload", "DNS subdomain", "TCP header", "IP options"], "a": 1}, {"q": "dig +trace מראה:", "o": ["cache בלבד", "כל שלבי resolution", "IP בלבד", "TTL בלבד"], "a": 1}, {"q": "DNSSEC מונע:", "o": ["DDoS", "Cache Poisoning", "Tunneling", "Amplification"], "a": 1}];
+GAME_QS_EN[2]=[{"q": "DNSSEC adds:", "o": ["encryption", "authentication/signatures", "compression", "caching"], "a": 1}, {"q": "DNS Amplification uses:", "o": ["TCP SYN", "spoofed UDP queries", "ICMP", "ARP"], "a": 1}, {"q": "DoH stands for:", "o": ["DNS over HTTP", "DNS over HTTPS", "DNSSEC over HTTP", "Dynamic DNS"], "a": 1}, {"q": "DNS TTL defines:", "o": ["query limit", "cache duration", "response size", "port"], "a": 1}, {"q": "Split-Horizon DNS gives:", "o": ["one answer for all", "different answers by source", "DNSSEC only", "UDP only"], "a": 1}, {"q": "DNS Tunneling hides data in:", "o": ["HTTPS payload", "DNS subdomain", "TCP header", "IP options"], "a": 1}, {"q": "dig +trace shows:", "o": ["cache only", "all resolution steps", "IP only", "TTL only"], "a": 1}, {"q": "DNSSEC prevents:", "o": ["DDoS", "Cache Poisoning", "Tunneling", "Amplification"], "a": 1}];
+GAME_QS[3]=[{"q": "HTTP/1.1 Head-of-Line Blocking = ?", "o": ["slow DNS", "request B ממתין ל-A", "server crash", "TLS overhead"], "a": 1}, {"q": "HTTP/2 Multiplexing = ?", "o": ["כמה connections", "כמה streams על connection אחד", "compression בלבד", "UDP"], "a": 1}, {"q": "HPACK הוא:", "o": ["encryption", "header compression", "handshake", "server push"], "a": 1}, {"q": "QUIC רץ על:", "o": ["TCP", "UDP", "ICMP", "GRE"], "a": 1}, {"q": "HTTP/3 = HTTP/2 + ?", "o": ["better TCP", "QUIC/UDP", "WebSockets", "gRPC"], "a": 1}, {"q": "0-RTT connection = ?", "o": ["round trip לפני data", "data בpacket הראשון", "TLS v1.0", "UDP handshake"], "a": 1}, {"q": "Server Push הוסר מ:", "o": ["Firefox", "Safari", "Chrome", "Edge"], "a": 2}, {"q": "alt-svc: h3=':443' אומר:", "o": ["HTTP/3 supported", "TLS required", "port 443 closed", "HSTS enabled"], "a": 0}];
+GAME_QS_EN[3]=[{"q": "HTTP/1.1 Head-of-Line Blocking:", "o": ["slow DNS", "request B waits for A", "server crash", "TLS overhead"], "a": 1}, {"q": "HTTP/2 Multiplexing =", "o": ["multiple connections", "multiple streams on one connection", "compression only", "UDP"], "a": 1}, {"q": "HPACK is:", "o": ["encryption", "header compression", "handshake", "server push"], "a": 1}, {"q": "QUIC runs on:", "o": ["TCP", "UDP", "ICMP", "GRE"], "a": 1}, {"q": "HTTP/3 = HTTP/2 +", "o": ["better TCP", "QUIC/UDP", "WebSockets", "gRPC"], "a": 1}, {"q": "0-RTT connection means:", "o": ["round trip before data", "data in first packet", "TLS v1.0", "UDP handshake"], "a": 1}, {"q": "Server Push was removed from:", "o": ["Firefox", "Safari", "Chrome", "Edge"], "a": 2}, {"q": "alt-svc: h3=':443' means:", "o": ["HTTP/3 supported", "TLS required", "port 443 closed", "HSTS enabled"], "a": 0}];
+GAME_QS[4]=[{"q": "TLS 1.3 handshake לוקח כמה round trips?", "o": ["3", "2", "1", "0"], "a": 2}, {"q": "Cipher Suite כולל:", "o": ["IP + port", "key exchange + auth + encrypt + MAC", "domain + IP", "TLS version בלבד"], "a": 1}, {"q": "Certificate Authority (CA) עושה:", "o": ["הצפנה", "חתימה על certificates", "routing", "DNS"], "a": 1}, {"q": "Certificate Transparency נוצר אחרי:", "o": ["Heartbleed", "DigiNotar", "BEAST", "POODLE"], "a": 1}, {"q": "TLS 1.3 encryption = ?", "o": ["RC4", "DES", "AES-GCM / ChaCha20", "MD5"], "a": 2}, {"q": "OCSP בודק:", "o": ["TLS version", "certificate revocation", "cipher suite", "domain"], "a": 1}, {"q": "0-RTT ב-TLS 1.3 = ?", "o": ["no encryption", "data בpacket ראשון", "UDP", "HTTP/2"], "a": 1}, {"q": "ECDHE מספק:", "o": ["authentication", "forward secrecy", "compression", "routing"], "a": 1}];
+GAME_QS_EN[4]=[{"q": "TLS 1.3 handshake takes how many round trips?", "o": ["3", "2", "1", "0"], "a": 2}, {"q": "Cipher Suite includes:", "o": ["IP + port", "key exchange + auth + encrypt + MAC", "domain + IP", "TLS version only"], "a": 1}, {"q": "Certificate Authority (CA) does:", "o": ["encryption", "signs certificates", "routing", "DNS"], "a": 1}, {"q": "Certificate Transparency was created after:", "o": ["Heartbleed", "DigiNotar", "BEAST", "POODLE"], "a": 1}, {"q": "TLS 1.3 encryption:", "o": ["RC4", "DES", "AES-GCM / ChaCha20", "MD5"], "a": 2}, {"q": "OCSP checks:", "o": ["TLS version", "certificate revocation", "cipher suite", "domain"], "a": 1}, {"q": "0-RTT in TLS 1.3:", "o": ["no encryption", "data in first packet", "UDP", "HTTP/2"], "a": 1}, {"q": "ECDHE provides:", "o": ["authentication", "forward secrecy", "compression", "routing"], "a": 1}];
+GAME_QS[5]=[{"q": "eBPF רץ ב:", "o": ["userspace", "kernel space", "hardware", "hypervisor"], "a": 1}, {"q": "eBPF verifier בודק:", "o": ["syntax", "safety — no crash/infinite loop", "performance", "network"], "a": 1}, {"q": "XDP מהיר כי:", "o": ["GPU acceleration", "רץ לפני kernel network stack", "UDP בלבד", "no encryption"], "a": 1}, {"q": "Cilium Kubernetes CNI בנוי על:", "o": ["iptables", "eBPF", "ipvs", "nftables"], "a": 1}, {"q": "bpftrace משמש ל:", "o": ["packet capture", "kernel one-liner tracing", "file system", "compilation"], "a": 1}, {"q": "LSM hooks ב-eBPF ל:", "o": ["performance", "network routing", "security policies", "DNS"], "a": 2}, {"q": "XDP יכול לעבד כמה packets/sec?", "o": ["1K", "100K", "1M", "24M+"], "a": 3}, {"q": "eBPF פירושו:", "o": ["Extended Bandwidth Protocol", "Extended Berkeley Packet Filter", "Embedded BPF", "Enhanced BGP Filter"], "a": 1}];
+GAME_QS_EN[5]=[{"q": "eBPF runs in:", "o": ["userspace", "kernel space", "hardware", "hypervisor"], "a": 1}, {"q": "eBPF verifier checks:", "o": ["syntax", "safety — no crash/infinite loop", "performance", "network"], "a": 1}, {"q": "XDP is fast because:", "o": ["GPU acceleration", "runs before kernel network stack", "UDP only", "no encryption"], "a": 1}, {"q": "Cilium Kubernetes CNI is built on:", "o": ["iptables", "eBPF", "ipvs", "nftables"], "a": 1}, {"q": "bpftrace is used for:", "o": ["packet capture", "kernel one-liner tracing", "file system", "compilation"], "a": 1}, {"q": "LSM hooks in eBPF are for:", "o": ["performance", "network routing", "security policies", "DNS"], "a": 2}, {"q": "XDP can process how many packets/sec?", "o": ["1K", "100K", "1M", "24M+"], "a": 3}, {"q": "eBPF stands for:", "o": ["Extended Bandwidth Protocol", "Extended Berkeley Packet Filter", "Embedded BPF", "Enhanced BGP Filter"], "a": 1}];
+GAME_QS[6]=[{"q": "Docker bridge network: כיצד containers מדברים?", "o": ["ישירות", "דרך docker0 bridge", "NAT בלבד", "VPN"], "a": 1}, {"q": "veth pair ב-Docker:", "o": ["virtual hard disk", "virtual ethernet pair", "VPN tunnel", "TLS tunnel"], "a": 1}, {"q": "Kubernetes מחייב:", "o": ["NAT בין pods", "IP ייחודי לכל pod ללא NAT", "static IPs", "IPv6 only"], "a": 1}, {"q": "Cilium CNI מבוסס על:", "o": ["iptables", "eBPF", "VXLAN", "BGP only"], "a": 1}, {"q": "VXLAN משמש ל:", "o": ["TLS", "overlay networking בין nodes", "DNS", "storage"], "a": 1}, {"q": "Istio Envoy sidecar = ?", "o": ["load balancer", "proxy בכל pod", "DNS server", "firewall"], "a": 1}, {"q": "iptables ב-Kubernetes הוא O(?):", "o": ["O(1)", "O(log n)", "O(n)", "O(n²)"], "a": 2}, {"q": "Service Mesh מספק:", "o": ["container storage", "mTLS + observability + traffic mgmt", "DNS only", "routing only"], "a": 1}];
+GAME_QS_EN[6]=[{"q": "Docker bridge: how do containers communicate?", "o": ["directly", "through docker0 bridge", "NAT only", "VPN"], "a": 1}, {"q": "veth pair in Docker is:", "o": ["virtual hard disk", "virtual ethernet pair", "VPN tunnel", "TLS tunnel"], "a": 1}, {"q": "Kubernetes requires:", "o": ["NAT between pods", "unique IP per pod without NAT", "static IPs", "IPv6 only"], "a": 1}, {"q": "Cilium CNI is based on:", "o": ["iptables", "eBPF", "VXLAN", "BGP only"], "a": 1}, {"q": "VXLAN is used for:", "o": ["TLS", "overlay networking between nodes", "DNS", "storage"], "a": 1}, {"q": "Istio Envoy sidecar =", "o": ["load balancer", "proxy in every pod", "DNS server", "firewall"], "a": 1}, {"q": "iptables in Kubernetes is O(?):", "o": ["O(1)", "O(log n)", "O(n)", "O(n²)"], "a": 2}, {"q": "Service Mesh provides:", "o": ["container storage", "mTLS + observability + traffic mgmt", "DNS only", "routing only"], "a": 1}];
+GAME_QS[7]=[{"q": "BDP = ?", "o": ["bandwidth + delay", "bandwidth × RTT", "bandwidth / latency", "delay × port"], "a": 1}, {"q": "BBR vs CUBIC — ההבדל:", "o": ["BBR=UDP, CUBIC=TCP", "BBR=model-based, CUBIC=loss-based", "BBR=old, CUBIC=new", "זהים"], "a": 1}, {"q": "Zero-Copy שומר על:", "o": ["bandwidth", "CPU copies ו-context switches", "memory", "encryption"], "a": 1}, {"q": "RDMA latency:", "o": ["100ms", "10ms", "1ms", "1-3 microseconds"], "a": 3}, {"q": "sendfile() עושה:", "o": ["file download", "zero-copy disk→NIC", "file upload", "copy to user space"], "a": 1}, {"q": "sysctl שולט ב:", "o": ["process management", "kernel parameters", "file permissions", "DNS"], "a": 1}, {"q": "TCP buffer גדול מדוע חשוב?", "o": ["אבטחה", "ניצול מלא של bandwidth ב-high BDP", "compression", "routing"], "a": 1}, {"q": "BBR פותח על ידי:", "o": ["Cisco", "Linux Foundation", "Google", "Cloudflare"], "a": 2}];
+GAME_QS_EN[7]=[{"q": "BDP =", "o": ["bandwidth + delay", "bandwidth × RTT", "bandwidth / latency", "delay × port"], "a": 1}, {"q": "BBR vs CUBIC difference:", "o": ["BBR=UDP, CUBIC=TCP", "BBR=model-based, CUBIC=loss-based", "BBR=old, CUBIC=new", "identical"], "a": 1}, {"q": "Zero-Copy saves on:", "o": ["bandwidth", "CPU copies and context switches", "memory", "encryption"], "a": 1}, {"q": "RDMA latency:", "o": ["100ms", "10ms", "1ms", "1-3 microseconds"], "a": 3}, {"q": "sendfile() does:", "o": ["file download", "zero-copy disk→NIC", "file upload", "copy to user space"], "a": 1}, {"q": "sysctl controls:", "o": ["process management", "kernel parameters", "file permissions", "DNS"], "a": 1}, {"q": "Large TCP buffer is important for:", "o": ["security", "fully utilizing bandwidth on high BDP", "compression", "routing"], "a": 1}, {"q": "BBR was developed by:", "o": ["Cisco", "Linux Foundation", "Google", "Cloudflare"], "a": 2}];
+for(var _i=0;_i<8;_i++){
+  QUIZZES[_i]=[{q:'',o:['','','',''],a:0,e:''}];
+  QUIZZES_EN[_i]=[{q:'',o:['','','',''],a:0,e:''}];
+  ILABS[_i]=[{type:'mchoice',q:'',options:[],explain:''}];
+  ILABS_EN[_i]=[{type:'mchoice',q:'',options:[],explain:''}];
+}
+// HTML escape for safe rendering of item text
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ===== INTERACTIVE LAB ENGINE =====
+// Types: fill, classify, order, mchoice
+
+function renderLab(chId) {
+  const el = document.getElementById('lab-' + chId);
+  if (!el || el.dataset.rendered) return;
+  el.dataset.rendered = '1';
+  const exs = getL(chId);
+  const Lc = L();
+  const labTypeNames = currentLang==='he'
+    ? {fill:'✏️ השלמה', classify:'🗂️ סיווג', order:'🔢 סידור', mchoice:'🎭 תרחיש', complete:'הושלמו', orderSeq:'הסדר שבחרת:', orderCheck:'בדקי ✓', allDone:'כל התרגילים הושלמו!'}
+    : {fill:'✏️ Fill in', classify:'🗂️ Classify', order:'🔢 Order', mchoice:'🎭 Scenario', complete:'completed', orderSeq:'Your order:', orderCheck:'Check ✓', allDone:'All exercises done!'};
+
+  el.innerHTML = `<div class="lab-header">
+    <div class="lab-progress-row">
+      <span class="lab-progress-label" id="lab-prog-label-${chId}">0/${exs.length} ${labTypeNames.complete}</span>
+      <div class="lab-progress-bar"><div class="lab-progress-fill" id="lab-prog-fill-${chId}" style="width:0%"></div></div>
+    </div>
+  </div>` + exs.map((ex, i) => {
+    if (ex.type === 'fill')     return renderFill(chId, i, ex, Lc, labTypeNames);
+    if (ex.type === 'classify') return renderClassify(chId, i, ex, Lc, labTypeNames, exs.length);
+    if (ex.type === 'order')    return renderOrder(chId, i, ex, Lc, labTypeNames, exs.length);
+    if (ex.type === 'mchoice')  return renderMChoice(chId, i, ex, Lc, labTypeNames, exs.length);
+    return '';
+  }).join('') +
+  `<div class="lab-done-banner" id="lab-done-${chId}" style="display:none">
+    <span>🏆</span><span id="lab-done-txt-${chId}"></span>
+  </div>`;
+}
+
+function renderFill(chId, i, ex, Lc, T) {
+  const total = getL(chId).length;
+  const fields = ex.fields.map((f, fi) =>
+    `<div class="fill-row" id="fill-row-${chId}-${i}-${fi}">
+      <label class="fill-label">${f.label}</label>
+      <div class="fill-input-wrap">
+        <input class="fill-input" id="fill-inp-${chId}-${i}-${fi}" placeholder="${f.placeholder}"
+          oninput="fillCheck(${chId},${i},${fi})" autocomplete="off" spellcheck="false">
+        <span class="fill-icon" id="fill-icon-${chId}-${i}-${fi}"></span>
+      </div>
+    </div>`).join('');
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.fill}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    <div class="fill-fields">${fields}</div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+
+function fillCheck(chId, i, fi) {
+  const exs = getL(chId);
+  const f = exs[i].fields[fi];
+  const inp = document.getElementById(`fill-inp-${chId}-${i}-${fi}`);
+  const icon = document.getElementById(`fill-icon-${chId}-${i}-${fi}`);
+  const row = document.getElementById(`fill-row-${chId}-${i}-${fi}`);
+  if (!inp) return;
+  const val = inp.value.trim().toLowerCase();
+  const alts = (f.alt || []).map(a => a.toLowerCase());
+  const ok = val === f.answer.toLowerCase() || alts.includes(val);
+  row.className = 'fill-row' + (val.length===0?'': ok?' fill-correct':' fill-wrong');
+  icon.textContent = val.length===0?'': ok?'✓':'';
+  const allOk = exs[i].fields.every((ff, ffi) => {
+    const v = (document.getElementById(`fill-inp-${chId}-${i}-${ffi}`)?.value||'').trim().toLowerCase();
+    return v === ff.answer.toLowerCase() || (ff.alt||[]).map(a=>a.toLowerCase()).includes(v);
+  });
+  if (allOk) markLabDone(chId, i);
+}
+
+function renderClassify(chId, i, ex, Lc, T, total) {
+  const shuffled = [...ex.items].sort(() => Math.random() - 0.5);
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.classify}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    ${ex.desc?`<div class="lab-desc">${ex.desc}</div>`:''}
+    <div class="classify-pool" id="pool-${chId}-${i}">
+      ${shuffled.map(item=>`<button class="classify-chip" id="chip-${chId}-${i}-${item.id}" onclick="classifySelect(${chId},${i},'${item.id}')">${esc(item.text)}</button>`).join('')}
+    </div>
+    <div class="classify-cats">
+      ${ex.categories.map((cat,ci)=>`
+        <div class="classify-cat" onclick="classifyDrop(${chId},${i},${ci})">
+          <div class="classify-cat-title">${cat}</div>
+          <div class="classify-cat-zone" id="zone-${chId}-${i}-${ci}"></div>
+        </div>`).join('')}
+    </div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+
+const _csel = {};
+function classifySelect(chId, i, itemId) {
+  _csel[`${chId}-${i}`] = itemId;
+  document.querySelectorAll(`#pool-${chId}-${i} .classify-chip, #labcard-${chId}-${i} .classify-drop-chip`).forEach(c=>c.classList.remove('selected'));
+  document.getElementById(`chip-${chId}-${i}-${itemId}`)?.classList.add('selected');
+}
+function classifyDrop(chId, i, ci) {
+  const key = `${chId}-${i}`;
+  const itemId = _csel[key]; if(!itemId) return;
+  const ex = getL(chId)[i];
+  const item = ex.items.find(it=>it.id===itemId); if(!item) return;
+  const ok = item.ans === ex.catKeys[ci];
+  document.getElementById(`chip-${chId}-${i}-${itemId}`)?.remove();
+  const zone = document.getElementById(`zone-${chId}-${i}-${ci}`);
+  if (zone) {
+    const chip = document.createElement('span');
+    chip.className = 'classify-drop-chip ' + (ok?'drop-correct':'drop-wrong');
+    chip.textContent = (ok?'✓ ':'✗ ') + item.text;
+    chip.onclick = () => { chip.remove(); const pool=document.getElementById(`pool-${chId}-${i}`); if(pool){const b=document.createElement('button');b.className='classify-chip';b.id=`chip-${chId}-${i}-${itemId}`;b.textContent=item.text;b.onclick=()=>classifySelect(chId,i,itemId);pool.appendChild(b);} };
+    zone.appendChild(chip);
+  }
+  delete _csel[key];
+  const allPlaced = ex.items.every(it => !document.getElementById(`chip-${chId}-${i}-${it.id}`));
+  if (allPlaced) {
+    const allOk = ex.items.every(it => { const ci2=ex.catKeys.indexOf(it.ans); const z=document.getElementById(`zone-${chId}-${i}-${ci2}`); return z && [...z.querySelectorAll('.drop-correct')].some(c=>c.textContent.includes(it.text)); });
+    document.getElementById(`labexp-${chId}-${i}`)?.style && (document.getElementById(`labexp-${chId}-${i}`).style.display='block');
+    if (allOk) markLabDone(chId, i);
+  }
+}
+
+function renderOrder(chId, i, ex, Lc, T, total) {
+  const shuffled = [...ex.items].sort(() => Math.random() - 0.5);
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.order}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    ${ex.desc?`<div class="lab-desc">${ex.desc}</div>`:''}
+    <div class="order-pool" id="orderpool-${chId}-${i}">
+      ${shuffled.map(item=>`<button class="order-item" id="oitem-${chId}-${i}-${item.id}" onclick="orderClick(${chId},${i},'${item.id}')">${esc(item.text)}</button>`).join('')}
+    </div>
+    <div class="order-sequence">
+      <div class="order-seq-label">${T.orderSeq}</div>
+      <div class="order-seq-zone" id="orderseq-${chId}-${i}"></div>
+    </div>
+    <button class="btn btn-ghost" style="margin-top:8px;font-size:11px" onclick="orderCheck(${chId},${i})">${T.orderCheck}</button>
+    <div class="order-feedback" id="orderfb-${chId}-${i}"></div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+
+const _ostate = {};
+function orderClick(chId, i, itemId) {
+  const key=`${chId}-${i}`; if(!_ostate[key]) _ostate[key]=[];
+  if(_ostate[key].includes(itemId)) return;
+  _ostate[key].push(itemId);
+  const btn = document.getElementById(`oitem-${chId}-${i}-${itemId}`);
+  if(btn){btn.classList.add('order-selected');btn.disabled=true;}
+  const zone = document.getElementById(`orderseq-${chId}-${i}`);
+  if(zone){const s=document.createElement('div');s.className='order-seq-step';s.dataset.id=itemId;s.innerHTML=`<span class="order-seq-num">${_ostate[key].length}</span> ${btn?.textContent||''}`;s.onclick=()=>orderRemove(chId,i,itemId);zone.appendChild(s);}
+}
+function orderRemove(chId, i, itemId) {
+  const key=`${chId}-${i}`; if(!_ostate[key]) return;
+  _ostate[key]=_ostate[key].filter(id=>id!==itemId);
+  const btn=document.getElementById(`oitem-${chId}-${i}-${itemId}`);
+  if(btn){btn.classList.remove('order-selected');btn.disabled=false;}
+  const zone=document.getElementById(`orderseq-${chId}-${i}`);
+  if(zone){const s=zone.querySelector(`[data-id="${itemId}"]`);if(s)s.remove();zone.querySelectorAll('.order-seq-step').forEach((st,idx)=>{const n=st.querySelector('.order-seq-num');if(n)n.textContent=idx+1;});}
+}
+function orderCheck(chId, i) {
+  const key=`${chId}-${i}`;
+  const ex=getL(chId)[i];
+  const chosen=_ostate[key]||[];
+  const fb=document.getElementById(`orderfb-${chId}-${i}`);
+  const isHe=currentLang==='he';
+  if(chosen.length<ex.correct.length){if(fb){fb.textContent=isHe?`⚠️ בחרי את כל ${ex.correct.length} השלבים`:`⚠️ Select all ${ex.correct.length} steps`;fb.className='order-feedback warn';}return;}
+  const ok=ex.correct.every((id,idx)=>chosen[idx]===id);
+  if(fb){fb.textContent=ok?'✅ '+(isHe?'מצוין! סדר נכון.':'Correct! Perfect order.'):'❌ '+(isHe?'לא בדיוק. נסי שוב.':'Not quite. Try again.');fb.className='order-feedback '+(ok?'ok':'err');}
+  if(ok){document.getElementById(`labexp-${chId}-${i}`)?.style&&(document.getElementById(`labexp-${chId}-${i}`).style.display='block');markLabDone(chId,i);}
+  else setTimeout(()=>{_ostate[key]=[];const zone=document.getElementById(`orderseq-${chId}-${i}`);if(zone)zone.innerHTML='';document.getElementById(`orderpool-${chId}-${i}`)?.querySelectorAll('.order-item').forEach(b=>{b.classList.remove('order-selected');b.disabled=false;});if(fb){fb.textContent='';fb.className='order-feedback';}},1300);
+}
+
+function renderMChoice(chId, i, ex, Lc, T, total) {
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.mchoice}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    <div class="mch-opts">
+      ${ex.options.map((opt,oi)=>`
+        <button class="mch-opt" id="mchopt-${chId}-${i}-${oi}" onclick="mchoicePick(${chId},${i},${oi})">
+          <span class="mch-letter">${Lc.optLetters[oi]}</span><span class="mch-text">${opt.text}</span>
+        </button>
+        <div class="mch-feedback" id="mchfb-${chId}-${i}-${oi}" style="display:none">${opt.feedback||''}</div>`).join('')}
+    </div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+function mchoicePick(chId, i, oi) {
+  const ex=getL(chId)[i];
+  ex.options.forEach((_,idx)=>{const b=document.getElementById(`mchopt-${chId}-${i}-${idx}`);if(b)b.disabled=true;});
+  const opt=ex.options[oi];
+  document.getElementById(`mchfb-${chId}-${i}-${oi}`)?.style&&(document.getElementById(`mchfb-${chId}-${i}-${oi}`).style.display='block');
+  document.getElementById(`mchopt-${chId}-${i}-${oi}`)?.classList.add(opt.correct?'mch-correct':'mch-wrong');
+  if(!opt.correct) ex.options.forEach((o,idx)=>{if(o.correct){document.getElementById(`mchopt-${chId}-${i}-${idx}`)?.classList.add('mch-correct');document.getElementById(`mchfb-${chId}-${i}-${idx}`)?.style&&(document.getElementById(`mchfb-${chId}-${i}-${idx}`).style.display='block');}});
+  document.getElementById(`labexp-${chId}-${i}`)?.style&&(document.getElementById(`labexp-${chId}-${i}`).style.display='block');
+  if(opt.correct) markLabDone(chId,i);
+}
+
+const _labDone={};
+function markLabDone(chId,i){
+  if(!_labDone[chId]) _labDone[chId]=new Set();
+  if(_labDone[chId].has(i)) return;
+  _labDone[chId].add(i);
+  addXP(15);
+  document.getElementById(`labcard-${chId}-${i}`)?.classList.add('lab-card-done');
+  const total=getL(chId).length;
+  const done=_labDone[chId].size;
+  const fill=document.getElementById(`lab-prog-fill-${chId}`);
+  if(fill) fill.style.width=Math.round(done/total*100)+'%';
+  const label=document.getElementById(`lab-prog-label-${chId}`);
+  const Lc=L();
+  const T=currentLang==='he'?{complete:'הושלמו',allDone:'כל התרגילים הושלמו!'}:{complete:'completed',allDone:'All exercises done!'};
+  if(label) label.textContent=`${done}/${total} ${T.complete}`;
+  if(done===total){const banner=document.getElementById(`lab-done-${chId}`);if(banner)banner.style.display='flex';const txt=document.getElementById(`lab-done-txt-${chId}`);if(txt)txt.textContent=T.allDone+' +'+total*15+' XP';}
+}
+
+// ===== STATE =====
+const state = {cur:0, tabs:{}, quiz:{}, game:{}, xp:0, stars:{}};
+let currentLang = 'he';
+let gameTimer = null;
+const TOTAL_CHAPTERS = 8;
+
+// ===== HELPERS =====
+function L() { return currentLang==='he' ? C.he : C.en; }
+
+function getQ(i) {
+  const key = currentLang+'-'+i;
+  if (!_sqCache[key]) {
+    const raw = (currentLang==='en' ? (QUIZZES_EN[i]||QUIZZES[i]) : QUIZZES[i]) || QUIZZES[0];
+    _sqCache[key] = raw.map(q => shuffleOptions(q));
+  }
+  return _sqCache[key];
+}
+function getL(i) { return (currentLang==='en' ? (ILABS_EN[i]||ILABS[i]) : ILABS[i]) || ILABS[0]; }
+function getG(i) {
+  const key = currentLang+'-g-'+i;
+  if (!_sgCache[key]) {
+    const raw = (currentLang==='en' ? (GAME_QS_EN[i]||GAME_QS[i]) : GAME_QS[i]) || GAME_QS[0];
+    _sgCache[key] = raw.map(q => shuffleOptions(q));
+  }
+  return _sgCache[key];
+}
+const _sqCache = {}, _sgCache = {};
+
+// ===== NORMALIZE + SHUFFLE (length bias fix) =====
+function normalizeOptions(q) {
+  const lens = q.o.map(o => o.length);
+  const wrongLens = lens.filter((_, i) => i !== q.a);
+  const maxWrong = Math.max(...wrongLens);
+  const cap = maxWrong;
+  const newOpts = q.o.map(o => {
+    if (o.length <= cap) return o;
+    let t = o.slice(0, cap);
+    const ls = t.lastIndexOf(' ');
+    if (ls > cap * 0.5) t = t.slice(0, ls);
+    return t;
+  });
+  return { ...q, o: newOpts };
+}
+function shuffleOptions(q) {
+  const norm = normalizeOptions(q);
+  const idx = [0,1,2,3];
+  for (let i = idx.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [idx[i],idx[j]] = [idx[j],idx[i]];
+  }
+  return { ...norm, o: idx.map(i=>norm.o[i]), a: idx.indexOf(norm.a) };
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  applyLang('he');
+  showChapter(0);
+});
+
+// ===== LANG =====
+function toggleLang() { currentLang = currentLang==='he'?'en':'he'; applyLang(currentLang); }
+
+function applyLang(lang) {
+  currentLang = lang;
+  const Lc = L();
+  document.documentElement.setAttribute('lang', lang==='he'?'he':'en');
+  document.documentElement.setAttribute('dir', Lc.dir);
+  document.getElementById('langBtn').textContent = Lc.langBtn;
+  document.getElementById('sbLabel').textContent = Lc.sbLabel;
+  document.getElementById('headerChName').textContent = Lc.names[state.cur]||'';
+
+  for (let i=0; i<TOTAL_CHAPTERS; i++) {
+    const $=id=>document.getElementById(id);
+    if($('chname-'+i))  $('chname-'+i).textContent  = Lc.names[i]||'';
+    if($('chtag-'+i))   $('chtag-'+i).textContent   = Lc.tags[i]||'';
+    if($('chtitle-'+i)) $('chtitle-'+i).textContent = Lc.names[i]||'';
+    if($('chdesc-'+i))  $('chdesc-'+i).textContent  = Lc.descs[i]||'';
+    if($('cheat-'+i))   $('cheat-'+i).innerHTML     = Lc.cheat[i]||'';
+
+    const learnEl = $('learn-'+i);
+    if (learnEl) learnEl.innerHTML = (Lc.learn[i]||'');
+
+    const tabsEl = $('tabs-'+i);
+    if (tabsEl) {
+      const tabs = Lc.tabs;
+      const keys = Lc.tabKeys;
+      const cur = state.tabs[i]||'learn';
+      tabsEl.innerHTML = tabs.map((t,ti)=>
+        `<button class="tab-btn${cur===keys[ti]?' active':''}" onclick="showTab(${i},'${keys[ti]}')">${t}</button>`
+      ).join('');
+    }
+
+    ['quiz','lab','game'].forEach(p => {
+      const el = $(p+'-'+i);
+      if(el){el.innerHTML='';delete el.dataset.rendered;}
+    });
+    state.quiz[i]=null;
+    state.game[i]={phase:'idle'};
+  }
+
+  const t = state.tabs[state.cur]||'learn';
+  if(t==='quiz'&&L().tabKeys.indexOf('quiz')>=0) renderQuiz(state.cur);
+  if(t==='lab'&&L().tabKeys.indexOf('lab')>=0)  renderLab(state.cur);
+  if(t==='game') renderGame(state.cur);
+
+  // Credits bar translation
+  const creditsLabels = {
+    he: {
+      title: '// מקורות ותודות',
+      research: 'מחקר ותקנים',
+      incidents: 'ניתוח אירועים',
+      tech: 'תיעוד טכני',
+      built: 'נבנה עם',
+      version: 'גרסה 2.0 — 2025'
+    },
+    en: {
+      title: '// Sources & Credits',
+      research: 'Research & Standards',
+      incidents: 'Incident Analysis',
+      tech: 'Technical Docs',
+      built: 'Built With',
+      version: 'Version 2.0 — 2025'
+    }
+  };
+  const cl2 = creditsLabels[lang] || creditsLabels.he;
+  const setT = (id, txt) => { const el = document.getElementById(id); if(el) el.textContent = txt; };
+  setT('credits-title-label', cl2.title);
+  setT('credits-research', cl2.research);
+  setT('credits-incidents', cl2.incidents);
+  setT('credits-tech', cl2.tech);
+  setT('credits-built', cl2.built);
+  setT('credits-version', cl2.version);
+}
+
+// ===== NAV =====
+function showChapter(n) {
+  document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.ch-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ch-'+n)?.classList.add('active');
+  document.getElementById('nav-'+n)?.classList.add('active');
+  state.cur=n;
+  document.getElementById('headerChName').textContent = L().names[n]||'';
+  document.getElementById('sidebar')?.classList.remove('open');
+  window.scrollTo(0,0);
+  activateTab(n, state.tabs[n]||'learn');
+}
+
+function toggleSidebar() { document.getElementById('sidebar')?.classList.toggle('open'); }
+
+function showTab(chId, tabName) { state.tabs[chId]=tabName; activateTab(chId, tabName); }
+
+function activateTab(chId, tabName) {
+  const ch = document.getElementById('ch-'+chId);
+  if (!ch) return;
+  ch.querySelectorAll('.tab-btn').forEach(btn => {
+    const m = btn.getAttribute('onclick').match(/'(\w+)'\)/);
+    btn.classList.toggle('active', m && m[1]===tabName);
+  });
+  ch.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id===chId+'-'+tabName);
+  });
+  if(tabName==='quiz'&&L().tabKeys.indexOf('quiz')>=0) renderQuiz(chId);
+  if(tabName==='lab'&&L().tabKeys.indexOf('lab')>=0)  renderLab(chId);
+  if(tabName==='game') renderGame(chId);
+}
+
+// ===== QUIZ =====
+function renderQuiz(chId) {
+  const el = document.getElementById('quiz-'+chId);
+  if(!el||el.dataset.rendered) return;
+  el.dataset.rendered='1';
+  if(!state.quiz[chId]) state.quiz[chId]={qi:0,ans:{},done:false,score:0};
+  const qs=getQ(chId); const Lc=L();
+  const pips = qs.map((_,i)=>`<div class="quiz-pip" id="qpip-${chId}-${i}"></div>`).join('');
+  const cards = qs.map((q,i)=>`
+    <div class="quiz-q-card" id="qcard-${chId}-${i}">
+      <div class="quiz-meta"><span id="qmeta-${chId}-${i}"></span></div>
+      <div class="quiz-q">${q.q}</div>
+      <div class="quiz-opts">
+        ${q.o.map((opt,oi)=>`
+          <button class="quiz-opt" id="qopt-${chId}-${i}-${oi}" onclick="quizPick(${chId},${i},${oi})">
+            <span class="opt-letter" id="qltr-${chId}-${i}-${oi}"></span>${opt}
+          </button>`).join('')}
+      </div>
+      <div class="quiz-exp" id="qexp-${chId}-${i}" style="display:none">
+        <strong id="qexplbl-${chId}-${i}"></strong> ${q.e||''}
+      </div>
+    </div>`).join('');
+  el.innerHTML=`
+    <div class="quiz-prog" id="qprog-${chId}">${pips}</div>
+    ${cards}
+    <div class="quiz-result" id="qres-${chId}">
+      <div class="result-emoji" id="qemoji-${chId}">🎉</div>
+      <div class="result-score" id="qscore-${chId}"></div>
+      <div class="result-label" id="qlabel-${chId}"></div>
+      <div class="result-stars" id="qstars-${chId}"></div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
+        <button class="btn btn-ghost" id="qbtn-reset-${chId}" onclick="quizReset(${chId})"></button>
+        <button class="btn btn-primary" id="qbtn-lab-${chId}" onclick="showTab(${chId},'lab')"></button>
+      </div>
+    </div>
+    <div class="quiz-nav" id="qnav-${chId}">
+      <button class="btn btn-ghost" id="qprev-${chId}" onclick="quizNav(${chId},-1)"></button>
+      <button class="btn btn-primary" id="qnext-${chId}" onclick="quizNav(${chId},1)"></button>
+    </div>`;
+  refreshQuiz(chId);
+}
+
+function refreshQuiz(chId) {
+  const st=state.quiz[chId]; if(!st) return;
+  const qs=getQ(chId); const Lc=L();
+  qs.forEach((_,i)=>{
+    const card=document.getElementById(`qcard-${chId}-${i}`);
+    if(card) card.classList.toggle('active',i===st.qi);
+    const pip=document.getElementById(`qpip-${chId}-${i}`);
+    if(pip) pip.className='quiz-pip'+(i<st.qi||st.done?' done':i===st.qi?' cur':'');
+    const meta=document.getElementById(`qmeta-${chId}-${i}`);
+    if(meta) meta.textContent=`${Lc.question} ${i+1} ${Lc.of} ${qs.length}`;
+    qs[i].o.forEach((_,oi)=>{
+      const ltr=document.getElementById(`qltr-${chId}-${i}-${oi}`);
+      if(ltr) ltr.textContent=Lc.optLetters[oi];
+    });
+    const explbl=document.getElementById(`qexplbl-${chId}-${i}`);
+    if(explbl) explbl.textContent=Lc.quizExplain;
+  });
+  const prev=document.getElementById(`qprev-${chId}`);
+  const next=document.getElementById(`qnext-${chId}`);
+  if(document.getElementById(`qbtn-reset-${chId}`)) document.getElementById(`qbtn-reset-${chId}`).textContent=Lc.quizAgain;
+  if(document.getElementById(`qbtn-lab-${chId}`)) document.getElementById(`qbtn-lab-${chId}`).textContent=Lc.quizToLab;
+  if(prev){prev.textContent=Lc.quizPrev;prev.disabled=st.qi===0;}
+  if(next){
+    const ans=st.ans[st.qi]!==undefined;
+    if(st.qi<qs.length-1){next.textContent=Lc.quizNext;next.disabled=!ans;next.onclick=()=>quizNav(chId,1);}
+    else{next.textContent=Lc.quizSubmit;next.disabled=Object.keys(st.ans).length<qs.length;next.onclick=()=>quizSubmit(chId);}
+  }
+}
+
+function quizPick(chId,qi,oi){
+  const st=state.quiz[chId];if(!st||st.done)return;
+  st.ans[qi]=oi;
+  getQ(chId)[qi].o.forEach((_,o)=>{
+    const btn=document.getElementById(`qopt-${chId}-${qi}-${o}`);
+    if(btn) btn.classList.toggle('selected',o===oi);
+  });
+  refreshQuiz(chId);
+}
+
+function quizNav(chId,dir){
+  const st=state.quiz[chId];if(!st)return;
+  st.qi=Math.max(0,Math.min(getQ(chId).length-1,st.qi+dir));
+  refreshQuiz(chId);
+}
+
+function quizSubmit(chId){
+  const st=state.quiz[chId];if(!st)return;
+  const qs=getQ(chId);const Lc=L();
+  let score=0;
+  qs.forEach((q,i)=>{
+    const chosen=st.ans[i];const correct=q.a;
+    q.o.forEach((_,oi)=>{
+      const btn=document.getElementById(`qopt-${chId}-${i}-${oi}`);
+      if(!btn)return;
+      btn.classList.add('disabled');
+      if(oi===correct)btn.classList.add('correct');
+      else if(oi===chosen)btn.classList.add('wrong');
+      btn.classList.remove('selected');
+    });
+    const exp=document.getElementById(`qexp-${chId}-${i}`);
+    if(exp)exp.style.display='block';
+    if(chosen===correct)score++;
+  });
+  st.done=true;st.score=score;
+  const stars=score>=5?3:score>=4?2:score>=3?1:0;
+  state.stars[chId]=Math.max(state.stars[chId]||0,stars);
+  addXP(score*10);updateStars(chId);
+  document.getElementById(`qnav-${chId}`).style.display='none';
+  const res=document.getElementById(`qres-${chId}`);
+  res.classList.add('visible');
+  document.getElementById(`qscore-${chId}`).textContent=`${score}/${qs.length}`;
+  const emojis=['😔','😅','🙂','😊','🎉','🏆'];
+  document.getElementById(`qemoji-${chId}`).textContent=emojis[score]||'🎉';
+  document.getElementById(`qlabel-${chId}`).textContent=Lc.resultLabels[score]||'';
+  document.getElementById(`qstars-${chId}`).textContent='⭐'.repeat(stars)+'☆'.repeat(3-stars);
+  qs.forEach((_,i)=>{const c=document.getElementById(`qcard-${chId}-${i}`);if(c)c.classList.add('active');});
+}
+
+function quizReset(chId){
+  state.quiz[chId]=null;
+  const el=document.getElementById('quiz-'+chId);
+  if(el){el.innerHTML='';delete el.dataset.rendered;}
+  delete _sqCache[currentLang+'-'+chId];
+  renderQuiz(chId);
+}
+
+// ===== LAB =====
+function renderLab(chId){
+  const el=document.getElementById('lab-'+chId);
+  if(!el||el.dataset.rendered)return;
+  el.dataset.rendered='1';
+  const exs=getL(chId);const Lc=L();
+  el.innerHTML=exs.map((ex,i)=>`
+    <div class="lab-ex" id="labex-${chId}-${i}">
+      <div class="lab-ex-hdr" onclick="toggleLab(${chId},${i})">
+        <span class="lab-num">${i+1}</span>
+        <span class="lab-q">${ex.q}</span>
+        <span class="lab-chevron">▼</span>
+      </div>
+      <div class="lab-ans-wrap">
+        <div class="lab-ans-inner">
+          <div class="lab-ans-pre">${ex.a}</div>
+          <div class="lab-explain"><strong>${Lc.labExplain}</strong> ${ex.e||''}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleLab(chId,i){
+  const el=document.getElementById(`labex-${chId}-${i}`);
+  if(el){el.classList.toggle('open');if(el.classList.contains('open'))addXP(5);}
+}
+
+// ===== GAME =====
+function renderGame(chId){
+  const el=document.getElementById('game-'+chId);
+  if(!el)return;
+  if(!state.game[chId])state.game[chId]={phase:'idle'};
+  const gs=state.game[chId];const Lc=L();
+  if(gs.phase==='idle'){
+    const gqs=getG(chId);
+    el.innerHTML=`
+      <div class="game-start-card">
+        <div class="game-icon">🛡️</div>
+        <div class="game-start-title">${Lc.gameTitle}</div>
+        <p class="game-start-desc">${Lc.gameDesc}</p>
+        <div class="game-rules">
+          <div class="game-rule">⏱️ <span>60</span> ${Lc.gameSeconds}</div>
+          <div class="game-rule">❓ <span>${gqs.length}</span> ${Lc.gameQuestions}</div>
+          <div class="game-rule">🏆 <span>${Lc.gameXP}</span></div>
+        </div>
+        <button class="btn btn-primary" style="font-size:13px;padding:11px 32px" onclick="gameStart(${chId})">${Lc.gameStart}</button>
+        ${buildLB(chId)}
+      </div>`;
+  } else if(gs.phase==='playing'){
+    renderGamePlay(chId);
+  } else {
+    renderGameOver(chId);
+  }
+}
+
+function gameStart(chId){
+  const gqs=getG(chId);
+  state.game[chId]={phase:'playing',qs:[...gqs].sort(()=>Math.random()-.5),qi:0,score:0,time:60,answered:false};
+  renderGame(chId);startTimer(chId);
+}
+
+function renderGamePlay(chId){
+  const el=document.getElementById('game-'+chId);
+  const gs=state.game[chId];const Lc=L();
+  if(!gs||gs.phase!=='playing')return;
+  const q=gs.qs[gs.qi];
+  if(!q){gameOver(chId);return;}
+  el.innerHTML=`
+    <div class="game-hud">
+      <div class="hud-timer${gs.time<=10?' urgent':''}" id="gtimer-${chId}">${gs.time}</div>
+      <div class="hud-qnum">${gs.qi+1}/${gs.qs.length}</div>
+      <div class="hud-score">⭐ ${gs.score}</div>
+    </div>
+    <div class="game-q">${q.q}</div>
+    <div class="game-opts">
+      ${q.o.map((opt,i)=>`<button class="game-opt" id="gopt-${chId}-${i}" onclick="gameAnswer(${chId},${i})">${opt}</button>`).join('')}
+    </div>
+    <div class="game-fb" id="gfb-${chId}"></div>`;
+}
+
+function startTimer(chId){
+  clearInterval(gameTimer);
+  gameTimer=setInterval(()=>{
+    const gs=state.game[chId];
+    if(!gs||gs.phase!=='playing'){clearInterval(gameTimer);return;}
+    gs.time--;
+    const t=document.getElementById(`gtimer-${chId}`);
+    if(t){t.textContent=gs.time;t.className='hud-timer'+(gs.time<=10?' urgent':'');}
+    if(gs.time<=0){clearInterval(gameTimer);gameOver(chId);}
+  },1000);
+}
+
+function gameAnswer(chId,chosen){
+  const gs=state.game[chId];if(!gs||gs.answered)return;
+  gs.answered=true;
+  const q=gs.qs[gs.qi];const ok=q.a===chosen;
+  document.querySelectorAll(`#game-${chId} .game-opt`).forEach(b=>b.classList.add('disabled'));
+  document.getElementById(`gopt-${chId}-${chosen}`)?.classList.add(ok?'correct':'wrong');
+  if(!ok)document.getElementById(`gopt-${chId}-${q.a}`)?.classList.add('correct');
+  const fb=document.getElementById(`gfb-${chId}`);
+  if(fb){fb.textContent=ok?'+10 ✓':'✗';fb.className='game-fb '+(ok?'ok':'bad');}
+  if(ok){gs.score+=10;addXP(10);}
+  setTimeout(()=>{
+    gs.qi++;gs.answered=false;
+    if(gs.qi>=gs.qs.length){gameOver(chId);return;}
+    renderGamePlay(chId);startTimer(chId);
+  },850);
+}
+
+function gameOver(chId){
+  clearInterval(gameTimer);
+  const gs=state.game[chId];if(!gs)return;
+  gs.phase='over';const Lc=L();
+  try{
+    let lb=JSON.parse(localStorage.getItem(`cyber-${chId}`)||'[]');
+    lb.push({name:Lc.playerName,score:gs.score,ts:Date.now()});
+    lb.sort((a,b)=>b.score-a.score);lb=lb.slice(0,5);
+    localStorage.setItem(`cyber-${chId}`,JSON.stringify(lb));
+  }catch(e){}
+  const total=gs.qs.length*10;const pct=Math.round((gs.score/total)*100);
+  const medal=gs.score>=total*.8?'🏆':gs.score>=total*.5?'🥈':'🥉';
+  document.getElementById('game-'+chId).innerHTML=`
+    <div class="game-over-card">
+      <div style="font-size:50px;margin-bottom:8px">${medal}</div>
+      <div class="game-over-score">${gs.score}</div>
+      <div class="game-over-title">${Lc.points} · ${pct}${Lc.pct}</div>
+      ${buildLB(chId)}
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
+        <button class="btn btn-ghost" onclick="gameRestart(${chId})">${Lc.gameAgain}</button>
+        <button class="btn btn-primary" onclick="showTab(${chId},'cheat')">${Lc.gameToCheat}</button>
+      </div>
+    </div>`;
+}
+
+function gameRestart(chId){
+  state.game[chId]={phase:'idle'};
+  const el=document.getElementById('game-'+chId);
+  if(el)el.innerHTML='';
+  delete _sgCache[currentLang+'-g-'+chId];
+  renderGame(chId);
+}
+
+function buildLB(chId){
+  let lb=[];
+  try{lb=JSON.parse(localStorage.getItem(`cyber-${chId}`)||'[]');}catch(e){}
+  if(!lb.length)return'';
+  const medals=['🥇','🥈','🥉','4','5'];
+  const cls=['gold','silver','bronze','normal','normal'];
+  const Lc=L();
+  return`<div class="leaderboard"><div class="lb-title">${Lc.lbTitle}</div>${lb.map((e,i)=>`
+    <div class="lb-row ${cls[i]}">
+      <span class="lb-rank">${medals[i]}</span>
+      <span class="lb-name">${e.name||Lc.unknownPlayer}</span>
+      <span class="lb-pts">${e.score} ${Lc.points}</span>
+    </div>`).join('')}</div>`;
+}
+
+// ===== XP & STARS =====
+function addXP(n){
+  state.xp+=n;
+  const max=TOTAL_CHAPTERS*(5*10+4*5+8*10);
+  const pct=Math.min(100,(state.xp/max)*100);
+  document.getElementById('xpBar').style.width=pct+'%';
+  document.getElementById('xpLabel').textContent=state.xp+' XP';
+}
+
+function updateStars(chId){
+  const el=document.getElementById('stars-'+chId);
+  if(!el)return;
+  const s=state.stars[chId]||0;
+  el.textContent='⭐'.repeat(s)+'☆'.repeat(3-s);
+}
+
+</script></body></html>

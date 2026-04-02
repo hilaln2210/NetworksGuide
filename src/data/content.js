@@ -82,7 +82,6 @@ export const tracks = [
       { id: 600, title: "AI Agents — קורס מלא", pages: [{ type: "html_page", title: "AI Agents Course", src: "/learn/ai-agents/ai_agents_course.html" }] },
     ]
   },
-  // ── LOCKED — בעריכה ──
   {
     id: 'research',
     title: 'חקר רשתות',
@@ -90,8 +89,11 @@ export const tracks = [
     icon: '🔬',
     color: '#8b5cf6',
     level: 'מתקדם',
-    locked: true,
-    chapters: []
+    fullPage: true,
+    chapterCount: 8,
+    chapters: [
+      { id: 800, title: "חקר רשתות — קורס מלא", pages: [{ type: "html_page", title: "Network Research", src: "/learn/research/networks_course.html" }] },
+    ]
   },
   {
     id: 'redteam',
@@ -100,8 +102,11 @@ export const tracks = [
     icon: '🔴',
     color: '#dc2626',
     level: 'בינוני–מתקדם',
-    locked: true,
-    chapters: []
+    fullPage: true,
+    chapterCount: 8,
+    chapters: [
+      { id: 900, title: "Red Team — קורס מלא", pages: [{ type: "html_page", title: "Red Team Course", src: "/learn/redteam/redteam_course.html" }] },
+    ]
   },
 ]
 
