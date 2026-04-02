@@ -87,7 +87,7 @@ export const tracks = [
     title: 'חקר רשתות',
     subtitle: 'Wireshark, BGP, DNS, HTTP/2, eBPF, TLS, Container Networking',
     icon: '🔬',
-    color: '#8b5cf6',
+    color: '#0ea5e9',
     level: 'מתקדם',
     fullPage: true,
     chapterCount: 8,
