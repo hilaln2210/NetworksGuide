@@ -9,95 +9,135 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:        #ffffff;
-  --bg2:       #f8f9fa;
-  --bg3:       #f1f3f5;
-  --surface:   #ffffff;
-  --border:    #e9ecef;
-  --border2:   #dee2e6;
-  --accent:    #1d6b9c;
-  --accent2:   #e8f4fd;
-  --accentfg:  #ffffff;
-  --text:      #212529;
-  --text2:     #495057;
-  --text3:     #868e96;
-  --green:     #2f9e44;
-  --red:       #e03131;
-  --orange:    #e8590c;
-  --mono:      'Courier New', 'Consolas', monospace;
-  --sans:      -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  --r:         6px;
-  --r2:        12px;
-  --shadow:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-  --shadow2:   0 4px 12px rgba(0,0,0,.10);
+  --bg:       #f7f7f2;
+  --bg2:      #ffffff;
+  --bg3:      #f0f0ea;
+  --surface:  #ffffff;
+  --border:   #e5e5e0;
+  --border2:  #d1d1ca;
+  --accent:   #1d6b9c;
+  --accent2:  #155a84;
+  --accentfg: #ffffff;
+  --green:    #58cc02;
+  --green2:   #46a302;
+  --greenfg:  #ffffff;
+  --yellow:   #ffd900;
+  --yellowfg: #785a00;
+  --red:      #ff4b4b;
+  --redfg:    #ffffff;
+  --blue:     #1cb0f6;
+  --bluefg:   #ffffff;
+  --text:     #3c3c3c;
+  --text2:    #6b6b6b;
+  --text3:    #afafaf;
+  --mono:     'Courier New', 'Consolas', monospace;
+  --sans:     -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --r:        12px;
+  --r2:       20px;
+  --r3:       24px;
 }
 
-html, body { height: 100%; font-family: var(--sans); background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+html, body {
+  height: 100%;
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
 
 /* ── HEADER ── */
 .header {
-  position: fixed; top: 0; left: 0; right: 0; height: 56px; z-index: 200;
-  background: var(--bg); border-bottom: 1px solid var(--border);
+  position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 200;
+  background: var(--bg2); border-bottom: 2px solid var(--border);
   display: flex; align-items: center; padding: 0 20px; gap: 16px;
 }
 .header-logo {
-  font-weight: 700; font-size: 15px; color: var(--text);
+  font-weight: 800; font-size: 16px; color: var(--accent);
   display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+  letter-spacing: -0.3px;
 }
 .header-logo-dot {
-  width: 8px; height: 8px; border-radius: 50%; background: var(--accent);
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 2px 0 var(--green2);
 }
-.header-chname { font-size: 13px; color: var(--text3); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.header-chname {
+  font-size: 13px; font-weight: 600; color: var(--text2);
+  flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
 .lang-btn {
-  font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: var(--r);
-  border: 1px solid var(--border2); background: var(--bg2); color: var(--text2);
-  cursor: pointer; flex-shrink: 0; transition: all .15s;
+  font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: var(--r);
+  border: 2px solid var(--border2); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); color: var(--text2);
+  cursor: pointer; flex-shrink: 0; transition: all .1s;
+  text-transform: uppercase; letter-spacing: .04em;
 }
-.lang-btn:hover { background: var(--accent); color: var(--accentfg); border-color: var(--accent); }
-.menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 6px; color: var(--text2); }
+.lang-btn:hover { background: var(--accent); color: var(--accentfg); border-color: var(--accent2); border-bottom-color: var(--accent2); }
+.lang-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
 
 /* ── CHAPTER NAV BAR ── */
 .ch-nav {
-  position: fixed; top: 56px; left: 0; right: 0; z-index: 150;
-  background: var(--bg); border-bottom: 1px solid var(--border);
-  overflow-x: auto; display: flex; padding: 0 20px; gap: 4px;
+  position: fixed; top: 60px; left: 0; right: 0; z-index: 150;
+  background: var(--bg2); border-bottom: 2px solid var(--border);
+  overflow-x: auto; display: flex; padding: 8px 16px; gap: 6px;
   scrollbar-width: none; -ms-overflow-style: none;
 }
 .ch-nav::-webkit-scrollbar { display: none; }
+.sb-label { display: none; }
 .ch-btn {
   display: flex; flex-direction: column; align-items: center;
-  padding: 8px 14px 6px; gap: 2px; border: none; background: none;
-  cursor: pointer; border-bottom: 2px solid transparent;
-  color: var(--text3); transition: all .15s; flex-shrink: 0; min-width: 56px;
+  padding: 8px 14px; gap: 3px; border: 2px solid transparent;
+  background: var(--bg3); border-radius: var(--r2);
+  cursor: pointer; transition: all .15s; flex-shrink: 0;
+  color: var(--text2); min-width: 52px;
+  border-bottom: 4px solid var(--border);
 }
-.ch-btn:hover { color: var(--text2); background: var(--bg2); }
-.ch-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
-.ch-num { font-size: 11px; font-weight: 700; font-family: var(--mono); }
-.ch-title-text { font-size: 10px; max-width: 72px; text-align: center; line-height: 1.2; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-.ch-stars { font-size: 9px; color: var(--orange); min-height: 10px; }
+.ch-btn:hover { background: var(--bg2); border-color: var(--border2); color: var(--text); }
+.ch-btn.active {
+  background: var(--accent); color: #fff;
+  border-color: var(--accent2); border-bottom-color: var(--accent2);
+}
+.ch-num { font-size: 11px; font-weight: 800; font-family: var(--mono); }
+.ch-title-text { font-size: 9px; font-weight: 600; max-width: 68px; text-align: center; line-height: 1.2; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.ch-stars { font-size: 10px; min-height: 12px; }
 
 /* ── LAYOUT ── */
-.main { padding-top: 104px; min-height: 100vh; max-width: 900px; margin: 0 auto; padding-left: 24px; padding-right: 24px; padding-bottom: 60px; }
+.main {
+  padding-top: 112px; min-height: 100vh;
+  max-width: 780px; margin: 0 auto;
+  padding-left: 20px; padding-right: 20px; padding-bottom: 60px;
+}
 
-/* ── CHAPTER SECTION ── */
+/* ── CHAPTER ── */
 .chapter { display: none; }
 .chapter.active { display: block; }
 
 /* ── CHAPTER HERO ── */
 .ch-hero {
-  padding: 36px 0 28px; border-bottom: 1px solid var(--border); margin-bottom: 32px;
+  padding: 28px 0 24px; border-bottom: 2px solid var(--border); margin-bottom: 28px;
 }
-.ch-tag { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; font-family: var(--mono); }
-.ch-title { font-size: 28px; font-weight: 800; line-height: 1.2; color: var(--text); margin-bottom: 10px; letter-spacing: -.02em; }
-.ch-desc { font-size: 14px; color: var(--text3); line-height: 1.5; max-width: 580px; margin-bottom: 20px; }
-.tabs-bar { display: flex; gap: 4px; }
+.ch-tag {
+  display: inline-block; font-size: 11px; font-weight: 800;
+  color: var(--accent); background: var(--bg3);
+  padding: 3px 10px; border-radius: 20px; margin-bottom: 10px;
+  letter-spacing: .06em; text-transform: uppercase; font-family: var(--mono);
+}
+.ch-title { font-size: 26px; font-weight: 900; color: var(--text); margin-bottom: 8px; letter-spacing: -.5px; line-height: 1.2; }
+.ch-desc { font-size: 14px; color: var(--text2); margin-bottom: 20px; max-width: 560px; }
+.tabs-bar { display: flex; gap: 6px; flex-wrap: wrap; }
 .tab-btn {
-  padding: 7px 16px; font-size: 13px; font-weight: 500; border-radius: var(--r);
-  border: 1px solid transparent; background: var(--bg3); color: var(--text3);
-  cursor: pointer; transition: all .15s;
+  padding: 8px 18px; font-size: 13px; font-weight: 800; border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); color: var(--text3);
+  cursor: pointer; transition: all .1s; text-transform: uppercase; letter-spacing: .04em;
 }
-.tab-btn:hover { background: var(--bg2); color: var(--text2); border-color: var(--border2); }
-.tab-btn.active { background: var(--accent); color: var(--accentfg); border-color: var(--accent); }
+.tab-btn:hover { color: var(--text2); border-color: var(--border2); }
+.tab-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+.tab-btn.active {
+  background: var(--accent); color: #fff;
+  border-color: var(--accent2); border-bottom-color: var(--accent2);
+}
 
 /* ── TAB PANELS ── */
 .tab-panels { }
@@ -106,189 +146,264 @@ html, body { height: 100%; font-family: var(--sans); background: var(--bg); colo
 
 /* ── LEARN CONTENT ── */
 .did-you-know {
-  background: var(--bg2); border-left: 3px solid var(--accent);
-  padding: 14px 16px; border-radius: 0 var(--r) var(--r) 0;
-  font-size: 13.5px; color: var(--text2); margin-bottom: 28px; line-height: 1.6;
+  background: linear-gradient(135deg, #fffdf0, #fff9e0);
+  border: 2px solid var(--yellow); border-radius: var(--r2);
+  padding: 16px 18px; font-size: 13.5px; color: #5a4a00;
+  margin-bottom: 28px; line-height: 1.6;
+  box-shadow: 0 3px 0 #e6c700;
 }
 .section-title {
-  font-size: 18px; font-weight: 700; color: var(--text); margin: 32px 0 12px;
-  letter-spacing: -.01em;
+  font-size: 17px; font-weight: 900; color: var(--text);
+  margin: 32px 0 12px; letter-spacing: -.2px;
+  display: flex; align-items: center; gap: 8px;
 }
-.section-title:first-of-type { margin-top: 0; }
 .prose {
-  font-size: 15px; color: var(--text2); line-height: 1.75; margin-bottom: 14px;
+  font-size: 15px; color: var(--text2); line-height: 1.78; margin-bottom: 16px;
 }
 .prose code, code {
-  font-family: var(--mono); font-size: 12.5px; background: var(--bg3);
-  padding: 1px 5px; border-radius: 3px; color: var(--text);
+  font-family: var(--mono); font-size: 12.5px;
+  background: var(--bg3); padding: 2px 6px;
+  border-radius: 6px; color: var(--accent2); font-weight: 600;
 }
 
 /* ── CODE BLOCKS ── */
 .code-block {
-  background: #1e1e2e; border-radius: var(--r2); padding: 18px 20px;
+  background: #1a1a2e; border-radius: var(--r2); padding: 18px 20px;
   margin: 16px 0; overflow-x: auto;
+  border: 2px solid #2a2a4e; box-shadow: 0 4px 0 #0f0f20;
 }
 .code-block code {
-  font-family: var(--mono); font-size: 12.5px; line-height: 1.7;
-  background: none; padding: 0; color: #cdd6f4; display: block;
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.75;
+  background: none; padding: 0; color: #e2e8f0; display: block;
+  font-weight: normal;
 }
-.comment { color: #6c7086; }
-.key { color: #89b4fa; }
-.str { color: #a6e3a1; }
-.val { color: #fab387; }
-
-/* ── GRID ── */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0 24px; }
-.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin: 16px 0 24px; }
+.comment { color: #6272a4; }
 
 /* ── CARDS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin: 16px 0 24px; }
 .card {
-  background: var(--bg); border: 1px solid var(--border); border-radius: var(--r2);
-  padding: 18px; display: flex; flex-direction: column; gap: 6px;
-  box-shadow: var(--shadow);
+  background: var(--bg2); border: 2px solid var(--border);
+  border-bottom: 4px solid var(--border2); border-radius: var(--r2);
+  padding: 18px; display: flex; flex-direction: column; gap: 8px;
+  transition: transform .1s;
 }
-.card-icon { font-size: 22px; }
-.card-title { font-size: 13px; font-weight: 700; color: var(--text); }
-.card-body { font-size: 13px; color: var(--text3); line-height: 1.55; }
+.card:hover { transform: translateY(-2px); }
+.card-icon { font-size: 26px; }
+.card-title { font-size: 13px; font-weight: 800; color: var(--text); }
+.card-body { font-size: 13px; color: var(--text2); line-height: 1.55; }
 
 /* ── TABLE ── */
-.table-wrap { overflow-x: auto; margin: 16px 0 24px; border-radius: var(--r2); border: 1px solid var(--border); box-shadow: var(--shadow); }
+.table-wrap {
+  overflow-x: auto; margin: 16px 0 24px;
+  border-radius: var(--r2); border: 2px solid var(--border);
+  box-shadow: 0 4px 0 var(--border);
+}
 .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .data-table thead { background: var(--bg3); }
-.data-table th { padding: 10px 14px; text-align: left; font-weight: 600; color: var(--text2); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; border-bottom: 1px solid var(--border); }
-.data-table td { padding: 10px 14px; color: var(--text2); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+.data-table th {
+  padding: 11px 14px; text-align: left; font-weight: 800;
+  color: var(--text2); font-size: 11px; text-transform: uppercase;
+  letter-spacing: .06em; border-bottom: 2px solid var(--border);
+}
+.data-table td { padding: 11px 14px; color: var(--text2); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
 .data-table tr:last-child td { border-bottom: none; }
-.data-table tr:hover td { background: var(--bg2); }
+.data-table tr:hover td { background: var(--bg3); }
 
-/* ── FLOW ── */
-.flow-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 16px 0 24px; padding: 20px; background: var(--bg2); border-radius: var(--r2); border: 1px solid var(--border); }
-.flow-step { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
-.flow-step-icon { font-size: 22px; }
-.flow-step-label { font-size: 10px; color: var(--text3); line-height: 1.3; max-width: 64px; }
-.flow-arrow { color: var(--accent); font-size: 16px; font-weight: 700; flex-shrink: 0; }
+/* ── FLOW ROW ── */
+.flow-row {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin: 16px 0 24px; padding: 20px; background: var(--bg2);
+  border-radius: var(--r2); border: 2px solid var(--border);
+  box-shadow: 0 4px 0 var(--border);
+}
+.flow-step { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.flow-step-icon { font-size: 24px; }
+.flow-step-label { font-size: 10px; font-weight: 700; color: var(--text3); line-height: 1.3; max-width: 64px; text-align: center; }
+.flow-arrow { color: var(--accent); font-size: 18px; font-weight: 900; }
 
 /* ── CALLOUTS ── */
-.callout { padding: 12px 16px; border-radius: var(--r); font-size: 13.5px; line-height: 1.6; margin: 16px 0; }
-.callout-info { background: #eff6ff; border-left: 3px solid #3b82f6; color: #1e40af; }
-.callout-warn { background: #fffbeb; border-left: 3px solid #f59e0b; color: #92400e; }
-.callout-tip  { background: #f0fdf4; border-left: 3px solid #22c55e; color: #14532d; }
-.callout-success { background: var(--bg2); border: 1px solid var(--border); color: var(--text2); border-radius: var(--r); padding: 10px 14px; margin-bottom: 14px; }
+.callout { padding: 14px 18px; border-radius: var(--r2); font-size: 13.5px; line-height: 1.6; margin: 16px 0; border: 2px solid; }
+.callout-info  { background: #e8f4ff; border-color: #b3d9ff; color: #1a5a8a; box-shadow: 0 3px 0 #b3d9ff; }
+.callout-warn  { background: #fff8e0; border-color: var(--yellow); color: #785a00; box-shadow: 0 3px 0 #e6c700; }
+.callout-tip   { background: #e8fae8; border-color: #a8e6a8; color: #1a5a1a; box-shadow: 0 3px 0 #a8e6a8; }
+.callout-success { background: var(--bg3); border-color: var(--border); color: var(--text2); padding: 10px 14px; }
 
-/* ── REAL-WORLD BOX ── */
+/* ── REAL WORLD BOX ── */
 .real-world-box {
-  background: var(--bg); border: 1px solid var(--border);
-  border-radius: var(--r2); padding: 20px; margin: 24px 0;
-  box-shadow: var(--shadow);
+  background: var(--bg2); border: 2px solid var(--border);
+  border-bottom: 4px solid var(--border2); border-radius: var(--r2);
+  padding: 20px; margin: 24px 0;
 }
-.real-world-title { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
+.real-world-title { font-size: 13px; font-weight: 800; color: var(--accent); margin-bottom: 10px; }
 .real-world-body { font-size: 13.5px; color: var(--text2); line-height: 1.7; }
 
-/* ── BADGE ── */
-.badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; font-family: var(--mono); }
-.badge-new  { background: #dcfce7; color: #166534; }
-.badge-hot  { background: #fee2e2; color: #991b1b; }
-.badge-exp  { background: #fffbeb; color: #92400e; }
-.badge-prod { background: #eff6ff; color: #1e40af; }
+/* ── END OF CHAPTER NAV ── */
+.ch-end-nav {
+  display: flex; gap: 12px; margin-top: 36px; padding-top: 24px;
+  border-top: 2px solid var(--border); justify-content: center; flex-wrap: wrap;
+}
+.ch-end-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 16px 24px; border-radius: var(--r2); cursor: pointer;
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); color: var(--text2); font-weight: 800;
+  font-size: 13px; transition: all .1s; min-width: 130px;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.ch-end-btn:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); }
+.ch-end-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+.ch-end-btn.primary {
+  background: var(--green); color: var(--greenfg);
+  border-color: var(--green2); border-bottom-color: var(--green2);
+}
+.ch-end-btn.primary:hover { background: var(--green2); }
+.ch-end-btn-icon { font-size: 22px; }
+.ch-end-btn-label { font-size: 11px; }
 
-/* ── CHEAT SHEET ── */
-.cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; margin-top: 8px; }
-.cheat-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; }
-.cheat-card-title { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: .06em; font-family: var(--mono); }
-.cheat-item { display: flex; justify-content: space-between; gap: 8px; padding: 4px 0; border-bottom: 1px solid var(--border); font-size: 12.5px; }
-.cheat-item:last-child { border-bottom: none; }
-.cheat-key { font-family: var(--mono); color: var(--accent); font-weight: 600; font-size: 11.5px; flex-shrink: 0; }
-.cheat-val { color: var(--text3); text-align: right; font-size: 11.5px; }
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 22px; border-radius: var(--r2); font-size: 14px;
+  font-weight: 800; border: 2px solid; cursor: pointer; transition: all .1s;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.btn:active { transform: translateY(2px); border-bottom-width: 2px !important; }
+.btn-primary {
+  background: var(--green); color: var(--greenfg);
+  border-color: var(--green2); border-bottom: 4px solid var(--green2);
+}
+.btn-primary:hover { background: var(--green2); }
+.btn-ghost {
+  background: var(--bg2); color: var(--text2);
+  border-color: var(--border2); border-bottom: 4px solid var(--border2);
+}
+.btn-ghost:hover { background: var(--bg3); color: var(--text); }
 
 /* ── GAME ── */
-.game-start-card { max-width: 420px; margin: 0 auto; text-align: center; padding: 48px 24px; }
-.game-icon { font-size: 48px; margin-bottom: 16px; }
-.game-start-title { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 8px; letter-spacing: -.02em; }
-.game-start-desc { font-size: 14px; color: var(--text3); margin-bottom: 24px; }
-.game-rules { display: flex; justify-content: center; gap: 24px; margin-bottom: 28px; }
-.game-rule { font-size: 13px; color: var(--text2); }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: var(--r); font-size: 14px; font-weight: 600; border: none; cursor: pointer; transition: all .15s; }
-.btn-primary { background: var(--accent); color: var(--accentfg); }
-.btn-primary:hover { opacity: .9; transform: translateY(-1px); box-shadow: var(--shadow2); }
-.btn-ghost { background: var(--bg2); color: var(--text2); border: 1px solid var(--border2); }
-.btn-ghost:hover { background: var(--bg3); }
-.game-hud { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding: 12px 16px; background: var(--bg2); border-radius: var(--r); border: 1px solid var(--border); }
-.hud-score { font-size: 20px; font-weight: 800; color: var(--accent); font-family: var(--mono); }
-.hud-timer { font-size: 14px; font-weight: 600; color: var(--text2); font-family: var(--mono); }
-.game-q-text { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 20px; line-height: 1.5; }
+.game-wrap { max-width: 680px; }
+.game-start-card { max-width: 420px; margin: 0 auto; text-align: center; padding: 40px 24px; }
+.game-icon { font-size: 56px; margin-bottom: 16px; filter: drop-shadow(0 4px 0 rgba(0,0,0,.1)); }
+.game-start-title { font-size: 24px; font-weight: 900; color: var(--text); margin-bottom: 8px; letter-spacing: -.5px; }
+.game-start-desc { font-size: 14px; color: var(--text2); margin-bottom: 24px; }
+.game-rules { display: flex; justify-content: center; gap: 20px; margin-bottom: 28px; flex-wrap: wrap; }
+.game-rule {
+  font-size: 13px; font-weight: 700; color: var(--text2);
+  background: var(--bg3); padding: 8px 14px; border-radius: var(--r);
+  border: 2px solid var(--border);
+}
+.game-hud {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px; padding: 12px 18px;
+  background: var(--bg2); border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+}
+.hud-score { font-size: 22px; font-weight: 900; color: var(--green); font-family: var(--mono); }
+.hud-timer { font-size: 15px; font-weight: 800; color: var(--text2); font-family: var(--mono); }
+.game-q-text { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 20px; line-height: 1.4; }
 .game-opts { display: flex; flex-direction: column; gap: 10px; }
 .game-opt {
   display: flex; align-items: center; gap: 12px;
-  padding: 14px 16px; border-radius: var(--r); border: 1.5px solid var(--border);
-  background: var(--bg); cursor: pointer; transition: all .15s;
-  font-size: 14px; color: var(--text2); font-weight: 500;
+  padding: 14px 18px; border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); cursor: pointer; transition: all .1s;
+  font-size: 14px; font-weight: 600; color: var(--text);
 }
-.game-opt:hover { border-color: var(--accent); color: var(--text); background: var(--bg2); }
-.game-opt.correct { border-color: var(--green); background: #f0fdf4; color: var(--green); }
-.game-opt.wrong   { border-color: var(--red); background: #fff1f2; color: var(--red); }
-.opt-letter { width: 24px; height: 24px; border-radius: 50%; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; flex-shrink: 0; color: var(--text3); font-family: var(--mono); }
-.game-result-card { max-width: 420px; margin: 40px auto 0; text-align: center; }
-.result-score { font-size: 56px; font-weight: 900; color: var(--accent); font-family: var(--mono); margin-bottom: 4px; }
-.result-label { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 24px; }
-.result-btns { display: flex; gap: 10px; justify-content: center; }
+.game-opt:hover { border-color: var(--accent); border-bottom-color: var(--accent2); transform: translateY(-1px); }
+.game-opt:active { transform: translateY(2px); border-bottom-width: 2px; }
+.game-opt.correct { border-color: var(--green); border-bottom-color: var(--green2); background: #e8fae8; color: #1a5a1a; }
+.game-opt.wrong   { border-color: var(--red); background: #fff0f0; color: #8a1a1a; }
+.opt-letter {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--bg3); border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 900; flex-shrink: 0; color: var(--text2);
+  font-family: var(--mono);
+}
+.game-result-card { max-width: 420px; margin: 32px auto 0; text-align: center; }
+.result-score { font-size: 60px; font-weight: 900; color: var(--green); font-family: var(--mono); line-height: 1; margin-bottom: 4px; }
+.result-label { font-size: 20px; font-weight: 900; color: var(--text); margin-bottom: 24px; }
+.result-emoji { font-size: 52px; margin-bottom: 8px; }
+.result-btns { display: flex; gap: 12px; justify-content: center; }
+.result-stars { font-size: 28px; margin-bottom: 8px; }
 
 /* ── QUIZ ── */
 .quiz-wrap { max-width: 680px; }
-.quiz-progress { display: flex; gap: 4px; margin-bottom: 24px; }
-.quiz-prog-dot { flex: 1; height: 3px; border-radius: 2px; background: var(--border2); }
-.quiz-prog-dot.done { background: var(--accent); }
-.quiz-prog-dot.current { background: var(--accent); opacity: .5; }
-.quiz-q-text { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 20px; line-height: 1.5; }
-.quiz-opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.quiz-prog { display: flex; gap: 4px; margin-bottom: 24px; }
+.quiz-pip { flex: 1; height: 8px; border-radius: 4px; background: var(--border2); transition: background .2s; }
+.quiz-pip.done { background: var(--green); }
+.quiz-pip.cur  { background: var(--accent); }
+.quiz-q-card { display: none; }
+.quiz-q-card.active { display: block; }
+.quiz-meta { font-size: 11px; font-weight: 800; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+.quiz-q { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 20px; line-height: 1.4; }
+.quiz-opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
 .quiz-opt {
   display: flex; align-items: center; gap: 12px;
-  padding: 13px 16px; border-radius: var(--r); border: 1.5px solid var(--border);
-  background: var(--bg); cursor: pointer; transition: all .15s;
-  font-size: 14px; color: var(--text2);
+  padding: 13px 18px; border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); cursor: pointer; transition: all .1s;
+  font-size: 14px; font-weight: 600; color: var(--text);
 }
-.quiz-opt:hover { border-color: var(--accent); }
-.quiz-opt.selected { border-color: var(--accent); background: var(--bg2); color: var(--text); }
-.quiz-opt.correct { border-color: var(--green); background: #f0fdf4; }
-.quiz-opt.wrong   { border-color: var(--red); background: #fff1f2; }
-.quiz-explain { padding: 12px 16px; background: var(--bg2); border-radius: var(--r); font-size: 13.5px; color: var(--text2); margin: 12px 0; line-height: 1.6; border-left: 3px solid var(--accent); }
-.quiz-actions { display: flex; gap: 10px; }
-.quiz-result { text-align: center; padding: 40px 20px; }
-.qr-score { font-size: 52px; font-weight: 900; font-family: var(--mono); color: var(--accent); }
-.qr-label { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 24px; }
+.quiz-opt:hover { border-color: var(--accent); border-bottom-color: var(--accent2); transform: translateY(-1px); }
+.quiz-opt:active { transform: translateY(2px); border-bottom-width: 2px; }
+.quiz-opt.selected { border-color: var(--accent); background: #f0f4ff; }
+.quiz-opt.correct   { border-color: var(--green); border-bottom-color: var(--green2); background: #e8fae8; }
+.quiz-opt.wrong     { border-color: var(--red); border-bottom-color: #cc0000; background: #fff0f0; }
+.quiz-exp {
+  padding: 14px 18px; background: #e8fae8; border-radius: var(--r2);
+  border: 2px solid var(--green); border-bottom: 4px solid var(--green2);
+  font-size: 13.5px; color: #1a5a1a; margin: 12px 0; line-height: 1.6;
+}
+.quiz-actions { display: flex; gap: 10px; margin-top: 8px; }
+.quiz-result { display: none; text-align: center; padding: 32px 0; }
+.qr-score { font-size: 56px; font-weight: 900; font-family: var(--mono); color: var(--green); margin-bottom: 4px; }
+.qr-label { font-size: 20px; font-weight: 900; color: var(--text); margin-bottom: 24px; }
+.quiz-nav { display: flex; justify-content: space-between; margin-top: 12px; }
 
-/* ── LAB ── */
-.lab-wrap { max-width: 720px; }
+/* ── CHEAT / SUMMARY ── */
+.cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 14px; margin-top: 8px; }
+.cheat-card {
+  background: var(--bg2); border: 2px solid var(--border);
+  border-bottom: 4px solid var(--border2); border-radius: var(--r2); padding: 16px;
+}
+.cheat-card-title { font-size: 11px; font-weight: 900; color: var(--accent); margin-bottom: 12px; text-transform: uppercase; letter-spacing: .08em; }
+.cheat-item { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 12.5px; }
+.cheat-item:last-child { border-bottom: none; }
+.cheat-key { font-family: var(--mono); color: var(--accent); font-weight: 700; font-size: 11.5px; flex-shrink: 0; }
+.cheat-val { color: var(--text2); text-align: right; font-size: 11.5px; }
 
 /* ── CREDITS ── */
-.credits-bar { border-top: 1px solid var(--border); padding: 32px 0; margin-top: 48px; }
-.credits-title { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; font-family: var(--mono); }
+.credits-bar { border-top: 2px solid var(--border); padding: 32px 0; margin-top: 48px; }
+.credits-title { font-size: 10px; font-weight: 900; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; font-family: var(--mono); }
 .credits-grid { display: flex; flex-wrap: wrap; gap: 24px; }
 .credit-group { flex: 1; min-width: 140px; }
-.credit-group-title { font-size: 11px; font-weight: 700; color: var(--text2); margin-bottom: 8px; }
-.credit-item { font-size: 12px; color: var(--text3); line-height: 1.8; }
-.credit-item a { color: var(--accent); text-decoration: none; }
+.credit-group-title { font-size: 11px; font-weight: 800; color: var(--text2); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .05em; }
+.credit-item { font-size: 12px; color: var(--text3); line-height: 1.9; }
+.credit-item a { color: var(--accent); text-decoration: none; font-weight: 700; }
 .credit-item a:hover { text-decoration: underline; }
 
 /* ── MOBILE ── */
 @media (max-width: 700px) {
-  .main { padding-top: 100px; padding-left: 16px; padding-right: 16px; }
-  .ch-title { font-size: 22px; }
+  .main { padding-top: 108px; padding-left: 16px; padding-right: 16px; }
+  .ch-title { font-size: 20px; }
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
-  .menu-btn { display: block; }
-  .flow-row { gap: 4px; padding: 14px; }
-  .flow-step-label { font-size: 9px; max-width: 54px; }
-  .game-rules { gap: 14px; }
+  .flow-row { padding: 14px; gap: 4px; }
+  .flow-step-label { font-size: 9px; max-width: 52px; }
+  .game-rules { gap: 10px; }
   .quiz-actions { flex-wrap: wrap; }
+  .result-btns { flex-wrap: wrap; }
+  .ch-end-nav { gap: 8px; }
+  .ch-end-btn { min-width: 100px; padding: 14px 16px; }
 }
 @media (max-width: 480px) {
-  .ch-nav { padding: 0 12px; }
-  .ch-btn { padding: 8px 10px; min-width: 46px; }
-  .ch-title-text { max-width: 56px; font-size: 9px; }
+  .ch-nav { padding: 6px 10px; }
+  .ch-btn { padding: 7px 10px; min-width: 44px; }
 }
 
 </style>
 </head>
 <body>
-
 <header class="header">
   <div class="header-logo">
     <div class="header-logo-dot"></div>
@@ -297,7 +412,6 @@ html, body { height: 100%; font-family: var(--sans); background: var(--bg); colo
   <span class="header-chname" id="headerChName"></span>
   <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
 </header>
-
 <nav class="ch-nav" id="sidebar">
   <div class="sb-label" id="sbLabel" style="display:none"></div>
   
@@ -310,7 +424,6 @@ html, body { height: 100%; font-family: var(--sans); background: var(--bg); colo
   <button class="ch-btn" id="nav-6" onclick="showChapter(6)"><span class="ch-num">06</span><span class="ch-title-text" id="chname-6"></span><span class="ch-stars" id="stars-6"></span></button>
   <button class="ch-btn" id="nav-7" onclick="showChapter(7)"><span class="ch-num">07</span><span class="ch-title-text" id="chname-7"></span><span class="ch-stars" id="stars-7"></span></button>
 </nav>
-
 <main class="main" id="main">
 
 <section class="chapter" id="ch-0">
@@ -434,29 +547,19 @@ html, body { height: 100%; font-family: var(--sans); background: var(--bg); colo
   </div>
 </section>
 <div class="credits-bar" id="credits-bar">
-  <div class="credits-title" id="credits-title-label">// Sources & Credits</div>
+  <div class="credits-title" id="credits-title-label">// Sources &amp; Credits</div>
   <div class="credits-grid">
-    <div class="credit-group">
-      <div class="credit-group-title" id="credits-research">Research</div>
+    <div class="credit-group"><div class="credit-group-title" id="credits-research">Research</div>
       <div class="credit-item">Kurose &amp; Ross — Computer Networking</div>
-      <div class="credit-item">Cloudflare Blog &amp; Docs</div>
-      <div class="credit-item">IETF RFCs — ietf.org</div>
-    </div>
-    <div class="credit-group">
-      <div class="credit-group-title" id="credits-tech">Tools</div>
-      <div class="credit-item"><a href="https://wireshark.org" target="_blank">Wireshark</a></div>
-      <div class="credit-item"><a href="https://nmap.org" target="_blank">Nmap</a></div>
-      <div class="credit-item"><a href="https://bgp.he.net" target="_blank">Hurricane Electric BGP</a></div>
-    </div>
-    <div class="credit-group">
-      <div class="credit-group-title" id="credits-built">Built With</div>
+      <div class="credit-item">Cloudflare Blog &amp; IETF RFCs</div></div>
+    <div class="credit-group"><div class="credit-group-title" id="credits-tech">Tools</div>
+      <div class="credit-item"><a href="https://wireshark.org">Wireshark</a></div>
+      <div class="credit-item"><a href="https://shodan.io">Shodan</a></div></div>
+    <div class="credit-group"><div class="credit-group-title" id="credits-built">Built With</div>
       <div class="credit-item">Claude (Anthropic)</div>
-      <div class="credit-item" id="credits-version">v2.0 — 2025</div>
-    </div>
-  </div>
-</div>
+      <div class="credit-item" id="credits-version">v2.0 — 2025</div></div>
+  </div></div>
 </main>
-
 </body>
 </html>
 <script>
@@ -546,7 +649,21 @@ tls.handshake.type == 11  <span class="comment"># Certificate</span>
 <span class="comment"># Handshake Protocol: Certificate →</span>
 <span class="comment"># Certificates → רואה subject, issuer, expiry</span></code></pre>
 
-<div class="callout callout-tip"><strong>💡 טיפ מהיר:</strong> תמיד שמור captures ב-.pcap לפני שסוגרים. <code>File ← Save As ← incident_2025_01_15.pcap</code>. Captures שנשמרים = ראיות שאפשר לנתח מחדש, לשתף עם צוות, ולהשוות לover time.</div>`,
+<div class="callout callout-tip"><strong>💡 טיפ מהיר:</strong> תמיד שמור captures ב-.pcap לפני שסוגרים. <code>File ← Save As ← incident_2025_01_15.pcap</code>. Captures שנשמרים = ראיות שאפשר לנתח מחדש, לשתף עם צוות, ולהשוות לover time.</div>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>ידעת?</strong> BGP מנהל את הניתוב של כל האינטרנט — אבל הוא פועל על trust בלבד. אין authentication ל-route announcements. כל AS יכול "להכריז" שהוא יודע route לכל IP בעולם, וה-internet יאמין. זה גרם לעשרות BGP hijacking incidents — כולל ב-2010 כש-China Telecom "ניתבה" 15% מתעבורת האינטרנט דרך שרתים סינים.</div>
 
 <div class="section-title">מהו BGP ולמה הוא קיים?</div>
@@ -617,7 +734,21 @@ curl -s "https://stat.ripe.net/data/bgp-state/data.json?resource=8.8.8.8" | pyth
 <span class="comment"># RPKI validation check</span>
 curl -s "https://rpki-validator.realmv6.org/api/v1/validity/AS15169/8.8.8.0/24"</code></pre>
 
-<div class="callout callout-tip"><strong>💡 מתי זה רלוונטי לך?</strong> אם אתה מנהל CDN, בונה infrastructure ב-multiple regions, או מאבחן latency anomalies — BGP looking glasses הם הכלי הראשון לבדוק.</div>`,
+<div class="callout callout-tip"><strong>💡 מתי זה רלוונטי לך?</strong> אם אתה מנהל CDN, בונה infrastructure ב-multiple regions, או מאבחן latency anomalies — BGP looking glasses הם הכלי הראשון לבדוק.</div>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>ידעת?</strong> DNS הוא הפרוטוקול שמשמש הכי הרבה ל-malware communication. Researchers מצאו שיותר מ-90% מה-malware משתמש ב-DNS לC2 (Command & Control). למה? כי port 53 כמעט תמיד פתוח, DNS traffic נראה לגיטימי, ו-DNS queries קטנות ולא מחשידות.</div>
 
 <div class="section-title">DNS Resolver Internals — מה קורה בפנים</div>
@@ -694,7 +825,21 @@ dig TXT _dmarc.mysite.com
 <span class="comment"># https://mxtoolbox.com/SuperTool.aspx</span></code></pre>
 
 <div class="section-title">הגדרת DNS Records ב-Production</div>
-<p class="prose">TTL נמוך (60 שניות) = שינויים מהירים, אבל יותר DNS queries ועומס. TTL גבוה (3600+) = יציבות, אבל שינויים לוקחים שעה להתפשט. הכלל: הורד TTL ל-300 שעה לפני deployment, בצע שינוי, החזר TTL ל-3600 אחרי שמוודאים שעובד.</p>`,
+<p class="prose">TTL נמוך (60 שניות) = שינויים מהירים, אבל יותר DNS queries ועומס. TTL גבוה (3600+) = יציבות, אבל שינויים לוקחים שעה להתפשט. הכלל: הורד TTL ל-300 שעה לפני deployment, בצע שינוי, החזר TTL ל-3600 אחרי שמוודאים שעובד.</p>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>ידעת?</strong> HTTP/1.1 פורסם ב-1997 ועדיין רץ על מיליארדי חיבורים. HTTP/2 (2015) הביא multiplexing שחסך 30-50% load time. HTTP/3 (2022) ניתק מ-TCP לגמרי ועבר ל-QUIC על UDP — ומשפר latency ב-30% על רשתות גרועות. TikTok, Google, Facebook — כולם HTTP/3.</div>
 
 <div class="section-title">מה היה שבור ב-HTTP/1.1</div>
@@ -788,7 +933,21 @@ curl -sI --http2 https://mysite.com | head -2</code></pre>
 <div class="section-title">HTTP/3 ב-Cloudflare (הדרך הקלה)</div>
 <p class="prose">אם האתר מאחורי Cloudflare: Speed ← Optimization ← Protocol Optimization ← HTTP/3 ← Enable. Cloudflare מטפל בהכל — ה-origin server ממשיך לדבר HTTP/1.1 או HTTP/2 עם Cloudflare, והvisitors מקבלים HTTP/3.</p>
 
-<div class="callout callout-tip"><strong>💡 מדידת ביצועים אמיתית:</strong> <code>curl -w "time_connect: %{time_connect}\\ntime_appconnect: %{time_appconnect}\\ntime_total: %{time_total}\\n" -o /dev/null -s https://mysite.com</code> — <code>time_appconnect</code> כולל TLS. ההפרש בין connect לappconnect = TLS overhead.</div>`,
+<div class="callout callout-tip"><strong>💡 מדידת ביצועים אמיתית:</strong> <code>curl -w "time_connect: %{time_connect}\\ntime_appconnect: %{time_appconnect}\\ntime_total: %{time_total}\\n" -o /dev/null -s https://mysite.com</code> — <code>time_appconnect</code> כולל TLS. ההפרש בין connect לappconnect = TLS overhead.</div>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>ידעת?</strong> TLS 1.3 (2018) הפחית את ה-handshake מ-2 round trips ל-1. זה אולי נשמע קטן — אבל על connection בין ניו יורק ללונדון (70ms RTT), זה חיסכון של 70ms בכל חיבור HTTPS. Google מדווחת שזה שיפר latency ב-40% לusers ב-high-latency connections.</div>
 
 <div class="section-title">TLS Handshake — TLS 1.2 vs 1.3</div>
@@ -875,7 +1034,21 @@ ssl_stapling on;
 ssl_stapling_verify on;
 resolver 8.8.8.8 8.8.4.4 valid=300s;</code></pre>
 
-<div class="callout callout-warn"><strong>⚠️ Certificate expiry monitoring:</strong> Let's Encrypt מחדשת אוטומטית — אבל רק אם certbot cron עובד. הגדר alert ב-30, 14, ו-7 ימים לפני expiry. <code>echo | openssl s_client -connect mysite.com:443 2>/dev/null | openssl x509 -noout -checkend 604800</code> — exit code 1 = פוקע בשבוע הקרוב.</div>`,
+<div class="callout callout-warn"><strong>⚠️ Certificate expiry monitoring:</strong> Let's Encrypt מחדשת אוטומטית — אבל רק אם certbot cron עובד. הגדר alert ב-30, 14, ו-7 ימים לפני expiry. <code>echo | openssl s_client -connect mysite.com:443 2>/dev/null | openssl x509 -noout -checkend 604800</code> — exit code 1 = פוקע בשבוע הקרוב.</div>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>ידעת?</strong> eBPF (extended Berkeley Packet Filter) מאפשר להריץ programs ב-kernel space ללא כתיבת kernel module. Netflix, Google, Facebook, Cloudflare — כולם משתמשים ב-eBPF לnetwork observability, security, ו-performance. Meta דיווחה שהחלפת iptables ב-eBPF חסכה 30% CPU בשרתי production.</div>
 
 <div class="section-title">מה זה eBPF ולמה זה מהפכני</div>
@@ -954,7 +1127,21 @@ sudo bpftrace -e 'tracepoint:syscalls:sys_enter_openat { @[comm] = count(); }' -
 <span class="comment"># network latency per process</span>
 sudo bpftrace -e 'kprobe:tcp_sendmsg { @[comm] = count(); }'</code></pre>
 
-<div class="callout callout-tip"><strong>💡 Practical use case:</strong> Production server איטי ולא יודעים למה. מריצים <code>execsnoop</code> ל-30 שניות — רואים שcron job מריץ script כל 10 שניות שמתחיל 15 processes. זה לא נראה ב-top, לא נראה ב-ps, לא נראה בשום log — רק ב-eBPF tracing.</div>`,
+<div class="callout callout-tip"><strong>💡 Practical use case:</strong> Production server איטי ולא יודעים למה. מריצים <code>execsnoop</code> ל-30 שניות — רואים שcron job מריץ script כל 10 שניות שמתחיל 15 processes. זה לא נראה ב-top, לא נראה ב-ps, לא נראה בשום log — רק ב-eBPF tracing.</div>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>ידעת?</strong> Kubernetes ב-production עם 1000 nodes ו-10,000 pods יכול להגיע ל-100,000 iptables rules. כל connection בודק את כולן לפי סדר — O(n) complexity. זה הסיבה שחברות עוברות ל-eBPF/Cilium — O(1) lookup עם hash maps במקום linear iptables chains.</div>
 
 <div class="section-title">Docker Networking — מה קורה מתחת</div>
@@ -1056,7 +1243,21 @@ kubectl logs my-pod -c istio-proxy | tail -20
 kubectl get peerauthentication -A
 
 <span class="comment"># Traffic לא זורם? bבדוק VirtualService</span>
-kubectl get virtualservice my-vs -o yaml</code></pre>`,
+kubectl get virtualservice my-vs -o yaml</code></pre>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>ידעת?</strong> Linux kernel default TCP buffer הוא 4MB. Google מריץ TCP buffer של 256MB בין datacenters. ההבדל? על link של 10Gbps עם 100ms RTT (high BDP — Bandwidth Delay Product), buffer קטן מדי גורם ל-TCP window לא לנצל את כל הbandwidth. נוסחה: BDP = bandwidth × RTT = 10Gbps × 0.1s = 1Gb = 125MB buffer needed.</div>
 
 <div class="section-title">TCP Tuning — sysctl Parameters</div>
@@ -1166,7 +1367,21 @@ net.ipv4.tcp_mtu_probing = 1       <span class="comment"># MTU Path Discovery</s
 
 sysctl -p   <span class="comment"># apply without reboot</span></code></pre>
 
-<div class="callout callout-tip"><strong>💡 Rule of thumb:</strong> על LAN — default settings מצוינים. על WAN עם latency >50ms ו-bandwidth >100Mbps — כל המדדים שלמעלה רלוונטיים. תמיד מדוד לפני ואחרי, ותמיד ב-staging לפני production.</div>`
+<div class="callout callout-tip"><strong>💡 Rule of thumb:</strong> על LAN — default settings מצוינים. על WAN עם latency >50ms ו-bandwidth >100Mbps — כל המדדים שלמעלה רלוונטיים. תמיד מדוד לפני ואחרי, ותמיד ב-staging לפני production.</div>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`
   ],
   cheat:[
 `<div class="callout callout-success"><strong>📋 Wireshark — ניתוח תעבורת</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">promiscuous mode</span></div><div class="cheat-item"><span class="cheat-key">Capture=kernel level, Display=UI</span></div><div class="cheat-item"><span class="cheat-key">capture filters</span></div><div class="cheat-item"><span class="cheat-key">שיחה שלמה בין שני hosts</span></div></div></div>`,
@@ -1262,7 +1477,21 @@ tls.handshake.type == 11  <span class="comment"># Certificate</span>
 <span class="comment"># TLSv1.3 Record Layer → Handshake Protocol: Certificate</span>
 <span class="comment"># → Certificates → see subject, issuer, expiry</span></code></pre>
 
-<div class="callout callout-tip"><strong>💡 Quick tip:</strong> Always save captures as .pcap before closing. <code>File → Save As → incident_2025_01_15.pcap</code>. Saved captures are evidence you can re-analyze, share with your team, and compare over time.</div>`,
+<div class="callout callout-tip"><strong>💡 Quick tip:</strong> Always save captures as .pcap before closing. <code>File → Save As → incident_2025_01_15.pcap</code>. Saved captures are evidence you can re-analyze, share with your team, and compare over time.</div>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>Did you know?</strong> BGP manages the routing of the entire internet — but it operates on trust alone. There is no authentication for route announcements. Any AS can "announce" that it knows a route to any IP in the world, and the internet will believe it. This has caused dozens of BGP hijacking incidents — including in 2010 when China Telecom "routed" 15% of internet traffic through Chinese servers.</div>
 
 <div class="section-title">What is BGP and Why Does it Exist?</div>
@@ -1333,7 +1562,21 @@ curl -s "https://stat.ripe.net/data/bgp-state/data.json?resource=8.8.8.8" | pyth
 <span class="comment"># RPKI validation check</span>
 curl -s "https://rpki-validator.realmv6.org/api/v1/validity/AS15169/8.8.8.0/24"</code></pre>
 
-<div class="callout callout-tip"><strong>💡 When is this relevant to you?</strong> If you manage a CDN, build infrastructure across multiple regions, or diagnose latency anomalies — BGP looking glasses are the first tool to check.</div>`,
+<div class="callout callout-tip"><strong>💡 When is this relevant to you?</strong> If you manage a CDN, build infrastructure across multiple regions, or diagnose latency anomalies — BGP looking glasses are the first tool to check.</div>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>Did you know?</strong> DNS is the protocol most used for malware communication. Researchers found that over 90% of malware uses DNS for C2 (Command and Control). Why? Because port 53 is almost always open, DNS traffic looks legitimate, and DNS queries are small and unsuspicious.</div>
 
 <div class="section-title">DNS Resolver Internals — What Happens Inside</div>
@@ -1410,7 +1653,21 @@ dig TXT _dmarc.mysite.com
 <span class="comment"># https://mxtoolbox.com/SuperTool.aspx</span></code></pre>
 
 <div class="section-title">Setting DNS Records in Production</div>
-<p class="prose">Low TTL (60 seconds) = fast changes, but more DNS queries and load. High TTL (3600+) = stability, but changes take an hour to propagate. The rule: lower TTL to 300 an hour before deployment, make the change, restore TTL to 3600 after verifying it works.</p>`,
+<p class="prose">Low TTL (60 seconds) = fast changes, but more DNS queries and load. High TTL (3600+) = stability, but changes take an hour to propagate. The rule: lower TTL to 300 an hour before deployment, make the change, restore TTL to 3600 after verifying it works.</p>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>Did you know?</strong> HTTP/1.1 was published in 1997 and still runs on billions of connections. HTTP/2 (2015) brought multiplexing that saved 30-50% load time. HTTP/3 (2022) broke away from TCP entirely and moved to QUIC on UDP — improving latency by 30% on poor networks. TikTok, Google, Facebook — all running HTTP/3.</div>
 
 <div class="section-title">What Was Broken in HTTP/1.1</div>
@@ -1505,7 +1762,21 @@ curl -sI --http2 https://mysite.com | head -2</code></pre>
 <div class="section-title">HTTP/3 via Cloudflare (the easy way)</div>
 <p class="prose">If your site is behind Cloudflare: Speed → Optimization → Protocol Optimization → HTTP/3 → Enable. Cloudflare handles everything — the origin server continues speaking HTTP/1.1 or HTTP/2 with Cloudflare, and visitors get HTTP/3.</p>
 
-<div class="callout callout-tip"><strong>💡 Real performance measurement:</strong> <code>curl -w "time_connect: %{time_connect}\\ntime_appconnect: %{time_appconnect}\\ntime_total: %{time_total}\\n" -o /dev/null -s https://mysite.com</code> — <code>time_appconnect</code> includes TLS. The difference between connect and appconnect = TLS overhead.</div>`,
+<div class="callout callout-tip"><strong>💡 Real performance measurement:</strong> <code>curl -w "time_connect: %{time_connect}\\ntime_appconnect: %{time_appconnect}\\ntime_total: %{time_total}\\n" -o /dev/null -s https://mysite.com</code> — <code>time_appconnect</code> includes TLS. The difference between connect and appconnect = TLS overhead.</div>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>Did you know?</strong> TLS 1.3 (2018) reduced the handshake from 2 round trips to 1. That may sound small — but on a connection between New York and London (70ms RTT), that is a 70ms saving on every HTTPS connection. Google reports this improved latency by 40% for users on high-latency connections.</div>
 
 <div class="section-title">TLS Handshake — TLS 1.2 vs 1.3</div>
@@ -1592,7 +1863,21 @@ ssl_stapling on;
 ssl_stapling_verify on;
 resolver 8.8.8.8 8.8.4.4 valid=300s;</code></pre>
 
-<div class="callout callout-warn"><strong>⚠️ Certificate expiry monitoring:</strong> Let's Encrypt auto-renews — but only if the certbot cron is working. Set alerts at 30, 14, and 7 days before expiry. <code>echo | openssl s_client -connect mysite.com:443 2>/dev/null | openssl x509 -noout -checkend 604800</code> — exit code 1 means it expires within a week.</div>`,
+<div class="callout callout-warn"><strong>⚠️ Certificate expiry monitoring:</strong> Let's Encrypt auto-renews — but only if the certbot cron is working. Set alerts at 30, 14, and 7 days before expiry. <code>echo | openssl s_client -connect mysite.com:443 2>/dev/null | openssl x509 -noout -checkend 604800</code> — exit code 1 means it expires within a week.</div>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>Did you know?</strong> eBPF (extended Berkeley Packet Filter) lets you run programs in kernel space without writing a kernel module. Netflix, Google, Facebook, Cloudflare — all use eBPF for network observability, security, and performance. Meta reported that replacing iptables with eBPF saved 30% CPU on production servers.</div>
 
 <div class="section-title">What is eBPF and Why is it Revolutionary</div>
@@ -1664,7 +1949,21 @@ sudo bpftrace -e 'kprobe:udp_sendmsg { @start[tid]=nsecs; }
 <span class="comment"># Which process opens the most files?</span>
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_openat { @[comm] = count(); }' -c 10</code></pre>
 
-<div class="callout callout-tip"><strong>💡 Practical use case:</strong> Production server is slow and you do not know why. Run <code>execsnoop</code> for 30 seconds — you see a cron job spawning 15 processes every 10 seconds. Not visible in top, not in ps, not in any log — only in eBPF tracing.</div>`,
+<div class="callout callout-tip"><strong>💡 Practical use case:</strong> Production server is slow and you do not know why. Run <code>execsnoop</code> for 30 seconds — you see a cron job spawning 15 processes every 10 seconds. Not visible in top, not in ps, not in any log — only in eBPF tracing.</div>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>Did you know?</strong> Kubernetes in production with 1000 nodes and 10,000 pods can reach 100,000 iptables rules. Every connection checks all of them in order — O(n) complexity. That is why companies move to eBPF/Cilium — O(1) lookup with hash maps instead of linear iptables chains.</div>
 
 <div class="section-title">Docker Networking — What Happens Underneath</div>
@@ -1755,7 +2054,21 @@ kubectl run debug --image=busybox --rm -it -- nslookup my-service.namespace.svc.
 kubectl exec -it my-pod -- curl http://my-service:8080/health
 
 <span class="comment"># Step 5: Network Policy issue?</span>
-kubectl get networkpolicies -A</code></pre>`,
+kubectl get networkpolicies -A</code></pre>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
 `<div class="did-you-know">💡 <strong>Did you know?</strong> The Linux kernel default TCP buffer is 4MB. Google runs TCP buffers of 256MB between datacenters. The difference? On a 10Gbps link with 100ms RTT (high BDP — Bandwidth Delay Product), a small buffer causes the TCP window to fail to utilize full bandwidth. Formula: BDP = bandwidth x RTT = 10Gbps x 0.1s = 1Gb = 125MB buffer needed.</div>
 
 <div class="section-title">TCP Tuning — sysctl Parameters</div>
@@ -1859,7 +2172,21 @@ net.ipv4.tcp_mtu_probing = 1
 
 sysctl -p   <span class="comment"># apply without reboot</span></code></pre>
 
-<div class="callout callout-tip"><strong>💡 Rule of thumb:</strong> On LAN — default settings are fine. On WAN with latency >50ms and bandwidth >100Mbps — all the tuning above is relevant. Always measure before and after, always test in staging before production.</div>`
+<div class="callout callout-tip"><strong>💡 Rule of thumb:</strong> On LAN — default settings are fine. On WAN with latency >50ms and bandwidth >100Mbps — all the tuning above is relevant. Always measure before and after, always test in staging before production.</div>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`
   ],
   cheat:[
 `<div class="callout callout-success"><strong>📋 Wireshark — Traffic Analysis</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">promiscuous mode</span></div><div class="cheat-item"><span class="cheat-key">Capture=kernel, Display=UI</span></div><div class="cheat-item"><span class="cheat-key">capture filters</span></div><div class="cheat-item"><span class="cheat-key">full conversation</span></div></div></div>`,
@@ -1894,6 +2221,21 @@ for(var _i=0;_i<8;_i++){
   QUIZZES_EN[_i]=[{q:'',o:['','','',''],a:0,e:''}];
   ILABS[_i]=[{type:'mchoice',q:'',options:[],explain:''}];
   ILABS_EN[_i]=[{type:'mchoice',q:'',options:[],explain:''}];
+}
+// Show next chapter helper
+function showNextChapter(chId) {
+  var next = chId + 1;
+  if(next < TOTAL_CHAPTERS) showChapter(next);
+  else showTab(chId, 'cheat');
+}
+// Replace CHID placeholders in learn content after render
+function patchLearnNav(chId) {
+  var el = document.getElementById('learn-'+chId);
+  if(!el) return;
+  var html = el.innerHTML;
+  if(html.indexOf('CHID') >= 0) {
+    el.innerHTML = html.replace(/CHID/g, chId);
+  }
 }
 // HTML escape for safe rendering of item text
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
@@ -2307,7 +2649,7 @@ function renderQuiz(chId) {
       <div class="result-stars" id="qstars-${chId}"></div>
       <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
         <button class="btn btn-ghost" id="qbtn-reset-${chId}" onclick="quizReset(${chId})"></button>
-        <button class="btn btn-primary" id="qbtn-lab-${chId}" onclick="showTab(${chId},'lab')"></button>
+        <button class="btn btn-primary" id="qbtn-lab-${chId}" onclick="showTab(${chId},'game')"></button>
       </div>
     </div>
     <div class="quiz-nav" id="qnav-${chId}">
@@ -2337,7 +2679,7 @@ function refreshQuiz(chId) {
   const prev=document.getElementById(`qprev-${chId}`);
   const next=document.getElementById(`qnext-${chId}`);
   if(document.getElementById(`qbtn-reset-${chId}`)) document.getElementById(`qbtn-reset-${chId}`).textContent=Lc.quizAgain;
-  if(document.getElementById(`qbtn-lab-${chId}`)) document.getElementById(`qbtn-lab-${chId}`).textContent=Lc.quizToLab;
+  if(document.getElementById(`qbtn-lab-${chId}`)) document.getElementById(`qbtn-lab-${chId}`).textContent='🎮';
   if(prev){prev.textContent=Lc.quizPrev;prev.disabled=st.qi===0;}
   if(next){
     const ans=st.ans[st.qi]!==undefined;

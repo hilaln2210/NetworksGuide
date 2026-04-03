@@ -204,6 +204,12 @@ function TrackPicker({ tracks, onSelect }) {
               <span className="path-icon">🔴</span>
               <span className="path-name">{isEn ? 'Red Team' : 'Red Team'}</span>
             </div>
+            <div className="path-connector" />
+            <div className="path-step" style={{ '--step-color': '#f97316' }}>
+              <span className="path-num">9</span>
+              <span className="path-icon">🚀</span>
+              <span className="path-name">{isEn ? 'DevOps' : 'DevOps'}</span>
+            </div>
           </div>
         </div>
         <div className="track-intro-features">

@@ -116,6 +116,20 @@ export const tracks = [
       { id: 900, title: "Red Team — קורס מלא", pages: [{ type: "html_page", title: "Red Team Course", src: "/learn/redteam/redteam_course.html" }] },
     ]
   },
+  {
+    id: 'devops',
+    title: 'DevOps',
+    subtitle: 'Docker, Kubernetes, CI/CD, Terraform, Observability, Cloud, DevSecOps — 9 פרקים',
+    icon: '🚀',
+    color: '#f97316',
+    level: 'מתחיל–מתקדם',
+    fullPage: true,
+    chapterCount: 9,
+    syllabus: ['מה זה DevOps', 'Linux & Shell', 'Docker & Containers', 'Kubernetes', 'CI/CD Pipelines', 'Terraform & Ansible', 'Observability & Monitoring', 'Cloud — AWS, Azure, GCP', 'DevSecOps'],
+    chapters: [
+      { id: 1000, title: "DevOps — קורס מלא", pages: [{ type: "html_page", title: "DevOps Course", src: "/learn/devops/devops_pro_course.html" }] },
+    ]
+  },
 ]
 
 // ===== ENRICHMENT COURSES (hidden behind passcode) =====

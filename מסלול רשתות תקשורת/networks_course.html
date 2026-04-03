@@ -8,45 +8,48 @@
 <style>
 /* ══════════════ RESET + TOKENS ══════════════ */
 :root {
-  /* Professional dark-sidebar design */
-  --bg:      #f1f5f9;
+  /* Duolingo-style palette */
+  --bg:      #f7f7f7;
   --surface: #ffffff;
-  --sidebar: #1e293b;
-  --sidebar2:#253347;
-  --border:  #e2e8f0;
-  --border2: #cbd5e1;
-  --ink:     #0f172a;
-  --ink2:    #1e293b;
-  --dim:     #475569;
-  --dim2:    #94a3b8;
-  --ac:      #2563eb;
-  --ac-h:    #1d4ed8;
-  --ac-lt:   #eff6ff;
-  --gr:      #16a34a;
-  --gr-lt:   #f0fdf4;
-  --rd:      #dc2626;
-  --rd-lt:   #fef2f2;
-  --yw:      #b45309;
-  --yw-lt:   #fffbeb;
-  --pu:      #6d28d9;
-  --code-bg: #0f172a;
-  --code-fg: #e2e8f0;
+  --sidebar: #1cb0f6;       /* Duolingo blue */
+  --sidebar2:#0a9ad7;
+  --border:  #e5e5e5;
+  --border2: #d0d0d0;
+  --ink:     #3c3c3c;
+  --ink2:    #4b4b4b;
+  --dim:     #777777;
+  --dim2:    #afafaf;
+  --ac:      #58cc02;       /* Duolingo green */
+  --ac-h:    #46a302;
+  --ac-lt:   #edffd4;
+  --gr:      #58cc02;
+  --gr-lt:   #edffd4;
+  --rd:      #ff4b4b;
+  --rd-lt:   #fff0f0;
+  --yw:      #ffc800;
+  --yw-lt:   #fff9e6;
+  --pu:      #ce82ff;
+  --code-bg: #2b2b2b;
+  --code-fg: #f8f8f2;
 
-  /* System fonts — work everywhere */
+  /* Duolingo-style border radius */
+  --r:       16px;
+  --r-sm:    10px;
+  --r-lg:    20px;
+
   --f-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --f-mono: 'Courier New', Consolas, 'Lucida Console', monospace;
+  --f-mono: 'Courier New', Consolas, monospace;
   --f-num:  -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace;
-  --r: 8px;
 
-  /* Aliases for game/lab compatibility */
-  --bg-main: #f1f5f9;
-  --acc:     #2563eb;
-  --acc2:    #1d4ed8;
-  --acc3:    #1e40af;
-  --bull:    #16a34a;
-  --bear:    #dc2626;
-  --warn:    #b45309;
-  --danger:  #dc2626;
+  /* Aliases */
+  --bg-main: #f7f7f7;
+  --acc:     #58cc02;
+  --acc2:    #46a302;
+  --acc3:    #389001;
+  --bull:    #58cc02;
+  --bear:    #ff4b4b;
+  --warn:    #ffc800;
+  --danger:  #ff4b4b;
 }
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
@@ -55,6 +58,7 @@ body {
   color: var(--ink);
   font-family: var(--f-body);
   font-size: 15px;
+  font-weight: 500;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
@@ -2358,6 +2362,911 @@ nav {
   .mob-tab-label { font-size: .55rem !important; }
 }
 
+
+/* ══ LANDING PAGE — NEW DESIGN ══ */
+
+/* Hero */
+.lp-hero {
+  background: #0f172a;
+  padding: 40px 28px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.lp-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(37,99,235,.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+.lp-hero-inner { position: relative; z-index: 1; max-width: 480px; }
+.lp-badge {
+  display: inline-block;
+  background: rgba(37,99,235,.2);
+  border: 1px solid rgba(96,165,250,.3);
+  color: #93c5fd;
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  padding: 4px 12px;
+  border-radius: 99px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.lp-title {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #f8fafc;
+  line-height: 1.05;
+  letter-spacing: -.04em;
+  margin-bottom: 12px;
+}
+.lp-title i { color: #60a5fa; font-style: normal; }
+.lp-sub {
+  font-size: .9rem;
+  color: #64748b;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+.lp-cta {
+  display: inline-flex;
+  align-items: center;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 13px 24px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.lp-cta:active { background: #1d4ed8; }
+.lp-stats {
+  display: flex;
+  gap: 0;
+  margin-top: 28px;
+  border-top: 1px solid rgba(255,255,255,.07);
+  padding-top: 20px;
+}
+.lp-stat {
+  flex: 1;
+  text-align: center;
+  padding: 0 8px;
+  border-inline-end: 1px solid rgba(255,255,255,.07);
+}
+.lp-stat:last-child { border-inline-end: none; }
+.lp-stat-n {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #f8fafc;
+  font-family: var(--f-num);
+  letter-spacing: -.02em;
+}
+.lp-stat-l {
+  display: block;
+  font-size: .68rem;
+  color: #475569;
+  margin-top: 2px;
+  font-weight: 600;
+}
+
+/* Section */
+.lp-section {
+  padding: 28px 18px 8px;
+  background: var(--bg);
+}
+.lp-section-h {
+  font-size: .7rem;
+  font-weight: 800;
+  color: var(--dim2);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 14px;
+}
+
+/* Cards grid */
+.lp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding-bottom: 20px;
+}
+.lp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 14px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: start;
+  transition: box-shadow .15s, transform .12s;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+.lp-card:active {
+  transform: scale(.97);
+  box-shadow: none;
+}
+.lp-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+  border-color: #bfdbfe;
+}
+.lp-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.lp-card-num {
+  font-size: .68rem;
+  font-weight: 800;
+  color: var(--dim2);
+  font-family: var(--f-num);
+  letter-spacing: .04em;
+}
+.lp-card-icon { font-size: 1.4rem; }
+.lp-card-name {
+  font-size: .88rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.lp-card-tags {
+  font-size: .72rem;
+  color: var(--dim2);
+  line-height: 1.4;
+}
+/* Completed card */
+.lp-card.done {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+.lp-card.done .lp-card-name { color: #15803d; }
+.lp-card.done::after {
+  content: '✓';
+  position: absolute;
+  top: 10px; inset-inline-end: 12px;
+  font-size: .75rem;
+  color: #16a34a;
+  font-weight: 800;
+}
+
+/* Mobile overrides for landing */
+@media (max-width: 768px) {
+  .lp-hero { padding: 28px 18px 24px !important; }
+  .lp-title { font-size: 2.2rem !important; }
+  .lp-grid { grid-template-columns: repeat(2,1fr) !important; gap: 8px !important; }
+  .lp-card { padding: 13px 11px 11px !important; border-radius: 12px !important; }
+  .lp-card-name { font-size: .84rem !important; }
+  .lp-card-tags { font-size: .68rem !important; }
+  .lp-section { padding: 22px 14px 6px !important; }
+  #landing { padding-bottom: calc(70px + env(safe-area-inset-bottom,0px)) !important; }
+  .land-grid { display: none !important; }
+}
+@media (max-width: 380px) {
+  .lp-grid { grid-template-columns: 1fr 1fr !important; }
+  .lp-title { font-size: 1.9rem !important; }
+  .lp-card-icon { font-size: 1.2rem !important; }
+}
+
+/* ══ VIBRANT LANDING — Duolingo/Coursera style ══ */
+
+/* Hero */
+.lp-hero {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a8a 100%);
+  padding: 44px 22px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.lp-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(139,92,246,.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+.lp-hero-content { position: relative; z-index: 1; }
+.lp-eyebrow {
+  display: inline-block;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #c7d2fe;
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  padding: 4px 12px;
+  border-radius: 99px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.lp-h1 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.05;
+  letter-spacing: -.04em;
+  margin-bottom: 12px;
+}
+.lp-h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, #a78bfa, #60a5fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.lp-desc {
+  color: rgba(255,255,255,.65);
+  font-size: .9rem;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+.lp-start {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: #312e81;
+  border: none;
+  padding: 13px 24px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: inherit;
+  transition: transform .12s, box-shadow .12s;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+  -webkit-tap-highlight-color: transparent;
+}
+.lp-start:active { transform: scale(.96); box-shadow: none; }
+.lp-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 24px;
+  position: relative;
+  z-index: 1;
+}
+.lp-pill {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.8);
+  font-size: .72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+
+/* Progress bar */
+.lp-prog-wrap {
+  background: var(--surface);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.lp-prog-bar {
+  flex: 1;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+.lp-prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  border-radius: 99px;
+  transition: width .4s ease;
+  width: 0%;
+}
+.lp-prog-label {
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--dim);
+  white-space: nowrap;
+}
+
+/* Cards section */
+.lp-cards-wrap {
+  padding: 24px 16px 16px;
+  background: var(--bg);
+}
+.lp-cards-title {
+  font-size: .68rem;
+  font-weight: 800;
+  color: var(--dim2);
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  margin-bottom: 14px;
+}
+.lp-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+/* Chapter card */
+.lp-ch {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 14px 0;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: start;
+  transition: transform .12s, box-shadow .12s, border-color .12s;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.lp-ch:active { transform: scale(.96); }
+.lp-ch:hover {
+  border-color: var(--ch-color);
+  box-shadow: 0 4px 20px rgba(0,0,0,.1);
+  transform: translateY(-2px);
+}
+.lp-ch-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.lp-ch-n {
+  font-size: .65rem;
+  font-weight: 800;
+  color: var(--ch-color);
+  font-family: var(--f-num);
+  letter-spacing: .04em;
+  background: var(--ch-bg);
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+.lp-ch-icon { font-size: 1.5rem; line-height: 1; }
+.lp-ch-name {
+  font-size: .86rem;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+  margin-bottom: 6px;
+  flex: 1;
+}
+.lp-ch-tags {
+  font-size: .68rem;
+  color: var(--dim2);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+/* Colored bottom bar */
+.lp-ch-bar {
+  height: 3px;
+  background: var(--ch-color);
+  margin: 0 -14px;
+  opacity: 0;
+  transition: opacity .15s;
+}
+.lp-ch:hover .lp-ch-bar { opacity: 1; }
+/* Completed */
+.lp-ch.done {
+  border-color: #86efac;
+  background: linear-gradient(135deg, #f0fdf4, #fff);
+}
+.lp-ch.done .lp-ch-bar { background: #16a34a; opacity: 1; }
+.lp-ch.done::before {
+  content: '✓';
+  position: absolute;
+  top: 10px; inset-inline-end: 12px;
+  font-size: .72rem;
+  font-weight: 900;
+  color: #16a34a;
+  background: #dcfce7;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 20px;
+  text-align: center;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .lp-hero { padding: 32px 18px 26px !important; }
+  .lp-h1 { font-size: 2.3rem !important; }
+  .lp-cards { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+  .lp-ch { padding: 13px 12px 0 !important; border-radius: 13px !important; }
+  .lp-ch-name { font-size: .83rem !important; }
+  .lp-ch-tags { font-size: .66rem !important; }
+  .lp-ch-icon { font-size: 1.3rem !important; }
+  .lp-cards-wrap { padding: 18px 13px 14px !important; }
+  #landing { padding-bottom: calc(70px + env(safe-area-inset-bottom,0px)) !important; }
+}
+@media (max-width: 360px) {
+  .lp-h1 { font-size: 1.9rem !important; }
+  .lp-cards { grid-template-columns: 1fr 1fr !important; }
+  .lp-ch-name { font-size: .78rem !important; }
+}
+
+/* ══ CHAPTER STRIP ══ */
+.ch-strip-wrap {
+  display: flex;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  background: var(--sidebar);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  padding: 0 4px;
+  position: sticky;
+  top: 54px; /* below nav */
+  z-index: 90;
+  gap: 2px;
+}
+.ch-strip-wrap::-webkit-scrollbar { display: none; }
+
+/* On mobile: top is 0 (nav is hidden) */
+@media (max-width: 768px) {
+  .ch-strip-wrap {
+    top: 0;
+    top: env(safe-area-inset-top, 0);
+  }
+}
+
+.ch-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  flex-shrink: 0;
+  border-bottom: 2px solid transparent;
+  transition: all .12s;
+  -webkit-tap-highlight-color: transparent;
+  min-width: 80px;
+  text-align: center;
+}
+.ch-tab-n {
+  font-size: .62rem;
+  font-weight: 800;
+  color: #475569;
+  font-family: var(--f-num);
+  letter-spacing: .04em;
+}
+.ch-tab-name {
+  font-size: .72rem;
+  font-weight: 600;
+  color: #64748b;
+  line-height: 1.25;
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ch-tab:hover .ch-tab-n,
+.ch-tab:hover .ch-tab-name { color: #e2e8f0; }
+
+.ch-tab.active {
+  border-bottom-color: #2563eb;
+  background: rgba(37,99,235,.08);
+}
+.ch-tab.active .ch-tab-n { color: #60a5fa; }
+.ch-tab.active .ch-tab-name { color: #93c5fd; }
+
+/* Content area: full width now, no sidebar */
+.learn-layout { display: block !important; }
+.l-sb { display: none !important; }
+.l-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 36px 48px 100px;
+}
+
+@media (max-width: 768px) {
+  .l-content { padding: 20px 16px 80px !important; }
+  .ch-tab { padding: 8px 10px; min-width: 70px; }
+  .ch-tab-name { font-size: .68rem; max-width: 70px; }
+}
+@media (max-width: 380px) {
+  .ch-tab { padding: 8px 8px; min-width: 60px; }
+  .ch-tab-name { font-size: .62rem; max-width: 60px; }
+}
+
+.cta-game-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ac);
+  color: #fff;
+  border: none;
+  padding: 11px 22px;
+  border-radius: 8px;
+  font-size: .9rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background .12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.cta-game-btn:hover { background: var(--ac-h); }
+.cta-game-btn:active { transform: scale(.97); }
+
+/* ══════════════════════════════════════════════
+   DUOLINGO STYLE — happy, rounded, bouncy
+══════════════════════════════════════════════ */
+
+/* ── Global ── */
+body {
+  background: #f7f7f7;
+  font-family: var(--f-body);
+}
+
+* { box-sizing: border-box; }
+
+/* ── Nav bar ── */
+nav {
+  background: #ffffff !important;
+  border-bottom: 2px solid #e5e5e5 !important;
+  box-shadow: none !important;
+}
+.nav-logo { color: #1cb0f6 !important; font-weight: 900 !important; }
+.nav-logo i { color: #58cc02 !important; }
+.nav-tab {
+  color: #afafaf !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  transition: all .15s !important;
+}
+.nav-tab:hover {
+  background: #f7f7f7 !important;
+  color: #4b4b4b !important;
+}
+.nav-tab.on {
+  background: #edffd4 !important;
+  color: #46a302 !important;
+  border: none !important;
+  border-radius: 12px !important;
+}
+.nav-lang {
+  border: 2px solid #e5e5e5 !important;
+  border-radius: 10px !important;
+  color: #777 !important;
+  font-weight: 700 !important;
+}
+.nav-xp { color: #ffc800 !important; font-weight: 800 !important; }
+
+/* ── Chapter strip ── */
+.ch-strip-wrap {
+  background: #ffffff !important;
+  border-bottom: 2px solid #e5e5e5 !important;
+  padding: 0 8px !important;
+}
+.ch-tab {
+  border-radius: 12px 12px 0 0 !important;
+  padding: 10px 16px !important;
+}
+.ch-tab-n { color: #afafaf !important; }
+.ch-tab-name { color: #777 !important; }
+.ch-tab:hover { background: #f7f7f7 !important; }
+.ch-tab:hover .ch-tab-n,
+.ch-tab:hover .ch-tab-name { color: #4b4b4b !important; }
+.ch-tab.active { background: #edffd4 !important; border-bottom: 3px solid #58cc02 !important; }
+.ch-tab.active .ch-tab-n { color: #46a302 !important; }
+.ch-tab.active .ch-tab-name { color: #3c3c3c !important; font-weight: 700 !important; }
+
+/* ── Landing hero ── */
+.lp-hero {
+  background: linear-gradient(135deg, #1cb0f6 0%, #0a9ad7 100%) !important;
+  border-radius: 0 !important;
+}
+.lp-title { color: #fff !important; }
+.lp-title i { color: #fff7 !important; font-style: italic !important; }
+.lp-badge {
+  background: rgba(255,255,255,.2) !important;
+  border-color: rgba(255,255,255,.3) !important;
+  color: #fff !important;
+}
+.lp-sub { color: rgba(255,255,255,.85) !important; }
+.lp-cta {
+  background: #58cc02 !important;
+  border-radius: 14px !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+  padding: 14px 28px !important;
+  box-shadow: 0 4px 0 #46a302 !important;
+  transition: all .1s !important;
+}
+.lp-cta:active {
+  box-shadow: 0 2px 0 #46a302 !important;
+  transform: translateY(2px) !important;
+}
+.lp-stat-n { color: #fff !important; }
+.lp-stat-l { color: rgba(255,255,255,.7) !important; }
+.lp-stats { border-top-color: rgba(255,255,255,.2) !important; }
+
+/* ── Landing cards ── */
+.lp-section-h {
+  font-weight: 800 !important;
+  color: #afafaf !important;
+  font-size: .65rem !important;
+  letter-spacing: .12em !important;
+}
+.lp-card {
+  border-radius: 16px !important;
+  border: 2px solid #e5e5e5 !important;
+  box-shadow: 0 2px 0 #e5e5e5 !important;
+  transition: transform .1s, box-shadow .1s !important;
+}
+.lp-card:active {
+  transform: translateY(2px) !important;
+  box-shadow: 0 0 0 #e5e5e5 !important;
+}
+.lp-card:hover {
+  border-color: #1cb0f6 !important;
+  box-shadow: 0 2px 0 #1cb0f6 !important;
+}
+.lp-card-num { color: #afafaf !important; font-weight: 800 !important; }
+.lp-card-name { color: #3c3c3c !important; font-weight: 700 !important; }
+.lp-card-tags { color: #afafaf !important; }
+.lp-card.done {
+  border-color: #58cc02 !important;
+  box-shadow: 0 2px 0 #46a302 !important;
+  background: #f7fff0 !important;
+}
+.lp-card.done .lp-card-name { color: #46a302 !important; }
+
+/* ── Content area ── */
+.l-content { background: #f7f7f7; }
+.sec-label {
+  background: #fff3b0 !important;
+  border: 2px solid #ffc800 !important;
+  color: #b38600 !important;
+  border-radius: 99px !important;
+  font-weight: 800 !important;
+}
+.sec-h { color: #3c3c3c !important; font-weight: 800 !important; }
+p { color: #4b4b4b !important; }
+
+/* ── Callouts ── */
+.callout {
+  border-radius: 14px !important;
+  border: none !important;
+  border-inline-start: 4px solid !important;
+}
+.callout.note {
+  background: #e8f5ff !important;
+  border-color: #1cb0f6 !important;
+  color: #0a6fa0 !important;
+}
+.callout.warn {
+  background: #fff9e6 !important;
+  border-color: #ffc800 !important;
+  color: #8a6600 !important;
+}
+.callout.danger {
+  background: #fff0f0 !important;
+  border-color: #ff4b4b !important;
+  color: #b30000 !important;
+}
+.callout.tip {
+  background: #edffd4 !important;
+  border-color: #58cc02 !important;
+  color: #3a8800 !important;
+}
+
+/* ── Code blocks ── */
+.code-block {
+  border-radius: 14px !important;
+  border: 2px solid #e5e5e5 !important;
+  box-shadow: 0 2px 0 #e5e5e5 !important;
+  overflow: hidden !important;
+}
+.code-bar {
+  background: #3c3c3c !important;
+  border-radius: 0 !important;
+}
+.code-body {
+  background: #2b2b2b !important;
+  color: #f8f8f2 !important;
+  border-radius: 0 !important;
+}
+.dot.r { background: #ff5f57 !important; }
+.dot.y { background: #febc2e !important; }
+.dot.g { background: #28c840 !important; }
+
+/* ── Tables ── */
+.tbl { border-radius: 14px !important; overflow: hidden !important; border: 2px solid #e5e5e5 !important; }
+.tbl th {
+  background: #f7f7f7 !important;
+  color: #afafaf !important;
+  font-size: .68rem !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .06em !important;
+  border-bottom: 2px solid #e5e5e5 !important;
+}
+.tbl td { color: #3c3c3c !important; border-bottom: 1px solid #f0f0f0 !important; }
+
+/* ── CTA game button ── */
+.cta-game-btn {
+  background: #58cc02 !important;
+  border-radius: 14px !important;
+  font-weight: 800 !important;
+  font-size: .95rem !important;
+  padding: 13px 26px !important;
+  box-shadow: 0 4px 0 #46a302 !important;
+  color: #fff !important;
+  transition: all .1s !important;
+}
+.cta-game-btn:active {
+  transform: translateY(2px) !important;
+  box-shadow: 0 2px 0 #46a302 !important;
+}
+
+/* ── Game screen ── */
+#gameHome h2 { color: #3c3c3c !important; font-weight: 900 !important; }
+#modeMatch, #modeTrivia {
+  border-radius: 16px !important;
+  border-width: 2.5px !important;
+  box-shadow: 0 3px 0 #e5e5e5 !important;
+  transition: transform .1s, box-shadow .1s !important;
+}
+#modeMatch:active, #modeTrivia:active {
+  transform: translateY(2px) !important;
+  box-shadow: 0 1px 0 #e5e5e5 !important;
+}
+#modeMatch.selected-mode {
+  border-color: #1cb0f6 !important;
+  background: #e8f5ff !important;
+  box-shadow: 0 3px 0 #0a9ad7 !important;
+}
+#modeTrivia.selected-mode {
+  border-color: #ce82ff !important;
+  background: #f9eeff !important;
+  box-shadow: 0 3px 0 #a855d4 !important;
+}
+#gameChGrid button {
+  border-radius: 14px !important;
+  border-width: 2px !important;
+  box-shadow: 0 2px 0 #e5e5e5 !important;
+  font-weight: 700 !important;
+  transition: transform .1s !important;
+}
+#gameChGrid button:active { transform: translateY(2px) !important; box-shadow: none !important; }
+#gameStatsBar {
+  background: #ffffff !important;
+  border-bottom: 2px solid #e5e5e5 !important;
+}
+#gScore, #gTime, #gLeft { color: #1cb0f6 !important; font-weight: 900 !important; }
+#mTerms > div, #mDefs > div {
+  border-radius: 14px !important;
+  border-width: 2.5px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 3px 0 #e5e5e5 !important;
+  transition: transform .1s, box-shadow .1s !important;
+}
+#mTerms > div:active, #mDefs > div:active {
+  transform: translateY(2px) !important;
+  box-shadow: 0 1px 0 #e5e5e5 !important;
+}
+#triviaQ {
+  border-radius: 16px !important;
+  border: 2px solid #e5e5e5 !important;
+  font-weight: 700 !important;
+  color: #3c3c3c !important;
+  background: #fff !important;
+}
+#triviaOpts button {
+  border-radius: 14px !important;
+  border-width: 2.5px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 3px 0 #e5e5e5 !important;
+  transition: transform .1s !important;
+}
+#triviaOpts button:active {
+  transform: translateY(2px) !important;
+  box-shadow: 0 1px 0 #e5e5e5 !important;
+}
+#grScore { color: #58cc02 !important; font-weight: 900 !important; }
+
+/* ── Mobile bottom bar ── */
+.mob-bottom-bar {
+  background: #ffffff !important;
+  border-top: 2px solid #e5e5e5 !important;
+}
+.mob-tab { color: #afafaf !important; }
+.mob-tab.on { color: #58cc02 !important; }
+.mob-tab-icon { font-size: 1.4rem !important; }
+
+/* ── Mobile top bar ── */
+.mob-top-bar {
+  background: #ffffff !important;
+  border-bottom: 2px solid #e5e5e5 !important;
+}
+#mobTopTitle { color: #3c3c3c !important; font-weight: 800 !important; }
+.mob-sb-btn {
+  background: #f7f7f7 !important;
+  border: 2px solid #e5e5e5 !important;
+  color: #777 !important;
+}
+.mob-lang-btn {
+  background: #f7f7f7 !important;
+  border: 2px solid #e5e5e5 !important;
+  color: #777 !important;
+  font-weight: 700 !important;
+}
+
+/* ── Read progress bar ── */
+#readBar {
+  height: 5px;
+  background: linear-gradient(90deg, #58cc02, #1cb0f6);
+  border-radius: 0 3px 3px 0;
+}
+
+/* ── Bounce animation for correct answer ── */
+@keyframes duo-bounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.08); }
+  70%  { transform: scale(.95); }
+  100% { transform: scale(1); }
+}
+.duo-correct { animation: duo-bounce .35s ease-out; }
+
+/* ── XP celebration flash ── */
+@keyframes xp-pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.3); color: #ffc800; }
+  100% { transform: scale(1); }
+}
+.xp-pop { animation: xp-pop .4s ease-out; }
+
+.cta-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 28px 0 12px;
+}
+@media (max-width: 480px) {
+  .cta-row { flex-direction: column; }
+  .cta-next-btn, .cta-game-btn { width: 100%; justify-content: center; }
+}
+
+.cta-next-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  color: #1cb0f6;
+  border: 2.5px solid #1cb0f6;
+  padding: 13px 26px;
+  border-radius: 14px;
+  font-size: .95rem;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 0 #0a9ad7;
+  transition: all .1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.cta-next-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #0a9ad7;
+}
+.cta-next-btn:hover { background: #e8f5ff; }
 </style>
 </head>
 <body>
@@ -2378,53 +3287,195 @@ nav {
 <!-- ══ LANDING ══ -->
 <div class="mob-overlay" id="mobOverlay" onclick="closeMobSidebar()"></div>
 <section class="screen on" id="landing">
-<div class="land-hero">
-  <div>
-    <div class="hero-tag" id="heroTag">COURSE — 12 CHAPTERS</div>
-    <h1 class="hero-h" id="heroH">רשתות<br><i>מחשבים</i></h1>
-    <p class="hero-p" id="heroP">13 פרקים · תוכן מלא לפי הספר · 184 שאלות + 78 זוגות</p>
-    <div class="hero-stats">
-      <div class="hs"><div class="hs-n">12</div><div class="hs-l">CHAPTERS</div></div>
-      <div class="hs"><div class="hs-n">171</div><div class="hs-l">QUESTIONS</div></div>
-      <div class="hs"><div class="hs-n">5</div><div class="hs-l">LAYERS</div></div>
-    </div>
-    <button class="hero-btn" id="heroCta" onclick="goTo('learn');loadCh(1)">התחל ←</button>
+
+<!-- HERO -->
+<div class="lp-hero">
+  <div class="lp-hero-content">
+    <div class="lp-eyebrow" id="heroTag">COURSE · 13 CHAPTERS</div>
+    <h1 class="lp-h1" id="heroH">רשתות<br><em>מחשבים</em></h1>
+    <p class="lp-desc" id="heroP">13 פרקים · 184 שאלות · 78 זוגות התאמה</p>
+    <button class="lp-start" id="heroCta" onclick="goTo('learn')">התחל ←</button>
   </div>
-  <div class="land-grid" id="landGrid"></div>
+  <div class="lp-pills">
+    <span class="lp-pill">🌐 TCP/IP</span>
+    <span class="lp-pill">🔌 Sockets</span>
+    <span class="lp-pill">🔬 Wireshark</span>
+    <span class="lp-pill">⚡ Scapy</span>
+    <span class="lp-pill">🚀 HTTP/3</span>
+    <span class="lp-pill">🔮 QUIC</span>
+  </div>
 </div>
 
-<!-- ══ CREDITS ══ -->
-<div class="credits-section" id="creditsSection">
+<!-- PROGRESS BAR -->
+<div class="lp-prog-wrap" id="lpProgWrap" style="display:none">
+  <div class="lp-prog-bar"><div class="lp-prog-fill" id="lpProgFill"></div></div>
+  <span class="lp-prog-label" id="lpProgLabel">0 / 13 פרקים</span>
+</div>
+
+<!-- CHAPTERS -->
+<div class="lp-cards-wrap">
+  <div class="lp-cards-title" id="landChTitle">תוכן הקורס</div>
+  <div class="lp-cards" id="landGrid">
+    <button class="lp-ch" onclick="goTo('learn');loadCh(1)"
+      style="--ch-color:#3b82f6;--ch-bg:#eff6ff">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">01</span>
+        <span class="lp-ch-icon">🌐</span>
+      </div>
+      <div class="lp-ch-name">יסודות האינטרנט</div>
+      <div class="lp-ch-tags">IP, DNS, HTTP, Packets</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+    <button class="lp-ch" onclick="goTo('learn');loadCh(2)"
+      style="--ch-color:#8b5cf6;--ch-bg:#f5f3ff">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">02</span>
+        <span class="lp-ch-icon">🔌</span>
+      </div>
+      <div class="lp-ch-name">תכנות Sockets</div>
+      <div class="lp-ch-tags">TCP, UDP, bind, listen</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+    <button class="lp-ch" onclick="goTo('learn');loadCh(3)"
+      style="--ch-color:#06b6d4;--ch-bg:#ecfeff">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">03</span>
+        <span class="lp-ch-icon">🔬</span>
+      </div>
+      <div class="lp-ch-name">Wireshark + 5 שכבות</div>
+      <div class="lp-ch-tags">Frames, Capture, PDU</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+    <button class="lp-ch" onclick="goTo('learn');loadCh(4)"
+      style="--ch-color:#f59e0b;--ch-bg:#fffbeb">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">04</span>
+        <span class="lp-ch-icon">📡</span>
+      </div>
+      <div class="lp-ch-name">שכבת האפליקציה</div>
+      <div class="lp-ch-tags">HTTP, REST, Cookies</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+    <button class="lp-ch" onclick="goTo('learn');loadCh(5)"
+      style="--ch-color:#ef4444;--ch-bg:#fef2f2">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">05</span>
+        <span class="lp-ch-icon">⚡</span>
+      </div>
+      <div class="lp-ch-name">Scapy</div>
+      <div class="lp-ch-tags">send, sniff, sr1, ICMP</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+    <button class="lp-ch" onclick="goTo('learn');loadCh(6)"
+      style="--ch-color:#10b981;--ch-bg:#f0fdf4">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">06</span>
+        <span class="lp-ch-icon">🔄</span>
+      </div>
+      <div class="lp-ch-name">שכבת התעבורה</div>
+      <div class="lp-ch-tags">TCP Handshake, Flow Control</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+    <button class="lp-ch" onclick="goTo('learn');loadCh(7)"
+      style="--ch-color:#f97316;--ch-bg:#fff7ed">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">07</span>
+        <span class="lp-ch-icon">🗺️</span>
+      </div>
+      <div class="lp-ch-name">שכבת הרשת</div>
+      <div class="lp-ch-tags">Routing, NAT, CIDR</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+    <button class="lp-ch" onclick="goTo('learn');loadCh(8)"
+      style="--ch-color:#ec4899;--ch-bg:#fdf2f8">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">08</span>
+        <span class="lp-ch-icon">🔗</span>
+      </div>
+      <div class="lp-ch-name">שכבת הקו</div>
+      <div class="lp-ch-tags">MAC, ARP, Ethernet, Switch</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+    <button class="lp-ch" onclick="goTo('learn');loadCh(9)"
+      style="--ch-color:#6366f1;--ch-bg:#eef2ff">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">09</span>
+        <span class="lp-ch-icon">🖧</span>
+      </div>
+      <div class="lp-ch-name">רכיבי רשת</div>
+      <div class="lp-ch-tags">Hub, Router, Firewall, AP</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+    <button class="lp-ch" onclick="goTo('learn');loadCh(10)"
+      style="--ch-color:#14b8a6;--ch-bg:#f0fdfa">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">10</span>
+        <span class="lp-ch-icon">📻</span>
+      </div>
+      <div class="lp-ch-name">השכבה הפיזית</div>
+      <div class="lp-ch-tags">Bandwidth, Latency, Fiber</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+    <button class="lp-ch" onclick="goTo('learn');loadCh(11)"
+      style="--ch-color:#a855f7;--ch-bg:#faf5ff">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">11</span>
+        <span class="lp-ch-icon">🧩</span>
+      </div>
+      <div class="lp-ch-name">איך הכל מתחבר</div>
+      <div class="lp-ch-tags">End-to-End, Multiplexing</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+    <button class="lp-ch" onclick="goTo('learn');loadCh(12)"
+      style="--ch-color:#0ea5e9;--ch-bg:#f0f9ff">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">12</span>
+        <span class="lp-ch-icon">🚀</span>
+      </div>
+      <div class="lp-ch-name">Sockets מתקדם</div>
+      <div class="lp-ch-tags">select(), SSL, Non-blocking</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+    <button class="lp-ch" onclick="goTo('learn');loadCh(13)"
+      style="--ch-color:#d946ef;--ch-bg:#fdf4ff">
+      <div class="lp-ch-top">
+        <span class="lp-ch-n">13</span>
+        <span class="lp-ch-icon">🔮</span>
+      </div>
+      <div class="lp-ch-name">רשתות מודרניות</div>
+      <div class="lp-ch-tags">SDN, QUIC, HTTP/3, eBPF</div>
+      <div class="lp-ch-bar"></div>
+    </button>
+  </div>
+</div>
+
+<!-- CREDITS -->
+<div class="credits-section">
   <div class="credits-inner">
-    <h3 class="credits-title" style="color:#64748b" id="creditsTitle">מקורות ואסמכתאות</h3>
+    <div class="credits-title" id="creditsTitle">מקורות ואסמכתאות</div>
     <div class="credits-grid">
       <div class="credits-col">
         <div class="credits-cat" id="creditsCat1">ספרים וקורסים</div>
         <ul class="credits-list">
-          <li><strong>Kurose &amp; Ross</strong> — Computer Networks: A Top-Down Approach (8th ed.)</li>
-          <li><strong>Tanenbaum &amp; Wetherall</strong> — Computer Networks (5th ed.)</li>
-          <li><strong>W. Richard Stevens</strong> — TCP/IP Illustrated Vol. 1</li>
-          <li><strong>Beej's Guide</strong> — Network Programming</li>
+          <li>Computer Networking: A Top-Down Approach — Kurose & Ross</li>
+          <li>Computer Networks — Tanenbaum & Wetherall</li>
+          <li>Stanford CS144 · MIT 6.829</li>
         </ul>
       </div>
       <div class="credits-col">
         <div class="credits-cat" id="creditsCat2">מקורות מקוונים</div>
         <ul class="credits-list">
-          <li><a href="https://www.geeksforgeeks.org/computer-network-tutorials/" target="_blank" rel="noopener">GeeksforGeeks — Computer Networks</a></li>
-          <li><a href="https://www.rfc-editor.org/" target="_blank" rel="noopener">IETF RFC Editor</a></li>
-          <li><a href="https://www.cloudflare.com/learning/" target="_blank" rel="noopener">Cloudflare Learning Center</a></li>
-          <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP" target="_blank" rel="noopener">MDN Web Docs — HTTP</a></li>
-          <li><a href="https://www.wireshark.org/docs/" target="_blank" rel="noopener">Wireshark Documentation</a></li>
+          <li>RFC Editor (IETF)</li>
+          <li>Cloudflare Learning Center</li>
+          <li>Beej's Guide to Network Programming</li>
         </ul>
       </div>
       <div class="credits-col">
         <div class="credits-cat" id="creditsCat3">כלים ומפרטים</div>
         <ul class="credits-list">
-          <li><a href="https://scapy.readthedocs.io/" target="_blank" rel="noopener">Scapy Documentation</a></li>
-          <li><a href="https://grpc.io/docs/" target="_blank" rel="noopener">gRPC Official Docs</a></li>
-          <li><a href="https://ebpf.io/" target="_blank" rel="noopener">eBPF.io</a></li>
-          <li><a href="https://quicwg.org/" target="_blank" rel="noopener">QUIC Working Group (IETF)</a></li>
-          <li><a href="https://www.ieee802.org/11/" target="_blank" rel="noopener">IEEE 802.11 (WiFi)</a></li>
+          <li>Wireshark Documentation</li>
+          <li>Scapy Official Docs</li>
+          <li>Linux man-pages</li>
         </ul>
       </div>
     </div>
@@ -2437,10 +3488,8 @@ nav {
 <!-- ══ LEARN ══ -->
 <section class="screen" id="learn">
   <div id="readBar"></div>
-  <div class="learn-layout">
-    <div class="l-sb" id="lSidebar"></div>
-    <div class="l-content" id="lContent"><p style="color:var(--dim2)" id="lPlaceholder">בחר פרק...</p></div>
-  </div>
+  <div class="ch-strip-wrap" id="chStrip"></div>
+  <div class="l-content" id="lContent"><p style="color:var(--dim2);text-align:center;padding:60px 20px" id="lPlaceholder">בחר פרק...</p></div>
 </section>
 
 <!-- ══ LAB ══ -->
@@ -2574,6 +3623,7 @@ var LANG   = 'he';
 var CUR_CH = 0;
 var XP     = 0;
 try { XP = parseInt(localStorage.getItem('nw_xp') || '0') || 0; } catch(e) {}
+var PROGRESS  = {};
 var LAB    = { ch: 0, cur: 0, ans: [], questions: [], done: false };
 var QUIZ   = {
   questions: [], cur: 0, score: 0, streak: 0, maxStreak: 0,
@@ -6903,70 +7953,79 @@ var QUIZ_DATA = {
 };
 
 function buildLandGrid() {
-  if (typeof LANG === 'undefined') LANG = 'he';
-  var grid = document.getElementById('landGrid');
-  if (!grid) return;
-  grid.innerHTML = '';
-  CHAPTERS.forEach(function(ch) {
+  // Update chapter card names for current language
+  for (var n = 1; n <= 13; n++) {
+    var card = document.querySelector('.lp-ch[onclick*="loadCh('+n+')"]');
+    if (!card) continue;
+    var ch = CHAPTERS[n-1];
+    if (!ch) continue;
     var data = LANG === 'he' ? ch.he : ch.en;
-    var card = document.createElement('div');
-    card.className = 'land-card';
-    card.style.setProperty('--cc', ch.color);
-    card.onclick = function() { goTo('learn'); loadCh(ch.n); };
-    card.innerHTML =
-      '<span class="lc-icon">' + ch.icon + '</span>' +
-      '<div class="lc-n">CH ' + String(ch.n).padStart(2,'0') + '</div>' +
-      '<div class="lc-name">' + data.name + '</div>' +
-      '<div class="lc-desc">' + data.desc + '</div>';
-    grid.appendChild(card);
-  });
+    var nameEl = card.querySelector('.lp-ch-name');
+    if (nameEl && data && data.name) nameEl.textContent = data.name;
+    var prog = (typeof PROGRESS !== 'undefined') && PROGRESS && PROGRESS[n];
+    if (prog && prog.done) card.classList.add('done');
+    else card.classList.remove('done');
+  }
+  // Update progress bar
+  var done = 0;
+  if (PROGRESS) {
+    for (var k = 1; k <= 13; k++) {
+      if (PROGRESS[k] && PROGRESS[k].done) done++;
+    }
+  }
+  var wrap = document.getElementById('lpProgWrap');
+  var fill = document.getElementById('lpProgFill');
+  var label = document.getElementById('lpProgLabel');
+  if (done > 0 && wrap) wrap.style.display = 'flex';
+  if (fill) fill.style.width = Math.round((done/13)*100) + '%';
+  if (label) label.textContent = done + ' / 13 ' + (LANG === 'he' ? 'פרקים' : 'chapters');
 }
 
 /* ══════════════════════════════════════════
    LEARN — SIDEBAR + CONTENT
 ══════════════════════════════════════════ */
 function buildSidebar() {
+  buildChStrip();
+}
+
+function buildChStrip() {
   if (typeof LANG === 'undefined') LANG = 'he';
-  var sb = document.getElementById('lSidebar');
-  if (!sb) return;
-  sb.innerHTML = '';
+  var strip = document.getElementById('chStrip');
+  if (!strip) return;
+  strip.innerHTML = '';
   CHAPTERS.forEach(function(ch) {
     var data = LANG === 'he' ? ch.he : ch.en;
-    var wrap = document.createElement('div');
-    wrap.className = 'sb-ch' + (ch.n === CUR_CH ? ' active' : '');
-    wrap.id = 'sbch' + ch.n;
     var btn = document.createElement('button');
-    btn.className = 'sb-ch-btn';
-    btn.style.setProperty('--cc', ch.color);
-    btn.innerHTML = '<span class="sb-icon">' + ch.icon + '</span>' +
-      '<span class="sb-name">' + data.name + '</span>';
+    btn.className = 'ch-tab' + (ch.n === CUR_CH ? ' active' : '');
+    btn.id = 'chtab' + ch.n;
+    var numSpan = '<span class="ch-tab-n">' + String(ch.n).padStart(2,'0') + '</span>';
+    var nameSpan = '<span class="ch-tab-name">' + data.name + '</span>';
+    btn.innerHTML = numSpan + nameSpan;
     btn.onclick = function() { loadCh(ch.n); };
-    wrap.appendChild(btn);
-    var secs = document.createElement('div');
-    secs.className = 'sb-secs';
-    secs.id = 'sbsecs' + ch.n;
-    data.sections.forEach(function(sec, i) {
-      var s = document.createElement('button');
-      s.className = 'sb-sec';
-      s.textContent = sec;
-      s.onclick = function(e) { e.stopPropagation(); scrollToSec(ch.n, i); };
-      secs.appendChild(s);
-    });
-    wrap.appendChild(secs);
-    sb.appendChild(wrap);
+    strip.appendChild(btn);
   });
 }
 
 function loadCh(n) {
+  // Update active chapter tab
+  var tabs = document.querySelectorAll('.ch-tab');
+  for (var ti = 0; ti < tabs.length; ti++) {
+    tabs[ti].className = tabs[ti].id === 'chtab' + n ? 'ch-tab active' : 'ch-tab';
+  }
+  // Scroll active tab into view
+  var activeTab = document.getElementById('chtab' + n);
+  if (activeTab) {
+    activeTab.scrollIntoView({behavior: 'smooth', block: 'nearest', inline: 'center'});
+  }
+
   if (typeof LANG === 'undefined') LANG = 'he';
   CUR_CH = n;
   var ch   = CHAPTERS.find(function(c){ return c.n===n; });
   if (!ch) return;
   var data = LANG === 'he' ? ch.he : ch.en;
 
-  document.querySelectorAll('.sb-ch').forEach(function(b){ b.classList.remove('active'); });
-  var sbch = document.getElementById('sbch' + n);
-  if (sbch) sbch.classList.add('active');
+  // sb-ch removed — using ch-tab now
+  // ch-tab active updated via loadCh
 
   var prevN = n > 1  ? '<button class="ch-nav-btn" onclick="loadCh('+(n-1)+')">' + (LANG==='he' ? '→ פרק '+(n-1) : '← Ch '+(n-1)) + '</button>' : '<span></span>';
   var nextN = n < 13 ? '<button class="ch-nav-btn" onclick="loadCh('+(n+1)+')">' + (LANG==='he' ? 'פרק '+(n+1)+' ←' : 'Ch '+(n+1)+' →') + '</button>' : '<span></span>';
@@ -6975,20 +8034,26 @@ function loadCh(n) {
     '<div class="ch-nav">' + prevN + '<span class="ch-nav-cur">' + ch.icon + ' ' + data.name + '</span>' + nextN + '</div>' +
     data.content() +
     '<div class="ch-quiz-cta">' +
-      '<button class="cta-quiz-btn" data-ch="' + n + '" id="ctaQuiz' + n + '">' +
-        (LANG === 'he' ? '⚡ חידון לפרק זה' : '⚡ Quiz this chapter') +
+      '<button class="cta-game-btn" data-ch="' + n + '" id="ctaGame' + n + '">' +
+        (LANG === 'he' ? '🎮 תרגל את הפרק' : '🎮 Practice this chapter') +
       '</button>' +
-      '<button class="cta-lab-btn" data-ch="' + n + '" id="ctaLab' + n + '">' +
-        (LANG === 'he' ? '⚗️ מעבדה לפרק זה' : '⚗️ Lab this chapter') +
-      '</button>' +
+      (n < 13 ? '<button class="cta-next-btn" id="ctaNext' + n + '">' +
+        (LANG === 'he' ? 'פרק הבא ←' : 'Next Chapter →') +
+      '</button>' : '') +
     '</div>' +
     '<div class="ch-nav ch-nav-bottom">' + prevN + '<span></span>' + nextN + '</div>';
 
   // Attach CTA event handlers after innerHTML set
-  var ctaQ = document.getElementById('ctaQuiz' + n);
-  var ctaL = document.getElementById('ctaLab' + n);
-  if (ctaQ) ctaQ.onclick = function() { closeMobSidebar(); goTo('quiz'); startQuiz(10, n); };
-  if (ctaL) ctaL.onclick = function() { closeMobSidebar(); goTo('lab');  startLab(n); };
+  var ctaG = document.getElementById('ctaGame' + n);
+  var ctaN = document.getElementById('ctaNext' + n);
+  if (ctaN) ctaN.onclick = (function(ch) { return function() {
+    loadCh(ch + 1);
+    window.scrollTo(0, 0);
+  }; })(n);
+  if (ctaG) ctaG.onclick = (function(ch) { return function() {
+    closeMobSidebar(); goTo('game');
+    UG.ch = ch; selectMode('match'); startGameMode(ch);
+  }; })(n);
 
   window.scrollTo(0, 0);
   updateReadBar();
@@ -7408,7 +8473,7 @@ function applyLangUI() {
 
   // Hero
   set('heroTag',  isHe ? 'COURSE — 13 CHAPTERS' : 'COURSE — 13 CHAPTERS');
-  set('heroH',    isHe ? 'רשתות<br><i>מחשבים</i>' : 'Computer<br><i>Networks</i>');
+  set('heroH',    isHe ? 'רשתות<br><em>מחשבים</em>' : 'Computer<br><em>Networks</em>');
   set('heroP',    isHe ? '13 פרקים · תוכן מלא · 184 שאלות + 78 זוגות' : '13 chapters · Full book coverage · 184 questions + 78 pairs');
   var cta = document.getElementById('heroCta');
   if (cta) cta.textContent = isHe ? '← התחל' : 'Start →';
@@ -7788,8 +8853,10 @@ function matchSelect(el) {
   var correct=UG.pairs.some(function(p){return p[0]===term&&p[1]===def;});
   if (correct) {
     [tEl,dEl].forEach(function(e){
-      e.style.border='1.5px solid #16a34a'; e.style.background='#f0fdf4';
-      e.style.color='#15803d'; e.dataset.done='1'; e.onclick=null;
+      e.style.border='2.5px solid #58cc02'; e.style.background='#edffd4';
+      e.style.color='#46a302'; e.style.boxShadow='0 3px 0 #46a302';
+      e.dataset.done='1'; e.onclick=null;
+      e.classList.add('duo-correct');
     });
     UG.matched++; UG.score+=Math.max(10,30-Math.floor(UG.seconds/8));
     if(UG.matched===UG.total) setTimeout(showGameResult,700);
@@ -7919,7 +8986,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
   <!-- Mobile top bar -->
   <div class="mob-top-bar" id="mobTopBar">
-    <button class="mob-sb-btn" id="mobSbBtn" onclick="toggleMobSidebar()" style="display:none">☰</button>
+    <button class="mob-sb-btn" id="mobSbBtn" style="display:none" onclick="document.getElementById('chStrip').classList.toggle('ch-strip-open')">☰</button>
     <div class="mob-top-title" id="mobTopTitle">רשתות מחשבים</div>
     <div class="mob-xp">⚡ <span id="mobXp">0</span></div>
     <button class="mob-lang-btn" id="mobLangBtn" onclick="toggleLang()">EN</button>
