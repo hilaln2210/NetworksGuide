@@ -8548,6 +8548,29 @@ function applyLangUI() {
   var mobLabels = document.querySelectorAll('.mob-tab-label');
   var mobLabelTexts = isHe ? ['ראשי','למידה','משחק'] : ['Home','Learn','Game'];
   mobLabels.forEach(function(el, i) { if (mobLabelTexts[i]) el.textContent = mobLabelTexts[i]; });
+
+  // lpProgLabel
+  var lpProg = document.getElementById('lpProgLabel');
+  if (lpProg) {
+    var done = lpProg.textContent.split('/')[0].trim();
+    lpProg.textContent = done + ' / 13 ' + (isHe ? 'פרקים' : 'chapters');
+  }
+
+  // Chapter card names
+  var chNames = document.querySelectorAll('.lp-ch-name');
+  var heNames = ['יסודות האינטרנט','תכנות Sockets','Wireshark + 5 שכבות',
+    'שכבת האפליקציה','Scapy','שכבת התעבורה','שכבת הרשת','שכבת הקו',
+    'רכיבי רשת','השכבה הפיזית','איך הכל מתחבר','Sockets מתקדם','רשתות מודרניות'];
+  var enNames = ['Internet Fundamentals','Socket Programming','Wireshark & 5 Layers',
+    'Application Layer','Scapy','Transport Layer','Network Layer','Data Link Layer',
+    'Network Devices','Physical Layer','How It All Connects','Advanced Sockets','Modern Networks 2025'];
+  for (var ci = 0; ci < chNames.length; ci++) {
+    chNames[ci].textContent = isHe ? heNames[ci] : enNames[ci];
+  }
+
+  // Ch-strip tab names (built dynamically by buildChStrip)
+  buildChStrip();
+  buildGameHome();
 }
 
 

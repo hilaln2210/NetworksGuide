@@ -570,7 +570,7 @@ he:{
   gameStart:'▶ התחל',gameSeconds:'שניות',gameQuestions:'שאלות',gameXP:'+10 XP',
   gameAgain:'🔄 שוב',gameToCheat:'📋 סיכום ←',
   quizPrev:'→ הקודם',quizNext:'הבא ←',quizSubmit:'שלח ✓',
-  quizExplain:'💡 הסבר:',quizToLab:'למעבדה ←',quizAgain:'🔄 נסי שוב',
+  quizExplain:'💡 הסבר:',quizToLab:'🎮 משחק ידע',quizAgain:'🔄 נסי שוב',
   resultLabels:['נסי שוב!','עוד קצת...','טוב!','כל הכבוד!','מצוין!','מושלם! 🛡️'],
   lbTitle:'// לוח תוצאות',labExplain:'💡 הסבר:',
   points:"נק'",of:'מתוך',question:'שאלה',
@@ -3074,6 +3074,7 @@ function activateTab(chId, tabName) {
   ch.querySelectorAll('.tab-panel').forEach(p => {
     p.classList.toggle('active', p.id===chId+'-'+tabName);
   });
+  patchLearnNav(chId);
   if(tabName==='quiz') renderQuiz(chId);
   if(tabName==='lab')  renderLab(chId);
   if(tabName==='game') renderGame(chId);
@@ -3111,7 +3112,7 @@ function renderQuiz(chId) {
       <div class="result-stars" id="qstars-${chId}"></div>
       <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
         <button class="btn btn-ghost" id="qbtn-reset-${chId}" onclick="quizReset(${chId})"></button>
-        <button class="btn btn-primary" id="qbtn-lab-${chId}" onclick="showTab(${chId},'lab')"></button>
+        <button class="btn btn-primary" id="qbtn-lab-${chId}" onclick="showTab(${chId},'game')"></button>
       </div>
     </div>
     <div class="quiz-nav" id="qnav-${chId}">
@@ -3378,5 +3379,32 @@ function updateStars(chId){
   if(!el)return;
   const s=state.stars[chId]||0;
   el.textContent='⭐'.repeat(s)+'☆'.repeat(3-s);
+}
+
+function showNextChapter(chId){
+  var next = chId + 1;
+  if(typeof TOTAL_CHAPTERS !== 'undefined' && next < TOTAL_CHAPTERS) showChapter(next);
+  else if(next < document.querySelectorAll('.chapter').length) showChapter(next);
+  else showTab(chId, 'cheat');
+}
+function patchLearnNav(chId){
+  var el = document.getElementById('learn-'+chId);
+  if(!el) return;
+  if(el.innerHTML.indexOf('CHID') >= 0)
+    el.innerHTML = el.innerHTML.replace(/CHID/g, chId);
+  // Add end-of-chapter nav if not already present
+  if(el.innerHTML.indexOf('ch-end-nav') < 0 && el.innerHTML.indexOf('ch-end-nav-en') < 0){
+    var lang = (typeof currentLang !== 'undefined') ? currentLang : 'he';
+    var navHtml = lang === 'he' ? `<div class="ch-end-nav" style="display:flex;gap:12px;margin-top:36px;padding-top:24px;border-top:2px solid #e5e5e0;justify-content:center;flex-wrap:wrap">
+  <button onclick="showTab(CHID,'game')" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 24px;border-radius:20px;cursor:pointer;border:2px solid #e5e5e0;border-bottom:4px solid #d1d1ca;background:#fff;color:#6b6b6b;font-weight:800;font-size:13px;min-width:130px;text-transform:uppercase;letter-spacing:.04em;font-family:inherit"><span style="font-size:22px">🎮</span><span style="font-size:11px">משחק ידע</span></button>
+  <button onclick="showNextChapter(CHID)" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 24px;border-radius:20px;cursor:pointer;border:2px solid #46a302;border-bottom:4px solid #46a302;background:#58cc02;color:#fff;font-weight:800;font-size:13px;min-width:130px;text-transform:uppercase;letter-spacing:.04em;font-family:inherit"><span style="font-size:22px">▶</span><span style="font-size:11px">פרק הבא</span></button>
+  <button onclick="showTab(CHID,'cheat')" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 24px;border-radius:20px;cursor:pointer;border:2px solid #e5e5e0;border-bottom:4px solid #d1d1ca;background:#fff;color:#6b6b6b;font-weight:800;font-size:13px;min-width:130px;text-transform:uppercase;letter-spacing:.04em;font-family:inherit"><span style="font-size:22px">📋</span><span style="font-size:11px">סיכום</span></button>
+</div>` : `<div class="ch-end-nav-en" style="display:flex;gap:12px;margin-top:36px;padding-top:24px;border-top:2px solid #e5e5e0;justify-content:center;flex-wrap:wrap">
+  <button onclick="showTab(CHID,'game')" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 24px;border-radius:20px;cursor:pointer;border:2px solid #e5e5e0;border-bottom:4px solid #d1d1ca;background:#fff;color:#6b6b6b;font-weight:800;font-size:13px;min-width:130px;text-transform:uppercase;letter-spacing:.04em;font-family:inherit"><span style="font-size:22px">🎮</span><span style="font-size:11px">Game</span></button>
+  <button onclick="showNextChapter(CHID)" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 24px;border-radius:20px;cursor:pointer;border:2px solid #46a302;border-bottom:4px solid #46a302;background:#58cc02;color:#fff;font-weight:800;font-size:13px;min-width:130px;text-transform:uppercase;letter-spacing:.04em;font-family:inherit"><span style="font-size:22px">▶</span><span style="font-size:11px">Next Chapter</span></button>
+  <button onclick="showTab(CHID,'cheat')" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 24px;border-radius:20px;cursor:pointer;border:2px solid #e5e5e0;border-bottom:4px solid #d1d1ca;background:#fff;color:#6b6b6b;font-weight:800;font-size:13px;min-width:130px;text-transform:uppercase;letter-spacing:.04em;font-family:inherit"><span style="font-size:22px">📋</span><span style="font-size:11px">Summary</span></button>
+</div>`;
+    el.innerHTML += navHtml.replace(/CHID/g, chId);
+  }
 }
 </script></body></html>
