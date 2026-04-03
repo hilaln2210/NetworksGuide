@@ -207,8 +207,8 @@ function TrackPicker({ tracks, onSelect }) {
             <div className="path-connector" />
             <div className="path-step" style={{ '--step-color': '#f97316' }}>
               <span className="path-num">9</span>
-              <span className="path-icon">🚀</span>
-              <span className="path-name">{isEn ? 'DevOps' : 'DevOps'}</span>
+              <span className="path-icon">🔎</span>
+              <span className="path-name">{isEn ? 'IP Investigation' : 'חקר IP'}</span>
             </div>
           </div>
         </div>

@@ -117,17 +117,17 @@ export const tracks = [
     ]
   },
   {
-    id: 'devops',
-    title: 'DevOps',
-    subtitle: 'Docker, Kubernetes, CI/CD, Terraform, Observability, Cloud, DevSecOps — 9 פרקים',
-    icon: '🚀',
+    id: 'ip-investigation',
+    title: 'חקר כתובות IP',
+    subtitle: 'OSINT & Network Intelligence — Geolocation, WHOIS, Shodan, Log Analysis — 8 פרקים',
+    icon: '🔎',
     color: '#f97316',
-    level: 'מתחיל–מתקדם',
+    level: 'בינוני–מתקדם',
     fullPage: true,
-    chapterCount: 9,
-    syllabus: ['מה זה DevOps', 'Linux & Shell', 'Docker & Containers', 'Kubernetes', 'CI/CD Pipelines', 'Terraform & Ansible', 'Observability & Monitoring', 'Cloud — AWS, Azure, GCP', 'DevSecOps'],
+    chapterCount: 8,
+    syllabus: ['מבוא — IP Investigation', 'Geolocation', 'WHOIS ו-ASN', 'Reverse DNS', 'Reputation — זיהוי סיכונים', 'Shodan ו-Censys', 'ניתוח לוגים', 'דוחות ו-Automation'],
     chapters: [
-      { id: 1000, title: "DevOps — קורס מלא", pages: [{ type: "html_page", title: "DevOps Course", src: "/learn/devops/devops_pro_course.html" }] },
+      { id: 1000, title: "חקר כתובות IP — קורס מלא", pages: [{ type: "html_page", title: "IP Investigation Course", src: "/learn/ip-investigation/ip_investigation_course.html" }] },
     ]
   },
 ]

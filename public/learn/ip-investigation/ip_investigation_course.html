@@ -1,0 +1,2846 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IP Investigation Course</title>
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #f7f7f2;
+  --bg2:      #ffffff;
+  --bg3:      #f0f0ea;
+  --surface:  #ffffff;
+  --border:   #e5e5e0;
+  --border2:  #d1d1ca;
+  --accent:   #0e7490;
+  --accent2:  #0a5c72;
+  --accentfg: #ffffff;
+  --green:    #58cc02;
+  --green2:   #46a302;
+  --greenfg:  #ffffff;
+  --yellow:   #ffd900;
+  --yellowfg: #785a00;
+  --red:      #ff4b4b;
+  --redfg:    #ffffff;
+  --blue:     #1cb0f6;
+  --bluefg:   #ffffff;
+  --text:     #3c3c3c;
+  --text2:    #6b6b6b;
+  --text3:    #afafaf;
+  --mono:     'Courier New', 'Consolas', monospace;
+  --sans:     -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --r:        12px;
+  --r2:       20px;
+  --r3:       24px;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 200;
+  background: var(--bg2); border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; padding: 0 20px; gap: 16px;
+}
+.header-logo {
+  font-weight: 800; font-size: 16px; color: var(--accent);
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+  letter-spacing: -0.3px;
+}
+.header-logo-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 2px 0 var(--green2);
+}
+.header-chname {
+  font-size: 13px; font-weight: 600; color: var(--text2);
+  flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.lang-btn {
+  font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: var(--r);
+  border: 2px solid var(--border2); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); color: var(--text2);
+  cursor: pointer; flex-shrink: 0; transition: all .1s;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.lang-btn:hover { background: var(--accent); color: var(--accentfg); border-color: var(--accent2); border-bottom-color: var(--accent2); }
+.lang-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+
+/* ── CHAPTER NAV BAR ── */
+.ch-nav {
+  position: fixed; top: 60px; left: 0; right: 0; z-index: 150;
+  background: var(--bg2); border-bottom: 2px solid var(--border);
+  overflow-x: auto; display: flex; padding: 8px 16px; gap: 6px;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.ch-nav::-webkit-scrollbar { display: none; }
+.sb-label { display: none; }
+.ch-btn {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 14px; gap: 3px; border: 2px solid transparent;
+  background: var(--bg3); border-radius: var(--r2);
+  cursor: pointer; transition: all .15s; flex-shrink: 0;
+  color: var(--text2); min-width: 52px;
+  border-bottom: 4px solid var(--border);
+}
+.ch-btn:hover { background: var(--bg2); border-color: var(--border2); color: var(--text); }
+.ch-btn.active {
+  background: var(--accent); color: #fff;
+  border-color: var(--accent2); border-bottom-color: var(--accent2);
+}
+.ch-num { font-size: 11px; font-weight: 800; font-family: var(--mono); }
+.ch-title-text { font-size: 9px; font-weight: 600; max-width: 68px; text-align: center; line-height: 1.2; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.ch-stars { font-size: 10px; min-height: 12px; }
+
+/* ── LAYOUT ── */
+.main {
+  padding-top: 112px; min-height: 100vh;
+  max-width: 780px; margin: 0 auto;
+  padding-left: 20px; padding-right: 20px; padding-bottom: 60px;
+}
+
+/* ── CHAPTER ── */
+.chapter { display: none; }
+.chapter.active { display: block; }
+
+/* ── CHAPTER HERO ── */
+.ch-hero {
+  padding: 28px 0 24px; border-bottom: 2px solid var(--border); margin-bottom: 28px;
+}
+.ch-tag {
+  display: inline-block; font-size: 11px; font-weight: 800;
+  color: var(--accent); background: var(--bg3);
+  padding: 3px 10px; border-radius: 20px; margin-bottom: 10px;
+  letter-spacing: .06em; text-transform: uppercase; font-family: var(--mono);
+}
+.ch-title { font-size: 26px; font-weight: 900; color: var(--text); margin-bottom: 8px; letter-spacing: -.5px; line-height: 1.2; }
+.ch-desc { font-size: 14px; color: var(--text2); margin-bottom: 20px; max-width: 560px; }
+.tabs-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab-btn {
+  padding: 8px 18px; font-size: 13px; font-weight: 800; border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); color: var(--text3);
+  cursor: pointer; transition: all .1s; text-transform: uppercase; letter-spacing: .04em;
+}
+.tab-btn:hover { color: var(--text2); border-color: var(--border2); }
+.tab-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+.tab-btn.active {
+  background: var(--accent); color: #fff;
+  border-color: var(--accent2); border-bottom-color: var(--accent2);
+}
+
+/* ── TAB PANELS ── */
+.tab-panels { }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── LEARN CONTENT ── */
+.did-you-know {
+  background: linear-gradient(135deg, #fffdf0, #fff9e0);
+  border: 2px solid var(--yellow); border-radius: var(--r2);
+  padding: 16px 18px; font-size: 13.5px; color: #5a4a00;
+  margin-bottom: 28px; line-height: 1.6;
+  box-shadow: 0 3px 0 #e6c700;
+}
+.section-title {
+  font-size: 17px; font-weight: 900; color: var(--text);
+  margin: 32px 0 12px; letter-spacing: -.2px;
+  display: flex; align-items: center; gap: 8px;
+}
+.prose {
+  font-size: 15px; color: var(--text2); line-height: 1.78; margin-bottom: 16px;
+}
+.prose code, code {
+  font-family: var(--mono); font-size: 12.5px;
+  background: var(--bg3); padding: 2px 6px;
+  border-radius: 6px; color: var(--accent2); font-weight: 600;
+}
+
+/* ── CODE BLOCKS ── */
+.code-block {
+  background: #1a1a2e; border-radius: var(--r2); padding: 18px 20px;
+  margin: 16px 0; overflow-x: auto;
+  border: 2px solid #2a2a4e; box-shadow: 0 4px 0 #0f0f20;
+}
+.code-block code {
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.75;
+  background: none; padding: 0; color: #e2e8f0; display: block;
+  font-weight: normal;
+}
+.comment { color: #6272a4; }
+
+/* ── CARDS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin: 16px 0 24px; }
+.card {
+  background: var(--bg2); border: 2px solid var(--border);
+  border-bottom: 4px solid var(--border2); border-radius: var(--r2);
+  padding: 18px; display: flex; flex-direction: column; gap: 8px;
+  transition: transform .1s;
+}
+.card:hover { transform: translateY(-2px); }
+.card-icon { font-size: 26px; }
+.card-title { font-size: 13px; font-weight: 800; color: var(--text); }
+.card-body { font-size: 13px; color: var(--text2); line-height: 1.55; }
+
+/* ── TABLE ── */
+.table-wrap {
+  overflow-x: auto; margin: 16px 0 24px;
+  border-radius: var(--r2); border: 2px solid var(--border);
+  box-shadow: 0 4px 0 var(--border);
+}
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table thead { background: var(--bg3); }
+.data-table th {
+  padding: 11px 14px; text-align: left; font-weight: 800;
+  color: var(--text2); font-size: 11px; text-transform: uppercase;
+  letter-spacing: .06em; border-bottom: 2px solid var(--border);
+}
+.data-table td { padding: 11px 14px; color: var(--text2); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--bg3); }
+
+/* ── FLOW ROW ── */
+.flow-row {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin: 16px 0 24px; padding: 20px; background: var(--bg2);
+  border-radius: var(--r2); border: 2px solid var(--border);
+  box-shadow: 0 4px 0 var(--border);
+}
+.flow-step { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.flow-step-icon { font-size: 24px; }
+.flow-step-label { font-size: 10px; font-weight: 700; color: var(--text3); line-height: 1.3; max-width: 64px; text-align: center; }
+.flow-arrow { color: var(--accent); font-size: 18px; font-weight: 900; }
+
+/* ── CALLOUTS ── */
+.callout { padding: 14px 18px; border-radius: var(--r2); font-size: 13.5px; line-height: 1.6; margin: 16px 0; border: 2px solid; }
+.callout-info  { background: #e8f4ff; border-color: #b3d9ff; color: #1a5a8a; box-shadow: 0 3px 0 #b3d9ff; }
+.callout-warn  { background: #fff8e0; border-color: var(--yellow); color: #785a00; box-shadow: 0 3px 0 #e6c700; }
+.callout-tip   { background: #e8fae8; border-color: #a8e6a8; color: #1a5a1a; box-shadow: 0 3px 0 #a8e6a8; }
+.callout-success { background: var(--bg3); border-color: var(--border); color: var(--text2); padding: 10px 14px; }
+
+/* ── REAL WORLD BOX ── */
+.real-world-box {
+  background: var(--bg2); border: 2px solid var(--border);
+  border-bottom: 4px solid var(--border2); border-radius: var(--r2);
+  padding: 20px; margin: 24px 0;
+}
+.real-world-title { font-size: 13px; font-weight: 800; color: var(--accent); margin-bottom: 10px; }
+.real-world-body { font-size: 13.5px; color: var(--text2); line-height: 1.7; }
+
+/* ── END OF CHAPTER NAV ── */
+.ch-end-nav {
+  display: flex; gap: 12px; margin-top: 36px; padding-top: 24px;
+  border-top: 2px solid var(--border); justify-content: center; flex-wrap: wrap;
+}
+.ch-end-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 16px 24px; border-radius: var(--r2); cursor: pointer;
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); color: var(--text2); font-weight: 800;
+  font-size: 13px; transition: all .1s; min-width: 130px;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.ch-end-btn:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); }
+.ch-end-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+.ch-end-btn.primary {
+  background: var(--green); color: var(--greenfg);
+  border-color: var(--green2); border-bottom-color: var(--green2);
+}
+.ch-end-btn.primary:hover { background: var(--green2); }
+.ch-end-btn-icon { font-size: 22px; }
+.ch-end-btn-label { font-size: 11px; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 22px; border-radius: var(--r2); font-size: 14px;
+  font-weight: 800; border: 2px solid; cursor: pointer; transition: all .1s;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.btn:active { transform: translateY(2px); border-bottom-width: 2px !important; }
+.btn-primary {
+  background: var(--green); color: var(--greenfg);
+  border-color: var(--green2); border-bottom: 4px solid var(--green2);
+}
+.btn-primary:hover { background: var(--green2); }
+.btn-ghost {
+  background: var(--bg2); color: var(--text2);
+  border-color: var(--border2); border-bottom: 4px solid var(--border2);
+}
+.btn-ghost:hover { background: var(--bg3); color: var(--text); }
+
+/* ── GAME ── */
+.game-wrap { max-width: 680px; }
+.game-start-card { max-width: 420px; margin: 0 auto; text-align: center; padding: 40px 24px; }
+.game-icon { font-size: 56px; margin-bottom: 16px; filter: drop-shadow(0 4px 0 rgba(0,0,0,.1)); }
+.game-start-title { font-size: 24px; font-weight: 900; color: var(--text); margin-bottom: 8px; letter-spacing: -.5px; }
+.game-start-desc { font-size: 14px; color: var(--text2); margin-bottom: 24px; }
+.game-rules { display: flex; justify-content: center; gap: 20px; margin-bottom: 28px; flex-wrap: wrap; }
+.game-rule {
+  font-size: 13px; font-weight: 700; color: var(--text2);
+  background: var(--bg3); padding: 8px 14px; border-radius: var(--r);
+  border: 2px solid var(--border);
+}
+.game-hud {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px; padding: 12px 18px;
+  background: var(--bg2); border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+}
+.hud-score { font-size: 22px; font-weight: 900; color: var(--green); font-family: var(--mono); }
+.hud-timer { font-size: 15px; font-weight: 800; color: var(--text2); font-family: var(--mono); }
+.game-q-text { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 20px; line-height: 1.4; }
+.game-opts { display: flex; flex-direction: column; gap: 10px; }
+.game-opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); cursor: pointer; transition: all .1s;
+  font-size: 14px; font-weight: 600; color: var(--text);
+}
+.game-opt:hover { border-color: var(--accent); border-bottom-color: var(--accent2); transform: translateY(-1px); }
+.game-opt:active { transform: translateY(2px); border-bottom-width: 2px; }
+.game-opt.correct { border-color: var(--green); border-bottom-color: var(--green2); background: #e8fae8; color: #1a5a1a; }
+.game-opt.wrong   { border-color: var(--red); background: #fff0f0; color: #8a1a1a; }
+.opt-letter {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--bg3); border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 900; flex-shrink: 0; color: var(--text2);
+  font-family: var(--mono);
+}
+.game-result-card { max-width: 420px; margin: 32px auto 0; text-align: center; }
+.result-score { font-size: 60px; font-weight: 900; color: var(--green); font-family: var(--mono); line-height: 1; margin-bottom: 4px; }
+.result-label { font-size: 20px; font-weight: 900; color: var(--text); margin-bottom: 24px; }
+.result-emoji { font-size: 52px; margin-bottom: 8px; }
+.result-btns { display: flex; gap: 12px; justify-content: center; }
+.result-stars { font-size: 28px; margin-bottom: 8px; }
+
+/* ── QUIZ ── */
+.quiz-wrap { max-width: 680px; }
+.quiz-prog { display: flex; gap: 4px; margin-bottom: 24px; }
+.quiz-pip { flex: 1; height: 8px; border-radius: 4px; background: var(--border2); transition: background .2s; }
+.quiz-pip.done { background: var(--green); }
+.quiz-pip.cur  { background: var(--accent); }
+.quiz-q-card { display: none; }
+.quiz-q-card.active { display: block; }
+.quiz-meta { font-size: 11px; font-weight: 800; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+.quiz-q { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 20px; line-height: 1.4; }
+.quiz-opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.quiz-opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 18px; border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); cursor: pointer; transition: all .1s;
+  font-size: 14px; font-weight: 600; color: var(--text);
+}
+.quiz-opt:hover { border-color: var(--accent); border-bottom-color: var(--accent2); transform: translateY(-1px); }
+.quiz-opt:active { transform: translateY(2px); border-bottom-width: 2px; }
+.quiz-opt.selected { border-color: var(--accent); background: #f0f4ff; }
+.quiz-opt.correct   { border-color: var(--green); border-bottom-color: var(--green2); background: #e8fae8; }
+.quiz-opt.wrong     { border-color: var(--red); border-bottom-color: #cc0000; background: #fff0f0; }
+.quiz-exp {
+  padding: 14px 18px; background: #e8fae8; border-radius: var(--r2);
+  border: 2px solid var(--green); border-bottom: 4px solid var(--green2);
+  font-size: 13.5px; color: #1a5a1a; margin: 12px 0; line-height: 1.6;
+}
+.quiz-actions { display: flex; gap: 10px; margin-top: 8px; }
+.quiz-result { display: none; text-align: center; padding: 32px 0; }
+.qr-score { font-size: 56px; font-weight: 900; font-family: var(--mono); color: var(--green); margin-bottom: 4px; }
+.qr-label { font-size: 20px; font-weight: 900; color: var(--text); margin-bottom: 24px; }
+.quiz-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+
+/* ── CHEAT / SUMMARY ── */
+.cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 14px; margin-top: 8px; }
+.cheat-card {
+  background: var(--bg2); border: 2px solid var(--border);
+  border-bottom: 4px solid var(--border2); border-radius: var(--r2); padding: 16px;
+}
+.cheat-card-title { font-size: 11px; font-weight: 900; color: var(--accent); margin-bottom: 12px; text-transform: uppercase; letter-spacing: .08em; }
+.cheat-item { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 12.5px; }
+.cheat-item:last-child { border-bottom: none; }
+.cheat-key { font-family: var(--mono); color: var(--accent); font-weight: 700; font-size: 11.5px; flex-shrink: 0; }
+.cheat-val { color: var(--text2); text-align: right; font-size: 11.5px; }
+
+/* ── CREDITS ── */
+.credits-bar { border-top: 2px solid var(--border); padding: 32px 0; margin-top: 48px; }
+.credits-title { font-size: 10px; font-weight: 900; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; font-family: var(--mono); }
+.credits-grid { display: flex; flex-wrap: wrap; gap: 24px; }
+.credit-group { flex: 1; min-width: 140px; }
+.credit-group-title { font-size: 11px; font-weight: 800; color: var(--text2); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .05em; }
+.credit-item { font-size: 12px; color: var(--text3); line-height: 1.9; }
+.credit-item a { color: var(--accent); text-decoration: none; font-weight: 700; }
+.credit-item a:hover { text-decoration: underline; }
+
+/* ── MOBILE ── */
+@media (max-width: 700px) {
+  .main { padding-top: 108px; padding-left: 16px; padding-right: 16px; }
+  .ch-title { font-size: 20px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .flow-row { padding: 14px; gap: 4px; }
+  .flow-step-label { font-size: 9px; max-width: 52px; }
+  .game-rules { gap: 10px; }
+  .quiz-actions { flex-wrap: wrap; }
+  .result-btns { flex-wrap: wrap; }
+  .ch-end-nav { gap: 8px; }
+  .ch-end-btn { min-width: 100px; padding: 14px 16px; }
+}
+@media (max-width: 480px) {
+  .ch-nav { padding: 6px 10px; }
+  .ch-btn { padding: 7px 10px; min-width: 44px; }
+}
+
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-logo">
+    <div class="header-logo-dot"></div>
+    <span>IP OSINT</span>
+  </div>
+  <span class="header-chname" id="headerChName"></span>
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
+</header>
+<nav class="ch-nav" id="sidebar">
+  <div class="sb-label" id="sbLabel" style="display:none"></div>
+  
+  <button class="ch-btn" id="nav-0" onclick="showChapter(0)"><span class="ch-num">00</span><span class="ch-title-text" id="chname-0"></span><span class="ch-stars" id="stars-0"></span></button>
+  <button class="ch-btn" id="nav-1" onclick="showChapter(1)"><span class="ch-num">01</span><span class="ch-title-text" id="chname-1"></span><span class="ch-stars" id="stars-1"></span></button>
+  <button class="ch-btn" id="nav-2" onclick="showChapter(2)"><span class="ch-num">02</span><span class="ch-title-text" id="chname-2"></span><span class="ch-stars" id="stars-2"></span></button>
+  <button class="ch-btn" id="nav-3" onclick="showChapter(3)"><span class="ch-num">03</span><span class="ch-title-text" id="chname-3"></span><span class="ch-stars" id="stars-3"></span></button>
+  <button class="ch-btn" id="nav-4" onclick="showChapter(4)"><span class="ch-num">04</span><span class="ch-title-text" id="chname-4"></span><span class="ch-stars" id="stars-4"></span></button>
+  <button class="ch-btn" id="nav-5" onclick="showChapter(5)"><span class="ch-num">05</span><span class="ch-title-text" id="chname-5"></span><span class="ch-stars" id="stars-5"></span></button>
+  <button class="ch-btn" id="nav-6" onclick="showChapter(6)"><span class="ch-num">06</span><span class="ch-title-text" id="chname-6"></span><span class="ch-stars" id="stars-6"></span></button>
+  <button class="ch-btn" id="nav-7" onclick="showChapter(7)"><span class="ch-num">07</span><span class="ch-title-text" id="chname-7"></span><span class="ch-stars" id="stars-7"></span></button>
+</nav>
+<main class="main" id="main">
+
+<section class="chapter" id="ch-0">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-0"></div>
+    <h1 class="ch-title" id="chtitle-0"></h1>
+    <p class="ch-desc" id="chdesc-0"></p>
+    <div class="tabs-bar" id="tabs-0"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="0-learn"><div id="learn-0"></div></div>
+    <div class="tab-panel" id="0-quiz"><div class="quiz-wrap" id="quiz-0"></div></div>
+    <div class="tab-panel" id="0-lab"><div class="lab-wrap" id="lab-0"></div></div>
+    <div class="tab-panel" id="0-game"><div class="game-wrap" id="game-0"></div></div>
+    <div class="tab-panel" id="0-cheat"><div id="cheat-0"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-1">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-1"></div>
+    <h1 class="ch-title" id="chtitle-1"></h1>
+    <p class="ch-desc" id="chdesc-1"></p>
+    <div class="tabs-bar" id="tabs-1"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="1-learn"><div id="learn-1"></div></div>
+    <div class="tab-panel" id="1-quiz"><div class="quiz-wrap" id="quiz-1"></div></div>
+    <div class="tab-panel" id="1-lab"><div class="lab-wrap" id="lab-1"></div></div>
+    <div class="tab-panel" id="1-game"><div class="game-wrap" id="game-1"></div></div>
+    <div class="tab-panel" id="1-cheat"><div id="cheat-1"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-2">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-2"></div>
+    <h1 class="ch-title" id="chtitle-2"></h1>
+    <p class="ch-desc" id="chdesc-2"></p>
+    <div class="tabs-bar" id="tabs-2"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="2-learn"><div id="learn-2"></div></div>
+    <div class="tab-panel" id="2-quiz"><div class="quiz-wrap" id="quiz-2"></div></div>
+    <div class="tab-panel" id="2-lab"><div class="lab-wrap" id="lab-2"></div></div>
+    <div class="tab-panel" id="2-game"><div class="game-wrap" id="game-2"></div></div>
+    <div class="tab-panel" id="2-cheat"><div id="cheat-2"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-3">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-3"></div>
+    <h1 class="ch-title" id="chtitle-3"></h1>
+    <p class="ch-desc" id="chdesc-3"></p>
+    <div class="tabs-bar" id="tabs-3"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="3-learn"><div id="learn-3"></div></div>
+    <div class="tab-panel" id="3-quiz"><div class="quiz-wrap" id="quiz-3"></div></div>
+    <div class="tab-panel" id="3-lab"><div class="lab-wrap" id="lab-3"></div></div>
+    <div class="tab-panel" id="3-game"><div class="game-wrap" id="game-3"></div></div>
+    <div class="tab-panel" id="3-cheat"><div id="cheat-3"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-4">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-4"></div>
+    <h1 class="ch-title" id="chtitle-4"></h1>
+    <p class="ch-desc" id="chdesc-4"></p>
+    <div class="tabs-bar" id="tabs-4"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="4-learn"><div id="learn-4"></div></div>
+    <div class="tab-panel" id="4-quiz"><div class="quiz-wrap" id="quiz-4"></div></div>
+    <div class="tab-panel" id="4-lab"><div class="lab-wrap" id="lab-4"></div></div>
+    <div class="tab-panel" id="4-game"><div class="game-wrap" id="game-4"></div></div>
+    <div class="tab-panel" id="4-cheat"><div id="cheat-4"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-5">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-5"></div>
+    <h1 class="ch-title" id="chtitle-5"></h1>
+    <p class="ch-desc" id="chdesc-5"></p>
+    <div class="tabs-bar" id="tabs-5"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="5-learn"><div id="learn-5"></div></div>
+    <div class="tab-panel" id="5-quiz"><div class="quiz-wrap" id="quiz-5"></div></div>
+    <div class="tab-panel" id="5-lab"><div class="lab-wrap" id="lab-5"></div></div>
+    <div class="tab-panel" id="5-game"><div class="game-wrap" id="game-5"></div></div>
+    <div class="tab-panel" id="5-cheat"><div id="cheat-5"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-6">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-6"></div>
+    <h1 class="ch-title" id="chtitle-6"></h1>
+    <p class="ch-desc" id="chdesc-6"></p>
+    <div class="tabs-bar" id="tabs-6"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="6-learn"><div id="learn-6"></div></div>
+    <div class="tab-panel" id="6-quiz"><div class="quiz-wrap" id="quiz-6"></div></div>
+    <div class="tab-panel" id="6-lab"><div class="lab-wrap" id="lab-6"></div></div>
+    <div class="tab-panel" id="6-game"><div class="game-wrap" id="game-6"></div></div>
+    <div class="tab-panel" id="6-cheat"><div id="cheat-6"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-7">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-7"></div>
+    <h1 class="ch-title" id="chtitle-7"></h1>
+    <p class="ch-desc" id="chdesc-7"></p>
+    <div class="tabs-bar" id="tabs-7"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="7-learn"><div id="learn-7"></div></div>
+    <div class="tab-panel" id="7-quiz"><div class="quiz-wrap" id="quiz-7"></div></div>
+    <div class="tab-panel" id="7-lab"><div class="lab-wrap" id="lab-7"></div></div>
+    <div class="tab-panel" id="7-game"><div class="game-wrap" id="game-7"></div></div>
+    <div class="tab-panel" id="7-cheat"><div id="cheat-7"></div></div>
+  </div>
+</section>
+<div class="credits-bar" id="credits-bar">
+  <div class="credits-title" id="credits-title-label">// Sources &amp; Credits</div>
+  <div class="credits-grid">
+    <div class="credit-group"><div class="credit-group-title" id="credits-research">Research</div>
+      <div class="credit-item">MaxMind GeoIP2</div>
+      <div class="credit-item">RIPE NCC / ARIN / APNIC</div></div>
+    <div class="credit-group"><div class="credit-group-title" id="credits-tech">Tools</div>
+      <div class="credit-item"><a href="https://shodan.io">Shodan</a></div>
+      <div class="credit-item"><a href="https://ipinfo.io">ipinfo.io</a></div></div>
+    <div class="credit-group"><div class="credit-group-title" id="credits-built">Built With</div>
+      <div class="credit-item">Claude (Anthropic)</div>
+      <div class="credit-item" id="credits-version">v1.0 — 2025</div></div>
+  </div></div>
+</main>
+</body>
+</html>
+<script>
+const C = {
+he:{
+  dir:'rtl',lang:'he',langBtn:'🇬🇧 EN',sbLabel:'פרקים',
+  names:["מבוא — IP Investigation", "Geolocation — היכן ה-IP?", "WHOIS ו-ASN — מי הבעלים?", "Reverse DNS — מה שם ה-IP?", "Reputation — האם ה-IP מסוכן?", "Shodan ו-Censys — Internet Intelligence", "ניתוח לוגים — מאיפה הגיע התוקף?", "דוחות ו-Automation — מחקירה לפעולה"],
+  tags:["// פרק 00", "// פרק 01", "// פרק 02", "// פרק 03", "// פרק 04", "// פרק 05", "// פרק 06", "// פרק 07"],
+  descs:["מה אפשר לגלות על IP, passive vs active, חוקיות, OSINT ethics", "כיצד Geolocation עובד, רמת הדיוק האמיתית, MaxMind, VPN ו-Proxy detection", "WHOIS databases, RDAP, ASN lookup, ARIN/RIPE/APNIC, privacy shields", "PTR records, hostname analysis, mail server detection, CDN fingerprinting", "VirusTotal, AbuseIPDB, GreyNoise, Shodan, blacklists, IP scoring", "Passive port scanning, service detection, banner grabbing, BinaryEdge, FOFA", "Log parsing, GeoIP enrichment, correlation, botnet patterns, SIEM basics", "כתיבת IP investigation report, Python automation, SIEM integration, threat sharing"],
+  tabs:['📖 למידה','🎮 משחק','📋 סיכום'],
+  tabKeys:['learn','game','cheat'],
+  gameTitle:'QUIZ',gameDesc:'ענה מהר. כל תשובה נכונה = +10 נקודות.',
+  gameStart:'▶ התחל',gameSeconds:'שניות',gameQuestions:'שאלות',gameXP:'+10 XP',
+  gameAgain:'🔄 שוב',gameToCheat:'📋 סיכום ←',
+  quizPrev:'→ הקודם',quizNext:'הבא ←',quizSubmit:'שלח ✓',
+  quizExplain:'💡 הסבר:',quizToLab:'',quizAgain:'🔄 שוב',
+  resultLabels:['נסי שוב!','עוד קצת...','טוב!','כל הכבוד!','מצוין!','מושלם! 🎯'],
+  lbTitle:'// לוח תוצאות',labExplain:'💡 הסבר:',
+  points:"נק'",of:'מתוך',question:'שאלה',
+  optLetters:['א','ב','ג','ד'],playerName:'את',unknownPlayer:'שחקן',pct:'% נכון',
+  learn:[
+`<div class="did-you-know">💡 <strong>ידעת?</strong> כל פעם שאתה גולש לאתר, שולח email, או מתחבר לשירות — כתובת ה-IP שלך נרשמת. ב-2025, ממוצע ה-logs שנוצרים מ-IP אחד ביום עולה על 50,000 רשומות ברחבי האינטרנט. חוקר מנוסה יכול לבנות תמונה מפורטת על מקור, ארגון, ו-infrastructure של כל IP — מבלי לשלוח packet אחד למטרה.</div>
+
+<div class="section-title">מה זה IP Investigation?</div>
+<p class="prose">IP Investigation (או IP OSINT) הוא תהליך של איסוף ואנליזה של מידע ציבורי על כתובת IP. המטרות יכולות להיות מגוונות: אבחון תקיפה שמגיעה מ-IP מסוים, בדיקה האם IP הוא malicious לפני שמאפשרים לו גישה, tracing מקור של spam campaign, או הבנת ה-infrastructure של תוקף. בכל המקרים האלה, המידע הוא ציבורי — השאלה היא איך לקרוא אותו נכון.</p>
+<p class="prose">ההבדל בין חוקר טוב למתחיל הוא לא בגישה לכלים — כל הכלים חינמיים. ההבדל הוא בהבנת <em>מה</em> כל מידע אומר, <em>כמה</em> לסמוך עליו, ו<em>איך</em> לחבר נקודות ממקורות שונים לתמונה אחת.</p>
+
+<div class="section-title">Passive vs Active Investigation</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">👁️</div><div class="card-title">Passive — ללא מגע</div><div class="card-body">שאילתות ל-databases ציבוריים (WHOIS, Shodan, VirusTotal). המטרה לא יודעת שחוקרים אותה. זה החלק שנלמד — לגיטימי, חוקי, ויעיל.</div></div>
+<div class="card"><div class="card-icon">📡</div><div class="card-title">Active — שולחים packets</div><div class="card-body">Port scanning, ping, traceroute ישירות למטרה. המטרה עשויה לזהות. דורש הרשאה על targets חיצוניים — בלי הרשאה זה עלול להיחשב unauthorised access.</div></div>
+</div>
+
+<div class="section-title">מה אפשר לגלות על IP?</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>מידע</th><th>מקור</th><th>רמת דיוק</th></tr></thead><tbody>
+<tr><td>מדינה / עיר משוערת</td><td>Geolocation DB</td><td>מדינה=95%, עיר=60-80%</td></tr>
+<tr><td>ISP / ארגון</td><td>WHOIS, ASN lookup</td><td>גבוה מאוד</td></tr>
+<tr><td>שם ה-hostname</td><td>Reverse DNS</td><td>גבוה אם קיים</td></tr>
+<tr><td>Ports פתוחים</td><td>Shodan, Censys</td><td>תלוי בזמן scan</td></tr>
+<tr><td>Reputation / blacklists</td><td>AbuseIPDB, VirusTotal</td><td>בינוני — false positives</td></tr>
+<tr><td>ניצול בעבר</td><td>Threat feeds</td><td>היסטורי בלבד</td></tr>
+</tbody></table></div>
+
+<div class="section-title">חוקיות ו-Ethics</div>
+<p class="prose">Passive OSINT על IPs הוא חוקי בכל מקום — כי המידע ציבורי. אבל יש גבולות. GDPR מגביל שימוש ב-PII של אירופאים — IP של אדם פרטי יכול להיחשב PII. Attribution — "ה-IP הזה הוא של X" — דורש הרבה יותר מ-IP אחד. IP addresses יכולים להיות shared (NAT, VPN, Tor exit nodes) ו-attribution שגויה יכולה לגרום נזק אמיתי.</p>
+
+<div class="callout callout-warn"><strong>⚠️ כלל אחד תמיד:</strong> IP address ≠ אדם. IP address = נקודת כניסה לרשת בזמן מסוים. לפני שמסיקים מסקנות על מי עומד מאחורי IP — צריך הרבה יותר ראיות.</div>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Case Study: IP שנחקר — מה גילינו</div>
+  <div class="real-world-body">
+    IP: 185.220.101.45. מה גילינו ב-5 דקות passive research: ASN = AS205100 (F3 Netze e.V., גרמניה). Reverse DNS: tor-exit.example.onion. AbuseIPDB: 1,247 דיווחים ב-90 ימים. Shodan: port 9001 פתוח (Tor relay port). VirusTotal: flagged על ידי 12 vendors.<br><br>
+    מסקנה: Tor exit node — כל traffic שמגיע מ-IP זה עשוי להיות ממישהו אחר לגמרי. Attribution בלתי אפשרי. Block — כן. Investigate person behind it — לא רלוונטי.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<div class="section-title">כלי Quick Lookup — הדרך המהירה</div>
+<p class="prose">לפני שפותחים כלים מתקדמים — יש three one-liners שנותנים תמונה ראשונית תוך שניות:</p>
+<pre class="code-block"><code><span class="comment"># 1. מידע בסיסי מ-command line</span>
+curl -s ipinfo.io/185.220.101.45
+<span class="comment"># מחזיר: IP, hostname, city, region, country, org, ASN</span>
+
+<span class="comment"># 2. Reverse DNS</span>
+dig -x 185.220.101.45 +short
+<span class="comment"># מחזיר PTR record אם קיים</span>
+
+<span class="comment"># 3. ASN lookup</span>
+whois 185.220.101.45 | grep -E "OrgName|org-name|netname|country"
+<span class="comment"># מחזיר: ארגון שהIP שייך לו</span></code></pre>
+
+<div class="section-title">Investigation Checklist</div>
+<p class="prose">כל IP investigation עוקב אחרי אותה שיטה. אין לדלג על שלבים — כל שלב נותן context לשלב הבא:</p>
+<pre class="code-block"><code><span class="comment"># IP Investigation Checklist</span>
+□ 1. ipinfo.io / ip-api.com    ← מדינה, ISP, ASN
+□ 2. whois IP                  ← בעלות, registration
+□ 3. dig -x IP                 ← Reverse DNS
+□ 4. shodan.io/host/IP         ← ports, services, history
+□ 5. abuseipdb.com             ← reputation, reports
+□ 6. virustotal.com/ip/IP      ← malware associations
+□ 7. bgp.tools / ipinfo.io/AS  ← BGP, routing context
+□ 8. censys.io                 ← certificates, banners</code></pre>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> MaxMind GeoIP2, ה-database הנפוץ ביותר ל-IP geolocation, מדויק ברמת מדינה ב-99.8% — אבל ברמת עיר רק ב-66%. ויש יוצא דופן מוזר: בארה"ב, IPs שלא ניתן לזהות את מיקומם מוצמדים לקוצ'ינג, קנזס — נקודת המרכז הגיאוגרפית של ארה"ב. תושביה קיבלו אלפי תלונות ושיחות פוליס על "עברות" שמעולם לא ביצעו.</div>
+
+<div class="section-title">כיצד Geolocation עובד</div>
+<p class="prose">Geolocation databases בנויות משלוש שיטות עיקריות. הראשונה — registry data: כשISP מקבל block של IPs הוא מצהיר על מיקום בregistration. השנייה — BGP routing analysis: routing table entries מראים לאיזה רשת ב-AS שייך ה-IP. השלישית — active probing: חברות כמו MaxMind שולחות packets ומודדות RTT מנקודות ידועות ברחבי העולם כדי לחשב מיקום.</p>
+<p class="prose">הדיוק יורד ככל שמתקרבים לרמה הספציפית יותר. מדינה — כמעט מושלם. עיר — שני שלישים מהמקרים. כתובת — לא אמין בכלל. וחשוב מזה: VPN ו-proxy מבלבלים את כל השיטות האלה, כי ה-IP שנראה הוא של שרת ה-VPN ולא של המשתמש האמיתי.</p>
+
+<div class="grid-2">
+<div class="card"><div class="card-icon">🌍</div><div class="card-title">רמות דיוק Geolocation</div><div class="card-body">מדינה: ~99%. אזור/מדינה פנימית: ~80%. עיר: 60-70%. ZIP/postal: 30-50%. כתובת: לא אמין.</div></div>
+<div class="card"><div class="card-icon">⚠️</div><div class="card-title">מקרים שמבלבלים</div><div class="card-body">VPN / Proxy / Tor: מציג שרת, לא משתמש. Satellite internet (Starlink): IP בארה"ב גם למשתמש ישראלי. CDN: IP של Cloudflare, לא של האתר.</div></div>
+</div>
+
+<div class="section-title">כלי Geolocation מרכזיים</div>
+<pre class="code-block"><code><span class="comment"># ipinfo.io — הכי שלם חינמית</span>
+curl -s ipinfo.io/8.8.8.8
+<span class="comment"># {"ip":"8.8.8.8","hostname":"dns.google","city":"Mountain View",</span>
+<span class="comment">#  "region":"California","country":"US","org":"AS15169 Google LLC"}</span>
+
+<span class="comment"># ip-api.com — ללא registration</span>
+curl -s "ip-api.com/json/8.8.8.8"
+
+<span class="comment"># Python — batch lookup</span>
+import requests
+def lookup(ip):
+    r = requests.get(f'https://ipinfo.io/{ip}/json')
+    return r.json()
+
+ips = ['8.8.8.8', '1.1.1.1', '185.220.101.45']
+for ip in ips:
+    data = lookup(ip)
+    print(f"{ip}: {data.get('country')} | {data.get('org')}")</code></pre>
+
+<div class="section-title">VPN ו-Proxy Detection</div>
+<p class="prose">כשחוקרים IP חשוד, אחד השלבים הראשונים הוא לבדוק האם ה-IP הוא VPN, proxy, hosting, או Tor exit node. IP של hosting provider (AWS, DigitalOcean, OVH) שגולש לאתר שלך הוא כמעט בוודאות bot או תוקף שמסתיר זהות — לא משתמש לגיטימי.</p>
+<pre class="code-block"><code><span class="comment"># ipinfo.io privacy detection (API)</span>
+curl -s "ipinfo.io/185.220.101.45/privacy?token=YOUR_TOKEN"
+<span class="comment"># {"vpn":false,"proxy":false,"tor":true,"relay":false,"hosting":false}</span>
+
+<span class="comment"># בדיקת ASN מול רשימת hosting ASNs</span>
+<span class="comment"># אם ה-org מכיל: AWS, Google Cloud, Azure, DigitalOcean,</span>
+<span class="comment"># OVH, Hetzner, Linode — כנראה hosting, לא residential</span>
+
+<span class="comment"># db-ip.com / ipqualityscore.com — fraud score</span>
+<span class="comment"># מחזיר ציון 0-100 לסיכוי שה-IP הוא fraud/bot</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Geolocation ובית המשפט — הסיפור של Kansas</div>
+  <div class="real-world-body">
+    כשMaxMind לא ידעה לאתר IP בארה"ב, הם הצמידו אותו לקואורדינטות 38.0000°N, 97.0000°W — מרכז גיאוגרפי של ארה"ב. זה נפל בדיוק על חוות של Joyce Taylor בסאלינה, קנזס. לאורך שנים, אנשים שנחקרו על הונאה, stalking, ופשעים אחרים שנרשמו מ-"IP אמריקאי" לא מזוהה — הגיעו לדלת שלה. FBI, משטרה, ועצבים.<br><br>
+    MaxMind תיקנו את הbug ב-2016 אחרי כתבת BuzzFeed. הלקח: Geolocation היא הערכה סטטיסטית, לא עובדה. לעולם לא לשלוח גורמי חקירה לכתובת על בסיס Geolocation בלבד.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<div class="section-title">Multi-source Geolocation — כיצד מקבלים תמונה אמינה</div>
+<p class="prose">אף פעם לא מסתמכים על מקור אחד. שלושה מקורות שמסכימים — אמינות גבוהה. שניים שמסכימים ואחד שונה — הרוב כנראה צודק. שלושה שונים — הנתון לא אמין, תיעד את חוסר הוודאות.</p>
+<pre class="code-block"><code><span class="comment"># בדיקת 3 מקורות על IP אחד</span>
+IP="185.220.101.45"
+
+echo "=== ipinfo.io ==="
+curl -s ipinfo.io/$IP | python3 -m json.tool | grep -E "city|country|org"
+
+echo "=== ip-api.com ==="
+curl -s "ip-api.com/json/$IP" | python3 -m json.tool | grep -E "city|country|isp"
+
+echo "=== whois ==="
+whois $IP | grep -iE "country|netname|descr|org" | head -8</code></pre>
+
+<div class="section-title">Starlink ו-Satellite IPs — מקרה מיוחד</div>
+<p class="prose">Starlink ושירותי satellite אחרים מציגים IP של ה-ground station — לא של המשתמש. משתמש ישראלי ב-Starlink יכול להציג IP אמריקאי. זה הופך Geolocation ל-useless עבור satellite connections. זיהוי: ASN של SpaceX (AS14593) או Hughes Network Systems.</p>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> WHOIS קיים מ-1982 — אחד הפרוטוקולים הוותיקים באינטרנט. במקור, כל כתובת IP וdomain היו רשומים עם שם, כתובת ואמייל אמיתיים. כיום, GDPR ורגולציות אחרות הסתירו הרבה מהמידע — אבל ל-IP ranges ארגוניים, WHOIS עדיין מכיל מידע שימושי מאוד.</div>
+
+<div class="section-title">WHOIS ל-IP Addresses — שונה מ-Domains</div>
+<p class="prose">חשוב להבין: WHOIS ל-IP address שונה מ-WHOIS ל-domain. Domain WHOIS מציג מי רשם את הדומיין. IP WHOIS מציג מי <em>מחזיק</em> בblock של IPs — לרוב ISP, hosting company, או ארגון גדול. ה-ISP עצמו לא מגלה מי הלקוח הספציפי שמשתמש ב-IP — זה דורש צו שיפוטי.</p>
+<pre class="code-block"><code><span class="comment"># WHOIS על IP — מה מקבלים</span>
+whois 8.8.8.8
+<span class="comment"># NetRange: 8.0.0.0 - 8.255.255.255</span>
+<span class="comment"># CIDR: 8.0.0.0/8</span>
+<span class="comment"># NetName: LVLT-ORG-8-8</span>
+<span class="comment"># Organization: Level 3 Parent, LLC (LPL-141)</span>
+<span class="comment"># RegDate: 1992-12-01</span>
+<span class="comment"># Updated: 2018-04-23</span>
+
+<span class="comment"># פרטי Google (sub-allocation)</span>
+whois -h whois.arin.net 8.8.8.8 | grep -iE "org|name|abuse"</code></pre>
+
+<div class="section-title">Regional Internet Registries — מי מנהל מה</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>RIR</th><th>אזור</th><th>כתובת WHOIS</th></tr></thead><tbody>
+<tr><td><strong>ARIN</strong></td><td>צפון אמריקה</td><td>whois.arin.net</td></tr>
+<tr><td><strong>RIPE NCC</strong></td><td>אירופה, מזרח תיכון, מרכז אסיה</td><td>whois.ripe.net</td></tr>
+<tr><td><strong>APNIC</strong></td><td>אסיה פסיפיק</td><td>whois.apnic.net</td></tr>
+<tr><td><strong>LACNIC</strong></td><td>אמריקה הלטינית</td><td>whois.lacnic.net</td></tr>
+<tr><td><strong>AFRINIC</strong></td><td>אפריקה</td><td>whois.afrinic.net</td></tr>
+</tbody></table></div>
+
+<div class="section-title">ASN — Autonomous System Number</div>
+<p class="prose">ASN הוא מספר שמזהה רשת תחת ניהול אחד — ISP, חברה, אוניברסיטה. לדעת מה ה-ASN של IP זה מעשית לדעת "מי מנהל את הרשת שה-IP שייך לה". AS15169 הוא Google. AS16509 הוא Amazon AWS. AS13335 הוא Cloudflare. כשרואים IP מ-AS של hosting provider — זה סימן מיידי שזה שרת ולא אדם פרטי.</p>
+<pre class="code-block"><code><span class="comment"># ASN lookup מ-terminal</span>
+whois -h whois.cymru.com " -v 8.8.8.8"
+<span class="comment"># AS | IP | BGP Prefix | CC | Registry | Allocated | AS Name</span>
+<span class="comment"># 15169 | 8.8.8.8 | 8.8.8.0/24 | US | arin | 2023-12 | GOOGLE</span>
+
+<span class="comment"># Python: ipwhois library</span>
+from ipwhois import IPWhois
+obj = IPWhois('185.220.101.45')
+result = obj.lookup_rdap()
+print(result['asn'])           <span class="comment"># ASN number</span>
+print(result['asn_description']) <span class="comment"># organization name</span>
+print(result['network']['name'])  <span class="comment"># network name</span>
+
+<span class="comment"># BGP.tools — ויזואלי וחינמי</span>
+<span class="comment"># https://bgp.tools/as/15169</span></code></pre>
+
+<div class="section-title">RDAP — WHOIS החדש</div>
+<p class="prose">RDAP (Registration Data Access Protocol) הוא הממשק המודרני שמחליף את WHOIS. מחזיר JSON במקום plain text, תומך ב-authentication, ומכיל יותר מידע מובנה. ה-RIRs עברו ל-RDAP ב-2019.</p>
+<pre class="code-block"><code><span class="comment"># RDAP — JSON format, קל לפרסור</span>
+curl -s "https://rdap.arin.net/registry/ip/8.8.8.8" | python3 -m json.tool | head -30
+
+<span class="comment"># RDAP bootstrap — מוצא את ה-RIR הנכון אוטומטית</span>
+curl -s "https://rdap.db.ripe.net/ip/185.220.101.45"</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 ASN Investigation — מי עומד מאחורי ה-attack?</div>
+  <div class="real-world-body">
+    Log של attack traffic מ-47 IPs שונים. כולם נראים שונים — אבל ASN lookup מראה: 38 מהם שייכים ל-AS44477 (STARK INDUSTRIES, בריטניה) ו-9 ל-AS209588 (Flyservers, סייפרוס). שניהם bulletproof hosting providers ידועים שמארחים cybercriminals.<br><br>
+    הלקח: ל-block IPs בודדים לוקח זמן ולא יעיל. Block שלם של ASN של bulletproof provider — מוריד 38 IPs בלחיצה אחת. פתרון: firewall rule שחוסם את כל ה-prefix של ה-ASN.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<div class="section-title">IP WHOIS Script — Quick Report</div>
+<pre class="code-block"><code><span class="comment"># Python script לreport מהיר</span>
+from ipwhois import IPWhois
+import json
+
+def ip_report(ip):
+    obj = IPWhois(ip)
+    r = obj.lookup_rdap(depth=1)
+    return {
+        'ip': ip,
+        'asn': r.get('asn'),
+        'asn_description': r.get('asn_description'),
+        'asn_country': r.get('asn_country_code'),
+        'network_name': r['network'].get('name'),
+        'network_cidr': r['network'].get('cidr'),
+    }
+
+ips = ['8.8.8.8', '1.1.1.1', '185.220.101.45']
+for ip in ips:
+    print(json.dumps(ip_report(ip), indent=2))</code></pre>
+
+<div class="section-title">Abuse Contacts — למי לדווח</div>
+<pre class="code-block"><code><span class="comment"># מציא abuse contact של IP</span>
+whois 185.220.101.45 | grep -iE "abuse|email" | head -5
+
+<span class="comment"># RDAP abuse contact</span>
+curl -s "https://rdap.db.ripe.net/ip/185.220.101.45" |   python3 -c "import json,sys; d=json.load(sys.stdin);   [print(e['vcardArray']) for e in d.get('entities',[]) if 'abuse' in str(e)]"</code></pre>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> שם ה-host של IP יכול לגלות יותר מ-WHOIS. שרת עם PTR record של <code>mail.company.com</code> הוא כנראה mail server. שרת עם <code>tor-exit.riseup.net</code> הוא Tor exit node. שרת עם <code>node-123.aws-ap-southeast-1.amazonaws.com</code> הוא EC2 instance באסיה פסיפיק. הכל גלוי, בחינם, בשאילתת DNS אחת.</div>
+
+<div class="section-title">מה זה Reverse DNS?</div>
+<p class="prose">בדרך כלל DNS ממיר שם דומיין לIP. Reverse DNS הולך הפוך: מ-IP לשם. זה מתבצע דרך PTR records ב-zone מיוחדת בשם in-addr.arpa. לא כל IP יש PTR record — ISPs ו-hosting providers לרוב מגדירים, אבל IPs דינמיים לרוב לא. העדר PTR record יכול בפני עצמו להיות סימן — legitimate mail servers חייבים PTR.</p>
+<pre class="code-block"><code><span class="comment"># Reverse DNS lookup</span>
+dig -x 8.8.8.8 +short
+<span class="comment"># dns.google.</span>
+
+dig -x 185.220.101.45 +short
+<span class="comment"># tor-exit-se1.privacyfirst.se. ← Tor exit node!</span>
+
+<span class="comment"># nslookup alternative</span>
+nslookup 8.8.8.8
+<span class="comment"># 8.8.8.8.in-addr.arpa name = dns.google.</span>
+
+<span class="comment"># host command</span>
+host 1.1.1.1
+<span class="comment"># 1.1.1.1.in-addr.arpa domain name pointer one.one.one.one.</span></code></pre>
+
+<div class="section-title">מה שם ה-Host מגלה</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Pattern בשם ה-Host</th><th>משמעות</th><th>דוגמה</th></tr></thead><tbody>
+<tr><td>mail. / smtp. / mx.</td><td>Mail server</td><td>mail.company.com</td></tr>
+<tr><td>tor-exit / exit.</td><td>Tor exit node</td><td>tor-exit.riseup.net</td></tr>
+<tr><td>.amazonaws.com</td><td>AWS EC2 — region מוכן</td><td>ec2-3-94-1-1.compute-1.amazonaws.com</td></tr>
+<tr><td>.googleusercontent.com</td><td>Google Cloud</td><td>123.456.789.gce.googleusercontent.com</td></tr>
+<tr><td>static. / ip-X-X-X-X</td><td>Static ISP assignment</td><td>static.85.99.12.34.provider.net</td></tr>
+<tr><td>dynamic. / ppp. / dsl.</td><td>Dynamic — בית / נייד</td><td>dynamic-ip-123.isp.co.il</td></tr>
+<tr><td>cloudflare.com / akamai</td><td>CDN — לא ה-origin</td><td>104-16-0-1.cloudflare.com</td></tr>
+</tbody></table></div>
+
+<div class="section-title">CDN Detection — ה-IP שלא שייך לאתר</div>
+<p class="prose">כשחוקרים domain ומקבלים IP של Cloudflare, Akamai, או Fastly — אתם רואים את ה-CDN, לא את ה-origin server האמיתי. ה-origin יכול להיות מוסתר לחלוטין. אבל יש דרכים לנסות למצוא אותו: certificate transparency logs, Shodan scan לפי cert, ו-historical DNS records.</p>
+<pre class="code-block"><code><span class="comment"># בדוק אם domain מאחורי Cloudflare</span>
+dig company.com A
+<span class="comment"># 104.21.x.x ← Cloudflare IP range</span>
+<span class="comment"># 172.67.x.x ← גם Cloudflare</span>
+
+<span class="comment"># נסה למצוא origin — Shodan</span>
+<span class="comment"># shodan.io/search?query=http.title:"Company Name" -org:Cloudflare</span>
+
+<span class="comment"># Certificate Transparency — crt.sh</span>
+<span class="comment"># https://crt.sh/?q=%.company.com</span>
+<span class="comment"># מציג subdomains שיש להם certificate — direct.company.com?</span>
+
+<span class="comment"># Historical DNS — securitytrails.com / viewdns.info</span>
+<span class="comment"># מה היה ה-IP לפני שעברו לCloudflare?</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Reverse DNS חשף Mail Server לא מוגן</div>
+  <div class="real-world-body">
+    Security researcher חקר domain של חברה. dig -x על ה-MX records חשף: smtp-relay.company.internal — שרת mail עם שם internal שנחשף לאינטרנט. Shodan scan על ה-IP הראה: port 25 פתוח, ללא authentication, SMTP open relay.<br><br>
+    Open relay = כל אחד יכול לשלוח email כאילו מגיע מ-company.com. Responsible disclosure, החברה תיקנה תוך 48 שעות. הממצא: שם ה-host "הפנימי" שנחשף חיצונית נתן רמז שהשרת לא תוכנן להיות ציבורי.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<div class="section-title">Bulk Reverse DNS — בדיקת רשימת IPs</div>
+<pre class="code-block"><code><span class="comment"># bash: reverse DNS לרשימת IPs</span>
+while read ip; do
+  ptr=$(dig -x $ip +short 2>/dev/null)
+  echo "$ip -> \${ptr:-(no PTR)}"
+done < ips.txt
+
+<span class="comment"># Python: parallel reverse DNS</span>
+import socket
+from concurrent.futures import ThreadPoolExecutor
+
+def reverse_dns(ip):
+    try:
+        return ip, socket.gethostbyaddr(ip)[0]
+    except:
+        return ip, None
+
+ips = ['8.8.8.8', '1.1.1.1', '185.220.101.45', '104.21.0.1']
+with ThreadPoolExecutor(max_workers=10) as ex:
+    for ip, hostname in ex.map(reverse_dns, ips):
+        print(f"{ip:20} -> {hostname or '(no PTR)'}")</code></pre>
+
+<div class="section-title">SPF / Mail Server Verification</div>
+<pre class="code-block"><code><span class="comment"># בדוק אם IP מורשה לשלוח email מ-domain</span>
+<span class="comment"># (חשוב לזיהוי spoofed emails)</span>
+dig TXT company.com | grep spf
+<span class="comment"># v=spf1 ip4:203.0.113.0/24 include:_spf.google.com ~all</span>
+<span class="comment"># אם ה-IP שקיבלת mail ממנו לא ב-SPF ← potential spoofing</span></code></pre>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> AbuseIPDB מכיל דיווחים על מעל 100 מיליון כתובות IP שהיו מעורבות בפעילות זדונית — spam, brute force, port scanning, DDoS. אבל 30-40% מה-IPs שמדווחים הם false positives: Tor exit nodes לגיטימיים, security scanners מורשים, ו-shared IPs של ISPs גדולים שמשתמש אחד ניצל לרעה.</div>
+
+<div class="section-title">Reputation Sources — מה כל אחד נותן</div>
+<p class="prose">אין מקור אחד שמספיק. כל reputation database בנוי בצורה שונה, מכיל נתונים שונים, ועם false positive rate שונה. חוקר טוב משתמש במספר מקורות ומשקלל תוצאות — לא מסיק מסקנה מ-database אחד.</p>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🦠</div><div class="card-title">VirusTotal</div><div class="card-body">70+ security vendors בודקים IP. מציג: malware associations, URL scans, community comments, passive DNS. מה שrחוקר מביט: כמה vendors flagged? באיזה categories? מתי?</div></div>
+<div class="card"><div class="card-icon">🚨</div><div class="card-title">AbuseIPDB</div><div class="card-body">Crowdsourced reports על IP abuse. מציג: confidence score (0-100), report count, categories (SSH brute force, spam, port scan). חשוב: בדוק גם comments — לפעמים מסבירים הקשר.</div></div>
+<div class="card"><div class="card-icon">🌐</div><div class="card-title">GreyNoise</div><div class="card-body">מבדיל בין internet-wide scanners (לגיטימיים כמו Shodan, Censys) לbetween תוקפים. IP שמסורק על ידי Shodan ≠ malicious. GreyNoise מציג: benign, malicious, או unknown.</div></div>
+<div class="card"><div class="card-icon">🔍</div><div class="card-title">Shodan</div><div class="card-body">מציג services שרצו על ה-IP, certificates, banners, ו-history. מאפשר לראות "מה היה על ה-IP הזה ב-2022?" — שימושי לtracing infrastructure.</div></div>
+</div>
+
+<div class="section-title">Blacklists — SPAMHAUS ו-DNSBL</div>
+<p class="prose">Blacklists (או DNS Blocklists) הן רשימות של IPs שנחסמים על ידי mail servers, firewalls, ו-ISPs. SPAMHAUS היא הנפוצה והסמכותית ביותר. אם IP נמצא ב-SPAMHAUS, כנראה שmail ממנו נחסם על ידי רוב ה-mail providers בעולם.</p>
+<pre class="code-block"><code><span class="comment"># בדיקת blacklists מ-command line</span>
+<span class="comment"># הפוך את ה-IP (8.8.8.8 → 8.8.8.8) ושלח שאילתת DNS</span>
+host 8.8.8.8.zen.spamhaus.org
+<span class="comment"># NXDOMAIN = לא ב-blacklist (טוב)</span>
+<span class="comment"># 127.0.0.x = ב-blacklist! (רע)</span>
+
+<span class="comment"># מספר blacklists בבדיקה אחת</span>
+<span class="comment"># https://mxtoolbox.com/blacklists.aspx</span>
+<span class="comment"># בודק 100+ blacklists בבת אחת</span>
+
+<span class="comment"># Python: בדוק SPAMHAUS</span>
+import dns.resolver
+
+def check_spamhaus(ip):
+    reversed_ip = '.'.join(reversed(ip.split('.')))
+    query = f"{reversed_ip}.zen.spamhaus.org"
+    try:
+        dns.resolver.resolve(query, 'A')
+        return True   <span class="comment"># ב-blacklist</span>
+    except:
+        return False  <span class="comment"># נקי</span></code></pre>
+
+<div class="section-title">IP Scoring — כיצד להחליט</div>
+<p class="prose">לאחר שאספנו מידע ממספר מקורות — צריך להחליט: האם ה-IP מסוכן? אין כלל מוחלט, אבל יש framework פשוט שמסייע לקבל החלטה מבוססת.</p>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>סימן</th><th>משקל</th><th>פירוש</th></tr></thead><tbody>
+<tr><td>Tor exit node</td><td>גבוה</td><td>anonymization — כוונה לא ברורה</td></tr>
+<tr><td>Bulletproof hosting ASN</td><td>גבוה</td><td>מארח cybercriminals</td></tr>
+<tr><td>AbuseIPDB &gt;50%</td><td>גבוה</td><td>דיווחים מרובים</td></tr>
+<tr><td>VirusTotal 5+ vendors</td><td>בינוני-גבוה</td><td>confirmed malicious בעבר</td></tr>
+<tr><td>Shodan: port 4444 פתוח</td><td>בינוני</td><td>Metasploit default port</td></tr>
+<tr><td>GreyNoise: malicious</td><td>גבוה</td><td>actively scanning/attacking</td></tr>
+<tr><td>SPAMHAUS SBL</td><td>גבוה לmail</td><td>spam source מוכר</td></tr>
+</tbody></table></div>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 False Positive — המקרה של Shodan</div>
+  <div class="real-world-body">
+    Shodan סורק את כל האינטרנט — זה ה-business שלהם. ה-IPs שלהם (66.240.192.0/19) מופיעים ב-logs של כל שרת. SOC analysts מתחילים לעיתים מדווחים: "אנחנו תחת scanning attack מ-Shodan." זה לא attack — זה internet background noise.<br><br>
+    GreyNoise נוצר בדיוק לפתרון זה: הוא מסמן את Shodan, Censys, ו-50+ scanners לגיטימיים כ-"benign." כך SOC לא מבזבז זמן על false positives של internet scanners ויכול להתמקד ב-actual malicious traffic.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<div class="section-title">Automated Reputation Check Script</div>
+<pre class="code-block"><code><span class="comment"># Python: check IP reputation בכמה מקורות</span>
+import requests
+
+ABUSEIPDB_KEY = "YOUR_KEY"
+VIRUSTOTAL_KEY = "YOUR_KEY"
+
+def check_abuseipdb(ip):
+    r = requests.get(
+        "https://api.abuseipdb.com/api/v2/check",
+        headers={"Key": ABUSEIPDB_KEY, "Accept": "application/json"},
+        params={"ipAddress": ip, "maxAgeInDays": 90}
+    )
+    d = r.json()["data"]
+    return d["abuseConfidenceScore"], d["totalReports"]
+
+def check_virustotal(ip):
+    r = requests.get(
+        f"https://www.virustotal.com/api/v3/ip_addresses/{ip}",
+        headers={"x-apikey": VIRUSTOTAL_KEY}
+    )
+    stats = r.json()["data"]["attributes"]["last_analysis_stats"]
+    return stats["malicious"], stats["suspicious"]
+
+ip = "185.220.101.45"
+abuse_score, abuse_reports = check_abuseipdb(ip)
+vt_malicious, vt_suspicious = check_virustotal(ip)
+
+print(f"AbuseIPDB: {abuse_score}% confidence, {abuse_reports} reports")
+print(f"VirusTotal: {vt_malicious} malicious, {vt_suspicious} suspicious")</code></pre>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> Shodan סורק את כל ה-IPv4 address space — כ-4 מיליארד כתובות — בערך אחת לחודש. כשסורקים IP ב-Shodan, לפעמים רואים services שכבר לא קיימים, כי הנתונים עשויים להיות בני כמה שבועות. Censys סורקת תדיר יותר ומתמחה ב-certificates. ביחד הם מספקים תמונה של Internet infrastructure שלא הייתה אפשרית לפני עשור.</div>
+
+<div class="section-title">Shodan — Internet's Search Engine</div>
+<p class="prose">Shodan הוא מנוע חיפוש שסורק את האינטרנט ומאנדקס service banners — מה שרתים מגיבים כשמתחברים אליהם. במקום לחפש תוכן של אתרים (כמו Google), Shodan מחפש metadata של services: גרסאות, certificates, banners, open ports. זה כלי research, לא attack tool — אבל המידע שהוא חושף מראה כמה infrastructure ציבורי שרבים חשבו שהוא "פנימי".</p>
+<pre class="code-block"><code><span class="comment"># Shodan CLI</span>
+pip install shodan
+shodan init YOUR_API_KEY
+
+<span class="comment"># חקירת IP</span>
+shodan host 8.8.8.8
+<span class="comment"># Ports: 53, 443</span>
+<span class="comment"># Organization: Google LLC</span>
+<span class="comment"># Country: United States</span>
+
+<span class="comment"># חיפוש ב-Shodan</span>
+shodan search "apache 2.4.49"   <span class="comment"># servers עם CVE ספציפי</span>
+shodan search "product:nginx version:1.14"
+shodan search "org:company.com" <span class="comment"># כל ה-infrastructure של חברה</span>
+shodan search 'ssl.cert.subject.cn:"company.com"'  <span class="comment"># לפי certificate</span>
+
+<span class="comment"># ספור כמה servers פגיעים</span>
+shodan count 'vuln:CVE-2021-44228'  <span class="comment"># Log4Shell</span></code></pre>
+
+<div class="section-title">Censys — Certificate Intelligence</div>
+<p class="prose">Censys מתמחה ב-certificate analysis ו-full protocol parsing. כשרוצים למצוא את ה-origin server מאחורי Cloudflare — Censys הוא הכלי: חיפוש certificate שמכיל את שם הדומיין עשוי לחשוף IPs שמשתמשים באותו cert לפני שעברו לCDN.</p>
+<pre class="code-block"><code><span class="comment"># Censys API — חיפוש certificate</span>
+import requests
+
+resp = requests.get(
+    "https://search.censys.io/api/v2/hosts/search",
+    params={"q": 'services.tls.certificates.leaf_data.subject.common_name: "company.com"'},
+    auth=("API_ID", "API_SECRET")
+)
+hits = resp.json()["result"]["hits"]
+for hit in hits:
+    print(hit["ip"], hit.get("autonomous_system", {}).get("name"))
+<span class="comment"># עשוי לחשוף origin servers!</span></code></pre>
+
+<div class="section-title">Shodan Dorks — חיפושים שימושיים</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Dork</th><th>מה מוצאים</th></tr></thead><tbody>
+<tr><td><code>port:3389 country:IL</code></td><td>RDP פתוח בישראל</td></tr>
+<tr><td><code>os:"Windows XP"</code></td><td>Windows XP שנחשף לאינטרנט</td></tr>
+<tr><td><code>product:MongoDB -authentication</code></td><td>MongoDB ללא auth</td></tr>
+<tr><td><code>http.title:"Dashboard" port:8080</code></td><td>Admin dashboards חשופים</td></tr>
+<tr><td><code>ssl.cert.issuer.cn:company.com</code></td><td>כל subdomains עם cert</td></tr>
+<tr><td><code>vuln:CVE-2021-26855</code></td><td>Exchange servers פגיעים</td></tr>
+<tr><td><code>net:203.0.113.0/24</code></td><td>כל services ב-subnet</td></tr>
+</tbody></table></div>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Shodan גילה RDP פתוח ל-1.5M שרתים</div>
+  <div class="real-world-body">
+    בתחילת ה-COVID-19 pandemic, חברות העבירו עובדים לעבודה מהבית במהירות. Shodan search על port 3389 (RDP) הראה זינוק של 40% בRDP פתוח לאינטרנט בין פברואר לאפריל 2020. מ-3 מיליון ל-4.2 מיליון שרתים חשופים.<br><br>
+    מתקפות Ransomware באותה תקופה עלו ב-800%. הqacorrection: כל שרת RDP שנחשף לאינטרנט ניסו לפרוץ בממוצע תוך 3 שעות. הלקח: Shodan מראה מה תוקפים רואים — וכדאי לבדוק את ה-infrastructure שלך לפני שהם עושים זאת.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<div class="section-title">בדיקת ה-Infrastructure שלך ב-Shodan</div>
+<pre class="code-block"><code><span class="comment"># מה Shodan רואה על ה-IP שלך?</span>
+MY_IP=$(curl -s ifconfig.me)
+shodan host $MY_IP
+
+<span class="comment"># בדוק את כל ה-org שלך</span>
+shodan search "org:Your Company Name" --fields ip_str,port,transport
+
+<span class="comment"># Alert כשShodan מוצא דברים חדשים</span>
+shodan alert create "My Company" org:"Your Company"
+shodan alert triggers   <span class="comment"># configure notifications</span>
+
+<span class="comment"># Monitor CVEs על ה-infrastructure</span>
+shodan search "org:Your Company" --facets vuln</code></pre>
+
+<div class="section-title">banner grabbing ידני</div>
+<pre class="code-block"><code><span class="comment"># nc — banner grabbing</span>
+echo "" | nc -w 3 target.com 80
+<span class="comment"># HTTP/1.1 400 Bad Request</span>
+<span class="comment"># Server: nginx/1.18.0 (Ubuntu) ← version!</span>
+
+<span class="comment"># curl — HTTP headers</span>
+curl -sI https://target.com | grep -i "server\\|x-powered"
+<span class="comment"># Server: Apache/2.4.52</span>
+<span class="comment"># X-Powered-By: PHP/8.0.15</span></code></pre>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> ה-access log של שרת web עמוס יכיל מיליוני שורות ביום. 99% מהן — legitimate traffic. ה-1% שנשאר כולל bots, scanners, ו-attackers. היכולת לזהות את ה-1% הזה במהירות — תוך כדי scan על לוגים ענקיים — היא מיומנות שמבדילה בין SOC analyst טוב למצוין.</div>
+
+<div class="section-title">מה מכיל Web Access Log</div>
+<p class="prose">כל בקשה HTTP שמגיעה לשרת נרשמת ב-access log. כל שורה מכילה: IP המקור, timestamp, method, URL, status code, bytes, ו-user agent. מתוך שורה אחת אפשר לדעת: מאיפה הגיעה הבקשה, מה ביקשה, האם הצליחה, ומי (browser? bot?) שלח אותה.</p>
+<pre class="code-block"><code><span class="comment"># nginx access log format</span>
+185.220.101.45 - - [15/Jan/2025:14:23:01 +0000] "GET /wp-admin HTTP/1.1" 404 162 "-" "Mozilla/5.0"
+<span class="comment"># IP         | timestamp           | method+URL        | status | bytes | referrer | user-agent</span>
+
+<span class="comment"># Apache combined log format — זהה כמעט</span>
+203.0.113.1 - frank [10/Oct/2000:13:55:36 -0700] "GET /apache HTTP/1.0" 200 2326
+
+<span class="comment"># שאלות שכדאי לשאול:</span>
+<span class="comment"># מי שולח הכי הרבה בקשות? (top IPs)</span>
+<span class="comment"># אילו URLs מבוקשים הכי הרבה? (404 scanning?)</span>
+<span class="comment"># מי מנסה /wp-admin, /phpmyadmin, /.env?</span>
+<span class="comment"># User agents חשודים (python-requests, sqlmap, nikto)?</span></code></pre>
+
+<div class="section-title">Log Analysis — Command Line Ninja</div>
+<pre class="code-block"><code><span class="comment"># Top 10 IPs לפי מספר בקשות</span>
+awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -10
+
+<span class="comment"># כל הבקשות מ-IP ספציפי</span>
+grep "185.220.101.45" access.log
+
+<span class="comment"># כל 404 errors — scanning patterns</span>
+awk '$9==404 {print $1, $7}' access.log | sort | uniq -c | sort -rn | head -20
+
+<span class="comment"># User agents חשודים</span>
+awk -F'"' '{print $6}' access.log | sort | uniq -c | sort -rn | grep -iE "sqlmap|nikto|python-requests|masscan|zgrab"
+
+<span class="comment"># גרף בקשות לפי שעה</span>
+awk '{print $4}' access.log | cut -d: -f2 | sort | uniq -c</code></pre>
+
+<div class="section-title">GeoIP Enrichment — הוסף Context לכל IP</div>
+<p class="prose">Log ללא context הוא רשימת מספרים. עם GeoIP enrichment, כל IP מקבל: מדינה, ISP, ASN. פתאום רואים: "90% מה-404 errors מגיעים מ-4 ASNs ספציפיים שכולם bulletproof hosting." זה הופך רשימת IPs לintelligence אמיתית.</p>
+<pre class="code-block"><code><span class="comment"># Python: enrichment עם ipinfo.io</span>
+import requests
+from collections import Counter
+
+def get_country(ip, token=""):
+    try:
+        r = requests.get(f"https://ipinfo.io/{ip}/json?token={token}", timeout=2)
+        return r.json().get("country", "??")
+    except:
+        return "??"
+
+<span class="comment"># קרא log ועשה enrichment</span>
+with open("access.log") as f:
+    ips = [line.split()[0] for line in f if "404" in line]
+
+unique_ips = list(set(ips))[:100]  <span class="comment"># sample</span>
+countries = Counter(get_country(ip) for ip in unique_ips)
+print(countries.most_common(10))</code></pre>
+
+<div class="section-title">Botnet Patterns — כיצד מזהים</div>
+<p class="prose">Botnets מורכבים מאלפי IPs שפועלים בתיאום. ה-pattern שמזהה אותם: requests דומות (אותו URL, אותו user agent, אותה timing) מ-IPs שונים לגמרי ברחבי העולם. כל IP שולח מעט בקשות — מתחת לthreshold של rate limiting — אבל ביחד הם DDoS.</p>
+<pre class="code-block"><code><span class="comment"># זיהוי distributed attack</span>
+<span class="comment"># כל IP שולח פחות מ-100 בקשות אבל בסה"כ יש 50,000 בקשות</span>
+awk '{print $1}' access.log | sort | uniq -c | awk '$1 < 100' | wc -l
+<span class="comment"># 498 unique IPs — כל אחד 100 בקשות = 49,800 total</span>
+
+<span class="comment"># אותו User Agent = botnet</span>
+awk -F'"' '$6=="python-requests/2.28.0" {print $1}' access.log |   awk '{print $1}' | sort -u | wc -l
+<span class="comment"># 234 IPs עם אותו user agent ← botnet</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Log Analysis חשף Credential Stuffing Attack</div>
+  <div class="real-world-body">
+    SaaS company ראתה עלייה ב-login failures. Log analysis: 12,000 POST /api/login בשעה אחת, מ-600 IPs שונים, כולם עם User-Agent זהה. GeoIP: 80% מה-IPs מ-3 ASNs של bulletproof hosting. AbuseIPDB: 90%+ מהIPs דווחו בעבר.<br><br>
+    תגובה: block כל 3 ה-ASNs ב-firewall. התקפה ירדה מ-12,000 requests/hour ל-200. 200 הנותרים — ניתוח נוסף — כולם Tor exit nodes. הוסיפו Tor blocking. Attack נעצר לחלוטין. זמן תגובה: 45 דקות.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<div class="section-title">First Response Log Script</div>
+<pre class="code-block"><code><span class="comment">#!/bin/bash</span>
+<span class="comment"># first_response.sh — הרץ כשיש incident</span>
+LOG=$1  <span class="comment"># path to access.log</span>
+
+echo "=== TOP 10 IPs ==="
+awk '{print $1}' $LOG | sort | uniq -c | sort -rn | head -10
+
+echo "=== 4xx Errors by IP ==="
+awk '$9~/^4/ {print $1}' $LOG | sort | uniq -c | sort -rn | head -10
+
+echo "=== Suspicious User Agents ==="
+grep -oP '"[^"]*"$' $LOG | sort | uniq -c | sort -rn |   grep -iE "sqlmap|nikto|masscan|python-requests|curl|wget" | head -10
+
+echo "=== Requests per Hour ==="
+awk '{print $4}' $LOG | cut -d: -f2 | sort | uniq -c | sort -n</code></pre>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>ידעת?</strong> MISP (Malware Information Sharing Platform) הוא platform open-source שמאפשר לארגונים לשתף threat intelligence — כולל IP IOCs — בצורה מובנית. מאות ארגוני אבטחה, CERTs, ו-ISPs ברחבי העולם משתפים IOCs ב-MISP. IP שזוהה כ-malicious על ידי ארגון אחד יכול להגיע אוטומטית לfirewall של ארגון אחר תוך שעות.</div>
+
+<div class="section-title">מה צריך להיות ב-IP Investigation Report</div>
+<p class="prose">דוח חקירת IP טוב משרת שני קהלים: technical team שצריך לדעת בדיוק מה לblcok ואיך, ו-management שצריך להבין את ה-impact העסקי. דוח שמדבר רק טכנית — לא יגרום לפעולה. דוח שמדבר רק business — technical team לא יוכל ליישם.</p>
+
+<div class="table-wrap"><table class="data-table"><thead><tr><th>חלק</th><th>תוכן</th><th>קהל</th></tr></thead><tbody>
+<tr><td><strong>Executive Summary</strong></td><td>מה קרה, מה ה-impact, מה מומלץ לעשות</td><td>Management</td></tr>
+<tr><td><strong>IP Intelligence</strong></td><td>Geolocation, ASN, WHOIS, Reverse DNS</td><td>Technical</td></tr>
+<tr><td><strong>Reputation Data</strong></td><td>AbuseIPDB, VirusTotal, Blacklists</td><td>Technical + SOC</td></tr>
+<tr><td><strong>Observed Behavior</strong></td><td>Log analysis — מה ה-IP עשה</td><td>Technical</td></tr>
+<tr><td><strong>Attribution Notes</strong></td><td>מה ידוע, מה לא, רמת הוודאות</td><td>כולם</td></tr>
+<tr><td><strong>Recommendations</strong></td><td>Block / Monitor / Investigate further</td><td>כולם</td></tr>
+</tbody></table></div>
+
+<div class="section-title">Python Automation — Full IP Report</div>
+<pre class="code-block"><code><span class="comment"># ip_investigate.py — full automated report</span>
+import requests, socket, subprocess, json
+from datetime import datetime
+
+def investigate(ip):
+    report = {"ip": ip, "timestamp": datetime.now().isoformat()}
+
+    <span class="comment"># 1. Basic info</span>
+    try:
+        r = requests.get(f"https://ipinfo.io/{ip}/json", timeout=5)
+        info = r.json()
+        report["country"] = info.get("country")
+        report["org"] = info.get("org")
+        report["hostname"] = info.get("hostname")
+    except: pass
+
+    <span class="comment"># 2. Reverse DNS</span>
+    try:
+        report["ptr"] = socket.gethostbyaddr(ip)[0]
+    except:
+        report["ptr"] = None
+
+    <span class="comment"># 3. WHOIS</span>
+    try:
+        result = subprocess.run(["whois", ip], capture_output=True, text=True, timeout=10)
+        for line in result.stdout.split("
+"):
+            if "OrgName" in line or "org-name" in line:
+                report["whois_org"] = line.split(":")[-1].strip()
+                break
+    except: pass
+
+    <span class="comment"># 4. AbuseIPDB</span>
+    try:
+        r = requests.get(
+            "https://api.abuseipdb.com/api/v2/check",
+            headers={"Key": "YOUR_KEY", "Accept": "application/json"},
+            params={"ipAddress": ip, "maxAgeInDays": 90},
+            timeout=5
+        )
+        d = r.json()["data"]
+        report["abuse_confidence"] = d["abuseConfidenceScore"]
+        report["abuse_reports"] = d["totalReports"]
+    except: pass
+
+    return report
+
+<span class="comment"># הרץ ושמור</span>
+ip = "185.220.101.45"
+result = investigate(ip)
+print(json.dumps(result, indent=2))</code></pre>
+
+<div class="section-title">IOC Sharing — MISP ו-Threat Intelligence</div>
+<p class="prose">IOC (Indicator of Compromise) הוא artifact שמצביע על פעילות זדונית — IP address, domain, hash, URL. שיתוף IOCs בין ארגונים מאפשר defense collective: ארגון A גילה IP זדוני, מפרסם כ-IOC, ארגון B מקבל אוטומטית וחוסם. MISP הוא ה-platform הסטנדרטי לשיתוף זה.</p>
+<pre class="code-block"><code><span class="comment"># PyMISP — שיתוף IOC</span>
+from pymisp import PyMISP, MISPEvent, MISPAttribute
+
+misp = PyMISP('https://misp.org', 'API_KEY')
+event = MISPEvent()
+event.info = "Malicious IP found in logs"
+event.threat_level_id = 2  <span class="comment"># medium</span>
+
+attr = MISPAttribute()
+attr.type = "ip-src"
+attr.value = "185.220.101.45"
+attr.comment = "Tor exit node, 400 AbuseIPDB reports"
+event.attributes.append(attr)
+
+result = misp.add_event(event)</code></pre>
+
+<div class="section-title">Automated Firewall Block</div>
+<pre class="code-block"><code><span class="comment"># Linux iptables — block IP</span>
+sudo iptables -A INPUT -s 185.220.101.45 -j DROP
+sudo iptables -A OUTPUT -d 185.220.101.45 -j DROP
+
+<span class="comment"># Block entire ASN (הורד prefix list)</span>
+<span class="comment"># https://bgp.tools/as/205100#prefixes</span>
+for prefix in $(curl -s "https://bgp.tools/as/205100#prefixes" | grep -oP '\\d+\\.\\d+\\.\\d+\\.\\d+/\\d+'); do
+    sudo iptables -A INPUT -s $prefix -j DROP
+done
+
+<span class="comment"># nginx — block בconfig</span>
+<span class="comment"># nginx.conf:</span>
+deny 185.220.101.45;
+deny 185.220.0.0/22;  <span class="comment"># כל ה-subnet</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Attribution Mistake — לשון הרע ב-Court</div>
+  <div class="real-world-body">
+    ב-2018, חברת אבטחה פרסמה דוח שייחסה cyberattack ל"חברה ישראלית" על בסיס IP geolocation. הבעיה: ה-IP היה Tor exit node. המשתמש האמיתי יכול היה להיות מכל מקום בעולם. החברה הישראלית תבעה ב-defamation. הסתיים בהסדר.<br><br>
+    כלל הברזל: attribution דורש הרבה יותר מ-IP. Geolocation + ASN + PTR הם ראיות circumstantial. ייחוס לארגון ספציפי דורש: corroborating evidence ממקורות נוספים, TTPs matching, infrastructure overlap, ו-confidence level מפורש בדוח.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+
+<div class="section-title">Report Template — Copy & Use</div>
+<pre class="code-block"><code><span class="comment">## IP Investigation Report</span>
+<span class="comment">## Date: 2025-01-15 | Analyst: [name] | Confidence: Medium</span>
+
+**IP Address:** 185.220.101.45
+**Investigation Trigger:** Multiple failed login attempts from this IP
+
+### Intelligence Summary
+| Field | Value |
+|-------|-------|
+| Country | Germany |
+| Organization | F3 Netze e.V. (AS205100) |
+| Hostname | tor-exit-se1.privacyfirst.se |
+| Type | Tor Exit Node |
+
+### Reputation
+- AbuseIPDB: 89% confidence, 1,247 reports (90 days)
+- VirusTotal: 12/70 vendors flagged
+- Blacklists: SPAMHAUS SBL listed
+
+### Observed Behavior
+- 847 failed login attempts to /api/login (2025-01-14 02:00-04:00 UTC)
+- User-Agent: python-requests/2.28.0
+
+### Attribution Note
+**Cannot attribute to individual.** This is a Tor exit node.
+Any person routing through Tor could be behind this IP.
+
+### Recommendation
+**Block IP + ASN prefix (203.0.113.0/22)**
+**Confidence: High** | **Priority: Medium** (Tor — no persistence expected)</code></pre>
+<div class="ch-end-nav" id="ch-end-HE">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">משחק ידע</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">פרק הבא</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">סיכום</span>
+  </button>
+</div>`
+  ],
+  cheat:[
+`<div class="callout callout-success"><strong>📋 מבוא — IP Investigation</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Passive=לא שולח packets</span></div><div class="cheat-item"><span class="cheat-key">לפעמים, אבל דורש הרבה ראיות נוספות</span></div><div class="cheat-item"><span class="cheat-key">יכול להיות מישהו אחר לגמרי</span></div><div class="cheat-item"><span class="cheat-key">מדינה + ISP + ASN</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Geolocation — היכן ה-IP?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">~99%</span></div><div class="cheat-item"><span class="cheat-key">~66%</span></div><div class="cheat-item"><span class="cheat-key">IP של ground station בחו"ל</span></div><div class="cheat-item"><span class="cheat-key">bot או תוקף שמסתיר זהות</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 WHOIS ו-ASN — מי הבעלים?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">מי מחזיק בblock — ISP / ארגון</span></div><div class="cheat-item"><span class="cheat-key">אירופה, מזרח תיכון, מרכז אסיה</span></div><div class="cheat-item"><span class="cheat-key">Google</span></div><div class="cheat-item"><span class="cheat-key">כנראה שרת, לא אדם</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Reverse DNS — מה שם ה-IP?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">IP לשם host</span></div><div class="cheat-item"><span class="cheat-key">in-addr.arpa</span></div><div class="cheat-item"><span class="cheat-key">Tor exit node</span></div><div class="cheat-item"><span class="cheat-key">CDN — origin מוסתר</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Reputation — האם ה-IP מסוכן?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">internet scanners לגיטימיים לbetween תוקפים</span></div><div class="cheat-item"><span class="cheat-key">spam source מוכר</span></div><div class="cheat-item"><span class="cheat-key">80% מהדיווחים מאמינים שמדובר בabuse</span></div><div class="cheat-item"><span class="cheat-key">background internet scanning — לא malicious</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Shodan ו-Censys — Internet Intelligence</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">service banners, ports, metadata</span></div><div class="cheat-item"><span class="cheat-key">certificate analysis</span></div><div class="cheat-item"><span class="cheat-key">servers עם certificate לdomain</span></div><div class="cheat-item"><span class="cheat-key">חשוף לציבור, כל אחד יכול לקרוא</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 ניתוח לוגים — מאיפה הגיע התוקף?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">IP, timestamp, URL, status, user-agent</span></div><div class="cheat-item"><span class="cheat-key">שורות עם status 404</span></div><div class="cheat-item"><span class="cheat-key">מדינה + ISP + ASN לכל IP</span></div><div class="cheat-item"><span class="cheat-key">הרבה IPs שונים עם pattern זהה</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 דוחות ו-Automation — מחקירה לפעולה</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Indicator of Compromise</span></div><div class="cheat-item"><span class="cheat-key">שיתוף threat intelligence בין ארגונים</span></div><div class="cheat-item"><span class="cheat-key">בלתי אפשרי — יכול להיות מישהו אחר</span></div><div class="cheat-item"><span class="cheat-key">ASN מוריד הרבה IPs מcommunity злonasty</span></div></div></div>`
+  ]
+},
+en:{
+  dir:'ltr',lang:'en',langBtn:'🇮🇱 HE',sbLabel:'Chapters',
+  names:["Introduction — IP Investigation", "Geolocation — Where is the IP?", "WHOIS & ASN — Who Owns It?", "Reverse DNS — What is the IP's Name?", "Reputation — Is the IP Dangerous?", "Shodan & Censys — Internet Intelligence", "Log Analysis — Where Did the Attacker Come From?", "Reports & Automation — From Investigation to Action"],
+  tags:["// Chapter 00", "// Chapter 01", "// Chapter 02", "// Chapter 03", "// Chapter 04", "// Chapter 05", "// Chapter 06", "// Chapter 07"],
+  descs:["What you can discover about an IP, passive vs active, legality, OSINT ethics", "How Geolocation works, real accuracy levels, MaxMind, VPN and Proxy detection", "WHOIS databases, RDAP, ASN lookup, ARIN/RIPE/APNIC, privacy shields", "PTR records, hostname analysis, mail server detection, CDN fingerprinting", "VirusTotal, AbuseIPDB, GreyNoise, Shodan, blacklists, IP scoring", "Passive port scanning, service detection, banner grabbing, BinaryEdge, FOFA", "Log parsing, GeoIP enrichment, correlation, botnet patterns, SIEM basics", "Writing IP investigation reports, Python automation, SIEM integration, threat sharing"],
+  tabs:['📖 Learn','🎮 Game','📋 Summary'],
+  tabKeys:['learn','game','cheat'],
+  gameTitle:'QUIZ',gameDesc:'Answer fast. Every correct answer = +10 points.',
+  gameStart:'▶ Start',gameSeconds:'seconds',gameQuestions:'questions',gameXP:'+10 XP',
+  gameAgain:'🔄 Again',gameToCheat:'📋 Summary →',
+  quizPrev:'← Prev',quizNext:'Next →',quizSubmit:'Submit ✓',
+  quizExplain:'💡 Explanation:',quizToLab:'',quizAgain:'🔄 Again',
+  resultLabels:['Try again!','Almost...','Good!','Well done!','Excellent!','Perfect! 🎯'],
+  lbTitle:'// Leaderboard',labExplain:'💡 Explanation:',
+  points:'pts',of:'of',question:'Question',
+  optLetters:['A','B','C','D'],playerName:'You',unknownPlayer:'Player',pct:'% correct',
+  learn:[
+`<div class="did-you-know">💡 <strong>Did you know?</strong> Every time you browse a website, send an email, or connect to a service — your IP address is logged. In 2025, the average number of log entries created per IP per day across the internet exceeds 50,000 records. An experienced investigator can build a detailed picture of the origin, organization, and infrastructure behind any IP — without sending a single packet to the target.</div>
+
+<div class="section-title">What is IP Investigation?</div>
+<p class="prose">IP Investigation (or IP OSINT) is the process of collecting and analyzing public information about an IP address. The goals can vary: diagnosing an attack coming from a specific IP, checking whether an IP is malicious before granting it access, tracing the origin of a spam campaign, or understanding an attacker's infrastructure. In all these cases, the information is public — the question is how to read it correctly.</p>
+<p class="prose">The difference between a good investigator and a beginner is not access to tools — all the tools are free. The difference is understanding <em>what</em> each piece of information means, <em>how much</em> to trust it, and <em>how</em> to connect dots from different sources into a single picture.</p>
+
+<div class="section-title">Passive vs Active Investigation</div>
+<div class="grid-2">
+<div class="card"><div class="card-icon">👁️</div><div class="card-title">Passive — No Contact</div><div class="card-body">Queries to public databases (WHOIS, Shodan, VirusTotal). The target does not know it is being investigated. This is what we learn — legitimate, legal, and effective.</div></div>
+<div class="card"><div class="card-icon">📡</div><div class="card-title">Active — Sending Packets</div><div class="card-body">Port scanning, ping, traceroute directly to the target. The target may detect this. Requires authorization on external targets — without it, this can be considered unauthorised access.</div></div>
+</div>
+
+<div class="section-title">What Can You Discover About an IP?</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Information</th><th>Source</th><th>Accuracy Level</th></tr></thead><tbody>
+<tr><td>Country / approximate city</td><td>Geolocation DB</td><td>Country=95%, City=60-80%</td></tr>
+<tr><td>ISP / Organization</td><td>WHOIS, ASN lookup</td><td>Very high</td></tr>
+<tr><td>Hostname</td><td>Reverse DNS</td><td>High if exists</td></tr>
+<tr><td>Open ports</td><td>Shodan, Censys</td><td>Depends on scan time</td></tr>
+<tr><td>Reputation / blacklists</td><td>AbuseIPDB, VirusTotal</td><td>Medium — false positives exist</td></tr>
+<tr><td>Past exploitation</td><td>Threat feeds</td><td>Historical only</td></tr>
+</tbody></table></div>
+
+<div class="section-title">Legality and Ethics</div>
+<p class="prose">Passive OSINT on IPs is legal everywhere — because the information is public. But there are limits. GDPR restricts use of PII for Europeans — a private person's IP can be considered PII. Attribution — "this IP belongs to X" — requires much more than a single IP. IP addresses can be shared (NAT, VPN, Tor exit nodes) and incorrect attribution can cause real harm.</p>
+
+<div class="callout callout-warn"><strong>⚠️ One rule always:</strong> IP address does not equal a person. IP address equals a network entry point at a specific time. Before drawing conclusions about who is behind an IP — you need much more evidence.</div>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Case Study: An IP Investigated — What We Found</div>
+  <div class="real-world-body">
+    IP: 185.220.101.45. What we found in 5 minutes of passive research: ASN = AS205100 (F3 Netze e.V., Germany). Reverse DNS: tor-exit.example.onion. AbuseIPDB: 1,247 reports in 90 days. Shodan: port 9001 open (Tor relay port). VirusTotal: flagged by 12 vendors.<br><br>
+    Conclusion: Tor exit node — all traffic from this IP may be from someone completely different. Attribution is impossible. Block — yes. Investigate the person behind it — not relevant.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<div class="section-title">Quick Lookup Tools — The Fast Way</div>
+<p class="prose">Before opening advanced tools — there are three one-liners that give an initial picture in seconds:</p>
+<pre class="code-block"><code><span class="comment"># 1. Basic info from command line</span>
+curl -s ipinfo.io/185.220.101.45
+<span class="comment"># returns: IP, hostname, city, region, country, org, ASN</span>
+
+<span class="comment"># 2. Reverse DNS</span>
+dig -x 185.220.101.45 +short
+<span class="comment"># returns PTR record if it exists</span>
+
+<span class="comment"># 3. ASN lookup</span>
+whois 185.220.101.45 | grep -E "OrgName|org-name|netname|country"
+<span class="comment"># returns: organization that owns the IP</span></code></pre>
+
+<div class="section-title">Investigation Checklist</div>
+<pre class="code-block"><code><span class="comment"># IP Investigation Checklist</span>
+□ 1. ipinfo.io / ip-api.com    ← country, ISP, ASN
+□ 2. whois IP                  ← ownership, registration
+□ 3. dig -x IP                 ← Reverse DNS
+□ 4. shodan.io/host/IP         ← ports, services, history
+□ 5. abuseipdb.com             ← reputation, reports
+□ 6. virustotal.com/ip/IP      ← malware associations
+□ 7. bgp.tools / ipinfo.io/AS  ← BGP, routing context
+□ 8. censys.io                 ← certificates, banners</code></pre>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> MaxMind GeoIP2, the most widely used IP geolocation database, is accurate at country level in 99.8% of cases — but at city level only 66%. And there is a strange exception: in the US, IPs that cannot be located are pinned to Hutchinson, Kansas — the geographic center of the US. Its residents received thousands of complaints and police visits about "crimes" they never committed.</div>
+
+<div class="section-title">How Geolocation Works</div>
+<p class="prose">Geolocation databases are built using three main methods. First — registry data: when an ISP receives a block of IPs it declares a location in the registration. Second — BGP routing analysis: routing table entries show which network within an AS the IP belongs to. Third — active probing: companies like MaxMind send packets and measure RTT from known points around the world to calculate location.</p>
+<p class="prose">Accuracy drops as you get more specific. Country — almost perfect. City — two thirds of cases. Address — unreliable. And critically: VPN and proxy confuse all these methods, because the visible IP is that of the VPN server, not the real user.</p>
+
+<div class="grid-2">
+<div class="card"><div class="card-icon">🌍</div><div class="card-title">Geolocation Accuracy Levels</div><div class="card-body">Country: ~99%. Region/state: ~80%. City: 60-70%. ZIP/postal: 30-50%. Address: unreliable.</div></div>
+<div class="card"><div class="card-icon">⚠️</div><div class="card-title">Cases That Confuse It</div><div class="card-body">VPN / Proxy / Tor: shows server, not user. Satellite internet (Starlink): US IP even for Israeli user. CDN: Cloudflare's IP, not the website's.</div></div>
+</div>
+
+<div class="section-title">Core Geolocation Tools</div>
+<pre class="code-block"><code><span class="comment"># ipinfo.io — most complete for free</span>
+curl -s ipinfo.io/8.8.8.8
+<span class="comment"># {"ip":"8.8.8.8","hostname":"dns.google","city":"Mountain View",</span>
+<span class="comment">#  "region":"California","country":"US","org":"AS15169 Google LLC"}</span>
+
+<span class="comment"># ip-api.com — no registration needed</span>
+curl -s "ip-api.com/json/8.8.8.8"
+
+<span class="comment"># Python — batch lookup</span>
+import requests
+def lookup(ip):
+    r = requests.get(f'https://ipinfo.io/{ip}/json')
+    return r.json()
+
+ips = ['8.8.8.8', '1.1.1.1', '185.220.101.45']
+for ip in ips:
+    data = lookup(ip)
+    print(f"{ip}: {data.get('country')} | {data.get('org')}")</code></pre>
+
+<div class="section-title">VPN and Proxy Detection</div>
+<p class="prose">When investigating a suspicious IP, one of the first steps is checking whether the IP is a VPN, proxy, hosting server, or Tor exit node. A hosting provider IP (AWS, DigitalOcean, OVH) visiting your site is almost certainly a bot or attacker hiding their identity — not a legitimate user.</p>
+<pre class="code-block"><code><span class="comment"># ipinfo.io privacy detection (API)</span>
+curl -s "ipinfo.io/185.220.101.45/privacy?token=YOUR_TOKEN"
+<span class="comment"># {"vpn":false,"proxy":false,"tor":true,"relay":false,"hosting":false}</span>
+
+<span class="comment"># Check ASN against hosting ASN list</span>
+<span class="comment"># If org contains: AWS, Google Cloud, Azure, DigitalOcean,</span>
+<span class="comment"># OVH, Hetzner, Linode — probably hosting, not residential</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Geolocation in Court — The Kansas Story</div>
+  <div class="real-world-body">
+    When MaxMind could not locate an IP in the US, they pinned it to coordinates 38.0000N, 97.0000W — the geographic center of the US. This fell exactly on Joyce Taylor's farm in Salina, Kansas. For years, people investigated for fraud, stalking, and other crimes recorded from an "unidentified American IP" showed up at her door. FBI, police, endless stress.<br><br>
+    MaxMind fixed the bug in 2016 after a BuzzFeed article. The lesson: Geolocation is a statistical estimate, not a fact. Never send investigators to an address based solely on Geolocation.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<div class="section-title">Multi-source Geolocation — Getting a Reliable Picture</div>
+<p class="prose">Never rely on a single source. Three sources that agree — high confidence. Two that agree and one different — the majority is probably right. Three that differ — the data is unreliable, document the uncertainty.</p>
+<pre class="code-block"><code><span class="comment"># Check 3 sources on one IP</span>
+IP="185.220.101.45"
+
+echo "=== ipinfo.io ==="
+curl -s ipinfo.io/$IP | python3 -m json.tool | grep -E "city|country|org"
+
+echo "=== ip-api.com ==="
+curl -s "ip-api.com/json/$IP" | python3 -m json.tool | grep -E "city|country|isp"
+
+echo "=== whois ==="
+whois $IP | grep -iE "country|netname|descr|org" | head -8</code></pre>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> WHOIS has existed since 1982 — one of the oldest protocols on the internet. Originally, every IP address and domain was registered with a real name, address, and email. Today GDPR and other regulations have hidden much of this information — but for organizational IP ranges, WHOIS still contains very useful information.</div>
+
+<div class="section-title">WHOIS for IP Addresses — Different from Domains</div>
+<p class="prose">It is important to understand: WHOIS for an IP address is different from WHOIS for a domain. Domain WHOIS shows who registered the domain. IP WHOIS shows who <em>holds</em> the block of IPs — usually an ISP, hosting company, or large organization. The ISP itself does not reveal which specific customer is using the IP — that requires a court order.</p>
+<pre class="code-block"><code><span class="comment"># WHOIS on an IP — what you get</span>
+whois 8.8.8.8
+<span class="comment"># NetRange: 8.0.0.0 - 8.255.255.255</span>
+<span class="comment"># CIDR: 8.0.0.0/8</span>
+<span class="comment"># NetName: LVLT-ORG-8-8</span>
+<span class="comment"># Organization: Level 3 Parent, LLC (LPL-141)</span>
+<span class="comment"># RegDate: 1992-12-01</span></code></pre>
+
+<div class="section-title">Regional Internet Registries — Who Manages What</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>RIR</th><th>Region</th><th>WHOIS Address</th></tr></thead><tbody>
+<tr><td><strong>ARIN</strong></td><td>North America</td><td>whois.arin.net</td></tr>
+<tr><td><strong>RIPE NCC</strong></td><td>Europe, Middle East, Central Asia</td><td>whois.ripe.net</td></tr>
+<tr><td><strong>APNIC</strong></td><td>Asia Pacific</td><td>whois.apnic.net</td></tr>
+<tr><td><strong>LACNIC</strong></td><td>Latin America</td><td>whois.lacnic.net</td></tr>
+<tr><td><strong>AFRINIC</strong></td><td>Africa</td><td>whois.afrinic.net</td></tr>
+</tbody></table></div>
+
+<div class="section-title">ASN — Autonomous System Number</div>
+<p class="prose">An ASN is a number that identifies a network under single management — an ISP, company, or university. Knowing the ASN of an IP is practically knowing "who manages the network this IP belongs to." AS15169 is Google. AS16509 is Amazon AWS. AS13335 is Cloudflare. When you see an IP from a hosting provider ASN — that is an immediate sign it is a server, not a private person.</p>
+<pre class="code-block"><code><span class="comment"># ASN lookup from terminal</span>
+whois -h whois.cymru.com " -v 8.8.8.8"
+<span class="comment"># AS | IP | BGP Prefix | CC | Registry | Allocated | AS Name</span>
+<span class="comment"># 15169 | 8.8.8.8 | 8.8.8.0/24 | US | arin | 2023-12 | GOOGLE</span>
+
+<span class="comment"># Python: ipwhois library</span>
+from ipwhois import IPWhois
+obj = IPWhois('185.220.101.45')
+result = obj.lookup_rdap()
+print(result['asn'])
+print(result['asn_description'])
+print(result['network']['name'])</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 ASN Investigation — Who Is Behind the Attack?</div>
+  <div class="real-world-body">
+    Attack traffic log from 47 different IPs. They all look different — but ASN lookup shows: 38 of them belong to AS44477 (STARK INDUSTRIES, UK) and 9 to AS209588 (Flyservers, Cyprus). Both are known bulletproof hosting providers that host cybercriminals.<br><br>
+    The lesson: blocking individual IPs takes time and is inefficient. Blocking an entire bulletproof provider ASN — takes down 38 IPs with a single rule. Solution: firewall rule blocking the entire ASN prefix.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<div class="section-title">IP WHOIS Script — Quick Report</div>
+<pre class="code-block"><code><span class="comment"># Python script for quick report</span>
+from ipwhois import IPWhois
+import json
+
+def ip_report(ip):
+    obj = IPWhois(ip)
+    r = obj.lookup_rdap(depth=1)
+    return {
+        'ip': ip,
+        'asn': r.get('asn'),
+        'asn_description': r.get('asn_description'),
+        'asn_country': r.get('asn_country_code'),
+        'network_name': r['network'].get('name'),
+        'network_cidr': r['network'].get('cidr'),
+    }
+
+ips = ['8.8.8.8', '1.1.1.1', '185.220.101.45']
+for ip in ips:
+    print(json.dumps(ip_report(ip), indent=2))</code></pre>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> An IP's hostname can reveal more than WHOIS. A server with a PTR record of <code>mail.company.com</code> is probably a mail server. A server with <code>tor-exit.riseup.net</code> is a Tor exit node. A server with <code>node-123.aws-ap-southeast-1.amazonaws.com</code> is an EC2 instance in Asia Pacific. All visible, free, in a single DNS query.</div>
+
+<div class="section-title">What is Reverse DNS?</div>
+<p class="prose">Normally DNS converts a domain name to an IP. Reverse DNS goes the other way: from IP to name. This is done through PTR records in a special zone called in-addr.arpa. Not every IP has a PTR record — ISPs and hosting providers usually configure them, but dynamic IPs usually do not. The absence of a PTR record can itself be a sign — legitimate mail servers must have PTR records.</p>
+<pre class="code-block"><code><span class="comment"># Reverse DNS lookup</span>
+dig -x 8.8.8.8 +short
+<span class="comment"># dns.google.</span>
+
+dig -x 185.220.101.45 +short
+<span class="comment"># tor-exit-se1.privacyfirst.se. ← Tor exit node!</span>
+
+<span class="comment"># nslookup alternative</span>
+nslookup 8.8.8.8
+
+<span class="comment"># host command</span>
+host 1.1.1.1
+<span class="comment"># 1.1.1.1.in-addr.arpa domain name pointer one.one.one.one.</span></code></pre>
+
+<div class="section-title">What the Hostname Reveals</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Pattern in Hostname</th><th>Meaning</th><th>Example</th></tr></thead><tbody>
+<tr><td>mail. / smtp. / mx.</td><td>Mail server</td><td>mail.company.com</td></tr>
+<tr><td>tor-exit / exit.</td><td>Tor exit node</td><td>tor-exit.riseup.net</td></tr>
+<tr><td>.amazonaws.com</td><td>AWS EC2 — region readable</td><td>ec2-3-94-1-1.compute-1.amazonaws.com</td></tr>
+<tr><td>.googleusercontent.com</td><td>Google Cloud</td><td>123.456.789.gce.googleusercontent.com</td></tr>
+<tr><td>static. / ip-X-X-X-X</td><td>Static ISP assignment</td><td>static.85.99.12.34.provider.net</td></tr>
+<tr><td>dynamic. / ppp. / dsl.</td><td>Dynamic — home / mobile</td><td>dynamic-ip-123.isp.co.il</td></tr>
+<tr><td>cloudflare.com / akamai</td><td>CDN — not the origin</td><td>104-16-0-1.cloudflare.com</td></tr>
+</tbody></table></div>
+
+<div class="section-title">CDN Detection — The IP That Does Not Belong to the Site</div>
+<p class="prose">When investigating a domain and getting a Cloudflare, Akamai, or Fastly IP — you are seeing the CDN, not the real origin server. The origin can be completely hidden. But there are ways to try to find it: certificate transparency logs, Shodan scan by cert, and historical DNS records.</p>
+<pre class="code-block"><code><span class="comment"># Check if domain is behind Cloudflare</span>
+dig company.com A
+<span class="comment"># 104.21.x.x ← Cloudflare IP range</span>
+<span class="comment"># 172.67.x.x ← also Cloudflare</span>
+
+<span class="comment"># Try to find origin — Shodan</span>
+<span class="comment"># shodan.io/search?query=http.title:"Company Name" -org:Cloudflare</span>
+
+<span class="comment"># Certificate Transparency — crt.sh</span>
+<span class="comment"># https://crt.sh/?q=%.company.com</span>
+<span class="comment"># shows subdomains with certificates — direct.company.com?</span>
+
+<span class="comment"># Historical DNS — viewdns.info / securitytrails.com</span>
+<span class="comment"># what was the IP before they moved to Cloudflare?</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Reverse DNS Exposed an Unprotected Mail Server</div>
+  <div class="real-world-body">
+    A security researcher was investigating a company's domain. dig -x on MX records revealed: smtp-relay.company.internal — a mail server with an internal name exposed to the internet. Shodan scan on the IP showed: port 25 open, no authentication, SMTP open relay.<br><br>
+    Open relay means anyone can send email as if it came from company.com. Responsible disclosure, the company fixed it within 48 hours. The finding: the "internal" hostname that was publicly exposed hinted that the server was not designed to be public.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<div class="section-title">Bulk Reverse DNS — Checking a List of IPs</div>
+<pre class="code-block"><code><span class="comment"># bash: reverse DNS for a list of IPs</span>
+while read ip; do
+  ptr=$(dig -x $ip +short 2>/dev/null)
+  echo "$ip -> \${ptr:-(no PTR)}"
+done < ips.txt
+
+<span class="comment"># Python: parallel reverse DNS</span>
+import socket
+from concurrent.futures import ThreadPoolExecutor
+
+def reverse_dns(ip):
+    try:
+        return ip, socket.gethostbyaddr(ip)[0]
+    except:
+        return ip, None
+
+ips = ['8.8.8.8', '1.1.1.1', '185.220.101.45', '104.21.0.1']
+with ThreadPoolExecutor(max_workers=10) as ex:
+    for ip, hostname in ex.map(reverse_dns, ips):
+        print(f"{ip:20} -> {hostname or '(no PTR)'}")</code></pre>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> AbuseIPDB contains reports on over 100 million IP addresses involved in malicious activity — spam, brute force, port scanning, DDoS. But 30-40% of reported IPs are false positives: legitimate Tor exit nodes, authorized security scanners, and shared IPs from large ISPs where one user abused the address.</div>
+
+<div class="section-title">Reputation Sources — What Each One Gives</div>
+<p class="prose">No single source is enough. Each reputation database is built differently, contains different data, and has a different false positive rate. A good investigator uses multiple sources and weighs results — not drawing conclusions from a single database.</p>
+<div class="grid-2">
+<div class="card"><div class="card-icon">🦠</div><div class="card-title">VirusTotal</div><div class="card-body">70+ security vendors check the IP. Shows: malware associations, URL scans, community comments, passive DNS. What to look at: how many vendors flagged? In what categories? When?</div></div>
+<div class="card"><div class="card-icon">🚨</div><div class="card-title">AbuseIPDB</div><div class="card-body">Crowdsourced reports on IP abuse. Shows: confidence score (0-100), report count, categories (SSH brute force, spam, port scan). Important: check comments too — they sometimes explain the context.</div></div>
+<div class="card"><div class="card-icon">🌐</div><div class="card-title">GreyNoise</div><div class="card-body">Distinguishes between internet-wide scanners (legitimate like Shodan, Censys) and attackers. An IP scanned by Shodan does not equal malicious. GreyNoise shows: benign, malicious, or unknown.</div></div>
+<div class="card"><div class="card-icon">🔍</div><div class="card-title">Shodan</div><div class="card-body">Shows services that ran on the IP, certificates, banners, and history. Lets you see "what was on this IP in 2022?" — useful for tracing infrastructure.</div></div>
+</div>
+
+<div class="section-title">Blacklists — SPAMHAUS and DNSBL</div>
+<p class="prose">Blacklists (or DNS Blocklists) are lists of IPs blocked by mail servers, firewalls, and ISPs. SPAMHAUS is the most widely used and authoritative. If an IP is on SPAMHAUS, email from it is likely blocked by most mail providers worldwide.</p>
+<pre class="code-block"><code><span class="comment"># Check blacklists from command line</span>
+<span class="comment"># Reverse the IP (1.2.3.4 → 4.3.2.1) and send DNS query</span>
+host 8.8.8.8.zen.spamhaus.org
+<span class="comment"># NXDOMAIN = not on blacklist (good)</span>
+<span class="comment"># 127.0.0.x = on blacklist! (bad)</span>
+
+<span class="comment"># Multiple blacklists in one check</span>
+<span class="comment"># https://mxtoolbox.com/blacklists.aspx</span>
+<span class="comment"># checks 100+ blacklists at once</span></code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 False Positive — The Shodan Case</div>
+  <div class="real-world-body">
+    Shodan scans the entire internet — that is their business. Their IPs (66.240.192.0/19) appear in every server's logs. Junior SOC analysts sometimes report: "We are under a scanning attack from Shodan." That is not an attack — that is internet background noise.<br><br>
+    GreyNoise was created precisely to solve this: it labels Shodan, Censys, and 50+ legitimate scanners as "benign." This way SOC does not waste time on false positives from internet scanners and can focus on actual malicious traffic.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<div class="section-title">Automated Reputation Check Script</div>
+<pre class="code-block"><code><span class="comment"># Python: check IP reputation across multiple sources</span>
+import requests
+
+ABUSEIPDB_KEY = "YOUR_KEY"
+VIRUSTOTAL_KEY = "YOUR_KEY"
+
+def check_abuseipdb(ip):
+    r = requests.get(
+        "https://api.abuseipdb.com/api/v2/check",
+        headers={"Key": ABUSEIPDB_KEY, "Accept": "application/json"},
+        params={"ipAddress": ip, "maxAgeInDays": 90}
+    )
+    d = r.json()["data"]
+    return d["abuseConfidenceScore"], d["totalReports"]
+
+def check_virustotal(ip):
+    r = requests.get(
+        f"https://www.virustotal.com/api/v3/ip_addresses/{ip}",
+        headers={"x-apikey": VIRUSTOTAL_KEY}
+    )
+    stats = r.json()["data"]["attributes"]["last_analysis_stats"]
+    return stats["malicious"], stats["suspicious"]
+
+ip = "185.220.101.45"
+abuse_score, abuse_reports = check_abuseipdb(ip)
+vt_malicious, vt_suspicious = check_virustotal(ip)
+print(f"AbuseIPDB: {abuse_score}% confidence, {abuse_reports} reports")
+print(f"VirusTotal: {vt_malicious} malicious, {vt_suspicious} suspicious")</code></pre>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> Shodan scans the entire IPv4 address space — about 4 billion addresses — roughly once a month. When you look up an IP on Shodan, you sometimes see services that no longer exist, because the data may be weeks old. Censys scans more frequently and specializes in certificates. Together they provide a picture of internet infrastructure that was not possible a decade ago.</div>
+
+<div class="section-title">Shodan — The Internet's Search Engine</div>
+<p class="prose">Shodan is a search engine that scans the internet and indexes service banners — what servers respond when you connect to them. Instead of searching website content (like Google), Shodan searches service metadata: versions, certificates, banners, open ports. It is a research tool, not an attack tool — but the information it exposes shows how much infrastructure is public that many thought was "internal."</p>
+<pre class="code-block"><code><span class="comment"># Shodan CLI</span>
+pip install shodan
+shodan init YOUR_API_KEY
+
+<span class="comment"># Investigate an IP</span>
+shodan host 8.8.8.8
+<span class="comment"># Ports: 53, 443</span>
+<span class="comment"># Organization: Google LLC</span>
+<span class="comment"># Country: United States</span>
+
+<span class="comment"># Search Shodan</span>
+shodan search "apache 2.4.49"   <span class="comment"># servers with specific CVE</span>
+shodan search "org:company.com" <span class="comment"># all company infrastructure</span>
+shodan search 'ssl.cert.subject.cn:"company.com"'  <span class="comment"># by certificate</span>
+
+<span class="comment"># Count vulnerable servers</span>
+shodan count 'vuln:CVE-2021-44228'  <span class="comment"># Log4Shell</span></code></pre>
+
+<div class="section-title">Censys — Certificate Intelligence</div>
+<p class="prose">Censys specializes in certificate analysis and full protocol parsing. When you want to find the origin server behind Cloudflare — Censys is the tool: searching for a certificate containing the domain name may reveal IPs that use the same cert before moving to a CDN.</p>
+<pre class="code-block"><code><span class="comment"># Censys API — certificate search</span>
+import requests
+
+resp = requests.get(
+    "https://search.censys.io/api/v2/hosts/search",
+    params={"q": 'services.tls.certificates.leaf_data.subject.common_name: "company.com"'},
+    auth=("API_ID", "API_SECRET")
+)
+hits = resp.json()["result"]["hits"]
+for hit in hits:
+    print(hit["ip"], hit.get("autonomous_system", {}).get("name"))
+<span class="comment"># may reveal origin servers!</span></code></pre>
+
+<div class="section-title">Shodan Dorks — Useful Searches</div>
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Dork</th><th>What You Find</th></tr></thead><tbody>
+<tr><td><code>port:3389 country:IL</code></td><td>RDP exposed in Israel</td></tr>
+<tr><td><code>os:"Windows XP"</code></td><td>Windows XP exposed to internet</td></tr>
+<tr><td><code>product:MongoDB -authentication</code></td><td>MongoDB without auth</td></tr>
+<tr><td><code>http.title:"Dashboard" port:8080</code></td><td>Exposed admin dashboards</td></tr>
+<tr><td><code>ssl.cert.issuer.cn:company.com</code></td><td>All subdomains with cert</td></tr>
+<tr><td><code>vuln:CVE-2021-26855</code></td><td>Vulnerable Exchange servers</td></tr>
+<tr><td><code>net:203.0.113.0/24</code></td><td>All services in subnet</td></tr>
+</tbody></table></div>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Shodan Found RDP Open on 1.5M Servers</div>
+  <div class="real-world-body">
+    At the start of the COVID-19 pandemic, companies moved workers home quickly. Shodan search on port 3389 (RDP) showed a 40% jump in RDP exposed to the internet between February and April 2020 — from 3 million to 4.2 million exposed servers.<br><br>
+    Ransomware attacks in that period rose 800%. Every exposed RDP server was being probed on average within 3 hours. The lesson: Shodan shows what attackers see — and it is worth checking your infrastructure before they do.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<div class="section-title">Checking Your Infrastructure on Shodan</div>
+<pre class="code-block"><code><span class="comment"># What does Shodan see on your IP?</span>
+MY_IP=$(curl -s ifconfig.me)
+shodan host $MY_IP
+
+<span class="comment"># Check your entire org</span>
+shodan search "org:Your Company Name" --fields ip_str,port,transport
+
+<span class="comment"># Alert when Shodan finds new things</span>
+shodan alert create "My Company" org:"Your Company"
+shodan alert triggers
+
+<span class="comment"># Banner grabbing manually</span>
+curl -sI https://target.com | grep -i "server\\|x-powered"
+<span class="comment"># Server: Apache/2.4.52</span>
+<span class="comment"># X-Powered-By: PHP/8.0.15</span></code></pre>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> A busy web server's access log can contain millions of lines per day. 99% of them are legitimate traffic. The remaining 1% includes bots, scanners, and attackers. The ability to identify that 1% quickly — while scanning through massive logs — is the skill that separates a good SOC analyst from an excellent one.</div>
+
+<div class="section-title">What a Web Access Log Contains</div>
+<p class="prose">Every HTTP request that reaches the server is recorded in the access log. Each line contains: source IP, timestamp, method, URL, status code, bytes, and user agent. From a single line you can know: where the request came from, what it requested, whether it succeeded, and who (browser? bot?) sent it.</p>
+<pre class="code-block"><code><span class="comment"># nginx access log format</span>
+185.220.101.45 - - [15/Jan/2025:14:23:01 +0000] "GET /wp-admin HTTP/1.1" 404 162 "-" "Mozilla/5.0"
+<span class="comment"># IP | timestamp | method+URL | status | bytes | referrer | user-agent</span>
+
+<span class="comment"># Questions worth asking:</span>
+<span class="comment"># Who sends the most requests? (top IPs)</span>
+<span class="comment"># Which URLs are requested most? (404 scanning?)</span>
+<span class="comment"># Who tries /wp-admin, /phpmyadmin, /.env?</span>
+<span class="comment"># Suspicious user agents (python-requests, sqlmap, nikto)?</span></code></pre>
+
+<div class="section-title">Log Analysis — Command Line</div>
+<pre class="code-block"><code><span class="comment"># Top 10 IPs by request count</span>
+awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -10
+
+<span class="comment"># All requests from a specific IP</span>
+grep "185.220.101.45" access.log
+
+<span class="comment"># All 404 errors — scanning patterns</span>
+awk '$9==404 {print $1, $7}' access.log | sort | uniq -c | sort -rn | head -20
+
+<span class="comment"># Suspicious user agents</span>
+awk -F'"' '{print $6}' access.log | sort | uniq -c | sort -rn | grep -iE "sqlmap|nikto|python-requests|masscan"
+
+<span class="comment"># Requests per hour graph</span>
+awk '{print $4}' access.log | cut -d: -f2 | sort | uniq -c</code></pre>
+
+<div class="section-title">GeoIP Enrichment — Add Context to Every IP</div>
+<p class="prose">A log without context is a list of numbers. With GeoIP enrichment, every IP gets: country, ISP, ASN. Suddenly you see: "90% of the 404 errors come from 4 specific ASNs that are all bulletproof hosting." This turns a list of IPs into real intelligence.</p>
+<pre class="code-block"><code><span class="comment"># Python: enrichment with ipinfo.io</span>
+import requests
+from collections import Counter
+
+def get_country(ip):
+    try:
+        r = requests.get(f"https://ipinfo.io/{ip}/json", timeout=2)
+        return r.json().get("country", "??")
+    except:
+        return "??"
+
+with open("access.log") as f:
+    ips = [line.split()[0] for line in f if "404" in line]
+
+unique_ips = list(set(ips))[:100]
+countries = Counter(get_country(ip) for ip in unique_ips)
+print(countries.most_common(10))</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Log Analysis Revealed a Credential Stuffing Attack</div>
+  <div class="real-world-body">
+    A SaaS company saw an increase in login failures. Log analysis: 12,000 POST /api/login in one hour, from 600 different IPs, all with identical User-Agent. GeoIP: 80% of IPs from 3 bulletproof hosting ASNs. AbuseIPDB: 90%+ of IPs had previous reports.<br><br>
+    Response: block all 3 ASNs in the firewall. Attack dropped from 12,000 requests/hour to 200. The remaining 200 — further analysis — all Tor exit nodes. Added Tor blocking. Attack stopped completely. Response time: 45 minutes.
+  </div>
+</div>
+
+<div class="callout callout-info" style="margin-top:32px"><strong>🔧 In Practice</strong></div>
+
+<div class="section-title">First Response Log Script</div>
+<pre class="code-block"><code><span class="comment">#!/bin/bash</span>
+<span class="comment"># first_response.sh — run when there is an incident</span>
+LOG=$1  <span class="comment"># path to access.log</span>
+
+echo "=== TOP 10 IPs ==="
+awk '{print $1}' $LOG | sort | uniq -c | sort -rn | head -10
+
+echo "=== 4xx Errors by IP ==="
+awk '$9~/^4/ {print $1}' $LOG | sort | uniq -c | sort -rn | head -10
+
+echo "=== Suspicious User Agents ==="
+grep -oP '"[^"]*"$' $LOG | sort | uniq -c | sort -rn |   grep -iE "sqlmap|nikto|masscan|python-requests|curl|wget" | head -10
+
+echo "=== Requests per Hour ==="
+awk '{print $4}' $LOG | cut -d: -f2 | sort | uniq -c | sort -n</code></pre>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`,
+`<div class="did-you-know">💡 <strong>Did you know?</strong> MISP (Malware Information Sharing Platform) is an open-source platform that allows organizations to share threat intelligence — including IP IOCs — in a structured way. Hundreds of security organizations, CERTs, and ISPs worldwide share IOCs on MISP. An IP identified as malicious by one organization can automatically reach another organization's firewall within hours.</div>
+
+<div class="section-title">What an IP Investigation Report Needs</div>
+<p class="prose">A good IP investigation report serves two audiences: the technical team that needs to know exactly what to block and how, and management that needs to understand the business impact. A report that only speaks technically will not drive action. A report that only speaks business language cannot be implemented by the technical team.</p>
+
+<div class="table-wrap"><table class="data-table"><thead><tr><th>Section</th><th>Content</th><th>Audience</th></tr></thead><tbody>
+<tr><td><strong>Executive Summary</strong></td><td>What happened, impact, recommended action</td><td>Management</td></tr>
+<tr><td><strong>IP Intelligence</strong></td><td>Geolocation, ASN, WHOIS, Reverse DNS</td><td>Technical</td></tr>
+<tr><td><strong>Reputation Data</strong></td><td>AbuseIPDB, VirusTotal, Blacklists</td><td>Technical + SOC</td></tr>
+<tr><td><strong>Observed Behavior</strong></td><td>Log analysis — what the IP did</td><td>Technical</td></tr>
+<tr><td><strong>Attribution Notes</strong></td><td>What is known, what is not, confidence level</td><td>Everyone</td></tr>
+<tr><td><strong>Recommendations</strong></td><td>Block / Monitor / Investigate further</td><td>Everyone</td></tr>
+</tbody></table></div>
+
+<div class="section-title">Python Automation — Full IP Report</div>
+<pre class="code-block"><code><span class="comment"># ip_investigate.py — full automated report</span>
+import requests, socket, subprocess, json
+from datetime import datetime
+
+def investigate(ip):
+    report = {"ip": ip, "timestamp": datetime.now().isoformat()}
+
+    try:
+        r = requests.get(f"https://ipinfo.io/{ip}/json", timeout=5)
+        info = r.json()
+        report["country"] = info.get("country")
+        report["org"] = info.get("org")
+        report["hostname"] = info.get("hostname")
+    except: pass
+
+    try:
+        report["ptr"] = socket.gethostbyaddr(ip)[0]
+    except:
+        report["ptr"] = None
+
+    try:
+        r = requests.get(
+            "https://api.abuseipdb.com/api/v2/check",
+            headers={"Key": "YOUR_KEY", "Accept": "application/json"},
+            params={"ipAddress": ip, "maxAgeInDays": 90},
+            timeout=5
+        )
+        d = r.json()["data"]
+        report["abuse_confidence"] = d["abuseConfidenceScore"]
+        report["abuse_reports"] = d["totalReports"]
+    except: pass
+
+    return report
+
+result = investigate("185.220.101.45")
+print(json.dumps(result, indent=2))</code></pre>
+
+<div class="section-title">Report Template — Copy and Use</div>
+<pre class="code-block"><code><span class="comment">## IP Investigation Report</span>
+<span class="comment">## Date: 2025-01-15 | Analyst: [name] | Confidence: Medium</span>
+
+**IP Address:** 185.220.101.45
+**Trigger:** Multiple failed login attempts
+
+### Intelligence Summary
+| Field        | Value                              |
+|--------------|------------------------------------|
+| Country      | Germany                            |
+| Organization | F3 Netze e.V. (AS205100)          |
+| Hostname     | tor-exit-se1.privacyfirst.se       |
+| Type         | Tor Exit Node                      |
+
+### Reputation
+- AbuseIPDB: 89% confidence, 1,247 reports (90 days)
+- VirusTotal: 12/70 vendors flagged
+- SPAMHAUS SBL: listed
+
+### Observed Behavior
+- 847 failed login attempts (2025-01-14 02:00-04:00 UTC)
+- User-Agent: python-requests/2.28.0
+
+### Attribution Note
+Cannot attribute to individual. Tor exit node.
+
+### Recommendation
+**Block IP + ASN prefix** | Confidence: High</code></pre>
+
+<div class="real-world-box">
+  <div class="real-world-title">🌍 Attribution Mistake — Defamation in Court</div>
+  <div class="real-world-body">
+    In 2018, a security company published a report attributing a cyberattack to "an Israeli company" based on IP geolocation. The problem: the IP was a Tor exit node. The real user could have been anywhere in the world. The Israeli company sued for defamation. It ended in a settlement.<br><br>
+    The iron rule: attribution requires much more than an IP. Geolocation + ASN + PTR are circumstantial evidence. Attributing to a specific organization requires: corroborating evidence from additional sources, TTPs matching, infrastructure overlap, and an explicit confidence level in the report.
+  </div>
+</div>
+<div class="ch-end-nav" id="ch-end-EN">
+  <button class="ch-end-btn" onclick="showTab(CHID,'game')">
+    <span class="ch-end-btn-icon">🎮</span>
+    <span class="ch-end-btn-label">Play Game</span>
+  </button>
+  <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
+    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-label">Next Chapter</span>
+  </button>
+  <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
+    <span class="ch-end-btn-icon">📋</span>
+    <span class="ch-end-btn-label">Summary</span>
+  </button>
+</div>`
+  ],
+  cheat:[
+`<div class="callout callout-success"><strong>📋 Introduction — IP Investigation</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Passive=sends no packets</span></div><div class="cheat-item"><span class="cheat-key">sometimes, but requires much more evidence</span></div><div class="cheat-item"><span class="cheat-key">could be anyone</span></div><div class="cheat-item"><span class="cheat-key">country + ISP + ASN</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Geolocation — Where is the IP?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">~99%</span></div><div class="cheat-item"><span class="cheat-key">~66%</span></div><div class="cheat-item"><span class="cheat-key">IP of ground station abroad</span></div><div class="cheat-item"><span class="cheat-key">bot or attacker hiding identity</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 WHOIS & ASN — Who Owns It?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">who holds the block — ISP / organization</span></div><div class="cheat-item"><span class="cheat-key">Europe, Middle East, Central Asia</span></div><div class="cheat-item"><span class="cheat-key">Google</span></div><div class="cheat-item"><span class="cheat-key">likely a server, not a person</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Reverse DNS — What is the IP's Name?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">IP to hostname</span></div><div class="cheat-item"><span class="cheat-key">in-addr.arpa</span></div><div class="cheat-item"><span class="cheat-key">Tor exit node</span></div><div class="cheat-item"><span class="cheat-key">CDN — origin is hidden</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Reputation — Is the IP Dangerous?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">legitimate internet scanners and attackers</span></div><div class="cheat-item"><span class="cheat-key">known spam source</span></div><div class="cheat-item"><span class="cheat-key">80% of reporters believe this is abuse</span></div><div class="cheat-item"><span class="cheat-key">background internet scanning — not malicious</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Shodan & Censys — Internet Intelligence</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">service banners, ports, metadata</span></div><div class="cheat-item"><span class="cheat-key">certificate analysis</span></div><div class="cheat-item"><span class="cheat-key">servers with certificate for domain</span></div><div class="cheat-item"><span class="cheat-key">exposed publicly, anyone can read</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Log Analysis — Where Did the Attacker Come From?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">IP, timestamp, URL, status, user-agent</span></div><div class="cheat-item"><span class="cheat-key">lines with status 404</span></div><div class="cheat-item"><span class="cheat-key">country + ISP + ASN per IP</span></div><div class="cheat-item"><span class="cheat-key">many different IPs with same pattern</span></div></div></div>`,
+`<div class="callout callout-success"><strong>📋 Reports & Automation — From Investigation to Action</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Indicator of Compromise</span></div><div class="cheat-item"><span class="cheat-key">sharing threat intelligence between organizations</span></div><div class="cheat-item"><span class="cheat-key">impossible — could be anyone</span></div><div class="cheat-item"><span class="cheat-key">ASN removes many IPs from malicious community</span></div></div></div>`
+  ]
+}};
+var GAME_QS={},GAME_QS_EN={},QUIZZES={},QUIZZES_EN={},ILABS={},ILABS_EN={};
+GAME_QS[0]=[{"q": "Passive investigation מול Active:", "o": ["Passive=מהיר", "Passive=לא שולח packets", "Active=בטוח יותר", "זהים"], "a": 1}, {"q": "IP address = אדם?", "o": ["תמיד", "לעולם לא", "לפעמים, אבל דורש הרבה ראיות נוספות", "רק ב-IPv6"], "a": 2}, {"q": "Tor exit node IP:", "o": ["מזהה אדם ספציפי", "יכול להיות מישהו אחר לגמרי", "תמיד malicious", "רק מרוסיה"], "a": 1}, {"q": "ipinfo.io נותן:", "o": ["port scanning", "מדינה + ISP + ASN", "passwords", "emails"], "a": 1}, {"q": "GDPR רלוונטי ל-IP investigation כי:", "o": ["IPs מוצפנים", "IP של אדם פרטי יכול להיחשב PII", "אסור לחקור", "רק באירופה"], "a": 1}, {"q": "Shodan מציג על IP:", "o": ["location בלבד", "ports, services, certificates, history", "emails", "passwords"], "a": 1}, {"q": "dig -x IP מבצע:", "o": ["port scan", "reverse DNS lookup", "whois query", "ping"], "a": 1}, {"q": "AbuseIPDB מכיל:", "o": ["geolocation", "דיווחים על IP malicious activity", "certificate info", "ASN data"], "a": 1}];
+GAME_QS_EN[0]=[{"q": "Passive vs Active investigation:", "o": ["Passive=faster", "Passive=sends no packets", "Active=safer", "identical"], "a": 1}, {"q": "IP address = a person?", "o": ["always", "never", "sometimes, but requires much more evidence", "only in IPv6"], "a": 2}, {"q": "A Tor exit node IP:", "o": ["identifies a specific person", "could be anyone", "always malicious", "only from Russia"], "a": 1}, {"q": "ipinfo.io returns:", "o": ["port scan", "country + ISP + ASN", "passwords", "emails"], "a": 1}, {"q": "GDPR is relevant to IP investigation because:", "o": ["IPs are encrypted", "a private person's IP can be considered PII", "investigation is forbidden", "only in Europe"], "a": 1}, {"q": "Shodan shows for an IP:", "o": ["location only", "ports, services, certificates, history", "emails", "passwords"], "a": 1}, {"q": "dig -x IP performs:", "o": ["port scan", "reverse DNS lookup", "whois query", "ping"], "a": 1}, {"q": "AbuseIPDB contains:", "o": ["geolocation", "reports of malicious IP activity", "certificate info", "ASN data"], "a": 1}];
+GAME_QS[1]=[{"q": "MaxMind GeoIP דיוק ברמת מדינה:", "o": ["50%", "75%", "90%", "~99%"], "a": 3}, {"q": "MaxMind דיוק ברמת עיר:", "o": ["99%", "~66%", "30%", "לא קיים"], "a": 1}, {"q": "IP של Starlink משתמש ישראלי יראה:", "o": ["ישראל", "IP של ground station בחו\"ל", "IPv6 ישראלי", "לא ניתן לזהות"], "a": 1}, {"q": "IP של AWS/DigitalOcean שגולש לאתרך הוא כנראה:", "o": ["משתמש לגיטימי", "bot או תוקף שמסתיר זהות", "גולש מארה\"ב", "IPv4 בלבד"], "a": 1}, {"q": "ipinfo.io privacy API מחזיר:", "o": ["geolocation בלבד", "האם IP הוא VPN/Proxy/Tor/Hosting", "passwords", "certificates"], "a": 1}, {"q": "מה עושים כש-3 מקורות geolocation מחזירים תוצאות שונות?", "o": ["בוחרים את הראשון", "בוחרים את הרוב", "מתעדים חוסר ודאות", "מבטלים החקירה"], "a": 2}, {"q": "Geolocation מבוססת על:", "o": ["GPS של המחשב", "registry data + BGP routing + active probing", "cookies", "MAC address"], "a": 1}, {"q": "הסיפור של Kansas לימד:", "o": ["MaxMind מדויקים", "Geolocation היא הערכה, לא עובדה", "IPs גרמניים מסוכנים", "לא לבנות אתרים ב-Kansas"], "a": 1}];
+GAME_QS_EN[1]=[{"q": "MaxMind GeoIP accuracy at country level:", "o": ["50%", "75%", "90%", "~99%"], "a": 3}, {"q": "MaxMind accuracy at city level:", "o": ["99%", "~66%", "30%", "does not exist"], "a": 1}, {"q": "A Starlink IP for an Israeli user will show:", "o": ["Israel", "IP of ground station abroad", "Israeli IPv6", "cannot be identified"], "a": 1}, {"q": "An AWS/DigitalOcean IP visiting your site is probably:", "o": ["legitimate user", "bot or attacker hiding identity", "visitor from USA", "IPv4 only"], "a": 1}, {"q": "ipinfo.io privacy API returns:", "o": ["geolocation only", "whether IP is VPN/Proxy/Tor/Hosting", "passwords", "certificates"], "a": 1}, {"q": "When 3 geolocation sources give different results:", "o": ["choose the first", "choose the majority", "document the uncertainty", "cancel investigation"], "a": 2}, {"q": "Geolocation is based on:", "o": ["computer GPS", "registry data + BGP routing + active probing", "cookies", "MAC address"], "a": 1}, {"q": "The Kansas story taught us:", "o": ["MaxMind is accurate", "Geolocation is an estimate, not a fact", "German IPs are dangerous", "do not build sites in Kansas"], "a": 1}];
+GAME_QS[2]=[{"q": "WHOIS על IP מראה:", "o": ["שם המשתמש", "מי מחזיק בblock — ISP / ארגון", "מיקום מדויק", "emails אישיים"], "a": 1}, {"q": "RIPE NCC מנהל IPs של:", "o": ["צפון אמריקה", "אירופה, מזרח תיכון, מרכז אסיה", "אסיה פסיפיק", "אפריקה"], "a": 1}, {"q": "AS15169 הוא:", "o": ["Amazon", "Microsoft", "Google", "Cloudflare"], "a": 2}, {"q": "IP מ-ASN של hosting provider אומר:", "o": ["משתמש פרטי", "כנראה שרת, לא אדם", "מדינה ספציפית", "IPv6"], "a": 1}, {"q": "RDAP לעומת WHOIS:", "o": ["ישן יותר", "מחזיר JSON, יותר מובנה", "פחות מידע", "רק ל-domains"], "a": 1}, {"q": "כדי לדעת מי הלקוח הספציפי של ISP:", "o": ["WHOIS מספיק", "צריך צו שיפוטי", "shodan", "ipinfo.io"], "a": 1}, {"q": "whois -h whois.cymru.com מחזיר:", "o": ["geolocation", "ASN + prefix + organization", "abuse contacts", "reverse DNS"], "a": 1}, {"q": "Bulletproof hosting ASN — אסטרטגיית הגנה:", "o": ["block IP אחד", "block כל ה-ASN prefix", "ignore", "report לwhois"], "a": 1}];
+GAME_QS_EN[2]=[{"q": "WHOIS on an IP shows:", "o": ["username", "who holds the block — ISP / organization", "exact location", "personal emails"], "a": 1}, {"q": "RIPE NCC manages IPs for:", "o": ["North America", "Europe, Middle East, Central Asia", "Asia Pacific", "Africa"], "a": 1}, {"q": "AS15169 is:", "o": ["Amazon", "Microsoft", "Google", "Cloudflare"], "a": 2}, {"q": "An IP from a hosting provider ASN means:", "o": ["private user", "likely a server, not a person", "specific country", "IPv6"], "a": 1}, {"q": "RDAP vs WHOIS:", "o": ["older", "returns JSON, more structured", "less information", "domains only"], "a": 1}, {"q": "To know the specific ISP customer behind an IP:", "o": ["WHOIS is enough", "requires a court order", "shodan", "ipinfo.io"], "a": 1}, {"q": "whois -h whois.cymru.com returns:", "o": ["geolocation", "ASN + prefix + organization", "abuse contacts", "reverse DNS"], "a": 1}, {"q": "Bulletproof hosting ASN — defense strategy:", "o": ["block one IP", "block entire ASN prefix", "ignore", "report to whois"], "a": 1}];
+GAME_QS[3]=[{"q": "Reverse DNS ממיר:", "o": ["domain לIP", "IP לשם host", "ASN לcountry", "IPv4 לIPv6"], "a": 1}, {"q": "PTR record נמצא ב-zone:", "o": ["example.com", "in-addr.arpa", "ptr.dns.net", "reverse.iana.org"], "a": 1}, {"q": "hostname של tor-exit.riseup.net אומר:", "o": ["שרת בשוודיה", "Tor exit node", "AWS server", "CDN"], "a": 1}, {"q": "IP של Cloudflare בחיפוש DNS אומר:", "o": ["origin server נמצא", "CDN — origin מוסתר", "הדומיין לא קיים", "IPv6 בלבד"], "a": 1}, {"q": "mail. בשם host מרמז על:", "o": ["mail client", "mail server", "מדינה", "hosting"], "a": 1}, {"q": "IP ללא PTR record:", "o": ["תמיד malicious", "dynamic IP או לא מוגדר", "AWS בלבד", "IPv6"], "a": 1}, {"q": "crt.sh מציג:", "o": ["WHOIS data", "Certificate Transparency — subdomains", "geolocation", "ASN"], "a": 1}, {"q": "Open relay SMTP = ?", "o": ["מאובטח", "כל אחד יכול לשלוח email מהdomain", "mail server בלבד", "reverse DNS"], "a": 1}];
+GAME_QS_EN[3]=[{"q": "Reverse DNS converts:", "o": ["domain to IP", "IP to hostname", "ASN to country", "IPv4 to IPv6"], "a": 1}, {"q": "PTR record is in the zone:", "o": ["example.com", "in-addr.arpa", "ptr.dns.net", "reverse.iana.org"], "a": 1}, {"q": "hostname tor-exit.riseup.net means:", "o": ["server in Sweden", "Tor exit node", "AWS server", "CDN"], "a": 1}, {"q": "Cloudflare IP in DNS lookup means:", "o": ["origin server found", "CDN — origin is hidden", "domain does not exist", "IPv6 only"], "a": 1}, {"q": "mail. in a hostname suggests:", "o": ["mail client", "mail server", "country", "hosting"], "a": 1}, {"q": "IP without PTR record:", "o": ["always malicious", "dynamic IP or unconfigured", "AWS only", "IPv6"], "a": 1}, {"q": "crt.sh shows:", "o": ["WHOIS data", "Certificate Transparency — subdomains", "geolocation", "ASN"], "a": 1}, {"q": "Open relay SMTP means:", "o": ["secure", "anyone can send email from the domain", "mail server only", "reverse DNS"], "a": 1}];
+GAME_QS[4]=[{"q": "GreyNoise מבדיל בין:", "o": ["IPv4 לIPv6", "internet scanners לגיטימיים לbetween תוקפים", "מדינות", "ports"], "a": 1}, {"q": "SPAMHAUS SBL מציין:", "o": ["geolocation", "spam source מוכר", "open ports", "ASN"], "a": 1}, {"q": "AbuseIPDB confidence 80% אומר:", "o": ["IP בטוח", "80% מהדיווחים מאמינים שמדובר בabuse", "IPv6", "hosting"], "a": 1}, {"q": "Shodan IPs ב-logs שלך הם:", "o": ["attack", "background internet scanning — לא malicious", "Tor", "spam"], "a": 1}, {"q": "VirusTotal ל-IP מציג:", "o": ["geolocation", "70+ vendors שבדקו + malware associations", "whois בלבד", "PTR record"], "a": 1}, {"q": "Tor exit node IP — מה זה אומר לחקירה?", "o": ["בוודאי malicious", "attribution בלתי אפשרי — יכול להיות מישהו אחר", "ASN ידוע", "hosting provider"], "a": 1}, {"q": "DNSBL בדיקה — NXDOMAIN אומר:", "o": ["ב-blacklist", "לא ב-blacklist", "שגיאת DNS", "IPv6"], "a": 1}, {"q": "False positive ב-reputation check:", "o": ["IP שהוא malicious", "IP שמסומן בטעות כmסוכן", "Tor exit node", "bulletproof hosting"], "a": 1}];
+GAME_QS_EN[4]=[{"q": "GreyNoise distinguishes between:", "o": ["IPv4 and IPv6", "legitimate internet scanners and attackers", "countries", "ports"], "a": 1}, {"q": "SPAMHAUS SBL indicates:", "o": ["geolocation", "known spam source", "open ports", "ASN"], "a": 1}, {"q": "AbuseIPDB confidence 80% means:", "o": ["IP is safe", "80% of reporters believe this is abuse", "IPv6", "hosting"], "a": 1}, {"q": "Shodan IPs in your logs are:", "o": ["attack", "background internet scanning — not malicious", "Tor", "spam"], "a": 1}, {"q": "VirusTotal for an IP shows:", "o": ["geolocation", "70+ vendors checked + malware associations", "whois only", "PTR record"], "a": 1}, {"q": "Tor exit node IP — what does it mean for investigation?", "o": ["definitely malicious", "attribution impossible — could be anyone", "known ASN", "hosting provider"], "a": 1}, {"q": "DNSBL check — NXDOMAIN means:", "o": ["on blacklist", "not on blacklist", "DNS error", "IPv6"], "a": 1}, {"q": "False positive in reputation check:", "o": ["IP that is malicious", "IP incorrectly flagged as dangerous", "Tor exit node", "bulletproof hosting"], "a": 1}];
+GAME_QS[5]=[{"q": "Shodan סורק:", "o": ["תוכן אתרים", "service banners, ports, metadata", "emails", "social media"], "a": 1}, {"q": "Censys מתמחה ב:", "o": ["geolocation", "certificate analysis", "password cracking", "whois"], "a": 1}, {"q": "Shodan dork: ssl.cert.subject.cn:company.com מחפש:", "o": ["domain registration", "servers עם certificate לdomain", "open ports", "emails"], "a": 1}, {"q": "MongoDB ב-Shodan ללא authentication:", "o": ["תקין", "חשוף לציבור, כל אחד יכול לקרוא", "מוצפן", "לא נסרק"], "a": 1}, {"q": "כמה זמן לוקח לבדוק RDP פתוח לאינטרנט?", "o": ["שנים", "חודשים", "שבועות", "שעות"], "a": 3}, {"q": "Censys מאפשר למצוא origin מאחורי Cloudflare כי:", "o": ["יש לו API מיוחד", "מחפש certificates שמשתמשים בדומיין", "סורק מהר יותר", "חינמי"], "a": 1}, {"q": "shodan alert מיועד ל:", "o": ["block IPs", "notification כשmמוצאים דברים חדשים ב-org", "blacklist", "banner grabbing"], "a": 1}, {"q": "banner grabbing עם nc מחזיר:", "o": ["geolocation", "server version ו-response headers", "certificate", "ASN"], "a": 1}];
+GAME_QS_EN[5]=[{"q": "Shodan scans:", "o": ["website content", "service banners, ports, metadata", "emails", "social media"], "a": 1}, {"q": "Censys specializes in:", "o": ["geolocation", "certificate analysis", "password cracking", "whois"], "a": 1}, {"q": "Shodan dork ssl.cert.subject.cn:company.com finds:", "o": ["domain registration", "servers with certificate for domain", "open ports", "emails"], "a": 1}, {"q": "MongoDB on Shodan without authentication:", "o": ["normal", "exposed publicly, anyone can read", "encrypted", "not scanned"], "a": 1}, {"q": "How long does it take to attempt to breach open RDP on internet?", "o": ["years", "months", "weeks", "hours"], "a": 3}, {"q": "Censys can find origin behind Cloudflare because:", "o": ["special API", "searches certificates using the domain", "faster scanning", "free"], "a": 1}, {"q": "shodan alert is for:", "o": ["blocking IPs", "notification when new things found in org", "blacklisting", "banner grabbing"], "a": 1}, {"q": "banner grabbing with nc returns:", "o": ["geolocation", "server version and response headers", "certificate", "ASN"], "a": 1}];
+GAME_QS[6]=[{"q": "Web access log מכיל:", "o": ["passwords", "IP, timestamp, URL, status, user-agent", "emails", "certificates"], "a": 1}, {"q": "awk '$9==404' access.log מחזיר:", "o": ["כל הshורות", "שורות עם status 404", "IPs בלבד", "user agents"], "a": 1}, {"q": "GeoIP enrichment מוסיף לlog:", "o": ["passwords", "מדינה + ISP + ASN לכל IP", "SSL certificates", "open ports"], "a": 1}, {"q": "Botnet מזהים לפי:", "o": ["IP אחד עם הרבה בקשות", "הרבה IPs שונים עם pattern זהה", "geolocation", "WHOIS"], "a": 1}, {"q": "Credential stuffing attack:", "o": ["brute force מIP אחד", "רשימת username:password מleaks על הרבה IPs", "SQLi", "XSS"], "a": 1}, {"q": "User-Agent זהה ב-200 IPs שונים מצביע על:", "o": ["CDN", "botnet", "residential ISP", "IPv6"], "a": 1}, {"q": "Block ASN כולו לעומת block IP בודד:", "o": ["ASN=איטי יותר", "ASN=מוריד הרבה IPs בבת אחת", "זהים", "IP=מהיר יותר"], "a": 1}, {"q": "Credential stuffing attack: כיצד מזהים?", "o": ["הרבה בקשות לדף ראשי", "הרבה login failures מ-IPs שונים", "port scanning", "DNS queries"], "a": 1}];
+GAME_QS_EN[6]=[{"q": "Web access log contains:", "o": ["passwords", "IP, timestamp, URL, status, user-agent", "emails", "certificates"], "a": 1}, {"q": "awk '$9==404' access.log returns:", "o": ["all lines", "lines with status 404", "IPs only", "user agents"], "a": 1}, {"q": "GeoIP enrichment adds to logs:", "o": ["passwords", "country + ISP + ASN per IP", "SSL certificates", "open ports"], "a": 1}, {"q": "Botnets are identified by:", "o": ["one IP with many requests", "many different IPs with same pattern", "geolocation", "WHOIS"], "a": 1}, {"q": "Credential stuffing attack:", "o": ["brute force from one IP", "leaked username:password list across many IPs", "SQLi", "XSS"], "a": 1}, {"q": "Same User-Agent across 200 different IPs suggests:", "o": ["CDN", "botnet", "residential ISP", "IPv6"], "a": 1}, {"q": "Block entire ASN vs block single IP:", "o": ["ASN=slower", "ASN=takes down many IPs at once", "identical", "IP=faster"], "a": 1}, {"q": "Credential stuffing: how do you identify it?", "o": ["many requests to homepage", "many login failures from different IPs", "port scanning", "DNS queries"], "a": 1}];
+GAME_QS[7]=[{"q": "IOC = ?", "o": ["Internet Operations Center", "Indicator of Compromise", "IP Over Cloud", "Investigation Output Check"], "a": 1}, {"q": "MISP משמש ל:", "o": ["geolocation", "שיתוף threat intelligence בין ארגונים", "port scanning", "password cracking"], "a": 1}, {"q": "Attribution ל-IP Tor exit node:", "o": ["תמיד אפשרי", "בלתי אפשרי — יכול להיות מישהו אחר", "דורש shodan", "דורש whois"], "a": 1}, {"q": "Block ASN כולו לעומת IP בודד:", "o": ["IP עדיף תמיד", "ASN מוריד הרבה IPs מcommunity злonasty", "זהים", "CIDR בלבד"], "a": 1}, {"q": "Executive Summary בדוח לmanagement:", "o": ["כל הפרטים הטכניים", "מה קרה, impact, המלצה — בלי jargon", "geolocation בלבד", "WHOIS dump"], "a": 1}, {"q": "Confidence level בדוח attribution:", "o": ["לא נדרש", "חובה — מצביע על כמה לסמוך", "רק ל-management", "רק ל-technical"], "a": 1}, {"q": "iptables -A INPUT -s IP -j DROP:", "o": ["מאפשר IP", "חוסם incoming מ-IP", "מוחק rule", "מאפשר outgoing"], "a": 1}, {"q": "Attribution שגוי עלול לגרום ל:", "o": ["שום דבר", "defamation lawsuit, נזק לארגון חף מפשע", "block שגוי", "WHOIS error"], "a": 1}];
+GAME_QS_EN[7]=[{"q": "IOC stands for:", "o": ["Internet Operations Center", "Indicator of Compromise", "IP Over Cloud", "Investigation Output Check"], "a": 1}, {"q": "MISP is used for:", "o": ["geolocation", "sharing threat intelligence between organizations", "port scanning", "password cracking"], "a": 1}, {"q": "Attribution to a Tor exit node IP:", "o": ["always possible", "impossible — could be anyone", "requires shodan", "requires whois"], "a": 1}, {"q": "Block entire ASN vs single IP:", "o": ["IP always better", "ASN removes many IPs from malicious community", "identical", "CIDR only"], "a": 1}, {"q": "Executive Summary in a management report:", "o": ["all technical details", "what happened, impact, recommendation — no jargon", "geolocation only", "WHOIS dump"], "a": 1}, {"q": "Confidence level in attribution report:", "o": ["not required", "mandatory — shows how much to trust it", "management only", "technical only"], "a": 1}, {"q": "iptables -A INPUT -s IP -j DROP:", "o": ["allows IP", "blocks incoming from IP", "deletes rule", "allows outgoing"], "a": 1}, {"q": "Incorrect attribution can cause:", "o": ["nothing", "defamation lawsuit, harm to innocent organization", "wrong block", "WHOIS error"], "a": 1}];
+for(var _i=0;_i<8;_i++){
+  QUIZZES[_i]=[{q:'',o:['','','',''],a:0,e:''}];
+  QUIZZES_EN[_i]=[{q:'',o:['','','',''],a:0,e:''}];
+  ILABS[_i]=[{type:'mchoice',q:'',options:[],explain:''}];
+  ILABS_EN[_i]=[{type:'mchoice',q:'',options:[],explain:''}];
+}
+// Show next chapter helper
+function showNextChapter(chId) {
+  var next = chId + 1;
+  if(next < TOTAL_CHAPTERS) showChapter(next);
+  else showTab(chId, 'cheat');
+}
+// Replace CHID placeholders in learn content after render
+function patchLearnNav(chId) {
+  var el = document.getElementById('learn-'+chId);
+  if(!el) return;
+  var html = el.innerHTML;
+  if(html.indexOf('CHID') >= 0) {
+    el.innerHTML = html.replace(/CHID/g, chId);
+  }
+}
+// HTML escape for safe rendering of item text
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ===== INTERACTIVE LAB ENGINE =====
+// Types: fill, classify, order, mchoice
+
+function renderLab(chId) {
+  const el = document.getElementById('lab-' + chId);
+  if (!el || el.dataset.rendered) return;
+  el.dataset.rendered = '1';
+  const exs = getL(chId);
+  const Lc = L();
+  const labTypeNames = currentLang==='he'
+    ? {fill:'✏️ השלמה', classify:'🗂️ סיווג', order:'🔢 סידור', mchoice:'🎭 תרחיש', complete:'הושלמו', orderSeq:'הסדר שבחרת:', orderCheck:'בדקי ✓', allDone:'כל התרגילים הושלמו!'}
+    : {fill:'✏️ Fill in', classify:'🗂️ Classify', order:'🔢 Order', mchoice:'🎭 Scenario', complete:'completed', orderSeq:'Your order:', orderCheck:'Check ✓', allDone:'All exercises done!'};
+
+  el.innerHTML = `<div class="lab-header">
+    <div class="lab-progress-row">
+      <span class="lab-progress-label" id="lab-prog-label-${chId}">0/${exs.length} ${labTypeNames.complete}</span>
+      <div class="lab-progress-bar"><div class="lab-progress-fill" id="lab-prog-fill-${chId}" style="width:0%"></div></div>
+    </div>
+  </div>` + exs.map((ex, i) => {
+    if (ex.type === 'fill')     return renderFill(chId, i, ex, Lc, labTypeNames);
+    if (ex.type === 'classify') return renderClassify(chId, i, ex, Lc, labTypeNames, exs.length);
+    if (ex.type === 'order')    return renderOrder(chId, i, ex, Lc, labTypeNames, exs.length);
+    if (ex.type === 'mchoice')  return renderMChoice(chId, i, ex, Lc, labTypeNames, exs.length);
+    return '';
+  }).join('') +
+  `<div class="lab-done-banner" id="lab-done-${chId}" style="display:none">
+    <span>🏆</span><span id="lab-done-txt-${chId}"></span>
+  </div>`;
+}
+
+function renderFill(chId, i, ex, Lc, T) {
+  const total = getL(chId).length;
+  const fields = ex.fields.map((f, fi) =>
+    `<div class="fill-row" id="fill-row-${chId}-${i}-${fi}">
+      <label class="fill-label">${f.label}</label>
+      <div class="fill-input-wrap">
+        <input class="fill-input" id="fill-inp-${chId}-${i}-${fi}" placeholder="${f.placeholder}"
+          oninput="fillCheck(${chId},${i},${fi})" autocomplete="off" spellcheck="false">
+        <span class="fill-icon" id="fill-icon-${chId}-${i}-${fi}"></span>
+      </div>
+    </div>`).join('');
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.fill}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    <div class="fill-fields">${fields}</div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+
+function fillCheck(chId, i, fi) {
+  const exs = getL(chId);
+  const f = exs[i].fields[fi];
+  const inp = document.getElementById(`fill-inp-${chId}-${i}-${fi}`);
+  const icon = document.getElementById(`fill-icon-${chId}-${i}-${fi}`);
+  const row = document.getElementById(`fill-row-${chId}-${i}-${fi}`);
+  if (!inp) return;
+  const val = inp.value.trim().toLowerCase();
+  const alts = (f.alt || []).map(a => a.toLowerCase());
+  const ok = val === f.answer.toLowerCase() || alts.includes(val);
+  row.className = 'fill-row' + (val.length===0?'': ok?' fill-correct':' fill-wrong');
+  icon.textContent = val.length===0?'': ok?'✓':'';
+  const allOk = exs[i].fields.every((ff, ffi) => {
+    const v = (document.getElementById(`fill-inp-${chId}-${i}-${ffi}`)?.value||'').trim().toLowerCase();
+    return v === ff.answer.toLowerCase() || (ff.alt||[]).map(a=>a.toLowerCase()).includes(v);
+  });
+  if (allOk) markLabDone(chId, i);
+}
+
+function renderClassify(chId, i, ex, Lc, T, total) {
+  const shuffled = [...ex.items].sort(() => Math.random() - 0.5);
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.classify}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    ${ex.desc?`<div class="lab-desc">${ex.desc}</div>`:''}
+    <div class="classify-pool" id="pool-${chId}-${i}">
+      ${shuffled.map(item=>`<button class="classify-chip" id="chip-${chId}-${i}-${item.id}" onclick="classifySelect(${chId},${i},'${item.id}')">${esc(item.text)}</button>`).join('')}
+    </div>
+    <div class="classify-cats">
+      ${ex.categories.map((cat,ci)=>`
+        <div class="classify-cat" onclick="classifyDrop(${chId},${i},${ci})">
+          <div class="classify-cat-title">${cat}</div>
+          <div class="classify-cat-zone" id="zone-${chId}-${i}-${ci}"></div>
+        </div>`).join('')}
+    </div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+
+const _csel = {};
+function classifySelect(chId, i, itemId) {
+  _csel[`${chId}-${i}`] = itemId;
+  document.querySelectorAll(`#pool-${chId}-${i} .classify-chip, #labcard-${chId}-${i} .classify-drop-chip`).forEach(c=>c.classList.remove('selected'));
+  document.getElementById(`chip-${chId}-${i}-${itemId}`)?.classList.add('selected');
+}
+function classifyDrop(chId, i, ci) {
+  const key = `${chId}-${i}`;
+  const itemId = _csel[key]; if(!itemId) return;
+  const ex = getL(chId)[i];
+  const item = ex.items.find(it=>it.id===itemId); if(!item) return;
+  const ok = item.ans === ex.catKeys[ci];
+  document.getElementById(`chip-${chId}-${i}-${itemId}`)?.remove();
+  const zone = document.getElementById(`zone-${chId}-${i}-${ci}`);
+  if (zone) {
+    const chip = document.createElement('span');
+    chip.className = 'classify-drop-chip ' + (ok?'drop-correct':'drop-wrong');
+    chip.textContent = (ok?'✓ ':'✗ ') + item.text;
+    chip.onclick = () => { chip.remove(); const pool=document.getElementById(`pool-${chId}-${i}`); if(pool){const b=document.createElement('button');b.className='classify-chip';b.id=`chip-${chId}-${i}-${itemId}`;b.textContent=item.text;b.onclick=()=>classifySelect(chId,i,itemId);pool.appendChild(b);} };
+    zone.appendChild(chip);
+  }
+  delete _csel[key];
+  const allPlaced = ex.items.every(it => !document.getElementById(`chip-${chId}-${i}-${it.id}`));
+  if (allPlaced) {
+    const allOk = ex.items.every(it => { const ci2=ex.catKeys.indexOf(it.ans); const z=document.getElementById(`zone-${chId}-${i}-${ci2}`); return z && [...z.querySelectorAll('.drop-correct')].some(c=>c.textContent.includes(it.text)); });
+    document.getElementById(`labexp-${chId}-${i}`)?.style && (document.getElementById(`labexp-${chId}-${i}`).style.display='block');
+    if (allOk) markLabDone(chId, i);
+  }
+}
+
+function renderOrder(chId, i, ex, Lc, T, total) {
+  const shuffled = [...ex.items].sort(() => Math.random() - 0.5);
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.order}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    ${ex.desc?`<div class="lab-desc">${ex.desc}</div>`:''}
+    <div class="order-pool" id="orderpool-${chId}-${i}">
+      ${shuffled.map(item=>`<button class="order-item" id="oitem-${chId}-${i}-${item.id}" onclick="orderClick(${chId},${i},'${item.id}')">${esc(item.text)}</button>`).join('')}
+    </div>
+    <div class="order-sequence">
+      <div class="order-seq-label">${T.orderSeq}</div>
+      <div class="order-seq-zone" id="orderseq-${chId}-${i}"></div>
+    </div>
+    <button class="btn btn-ghost" style="margin-top:8px;font-size:11px" onclick="orderCheck(${chId},${i})">${T.orderCheck}</button>
+    <div class="order-feedback" id="orderfb-${chId}-${i}"></div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+
+const _ostate = {};
+function orderClick(chId, i, itemId) {
+  const key=`${chId}-${i}`; if(!_ostate[key]) _ostate[key]=[];
+  if(_ostate[key].includes(itemId)) return;
+  _ostate[key].push(itemId);
+  const btn = document.getElementById(`oitem-${chId}-${i}-${itemId}`);
+  if(btn){btn.classList.add('order-selected');btn.disabled=true;}
+  const zone = document.getElementById(`orderseq-${chId}-${i}`);
+  if(zone){const s=document.createElement('div');s.className='order-seq-step';s.dataset.id=itemId;s.innerHTML=`<span class="order-seq-num">${_ostate[key].length}</span> ${btn?.textContent||''}`;s.onclick=()=>orderRemove(chId,i,itemId);zone.appendChild(s);}
+}
+function orderRemove(chId, i, itemId) {
+  const key=`${chId}-${i}`; if(!_ostate[key]) return;
+  _ostate[key]=_ostate[key].filter(id=>id!==itemId);
+  const btn=document.getElementById(`oitem-${chId}-${i}-${itemId}`);
+  if(btn){btn.classList.remove('order-selected');btn.disabled=false;}
+  const zone=document.getElementById(`orderseq-${chId}-${i}`);
+  if(zone){const s=zone.querySelector(`[data-id="${itemId}"]`);if(s)s.remove();zone.querySelectorAll('.order-seq-step').forEach((st,idx)=>{const n=st.querySelector('.order-seq-num');if(n)n.textContent=idx+1;});}
+}
+function orderCheck(chId, i) {
+  const key=`${chId}-${i}`;
+  const ex=getL(chId)[i];
+  const chosen=_ostate[key]||[];
+  const fb=document.getElementById(`orderfb-${chId}-${i}`);
+  const isHe=currentLang==='he';
+  if(chosen.length<ex.correct.length){if(fb){fb.textContent=isHe?`⚠️ בחרי את כל ${ex.correct.length} השלבים`:`⚠️ Select all ${ex.correct.length} steps`;fb.className='order-feedback warn';}return;}
+  const ok=ex.correct.every((id,idx)=>chosen[idx]===id);
+  if(fb){fb.textContent=ok?'✅ '+(isHe?'מצוין! סדר נכון.':'Correct! Perfect order.'):'❌ '+(isHe?'לא בדיוק. נסי שוב.':'Not quite. Try again.');fb.className='order-feedback '+(ok?'ok':'err');}
+  if(ok){document.getElementById(`labexp-${chId}-${i}`)?.style&&(document.getElementById(`labexp-${chId}-${i}`).style.display='block');markLabDone(chId,i);}
+  else setTimeout(()=>{_ostate[key]=[];const zone=document.getElementById(`orderseq-${chId}-${i}`);if(zone)zone.innerHTML='';document.getElementById(`orderpool-${chId}-${i}`)?.querySelectorAll('.order-item').forEach(b=>{b.classList.remove('order-selected');b.disabled=false;});if(fb){fb.textContent='';fb.className='order-feedback';}},1300);
+}
+
+function renderMChoice(chId, i, ex, Lc, T, total) {
+  return `<div class="lab-card" id="labcard-${chId}-${i}">
+    <div class="lab-card-hdr"><span class="lab-type-badge">${T.mchoice}</span><span class="lab-card-num">${i+1}/${total}</span></div>
+    <div class="lab-card-q">${ex.q}</div>
+    <div class="mch-opts">
+      ${ex.options.map((opt,oi)=>`
+        <button class="mch-opt" id="mchopt-${chId}-${i}-${oi}" onclick="mchoicePick(${chId},${i},${oi})">
+          <span class="mch-letter">${Lc.optLetters[oi]}</span><span class="mch-text">${opt.text}</span>
+        </button>
+        <div class="mch-feedback" id="mchfb-${chId}-${i}-${oi}" style="display:none">${opt.feedback||''}</div>`).join('')}
+    </div>
+    <div class="lab-explain-box" id="labexp-${chId}-${i}" style="display:none"><strong>${Lc.labExplain}</strong> ${ex.explain||''}</div>
+  </div>`;
+}
+function mchoicePick(chId, i, oi) {
+  const ex=getL(chId)[i];
+  ex.options.forEach((_,idx)=>{const b=document.getElementById(`mchopt-${chId}-${i}-${idx}`);if(b)b.disabled=true;});
+  const opt=ex.options[oi];
+  document.getElementById(`mchfb-${chId}-${i}-${oi}`)?.style&&(document.getElementById(`mchfb-${chId}-${i}-${oi}`).style.display='block');
+  document.getElementById(`mchopt-${chId}-${i}-${oi}`)?.classList.add(opt.correct?'mch-correct':'mch-wrong');
+  if(!opt.correct) ex.options.forEach((o,idx)=>{if(o.correct){document.getElementById(`mchopt-${chId}-${i}-${idx}`)?.classList.add('mch-correct');document.getElementById(`mchfb-${chId}-${i}-${idx}`)?.style&&(document.getElementById(`mchfb-${chId}-${i}-${idx}`).style.display='block');}});
+  document.getElementById(`labexp-${chId}-${i}`)?.style&&(document.getElementById(`labexp-${chId}-${i}`).style.display='block');
+  if(opt.correct) markLabDone(chId,i);
+}
+
+const _labDone={};
+function markLabDone(chId,i){
+  if(!_labDone[chId]) _labDone[chId]=new Set();
+  if(_labDone[chId].has(i)) return;
+  _labDone[chId].add(i);
+  addXP(15);
+  document.getElementById(`labcard-${chId}-${i}`)?.classList.add('lab-card-done');
+  const total=getL(chId).length;
+  const done=_labDone[chId].size;
+  const fill=document.getElementById(`lab-prog-fill-${chId}`);
+  if(fill) fill.style.width=Math.round(done/total*100)+'%';
+  const label=document.getElementById(`lab-prog-label-${chId}`);
+  const Lc=L();
+  const T=currentLang==='he'?{complete:'הושלמו',allDone:'כל התרגילים הושלמו!'}:{complete:'completed',allDone:'All exercises done!'};
+  if(label) label.textContent=`${done}/${total} ${T.complete}`;
+  if(done===total){const banner=document.getElementById(`lab-done-${chId}`);if(banner)banner.style.display='flex';const txt=document.getElementById(`lab-done-txt-${chId}`);if(txt)txt.textContent=T.allDone+' +'+total*15+' XP';}
+}
+
+// ===== STATE =====
+const state = {cur:0, tabs:{}, quiz:{}, game:{}, xp:0, stars:{}};
+let currentLang = 'he';
+let gameTimer = null;
+const TOTAL_CHAPTERS = 8;
+
+// ===== HELPERS =====
+function L() { return currentLang==='he' ? C.he : C.en; }
+
+function getQ(i) {
+  const key = currentLang+'-'+i;
+  if (!_sqCache[key]) {
+    const raw = (currentLang==='en' ? (QUIZZES_EN[i]||QUIZZES[i]) : QUIZZES[i]) || QUIZZES[0];
+    _sqCache[key] = raw.map(q => shuffleOptions(q));
+  }
+  return _sqCache[key];
+}
+function getL(i) { return (currentLang==='en' ? (ILABS_EN[i]||ILABS[i]) : ILABS[i]) || ILABS[0]; }
+function getG(i) {
+  const key = currentLang+'-g-'+i;
+  if (!_sgCache[key]) {
+    const raw = (currentLang==='en' ? (GAME_QS_EN[i]||GAME_QS[i]) : GAME_QS[i]) || GAME_QS[0];
+    _sgCache[key] = raw.map(q => shuffleOptions(q));
+  }
+  return _sgCache[key];
+}
+const _sqCache = {}, _sgCache = {};
+
+// ===== NORMALIZE + SHUFFLE (length bias fix) =====
+function normalizeOptions(q) {
+  const lens = q.o.map(o => o.length);
+  const wrongLens = lens.filter((_, i) => i !== q.a);
+  const maxWrong = Math.max(...wrongLens);
+  const cap = maxWrong;
+  const newOpts = q.o.map(o => {
+    if (o.length <= cap) return o;
+    let t = o.slice(0, cap);
+    const ls = t.lastIndexOf(' ');
+    if (ls > cap * 0.5) t = t.slice(0, ls);
+    return t;
+  });
+  return { ...q, o: newOpts };
+}
+function shuffleOptions(q) {
+  const norm = normalizeOptions(q);
+  const idx = [0,1,2,3];
+  for (let i = idx.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [idx[i],idx[j]] = [idx[j],idx[i]];
+  }
+  return { ...norm, o: idx.map(i=>norm.o[i]), a: idx.indexOf(norm.a) };
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  applyLang('he');
+  showChapter(0);
+});
+
+// ===== LANG =====
+function toggleLang() { currentLang = currentLang==='he'?'en':'he'; applyLang(currentLang); }
+
+function applyLang(lang) {
+  currentLang = lang;
+  const Lc = L();
+  document.documentElement.setAttribute('lang', lang==='he'?'he':'en');
+  document.documentElement.setAttribute('dir', Lc.dir);
+  document.getElementById('langBtn').textContent = Lc.langBtn;
+  document.getElementById('sbLabel').textContent = Lc.sbLabel;
+  document.getElementById('headerChName').textContent = Lc.names[state.cur]||'';
+
+  for (let i=0; i<TOTAL_CHAPTERS; i++) {
+    const $=id=>document.getElementById(id);
+    if($('chname-'+i))  $('chname-'+i).textContent  = Lc.names[i]||'';
+    if($('chtag-'+i))   $('chtag-'+i).textContent   = Lc.tags[i]||'';
+    if($('chtitle-'+i)) $('chtitle-'+i).textContent = Lc.names[i]||'';
+    if($('chdesc-'+i))  $('chdesc-'+i).textContent  = Lc.descs[i]||'';
+    if($('cheat-'+i))   $('cheat-'+i).innerHTML     = Lc.cheat[i]||'';
+
+    const learnEl = $('learn-'+i);
+    if (learnEl) learnEl.innerHTML = (Lc.learn[i]||'');
+
+    const tabsEl = $('tabs-'+i);
+    if (tabsEl) {
+      const tabs = Lc.tabs;
+      const keys = Lc.tabKeys;
+      const cur = state.tabs[i]||'learn';
+      tabsEl.innerHTML = tabs.map((t,ti)=>
+        `<button class="tab-btn${cur===keys[ti]?' active':''}" onclick="showTab(${i},'${keys[ti]}')">${t}</button>`
+      ).join('');
+    }
+
+    ['quiz','lab','game'].forEach(p => {
+      const el = $(p+'-'+i);
+      if(el){el.innerHTML='';delete el.dataset.rendered;}
+    });
+    state.quiz[i]=null;
+    state.game[i]={phase:'idle'};
+  }
+
+  const t = state.tabs[state.cur]||'learn';
+  if(t==='quiz'&&L().tabKeys.indexOf('quiz')>=0) renderQuiz(state.cur);
+  if(t==='lab'&&L().tabKeys.indexOf('lab')>=0)  renderLab(state.cur);
+  if(t==='game') renderGame(state.cur);
+
+  // Credits bar translation
+  const creditsLabels = {
+    he: {
+      title: '// מקורות ותודות',
+      research: 'מחקר ותקנים',
+      incidents: 'ניתוח אירועים',
+      tech: 'תיעוד טכני',
+      built: 'נבנה עם',
+      version: 'גרסה 2.0 — 2025'
+    },
+    en: {
+      title: '// Sources & Credits',
+      research: 'Research & Standards',
+      incidents: 'Incident Analysis',
+      tech: 'Technical Docs',
+      built: 'Built With',
+      version: 'Version 2.0 — 2025'
+    }
+  };
+  const cl2 = creditsLabels[lang] || creditsLabels.he;
+  const setT = (id, txt) => { const el = document.getElementById(id); if(el) el.textContent = txt; };
+  setT('credits-title-label', cl2.title);
+  setT('credits-research', cl2.research);
+  setT('credits-incidents', cl2.incidents);
+  setT('credits-tech', cl2.tech);
+  setT('credits-built', cl2.built);
+  setT('credits-version', cl2.version);
+}
+
+// ===== NAV =====
+function showChapter(n) {
+  document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.ch-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('ch-'+n)?.classList.add('active');
+  document.getElementById('nav-'+n)?.classList.add('active');
+  state.cur=n;
+  document.getElementById('headerChName').textContent = L().names[n]||'';
+  document.getElementById('sidebar')?.classList.remove('open');
+  window.scrollTo(0,0);
+  activateTab(n, state.tabs[n]||'learn');
+}
+
+function toggleSidebar() { document.getElementById('sidebar')?.classList.toggle('open'); }
+
+function showTab(chId, tabName) { state.tabs[chId]=tabName; activateTab(chId, tabName); }
+
+function activateTab(chId, tabName) {
+  const ch = document.getElementById('ch-'+chId);
+  if (!ch) return;
+  ch.querySelectorAll('.tab-btn').forEach(btn => {
+    const m = btn.getAttribute('onclick').match(/'(\w+)'\)/);
+    btn.classList.toggle('active', m && m[1]===tabName);
+  });
+  ch.querySelectorAll('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id===chId+'-'+tabName);
+  });
+  if(tabName==='quiz'&&L().tabKeys.indexOf('quiz')>=0) renderQuiz(chId);
+  if(tabName==='lab'&&L().tabKeys.indexOf('lab')>=0)  renderLab(chId);
+  if(tabName==='game') renderGame(chId);
+}
+
+// ===== QUIZ =====
+function renderQuiz(chId) {
+  const el = document.getElementById('quiz-'+chId);
+  if(!el||el.dataset.rendered) return;
+  el.dataset.rendered='1';
+  if(!state.quiz[chId]) state.quiz[chId]={qi:0,ans:{},done:false,score:0};
+  const qs=getQ(chId); const Lc=L();
+  const pips = qs.map((_,i)=>`<div class="quiz-pip" id="qpip-${chId}-${i}"></div>`).join('');
+  const cards = qs.map((q,i)=>`
+    <div class="quiz-q-card" id="qcard-${chId}-${i}">
+      <div class="quiz-meta"><span id="qmeta-${chId}-${i}"></span></div>
+      <div class="quiz-q">${q.q}</div>
+      <div class="quiz-opts">
+        ${q.o.map((opt,oi)=>`
+          <button class="quiz-opt" id="qopt-${chId}-${i}-${oi}" onclick="quizPick(${chId},${i},${oi})">
+            <span class="opt-letter" id="qltr-${chId}-${i}-${oi}"></span>${opt}
+          </button>`).join('')}
+      </div>
+      <div class="quiz-exp" id="qexp-${chId}-${i}" style="display:none">
+        <strong id="qexplbl-${chId}-${i}"></strong> ${q.e||''}
+      </div>
+    </div>`).join('');
+  el.innerHTML=`
+    <div class="quiz-prog" id="qprog-${chId}">${pips}</div>
+    ${cards}
+    <div class="quiz-result" id="qres-${chId}">
+      <div class="result-emoji" id="qemoji-${chId}">🎉</div>
+      <div class="result-score" id="qscore-${chId}"></div>
+      <div class="result-label" id="qlabel-${chId}"></div>
+      <div class="result-stars" id="qstars-${chId}"></div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:8px">
+        <button class="btn btn-ghost" id="qbtn-reset-${chId}" onclick="quizReset(${chId})"></button>
+        <button class="btn btn-primary" id="qbtn-lab-${chId}" onclick="showTab(${chId},'game')"></button>
+      </div>
+    </div>
+    <div class="quiz-nav" id="qnav-${chId}">
+      <button class="btn btn-ghost" id="qprev-${chId}" onclick="quizNav(${chId},-1)"></button>
+      <button class="btn btn-primary" id="qnext-${chId}" onclick="quizNav(${chId},1)"></button>
+    </div>`;
+  refreshQuiz(chId);
+}
+
+function refreshQuiz(chId) {
+  const st=state.quiz[chId]; if(!st) return;
+  const qs=getQ(chId); const Lc=L();
+  qs.forEach((_,i)=>{
+    const card=document.getElementById(`qcard-${chId}-${i}`);
+    if(card) card.classList.toggle('active',i===st.qi);
+    const pip=document.getElementById(`qpip-${chId}-${i}`);
+    if(pip) pip.className='quiz-pip'+(i<st.qi||st.done?' done':i===st.qi?' cur':'');
+    const meta=document.getElementById(`qmeta-${chId}-${i}`);
+    if(meta) meta.textContent=`${Lc.question} ${i+1} ${Lc.of} ${qs.length}`;
+    qs[i].o.forEach((_,oi)=>{
+      const ltr=document.getElementById(`qltr-${chId}-${i}-${oi}`);
+      if(ltr) ltr.textContent=Lc.optLetters[oi];
+    });
+    const explbl=document.getElementById(`qexplbl-${chId}-${i}`);
+    if(explbl) explbl.textContent=Lc.quizExplain;
+  });
+  const prev=document.getElementById(`qprev-${chId}`);
+  const next=document.getElementById(`qnext-${chId}`);
+  if(document.getElementById(`qbtn-reset-${chId}`)) document.getElementById(`qbtn-reset-${chId}`).textContent=Lc.quizAgain;
+  if(document.getElementById(`qbtn-lab-${chId}`)) document.getElementById(`qbtn-lab-${chId}`).textContent='🎮';
+  if(prev){prev.textContent=Lc.quizPrev;prev.disabled=st.qi===0;}
+  if(next){
+    const ans=st.ans[st.qi]!==undefined;
+    if(st.qi<qs.length-1){next.textContent=Lc.quizNext;next.disabled=!ans;next.onclick=()=>quizNav(chId,1);}
+    else{next.textContent=Lc.quizSubmit;next.disabled=Object.keys(st.ans).length<qs.length;next.onclick=()=>quizSubmit(chId);}
+  }
+}
+
+function quizPick(chId,qi,oi){
+  const st=state.quiz[chId];if(!st||st.done)return;
+  st.ans[qi]=oi;
+  getQ(chId)[qi].o.forEach((_,o)=>{
+    const btn=document.getElementById(`qopt-${chId}-${qi}-${o}`);
+    if(btn) btn.classList.toggle('selected',o===oi);
+  });
+  refreshQuiz(chId);
+}
+
+function quizNav(chId,dir){
+  const st=state.quiz[chId];if(!st)return;
+  st.qi=Math.max(0,Math.min(getQ(chId).length-1,st.qi+dir));
+  refreshQuiz(chId);
+}
+
+function quizSubmit(chId){
+  const st=state.quiz[chId];if(!st)return;
+  const qs=getQ(chId);const Lc=L();
+  let score=0;
+  qs.forEach((q,i)=>{
+    const chosen=st.ans[i];const correct=q.a;
+    q.o.forEach((_,oi)=>{
+      const btn=document.getElementById(`qopt-${chId}-${i}-${oi}`);
+      if(!btn)return;
+      btn.classList.add('disabled');
+      if(oi===correct)btn.classList.add('correct');
+      else if(oi===chosen)btn.classList.add('wrong');
+      btn.classList.remove('selected');
+    });
+    const exp=document.getElementById(`qexp-${chId}-${i}`);
+    if(exp)exp.style.display='block';
+    if(chosen===correct)score++;
+  });
+  st.done=true;st.score=score;
+  const stars=score>=5?3:score>=4?2:score>=3?1:0;
+  state.stars[chId]=Math.max(state.stars[chId]||0,stars);
+  addXP(score*10);updateStars(chId);
+  document.getElementById(`qnav-${chId}`).style.display='none';
+  const res=document.getElementById(`qres-${chId}`);
+  res.classList.add('visible');
+  document.getElementById(`qscore-${chId}`).textContent=`${score}/${qs.length}`;
+  const emojis=['😔','😅','🙂','😊','🎉','🏆'];
+  document.getElementById(`qemoji-${chId}`).textContent=emojis[score]||'🎉';
+  document.getElementById(`qlabel-${chId}`).textContent=Lc.resultLabels[score]||'';
+  document.getElementById(`qstars-${chId}`).textContent='⭐'.repeat(stars)+'☆'.repeat(3-stars);
+  qs.forEach((_,i)=>{const c=document.getElementById(`qcard-${chId}-${i}`);if(c)c.classList.add('active');});
+}
+
+function quizReset(chId){
+  state.quiz[chId]=null;
+  const el=document.getElementById('quiz-'+chId);
+  if(el){el.innerHTML='';delete el.dataset.rendered;}
+  delete _sqCache[currentLang+'-'+chId];
+  renderQuiz(chId);
+}
+
+// ===== LAB =====
+function renderLab(chId){
+  const el=document.getElementById('lab-'+chId);
+  if(!el||el.dataset.rendered)return;
+  el.dataset.rendered='1';
+  const exs=getL(chId);const Lc=L();
+  el.innerHTML=exs.map((ex,i)=>`
+    <div class="lab-ex" id="labex-${chId}-${i}">
+      <div class="lab-ex-hdr" onclick="toggleLab(${chId},${i})">
+        <span class="lab-num">${i+1}</span>
+        <span class="lab-q">${ex.q}</span>
+        <span class="lab-chevron">▼</span>
+      </div>
+      <div class="lab-ans-wrap">
+        <div class="lab-ans-inner">
+          <div class="lab-ans-pre">${ex.a}</div>
+          <div class="lab-explain"><strong>${Lc.labExplain}</strong> ${ex.e||''}</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function toggleLab(chId,i){
+  const el=document.getElementById(`labex-${chId}-${i}`);
+  if(el){el.classList.toggle('open');if(el.classList.contains('open'))addXP(5);}
+}
+
+// ===== GAME =====
+function renderGame(chId){
+  const el=document.getElementById('game-'+chId);
+  if(!el)return;
+  if(!state.game[chId])state.game[chId]={phase:'idle'};
+  const gs=state.game[chId];const Lc=L();
+  if(gs.phase==='idle'){
+    const gqs=getG(chId);
+    el.innerHTML=`
+      <div class="game-start-card">
+        <div class="game-icon">🛡️</div>
+        <div class="game-start-title">${Lc.gameTitle}</div>
+        <p class="game-start-desc">${Lc.gameDesc}</p>
+        <div class="game-rules">
+          <div class="game-rule">⏱️ <span>60</span> ${Lc.gameSeconds}</div>
+          <div class="game-rule">❓ <span>${gqs.length}</span> ${Lc.gameQuestions}</div>
+          <div class="game-rule">🏆 <span>${Lc.gameXP}</span></div>
+        </div>
+        <button class="btn btn-primary" style="font-size:13px;padding:11px 32px" onclick="gameStart(${chId})">${Lc.gameStart}</button>
+        ${buildLB(chId)}
+      </div>`;
+  } else if(gs.phase==='playing'){
+    renderGamePlay(chId);
+  } else {
+    renderGameOver(chId);
+  }
+}
+
+function gameStart(chId){
+  const gqs=getG(chId);
+  state.game[chId]={phase:'playing',qs:[...gqs].sort(()=>Math.random()-.5),qi:0,score:0,time:60,answered:false};
+  renderGame(chId);startTimer(chId);
+}
+
+function renderGamePlay(chId){
+  const el=document.getElementById('game-'+chId);
+  const gs=state.game[chId];const Lc=L();
+  if(!gs||gs.phase!=='playing')return;
+  const q=gs.qs[gs.qi];
+  if(!q){gameOver(chId);return;}
+  el.innerHTML=`
+    <div class="game-hud">
+      <div class="hud-timer${gs.time<=10?' urgent':''}" id="gtimer-${chId}">${gs.time}</div>
+      <div class="hud-qnum">${gs.qi+1}/${gs.qs.length}</div>
+      <div class="hud-score">⭐ ${gs.score}</div>
+    </div>
+    <div class="game-q">${q.q}</div>
+    <div class="game-opts">
+      ${q.o.map((opt,i)=>`<button class="game-opt" id="gopt-${chId}-${i}" onclick="gameAnswer(${chId},${i})">${opt}</button>`).join('')}
+    </div>
+    <div class="game-fb" id="gfb-${chId}"></div>`;
+}
+
+function startTimer(chId){
+  clearInterval(gameTimer);
+  gameTimer=setInterval(()=>{
+    const gs=state.game[chId];
+    if(!gs||gs.phase!=='playing'){clearInterval(gameTimer);return;}
+    gs.time--;
+    const t=document.getElementById(`gtimer-${chId}`);
+    if(t){t.textContent=gs.time;t.className='hud-timer'+(gs.time<=10?' urgent':'');}
+    if(gs.time<=0){clearInterval(gameTimer);gameOver(chId);}
+  },1000);
+}
+
+function gameAnswer(chId,chosen){
+  const gs=state.game[chId];if(!gs||gs.answered)return;
+  gs.answered=true;
+  const q=gs.qs[gs.qi];const ok=q.a===chosen;
+  document.querySelectorAll(`#game-${chId} .game-opt`).forEach(b=>b.classList.add('disabled'));
+  document.getElementById(`gopt-${chId}-${chosen}`)?.classList.add(ok?'correct':'wrong');
+  if(!ok)document.getElementById(`gopt-${chId}-${q.a}`)?.classList.add('correct');
+  const fb=document.getElementById(`gfb-${chId}`);
+  if(fb){fb.textContent=ok?'+10 ✓':'✗';fb.className='game-fb '+(ok?'ok':'bad');}
+  if(ok){gs.score+=10;addXP(10);}
+  setTimeout(()=>{
+    gs.qi++;gs.answered=false;
+    if(gs.qi>=gs.qs.length){gameOver(chId);return;}
+    renderGamePlay(chId);startTimer(chId);
+  },850);
+}
+
+function gameOver(chId){
+  clearInterval(gameTimer);
+  const gs=state.game[chId];if(!gs)return;
+  gs.phase='over';const Lc=L();
+  try{
+    let lb=JSON.parse(localStorage.getItem(`cyber-${chId}`)||'[]');
+    lb.push({name:Lc.playerName,score:gs.score,ts:Date.now()});
+    lb.sort((a,b)=>b.score-a.score);lb=lb.slice(0,5);
+    localStorage.setItem(`cyber-${chId}`,JSON.stringify(lb));
+  }catch(e){}
+  const total=gs.qs.length*10;const pct=Math.round((gs.score/total)*100);
+  const medal=gs.score>=total*.8?'🏆':gs.score>=total*.5?'🥈':'🥉';
+  document.getElementById('game-'+chId).innerHTML=`
+    <div class="game-over-card">
+      <div style="font-size:50px;margin-bottom:8px">${medal}</div>
+      <div class="game-over-score">${gs.score}</div>
+      <div class="game-over-title">${Lc.points} · ${pct}${Lc.pct}</div>
+      ${buildLB(chId)}
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
+        <button class="btn btn-ghost" onclick="gameRestart(${chId})">${Lc.gameAgain}</button>
+        <button class="btn btn-primary" onclick="showTab(${chId},'cheat')">${Lc.gameToCheat}</button>
+      </div>
+    </div>`;
+}
+
+function gameRestart(chId){
+  state.game[chId]={phase:'idle'};
+  const el=document.getElementById('game-'+chId);
+  if(el)el.innerHTML='';
+  delete _sgCache[currentLang+'-g-'+chId];
+  renderGame(chId);
+}
+
+function buildLB(chId){
+  let lb=[];
+  try{lb=JSON.parse(localStorage.getItem(`cyber-${chId}`)||'[]');}catch(e){}
+  if(!lb.length)return'';
+  const medals=['🥇','🥈','🥉','4','5'];
+  const cls=['gold','silver','bronze','normal','normal'];
+  const Lc=L();
+  return`<div class="leaderboard"><div class="lb-title">${Lc.lbTitle}</div>${lb.map((e,i)=>`
+    <div class="lb-row ${cls[i]}">
+      <span class="lb-rank">${medals[i]}</span>
+      <span class="lb-name">${e.name||Lc.unknownPlayer}</span>
+      <span class="lb-pts">${e.score} ${Lc.points}</span>
+    </div>`).join('')}</div>`;
+}
+
+// ===== XP & STARS =====
+function addXP(n){
+  state.xp+=n;
+  const max=TOTAL_CHAPTERS*(5*10+4*5+8*10);
+  const pct=Math.min(100,(state.xp/max)*100);
+  document.getElementById('xpBar').style.width=pct+'%';
+  document.getElementById('xpLabel').textContent=state.xp+' XP';
+}
+
+function updateStars(chId){
+  const el=document.getElementById('stars-'+chId);
+  if(!el)return;
+  const s=state.stars[chId]||0;
+  el.textContent='⭐'.repeat(s)+'☆'.repeat(3-s);
+}
+
+</script></body></html>
