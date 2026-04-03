@@ -240,6 +240,13 @@ function TrackPicker({ tracks, onSelect }) {
               <div className="track-card-body">
                 <div className="track-card-title">{trackI18n(track, 'title', t, lang)}</div>
                 <div className="track-card-subtitle">{trackI18n(track, 'subtitle', t, lang)}</div>
+                {track.syllabus && (
+                  <div className="track-card-syllabus">
+                    {track.syllabus.map((item, i) => (
+                      <span key={i} className="syllabus-chip">{item}</span>
+                    ))}
+                  </div>
+                )}
                 <div className="track-card-meta">
                   <span className="track-card-level">{trackI18n(track, 'level', t, lang)}</span>
                   {!isEmpty && !isLocked && <span className="track-card-chapters">{track.chapterCount || track.chapters.length} {t('chapters_count')}</span>}

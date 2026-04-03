@@ -2247,6 +2247,30 @@ html {
   margin-bottom: 0.6rem;
 }
 
+.track-card-syllabus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 0.6rem;
+}
+
+.syllabus-chip {
+  display: inline-block;
+  background: color-mix(in srgb, var(--track-color, #64748b) 12%, transparent);
+  color: color-mix(in srgb, var(--track-color, #64748b) 85%, #000);
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 99px;
+  white-space: nowrap;
+  line-height: 1.6;
+}
+
+[data-theme="dark"] .syllabus-chip {
+  background: color-mix(in srgb, var(--track-color, #64748b) 20%, transparent);
+  color: color-mix(in srgb, var(--track-color, #64748b) 70%, #fff);
+}
+
 .track-card-meta {
   display: flex;
   gap: 0.5rem;
