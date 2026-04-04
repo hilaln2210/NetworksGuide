@@ -2774,6 +2774,30 @@ html {
 .bookmark-item { font-size: 0.78rem; padding: 4px 8px; border-radius: 6px; cursor: pointer; color: var(--text); display: block; width: 100%; text-align: start; background: none; border: none; font-family: inherit; }
 .bookmark-item:hover { background: var(--accent-soft); }
 
+/* Floating bookmark button for fullPage courses */
+.fab-bookmark {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 90;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.fab-bookmark:hover { transform: scale(1.1); box-shadow: 0 4px 20px rgba(0,0,0,0.25); }
+.fab-bookmark.bookmarked { background: #fef3c7; }
+[data-theme="dark"] .fab-bookmark { background: #1e293b; box-shadow: 0 2px 12px rgba(0,0,0,0.5); }
+[data-theme="dark"] .fab-bookmark.bookmarked { background: #422006; }
+
 /* ===== FONT SIZE CONTROLS ===== */
 .app.font-small .content-body { font-size: 0.9rem; }
 .app.font-normal .content-body { font-size: 1rem; }

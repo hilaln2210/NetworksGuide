@@ -1199,6 +1199,28 @@ function App() {
               <button className="nav-btn next" onClick={goNext} disabled={!canGoNext}>{t('next_btn')}</button>
             </nav>
             )}
+
+            {activeTrack?.fullPage && (
+              <>
+                <button
+                  className={`fab-bookmark${isBookmarked(activeTrack.id, chapter.id, 0) ? ' bookmarked' : ''}`}
+                  onClick={() => toggleBookmark(activeTrack.id, chapter.id, 0, activeTrack.title)}
+                  title={isEn ? 'Bookmark' : 'סימניה'}
+                >
+                  {isBookmarked(activeTrack.id, chapter.id, 0) ? '\u2B50' : '\u2606'}
+                </button>
+                {bookmarks.filter(b => b.trackId !== activeTrack.id).length > 0 && (
+                  <div className="fab-bookmarks-panel">
+                    <div className="fab-bookmarks-title">{t('bookmarks')}</div>
+                    {bookmarks.filter(b => b.trackId !== activeTrack.id).map((bm, i) => (
+                      <button key={i} className="bookmark-item" onClick={() => goToBookmark(bm)}>
+                        {'\u2B50'} {bm.title}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
           </main>
           <Suspense fallback={null}>
             <ChapterNotes trackId={activeTrack?.id} chapterId={chapter?.id} lang={lang} />
