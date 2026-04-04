@@ -28,7 +28,7 @@ export const tracks = [
     level: 'מתחיל–מתקדם',
     fullPage: true,
     chapterCount: 9,
-    lastUpdated: '2026-04-03 16:17',
+    lastUpdated: '2026-04-04 14:54',
     syllabus: ['CIA Triad ויסודות', 'קריפטוגרפיה', 'אימות והרשאות', 'אבטחת רשת', 'Malware וניתוח', 'Web Security', 'Penetration Testing', 'SOC ותגובה לאירועים', 'אבטחת ענן'],
     chapters: [
       { id: 100, title: "אבטחת מידע — קורס מלא", pages: [{ type: "html_page", title: "Cybersecurity Course", src: "/learn/security/cyber_course.html" }] },
