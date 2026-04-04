@@ -13,7 +13,7 @@ export const tracks = [
     level: 'מתחיל–מתקדם',
     fullPage: true,
     chapterCount: 13,
-    lastUpdated: '2026-04-04 22:00',
+    lastUpdated: '2026-04-03 16:17',
     syllabus: ['יסודות האינטרנט', 'תכנות Sockets', 'Wireshark ומודל שכבות', 'שכבת האפליקציה', 'Scapy', 'שכבת התעבורה', 'שכבת הרשת', 'שכבת הקו', 'רכיבי רשת', 'השכבה הפיזית', 'איך הכל מתחבר', 'Sockets מתקדם', 'רשתות מודרניות 2025'],
     chapters: [
       { id: 1, title: "רשתות מחשבים — קורס מלא", pages: [{ type: "html_page", title: "Networks Course", src: "/learn/networks/networks_course.html" }] },
@@ -28,7 +28,7 @@ export const tracks = [
     level: 'מתחיל–מתקדם',
     fullPage: true,
     chapterCount: 9,
-    lastUpdated: '2026-04-04 22:00',
+    lastUpdated: '2026-04-03 16:17',
     syllabus: ['CIA Triad ויסודות', 'קריפטוגרפיה', 'אימות והרשאות', 'אבטחת רשת', 'Malware וניתוח', 'Web Security', 'Penetration Testing', 'SOC ותגובה לאירועים', 'אבטחת ענן'],
     chapters: [
       { id: 100, title: "אבטחת מידע — קורס מלא", pages: [{ type: "html_page", title: "Cybersecurity Course", src: "/learn/security/cyber_course.html" }] },
@@ -43,7 +43,7 @@ export const tracks = [
     level: 'מתחיל–בינוני',
     fullPage: true,
     chapterCount: 8,
-    lastUpdated: '2026-04-04 22:00',
+    lastUpdated: '2026-04-03 16:17',
     syllabus: ['HTTP — בקשות ותגובות', 'REST API Design', 'JSON ועיבוד נתונים', 'Auth — אימות והרשאות', 'Headers & CORS', 'Real-Time — WebSockets', 'GraphQL', 'Performance & Caching'],
     chapters: [
       { id: 300, title: "Web & APIs — קורס מלא", pages: [{ type: "html_page", title: "Web & APIs Course", src: "/learn/webapi/web_apis_course.html" }] },
@@ -73,7 +73,7 @@ export const tracks = [
     level: 'מתחיל–מתקדם',
     fullPage: true,
     chapterCount: 12,
-    lastUpdated: '2026-04-02 18:00',
+    lastUpdated: '2026-03-26 11:25',
     syllabus: ['יסודות קריפטו', 'בלוקצ\'יין — איך עובד', 'ארנקים — סוגים ומבנה', 'Wallet Domains', 'On-Chain Analysis', 'זיהוי בעלי ארנקים', 'Scam Wallets — זיהוי', 'מיקסרים ו-Tumbling', 'DeFi Forensics', 'NFT & Token Analysis', 'Cross-Chain Tracing', 'כתיבת דוח חקירה'],
     chapters: [
       { id: 500, title: "Blockchain & Crypto Forensics — קורס מלא", pages: [{ type: "html_page", title: "Crypto Course", src: "/learn/crypto/crypto_course.html" }] },
@@ -88,7 +88,7 @@ export const tracks = [
     level: 'מתחיל–מתקדם',
     fullPage: true,
     chapterCount: 10,
-    lastUpdated: '2026-04-04 22:00',
+    lastUpdated: '2026-04-03 16:17',
     syllabus: ['מבוא ל-AI Agents', 'LLM — יסודות', 'Prompt Engineering', 'Tool Use & Function Calling', 'זיכרון ו-RAG', 'תכנון ו-Reasoning', 'Multi-Agent Systems', 'Orchestration Patterns', 'אבטחה ו-Guardrails', 'פרויקט מסכם'],
     chapters: [
       { id: 600, title: "AI Agents — קורס מלא", pages: [{ type: "html_page", title: "AI Agents Course", src: "/learn/ai-agents/ai_agents_course.html" }] },
@@ -103,7 +103,7 @@ export const tracks = [
     level: 'מתקדם',
     fullPage: true,
     chapterCount: 8,
-    lastUpdated: '2026-04-05 14:42',
+    lastUpdated: '2026-04-04 13:54',
     syllabus: ['Wireshark מתקדם', 'BGP — ניתוב בין-דומייני', 'DNS — עומק', 'HTTP/2 & HTTP/3', 'TLS — הצפנה מעשית', 'eBPF — ניטור קרנל', 'Container Networking', 'Troubleshooting מתקדם'],
     chapters: [
       { id: 800, title: "חקר רשתות — קורס מלא", pages: [{ type: "html_page", title: "Network Research", src: "/learn/research/networks_course.html" }] },
@@ -118,7 +118,7 @@ export const tracks = [
     level: 'בינוני–מתקדם',
     fullPage: true,
     chapterCount: 8,
-    lastUpdated: '2026-04-05 14:42',
+    lastUpdated: '2026-04-04 13:54',
     syllabus: ['מבוא ו-Kali Linux', 'Recon — איסוף מודיעין', 'Nmap — סריקת רשת', 'Web Attacks — XSS', 'SQL Injection', 'Burp Suite', 'Exploitation & Shells', 'דוח פריצה ו-CTF'],
     chapters: [
       { id: 900, title: "Red Team — קורס מלא", pages: [{ type: "html_page", title: "Red Team Course", src: "/learn/redteam/redteam_course.html" }] },
@@ -133,7 +133,7 @@ export const tracks = [
     level: 'בינוני–מתקדם',
     fullPage: true,
     chapterCount: 8,
-    lastUpdated: '2026-04-05 14:42',
+    lastUpdated: '2026-04-04 13:54',
     syllabus: ['מבוא — IP Investigation', 'Geolocation', 'WHOIS ו-ASN', 'Reverse DNS', 'Reputation — זיהוי סיכונים', 'Shodan ו-Censys', 'ניתוח לוגים', 'דוחות ו-Automation'],
     chapters: [
       { id: 1000, title: "חקר כתובות IP — קורס מלא", pages: [{ type: "html_page", title: "IP Investigation Course", src: "/learn/ip-investigation/ip_investigation_course.html" }] },
