@@ -2597,7 +2597,7 @@ function applyLang(lang) {
     if($('cheat-'+i))   $('cheat-'+i).innerHTML     = Lc.cheat[i]||'';
 
     const learnEl = $('learn-'+i);
-    if (learnEl) learnEl.innerHTML = (Lc.learn[i]||'');
+    if (learnEl) { learnEl.innerHTML = (Lc.learn[i]||''); if(learnEl.innerHTML.indexOf('CHID')>=0) learnEl.innerHTML=learnEl.innerHTML.replace(/CHID/g,i); }
 
     const tabsEl = $('tabs-'+i);
     if (tabsEl) {
