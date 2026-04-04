@@ -118,7 +118,7 @@ export const tracks = [
     level: 'בינוני–מתקדם',
     fullPage: true,
     chapterCount: 8,
-    lastUpdated: '2026-04-04 13:54',
+    lastUpdated: '2026-04-04 21:11',
     syllabus: ['מבוא ו-Kali Linux', 'Recon — איסוף מודיעין', 'Nmap — סריקת רשת', 'Web Attacks — XSS', 'SQL Injection', 'Burp Suite', 'Exploitation & Shells', 'דוח פריצה ו-CTF'],
     chapters: [
       { id: 900, title: "Red Team — קורס מלא", pages: [{ type: "html_page", title: "Red Team Course", src: "/learn/redteam/redteam_course.html" }] },
