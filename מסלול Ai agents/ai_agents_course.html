@@ -306,6 +306,56 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .credit-item a{color:var(--accent2);text-decoration:none}
 .credit-item a:hover{text-decoration:underline}
 @media(max-width:860px){.credits-bar{padding:18px 14px}.credits-grid{flex-direction:column;gap:12px}}
+
+/* ── RICH SUMMARY CARDS ── */
+.sum-block { margin-bottom: 28px; }
+.sum-block-title {
+  font-size: 13px; font-weight: 800; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 10px; font-family: var(--mono);
+  display: flex; align-items: center; gap: 8px;
+}
+.sum-block-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.sum-row {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 10px 16px; padding: 9px 0;
+  border-bottom: 1px solid var(--border); align-items: start;
+}
+.sum-row:last-child { border-bottom: none; }
+.sum-k { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--accent); line-height: 1.4; }
+.sum-v { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.sum-v strong { color: var(--text); font-weight: 700; }
+.sum-v code { font-size: 11.5px; background: var(--bg3); padding: 1px 5px; border-radius: 3px; color: var(--accent2,var(--accent)); font-family: var(--mono); }
+.sum-tip { margin-top:10px; padding:10px 14px; background:var(--yellowbg,#fffbeb); border-radius:var(--r,8px); border:1px solid #fde68a; font-size:13px; color:#713f12; line-height:1.6; }
+.sum-danger { margin-top:10px; padding:10px 14px; background:#fff1f2; border-radius:var(--r,8px); border:1px solid #fecaca; font-size:13px; color:#991b1b; line-height:1.6; }
+@media (max-width:560px) { .sum-row { grid-template-columns:1fr; gap:2px; } }
+/* ── FULL REVIEW DRAWER ── */
+.review-btn { flex-shrink:0; padding:5px 12px; background:var(--accent); color:#fff; border:none; border-radius:var(--r,8px); font-size:12px; font-weight:700; cursor:pointer; transition:all .15s; margin-left:6px; }
+[dir="rtl"] .review-btn { margin-left:0; margin-right:6px; }
+.review-btn:hover { opacity:.85; }
+.review-overlay { display:none; position:fixed; inset:0; z-index:900; background:rgba(0,0,0,.45); backdrop-filter:blur(2px); }
+.review-overlay.open { display:block; }
+.review-drawer { position:fixed; top:0; left:0; right:0; z-index:910; background:var(--bg,#fff); border-bottom:2px solid var(--accent); box-shadow:0 4px 16px rgba(0,0,0,.15); transform:translateY(-100%); transition:transform .3s cubic-bezier(.4,0,.2,1); max-height:90vh; display:flex; flex-direction:column; }
+.review-drawer.open { transform:translateY(0); }
+.review-header { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--border); flex-shrink:0; gap:12px; background:var(--bg,#fff); }
+.review-header-title { font-size:15px; font-weight:800; color:var(--text,#111); }
+.review-header-sub { font-size:12px; color:var(--text3,#888); font-weight:500; }
+.review-close { width:32px; height:32px; border-radius:50%; background:var(--bg2,#f8f9fa); border:1px solid var(--border); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--text2,#666); line-height:1; transition:all .15s; }
+.review-close:hover { background:#fff1f2; border-color:#dc2626; color:#dc2626; }
+.review-body { overflow-y:auto; padding:24px 20px 40px; flex:1; }
+.review-body::-webkit-scrollbar { width:6px; }
+.review-body::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+.review-chapter-block { margin-bottom:36px; border:1px solid var(--border); border-radius:12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+.review-chapter-title { background:var(--accentbg,rgba(120,80,30,.06)); border-bottom:1px solid var(--border); padding:12px 18px; display:flex; align-items:center; gap:10px; }
+.review-chapter-num { font-family:var(--mono); font-size:11px; font-weight:800; color:var(--accent); background:var(--bg,#fff); border:1px solid var(--accent); border-radius:6px; padding:2px 8px; flex-shrink:0; }
+.review-chapter-name { font-size:14px; font-weight:800; color:var(--text,#111); }
+.review-chapter-body { padding:18px; background:var(--bg,#fff); }
+.review-chapter-body .sum-block { margin-bottom:20px; }
+.review-chapter-body .sum-block:last-child { margin-bottom:0; }
+.review-chapter-body .sum-row { grid-template-columns:170px 1fr; padding:7px 0; }
+.review-chapter-body .sum-v { font-size:12.5px; }
+.review-chapter-body .sum-k { font-size:11.5px; }
+@media (max-width:680px) { .review-drawer{max-height:95vh} .review-body{padding:16px 14px 32px} .review-chapter-body .sum-row{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -318,7 +368,7 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
     <div class="xp-bar-wrap"><div class="xp-bar-fill" id="xpBar" style="width:0%"></div></div>
     <div class="xp-label" id="xpLabel">0 XP</div>
   </div>
-  <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
+  <button class="review-btn" onclick="openReview()">📚 סיכום מלא</button><button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
 </header>
 <nav class="sidebar" id="sidebar">
   <div class="sb-label" id="sbLabel"></div>
@@ -348,8 +398,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="0-learn"><div id="learn-0"></div></div>
-    <div class="tab-panel" id="0-quiz"><div class="quiz-wrap" id="quiz-0"></div></div>
-    <div class="tab-panel" id="0-lab"><div class="lab-wrap" id="lab-0"></div></div>
+    
+    
     <div class="tab-panel" id="0-game"><div class="game-wrap" id="game-0"></div></div>
     <div class="tab-panel" id="0-cheat"><div id="cheat-0"></div></div>
   </div>
@@ -363,8 +413,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="1-learn"><div id="learn-1"></div></div>
-    <div class="tab-panel" id="1-quiz"><div class="quiz-wrap" id="quiz-1"></div></div>
-    <div class="tab-panel" id="1-lab"><div class="lab-wrap" id="lab-1"></div></div>
+    
+    
     <div class="tab-panel" id="1-game"><div class="game-wrap" id="game-1"></div></div>
     <div class="tab-panel" id="1-cheat"><div id="cheat-1"></div></div>
   </div>
@@ -378,8 +428,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="2-learn"><div id="learn-2"></div></div>
-    <div class="tab-panel" id="2-quiz"><div class="quiz-wrap" id="quiz-2"></div></div>
-    <div class="tab-panel" id="2-lab"><div class="lab-wrap" id="lab-2"></div></div>
+    
+    
     <div class="tab-panel" id="2-game"><div class="game-wrap" id="game-2"></div></div>
     <div class="tab-panel" id="2-cheat"><div id="cheat-2"></div></div>
   </div>
@@ -393,8 +443,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="3-learn"><div id="learn-3"></div></div>
-    <div class="tab-panel" id="3-quiz"><div class="quiz-wrap" id="quiz-3"></div></div>
-    <div class="tab-panel" id="3-lab"><div class="lab-wrap" id="lab-3"></div></div>
+    
+    
     <div class="tab-panel" id="3-game"><div class="game-wrap" id="game-3"></div></div>
     <div class="tab-panel" id="3-cheat"><div id="cheat-3"></div></div>
   </div>
@@ -408,8 +458,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="4-learn"><div id="learn-4"></div></div>
-    <div class="tab-panel" id="4-quiz"><div class="quiz-wrap" id="quiz-4"></div></div>
-    <div class="tab-panel" id="4-lab"><div class="lab-wrap" id="lab-4"></div></div>
+    
+    
     <div class="tab-panel" id="4-game"><div class="game-wrap" id="game-4"></div></div>
     <div class="tab-panel" id="4-cheat"><div id="cheat-4"></div></div>
   </div>
@@ -423,8 +473,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="5-learn"><div id="learn-5"></div></div>
-    <div class="tab-panel" id="5-quiz"><div class="quiz-wrap" id="quiz-5"></div></div>
-    <div class="tab-panel" id="5-lab"><div class="lab-wrap" id="lab-5"></div></div>
+    
+    
     <div class="tab-panel" id="5-game"><div class="game-wrap" id="game-5"></div></div>
     <div class="tab-panel" id="5-cheat"><div id="cheat-5"></div></div>
   </div>
@@ -438,8 +488,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="6-learn"><div id="learn-6"></div></div>
-    <div class="tab-panel" id="6-quiz"><div class="quiz-wrap" id="quiz-6"></div></div>
-    <div class="tab-panel" id="6-lab"><div class="lab-wrap" id="lab-6"></div></div>
+    
+    
     <div class="tab-panel" id="6-game"><div class="game-wrap" id="game-6"></div></div>
     <div class="tab-panel" id="6-cheat"><div id="cheat-6"></div></div>
   </div>
@@ -453,8 +503,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="7-learn"><div id="learn-7"></div></div>
-    <div class="tab-panel" id="7-quiz"><div class="quiz-wrap" id="quiz-7"></div></div>
-    <div class="tab-panel" id="7-lab"><div class="lab-wrap" id="lab-7"></div></div>
+    
+    
     <div class="tab-panel" id="7-game"><div class="game-wrap" id="game-7"></div></div>
     <div class="tab-panel" id="7-cheat"><div id="cheat-7"></div></div>
   </div>
@@ -468,8 +518,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="8-learn"><div id="learn-8"></div></div>
-    <div class="tab-panel" id="8-quiz"><div class="quiz-wrap" id="quiz-8"></div></div>
-    <div class="tab-panel" id="8-lab"><div class="lab-wrap" id="lab-8"></div></div>
+    
+    
     <div class="tab-panel" id="8-game"><div class="game-wrap" id="game-8"></div></div>
     <div class="tab-panel" id="8-cheat"><div id="cheat-8"></div></div>
   </div>
@@ -483,8 +533,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="9-learn"><div id="learn-9"></div></div>
-    <div class="tab-panel" id="9-quiz"><div class="quiz-wrap" id="quiz-9"></div></div>
-    <div class="tab-panel" id="9-lab"><div class="lab-wrap" id="lab-9"></div></div>
+    
+    
     <div class="tab-panel" id="9-game"><div class="game-wrap" id="game-9"></div></div>
     <div class="tab-panel" id="9-cheat"><div id="cheat-9"></div></div>
   </div>
@@ -498,8 +548,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="10-learn"><div id="learn-10"></div></div>
-    <div class="tab-panel" id="10-quiz"><div class="quiz-wrap" id="quiz-10"></div></div>
-    <div class="tab-panel" id="10-lab"><div class="lab-wrap" id="lab-10"></div></div>
+    
+    
     <div class="tab-panel" id="10-game"><div class="game-wrap" id="game-10"></div></div>
     <div class="tab-panel" id="10-cheat"><div id="cheat-10"></div></div>
   </div>
@@ -513,8 +563,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="11-learn"><div id="learn-11"></div></div>
-    <div class="tab-panel" id="11-quiz"><div class="quiz-wrap" id="quiz-11"></div></div>
-    <div class="tab-panel" id="11-lab"><div class="lab-wrap" id="lab-11"></div></div>
+    
+    
     <div class="tab-panel" id="11-game"><div class="game-wrap" id="game-11"></div></div>
     <div class="tab-panel" id="11-cheat"><div id="cheat-11"></div></div>
   </div>
@@ -528,8 +578,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="12-learn"><div id="learn-12"></div></div>
-    <div class="tab-panel" id="12-quiz"><div class="quiz-wrap" id="quiz-12"></div></div>
-    <div class="tab-panel" id="12-lab"><div class="lab-wrap" id="lab-12"></div></div>
+    
+    
     <div class="tab-panel" id="12-game"><div class="game-wrap" id="game-12"></div></div>
     <div class="tab-panel" id="12-cheat"><div id="cheat-12"></div></div>
   </div>
@@ -543,8 +593,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="13-learn"><div id="learn-13"></div></div>
-    <div class="tab-panel" id="13-quiz"><div class="quiz-wrap" id="quiz-13"></div></div>
-    <div class="tab-panel" id="13-lab"><div class="lab-wrap" id="lab-13"></div></div>
+    
+    
     <div class="tab-panel" id="13-game"><div class="game-wrap" id="game-13"></div></div>
     <div class="tab-panel" id="13-cheat"><div id="cheat-13"></div></div>
   </div>
@@ -558,8 +608,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="14-learn"><div id="learn-14"></div></div>
-    <div class="tab-panel" id="14-quiz"><div class="quiz-wrap" id="quiz-14"></div></div>
-    <div class="tab-panel" id="14-lab"><div class="lab-wrap" id="lab-14"></div></div>
+    
+    
     <div class="tab-panel" id="14-game"><div class="game-wrap" id="game-14"></div></div>
     <div class="tab-panel" id="14-cheat"><div id="cheat-14"></div></div>
   </div>
@@ -573,8 +623,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <div class="tab-panels">
     <div class="tab-panel active" id="15-learn"><div id="learn-15"></div></div>
-    <div class="tab-panel" id="15-quiz"><div class="quiz-wrap" id="quiz-15"></div></div>
-    <div class="tab-panel" id="15-lab"><div class="lab-wrap" id="lab-15"></div></div>
+    
+    
     <div class="tab-panel" id="15-game"><div class="game-wrap" id="game-15"></div></div>
     <div class="tab-panel" id="15-cheat"><div id="cheat-15"></div></div>
   </div>
@@ -640,8 +690,8 @@ he:{
     'Word2Vec, BERT embeddings, cosine similarity, semantic search — כיצד AI מבין משמעות',
     'HR, Legal, DevOps, Marketing, Finance — 25+ use cases אמיתיים עם ROI מדיד'
   ],
-  tabs:['📖 למידה','🎯 חידון','🛠️ מעבדה','🎮 משחק','📋 סיכום'],
-  tabKeys:['learn','quiz','lab','game','cheat'],
+  tabs:['📖 למידה','🎮 משחק','📋 סיכום'],
+  tabKeys:['learn','game','cheat'],
   gameTitle:'AGENT QUIZ',gameDesc:'ענה מהר. כל תשובה נכונה = +10 נקודות.',
   gameStart:'▶ התחל',gameSeconds:'שניות',gameQuestions:'שאלות',gameXP:'+10 XP',
   gameAgain:'🔄 שוב',gameToCheat:'📋 סיכום ←',
@@ -1460,220 +1510,174 @@ Analytics:
 </div>`
 ],
   cheat:[
-`<div class="callout callout-success"><strong>📋 סיכום — מבוא לAI Agents</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">ReAct Loop</div>
-<div class="cheat-item"><span class="cheat-key">Think</span><span class="cheat-val">LLM מנמק</span></div>
-<div class="cheat-item"><span class="cheat-key">Act</span><span class="cheat-val">קריאה לtool</span></div>
-<div class="cheat-item"><span class="cheat-key">Observe</span><span class="cheat-val">תוצאה חוזרת</span></div>
+`<div class="sum-block"><div class="sum-block-title">🤖 מהו AI Agent?</div>
+<div class="sum-row"><span class="sum-k">AI Agent vs Chatbot</span><span class="sum-v"><strong>Chatbot</strong>: שאלה-תשובה. אין זיכרון בין sessions, אין פעולות. <strong>AI Agent</strong>: מנמק, מחליט, מפעיל כלים, לולאה עצמאית. מטרה = תוצאה (לא רק תשובה).</span></div>
+<div class="sum-row"><span class="sum-k">ReAct Loop</span><span class="sum-v"><strong>Reason</strong>: LLM מנמק מה לעשות. <strong>Act</strong>: מפעיל כלי (search, code, API). <strong>Observe</strong>: רואה תוצאה. חוזר ל-Reason עד שמגיע למטרה. זה הלב של כל agent מודרני.</span></div>
+<div class="sum-row"><span class="sum-k">Agentic AI = Autonomy + Tools</span><span class="sum-v">Agent = LLM + כלים + זיכרון + לולאה. ה-LLM מחליט <strong>מה לעשות</strong>, הכלים <strong>עושים</strong> את זה. ה-Loop ממשיך עד שהמשימה הושלמה.</span></div>
+<div class="sum-row"><span class="sum-k">דוגמאות agents</span><span class="sum-v">Devin (קוד), AutoGPT (כלים כלליים), Cursor Agent (IDE), Claude (computer use). שימושים: code review, data analysis, web browsing, scheduling.</span></div>
 </div>
-<div class="cheat-card"><div class="cheat-card-title">Agent Types</div>
-<div class="cheat-item"><span class="cheat-key">Reactive</span><span class="cheat-val">input ← output</span></div>
-<div class="cheat-item"><span class="cheat-key">Planning</span><span class="cheat-val">פרק למשימות</span></div>
-<div class="cheat-item"><span class="cheat-key">Autonomous</span><span class="cheat-val">ללא פיקוח</span></div>
-</div>
+<div class="sum-block"><div class="sum-block-title">🛠️ רכיבי Agent</div>
+<div class="sum-row"><span class="sum-k">Planning</span><span class="sum-v">פירוק משימה למשימות קטנות. CoT (Chain of Thought): LLM מנמק צעד-צעד. ToT (Tree of Thought): מנסה מסלולים מרובים. ReAct: חשיבה + פעולה בlולאה.</span></div>
+<div class="sum-row"><span class="sum-k">Memory</span><span class="sum-v"><strong>Short-term</strong>: context window. <strong>Long-term</strong>: vector DB. <strong>Semantic</strong>: embedding-based search. <strong>Episodic</strong>: זיכרון שיחות קודמות.</span></div>
+<div class="sum-row"><span class="sum-k">Tools</span><span class="sum-v">Web search, Code Execution, File I/O, Database queries, API calls, Browser control (Playwright). כל כלי = function שה-LLM יכול לקרוא.</span></div>
+<div class="sum-row"><span class="sum-k">Action</span><span class="sum-v">הפעלת כלי, שמירת מידע, יצירת תוצאה. Human-in-the-loop: approval לפני פעולות עם השלכות (מחיקה, שליחת email).</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — LLM כמנוע</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Function Calling</div>
-<div class="cheat-item"><span class="cheat-key">LLM מחזיר</span><span class="cheat-val">JSON בלבד</span></div>
-<div class="cheat-item"><span class="cheat-key">הקוד שלנו</span><span class="cheat-val">מריץ בפועל</span></div>
+`<div class="sum-block"><div class="sum-block-title">🧠 LLM — מנוע ה-Agent</div>
+<div class="sum-row"><span class="sum-k">Transformer</span><span class="sum-v">ארכיטקטורה מ-2017 ("Attention is All You Need"). Self-Attention: כל token "רואה" את כל שאר הtokens בcontext. מאפשר הבנת context ארוך. GPT, Claude, Gemini — כולם Transformers.</span></div>
+<div class="sum-row"><span class="sum-k">Tokens</span><span class="sum-v">יחידת עיבוד הטקסט. כ-3/4 מילה ≈ 1 token. "Hello world" = 2 tokens. Token limit = context window. GPT-4: 128K. Claude: 200K. Gemini: 1M+.</span></div>
+<div class="sum-row"><span class="sum-k">Temperature</span><span class="sum-v">רמת האקראיות בפלט. <code>0</code> = דטרמיניסטי (כתיבת קוד). <code>0.7</code> = מאוזן. <code>1.5</code> = יצירתי/אקראי. לagents בד"כ temperature נמוך = עקביות.</span></div>
+<div class="sum-row"><span class="sum-k">Context Window</span><span class="sum-v">כמה tokens ה-LLM "זוכר" בשיחה אחת. כולל: system prompt + conversation history + tool results. כשמתמלא → summarization או vector retrieval.</span></div>
 </div>
-<div class="cheat-card"><div class="cheat-card-title">Context</div>
-<div class="cheat-item"><span class="cheat-key">Claude 3.5</span><span class="cheat-val">200K tokens</span></div>
-<div class="cheat-item"><span class="cheat-key">Gemini 1.5</span><span class="cheat-val">1M tokens</span></div>
-<div class="cheat-item"><span class="cheat-key">Lost in Middle</span><span class="cheat-val">גדול ≠ טוב</span></div>
-</div>
+<div class="sum-block"><div class="sum-block-title">📊 מודלים עיקריים 2024-2025</div>
+<div class="sum-row"><span class="sum-k">Claude 3.5 Sonnet / Claude 4</span><span class="sum-v">Anthropic. מצטיין בקוד, ניתוח, computer use. 200K context. Artifacts, Projects. API ו-Claude.ai.</span></div>
+<div class="sum-row"><span class="sum-k">GPT-4o / o3</span><span class="sum-v">OpenAI. Multimodal (text+vision+audio). o1/o3 = reasoning models — "חושבים" לפני תשובה. Function calling. OpenAI API.</span></div>
+<div class="sum-row"><span class="sum-k">Gemini 2.0</span><span class="sum-v">Google. 1M context window. Native multimodal. Gemini Advanced. Google Workspace integration.</span></div>
+<div class="sum-row"><span class="sum-k">Llama 3.3 / Mistral</span><span class="sum-v">Open source — ניתן להריץ locally. Ollama לריצה מקומית. Private data, ללא API costs. Llama 3.3 70B מתחרה ב-GPT-4.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — כלים וזיכרון</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Memory</div>
-<div class="cheat-item"><span class="cheat-key">Working</span><span class="cheat-val">context window</span></div>
-<div class="cheat-item"><span class="cheat-key">Short-term</span><span class="cheat-val">session buffer</span></div>
-<div class="cheat-item"><span class="cheat-key">Long-term</span><span class="cheat-val">vector DB</span></div>
+`<div class="sum-block"><div class="sum-block-title">🛠️ כלים — Tool Calling</div>
+<div class="sum-row"><span class="sum-k">Function Calling</span><span class="sum-v">ה-LLM מחליט מתי לקרוא לפונקציה ועם אילו פרמטרים. מוגדר ב-JSON Schema. LLM מחזיר JSON עם שם הפונקציה + פרמטרים. הקוד שלנו מריץ. התוצאה חוזרת ל-LLM.</span></div>
+<div class="sum-row"><span class="sum-k">Tool Schema</span><span class="sum-v">כל כלי מוגדר עם: name, description (מה הכלי עושה), parameters (JSON Schema עם types ו-required). ה-description קריטי — LLM מחליט לפיו מתי להשתמש.</span></div>
+<div class="sum-row"><span class="sum-k">כלים נפוצים</span><span class="sum-v">web_search (Tavily, Brave), code_interpreter (E2B, Modal), file_read/write, browser_control (Playwright), database_query, send_email, calendar_create.</span></div>
+<div class="sum-row"><span class="sum-k">Parallel Tool Use</span><span class="sum-v">חלק מהמודלים קוראים לכמה כלים בו-זמנית. Claude ו-GPT-4o תומכים. מאיץ workflows שמחייבים מידע ממקורות מרובים.</span></div>
 </div>
-<div class="cheat-card"><div class="cheat-card-title">Vector DBs</div>
-<div class="cheat-item"><span class="cheat-key">Pinecone</span><span class="cheat-val">managed enterprise</span></div>
-<div class="cheat-item"><span class="cheat-key">Chroma</span><span class="cheat-val">local dev</span></div>
-<div class="cheat-item"><span class="cheat-key">pgvector</span><span class="cheat-val">SQL + vectors</span></div>
-</div>
+<div class="sum-block"><div class="sum-block-title">🧠 Memory Types</div>
+<div class="sum-row"><span class="sum-k">Short-term (Context)</span><span class="sum-v">כל מה שב-context window הנוכחי. זמין מיידית. מוגבל בגודל. נמחק בסוף session.</span></div>
+<div class="sum-row"><span class="sum-k">Long-term (Vector DB)</span><span class="sum-v">Embeddings ב-Pinecone, Chroma, Weaviate. מחפש בsimilarity. "זוכר" בין sessions. משמש ל-RAG ולpersonalization.</span></div>
+<div class="sum-row"><span class="sum-k">Episodic Memory</span><span class="sum-v">שמירת שיחות/actions קודמים כ-text. Summarization לחיסכון בtokens. מאפשר agent לזכור "מה עשיתי ביום שישי".</span></div>
+<div class="sum-row"><span class="sum-k">Semantic Memory</span><span class="sum-v">ידע כללי שנשמר כembeddings. User preferences, domain knowledge, factual DB. נגיש דרך semantic search.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — RAG ו-MCP</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">RAG</div>
-<div class="cheat-item"><span class="cheat-key">Chunk ← Embed</span><span class="cheat-val">הכנת documents</span></div>
-<div class="cheat-item"><span class="cheat-key">Retrieve ← Generate</span><span class="cheat-val">זמן ריצה</span></div>
+`<div class="sum-block"><div class="sum-block-title">📚 RAG — Retrieval Augmented Generation</div>
+<div class="sum-row"><span class="sum-k">מה זה RAG?</span><span class="sum-v">במקום לfinetune מודל עם ידע חדש — מאחסנים documents ב-vector DB ומחפשים בזמן inference. LLM מקבל: query + retrieved docs → תשובה מבוססת-מסמכים. מהפכה בenterprise AI.</span></div>
+<div class="sum-row"><span class="sum-k">RAG Pipeline</span><span class="sum-v"><strong>1</strong>: Chunk docs (500-1000 tokens). <strong>2</strong>: Embed chunks (OpenAI ada-002, Cohere). <strong>3</strong>: Store ב-vector DB. <strong>4</strong>: Query → embed → similarity search → top-K chunks. <strong>5</strong>: LLM generates with context.</span></div>
+<div class="sum-row"><span class="sum-k">Chunking Strategy</span><span class="sum-v">Fixed size (simple). Sentence/paragraph (smarter). Semantic chunking (by topic). Chunk size קריטי: קטן מדי = אובדן context. גדול מדי = noise. Overlap בין chunks (10-20%).</span></div>
+<div class="sum-row"><span class="sum-k">Reranking</span><span class="sum-v">אחרי similarity search — reranker (Cohere, cross-encoder) מדרג שוב. אחוז ה-precision עולה. Slower אבל יותר רלוונטי.</span></div>
 </div>
-<div class="cheat-card"><div class="cheat-card-title">MCP</div>
-<div class="cheat-item"><span class="cheat-key">Tools</span><span class="cheat-val">פעולות</span></div>
-<div class="cheat-item"><span class="cheat-key">Resources</span><span class="cheat-val">קריאת נתונים</span></div>
-<div class="cheat-item"><span class="cheat-key">RAG vs MCP</span><span class="cheat-val">ידע vs פעולה</span></div>
-</div>
+<div class="sum-block"><div class="sum-block-title">🔌 MCP — Model Context Protocol</div>
+<div class="sum-row"><span class="sum-k">מה זה MCP?</span><span class="sum-v">פרוטוקול של Anthropic (2024) לחיבור LLMs לtools ו-data sources. כמו USB-C לAI: כל tool שמיישם MCP עובד עם כל LLM שמכיר MCP. אחידות במקום fragmentation.</span></div>
+<div class="sum-row"><span class="sum-k">MCP Architecture</span><span class="sum-v"><strong>MCP Client</strong>: Claude, Cursor, Claude Desktop. <strong>MCP Server</strong>: מיישם resources/tools/prompts. <strong>Transport</strong>: stdio (local) או HTTP/SSE (remote). כל server = domain ספציפי (GitHub, Slack, DB).</span></div>
+<div class="sum-row"><span class="sum-k">MCP vs Function Calling</span><span class="sum-v">Function calling: כלים מוגדרים בkod שלך. MCP: כלים מגיעים מserver חיצוני, plug-and-play. MCP server ל-Slack = כל LLM יכול לשלוח Slack messages ללא קוד נוסף.</span></div>
+<div class="sum-tip">💡 <strong>RAG vs Fine-tuning:</strong> RAG = ידע דינמי, עדכני, ניתן ל-attribution. Fine-tuning = ידע סטטי ב-weights, יקר, קשה לupdate. לרוב enterprise use cases — RAG ראשון, fine-tuning רק אם נחוץ.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — Frameworks</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">בחירה</div>
-<div class="cheat-item"><span class="cheat-key">LangGraph</span><span class="cheat-val">control, prod</span></div>
-<div class="cheat-item"><span class="cheat-key">CrewAI</span><span class="cheat-val">prototype מהיר</span></div>
-<div class="cheat-item"><span class="cheat-key">AutoGen</span><span class="cheat-val">code + debate</span></div>
-<div class="cheat-item"><span class="cheat-key">n8n</span><span class="cheat-val">no-code</span></div>
+`<div class="sum-block"><div class="sum-block-title">⚙️ Agent Frameworks</div>
+<div class="sum-row"><span class="sum-k">LangChain</span><span class="sum-v">הפופולרי ביותר. מודולרי: chains, agents, tools, memory. LangGraph = multi-agent workflows כ-DAG. LCEL (LangChain Expression Language). LangSmith לtracing. Python + JS.</span></div>
+<div class="sum-row"><span class="sum-k">LlamaIndex</span><span class="sum-v">ממוקד RAG ו-data ingestion. LoC (LlamaParse לPDFs), query pipelines, sub-question decomposition. טוב יותר מLangChain לdata-heavy apps.</span></div>
+<div class="sum-row"><span class="sum-k">AutoGen (Microsoft)</span><span class="sum-v">Multi-agent conversations. Agents שמדברים אחד עם השני. AssistantAgent, UserProxyAgent. Code execution built-in. ConversableAgent pattern.</span></div>
+<div class="sum-row"><span class="sum-k">CrewAI</span><span class="sum-v">Role-based multi-agent. "Crew" = קבוצת agents עם roles ספציפיים. Tasks עם dependencies. Sequential + Parallel workflows. Human-readable config.</span></div>
+<div class="sum-row"><span class="sum-k">LangGraph</span><span class="sum-v">State machine לagents. Nodes = פעולות, Edges = מעברים (כולל conditional). מאפשר loops, branching, human-in-the-loop. חלק מLangChain ecosystem.</span></div>
 </div>
-<div class="cheat-card"><div class="cheat-card-title">⚠️ Warning</div>
-<div class="cheat-item"><span class="cheat-key">CrewAI ceiling</span><span class="cheat-val">6-12 חודשים</span></div>
-<div class="cheat-item"><span class="cheat-key">LangGraph</span><span class="cheat-val">עקומת למידה</span></div>
-</div>
+<div class="sum-block"><div class="sum-block-title">🔧 כשלא צריך Framework</div>
+<div class="sum-row"><span class="sum-k">Direct API</span><span class="sum-v">לtasks פשוטים: requests + JSON. ללא overhead. מהיר ללמידה. Anthropic SDK, OpenAI SDK. לפרודקשן — framework נותן observability, retries, error handling.</span></div>
+<div class="sum-tip">💡 <strong>בחירת framework:</strong> RAG heavy → LlamaIndex. Multi-agent conversations → AutoGen/CrewAI. Complex workflows → LangGraph. Rapid prototyping → LangChain. Production scale → בנה custom.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — n8n</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Nodes</div>
-<div class="cheat-item"><span class="cheat-key">Trigger</span><span class="cheat-val">Webhook, Schedule</span></div>
-<div class="cheat-item"><span class="cheat-key">AI Agent</span><span class="cheat-val">ReAct loop</span></div>
-<div class="cheat-item"><span class="cheat-key">Memory</span><span class="cheat-val">Buffer, Vector</span></div>
+`<div class="sum-block"><div class="sum-block-title">🔄 n8n — Visual AI Automation</div>
+<div class="sum-row"><span class="sum-k">מה זה n8n?</span><span class="sum-v">פלטפורמת automation open-source עם ממשק visual (no-code/low-code). כל node = פעולה (HTTP, DB, email, AI). Workflows = flows של nodes. Self-hosted או cloud. מתחרה ל-Zapier/Make אבל גמיש הרבה יותר.</span></div>
+<div class="sum-row"><span class="sum-k">AI Agent Node</span><span class="sum-v">n8n כוללת AI Agent node מובנה. LLM + tools בinterface ויזואלי. מחבר לכל 400+ integrations. Tool nodes: web search, database, HTTP request, custom functions.</span></div>
+<div class="sum-row"><span class="sum-k">Trigger Types</span><span class="sum-v">Webhook (HTTP), Schedule (cron), Email trigger, Database change, Chat trigger (לchatbots). Trigger = נקודת הכניסה לworkflow.</span></div>
+<div class="sum-row"><span class="sum-k">Memory ב-n8n</span><span class="sum-v">Window Buffer Memory: שמור N messages. Redis/Postgres Memory: persistent לchatbots. In-memory: לworkflow אחד בלבד.</span></div>
 </div>
-<div class="cheat-card"><div class="cheat-card-title">Best Practice</div>
-<div class="cheat-item"><span class="cheat-key">AI</span><span class="cheat-val">שיקול דעת</span></div>
-<div class="cheat-item"><span class="cheat-key">Code/IF</span><span class="cheat-val">parsing, logic</span></div>
-</div>
+<div class="sum-block"><div class="sum-block-title">🏗️ Patterns נפוצים ב-n8n</div>
+<div class="sum-row"><span class="sum-k">AI Chatbot</span><span class="sum-v">Chat Trigger → AI Agent (עם memory) → Response. מחובר ל-Telegram/Slack/WhatsApp.</span></div>
+<div class="sum-row"><span class="sum-k">Document Processing</span><span class="sum-v">Email trigger → Extract attachment → LLM summarize/classify → Save to DB + Notify.</span></div>
+<div class="sum-row"><span class="sum-k">Research Agent</span><span class="sum-v">Input topic → Web search (Serper) → LLM analyze → RAG check → Generate report → Send email.</span></div>
+<div class="sum-tip">💡 n8n = הדרך הכי מהירה לprototype agents. בנה בn8n, refactor לqod אם צריך scale.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — Multi-Agent</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Patterns</div>
-<div class="cheat-item"><span class="cheat-key">Supervisor</span><span class="cheat-val">מנהל ← עובדים</span></div>
-<div class="cheat-item"><span class="cheat-key">Pipeline</span><span class="cheat-val">A ← B ← C</span></div>
-<div class="cheat-item"><span class="cheat-key">Debate</span><span class="cheat-val">-40% hallucinations</span></div>
+`<div class="sum-block"><div class="sum-block-title">🌐 Multi-Agent Systems</div>
+<div class="sum-row"><span class="sum-k">למה Multi-Agent?</span><span class="sum-v">Tasks מורכבים שמחייבים: specialization (agent לקוד, agent לmresearch), parallelism (כמה agents בו-זמנית), validation (agent אחד בודק אחר), scale (מעל context window של agent אחד).</span></div>
+<div class="sum-row"><span class="sum-k">Orchestrator-Worker Pattern</span><span class="sum-v">Orchestrator = agent שמנהל ומחלק עבודה. Workers = agents מתמחים. Orchestrator מקבל task → מחליט מה ולמי → Workers מבצעים → Orchestrator מאחד תוצאות.</span></div>
+<div class="sum-row"><span class="sum-k">Peer-to-Peer</span><span class="sum-v">Agents מתקשרים ישירות אחד עם השני. כל agent יכול לשאול agents אחרים. AutoGen pattern. מורכב יותר לניהול ולdebug.</span></div>
+<div class="sum-row"><span class="sum-k">Handoff</span><span class="sum-v">Agent מסיים task ומעביר לagent הבא עם context. פחות overhead מאשר full orchestrator. מתאים לlinear pipelines.</span></div>
 </div>
-<div class="cheat-card"><div class="cheat-card-title">HITL</div>
-<div class="cheat-item"><span class="cheat-key">Irreversible</span><span class="cheat-val">חובה אישור</span></div>
-<div class="cheat-item"><span class="cheat-key">Low confidence</span><span class="cheat-val">שאל human</span></div>
-</div>
+<div class="sum-block"><div class="sum-block-title">⚠️ אתגרי Multi-Agent</div>
+<div class="sum-row"><span class="sum-k">Token Costs</span><span class="sum-v">כל agent = context window משלו. Multi-agent = context * N agents. עלות יכולה לגדול מהר. Optimize: קצר context, reuse information.</span></div>
+<div class="sum-row"><span class="sum-k">Error Propagation</span><span class="sum-v">Agent שגוי → כל pipeline שאחריו מושפע. Validation agents, retry logic, human checkpoints. Observability קריטי.</span></div>
+<div class="sum-row"><span class="sum-k">Coordination Overhead</span><span class="sum-v">N agents לא = N× throughput. Communication + waiting + merging results = overhead. Benchmark לפני scale.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — Production</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Observability</div>
-<div class="cheat-item"><span class="cheat-key">LangSmith</span><span class="cheat-val">LangChain traces</span></div>
-<div class="cheat-item"><span class="cheat-key">Langfuse</span><span class="cheat-val">open-source</span></div>
-<div class="cheat-item"><span class="cheat-key">Helicone</span><span class="cheat-val">proxy-based</span></div>
+`<div class="sum-block"><div class="sum-block-title">🚀 Agents בProduction</div>
+<div class="sum-row"><span class="sum-k">Observability</span><span class="sum-v">LangSmith, LangFuse, Arize Phoenix — tracing כל LLM call. מה היה ה-prompt? מה הresponse? כמה tokens? כמה זמן? בלי observability = debugging בחושך.</span></div>
+<div class="sum-row"><span class="sum-k">Evaluation (Evals)</span><span class="sum-v">בדיקת איכות agent: golden test sets, LLM-as-judge, human evaluation. Ragas לRAG evaluation. עדכון prompt → run evals → compare. CI/CD לAI.</span></div>
+<div class="sum-row"><span class="sum-k">Guardrails</span><span class="sum-v">Input validation (reject harmful prompts), output validation (format, content policy), action limits (מניעת פעולות לא מאושרות). Nemo Guardrails, Rebuff, custom classifiers.</span></div>
+<div class="sum-row"><span class="sum-k">Rate Limits & Fallbacks</span><span class="sum-v">API rate limits: exponential backoff, queue. Fallbacks: model A נכשל → model B. Cost monitoring: alert כשexceeding budget. Caching: cache LLM responses לprompts חוזרים.</span></div>
 </div>
-<div class="cheat-card"><div class="cheat-card-title">Cost</div>
-<div class="cheat-item"><span class="cheat-key">Model routing</span><span class="cheat-val">-70% עלות</span></div>
-<div class="cheat-item"><span class="cheat-key">Circuit breaker</span><span class="cheat-val">stop at N calls</span></div>
-</div>
+<div class="sum-block"><div class="sum-block-title">💰 עלויות ואופטימיזציה</div>
+<div class="sum-row"><span class="sum-k">Token Optimization</span><span class="sum-v">קצר prompts. Compress conversation history. Cache embeddings. Use smaller models לsimple tasks (Haiku/Flash). Batch requests. Cache identical queries.</span></div>
+<div class="sum-row"><span class="sum-k">Latency Optimization</span><span class="sum-v">Streaming לUX. Parallel tool calls. Precompute embeddings. CDN לstatic assets. Connection pooling לDB. גישה לmodels קרובים גיאוגרפית.</span></div>
+<div class="sum-tip">💡 <strong>Production checklist:</strong> Observability → Evals → Guardrails → Rate limits → Cost alerts → Fallbacks → Load testing → Monitoring dashboards.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — מפת המודלים</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">ענן</div>
-<div class="cheat-item"><span class="cheat-key">Claude Sonnet 4.6</span><span class="cheat-val">agents, coding</span></div>
-<div class="cheat-item"><span class="cheat-key">DeepSeek V3</span><span class="cheat-val">נפח גבוה, זול</span></div>
-<div class="cheat-item"><span class="cheat-key">Gemini 2.5 Flash</span><span class="cheat-val">מהיר, 1M context</span></div>
-<div class="cheat-item"><span class="cheat-key">Claude Opus</span><span class="cheat-val">reasoning מורכב</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">לוקאלי</div>
-<div class="cheat-item"><span class="cheat-key">Qwen 3 32B</span><span class="cheat-val">general, coding</span></div>
-<div class="cheat-item"><span class="cheat-key">DeepSeek R1</span><span class="cheat-val">reasoning, math</span></div>
-<div class="cheat-item"><span class="cheat-key">Gemma 3 9B</span><span class="cheat-val">8GB VRAM</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🗺️ מפת המודלים 2025</div>
+<div class="sum-row"><span class="sum-k">Frontier Models</span><span class="sum-v"><strong>Claude 3.7 / 4</strong>: קוד + analysis + computer use. <strong>GPT-4o / o3</strong>: multimodal, reasoning. <strong>Gemini 2.0 Ultra</strong>: 1M context, native multimodal. <strong>Grok 3</strong>: X/Twitter integration.</span></div>
+<div class="sum-row"><span class="sum-k">Efficient Models</span><span class="sum-v"><strong>Claude Haiku</strong>: מהיר + זול. <strong>GPT-4o mini</strong>: 15x זול מGPT-4o. <strong>Gemini Flash</strong>: מהיר ביותר. לtasks פשוטים — efficient models חוסכים 80%+ בעלויות.</span></div>
+<div class="sum-row"><span class="sum-k">Open Source</span><span class="sum-v"><strong>Llama 3.3 70B</strong>: מתחרה ב-GPT-4. <strong>Mistral Large</strong>: אירופאי, GDPR-friendly. <strong>Qwen 2.5</strong>: מצוין בקוד. <strong>DeepSeek V3</strong>: סיני, open weights, חזק.</span></div>
+<div class="sum-row"><span class="sum-k">Specialized</span><span class="sum-v"><strong>Code</strong>: Claude Sonnet, GPT-4o, DeepSeek Coder. <strong>Vision</strong>: GPT-4V, Gemini. <strong>Embedding</strong>: text-embedding-3-large (OpenAI), Cohere. <strong>Reasoning</strong>: o3, o3-mini.</span></div>
+<div class="sum-row"><span class="sum-k">Pricing (rough 2025)</span><span class="sum-v">Claude Sonnet: ~$3/1M input. GPT-4o: ~$5/1M input. GPT-4o mini: ~$0.15/1M input. Claude Haiku: ~$0.25/1M input. Llama 3.3 self-hosted: ~$0.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — לוקאלי vs ענן</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Quantization</div>
-<div class="cheat-item"><span class="cheat-key">Q4_K_M</span><span class="cheat-val">97% quality, 25% VRAM</span></div>
-<div class="cheat-item"><span class="cheat-key">Break-even</span><span class="cheat-val">5K requests/day</span></div>
-<div class="cheat-item"><span class="cheat-key">Apple M</span><span class="cheat-val">unified memory</span></div>
+`<div class="sum-block"><div class="sum-block-title">🖥️ לוקאלי vs ענן</div>
+<div class="sum-row"><span class="sum-k">Local LLMs — יתרונות</span><span class="sum-v">פרטיות מלאה (data לא עוזב). עלות קבועה (חומרה). ללא API rate limits. Offline. Customization מלא. GDPR compliance פשוט יותר.</span></div>
+<div class="sum-row"><span class="sum-k">Local LLMs — חסרונות</span><span class="sum-v">חומרה יקרה (RTX 4090 = $1500+). פחות חכם מfrontier models. Setup מורכב. Updates ידניים. לא מתאים לכל task.</span></div>
+<div class="sum-row"><span class="sum-k">Ollama</span><span class="sum-v">הדרך הפשוטה ביותר להריץ LLMs locally. <code>ollama pull llama3.3</code>. OpenAI-compatible API. תומך: Llama, Mistral, Qwen, Phi, Gemma. Mac/Linux/Windows.</span></div>
+<div class="sum-row"><span class="sum-k">LM Studio</span><span class="sum-v">GUI לlocal models. GGUF format (quantized). Download מHuggingFace. Local server. Visual chat interface. טוב למתחילים.</span></div>
 </div>
-<div class="cheat-card"><div class="cheat-card-title">Hardware</div>
-<div class="cheat-item"><span class="cheat-key">8-16GB VRAM</span><span class="cheat-val">7-8B models</span></div>
-<div class="cheat-item"><span class="cheat-key">24GB VRAM</span><span class="cheat-val">32B models</span></div>
-<div class="cheat-item"><span class="cheat-key">Ollama</span><span class="cheat-val">docker-like, zero code</span></div>
-</div>
+<div class="sum-block"><div class="sum-block-title">☁️ Cloud API — מתי</div>
+<div class="sum-row"><span class="sum-k">בחר Cloud כאשר</span><span class="sum-v">צריך frontier model quality. Volume גבוה ולא רוצה לנהל infra. Multimodal (vision/audio). Latency קריטי. Team שאינו DevOps.</span></div>
+<div class="sum-row"><span class="sum-k">בחר Local כאשר</span><span class="sum-v">Data רגיש (medical, legal, financial). Budget קבוע. Regulatory compliance. High-volume repetitive tasks. Privacy-first organizations.</span></div>
+<div class="sum-tip">💡 Hybrid: local model לpreprocessing/filtering, cloud frontier model לfinal generation. חיסכון ב-80% עלויות ב-many pipelines.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — Prompt Engineering</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Techniques</div>
-<div class="cheat-item"><span class="cheat-key">CoT</span><span class="cheat-val">Think step by step</span></div>
-<div class="cheat-item"><span class="cheat-key">Few-Shot</span><span class="cheat-val">3 examples before</span></div>
-<div class="cheat-item"><span class="cheat-key">JSON mode</span><span class="cheat-val">guaranteed output</span></div>
-<div class="cheat-item"><span class="cheat-key">Constraints</span><span class="cheat-val">if unsure — say so</span></div>
+`<div class="sum-block"><div class="sum-block-title">✍️ Prompt Engineering</div>
+<div class="sum-row"><span class="sum-k">System Prompt</span><span class="sum-v">מוגדר פעם אחת, מכוון כל conversation. Role, personality, rules, output format. Claude: Constitutional AI — system prompt משפיע על כל behavior. GPT: developer role.</span></div>
+<div class="sum-row"><span class="sum-k">Few-Shot Prompting</span><span class="sum-v">הכנסת דוגמאות ל-prompt: "Example 1: input → output. Example 2: input → output. Now: [input]". מחקרים: 3-5 דוגמאות = 80% השיפור. Zero-shot + good instructions לא תמיד מספיק.</span></div>
+<div class="sum-row"><span class="sum-k">Chain of Thought (CoT)</span><span class="sum-v">"Think step by step" — מוציא reasoning ל-output. מגדיל דיוק ב-tasks לוגיים ומתמטיים. "Let's think through this..." מפעיל CoT ב-most models.</span></div>
+<div class="sum-row"><span class="sum-k">Structured Output</span><span class="sum-v">בקש JSON: "Respond ONLY in JSON: {field: value}". Claude artifacts. OpenAI response_format: json_object. Pydantic schemas לvalidation. מפחית hallucination בformatting.</span></div>
 </div>
-<div class="cheat-card"><div class="cheat-card-title">Improvement Order</div>
-<div class="cheat-item"><span class="cheat-key">1st</span><span class="cheat-val">Prompt engineering</span></div>
-<div class="cheat-item"><span class="cheat-key">2nd</span><span class="cheat-val">Model upgrade</span></div>
-<div class="cheat-item"><span class="cheat-key">3rd</span><span class="cheat-val">Fine-tuning</span></div>
-<div class="cheat-item"><span class="cheat-key">4th</span><span class="cheat-val">RAG</span></div>
-</div>
+<div class="sum-block"><div class="sum-block-title">⚠️ Prompt Anti-patterns</div>
+<div class="sum-row"><span class="sum-k">Prompt Injection</span><span class="sum-v">תוקף מזריק הוראות בdata: "Ignore previous instructions and..." בDocument שה-agent קורא. Mitigation: validate inputs, separate data from instructions, sandboxing.</span></div>
+<div class="sum-row"><span class="sum-k">Jailbreaking</span><span class="sum-v">ניסיון לגרום ל-LLM לעקוף safety guidelines. Role-play attacks, DAN prompts, encoded requests. Constitutional AI, RLHF, system-level guardrails מגנים.</span></div>
+<div class="sum-tip">💡 <strong>Prompt versioning:</strong> שמור prompts בגרסאות (Git). Track changes ועם evals. "Prompt drift" — שינוי קטן יכול לשבור production system.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — Transformers מבפנים</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">ארכיטקטורה</div>
-<div class="cheat-item"><span class="cheat-key">Tokens</span><span class="cheat-val">טקסט → מספרים</span></div>
-<div class="cheat-item"><span class="cheat-key">Embeddings</span><span class="cheat-val">וקטור סמנטי</span></div>
-<div class="cheat-item"><span class="cheat-key">Attention</span><span class="cheat-val">Q×K^T/√d × V</span></div>
-<div class="cheat-item"><span class="cheat-key">N layers</span><span class="cheat-val">GPT-4: ~120</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Training</div>
-<div class="cheat-item"><span class="cheat-key">Pre-training</span><span class="cheat-val">ניבוי token הבא</span></div>
-<div class="cheat-item"><span class="cheat-key">SFT</span><span class="cheat-val">instruction following</span></div>
-<div class="cheat-item"><span class="cheat-key">RLHF</span><span class="cheat-val">human feedback</span></div>
-<div class="cheat-item"><span class="cheat-key">Hallucination</span><span class="cheat-val">ניבוי ≠ ידיעה</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">⚙️ Transformers — מבפנים</div>
+<div class="sum-row"><span class="sum-k">Self-Attention</span><span class="sum-v">כל token "שואל" (Query) כל token אחר (Key), מקבל ציון, ו"לוחץ" את הValues לפי הציון. מאפשר הבנת קשרים ארוכי-טווח. O(n²) לאורך context — הסיבה שcontext window עולה בכסף.</span></div>
+<div class="sum-row"><span class="sum-k">Multi-Head Attention</span><span class="sum-v">כמה "ראשים" של attention במקביל. כל ראש לומד דפוסים שונים (syntax, semantics, reference). Concat → Linear. GPT-3: 96 heads.</span></div>
+<div class="sum-row"><span class="sum-k">Positional Encoding</span><span class="sum-v">Transformers אינם "יודעים" סדר של tokens. Positional encoding מוסיף מידע על מיקום. RoPE (Rotary), ALiBi — מאפשרים context ארוך יותר.</span></div>
+<div class="sum-row"><span class="sum-k">Decoder vs Encoder</span><span class="sum-v"><strong>Encoder</strong> (BERT): ראה כל context. לclassification, NER, embeddings. <strong>Decoder</strong> (GPT, Claude): autoregressive, ראה רק backward. לgeneration. <strong>Encoder-Decoder</strong> (T5, BART): לtranslation, summarization.</span></div>
+<div class="sum-row"><span class="sum-k">Training</span><span class="sum-v">Pre-training: next token prediction על trillions of tokens. RLHF: human feedback → reward model → PPO. Constitutional AI (Anthropic): AI-generated feedback לפי principles.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — Fine-tuning & LoRA</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">LoRA</div>
-<div class="cheat-item"><span class="cheat-key">ΔW = A × B</span><span class="cheat-val">side matrices</span></div>
-<div class="cheat-item"><span class="cheat-key">Rank=16</span><span class="cheat-val">0.1% params</span></div>
-<div class="cheat-item"><span class="cheat-key">QLoRA</span><span class="cheat-val">70B על 24GB GPU</span></div>
-<div class="cheat-item"><span class="cheat-key">עלות</span><span class="cheat-val">$20-$2,000</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">מתי?</div>
-<div class="cheat-item"><span class="cheat-key">כן</span><span class="cheat-val">style, domain, format</span></div>
-<div class="cheat-item"><span class="cheat-key">לא</span><span class="cheat-val">ידע משתנה → RAG</span></div>
-<div class="cheat-item"><span class="cheat-key">כמה data</span><span class="cheat-val">100-100K examples</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🎯 Fine-tuning ו-LoRA</div>
+<div class="sum-row"><span class="sum-k">מתי Fine-tuning?</span><span class="sum-v">רק אחרי שPrompt Engineering + RAG לא מספיקים. Use cases: טון ספציפי מאוד, domain jargon כבד, output format קשיח, latency קריטי (אין RAG overhead).</span></div>
+<div class="sum-row"><span class="sum-k">Full Fine-tuning</span><span class="sum-v">עדכון כל ה-weights. מאוד יקר (A100 * ימים). סיכון catastrophic forgetting. נדיר ל-production. גוגל/OpenAI עושים זאת לbase models.</span></div>
+<div class="sum-row"><span class="sum-k">LoRA (Low-Rank Adaptation)</span><span class="sum-v">מוסיף matrices קטנות בנוסף ל-frozen weights. 99% פחות parameters לאימון. ריצה על GPU ביתי (RTX 3090). Merge לmodel בסוף. QLoRA = LoRA + quantization = עוד יותר זול.</span></div>
+<div class="sum-row"><span class="sum-k">Dataset Requirements</span><span class="sum-v">JSONL format: {"prompt": "...", "completion": "..."}. כמות: 1K-10K examples לrole/style, 50K+ לcapability. איכות >> כמות. Clean, consistent, diverse.</span></div>
+<div class="sum-row"><span class="sum-k">Unsloth / Axolotl</span><span class="sum-v">Frameworks לfine-tuning מהיר. Unsloth: 2× מהיר, 60% פחות VRAM. Axolotl: configurable, production-grade. HuggingFace Trainer: baseline.</span></div>
+<div class="sum-tip">💡 <strong>Try in order:</strong> 1. Better prompting. 2. RAG. 3. Few-shot examples. 4. LoRA fine-tune. 5. Full fine-tune. Most cases stop at 2 or 3.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — AI Safety</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">סיכונים</div>
-<div class="cheat-item"><span class="cheat-key">Hallucination</span><span class="cheat-val">RAG + grounding</span></div>
-<div class="cheat-item"><span class="cheat-key">Bias</span><span class="cheat-val">diverse data + audit</span></div>
-<div class="cheat-item"><span class="cheat-key">Jailbreak</span><span class="cheat-val">RLHF + filters</span></div>
-<div class="cheat-item"><span class="cheat-key">Injection</span><span class="cheat-val">הפרד data מinstructions</span></div>
+`<div class="sum-block"><div class="sum-block-title">🛡️ AI Safety</div>
+<div class="sum-row"><span class="sum-k">Alignment Problem</span><span class="sum-v">AI שמספק מה שביקשנו ולא מה שרצינו. Goodhart's Law: "when a measure becomes a target, it ceases to be a good measure". Reward hacking: agent מוצא shortcuts שמגיעים לreward ללא המטרה האמיתית.</span></div>
+<div class="sum-row"><span class="sum-k">RLHF</span><span class="sum-v">Reinforcement Learning from Human Feedback. Humans מדרגים תשובות → reward model → PPO (Proximal Policy Optimization). GPT-3.5, Claude 2 — trained with RLHF. מגביל harmful outputs.</span></div>
+<div class="sum-row"><span class="sum-k">Constitutional AI</span><span class="sum-v">Anthropic's approach: AI "עצמו" מבקר responses לפי עקרונות. RLAIF (AI feedback) במקום human feedback לscaling. Claude's constitution: helpful, harmless, honest.</span></div>
+<div class="sum-row"><span class="sum-k">AI Agent Risks</span><span class="sum-v">Prompt injection (data contains malicious instructions). Tool misuse (agent מוחק דברים לא נכונים). Over-autonomy (פועל ללא approval). Data exfiltration (שולח data לחוץ). Jailbreaking via tool output.</span></div>
 </div>
-<div class="cheat-card"><div class="cheat-card-title">Alignment</div>
-<div class="cheat-item"><span class="cheat-key">RLHF</span><span class="cheat-val">human feedback loop</span></div>
-<div class="cheat-item"><span class="cheat-key">Constitutional AI</span><span class="cheat-val">self-critique</span></div>
-<div class="cheat-item"><span class="cheat-key">Alignment ≠</span><span class="cheat-val">ערכים מוסריים</span></div>
-</div>
+<div class="sum-block"><div class="sum-block-title">🔒 Safety Mitigations</div>
+<div class="sum-row"><span class="sum-k">Human-in-the-Loop</span><span class="sum-v">לפעולות irreversible (מחיקה, שליחת email, עסקאות כספיות) — approval step. Reduce autonomy = reduce risk. "If in doubt, ask."</span></div>
+<div class="sum-row"><span class="sum-k">Minimal Permissions</span><span class="sum-v">Agent מקבל רק הרשאות שצריך. Read-only ראשית. Write access רק עם approval. No admin rights. Principle of least privilege.</span></div>
+<div class="sum-tip">💡 <strong>Responsible AI checklist:</strong> Audit logs, Data minimization, Bias testing, Explainability, Regular red-teaming, Incident response plan.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — Embeddings</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Embeddings</div>
-<div class="cheat-item"><span class="cheat-key">טקסט → וקטור</span><span class="cheat-val">1536 מספרים</span></div>
-<div class="cheat-item"><span class="cheat-key">Cosine sim</span><span class="cheat-val">מדד קרבה סמנטית</span></div>
-<div class="cheat-item"><span class="cheat-key">nomic-embed</span><span class="cheat-val">לוקאלי, חינם</span></div>
-<div class="cheat-item"><span class="cheat-key">Reranking</span><span class="cheat-val">cross-encoder → דיוק</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Search</div>
-<div class="cheat-item"><span class="cheat-key">Keyword</span><span class="cheat-val">מילות מפתח מדויקות</span></div>
-<div class="cheat-item"><span class="cheat-key">Semantic</span><span class="cheat-val">כוונה + מילים נרדפות</span></div>
-<div class="cheat-item"><span class="cheat-key">Hybrid</span><span class="cheat-val">שניהם = הכי טוב</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🔢 Embeddings</div>
+<div class="sum-row"><span class="sum-k">מה זה Embedding?</span><span class="sum-v">המרת טקסט (או image/audio) ל-vector של מספרים. "cat" ו-"kitten" → vectors קרובים ב-space. "cat" ו-"democracy" → רחוקים. Semantic meaning captured mathematically.</span></div>
+<div class="sum-row"><span class="sum-k">Similarity</span><span class="sum-v">Cosine similarity: מדד קרבה בין vectors (-1 לעד 1). 1 = זהים, 0 = לא קשורים, -1 = הפוכים. Dot product: מהיר יותר, אך תלוי magnitude. Euclidean: טוב לclustering.</span></div>
+<div class="sum-row"><span class="sum-k">Embedding Models</span><span class="sum-v"><strong>text-embedding-3-large</strong> (OpenAI): 3072 dims, state-of-art. <strong>text-embedding-3-small</strong>: זול, מהיר, 1536 dims. <strong>Cohere embed-v3</strong>: multilingual. <strong>BGE / E5</strong>: open source, competitive.</span></div>
+<div class="sum-row"><span class="sum-k">Vector Databases</span><span class="sum-v"><strong>Pinecone</strong>: managed, production-ready. <strong>Chroma</strong>: open-source, local. <strong>Weaviate</strong>: hybrid search. <strong>Qdrant</strong>: Rust, fast. <strong>pgvector</strong>: PostgreSQL extension, simple.</span></div>
+<div class="sum-row"><span class="sum-k">Use Cases</span><span class="sum-v">RAG (semantic search), duplicate detection, clustering, recommendation systems, semantic search engines, anomaly detection.</span></div>
+<div class="sum-tip">💡 <strong>Dimensionality matters:</strong> יותר dims = יותר expressive אבל יותר storage + slower. 1536 dims לרוב use cases. Reduce עם PCA/UMAP לvisualization.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 סיכום — Use Cases</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">ROI גבוה</div>
-<div class="cheat-item"><span class="cheat-key">Legal</span><span class="cheat-val">-70% review time</span></div>
-<div class="cheat-item"><span class="cheat-key">HR</span><span class="cheat-val">500 CVs ב-3 דקות</span></div>
-<div class="cheat-item"><span class="cheat-key">DevOps</span><span class="cheat-val">MTTR 4h → 45min</span></div>
-<div class="cheat-item"><span class="cheat-key">Finance</span><span class="cheat-val">reports 4d → 4h</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">כלל</div>
-<div class="cheat-item"><span class="cheat-key">ROI הכי גבוה</span><span class="cheat-val">חזרתי + יקר</span></div>
-<div class="cheat-item"><span class="cheat-key">תמיד</span><span class="cheat-val">human review</span></div>
-<div class="cheat-item"><span class="cheat-key">עלות API</span><span class="cheat-val">בד"כ &lt;1% מחיסכון</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">💼 AI Agent Use Cases</div>
+<div class="sum-row"><span class="sum-k">Code Agent</span><span class="sum-v">GitHub Copilot, Cursor, Devin. Feature: write code → run tests → fix bugs → iterate. Tools: code_execute, file_read/write, search_docs. ROI: 30-50% productivity gain (GitHub study).</span></div>
+<div class="sum-row"><span class="sum-k">Research Agent</span><span class="sum-v">Input: research question. Agent: web search → read articles → synthesize → write report. Tools: web_search, scrape_url, summarize. Deep Research (OpenAI), Perplexity.</span></div>
+<div class="sum-row"><span class="sum-k">Customer Support Agent</span><span class="sum-v">RAG over knowledge base → answer questions → escalate when needed. Tools: search_kb, create_ticket, lookup_order. Metrics: containment rate, CSAT, resolution time.</span></div>
+<div class="sum-row"><span class="sum-k">Data Analysis Agent</span><span class="sum-v">Input: question about data. Agent: write SQL → execute → visualize → interpret. Tools: query_db, run_python, create_chart. Replaces junior analyst for routine queries.</span></div>
+<div class="sum-row"><span class="sum-k">Document Processing</span><span class="sum-v">PDF/email ingestion → extract structured data → classify → route to right system. Invoice extraction, contract analysis, medical records. LlamaParse + LLM.</span></div>
+<div class="sum-row"><span class="sum-k">Personal Productivity</span><span class="sum-v">Email management, calendar scheduling, task prioritization, meeting summaries. n8n + Gmail + Calendar + Claude. "Do what I mean, not what I say" — personal AI assistant.</span></div>
+<div class="sum-tip">💡 <strong>ROI Framework:</strong> Value = (time saved × hourly rate × frequency) - (AI cost + setup cost + maintenance). Start with high-frequency, repetitive, structured tasks.</div>
 </div>`
-]
+  ]
 },
+
 en:{
   dir:'ltr',lang:'en',langBtn:'🇮🇱 HE',sbLabel:'Chapters',
   names:['What is an AI Agent?','LLM as Engine','Tools & Memory','RAG & MCP','Frameworks','n8n in Practice','Multi-Agent','Production','Model Landscape','Local vs Cloud','Prompt Engineering','Transformers מבפנים','Fine-tuning & LoRA','AI Safety','Embeddings','Use Cases'],
@@ -1696,8 +1700,8 @@ en:{
     'Word2Vec, BERT embeddings, cosine similarity, semantic search — how AI understands meaning',
     'HR, Legal, DevOps, Marketing, Finance — 25+ real use cases with measurable ROI'
   ],
-  tabs:['📖 Learn','🎯 Quiz','🛠️ Lab','🎮 Game','📋 Summary'],
-  tabKeys:['learn','quiz','lab','game','cheat'],
+  tabs:['📖 Learn','🎮 Game','📋 Summary'],
+  tabKeys:['learn','game','cheat'],
   gameTitle:'AGENT QUIZ',gameDesc:'Answer fast. Every correct answer = +10 points.',
   gameStart:'▶ Start',gameSeconds:'seconds',gameQuestions:'questions',gameXP:'+10 XP',
   gameAgain:'🔄 Again',gameToCheat:'📋 Summary →',
@@ -2116,217 +2120,112 @@ Q: {user_query}")</code></pre>
 </div>`
 ],
   cheat:[
-`<div class="callout callout-success"><strong>📋 Summary — Intro to AI Agents</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">ReAct Loop</div>
-<div class="cheat-item"><span class="cheat-key">Think</span><span class="cheat-val">LLM reasons</span></div>
-<div class="cheat-item"><span class="cheat-key">Act</span><span class="cheat-val">Call tool</span></div>
-<div class="cheat-item"><span class="cheat-key">Observe</span><span class="cheat-val">Result returns</span></div>
+`<div class="sum-block"><div class="sum-block-title">🤖 What is an AI Agent?</div>
+<div class="sum-row"><span class="sum-k">AI Agent vs Chatbot</span><span class="sum-v"><strong>Chatbot</strong>: Q&A, no memory between sessions, no actions. <strong>AI Agent</strong>: reasons, decides, uses tools, autonomous loop. Goal = result (not just an answer).</span></div>
+<div class="sum-row"><span class="sum-k">ReAct Loop</span><span class="sum-v"><strong>Reason</strong>: LLM thinks about what to do. <strong>Act</strong>: runs a tool (search, code, API). <strong>Observe</strong>: sees the result. Loops back to Reason until goal is reached. The core of every modern agent.</span></div>
+<div class="sum-row"><span class="sum-k">Agentic AI = Autonomy + Tools</span><span class="sum-v">Agent = LLM + tools + memory + loop. LLM decides <strong>what to do</strong>, tools <strong>do</strong> it. Loop continues until task is complete.</span></div>
+<div class="sum-row"><span class="sum-k">Agent examples</span><span class="sum-v">Devin (code), AutoGPT (general), Cursor Agent (IDE), Claude (computer use). Uses: code review, data analysis, web browsing, scheduling.</span></div>
 </div>
-<div class="cheat-card"><div class="cheat-card-title">Agent vs Chatbot</div>
-<div class="cheat-item"><span class="cheat-key">Chatbot</span><span class="cheat-val">input → output</span></div>
-<div class="cheat-item"><span class="cheat-key">Agent</span><span class="cheat-val">goal → loop → done</span></div>
-</div>
+<div class="sum-block"><div class="sum-block-title">🛠️ Agent Components</div>
+<div class="sum-row"><span class="sum-k">Planning</span><span class="sum-v">Breaking task into subtasks. CoT (Chain of Thought): LLM reasons step-by-step. ToT (Tree of Thought): tries multiple paths. ReAct: thinking + acting in a loop.</span></div>
+<div class="sum-row"><span class="sum-k">Memory</span><span class="sum-v"><strong>Short-term</strong>: context window. <strong>Long-term</strong>: vector DB. <strong>Semantic</strong>: embedding-based search. <strong>Episodic</strong>: memory of past conversations.</span></div>
+<div class="sum-row"><span class="sum-k">Tools</span><span class="sum-v">Web search, Code Execution, File I/O, Database queries, API calls, Browser control (Playwright). Each tool = a function the LLM can call.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — LLM as Engine</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Function Calling</div>
-<div class="cheat-item"><span class="cheat-key">LLM returns</span><span class="cheat-val">JSON only</span></div>
-<div class="cheat-item"><span class="cheat-key">Our code</span><span class="cheat-val">actually runs</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Context</div>
-<div class="cheat-item"><span class="cheat-key">Claude 3.5</span><span class="cheat-val">200K tokens</span></div>
-<div class="cheat-item"><span class="cheat-key">Gemini 1.5</span><span class="cheat-val">1M tokens</span></div>
-<div class="cheat-item"><span class="cheat-key">Lost in Middle</span><span class="cheat-val">bigger ≠ better</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🧠 LLM — The Agent Engine</div>
+<div class="sum-row"><span class="sum-k">Transformer</span><span class="sum-v">Architecture from 2017 ("Attention is All You Need"). Self-Attention: every token "sees" all other tokens in context. Enables long-context understanding. GPT, Claude, Gemini — all Transformers.</span></div>
+<div class="sum-row"><span class="sum-k">Tokens</span><span class="sum-v">Text processing unit. ~3/4 of a word ≈ 1 token. "Hello world" = 2 tokens. Token limit = context window. GPT-4: 128K. Claude: 200K. Gemini: 1M+.</span></div>
+<div class="sum-row"><span class="sum-k">Temperature</span><span class="sum-v">Randomness level. <code>0</code> = deterministic (code). <code>0.7</code> = balanced. <code>1.5</code> = creative. Agents usually use low temperature = consistency.</span></div>
+<div class="sum-row"><span class="sum-k">Key Models 2025</span><span class="sum-v">Claude Sonnet/Opus: code + analysis. GPT-4o/o3: multimodal, reasoning. Gemini 2.0: 1M context. Llama 3.3: open source, self-hosted. Mistral: European, GDPR-friendly.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — Tools & Memory</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Memory Types</div>
-<div class="cheat-item"><span class="cheat-key">Working</span><span class="cheat-val">context window</span></div>
-<div class="cheat-item"><span class="cheat-key">Short-term</span><span class="cheat-val">session buffer</span></div>
-<div class="cheat-item"><span class="cheat-key">Long-term</span><span class="cheat-val">vector DB</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Vector DBs</div>
-<div class="cheat-item"><span class="cheat-key">Pinecone</span><span class="cheat-val">managed enterprise</span></div>
-<div class="cheat-item"><span class="cheat-key">Chroma</span><span class="cheat-val">local dev</span></div>
-<div class="cheat-item"><span class="cheat-key">pgvector</span><span class="cheat-val">SQL + vectors</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🛠️ Tools & Memory</div>
+<div class="sum-row"><span class="sum-k">Function Calling</span><span class="sum-v">LLM decides when to call a function and with what parameters. Defined in JSON Schema. LLM returns JSON with function name + parameters. Your code runs it. Result goes back to LLM.</span></div>
+<div class="sum-row"><span class="sum-k">Common Tools</span><span class="sum-v">web_search (Tavily, Brave), code_interpreter (E2B), file_read/write, browser_control (Playwright), database_query, send_email, calendar_create.</span></div>
+<div class="sum-row"><span class="sum-k">Short-term Memory</span><span class="sum-v">Everything in the current context window. Immediately available. Size-limited. Cleared at end of session.</span></div>
+<div class="sum-row"><span class="sum-k">Long-term Memory</span><span class="sum-v">Embeddings in Pinecone, Chroma, Weaviate. Searches by similarity. Persists between sessions. Used for RAG and personalization.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — RAG & MCP</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">RAG</div>
-<div class="cheat-item"><span class="cheat-key">Chunk → Embed</span><span class="cheat-val">prep documents</span></div>
-<div class="cheat-item"><span class="cheat-key">Retrieve → Generate</span><span class="cheat-val">at runtime</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">MCP</div>
-<div class="cheat-item"><span class="cheat-key">Tools</span><span class="cheat-val">actions</span></div>
-<div class="cheat-item"><span class="cheat-key">Resources</span><span class="cheat-val">read-only data</span></div>
-<div class="cheat-item"><span class="cheat-key">RAG vs MCP</span><span class="cheat-val">know vs do</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">📚 RAG & MCP</div>
+<div class="sum-row"><span class="sum-k">What is RAG?</span><span class="sum-v">Instead of finetuning a model with new knowledge — store documents in vector DB and search at inference time. LLM gets: query + retrieved docs → document-grounded answer.</span></div>
+<div class="sum-row"><span class="sum-k">RAG Pipeline</span><span class="sum-v"><strong>1</strong>: Chunk docs (500-1000 tokens). <strong>2</strong>: Embed chunks. <strong>3</strong>: Store in vector DB. <strong>4</strong>: Query → embed → similarity search → top-K. <strong>5</strong>: LLM generates with context.</span></div>
+<div class="sum-row"><span class="sum-k">MCP (Model Context Protocol)</span><span class="sum-v">Anthropic's protocol (2024) connecting LLMs to tools and data sources. Like USB-C for AI: every tool implementing MCP works with every MCP-aware LLM. Standardization over fragmentation.</span></div>
+<div class="sum-row"><span class="sum-k">RAG vs Fine-tuning</span><span class="sum-v">RAG = dynamic, current, attributable knowledge. Fine-tuning = static knowledge in weights, expensive, hard to update. For most enterprise cases — RAG first, fine-tune only if needed.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — Frameworks</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Choose</div>
-<div class="cheat-item"><span class="cheat-key">LangGraph</span><span class="cheat-val">control, prod</span></div>
-<div class="cheat-item"><span class="cheat-key">CrewAI</span><span class="cheat-val">fast prototype</span></div>
-<div class="cheat-item"><span class="cheat-key">AutoGen</span><span class="cheat-val">code + debate</span></div>
-<div class="cheat-item"><span class="cheat-key">n8n</span><span class="cheat-val">no-code</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">⚠️ Warning</div>
-<div class="cheat-item"><span class="cheat-key">CrewAI ceiling</span><span class="cheat-val">6-12 months</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">⚙️ Agent Frameworks</div>
+<div class="sum-row"><span class="sum-k">LangChain / LangGraph</span><span class="sum-v">Most popular. Modular: chains, agents, tools, memory. LangGraph = multi-agent workflows as DAG. LangSmith for tracing. Python + JS.</span></div>
+<div class="sum-row"><span class="sum-k">LlamaIndex</span><span class="sum-v">Focused on RAG and data ingestion. Query pipelines, sub-question decomposition. Better than LangChain for data-heavy apps.</span></div>
+<div class="sum-row"><span class="sum-k">AutoGen (Microsoft)</span><span class="sum-v">Multi-agent conversations. Agents talk to each other. AssistantAgent, UserProxyAgent. Code execution built-in.</span></div>
+<div class="sum-row"><span class="sum-k">CrewAI</span><span class="sum-v">Role-based multi-agent. "Crew" = group with specific roles. Tasks with dependencies. Sequential + Parallel workflows.</span></div>
+<div class="sum-tip">💡 RAG heavy → LlamaIndex. Multi-agent → AutoGen/CrewAI. Complex workflows → LangGraph. Rapid prototyping → LangChain.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — n8n</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Nodes</div>
-<div class="cheat-item"><span class="cheat-key">Trigger</span><span class="cheat-val">Webhook, Schedule</span></div>
-<div class="cheat-item"><span class="cheat-key">AI Agent</span><span class="cheat-val">ReAct loop</span></div>
-<div class="cheat-item"><span class="cheat-key">Memory</span><span class="cheat-val">Buffer, Vector</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Best Practice</div>
-<div class="cheat-item"><span class="cheat-key">AI</span><span class="cheat-val">judgment</span></div>
-<div class="cheat-item"><span class="cheat-key">Code/IF</span><span class="cheat-val">parsing, logic</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🔄 n8n — Visual AI Automation</div>
+<div class="sum-row"><span class="sum-k">What is n8n?</span><span class="sum-v">Open-source automation platform with visual interface (no-code/low-code). Each node = an action (HTTP, DB, email, AI). Workflows = node flows. Self-hosted or cloud. Competitor to Zapier/Make but far more flexible.</span></div>
+<div class="sum-row"><span class="sum-k">AI Agent Node</span><span class="sum-v">n8n includes a built-in AI Agent node. LLM + tools in a visual interface. Connects to 400+ integrations. Tool nodes: web search, database, HTTP, custom functions.</span></div>
+<div class="sum-row"><span class="sum-k">Common Patterns</span><span class="sum-v">AI Chatbot: Chat trigger → Agent (with memory) → Response. Document processing: Email → Extract → LLM classify → Save + Notify. Research: Topic → Search → Analyze → Report.</span></div>
+<div class="sum-tip">💡 n8n = fastest way to prototype agents. Build in n8n, refactor to code if you need scale.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — Multi-Agent</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Patterns</div>
-<div class="cheat-item"><span class="cheat-key">Supervisor</span><span class="cheat-val">manager → workers</span></div>
-<div class="cheat-item"><span class="cheat-key">Pipeline</span><span class="cheat-val">A → B → C</span></div>
-<div class="cheat-item"><span class="cheat-key">Debate</span><span class="cheat-val">-40% hallucinations</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">HITL</div>
-<div class="cheat-item"><span class="cheat-key">Irreversible</span><span class="cheat-val">require approval</span></div>
-<div class="cheat-item"><span class="cheat-key">Low confidence</span><span class="cheat-val">ask human</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🌐 Multi-Agent Systems</div>
+<div class="sum-row"><span class="sum-k">Why Multi-Agent?</span><span class="sum-v">Complex tasks requiring: specialization (code agent, research agent), parallelism (multiple concurrent agents), validation (one agent checks another), scale (beyond one agent's context window).</span></div>
+<div class="sum-row"><span class="sum-k">Orchestrator-Worker</span><span class="sum-v">Orchestrator = management agent that distributes work. Workers = specialized agents. Orchestrator receives task → decides what/who → Workers execute → Orchestrator merges results.</span></div>
+<div class="sum-row"><span class="sum-k">Challenges</span><span class="sum-v">Token costs multiply per agent. Error propagation (wrong agent → whole pipeline affected). Coordination overhead (N agents ≠ N× throughput). Observability becomes critical.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — Production</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Observability</div>
-<div class="cheat-item"><span class="cheat-key">LangSmith</span><span class="cheat-val">LangChain traces</span></div>
-<div class="cheat-item"><span class="cheat-key">Langfuse</span><span class="cheat-val">open-source</span></div>
-<div class="cheat-item"><span class="cheat-key">Helicone</span><span class="cheat-val">proxy-based</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Cost</div>
-<div class="cheat-item"><span class="cheat-key">Model routing</span><span class="cheat-val">-70% cost</span></div>
-<div class="cheat-item"><span class="cheat-key">Circuit breaker</span><span class="cheat-val">stop at N calls</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🚀 Agents in Production</div>
+<div class="sum-row"><span class="sum-k">Observability</span><span class="sum-v">LangSmith, LangFuse, Arize Phoenix — trace every LLM call. What was the prompt? Response? Token count? Latency? Without observability = debugging in the dark.</span></div>
+<div class="sum-row"><span class="sum-k">Evals</span><span class="sum-v">Quality testing: golden test sets, LLM-as-judge, human eval. Ragas for RAG evaluation. Update prompt → run evals → compare. CI/CD for AI.</span></div>
+<div class="sum-row"><span class="sum-k">Guardrails</span><span class="sum-v">Input validation, output validation, action limits. Nemo Guardrails, Rebuff, custom classifiers.</span></div>
+<div class="sum-tip">💡 Production checklist: Observability → Evals → Guardrails → Rate limits → Cost alerts → Fallbacks → Load testing → Monitoring.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — מפת המודלים</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Cloud</div>
-<div class="cheat-item"><span class="cheat-key">Claude Sonnet 4.6</span><span class="cheat-val">agents, coding</span></div>
-<div class="cheat-item"><span class="cheat-key">DeepSeek V3</span><span class="cheat-val">high volume, cheap</span></div>
-<div class="cheat-item"><span class="cheat-key">Gemini 2.5 Flash</span><span class="cheat-val">fast, 1M context</span></div>
-<div class="cheat-item"><span class="cheat-key">Claude Opus</span><span class="cheat-val">complex reasoning</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Local</div>
-<div class="cheat-item"><span class="cheat-key">Qwen 3 32B</span><span class="cheat-val">general, coding</span></div>
-<div class="cheat-item"><span class="cheat-key">DeepSeek R1</span><span class="cheat-val">reasoning, math</span></div>
-<div class="cheat-item"><span class="cheat-key">Gemma 3 9B</span><span class="cheat-val">8GB VRAM</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🗺️ Model Map 2025</div>
+<div class="sum-row"><span class="sum-k">Frontier Models</span><span class="sum-v">Claude 3.7/4: code + analysis + computer use. GPT-4o/o3: multimodal, reasoning. Gemini 2.0 Ultra: 1M context. Grok 3: X/Twitter integration.</span></div>
+<div class="sum-row"><span class="sum-k">Efficient Models</span><span class="sum-v">Claude Haiku: fast + cheap. GPT-4o mini: 15× cheaper than GPT-4o. Gemini Flash: fastest. For simple tasks — efficient models save 80%+ in costs.</span></div>
+<div class="sum-row"><span class="sum-k">Open Source</span><span class="sum-v">Llama 3.3 70B: competes with GPT-4. Mistral Large: European, GDPR-friendly. Qwen 2.5: excellent at code. DeepSeek V3: Chinese, open weights, strong.</span></div>
+<div class="sum-row"><span class="sum-k">Pricing (rough 2025)</span><span class="sum-v">Claude Sonnet: ~$3/1M input. GPT-4o: ~$5/1M input. GPT-4o mini: ~$0.15/1M. Claude Haiku: ~$0.25/1M. Llama 3.3 self-hosted: ~$0.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — Local vs Cloud</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Quantization</div>
-<div class="cheat-item"><span class="cheat-key">Q4_K_M</span><span class="cheat-val">97% quality, 25% VRAM</span></div>
-<div class="cheat-item"><span class="cheat-key">Break-even</span><span class="cheat-val">5K requests/day</span></div>
-<div class="cheat-item"><span class="cheat-key">Apple M</span><span class="cheat-val">unified memory</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Hardware</div>
-<div class="cheat-item"><span class="cheat-key">8-16GB VRAM</span><span class="cheat-val">7-8B models</span></div>
-<div class="cheat-item"><span class="cheat-key">24GB VRAM</span><span class="cheat-val">32B models</span></div>
-<div class="cheat-item"><span class="cheat-key">Ollama</span><span class="cheat-val">docker-like, zero code</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🖥️ Local vs Cloud</div>
+<div class="sum-row"><span class="sum-k">Local LLMs — Pros</span><span class="sum-v">Full privacy (data stays local). Fixed cost (hardware). No API rate limits. Offline. Full customization. Simpler GDPR compliance.</span></div>
+<div class="sum-row"><span class="sum-k">Local LLMs — Cons</span><span class="sum-v">Expensive hardware (RTX 4090 = $1500+). Less capable than frontier models. Complex setup. Manual updates.</span></div>
+<div class="sum-row"><span class="sum-k">Ollama</span><span class="sum-v">Easiest way to run LLMs locally. <code>ollama pull llama3.3</code>. OpenAI-compatible API. Mac/Linux/Windows. Supports: Llama, Mistral, Qwen, Phi, Gemma.</span></div>
+<div class="sum-row"><span class="sum-k">Choose Local When</span><span class="sum-v">Sensitive data (medical, legal, financial). Fixed budget. Regulatory compliance. High-volume repetitive tasks. Privacy-first organizations.</span></div>
+<div class="sum-tip">💡 Hybrid: local model for preprocessing/filtering, cloud frontier model for final generation. Saves 80% in costs for many pipelines.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — Prompt Engineering</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Techniques</div>
-<div class="cheat-item"><span class="cheat-key">CoT</span><span class="cheat-val">Think step by step</span></div>
-<div class="cheat-item"><span class="cheat-key">Few-Shot</span><span class="cheat-val">3 examples before</span></div>
-<div class="cheat-item"><span class="cheat-key">JSON mode</span><span class="cheat-val">guaranteed output</span></div>
-<div class="cheat-item"><span class="cheat-key">Constraints</span><span class="cheat-val">if unsure — say so</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Improvement Order</div>
-<div class="cheat-item"><span class="cheat-key">1st</span><span class="cheat-val">Prompt engineering</span></div>
-<div class="cheat-item"><span class="cheat-key">2nd</span><span class="cheat-val">Model upgrade</span></div>
-<div class="cheat-item"><span class="cheat-key">3rd</span><span class="cheat-val">Fine-tuning</span></div>
-<div class="cheat-item"><span class="cheat-key">4th</span><span class="cheat-val">RAG</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">✍️ Prompt Engineering</div>
+<div class="sum-row"><span class="sum-k">System Prompt</span><span class="sum-v">Set once, guides all conversation. Role, personality, rules, output format. Affects all behavior. Treat as code — version control it.</span></div>
+<div class="sum-row"><span class="sum-k">Few-Shot Prompting</span><span class="sum-v">Include examples: "Example 1: input → output. Example 2: input → output. Now: [input]". Research: 3-5 examples = 80% of improvement. Zero-shot isn't always enough.</span></div>
+<div class="sum-row"><span class="sum-k">Chain of Thought (CoT)</span><span class="sum-v">"Think step by step" — externalizes reasoning. Increases accuracy on logic and math tasks. "Let's think through this..." activates CoT on most models.</span></div>
+<div class="sum-row"><span class="sum-k">Prompt Injection</span><span class="sum-v">Attacker injects instructions in data: "Ignore previous instructions..." in a document the agent reads. Mitigation: validate inputs, separate data from instructions, sandboxing.</span></div>
+<div class="sum-tip">💡 Prompt versioning: save prompts in git. Track changes with evals. "Prompt drift" — a small change can break a production system.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — Transformers Inside</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Architecture</div>
-<div class="cheat-item"><span class="cheat-key">Tokens</span><span class="cheat-val">text → numbers</span></div>
-<div class="cheat-item"><span class="cheat-key">Embeddings</span><span class="cheat-val">semantic vector</span></div>
-<div class="cheat-item"><span class="cheat-key">Attention</span><span class="cheat-val">Q×K^T/√d × V</span></div>
-<div class="cheat-item"><span class="cheat-key">N layers</span><span class="cheat-val">GPT-4: ~120</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Training</div>
-<div class="cheat-item"><span class="cheat-key">Pre-training</span><span class="cheat-val">predict next token</span></div>
-<div class="cheat-item"><span class="cheat-key">SFT</span><span class="cheat-val">instruction following</span></div>
-<div class="cheat-item"><span class="cheat-key">RLHF</span><span class="cheat-val">human feedback</span></div>
-<div class="cheat-item"><span class="cheat-key">Hallucination</span><span class="cheat-val">prediction ≠ knowledge</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">⚙️ Transformers — Inside</div>
+<div class="sum-row"><span class="sum-k">Self-Attention</span><span class="sum-v">Each token "queries" every other token (Key), gets a score, and "weighs" the Values by that score. Enables long-range relationship understanding. O(n²) cost — why context windows are expensive.</span></div>
+<div class="sum-row"><span class="sum-k">Multi-Head Attention</span><span class="sum-v">Multiple attention "heads" in parallel. Each learns different patterns (syntax, semantics, reference). Concat → Linear. GPT-3: 96 heads.</span></div>
+<div class="sum-row"><span class="sum-k">Decoder vs Encoder</span><span class="sum-v"><strong>Encoder</strong> (BERT): sees full context. For classification, NER, embeddings. <strong>Decoder</strong> (GPT, Claude): autoregressive, sees only backward. For generation.</span></div>
+<div class="sum-row"><span class="sum-k">Training</span><span class="sum-v">Pre-training: next token prediction on trillions of tokens. RLHF: human feedback → reward model → PPO. Constitutional AI (Anthropic): AI-generated feedback per principles.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — Fine-tuning & LoRA</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">LoRA</div>
-<div class="cheat-item"><span class="cheat-key">ΔW = A × B</span><span class="cheat-val">side matrices</span></div>
-<div class="cheat-item"><span class="cheat-key">Rank=16</span><span class="cheat-val">0.1% of params</span></div>
-<div class="cheat-item"><span class="cheat-key">QLoRA</span><span class="cheat-val">70B on 24GB GPU</span></div>
-<div class="cheat-item"><span class="cheat-key">Cost</span><span class="cheat-val">$20-$2,000</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">When?</div>
-<div class="cheat-item"><span class="cheat-key">Yes</span><span class="cheat-val">style, domain, format</span></div>
-<div class="cheat-item"><span class="cheat-key">No</span><span class="cheat-val">changing knowledge → RAG</span></div>
-<div class="cheat-item"><span class="cheat-key">Data needed</span><span class="cheat-val">100-100K examples</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🎯 Fine-tuning & LoRA</div>
+<div class="sum-row"><span class="sum-k">When to Fine-tune?</span><span class="sum-v">Only after Prompt Engineering + RAG aren't enough. Use cases: very specific tone, heavy domain jargon, rigid output format, critical latency (no RAG overhead).</span></div>
+<div class="sum-row"><span class="sum-k">LoRA (Low-Rank Adaptation)</span><span class="sum-v">Adds small matrices alongside frozen weights. 99% fewer trainable parameters. Runs on home GPU (RTX 3090). Merge into model when done. QLoRA = LoRA + quantization = even cheaper.</span></div>
+<div class="sum-row"><span class="sum-k">Dataset Requirements</span><span class="sum-v">JSONL format: {"prompt": "...", "completion": "..."}. Amount: 1K-10K for role/style, 50K+ for capability. Quality >> quantity.</span></div>
+<div class="sum-tip">💡 Try in order: 1. Better prompting. 2. RAG. 3. Few-shot examples. 4. LoRA fine-tune. 5. Full fine-tune. Most cases stop at 2 or 3.</div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — AI Safety</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Risks</div>
-<div class="cheat-item"><span class="cheat-key">Hallucination</span><span class="cheat-val">RAG + grounding</span></div>
-<div class="cheat-item"><span class="cheat-key">Bias</span><span class="cheat-val">diverse data + audit</span></div>
-<div class="cheat-item"><span class="cheat-key">Jailbreak</span><span class="cheat-val">RLHF + filters</span></div>
-<div class="cheat-item"><span class="cheat-key">Injection</span><span class="cheat-val">separate data from instructions</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Alignment</div>
-<div class="cheat-item"><span class="cheat-key">RLHF</span><span class="cheat-val">human feedback loop</span></div>
-<div class="cheat-item"><span class="cheat-key">Constitutional AI</span><span class="cheat-val">self-critique</span></div>
-<div class="cheat-item"><span class="cheat-key">Alignment ≠</span><span class="cheat-val">moral values</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🛡️ AI Safety</div>
+<div class="sum-row"><span class="sum-k">Alignment Problem</span><span class="sum-v">AI that provides what we asked for rather than what we wanted. Goodhart's Law: "when a measure becomes a target, it ceases to be a good measure." Reward hacking: agent finds shortcuts.</span></div>
+<div class="sum-row"><span class="sum-k">Constitutional AI</span><span class="sum-v">Anthropic's approach: AI "itself" critiques responses per principles. RLAIF (AI feedback) instead of human feedback for scaling. Claude's constitution: helpful, harmless, honest.</span></div>
+<div class="sum-row"><span class="sum-k">Agent Risks</span><span class="sum-v">Prompt injection. Tool misuse (agent deletes wrong things). Over-autonomy (acts without approval). Data exfiltration. Jailbreaking via tool output.</span></div>
+<div class="sum-row"><span class="sum-k">Mitigations</span><span class="sum-v">Human-in-the-loop for irreversible actions. Minimal permissions (read-only first). Audit logs. Sandboxed execution. Input/output validation.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — Embeddings</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">Embeddings</div>
-<div class="cheat-item"><span class="cheat-key">text → vector</span><span class="cheat-val">1536 numbers</span></div>
-<div class="cheat-item"><span class="cheat-key">Cosine sim</span><span class="cheat-val">semantic proximity</span></div>
-<div class="cheat-item"><span class="cheat-key">nomic-embed</span><span class="cheat-val">local, free</span></div>
-<div class="cheat-item"><span class="cheat-key">Reranking</span><span class="cheat-val">cross-encoder → precision</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Search</div>
-<div class="cheat-item"><span class="cheat-key">Keyword</span><span class="cheat-val">exact word match</span></div>
-<div class="cheat-item"><span class="cheat-key">Semantic</span><span class="cheat-val">intent + synonyms</span></div>
-<div class="cheat-item"><span class="cheat-key">Hybrid</span><span class="cheat-val">both = best</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">🔢 Embeddings</div>
+<div class="sum-row"><span class="sum-k">What is an Embedding?</span><span class="sum-v">Converting text (or image/audio) to a vector of numbers. "cat" and "kitten" → close vectors. "cat" and "democracy" → far apart. Semantic meaning captured mathematically.</span></div>
+<div class="sum-row"><span class="sum-k">Similarity</span><span class="sum-v">Cosine similarity: closeness between vectors (-1 to 1). 1 = identical, 0 = unrelated, -1 = opposite. The foundation of all semantic search.</span></div>
+<div class="sum-row"><span class="sum-k">Embedding Models</span><span class="sum-v">text-embedding-3-large (OpenAI): 3072 dims, state-of-art. text-embedding-3-small: cheap, fast. Cohere embed-v3: multilingual. BGE/E5: open source.</span></div>
+<div class="sum-row"><span class="sum-k">Vector Databases</span><span class="sum-v">Pinecone: managed, production-ready. Chroma: open-source, local. Weaviate: hybrid search. pgvector: PostgreSQL extension, simple.</span></div>
 </div>`,
-`<div class="callout callout-success"><strong>📋 Summary — Use Cases</strong></div>
-<div class="cheat-grid">
-<div class="cheat-card"><div class="cheat-card-title">High ROI</div>
-<div class="cheat-item"><span class="cheat-key">Legal</span><span class="cheat-val">-70% review time</span></div>
-<div class="cheat-item"><span class="cheat-key">HR</span><span class="cheat-val">500 CVs in 3 minutes</span></div>
-<div class="cheat-item"><span class="cheat-key">DevOps</span><span class="cheat-val">MTTR 4h → 45min</span></div>
-<div class="cheat-item"><span class="cheat-key">Finance</span><span class="cheat-val">reports 4d → 4h</span></div>
-</div>
-<div class="cheat-card"><div class="cheat-card-title">Rule</div>
-<div class="cheat-item"><span class="cheat-key">Highest ROI</span><span class="cheat-val">repetitive + expensive</span></div>
-<div class="cheat-item"><span class="cheat-key">Always</span><span class="cheat-val">human review</span></div>
-<div class="cheat-item"><span class="cheat-key">API cost</span><span class="cheat-val">usually &lt;1% of savings</span></div>
-</div>
+`<div class="sum-block"><div class="sum-block-title">💼 AI Agent Use Cases</div>
+<div class="sum-row"><span class="sum-k">Code Agent</span><span class="sum-v">GitHub Copilot, Cursor, Devin. Write code → run tests → fix bugs → iterate. 30-50% productivity gain (GitHub study).</span></div>
+<div class="sum-row"><span class="sum-k">Research Agent</span><span class="sum-v">Input: question. Agent: web search → read → synthesize → report. Deep Research (OpenAI), Perplexity.</span></div>
+<div class="sum-row"><span class="sum-k">Customer Support</span><span class="sum-v">RAG over knowledge base → answer → escalate if needed. Metrics: containment rate, CSAT, resolution time.</span></div>
+<div class="sum-row"><span class="sum-k">Data Analysis</span><span class="sum-v">Input: question about data. Agent: write SQL → execute → visualize → interpret. Replaces junior analyst for routine queries.</span></div>
+<div class="sum-row"><span class="sum-k">Document Processing</span><span class="sum-v">PDF/email ingestion → extract structured data → classify → route. Invoice extraction, contract analysis. LlamaParse + LLM.</span></div>
+<div class="sum-tip">💡 ROI = (time saved × hourly rate × frequency) - (AI cost + setup + maintenance). Start with high-frequency, repetitive, structured tasks.</div>
 </div>`
-]
+  ]
 }};
 // ===== QUIZ DATA =====
 const QUIZZES = {
@@ -3711,7 +3610,8 @@ ILABS_EN[15]=[
 const state={cur:0,tabs:{},quiz:{},game:{},xp:0,stars:{}};
 let currentLang='he';
 let gameTimer=null;
-const TOTAL_CHAPTERS=16;
+const TOTAL_CHAPTERS=16
+var COURSE_ICON = '🤖';;
 
 // ===== LANG =====
 function L(){return currentLang==='he'?C.he:C.en;}
@@ -4309,7 +4209,7 @@ function patchLearnNav(chId){
     var lang = (typeof currentLang !== 'undefined') ? currentLang : 'he';
     var navHtml = lang === 'he' ? `<div class="ch-end-nav" style="display:flex;gap:12px;margin-top:36px;padding-top:24px;border-top:2px solid #e5e5e0;justify-content:center;flex-wrap:wrap">
   <button onclick="showTab(CHID,'game')" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 24px;border-radius:20px;cursor:pointer;border:2px solid #e5e5e0;border-bottom:4px solid #d1d1ca;background:#fff;color:#6b6b6b;font-weight:800;font-size:13px;min-width:130px;text-transform:uppercase;letter-spacing:.04em;font-family:inherit"><span style="font-size:22px">🎮</span><span style="font-size:11px">משחק ידע</span></button>
-  <button onclick="showNextChapter(CHID)" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 24px;border-radius:20px;cursor:pointer;border:2px solid #46a302;border-bottom:4px solid #46a302;background:#58cc02;color:#fff;font-weight:800;font-size:13px;min-width:130px;text-transform:uppercase;letter-spacing:.04em;font-family:inherit"><span style="font-size:22px">▶</span><span style="font-size:11px">פרק הבא</span></button>
+  <button onclick="showNextChapter(CHID)" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 24px;border-radius:20px;cursor:pointer;border:2px solid #46a302;border-bottom:4px solid #46a302;background:#58cc02;color:#fff;font-weight:800;font-size:13px;min-width:130px;text-transform:uppercase;letter-spacing:.04em;font-family:inherit"><span style="font-size:22px">◀</span><span style="font-size:11px">פרק הבא</span></button>
   <button onclick="showTab(CHID,'cheat')" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 24px;border-radius:20px;cursor:pointer;border:2px solid #e5e5e0;border-bottom:4px solid #d1d1ca;background:#fff;color:#6b6b6b;font-weight:800;font-size:13px;min-width:130px;text-transform:uppercase;letter-spacing:.04em;font-family:inherit"><span style="font-size:22px">📋</span><span style="font-size:11px">סיכום</span></button>
 </div>` : `<div class="ch-end-nav-en" style="display:flex;gap:12px;margin-top:36px;padding-top:24px;border-top:2px solid #e5e5e0;justify-content:center;flex-wrap:wrap">
   <button onclick="showTab(CHID,'game')" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 24px;border-radius:20px;cursor:pointer;border:2px solid #e5e5e0;border-bottom:4px solid #d1d1ca;background:#fff;color:#6b6b6b;font-weight:800;font-size:13px;min-width:130px;text-transform:uppercase;letter-spacing:.04em;font-family:inherit"><span style="font-size:22px">🎮</span><span style="font-size:11px">Game</span></button>
@@ -4319,4 +4219,89 @@ function patchLearnNav(chId){
     el.innerHTML += navHtml.replace(/CHID/g, chId);
   }
 }
-</script></body></html>
+
+
+var MATCH_DATA = {};
+var MATCH_DATA_EN = {};
+MATCH_DATA[0]={pairs:[["Agent vs Chatbot:", "Agent פועל בלולאה עם כלים"], ["ReAct = Reason +", "Act"], ["Observe בReAct = ", "תוצאת tool חוזרת"], ["Agent הכי מסוכן:", "Autonomous"], ["Devin SWE-Bench:", "13.86%"], ["Multi-agent ב-2025:", "72%"], ["Supervisor pattern:", "מנהל מחלק לsub-agents"], ["HITL חובה ל:", "פעולות בלתי הפיכות"]]};
+MATCH_DATA_EN[0]={pairs:[["Agent vs Chatbot:", "Agent loops with tools"], ["ReAct = Reason +", "Act"], ["Observe in ReAct = ", "Tool result returns"], ["Most dangerous agent type:", "Autonomous"], ["Devin SWE-Bench score:", "13.86%"], ["Multi-agent projects in 2025:", "72%"], ["Supervisor pattern:", "Manager delegates to sub-agents"], ["HITL required for:", "Irreversible actions"]]};
+MATCH_DATA[1]={pairs:[["Function Calling: LLM מחזיר:", "JSON"], ["Lost in the Middle:", "LLM שוכח אמצע context"], ["הכי קריטי בtool definition:", "Description"], ["Model routing חוסך:", "70%+"], ["Hallucination בagent vs chatbot:", "גורם לפעולות שגויות"], ["Context window גדול ביותר 2025:", "Gemini 2M"], ["System prompt מינימלי צריך:", "role ברור"], ["Function Calling: מי מריץ בפועל?", "הקוד שלנו"]]};
+MATCH_DATA_EN[1]={pairs:[["Function Calling: LLM returns:", "JSON"], ["Lost in the Middle:", "LLM forgets middle of context"], ["Most critical in tool definition:", "Description"], ["Model routing saves:", "70%+"], ["Hallucination in agent vs chatbot:", "Causes real-world wrong actions"], ["Largest context window 2025:", "Gemini 2M"], ["Function Calling: who actually executes?", "Our code"], ["Minimal system prompt needs:", "Clear role"]]};
+MATCH_DATA[2]={pairs:[["Working memory נמחק:", "כשsession נגמר"], ["Vector DB שומר:", "Embedding vectors"], ["Semantic search מחפש לפי:", "משמעות"], ["GraphRAG מוריד hallucinations ב:", "40%+"], ["Chroma = ", "local open-source"], ["Pinecone = ", "managed enterprise"], ["Episodic memory = ", "RAG על לוגים"], ["pgvector מוסיף vectors ל:", "PostgreSQL"]]};
+MATCH_DATA_EN[2]={pairs:[["Working memory is cleared:", "When session ends"], ["Vector DB stores:", "Embedding vectors"], ["Semantic search finds by:", "Meaning"], ["GraphRAG reduces hallucinations by:", "40%+"], ["Chroma = ", "Local open-source"], ["Pinecone = ", "Managed enterprise"], ["Episodic memory = ", "RAG on logs"], ["pgvector adds vectors to:", "PostgreSQL"]]};
+MATCH_DATA[3]={pairs:[["RAG פתרון ל:", "knowledge cutoff"], ["MCP פיתחה:", "Anthropic"], ["MCP Tool vs Resource:", "Tool=פעולה, Resource=קריאה"], ["Chunking strategy הטובה ביותר:", "Semantic ברוב המקרים"], ["Fine-tuning vs RAG:", "RAG=runtime, FT=weights"], ["MCP Primitives:", "Tools+Resources+Prompts"], ["RAG pipeline: chunking אחרי:", "קבלת document"], ["'USB-C לAI' = ", "MCP"]]};
+MATCH_DATA_EN[3]={pairs:[["RAG solves:", "Knowledge cutoff"], ["MCP was developed by:", "Anthropic"], ["MCP Tool vs Resource:", "Tool=action, Resource=read"], ["Fine-tuning vs RAG:", "RAG=runtime, FT=weights"], ["MCP Primitives:", "Tools+Resources+Prompts"], ["RAG pipeline: chunking after:", "Receiving document"], ["USB-C for AI = ", "MCP"], ["Best chunking strategy generally:", "Semantic in most cases"]]};
+MATCH_DATA[4]={pairs:[["LangGraph best for:", "control+compliance"], ["CrewAI ceiling מגיע אחרי:", "6-12 חודשים"], ["AutoGen מצטיין ב:", "code+debate"], ["n8n integrations:", "800+"], ["OpenAI Agents SDK החליף:", "Swarm"], ["LangGraph = ", "directed graph + state"], ["CrewAI = ", "role-based crews"], ["הFramework הקל ביותר ללמידה:", "CrewAI"]]};
+MATCH_DATA_EN[4]={pairs:[["LangGraph best for:", "Control+compliance"], ["CrewAI ceiling appears after:", "6-12 months"], ["AutoGen excels at:", "Code+debate"], ["n8n integrations:", "800+"], ["OpenAI Agents SDK replaced:", "Swarm"], ["LangGraph = ", "Directed graph + state"], ["Easiest framework to learn:", "CrewAI"], ["CrewAI = ", "Role-based crews"]]};
+MATCH_DATA[5]={pairs:[["n8n AI Agent node loop:", "ReAct"], ["n8n trigger נפוץ ביותר:", "Webhook"], ["n8n MCP Server חושף:", "Workflows כtools"], ["AI לשיקול דעת, קוד ל:", "parsing+validation"], ["Lead agent: response time ירד ל:", "8 דקות"], ["Webhook trigger מופעל מ:", "HTTP request"], ["n8n vs Zapier:", "n8n=open-source self-hosted"], ["n8n Window Buffer Memory שומר:", "N הודעות אחרונות"]]};
+MATCH_DATA_EN[5]={pairs:[["n8n AI Agent node uses:", "ReAct loop"], ["n8n MCP Server exposes:", "Workflows as tools"], ["AI for judgment, code for:", "Parsing+validation"], ["Lead agent: response time dropped to:", "8 mins"], ["Webhook trigger fires on:", "HTTP request"], ["n8n vs Zapier:", "n8n=open-source self-hosted"], ["n8n Window Buffer Memory stores:", "Last N messages"], ["Most common trigger type:", "Webhook"]]};
+MATCH_DATA[6]={pairs:[["Supervisor pattern:", "מנהל מחלק לsub-agents"], ["Debate pattern מוריד hallucinations ב:", "40%+"], ["A2A Protocol (Google 2025):", "inter-framework communication"], ["HITL = ", "Human-in-the-Loop"], ["Pipeline pattern = ", "A→B→C sequential"], ["Swarm pattern = ", "dynamic handoffs"], ["HubSpot pipeline fix:", "Critic agent + HITL"], ["HITL חובה בprod changes?", "תמיד"]]};
+MATCH_DATA_EN[6]={pairs:[["Debate pattern reduces hallucinations by:", "40%+"], ["A2A Protocol (Google 2025):", "Inter-framework communication"], ["HITL = ", "Human-in-the-Loop"], ["Pipeline pattern = ", "A→B→C sequential"], ["Swarm pattern = ", "Dynamic handoffs"], ["HubSpot pipeline fix:", "Critic agent + HITL"], ["Supervisor pattern:", "Manager delegates to sub-agents"], ["HITL required for prod changes?", "Always"]]};
+MATCH_DATA[7]={pairs:[["MTTR לagent failures:", "4.3h"], ["Langfuse vs LangSmith:", "Langfuse=open-source self-hosted"], ["RAGAS Faithfulness בודק:", "grounded in context"], ["Prompt Injection =", "malicious instructions in data"], ["Helicone = ", "proxy-based observability"], ["Model routing חוסך:", "70%+"], ["Circuit breaker בagent:", "stops at N tool calls"], ["Arize Phoenix מתמחה ב:", "RAG evaluation + hallucination detection"]]};
+MATCH_DATA_EN[7]={pairs:[["MTTR for agent failures:", "4.3h"], ["Langfuse vs LangSmith:", "Langfuse=open-source self-hosted"], ["RAGAS Faithfulness checks:", "Grounded in context"], ["Prompt Injection = ", "Malicious instructions in data"], ["Helicone = ", "Proxy-based observability"], ["Model routing saves:", "70%+"], ["Circuit breaker in agent:", "Stops at N tool calls"], ["Arize Phoenix specializes in:", "RAG eval + hallucination detection"]]};
+MATCH_DATA[8]={pairs:[["Claude Sonnet 4.6", "agents, coding"], ["DeepSeek V3", "נפח גבוה, זול"], ["Gemini 2.5 Flash", "מהיר, 1M context"], ["Claude Opus", "reasoning מורכב"], ["Qwen 3 32B", "general, coding"], ["DeepSeek R1", "reasoning, math"], ["Gemma 3 9B", "8GB VRAM"]]};
+MATCH_DATA_EN[8]={pairs:[["Claude Sonnet 4.6", "agents, coding"], ["DeepSeek V3", "נפח גבוה, זול"], ["Gemini 2.5 Flash", "מהיר, 1M context"], ["Claude Opus", "reasoning מורכב"], ["Qwen 3 32B", "general, coding"], ["DeepSeek R1", "reasoning, math"], ["Gemma 3 9B", "8GB VRAM"]]};
+MATCH_DATA[9]={pairs:[["Q4_K_M", "97% quality, 25% VRAM"], ["Break-even", "5K requests/day"], ["Apple M", "unified memory"], ["8-16GB VRAM", "7-8B models"], ["24GB VRAM", "32B models"], ["Ollama", "docker-like, zero code"]]};
+MATCH_DATA_EN[9]={pairs:[["Q4_K_M", "97% quality, 25% VRAM"], ["Break-even", "5K requests/day"], ["Apple M", "unified memory"], ["8-16GB VRAM", "7-8B models"], ["24GB VRAM", "32B models"], ["Ollama", "docker-like, zero code"]]};
+MATCH_DATA[10]={pairs:[["CoT", "Think step by step"], ["Few-Shot", "3 examples before"], ["JSON mode", "guaranteed output"], ["Constraints", "if unsure — say so"], ["1st", "Prompt engineering"], ["2nd", "Model upgrade"], ["3rd", "Fine-tuning"], ["4th", "RAG"]]};
+MATCH_DATA_EN[10]={pairs:[["CoT", "Think step by step"], ["Few-Shot", "3 examples before"], ["JSON mode", "guaranteed output"], ["Constraints", "if unsure — say so"], ["1st", "Prompt engineering"], ["2nd", "Model upgrade"], ["3rd", "Fine-tuning"], ["4th", "RAG"]]};
+MATCH_DATA[11]={pairs:[["Tokens", "טקסט → מספרים"], ["Embeddings", "וקטור סמנטי"], ["Attention", "Q×K^T/√d × V"], ["N layers", "GPT-4: ~120"], ["Pre-training", "ניבוי token הבא"], ["SFT", "instruction following"], ["RLHF", "human feedback"], ["Hallucination", "ניבוי ≠ ידיעה"]]};
+MATCH_DATA_EN[11]={pairs:[["Tokens", "טקסט → מספרים"], ["Embeddings", "וקטור סמנטי"], ["Attention", "Q×K^T/√d × V"], ["N layers", "GPT-4: ~120"], ["Pre-training", "ניבוי token הבא"], ["SFT", "instruction following"], ["RLHF", "human feedback"], ["Hallucination", "ניבוי ≠ ידיעה"]]};
+MATCH_DATA[12]={pairs:[["ΔW = A × B", "side matrices"], ["Rank=16", "0.1% params"], ["QLoRA", "70B על 24GB GPU"], ["עלות", "$20-$2,000"], ["כן", "style, domain, format"], ["לא", "ידע משתנה → RAG"], ["כמה data", "100-100K examples"]]};
+MATCH_DATA_EN[12]={pairs:[["ΔW = A × B", "side matrices"], ["Rank=16", "0.1% params"], ["QLoRA", "70B על 24GB GPU"], ["עלות", "$20-$2,000"], ["כן", "style, domain, format"], ["לא", "ידע משתנה → RAG"], ["כמה data", "100-100K examples"]]};
+MATCH_DATA[13]={pairs:[["Hallucination", "RAG + grounding"], ["Bias", "diverse data + audit"], ["Jailbreak", "RLHF + filters"], ["Injection", "הפרד data מinstructions"], ["RLHF", "human feedback loop"], ["Constitutional AI", "self-critique"], ["Alignment ≠", "ערכים מוסריים"]]};
+MATCH_DATA_EN[13]={pairs:[["Hallucination", "RAG + grounding"], ["Bias", "diverse data + audit"], ["Jailbreak", "RLHF + filters"], ["Injection", "הפרד data מinstructions"], ["RLHF", "human feedback loop"], ["Constitutional AI", "self-critique"], ["Alignment ≠", "ערכים מוסריים"]]};
+MATCH_DATA[14]={pairs:[["טקסט → וקטור", "1536 מספרים"], ["Cosine sim", "מדד קרבה סמנטית"], ["nomic-embed", "לוקאלי, חינם"], ["Reranking", "cross-encoder → דיוק"], ["Keyword", "מילות מפתח מדויקות"], ["Semantic", "כוונה + מילים נרדפות"], ["Hybrid", "שניהם = הכי טוב"]]};
+MATCH_DATA_EN[14]={pairs:[["טקסט → וקטור", "1536 מספרים"], ["Cosine sim", "מדד קרבה סמנטית"], ["nomic-embed", "לוקאלי, חינם"], ["Reranking", "cross-encoder → דיוק"], ["Keyword", "מילות מפתח מדויקות"], ["Semantic", "כוונה + מילים נרדפות"], ["Hybrid", "שניהם = הכי טוב"]]};
+MATCH_DATA[15]={pairs:[["Legal", "-70% review time"], ["HR", "500 CVs ב-3 דקות"], ["DevOps", "MTTR 4h → 45min"], ["Finance", "reports 4d → 4h"], ["ROI הכי גבוה", "חזרתי + יקר"], ["תמיד", "human review"], ["עלות API", "בד\"כ &lt;1% מחיסכון"]]};
+MATCH_DATA_EN[15]={pairs:[["Legal", "-70% review time"], ["HR", "500 CVs ב-3 דקות"], ["DevOps", "MTTR 4h → 45min"], ["Finance", "reports 4d → 4h"], ["ROI הכי גבוה", "חזרתי + יקר"], ["תמיד", "human review"], ["עלות API", "בד\"כ &lt;1% מחיסכון"]]};
+
+// ── FULL REVIEW ──────────────────────────────────────────────
+function buildReviewContent() {
+  var Lc = L();
+  var cheats = Lc.cheat;
+  var names = Lc.names;
+  var html = '';
+  for (var i = 0; i < cheats.length; i++) {
+    var num = (i < 10 ? '0' : '') + i;
+    html += '<div class="review-chapter-block">' +
+      '<div class="review-chapter-title">' +
+        '<span class="review-chapter-num">' + num + '</span>' +
+        '<span class="review-chapter-name">' + names[i] + '</span>' +
+      '</div>' +
+      '<div class="review-chapter-body">' + cheats[i] + '</div>' +
+    '</div>';
+  }
+  return html;
+}
+function openReview() {
+  var total = typeof TOTAL_CHAPTERS !== 'undefined' ? TOTAL_CHAPTERS : 16;
+  document.getElementById('reviewTitle').textContent = currentLang === 'he' ? '📚 סיכום מלא' : '📚 Full Review';
+  document.getElementById('reviewSub').textContent = currentLang === 'he'
+    ? 'כל ' + total + ' הפרקים בעמוד אחד'
+    : 'All ' + total + ' chapters on one page';
+  document.getElementById('reviewBody').innerHTML = buildReviewContent();
+  document.getElementById('reviewOverlay').classList.add('open');
+  document.getElementById('reviewDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeReview() {
+  document.getElementById('reviewOverlay').classList.remove('open');
+  document.getElementById('reviewDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeReview(); });
+
+</script>
+<div class="review-overlay" id="reviewOverlay" onclick="closeReview()"></div>
+<div class="review-drawer" id="reviewDrawer">
+  <div class="review-header">
+    <div>
+      <div class="review-header-title" id="reviewTitle">📚 סיכום מלא</div>
+      <div class="review-header-sub" id="reviewSub">כל 16 הפרקים בעמוד אחד</div>
+    </div>
+    <button class="review-close" onclick="closeReview()">×</button>
+  </div>
+  <div class="review-body" id="reviewBody"></div>
+</div>
+</body></html>

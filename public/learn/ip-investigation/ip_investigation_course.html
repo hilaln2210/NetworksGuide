@@ -401,6 +401,56 @@ html, body {
   .ch-btn { padding: 7px 10px; min-width: 44px; }
 }
 
+
+/* ── RICH SUMMARY CARDS ── */
+.sum-block { margin-bottom: 28px; }
+.sum-block-title {
+  font-size: 13px; font-weight: 800; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 10px; font-family: var(--mono);
+  display: flex; align-items: center; gap: 8px;
+}
+.sum-block-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.sum-row {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 10px 16px; padding: 9px 0;
+  border-bottom: 1px solid var(--border); align-items: start;
+}
+.sum-row:last-child { border-bottom: none; }
+.sum-k { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--accent); line-height: 1.4; }
+.sum-v { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.sum-v strong { color: var(--text); font-weight: 700; }
+.sum-v code { font-size: 11.5px; background: var(--bg3); padding: 1px 5px; border-radius: 3px; color: var(--accent2,var(--accent)); font-family: var(--mono); }
+.sum-tip { margin-top: 10px; padding: 10px 14px; background: var(--yellowbg,#fffbeb); border-radius: var(--r,8px); border: 1px solid #fde68a; font-size: 13px; color: #713f12; line-height: 1.6; }
+.sum-danger { margin-top: 10px; padding: 10px 14px; background: #fff1f2; border-radius: var(--r,8px); border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6; }
+@media (max-width: 560px) { .sum-row { grid-template-columns: 1fr; gap: 2px; } }
+/* ── FULL REVIEW DRAWER ── */
+.review-btn { flex-shrink:0; padding:5px 12px; background:var(--accent); color:#fff; border:none; border-radius:var(--r,8px); font-size:12px; font-weight:700; cursor:pointer; transition:all .15s; letter-spacing:.02em; margin-left:6px; }
+[dir="rtl"] .review-btn { margin-left:0; margin-right:6px; }
+.review-btn:hover { opacity:.85; }
+.review-overlay { display:none; position:fixed; inset:0; z-index:900; background:rgba(0,0,0,.45); backdrop-filter:blur(2px); }
+.review-overlay.open { display:block; }
+.review-drawer { position:fixed; top:0; left:0; right:0; z-index:910; background:var(--bg,#fff); border-bottom:2px solid var(--accent); box-shadow:0 4px 16px rgba(0,0,0,.15); transform:translateY(-100%); transition:transform .3s cubic-bezier(.4,0,.2,1); max-height:90vh; display:flex; flex-direction:column; }
+.review-drawer.open { transform:translateY(0); }
+.review-header { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--border); flex-shrink:0; gap:12px; background:var(--bg,#fff); }
+.review-header-title { font-size:15px; font-weight:800; color:var(--text,#111); }
+.review-header-sub { font-size:12px; color:var(--text3,#888); font-weight:500; }
+.review-close { width:32px; height:32px; border-radius:50%; background:var(--bg2,#f8f9fa); border:1px solid var(--border); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--text2,#666); line-height:1; transition:all .15s; }
+.review-close:hover { background:#fff1f2; border-color:#dc2626; color:#dc2626; }
+.review-body { overflow-y:auto; padding:24px 20px 40px; flex:1; }
+.review-body::-webkit-scrollbar { width:6px; }
+.review-body::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+.review-chapter-block { margin-bottom:36px; border:1px solid var(--border); border-radius:12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+.review-chapter-title { background:var(--accentbg,rgba(14,116,144,.06)); border-bottom:1px solid var(--border); padding:12px 18px; display:flex; align-items:center; gap:10px; }
+.review-chapter-num { font-family:var(--mono); font-size:11px; font-weight:800; color:var(--accent); background:var(--bg,#fff); border:1px solid var(--accent); border-radius:6px; padding:2px 8px; flex-shrink:0; }
+.review-chapter-name { font-size:14px; font-weight:800; color:var(--text,#111); }
+.review-chapter-body { padding:18px; background:var(--bg,#fff); }
+.review-chapter-body .sum-block { margin-bottom:20px; }
+.review-chapter-body .sum-block:last-child { margin-bottom:0; }
+.review-chapter-body .sum-row { grid-template-columns:170px 1fr; padding:7px 0; }
+.review-chapter-body .sum-v { font-size:12.5px; }
+.review-chapter-body .sum-k { font-size:11.5px; }
+@media (max-width:680px) { .review-drawer{max-height:95vh} .review-body{padding:16px 14px 32px} .review-chapter-body .sum-row{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -410,7 +460,7 @@ html, body {
     <span>IP OSINT</span>
   </div>
   <span class="header-chname" id="headerChName"></span>
-  <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
+  <button class="review-btn" id="reviewBtn" onclick="openReview()">📚 סיכום מלא</button><button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
 </header>
 <nav class="ch-nav" id="sidebar">
   <div class="sb-label" id="sbLabel" style="display:none"></div>
@@ -560,6 +610,18 @@ html, body {
       <div class="credit-item" id="credits-version">v1.0 — 2025</div></div>
   </div></div>
 </main>
+
+<div class="review-overlay" id="reviewOverlay" onclick="closeReview()"></div>
+<div class="review-drawer" id="reviewDrawer">
+  <div class="review-header">
+    <div>
+      <div class="review-header-title" id="reviewTitle">📚 סיכום מלא</div>
+      <div class="review-header-sub" id="reviewSub">כל 8 הפרקים בעמוד אחד</div>
+    </div>
+    <button class="review-close" onclick="closeReview()">×</button>
+  </div>
+  <div class="review-body" id="reviewBody"></div>
+</div>
 </body>
 </html>
 <script>
@@ -649,7 +711,7 @@ whois 185.220.101.45 | grep -E "OrgName|org-name|netname|country"
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -733,7 +795,7 @@ whois $IP | grep -iE "country|netname|descr|org" | head -8</code></pre>
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -835,7 +897,7 @@ curl -s "https://rdap.db.ripe.net/ip/185.220.101.45" |   python3 -c "import json
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -934,7 +996,7 @@ dig TXT company.com | grep spf
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1035,7 +1097,7 @@ print(f"VirusTotal: {vt_malicious} malicious, {vt_suspicious} suspicious")</code
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1133,7 +1195,7 @@ curl -sI https://target.com | grep -i "server\\|x-powered"
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1238,7 +1300,7 @@ awk '{print $4}' $LOG | cut -d: -f2 | sort | uniq -c | sort -n</code></pre>
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1394,7 +1456,7 @@ Any person routing through Tor could be behind this IP.
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1404,16 +1466,81 @@ Any person routing through Tor could be behind this IP.
 </div>`
   ],
   cheat:[
-`<div class="callout callout-success"><strong>📋 מבוא — IP Investigation</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Passive=לא שולח packets</span></div><div class="cheat-item"><span class="cheat-key">לפעמים, אבל דורש הרבה ראיות נוספות</span></div><div class="cheat-item"><span class="cheat-key">יכול להיות מישהו אחר לגמרי</span></div><div class="cheat-item"><span class="cheat-key">מדינה + ISP + ASN</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Geolocation — היכן ה-IP?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">~99%</span></div><div class="cheat-item"><span class="cheat-key">~66%</span></div><div class="cheat-item"><span class="cheat-key">IP של ground station בחו"ל</span></div><div class="cheat-item"><span class="cheat-key">bot או תוקף שמסתיר זהות</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 WHOIS ו-ASN — מי הבעלים?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">מי מחזיק בblock — ISP / ארגון</span></div><div class="cheat-item"><span class="cheat-key">אירופה, מזרח תיכון, מרכז אסיה</span></div><div class="cheat-item"><span class="cheat-key">Google</span></div><div class="cheat-item"><span class="cheat-key">כנראה שרת, לא אדם</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Reverse DNS — מה שם ה-IP?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">IP לשם host</span></div><div class="cheat-item"><span class="cheat-key">in-addr.arpa</span></div><div class="cheat-item"><span class="cheat-key">Tor exit node</span></div><div class="cheat-item"><span class="cheat-key">CDN — origin מוסתר</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Reputation — האם ה-IP מסוכן?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">internet scanners לגיטימיים לbetween תוקפים</span></div><div class="cheat-item"><span class="cheat-key">spam source מוכר</span></div><div class="cheat-item"><span class="cheat-key">80% מהדיווחים מאמינים שמדובר בabuse</span></div><div class="cheat-item"><span class="cheat-key">background internet scanning — לא malicious</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Shodan ו-Censys — Internet Intelligence</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">service banners, ports, metadata</span></div><div class="cheat-item"><span class="cheat-key">certificate analysis</span></div><div class="cheat-item"><span class="cheat-key">servers עם certificate לdomain</span></div><div class="cheat-item"><span class="cheat-key">חשוף לציבור, כל אחד יכול לקרוא</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 ניתוח לוגים — מאיפה הגיע התוקף?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">IP, timestamp, URL, status, user-agent</span></div><div class="cheat-item"><span class="cheat-key">שורות עם status 404</span></div><div class="cheat-item"><span class="cheat-key">מדינה + ISP + ASN לכל IP</span></div><div class="cheat-item"><span class="cheat-key">הרבה IPs שונים עם pattern זהה</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 דוחות ו-Automation — מחקירה לפעולה</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Indicator of Compromise</span></div><div class="cheat-item"><span class="cheat-key">שיתוף threat intelligence בין ארגונים</span></div><div class="cheat-item"><span class="cheat-key">בלתי אפשרי — יכול להיות מישהו אחר</span></div><div class="cheat-item"><span class="cheat-key">ASN מוריד הרבה IPs מcommunity злonasty</span></div></div></div>`
+`<div class="sum-block"><div class="sum-block-title">🔍 מבוא — IP Investigation</div>
+<div class="sum-row"><span class="sum-k">מה זה IP OSINT?</span><span class="sum-v">Open Source Intelligence על כתובות IP — איסוף מידע ממקורות ציבוריים ללא שליחת packets למטרה. מאפשר לקשר כתובת IP לגיאוגרפיה, ארגון, ISP, ומוניטין — חיוני לחקירות סייבר.</span></div>
+<div class="sum-row"><span class="sum-k">Passive vs Active</span><span class="sum-v"><strong>Passive</strong>: לא שולחים packets למטרה. שאילות ב-Shodan, WHOIS, DNS databases. המטרה לא יודעת. <strong>Active</strong>: שולחים packets ישירות — ping, traceroute, port scan. גלוי וניתן לזיהוי.</span></div>
+<div class="sum-row"><span class="sum-k">IP Address ≠ אדם</span><span class="sum-v">כתובת IP מזהה <strong>מכשיר</strong> ב-timepoint מסוים. ISPs משנים IPs דינמית (DHCP). VPN, Tor, proxy מסתירים את ה-IP האמיתי. NAT = כמה מחשבים מאחורי IP אחד. IP לבדו אינו ראיה משפטית!</span></div>
+<div class="sum-row"><span class="sum-k">מה ניתן לגלות מ-IP?</span><span class="sum-v">גיאוגרפיה (מדינה/עיר/ISP), ASN ובעלים, Reverse DNS, הסטוריית מוניטין (spam/abuse), ports פתוחים (Shodan), האם זה Tor exit node/VPN/proxy, כמה hosts מאחוריו (PTR records).</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🛠️ כלי מבוא</div>
+<div class="sum-row"><span class="sum-k"><code>ipinfo.io/IP</code></span><span class="sum-v">API חינמי: מיקום, ASN, org, hostname, timezone. JSON response. 50K requests/month חינם.</span></div>
+<div class="sum-row"><span class="sum-k"><code>ip-api.com</code></span><span class="sum-v">חינמי, ללא API key. מחזיר: country, city, ISP, org, AS, lat/lon. לא לשימוש commercial.</span></div>
+<div class="sum-row"><span class="sum-k"><code>whatismyipaddress.com</code></span><span class="sum-v">ממשק ויזואלי פשוט. טוב להצגה ולהסבר. מציג גם blacklist status.</span></div>
+<div class="sum-tip">💡 <strong>Workflow בסיסי:</strong> ipinfo.io → WHOIS (arin/ripe/apnic) → reverse DNS → reputation (AbuseIPDB) → Shodan. מהמהיר לעמוק.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">📍 Geolocation — היכן ה-IP?</div>
+<div class="sum-row"><span class="sum-k">איך Geolocation עובד</span><span class="sum-v">מאגרי נתונים שמקשרים IP ranges למיקומים. נבנים מ: WHOIS data, BGP routing tables, Wi-Fi positioning, latency measurements, user-submitted data. לא חקיקה — הערכה סטטיסטית.</span></div>
+<div class="sum-row"><span class="sum-k">דיוק ציפיות</span><span class="sum-v"><strong>מדינה</strong>: ~99% דיוק. <strong>עיר</strong>: ~55-80% — לרוב עיר של ה-ISP, לא המשתמש. <strong>כתובת</strong>: מעשית לא אפשרי. lat/lon שמחזיר ipinfo הוא מרכז העיר/ISP — לא בית הנחקר!</span></div>
+<div class="sum-row"><span class="sum-k">37.7749° N, 122.4194° W</span><span class="sum-v">הנקודה ה-"ידועה" של San Francisco שמחזירים מאגרים ללא מיקום ספציפי. נקודת ברירת מחדל כשיש מדינה אבל לא עיר. הרבה IPs מוצגים שם בטעות.</span></div>
+<div class="sum-row"><span class="sum-k">ספקי Geolocation</span><span class="sum-v"><strong>MaxMind GeoIP2</strong>: הנפוץ ביותר, דיוק טוב. <strong>ipinfo.io</strong>: API נוח, עם ASN. <strong>IP2Location</strong>: commercial. <strong>DB-IP</strong>: free tier. כל ספק = תוצאות שונות לאותו IP.</span></div>
+<div class="sum-row"><span class="sum-k">VPN / Proxy Detection</span><span class="sum-v">ipinfo.io מסמן VPN/proxy/hosting/tor. ipqualityscore.com — fraud score. Scamalytics. האם ה-ASN שייך ל-VPN provider? Hosting datacenter? → likely not residential.</span></div>
+<div class="sum-row"><span class="sum-k">לוגים + Geolocation = Correlation</span><span class="sum-v">login מ-IP ישראלי + 3 שניות אחר כך login מ-IP רוסי = בלתי אפשרי פיזית → account takeover. כניסה בשעה 3:00 בשעון מקומי לפי geolocation → חשוד.</span></div>
+<div class="sum-tip">💡 <strong>זהירות משפטית:</strong> Geolocation אינה ראיה לכשעצמה. ISP logs + subpoena → זיהוי account → זהות. תמיד ציין את רמת הביטחון בדוחות.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">📋 WHOIS ו-ASN</div>
+<div class="sum-row"><span class="sum-k">WHOIS — מה זה?</span><span class="sum-v">פרוטוקול לשאילת מידע על בעלים של IP blocks ודומיינים. המידע נרשם ב-RIRs (Regional Internet Registries): ARIN (אמריקה), RIPE (אירופה), APNIC (אסיה), LACNIC (דרום אמריקה), AFRINIC (אפריקה).</span></div>
+<div class="sum-row"><span class="sum-k">מה WHOIS מחזיר לIP?</span><span class="sum-v">NetRange (הrange שנרשם), Organization (מי קיבל את ה-block), Address, Country, RegDate, Abuse Contact (email לדיווח), CIDR notation, ASN שמנהל.</span></div>
+<div class="sum-row"><span class="sum-k">ASN — Autonomous System Number</span><span class="sum-v">מספר ייחודי שמזהה רשת עצמאית ב-Internet (ISP, cloud provider, ארגון גדול). AS13335 = Cloudflare. AS15169 = Google. AS16509 = Amazon AWS. AS714 = Apple. ניתן לראות כל routing table של ASN.</span></div>
+<div class="sum-row"><span class="sum-k"><code>whois IP</code> / <code>whois domain</code></span><span class="sum-v">CLI command. מחזיר raw WHOIS data. <code>whois 8.8.8.8</code> → Google. <code>whois -h whois.arin.net 1.2.3.4</code> → שאילה ישירה ל-ARIN. Online: who.is, arin.net, ripe.net.</span></div>
+<div class="sum-row"><span class="sum-k">BGP Tables</span><span class="sum-v">Border Gateway Protocol — פרוטוקול ה-routing בין ASNs. bgp.he.net, bgpview.io — מציגים routing של כל prefix. mtr ו-traceroute מציגים איזה ASNs packet עובר בדרכו.</span></div>
+<div class="sum-row"><span class="sum-k">IP Block בעלות vs שימוש</span><span class="sum-v">WHOIS מציג <strong>בעלות</strong> — מי רשם את ה-block. זה יכול להיות ISP שמקצה ל-לקוחות, cloud provider שמאחסן VMs של כולם, או CDN שמשרת בשם אחרים. בעלות ≠ שימוש בפועל.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔤 Reverse DNS — PTR Records</div>
+<div class="sum-row"><span class="sum-k">מה זה Reverse DNS?</span><span class="sum-v">המרה הפוכה: IP → שם. DNS רגיל: שם → IP (A record). Reverse: IP → שם (PTR record). נשמר ב-in-addr.arpa zone. <code>1.2.3.4</code> → query: <code>4.3.2.1.in-addr.arpa</code>.</span></div>
+<div class="sum-row"><span class="sum-k">מה PTR יכול לחשוף?</span><span class="sum-v">אם ISP הגדיר PTR: <code>customer-123.tel-aviv.bezeq.net</code> → ISP ומיקום. Cloud: <code>ec2-54-22-33-44.compute-1.amazonaws.com</code> → AWS. Mail server: <code>mail.company.com</code> → זהות ארגון.</span></div>
+<div class="sum-row"><span class="sum-k"><code>dig -x 8.8.8.8</code></span><span class="sum-v">Reverse DNS lookup. מחזיר PTR record. <code>host 8.8.8.8</code> גם עובד. nslookup: <code>set type=ptr</code> → <code>8.8.8.8</code>.</span></div>
+<div class="sum-row"><span class="sum-k">Forward Confirmed Reverse DNS (FCrDNS)</span><span class="sum-v">אימות: A → PTR → A חייב להתאים. Mail servers בודקים זאת לאנטי-spam. PTR → A לא תואמים = דגל אדום.</span></div>
+<div class="sum-row"><span class="sum-k">מתי PTR אינו מוגדר?</span><span class="sum-v">רוב ה-IPs הרזידנציאליים לא מגדירים PTR. Dynamic IPs. VPN/proxy providers. כשאין PTR — עדיין ניתן לנתח דרך WHOIS וASN.</span></div>
+<div class="sum-row"><span class="sum-k">Hostname Intelligence</span><span class="sum-v">PTR כמו <code>tor-exit.example.com</code> מגלה מיידית שמדובר ב-Tor exit node. <code>vpn.nordvpn.com</code> = VPN. <code>crawl-66-249-66-1.googlebot.com</code> = Googlebot.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">⚠️ Reputation — האם ה-IP מסוכן?</div>
+<div class="sum-row"><span class="sum-k">Reputation Databases</span><span class="sum-v">מאגרים שצוברים דיווחים על IPs: spam, bruteforce, port scanning, malware C&C, phishing. מקורות: user reports, honeypots, IDS/IPS feeds, OSINT. מעודכנים בזמן אמת.</span></div>
+<div class="sum-row"><span class="sum-k">AbuseIPDB</span><span class="sum-v">abuseipdb.com — דיווחי abuse על IPs. Confidence Score (0-100%). Categories: Port Scan, SSH Brute Force, Web App Attack, DDoS, Spam. API חינמי ל-1000 queries/day. <code>GET /api/v2/check?ipAddress=IP</code>.</span></div>
+<div class="sum-row"><span class="sum-k">VirusTotal</span><span class="sum-v">virustotal.com/gui/ip-address/IP — 80+ engines בודקים. Malicious, Suspicious, Harmless. פרטי Community (comments). הסטוריית URLs ו-files. Passive DNS (אילו domains פנו ל-IP זה).</span></div>
+<div class="sum-row"><span class="sum-k">Shodan</span><span class="sum-v">shodan.io/host/IP — ports פתוחים, services, banners, vulnerabilities (CVEs). תאריכים. האם הופיע ב-Shodan Malware DB? Free: 1 IP/query. Memberleader: more history.</span></div>
+<div class="sum-row"><span class="sum-k">Threat Intelligence Feeds</span><span class="sum-v">AlienVault OTX (otx.alienvault.com), IBM X-Force, Recorded Future. Indicators of Compromise (IOCs). STIX/TAXII פורמט לשיתוף. MISP — פלטפורמת שיתוף TI.</span></div>
+<div class="sum-row"><span class="sum-k">False Positives</span><span class="sum-v">NAT/shared IPs: IP של אוניברסיטה עלול להיות מדווח בגלל student אחד. CDN (Cloudflare 1.1.1.1): IPs משותפים לאלפי לקוחות. תמיד בדוק context לפני הסקת מסקנה.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔭 Shodan ו-Censys — Internet Intelligence</div>
+<div class="sum-row"><span class="sum-k">מה זה Shodan?</span><span class="sum-v">מנוע חיפוש שסורק את האינטרנט ומאנדקס כל device מחובר. מציג: ports פתוחים, service banners, SSL certificates, CVEs, screenshots. "Google של IoT". מעדכן כל ~7 ימים.</span></div>
+<div class="sum-row"><span class="sum-k">Shodan Search Syntax</span><span class="sum-v"><code>org:"Bezeq"</code> = כל ה-IPs של בזק. <code>port:22 country:IL</code> = SSH servers בישראל. <code>product:nginx version:1.14</code>. <code>vuln:CVE-2021-44228</code> = Log4Shell exposed. <code>hostname:vpn</code>.</span></div>
+<div class="sum-row"><span class="sum-k">Shodan Dorks נפוצים</span><span class="sum-v"><code>"default password"</code>, <code>title:"RouterOS"</code>, <code>http.title:"Admin"</code>, <code>"MongoDB Server Information"</code> (unprotected DBs), <code>ssl:"company name"</code>.</span></div>
+<div class="sum-row"><span class="sum-k">Censys</span><span class="sum-v">censys.io — דומה ל-Shodan אבל ממוקד יותר ב-certificates ו-TLS. search.censys.io לחיפוש חינמי. <code>parsed.subject.organization: "Company"</code>. טוב לזיהוי ASN ו-certificate patterns.</span></div>
+<div class="sum-row"><span class="sum-k">GreyNoise</span><span class="sum-v">greynoise.io — מגדיר אילו IPs "רועשים" (מבצעים mass scanning). Benign (Shodan, research scanners) vs Malicious. API חינמי. <code>?ip=IP</code> → "Is this attacker or researcher?"</span></div>
+<div class="sum-row"><span class="sum-k">Fofa (China)</span><span class="sum-v">fofa.info — Shodan סיני. לעיתים מאנדקס IPs שShodan מפספס. ממשק בסינית ואנגלית. שימושי לחקירות threat actors מסין/אסיה.</span></div>
+<div class="sum-tip">💡 <strong>PoC:</strong> חפש <code>org:"YOUR_COMPANY"</code> ב-Shodan. ראה מה תוקפים רואים עליכם. זה OSINT שכל תוקף יכול לעשות לפני פגיעה.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">📊 ניתוח לוגים</div>
+<div class="sum-row"><span class="sum-k">Apache / Nginx Log Format</span><span class="sum-v"><code>IP - - [timestamp] "METHOD /path HTTP/1.1" status bytes "referer" "user-agent"</code>. כל שדה = מידע. IP = מקור. Timestamp = מתי. Method+path = מה ביקש. Status = הצליח?</span></div>
+<div class="sum-row"><span class="sum-k">מה לחפש בלוגים</span><span class="sum-v">IPs עם <strong>requests חריגים</strong> (>100/min = scan). Status 404 רבים = directory traversal/scan. 401/403 רבים = brute force. POST ל-admin pages. User-Agent של scanners ידועים (nikto, sqlmap, nmap).</span></div>
+<div class="sum-row"><span class="sum-k">Regex patterns שימושיים</span><span class="sum-v"><code>grep "POST.*login" access.log</code> = brute force attempts. <code>awk '{print $1}' access.log | sort | uniq -c | sort -rn | head</code> = top IPs by requests.</span></div>
+<div class="sum-row"><span class="sum-k">fail2ban</span><span class="sum-v">כלי Linux שמנתח לוגים בזמן אמת ומוסיף IP rules ל-iptables. <code>/etc/fail2ban/jail.conf</code>. מחסום אוטומטי לbrute force SSH/HTTP. Log: <code>/var/log/fail2ban.log</code>.</span></div>
+<div class="sum-row"><span class="sum-k">Log Correlation</span><span class="sum-v">אותו IP ב-multiple logs (firewall + web + SSH) = stronger signal. Log aggregation: ELK Stack (Elasticsearch, Logstash, Kibana), Splunk, Graylog. SIEM לcorelation אוטומטי.</span></div>
+<div class="sum-row"><span class="sum-k">TimeZone Awareness</span><span class="sum-v">לוגי servers בדרך כלל ב-UTC. תוקפים פועלים לפי timezone שלהם. peaks בשעות 9:00-17:00 לפי timezone מסוים = ה-operator location. Cross-reference עם geolocation.</span></div>
+<div class="sum-tip">💡 חפש <code>"python-requests"</code>, <code>"Go-http-client"</code>, <code>"curl"</code> ב-User-Agent — סימן לscripted attacks. Browser spoofing: User-Agent של browser אבל behavior של bot.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">📄 דוחות ו-Automation</div>
+<div class="sum-row"><span class="sum-k">מה חייב לכלול דוח IP</span><span class="sum-v">כתובת IP, timestamp של כל observation, מקורות (Shodan, AbuseIPDB, WHOIS), confidence level, false positive considerations, סיכום ממצאים, המלצות (block/monitor/escalate). תמיד citable.</span></div>
+<div class="sum-row"><span class="sum-k">Python ipwhois</span><span class="sum-v"><code>from ipwhois import IPWhois; IPWhois("8.8.8.8").lookup_rdap()</code>. מחזיר JSON עם ASN, org, network, country. לאוטומציה של WHOIS queries בscale.</span></div>
+<div class="sum-row"><span class="sum-k">ipinfo Python SDK</span><span class="sum-v"><code>import ipinfo; handler = ipinfo.getHandler("TOKEN"); details = handler.getDetails("IP")</code>. מחזיר: city, region, country, org, timezone, loc. 50K/month חינם.</span></div>
+<div class="sum-row"><span class="sum-k">AbuseIPDB API</span><span class="sum-v"><code>requests.get("https://api.abuseipdb.com/api/v2/check", params={"ipAddress":ip,"maxAgeInDays":90}, headers={"Key":API_KEY})</code>. abuseConfidenceScore, usageType, isp, countryCode.</span></div>
+<div class="sum-row"><span class="sum-k">Automation Pipeline</span><span class="sum-v">לוג parser → extract IPs → deduplicate → enrich (ipinfo + AbuseIPDB + VirusTotal) → score (weighted: abuse score + ASN type + geolocation anomaly) → alert/block high-risk.</span></div>
+<div class="sum-row"><span class="sum-k">Maltego</span><span class="sum-v">פלטפורמת OSINT ויזואלית. IP → transforms → ASN, domains, emails, social. Community edition חינמית (60 entities). Professional לחוקרים. מחבר בין IP לidentities.</span></div>
+<div class="sum-tip">💡 <strong>כלל זהב:</strong> לעולם אל תבלוק IP בלי לוודא שאינו shared (NAT, CDN, Tor exit). בלוקת 1.1.1.1 = בלוקת Cloudflare DNS = מגיעים לך. בדוק WHOIS לפני כל block.</div>
+</div>`
   ]
 },
+
 en:{
   dir:'ltr',lang:'en',langBtn:'🇮🇱 HE',sbLabel:'Chapters',
   names:["Introduction — IP Investigation", "Geolocation — Where is the IP?", "WHOIS & ASN — Who Owns It?", "Reverse DNS — What is the IP's Name?", "Reputation — Is the IP Dangerous?", "Shodan & Censys — Internet Intelligence", "Log Analysis — Where Did the Attacker Come From?", "Reports & Automation — From Investigation to Action"],
@@ -2114,14 +2241,69 @@ Cannot attribute to individual. Tor exit node.
 </div>`
   ],
   cheat:[
-`<div class="callout callout-success"><strong>📋 Introduction — IP Investigation</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Passive=sends no packets</span></div><div class="cheat-item"><span class="cheat-key">sometimes, but requires much more evidence</span></div><div class="cheat-item"><span class="cheat-key">could be anyone</span></div><div class="cheat-item"><span class="cheat-key">country + ISP + ASN</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Geolocation — Where is the IP?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">~99%</span></div><div class="cheat-item"><span class="cheat-key">~66%</span></div><div class="cheat-item"><span class="cheat-key">IP of ground station abroad</span></div><div class="cheat-item"><span class="cheat-key">bot or attacker hiding identity</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 WHOIS & ASN — Who Owns It?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">who holds the block — ISP / organization</span></div><div class="cheat-item"><span class="cheat-key">Europe, Middle East, Central Asia</span></div><div class="cheat-item"><span class="cheat-key">Google</span></div><div class="cheat-item"><span class="cheat-key">likely a server, not a person</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Reverse DNS — What is the IP's Name?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">IP to hostname</span></div><div class="cheat-item"><span class="cheat-key">in-addr.arpa</span></div><div class="cheat-item"><span class="cheat-key">Tor exit node</span></div><div class="cheat-item"><span class="cheat-key">CDN — origin is hidden</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Reputation — Is the IP Dangerous?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">legitimate internet scanners and attackers</span></div><div class="cheat-item"><span class="cheat-key">known spam source</span></div><div class="cheat-item"><span class="cheat-key">80% of reporters believe this is abuse</span></div><div class="cheat-item"><span class="cheat-key">background internet scanning — not malicious</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Shodan & Censys — Internet Intelligence</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">service banners, ports, metadata</span></div><div class="cheat-item"><span class="cheat-key">certificate analysis</span></div><div class="cheat-item"><span class="cheat-key">servers with certificate for domain</span></div><div class="cheat-item"><span class="cheat-key">exposed publicly, anyone can read</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Log Analysis — Where Did the Attacker Come From?</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">IP, timestamp, URL, status, user-agent</span></div><div class="cheat-item"><span class="cheat-key">lines with status 404</span></div><div class="cheat-item"><span class="cheat-key">country + ISP + ASN per IP</span></div><div class="cheat-item"><span class="cheat-key">many different IPs with same pattern</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Reports & Automation — From Investigation to Action</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">Indicator of Compromise</span></div><div class="cheat-item"><span class="cheat-key">sharing threat intelligence between organizations</span></div><div class="cheat-item"><span class="cheat-key">impossible — could be anyone</span></div><div class="cheat-item"><span class="cheat-key">ASN removes many IPs from malicious community</span></div></div></div>`
+`<div class="sum-block"><div class="sum-block-title">🔍 Intro — IP Investigation</div>
+<div class="sum-row"><span class="sum-k">What is IP OSINT?</span><span class="sum-v">Open Source Intelligence on IP addresses — gathering info from public sources without sending packets to the target. Links an IP to geography, organization, ISP, and reputation. Essential for cyber investigations.</span></div>
+<div class="sum-row"><span class="sum-k">Passive vs Active</span><span class="sum-v"><strong>Passive</strong>: no packets sent to target. Queries to Shodan, WHOIS, DNS databases. Target doesn't know. <strong>Active</strong>: send packets directly — ping, traceroute, port scan. Visible and detectable.</span></div>
+<div class="sum-row"><span class="sum-k">IP Address ≠ Person</span><span class="sum-v">An IP identifies a <strong>device</strong> at a point in time. ISPs change IPs dynamically (DHCP). VPN, Tor, proxy hide the real IP. NAT = many computers behind one IP. IP alone is not legal evidence!</span></div>
+<div class="sum-row"><span class="sum-k">What can you learn from an IP?</span><span class="sum-v">Geography (country/city/ISP), ASN and owner, Reverse DNS, reputation history (spam/abuse), open ports (Shodan), whether it's a Tor exit/VPN/proxy, how many hosts share it.</span></div>
+</div>
+<div class="sum-block"><div class="sum-block-title">🛠️ Basic Tools</div>
+<div class="sum-row"><span class="sum-k"><code>ipinfo.io/IP</code></span><span class="sum-v">Free API: location, ASN, org, hostname, timezone. JSON response. 50K requests/month free.</span></div>
+<div class="sum-row"><span class="sum-k"><code>ip-api.com</code></span><span class="sum-v">Free, no API key. Returns: country, city, ISP, org, AS, lat/lon. Not for commercial use.</span></div>
+<div class="sum-tip">💡 <strong>Basic workflow:</strong> ipinfo.io → WHOIS → reverse DNS → reputation (AbuseIPDB) → Shodan. From fast to deep.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">📍 Geolocation — Where is the IP?</div>
+<div class="sum-row"><span class="sum-k">How Geolocation works</span><span class="sum-v">Databases that map IP ranges to locations. Built from: WHOIS data, BGP routing tables, Wi-Fi positioning, latency measurements. Not legislation — statistical estimation.</span></div>
+<div class="sum-row"><span class="sum-k">Accuracy expectations</span><span class="sum-v"><strong>Country</strong>: ~99% accurate. <strong>City</strong>: ~55-80% — usually the ISP's city, not the user's. <strong>Address</strong>: practically impossible. The lat/lon shown is the ISP/city center, not the target's home!</span></div>
+<div class="sum-row"><span class="sum-k">37.7749° N, 122.4194° W</span><span class="sum-v">The "famous" San Francisco coordinates returned when databases have a country but no specific city. Default fallback. Many IPs incorrectly appear here.</span></div>
+<div class="sum-row"><span class="sum-k">VPN / Proxy Detection</span><span class="sum-v">ipinfo.io flags VPN/proxy/hosting/tor. ipqualityscore.com — fraud score. Is the ASN a VPN provider? Hosting datacenter? → likely not residential.</span></div>
+<div class="sum-row"><span class="sum-k">Logs + Geolocation = Correlation</span><span class="sum-v">Login from Israeli IP + 3 seconds later from Russian IP = physically impossible → account takeover. Login at 3:00 AM per geolocation timezone → suspicious.</span></div>
+<div class="sum-tip">💡 <strong>Legal caution:</strong> Geolocation alone is not evidence. ISP logs + subpoena → account ID → identity. Always state confidence level in reports.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">📋 WHOIS and ASN</div>
+<div class="sum-row"><span class="sum-k">WHOIS — What is it?</span><span class="sum-v">Protocol for querying IP block and domain ownership. Registered at RIRs: ARIN (Americas), RIPE (Europe), APNIC (Asia), LACNIC (South America), AFRINIC (Africa).</span></div>
+<div class="sum-row"><span class="sum-k">What WHOIS returns for an IP</span><span class="sum-v">NetRange (registered range), Organization (who received the block), Address, Country, RegDate, Abuse Contact (email for reporting), CIDR notation, managing ASN.</span></div>
+<div class="sum-row"><span class="sum-k">ASN — Autonomous System Number</span><span class="sum-v">Unique number identifying an independent Internet network (ISP, cloud provider, large org). AS13335 = Cloudflare. AS15169 = Google. AS16509 = Amazon AWS. AS714 = Apple.</span></div>
+<div class="sum-row"><span class="sum-k"><code>whois IP</code> / <code>whois domain</code></span><span class="sum-v">CLI command. <code>whois 8.8.8.8</code> → Google. Online: who.is, arin.net, ripe.net.</span></div>
+<div class="sum-row"><span class="sum-k">IP Block Ownership vs Usage</span><span class="sum-v">WHOIS shows <strong>ownership</strong> — who registered the block. Could be ISP assigning to customers, cloud provider hosting anyone's VMs, or CDN serving others. Ownership ≠ actual user.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔤 Reverse DNS — PTR Records</div>
+<div class="sum-row"><span class="sum-k">What is Reverse DNS?</span><span class="sum-v">Reverse mapping: IP → name. Regular DNS: name → IP (A record). Reverse: IP → name (PTR record). Stored in in-addr.arpa zone. <code>1.2.3.4</code> → query: <code>4.3.2.1.in-addr.arpa</code>.</span></div>
+<div class="sum-row"><span class="sum-k">What PTR can reveal</span><span class="sum-v">If ISP configured PTR: <code>customer-123.nyc.isp.net</code> → ISP and location. Cloud: <code>ec2-54-22-33-44.compute-1.amazonaws.com</code> → AWS. Mail: <code>mail.company.com</code> → org identity.</span></div>
+<div class="sum-row"><span class="sum-k"><code>dig -x 8.8.8.8</code></span><span class="sum-v">Reverse DNS lookup. Returns PTR record. <code>host 8.8.8.8</code> also works.</span></div>
+<div class="sum-row"><span class="sum-k">Hostname Intelligence</span><span class="sum-v">PTR like <code>tor-exit.example.com</code> immediately reveals Tor exit node. <code>vpn.nordvpn.com</code> = VPN. <code>crawl-66-249-66-1.googlebot.com</code> = Googlebot.</span></div>
+<div class="sum-row"><span class="sum-k">When PTR is not set</span><span class="sum-v">Most residential IPs don't configure PTR. Dynamic IPs. VPN/proxy providers. When no PTR — still analyze via WHOIS and ASN.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">⚠️ Reputation — Is the IP dangerous?</div>
+<div class="sum-row"><span class="sum-k">Reputation Databases</span><span class="sum-v">Databases collecting IP reports: spam, bruteforce, port scanning, malware C&C, phishing. Sources: user reports, honeypots, IDS/IPS feeds, OSINT. Updated in real time.</span></div>
+<div class="sum-row"><span class="sum-k">AbuseIPDB</span><span class="sum-v">abuseipdb.com — abuse reports for IPs. Confidence Score (0-100%). Categories: Port Scan, SSH Brute Force, Web App Attack, DDoS, Spam. Free API: 1000 queries/day.</span></div>
+<div class="sum-row"><span class="sum-k">VirusTotal</span><span class="sum-v">virustotal.com/gui/ip-address/IP — 80+ engines check. Malicious, Suspicious, Harmless. Community comments. URL/file history. Passive DNS (which domains pointed to this IP).</span></div>
+<div class="sum-row"><span class="sum-k">Shodan</span><span class="sum-v">shodan.io/host/IP — open ports, services, banners, CVEs. Whether it appeared in Shodan Malware DB.</span></div>
+<div class="sum-row"><span class="sum-k">False Positives</span><span class="sum-v">NAT/shared IPs: university IP may be reported because of one student. CDN (Cloudflare 1.1.1.1): IPs shared by thousands of customers. Always check context before drawing conclusions.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔭 Shodan & Censys — Internet Intelligence</div>
+<div class="sum-row"><span class="sum-k">What is Shodan?</span><span class="sum-v">A search engine that continuously scans the internet and indexes every connected device. Shows: open ports, service banners, SSL certs, CVEs, screenshots. "Google for IoT." Updates every ~7 days.</span></div>
+<div class="sum-row"><span class="sum-k">Shodan Search Syntax</span><span class="sum-v"><code>org:"Company"</code>, <code>port:22 country:US</code>, <code>product:nginx version:1.14</code>, <code>vuln:CVE-2021-44228</code> = Log4Shell exposed, <code>hostname:vpn</code>.</span></div>
+<div class="sum-row"><span class="sum-k">Censys</span><span class="sum-v">censys.io — similar to Shodan but focused on certificates and TLS. <code>parsed.subject.organization: "Company"</code>. Good for ASN and certificate pattern identification.</span></div>
+<div class="sum-row"><span class="sum-k">GreyNoise</span><span class="sum-v">greynoise.io — identifies which IPs are "noisy" (mass scanning). Benign (Shodan, research) vs Malicious. Free API. "Is this attacker or researcher?"</span></div>
+<div class="sum-tip">💡 <strong>PoC:</strong> Search <code>org:"YOUR_COMPANY"</code> in Shodan. See what attackers see about you. This is OSINT any attacker can do before striking.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">📊 Log Analysis</div>
+<div class="sum-row"><span class="sum-k">Apache / Nginx Log Format</span><span class="sum-v"><code>IP - - [timestamp] "METHOD /path HTTP/1.1" status bytes "referer" "user-agent"</code>. Every field = intelligence. IP = source. Timestamp = when. Method+path = what was requested. Status = success?</span></div>
+<div class="sum-row"><span class="sum-k">What to look for in logs</span><span class="sum-v">IPs with <strong>abnormal request rates</strong> (&gt;100/min = scan). Many 404s = directory traversal. Many 401/403 = brute force. POST to admin pages. Known scanner User-Agents (nikto, sqlmap, nmap).</span></div>
+<div class="sum-row"><span class="sum-k">Useful commands</span><span class="sum-v"><code>grep "POST.*login" access.log</code> = brute force attempts. <code>awk '{print $1}' access.log | sort | uniq -c | sort -rn | head</code> = top IPs by request count.</span></div>
+<div class="sum-row"><span class="sum-k">Log Correlation</span><span class="sum-v">Same IP in multiple logs (firewall + web + SSH) = stronger signal. ELK Stack, Splunk, Graylog for aggregation. SIEM for automated correlation.</span></div>
+<div class="sum-row"><span class="sum-k">TimeZone Awareness</span><span class="sum-v">Server logs usually in UTC. Attackers operate by their timezone. Peaks at 9-17:00 by some timezone = operator location. Cross-reference with geolocation.</span></div>
+<div class="sum-tip">💡 Search for <code>"python-requests"</code>, <code>"Go-http-client"</code>, <code>"curl"</code> in User-Agent — sign of scripted attacks.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">📄 Reports & Automation</div>
+<div class="sum-row"><span class="sum-k">What an IP report must include</span><span class="sum-v">IP address, timestamp of each observation, sources (Shodan, AbuseIPDB, WHOIS), confidence level, false positive considerations, findings summary, recommendations (block/monitor/escalate). Always citable.</span></div>
+<div class="sum-row"><span class="sum-k">Python ipwhois</span><span class="sum-v"><code>from ipwhois import IPWhois; IPWhois("8.8.8.8").lookup_rdap()</code>. Returns JSON with ASN, org, network, country. For automating WHOIS queries at scale.</span></div>
+<div class="sum-row"><span class="sum-k">AbuseIPDB API</span><span class="sum-v"><code>requests.get("https://api.abuseipdb.com/api/v2/check", params={"ipAddress":ip}, headers={"Key":API_KEY})</code>. Returns abuseConfidenceScore, usageType, isp, countryCode.</span></div>
+<div class="sum-row"><span class="sum-k">Automation Pipeline</span><span class="sum-v">Log parser → extract IPs → deduplicate → enrich (ipinfo + AbuseIPDB + VirusTotal) → score (abuse score + ASN type + geolocation anomaly) → alert/block high-risk.</span></div>
+<div class="sum-row"><span class="sum-k">Maltego</span><span class="sum-v">Visual OSINT platform. IP → transforms → ASN, domains, emails, social. Community edition free (60 entities). Connects IP to identities.</span></div>
+<div class="sum-tip">💡 <strong>Golden rule:</strong> Never block an IP without verifying it's not shared (NAT, CDN, Tor exit). Blocking 1.1.1.1 = blocking Cloudflare DNS. Always check WHOIS before blocking.</div>
+</div>`
   ]
 }};
 var GAME_QS={},GAME_QS_EN={},QUIZZES={},QUIZZES_EN={},ILABS={},ILABS_EN={};
@@ -2381,6 +2563,7 @@ const state = {cur:0, tabs:{}, quiz:{}, game:{}, xp:0, stars:{}};
 let currentLang = 'he';
 let gameTimer = null;
 const TOTAL_CHAPTERS = 8;
+var COURSE_ICON = '🌐';
 
 // ===== HELPERS =====
 function L() { return currentLang==='he' ? C.he : C.en; }
@@ -2842,5 +3025,61 @@ function updateStars(chId){
   const s=state.stars[chId]||0;
   el.textContent='⭐'.repeat(s)+'☆'.repeat(3-s);
 }
+
+
+var MATCH_DATA = {};
+var MATCH_DATA_EN = {};
+MATCH_DATA[0]={pairs:[["Passive investigation מול Active:", "Passive=לא שולח packets"], ["IP address = אדם?", "לפעמים, אבל דורש הרבה ראיות נוספות"], ["Tor exit node IP:", "יכול להיות מישהו אחר לגמרי"], ["ipinfo.io נותן:", "מדינה + ISP + ASN"], ["GDPR רלוונטי ל-IP investigation כי:", "IP של אדם פרטי יכול להיחשב PII"], ["Shodan מציג על IP:", "ports, services, certificates, history"], ["dig -x IP מבצע:", "reverse DNS lookup"], ["AbuseIPDB מכיל:", "דיווחים על IP malicious activity"]]};
+MATCH_DATA_EN[0]={pairs:[["Passive vs Active investigation:", "Passive=sends no packets"], ["IP address = a person?", "sometimes, but requires much more evidence"], ["A Tor exit node IP:", "could be anyone"], ["ipinfo.io returns:", "country + ISP + ASN"], ["GDPR is relevant to IP investigation because:", "a private person's IP can be considered PII"], ["Shodan shows for an IP:", "ports, services, certificates, history"], ["dig -x IP performs:", "reverse DNS lookup"], ["AbuseIPDB contains:", "reports of malicious IP activity"]]};
+MATCH_DATA[1]={pairs:[["MaxMind GeoIP דיוק ברמת מדינה:", "~99%"], ["MaxMind דיוק ברמת עיר:", "~66%"], ["IP של Starlink משתמש ישראלי יראה:", "IP של ground station בחו\\"], ["IP של AWS/DigitalOcean שגולש לאתרך הוא כנראה:", "bot או תוקף שמסתיר זהות"], ["ipinfo.io privacy API מחזיר:", "האם IP הוא VPN/Proxy/Tor/Hosting"], ["מה עושים כש-3 מקורות geolocation מחזירים תוצאות שונות?", "מתעדים חוסר ודאות"], ["Geolocation מבוססת על:", "registry data + BGP routing + active probing"], ["הסיפור של Kansas לימד:", "Geolocation היא הערכה, לא עובדה"]]};
+MATCH_DATA_EN[1]={pairs:[["MaxMind GeoIP accuracy at country level:", "~99%"], ["MaxMind accuracy at city level:", "~66%"], ["A Starlink IP for an Israeli user will show:", "IP of ground station abroad"], ["An AWS/DigitalOcean IP visiting your site is probably:", "bot or attacker hiding identity"], ["ipinfo.io privacy API returns:", "whether IP is VPN/Proxy/Tor/Hosting"], ["When 3 geolocation sources give different results:", "document the uncertainty"], ["Geolocation is based on:", "registry data + BGP routing + active probing"], ["The Kansas story taught us:", "Geolocation is an estimate, not a fact"]]};
+MATCH_DATA[2]={pairs:[["WHOIS על IP מראה:", "מי מחזיק בblock — ISP / ארגון"], ["RIPE NCC מנהל IPs של:", "אירופה, מזרח תיכון, מרכז אסיה"], ["AS15169 הוא:", "Google"], ["IP מ-ASN של hosting provider אומר:", "כנראה שרת, לא אדם"], ["RDAP לעומת WHOIS:", "מחזיר JSON, יותר מובנה"], ["כדי לדעת מי הלקוח הספציפי של ISP:", "צריך צו שיפוטי"], ["whois -h whois.cymru.com מחזיר:", "ASN + prefix + organization"], ["Bulletproof hosting ASN — אסטרטגיית הגנה:", "block כל ה-ASN prefix"]]};
+MATCH_DATA_EN[2]={pairs:[["WHOIS on an IP shows:", "who holds the block — ISP / organization"], ["RIPE NCC manages IPs for:", "Europe, Middle East, Central Asia"], ["AS15169 is:", "Google"], ["An IP from a hosting provider ASN means:", "likely a server, not a person"], ["RDAP vs WHOIS:", "returns JSON, more structured"], ["To know the specific ISP customer behind an IP:", "requires a court order"], ["whois -h whois.cymru.com returns:", "ASN + prefix + organization"], ["Bulletproof hosting ASN — defense strategy:", "block entire ASN prefix"]]};
+MATCH_DATA[3]={pairs:[["Reverse DNS ממיר:", "IP לשם host"], ["PTR record נמצא ב-zone:", "in-addr.arpa"], ["hostname של tor-exit.riseup.net אומר:", "Tor exit node"], ["IP של Cloudflare בחיפוש DNS אומר:", "CDN — origin מוסתר"], ["mail. בשם host מרמז על:", "mail server"], ["IP ללא PTR record:", "dynamic IP או לא מוגדר"], ["crt.sh מציג:", "Certificate Transparency — subdomains"], ["Open relay SMTP = ?", "כל אחד יכול לשלוח email מהdomain"]]};
+MATCH_DATA_EN[3]={pairs:[["Reverse DNS converts:", "IP to hostname"], ["PTR record is in the zone:", "in-addr.arpa"], ["hostname tor-exit.riseup.net means:", "Tor exit node"], ["Cloudflare IP in DNS lookup means:", "CDN — origin is hidden"], ["mail. in a hostname suggests:", "mail server"], ["IP without PTR record:", "dynamic IP or unconfigured"], ["crt.sh shows:", "Certificate Transparency — subdomains"], ["Open relay SMTP means:", "anyone can send email from the domain"]]};
+MATCH_DATA[4]={pairs:[["GreyNoise מבדיל בין:", "internet scanners לגיטימיים לbetween תוקפים"], ["SPAMHAUS SBL מציין:", "spam source מוכר"], ["AbuseIPDB confidence 80% אומר:", "80% מהדיווחים מאמינים שמדובר בabuse"], ["Shodan IPs ב-logs שלך הם:", "background internet scanning — לא malicious"], ["VirusTotal ל-IP מציג:", "70+ vendors שבדקו + malware associations"], ["Tor exit node IP — מה זה אומר לחקירה?", "attribution בלתי אפשרי — יכול להיות מישהו אחר"], ["DNSBL בדיקה — NXDOMAIN אומר:", "לא ב-blacklist"], ["False positive ב-reputation check:", "IP שמסומן בטעות כmסוכן"]]};
+MATCH_DATA_EN[4]={pairs:[["GreyNoise distinguishes between:", "legitimate internet scanners and attackers"], ["SPAMHAUS SBL indicates:", "known spam source"], ["AbuseIPDB confidence 80% means:", "80% of reporters believe this is abuse"], ["Shodan IPs in your logs are:", "background internet scanning — not malicious"], ["VirusTotal for an IP shows:", "70+ vendors checked + malware associations"], ["Tor exit node IP — what does it mean for investigation?", "attribution impossible — could be anyone"], ["DNSBL check — NXDOMAIN means:", "not on blacklist"], ["False positive in reputation check:", "IP incorrectly flagged as dangerous"]]};
+MATCH_DATA[5]={pairs:[["Shodan סורק:", "service banners, ports, metadata"], ["Censys מתמחה ב:", "certificate analysis"], ["Shodan dork: ssl.cert.subject.cn:company.com מחפש:", "servers עם certificate לdomain"], ["MongoDB ב-Shodan ללא authentication:", "חשוף לציבור, כל אחד יכול לקרוא"], ["כמה זמן לוקח לבדוק RDP פתוח לאינטרנט?", "שעות"], ["Censys מאפשר למצוא origin מאחורי Cloudflare כי:", "מחפש certificates שמשתמשים בדומיין"], ["shodan alert מיועד ל:", "notification כשmמוצאים דברים חדשים ב-org"], ["banner grabbing עם nc מחזיר:", "server version ו-response headers"]]};
+MATCH_DATA_EN[5]={pairs:[["Shodan scans:", "service banners, ports, metadata"], ["Censys specializes in:", "certificate analysis"], ["Shodan dork ssl.cert.subject.cn:company.com finds:", "servers with certificate for domain"], ["MongoDB on Shodan without authentication:", "exposed publicly, anyone can read"], ["How long does it take to attempt to breach open RDP on ", "hours"], ["Censys can find origin behind Cloudflare because:", "searches certificates using the domain"], ["shodan alert is for:", "notification when new things found in org"], ["banner grabbing with nc returns:", "server version and response headers"]]};
+MATCH_DATA[6]={pairs:[["Web access log מכיל:", "IP, timestamp, URL, status, user-agent"], ["awk '$9==404' access.log מחזיר:", "שורות עם status 404"], ["GeoIP enrichment מוסיף לlog:", "מדינה + ISP + ASN לכל IP"], ["Botnet מזהים לפי:", "הרבה IPs שונים עם pattern זהה"], ["Credential stuffing attack:", "רשימת username:password מleaks על הרבה IPs"], ["User-Agent זהה ב-200 IPs שונים מצביע על:", "botnet"], ["Block ASN כולו לעומת block IP בודד:", "ASN=מוריד הרבה IPs בבת אחת"], ["Credential stuffing attack: כיצד מזהים?", "הרבה login failures מ-IPs שונים"]]};
+MATCH_DATA_EN[6]={pairs:[["Web access log contains:", "IP, timestamp, URL, status, user-agent"], ["awk '$9==404' access.log returns:", "lines with status 404"], ["GeoIP enrichment adds to logs:", "country + ISP + ASN per IP"], ["Botnets are identified by:", "many different IPs with same pattern"], ["Credential stuffing attack:", "leaked username:password list across many IPs"], ["Same User-Agent across 200 different IPs suggests:", "botnet"], ["Block entire ASN vs block single IP:", "ASN=takes down many IPs at once"], ["Credential stuffing: how do you identify it?", "many login failures from different IPs"]]};
+MATCH_DATA[7]={pairs:[["IOC = ?", "Indicator of Compromise"], ["MISP משמש ל:", "שיתוף threat intelligence בין ארגונים"], ["Attribution ל-IP Tor exit node:", "בלתי אפשרי — יכול להיות מישהו אחר"], ["Block ASN כולו לעומת IP בודד:", "ASN מוריד הרבה IPs מcommunity злonasty"], ["Executive Summary בדוח לmanagement:", "מה קרה, impact, המלצה — בלי jargon"], ["Confidence level בדוח attribution:", "חובה — מצביע על כמה לסמוך"], ["iptables -A INPUT -s IP -j DROP:", "חוסם incoming מ-IP"], ["Attribution שגוי עלול לגרום ל:", "defamation lawsuit, נזק לארגון חף מפשע"]]};
+MATCH_DATA_EN[7]={pairs:[["IOC stands for:", "Indicator of Compromise"], ["MISP is used for:", "sharing threat intelligence between organizations"], ["Attribution to a Tor exit node IP:", "impossible — could be anyone"], ["Block entire ASN vs single IP:", "ASN removes many IPs from malicious community"], ["Executive Summary in a management report:", "what happened, impact, recommendation — no jargon"], ["Confidence level in attribution report:", "mandatory — shows how much to trust it"], ["iptables -A INPUT -s IP -j DROP:", "blocks incoming from IP"], ["Incorrect attribution can cause:", "defamation lawsuit, harm to innocent organization"]]};
+
+// ── FULL REVIEW ──────────────────────────────────────────────
+function buildReviewContent() {
+  var Lc = L();
+  var cheats = Lc.cheat;
+  var names = Lc.names;
+  var html = '';
+  for (var i = 0; i < cheats.length; i++) {
+    var num = (i < 10 ? '0' : '') + i;
+    html += '<div class="review-chapter-block">' +
+      '<div class="review-chapter-title">' +
+        '<span class="review-chapter-num">' + num + '</span>' +
+        '<span class="review-chapter-name">' + names[i] + '</span>' +
+      '</div>' +
+      '<div class="review-chapter-body">' + cheats[i] + '</div>' +
+    '</div>';
+  }
+  return html;
+}
+function openReview() {
+  var total = typeof TOTAL_CHAPTERS !== 'undefined' ? TOTAL_CHAPTERS : 8;
+  document.getElementById('reviewTitle').textContent = currentLang === 'he' ? '📚 סיכום מלא' : '📚 Full Review';
+  document.getElementById('reviewSub').textContent = currentLang === 'he'
+    ? 'כל ' + total + ' הפרקים בעמוד אחד'
+    : 'All ' + total + ' chapters on one page';
+  document.getElementById('reviewBody').innerHTML = buildReviewContent();
+  document.getElementById('reviewOverlay').classList.add('open');
+  document.getElementById('reviewDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeReview() {
+  document.getElementById('reviewOverlay').classList.remove('open');
+  document.getElementById('reviewDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeReview(); });
 
 </script></body></html>

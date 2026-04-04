@@ -460,6 +460,187 @@ li{margin-bottom:4px}
   }
 }
 
+
+/* ── GAME SCREEN ── */
+.game-layout { display:flex; height:calc(100vh - var(--nav-h)); overflow:hidden; }
+.game-sb {
+  width: var(--sb-w); flex-shrink:0; background:var(--bg2);
+  border-inline-end:1px solid var(--border);
+  overflow-y:auto; padding:12px 0;
+}
+.game-sb-title {
+  font-family:var(--f-mono); font-size:.75rem; font-weight:700;
+  color:var(--ink3); letter-spacing:.1em; text-transform:uppercase;
+  padding:0 16px 8px;
+}
+.game-sb-btn {
+  width:100%; text-align:start; padding:8px 16px;
+  background:none; border:none; cursor:pointer;
+  font-family:var(--f-body); font-size:.85rem; color:var(--ink2);
+  transition:all .15s; border-inline-end:3px solid transparent;
+}
+.game-sb-btn:hover { background:var(--bg3); color:var(--ink); }
+.game-sb-btn.active { background:var(--bg3); color:var(--ac); border-color:var(--ac); }
+.game-content { flex:1; overflow-y:auto; padding:32px; }
+.game-welcome { text-align:center; padding:80px 20px; }
+.game-welcome-icon { font-size:52px; margin-bottom:12px; }
+.game-welcome-h { font-size:1.5rem; font-weight:700; color:var(--ink); margin-bottom:8px; }
+.game-welcome-p { color:var(--ink2); }
+/* Match game adapted for dark theme */
+.match-game { max-width:680px; margin:0 auto; }
+.match-game-title {
+  font-family:var(--f-mono); font-size:1rem; font-weight:700;
+  color:var(--ac); margin-bottom:4px;
+}
+.match-game-sub { color:var(--ink2); font-size:.85rem; margin-bottom:20px; }
+.match-progress-bar { height:4px; background:var(--border); border-radius:2px; margin-bottom:16px; overflow:hidden; }
+.match-progress-fill { height:100%; background:var(--ac); border-radius:2px; transition:width .3s; }
+.match-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.match-round-badge {
+  font-family:var(--f-mono); font-size:.72rem; font-weight:700;
+  color:var(--ac); background:rgba(57,211,83,.1);
+  border:1px solid rgba(57,211,83,.3); border-radius:12px; padding:2px 10px;
+}
+.match-instructions { color:var(--ink3); font-size:.8rem; text-align:center; margin-bottom:14px; }
+.match-area { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:12px; }
+.match-col-title {
+  font-family:var(--f-mono); font-size:.7rem; font-weight:700;
+  color:var(--ac); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px;
+}
+.match-col { display:flex; flex-direction:column; gap:8px; }
+.match-card {
+  padding:10px 13px; border:1.5px solid var(--border); border-radius:8px;
+  font-size:.82rem; cursor:pointer; transition:all .15s;
+  background:var(--bg2); color:var(--ink2); line-height:1.35;
+  min-height:42px; display:flex; align-items:center; user-select:none;
+}
+.match-card:hover { border-color:var(--ac); color:var(--ink); transform:translateY(-1px); }
+.match-card.selected { border-color:var(--ac); background:rgba(57,211,83,.1); color:var(--ac); font-weight:700; }
+.match-card.matched-correct { border-color:var(--ac); background:rgba(57,211,83,.08); color:var(--ac); cursor:default; }
+.match-card.matched-wrong { border-color:var(--red); background:rgba(248,81,73,.08); color:var(--red); animation:shake .3s; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+.match-card.matched-correct:hover { transform:none; }
+.match-result { text-align:center; padding:24px 0; }
+.match-score-big { font-size:42px; font-weight:900; color:var(--ac); font-family:var(--f-mono); }
+.match-score-label { color:var(--ink2); font-size:.85rem; margin-bottom:16px; }
+.match-btns { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.match-btn-primary {
+  background:var(--ac); color:#000; border:none;
+  padding:9px 22px; border-radius:8px; font-size:.85rem;
+  font-weight:700; cursor:pointer; font-family:var(--f-body); transition:all .15s;
+}
+.match-btn-primary:hover { opacity:.85; }
+.match-btn-ghost {
+  background:none; color:var(--ink2); border:1px solid var(--border);
+  padding:9px 22px; border-radius:8px; font-size:.85rem;
+  font-weight:600; cursor:pointer; font-family:var(--f-body); transition:all .15s;
+}
+.match-btn-ghost:hover { border-color:var(--ac); color:var(--ac); }
+.game-start-card { text-align:center; padding:40px 20px; max-width:380px; margin:0 auto; }
+.game-start-icon { font-size:52px; margin-bottom:12px; }
+.game-start-title { font-size:1.3rem; font-weight:700; color:var(--ink); margin-bottom:8px; }
+.game-start-desc { color:var(--ink2); margin-bottom:20px; font-size:.9rem; }
+.game-rules { display:flex; gap:12px; justify-content:center; margin-bottom:24px; flex-wrap:wrap; }
+.game-rule {
+  font-family:var(--f-mono); font-size:.78rem; color:var(--ink2);
+  background:var(--bg3); padding:5px 12px; border-radius:6px;
+  border:1px solid var(--border);
+}
+@media(max-width:680px){
+  .game-sb{display:none}
+  .match-area{grid-template-columns:1fr 1fr;gap:8px}
+  .match-card{font-size:.75rem;padding:8px 10px;min-height:44px}
+}
+/* ── RICH SUMMARY CARDS (dark theme) ── */
+.sum-block { margin-bottom: 24px; }
+.sum-block-title {
+  font-size: 11px; font-weight: 700; color: var(--ac);
+  text-transform: uppercase; letter-spacing: .1em;
+  margin-bottom: 10px; font-family: var(--f-mono);
+  display: flex; align-items: center; gap: 8px;
+}
+.sum-block-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.sum-row {
+  display: grid; grid-template-columns: 190px 1fr;
+  gap: 8px 14px; padding: 8px 0;
+  border-bottom: 1px solid var(--border); align-items: start;
+}
+.sum-row:last-child { border-bottom: none; }
+.sum-k { font-family: var(--f-mono); font-size: 11.5px; font-weight: 700; color: var(--ac); line-height: 1.4; }
+.sum-v { font-size: 13px; color: var(--ink2); line-height: 1.6; }
+.sum-v strong { color: var(--ink); font-weight: 700; }
+.sum-v code { font-family: var(--f-mono); font-size: 11px; background: var(--bg3);
+  padding: 1px 5px; border-radius: 3px; color: var(--ac); }
+.sum-tip { margin-top:10px; padding:10px 14px; background:rgba(227,179,65,.08);
+  border-radius:6px; border:1px solid rgba(227,179,65,.3); font-size:13px;
+  color:var(--ac4); line-height:1.6; }
+.sum-danger { margin-top:10px; padding:10px 14px; background:rgba(248,81,73,.08);
+  border-radius:6px; border:1px solid rgba(248,81,73,.3); font-size:13px;
+  color:var(--red); line-height:1.6; }
+.chapter-summary { margin-top:40px; padding:28px; background:var(--bg2);
+  border:1px solid var(--border); border-radius:12px; }
+.chapter-summary-title {
+  font-family:var(--f-mono); font-size:13px; font-weight:700;
+  color:var(--ac); letter-spacing:.06em; text-transform:uppercase;
+  margin-bottom:20px; display:flex; align-items:center; gap:8px;
+}
+.chapter-summary-title::after { content:''; flex:1; height:1px; background:var(--border); }
+/* ── FULL REVIEW DRAWER ── */
+.review-btn {
+  font-family:var(--f-mono); font-size:.78rem; font-weight:700;
+  padding:4px 12px; border-radius:20px;
+  border:1px solid var(--ac); background:rgba(57,211,83,.1);
+  color:var(--ac); cursor:pointer; transition:all .15s; margin-inline-end:4px;
+}
+.review-btn:hover { background:rgba(57,211,83,.2); }
+.review-overlay { display:none; position:fixed; inset:0; z-index:900;
+  background:rgba(0,0,0,.6); backdrop-filter:blur(3px); }
+.review-overlay.open { display:block; }
+.review-drawer {
+  position:fixed; top:0; left:0; right:0; z-index:910;
+  background:var(--bg2); border-bottom:2px solid var(--ac);
+  box-shadow:0 4px 32px rgba(0,0,0,.5);
+  transform:translateY(-100%); transition:transform .3s cubic-bezier(.4,0,.2,1);
+  max-height:90vh; display:flex; flex-direction:column;
+}
+.review-drawer.open { transform:translateY(0); }
+.review-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 20px; border-bottom:1px solid var(--border);
+  flex-shrink:0; gap:12px; background:var(--bg2);
+}
+.review-header-title { font-size:15px; font-weight:700; color:var(--ink); font-family:var(--f-mono); }
+.review-header-sub { font-size:12px; color:var(--ink3); }
+.review-close {
+  width:30px; height:30px; border-radius:50%; background:var(--bg3);
+  border:1px solid var(--border); font-size:18px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; color:var(--ink2); line-height:1; transition:all .15s;
+}
+.review-close:hover { border-color:var(--red); color:var(--red); }
+.review-body { overflow-y:auto; padding:24px 20px 40px; flex:1; }
+.review-body::-webkit-scrollbar { width:6px; }
+.review-body::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+.review-chapter-block { margin-bottom:32px; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+.review-chapter-title { background:var(--bg3); border-bottom:1px solid var(--border);
+  padding:10px 16px; display:flex; align-items:center; gap:10px; }
+.review-chapter-num {
+  font-family:var(--f-mono); font-size:11px; font-weight:700;
+  color:var(--ac); background:rgba(57,211,83,.1);
+  border:1px solid rgba(57,211,83,.3); border-radius:5px; padding:2px 8px; flex-shrink:0;
+}
+.review-chapter-name { font-size:14px; font-weight:700; color:var(--ink); }
+.review-chapter-body { padding:16px; background:var(--bg2); }
+.review-chapter-body .sum-block { margin-bottom:18px; }
+.review-chapter-body .sum-block:last-child { margin-bottom:0; }
+.review-chapter-body .sum-row { grid-template-columns:150px 1fr; padding:6px 0; }
+.review-chapter-body .sum-v { font-size:12.5px; }
+.review-chapter-body .sum-k { font-size:11px; }
+@media(max-width:680px) {
+  .review-drawer { max-height:95vh; }
+  .review-body { padding:14px 12px 32px; }
+  .review-chapter-body .sum-row,.sum-row { grid-template-columns:1fr; gap:2px; }
+}
 </style>
 </head>
 <body>
@@ -469,11 +650,10 @@ li{margin-bottom:4px}
   <div class="nav-logo" onclick="goTo('landing')" id="logoText">⛓ Crypto<span>Forensics</span></div>
   <button class="nav-tab on" data-screen="landing" onclick="goTo('landing')" id="navLearn">🏠 <span id="navHomeLbl">ראשי</span></button>
   <button class="nav-tab" data-screen="learn" onclick="goTo('learn')" id="navLearnBtn">📖 <span id="navLearnLbl">למידה</span></button>
-  <button class="nav-tab" data-screen="lab" onclick="goTo('lab')" id="navLabBtn">🧪 <span id="navLabLbl">מעבדה</span></button>
-  <button class="nav-tab" data-screen="quiz" onclick="goTo('quiz')" id="navQuizBtn">⚡ <span id="navQuizLbl">חידון</span></button>
+  <button class="nav-tab" data-screen="game" onclick="goTo('game')" id="navGameBtn">🔗 <span id="navGameLbl">משחק</span></button>
   <div class="nav-right">
     <div class="xp-badge">⚡ <span id="xpTotal">0</span> XP</div>
-    <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
+    <button class="review-btn" onclick="openReview()" id="reviewBtn">📚 סיכום מלא</button><button class="lang-btn" onclick="toggleLang()" id="langBtn">EN</button>
   </div>
 </nav>
 
@@ -517,81 +697,22 @@ li{margin-bottom:4px}
   </div>
 </section>
 
-<!-- LAB -->
-<section class="screen" id="lab">
-  <div class="lab-layout">
-    <div class="lab-sb" id="labSb">
-      <div class="lab-sb-title" id="labSbTitle">מעבדה</div>
-      <div id="labSbList"></div>
+<!-- GAME -->
+<section class="screen" id="game">
+  <div class="game-layout">
+    <div class="game-sb" id="gameSb">
+      <div class="game-sb-title" id="gameSbTitle">פרקים</div>
+      <div id="gameSbList"></div>
     </div>
-    <div class="lab-content" id="labContent">
-      <div class="lab-welcome" id="labWelcome">
-        <div class="lab-welcome-icon">🧪</div>
-        <h2 class="lab-welcome-h" id="labWelcomeH">בחר פרק לתרגול</h2>
-        <p class="lab-welcome-p" id="labWelcomeP">95 שאלות · הסברים מפורטים</p>
-        <div class="lab-ch-grid" id="labChGrid"></div>
+    <div class="game-content" id="gameContent">
+      <div class="game-welcome" id="gameWelcome">
+        <div class="game-welcome-icon">🔗</div>
+        <h2 class="game-welcome-h" id="gameWelcomeH">משחק התאמה</h2>
+        <p class="game-welcome-p" id="gameWelcomeP">בחר פרק להתחיל</p>
       </div>
-      <div id="lqArea" style="display:none"></div>
     </div>
   </div>
 </section>
-
-<!-- QUIZ -->
-<section class="screen" id="quiz">
-  <div class="quiz-layout">
-    <div class="quiz-home" id="quizHome">
-      <div class="quiz-home-icon">⚡</div>
-      <h2 class="quiz-home-h" id="qzHomeH">חידון</h2>
-      <p class="quiz-home-p" id="qzHomeP">ענה מהר ככל האפשר</p>
-      <div class="quiz-home-modes">
-        <button class="qz-mode-btn" onclick="startQuiz(10)">
-          <span class="qz-mode-icon">🔥</span>
-          <span class="qz-mode-n">10</span>
-          <span class="qz-mode-l" id="qzLbl10">מהיר</span>
-        </button>
-        <button class="qz-mode-btn" onclick="startQuiz(20)">
-          <span class="qz-mode-icon">⚡</span>
-          <span class="qz-mode-n">20</span>
-          <span class="qz-mode-l" id="qzLbl20">מרתון</span>
-        </button>
-        <button class="qz-mode-btn" onclick="startQuiz('all')">
-          <span class="qz-mode-icon">🏆</span>
-          <span class="qz-mode-n">∞</span>
-          <span class="qz-mode-l" id="qzLblAll">הכל</span>
-        </button>
-      </div>
-      <div class="quiz-best" id="quizBest"></div>
-    </div>
-    <div class="quiz-game" id="quizGame" style="display:none">
-      <div class="quiz-hud">
-        <div class="qz-hud-left">
-          <div class="qz-stat"><span class="qz-stat-v" id="qzScore">0</span><span class="qz-stat-l" id="qzScoreLbl">ניקוד</span></div>
-          <div class="qz-stat"><span class="qz-stat-v" id="qzStreak">0</span><span class="qz-stat-l" id="qzStreakLbl">רצף</span></div>
-        </div>
-        <div class="qz-timer-wrap">
-          <svg class="qz-timer-svg" viewBox="0 0 44 44">
-            <circle class="qz-timer-bg" cx="22" cy="22" r="18"/>
-            <circle class="qz-timer-arc" id="qzArc" cx="22" cy="22" r="18"/>
-          </svg>
-          <span class="qz-timer-num" id="qzTimerNum">15</span>
-        </div>
-        <div class="qz-hud-right">
-          <div class="qz-stat"><span class="qz-stat-v" id="qzNum">1/10</span><span class="qz-stat-l" id="qzNumLbl">שאלה</span></div>
-          <button class="qz-quit-btn" onclick="quitQuiz()">✕</button>
-        </div>
-      </div>
-      <div class="quiz-q-area">
-        <div class="qz-cat" id="qzCat"></div>
-        <div class="qz-q" id="qzQ"></div>
-        <div id="qzSnip"></div>
-        <div class="qz-opts" id="qzOpts"></div>
-        <div class="qz-feedback" id="qzFeedback"></div>
-      </div>
-    </div>
-    <div class="quiz-result" id="quizResult" style="display:none"></div>
-  </div>
-</section>
-
 <script>
 var CHAPTERS = [
   {
@@ -2352,7 +2473,7 @@ function toggleLang() {
   applyLangUI();
   buildLandGrid();
   buildSidebar();
-  buildLabSidebar();
+  buildGameSidebar();
   buildLabWelcome();
   if (CUR_CH) loadCh(CUR_CH);
 }
@@ -2362,34 +2483,34 @@ function applyLangUI() {
   var isHe = LANG === 'he';
   var ui = isHe ? {
     logo:       '⛓ Crypto<span>Forensics</span>',
-    navHome:    'ראשי', navLearn: 'למידה', navLab: 'מעבדה', navQuiz: 'חידון',
+    navHome:    'ראשי', navLearn: 'למידה', navGame: 'משחק',
     heroTag:    'COURSE — 12 CHAPTERS',
     heroH:      'Crypto<br><i>Forensics</i>',
-    heroP:      '13 פרקים · מתחילים למתקדמים · 95 שאלות',
+    heroP:      '13 פרקים · מתחילים למתקדמים · Blockchain Forensics',
     heroCta:    'התחל →',
-    statsChapters: 'פרקים', statsQuestions: 'שאלות', statsSkills: 'מיומנויות',
+    statsChapters: 'פרקים', statsQuestions: 'זוגות', statsSkills: 'מיומנויות',
     sbTitle:    'פרקים',
     lcPlaceholder: 'בחר פרק להתחלה',
-    labSbTitle: 'מעבדה',
-    labWelcomeH:'בחר פרק לתרגול',
-    labWelcomeP:'95 שאלות · הסברים מפורטים',
+    gameSbTitle: 'פרקים',
+    gameWelcomeH:'משחק התאמה',
+    gameWelcomeP:'בחר פרק להתחיל',
     qzHomeH:    'חידון טריוויה',
     qzHomeP:    'ענה על שאלות מהר ככל האפשר — כל שנייה שווה נקודות!',
     qzLbl10:    'שאלות מהירות', qzLbl20: 'מרתון', qzLblAll: 'כל השאלות',
     qzScoreLbl: 'ניקוד', qzStreakLbl: 'רצף', qzNumLbl: 'שאלה',
   } : {
     logo:       '⛓ Crypto<span>Forensics</span>',
-    navHome:    'Home', navLearn: 'Learn', navLab: 'Lab', navQuiz: 'Quiz',
+    navHome:    'Home', navLearn: 'Learn', navGame: 'Game',
     heroTag:    'COURSE — 12 CHAPTERS',
     heroH:      'Crypto<br><i>Forensics</i>',
-    heroP:      '13 chapters · Beginner to Advanced · 95 questions',
+    heroP:      '13 chapters · Beginner to Advanced · Blockchain Forensics',
     heroCta:    'Start →',
     statsChapters: 'Chapters', statsQuestions: 'Questions', statsSkills: 'Skills',
     sbTitle:    'Chapters',
     lcPlaceholder: 'Choose a chapter to begin',
-    labSbTitle: 'Lab',
-    labWelcomeH:'Choose a chapter',
-    labWelcomeP:'95 questions · Detailed explanations',
+    gameSbTitle: 'Chapters',
+    gameWelcomeH:'Matching Game',
+    gameWelcomeP:'Choose a chapter to start',
     qzHomeH:    'Trivia Quiz',
     qzHomeP:    'Answer as fast as you can — every second counts!',
     qzLbl10:    'Quick Round', qzLbl20: 'Marathon', qzLblAll: 'All Questions',
@@ -2402,8 +2523,7 @@ function applyLangUI() {
   set('logoText',     ui.logo);
   txt('navHomeLbl',   ui.navHome);
   txt('navLearnLbl',  ui.navLearn);
-  txt('navLabLbl',    ui.navLab);
-  txt('navQuizLbl',   ui.navQuiz);
+  txt('navGameLbl',   ui.navGame);
   set('heroTag',      ui.heroTag);
   set('heroH',        ui.heroH);
   set('heroP',        ui.heroP);
@@ -2415,8 +2535,10 @@ function applyLangUI() {
   txt('sbTitle',      ui.sbTitle);
   txt('lcPlaceholder',ui.lcPlaceholder);
   txt('labSbTitle',   ui.labSbTitle);
-  set('labWelcomeH',  ui.labWelcomeH);
-  set('labWelcomeP',  ui.labWelcomeP);
+  set('navGameLbl', ui.navGame);
+  set('gameWelcomeH', ui.gameWelcomeH);
+  set('gameWelcomeP', ui.gameWelcomeP);
+  set('gameSbTitle', ui.gameSbTitle);
   txt('qzHomeH',      ui.qzHomeH);
   txt('qzHomeP',      ui.qzHomeP);
   txt('qzLbl10',      ui.qzLbl10);
@@ -2482,8 +2604,8 @@ function loadCh(n) {
   if (btns[n-1]) btns[n-1].classList.add('active');
 
   // prev/next labels
-  var prevL = n > 0     ? (isHe ? '→ פרק ' + (n-1) : '← Ch '+(n-1)) : null;
-  var nextL = n < total ? (isHe ? 'פרק '+(n+1)+' ←' : 'Ch '+(n+1)+' →') : null;
+  var prevL = n > 0     ? (isHe ? '← פרק ' + (n-1) : '← Ch '+(n-1)) : null;
+  var nextL = n < total ? (isHe ? 'פרק '+(n+1)+' →' : 'Ch '+(n+1)+' →') : null;
 
   var navTop = '<div class="ch-nav">' +
     (prevL ? '<button class="ch-nav-btn" onclick="loadCh('+(n-1)+')">' + prevL + '</button>' : '<span></span>') +
@@ -2498,7 +2620,10 @@ function loadCh(n) {
     '</div>';
 
   var content = document.getElementById('learnContent');
-  content.innerHTML = navTop + data.content() + navBottom;
+  var isHe2 = LANG === 'he';
+  var sumBlock = SUMMARIES[isHe2 ? 'he' : 'en'][n] ?
+    '<div class="chapter-summary"><div class="chapter-summary-title">📋 ' + (isHe2 ? 'סיכום פרק' : 'Chapter Summary') + '</div>' + SUMMARIES[isHe2 ? 'he' : 'en'][n] + '</div>' : '';
+  content.innerHTML = navTop + data.content() + sumBlock + navBottom;
   content.scrollTop = 0;
 
   // read progress
@@ -2902,7 +3027,7 @@ function quitQuiz() {
 function init() {
   buildLandGrid();
   buildSidebar();
-  buildLabSidebar();
+  buildGameSidebar();
   buildLabWelcome();
   applyLangUI();
 }
@@ -3029,6 +3154,414 @@ init = function() {
   setTimeout(injectMobileToggles, 100);
 };
 
+
+var MATCH_DATA = {};
+var MATCH_DATA_EN = {};
+MATCH_DATA[0] = {pairs: [["מה הייתה ההודעה שהטמין Satoshi ב-Genesis Block?", "The Times 03/Jan/2009 Chancellor on brink of second bailout "], ["כמה BTC שולמו עבור שתי פיצות ב-2010?", "10,000 BTC"], ["מה פונקציית Hash חד-כיוונית?", "פונקציה שקל לחשב קדימה אך בלתי אפשרי להפוך"], ["מהו Stablecoin?", "מטבע קריפטו שמחירו מוצמד לנכס יציב כמו דולר"], ["לפי Chainalysis 2024, איזה מטבע שלט בעסקאות פליליות ב-2", "USDT על TRON"], ["איזה Explorer מתאים לחקירת עסקת USDT ב-TRON?", "Tronscan.org"], ["מה היה Silk Road?", "שוק Dark Web שקיבל תשלום ב-Bitcoin — נסגר על ידי FBI ב-2013"], ["מה ECDSA?", "Elliptic Curve Digital Signature Algorithm — אלגוריתם חתימה "]]};
+MATCH_DATA_EN[0] = {pairs: [["What message did Satoshi embed in the Genesis Block?", "The Times 03/Jan/2009 Chancellor on brink of second bailout "], ["How many BTC were paid for two pizzas in 2010?", "10,000 BTC"], ["What is a one-way hash function?", "Function easy to compute forward but impossible to reverse"], ["What is a Stablecoin?", "Crypto coin pegged to a stable asset like the dollar"], ["According to Chainalysis 2024, which coin dominated cri", "USDT on TRON"], ["Which explorer is suitable for investigating a USDT tra", "Tronscan.org"], ["What was Silk Road?", "Dark Web marketplace accepting Bitcoin payment — shut down b"], ["What is ECDSA?", "Elliptic Curve Digital Signature Algorithm — signing algorit"]]};
+MATCH_DATA[1] = {pairs: [["מה מונע שינוי עסקה ישנה ב-Bitcoin?", "Hash של כל בלוק כולל Hash של הקודם"], ["מה כולל ה-TXID של עסקת Bitcoin?", "Hash SHA-256 של תוכן העסקה"], ["מהו UTXO ב-Bitcoin?", "Unspent Transaction Output — פלט לא מוצא שניתן להוציא"], ["מה ההבדל העיקרי בין PoW ל-PoS?", "PoW: כוח מחשוב. PoS: כמות מטבעות ממושכנת"], ["מה פורמט כתובת Ethereum?", "0x + 40 hex chars (42 תווים סה\\"], ["איזה כלי הכי מתאים לחקירת עסקת USDT ב-TRON?", "Tronscan.org"], ["מה מאפשר 51% Attack?", "כתיבה מחדש של היסטוריה אחרונה + double spend"], ["אם שינינו תו אחד בעסקה, מה יקרה ל-Hash?", "ישתנה לחלוטין — Avalanche Effect"]]};
+MATCH_DATA_EN[1] = {pairs: [["What prevents altering an old Bitcoin transaction?", "Each block's Hash includes the previous block's Hash"], ["What does a Bitcoin TXID contain?", "SHA-256 hash of the transaction content"], ["What is a UTXO in Bitcoin?", "Unspent Transaction Output — unspent output that can be spen"], ["What is the main difference between PoW and PoS?", "PoW: computing power. PoS: amount of staked coins"], ["What is the Ethereum address format?", "0x + 40 hex chars (42 chars total)"], ["Which tool is best for investigating a USDT transaction", "Tronscan.org"], ["What does a 51% attack enable?", "Rewriting recent history + double spend"], ["If we change one character in a transaction, what happe", "Changes completely — Avalanche Effect"]]};
+MATCH_DATA[2] = {pairs: [["מה Private Key ב-Bitcoin?", "256-bit מספר אקראי שמאפשר חתימת עסקאות"], ["מה מקור ה-Seed Phrase?", "BIP39 — רשימה של 2048 מילים באנגלית"], ["מה מאפשר HD Wallet?", "גזירת אינסוף כתובות מ-Seed אחד"], ["מה ההבדל בין Custodial ל-Non-Custodial?", "Custodial: Exchange מחזיק המפתחות. Non-Custodial: אתה"], ["מה יתרון Cold Wallet בחקירה?", "ממועט בגניבה — כספים כנראה לא זזים לעיתים קרובות"], ["מה מייצג הנתיב m/44'/60'/0'/0/0?", "ETH address #0 ב-HD Wallet (BIP44)"], ["מה חשיבות Private Key בחקירה?", "שולט בכל הכספים בכתובת — ראיה ישירה לבעלות"], ["איזה מהבאים הוא כתובת Bitcoin Segwit (Native)?", "bc1q..."]]};
+MATCH_DATA_EN[2] = {pairs: [["What is a Private Key in Bitcoin?", "256-bit random number enabling transaction signing"], ["What is the origin of a Seed Phrase?", "BIP39 — list of 2048 English words"], ["What does an HD Wallet enable?", "Deriving infinite addresses from one Seed"], ["What is the difference between Custodial and Non-Custod", "Custodial: Exchange holds the keys. Non-Custodial: you do"], ["What is the investigative significance of a Cold Wallet", "Less prone to theft — funds likely don't move often"], ["What does the path m/44'/60'/0'/0/0 represent?", "ETH address #0 in HD Wallet (BIP44)"], ["What is the significance of a Private Key in an investi", "Controls all funds at that address — direct evidence of owne"], ["Which of the following is a Native SegWit Bitcoin addre", "bc1q..."]]};
+MATCH_DATA[3] = {pairs: [["מה ENS?", "Ethereum Name Service — שמות קריאים לכתובות ETH"], ["מה ENS Domain חושף בחקירה?", "כתובת הארנק, מי רשם, מתי, ושינויי resolver"], ["מה Reverse ENS?", "חיפוש מכתובת → domain name"], ["מה ייחודי ב-Unstoppable Domains?", "תשלום חד-פעמי — אין חידוש שנתי"], ["מדוע ENS domain הוא NFT?", "ניתן להעביר ולמכור כמו נכס דיגיטלי"], ["כיצד alice.eth מתרגם לכתובת?", "Smart Contract חיפוש ENS Registry → resolver contract → כתוב"], ["איזה שירות מספק .sol domains?", "Bonfida על Solana"], ["ארנק שרשם ENS domain שימש להורדת Seed ב-3 חשבונות — מה ", "ייתכן שאותו אדם שולט בDomain ובארנקים המנוקזים"]]};
+MATCH_DATA_EN[3] = {pairs: [["What is ENS?", "Ethereum Name Service — readable names for ETH addresses"], ["What does an ENS domain reveal in an investigation?", "Wallet address, who registered, when, and resolver changes"], ["What is Reverse ENS?", "Search from address → domain name"], ["What is unique about Unstoppable Domains?", "One-time payment — no annual renewal"], ["Why is an ENS domain an NFT?", "Transferable and sellable as a digital asset"], ["How does alice.eth translate to an address?", "Smart Contract lookup ENS Registry → resolver contract → add"], ["Which service provides .sol domains?", "Bonfida on Solana"], ["A wallet that registered an ENS domain was used to drai", "Likely the same person controls the domain and the drained w"]]};
+MATCH_DATA[4] = {pairs: [["מה ההבדל בין UTXO ל-Account Model?", "UTXO: כל 'מטבע' עם היסטוריה. Account: יתרה מצטברת"], ["מה 'Internal Transactions' ב-Etherscan?", "קריאות contract-to-contract שאינן TX עצמאיות"], ["מה Gas Limit ב-Ethereum?", "מקסימום Gas שהמשתמש מוכן לשלם לעסקה"], ["מה שורף ETH בעסקאות EIP-1559?", "Base Fee — נשרפת ולא מגיעה ל-validators"], ["כיצד מזהים העברת USDT ב-Etherscan?", "Token Transfers tab → בחר USDT → ראה from/to/amount"], ["מה הצעד הראשון ב-Follow the Money?", "זיהוי הכתובת המקורית של האירוע"], ["מה Mempool?", "תור עסקאות שממתינות לכלול בבלוק"], ["מה Label על כתובת ב-Etherscan מעיד?", "כתובת מזוהה כשייכת לישות ידועה (exchange, defi וכו')"]]};
+MATCH_DATA_EN[4] = {pairs: [["What is the difference between UTXO and Account Model?", "UTXO: each 'coin' has history. Account: cumulative balance"], ["What are 'Internal Transactions' on Etherscan?", "Contract-to-contract calls that aren't standalone TXs"], ["What is Gas Limit on Ethereum?", "Maximum Gas the user is willing to pay for a transaction"], ["What burns ETH in EIP-1559 transactions?", "Base Fee — burned and doesn't reach validators"], ["How do you identify a USDT transfer on Etherscan?", "Token Transfers tab → select USDT → see from/to/amount"], ["What is the first step in Follow the Money?", "Identify the originating address of the incident"], ["What is the Mempool?", "Queue of transactions waiting to be included in a block"], ["What does a Label on an Etherscan address indicate?", "Address identified as belonging to a known entity (exchange,"]]};
+MATCH_DATA[5] = {pairs: [["מה Co-spend Heuristic?", "inputs של אותה עסקה שייכים לאותו בעלים"], ["מה Change Address Heuristic?", "הOutput הקטן ביותר בעסקה = עודף חוזר לשולח"], ["מדוע שימוש חוזר בכתובת מסייע לחוקר?", "מאפשר clustering של עסקאות וזיהוי דפוסי פעילות"], ["כיצד Exchange יכול לחשוף זהות?", "KYC בעת פתיחת חשבון + Subpoena מגוף חוקר"], ["מה משמעות 'Binance KYC Leak 2019'?", "דליפת תמונות ID ומסמכי KYC של משתמשים"], ["מה Chainalysis?", "חברת blockchain analytics המספקת attribution לגופי אכיפה"], ["מה מקור OSINT שימושי לattribution?", "Forum posts עם mention של כתובת, ENS names, GitHub, Twitter/"], ["מה WalletExplorer.com מספק?", "Clustering של ארנקי Bitcoin — שיוך לExchanges מוכרים"]]};
+MATCH_DATA_EN[5] = {pairs: [["What is the Co-spend Heuristic?", "Inputs of the same transaction belong to the same owner"], ["What is the Change Address Heuristic?", "The smallest output = change returning to sender"], ["Why does address reuse help an investigator?", "Enables clustering of transactions and identifying activity "], ["How can an exchange reveal identity?", "KYC during account opening + Subpoena from investigative bod"], ["What does 'Binance KYC Leak 2019' mean?", "Leaked ID photos and KYC documents of users"], ["What is Chainalysis?", "Blockchain analytics company providing attribution to law en"], ["What is a useful OSINT source for attribution?", "Forum posts mentioning addresses, ENS names, GitHub, Twitter"], ["What does WalletExplorer.com provide?", "Bitcoin wallet clustering — attribution to known exchanges"]]};
+MATCH_DATA[6] = {pairs: [["מה Rug Pull?", "מפתח מסיר liquidity לאחר pump ומחיר קורס"], ["כיצד Honeypot Contract פועל?", "מאפשר קנייה אבל חוסם מכירה דרך קוד נסתר"], ["מה המאפיין העיקרי של Pig Butchering?", "מערכת יחסים ארוכת-טווח ב-Social Media לפני ה-scam"], ["מדוע audit חשוב לפני השקעה?", "מגלה backdoors, mint functions, ו-transfer restrictions נסתר"], ["מה red flag הכי נפוץ ב-token scam?", "APY > 1000% + צוות אנונימי + אין audit"]]};
+MATCH_DATA_EN[6] = {pairs: [["What is a Rug Pull?", "Dev removes liquidity after pump and price crashes"], ["How does a Honeypot Contract work?", "Allows buying but blocks selling via hidden code"], ["What is the main characteristic of Pig Butchering?", "Long-term social media relationship before the scam"], ["Why is an audit important before investing?", "Reveals backdoors, mint functions, hidden transfer restricti"], ["What is the most common red flag in a token scam?", "APY > 1000% + anonymous team + no audit"]]};
+MATCH_DATA[7] = {pairs: [["מה מטרת Mixer?", "שבירת שרשרת הראיות בין input ל-output"], ["מה קרה ל-Tornado Cash ב-2022?", "OFAC הטיל סנקציות ואסר שימוש בו לאמריקאים"], ["כיצד לזהות CoinJoin ב-Bitcoin?", "עסקה עם inputs מרובים וoutputs בסכומים שווים"], ["מדוע Peel Chain קשה יותר לעקוב?", "כספים עוברים דרך עשרות ארנקי ביניים — מאריך ומסבך הגרף"], ["מה 'Timing Correlation' במעקב אחרי Mixer?", "מתאם זמן בין deposit ל-withdrawal — מצמצם מי יכול להיות ה-ou"]]};
+MATCH_DATA_EN[7] = {pairs: [["What is the purpose of a Mixer?", "Breaking evidence chain between input and output"], ["What happened to Tornado Cash in 2022?", "OFAC imposed sanctions, banning use by Americans"], ["How to identify CoinJoin in Bitcoin?", "Transaction with multiple inputs and equal output amounts"], ["Why is a Peel Chain harder to trace?", "Funds pass through dozens of intermediate wallets — lengthen"], ["What is 'Timing Correlation' in tracing through a Mixer", "Correlating time between deposit and withdrawal — narrows wh"]]};
+MATCH_DATA[8] = {pairs: [["מדוע CEX הוא נקודת חולשה עבור חשוד?", "KYC מחייב גילוי זהות — Subpoena = שם אמיתי"], ["מדוע DEX לא מספק אנונימיות מלאה?", "כל עסקה on-chain — גלויה ל-Etherscan + מאפשרת clustering"], ["כיצד מזהים הפקדה לExchange?", "כתובת labeled ב-Etherscan כ-Exchange Hot Wallet"], ["מה FATF Travel Rule?", "VASPs חייבים לשתף מידע על שולח/מקבל בעסקאות מעל $1000"], ["כיצד לעקוב אחרי Bridge Transaction?", "כתובת deposit ב-Chain A + כתובת withdrawal ב-Chain B + מתאם "]]};
+MATCH_DATA_EN[8] = {pairs: [["Why is a CEX a weak point for a suspect?", "KYC requires identity disclosure — Subpoena = real name"], ["Why doesn't a DEX provide full anonymity?", "Every transaction on-chain — visible to Etherscan + allows c"], ["How do you identify an Exchange deposit?", "Address labeled in Etherscan as Exchange Hot Wallet"], ["What is the FATF Travel Rule?", "VASPs must share sender/receiver info on transactions over $"], ["How do you trace a Bridge Transaction?", "Deposit address on Chain A + withdrawal address on Chain B +"]]};
+MATCH_DATA[9] = {pairs: [["כיצד לזהות NFT Wash Trading?", "קונה ומוכר הם אותה ישות — cluster analysis מגלה זרימות מעגלי"], ["מה ABI ב-Smart Contract?", "Application Binary Interface — תיאור הפונקציות והאירועים של "], ["מה Reentrancy Attack?", "Contract מוציא ETH → Contract חיצוני קורא חזרה לפני עדכון ba"], ["מה המאפיין הייחודי של Flash Loan?", "הלוואה ללא ביטחון שחייבת להיסגר באותה TX — אחרת reverts"], ["מה ייחודי ב-ERC-721?", "כל token ייחודי — לא ניתן להחלפה עם token אחר (Non-Fungible)"]]};
+MATCH_DATA_EN[9] = {pairs: [["How to identify NFT Wash Trading?", "Buyer and seller are same entity — cluster analysis reveals "], ["What is ABI in a Smart Contract?", "Application Binary Interface — describes contract functions "], ["What is a Reentrancy Attack?", "Contract sends ETH → external contract calls back before bal"], ["What is unique about a Flash Loan?", "Uncollateralized loan that must close in same TX — else reve"], ["What is unique about ERC-721?", "Each token is unique — not interchangeable with another (Non"]]};
+MATCH_DATA[10] = {pairs: [["מה הסיכון העיקרי ב-Cross-Chain Bridge?", "חוזי Bridge = כספות ענק = target ראשי לhackers"], ["כיצד עסקת Arbitrum מתועדת ב-L1?", "כ-batch של עסקאות מרובות ב-calldata של TX אחת ב-Ethereum"], ["מה WBTC?", "Wrapped Bitcoin — ERC-20 token ב-Ethereum המייצג BTC בחסות B"], ["מה האתגר הגדול ב-Cross-Chain Forensics?", "אין כתובת משותפת — צריך מתאם סכום+זמן בין רשתות שונות"], ["מה הופך Atomic Swap לקשה לעקוב?", "אין מתווך — אין כתובת bridge לסמן ב-Explorer"]]};
+MATCH_DATA_EN[10] = {pairs: [["What is the main risk in a Cross-Chain Bridge?", "Bridge contracts = massive vaults = primary hacker target"], ["How is an Arbitrum transaction recorded on L1?", "As a batch of multiple transactions in calldata of one Ether"], ["What is WBTC?", "Wrapped Bitcoin — ERC-20 token on Ethereum representing BTC "], ["What is the biggest challenge in Cross-Chain Forensics?", "No shared address — need amount+time correlation across diff"], ["What makes an Atomic Swap hard to trace?", "No intermediary — no bridge address to label in Explorer"]]};
+MATCH_DATA[11] = {pairs: [["מה מסתיר Monero?", "שולח, מקבל, וסכום — הכל מוסתר כברירת מחדל"], ["למה Zcash פחות פרטי ממה שנדמה?", "רוב המשתמשים משתמשים בt-addresses (transparent) — כמו Bitcoi"], ["מה Ring Size 16 אומר?", "1 חותם אמיתי + 15 decoys — אחד מ-16 חתם, לא ידוע מי"], ["מה ניתן לעקוב גם ב-Monero?", "כניסה/יציאה בExchange (KYC) + timing attacks בין exchanges"], ["מה IRS שילמה CipherTrace לעשות ב-2020?", "לפתח כלי לtracing הסתברותי של עסקאות Monero"]]};
+MATCH_DATA_EN[11] = {pairs: [["What does Monero hide?", "Sender, receiver, and amount — all hidden by default"], ["Why is Zcash less private than it seems?", "Most users use t-addresses (transparent) — like Bitcoin"], ["What does Ring Size 16 mean?", "1 real signer + 15 decoys — one of 16 signed, unknown which"], ["What can still be traced even in Monero?", "Entry/exit at exchange (KYC) + timing attacks between exchan"], ["What did the IRS pay CipherTrace to do in 2020?", "Develop probabilistic tracing tool for Monero transactions"]]};
+MATCH_DATA[12] = {pairs: [["מה הצעד הראשון בחקירת Crypto?", "זיהוי האירוע ו-seed address — נקודת ההתחלה של הגרף"], ["מה נדרש להוציא Subpoena לExchange?", "צו בית משפט (US) או MLAT (בינלאומי) + ראיות מספיקות לביסוס"], ["מה Maltego בהקשר של חקירת Crypto?", "פלטפורמת OSINT + blockchain transforms — ויזואליזציה של קשרי"], ["מה חייב לכלול דוח Blockchain Forensics מקצועי?", "Executive Summary + Transaction Graph + Attribution + Confid"], ["מה 'Confidence Level' ב-Attribution?", "רמת הוודאות (%) שהשיוך נכון — בית משפט דורש רמה גבוהה"]]};
+MATCH_DATA_EN[12] = {pairs: [["What is the first step in a Crypto investigation?", "Identifying the incident and seed address — starting point o"], ["What is required to issue a Subpoena to an Exchange?", "Court order (US) or MLAT (international) + sufficient suppor"], ["What is Maltego in the context of a Crypto investigatio", "OSINT + blockchain transforms platform — relationship visual"], ["What must a professional Blockchain Forensics report in", "Executive Summary + Transaction Graph + Attribution + Confid"], ["What is 'Confidence Level' in attribution?", "Certainty level (%) that attribution is correct — court requ"]]};
+
+var SUMMARIES = {
+  he: [
+    `<div class="sum-block"><div class="sum-block-title">🌐 מבוא — יסודות קריפטו</div>
+<div class="sum-row"><span class="sum-k">Bitcoin — הרעיון</span><span class="sum-v">העברת ערך ישירות בין שני אנשים — <strong>ללא בנק, ללא מתווך</strong>. הרשת כולה מאמתת. אי אפשר לזייף, אי אפשר לכפול.</span></div>
+<div class="sum-row"><span class="sum-k">Bitcoin vs Ethereum vs Stablecoins</span><span class="sum-v"><strong>Bitcoin</strong>: מטבע + חנות ערך. <strong>Ethereum</strong>: פלטפורמת smart contracts. <strong>Stablecoins</strong> (USDT/USDC): ערך קבוע = $1, גיבוי דולרי.</span></div>
+<div class="sum-row"><span class="sum-k">קריפטוגרפיה — הבסיס</span><span class="sum-v"><strong>Hash</strong>: כל קלט → digest חד-כיווני (SHA-256). <strong>Public Key Crypto</strong>: זוג מפתחות — ציבורי (כתובת), פרטי (חתימה). <strong>Digital Signature</strong>: רק בעל המפתח הפרטי חותם.</span></div>
+<div class="sum-row"><span class="sum-k">USDT-TRC20 בפשע</span><span class="sum-v">עמלה &lt;$1, מהיר (3 שניות), נפוץ עולמית. Tether יכולה להקפיא כתובות — אבל רק לאחר דיווח. לכן נפוץ בפשע.</span></div>
+<div class="sum-row"><span class="sum-k">Genesis Block</span><span class="sum-v">Block #0, נחצב ינואר 2009 ע"י Satoshi. מכיל הודעה: "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks". 50 BTC — לא ניתן להוצאה.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">⛓ Blockchain — איך עובד</div>
+<div class="sum-row"><span class="sum-k">מבנה Block</span><span class="sum-v">Block Hash, Previous Hash (שרשרת), Merkle Root (hash כל העסקאות), Timestamp, Nonce. שינוי block אחד = כל מה שאחריו invalid.</span></div>
+<div class="sum-row"><span class="sum-k">Proof of Work</span><span class="sum-v">Miners מנסים nonce values עד שמוצאים hash עם X אפסים בהתחלה. Bitcoin: block אחד כל ~10 דקות. Difficulty מתכוונן כל 2016 blocks.</span></div>
+<div class="sum-row"><span class="sum-k">UTXO Model</span><span class="sum-v">Bitcoin = Unspent Transaction Outputs, לא "יתרה". כמו שטרות: חייבים להוציא הכל (עם עודף חזרה). נותן traceability מלאה לכל satoshi.</span></div>
+<div class="sum-row"><span class="sum-k">Confirmations</span><span class="sum-v">כל block שנוסף אחרי עסקה = confirmation. 1 conf = ניתן לreverse. 6 conf (~60 דקות) = בלתי הפיך בפועל.</span></div>
+<div class="sum-row"><span class="sum-k">Merkle Tree</span><span class="sum-v">כל עסקה מ-hash, זוגות עולים עד Merkle Root. מאפשר הוכחה שעסקה כלולה ב-block ללא הורדת כל ה-blockchain (SPV).</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">👛 ארנקים — מבנה</div>
+<div class="sum-row"><span class="sum-k">Private Key → Address</span><span class="sum-v">Private Key: 256 bits אקראיים. Public Key: נגזר מprivate key (Elliptic Curve). Address: hash של public key. <strong>חד-כיווני לחלוטין</strong>.</span></div>
+<div class="sum-row"><span class="sum-k">סוגי ארנקים</span><span class="sum-v"><strong>Custodial</strong>: Exchange מחזיק keys. <strong>Non-custodial</strong>: אתה מחזיק (MetaMask). <strong>Hardware</strong>: Ledger/Trezor — הכי מאובטח. <strong>Paper</strong>: key מודפס.</span></div>
+<div class="sum-row"><span class="sum-k">Seed Phrase (BIP-39)</span><span class="sum-v">12-24 מילים שמייצגות private key. מseed ניתן לשחזר הכל. גנוב seed = גנוב הכל. <strong>לעולם לא לשתף.</strong></span></div>
+<div class="sum-row"><span class="sum-k">HD Wallet (BIP-44)</span><span class="sum-v">מseed אחד → אינסוף כתובות. m/44'/0'/0'/0/0 = Bitcoin ראשון. כל עסקה יכולה לקבל כתובת חדשה = פרטיות.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🏷️ Wallet Domains</div>
+<div class="sum-row"><span class="sum-k">ENS (Ethereum Name Service)</span><span class="sum-v">alice.eth → כתובת Ethereum. Smart contract. נרשם ב-app.ens.domains. נמכר כ-NFT. ניתן לmrace — מי מחזיק ENS?</span></div>
+<div class="sum-row"><span class="sum-k">Unstoppable Domains</span><span class="sum-v">.crypto, .nft, .x — דומיינים ב-blockchain. לא ניתן להסרה. תשלום חד-פעמי. מיפוי לכתובות מרובות. נפוץ ב-scam wallets.</span></div>
+<div class="sum-row"><span class="sum-k">Vanity Address</span><span class="sum-v">כתובת עם prefix מיוחד (1Satoshi...) — נוצר ע"י brute force mining. לא פחות מאובטח מכתובת רגילה.</span></div>
+<div class="sum-row"><span class="sum-k">Multi-sig</span><span class="sum-v">דורש M מתוך N חתימות לאישור עסקה. 2-of-3 = נפוץ לאחסון מאובטח. שימוש ב-exchanges ו-DAOs.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🔬 On-Chain Analysis</div>
+<div class="sum-row"><span class="sum-k">Common Input Ownership</span><span class="sum-v">כל inputs בעסקה אחת שייכים לאותו ארנק (בד"כ). מאפשר clustering — קישור כתובות רבות לישות אחת. מגבלה: CoinJoin שובר הנחה זו.</span></div>
+<div class="sum-row"><span class="sum-k">Change Address</span><span class="sum-v">Bitcoin מחזיר עודף ל-change address — לעיתים שייך לאותו ארנק. Output עגול = תשלום, Output מדויק יותר = change.</span></div>
+<div class="sum-row"><span class="sum-k">Peel Chain</span><span class="sum-v">כסף גנוב עובר דרך שרשרת כתובות לטשטוש מקור. כל hop ניתן למעקב ב-blockchain.</span></div>
+<div class="sum-row"><span class="sum-k">כלים</span><span class="sum-v"><strong>Chainalysis</strong>: enterprise. <strong>Arkham</strong>: חינמי/פרמיום, doxxing. <strong>Etherscan</strong>: חינמי, raw data. <strong>Breadcrumbs</strong>: visualization חינמי.</span></div>
+<div class="sum-row"><span class="sum-k">OSINT</span><span class="sum-v">חיפוש כתובת ב-Google, Telegram, Twitter, GitHub, BitcoinTalk. chainabuse.com לדיווחי scam.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🕵️ זיהוי בעלי ארנקים</div>
+<div class="sum-row"><span class="sum-k">KYC ב-Exchanges</span><span class="sum-v">CEX מחייבים KYC. כסף שמגיע/יוצא ל-exchange ← ה-exchange יודע מי. Law enforcement → subpoena. "Off-ramp" לfiat = נקודת חשיפה קריטית.</span></div>
+<div class="sum-row"><span class="sum-k">Social OSINT</span><span class="sum-v">כתובת בTwitter/Telegram/forum → username → חיפוש בכל פלטפורמה → אימייל/שם. Donation addresses ב-YouTube/GitHub — לעיתים מקושרות לזהות ידועה.</span></div>
+<div class="sum-row"><span class="sum-k">Transaction Patterns</span><span class="sum-v">זמן עסקאות → timezone inference. תדירות → שגרת פעילות. סכומים עגולים → payment vs savings.</span></div>
+<div class="sum-row"><span class="sum-k">Address Reuse</span><span class="sum-v">שימוש חוזר = privacy killer. כל עסקה גלויה. Bitcoin best practice: new address per transaction.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🚨 Scam Wallets — זיהוי</div>
+<div class="sum-row"><span class="sum-k">Pig Butchering</span><span class="sum-v">בניית קשר (Tinder/WhatsApp) → "הצלחות השקעה" → השקעות גדלות → disappeared. ממוצע הפסד: $25K. $75B אבדו ב-2023.</span></div>
+<div class="sum-row"><span class="sum-k">Rug Pull</span><span class="sum-v">השקת token, hype, ואז מוכרים הכל בבת-אחת → token מתרסק → liquidity pool מרוקן. SquidGame Token (2021): $3M גנוב.</span></div>
+<div class="sum-row"><span class="sum-k">Red Flags ב-Smart Contracts</span><span class="sum-v"><code>onlyOwner</code> withdraw, token שלא ניתן למכירה (honeypot), העברה מהירה ל-exchange.</span></div>
+<div class="sum-row"><span class="sum-k">כלי זיהוי</span><span class="sum-v">chainabuse.com, cryptoscamdb.org, Token Sniffer, Etherscan comments, Arkham labels.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🌀 מיקסרים ו-Tumbling</div>
+<div class="sum-row"><span class="sum-k">איך Mixer עובד</span><span class="sum-v">כסף מלוכלך → מאגד עם כסף ממשתמשים אחרים → כסף "נקי" מכתובות שונות. הקישור input-output נשבר (לכאורה).</span></div>
+<div class="sum-row"><span class="sum-k">Tornado Cash</span><span class="sum-v">Smart contract Ethereum. OFAC sanctioned אוגוסט 2022. Developer נעצר בהולנד. עדיין פועל. $7B+ עברו. Lazarus Group השתמש אחרי Ronin hack ($620M).</span></div>
+<div class="sum-row"><span class="sum-k">CoinJoin</span><span class="sum-v">כמה Bitcoin users מבצעים עסקה אחת גדולה יחד. Inputs מרובים → Outputs עגולים שווים. Wasabi Wallet, JoinMarket. פחות אנונימי ממה שנדמה.</span></div>
+<div class="sum-row"><span class="sum-k">De-mixing</span><span class="sum-v">Amount correlation: $997.3 נכנסו ו-$997.3 יצאו = likely same entity. Chainalysis טוענת לde-mixing של 80%+ מהmixers.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🏦 Exchanges — CEX & DEX</div>
+<div class="sum-row"><span class="sum-k">CEX — Centralized Exchange</span><span class="sum-v">חברה פרטית, custody, KYC. Advantages: fiat ramp, liquidity. סיכון: FTX, Mt. Gox נפלו. "Not your keys, not your coins."</span></div>
+<div class="sum-row"><span class="sum-k">DEX — Decentralized Exchange</span><span class="sum-v">Smart contracts, ללא KYC, ללא custody. AMM: liquidity pools. Uniswap, SushiSwap. חסרון: ללא fiat.</span></div>
+<div class="sum-row"><span class="sum-k">Exchange → זיהוי</span><span class="sum-v">כתובות exchanges ידועות. כסף ל-CEX hot wallet → KYC ← subpoena → identity. Chainalysis מזהה exchanges אוטומטית.</span></div>
+<div class="sum-row"><span class="sum-k">Travel Rule</span><span class="sum-v">FATF: העברות מעל $1000 בין exchanges חייבות לכלול פרטי sender/recipient. מיושם 2023-2024. DEX אינו מחויב.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🖼️ NFT ו-Smart Contracts</div>
+<div class="sum-row"><span class="sum-k">Smart Contract</span><span class="sum-v">קוד על blockchain — immutable אחרי deployment. לוגיקה אוטומטית "אם X אז Y". Ethereum = פלטפורמה מובילה. עלות = Gas.</span></div>
+<div class="sum-row"><span class="sum-k">NFT</span><span class="sum-v">Token ייחודי, ERC-721. מייצג ownership. ה-NFT = pointer לmedia (לא המדיה עצמה). OpenSea, Blur = marketplaces.</span></div>
+<div class="sum-row"><span class="sum-k">NFT Wash Trading</span><span class="sum-v">מוכר קונה מעצמו = volume מלאכותי. Trade loop: A→B→A. 58% מh-NFT trading volume ב-2022 = wash trading. גם משמש ל-money laundering.</span></div>
+<div class="sum-row"><span class="sum-k">Flash Loan Attack</span><span class="sum-v">לווה מיליונים לblock אחד, מניפולציה, מרוויח, מחזיר — הכל ב-transaction אחת. DAO hack 2016: $60M.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🔗 Cross-Chain Tracing</div>
+<div class="sum-row"><span class="sum-k">Bridges</span><span class="sum-v">Smart contracts להעברת assets בין blockchains. Lock ETH ב-Ethereum → mint WETH ב-Polygon. Ronin Bridge hack: $620M (Lazarus, 2022).</span></div>
+<div class="sum-row"><span class="sum-k">Tracing Cross-Chain</span><span class="sum-v">Bridge transactions גלויים. Amount correlation: 5.0 ETH → 5.0 ETH = likely same actor. Nansen, Voyager לbrige analysis.</span></div>
+<div class="sum-row"><span class="sum-k">EVM-Compatible Chains</span><span class="sum-v">Ethereum, Polygon, Arbitrum, BSC — אותה כתובת בכולן. כתובת ידועה ב-ETH → בדוק ב-Polygon. Debank.com = activity בכל chains.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🔒 Privacy Coins</div>
+<div class="sum-row"><span class="sum-k">Monero (XMR)</span><span class="sum-v">הפרטי ביותר: <strong>Ring Signatures</strong> (מסתיר sender), <strong>Stealth Addresses</strong> (receiver), <strong>RingCT</strong> (amount). Blockchain opaque לחלוטין. WannaCry הומר ל-XMR.</span></div>
+<div class="sum-row"><span class="sum-k">Zcash (ZEC)</span><span class="sum-v">Transparent (t-addr) = גלוי כמו Bitcoin. Shielded (z-addr) = מוצפן zk-SNARKs. רוב המשתמשים משתמשים ב-transparent (!)</span></div>
+<div class="sum-row"><span class="sum-k">Exchange Delistings</span><span class="sum-v">Binance, Kraken מחקו XMR ב-2023-2024. מגביל liquidity. IRS שילמו $625K לCipherTrace לכלי XMR tracing — מוגבל.</span></div>
+<div class="sum-row"><span class="sum-k">Tracing</span><span class="sum-v">Monero: כמעט בלתי אפשרי ללא metadata חיצוני (IP, exchange KYC). XMR שנרכש ב-exchange ← KYC linkage.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">📋 Case Study — מתודולוגיית חקירה</div>
+<div class="sum-row"><span class="sum-k">שלב 1 — Intake</span><span class="sum-v">מה ידוע? כתובת, TxID, platform, סכום, תאריך. Scope: מה היעד? Chain (BTC/ETH/TRX?) קובע את הכלים.</span></div>
+<div class="sum-row"><span class="sum-k">שלב 2 — Initial Trace</span><span class="sum-v">Blockchain explorer: מאיפה הכסף? לאן הלך? Exchange? Mixer? Cross-chain? Exchange → law enforcement request.</span></div>
+<div class="sum-row"><span class="sum-k">שלב 3 — Clustering</span><span class="sum-v">Common input ownership: אסוף כתובות קשורות. האם מתקשרות לכתובות ידועות? Arkham / Nansen לsanity check.</span></div>
+<div class="sum-row"><span class="sum-k">שלב 4 — Attribution</span><span class="sum-v">OSINT: חפש ב-Google, Telegram, BitcoinTalk. ENS? Exchange deposit = subpoena ל-KYC.</span></div>
+<div class="sum-row"><span class="sum-k">שלב 5 — Report</span><span class="sum-v">Executive Summary → Timeline → גרף → Attribution + רמת ביטחון → המלצות. ניתן לשחזור, ניתן לציטוט, עומד בבחינה משפטית.</span></div>
+</div>`
+  ],
+  en: [
+    `<div class="sum-block"><div class="sum-block-title">🌐 Intro — Crypto Fundamentals</div>
+<div class="sum-row"><span class="sum-k">Bitcoin — Core Idea</span><span class="sum-v">Transfer value directly — <strong>no bank, no intermediary</strong>. The entire network verifies. Can't fake or double-spend.</span></div>
+<div class="sum-row"><span class="sum-k">Bitcoin vs Ethereum vs Stablecoins</span><span class="sum-v"><strong>Bitcoin</strong>: currency + store of value. <strong>Ethereum</strong>: smart contract platform. <strong>Stablecoins</strong> (USDT/USDC): fixed value = $1.</span></div>
+<div class="sum-row"><span class="sum-k">Cryptography Basics</span><span class="sum-v"><strong>Hash</strong>: any input → fixed one-way digest (SHA-256). <strong>Public Key</strong>: address. <strong>Private Key</strong>: signing. Only key holder can sign.</span></div>
+<div class="sum-row"><span class="sum-k">USDT-TRC20 in Crime</span><span class="sum-v">Fees &lt;$1, fast (3s), globally widespread. Tether can freeze — but only post-report. Hence popular in illegal trade.</span></div>
+<div class="sum-row"><span class="sum-k">Genesis Block</span><span class="sum-v">Block #0, mined Jan 2009 by Satoshi. Contains: "The Times 03/Jan/2009 Chancellor on brink..." 50 BTC — unspendable.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">⛓ Blockchain — How It Works</div>
+<div class="sum-row"><span class="sum-k">Block Structure</span><span class="sum-v">Block Hash, Previous Hash (the chain), Merkle Root (hash of all txs), Timestamp, Nonce. Change one block = all after it invalid.</span></div>
+<div class="sum-row"><span class="sum-k">Proof of Work</span><span class="sum-v">Miners try nonce values until finding hash with X leading zeros. Bitcoin: one block every ~10 min. Difficulty adjusts every 2016 blocks.</span></div>
+<div class="sum-row"><span class="sum-k">UTXO Model</span><span class="sum-v">Bitcoin = Unspent Transaction Outputs, not "balances." Like physical bills — must spend all (with change back). Full traceability per satoshi.</span></div>
+<div class="sum-row"><span class="sum-k">Confirmations</span><span class="sum-v">1 conf = reversible. 6 conf (~60 min) = effectively irreversible. Exchanges: 1-3 conf small, 6+ large amounts.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">👛 Wallets — Structure</div>
+<div class="sum-row"><span class="sum-k">Private Key → Address</span><span class="sum-v">Private Key: 256 random bits. Public Key: derived via Elliptic Curve. Address: hash of public key. <strong>Strictly one-way.</strong></span></div>
+<div class="sum-row"><span class="sum-k">Wallet Types</span><span class="sum-v"><strong>Custodial</strong>: exchange holds keys. <strong>Non-custodial</strong>: you hold (MetaMask). <strong>Hardware</strong>: Ledger/Trezor — most secure. <strong>Paper</strong>: printed key.</span></div>
+<div class="sum-row"><span class="sum-k">Seed Phrase (BIP-39)</span><span class="sum-v">12-24 words = private key. Stolen seed = everything gone. <strong>Never share.</strong> All wallets recoverable from seed.</span></div>
+<div class="sum-row"><span class="sum-k">HD Wallet (BIP-44)</span><span class="sum-v">One seed → infinite addresses. New address per transaction = more privacy.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🏷️ Wallet Domains</div>
+<div class="sum-row"><span class="sum-k">ENS (Ethereum Name Service)</span><span class="sum-v">alice.eth → Ethereum address. Smart contract. Register at app.ens.domains. Sold as NFT. Enables tracing — who owns ENS?</span></div>
+<div class="sum-row"><span class="sum-k">Unstoppable Domains</span><span class="sum-v">.crypto, .nft, .x — blockchain domains. Can't be removed. One-time payment. Multi-chain mapping. Common in scam wallets.</span></div>
+<div class="sum-row"><span class="sum-k">Multi-sig</span><span class="sum-v">Requires M of N signatures for approval. 2-of-3 common for secure storage. Used by exchanges and DAOs.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🔬 On-Chain Analysis</div>
+<div class="sum-row"><span class="sum-k">Common Input Ownership</span><span class="sum-v">All inputs in one tx likely belong to same wallet. Enables clustering. Limitation: CoinJoin breaks this heuristic.</span></div>
+<div class="sum-row"><span class="sum-k">Change Address</span><span class="sum-v">Bitcoin returns excess to change address — often same wallet. Round output = payment, exact output = change.</span></div>
+<div class="sum-row"><span class="sum-k">Peel Chain</span><span class="sum-v">Stolen funds pass through long address chains to obscure origin. Every hop traceable on blockchain.</span></div>
+<div class="sum-row"><span class="sum-k">Tools</span><span class="sum-v"><strong>Chainalysis</strong>: enterprise. <strong>Arkham</strong>: free/premium doxxing. <strong>Etherscan</strong>: free raw data. <strong>Breadcrumbs</strong>: free visualization.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🕵️ Wallet Owner Identification</div>
+<div class="sum-row"><span class="sum-k">KYC at Exchanges</span><span class="sum-v">CEXs require KYC. Money to/from exchange → exchange knows who. Law enforcement → subpoena. "Off-ramp" to fiat = critical exposure point.</span></div>
+<div class="sum-row"><span class="sum-k">Social OSINT</span><span class="sum-v">Address on Twitter/Telegram/forum → username → search everywhere → email/real name. Donation addresses often linked to known identity.</span></div>
+<div class="sum-row"><span class="sum-k">Address Reuse</span><span class="sum-v">Reusing address = privacy killer. All txs visible. Bitcoin best practice: new address per transaction.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🚨 Scam Wallets — Detection</div>
+<div class="sum-row"><span class="sum-k">Pig Butchering</span><span class="sum-v">Build real relationship → show "investment wins" → grow investments → disappeared. Avg loss: $25K. $75B lost in 2023.</span></div>
+<div class="sum-row"><span class="sum-k">Rug Pull</span><span class="sum-v">Launch token, build hype, sell all at once → crash → empty pool. SquidGame Token (2021): $3M stolen.</span></div>
+<div class="sum-row"><span class="sum-k">Red Flags</span><span class="sum-v"><code>onlyOwner</code> withdraw, honeypot (can't sell), fast transfer to exchange.</span></div>
+<div class="sum-row"><span class="sum-k">Detection Tools</span><span class="sum-v">chainabuse.com, cryptoscamdb.org, Token Sniffer, Etherscan comments, Arkham labels.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🌀 Mixers & Tumbling</div>
+<div class="sum-row"><span class="sum-k">How Mixer Works</span><span class="sum-v">Dirty money → pools with other users → "clean" money from different addresses. Input-output link (supposedly) broken.</span></div>
+<div class="sum-row"><span class="sum-k">Tornado Cash</span><span class="sum-v">Ethereum smart contract. OFAC sanctioned Aug 2022. Developer arrested in Netherlands. Still operational. $7B+ processed. Used by Lazarus after Ronin hack.</span></div>
+<div class="sum-row"><span class="sum-k">De-mixing Techniques</span><span class="sum-v">Amount correlation: $997.3 in → $997.3 out = likely same. Timing correlation. Chainalysis claims 80%+ mixer de-mixing rate.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🏦 Exchanges — CEX & DEX</div>
+<div class="sum-row"><span class="sum-k">CEX</span><span class="sum-v">Private company, custody, KYC. Advantages: fiat ramp, liquidity. Risk: FTX, Mt. Gox collapsed. "Not your keys, not your coins."</span></div>
+<div class="sum-row"><span class="sum-k">DEX</span><span class="sum-v">Smart contracts, no KYC, no custody. AMM liquidity pools. Uniswap, SushiSwap. No fiat on-ramp.</span></div>
+<div class="sum-row"><span class="sum-k">Exchange → Identification</span><span class="sum-v">Known exchange addresses. Money to CEX hot wallet → KYC → subpoena → identity. Chainalysis identifies automatically.</span></div>
+<div class="sum-row"><span class="sum-k">Travel Rule</span><span class="sum-v">FATF: transfers over $1K between exchanges must include sender/recipient. Implemented 2023-2024. DEX exempt.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🖼️ NFT & Smart Contracts</div>
+<div class="sum-row"><span class="sum-k">Smart Contract</span><span class="sum-v">Code on blockchain — immutable after deployment. Automatic "if X then Y" logic. Ethereum = leading platform. Cost = Gas.</span></div>
+<div class="sum-row"><span class="sum-k">NFT</span><span class="sum-v">Unique token, ERC-721. Represents ownership. Usually a pointer to media, not the media itself. OpenSea, Blur = marketplaces.</span></div>
+<div class="sum-row"><span class="sum-k">Wash Trading</span><span class="sum-v">Seller buys from themselves = artificial volume. Trade loop A→B→A. 58% of NFT volume in 2022 = wash. Also used for money laundering.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🔗 Cross-Chain Tracing</div>
+<div class="sum-row"><span class="sum-k">Bridges</span><span class="sum-v">Smart contracts moving assets between chains. Lock ETH on Ethereum → mint on Polygon. Ronin Bridge hack: $620M (Lazarus, 2022).</span></div>
+<div class="sum-row"><span class="sum-k">Amount Correlation</span><span class="sum-v">5.0 ETH on Ethereum → 5.0 ETH on Arbitrum = likely same actor. Bridge txs are visible and analyzable.</span></div>
+<div class="sum-row"><span class="sum-k">EVM Chains</span><span class="sum-v">Same address on ETH/Polygon/BSC/Arbitrum. Known ETH address → check same on all chains. Debank.com for full view.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">🔒 Privacy Coins</div>
+<div class="sum-row"><span class="sum-k">Monero (XMR)</span><span class="sum-v">Most private: Ring Signatures (hides sender), Stealth Addresses (receiver), RingCT (amount). Blockchain completely opaque.</span></div>
+<div class="sum-row"><span class="sum-k">Zcash (ZEC)</span><span class="sum-v">Transparent (visible) and Shielded (zk-SNARKs encrypted) addresses. Most users use transparent — defeating privacy.</span></div>
+<div class="sum-row"><span class="sum-k">Tracing Options</span><span class="sum-v">Monero: nearly impossible without external metadata. XMR purchased at exchange → KYC link. IRS paid $625K for XMR tracing tool.</span></div>
+</div>`,
+    `<div class="sum-block"><div class="sum-block-title">📋 Case Study — Investigation Methodology</div>
+<div class="sum-row"><span class="sum-k">Step 1 — Intake</span><span class="sum-v">What's known? Address, TxID, platform, amount, date. Scope + goal. Chain (BTC/ETH/TRX?) determines tools.</span></div>
+<div class="sum-row"><span class="sum-k">Step 2 — Initial Trace</span><span class="sum-v">Map all transactions from victim address. Where did funds go? Exchange? Mixer? Cross-chain?</span></div>
+<div class="sum-row"><span class="sum-k">Step 3 — Clustering</span><span class="sum-v">Common input ownership: gather related addresses. Link to known entities? Arkham/Nansen for sanity check.</span></div>
+<div class="sum-row"><span class="sum-k">Step 4 — Attribution</span><span class="sum-v">OSINT: Google, Telegram, BitcoinTalk. ENS? Exchange deposit = subpoena for KYC details.</span></div>
+<div class="sum-row"><span class="sum-k">Step 5 — Report</span><span class="sum-v">Executive Summary → Timeline → Graph → Attribution + confidence → Recommendations. Reproducible, citable, legally sound.</span></div>
+</div>`
+  ]
+};
+
+// ── MATCH GAME ENGINE ─────────────────────────────────────────
+var matchState = {};
+var CUR_GAME_CH = 0;
+
+function getMatchData(n) {
+  return (LANG === 'en' ? (MATCH_DATA_EN[n] || MATCH_DATA[n]) : MATCH_DATA[n]) || null;
+}
+
+function loadGame(n) {
+  CUR_GAME_CH = n;
+  var isHe = LANG === 'he';
+  // update sidebar
+  document.querySelectorAll('.game-sb-btn').forEach(function(b){ b.classList.remove('active'); });
+  var btns = document.querySelectorAll('.game-sb-btn');
+  if (btns[n]) btns[n].classList.add('active');
+  var el = document.getElementById('gameContent');
+  if (!el) return;
+  var data = getMatchData(n);
+  if (!data || !data.pairs || !data.pairs.length) {
+    el.innerHTML = '<div style="text-align:center;padding:60px;color:var(--ink3)">אין משחק לפרק זה</div>';
+    return;
+  }
+  if (!matchState[n]) matchState[n] = { phase: 'idle' };
+  renderMatchForChapter(n);
+  goTo('game');
+}
+
+function renderMatchForChapter(n) {
+  var el = document.getElementById('gameContent');
+  if (!el) return;
+  var ms = matchState[n];
+  if (!ms) return;
+  if (ms.phase === 'idle') renderMatchIdle(n);
+  else if (ms.phase === 'playing') renderMatchPlay(n);
+  else renderMatchOver(n);
+}
+
+function renderMatchIdle(n) {
+  var el = document.getElementById('gameContent');
+  var data = getMatchData(n);
+  var isHe = LANG === 'he';
+  el.innerHTML = '<div class="game-start-card">' +
+    '<div class="game-start-icon">🔗</div>' +
+    '<div class="game-start-title">' + (isHe ? 'משחק התאמה' : 'Matching Game') + '</div>' +
+    '<div class="game-start-desc">' + (isHe ? 'חבר כל מושג להגדרה המתאימה' : 'Connect each term to its definition') + '</div>' +
+    '<div class="game-rules"><div class="game-rule">' + data.pairs.length + ' ' + (isHe ? 'זוגות' : 'pairs') + '</div></div>' +
+    '<button class="match-btn-primary" onclick="matchBegin(' + n + ')">' + (isHe ? '▶ התחל' : '▶ Start') + '</button>' +
+    '</div>';
+}
+
+function matchBegin(n) {
+  var data = getMatchData(n);
+  var pairs = data.pairs.slice(0, 8);
+  function shuffle(a) {
+    for (var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
+    return a;
+  }
+  var terms = shuffle(pairs.map(function(p,i){return{idx:i,text:p[0]};}));
+  var defs  = shuffle(pairs.map(function(p,i){return{idx:i,text:p[1]};}));
+  matchState[n] = { phase:'playing', pairs:pairs, terms:terms, defs:defs, matched:[], errors:0, selTerm:-1, selDef:-1 };
+  renderMatchPlay(n);
+}
+
+function renderMatchPlay(n) {
+  var ms = matchState[n];
+  var isHe = LANG === 'he';
+  var total = ms.pairs.length, done = ms.matched.length;
+  var pct = Math.round(done/total*100);
+  var html = '<div class="match-game">' +
+    '<div class="match-header"><span class="match-round-badge">' + (isHe ? 'משחק התאמה' : 'Matching') + '</span><span style="color:var(--ink3);font-size:.8rem">' + done + '/' + total + '</span></div>' +
+    '<div class="match-progress-bar"><div class="match-progress-fill" style="width:' + pct + '%"></div></div>' +
+    '<p class="match-instructions">' + (isHe ? 'לחץ מושג ← לחץ הגדרה' : 'Tap term → tap definition') + '</p>' +
+    '<div class="match-area">' +
+    '<div class="match-col"><div class="match-col-title">' + (isHe ? '📌 מושגים' : '📌 Terms') + '</div>';
+  ms.terms.forEach(function(t,i){
+    var isM = ms.matched.indexOf(t.idx) >= 0;
+    var isSel = ms.selTerm === i;
+    var cls = 'match-card' + (isM?' matched-correct':(isSel?' selected':''));
+    html += '<div class="' + cls + '" data-type="t" data-n="' + n + '" data-i="' + i + '">' + t.text + '</div>';
+  });
+  html += '</div><div class="match-col"><div class="match-col-title">' + (isHe ? '📖 הגדרות' : '📖 Definitions') + '</div>';
+  ms.defs.forEach(function(d,i){
+    var isM = ms.matched.indexOf(d.idx) >= 0;
+    var isSel = ms.selDef === i;
+    var cls = 'match-card' + (isM?' matched-correct':(isSel?' selected':''));
+    html += '<div class="' + cls + '" data-type="d" data-n="' + n + '" data-i="' + i + '">' + d.text + '</div>';
+  });
+  html += '</div></div>';
+  if (ms.errors > 0) html += '<p style="text-align:center;font-size:.78rem;color:var(--ink3)">' + (isHe?'שגיאות':'Errors') + ': ' + ms.errors + '</p>';
+  html += '</div>';
+  document.getElementById('gameContent').innerHTML = html;
+  // attach click handlers via event delegation
+  var gc = document.getElementById('gameContent');
+  if (gc) gc.addEventListener('click', function handler(e) {
+    var card = e.target.closest('[data-type]');
+    if (!card) return;
+    gc.removeEventListener('click', handler);
+    mClick(card.dataset.type, parseInt(card.dataset.n), parseInt(card.dataset.i));
+  });
+}
+
+function mClick(type, n, idx) {
+  var ms = matchState[n];
+  if (!ms || ms.phase !== 'playing') return;
+  var arr = type === 't' ? ms.terms : ms.defs;
+  var item = arr[idx];
+  if (ms.matched.indexOf(item.idx) >= 0) return;
+  if (type === 't') ms.selTerm = idx; else ms.selDef = idx;
+  if (ms.selTerm >= 0 && ms.selDef >= 0) {
+    var tIdx = ms.terms[ms.selTerm].idx, dIdx = ms.defs[ms.selDef].idx;
+    if (tIdx === dIdx) {
+      ms.matched.push(tIdx); ms.selTerm = -1; ms.selDef = -1;
+      if (ms.matched.length === ms.pairs.length) { ms.phase = 'over'; renderMatchOver(n); return; }
+    } else {
+      ms.errors++;
+      var gc = document.getElementById('gameContent');
+      var tEls = gc.querySelectorAll('.match-col:first-child .match-card');
+      var dEls = gc.querySelectorAll('.match-col:last-child .match-card');
+      if (tEls[ms.selTerm]) { tEls[ms.selTerm].classList.add('matched-wrong'); setTimeout(function(){tEls[ms.selTerm].classList.remove('matched-wrong','selected');},600); }
+      if (dEls[ms.selDef])  { dEls[ms.selDef].classList.add('matched-wrong');  setTimeout(function(){dEls[ms.selDef].classList.remove('matched-wrong','selected');},600); }
+      ms.selTerm = -1; ms.selDef = -1;
+      setTimeout(function(){ renderMatchPlay(n); }, 700); return;
+    }
+  }
+  renderMatchPlay(n);
+}
+
+function renderMatchOver(n) {
+  var ms = matchState[n];
+  var isHe = LANG === 'he';
+  var medal = ms.errors === 0 ? '🏆' : ms.errors <= 2 ? '🥇' : ms.errors <= 5 ? '🥈' : '🥉';
+  var _gc = document.getElementById('gameContent');
+  _gc.innerHTML =
+    '<div class="match-result">' +
+    '<div style="font-size:52px;margin-bottom:8px">' + medal + '</div>' +
+    '<div class="match-score-big">' + ms.pairs.length + '/' + ms.pairs.length + '</div>' +
+    '<div class="match-score-label">' + (ms.errors===0?(isHe?'🎉 מושלם!':'🎉 Perfect!'):(ms.errors+' '+(isHe?'שגיאות':'errors'))) + '</div>' +
+    '<div class="match-btns">' +
+    '<button class="match-btn-ghost" data-again="' + n + '">' + (isHe?'🔄 שוב':'🔄 Again') + '</button>' +
+    (n < CHAPTERS.length-1 ? '<button class="match-btn-primary" onclick="loadGame(' + (n+1) + ')">' + (isHe?'פרק הבא →':'Next Chapter →') + '</button>' : '') +
+    '</div></div>';
+  // attach again/next handlers
+  var _gc2 = document.getElementById('gameContent');
+  if (_gc2) {
+    var againBtn = _gc2.querySelector('[data-again]');
+    if (againBtn) againBtn.addEventListener('click', function() {
+      var nn = parseInt(this.dataset.again);
+      matchState[nn] = {phase:'idle'};
+      renderMatchIdle(nn);
+    });
+  }
+}
+
+function buildGameSidebar() {
+  var isHe = LANG === 'he';
+  var sbTitle = document.getElementById('gameSbTitle');
+  if (sbTitle) sbTitle.textContent = isHe ? 'פרקים' : 'Chapters';
+  var list = document.getElementById('gameSbList');
+  if (!list) return;
+  var html = '';
+  CHAPTERS.forEach(function(ch, i) {
+    var data = isHe ? ch.he : ch.en;
+    html += '<button class="game-sb-btn' + (i === CUR_GAME_CH ? ' active' : '') + '" onclick="loadGame(' + i + ')">' +
+      ch.icon + ' ' + data.name + '</button>';
+  });
+  list.innerHTML = html;
+}
+
+// ── FULL REVIEW ──────────────────────────────────────────────
+function buildReviewContent() {
+  var isHe = LANG === 'he';
+  var sums = isHe ? SUMMARIES.he : SUMMARIES.en;
+  var html = '';
+  CHAPTERS.forEach(function(ch, i) {
+    var data = isHe ? ch.he : ch.en;
+    var num = (i < 10 ? '0' : '') + i;
+    html += '<div class="review-chapter-block">' +
+      '<div class="review-chapter-title">' +
+        '<span class="review-chapter-num">' + ch.icon + ' ' + num + '</span>' +
+        '<span class="review-chapter-name">' + data.name + '</span>' +
+      '</div>' +
+      '<div class="review-chapter-body">' + (sums[i] || '') + '</div>' +
+    '</div>';
+  });
+  return html;
+}
+function openReview() {
+  var isHe = LANG === 'he';
+  document.getElementById('reviewTitle').textContent = isHe ? '📚 סיכום מלא' : '📚 Full Review';
+  document.getElementById('reviewSub').textContent = isHe
+    ? 'כל ' + CHAPTERS.length + ' הפרקים בעמוד אחד'
+    : 'All ' + CHAPTERS.length + ' chapters on one page';
+  document.getElementById('reviewBody').innerHTML = buildReviewContent();
+  document.getElementById('reviewOverlay').classList.add('open');
+  document.getElementById('reviewDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeReview() {
+  document.getElementById('reviewOverlay').classList.remove('open');
+  document.getElementById('reviewDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeReview(); });
+
 </script>
+
+<div class="review-overlay" id="reviewOverlay" onclick="closeReview()"></div>
+<div class="review-drawer" id="reviewDrawer">
+  <div class="review-header">
+    <div>
+      <div class="review-header-title" id="reviewTitle">📚 סיכום מלא</div>
+      <div class="review-header-sub" id="reviewSub">כל 13 הפרקים בעמוד אחד</div>
+    </div>
+    <button class="review-close" onclick="closeReview()">×</button>
+  </div>
+  <div class="review-body" id="reviewBody"></div>
+</div>
 </body>
 </html>

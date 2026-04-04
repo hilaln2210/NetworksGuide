@@ -58,7 +58,7 @@ export const tracks = [
     level: 'מתחיל–מתקדם',
     fullPage: true,
     chapterCount: 10,
-    lastUpdated: '2026-04-05 14:42',
+    lastUpdated: '2026-04-04 23:40',
     syllabus: ['מבוא ל-Linux', 'מערכת קבצים', 'פקודות בסיסיות', 'משתמשים והרשאות', 'תהליכים', 'רשת ב-Linux', 'חבילות ומנהלי חבילות', 'Bash Scripting', 'ניטור וביצועים', 'אבטחת Linux'],
     chapters: [
       { id: 400, title: "מערכות לינוקס — קורס מלא", pages: [{ type: "html_page", title: "Linux Course", src: "/learn/linux/linux_course.html" }] },
@@ -73,7 +73,7 @@ export const tracks = [
     level: 'מתחיל–מתקדם',
     fullPage: true,
     chapterCount: 12,
-    lastUpdated: '2026-03-26 11:25',
+    lastUpdated: '2026-04-04 23:40',
     syllabus: ['יסודות קריפטו', 'בלוקצ\'יין — איך עובד', 'ארנקים — סוגים ומבנה', 'Wallet Domains', 'On-Chain Analysis', 'זיהוי בעלי ארנקים', 'Scam Wallets — זיהוי', 'מיקסרים ו-Tumbling', 'DeFi Forensics', 'NFT & Token Analysis', 'Cross-Chain Tracing', 'כתיבת דוח חקירה'],
     chapters: [
       { id: 500, title: "Blockchain & Crypto Forensics — קורס מלא", pages: [{ type: "html_page", title: "Crypto Course", src: "/learn/crypto/crypto_course.html" }] },
@@ -88,7 +88,7 @@ export const tracks = [
     level: 'מתחיל–מתקדם',
     fullPage: true,
     chapterCount: 10,
-    lastUpdated: '2026-04-03 16:17',
+    lastUpdated: '2026-04-04 23:40',
     syllabus: ['מבוא ל-AI Agents', 'LLM — יסודות', 'Prompt Engineering', 'Tool Use & Function Calling', 'זיכרון ו-RAG', 'תכנון ו-Reasoning', 'Multi-Agent Systems', 'Orchestration Patterns', 'אבטחה ו-Guardrails', 'פרויקט מסכם'],
     chapters: [
       { id: 600, title: "AI Agents — קורס מלא", pages: [{ type: "html_page", title: "AI Agents Course", src: "/learn/ai-agents/ai_agents_course.html" }] },
@@ -133,7 +133,7 @@ export const tracks = [
     level: 'בינוני–מתקדם',
     fullPage: true,
     chapterCount: 8,
-    lastUpdated: '2026-04-04 13:54',
+    lastUpdated: '2026-04-04 23:40',
     syllabus: ['מבוא — IP Investigation', 'Geolocation', 'WHOIS ו-ASN', 'Reverse DNS', 'Reputation — זיהוי סיכונים', 'Shodan ו-Censys', 'ניתוח לוגים', 'דוחות ו-Automation'],
     chapters: [
       { id: 1000, title: "חקר כתובות IP — קורס מלא", pages: [{ type: "html_page", title: "IP Investigation Course", src: "/learn/ip-investigation/ip_investigation_course.html" }] },
