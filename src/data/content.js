@@ -13,7 +13,7 @@ export const tracks = [
     level: 'מתחיל–מתקדם',
     fullPage: true,
     chapterCount: 13,
-    lastUpdated: '2026-04-04 19:18',
+    lastUpdated: '2026-04-04 20:27',
     syllabus: ['יסודות האינטרנט', 'תכנות Sockets', 'Wireshark ומודל שכבות', 'שכבת האפליקציה', 'Scapy', 'שכבת התעבורה', 'שכבת הרשת', 'שכבת הקו', 'רכיבי רשת', 'השכבה הפיזית', 'איך הכל מתחבר', 'Sockets מתקדם', 'רשתות מודרניות 2025'],
     chapters: [
       { id: 1, title: "רשתות מחשבים — קורס מלא", pages: [{ type: "html_page", title: "Networks Course", src: "/learn/networks/networks_course.html" }] },
@@ -43,7 +43,7 @@ export const tracks = [
     level: 'מתחיל–בינוני',
     fullPage: true,
     chapterCount: 8,
-    lastUpdated: '2026-04-03 16:17',
+    lastUpdated: '2026-04-04 20:27',
     syllabus: ['HTTP — בקשות ותגובות', 'REST API Design', 'JSON ועיבוד נתונים', 'Auth — אימות והרשאות', 'Headers & CORS', 'Real-Time — WebSockets', 'GraphQL', 'Performance & Caching'],
     chapters: [
       { id: 300, title: "Web & APIs — קורס מלא", pages: [{ type: "html_page", title: "Web & APIs Course", src: "/learn/webapi/web_apis_course.html" }] },
