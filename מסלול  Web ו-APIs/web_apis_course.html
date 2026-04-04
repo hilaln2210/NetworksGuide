@@ -272,11 +272,93 @@ pre, code, .code-block, .code-body { direction: ltr !important; unicode-bidi: em
   .sum-row { grid-template-columns: 1fr; gap: 2px; }
   .sum-k { min-width: unset; }
 }
+
+/* ── FULL REVIEW DRAWER ── */
+.review-btn {
+  flex-shrink: 0; padding: 5px 12px;
+  background: var(--accent); color: var(--accentfg);
+  border: none; border-radius: var(--radius);
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  transition: all .15s; letter-spacing: .02em;
+  margin-left: 6px;
+}
+[dir="rtl"] .review-btn { margin-left: 0; margin-right: 6px; }
+.review-btn:hover { background: var(--accent2); }
+
+.review-overlay {
+  display: none; position: fixed; inset: 0; z-index: 900;
+  background: rgba(0,0,0,.45); backdrop-filter: blur(2px);
+}
+.review-overlay.open { display: block; }
+
+.review-drawer {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 910;
+  background: var(--bg); border-bottom: 2px solid var(--accent);
+  box-shadow: var(--shadow2);
+  transform: translateY(-100%);
+  transition: transform .3s cubic-bezier(.4,0,.2,1);
+  max-height: 90vh; display: flex; flex-direction: column;
+}
+.review-drawer.open { transform: translateY(0); }
+
+.review-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 20px; border-bottom: 1px solid var(--border);
+  flex-shrink: 0; gap: 12px;
+  position: sticky; top: 0; background: var(--bg); z-index: 1;
+}
+.review-header-title {
+  font-size: 15px; font-weight: 800; color: var(--text);
+  letter-spacing: -.01em;
+}
+.review-header-sub { font-size: 12px; color: var(--text3); font-weight: 500; }
+.review-close {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--bg2); border: 1px solid var(--border);
+  font-size: 18px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--text2); line-height: 1;
+  transition: all .15s;
+}
+.review-close:hover { background: var(--redbg); border-color: var(--red); color: var(--red); }
+.review-body {
+  overflow-y: auto; padding: 24px 20px 40px; flex: 1;
+}
+.review-body::-webkit-scrollbar { width: 6px; }
+.review-body::-webkit-scrollbar-track { background: var(--bg2); }
+.review-body::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+.review-chapter-block {
+  margin-bottom: 36px; border: 1px solid var(--border);
+  border-radius: var(--radius2); overflow: hidden; box-shadow: var(--shadow);
+}
+.review-chapter-title {
+  background: var(--accentbg); border-bottom: 1px solid var(--border);
+  padding: 12px 18px; display: flex; align-items: center; gap: 10px;
+}
+.review-chapter-num {
+  font-family: var(--mono); font-size: 11px; font-weight: 800;
+  color: var(--accent); background: var(--bg);
+  border: 1px solid var(--accent); border-radius: 6px;
+  padding: 2px 8px; flex-shrink: 0;
+}
+.review-chapter-name { font-size: 14px; font-weight: 800; color: var(--text); }
+.review-chapter-body { padding: 18px; background: var(--bg); }
+.review-chapter-body .sum-block { margin-bottom: 20px; }
+.review-chapter-body .sum-block:last-child { margin-bottom: 0; }
+.review-chapter-body .sum-row { grid-template-columns: 180px 1fr; padding: 7px 0; }
+.review-chapter-body .sum-v { font-size: 12.5px; }
+.review-chapter-body .sum-k { font-size: 11.5px; }
+@media (max-width: 680px) {
+  .review-drawer { max-height: 95vh; }
+  .review-body { padding: 16px 14px 32px; }
+  .review-chapter-body .sum-row { grid-template-columns: 1fr; }
+}
 </style></head>
 <body>
 <header class="site-header">
   <div class="site-logo"><div class="site-logo-mark">⚡</div><span>Web APIs</span></div>
   <span class="site-chapter-name" id="headerChName"></span>
+  <button class="review-btn" id="reviewBtn" onclick="openReview()">📚 סיכום מלא</button>
   <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
 </header>
 <nav class="ch-nav" id="chNav">
@@ -1753,5 +1835,58 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+
+// ── FULL REVIEW ─────────────────────────────────────────────
+function buildReviewContent() {
+  var Lc = C[currentLang];
+  var html = '';
+  for (var i = 0; i < TOTAL_CHAPTERS; i++) {
+    var num = (i < 10 ? '0' : '') + i;
+    var cheat = Lc.cheat[i] || '';
+    html += '<div class="review-chapter-block">' +
+      '<div class="review-chapter-title">' +
+        '<span class="review-chapter-num">' + num + '</span>' +
+        '<span class="review-chapter-name">' + Lc.names[i] + '</span>' +
+      '</div>' +
+      '<div class="review-chapter-body">' + cheat + '</div>' +
+    '</div>';
+  }
+  return html;
+}
+
+function openReview() {
+  var total = TOTAL_CHAPTERS;
+  document.getElementById('reviewTitle').textContent = currentLang === 'he' ? '📚 סיכום מלא' : '📚 Full Review';
+  document.getElementById('reviewSub').textContent = currentLang === 'he'
+    ? 'כל ' + total + ' הפרקים בעמוד אחד'
+    : 'All ' + total + ' chapters on one page';
+  document.getElementById('reviewBody').innerHTML = buildReviewContent();
+  document.getElementById('reviewOverlay').classList.add('open');
+  document.getElementById('reviewDrawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeReview() {
+  document.getElementById('reviewOverlay').classList.remove('open');
+  document.getElementById('reviewDrawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeReview();
+});
+
 </script>
+
+<div class="review-overlay" id="reviewOverlay" onclick="closeReview()"></div>
+<div class="review-drawer" id="reviewDrawer">
+  <div class="review-header">
+    <div>
+      <div class="review-header-title" id="reviewTitle">📚 סיכום מלא</div>
+      <div class="review-header-sub" id="reviewSub">כל 8 הפרקים בעמוד אחד</div>
+    </div>
+    <button class="review-close" onclick="closeReview()">×</button>
+  </div>
+  <div class="review-body" id="reviewBody"></div>
+</div>
 </body></html>
