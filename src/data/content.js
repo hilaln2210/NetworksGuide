@@ -13,7 +13,7 @@ export const tracks = [
     level: 'מתחיל–מתקדם',
     fullPage: true,
     chapterCount: 13,
-    lastUpdated: '2026-04-04 15:31',
+    lastUpdated: '2026-04-04 19:18',
     syllabus: ['יסודות האינטרנט', 'תכנות Sockets', 'Wireshark ומודל שכבות', 'שכבת האפליקציה', 'Scapy', 'שכבת התעבורה', 'שכבת הרשת', 'שכבת הקו', 'רכיבי רשת', 'השכבה הפיזית', 'איך הכל מתחבר', 'Sockets מתקדם', 'רשתות מודרניות 2025'],
     chapters: [
       { id: 1, title: "רשתות מחשבים — קורס מלא", pages: [{ type: "html_page", title: "Networks Course", src: "/learn/networks/networks_course.html" }] },
