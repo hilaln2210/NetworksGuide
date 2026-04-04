@@ -36,7 +36,7 @@ import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, upda
 import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll, getTodayMinutes, addSessionMinutes, formatMinutes, getCompletedChapters, getTotalQuizCorrect, getLearningPace, getReadPages, getQuizScore, QUIZ_KEY } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
 import { processHtmlBidi, renderBidiText } from './utils/bidi.jsx'
-import { notifyVisit } from './utils/tgNotify.js'
+import { notifyVisit, notifyLogin } from './utils/tgNotify.js'
 import { onAuthChange } from './utils/auth.js'
 import { pullProgress, pushProgress, startAutoSync, stopAutoSync } from './utils/cloudSync.js'
 import { UserMenu } from './components/UserMenu.jsx'
@@ -441,6 +441,7 @@ function App() {
     return onAuthChange(async (user) => {
       setAuthUser(user)
       if (user) {
+        notifyLogin(user)
         const justReset = sessionStorage.getItem('ng_just_reset') === '1'
         if (justReset) {
           // Version reset just happened — overwrite cloud with empty state, don't pull old data
