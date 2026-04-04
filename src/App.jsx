@@ -257,7 +257,7 @@ function TrackPicker({ tracks, onSelect }) {
                   <span className="track-card-level">{trackI18n(track, 'level', t, lang)}</span>
                   {!isEmpty && !isLocked && <span className="track-card-chapters">{track.chapterCount || track.chapters.length} {t('chapters_count')}</span>}
                   {isEmpty && !isLocked && <span className="track-card-soon">{t('coming_soon')}</span>}
-                  {track.lastUpdated && <span className="track-card-updated">{isEn ? 'Updated' : 'עודכן'} {track.lastUpdated.slice(5).replace('-', '/')}</span>}
+                  {track.lastUpdated && <span className="track-card-updated">{isEn ? 'Updated' : 'עודכן'} {track.lastUpdated.slice(8,10)}/{track.lastUpdated.slice(5,7)}{track.lastUpdated.length > 10 ? ' ' + track.lastUpdated.slice(11,16) : ''}</span>}
                 </div>
                 {isLocked && <div className="track-card-editing">{t('being_edited')}</div>}
                 {hasProgress && !isLocked && (
