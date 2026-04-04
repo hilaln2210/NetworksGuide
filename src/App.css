@@ -2304,6 +2304,12 @@ html {
   font-weight: 600;
 }
 
+.track-card-updated {
+  font-size: 0.65rem;
+  color: var(--text-muted, #9ca3af);
+  margin-right: auto;
+}
+
 .track-card-soon {
   font-size: 0.72rem;
   padding: 0.18rem 0.55rem;
