@@ -1580,47 +1580,57 @@ function applyLang(lang) {
   var headerEl = document.getElementById('headerChName');
   if(headerEl) headerEl.textContent = Lc.names[state.cur] || '';
 
+  // Update nav labels only (lightweight)
   for(var i = 0; i < TOTAL_CHAPTERS; i++) {
-    var set = function(id, val, prop) {
-      var el = document.getElementById(id);
-      if(el) el[prop || 'textContent'] = val;
-    };
-    set('chname-' + i, Lc.names[i] || '');
-    set('chtag-' + i,  Lc.tags[i]  || '');
-    set('chtitle-' + i, Lc.names[i] || '');
-    set('chdesc-' + i,  Lc.descs[i] || '');
-
-    var cheatEl = document.getElementById('cheat-' + i);
-    if(cheatEl) cheatEl.innerHTML = Lc.cheat[i] || '';
-
-    var learnEl = document.getElementById('learn-' + i);
-    if(learnEl) {
-      learnEl.innerHTML = Lc.learn[i] || '';
-      if(learnEl.innerHTML.indexOf('CHID') >= 0)
-        learnEl.innerHTML = learnEl.innerHTML.replace(/CHID/g, i);
-    }
-
-    // Rebuild tabs bar
-    var tabsEl = document.getElementById('tabs-' + i);
-    if(tabsEl) {
-      var tabs = Lc.tabs;
-      var keys = Lc.tabKeys;
-      var cur  = state.tabs[i] || 'learn';
-      tabsEl.innerHTML = tabs.map(function(t, ti) {
-        return '<button class="tab-btn' + (cur === keys[ti] ? ' active' : '') +
-          '" onclick="showTab(' + i + ',\'' + keys[ti] + '\')">' + t + '</button>';
-      }).join('');
-    }
-
-    // Clear rendered state for game/quiz so they re-render in new lang
-    ['game', 'quiz'].forEach(function(p) {
-      var el = document.getElementById(p + '-' + i);
-      if(el) { el.innerHTML = ''; delete el.dataset.rendered; }
-    });
+    var chname = document.getElementById('chname-' + i);
+    if(chname) chname.textContent = Lc.names[i] || '';
   }
 
+  // Re-render current chapter fully
+  renderChapter(state.cur);
   activateTab(state.cur, state.tabs[state.cur] || 'learn');
 }
+
+function renderChapter(n) {
+  var Lc = L();
+  var set = function(id, val, prop) {
+    var el = document.getElementById(id);
+    if(el) el[prop || 'textContent'] = val;
+  };
+  set('chname-' + n, Lc.names[n] || '');
+  set('chtag-' + n,  Lc.tags[n]  || '');
+  set('chtitle-' + n, Lc.names[n] || '');
+  set('chdesc-' + n,  Lc.descs[n] || '');
+
+  var cheatEl = document.getElementById('cheat-' + n);
+  if(cheatEl) cheatEl.innerHTML = Lc.cheat[n] || '';
+
+  var learnEl = document.getElementById('learn-' + n);
+  if(learnEl) {
+    learnEl.innerHTML = Lc.learn[n] || '';
+    if(learnEl.innerHTML.indexOf('CHID') >= 0)
+      learnEl.innerHTML = learnEl.innerHTML.replace(/CHID/g, n);
+  }
+
+  // Rebuild tabs bar
+  var tabsEl = document.getElementById('tabs-' + n);
+  if(tabsEl) {
+    var tabs = Lc.tabs;
+    var keys = Lc.tabKeys;
+    var cur  = state.tabs[n] || 'learn';
+    tabsEl.innerHTML = tabs.map(function(t, ti) {
+      return '<button class="tab-btn' + (cur === keys[ti] ? ' active' : '') +
+        '" onclick="showTab(' + n + ',\'' + keys[ti] + '\')">' + t + '</button>';
+    }).join('');
+  }
+
+  // Clear game/quiz so they re-render
+  ['game', 'quiz'].forEach(function(p) {
+    var el = document.getElementById(p + '-' + n);
+    if(el) { el.innerHTML = ''; delete el.dataset.rendered; }
+  });
+}
+
 
 // ── NAVIGATION ──────────────────────────────────────────────
 function showChapter(n) {
@@ -1633,6 +1643,7 @@ function showChapter(n) {
   state.cur = n;
   var hEl = document.getElementById('headerChName');
   if(hEl) hEl.textContent = L().names[n] || '';
+  renderChapter(n);
   window.scrollTo(0, 0);
   activateTab(n, state.tabs[n] || 'learn');
 }
