@@ -28,7 +28,7 @@ export const tracks = [
     level: 'מתחיל–מתקדם',
     fullPage: true,
     chapterCount: 9,
-    lastUpdated: '2026-04-04 14:54',
+    lastUpdated: '2026-04-05 17:47',
     syllabus: ['CIA Triad ויסודות', 'קריפטוגרפיה', 'אימות והרשאות', 'אבטחת רשת', 'Malware וניתוח', 'Web Security', 'Penetration Testing', 'SOC ותגובה לאירועים', 'אבטחת ענן'],
     chapters: [
       { id: 100, title: "אבטחת מידע — קורס מלא", pages: [{ type: "html_page", title: "Cybersecurity Course", src: "/learn/security/cyber_course.html" }] },
@@ -58,7 +58,7 @@ export const tracks = [
     level: 'מתחיל–מתקדם',
     fullPage: true,
     chapterCount: 10,
-    lastUpdated: '2026-04-04 23:40',
+    lastUpdated: '2026-04-05 17:47',
     syllabus: ['מבוא ל-Linux', 'מערכת קבצים', 'פקודות בסיסיות', 'משתמשים והרשאות', 'תהליכים', 'רשת ב-Linux', 'חבילות ומנהלי חבילות', 'Bash Scripting', 'ניטור וביצועים', 'אבטחת Linux'],
     chapters: [
       { id: 400, title: "מערכות לינוקס — קורס מלא", pages: [{ type: "html_page", title: "Linux Course", src: "/learn/linux/linux_course.html" }] },
@@ -103,7 +103,7 @@ export const tracks = [
     level: 'מתקדם',
     fullPage: true,
     chapterCount: 8,
-    lastUpdated: '2026-04-04 13:54',
+    lastUpdated: '2026-04-05 17:47',
     syllabus: ['Wireshark מתקדם', 'BGP — ניתוב בין-דומייני', 'DNS — עומק', 'HTTP/2 & HTTP/3', 'TLS — הצפנה מעשית', 'eBPF — ניטור קרנל', 'Container Networking', 'Troubleshooting מתקדם'],
     chapters: [
       { id: 800, title: "חקר רשתות — קורס מלא", pages: [{ type: "html_page", title: "Network Research", src: "/learn/research/networks_course.html" }] },

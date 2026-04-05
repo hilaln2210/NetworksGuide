@@ -401,6 +401,56 @@ html, body {
   .ch-btn { padding: 7px 10px; min-width: 44px; }
 }
 
+
+/* ── RICH SUMMARY CARDS ── */
+.sum-block { margin-bottom: 28px; }
+.sum-block-title {
+  font-size: 13px; font-weight: 800; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 10px; font-family: var(--mono);
+  display: flex; align-items: center; gap: 8px;
+}
+.sum-block-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.sum-row {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 10px 16px; padding: 9px 0;
+  border-bottom: 1px solid var(--border); align-items: start;
+}
+.sum-row:last-child { border-bottom: none; }
+.sum-k { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--accent); line-height: 1.4; }
+.sum-v { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.sum-v strong { color: var(--text); font-weight: 700; }
+.sum-v code { font-size: 11.5px; background: var(--bg3); padding: 1px 5px; border-radius: 3px; color: var(--accent2,var(--accent)); font-family: var(--mono); }
+.sum-tip { margin-top:10px; padding:10px 14px; background:var(--yellowbg,#fffbeb); border-radius:var(--r,8px); border:1px solid #fde68a; font-size:13px; color:#713f12; line-height:1.6; }
+.sum-danger { margin-top:10px; padding:10px 14px; background:#fff1f2; border-radius:var(--r,8px); border:1px solid #fecaca; font-size:13px; color:#991b1b; line-height:1.6; }
+@media (max-width:560px) { .sum-row { grid-template-columns:1fr; gap:2px; } }
+/* ── FULL REVIEW DRAWER ── */
+.review-btn { flex-shrink:0; padding:5px 12px; background:var(--accent); color:#fff; border:none; border-radius:var(--r,8px); font-size:12px; font-weight:700; cursor:pointer; transition:all .15s; margin-left:6px; }
+[dir="rtl"] .review-btn { margin-left:0; margin-right:6px; }
+.review-btn:hover { opacity:.85; }
+.review-overlay { display:none; position:fixed; inset:0; z-index:900; background:rgba(0,0,0,.45); backdrop-filter:blur(2px); }
+.review-overlay.open { display:block; }
+.review-drawer { position:fixed; top:0; left:0; right:0; z-index:910; background:var(--bg,#fff); border-bottom:2px solid var(--accent); box-shadow:0 4px 16px rgba(0,0,0,.15); transform:translateY(-100%); transition:transform .3s cubic-bezier(.4,0,.2,1); max-height:90vh; display:flex; flex-direction:column; }
+.review-drawer.open { transform:translateY(0); }
+.review-header { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--border); flex-shrink:0; gap:12px; background:var(--bg,#fff); }
+.review-header-title { font-size:15px; font-weight:800; color:var(--text,#111); }
+.review-header-sub { font-size:12px; color:var(--text3,#888); font-weight:500; }
+.review-close { width:32px; height:32px; border-radius:50%; background:var(--bg2,#f8f9fa); border:1px solid var(--border); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--text2,#666); line-height:1; transition:all .15s; }
+.review-close:hover { background:#fff1f2; border-color:#dc2626; color:#dc2626; }
+.review-body { overflow-y:auto; padding:24px 20px 40px; flex:1; }
+.review-body::-webkit-scrollbar { width:6px; }
+.review-body::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+.review-chapter-block { margin-bottom:36px; border:1px solid var(--border); border-radius:12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+.review-chapter-title { background:var(--accentbg,rgba(29,107,156,.06)); border-bottom:1px solid var(--border); padding:12px 18px; display:flex; align-items:center; gap:10px; }
+.review-chapter-num { font-family:var(--mono); font-size:11px; font-weight:800; color:var(--accent); background:var(--bg,#fff); border:1px solid var(--accent); border-radius:6px; padding:2px 8px; flex-shrink:0; }
+.review-chapter-name { font-size:14px; font-weight:800; color:var(--text,#111); }
+.review-chapter-body { padding:18px; background:var(--bg,#fff); }
+.review-chapter-body .sum-block { margin-bottom:20px; }
+.review-chapter-body .sum-block:last-child { margin-bottom:0; }
+.review-chapter-body .sum-row { grid-template-columns:170px 1fr; padding:7px 0; }
+.review-chapter-body .sum-v { font-size:12.5px; }
+.review-chapter-body .sum-k { font-size:11.5px; }
+@media (max-width:680px) { .review-drawer{max-height:95vh} .review-body{padding:16px 14px 32px} .review-chapter-body .sum-row{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -410,7 +460,7 @@ html, body {
     <span>Networks</span>
   </div>
   <span class="header-chname" id="headerChName"></span>
-  <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
+  <button class="review-btn" id="reviewBtn" onclick="openReview()">📚 סיכום מלא</button><button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
 </header>
 <nav class="ch-nav" id="sidebar">
   <div class="sb-label" id="sbLabel" style="display:none"></div>
@@ -560,6 +610,16 @@ html, body {
       <div class="credit-item" id="credits-version">v2.0 — 2025</div></div>
   </div></div>
 </main>
+
+<div class="review-overlay" id="reviewOverlay" onclick="closeReview()"></div>
+<div class="review-drawer" id="reviewDrawer">
+  <div class="review-header">
+    <div><div class="review-header-title" id="reviewTitle">📚 סיכום מלא</div>
+    <div class="review-header-sub" id="reviewSub">כל 8 הפרקים בעמוד אחד</div></div>
+    <button class="review-close" onclick="closeReview()">×</button>
+  </div>
+  <div class="review-body" id="reviewBody"></div>
+</div>
 </body>
 </html>
 <script>
@@ -656,7 +716,7 @@ tls.handshake.type == 11  <span class="comment"># Certificate</span>
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -741,7 +801,7 @@ curl -s "https://rpki-validator.realmv6.org/api/v1/validity/AS15169/8.8.8.0/24"<
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -832,7 +892,7 @@ dig TXT _dmarc.mysite.com
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -940,7 +1000,7 @@ curl -sI --http2 https://mysite.com | head -2</code></pre>
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1041,7 +1101,7 @@ resolver 8.8.8.8 8.8.4.4 valid=300s;</code></pre>
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1134,7 +1194,7 @@ sudo bpftrace -e 'kprobe:tcp_sendmsg { @[comm] = count(); }'</code></pre>
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1250,7 +1310,7 @@ kubectl get virtualservice my-vs -o yaml</code></pre>
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1374,7 +1434,7 @@ sysctl -p   <span class="comment"># apply without reboot</span></code></pre>
     <span class="ch-end-btn-label">משחק ידע</span>
   </button>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)">
-    <span class="ch-end-btn-icon">▶</span>
+    <span class="ch-end-btn-icon">◀</span>
     <span class="ch-end-btn-label">פרק הבא</span>
   </button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')">
@@ -1384,16 +1444,68 @@ sysctl -p   <span class="comment"># apply without reboot</span></code></pre>
 </div>`
   ],
   cheat:[
-`<div class="callout callout-success"><strong>📋 Wireshark — ניתוח תעבורת</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">promiscuous mode</span></div><div class="cheat-item"><span class="cheat-key">Capture=kernel level, Display=UI</span></div><div class="cheat-item"><span class="cheat-key">capture filters</span></div><div class="cheat-item"><span class="cheat-key">שיחה שלמה בין שני hosts</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 BGP — פרוטוקול הניתוב הגלובלי</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">TCP 179</span></div><div class="cheat-item"><span class="cheat-key">Autonomous System</span></div><div class="cheat-item"><span class="cheat-key">policy + attributes</span></div><div class="cheat-item"><span class="cheat-key">יותר עדיף</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 DNS — עומק ואבטחה</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">authentication/signatures</span></div><div class="cheat-item"><span class="cheat-key">spoofed UDP queries</span></div><div class="cheat-item"><span class="cheat-key">DNS over HTTPS</span></div><div class="cheat-item"><span class="cheat-key">כמה זמן cache</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 HTTP/2 ו-HTTP/3 — המהפכה</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">request B ממתין ל-A</span></div><div class="cheat-item"><span class="cheat-key">כמה streams על connection אחד</span></div><div class="cheat-item"><span class="cheat-key">header compression</span></div><div class="cheat-item"><span class="cheat-key">UDP</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 TLS — מבפנים</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">1</span></div><div class="cheat-item"><span class="cheat-key">key exchange + auth + encrypt + MAC</span></div><div class="cheat-item"><span class="cheat-key">חתימה על certificates</span></div><div class="cheat-item"><span class="cheat-key">DigiNotar</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 eBPF — Linux Superpower</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">kernel space</span></div><div class="cheat-item"><span class="cheat-key">safety — no crash/infinite loop</span></div><div class="cheat-item"><span class="cheat-key">רץ לפני kernel network stack</span></div><div class="cheat-item"><span class="cheat-key">eBPF</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Container Networking</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">דרך docker0 bridge</span></div><div class="cheat-item"><span class="cheat-key">virtual ethernet pair</span></div><div class="cheat-item"><span class="cheat-key">IP ייחודי לכל pod ללא NAT</span></div><div class="cheat-item"><span class="cheat-key">eBPF</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Network Performance Tuning</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">bandwidth × RTT</span></div><div class="cheat-item"><span class="cheat-key">BBR=model-based, CUBIC=loss-based</span></div><div class="cheat-item"><span class="cheat-key">CPU copies ו-context switches</span></div><div class="cheat-item"><span class="cheat-key">1-3 microseconds</span></div></div></div>`
+`<div class="sum-block"><div class="sum-block-title">🔬 Wireshark — מה זה ולמה זה עוצמתי</div>
+<div class="sum-row"><span class="sum-k">הרעיון הפשוט</span><span class="sum-v">כשאתה גולש באינטרנט, המחשב שלך שולח ומקבל <strong>אלפי "מכתבים" קטנים בשנייה</strong> — כל אחד נקרא "packet". Wireshark הוא כמו מצלמת אבטחה לרשת שלך: הוא <strong>מצלם כל packet</strong> שעובר ומציג אותו בפירוט מלא. תוכל לראות בדיוק מה המחשב שלך שולח ומקבל, לאיזה אתר, ואפילו את <em>תוכן</em> ה"שיחה".</span></div>
+<div class="sum-row"><span class="sum-k">פירוק לשכבות</span><span class="sum-v">כל packet כמו מעטפה בתוך מעטפה: <strong>Ethernet</strong> (מי שולח למי ברשת המקומית) → <strong>IP</strong> (כתובת האינטרנטית) → <strong>TCP/UDP</strong> (איזה "שירות" — דפדפן, דוא"ל) → <strong>HTTP/TLS</strong> (התוכן עצמו). Wireshark פותח כל שכבה ומציג אותה בנפרד, כמו לפרק בובות matryoshka.</span></div>
+<div class="sum-row"><span class="sum-k">Display Filters</span><span class="sum-v">מסנן מה רואים מתוך אלפי packets. <code>http</code> = רק תעבורת אתרים. <code>ip.addr == 8.8.8.8</code> = רק תקשורת עם כתובת ספציפית. <code>tcp.port == 443</code> = רק HTTPS. <code>dns</code> = רק שאילתות DNS. כמו מנוע חיפוש על הרשת שלך.</span></div>
+<div class="sum-row"><span class="sum-k">Follow Stream</span><span class="sum-v">קליק ימני על packet → "Follow TCP Stream" → Wireshark מציג את <strong>כל השיחה</strong> בין שני מחשבים ברצף קריא. לאתרי HTTP (לא מוצפן) תראה את כל הטקסט. לאתרי HTTPS (מוצפן) תראה רק קוד בלתי קריא — זו הסיבה ש-HTTPS חשוב.</span></div>
+<div class="sum-row"><span class="sum-k">Statistics → I/O Graph</span><span class="sum-v">גרף שמציג כמה packets עברו בכל רגע. פקידת עולה פתאום ב-1,000 packets/שנייה? כנראה <strong>DDoS attack</strong> — מישהו מציף את השרת. ירידה פתאומית ל-0? נפילת חיבור. ככה מזהים בעיות ומתקפות.</span></div>
+<div class="sum-danger">⚠️ Wireshark על רשת HTTP (לא HTTPS) = רואה <strong>הכל</strong> — סיסמאות, cookies, תכתובות. על רשת WiFi ציבורית = ניתן ללכוד packets של אחרים. זו הסיבה שהיום <strong>כל אתר חייב HTTPS</strong>.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🌐 BGP — איך האינטרנט יודע להגיע לכל מקום</div>
+<div class="sum-row"><span class="sum-k">הבעיה שBGP פותר</span><span class="sum-v">האינטרנט הוא אוסף של עשרות אלפי רשתות נפרדות (ISPs, חברות, אוניברסיטאות). כשאתה שולח email מישראל לארה"ב, <strong>איך הנתיב נבחר?</strong> BGP הוא ה"מפה" החיה: כל רשת מודיעה לשכנותיה "אני מגיעה לכתובות האלה" — וכך כל ה-routing table גלובלי בנוי מרכילות הדדית.</span></div>
+<div class="sum-row"><span class="sum-k">AS — Autonomous System</span><span class="sum-v">כל ישות שמנהלת רשת עצמאית מקבלת מספר AS. <strong>AS15169 = Google</strong>, AS16509 = Amazon AWS, AS13335 = Cloudflare, AS714 = Apple, AS12400 = Bezeq ישראל. ה-ISP שלך = AS. הפלאפון שלך בסלולר = עבר דרך AS של הסלולרי. כל הרכילות בין ASes = BGP.</span></div>
+<div class="sum-row"><span class="sum-k">BGP Hijacking — כשמישהו שוקר</span><span class="sum-v">ב-2008, <strong>Pakistan Telecom הכריזה ש-YouTube שייך לה</strong>. לפי BGP, כולם האמינו לה — כי BGP מבוסס על אמון בלבד, ללא verification. כל גולש YouTube בעולם הגיע... לפקיסטן. 75 מיליון משתמשים נחסמו. האינטרנט עצר 2 שעות. זה עדיין יכול לקרות היום.</span></div>
+<div class="sum-row"><span class="sum-k">RPKI — הפתרון</span><span class="sum-v">Resource Public Key Infrastructure: כמו חתימה דיגיטלית על כל "הכרזת BGP". אם Google אומרת "אני מגיע לכתובות האלה", היא חותמת על זה קריפטוגרפית. מישהו ינסה לשקר? החתימה לא תתאים. Cloudflare, AWS ורוב ה-ISPs הגדולים כבר מיישמים RPKI.</span></div>
+<div class="sum-row"><span class="sum-k">כלי BGP</span><span class="sum-v"><strong>bgp.he.net</strong>: הקלד AS או כתובת IP — ראה את מפת הניתוב שלה. <strong>bgpview.io</strong>: גרף ויזואלי של קשרי AS. <code>traceroute -A google.com</code>: מציג את ה-AS שה-packet עובר דרכם בדרך ל-Google. <strong>Looking Glass servers</strong>: BGP routing table מנקודות שונות בעולם.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔍 DNS — ספר הטלפונים של האינטרנט</div>
+<div class="sum-row"><span class="sum-k">מה DNS עושה</span><span class="sum-v">כתובות IP הן מספרים: 142.250.185.46. בני אדם זוכרים שמות: google.com. DNS מתרגם שמות למספרים, בדיוק כמו <strong>ספר טלפונים</strong>. כשאתה כותב "google.com" בדפדפן, הראשון שנשאל הוא ה-DNS server. בלי DNS — האינטרנט לא עובד.</span></div>
+<div class="sum-row"><span class="sum-k">5 שלבי Resolution</span><span class="sum-v"><strong>1</strong> Cache מקומי (זוכר מפעם שעברה). <strong>2</strong> Resolver של ה-ISP שלך (שואל בשמך). <strong>3</strong> Root Server — יודע מי אחראי על .com. <strong>4</strong> TLD Server — יודע מי אחראי על google.com ספציפית. <strong>5</strong> Authoritative Server של Google — נותן את הכתובת הסופית. כל זה קורה ב-<50 milliseconds.</span></div>
+<div class="sum-row"><span class="sum-k">DNSSEC — מניעת זיוף</span><span class="sum-v">דמיין שמישהו משנה את ספר הטלפונים — כותב כתובת שגויה לבנק שלך, מכוון אותך ל"בנק מזויף". זה <strong>DNS Cache Poisoning</strong>. DNSSEC פותר זאת: כל תשובת DNS חתומה דיגיטלית. אם מישהו שינה — החתימה שבורה והדפדפן מסרב לטעון.</span></div>
+<div class="sum-row"><span class="sum-k">DNS over HTTPS (DoH)</span><span class="sum-v">שאילתות DNS רגילות גלויות: ה-ISP שלך רואה <strong>כל אתר שאתה מבקר</strong> (גם ב-HTTPS!). DoH מצפין את שאילתות ה-DNS בתוך HTTPS — ה-ISP רואה רק שדיברת עם 1.1.1.1, לא לאיזה אתרים. Firefox ו-Chrome כבר משתמשים בזה כברירת מחדל בחלק מהמדינות.</span></div>
+<div class="sum-row"><span class="sum-k">DNS Tunneling — שימוש זדוני</span><span class="sum-v">הבעיה: DNS כמעט <strong>אף פעם לא חסום</strong> בפיירוולים — כי בלי DNS אין אינטרנט. האקרים מנצלים זאת: שולחים נתונים גנובים מוסתרים בתוך שאילתות DNS. <code>c2data.secret.attacker.com</code> — ה-"שאילתה" היא בעצם הנתון הגנוב. מזוהה ע"י בדיקת <em>אורך</em> שמות הדומיין.</span></div>
+<div class="sum-tip">💡 <strong>פקודות שמות:</strong> <code>dig +trace google.com</code> מציג את כל 5 שלבי ה-resolution בזמן אמת. <code>dig ANY google.com</code> מחזיר את כל סוגי ה-records. נסה עכשיו בטרמינל!</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">⚡ HTTP/2 ו-HTTP/3 — מהפכת מהירות האינטרנט</div>
+<div class="sum-row"><span class="sum-k">הבעיה עם HTTP/1.1</span><span class="sum-v">דמיין שופרסל שיש בו רק <strong>קופה אחת</strong>, וכל לקוח חייב לחכות שהלפניו יסיים לחלוטין. דף אינטרנט מודרני = 100 resources (תמונות, CSS, JS). ב-HTTP/1.1 כל resource מחכה לקודם. הדפדפן פתח 6 חיבורים במקביל כ-workaround, אבל זה עדיין איטי.</span></div>
+<div class="sum-row"><span class="sum-k">HTTP/2 — Multiplexing</span><span class="sum-v">פתח <strong>קופות מקבילות על אותו חיבור</strong>. 100 resources? כולם עוברים בו-זמנית על connection אחד, כל אחד עם "מספר תור" (stream ID). Header Compression: headers חוזרים בכל request — HTTP/2 שולח רק מה <em>השתנה</em>. תוצאה: 2-3× מהיר יותר לדפים מורכבים.</span></div>
+<div class="sum-row"><span class="sum-k">הבעיה שנשארה</span><span class="sum-v">HTTP/2 עדיין רץ על <strong>TCP</strong>, וב-TCP אם packet אחד אובד — <strong>כל השאר עוצרים</strong> וממתינים. על רשת WiFi גרועה עם 2% packet loss: כל 100 streams ב-HTTP/2 קופאים בגלל packet אחד שאבד. הפסד יותר מ-HTTP/1.1 לפעמים!</span></div>
+<div class="sum-row"><span class="sum-k">QUIC — הרעיון הגאוני</span><span class="sum-v">Google פיתח: <strong>UDP במקום TCP</strong>. UDP לא מבטיח מסירה — אבל QUIC מוסיף reliability <em>לכל stream בנפרד</em>. אם packet של תמונה אחת אובד — רק התמונה ההיא מחכה, <strong>שאר 99 הresources ממשיכים</strong>. גם: TLS 1.3 מובנה, 0-RTT reconnect (מחדש את ה-connection ב-0 מסלולי round-trip).</span></div>
+<div class="sum-row"><span class="sum-k">HTTP/3 — היום</span><span class="sum-v">HTTP/3 = HTTP על QUIC. <strong>Chrome: ~60% מהתעבורה כבר HTTP/3</strong>. Cloudflare, Google, Facebook — כולם. על רשת עם 2% packet loss: HTTP/3 <strong>3× מהיר</strong> מ-HTTP/1.1. Connection Migration: עברת מ-WiFi לסלולרי? ה-connection ממשיך בלי ניתוק כי QUIC עוקב אחרי ה-connection, לא ה-IP.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔐 TLS — כיצד HTTPS שומר אותך</div>
+<div class="sum-row"><span class="sum-k">הבעיה שTLS פותר</span><span class="sum-v">ללא הצפנה, כל מידע ברשת = גלוי לכולם. Wireshark על WiFi ציבורי → קורא את כל מה שאתה שולח. עם TLS, הנתונים <strong>מוצפנים</strong>: גם אם מישהו לוכד את הpackets, הוא רואה רק ג'יבריש בלתי-קריא. הנעילה הירוקה בדפדפן = TLS פועל.</span></div>
+<div class="sum-row"><span class="sum-k">Handshake — 1 שנייה של "לחיצת יד"</span><span class="sum-v">לפני כל HTTPS session: <strong>1</strong> הדפדפן אומר "שלום, הצפנות שאני מכיר הן...". <strong>2</strong> השרת בוחר הצפנה, שולח certificate (תעודת זהות). <strong>3</strong> שניהם מחשבים מפתח משותף (ECDHE). <strong>4</strong> כל התקשורת מוצפנת במפתח זה. TLS 1.3: כל זה ב-1 round-trip (פחות מ-10ms).</span></div>
+<div class="sum-row"><span class="sum-k">Certificate — תעודת זהות</span><span class="sum-v">כשאתה נכנס ל-bank.com, <strong>מאיפה הדפדפן יודע שהוא ה-bank האמיתי</strong> ולא site מזויף? ה-certificate. Certificate Authority (CA) — גוף מוסמך כמו DigiCert — בדק ואישר: "כן, bank.com הוא אכן הבנק הזה". הדפדפן מאמין ל-CA. שרשרת אמון: Root CA → Intermediate CA → certificate שלך.</span></div>
+<div class="sum-row"><span class="sum-k">Perfect Forward Secrecy</span><span class="sum-v">בלי PFS: אם השרת נפרץ ו-private key נגנב — <strong>כל השיחות ההיסטוריות ניתנות לפענוח</strong> (אם הוקלטו). עם PFS (ECDHE): כל session מפתח חדש שנמחק מיד. גם אם private key נגנב — השיחות הישנות <em>לא</em> ניתנות לפענוח. TLS 1.3 מחייב PFS — RSA key exchange הוסר לחלוטין.</span></div>
+<div class="sum-row"><span class="sum-k">Certificate Transparency</span><span class="sum-v">מה אם CA רמאי מנפיק certificate מזויף ל-bank.com? Certificate Transparency Log: <strong>כל certificate בעולם חייב להיות רשום ב-log ציבורי</strong> (crt.sh). הבנק יכול לבדוק כל יום — "האם נוצר certificate עבורי שלא הזמנתי?" ואם כן — לבטל מיד.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🐝 eBPF — "תכנות" ישירות בתוך Linux Kernel</div>
+<div class="sum-row"><span class="sum-k">הרעיון הפשוט</span><span class="sum-v">ה-Linux kernel הוא ה"מוח" של השרת — שולט בהכל. <strong>בדרך כלל אסור לשנות אותו</strong> בלי לכתוב kernel module (מסוכן, מחייב reboot, יכול לקרוס את השרת). eBPF מאפשר <strong>להזריק תוכניות קטנות ישירות לkernel</strong>, בצורה בטוחה — ה-kernel בודק אוטומטית שהקוד לא יגרום נזק לפני הרצה.</span></div>
+<div class="sum-row"><span class="sum-k">Kernel Module vs eBPF</span><span class="sum-v">Kernel module נפל → kernel panic → השרת קרס לחלוטין. eBPF נפל → graceful failure → השרת ממשיך לרוץ. לכן <strong>Google, Netflix, Cloudflare, Facebook — כולם</strong> עברו ל-eBPF ב-production. בדיקת קוד: eBPF verifier בודק לפני הרצה שאין לולאות אינסופיות, אין memory access מחוץ לגבולות.</span></div>
+<div class="sum-row"><span class="sum-k">XDP — חסימת DDoS ב-nanoseconds</span><span class="sum-v">eXpress Data Path: eBPF ב<strong>רמת כרטיס הרשת</strong> — packet מגיע → נבדק → נזרק <em>לפני שהkernel אפילו רואה אותו</em>. Cloudflare מגן כך על מיליוני sites: DDoS attack של 1 Tbps? eBPF זורק את כל הpackets הזדוניים ב-nanoseconds, <strong>ללא עומס על CPU</strong>.</span></div>
+<div class="sum-row"><span class="sum-k">Cilium — Kubernetes בeBPF</span><span class="sum-v">Kubernetes (ניהול containers בענן) השתמש ב-iptables לניתוב — O(n) rules: 1000 services = בדיקת 1000 rules לכל packet. Cilium החליף זאת ב-eBPF maps: בדיקת 1 lookup בלי קשר לכמות Services. <strong>50× מהיר יותר</strong>. AWS, Azure, Google Cloud — כולם Cilium היום.</span></div>
+<div class="sum-row"><span class="sum-k">bpftrace — debugging בשורה אחת</span><span class="sum-v"><code>bpftrace -e 'tracepoint:syscalls:sys_enter_open { printf("%s\n", str(args->filename)); }'</code> — הדפס כל קובץ שכל process פותח, <strong>בזמן אמת</strong>. ללא הפסקת התוכנית, ללא שינוי קוד. כמו x-ray לשרת חי. מאתר memory leaks, performance bottlenecks, ו-security events.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🐳 Container Networking — איך containers מדברים</div>
+<div class="sum-row"><span class="sum-k">מה זה container?</span><span class="sum-v">כמו VM אבל קל יותר: <strong>process מבודד</strong> עם filesystem, network, ו-users משלו — אבל משתף את ה-kernel עם שאר ה-OS. Docker הוא הכלי הנפוץ. כל container מרגיש שיש לו מחשב שלם, אבל בפועל עשרות containers רצים על server אחד.</span></div>
+<div class="sum-row"><span class="sum-k">Network Namespace</span><span class="sum-v">הסוד: Linux <strong>Network Namespace</strong>. כל container מקבל namespace נפרד — ממשקי רשת, routing table, ו-iptables rules משלו. Container A לא יכול לראות את ה-network של Container B. ה-kernel יוצר <strong>veth pair</strong> (כמו כבל רשת וירטואלי) שמחבר את ה-container ל-bridge הרשת.</span></div>
+<div class="sum-row"><span class="sum-k">Docker Networking</span><span class="sum-v"><code>docker run -p 8080:80 nginx</code>: container רץ ב-"בועה" משלו עם IP פנימי (172.17.0.5). ה-<code>-p 8080:80</code> אומר: כשמישהו מבחוץ מגיע ל-port 8080 — העבר ל-port 80 של ה-container. Docker מוסיף iptables rule אוטומטית. Container לא יכול לדבר עם container אחר אלא אם בין.<strong>אותה network</strong>.</span></div>
+<div class="sum-row"><span class="sum-k">Kubernetes Networking</span><span class="sum-v">ב-Kubernetes (k8s): כל Pod מקבל <strong>IP ייחודי</strong> שנגיש מכל מקום ב-cluster — ללא NAT. Service = כתובת IP "קבועה" (VIP) שמייצגת קבוצת Pods. Load balancer אוטומטי בין Pods. kube-proxy: מנהל את ה-iptables/IPVS rules לניתוב traffic ל-Services הנכונים.</span></div>
+<div class="sum-row"><span class="sum-k">CNI Plugins</span><span class="sum-v">Container Network Interface: הסטנדרט שמגדיר איך networks נוצרות לcontainers. <strong>Flannel</strong>: פשוט, VXLAN overlay. <strong>Calico</strong>: BGP routing, ללא overlay — מהיר יותר. <strong>Cilium</strong>: eBPF, הכי מהיר, L7 policies (חסום HTTP אבל תן gRPC). הבחירה משפיעה על performance וsecurity.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">⚡ Network Performance Tuning — לסחוט את המקסימום</div>
+<div class="sum-row"><span class="sum-k">TCP Buffer — למה throughput מוגבל</span><span class="sum-v">דמיין צינור מים: כמה מים זורמים תלוי ב<strong>קוטר</strong> (bandwidth) ו<strong>לחץ</strong> (בכמה רשות המים מנפחים). ב-TCP: Bandwidth × RTT = <strong>BDP</strong> (כמה bytes ה"בצינור" בכל רגע). אם buffer קטן מBDP — ה-TCP נאלץ לחכות אישורים ולא ממלא את הצינור. Linux kernel: <code>net.core.rmem_max=134217728</code> לhigh-speed WAN.</span></div>
+<div class="sum-row"><span class="sum-k">BBR Congestion Control</span><span class="sum-v">האלגוריתם הישן (CUBIC) ניחש כמה לשלוח — לפי packet loss. BBR (Google, 2016): מודד ישירות את <strong>bandwidth ו-RTT</strong> בזמן אמת ומחשב את ה"קצב האמיתי". תוצאה: <strong>2-3× throughput יותר</strong> על רשתות עם packet loss, פי 25 על long-distance connections. YouTube ו-Gmail עברו ל-BBR ב-2017.</span></div>
+<div class="sum-row"><span class="sum-k">TCP Offloading</span><span class="sum-v">בלי offloading: ה-CPU מחשב checksums, מחלק data לsegments, מאחד packets — עבור <strong>כל packet</strong>. TSO (TCP Segmentation Offload): מעביר את החלוקה לsegments ל-<strong>כרטיס הרשת</strong>. GRO: מאחד packets קטנים לגדול לפני שה-kernel מקבל. תוצאה: 30% פחות CPU לאותה throughput.</span></div>
+<div class="sum-row"><span class="sum-k">iperf3 — מדידת throughput</span><span class="sum-v">Server: <code>iperf3 -s</code>. Client: <code>iperf3 -c SERVER -t 30 -P 4</code>. <code>-P 4</code> = 4 parallel streams (מדמה מציאות). המחשב מדד 800 Mbps אבל ISP אמור 1Gbps? iperf3 יראה אם הבעיה ב-NIC, ב-cable, ב-switch, או ב-ISP. <code>--bidir</code> = מדוד בשני כיוונים בו-זמנית.</span></div>
+<div class="sum-row"><span class="sum-k">DPDK — kernel bypass</span><span class="sum-v">בשרתי HFT ו-5G: ה-kernel עצמו הוא ה-bottleneck. DPDK (Data Plane Development Kit) מאפשר ל<strong>user-space לדבר ישירות עם כרטיס הרשת</strong> — ללא kernel. עד <strong>80 מיליון packets/שנייה</strong> על CPU אחד. RDMA: שלח data ישירות ל-RAM של שרת אחר ברשת, ללא CPU involvement בכלל.</span></div>
+<div class="sum-tip">💡 <strong>Performance debugging בסדר הנכון:</strong> <code>ss -s</code> (בדוק drops) → <code>ethtool -S eth0</code> (בדוק NIC) → <code>iperf3</code> (מדוד) → <code>perf top</code> (CPU hotspots) → eBPF לdiagnosis עמוק. אל תguess — <strong>מדוד קודם</strong>.</div>
+</div>`
   ]
 },
+
 en:{
   dir:'ltr',lang:'en',langBtn:'🇮🇱 HE',sbLabel:'Chapters',
   names:["Wireshark — Traffic Analysis", "BGP — The Internet's Routing Protocol", "DNS — Advanced & Security", "HTTP/2 & HTTP/3 — The Revolution", "TLS — Under the Hood", "eBPF — Linux Superpower", "Container Networking", "Network Performance Tuning"],
@@ -2189,14 +2301,64 @@ sysctl -p   <span class="comment"># apply without reboot</span></code></pre>
 </div>`
   ],
   cheat:[
-`<div class="callout callout-success"><strong>📋 Wireshark — Traffic Analysis</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">promiscuous mode</span></div><div class="cheat-item"><span class="cheat-key">Capture=kernel, Display=UI</span></div><div class="cheat-item"><span class="cheat-key">capture filters</span></div><div class="cheat-item"><span class="cheat-key">full conversation</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 BGP — The Internet's Routing Protocol</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">TCP 179</span></div><div class="cheat-item"><span class="cheat-key">Autonomous System</span></div><div class="cheat-item"><span class="cheat-key">policy + attributes</span></div><div class="cheat-item"><span class="cheat-key">more preferred</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 DNS — Advanced & Security</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">authentication/signatures</span></div><div class="cheat-item"><span class="cheat-key">spoofed UDP queries</span></div><div class="cheat-item"><span class="cheat-key">DNS over HTTPS</span></div><div class="cheat-item"><span class="cheat-key">cache duration</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 HTTP/2 & HTTP/3 — The Revolution</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">request B waits for A</span></div><div class="cheat-item"><span class="cheat-key">multiple streams on one connection</span></div><div class="cheat-item"><span class="cheat-key">header compression</span></div><div class="cheat-item"><span class="cheat-key">UDP</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 TLS — Under the Hood</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">1</span></div><div class="cheat-item"><span class="cheat-key">key exchange + auth + encrypt + MAC</span></div><div class="cheat-item"><span class="cheat-key">signs certificates</span></div><div class="cheat-item"><span class="cheat-key">DigiNotar</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 eBPF — Linux Superpower</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">kernel space</span></div><div class="cheat-item"><span class="cheat-key">safety — no crash/infinite loop</span></div><div class="cheat-item"><span class="cheat-key">runs before kernel network stack</span></div><div class="cheat-item"><span class="cheat-key">eBPF</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Container Networking</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">through docker0 bridge</span></div><div class="cheat-item"><span class="cheat-key">virtual ethernet pair</span></div><div class="cheat-item"><span class="cheat-key">unique IP per pod without NAT</span></div><div class="cheat-item"><span class="cheat-key">eBPF</span></div></div></div>`,
-`<div class="callout callout-success"><strong>📋 Network Performance Tuning</strong></div><div class="cheat-grid"><div class="cheat-card"><div class="cheat-item"><span class="cheat-key">bandwidth × RTT</span></div><div class="cheat-item"><span class="cheat-key">BBR=model-based, CUBIC=loss-based</span></div><div class="cheat-item"><span class="cheat-key">CPU copies and context switches</span></div><div class="cheat-item"><span class="cheat-key">1-3 microseconds</span></div></div></div>`
+`<div class="sum-block"><div class="sum-block-title">🔬 Wireshark — Seeing Every Byte on the Network</div>
+<div class="sum-row"><span class="sum-k">The simple idea</span><span class="sum-v">When you browse the internet, your computer sends and receives <strong>thousands of tiny "letters" per second</strong> — each called a "packet". Wireshark is like a <strong>security camera for your network</strong>: it captures every packet and shows it in full detail. You can see exactly what your computer sends and receives, to which server, and even the <em>content</em> of the conversation.</span></div>
+<div class="sum-row"><span class="sum-k">Layers explained</span><span class="sum-v">Every packet is like an envelope inside an envelope: <strong>Ethernet</strong> (who sends to whom on local network) → <strong>IP</strong> (internet address) → <strong>TCP/UDP</strong> (which "service") → <strong>HTTP/TLS</strong> (the actual content). Wireshark opens each layer separately, like Russian nesting dolls.</span></div>
+<div class="sum-row"><span class="sum-k">Display Filters</span><span class="sum-v">Filter what you see from thousands of packets. <code>http</code> = only website traffic. <code>ip.addr == 8.8.8.8</code> = only traffic with that IP. <code>tcp.port == 443</code> = only HTTPS. <code>dns</code> = only DNS queries. Like a search engine for your network traffic.</span></div>
+<div class="sum-row"><span class="sum-k">Follow Stream</span><span class="sum-v">Right-click a packet → "Follow TCP Stream" → Wireshark shows the <strong>entire conversation</strong> in readable order. HTTP (unencrypted) = you see all the text. HTTPS (encrypted) = unreadable gibberish — that's why HTTPS matters.</span></div>
+<div class="sum-row"><span class="sum-k">Why this matters</span><span class="sum-v">Wireshark on an HTTP network = sees <strong>everything</strong> — passwords, cookies, messages. On a public WiFi = can capture others' packets. This is why <strong>every modern site needs HTTPS</strong>. Wireshark is also how you debug network issues, verify performance, and find the root cause of connection problems.</span></div>
+<div class="sum-danger">⚠️ Using Wireshark on networks you don't own is illegal. Always get permission first. It's powerful exactly because it sees everything.</div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🌐 BGP — How the Internet Knows Where to Send Your Data</div>
+<div class="sum-row"><span class="sum-k">The problem BGP solves</span><span class="sum-v">The internet is a collection of tens of thousands of separate networks (ISPs, companies, universities). When you send an email from New York to Tokyo, <strong>how is the path chosen?</strong> BGP is a "living map": each network tells its neighbors "I can reach these addresses" — and the global routing table is built from this mutual gossip.</span></div>
+<div class="sum-row"><span class="sum-k">AS — Autonomous System</span><span class="sum-v">Every organization that manages an independent network gets an AS number. <strong>AS15169 = Google</strong>, AS16509 = Amazon AWS, AS13335 = Cloudflare. Your ISP = an AS. When you visit Google.com, your packet travels through multiple ASes. BGP is the protocol managing all this routing between them.</span></div>
+<div class="sum-row"><span class="sum-k">BGP Hijacking — when someone lies</span><span class="sum-v">In 2008, <strong>Pakistan Telecom announced that YouTube belonged to them</strong>. BGP believed them — because BGP is trust-based with no verification. Every YouTube user in the world was routed to... Pakistan. 75 million users blocked. The internet stopped for 2 hours. <strong>This can still happen today</strong>.</span></div>
+<div class="sum-row"><span class="sum-k">RPKI — the solution</span><span class="sum-v">Like a digital signature on every BGP announcement. If Google says "I reach these addresses", it signs it cryptographically. Someone tries to lie? The signature won't match. Cloudflare, AWS, and most major ISPs already implement RPKI. Adoption is growing fast since 2020.</span></div>
+<div class="sum-row"><span class="sum-k">BGP Tools</span><span class="sum-v"><strong>bgp.he.net</strong>: Enter any AS or IP — see its routing map. <strong>bgpview.io</strong>: visual graph of AS relationships. <code>traceroute -A google.com</code>: shows which AS numbers your packet traverses on the way to Google. <strong>Looking Glass servers</strong>: BGP routing table from different points worldwide.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔍 DNS — The Internet's Phone Book</div>
+<div class="sum-row"><span class="sum-k">What DNS does</span><span class="sum-v">IP addresses are numbers: 142.250.185.46. Humans remember names: google.com. DNS translates names to numbers, exactly like a <strong>phone book</strong>. When you type "google.com", the first thing your browser does is ask a DNS server. Without DNS — the internet doesn't work. Period.</span></div>
+<div class="sum-row"><span class="sum-k">5 steps of Resolution</span><span class="sum-v"><strong>1</strong> Local cache (remembers from last time). <strong>2</strong> Your ISP's Resolver (asks on your behalf). <strong>3</strong> Root Server — knows who manages .com. <strong>4</strong> TLD Server — knows who manages google.com specifically. <strong>5</strong> Google's Authoritative Server — gives the final IP. All of this in under 50 milliseconds.</span></div>
+<div class="sum-row"><span class="sum-k">DNSSEC — preventing forgery</span><span class="sum-v">Imagine someone alters the phone book — writing a fake address for your bank, sending you to a fake bank site. That's <strong>DNS Cache Poisoning</strong>. DNSSEC solves this: every DNS response is digitally signed. If someone tampers — the signature breaks and your browser refuses to load the page.</span></div>
+<div class="sum-row"><span class="sum-k">DNS over HTTPS (DoH)</span><span class="sum-v">Regular DNS queries are visible: your ISP sees <strong>every site you visit</strong> (even over HTTPS!). DoH encrypts DNS queries inside HTTPS — your ISP only sees you talked to 1.1.1.1, not which specific sites. Firefox and Chrome already use this by default in some regions.</span></div>
+<div class="sum-row"><span class="sum-k">DNS Tunneling — malicious use</span><span class="sum-v">Problem: DNS is almost <strong>never blocked by firewalls</strong> — because without DNS there's no internet. Hackers exploit this: hiding stolen data inside DNS queries. <code>stolendata.secret.attacker.com</code> — the "query" is actually the stolen data. Detected by checking subdomain <em>length</em> — legitimate domains are short.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">⚡ HTTP/2 & HTTP/3 — The Speed Revolution</div>
+<div class="sum-row"><span class="sum-k">The HTTP/1.1 problem</span><span class="sum-v">Imagine a supermarket with <strong>only one checkout lane</strong> — each customer must wait for the previous one to fully finish. A modern web page = 100 resources (images, CSS, JS). With HTTP/1.1 each resource waits for the previous. Browsers opened 6 parallel connections as a workaround, but it was still slow.</span></div>
+<div class="sum-row"><span class="sum-k">HTTP/2 — Multiplexing</span><span class="sum-v">Opened <strong>parallel "checkout lanes" on the same connection</strong>. 100 resources? All transfer simultaneously on one connection, each with a "queue number" (stream ID). Header Compression: headers repeat in every request — HTTP/2 only sends what <em>changed</em>. Result: 2-3× faster for complex pages.</span></div>
+<div class="sum-row"><span class="sum-k">The remaining problem</span><span class="sum-v">HTTP/2 still runs on <strong>TCP</strong>, and in TCP if one packet is lost — <strong>everything stops</strong> waiting for it. On bad WiFi with 2% packet loss: all 100 streams in HTTP/2 freeze because of one lost packet. Sometimes worse than HTTP/1.1!</span></div>
+<div class="sum-row"><span class="sum-k">QUIC — the genius idea</span><span class="sum-v">Google invented: <strong>UDP instead of TCP</strong>. UDP doesn't guarantee delivery — but QUIC adds reliability <em>per stream separately</em>. If one image's packet is lost — only that image waits, <strong>the other 99 resources keep flowing</strong>. Also: TLS 1.3 built-in, 0-RTT reconnect for known servers.</span></div>
+<div class="sum-row"><span class="sum-k">HTTP/3 — today</span><span class="sum-v">HTTP/3 = HTTP over QUIC. <strong>Chrome: ~60% of traffic already HTTP/3</strong>. Cloudflare, Google, Facebook — all use it. On networks with 2% packet loss: HTTP/3 is <strong>3× faster</strong> than HTTP/1.1. Connection Migration: switched from WiFi to cellular? The connection continues without dropping.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🔐 TLS — How HTTPS Protects You</div>
+<div class="sum-row"><span class="sum-k">The problem TLS solves</span><span class="sum-v">Without encryption, all network data is visible to anyone. Wireshark on public WiFi → reads everything you send. With TLS, data is <strong>encrypted</strong>: even if someone captures the packets, they see only unreadable gibberish. The padlock in your browser = TLS is working.</span></div>
+<div class="sum-row"><span class="sum-k">Handshake — 1 second of "agreement"</span><span class="sum-v">Before every HTTPS session: <strong>1</strong> Browser says "hello, encryption I support...". <strong>2</strong> Server chooses encryption, sends certificate (identity document). <strong>3</strong> Both calculate a shared key (ECDHE). <strong>4</strong> All communication encrypted with that key. TLS 1.3: all of this in 1 round-trip (under 10ms).</span></div>
+<div class="sum-row"><span class="sum-k">Certificate — identity document</span><span class="sum-v">When you visit bank.com, <strong>how does your browser know it's the real bank</strong> and not a fake site? The certificate. A Certificate Authority (CA) — trusted body like DigiCert — verified: "yes, bank.com is that bank." The browser trusts the CA. Chain of trust: Root CA → Intermediate CA → your certificate.</span></div>
+<div class="sum-row"><span class="sum-k">Perfect Forward Secrecy</span><span class="sum-v">Without PFS: if a server is hacked and private key stolen — <strong>all past conversations can be decrypted</strong> (if recorded). With PFS (ECDHE): each session gets a new key that's immediately deleted. Even if private key is stolen — old conversations <em>cannot</em> be decrypted. TLS 1.3 mandates PFS.</span></div>
+<div class="sum-row"><span class="sum-k">Certificate Transparency</span><span class="sum-v">What if a rogue CA issues a fake certificate for bank.com? CT Log: <strong>every certificate in the world must be registered in a public log</strong> (crt.sh). Banks check daily — "was a certificate created for me that I didn't order?" If yes — revoke immediately. This system has already caught multiple CA compromises.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🐝 eBPF — "Programming" Directly Inside the Linux Kernel</div>
+<div class="sum-row"><span class="sum-k">The simple idea</span><span class="sum-v">The Linux kernel is the server's "brain" — controls everything. <strong>Normally you can't change it</strong> without writing a kernel module (dangerous, requires reboot, can crash the server). eBPF lets you <strong>inject small programs directly into the kernel</strong>, safely — the kernel automatically checks the code won't cause damage before running it.</span></div>
+<div class="sum-row"><span class="sum-k">Kernel Module vs eBPF</span><span class="sum-v">Kernel module crashes → kernel panic → entire server crashes. eBPF crashes → graceful failure → server keeps running. That's why <strong>Google, Netflix, Cloudflare, Facebook — all</strong> use eBPF in production. The eBPF verifier checks before execution: no infinite loops, no out-of-bounds memory access.</span></div>
+<div class="sum-row"><span class="sum-k">XDP — blocking DDoS in nanoseconds</span><span class="sum-v">eXpress Data Path: eBPF at the <strong>network card level</strong> — packet arrives → checked → dropped <em>before the kernel even sees it</em>. Cloudflare protects millions of sites this way: 1 Tbps DDoS attack? eBPF drops all malicious packets in nanoseconds, <strong>without CPU load</strong>.</span></div>
+<div class="sum-row"><span class="sum-k">Cilium — Kubernetes in eBPF</span><span class="sum-v">Kubernetes (cloud container management) used iptables for routing — O(n) rules: 1000 services = checking 1000 rules per packet. Cilium replaced this with eBPF maps: 1 lookup regardless of how many Services. <strong>50× faster</strong>. AWS, Azure, Google Cloud — all use Cilium today.</span></div>
+<div class="sum-row"><span class="sum-k">bpftrace — one-line debugging</span><span class="sum-v"><code>bpftrace -e 'tracepoint:syscalls:sys_enter_open { printf("%s\n", str(args->filename)); }'</code> — print every file every process opens, <strong>in real time</strong>. Without stopping the program, without changing code. Like an X-ray for a live server. Finds memory leaks, performance bottlenecks, and security events.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">🐳 Container Networking — How Containers Talk</div>
+<div class="sum-row"><span class="sum-k">What is a container?</span><span class="sum-v">Like a VM but lighter: an <strong>isolated process</strong> with its own filesystem, network, and users — but sharing the kernel with the rest of the OS. Docker is the popular tool. Each container feels like it has a whole computer, but in reality dozens of containers run on one server.</span></div>
+<div class="sum-row"><span class="sum-k">Network Namespace</span><span class="sum-v">The secret: Linux <strong>Network Namespace</strong>. Each container gets its own namespace — network interfaces, routing table, and iptables rules of its own. Container A can't see Container B's network. The kernel creates a <strong>veth pair</strong> (like a virtual cable) connecting the container to the network bridge.</span></div>
+<div class="sum-row"><span class="sum-k">Docker Networking</span><span class="sum-v"><code>docker run -p 8080:80 nginx</code>: container runs in its own "bubble" with an internal IP (172.17.0.5). The <code>-p 8080:80</code> means: when someone from outside reaches port 8080 — forward to port 80 of the container. Docker adds an iptables rule automatically.</span></div>
+<div class="sum-row"><span class="sum-k">Kubernetes Networking</span><span class="sum-v">In Kubernetes: every Pod gets a <strong>unique IP</strong> reachable from anywhere in the cluster — without NAT. Service = a "stable" IP (VIP) representing a group of Pods. Automatic load balancer between Pods. kube-proxy manages iptables/IPVS rules routing traffic to the right Services.</span></div>
+<div class="sum-row"><span class="sum-k">CNI Plugins</span><span class="sum-v">Container Network Interface: the standard defining how networks are created for containers. <strong>Flannel</strong>: simple, VXLAN overlay. <strong>Calico</strong>: BGP routing, no overlay — faster. <strong>Cilium</strong>: eBPF, fastest, L7 policies ("block HTTP but allow gRPC"). The choice affects performance and security.</span></div>
+</div>`,
+`<div class="sum-block"><div class="sum-block-title">⚡ Network Performance Tuning — Squeezing Out Maximum Speed</div>
+<div class="sum-row"><span class="sum-k">TCP Buffer — why throughput is limited</span><span class="sum-v">Imagine a water pipe: how much water flows depends on <strong>diameter</strong> (bandwidth) and <strong>pressure</strong>. In TCP: Bandwidth × RTT = <strong>BDP</strong> (how many bytes are "in the pipe" at any moment). If buffer is smaller than BDP — TCP must wait for acknowledgments and can't fill the pipe. Linux: <code>net.core.rmem_max=134217728</code> for high-speed WAN.</span></div>
+<div class="sum-row"><span class="sum-k">BBR Congestion Control</span><span class="sum-v">The old algorithm (CUBIC) guessed how much to send — based on packet loss. BBR (Google, 2016): directly measures <strong>bandwidth and RTT</strong> in real time. Result: <strong>2-3× more throughput</strong> on networks with packet loss, 25× on long-distance connections. YouTube and Gmail switched to BBR in 2017.</span></div>
+<div class="sum-row"><span class="sum-k">TCP Offloading</span><span class="sum-v">Without offloading: the CPU calculates checksums, splits data into segments — for <strong>every packet</strong>. TSO (TCP Segmentation Offload): moves segmentation to the <strong>network card</strong>. GRO: merges small packets into large ones before the kernel sees them. Result: 30% less CPU for the same throughput.</span></div>
+<div class="sum-row"><span class="sum-k">iperf3 — measuring throughput</span><span class="sum-v">Server: <code>iperf3 -s</code>. Client: <code>iperf3 -c SERVER -t 30 -P 4</code>. <code>-P 4</code> = 4 parallel streams (simulates reality). Computer measured 800 Mbps but ISP promises 1Gbps? iperf3 shows if the bottleneck is in the NIC, cable, switch, or ISP.</span></div>
+<div class="sum-row"><span class="sum-k">DPDK — kernel bypass</span><span class="sum-v">In HFT and 5G servers: the kernel itself is the bottleneck. DPDK lets <strong>user-space talk directly to the network card</strong> — without the kernel. Up to <strong>80 million packets/second</strong> on one CPU. RDMA: send data directly to another server's RAM over the network, without CPU involvement at all.</span></div>
+<div class="sum-tip">💡 <strong>Performance debugging in order:</strong> <code>ss -s</code> (check drops) → <code>ethtool -S eth0</code> (check NIC) → <code>iperf3</code> (measure) → <code>perf top</code> (CPU hotspots) → eBPF for deep diagnosis. Don't guess — <strong>measure first</strong>.</div>
+</div>`
   ]
 }};
 var GAME_QS={},GAME_QS_EN={},QUIZZES={},QUIZZES_EN={},ILABS={},ILABS_EN={};
@@ -2456,6 +2618,7 @@ const state = {cur:0, tabs:{}, quiz:{}, game:{}, xp:0, stars:{}};
 let currentLang = 'he';
 let gameTimer = null;
 const TOTAL_CHAPTERS = 8;
+var COURSE_ICON = '🔬';
 
 // ===== HELPERS =====
 function L() { return currentLang==='he' ? C.he : C.en; }
@@ -2917,5 +3080,30 @@ function updateStars(chId){
   const s=state.stars[chId]||0;
   el.textContent='⭐'.repeat(s)+'☆'.repeat(3-s);
 }
+
+
+function buildReviewContent() {
+  var Lc = L(); var html = '';
+  for (var i = 0; i < Lc.cheat.length; i++) {
+    var num = (i<10?'0':'')+i;
+    html += '<div class="review-chapter-block"><div class="review-chapter-title"><span class="review-chapter-num">'+num+'</span><span class="review-chapter-name">'+Lc.names[i]+'</span></div><div class="review-chapter-body">'+Lc.cheat[i]+'</div></div>';
+  }
+  return html;
+}
+function openReview() {
+  var total = typeof TOTAL_CHAPTERS!=='undefined'?TOTAL_CHAPTERS:8;
+  document.getElementById('reviewTitle').textContent = currentLang==='he'?'📚 סיכום מלא':'📚 Full Review';
+  document.getElementById('reviewSub').textContent = currentLang==='he'?'כל '+total+' הפרקים בעמוד אחד':'All '+total+' chapters on one page';
+  document.getElementById('reviewBody').innerHTML = buildReviewContent();
+  document.getElementById('reviewOverlay').classList.add('open');
+  document.getElementById('reviewDrawer').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeReview() {
+  document.getElementById('reviewOverlay').classList.remove('open');
+  document.getElementById('reviewDrawer').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeReview();});
 
 </script></body></html>
