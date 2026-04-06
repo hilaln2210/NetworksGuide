@@ -133,7 +133,7 @@ export const tracks = [
     level: 'בינוני–מתקדם',
     fullPage: true,
     chapterCount: 8,
-    lastUpdated: '2026-04-04 23:40',
+    lastUpdated: '2026-04-06 20:22',
     syllabus: ['מבוא — IP Investigation', 'Geolocation', 'WHOIS ו-ASN', 'Reverse DNS', 'Reputation — זיהוי סיכונים', 'Shodan ו-Censys', 'ניתוח לוגים', 'דוחות ו-Automation'],
     chapters: [
       { id: 1000, title: "חקר כתובות IP — קורס מלא", pages: [{ type: "html_page", title: "IP Investigation Course", src: "/learn/ip-investigation/ip_investigation_course.html" }] },
