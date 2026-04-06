@@ -872,237 +872,246 @@ he:{
   learn:[
 `
 <div class="section-title">מה זה בכלל IP Investigation?</div>
-<p class="prose">כשמחשב מתחבר לאינטרנט — הוא מקבל <strong>כתובת IP</strong>. כמו כתובת בית, אבל לרשת. כל שרת שאתה מבקר בו רושם אותה. כל מייל שאתה שולח — מכיל אותה.</p>
-<p class="prose"><strong>IP Investigation</strong> = לקחת כתובת כזו ולגלות מיהי — מאיפה הגיעה, מי מחזיק בה, האם היא מסוכנת, ומה היא עשתה. כל זה ממידע ציבורי, <em>בלי לגעת ב-IP</em>.</p>
+<p class="prose">בכל פעם שמחשב מתחבר לאינטרנט — לאתר, לשרת, לשירות כלשהו — הוא מזדהה עם <strong>כתובת IP</strong>. זה כמו מספר טלפון של המחשב ברשת. הצד השני תמיד רואה ממי הגיעה הבקשה.</p>
+<p class="prose">כל שרת שומר את הכתובות האלו בקובץ לוג. כשמשהו חשוד קורה — מנהל מערכת פותח את הלוג, מוצא כתובת, ורוצה לדעת: <em>מי זה? מאיפה? האם מסוכן?</em> זה בדיוק מה ש-IP Investigation עונה.</p>
 
-<div class="callout idea">💡 <strong>תרחיש:</strong> מנהל שרת רואה שמישהו ניסה 503 פעמים להתחבר ב-2 שעות. יש לו מספר: <code>45.141.215.111</code>. בפרק האחרון נחקור אותו צעד אחר צעד ונגיע למסקנה ברורה.</div>
+<div class="callout idea">💡 <strong>דוגמה:</strong> לוג מראה שכתובת <code>45.141.215.111</code> ניסתה להתחבר לשרת 503 פעמים בשעתיים. בפרק האחרון נבדוק אותה יחד ונגיע לתשובה ברורה — מי זה ומה עושים.</div>
 
-<div class="section-title">חוק הזהב — Passive בלבד</div>
-<p class="prose">יש שני סוגי חקירה. <strong>Passive</strong> = שואלים מאגרי מידע ציבוריים — הIP לא יודע שחוקרים אותו. <strong>Active</strong> = שולחים packets ישירות אליו — הוא רואה. Passive תמיד מותר. Active <em>אסור ללא הרשאה</em>, גם אם ה-IP נראה זדוני לחלוטין.</p>
-
-<div class="callout warn">⚠️ <code>nmap IP</code> על IP שלא שייך לך = עבירה פלילית. גם אם ה-IP תקף אתכם. <strong>Passive בלבד בכל הקורס.</strong></div>
-
-<div class="section-title">שש שאלות שנלמד לענות עליהן</div>
+<div class="section-title">כלל בסיסי לפני הכל — מה מותר ומה לא</div>
+<p class="prose">יש שני סוגי חקירה, ורק אחד מהם מותר:</p>
 <table class="data-table">
-<tr><th>שאלה</th><th>כלי</th><th>מה נקבל</th></tr>
-<tr><td>📍 מאיפה הגיע?</td><td>ipinfo.io</td><td>מדינה, עיר (בערך), ISP</td></tr>
-<tr><td>🏢 מי הבעלים?</td><td>WHOIS</td><td>חברה, ISP, ארגון</td></tr>
-<tr><td>🏷️ יש לו שם?</td><td>dig -x</td><td>שם שמסגיר סוג השרת</td></tr>
-<tr><td>⚠️ האם מסוכן?</td><td>VirusTotal, AbuseIPDB</td><td>דיווחים, ציון אמינות</td></tr>
-<tr><td>🔭 מה רץ עליו?</td><td>Shodan</td><td>פורטים פתוחים, גרסאות</td></tr>
-<tr><td>📋 מה עשה אצלנו?</td><td>Logs</td><td>פעולות מדויקות עם timestamp</td></tr>
+<tr><th></th><th>✅ Passive — מותר תמיד</th><th>🚫 Active — אסור בלי הרשאה</th></tr>
+<tr><td>מה עושים</td><td>שואלים מאגרי מידע ציבוריים</td><td>שולחים בקשות ישירות ל-IP</td></tr>
+<tr><td>ה-IP יודע?</td><td>לא — אין מגע ישיר</td><td>כן — הוא רואה כל בקשה</td></tr>
+<tr><td>דוגמאות</td><td>WHOIS, VirusTotal, ipinfo.io</td><td>ping, nmap, סריקת פורטים</td></tr>
+</table>
+<div class="callout warn">⚠️ לשלוח <code>nmap</code> לכתובת שלא שייכת לך = עבירה פלילית. גם אם הכתובת תקפה אותך קודם. <strong>כל הקורס הזה: Passive בלבד.</strong></div>
+
+<div class="section-title">שש שאלות, שש כלים, שלוש דקות</div>
+<table class="data-table">
+<tr><th>שאלה</th><th>כלי</th><th>מה מקבלים</th></tr>
+<tr><td>📍 מאיפה הגיעה הכתובת?</td><td>ipinfo.io</td><td>מדינה, עיר (בערך), ISP</td></tr>
+<tr><td>🏢 מי מחזיק בכתובת?</td><td>WHOIS</td><td>חברה, ISP, ארגון</td></tr>
+<tr><td>🏷️ יש לכתובת שם?</td><td>host / dig -x</td><td>שם שמסגיר את מטרת השרת</td></tr>
+<tr><td>⚠️ האם הכתובת מוכרת כמסוכנת?</td><td>VirusTotal, AbuseIPDB</td><td>דיווחים, ציון אמינות</td></tr>
+<tr><td>🔭 מה רץ על השרת הזה?</td><td>Shodan</td><td>שירותים פתוחים, גרסאות</td></tr>
+<tr><td>📋 מה הכתובת עשתה אצלנו?</td><td>Logs</td><td>פעולות מדויקות עם תאריך ושעה</td></tr>
 </table>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">התאמה</span></button></div>`,
 `
-<div class="section-title">Geolocation — לאתר IP על המפה</div>
-<p class="prose"><strong>למה זה שימושי?</strong> IP מרוסיה שמנסה להיכנס לשרת בישראל — context שונה לחלוטין מ-IP מתוך הארגון שלנו. Geolocation נותן את ה-context הראשוני.</p>
-<p class="prose">הבדיקה הכי פשוטה: פתחו <code>ipinfo.io/IP</code> בדפדפן, או בterminal:</p>
+<div class="section-title">Geolocation — לאתר כתובת IP על המפה</div>
+<p class="prose">Geolocation = לגלות איפה נמצא השרת שמאחורי כתובת IP. לא ה-GPS של האדם שיושב מאחוריו — <strong>המיקום הפיזי של השרת</strong>. זה מידע שנאסף ממספר מקורות: ISPs מצהירים היכן הם ממוקמים, נתוני routing ברשת מספקים רמזים גיאוגרפיים, ולפעמים נתוני Wi-Fi.</p>
+<p class="prose">הכלי הפשוט ביותר: פשוט נגשים ל-<code>ipinfo.io/כתובת-ה-IP</code> בדפדפן — או מהטרמינל:</p>
 <pre><code>curl ipinfo.io/185.220.101.5</code></pre>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">📍&nbsp;ipinfo.io/185.220.101.5</div></div><div class=td-title>🌍 ipinfo.io</div><div class="td-body"><div class="td-row"><span class="td-k">ip</span><span class="td-v">"185.220.101.5"</span></div><div class="td-row"><span class="td-k">hostname</span><span class="td-v"><span style="color:#d97706;font-weight:600">tor-exit0.freki.lu</span></span></div><div class="td-row"><span class="td-k">city</span><span class="td-v">"Luxembourg City"</span></div><div class="td-row"><span class="td-k">country</span><span class="td-v">"LU" 🇱🇺</span></div><div class="td-row"><span class="td-k">org</span><span class="td-v"><span style="color:#d97706">"AS24940 Hetzner Online GmbH"</span></span></div><div class="td-row"><span class="td-k">timezone</span><span class="td-v">"Europe/Luxembourg"</span></div><div style="margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.5">⚠️ hostname מכיל "tor-exit" ← זה Tor exit node. <strong>המיקום בלוקסמבורג לא שייך לתוקף</strong> — הוא פשוט שם שמסתיר זהות.</div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">📍&nbsp;ipinfo.io/185.220.101.5</div></div><div class="td-title">🌍 ipinfo.io</div><div class="td-body"><div class="td-row"><span class="td-k">ip</span><span class="td-v">"185.220.101.5"</span></div><div class="td-row"><span class="td-k">hostname</span><span class="td-v"><span style="color:#d97706;font-weight:600">tor-exit0.freki.lu</span></span></div><div class="td-row"><span class="td-k">city</span><span class="td-v">"Luxembourg City"</span></div><div class="td-row"><span class="td-k">country</span><span class="td-v">"LU" &nbsp;🇱🇺</span></div><div class="td-row"><span class="td-k">org</span><span class="td-v"><span style="color:#d97706">"AS24940 Hetzner Online GmbH"</span></span></div><div class="td-row"><span class="td-k">timezone</span><span class="td-v">"Europe/Luxembourg"</span></div><div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">שימו לב ל-hostname: <strong>tor-exit0.freki.lu</strong> — המילה "tor-exit" אומרת שזה שרת ביציאה מרשת Tor. כלומר, המיקום בלוקסמבורג הוא של השרת, <strong>לא של האדם שמאחוריו</strong>.</div></div></div>
 
-<div class="section-title">כמה מדויק זה?</div>
+<div class="section-title">כמה מדויק המיקום?</div>
+<p class="prose">הדיוק תלוי ברמה שמבקשים:</p>
 <table class="data-table">
-<tr><th>רמה</th><th>דיוק</th><th>שימוש נכון</th></tr>
+<tr><th>רמה</th><th>דיוק</th><th>מה זה אומר בפועל</th></tr>
 <tr><td>מדינה</td><td>~99.8%</td><td>אמין — "IP מרוסיה" זה כנראה נכון</td></tr>
-<tr><td>עיר</td><td>~66%</td><td>אינדיקציה בלבד — לא ראיה</td></tr>
-<tr><td>רחוב/בית</td><td>כמעט אפס</td><td>אל תסמוך על זה</td></tr>
+<tr><td>עיר</td><td>~66%</td><td>כיוון כללי — לא להסתמך עליו לבד</td></tr>
+<tr><td>רחוב / בניין</td><td>כמעט אפס</td><td>בלתי אפשרי מIP בלבד</td></tr>
 </table>
 
-<div class="callout warn">⚠️ <strong>הסיפור של Potwin, Kansas:</strong> MaxMind (מאגר הgeolocation הגדול) קבע שכל IP לא מזוהה בארה"ב = מרכז המדינה. עיירה בת 800 נפש קיבלה ביקורי FBI על עברות שלא ביצעה. <strong>Geolocation = הערכה, לא עובדה.</strong></div>
+<div class="callout warn">⚠️ <strong>למה Geolocation לא מספיק לבד — סיפור אמיתי:</strong><br><br>
+MaxMind, החברה שמפעילה את מאגר ה-Geolocation הגדול בעולם, הייתה צריכה לתת מיקום ברירת מחדל לכתובות IP שלא יודעים איפה הן. הם בחרו: <em>מרכז ארצות הברית גיאוגרפית</em>.<br><br>
+אותו מרכז נמצא ממש בתוך חצר של בית פרטי בעיירה קטנה בקנזס. לפתע, כל הכתובות ה"לא ידועות" — מאות מיליוני כתובות — הצביעו על הבית הזה. המשפחה שגרה שם התחילה לקבל ביקורי שוטרים, חוקרים, ותביעות משפטיות על עברות שמעולם לא ביצעה.<br><br>
+<strong>המסקנה:</strong> Geolocation = הערכה. לא ראיה. לא כתובת מדויקת.</div>
 
-<div class="section-title">מתי Geolocation מטעה</div>
+<div class="section-title">מתי המיקום שמקבלים הוא לא המיקום של התוקף</div>
 <table class="data-table">
-<tr><th>מה רואים</th><th>הסבר</th></tr>
-<tr><td>IP מלוקסמבורג + "tor-exit" בשם</td><td>Tor exit node — המיקום לא שייך לתוקף</td></tr>
-<tr><td>IP מהולנד תמיד</td><td>VPN provider — המשתמש יכול להיות מכל מקום</td></tr>
-<tr><td>IP מרוסיה + hostname של AWS</td><td>שרת ענן — זהות אנונימית</td></tr>
+<tr><th>מה רואים</th><th>מה זה באמת</th></tr>
+<tr><td>IP "מלוקסמבורג" עם tor-exit בשם</td><td>שרת Tor — תוקף מסתיר מיקום דרכו</td></tr>
+<tr><td>IP "מהולנד" תמיד</td><td>ספק VPN — תוקף מתחבר דרכו</td></tr>
+<tr><td>IP "מרוסיה" עם hostname של AWS</td><td>שרת ענן שכור — זהות אנונימית</td></tr>
 </table>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">התאמה</span></button></div>`,
 `
-<div class="section-title">WHOIS — מי מחזיק ב-IP הזה?</div>
-<p class="prose"><strong>למה זה שימושי?</strong> לדעת אם ה-IP שייך ל-Google, ל-Amazon, לISP ביתי, או ל-bulletproof hosting שמיועד לתוקפים — זה context קריטי לכל החלטה.</p>
-<p class="prose">כל IP בעולם שייך לארגון שקיבל אותו מאחד מ-5 מאגרים עולמיים (RIPE לאירופה, ARIN לארה"ב וכו'). WHOIS שואל את המאגר הרלוונטי:</p>
+<div class="section-title">WHOIS — מי בכלל מחזיק בכתובת הזו?</div>
+<p class="prose">כל כתובת IP בעולם שייכת לארגון כלשהו — ספקית אינטרנט, חברת ענן, אוניברסיטה. כשארגון מקבל block של כתובות, הוא נרשם כבעלים שלהן. <strong>WHOIS</strong> הוא שאילתה שמחזירה את הרישום הזה.</p>
+<p class="prose">אפשר להריץ אותה ישירות מהטרמינל:</p>
+<pre><code>whois 45.141.215.111</code></pre>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">whois 45.141.215.111</span>
 <span style="color:#6b7280">% Information related to '45.141.215.0/24'</span>
-<span class="tc-key">inetnum:</span>   <span class="tc-val">45.141.215.0 - 45.141.215.255</span>
-<span class="tc-key">netname:</span>   <span style="color:#f59e0b;font-weight:700">INFERNO-SOLUTIONS</span>
-<span class="tc-key">country:</span>   <span style="color:#f87171;font-weight:700">RU</span>
-<span class="tc-key">descr:</span>     <span class="tc-val">Inferno Solutions Ltd.</span>
-<span class="tc-key">aut-num:</span>   <span class="tc-val">AS208091</span>
-<span class="tc-key">as-name:</span>   <span style="color:#f87171">INFERNO-AS</span>
-<div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">🔴 "Inferno Solutions" = bulletproof hosting — provider שמתעלם מדיווחי abuse. <strong>מקלט ידוע לתוקפים.</strong></div></div></div>
+<span class="tc-key">inetnum:</span>  <span class="tc-val">45.141.215.0 - 45.141.215.255</span>  <span style="color:#6b7280;font-size:11px">← טווח IPs</span>
+<span class="tc-key">netname:</span>  <span style="color:#f59e0b;font-weight:700">INFERNO-SOLUTIONS</span>
+<span class="tc-key">country:</span>  <span style="color:#f87171;font-weight:700">RU</span>  <span style="color:#6b7280;font-size:11px">← רוסיה</span>
+<span class="tc-key">descr:</span>    <span class="tc-val">Inferno Solutions Ltd.</span>
+<span class="tc-key">aut-num:</span>  <span class="tc-val">AS208091</span>  <span style="color:#6b7280;font-size:11px">← מספר הרשת (ASN)</span>
+<span class="tc-key">as-name:</span>  <span style="color:#f87171">INFERNO-AS</span>
+<div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">🔴 "Inferno Solutions" = bulletproof hosting. זה אומר: provider שמתעלם בכוונה מדיווחים על לקוחות שמשתמשים בשרתים שלו לתקיפות. <strong>מקלט ידוע לתוקפים.</strong></div></div></div>
 
-<div class="section-title">ASN — "שכונת" הרשת של ה-IP</div>
-<p class="prose">כל ארגון ברשת מקבל מספר ASN שמזהה אותו. ה-ASN הוא הדרך הכי מהירה להבין את ה-context:</p>
+<div class="section-title">ASN — לאיזה "שכונה" ברשת שייכת הכתובת?</div>
+<p class="prose">כל ארגון שמנהל רשת עצמאית מקבל מספר <strong>ASN</strong> (Autonomous System Number). זה מספר שמאפשר לזהות בשנייה מי הוא הארגון שמאחורי הכתובת:</p>
 <table class="data-table">
-<tr><th>ASN</th><th>ארגון</th><th>מה זה אומר</th></tr>
-<tr><td>AS15169</td><td>Google</td><td>Google עצמה — crawlers, שירותים לגיטימיים</td></tr>
-<tr><td>AS16509</td><td>Amazon AWS</td><td>שרת ענן — כל תוכן אפשרי, בדוק hostname</td></tr>
-<tr><td>AS13335</td><td>Cloudflare</td><td>CDN — ה-IP האמיתי מוסתר מאחוריו</td></tr>
-<tr><td>AS24940</td><td>Hetzner</td><td>hosting זול — פופולרי מאוד אצל תוקפים</td></tr>
+<tr><th>ASN</th><th>ארגון</th><th>מה זה אומר בחקירה</th></tr>
+<tr><td>AS15169</td><td>Google LLC</td><td>Google עצמה — crawlers, שירותים לגיטימיים בד"כ</td></tr>
+<tr><td>AS16509</td><td>Amazon AWS</td><td>שרת ענן — כל שימוש אפשרי, צריך לבדוק עוד</td></tr>
+<tr><td>AS13335</td><td>Cloudflare</td><td>CDN — הכתובת האמיתית מוסתרת מאחוריו</td></tr>
+<tr><td>AS24940</td><td>Hetzner Online</td><td>hosting זול — פופולרי מאוד אצל תוקפים</td></tr>
 </table>
-
-<div class="callout idea">💡 <strong>למה Hetzner בכל attack log?</strong> שרת אצלם = 5€/חודש. תוקף שוכר, מריץ מתקפה, מוחק. זול, מהיר, אנונימי יחסית. ASN נותן context של שנייה.</div>
+<div class="callout idea">💡 <strong>למה Hetzner מופיע בכמעט כל מתקפה?</strong> שרת אצלם עולה 5€ לחודש. תוקף שוכר שרת, מריץ מתקפה שבוע, מוחק. זול, מהיר, לא עוצרים אותו. ה-ASN נותן לנו את ה-context הזה בשנייה.</div>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">התאמה</span></button></div>`,
 `
-<div class="section-title">Reverse DNS — ל-IP יש שם?</div>
-<p class="prose"><strong>למה זה שימושי?</strong> שם יכול לחשוף את <em>מטרת</em> השרת — mail server, Tor exit, שרת ביתי, VPN. לפעמים שם אחד שווה שעת חקירה.</p>
-<p class="prose">DNS רגיל הולך מ-שם ל-IP. Reverse DNS הולך הפוך:</p>
-<pre><code>host 45.141.215.111   # או:  dig -x 45.141.215.111</code></pre>
+<div class="section-title">Reverse DNS — האם לכתובת הזו יש שם?</div>
+<p class="prose">ב-DNS רגיל, אנחנו כותבים שם כמו <code>google.com</code> ומקבלים כתובת IP. <strong>Reverse DNS</strong> הולך הפוך — נותנים כתובת IP ומקבלים שם, אם הוגדר אחד.</p>
+<p class="prose">השם הזה — שנקרא PTR record — נקבע על ידי <em>בעל הכתובת</em>. הוא לא חובה, אבל שרתים לגיטימיים (mail server, web server, שרת ארגוני) כמעט תמיד מגדירים אחד. לבדיקה:</p>
+<pre><code>host 45.141.215.111</code></pre>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">host 45.141.215.111</span>
 Host 45.141.215.111 not found: <span style="color:#f87171">NXDOMAIN</span>
-<div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">❌ <strong>אין PTR record</strong> — השרת לא הגדיר שם. שרתים לגיטימיים כמעט תמיד מגדירים. אין שם = throwaway server שהוקם רק למתקפה.</div></div></div>
+<div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">❌ <strong>אין שם לשרת הזה.</strong> NXDOMAIN = "לא קיים" בשפת DNS. שרתים שמיועדים לשימוש לגיטימי — כמו mail server, web server — כמעט תמיד מוגדרים עם שם. שרת בלי שם = הוקם בחיפזון, כנראה לצורך מתקפה בלבד.</div></div></div>
 
-<div class="section-title">מה שמות שונים מגלים</div>
+<div class="section-title">מה שמות שונים יכולים לגלות</div>
 <table class="data-table">
-<tr><th>שם</th><th>מה זה אומר</th></tr>
-<tr><td><code>mail.company.com</code></td><td>שרת email של company.com</td></tr>
-<tr><td><code>tor-exit.riseup.net</code></td><td>Tor exit node — זהות המשתמש מוסתרת</td></tr>
-<tr><td><code>ec2-52-23-198-1.compute-1.amazonaws.com</code></td><td>שרת AWS, אזור us-east-1</td></tr>
-<tr><td><code>broadband-185-220.customer.isp.com</code></td><td>חיבור ביתי — לקוח ISP</td></tr>
-<tr><td>אין תשובה (NXDOMAIN)</td><td>⚠️ דגל אדום — שרת שהוקם בחיפזון ללא DNS</td></tr>
+<tr><th>שם שמקבלים</th><th>מה זה אומר</th></tr>
+<tr><td><code>mail.company.com</code></td><td>שרת email של חברה — מטרה ברורה</td></tr>
+<tr><td><code>tor-exit.riseup.net</code></td><td>שרת שמשמש כנקודת יציאה מרשת Tor — מסתיר זהויות</td></tr>
+<tr><td><code>ec2-52-23-198-1.compute-1.amazonaws.com</code></td><td>שרת שכור ב-AWS, אזור us-east-1</td></tr>
+<tr><td><code>broadband-185-220.customer.isp.com</code></td><td>חיבור ביתי — לקוח של ISP</td></tr>
+<tr><td>אין תשובה (NXDOMAIN)</td><td>⚠️ שרת בלי שם — הוקם בחיפזון, כנראה לצורך מתקפה</td></tr>
 </table>
 
-<div class="callout idea">💡 <strong>FCrDNS — לאמת שהשם אמיתי:</strong> מישהו יכול לשקר ולהגדיר שם מזויף. תרגמו חזרה — אם ה-IP מתאים, השם אמיתי. אם לא — זיוף.</div>
+<div class="callout idea">💡 <strong>FCrDNS — לאמת שהשם לא מזויף:</strong><br>
+מישהו יכול להגדיר שם מזויף — "אני google.com". איך בודקים? לוקחים את השם שקיבלנו ושואלים את DNS: "מה ה-IP של השם הזה?" אם ה-IP מתאים לכתובת המקורית — השם אמיתי. אם לא — מזויף.</div>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">התאמה</span></button></div>`,
 `
-<div class="section-title">Reputation — האם ה-IP מוכר כזדוני?</div>
-<p class="prose"><strong>למה זה שימושי?</strong> IP שכבר תקף אלפי ארגונים אחרים — כנראה תוקף גם אתכם. Reputation databases אוספים דיווחים מרחבי האינטרנט.</p>
-<p class="prose"><strong>כלל חשוב:</strong> תמיד בודקים לפחות שניים — VirusTotal ו-AbuseIPDB. כל אחד מהם עשוי להחמיץ משהו שהשני יודע.</p>
+<div class="section-title">Reputation — האם הכתובת ידועה כמסוכנת?</div>
+<p class="prose">יש מאגרים שאוספים דיווחים מאנשי IT ברחבי העולם: "הכתובת הזו שלחה לי spam", "ניסתה לפרוץ לשרת שלי", "השתתפה במתקפת DDoS". כשמישהו מדווח — הכתובת מקבלת ציון.</p>
+<p class="prose">הכלל: <strong>לא מסתמכים על מאגר אחד בלבד</strong>. כל מאגר עשוי לדעת משהו שהאחר החמיץ.</p>
 
-<div class="section-title">VirusTotal — 87 engines בודקים אותו IP</div>
+<div class="section-title">VirusTotal — 87 חברות אבטחה בודקות יחד</div>
+<p class="prose">VirusTotal שואל 87 חברות אבטחה שונות: "הכתובת הזו — זדונית?" ומציג כמה אמרו כן:</p>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🛡️&nbsp;virustotal.com/gui/ip-address/45.141.215.111</div></div><div class=td-title>VirusTotal IP Analysis</div><div class="td-body"><div style="display:flex;align-items:stretch;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:28px;font-weight:900;color:#991b1b;line-height:1">12</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">/ 87</div></div><div style="flex:1"><div style="font-weight:700;color:#dc2626;font-size:13px;margin-bottom:5px">MALICIOUS</div><div style="height:5px;background:#fee2e2;border-radius:3px;overflow:hidden;margin-bottom:6px"><div style="width:14%;height:100%;background:#dc2626;border-radius:3px"></div></div><div style="font-size:11px;color:#6b7280;font-family:var(--sans)">SSH Brute-Force · Scanner</div></div></div><div class="td-row"><span class="td-k">Country</span><span class="td-v">🇷🇺 Russia</span></div><div class="td-row"><span class="td-k">ASN</span><span class="td-v">AS208091 — Inferno Solutions</span></div><div class="td-row"><span class="td-k">Last seen</span><span class="td-v">2 hours ago</span></div><div style="margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.5">💡 12/87 לבד = בינוני. אבל יחד עם 100% AbuseIPDB, bulletproof hosting, ואין PTR — <strong>ברור שזדוני</strong>.</div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🛡️&nbsp;virustotal.com/gui/ip-address/45.141.215.111</div></div><div class="td-title">VirusTotal IP Analysis</div><div class="td-body"><div style="display:flex;align-items:stretch;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:28px;font-weight:900;color:#991b1b;line-height:1">12</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">/ 87</div></div><div style="flex:1"><div style="font-weight:700;color:#dc2626;font-size:13px;margin-bottom:5px;font-family:var(--sans)">MALICIOUS</div><div style="height:5px;background:#fee2e2;border-radius:3px;overflow:hidden;margin-bottom:6px"><div style="width:14%;height:100%;background:#dc2626;border-radius:3px"></div></div><div style="font-size:11px;color:#6b7280;font-family:var(--sans)">12 חברות אבטחה מתוך 87 זיהו כ-malicious</div></div></div><div class="td-row"><span class="td-k">Country</span><span class="td-v">🇷🇺 Russia</span></div><div class="td-row"><span class="td-k">ASN</span><span class="td-v">AS208091 — Inferno Solutions</span></div><div class="td-row"><span class="td-k">Last seen</span><span class="td-v">לפני שעתיים</span></div><div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">12/87 לבד = לא גבוה. אבל בהקשר של מה שכבר יודעים — bulletproof hosting רוסי, אין שם — <strong>זה מספיק להמשיך ולבדוק ב-AbuseIPDB.</strong></div></div></div>
 
-<div class="section-title">AbuseIPDB — דיווחים ממנהלי מערכות אמיתיים</div>
+<div class="section-title">AbuseIPDB — דיווחים מאנשי IT אמיתיים</div>
+<p class="prose">AbuseIPDB הוא מאגר שבו מנהלי שרתים מדווחים כשכתובת תוקפת אותם. אחרי הדיווח אחרים יכולים לבדוק:</p>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🚨&nbsp;abuseipdb.com/check/45.141.215.111</div></div><div class=td-title>AbuseIPDB</div><div class="td-body"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:22px;font-weight:900;color:#991b1b;line-height:1">100%</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">CONFIDENCE</div></div><div style="flex:1;font-family:var(--sans)"><div style="font-weight:700;color:#dc2626;font-size:13px">Reported 1,847 times</div><div style="font-size:11px;color:#6b7280;margin-top:3px">Most recent: <strong>2 hours ago</strong></div></div></div><div class="td-row"><span class="td-k">Usage Type</span><span class="td-v"><span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">Bulletproof Hosting</span></span></div><div class="td-row"><span class="td-k">Reports (30d)</span><span class="td-v"><span style="color:#dc2626;font-weight:700">1,847</span></span></div><div class="td-row"><span class="td-k">Categories</span><span class="td-v">SSH (22) · Port Scan · Brute-Force</span></div><div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">🔴 100% confidence + 1,847 דיווחים = ללא ספק. <strong>חסום מיד.</strong></div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🚨&nbsp;abuseipdb.com/check/45.141.215.111</div></div><div class="td-title">AbuseIPDB</div><div class="td-body"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:22px;font-weight:900;color:#991b1b;line-height:1">100%</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">CONFIDENCE</div></div><div style="flex:1;font-family:var(--sans)"><div style="font-weight:700;color:#dc2626;font-size:13px">דווח 1,847 פעמים</div><div style="font-size:11px;color:#6b7280;margin-top:3px">דיווח אחרון: לפני שעתיים</div></div></div><div class="td-row"><span class="td-k">סוג שימוש</span><span class="td-v"><span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">Bulletproof Hosting</span></span></div><div class="td-row"><span class="td-k">דיווחים (30 יום)</span><span class="td-v"><span style="color:#dc2626;font-weight:700">1,847</span></span></div><div class="td-row"><span class="td-k">קטגוריות</span><span class="td-v">SSH · Port Scan · Brute-Force</span></div><div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">1,847 אנשי IT מרחבי העולם דיווחו על ה-IP הזה ב-30 יום האחרונים. confidence 100% = כל מי שבדק אישר שהוא זדוני. <strong>ממצא ברור — חסום.</strong></div></div></div>
 
-<div class="section-title">כיצד לפרש את המספרים</div>
+<div class="section-title">איך מפרשים את המספרים</div>
 <table class="data-table">
-<tr><th>VirusTotal</th><th>פרשנות</th><th>מה עושים</th></tr>
-<tr><td>0/87</td><td>לא מוכר — לא בהכרח בטוח</td><td>בדוק AbuseIPDB ו-Shodan</td></tr>
-<tr><td>1–3/87</td><td>כנראה false positive</td><td>בדוק context, אל תחסום מיד</td></tr>
-<tr><td>4–15/87</td><td>חשוד — כנראה זדוני</td><td>בדוק AbuseIPDB, שקול חסימה</td></tr>
-<tr><td>15+/87</td><td>זדוני בוודאות</td><td>חסום מיד, דווח, בדוק logs</td></tr>
+<tr><th>VirusTotal</th><th>AbuseIPDB</th><th>מה עושים</th></tr>
+<tr><td>0/87</td><td>0 דיווחים</td><td>לא מוכר — ממשיכים לבדוק ב-Shodan ובלוגים</td></tr>
+<tr><td>1–3/87</td><td>מעט דיווחים</td><td>ייתכן false positive — בודקים context</td></tr>
+<tr><td>4–15/87</td><td>דיווחים בינוניים</td><td>חשוד — כנראה זדוני, שוקלים חסימה</td></tr>
+<tr><td>15+/87</td><td>הרבה דיווחים</td><td>זדוני בוודאות — חוסמים, מדווחים, בודקים לוגים</td></tr>
 </table>
-
-<div class="callout warn">⚠️ <strong>False Positives:</strong> Tor exits, Cloudflare, shared hosting — תמיד נראים חשודים כי הרבה אנשים משתמשים בהם. <strong>False Negatives:</strong> IP שנוצר לפני שעה = 0 היסטוריה, יכול להיות תוקף חדש.</div>
+<div class="callout warn">⚠️ <strong>שתי טעויות נפוצות:</strong> (1) Tor, Cloudflare, shared hosting — תמיד נראים חשודים כי הרבה אנשים עוברים דרכם, אבל זה לא אומר שהם זדוניים. (2) כתובת חדשה עם 0 דיווחים — לא בהכרח בטוחה. תוקף שהקים שרת לפני שעה לא נרשם עדיין.</div>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">התאמה</span></button></div>`,
 `
-<div class="section-title">Shodan — מה חשוף על ה-IP הזה?</div>
-<p class="prose"><strong>למה זה שימושי?</strong> Shodan מראה מה השרת <em>עושה בפועל</em> — אילו שירותים רצים, אילו גרסאות, ואם יש חולשות ידועות. שרת עם MySQL פתוח ללא סיסמה — Shodan ימצא אותו.</p>
-<p class="prose">Shodan סורק את כל ה-4.29 מיליארד כתובות IPv4 בעולם, בערך פעם בחודש. הבדיקה:</p>
-<pre><code>shodan host 45.141.215.111   # בCLI, או: shodan.io/host/45.141.215.111</code></pre>
+<div class="section-title">Shodan — מה השרת הזה חושף לעולם?</div>
+<p class="prose">כשאתה פותח אתר בדפדפן, הדפדפן שלך מתחבר לשרת ומבקש תוכן. <strong>Shodan</strong> עושה בדיוק את זה — אוטומטית, לכל כתובת IP בעולם.</p>
+<p class="prose">Shodan שולח בקשות לכל 4.29 מיליארד הכתובות האפשריות, בדיקה מחדש בערך פעם בחודש, ושומר מה כל שרת מחזיר. כך הוא יודע: אילו שירותים פתוחים, איזה software מותקן, ואיזו גרסה.</p>
+<pre><code>shodan host 45.141.215.111   # CLI — או: shodan.io/host/45.141.215.111</code></pre>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🔭&nbsp;shodan.io/host/45.141.215.111</div></div><div class=td-title>Shodan Host View</div><div class="td-body"><div style="font-family:var(--sans);padding-bottom:10px;border-bottom:1px solid #f0f0ea;margin-bottom:10px"><span style="font-size:14px;font-weight:700">45.141.215.111</span> <span style="font-size:12px;color:#6b7280">· 🇷🇺 Inferno Solutions</span> <span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">MALICIOUS</span></div><div style="margin-bottom:10px"><div style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:.06em;font-family:var(--sans);margin-bottom:6px">OPEN PORTS</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 10px;background:#dbeafe;color:#1d4ed8;border-radius:6px;font-size:12px;font-weight:700;font-family:var(--mono)">22 SSH</span><span style="padding:3px 10px;background:#f3f4f6;color:#6b7280;border-radius:6px;font-size:12px;font-family:var(--mono)">80 HTTP</span></div></div><div class="td-row"><span class="td-k">SSH Banner</span><span class="td-v">OpenSSH_8.4p1 Debian</span></div><div class="td-row"><span class="td-k">HTTP Response</span><span class="td-v"><span style="color:#9ca3af;font-style:italic">empty page</span></span></div><div style="margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.5">💡 Port 80 = ריק לחלוטין. לא שרת web לגיטימי. <strong>שרת שמיועד לשלוח מתקפות SSH, לא לספק שירות.</strong></div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🔭&nbsp;shodan.io/host/45.141.215.111</div></div><div class="td-title">Shodan Host View</div><div class="td-body"><div style="font-family:var(--sans);padding-bottom:10px;border-bottom:1px solid #f0f0ea;margin-bottom:10px"><span style="font-size:14px;font-weight:700">45.141.215.111</span> <span style="font-size:12px;color:#6b7280">· 🇷🇺 Inferno Solutions</span> <span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">MALICIOUS</span></div><div style="margin-bottom:10px"><div style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:.06em;font-family:var(--sans);margin-bottom:6px">PORTS OPEN (פורטים פתוחים)</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 10px;background:#dbeafe;color:#1d4ed8;border-radius:6px;font-size:12px;font-weight:700;font-family:var(--mono)">22 SSH</span><span style="padding:3px 10px;background:#f3f4f6;color:#6b7280;border-radius:6px;font-size:12px;font-family:var(--mono)">80 HTTP</span></div></div><div class="td-row"><span class="td-k">SSH Banner</span><span class="td-v">OpenSSH_8.4p1 Debian</span></div><div class="td-row"><span class="td-k">HTTP Response</span><span class="td-v"><span style="color:#9ca3af;font-style:italic">עמוד ריק לחלוטין</span></span></div><div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">שרת שמחזיק SSH פתוח (port 22) אבל HTTP ריק = אין שם שום שירות web לגיטימי. <strong>זה שרת שנועד לשלוח מתקפות — לא לספק שירות.</strong></div></div></div>
 
-<div class="section-title">מה לחפש</div>
+<div class="section-title">מה כדאי לחפש</div>
 <table class="data-table">
-<tr><th>מה רואים</th><th>מה זה אומר</th></tr>
-<tr><td>Port 3306 (MySQL) פתוח</td><td>מסד נתונים חשוף — בדוק אם יש הגנה</td></tr>
-<tr><td>גרסת software ישנה</td><td>חפש CVEs — אולי פגיע לחולשה ידועה</td></tr>
-<tr><td>SSL cert: internal.company.com</td><td>חושף שמות תשתית פנימיים</td></tr>
-<tr><td>HTTP title: "phpMyAdmin"</td><td>Admin panel חשוף לאינטרנט</td></tr>
-<tr><td>Port 80 ריק לחלוטין</td><td>לא שרת web לגיטימי — attack infrastructure</td></tr>
+<tr><th>מה רואים</th><th>מה זה יכול לאמר</th></tr>
+<tr><td>Port 3306 פתוח (MySQL)</td><td>מסד נתונים חשוף לרשת — בדוק אם מוגן</td></tr>
+<tr><td>גרסת software ישנה</td><td>אולי פגיע — חפש חולשות ידועות בגרסה זו</td></tr>
+<tr><td>SSL cert עם internal.company.com</td><td>חושף שמות פנימיים של תשתית הארגון</td></tr>
+<tr><td>HTTP title: "phpMyAdmin"</td><td>ממשק ניהול מסד נתונים — חשוף לאינטרנט</td></tr>
+<tr><td>Port 80 פתוח אבל ריק</td><td>לא שרת web לגיטימי — כנראה תשתית מתקפה</td></tr>
 </table>
-
-<div class="callout idea">💡 <strong>חפשו על עצמכם:</strong> <code>shodan.io</code> → חפשו את ה-IP שלכם. כל מה שShodan רואה — תוקפים רואים. מה שהם יכולים לחפש עליכם — אתם יכולים לגלות לפניהם.</div>
+<div class="callout idea">💡 <strong>חפשו על עצמכם:</strong> גשו ל-shodan.io וחפשו את ה-IP שלכם. כל מה שShodan רואה — תוקפים פוטנציאליים רואים גם. מה שהם יכולים לגלות עליכם — אתם יכולים לראות לפניהם.</div>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">התאמה</span></button></div>`,
 `
-<div class="section-title">לוגים — מה ה-IP עשה אצלנו ספציפית?</div>
-<p class="prose">כל הכלים עד כאן עונים על "מי הוא". הלוגים עונים על <strong>"מה הוא עשה אצלנו"</strong> — ההבדל בין "חשוד" ל-"תקף אותנו בשעה 14:00 ב-15 לינואר".</p>
+<div class="section-title">לוגים — מה הכתובת הזו עשתה אצלנו?</div>
+<p class="prose">כל הכלים עד כאן מספרים מי היא הכתובת. הלוגים מספרים <strong>מה היא עשתה אצלנו ספציפית</strong>. זה ההבדל בין "כתובת חשודה" ל"כתובת שניסתה להיכנס לשרת שלנו 503 פעמים בין 14:00 ל-16:00".</p>
+<p class="prose">שרתי Linux שומרים שני לוגים עיקריים: <strong>auth.log</strong> לניסיונות כניסה (SSH), ו-<strong>access.log</strong> לבקשות web.</p>
 
-<div class="section-title">SSH brute-force — כך נראה בauth.log</div>
+<div class="section-title">ניסיונות SSH — כך נראה auth.log</div>
+<p class="prose">SSH הוא פרוטוקול לחיבור מרחוק לשרת. כשמישהו מנסה להתחבר עם שם משתמש לא קיים — זה נרשם:</p>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">grep '45.141.215.111' /var/log/auth.log | head -6</span>
 Jan 15 14:00:01 sshd: Invalid user <span style="color:#f87171">admin</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54123
 Jan 15 14:00:02 sshd: Invalid user <span style="color:#f87171">root</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54124
 Jan 15 14:00:02 sshd: Invalid user <span style="color:#f87171">ubuntu</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54125
 Jan 15 14:00:03 sshd: Invalid user <span style="color:#f87171">pi</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54126
-<span style="color:#6b7280">... 497 more lines ...</span>
-<div style="margin-top:10px;padding:9px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;font-family:var(--sans);color:#166534;line-height:1.5">✓ usernames נפוצים בסדר (admin, root, ubuntu, pi) = dictionary attack אוטומטי. ~2 ניסיונות/שנייה = Hydra/Medusa, לא אדם.</div></div></div>
+<span style="color:#6b7280">... 497 שורות נוספות ...</span>
+<div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">כל שורה אומרת: ניסיון כניסה נכשל. "Invalid user" = שם משתמש לא קיים. הרצף: admin, root, ubuntu, pi — אלה שמות ברירת המחדל הנפוצים ביותר. <strong>זה לא אדם שמנחש — זה תוכנה אוטומטית שרצה דרך רשימה.</strong></div></div></div>
 
-<div class="section-title">Credential stuffing — כך נראה ב-access.log</div>
+<div class="section-title">ניסיונות כניסה לאתר — כך נראה access.log</div>
+<p class="prose">access.log רושם כל בקשה שמגיעה לשרת web:</p>
 
-<div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">grep '185.220.101.5' /var/log/nginx/access.log | tail -4</span>
+<div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">grep '185.220.101.5' /var/log/nginx/access.log | tail -3</span>
 <span style="color:#f59e0b">185.220.101.5</span> - - [15/Jan/2025:14:23:01] "<span style="color:#86efac">POST</span> /wp-login.php HTTP/1.1" <span style="color:#f87171">401</span> 1234 "-" "<span style="color:#f59e0b">python-requests/2.28</span>"
-<span style="color:#f59e0b">185.220.101.5</span> - - [15/Jan/2025:14:23:01] "<span style="color:#86efac">POST</span> /wp-login.php HTTP/1.1" <span style="color:#f87171">401</span> 1187 "-" "<span style="color:#f59e0b">python-requests/2.28</span>"
+<span style="color:#f59e0b">185.220.101.5</span> - - [15/Jan/2025:14:23:02] "<span style="color:#86efac">POST</span> /wp-login.php HTTP/1.1" <span style="color:#f87171">401</span> 1187 "-" "<span style="color:#f59e0b">python-requests/2.28</span>"
 <span style="color:#f59e0b">185.220.101.5</span> - - [15/Jan/2025:14:23:02] "<span style="color:#86efac">POST</span> /wp-login.php HTTP/1.1" <span style="color:#f87171">401</span> 1234 "-" "<span style="color:#f59e0b">python-requests/2.28</span>"
-<div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">🔴 כולם POST /wp-login.php + status 401 + python-requests = script שמנסה סיסמאות על WordPress אוטומטית.</div></div></div>
-
-<div class="section-title">מה כל שדה אומר (access.log)</div>
-<table class="data-table">
-<tr><th>שדה</th><th>בדוגמה</th><th>מה לחפש</th></tr>
-<tr><td>IP</td><td>185.220.101.5</td><td>מי שלח</td></tr>
-<tr><td>Method + URL</td><td>POST /wp-login.php</td><td>מה ניסה לעשות</td></tr>
-<tr><td>Status</td><td>401</td><td>401=נכשל, 200=הצליח(!), 404=סריקה</td></tr>
-<tr><td>User-Agent</td><td>python-requests/2.28</td><td>כלי אוטומטי = לא אדם</td></tr>
-</table>
+<div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">/wp-login.php = דף הכניסה של WordPress. POST = שולח סיסמה. 401 = נדחה. python-requests = ספריית Python לשליחת בקשות אוטומטית. <strong>זה לא אדם שגולש — זה סקריפט שמנסה סיסמאות.</strong></div></div></div>
 
 <div class="section-title">פקודות חיפוש מהירות</div>
-<pre><code>grep -c "185.220.101.5" access.log            # כמה פעמים?
-grep "185.220.101.5" access.log               # מה עשה?
-awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -20  # Top IPs</code></pre>
+<pre><code># כמה פעמים הופיעה הכתובת בלוג?
+grep -c "45.141.215.111" /var/log/auth.log
+
+# מה בדיוק עשתה?
+grep "45.141.215.111" /var/log/auth.log
+
+# אילו כתובות מנסות הכי הרבה?
+awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -20</code></pre>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">התאמה</span></button></div>`,
 `
 <div class="section-title">חקירה מלאה — מ-IP אחד לתמונה שלמה</div>
-<p class="prose">מצאנו <code>45.141.215.111</code> בלוגים עם 503 ניסיונות SSH בשעתיים. עוברים על כל שלב בסדר:</p>
+<p class="prose">מצאנו את הכתובת <code>45.141.215.111</code> בלוגים עם 503 ניסיונות SSH בשעתיים. עכשיו עוברים על כל שלב בסדר, עם התוצאות האמיתיות.</p>
 
-<div class="section-title">שלב 1 — Geolocation</div>
+<div class="section-title">שלב 1 — Geolocation: מאיפה?</div>
 <pre><code>curl ipinfo.io/45.141.215.111</code></pre>
-<p class="prose">→ <strong>רוסיה, מוסקבה</strong>. ASN: AS208091, Inferno Solutions Ltd.</p>
+<p class="prose">תוצאה: <strong>רוסיה, מוסקבה</strong>. AS208091 — Inferno Solutions Ltd.</p>
 
-<div class="section-title">שלב 2 — WHOIS</div>
+<div class="section-title">שלב 2 — WHOIS: מי מחזיק?</div>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">whois 45.141.215.111</span>
 <span style="color:#6b7280">% Information related to '45.141.215.0/24'</span>
-<span class="tc-key">inetnum:</span>   <span class="tc-val">45.141.215.0 - 45.141.215.255</span>
-<span class="tc-key">netname:</span>   <span style="color:#f59e0b;font-weight:700">INFERNO-SOLUTIONS</span>
-<span class="tc-key">country:</span>   <span style="color:#f87171;font-weight:700">RU</span>
-<span class="tc-key">descr:</span>     <span class="tc-val">Inferno Solutions Ltd.</span>
-<span class="tc-key">aut-num:</span>   <span class="tc-val">AS208091</span>
-<span class="tc-key">as-name:</span>   <span style="color:#f87171">INFERNO-AS</span>
-<div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">🔴 "Inferno Solutions" = bulletproof hosting — provider שמתעלם מדיווחי abuse. <strong>מקלט ידוע לתוקפים.</strong></div></div></div>
+<span class="tc-key">inetnum:</span>  <span class="tc-val">45.141.215.0 - 45.141.215.255</span>  <span style="color:#6b7280;font-size:11px">← טווח IPs</span>
+<span class="tc-key">netname:</span>  <span style="color:#f59e0b;font-weight:700">INFERNO-SOLUTIONS</span>
+<span class="tc-key">country:</span>  <span style="color:#f87171;font-weight:700">RU</span>  <span style="color:#6b7280;font-size:11px">← רוסיה</span>
+<span class="tc-key">descr:</span>    <span class="tc-val">Inferno Solutions Ltd.</span>
+<span class="tc-key">aut-num:</span>  <span class="tc-val">AS208091</span>  <span style="color:#6b7280;font-size:11px">← מספר הרשת (ASN)</span>
+<span class="tc-key">as-name:</span>  <span style="color:#f87171">INFERNO-AS</span>
+<div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">🔴 "Inferno Solutions" = bulletproof hosting. זה אומר: provider שמתעלם בכוונה מדיווחים על לקוחות שמשתמשים בשרתים שלו לתקיפות. <strong>מקלט ידוע לתוקפים.</strong></div></div></div>
 
-<div class="section-title">שלב 3 — Reverse DNS</div>
+<div class="section-title">שלב 3 — Reverse DNS: יש שם?</div>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">host 45.141.215.111</span>
 Host 45.141.215.111 not found: <span style="color:#f87171">NXDOMAIN</span>
-<div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">❌ <strong>אין PTR record</strong> — השרת לא הגדיר שם. שרתים לגיטימיים כמעט תמיד מגדירים. אין שם = throwaway server שהוקם רק למתקפה.</div></div></div>
+<div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">❌ <strong>אין שם לשרת הזה.</strong> NXDOMAIN = "לא קיים" בשפת DNS. שרתים שמיועדים לשימוש לגיטימי — כמו mail server, web server — כמעט תמיד מוגדרים עם שם. שרת בלי שם = הוקם בחיפזון, כנראה לצורך מתקפה בלבד.</div></div></div>
 
-<div class="section-title">שלב 4 — Reputation</div>
+<div class="section-title">שלב 4 — Reputation: מוכר כמסוכן?</div>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🛡️&nbsp;virustotal.com/gui/ip-address/45.141.215.111</div></div><div class=td-title>VirusTotal IP Analysis</div><div class="td-body"><div style="display:flex;align-items:stretch;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:28px;font-weight:900;color:#991b1b;line-height:1">12</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">/ 87</div></div><div style="flex:1"><div style="font-weight:700;color:#dc2626;font-size:13px;margin-bottom:5px">MALICIOUS</div><div style="height:5px;background:#fee2e2;border-radius:3px;overflow:hidden;margin-bottom:6px"><div style="width:14%;height:100%;background:#dc2626;border-radius:3px"></div></div><div style="font-size:11px;color:#6b7280;font-family:var(--sans)">SSH Brute-Force · Scanner</div></div></div><div class="td-row"><span class="td-k">Country</span><span class="td-v">🇷🇺 Russia</span></div><div class="td-row"><span class="td-k">ASN</span><span class="td-v">AS208091 — Inferno Solutions</span></div><div class="td-row"><span class="td-k">Last seen</span><span class="td-v">2 hours ago</span></div><div style="margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.5">💡 12/87 לבד = בינוני. אבל יחד עם 100% AbuseIPDB, bulletproof hosting, ואין PTR — <strong>ברור שזדוני</strong>.</div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🛡️&nbsp;virustotal.com/gui/ip-address/45.141.215.111</div></div><div class="td-title">VirusTotal IP Analysis</div><div class="td-body"><div style="display:flex;align-items:stretch;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:28px;font-weight:900;color:#991b1b;line-height:1">12</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">/ 87</div></div><div style="flex:1"><div style="font-weight:700;color:#dc2626;font-size:13px;margin-bottom:5px;font-family:var(--sans)">MALICIOUS</div><div style="height:5px;background:#fee2e2;border-radius:3px;overflow:hidden;margin-bottom:6px"><div style="width:14%;height:100%;background:#dc2626;border-radius:3px"></div></div><div style="font-size:11px;color:#6b7280;font-family:var(--sans)">12 חברות אבטחה מתוך 87 זיהו כ-malicious</div></div></div><div class="td-row"><span class="td-k">Country</span><span class="td-v">🇷🇺 Russia</span></div><div class="td-row"><span class="td-k">ASN</span><span class="td-v">AS208091 — Inferno Solutions</span></div><div class="td-row"><span class="td-k">Last seen</span><span class="td-v">לפני שעתיים</span></div><div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">12/87 לבד = לא גבוה. אבל בהקשר של מה שכבר יודעים — bulletproof hosting רוסי, אין שם — <strong>זה מספיק להמשיך ולבדוק ב-AbuseIPDB.</strong></div></div></div>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🚨&nbsp;abuseipdb.com/check/45.141.215.111</div></div><div class=td-title>AbuseIPDB</div><div class="td-body"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:22px;font-weight:900;color:#991b1b;line-height:1">100%</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">CONFIDENCE</div></div><div style="flex:1;font-family:var(--sans)"><div style="font-weight:700;color:#dc2626;font-size:13px">Reported 1,847 times</div><div style="font-size:11px;color:#6b7280;margin-top:3px">Most recent: <strong>2 hours ago</strong></div></div></div><div class="td-row"><span class="td-k">Usage Type</span><span class="td-v"><span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">Bulletproof Hosting</span></span></div><div class="td-row"><span class="td-k">Reports (30d)</span><span class="td-v"><span style="color:#dc2626;font-weight:700">1,847</span></span></div><div class="td-row"><span class="td-k">Categories</span><span class="td-v">SSH (22) · Port Scan · Brute-Force</span></div><div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">🔴 100% confidence + 1,847 דיווחים = ללא ספק. <strong>חסום מיד.</strong></div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🚨&nbsp;abuseipdb.com/check/45.141.215.111</div></div><div class="td-title">AbuseIPDB</div><div class="td-body"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:22px;font-weight:900;color:#991b1b;line-height:1">100%</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">CONFIDENCE</div></div><div style="flex:1;font-family:var(--sans)"><div style="font-weight:700;color:#dc2626;font-size:13px">דווח 1,847 פעמים</div><div style="font-size:11px;color:#6b7280;margin-top:3px">דיווח אחרון: לפני שעתיים</div></div></div><div class="td-row"><span class="td-k">סוג שימוש</span><span class="td-v"><span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">Bulletproof Hosting</span></span></div><div class="td-row"><span class="td-k">דיווחים (30 יום)</span><span class="td-v"><span style="color:#dc2626;font-weight:700">1,847</span></span></div><div class="td-row"><span class="td-k">קטגוריות</span><span class="td-v">SSH · Port Scan · Brute-Force</span></div><div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">1,847 אנשי IT מרחבי העולם דיווחו על ה-IP הזה ב-30 יום האחרונים. confidence 100% = כל מי שבדק אישר שהוא זדוני. <strong>ממצא ברור — חסום.</strong></div></div></div>
 
-<div class="section-title">שלב 5 — Shodan</div>
+<div class="section-title">שלב 5 — Shodan: מה חשוף?</div>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🔭&nbsp;shodan.io/host/45.141.215.111</div></div><div class=td-title>Shodan Host View</div><div class="td-body"><div style="font-family:var(--sans);padding-bottom:10px;border-bottom:1px solid #f0f0ea;margin-bottom:10px"><span style="font-size:14px;font-weight:700">45.141.215.111</span> <span style="font-size:12px;color:#6b7280">· 🇷🇺 Inferno Solutions</span> <span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">MALICIOUS</span></div><div style="margin-bottom:10px"><div style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:.06em;font-family:var(--sans);margin-bottom:6px">OPEN PORTS</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 10px;background:#dbeafe;color:#1d4ed8;border-radius:6px;font-size:12px;font-weight:700;font-family:var(--mono)">22 SSH</span><span style="padding:3px 10px;background:#f3f4f6;color:#6b7280;border-radius:6px;font-size:12px;font-family:var(--mono)">80 HTTP</span></div></div><div class="td-row"><span class="td-k">SSH Banner</span><span class="td-v">OpenSSH_8.4p1 Debian</span></div><div class="td-row"><span class="td-k">HTTP Response</span><span class="td-v"><span style="color:#9ca3af;font-style:italic">empty page</span></span></div><div style="margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.5">💡 Port 80 = ריק לחלוטין. לא שרת web לגיטימי. <strong>שרת שמיועד לשלוח מתקפות SSH, לא לספק שירות.</strong></div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🔭&nbsp;shodan.io/host/45.141.215.111</div></div><div class="td-title">Shodan Host View</div><div class="td-body"><div style="font-family:var(--sans);padding-bottom:10px;border-bottom:1px solid #f0f0ea;margin-bottom:10px"><span style="font-size:14px;font-weight:700">45.141.215.111</span> <span style="font-size:12px;color:#6b7280">· 🇷🇺 Inferno Solutions</span> <span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">MALICIOUS</span></div><div style="margin-bottom:10px"><div style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:.06em;font-family:var(--sans);margin-bottom:6px">PORTS OPEN (פורטים פתוחים)</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 10px;background:#dbeafe;color:#1d4ed8;border-radius:6px;font-size:12px;font-weight:700;font-family:var(--mono)">22 SSH</span><span style="padding:3px 10px;background:#f3f4f6;color:#6b7280;border-radius:6px;font-size:12px;font-family:var(--mono)">80 HTTP</span></div></div><div class="td-row"><span class="td-k">SSH Banner</span><span class="td-v">OpenSSH_8.4p1 Debian</span></div><div class="td-row"><span class="td-k">HTTP Response</span><span class="td-v"><span style="color:#9ca3af;font-style:italic">עמוד ריק לחלוטין</span></span></div><div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">שרת שמחזיק SSH פתוח (port 22) אבל HTTP ריק = אין שם שום שירות web לגיטימי. <strong>זה שרת שנועד לשלוח מתקפות — לא לספק שירות.</strong></div></div></div>
 
-<div class="section-title">שלב 6 — הלוגים שלנו</div>
+<div class="section-title">שלב 6 — הלוגים שלנו: מה עשה?</div>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">grep '45.141.215.111' /var/log/auth.log | head -6</span>
 Jan 15 14:00:01 sshd: Invalid user <span style="color:#f87171">admin</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54123
 Jan 15 14:00:02 sshd: Invalid user <span style="color:#f87171">root</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54124
 Jan 15 14:00:02 sshd: Invalid user <span style="color:#f87171">ubuntu</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54125
 Jan 15 14:00:03 sshd: Invalid user <span style="color:#f87171">pi</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54126
-<span style="color:#6b7280">... 497 more lines ...</span>
-<div style="margin-top:10px;padding:9px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;font-family:var(--sans);color:#166534;line-height:1.5">✓ usernames נפוצים בסדר (admin, root, ubuntu, pi) = dictionary attack אוטומטי. ~2 ניסיונות/שנייה = Hydra/Medusa, לא אדם.</div></div></div>
+<span style="color:#6b7280">... 497 שורות נוספות ...</span>
+<div style="direction:rtl;text-align:right;direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">כל שורה אומרת: ניסיון כניסה נכשל. "Invalid user" = שם משתמש לא קיים. הרצף: admin, root, ubuntu, pi — אלה שמות ברירת המחדל הנפוצים ביותר. <strong>זה לא אדם שמנחש — זה תוכנה אוטומטית שרצה דרך רשימה.</strong></div></div></div>
 
-<div class="section-title">מסקנה — מה עושים</div>
+<div class="section-title">מה עושים עכשיו</div>
 <table class="data-table">
 <tr><th>מה גילינו</th><th>פעולה</th></tr>
-<tr><td>Bulletproof hosting רוסי</td><td><code>ufw deny from 45.141.215.0/24</code></td></tr>
-<tr><td>100% confidence + 1,847 דיווחים</td><td>דווח ב-AbuseIPDB — תעזור לאחרים</td></tr>
-<tr><td>503 ניסיונות SSH</td><td><code>fail2ban-client status sshd</code> — ודא שפעיל</td></tr>
+<tr><td>Bulletproof hosting רוסי</td><td>חסום: <code>ufw deny from 45.141.215.0/24</code></td></tr>
+<tr><td>1,847 דיווחים ב-30 יום</td><td>דווח גם אתה ב-AbuseIPDB — תעזור לאחרים</td></tr>
+<tr><td>503 ניסיונות SSH</td><td>בדוק fail2ban: <code>fail2ban-client status sshd</code></td></tr>
 </table>
 
-<div class="callout idea">💡 <strong>3 דקות חקירה:</strong> בלי — "IP חשוד, מה עושים?". עם — "bulletproof hosting רוסי, 100% AbuseIPDB, 1,847 דיווחים, מנסה לנחש סיסמות SSH — חסום ודווח".</div>
+<div class="callout idea">💡 <strong>3 דקות חקירה שינו הכל.</strong> לפני: "יש כתובת חשודה, מה עושים?" אחרי: "bulletproof hosting רוסי, confidence 100%, 1,847 דיווחים, מנסה לנחש סיסמות SSH — חוסמים ומדווחים."</div>
 <div class="ch-end-nav"><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">התאמה</span></button></div>`
 ],
 cheat:[
@@ -1152,237 +1161,245 @@ en:{
   learn:[
 `
 <div class="section-title">What Is IP Investigation?</div>
-<p class="prose">When a computer connects to the internet — it gets an <strong>IP address</strong>. Like a home address, but for the network. Every server you visit logs it. Every email you send — contains it.</p>
-<p class="prose"><strong>IP Investigation</strong> = take such an address and find out who it is — where it came from, who owns it, whether it's dangerous, and what it's exposed. All from public information, <em>without touching the IP.</em></p>
+<p class="prose">Every time a computer connects to the internet — to a website, a server, any service — it identifies itself with an <strong>IP address</strong>. This is like a phone number for the computer on the network. The other side always sees where the request came from.</p>
+<p class="prose">Every server saves those addresses in a log file. When something suspicious happens — a sysadmin opens the log, finds an address, and wants to know: <em>Who is this? Where from? Is it dangerous?</em> That's exactly what IP Investigation answers.</p>
 
-<div class="callout idea">💡 <strong>Scenario:</strong> A server admin sees someone tried 503 times to connect in 2 hours. He has one number: <code>45.141.215.111</code>. The last chapter investigates it step by step to a clear conclusion.</div>
+<div class="callout idea">💡 <strong>Example:</strong> A log shows that address <code>45.141.215.111</code> tried to connect to a server 503 times in two hours. The last chapter investigates it together — arriving at a clear answer: who it is and what to do.</div>
 
-<div class="section-title">The Golden Rule — Passive Only</div>
-<p class="prose">There are two types of investigation. <strong>Passive</strong> = query public databases — the IP doesn't know you're investigating it. <strong>Active</strong> = send packets directly to it — it sees them. Passive is always allowed. Active is <em>illegal without permission</em>, even if the IP looks completely malicious.</p>
-
-<div class="callout warn">⚠️ Running <code>nmap IP</code> on an IP you don't own = criminal offense. Even if that IP attacked you. <strong>Passive only throughout this course.</strong></div>
-
-<div class="section-title">Six Questions We'll Learn to Answer</div>
+<div class="section-title">One Rule Before Everything — What's Allowed and What's Not</div>
+<p class="prose">There are two types of investigation, and only one of them is allowed:</p>
 <table class="data-table">
-<tr><th>Question</th><th>Tool</th><th>What we get</th></tr>
-<tr><td>📍 Where did it come from?</td><td>ipinfo.io</td><td>Country, city (roughly), ISP</td></tr>
-<tr><td>🏢 Who owns it?</td><td>WHOIS</td><td>Company, ISP, organization</td></tr>
-<tr><td>🏷️ Does it have a name?</td><td>dig -x</td><td>Name revealing server type</td></tr>
-<tr><td>⚠️ Is it dangerous?</td><td>VirusTotal, AbuseIPDB</td><td>Reports, confidence score</td></tr>
-<tr><td>🔭 What's running on it?</td><td>Shodan</td><td>Open ports, versions</td></tr>
-<tr><td>📋 What did it do to us?</td><td>Logs</td><td>Exact actions with timestamps</td></tr>
+<tr><th></th><th>✅ Passive — always allowed</th><th>🚫 Active — illegal without permission</th></tr>
+<tr><td>What you do</td><td>Query public databases</td><td>Send requests directly to the IP</td></tr>
+<tr><td>Does the IP know?</td><td>No — no direct contact</td><td>Yes — it sees every request</td></tr>
+<tr><td>Examples</td><td>WHOIS, VirusTotal, ipinfo.io</td><td>ping, nmap, port scanning</td></tr>
+</table>
+<div class="callout warn">⚠️ Sending <code>nmap</code> to an address you don't own = criminal offense. Even if that address attacked you first. <strong>The entire course: Passive only.</strong></div>
+
+<div class="section-title">Six Questions, Six Tools, Three Minutes</div>
+<table class="data-table">
+<tr><th>Question</th><th>Tool</th><th>What you get</th></tr>
+<tr><td>📍 Where did the address come from?</td><td>ipinfo.io</td><td>Country, city (roughly), ISP</td></tr>
+<tr><td>🏢 Who holds this address?</td><td>WHOIS</td><td>Company, ISP, organization</td></tr>
+<tr><td>🏷️ Does the address have a name?</td><td>host / dig -x</td><td>A name revealing the server's purpose</td></tr>
+<tr><td>⚠️ Is it known as dangerous?</td><td>VirusTotal, AbuseIPDB</td><td>Reports, confidence score</td></tr>
+<tr><td>🔭 What's running on it?</td><td>Shodan</td><td>Open services, versions</td></tr>
+<tr><td>📋 What did it do to us?</td><td>Logs</td><td>Exact actions with date and time</td></tr>
 </table>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">▶</span><span class="ch-end-btn-label">Next Chapter</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">Summary</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">Match</span></button></div>`,
 `
-<div class="section-title">Geolocation — Placing an IP on the Map</div>
-<p class="prose"><strong>Why is this useful?</strong> An IP from Russia trying to access a server gives completely different context than an IP from within your own organization. Geolocation provides the initial context.</p>
-<p class="prose">The simplest check: open <code>ipinfo.io/IP</code> in a browser, or in terminal:</p>
+<div class="section-title">Geolocation — Placing an IP Address on the Map</div>
+<p class="prose">Geolocation = finding where the server behind an IP address is physically located. Not the GPS of the person sitting behind it — <strong>the physical location of the server itself</strong>. This information is collected from several sources: ISPs declare where they are located, network routing data provides geographic clues, and sometimes Wi-Fi data.</p>
+<p class="prose">The simplest tool: just visit <code>ipinfo.io/the-ip-address</code> in your browser — or from terminal:</p>
 <pre><code>curl ipinfo.io/185.220.101.5</code></pre>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">📍&nbsp;ipinfo.io/185.220.101.5</div></div><div class=td-title>🌍 ipinfo.io</div><div class="td-body"><div class="td-row"><span class="td-k">ip</span><span class="td-v">"185.220.101.5"</span></div><div class="td-row"><span class="td-k">hostname</span><span class="td-v"><span style="color:#d97706;font-weight:600">tor-exit0.freki.lu</span></span></div><div class="td-row"><span class="td-k">city</span><span class="td-v">"Luxembourg City"</span></div><div class="td-row"><span class="td-k">country</span><span class="td-v">"LU" 🇱🇺</span></div><div class="td-row"><span class="td-k">org</span><span class="td-v"><span style="color:#d97706">"AS24940 Hetzner Online GmbH"</span></span></div><div class="td-row"><span class="td-k">timezone</span><span class="td-v">"Europe/Luxembourg"</span></div><div style="margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.5">⚠️ hostname מכיל "tor-exit" ← זה Tor exit node. <strong>המיקום בלוקסמבורג לא שייך לתוקף</strong> — הוא פשוט שם שמסתיר זהות.</div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">📍&nbsp;ipinfo.io/185.220.101.5</div></div><div class="td-title">🌍 ipinfo.io</div><div class="td-body"><div class="td-row"><span class="td-k">ip</span><span class="td-v">"185.220.101.5"</span></div><div class="td-row"><span class="td-k">hostname</span><span class="td-v"><span style="color:#d97706;font-weight:600">tor-exit0.freki.lu</span></span></div><div class="td-row"><span class="td-k">city</span><span class="td-v">"Luxembourg City"</span></div><div class="td-row"><span class="td-k">country</span><span class="td-v">"LU" &nbsp;🇱🇺</span></div><div class="td-row"><span class="td-k">org</span><span class="td-v"><span style="color:#d97706">"AS24940 Hetzner Online GmbH"</span></span></div><div class="td-row"><span class="td-k">timezone</span><span class="td-v">"Europe/Luxembourg"</span></div><div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">שימו לב ל-hostname: <strong>tor-exit0.freki.lu</strong> — המילה "tor-exit" אומרת שזה שרת ביציאה מרשת Tor. כלומר, המיקום בלוקסמבורג הוא של השרת, <strong>לא של האדם שמאחוריו</strong>.</div></div></div>
 
-<div class="section-title">How Accurate Is It?</div>
+<div class="section-title">How Accurate Is the Location?</div>
 <table class="data-table">
-<tr><th>Level</th><th>Accuracy</th><th>Correct use</th></tr>
-<tr><td>Country</td><td>~99.8%</td><td>Reliable — "IP from Russia" is probably right</td></tr>
-<tr><td>City</td><td>~66%</td><td>Indication only — not evidence</td></tr>
-<tr><td>Street/Building</td><td>Near zero</td><td>Don't rely on this</td></tr>
+<tr><th>Level</th><th>Accuracy</th><th>What this means in practice</th></tr>
+<tr><td>Country</td><td>~99.8%</td><td>Reliable — "IP from Russia" is probably correct</td></tr>
+<tr><td>City</td><td>~66%</td><td>General direction — don't rely on it alone</td></tr>
+<tr><td>Street / building</td><td>Near zero</td><td>Impossible from IP alone</td></tr>
 </table>
 
-<div class="callout warn">⚠️ <strong>The Potwin, Kansas story:</strong> MaxMind (largest geolocation database) set the geographic center of the US as the default for unidentified IPs. A town of 800 residents got FBI visits for crimes they never committed. <strong>Geolocation = estimate, not fact.</strong></div>
+<div class="callout warn">⚠️ <strong>Why geolocation alone isn't enough — a real story:</strong><br><br>
+MaxMind, the company running the world's largest geolocation database, needed a default location for IP addresses they couldn't identify. They chose: <em>the geographic center of the United States</em>.<br><br>
+That center sits right in the yard of a private home in a small Kansas town. Suddenly, all the "unknown" addresses — hundreds of millions of them — pointed to that house. The family living there started receiving police visits, investigators, and lawsuits for crimes they never committed.<br><br>
+<strong>The lesson:</strong> Geolocation = estimate. Not evidence. Not a precise address.</div>
 
-<div class="section-title">When Geolocation Misleads</div>
+<div class="section-title">When the Location You Get Isn't the Attacker's Location</div>
 <table class="data-table">
-<tr><th>What you see</th><th>Explanation</th></tr>
-<tr><td>IP from Luxembourg + "tor-exit" in name</td><td>Tor exit node — location doesn't belong to attacker</td></tr>
-<tr><td>IP from Netherlands always</td><td>VPN provider — user could be anywhere</td></tr>
-<tr><td>IP from Russia + AWS hostname</td><td>Cloud server — anonymous identity</td></tr>
+<tr><th>What you see</th><th>What it really is</th></tr>
+<tr><td>IP "from Luxembourg" with tor-exit in name</td><td>Tor server — attacker hides location through it</td></tr>
+<tr><td>IP "from Netherlands" always</td><td>VPN provider — attacker connects through it</td></tr>
+<tr><td>IP "from Russia" with AWS hostname</td><td>Rented cloud server — anonymous identity</td></tr>
 </table>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">▶</span><span class="ch-end-btn-label">Next Chapter</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">Summary</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">Match</span></button></div>`,
 `
-<div class="section-title">WHOIS — Who Owns This IP?</div>
-<p class="prose"><strong>Why is this useful?</strong> Knowing whether the IP belongs to Google, Amazon, a home ISP, or bulletproof hosting for attackers — gives critical context for every decision.</p>
-<p class="prose">Every IP in the world belongs to an organization that received it from one of 5 global registries (RIPE for Europe, ARIN for the US, etc.). WHOIS queries the relevant registry:</p>
+<div class="section-title">WHOIS — Who Actually Holds This Address?</div>
+<p class="prose">Every IP address in the world belongs to some organization — an internet provider, cloud company, university. When an organization receives a block of addresses, it registers as their owner. <strong>WHOIS</strong> is a query that returns that registration.</p>
+<p class="prose">You can run it directly from terminal:</p>
+<pre><code>whois 45.141.215.111</code></pre>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">whois 45.141.215.111</span>
 <span style="color:#6b7280">% Information related to '45.141.215.0/24'</span>
-<span class="tc-key">inetnum:</span>   <span class="tc-val">45.141.215.0 - 45.141.215.255</span>
-<span class="tc-key">netname:</span>   <span style="color:#f59e0b;font-weight:700">INFERNO-SOLUTIONS</span>
-<span class="tc-key">country:</span>   <span style="color:#f87171;font-weight:700">RU</span>
-<span class="tc-key">descr:</span>     <span class="tc-val">Inferno Solutions Ltd.</span>
-<span class="tc-key">aut-num:</span>   <span class="tc-val">AS208091</span>
-<span class="tc-key">as-name:</span>   <span style="color:#f87171">INFERNO-AS</span>
-<div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">🔴 "Inferno Solutions" = bulletproof hosting — provider שמתעלם מדיווחי abuse. <strong>מקלט ידוע לתוקפים.</strong></div></div></div>
+<span class="tc-key">inetnum:</span>  <span class="tc-val">45.141.215.0 - 45.141.215.255</span>  <span style="color:#6b7280;font-size:11px">← טווח IPs</span>
+<span class="tc-key">netname:</span>  <span style="color:#f59e0b;font-weight:700">INFERNO-SOLUTIONS</span>
+<span class="tc-key">country:</span>  <span style="color:#f87171;font-weight:700">RU</span>  <span style="color:#6b7280;font-size:11px">← רוסיה</span>
+<span class="tc-key">descr:</span>    <span class="tc-val">Inferno Solutions Ltd.</span>
+<span class="tc-key">aut-num:</span>  <span class="tc-val">AS208091</span>  <span style="color:#6b7280;font-size:11px">← מספר הרשת (ASN)</span>
+<span class="tc-key">as-name:</span>  <span style="color:#f87171">INFERNO-AS</span>
+<div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">🔴 "Inferno Solutions" = bulletproof hosting. זה אומר: provider שמתעלם בכוונה מדיווחים על לקוחות שמשתמשים בשרתים שלו לתקיפות. <strong>מקלט ידוע לתוקפים.</strong></div></div></div>
 
-<div class="section-title">ASN — The IP's Network "Neighborhood"</div>
-<p class="prose">Every organization on the network gets an ASN number. The ASN is the fastest way to understand the context:</p>
+<div class="section-title">ASN — Which Network "Neighborhood" Does the Address Belong To?</div>
+<p class="prose">Every organization that manages its own network receives an <strong>ASN</strong> (Autonomous System Number). This number lets you instantly identify who the organization behind the address is:</p>
 <table class="data-table">
-<tr><th>ASN</th><th>Organization</th><th>What it means</th></tr>
-<tr><td>AS15169</td><td>Google</td><td>Google itself — crawlers, legitimate services</td></tr>
-<tr><td>AS16509</td><td>Amazon AWS</td><td>Cloud server — any content possible, check hostname</td></tr>
-<tr><td>AS13335</td><td>Cloudflare</td><td>CDN — real IP is hidden behind it</td></tr>
-<tr><td>AS24940</td><td>Hetzner</td><td>Cheap hosting — very popular with attackers</td></tr>
+<tr><th>ASN</th><th>Organization</th><th>What it means in an investigation</th></tr>
+<tr><td>AS15169</td><td>Google LLC</td><td>Google itself — crawlers, usually legitimate services</td></tr>
+<tr><td>AS16509</td><td>Amazon AWS</td><td>Cloud server — any use possible, need to investigate further</td></tr>
+<tr><td>AS13335</td><td>Cloudflare</td><td>CDN — the real address is hidden behind it</td></tr>
+<tr><td>AS24940</td><td>Hetzner Online</td><td>Cheap hosting — very popular with attackers</td></tr>
 </table>
-
-<div class="callout idea">💡 <strong>Why Hetzner in every attack log?</strong> A server there = €5/month. Attacker rents, runs attack, deletes. Cheap, fast, relatively anonymous. ASN gives context in seconds.</div>
+<div class="callout idea">💡 <strong>Why does Hetzner appear in almost every attack?</strong> A server there costs €5/month. An attacker rents one, runs an attack for a week, deletes it. Cheap, fast, hard to stop. The ASN tells us this context in a second.</div>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">▶</span><span class="ch-end-btn-label">Next Chapter</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">Summary</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">Match</span></button></div>`,
 `
-<div class="section-title">Reverse DNS — Does the IP Have a Name?</div>
-<p class="prose"><strong>Why is this useful?</strong> A name can reveal the <em>purpose</em> of a server — mail server, Tor exit, home server, VPN. Sometimes one name is worth an hour of investigation.</p>
-<p class="prose">Regular DNS goes from name to IP. Reverse DNS goes the other way:</p>
-<pre><code>host 45.141.215.111   # or:  dig -x 45.141.215.111</code></pre>
+<div class="section-title">Reverse DNS — Does This Address Have a Name?</div>
+<p class="prose">In regular DNS, we type a name like <code>google.com</code> and get an IP address. <strong>Reverse DNS</strong> goes the other way — you give an IP address and get a name, if one was set.</p>
+<p class="prose">This name — called a PTR record — is set by <em>the owner of the address</em>. It's not required, but legitimate servers (mail servers, web servers, corporate servers) almost always set one. To check:</p>
+<pre><code>host 45.141.215.111</code></pre>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">host 45.141.215.111</span>
 Host 45.141.215.111 not found: <span style="color:#f87171">NXDOMAIN</span>
-<div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">❌ <strong>אין PTR record</strong> — השרת לא הגדיר שם. שרתים לגיטימיים כמעט תמיד מגדירים. אין שם = throwaway server שהוקם רק למתקפה.</div></div></div>
+<div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">❌ <strong>אין שם לשרת הזה.</strong> NXDOMAIN = "לא קיים" בשפת DNS. שרתים שמיועדים לשימוש לגיטימי — כמו mail server, web server — כמעט תמיד מוגדרים עם שם. שרת בלי שם = הוקם בחיפזון, כנראה לצורך מתקפה בלבד.</div></div></div>
 
-<div class="section-title">What Different Names Reveal</div>
+<div class="section-title">What Different Names Can Reveal</div>
 <table class="data-table">
-<tr><th>Name</th><th>What it means</th></tr>
-<tr><td><code>mail.company.com</code></td><td>Email server of company.com</td></tr>
-<tr><td><code>tor-exit.riseup.net</code></td><td>Tor exit node — user identity hidden</td></tr>
-<tr><td><code>ec2-52-23-198-1.compute-1.amazonaws.com</code></td><td>AWS server, us-east-1 region</td></tr>
+<tr><th>Name you get</th><th>What it means</th></tr>
+<tr><td><code>mail.company.com</code></td><td>Email server of a company — clear purpose</td></tr>
+<tr><td><code>tor-exit.riseup.net</code></td><td>Server used as Tor exit point — hides identities</td></tr>
+<tr><td><code>ec2-52-23-198-1.compute-1.amazonaws.com</code></td><td>Rented AWS server, us-east-1 region</td></tr>
 <tr><td><code>broadband-185-220.customer.isp.com</code></td><td>Home connection — ISP customer</td></tr>
-<tr><td>No answer (NXDOMAIN)</td><td>⚠️ Red flag — server set up in a hurry without DNS</td></tr>
+<tr><td>No answer (NXDOMAIN)</td><td>⚠️ Server without a name — set up in a hurry, probably for an attack</td></tr>
 </table>
 
-<div class="callout idea">💡 <strong>FCrDNS — verify the name is real:</strong> Someone can lie and set a fake name. Translate it back — if the IP matches, the name is real. If not — fake PTR.</div>
+<div class="callout idea">💡 <strong>FCrDNS — verifying the name isn't fake:</strong><br>
+Someone can set a fake name — "I'm google.com". How to check: take the name we received and ask DNS: "what's the IP of that name?" If the IP matches the original address — the name is real. If not — it's fake.</div>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">▶</span><span class="ch-end-btn-label">Next Chapter</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">Summary</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">Match</span></button></div>`,
 `
-<div class="section-title">Reputation — Is This IP Known as Malicious?</div>
-<p class="prose"><strong>Why is this useful?</strong> An IP that has already attacked thousands of other organizations — is probably attacking you too. Reputation databases collect reports from across the internet.</p>
-<p class="prose"><strong>Key rule:</strong> Always check at least two — VirusTotal and AbuseIPDB. Each might miss something the other knows.</p>
+<div class="section-title">Reputation — Is This Address Known as Dangerous?</div>
+<p class="prose">There are databases that collect reports from IT professionals around the world: "this address sent me spam", "it tried to break into my server", "it participated in a DDoS attack". When someone reports — the address gets a score.</p>
+<p class="prose">The rule: <strong>don't rely on one database alone</strong>. Each one might know something the others missed.</p>
 
-<div class="section-title">VirusTotal — 87 Engines Check the Same IP</div>
+<div class="section-title">VirusTotal — 87 Security Companies Checking Together</div>
+<p class="prose">VirusTotal asks 87 different security companies: "this address — is it malicious?" and shows how many said yes:</p>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🛡️&nbsp;virustotal.com/gui/ip-address/45.141.215.111</div></div><div class=td-title>VirusTotal IP Analysis</div><div class="td-body"><div style="display:flex;align-items:stretch;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:28px;font-weight:900;color:#991b1b;line-height:1">12</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">/ 87</div></div><div style="flex:1"><div style="font-weight:700;color:#dc2626;font-size:13px;margin-bottom:5px">MALICIOUS</div><div style="height:5px;background:#fee2e2;border-radius:3px;overflow:hidden;margin-bottom:6px"><div style="width:14%;height:100%;background:#dc2626;border-radius:3px"></div></div><div style="font-size:11px;color:#6b7280;font-family:var(--sans)">SSH Brute-Force · Scanner</div></div></div><div class="td-row"><span class="td-k">Country</span><span class="td-v">🇷🇺 Russia</span></div><div class="td-row"><span class="td-k">ASN</span><span class="td-v">AS208091 — Inferno Solutions</span></div><div class="td-row"><span class="td-k">Last seen</span><span class="td-v">2 hours ago</span></div><div style="margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.5">💡 12/87 לבד = בינוני. אבל יחד עם 100% AbuseIPDB, bulletproof hosting, ואין PTR — <strong>ברור שזדוני</strong>.</div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🛡️&nbsp;virustotal.com/gui/ip-address/45.141.215.111</div></div><div class="td-title">VirusTotal IP Analysis</div><div class="td-body"><div style="display:flex;align-items:stretch;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:28px;font-weight:900;color:#991b1b;line-height:1">12</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">/ 87</div></div><div style="flex:1"><div style="font-weight:700;color:#dc2626;font-size:13px;margin-bottom:5px;font-family:var(--sans)">MALICIOUS</div><div style="height:5px;background:#fee2e2;border-radius:3px;overflow:hidden;margin-bottom:6px"><div style="width:14%;height:100%;background:#dc2626;border-radius:3px"></div></div><div style="font-size:11px;color:#6b7280;font-family:var(--sans)">12 חברות אבטחה מתוך 87 זיהו כ-malicious</div></div></div><div class="td-row"><span class="td-k">Country</span><span class="td-v">🇷🇺 Russia</span></div><div class="td-row"><span class="td-k">ASN</span><span class="td-v">AS208091 — Inferno Solutions</span></div><div class="td-row"><span class="td-k">Last seen</span><span class="td-v">לפני שעתיים</span></div><div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">12/87 לבד = לא גבוה. אבל בהקשר של מה שכבר יודעים — bulletproof hosting רוסי, אין שם — <strong>זה מספיק להמשיך ולבדוק ב-AbuseIPDB.</strong></div></div></div>
 
-<div class="section-title">AbuseIPDB — Reports from Real Sysadmins</div>
+<div class="section-title">AbuseIPDB — Reports from Real IT Professionals</div>
+<p class="prose">AbuseIPDB is a database where server admins report when an address attacks them. After reporting, others can check:</p>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🚨&nbsp;abuseipdb.com/check/45.141.215.111</div></div><div class=td-title>AbuseIPDB</div><div class="td-body"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:22px;font-weight:900;color:#991b1b;line-height:1">100%</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">CONFIDENCE</div></div><div style="flex:1;font-family:var(--sans)"><div style="font-weight:700;color:#dc2626;font-size:13px">Reported 1,847 times</div><div style="font-size:11px;color:#6b7280;margin-top:3px">Most recent: <strong>2 hours ago</strong></div></div></div><div class="td-row"><span class="td-k">Usage Type</span><span class="td-v"><span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">Bulletproof Hosting</span></span></div><div class="td-row"><span class="td-k">Reports (30d)</span><span class="td-v"><span style="color:#dc2626;font-weight:700">1,847</span></span></div><div class="td-row"><span class="td-k">Categories</span><span class="td-v">SSH (22) · Port Scan · Brute-Force</span></div><div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">🔴 100% confidence + 1,847 דיווחים = ללא ספק. <strong>חסום מיד.</strong></div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🚨&nbsp;abuseipdb.com/check/45.141.215.111</div></div><div class="td-title">AbuseIPDB</div><div class="td-body"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:22px;font-weight:900;color:#991b1b;line-height:1">100%</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">CONFIDENCE</div></div><div style="flex:1;font-family:var(--sans)"><div style="font-weight:700;color:#dc2626;font-size:13px">דווח 1,847 פעמים</div><div style="font-size:11px;color:#6b7280;margin-top:3px">דיווח אחרון: לפני שעתיים</div></div></div><div class="td-row"><span class="td-k">סוג שימוש</span><span class="td-v"><span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">Bulletproof Hosting</span></span></div><div class="td-row"><span class="td-k">דיווחים (30 יום)</span><span class="td-v"><span style="color:#dc2626;font-weight:700">1,847</span></span></div><div class="td-row"><span class="td-k">קטגוריות</span><span class="td-v">SSH · Port Scan · Brute-Force</span></div><div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">1,847 אנשי IT מרחבי העולם דיווחו על ה-IP הזה ב-30 יום האחרונים. confidence 100% = כל מי שבדק אישר שהוא זדוני. <strong>ממצא ברור — חסום.</strong></div></div></div>
 
 <div class="section-title">How to Interpret the Numbers</div>
 <table class="data-table">
-<tr><th>VirusTotal</th><th>Interpretation</th><th>What to do</th></tr>
-<tr><td>0/87</td><td>Unknown — not necessarily safe</td><td>Check AbuseIPDB and Shodan</td></tr>
-<tr><td>1–3/87</td><td>Probably false positive</td><td>Check context, don't block immediately</td></tr>
-<tr><td>4–15/87</td><td>Suspicious — likely malicious</td><td>Check AbuseIPDB, consider blocking</td></tr>
-<tr><td>15+/87</td><td>Definitely malicious</td><td>Block immediately, report, check logs</td></tr>
+<tr><th>VirusTotal</th><th>AbuseIPDB</th><th>What to do</th></tr>
+<tr><td>0/87</td><td>0 reports</td><td>Unknown — keep checking Shodan and logs</td></tr>
+<tr><td>1–3/87</td><td>Few reports</td><td>Possible false positive — check context</td></tr>
+<tr><td>4–15/87</td><td>Moderate reports</td><td>Suspicious — likely malicious, consider blocking</td></tr>
+<tr><td>15+/87</td><td>Many reports</td><td>Definitely malicious — block, report, check logs</td></tr>
 </table>
-
-<div class="callout warn">⚠️ <strong>False Positives:</strong> Tor exits, Cloudflare, shared hosting — always look suspicious because many people use them. <strong>False Negatives:</strong> IP created an hour ago = 0 history, could be a new attacker.</div>
+<div class="callout warn">⚠️ <strong>Two common mistakes:</strong> (1) Tor, Cloudflare, shared hosting — always look suspicious because many people pass through them, but that doesn't mean they're malicious. (2) A new address with 0 reports — not necessarily safe. An attacker who set up a server an hour ago hasn't been reported yet.</div>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">▶</span><span class="ch-end-btn-label">Next Chapter</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">Summary</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">Match</span></button></div>`,
 `
-<div class="section-title">Shodan — What's Exposed on This IP?</div>
-<p class="prose"><strong>Why is this useful?</strong> Shodan shows what the server is <em>actually doing</em> — which services are running, which versions, and if there are known vulnerabilities. A server with MySQL open without a password — Shodan will find it.</p>
-<p class="prose">Shodan scans all 4.29 billion IPv4 addresses, roughly once a month. The check:</p>
-<pre><code>shodan host 45.141.215.111   # in CLI, or: shodan.io/host/45.141.215.111</code></pre>
+<div class="section-title">Shodan — What Is This Server Exposing to the World?</div>
+<p class="prose">When you open a website in your browser, the browser connects to a server and requests content. <strong>Shodan</strong> does exactly this — automatically, for every IP address in the world.</p>
+<p class="prose">Shodan sends requests to all 4.29 billion possible addresses, rechecking roughly once a month, and saves what each server returns. This way it knows: which services are open, which software is installed, and which version.</p>
+<pre><code>shodan host 45.141.215.111   # CLI — or: shodan.io/host/45.141.215.111</code></pre>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🔭&nbsp;shodan.io/host/45.141.215.111</div></div><div class=td-title>Shodan Host View</div><div class="td-body"><div style="font-family:var(--sans);padding-bottom:10px;border-bottom:1px solid #f0f0ea;margin-bottom:10px"><span style="font-size:14px;font-weight:700">45.141.215.111</span> <span style="font-size:12px;color:#6b7280">· 🇷🇺 Inferno Solutions</span> <span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">MALICIOUS</span></div><div style="margin-bottom:10px"><div style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:.06em;font-family:var(--sans);margin-bottom:6px">OPEN PORTS</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 10px;background:#dbeafe;color:#1d4ed8;border-radius:6px;font-size:12px;font-weight:700;font-family:var(--mono)">22 SSH</span><span style="padding:3px 10px;background:#f3f4f6;color:#6b7280;border-radius:6px;font-size:12px;font-family:var(--mono)">80 HTTP</span></div></div><div class="td-row"><span class="td-k">SSH Banner</span><span class="td-v">OpenSSH_8.4p1 Debian</span></div><div class="td-row"><span class="td-k">HTTP Response</span><span class="td-v"><span style="color:#9ca3af;font-style:italic">empty page</span></span></div><div style="margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.5">💡 Port 80 = ריק לחלוטין. לא שרת web לגיטימי. <strong>שרת שמיועד לשלוח מתקפות SSH, לא לספק שירות.</strong></div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🔭&nbsp;shodan.io/host/45.141.215.111</div></div><div class="td-title">Shodan Host View</div><div class="td-body"><div style="font-family:var(--sans);padding-bottom:10px;border-bottom:1px solid #f0f0ea;margin-bottom:10px"><span style="font-size:14px;font-weight:700">45.141.215.111</span> <span style="font-size:12px;color:#6b7280">· 🇷🇺 Inferno Solutions</span> <span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">MALICIOUS</span></div><div style="margin-bottom:10px"><div style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:.06em;font-family:var(--sans);margin-bottom:6px">PORTS OPEN (פורטים פתוחים)</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 10px;background:#dbeafe;color:#1d4ed8;border-radius:6px;font-size:12px;font-weight:700;font-family:var(--mono)">22 SSH</span><span style="padding:3px 10px;background:#f3f4f6;color:#6b7280;border-radius:6px;font-size:12px;font-family:var(--mono)">80 HTTP</span></div></div><div class="td-row"><span class="td-k">SSH Banner</span><span class="td-v">OpenSSH_8.4p1 Debian</span></div><div class="td-row"><span class="td-k">HTTP Response</span><span class="td-v"><span style="color:#9ca3af;font-style:italic">עמוד ריק לחלוטין</span></span></div><div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">שרת שמחזיק SSH פתוח (port 22) אבל HTTP ריק = אין שם שום שירות web לגיטימי. <strong>זה שרת שנועד לשלוח מתקפות — לא לספק שירות.</strong></div></div></div>
 
-<div class="section-title">What to Look For</div>
+<div class="section-title">What's Worth Looking For</div>
 <table class="data-table">
-<tr><th>What you see</th><th>What it means</th></tr>
-<tr><td>Port 3306 (MySQL) open</td><td>Database exposed — check if it's protected</td></tr>
-<tr><td>Old software version</td><td>Search CVEs — may be vulnerable to known exploits</td></tr>
-<tr><td>SSL cert: internal.company.com</td><td>Exposes internal infrastructure names</td></tr>
-<tr><td>HTTP title: "phpMyAdmin"</td><td>Admin panel exposed to internet</td></tr>
-<tr><td>Port 80 completely empty</td><td>Not a legitimate web server — attack infrastructure</td></tr>
+<tr><th>What you see</th><th>What it might mean</th></tr>
+<tr><td>Port 3306 open (MySQL)</td><td>Database exposed to the network — check if protected</td></tr>
+<tr><td>Old software version</td><td>Possibly vulnerable — look for known vulnerabilities in that version</td></tr>
+<tr><td>SSL cert with internal.company.com</td><td>Exposes internal names of the organization's infrastructure</td></tr>
+<tr><td>HTTP title: "phpMyAdmin"</td><td>Database management interface — exposed to internet</td></tr>
+<tr><td>Port 80 open but empty</td><td>Not a legitimate web server — probably attack infrastructure</td></tr>
 </table>
-
-<div class="callout idea">💡 <strong>Search for yourself:</strong> <code>shodan.io</code> → search your own IP. Everything Shodan sees — attackers see. What they can search about you — you can find first.</div>
+<div class="callout idea">💡 <strong>Search for yourself:</strong> Go to shodan.io and search your own IP. Everything Shodan sees — potential attackers see too. What they can discover about you — you can see first.</div>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">▶</span><span class="ch-end-btn-label">Next Chapter</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">Summary</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">Match</span></button></div>`,
 `
-<div class="section-title">Logs — What Did This IP Specifically Do to Us?</div>
-<p class="prose">All tools so far answer "who is it". Logs answer <strong>"what did it do to us"</strong> — the difference between "suspect" and "attacked us at exactly 14:00 on January 15th".</p>
+<div class="section-title">Logs — What Did This Address Do to Us?</div>
+<p class="prose">All the tools so far describe who the address is. Logs describe <strong>what it specifically did to us</strong>. That's the difference between "suspicious address" and "address that tried to enter our server 503 times between 14:00 and 16:00".</p>
+<p class="prose">Linux servers keep two main logs: <strong>auth.log</strong> for login attempts (SSH), and <strong>access.log</strong> for web requests.</p>
 
-<div class="section-title">SSH Brute-Force — How It Looks in auth.log</div>
+<div class="section-title">SSH Attempts — What auth.log Looks Like</div>
+<p class="prose">SSH is a protocol for remote connection to a server. When someone tries to connect with a non-existent username — it gets logged:</p>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">grep '45.141.215.111' /var/log/auth.log | head -6</span>
 Jan 15 14:00:01 sshd: Invalid user <span style="color:#f87171">admin</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54123
 Jan 15 14:00:02 sshd: Invalid user <span style="color:#f87171">root</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54124
 Jan 15 14:00:02 sshd: Invalid user <span style="color:#f87171">ubuntu</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54125
 Jan 15 14:00:03 sshd: Invalid user <span style="color:#f87171">pi</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54126
-<span style="color:#6b7280">... 497 more lines ...</span>
-<div style="margin-top:10px;padding:9px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;font-family:var(--sans);color:#166534;line-height:1.5">✓ usernames נפוצים בסדר (admin, root, ubuntu, pi) = dictionary attack אוטומטי. ~2 ניסיונות/שנייה = Hydra/Medusa, לא אדם.</div></div></div>
+<span style="color:#6b7280">... 497 שורות נוספות ...</span>
+<div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">כל שורה אומרת: ניסיון כניסה נכשל. "Invalid user" = שם משתמש לא קיים. הרצף: admin, root, ubuntu, pi — אלה שמות ברירת המחדל הנפוצים ביותר. <strong>זה לא אדם שמנחש — זה תוכנה אוטומטית שרצה דרך רשימה.</strong></div></div></div>
 
-<div class="section-title">Credential Stuffing — How It Looks in access.log</div>
+<div class="section-title">Website Login Attempts — What access.log Looks Like</div>
+<p class="prose">access.log records every request that reaches a web server:</p>
 
-<div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">grep '185.220.101.5' /var/log/nginx/access.log | tail -4</span>
+<div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">grep '185.220.101.5' /var/log/nginx/access.log | tail -3</span>
 <span style="color:#f59e0b">185.220.101.5</span> - - [15/Jan/2025:14:23:01] "<span style="color:#86efac">POST</span> /wp-login.php HTTP/1.1" <span style="color:#f87171">401</span> 1234 "-" "<span style="color:#f59e0b">python-requests/2.28</span>"
-<span style="color:#f59e0b">185.220.101.5</span> - - [15/Jan/2025:14:23:01] "<span style="color:#86efac">POST</span> /wp-login.php HTTP/1.1" <span style="color:#f87171">401</span> 1187 "-" "<span style="color:#f59e0b">python-requests/2.28</span>"
+<span style="color:#f59e0b">185.220.101.5</span> - - [15/Jan/2025:14:23:02] "<span style="color:#86efac">POST</span> /wp-login.php HTTP/1.1" <span style="color:#f87171">401</span> 1187 "-" "<span style="color:#f59e0b">python-requests/2.28</span>"
 <span style="color:#f59e0b">185.220.101.5</span> - - [15/Jan/2025:14:23:02] "<span style="color:#86efac">POST</span> /wp-login.php HTTP/1.1" <span style="color:#f87171">401</span> 1234 "-" "<span style="color:#f59e0b">python-requests/2.28</span>"
-<div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">🔴 כולם POST /wp-login.php + status 401 + python-requests = script שמנסה סיסמאות על WordPress אוטומטית.</div></div></div>
-
-<div class="section-title">What Each Field Means (access.log)</div>
-<table class="data-table">
-<tr><th>Field</th><th>Example</th><th>What to look for</th></tr>
-<tr><td>IP</td><td>185.220.101.5</td><td>Who sent it</td></tr>
-<tr><td>Method + URL</td><td>POST /wp-login.php</td><td>What they tried to do</td></tr>
-<tr><td>Status</td><td>401</td><td>401=failed, 200=succeeded(!), 404=scanning</td></tr>
-<tr><td>User-Agent</td><td>python-requests/2.28</td><td>Automated tool = not a human</td></tr>
-</table>
+<div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">/wp-login.php = דף הכניסה של WordPress. POST = שולח סיסמה. 401 = נדחה. python-requests = ספריית Python לשליחת בקשות אוטומטית. <strong>זה לא אדם שגולש — זה סקריפט שמנסה סיסמאות.</strong></div></div></div>
 
 <div class="section-title">Quick Search Commands</div>
-<pre><code>grep -c "185.220.101.5" access.log             # how many times?
-grep "185.220.101.5" access.log                # what did it do?
-awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -20  # top IPs</code></pre>
+<pre><code># How many times did the address appear in the log?
+grep -c "45.141.215.111" /var/log/auth.log
+
+# What exactly did it do?
+grep "45.141.215.111" /var/log/auth.log
+
+# Which addresses are trying the most?
+awk '{print $1}' access.log | sort | uniq -c | sort -rn | head -20</code></pre>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">▶</span><span class="ch-end-btn-label">Next Chapter</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">Summary</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">Match</span></button></div>`,
 `
-<div class="section-title">Full Investigation — From One IP to a Complete Picture</div>
-<p class="prose">We found <code>45.141.215.111</code> in logs with 503 SSH attempts in two hours. Going through every step in order:</p>
+<div class="section-title">Full Investigation — From One Address to the Complete Picture</div>
+<p class="prose">We found address <code>45.141.215.111</code> in logs with 503 SSH attempts in two hours. Now we go through every step in order, with the real results.</p>
 
-<div class="section-title">Step 1 — Geolocation</div>
+<div class="section-title">Step 1 — Geolocation: Where from?</div>
 <pre><code>curl ipinfo.io/45.141.215.111</code></pre>
-<p class="prose">→ <strong>Russia, Moscow</strong>. ASN: AS208091, Inferno Solutions Ltd.</p>
+<p class="prose">Result: <strong>Russia, Moscow</strong>. AS208091 — Inferno Solutions Ltd.</p>
 
-<div class="section-title">Step 2 — WHOIS</div>
+<div class="section-title">Step 2 — WHOIS: Who holds it?</div>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">whois 45.141.215.111</span>
 <span style="color:#6b7280">% Information related to '45.141.215.0/24'</span>
-<span class="tc-key">inetnum:</span>   <span class="tc-val">45.141.215.0 - 45.141.215.255</span>
-<span class="tc-key">netname:</span>   <span style="color:#f59e0b;font-weight:700">INFERNO-SOLUTIONS</span>
-<span class="tc-key">country:</span>   <span style="color:#f87171;font-weight:700">RU</span>
-<span class="tc-key">descr:</span>     <span class="tc-val">Inferno Solutions Ltd.</span>
-<span class="tc-key">aut-num:</span>   <span class="tc-val">AS208091</span>
-<span class="tc-key">as-name:</span>   <span style="color:#f87171">INFERNO-AS</span>
-<div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">🔴 "Inferno Solutions" = bulletproof hosting — provider שמתעלם מדיווחי abuse. <strong>מקלט ידוע לתוקפים.</strong></div></div></div>
+<span class="tc-key">inetnum:</span>  <span class="tc-val">45.141.215.0 - 45.141.215.255</span>  <span style="color:#6b7280;font-size:11px">← טווח IPs</span>
+<span class="tc-key">netname:</span>  <span style="color:#f59e0b;font-weight:700">INFERNO-SOLUTIONS</span>
+<span class="tc-key">country:</span>  <span style="color:#f87171;font-weight:700">RU</span>  <span style="color:#6b7280;font-size:11px">← רוסיה</span>
+<span class="tc-key">descr:</span>    <span class="tc-val">Inferno Solutions Ltd.</span>
+<span class="tc-key">aut-num:</span>  <span class="tc-val">AS208091</span>  <span style="color:#6b7280;font-size:11px">← מספר הרשת (ASN)</span>
+<span class="tc-key">as-name:</span>  <span style="color:#f87171">INFERNO-AS</span>
+<div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">🔴 "Inferno Solutions" = bulletproof hosting. זה אומר: provider שמתעלם בכוונה מדיווחים על לקוחות שמשתמשים בשרתים שלו לתקיפות. <strong>מקלט ידוע לתוקפים.</strong></div></div></div>
 
-<div class="section-title">Step 3 — Reverse DNS</div>
+<div class="section-title">Step 3 — Reverse DNS: Does it have a name?</div>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">host 45.141.215.111</span>
 Host 45.141.215.111 not found: <span style="color:#f87171">NXDOMAIN</span>
-<div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">❌ <strong>אין PTR record</strong> — השרת לא הגדיר שם. שרתים לגיטימיים כמעט תמיד מגדירים. אין שם = throwaway server שהוקם רק למתקפה.</div></div></div>
+<div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">❌ <strong>אין שם לשרת הזה.</strong> NXDOMAIN = "לא קיים" בשפת DNS. שרתים שמיועדים לשימוש לגיטימי — כמו mail server, web server — כמעט תמיד מוגדרים עם שם. שרת בלי שם = הוקם בחיפזון, כנראה לצורך מתקפה בלבד.</div></div></div>
 
-<div class="section-title">Step 4 — Reputation</div>
+<div class="section-title">Step 4 — Reputation: Is it known as dangerous?</div>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🛡️&nbsp;virustotal.com/gui/ip-address/45.141.215.111</div></div><div class=td-title>VirusTotal IP Analysis</div><div class="td-body"><div style="display:flex;align-items:stretch;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:28px;font-weight:900;color:#991b1b;line-height:1">12</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">/ 87</div></div><div style="flex:1"><div style="font-weight:700;color:#dc2626;font-size:13px;margin-bottom:5px">MALICIOUS</div><div style="height:5px;background:#fee2e2;border-radius:3px;overflow:hidden;margin-bottom:6px"><div style="width:14%;height:100%;background:#dc2626;border-radius:3px"></div></div><div style="font-size:11px;color:#6b7280;font-family:var(--sans)">SSH Brute-Force · Scanner</div></div></div><div class="td-row"><span class="td-k">Country</span><span class="td-v">🇷🇺 Russia</span></div><div class="td-row"><span class="td-k">ASN</span><span class="td-v">AS208091 — Inferno Solutions</span></div><div class="td-row"><span class="td-k">Last seen</span><span class="td-v">2 hours ago</span></div><div style="margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.5">💡 12/87 לבד = בינוני. אבל יחד עם 100% AbuseIPDB, bulletproof hosting, ואין PTR — <strong>ברור שזדוני</strong>.</div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🛡️&nbsp;virustotal.com/gui/ip-address/45.141.215.111</div></div><div class="td-title">VirusTotal IP Analysis</div><div class="td-body"><div style="display:flex;align-items:stretch;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:28px;font-weight:900;color:#991b1b;line-height:1">12</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">/ 87</div></div><div style="flex:1"><div style="font-weight:700;color:#dc2626;font-size:13px;margin-bottom:5px;font-family:var(--sans)">MALICIOUS</div><div style="height:5px;background:#fee2e2;border-radius:3px;overflow:hidden;margin-bottom:6px"><div style="width:14%;height:100%;background:#dc2626;border-radius:3px"></div></div><div style="font-size:11px;color:#6b7280;font-family:var(--sans)">12 חברות אבטחה מתוך 87 זיהו כ-malicious</div></div></div><div class="td-row"><span class="td-k">Country</span><span class="td-v">🇷🇺 Russia</span></div><div class="td-row"><span class="td-k">ASN</span><span class="td-v">AS208091 — Inferno Solutions</span></div><div class="td-row"><span class="td-k">Last seen</span><span class="td-v">לפני שעתיים</span></div><div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">12/87 לבד = לא גבוה. אבל בהקשר של מה שכבר יודעים — bulletproof hosting רוסי, אין שם — <strong>זה מספיק להמשיך ולבדוק ב-AbuseIPDB.</strong></div></div></div>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🚨&nbsp;abuseipdb.com/check/45.141.215.111</div></div><div class=td-title>AbuseIPDB</div><div class="td-body"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:22px;font-weight:900;color:#991b1b;line-height:1">100%</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">CONFIDENCE</div></div><div style="flex:1;font-family:var(--sans)"><div style="font-weight:700;color:#dc2626;font-size:13px">Reported 1,847 times</div><div style="font-size:11px;color:#6b7280;margin-top:3px">Most recent: <strong>2 hours ago</strong></div></div></div><div class="td-row"><span class="td-k">Usage Type</span><span class="td-v"><span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">Bulletproof Hosting</span></span></div><div class="td-row"><span class="td-k">Reports (30d)</span><span class="td-v"><span style="color:#dc2626;font-weight:700">1,847</span></span></div><div class="td-row"><span class="td-k">Categories</span><span class="td-v">SSH (22) · Port Scan · Brute-Force</span></div><div style="margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.5">🔴 100% confidence + 1,847 דיווחים = ללא ספק. <strong>חסום מיד.</strong></div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🚨&nbsp;abuseipdb.com/check/45.141.215.111</div></div><div class="td-title">AbuseIPDB</div><div class="td-body"><div style="display:flex;align-items:center;gap:12px;margin-bottom:14px"><div style="text-align:center;padding:12px 16px;background:#fee2e2;border-radius:10px;min-width:68px"><div style="font-size:22px;font-weight:900;color:#991b1b;line-height:1">100%</div><div style="font-size:10px;color:#991b1b;font-weight:700;margin-top:2px">CONFIDENCE</div></div><div style="flex:1;font-family:var(--sans)"><div style="font-weight:700;color:#dc2626;font-size:13px">דווח 1,847 פעמים</div><div style="font-size:11px;color:#6b7280;margin-top:3px">דיווח אחרון: לפני שעתיים</div></div></div><div class="td-row"><span class="td-k">סוג שימוש</span><span class="td-v"><span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">Bulletproof Hosting</span></span></div><div class="td-row"><span class="td-k">דיווחים (30 יום)</span><span class="td-v"><span style="color:#dc2626;font-weight:700">1,847</span></span></div><div class="td-row"><span class="td-k">קטגוריות</span><span class="td-v">SSH · Port Scan · Brute-Force</span></div><div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">1,847 אנשי IT מרחבי העולם דיווחו על ה-IP הזה ב-30 יום האחרונים. confidence 100% = כל מי שבדק אישר שהוא זדוני. <strong>ממצא ברור — חסום.</strong></div></div></div>
 
-<div class="section-title">Step 5 — Shodan</div>
+<div class="section-title">Step 5 — Shodan: What's exposed?</div>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🔭&nbsp;shodan.io/host/45.141.215.111</div></div><div class=td-title>Shodan Host View</div><div class="td-body"><div style="font-family:var(--sans);padding-bottom:10px;border-bottom:1px solid #f0f0ea;margin-bottom:10px"><span style="font-size:14px;font-weight:700">45.141.215.111</span> <span style="font-size:12px;color:#6b7280">· 🇷🇺 Inferno Solutions</span> <span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">MALICIOUS</span></div><div style="margin-bottom:10px"><div style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:.06em;font-family:var(--sans);margin-bottom:6px">OPEN PORTS</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 10px;background:#dbeafe;color:#1d4ed8;border-radius:6px;font-size:12px;font-weight:700;font-family:var(--mono)">22 SSH</span><span style="padding:3px 10px;background:#f3f4f6;color:#6b7280;border-radius:6px;font-size:12px;font-family:var(--mono)">80 HTTP</span></div></div><div class="td-row"><span class="td-k">SSH Banner</span><span class="td-v">OpenSSH_8.4p1 Debian</span></div><div class="td-row"><span class="td-k">HTTP Response</span><span class="td-v"><span style="color:#9ca3af;font-style:italic">empty page</span></span></div><div style="margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.5">💡 Port 80 = ריק לחלוטין. לא שרת web לגיטימי. <strong>שרת שמיועד לשלוח מתקפות SSH, לא לספק שירות.</strong></div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🔭&nbsp;shodan.io/host/45.141.215.111</div></div><div class="td-title">Shodan Host View</div><div class="td-body"><div style="font-family:var(--sans);padding-bottom:10px;border-bottom:1px solid #f0f0ea;margin-bottom:10px"><span style="font-size:14px;font-weight:700">45.141.215.111</span> <span style="font-size:12px;color:#6b7280">· 🇷🇺 Inferno Solutions</span> <span style="display:inline-block;padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:700;font-family:var(--sans);background:#fee2e2;color:#991b1b">MALICIOUS</span></div><div style="margin-bottom:10px"><div style="font-size:10px;font-weight:700;color:#9ca3af;letter-spacing:.06em;font-family:var(--sans);margin-bottom:6px">PORTS OPEN (פורטים פתוחים)</div><div style="display:flex;gap:6px;flex-wrap:wrap"><span style="padding:3px 10px;background:#dbeafe;color:#1d4ed8;border-radius:6px;font-size:12px;font-weight:700;font-family:var(--mono)">22 SSH</span><span style="padding:3px 10px;background:#f3f4f6;color:#6b7280;border-radius:6px;font-size:12px;font-family:var(--mono)">80 HTTP</span></div></div><div class="td-row"><span class="td-k">SSH Banner</span><span class="td-v">OpenSSH_8.4p1 Debian</span></div><div class="td-row"><span class="td-k">HTTP Response</span><span class="td-v"><span style="color:#9ca3af;font-style:italic">עמוד ריק לחלוטין</span></span></div><div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">שרת שמחזיק SSH פתוח (port 22) אבל HTTP ריק = אין שם שום שירות web לגיטימי. <strong>זה שרת שנועד לשלוח מתקפות — לא לספק שירות.</strong></div></div></div>
 
-<div class="section-title">Step 6 — Our Logs</div>
+<div class="section-title">Step 6 — Our Logs: What did it do?</div>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">grep '45.141.215.111' /var/log/auth.log | head -6</span>
 Jan 15 14:00:01 sshd: Invalid user <span style="color:#f87171">admin</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54123
 Jan 15 14:00:02 sshd: Invalid user <span style="color:#f87171">root</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54124
 Jan 15 14:00:02 sshd: Invalid user <span style="color:#f87171">ubuntu</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54125
 Jan 15 14:00:03 sshd: Invalid user <span style="color:#f87171">pi</span> from <span style="color:#f59e0b">45.141.215.111</span> port 54126
-<span style="color:#6b7280">... 497 more lines ...</span>
-<div style="margin-top:10px;padding:9px 12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;font-family:var(--sans);color:#166534;line-height:1.5">✓ usernames נפוצים בסדר (admin, root, ubuntu, pi) = dictionary attack אוטומטי. ~2 ניסיונות/שנייה = Hydra/Medusa, לא אדם.</div></div></div>
+<span style="color:#6b7280">... 497 שורות נוספות ...</span>
+<div style="direction:rtl;text-align:right;margin-top:10px;padding:9px 12px;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">כל שורה אומרת: ניסיון כניסה נכשל. "Invalid user" = שם משתמש לא קיים. הרצף: admin, root, ubuntu, pi — אלה שמות ברירת המחדל הנפוצים ביותר. <strong>זה לא אדם שמנחש — זה תוכנה אוטומטית שרצה דרך רשימה.</strong></div></div></div>
 
-<div class="section-title">Conclusion — What to Do</div>
+<div class="section-title">What to Do Now</div>
 <table class="data-table">
-<tr><th>Finding</th><th>Action</th></tr>
-<tr><td>Russian bulletproof hosting</td><td><code>ufw deny from 45.141.215.0/24</code></td></tr>
-<tr><td>100% confidence + 1,847 reports</td><td>Report on AbuseIPDB — help others</td></tr>
-<tr><td>503 SSH attempts</td><td><code>fail2ban-client status sshd</code> — verify it's running</td></tr>
+<tr><th>What we found</th><th>Action</th></tr>
+<tr><td>Russian bulletproof hosting</td><td>Block: <code>ufw deny from 45.141.215.0/24</code></td></tr>
+<tr><td>1,847 reports in 30 days</td><td>Report to AbuseIPDB — help others</td></tr>
+<tr><td>503 SSH attempts</td><td>Check fail2ban: <code>fail2ban-client status sshd</code></td></tr>
 </table>
 
-<div class="callout idea">💡 <strong>3 minutes of investigation:</strong> Without — "suspicious IP, what do we do?" With — "Russian bulletproof hosting, 100% AbuseIPDB, 1,847 reports, guessing SSH passwords — block and report".</div>
+<div class="callout idea">💡 <strong>3 minutes of investigation changed everything.</strong> Before: "there's a suspicious address, what do we do?" After: "Russian bulletproof hosting, 100% confidence, 1,847 reports, trying to guess SSH passwords — block and report."</div>
 <div class="ch-end-nav"><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">Summary</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">Match</span></button></div>`
 ],
 cheat:[
