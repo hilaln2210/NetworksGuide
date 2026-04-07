@@ -928,6 +928,7 @@ function App() {
               </button>
               <button className="toolbar-btn" onClick={() => setShowGlossary(true)} title={isEn ? 'Glossary' : 'מילון מונחים'}>📚</button>
               <button className="toolbar-btn" onClick={() => setShowExamMode(true)} title={isEn ? 'Exam' : 'בחינה'}>📝</button>
+              <button className="toolbar-btn" onClick={() => { setActiveTrack(null); setShowTroubleshooter(true) }} title={isEn ? 'Troubleshooter' : 'פותר תקלות'}>🔧</button>
               <Suspense fallback={null}>
                 <ShareProgress lang={lang} tracks={tracks} compact />
               </Suspense>
