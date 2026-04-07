@@ -521,6 +521,50 @@ ul.prose li strong:first-child {
   display: inline-block;
 }
 
+
+/* ── CHEAT CARDS ── */
+.sc { display:flex; flex-direction:column; gap:10px; }
+.sc-head {
+  font-size:15px; font-weight:800; color:var(--text);
+  padding-bottom:8px; border-bottom:2px solid var(--accent);
+  margin-bottom:4px;
+}
+.sc-card {
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:10px; overflow:hidden;
+}
+.sc-label {
+  font-size:11px; font-weight:700; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--accent);
+  padding:6px 14px; border-bottom:1px solid var(--border);
+  background:var(--bg3);
+}
+.sc-text {
+  padding:10px 14px; font-size:13px; line-height:1.7;
+  color:var(--text); direction:rtl; text-align:right;
+}
+.sc-text code {
+  font-family:var(--mono); font-size:11.5px;
+  background:var(--bg3); border:1px solid var(--border);
+  border-radius:4px; padding:1px 5px; color:var(--accent);
+}
+/* ── REVIEW DRAWER CHAPTERS ── */
+.review-chapter {
+  margin-bottom:28px;
+  border:1px solid var(--border);
+  border-radius:12px; overflow:hidden;
+}
+.review-ch-title {
+  font-size:13px; font-weight:800; color:var(--accent);
+  padding:10px 16px; background:var(--bg3);
+  border-bottom:1px solid var(--border);
+  direction:rtl; text-align:right;
+}
+@media(max-width:560px){
+  .sc-label { font-size:10px; }
+  .sc-text { font-size:12px; padding:8px 12px; }
+}
+
 </style>8 פרקים — רשתות תקשורת</head>
 <body>
 <header class="header">
@@ -685,15 +729,15 @@ he:{
 <div class="section-title">האינטרנט — לא ענן, לא אלחוטי. כבלים.</div>
 <p class="prose">כשאנשים אומרים "העלתי לענן" — רוב האנשים מדמיינים משהו אלחוטי שצף באוויר. האמת: <strong>האינטרנט הוא כבלים פיזיים</strong>. כבלים עבים כזרוע אדם, שמשתרעים מתחת לאוקיינוסים ומחברים יבשות. כ-400 כבלים כאלה קיימים כיום בעולם. WiFi הוא רק הקטע האחרון — מהנתב הביתי למחשב שלך.</p>
 
-<div class="callout idea">💡 <strong>האינטרנט vs. WWW — שני דברים שונים:</strong> האינטרנט הוא התשתית הפיזית — כבלים, נתבים, חיבורים. WWW הוא שירות שרץ עליה — האתרים שגולשים בדפדפן. Email, Zoom, WhatsApp — שירותים נוספים על אותה תשתית.</div>
+<div class="callout idea">💡 <strong>האינטרנט מול רשת האינטרנט העולמית — שני דברים שונים:</strong> האינטרנט הוא התשתית הפיזית — כבלים, נתבים, חיבורים. הרשת העולמית (WWW) היא שירות אחד שרץ עליה — האתרים שגולשים בדפדפן. מייל, זום, וואטסאפ — שירותים נוספים על אותה תשתית.</div>
 
 <div class="section-title">Packet Switching — ההמצאה שהכל מתבסס עליה</div>
 <p class="prose">לפני 1969, שיחת טלפון הייתה שומרת <strong>חוט פיזי שלם</strong> רק לשניכם. עלות: חוט שלם עסוק לאורך כל השיחה. ב-1969 המציאו: <strong>Packet Switching</strong>.</p>
-<p class="prose">כל קובץ מחולק ל<strong>packets</strong> — חבילות קטנות (~1,500 bytes כל אחת). כל packet מקבל כותרת (header) עם כתובת מקור, כתובת יעד, ומספר סידורי. כל packet בוחר נתיב בנפרד. נתב עמוס? עוקף. כבל נחתך? מוצא דרך אחרת. מגיעים? מורכבים מחדש לפי המספר הסידורי.</p>
+<p class="prose">כל קובץ מחולק ל<strong>packets</strong> — חבילות קטנות (~1,500 bytes כל אחת). כל חבילה מקבל כותרת עם כתובת מקור, כתובת יעד, ומספר סידורי. כל חבילה בוחרת נתיב בנפרד. נתב עמוס? עוקף. כבל נחתך? מוצא דרך אחרת. מגיעים? מורכבים מחדש לפי המספר הסידורי.</p>
 
 <table class="data-table">
 <tr><th></th><th>Circuit Switching (טלפון ישן)</th><th>Packet Switching (אינטרנט)</th></tr>
-<tr><td>נתיב</td><td>חוט קבוע ובלעדי לאורך כל השיחה</td><td>כל packet בוחר נתיב בנפרד, בזמן אמת</td></tr>
+<tr><td>נתיב</td><td>חוט קבוע ובלעדי לאורך כל השיחה</td><td>כל חבילה בוחרת נתיב בנפרד, בזמן אמת</td></tr>
 <tr><td>כשל</td><td>נתיב נפסק = חיבור נופל לחלוטין</td><td>Packets מוצאים נתיב חלופי אוטומטית</td></tr>
 <tr><td>יעילות</td><td>חוט עומד ריק בשתיקות</td><td>אלפי users משתמשים באותם כבלים בו-זמנית</td></tr>
 <tr><td>עלות</td><td>יקר — חוט ייעודי לכל חיבור</td><td>זול — שיתוף מקסימלי של תשתית</td></tr>
@@ -716,7 +760,7 @@ he:{
 <div class="section-title">ISP ו-IXP — מי מחבר את כולם לאינטרנט</div>
 <p class="prose"><strong>ISP</strong> (ראשי תיבות של Internet Service Provider, כלומר: ספק שירותי אינטרנט) הוא החברה שמחברת את הבית שלך לאינטרנט — בזק, Hot, Partner.</p>
 <p class="prose">אבל שאלה מעניינת: איך email שנשלח מלקוח של בזק מגיע ללקוח של Partner? הרי אלה שתי חברות שונות לגמרי.</p>
-<p class="prose">בלי פתרון, כל packet היה צריך לנסוע מישראל לשרתי ביניים באירופה ולחזור. בזבוז ענק של זמן וכסף. הפתרון: <strong>IXP</strong> — Internet Exchange Point. זוהי נקודה פיזית (בניין, חדר שרתים) שבה כל ספקי האינטרנט בישראל מתחברים ישירות אחד לשני. בישראל: IL-IX בתל אביב.</p>
+<p class="prose">בלי פתרון, כל חבילה היה צריך לנסוע מישראל לשרתי ביניים באירופה ולחזור. בזבוז ענק של זמן וכסף. הפתרון: <strong>IXP</strong> — Internet Exchange Point. זוהי נקודה פיזית (בניין, חדר שרתים) שבה כל ספקי האינטרנט בישראל מתחברים ישירות אחד לשני. בישראל: IL-IX בתל אביב — נקודת החיבור הישראלית.</p>
 <table class="data-table">
 <tr><th>גוף</th><th>מה הוא עושה</th><th>דוגמאות</th></tr>
 <tr><td><strong>ISP Tier 1</strong></td><td>מחזיק כבלים תת-ימיים בין יבשות. מחובר לכל העולם ישירות</td><td>AT&amp;T, Deutsche Telekom</td></tr>
@@ -732,19 +776,19 @@ he:{
 <tr><th>סוג</th><th>דוגמה</th><th>מה זה</th><th>מאיפה מגיע</th></tr>
 <tr><td>IPv4 פרטי</td><td>192.168.1.5</td><td>בתוך הרשת הביתית בלבד</td><td>הנתב (DHCP)</td></tr>
 <tr><td>IPv4 ציבורי</td><td>85.250.12.44</td><td>מה שהעולם רואה</td><td>ISP</td></tr>
-<tr><td>IPv6</td><td>2001:db8::1</td><td>128 bits — 340 אנדרילייון כתובות</td><td>ISP / רשת</td></tr>
+<tr><td>IPv6</td><td>2001:db8::1 <span style="font-size:11px;color:var(--text2)">(פורמט חדש — 8 קבוצות ספרות)</span></td><td>128 סיביות — מספיק לכל מכשיר בעולם לנצח</td><td>ISP / רשת</td></tr>
 <tr><td>Loopback</td><td>127.0.0.1</td><td>המחשב מדבר עם עצמו</td><td>מובנה ב-OS</td></tr>
 </table>
 
 <div class="callout warn">⚠️ <strong>IPv4 נגמר ב-2011.</strong> היו רק 4.2 מיליארד כתובות — פחות ממספר המכשירים. הפתרון: <strong>NAT</strong> — הנתב מקבל IP ציבורי אחד ומסתיר מאחוריו כל המכשירים שלך. מבחוץ נראה כמו מחשב אחד. מבפנים — עשרות מכשירים.</div>
 
 <div class="section-title">DNS — ספר הטלפונים של האינטרנט (שעובד ב-20ms)</div>
-<p class="prose">מחשבים עובדים עם מספרים (142.250.185.46). אנשים זוכרים שמות (google.com). DNS מתרגם. כשכותבים google.com, מתרחש תהליך של עד 8 שאילתות — אבל עם cache הוא לרוב נגמר ב-1:</p>
+<p class="prose">מחשבים עובדים עם מספרים (142.250.185.46). אנשים זוכרים שמות (google.com). DNS מתרגם. כשכותבים google.com, מתרחש תהליך של עד 8 שאילתות — אבל עם זיכרון מטמון הוא לרוב נגמר ב-1:</p>
 
 <ol class="prose">
 <li><strong>Cache מקומי</strong> — המחשב בדק אם הוא שאל על google.com לאחרונה. אם כן — מיד מחזיר (0ms)</li>
-<li><strong>Cache של הנתב</strong> — הנתב הביתי שומר גם הוא תשובות. אם הוא זוכר — מחזיר (1ms)</li>
-<li><strong>Cache של ה-ISP</strong> — שרת ה-DNS של הספק (5ms)</li>
+<li><strong>זיכרון הנתב</strong> — הנתב הביתי שומר גם הוא תשובות. אם הוא זוכר — מחזיר (1ms)</li>
+<li><strong>זיכרון שרת הספק</strong> — שרת ה-DNS של הספק (5ms)</li>
 <li><strong>שרתי Root</strong> (Root Name Servers) — 13 שרתים בעולם, יודעים איפה כל TLD</li>
 <li><strong>שרת ה-.com</strong> (TLD Name Server) — יודע איפה כל דומיין ב-.com</li>
 <li><strong>שרת google.com</strong> (Authoritative NS) — מחזיר את ה-IP הסופי</li>
@@ -760,7 +804,7 @@ PING google.com (142.250.185.46): 56 data bytes
 <div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">142.250.185.46 = ה-IP שה-DNS מצא. 12ms = זמן הלוך וחזור (RTT). 0% packet loss = אין אובדן packets.</div></div></div>
 
 <div class="section-title">Routing — כיצד Packets מוצאים את דרכם</div>
-<p class="prose">כשpacket יוצא, כל <strong>router</strong> בדרך בודק את כתובת היעד ומחליט לאיפה לשלוח הלאה. החלטה זו נעשית בנאנו-שניות על בסיס <strong>Routing Table</strong> — טבלה שמתעדכנת אוטומטית בעזרת פרוטוקולים כמו BGP.</p>
+<p class="prose">כשחבילה יוצאת, כל <strong>נתב</strong> בדרך בודק את כתובת היעד ומחליט לאיפה לשלוח הלאה. החלטה זו נעשית בנאנו-שניות על בסיס <strong>Routing Table</strong> — טבלה שמתעדכנת אוטומטית בעזרת פרוטוקולים כמו BGP.</p>
 
 <div class="td td-dark"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url td-dark-url">Terminal</div></div><div class="td-body td-body-dark"><span class="tc-prompt">$</span> <span class="tc-cmd">traceroute -n google.com</span>
  1  <span style="color:#4ade80">192.168.1.1</span>     1.2 ms  <span style="color:#6b7280"># הנתב הביתי שלך</span>
@@ -770,17 +814,17 @@ PING google.com (142.250.185.46): 56 data bytes
  5  <span style="color:#4ade80">108.170.252.1</span>   9.1 ms  <span style="color:#6b7280"># Google backbone</span>
  6  <span style="color:#4ade80">142.251.49.78</span>  10.4 ms  <span style="color:#6b7280"># Google edge</span>
  7  <span style="color:#f59e0b">142.250.185.46</span> 12.4 ms  <span style="color:#6b7280"># Google.com!</span>
-<div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">7 hops = 7 routers שה-packet עבר דרכם. כל hop מוסיף latency. hop 4 = IXP — כאן הרשת עוברת מבזק לגוגל.</div></div></div>
+<div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">7 תחנות = 7 נתבים שה-packet עבר דרכם. כל תחנה מוסיפה זמן תגובה. תחנה 4 = נקודת החיבור בין הספקים — כאן הרשת עוברת מבזק לגוגל.</div></div></div>
 
 <div class="section-title">BGP — פרוטוקול שמחזיק את האינטרנט ביחד</div>
 <p class="prose"><strong>BGP</strong> (Border Gateway Protocol — פרוטוקול ניהול הנתיבים בין ספקים) הוא הפרוטוקול שמחבר את כל ספקי האינטרנט בעולם. כל ISP מכריז: "אני מחזיק את ה-IP ranges האלה", ו-BGP מפיץ את הידע הזה לכל העולם. כשספק חדש מתחבר לאינטרנט — BGP מפיץ את ה-routes שלו תוך דקות. תקלת BGP אחת ב-2021 הורידה את Facebook, Instagram ו-WhatsApp ל-6 שעות.</p>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">התאמה</span></button></div>`,
 `
 <div class="section-title">הבעיה — IP לא אמין בכלל</div>
-<p class="prose">IP הוא <strong>best-effort</strong> — "אני עושה מיטבי". אין הבטחה שpacket יגיע. Packets יכולים: ללכת לאיבוד (router עמוס זורק), להגיע בסדר שגוי (כל packet בחר נתיב אחר), להגיע כפול (bug נדיר ב-router). לגלישה, email, קבצים — זה בלתי אפשרי. פה נכנס TCP.</p>
+<p class="prose">IP הוא <strong>best-effort</strong> — "אני עושה מיטבי". אין הבטחה שpacket יגיע. Packets יכולים: ללכת לאיבוד (נתב עמוס זורק אותה), להגיע בסדר שגוי (כל חבילה בחר נתיב אחר), להגיע כפולה (תקלה נדירה בנתב). לגלישה, מייל, קבצים — זה בלתי אפשרי. פה נכנס TCP.</p>
 
 <div class="section-title">TCP — כיצד נוצר חיבור אמין</div>
-<p class="prose">לפני שנתון ראשון (byte) עובר, TCP מבצע <strong>3-Way Handshake</strong>. שימו לב ל-sequence numbers — הם הסוד לאמינות:</p>
+<p class="prose">לפני שנתון ראשון עובר, TCP מבצע <strong>3-Way Handshake</strong>. שימו לב ל-sequence numbers — הם הסוד לאמינות:</p>
 
 <div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🔄&nbsp;</div></div><div class="td-title">3-Way Handshake</div><div class="td-body"><div style="font-family:var(--sans);direction:rtl;padding:4px">
 <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:700;margin-bottom:12px;color:var(--text)">
@@ -803,15 +847,15 @@ PING google.com (142.250.185.46): 56 data bytes
     <span style="font-size:11px;color:var(--text2);flex-shrink:0">"מאשר seq=5001"</span>
   </div>
   <div style="text-align:center;padding:8px;background:#f0fdf4;border-radius:8px;font-size:12px;color:#166534;font-weight:600;margin-top:4px">✓ חיבור מוקם — data זורם</div>
-</div></div><div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;font-family:var(--sans);color:#166534;line-height:1.6">seq numbers מאפשרים לשני הצדדים לאמת שכל packet הגיע ובסדר הנכון. זה הבסיס של אמינות TCP.</div></div></div>
+</div></div><div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;font-family:var(--sans);color:#166534;line-height:1.6">seq numbers מאפשרים לשני הצדדים לאמת שכל חבילה הגיע ובסדר הנכון. זה הבסיס של אמינות TCP.</div></div></div>
 
 <div class="section-title">כיצד TCP מבטיח אמינות</div>
 <table class="data-table">
 <tr><th>מנגנון</th><th>כיצד עובד</th></tr>
 <tr><td><strong>Sequence Numbers</strong></td><td>כל byte מקבל מספר. הצד המקבל יודע בדיוק מה הגיע ומה חסר</td></tr>
 <tr><td><strong>ACK</strong></td><td>הצד המקבל מאשר כל קבוצת bytes. ללא ACK — השולח שולח שוב</td></tr>
-<tr><td><strong>Retransmission</strong></td><td>ללא ACK תוך timeout — packet נשלח מחדש אוטומטית</td></tr>
-<tr><td><strong>Flow Control</strong></td><td>Window size — המקבל אומר כמה bytes הוא מסוגל לעכל</td></tr>
+<tr><td><strong>Retransmission</strong></td><td>ללא אישור בזמן הקצוב — packet נשלח מחדש אוטומטית</td></tr>
+<tr><td><strong>Flow Control</strong></td><td>גודל חלון — הצד המקבל אומר כמה bytes הוא מסוגל לעכל</td></tr>
 <tr><td><strong>Congestion Control</strong></td><td>TCP מגלה עומס ברשת ומאט אוטומטית</td></tr>
 </table>
 
@@ -822,12 +866,12 @@ PING google.com (142.250.185.46): 56 data bytes
 <tr><td>הורדת קבצים</td><td>TCP</td><td>byte אחד חסר = קובץ פגום</td></tr>
 <tr><td>Email (SMTP/IMAP)</td><td>TCP</td><td>מייל חייב להגיע מלא</td></tr>
 <tr><td>Gaming, Zoom</td><td>UDP</td><td>frame ישן (50ms) = זבל. עדיף לזרוק ולקבל הבא</td></tr>
-<tr><td>DNS</td><td>UDP</td><td>שאלה קצרה + תשובה קצרה. TCP handshake = overhead לא שווה</td></tr>
-<tr><td>Streaming (Netflix)</td><td>TCP+QUIC</td><td>TCP ל-control, QUIC ל-video stream</td></tr>
+<tr><td>DNS</td><td>UDP</td><td>שאלה קצרה + תשובה קצרה. TCP handshake = עלות מיותרת</td></tr>
+<tr><td>Streaming (Netflix)</td><td>TCP+QUIC</td><td>TCP לבקרה, QUIC להזרמת הוידאו</td></tr>
 </table>
 
-<div class="section-title">TCP Congestion Control — כיצד TCP לא "שובר" את הרשת</div>
-<p class="prose">כשTCP מתחיל חיבור, הוא שולח כמות קטנה של packets ומגדיל בהדרגה (תהליך זה נקרא <strong>Slow Start</strong> — "התחלה איטית"). אם מגלה שpackets נאבדים — מאט לחצי. אם רשת פנויה — מאיץ שוב. זה האלגוריתם שמונע מכל ה-TCP connections בעולם להכביד על אותה תשתית בו-זמנית.</p>
+<div class="section-title">בקרת עומס — כיצד TCP לא "שובר" את הרשת</div>
+<p class="prose">כשTCP מתחיל חיבור, הוא שולח כמות קטנה של חבילות ומגדיל בהדרגה (תהליך "התחלה איטית" — Slow Start). אם מגלה שחבילות נאבדות — מאט לחצי. אם רשת פנויה — מאיץ שוב. זה האלגוריתם שמונע מכל ה-TCP connections בעולם להכביד על אותה תשתית בו-זמנית.</p>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">התאמה</span></button></div>`,
 `
 <div class="section-title">HTTP — שפת הדפדפן</div>
@@ -848,7 +892,7 @@ PING google.com (142.250.185.46): 56 data bytes
 <tr><td>200 OK</td><td>2xx Success</td><td>הצליח</td></tr>
 <tr><td>201 Created</td><td>2xx</td><td>משאב נוצר (אחרי POST)</td></tr>
 <tr><td>301 Moved Permanently</td><td>3xx Redirect</td><td>עבר לכתובת חדשה לצמיתות</td></tr>
-<tr><td>304 Not Modified</td><td>3xx</td><td>השתמש ב-cache — לא השתנה</td></tr>
+<tr><td>304 Not Modified</td><td>3xx</td><td>שימוש בזיכרון מטמון — לא השתנה</td></tr>
 <tr><td>400 Bad Request</td><td>4xx Client Error</td><td>הבקשה שגויה</td></tr>
 <tr><td>401 Unauthorized</td><td>4xx</td><td>לא מחובר</td></tr>
 <tr><td>403 Forbidden</td><td>4xx</td><td>מחובר אבל אין הרשאה</td></tr>
@@ -881,7 +925,7 @@ PING google.com (142.250.185.46): 56 data bytes
 </div></div><div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#fff1f2;border:1px solid #fecaca;border-radius:8px;font-size:12px;font-family:var(--sans);color:#991b1b;line-height:1.6">סיסמה ב-HTTP = גלויה לכל מי שמחובר לאותו WiFi. זה לא תיאוריה — זה 5 דקות עם Wireshark.</div></div></div>
 
 <div class="section-title">TLS Handshake — מה קורה מאחורי הנעילה</div>
-<p class="prose">אחרי TCP, HTTPS מוסיף <strong>TLS</strong>. ב-TLS 1.3 (הגרסה הנוכחית) זה קורה ב-<strong>round trip אחד בלבד</strong>:</p>
+<p class="prose">אחרי TCP, HTTPS מוסיף <strong>TLS</strong>. ב-TLS 1.3 (הגרסה הנוכחית) זה קורה ב-<strong>סבב תקשורת אחד בלבד</strong>:</p>
 <ol class="prose">
 <li><strong>שלב 1 — Client Hello</strong> — "תומך ב-TLS 1.3, אלו האלגוריתמים להצפנה (cipher suites) שאני תומך בהם"</li>
 <li><strong>שלב 2 — Server Hello + תעודה</strong> — "בוחר AES-256-GCM, הנה תעודת הזהות שלי (חתומה ע"י DigiCert)"</li>
@@ -922,7 +966,7 @@ PING google.com (142.250.185.46): 56 data bytes
 <tr><td>טווח</td><td>ארוך — חודר קירות</td><td>בינוני</td><td>קצר — דורש קו ראייה</td></tr>
 <tr><td>ערוצים לא-חופפים</td><td>3 בלבד!</td><td>25 ערוצים</td><td>59 ערוצים</td></tr>
 <tr><td>עומס</td><td>צפוף מאוד — גם מיקרוגלים מפריעים</td><td>פחות עמוס</td><td>כמעט ריק (2022)</td></tr>
-<tr><td>מתי להשתמש</td><td>חדר רחוק, מחובר לחשמל</td><td>ליד הנתב, streaming</td><td>נתב חדש, latency נמוך</td></tr>
+<tr><td>מתי להשתמש</td><td>חדר רחוק, מחובר לחשמל</td><td>ליד הנתב, הזרמת תוכן</td><td>נתב חדש, latency נמוך</td></tr>
 </table>
 
 <div class="section-title">Bandwidth vs. Latency — שני מדדים, שני שימושים</div>
@@ -981,15 +1025,15 @@ PING google.com (142.250.185.46): 56 data bytes
 <div class="section-title">Firewall — שומר הסף</div>
 <table class="data-table">
 <tr><th>סוג</th><th>שכבה</th><th>מה בודק</th><th>מה לא בודק</th></tr>
-<tr><td>Stateless / Packet Filter</td><td>3-4</td><td>IP, Port, Protocol לכל packet בנפרד</td><td>לא מבין context של שיחה</td></tr>
-<tr><td>Stateful</td><td>3-4</td><td>זוכר connections, בודק האם packet שייך לחיבור לגיטימי</td><td>לא מבין מה בתוך ה-payload</td></tr>
+<tr><td>Stateless / Packet Filter</td><td>3-4</td><td>IP, Port, Protocol לכל חבילה בנפרד</td><td>לא מבין context של שיחה</td></tr>
+<tr><td>Stateful</td><td>3-4</td><td>זוכר connections, בודק האם packet שייך לחיבור לגיטימי</td><td>לא מבין את תוכן החבילה</td></tr>
 <tr><td>NGFW (Next-Gen)</td><td>3-7</td><td>פותח ומנתח את תוכן הpacket (Deep Packet Inspection — בדיקת תוכן מעמיקה), מזהה איזו אפליקציה שולחת</td><td>Encrypted traffic (בלי TLS inspection)</td></tr>
 <tr><td>WAF (Web)</td><td>7</td><td>SQL injection, XSS, CSRF בתוך HTTP</td><td>non-HTTP traffic</td></tr>
 </table>
 <div class="ch-end-nav"><button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">התאמה</span></button></div>`,
 `
 <div class="section-title">Wireshark — מצלמת אבטחה שרואה הכל</div>
-<p class="prose">Wireshark הוא כלי <strong>חינמי</strong> שלוכד כל packet שעובר בכרטיס הרשת שלך. כל DNS query, כל TCP handshake, כל HTTP request — הכל גלוי. אנשי IT, מפתחים, ו-security researchers משתמשים בו יומיומית.</p>
+<p class="prose">Wireshark הוא כלי <strong>חינמי</strong> שלוכד כל חבילה שעובר בכרטיס הרשת שלך. כל DNS query, כל TCP handshake, כל HTTP request — הכל גלוי. אנשי IT, מפתחים, ו-security researchers משתמשים בו יומיומית.</p>
 
 <div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🔬&nbsp;wireshark — Live Capture</div></div><div class="td-title">Wireshark — TLS+HTTP/2</div><div class="td-body"><div style="direction:ltr;font-family:var(--mono);font-size:11.5px">
 <div style="background:#1a1a2e;color:#e8e8e8;padding:6px 10px;margin-bottom:8px;border-radius:6px;font-size:11px">
@@ -1061,13 +1105,13 @@ tcp.analysis.retransmission    # packets שנשלחו מחדש</code></pre>
 <div class="section-title">שנייה אחת — עשרה שלבים שקורים מאחורי הקלעים</div>
 <p class="prose">כותבים <code>google.com</code> ולוחצים Enter. הדפדפן נראה רגוע. מה שבאמת קורה:</p>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🚀&nbsp;מה קורה כשמקלידים google.com</div></div><div class="td-title">🌐 המסע המלא — כל 10 השלבים</div><div class="td-body"><div style="direction:rtl;font-family:var(--sans)"><div class="td-row"><span class="td-k">1. DNS Resolver</span><span class="td-v">בודק cache מקומי → cache router → cache ISP → Root NS → .com NS → google.com NS</span></div><div class="td-row"><span class="td-k">2. DNS Response</span><span class="td-v">142.250.185.46 (TTL: 300 שניות = נזכר ל-5 דקות)</span></div><div class="td-row"><span class="td-k">3. ARP Request</span><span class="td-v">"מי הוא 192.168.1.1?" → Broadcast לכל הרשת → תשובה: MAC aa:bb:cc:dd</span></div><div class="td-row"><span class="td-k">4. TCP SYN →</span><span class="td-v">IP packet: src=192.168.1.5:54321, dst=142.250.185.46:443</span></div><div class="td-row"><span class="td-k">5. TLS 1.3</span><span class="td-v">Client Hello → Server Hello + Cert → Finished. 1 Round Trip!</span></div><div class="td-row"><span class="td-k">6. HTTP/2 GET</span><span class="td-v">GET / HTTP/2, Host: google.com, headers מוצפנים</span></div><div class="td-row"><span class="td-k">7. Response</span><span class="td-v">200 OK — HTML, ~50KB, gzip compressed</span></div><div class="td-row"><span class="td-k">8. Sub-resources</span><span class="td-v">80+ בקשות מקביליות: CSS, JS, fonts, images</span></div><div class="td-row"><span class="td-k">9. Rendering</span><span class="td-v">קריאת HTML → בניית עץ עיצוב (CSSOM) → חישוב מיקומים → ציור → הרכבה סופית</span></div><div class="td-row"><span class="td-k">10. Done!</span><span class="td-v">⏱ סה"כ: ~150ms (DNS 20ms + TCP 12ms + TLS 12ms + זמן עד לbyte הראשון מהשרת 40ms + render 66ms)</span></div><div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">כל שלב הוא פרוטוקול נפרד בשכבה נפרדה. Wireshark רואה את כולם. DevTools מציג את הTimeline.</div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🚀&nbsp;מה קורה כשמקלידים google.com</div></div><div class="td-title">🌐 המסע המלא — כל 10 השלבים</div><div class="td-body"><div style="direction:rtl;font-family:var(--sans)"><div class="td-row"><span class="td-k">1. פענוח השם</span><span class="td-v">בודק זיכרון מקומי ← זיכרון הנתב ← שרת הספק ← שרת שורש ← שרת .com ← שרת google.com</span></div><div class="td-row"><span class="td-k">2. קבלת הכתובת</span><span class="td-v">142.250.185.46 (תוקף: 300 שניות — אחר כך צריך לשאול שוב)</span></div><div class="td-row"><span class="td-k">3. מציאת הנתב</span><span class="td-v">"מי הוא 192.168.1.1?" ← שידור לכל הרשת ← תשובה: כתובת פיזית aa:bb:cc:dd</span></div><div class="td-row"><span class="td-k">4. פתיחת חיבור (TCP)</span><span class="td-v">חבילה: מקור=192.168.1.5:54321, יעד=142.250.185.46:443</span></div><div class="td-row"><span class="td-k">5. הצפנה (TLS 1.3)</span><span class="td-v">שלום לקוח ← שלום שרת + תעודה ← סיום. סבב אחד בלבד!</span></div><div class="td-row"><span class="td-k">6. בקשת הדף (HTTP/2)</span><span class="td-v">GET / — בקשה לדף הבית של google.com, כותרות מוצפנות</span></div><div class="td-row"><span class="td-k">7. קבלת התשובה</span><span class="td-v">200 — הצליח. HTML, כ-50 קילובייט, דחוס</span></div><div class="td-row"><span class="td-k">8. קבצים נלווים</span><span class="td-v">80+ בקשות מקביליות: עיצוב, סקריפטים, גופנים, תמונות</span></div><div class="td-row"><span class="td-k">9. עיבוד ותצוגה</span><span class="td-v">קריאת HTML ← בניית עץ עיצוב ← חישוב מיקומים ← ציור ← הצגה</span></div><div class="td-row"><span class="td-k">10. סיום!</span><span class="td-v">⏱ סה"כ: כ-150 מילישניות (שמות 20 + חיבור 12 + הצפנה 12 + שרת 40 + עיבוד 66)</span></div></div></div>
 
 <div class="section-title">DNS בפירוט — מה קורה בשלב 1</div>
 <p class="prose">DNS נראה פשוט — אבל מאחורי שאילתה אחת יש היררכיה שלמה:</p>
 <ol class="prose">
-<li><strong>Cache של המחשב</strong> — OS שומר תוצאות DNS. <code>ipconfig /flushdns</code> (Windows) מנקה</li>
-<li><strong>Cache של הנתב</strong> — הנתב הביתי מאחסן גם הוא</li>
+<li><strong>זיכרון המחשב</strong> — OS שומר תוצאות DNS. <code>ipconfig /flushdns</code> (Windows) מנקה</li>
+<li><strong>זיכרון הנתב</strong> — הנתב הביתי מאחסן גם הוא</li>
 <li><strong>Resolver של ה-ISP</strong> — שרת שעושה את כל העבודה בשביל המחשב</li>
 <li><strong>שרתי Root</strong> (Root Name Servers) — 13 כתובות IP שכל מחשב בעולם מכיר. שואלים: "מי אחראי ל-.com?"</li>
 <li><strong>שרת ה-.com</strong> (TLD Server) — מחזיר: "google.com מנוהל ע"י ns1.google.com"</li>
@@ -1075,7 +1119,7 @@ tcp.analysis.retransmission    # packets שנשלחו מחדש</code></pre>
 </ol>
 
 <div class="section-title">CDN — למה Netflix ו-YouTube מהירים</div>
-<p class="prose">Netflix בסיסה בקליפורניה. איך וידאו מגיע ב-4K ב-50ms? <strong>CDN (Content Delivery Network)</strong> — שרתי cache מפוזרים בכל העולם:</p>
+<p class="prose">Netflix בסיסה בקליפורניה. איך וידאו מגיע ב-4K ב-50ms? <strong>CDN (Content Delivery Network)</strong> — שרתי מטמון מפוזרים בכל העולם:</p>
 <ol class="prose">
 <li>הוידאו מועלה לשרת מרכזי של Netflix</li>
 <li>ה-CDN מפיץ לשרתים בכל עיר גדולה בעולם</li>
@@ -1085,49 +1129,49 @@ tcp.analysis.retransmission    # packets שנשלחו מחדש</code></pre>
 <p class="prose">Cloudflare מריץ שרתים ב-300+ ערים. Akamai = ~350,000 שרתים בעולם. ה-CDN שכבר הפך לחלק כל כך בסיסי מהאינטרנט שרוב האנשים לא יודעים שהוא קיים.</p>
 
 <div class="section-title">QUIC — ה-Protocol שמחליף TCP לאינטרנט</div>
-<p class="prose">TCP+TLS לוקחים 2-3 round trips לפני שbyte ראשון עובר. גוגל יצרה <strong>QUIC</strong> ב-2012 (נהפך ל-RFC ב-2021) שפותר זאת:</p>
+<p class="prose">TCP+TLS לוקחים 2-3 סבבי תקשורת לפני שbyte ראשון עובר. גוגל יצרה <strong>QUIC</strong> ב-2012 (נהפך ל-RFC ב-2021) שפותר זאת:</p>
 <table class="data-table">
 <tr><th></th><th>TCP + TLS 1.3</th><th>QUIC (HTTP/3)</th></tr>
-<tr><td>Round Trips לחיבור</td><td>2 (TCP 1 + TLS 1)</td><td>1 (הכל ביחד)</td></tr>
+<tr><td>סבבי תקשורת לחיבור</td><td>2 (TCP 1 + TLS 1)</td><td>1 (הכל ביחד)</td></tr>
 <tr><td>עברת מWiFi לסלולרי?</td><td>חיבור נשבר — מתחיל מחדש</td><td>חיבור ממשיך (Connection ID)</td></tr>
-<tr><td>Head-of-Line Blocking</td><td>packet אחד חסר = כל הדף מחכה (Head-of-Line Blocking — חסימת תור)</td><td>streams עצמאיים — אם חסר חלק אחד, שאר הדף ממשיך להיטען</td></tr>
+<tr><td>Head-of-Line Blocking</td><td>packet אחד חסר = כל הדף מחכה (Head-of-Line Blocking — חסימת תור)</td><td>ערוצים עצמאיים — אם חסר חלק אחד, שאר הדף ממשיך להיטען</td></tr>
 <tr><td>שימוש ב-Chrome</td><td>35% מהזמן</td><td>65% מהזמן (2024)</td></tr>
 </table>
 <div class="ch-end-nav"><button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button><button class="ch-end-btn" onclick="showTab(CHID,'game')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">התאמה</span></button></div>`
 ],
 cheat:[
 `<div class="sc"><div class="sc-head">🌐 האינטרנט — כיצד עובד</div>
-<div class="sc-card"><div class="sc-label">הבסיס</div><div class="sc-text">האינטרנט = כבלים פיזיים תחת אוקיינוסים. WiFi = רק הקטע האחרון. WWW = שירות אחד שרץ על האינטרנט (גם email, Zoom, WhatsApp).</div></div>
-<div class="sc-card"><div class="sc-label">Packet Switching</div><div class="sc-text">קובץ מחולק לאלפי packets (~1,500 bytes כל אחד). כל packet בוחר נתיב בנפרד. נתב עמוס = עוקף. כבל נחתך = מוצא דרך אחרת.</div></div>
-<div class="sc-card"><div class="sc-label">ISP ו-IXP</div><div class="sc-text">ISP = ספק אינטרנט (בזק, Hot). IXP = נקודה שבה ISPs מתחברים ישירות — בלי לעגל דרך לונדון.</div></div></div>`,
-`<div class="sc"><div class="sc-head">📍 IP, DNS, Routing</div>
-<div class="sc-card"><div class="sc-label">IP Address</div><div class="sc-text">כתובת של כל מכשיר ברשת. פרטי (192.168.x.x) = בתוך הבית. ציבורי = מה שהעולם רואה. IPv4 נגמר ב-2011 — NAT מסתיר כולם מאחורי כתובת אחת.</div></div>
-<div class="sc-card"><div class="sc-label">DNS</div><div class="sc-text">ממיר שם (google.com) ל-IP (142.250.185.46). כמו ספר טלפונים. <code>ping google.com</code> = שואל DNS + בודק latency.</div></div>
-<div class="sc-card"><div class="sc-label">Routing</div><div class="sc-text">Routers מעבירים packet מדלפק לדלפק עד היעד. <code>traceroute</code> מציג את כל הנתיב.</div></div></div>`,
+<div class="sc-card"><div class="sc-label">הבסיס</div><div class="sc-text">האינטרנט הוא תשתית פיזית — כבלים תת-ימיים, נתבים, חיבורים. רשת האינטרנט העולמית (WWW) היא <strong>שירות אחד</strong> שרץ עליה. מייל, זום, וואטסאפ — שירותים נוספים על אותה תשתית.</div></div>
+<div class="sc-card"><div class="sc-label">Packet Switching</div><div class="sc-text">כל קובץ מחולק לאלפי חבילות קטנות (חבילות נתונים). כל חבילה בוחרת נתיב בנפרד. נתב עמוס — עוקפים. כבל נחתך — מוצאים נתיב אחר. מגיעות — מורכבות מחדש.</div></div>
+<div class="sc-card"><div class="sc-label">ISP ו-IXP</div><div class="sc-text">ISP = ספק האינטרנט שלך (בזק, הוט, פרטנר). IXP = נקודה פיזית שבה כל הספקים מתחברים ישירות אחד לשני — בלי לעגל דרך אירופה. בישראל: IL-IX בתל אביב — נקודת החיבור הישראלית.</div></div></div>`,
+`<div class="sc"><div class="sc-head">📍 כתובות IP, DNS וניתוב</div>
+<div class="sc-card"><div class="sc-label">כתובת IP</div><div class="sc-text">כתובת של כל מכשיר ברשת. פרטית (192.168.x.x) = בתוך הבית. ציבורית = מה שהעולם רואה. IPv4 נגמר ב-2011 — NAT מסתיר עשרות מכשירים מאחורי כתובת ציבורית אחת.</div></div>
+<div class="sc-card"><div class="sc-label">DNS</div><div class="sc-text">ממיר שם (google.com) לכתובת מספרית (142.250.185.46). כמו ספר טלפונים. הפקודה <code>ping google.com</code> שואלת את שרת השמות ובודקת את זמן התגובה.</div></div>
+<div class="sc-card"><div class="sc-label">ניתוב (Routing)</div><div class="sc-text">כל נתב בדרך בודק לאן לשלוח הלאה. הפקודה <code>traceroute</code> מציגה את כל הנתבים שחבילת הנתונים עברה דרכם עד ליעד.</div></div></div>`,
 `<div class="sc"><div class="sc-head">🔗 TCP — חיבור אמין</div>
-<div class="sc-card"><div class="sc-label">הבעיה</div><div class="sc-text">IP לא מבטיח שpacket יגיע. TCP מוסיף: אישורים, סדר, שליחה מחדש. מחיר: overhead. יתרון: אמינות מוחלטת.</div></div>
-<div class="sc-card"><div class="sc-label">3-Way Handshake</div><div class="sc-text">SYN → SYN-ACK → ACK. שלושה שלבים לפני byte ראשון. "אתה שם?" / "כן, אתה?" / "מעולה, מתחילים".</div></div>
-<div class="sc-card"><div class="sc-label">TCP vs UDP</div><div class="sc-text">TCP = גלישה, email, קבצים. UDP = gaming, Zoom, DNS. frame ישן של 50ms = חסר ערך, עדיף לזרוק.</div></div></div>`,
+<div class="sc-card"><div class="sc-label">הבעיה</div><div class="sc-text">פרוטוקול IP לא מבטיח שחבילה תגיע. היא יכולה ללכת לאיבוד, להגיע בסדר שגוי, או להגיע כפולה. TCP פותר זאת על ידי אישורים, מספור, ושליחה מחדש.</div></div>
+<div class="sc-card"><div class="sc-label">לחיצת היד (Handshake)</div><div class="sc-text">לפני שנתון ראשון עובר — שלושה שלבים: SYN (אתה שם?) ← SYN-ACK (כן! אתה שם?) → ACK (מעולה, מתחילים). רק אז זורם המידע.</div></div>
+<div class="sc-card"><div class="sc-label">TCP מול UDP</div><div class="sc-text">TCP = גלישה, מייל, קבצים — חייב להגיע שלם. UDP = גיימינג, שיחות וידאו — מהירות חשובה יותר מאמינות. פריים (תמונה) ישן של 50 מילישניות אין לה ערך — עדיף לזרוק ולקבל את הבאה.</div></div></div>`,
 `<div class="sc"><div class="sc-head">🔒 HTTP ו-HTTPS</div>
-<div class="sc-card"><div class="sc-label">HTTP Methods</div><div class="sc-text">GET = בקש. POST = שלח. PUT/PATCH = עדכן. DELETE = מחק. Status: 200=OK, 404=לא נמצא, 500=שרת קרס.</div></div>
-<div class="sc-card"><div class="sc-label">HTTPS = TLS</div><div class="sc-text">TLS מוסיף הצפנה מעל TCP. 3 שלבים: הסכמה על algorithm, אימות תעודה, חישוב מפתח משותף. מעכשיו = ג'יבריש לכולם.</div></div>
-<div class="sc-card"><div class="sc-label">חובה</div><div class="sc-text">HTTP = סיסמאות בטקסט גלוי. כל מי ב-WiFi שלך יכול לקרוא. HTTPS = לא אופציה, חובה.</div></div></div>`,
-`<div class="sc"><div class="sc-head">📡 WiFi וכבלים</div>
-<div class="sc-card"><div class="sc-label">Mediums</div><div class="sc-text">נחושת (Cat6) = 10Gbps/100m. Fiber = 100Tbps/100km. WiFi = 9.6Gbps/50m. WiFi = shared — כולם מחכים לתור.</div></div>
-<div class="sc-card"><div class="sc-label">2.4 vs 5 vs 6 GHz</div><div class="sc-text">2.4 = טווח ארוך, עמוס. 5 = מהיר, בינוני. 6 (WiFi 6E) = הכי מהיר, טווח קצר. חדר רחוק = 2.4. ליד הנתב = 5/6.</div></div>
-<div class="sc-card"><div class="sc-label">Bandwidth vs Latency</div><div class="sc-text">Bandwidth = רוחב כביש (הורדות). Latency = אורך כביש (תגובתיות). Gaming = latency קריטי. Netflix = bandwidth קריטי.</div></div></div>`,
-`<div class="sc"><div class="sc-head">🖥️ רכיבי רשת</div>
-<div class="sc-card"><div class="sc-label">הנתב הביתי</div><div class="sc-text">5 מכשירים: Modem (מחבר לISP), Router (מנתב), Switch (כבלים), WAP (WiFi), DHCP (מחלק IPs אוטומטית).</div></div>
-<div class="sc-card"><div class="sc-label">Switch vs Hub</div><div class="sc-text">Hub = שולח לכולם תמיד. Switch = שולח רק ליעד הנכון, לומד לאיזה port כל מכשיר. Hub = מוזיאון.</div></div>
-<div class="sc-card"><div class="sc-label">Firewall</div><div class="sc-text">חוסם packets לפי IP, port, פרוטוקול. Stateless = כל packet בנפרד. Stateful = זוכר connections. NGFW = פותח ובודק תוכן.</div></div></div>`,
+<div class="sc-card"><div class="sc-label">שיטות HTTP</div><div class="sc-text">GET = בקש מידע. POST = שלח מידע. PUT/PATCH = עדכן. DELETE = מחק. קודי תגובה: 200 = הצליח, 404 = לא נמצא, 500 = שרת קרס.</div></div>
+<div class="sc-card"><div class="sc-label">HTTPS = הצפנה</div><div class="sc-text">שכבת האבטחה (TLS) מוסיפה הצפנה מעל פרוטוקול ה-TCP. שלושה שלבים: הסכמה על שיטת הצפנה, אימות תעודת הזהות של השרת, חישוב מפתח משותף. מאותה נקודה — הכל מוצפן.</div></div>
+<div class="sc-card"><div class="sc-label">חובה</div><div class="sc-text">HTTP = סיסמאות בטקסט גלוי. כל מי שמחובר לאותה רשת אלחוטית יכול לקרוא. HTTPS הוא לא בונוס — הוא דרישת מינימום לכל אתר.</div></div></div>`,
+`<div class="sc"><div class="sc-head">📡 אותות, WiFi ומדדים</div>
+<div class="sc-card"><div class="sc-label">אותות</div><div class="sc-text">כבל נחושת = חשמל. סיב אופטי = אור. רשת אלחוטית / סלולרי = גלי רדיו. הרשת האלחוטית היא ערוץ משותף — כל המכשירים מחכים לתורם, כמו שיחה בחדר שבו כולם מדברים על קו אחד.</div></div>
+<div class="sc-card"><div class="sc-label">תדרי WiFi</div><div class="sc-text">2.4 גיגהרץ = טווח ארוך, חודר קירות, עמוס מאוד. 5 גיגהרץ = מהיר, טווח בינוני. 6 גיגהרץ = הכי מהיר, טווח קצר. חדר רחוק = 2.4. ליד הנתב = 5 או 6.</div></div>
+<div class="sc-card"><div class="sc-label">Bandwidth מול Latency</div><div class="sc-text">רוחב פס = כמה מידע בשנייה (נטפליקס צריך הרבה). זמן תגובה = כמה זמן לחבילה להגיע (גיימינג חייב פחות מ-20 מילישניות). אינטרנט "מהיר" עם זמן תגובה גבוה — מעולה לנטפליקס, גרוע לגיימינג.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🖥️ רכיבי הרשת</div>
+<div class="sc-card"><div class="sc-label">הנתב הביתי</div><div class="sc-text">חמישה מכשירים בקופסה אחת: מודם (מחבר לספק), נתב (מנתב לאינטרנט), מתג (מחבר כבלים), נקודת גישה אלחוטית (משדר WiFi), שרת DHCP (מחלק כתובות אוטומטית).</div></div>
+<div class="sc-card"><div class="sc-label">Switch מול Hub</div><div class="sc-text">מרכזיה (Hub) = שולחת כל הודעה לכל המחשבים. מתג (Switch) = לומד איזה מחשב נמצא בכל שקע ושולח רק אליו. המרכזייה נעלמה מהשוק — המתג יעיל פי כמה.</div></div>
+<div class="sc-card"><div class="sc-label">חומת אש (Firewall)</div><div class="sc-text">חוסמת חבילות לפי כתובת IP, פורט ופרוטוקול. ללא מצב = בודקת כל חבילה בנפרד. עם זיכרון מצב = זוכרת חיבורים שלמים. דור הבא (NGFW) = פותחת ובודקת את תוכן החבילה.</div></div></div>`,
 `<div class="sc"><div class="sc-head">🔬 Wireshark</div>
-<div class="sc-card"><div class="sc-label">מה זה</div><div class="sc-text">לוכד כל packet בכרטיס הרשת. חינמי. מציג כל שכבה: Ethernet, IP, TCP, HTTP. הכלי לבין מה קורה ברשת.</div></div>
-<div class="sc-card"><div class="sc-label">Filters שימושיים</div><div class="sc-text"><code>http</code>, <code>dns</code>, <code>tcp.port==443</code>, <code>ip.addr==8.8.8.8</code>, <code>tcp.flags.syn==1</code>. בלי filter = אלפי packets בדקה.</div></div>
-<div class="sc-card"><div class="sc-label">HTTP vs HTTPS</div><div class="sc-text">HTTP = הכל גלוי, קורא כל מילה. HTTPS = ג'יבריש מוצפן. Wireshark מראה בדיוק את ההבדל.</div></div></div>`,
+<div class="sc-card"><div class="sc-label">מה זה</div><div class="sc-text">כלי חינמי שלוכד כל חבילת מידע שעוברת בכרטיס הרשת. מציג כל שכבה: אתרנט, IP, TCP, HTTP. הכלי המרכזי להבין מה באמת קורה ברשת.</div></div>
+<div class="sc-card"><div class="sc-label">פילטרים שימושיים</div><div class="sc-text"><code>http</code>, <code>dns</code>, <code>tcp.port==443</code>, <code>ip.addr==8.8.8.8</code>, <code>tcp.flags.syn==1</code>. בלי סינון — אלפי חבילות בדקה. פילטר מוצא בדיוק מה שמחפשים.</div></div>
+<div class="sc-card"><div class="sc-label">HTTP מול HTTPS</div><div class="sc-text">ב-HTTP — ניתן לקרוא כל מילה בבקשה, כולל סיסמאות. ב-HTTPS — רואים רק ג'יבריש מוצפן. Wireshark מדגים את ההבדל בצורה הכי מוחשית שיש.</div></div></div>`,
 `<div class="sc"><div class="sc-head">🚀 המסע המלא</div>
-<div class="sc-card"><div class="sc-label">8 השלבים</div><div class="sc-text">DNS → ARP → TCP Handshake → TLS Handshake → HTTP GET → HTML חוזר → Resources → Rendered. הכל בפחות משנייה.</div></div>
-<div class="sc-card"><div class="sc-label">CDN</div><div class="sc-text">שרתי cache בכל העולם. DNS מחזיר IP של שרת הקרוב אליך. Cloudflare: 300+ ערים. Latency: 5ms במקום 150ms.</div></div>
-<div class="sc-card"><div class="sc-label">QUIC / HTTP3</div><div class="sc-text">UDP + TLS מובנה + round trip אחד בלבד. עבר מWiFi לסלולרי? חיבור ממשיך. Chrome משתמש בזה 60% מהזמן.</div></div></div>`
+<div class="sc-card"><div class="sc-label">8 השלבים</div><div class="sc-text">שרת השמות ← חיבור אמין ← הצפנה ← בקשת הדף ← קבלת HTML ← קבצים נוספים ← עיבוד ← הצגה. הכל תוך פחות משנייה. כל שלב הוא פרוטוקול נפרד בשכבה נפרדה.</div></div>
+<div class="sc-card"><div class="sc-label">CDN</div><div class="sc-text">רשת שרתי מטמון מפוזרת בכל העולם. ה-DNS מחזיר את הכתובת של השרת הקרוב אליך. כך נטפליקס מגיע ב-4K מרחק של קילומטרים בודדים — לא מקליפורניה.</div></div>
+<div class="sc-card"><div class="sc-label">QUIC / HTTP/3</div><div class="sc-text">פרוטוקול תקשורת חדש שמחליף TCP: מקים חיבור בחצי הזמן, ועובר בין רשת אלחוטית לסלולרי בלי לנתק. דפדפן כרום כבר משתמש בו ב-60% מהזמן.</div></div></div>`
 ]
 },
 
@@ -1217,7 +1261,7 @@ PING google.com (142.250.185.46): 56 data bytes
  5  <span style="color:#4ade80">108.170.252.1</span>   9.1 ms  <span style="color:#6b7280"># Google backbone</span>
  6  <span style="color:#4ade80">142.251.49.78</span>  10.4 ms  <span style="color:#6b7280"># Google edge</span>
  7  <span style="color:#f59e0b">142.250.185.46</span> 12.4 ms  <span style="color:#6b7280"># Google.com!</span>
-<div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">7 hops = 7 routers שה-packet עבר דרכם. כל hop מוסיף latency. hop 4 = IXP — כאן הרשת עוברת מבזק לגוגל.</div></div></div>
+<div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">7 תחנות = 7 נתבים שה-packet עבר דרכם. כל תחנה מוסיפה זמן תגובה. תחנה 4 = נקודת החיבור בין הספקים — כאן הרשת עוברת מבזק לגוגל.</div></div></div>
 
 <div class="section-title">BGP — The Protocol Holding the Internet Together</div>
 <p class="prose"><strong>BGP</strong> (Border Gateway Protocol) is the protocol between ISPs — each ISP announces which IP ranges it holds, and BGP distributes this knowledge globally. A BGP misconfiguration in 2021 took Facebook, Instagram and WhatsApp offline for 6 hours.</p>
@@ -1250,7 +1294,7 @@ PING google.com (142.250.185.46): 56 data bytes
     <span style="font-size:11px;color:var(--text2);flex-shrink:0">"מאשר seq=5001"</span>
   </div>
   <div style="text-align:center;padding:8px;background:#f0fdf4;border-radius:8px;font-size:12px;color:#166534;font-weight:600;margin-top:4px">✓ חיבור מוקם — data זורם</div>
-</div></div><div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;font-family:var(--sans);color:#166534;line-height:1.6">seq numbers מאפשרים לשני הצדדים לאמת שכל packet הגיע ובסדר הנכון. זה הבסיס של אמינות TCP.</div></div></div>
+</div></div><div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;font-size:12px;font-family:var(--sans);color:#166534;line-height:1.6">seq numbers מאפשרים לשני הצדדים לאמת שכל חבילה הגיע ובסדר הנכון. זה הבסיס של אמינות TCP.</div></div></div>
 
 <div class="section-title">How TCP Guarantees Reliability</div>
 <table class="data-table">
@@ -1478,7 +1522,7 @@ tcp.analysis.retransmission    # Retransmitted packets</code></pre>
 <div class="section-title">One Second — Ten Steps Happening Behind the Scenes</div>
 <p class="prose">You type <code>google.com</code> and press Enter. The browser looks calm. What's really happening:</p>
 
-<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🚀&nbsp;מה קורה כשמקלידים google.com</div></div><div class="td-title">🌐 המסע המלא — כל 10 השלבים</div><div class="td-body"><div style="direction:rtl;font-family:var(--sans)"><div class="td-row"><span class="td-k">1. DNS Resolver</span><span class="td-v">בודק cache מקומי → cache router → cache ISP → Root NS → .com NS → google.com NS</span></div><div class="td-row"><span class="td-k">2. DNS Response</span><span class="td-v">142.250.185.46 (TTL: 300 שניות = נזכר ל-5 דקות)</span></div><div class="td-row"><span class="td-k">3. ARP Request</span><span class="td-v">"מי הוא 192.168.1.1?" → Broadcast לכל הרשת → תשובה: MAC aa:bb:cc:dd</span></div><div class="td-row"><span class="td-k">4. TCP SYN →</span><span class="td-v">IP packet: src=192.168.1.5:54321, dst=142.250.185.46:443</span></div><div class="td-row"><span class="td-k">5. TLS 1.3</span><span class="td-v">Client Hello → Server Hello + Cert → Finished. 1 Round Trip!</span></div><div class="td-row"><span class="td-k">6. HTTP/2 GET</span><span class="td-v">GET / HTTP/2, Host: google.com, headers מוצפנים</span></div><div class="td-row"><span class="td-k">7. Response</span><span class="td-v">200 OK — HTML, ~50KB, gzip compressed</span></div><div class="td-row"><span class="td-k">8. Sub-resources</span><span class="td-v">80+ בקשות מקביליות: CSS, JS, fonts, images</span></div><div class="td-row"><span class="td-k">9. Rendering</span><span class="td-v">קריאת HTML → בניית עץ עיצוב (CSSOM) → חישוב מיקומים → ציור → הרכבה סופית</span></div><div class="td-row"><span class="td-k">10. Done!</span><span class="td-v">⏱ סה"כ: ~150ms (DNS 20ms + TCP 12ms + TLS 12ms + זמן עד לbyte הראשון מהשרת 40ms + render 66ms)</span></div><div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">כל שלב הוא פרוטוקול נפרד בשכבה נפרדה. Wireshark רואה את כולם. DevTools מציג את הTimeline.</div></div></div>
+<div class="td"><div class="td-bar"><div class="td-dots"><span class="td-dot td-r"></span><span class="td-dot td-y"></span><span class="td-dot td-g"></span></div><div class="td-url">🚀&nbsp;מה קורה כשמקלידים google.com</div></div><div class="td-title">🌐 המסע המלא — כל 10 השלבים</div><div class="td-body"><div style="direction:rtl;font-family:var(--sans)"><div class="td-row"><span class="td-k">1. DNS Resolver</span><span class="td-v">בודק זיכרון מטמון מקומי → זיכרון הנתב → זיכרון שרת הספק → Root NS → .com NS → google.com NS</span></div><div class="td-row"><span class="td-k">2. DNS Response</span><span class="td-v">142.250.185.46 (TTL: 300 שניות = נזכר ל-5 דקות)</span></div><div class="td-row"><span class="td-k">3. ARP Request</span><span class="td-v">"מי הוא 192.168.1.1?" → Broadcast לכל הרשת → תשובה: MAC aa:bb:cc:dd</span></div><div class="td-row"><span class="td-k">4. TCP SYN →</span><span class="td-v">IP packet: src=192.168.1.5:54321, dst=142.250.185.46:443</span></div><div class="td-row"><span class="td-k">5. TLS 1.3</span><span class="td-v">Client Hello → Server Hello + Cert → Finished. 1 סבב אחד בלבד!</span></div><div class="td-row"><span class="td-k">6. HTTP/2 GET</span><span class="td-v">GET / HTTP/2, Host: google.com, headers מוצפנים</span></div><div class="td-row"><span class="td-k">7. Response</span><span class="td-v">200 OK — HTML, ~50KB, gzip compressed</span></div><div class="td-row"><span class="td-k">8. Sub-resources</span><span class="td-v">80+ בקשות מקביליות: CSS, JS, fonts, images</span></div><div class="td-row"><span class="td-k">9. Rendering</span><span class="td-v">קריאת HTML → בניית עץ עיצוב (CSSOM) → חישוב מיקומים → ציור → הרכבה סופית</span></div><div class="td-row"><span class="td-k">10. Done!</span><span class="td-v">⏱ סה"כ: ~150ms (DNS 20ms + TCP 12ms + TLS 12ms + זמן עד לbyte הראשון מהשרת 40ms + render 66ms)</span></div><div style="margin-top:10px;padding:9px 12px;direction:rtl;text-align:right;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:12px;font-family:var(--sans);color:#78350f;line-height:1.6">כל שלב הוא פרוטוקול נפרד בשכבה נפרדה. Wireshark רואה את כולם. DevTools מציג את הTimeline.</div></div></div>
 
 <div class="section-title">DNS in Detail — What Happens in Step 1</div>
 <p class="prose">DNS looks simple — but behind one query is a complete hierarchy:</p>
@@ -1737,7 +1781,10 @@ function restartMatch(chId) {
 function buildReviewContent() {
   var Lc=L(), html='';
   for(var i=0;i<Lc.cheat.length;i++){
-    html+='<div class="review-chapter"><div class="review-ch-title">'+(Lc.names[i]||'')+'</div>'+( Lc.cheat[i]||'')+'</div>';
+    html+='<div class="review-chapter">'
+      +'<div class="review-ch-title">פרק '+(i<10?'0'+i:i)+' — '+(Lc.names[i]||'')+'</div>'
+      +'<div style="padding:14px 16px">'+(Lc.cheat[i]||'')+'</div>'
+      +'</div>';
   }
   return html;
 }
