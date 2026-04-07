@@ -129,7 +129,7 @@ function WhatsNewModal({ onDismiss }) {
 }
 
 // ===== Track Picker =====
-function TrackPicker({ tracks, onSelect }) {
+function TrackPicker({ tracks, onSelect, onShowTroubleshooter }) {
   const { lang, setLang, t } = useLang()
   const isEn = lang === 'en'
   const [enrichUnlocked, setEnrichUnlocked] = useState(localStorage.getItem('enrichment_unlocked') === 'true')
@@ -219,6 +219,7 @@ function TrackPicker({ tracks, onSelect }) {
           <div className="feature-pill"><span>🌙</span> {isEn ? 'Dark Mode' : 'מצב כהה'}</div>
           <div className="feature-pill"><span>📚</span> {isEn ? 'Glossary' : 'מילון מונחים'}</div>
           <div className="feature-pill"><span>🌍</span> {isEn ? 'HE / EN' : 'עברית / English'}</div>
+          <div className="feature-pill feature-pill-clickable" onClick={onShowTroubleshooter} style={{ cursor: 'pointer' }}><span>🔧</span> {isEn ? 'Troubleshooter' : 'פותר תקלות'}</div>
         </div>
       </div>
 
@@ -409,6 +410,7 @@ function App() {
     try { return localStorage.getItem('ng_font_size') || 'normal' } catch { return 'normal' }
   })
   const [showShortcuts, setShowShortcuts] = useState(false)
+  const [showTroubleshooter, setShowTroubleshooter] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
   const [resetBanner, setResetBanner] = useState(false)
 
@@ -848,7 +850,22 @@ function App() {
             try { localStorage.setItem('ng_whats_new_seen', WHATS_NEW_VERSION) } catch {}
           }} />
         )}
-        <TrackPicker tracks={tracks} onSelect={handleSelectTrack} />
+        {showTroubleshooter ? (
+          <div style={{ maxWidth: 900, margin: '0 auto', padding: '1rem' }}>
+            <button
+              className="trbl-back-btn"
+              onClick={() => setShowTroubleshooter(false)}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '1rem', color: '#0891b2', fontWeight: 700, fontFamily: 'inherit', marginBottom: '0.5rem' }}
+            >
+              {isEn ? '← Back' : '→ חזרה'}
+            </button>
+            <Suspense fallback={<div className="loading-spinner">Loading...</div>}>
+              <TroubleshootingTab />
+            </Suspense>
+          </div>
+        ) : (
+          <TrackPicker tracks={tracks} onSelect={handleSelectTrack} onShowTroubleshooter={() => setShowTroubleshooter(true)} />
+        )}
         {xpFloat && <div className="xp-float-global">{xpFloat}</div>}
         <AdminHighlight context={{}} />
       </div>
