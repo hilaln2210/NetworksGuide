@@ -1098,6 +1098,471 @@ Check: observatory.mozilla.org`,
 5. Contact your ISP — there may be a problem on their side`,
     tip: '💡 אפילו 1% packet loss הורס שיחות VoIP ו-gaming. 0% loss = חוויה מושלמת!',
     tipEn: '💡 Even 1% packet loss ruins VoIP calls and gaming. 0% loss = perfect experience!',
+  },
+  // ===== SSH =====
+  {
+    id: 13,
+    icon: '🔑',
+    title: 'SSH — Connection Refused',
+    titleEn: 'SSH — Connection Refused',
+    category: 'SSH',
+    categoryEn: 'SSH',
+    story: 'מנסה להתחבר לשרת ומקבל: ssh: connect to host 192.168.1.1 port 22: Connection refused. החיבור נדחה.',
+    storyEn: 'Trying to connect to a server and getting: ssh: connect to host 192.168.1.1 port 22: Connection refused.',
+    causes: [
+      'שירות sshd לא רץ על השרת',
+      'SSH מוגדר על פורט אחר (לא 22)',
+      'Firewall חוסם פורט 22',
+      'השרת כבוי או לא נגיש ברשת',
+    ],
+    causesEn: [
+      'sshd service is not running on the server',
+      'SSH is configured on a different port (not 22)',
+      'Firewall is blocking port 22',
+      'Server is down or not reachable on the network',
+    ],
+    solution: `1. sudo systemctl status sshd — האם השירות רץ?
+2. sudo systemctl start sshd — הפעל אם כבוי
+3. cat /etc/ssh/sshd_config | grep Port — בדוק פורט
+4. sudo ufw status — בדוק firewall
+5. sudo ufw allow 22 — פתח פורט 22
+6. ss -tlnp | grep :22 — בדוק שמאזין על פורט 22`,
+    solutionEn: `1. sudo systemctl status sshd — is the service running?
+2. sudo systemctl start sshd — start if stopped
+3. cat /etc/ssh/sshd_config | grep Port — check port
+4. sudo ufw status — check firewall
+5. sudo ufw allow 22 — open port 22
+6. ss -tlnp | grep :22 — verify listening on port 22`,
+    tip: '💡 תמיד בדוק: 1) השירות רץ? 2) הפורט פתוח? 3) ה-firewall מרשה? שלושת הבדיקות האלה פותרות 90% מבעיות SSH.',
+    tipEn: '💡 Always check: 1) Is the service running? 2) Is the port open? 3) Does the firewall allow it? These 3 checks solve 90% of SSH issues.',
+  },
+  {
+    id: 14,
+    icon: '🔐',
+    title: 'SSH — Permission Denied (publickey)',
+    titleEn: 'SSH — Permission Denied (publickey)',
+    category: 'SSH',
+    categoryEn: 'SSH',
+    story: 'מנסה להתחבר עם מפתח SSH ומקבל: Permission denied (publickey). המפתח לא מזוהה.',
+    storyEn: 'Trying to connect with SSH key and getting: Permission denied (publickey). The key is not recognized.',
+    causes: [
+      'המפתח הציבורי לא נמצא ב-authorized_keys של השרת',
+      'הרשאות שגויות על ~/.ssh/ או authorized_keys',
+      'משתמש SSH שגוי — מתחברים עם user לא נכון',
+      'SSH Agent לא טעון את המפתח',
+      'המפתח הפרטי לא תואם לציבורי',
+    ],
+    causesEn: [
+      'Public key not in authorized_keys on the server',
+      'Wrong permissions on ~/.ssh/ or authorized_keys',
+      'Wrong SSH user — connecting with the wrong username',
+      'SSH Agent does not have the key loaded',
+      'Private key does not match the public key',
+    ],
+    solution: `1. ssh -v user@host — verbose mode, מראה איזה מפתח נוסה
+2. בשרת: cat ~/.ssh/authorized_keys — המפתח שלך מופיע?
+3. ssh-copy-id user@host — מעתיק את המפתח אוטומטית
+4. chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
+5. ssh-add ~/.ssh/id_rsa — טוען מפתח ל-agent
+6. ssh-add -l — רשימת מפתחות טעונים`,
+    solutionEn: `1. ssh -v user@host — verbose mode, shows which key was tried
+2. On server: cat ~/.ssh/authorized_keys — is your key there?
+3. ssh-copy-id user@host — copies the key automatically
+4. chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
+5. ssh-add ~/.ssh/id_rsa — load key into agent
+6. ssh-add -l — list loaded keys`,
+    tip: '💡 SSH מקפיד על הרשאות! אם ~/.ssh הוא 777 — SSH ידחה. חייב 700 לתיקייה, 600 לקבצים.',
+    tipEn: '💡 SSH is strict about permissions! If ~/.ssh is 777 — SSH will reject. Must be 700 for dir, 600 for files.',
+  },
+  {
+    id: 15,
+    icon: '⚠️',
+    title: 'SSH — WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED',
+    titleEn: 'SSH — WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED',
+    category: 'SSH',
+    categoryEn: 'SSH',
+    story: 'מנסה SSH ומקבל אזהרה ענקית עם @@@@@@@. נראה מפחיד אבל בדרך כלל לא חמור.',
+    storyEn: 'Trying SSH and getting a huge warning with @@@@@@@. Looks scary but usually not serious.',
+    causes: [
+      'השרת הותקן מחדש — fingerprint השתנה',
+      'ה-IP הוקצה למכונה אחרת (cloud, DHCP)',
+      'Man-in-the-Middle attack (נדיר אבל אפשרי)',
+      'השרת שודרג ויצר מפתח host חדש',
+    ],
+    causesEn: [
+      'Server was reinstalled — fingerprint changed',
+      'IP was assigned to a different machine (cloud, DHCP)',
+      'Man-in-the-Middle attack (rare but possible)',
+      'Server was upgraded and generated new host key',
+    ],
+    solution: `1. אם את יודעת שהשרת השתנה:
+   ssh-keygen -R hostname — מוחק את ה-fingerprint הישן
+2. אז מתחברת מחדש: ssh user@host
+3. אם לא בטוחה — בדקי fingerprint:
+   ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub (בשרת)
+4. משווים עם מה ש-SSH מציג`,
+    solutionEn: `1. If you know the server changed:
+   ssh-keygen -R hostname — removes old fingerprint
+2. Then reconnect: ssh user@host
+3. If unsure — verify fingerprint:
+   ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub (on server)
+4. Compare with what SSH shows`,
+    tip: '💡 אל תתעלם מאזהרה זו בשרתי production! ב-cloud/lab זה שגרתי, אבל ב-prod זה יכול להיות MITM.',
+    tipEn: '💡 Don\'t ignore this warning on production servers! In cloud/lab it\'s routine, but in prod it could be MITM.',
+  },
+  {
+    id: 16,
+    icon: '⏱️',
+    title: 'SSH — Connection Timed Out',
+    titleEn: 'SSH — Connection Timed Out',
+    category: 'SSH',
+    categoryEn: 'SSH',
+    story: 'ssh user@host נתקע, אין תשובה, ואחרי דקה: Connection timed out. השרת לא מגיב בכלל.',
+    storyEn: 'ssh user@host hangs, no response, and after a minute: Connection timed out. Server not responding at all.',
+    causes: [
+      'השרת כבוי או לא מחובר לרשת',
+      'IP שגוי — מנסים IP שלא קיים',
+      'Firewall (בשרת או ברשת) משמיט חבילות על port 22',
+      'Security Group ב-cloud חוסם את ה-IP שלך',
+      'בעיית routing — אין נתיב לשרת',
+    ],
+    causesEn: [
+      'Server is down or not connected to the network',
+      'Wrong IP — trying an IP that doesn\'t exist',
+      'Firewall (on server or network) drops packets on port 22',
+      'Cloud Security Group blocking your IP',
+      'Routing issue — no route to server',
+    ],
+    solution: `1. ping host — בדוק אם השרת בכלל נגיש
+2. telnet host 22 — בדוק אם port 22 פתוח
+3. traceroute host — היכן הנתיב נעצר?
+4. ב-AWS/GCP: בדוק Security Group / Firewall Rules
+5. nmap -p 22 host — scan port 22
+6. ssh -v user@host — verbose לראות איפה נתקע`,
+    solutionEn: `1. ping host — check if server is reachable
+2. telnet host 22 — check if port 22 is open
+3. traceroute host — where does the route stop?
+4. In AWS/GCP: check Security Group / Firewall Rules
+5. nmap -p 22 host — scan port 22
+6. ssh -v user@host — verbose to see where it hangs`,
+    tip: '💡 Connection Refused = השרת דוחה. Timed Out = אין תשובה בכלל. ההבדל קריטי לאבחון!',
+    tipEn: '💡 Connection Refused = server rejects. Timed Out = no response at all. The difference is critical for diagnosis!',
+  },
+  // ===== Linux =====
+  {
+    id: 17,
+    icon: '🐧',
+    title: 'Permission Denied — אין הרשאה להריץ קובץ',
+    titleEn: 'Permission Denied — Cannot Execute File',
+    category: 'Linux',
+    categoryEn: 'Linux',
+    story: 'מנסה להריץ script ומקבל: bash: ./script.sh: Permission denied. הקובץ קיים אבל לא רץ.',
+    storyEn: 'Trying to run a script and getting: bash: ./script.sh: Permission denied. File exists but won\'t run.',
+    causes: [
+      'הקובץ חסר הרשאת execute (x)',
+      'מנסים להריץ בלי ./ (צריך נתיב)',
+      'filesystem mounted עם noexec',
+      'SELinux/AppArmor חוסם',
+    ],
+    causesEn: [
+      'File is missing execute (x) permission',
+      'Trying to run without ./ (need path)',
+      'Filesystem mounted with noexec',
+      'SELinux/AppArmor blocking',
+    ],
+    solution: `1. ls -la script.sh — בדוק הרשאות
+2. chmod +x script.sh — הוסף הרשאת הרצה
+3. אם צריך sudo: sudo chmod +x script.sh
+4. mount | grep noexec — בדוק noexec
+5. bash script.sh — workaround: הרץ דרך bash ישירות`,
+    solutionEn: `1. ls -la script.sh — check permissions
+2. chmod +x script.sh — add execute permission
+3. If need sudo: sudo chmod +x script.sh
+4. mount | grep noexec — check noexec
+5. bash script.sh — workaround: run through bash directly`,
+    tip: '💡 הרשאות ב-Linux: r=קריאה(4), w=כתיבה(2), x=הרצה(1). chmod 755 = rwxr-xr-x.',
+    tipEn: '💡 Linux permissions: r=read(4), w=write(2), x=execute(1). chmod 755 = rwxr-xr-x.',
+  },
+  {
+    id: 18,
+    icon: '💾',
+    title: 'No Space Left on Device — דיסק מלא',
+    titleEn: 'No Space Left on Device — Disk Full',
+    category: 'Linux',
+    categoryEn: 'Linux',
+    story: 'לפתע שום דבר לא עובד: אי אפשר לשמור קבצים, שירותים נופלים, docker קורס. הדיסק מלא.',
+    storyEn: 'Suddenly nothing works: can\'t save files, services crash, docker breaks. Disk is full.',
+    causes: [
+      'לוגים תפחו — /var/log מלא',
+      'Docker images/volumes תופסים מקום',
+      'temp files שלא נוקו',
+      'journal מערכת ענק',
+    ],
+    causesEn: [
+      'Logs bloated — /var/log is full',
+      'Docker images/volumes taking space',
+      'Temp files not cleaned',
+      'Huge system journal',
+    ],
+    solution: `1. df -h — כמה מקום פנוי בכל partition?
+2. du -sh /* 2>/dev/null | sort -rh | head — מי תופס הכי הרבה?
+3. sudo journalctl --vacuum-size=100M — קצץ journal
+4. docker system prune -a — נקה docker (images, containers, volumes)
+5. sudo find /var/log -name "*.gz" -delete — מחק לוגים ישנים
+6. sudo find /tmp -mtime +7 -delete — מחק temp ישנים`,
+    solutionEn: `1. df -h — how much space free on each partition?
+2. du -sh /* 2>/dev/null | sort -rh | head — what takes the most?
+3. sudo journalctl --vacuum-size=100M — trim journal
+4. docker system prune -a — clean docker (images, containers, volumes)
+5. sudo find /var/log -name "*.gz" -delete — delete old logs
+6. sudo find /tmp -mtime +7 -delete — delete old temp files`,
+    tip: '💡 הוסיפו cron job שמנקה לוגים אוטומטית! אחרת זה יקרה שוב.',
+    tipEn: '💡 Add a cron job that cleans logs automatically! Otherwise it will happen again.',
+  },
+  {
+    id: 19,
+    icon: '🔒',
+    title: 'sudo: command not found / user not in sudoers',
+    titleEn: 'sudo: command not found / user not in sudoers',
+    category: 'Linux',
+    categoryEn: 'Linux',
+    story: 'מנסה sudo ומקבל: "user is not in the sudoers file. This incident will be reported." 😱',
+    storyEn: 'Trying sudo and getting: "user is not in the sudoers file. This incident will be reported." 😱',
+    causes: [
+      'המשתמש לא נוסף לקבוצת sudo/wheel',
+      'sudo לא מותקן (Debian minimal)',
+      'שגיאה ב-/etc/sudoers',
+    ],
+    causesEn: [
+      'User not added to sudo/wheel group',
+      'sudo not installed (Debian minimal)',
+      'Error in /etc/sudoers',
+    ],
+    solution: `1. su - root — התחבר כ-root
+2. usermod -aG sudo username — הוסף לקבוצת sudo
+3. או: visudo — ערוך sudoers ידנית
+4. הוסף שורה: username ALL=(ALL:ALL) ALL
+5. groups username — בדוק שהמשתמש בקבוצה
+6. התנתק וחזור (הקבוצה מתעדכנת ב-login)`,
+    solutionEn: `1. su - root — switch to root
+2. usermod -aG sudo username — add to sudo group
+3. Or: visudo — edit sudoers manually
+4. Add line: username ALL=(ALL:ALL) ALL
+5. groups username — verify user is in the group
+6. Logout and back in (group updates on login)`,
+    tip: '💡 "This incident will be reported" — ב-Linux ישן הלך לroot. היום רק ללוג ב-/var/log/auth.log.',
+    tipEn: '💡 "This incident will be reported" — in old Linux it went to root. Today it just logs to /var/log/auth.log.',
+  },
+  // ===== Docker =====
+  {
+    id: 20,
+    icon: '🐳',
+    title: 'Docker — Cannot connect to the Docker daemon',
+    titleEn: 'Docker — Cannot connect to the Docker daemon',
+    category: 'Docker',
+    categoryEn: 'Docker',
+    story: 'מריץ docker ps ומקבל: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?',
+    storyEn: 'Running docker ps and getting: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?',
+    causes: [
+      'Docker daemon לא רץ',
+      'המשתמש לא בקבוצת docker — צריך sudo',
+      'Docker לא מותקן כראוי',
+      'Docker socket חסר הרשאות',
+    ],
+    causesEn: [
+      'Docker daemon is not running',
+      'User not in docker group — needs sudo',
+      'Docker not properly installed',
+      'Docker socket missing permissions',
+    ],
+    solution: `1. sudo systemctl status docker — בדוק סטטוס
+2. sudo systemctl start docker — הפעל
+3. sudo usermod -aG docker $USER — הוסף לקבוצת docker
+4. newgrp docker — טען קבוצה בלי logout
+5. ls -la /var/run/docker.sock — בדוק הרשאות socket
+6. sudo docker ps — אם עובד עם sudo = בעיית הרשאות`,
+    solutionEn: `1. sudo systemctl status docker — check status
+2. sudo systemctl start docker — start it
+3. sudo usermod -aG docker $USER — add to docker group
+4. newgrp docker — load group without logout
+5. ls -la /var/run/docker.sock — check socket permissions
+6. sudo docker ps — if works with sudo = permissions issue`,
+    tip: '💡 אחרי הוספה לקבוצת docker — חייבים logout/login. newgrp docker זה shortcut.',
+    tipEn: '💡 After adding to docker group — must logout/login. newgrp docker is a shortcut.',
+  },
+  {
+    id: 21,
+    icon: '🐳',
+    title: 'Docker — Port Already Allocated / Address in Use',
+    titleEn: 'Docker — Port Already Allocated / Address in Use',
+    category: 'Docker',
+    categoryEn: 'Docker',
+    story: 'מנסה docker run -p 80:80 ומקבל: Bind for 0.0.0.0:80 failed: port is already allocated.',
+    storyEn: 'Trying docker run -p 80:80 and getting: Bind for 0.0.0.0:80 failed: port is already allocated.',
+    causes: [
+      'container אחר כבר תופס את הפורט',
+      'שירות מקומי (nginx, apache) רץ על הפורט',
+      'container ישן עדיין רץ/נתקע',
+    ],
+    causesEn: [
+      'Another container already using the port',
+      'Local service (nginx, apache) running on the port',
+      'Old container still running/stuck',
+    ],
+    solution: `1. docker ps — מי רץ עכשיו?
+2. docker ps -a — גם containers שנעצרו
+3. ss -tlnp | grep :80 — מי תופס port 80?
+4. docker stop <container-id> — עצור container
+5. docker rm <container-id> — מחק container נתקע
+6. או שנה פורט: docker run -p 8080:80`,
+    solutionEn: `1. docker ps — what's running now?
+2. docker ps -a — including stopped containers
+3. ss -tlnp | grep :80 — who is using port 80?
+4. docker stop <container-id> — stop the container
+5. docker rm <container-id> — remove stuck container
+6. Or change port: docker run -p 8080:80`,
+    tip: '💡 docker-compose down עוצר ומנקה הכל. docker-compose stop רק עוצר בלי למחוק.',
+    tipEn: '💡 docker-compose down stops and cleans everything. docker-compose stop only stops without removing.',
+  },
+  // ===== Git =====
+  {
+    id: 22,
+    icon: '🔀',
+    title: 'Git — fatal: not a git repository',
+    titleEn: 'Git — fatal: not a git repository',
+    category: 'Git',
+    categoryEn: 'Git',
+    story: 'מריץ git status ומקבל: fatal: not a git repository (or any of the parent directories): .git',
+    storyEn: 'Running git status and getting: fatal: not a git repository (or any of the parent directories): .git',
+    causes: [
+      'לא בתיקייה של פרויקט git',
+      'תיקיית .git נמחקה בטעות',
+      'clone נכשל — לא הושלם',
+    ],
+    causesEn: [
+      'Not in a git project directory',
+      'The .git folder was accidentally deleted',
+      'Clone failed — wasn\'t completed',
+    ],
+    solution: `1. pwd — באיזה תיקייה אני?
+2. ls -la .git — קיימת?
+3. git init — צור repo חדש (אם צריך)
+4. cd .. — אולי צריך לעלות תיקייה
+5. find / -name ".git" -type d 2>/dev/null — מצא repos`,
+    solutionEn: `1. pwd — what directory am I in?
+2. ls -la .git — does it exist?
+3. git init — create new repo (if needed)
+4. cd .. — maybe need to go up a directory
+5. find / -name ".git" -type d 2>/dev/null — find repos`,
+    tip: '💡 טיפ: git rev-parse --show-toplevel מראה את root התיקייה של הrepo.',
+    tipEn: '💡 Tip: git rev-parse --show-toplevel shows the repo root directory.',
+  },
+  {
+    id: 23,
+    icon: '🔀',
+    title: 'Git Push — rejected / non-fast-forward',
+    titleEn: 'Git Push — rejected / non-fast-forward',
+    category: 'Git',
+    categoryEn: 'Git',
+    story: 'מנסה git push ומקבל: rejected — non-fast-forward. מישהו אחר דחף שינויים לפניך.',
+    storyEn: 'Trying git push and getting: rejected — non-fast-forward. Someone else pushed changes before you.',
+    causes: [
+      'הbranch ב-remote מתקדם יותר מהlocal',
+      'מישהו אחר דחף commits',
+      'עשית rebase/amend על commit שכבר נדחף',
+    ],
+    causesEn: [
+      'Remote branch is ahead of local',
+      'Someone else pushed commits',
+      'You rebased/amended a commit that was already pushed',
+    ],
+    solution: `1. git pull --rebase — משלב שינויים ושומר history נקי
+2. git pull — merge רגיל (יוצר merge commit)
+3. פתרו conflicts אם יש: git add . && git rebase --continue
+4. git push — עכשיו אמור לעבוד
+5. git push --force-with-lease — רק אם בטוחים (זהירות!)`,
+    solutionEn: `1. git pull --rebase — integrates changes, keeps clean history
+2. git pull — regular merge (creates merge commit)
+3. Resolve conflicts if any: git add . && git rebase --continue
+4. git push — should work now
+5. git push --force-with-lease — only if sure (careful!)`,
+    tip: '💡 לעולם אל תעשו force push ל-main! --force-with-lease בטוח יותר — נכשל אם מישהו דחף אחריך.',
+    tipEn: '💡 Never force push to main! --force-with-lease is safer — fails if someone pushed after you.',
+  },
+  // ===== Firewall / Network =====
+  {
+    id: 24,
+    icon: '🛡️',
+    title: 'UFW / iptables — שירות לא נגיש מבחוץ',
+    titleEn: 'UFW / iptables — Service Not Accessible From Outside',
+    category: 'Firewall',
+    categoryEn: 'Firewall',
+    story: 'השירות רץ, curl localhost:8080 עובד, אבל מבחוץ — אי אפשר להגיע. Firewall.',
+    storyEn: 'Service is running, curl localhost:8080 works, but from outside — can\'t reach it. Firewall.',
+    causes: [
+      'UFW/iptables חוסם את הפורט',
+      'השירות מאזין רק על 127.0.0.1 (לא 0.0.0.0)',
+      'Security Group ב-cloud חוסם',
+      'NAT/Router לא מעביר את הפורט',
+    ],
+    causesEn: [
+      'UFW/iptables blocking the port',
+      'Service listening only on 127.0.0.1 (not 0.0.0.0)',
+      'Cloud Security Group blocking',
+      'NAT/Router not forwarding the port',
+    ],
+    solution: `1. ss -tlnp | grep 8080 — על מה מאזין? 0.0.0.0 או 127.0.0.1?
+2. sudo ufw allow 8080 — פתח בfirewall
+3. sudo iptables -L -n | grep 8080 — בדוק iptables
+4. שנה bind address ל-0.0.0.0 בהגדרות השירות
+5. ב-cloud: בדוק Security Group inbound rules
+6. curl http://<your-ip>:8080 ממכונה אחרת — בדוק`,
+    solutionEn: `1. ss -tlnp | grep 8080 — listening on what? 0.0.0.0 or 127.0.0.1?
+2. sudo ufw allow 8080 — open in firewall
+3. sudo iptables -L -n | grep 8080 — check iptables
+4. Change bind address to 0.0.0.0 in service config
+5. In cloud: check Security Group inbound rules
+6. curl http://<your-ip>:8080 from another machine — verify`,
+    tip: '💡 127.0.0.1 = רק מקומי. 0.0.0.0 = מכל כתובת. ההבדל הזה הוא 80% מבעיות "לא נגיש מבחוץ".',
+    tipEn: '💡 127.0.0.1 = local only. 0.0.0.0 = from any address. This difference is 80% of "not accessible from outside" issues.',
+  },
+  {
+    id: 25,
+    icon: '📛',
+    title: 'DNS — Name or service not known',
+    titleEn: 'DNS — Name or service not known',
+    category: 'DNS',
+    categoryEn: 'DNS',
+    story: 'מנסה curl או ping לדומיין ומקבל: Could not resolve host / Name or service not known.',
+    storyEn: 'Trying curl or ping to a domain and getting: Could not resolve host / Name or service not known.',
+    causes: [
+      'DNS server לא מגיב',
+      'שם הדומיין שגוי (typo)',
+      '/etc/resolv.conf ריק או שבור',
+      'VPN/proxy מפריע ל-DNS',
+      'הדומיין באמת לא קיים',
+    ],
+    causesEn: [
+      'DNS server not responding',
+      'Domain name is wrong (typo)',
+      '/etc/resolv.conf is empty or broken',
+      'VPN/proxy interfering with DNS',
+      'The domain genuinely doesn\'t exist',
+    ],
+    solution: `1. nslookup google.com — DNS עובד בכלל?
+2. cat /etc/resolv.conf — מה ה-nameserver?
+3. echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+4. dig domain.com — מידע מפורט
+5. ping 8.8.8.8 — אם עובד: בעיית DNS. אם לא: בעיית רשת.
+6. systemd-resolve --flush-caches — נקה DNS cache`,
+    solutionEn: `1. nslookup google.com — does DNS work at all?
+2. cat /etc/resolv.conf — what's the nameserver?
+3. echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
+4. dig domain.com — detailed info
+5. ping 8.8.8.8 — if works: DNS issue. If not: network issue.
+6. systemd-resolve --flush-caches — clear DNS cache`,
+    tip: '💡 טריק מהיר: אם ping 8.8.8.8 עובד אבל ping google.com לא — 100% בעיית DNS.',
+    tipEn: '💡 Quick trick: if ping 8.8.8.8 works but ping google.com doesn\'t — 100% DNS issue.',
   }
 ]
 
