@@ -1563,6 +1563,511 @@ Check: observatory.mozilla.org`,
 6. systemd-resolve --flush-caches — clear DNS cache`,
     tip: '💡 טריק מהיר: אם ping 8.8.8.8 עובד אבל ping google.com לא — 100% בעיית DNS.',
     tipEn: '💡 Quick trick: if ping 8.8.8.8 works but ping google.com doesn\'t — 100% DNS issue.',
+  },
+  // ===== Networking — Student Level =====
+  {
+    id: 26,
+    icon: '🔌',
+    title: 'Network Unreachable — אין נתיב לרשת',
+    titleEn: 'Network Unreachable — No Route to Network',
+    category: 'רשת',
+    categoryEn: 'Network',
+    story: 'מנסה ping או ssh ומקבל: Network is unreachable. המחשב שלך לא יודע לאן לשלוח את החבילה.',
+    storyEn: 'Trying ping or ssh and getting: Network is unreachable. Your computer doesn\'t know where to send the packet.',
+    causes: [
+      'אין default gateway מוגדר',
+      'כבל רשת לא מחובר',
+      'כרטיס הרשת כבוי (interface down)',
+      'DHCP לא נתן כתובת IP',
+      'טבלת routing ריקה או שגויה',
+    ],
+    causesEn: [
+      'No default gateway configured',
+      'Network cable not connected',
+      'Network interface is down',
+      'DHCP did not assign an IP address',
+      'Routing table empty or incorrect',
+    ],
+    solution: `1. ip addr show — יש כתובת IP? או 169.254.x.x?
+2. ip route show — יש default gateway?
+3. sudo ip link set eth0 up — הפעל interface
+4. sudo dhclient eth0 — בקש IP מ-DHCP
+5. sudo ip route add default via 192.168.1.1 — הוסף gateway ידנית
+6. nmcli device status — סטטוס כל ה-interfaces`,
+    solutionEn: `1. ip addr show — do you have an IP? or 169.254.x.x?
+2. ip route show — is there a default gateway?
+3. sudo ip link set eth0 up — bring interface up
+4. sudo dhclient eth0 — request IP from DHCP
+5. sudo ip route add default via 192.168.1.1 — add gateway manually
+6. nmcli device status — status of all interfaces`,
+    tip: '💡 Network Unreachable = בעיה בשכבה 3 (IP/Routing). Host Unreachable = המחשב היעד לא מגיב.',
+    tipEn: '💡 Network Unreachable = Layer 3 problem (IP/Routing). Host Unreachable = destination not responding.',
+  },
+  {
+    id: 27,
+    icon: '🏠',
+    title: 'IP 169.254.x.x — כתובת APIPA מוזרה',
+    titleEn: 'IP 169.254.x.x — Strange APIPA Address',
+    category: 'DHCP',
+    categoryEn: 'DHCP',
+    story: 'בודק IP ורואה 169.254.x.x. מה זה? למה אין לי כתובת נורמלית?',
+    storyEn: 'Checking IP and seeing 169.254.x.x. What is this? Why don\'t I have a normal address?',
+    causes: [
+      'DHCP server לא מגיב — אין מי שייתן IP',
+      'כבל רשת מנותק או פגום',
+      'שרת DHCP קרס או מלא (pool exhausted)',
+      'VLAN שגוי — לא מגיע ל-DHCP',
+    ],
+    causesEn: [
+      'DHCP server not responding — nobody to give an IP',
+      'Network cable disconnected or damaged',
+      'DHCP server crashed or pool exhausted',
+      'Wrong VLAN — can\'t reach DHCP',
+    ],
+    solution: `1. ipconfig /release && ipconfig /renew (Windows)
+2. sudo dhclient -r && sudo dhclient eth0 (Linux)
+3. בדוק כבל — החלף ונסה שוב
+4. ping 192.168.1.1 — הrouter בכלל נגיש?
+5. בדוק ב-router: DHCP server מופעל? יש כתובות פנויות ב-pool?
+6. sudo systemctl restart NetworkManager`,
+    solutionEn: `1. ipconfig /release && ipconfig /renew (Windows)
+2. sudo dhclient -r && sudo dhclient eth0 (Linux)
+3. Check cable — swap and try again
+4. ping 192.168.1.1 — is the router reachable?
+5. Check router: DHCP server enabled? Free addresses in pool?
+6. sudo systemctl restart NetworkManager`,
+    tip: '💡 169.254.x.x = APIPA (Automatic Private IP Addressing). המחשב "ממציא" IP כי אף אחד לא נתן לו. זה סימן ש-DHCP לא עובד.',
+    tipEn: '💡 169.254.x.x = APIPA (Automatic Private IP Addressing). The computer "invents" an IP because nobody gave it one. It means DHCP is not working.',
+  },
+  {
+    id: 28,
+    icon: '🔄',
+    title: 'ARP — Duplicate IP Address Detected',
+    titleEn: 'ARP — Duplicate IP Address Detected',
+    category: 'רשת',
+    categoryEn: 'Network',
+    story: 'פתאום האינטרנט מתנתק ומתחבר. בודק event log ורואה: "IP address conflict". שני מחשבים עם אותו IP!',
+    storyEn: 'Internet keeps disconnecting and reconnecting. Check event log and see: "IP address conflict". Two computers with the same IP!',
+    causes: [
+      'שני מכשירים הוגדרו ידנית עם אותו IP סטטי',
+      'DHCP server חילק IP שכבר תפוס ידנית',
+      'מכונה וירטואלית שכפלה את ה-IP של ה-host',
+      'מכשיר ישן חזר לרשת עם IP ישן',
+    ],
+    causesEn: [
+      'Two devices manually set to the same static IP',
+      'DHCP server gave out an IP already in static use',
+      'Virtual machine duplicated the host\'s IP',
+      'Old device rejoined network with stale IP',
+    ],
+    solution: `1. arp -a — מי עוד ברשת? חפש MAC כפול
+2. nmap -sn 192.168.1.0/24 — סרוק כל הרשת
+3. arping -D 192.168.1.100 — בדוק אם IP ספציפי כפול
+4. שנה IP סטטי לאחד שלא תפוס
+5. ב-DHCP: הגדר reservation ל-MAC שצריך IP קבוע
+6. ב-DHCP: וודא ש-pool לא חופף ל-static range`,
+    solutionEn: `1. arp -a — who else is on the network? Look for duplicate MAC
+2. nmap -sn 192.168.1.0/24 — scan the whole network
+3. arping -D 192.168.1.100 — check if specific IP is duplicated
+4. Change static IP to one that's not taken
+5. In DHCP: set reservation for MAC that needs a fixed IP
+6. In DHCP: ensure pool doesn't overlap with static range`,
+    tip: '💡 כלל זהב: אם משתמשים ב-DHCP — אל תגדירו IP סטטי בטווח של ה-DHCP pool!',
+    tipEn: '💡 Golden rule: if using DHCP — don\'t set a static IP in the DHCP pool range!',
+  },
+  {
+    id: 29,
+    icon: '🌍',
+    title: 'traceroute — שלוש כוכביות * * *',
+    titleEn: 'traceroute — Three Stars * * *',
+    category: 'רשת',
+    categoryEn: 'Network',
+    story: 'מריץ traceroute ורואה * * * בשורות. מה זה אומר? איפה הבעיה?',
+    storyEn: 'Running traceroute and seeing * * * on lines. What does it mean? Where\'s the problem?',
+    causes: [
+      'Router בדרך חוסם ICMP (נורמלי — הרבה routers עושים את זה)',
+      'Firewall מסנן traceroute/UDP',
+      'הנתיב נחסם — traffic נעצר',
+      'TTL expired וה-router לא שולח תשובה',
+    ],
+    causesEn: [
+      'Router along the way blocks ICMP (normal — many routers do this)',
+      'Firewall filtering traceroute/UDP',
+      'Path is blocked — traffic stops',
+      'TTL expired and router doesn\'t send a reply',
+    ],
+    solution: `1. * * * באמצע אבל ממשיך אח"כ? = router שחוסם ICMP. נורמלי!
+2. * * * מנקודה מסוימת ולא חוזר? = שם הנתיב נחסם
+3. traceroute -T host — שימוש ב-TCP במקום UDP
+4. traceroute -I host — שימוש ב-ICMP
+5. mtr host — traceroute + ping רציף — יותר מדויק
+6. pathping host (Windows) — אנליזה מפורטת`,
+    solutionEn: `1. * * * in the middle but continues after? = router blocking ICMP. Normal!
+2. * * * from a certain point and doesn't return? = path is blocked there
+3. traceroute -T host — use TCP instead of UDP
+4. traceroute -I host — use ICMP
+5. mtr host — continuous traceroute + ping — more accurate
+6. pathping host (Windows) — detailed analysis`,
+    tip: '💡 mtr (My TraceRoute) הוא הכלי הכי טוב — משלב traceroute + ping רציף ומראה % loss בכל hop.',
+    tipEn: '💡 mtr (My TraceRoute) is the best tool — combines traceroute + continuous ping and shows % loss at each hop.',
+  },
+  {
+    id: 30,
+    icon: '📡',
+    title: 'Wireshark — No Interfaces Found / Permission Denied',
+    titleEn: 'Wireshark — No Interfaces Found / Permission Denied',
+    category: 'כלים',
+    categoryEn: 'Tools',
+    story: 'פותח Wireshark ואין interfaces לבחור. או מקבל permission denied. לא יכול לצפות בתעבורה.',
+    storyEn: 'Opening Wireshark and there are no interfaces to choose. Or getting permission denied. Can\'t capture traffic.',
+    causes: [
+      'חסרות הרשאות — צריך sudo או קבוצת wireshark',
+      'dumpcap לא מותקן או חסר capabilities',
+      'VM בלי network adapter פעיל',
+      'Windows: Npcap לא מותקן',
+    ],
+    causesEn: [
+      'Missing permissions — need sudo or wireshark group',
+      'dumpcap not installed or missing capabilities',
+      'VM without active network adapter',
+      'Windows: Npcap not installed',
+    ],
+    solution: `Linux:
+1. sudo usermod -aG wireshark $USER — הוסף לקבוצה
+2. sudo chmod +x /usr/bin/dumpcap
+3. sudo setcap cap_net_raw+eip /usr/bin/dumpcap
+4. logout/login — לטעון קבוצה חדשה
+5. sudo wireshark — workaround (לא מומלץ תמידית)
+
+Windows:
+1. התקן/עדכן Npcap מ-npcap.com
+2. הרץ Wireshark כ-Administrator`,
+    solutionEn: `Linux:
+1. sudo usermod -aG wireshark $USER — add to group
+2. sudo chmod +x /usr/bin/dumpcap
+3. sudo setcap cap_net_raw+eip /usr/bin/dumpcap
+4. logout/login — load new group
+5. sudo wireshark — workaround (not recommended permanently)
+
+Windows:
+1. Install/update Npcap from npcap.com
+2. Run Wireshark as Administrator`,
+    tip: '💡 ב-Linux: tcpdump -i eth0 עובד עם sudo ולא צריך GUI. מעולה לשרתים.',
+    tipEn: '💡 On Linux: tcpdump -i eth0 works with sudo and doesn\'t need a GUI. Great for servers.',
+  },
+  {
+    id: 31,
+    icon: '🔐',
+    title: 'HTTPS — NET::ERR_CERT_AUTHORITY_INVALID',
+    titleEn: 'HTTPS — NET::ERR_CERT_AUTHORITY_INVALID',
+    category: 'SSL/אבטחה',
+    categoryEn: 'SSL/Security',
+    story: 'נכנס לאתר ומקבל מסך אדום: "Your connection is not private". דפדפן לא סומך על התעודה.',
+    storyEn: 'Visiting a site and getting a red screen: "Your connection is not private". Browser doesn\'t trust the certificate.',
+    causes: [
+      'תעודת SSL חתומה עצמית (self-signed)',
+      'ה-CA שחתם לא מוכר למחשב',
+      'שרשרת תעודות חלקית — חסר intermediate certificate',
+      'התעודה פגת תוקף (expired)',
+      'השעון במחשב שגוי — גורם לתעודה להיראות פגה',
+    ],
+    causesEn: [
+      'Self-signed SSL certificate',
+      'The signing CA is not trusted by the computer',
+      'Incomplete certificate chain — missing intermediate certificate',
+      'Certificate has expired',
+      'Computer clock is wrong — makes certificate look expired',
+    ],
+    solution: `1. לחץ על 🔒 בדפדפן → Certificate → בדוק תוקף ו-CA
+2. openssl s_client -connect host:443 — בדוק שרשרת
+3. בדוק שעון: date — שעה נכונה?
+4. Self-signed בלימודים? → Advanced → Proceed (לא ב-production!)
+5. Let's Encrypt — תעודה חינמית: sudo certbot --nginx
+6. curl -vI https://host — מידע מפורט על התעודה`,
+    solutionEn: `1. Click 🔒 in browser → Certificate → check validity and CA
+2. openssl s_client -connect host:443 — check chain
+3. Check clock: date — correct time?
+4. Self-signed in lab? → Advanced → Proceed (not in production!)
+5. Let's Encrypt — free certificate: sudo certbot --nginx
+6. curl -vI https://host — detailed certificate info`,
+    tip: '💡 בלימודים זה בדרך כלל self-signed cert. ב-production — תמיד Let\'s Encrypt (חינם!) או CA מוכר.',
+    tipEn: '💡 In learning environments it\'s usually a self-signed cert. In production — always Let\'s Encrypt (free!) or a trusted CA.',
+  },
+  {
+    id: 32,
+    icon: '🔧',
+    title: 'netcat/nmap — Connection Refused vs Filtered vs Open',
+    titleEn: 'netcat/nmap — Connection Refused vs Filtered vs Open',
+    category: 'כלים',
+    categoryEn: 'Tools',
+    story: 'סורק פורטים ומקבל סטטוסים שונים: open, closed, filtered. מה ההבדל?',
+    storyEn: 'Scanning ports and getting different statuses: open, closed, filtered. What\'s the difference?',
+    causes: [
+      'Open — שירות מאזין ומגיב. הפורט פעיל.',
+      'Closed — אין שירות, אבל ה-OS שולח RST. הפורט נגיש אבל ריק.',
+      'Filtered — firewall משמיט חבילות. אין תשובה בכלל.',
+    ],
+    causesEn: [
+      'Open — service is listening and responding. Port is active.',
+      'Closed — no service, but OS sends RST. Port is reachable but empty.',
+      'Filtered — firewall drops packets. No response at all.',
+    ],
+    solution: `1. nmap -p 22 host — סרוק פורט ספציפי
+2. nmap -p 1-1000 host — סרוק טווח
+3. nc -zv host 22 — בדוק אם פורט פתוח
+4. nc -zv host 80 443 — בדוק כמה פורטים
+5. nmap -sV -p 22 host — גלה מה השירות + גרסה
+6. ss -tlnp (בשרת) — מה מאזין מקומית?`,
+    solutionEn: `1. nmap -p 22 host — scan specific port
+2. nmap -p 1-1000 host — scan range
+3. nc -zv host 22 — check if port is open
+4. nc -zv host 80 443 — check multiple ports
+5. nmap -sV -p 22 host — detect service + version
+6. ss -tlnp (on server) — what's listening locally?`,
+    tip: '💡 Closed = המחשב שם, הפורט סגור. Filtered = Firewall בדרך. ההבדל עוזר לדעת אם הבעיה בשרת או ברשת.',
+    tipEn: '💡 Closed = machine is there, port is closed. Filtered = Firewall in the way. The difference tells you if the issue is the server or the network.',
+  },
+  {
+    id: 33,
+    icon: '🖥️',
+    title: 'Python — ModuleNotFoundError / pip not found',
+    titleEn: 'Python — ModuleNotFoundError / pip not found',
+    category: 'תכנות',
+    categoryEn: 'Programming',
+    story: 'מריץ script Python ומקבל: ModuleNotFoundError: No module named \'requests\'. או pip: command not found.',
+    storyEn: 'Running a Python script and getting: ModuleNotFoundError: No module named \'requests\'. Or pip: command not found.',
+    causes: [
+      'החבילה לא מותקנת',
+      'מותקנת ב-Python אחר (python2 vs python3)',
+      'pip מתקין ל-Python אחר מזה שמריץ',
+      'virtualenv — לא הפעלת את הסביבה',
+      'pip לא מותקן',
+    ],
+    causesEn: [
+      'Package not installed',
+      'Installed in a different Python (python2 vs python3)',
+      'pip installs to a different Python than the one running',
+      'virtualenv — didn\'t activate the environment',
+      'pip not installed',
+    ],
+    solution: `1. which python3 && which pip3 — לאן מצביעים?
+2. python3 -m pip install requests — מתקין בpython3 הנכון
+3. pip3 install requests — אם pip3 זמין
+4. python3 -m venv venv && source venv/bin/activate — צור venv
+5. sudo apt install python3-pip — התקן pip
+6. pip list | grep requests — בדוק אם מותקן`,
+    solutionEn: `1. which python3 && which pip3 — where do they point?
+2. python3 -m pip install requests — installs in the correct python3
+3. pip3 install requests — if pip3 is available
+4. python3 -m venv venv && source venv/bin/activate — create venv
+5. sudo apt install python3-pip — install pip
+6. pip list | grep requests — check if installed`,
+    tip: '💡 תמיד השתמשו ב-python3 -m pip במקום pip. זה מבטיח שמתקינים ל-Python הנכון.',
+    tipEn: '💡 Always use python3 -m pip instead of pip. This ensures you install to the correct Python.',
+  },
+  {
+    id: 34,
+    icon: '🌐',
+    title: 'Subnet Mismatch — מחשבים באותה רשת לא מדברים',
+    titleEn: 'Subnet Mismatch — Devices on Same Network Can\'t Communicate',
+    category: 'רשת',
+    categoryEn: 'Network',
+    story: 'שני מחשבים מחוברים לאותו switch אבל לא יכולים לעשות ping אחד לשני. מה קורה?',
+    storyEn: 'Two computers connected to the same switch but can\'t ping each other. What\'s happening?',
+    causes: [
+      'Subnet mask שונה — מחשב אחד חושב שהשני ברשת אחרת',
+      'IP-ים מרשתות שונות (192.168.1.x vs 192.168.2.x)',
+      'VLAN שונה ב-switch',
+      'Windows Firewall חוסם ICMP',
+    ],
+    causesEn: [
+      'Different subnet mask — one computer thinks the other is on a different network',
+      'IPs from different networks (192.168.1.x vs 192.168.2.x)',
+      'Different VLAN on the switch',
+      'Windows Firewall blocking ICMP',
+    ],
+    solution: `1. ip addr show (Linux) / ipconfig (Windows) — בדוק IP + mask
+2. שני המחשבים צריכים אותו subnet:
+   מחשב A: 192.168.1.10/24
+   מחשב B: 192.168.1.20/24
+3. אם mask שונה (אחד /24, אחד /16) — תתקן!
+4. Windows: netsh advfirewall set allprofiles firewallpolicy allow
+5. arping 192.168.1.20 — בדוק תקשורת L2`,
+    solutionEn: `1. ip addr show (Linux) / ipconfig (Windows) — check IP + mask
+2. Both computers need the same subnet:
+   Computer A: 192.168.1.10/24
+   Computer B: 192.168.1.20/24
+3. If mask differs (one /24, one /16) — fix it!
+4. Windows: netsh advfirewall set allprofiles firewallpolicy allow
+5. arping 192.168.1.20 — check L2 communication`,
+    tip: '💡 /24 = 255.255.255.0 = 254 hosts. /16 = 255.255.0.0 = 65,534 hosts. Subnet mask קובע מי "באותה רשת".',
+    tipEn: '💡 /24 = 255.255.255.0 = 254 hosts. /16 = 255.255.0.0 = 65,534 hosts. Subnet mask determines who is "on the same network".',
+  },
+  {
+    id: 35,
+    icon: '🔥',
+    title: 'iptables — Chain INPUT policy DROP / כלום לא עובד',
+    titleEn: 'iptables — Chain INPUT policy DROP / Nothing Works',
+    category: 'Firewall',
+    categoryEn: 'Firewall',
+    story: 'הרצת פקודת iptables ופתאום הכל מת — SSH, web, הכל. נעלת את עצמך בחוץ.',
+    storyEn: 'Ran an iptables command and suddenly everything died — SSH, web, everything. You locked yourself out.',
+    causes: [
+      'הפעלת DROP policy בלי להוסיף ACCEPT rules קודם',
+      'flush (iptables -F) מחק rules אבל policy נשאר DROP',
+      'טעות בסדר ה-rules — DROP לפני ACCEPT',
+    ],
+    causesEn: [
+      'Set DROP policy without adding ACCEPT rules first',
+      'Flush (iptables -F) deleted rules but policy stayed DROP',
+      'Wrong rule order — DROP before ACCEPT',
+    ],
+    solution: `אם עדיין מחובר:
+1. sudo iptables -P INPUT ACCEPT — חזור ל-ACCEPT מיידית!
+2. sudo iptables -F — נקה כל ה-rules
+3. עכשיו הוסף rules בזהירות:
+   sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+   sudo iptables -A INPUT -m state --state ESTABLISHED -j ACCEPT
+4. רק אז: sudo iptables -P INPUT DROP
+
+אם ננעלת:
+5. גישה פיזית / console / cloud console
+6. reboot — iptables rules לא נשמרים אחרי restart (אלא אם שמרת)`,
+    solutionEn: `If still connected:
+1. sudo iptables -P INPUT ACCEPT — revert to ACCEPT immediately!
+2. sudo iptables -F — flush all rules
+3. Now add rules carefully:
+   sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+   sudo iptables -A INPUT -m state --state ESTABLISHED -j ACCEPT
+4. Only then: sudo iptables -P INPUT DROP
+
+If locked out:
+5. Physical access / console / cloud console
+6. Reboot — iptables rules don't survive restart (unless saved)`,
+    tip: '💡 לפני שמשנים iptables: at now + 5 minutes <<< "iptables -P INPUT ACCEPT" — ביטוח אוטומטי!',
+    tipEn: '💡 Before changing iptables: at now + 5 minutes <<< "iptables -P INPUT ACCEPT" — automatic insurance!',
+  },
+  {
+    id: 36,
+    icon: '📝',
+    title: 'nano/vim — קובץ Readonly / Cannot Write',
+    titleEn: 'nano/vim — File Readonly / Cannot Write',
+    category: 'Linux',
+    categoryEn: 'Linux',
+    story: 'עורך קובץ ב-nano או vim ולא מצליח לשמור: "File is read only" או "Permission denied".',
+    storyEn: 'Editing a file in nano or vim and can\'t save: "File is read only" or "Permission denied".',
+    causes: [
+      'הקובץ שייך ל-root ואת משתמש רגיל',
+      'הקובץ ב-filesystem readonly',
+      'vim נפתח בלי sudo',
+      'חסר הרשאת כתיבה (w)',
+    ],
+    causesEn: [
+      'File owned by root and you are a regular user',
+      'File on a readonly filesystem',
+      'vim opened without sudo',
+      'Missing write (w) permission',
+    ],
+    solution: `1. ls -la filename — בדוק בעלות והרשאות
+2. sudo nano filename — פתח עם הרשאות
+3. ב-vim כבר פתוח: :w !sudo tee % — שמור עם sudo בלי לצאת!
+4. sudo chmod u+w filename — הוסף הרשאת כתיבה
+5. sudo chown $USER filename — שנה בעלות
+6. mount | grep "ro," — בדוק filesystem readonly`,
+    solutionEn: `1. ls -la filename — check ownership and permissions
+2. sudo nano filename — open with permissions
+3. In vim already open: :w !sudo tee % — save with sudo without quitting!
+4. sudo chmod u+w filename — add write permission
+5. sudo chown $USER filename — change ownership
+6. mount | grep "ro," — check filesystem readonly`,
+    tip: '💡 הטריק הכי שימושי ב-vim: :w !sudo tee % — שומר קובץ של root בלי לסגור ולפתוח מחדש!',
+    tipEn: '💡 Most useful vim trick: :w !sudo tee % — saves a root file without closing and reopening!',
+  },
+  {
+    id: 37,
+    icon: '🔗',
+    title: 'curl — Could Not Resolve Host / Connection Timed Out',
+    titleEn: 'curl — Could Not Resolve Host / Connection Timed Out',
+    category: 'HTTP/אבטחה',
+    categoryEn: 'HTTP/Security',
+    story: 'מנסה curl לAPI או אתר ומקבל שגיאה. curl הוא הכלי הראשון לדיבוג HTTP.',
+    storyEn: 'Trying curl to an API or website and getting an error. curl is the first tool for debugging HTTP.',
+    causes: [
+      'Could not resolve host = בעיית DNS',
+      'Connection timed out = שרת לא נגיש / firewall',
+      'Connection refused = שרת דוחה / שירות לא רץ',
+      'SSL certificate problem = תעודה לא תקינה',
+    ],
+    causesEn: [
+      'Could not resolve host = DNS issue',
+      'Connection timed out = server unreachable / firewall',
+      'Connection refused = server rejects / service not running',
+      'SSL certificate problem = invalid certificate',
+    ],
+    solution: `1. curl -v https://host — verbose! מראה כל שלב
+2. curl -I https://host — headers בלבד (בדיקה מהירה)
+3. curl -k https://host — דלג על בדיקת SSL (lab בלבד!)
+4. curl --connect-timeout 5 host — timeout מוגדר
+5. curl -o /dev/null -s -w "%{http_code}" host — רק status code
+6. curl -x http://proxy:8080 host — דרך proxy`,
+    solutionEn: `1. curl -v https://host — verbose! shows every step
+2. curl -I https://host — headers only (quick check)
+3. curl -k https://host — skip SSL check (lab only!)
+4. curl --connect-timeout 5 host — set timeout
+5. curl -o /dev/null -s -w "%{http_code}" host — just status code
+6. curl -x http://proxy:8080 host — through a proxy`,
+    tip: '💡 curl -v הוא הכלי הכי חשוב לדיבוג רשת. הוא מראה DNS → TCP → TLS → HTTP בפירוט.',
+    tipEn: '💡 curl -v is the most important tool for network debugging. It shows DNS → TCP → TLS → HTTP in detail.',
+  },
+  {
+    id: 38,
+    icon: '🖧',
+    title: 'VirtualBox/VMware — VM No Network / Host-Only לא עובד',
+    titleEn: 'VirtualBox/VMware — VM No Network / Host-Only Not Working',
+    category: 'רשת',
+    categoryEn: 'Network',
+    story: 'VM שהרמת לא מצליח להתחבר לאינטרנט, או שלא מצליח לדבר עם ה-host.',
+    storyEn: 'VM you set up can\'t connect to the internet, or can\'t communicate with the host.',
+    causes: [
+      'Network adapter לא מופעל ב-VM settings',
+      'מצב NAT לא מגיע לרשת החיצונית',
+      'Host-Only adapter לא קיים או כבוי',
+      'DHCP של VirtualBox/VMware לא מופעל',
+      'Bridged adapter על WiFi לא תמיד עובד',
+    ],
+    causesEn: [
+      'Network adapter not enabled in VM settings',
+      'NAT mode not reaching external network',
+      'Host-Only adapter doesn\'t exist or is disabled',
+      'VirtualBox/VMware DHCP not enabled',
+      'Bridged adapter on WiFi doesn\'t always work',
+    ],
+    solution: `VirtualBox:
+1. Settings → Network → Adapter 1: NAT (אינטרנט)
+2. Adapter 2: Host-Only (תקשורת עם host)
+3. File → Host Network Manager → צור adapter + הפעל DHCP
+
+VMware:
+4. VM Settings → Network Adapter → NAT / Bridged / Host-Only
+5. Edit → Virtual Network Editor → בדוק הגדרות
+
+בVM:
+6. ip addr show — יש IP?
+7. sudo dhclient enp0s3 — בקש IP`,
+    solutionEn: `VirtualBox:
+1. Settings → Network → Adapter 1: NAT (internet)
+2. Adapter 2: Host-Only (communicate with host)
+3. File → Host Network Manager → create adapter + enable DHCP
+
+VMware:
+4. VM Settings → Network Adapter → NAT / Bridged / Host-Only
+5. Edit → Virtual Network Editor → check settings
+
+In VM:
+6. ip addr show — do you have an IP?
+7. sudo dhclient enp0s3 — request IP`,
+    tip: '💡 NAT = אינטרנט בלבד (VM → חוץ). Host-Only = host ↔ VM. Bridged = VM כמכונה ברשת. שלבו NAT + Host-Only לשניהם!',
+    tipEn: '💡 NAT = internet only (VM → out). Host-Only = host ↔ VM. Bridged = VM as a machine on the network. Combine NAT + Host-Only for both!',
   }
 ]
 
