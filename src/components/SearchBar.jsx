@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
+import { troubleshootingContent } from '../data/troubleshooting'
 import './SearchBar.css'
 
 function stripHtml(html) {
@@ -34,7 +35,7 @@ function highlightMatch(text, query) {
 
 const MAX_RESULTS = 20
 
-export function SearchBar({ tracks, onGoToResult, lang, t }) {
+export function SearchBar({ tracks, onGoToResult, onGoToTroubleshoot, lang, t }) {
   const [query, setQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
@@ -78,19 +79,42 @@ export function SearchBar({ tracks, onGoToResult, lang, t }) {
     return entries
   }, [tracks])
 
+  // Troubleshooting search index
+  const trblIndex = useMemo(() => {
+    return troubleshootingContent.map(item => ({
+      type: 'troubleshoot',
+      id: item.id,
+      icon: item.icon,
+      title: item.title,
+      titleEn: item.titleEn,
+      category: item.category,
+      categoryEn: item.categoryEn,
+      searchText: `${item.title} ${item.titleEn || ''} ${item.category} ${item.categoryEn || ''} ${item.causes?.join(' ') || ''} ${item.causesEn?.join(' ') || ''} ${item.solution || ''} ${item.solutionEn || ''}`.toLowerCase(),
+    }))
+  }, [])
+
   // Search results
   const results = useMemo(() => {
     if (!debouncedQuery || debouncedQuery.length < 2) return []
     const q = debouncedQuery.toLowerCase()
     const matched = []
+
+    // Search troubleshooting entries first
+    for (const entry of trblIndex) {
+      if (entry.searchText.includes(q)) {
+        matched.push(entry)
+      }
+    }
+
+    // Then search course content
     for (const entry of searchIndex) {
       if (entry.searchText.includes(q)) {
         matched.push(entry)
         if (matched.length >= MAX_RESULTS) break
       }
     }
-    return matched
-  }, [debouncedQuery, searchIndex])
+    return matched.slice(0, MAX_RESULTS)
+  }, [debouncedQuery, searchIndex, trblIndex])
 
   // Reset selection on results change
   useEffect(() => {
@@ -135,11 +159,15 @@ export function SearchBar({ tracks, onGoToResult, lang, t }) {
   }, [selectedIdx])
 
   const handleSelect = useCallback((entry) => {
-    onGoToResult(entry.trackId, entry.chapterIdx, entry.pageIdx)
+    if (entry.type === 'troubleshoot') {
+      if (onGoToTroubleshoot) onGoToTroubleshoot(entry.title)
+    } else {
+      onGoToResult(entry.trackId, entry.chapterIdx, entry.pageIdx)
+    }
     setIsOpen(false)
     setQuery('')
     inputRef.current?.blur()
-  }, [onGoToResult])
+  }, [onGoToResult, onGoToTroubleshoot])
 
   const handleKeyDown = (e) => {
     if (!isOpen || results.length === 0) return
@@ -188,6 +216,26 @@ export function SearchBar({ tracks, onGoToResult, lang, t }) {
             <div className="search-no-results">{t('search_no_results')}</div>
           ) : (
             results.map((entry, i) => {
+              if (entry.type === 'troubleshoot') {
+                const isEn = lang === 'en'
+                return (
+                  <button
+                    key={`trbl-${entry.id}`}
+                    className={`search-result-item ${i === selectedIdx ? 'selected' : ''}`}
+                    onClick={() => handleSelect(entry)}
+                    onMouseEnter={() => setSelectedIdx(i)}
+                  >
+                    <div className="search-result-header">
+                      <span className="search-result-track">🔧 {isEn ? 'Troubleshooter' : 'פותר תקלות'}</span>
+                      <span className="search-result-sep">/</span>
+                      <span className="search-result-chapter">{isEn ? (entry.categoryEn || entry.category) : entry.category}</span>
+                    </div>
+                    <div className="search-result-title">
+                      {entry.icon} {highlightMatch(isEn ? (entry.titleEn || entry.title) : entry.title, debouncedQuery)}
+                    </div>
+                  </button>
+                )
+              }
               const snippet = getSnippet(entry.plainContent, debouncedQuery)
               return (
                 <button

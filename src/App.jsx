@@ -1009,6 +1009,10 @@ function App() {
                 setActiveTab('learn')
                 scrollToTop()
               }}
+              onGoToTroubleshoot={() => {
+                setActiveTrack(null)
+                setShowTroubleshooter(true)
+              }}
             />
           </Suspense>
         </div>
