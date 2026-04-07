@@ -2068,6 +2068,485 @@ In VM:
 7. sudo dhclient enp0s3 — request IP`,
     tip: '💡 NAT = אינטרנט בלבד (VM → חוץ). Host-Only = host ↔ VM. Bridged = VM כמכונה ברשת. שלבו NAT + Host-Only לשניהם!',
     tipEn: '💡 NAT = internet only (VM → out). Host-Only = host ↔ VM. Bridged = VM as a machine on the network. Combine NAT + Host-Only for both!',
+  },
+  // ===== SSH — more =====
+  {
+    id: 39,
+    icon: '🔑',
+    title: 'ssh-keygen -R — מתי ואיך להשתמש',
+    titleEn: 'ssh-keygen -R — When and How to Use',
+    category: 'SSH',
+    categoryEn: 'SSH',
+    story: 'אחרי אזהרת REMOTE HOST IDENTIFICATION HAS CHANGED, או אחרי התקנה מחדש של שרת — צריך למחוק את ה-fingerprint הישן.',
+    storyEn: 'After a REMOTE HOST IDENTIFICATION HAS CHANGED warning, or after reinstalling a server — you need to remove the old fingerprint.',
+    causes: [
+      'שרת הותקן מחדש וקיבל מפתח host חדש',
+      'ה-IP הועבר למכונה אחרת (cloud)',
+      'שדרוג שרת שינה את מפתחות ה-SSH',
+      'בwifi ציבורי עם captive portal שמחליף fingerprint',
+    ],
+    causesEn: [
+      'Server was reinstalled and got a new host key',
+      'IP was moved to another machine (cloud)',
+      'Server upgrade changed SSH keys',
+      'Public wifi with captive portal replacing fingerprint',
+    ],
+    solution: `1. ssh-keygen -R 192.168.1.100 — מוחק fingerprint לפי IP
+2. ssh-keygen -R myserver.com — מוחק לפי hostname
+3. ssh-keygen -R "[myserver.com]:2222" — אם פורט לא סטנדרטי
+4. אחרי המחיקה — ssh user@host מחדש
+5. תקבל "Are you sure?" → yes — שומר fingerprint חדש
+6. הקובץ: ~/.ssh/known_hosts — שם נשמרים כל ה-fingerprints`,
+    solutionEn: `1. ssh-keygen -R 192.168.1.100 — remove fingerprint by IP
+2. ssh-keygen -R myserver.com — remove by hostname
+3. ssh-keygen -R "[myserver.com]:2222" — for non-standard port
+4. After removal — ssh user@host again
+5. You'll get "Are you sure?" → yes — saves new fingerprint
+6. The file: ~/.ssh/known_hosts — where all fingerprints are stored`,
+    tip: '💡 ב-lab/cloud זה שגרתי. ב-production — תמיד וודא שה-fingerprint החדש לגיטימי לפני שמאשרים!',
+    tipEn: '💡 In lab/cloud this is routine. In production — always verify the new fingerprint is legitimate before accepting!',
+  },
+  {
+    id: 40,
+    icon: '🔑',
+    title: 'SSH — Too Many Authentication Failures',
+    titleEn: 'SSH — Too Many Authentication Failures',
+    category: 'SSH',
+    categoryEn: 'SSH',
+    story: 'מנסה SSH ומקבל: "Received disconnect: Too many authentication failures". לא הקלדת סיסמה שגויה — אז מה קרה?',
+    storyEn: 'Trying SSH and getting: "Received disconnect: Too many authentication failures". You didn\'t type a wrong password — so what happened?',
+    causes: [
+      'SSH Agent שולח יותר מדי מפתחות אוטומטית',
+      'יש הרבה מפתחות ב-~/.ssh/ ו-SSH מנסה את כולם',
+      'השרת חוסם אחרי 3-5 ניסיונות',
+    ],
+    causesEn: [
+      'SSH Agent sending too many keys automatically',
+      'Many keys in ~/.ssh/ and SSH tries them all',
+      'Server blocks after 3-5 attempts',
+    ],
+    solution: `1. ssh -o IdentitiesOnly=yes -i ~/.ssh/specific_key user@host
+2. ssh-add -D — נקה את כל המפתחות מה-agent
+3. ssh-add ~/.ssh/id_rsa — טען רק את המפתח הנכון
+4. ב-~/.ssh/config:
+   Host myserver
+     HostName 192.168.1.100
+     User admin
+     IdentityFile ~/.ssh/myserver_key
+     IdentitiesOnly yes`,
+    solutionEn: `1. ssh -o IdentitiesOnly=yes -i ~/.ssh/specific_key user@host
+2. ssh-add -D — clear all keys from agent
+3. ssh-add ~/.ssh/id_rsa — load only the right key
+4. In ~/.ssh/config:
+   Host myserver
+     HostName 192.168.1.100
+     User admin
+     IdentityFile ~/.ssh/myserver_key
+     IdentitiesOnly yes`,
+    tip: '💡 ~/.ssh/config חוסך הקלדה וגם מונע בעיה זו. כל שרת מוגדר עם המפתח הנכון.',
+    tipEn: '💡 ~/.ssh/config saves typing and also prevents this issue. Each server is configured with the right key.',
+  },
+  {
+    id: 41,
+    icon: '🔑',
+    title: 'SSH Tunnel / Port Forward לא עובד',
+    titleEn: 'SSH Tunnel / Port Forward Not Working',
+    category: 'SSH',
+    categoryEn: 'SSH',
+    story: 'מנסה ssh -L 8080:localhost:80 user@server אבל localhost:8080 לא מגיב.',
+    storyEn: 'Trying ssh -L 8080:localhost:80 user@server but localhost:8080 not responding.',
+    causes: [
+      'השירות המרוחק לא רץ על port 80 בשרת',
+      'AllowTcpForwarding מבוטל ב-sshd_config',
+      'port 8080 כבר תפוס מקומית',
+      'שוכחים ש-localhost:80 מתייחס לשרת המרוחק, לא למחשב שלך',
+    ],
+    causesEn: [
+      'Remote service not running on port 80 on the server',
+      'AllowTcpForwarding disabled in sshd_config',
+      'Port 8080 already in use locally',
+      'Forgetting that localhost:80 refers to the remote server, not your machine',
+    ],
+    solution: `Local Forward (אתה → שרת):
+1. ssh -L 8080:localhost:80 user@server
+   פותח localhost:8080 אצלך → מגיע ל-port 80 בשרת
+
+Remote Forward (שרת → אתה):
+2. ssh -R 9090:localhost:3000 user@server
+   פותח port 9090 בשרת → מגיע ל-port 3000 אצלך
+
+Debug:
+3. ssh -v -L 8080:localhost:80 user@server — verbose
+4. ss -tlnp | grep 8080 — בדוק שהtunnel מאזין
+5. בשרת: curl localhost:80 — בדוק שהשירות רץ`,
+    solutionEn: `Local Forward (you → server):
+1. ssh -L 8080:localhost:80 user@server
+   Opens localhost:8080 on your machine → reaches port 80 on server
+
+Remote Forward (server → you):
+2. ssh -R 9090:localhost:3000 user@server
+   Opens port 9090 on server → reaches port 3000 on your machine
+
+Debug:
+3. ssh -v -L 8080:localhost:80 user@server — verbose
+4. ss -tlnp | grep 8080 — check tunnel is listening
+5. On server: curl localhost:80 — check service is running`,
+    tip: '💡 -L = Local (תביא אליי). -R = Remote (תביא לשם). -D = Dynamic (SOCKS proxy). לזכור: L=Left (אצלי), R=Right (בשרת).',
+    tipEn: '💡 -L = Local (bring to me). -R = Remote (bring to there). -D = Dynamic (SOCKS proxy). Remember: L=Left (my side), R=Right (server side).',
+  },
+  // ===== Linux — more =====
+  {
+    id: 42,
+    icon: '🐧',
+    title: 'apt — Could not get lock / dpkg was interrupted',
+    titleEn: 'apt — Could not get lock / dpkg was interrupted',
+    category: 'Linux',
+    categoryEn: 'Linux',
+    story: 'מנסה apt install ומקבל: "Could not get lock /var/lib/dpkg/lock-frontend" או "dpkg was interrupted, run dpkg --configure -a".',
+    storyEn: 'Trying apt install and getting: "Could not get lock /var/lib/dpkg/lock-frontend" or "dpkg was interrupted, run dpkg --configure -a".',
+    causes: [
+      'apt/dpkg אחר כבר רץ ברקע (unattended-upgrades)',
+      'התקנה קודמת נכשלה באמצע',
+      'lock file נשאר אחרי crash',
+    ],
+    causesEn: [
+      'Another apt/dpkg is running in the background (unattended-upgrades)',
+      'Previous installation failed midway',
+      'Lock file remained after a crash',
+    ],
+    solution: `1. sudo dpkg --configure -a — תקן התקנה שנתקעה
+2. ps aux | grep -i apt — מי רץ?
+3. חכה שunattended-upgrades יסיים (בדרך כלל 1-5 דקות)
+4. אם באמת תקוע:
+   sudo rm /var/lib/dpkg/lock-frontend
+   sudo rm /var/lib/apt/lists/lock
+5. sudo apt update && sudo apt install -f — תקן dependencies`,
+    solutionEn: `1. sudo dpkg --configure -a — fix stuck installation
+2. ps aux | grep -i apt — who's running?
+3. Wait for unattended-upgrades to finish (usually 1-5 minutes)
+4. If truly stuck:
+   sudo rm /var/lib/dpkg/lock-frontend
+   sudo rm /var/lib/apt/lists/lock
+5. sudo apt update && sudo apt install -f — fix dependencies`,
+    tip: '💡 לפני שמוחקים lock: תמיד בדקו שאין apt רץ ברקע! מחיקה בזמן שרץ = שבירת dpkg.',
+    tipEn: '💡 Before deleting lock: always check no apt is running in the background! Deleting while running = breaking dpkg.',
+  },
+  {
+    id: 43,
+    icon: '🐧',
+    title: 'bash: command not found',
+    titleEn: 'bash: command not found',
+    category: 'Linux',
+    categoryEn: 'Linux',
+    story: 'מקליד פקודה ומקבל: command not found. הפקודה לא מותקנת או לא ב-PATH.',
+    storyEn: 'Typing a command and getting: command not found. The command is not installed or not in PATH.',
+    causes: [
+      'החבילה לא מותקנת',
+      'הפקודה קיימת אבל לא ב-PATH',
+      'typo בשם הפקודה',
+      'הקלדת פקודת Windows ב-Linux (ipconfig במקום ifconfig)',
+    ],
+    causesEn: [
+      'Package not installed',
+      'Command exists but not in PATH',
+      'Typo in command name',
+      'Typed a Windows command in Linux (ipconfig instead of ifconfig)',
+    ],
+    solution: `1. which command / whereis command — היכן מותקן?
+2. sudo apt install package — התקן
+3. dpkg -S /usr/bin/command — מאיזה חבילה?
+4. apt-file search command — מצא באיזה חבילה
+5. echo $PATH — בדוק PATH
+6. export PATH=$PATH:/usr/local/bin — הוסף ל-PATH
+
+שגיאות נפוצות:
+- ipconfig → ifconfig או ip addr (Linux)
+- dir → ls (Linux)
+- cls → clear (Linux)`,
+    solutionEn: `1. which command / whereis command — where is it installed?
+2. sudo apt install package — install it
+3. dpkg -S /usr/bin/command — which package?
+4. apt-file search command — find which package has it
+5. echo $PATH — check PATH
+6. export PATH=$PATH:/usr/local/bin — add to PATH
+
+Common mistakes:
+- ipconfig → ifconfig or ip addr (Linux)
+- dir → ls (Linux)
+- cls → clear (Linux)`,
+    tip: '💡 טיפ: type command אומר לך בדיוק מה bash חושב על הפקודה — alias, builtin, או file.',
+    tipEn: '💡 Tip: type command tells you exactly what bash thinks about the command — alias, builtin, or file.',
+  },
+  {
+    id: 44,
+    icon: '🐧',
+    title: 'systemctl — Unit not found / Failed to start',
+    titleEn: 'systemctl — Unit not found / Failed to start',
+    category: 'Linux',
+    categoryEn: 'Linux',
+    story: 'מנסה systemctl start nginx ומקבל: "Unit nginx.service not found" או "Failed to start".',
+    storyEn: 'Trying systemctl start nginx and getting: "Unit nginx.service not found" or "Failed to start".',
+    causes: [
+      'השירות לא מותקן',
+      'שם השירות שגוי (nginx vs nginx.service)',
+      'קובץ config שבור — השירות לא מצליח לעלות',
+      'port תפוס — השירות לא יכול להאזין',
+      'הרשאות — חסר גישה לקבצים/ports',
+    ],
+    causesEn: [
+      'Service not installed',
+      'Wrong service name (nginx vs nginx.service)',
+      'Broken config file — service can\'t start',
+      'Port in use — service can\'t listen',
+      'Permissions — missing access to files/ports',
+    ],
+    solution: `1. systemctl list-units --type=service — רשימת כל השירותים
+2. systemctl status nginx — סטטוס + שורות log אחרונות
+3. journalctl -u nginx --no-pager -n 50 — 50 שורות log אחרונות
+4. nginx -t — בדוק config (לכל שירות יש test mode)
+5. ss -tlnp | grep :80 — מי תופס את הport?
+6. sudo systemctl restart nginx — restart`,
+    solutionEn: `1. systemctl list-units --type=service — list all services
+2. systemctl status nginx — status + last log lines
+3. journalctl -u nginx --no-pager -n 50 — last 50 log lines
+4. nginx -t — check config (every service has a test mode)
+5. ss -tlnp | grep :80 — who's using the port?
+6. sudo systemctl restart nginx — restart`,
+    tip: '💡 journalctl -xe הוא החבר הכי טוב שלך — מראה את הlog האחרון עם הסבר על השגיאה.',
+    tipEn: '💡 journalctl -xe is your best friend — shows the last log with an explanation of the error.',
+  },
+  // ===== Network protocols =====
+  {
+    id: 45,
+    icon: '📡',
+    title: 'TCP RST — חיבור נסגר בכוח',
+    titleEn: 'TCP RST — Connection Forcefully Closed',
+    category: 'TCP',
+    categoryEn: 'TCP',
+    story: 'ב-Wireshark רואה חבילות TCP RST. מישהו סוגר חיבורים בכוח. למה?',
+    storyEn: 'In Wireshark seeing TCP RST packets. Someone is forcefully closing connections. Why?',
+    causes: [
+      'השרת דוחה חיבור — אין שירות על הport (Closed port)',
+      'Firewall שולח RST במקום לדרוף',
+      'timeout — השרת סוגר חיבור שלא פעיל',
+      'השרת overloaded ומנתק חיבורים',
+      'application crash — התוכנה נפלה',
+    ],
+    causesEn: [
+      'Server rejects connection — no service on the port (Closed port)',
+      'Firewall sends RST instead of dropping',
+      'Timeout — server closes idle connection',
+      'Server overloaded and dropping connections',
+      'Application crash — the program crashed',
+    ],
+    solution: `1. ב-Wireshark: tcp.flags.reset == 1 — סנן RST
+2. בדוק מי שולח RST — client או server?
+3. RST אחרי SYN? = port closed / firewall
+4. RST אחרי established? = timeout / crash
+5. בשרת: ss -s — סטטיסטיקות TCP
+6. dmesg | tail — בדוק kernel errors`,
+    solutionEn: `1. In Wireshark: tcp.flags.reset == 1 — filter RST
+2. Check who sends RST — client or server?
+3. RST after SYN? = port closed / firewall
+4. RST after established? = timeout / crash
+5. On server: ss -s — TCP statistics
+6. dmesg | tail — check kernel errors`,
+    tip: '💡 RST אחרי SYN = "הפורט סגור". RST אחרי דאטה = "משהו השתבש". ההקשר קריטי!',
+    tipEn: '💡 RST after SYN = "port is closed". RST after data = "something went wrong". Context is critical!',
+  },
+  {
+    id: 46,
+    icon: '⏳',
+    title: 'TCP Retransmission — חבילות נשלחות שוב ושוב',
+    titleEn: 'TCP Retransmission — Packets Being Resent',
+    category: 'TCP',
+    categoryEn: 'TCP',
+    story: 'ב-Wireshark רואה [TCP Retransmission] על חבילות. התקשורת איטית ויש שכפולים.',
+    storyEn: 'In Wireshark seeing [TCP Retransmission] on packets. Communication is slow with duplicates.',
+    causes: [
+      'Packet loss ברשת — חבילות לא מגיעות',
+      'WiFi חלש / interference',
+      'כבל רשת פגום',
+      'Switch/Router עמוס',
+      'רוחב פס מלא — congestion',
+    ],
+    causesEn: [
+      'Packet loss in the network — packets not arriving',
+      'Weak WiFi / interference',
+      'Damaged network cable',
+      'Switch/Router overloaded',
+      'Bandwidth full — congestion',
+    ],
+    solution: `1. Wireshark filter: tcp.analysis.retransmission
+2. כמה % retransmission? מעל 2% = בעיה
+3. ping -c 100 host — בדוק % loss
+4. mtr host — רציף, מראה loss per hop
+5. החלף כבל / התחבר ב-LAN במקום WiFi
+6. iperf3 -c host — בדוק bandwidth אמיתי`,
+    solutionEn: `1. Wireshark filter: tcp.analysis.retransmission
+2. How much % retransmission? Over 2% = problem
+3. ping -c 100 host — check % loss
+4. mtr host — continuous, shows loss per hop
+5. Swap cable / connect via LAN instead of WiFi
+6. iperf3 -c host — check real bandwidth`,
+    tip: '💡 Wireshark Expert Info (Analyze → Expert Info) מסכם את כל הבעיות אוטומטית — retransmissions, RST, errors.',
+    tipEn: '💡 Wireshark Expert Info (Analyze → Expert Info) summarizes all issues automatically — retransmissions, RST, errors.',
+  },
+  // ===== Web / Browser =====
+  {
+    id: 47,
+    icon: '🌐',
+    title: 'ERR_NAME_NOT_RESOLVED — אתר לא נמצא',
+    titleEn: 'ERR_NAME_NOT_RESOLVED — Site Not Found',
+    category: 'DNS',
+    categoryEn: 'DNS',
+    story: 'הדפדפן מציג: "This site can\'t be reached — DNS_PROBE_FINISHED_NXDOMAIN" או ERR_NAME_NOT_RESOLVED.',
+    storyEn: 'Browser shows: "This site can\'t be reached — DNS_PROBE_FINISHED_NXDOMAIN" or ERR_NAME_NOT_RESOLVED.',
+    causes: [
+      'הדומיין לא קיים או פג תוקף',
+      'DNS server לא מגיב',
+      'typo בכתובת האתר',
+      'DNS cache מקומי מכיל ערך ישן',
+      'VPN/proxy מפריע',
+    ],
+    causesEn: [
+      'Domain doesn\'t exist or expired',
+      'DNS server not responding',
+      'Typo in website address',
+      'Local DNS cache has stale entry',
+      'VPN/proxy interfering',
+    ],
+    solution: `Windows:
+1. ipconfig /flushdns — נקה DNS cache
+
+Linux:
+2. sudo systemd-resolve --flush-caches
+
+Mac:
+3. sudo dscacheutil -flushcache
+
+כללי:
+4. נסו DNS אחר: 8.8.8.8 או 1.1.1.1
+5. nslookup domain.com 8.8.8.8 — בדוק עם Google DNS
+6. whoIs domain.com — בדוק אם הדומיין בכלל פעיל`,
+    solutionEn: `Windows:
+1. ipconfig /flushdns — clear DNS cache
+
+Linux:
+2. sudo systemd-resolve --flush-caches
+
+Mac:
+3. sudo dscacheutil -flushcache
+
+General:
+4. Try different DNS: 8.8.8.8 or 1.1.1.1
+5. nslookup domain.com 8.8.8.8 — test with Google DNS
+6. whois domain.com — check if domain is even active`,
+    tip: '💡 NXDOMAIN = "הדומיין לא קיים ב-DNS". זה לא בעיית רשת — זה בעיית שם.',
+    tipEn: '💡 NXDOMAIN = "domain doesn\'t exist in DNS". It\'s not a network issue — it\'s a name issue.',
+  },
+  {
+    id: 48,
+    icon: '🔒',
+    title: 'NET::ERR_CERT_DATE_INVALID — תעודת SSL פגת תוקף',
+    titleEn: 'NET::ERR_CERT_DATE_INVALID — SSL Certificate Expired',
+    category: 'SSL/אבטחה',
+    categoryEn: 'SSL/Security',
+    story: 'דפדפן מציג שגיאה: "Your connection is not private — NET::ERR_CERT_DATE_INVALID". התעודה פגה.',
+    storyEn: 'Browser shows error: "Your connection is not private — NET::ERR_CERT_DATE_INVALID". Certificate expired.',
+    causes: [
+      'תעודת SSL פגת תוקף בשרת',
+      'השעון במחשב שלך שגוי!',
+      'תעודת intermediate פגת תוקף',
+    ],
+    causesEn: [
+      'SSL certificate expired on the server',
+      'Your computer clock is wrong!',
+      'Intermediate certificate expired',
+    ],
+    solution: `1. בדוק שעון: date (Linux) — שנה, חודש, שעה נכונים?
+2. sudo ntpdate pool.ntp.org — סנכרן שעון
+3. timedatectl set-ntp true — הפעל NTP
+4. echo | openssl s_client -connect host:443 2>/dev/null | openssl x509 -dates
+   → מראה notBefore ו-notAfter של התעודה
+5. אם אתה מנהל השרת: sudo certbot renew — חדש Let's Encrypt`,
+    solutionEn: `1. Check clock: date (Linux) — year, month, time correct?
+2. sudo ntpdate pool.ntp.org — sync clock
+3. timedatectl set-ntp true — enable NTP
+4. echo | openssl s_client -connect host:443 2>/dev/null | openssl x509 -dates
+   → shows notBefore and notAfter of the certificate
+5. If you manage the server: sudo certbot renew — renew Let's Encrypt`,
+    tip: '💡 שעון שגוי = הסיבה #1 לשגיאות SSL מוזרות. תמיד בדקו date לפני שמחפשים בעיות SSL!',
+    tipEn: '💡 Wrong clock = #1 reason for weird SSL errors. Always check date before investigating SSL issues!',
+  },
+  // ===== Networking basics =====
+  {
+    id: 49,
+    icon: '📋',
+    title: 'TTL Expired in Transit — חבילה לא מגיעה',
+    titleEn: 'TTL Expired in Transit — Packet Not Arriving',
+    category: 'רשת',
+    categoryEn: 'Network',
+    story: 'מקבל ICMP error: "TTL Expired in Transit". חבילה נשלחה אבל "מתה" בדרך.',
+    storyEn: 'Getting ICMP error: "TTL Expired in Transit". Packet was sent but "died" on the way.',
+    causes: [
+      'Routing loop — חבילה מסתובבת בין routers עד שTTL מגיע ל-0',
+      'TTL נמוך מדי (ping -t 5 לשרת רחוק)',
+      'ISP routing issue',
+    ],
+    causesEn: [
+      'Routing loop — packet bouncing between routers until TTL reaches 0',
+      'TTL too low (ping -t 5 to a distant server)',
+      'ISP routing issue',
+    ],
+    solution: `1. traceroute host — רואה איפה TTL נגמר
+2. אם חוזר על אותם hops — routing loop!
+3. ping -t 128 host — הגדל TTL
+4. בdocker/VM: בדוק MTU — fragmentation יכול לגרום לזה
+5. ip route show — בדוק routing table
+6. דווח ל-ISP אם routing loop ברשת שלהם`,
+    solutionEn: `1. traceroute host — see where TTL runs out
+2. If same hops repeat — routing loop!
+3. ping -t 128 host — increase TTL
+4. In docker/VM: check MTU — fragmentation can cause this
+5. ip route show — check routing table
+6. Report to ISP if routing loop is on their network`,
+    tip: '💡 TTL בדרך כלל מתחיל מ-64 (Linux) או 128 (Windows). כל router בדרך מוריד 1. ב-traceroute, TTL הוא מה שעושה את "הקסם".',
+    tipEn: '💡 TTL usually starts at 64 (Linux) or 128 (Windows). Each router decreases by 1. In traceroute, TTL is what makes the "magic" work.',
+  },
+  {
+    id: 50,
+    icon: '📦',
+    title: 'MTU / Fragmentation — חבילות גדולות מדי',
+    titleEn: 'MTU / Fragmentation — Packets Too Large',
+    category: 'רשת',
+    categoryEn: 'Network',
+    story: 'VPN עובד אבל אתרים מסוימים לא נטענים. SSH עובד אבל SCP תקוע. ייתכן שזה MTU.',
+    storyEn: 'VPN works but some websites don\'t load. SSH works but SCP is stuck. It might be MTU.',
+    causes: [
+      'MTU גדול מדי ל-VPN/tunnel (1500 > 1400)',
+      'DF bit מוגדר — אי אפשר לפרגמנט',
+      'Path MTU Discovery נכשל — firewall חוסם ICMP "need fragment"',
+    ],
+    causesEn: [
+      'MTU too large for VPN/tunnel (1500 > 1400)',
+      'DF bit set — cannot fragment',
+      'Path MTU Discovery failed — firewall blocks ICMP "need fragment"',
+    ],
+    solution: `1. ping -M do -s 1472 host — בדוק MTU מקסימלי (1472 + 28 headers = 1500)
+2. הקטן בהדרגה: 1400, 1350, 1300 — עד שעובד
+3. sudo ip link set dev eth0 mtu 1400 — שנה MTU
+4. ב-VPN: הגדר mtu 1400 ב-config
+5. Wireshark filter: ip.flags.df == 1 && icmp — חפש "need fragment"
+6. iptables: -A FORWARD --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu`,
+    solutionEn: `1. ping -M do -s 1472 host — test maximum MTU (1472 + 28 headers = 1500)
+2. Decrease gradually: 1400, 1350, 1300 — until it works
+3. sudo ip link set dev eth0 mtu 1400 — change MTU
+4. In VPN: set mtu 1400 in config
+5. Wireshark filter: ip.flags.df == 1 && icmp — look for "need fragment"
+6. iptables: -A FORWARD --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu`,
+    tip: '💡 MTU=1500 סטנדרט. VPN/PPPoE צריכים פחות (1400-1460). אם VPN שובר אתרים — MTU הוא החשוד הראשון.',
+    tipEn: '💡 MTU=1500 is standard. VPN/PPPoE need less (1400-1460). If VPN breaks websites — MTU is the first suspect.',
   }
 ]
 
