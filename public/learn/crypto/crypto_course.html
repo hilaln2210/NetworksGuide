@@ -681,6 +681,37 @@ ul.prose li strong:first-child {
   margin: 28px 0;
 }
 
+
+/* ── Crypto Course Enhancements ── */
+.ch-hero-banner{background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0e7490 100%);border-radius:18px;padding:36px 32px 32px;margin-bottom:28px;position:relative;overflow:hidden;color:#fff;}
+.ch-hero-banner::after{content:'';position:absolute;top:-40px;left:-40px;width:220px;height:220px;background:radial-gradient(circle,rgba(14,116,144,.3) 0%,transparent 70%);border-radius:50%;}
+.ch-hero-banner .hero-emoji{font-size:2.8rem;margin-bottom:12px;display:block;}
+.ch-hero-banner h2{font-size:1.65rem;font-weight:800;margin:0 0 8px;color:#fff;line-height:1.3;}
+.ch-hero-banner p{font-size:.95rem;color:rgba(255,255,255,.72);margin:0;line-height:1.6;}
+.fact-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #fcd34d;border-radius:14px;padding:18px 22px;margin:20px 0;font-size:.9rem;line-height:1.75;}
+.fact-box strong{color:#92400e;}
+.story-box{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #93c5fd;border-radius:14px;padding:20px 24px;margin:20px 0;line-height:1.8;}
+.story-box .story-icon{font-size:1.8rem;margin-bottom:8px;display:block;}
+.story-box p{margin:0 0 6px;color:#1e3a5f;font-size:.92rem;}
+.story-box strong{color:#1d4ed8;}
+.csteps{display:flex;flex-direction:column;gap:12px;margin:18px 0 24px;}
+.cstep{display:flex;gap:14px;align-items:flex-start;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;}
+.cstep-num{background:var(--accent);color:#fff;border-radius:50%;width:28px;height:28px;min-width:28px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;}
+.cstep-body{flex:1;}
+.cstep-body strong{display:block;font-size:.92rem;color:var(--text);margin-bottom:3px;}
+.cstep-body span{font-size:.86rem;color:var(--text2);line-height:1.6;}
+.concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0 22px;}
+.concept-card{background:var(--bg2);border:1.5px solid var(--border);border-radius:14px;padding:16px 14px;}
+.concept-card .cc-icon{font-size:1.5rem;margin-bottom:7px;}
+.concept-card .cc-title{font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:5px;}
+.concept-card .cc-desc{font-size:.82rem;color:var(--text2);line-height:1.6;}
+.concept-card.teal{border-color:#99f6e4;background:#f0fdfa;}
+.concept-card.blue{border-color:#93c5fd;background:#eff6ff;}
+.concept-card.red{border-color:#fca5a5;background:#fff1f2;}
+.concept-card.yellow{border-color:#fcd34d;background:#fffbeb;}
+.concept-card.purple{border-color:#c4b5fd;background:#f5f3ff;}
+.highlight-quote{border-right:4px solid var(--accent);background:rgba(14,116,144,.06);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:.92rem;color:var(--text);line-height:1.7;}
+@media(max-width:640px){.ch-hero-banner{padding:24px 18px;}.concept-grid{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
@@ -917,6 +948,8 @@ var CHAPTERS = [
       desc: "מה זה כסף דיגיטלי, היסטוריה, Cryptography, סוגי מטבעות, קריפטו ופשע",
       sections: ["מה זה כסף דיגיטלי?", "היסטוריה קצרה", "קריפטוגרפיה — הבסיס", "סוגי מטבעות", "קריפטו ופשע", "כלי מבוא", "תרגיל מבוא", "שאלות"],
       content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">🌐</span><h2>מבוא — יסודות קריפטו</h2><p>מה זה כסף דיגיטלי, למה Bitcoin נוצר, ואיך הפך לכלי מרכזי בעולם הפשע הפיננסי.</p></div>
+
 <section class="learn-section">
 <span class="sec-label">01 — מה זה כסף דיגיטלי?</span>
 <h2 class="sec-h">הרעיון שמאחורי קריפטו</h2>
@@ -927,9 +960,10 @@ var CHAPTERS = [
 <tr><td>כרטיס אשראי</td><td>בנק + VISA</td><td>אפסית</td><td>חברה פרטית</td></tr>
 <tr><td>Bitcoin</td><td>אין</td><td>מלאה</td><td>הרשת</td></tr>
 </table>
-<div class="callout tip">💡 <strong>הרעיון המרכזי:</strong> במקום לסמוך על בנק שיאמר "כן, לאלי יש $100" — הרשת כולה יודעת זאת. אי אפשר לזייף, אי אפשר לכפול.</div>
+<div class="highlight-quote">💡 <strong>הרעיון המרכזי:</strong> במקום לסמוך על בנק שיאמר "כן, לאלי יש $100" — הרשת כולה יודעת זאת. אי אפשר לזייף, אי אפשר לכפול.</div>
 </section>
 
+<div class="story-box"><span class="story-icon">📖</span><p><strong>הסיפור שהתחיל הכל</strong></p><p>2008: המשבר הפיננסי העולמי. בנקים קורסים, ממשלות מדפיסות כסף, אנשים מאבדים חסכונות. בדיוק אז, תחת הכינוי Satoshi Nakamoto, מישהו פרסם מסמך של 9 עמודים: Bitcoin — מטבע דיגיטלי ללא בנק מרכזי. הסיבה לתזמון לא הייתה מקרית.</p></div>
 <section class="learn-section">
 <span class="sec-label">02 — היסטוריה קצרה</span>
 <h2 class="sec-h">מ-Cypherpunks ל-Bitcoin</h2>
@@ -1019,7 +1053,7 @@ Address      →  Hash(Public Key) = כתובת ציבורית</pre></div>
 <h2 class="sec-h">למה Satoshi הטמין הודעה בבלוק הראשון</h2>
 <p>ב-3 בינואר 2009, כשהפעיל Satoshi Nakamoto את הרשת לראשונה, הוא הטמין בבלוק הראשון כותרת עיתון: <em>"The Times 03/Jan/2009 Chancellor on brink of second bailout for banks"</em> — שר האוצר הבריטי עומד בפני חילוץ שני של הבנקים.</p>
 <p>זו לא הייתה מקריות. זו הצהרת כוונות: Bitcoin נוצר בתגובה ישירה למשבר הפיננסי של 2008, כשממשלות הדפיסו כסף כדי להציל בנקים שניהלו סיכונים מופרזים. הרעיון — מטבע שאף גוף מרכזי לא יכול לנהל ולשחת.</p>
-<div class="callout tip">💡 <strong>למה זה חשוב לחוקר:</strong> ה-Genesis Block (Block #0) הוא הנקודה שממנה מתחילה כל שרשרת Bitcoin. 50 הביטקוין ששוחררו בו לא ניתנים להוצאה — פרט טכני שנבנה בכוונה. הם שם לנצח, ניתנים לצפייה, אבל לא לגעת.</div>
+<div class="highlight-quote">💡 <strong>למה זה חשוב לחוקר:</strong> ה-Genesis Block (Block #0) הוא הנקודה שממנה מתחילה כל שרשרת Bitcoin. 50 הביטקוין ששוחררו בו לא ניתנים להוצאה — פרט טכני שנבנה בכוונה. הם שם לנצח, ניתנים לצפייה, אבל לא לגעת.</div>
 </section>
 
 <section class="learn-section">
@@ -1027,7 +1061,7 @@ Address      →  Hash(Public Key) = כתובת ציבורית</pre></div>
 <h2 class="sec-h">הפרדוקס של מטבע "אנונימי"</h2>
 <p>אנשים בוחרים Bitcoin לפעילות עברינית בגלל תפיסה מוטעית — הם חושבים שהוא אנונימי. האמת: Bitcoin הוא הכי ניתן למעקב מבין כל אמצעי תשלום דיגיטלי שקיים.</p>
 <p>כשמישהו שולח מזומן — אין רישום. כשמישהו מעביר Bitcoin — כל פרט רשום לנצח: כמה, מתי, מאיזה ארנק, לאיזה ארנק. ה-FBI יכולה להסתכל על עסקה מ-2011 ולעקוב אחריה צעד אחרי צעד עד היום.</p>
-<div class="callout tip">💡 <strong>מזהה-למחצה vs אנונימי:</strong> הכתובת 1A1zP1... לא כותבת "שם: ישראל ישראלי". אבל ברגע שהכתובת קשורה לזהות כלשהי — בורסה, פרסום ברשת, תשלום — כל ההיסטוריה שלה נחשפת. פושעים שוכחים את זה.</div>
+<div class="highlight-quote">💡 <strong>מזהה-למחצה vs אנונימי:</strong> הכתובת 1A1zP1... לא כותבת "שם: ישראל ישראלי". אבל ברגע שהכתובת קשורה לזהות כלשהי — בורסה, פרסום ברשת, תשלום — כל ההיסטוריה שלה נחשפת. פושעים שוכחים את זה.</div>
 </section>
 `; }
     },
@@ -1046,7 +1080,7 @@ Address      →  Hash(Public Key) = כתובת ציבורית</pre></div>
 <tr><td>Credit card</td><td>Bank + VISA</td><td>Zero</td><td>Private company</td></tr>
 <tr><td>Bitcoin</td><td>None</td><td>Full</td><td>The network</td></tr>
 </table>
-<div class="callout tip">💡 <strong>Core idea:</strong> Instead of trusting a bank to say "yes, Alice has $100" — the entire network knows this. Cannot be faked, cannot be doubled.</div>
+<div class="highlight-quote">💡 <strong>Core idea:</strong> Instead of trusting a bank to say "yes, Alice has $100" — the entire network knows this. Cannot be faked, cannot be doubled.</div>
 </section>
 
 <section class="learn-section">
@@ -1141,7 +1175,7 @@ What is the hidden message inside it?</div>
 <div class="callout note">📝 <strong>Task 2 — Ethereum:</strong> Open etherscan.io and search: <code>0xde0B295669a9FD93d5F28D9Ec85E40f4cb697BAe</code><br>
 How much ETH does the wallet hold? Who owns it?</div>
 <div class="callout note">📝 <strong>Task 3 — USDT:</strong> Open tronscan.org and find any USDT-TRC20 wallet from recent news.</div>
-<div class="callout tip">💡 All tools are free and require no registration for intro exercises.</div>
+<div class="highlight-quote">💡 All tools are free and require no registration for intro exercises.</div>
 </section>
 
 <section class="learn-section">
@@ -1161,11 +1195,13 @@ How much ETH does the wallet hold? Who owns it?</div>
       desc: "עסקאות, בלוקים, Hash, Consensus, Bitcoin vs Ethereum",
       sections: ["מה זה בלוקצ'יין?", "בלוק ועסקה", "Hash וחתימה", "Consensus", "Bitcoin vs ETH", "כלי Explorer", "תרגיל מעשי", "שאלות בחינה"],
       content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">🔗</span><h2>בלוקצ'יין — איך עובד</h2><p>בלוקים, hash, consensus — ולמה ממש לא ניתן לשנות היסטוריה.</p></div>
+
 <section class="learn-section">
 <span class="sec-label">01 — מה זה בלוקצ'יין?</span>
 <h2 class="sec-h">בלוקצ'יין — ספר חשבונות מבוזר</h2>
 <p>בלוקצ'יין הוא <strong>מסד נתונים מבוזר</strong> — אין שרת מרכזי. כל משתתף ברשת מחזיק עותק מלא של כל ההיסטוריה. פעם שנכתב — <strong>לא ניתן לשינוי</strong>.</p>
-<div class="callout tip">💡 <strong>אנלוגיה:</strong> ספר חשבונות עם מיליוני עותקים זהים בעולם. לשנות רשומה אחת — צריך לשנות את כולן בו-זמנית. בלתי אפשרי מחשובית.</div>
+<div class="highlight-quote">💡 <strong>אנלוגיה:</strong> ספר חשבונות עם מיליוני עותקים זהים בעולם. לשנות רשומה אחת — צריך לשנות את כולן בו-זמנית. בלתי אפשרי מחשובית.</div>
 <table class="tbl"><tr><th>תכונה</th><th>בנק מסורתי</th><th>בלוקצ'יין</th></tr>
 <tr><td>שליטה</td><td>ריכוזית</td><td>מבוזרת</td></tr>
 <tr><td>שינוי נתונים</td><td>אפשרי</td><td>כמעט בלתי אפשרי</td></tr>
@@ -1186,6 +1222,7 @@ fee:           0.0001 BTC
 confirmations: 6
 block:         820,415</pre></div>
 </section>
+<div class="csteps"><div class="cstep"><div class="cstep-num">1</div><div class="cstep-body"><strong>כל בלוק מכיל Hash של הקודם</strong><span>Hash = טביעת אצבע דיגיטלית. שינוי בלוק אחד = טביעת האצבע שלו משתנה</span></div></div><div class="cstep"><div class="cstep-num">2</div><div class="cstep-body"><strong>כל הבלוקים אחריו נשברים</strong><span>כי ה-Hash שלהם מבוסס על הקודם. שרשרת שנשברה = הרשת דוחה אותה</span></div></div><div class="cstep"><div class="cstep-num">3</div><div class="cstep-body"><strong>לשנות = לרוץ מהר מכל הרשת</strong><span>51% Attack — צריך לחשב מחדש מהר יותר מכל המחשבים ברשת. כמעט בלתי אפשרי ב-Bitcoin</span></div></div></div>
 <section class="learn-section">
 <span class="sec-label">03 — Hash וחתימה</span>
 <h2 class="sec-h">Hash — טביעת האצבע של הנתונים</h2>
@@ -1254,7 +1291,7 @@ SHA256("hello!") = ce06092fb948d9ffac7d1a376e404b26...
 <span class="sec-label">01 — What is Blockchain?</span>
 <h2 class="sec-h">Blockchain — Distributed Ledger</h2>
 <p>A blockchain is a <strong>distributed database</strong> — no central server. Every participant holds a complete copy of all history. Once written, <strong>it cannot be changed</strong>.</p>
-<div class="callout tip">💡 <strong>Analogy:</strong> A ledger with millions of identical copies worldwide. To alter one record you'd need to change them all simultaneously — computationally impossible.</div>
+<div class="highlight-quote">💡 <strong>Analogy:</strong> A ledger with millions of identical copies worldwide. To alter one record you'd need to change them all simultaneously — computationally impossible.</div>
 <table class="tbl"><tr><th>Property</th><th>Traditional Bank</th><th>Blockchain</th></tr>
 <tr><td>Control</td><td>Centralized</td><td>Decentralized</td></tr>
 <tr><td>Data modification</td><td>Possible</td><td>Nearly impossible</td></tr>
@@ -1328,7 +1365,7 @@ SHA256("hello!") = ce06092fb948d9ffac7d1a376e404b26...
 <li>What was the first outgoing transaction?</li>
 <li>How many different tokens are held?</li>
 </ol>
-<div class="callout tip">💡 This is the Ethereum Foundation address — public and documented.</div>
+<div class="highlight-quote">💡 This is the Ethereum Foundation address — public and documented.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">08 — Exam Questions</span>
@@ -1346,7 +1383,9 @@ SHA256("hello!") = ce06092fb948d9ffac7d1a376e404b26...
       name: "ארנקים — סוגים ומבנה",
       desc: "Hot/Cold wallet, Public/Private Key, Seed Phrase, HD Wallet",
       sections: ["מה זה ארנק?", "Public & Private Key", "Seed Phrase", "HD Wallet", "Hot vs Cold", "כלים", "תרגיל", "שאלות"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — מה זה ארנק?</span><h2 class="sec-h">ארנק — לא מחזיק מטבעות</h2><p>ארנק קריפטו <strong>לא מחזיק מטבעות</strong> — הוא מחזיק <strong>מפתחות</strong>. המטבעות תמיד על הבלוקצ'יין. הארנק מאפשר לחתום עסקאות ולהוכיח בעלות.</p><div class="callout tip">💡 ארנק = מחזיק מפתחות לכספת בבנק. הכסף בכספת, לא במחזיק.</div></section>
+      content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">👛</span><h2>ארנקים — סוגים ומבנה</h2><p>Public key, Private key, Seed Phrase — וכיצד חוקרים מנצלים את הידע הזה.</p></div>
+<section class="learn-section"><span class="sec-label">01 — מה זה ארנק?</span><h2 class="sec-h">ארנק — לא מחזיק מטבעות</h2><p>ארנק קריפטו <strong>לא מחזיק מטבעות</strong> — הוא מחזיק <strong>מפתחות</strong>. המטבעות תמיד על הבלוקצ'יין. הארנק מאפשר לחתום עסקאות ולהוכיח בעלות.</p><div class="highlight-quote">💡 ארנק = מחזיק מפתחות לכספת בבנק. הכסף בכספת, לא במחזיק.</div></section>
 <section class="learn-section"><span class="sec-label">02 — Public & Private Key</span><h2 class="sec-h">זוג המפתחות</h2><div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Key Pair</span></div><pre class="code-body">Private Key: 5HueCGU8rMjxECyDqNqNd...  ← לעולם לא לשתף!
      ↓ (פונקציה מתמטית חד-כיוונית)
 Public Key:  04a34b99...
@@ -1358,6 +1397,7 @@ abstract absurd abuse access accident account</pre></div><div class="callout war
  └─ m/44'/0'/0'/0/0  ← BTC address #1
  └─ m/44'/0'/0'/0/1  ← BTC address #2
  └─ m/44'/60'/0'/0/0 ← ETH address #1</pre></div><div class="callout note">📝 <strong>Forensics:</strong> מציאת Seed = מציאת כל הארנקים. בדוק derivation paths נפוצים.</div></section>
+<div class="concept-grid"><div class="concept-card teal"><div class="cc-icon">🌡️</div><div class="cc-title">Hot Wallet</div><div class="cc-desc">מחובר לאינטרנט. נוח לשימוד יומיומי. סיכון גבוה יותר. MetaMask, Trust Wallet.</div></div><div class="concept-card blue"><div class="cc-icon">❄️</div><div class="cc-title">Cold Wallet</div><div class="cc-desc">לא מחובר לאינטרנט. Ledger, Trezor. עדיף לסכומים גדולים.</div></div><div class="concept-card purple"><div class="cc-icon">🏦</div><div class="cc-title">Custodial</div><div class="cc-desc">הבורסה מחזיקה המפתחות. "Not your keys, not your coins".</div></div></div>
 <section class="learn-section"><span class="sec-label">05 — Hot vs Cold</span><h2 class="sec-h">חם מול קר — האבטחה</h2><table class="tbl"><tr><th>סוג</th><th>אינטרנט</th><th>אבטחה</th><th>דוגמאות</th></tr><tr><td><strong>ארנק חם</strong></td><td>כן</td><td>נמוכה</td><td>MetaMask, Trust Wallet</td></tr><tr><td><strong>ארנק קר</strong></td><td>לא</td><td>גבוהה</td><td>Ledger, Trezor, Paper</td></tr><tr><td><strong>Custodial</strong></td><td>כן</td><td>תלוי Exchange</td><td>Binance, Coinbase</td></tr><tr><td><strong>Non-Custodial</strong></td><td>משתנה</td><td>בעל המפתח</td><td>MetaMask, Ledger</td></tr></table></section>
 <section class="learn-section"><span class="sec-label">06 — כשמוצאים Seed Phrase של חשוד</span>
 <h2 class="sec-h">הפעולות הראשונות</h2>
@@ -1370,7 +1410,7 @@ abstract absurd abuse access accident account</pre></div><div class="callout war
 <h2 class="sec-h">מה זה אומר "לאבד גישה"</h2>
 <p>Private Key הוא מספר. מספר אקראי של 256 סיביות. מהמספר הזה נגזרת הכתובת הציבורית שלך. אם תאבד את המספר הזה — הכסף קיים על הבלוקצ'יין לנצח, אבל אף אחד לעולם לא יוכל לגשת אליו.</p>
 <p>ג'יימס האולס מוולס, קרדיף, זרק בטעות דיסק קשיח שהכיל 8,000 BTC ב-2013. כיום הם שווים מאות מיליוני דולרים. הם קיימים — אבל הוא לא יכול לגעת בהם. בית המשפט קבע שאין לו זכות לחפור באתר הפסולת.</p>
-<div class="callout tip">💡 <strong>Seed Phrase — למה 12 מילים?</strong> 12 מילים מתוך רשימה של 2048 מילים = 2048¹² אפשרויות. זה מספר גדול בהרבה מאטומים ביקום הנראה. אי אפשר לנחש.</div>
+<div class="highlight-quote">💡 <strong>Seed Phrase — למה 12 מילים?</strong> 12 מילים מתוך רשימה של 2048 מילים = 2048¹² אפשרויות. זה מספר גדול בהרבה מאטומים ביקום הנראה. אי אפשר לנחש.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">08 — HD Wallet וחשיבותו לחקירה</span>
@@ -1385,7 +1425,7 @@ abstract absurd abuse access accident account</pre></div><div class="callout war
       name: "Wallets — Types & Structure",
       desc: "Hot/Cold wallet, Public/Private key, Seed phrase, HD wallet",
       sections: ["What is a Wallet?", "Public & Private Key", "Seed Phrase", "HD Wallet", "Hot vs Cold", "Tools", "Exercise", "Questions"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — What is a Wallet?</span><h2 class="sec-h">Wallet Doesn't Hold Coins</h2><p>A crypto wallet <strong>doesn't hold coins</strong> — it holds <strong>keys</strong>. Coins always live on the blockchain. The wallet signs transactions and proves ownership.</p><div class="callout tip">💡 Wallet = keychain to a bank vault. Money is in the vault, not in the keychain.</div></section>
+      content: function() { return `<section class="learn-section"><span class="sec-label">01 — What is a Wallet?</span><h2 class="sec-h">Wallet Doesn't Hold Coins</h2><p>A crypto wallet <strong>doesn't hold coins</strong> — it holds <strong>keys</strong>. Coins always live on the blockchain. The wallet signs transactions and proves ownership.</p><div class="highlight-quote">💡 Wallet = keychain to a bank vault. Money is in the vault, not in the keychain.</div></section>
 <section class="learn-section"><span class="sec-label">02 — Public & Private Key</span><h2 class="sec-h">The Key Pair</h2><div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Key Pair</span></div><pre class="code-body">Private Key: 5HueCGU8rMjxECyDqNqNd...  ← NEVER SHARE!
      ↓ (one-way mathematical function)
 Public Key:  04a34b99...
@@ -1410,7 +1450,9 @@ abstract absurd abuse access accident account</pre></div><div class="callout war
       name: "Wallet Domains",
       desc: "ENS, Unstoppable Domains, .eth .crypto — זיהוי ומעקב",
       sections: ["מה זה Wallet Domain?", "ENS", "Unstoppable Domains", "ניתוח Domain", "Domain→Wallet", "כלים", "תרגיל", "שאלות"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — מה זה Wallet Domain?</span><h2 class="sec-h">שם קריא לכתובת ארנק</h2><p>כתובת Ethereum נראית כך: <code>0x742d35Cc6634C0532925a3b8D4C9C3b...</code> — קשה לזכור. <strong>Wallet Domain</strong> = שם קריא שמצביע על כתובת.</p><div class="callout tip">💡 כמו DNS לאינטרנט — <code>alice.eth</code> = כתובת ארנק ספציפית.</div></section>
+      content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">🌐</span><h2>Wallet Domains</h2><p>כשאנשים נותנים שם לכתובת הקריפטו שלהם, הם משאירים רמז שחוקרים יכולים לנצל.</p></div>
+<section class="learn-section"><span class="sec-label">01 — מה זה Wallet Domain?</span><h2 class="sec-h">שם קריא לכתובת ארנק</h2><p>כתובת Ethereum נראית כך: <code>0x742d35Cc6634C0532925a3b8D4C9C3b...</code> — קשה לזכור. <strong>Wallet Domain</strong> = שם קריא שמצביע על כתובת.</p><div class="highlight-quote">💡 כמו DNS לאינטרנט — <code>alice.eth</code> = כתובת ארנק ספציפית.</div></section>
 <section class="learn-section"><span class="sec-label">02 — ENS</span><h2 class="sec-h">Ethereum Name Service</h2><p><strong>ENS</strong> = שירות שמות מבוסס Ethereum. דומיינים מסתיימים ב-<code>.eth</code>. כל domain הוא NFT — ניתן למכור ולהעביר.</p><div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">חיפוש ENS</span></div><pre class="code-body">vitalik.eth → 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</pre></div><div class="callout note">📝 <strong>Forensics:</strong> רישום ENS on-chain — ניתן לראות מי רשם, מתי, ולאיזה ארנק מצביע.</div></section>
 <section class="learn-section"><span class="sec-label">03 — Unstoppable Domains</span><h2 class="sec-h">דומיינים ללא חידוש</h2><table class="tbl"><tr><th>שירות</th><th>סיומות</th><th>רשת</th></tr><tr><td>ENS</td><td>.eth</td><td>Ethereum</td></tr><tr><td>Unstoppable</td><td>.crypto .nft .wallet .x .dao</td><td>Polygon/ETH</td></tr><tr><td>Bonfida</td><td>.sol</td><td>Solana</td></tr></table><p>Unstoppable Domains: תשלום חד-פעמי, ללא חידוש שנתי.</p></section>
 <section class="learn-section"><span class="sec-label">04 — ניתוח Domain</span><h2 class="sec-h">מה דומיין חושף בחקירה</h2><p>Domain יכול לחשוף: ארנק המחובר לדומיין, ארנק ששילם דמי הרישום, היסטוריית שינויי resolver, קשרים לדומיינים אחרים.</p></section>
@@ -1422,14 +1464,14 @@ provider.lookupAddress("0xd8dA6B...")</pre></div></section>
 <h2 class="sec-h">הבלוקצ'יין זוכר הכל</h2>
 <p>כשמישהו רושם ENS domain — הוא משלם מארנק מסוים. אותו ארנק = הבעלים. ב-Etherscan רואים: מי רשם, מתי, לאיזה ארנק הצביע, מתי זה השתנה.</p>
 <p>Reverse ENS: תן כתובת ארנק, קבל את ה-domain שלה. לפעמים אנשים שוכחים שרשמו domain עם שם מזהה — ושם מחכה הרמז.</p>
-<div class="callout tip">💡 etherscan.io/enslookup — הכניסו שם domain, קבלו כתובת ואת כל ההיסטוריה שלה.</div>
+<div class="highlight-quote">💡 etherscan.io/enslookup — הכניסו שם domain, קבלו כתובת ואת כל ההיסטוריה שלה.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">07 — ENS כנכס חקירתי</span>
 <h2 class="sec-h">כשאנשים נותנים שם לארנק שלהם</h2>
 <p>אנשים רושמים ENS domain מאותה סיבה שהם בוחרים שם משתמש — זה ייצוגי, קל לזכור, ולפעמים מכיל פרטים מזהים. vitalik.eth, cryptopunk7804.eth, alice.eth — כל אחד מאלה מחובר לכתובת ולזהות פוטנציאלית.</p>
 <p>ה-ENS registry הוא חוזה חכם ציבורי. כל רישום, כל העברה, כל שינוי resolver — הכל מתועד על הבלוקצ'יין. ניתן לראות מי שילם עבור הרישום, מתי, ולאיזה ארנק.</p>
-<div class="callout tip">💡 <strong>Reverse ENS:</strong> קח כתובת ארנק חשודה → חפש ב-Etherscan → אם יש ENS רשום לכתובת, הוא יופיע. לפעמים אנשים שוכחים שרשמו domain עם שם אמיתי.</div>
+<div class="highlight-quote">💡 <strong>Reverse ENS:</strong> קח כתובת ארנק חשודה → חפש ב-Etherscan → אם יש ENS רשום לכתובת, הוא יופיע. לפעמים אנשים שוכחים שרשמו domain עם שם אמיתי.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">08 — שרשרת הרמזים</span>
@@ -1444,7 +1486,7 @@ provider.lookupAddress("0xd8dA6B...")</pre></div></section>
       name: "Wallet Domains",
       desc: "ENS, Unstoppable Domains, .eth .crypto — identification & tracking",
       sections: ["What is a Wallet Domain?", "ENS", "Unstoppable Domains", "Domain Analysis", "Domain→Wallet", "Tools", "Exercise", "Questions"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — What is a Wallet Domain?</span><h2 class="sec-h">Human-Readable Wallet Address</h2><p>An Ethereum address looks like: <code>0x742d35Cc6634C0532925a3b8D4C9C3b...</code> — hard to remember. A <strong>Wallet Domain</strong> = readable name pointing to an address.</p><div class="callout tip">💡 Like DNS for the internet — <code>alice.eth</code> = a specific wallet address.</div></section>
+      content: function() { return `<section class="learn-section"><span class="sec-label">01 — What is a Wallet Domain?</span><h2 class="sec-h">Human-Readable Wallet Address</h2><p>An Ethereum address looks like: <code>0x742d35Cc6634C0532925a3b8D4C9C3b...</code> — hard to remember. A <strong>Wallet Domain</strong> = readable name pointing to an address.</p><div class="highlight-quote">💡 Like DNS for the internet — <code>alice.eth</code> = a specific wallet address.</div></section>
 <section class="learn-section"><span class="sec-label">02 — ENS</span><h2 class="sec-h">Ethereum Name Service</h2><p><strong>ENS</strong> = Ethereum-based naming service. Domains end in <code>.eth</code>. Each domain is an NFT — can be sold and transferred.</p><div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">חיפוש ENS</span></div><pre class="code-body">vitalik.eth → 0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</pre></div><div class="callout note">📝 <strong>Forensics:</strong> ENS registration is on-chain — see who registered, when, which wallet it points to.</div></section>
 <section class="learn-section"><span class="sec-label">03 — Unstoppable Domains</span><h2 class="sec-h">No-Renewal Domains</h2><table class="tbl"><tr><th>Service</th><th>TLDs</th><th>Network</th></tr><tr><td>ENS</td><td>.eth</td><td>Ethereum</td></tr><tr><td>Unstoppable</td><td>.crypto .nft .wallet .x .dao</td><td>Polygon/ETH</td></tr><tr><td>Bonfida</td><td>.sol</td><td>Solana</td></tr></table><p>Unstoppable Domains: one-time payment, no annual renewal.</p></section>
 <section class="learn-section"><span class="sec-label">04 — Domain Analysis</span><h2 class="sec-h">What a Domain Reveals</h2><p>A domain can reveal: wallet linked to the domain, wallet that paid registration fees, historical resolver changes, connections to other domains.</p></section>
@@ -1464,7 +1506,9 @@ provider.lookupAddress("0xd8dA6B...")</pre></div></section>
       name: "On-Chain Analysis",
       desc: "מעקב עסקאות, UTXO, Gas, Etherscan — עקוב אחר הכסף",
       sections: ["On-Chain Analysis", "UTXO vs Account", "קריאת עסקה", "Gas & Fees", "מעקב כספים", "כלים", "תרגיל", "שאלות"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — On-Chain Analysis</span><h2 class="sec-h">On-Chain Analysis</h2><p>כאשר תוקף גונב כספים, הוא חייב להעביר אותם. כל עסקה משאירה עקבות על הבלוקצ'יין — עקוב אחר הכסף.</p></section>
+      content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">🔍</span><h2>On-Chain Analysis</h2><p>כיצד קוראים עסקה, עוקבים אחרי כסף, ומבינים מה Gas אומר על כוונות שולח.</p></div>
+<section class="learn-section"><span class="sec-label">01 — On-Chain Analysis</span><h2 class="sec-h">On-Chain Analysis</h2><p>כאשר תוקף גונב כספים, הוא חייב להעביר אותם. כל עסקה משאירה עקבות על הבלוקצ'יין — עקוב אחר הכסף.</p></section>
 <section class="learn-section"><span class="sec-label">02 — UTXO vs Account</span><h2 class="sec-h">UTXO Model ו-Account Model</h2><p>Bitcoin: <strong>UTXO</strong> (Unspent Transaction Output) — כל "מטבע" הוא UTXO עם היסטוריה. קלטים נצרכים, פלטים חדשים נוצרים. Ethereum: Account Model — יתרה פשוטה כמו בנק.</p></section>
 <section class="learn-section"><span class="sec-label">03 — קריאת עסקה</span><h2 class="sec-h">כיצד לקרוא עסקה</h2><div class="code-block"><div class="code-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="code-title">Etherscan TX</span></div><pre class="code-body">From:   0xSender...
 To:     0xContract...
@@ -1477,14 +1521,14 @@ Status: Success ✓</pre></div></section>
 <section class="learn-section"><span class="sec-label">06 — הכלים שמשתמשים בהם</span>
 <h2 class="sec-h">ארגז הכלים של חוקר קריפטו</h2>
 <p>כל חקירה מתחילה עם Etherscan או Blockchain.com — חינמיים, מיידיים. Blockchair מוסיף חיפוש רב-שרשרת. כשצריך ראיות לבית משפט — Chainalysis עם ייחוס אוטומטי ותיוג בורסות.</p>
-<div class="callout tip">💡 <strong>כלל:</strong> תתחיל חינמי. 80% מהשאלות נפתרות עם Etherscan + Blockchair בלבד.</div>
+<div class="highlight-quote">💡 <strong>כלל:</strong> תתחיל חינמי. 80% מהשאלות נפתרות עם Etherscan + Blockchair בלבד.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">07 — עקוב אחר הכסף — בפועל</span>
 <h2 class="sec-h">כיצד זה נראה בחקירה אמיתית</h2>
 <p>ב-2022, פרוטוקול Ronin (הבלוקצ'יין של Axie Infinity) נפרץ. $620 מיליון נגנבו. FBI ייחסה זאת ל-Lazarus Group מצפון קוריאה. כיצד? עקבו אחר הכסף.</p>
 <p>הכסף עבר דרך עשרות כתובות, שני מיקסרים, ולבסוף חלק הגיע ל-Blender.io (מיקסר). ה-OFAC הטיל סנקציות על Blender. ה-FBI המשיך לעקוב ומצא שחלק ממונחים ב-Tornado Cash. גם שם הוטלו סנקציות.</p>
-<div class="callout tip">💡 <strong>הכלל הפשוט:</strong> כסף חייב לצאת מהבלוקצ'יין בשלב מסוים — להמרה למזומן. ברגע שמגיע לבורסה עם KYC — יש שם. תמיד עקוב עד לנקודת היציאה.</div>
+<div class="highlight-quote">💡 <strong>הכלל הפשוט:</strong> כסף חייב לצאת מהבלוקצ'יין בשלב מסוים — להמרה למזומן. ברגע שמגיע לבורסה עם KYC — יש שם. תמיד עקוב עד לנקודת היציאה.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">08 — Gas כשפה חקירתית</span>
@@ -1521,22 +1565,26 @@ Status: Success ✓</pre></div></section>
       name: "זיהוי בעלי ארנקים",
       desc: "Clustering, Address Reuse, KYC Leaks, Attribution",
       sections: ["Attribution", "Address Reuse", "Clustering", "Exchange Attribution", "KYC Leaks", "כלים", "תרגיל", "שאלות"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — Attribution</span><h2 class="sec-h">זיהוי בעלי ארנקים</h2><p>Blockchain שקוף — אבל לא מזוהה. ייחוס = קישור כתובת לאדם/ארגון. זו ליבת הפורנזיקה הקריפטוגרפית.</p></section>
+      content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">🕵️</span><h2>זיהוי בעלי ארנקים</h2><p>Address reuse, clustering, KYC leaks — הטכניקות לזיהוי מי מאחורי ארנק אנונימי.</p></div>
+<section class="learn-section"><span class="sec-label">01 — Attribution</span><h2 class="sec-h">זיהוי בעלי ארנקים</h2><p>Blockchain שקוף — אבל לא מזוהה. ייחוס = קישור כתובת לאדם/ארגון. זו ליבת הפורנזיקה הקריפטוגרפית.</p></section>
 <section class="learn-section"><span class="sec-label">02 — Address Reuse</span><h2 class="sec-h">שימוש חוזר בכתובת</h2><p>שימוש חוזר באותה כתובת → קל יותר לקשר פעילות. שיטת העבודה המומלצת: כתובת חדשה לכל עסקה. שימוש חוזר = כשלון פרטיות — ומתנה לחוקר.</p></section>
+<div class="highlight-quote">🔍 <strong>Clustering:</strong> אם שתי כתובות חתמו על אותה עסקה — כנראה שאותו אדם שולט בשתיהן. זה הבסיס של UTXO clustering ב-Bitcoin.</div>
+<div class="highlight-quote">🔍 <strong>Clustering:</strong> אם שתי כתובות חתמו על אותה עסקה — כנראה שאותו אדם שולט בשתיהן. הבסיס של UTXO clustering ב-Bitcoin.</div>
 <section class="learn-section"><span class="sec-label">03 — Clustering</span><h2 class="sec-h">קיבוץ כתובות</h2><p><strong>כלל אצבע 1 — הוצאה משותפת:</strong> קלטים של אותה עסקה = אותו בעלים.<br><strong>כלל אצבע 2 — Change address:</strong> output קטן ביותר = עודף חוזר לשולח.<br>משמש: Chainalysis, Elliptic, CipherTrace.</p></section>
 <section class="learn-section"><span class="sec-label">04 — Exchange Attribution</span><h2 class="sec-h">זיהוי דרך Exchange</h2><p>כתובות ארנק חם של exchanges מסומנות ב-Etherscan. הפקדה לexchange → KYC נדרש → exchange יודע מי. Subpoena = זהות מלאה.</p></section>
 <section class="learn-section"><span class="sec-label">05 — KYC Leaks</span><h2 class="sec-h">דליפות מסדי נתונים</h2><p>מסדי נתונים דלופים של exchanges (Binance 2019, Ledger 2020) מכילים: כתובת email, טלפון, כתובת פיזית → ארנק. מכרה זהב לOSINT.</p></section>
 <section class="learn-section"><span class="sec-label">06 — הכלים שמשתמשים בהם</span>
 <h2 class="sec-h">ארגז הכלים של חוקר קריפטו</h2>
 <p>כל חקירה מתחילה עם Etherscan או Blockchain.com — חינמיים, מיידיים. Blockchair מוסיף חיפוש רב-שרשרת. כשצריך ראיות לבית משפט — Chainalysis עם ייחוס אוטומטי ותיוג בורסות.</p>
-<div class="callout tip">💡 <strong>כלל:</strong> תתחיל חינמי. 80% מהשאלות נפתרות עם Etherscan + Blockchair בלבד.</div>
+<div class="highlight-quote">💡 <strong>כלל:</strong> תתחיל חינמי. 80% מהשאלות נפתרות עם Etherscan + Blockchair בלבד.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">07 — Clustering בפשטות</span>
 <h2 class="sec-h">כיצד קוראים לארנקים "אחים"</h2>
 <p>הכלל הפשוט: אם שתי כתובות הוציאו כסף בעסקה אחת — כנראה שאותו אדם שולט בשתיהן. זה כי כדי לחתום על עסקה, צריך את ה-Private Key. אי אפשר לחתום על שתי כתובות בעסקה אחת אלא אם יש לך שני המפתחות.</p>
 <p>חברות כמו Chainalysis עושות זאת בקנה מידה של מיליארדי עסקאות. הן בונות "מפה" של הבלוקצ'יין שבה כל אשכול ארנקים מזוהה כישות אחת — בורסה, שירות, אדם פרטי.</p>
-<div class="callout tip">💡 <strong>דוגמה:</strong> כתובת A שלחה לכתובת B. כתובת A גם שלחה לכתובת C. B ו-C גם הוציאו ביחד בעסקה. המסקנה: A, B, C — אותו אדם. זה Clustering.</div>
+<div class="highlight-quote">💡 <strong>דוגמה:</strong> כתובת A שלחה לכתובת B. כתובת A גם שלחה לכתובת C. B ו-C גם הוציאו ביחד בעסקה. המסקנה: A, B, C — אותו אדם. זה Clustering.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">08 — ה-KYC כנקודת חולשה</span>
@@ -1568,7 +1616,9 @@ Status: Success ✓</pre></div></section>
       name: "Scam Wallets — זיהוי",
       desc: "שליפת שטיח, מלכודת דבש, הונאת שחיטת חזיר — זיהוי ארנקים חשודים",
       sections: ["סוגי הונאות", "שליפת שטיח", "מלכודת דבש", "הונאת שחיטת חזיר", "Red Flags", "כלים", "תרגיל", "שאלות"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — סוגי הונאות</span><h2 class="sec-h">Scam Wallets — זיהוי</h2><p>מיליארדי דולרים נגנבים מדי שנה ב-Crypto scams. זיהוי מוקדם = הגנה על קורבנות.</p></section>
+      content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">🚨</span><h2>Scam Wallets — זיהוי</h2><p>שליפת שטיח, מלכודת דבש, שחיטת חזיר — כיצד לזהות ולחקור הונאות קריפטו.</p></div>
+<section class="learn-section"><span class="sec-label">01 — סוגי הונאות</span><h2 class="sec-h">Scam Wallets — זיהוי</h2><p>מיליארדי דולרים נגנבים מדי שנה ב-Crypto scams. זיהוי מוקדם = הגנה על קורבנות.</p></section>
 <section class="learn-section"><span class="sec-label">02 — שליפת שטיח</span><h2 class="sec-h">שליפת שטיח — שלב השוק</h2><p>מפתח יוצר מטבע → מנפח את המחיר דרך רשתות חברתיות → מסיר נזילות → מחיר קורס לאפס. סימני אזהרה: צוות אנונימי, אין ביקורת קוד, נזילות לא נעולה לטווח ארוך.</p></section>
 <section class="learn-section"><span class="sec-label">03 — מלכודת דבש</span><h2 class="sec-h">מלכודת דבש — מלכודת</h2><p>חוזה חכם (Smart Contract) מאפשר קנייה אבל חוסם מכירה (קוד נסתר). קורבנות יכולים להיכנס אבל לא לצאת. בדוק תמיד קוד contract לפני קנייה.</p><div class="callout warn">⚠️ כלי זיהוי: honeypot.is, TokenSniffer</div></section>
 <section class="learn-section"><span class="sec-label">04 — הונאת שחיטת חזיר</span><h2 class="sec-h">הונאת שחיטת חזיר — הונאת מערכת יחסים</h2><p>הונאת מערכת יחסים ארוכת-טווח (אפליקציית היכרויות, Telegram, WhatsApp) → קורבן "משקיע" בפלטפורמה מזויפת → "רווחים" מדומים → הפסד הכל. מיליארדים אבדו בעולם.</p></section>
@@ -1576,14 +1626,14 @@ Status: Success ✓</pre></div></section>
 <section class="learn-section"><span class="sec-label">06 — הכלים שמשתמשים בהם</span>
 <h2 class="sec-h">ארגז הכלים של חוקר קריפטו</h2>
 <p>כל חקירה מתחילה עם Etherscan או Blockchain.com — חינמיים, מיידיים. Blockchair מוסיף חיפוש רב-שרשרת. כשצריך ראיות לבית משפט — Chainalysis עם ייחוס אוטומטי ותיוג בורסות.</p>
-<div class="callout tip">💡 <strong>כלל:</strong> תתחיל חינמי. 80% מהשאלות נפתרות עם Etherscan + Blockchair בלבד.</div>
+<div class="highlight-quote">💡 <strong>כלל:</strong> תתחיל חינמי. 80% מהשאלות נפתרות עם Etherscan + Blockchair בלבד.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">07 — מה שלא מלמדים אותך</span>
 <h2 class="sec-h">הסכנות הפחות מוכרות</h2>
 <p>מעבר לשליפת שטיח ומלכודת הדבש — יש הונאות עדינות יותר. <strong>Pig Butchering</strong> (הונאת שחיטת חזיר) לקחה $75 מיליארד ב-2023 לבדה. זה לא אנונימי של ברשת — זה חודשים של בניית אמון אנושי לפני הגניבה.</p>
 <p>ה-Red Flag שעובד: אם פלטפורמה מבטיחה רווחים מובטחים — צא מיד. אם לא ניתן למשוך כסף בחופשיות — מלכודת. אם ה-APY מעל 100% — אמתמטית בלתי אפשרי לאורך זמן.</p>
-<div class="callout tip">💡 <strong>כלי חינמי:</strong> honeypot.is — הכניסו כתובת חוזה לפני שאתם קונים token. הכלי בודק אם קיים חסם מכירה בקוד.</div>
+<div class="highlight-quote">💡 <strong>כלי חינמי:</strong> honeypot.is — הכניסו כתובת חוזה לפני שאתם קונים token. הכלי בודק אם קיים חסם מכירה בקוד.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">08 — כיצד חוקרים Scam Wallet</span>
@@ -1615,7 +1665,10 @@ Status: Success ✓</pre></div></section>
       name: "מיקסרים ו-Tumbling",
       desc: "Tornado Cash, CoinJoin, שרשרת קילוף — הסתרה ומעקב",
       sections: ["מיקסר", "Tornado Cash", "CoinJoin", "שרשרת קילוף", "מעקב אחרי Mixing", "כלים", "תרגיל", "שאלות"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — מיקסר</span><h2 class="sec-h">מיקסרים ו-Tumbling</h2><p>מיקסר = שירות שמערבב כספים ממקורות שונים כדי לשבור את שרשרת הראיות. שימוש = דגל אדום לחוקרים.</p></section>
+      content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">🌊</span><h2>מיקסרים ו-Tumbling</h2><p>Tornado Cash, CoinJoin — כיצד פושעים מנסים לנקות כסף, וכיצד חוקרים עוקבים בכל זאת.</p></div>
+<section class="learn-section"><span class="sec-label">01 — מיקסר</span><h2 class="sec-h">מיקסרים ו-Tumbling</h2><p>מיקסר = שירות שמערבב כספים ממקורות שונים כדי לשבור את שרשרת הראיות. שימוש = דגל אדום לחוקרים.</p></section>
+<div class="story-box"><span class="story-icon">🌊</span><p><strong>Tornado Cash — הסיפור המלא</strong></p><p>ב-2022, ה-OFAC הכניסה את Tornado Cash לרשימת הסנקציות — פעם ראשונה בהיסטוריה שממשלת ארה"ב מסמנת קוד קוד-פתוח כישות מסודנקת. המייסדים נאסרו. הוויכוח על גבולות הרגולציה עדיין נמשך.</p></div>
 <section class="learn-section"><span class="sec-label">02 — Tornado Cash</span><h2 class="sec-h">Tornado Cash — מיקסר Smart Contract</h2><p>מיקסר Smart Contract על Ethereum. סכומים קבועים: 0.1/1/10/100 ETH. הפקדה עם קוד אישי → משיכה עם הוכחה קריפטוגרפית ללא קשר לdeposit. <strong>הוטלה סנקציה OFAC אוגוסט 2022.</strong></p></section>
 <section class="learn-section"><span class="sec-label">03 — CoinJoin</span><h2 class="sec-h">CoinJoin — מיקסינג Bitcoin</h2><p>Bitcoin: משתמשים מרובים מאחדים inputs בעסקה אחת → outputs לכתובות שונות. Wasabi Wallet, JoinMarket. ניתן לזהות: מתאם סכומים, round amounts.</p></section>
 <section class="learn-section"><span class="sec-label">04 — שרשרת קילוף</span><h2 class="sec-h">שרשרת קילוף — שרשרת הצלפה</h2><p>העברת כספים hop-by-hop דרך ארנקים ביניים רבים. כל עצירה מנגבת סכום קטן כ"עודף". ליצור גרף → מצא אשכול ארנק סופי.</p></section>
@@ -1623,14 +1676,14 @@ Status: Success ✓</pre></div></section>
 <section class="learn-section"><span class="sec-label">06 — הכלים שמשתמשים בהם</span>
 <h2 class="sec-h">ארגז הכלים של חוקר קריפטו</h2>
 <p>כל חקירה מתחילה עם Etherscan או Blockchain.com — חינמיים, מיידיים. Blockchair מוסיף חיפוש רב-שרשרת. כשצריך ראיות לבית משפט — Chainalysis עם ייחוס אוטומטי ותיוג בורסות.</p>
-<div class="callout tip">💡 <strong>כלל:</strong> תתחיל חינמי. 80% מהשאלות נפתרות עם Etherscan + Blockchair בלבד.</div>
+<div class="highlight-quote">💡 <strong>כלל:</strong> תתחיל חינמי. 80% מהשאלות נפתרות עם Etherscan + Blockchair בלבד.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">07 — Tornado Cash — הסיפור המלא</span>
 <h2 class="sec-h">מה קרה באמת</h2>
 <p>Tornado Cash נוצר כחוזה חכם ב-2019 על ידי Roman Storm ו-Roman Semenov. הרעיון: שלם ETH בסכום קבוע, קבל "קוד משיכה" — ומשוך מכתובת חדשה. הקשר בין הפקדה למשיכה נשבר.</p>
 <p>$7 מיליארד עברו דרכו. קבוצת Lazarus מצפון קוריאה השתמשה בו אחרי פריצת Ronin ($620M). באוגוסט 2022 — OFAC הטיל סנקציות על הכתובות. מפתח נעצר בהולנד. Roman Storm עצור בארה"ב. הקוד עדיין רץ — אין דרך לעצור חוזה שכבר deployed.</p>
-<div class="callout tip">💡 <strong>De-mixing:</strong> Chainalysis טוענת שמצליחה לבצע de-mix על 80% מהעסקאות. הסוד: מתאם זמנים. אם הפקדת בשישי ב-14:23 ומשכת בשישי ב-14:51 — המספר האפשרי של משתמשים בחלון הזה קטן מאוד.</div>
+<div class="highlight-quote">💡 <strong>De-mixing:</strong> Chainalysis טוענת שמצליחה לבצע de-mix על 80% מהעסקאות. הסוד: מתאם זמנים. אם הפקדת בשישי ב-14:23 ומשכת בשישי ב-14:51 — המספר האפשרי של משתמשים בחלון הזה קטן מאוד.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">08 — שרשרת הקילוף — כיצד לזהות</span>
@@ -1662,7 +1715,9 @@ Status: Success ✓</pre></div></section>
       name: "Exchanges — CEX & DEX",
       desc: "CEX vs DEX, KYC, Exchange Deposits, Bridge Transactions",
       sections: ["CEX vs DEX", "Exchange Deposits", "DEX Swaps", "Bridge Transactions", "KYC & Withdrawal", "כלים", "תרגיל", "שאלות"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — CEX vs DEX</span><h2 class="sec-h">Exchanges — CEX & DEX</h2><p>Exchange = שער בין עולם הקריפטו למטבע רגיל (פיאט). CEX עם KYC = פוטנציאל זיהוי. DEX = אנונימי אבל גלוי.</p></section>
+      content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">🏦</span><h2>Exchanges — CEX & DEX</h2><p>KYC, Travel Rule, ומדוע משיכה לבנק היא תמיד נקודת הסיכון הגדולה ביותר.</p></div>
+<section class="learn-section"><span class="sec-label">01 — CEX vs DEX</span><h2 class="sec-h">Exchanges — CEX & DEX</h2><p>Exchange = שער בין עולם הקריפטו למטבע רגיל (פיאט). CEX עם KYC = פוטנציאל זיהוי. DEX = אנונימי אבל גלוי.</p></section>
 <section class="learn-section"><span class="sec-label">02 — CEX vs DEX</span><h2 class="sec-h">Centralized vs Decentralized</h2><table class="tbl"><tr><th></th><th>CEX</th><th>DEX</th></tr><tr><td>KYC</td><td>✅ חובה</td><td>❌ אין</td></tr><tr><td>משמורת</td><td>הבורסה</td><td>עצמאית</td></tr><tr><td>פרטיות</td><td>נמוכה</td><td>גבוהה (אבל גלוי)</td></tr><tr><td>דוגמאות</td><td>Binance, Coinbase</td><td>Uniswap, dYdX</td></tr></table></section>
 <section class="learn-section"><span class="sec-label">03 — Exchange Deposits</span><h2 class="sec-h">זיהוי הפקדות לExchange</h2><p>כתובות ארנק פעיל ידועות של exchanges מסומנות ב-Etherscan. הפקדה לExchange → KYC trigger → Subpoena אפשרי. Chainalysis מחזיק מאגר של אלפי כתובות Exchange.</p></section>
 <section class="learn-section"><span class="sec-label">04 — DEX Swaps</span><h2 class="sec-h">Swap ב-DEX</h2><p>Uniswap: swap ETH↔token דרך liquidity pool. Etherscan → TX → Logs: Transfer events. כל swap גלוי: amount_in, amount_out, pair, slippage.</p></section>
@@ -1673,7 +1728,7 @@ Status: Success ✓</pre></div></section>
 <h2 class="sec-h">למה CEX הוא נקודת הכניעה של פושעים</h2>
 <p>הדרך היחידה להמיר קריפטו לכסף "אמיתי" היא דרך בורסה מרכזית. ובורסה מרכזית חייבת לפי חוק FATF לדעת מי הלקוח שלה. ID, סלפי, כתובת — הכל שמור.</p>
 <p>בפרשת Bitfinex Hack (2016) — גנבו 119,754 BTC. הכסף ישב שנים. ב-2022, כשאיליה ליכטנשטיין וחברתו הת'ר מורגן ניסו להמיר דרך בורסות — נתפסו. ה-FBI עקב אחרי כל העסקה מ-2016 עד 2022.</p>
-<div class="callout tip">💡 <strong>Travel Rule (FATF):</strong> מאז 2023, בורסות חייבות לשתף מידע אחת עם השנייה כשמעבירים מעל $1000. כך אם שולחים מ-Binance ל-Kraken — Kraken יכולה לדעת מי שלח.</div>
+<div class="highlight-quote">💡 <strong>Travel Rule (FATF):</strong> מאז 2023, בורסות חייבות לשתף מידע אחת עם השנייה כשמעבירים מעל $1000. כך אם שולחים מ-Binance ל-Kraken — Kraken יכולה לדעת מי שלח.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">08 — DEX — אנונימי אבל גלוי</span>
@@ -1711,7 +1766,9 @@ Status: Success ✓</pre></div></section>
       name: "NFT ו-Smart Contracts",
       desc: "Wash Trading, Reentrancy, Flash Loan, Contract Analysis",
       sections: ["NFT Basics", "Wash Trading", "Smart Contract קריאה", "Reentrancy", "Flash Loan Attack", "כלים", "תרגיל", "שאלות"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — NFT Basics</span><h2 class="sec-h">NFT ו-Smart Contracts</h2><p>NFTs ו-Smart Contracts פתחו אפשרויות חדשות — גם לשימוש לגיטימי וגם לניצול. הבנת הקוד = כוח בחקירה.</p></section>
+      content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">🎨</span><h2>NFT ו-Smart Contracts</h2><p>Wash trading, Flash loans, הלבנת כסף דרך NFT — ואיך קוראים Smart Contract בסיסי.</p></div>
+<section class="learn-section"><span class="sec-label">01 — NFT Basics</span><h2 class="sec-h">NFT ו-Smart Contracts</h2><p>NFTs ו-Smart Contracts פתחו אפשרויות חדשות — גם לשימוש לגיטימי וגם לניצול. הבנת הקוד = כוח בחקירה.</p></section>
 <section class="learn-section"><span class="sec-label">02 — NFT Basics</span><h2 class="sec-h">ERC-721 ו-NFTs</h2><p>ERC-721: token ID ייחודי, בעלים יחיד. ERC-1155: multi-token. מטאדאטה: כתובת המצביעה לתמונה/תכונות. OpenSea, Blur, LooksRare = מרקטפלייסים.</p></section>
 <section class="learn-section"><span class="sec-label">03 — Wash Trading</span><h2 class="sec-h">Wash Trading — נפח מסחר מזויף</h2><p>מוכר וקונה = אותה ישות (ארנקים שונים). מנפח volume/היסטוריית מחיר. זיהוי: cluster analysis, זרימות מעגליות, אותה IP/גורם מממן.</p></section>
 <section class="learn-section"><span class="sec-label">04 — Smart Contract קריאה</span><h2 class="sec-h">קריאת קוד Contract</h2><p>Etherscan → לשונית Contract → Read Contract: <code>totalSupply()</code>, <code>ownerOf(tokenId)</code>, <code>balanceOf()</code>. Events: <code>Transfer(from, to, tokenId)</code>. Source vs bytecode.</p></section>
@@ -1722,7 +1779,7 @@ Status: Success ✓</pre></div></section>
 <h2 class="sec-h">הכוח והסכנה</h2>
 <p>חוזה חכם שעלה ל-Ethereum — לא ניתן לשינוי. לנצח. זה היתרון (אי אפשר להתנכר מהסכם) וגם הסכנה הגדולה (אי אפשר לתקן באג לאחר הפריסה). ב-DAO Hack 2016 — הבאג היה בקוד, הכסף יצא, ולא ניתן היה לעצור.</p>
 <p>הפתרון שנבחר אז היה ב-Ethereum Fork — פיצול הרשת. זו ההחלטה השנויה במחלוקת ביותר בהיסטוריה של Ethereum. חלק סירבו — הם ממשיכים כ-Ethereum Classic.</p>
-<div class="callout tip">💡 <strong>לחוקר:</strong> כשחוזה נפרץ — כל הפעולות קיימות על הבלוקצ'יין. ניתן לראות בדיוק אילו פונקציות נקראו, מאיזה ארנק, ובאיזה סכום. זה trail מלא.</div>
+<div class="highlight-quote">💡 <strong>לחוקר:</strong> כשחוזה נפרץ — כל הפעולות קיימות על הבלוקצ'יין. ניתן לראות בדיוק אילו פונקציות נקראו, מאיזה ארנק, ובאיזה סכום. זה trail מלא.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">08 — NFT כהלבנת כסף</span>
@@ -1760,7 +1817,9 @@ Status: Success ✓</pre></div></section>
       name: "Cross-Chain Tracing",
       desc: "Bridges, Atomic Swaps, Layer 2, Wrapped Tokens — מעקב בין רשתות",
       sections: ["Multi-chain Challenge", "Bridge Analysis", "Atomic Swaps", "Layer 2 Tracing", "Wrapped Tokens", "כלים", "תרגיל", "שאלות"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — Multi-chain Challenge</span><h2 class="sec-h">Cross-Chain Tracing</h2><p>עסקאות חוצות רשתות — האתגר הגדול ביותר בBlockchain Forensics כיום. נכסים עוברים בין ETH, BSC, Solana, Polygon ועוד.</p></section>
+      content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">🌉</span><h2>Cross-Chain Tracing</h2><p>כסף שעובר בין בלוקצ'יינים — גשרים, Atomic Swaps, Layer 2 — ואיך עוקבים אחריו.</p></div>
+<section class="learn-section"><span class="sec-label">01 — Multi-chain Challenge</span><h2 class="sec-h">Cross-Chain Tracing</h2><p>עסקאות חוצות רשתות — האתגר הגדול ביותר בBlockchain Forensics כיום. נכסים עוברים בין ETH, BSC, Solana, Polygon ועוד.</p></section>
 <section class="learn-section"><span class="sec-label">02 — Multi-chain Challenge</span><h2 class="sec-h">אותו אדם, רשתות שונות</h2><p>אסטרטגיה: עקוב אחרי <strong>סכומים ותזמונים</strong> בין רשתות, לא רק כתובות. כתובות שונות בכל רשת — אבל תבניות פעולה חוזרות.</p></section>
 <section class="learn-section"><span class="sec-label">03 — Bridge Analysis</span><h2 class="sec-h">ניתוח גשר</h2><p>גשר: נעילה בשרשרת A → טביעה בשרשרת B. עקוב: כתובת deposit ב-A + כתובת withdrawal ב-B + סכום + תזמון. כלים: LayerZero Scan, Stargate Analytics.</p></section>
 <section class="learn-section"><span class="sec-label">04 — Atomic Swaps</span><h2 class="sec-h">Atomic Swaps — חוצה רשת</h2><p>Swap חוצה-רשת ללא מתווך: Hash Time Locked Contracts (HTLC). שתי הצדדים חייבים לאשר בתוך זמן נקוב. שומר פרטיות — אין כתובת bridge לסמן.</p></section>
@@ -1771,7 +1830,7 @@ Status: Success ✓</pre></div></section>
 <h2 class="sec-h">כשכסף חוצה גבולות דיגיטליים</h2>
 <p>גשרים הם הממשק בין בלוקצ'יינים. נועלים ETH ב-Ethereum, טובעים WETH ב-Polygon. מכאן הסיכון: החוזה שנועל הכסף מחזיק מאות מיליוני דולרים — מטרה אידיאלית לפריצה.</p>
 <p>Ronin (Axie Infinity) 2022: $620M. Wormhole 2022: $320M. Nomad 2022: $190M. שלוש הפריצות הגדולות של 2022 — כולן גשרים. הסיבה: הקוד מורכב, ממשקים בין מערכות, וסכומים עצומים.</p>
-<div class="callout tip">💡 <strong>לחוקר:</strong> גשר transaction = שתי עסקאות: הפקדה בשרשרת A ומשיכה בשרשרת B. מתאם לפי סכום + תזמון. Stargate Analytics ו-LayerZero Scan עוזרים. שתי הצדדים תמיד גלויים.</div>
+<div class="highlight-quote">💡 <strong>לחוקר:</strong> גשר transaction = שתי עסקאות: הפקדה בשרשרת A ומשיכה בשרשרת B. מתאם לפי סכום + תזמון. Stargate Analytics ו-LayerZero Scan עוזרים. שתי הצדדים תמיד גלויים.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">08 — Layer 2 — אותה כתובת, עולם חדש</span>
@@ -1809,7 +1868,9 @@ Status: Success ✓</pre></div></section>
       name: "Privacy Coins",
       desc: "Monero, Zcash, Ring Signatures — מה ניתן לעקוב?",
       sections: ["Monero", "Zcash", "Ring Signatures", "כתובות חבויות", "מה ניתן לעקוב?", "כלים", "תרגיל", "שאלות"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — Monero</span><h2 class="sec-h">Privacy Coins</h2><p>מטבעות שנועדו לספק אנונימיות אמיתית. מה ניתן לעקוב ומה לא?</p></section>
+      content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">🔏</span><h2>Privacy Coins</h2><p>Monero, Zcash — מטבעות שנבנו כדי שלא יוכלו לעקוב אחריהם. מה עובד ומה לא.</p></div>
+<section class="learn-section"><span class="sec-label">01 — Monero</span><h2 class="sec-h">Privacy Coins</h2><p>מטבעות שנועדו לספק אנונימיות אמיתית. מה ניתן לעקוב ומה לא?</p></section>
 <section class="learn-section"><span class="sec-label">02 — Monero</span><h2 class="sec-h">Monero (XMR) — הפרטי ביותר</h2><p>Ring Signatures + כתובות חבויות + RingCT = שולח מוסתר, מקבל מוסתר, סכומים מוסתרים. ברירת מחדל: כל עסקאות פרטיות. רוב exchanges הסירו XMR.</p></section>
 <section class="learn-section"><span class="sec-label">03 — Zcash</span><h2 class="sec-h">Zcash (ZEC) — Shielded vs Transparent</h2><p>z-address (מוגן): הוכחות אפס-ידע — פרטיות מלאה. t-address (שקוף): כמו Bitcoin. רוב המשתמשים משתמשים בt-address → ניתן לעקוב כמו Bitcoin.</p></section>
 <section class="learn-section"><span class="sec-label">04 — Ring Signatures</span><h2 class="sec-h">Ring Signatures ב-Monero</h2><p>עסקת Monero: 1 חותם אמיתי + 15 מסיחי דעת ב"ring". מאמת יודע שאחד מ-16 חתם — לא יודע מי. גודל ring ברירת מחדל: 16. הופך ניתוח סטטיסטי לקשה מאוד.</p></section>
@@ -1820,7 +1881,7 @@ Status: Success ✓</pre></div></section>
 <h2 class="sec-h">מה שגם ה-FBI לא יכול לראות</h2>
 <p>Monero (XMR) הוא הסיוט של חוקרי קריפטו. Ring Signatures מסתירות מי שלח. כתובות חבויות מסתירות מי קיבל. RingCT מסתיר כמה הועבר. ה-Blockchain נראה כמו רעש לבן.</p>
 <p>ב-2020, IRS שילמה $625,000 לחברת CipherTrace לפיתוח כלי tracing ל-Monero. התוצאות: "חלקיות". הם יכולים לאתר נקודות כניסה ויציאה (דרך בורסות) אבל לא לעקוב בתוך הרשת.</p>
-<div class="callout tip">💡 <strong>נקודות חולשה של Monero:</strong> 1) בורסות עם KYC שמוכרות XMR. 2) מי שקנה XMR בכרטיס אשראי. 3) Timing attacks בין קנייה ומכירה. 4) metadata של רשת (IP) אם לא מספיק פרטיות ברמת הרשת.</div>
+<div class="highlight-quote">💡 <strong>נקודות חולשה של Monero:</strong> 1) בורסות עם KYC שמוכרות XMR. 2) מי שקנה XMR בכרטיס אשראי. 3) Timing attacks בין קנייה ומכירה. 4) metadata של רשת (IP) אם לא מספיק פרטיות ברמת הרשת.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">08 — מטבעות פרטיות בפשע</span>
@@ -1858,7 +1919,10 @@ Status: Success ✓</pre></div></section>
       name: "Case Study — חקירה מלאה",
       desc: "מקרה אמיתי מא' לת': מיפוי, Attribution, דוח מקצועי",
       sections: ["מתודולוגיה", "מיפוי", "Attribution", "הסלמה", "דוח סופי", "כלים", "תרגיל", "שאלות"],
-      content: function() { return `<section class="learn-section"><span class="sec-label">01 — מתודולוגיה</span><h2 class="sec-h">Case Study — חקירה מלאה</h2><p>נחקור מקרה אמיתי מא' לת': זיהוי האירוע, מעקב כספים, זיהוי בעל ארנק, הכנת דוח מקצועי.</p></section>
+      content: function() { return `
+<div class="ch-hero-banner"><span class="hero-emoji">⚖️</span><h2>Case Study — חקירה מלאה</h2><p>מהתחלה לסוף: מתודולוגיה, מיפוי, attribution, הסלמה, ודוח מקצועי — בדוגמה אמיתית.</p></div>
+<div class="csteps"><div class="cstep"><div class="cstep-num">1</div><div class="cstep-body"><strong>זיהוי כתובות</strong><span>איסוף כל הכתובות הקשורות לאירוע מהדיווח, הנפגעים, הבלוקצ'יין</span></div></div><div class="cstep"><div class="cstep-num">2</div><div class="cstep-body"><strong>מיפוי זרימת כספים</strong><span>עקיבה אחרי כל העברה — לאן הכסף הגיע? דרך אילו כתובות?</span></div></div><div class="cstep"><div class="cstep-num">3</div><div class="cstep-body"><strong>Attribution</strong><span>זיהוי הישויות — בורסות, ארנקים ידועים, כתובות עם KYC</span></div></div><div class="cstep"><div class="cstep-num">4</div><div class="cstep-body"><strong>הסלמה</strong><span>העברת הממצאים לרשויות, OFAC, בורסות — להקפאת נכסים</span></div></div></div>
+<section class="learn-section"><span class="sec-label">01 — מתודולוגיה</span><h2 class="sec-h">Case Study — חקירה מלאה</h2><p>נחקור מקרה אמיתי מא' לת': זיהוי האירוע, מעקב כספים, זיהוי בעל ארנק, הכנת דוח מקצועי.</p></section>
 <section class="learn-section"><span class="sec-label">02 — מתודולוגיה</span><h2 class="sec-h">שלבי החקירה</h2><ol style="padding-right:20px;line-height:2.2"><li>1. זיהוי האירוע וכתובת המקור</li><li>מיפוי גרף עסקאות</li><li>זיהוי ישויות: exchange/mixer/service</li><li>ייחוס — קישור לזהות</li><li>הסלמה משפטית: צו בית משפט, שיתוף פעולה בינלאומי</li><li>תיעוד מלא ודוח</li></ol></section>
 <section class="learn-section"><span class="sec-label">03 — מיפוי</span><h2 class="sec-h">יצירת גרף עסקאות</h2><p>כלים: <strong>Maltego</strong> (OSINT + blockchain transforms), <strong>Gephi</strong> (graph visualization), <strong>Chainalysis Reactor</strong> (מסחרי), <strong>Etherscan + ידני</strong> (חינם).</p></section>
 <section class="learn-section"><span class="sec-label">04 — Attribution</span><h2 class="sec-h">קישור לישות מוכרת</h2><p>מקורות: Exchange labels ב-Etherscan, רשימת OFAC SDN, CryptoScamDB, Etherscan labels, OSINT (פורומים, ENS names, Twitter/X, GitHub).</p></section>
@@ -1870,7 +1934,7 @@ Status: Success ✓</pre></div></section>
 <p>2016: נגנבו 119,754 BTC מ-Bitfinex. הכסף שכב שנים. הגנבים לא נגעו בו — כנראה פחדו.</p>
 <p>2021: הכסף התחיל לזוז. ל-AlphaBay (Dark Web market). ל-בורסות קטנות. דרך מיקסרים. אבל הם גם שלחו ל-NFT marketplace — ושם הייתה רישום.</p>
 <p>2022: FBI עצרה את איליה ליכטנשטיין וחברתו הת'ר מורגן. כיצד? עקבו אחרי <em>כל</em> עסקה מ-2016. מצאו שהיו ל-Bitfinex חשבונות ב-ליכטנשטיין. מצאו private keys ב-cloud storage שלו. המקרה שמוכיח: אין "מספיק זמן". הבלוקצ'יין זוכר.</p>
-<div class="callout tip">💡 <strong>המסקנה לחוקר:</strong> גם אם הכסף שוכב שנים — כשהוא יזוז, הוא יזוז מהנקודה האחרונה שאתה מכיר. חכה, עקוב, התאזר בסבלנות.</div>
+<div class="highlight-quote">💡 <strong>המסקנה לחוקר:</strong> גם אם הכסף שוכב שנים — כשהוא יזוז, הוא יזוז מהנקודה האחרונה שאתה מכיר. חכה, עקוב, התאזר בסבלנות.</div>
 </section>
 <section class="learn-section">
 <span class="sec-label">08 — הדוח המקצועי — למה זה חשוב</span>
