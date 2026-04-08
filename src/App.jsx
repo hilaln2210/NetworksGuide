@@ -169,52 +169,52 @@ function TrackPicker({ tracks, onSelect, onShowTroubleshooter }) {
               <span className="path-name">{isEn ? 'Linux' : 'לינוקס'}</span>
             </div>
             <div className="path-connector" />
-            <div className="path-step" style={{ '--step-color': '#06b6d4' }}>
+            <div className="path-step" style={{ '--step-color': '#7c3aed' }}>
               <span className="path-num">3</span>
+              <span className="path-icon">🧠</span>
+              <span className="path-name">{isEn ? 'Advanced Networks' : 'רשתות מתקדם'}</span>
+            </div>
+            <div className="path-connector" />
+            <div className="path-step" style={{ '--step-color': '#06b6d4' }}>
+              <span className="path-num">4</span>
               <span className="path-icon">🌍</span>
               <span className="path-name">{isEn ? 'Web & APIs' : 'Web ו-APIs'}</span>
             </div>
             <div className="path-connector" />
             <div className="path-step" style={{ '--step-color': '#ef4444' }}>
-              <span className="path-num">4</span>
+              <span className="path-num">5</span>
               <span className="path-icon">🔐</span>
               <span className="path-name">{isEn ? 'Cyber' : 'אבטחת מידע'}</span>
             </div>
             <div className="path-connector" />
             <div className="path-step" style={{ '--step-color': '#f59e0b' }}>
-              <span className="path-num">5</span>
+              <span className="path-num">6</span>
               <span className="path-icon">🔗</span>
               <span className="path-name">{isEn ? 'Crypto' : 'קריפטו'}</span>
             </div>
             <div className="path-connector" />
             <div className="path-step" style={{ '--step-color': '#8b5cf6' }}>
-              <span className="path-num">6</span>
+              <span className="path-num">7</span>
               <span className="path-icon">🤖</span>
               <span className="path-name">{isEn ? 'AI Agents' : 'AI Agents'}</span>
             </div>
             <div className="path-connector" />
             <div className="path-step" style={{ '--step-color': '#0ea5e9' }}>
-              <span className="path-num">7</span>
+              <span className="path-num">8</span>
               <span className="path-icon">🔬</span>
               <span className="path-name">{isEn ? 'Net Research' : 'חקר רשתות'}</span>
             </div>
             <div className="path-connector" />
             <div className="path-step" style={{ '--step-color': '#dc2626' }}>
-              <span className="path-num">8</span>
+              <span className="path-num">9</span>
               <span className="path-icon">🔴</span>
               <span className="path-name">{isEn ? 'Red Team' : 'Red Team'}</span>
             </div>
             <div className="path-connector" />
             <div className="path-step" style={{ '--step-color': '#f97316' }}>
-              <span className="path-num">9</span>
+              <span className="path-num">10</span>
               <span className="path-icon">🔎</span>
               <span className="path-name">{isEn ? 'IP Investigation' : 'חקר IP'}</span>
-            </div>
-            <div className="path-connector" />
-            <div className="path-step" style={{ '--step-color': '#7c3aed' }}>
-              <span className="path-num">10</span>
-              <span className="path-icon">🧠</span>
-              <span className="path-name">{isEn ? 'Advanced Networks' : 'רשתות מתקדם'}</span>
             </div>
           </div>
         </div>
