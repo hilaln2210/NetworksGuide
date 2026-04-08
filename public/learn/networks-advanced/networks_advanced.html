@@ -1,0 +1,2552 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>רשתות מתקדם — Advanced Networks</title>
+<style>
+
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #f7f7f2;
+  --bg2:      #ffffff;
+  --bg3:      #f0f0ea;
+  --surface:  #ffffff;
+  --border:   #e5e5e0;
+  --border2:  #d1d1ca;
+  --accent:   #0e7490;
+  --accent2:  #0a5c72;
+  --accentfg: #ffffff;
+  --green:    #58cc02;
+  --green2:   #46a302;
+  --greenfg:  #ffffff;
+  --yellow:   #ffd900;
+  --yellowfg: #785a00;
+  --red:      #ff4b4b;
+  --redfg:    #ffffff;
+  --blue:     #1cb0f6;
+  --bluefg:   #ffffff;
+  --text:     #111111;
+  --text2:    #333333;
+  --text3:    #555555;
+  --mono:     'Courier New', 'Consolas', monospace;
+  --sans:     -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --r:        12px;
+  --r2:       20px;
+  --r3:       24px;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 200;
+  background: var(--bg2); border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; padding: 0 20px; gap: 16px;
+}
+.header-logo {
+  font-weight: 800; font-size: 16px; color: var(--accent);
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+  letter-spacing: -0.3px;
+}
+.header-logo-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 2px 0 var(--green2);
+}
+.header-chname {
+  font-size: 13px; font-weight: 600; color: var(--text2);
+  flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.lang-btn {
+  font-size: 12px; font-weight: 800; padding: 6px 14px; border-radius: var(--r);
+  border: 2px solid var(--border2); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); color: var(--text2);
+  cursor: pointer; flex-shrink: 0; transition: all .1s;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.lang-btn:hover { background: var(--accent); color: var(--accentfg); border-color: var(--accent2); border-bottom-color: var(--accent2); }
+.lang-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+
+/* ── CHAPTER NAV BAR ── */
+.ch-nav {
+  position: fixed; top: 60px; left: 0; right: 0; z-index: 150;
+  background: var(--bg2); border-bottom: 2px solid var(--border);
+  overflow-x: auto; display: flex; padding: 8px 16px; gap: 6px;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.ch-nav::-webkit-scrollbar { display: none; }
+.sb-label { display: none; }
+.ch-btn {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 14px; gap: 3px; border: 2px solid transparent;
+  background: var(--bg3); border-radius: var(--r2);
+  cursor: pointer; transition: all .15s; flex-shrink: 0;
+  color: var(--text2); min-width: 52px;
+  border-bottom: 4px solid var(--border);
+}
+.ch-btn:hover { background: var(--bg2); border-color: var(--border2); color: var(--text); }
+.ch-btn.active {
+  background: var(--accent); color: #fff;
+  border-color: var(--accent2); border-bottom-color: var(--accent2);
+}
+.ch-num { font-size: 11px; font-weight: 800; font-family: var(--mono); }
+.ch-title-text { font-size: 9px; font-weight: 600; max-width: 68px; text-align: center; line-height: 1.2; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.ch-stars { font-size: 10px; min-height: 12px; }
+
+/* ── LAYOUT ── */
+.main {
+  padding-top: 112px; min-height: 100vh;
+  max-width: 780px; margin: 0 auto;
+  padding-left: 20px; padding-right: 20px; padding-bottom: 60px;
+}
+
+/* ── CHAPTER ── */
+.chapter { display: none; }
+.chapter.active { display: block; }
+
+/* ── CHAPTER HERO ── */
+.ch-hero {
+  padding: 28px 0 24px; border-bottom: 2px solid var(--border); margin-bottom: 28px;
+}
+.ch-tag {
+  display: inline-block; font-size: 11px; font-weight: 800;
+  color: var(--accent); background: var(--bg3);
+  padding: 3px 10px; border-radius: 20px; margin-bottom: 10px;
+  letter-spacing: .06em; text-transform: uppercase; font-family: var(--mono);
+}
+.ch-title { font-size: 26px; font-weight: 900; color: var(--text); margin-bottom: 8px; letter-spacing: -.5px; line-height: 1.2; }
+.ch-desc { font-size: 14px; color: var(--text2); margin-bottom: 20px; max-width: 560px; }
+.tabs-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab-btn {
+  padding: 8px 18px; font-size: 13px; font-weight: 800; border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); color: var(--text3);
+  cursor: pointer; transition: all .1s; text-transform: uppercase; letter-spacing: .04em;
+}
+.tab-btn:hover { color: var(--text2); border-color: var(--border2); }
+.tab-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+.tab-btn.active {
+  background: var(--accent); color: #fff;
+  border-color: var(--accent2); border-bottom-color: var(--accent2);
+}
+
+/* ── TAB PANELS ── */
+.tab-panels { }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── LEARN CONTENT ── */
+.did-you-know {
+  background: linear-gradient(135deg, #fffdf0, #fff9e0);
+  border: 2px solid var(--yellow); border-radius: var(--r2);
+  padding: 16px 18px; font-size: 13.5px; color: #5a4a00;
+  margin-bottom: 28px; line-height: 1.6;
+  box-shadow: 0 3px 0 #e6c700;
+}
+.section-title {
+  font-size: 17px; font-weight: 900; color: var(--text);
+  margin: 32px 0 12px; letter-spacing: -.2px;
+  display: flex; align-items: center; gap: 8px;
+}
+.prose {
+  font-size: 15px; color: var(--text2); line-height: 1.78; margin-bottom: 16px;
+}
+.prose code, code {
+  font-family: var(--mono); font-size: 12.5px;
+  background: var(--bg3); padding: 2px 6px;
+  border-radius: 6px; color: var(--accent2); font-weight: 600;
+}
+
+/* ── CODE BLOCKS ── */
+.code-block {
+  background: #1a1a2e; border-radius: var(--r2); padding: 18px 20px;
+  margin: 16px 0; overflow-x: auto;
+  border: 2px solid #2a2a4e; box-shadow: 0 4px 0 #0f0f20;
+}
+.code-block code {
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.75;
+  background: none; padding: 0; color: #e2e8f0; display: block;
+  font-weight: normal;
+}
+.comment { color: #6272a4; }
+
+/* ── CARDS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin: 16px 0 24px; }
+.card {
+  background: var(--bg2); border: 2px solid var(--border);
+  border-bottom: 4px solid var(--border2); border-radius: var(--r2);
+  padding: 18px; display: flex; flex-direction: column; gap: 8px;
+  transition: transform .1s;
+}
+.card:hover { transform: translateY(-2px); }
+.card-icon { font-size: 26px; }
+.card-title { font-size: 13px; font-weight: 800; color: var(--text); }
+.card-body { font-size: 13px; color: var(--text2); line-height: 1.55; }
+
+/* ── TABLE ── */
+.table-wrap {
+  overflow-x: auto; margin: 16px 0 24px;
+  border-radius: var(--r2); border: 2px solid var(--border);
+  box-shadow: 0 4px 0 var(--border);
+}
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table thead { background: var(--bg3); }
+.data-table th {
+  padding: 11px 14px; text-align: left; font-weight: 800;
+  color: var(--text2); font-size: 11px; text-transform: uppercase;
+  letter-spacing: .06em; border-bottom: 2px solid var(--border);
+}
+.data-table td { padding: 11px 14px; color: var(--text2); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--bg3); }
+
+/* ── FLOW ROW ── */
+.flow-row {
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  margin: 16px 0 24px; padding: 20px; background: var(--bg2);
+  border-radius: var(--r2); border: 2px solid var(--border);
+  box-shadow: 0 4px 0 var(--border);
+}
+.flow-step { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.flow-step-icon { font-size: 24px; }
+.flow-step-label { font-size: 10px; font-weight: 700; color: var(--text3); line-height: 1.3; max-width: 64px; text-align: center; }
+.flow-arrow { color: var(--accent); font-size: 18px; font-weight: 900; }
+
+/* ── CALLOUTS ── */
+.callout { padding: 14px 18px; border-radius: var(--r2); font-size: 13.5px; line-height: 1.6; margin: 16px 0; border: 2px solid; }
+.callout-info  { background: #e8f4ff; border-color: #b3d9ff; color: #1a5a8a; box-shadow: 0 3px 0 #b3d9ff; }
+.callout-warn  { background: #fff8e0; border-color: var(--yellow); color: #785a00; box-shadow: 0 3px 0 #e6c700; }
+.callout-tip   { background: #e8fae8; border-color: #a8e6a8; color: #1a5a1a; box-shadow: 0 3px 0 #a8e6a8; }
+.callout-success { background: var(--bg3); border-color: var(--border); color: var(--text2); padding: 10px 14px; }
+
+/* ── REAL WORLD BOX ── */
+.real-world-box {
+  background: var(--bg2); border: 2px solid var(--border);
+  border-bottom: 4px solid var(--border2); border-radius: var(--r2);
+  padding: 20px; margin: 24px 0;
+}
+.real-world-title { font-size: 13px; font-weight: 800; color: var(--accent); margin-bottom: 10px; }
+.real-world-body { font-size: 13.5px; color: var(--text2); line-height: 1.7; }
+
+/* ── END OF CHAPTER NAV ── */
+.ch-end-nav {
+  display: flex; gap: 12px; margin-top: 36px; padding-top: 24px;
+  border-top: 2px solid var(--border); justify-content: center; flex-wrap: wrap;
+}
+.ch-end-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 16px 24px; border-radius: var(--r2); cursor: pointer;
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); color: var(--text2); font-weight: 800;
+  font-size: 13px; transition: all .1s; min-width: 130px;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.ch-end-btn:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); }
+.ch-end-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+.ch-end-btn.primary {
+  background: var(--green); color: var(--greenfg);
+  border-color: var(--green2); border-bottom-color: var(--green2);
+}
+.ch-end-btn.primary:hover { background: var(--green2); }
+.ch-end-btn-icon { font-size: 22px; }
+.ch-end-btn-label { font-size: 11px; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 22px; border-radius: var(--r2); font-size: 14px;
+  font-weight: 800; border: 2px solid; cursor: pointer; transition: all .1s;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.btn:active { transform: translateY(2px); border-bottom-width: 2px !important; }
+.btn-primary {
+  background: var(--green); color: var(--greenfg);
+  border-color: var(--green2); border-bottom: 4px solid var(--green2);
+}
+.btn-primary:hover { background: var(--green2); }
+.btn-ghost {
+  background: var(--bg2); color: var(--text2);
+  border-color: var(--border2); border-bottom: 4px solid var(--border2);
+}
+.btn-ghost:hover { background: var(--bg3); color: var(--text); }
+
+/* ── GAME ── */
+.game-wrap { max-width: 680px; }
+.game-start-card { max-width: 420px; margin: 0 auto; text-align: center; padding: 40px 24px; }
+.game-icon { font-size: 56px; margin-bottom: 16px; filter: drop-shadow(0 4px 0 rgba(0,0,0,.1)); }
+.game-start-title { font-size: 24px; font-weight: 900; color: var(--text); margin-bottom: 8px; letter-spacing: -.5px; }
+.game-start-desc { font-size: 14px; color: var(--text2); margin-bottom: 24px; }
+.game-rules { display: flex; justify-content: center; gap: 20px; margin-bottom: 28px; flex-wrap: wrap; }
+.game-rule {
+  font-size: 13px; font-weight: 700; color: var(--text2);
+  background: var(--bg3); padding: 8px 14px; border-radius: var(--r);
+  border: 2px solid var(--border);
+}
+.game-hud {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px; padding: 12px 18px;
+  background: var(--bg2); border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+}
+.hud-score { font-size: 22px; font-weight: 900; color: var(--green); font-family: var(--mono); }
+.hud-timer { font-size: 15px; font-weight: 800; color: var(--text2); font-family: var(--mono); }
+.game-q-text { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 20px; line-height: 1.4; }
+.game-opts { display: flex; flex-direction: column; gap: 10px; }
+.game-opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); cursor: pointer; transition: all .1s;
+  font-size: 14px; font-weight: 600; color: var(--text);
+}
+.game-opt:hover { border-color: var(--accent); border-bottom-color: var(--accent2); transform: translateY(-1px); }
+.game-opt:active { transform: translateY(2px); border-bottom-width: 2px; }
+.game-opt.correct { border-color: var(--green); border-bottom-color: var(--green2); background: #e8fae8; color: #1a5a1a; }
+.game-opt.wrong   { border-color: var(--red); background: #fff0f0; color: #8a1a1a; }
+.opt-letter {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--bg3); border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 900; flex-shrink: 0; color: var(--text2);
+  font-family: var(--mono);
+}
+.game-result-card { max-width: 420px; margin: 32px auto 0; text-align: center; }
+.result-score { font-size: 60px; font-weight: 900; color: var(--green); font-family: var(--mono); line-height: 1; margin-bottom: 4px; }
+.result-label { font-size: 20px; font-weight: 900; color: var(--text); margin-bottom: 24px; }
+.result-emoji { font-size: 52px; margin-bottom: 8px; }
+.result-btns { display: flex; gap: 12px; justify-content: center; }
+.result-stars { font-size: 28px; margin-bottom: 8px; }
+
+/* ── QUIZ ── */
+.quiz-wrap { max-width: 680px; }
+.quiz-prog { display: flex; gap: 4px; margin-bottom: 24px; }
+.quiz-pip { flex: 1; height: 8px; border-radius: 4px; background: var(--border2); transition: background .2s; }
+.quiz-pip.done { background: var(--green); }
+.quiz-pip.cur  { background: var(--accent); }
+.quiz-q-card { display: none; }
+.quiz-q-card.active { display: block; }
+.quiz-meta { font-size: 11px; font-weight: 800; color: var(--text3); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+.quiz-q { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 20px; line-height: 1.4; }
+.quiz-opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.quiz-opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 18px; border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); cursor: pointer; transition: all .1s;
+  font-size: 14px; font-weight: 600; color: var(--text);
+}
+.quiz-opt:hover { border-color: var(--accent); border-bottom-color: var(--accent2); transform: translateY(-1px); }
+.quiz-opt:active { transform: translateY(2px); border-bottom-width: 2px; }
+.quiz-opt.selected { border-color: var(--accent); background: #f0f4ff; }
+.quiz-opt.correct   { border-color: var(--green); border-bottom-color: var(--green2); background: #e8fae8; }
+.quiz-opt.wrong     { border-color: var(--red); border-bottom-color: #cc0000; background: #fff0f0; }
+.quiz-exp {
+  padding: 14px 18px; background: #e8fae8; border-radius: var(--r2);
+  border: 2px solid var(--green); border-bottom: 4px solid var(--green2);
+  font-size: 13.5px; color: #1a5a1a; margin: 12px 0; line-height: 1.6;
+}
+.quiz-actions { display: flex; gap: 10px; margin-top: 8px; }
+.quiz-result { display: none; text-align: center; padding: 32px 0; }
+.qr-score { font-size: 56px; font-weight: 900; font-family: var(--mono); color: var(--green); margin-bottom: 4px; }
+.qr-label { font-size: 20px; font-weight: 900; color: var(--text); margin-bottom: 24px; }
+.quiz-nav { display: flex; justify-content: space-between; margin-top: 12px; }
+
+/* ── CHEAT / SUMMARY ── */
+.cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 14px; margin-top: 8px; }
+.cheat-card {
+  background: var(--bg2); border: 2px solid var(--border);
+  border-bottom: 4px solid var(--border2); border-radius: var(--r2); padding: 16px;
+}
+.cheat-card-title { font-size: 11px; font-weight: 900; color: var(--accent); margin-bottom: 12px; text-transform: uppercase; letter-spacing: .08em; }
+.cheat-item { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: 12.5px; }
+.cheat-item:last-child { border-bottom: none; }
+.cheat-key { font-family: var(--mono); color: var(--accent); font-weight: 700; font-size: 11.5px; flex-shrink: 0; }
+.cheat-val { color: var(--text2); text-align: right; font-size: 11.5px; }
+
+/* ── CREDITS ── */
+.credits-bar { border-top: 2px solid var(--border); padding: 32px 0; margin-top: 48px; }
+.credits-title { font-size: 10px; font-weight: 900; color: var(--accent); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; font-family: var(--mono); }
+.credits-grid { display: flex; flex-wrap: wrap; gap: 24px; }
+.credit-group { flex: 1; min-width: 140px; }
+.credit-group-title { font-size: 11px; font-weight: 800; color: var(--text2); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .05em; }
+.credit-item { font-size: 12px; color: var(--text3); line-height: 1.9; }
+.credit-item a { color: var(--accent); text-decoration: none; font-weight: 700; }
+.credit-item a:hover { text-decoration: underline; }
+
+/* ── MOBILE ── */
+@media (max-width: 700px) {
+  .main { padding-top: 108px; padding-left: 16px; padding-right: 16px; }
+  .ch-title { font-size: 20px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .flow-row { padding: 14px; gap: 4px; }
+  .flow-step-label { font-size: 9px; max-width: 52px; }
+  .game-rules { gap: 10px; }
+  .quiz-actions { flex-wrap: wrap; }
+  .result-btns { flex-wrap: wrap; }
+  .ch-end-nav { gap: 8px; }
+  .ch-end-btn { min-width: 100px; padding: 14px 16px; }
+}
+@media (max-width: 480px) {
+  .ch-nav { padding: 6px 10px; }
+  .ch-btn { padding: 7px 10px; min-width: 44px; }
+}
+
+
+/* ── RICH SUMMARY CARDS ── */
+.sum-block { margin-bottom: 28px; }
+.sum-block-title {
+  font-size: 13px; font-weight: 800; color: var(--accent);
+  text-transform: uppercase; letter-spacing: .08em;
+  margin-bottom: 10px; font-family: var(--mono);
+  display: flex; align-items: center; gap: 8px;
+}
+.sum-block-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.sum-row {
+  display: grid; grid-template-columns: 200px 1fr;
+  gap: 10px 16px; padding: 9px 0;
+  border-bottom: 1px solid var(--border); align-items: start;
+}
+.sum-row:last-child { border-bottom: none; }
+.sum-k { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--accent); line-height: 1.4; }
+.sum-v { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.sum-v strong { color: var(--text); font-weight: 700; }
+.sum-v code { font-size: 11.5px; background: var(--bg3); padding: 1px 5px; border-radius: 3px; color: var(--accent2,var(--accent)); font-family: var(--mono); }
+.sum-tip { margin-top: 10px; padding: 10px 14px; background: var(--yellowbg,#fffbeb); border-radius: var(--r,8px); border: 1px solid #fde68a; font-size: 13px; color: #713f12; line-height: 1.6; }
+.sum-danger { margin-top: 10px; padding: 10px 14px; background: #fff1f2; border-radius: var(--r,8px); border: 1px solid #fecaca; font-size: 13px; color: #991b1b; line-height: 1.6; }
+@media (max-width: 560px) { .sum-row { grid-template-columns: 1fr; gap: 2px; } }
+/* ── FULL REVIEW DRAWER ── */
+.review-btn { flex-shrink:0; padding:5px 12px; background:var(--accent); color:#fff; border:none; border-radius:var(--r,8px); font-size:12px; font-weight:700; cursor:pointer; transition:all .15s; letter-spacing:.02em; margin-left:6px; }
+[dir="rtl"] .review-btn { margin-left:0; margin-right:6px; }
+.review-btn:hover { opacity:.85; }
+.review-overlay { display:none; position:fixed; inset:0; z-index:900; background:rgba(0,0,0,.45); backdrop-filter:blur(2px); }
+.review-overlay.open { display:block; }
+.review-drawer { position:fixed; top:0; left:0; right:0; z-index:910; background:var(--bg,#fff); border-bottom:2px solid var(--accent); box-shadow:0 4px 16px rgba(0,0,0,.15); transform:translateY(-100%); transition:transform .3s cubic-bezier(.4,0,.2,1); max-height:90vh; display:flex; flex-direction:column; }
+.review-drawer.open { transform:translateY(0); }
+.review-header { display:flex; align-items:center; justify-content:space-between; padding:14px 20px; border-bottom:1px solid var(--border); flex-shrink:0; gap:12px; background:var(--bg,#fff); }
+.review-header-title { font-size:15px; font-weight:800; color:var(--text,#111); }
+.review-header-sub { font-size:12px; color:var(--text3,#888); font-weight:500; }
+.review-close { width:32px; height:32px; border-radius:50%; background:var(--bg2,#f8f9fa); border:1px solid var(--border); font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--text2,#666); line-height:1; transition:all .15s; }
+.review-close:hover { background:#fff1f2; border-color:#dc2626; color:#dc2626; }
+.review-body { overflow-y:auto; padding:24px 20px 40px; flex:1; }
+.review-body::-webkit-scrollbar { width:6px; }
+.review-body::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+.review-chapter-block { margin-bottom:36px; border:1px solid var(--border); border-radius:12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+.review-chapter-title { background:var(--accentbg,rgba(14,116,144,.06)); border-bottom:1px solid var(--border); padding:12px 18px; display:flex; align-items:center; gap:10px; }
+.review-chapter-num { font-family:var(--mono); font-size:11px; font-weight:800; color:var(--accent); background:var(--bg,#fff); border:1px solid var(--accent); border-radius:6px; padding:2px 8px; flex-shrink:0; }
+.review-chapter-name { font-size:14px; font-weight:800; color:var(--text,#111); }
+.review-chapter-body { padding:18px; background:var(--bg,#fff); }
+.review-chapter-body .sum-block { margin-bottom:20px; }
+.review-chapter-body .sum-block:last-child { margin-bottom:0; }
+.review-chapter-body .sum-row { grid-template-columns:170px 1fr; padding:7px 0; }
+.review-chapter-body .sum-v { font-size:12.5px; }
+.review-chapter-body .sum-k { font-size:11.5px; }
+@media (max-width:680px) { .review-drawer{max-height:95vh} .review-body{padding:16px 14px 32px} .review-chapter-body .sum-row{grid-template-columns:1fr} }
+
+/* ── TOOL DEMOS ── */
+.td{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:18px 0;box-shadow:0 1px 8px rgba(0,0,0,.07)}
+.td-dark{background:#16181d}
+.td-bar{display:flex;align-items:center;gap:10px;padding:9px 14px;background:#f0f0ea;border-bottom:1px solid #e5e5e0}
+.td-dark .td-bar{background:#1e2025;border-color:#2d3038}
+.td-dots{display:flex;gap:5px;flex-shrink:0}
+.td-dot{width:11px;height:11px;border-radius:50%}
+.td-r{background:#ff5f57}.td-y{background:#febc2e}.td-g{background:#28c840}
+.td-url{flex:1;min-width:0;background:var(--bg2);border:1px solid #ddd;border-radius:6px;padding:3px 10px;font-size:11.5px;color:var(--text2);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.td-dark-url{background:#111318;border-color:#2d3038;color:#9ca3af}
+.td-title{padding:8px 16px;font-size:11px;font-weight:700;color:var(--text3);letter-spacing:.07em;text-transform:uppercase;font-family:var(--sans);background:var(--bg2);border-bottom:1px solid var(--bg3)}
+.td-body{background:var(--bg2);padding:14px 18px;font-family:var(--mono);font-size:12.5px;line-height:1.8;direction:ltr;text-align:left;white-space:pre;overflow-x:auto}
+.td-body-dark{background:#16181d;color:#e2e8f0}
+.td-row{display:grid;grid-template-columns:180px 1fr;gap:2px 10px;padding:3px 0;border-bottom:1px solid #f5f5f0}
+.td-row:last-child{border-bottom:none}
+.td-k{color:var(--accent);font-weight:600}.td-v{color:var(--text)}
+.tc-prompt{color:#4ade80}.tc-cmd{color:#93c5fd}.tc-key{color:#6ee7b7}.tc-val{color:#e2e8f0}
+/* ── MATCH GAME ── */
+.match-board{padding:16px}
+.match-success{text-align:center;font-size:18px;font-weight:800;color:var(--green2);padding:16px;background:#f0fdf4;border-radius:12px;margin-bottom:16px;border:2px solid var(--green)}
+.match-restart-btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:700;cursor:pointer}
+.match-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.match-col{display:flex;flex-direction:column;gap:8px}
+.match-card{padding:10px 14px;border:2px solid var(--border);border-radius:10px;background:var(--bg2);font-size:13px;line-height:1.4;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+[dir="rtl"] .match-card{direction:rtl;text-align:right}
+[dir="ltr"] .match-card{direction:ltr;text-align:left}
+.match-card:hover:not(.match-done){border-color:var(--accent);background:#f0f9ff;transform:translateY(-1px)}
+.match-sel{border-color:var(--accent)!important;background:#e0f2fe!important;box-shadow:0 0 0 3px rgba(14,116,144,.15)}
+.match-done{border-color:var(--green)!important;background:#f0fdf4!important;color:var(--green2);cursor:default;opacity:.8}
+.match-wrong{border-color:var(--red)!important;background:#fff1f2!important;animation:matchShake .4s ease}
+@keyframes matchShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@media(max-width:560px){.match-cols{grid-template-columns:1fr}.td-body{font-size:11px;padding:10px 12px}.td-row{grid-template-columns:100px 1fr}}
+
+
+/* ── BIDI ISOLATION — Hebrew/English mix fix ── */
+p.prose, .section-title, .callout, .callout.idea, .callout.warn,
+td, th, li, .sc-text, .sc-label, .td-k, .td-v,
+.ch-title, .ch-desc, .tab-btn, .ch-end-btn-label,
+.match-card, .review-chapter {
+  unicode-bidi: isolate;
+}
+/* Code/pre always LTR regardless of document dir */
+code, pre, .td-body, .td-body-dark, .td-url, .td-dark-url {
+  unicode-bidi: isolate;
+  direction: ltr;
+  text-align: left;
+}
+/* Inline code inside RTL text */
+p.prose code, td code, li code {
+  unicode-bidi: isolate;
+  direction: ltr;
+  display: inline-block;
+}
+
+
+/* ── LIST BIDI FIX ── */
+ol.prose, ul.prose { direction: rtl; text-align: right; }
+ol.prose li, ul.prose li {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: isolate;
+}
+ol.prose li strong:first-child,
+ul.prose li strong:first-child {
+  unicode-bidi: isolate;
+  direction: ltr;
+  display: inline-block;
+}
+
+
+/* ── CHEAT CARDS ── */
+.sc { display:flex; flex-direction:column; gap:10px; }
+.sc-head {
+  font-size:15px; font-weight:800; color:var(--text);
+  padding-bottom:8px; border-bottom:2px solid var(--accent);
+  margin-bottom:4px;
+}
+.sc-card {
+  background:var(--bg2); border:1px solid var(--border);
+  border-radius:10px; overflow:hidden;
+}
+.sc-label {
+  font-size:11px; font-weight:700; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--accent);
+  padding:6px 14px; border-bottom:1px solid var(--border);
+  background:var(--bg3);
+}
+.sc-text {
+  padding:10px 14px; font-size:13px; line-height:1.7;
+  color:var(--text); direction:rtl; text-align:right;
+}
+.sc-text code {
+  font-family:var(--mono); font-size:11.5px;
+  background:var(--bg3); border:1px solid var(--border);
+  border-radius:4px; padding:1px 5px; color:var(--accent);
+}
+/* ── REVIEW DRAWER CHAPTERS ── */
+.review-chapter {
+  margin-bottom:28px;
+  border:1px solid var(--border);
+  border-radius:12px; overflow:hidden;
+}
+.review-ch-title {
+  font-size:13px; font-weight:800; color:var(--accent);
+  padding:10px 16px; background:var(--bg3);
+  border-bottom:1px solid var(--border);
+  direction:rtl; text-align:right;
+}
+@media(max-width:560px){
+  .sc-label { font-size:10px; }
+  .sc-text { font-size:12px; padding:8px 12px; }
+}
+
+
+
+/* ── Chapter Hero ── */
+.ch-hero-intro{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);color:#fff;padding:36px 32px;border-radius:18px;margin-bottom:28px;position:relative;overflow:hidden;}
+.ch-hero-intro::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(88,204,2,.2) 0%,transparent 70%);border-radius:50%;}
+.ch-hero-intro h1{font-size:1.75rem;font-weight:800;margin:0 0 8px;color:#fff;line-height:1.3;}
+.ch-hero-intro p{color:rgba(255,255,255,.7);font-size:.95rem;margin:0;}
+
+/* ── Story Box ── */
+.story-box{background:linear-gradient(135deg,#eff6ff,#dbeafe);border:2px solid #93c5fd;border-radius:16px;padding:24px 28px;margin:28px 0;line-height:1.8;}
+.story-box .story-icon{font-size:2rem;margin-bottom:10px;display:block;}
+.story-box p{margin:0;color:#1e3a5f;font-size:.95rem;}
+.story-box strong{color:#1d4ed8;}
+
+/* ── Fun Fact ── */
+.fun-fact{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #fcd34d;border-radius:16px;padding:20px 24px;margin:20px 0;font-size:.92rem;line-height:1.75;}
+.fun-fact strong{color:#b45309;}
+
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-logo">
+    <div class="header-logo-dot"></div>
+    <span>Networks+</span>
+  </div>
+  <span class="header-chname" id="headerChName"></span>
+  <button class="review-btn" id="reviewBtn" onclick="openReview()">📚 סיכום מלא</button>
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
+</header>
+<nav class="ch-nav" id="sidebar">
+  <button class="ch-btn" id="nav-0" onclick="showChapter(0)"><span class="ch-num">00</span><span class="ch-title-text" id="chname-0"></span></button>
+  <button class="ch-btn" id="nav-1" onclick="showChapter(1)"><span class="ch-num">01</span><span class="ch-title-text" id="chname-1"></span></button>
+  <button class="ch-btn" id="nav-2" onclick="showChapter(2)"><span class="ch-num">02</span><span class="ch-title-text" id="chname-2"></span></button>
+  <button class="ch-btn" id="nav-3" onclick="showChapter(3)"><span class="ch-num">03</span><span class="ch-title-text" id="chname-3"></span></button>
+  <button class="ch-btn" id="nav-4" onclick="showChapter(4)"><span class="ch-num">04</span><span class="ch-title-text" id="chname-4"></span></button>
+  <button class="ch-btn" id="nav-5" onclick="showChapter(5)"><span class="ch-num">05</span><span class="ch-title-text" id="chname-5"></span></button>
+  <button class="ch-btn" id="nav-6" onclick="showChapter(6)"><span class="ch-num">06</span><span class="ch-title-text" id="chname-6"></span></button>
+  <button class="ch-btn" id="nav-7" onclick="showChapter(7)"><span class="ch-num">07</span><span class="ch-title-text" id="chname-7"></span></button>
+  <button class="ch-btn" id="nav-8" onclick="showChapter(8)"><span class="ch-num">08</span><span class="ch-title-text" id="chname-8"></span></button>
+  <button class="ch-btn" id="nav-9" onclick="showChapter(9)"><span class="ch-num">09</span><span class="ch-title-text" id="chname-9"></span></button>
+</nav>
+<main class="main" id="main">
+<section class="chapter" id="ch-0">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-0"></div>
+    <h1 class="ch-title" id="chtitle-0"></h1>
+    <p class="ch-desc" id="chdesc-0"></p>
+    <div class="tabs-bar" id="tabs-0"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="0-learn"><div id="learn-0"></div></div>
+    <div class="tab-panel" id="0-game"><div class="game-wrap" id="game-0"></div></div>
+    <div class="tab-panel" id="0-cheat"><div id="cheat-0"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-1">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-1"></div>
+    <h1 class="ch-title" id="chtitle-1"></h1>
+    <p class="ch-desc" id="chdesc-1"></p>
+    <div class="tabs-bar" id="tabs-1"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="1-learn"><div id="learn-1"></div></div>
+    <div class="tab-panel" id="1-game"><div class="game-wrap" id="game-1"></div></div>
+    <div class="tab-panel" id="1-cheat"><div id="cheat-1"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-2">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-2"></div>
+    <h1 class="ch-title" id="chtitle-2"></h1>
+    <p class="ch-desc" id="chdesc-2"></p>
+    <div class="tabs-bar" id="tabs-2"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="2-learn"><div id="learn-2"></div></div>
+    <div class="tab-panel" id="2-game"><div class="game-wrap" id="game-2"></div></div>
+    <div class="tab-panel" id="2-cheat"><div id="cheat-2"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-3">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-3"></div>
+    <h1 class="ch-title" id="chtitle-3"></h1>
+    <p class="ch-desc" id="chdesc-3"></p>
+    <div class="tabs-bar" id="tabs-3"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="3-learn"><div id="learn-3"></div></div>
+    <div class="tab-panel" id="3-game"><div class="game-wrap" id="game-3"></div></div>
+    <div class="tab-panel" id="3-cheat"><div id="cheat-3"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-4">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-4"></div>
+    <h1 class="ch-title" id="chtitle-4"></h1>
+    <p class="ch-desc" id="chdesc-4"></p>
+    <div class="tabs-bar" id="tabs-4"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="4-learn"><div id="learn-4"></div></div>
+    <div class="tab-panel" id="4-game"><div class="game-wrap" id="game-4"></div></div>
+    <div class="tab-panel" id="4-cheat"><div id="cheat-4"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-5">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-5"></div>
+    <h1 class="ch-title" id="chtitle-5"></h1>
+    <p class="ch-desc" id="chdesc-5"></p>
+    <div class="tabs-bar" id="tabs-5"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="5-learn"><div id="learn-5"></div></div>
+    <div class="tab-panel" id="5-game"><div class="game-wrap" id="game-5"></div></div>
+    <div class="tab-panel" id="5-cheat"><div id="cheat-5"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-6">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-6"></div>
+    <h1 class="ch-title" id="chtitle-6"></h1>
+    <p class="ch-desc" id="chdesc-6"></p>
+    <div class="tabs-bar" id="tabs-6"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="6-learn"><div id="learn-6"></div></div>
+    <div class="tab-panel" id="6-game"><div class="game-wrap" id="game-6"></div></div>
+    <div class="tab-panel" id="6-cheat"><div id="cheat-6"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-7">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-7"></div>
+    <h1 class="ch-title" id="chtitle-7"></h1>
+    <p class="ch-desc" id="chdesc-7"></p>
+    <div class="tabs-bar" id="tabs-7"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="7-learn"><div id="learn-7"></div></div>
+    <div class="tab-panel" id="7-game"><div class="game-wrap" id="game-7"></div></div>
+    <div class="tab-panel" id="7-cheat"><div id="cheat-7"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-8">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-8"></div>
+    <h1 class="ch-title" id="chtitle-8"></h1>
+    <p class="ch-desc" id="chdesc-8"></p>
+    <div class="tabs-bar" id="tabs-8"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="8-learn"><div id="learn-8"></div></div>
+    <div class="tab-panel" id="8-game"><div class="game-wrap" id="game-8"></div></div>
+    <div class="tab-panel" id="8-cheat"><div id="cheat-8"></div></div>
+  </div>
+</section>
+<section class="chapter" id="ch-9">
+  <div class="ch-hero">
+    <div class="ch-tag" id="chtag-9"></div>
+    <h1 class="ch-title" id="chtitle-9"></h1>
+    <p class="ch-desc" id="chdesc-9"></p>
+    <div class="tabs-bar" id="tabs-9"></div>
+  </div>
+  <div class="tab-panels">
+    <div class="tab-panel active" id="9-learn"><div id="learn-9"></div></div>
+    <div class="tab-panel" id="9-game"><div class="game-wrap" id="game-9"></div></div>
+    <div class="tab-panel" id="9-cheat"><div id="cheat-9"></div></div>
+  </div>
+</section>
+
+</main>
+<div class="review-overlay" id="reviewOverlay" onclick="closeReview()"></div>
+<div class="review-drawer" id="reviewDrawer">
+  <div class="review-header">
+    <div>
+      <div class="review-header-title" id="reviewTitle">📚 סיכום מלא</div>
+      <div class="review-header-sub" id="reviewSub">10 פרקים — רשתות מתקדם</div>
+    </div>
+    <button class="review-close" onclick="closeReview()">×</button>
+  </div>
+  <div class="review-body" id="reviewBody"></div>
+</div>
+</body>
+</html>
+<script>
+const C={
+he:{
+  dir:"rtl",lang:"he",langBtn:"🇬🇧 EN",
+  tags:["פרק 00","פרק 01","פרק 02","פרק 03","פרק 04","פרק 05","פרק 06","פרק 07","פרק 08","פרק 09"],
+  tabs:["📖 למידה","🔗 התאמה","📋 סיכום"],
+  names:["IP מעמיק — Subnetting, NAT, Routing", "TCP/UDP מעמיק — Sockets, Ports, States", "HTTP/HTTPS מעמיק — Headers, Auth, TLS", "DNS מעמיק — Zone Files, Records, DNSSEC", "iptables — חומת אש מהאפס", "הקשחת Ubuntu — Server Hardening", "VM כנתב — pfSense ו-Linux Router", "Wireshark מתקדם — ניתוח תעבורה", "VPN ורשתות מנהרה", "אבטחת רשתות — התקפות והגנות"],
+  descs:["Subnetting, CIDR, NAT, Port Forwarding, טבלת ניתוב", "TCP States, Sockets, UDP, ss/netstat", "HTTP Headers, Auth, TLS, curl", "DNS Records, Zone Files, DNSSEC, dig", "Tables, Chains, Rules, NAT, Stateful", "SSH Hardening, UFW, Fail2ban, עדכונים", "IP Forwarding, DHCP, pfSense, OPNsense", "Filters מתקדמים, Follow Stream, Statistics", "WireGuard, OpenVPN, Split Tunnel, Kill Switch", "ARP Spoofing, nmap, Suricata, IDS"],
+  nextChapter:"◀ פרק הבא",
+  tabKeys:["learn","game","cheat"],
+  tabLabels:{"learn":"📖 למידה","game":"🔗 התאמה","cheat":"📋 סיכום"},
+  learn:[
+`<div class="ch-hero-intro"><h1>🌐 IP, NAT ו-Routing</h1><p>הפרק שמסביר למה הנתב שלך הוא הגיבור השקט שמאחורי כל גלישה</p></div>
+<div class="section-title">01 — כתובות IP — מה המספרים האלה בכלל?</div>
+<p class="prose">כל מכשיר ברשת מקבל כתובת IP — כמו כתובת דירה. בלי כתובת, אי אפשר לשלוח ולקבל מידע. כתובת IPv4 נראית כך: <code>192.168.1.5</code> — ארבעה מספרים מופרדים בנקודות, כל אחד בין 0 ל-255.</p>
+<table class="data-table">
+<tr><th>סוג כתובת</th><th>דוגמה</th><th>מי משתמש בה</th></tr>
+<tr><td>כתובת פרטית</td><td>192.168.1.5</td><td>המכשירים שלכם בבית — לא נגישים מהאינטרנט</td></tr>
+<tr><td>כתובת ציבורית</td><td>85.250.1.1</td><td>הנתב שלכם — זו שהעולם רואה</td></tr>
+<tr><td>כתובת מקומית</td><td>127.0.0.1</td><td>המחשב עצמו — "שלח לעצמי"</td></tr>
+</table>
+<div class="callout idea"><strong>💡 אנלוגיה:</strong> הכתובת הציבורית = כתובת הבניין שלכם. הכתובת הפרטית = מספר הדירה. מבחוץ רואים רק את הבניין — לא יודעים כמה דירות יש בו.</div>
+
+<div class="section-title">02 — Subnetting — למה לפצל רשת?</div>
+<p class="prose">דמיינו משרד עם 3 מחלקות: IT, כספים, ומכירות. אם כולם על אותה רשת — כולם "רואים" את כולם. זה לא בטיחותי ולא יעיל. הפתרון: לפצל לרשתות נפרדות — כל מחלקה על רשת משלה.</p>
+<p class="prose">הסימון <code>/24</code> אומר כמה כתובות יש ברשת. <code>192.168.10.0/24</code> = 254 כתובות שמישות. אפשר לחלק את ה-254 לקבוצות קטנות יותר:</p>
+<table class="data-table">
+<tr><th>מחלקה</th><th>טווח כתובות</th><th>כמה מכשירים יכולים להתחבר</th></tr>
+<tr><td>IT</td><td>192.168.10.1 — 192.168.10.62</td><td>62 מכשירים</td></tr>
+<tr><td>כספים</td><td>192.168.10.65 — 192.168.10.126</td><td>62 מכשירים</td></tr>
+<tr><td>מכירות</td><td>192.168.10.129 — 192.168.10.190</td><td>62 מכשירים</td></tr>
+</table>
+<p class="prose">כל מחלקה רואה רק את עצמה. כדי לדבר עם מחלקה אחרת — חייבים לעבור דרך הנתב, שיכול להגביל מי מדבר עם מי.</p>
+<div class="callout idea"><strong>💡 חישוב מהיר:</strong> /24 = 254 כתובות. /25 = 126. /26 = 62. /27 = 30. /28 = 14. בכל פעם שמוסיפים 1 לסימון — חוצים את מספר הכתובות לחצי.</div>
+
+<div class="section-title">03 — NAT — איך 10 מכשירים משתמשים בכתובת אחת</div>
+<p class="prose">לספק האינטרנט שלכם יש מספר מוגבל של כתובות ציבוריות. לכן הוא נותן לכם <strong>כתובת אחת בלבד</strong> — אבל בבית יש לכם טלפון, מחשב, טאבלט, טלוויזיה חכמה... איך כולם גולשים בו-זמנית?</p>
+<p class="prose">הנתב פותר את זה: הוא מחזיק טבלה שמקשרת בין כל מכשיר לפורט ייחודי. כך כשתשובה מגיעה מהאינטרנט — הנתב יודע בדיוק למי להעביר אותה.</p>
+<table class="data-table">
+<tr><th>מכשיר בבית</th><th>פורט שהנתב הקצה</th><th>לאן גולש</th></tr>
+<tr><td>💻 מחשב</td><td>40001</td><td>google.com</td></tr>
+<tr><td>📱 טלפון</td><td>40002</td><td>youtube.com</td></tr>
+<tr><td>📺 טלוויזיה</td><td>40003</td><td>netflix.com</td></tr>
+</table>
+<p class="prose">כשגוגל מחזירה תשובה — היא שולחת לפורט 40001 של הנתב. הנתב מסתכל בטבלה: "מי ביקש דרך 40001?" → מחשב. שולח למחשב. פשוט.</p>
+
+<div class="section-title">04 — Port Forwarding — לפתוח חלון לבחוץ</div>
+<p class="prose">הנתב מגן עליכם: מבחוץ אי אפשר ליצור קשר ישירות עם מכשיר בבית — כי הנתב לא יודע לאיזה מכשיר להעביר. זה טוב לאבטחה — אבל לפעמים רוצים שמישהו יוכל להתחבר אליכם.</p>
+<div class="callout idea"><strong>💡 מתי צריך את זה?</strong> שרת מיינקראפט שחברים יתחברו אליו. מצלמת אבטחה שתגישו מהטלפון כשאתם בחוץ. אתר שאתם מריצים על המחשב הביתי.</div>
+<table class="data-table">
+<tr><th></th><th>בלי העברת פורטים</th><th>עם העברת פורטים</th></tr>
+<tr><td>חבר שולח בקשה</td><td>← 85.250.1.1:25565</td><td>← 85.250.1.1:25565</td></tr>
+<tr><td>הנתב</td><td>לא יודע למי → זורק ❌</td><td>יודע: "שלח ל-192.168.1.10" ✅</td></tr>
+<tr><td>תוצאה</td><td>חבר לא מצליח להתחבר</td><td>חבר נכנס לשרת מיינקראפט</td></tr>
+</table>
+<p class="prose">הגדרה בנתב: כנסו ל-192.168.1.1 בדפדפן → "העברת פורטים" → הוסיפו חוק: פורט חיצוני 25565, כתובת המחשב שלכם 192.168.1.10, פורט פנימי 25565.</p>
+
+<div class="section-title">05 — Routing — כיצד הנתב מחליט לאן לשלוח</div>
+<p class="prose">לכל נתב יש "מפה" — טבלת ניתוב. כשמגיעה חבילת מידע, הנתב מסתכל על הכתובת שלה ובודק במפה: לאיזה כיוון לשלוח?</p>
+<div class="td td-dark"><div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">$ ip route show — המפה של המחשב שלך</div></div>
+<div class="td-body td-body-dark">0.0.0.0/0      via 192.168.1.1   dev eth0
+192.168.1.0/24             dev eth0
+10.0.0.0/8     via 10.8.0.1    dev tun0</div></div>
+<table class="data-table">
+<tr><th>יעד</th><th>שלח דרך</th><th>בפשטות</th></tr>
+<tr><td>0.0.0.0/0</td><td>הנתב — 192.168.1.1</td><td>כל מה שלא מכיר → שלח לנתב, הוא יחליט</td></tr>
+<tr><td>192.168.1.0/24</td><td>ישירות</td><td>מכשירים בבית → שלח ישירות, אין צורך במתווך</td></tr>
+<tr><td>10.0.0.0/8</td><td>VPN — 10.8.0.1</td><td>רשת עבודה → שלח דרך ה-VPN</td></tr>
+</table>
+<div class="callout idea"><strong>💡 כלל חשוב:</strong> הנתב תמיד בוחר את הנתיב הספציפי ביותר. כתובת שמתאימה לכמה שורות בטבלה — ינצח הנתיב הצר יותר. אם יש שני נתיבים שווים — <strong>ערך המרחק</strong> קובע מי עדיף. מספר נמוך = עדיף. כבל רגיל מקבל ערך 100, רשת אלחוטית ערך 600 — הנתב יעדיף את הכבל.</div><div class="story-box"><div class="story-icon">📖</div><p><strong>מה קורה כשאתם גולשים?</strong> אתם מקלידים google.com. המחשב שואל "מי זה google.com?" — ה-DNS עונה "93.184.216.34". המחשב שולח בקשה לנתב. הנתב מתרגם את הכתובת הפנימית שלכם לכתובת הציבורית. גוגל מקבלת, עונה. הנתב מזהה שהתשובה שייכת לכם — ומחזיר אליכם. הכל קורה בפחות מ-100 מילישנייה.</p></div>
+<div class="fun-fact"><strong>💡 ידעתם?</strong> כל המכשירים בבית שלכם משתמשים בכתובת ציבורית אחת בלבד. בגלל NAT, ספקי האינטרנט הצליחו "להאריך" את חיי IPv4 ב-20+ שנה מעבר למה שתכננו במקור.</div>
+`,
+`<div class="ch-hero-intro"><h1>🔌 TCP ו-UDP</h1><p>שתי דרכים לשלוח מידע — אחת אמינה ואטית, השנייה מהירה ולא אכפת לה</p></div>
+<div class="section-title">01 — מצבי TCP — State Machine</div>
+<p class="prose">לכל חיבור TCP יש מחזור חיים — מ-CLOSED עד ESTABLISHED ועד CLOSED שוב. כחוקר רשת, ראיית המצב אומרת לך הרבה על מה שקורה.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — הצגת חיבורים</div></div>
+<div class="td-body td-body-dark">$ ss -tunap
+# או: netstat -tunap (ישן יותר)
+
+Netid  State       Local Address:Port  Peer Address:Port
+tcp    LISTEN      0.0.0.0:22         0.0.0.0:*          # SSH מאזין
+tcp    ESTABLISHED 192.168.1.5:54321  142.250.185.46:443 # גלישה
+tcp    TIME-WAIT   192.168.1.5:54320  93.184.216.34:80   # סוגר
+tcp    CLOSE-WAIT  0.0.0.0:8080       0.0.0.0:*          # ⚠️ דליפה!
+
+# CLOSE-WAIT = הצד השני סגר, אנחנו לא = באג בקוד</div></div>
+<table class="data-table"><tr><th>מצב</th><th>משמעות</th><th>מה לעשות</th></tr><tr><td>LISTEN</td><td>מחכה לחיבורים נכנסים</td><td>תקין — שרת פעיל</td></tr><tr><td>ESTABLISHED</td><td>חיבור פעיל</td><td>תקין</td></tr><tr><td>TIME-WAIT</td><td>סוגר בצורה מסודרת (120 שניות)</td><td>תקין — עוד מעט ייסגר</td></tr><tr><td>CLOSE-WAIT</td><td>הצד השני סגר — אנחנו לא</td><td>⚠️ כנראה באג בקוד</td></tr><tr><td>SYN-SENT</td><td>שלחנו בקשת חיבור, מחכים לתשובה</td><td>תקין — או פג זמן</td></tr><tr><td>SYN-RECEIVED</td><td>קיבלנו בקשת חיבור, שלחנו אישור</td><td>תקין — מתחבר</td></tr></table>
+
+<div class="section-title">02 — Sockets בקוד — מה שכל מפתח צריך לדעת</div>
+<p class="prose">Socket = קצה של חיבור. כל שפת תכנות עוטפת את זה, אבל בסוף הכל עובד על syscalls זהים. הבנת הקצה הזה עוזרת לדבג בעיות רשת.</p>
+<p class="prose">כל שרת — בכל שפה — עושה בדיוק ארבעה צעדים:</p>
+<table class="data-table">
+<tr><th>צעד</th><th>פקודה</th><th>מה זה אומר</th></tr>
+<tr><td>1. פתח שקע</td><td><code>socket(AF_INET, SOCK_STREAM)</code></td><td>צור נקודת קצה — IPv4 + TCP</td></tr>
+<tr><td>2. הגדר כתובת</td><td><code>bind('0.0.0.0', 8080)</code></td><td>האזן על פורט 8080 מכל ממשק</td></tr>
+<tr><td>3. המתן</td><td><code>listen(5)</code></td><td>קבל עד 5 לקוחות בתור</td></tr>
+<tr><td>4. קבל חיבור</td><td><code>accept()</code></td><td>חסום עד שמישהו מתחבר, ואז טפל בו</td></tr>
+</table>
+<div class="callout idea"><strong>💡 שתי כתובות מיוחדות:</strong> <code>0.0.0.0</code> = האזן מכל כתובת — גם מרשת חיצונית. <code>127.0.0.1</code> = רק מהמחשב עצמו. לשרת שצריך להיות נגיש מבחוץ — השתמש ב-0.0.0.0. לפיתוח מקומי — השתמש ב-127.0.0.1.</div>
+<p class="prose">כשכותבים קוד שמתחבר לרשת, צריך לציין שני דברים:</p>
+<table class="data-table">
+<tr><th>מה לציין</th><th>אפשרויות</th><th>מתי</th></tr>
+<tr><td><strong>גרסת IP</strong></td><td>AF_INET = IPv4 (כתובות כמו 192.168.1.1)</td><td>רוב הזמן</td></tr>
+<tr><td></td><td>AF_INET6 = IPv6 (כתובות ארוכות כמו 2001:db8::1)</td><td>רשתות מודרניות</td></tr>
+<tr><td><strong>סוג חיבור</strong></td><td>SOCK_STREAM = TCP — שולח, מאמת שהגיע, מחכה לאישור</td><td>דפדפן, מייל, קבצים</td></tr>
+<tr><td></td><td>SOCK_DGRAM = UDP — שולח ולא מתעניין אם הגיע</td><td>גיימינג, שיחות וידאו, DNS</td></tr>
+<tr><td></td><td>SOCK_RAW = גישה ישירה לחבילה — בלי TCP/UDP</td><td>סריקת רשת, Wireshark, ping</td></tr>
+</table>
+<div class="callout idea"><strong>💡 בפשטות:</strong> דפדפן שפותח אתר — TCP, כי כל תו חייב להגיע (SOCK_STREAM). משחק שולח מיקום — UDP, כי מהירות חשובה יותר מדיוק (SOCK_DGRAM). פקודת ping — לא TCP ולא UDP, היא שולחת הודעת "הי, אתה חי?" ישירות ברמת הרשת (SOCK_RAW), דורש הרשאות מנהל.</div>
+
+<div class="section-title">03 — UDP — מתי ולמה</div>
+<p class="prose">UDP שולח ושוכח. אין handshake, אין ACK, אין סדר. אבל בדיוק בגלל זה — מהיר יותר ב-15-30% מ-TCP. לגיימינג ו-VoIP — כל מילישנייה חשובה.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — בדיקת UDP</div></div>
+<div class="td-body td-body-dark"># שליחת UDP פשוטה
+$ echo "שלום" | nc -u 8.8.8.8 53
+
+# האזנה ל-UDP:
+$ nc -ul 5000   # u = UDP, l = listen
+
+# Wireshark filter ל-UDP בלבד:
+udp
+udp.port == 53
+udp.length > 100   # UDP גדול (מחשיד — כנראה DNS tunneling)</div></div>
+<div class="callout warn"><strong>⚠️ DNS over UDP:</strong> DNS ב-UDP מוגבל ל-512 בתים. תשובה גדולה יותר — DNS עובר אוטומטית ל-TCP. אם רואים שאילתת DNS עם TCP — כנראה שהתשובה גדולה: העברת Zone שלמה בין שרתי DNS, או DNSSEC שמוסיף חתימות לכל רשומה.</div>
+
+<div class="story-box"><div class="story-icon">📖</div><p><strong>TCP מול UDP — האנלוגיה הכי טובה:</strong> TCP הוא שליח רשום — מוודא שהחבילה הגיעה, דורש חתימה, מחכה לאישור. UDP הוא עלון שמשליכים לתיבת דואר — לא יודע אם קראתם, לא מעניין אותו. לגלישה — רוצים את השליח הרשום. לשיחת ווידאו — עלון מהיר עדיף, כי ממילא אם פנים מטושטשות לרגע — לא נורא.</p></div>
+<div class="fun-fact"><strong>💡 ידעתם?</strong> כשמשחקים אונליין — המשחק שולח עדכוני מיקום כל 20-60 מילישנייה. בחיבור של שעה, זה עשרות אלפי הודעות UDP ששוגרו — ורוב חסרות ה-ACK.</div>
+`,
+`<div class="ch-hero-intro"><h1>🔒 HTTP, HTTPS ו-TLS</h1><p>מה שהדפדפן עושה בשקט בכל פעם שאתם גולשים</p></div>
+<div class="section-title">01 — HTTP Headers — מה שהדפדפן לא מראה לך</div>
+<p class="prose">כל HTTP request ו-response מכילים headers — מטאדאטה על הבקשה. Wireshark ו-DevTools חושפים הכל. חלק מ-headers הם קריטיים לאבטחה.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">HTTP Request — מלא</div></div>
+<div class="td-body td-body-dark">GET /api/users HTTP/1.1
+Host: api.example.com
+User-Agent: Mozilla/5.0 (Linux; Android 12)
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9...
+Cookie: session=abc123; _ga=GA1.2.123456
+X-Forwarded-For: 1.2.3.4
+Referer: https://example.com/dashboard
+Cache-Control: no-cache</div></div>
+<table class="data-table"><tr><th>כותרת</th><th>מה זה</th><th>חשיבות לאבטחה</th></tr><tr><td>Authorization</td><td>אסימון גישה / שם משתמש וסיסמה</td><td>⭐⭐⭐ — חשיפה = גישה מלאה</td></tr><tr><td>Cookie</td><td>מזהה הפגישה ונתוני משתמש</td><td>⭐⭐⭐ — גניבת Cookie = כניסה לחשבון</td></tr><tr><td>X-Forwarded-For</td><td>IP מקורי דרך proxy</td><td>⭐⭐ — לרוב מזויף, לא לסמוך</td></tr><tr><td>User-Agent</td><td>זיהוי הדפדפן — קל לזייף</td><td>⭐ — קל לזיוף</td></tr><tr><td>Referer</td><td>מאיזה עמוד הגעת</td><td>⭐⭐ — דליפת URL פנימי</td></tr></table>
+
+<div class="section-title">02 — HTTPS — TLS בפירוט</div>
+<p class="prose">TLS 1.3 (הגרסה הנוכחית) מקים חיבור מוצפן ב-1 RTT בלבד. ב-TLS 1.2 היו צריכים 2. ההבדל נשמע קטן — ב-mobile network עם 80ms RTT זה 80ms שחוסכים בכל חיבור.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — בדיקת TLS</div></div>
+<div class="td-body td-body-dark"># בדיקת תעודה ופרוטוקול:
+$ openssl s_client -connect google.com:443
+
+# פלט:
+Protocol: TLSv1.3
+Cipher: TLS_AES_256_GCM_SHA384
+Server certificate:
+   subject: CN=*.google.com
+   issuer: GTS CA 1C3
+   notAfter: Jan 14 08:29:34 2025 GMT
+
+# בדיקה מהירה של תוקף:
+$ echo | openssl s_client -connect example.com:443 2>/dev/null \
+  | openssl x509 -noout -dates</div></div>
+<div class="callout idea"><strong>💡 נעילת תעודה:</strong> אפליקציות מובייל לפעמים נועלות לתעודה ספציפית — רק אותה תעודה תתקבל. זה מגן מהאזנה לתעבורה, אבל מקשה על בדיקות פנימיות.</div>
+
+<div class="section-title">03 — איך אתר "יודע" שאתה אתה?</div>
+<p class="prose">כשאפליקציה מדברת עם שרת — השרת צריך לדעת מי שואל. יש כמה דרכים לעשות זאת:</p>
+<table class="data-table">
+<tr><th>שיטה</th><th>בפשטות</th><th>דוגמה לשימוש</th></tr>
+<tr><td><strong>שם משתמש + סיסמה</strong><br><small>(Basic Auth)</small></td><td>שולח שם וסיסמה בכל בקשה. פשוט — אבל אם מישהו מציץ על התעבורה, הוא רואה הכל. חובה HTTPS.</td><td>כלים פנימיים בתוך רשת ארגונית</td></tr>
+<tr><td><strong>אסימון זמני</strong><br><small>(Bearer Token)</small></td><td>נכנסת פעם אחת עם סיסמה, מקבל "כרטיס כניסה" זמני. בכל בקשה שולח את הכרטיס — לא את הסיסמה.</td><td>רוב האפליקציות המודרניות</td></tr>
+<tr><td><strong>כניסה דרך גורם שלישי</strong><br><small>(OAuth)</small></td><td>"היכנס עם גוגל" — גוגל מאמתת אותך ומוציאה כרטיס כניסה לאתר. האתר לא רואה את הסיסמה שלך לגוגל.</td><td>כניסה עם גוגל, פייסבוק, GitHub</td></tr>
+<tr><td><strong>מפתח API</strong></td><td>קוד סודי קבוע שנשלח בכל בקשה. פשוט לשימוש — אבל אם דלף, צריך להחליף.</td><td>גישה לשירותי API חיצוניים</td></tr>
+</table>
+<div class="callout idea"><strong>💡 למה לא תמיד שם משתמש וסיסמה?</strong> כי אם שולחים סיסמה בכל בקשה — מסכן יותר. אסימון זמני תקף רק כמה שעות — אם נגנב, הנזק מוגבל.</div>
+<div class="section-title">01 — DNS Records — כל הסוגים</div>
+<p class="prose">DNS הוא הרבה יותר מ'שם → IP'. כל סוג Record עושה משהו אחר. הבנת כולם עוזרת גם בפתרון בעיות וגם בהגנה על דומיין.</p>
+<table class="data-table"><tr><th>סוג</th><th>מה זה</th><th>דוגמה</th></tr><tr><td>A</td><td>שם → IPv4</td><td>example.com → 93.184.216.34</td></tr><tr><td>AAAA</td><td>שם → IPv6</td><td>example.com → 2606:2800::1</td></tr><tr><td>CNAME</td><td>שם → שם אחר (כינוי)</td><td>www.example.com → example.com</td></tr><tr><td>MX</td><td>שרת המייל של הדומיין</td><td>example.com → mail.example.com (עדיפות 10)</td></tr><tr><td>TXT</td><td>טקסט חופשי — לאימות שולח מייל ועוד</td><td>v=spf1 include:google.com ~all</td></tr><tr><td>NS</td><td>שרתי ה-DNS שאחראים על הדומיין</td><td>example.com → ns1.cloudflare.com</td></tr><tr><td>PTR</td><td>כתובת IP → שם (DNS הפוך)</td><td>34.216.184.93.in-addr.arpa → example.com</td></tr><tr><td>SRV</td><td>שירות + פורט ספציפי</td><td>_sip._tcp.example.com → sip.example.com:5060</td></tr><tr><td>SOA</td><td>מידע ניהולי על ה-Zone — מי אחראי, מתי עודכן</td><td>מנוהל ע"י כלי ה-DNS</td></tr></table>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — שאילתות DNS</div></div>
+<div class="td-body td-body-dark"># שאילתת A record:
+$ dig google.com A
+
+# MX record (שרתי מייל):
+$ dig google.com MX
+
+# TXT record (SPF/DKIM):
+$ dig google.com TXT
+
+# Reverse DNS (PTR):
+$ dig -x 8.8.8.8
+
+# כל ה-records:
+$ dig google.com ANY
+
+# שאילתה לשרת ספציפי:
+$ dig @8.8.8.8 google.com A</div></div>
+
+<div class="section-title">02 — Zone File — בניית DNS מהאפס</div>
+<p class="prose">קובץ Zone הוא קובץ טקסט שמגדיר את כל רשומות ה-DNS של דומיין. כל שרת DNS רשותי מחזיק קובץ כזה. נראה מוזר בהתחלה — אבל יש הגיון.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Zone File — example.com</div></div>
+<div class="td-body td-body-dark">; Zone file לדומיין example.com
+$ORIGIN example.com.
+$TTL 3600              ; ברירת מחדל TTL = שעה
+
+; SOA — Start of Authority
+@  IN  SOA  ns1.example.com. admin.example.com. (
+       2024010101  ; Serial (חייב לגדול בכל שינוי)
+       3600        ; Refresh
+       900         ; Retry
+       604800      ; Expire
+       300 )       ; Negative TTL
+
+; Name Servers
+@       IN  NS    ns1.example.com.
+@       IN  NS    ns2.example.com.
+
+; A Records
+@       IN  A     93.184.216.34
+www     IN  A     93.184.216.34
+mail    IN  A     93.184.216.35
+ns1     IN  A     93.184.216.36
+
+; MX Records
+@       IN  MX  10  mail.example.com.
+@       IN  MX  20  mail2.example.com.
+
+; TXT (SPF)
+@       IN  TXT   "v=spf1 ip4:93.184.216.0/24 ~all"</div></div>
+
+<div class="section-title">03 — DNSSEC — חתימה דיגיטלית על DNS</div>
+<p class="prose">DNSSEC מוסיף חתימה קריפטוגרפית לכל רשומת DNS. בלעדיה — תוקף יכול לענות על שאילתות DNS עם כתובות מזויפות. עם DNSSEC — הדפדפן מאמת שהתשובה חתומה על ידי הבעלים האמיתי.</p>
+<div class="callout warn"><strong>⚠️ DNS Spoofing:</strong> בלי DNSSEC: תוקף ברשת יכול לענות על DNS query לפני השרת האמיתי. 'google.com = 1.2.3.4 (שלי)'. הקורבן לא יודע. עם HTTPS — התוכן מוצפן, אבל הדפדפן כבר שם.</div>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — בדיקת DNSSEC</div></div>
+<div class="td-body td-body-dark"># בדיקה אם דומיין חתום:
+$ dig +dnssec google.com A
+
+# חיפוש ה-DNSKEY record:
+$ dig google.com DNSKEY
+
+# בדיקה מלאה:
+$ dig +trace +dnssec google.com
+
+# online validator:
+# https://dnssec-debugger.verisignlabs.com/</div></div>
+
+
+<div class="section-title">04 — IPv6 מול IPv4 — מה ההבדל?</div>
+<p class="prose"><strong>IPv4</strong> הוא פרוטוקול הכתובות הישן — המספרים שכולם מכירים כמו 192.168.1.1. יש בו כ-4 מיליארד כתובות אפשריות — וכבר נגמרו. <strong>IPv6</strong> הוא הגרסה החדשה שנוצרה כדי לפתור את הבעיה — יש בה 340 טריליון טריליון טריליון כתובות. נראה אחרת לגמרי: <code>2001:db8::1</code>.</p>
+<div class="story-box"><span class="story-icon">📖</span><p><strong>אנלוגיה:</strong> IPv4 הוא כמו מיקוד של 5 ספרות — מספיק לישראל, לא מספיק לכל כדור הארץ. IPv6 הוא כמו מיקוד של 32 ספרות — כל חבית חול בכדור הארץ יכולה לקבל כתובת ייחודית משלה.</p></div>
+<p class="prose">וכאן מגיעה הנקודה החשובה: <strong>ip6tables</strong> הוא בדיוק כמו iptables — אבל לתעבורת IPv6. חוקי iptables לא חלים על IPv6 כלל. שרת שמוגן ב-iptables אבל יש לו כתובת IPv6 — פתוח לחלוטין מבחוץ דרך IPv6.</p>
+<table class="data-table">
+<tr><th>ההבדל</th><th>IPv4 (ישן)</th><th>IPv6 (חדש)</th></tr>
+<tr><td>כתובות</td><td>192.168.1.1</td><td>2001:db8::1</td></tr>
+<tr><td>פקודת חומת האש</td><td>iptables</td><td>ip6tables (נפרד לחלוטין!)</td></tr>
+<tr><td>קובץ שמירה</td><td>rules.v4</td><td>rules.v6</td></tr>
+<tr><td>כתובת מקומית</td><td>127.0.0.1</td><td>::1</td></tr>
+<tr><td>שידור לכולם</td><td>255.255.255.255</td><td>ff02::1</td></tr>
+</table>
+<div class="callout warn"><strong>⚠️ הסכנה:</strong> שרת שמוגן ב-IPv4 עם iptables — אבל יש לו כתובת IPv6 — פתוח לחלוטין מבחוץ. תוקף שמתחבר דרך IPv6 עוקף את כל חוקי iptables.</div>
+<div class="section-title">05 — ip6tables — חוקים מעשיים</div>
+<p class="prose">הפקודות זהות לחלוטין ל-iptables — רק הפרוטוקול שונה. כל מה שלמדתם על iptables עובד כאן אחד לאחד.</p>
+<div class="td td-dark"><div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — ip6tables בסיסי</div></div>
+<div class="td-body td-body-dark">#!/bin/bash
+# איפוס
+ip6tables -F
+ip6tables -X
+
+# מדיניות ברירת מחדל — חסום הכל
+ip6tables -P INPUT DROP
+ip6tables -P FORWARD DROP
+ip6tables -P OUTPUT ACCEPT
+
+# Loopback — חובה (כתובת IPv6 של localhost)
+ip6tables -A INPUT -i lo -j ACCEPT
+
+# חיבורים קיימים
+ip6tables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# ICMPv6 — חובה! בלי זה IPv6 לא עובד כלל
+ip6tables -A INPUT -p ipv6-icmp -j ACCEPT
+
+# SSH
+ip6tables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# שמירה (Debian/Ubuntu)
+ip6tables-save > /etc/iptables/rules.v6</div></div>
+<div class="callout idea"><strong>💡 ICMPv6 — אל תחסמו אותו:</strong> ב-IPv4 אפשר לחסום ping ולהמשיך לעבוד. ב-IPv6 — ICMPv6 הוא חלק מהפרוטוקול עצמו. חסימה שלו תשבור גילוי מכשירים שכנים וקבלת כתובות אוטומטית. השאירו אותו פתוח תמיד.</div>
+<div class="section-title">06 — כיבוי IPv6 — כשלא צריך אותו</div>
+<p class="prose">אם השרת שלכם לא משתמש ב-IPv6 — אפשר לכבות אותו לגמרי. פחות פרוטוקולים פעילים = פחות דרכים שתוקף יכול לנסות.</p>
+<div class="td td-dark"><div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — כיבוי IPv6</div></div>
+<div class="td-body td-body-dark"># כיבוי זמני:
+sysctl -w net.ipv6.conf.all.disable_ipv6=1
+sysctl -w net.ipv6.conf.default.disable_ipv6=1
+
+# כיבוי קבוע — הוסיפו ל-/etc/sysctl.conf:
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+
+# החלת השינוי:
+sysctl -p
+
+# בדיקה — אם הפלט ריק, IPv6 כבוי:
+ip -6 addr show</div></div>
+<div class="callout idea"><strong>💡 מתי לכבות ומתי לא?</strong> לכבות — כשהשרת לא צריך IPv6 כלל. לא לכבות — כשלקוחות מתחברים דרך IPv6 או כשהספק מספק אותו. ספקים רבים עוברים ל-IPv6 בשנים הקרובות.</div><div class="story-box"><div class="story-icon">📖</div><p><strong>HTTPS — האנלוגיה:</strong> דמיינו שאתם שולחים מכתב בתוך מעטפה שקופה. כולם יכולים לקרוא. HTTPS הוא כמו לשים את המכתב בכספת — רק הנמען יודע את הקוד. גם הספק שלכם, גם הנתב בקפה — לא רואים כלום.</p></div>
+<div class="fun-fact"><strong>💡 ידעתם?</strong> ה-HTTPS שאתם רואים בדפדפן הצליח להפוך HTTP — פרוטוקול משנת 1991 — לאחד הפרוטוקולים הבטוחים ביותר בעולם, בלי לשנות אותו בכלל.</div>
+`,
+`<div class="ch-hero-intro"><h1>🔥 iptables — שוער הרשת</h1><p>הכלי שמחליט מי נכנס ומי לא — ואיך לשלוט בו</p></div>
+<div class="section-title">01 — iptables — ארכיטקטורה</div>
+<p class="prose">iptables הוא חומת האש המובנית ב-Linux. כל חבילת מידע שעוברת דרך המערכת — עוברת דרך שרשרת חוקים. iptables מאפשר לנהל את השרשרות האלה.</p>
+<table class="data-table"><tr><th>טבלה</th><th>מה עושה</th><th>שרשרות</th></tr><tr><td>filter (ברירת מחדל)</td><td>מסנן — מאפשר/חוסם</td><td>נכנס, יוצא, מועבר</td></tr><tr><td>nat</td><td>מתרגם כתובות</td><td>לפני ניתוב, יוצא, אחרי ניתוב</td></tr><tr><td>mangle</td><td>משנה כותרות של חבילות</td><td>כולן</td></tr><tr><td>raw</td><td>לפני מעקב חיבורים</td><td>לפני ניתוב, יוצא</td></tr></table>
+<p class="prose">שרשרת = רשימת חוקים. חבילת מידע נכנסת → עוברת דרך כל חוק בסדר → הפעולה הראשונה שמתאימה מבוצעת. אם אף חוק לא מתאים — מדיניות ברירת המחדל קובעת: ACCEPT (אפשר) או DROP (חסום).</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — הצגת חוקים</div></div>
+<div class="td-body td-body-dark"># הצגת כל החוקים עם מספרים ומוניטורים:
+$ sudo iptables -L -n -v --line-numbers
+
+# פלט:
+Chain INPUT (policy DROP)
+num  pkts  bytes target  prot  in    out  source    destination
+1    1234  234K  ACCEPT  all   lo    *    0.0.0.0/0 0.0.0.0/0  # loopback
+2    5678  1.2M  ACCEPT  tcp   eth0  *    0.0.0.0/0 0.0.0.0/0  tcp dpt:22
+3       0     0  DROP    all   *     *    10.0.0.0/8 0.0.0.0/0 # חסום רשת פנימית
+
+# שמירת חוקים (Debian/Ubuntu):
+$ sudo iptables-save > /etc/iptables/rules.v4
+# טעינה אוטומטית בעלייה: apt install iptables-persistent</div></div>
+
+<div class="section-title">02 — iptables — חוקים בסיסיים</div>
+<p class="prose">נבנה חומת אש ריאלית שלב אחרי שלב. עיקרון: ברירת מחדל DENY, ואז פתיחת מה שצריך.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — מדיניות בסיסית</div></div>
+<div class="td-body td-body-dark">#!/bin/bash
+# === איפוס ===
+iptables -F          # מחיקת כל החוקים
+iptables -X          # מחיקת chains מותאמים
+iptables -Z          # איפוס מוניטורים
+
+# === מדיניות ברירת מחדל: חסום הכל ===
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT   # יוצא: מאפשרים הכל
+
+# === Loopback (חובה!) ===
+iptables -A INPUT -i lo -j ACCEPT
+
+# === חיבורים קיימים (Stateful) ===
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# === ICMP (ping) ===
+iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+
+# === SSH — רק מרשת מסוימת ===
+iptables -A INPUT -p tcp --dport 22 -s 192.168.1.0/24 -j ACCEPT
+
+# === HTTP/HTTPS ===
+iptables -A INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT
+
+# === הגבלת Rate (Anti-brute force) ===
+iptables -A INPUT -p tcp --dport 22 -m recent --update --seconds 60 --hitcount 4 -j DROP
+iptables -A INPUT -p tcp --dport 22 -m recent --set -j ACCEPT</div></div>
+<div class="callout idea"><strong>💡 חומת אש עם זיכרון vs בלי זיכרון:</strong> חומת אש עם זיכרון זוכרת חיבורים — אם <em>אנחנו</em> פתחנו חיבור לבחוץ, תשובות מותרות להיכנס. חומת אש בלי זיכרון בודקת כל חבילה בנפרד, ללא הקשר.</div>
+
+<div class="section-title">03 — iptables — תרגום כתובות והעברת פורטים</div>
+<p class="prose">הטבלה nat ב-iptables מאפשרת תרגום כתובות מלא — כולל הפיכת Linux רגיל לנתב אמיתי.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — NAT ו-Port Forwarding</div></div>
+<div class="td-body td-body-dark"># === הפעלת IP Forwarding (חובה לנתב!) ===
+echo 1 > /proc/sys/net/ipv4/ip_forward
+# קביעה קבועה ב-/etc/sysctl.conf:
+echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+
+# === Masquerade (NAT יוצא) ===
+# כל מה שיוצא מ-eth0 — הסתר מאחורי כתובת eth0:
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+# === Port Forwarding ===
+# בקשה לפורט 8080 על eth0 → שלח ל-192.168.1.10:80
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 8080 -j DNAT     --to-destination 192.168.1.10:80
+
+# הפניה מקומית (לשרת שרץ על אותו מחשב):
+iptables -t nat -A OUTPUT -p tcp --dport 80 -j REDIRECT --to-port 8080
+
+# === הצגת חוקי NAT ===
+$ sudo iptables -t nat -L -n -v</div></div>
+
+<div class="story-box"><div class="story-icon">📖</div><p><strong>iptables — השוער:</strong> תדמיינו שוער במועדון עם רשימה. "INPUT" = מי נכנס. "OUTPUT" = מי יוצא. "FORWARD" = מי עובר דרך. לכל שוער יש הוראות — ה-Policy. ברירת מחדל: DROP = חסום הכל, ורק פתח מה שצריך. הרבה יותר בטוח מ-ACCEPT הכל וחסום מה שלא רוצים.</p></div>
+<div class="fun-fact"><strong>💡 ידעתם?</strong> iptables קיים ב-Linux מאז שנת 1998. מאות מיליוני שרתים בעולם עדיין מריצים אותו יומיום — ותאמינו או לא, הממשיך שלו nftables עדיין לא החליף אותו ברוב המקרים.</div>
+`,
+`<div class="ch-hero-intro"><h1>🛡️ הקשחת שרת</h1><p>שרת בלי הקשחה הוא כמו בית בלי מנעול — אפשרי, אבל לא חכם</p></div>
+<div class="section-title">01 — עקרונות ההקשחה</div>
+<p class="prose">הקשחת שרת = הפחתת שטח ההתקפה. כל שירות שרץ הוא דלת אפשרית לתוקף. כל משתמש עם הרשאות הוא סיכון. ההקשחה סוגרת את הדלתות המיותרות.</p>
+<table class="data-table">
+<tr><th>עיקרון</th><th>מה זה אומר בפועל</th></tr>
+<tr><td>הרשאה מינימלית</td><td>כל משתמש ושירות מקבל בדיוק מה שצריך — לא יותר</td></tr>
+<tr><td>הקטנת שטח התקפה</td><td>הסרת שירותים, פורטים ומשתמשים מיותרים</td></tr>
+<tr><td>הגנה בשכבות</td><td>אם שכבה אחת נכשלת — השנייה מגנה</td></tr>
+<tr><td>ניטור ותיעוד</td><td>כל פעולה מתועדת — יודעים מה קורה</td></tr>
+<tr><td>עדכונים שוטפים</td><td>רוב הפרצות ידועות ומתוקנות — רק צריך לעדכן</td></tr>
+</table>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — צעדים ראשונים על שרת חדש</div></div>
+<div class="td-body td-body-dark">sudo apt update && sudo apt upgrade -y
+sudo apt purge --auto-remove cups bluetooth avahi-daemon -y
+sudo ss -tunlp | grep LISTEN
+grep -v "/nologin\|/false" /etc/passwd</div></div>
+
+<div class="section-title">02 — SSH הקשחה</div>
+<p class="prose">SSH הוא הכניסה הראשית לכל שרת Linux. ברירות המחדל שלו טובות — אבל ניתן לשפר. 70% מניסיונות ה-brute force הם ל-SSH.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">/etc/ssh/sshd_config — הגדרות מומלצות</div></div>
+<div class="td-body td-body-dark">Port 2222
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+MaxAuthTries 2
+ClientAliveInterval 300
+ClientAliveCountMax 1
+AllowUsers admin deployer
+X11Forwarding no</div></div>
+<div class="callout idea"><strong>💡 מפתחות SSH:</strong> צור זוג מפתחות: <code>ssh-keygen -t ed25519</code>. העתק לשרת: <code>ssh-copy-id -i ~/.ssh/id_ed25519.pub user@server</code>. המפתח הפרטי נשאר אצלך בלבד — לעולם לא על השרת.</div>
+<div class="callout warn"><strong>⚠️ לפני כל שינוי ב-sshd_config:</strong> בדוק תחילה עם <code>sudo sshd -t</code>. רק אחר כך — <code>sudo systemctl restart sshd</code>. טעות בקובץ = נעילה מהשרת.</div>
+
+<div class="section-title">03 — iptables להקשחה</div>
+<p class="prose">במקום UFW — iptables ישירות. יותר שליטה, אותה תוצאה. המדיניות: חסום הכל נכנס — פתח רק מה שצריך.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — הקשחה עם iptables</div></div>
+<div class="td-body td-body-dark">#!/bin/bash
+# === איפוס ===
+iptables -F
+iptables -X
+iptables -Z
+
+# === מדיניות: חסום הכל נכנס ===
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+# === חובה — loopback ===
+iptables -A INPUT -i lo -j ACCEPT
+
+# === אפשר תשובות לחיבורים שיצאנו מהם ===
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# === SSH — עם הגבלת ניסיונות (anti brute-force) ===
+iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW   -m recent --set --name SSH
+iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW   -m recent --update --seconds 60 --hitcount 4 --name SSH -j DROP
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# === HTTP / HTTPS ===
+iptables -A INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT
+
+# === ICMP (ping) ===
+iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+
+# === שמירה קבועה ===
+apt install iptables-persistent -y
+iptables-save > /etc/iptables/rules.v4</div></div>
+<div class="callout idea"><strong>💡 איך זה עובד בפועל?</strong> תוקף שמנסה לנחש סיסמת SSH שולח הרבה בקשות חיבור בזמן קצר. הכלי <code>--recent</code> ב-iptables סופר: "כמה פעמים ה-IP הזה ניסה להתחבר ב-60 השניות האחרונות?" — אם יותר מ-4 פעמים, חסום אותו. בדיוק כמו Fail2ban, אבל ללא התקנת כלי נוסף — הכל בתוך iptables ישירות.</div>
+
+<div class="section-title">04 — Fail2ban — הגנה נוספת</div>
+<p class="prose">Fail2ban עוקב אחרי קבצי log ומוסיף חוקי iptables אוטומטית כשמזהה brute force. עובד יחד עם iptables — לא במקומו.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — הגדרת Fail2ban</div></div>
+<div class="td-body td-body-dark">sudo apt install fail2ban -y
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+# ערוך /etc/fail2ban/jail.local:
+[sshd]
+enabled  = true
+port     = 22
+filter   = sshd
+logpath  = /var/log/auth.log
+maxretry = 3
+bantime  = 3600
+findtime = 600
+
+sudo systemctl enable --now fail2ban
+
+# בדיקת מצב:
+sudo fail2ban-client status sshd
+
+# שחרור IP שנחסם:
+sudo fail2ban-client set sshd unbanip 1.2.3.4</div></div>
+
+<div class="section-title">05 — עדכונים אוטומטיים</div>
+<p class="prose">רוב הפרצות שמנוצלות בפועל — כבר תוקנו. הבעיה היא שאנשים לא מעדכנים. unattended-upgrades מעדכן עדכוני אבטחה בלילה, אוטומטית.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — עדכונים אוטומטיים</div></div>
+<div class="td-body td-body-dark">sudo apt install unattended-upgrades -y
+sudo dpkg-reconfigure --priority=low unattended-upgrades
+
+# בדיקה שפועל:
+sudo systemctl status unattended-upgrades
+
+# log:
+cat /var/log/unattended-upgrades/unattended-upgrades.log</div></div><div class="story-box"><div class="story-icon">📖</div><p><strong>למה הקשחה חשובה?</strong> שרת ברירת מחדל הוא כמו דירה חדשה שכל המנעולים פתוחים, כל החלונות פתוחים, ויש שלט "ברוכים הבאים". ההקשחה היא לסגור מה שלא צריך, להחליף מנעולים חזקים, ולדעת מי בא ומי הלך.</p></div>
+<div class="fun-fact"><strong>💡 ידעתם?</strong> ב-2016 נפרץ שרת של Dyn (ספק DNS גדול) על ידי בוטנט של מצלמות אבטחה ביתיות עם סיסמת ברירת מחדל. זה הוריד Twitter, Netflix וספוטיפיי לשעות. הקשחה לא שמורה לארגונים גדולים בלבד.</div>
+`,
+`<div class="ch-hero-intro"><h1>🔀 VM כנתב</h1><p>מחשב וירטואלי שהופך לנתב אמיתי — ממש כמו הנתב בבית, אבל שלכם לגמרי</p></div>
+<div class="section-title">01 — ארכיטקטורת VM-Router</div>
+<p class="prose">מחשב וירטואלי עם שני כרטיסי רשת שמנתב תעבורה בין רשתות. שימושי ל: מעבדת אבטחה, NAT ביתי מתקדם, ניטור תעבורה, שער VPN.</p>
+<table class="data-table"><tr><th>מערכת</th><th>ממשקים נדרשים</th><th>יתרון</th></tr><tr><td>Linux Router (Ubuntu/Debian)</td><td>2+ ממשקים, iptables</td><td>גמיש, קוד פתוח, חינם</td></tr><tr><td>pfSense</td><td>2+ ממשקים, ממשק גרפי</td><td>ידידותי, עשיר בתכונות</td></tr><tr><td>OPNsense</td><td>2+ ממשקים, ממשק גרפי</td><td>pfSense מודרני יותר</td></tr><tr><td>VyOS</td><td>שורת פקודה, רמת ארגון</td><td>ברמת Cisco/Juniper</td></tr></table>
+<div class="callout idea"><strong>💡 הגדרת ממשקים ב-VMware/VirtualBox:</strong> כרטיס 1 (WAN): מחובר ל-NAT או Bridged — גישה לאינטרנט. כרטיס 2 (LAN): מחובר ל-Internal Network — רשת פנימית. VMs אחרים ב-Internal Network ישתמשו ב-VM Router כ-Gateway.</div>
+
+<div class="section-title">02 — Linux כנתב — הגדרה מלאה</div>
+<p class="prose">Ubuntu/Debian עם שני כרטיסי רשת יכול לנתב תעבורה. צריך: IP Forwarding, iptables, DHCP.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — הגדרת Linux Router</div></div>
+<div class="td-body td-body-dark"># === זיהוי הממשקים ===
+$ ip addr show
+# eth0 = WAN (כתובת מה-DHCP החיצוני)
+# eth1 = LAN (נגדיר ידנית)
+
+# === הגדרת LAN ===
+sudo ip addr add 10.0.0.1/24 dev eth1
+sudo ip link set eth1 up
+
+# קבועה ב-/etc/netplan/01-config.yaml:
+network:
+  version: 2
+  ethernets:
+    eth1:
+      addresses: [10.0.0.1/24]
+
+# === IP Forwarding ===
+sudo sysctl -w net.ipv4.ip_forward=1
+echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
+
+# === NAT (Masquerade) ===
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+sudo iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
+sudo iptables -A FORWARD -i eth0 -o eth1 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# === DHCP לרשת הפנימית ===
+sudo apt install isc-dhcp-server -y
+
+# /etc/dhcp/dhcpd.conf:
+subnet 10.0.0.0 netmask 255.255.255.0 {
+    range 10.0.0.100 10.0.0.200;
+    option routers 10.0.0.1;
+    option domain-name-servers 8.8.8.8, 1.1.1.1;
+    default-lease-time 86400;
+}</div></div>
+
+<div class="section-title">03 — pfSense — WebUI נתב</div>
+<p class="prose">pfSense היא מערכת מבוססת FreeBSD שהופכת מחשב וירטואלי לנתב ברמת ארגון — עם ממשק גרפי נוח. מתאים מאוד למעבדה ביתית ולארגונים קטנים.</p>
+<table class="data-table"><tr><th>תכונה</th><th>מה עושה</th></tr><tr><td>חוקי חומת אש</td><td>חוקים לכל ממשק — ממשק גרפי ידידותי</td></tr><tr><td>שרת DHCP</td><td>חלוקת כתובות אוטומטית לרשת הפנימית</td></tr><tr><td>VPN</td><td>גישה מרחוק מאובטחת</td></tr><tr><td>ניהול רוחב פס</td><td>הגבלת מהירות לפי כתובת או שירות</td></tr><tr><td>זיהוי חדירות (Suricata)</td><td>זיהוי ומניעת התקפות</td></tr><tr><td>פורטל כניסה</td><td>דף כניסה לרשת אורחים</td></tr><tr><td>HAProxy</td><td>איזון עומסים מובנה</td></tr></table>
+<div class="callout idea"><strong>💡 התקנה ב-VirtualBox:</strong> 1. הורד קובץ ISO מ-pfsense.org. 2. צור מחשב וירטואלי עם 2 כרטיסי רשת (NAT + Internal). 3. הגדר WAN/LAN. 4. כנס לממשק הגרפי מ-VM פנימי: https://192.168.1.1. שם משתמש: admin, סיסמה: pfsense.</div>
+
+<div class="story-box"><div class="story-icon">📖</div><p><strong>VM כנתב — למה זה שימושי?</strong> במקום לקנות נתב פיזי ב-3,000 שקל — מריצים מחשב וירטואלי שעושה בדיוק אותו דבר. פותח אפשרויות: אפשר לבדוק הגדרות מסוכנות בבטחה, לשכפל את הסביבה, ולהתנסות בלי פחד לשבור משהו אמיתי.</p></div>
+<div class="fun-fact"><strong>💡 ידעתם?</strong> pfSense מריצה מאות אלפי ארגונים בעולם — מבתי קפה קטנים עד רשתות ממשלתיות. כל זה תוכנה חינמית שרצה על חומרה רגילה.</div>
+`,
+`<div class="ch-hero-intro"><h1>🔬 Wireshark — מיקרוסקופ לרשת</h1><p>לראות כל חבילת מידע שעוברת — כמו לקרוא מכתבים פתוחים</p></div>
+<div class="section-title">01 — Filters מתקדמים</div>
+<p class="prose">Wireshark תופס אלפי חבילות בדקה. בלי filters טובים — מחפשים מחט בערמת שחת. הנה ה-filters שמשתמשים בהם בפועל.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Wireshark — Display Filters</div></div>
+<div class="td-body td-body-dark"># === HTTP/HTTPS ===
+http.request                    # בקשות HTTP
+http.response.code == 200       # תשובות OK
+http.request.uri contains "login"  # URLs עם login
+
+# === DNS ===
+dns.qry.name contains "google"  # שאילתות לגוגל
+dns.flags.rcode != 0            # DNS errors
+dns.qry.type == 1               # רק A records
+
+# === TLS ===
+tls.handshake.type == 1         # Client Hello
+tls.record.content_type == 21   # Alert (שגיאות TLS)
+ssl.alert_message.desc == 42    # Certificate Unknown
+
+# === TCP ===
+tcp.flags.syn == 1 && tcp.flags.ack == 0  # חיבורים חדשים
+tcp.analysis.retransmission                # retransmissions
+tcp.analysis.zero_window                   # עצירות flow control
+tcp.port == 8080                           # פורט ספציפי
+
+# === IP ===
+ip.src == 192.168.1.5 && ip.dst != 192.168.1.0/24  # יוצא החוצה
+! arp && ! mdns && ! llmnr         # ללא broadcast רעש</div></div>
+<div class="callout idea"><strong>💡 צביעה לפי חיבור:</strong> View → Colorize Conversation → TCP Stream. כל חיבור מקבל צבע שונה — קל לעקוב אחרי שיחה ספציפית.</div>
+
+<div class="section-title">02 — TCP Stream Analysis</div>
+<p class="prose">Follow TCP Stream = Wireshark מראה את כל השיחה ברצף, כמו קריאת שיחת טלפון. ב-HTTP — קוראים כל בקשה ותשובה. ב-HTTPS — רואים ג'יבריש מוצפן.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Wireshark — ניתוח שיחה</div></div>
+<div class="td-body td-body-dark"># 1. לחיצה ימנית על packet → Follow → TCP Stream
+# 2. בחלון שנפתח:
+#    אדום = הצד שהתחיל (Client)
+#    כחול = הצד השני (Server)
+
+# דוגמה ל-HTTP ב-Follow Stream:
+GET /login HTTP/1.1
+Host: example.com
+Content-Type: application/x-www-form-urlencoded
+
+username=admin&password=1234  ← סיסמה גלויה ב-HTTP!
+
+HTTP/1.1 302 Found
+Location: /dashboard
+Set-Cookie: session=abc123; HttpOnly  ← Cookie חדש
+
+# Tip: אפשר לייצא Stream לקובץ:
+# File → Export Objects → HTTP (לכל קבצי HTTP)</div></div>
+<div class="callout warn"><strong>⚠️ פענוח HTTPS ב-Wireshark:</strong> דפדפנים כמו Chrome ו-Firefox יכולים לשמור מפתחות ההצפנה לקובץ. הגדירו: <code>export SSLKEYLOGFILE=~/ssl.log</code> לפני פתיחת הדפדפן, ואז ב-Wireshark: Edit → Preferences → TLS → Master-Secret log.</div>
+
+<div class="section-title">03 — Statistics ו-IO Graph</div>
+<p class="prose">Wireshark לא רק מציג packets — יש בו כלי ניתוח סטטיסטי עוצמתי. מאוד שימושי לאבחון ביצועים.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Wireshark — Statistics Menu</div></div>
+<div class="td-body td-body-dark"># Statistics → Protocol Hierarchy
+# → מראה % של כל פרוטוקול. TCP 80%, DNS 5%, ARP 2%...
+
+# Statistics → Conversations
+# → טבלת כל החיבורים עם Bytes, Packets, Duration
+# → מיון לפי Bytes מגלה מי "אוכל" bandwidth
+
+# Statistics → IO Graph
+# → גרף של תעבורה לאורך זמן
+# → אפשר לשכב Filters: tcp.analysis.retransmission (אדום)
+#                         tcp (כחול) — לראות מתאם
+
+# Statistics → HTTP → Packet Counter
+# → כמה 200, 404, 500 response codes
+
+# Analyze → Expert Information
+# → Wireshark מסכם בעיות שמצא:
+#   Errors: RST connections, checksum errors
+#   Warnings: Retransmissions, Zero Window
+#   Notes: SYN/FIN counts</div></div>
+
+<div class="story-box"><div class="story-icon">📖</div><p><strong>Wireshark — הציתות הלגיטימי:</strong> כשמנהל רשת רואה שמשתמש מוריד קבצים בקצב חריג — Wireshark מאפשר לראות בדיוק מה: לאיזה שרת, באיזה פרוטוקול, כמה. זה לא ריגול — זה אבחון. כמו רופא שמאזין לדפיקות לב.</p></div>
+<div class="fun-fact"><strong>💡 ידעתם?</strong> Wireshark נוצר ב-1998 על ידי מהנדס אחד שרצה לדבג בעיית רשת. כיום הוא הכלי הנפוץ ביותר לניתוח רשת בעולם — ועדיין חינמי לחלוטין.</div>
+`,
+`<div class="ch-hero-intro"><h1>🔐 VPN — המנהרה המוצפנת</h1><p>איך יוצרים מנהרה פרטית דרך האינטרנט הציבורי</p></div>
+<div class="section-title">01 — WireGuard — הדור החדש</div>
+<p class="prose">WireGuard הוא פרוטוקול VPN חדש (2020) שפשוט יותר, מהיר יותר, ומאובטח יותר מ-OpenVPN. הקוד שלו 4,000 שורות — OpenVPN הוא 100,000. פחות קוד = פחות מקום לבאגים.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — WireGuard Server על Ubuntu</div></div>
+<div class="td-body td-body-dark"># === התקנה ===
+sudo apt install wireguard -y
+
+# === יצירת מפתחות ===
+wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey
+chmod 600 /etc/wireguard/privatekey
+
+# === קובץ הגדרות Server (/etc/wireguard/wg0.conf) ===
+[Interface]
+Address = 10.8.0.1/24
+ListenPort = 51820
+PrivateKey = <SERVER_PRIVATE_KEY>
+PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+
+# לכל Client מוסיפים Peer:
+[Peer]
+PublicKey = <CLIENT_PUBLIC_KEY>
+AllowedIPs = 10.8.0.2/32
+
+# === הפעלה ===
+sudo wg-quick up wg0
+sudo systemctl enable wg-quick@wg0</div></div>
+<div class="callout idea"><strong>💡 WireGuard מול OpenVPN:</strong> WireGuard — מהיר יותר, קוד קצר יותר, טכנולוגיה חדשה. OpenVPN — 20 שנה של ניסיון, גמיש יותר, אבל מורכב יותר להגדרה. לשרת ביתי — WireGuard. לארגון עם דרישות מורכבות — OpenVPN.</div>
+
+<div class="section-title">02 — OpenVPN — הגדרה</div>
+<p class="prose">OpenVPN עובד על SSL/TLS — עובר דרך כמעט כל firewall (פורט 443 UDP/TCP). נפוץ מאוד בארגונים כי מותאם ל-Active Directory ולכלים Enterprise.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — OpenVPN מהיר עם easy-rsa</div></div>
+<div class="td-body td-body-dark"># === התקנה ===
+sudo apt install openvpn easy-rsa -y
+make-cadir ~/openvpn-ca && cd ~/openvpn-ca
+
+# === יצירת CA ===
+./easyrsa init-pki
+./easyrsa build-ca nopass
+
+# === יצירת Server Certificate ===
+./easyrsa gen-req server nopass
+./easyrsa sign-req server server
+
+# === יצירת Client Certificate ===
+./easyrsa gen-req client1 nopass
+./easyrsa sign-req client client1
+
+# === DH Parameters ===
+./easyrsa gen-dh
+
+# === קובץ Server (/etc/openvpn/server.conf) ===
+port 1194
+proto udp
+dev tun
+ca ca.crt
+cert server.crt
+key server.key
+dh dh.pem
+server 10.8.0.0 255.255.255.0
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 8.8.8.8"
+keepalive 10 120
+cipher AES-256-GCM
+user nobody
+group nogroup
+persist-key
+persist-tun</div></div>
+
+<div class="section-title">03 — מנהרה חלקית ומתג חירום</div>
+<p class="prose">שני עקרונות חשובים בכל הגדרת VPN:</p>
+<table class="data-table"><tr><th>עיקרון</th><th>מה זה</th><th>מתי להשתמש</th></tr><tr><td>מנהרה מלאה</td><td>כל התעבורה עוברת דרך ה-VPN</td><td>כשצריך אבטחה מלאה</td></tr><tr><td>מנהרה חלקית</td><td>רק תעבורה לרשת הארגונית — דרך VPN. שאר — ישירות לאינטרנט</td><td>לביצועים טובים יותר</td></tr><tr><td>מתג חירום</td><td>אם VPN נפל — חסום הכל, כדי שהמידע לא יצא ללא הצפנה</td><td>כשפרטיות קריטית</td></tr></table>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">iptables — Kill Switch</div></div>
+<div class="td-body td-body-dark"># Kill Switch: אם VPN מת — חסום הכל חוץ מ-VPN server
+# (ירוץ לפני VPN עולה)
+
+VPN_IP="1.2.3.4"  # כתובת שרת VPN
+VPN_PORT="1194"
+IFACE="eth0"       # ממשק WAN
+
+# אפשר רק תעבורה ל-VPN server
+iptables -A OUTPUT -d $VPN_IP -p udp --dport $VPN_PORT -j ACCEPT
+# אפשר תעבורה דרך tunnel
+iptables -A OUTPUT -o tun+ -j ACCEPT
+# חסום כל השאר (חוץ מ-loopback)
+iptables -A OUTPUT -o $IFACE -j DROP
+
+# השפעה: אם VPN מתנתק → הכל נחסם
+# עם VPN = רק tun0 פתוח</div></div>
+
+<div class="story-box"><div class="story-icon">📖</div><p><strong>VPN — לא רק לפרטיות:</strong> VPN הומצא בשביל חברות — עובד מהבית שמתחבר לרשת המשרד בצורה מאובטחת. רק אחר כך אנשים גילו שזה גם שומר על פרטיות בקפה ציבורי, וגם מעקף חסימות. שלושה שימושים שונים לאותה טכנולוגיה.</p></div>
+<div class="fun-fact"><strong>💡 ידעתם?</strong> WireGuard נכתב ב-4,000 שורות קוד בלבד. OpenVPN — 100,000 שורות. פחות קוד = פחות מקומות לבאגים ופרצות. לינוס טורבאלדס אמר עליו: "произведение искусства" — יצירת אמנות.</div>
+`,
+`<div class="ch-hero-intro"><h1>⚔️ אבטחת רשתות</h1><p>איך תוקפים חושבים — ואיך להגן מפניהם</p></div>
+<div class="section-title">01 — ARP Spoofing — MITM ברשת מקומית</div>
+<p class="prose">ARP הוא הפרוטוקול שממפה כתובת IP לכתובת MAC של כרטיס הרשת. הוא לא מאומת — כל אחד ברשת יכול לשלוח תשובת ARP מזויפת ולגרום לתעבורה לעבור דרכו. זו הבסיס של מתקפת האדם-באמצע ברשת מקומית.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — ARP Spoofing (כלי מחקר)</div></div>
+<div class="td-body td-body-dark"># arp-scan — גלה כל מכשיר ברשת:
+$ sudo arp-scan -l
+
+# הצגת טבלת ARP המקומית:
+$ arp -n
+
+# זיהוי ARP Spoofing:
+# אם אותו MAC מופיע ב-2 כתובות IP — חשוד!
+192.168.1.1   aa:bb:cc:11:22:33  (נתב)
+192.168.1.50  aa:bb:cc:11:22:33  (!! אותו MAC — ARP Spoofing!)
+
+# הגנה:
+# 1. Static ARP entries:
+$ sudo arp -s 192.168.1.1 aa:bb:cc:11:22:33
+
+# 2. Switch עם Dynamic ARP Inspection (DAI)
+# 3. HTTPS (מגן על התוכן גם אם MITM)</div></div>
+<div class="callout warn"><strong>⚠️ HTTPS מגן — אבל לא לחלוטין:</strong> גם עם מתקפת האדם-באמצע — HTTPS מגן על התוכן. התוקף יכול לראות <em>לאן</em> אתה גולש, אבל לא <em>מה</em> אתה שולח. נעילת תעודה באפליקציה נותן הגנה נוספת.</div>
+
+<div class="section-title">02 — Port Scanning — nmap</div>
+<p class="prose">nmap הוא הכלי הסטנדרטי לסריקת רשת. ידוע בכל תחום — אבטחה, IT, אדמיניסטרציה. חשוב לדעת לקרוא ולפרש תוצאות.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — nmap</div></div>
+<div class="td-body td-body-dark"># === סריקה בסיסית ===
+$ nmap 192.168.1.1                    # פורטים נפוצים
+$ nmap 192.168.1.0/24                 # כל הרשת
+$ nmap -p 22,80,443 192.168.1.1      # פורטים ספציפיים
+$ nmap -p- 192.168.1.1               # כל 65535 פורטים (איטי)
+
+# === זיהוי מערכת הפעלה ושירות ===
+$ nmap -sV -O 192.168.1.1
+# OpenSSH 8.9p1 Ubuntu → אפשר לדעת את גרסת Ubuntu!
+
+# === זיהוי סוג Scan ===
+$ nmap -sS    # SYN Scan (מהיר, פחות רעש)
+$ nmap -sT    # TCP Connect (איטי, מלא)
+$ nmap -sU    # UDP Scan (איטי מאוד)
+
+# === Script Engine ===
+$ nmap --script vuln 192.168.1.1     # חיפוש פגיעויות ידועות
+$ nmap --script http-title 192.168.1.0/24  # כותרת HTTP של כל שרת
+
+# === ממה להגן? ===
+$ sudo nmap -sS -O 192.168.1.1  # ראה מה תוקף רואה
+# ← הכנס את זה לתוצאות → תקן את מה שלא צריך להיות פתוח</div></div>
+<div class="callout idea"><strong>💡 סריקה מול מערכת זיהוי:</strong> סריקה רגילה מתגלה מיידית על ידי מערכת זיהוי חדירות. מצב איטי (nmap -T0) שולח חבילה אחת כל 5 דקות — קשה יותר לגלות. בפועל — תוקפים מפצלים סריקה על פני ימים שלמים.</div>
+
+<div class="section-title">03 — Intrusion Detection — Snort/Suricata</div>
+<p class="prose">IDS (Intrusion Detection System) מנתח תעבורת רשת ומחפש דפוסים של התקפות. Snort/Suricata הם open-source ועובדים כ-plugins ב-pfSense.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — Suricata על Ubuntu</div></div>
+<div class="td-body td-body-dark"># === התקנה ===
+sudo apt install suricata -y
+
+# === עדכון Rules ===
+sudo suricata-update
+
+# === הפעלה על ממשק ===
+sudo suricata -c /etc/suricata/suricata.yaml -i eth0
+
+# === הצגת alerts ===
+$ tail -f /var/log/suricata/fast.log
+
+# Alert לדוגמה:
+[**] [1:2210022:2] SURICATA HTTP unable to match response to request [**]
+[Classification: Generic Protocol Command Decode] [Priority: 3]
+08/22-14:23:11.123456 192.168.1.5:54321 -> 1.2.3.4:80
+
+# === Rules ===
+# /etc/suricata/rules/local.rules
+# חוק מותאם — alert אם מישהו סורק פורטים:
+alert tcp any any -> $HOME_NET any (msg:"Port Scan"; flags:S; threshold:type both, track by_src, count 20, seconds 3; sid:9001;)</div></div>
+
+<div class="story-box"><div class="story-icon">📖</div><p><strong>תוקפים חושבים כמו גנבים:</strong> לפני שנכנסים לבית, גנב טוב סוקר — איזה חלונות פתוחים? יש כלב? מצלמות? תוקף רשת עושה בדיוק זאת: סורק פורטים, מחפש גרסאות ישנות, בודק הגדרות ברירת מחדל. ההגנה היא להסתיר כמה שאפשר.</p></div>
+<div class="fun-fact"><strong>💡 ידעתם?</strong> כשה-FBI סגרה את Silk Road ב-2013 — הם לא פרצו הצפנה. הם מצאו את השרת כי מנהל האתר פרסם את כתובת ה-IP שלו בטעות בפורום ציבורי בשנת 2011. אבטחת רשת לא שווה כלום אם האדם טועה.</div>
+`
+],
+cheat:[
+`<div class="sc"><div class="sc-head">🌐 IP — כתובות ורשתות</div><div class="sc-card"><div class="sc-label">פיצול רשתות (Subnetting)</div><div class="sc-text">לוקחים רשת גדולה וחותכים לחתיכות קטנות. /26 = 64 כתובות (62 שמישות). /27 = 32 כתובות (30 שמישות). /28 = 16 כתובות (14 שמישות). שתי כתובות תמיד שמורות: כתובת הרשת וה-broadcast.</div></div><div class="sc-card"><div class="sc-label">תרגום כתובות (NAT)</div><div class="sc-text">כל הבית משתמש בכתובת ציבורית אחת. הנתב שומר טבלה: מי ביקש דרך איזה פורט. כשתשובה חוזרת — הנתב מסתכל בטבלה ומעביר למחשב הנכון. בלי NAT — 10 מכשירים היו צריכים 10 כתובות ציבוריות.</div></div><div class="sc-card"><div class="sc-label">העברת פורטים</div><div class="sc-text">שרת שרץ בבית לא נגיש מבחוץ כי הנתב לא יודע למי להעביר. הפתרון: מגדירים 'כל בקשה לפורט 8080 → שלח למחשב 192.168.1.10'. כך חבר יכול להתחבר לשרת שלכם מכל מקום בעולם.</div></div><div class="sc-card"><div class="sc-label">טבלת ניתוב</div><div class="sc-text">הנתב בוחר נתיב לפי טבלה. 0.0.0.0/0 = ברירת מחדל — לאן שולחים הכל שלא מכיר. נתיב ספציפי יותר תמיד מנצח. שני נתיבים לאותו יעד — ה-metric (מספר עלות) הנמוך יותר מנצח.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔌 TCP ו-UDP</div><div class="sc-card"><div class="sc-label">מצבי חיבור TCP</div><div class="sc-text">LISTEN = מחכה לחיבורים. ESTABLISHED = חיבור פעיל. TIME-WAIT = סוגר בצורה מסודרת, מחכה שניות ספורות. CLOSE-WAIT = ⚠️ הצד השני סגר אבל אנחנו לא — כנראה באג בקוד.</div></div><div class="sc-card"><div class="sc-label">הצגת חיבורים פעילים</div><div class="sc-text">הפקודה ss -tunap מציגה את כל החיבורים הפעילים. -t = TCP בלבד, -u = UDP בלבד, -n = הצג מספרים במקום שמות, -p = הצג איזה תוכנה אחראית. שימושי לאבחון: מה מאזין? מי מתחבר לאן?</div></div><div class="sc-card"><div class="sc-label">TCP מול UDP</div><div class="sc-text">TCP — אמין: שולח, מאמת שהגיע, מחכה לאישור. משמש לדפדפן, מייל, קבצים. UDP — מהיר: שולח ולא מתעניין אם הגיע. משמש לגיימינג, שיחות וידאו, DNS. כשכל מילישנייה חשובה — UDP.</div></div><div class="sc-card"><div class="sc-label">ארבעת צעדי שרת</div><div class="sc-text">כל שרת עושה אותו דבר: פתח שקע, הגדר כתובת ופורט, המתן לחיבורים, טפל בכל לקוח. 0.0.0.0 = קבל חיבורים מכל מקום. 127.0.0.1 = רק מהמחשב עצמו.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔒 HTTP ו-HTTPS</div><div class="sc-card"><div class="sc-label">כותרות חשובות</div><div class="sc-text">Authorization = אסימון הכניסה שלך — אם נגנב, מישהו יכול להתחזות לך. Cookie = מזהה הפגישה — גניבתו = כניסה לחשבון. X-Forwarded-For = כתובת IP מקורית כשעוברים דרך שרת ביניים — לרוב מזויף, לא לסמוך עליו.</div></div><div class="sc-card"><div class="sc-label">שיטות אימות</div><div class="sc-text">שם משתמש+סיסמה בכל בקשה (Basic) — פשוט אבל מסוכן, חובה HTTPS. אסימון זמני (Bearer) — נכנסים פעם, מקבלים כרטיס כניסה לכמה שעות. כניסה דרך גוגל/פייסבוק (OAuth) — גוגל מאמתת בשמכם. מפתח API — קוד קבוע, אם דלף צריך להחליף.</div></div><div class="sc-card"><div class="sc-label">TLS — ההצפנה</div><div class="sc-text">TLS הוא הצפנה שעוטפת את HTTP ויוצר HTTPS. גרסה 1.3 (הנוכחית) מקימה חיבור מאובטח בסיבוב תקשורת אחד בלבד. אפשר לבדוק תעודה: openssl s_client -connect google.com:443</div></div><div class="sc-card"><div class="sc-label">אבטחת עוגיות (Cookie)</div><div class="sc-text">HttpOnly = JavaScript לא יכול לגשת לעוגייה — מגן מגניבה. Secure = נשלח רק דרך HTTPS. SameSite=Strict = לא נשלח מאתר אחר — מגן מהתקפת זיוף בקשה. שלושתם יחד = עוגייה מאובטחת.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔍 DNS — ספר הטלפונים של האינטרנט</div><div class="sc-card"><div class="sc-label">סוגי רשומות</div><div class="sc-text">A = שם לכתובת IPv4. AAAA = שם לכתובת IPv6. MX = שרת המייל של הדומיין. TXT = טקסט חופשי לאימות שולח מייל. PTR = כתובת IP לשם (DNS הפוך). NS = שרתי ה-DNS שאחראים על הדומיין. SOA = מידע ניהולי על ה-Zone.</div></div><div class="sc-card"><div class="sc-label">שאילתות DNS</div><div class="sc-text">dig google.com A — שאל מי הכתובת. dig google.com MX — מי שרת המייל. dig -x 8.8.8.8 — מה השם של IP זה. dig @8.8.8.8 google.com — שאל שרת ספציפי. dig +trace — ראה את כל שרשרת השאלות.</div></div><div class="sc-card"><div class="sc-label">קובץ Zone</div><div class="sc-text">קובץ טקסט שמגדיר את כל הרשומות של דומיין. כל שרת DNS רשותי מחזיק עותק. כולל: כתובות, שרתי מייל, מידע ניהולי. כל שינוי מצריך הגדלת מספר ה-Serial — כך שרתים אחרים יודעים שיש גרסה חדשה.</div></div><div class="sc-card"><div class="sc-label">DNSSEC — אימות רשומות</div><div class="sc-text">מוסיף חתימה קריפטוגרפית לכל רשומת DNS. בלי זה — תוקף ברשת יכול לזייף תשובות DNS ולהפנות אתכם לאתר מזויף. עם DNSSEC — הדפדפן מאמת שהתשובה חתומה על ידי הבעלים האמיתי של הדומיין.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔥 iptables — חומת אש</div><div class="sc-card"><div class="sc-label">עיקרון הבסיס</div><div class="sc-text">חסום הכל ואז פתח בדיוק מה שצריך. iptables -P INPUT DROP = חסום כל תעבורה נכנסת כברירת מחדל. לאחר מכן מוסיפים חוקים: אפשר SSH, אפשר HTTP, אפשר HTTPS. מה שלא הוגדר במפורש — חסום.</div></div><div class="sc-card"><div class="sc-label">חוקים חיוניים</div><div class="sc-text">שלושה חוקים שחייבים תמיד להיות: 1) אפשר את הממשק הפנימי lo (המחשב מדבר עם עצמו). 2) אפשר ESTABLISHED,RELATED — תשובות לחיבורים שאנחנו פתחנו. 3) אפשר SSH לפחות מכתובת אחת — כדי לא להינעל בחוץ.</div></div><div class="sc-card"><div class="sc-label">NAT ב-iptables</div><div class="sc-text">POSTROUTING + MASQUERADE = NAT יוצא — כל המחשבים בפנים יוצאים דרך כתובת אחת. PREROUTING + DNAT = העברת פורט — בקשה לפורט חיצוני מועברת למחשב פנימי. ip_forward=1 חייב להיות מופעל כדי שהנתב יעביר תעבורה.</div></div><div class="sc-card"><div class="sc-label">הגבלת ניסיונות כניסה</div><div class="sc-text">מגדירים מקסימום 4 ניסיונות כניסה ב-60 שניות. מי שעובר את המגבלה — חסום אוטומטית. זה מגן מניסיונות ניחוש סיסמה אוטומטיים שמנסים אלפי שילובים בדקה.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🛡️ הקשחת שרת Ubuntu</div><div class="sc-card"><div class="sc-label">הקשחת SSH</div><div class="sc-text">שלושה שינויים חיוניים: 1) חסום כניסת root ישירה — תמיד היכנס כמשתמש רגיל ואז עלה הרשאות. 2) אסור סיסמאות — רק מפתחות קריפטוגרפיים. 3) מקסימום 2 ניסיונות כניסה. לפני כל הפעלה מחדש — sshd -t לבדיקת תקינות.</div></div><div class="sc-card"><div class="sc-label">חומת אש UFW</div><div class="sc-text">UFW הוא ממשק פשוט על גבי iptables. הגדרה: חסום הכל נכנס ← פתח SSH ← פתח HTTP/HTTPS ← הפעל. פשוט יותר מ-iptables ישיר, אבל פחות גמיש. מתאים לרוב השרתים.</div></div><div class="sc-card"><div class="sc-label">Fail2ban — חסימה אוטומטית</div><div class="sc-text">מסתכל על קובץ הלוג של SSH. אחרי 3 ניסיונות כושלים ב-10 דקות — חוסם את הכתובת שניסתה לשעה. fail2ban-client status sshd מציג את רשימת הכתובות החסומות כרגע.</div></div><div class="sc-card"><div class="sc-label">עדכונים אוטומטיים</div><div class="sc-text">רוב הפרצות שמנוצלות כבר תוקנו — הבעיה היא שאנשים לא מעדכנים. unattended-upgrades מעדכן עדכוני אבטחה אוטומטית בלי התערבות. חיוני לכל שרת שפועל 24/7.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔀 VM כנתב</div><div class="sc-card"><div class="sc-label">הפעלת ניתוב</div><div class="sc-text">כברירת מחדל, Linux לא מעביר תעבורה בין ממשקים. כדי להפוך אותו לנתב: echo 1 > /proc/sys/net/ipv4/ip_forward (זמני). לקביעה קבועה: net.ipv4.ip_forward=1 בקובץ /etc/sysctl.conf.</div></div><div class="sc-card"><div class="sc-label">pfSense</div><div class="sc-text">מערכת מבוססת FreeBSD שהופכת מחשב וירטואלי לנתב מלא. ממשק גרפי נוח. כרטיס רשת 1 = WAN (פונה לאינטרנט). כרטיס רשת 2 = LAN (פונה לרשת הפנימית). ממשק ניהול: https://192.168.1.1.</div></div><div class="sc-card"><div class="sc-label">שרת DHCP</div><div class="sc-text">מחלק כתובות IP אוטומטית למחשבים ברשת. מגדירים: טווח כתובות, כתובת הנתב, שרתי DNS. בלי DHCP — כל מחשב היה צריך הגדרה ידנית של כתובת IP.</div></div><div class="sc-card"><div class="sc-label">WAN ו-LAN</div><div class="sc-text">WAN = הממשק שפונה לאינטרנט — מקבל כתובת מהספק. LAN = הממשק שפונה לרשת הפנימית — מחלק כתובות פרטיות. תעבורה מ-LAN ל-WAN עוברת NAT. תעבורה מ-WAN ל-LAN — חסומה אלא אם הוגדרה העברת פורט.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔬 Wireshark — ניתוח תעבורה</div><div class="sc-card"><div class="sc-label">פילטרים שימושיים</div><div class="sc-text">tcp.analysis.retransmission — חבילות שנשלחו שוב, מצביע על בעיית רשת. tcp.flags.syn && !tcp.flags.ack — חיבורים חדשים בלבד. http.request.uri contains 'login' — בקשות לדפי כניסה. dns.flags.rcode != 0 — שגיאות DNS.</div></div><div class="sc-card"><div class="sc-label">מעקב אחרי שיחה</div><div class="sc-text">לחיצה ימנית על חבילה ← Follow TCP Stream. מציג את כל השיחה ברצף: אדום = מה ששלחנו, כחול = מה קיבלנו. ב-HTTP — הכל גלוי כולל סיסמאות. ב-HTTPS — מוצפן ולא קריא.</div></div><div class="sc-card"><div class="sc-label">סטטיסטיקות</div><div class="sc-text">Protocol Hierarchy — אחוז כל פרוטוקול בתיעוד. Conversations — טבלת כל החיבורים, אפשר למיין לפי גודל. IO Graph — גרף תעבורה לאורך זמן, שימושי לאיתור עומסים או ירידות חדות.</div></div><div class="sc-card"><div class="sc-label">פענוח HTTPS</div><div class="sc-text">הגדירו SSLKEYLOGFILE=~/ssl.log לפני פתיחת הדפדפן. הדפדפן ישמור את מפתחות ההצפנה לקובץ. ב-Wireshark: Edit → Preferences → TLS → הצביעו לקובץ. עכשיו HTTPS קריא כמו HTTP.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔐 VPN — רשת פרטית וירטואלית</div><div class="sc-card"><div class="sc-label">WireGuard</div><div class="sc-text">פרוטוקול VPN חדש ופשוט. יוצרים זוג מפתחות (פרטי וציבורי) לשרת ולכל לקוח. השרת מגדיר טווח כתובות פנימיות. כל לקוח מוגדר כ-Peer עם המפתח הציבורי שלו. מהיר יותר מ-OpenVPN ב-30%.</div></div><div class="sc-card"><div class="sc-label">מנהרה מלאה מול חלקית</div><div class="sc-text">מנהרה מלאה: כל התעבורה עוברת דרך ה-VPN — גם גלישה רגילה. מנהרה חלקית: רק תעבורה לרשת הארגונית עוברת דרך ה-VPN, שאר — ישירות לאינטרנט. מנהרה חלקית = מהירה יותר לגלישה.</div></div><div class="sc-card"><div class="sc-label">מתג חירום (Kill Switch)</div><div class="sc-text">אם ה-VPN נפל פתאום — התעבורה עלולה לצאת ללא הצפנה. מתג חירום חוסם את כל התעבורה במקרה כזה. מיושם ב-iptables: אפשר רק תעבורה דרך ממשק ה-VPN, חסום הכל שאר.</div></div><div class="sc-card"><div class="sc-label">OpenVPN</div><div class="sc-text">פרוטוקול ותיק עם 20 שנות ניסיון. עובד על HTTPS (פורט 443) — עובר דרך כמעט כל חומת אש. גמיש יותר מ-WireGuard אבל מורכב יותר להגדרה. נפוץ בארגונים.</div></div></div>`,
+`<div class="sc"><div class="sc-head">⚔️ אבטחת רשתות</div><div class="sc-card"><div class="sc-label">מתקפת האדם-באמצע</div><div class="sc-text">תוקף ברשת מקומית שולח הודעות ARP מזויפות: 'הכתובת של הנתב היא ה-MAC שלי'. כל המחשבים ברשת מאמינים לו ושולחים את התעבורה אליו. הגנה: HTTPS מגן על תוכן, נעילת ARP סטטי מגן על ניתוב.</div></div><div class="sc-card"><div class="sc-label">סריקת רשת עם nmap</div><div class="sc-text">-sS = סריקת SYN מהירה (לא פותח חיבור מלא). -sV = זיהוי גרסת התוכנה על כל פורט. -O = ניסיון לזהות את מערכת ההפעלה. -p- = סרוק את כל 65,535 הפורטים. --script vuln = חפש פגיעויות ידועות.</div></div><div class="sc-card"><div class="sc-label">מערכת זיהוי חדירות (IDS)</div><div class="sc-text">IDS = מסתכלת על תעבורה ומתריעה על דפוסים חשודים. IPS = גם חוסמת אוטומטית. Suricata היא IDS/IPS פופולרי, עובד כ-plugin ב-pfSense. חתימות מתעדכנות עם suricata-update.</div></div><div class="sc-card"><div class="sc-label">עיקרון ההקשחה</div><div class="sc-text">הפחת שטח תקיפה: הסר שירותים מיותרים, חסום פורטים שלא בשימוש, הגבל הרשאות למינימום הנדרש. ראה מה תוקף רואה: סרוק את השרת שלך עם nmap ותקן כל מה שלא צריך להיות פתוח.</div></div></div>`
+]},
+en:{
+  dir:"ltr",lang:"en",langBtn:"🇮🇱 HE",
+  tags:["Ch 00","Ch 01","Ch 02","Ch 03","Ch 04","Ch 05","Ch 06","Ch 07","Ch 08","Ch 09"],
+  tabs:["📖 Learn","🔗 Match","📋 Summary"],
+  names:["IP Deep Dive — Subnetting, NAT, Routing", "TCP/UDP Deep Dive — Sockets, Ports, States", "HTTP/HTTPS Deep Dive — Headers, Auth, TLS", "DNS Deep Dive — Zone Files, Records, DNSSEC", "iptables — Firewall from Scratch", "Ubuntu Hardening — Server Security", "VM as Router — pfSense & Linux Router", "Advanced Wireshark — Traffic Analysis", "VPN and Tunneling", "Network Security — Attacks & Defenses"],
+  descs:["Subnetting, CIDR, NAT, Port Forwarding, routing table", "TCP States, Sockets, UDP, ss/netstat", "HTTP Headers, Auth, TLS, curl", "DNS Records, Zone Files, DNSSEC, dig", "Tables, Chains, Rules, NAT, Stateful", "SSH Hardening, UFW, Fail2ban, auto-updates", "IP Forwarding, DHCP, pfSense, OPNsense", "Advanced Filters, Follow Stream, Statistics", "WireGuard, OpenVPN, Split Tunnel, Kill Switch", "ARP Spoofing, nmap, Suricata, IDS"],
+  nextChapter:"Next Chapter ▶",
+  tabKeys:["learn","game","cheat"],
+  tabLabels:{"learn":"📖 Learn","game":"🔗 Match","cheat":"📋 Summary"},
+  learn:[
+`<div class="section-title">01 — Subnetting — פיצול רשתות</div>
+<p class="prose">ארגון קיבל מהספק את הכתובת <code>192.168.10.0/24</code> — 254 כתובות. אבל יש לו שלוש מחלקות שצריכות רשת נפרדת. הפתרון: לחתוך את ה-/24 לחתיכות קטנות יותר.</p>
+<div class="callout idea"><strong>💡 אנלוגיה:</strong> רשת /24 היא בניין עם 254 דירות. Subnetting = לחלק את הבניין לקומות, כל קומה = רשת נפרדת. ניתן לעשות 4 קומות של 62 דירות במקום קומה אחת של 254.</div>
+<table class="data-table"><tr><th>רשת</th><th>CIDR</th><th>כתובות שמיש</th><th>Range</th></tr><tr><td>מחלקה A</td><td>192.168.10.0/26</td><td>62</td><td>192.168.10.1 — 192.168.10.62</td></tr><tr><td>מחלקה B</td><td>192.168.10.64/26</td><td>62</td><td>192.168.10.65 — 192.168.10.126</td></tr><tr><td>מחלקה C</td><td>192.168.10.128/26</td><td>62</td><td>192.168.10.129 — 192.168.10.190</td></tr><tr><td>שמורה</td><td>192.168.10.192/26</td><td>62</td><td>192.168.10.193 — 192.168.10.254</td></tr></table>
+<p class="prose">הטריק: /26 = 64 כתובות (2⁶). מתוכן 62 שמישות (ה-broadcast וה-network address שמורים). כשרוצים /27 — 32 כתובות, 30 שמישות. /28 — 16, 14 שמישות.</p>
+
+<div class="section-title">02 — NAT — הקסם שמאחורי הנתב</div>
+<p class="prose">כל הבית שלך עם 10 מכשירים — משתמש בכתובת ציבורית <em>אחת</em>. איך זה עובד? NAT (Network Address Translation) — הנתב מתרגם כתובות.</p>
+<table class="data-table">
+<tr><th>מכשיר בבית</th><th>פורט הנתב</th><th>יעד</th></tr>
+<tr><td>192.168.1.5 (מחשב)</td><td>40001</td><td>google.com</td></tr>
+<tr><td>192.168.1.7 (טלפון)</td><td>40002</td><td>youtube.com</td></tr>
+<tr><td>192.168.1.10 (טאבלט)</td><td>40003</td><td>netflix.com</td></tr>
+</table>
+<p class="prose">כשגוגל מחזירה תשובה — היא שולחת לפורט 40001 של הנתב. הנתב מסתכל בטבלה: "מי ביקש דרך 40001?" — ומעביר את התשובה למחשב.</p>
+<div class="callout warn"><strong>⚠️ בעיית NAT:</strong> שרת שרץ בבית לא נגיש מבחוץ. למה? כי מבחוץ רואים רק את כתובת הנתב — 85.250.1.1. אין דרך לדעת שבפנים יש מחשב בכתובת 192.168.1.10.</div>
+<table class="data-table">
+<tr><th>בלי Port Forwarding</th><th>עם Port Forwarding</th></tr>
+<tr><td>חבר שולח בקשה ל-85.250.1.1:8080</td><td>חבר שולח בקשה ל-85.250.1.1:8080</td></tr>
+<tr><td>הנתב לא יודע למי להעביר ← זורק</td><td>הנתב מקבל: "פורט 8080 → שלח ל-192.168.1.10"</td></tr>
+<tr><td>חבר רואה: Connection Refused</td><td>השרת שלך ב-192.168.1.10 מקבל את הבקשה ✅</td></tr>
+</table>
+<p class="prose">מתי צריך את זה? לדוגמה: הקמתם שרת מיינקראפט על המחשב הביתי ורוצים שחברים יתחברו מבחוץ. או שיש לכם מצלמת אבטחה ורוצים לגשת אליה מהטלפון כשאתם בחוץ. ברגע שמגדירים העברת פורט — כל בקשה שמגיעה לנתב על פורט 8080 תועבר אוטומטית למחשב הספציפי ברשת הפנימית.</p>
+<p class="prose">כדי להגדיר זאת בנתב ביתי: כנסו לממשק הניהול (בדרך כלל 192.168.1.1 בדפדפן), חפשו "העברת פורטים" או Port Forwarding, והוסיפו חוק: פורט חיצוני 8080, כתובת פנימית של המחשב שלכם (לדוגמה 192.168.1.10), פורט פנימי 8080.</p>
+
+<div class="section-title">03 — Routing — כיצד הנתב מחליט</div>
+<p class="prose">כשנתב מקבל חבילה — הוא מסתכל על כתובת היעד ומחפש בטבלת הניתוב שלו. כמו מיון דואר: כל מכתב הולך לתיבה הנכונה.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">$ ip route show</div></div>
+<div class="td-body td-body-dark">0.0.0.0/0    via 192.168.1.1   dev eth0
+192.168.1.0/24          dev eth0
+10.0.0.0/8   via 10.8.0.1    dev tun0</div></div>
+<table class="data-table">
+<tr><th>יעד</th><th>דרך מי</th><th>פירוש</th></tr>
+<tr><td>0.0.0.0/0</td><td>192.168.1.1 (הנתב)</td><td>ברירת מחדל — כל מה שלא מכיר, שלח לנתב</td></tr>
+<tr><td>192.168.1.0/24</td><td>ישירות</td><td>רשת ביתית — מכשירים שלידנו, ללא מתווך</td></tr>
+<tr><td>10.0.0.0/8</td><td>10.8.0.1 (VPN)</td><td>רשת VPN — שלח דרך ממשק ה-VPN</td></tr>
+</table>
+<p class="prose">0.0.0.0/0 = "כל כתובת בעולם". זה השורה שמגדירה לאן שולחים תעבורה שאין לה נתיב ספציפי — בדרך כלל לנתב.</p>
+<div class="callout idea"><strong>💡 כלל האגודל:</strong> הנתב תמיד בוחר את הנתיב הספציפי ביותר. /24 מנצח /0. אם יש שני נתיבים לאותו יעד — <strong>metric</strong> קובע מי ראשון. Metric = "עלות" הנתיב — מספר שמייצג כמה "טוב" הנתיב. מספר נמוך = עדיף. לדוגמה: כבל רגיל מקבל ערך 100, רשת אלחוטית מקבלת ערך 600 — הנתב יעדיף את הכבל.</div>
+
+`,
+`<div class="section-title">01 — מצבי TCP — State Machine</div>
+<p class="prose">לכל חיבור TCP יש מחזור חיים — מ-CLOSED עד ESTABLISHED ועד CLOSED שוב. כחוקר רשת, ראיית המצב אומרת לך הרבה על מה שקורה.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — הצגת חיבורים</div></div>
+<div class="td-body td-body-dark">$ ss -tunap
+# או: netstat -tunap (ישן יותר)
+
+Netid  State       Local Address:Port  Peer Address:Port
+tcp    LISTEN      0.0.0.0:22         0.0.0.0:*          # SSH מאזין
+tcp    ESTABLISHED 192.168.1.5:54321  142.250.185.46:443 # גלישה
+tcp    TIME-WAIT   192.168.1.5:54320  93.184.216.34:80   # סוגר
+tcp    CLOSE-WAIT  0.0.0.0:8080       0.0.0.0:*          # ⚠️ דליפה!
+
+# CLOSE-WAIT = הצד השני סגר, אנחנו לא = באג בקוד</div></div>
+<table class="data-table"><tr><th>מצב</th><th>משמעות</th><th>מה לעשות</th></tr><tr><td>LISTEN</td><td>מחכה לחיבורים נכנסים</td><td>תקין — שרת פעיל</td></tr><tr><td>ESTABLISHED</td><td>חיבור פעיל</td><td>תקין</td></tr><tr><td>TIME-WAIT</td><td>סוגר בצורה מסודרת (120 שניות)</td><td>תקין — עוד מעט ייסגר</td></tr><tr><td>CLOSE-WAIT</td><td>הצד השני סגר — אנחנו לא</td><td>⚠️ כנראה באג בקוד</td></tr><tr><td>SYN-SENT</td><td>שלחנו בקשת חיבור, מחכים לתשובה</td><td>תקין — או פג זמן</td></tr><tr><td>SYN-RECEIVED</td><td>קיבלנו בקשת חיבור, שלחנו אישור</td><td>תקין — מתחבר</td></tr></table>
+
+<div class="section-title">02 — Sockets בקוד — מה שכל מפתח צריך לדעת</div>
+<p class="prose">Socket = קצה של חיבור. כל שפת תכנות עוטפת את זה, אבל בסוף הכל עובד על syscalls זהים. הבנת הקצה הזה עוזרת לדבג בעיות רשת.</p>
+<p class="prose">כל שרת — בכל שפה — עושה בדיוק ארבעה צעדים:</p>
+<table class="data-table">
+<tr><th>צעד</th><th>פקודה</th><th>מה זה אומר</th></tr>
+<tr><td>1. פתח שקע</td><td><code>socket(AF_INET, SOCK_STREAM)</code></td><td>צור נקודת קצה — IPv4 + TCP</td></tr>
+<tr><td>2. הגדר כתובת</td><td><code>bind('0.0.0.0', 8080)</code></td><td>האזן על פורט 8080 מכל ממשק</td></tr>
+<tr><td>3. המתן</td><td><code>listen(5)</code></td><td>קבל עד 5 לקוחות בתור</td></tr>
+<tr><td>4. קבל חיבור</td><td><code>accept()</code></td><td>חסום עד שמישהו מתחבר, ואז טפל בו</td></tr>
+</table>
+<div class="callout idea"><strong>💡 שתי כתובות מיוחדות:</strong> <code>0.0.0.0</code> = האזן מכל כתובת — גם מרשת חיצונית. <code>127.0.0.1</code> = רק מהמחשב עצמו. לשרת שצריך להיות נגיש מבחוץ — השתמש ב-0.0.0.0. לפיתוח מקומי — השתמש ב-127.0.0.1.</div>
+<p class="prose">כשכותבים קוד שמתחבר לרשת, צריך לציין שני דברים:</p>
+<table class="data-table">
+<tr><th>מה לציין</th><th>אפשרויות</th><th>מתי</th></tr>
+<tr><td><strong>גרסת IP</strong></td><td>AF_INET = IPv4 (כתובות כמו 192.168.1.1)</td><td>רוב הזמן</td></tr>
+<tr><td></td><td>AF_INET6 = IPv6 (כתובות ארוכות כמו 2001:db8::1)</td><td>רשתות מודרניות</td></tr>
+<tr><td><strong>סוג חיבור</strong></td><td>SOCK_STREAM = TCP — שולח, מאמת שהגיע, מחכה לאישור</td><td>דפדפן, מייל, קבצים</td></tr>
+<tr><td></td><td>SOCK_DGRAM = UDP — שולח ולא מתעניין אם הגיע</td><td>גיימינג, שיחות וידאו, DNS</td></tr>
+<tr><td></td><td>SOCK_RAW = גישה ישירה לחבילה — בלי TCP/UDP</td><td>סריקת רשת, Wireshark, ping</td></tr>
+</table>
+<div class="callout idea"><strong>💡 בפשטות:</strong> דפדפן שפותח אתר — TCP, כי כל תו חייב להגיע (SOCK_STREAM). משחק שולח מיקום — UDP, כי מהירות חשובה יותר מדיוק (SOCK_DGRAM). פקודת ping — לא TCP ולא UDP, היא שולחת הודעת "הי, אתה חי?" ישירות ברמת הרשת (SOCK_RAW), דורש הרשאות מנהל.</div>
+
+<div class="section-title">03 — UDP — מתי ולמה</div>
+<p class="prose">UDP שולח ושוכח. אין handshake, אין ACK, אין סדר. אבל בדיוק בגלל זה — מהיר יותר ב-15-30% מ-TCP. לגיימינג ו-VoIP — כל מילישנייה חשובה.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — בדיקת UDP</div></div>
+<div class="td-body td-body-dark"># שליחת UDP פשוטה
+$ echo "שלום" | nc -u 8.8.8.8 53
+
+# האזנה ל-UDP:
+$ nc -ul 5000   # u = UDP, l = listen
+
+# Wireshark filter ל-UDP בלבד:
+udp
+udp.port == 53
+udp.length > 100   # UDP גדול (מחשיד — כנראה DNS tunneling)</div></div>
+<div class="callout warn"><strong>⚠️ DNS over UDP:</strong> DNS ב-UDP מוגבל ל-512 בתים. תשובה גדולה יותר — DNS עובר אוטומטית ל-TCP. אם רואים שאילתת DNS עם TCP — כנראה שהתשובה גדולה: העברת Zone שלמה בין שרתי DNS, או DNSSEC שמוסיף חתימות לכל רשומה.</div>
+
+`,
+`<div class="section-title">01 — HTTP Headers — מה שהדפדפן לא מראה לך</div>
+<p class="prose">כל HTTP request ו-response מכילים headers — מטאדאטה על הבקשה. Wireshark ו-DevTools חושפים הכל. חלק מ-headers הם קריטיים לאבטחה.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">HTTP Request — מלא</div></div>
+<div class="td-body td-body-dark">GET /api/users HTTP/1.1
+Host: api.example.com
+User-Agent: Mozilla/5.0 (Linux; Android 12)
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9...
+Cookie: session=abc123; _ga=GA1.2.123456
+X-Forwarded-For: 1.2.3.4
+Referer: https://example.com/dashboard
+Cache-Control: no-cache</div></div>
+<table class="data-table"><tr><th>כותרת</th><th>מה זה</th><th>חשיבות לאבטחה</th></tr><tr><td>Authorization</td><td>אסימון גישה / שם משתמש וסיסמה</td><td>⭐⭐⭐ — חשיפה = גישה מלאה</td></tr><tr><td>Cookie</td><td>מזהה הפגישה ונתוני משתמש</td><td>⭐⭐⭐ — גניבת Cookie = כניסה לחשבון</td></tr><tr><td>X-Forwarded-For</td><td>IP מקורי דרך proxy</td><td>⭐⭐ — לרוב מזויף, לא לסמוך</td></tr><tr><td>User-Agent</td><td>זיהוי הדפדפן — קל לזייף</td><td>⭐ — קל לזיוף</td></tr><tr><td>Referer</td><td>מאיזה עמוד הגעת</td><td>⭐⭐ — דליפת URL פנימי</td></tr></table>
+
+<div class="section-title">02 — HTTPS — TLS בפירוט</div>
+<p class="prose">TLS 1.3 (הגרסה הנוכחית) מקים חיבור מוצפן ב-1 RTT בלבד. ב-TLS 1.2 היו צריכים 2. ההבדל נשמע קטן — ב-mobile network עם 80ms RTT זה 80ms שחוסכים בכל חיבור.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — בדיקת TLS</div></div>
+<div class="td-body td-body-dark"># בדיקת תעודה ופרוטוקול:
+$ openssl s_client -connect google.com:443
+
+# פלט:
+Protocol: TLSv1.3
+Cipher: TLS_AES_256_GCM_SHA384
+Server certificate:
+   subject: CN=*.google.com
+   issuer: GTS CA 1C3
+   notAfter: Jan 14 08:29:34 2025 GMT
+
+# בדיקה מהירה של תוקף:
+$ echo | openssl s_client -connect example.com:443 2>/dev/null \
+  | openssl x509 -noout -dates</div></div>
+<div class="callout idea"><strong>💡 נעילת תעודה:</strong> אפליקציות מובייל לפעמים נועלות לתעודה ספציפית — רק אותה תעודה תתקבל. זה מגן מהאזנה לתעבורה, אבל מקשה על בדיקות פנימיות.</div>
+
+<div class="section-title">03 — Authentication — Bearer, Basic, OAuth</div>
+<p class="prose">שלוש שיטות נפוצות לאימות ב-API:</p>
+<table class="data-table"><tr><th>שיטה</th><th>כיצד עובד</th><th>אבטחה</th><th>שימוש</th></tr><tr><td>Basic Auth</td><td>base64(user:pass) ב-header</td><td>⚠️ גלוי — חובה HTTPS</td><td>Internal APIs</td></tr><tr><td>Bearer Token</td><td>JWT/Token ב-Authorization header</td><td>✅ אם HTTPS</td><td>רוב ה-APIs המודרניים</td></tr><tr><td>OAuth 2.0</td><td>Flow מורכב עם access_token + refresh_token</td><td>✅✅</td><td>כניסה עם גוגל/GitHub</td></tr><tr><td>API Key</td><td>מפתח סטטי ב-header/query param</td><td>⚠️ אם לא מוחלף</td><td>חיצוני פשוט</td></tr></table>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">cURL — בדיקת API עם Auth</div></div>
+<div class="td-body td-body-dark"># Basic Auth:
+$ curl -u username:password https://api.example.com/data
+
+# Bearer Token:
+$ curl -H "Authorization: Bearer eyJhbGc..." https://api.example.com/data
+
+# API Key:
+$ curl -H "X-API-Key: sk-abc123" https://api.example.com/data
+
+# בדיקה שה-token תקין:
+$ curl -I https://api.example.com/me  # 200 = תקין, 401 = פג תוקף</div></div>
+
+`,
+`<div class="section-title">01 — DNS Records — כל הסוגים</div>
+<p class="prose">DNS הוא הרבה יותר מ'שם → IP'. כל סוג Record עושה משהו אחר. הבנת כולם עוזרת גם בפתרון בעיות וגם בהגנה על דומיין.</p>
+<table class="data-table"><tr><th>סוג</th><th>מה זה</th><th>דוגמה</th></tr><tr><td>A</td><td>שם → IPv4</td><td>example.com → 93.184.216.34</td></tr><tr><td>AAAA</td><td>שם → IPv6</td><td>example.com → 2606:2800::1</td></tr><tr><td>CNAME</td><td>שם → שם אחר (כינוי)</td><td>www.example.com → example.com</td></tr><tr><td>MX</td><td>שרת המייל של הדומיין</td><td>example.com → mail.example.com (עדיפות 10)</td></tr><tr><td>TXT</td><td>טקסט חופשי — לאימות שולח מייל ועוד</td><td>v=spf1 include:google.com ~all</td></tr><tr><td>NS</td><td>שרתי ה-DNS שאחראים על הדומיין</td><td>example.com → ns1.cloudflare.com</td></tr><tr><td>PTR</td><td>כתובת IP → שם (DNS הפוך)</td><td>34.216.184.93.in-addr.arpa → example.com</td></tr><tr><td>SRV</td><td>שירות + פורט ספציפי</td><td>_sip._tcp.example.com → sip.example.com:5060</td></tr><tr><td>SOA</td><td>מידע ניהולי על ה-Zone — מי אחראי, מתי עודכן</td><td>מנוהל ע"י כלי ה-DNS</td></tr></table>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — שאילתות DNS</div></div>
+<div class="td-body td-body-dark"># שאילתת A record:
+$ dig google.com A
+
+# MX record (שרתי מייל):
+$ dig google.com MX
+
+# TXT record (SPF/DKIM):
+$ dig google.com TXT
+
+# Reverse DNS (PTR):
+$ dig -x 8.8.8.8
+
+# כל ה-records:
+$ dig google.com ANY
+
+# שאילתה לשרת ספציפי:
+$ dig @8.8.8.8 google.com A</div></div>
+
+<div class="section-title">02 — Zone File — בניית DNS מהאפס</div>
+<p class="prose">קובץ Zone הוא קובץ טקסט שמגדיר את כל רשומות ה-DNS של דומיין. כל שרת DNS רשותי מחזיק קובץ כזה. נראה מוזר בהתחלה — אבל יש הגיון.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Zone File — example.com</div></div>
+<div class="td-body td-body-dark">; Zone file לדומיין example.com
+$ORIGIN example.com.
+$TTL 3600              ; ברירת מחדל TTL = שעה
+
+; SOA — Start of Authority
+@  IN  SOA  ns1.example.com. admin.example.com. (
+       2024010101  ; Serial (חייב לגדול בכל שינוי)
+       3600        ; Refresh
+       900         ; Retry
+       604800      ; Expire
+       300 )       ; Negative TTL
+
+; Name Servers
+@       IN  NS    ns1.example.com.
+@       IN  NS    ns2.example.com.
+
+; A Records
+@       IN  A     93.184.216.34
+www     IN  A     93.184.216.34
+mail    IN  A     93.184.216.35
+ns1     IN  A     93.184.216.36
+
+; MX Records
+@       IN  MX  10  mail.example.com.
+@       IN  MX  20  mail2.example.com.
+
+; TXT (SPF)
+@       IN  TXT   "v=spf1 ip4:93.184.216.0/24 ~all"</div></div>
+
+<div class="section-title">03 — DNSSEC — חתימה דיגיטלית על DNS</div>
+<p class="prose">DNSSEC מוסיף חתימה קריפטוגרפית לכל רשומת DNS. בלעדיה — תוקף יכול לענות על שאילתות DNS עם כתובות מזויפות. עם DNSSEC — הדפדפן מאמת שהתשובה חתומה על ידי הבעלים האמיתי.</p>
+<div class="callout warn"><strong>⚠️ DNS Spoofing:</strong> בלי DNSSEC: תוקף ברשת יכול לענות על DNS query לפני השרת האמיתי. 'google.com = 1.2.3.4 (שלי)'. הקורבן לא יודע. עם HTTPS — התוכן מוצפן, אבל הדפדפן כבר שם.</div>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — בדיקת DNSSEC</div></div>
+<div class="td-body td-body-dark"># בדיקה אם דומיין חתום:
+$ dig +dnssec google.com A
+
+# חיפוש ה-DNSKEY record:
+$ dig google.com DNSKEY
+
+# בדיקה מלאה:
+$ dig +trace +dnssec google.com
+
+# online validator:
+# https://dnssec-debugger.verisignlabs.com/</div></div>
+
+`,
+`<div class="section-title">01 — iptables — ארכיטקטורה</div>
+<p class="prose">iptables הוא חומת האש המובנית ב-Linux. כל חבילת מידע שעוברת דרך המערכת — עוברת דרך שרשרת חוקים. iptables מאפשר לנהל את השרשרות האלה.</p>
+<table class="data-table"><tr><th>טבלה</th><th>מה עושה</th><th>שרשרות</th></tr><tr><td>filter (ברירת מחדל)</td><td>מסנן — מאפשר/חוסם</td><td>נכנס, יוצא, מועבר</td></tr><tr><td>nat</td><td>מתרגם כתובות</td><td>לפני ניתוב, יוצא, אחרי ניתוב</td></tr><tr><td>mangle</td><td>משנה כותרות של חבילות</td><td>כולן</td></tr><tr><td>raw</td><td>לפני מעקב חיבורים</td><td>לפני ניתוב, יוצא</td></tr></table>
+<p class="prose">שרשרת = רשימת חוקים. חבילת מידע נכנסת → עוברת דרך כל חוק בסדר → הפעולה הראשונה שמתאימה מבוצעת. אם אף חוק לא מתאים — מדיניות ברירת המחדל קובעת: ACCEPT (אפשר) או DROP (חסום).</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — הצגת חוקים</div></div>
+<div class="td-body td-body-dark"># הצגת כל החוקים עם מספרים ומוניטורים:
+$ sudo iptables -L -n -v --line-numbers
+
+# פלט:
+Chain INPUT (policy DROP)
+num  pkts  bytes target  prot  in    out  source    destination
+1    1234  234K  ACCEPT  all   lo    *    0.0.0.0/0 0.0.0.0/0  # loopback
+2    5678  1.2M  ACCEPT  tcp   eth0  *    0.0.0.0/0 0.0.0.0/0  tcp dpt:22
+3       0     0  DROP    all   *     *    10.0.0.0/8 0.0.0.0/0 # חסום רשת פנימית
+
+# שמירת חוקים (Debian/Ubuntu):
+$ sudo iptables-save > /etc/iptables/rules.v4
+# טעינה אוטומטית בעלייה: apt install iptables-persistent</div></div>
+
+<div class="section-title">02 — iptables — חוקים בסיסיים</div>
+<p class="prose">נבנה חומת אש ריאלית שלב אחרי שלב. עיקרון: ברירת מחדל DENY, ואז פתיחת מה שצריך.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — מדיניות בסיסית</div></div>
+<div class="td-body td-body-dark">#!/bin/bash
+# === איפוס ===
+iptables -F          # מחיקת כל החוקים
+iptables -X          # מחיקת chains מותאמים
+iptables -Z          # איפוס מוניטורים
+
+# === מדיניות ברירת מחדל: חסום הכל ===
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT   # יוצא: מאפשרים הכל
+
+# === Loopback (חובה!) ===
+iptables -A INPUT -i lo -j ACCEPT
+
+# === חיבורים קיימים (Stateful) ===
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# === ICMP (ping) ===
+iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+
+# === SSH — רק מרשת מסוימת ===
+iptables -A INPUT -p tcp --dport 22 -s 192.168.1.0/24 -j ACCEPT
+
+# === HTTP/HTTPS ===
+iptables -A INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT
+
+# === הגבלת Rate (Anti-brute force) ===
+iptables -A INPUT -p tcp --dport 22 -m recent --update --seconds 60 --hitcount 4 -j DROP
+iptables -A INPUT -p tcp --dport 22 -m recent --set -j ACCEPT</div></div>
+<div class="callout idea"><strong>💡 חומת אש עם זיכרון vs בלי זיכרון:</strong> חומת אש עם זיכרון זוכרת חיבורים — אם <em>אנחנו</em> פתחנו חיבור לבחוץ, תשובות מותרות להיכנס. חומת אש בלי זיכרון בודקת כל חבילה בנפרד, ללא הקשר.</div>
+
+<div class="section-title">03 — iptables — תרגום כתובות והעברת פורטים</div>
+<p class="prose">הטבלה nat ב-iptables מאפשרת תרגום כתובות מלא — כולל הפיכת Linux רגיל לנתב אמיתי.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — NAT ו-Port Forwarding</div></div>
+<div class="td-body td-body-dark"># === הפעלת IP Forwarding (חובה לנתב!) ===
+echo 1 > /proc/sys/net/ipv4/ip_forward
+# קביעה קבועה ב-/etc/sysctl.conf:
+echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+
+# === Masquerade (NAT יוצא) ===
+# כל מה שיוצא מ-eth0 — הסתר מאחורי כתובת eth0:
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+# === Port Forwarding ===
+# בקשה לפורט 8080 על eth0 → שלח ל-192.168.1.10:80
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 8080 -j DNAT     --to-destination 192.168.1.10:80
+
+# הפניה מקומית (לשרת שרץ על אותו מחשב):
+iptables -t nat -A OUTPUT -p tcp --dport 80 -j REDIRECT --to-port 8080
+
+# === הצגת חוקי NAT ===
+$ sudo iptables -t nat -L -n -v</div></div>
+
+`,
+`<div class="section-title">01 — עקרונות ההקשחה</div>
+<p class="prose">הקשחת שרת = הפחתת שטח ההתקפה. כל שירות שרץ הוא דלת אפשרית לתוקף. כל משתמש עם הרשאות הוא סיכון. ההקשחה סוגרת את הדלתות מיותרות.</p>
+<table class="data-table"><tr><th>עיקרון</th><th>מה זה אומר בפועל</th></tr><tr><td>Least Privilege</td><td>כל משתמש/שירות מקבל בדיוק מה שצריך — לא יותר</td></tr><tr><td>Attack Surface Reduction</td><td>הסרת שירותים, פורטים, ומשתמשים מיותרים</td></tr><tr><td>Defense in Depth</td><td>שכבות הגנה — אם אחת נכשלת, השנייה מגנה</td></tr><tr><td>Audit & Monitor</td><td>תיעוד כל פעולה — ידיעת מה שקורה</td></tr><tr><td>Patch Management</td><td>עדכון שוטף — רוב הפרצות ידועות ומתוקנות</td></tr></table>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — צעדי ראשון על שרת חדש</div></div>
+<div class="td-body td-body-dark"># 1. עדכון מלא
+sudo apt update && sudo apt upgrade -y
+
+# 2. הסרת שירותים מיותרים
+sudo apt purge --auto-remove cups bluetooth avahi-daemon -y
+
+# 3. בדיקת מה מאזין
+sudo ss -tunlp | grep LISTEN
+# או:
+sudo netstat -tunlp | grep LISTEN
+
+# 4. הצגת משתמשים עם shell
+grep -v "/nologin\|/false" /etc/passwd
+
+# 5. בדיקת sudo permissions
+sudo cat /etc/sudoers</div></div>
+
+<div class="section-title">02 — SSH הקשחה</div>
+<p class="prose">SSH הוא הכניסה הראשית לכל שרת Linux. ברירות המחדל טובות — אבל אפשר לשפר הרבה. 70% מניסיונות ניחוש הסיסמאות ברשת מכוונים ל-SSH.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">/etc/ssh/sshd_config — הגדרות מומלצות</div></div>
+<div class="td-body td-body-dark"># פורט לא ברירת מחדל (מפחית noise — לא אבטחה אמיתית)
+Port 2222
+
+# חסום כניסת root ישירה
+PermitRootLogin no
+
+# רק מפתחות — אין סיסמאות!
+PasswordAuthentication no
+PubkeyAuthentication yes
+
+# הגבל ל-2 ניסיונות
+MaxAuthTries 2
+
+# ניתוק אחרי 5 דקות של חוסר פעילות
+ClientAliveInterval 300
+ClientAliveCountMax 1
+
+# אפשר רק למשתמשים ספציפיים
+AllowUsers admin deployer
+
+# חסום X11 forwarding (לא צריך בשרת)
+X11Forwarding no
+
+# אחרי שינוי: בדוק לפני ריסטרט!
+$ sudo sshd -t && sudo systemctl restart sshd</div></div>
+<div class="callout idea"><strong>💡 מפתחות SSH:</strong> צור זוג מפתחות: <code>ssh-keygen -t ed25519</code>. העתק את המפתח הציבורי לשרת: <code>ssh-copy-id user@server</code>. המפתח הפרטי נשאר אצלך בלבד — לעולם לא תשלח אותו לאף אחד.</div>
+
+<div class="section-title">03 — UFW, Fail2ban, unattended-upgrades</div>
+<p class="prose">שלושה כלים שכל שרת Ubuntu צריך: UFW (חומת אש פשוטה), Fail2ban (חסימת brute force), unattended-upgrades (עדכונים אוטומטיים).</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — הגדרה מלאה</div></div>
+<div class="td-body td-body-dark"># === UFW ===
+sudo apt install ufw -y
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow 2222/tcp comment 'SSH'
+sudo ufw allow 80/tcp comment 'HTTP'
+sudo ufw allow 443/tcp comment 'HTTPS'
+sudo ufw enable
+sudo ufw status verbose
+
+# === Fail2ban ===
+sudo apt install fail2ban -y
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+# ערוך /etc/fail2ban/jail.local:
+[sshd]
+enabled = true
+port = 2222
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 3
+bantime = 3600    # חסום שעה
+findtime = 600    # 3 נסיונות ב-10 דקות
+
+sudo systemctl enable --now fail2ban
+sudo fail2ban-client status sshd  # הצג חסומים
+
+# === עדכונים אוטומטיים ===
+sudo apt install unattended-upgrades -y
+sudo dpkg-reconfigure --priority=low unattended-upgrades</div></div>
+
+`,
+`<div class="section-title">01 — ארכיטקטורת VM-Router</div>
+<p class="prose">מחשב וירטואלי עם שני כרטיסי רשת שמנתב תעבורה בין רשתות. שימושי ל: מעבדת אבטחה, NAT ביתי מתקדם, ניטור תעבורה, שער VPN.</p>
+<table class="data-table"><tr><th>מערכת</th><th>ממשקים נדרשים</th><th>יתרון</th></tr><tr><td>Linux Router (Ubuntu/Debian)</td><td>2+ ממשקים, iptables</td><td>גמיש, קוד פתוח, חינם</td></tr><tr><td>pfSense</td><td>2+ ממשקים, ממשק גרפי</td><td>ידידותי, עשיר בתכונות</td></tr><tr><td>OPNsense</td><td>2+ ממשקים, ממשק גרפי</td><td>pfSense מודרני יותר</td></tr><tr><td>VyOS</td><td>שורת פקודה, רמת ארגון</td><td>ברמת Cisco/Juniper</td></tr></table>
+<div class="callout idea"><strong>💡 הגדרת ממשקים ב-VMware/VirtualBox:</strong> כרטיס 1 (WAN): מחובר ל-NAT או Bridged — גישה לאינטרנט. כרטיס 2 (LAN): מחובר ל-Internal Network — רשת פנימית. VMs אחרים ב-Internal Network ישתמשו ב-VM Router כ-Gateway.</div>
+
+<div class="section-title">02 — Linux כנתב — הגדרה מלאה</div>
+<p class="prose">Ubuntu/Debian עם שני כרטיסי רשת יכול לנתב תעבורה. צריך: IP Forwarding, iptables, DHCP.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — הגדרת Linux Router</div></div>
+<div class="td-body td-body-dark"># === זיהוי הממשקים ===
+$ ip addr show
+# eth0 = WAN (כתובת מה-DHCP החיצוני)
+# eth1 = LAN (נגדיר ידנית)
+
+# === הגדרת LAN ===
+sudo ip addr add 10.0.0.1/24 dev eth1
+sudo ip link set eth1 up
+
+# קבועה ב-/etc/netplan/01-config.yaml:
+network:
+  version: 2
+  ethernets:
+    eth1:
+      addresses: [10.0.0.1/24]
+
+# === IP Forwarding ===
+sudo sysctl -w net.ipv4.ip_forward=1
+echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
+
+# === NAT (Masquerade) ===
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+sudo iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
+sudo iptables -A FORWARD -i eth0 -o eth1 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# === DHCP לרשת הפנימית ===
+sudo apt install isc-dhcp-server -y
+
+# /etc/dhcp/dhcpd.conf:
+subnet 10.0.0.0 netmask 255.255.255.0 {
+    range 10.0.0.100 10.0.0.200;
+    option routers 10.0.0.1;
+    option domain-name-servers 8.8.8.8, 1.1.1.1;
+    default-lease-time 86400;
+}</div></div>
+
+<div class="section-title">03 — pfSense — WebUI נתב</div>
+<p class="prose">pfSense היא מערכת מבוססת FreeBSD שהופכת מחשב וירטואלי לנתב ברמת ארגון — עם ממשק גרפי נוח. מתאים מאוד למעבדה ביתית ולארגונים קטנים.</p>
+<table class="data-table"><tr><th>תכונה</th><th>מה עושה</th></tr><tr><td>חוקי חומת אש</td><td>חוקים לכל ממשק — ממשק גרפי ידידותי</td></tr><tr><td>שרת DHCP</td><td>חלוקת כתובות אוטומטית לרשת הפנימית</td></tr><tr><td>VPN</td><td>גישה מרחוק מאובטחת</td></tr><tr><td>ניהול רוחב פס</td><td>הגבלת מהירות לפי כתובת או שירות</td></tr><tr><td>זיהוי חדירות (Suricata)</td><td>זיהוי ומניעת התקפות</td></tr><tr><td>פורטל כניסה</td><td>דף כניסה לרשת אורחים</td></tr><tr><td>HAProxy</td><td>איזון עומסים מובנה</td></tr></table>
+<div class="callout idea"><strong>💡 התקנה ב-VirtualBox:</strong> 1. הורד קובץ ISO מ-pfsense.org. 2. צור מחשב וירטואלי עם 2 כרטיסי רשת (NAT + Internal). 3. הגדר WAN/LAN. 4. כנס לממשק הגרפי מ-VM פנימי: https://192.168.1.1. שם משתמש: admin, סיסמה: pfsense.</div>
+
+`,
+`<div class="section-title">01 — Filters מתקדמים</div>
+<p class="prose">Wireshark תופס אלפי חבילות בדקה. בלי filters טובים — מחפשים מחט בערמת שחת. הנה ה-filters שמשתמשים בהם בפועל.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Wireshark — Display Filters</div></div>
+<div class="td-body td-body-dark"># === HTTP/HTTPS ===
+http.request                    # בקשות HTTP
+http.response.code == 200       # תשובות OK
+http.request.uri contains "login"  # URLs עם login
+
+# === DNS ===
+dns.qry.name contains "google"  # שאילתות לגוגל
+dns.flags.rcode != 0            # DNS errors
+dns.qry.type == 1               # רק A records
+
+# === TLS ===
+tls.handshake.type == 1         # Client Hello
+tls.record.content_type == 21   # Alert (שגיאות TLS)
+ssl.alert_message.desc == 42    # Certificate Unknown
+
+# === TCP ===
+tcp.flags.syn == 1 && tcp.flags.ack == 0  # חיבורים חדשים
+tcp.analysis.retransmission                # retransmissions
+tcp.analysis.zero_window                   # עצירות flow control
+tcp.port == 8080                           # פורט ספציפי
+
+# === IP ===
+ip.src == 192.168.1.5 && ip.dst != 192.168.1.0/24  # יוצא החוצה
+! arp && ! mdns && ! llmnr         # ללא broadcast רעש</div></div>
+<div class="callout idea"><strong>💡 צביעה לפי חיבור:</strong> View → Colorize Conversation → TCP Stream. כל חיבור מקבל צבע שונה — קל לעקוב אחרי שיחה ספציפית.</div>
+
+<div class="section-title">02 — TCP Stream Analysis</div>
+<p class="prose">Follow TCP Stream = Wireshark מראה את כל השיחה ברצף, כמו קריאת שיחת טלפון. ב-HTTP — קוראים כל בקשה ותשובה. ב-HTTPS — רואים ג'יבריש מוצפן.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Wireshark — ניתוח שיחה</div></div>
+<div class="td-body td-body-dark"># 1. לחיצה ימנית על packet → Follow → TCP Stream
+# 2. בחלון שנפתח:
+#    אדום = הצד שהתחיל (Client)
+#    כחול = הצד השני (Server)
+
+# דוגמה ל-HTTP ב-Follow Stream:
+GET /login HTTP/1.1
+Host: example.com
+Content-Type: application/x-www-form-urlencoded
+
+username=admin&password=1234  ← סיסמה גלויה ב-HTTP!
+
+HTTP/1.1 302 Found
+Location: /dashboard
+Set-Cookie: session=abc123; HttpOnly  ← Cookie חדש
+
+# Tip: אפשר לייצא Stream לקובץ:
+# File → Export Objects → HTTP (לכל קבצי HTTP)</div></div>
+<div class="callout warn"><strong>⚠️ פענוח HTTPS ב-Wireshark:</strong> דפדפנים כמו Chrome ו-Firefox יכולים לשמור מפתחות ההצפנה לקובץ. הגדירו: <code>export SSLKEYLOGFILE=~/ssl.log</code> לפני פתיחת הדפדפן, ואז ב-Wireshark: Edit → Preferences → TLS → Master-Secret log.</div>
+
+<div class="section-title">03 — Statistics ו-IO Graph</div>
+<p class="prose">Wireshark לא רק מציג packets — יש בו כלי ניתוח סטטיסטי עוצמתי. מאוד שימושי לאבחון ביצועים.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Wireshark — Statistics Menu</div></div>
+<div class="td-body td-body-dark"># Statistics → Protocol Hierarchy
+# → מראה % של כל פרוטוקול. TCP 80%, DNS 5%, ARP 2%...
+
+# Statistics → Conversations
+# → טבלת כל החיבורים עם Bytes, Packets, Duration
+# → מיון לפי Bytes מגלה מי "אוכל" bandwidth
+
+# Statistics → IO Graph
+# → גרף של תעבורה לאורך זמן
+# → אפשר לשכב Filters: tcp.analysis.retransmission (אדום)
+#                         tcp (כחול) — לראות מתאם
+
+# Statistics → HTTP → Packet Counter
+# → כמה 200, 404, 500 response codes
+
+# Analyze → Expert Information
+# → Wireshark מסכם בעיות שמצא:
+#   Errors: RST connections, checksum errors
+#   Warnings: Retransmissions, Zero Window
+#   Notes: SYN/FIN counts</div></div>
+
+`,
+`<div class="section-title">01 — WireGuard — הדור החדש</div>
+<p class="prose">WireGuard הוא פרוטוקול VPN חדש (2020) שפשוט יותר, מהיר יותר, ומאובטח יותר מ-OpenVPN. הקוד שלו 4,000 שורות — OpenVPN הוא 100,000. פחות קוד = פחות מקום לבאגים.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — WireGuard Server על Ubuntu</div></div>
+<div class="td-body td-body-dark"># === התקנה ===
+sudo apt install wireguard -y
+
+# === יצירת מפתחות ===
+wg genkey | tee /etc/wireguard/privatekey | wg pubkey > /etc/wireguard/publickey
+chmod 600 /etc/wireguard/privatekey
+
+# === קובץ הגדרות Server (/etc/wireguard/wg0.conf) ===
+[Interface]
+Address = 10.8.0.1/24
+ListenPort = 51820
+PrivateKey = <SERVER_PRIVATE_KEY>
+PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+
+# לכל Client מוסיפים Peer:
+[Peer]
+PublicKey = <CLIENT_PUBLIC_KEY>
+AllowedIPs = 10.8.0.2/32
+
+# === הפעלה ===
+sudo wg-quick up wg0
+sudo systemctl enable wg-quick@wg0</div></div>
+<div class="callout idea"><strong>💡 WireGuard מול OpenVPN:</strong> WireGuard — מהיר יותר, קוד קצר יותר, טכנולוגיה חדשה. OpenVPN — 20 שנה של ניסיון, גמיש יותר, אבל מורכב יותר להגדרה. לשרת ביתי — WireGuard. לארגון עם דרישות מורכבות — OpenVPN.</div>
+
+<div class="section-title">02 — OpenVPN — הגדרה</div>
+<p class="prose">OpenVPN עובד על SSL/TLS — עובר דרך כמעט כל firewall (פורט 443 UDP/TCP). נפוץ מאוד בארגונים כי מותאם ל-Active Directory ולכלים Enterprise.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — OpenVPN מהיר עם easy-rsa</div></div>
+<div class="td-body td-body-dark"># === התקנה ===
+sudo apt install openvpn easy-rsa -y
+make-cadir ~/openvpn-ca && cd ~/openvpn-ca
+
+# === יצירת CA ===
+./easyrsa init-pki
+./easyrsa build-ca nopass
+
+# === יצירת Server Certificate ===
+./easyrsa gen-req server nopass
+./easyrsa sign-req server server
+
+# === יצירת Client Certificate ===
+./easyrsa gen-req client1 nopass
+./easyrsa sign-req client client1
+
+# === DH Parameters ===
+./easyrsa gen-dh
+
+# === קובץ Server (/etc/openvpn/server.conf) ===
+port 1194
+proto udp
+dev tun
+ca ca.crt
+cert server.crt
+key server.key
+dh dh.pem
+server 10.8.0.0 255.255.255.0
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-option DNS 8.8.8.8"
+keepalive 10 120
+cipher AES-256-GCM
+user nobody
+group nogroup
+persist-key
+persist-tun</div></div>
+
+<div class="section-title">03 — מנהרה חלקית ומתג חירום</div>
+<p class="prose">שני עקרונות חשובים בכל הגדרת VPN:</p>
+<table class="data-table"><tr><th>עיקרון</th><th>מה זה</th><th>מתי להשתמש</th></tr><tr><td>מנהרה מלאה</td><td>כל התעבורה עוברת דרך ה-VPN</td><td>כשצריך אבטחה מלאה</td></tr><tr><td>מנהרה חלקית</td><td>רק תעבורה לרשת הארגונית — דרך VPN. שאר — ישירות לאינטרנט</td><td>לביצועים טובים יותר</td></tr><tr><td>מתג חירום</td><td>אם VPN נפל — חסום הכל, כדי שהמידע לא יצא ללא הצפנה</td><td>כשפרטיות קריטית</td></tr></table>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">iptables — Kill Switch</div></div>
+<div class="td-body td-body-dark"># Kill Switch: אם VPN מת — חסום הכל חוץ מ-VPN server
+# (ירוץ לפני VPN עולה)
+
+VPN_IP="1.2.3.4"  # כתובת שרת VPN
+VPN_PORT="1194"
+IFACE="eth0"       # ממשק WAN
+
+# אפשר רק תעבורה ל-VPN server
+iptables -A OUTPUT -d $VPN_IP -p udp --dport $VPN_PORT -j ACCEPT
+# אפשר תעבורה דרך tunnel
+iptables -A OUTPUT -o tun+ -j ACCEPT
+# חסום כל השאר (חוץ מ-loopback)
+iptables -A OUTPUT -o $IFACE -j DROP
+
+# השפעה: אם VPN מתנתק → הכל נחסם
+# עם VPN = רק tun0 פתוח</div></div>
+
+`,
+`<div class="section-title">01 — ARP Spoofing — MITM ברשת מקומית</div>
+<p class="prose">ARP הוא הפרוטוקול שממפה כתובת IP לכתובת MAC של כרטיס הרשת. הוא לא מאומת — כל אחד ברשת יכול לשלוח תשובת ARP מזויפת ולגרום לתעבורה לעבור דרכו. זו הבסיס של מתקפת האדם-באמצע ברשת מקומית.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — ARP Spoofing (כלי מחקר)</div></div>
+<div class="td-body td-body-dark"># arp-scan — גלה כל מכשיר ברשת:
+$ sudo arp-scan -l
+
+# הצגת טבלת ARP המקומית:
+$ arp -n
+
+# זיהוי ARP Spoofing:
+# אם אותו MAC מופיע ב-2 כתובות IP — חשוד!
+192.168.1.1   aa:bb:cc:11:22:33  (נתב)
+192.168.1.50  aa:bb:cc:11:22:33  (!! אותו MAC — ARP Spoofing!)
+
+# הגנה:
+# 1. Static ARP entries:
+$ sudo arp -s 192.168.1.1 aa:bb:cc:11:22:33
+
+# 2. Switch עם Dynamic ARP Inspection (DAI)
+# 3. HTTPS (מגן על התוכן גם אם MITM)</div></div>
+<div class="callout warn"><strong>⚠️ HTTPS מגן — אבל לא לחלוטין:</strong> גם עם מתקפת האדם-באמצע — HTTPS מגן על התוכן. התוקף יכול לראות <em>לאן</em> אתה גולש, אבל לא <em>מה</em> אתה שולח. נעילת תעודה באפליקציה נותן הגנה נוספת.</div>
+
+<div class="section-title">02 — Port Scanning — nmap</div>
+<p class="prose">nmap הוא הכלי הסטנדרטי לסריקת רשת. ידוע בכל תחום — אבטחה, IT, אדמיניסטרציה. חשוב לדעת לקרוא ולפרש תוצאות.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">Terminal — nmap</div></div>
+<div class="td-body td-body-dark"># === סריקה בסיסית ===
+$ nmap 192.168.1.1                    # פורטים נפוצים
+$ nmap 192.168.1.0/24                 # כל הרשת
+$ nmap -p 22,80,443 192.168.1.1      # פורטים ספציפיים
+$ nmap -p- 192.168.1.1               # כל 65535 פורטים (איטי)
+
+# === זיהוי מערכת הפעלה ושירות ===
+$ nmap -sV -O 192.168.1.1
+# OpenSSH 8.9p1 Ubuntu → אפשר לדעת את גרסת Ubuntu!
+
+# === זיהוי סוג Scan ===
+$ nmap -sS    # SYN Scan (מהיר, פחות רעש)
+$ nmap -sT    # TCP Connect (איטי, מלא)
+$ nmap -sU    # UDP Scan (איטי מאוד)
+
+# === Script Engine ===
+$ nmap --script vuln 192.168.1.1     # חיפוש פגיעויות ידועות
+$ nmap --script http-title 192.168.1.0/24  # כותרת HTTP של כל שרת
+
+# === ממה להגן? ===
+$ sudo nmap -sS -O 192.168.1.1  # ראה מה תוקף רואה
+# ← הכנס את זה לתוצאות → תקן את מה שלא צריך להיות פתוח</div></div>
+<div class="callout idea"><strong>💡 סריקה מול מערכת זיהוי:</strong> סריקה רגילה מתגלה מיידית על ידי מערכת זיהוי חדירות. מצב איטי (nmap -T0) שולח חבילה אחת כל 5 דקות — קשה יותר לגלות. בפועל — תוקפים מפצלים סריקה על פני ימים שלמים.</div>
+
+<div class="section-title">03 — Intrusion Detection — Snort/Suricata</div>
+<p class="prose">IDS (Intrusion Detection System) מנתח תעבורת רשת ומחפש דפוסים של התקפות. Snort/Suricata הם open-source ועובדים כ-plugins ב-pfSense.</p>
+<div class="td td-dark">
+<div class="td-bar"><div class="td-dots"><div class="td-dot td-r"></div><div class="td-dot td-y"></div><div class="td-dot td-g"></div></div><div class="td-dark-url">bash — Suricata על Ubuntu</div></div>
+<div class="td-body td-body-dark"># === התקנה ===
+sudo apt install suricata -y
+
+# === עדכון Rules ===
+sudo suricata-update
+
+# === הפעלה על ממשק ===
+sudo suricata -c /etc/suricata/suricata.yaml -i eth0
+
+# === הצגת alerts ===
+$ tail -f /var/log/suricata/fast.log
+
+# Alert לדוגמה:
+[**] [1:2210022:2] SURICATA HTTP unable to match response to request [**]
+[Classification: Generic Protocol Command Decode] [Priority: 3]
+08/22-14:23:11.123456 192.168.1.5:54321 -> 1.2.3.4:80
+
+# === Rules ===
+# /etc/suricata/rules/local.rules
+# חוק מותאם — alert אם מישהו סורק פורטים:
+alert tcp any any -> $HOME_NET any (msg:"Port Scan"; flags:S; threshold:type both, track by_src, count 20, seconds 3; sid:9001;)</div></div>
+
+`
+],
+cheat:[
+`<div class="sc"><div class="sc-head">🌐 IP מעמיק</div><div class="sc-card"><div class="sc-label">Subnetting</div><div class="sc-text">/26 = 64 כתובות, 62 שמישות. /27 = 32, 30 שמישות. /28 = 16, 14 שמישות. ה-Network Address וה-Broadcast לא שמישים.</div></div><div class="sc-card"><div class="sc-label">NAT</div><div class="sc-text">הנתב שומר טבלת NAT: פרטי:פורט ↔ ציבורי:פורט. כשתשובה חוזרת — הנתב מחפש בטבלה ומחזיר לכתובת הפנימית הנכונה.</div></div><div class="sc-card"><div class="sc-label">ip route</div><div class="sc-text">ip route show — הצגת טבלה. ip route add — הוספת נתיב. default via = לאן שולחים הכל שלא מכירים.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔌 TCP/UDP מעמיק</div><div class="sc-card"><div class="sc-label">TCP States</div><div class="sc-text">LISTEN = מחכה. ESTABLISHED = פעיל. TIME-WAIT = סוגר מסודר. CLOSE-WAIT = ⚠️ הצד השני סגר אבל אנחנו לא — כנראה באג.</div></div><div class="sc-card"><div class="sc-label">ss -tunap</div><div class="sc-text">ss מהיר יותר מ-netstat. -t = TCP, -u = UDP, -n = מספרים, -a = הכל, -p = תהליכים.</div></div><div class="sc-card"><div class="sc-label">Sockets</div><div class="sc-text">socket() → bind() → listen() → accept() → recv()/send() → close(). כל שרת ו-client עושים זאת, כל שפה.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔒 HTTP/HTTPS מעמיק</div><div class="sc-card"><div class="sc-label">Auth Headers</div><div class="sc-text">Authorization: Bearer TOKEN — הכי נפוץ. Authorization: Basic base64(user:pass) — פשוט אבל חשוף. X-API-Key — פשוט, לא סטנדרטי.</div></div><div class="sc-card"><div class="sc-label">TLS בדיקה</div><div class="sc-text">openssl s_client -connect host:443 — בדיקת תעודה ופרוטוקול. curl -I -v https://site — headers + handshake. SSLKEYLOGFILE לפענוח ב-Wireshark.</div></div><div class="sc-card"><div class="sc-label">Cookie Security</div><div class="sc-text">HttpOnly = JS לא יכול לגשת. Secure = רק HTTPS. SameSite=Strict = לא נשלח מ-cross-site. שלושתם = Cookie מאובטח.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔍 DNS מעמיק</div><div class="sc-card"><div class="sc-label">Records</div><div class="sc-text">A → IPv4. AAAA → IPv6. MX → שרת מייל. TXT → SPF/DKIM/אחר. PTR → Reverse DNS. NS → שרתי DNS של הדומיין. SOA → מטאדאטה.</div></div><div class="sc-card"><div class="sc-label">dig</div><div class="sc-text">dig domain A — שאילתה. dig @8.8.8.8 — לשרת ספציפי. dig +trace — מעקב מלא. dig -x IP — Reverse DNS.</div></div><div class="sc-card"><div class="sc-label">DNSSEC</div><div class="sc-text">מוסיף חתימה RSA לכל Record. מגן מ-DNS Spoofing. RRSIG = חתימה. DNSKEY = המפתח הציבורי. DS = hash של המפתח.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔥 iptables</div><div class="sc-card"><div class="sc-label">מדיניות</div><div class="sc-text">iptables -P INPUT DROP → חסום הכל נכנס. iptables -P OUTPUT ACCEPT → אפשר הכל יוצא. תמיד הוסף: loopback (lo), ESTABLISHED,RELATED.</div></div><div class="sc-card"><div class="sc-label">NAT</div><div class="sc-text">POSTROUTING + MASQUERADE = NAT יוצא. PREROUTING + DNAT = Port Forwarding. ip_forward חייב להיות 1.</div></div><div class="sc-card"><div class="sc-label">Rate Limiting</div><div class="sc-text">-m recent --hitcount 4 --seconds 60 → מקסימום 4 חיבורים ב-60 שניות. מגן מ-brute force SSH.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🛡️ Ubuntu Hardening</div><div class="sc-card"><div class="sc-label">SSH</div><div class="sc-text">PermitRootLogin no. PasswordAuthentication no. Port לא-ברירת-מחדל. MaxAuthTries 2. AllowUsers רשימה ספציפית. בדוק: sshd -t לפני restart.</div></div><div class="sc-card"><div class="sc-label">UFW</div><div class="sc-text">ufw default deny incoming → ufw allow 22/tcp → ufw enable. פשוט יותר מ-iptables ישיר. מסתנכרן עם iptables מתחת.</div></div><div class="sc-card"><div class="sc-label">Fail2ban</div><div class="sc-text">maxretry = 3 כשלונות. bantime = 3600 שניות. findtime = 600 שניות. fail2ban-client status sshd לראיית חסומים.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔀 VM כנתב</div><div class="sc-card"><div class="sc-label">IP Forwarding</div><div class="sc-text">echo 1 > /proc/sys/net/ipv4/ip_forward — זמני. /etc/sysctl.conf net.ipv4.ip_forward=1 — קבוע. חובה לכל router Linux.</div></div><div class="sc-card"><div class="sc-label">pfSense</div><div class="sc-text">FreeBSD-based. WAN = ממשק לאינטרנט. LAN = ממשק לרשת פנימית. WebUI ב-192.168.1.1. תמיכה ב-VPN, IDS, QoS.</div></div><div class="sc-card"><div class="sc-label">DHCP</div><div class="sc-text">isc-dhcp-server: range, option routers, option domain-name-servers. הגדר INTERFACESv4 ב-/etc/default/isc-dhcp-server.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔬 Wireshark מתקדם</div><div class="sc-card"><div class="sc-label">Filters</div><div class="sc-text">tcp.analysis.retransmission — בעיות. tcp.flags.syn && !tcp.flags.ack — חיבורים חדשים. http.request.uri contains 'admin' — URL חשוד.</div></div><div class="sc-card"><div class="sc-label">Follow Stream</div><div class="sc-text">לחיצה ימנית → Follow TCP Stream. אדום = Client, כחול = Server. ב-HTTP — הכל גלוי. ב-HTTPS — ג'יבריש (עד SSLKEYLOGFILE).</div></div><div class="sc-card"><div class="sc-label">Statistics</div><div class="sc-text">Protocol Hierarchy — % כל פרוטוקול. Conversations — מיון לפי Bytes. IO Graph — תעבורה לאורך זמן עם filters.</div></div></div>`,
+`<div class="sc"><div class="sc-head">🔐 VPN</div><div class="sc-card"><div class="sc-label">WireGuard</div><div class="sc-text">wg genkey לזוג מפתחות. [Peer] עם PublicKey + AllowedIPs. PostUp/PostDown לiptables. מהיר יותר מ-OpenVPN ב-30%.</div></div><div class="sc-card"><div class="sc-label">Split Tunnel</div><div class="sc-text">AllowedIPs = 10.0.0.0/8 → רק רשת פנימית דרך VPN. AllowedIPs = 0.0.0.0/0 → כל התעבורה. Kill Switch = חסום הכל אם VPN מת.</div></div><div class="sc-card"><div class="sc-label">OpenVPN</div><div class="sc-text">proto udp, port 1194. cipher AES-256-GCM. push redirect-gateway = Full Tunnel. easy-rsa לניהול תעודות. נפוץ בארגונים.</div></div></div>`,
+`<div class="sc"><div class="sc-head">⚔️ אבטחת רשתות</div><div class="sc-card"><div class="sc-label">ARP Spoofing</div><div class="sc-text">הגנה: Static ARP entries, DAI ב-switch, HTTPS. זיהוי: אותו MAC ל-2 IPs ב-arp -n. Wireshark: arp.duplicate-address.</div></div><div class="sc-card"><div class="sc-label">nmap</div><div class="sc-text">-sS = SYN scan (מהיר). -sV = גרסת שירות. -O = מערכת הפעלה. -p- = כל 65535 פורטים. --script vuln = חיפוש פגיעויות.</div></div><div class="sc-card"><div class="sc-label">Suricata/IDS</div><div class="sc-text">IDS = מזהה ומתריע. IPS = מזהה וחוסם. Rules ב-/etc/suricata/rules/. fast.log להתראות. suricata-update לעדכון חתימות.</div></div></div>`
+]
+}
+};
+var MATCH_DATA={},MATCH_DATA_EN={};
+MATCH_DATA[0]={"pairs": [["Subnetting", "חיתוך רשת אחת לרשתות קטנות יותר"], ["CIDR /26", "64 כתובות, 62 שמישות"], ["NAT", "תרגום כתובות פרטיות לכתובת ציבורית"], ["Port Forwarding", "העברת פורט חיצוני לכתובת פנימית"], ["ip route", "פקודה להצגת טבלת ניתוב ב-Linux"], ["default via", "נתיב ברירת המחדל — לאן שולחים מה שלא מכירים"]]};
+MATCH_DATA_EN[0]={"pairs": [["Subnetting", "חיתוך רשת אחת לרשתות קטנות יותר"], ["CIDR /26", "64 כתובות, 62 שמישות"], ["NAT", "תרגום כתובות פרטיות לכתובת ציבורית"], ["Port Forwarding", "העברת פורט חיצוני לכתובת פנימית"], ["ip route", "פקודה להצגת טבלת ניתוב ב-Linux"], ["default via", "נתיב ברירת המחדל — לאן שולחים מה שלא מכירים"]]};
+MATCH_DATA[1]={"pairs": [["ESTABLISHED", "חיבור TCP פעיל"], ["TIME-WAIT", "סוגר בצורה מסודרת — מחכה 120 שניות"], ["CLOSE-WAIT", "הצד השני סגר אבל אנחנו לא — כנראה באג"], ["ss -tunap", "הצגת כל החיבורים הפעילים"], ["SOCK_STREAM", "סוג Socket ל-TCP"], ["SOCK_DGRAM", "סוג Socket ל-UDP"]]};
+MATCH_DATA_EN[1]={"pairs": [["ESTABLISHED", "חיבור TCP פעיל"], ["TIME-WAIT", "סוגר בצורה מסודרת — מחכה 120 שניות"], ["CLOSE-WAIT", "הצד השני סגר אבל אנחנו לא — כנראה באג"], ["ss -tunap", "הצגת כל החיבורים הפעילים"], ["SOCK_STREAM", "סוג Socket ל-TCP"], ["SOCK_DGRAM", "סוג Socket ל-UDP"]]};
+MATCH_DATA[2]={"pairs": [["Bearer Token", "JWT ב-Authorization header"], ["Cookie", "Session ID שהדפדפן שולח בכל בקשה"], ["X-Forwarded-For", "כתובת IP מקורית דרך proxy"], ["TLS 1.3", "1 RTT בלבד — מהיר מ-TLS 1.2"], ["openssl s_client", "בדיקת TLS ממסוף"], ["SSLKEYLOGFILE", "משתנה לפענוח HTTPS ב-Wireshark"]]};
+MATCH_DATA_EN[2]={"pairs": [["Bearer Token", "JWT ב-Authorization header"], ["Cookie", "Session ID שהדפדפן שולח בכל בקשה"], ["X-Forwarded-For", "כתובת IP מקורית דרך proxy"], ["TLS 1.3", "1 RTT בלבד — מהיר מ-TLS 1.2"], ["openssl s_client", "בדיקת TLS ממסוף"], ["SSLKEYLOGFILE", "משתנה לפענוח HTTPS ב-Wireshark"]]};
+MATCH_DATA[3]={"pairs": [["A Record", "שם → IPv4"], ["MX Record", "שרת המייל של הדומיין"], ["TXT Record", "SPF, DKIM ונתונים חופשיים"], ["PTR Record", "כתובת IP → שם (DNS הפוך)"], ["SOA", "מידע ניהולי על ה-Zone — מי אחראי, מתי עודכן"], ["DNSSEC", "חתימה קריפטוגרפית על DNS Records"]]};
+MATCH_DATA_EN[3]={"pairs": [["A Record", "שם → IPv4"], ["MX Record", "שרת המייל של הדומיין"], ["TXT Record", "SPF, DKIM ונתונים חופשיים"], ["PTR Record", "כתובת IP → שם (DNS הפוך)"], ["SOA", "מידע ניהולי על ה-Zone — מי אחראי, מתי עודכן"], ["DNSSEC", "חתימה קריפטוגרפית על DNS Records"]]};
+MATCH_DATA[4]={"pairs": [["iptables -P INPUT DROP", "מדיניות ברירת מחדל — חסום הכל נכנס"], ["ESTABLISHED,RELATED", "Stateful — אפשר תשובות לחיבורים שפתחנו"], ["PREROUTING", "Chain ב-nat — לפני ניתוב (Port Forwarding)"], ["MASQUERADE", "NAT יוצא — הסתרת כתובות פנימיות"], ["conntrack", "מנגנון מעקב חיבורים של Kernel"], ["iptables-save", "שמירת חוקים לקובץ"]]};
+MATCH_DATA_EN[4]={"pairs": [["iptables -P INPUT DROP", "מדיניות ברירת מחדל — חסום הכל נכנס"], ["ESTABLISHED,RELATED", "Stateful — אפשר תשובות לחיבורים שפתחנו"], ["PREROUTING", "Chain ב-nat — לפני ניתוב (Port Forwarding)"], ["MASQUERADE", "NAT יוצא — הסתרת כתובות פנימיות"], ["conntrack", "מנגנון מעקב חיבורים של Kernel"], ["iptables-save", "שמירת חוקים לקובץ"]]};
+MATCH_DATA[5]={"pairs": [["PermitRootLogin no", "חסום כניסת root ישירה ב-SSH"], ["PasswordAuthentication no", "כניסה עם מפתחות בלבד — לא סיסמאות"], ["UFW", "Uncomplicated Firewall — חומת אש פשוטה ל-Ubuntu"], ["Fail2ban", "חסימת IP אחרי ניסיונות כניסה כושלים"], ["MaxAuthTries 2", "מקסימום 2 ניסיונות SSH"], ["unattended-upgrades", "עדכוני אבטחה אוטומטיים"]]};
+MATCH_DATA_EN[5]={"pairs": [["PermitRootLogin no", "חסום כניסת root ישירה ב-SSH"], ["PasswordAuthentication no", "כניסה עם מפתחות בלבד — לא סיסמאות"], ["UFW", "Uncomplicated Firewall — חומת אש פשוטה ל-Ubuntu"], ["Fail2ban", "חסימת IP אחרי ניסיונות כניסה כושלים"], ["MaxAuthTries 2", "מקסימום 2 ניסיונות SSH"], ["unattended-upgrades", "עדכוני אבטחה אוטומטיים"]]};
+MATCH_DATA[6]={"pairs": [["ip_forward", "הגדרה שמאפשרת ל-Linux לנתב בין ממשקים"], ["MASQUERADE", "NAT יוצא — חובה לנתב"], ["DHCP Server", "חלוקת כתובות IP אוטומטית ל-VMs"], ["pfSense", "הפצה שהופכת VM לנתב enterprise"], ["WAN", "כרטיס הרשת הפונה לאינטרנט"], ["LAN", "כרטיס הרשת לרשת הפנימית"]]};
+MATCH_DATA_EN[6]={"pairs": [["ip_forward", "הגדרה שמאפשרת ל-Linux לנתב בין ממשקים"], ["MASQUERADE", "NAT יוצא — חובה לנתב"], ["DHCP Server", "חלוקת כתובות IP אוטומטית ל-VMs"], ["pfSense", "הפצה שהופכת VM לנתב enterprise"], ["WAN", "כרטיס הרשת הפונה לאינטרנט"], ["LAN", "כרטיס הרשת לרשת הפנימית"]]};
+MATCH_DATA[7]={"pairs": [["Follow TCP Stream", "הצגת כל שיחה ברצף"], ["tcp.analysis.retransmission", "חבילות שנשלחו מחדש — בעיה ברשת"], ["tcp.analysis.zero_window", "עצירת flow control — bottleneck"], ["Protocol Hierarchy", "% של כל פרוטוקול בתיעוד"], ["IO Graph", "גרף תעבורה לאורך זמן"], ["Expert Information", "סיכום בעיות שWireshark מצא"]]};
+MATCH_DATA_EN[7]={"pairs": [["Follow TCP Stream", "הצגת כל שיחה ברצף"], ["tcp.analysis.retransmission", "חבילות שנשלחו מחדש — בעיה ברשת"], ["tcp.analysis.zero_window", "עצירת flow control — bottleneck"], ["Protocol Hierarchy", "% של כל פרוטוקול בתיעוד"], ["IO Graph", "גרף תעבורה לאורך זמן"], ["Expert Information", "סיכום בעיות שWireshark מצא"]]};
+MATCH_DATA[8]={"pairs": [["WireGuard", "VPN פרוטוקול חדש — מהיר ופשוט"], ["wg genkey", "יצירת זוג מפתחות WireGuard"], ["AllowedIPs", "לאיזה IPs Client יכול לגשת דרך VPN"], ["Split Tunnel", "רק חלק מהתעבורה עוברת ב-VPN"], ["Kill Switch", "חסום הכל אם VPN נפל"], ["OpenVPN", "VPN ותיק ומוכר — TCP/UDP על פורט 1194"]]};
+MATCH_DATA_EN[8]={"pairs": [["WireGuard", "VPN פרוטוקול חדש — מהיר ופשוט"], ["wg genkey", "יצירת זוג מפתחות WireGuard"], ["AllowedIPs", "לאיזה IPs Client יכול לגשת דרך VPN"], ["Split Tunnel", "רק חלק מהתעבורה עוברת ב-VPN"], ["Kill Switch", "חסום הכל אם VPN נפל"], ["OpenVPN", "VPN ותיק ומוכר — TCP/UDP על פורט 1194"]]};
+MATCH_DATA[9]={"pairs": [["ARP Spoofing", "שליחת ARP מזויף לגניבת תעבורה (MITM)"], ["nmap -sV", "זיהוי גרסת שירות על כל פורט"], ["nmap -sS", "SYN Scan — מהיר, פחות רעש ב-logs"], ["Suricata", "IDS/IPS — זיהוי התקפות בתעבורת רשת"], ["IDS", "Intrusion Detection System"], ["DAI", "Dynamic ARP Inspection — הגנה מ-ARP Spoofing"]]};
+MATCH_DATA_EN[9]={"pairs": [["ARP Spoofing", "שליחת ARP מזויף לגניבת תעבורה (MITM)"], ["nmap -sV", "זיהוי גרסת שירות על כל פורט"], ["nmap -sS", "SYN Scan — מהיר, פחות רעש ב-logs"], ["Suricata", "IDS/IPS — זיהוי התקפות בתעבורת רשת"], ["IDS", "Intrusion Detection System"], ["DAI", "Dynamic ARP Inspection — הגנה מ-ARP Spoofing"]]};
+
+
+var MATCH_DATA={},MATCH_DATA_EN={};
+MATCH_DATA[0]={"pairs": [["Packet", "חבילת data קטנה שנשלחת ברשת"], ["ISP", "ספק האינטרנט שמחבר אותך לרשת"], ["IXP", "נקודה שבה ISPs מתחברים ישירות"], ["Packet Switching", "כל packet בוחר נתיב בנפרד"], ["WiFi", "רק הקטע האחרון בין הנתב למכשיר"], ["WWW", "שירות שרץ על האינטרנט — לא האינטרנט עצמו"]]};
+MATCH_DATA_EN[0]={"pairs": [["Packet", "A small data bundle sent over a network"], ["ISP", "Internet provider that connects you to the network"], ["IXP", "Point where ISPs connect directly"], ["Packet Switching", "Each packet independently chooses its own path"], ["WiFi", "Only the last segment from router to device"], ["WWW", "A service running on the internet — not the internet itself"]]};
+MATCH_DATA[1]={"pairs": [["IP Address", "כתובת מזהה של כל מכשיר ברשת"], ["DNS", "ממיר שמות דומיין לכתובות IP"], ["Router", "מנתב packets בין רשתות"], ["NAT", "מסתיר מכשירים רבים מאחורי IP ציבורי אחד"], ["IPv6", "הדור הבא — מספיק כתובות לכל אטום"], ["Traceroute", "מציג את כל ה-hops בין מחשב ליעד"]]};
+MATCH_DATA_EN[1]={"pairs": [["IP Address", "Identifying address for every network device"], ["DNS", "Converts domain names to IP addresses"], ["Router", "Routes packets between networks"], ["NAT", "Hides many devices behind one public IP"], ["IPv6", "Next generation — enough addresses for every atom"], ["Traceroute", "Shows all hops between computer and destination"]]};
+MATCH_DATA[2]={"pairs": [["TCP", "פרוטוקול חיבור אמין עם אישורים"], ["UDP", "שלח ושכח — ללא הבטחת הגעה"], ["SYN", "שלב ראשון בhandshake — 'אתה שם?'"], ["ACK", "אישור קבלה — 'קיבלתי!'"], ["3-Way Handshake", "SYN/SYN-ACK/ACK לפני שdata עובר"], ["Packet Loss", "packet שלא הגיע ליעד"]]};
+MATCH_DATA_EN[2]={"pairs": [["TCP", "Reliable connection protocol with acknowledgements"], ["UDP", "Send and forget — no delivery guarantee"], ["SYN", "First handshake step — 'You there?'"], ["ACK", "Delivery confirmation — 'Got it!'"], ["3-Way Handshake", "SYN/SYN-ACK/ACK before data flows"], ["Packet Loss", "A packet that didn't reach its destination"]]};
+MATCH_DATA[3]={"pairs": [["HTTP", "פרוטוקול שאלה-תשובה בין דפדפן לשרת"], ["HTTPS", "HTTP עם הצפנת TLS"], ["GET", "בקשת מידע מהשרת"], ["POST", "שליחת מידע לשרת"], ["404", "שגיאה — הדף לא נמצא"], ["TLS", "שכבת הצפנה מעל TCP"]]};
+MATCH_DATA_EN[3]={"pairs": [["HTTP", "Request-response protocol between browser and server"], ["HTTPS", "HTTP with TLS encryption"], ["GET", "Request data from server"], ["POST", "Send data to server"], ["404", "Error — page not found"], ["TLS", "Encryption layer on top of TCP"]]};
+MATCH_DATA[4]={"pairs": [["Bandwidth", "כמות data שניתן להעביר בשנייה"], ["Latency", "זמן מעבר של packet אחד"], ["2.4 GHz", "תדר WiFi עם טווח ארוך אבל איטי"], ["5 GHz", "תדר WiFi מהיר עם טווח קצר יותר"], ["Fiber", "כבל אופטי — אור במקום חשמל"], ["Cat6", "כבל נחושת לרשת מקומית"]]};
+MATCH_DATA_EN[4]={"pairs": [["Bandwidth", "Amount of data that can be transferred per second"], ["Latency", "Travel time of a single packet"], ["2.4 GHz", "WiFi band with long range but slower"], ["5 GHz", "Fast WiFi band with shorter range"], ["Fiber", "Optical cable — light instead of electricity"], ["Cat6", "Copper cable for local networks"]]};
+MATCH_DATA[5]={"pairs": [["Switch", "מנתב packets רק ליעד הנכון"], ["Hub", "שולח כל packet לכולם"], ["DHCP", "מחלק כתובות IP אוטומטית"], ["Modem", "ממיר אות ISP ל-Ethernet"], ["Firewall", "חוסם traffic לפי חוקים"], ["WAP", "נקודת גישה אלחוטית — WiFi"]]};
+MATCH_DATA_EN[5]={"pairs": [["Switch", "Routes packets only to the correct destination"], ["Hub", "Sends every packet to everyone"], ["DHCP", "Automatically assigns IP addresses"], ["Modem", "Converts ISP signal to Ethernet"], ["Firewall", "Blocks traffic based on rules"], ["WAP", "Wireless access point — WiFi"]]};
+MATCH_DATA[6]={"pairs": [["Wireshark", "כלי לצפייה בpackets ברשת"], ["Filter", "מסנן packets בWireshark"], ["Ethernet", "פרוטוקול שכבה 2 — MAC addresses"], ["MAC Address", "כתובת פיזית של כרטיס רשת"], ["Port", "מספר שמזהה שירות ספציפי (80=HTTP, 443=HTTPS)"], ["Promiscuous Mode", "מצב שבו כרטיס רשת לוכד כל packet"]]};
+MATCH_DATA_EN[6]={"pairs": [["Wireshark", "Tool for viewing packets on a network"], ["Filter", "Narrows down packets in Wireshark"], ["Ethernet", "Layer 2 protocol — MAC addresses"], ["MAC Address", "Physical address of a network card"], ["Port", "Number identifying a specific service (80=HTTP, 443=HTTPS)"], ["Promiscuous Mode", "Mode where network card captures every packet"]]};
+MATCH_DATA[7]={"pairs": [["DNS Query", "בקשה לתרגום שם ל-IP"], ["ARP", "מגלה MAC address של IP בRשת מקומית"], ["CDN", "שרתי cache מפוזרים גיאוגרפית"], ["QUIC", "UDP + TLS מובנה — בסיס HTTP/3"], ["Round Trip", "זמן הלוך וחזור של packet"], ["HTTP/3", "HTTP שרץ על QUIC במקום TCP"]]};
+MATCH_DATA_EN[7]={"pairs": [["DNS Query", "Request to translate a name to an IP"], ["ARP", "Discovers MAC address of an IP on local network"], ["CDN", "Geographically distributed cache servers"], ["QUIC", "UDP + built-in TLS — basis of HTTP/3"], ["Round Trip", "Time for a packet to travel there and back"], ["HTTP/3", "HTTP running on QUIC instead of TCP"]]};
+var TOTAL_CHAPTERS = 8;
+var currentLang = 'he';
+var state = { cur: 0, tabs: {}, game: {} };
+var COURSE_ICON = '🌐';
+
+function L() { return C[currentLang]; }
+
+function toggleLang() {
+  currentLang = currentLang === 'he' ? 'en' : 'he';
+  applyLang(currentLang);
+}
+
+function applyLang(lang) {
+  currentLang = lang;
+  var Lc = L();
+  document.documentElement.setAttribute('dir', Lc.dir);
+  document.documentElement.setAttribute('lang', Lc.lang);
+  var lb = document.getElementById('langBtn');
+  if(lb) lb.textContent = Lc.langBtn;
+  for(var i = 0; i < TOTAL_CHAPTERS; i++) {
+    var el = document.getElementById('chname-' + i);
+    if(el) el.textContent = Lc.names[i] || '';
+  }
+  renderChapter(state.cur);
+  activateTab(state.cur, state.tabs[state.cur] || 'learn');
+}
+
+function renderChapter(n) {
+  var Lc = L();
+  var set = function(id, val, prop) {
+    var el = document.getElementById(id);
+    if(el) el[prop || 'textContent'] = val;
+  };
+  set('chname-' + n, Lc.names[n] || '');
+  set('chtag-' + n, (L().lang==='he'?'פרק ':'Ch ') + (n<10?'0'+n:n));
+  set('chtitle-' + n, Lc.names[n] || '');
+  set('chdesc-' + n, Lc.descs[n] || '');
+  var cheatEl = document.getElementById('cheat-' + n);
+  if(cheatEl) cheatEl.innerHTML = Lc.cheat[n] || '';
+  var learnEl = document.getElementById('learn-' + n);
+  if(learnEl) {
+    learnEl.innerHTML = Lc.learn[n] || '';
+    if(learnEl.innerHTML.indexOf('CHID') >= 0)
+      learnEl.innerHTML = learnEl.innerHTML.replace(/CHID/g, n);
+  }
+  var tabsEl = document.getElementById('tabs-' + n);
+  if(tabsEl) {
+    var tabs = Lc.tabs, keys = Lc.tabKeys, cur = state.tabs[n] || 'learn';
+    tabsEl.innerHTML = tabs.map(function(t, ti) {
+      return '<button class="tab-btn' + (cur === keys[ti] ? ' active' : '') +
+        '" onclick="showTab(' + n + ',\'' + keys[ti] + '\')">' + t + '</button>';
+    }).join('');
+  }
+  var gameEl = document.getElementById('game-' + n);
+  if(gameEl) { gameEl.innerHTML = ''; delete gameEl.dataset.rendered; }
+}
+
+function showChapter(n) {
+  if(n < 0 || n >= TOTAL_CHAPTERS) return;
+  var prev = document.getElementById('ch-' + state.cur);
+  if(prev) prev.classList.remove('active');
+  var prevBtn = document.getElementById('nav-' + state.cur);
+  if(prevBtn) prevBtn.classList.remove('active');
+  state.cur = n;
+  renderChapter(n);
+  var ch = document.getElementById('ch-' + n);
+  if(ch) ch.classList.add('active');
+  var btn = document.getElementById('nav-' + n);
+  if(btn) btn.classList.add('active');
+  window.scrollTo(0, 0);
+  activateTab(n, state.tabs[n] || 'learn');
+}
+
+function showNextChapter(n) {
+  showChapter(n + 1);
+}
+
+function showTab(chId, tabName) {
+  state.tabs[chId] = tabName;
+  activateTab(chId, tabName);
+}
+
+function activateTab(chId, tabName) {
+  var ch = document.getElementById('ch-' + chId);
+  if(!ch) return;
+  ch.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.classList.remove('active');
+    if(btn.getAttribute('onclick') && btn.getAttribute('onclick').indexOf("'" + tabName + "'") >= 0)
+      btn.classList.add('active');
+  });
+  ch.querySelectorAll('.tab-panel').forEach(function(p) {
+    p.classList.toggle('active', p.id === chId + '-' + tabName);
+  });
+  if(tabName === 'game') renderMatchGame(chId);
+}
+
+function renderMatchGame(chId) {
+  var el = document.getElementById('game-' + chId);
+  if(!el) return;
+  if(!state.game[chId]) state.game[chId] = {phase:'idle',sel:null,matched:[],pairs:[]};
+  var gs = state.game[chId];
+  if(gs.phase === 'idle' || !gs.pairs.length) {
+    var d = (currentLang === 'en' ? MATCH_DATA_EN : MATCH_DATA)[chId];
+    if(!d || !d.pairs || !d.pairs.length) {
+      el.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text2)">אין זוגות לפרק זה</div>';
+      return;
+    }
+    var p = d.pairs.slice();
+    for(var i = p.length-1; i > 0; i--) {
+      var j = Math.floor(Math.random()*(i+1)); var t=p[i]; p[i]=p[j]; p[j]=t;
+    }
+    gs.pairs=p; gs.matched=[]; gs.sel=null; gs.phase='play';
+  }
+  buildMatchBoard(chId);
+}
+
+function buildMatchBoard(chId) {
+  var el = document.getElementById('game-'+chId);
+  var gs = state.game[chId], pairs = gs.pairs;
+  var rights = pairs.map(function(p,i){return{text:p[1],idx:i};});
+  for(var i=rights.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=rights[i];rights[i]=rights[j];rights[j]=t;}
+  var ad = gs.matched.length===pairs.length;
+  var html = '<div class="match-board">';
+  if(ad){
+    html+='<div class="match-success">🎉 '+(currentLang==='en'?'All matched!':'!כל הזוגות הותאמו')+'</div>';
+    html+='<div style="text-align:center;margin-top:12px"><button class="match-restart-btn" onclick="restartMatch('+chId+')">'+(currentLang==='en'?'↺ Play Again':'↺ שחק שוב')+'</button></div>';
+  }
+  html+='<div class="match-cols"><div class="match-col">';
+  for(var i=0;i<pairs.length;i++){
+    var dn=gs.matched.indexOf(i)>=0, sn=gs.sel&&gs.sel.side==='left'&&gs.sel.idx===i;
+    html+='<div class="match-card'+(dn?' match-done':'')+(sn?' match-sel':'')+'" data-side="left" data-idx="'+i+'" onclick="matchClick('+chId+',this)">'+pairs[i][0]+'</div>';
+  }
+  html+='</div><div class="match-col">';
+  for(var i=0;i<rights.length;i++){
+    var ri=rights[i], dn=gs.matched.indexOf(ri.idx)>=0, sn=gs.sel&&gs.sel.side==='right'&&gs.sel.ridx===i;
+    html+='<div class="match-card'+(dn?' match-done':'')+(sn?' match-sel':'')+'" data-side="right" data-idx="'+ri.idx+'" data-ridx="'+i+'" onclick="matchClick('+chId+',this)">'+ri.text+'</div>';
+  }
+  html+='</div></div></div>';
+  el.innerHTML=html;
+}
+
+function matchClick(chId, el) {
+  var gs=state.game[chId];
+  if(!gs||gs.phase!=='play') return;
+  var side=el.getAttribute('data-side'), idx=parseInt(el.getAttribute('data-idx')), ridx=el.hasAttribute('data-ridx')?parseInt(el.getAttribute('data-ridx')):-1;
+  if(gs.matched.indexOf(idx)>=0) return;
+  if(!gs.sel){gs.sel={side:side,idx:idx,ridx:ridx};buildMatchBoard(chId);return;}
+  if(gs.sel.side===side){gs.sel={side:side,idx:idx,ridx:ridx};buildMatchBoard(chId);return;}
+  var li=side==='left'?idx:gs.sel.idx, ri=side==='right'?idx:gs.sel.idx;
+  gs.sel=null;
+  if(li===ri){
+    gs.matched.push(li);
+    if(gs.matched.length===gs.pairs.length) gs.phase='done';
+    buildMatchBoard(chId);
+  } else {
+    buildMatchBoard(chId);
+    document.querySelectorAll('#game-'+chId+' .match-card').forEach(function(c){
+      var ci=parseInt(c.getAttribute('data-idx')), cs=c.getAttribute('data-side');
+      if((cs==='left'&&ci===li||cs==='right'&&ci===ri)&&gs.matched.indexOf(ci)<0){
+        c.classList.add('match-wrong');
+        setTimeout(function(){c.classList.remove('match-wrong');},600);
+      }
+    });
+  }
+}
+
+function restartMatch(chId) {
+  state.game[chId]={phase:'idle',sel:null,matched:[],pairs:[]};
+  renderMatchGame(chId);
+}
+
+function buildReviewContent() {
+  var Lc=L(), html='';
+  for(var i=0;i<Lc.cheat.length;i++){
+    html+='<div class="review-chapter">'
+      +'<div class="review-ch-title">פרק '+(i<10?'0'+i:i)+' — '+(Lc.names[i]||'')+'</div>'
+      +'<div style="padding:14px 16px">'+(Lc.cheat[i]||'')+'</div>'
+      +'</div>';
+  }
+  return html;
+}
+
+function openReview() {
+  var el=document.getElementById('reviewBody');
+  if(el) el.innerHTML=buildReviewContent();
+  var overlay=document.getElementById('reviewOverlay'), drawer=document.getElementById('reviewDrawer');
+  if(overlay) overlay.classList.add('open');
+  if(drawer) drawer.classList.add('open');
+}
+
+function closeReview() {
+  var overlay=document.getElementById('reviewOverlay'), drawer=document.getElementById('reviewDrawer');
+  if(overlay) overlay.classList.remove('open');
+  if(drawer) drawer.classList.remove('open');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  applyLang('he');
+  showChapter(0);
+});
+
+document.addEventListener('keydown', function(e) {
+  if(e.key==='Escape') closeReview();
+});
+
+
+</script>

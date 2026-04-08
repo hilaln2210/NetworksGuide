@@ -139,6 +139,21 @@ export const tracks = [
       { id: 1000, title: "חקר כתובות IP — קורס מלא", pages: [{ type: "html_page", title: "IP Investigation Course", src: "/learn/ip-investigation/ip_investigation_course.html" }] },
     ]
   },
+  {
+    id: 'networks-advanced',
+    title: 'רשתות מתקדם',
+    subtitle: 'IP מעמיק, TCP/UDP, DNS, iptables, Hardening, VPN, Wireshark מתקדם — 10 פרקים',
+    icon: '🧠',
+    color: '#7c3aed',
+    level: 'מתקדם',
+    fullPage: true,
+    chapterCount: 10,
+    lastUpdated: '2026-04-08 20:05',
+    syllabus: ['IP מעמיק — Subnetting, NAT, Routing', 'TCP/UDP מעמיק — Sockets, Ports, States', 'HTTP/HTTPS מעמיק — Headers, Auth, TLS', 'DNS מעמיק — Zone Files, Records, DNSSEC', 'iptables — חומת אש מהאפס', 'הקשחת Ubuntu — Server Hardening', 'VM כנתב — pfSense ו-Linux Router', 'Wireshark מתקדם — ניתוח תעבורה', 'VPN ורשתות מנהרה', 'אבטחת רשתות — התקפות והגנות'],
+    chapters: [
+      { id: 1100, title: "רשתות מתקדם — קורס מלא", pages: [{ type: "html_page", title: "Advanced Networks Course", src: "/learn/networks-advanced/networks_advanced.html" }] },
+    ]
+  },
 ]
 
 // ===== ENRICHMENT COURSES (hidden behind passcode) =====

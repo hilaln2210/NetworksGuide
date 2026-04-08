@@ -210,6 +210,12 @@ function TrackPicker({ tracks, onSelect, onShowTroubleshooter }) {
               <span className="path-icon">🔎</span>
               <span className="path-name">{isEn ? 'IP Investigation' : 'חקר IP'}</span>
             </div>
+            <div className="path-connector" />
+            <div className="path-step" style={{ '--step-color': '#7c3aed' }}>
+              <span className="path-num">10</span>
+              <span className="path-icon">🧠</span>
+              <span className="path-name">{isEn ? 'Advanced Networks' : 'רשתות מתקדם'}</span>
+            </div>
           </div>
         </div>
         <div className="track-intro-features">
