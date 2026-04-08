@@ -10,13 +10,15 @@ exports.handler = async (event) => {
   try {
     const { type, name, email, lang, ua, mobile } = JSON.parse(event.body || '{}')
     const now = new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem', hour12: false })
+    const device = mobile ? '📱 נייד' : '🖥️ מחשב'
 
     let msg
     if (type === 'login') {
-      msg = `🔑 <b>התחברות Google</b>\n👤 ${name || '?'}\n📧 ${email || '?'}\n🕐 ${now}`
+      // Combined message: login + device info
+      msg = `🔑 <b>התחברות Google</b>\n👤 ${name || '?'}\n📧 ${email || '?'}\n${device}\n🕐 ${now}\n🌐 ${lang || '?'}\n<code>${(ua || '').slice(0, 120)}</code>`
     } else {
-      const device = mobile ? '📱 נייד' : '🖥️ מחשב'
-      msg = `👀 <b>כניסה ל-NetworksGuide</b>\n${device}\n🕐 ${now}\n🌐 שפה: ${lang || '?'}\n<code>${(ua || '').slice(0, 120)}</code>`
+      // Anonymous visit (no login)
+      msg = `👀 <b>כניסה אנונימית</b>\n${device}\n🕐 ${now}\n🌐 ${lang || '?'}\n<code>${(ua || '').slice(0, 120)}</code>`
     }
 
     await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
