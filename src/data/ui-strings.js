@@ -28,7 +28,7 @@ export const uiStrings = {
 
   // ===== Track titles / subtitles / levels =====
   track_networking_title: { he: 'רשתות מחשבים', en: 'Computer Networks' },
-  track_networking_subtitle: { he: 'Sockets, Wireshark, TCP/IP, שכבות הרשת, Scapy ועוד — 12 פרקים מהבסיס למתקדם', en: 'Sockets, Wireshark, TCP/IP, network layers, Scapy and more — 12 chapters' },
+  track_networking_subtitle: { he: 'איך עובד האינטרנט, IP ו-DNS, TCP/UDP, HTTP/HTTPS, WiFi, רכיבי רשת, Wireshark וחדר בריחה — 8 פרקים', en: 'How the Internet Works, IP & DNS, TCP/UDP, HTTP/HTTPS, WiFi, Network Devices, Wireshark & Escape Room — 8 chapters' },
   track_networking_level: { he: 'מתחיל–מתקדם', en: 'Beginner–Advanced' },
 
 
@@ -41,6 +41,14 @@ export const uiStrings = {
   track_darkweb_title: { he: 'Dark Web ופרטיות', en: 'Dark Web & Privacy' },
   track_darkweb_subtitle: { he: 'Tor, Onion Routing, פרטיות ברשת — מבט על עולם הרשת האפלה', en: 'Tor, Onion Routing, online privacy — a look at the dark side of the web' },
   track_darkweb_level: { he: 'בונוס', en: 'Bonus' },
+
+  'track_trading-methods_title': { he: 'שיטות מסחר', en: 'Trading Methods' },
+  'track_trading-methods_subtitle': { he: 'Day Trading, Swing, Scalping, Price Action, Risk Management — קורס מלא', en: 'Day Trading, Swing, Scalping, Price Action, Risk Management — Full Course' },
+  'track_trading-methods_level': { he: 'מתחיל–מתקדם', en: 'Beginner–Advanced' },
+
+  'track_short-sellers_title': { he: 'שורטיסטים ומלכודות שורט', en: 'Short Sellers & Short Traps' },
+  'track_short-sellers_subtitle': { he: 'קו הכאב, עמלות השאלה (CTB), המרות ודילול, Margin Call, Short & Gamma Squeeze — 10 פרקים', en: 'Pain Line, Cost to Borrow (CTB), Convertibles & Dilution, Margin Call, Short & Gamma Squeeze — 10 chapters' },
+  'track_short-sellers_level': { he: 'בינוני–מתקדם', en: 'Intermediate–Advanced' },
 
   // ===== Header =====
   all_tracks: { he: 'כל המסלולים →', en: '→ All tracks' },

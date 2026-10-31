@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useLang } from '../utils/language.jsx'
 import { isProUnlocked, validateCode } from '../utils/proAccess.js'
 import { injectIframeTheme, injectIframeFont } from '../utils/iframeTheme.js'

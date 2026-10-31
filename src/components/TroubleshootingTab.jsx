@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { troubleshootingContent, storiesContent } from '../data/troubleshooting'
 import { useLang } from '../utils/language.jsx'
 import './TroubleshootingTab.css'

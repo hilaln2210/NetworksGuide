@@ -783,7 +783,7 @@ $ sqlmap -u "..." -D production_db -T users --dump</code></pre></div>
 
 <div class="success-box"><strong>✅ הגנה מספר 1:</strong> השתמש תמיד ב-<code>Parameterized Queries</code> או <code>ORM</code>. זה מונע את ההזרקה ברמת השפה — לא משנה מה התוקף מנסה.</div>
 
-<div class="warning-box"><strong>⚠️ טעות נפוצה:</strong> הרבה מפתחים חושבים ש-<code>escaping</code> (החלפת ' ב-\') מספיק. זה <strong>לא מספיק</strong>. יש עשרות דרכים לעקוף escaping. <code>Parameterized Queries</code> הוא הפתרון היחיד המהימן.</div>
+<div class="warning-box"><strong>⚠️ טעות נפוצה:</strong> הרבה מפתחים חושבים ש-<code>escaping</code> (החלפת ' ב-\\') מספיק. זה <strong>לא מספיק</strong>. יש עשרות דרכים לעקוף escaping. <code>Parameterized Queries</code> הוא הפתרון היחיד המהימן.</div>
 </div>`
       },
       {

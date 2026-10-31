@@ -14,7 +14,6 @@ export function AdminHighlight({ context = {} }) {
   const [showLogin, setShowLogin] = useState(false)
   const [password, setPassword] = useState('')
   const [selection, setSelection] = useState(null)
-  const [showPopup, setShowPopup] = useState(false)
   const [note, setNote] = useState('')
   const [action, setAction] = useState('report') // 'report' | 'fix-text'
   const [fixText, setFixText] = useState('')

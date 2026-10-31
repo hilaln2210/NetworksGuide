@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>שורטיסטים ומלכודות שורט — Short Sellers & Short Traps</title>
+<script src="/_bridge.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #f8fafc;
+  --bg2:      #ffffff;
+  --bg3:      #f1f5f9;
+  --surface:  #ffffff;
+  --border:   #e2e8f0;
+  --border2:  #cbd5e1;
+  --accent:   #dc2626;
+  --accent2:  #b91c1c;
+  --accentfg: #ffffff;
+  --green:    #16a34a;
+  --green2:   #15803d;
+  --greenfg:  #ffffff;
+  --yellow:   #f59e0b;
+  --yellowfg: #78350f;
+  --red:      #ef4444;
+  --redfg:    #ffffff;
+  --blue:     #0284c7;
+  --bluefg:   #ffffff;
+  --text:     #0f172a;
+  --text2:    #475569;
+  --text3:    #94a3b8;
+  --mono:     'Courier New', 'Consolas', monospace;
+  --sans:     -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --r:        12px;
+  --r2:       18px;
+  --r3:       24px;
+}
+
+html[data-theme="dark"] {
+  --bg:       #0b1120;
+  --bg2:      #151f32;
+  --bg3:      #1e293b;
+  --surface:  #151f32;
+  --border:   #2d3d56;
+  --border2:  #3e5270;
+  --text:     #f1f5f9;
+  --text2:    #cbd5e1;
+  --text3:    #94a3b8;
+  --accent:   #f87171;
+  --accent2:  #ef4444;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── HEADER ── */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; height: 60px; z-index: 200;
+  background: var(--bg2); border-bottom: 2px solid var(--border);
+  display: flex; align-items: center; padding: 0 20px; gap: 12px;
+}
+.header-logo {
+  font-weight: 900; font-size: 15.5px; color: var(--accent);
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+  letter-spacing: -0.3px;
+}
+.header-logo-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--red); box-shadow: 0 0 8px var(--red);
+}
+.header-chname {
+  font-size: 13px; font-weight: 700; color: var(--text2);
+  flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.course-prog-wrap {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg3); border: 1.5px solid var(--border);
+  padding: 4px 10px; border-radius: 99px;
+  font-size: 11.5px; font-weight: 800; color: var(--text2); flex-shrink: 0;
+}
+.course-prog-bar {
+  width: 60px; height: 7px; background: var(--border); border-radius: 99px; overflow: hidden;
+}
+.course-prog-fill {
+  height: 100%; background: linear-gradient(90deg, #dc2626, #f59e0b, #16a34a);
+  border-radius: 99px; transition: width 0.35s ease;
+}
+@media (max-width: 720px) { .course-prog-wrap { display: none; } }
+
+.escape-header-btn {
+  flex-shrink: 0; padding: 6px 13px;
+  background: linear-gradient(135deg, #16a34a, #059669) !important;
+  color: #ffffff !important; border: 2px solid #047857 !important;
+  border-bottom: 3px solid #065f46 !important; border-radius: var(--r);
+  font-size: 12px; font-weight: 800; cursor: pointer; transition: all .15s;
+  display: inline-flex; align-items: center; gap: 5px;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25);
+}
+.escape-header-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.escape-header-btn.active {
+  background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+  border-color: #991b1b !important;
+}
+.review-btn {
+  flex-shrink: 0; padding: 6px 12px; background: var(--accent); color: #fff;
+  border: 2px solid var(--accent2); border-bottom: 3px solid var(--accent2);
+  border-radius: var(--r); font-size: 12px; font-weight: 800; cursor: pointer; transition: all .15s;
+}
+.review-btn:hover { opacity: .9; transform: translateY(-1px); }
+.lang-btn {
+  font-size: 12px; font-weight: 800; padding: 6px 12px; border-radius: var(--r);
+  border: 2px solid var(--border2); border-bottom: 3px solid var(--border2);
+  background: var(--bg2); color: var(--text2); cursor: pointer; flex-shrink: 0; transition: all .1s;
+}
+.lang-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent2); }
+
+/* ── CHAPTER NAV BAR ── */
+.ch-nav {
+  position: fixed; top: 60px; left: 0; right: 0; z-index: 150;
+  background: var(--bg2); border-bottom: 2px solid var(--border);
+  overflow-x: auto; display: flex; padding: 8px 16px; gap: 6px;
+  scrollbar-width: none; -ms-overflow-style: none;
+}
+.ch-nav::-webkit-scrollbar { display: none; }
+.ch-btn {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 7px 12px; gap: 3px; border: 2px solid transparent;
+  background: var(--bg3); border-radius: var(--r2);
+  cursor: pointer; transition: all .15s; flex-shrink: 0;
+  color: var(--text2); min-width: 58px;
+  border-bottom: 4px solid var(--border);
+}
+.ch-btn:hover { background: var(--bg2); border-color: var(--border2); color: var(--text); }
+.ch-btn.active {
+  background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+  color: #ffffff !important;
+  border-color: #991b1b !important;
+  border-bottom-color: #7f1d1d !important;
+  box-shadow: 0 3px 10px rgba(220, 38, 38, 0.28) !important;
+}
+.ch-btn.active .ch-num, .ch-btn.active .ch-title-text, .ch-btn.active .ch-stars { color: #ffffff !important; }
+.ch-btn.done:not(.active) { border-color: rgba(22, 163, 74, 0.55) !important; border-bottom-color: var(--green2) !important; }
+.ch-num { font-size: 11px; font-weight: 900; font-family: var(--mono); }
+.ch-title-text { font-size: 9.5px; font-weight: 700; max-width: 74px; text-align: center; line-height: 1.2; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.ch-stars { font-size: 10px; min-height: 12px; }
+.ch-btn.escape-nav-btn {
+  background: linear-gradient(135deg, #16a34a, #059669) !important;
+  color: #ffffff !important; border-color: #047857 !important; border-bottom-color: #065f46 !important;
+  min-width: 82px;
+}
+.ch-btn.escape-nav-btn .ch-title-text, .ch-btn.escape-nav-btn .ch-num { color: #ffffff !important; font-weight: 800; }
+
+/* ── LAYOUT ── */
+.main {
+  padding-top: 122px; min-height: 100vh;
+  max-width: 840px; margin: 0 auto;
+  padding-left: 20px; padding-right: 20px; padding-bottom: 70px;
+}
+.chapter { display: none; }
+.chapter.active { display: block; }
+
+/* ── CHAPTER HERO ── */
+.ch-hero {
+  padding: 26px 0 22px; border-bottom: 2px solid var(--border); margin-bottom: 26px;
+}
+.ch-tag {
+  display: inline-block; font-size: 11px; font-weight: 800;
+  color: var(--accent); background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  padding: 3px 11px; border-radius: 20px; margin-bottom: 10px;
+  letter-spacing: .05em; text-transform: uppercase; font-family: var(--mono);
+}
+.ch-title { font-size: 27px; font-weight: 900; color: var(--text); margin-bottom: 8px; letter-spacing: -.5px; line-height: 1.22; }
+.ch-desc { font-size: 14.5px; color: var(--text2); margin-bottom: 20px; line-height: 1.65; }
+.tabs-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab-btn {
+  padding: 8px 18px; font-size: 13px; font-weight: 800; border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); color: var(--text2);
+  cursor: pointer; transition: all .1s;
+}
+.tab-btn:hover { color: var(--text); border-color: var(--border2); }
+.tab-btn.active {
+  background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+  color: #ffffff !important;
+  border-color: #991b1b !important;
+  border-bottom-color: #7f1d1d !important;
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── LEARN TYPOGRAPHY & BOXES ── */
+.did-you-know {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  border: 2px solid #f59e0b; border-radius: var(--r2);
+  padding: 16px 18px; font-size: 14px; color: #78350f;
+  margin-bottom: 26px; line-height: 1.65;
+  box-shadow: 0 3px 0 #d97706;
+}
+html[data-theme="dark"] .did-you-know {
+  background: rgba(245, 158, 11, 0.14) !important;
+  border-color: rgba(251, 191, 36, 0.45) !important;
+  color: #fef3c7 !important;
+}
+.section-title {
+  font-size: 18px; font-weight: 900; color: var(--text);
+  margin: 32px 0 12px; letter-spacing: -.2px;
+  display: flex; align-items: center; gap: 8px;
+  border-bottom: 2px solid var(--border); padding-bottom: 6px;
+}
+.prose {
+  font-size: 15px; color: var(--text2); line-height: 1.8; margin-bottom: 16px;
+}
+.prose strong { color: var(--text); font-weight: 800; }
+.prose code, code {
+  font-family: var(--mono); font-size: 12.5px;
+  background: var(--bg3); padding: 2px 6px;
+  border-radius: 6px; color: var(--accent); font-weight: 700;
+  border: 1px solid var(--border);
+}
+ol.prose, ul.prose { padding-inline-start: 22px; margin-bottom: 18px; }
+ol.prose li, ul.prose li { margin-bottom: 8px; line-height: 1.75; color: var(--text2); }
+
+/* ── CALLOUTS ── */
+.callout { padding: 15px 18px; border-radius: var(--r2); font-size: 13.8px; line-height: 1.68; margin: 18px 0; border: 2px solid; }
+.callout.idea, .callout-info {
+  background: #f0f9ff; border-color: #38bdf8; color: #0c4a6e; box-shadow: 0 3px 0 #7dd3fc;
+}
+.callout.warn, .callout-warn {
+  background: #fffbeb; border-color: #fbbf24; color: #78350f; box-shadow: 0 3px 0 #fcd34d;
+}
+.callout.danger {
+  background: #fef2f2; border-color: #f87171; color: #7f1d1d; box-shadow: 0 3px 0 #fca5a5;
+}
+.callout.tip, .callout-tip {
+  background: #f0fdf4; border-color: #4ade80; color: #14532d; box-shadow: 0 3px 0 #86efac;
+}
+html[data-theme="dark"] .callout.idea, html[data-theme="dark"] .callout-info {
+  background: rgba(14, 116, 144, 0.2) !important; border-color: #38bdf8 !important; color: #e0f2fe !important;
+}
+html[data-theme="dark"] .callout.warn, html[data-theme="dark"] .callout-warn {
+  background: rgba(245, 158, 11, 0.16) !important; border-color: #fbbf24 !important; color: #fef3c7 !important;
+}
+html[data-theme="dark"] .callout.danger {
+  background: rgba(239, 68, 68, 0.18) !important; border-color: #f87171 !important; color: #fee2e2 !important;
+}
+html[data-theme="dark"] .callout.tip, html[data-theme="dark"] .callout-tip {
+  background: rgba(34, 197, 94, 0.16) !important; border-color: #4ade80 !important; color: #dcfce7 !important;
+}
+
+/* ── CARDS & GRIDS ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin: 16px 0 24px; }
+.card {
+  background: var(--bg2); border: 2px solid var(--border);
+  border-bottom: 4px solid var(--border2); border-radius: var(--r2);
+  padding: 18px; display: flex; flex-direction: column; gap: 8px;
+}
+.card-icon { font-size: 26px; }
+.card-title { font-size: 14px; font-weight: 900; color: var(--text); }
+.card-body { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+/* ── TABLES ── */
+.table-wrap {
+  overflow-x: auto; margin: 16px 0 24px;
+  border-radius: var(--r2); border: 2px solid var(--border);
+  box-shadow: 0 4px 0 var(--border);
+}
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--bg2); }
+.data-table thead, .data-table tr:first-child { background: var(--bg3); }
+.data-table th {
+  padding: 11px 14px; text-align: inherit; font-weight: 800;
+  color: var(--text); font-size: 12px; border-bottom: 2px solid var(--border);
+}
+.data-table td { padding: 11px 14px; color: var(--text2); border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.55; }
+.data-table tr:last-child td { border-bottom: none; }
+
+/* ── TOOL / FORMULA TERMINAL BOX ── */
+.td { border: 2px solid var(--border); border-radius: var(--r2); overflow: hidden; margin: 18px 0; background: var(--bg2); box-shadow: 0 3px 10px rgba(0,0,0,.05); }
+.td-bar { display: flex; align-items: center; gap: 10px; padding: 9px 14px; background: var(--bg3); border-bottom: 1px solid var(--border); }
+.td-dots { display: flex; gap: 5px; flex-shrink: 0; }
+.td-dot { width: 11px; height: 11px; border-radius: 50%; }
+.td-r { background: #ff5f57; } .td-y { background: #febc2e; } .td-g { background: #28c840; }
+.td-url { flex: 1; min-width: 0; background: var(--bg2); border: 1px solid var(--border2); border-radius: 6px; padding: 3px 10px; font-size: 11.5px; color: var(--text2); font-family: var(--mono); font-weight: 700; direction: ltr; text-align: left; }
+.td-body { padding: 16px 18px; font-size: 13.5px; line-height: 1.7; }
+pre {
+  background: #0f172a; color: #e2e8f0; border: 2px solid #1e293b;
+  border-radius: var(--r2); padding: 16px 18px; margin: 14px 0 20px;
+  overflow-x: auto; font-family: var(--mono); font-size: 12.5px; line-height: 1.75;
+  direction: ltr; text-align: left;
+}
+pre code { background: none !important; color: inherit !important; border: none !important; padding: 0 !important; }
+
+/* ── INTERACTIVE SIMULATORS ── */
+.sim-box {
+  background: var(--bg2); border: 2px solid var(--accent);
+  border-bottom: 5px solid var(--accent2); border-radius: var(--r2);
+  margin: 26px 0; overflow: hidden;
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.08);
+}
+.sim-head {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.12), rgba(245, 158, 11, 0.08));
+  border-bottom: 2px solid var(--border); padding: 14px 18px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+}
+.sim-title { font-size: 14.5px; font-weight: 900; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+.sim-badge {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 800;
+  padding: 3px 10px; border-radius: 99px; background: var(--accent); color: #fff;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.sim-body { padding: 20px; }
+.sim-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 18px; }
+.sim-ctrl {
+  background: var(--bg3); border: 1.5px solid var(--border);
+  border-radius: var(--r); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px;
+}
+.sim-ctrl-top { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; font-weight: 800; color: var(--text); }
+.sim-ctrl-val { font-family: var(--mono); font-size: 13.5px; font-weight: 900; color: var(--accent); direction: ltr; }
+.sim-ctrl input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; }
+.sim-ctrl select {
+  width: 100%; padding: 6px 10px; border-radius: 8px; border: 1.5px solid var(--border2);
+  background: var(--bg2); color: var(--text); font-weight: 700; font-size: 13px;
+}
+.sim-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 10px; margin-top: 12px; }
+.sim-kpi {
+  background: var(--bg3); border: 2px solid var(--border); border-radius: var(--r);
+  padding: 12px; text-align: center;
+}
+.sim-kpi-val { font-family: var(--mono); font-size: 19px; font-weight: 900; color: var(--text); direction: ltr; }
+.sim-kpi-lbl { font-size: 11.5px; font-weight: 700; color: var(--text2); margin-top: 3px; }
+.sim-alert {
+  margin-top: 14px; padding: 13px 16px; border-radius: var(--r);
+  font-size: 13.5px; font-weight: 700; line-height: 1.6; border: 2px solid;
+}
+
+/* ── END OF CHAPTER NAV ── */
+.ch-end-nav {
+  display: flex; gap: 12px; margin-top: 36px; padding-top: 24px;
+  border-top: 2px solid var(--border); justify-content: center; flex-wrap: wrap;
+}
+.ch-end-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 14px 22px; border-radius: var(--r2); cursor: pointer;
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); color: var(--text2); font-weight: 800;
+  font-size: 13px; transition: all .1s; min-width: 125px;
+}
+.ch-end-btn:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--accent); }
+.ch-end-btn.primary {
+  background: var(--green); color: #fff; border-color: var(--green2); border-bottom-color: var(--green2);
+}
+.ch-end-btn-icon { font-size: 22px; }
+.ch-end-btn-label { font-size: 11.5px; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: var(--r2); font-size: 13.5px;
+  font-weight: 800; border: 2px solid; cursor: pointer; transition: all .1s;
+}
+.btn-primary {
+  background: var(--green); color: #fff; border-color: var(--green2); border-bottom: 4px solid var(--green2);
+}
+.btn-primary:hover { filter: brightness(1.06); }
+.btn-ghost {
+  background: var(--bg2); color: var(--text2); border-color: var(--border2); border-bottom: 4px solid var(--border2);
+}
+.btn-ghost:hover { background: var(--bg3); color: var(--text); }
+
+/* ── QUIZ ── */
+.quiz-wrap { max-width: 720px; }
+.quiz-prog { display: flex; gap: 5px; margin-bottom: 22px; }
+.quiz-pip { flex: 1; height: 8px; border-radius: 4px; background: var(--border2); transition: background .2s; }
+.quiz-pip.done { background: var(--green); }
+.quiz-pip.cur  { background: var(--accent); }
+.quiz-q-card { display: none; }
+.quiz-q-card.active { display: block; }
+.quiz-meta { font-size: 11.5px; font-weight: 800; color: var(--text3); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 8px; }
+.quiz-q { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 18px; line-height: 1.45; }
+.quiz-opts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.quiz-opt {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: inherit;
+  padding: 13px 16px; border-radius: var(--r2);
+  border: 2px solid var(--border); border-bottom: 4px solid var(--border2);
+  background: var(--bg2); cursor: pointer; transition: all .1s;
+  font-size: 14px; font-weight: 600; color: var(--text);
+}
+.quiz-opt:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-1px); }
+.quiz-opt.correct { border-color: var(--green) !important; border-bottom-color: var(--green2) !important; background: rgba(22, 163, 74, 0.14) !important; }
+.quiz-opt.wrong   { border-color: var(--red) !important; border-bottom-color: #b91c1c !important; background: rgba(239, 68, 68, 0.14) !important; }
+.opt-letter {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--bg3); border: 2px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 900; flex-shrink: 0; color: var(--accent); font-family: var(--mono);
+}
+.quiz-exp {
+  padding: 14px 18px; background: rgba(22, 163, 74, 0.12); border-radius: var(--r2);
+  border: 2px solid var(--green); font-size: 13.5px; color: var(--text); margin: 12px 0; line-height: 1.65;
+}
+.quiz-result { text-align: center; padding: 28px 16px; background: var(--bg2); border: 2px solid var(--border); border-radius: var(--r2); margin-top: 16px; }
+.qr-score { font-size: 52px; font-weight: 900; font-family: var(--mono); color: var(--green); }
+.qr-label { font-size: 19px; font-weight: 900; color: var(--text); margin-bottom: 18px; }
+.quiz-nav { display: flex; justify-content: space-between; margin-top: 14px; gap: 10px; }
+
+/* ── MATCH GAME ── */
+.match-board { padding: 8px 0; }
+.match-success { text-align: center; font-size: 17px; font-weight: 800; color: var(--green); padding: 16px; background: rgba(22, 163, 74, 0.12); border-radius: 12px; margin-bottom: 16px; border: 2px solid var(--green); }
+.match-restart-btn { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 9px 22px; font-size: 13.5px; font-weight: 800; cursor: pointer; }
+.match-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.match-col { display: flex; flex-direction: column; gap: 8px; }
+.match-card { padding: 12px 14px; border: 2px solid var(--border); border-bottom: 4px solid var(--border2); border-radius: 12px; background: var(--bg2); font-size: 13px; font-weight: 600; line-height: 1.45; cursor: pointer; transition: all .15s; }
+.match-card:hover:not(.match-done) { border-color: var(--accent); transform: translateY(-1px); }
+.match-sel { border-color: var(--accent) !important; background: rgba(220, 38, 38, 0.1) !important; }
+.match-done { border-color: var(--green) !important; background: rgba(22, 163, 74, 0.12) !important; color: var(--green); cursor: default; opacity: .85; }
+.match-wrong { border-color: var(--red) !important; background: rgba(239, 68, 68, 0.15) !important; animation: matchShake .4s ease; }
+@keyframes matchShake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+
+/* ── SUMMARY / CHEAT CARDS ── */
+.sc { display: flex; flex-direction: column; gap: 12px; }
+.sc-head { font-size: 16px; font-weight: 900; color: var(--text); padding-bottom: 8px; border-bottom: 2px solid var(--accent); margin-bottom: 4px; }
+.sc-card { background: var(--bg2); border: 2px solid var(--border); border-radius: 12px; overflow: hidden; }
+.sc-label { font-size: 11.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); padding: 7px 14px; border-bottom: 1px solid var(--border); background: var(--bg3); }
+.sc-text { padding: 12px 14px; font-size: 13.5px; line-height: 1.7; color: var(--text2); }
+.sc-text strong { color: var(--text); }
+
+/* ── REVIEW DRAWER ── */
+.review-overlay { display: none; position: fixed; inset: 0; z-index: 900; background: rgba(0,0,0,.5); backdrop-filter: blur(2px); }
+.review-overlay.open { display: block; }
+.review-drawer { position: fixed; top: 0; left: 0; right: 0; z-index: 910; background: var(--bg); border-bottom: 3px solid var(--accent); box-shadow: 0 6px 24px rgba(0,0,0,.25); transform: translateY(-100%); transition: transform .3s cubic-bezier(.4,0,.2,1); max-height: 90vh; display: flex; flex-direction: column; }
+.review-drawer.open { transform: translateY(0); }
+.review-header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border); background: var(--bg2); }
+.review-header-title { font-size: 16px; font-weight: 900; color: var(--text); }
+.review-header-sub { font-size: 12px; color: var(--text2); }
+.review-close { width: 32px; height: 32px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--border); font-size: 18px; cursor: pointer; color: var(--text); }
+.review-body { overflow-y: auto; padding: 20px; flex: 1; max-width: 840px; margin: 0 auto; width: 100%; }
+.review-chapter { margin-bottom: 24px; border: 2px solid var(--border); border-radius: 14px; overflow: hidden; background: var(--bg2); }
+.review-ch-title { font-size: 14px; font-weight: 900; color: var(--accent); padding: 10px 16px; background: var(--bg3); border-bottom: 1px solid var(--border); }
+
+/* ── ARENA (6-STAGE GRAND FINALE) ── */
+.escape-promo-banner {
+  margin-top: 32px; padding: 24px; border-radius: var(--r3);
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.12), rgba(22, 163, 74, 0.1));
+  border: 2px solid var(--accent); border-bottom: 5px solid var(--accent2);
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+}
+.escape-promo-info { flex: 1; min-width: 240px; }
+.escape-promo-badge { display: inline-block; background: var(--accent); color: #fff; font-size: 11px; font-weight: 900; padding: 3px 10px; border-radius: 99px; margin-bottom: 8px; }
+.escape-promo-title { font-size: 20px; font-weight: 900; color: var(--text); margin-bottom: 6px; }
+.escape-promo-desc { font-size: 13.5px; color: var(--text2); line-height: 1.6; }
+.escape-launch-btn {
+  background: linear-gradient(135deg, #16a34a, #059669); color: #fff;
+  border: 2px solid #047857; border-bottom: 5px solid #065f46; border-radius: var(--r2);
+  padding: 14px 24px; font-size: 14.5px; font-weight: 900; cursor: pointer; transition: all .15s;
+}
+.escape-launch-btn:hover { transform: translateY(-2px); filter: brightness(1.06); }
+
+.er-wrap { display: flex; flex-direction: column; gap: 18px; }
+.er-hud { background: var(--bg2); border: 2px solid var(--border); border-bottom: 4px solid var(--border2); border-radius: var(--r2); padding: 16px 20px; display: flex; flex-direction: column; gap: 14px; }
+.er-hud-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.er-mission-tag { font-weight: 900; font-size: 14px; color: var(--accent); }
+.er-latency-pill { font-family: var(--mono); font-size: 14px; font-weight: 900; padding: 6px 14px; border-radius: 99px; background: #0f172a; color: #4ade80; border: 2px solid #16a34a; direction: ltr; }
+.er-stepper { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
+.er-step { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 4px; border-radius: var(--r); background: var(--bg3); border: 2px solid var(--border); font-size: 11px; font-weight: 700; color: var(--text3); text-align: center; cursor: pointer; }
+.er-step.done { background: rgba(22, 163, 74, 0.14); border-color: var(--green); color: var(--green); }
+.er-step.active { background: var(--accent); border-color: var(--accent2); color: #fff; }
+.er-station-card { background: var(--bg2); border: 2px solid var(--border); border-bottom: 5px solid var(--border2); border-radius: var(--r2); padding: 22px; }
+.er-st-badge { display: inline-block; font-family: var(--mono); font-size: 11px; font-weight: 900; padding: 4px 10px; border-radius: 8px; background: var(--bg3); color: var(--accent); border: 1px solid var(--border2); margin-bottom: 8px; }
+.er-st-title { font-size: 20px; font-weight: 900; color: var(--text); margin-bottom: 12px; }
+.er-st-story { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 16px; padding: 14px 16px; background: var(--bg3); border-radius: var(--r); border-inline-start: 4px solid var(--accent); }
+.er-options { display: flex; flex-direction: column; gap: 10px; margin: 14px 0; }
+.er-opt-btn { display: flex; align-items: center; gap: 12px; width: 100%; text-align: inherit; padding: 13px 16px; border-radius: var(--r); border: 2px solid var(--border); border-bottom: 4px solid var(--border2); background: var(--bg2); color: var(--text); font-size: 13.8px; font-weight: 700; cursor: pointer; transition: all .12s; }
+.er-opt-btn:hover:not(:disabled) { border-color: var(--accent); transform: translateY(-1px); }
+.er-opt-btn.correct { background: rgba(22, 163, 74, 0.15) !important; border-color: var(--green) !important; }
+.er-opt-btn.wrong { background: rgba(239, 68, 68, 0.14) !important; border-color: var(--red) !important; }
+.er-opt-key { width: 28px; height: 28px; border-radius: 8px; background: var(--bg3); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 12px; font-weight: 900; color: var(--accent); flex-shrink: 0; }
+.er-feedback { margin-top: 14px; padding: 14px 16px; border-radius: var(--r); font-size: 13.8px; line-height: 1.65; font-weight: 600; display: none; }
+.er-feedback.show { display: block; }
+.er-feedback.ok { background: rgba(22, 163, 74, 0.14); border: 2px solid var(--green); color: var(--text); }
+.er-feedback.err { background: rgba(239, 68, 68, 0.14); border: 2px solid var(--red); color: var(--text); }
+.er-hint-box { margin-top: 12px; padding: 12px 16px; border-radius: var(--r); background: rgba(245, 158, 11, 0.15); border: 2px solid var(--yellow); font-size: 13px; color: var(--text); display: none; }
+.er-hint-box.show { display: block; }
+.er-actions-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+.er-victory { background: var(--bg2); border: 3px solid var(--green); border-bottom: 6px solid var(--green2); border-radius: var(--r3); padding: 30px 22px; text-align: center; }
+
+@media (max-width: 680px) {
+  .grid-2, .grid-3, .match-cols { grid-template-columns: 1fr; }
+  .er-stepper { grid-template-columns: repeat(3, 1fr); }
+  .ch-title { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-logo">
+    <div class="header-logo-dot"></div>
+    <span id="headerCourseLogo">🩳 שורטיסטים ומלכודות שורט</span>
+  </div>
+  <span class="header-chname" id="headerChName"></span>
+  <div class="course-prog-wrap" id="courseProgWrap" title="התקדמות בקורס">
+    <span id="courseProgText">0/10</span>
+    <div class="course-prog-bar"><div class="course-prog-fill" id="courseProgFill" style="width:0%"></div></div>
+  </div>
+  <button class="escape-header-btn" id="headerEscapeBtn" onclick="openEscapeRoom()">🎯 זירת השורט</button>
+  <button class="review-btn" id="reviewBtn" onclick="openReview()">📚 סיכום מלא</button>
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
+</header>
+
+<nav class="ch-nav" id="sidebar">
+  <button class="ch-btn" id="nav-0" onclick="showChapter(0)"><span class="ch-num">00</span><span class="ch-title-text" id="chname-0"></span><span class="ch-stars" id="chstars-0"></span></button>
+  <button class="ch-btn" id="nav-1" onclick="showChapter(1)"><span class="ch-num">01</span><span class="ch-title-text" id="chname-1"></span><span class="ch-stars" id="chstars-1"></span></button>
+  <button class="ch-btn" id="nav-2" onclick="showChapter(2)"><span class="ch-num">02</span><span class="ch-title-text" id="chname-2"></span><span class="ch-stars" id="chstars-2"></span></button>
+  <button class="ch-btn" id="nav-3" onclick="showChapter(3)"><span class="ch-num">03</span><span class="ch-title-text" id="chname-3"></span><span class="ch-stars" id="chstars-3"></span></button>
+  <button class="ch-btn" id="nav-4" onclick="showChapter(4)"><span class="ch-num">04</span><span class="ch-title-text" id="chname-4"></span><span class="ch-stars" id="chstars-4"></span></button>
+  <button class="ch-btn" id="nav-5" onclick="showChapter(5)"><span class="ch-num">05</span><span class="ch-title-text" id="chname-5"></span><span class="ch-stars" id="chstars-5"></span></button>
+  <button class="ch-btn" id="nav-6" onclick="showChapter(6)"><span class="ch-num">06</span><span class="ch-title-text" id="chname-6"></span><span class="ch-stars" id="chstars-6"></span></button>
+  <button class="ch-btn" id="nav-7" onclick="showChapter(7)"><span class="ch-num">07</span><span class="ch-title-text" id="chname-7"></span><span class="ch-stars" id="chstars-7"></span></button>
+  <button class="ch-btn" id="nav-8" onclick="showChapter(8)"><span class="ch-num">08</span><span class="ch-title-text" id="chname-8"></span><span class="ch-stars" id="chstars-8"></span></button>
+  <button class="ch-btn" id="nav-9" onclick="showChapter(9)"><span class="ch-num">09</span><span class="ch-title-text" id="chname-9"></span><span class="ch-stars" id="chstars-9"></span></button>
+  <button class="ch-btn escape-nav-btn" id="nav-escape" onclick="openEscapeRoom()"><span class="ch-num">🎯</span><span class="ch-title-text" id="chname-escape">זירת השורט</span><span class="ch-stars" id="chstars-escape"></span></button>
+</nav>
+
+<main class="main" id="main">
+  <section class="chapter" id="ch-0"><div class="ch-hero"><div class="ch-tag" id="chtag-0"></div><h1 class="ch-title" id="chtitle-0"></h1><p class="ch-desc" id="chdesc-0"></p><div class="tabs-bar" id="tabs-0"></div></div><div class="tab-panels"><div class="tab-panel active" id="0-learn"><div id="learn-0"></div></div><div class="tab-panel" id="0-quiz"><div class="quiz-wrap" id="quiz-0"></div></div><div class="tab-panel" id="0-game"><div class="game-wrap" id="game-0"></div></div><div class="tab-panel" id="0-cheat"><div id="cheat-0"></div></div></div></section>
+  <section class="chapter" id="ch-1"><div class="ch-hero"><div class="ch-tag" id="chtag-1"></div><h1 class="ch-title" id="chtitle-1"></h1><p class="ch-desc" id="chdesc-1"></p><div class="tabs-bar" id="tabs-1"></div></div><div class="tab-panels"><div class="tab-panel active" id="1-learn"><div id="learn-1"></div></div><div class="tab-panel" id="1-quiz"><div class="quiz-wrap" id="quiz-1"></div></div><div class="tab-panel" id="1-game"><div class="game-wrap" id="game-1"></div></div><div class="tab-panel" id="1-cheat"><div id="cheat-1"></div></div></div></section>
+  <section class="chapter" id="ch-2"><div class="ch-hero"><div class="ch-tag" id="chtag-2"></div><h1 class="ch-title" id="chtitle-2"></h1><p class="ch-desc" id="chdesc-2"></p><div class="tabs-bar" id="tabs-2"></div></div><div class="tab-panels"><div class="tab-panel active" id="2-learn"><div id="learn-2"></div></div><div class="tab-panel" id="2-quiz"><div class="quiz-wrap" id="quiz-2"></div></div><div class="tab-panel" id="2-game"><div class="game-wrap" id="game-2"></div></div><div class="tab-panel" id="2-cheat"><div id="cheat-2"></div></div></div></section>
+  <section class="chapter" id="ch-3"><div class="ch-hero"><div class="ch-tag" id="chtag-3"></div><h1 class="ch-title" id="chtitle-3"></h1><p class="ch-desc" id="chdesc-3"></p><div class="tabs-bar" id="tabs-3"></div></div><div class="tab-panels"><div class="tab-panel active" id="3-learn"><div id="learn-3"></div></div><div class="tab-panel" id="3-quiz"><div class="quiz-wrap" id="quiz-3"></div></div><div class="tab-panel" id="3-game"><div class="game-wrap" id="game-3"></div></div><div class="tab-panel" id="3-cheat"><div id="cheat-3"></div></div></div></section>
+  <section class="chapter" id="ch-4"><div class="ch-hero"><div class="ch-tag" id="chtag-4"></div><h1 class="ch-title" id="chtitle-4"></h1><p class="ch-desc" id="chdesc-4"></p><div class="tabs-bar" id="tabs-4"></div></div><div class="tab-panels"><div class="tab-panel active" id="4-learn"><div id="learn-4"></div></div><div class="tab-panel" id="4-quiz"><div class="quiz-wrap" id="quiz-4"></div></div><div class="tab-panel" id="4-game"><div class="game-wrap" id="game-4"></div></div><div class="tab-panel" id="4-cheat"><div id="cheat-4"></div></div></div></section>
+  <section class="chapter" id="ch-5"><div class="ch-hero"><div class="ch-tag" id="chtag-5"></div><h1 class="ch-title" id="chtitle-5"></h1><p class="ch-desc" id="chdesc-5"></p><div class="tabs-bar" id="tabs-5"></div></div><div class="tab-panels"><div class="tab-panel active" id="5-learn"><div id="learn-5"></div></div><div class="tab-panel" id="5-quiz"><div class="quiz-wrap" id="quiz-5"></div></div><div class="tab-panel" id="5-game"><div class="game-wrap" id="game-5"></div></div><div class="tab-panel" id="5-cheat"><div id="cheat-5"></div></div></div></section>
+  <section class="chapter" id="ch-6"><div class="ch-hero"><div class="ch-tag" id="chtag-6"></div><h1 class="ch-title" id="chtitle-6"></h1><p class="ch-desc" id="chdesc-6"></p><div class="tabs-bar" id="tabs-6"></div></div><div class="tab-panels"><div class="tab-panel active" id="6-learn"><div id="learn-6"></div></div><div class="tab-panel" id="6-quiz"><div class="quiz-wrap" id="quiz-6"></div></div><div class="tab-panel" id="6-game"><div class="game-wrap" id="game-6"></div></div><div class="tab-panel" id="6-cheat"><div id="cheat-6"></div></div></div></section>
+  <section class="chapter" id="ch-7"><div class="ch-hero"><div class="ch-tag" id="chtag-7"></div><h1 class="ch-title" id="chtitle-7"></h1><p class="ch-desc" id="chdesc-7"></p><div class="tabs-bar" id="tabs-7"></div></div><div class="tab-panels"><div class="tab-panel active" id="7-learn"><div id="learn-7"></div></div><div class="tab-panel" id="7-quiz"><div class="quiz-wrap" id="quiz-7"></div></div><div class="tab-panel" id="7-game"><div class="game-wrap" id="game-7"></div></div><div class="tab-panel" id="7-cheat"><div id="cheat-7"></div></div></div></section>
+  <section class="chapter" id="ch-8"><div class="ch-hero"><div class="ch-tag" id="chtag-8"></div><h1 class="ch-title" id="chtitle-8"></h1><p class="ch-desc" id="chdesc-8"></p><div class="tabs-bar" id="tabs-8"></div></div><div class="tab-panels"><div class="tab-panel active" id="8-learn"><div id="learn-8"></div></div><div class="tab-panel" id="8-quiz"><div class="quiz-wrap" id="quiz-8"></div></div><div class="tab-panel" id="8-game"><div class="game-wrap" id="game-8"></div></div><div class="tab-panel" id="8-cheat"><div id="cheat-8"></div></div></div></section>
+  <section class="chapter" id="ch-9"><div class="ch-hero"><div class="ch-tag" id="chtag-9"></div><h1 class="ch-title" id="chtitle-9"></h1><p class="ch-desc" id="chdesc-9"></p><div class="tabs-bar" id="tabs-9"></div></div><div class="tab-panels"><div class="tab-panel active" id="9-learn"><div id="learn-9"></div></div><div class="tab-panel" id="9-quiz"><div class="quiz-wrap" id="quiz-9"></div></div><div class="tab-panel" id="9-game"><div class="game-wrap" id="game-9"></div></div><div class="tab-panel" id="9-cheat"><div id="cheat-9"></div></div></div></section>
+  <section class="chapter" id="ch-escape"><div id="escape-room-mount"></div></section>
+</main>
+
+<div class="review-overlay" id="reviewOverlay" onclick="closeReview()"></div>
+<div class="review-drawer" id="reviewDrawer">
+  <div class="review-header">
+    <div>
+      <div class="review-header-title" id="reviewTitle">📚 סיכום מלא — שורטיסטים ומלכודות שורט</div>
+      <div class="review-header-sub" id="reviewSub">כל 10 הפרקים במבט אחד</div>
+    </div>
+    <button class="review-close" onclick="closeReview()">×</button>
+  </div>
+  <div class="review-body" id="reviewBody"></div>
+</div>
+
+
+<script>
+let currentLang = localStorage.getItem('ng_lang') || 'he';
+let currentCh = 0;
+const completedChapters = new Set(JSON.parse(localStorage.getItem('ng_shorts_done') || '[]'));
+const quizScores = JSON.parse(localStorage.getItem('ng_shorts_quiz') || '{}');
+
+function awardXP(amount) {
+  try {
+    if (typeof window.ngXP === 'function') window.ngXP(amount);
+    else if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'ng_xp', amount: amount }, '*');
+    }
+  } catch (e) {}
+}
+
+function saveDone(ch) {
+  completedChapters.add(ch);
+  try { localStorage.setItem('ng_shorts_done', JSON.stringify([...completedChapters])); } catch (e) {}
+  updateCourseProgress();
+}
+
+function updateCourseProgress() {
+  const count = completedChapters.size;
+  const pct = Math.min(100, Math.round((count / 10) * 100));
+  const txt = document.getElementById('courseProgText');
+  const fill = document.getElementById('courseProgFill');
+  if (txt) txt.textContent = count + '/10 (' + pct + '%)';
+  if (fill) fill.style.width = pct + '%';
+  for (let i = 0; i < 10; i++) {
+    const btn = document.getElementById('nav-' + i);
+    const stars = document.getElementById('chstars-' + i);
+    if (btn) btn.classList.toggle('done', completedChapters.has(i));
+    if (stars) stars.textContent = completedChapters.has(i) ? '✓' : '';
+  }
+}
+
+/* ── INTERACTIVE SIMULATOR FUNCTIONS ── */
+function updateCtbSim() {
+  const entry = parseFloat(document.getElementById('sim-ctb-entry')?.value || 10);
+  const curr = parseFloat(document.getElementById('sim-ctb-curr')?.value || 18);
+  const shares = parseInt(document.getElementById('sim-ctb-shares')?.value || 1000, 10);
+  const ctb = parseFloat(document.getElementById('sim-ctb-rate')?.value || 85);
+  const days = parseInt(document.getElementById('sim-ctb-days')?.value || 30, 10);
+  const div = parseFloat(document.getElementById('sim-ctb-div')?.value || 0.5);
+
+  document.getElementById('val-ctb-entry').textContent = '$' + entry.toFixed(2);
+  document.getElementById('val-ctb-curr').textContent = '$' + curr.toFixed(2);
+  document.getElementById('val-ctb-shares').textContent = shares.toLocaleString();
+  document.getElementById('val-ctb-rate').textContent = ctb + '%';
+  document.getElementById('val-ctb-days').textContent = days + (currentLang === 'en' ? 'd' : ' ימים');
+  document.getElementById('val-ctb-div').textContent = '$' + div.toFixed(2);
+
+  const dailyBorrow = (curr * shares * (ctb / 100)) / 360;
+  const weekendBurn = dailyBorrow * 3; // Fri-Sat-Sun 3-day charge
+  const totalBorrow = dailyBorrow * days;
+  const totalDiv = div * shares;
+  const pricePnl = (entry - curr) * shares;
+  const netPnl = pricePnl - totalBorrow - totalDiv;
+  const breakeven = Math.max(0, entry - (totalBorrow + totalDiv) / shares);
+
+  document.getElementById('kpi-ctb-daily').textContent = '-$' + dailyBorrow.toFixed(2);
+  document.getElementById('kpi-ctb-wknd').textContent = '-$' + weekendBurn.toFixed(2);
+  document.getElementById('kpi-ctb-total').textContent = '-$' + (totalBorrow + totalDiv).toFixed(0);
+  document.getElementById('kpi-ctb-be').textContent = '$' + breakeven.toFixed(2);
+  const pnlEl = document.getElementById('kpi-ctb-pnl');
+  pnlEl.textContent = (netPnl >= 0 ? '+$' : '-$') + Math.abs(netPnl).toFixed(0);
+  pnlEl.style.color = netPnl >= 0 ? 'var(--green)' : 'var(--red)';
+
+  const alertEl = document.getElementById('sim-ctb-alert');
+  if (curr > entry && ctb >= 50) {
+    alertEl.style.borderColor = 'var(--red)';
+    alertEl.style.background = 'rgba(239,68,68,0.12)';
+    alertEl.innerHTML = currentLang === 'en'
+      ? '🚨 <strong>Double Compounding Trap!</strong> Both share price ($' + curr + ') and CTB (' + ctb + '%) rose. Since CTB is charged on CURRENT market value 365 days/year, your daily fee exploded to <strong>$' + dailyBorrow.toFixed(2) + '/day</strong>. Even if the stock drops back to $' + entry.toFixed(2) + ', you lose <strong>$' + (totalBorrow + totalDiv).toFixed(0) + '</strong> unless it drops below <strong>$' + breakeven.toFixed(2) + '</strong>!'
+      : '🚨 <strong>מלכודת המכפלה הכפולה!</strong> גם מחיר המניה ($' + curr + ') וגם ה-CTB (' + ctb + '%) עלו. מכיוון שעמלת ההשאלה מחושבת לפי <strong>שווי השוק הנוכחי</strong> 365 ימים בשנה, העלות היומית זינקה ל-<strong>$' + dailyBorrow.toFixed(2) + ' ליום</strong>. גם אם המניה תחזור למחיר הכניסה ($' + entry.toFixed(2) + '), עדיין תפסיד <strong>$' + (totalBorrow + totalDiv).toFixed(0) + '</strong> אם לא תרד מתחת לנקודת האיזון <strong>$' + breakeven.toFixed(2) + '</strong>!';
+  } else {
+    alertEl.style.borderColor = 'var(--green)';
+    alertEl.style.background = 'rgba(22,163,74,0.1)';
+    alertEl.innerHTML = currentLang === 'en'
+      ? '✅ <strong>Manageable Carry:</strong> Your true breakeven price after ' + days + ' days of borrow fees and dividends is <strong>$' + breakeven.toFixed(2) + '</strong>.'
+      : '✅ <strong>עלות החזקה נשלטת:</strong> מחיר האיזון האמיתי שלך (Breakeven) אחרי ' + days + ' ימי השאלה ודיבידנד הוא <strong>$' + breakeven.toFixed(2) + '</strong>.';
+  }
+}
+
+function updatePainSim() {
+  const cash = parseFloat(document.getElementById('sim-pain-cash')?.value || 15000);
+  const entry = parseFloat(document.getElementById('sim-pain-entry')?.value || 10);
+  const curr = parseFloat(document.getElementById('sim-pain-curr')?.value || 16);
+  const maint = parseFloat(document.getElementById('sim-pain-maint')?.value || 50);
+  const shares = 1000;
+
+  document.getElementById('val-pain-cash').textContent = '$' + cash.toLocaleString();
+  document.getElementById('val-pain-entry').textContent = '$' + entry.toFixed(2);
+  document.getElementById('val-pain-curr').textContent = '$' + curr.toFixed(2);
+  document.getElementById('val-pain-maint').textContent = maint + '%';
+
+  const shortProceeds = entry * shares;
+  const totalCashOnBook = cash + shortProceeds;
+  const posValue = curr * shares;
+  const accountEquity = totalCashOnBook - posValue;
+  const reqMargin = posValue * (maint / 100);
+  const marginPct = posValue > 0 ? (accountEquity / posValue) * 100 : 0;
+  const marginCallPrice = totalCashOnBook / (shares * (1 + (maint / 100)));
+
+  document.getElementById('kpi-pain-pos').textContent = '$' + posValue.toLocaleString();
+  const eqEl = document.getElementById('kpi-pain-eq');
+  eqEl.textContent = (accountEquity >= 0 ? '$' : '-$') + Math.abs(accountEquity).toLocaleString();
+  eqEl.style.color = accountEquity > reqMargin ? 'var(--green)' : 'var(--red)';
+  document.getElementById('kpi-pain-req').textContent = '$' + Math.round(reqMargin).toLocaleString();
+  document.getElementById('kpi-pain-mcprice').textContent = '$' + marginCallPrice.toFixed(2);
+
+  const alertEl = document.getElementById('sim-pain-alert');
+  if (accountEquity <= 0) {
+    alertEl.style.borderColor = 'var(--red)';
+    alertEl.style.background = 'rgba(239,68,68,0.18)';
+    alertEl.innerHTML = currentLang === 'en'
+      ? '💀 <strong>ACCOUNT WIPED OUT (Negative Equity)!</strong> The position value ($' + posValue.toLocaleString() + ') exceeded your entire collateral ($' + totalCashOnBook.toLocaleString() + '). You owe the broker money!'
+      : '💀 <strong>מחיקת תיק מוחלטת (Negative Equity)!</strong> שווי הפוזיציה ($' + posValue.toLocaleString() + ') עבר את סך המזומן והבטוחות בחשבון ($' + totalCashOnBook.toLocaleString() + '). החשבון במינוס מול הברוקר!';
+  } else if (accountEquity < reqMargin) {
+    alertEl.style.borderColor = 'var(--red)';
+    alertEl.style.background = 'rgba(239,68,68,0.14)';
+    alertEl.innerHTML = currentLang === 'en'
+      ? '🚨 <strong>MARGIN CALL & FORCED BUY-IN TRIGGERED!</strong> Your equity ($' + accountEquity.toLocaleString() + ', ' + marginPct.toFixed(1) + '%) fell below the broker House Margin requirement of ' + maint + '% ($' + Math.round(reqMargin).toLocaleString() + '). The broker risk engine automatically sends a Market Buy order at $' + curr.toFixed(2) + '!'
+      : '🚨 <strong>MARGIN CALL וחיסול כפוי (Forced Buy-In)!</strong> ההון העצמי שלך ($' + accountEquity.toLocaleString() + ', שהם ' + marginPct.toFixed(1) + '%) צנח מתחת לדרישת הבטוחה של הברוקר (' + maint + '% = $' + Math.round(reqMargin).toLocaleString() + '). מנוע הסיכונים של הברוקר קונה לך במחירי שוק ($' + curr.toFixed(2) + ') בלי לשאול אותך!';
+  } else {
+    alertEl.style.borderColor = 'var(--green)';
+    alertEl.style.background = 'rgba(22,163,74,0.1)';
+    alertEl.innerHTML = currentLang === 'en'
+      ? '🛡️ <strong>Above Maintenance Margin:</strong> Current equity ratio is <strong>' + marginPct.toFixed(1) + '%</strong> (required: ' + maint + '%). Your Margin Call trigger price is <strong>$' + marginCallPrice.toFixed(2) + '</strong>. Watch out if the broker hikes House Margin from ' + maint + '% to 100%!'
+      : '🛡️ <strong>מעל דרישת הבטוחה:</strong> יחס ההון הנוכחי שלך הוא <strong>' + marginPct.toFixed(1) + '%</strong> (נדרש: ' + maint + '%). מחיר ה-Margin Call שלך הוא <strong>$' + marginCallPrice.toFixed(2) + '</strong>. שים לב: אם הברוקר יקפיץ דרישת בטוחה ל-100%, מחיר החיסול יצנח מיד!';
+  }
+}
+
+function updateConvSim() {
+  const mktPrice = parseFloat(document.getElementById('sim-conv-mkt')?.value || 14);
+  const convPrice = parseFloat(document.getElementById('sim-conv-strike')?.value || 8);
+  const blocker = parseFloat(document.getElementById('sim-conv-blocker')?.value || 4.99);
+  const s1Status = document.getElementById('sim-conv-s1')?.value || 'locked';
+  const outShares = 5000000; // 5M shares outstanding
+  const totalWarrants = 3000000; // 3M warrants/convertibles
+
+  document.getElementById('val-conv-mkt').textContent = '$' + mktPrice.toFixed(2);
+  document.getElementById('val-conv-strike').textContent = '$' + convPrice.toFixed(2);
+  document.getElementById('val-conv-blocker').textContent = blocker + '%';
+
+  const maxInstantByBlocker = Math.floor(outShares * (blocker / 100));
+  const cashlessShares = mktPrice > convPrice ? Math.floor(totalWarrants * ((mktPrice - convPrice) / mktPrice)) : 0;
+  const canDumpNow = (mktPrice > convPrice) && (s1Status === 'effective');
+
+  document.getElementById('kpi-conv-itm').textContent = mktPrice > convPrice ? (currentLang === 'en' ? 'IN THE MONEY' : 'בכסף (ITM)') : (currentLang === 'en' ? 'OUT OF MONEY' : 'מחוץ לכסף (OTM)');
+  document.getElementById('kpi-conv-maxblk').textContent = maxInstantByBlocker.toLocaleString();
+  document.getElementById('kpi-conv-cashless').textContent = cashlessShares.toLocaleString();
+  document.getElementById('kpi-conv-supply').textContent = canDumpNow ? (currentLang === 'en' ? 'ACTIVE DILUTION' : 'דילול פעיל עכשיו') : (currentLang === 'en' ? 'LOCKED / ZERO' : 'נעול — 0 היצע!');
+
+  const alertEl = document.getElementById('sim-conv-alert');
+  if (s1Status !== 'effective' && mktPrice > convPrice) {
+    alertEl.style.borderColor = 'var(--red)';
+    alertEl.style.background = 'rgba(239,68,68,0.14)';
+    alertEl.innerHTML = currentLang === 'en'
+      ? '🪤 <strong>SHORT TRAP DETECTED!</strong> The warrants/convertibles are In-The-Money ($' + mktPrice + ' > $' + convPrice + '), so retail shorts expect 3,000,000 shares to dump. BUT the S-1 Registration Statement is <strong>NOT EFFECTIVE YET</strong>! Not a single share can be sold on the open market — the float is locked and ripe for a violent squeeze!'
+      : '🪤 <strong>זוהתה מלכודת שורטיסטים קטלנית!</strong> הוורנטים/אג"ח עמוק בכסף ($' + mktPrice + ' מול $' + convPrice + '), ולכן שורטיסטים חובבים בטוחים ש-3 מיליון מניות ישפכו לשוק. אבל <strong>תשקיף ה-S-1 עדיין לא אושר (Not Effective)</strong>! מחזיקי הוורנטים לא יכולים למכור אפילו מניה אחת בשוק החופשי — ה-Float נעול והסקוויז מתפוצץ!';
+  } else if (mktPrice <= convPrice) {
+    alertEl.style.borderColor = 'var(--yellow)';
+    alertEl.style.background = 'rgba(245,158,11,0.14)';
+    alertEl.innerHTML = currentLang === 'en'
+      ? '⚠️ <strong>Out-of-the-Money Overhang:</strong> Market price ($' + mktPrice + ') is below conversion/exercise price ($' + convPrice + '). Holders have no incentive to convert until price rises above $' + convPrice + '.'
+      : '⚠️ <strong>היצע רדום (מחוץ לכסף):</strong> מחיר השוק ($' + mktPrice + ') נמוך ממחיר ההמרה/מימוש ($' + convPrice + '). למחזיקים אין שום כדאיות כלכלית להמיר עד שהמניה תעלה מעל $' + convPrice + '.';
+  } else {
+    alertEl.style.borderColor = 'var(--green)';
+    alertEl.style.background = 'rgba(22,163,74,0.12)';
+    alertEl.innerHTML = currentLang === 'en'
+      ? '📉 <strong>Active Dilution Overhang:</strong> Both ITM and S-1 Effective! Note that the <strong>' + blocker + '% Ownership Blocker</strong> still caps each holder chunk to ' + maxInstantByBlocker.toLocaleString() + ' shares at a time (unless they sell down and convert in waves).'
+      : '📉 <strong>דילול חי ופעיל בשוק:</strong> גם בכסף וגם S-1 מאושר! שים לב שמגבלת ה-<strong>Blocker של ' + blocker + '%</strong> עדיין מתירה לכל קרן להמיר במנות של עד ' + maxInstantByBlocker.toLocaleString() + ' מניות בכל סבב מכירה.';
+  }
+}
+
+function updateSqzSim() {
+  const floatM = parseFloat(document.getElementById('sim-sqz-float')?.value || 2.5);
+  const siPct = parseFloat(document.getElementById('sim-sqz-si')?.value || 38);
+  const callsK = parseFloat(document.getElementById('sim-sqz-calls')?.value || 45);
+  const volM = parseFloat(document.getElementById('sim-sqz-vol')?.value || 0.8);
+
+  document.getElementById('val-sqz-float').textContent = floatM.toFixed(1) + 'M';
+  document.getElementById('val-sqz-si').textContent = siPct + '%';
+  document.getElementById('val-sqz-calls').textContent = callsK + 'K contracts';
+  document.getElementById('val-sqz-vol').textContent = volM.toFixed(1) + 'M';
+
+  const shortSharesM = floatM * (siPct / 100);
+  const dtc = volM > 0 ? (shortSharesM / volM) : 0;
+  // Assume average delta ramp of 0.55 during squeeze = 55 shares per contract
+  const mmHedgeSharesM = (callsK * 100 * 0.55) / 1000000;
+  const totalForcedBuyM = shortSharesM + mmHedgeSharesM;
+  const demandToFloatPct = (totalForcedBuyM / floatM) * 100;
+
+  document.getElementById('kpi-sqz-shorts').textContent = shortSharesM.toFixed(2) + 'M';
+  document.getElementById('kpi-sqz-dtc').textContent = dtc.toFixed(1) + 'd';
+  document.getElementById('kpi-sqz-gamma').textContent = mmHedgeSharesM.toFixed(2) + 'M';
+  const ratioEl = document.getElementById('kpi-sqz-ratio');
+  ratioEl.textContent = demandToFloatPct.toFixed(0) + '%';
+  ratioEl.style.color = demandToFloatPct >= 80 ? 'var(--red)' : 'var(--text)';
+
+  const alertEl = document.getElementById('sim-sqz-alert');
+  if (demandToFloatPct >= 90 || dtc >= 3) {
+    alertEl.style.borderColor = 'var(--red)';
+    alertEl.style.background = 'rgba(239,68,68,0.16)';
+    alertEl.innerHTML = currentLang === 'en'
+      ? '💥 <strong>NUCLEAR SHORT + GAMMA SQUEEZE!</strong> Forced buying from shorts (' + shortSharesM.toFixed(2) + 'M shares) + Market Maker Delta Hedging (' + mmHedgeSharesM.toFixed(2) + 'M shares) equals <strong>' + demandToFloatPct.toFixed(0) + '% of the entire tradable float</strong>! With Days-to-Cover at ' + dtc.toFixed(1) + ' days, the Order Book hits an air-pocket vacuum.'
+      : '💥 <strong>פיצוץ כפול: Short + Gamma Squeeze!</strong> סך הקנייה הכפויה של שורטיסטים (' + shortSharesM.toFixed(2) + 'M מניות) יחד עם גידור הדלתא של עושי השוק באופציות (' + mmHedgeSharesM.toFixed(2) + 'M מניות) מגיע ל-<strong>' + demandToFloatPct.toFixed(0) + '% מכל ה-Float הסחיר</strong>! ספר הפקודות מתרוקן ממוכרים והמחיר מזנק במאות אחוזים.';
+  } else {
+    alertEl.style.borderColor = 'var(--green)';
+    alertEl.style.background = 'rgba(22,163,74,0.1)';
+    alertEl.innerHTML = currentLang === 'en'
+      ? '📊 <strong>Moderate Squeeze Pressure:</strong> Combined forced demand is ' + demandToFloatPct.toFixed(0) + '% of float with DTC of ' + dtc.toFixed(1) + ' days.'
+      : '📊 <strong>לחץ סקוויז מתון:</strong> הביקוש הכפוי המשותף מהווה ' + demandToFloatPct.toFixed(0) + '% מה-Float עם DTC של ' + dtc.toFixed(1) + ' ימים.';
+  }
+}
+
+const CHAPTERS_0_2 = [{"id":0,"num":"00","titleHe":"מכונת השורט ואסימטריה","titleEn":"The Short Machine & Asymmetry","tagHe":"פרק 00 · יסודות המכניקה","tagEn":"Chapter 00 · Core Mechanics","descHe":"מה באמת קורה מאחורי הקלעים כשלוחצים Sell Short? שרשרת ההשאלה, Locate, FTDs, והאסימטריה המתמטית שהופכת כל שורט למשחק עם חוקים הפוכים.","descEn":"What really happens behind the scenes when you click Sell Short? The Stock Loan chain, Locate, FTDs, and the mathematical asymmetry of shorting.","learnHe":"\n      <div class=\"did-you-know\">💡 <strong>כלל הברזל של וול-סטריט:</strong> בפוזיציית לונג (Long), אם אתה טועה — הפוזיציה שלך מתכווצת והופכת לחלק קטן יותר מהתיק. בפוזיציית שורט (Short), אם אתה טועה — <strong>הפוזיציה המפסידה מתנפחת והופכת לחלק ענק מהתיק שלך</strong> בדיוק ברגע הכי מסוכן!</div>\n      <div class=\"section-title\">⚙️ שרשרת השאלת המניות (The Stock Loan Chain)</div>\n      <p class=\"prose\">כאשר אתה פותח פוזיציית שורט, אתה מוכר מניה <strong>שאינה בבעלותך</strong>. כדי שהמכירה תהיה חוקית, הברוקר שלך חייב לאתר (<strong>Locate</strong>) ולהשאיל את המניה מבעל מניות קיים ולהעביר אותה לקונה בתוך יום סליקה אחד (<code>T+1</code>).</p>\n      <div class=\"grid-3\">\n        <div class=\"card\"><div class=\"card-icon\">🏦</div><div class=\"card-title\">1. המלווה (Lender)</div><div class=\"card-body\">קרנות פנסיה, תעודות סל (BlackRock, Vanguard) או לקוחות Margin שמאפשרים לברוקר להשאיל את מניותיהם (Fully Paid Lending) בתמורה לחלק מעמלת ההשאלה.</div></div>\n        <div class=\"card\"><div class=\"card-icon\">🔗</div><div class=\"card-title\">2. הברוקר / Prime Broker</div><div class=\"card-body\">מבצע <code>Locate</code>, נועל את המניה, מעביר אותה לקונה החדש בשוק, ומחזיק את מזומן המכירה (Short Proceeds) כבטוחה משועבדת.</div></div>\n        <div class=\"card\"><div class=\"card-icon\">🩳</div><div class=\"card-title\">3. השורטיסט (Borrower)</div><div class=\"card-body\">חייב להחזיר <strong>מניות באותה כמות</strong> (לא דולרים!) למלווה בעתיד, ולשלם ריבית השאלה יומית ודיבידנדים כל עוד הפוזיציה פתוחה.</div></div>\n      </div>\n      <div class=\"section-title\">📐 האסימטריה המתמטית של השורט</div>\n      <div class=\"table-wrap\"><table class=\"data-table\">\n        <thead><tr><th>פרמטר</th><th>פוזיציית לונג (Long)</th><th>פוזיציית שורט (Short)</th></tr></thead>\n        <tbody>\n          <tr><td><strong>רווח מקסימלי</strong></td><td>אינסופי (מניה יכולה לעלות 1,000%+)</td><td><strong>מוגבל ל-100%</strong> (גם אם החברה פושטת רגל ל-$0.00)</td></tr>\n          <tr><td><strong>הפסד מקסימלי</strong></td><td>מוגבל ל-100% מהסכום שהושקע</td><td><strong>אינסופי תיאורטית</strong> (מניה ב-$10 יכולה לעלות ל-$80 = הפסד 700%-)</td></tr>\n          <tr><td><strong>משקל הפוזיציה בהפסד</strong></td><td>קטן אוטומטית ככל שהמחיר יורד</td><td><strong>גדל אוטומטית</strong> ככל שהמחיר עולה ובולע את הבטוחות בתיק</td></tr>\n          <tr><td><strong>עלות החזקה לאורך זמן</strong></td><td>0% (במזומן) + מקבל דיבידנד</td><td>משלם <strong>CTB יומי (כולל סופ\"ש)</strong> + משלם דיבידנד מכיסו</td></tr>\n        </tbody>\n      </table></div>\n      <div class=\"section-title\">🔍 ETB מול HTB, Naked Shorting ו-FTDs (Reg SHO)</div>\n      <ul class=\"prose\">\n        <li><strong>Easy-to-Borrow (ETB):</strong> מניות נזילות (כמו AAPL, MSFT) שבהן הברוקר מאתר השאלה אוטומטית ובחינם או בעמלה זניחה (0.3%–1% שנתי).</li>\n        <li><strong>Hard-to-Borrow (HTB):</strong> מניות עם היצע השאלה נמוך וביקוש גבוה לשורט. דורשות <code>Locate</code> יזום בתשלום מראש לפני שליחת הפקודה, ועמלת השאלה שעלולה להגיע ל-50%–500%+ בשנה.</li>\n        <li><strong>Fails-to-Deliver (FTD) ו-Reg SHO Rule 204:</strong> אם מניה נמכרה בשורט (למשל על ידי עושה שוק באישור חריג או שורט עירום) ולא סופקה במסלקת ה-DTCC במועד <code>T+1</code>, נוצר <strong>FTD</strong>. לפי תקנה <code>Rule 204</code>, הברוקר מחויב לסגור את הכשל תוך ימים ספורים (<code>T+2</code> / <code>T+4</code>) באמצעות קנייה כפויה בשוק בפתיחת המסחר (<strong>Pre-Market / Open Buy-In</strong>) — מנוע מוכח לקפיצות בוקר חדות!</li>\n        <li><strong>Threshold Security List:</strong> רשימת מניות שבהן יש FTDs של מעל 10,000 מניות ו-0.5% מסך המניות במשך 5 ימי סליקה רצופים — אחרי 13 ימים כאלה מופעל <strong>חיסול כפוי חובה</strong>.</li>\n      </ul>\n    ","learnEn":"\n      <div class=\"did-you-know\">💡 <strong>Wall Street's Iron Law:</strong> In a Long position, when you are wrong, the position shrinks as a percentage of your portfolio. In a Short position, when you are wrong, <strong>your losing position grows larger and consumes your portfolio</strong> right at the most dangerous moment!</div>\n      <div class=\"section-title\">⚙️ The Stock Loan Chain</div>\n      <p class=\"prose\">When you sell short, you sell shares <strong>you do not own</strong>. Your broker must <strong>Locate</strong> and borrow those shares from an existing holder to deliver to the buyer at settlement (<code>T+1</code>).</p>\n      <div class=\"table-wrap\"><table class=\"data-table\">\n        <thead><tr><th>Metric</th><th>Long Position</th><th>Short Position</th></tr></thead>\n        <tbody>\n          <tr><td><strong>Max Profit</strong></td><td>Unlimited (+1,000%+)</td><td><strong>Capped at 100%</strong> (if stock goes to $0.00)</td></tr>\n          <tr><td><strong>Max Loss</strong></td><td>Capped at 100% invested</td><td><strong>Theoretically Unlimited</strong> ($10 → $80 = -700% loss)</td></tr>\n          <tr><td><strong>Portfolio Weight on Loss</strong></td><td>Shrinks as price falls</td><td><strong>Expands aggressively</strong> as price rises</td></tr>\n          <tr><td><strong>Carry Cost</strong></td><td>0% (cash) + earns dividends</td><td>Pays daily <strong>CTB (365d/yr)</strong> + pays dividends out of pocket</td></tr>\n        </tbody>\n      </table></div>\n    ","cheatHe":[{"l":"כלל האסימטריה","t":"רווח מקסימלי בשורט: <strong>100%</strong>. הפסד מקסימלי: <strong>אינסופי</strong>. פוזיציה מפסידה בשורט תופחת כמשקל בתיק."},{"l":"Locate: ETB vs HTB","t":"במניות <strong>HTB</strong> משלמים עמלת איתור (Locate Fee) עוד לפני הביצוע, בתוספת ריבית השאלה שנתית גבוהה."},{"l":"FTDs & Reg SHO 204","t":"כשל במסירה (FTD) מחייב את הברוקר לבצע <strong>Close-Out קנייה כפויה</strong> בשוק, לרוב בפתיחת המסחר."}],"cheatEn":[{"l":"Asymmetry Rule","t":"Max profit: <strong>100%</strong>. Max loss: <strong>Unlimited</strong>. Losing shorts expand as % of portfolio."},{"l":"Locate: ETB vs HTB","t":"Hard-to-Borrow (HTB) stocks require a paid Locate before execution plus high daily borrow fees."},{"l":"FTDs & Reg SHO 204","t":"Fails-to-Deliver force brokers into mandatory market Buy-Ins at market open."}],"gameHe":[["Locate","איתור ונעילת מניות להשאלה לפני ביצוע פקודת שורט"],["HTB (Hard to Borrow)","מניה עם היצע השאלה נדיר ועמלת השאלה יקרה"],["FTD (Fail to Deliver)","מניה שנמכרה ולא סופקה למסלקה במועד T+1"],["Reg SHO Rule 204","תקנה המחייבת ברוקר לסגור FTD בקנייה כפויה בשוק"],["אסימטריית השורט","רווח מוגבל ל-100% מול הפסד פוטנציאלי בלתי מוגבל"]],"gameEn":[["Locate","Securing borrowable shares before executing a short sale"],["HTB (Hard to Borrow)","Stock with scarce borrow supply and high borrow fees"],["FTD (Fail to Deliver)","Shares sold but not delivered at T+1 settlement"],["Reg SHO Rule 204","SEC rule forcing mandatory buy-in of FTDs"],["Short Asymmetry","Max gain capped at 100% vs unlimited downside risk"]],"quiz":[{"qHe":"מה קורה למשקל של פוזיציית שורט בתיק ההשקעות כאשר מחיר המניה עולה ב-100%?","qEn":"What happens to a short position's portfolio weight when the stock price rises 100%?","optsHe":["המשקל שלה קטן בחצי","המשקל שלה מוכפל וצורך פי 2 יותר בטוחות מהתיק","המשקל נשאר קבוע כי מספר המניות לא השתנה","הברוקר ממיר אותה לפוזיציית לונג"],"optsEn":["Its weight shrinks by half","Its weight doubles and consumes 2x more collateral","Its weight stays constant","The broker converts it to Long"],"ans":1,"expHe":"בשורט החוב שלך נקוב במניות. כשהמחיר מוכפל, שווי ההתחייבות שלך בדולרים מוכפל בזמן שההון העצמי שלך נשחק — ולכן הפוזיציה תופסת נתח הולך וגדל מהתיק."},{"qHe":"מהו הרווח המקסימלי האפשרי בעסקת שורט ישירה (ללא מינוף) אם חברה פושטת רגל ומחיר המניה יורד מ-$50 ל-$0?","qEn":"What is the maximum percentage gain on an unleveraged short sale if a stock drops from $50 to $0?","optsHe":["אינסופי","500%","100%","200%"],"optsEn":["Unlimited","500%","100%","200%"],"ans":2,"expHe":"מניה לא יכולה לרדת מתחת ל-$0.00. לכן אם מכרת בשורט ב-$50 וקנית חזרה ב-$0, הרווח המקסימלי הוא $50 למניה = 100%."},{"qHe":"מה מחייבת תקנת Reg SHO Rule 204 כאשר נוצר כשל מסירה (FTD) שלא נסגר בזמן?","qEn":"What does SEC Reg SHO Rule 204 require when a Fail-to-Deliver (FTD) is not resolved on time?","optsHe":["ביטול העסקה של הקונה","קנייה כפויה בשוק (Mandatory Buy-In) של המניות החסרות","הקפאת המניה ל-30 יום","קנס של 1% בלבד ללא צורך בקנייה"],"optsEn":["Canceling the buyer trade","Mandatory market Buy-In of the undelivered shares","Halting the stock for 30 days","A 1% fine with no buy-in"],"ans":1,"expHe":"Rule 204 מחייב את הברוקר/חבר המסלקה לרכוש את המניות בשוק החופשי (Close-out) כדי לכסות את ה-FTD, לרוב בתחילת יום המסחר."},{"qHe":"מתי מניה מוגדרת כ-Threshold Security לפי חוקי ה-SEC?","qEn":"When is a stock placed on the Regulation SHO Threshold Security List?","optsHe":["כשהיא יורדת 10% ביום אחד","כשיש בה FTDs של לפחות 10,000 מניות ו-0.5% מסך המניות במשך 5 ימי סליקה רצופים","כשה-CTB עובר 50%","כשחברה מדווחת על הפסד רבעוני"],"optsEn":["When it drops 10% in one day","When FTDs exceed 10,000 shares and 0.5% of TSO for 5 consecutive settlement days","When CTB exceeds 50%","When a company posts a quarterly loss"],"ans":1,"expHe":"רשימת ה-Threshold מצביעה על כשלי מסירה מתמשכים ומפעילה מגבלות מחמירות וחיסולים כפויים אחרי 13 ימי סליקה."},{"qHe":"מה ההבדל בין מניית ETB למניית HTB עבור שורטיסט?","qEn":"What is the difference between an ETB and HTB stock for a short seller?","optsHe":["ב-HTB אסור לעשות שורט בכלל","ב-HTB יש לבצע Locate יזום (לעיתים בתשלום) ולשלם עמלת השאלה שנתית גבוהה ומשתנה","ב-ETB משלמים עמלת השאלה של 100%","אין שום הבדל"],"optsEn":["HTB cannot be shorted at all","HTB requires an explicit Locate (often paid) and carries a high variable borrow rate","ETB costs 100% borrow fee","No difference"],"ans":1,"expHe":"במניות Hard-to-Borrow ההיצע להשאלה מוגבל מאוד, ולכן נדרש Locate מראש בתשלום ועמלת CTB יומית גבוהה."}]},{"id":1,"num":"01","titleHe":"CTB, Rebate ודיבידנדים","titleEn":"CTB, Rebate & Dividends","tagHe":"פרק 01 · המונה שדופק 24/7","tagEn":"Chapter 01 · 24/7 Carry Burn","descHe":"עמלות השאלה (Cost to Borrow), חישוב יומי כולל סופי שבוע לפי שווי שוק נוכחי, Rebate Rate, ומלכודת הדיבידנדים שגומרת שורטיסטים.","descEn":"Cost to Borrow (CTB), 365-day mark-to-market daily fee compounding, Short Rebate rates, and Payment-in-Lieu of dividends.","learnHe":"\n      <div class=\"did-you-know\">⏳ <strong>המלכודת השקטה של עולם השורט:</strong> עמלת ההשאלה (CTB) לא מחושבת על המחיר שבו פתחת את השורט — היא מחושבת כל יום מחדש על <strong>שווי השוק הנוכחי של המניה</strong>, ונגבית גם בשבת, בראשון ובחגים!</div>\n      <div class=\"section-title\">💸 נוסחת ה-CTB ואפקט המכפלה הכפולה</div>\n      <p class=\"prose\">ריבית ההשאלה השנתית (<strong>Cost to Borrow / Borrow Fee Rate</strong>) משתנה מדי יום לפי היצע וביקוש בשוק ההשאלות. החיוב היומי מחושב כך:</p>\n      <pre><code>Daily Borrow Fee = (Current Share Price × Shares × Annual CTB %) / 360</code></pre>\n      <div class=\"callout danger\">\n        <strong>🔥 למה שורטיסטים נמחקים מעמלות גם בלי Margin Call? (אפקט המכפלה הכפולה):</strong><br>\n        נניח שנכנסת לשורט על 1,000 מניות ב-<code>$10</code> כשה-CTB היה <code>15%</code>. העלות היומית שלך הייתה <strong>$4.16 ליום</strong>.<br>\n        עכשיו המניה זינקה ל-<code>$30</code> (פי 3) ובמקביל בגלל מחסור במניות ה-CTB זינק ל-<code>180%</code> (פי 12).<br>\n        החיוב היומי החדש שלך הוא <code>($30 × 1,000 × 180%) / 360 = $150 ליום!</code> — <strong>פי 36 יותר יקר לכל יום קלנדרי</strong>! על סוף שבוע אחד (שישי-שבת-ראשון, חיוב משולש ב-Triple-Swap של יום רביעי/שישי) תשלם <strong>$450</strong> רק כדי להישאר בפוזיציה!\n      </div>\n      <div class=\"section-title\">🏦 Short Rebate Rate וגזירת הקופון של הברוקרים</div>\n      <p class=\"prose\">כשאתה מוכר מניה בשורט ב-$10,000, נוצר בחשבון שלך מזומן משועבד (<strong>Short Sale Proceeds</strong>). קרנות גידור גדולות מקבלות מה-Prime Broker <strong>ריבית זכות (Positive Rebate)</strong> על המזומן הזה (ריבית הפד פחות עמלת ההשאלה). לעומת זאת, רוב הברוקרים הקמעונאיים <strong>לא משלמים לסוחר הקטן אגורה של ריבית זכות</strong>, אבל גובים ממנו 100% מעמלת ה-HTB (Negative Rebate)!</p>\n      <div class=\"section-title\">💣 דיבידנדים בשורט (Payment in Lieu) ונשק ה-Special Dividend</div>\n      <ul class=\"prose\">\n        <li><strong>מי משלם את הדיבידנד?</strong> מכיוון שהשאלת מניה מבעל מניות א׳ ומכרת אותה לקונה ב׳, החברה משלמת דיבידנד רק לקונה ב׳ (המחזיק הרשום). לכן, ביום ה-<strong>Ex-Dividend Date</strong>, הברוקר גובה ממך השורטיסט את מלוא סכום הדיבידנד במזומן ומעביר אותו למלווה א׳ כ-<code>Payment in Lieu of Dividend (PIL)</code>.</li>\n        <li><strong>מלכודת ה-Ex-Date:</strong> אם אתה מחזיק שורט בדקת הסגירה של הערב שלפני ה-Ex-Date — חויבת בדיבידנד המלא!</li>\n        <li><strong>נשק יום הדין — דיבידנד מיוחד / דיבידנד בעין (Special / Digital / Spin-off Dividend):</strong> חברות שנלחמות בשורטיסטים (כמו Overstock עם OSTKO או חברות שמחלקות מניות של חברת בת / Warrant Dividend) יוצרות מצב שבו השורטיסט חייב לספק למלווה נכס שאינו נסחר בקלות בשוק — מה שמוביל לריצת אמוק של סגירת שורטים לפני ה-Ex-Date!</li>\n      </ul>\n\n      <div class=\"sim-box\">\n        <div class=\"sim-head\">\n          <div class=\"sim-title\">🧮 סימולטור #1: מחשבון שחיקת CTB, סופ\"ש ונקודת איזון אמיתית</div>\n          <span class=\"sim-badge\">Interactive Calculator</span>\n        </div>\n        <div class=\"sim-body\">\n          <div class=\"sim-grid\">\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>מחיר כניסה לשורט</span><span class=\"sim-ctrl-val\" id=\"val-ctb-entry\">$10.00</span></div><input type=\"range\" id=\"sim-ctb-entry\" min=\"2\" max=\"50\" step=\"0.5\" value=\"10\" oninput=\"updateCtbSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>מחיר מניה נוכחי (Mark)</span><span class=\"sim-ctrl-val\" id=\"val-ctb-curr\">$18.00</span></div><input type=\"range\" id=\"sim-ctb-curr\" min=\"2\" max=\"60\" step=\"0.5\" value=\"18\" oninput=\"updateCtbSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>כמות מניות בשורט</span><span class=\"sim-ctrl-val\" id=\"val-ctb-shares\">1,000</span></div><input type=\"range\" id=\"sim-ctb-shares\" min=\"100\" max=\"5000\" step=\"100\" value=\"1000\" oninput=\"updateCtbSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>ריבית השאלה שנתית (CTB %)</span><span class=\"sim-ctrl-val\" id=\"val-ctb-rate\">85%</span></div><input type=\"range\" id=\"sim-ctb-rate\" min=\"1\" max=\"350\" step=\"1\" value=\"85\" oninput=\"updateCtbSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>ימים קלנדריים בהחזקה</span><span class=\"sim-ctrl-val\" id=\"val-ctb-days\">30 ימים</span></div><input type=\"range\" id=\"sim-ctb-days\" min=\"1\" max=\"120\" step=\"1\" value=\"30\" oninput=\"updateCtbSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>דיבידנד למניה בתקופה ($)</span><span class=\"sim-ctrl-val\" id=\"val-ctb-div\">$0.50</span></div><input type=\"range\" id=\"sim-ctb-div\" min=\"0\" max=\"5\" step=\"0.25\" value=\"0.5\" oninput=\"updateCtbSim()\"></div>\n          </div>\n          <div class=\"sim-kpi-grid\">\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-ctb-daily\">-$42.50</div><div class=\"sim-kpi-lbl\">עלות CTB ליום בודד</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-ctb-wknd\">-$127.50</div><div class=\"sim-kpi-lbl\">קנס סופ\"ש (3 ימים)</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-ctb-total\">-$1,775</div><div class=\"sim-kpi-lbl\">סה\"כ שחיקת עמלות+דיב׳</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-ctb-be\">$8.23</div><div class=\"sim-kpi-lbl\">מחיר איזון חדש (Breakeven)</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-ctb-pnl\">-$9,775</div><div class=\"sim-kpi-lbl\">רווח/הפסד נטו כולל</div></div>\n          </div>\n          <div class=\"sim-alert\" id=\"sim-ctb-alert\"></div>\n        </div>\n      </div>\n    ","learnEn":"\n      <div class=\"did-you-know\">⏳ <strong>The Silent Short Killer:</strong> Cost to Borrow (CTB) is NOT calculated on your entry price — it is recalculated daily on the <strong>current market price</strong> and charged 365 calendar days a year (including weekends)!</div>\n      <div class=\"section-title\">💸 The CTB Formula & Double Compounding Trap</div>\n      <pre><code>Daily Borrow Fee = (Current Share Price × Shares × Annual CTB %) / 360</code></pre>\n      <p class=\"prose\">When a stock triples in price AND its CTB jumps from 15% to 180%, your daily borrow fee multiplies by <strong>36x</strong>. In addition, if you hold short through an <strong>Ex-Dividend Date</strong>, you pay the full dividend out of your own cash (Payment in Lieu).</p>\n    ","cheatHe":[{"l":"נוסחת CTB יומית","t":"<code>(מחיר נוכחי × מניות × CTB%) / 360</code> — נגבה 365 ימים בשנה כולל שבת וראשון!"},{"l":"מלכודת יום רביעי/שישי","t":"החזקת שורט מעבר לסליקה של סוף השבוע מחייבת ב-<strong>3 ימי CTB בבת אחת</strong> (Triple Borrow Charge)."},{"l":"Payment in Lieu (דיבידנד)","t":"החזקת שורט בערב שלפני ה-Ex-Dividend Date מחייבת אותך לשלם את מלוא הדיבידנד מכיסך."}],"cheatEn":[{"l":"Daily CTB Formula","t":"<code>(Current Price × Shares × CTB%) / 360</code> — charged 365 calendar days/year!"},{"l":"Weekend Triple Charge","t":"Holding across weekend settlement incurs 3 full days of CTB fees."},{"l":"Payment in Lieu","t":"Holding short into the Ex-Dividend Date forces you to pay 100% of the dividend."}],"gameHe":[["CTB (Cost to Borrow)","ריבית השאלה שנתית המחושבת יומית לפי שווי השוק הנוכחי"],["Triple Charge","חיוב עמלת השאלה של 3 ימים עבור החזקה בסוף השבוע"],["Payment in Lieu (PIL)","תשלום דיבידנד שנגבה מחשבון השורטיסט ומועבר למלווה"],["Negative Rebate","מצב במניות HTB שבו עלות ההשאלה גבוהה מריבית הזכות על הבטוחה"],["Special Dividend Squeeze","חלוקת דיבידנד מיוחד שמאלצת שורטיסטים לסגור פוזיציות לפני ה-Ex-Date"]],"gameEn":[["CTB (Cost to Borrow)","Annualized borrow fee charged daily on current market value"],["Triple Charge","3-day borrow fee charged for holding short over the weekend"],["Payment in Lieu (PIL)","Dividend cash deducted from the short seller to pay the lender"],["Negative Rebate","When HTB borrow fees exceed interest earned on short proceeds"],["Special Dividend Squeeze","Non-standard dividend forcing shorts to cover before Ex-Date"]],"quiz":[{"qHe":"נכנסת לשורט על 1,000 מניות ב-$10. המניה עלתה ל-$20 וה-CTB השנתי הוא 180%. מה תהיה עמלת ההשאלה היומית שלך?","qEn":"You shorted 1,000 shares at $10. The stock is now $20 and CTB is 180%. What is your daily borrow fee?","optsHe":["$50 ליום (לפי מחיר כניסה $10)","$100 ליום (לפי מחיר שוק נוכחי $20)","$0 אם לא ביצעת פעולה","$20 ליום"],"optsEn":["$50/day (based on $10 entry)","$100/day (based on $20 current price)","$0 if you do not trade","$20/day"],"ans":1,"expHe":"החישוב נעשה תמיד לפי מחיר השוק הנוכחי (Mark-to-Market): ($20 × 1,000 × 1.80) / 360 = $100 לכל יום קלנדרי!"},{"qHe":"האם עמלת ההשאלה (CTB) נגבית גם על ימי שבת וראשון שבהם הבורסה סגורה?","qEn":"Is Cost to Borrow (CTB) charged for Saturdays and Sundays when the market is closed?","optsHe":["לא, רק בימי מסחר פעילים","כן, עמלת ההשאלה נגבית על כל 365 הימים הקלנדריים בשנה כולל סופי שבוע וחגים","רק אם המניה יורדת","רק בחשבונות מעל מיליון דולר"],"optsEn":["No, only trading days","Yes, borrow fees accrue 365 calendar days a year including weekends and holidays","Only if the stock drops","Only for institutional accounts"],"ans":1,"expHe":"השאלת ניירות ערך היא הלוואה פיננסית לכל דבר, ולכן המונה דופק 7 ימים בשבוע (כולל סופ\"ש וחגים)."},{"qHe":"מניה בשורט מחלקת דיבידנד של $1.50 למניה. מתי תחויב לשלם את הדיבידנד מכיסך?","qEn":"A shorted stock pays a $1.50 dividend. When are you liable to pay it out of pocket?","optsHe":["אם אתה מחזיק בפוזיציית השורט בסגירת המסחר של היום שלפני ה-Ex-Dividend Date (לתוך בוקר ה-Ex-Date)","רק אם פתחת את השורט לפני שנה","לעולם לא — החברה משלמת","רק אם סגרת את השורט ברווח"],"optsEn":["If you hold the short position overnight into the Ex-Dividend Date","Only if you shorted a year ago","Never — the company pays","Only if you close at a profit"],"ans":0,"expHe":"כל מי שמחזיק שורט פתוח בבוקר ה-Ex-Dividend Date מחויב לשלם למלווה Payment in Lieu בגובה הדיבידנד המלא."},{"qHe":"כיצד משפיע CTB גבוה לאורך זמן על מחיר האיזון (Breakeven) של השורטיסט?","qEn":"How does high CTB over time affect a short seller's breakeven price?","optsHe":["מעלה את מחיר האיזון","מנמיך את מחיר האיזון — המניה חייבת לרדת נמוך יותר רק כדי לכסות את העמלות שנצברו","לא משפיע על מחיר האיזון","מבטל את הצורך בבטוחות"],"optsEn":["Raises breakeven price","Lowers breakeven price — the stock must fall further just to cover accumulated fees","Does not affect breakeven","Eliminates margin requirements"],"ans":1,"expHe":"אם מכרת ב-$10 ושילמת $2.50 למניה בעמלות השאלה, אתה מפסיד כסף גם אם המניה ירדה ל-$8.00! נקודת האיזון שלך ירדה ל-$7.50."},{"qHe":"מדוע \"דיבידנד מיוחד\" (Special / Spin-off Dividend) מסוכן במיוחד לשורטיסטים?","qEn":"Why is a Special or Spin-off Dividend especially dangerous for short sellers?","optsHe":["כי הוא מקטין את מחיר המניה","כי הוא מאלץ שורטיסטים לשלם מזומן רב או לספק נייר ערך נדיר למלווה, מה שיוצר גל קניות כפוי לפני ה-Ex-Date","כי הוא מבטל את ה-Locate של מניות רגילות","הוא אינו משפיע על שורטיסטים"],"optsEn":["It lowers stock price","It forces shorts to pay huge cash or deliver scarce spin-off securities, triggering pre-Ex-Date covering","It cancels regular shares","It has no effect"],"ans":1,"expHe":"דיבידנד מיוחד גדול או דיבידנד של מניות חברת-בת/אופציות מחייב את השורטיסט להעביר למלווה את ההטבה או לסגור את השורט לפני ה-Ex-Date."}]},{"id":2,"num":"02","titleHe":"קו הכאב ו-Margin Call","titleEn":"The Pain Line & Margin Call","tagHe":"פרק 02 · פסיכולוגיה וחיסול כפוי","tagEn":"Chapter 02 · Liquidation Mechanics","descHe":"איך מזהים על הגרף את \"קו הכאב\" המצרפי של השורטיסטים, איך עובדת הקפצת House Margin של הברוקר, ומה ההבדל בין Margin Call לבין Share Recall ו-Forced Buy-In.","descEn":"How to spot the Short Pain Line on the chart, dynamic Broker House Margin hikes, and Share Recall vs Forced Buy-In.","learnHe":"\n      <div class=\"did-you-know\">🩸 <strong>מהו \"קו הכאב\" (The Pain Line)?</strong> זהו המחיר המדויק על הגרף שבו <strong>השורטיסט הממוצע עובר מרווח להפסד כבד</strong>, פקודות ה-Stop-Loss שלו מתרכזות, ומנוע הסיכונים של הברוקר מתחיל לשלוח התראות Margin Call!</div>\n      <div class=\"section-title\">📈 איך מוצאים את קו הכאב על הגרף? (3 שיטות מעשיות)</div>\n      <div class=\"grid-3\">\n        <div class=\"card\"><div class=\"card-icon\">🎯</div><div class=\"card-title\">1. Anchored VWAP מיום השיא</div><div class=\"card-body\">מתחו <code>Anchored VWAP</code> מהנר שבו היה מחזור המסחר (Volume) הגדול ביותר או מיום הדוח/החדשות שבו נפתחו רוב השורטים. כשמחיר המניה פורץ מעל ה-VWAP הזה — רוב השורטיסטים כלואים בהפסד!</div></div>\n        <div class=\"card\"><div class=\"card-icon\">🧱</div><div class=\"card-title\">2. תקרת התנגדות רב-יומית</div><div class=\"card-body\">שורטיסטים טכניים מציבים את ה-<code>Buy-Stop</code> שלהם סנטים ספורים מעל הגבוה של יום האתמול (HOD) או מעל התנגדות שבועית ברורה. פריצה שלה מפעילה אשד של פקודות קנייה אוטומטיות.</div></div>\n        <div class=\"card\"><div class=\"card-icon\">💣</div><div class=\"card-title\">3. מדרגות מחיר של הברוקרים ($5 / $10)</div><div class=\"card-body\">במניות מתחת ל-$5 דרישת הבטוחה היא לרוב מינימום <code>$2.50–$5.00 למניה</code> או 100%. כשהמניה חוצה מדרגות של 100% עלייה ממחיר ה-VWAP, מופעלים Margin Calls אוטומטיים.</div></div>\n      </div>\n      <div class=\"section-title\">⚖️ Initial Margin מול Maintenance Margin והקפצת House Margin</div>\n      <ul class=\"prose\">\n        <li><strong>Initial Margin (Reg T — 150%):</strong> כדי למכור בשורט מניות בשווי $10,000, עליך להחזיק את $10,000 תמורת השורט + <strong>50% הון עצמי נוסף ($5,000)</strong> = סה\"כ $15,000 בחשבון.</li>\n        <li><strong>Maintenance Margin (בטוחת תחזוקה):</strong> המינימום החוקי של FINRA הוא <code>30%</code> משווי השוק הנוכחי של הפוזיציה. אבל <strong>לכל ברוקר יש זכות חוזית להעלות את ה-House Margin מתי שירצה, ללא התראה מוקדמת!</strong></li>\n        <li><strong>מלכודת הקפצת ה-House Margin:</strong> מניה עולה מ-$10 ל-$18. חשבת שיש לך מספיק בטוחה לפי 30%. פתאום בצהריים הברוקר שולח הודעה: <em>\"עקב תנודתיות, דרישת הבטוחה הועלתה מ-30% ל-100% מיידית\"</em>. ברגע זה אתה ב-<strong>Margin Deficit מיידי</strong> והמערכת מחסלת לך את הפוזיציה בשיא!</li>\n      </ul>\n      <div class=\"section-title\">⚡ Margin Call מול Share Recall (Forced Buy-In)</div>\n      <div class=\"callout warn\">\n        <strong>הבדל קריטי שרוב הסוחרים לא מכירים:</strong><br>\n        • <strong>Margin Call Liquidation:</strong> קורה כי <em>נגמרו לך הבטוחות בחשבון</em>.<br>\n        • <strong>Share Recall & Forced Buy-In:</strong> קורה כי <em>המלווה המקורי מכר את המניה שלו או דרש אותה חזרה</em>, ולברוקר שלך אין מניות חלופיות להשאלה! במצב כזה, <strong>גם אם יש לך מיליון דולר מזומן פנוי בחשבון</strong>, הברוקר שולח פקודת קנייה כפויה (<code>Forced Buy-In</code>) בשוק וסוגר לך את השורט במחיר הכי גרוע שיש!\n      </div>\n\n      <div class=\"sim-box\">\n        <div class=\"sim-head\">\n          <div class=\"sim-title\">🩸 סימולטור #2: מחשבון קו הכאב, הקפצת House Margin וחיסול כפוי</div>\n          <span class=\"sim-badge\">Risk Engine Sim</span>\n        </div>\n        <div class=\"sim-body\">\n          <div class=\"sim-grid\">\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>הון עצמי בתיק (Cash $)</span><span class=\"sim-ctrl-val\" id=\"val-pain-cash\">$15,000</span></div><input type=\"range\" id=\"sim-pain-cash\" min=\"5000\" max=\"50000\" step=\"1000\" value=\"15000\" oninput=\"updatePainSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>מחיר כניסה לשורט (1,000 מניות)</span><span class=\"sim-ctrl-val\" id=\"val-pain-entry\">$10.00</span></div><input type=\"range\" id=\"sim-pain-entry\" min=\"5\" max=\"30\" step=\"0.5\" value=\"10\" oninput=\"updatePainSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>מחיר מניה נוכחי בשוק</span><span class=\"sim-ctrl-val\" id=\"val-pain-curr\">$16.00</span></div><input type=\"range\" id=\"sim-pain-curr\" min=\"5\" max=\"40\" step=\"0.5\" value=\"16\" oninput=\"updatePainSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>דרישת House Margin של הברוקר</span><span class=\"sim-ctrl-val\" id=\"val-pain-maint\">50%</span></div><input type=\"range\" id=\"sim-pain-maint\" min=\"30\" max=\"200\" step=\"10\" value=\"50\" oninput=\"updatePainSim()\"></div>\n          </div>\n          <div class=\"sim-kpi-grid\">\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-pain-pos\">$16,000</div><div class=\"sim-kpi-lbl\">שווי חוב המניות כרגע</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-pain-eq\">$9,000</div><div class=\"sim-kpi-lbl\">הון עצמי נותר (Equity)</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-pain-req\">$8,000</div><div class=\"sim-kpi-lbl\">בטוחה נדרשת ע\"י הברוקר</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-pain-mcprice\">$16.67</div><div class=\"sim-kpi-lbl\">מחיר הפעלת Margin Call</div></div>\n          </div>\n          <div class=\"sim-alert\" id=\"sim-pain-alert\"></div>\n        </div>\n      </div>\n    ","learnEn":"\n      <div class=\"did-you-know\">🩸 <strong>What is \"The Pain Line\"?</strong> It is the exact chart level where the volume-weighted average short seller flips deeply underwater, stop-losses cluster, and broker risk engines trigger Margin Calls.</div>\n      <div class=\"section-title\">⚖️ Dynamic House Margin Hikes & Share Recalls</div>\n      <p class=\"prose\">Even if you meet FINRA's 30% minimum maintenance margin, brokers routinely hike <strong>House Margin</strong> to 100%–300% intraday during a squeeze. Furthermore, a <strong>Share Recall / Forced Buy-In</strong> can liquidate your short at market top even if you have plenty of cash, simply because the original lender recalled their shares!</p>\n    ","cheatHe":[{"l":"זיהוי קו הכאב (Pain Line)","t":"חפשו את ה-<strong>Anchored VWAP</strong> מנר המחזור הגבוה ביותר שבו נפתחו השורטים + רמות פריצה מעל High רב-יומי."},{"l":"הקפצת House Margin","t":"הברוקר רשאי להעלות את דרישת הבטוחה מ-30% ל-100%+ באמצע יום המסחר ולגרום להנזלה מיידית."},{"l":"Share Recall vs Margin Call","t":"ב-<strong>Share Recall</strong> הברוקר סוגר לך את השורט בכפייה כי המלווה משך את המניות — <strong>גם אם יש לך עודף מזומן בחשבון!</strong>"}],"cheatEn":[{"l":"Spotting the Pain Line","t":"Use <strong>Anchored VWAP</strong> from the highest volume shorting day + multi-day breakout levels."},{"l":"House Margin Hike","t":"Brokers can hike maintenance margin from 30% to 100%+ intraday without notice."},{"l":"Share Recall vs Margin Call","t":"A <strong>Share Recall</strong> forces a market buy-in even if you have excess cash in your account."}],"gameHe":[["קו הכאב (Pain Line)","המחיר שבו המסה הקריטית של השורטיסטים עוברת להפסד ולחץ סגירה"],["Anchored VWAP","מחיר ממוצע משוקלל נפח מנקודת ציון שבה נכנסו רוב השורטיסטים"],["House Margin Hike","העלאה פתאומית של דרישת הבטוחות על ידי הברוקר בזמן תנודתיות"],["Share Recall","דרישת המלווה לקבל חזרה את המניות המושאלות שלו"],["Forced Buy-In","קנייה כפויה במחירי שוק שמבצע הברוקר לסגירת שורט ללא אישור הסוחר"]],"gameEn":[["The Pain Line","Price level where the majority of shorts flip underwater and panic cover"],["Anchored VWAP","Volume-weighted average price anchored to major short-entry volume days"],["House Margin Hike","Sudden broker increase in required maintenance margin during volatility"],["Share Recall","When the institutional lender demands their loaned shares back"],["Forced Buy-In","Mandatory market buy order executed by the broker without trader consent"]],"quiz":[{"qHe":"מהו הכלי הטכני הטוב ביותר לאיתור מחיר הכניסה הממוצע (\"קו הכאב\") של שורטיסטים שנכנסו ביום חדשות סוער?","qEn":"What is the best technical tool to estimate the average entry price (\"Pain Line\") of shorts from a high-volume catalyst day?","optsHe":["RSI(14)","Anchored VWAP המעוגן ליום המחזור הגבוה שבו נפתחו השורטים","ממוצע נע 200 ימים","MACD"],"optsEn":["RSI(14)","Anchored VWAP from the high-volume catalyst day","200-day Moving Average","MACD"],"ans":1,"expHe":"Anchored VWAP משקלל את המחיר לפי נפח המסחר המדויק מאז תחילת האירוע, ולכן מייצג את מחיר הכניסה הממוצע האמיתי של השחקנים."},{"qHe":"האם ברוקר יכול לבצע לך Forced Buy-In (חיסול כפוי של השורט) גם אם יש לך עודף בטוחות ומזומן פנוי בחשבון?","qEn":"Can a broker execute a Forced Buy-In on your short position even if you have plenty of excess cash and margin?","optsHe":["לא, זה מנוגד לחוק","כן! אם המלווה ביצע Share Recall (ביקש את מניותיו חזרה) והברוקר לא מצא מניות חלופיות להשאלה","רק אם המניה ירדה ל-$0","רק בפקיעת אופציות שנתית"],"optsEn":["No, that is illegal","Yes! If the lender recalls their shares (Share Recall) and the broker cannot find replacement shares to borrow","Only if the stock hits $0","Only on options expiration"],"ans":1,"expHe":"Share Recall אינו תלוי במצב הבטוחות שלך. אם אין מניות להשאלה במאגר של הברוקר, הוא מחויב חוקית לקנות אותן בשוק כדי להחזירן למלווה."},{"qHe":"מה קורה כאשר ברוקר מקפיץ את דרישת ה-House Margin מ-30% ל-100% באמצע יום מסחר סוער?","qEn":"What happens when a broker hikes House Maintenance Margin from 30% to 100% intraday?","optsHe":["העמלה יורדת","סוחרים שהיו בטוחים עם 45% בטוחה נכנסים מיד ל-Margin Call ומונזלים במחירי שוק","המסחר במניה נעצר בבורסה","השורט הופך לפוזיציה פטורה ממס"],"optsEn":["Fees drop","Traders who were safe at 45% equity immediately fall into Margin Deficit and face forced liquidation","The exchange halts trading","The short becomes tax-free"],"ans":1,"expHe":"העלאת House Margin באמצע היום היא אחד הזרזים החזקים ביותר ל-Short Squeeze, כי היא מאלצת שורטיסטים לסגור פוזיציות בבת אחת."},{"qHe":"איזה סוג פקודה נוצר בשוק כאשר מופעל Stop-Loss או חיסול Margin Call על פוזיציית שורט?","qEn":"What type of order hits the market when a short seller's Stop-Loss or Margin Call liquidation triggers?","optsHe":["פקודת מכירה (Sell Order)","פקודת קנייה (Buy Order) שלוקחת נזילות מה-Ask ומקפיצה את המחיר עוד יותר למעלה","פקודת דיבידנד","פקודה מבוטלת"],"optsEn":["A Sell Order","A Buy Order that sweeps the Ask and pushes the price even higher","A Dividend Order","A Canceled Order"],"ans":1,"expHe":"סגירת שורט (Buy to Cover) היא קנייה לכל דבר! לכן כל שורטיסט שנשבר הופך בעל כורחו לקונה אגרסיבי שמזין את העלייה."},{"qHe":"לפי תקנת Reg T בארה\"ב, מהי דרישת ה-Initial Margin הסטנדרטית בפתיחת פוזיציית שורט?","qEn":"Under US Regulation T, what is the standard Initial Margin requirement when opening a short sale?","optsHe":["10% בלבד","150% (100% תמורת המכירה בשורט + 50% הון עצמי נוסף כבטוחה)","500%","0%"],"optsEn":["10% only","150% (100% short sale proceeds + 50% additional equity collateral)","500%","0%"],"ans":1,"expHe":"Reg T דורש 150% בעת פתיחת השורט: כל תמורת המכירה ננעלת בחשבון פלוס 50% נוספים מההון העצמי של הסוחר."}]}];
+
+const CHAPTERS_3_5 = [{"id":3,"num":"03","titleHe":"המרות, אג\"ח להמרה ודילול","titleEn":"Convertibles, Warrants & Dilution","tagHe":"פרק 03 · הנדסה פיננסית ומלכודות","tagEn":"Chapter 03 · Financial Engineering","descHe":"ארביטראז' אג\"ח להמרה (Convertible Arbitrage), מימון רעיל (Death Spiral), ומדוע שורטיסטים שבונים על דילול מוורנטים נופלים למלכודת של Blockers ו-S-1 נעול!","descEn":"Convertible Arbitrage delta hedging, Death Spiral toxic financing, and why shorts betting on warrant dilution get trapped by 4.99% Blockers and locked S-1 filings.","learnHe":"\n      <div class=\"did-you-know\">🪤 <strong>הטעות שעולה לשורטיסטים ולונגיסטים מיליונים:</strong> לא כל מניה עם 30% שורט היא \"הימור שהחברה תקרוס\", ולא כל חברה עם 10 מיליון וורנטים בדוח יכולה לדלל את המניה היום! מי שלא מבין <strong>Convertibles, Blockers ו-S-1 Effect</strong> סוחר בעיניים עצומות.</div>\n      <div class=\"section-title\">🔄 1. ארביטראז' אג\"ח להמרה (Convertible Arbitrage — השורט הניטרלי)</div>\n      <p class=\"prose\">חברות ביומד, קריפטו וטכנולוגיה מנפיקות לעיתים קרובות <strong>אג\"ח להמרה (Convertible Senior Notes)</strong> לקרנות מוסדיות. הקרן שקנתה את האג\"ח מחזיקה למעשה באג\"ח + אופציית Call מובנית על המניה. כדי לנטרל את סיכון תנודת המניה ולהרוויח מהתנודתיות (Gamma) ומהקופון, הקרן מבצעת מיד <strong>שורט מגודר (Delta-Hedged Short)</strong> על מניית הבסיס!</p>\n      <div class=\"callout info\">\n        <strong>למה זה קריטי להבנה?</strong><br>\n        • <strong>מלכודת ללונגיסטים:</strong> סוחרים רואים <code>25% Short Interest</code> וחושבים \"הנה סקוויז קרוב!\". אבל אם 20% מתוכו שייך לקרנות Convertible Arbitrage — <strong>הן לעולם לא יקבלו Margin Call או Forced Buy-In</strong>, כי יש להן את האג\"ח להמרה ככיסוי מלא (Boxed / Covered Position)!<br>\n        • <strong>איך זה משפיע על המחיר?</strong> כשהמניה עולה, הדלתא של האג\"ח עולה והקרנות <em>מוכרות עוד בשורט</em> (מה שבולם עליות מתונות). כשהמניה יורדת, הדלתא יורדת והן <em>קונות חזרה שורט</em> (מה שתומך במחיר!).\n      </div>\n      <div class=\"section-title\">☠️ 2. Death Spiral Convertibles (מימון רעיל / ספירלת מוות)</div>\n      <p class=\"prose\">בחברות מיקרו-קאפ נואשות למזומן, קרנות \"מלווה של מוצא אחרון\" מעניקות הלוואות להמרה או מניות בכורה (Preferred Stock) עם <strong>מחיר המרה משתנה בדיסקאונט</strong> (למשל: <em>\"המרה לפי 80% ממחיר ה-VWAP הנמוך ביותר ב-10 הימים האחרונים\"</em>).</p>\n      <ul class=\"prose\">\n        <li><strong>מנגנון ההשמדה:</strong> ככל שמחיר המניה נמוך יותר — הקרן מקבלת <strong>יותר מניות</strong> תמורת אותו חוב! הקרן מוכרת בשורט אגרסיבי בשוק, מפילה את המחיר מ-$5 ל-$1, ממירה את החוב למיליוני מניות ב-$0.80 כדי לכסות את השורט שלה, ושוב מוכרת. זו עסקת החלומות של שורטיסטים שמצטרפים למגמת השחיקה.</li>\n      </ul>\n      <div class=\"section-title\">🪤 3. מלכודת ההמרה ההפוכה: כששורטיסט בונה על דילול ונתקע בסקוויז!</div>\n      <p class=\"prose\">שורטיסטים קוראים בדו\"ח הכספי (<code>10-Q / 424B5</code>) שלחברה יש 5 מיליון וורנטים (Warrants) במחיר מימוש $4.00. כשהמניה קופצת ל-$8.00, השורטיסט נכנס בכל הכוח בביטחון מוחלט: <em>\"מחזיקי הוורנטים ברווח 100%, הם ימירו עכשיו וירסקו את המניה!\"</em> — ואז המניה טסה ל-$25 והשורטיסט נמחק! <strong>למה הדילול לא הגיע?</strong></p>\n      <div class=\"grid-3\">\n        <div class=\"card\"><div class=\"card-icon\">🔒</div><div class=\"card-title\">מלכודת #1: S-1 אינו בתוקף</div><div class=\"card-body\">וורנטים שהונפקו ב-Private Placement (PIPE) מפיקים <strong>מניות חסומות (Restricted Shares)</strong>! עד שה-SEC לא מאשר את תשקיף ה-<code>S-1 / S-3 Resale</code> ומוציא הודעת <strong>Notice of Effectiveness (EFFECT)</strong> — אסור למחזיקים למכור בשוק!</div></div>\n        <div class=\"card\"><div class=\"card-icon\">🛑</div><div class=\"card-title\">מלכודת #2: Blocker של 4.99% / 9.99%</div><div class=\"card-body\">ברוב חוזי הוורנטים והאג\"ח יש סעיף <strong>Beneficial Ownership Blocker</strong> שאוסר על הקרן להחזיק מעל <code>4.99%</code> או <code>9.99%</code> מהחברה ברגע נתון. לכן היא לא יכולה להמיר הכל בבת אחת בפרה-מרקט.</div></div>\n        <div class=\"card\"><div class=\"card-icon\">🧮</div><div class=\"card-title\">מלכודת #3: Cashless Exercise</div><div class=\"card-body\">כשאין S-1 מאושר או כשמופעל סעיף <code>Cashless Exercise</code>, המחזיק מוותר על חלק מהמניות במקום לשלם מזומן לפי הנוסחה: <code>Shares × (Market - Strike) / Market</code>, מה שמקטין את כמות המניות שנכנסת לשוק.</div></div>\n      </div>\n\n      <div class=\"sim-box\">\n        <div class=\"sim-head\">\n          <div class=\"sim-title\">🔬 סימולטור #3: מנתח המרות, וורנטים, Blockers וסטטוס S-1</div>\n          <span class=\"sim-badge\">Dilution Trap Analyzer</span>\n        </div>\n        <div class=\"sim-body\">\n          <div class=\"sim-grid\">\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>מחיר מניה בשוק ($)</span><span class=\"sim-ctrl-val\" id=\"val-conv-mkt\">$14.00</span></div><input type=\"range\" id=\"sim-conv-mkt\" min=\"2\" max=\"30\" step=\"0.5\" value=\"14\" oninput=\"updateConvSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>מחיר המרה / מימוש וורנט ($)</span><span class=\"sim-ctrl-val\" id=\"val-conv-strike\">$8.00</span></div><input type=\"range\" id=\"sim-conv-strike\" min=\"2\" max=\"25\" step=\"0.5\" value=\"8\" oninput=\"updateConvSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>מגבלת Beneficial Blocker</span><span class=\"sim-ctrl-val\" id=\"val-conv-blocker\">4.99%</span></div><input type=\"range\" id=\"sim-conv-blocker\" min=\"4.99\" max=\"9.99\" step=\"5\" value=\"4.99\" oninput=\"updateConvSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>סטטוס רישום תשקיף SEC (S-1)</span></div>\n              <select id=\"sim-conv-s1\" onchange=\"updateConvSim()\">\n                <option value=\"locked\">🔒 PIPE נעול — טרם התקבל EFFECT ב-SEC</option>\n                <option value=\"effective\">✅ S-1 Effective — מניות רשומות למכירה</option>\n              </select>\n            </div>\n          </div>\n          <div class=\"sim-kpi-grid\">\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-conv-itm\">בכסף (ITM)</div><div class=\"sim-kpi-lbl\">מצב הוורנטים/אג\"ח</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-conv-maxblk\">249,500</div><div class=\"sim-kpi-lbl\">מקסימום למנה (Blocker)</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-conv-cashless\">1,285,714</div><div class=\"sim-kpi-lbl\">מניות ב-Cashless (מתוך 3M)</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-conv-supply\">נעול — 0 היצע!</div><div class=\"sim-kpi-lbl\">היצע זמין כרגע לשוק</div></div>\n          </div>\n          <div class=\"sim-alert\" id=\"sim-conv-alert\"></div>\n        </div>\n      </div>\n    ","learnEn":"\n      <div class=\"did-you-know\">🪤 <strong>The Dilution Mirage:</strong> Just because a company has 5 million In-The-Money warrants on its balance sheet does NOT mean those shares can hit the market today! Unregistered PIPE shares without an SEC <code>EFFECT</code> filing are locked tight.</div>\n      <div class=\"section-title\">🔄 Convertible Arbitrage vs Toxic Death Spirals</div>\n      <p class=\"prose\">Institutional convertible bondholders short the stock to stay <strong>Delta-Neutral</strong> — their short positions are fully covered by their bonds and cannot be squeezed like naked retail shorts. Conversely, variable-rate <strong>Death Spiral Convertibles</strong> convert at a fixed discount to the lowest recent VWAP, incentivizing relentless shorting and dilution.</p>\n    ","cheatHe":[{"l":"Convertible Arbitrage","t":"שורט מגודר (Delta-Hedged) של מחזיקי אג\"ח להמרה — <strong>חסין מ-Margin Call</strong> ומנפח את נתון ה-Short Interest."},{"l":"מלכודת PIPE ו-S-1 נעול","t":"וורנטים מהנפקה פרטית אינם ניתנים למכירה בשוק החופשי עד שה-SEC מפרסם הודעת <strong>EFFECT</strong> על תשקיף הרישום!"},{"l":"4.99% / 9.99% Blocker","t":"מגביל את כמות המניות שקרן יכולה להחזיק ברגע נתון ומונע המרה של כל החוב בבת אחת."}],"cheatEn":[{"l":"Convertible Arbitrage","t":"Delta-hedged short held against convertible bonds — immune to forced squeeze buy-ins."},{"l":"Unregistered PIPE Trap","t":"Private placement warrants cannot be dumped until an S-1/S-3 receives an SEC <strong>EFFECT</strong> notice."},{"l":"4.99% / 9.99% Blocker","t":"Caps instantaneous beneficial ownership during warrant/note conversions."}],"gameHe":[["Convertible Arbitrage","קניית אג\"ח להמרה ומכירה בשורט של המניה לגידור דלתא"],["Death Spiral Convertible","חוב להמרה לפי אחוז הנחה ממחיר השוק הנוכחי היוצר ספירלת דילול"],["SEC EFFECT Filing","האישור הרשמי שמאפשר למניות מתשקיף S-1 להימכר בשוק החופשי"],["4.99% Ownership Blocker","סעיף חוזי המונע ממחזיק וורנטים להמיר מעבר ל-4.99% ממניות החברה ברגע נתון"],["Cashless Exercise","מימוש וורנטים ללא תשלום מזומן תמורת קבלת כמות מניות מופחתת"]],"gameEn":[["Convertible Arbitrage","Buying convertible bonds while shorting common stock to hedge delta"],["Death Spiral Convertible","Variable-priced debt converting at a discount to falling market prices"],["SEC EFFECT Filing","Official SEC notice declaring an S-1 resale registration statement effective"],["4.99% Ownership Blocker","Clause preventing a holder from owning more than 4.99% of shares at once"],["Cashless Exercise","Net-share warrant exercise without paying cash strike price"]],"quiz":[{"qHe":"מדוע פוזיציות שורט של קרנות Convertible Arbitrage אינן נחשבות \"דלק לסקוויז\" כמו שורט רגיל?","qEn":"Why are Convertible Arbitrage short positions not considered classic \"squeeze fuel\"?","optsHe":["כי הקרנות פטורות מחוקי הבורסה","כי השורט מגודר לחלוטין על ידי אג\"ח להמרה שהקרן מחזיקה (Covered/Boxed), ולכן היא אינה חשופה להפסד בלתי מוגבל או Forced Buy-In","כי אסור להן לסחור במניות טכנולוגיה","כי הן מחזיקות רק אופציות Put"],"optsEn":["They are exempt from exchange rules","Their short is hedged by convertible bonds they own, protecting them from unlimited loss or forced buy-ins","They cannot trade tech stocks","They only hold Puts"],"ans":1,"expHe":"מחזיק האג\"ח להמרה מוגן בעליות כי שווי האג\"ח שלו עולה במקביל להפסד בשורט, והוא יכול להמיר את האג\"ח למניות כדי לכסות את השורט."},{"qHe":"לחברה יש 4 מיליון וורנטים מ-PIPE פרטי במחיר מימוש $3.00, והמניה נסחרת כעת ב-$9.00. איזה מסמך ב-SEC קובע אם המחזיקים יכולים למכור את המניות בשוק עכשיו?","qEn":"A company has 4M private PIPE warrants at $3.00 strike and the stock is at $9.00. Which SEC filing determines if those shares can be sold on the open market right now?","optsHe":["טופס 10-K מלפני שנתיים","הודעת EFFECT המאשרת שתשקיף ה-S-1 / S-3 לרישום המניות נכנס לתוקף","הודעת 8-K על מינוי דירקטור","טופס Form 4"],"optsEn":["Form 10-K from two years ago","An SEC EFFECT notice declaring the S-1/S-3 resale registration effective","An 8-K director appointment","Form 4"],"ans":1,"expHe":"ללא הודעת EFFECT על תשקיף הרישום (או עמידה בתקופת החסימה של Rule 144), המניות מהנפקה פרטית חסומות למכירה בבורסה!"},{"qHe":"מה המשמעות של סעיף Beneficial Ownership Blocker של 4.99% בחוזה וורנטים?","qEn":"What does a 4.99% Beneficial Ownership Blocker in a warrant agreement do?","optsHe":["גובה מס של 4.99% על כל מכירה","אוסר על המחזיק להמיר וורנטים אם כתוצאה מכך יחזיק ביותר מ-4.99% ממניות החברה באותו רגע","מגביל את מחיר המניה לעלייה של 4.99% ביום","מחייב את החברה לחלק דיבידנד של 4.99%"],"optsEn":["Taxes sales at 4.99%","Prevents the holder from converting warrants if it would push their ownership above 4.99% at any given moment","Caps daily stock gains at 4.99%","Forces a 4.99% dividend"],"ans":1,"expHe":"ה-Blocker מונע מהקרן להפוך לבעל עניין (מעל 5% מחייב דיווח 13D/13G) ומאלץ אותה להמיר ולמכור במנות מדורגות."},{"qHe":"כיצד פועל מנגנון Death Spiral Convertible (מימון רעיל)?","qEn":"How does a Death Spiral Convertible work?","optsHe":["מחיר ההמרה קבוע וגבוה ב-200% ממחיר השוק","מחיר ההמרה מוצמד בהנחה קבועה (למשל 20% הנחה) למחיר השוק הנוכחי — ככל שהמניה יורדת, המלווה מקבל יותר מניות ומדלל את החברה למוות","החברה קונה חזרה מניות מהשוק","האג\"ח משלם ריבית רק אם המניה עולה"],"optsEn":["Fixed conversion price 200% above market","Conversion price resets at a discount to falling market prices — the lower the stock drops, the more shares the lender gets","The company buys back shares","Only pays interest if stock rises"],"ans":1,"expHe":"ככל שמחיר המניה יורד, אותו סכום חוב מומר לכמות אדירה יותר של מניות, מה שיוצר היצע אינסופי שמרסק את המניה."},{"qHe":"במימוש Cashless Exercise של 1,000,000 וורנטים עם מחיר מימוש $5 כאשר מחיר המניה בשוק הוא $10, כמה מניות יונפקו?","qEn":"In a standard Cashless Exercise of 1,000,000 warrants with a $5 strike when the stock price is $10, how many shares are issued?","optsHe":["1,000,000 מניות","500,000 מניות — לפי הנוסחה 1,000,000 × (10 - 5) / 10","2,000,000 מניות","0 מניות"],"optsEn":["1,000,000 shares","500,000 shares — per formula 1,000,000 × (10 - 5) / 10","2,000,000 shares","0 shares"],"ans":1,"expHe":"ב-Cashless Exercise המחזיק לא משלם את ה-$5 במזומן לחברה, אלא מוותר על מניות בשווי עלות המימוש ($5/$10 = חצי מהמניות) ומקבל 500,000 מניות נטו."}]},{"id":4,"num":"04","titleHe":"Float, SI% ו-Days to Cover","titleEn":"Float, SI% & Days to Cover","tagHe":"פרק 04 · המלכודות המספריות","tagEn":"Chapter 04 · Quantitative Traps","descHe":"ההבדל הקריטי בין Outstanding Shares ל-Effective Float, איחור הדיווח של FINRA, ומדוע Days to Cover חשוב פי 10 מאחוז השורט לבדו.","descEn":"The critical difference between Outstanding Shares and Effective Tradable Float, FINRA reporting lag, and why Days to Cover (DTC) rules supreme.","learnHe":"\n      <div class=\"did-you-know\">📊 <strong>אשליית ה-Float:</strong> באתרים חינמיים כתוב שה-Float של מניה הוא 15 מיליון מניות. אבל אם 12 מיליון מתוכן מוחזקות על ידי 3 קרנות הון-סיכון ובעלי עניין שלא מוכרים — <strong>ה-Effective Float האמיתי הוא 3 מיליון בלבד!</strong></div>\n      <div class=\"section-title\">🧅 3 שכבות המניות: Outstanding מול Float מול Effective Float</div>\n      <div class=\"table-wrap\"><table class=\"data-table\">\n        <thead><tr><th>מונח</th><th>מה הוא כולל?</th><th>הסכנה לשורטיסט</th></tr></thead>\n        <tbody>\n          <tr><td><strong>Total Shares Outstanding (TSO)</strong></td><td>כל המניות שהחברה הנפיקה (כולל מייסדים, מנכ\"ל וקרנות חסומות).</td><td>שימוש ב-TSO לחישוב אחוז שורט גורם לנתון להיראות קטן ומטעה.</td></tr>\n          <tr><td><strong>Public Float</strong></td><td>TSO פחות מניות חסומות רשמית של Insiders ובעלי שליטה מעל 10%.</td><td>עדיין כולל קרנות גידור/מוסדיים \"דביקים\" (13F/13G) שלא סוחרים יומית.</td></tr>\n          <tr><td><strong>Effective Tradable Float</strong></td><td>המניות שבאמת זזות בבורסה ביום-יום.</td><td>כשהשורט מגיע ל-50%+ מה-Effective Float — דלת היציאה צרה בצורה קיצונית!</td></tr>\n        </tbody>\n      </table></div>\n      <div class=\"section-title\">⏱️ Short Interest % מול Days to Cover (DTC)</div>\n      <p class=\"prose\">סוחרים מתחילים מסתכלים רק על <code>Short Interest % of Float (SI%)</code>. סוחרים מקצועיים מסתכלים על השילוב של <strong>SI% + Days to Cover (DTC)</strong>:</p>\n      <pre><code>Days to Cover (DTC) = Total Shorted Shares / Average Daily Trading Volume</code></pre>\n      <div class=\"callout danger\">\n        <strong>השוואה שמצילה תיקים:</strong><br>\n        • <strong>מניה א׳:</strong> שורט של <code>30%</code> מה-Float (3 מיליון מניות), אבל מחזור יומי ממוצע של <strong>30 מיליון מניות</strong> ← <code>DTC = 0.1 ימים</code>. השורטיסטים יכולים להתכסות תוך 35 דקות מסחר!<br>\n        • <strong>מניה ב׳:</strong> שורט של <code>18%</code> מה-Float (4 מיליון מניות), אבל מחזור יומי ממוצע של <strong>400 אלף מניות בלבד</strong> ← <code>DTC = 10 ימים!</code> אם תצא הודעה חיובית, לשורטיסטים ייקח <strong>שבועיים שלמים של 100% ממחזור המסחר</strong> רק כדי לקנות חזרה! זו חבית חומר נפץ.\n      </div>\n      <div class=\"section-title\">📡 פיגור הדיווח של FINRA מול נתוני זמן אמת (Utilization 100%)</div>\n      <ul class=\"prose\">\n        <li><strong>איחור FINRA:</strong> בורסות ארה\"ב ו-FINRA מפרסמות את נתון ה-Short Interest הרשמי רק <strong>פעמיים בחודש</strong>, ובאיחור של כ-8–10 ימים ממועד הסליקה! לסמוך על נתון FINRA במניה תנודתית זה כמו לנהוג ב-150 קמ\"ש תוך הסתכלות במראה האחורית בלבד.</li>\n        <li><strong>Utilization (ניצולת מאגר ההשאלה):</strong> אחוז המניות המושאלות מתוך סך המניות שהמוסדיים העמידו להשאלה. כש-<code>Utilization = 100%</code> — אין יותר מניות להשאלה אצל ה-Prime Brokers, וה-CTB מתחיל להמריא אקספוננציאלית.</li>\n      </ul>\n    ","learnEn":"\n      <div class=\"did-you-know\">📊 <strong>The Float Illusion:</strong> Free websites might show a 15M share float, but if 12M shares are locked in sticky 13G funds, the <strong>Effective Tradable Float is only 3M shares!</strong></div>\n      <div class=\"section-title\">⏱️ Why Days to Cover (DTC) Beats Raw Short Interest %</div>\n      <pre><code>Days to Cover (DTC) = Total Short Shares / Average Daily Volume</code></pre>\n      <p class=\"prose\">A stock with 18% SI and a <strong>10-day DTC</strong> is far more explosive than a stock with 30% SI that trades 10x its float every day (0.1 DTC). Also remember that official FINRA Short Interest is reported only twice a month with a ~10-day lag.</p>\n    ","cheatHe":[{"l":"Effective Float","t":"המניות החופשיות באמת בניכוי מוסדיים \"דביקים\" ובעלי עניין — לרוב קטן בהרבה מה-Float הרשמי."},{"l":"Days to Cover (DTC)","t":"<code>מניות בשורט / מחזור יומי ממוצע</code>. מעל 5–8 ימים = דלת יציאה צרה מאוד ומלכודת נזילות."},{"l":"100% Utilization","t":"100% ממאגר המניות להשאלה מנוצל — סימן מקדים לזינוק ב-CTB ול-Share Recalls."}],"cheatEn":[{"l":"Effective Float","t":"Truly liquid shares after removing sticky 13F/13G funds and insiders."},{"l":"Days to Cover (DTC)","t":"<code>Short Shares / Avg Daily Volume</code>. DTC > 5–8 days signals severe exit illiquidity."},{"l":"100% Utilization","t":"All lendable shares are borrowed — precursor to CTB spikes and recalls."}],"gameHe":[["Effective Float","כמות המניות הסחירות בפועל בניכוי אחזקות נעולות או דביקות"],["Days to Cover (DTC)","מספר ימי המסחר הממוצעים שיידרשו לכיסוי כל פוזיציות השורט"],["Utilization 100%","מצב שבו כל המניות הזמינות להשאלה אצל הברוקרים כבר נתפסו"],["FINRA Reporting Lag","עיכוב של כשבועיים בדיווח הרשמי של נתוני השורט בבורסה"],["Total Shares Outstanding","סך כל המניות שהחברה הנפיקה כולל מניות חסומות של מייסדים"]],"gameEn":[["Effective Float","Actual liquid shares trading daily excluding sticky institutional locks"],["Days to Cover (DTC)","Shorted shares divided by average daily trading volume"],["Utilization 100%","100% of available lendable supply is currently borrowed"],["FINRA Reporting Lag","Bi-weekly delay in official exchange short interest publication"],["Total Shares Outstanding","All issued shares including restricted insider holdings"]],"quiz":[{"qHe":"באיזו מהמניות הבאות לשורטיסטים יהיה קשה ומסוכן הרבה יותר לצאת מהפוזיציה במקרה של חדשות חיוביות?","qEn":"In which stock will short sellers face a much narrower and more dangerous exit door on positive news?","optsHe":["מניה עם 25% שורט ו-Days to Cover של 0.2 ימים","מניה עם 20% שורט ו-Days to Cover של 11 ימים","מניה עם 5% שורט ומחזור ענק","תעודת סל SPY"],"optsEn":["25% SI with 0.2 Days to Cover","20% SI with 11 Days to Cover","5% SI with huge volume","SPY ETF"],"ans":1,"expHe":"Days to Cover של 11 ימים אומר שכמות המניות בשורט גדולה פי 11 מהמחזור היומי הממוצע — אם כולם ינסו לקנות יחד, לא יהיו מוכרים בספר הפקודות!"},{"qHe":"באיזו תדירות מפרסמת FINRA את נתוני ה-Short Interest הרשמיים בארה\"ב?","qEn":"How often does FINRA publish official Short Interest data in the US?","optsHe":["כל דקה בזמן אמת","פעמיים בחודש בלבד (דו-שבועי) ובאיחור של כ-8 עד 10 ימים מתאריך הסליקה","פעם בשנה","בכל סוף יום מסחר ב-16:00"],"optsEn":["Every minute in real time","Only twice a month with an 8–10 day reporting lag","Once a year","Every day at 4:00 PM"],"ans":1,"expHe":"נתון ה-Short Interest הרשמי מפורסם רק פעמיים בחודש ובאיחור משמעותי, ולכן סוחרים נעזרים במערכות אומדן יומיות כגון Ortex ו-S3."},{"qHe":"מה המשמעות של Utilization = 100% במניה?","qEn":"What does 100% Utilization mean for a stock?","optsHe":["החברה מנצלת 100% מהמזומן שלה","100% מהמניות שגופים מוסדיים העמידו להשאלה כבר מושאלות כרגע — אין היצע פנוי להשאלה חדשה","100% מהסוחרים נמצאים ברווח","המניה עלתה ב-100%"],"optsEn":["Company used 100% of its cash","100% of lendable shares in prime broker pools are currently borrowed","100% of traders are profitable","Stock rose 100%"],"ans":1,"expHe":"כש-Utilization מגיע ל-100%, כל ביקוש נוסף לשורט מקפיץ את עמלת ה-CTB ומעלה דרמטית את הסיכון ל-Share Recalls."},{"qHe":"מהו ההבדל בין Public Float לבין Effective Tradable Float?","qEn":"What is the difference between Public Float and Effective Tradable Float?","optsHe":["אין הבדל","Effective Float מנכה גם אחזקות של קרנות ארוכות טווח/אסטרטגיות שאינן סוחרות ביומיום, ולכן מייצג את ההיצע האמיתי בספר הפקודות","Effective Float תמיד גדול פי 2 מ-Public Float","Public Float כולל רק אופציות"],"optsEn":["No difference","Effective Float subtracts sticky institutional/strategic holders who do not trade intraday, showing true order-book supply","Effective Float is 2x larger","Public Float only counts options"],"ans":1,"expHe":"כשרוב ה-Public Float מוחזק על ידי קרנות שלא מוכרות, כמות המניות שבאמת נסחרת בבורסה (Effective Float) זעירה ועלולה להוביל לסקוויז אלים."},{"qHe":"אם במניה יש 2,000,000 מניות בשורט והמחזור היומי הממוצע שלה הוא 250,000 מניות, מהו ה-Days to Cover שלה?","qEn":"If a stock has 2,000,000 shares shorted and an average daily volume of 250,000 shares, what is its Days to Cover?","optsHe":["0.125 ימים","8 ימים","2 ימים","25 ימים"],"optsEn":["0.125 days","8 days","2 days","25 days"],"ans":1,"expHe":"2,000,000 חלקי 250,000 = 8 ימי מסחר מלאים."}]},{"id":5,"num":"05","titleHe":"Short & Gamma Squeeze","titleEn":"Short & Gamma Squeeze","tagHe":"פרק 05 · אנטומיה של פיצוץ","tagEn":"Chapter 05 · Squeeze Cascade","descHe":"5 שלבי מפל ה-Short Squeeze, איך אופציות Call יוצרות Gamma Squeeze שמכריח עושי שוק לקנות מניות בכל מחיר, וניתוח מקרי האמת של פולקסווגן 2008 ו-GameStop 2021.","descEn":"The 5 stages of a Short Squeeze cascade, how OTM Call options trigger a Market Maker Gamma Squeeze loop, and the VW 2008 & GME 2021 case studies.","learnHe":"\n      <div class=\"did-you-know\">🚀 <strong>למה Short Squeeze נראה כמו טיל אנכי?</strong> כי בניגוד לעלייה רגילה שבה קונים מחפשים מניה זולה, ב-Squeeze הקונים הם <strong>קונים כפויים (Forced Buyers)</strong> — שורטיסטים בחיסול כפוי ועושי שוק באופציות שחייבים לקנות <em>בכל מחיר, בזה הרגע</em>!</div>\n      <div class=\"section-title\">⛓️ 5 השלבים של מפל ה-Short Squeeze (The Cascade)</div>\n      <ol class=\"prose\">\n        <li><strong>שלב 1 — הניצוץ (Catalyst & Float Lock):</strong> הודעה חיובית או זיהוי שמלאי המניות החופשיות (Effective Float) נעול ו-Utilization עומד על 100%.</li>\n        <li><strong>שלב 2 — חציית קו הכאב (Breaking the Pain Line):</strong> המניה פורצת את ה-Anchored VWAP ואת הגבוה הרב-יומי. 80%+ מהשורטיסטים עוברים להפסד.</li>\n        <li><strong>שלב 3 — אשד פקודות Stop-Loss (Buy-Stop Sweep):</strong> פקודות ההגנה של שורטיסטים מעל ההתנגדות מתבצעות כפקודות <code>Buy Market</code> שמנקות את צד ה-Ask בספר הפקודות.</li>\n        <li><strong>שלב 4 — הקפצת House Margin, Margin Calls ו-Forced Buy-Ins:</strong> הברוקרים מעלים דרישות בטוחה ל-100%–300% ושולחים פקודות קנייה אוטומטיות בשם הלקוחות.</li>\n        <li><strong>שלב 5 — ואקום נזילות (Order Book Vacuum):</strong> המוכרים הרגילים מושכים את פקודות המכירה שלהם כי הם רואים את המניה טסה, ונוצר \"כיס אוויר\" שבו המניה קופצת דולרים שלמים בין עסקה לעסקה!</li>\n      </ol>\n      <div class=\"section-title\">⚡ מנוע הטורבו: איך עובד Gamma Squeeze באופציות?</div>\n      <p class=\"prose\">כשסוחרים קונים בהמוניהם אופציות <strong>Call מחוץ לכסף (OTM Calls)</strong> לטווח קצר, הצד השני של העסקה הוא לרוב <strong>עושה שוק (Market Maker)</strong> שמכר להם את האופציה. עושה השוק אינו מהמר על כיוון — הוא חייב להישאר ניטרלי (<strong>Delta-Neutral</strong>)!</p>\n      <div class=\"callout danger\">\n        <strong>לולאת המשוב של הדלתא והגאמא (Delta-Gamma Feedback Loop):</strong><br>\n        1. סוחר קונה אופציית Call בסטרייק $20 כשהמניה ב-$12 (<code>Delta = 0.15</code>). עושה השוק קונה <strong>15 מניות</strong> על כל חוזה כדי לגדר את עצמו.<br>\n        2. המניה עולה ל-$18! בגלל ה-<strong>Gamma</strong> (קצב שינוי הדלתא), הדלתא של האופציה מזנקת מ-0.15 ל-<code>0.60</code>.<br>\n        3. עכשיו עושה השוק <strong>חייב לקנות מיד עוד 45 מניות</strong> בשוק על כל חוזה! הקנייה של עושה השוק דוחפת את המניה ל-$22, הדלתא עולה ל-<code>0.90</code>, והוא חייב לקנות עוד 30 מניות! שני מנועי קנייה כפויים (שורטיסטים + עושי שוק) מתנגשים בתוך Float נעול!\n      </div>\n      <div class=\"section-title\">🏛️ מקרי אמת היסטוריים: Volkswagen 2008 ו-GameStop 2021</div>\n      <div class=\"grid-2\">\n        <div class=\"card\"><div class=\"card-icon\">🚗</div><div class=\"card-title\">Volkswagen (אוקטובר 2008)</div><div class=\"card-body\">שורט שנראה סולידי: רק <code>12.8%</code> מסך המניות היו בשורט. אבל ממשלת סקסוניה החזיקה 20%, וברגע שפורשה חשפה ביום ראשון שהיא מחזיקה 42.6% במניות ועוד 31.5% באופציות — <strong>ה-Free Float האמיתי בשוק צנח ל-5.8% בלבד מול 12.8% שורט!</strong> פולקסווגן זינקה מ-€210 ל-€1,005 ביומיים והפכה לחברה היקרה בעולם!</div></div>\n        <div class=\"card\"><div class=\"card-icon\">🎮</div><div class=\"card-title\">GameStop — GME (ינואר 2021)</div><div class=\"card-body\">קרנות גידור (כמו Melvin Capital) מכרו בשורט מעל <code>140%</code> מה-Float הציבורי! שילוב של נעילת מניות קמעונאית עם קנייה מאסיבית של אופציות OTM Call יצר <strong>Short + Gamma Squeeze</strong> שהטיס את המניה מ-$4 ל-$483 ומחק מיליארדי דולרים לקרנות שורט.</div></div>\n      </div>\n\n      <div class=\"sim-box\">\n        <div class=\"sim-head\">\n          <div class=\"sim-title\">🚀 סימולטור #4: מחולל מפל Short + Gamma Squeeze</div>\n          <span class=\"sim-badge\">Cascade Simulator</span>\n        </div>\n        <div class=\"sim-body\">\n          <div class=\"sim-grid\">\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>Effective Float סחיר (מיליונים)</span><span class=\"sim-ctrl-val\" id=\"val-sqz-float\">2.5M</span></div><input type=\"range\" id=\"sim-sqz-float\" min=\"0.5\" max=\"15\" step=\"0.5\" value=\"2.5\" oninput=\"updateSqzSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>אחוז שורט מה-Float (SI%)</span><span class=\"sim-ctrl-val\" id=\"val-sqz-si\">38%</span></div><input type=\"range\" id=\"sim-sqz-si\" min=\"5\" max=\"120\" step=\"1\" value=\"38\" oninput=\"updateSqzSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>חוזי Call שנרכשו (אלפים)</span><span class=\"sim-ctrl-val\" id=\"val-sqz-calls\">45K contracts</span></div><input type=\"range\" id=\"sim-sqz-calls\" min=\"0\" max=\"100\" step=\"5\" value=\"45\" oninput=\"updateSqzSim()\"></div>\n            <div class=\"sim-ctrl\"><div class=\"sim-ctrl-top\"><span>מחזור יומי ממוצע רגיל (מיליונים)</span><span class=\"sim-ctrl-val\" id=\"val-sqz-vol\">0.8M</span></div><input type=\"range\" id=\"sim-sqz-vol\" min=\"0.2\" max=\"10\" step=\"0.2\" value=\"0.8\" oninput=\"updateSqzSim()\"></div>\n          </div>\n          <div class=\"sim-kpi-grid\">\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-sqz-shorts\">0.95M</div><div class=\"sim-kpi-lbl\">מניות בשורט לכיסוי</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-sqz-dtc\">1.2d</div><div class=\"sim-kpi-lbl\">Days to Cover (DTC)</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-sqz-gamma\">2.48M</div><div class=\"sim-kpi-lbl\">קניית גידור דלתא (MM)</div></div>\n            <div class=\"sim-kpi\"><div class=\"sim-kpi-val\" id=\"kpi-sqz-ratio\">137%</div><div class=\"sim-kpi-lbl\">ביקוש כפוי מתוך ה-Float!</div></div>\n          </div>\n          <div class=\"sim-alert\" id=\"sim-sqz-alert\"></div>\n        </div>\n      </div>\n    ","learnEn":"\n      <div class=\"did-you-know\">🚀 <strong>Why Squeezes Go Vertical:</strong> In a squeeze, buyers are not value investors — they are <strong>price-insensitive forced buyers</strong> (liquidated shorts + delta-hedging options Market Makers)!</div>\n      <div class=\"section-title\">⚡ The Short + Gamma Squeeze Feedback Loop</div>\n      <p class=\"prose\">When traders buy OTM Call options, Market Makers who sold those calls must buy underlying shares to stay <strong>Delta-Neutral</strong>. As price rises, <strong>Gamma</strong> increases the option's Delta toward 1.00, forcing Market Makers to buy even more shares right as shorts are getting Margin Called (as seen in Volkswagen 2008 and GME 2021).</p>\n    ","cheatHe":[{"l":"Forced Buyers","t":"שורטיסטים ב-Margin Call ועושי שוק ב-Delta Hedging קונים <strong>ללא רגישות למחיר</strong> (Market Orders)."},{"l":"Gamma Squeeze","t":"עליית מחיר המניה מעלה את ה-Delta של אופציות Call ומכריחה את עושי השוק לקנות עוד מניות בסיס."},{"l":"לקח פולקסווגן 2008","t":"גם 12.8% שורט יכול להפוך לסקוויז היסטורי אם ה-<strong>Free Float האמיתי</strong> ננעל מתחת ל-6%!"}],"cheatEn":[{"l":"Forced Buyers","t":"Margin-called shorts and delta-hedging Market Makers buy via price-insensitive market orders."},{"l":"Gamma Squeeze","t":"Rising stock price increases Call option Delta, forcing MMs to buy more underlying stock."},{"l":"VW 2008 Lesson","t":"Even 12.8% SI caused a 400% squeeze because Porsche locked the effective free float below 6%."}],"gameHe":[["Gamma Squeeze","קנייה כפויה של מניות על ידי עושי שוק כדי לגדר אופציות Call שהדלתא שלהן עולה"],["Delta Hedging","קנייה או מכירה של נכס הבסיס על ידי עושה שוק כדי להישאר ניטרלי לכיוון המחיר"],["Order Book Vacuum","התרוקנות צד המוכרים (Ask) בספר הפקודות הגורמת לקפיצות מחיר חדות"],["Volkswagen Squeeze 2008","סקוויז היסטורי שנגרם כאשר פורשה נעלה בסתר מעל 94% מהמניות מול 12.8% שורט"],["Buy-Stop Cascade","הפעלת שרשרת של פקודות Stop-Loss של שורטיסטים מעל רמת התנגדות"]],"gameEn":[["Gamma Squeeze","Forced stock buying by Market Makers hedging rising Call option delta"],["Delta Hedging","Buying/selling underlying shares to keep an options book market-neutral"],["Order Book Vacuum","When sellers pull Ask orders, causing vertical air-pocket price jumps"],["Volkswagen Squeeze 2008","Historic squeeze where <6% free float remained against 12.8% short interest"],["Buy-Stop Cascade","Chain reaction of short stop-loss market buy orders above resistance"]],"quiz":[{"qHe":"מדוע עושי שוק (Market Makers) קונים מניות בזמן Gamma Squeeze?","qEn":"Why do options Market Makers buy shares during a Gamma Squeeze?","optsHe":["כי הם רוצים להמר שהמניה תעלה","כי הם מכרו אופציות Call לסוחרים, וכשהמניה עולה ה-Delta של האופציות גדלה והם חייבים לקנות מניות כדי להישאר Delta-Neutral","כי ה-SEC מחייב אותם לקנות","כדי לחלק דיבידנד"],"optsEn":["They want to gamble on upside","They sold Call options, and as stock price rises, option Delta increases so they must buy shares to stay Delta-Neutral","The SEC forces them","To collect dividends"],"ans":1,"expHe":"עושה שוק שמכר אופציית Call חשוף לעליית המניה. ככל שהמניה עולה והאופציה מתקרבת לכסף (בגלל ה-Gamma), ה-Delta עולה לכיוון 100 מניות לחוזה ועושה השוק חייב לקנות אותן בשוק."},{"qHe":"מה היה הגורם המרכזי ל-Short Squeeze האדיר במניית פולקסווגן (VW) בשנת 2008 למרות שאחוז השורט היה רק 12.8%?","qEn":"What caused the massive 2008 Volkswagen short squeeze despite Short Interest being only 12.8%?","optsHe":["החברה גילתה זהב","פורשה וממשלת סקסוניה נעלו יחד מעל 94% ממניות החברה, כך שנשארו פחות מ-6% מניות חופשיות בשוק מול 12.8% שורט","ה-CTB היה 0%","הבורסה נסגרה לחודש"],"optsEn":["They discovered gold","Porsche and Lower Saxony locked up >94% of shares, leaving <6% free float for 12.8% shorts to cover","CTB was 0%","Market closed for a month"],"ans":1,"expHe":"כשכמות המניות בשורט (12.8%) הייתה כפולה מכל המניות החופשיות שנותרו בשוק (<6%), מתמטית לא היו מספיק מניות כדי שכל השורטיסטים יסגרו!"},{"qHe":"מהו \"Order Book Vacuum\" (ואקום בספר הפקודות) בזמן Short Squeeze?","qEn":"What is an \"Order Book Vacuum\" during a Short Squeeze?","optsHe":["מצב שבו אין קונים במניה","מצב שבו מוכרים מושכים את פקודות ה-Limit Sell שלהם בזמן שפקודות Buy Market כפויות מנקות את ספר הפקודות ומקפיצות את המחיר אנכית","תקלה בשרתי הבורסה","איפוס עמלות הברוקר"],"optsEn":["No buyers in the stock","Sellers pull Limit Sell orders while forced Market Buy orders sweep thin Ask liquidity","Exchange server crash","Zero broker fees"],"ans":1,"expHe":"כשקונים כפויים חייבים לקנות בכל מחיר (Market Buy) ואין פקודות מכירה קרובות ב-Level 2, המחיר מדלג מדרגות שלמות בשניות."},{"qHe":"כמה מניות מייצג חוזה אופציית Call סטנדרטי אחד בארה\"ב כאשר הדלתא שלו מגיעה ל-1.00 (עמוק בכסף)?","qEn":"How many underlying shares does 1 standard US Call option contract represent when its Delta reaches 1.00?","optsHe":["10 מניות","100 מניות","1,000 מניות","מניה אחת"],"optsEn":["10 shares","100 shares","1,000 shares","1 share"],"ans":1,"expHe":"כל חוזה אופציה סטנדרטי מייצג 100 מניות. לכן 50,000 חוזי Call שנכנסים לכסף מחייבים גידור של עד 5,000,000 מניות!"},{"qHe":"מה קורה לדלתא (Delta) של אופציית Call מחוץ לכסף (OTM) כאשר מחיר המניה מזנק בחדות לכיוון מחיר המימוש?","qEn":"What happens to the Delta of an Out-of-the-Money (OTM) Call option when the stock price surges toward the strike price?","optsHe":["הדלתא יורדת ל-0","הדלתא עולה בחדות (בגלל ה-Gamma), מה שמחייב את עושה השוק לקנות עוד מניות בסיס","הדלתא הופכת לשלילית","הדלתא לא משתנה לעולם"],"optsEn":["Delta drops to 0","Delta rises sharply (due to Gamma), forcing the Market Maker to buy more shares","Delta turns negative","Delta never changes"],"ans":1,"expHe":"Gamma מודדת את קצב השינוי של ה-Delta. כשהמניה מתקרבת לסטרייק, הגאמא בשיאה והדלתא מזנקת, מה שמייצר קנייה כפויה מואצת."}]}];
+
+const CHAPTERS_6_9 = [{"id":6,"num":"06","titleHe":"מלכודות שורט במיקרו-קאפ","titleEn":"Micro-Cap Short Traps","tagHe":"פרק 06 · המלכודות שמוחקות תיקים","tagEn":"Chapter 06 · Deadly Micro-Cap Traps","descHe":"מלכודת ה-Baby Shelf (מגבלת גיוס 1/3), מלכודת ה-Reverse Split (איחוד הון שנועל Float זעיר), הפסקות מסחר (LULD Halts), וגאפים בפרה-מרקט ללא הגנה.","descEn":"The Baby Shelf S-3 trap, Post-Reverse Split float lock traps, LULD Volatility Halts, and Pre-Market / After-Hours illiquidity.","learnHe":"\n      <div class=\"did-you-know\">💣 <strong>למה 90% ממחיקות התיקים של שורטיסטים קורות במניות Micro-Cap (שווי שוק מתחת ל-$50M)?</strong> כי שורטיסטים מניחים ש\"כל חברה קטנה תנפיק מניות עוד מעט וותרסק\" — בלי להכיר את <strong>4 המלכודות הרגולטוריות והמבניות</strong> שמונעות מהחברה להנפיק!</div>\n      <div class=\"section-title\">🪤 מלכודת #1: חוק ה-Baby Shelf (Form S-3 Instruction I.B.6)</div>\n      <p class=\"prose\">שורטיסט רואה שלחברה יש תשקיף מדף פעיל (<strong>Shelf Registration S-3</strong>) על סך $100 מיליון, ובטוח שהחברה תמכור מניות ב-ATM (At-The-Market) ותפיל את המחיר. <strong>אבל הוא שכח לבדוק את כלל ה-Baby Shelf של ה-SEC!</strong></p>\n      <div class=\"callout danger\">\n        <strong>מה אומר חוק ה-Baby Shelf?</strong><br>\n        אם שווי המניות הציבוריות של החברה (Public Float Market Cap) נמוך מ-<strong>$75 מיליון</strong>, החברה רשאית לגייס לכל היותר <strong>שליש (1/3) משווי ה-Float שלה ב-12 חודשים!</strong><br>\n        אם החברה כבר ניצלה את תקרת ה-1/3 שלה בחודש שעבר — <strong>ה-ATM וה-S-3 שלה משותקים לחלוטין!</strong> אסור לה חוקית למכור אפילו מניה אחת עד שה-Float שלה יעלה מעל $75M. השורטיסט שמחכה להנפקה נלכד בסקוויז אלים ללא שום מוכר מהחברה!\n      </div>\n      <div class=\"section-title\">🪤 מלכודת #2: מלכודת איחוד ההון (Post-Reverse Split Float Lock)</div>\n      <p class=\"prose\">חברה שנמצאת מתחת ל-$1.00 מבצעת <strong>Reverse Split (איחוד הון)</strong> ביחס של <code>1-ל-25</code> כדי לעמוד בתנאי הסף של נאסד\"ק. שורטיסטים מתים על שורט אחרי איחוד הון — אבל בימים הראשונים אחרי ה-Reverse Split מתרחשים 3 דברים קטלניים:</p>\n      <ul class=\"prose\">\n        <li><strong>צניחת ה-Float למימדים מיקרוסקופיים:</strong> Float של 10 מיליון מניות הופך פתאום ל-<strong>400,000 מניות בלבד!</strong> קרן אחת או קבוצת סוחרים קונה 200 אלף מניות ונועלת את כל סחורת השוק.</li>\n        <li><strong>החלפת מספר CUSIP ועיכוב במערכות הברוקרים:</strong> בזמן החלפת ה-CUSIP, מניות רבות של מחזיקים קיימים מוקפאות זמנית בארגון מחדש (Reorg), ולכן אין מוכרים ואין השאלות!</li>\n        <li><strong>עיגול שברי מניות כלפי מעלה (Round-Up Arbitrage):</strong> חברות שמעגלות שברי מניות כלפי מעלה יוצרות ביקוש טכני ומנעול היצע ביום האקס של האיחוד.</li>\n      </ul>\n      <div class=\"section-title\">🪤 מלכודת #3: הפסקות מסחר לתנודתיות (LULD Halts) ו-Pre-Market</div>\n      <div class=\"grid-2\">\n        <div class=\"card\"><div class=\"card-icon\">⏸️</div><div class=\"card-title\">מלכודת ה-LULD Halt</div><div class=\"card-body\">כאשר מניה מזנקת מהר מדי (למשל 10%–20% ב-5 דקות), הבורסה עוצרת את המסחר ל-5 דקות (<code>Code M / LULD Pause</code>). שורטיסט שנכנס שניה לפני ה-Halt ב-$6.00 עם פקודת Stop-Market ב-$6.50 מגלה שהמניה נפתחת מה-Halt ב-<strong>Gap ישיר ל-$11.50</strong> — הפקודה שלו מתבצעת ב-$11.50 עם <strong>Slippage קטלני של 90%</strong>!</div></div>\n        <div class=\"card\"><div class=\"card-icon\">🌙</div><div class=\"card-title\">מלכודת ה-Pre-Market / After-Hours</div><div class=\"card-body\">בשעות שלפני פתיחת המסחר (04:00–09:30) ואחרי הסגירה (16:00–20:00) <strong>אין הפסקות מסחר LULD!</strong> ספר הפקודות דליל פי 20, והמניה יכולה לקפוץ מ-$3 ל-$28 בדקות ספורות על ידי אלגוריתמים שמזהים שורטיסטים לכודים.</div></div>\n      </div>\n    ","learnEn":"\n      <div class=\"did-you-know\">💣 <strong>Why Micro-Caps Wipe Out Short Sellers:</strong> Shorts assume every small-cap bounce will instantly be diluted by an offering — ignoring regulatory caps like the <strong>SEC Baby Shelf Rule</strong>!</div>\n      <div class=\"section-title\">🪤 The Baby Shelf Trap, Reverse Splits & LULD Halts</div>\n      <ul class=\"prose\">\n        <li><strong>Baby Shelf Rule (S-3 Instruction I.B.6):</strong> Companies with public float under $75M can only raise <strong>1/3 of their float</strong> over 12 months via S-3/ATM. Once maxed out, they cannot dilute!</li>\n        <li><strong>Reverse Split Trap:</strong> A 1-for-25 reverse split shrinks a 10M float to just 400,000 shares while changing the CUSIP and freezing broker shares in reorganization.</li>\n        <li><strong>LULD Halts & Extended Hours:</strong> During a Limit-Up Limit-Down halt, a $6 stock can reopen at $11.50, filling Stop-Market orders at catastrophic slippage. In Pre-Market/After-Hours, there are <strong>no LULD halts at all</strong>!</li>\n      </ul>\n    ","cheatHe":[{"l":"חוק ה-Baby Shelf","t":"חברה עם Float מתחת ל-<strong>$75M</strong> מוגבלת לגיוס של עד <strong>1/3 משווי ה-Float</strong> ב-12 חודשים ב-S-3/ATM."},{"l":"מלכודת Reverse Split","t":"איחוד הון מקווץ את ה-Float למאות אלפי מניות בודדות ומקפיא סחורה ב-CUSIP Reorg."},{"l":"LULD Halts & Pre-Market","t":"ב-Halt המניה יכולה להיפתח ב-Gap ענק מעל ה-Stop שלך; בפרה-מרקט אין הגנת LULD בכלל!"}],"cheatEn":[{"l":"Baby Shelf Rule","t":"Under $75M public float, S-3/ATM dilution is capped at <strong>1/3 of float value</strong> per 12 months."},{"l":"Reverse Split Trap","t":"Shrinks float to tiny levels and temporarily locks shares during CUSIP reorganization."},{"l":"LULD Halts & Extended Hours","t":"Halt resumptions gap past stops; Pre-Market has zero LULD halt protection."}],"gameHe":[["Baby Shelf Rule","מגבלת SEC המתירה לחברות עם Float מתחת ל-75M$ לגייס עד שליש בלבד ב-S-3"],["Reverse Split Trap","כיווץ ה-Float למספר מניות זעיר מיד לאחר איחוד הון המוביל לסקוויז"],["LULD Halt","הפסקת מסחר אוטומטית של 5 דקות עקב תנודת מחיר קיצונית"],["CUSIP Change","החלפת מספר הזיהוי של המניה באיחוד הון הגורמת לעיכובי סליקה והשאלה"],["Pre-Market Squeeze","זינוק בשעות הטרום-מסחר שבהן אין הפסקות LULD והנזילות דלילה"]],"gameEn":[["Baby Shelf Rule","SEC rule capping S-3 raises at 1/3 of public float when float is under $75M"],["Reverse Split Trap","Ultra-low float lock immediately following a reverse stock split"],["LULD Halt","5-minute exchange volatility pause (Limit Up-Limit Down)"],["CUSIP Change","Security ID change during corporate actions that freezes share availability"],["Pre-Market Squeeze","Extended-hours spike where LULD halts do not exist and liquidity is thin"]],"quiz":[{"qHe":"מה קובע חוק ה-Baby Shelf (General Instruction I.B.6) לגבי חברה ששווי ה-Public Float שלה הוא $30 מיליון?","qEn":"What does the SEC Baby Shelf Rule state for a company with a $30M public float?","optsHe":["אסור לה להיסחר בנאסד\"ק","היא רשאית לגייס באמצעות תשקיף מדף (S-3 / ATM) לכל היותר שליש ($10 מיליון) משווי ה-Float שלה בתקופה של 12 חודשים","מותר לה לגייס מיליארד דולר","אסור לעשות עליה שורט"],"optsEn":["It cannot trade on Nasdaq","It can raise at most 1/3 ($10M) of its public float over 12 months via S-3/ATM","It can raise $1B","It cannot be shorted"],"ans":1,"expHe":"כל עוד ה-Float מתחת ל-$75M, החברה מוגבלת ל-1/3. אם כבר ניצלה את המכסה, היא לא יכולה להנפיק מניות נוספות ב-ATM והשורטיסטים נלכדים!"},{"qHe":"מדוע ביצוע שורט ביום הראשון שלאחר איחוד הון (Reverse Split) של 1-ל-30 הוא מסוכן ביותר?","qEn":"Why is shorting on Day 1 immediately after a 1-for-30 Reverse Split extremely dangerous?","optsHe":["כי החברה הופכת לרווחית מיד","כי ה-Float מתכווץ פי 30 לכמות מניות זעירה, החלפת ה-CUSIP מעכבת נזילות אצל ברוקרים, וקל מאוד לנעול את כל ההיצע","כי עמלת הברוקר יורדת ל-0","כי אסור לקנות מניות אחרי איחוד הון"],"optsEn":["The company becomes profitable","The float shrinks 30x to a tiny share count while CUSIP changes delay broker inventory","Broker fees drop to 0","Buying is banned"],"ans":1,"expHe":"איחוד הון חותך את כמות המניות הסחירות למינימום, ובזמן שמערכות הסליקה מעדכנות את ה-CUSIP החדש נוצר מחסור חמור במניות שמוביל לסקוויזים של מאות אחוזים."},{"qHe":"מה הסכנה בפקודת Buy Stop-Market להגנה על שורט כאשר המניה נכנסת להפסקת מסחר בעלייה (LULD Halt)?","qEn":"What is the danger of a Buy Stop-Market order protecting a short when the stock enters an upward LULD Halt?","optsHe":["הפקודה תמיד מבוטלת אוטומטית","כשהמסחר מתחדש ב-Gap גבוה מעל מחיר ה-Stop (למשל פתיחה ב-$12 במקום $7), הפקודה מתבצעת במחיר הפתיחה הגבוה וגורמת להפסד כפול מהמתוכנן","הפקודה מתבצעת תמיד במחיר ה-Stop המדויק","הברוקר סופג את ההפרש"],"optsEn":["The order is auto-canceled","When trading resumes with an upward Gap (e.g. $12 instead of $7), the Market order fills at $12 with massive slippage","It guarantees your exact stop price","The broker pays the difference"],"ans":1,"expHe":"פקודת Stop-Market הופכת לפקודת Market ברגע שהמחיר נוגע בטריגר או נפתח מעליו, ולכן בגאפ פתיחה מ-Halt היא תתבצע במחיר השיא של הפתיחה."},{"qHe":"האם קיימות הפסקות מסחר לתנודתיות (LULD Halts) בשעות ה-Pre-Market (04:00–09:30) וה-After-Hours (16:00–20:00)?","qEn":"Do LULD volatility halts operate during Pre-Market (4:00–9:30 AM) and After-Hours (4:00–8:00 PM)?","optsHe":["כן, בדיוק כמו במסחר הרציף","לא! מנגנון ה-LULD פועל רק בשעות המסחר הרגילות (09:30–16:00), ולכן בפרה-מרקט מניה יכולה לזנק 300% בדקות ללא שום עצירה","רק בימי שני","רק במניות S&P 500"],"optsEn":["Yes, same as regular hours","No! LULD halts only operate during regular trading hours (9:30 AM–4:00 PM ET)","Only on Mondays","Only for S&P 500 stocks"],"ans":1,"expHe":"מחוץ לשעות המסחר הרגילות אין מנגנון LULD, ולכן תנועות המחיר בשעות אלו חדות ואלימות במיוחד על נזילות דלילה."},{"qHe":"איזו הפתעה עלולה לתפוס שורטיסט שמצפה להנפקה מדללת במניית ביומד שמזנקת לאחר תוצאות ניסוי?","qEn":"What surprise can trap a short seller expecting a dilutive offering on a biotech stock surging after trial results?","optsHe":["גיוס Priced Above-the-Market או השקעה אסטרטגית מפרמיה של חברת פארמה גדולה שמטיסה את המניה עוד יותר","ירידת ריבית הפד","שינוי לוגו החברה","חלוקת דוחות בדואר"],"optsEn":["An Above-the-Market offering or strategic pharma partnership at a premium","Fed rate cut","Logo change","Mail reports"],"ans":0,"expHe":"כשלחברה יש חדשות פונדמנטליות אמיתיות או שותף אסטרטגי, הגיוס יכול להתבצע בפרמיה או להיתפס כחיובי מאוד (ניקוי סכנת המזומן), מה שמרסק את השורטיסטים."}]},{"id":7,"num":"07","titleHe":"מתי ואיך שורטיסטים מרוויחים","titleEn":"How Pro Shorts Win Big","tagHe":"פרק 07 · הצד המנצח של השורט","tagEn":"Chapter 07 · Winning Short Playbook","descHe":"הסודות של השורטיסטים המרוויחים בעולם: שורט פונדמנטלי וחשיפת הונאות, חוק הזהב של Frontside מול Backside בגרף, וניצול אירועי פתיחת היצע (Lock-up & S-1 Effect).","descEn":"How professional short sellers profit consistently: Fundamental fraud hunting, the Golden Rule of Frontside vs Backside, and Supply Unlock catalysts.","learnHe":"\n      <div class=\"did-you-know\">🏆 <strong>הסוד של שורטיסטים מקצועיים:</strong> שורטיסט חובב מנסה לנחש איפה השיא בזמן שהמניה טסה למעלה (<strong>Frontside</strong>). שורטיסט מקצועי נותן לסקוויז להסתיים, מחכה לשבירת מבנה וללונגיסטים לכודים, ונכנס רק בצד היורד (<strong>Backside</strong>)!</div>\n      <div class=\"section-title\">📐 חוק הזהב הטכני: Frontside מול Backside</div>\n      <div class=\"grid-2\">\n        <div class=\"card\"><div class=\"card-icon\">🔥</div><div class=\"card-title\">Frontside (הצד העולה — אסור לגעת!)</div><div class=\"card-body\">המניה מעל ה-<code>VWAP</code>, מייצרת שיאים ושפלים עולים (Higher Highs & Higher Lows), והמחזור מתרחב בכל פריצה. <strong>מי שעושה שורט ב-Frontside הוא הדלק שמזין את העלייה!</strong></div></div>\n        <div class=\"card\"><div class=\"card-icon\">📉</div><div class=\"card-title\">Backside (הצד היורד — אזור הציד!)</div><div class=\"card-body\">אחרי נר פאניקה קיצוני (<strong>Blow-off Top / Exhaustion Volume</strong>), המניה שוברת את ה-<code>VWAP</code> למטה, מנסה לעלות שוב ונכשלת בשיא נמוך יותר (<strong>Lower High</strong>). כעת כל מי שקנה בשיא לכוד בהפסד (Overhead Supply) ומוכר בכל תיקון למעלה!</div></div>\n      </div>\n      <div class=\"section-title\">🕵️‍♂️ שורט פונדמנטלי ואקטיביסטי (Hindenburg / Chanos Playbook)</div>\n      <p class=\"prose\">קרנות שורט מחקריות מחפשות חברות שבהן הפער בין הסיפור למציאות החשבונאית בלתי ניתן לגישור:</p>\n      <ul class=\"prose\">\n        <li><strong>פער בין רווח חשבונאי לתזרים מזומנים (Operating Cash Flow Divergence):</strong> חברה שמדווחת על צמיחה ברווחים, אבל סעיף הלקוחות/חייבים (<code>Accounts Receivable / DSO</code>) מתנפח והתזרים מפעילות שוטפת שלילי (חשד לרישום הכנסות פיקטיביות / Channel Stuffing).</li>\n        <li><strong>Cash Burn & Debt Wall (קיר חוב ושריפת מזומנים):</strong> חברה ששורפת $15M ברבעון, נשאר לה $20M בקופה, ויש לה חוב אג\"ח לפירעון קרוב ללא יכולת למחזר — היא <strong>חייבת לדלל מניות</strong> כדי לשרוד.</li>\n        <li><strong>דגלים אדומים בממשל תאגידי:</strong> התפטרות סמנכ\"ל כספים (CFO) או רואה חשבון מבקר, עסקאות בעלי עניין מפוקפקות, ומכירות מסיביות של פנים (Insider Selling ב-Form 4).</li>\n      </ul>\n      <div class=\"section-title\">🔓 תזמון קטליזטורים של שחרור היצע (Supply Unlock Events)</div>\n      <div class=\"table-wrap\"><table class=\"data-table\">\n        <thead><tr><th>אירוע שחרור היצע</th><th>מה קורה בשוק?</th><th>למה השורטיסט מרוויח?</th></tr></thead>\n        <tbody>\n          <tr><td><strong>פקיעת חסימה (IPO / SPAC Lock-Up Expiration)</strong></td><td>אחרי 90–180 יום מההנפקה, מייסדים וקרנות הון-סיכון שמחזיקים מניות בעלות סנטים ספורים רשאים למכור לראשונה.</td><td>ה-Float הסחיר גדל פי 3–5 ביום אחד ויוצר לחץ מכירות מוסדי כבד.</td></tr>\n          <tr><td><strong>אישור S-1 Effectiveness של PIPE / וורנטים</strong></td><td>ה-SEC מפרסם הודעת <code>EFFECT</code> ופותח מיליוני מניות וורנטים שנמצאים עמוק בכסף למכירה חופשית.</td><td>מחזיקי ה-PIPE ממהרים לממש רווחים ולמכור בשוק.</td></tr>\n          <tr><td><strong>Overnight Discounted Offering (424B5)</strong></td><td>החברה מודיעה אחרי הסגירה או בבוקר על הנפקת מניות בדיסקאונט של 20%–30% ממחיר הסגירה.</td><td>מחיר השוק צונח מיד לכיוון מחיר ההנפקה החדש.</td></tr>\n        </tbody>\n      </table></div>\n    ","learnEn":"\n      <div class=\"did-you-know\">🏆 <strong>The Pro Short Seller's Golden Rule:</strong> Amateur shorts try to guess the top on the <strong>Frontside</strong> while price is making higher highs above VWAP. Pro shorts wait for the <strong>Backside</strong> — after a blow-off top, VWAP breakdown, and a confirmed Lower High!</div>\n      <div class=\"section-title\">🕵️‍♂️ Fundamental Red Flags & Supply Unlock Catalysts</div>\n      <p class=\"prose\">Profitable shorts target structural weaknesses: Cash Burn with less than 2 quarters of runway, Accounts Receivable growing faster than revenue (Channel Stuffing), IPO/SPAC <strong>Lock-Up Expirations</strong>, and SEC <strong>EFFECT</strong> notices unlocking deep-ITM PIPE shares.</p>\n    ","cheatHe":[{"l":"Frontside vs Backside","t":"לעולם אל תעשה שורט ב-<strong>Frontside</strong> (מעל VWAP עם שיאים עולים). חכה ל-<strong>Backside</strong> (שבירת VWAP + Lower High)."},{"l":"Overhead Supply","t":"קונים שנלכדו בשיא הופכים למוכרים בכל תיקון כלפי מעלה ומשמשים כ\"תקרת בטון\" שעוזרת לשורטיסט."},{"l":"Supply Unlock Catalysts","t":"פקיעת Lock-Up, הודעת SEC EFFECT על S-1, והנפקות בדיסקאונט הם אירועי ההיצע הרווחיים ביותר לשורט."}],"cheatEn":[{"l":"Frontside vs Backside","t":"Never short the <strong>Frontside</strong>. Wait for the <strong>Backside</strong> (VWAP break + Lower High confirmation)."},{"l":"Overhead Supply","t":"Trapped top-buyers create heavy selling resistance on every bounce."},{"l":"Supply Unlock Catalysts","t":"IPO Lock-up expirations, SEC EFFECT notices, and discounted offerings unlock real supply."}],"gameHe":[["Frontside","הצד העולה של המהלך שבו המניה מעל VWAP ומייצרת שיאים עולים — אזור סכנה לשורט"],["Backside","הצד היורד לאחר שיא פאניקה, שבירת VWAP ויצירת שיא נמוך יותר (Lower High)"],["Overhead Supply","סוחרי לונג שנלכדו בהפסד במחירים גבוהים ומוכרים בכל עלייה קלה"],["Lock-Up Expiration","מועד פקיעת החסימה של בעלי עניין וקרנות לאחר הנפקה המשחרר היצע מניות עצום"],["Channel Stuffing","דחיסת סחורה ללקוחות לניפוח הכנסות חשבונאיות ללא תזרים מזומנים אמיתי"]],"gameEn":[["Frontside","Rising phase above VWAP with higher highs — lethal zone for premature shorts"],["Backside","Post-climax phase after VWAP breakdown and Lower High confirmation"],["Overhead Supply","Trapped long bagholders at higher prices who sell into every bounce"],["Lock-Up Expiration","Date when insiders and early VCs can first sell shares post-IPO"],["Channel Stuffing","Inflating reported revenue by booking uncollected receivables"]],"quiz":[{"qHe":"מהו הסימן המובהק לכך שמניה עברה מ-Frontside ל-Backside וניתן לחפש בה כניסה לשורט טכני?","qEn":"What is the clearest sign that a parabolic stock has transitioned from Frontside to Backside?","optsHe":["המניה עלתה ב-5% נוספים","לאחר נר שיא במחזור חריג (Blow-off), המניה שוברת את ה-VWAP כלפי מטה ונכשלת בניסיון העלייה הבא ביצירת שיא נמוך יותר (Lower High)","המניה פורצת לגבוה יומי חדש","ה-RSI מגיע ל-70"],"optsEn":["The stock rose another 5%","After a blow-off climax, price breaks below VWAP and fails on the bounce, forming a Lower High","Price breaks to a new High of Day","RSI hits 70"],"ans":1,"expHe":"שבירת ה-VWAP ולאחריה כישלון פריצה (Lower High) מאשרים שהקונים הכפויים סיימו לקנות ושהמוכרים (Overhead Supply) שלטים במחיר."},{"qHe":"כיצד \"Overhead Supply\" (לונגיסטים לכודים בשיא) עוזר לשורטיסט שנכנס ב-Backside?","qEn":"How does \"Overhead Supply\" (trapped long buyers at the top) help a Backside short seller?","optsHe":["הוא מגדיל את הדיבידנד","כל ניסיון תיקון של המניה למעלה נתקל בגל מכירות של קונים לחוצים שרק רוצים \"לצאת סביב הקרן\", מה שבולם את העלייה ומייצר רמת Stop ברורה","הוא מבטל את ה-CTB","הוא גורם ל-Gamma Squeeze"],"optsEn":["It increases dividends","Every bounce meets selling pressure from trapped buyers trying to exit near breakeven, capping upside","It cancels CTB","It causes a Gamma Squeeze"],"ans":1,"expHe":"ככל שיותר סוחרים קנו בשיא המחזור ונלכדו בהפסד, כך נוצרת \"תקרת זכוכית\" חזקה יותר של מוכרים שמגנה על השורטיסט שנכנס מתחתיה."},{"qHe":"איזה פער בדוחות הכספיים מהווה דגל אדום קלאסי לשורטיסטים פונדמנטליים (כמו בחשיפות הונאה)?","qEn":"Which financial statement divergence is a classic red flag for fundamental short sellers?","optsHe":["עלייה במזומן בקופה","צמיחה חדה בהכנסות המדווחות ובסעיף הלקוחות (Accounts Receivable) בזמן שתזרים המזומנים מפעילות שוטפת (Operating Cash Flow) צונח או שלילי","ירידה בחוב החברה","חלוקת דיבידנד קבועה"],"optsEn":["Rising cash balance","Surging reported revenue and Accounts Receivable while Operating Cash Flow is negative or plunging","Declining debt","Steady dividend payouts"],"ans":1,"expHe":"כשחברה מדווחת על מכירות שיא אך לא גובה עליהן מזומן (סעיף הלקוחות מתנפח), זהו סימן קלאסי להכנסות מנופחות או פיקטיביות."},{"qHe":"מה קורה ביום פקיעת ה-Lock-Up (לרוב 180 יום אחרי IPO)?","qEn":"What typically happens on an IPO Lock-Up Expiration date?","optsHe":["אסור למכור מניות במשך שנה נוספת","בעלי עניין, מייסדים וקרנות הון-סיכון מורשים למכור את מניותיהם בשוק החופשי לראשונה, מה שמגדיל דרמטית את ההיצע","המניה עוברת איחוד הון אוטומטי","החברה מחלקת מניות הטבה"],"optsEn":["Selling is banned for another year","Insiders and early VCs are permitted to sell their restricted shares on the open market, flooding supply","Automatic reverse split","Bonus share distribution"],"ans":1,"expHe":"פקיעת Lock-Up משחררת לשוק מיליוני מניות שנקנו במחירים אפסיים על ידי משקיעים מוקדמים שמעוניינים לממש רווחים."},{"qHe":"מדוע חיפוש שורט על בסיס \"המניה עלתה יותר מדי וה-RSI שלה 85\" בזמן שהיא ב-Frontside הוא טעות נפוצה?","qEn":"Why is shorting a stock simply because \"it is up too much and RSI is 85\" on the Frontside a fatal mistake?","optsHe":["כי RSI פועל רק במט\"ח","כי בזמן Short/Gamma Squeeze הקונים הם כפויים ולא רגישים למחיר — מניה ב-RSI 85 יכולה לעלות עוד 300% לפני שתעצור","כי הברוקר אוסר להסתכל על RSI","כי RSI מודד רק דיבידנדים"],"optsEn":["RSI only works in Forex","During a squeeze, buyers are forced and price-insensitive — an \"overbought\" stock can easily surge another 300%","Brokers ban RSI","RSI only measures dividends"],"ans":1,"expHe":"מדדי מתנד כמו RSI ננעלים באזור קניית-יתר לאורך כל מהלך הסקוויז. כניסה לפני שבירת מבנה (Backside) היא הגורם מספר 1 למחיקת שורטיסטים."}]},{"id":8,"num":"08","titleHe":"SSR, אופציות וניהול סיכונים","titleEn":"SSR, Options Hedging & Risk","tagHe":"פרק 08 · מיקרו-מכניקה וכללי הישרדות","tagEn":"Chapter 08 · Micro-Mechanics & Survival","descHe":"חוק ה-SSR (Rule 201 בירידה של 10%-), סכנת פקודות Stop-Market מול Stop-Limit בשורט, גידור שורט באמצעות אופציות Call/Put לסיכון מוגדר, וחוק ה-1%–2% לגודל פוזיציה.","descEn":"SEC Rule 201 SSR (-10% uptick rule), Stop-Market vs Stop-Limit dangers, capping tail risk with Call/Put options, and position sizing rules.","learnHe":"\n      <div class=\"did-you-know\">🛡️ <strong>איך שורטיסטים מוסדיים מונעים כל סיכוי למחיקת תיק?</strong> הם לעולם לא משאירים חשיפת שורט \"חשופה\" לקצה העליון — או שהם מגדרים אותה עם אופציית <strong>Call</strong> שקובעת הפסד מקסימלי ידוע מראש, או שהם מבצעים את השורט דרך אופציות <strong>Put</strong> ללא CTB וללא Margin Call!</div>\n      <div class=\"section-title\">🚦 1. חוק ה-SSR (Short Sale Restriction — SEC Rule 201)</div>\n      <p class=\"prose\">כאשר מניה יורדת ב-<strong>10% או יותר</strong> ממחיר הסגירה של יום המסחר הקודם בכל רגע במהלך היום, מופעל עליה אוטומטית חוק <strong>SSR (Alternative Uptick Rule)</strong>:</p>\n      <ul class=\"prose\">\n        <li><strong>לכמה זמן?</strong> מרגע הנגיעה ב-<code>-10%</code> לשארית אותו יום מסחר <strong>ועד סוף יום המסחר הבא!</strong></li>\n        <li><strong>מה החוק עושה?</strong> אסור לבצע פקודת שורט במחיר ה-<strong>National Best Bid (NBB)</strong> או מתחתיו! פקודת שורט יכולה להתבצע <strong>רק במחיר גבוה בסנט אחד לפחות מה-Bid הנוכחי</strong> (כלומר בהמתנה פסיבית על ה-Ask או כשקונה אגרסיבי קונה ממך ב-Ask).</li>\n        <li><strong>המלכודת הטקטית של SSR:</strong> כש-SSR פעיל, שורטיסטים לא יכולים \"להכות על ה-Bid\" כדי לרסק תמיכה (אלא רק מוכרי לונג אמיתיים יכולים למכור על ה-Bid). מצד שני, שורטיסט שמנסה להיכנס בפקודת Market בזמן SSR עלול לקבל ביצוע גרוע או דחייה אם הוא לא משתמש בפקודת Limit מעל ה-Bid!</li>\n      </ul>\n      <div class=\"section-title\">⚙️ 2. פקודות הגנה בשורט: Stop-Market מול Stop-Limit</div>\n      <div class=\"table-wrap\"><table class=\"data-table\">\n        <thead><tr><th>סוג פקודה</th><th>איך היא עובדת בשורט?</th><th>יתרון</th><th>סכנה קריטית</th></tr></thead>\n        <tbody>\n          <tr><td><strong>Buy Stop-Market</strong></td><td>ברגע שהמחיר נוגע בטריגר, נשלחת פקודת קנייה ב-Market בכל מחיר.</td><td><strong>מבטיחה יציאה</strong> מהפוזיציה בכל מצב.</td><td>ב-Gap או ב-Halt תשלם <strong>Slippage עצום</strong> (למשל ביצוע ב-$14 כשהסטופ היה ב-$8).</td></tr>\n          <tr><td><strong>Buy Stop-Limit</strong></td><td>ברגע שהמחיר נוגע בטריגר, נשלחת פקודת Limit עם מחיר גג.</td><td>מונעת ביצוע במחיר מופקע.</td><td>אם המניה קופצת מהר מעל ה-Limit שלך, <strong>הפקודה לא מתבצעת כלל</strong> ואתה נשאר תקוע בשורט שמזנק ל-$30!</td></tr>\n          <tr><td><strong>הפתרון המקצועי: Stop-Limit עם מרווח רחב (Wide Offset)</strong></td><td>טריגר ב-$8.00 עם Limit ב-$8.60 + התראה מיידית.</td><td>שילוב של ביצוע מהיר בעלייה רגילה עם הגנה חלקית מספייק רגעי.</td><td>בשעות Pre/After-Hours פקודות Stop רגילות אינן פעילות כלל — חובה להשתמש ב-<code>Limit + Extended Hours (EXT)</code>!</td></tr>\n        </tbody>\n      </table></div>\n      <div class=\"section-title\">🛡️ 3. גידור שורט באמצעות אופציות: לחתוך את \"הזנב האינסופי\"</div>\n      <div class=\"grid-3\">\n        <div class=\"card\"><div class=\"card-icon\">☂️</div><div class=\"card-title\">שורט מניה + קניית Call (Married Call)</div><div class=\"card-body\">מכרת בשורט 1,000 מניות ב-$15? קנה 10 חוזי Call בסטרייק $20 בפרמיה קטנה. גם אם המניה תטוס ל-$200 בלילה — <strong>ההפסד המקסימלי שלך נעול ב-$20 למניה</strong> בזכות אופציית ה-Call!</div></div>\n        <div class=\"card\"><div class=\"card-icon\">🎫</div><div class=\"card-title\">קניית Put במקום שורט ישיר</div><div class=\"card-body\">במניות עם CTB של 150% וסיכון סקוויז גבוה, קניית אופציית Put (או <code>Bear Put Spread</code>) מעניקה רווח מהירידה עם <strong>0% עמלת השאלה, 0 סיכון ל-Share Recall, והפסד מוגבל לפרמיה בלבד!</strong></div></div>\n        <div class=\"card\"><div class=\"card-icon\">⚖️</div><div class=\"card-title\">חוק גודל הפוזיציה (1%–2% Rule)</div><div class=\"card-body\">במניית מיקרו-קאפ תנודתית, גודל פוזיציית השורט ההתחלתית לעולם לא יעלה על <strong>1%–2% משווי התיק</strong>, ולעולם לא ממצעים שורט מפסיד שעולה ב-Frontside!</div></div>\n      </div>\n    ","learnEn":"\n      <div class=\"did-you-know\">🛡️ <strong>How Institutional Shorts Eliminate Tail Risk:</strong> They cap unlimited upside loss by pairing shorts with protective OTM <strong>Call options</strong>, or express the bearish trade via <strong>Put Spreads</strong> (zero CTB, zero Margin Call, strictly defined risk)!</div>\n      <div class=\"section-title\">🚦 SEC Rule 201 (SSR) & Stop-Order Mechanics</div>\n      <p class=\"prose\">When a stock drops <strong>-10%</strong> from yesterday's close, <strong>SSR (Short Sale Restriction)</strong> activates for the rest of the day and all of the next trading day — short sales can only execute above the National Best Bid (NBB). Also remember: standard Stop orders do NOT work in Pre-Market or After-Hours!</p>\n    ","cheatHe":[{"l":"חוק SSR (Rule 201)","t":"מופעל בירידה של <strong>10%-</strong> ממחיר הסגירה של אתמול (להיום ולמחר) — אוסר מכירה בשורט על ה-Bid."},{"l":"מלכודת שעות מסחר מורחבות","t":"פקודות Stop-Loss רגילות <strong>אינן עובדות ב-Pre-Market וב-After-Hours</strong>! נדרשת פקודת Limit עם סימון EXT."},{"l":"גידור באופציות","t":"קניית <strong>OTM Call</strong> נועלת הפסד מקסימלי בשורט; קניית <strong>Put Spread</strong> חוסכת עמלת CTB ומונעת Forced Buy-In."}],"cheatEn":[{"l":"SEC Rule 201 (SSR)","t":"Triggered at <strong>-10%</strong> from prior close (active today + tomorrow) — blocks shorting on the Bid."},{"l":"Extended Hours Stop Trap","t":"Standard Stop orders <strong>do NOT trigger in Pre-Market or After-Hours</strong>!"},{"l":"Options Tail Hedge","t":"Buying OTM Calls caps maximum short loss; Put Spreads avoid CTB and recall risk."}],"gameHe":[["SSR (Rule 201)","מגבלה המופעלת בירידה של 10% ואוסרת על שורטיסטים למכור ישירות על ה-Bid"],["Married Call Hedge","קניית אופציית Call מעל מחיר השורט כדי לנעול תקרת הפסד מקסימלית ידועה מראש"],["Bear Put Spread","אסטרטגיית אופציות להרוויח מירידת מניה בסיכון מוגדר וללא תשלום עמלת השאלה CTB"],["Stop-Limit Trap","סכנה שבה המניה מדלגת מעל מחיר ה-Limit והשורטיסט נשאר ללא ביצוע בזמן סקוויז"],["Extended Hours (EXT)","פקודת Limit מיוחדת הנדרשת לסגירת שורט בפרה-מרקט שבו פקודות Stop רגילות אינן פועלות"]],"gameEn":[["SSR (Rule 201)","Triggered at -10% drop; restricts short sales from executing at or below the Best Bid"],["Married Call Hedge","Buying an OTM Call against a short stock position to cap maximum upside loss"],["Bear Put Spread","Defined-risk bearish options trade with zero CTB and zero recall risk"],["Stop-Limit Trap","Risk that a fast spike skips past your limit price, leaving your short unclosed"],["Extended Hours (EXT)","Limit order flag required in Pre-Market where standard Stop orders never trigger"]],"quiz":[{"qHe":"מתי מופעל חוק ה-SSR (Short Sale Restriction — Rule 201) ולכמה זמן הוא נשאר בתוקף?","qEn":"When is SEC Rule 201 (SSR) triggered and how long does it remain in effect?","optsHe":["בעלייה של 10%, לשעה אחת","בירידה של 10% או יותר ממחיר הסגירה של אתמול, והוא נשאר בתוקף לשארית היום ולכל יום המסחר הבא","בירידה של 50%, לשבועיים","רק ביום שישי"],"optsEn":["On a +10% rise, for 1 hour","On a -10% drop from prior close, remaining active for the rest of the day and all of the next trading day","On a -50% drop, for 2 weeks","Only on Fridays"],"ans":1,"expHe":"חוק 201 של ה-SEC מופעל ברגע שהמניה יורדת 10%- ממחיר הסגירה של אתמול ונמשך עד סוף יום המסחר העוקב."},{"qHe":"מה מותר ומה אסור לשורטיסט לעשות כאשר SSR פעיל על המניה?","qEn":"What can and cannot a short seller do while SSR is active on a stock?","optsHe":["אסור לעשות שורט בכלל","מותר לפתוח שורט רק במחיר הגבוה מה-National Best Bid הנוכחי (למשל על ה-Ask), ואסור למכור בשורט ישירות על ה-Bid","אסור לסגור שורט קיים","העמלות מבוטלות"],"optsEn":["Shorting is completely banned","Short sales can only execute above the National Best Bid (NBB), not by hitting the Bid directly","Closing a short is banned","Fees are waived"],"ans":1,"expHe":"SSR אינו אוסר על שורט, אלא מונע משורטיסטים \"להכות על ה-Bid\" כדי לדחוף את המחיר מטה; עליהם להמתין שקונה יקנה מהם מעל ה-Bid."},{"qHe":"שורטיסט הציב פקודת Stop-Market רגילה ב-$12.00. בשעה 07:30 בבוקר (Pre-Market) המניה מזנקת מ-$10 ל-$22. מה יקרה לפקודת ה-Stop שלו ב-07:30?","qEn":"A short seller placed a standard Stop-Market order at $12.00. At 7:30 AM (Pre-Market), the stock surges from $10 to $22. What happens to the Stop order at 7:30 AM?","optsHe":["היא תתבצע מיד ב-$12.00","כלום! פקודות Stop רגילות אינן פעילות בשעות ה-Pre-Market, והשורטיסט יישאר חשוף לזינוק עד פתיחת המסחר ב-09:30 (או עד שישלח פקודת Limit EXT ידנית)","הברוקר יסגור אותה ב-$10.00","המניה תיעצר ב-LULD Halt ב-07:30"],"optsEn":["It fills immediately at $12.00","Nothing! Standard Stop orders do not trigger in Pre-Market, leaving the short exposed until 9:30 AM open","Broker closes it at $10.00","LULD halt stops it at 7:30 AM"],"ans":1,"expHe":"בשעות הטרום-מסחר ואפטר-מרקט פקודות Stop אינן מופעלות בבורסה — זו אחת המלכודות הקטלניות ביותר למי שמחזיק שורט ללילה (Overnight)."},{"qHe":"כיצד קניית אופציית Call מחוץ לכסף (Married Call) מגנה על פוזיציית שורט במניה?","qEn":"How does buying an Out-of-the-Money Call option (Married Call) protect a short stock position?","optsHe":["היא מכפילה את הדיבידנד","היא קובעת תקרת הפסד מקסימלית ומוחלטת (במחיר ה-Strike של ה-Call), כך שגם אם המניה תעלה ב-1,000% ההפסד בשורט נעול","היא מבטלת את מס רווחי ההון","היא מונעת מהמניה לעלות"],"optsEn":["Doubles the dividend","Locks in a hard maximum loss ceiling at the Call strike price, eliminating unlimited upside tail risk","Eliminates taxes","Prevents the stock from rising"],"ans":1,"expHe":"כל דולר שהמניה עולה מעבר למחיר ה-Strike של אופציית ה-Call מתקזז דולר-מול-דולר על ידי הרווח באופציית ה-Call."},{"qHe":"מדוע לעולם אין לבצע \"מיצוע בעליות\" (Averaging Up) לתוך פוזיציית שורט מפסידה במניה שנמצאת ב-Frontside פראבולי?","qEn":"Why should you NEVER recklessly \"average up\" into a losing short position on a parabolic Frontside runner?","optsHe":["כי זה מקטין את הפוזיציה","כי ככל שהמניה עולה הפוזיציה המפסידה כבר מתנפחת כמשקל בתיק, והוספת מניות נוספות מקצרת דרמטית את המרחק ל-Margin Call ומחיקת החשבון","כי אסור לבצע שתי פקודות באותו יום","כי זה מוריד את ה-CTB"],"optsEn":["It shrinks the position","Because a losing short already compounds against your equity, and adding more shares rapidly accelerates Margin Call liquidation","Two orders per day are banned","It lowers CTB"],"ans":1,"expHe":"מיצוע שורט מפסיד ב-Frontside מגדיל אקספוננציאלית את החשיפה הדולרית ומקרב את מחיר ה-Margin Call אליך במהירות קטלנית."}]},{"id":9,"num":"09","titleHe":"צ'קליסט קרב וזירת הגמר 🎯","titleEn":"Master Checklist & Finale 🎯","tagHe":"פרק 09 · סיכום מבצעי ומשימת גמר","tagEn":"Chapter 09 · Master Playbook & Arena","descHe":"צ'קליסט 10 הנקודות לפני כניסה לשורט (ולציד סקוויזים בלונג), ופתיחת זירת המסחר האינטראקטיבית: 6 תרחישי אמת לניהול תיק של $100,000!","descEn":"The 10-point Pre-Flight Short & Squeeze Hunter Checklist, plus the 6-stage Interactive Short Desk Arena ($100,000 virtual portfolio).","learnHe":"\n      <div class=\"did-you-know\">🎖️ <strong>הגעת לפרק הסיום של הקורס!</strong> עכשיו נחבר את כל 9 הפרקים הקודמים לצ'קליסט עבודה מבצעי דו-כיווני — גם למי שמחפש עסקאות שורט נקיות, וגם לסוחרי לונג שמחפשים ללכוד שורטיסטים בסקוויז.</div>\n      <div class=\"section-title\">📋 צ'קליסט הקרב הדו-כיווני (10 בדיקות חובה לפני לחיצה)</div>\n      <div class=\"table-wrap\"><table class=\"data-table\">\n        <thead><tr><th>#</th><th>פרמטר לבדיקה</th><th>🟢 מתי זה יתרון לשורטיסט? (Good Short)</th><th>🔴 מתי זו מלכודת מוות / סקוויז ללונג? (Short Trap)</th></tr></thead>\n        <tbody>\n          <tr><td><strong>1</strong></td><td><strong>Effective Float</strong></td><td>מעל 20M–50M מניות נזילות וסחירות</td><td>מתחת ל-3M מניות (או מיד אחרי Reverse Split!)</td></tr>\n          <tr><td><strong>2</strong></td><td><strong>Short Interest & DTC</strong></td><td>SI מתון או שהמחזור היומי ענק (DTC &lt; 1 יום)</td><td>SI גבוה עם מחזור דליל (DTC &gt; 5–10 ימים) או Utilization 100%</td></tr>\n          <tr><td><strong>3</strong></td><td><strong>עמלת השאלה (CTB)</strong></td><td>ETB או CTB נמוך (&lt; 5%–10% שנתי)</td><td>CTB של 100%–400%+ (שחיקה יומית + סכנת Share Recall!)</td></tr>\n          <tr><td><strong>4</strong></td><td><strong>קו הכאב (Pain Line)</strong></td><td>המניה נסחרת <strong>מתחת ל-Anchored VWAP</strong> (שורטיסטים ברווח)</td><td>המניה פורצת <strong>מעל ה-Anchored VWAP</strong> והגבוה הרב-יומי!</td></tr>\n          <tr><td><strong>5</strong></td><td><strong>מיקום בגרף</strong></td><td><strong>Backside</strong> מאושר (אחרי Blow-off, שבירת VWAP ו-Lower High)</td><td><strong>Frontside</strong> פראבולי (שיאים עולים ומחזור מתרחב)</td></tr>\n          <tr><td><strong>6</strong></td><td><strong>תשקיף מדף S-3 / ATM</strong></td><td>Float מעל $75M עם ATM פעיל וצורך מיידי במזומן</td><td><strong>Baby Shelf נעול</strong> (ניצלו כבר 1/3 מה-Float מתחת ל-$75M)</td></tr>\n          <tr><td><strong>7</strong></td><td><strong>וורנטים ואג\"ח להמרה</strong></td><td>בכסף (ITM) + <strong>תשקיף S-1 מאושר (EFFECT)</strong> וללא Blocker חוסם</td><td>וורנטים מ-PIPE <strong>ללא S-1 Effect</strong> (היצע נעול לחלוטין!)</td></tr>\n          <tr><td><strong>8</strong></td><td><strong>פעילות אופציות Call</strong></td><td>מחזור אופציות רגיל ודלתא מתונה</td><td>הסתערות קניות על <strong>OTM Calls</strong> שיוצרת Gamma Squeeze!</td></tr>\n          <tr><td><strong>9</strong></td><td><strong>דיבידנדים ואירועי הון</strong></td><td>אין דיבידנד קרוב</td><td>ערב Ex-Date של דיבידנד גבוה או <strong>Special Dividend</strong></td></tr>\n          <tr><td><strong>10</strong></td><td><strong>הגנה וניהול סיכון</strong></td><td>גודל פוזיציה 1%–2% מהתיק + גידור <strong>Married Call / Put</strong></td><td>שורט חשוף בגודל 20% מהתיק לתוך Pre-Market בלי הגנה</td></tr>\n        </tbody>\n      </table></div>\n\n      <div class=\"escape-promo-banner\">\n        <div class=\"escape-promo-info\">\n          <span class=\"escape-promo-badge\">🎯 משימת הגמר של הקורס · +150 XP</span>\n          <div class=\"escape-promo-title\">זירת השורט והמלכודות: נהל תיק של $100,000 מול 6 מניות אמת!</div>\n          <div class=\"escape-promo-desc\">עמוד בראש דסק המסחר: קבל 6 תרחישי שוק חיים עם נתוני Float, CTB, קו הכאב, דוחות S-3/S-1 ואופציות — קבל את ההחלטה הנכונה בכל תחנה כדי להגדיל את ההון ולזכות בדרגת מאסטר וב-150 XP!</div>\n        </div>\n        <button class=\"escape-launch-btn\" onclick=\"openEscapeRoom()\">🚀 כניסה לזירת השורט</button>\n      </div>\n    ","learnEn":"\n      <div class=\"did-you-know\">🎖️ <strong>Course Finale!</strong> Use the 10-point Master Checklist below to evaluate any short setup or spot trapped shorts for a squeeze — then launch the <strong>6-Stage Short Desk Arena</strong>!</div>\n      <div class=\"escape-promo-banner\">\n        <div class=\"escape-promo-info\">\n          <span class=\"escape-promo-badge\">🎯 GRAND FINALE MISSION · +150 XP</span>\n          <div class=\"escape-promo-title\">The Short Desk Arena: Manage $100,000 Across 6 Real Setups!</div>\n          <div class=\"escape-promo-desc\">Analyze Float, CTB, Pain Line, Baby Shelf limits, Convertible Blockers, and Gamma Ramps across 6 live scenarios to grow your virtual desk and earn +150 XP!</div>\n        </div>\n        <button class=\"escape-launch-btn\" onclick=\"openEscapeRoom()\">🚀 Launch Short Arena</button>\n      </div>\n    ","cheatHe":[{"l":"שילוב הזהב לשורט","t":"<strong>Backside</strong> מתחת ל-VWAP + צורך במזומן + <strong>S-1 Effective / ATM פתוח</strong> + גידור סיכון מוגדר."},{"l":"שילוב הפיצוץ לסקוויז (Long)","t":"פריצת <strong>קו הכאב (Anchored VWAP)</strong> + Float נעול / Baby Shelf מלא + <strong>CTB קיצוני</strong> + Gamma ב-Calls."},{"l":"כלל ההישרדות העליון","t":"לעולם אל תחזיק שורט חשוף ב-Micro-Cap ללילה (Overnight), ותמיד הגבל סיכון עם אופציות או גודל פוזיציה של 1%–2%."}],"cheatEn":[{"l":"A+ Short Setup","t":"Confirmed <strong>Backside</strong> below VWAP + active dilution (S-1 Effective / unrestricted ATM) + defined risk."},{"l":"A+ Squeeze Setup (Long)","t":"Breakout above <strong>Anchored VWAP Pain Line</strong> + locked float / Baby Shelf cap + high CTB & Gamma ramp."},{"l":"Survival Rule #1","t":"Never hold unhedged micro-cap shorts overnight; cap tail risk with Calls or use Puts."}],"gameHe":[["שורט A+ (אידיאלי)","כניסה ב-Backside מתחת ל-VWAP עם תשקיף S-1 Effective פתוח וסיכון מוגדר"],["מלכודת שורט (Squeeze Trap)","פריצת קו הכאב במניה עם Float זעיר, CTB של 200% ותקרת Baby Shelf מלאה"],["הגנת זנב (Tail Risk Hedge)","קניית אופציית Call מחוץ לכסף שנועלת את ההפסד המקסימלי בפוזיציית השורט"],["בדיקת תשקיף ב-SEC","קריאת S-3, 424B5 והודעות EFFECT כדי לדעת אם דילול באמת אפשרי כרגע"],["איסור מיצוע בעליות","כלל ברזל האוסר הוספה לשורט מפסיד כל עוד המניה ב-Frontside מעל ה-VWAP"]],"gameEn":[["A+ Short Setup","Backside entry below VWAP with active S-1/ATM dilution and capped risk"],["Squeeze Trap","Pain Line breakout on a low-float stock with 200% CTB and maxed Baby Shelf"],["Tail Risk Hedge","Protective OTM Call option that locks in maximum possible loss on a short"],["SEC Filing Audit","Checking S-3, 424B5, and EFFECT filings to verify if dilution is legally active"],["No Frontside Averaging","Iron rule against adding to a losing short while price makes higher highs above VWAP"]],"quiz":[{"qHe":"איזה שילוב נתונים מייצג את \"מלכודת השורטיסטים\" המסוכנת ביותר (סיכון מקסימלי ל-Short Squeeze)?","qEn":"Which combination represents the most explosive Short Trap (maximum squeeze risk)?","optsHe":["Float של 80M מניות, CTB של 0.5%, והמניה מתחת ל-VWAP","Float של 1.2M מניות אחרי Reverse Split, CTB של 240%, Baby Shelf מנוצל עד תום, והמניה פורצת את קו הכאב (Anchored VWAP) במחזור שיא","חברה שהודיעה על הנפקת מניות בדיסקאונט של 25%","חברה עם S-1 Effective שנכנס לתוקף היום"],"optsEn":["80M float, 0.5% CTB, below VWAP","1.2M float post-Reverse Split, 240% CTB, maxed-out Baby Shelf, breaking above the Anchored VWAP Pain Line","25% discounted offering announced","S-1 declared Effective today"],"ans":1,"expHe":"זהו שילוב קטלני: אין היצע מניות חופשי (1.2M), החברה מנועה חוקית מלהנפיק (Baby Shelf מלא), השורטיסטים מדממים מעמלות (240% CTB) וקו הכאב נפרץ!"},{"qHe":"מתי דילול מוורנטים צפוי להפעיל לחץ מכירות אמיתי ומיידי על המניה לטובת השורטיסט?","qEn":"When will warrant overhang exert real, immediate selling pressure in favor of the short seller?","optsHe":["כשהוורנטים מחוץ לכסף (OTM)","כשהוורנטים עמוק בכסף (ITM) וגם תשקיף ה-S-1 לרישום המניות שלהם קיבל הודעת EFFECT מה-SEC","כשהחברה עדיין לא הגישה S-1","כשיש חסימת Lock-Up לעוד חצי שנה"],"optsEn":["When warrants are OTM","When warrants are deep ITM AND their S-1 resale registration has received an SEC EFFECT notice","Before any S-1 is filed","During a 6-month lock-up"],"ans":1,"expHe":"רק שילוב של כדאיות כלכלית (ITM) + היתר חוקי למכירה בבורסה (S-1 Effective) הופך וורנטים על הנייר להיצע אמיתי בספר הפקודות."},{"qHe":"מהו הצעד הראשון שעל שורטיסט לעשות לפני שהוא מחזיק פוזיציה במניה תנודתית לתוך הלילה (Overnight)?","qEn":"What should a disciplined short seller consider before holding a volatile micro-cap short overnight?","optsHe":["למחוק את אפליקציית המסחר","להימנע מהחזקת שורט חשוף ב-Micro-Cap ללילה (בשל היעדר הגנת Stop ו-LULD בפרה-מרקט) או לגדר מראש באופציית Call שנועלת את הסיכון","להגדיל את הפוזיציה ל-100% מהתיק","להניח שמניות אף פעם לא עולות בלילה"],"optsEn":["Delete the trading app","Avoid holding unhedged micro-cap shorts overnight (due to no Stop/LULD protection in pre-market) or hedge with Calls","Increase size to 100% of account","Assume stocks never gap up overnight"],"ans":1,"expHe":"רוב הפערים הקטלניים של 100%–400% מתרחשים בהודעות בוקר ב-Pre-Market שבהן פקודות Stop רגילות אינן פועלות."},{"qHe":"אם סוחר מזהה מניה עם 40% Short Interest, כיצד יוכל לדעת אם מדובר בשורטיסטים לכודים או בקרנות Convertible Arbitrage מוגנות?","qEn":"If a trader sees 40% Short Interest, how can they tell if it is vulnerable directional shorts vs hedged Convertible Arbitrage?","optsHe":["אי אפשר לדעת לעולם","לבדוק בדוחות החברה (10-Q / 8-K) אם החברה הנפיקה אג\"ח להמרה (Convertible Notes) בסדר גודל תואם ואם ה-CTB נשאר נמוך ויציב","לפי צבע הנרות בגרף","לפי שם המנכ\"ל"],"optsEn":["Impossible to know","Check SEC filings (10-Q/8-K) for large Convertible Senior Notes and check if CTB remains low/stable","By candle colors","By CEO name"],"ans":1,"expHe":"נוכחות של סדרת אג\"ח להמרה גדולה בדוחות הכספיים מעידה שחלק ניכר מהשורט הוא גידור דלתא מוסדי (Delta-Hedged) ולא הימור כיווני חשוף."},{"qHe":"מהי הגישה הנכונה לכניסה לשורט במניה שמזנקת ביום חדשות?","qEn":"What is the professional approach to shorting a stock surging on a news catalyst?","optsHe":["למכור בשורט מיד בנר הירוק הראשון של הבוקר","להמתין בסבלנות לסיום שלב ה-Frontside, לוודא שאין מלכודת Float/Baby Shelf, ולהיכנס רק ב-Backside אחרי שבירת VWAP ו-Lower High עם סיכון מוגדר","להיכנס לשורט עם כל ההון בתיק בלי בדיקת תשקיפים","לעשות שורט רק כש-SSR כבוי"],"optsEn":["Short the very first green candle","Wait patiently for Frontside exhaustion, verify filings/float, and enter only on the Backside after a VWAP break & Lower High with defined risk","Go all-in without reading filings","Short randomly"],"ans":1,"expHe":"שילוב של קריאת תשקיפים (Filings), הבנת מבנה ה-Float וה-CTB, וכניסה טכנית רק ב-Backside עם סיכון מוגדר הוא המפתח לתוחלת חיובית בשורט."}]}];
+
+
+const CHAPTERS = [...CHAPTERS_0_2, ...CHAPTERS_3_5, ...CHAPTERS_6_9];
+
+/* ── GRAND FINALE ARENA DATA (6 REALISTIC TRADING SCENARIOS) ── */
+const ARENA_STATIONS = [
+  {
+    id: 0,
+    badgeHe: 'תרחיש 1/6 · מלכודת ה-Baby Shelf ואיחוד ההון',
+    badgeEn: 'Scenario 1/6 · Baby Shelf & Reverse Split Trap',
+    titleHe: 'מניית ביומד BIOX מזנקת 85% אחרי איחוד הון (1:25)',
+    titleEn: 'Biotech BIOX Surges 85% Post 1-for-25 Reverse Split',
+    storyHe: 'נתוני דסק המסחר: מניית BIOX ביצעה אתמול איחוד הון של 1-ל-25 וכעת ה-Float שלה עומד על <strong>650,000 מניות בלבד</strong> (שווי שוק $12M). בחדר הצ\'אט כולם צועקים: "כנסו לשורט! יש להם תשקיף מדף S-3 של $50M, הם בטוח ינפיקו היום!". אבל בבדיקת טופס 10-Q אתה מגלה שהחברה כבר גייסה $4M בחודשיים האחרונים. המניה פורצת כעת את ה-Anchored VWAP ב-$18.50 עם CTB של 290%. מה ההחלטה שלך?',
+    storyEn: 'Desk Data: BIOX completed a 1-for-25 Reverse Split yesterday, shrinking its float to <strong>650,000 shares</strong> ($12M market cap). Traders in chat rooms scream: "Short it! They have a $50M S-3 shelf!" However, their 10-Q shows they already raised $4M last month. Price is breaking above the $18.50 Anchored VWAP Pain Line with 290% CTB. What is your move?',
+    hintHe: 'רמז: בדוק את חוק ה-Baby Shelf לחברות עם Float מתחת ל-$75M (מגבלת 1/3 משווי ה-Float ב-12 חודשים)!',
+    hintEn: 'Hint: Check the SEC Baby Shelf rule for companies under $75M public float (1/3 cap over 12 months)!',
+    optsHe: [
+      'לפתוח שורט אגרסיבי ב-Frontside כי תשקיף ה-S-3 על סך $50M ידלל את המניה מיד',
+      'להימנע משורט (או לקחת לונג סקוויז)! החברה חסומה ע"י חוק Baby Shelf (כבר ניצלה 1/3 מ-$12M), ה-Float זעיר אחרי Reverse Split וקו הכאב נפרץ',
+      'לפתוח שורט עם פקודת Stop-Market צמודה וללכת לישון',
+      'להמתין לדיבידנד שהחברה תחלק היום'
+    ],
+    optsEn: [
+      'Short aggressively on the Frontside because the $50M S-3 will dilute immediately',
+      'AVOID SHORTING (or ride the Long Squeeze)! The company is capped by the Baby Shelf Rule (already used 1/3 of $12M float), the post-RS float is tiny, and the Pain Line just broke',
+      'Short with a tight Stop-Market order and hold overnight',
+      'Wait for a company dividend today'
+    ],
+    ans: 1,
+    expHe: 'בינגו! בגלל חוק ה-Baby Shelf (מתחת ל-$75M Float), החברה מוגבלת ל-1/3 ($4M) וכבר ניצלה את המכסה — אסור לה להנפיק מניה אחת! השורטיסטים שמחכים להנפקה נלכדים ב-Float נעול של 650K מניות והמניה טסה ל-$42 (+$18,000 לתיק הדסק!).',
+    expEn: 'Spot on! Under the Baby Shelf rule, BIOX already maxed out its 1/3 S-3 capacity ($4M on $12M float) and legally CANNOT dilute! Shorts waiting for an offering get crushed as BIOX squeezes to $42 (+$18,000 desk profit!).'
+  },
+  {
+    id: 1,
+    badgeHe: 'תרחיש 2/6 · מלכודת וורנטים נעולים מול S-1 Effective',
+    badgeEn: 'Scenario 2/6 · Unregistered PIPE Warrants vs S-1 Effect',
+    titleHe: 'שתי מניות טכנולוגיה עם 5 מיליון וורנטים בכסף (ITM) — במי תיכנס לשורט?',
+    titleEn: 'Two Tech Stocks With 5M In-The-Money Warrants — Which One Is the True Short?',
+    storyHe: 'מולך שתי מניות שנסחרות ב-$12.00 ולשתיהן יש 5 מיליון וורנטים במחיר מימוש $5.00:<br>• <strong>מניה A:</strong> הוורנטים הונפקו ב-PIPE פרטי לפני שבועיים, וטרם הוגש או אושר תשקיף S-1.<br>• <strong>מניה B:</strong> היום בבוקר פורסמה ב-SEC הודעת <strong>Notice of Effectiveness (EFFECT)</strong> על תשקיף ה-S-1 של מחזיקי הוורנטים, ובמקביל המניה שברה את ה-VWAP למטה ויצרה Lower High (Backside).',
+    storyEn: 'Two stocks trade at $12.00, both with 5M warrants at a $5.00 strike:<br>• <strong>Stock A:</strong> Warrants were issued in a private PIPE two weeks ago; no S-1 has been declared effective.<br>• <strong>Stock B:</strong> Received an official SEC <strong>EFFECT</strong> notice this morning registering all 5M warrant shares for resale, while price broke below VWAP and formed a Lower High (Backside).',
+    hintHe: 'רמז: וורנטים מ-PIPE פרטי אינם ניתנים למכירה בשוק החופשי עד שה-SEC מפרסם הודעת EFFECT.',
+    hintEn: 'Hint: Private PIPE warrants cannot be sold on the open market until an SEC EFFECT notice is issued.',
+    optsHe: [
+      'שורט על מניה A כי הוורנטים שלה חדשים יותר',
+      'שורט על מניה B! הודעת ה-EFFECT פתחה היום 5 מיליון מניות ברווח עצום למכירה חופשית בשוק, והמניה כבר ב-Backside מתחת ל-VWAP',
+      'שורט על שתיהן בחלקים שווים',
+      'לונג על מניה B כי הודעת EFFECT נועלת את המניות'
+    ],
+    optsEn: [
+      'Short Stock A because its warrants are newer',
+      'Short Stock B! Today\'s SEC EFFECT notice unlocked 5M deep-ITM shares for immediate open-market selling, confirmed by Backside VWAP breakdown',
+      'Short both equally',
+      'Long Stock B because EFFECT locks shares'
+    ],
+    ans: 1,
+    expHe: 'מדויק! במניה A הוורנטים חסומים לחלוטין (מלכודת שורט קלאסית). במניה B הודעת ה-EFFECT שיחררה 5 מיליון מניות לשוק ומחזיקי ה-PIPE מוכרים בכל הכוח ב-Backside (+$16,500 לתיק הדסק!).',
+    expEn: 'Exact! Stock A\'s PIPE warrants are restricted and locked. Stock B\'s EFFECT notice unlocked 5M shares for immediate dumping on the Backside (+$16,500 desk profit!).'
+  },
+  {
+    id: 2,
+    badgeHe: 'תרחיש 3/6 · אפקט המכפלה של CTB + דיבידנד מיוחד',
+    badgeEn: 'Scenario 3/6 · CTB Compounding + Special Dividend Trap',
+    titleHe: 'החזקת שורט לסוף שבוע ו-Ex-Dividend Date',
+    titleEn: 'Holding a High-CTB Short Into Weekend & Special Ex-Dividend Date',
+    storyHe: 'יום חמישי אחר הצהריים. סוחר בדסק שלך מחזיק שורט על מניית קמעונאות ב-$24.00. עמלת ההשאלה (CTB) קפצה היום ל-<strong>210%</strong>, Utilization עומד על <strong>100%</strong>, ומחר (שישי) הוא ה-<strong>Ex-Dividend Date</strong> של דיבידנד מיוחד בסך <strong>$2.50 למניה</strong>! הסוחר אומר: "אני נשאר בשורט לסוף השבוע, מה כבר יכול לקרות?". מה תורה לו לעשות?',
+    storyEn: 'Thursday afternoon. A junior trader on your desk is short a retail stock at $24.00. CTB just spiked to <strong>210%</strong>, Utilization is <strong>100%</strong>, and tomorrow is the <strong>Ex-Dividend Date</strong> for a <strong>$2.50/share Special Dividend</strong>! What do you order?',
+    hintHe: 'רמז: מה קורה למי שמחזיק שורט לתוך בוקר ה-Ex-Dividend Date ולתוך חיוב ה-Triple CTB של סוף השבוע?',
+    hintEn: 'Hint: What happens to a short holder overnight into the Ex-Dividend Date plus the 3-day weekend CTB charge?',
+    optsHe: [
+      'להישאר בשורט כי השורטיסט מקבל את הדיבידנד מהחברה',
+      'לסגור את השורט (או להמיר לאופציות Put מוגדרות) לפני הסגירה! אחרת יחויב מכיסו ב-$2.50 למניה (Payment in Lieu) + 3 ימי CTB של 210% לסופ"ש + סיכון גבוה ל-Share Recall',
+      'להכפיל את פוזיציית השורט דקה לפני הסגירה',
+      'לבקש מהברוקר פטור מדיבידנד'
+    ],
+    optsEn: [
+      'Hold the short because short sellers receive the dividend',
+      'Close the short (or switch to defined-risk Puts) before the close! Otherwise the desk pays $2.50/share Payment-in-Lieu + 3-day 210% weekend CTB + extreme Share Recall risk',
+      'Double the short position at 3:59 PM',
+      'Ask the broker for a dividend waiver'
+    ],
+    ans: 1,
+    expHe: 'הצלת את הדסק! סגירת השורט חסכה תשלום מיידי של $2.50 למניה ב-Payment in Lieu, חיוב משולש של CTB לסוף השבוע, ואת הסקוויז של הבוקר מ-Share Recalls (+$15,000 לתיק הדסק!).',
+    expEn: 'You saved the desk! Closing before Ex-Date avoided the $2.50/share Payment-in-Lieu deduction, 3-day weekend 210% CTB burn, and forced recall buy-ins (+$15,000 saved/earned!).'
+  },
+  {
+    id: 3,
+    badgeHe: 'תרחיש 4/6 · Convertible Arbitrage מול Short Squeeze אמיתי',
+    badgeEn: 'Scenario 4/6 · Convertible Arbitrage Mirage vs Real Squeeze',
+    titleHe: 'פענוח נתון Short Interest של 34%: מלכודת או הזדמנות?',
+    titleEn: 'Decoding a 34% Short Interest Print: Squeeze Fuel or Convertible Arb?',
+    storyHe: 'אתה סורק מניית תוכנה בשווי שוק של $2B עם <strong>34% Short Interest</strong>. על פניו זה נראה כמו מועמד ל-Short Squeeze, אבל בבדיקה מעמיקה אתה רואה: <strong>CTB = 0.4% בלבד (ETB)</strong>, והחברה הנפיקה ברבעון הקודם <strong>$600M באג"ח להמרה (Convertible Senior Notes)</strong> לקרנות מוסדיות. מה המסקנה המבצעית הנכונה?',
+    storyEn: 'You scan a $2B software stock showing <strong>34% Short Interest</strong>. At first glance it looks like a squeeze candidate, but deeper inspection shows: <strong>CTB is only 0.4% (ETB)</strong>, and the company recently issued <strong>$600M in Convertible Senior Notes</strong>. What is the correct assessment?',
+    hintHe: 'רמז: מדוע ה-CTB כל כך נמוך (0.4%) למרות 34% שורט, ומי מחזיק את השורט מול האג"ח להמרה?',
+    hintEn: 'Hint: Why is CTB only 0.4% despite 34% SI, and who holds the short against the Convertible Notes?',
+    optsHe: [
+      'זהו Short Squeeze ודאי — השורטיסטים יקבלו Margin Call עוד היום',
+      'רוב ה-Short Interest הוא שורט מגודר (Delta-Hedged) של קרנות Convertible Arbitrage שמחזיקות באג"ח להמרה — הן מוגנות לחלוטין מ-Margin Call ומגדילות שורט בעליות!',
+      'הנתון של 34% הוא שגיאת הדפסה של הבורסה',
+      'החברה עומדת לבצע איחוד הון'
+    ],
+    optsEn: [
+      'Guaranteed Short Squeeze — shorts will get Margin Called today',
+      'Most of the 34% SI is Delta-Hedged Convertible Arbitrage held against the convertible bonds — these funds are immune to Margin Calls and actually sell more shares as price rises!',
+      'The 34% figure is an exchange typo',
+      'The company is about to reverse split'
+    ],
+    ans: 1,
+    expHe: 'ניתוח ברמה מוסדית! זיהית ש-34% השורט אינו שורט כיווני לחוץ אלא Convertible Arbitrage עם 0.4% CTB — ולכן נמנעת מלקנות "פיתיון סקוויז" מדומה שנתקע בחומת הגידור של מחזיקי האג"ח (+$14,000 לתיק הדסק!).',
+    expEn: 'Institutional-grade analysis! You recognized that low-CTB high-SI paired with Convertible Notes is Delta-Hedged Convertible Arbitrage, not vulnerable retail shorts (+$14,000 desk edge!).'
+  },
+  {
+    id: 4,
+    badgeHe: 'תרחיש 5/6 · הקפצת House Margin ומפל Gamma Squeeze',
+    badgeEn: 'Scenario 5/6 · Intraday House Margin Hike & Gamma Squeeze',
+    titleHe: 'התרעה אדומה בדסק: הברוקר מקפיץ House Margin מ-30% ל-100%!',
+    titleEn: 'Red Alert: Broker Hikes House Margin From 30% to 100% Intraday!',
+    storyHe: 'מניית מם עם Days to Cover של 7.5 ימים פורצת את קו הכאב ב-$15.00. תוך 20 דקות נרכשים <strong>80,000 חוזי Call מחוץ לכסף בסטרייק $20</strong>, ועושי השוק מתחילים לקנות מיליוני מניות לגידור הדלתא (Gamma Squeeze). ברגע זה הברוקר שולח הודעה על העלאת דרישת ה-House Margin ל-100%. איך אתה מגן על פוזיציית שורט או מנהל את האירוע?',
+    storyEn: 'A meme stock with 7.5 Days to Cover breaks its $15.00 Pain Line. Within 20 minutes, <strong>80,000 OTM $20 Call contracts</strong> are bought, triggering Market Maker Delta-Hedging. Simultaneously, brokers hike House Margin to 100%. What is the smartest risk rule here?',
+    hintHe: 'רמז: מה קורה כששני מנועי קנייה כפויים (Margin Call + Market Maker Delta Hedging) פועלים יחד, ואיך נועלים תקרת הפסד מראש?',
+    hintEn: 'Hint: What happens when Margin Calls and Market Maker Delta Hedging collide, and how do pros cap tail risk?',
+    optsHe: [
+      'למצע את השורט בעליות ולהוסיף עוד מניות בלי הגנה',
+      'לחתוך הפסד מיד בשבירת קו הכאב או להחזיק מראש גידור אופציית Call (Married Call) שנועל את ההפסד המקסימלי ומונע מחיקה במפל ה-Short+Gamma Squeeze',
+      'לכבות את המסך ולחכות לשבוע הבא',
+      'למכור אופציות Call חשופות (Naked Calls)'
+    ],
+    optsEn: [
+      'Average up into the losing short without protection',
+      'Cut immediately on the Pain Line break or hold a pre-hedged Married Call / Put structure so maximum loss is strictly capped against the Short+Gamma cascade',
+      'Turn off the monitor until next week',
+      'Sell naked Call options to collect premium'
+    ],
+    ans: 1,
+    expHe: 'משמעת ברזל! בזמן מפל כפול של הקפצת House Margin + Gamma Squeeze באופציות, מוכרים נעלמים מספר הפקודות. יציאה מוקדמת בקו הכאב ושימוש בגידור אופציות מוגדר סיכון מצילים את התיק (+$19,500 לתיק הדסק!).',
+    expEn: 'Iron discipline! When House Margin hikes collide with an options Gamma ramp, the order book hits a vacuum. Respecting the Pain Line and capping tail risk with Calls saves the desk (+$19,500!).'
+  },
+  {
+    id: 5,
+    badgeHe: 'תרחיש 6/6 · שלב הבוס 🔥 · תזמון שורט מושלם ב-Backside עם SSR',
+    badgeEn: 'Scenario 6/6 · Boss Stage 🔥 · Executing the A+ Backside Short',
+    titleHe: 'אחרי יומיים של טירוף: מתי ואיך מבצעים את עסקת השורט המושלמת?',
+    titleEn: 'After a 2-Day Parabolic Run: Executing the Textbook Backside Short',
+    storyHe: 'מניית AI קטנה טסה מ-$4 ל-$24 ביומיים. הבוקר היא פתחה בנר פאניקה אחרון ל-$26 (Blow-off Top), צנחה בחדות ל-$19 (ירידה של 12%- מאתמול שהפעילה <strong>SSR Rule 201</strong>), שברה את ה-<strong>VWAP</strong>, ובניסיון התיקון למעלה נבלמה ב-$21.80 (<strong>Lower High</strong> מתחת ל-VWAP) כשמיליוני קונים לכודים ב-$24–$26. איך אתה מבצע את עסקת השורט?',
+    storyEn: 'A small-cap AI runner surged from $4 to $24 over two days. This morning it spiked to $26 (Blow-off Top), dropped to $19 (triggering <strong>-10% SSR Rule 201</strong>), broke below <strong>VWAP</strong>, and failed on the bounce at $21.80 (confirmed <strong>Lower High</strong> with heavy trapped Overhead Supply at $24–$26). How do you execute the trade?',
+    hintHe: 'רמז: זכור ש-SSR פעיל (אסור למכור בשורט על ה-Bid), שאנחנו ב-Backside מאושר, ושצריך גודל פוזיציה מבוקר וסטופ ברור מעל ה-Lower High!',
+    hintEn: 'Hint: Remember SSR is active (must fill above the Best Bid), Backside is confirmed, and risk must be defined above the Lower High!',
+    optsHe: [
+      'לשלוח פקודת שורט ב-Limit על ה-Ask (מעל ה-Best Bid בשל חוק SSR) ב-Backside ב-$21.80, עם גודל פוזיציה מבוקר (2% סיכון) ו-Stop מוגדר מעל ה-Lower High ב-$22.60',
+      'לנסות למכור בשורט מתחת ל-Bid למרות ה-SSR עם 100% מהתיק',
+      'לחכות שהמניה תרד ל-$0.00 בלי לממש רווחים לעולם',
+      'לקנות לונג ב-$21.80 מתחת ל-VWAP'
+    ],
+    optsEn: [
+      'Place a Limit Short order on the Ask (above the Best Bid to comply with SSR) on the confirmed $21.80 Backside Lower High, sized at 2% risk with a hard Stop above $22.60',
+      'Try to hit the Bid with 100% of the account despite SSR',
+      'Hold forever without taking profits',
+      'Buy Long below VWAP into trapped overhead supply'
+    ],
+    ans: 0,
+    expHe: '🏆 ביצוע מושלם של פרקטיקת המאסטר! נכנסת ב-Backside אחרי שבירת VWAP ו-Lower High, נעזרת בתקרת המוכרים הלכודים ($24–$26), עבדת נכון עם פקודת Limit מעל ה-Bid תחת חוק SSR, והמניה נשפכה ל-$11.50 (+$25,000 לתיק הדסק!).',
+    expEn: '🏆 Masterclass execution! You waited for the Backside Lower High below VWAP, used trapped overhead supply as protection, respected SSR Uptick mechanics with a Limit order on the Ask, and rode the flush to $11.50 (+$25,000 desk profit!).'
+  }
+];
+
+/* ── STATE & RENDERING ENGINE ── */
+let quizState = {};
+let matchState = {};
+let arenaState = { step: 0, equity: 100000, penalties: 0, solved: {}, hintOpen: false };
+
+function renderAllChapters() {
+  const isEn = currentLang === 'en';
+  document.documentElement.lang = isEn ? 'en' : 'he';
+  document.documentElement.dir = isEn ? 'ltr' : 'rtl';
+
+  const logo = document.getElementById('headerCourseLogo');
+  if (logo) logo.textContent = isEn ? '🩳 Short Sellers & Traps' : '🩳 שורטיסטים ומלכודות שורט';
+  const escHdr = document.getElementById('headerEscapeBtn');
+  if (escHdr) escHdr.textContent = isEn ? '🎯 Short Arena' : '🎯 זירת השורט';
+  const revBtn = document.getElementById('reviewBtn');
+  if (revBtn) revBtn.textContent = isEn ? '📚 Full Review' : '📚 סיכום מלא';
+  const langBtn = document.getElementById('langBtn');
+  if (langBtn) langBtn.textContent = isEn ? '🇮🇱 HE' : '🇬🇧 EN';
+  const escNav = document.getElementById('chname-escape');
+  if (escNav) escNav.textContent = isEn ? 'Short Arena' : 'זירת השורט';
+
+  CHAPTERS.forEach((ch, idx) => {
+    const navTitle = document.getElementById('chname-' + idx);
+    if (navTitle) navTitle.textContent = isEn ? ch.titleEn : ch.titleHe;
+    const tagEl = document.getElementById('chtag-' + idx);
+    if (tagEl) tagEl.textContent = isEn ? ch.tagEn : ch.tagHe;
+    const titleEl = document.getElementById('chtitle-' + idx);
+    if (titleEl) titleEl.textContent = isEn ? ch.titleEn : ch.titleHe;
+    const descEl = document.getElementById('chdesc-' + idx);
+    if (descEl) descEl.textContent = isEn ? ch.descEn : ch.descHe;
+
+    // Tabs bar
+    const tabsEl = document.getElementById('tabs-' + idx);
+    if (tabsEl) {
+      const labels = isEn
+        ? [['learn', '📖 Learn'], ['quiz', '🧪 Quiz (5)'], ['game', '🔗 Match'], ['cheat', '📋 Summary']]
+        : [['learn', '📖 למידה'], ['quiz', '🧪 חידון (5)'], ['game', '🔗 התאמה'], ['cheat', '📋 סיכום']];
+      tabsEl.innerHTML = labels.map(([k, lbl], ti) =>
+        '<button class="tab-btn' + (ti === 0 ? ' active' : '') + '" id="tabbtn-' + idx + '-' + k + '" onclick="showTab(' + idx + ',\'' + k + '\')">' + lbl + '</button>'
+      ).join('');
+    }
+
+    // Learn content + bottom nav
+    const learnEl = document.getElementById('learn-' + idx);
+    if (learnEl) {
+      const nextBtn = idx < 9
+        ? '<button class="ch-end-btn primary" onclick="showChapter(' + (idx + 1) + ')"><span class="ch-end-btn-icon">🚀</span><span class="ch-end-btn-label">' + (isEn ? 'Next Chapter →' : '← הפרק הבא') + '</span></button>'
+        : '<button class="ch-end-btn primary" onclick="openEscapeRoom()"><span class="ch-end-btn-icon">🎯</span><span class="ch-end-btn-label">' + (isEn ? 'Short Arena →' : '← זירת השורט') + '</span></button>';
+      const endNav = '<div class="ch-end-nav">' +
+        nextBtn +
+        '<button class="ch-end-btn" onclick="showTab(' + idx + ',\'quiz\')"><span class="ch-end-btn-icon">🧪</span><span class="ch-end-btn-label">' + (isEn ? 'Chapter Quiz' : 'בחן את עצמך') + '</span></button>' +
+        '<button class="ch-end-btn" onclick="showTab(' + idx + ',\'game\')"><span class="ch-end-btn-icon">🔗</span><span class="ch-end-btn-label">' + (isEn ? 'Matching Game' : 'משחק התאמה') + '</span></button>' +
+        '<button class="ch-end-btn" onclick="showTab(' + idx + ',\'cheat\')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">' + (isEn ? 'Summary Cards' : 'כרטיסי סיכום') + '</span></button>' +
+      '</div>';
+      learnEl.innerHTML = (isEn ? ch.learnEn : ch.learnHe) + endNav;
+    }
+
+    // Cheat / Summary
+    const cheatEl = document.getElementById('cheat-' + idx);
+    if (cheatEl) {
+      const cards = isEn ? ch.cheatEn : ch.cheatHe;
+      cheatEl.innerHTML = '<div class="sc"><div class="sc-head">' + (isEn ? '📋 Key Takeaways — ' + ch.titleEn : '📋 נקודות חובה לזכור — ' + ch.titleHe) + '</div>' +
+        cards.map(c => '<div class="sc-card"><div class="sc-label">' + c.l + '</div><div class="sc-text">' + c.t + '</div></div>').join('') +
+        '</div>';
+    }
+
+    renderQuiz(idx);
+    initGame(idx);
+  });
+
+  // Initialize interactive calculators
+  if (document.getElementById('sim-ctb-entry')) updateCtbSim();
+  if (document.getElementById('sim-pain-cash')) updatePainSim();
+  if (document.getElementById('sim-conv-mkt')) updateConvSim();
+  if (document.getElementById('sim-sqz-float')) updateSqzSim();
+  updateCourseProgress();
+}
+
+function showChapter(idx) {
+  currentCh = idx;
+  document.querySelectorAll('.chapter').forEach(el => el.classList.remove('active'));
+  const target = document.getElementById('ch-' + idx);
+  if (target) target.classList.add('active');
+  document.querySelectorAll('.ch-btn').forEach(b => b.classList.remove('active'));
+  const navBtn = document.getElementById('nav-' + idx);
+  if (navBtn) navBtn.classList.add('active');
+  const escHdr = document.getElementById('headerEscapeBtn');
+  if (escHdr) escHdr.classList.remove('active');
+  const ch = CHAPTERS[idx];
+  const hdrName = document.getElementById('headerChName');
+  if (hdrName && ch) hdrName.textContent = currentLang === 'en' ? (ch.num + ' · ' + ch.titleEn) : (ch.num + ' · ' + ch.titleHe);
+  showTab(idx, 'learn');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showTab(chIdx, tabKey) {
+  ['learn', 'quiz', 'game', 'cheat'].forEach(k => {
+    const panel = document.getElementById(chIdx + '-' + k);
+    const btn = document.getElementById('tabbtn-' + chIdx + '-' + k);
+    if (panel) panel.classList.toggle('active', k === tabKey);
+    if (btn) btn.classList.toggle('active', k === tabKey);
+  });
+}
+
+function renderQuiz(chIdx) {
+  const ch = CHAPTERS[chIdx];
+  const wrap = document.getElementById('quiz-' + chIdx);
+  if (!ch || !wrap) return;
+  const isEn = currentLang === 'en';
+  if (!quizState[chIdx]) quizState[chIdx] = { cur: 0, answers: {}, score: 0, done: false };
+  const st = quizState[chIdx];
+  const qs = ch.quiz;
+
+  if (st.done) {
+    const pct = Math.round((st.score / qs.length) * 100);
+    wrap.innerHTML = '<div class="quiz-result">' +
+      '<div class="qr-score">' + st.score + '/' + qs.length + ' (' + pct + '%)</div>' +
+      '<div class="qr-label">' + (isEn ? '🎉 Chapter Quiz Completed!' : '🎉 השלמת את חידון הפרק!') + '</div>' +
+      '<button class="btn btn-primary" onclick="resetChapterQuiz(' + chIdx + ')">' + (isEn ? '↺ Try Again' : '↺ נסה שוב') + '</button>' +
+    '</div>';
+    return;
+  }
+
+  const qObj = qs[st.cur];
+  const picked = st.answers[st.cur];
+  const letters = isEn ? ['A', 'B', 'C', 'D'] : ['א', 'ב', 'ג', 'ד'];
+  const opts = isEn ? qObj.optsEn : qObj.optsHe;
+
+  const pips = qs.map((_, i) => {
+    let cls = 'quiz-pip';
+    if (st.answers[i] !== undefined) cls += ' done';
+    else if (i === st.cur) cls += ' cur';
+    return '<div class="' + cls + '"></div>';
+  }).join('');
+
+  const optsHtml = opts.map((optText, oi) => {
+    let cls = 'quiz-opt';
+    if (picked !== undefined) {
+      if (oi === qObj.ans) cls += ' correct';
+      else if (oi === picked) cls += ' wrong';
+    }
+    return '<button class="' + cls + '" ' + (picked !== undefined ? 'disabled' : '') + ' onclick="pickQuizOpt(' + chIdx + ',' + oi + ')">' +
+      '<span class="opt-letter">' + letters[oi] + '</span>' +
+      '<span>' + optText + '</span>' +
+    '</button>';
+  }).join('');
+
+  const expHtml = picked !== undefined
+    ? '<div class="quiz-exp"><strong>' + (picked === qObj.ans ? (isEn ? '✅ Correct!' : '✅ תשובה נכונה!') : (isEn ? '❌ Not quite:' : '❌ הסבר:')) + '</strong> ' + qObj.expHe + '</div>'
+    : '';
+
+  const nextBtn = picked !== undefined
+    ? '<button class="btn btn-primary" onclick="nextQuizQ(' + chIdx + ')">' + (st.cur + 1 < qs.length ? (isEn ? 'Next Question →' : '← השאלה הבאה') : (isEn ? 'Finish Quiz 🏆' : 'סיום חידון 🏆')) + '</button>'
+    : '';
+
+  wrap.innerHTML = '<div class="quiz-prog">' + pips + '</div>' +
+    '<div class="quiz-q-card active">' +
+      '<div class="quiz-meta">' + (isEn ? ('Question ' + (st.cur + 1) + ' of ' + qs.length) : ('שאלה ' + (st.cur + 1) + ' מתוך ' + qs.length)) + '</div>' +
+      '<div class="quiz-q">' + (isEn ? qObj.qEn : qObj.qHe) + '</div>' +
+      '<div class="quiz-opts">' + optsHtml + '</div>' +
+      expHtml +
+      '<div class="quiz-nav">' + nextBtn + '</div>' +
+    '</div>';
+}
+
+function pickQuizOpt(chIdx, optIdx) {
+  const st = quizState[chIdx];
+  if (!st || st.answers[st.cur] !== undefined) return;
+  st.answers[st.cur] = optIdx;
+  if (optIdx === CHAPTERS[chIdx].quiz[st.cur].ans) {
+    st.score++;
+    awardXP(10);
+  }
+  renderQuiz(chIdx);
+}
+
+function nextQuizQ(chIdx) {
+  const st = quizState[chIdx];
+  const qs = CHAPTERS[chIdx].quiz;
+  if (st.cur + 1 < qs.length) {
+    st.cur++;
+  } else {
+    st.done = true;
+    saveDone(chIdx);
+    awardXP(25);
+  }
+  renderQuiz(chIdx);
+}
+
+function resetChapterQuiz(chIdx) {
+  quizState[chIdx] = { cur: 0, answers: {}, score: 0, done: false };
+  renderQuiz(chIdx);
+}
+
+/* ── MATCHING GAME ── */
+function initGame(chIdx) {
+  const ch = CHAPTERS[chIdx];
+  const wrap = document.getElementById('game-' + chIdx);
+  if (!ch || !wrap) return;
+  const pairs = currentLang === 'en' ? ch.gameEn : ch.gameHe;
+  const rightOrder = pairs.map((_, i) => i).sort(() => Math.random() - 0.5);
+  matchState[chIdx] = { pairs, rightOrder, selLeft: null, selRight: null, matched: new Set(), wrongPair: null };
+  renderGame(chIdx);
+}
+
+function renderGame(chIdx) {
+  const st = matchState[chIdx];
+  const wrap = document.getElementById('game-' + chIdx);
+  if (!st || !wrap) return;
+  const isEn = currentLang === 'en';
+  const allDone = st.matched.size === st.pairs.length;
+
+  let html = '<div class="match-board">';
+  if (allDone) {
+    html += '<div class="match-success">' + (isEn ? '🎉 All pairs matched! +20 XP' : '🎉 כל הזוגות הותאמו בהצלחה! +20 XP') +
+      '<div style="margin-top:10px"><button class="match-restart-btn" onclick="initGame(' + chIdx + ')">' + (isEn ? '↺ Play Again' : '↺ שחק שוב') + '</button></div></div>';
+  }
+  html += '<div class="match-cols"><div class="match-col">';
+  st.pairs.forEach((p, li) => {
+    let cls = 'match-card';
+    if (st.matched.has(li)) cls += ' match-done';
+    else if (st.wrongPair && st.wrongPair[0] === li) cls += ' match-wrong';
+    else if (st.selLeft === li) cls += ' match-sel';
+    html += '<div class="' + cls + '" onclick="pickMatchLeft(' + chIdx + ',' + li + ')"><strong>' + p[0] + '</strong></div>';
+  });
+  html += '</div><div class="match-col">';
+  st.rightOrder.forEach((pairIdx) => {
+    let cls = 'match-card';
+    if (st.matched.has(pairIdx)) cls += ' match-done';
+    else if (st.wrongPair && st.wrongPair[1] === pairIdx) cls += ' match-wrong';
+    else if (st.selRight === pairIdx) cls += ' match-sel';
+    html += '<div class="' + cls + '" onclick="pickMatchRight(' + chIdx + ',' + pairIdx + ')">' + st.pairs[pairIdx][1] + '</div>';
+  });
+  html += '</div></div></div>';
+  wrap.innerHTML = html;
+}
+
+function pickMatchLeft(chIdx, li) {
+  const st = matchState[chIdx];
+  if (!st || st.matched.has(li)) return;
+  st.selLeft = li;
+  checkMatchPair(chIdx);
+}
+
+function pickMatchRight(chIdx, ri) {
+  const st = matchState[chIdx];
+  if (!st || st.matched.has(ri)) return;
+  st.selRight = ri;
+  checkMatchPair(chIdx);
+}
+
+function checkMatchPair(chIdx) {
+  const st = matchState[chIdx];
+  if (st.selLeft === null || st.selRight === null) {
+    renderGame(chIdx);
+    return;
+  }
+  if (st.selLeft === st.selRight) {
+    st.matched.add(st.selLeft);
+    st.selLeft = null;
+    st.selRight = null;
+    if (st.matched.size === st.pairs.length) {
+      saveDone(chIdx);
+      awardXP(20);
+    }
+    renderGame(chIdx);
+  } else {
+    st.wrongPair = [st.selLeft, st.selRight];
+    renderGame(chIdx);
+    setTimeout(() => {
+      st.wrongPair = null;
+      st.selLeft = null;
+      st.selRight = null;
+      renderGame(chIdx);
+    }, 550);
+  }
+}
+
+/* ── FULL REVIEW DRAWER ── */
+function openReview() {
+  const isEn = currentLang === 'en';
+  const body = document.getElementById('reviewBody');
+  const title = document.getElementById('reviewTitle');
+  const sub = document.getElementById('reviewSub');
+  if (title) title.textContent = isEn ? '📚 Full Course Cheat Sheet — Short Sellers & Traps' : '📚 סיכום מלא — שורטיסטים ומלכודות שורט';
+  if (sub) sub.textContent = isEn ? 'All 10 chapters at a glance' : 'כל 10 הפרקים במבט אחד';
+  if (body) {
+    body.innerHTML = CHAPTERS.map(ch => {
+      const cards = isEn ? ch.cheatEn : ch.cheatHe;
+      return '<div class="review-chapter"><div class="review-ch-title">' + ch.num + ' · ' + (isEn ? ch.titleEn : ch.titleHe) + '</div>' +
+        '<div style="padding:12px;display:flex;flex-direction:column;gap:8px">' +
+        cards.map(c => '<div class="sc-card"><div class="sc-label">' + c.l + '</div><div class="sc-text">' + c.t + '</div></div>').join('') +
+        '</div></div>';
+    }).join('');
+  }
+  document.getElementById('reviewOverlay').classList.add('open');
+  document.getElementById('reviewDrawer').classList.add('open');
+}
+
+function closeReview() {
+  document.getElementById('reviewOverlay').classList.remove('open');
+  document.getElementById('reviewDrawer').classList.remove('open');
+}
+
+/* ── GRAND FINALE: SHORT DESK ARENA (ESCAPE ROOM) ── */
+function openEscapeRoom() {
+  currentCh = 'escape';
+  document.querySelectorAll('.chapter').forEach(el => el.classList.remove('active'));
+  document.getElementById('ch-escape').classList.add('active');
+  document.querySelectorAll('.ch-btn').forEach(b => b.classList.remove('active'));
+  const navEsc = document.getElementById('nav-escape');
+  if (navEsc) navEsc.classList.add('active');
+  const hdrEsc = document.getElementById('headerEscapeBtn');
+  if (hdrEsc) hdrEsc.classList.add('active');
+  const hdrName = document.getElementById('headerChName');
+  if (hdrName) hdrName.textContent = currentLang === 'en' ? '🎯 The Short Desk Arena' : '🎯 זירת השורט והמלכודות';
+  renderEscapeRoom();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function renderEscapeRoom() {
+  const mount = document.getElementById('escape-room-mount');
+  if (!mount) return;
+  const isEn = currentLang === 'en';
+  const total = ARENA_STATIONS.length;
+  const solvedCount = Object.keys(arenaState.solved).length;
+
+  if (solvedCount === total) {
+    if (!localStorage.getItem('ng_shorts_arena_xp')) {
+      localStorage.setItem('ng_shorts_arena_xp', '1');
+      awardXP(150);
+    }
+    const starsEl = document.getElementById('chstars-escape');
+    if (starsEl) starsEl.textContent = '🏆';
+    mount.innerHTML = '<div class="er-victory">' +
+      '<div style="font-size:58px;margin-bottom:10px">🏆🩳💎</div>' +
+      '<h2 style="font-size:26px;font-weight:900;margin-bottom:8px">' + (isEn ? 'Master of the Short Desk!' : 'אדריכל/ית דסק השורט וציד המלכודות!') + '</h2>' +
+      '<p style="color:var(--text2);font-size:15px;max-width:600px;margin:0 auto 20px">' +
+        (isEn
+          ? 'You navigated all 6 treacherous market setups — spotting Baby Shelf locks, S-1 EFFECT catalysts, CTB/Dividend traps, Convertible Arbitrage, Gamma Squeezes, and Backside SSR execution!'
+          : 'ניווטת בהצלחה את כל 6 תרחישי השוק — זיהית נעילות Baby Shelf, הודעות EFFECT ב-S-1, מלכודות CTB ודיבידנד מיוחד, ארביטראז\' אג"ח להמרה, מפלי Gamma Squeeze וכניסת Backside תחת SSR!') +
+      '</p>' +
+      '<div class="sim-kpi-grid" style="max-width:560px;margin:0 auto 24px">' +
+        '<div class="sim-kpi"><div class="sim-kpi-val" style="color:var(--green)">$' + arenaState.equity.toLocaleString() + '</div><div class="sim-kpi-lbl">' + (isEn ? 'Final Desk Equity' : 'שווי תיק דסק סופי') + '</div></div>' +
+        '<div class="sim-kpi"><div class="sim-kpi-val">+150 XP</div><div class="sim-kpi-lbl">' + (isEn ? 'Bonus Awarded' : 'בונוס סיום קורס') + '</div></div>' +
+        '<div class="sim-kpi"><div class="sim-kpi-val">6/6</div><div class="sim-kpi-lbl">' + (isEn ? 'Scenarios Mastered' : 'תרחישים שנפתרו') + '</div></div>' +
+      '</div>' +
+      '<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">' +
+        '<button class="btn btn-primary" onclick="resetEscapeRoom()">' + (isEn ? '↺ Play Arena Again' : '↺ שחק שוב בזירה') + '</button>' +
+        '<button class="btn btn-ghost" onclick="showChapter(0)">' + (isEn ? '📖 Back to Chapters' : '📖 חזרה לפרקי הקורס') + '</button>' +
+      '</div>' +
+    '</div>';
+    return;
+  }
+
+  const st = ARENA_STATIONS[arenaState.step];
+  const isSolved = !!arenaState.solved[arenaState.step];
+  const opts = isEn ? st.optsEn : st.optsHe;
+  const letters = isEn ? ['A', 'B', 'C', 'D'] : ['א', 'ב', 'ג', 'ד'];
+
+  const stepperHtml = ARENA_STATIONS.map((s, idx) => {
+    let cls = 'er-step';
+    if (arenaState.solved[idx]) cls += ' done';
+    if (idx === arenaState.step) cls += ' active';
+    return '<div class="' + cls + '" onclick="jumpArenaStep(' + idx + ')"><span>#' + (idx + 1) + '</span><span>' + (arenaState.solved[idx] ? '✓' : '•') + '</span></div>';
+  }).join('');
+
+  const optsHtml = opts.map((txt, oi) => {
+    let cls = 'er-opt-btn';
+    if (isSolved && oi === st.ans) cls += ' correct';
+    else if (arenaState.lastWrong === oi) cls += ' wrong';
+    return '<button class="' + cls + '" ' + (isSolved ? 'disabled' : '') + ' onclick="pickArenaOpt(' + oi + ')">' +
+      '<span class="er-opt-key">' + letters[oi] + '</span>' +
+      '<span>' + txt + '</span>' +
+    '</button>';
+  }).join('');
+
+  const fbHtml = isSolved
+    ? '<div class="er-feedback show ok">' + (isEn ? st.expEn : st.expHe) + '</div>'
+    : (arenaState.lastWrong !== undefined && arenaState.lastWrong !== null
+        ? '<div class="er-feedback show err">' + (isEn ? '❌ Costly desk mistake (-$4,000 Drawdown)! Check the hint or filings and try again.' : '❌ טעות שעלתה לדסק ביוקר (-$4,000 Drawdown)! בדוק את הרמז ונתוני התשקיף ונסה שוב.') + '</div>'
+        : '');
+
+  const nextActionBtn = isSolved
+    ? '<button class="btn btn-primary" onclick="nextArenaStep()">' + (arenaState.step + 1 < total ? (isEn ? 'Next Scenario →' : '← לתרחיש הבא') : (isEn ? 'Claim Victory 🏆' : 'למסך הניצחון 🏆')) + '</button>'
+    : '';
+
+  mount.innerHTML = '<div class="er-wrap">' +
+    '<div class="er-hud">' +
+      '<div class="er-hud-top">' +
+        '<div class="er-mission-tag">' + (isEn ? '🎯 SHORT DESK ARENA · 6 REAL-WORLD SCENARIOS' : '🎯 זירת השורט והמלכודות · 6 תרחישי אמת בדסק המסחר') + '</div>' +
+        '<div class="er-latency-pill">💰 Desk Equity: $' + arenaState.equity.toLocaleString() + '</div>' +
+      '</div>' +
+      '<div class="er-stepper">' + stepperHtml + '</div>' +
+    '</div>' +
+    '<div class="er-station-card">' +
+      '<div class="er-st-badge">' + (isEn ? st.badgeEn : st.badgeHe) + '</div>' +
+      '<div class="er-st-title">' + (isEn ? st.titleEn : st.titleHe) + '</div>' +
+      '<div class="er-st-story">' + (isEn ? st.storyEn : st.storyHe) + '</div>' +
+      '<div class="er-options">' + optsHtml + '</div>' +
+      fbHtml +
+      '<div class="er-hint-box' + (arenaState.hintOpen ? ' show' : '') + '">' + (isEn ? st.hintEn : st.hintHe) + '</div>' +
+      '<div class="er-actions-bar">' +
+        '<button class="btn btn-ghost" onclick="toggleArenaHint()">💡 ' + (isEn ? 'Desk Analyst Hint' : 'רמז אנליסט הדסק') + '</button>' +
+        nextActionBtn +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function pickArenaOpt(oi) {
+  const st = ARENA_STATIONS[arenaState.step];
+  if (arenaState.solved[arenaState.step]) return;
+  if (oi === st.ans) {
+    arenaState.solved[arenaState.step] = true;
+    arenaState.lastWrong = null;
+    arenaState.equity += 18000;
+    awardXP(25);
+  } else {
+    arenaState.lastWrong = oi;
+    arenaState.penalties++;
+    arenaState.equity = Math.max(10000, arenaState.equity - 4000);
+  }
+  renderEscapeRoom();
+}
+
+function nextArenaStep() {
+  const nextUnsolved = ARENA_STATIONS.findIndex((_, i) => !arenaState.solved[i]);
+  if (nextUnsolved !== -1) {
+    arenaState.step = nextUnsolved;
+    arenaState.lastWrong = null;
+    arenaState.hintOpen = false;
+  }
+  renderEscapeRoom();
+}
+
+function jumpArenaStep(idx) {
+  arenaState.step = idx;
+  arenaState.lastWrong = null;
+  arenaState.hintOpen = false;
+  renderEscapeRoom();
+}
+
+function toggleArenaHint() {
+  arenaState.hintOpen = !arenaState.hintOpen;
+  renderEscapeRoom();
+}
+
+function resetEscapeRoom() {
+  arenaState = { step: 0, equity: 100000, penalties: 0, solved: {}, hintOpen: false, lastWrong: null };
+  renderEscapeRoom();
+}
+
+/* ── LANGUAGE & THEME SYNC ── */
+function setLanguage(lang) {
+  currentLang = lang === 'en' ? 'en' : 'he';
+  try { localStorage.setItem('ng_lang', currentLang); } catch (e) {}
+  const activeWasEscape = (currentCh === 'escape');
+  const savedCh = typeof currentCh === 'number' ? currentCh : 0;
+  renderAllChapters();
+  if (activeWasEscape) openEscapeRoom();
+  else showChapter(savedCh);
+}
+
+function toggleLang() {
+  setLanguage(currentLang === 'en' ? 'he' : 'en');
+}
+
+window.addEventListener('message', (e) => {
+  if (!e.data) return;
+  if (e.data.ng === 'lang' && e.data.lang) setLanguage(e.data.lang);
+  if (e.data.ng === 'theme') {
+    document.documentElement.setAttribute('data-theme', e.data.dark ? 'dark' : 'light');
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    if (localStorage.getItem('ng_dark_mode') === '1') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {}
+  renderAllChapters();
+  showChapter(0);
+});
+</script>
+</body>
+</html>

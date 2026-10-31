@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+<script src="/_bridge.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Linux — מערכת ההפעלה</title>
@@ -560,6 +561,72 @@ pre.code-block,.code-block,.code-block code,pre.code-block code{direction:ltr!im
 .highlight-quote{border-right:4px solid var(--accent);background:var(--accentbg);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:.92rem;color:var(--text);line-height:1.7;}
 .sec-label{display:inline-block;background:var(--accentbg);color:var(--accent2);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:6px;}
 @media(max-width:640px){.ch-hero-banner{padding:24px 18px;}.concept-grid{grid-template-columns:1fr 1fr;}}
+
+/* ── NG UPGRADE SUITE CSS ── */
+.ng-esc-hdr-btn {
+  flex-shrink: 0; padding: 6px 13px;
+  background: linear-gradient(135deg, #16a34a, #059669) !important;
+  color: #ffffff !important; border: 2px solid #047857 !important;
+  border-bottom: 3px solid #065f46 !important; border-radius: 10px;
+  font-size: 12px; font-weight: 800; cursor: pointer; transition: all .15s;
+  display: inline-flex; align-items: center; gap: 5px;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25); font-family: inherit;
+}
+.ng-esc-hdr-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.ng-sim-dock {
+  max-width: 840px; margin: 16px auto 22px; padding: 0 18px;
+}
+.ng-sim-card {
+  background: var(--bg2, #1e293b); border: 2px solid #0891b2;
+  border-bottom: 4px solid #0e7490; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 4px 16px rgba(8, 145, 178, 0.12);
+}
+.ng-sim-top {
+  background: linear-gradient(135deg, rgba(8, 145, 178, 0.14), rgba(16, 185, 129, 0.08));
+  padding: 11px 16px; border-bottom: 1px solid var(--border, #334155);
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+}
+.ng-sim-title { font-size: 13.5px; font-weight: 900; color: #06b6d4; }
+.ng-sim-pills { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 16px 8px; }
+.ng-sim-pill {
+  padding: 6px 12px; border-radius: 99px; font-size: 12px; font-weight: 800;
+  border: 1.5px solid var(--border, #334155); background: var(--bg3, #0f172a);
+  color: var(--text, #e2e8f0); cursor: pointer; transition: all .12s; font-family: inherit;
+}
+.ng-sim-pill.active, .ng-sim-pill:hover {
+  background: #0891b2 !important; color: #ffffff !important; border-color: #06b6d4 !important;
+}
+.ng-sim-out {
+  margin: 4px 16px 14px; padding: 12px 14px; border-radius: 10px;
+  background: var(--bg3, #0f172a); border: 1px solid var(--border, #334155);
+  font-size: 13px; line-height: 1.65; color: var(--text, #e2e8f0);
+}
+.ng-esc-overlay {
+  display: none; position: fixed; inset: 0; z-index: 950;
+  background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(4px);
+  overflow-y: auto; padding: 28px 16px 60px;
+}
+.ng-esc-overlay.open { display: block; }
+.ng-esc-modal {
+  max-width: 780px; margin: 0 auto; background: var(--bg2, #1e293b);
+  color: var(--text, #f1f5f9); border: 2px solid #16a34a;
+  border-bottom: 6px solid #15803d; border-radius: 18px; padding: 24px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.45);
+}
+.ng-esc-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border, #334155); }
+.ng-esc-close { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border, #334155); background: var(--bg3, #0f172a); color: var(--text, #f1f5f9); font-size: 18px; cursor: pointer; font-weight: 900; }
+.ng-esc-stepper { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 16px; }
+.ng-esc-step { padding: 7px 4px; border-radius: 8px; text-align: center; font-size: 11.5px; font-weight: 800; background: var(--bg3, #0f172a); border: 1.5px solid var(--border, #334155); cursor: pointer; }
+.ng-esc-step.done { border-color: #16a34a; color: #4ade80; background: rgba(22, 163, 74, 0.15); }
+.ng-esc-step.active { background: #0891b2; color: #fff; border-color: #06b6d4; }
+.ng-esc-story { padding: 14px 16px; border-radius: 10px; background: var(--bg3, #0f172a); border-inline-start: 4px solid #06b6d4; font-size: 14px; line-height: 1.7; margin-bottom: 14px; }
+.ng-esc-opts { display: flex; flex-direction: column; gap: 9px; }
+.ng-esc-opt { padding: 12px 14px; border-radius: 10px; border: 2px solid var(--border, #334155); background: var(--bg2, #1e293b); color: var(--text, #f1f5f9); text-align: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer; transition: all .12s; font-family: inherit; }
+.ng-esc-opt:hover:not(:disabled) { border-color: #06b6d4; transform: translateY(-1px); }
+.ng-esc-opt.correct { border-color: #16a34a !important; background: rgba(22, 163, 74, 0.18) !important; }
+.ng-esc-opt.wrong { border-color: #ef4444 !important; background: rgba(239, 68, 68, 0.16) !important; }
+.ng-esc-fb { margin-top: 12px; padding: 12px 14px; border-radius: 10px; font-size: 13.5px; font-weight: 700; line-height: 1.6; }
+
 </style>
 </head>
 <body>
@@ -570,6 +637,7 @@ pre.code-block,.code-block,.code-block code,pre.code-block code{direction:ltr!im
     <span>Linux</span>
   </div>
   <span class="site-chapter-name" id="headerChName"></span>
+  <button class="ng-esc-hdr-btn" id="ngHeaderEscapeBtn" onclick="openNgEscapeRoom()">🎯 משימת הצלת שרת</button>
   <button class="review-btn" id="reviewBtn" onclick="openReview()">📚 סיכום מלא</button><button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
 </header>
 
@@ -3419,5 +3487,179 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeReview(
 
 <div class="review-overlay" id="reviewOverlay" onclick="closeReview()"></div>
 <div class="review-drawer" id="reviewDrawer"><div class="review-header"><div><div class="review-header-title" id="reviewTitle">📚 סיכום מלא</div><div class="review-header-sub" id="reviewSub">כל 12 הפרקים בעמוד אחד</div></div><button class="review-close" onclick="closeReview()">×</button></div><div class="review-body" id="reviewBody"></div></div>
+
+<div class="ng-esc-overlay" id="ngEscapeOverlay" onclick="if(event.target===this)closeNgEscapeRoom()">
+  <div class="ng-esc-modal" id="ngEscapeModal"></div>
+</div>
+<script>
+(function(){
+  var CFG = {"id":"linux","btnHe":"🎯 משימת הצלת שרת","btnEn":"🎯 Server Rescue","titleHe":"🐧 חדר בריחה: הצל את שרת ה-Production בלינוקס ב-03:00 לפנות בוקר!","titleEn":"🐧 Linux SysAdmin Escape Room: 3:00 AM Production Server Rescue!","subHe":"שרת הלינוקס המרכזי של החברה קורס: הדיסק ב-100%, תהליך סורר שורף את ה-CPU, הרשאות SSH נפרצו ושירות ה-Nginx מסרב לעלות. הצילו את השרת ב-5 תחנות טרמינל!","subEn":"Production is down at 3:00 AM: disk at 100%, runaway CPU process, broken SSH permissions, and Nginx failing to start. Rescue the server in 5 stations!","simTitleHe":"💻 סימולטור טרמינל Linux חי: הרשאות, תהליכים, רשת ו-Systemd","simTitleEn":"💻 Live Linux Terminal Simulator: Permissions, Processes & Systemd","simPills":[["perm","🔐 מחשבון הרשאות chmod (755 / 600)","<code>$ chmod 600 ~/.ssh/id_ed25519</code> → <code>-rw-------</code> (רק הבעלים קורא וכותב — חובה למפתחות SSH!).<br><code>$ chmod 755 deploy.sh</code> → <code>-rwxr-xr-x</code> (בעלים: קריאה/כתיבה/הרצה <code>4+2+1=7</code>; קבוצה ואחרים: קריאה והרצה <code>4+1=5</code>)."],["proc","⚙️ ציד תהליכים וזיכרון (ps / top / kill)","<code>$ ps aux --sort=-%cpu | head -n 5</code> → מאתר את התהליך שצורך הכי הרבה CPU.<br><code>$ kill -15 PID</code> (<code>SIGTERM</code>) מבקש מהתהליך להיסגר בצורה נקייה; <code>$ kill -9 PID</code> (<code>SIGKILL</code>) מחסל אותו מיידית ברמת ה-Kernel!"],["disk","💾 ניתוח דיסק ולוגים (df -h / du / lsof)","<code>$ df -h</code> מציג ניצולת מחיצות; <code>$ df -i</code> בודק אם נגמרו ה-Inodes!<br>אם מחקתם קובץ לוג ענק אבל המקום בדיסק לא התפנה — תהליך פתוח עדיין מחזיק אותו! מאתרים עם <code>$ lsof +L1</code> ומבצעים reload לשירות או <code>truncate -s 0 file.log</code>."],["net","🌐 אבחון פורטים ושירותים (ss / journalctl)","<code>$ sudo ss -tulpn | grep :443</code> → מציג בדיוק איזה תהליך (PID) מאזין על פורט 443.<br><code>$ sudo journalctl -u nginx -n 50 --no-pager</code> → מציג את שורות הלוג האחרונות של שירות ה-Systemd כדי לגלות למה הוא נכשל."]],"stations":[{"titleHe":"תחנה 1/5 · הדיסק מלא ב-100% — אבל איפה הקבצים?!","titleEn":"Station 1/5 · Disk at 100% — The Deleted Open File Trap","storyHe":"פקודת <code>df -h</code> מראה שמחיצת <code>/var</code> מלאה ב-100%. מחקתם קובץ לוג של 40GB עם <code>rm /var/log/app.log</code>, אבל <code>df -h</code> עדיין מראה 100% תפוסה! למה זה קרה ואיך משחררים את המקום בלי להפיל את השרת?","storyEn":"<code>df -h</code> shows <code>/var</code> is 100% full. You ran <code>rm /var/log/app.log</code> (40GB), yet <code>df -h</code> still shows 100% full! Why, and how do you fix it cleanly?","optsHe":["תהליך האפליקציה עדיין מחזיק File Descriptor פתוח לקובץ שנמחק (נראה ב-lsof +L1). הפתרון: לאפס קובץ חי עם truncate -s 0 או לשלוח SIGHUP/reload לתהליך כדי שישחרר את הקובץ","לכבות את השרת מהחשמל","להריץ chmod 777 על כל הדיסק","למחוק את התיקייה /bin"],"optsEn":["A running process still holds an open File Descriptor to the unlinked inode (visible via lsof +L1). Reload the service or use truncate -s 0 instead of rm","Pull the power cable","Run chmod 777 /","Delete /bin"],"ans":0,"expHe":"קלאסיקת לינוקס! מחיקת קובץ עם rm בזמן שתהליך כותב אליו משאירה את ה-Inode חי ב-Kernel עד שהתהליך סוגר את ה-File Descriptor."},{"titleHe":"תחנה 2/5 · מפתח SSH נדחה (Permissions 0777 are too open)","titleEn":"Station 2/5 · Fixing SSH Key Permissions","storyHe":"אתם מנסים להתחבר לשרת הגיבוי ולקוח ה-SSH מסרב עם השגיאה: <code>Permissions 0644 for id_ed25519 are too open</code>. איזו פקודה מתקנת את ההרשאות של המפתח הפרטי והתיקייה <code>~/.ssh</code>?","storyEn":"SSH refuses to use your private key with: <code>Permissions 0644 for id_ed25519 are too open</code>. Which commands fix this?","optsHe":["chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_ed25519","chmod 777 ~/.ssh/id_ed25519","chown nobody ~/.ssh","rm -rf ~/.ssh"],"optsEn":["chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_ed25519","chmod 777 ~/.ssh/id_ed25519","chown nobody ~/.ssh","rm -rf ~/.ssh"],"ans":0,"expHe":"מדויק! OpenSSH דורש שהתיקייה ~/.ssh תהיה ב-700 והמפתח הפרטי ב-600 (קריאה וכתיבה לבעלים בלבד)."},{"titleHe":"תחנה 3/5 · חיסול תהליך כורה קריפטו סורר","titleEn":"Station 3/5 · Hunting & Killing a Runaway Process","storyHe":"המעבד ב-100%. הרצתם <code>ps aux --sort=-%cpu</code> וגיליתם תהליך זדוני בשם <code>kworker_mine</code> עם <code>PID 4812</code> שמתעלם מאות סגירה רגיל (<code>SIGTERM / kill -15</code>). איזו פקודה תחסל אותו מיידית ברמת ה-Kernel?","storyEn":"A rogue process (PID 4812) is pegging CPU at 100% and ignoring SIGTERM (kill -15). What command forces the Linux kernel to terminate it immediately?","optsHe":["sudo kill -9 4812 (שליחת אות SIGKILL שאינו ניתן לתפיסה או התעלמות ע\"י התהליך)","kill -0 4812","echo stop > /proc/cpuinfo","ls -la 4812"],"optsEn":["sudo kill -9 4812 (sends SIGKILL directly from the kernel, which the process cannot catch or ignore)","kill -0 4812","echo stop > /proc","ls -la 4812"],"ans":0,"expHe":"בול! אות SIGKILL (-9) מבוצע ישירות על ידי ה-Kernel ומפסיק את התהליך באופן מיידי."},{"titleHe":"תחנה 4/5 · שירות ה-Nginx מסרב לעלות (Address already in use)","titleEn":"Station 4/5 · Resolving Port 80 Conflict","storyHe":"הרצתם <code>sudo systemctl restart nginx</code> והשירות נכשל. ב-<code>journalctl -u nginx</code> מופיעה השגיאה: <code>bind() to 0.0.0.0:80 failed (98: Address already in use)</code>. איך תגלו איזה תהליך תופס את פורט 80?","storyEn":"Nginx fails to start with <code>bind() to 0.0.0.0:80 failed (Address already in use)</code>. Which command reveals the exact process holding port 80?","optsHe":["sudo ss -tulpn | grep :80 (או sudo lsof -i :80)","ping localhost","cat /etc/hostname","df -h"],"optsEn":["sudo ss -tulpn | grep :80 (or sudo lsof -i :80)","ping localhost","cat /etc/hostname","df -h"],"ans":0,"expHe":"מצוין! הדגלים -tulpn בפקודת ss מציגים שקעי TCP/UDP מאזינים יחד עם שם התהליך וה-PID שלו."},{"titleHe":"תחנה 5/5 · שלב הבוס 🔥 · אוטומציה והקשחת הרשאות Sudo / Cron","titleEn":"Station 5/5 · Boss Stage 🔥 · Hardening & Systemd Persistence","storyHe":"השרת חזר לאוויר! כדי שהשירות יעלה אוטומטית בכל אתחול (Boot) וירוץ תחת משתמש ייעודי חסר הרשאות שורש, מה תגדירו?","storyEn":"Server is back online! How do you ensure the service starts automatically on boot and runs safely without root privileges?","optsHe":["להגדיר User=www-data בקובץ ה-Unit של Systemd ולהריץ sudo systemctl enable --now nginx","להריץ הכל כ-root מתוך /tmp","לתת הרשאת SUID (chmod +s) ל-bash","למחוק את ה-Firewall"],"optsEn":["Set User=www-data in the systemd unit file and run sudo systemctl enable --now nginx","Run everything as root from /tmp","Add SUID bit to /bin/bash","Disable firewall"],"ans":0,"expHe":"ניצחון מלא! השרת ניצל, מוקשח ופועל לפי מיטב הפרקטיקות של Linux Production."}]};
+  var ngEscState = { step: 0, solved: {}, wrong: null, mistakes: 0 };
+
+  function getLang() {
+    return (document.documentElement.lang === 'en' || (typeof currentLang !== 'undefined' && currentLang === 'en')) ? 'en' : 'he';
+  }
+
+  function awardNgXP(amt) {
+    try {
+      if (typeof window.ngXP === 'function') window.ngXP(amt);
+      else if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'ng_xp', amount: amt }, '*');
+    } catch(e) {}
+  }
+
+  window.selectNgSimPill = function(idx) {
+    var pill = CFG.simPills[idx];
+    if (!pill) return;
+    var out = document.getElementById('ngSimOut');
+    if (out) out.innerHTML = pill[2];
+    document.querySelectorAll('.ng-sim-pill').forEach(function(b, i) {
+      b.classList.toggle('active', i === idx);
+    });
+  };
+
+  function mountSimDock() {
+    if (document.getElementById('ngSimDock')) return;
+    var mainEl = document.querySelector('main, .main, .site-main, .content');
+    if (!mainEl) return;
+    var dock = document.createElement('div');
+    dock.className = 'ng-sim-dock';
+    dock.id = 'ngSimDock';
+    var isEn = getLang() === 'en';
+    dock.innerHTML = '<div class="ng-sim-card">' +
+      '<div class="ng-sim-top">' +
+        '<span class="ng-sim-title" id="ngSimTitle">' + (isEn ? CFG.simTitleEn : CFG.simTitleHe) + '</span>' +
+        '<button class="ng-esc-hdr-btn" onclick="openNgEscapeRoom()" id="ngDockEscBtn">' + (isEn ? CFG.btnEn : CFG.btnHe) + ' · +150 XP</button>' +
+      '</div>' +
+      '<div class="ng-sim-pills">' +
+        CFG.simPills.map(function(p, i) {
+          return '<button class="ng-sim-pill' + (i === 0 ? ' active' : '') + '" onclick="selectNgSimPill(' + i + ')">' + p[1] + '</button>';
+        }).join('') +
+      '</div>' +
+      '<div class="ng-sim-out" id="ngSimOut">' + CFG.simPills[0][2] + '</div>' +
+    '</div>';
+    mainEl.insertBefore(dock, mainEl.firstChild);
+  }
+
+  window.openNgEscapeRoom = function() {
+    var ov = document.getElementById('ngEscapeOverlay');
+    if (ov) ov.classList.add('open');
+    renderNgEscapeModal();
+  };
+
+  window.closeNgEscapeRoom = function() {
+    var ov = document.getElementById('ngEscapeOverlay');
+    if (ov) ov.classList.remove('open');
+  };
+
+  window.pickNgEscOpt = function(oi) {
+    var st = CFG.stations[ngEscState.step];
+    if (!st || ngEscState.solved[ngEscState.step]) return;
+    if (oi === st.ans) {
+      ngEscState.solved[ngEscState.step] = true;
+      ngEscState.wrong = null;
+      awardNgXP(25);
+    } else {
+      ngEscState.wrong = oi;
+      ngEscState.mistakes++;
+    }
+    renderNgEscapeModal();
+  };
+
+  window.nextNgEscStep = function() {
+    for (var i = 0; i < CFG.stations.length; i++) {
+      if (!ngEscState.solved[i]) {
+        ngEscState.step = i;
+        ngEscState.wrong = null;
+        renderNgEscapeModal();
+        return;
+      }
+    }
+    renderNgEscapeModal();
+  };
+
+  window.jumpNgEscStep = function(idx) {
+    ngEscState.step = idx;
+    ngEscState.wrong = null;
+    renderNgEscapeModal();
+  };
+
+  window.resetNgEscapeRoom = function() {
+    ngEscState = { step: 0, solved: {}, wrong: null, mistakes: 0 };
+    renderNgEscapeModal();
+  };
+
+  function renderNgEscapeModal() {
+    var modal = document.getElementById('ngEscapeModal');
+    if (!modal) return;
+    var isEn = getLang() === 'en';
+    var total = CFG.stations.length;
+    var solvedCount = Object.keys(ngEscState.solved).length;
+
+    if (solvedCount === total) {
+      var xpKey = 'ng_esc_xp_' + CFG.id;
+      try {
+        if (!localStorage.getItem(xpKey)) {
+          localStorage.setItem(xpKey, '1');
+          awardNgXP(150);
+        }
+      } catch(e) {}
+      modal.innerHTML = '<div class="ng-esc-top">' +
+        '<div style="font-weight:900;font-size:18px;color:#4ade80">' + (isEn ? CFG.titleEn : CFG.titleHe) + '</div>' +
+        '<button class="ng-esc-close" onclick="closeNgEscapeRoom()">×</button>' +
+      '</div>' +
+      '<div style="text-align:center;padding:24px 12px">' +
+        '<div style="font-size:54px;margin-bottom:10px">🏆🎯🚀</div>' +
+        '<h2 style="font-size:24px;font-weight:900;margin-bottom:8px">' + (isEn ? 'Mission Accomplished! +150 XP' : 'המשימה הושלמה בהצלחה! +150 XP') + '</h2>' +
+        '<p style="opacity:.85;margin-bottom:20px">' + (isEn ? ('All ' + total + ' stations solved! Mistakes: ' + ngEscState.mistakes) : ('פתרת את כל ' + total + ' התחנות בהצלחה! טעויות בדרך: ' + ngEscState.mistakes)) + '</p>' +
+        '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">' +
+          '<button class="ng-esc-hdr-btn" onclick="resetNgEscapeRoom()">' + (isEn ? '↺ Play Again' : '↺ שחק שוב') + '</button>' +
+          '<button class="ng-esc-hdr-btn" style="background:#0891b2!important;border-color:#06b6d4!important" onclick="closeNgEscapeRoom()">' + (isEn ? '✓ Back to Course' : '✓ חזרה לקורס') + '</button>' +
+        '</div>' +
+      '</div>';
+      return;
+    }
+
+    var st = CFG.stations[ngEscState.step];
+    var isSolved = !!ngEscState.solved[ngEscState.step];
+    var opts = isEn ? st.optsEn : st.optsHe;
+
+    var stepper = CFG.stations.map(function(_, idx) {
+      var cls = 'ng-esc-step' + (ngEscState.solved[idx] ? ' done' : '') + (idx === ngEscState.step ? ' active' : '');
+      return '<div class="' + cls + '" onclick="jumpNgEscStep(' + idx + ')">#' + (idx + 1) + ' ' + (ngEscState.solved[idx] ? '✓' : '') + '</div>';
+    }).join('');
+
+    var optsHtml = opts.map(function(txt, oi) {
+      var cls = 'ng-esc-opt';
+      if (isSolved && oi === st.ans) cls += ' correct';
+      else if (ngEscState.wrong === oi) cls += ' wrong';
+      return '<button class="' + cls + '" ' + (isSolved ? 'disabled' : '') + ' onclick="pickNgEscOpt(' + oi + ')">' + txt + '</button>';
+    }).join('');
+
+    var fbHtml = isSolved
+      ? '<div class="ng-esc-fb" style="background:rgba(22,163,74,0.16);border:1.5px solid #16a34a">✅ ' + st.expHe + '</div>'
+      : (ngEscState.wrong !== null ? '<div class="ng-esc-fb" style="background:rgba(239,68,68,0.15);border:1.5px solid #ef4444">' + (isEn ? '❌ Not quite — analyze the scenario and try again!' : '❌ לא מדויק — נתחו את התרחיש ונסו שוב!') + '</div>' : '');
+
+    var nextBtn = isSolved
+      ? '<div style="margin-top:14px;text-align:end"><button class="ng-esc-hdr-btn" onclick="nextNgEscStep()">' + (solvedCount === total ? (isEn ? 'Finish 🏆' : 'למסך הניצחון 🏆') : (isEn ? 'Next Station →' : '← לתחנה הבאה')) + '</button></div>'
+      : '';
+
+    modal.innerHTML = '<div class="ng-esc-top">' +
+      '<div><div style="font-weight:900;font-size:17px">' + (isEn ? CFG.titleEn : CFG.titleHe) + '</div><div style="font-size:12px;opacity:.75">' + (isEn ? CFG.subEn : CFG.subHe) + '</div></div>' +
+      '<button class="ng-esc-close" onclick="closeNgEscapeRoom()">×</button>' +
+    '</div>' +
+    '<div class="ng-esc-stepper">' + stepper + '</div>' +
+    '<div style="font-weight:900;font-size:16px;margin-bottom:8px;color:#38bdf8">' + (isEn ? st.titleEn : st.titleHe) + '</div>' +
+    '<div class="ng-esc-story">' + (isEn ? st.storyEn : st.storyHe) + '</div>' +
+    '<div class="ng-esc-opts">' + optsHtml + '</div>' +
+    fbHtml + nextBtn;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    mountSimDock();
+  });
+  setTimeout(mountSimDock, 200);
+})();
+</script>
+
 </body>
 </html>

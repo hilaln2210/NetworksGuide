@@ -116,10 +116,11 @@ export function SearchBar({ tracks, onGoToResult, onGoToTroubleshoot, lang, t })
     return matched.slice(0, MAX_RESULTS)
   }, [debouncedQuery, searchIndex, trblIndex])
 
-  // Reset selection on results change
-  useEffect(() => {
+  const [prevResults, setPrevResults] = useState(results)
+  if (prevResults !== results) {
+    setPrevResults(results)
     setSelectedIdx(0)
-  }, [results])
+  }
 
   // Ctrl+K / Cmd+K shortcut
   useEffect(() => {

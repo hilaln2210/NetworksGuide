@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+<script src="/_bridge.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Linux — מערכת ההפעלה</title>
@@ -527,6 +528,105 @@ code, .inline-code {
 .sum-block{margin-bottom:28px}.sum-block-title{font-size:13px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-family:var(--mono);display:flex;align-items:center;gap:8px}.sum-block-title::after{content:'';flex:1;height:1px;background:var(--border)}.sum-row{display:grid;grid-template-columns:200px 1fr;gap:10px 16px;padding:9px 0;border-bottom:1px solid var(--border);align-items:start}.sum-row:last-child{border-bottom:none}.sum-k{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--accent);line-height:1.4}.sum-v{font-size:13px;color:var(--text2);line-height:1.6}.sum-v strong{color:var(--text);font-weight:700}.sum-v code{font-size:11.5px;background:var(--bg3);padding:1px 5px;border-radius:3px;color:var(--accent2,var(--accent));font-family:var(--mono)}.sum-tip{margin-top:10px;padding:10px 14px;background:var(--yellowbg,#fffbeb);border-radius:var(--r,8px);border:1px solid #fde68a;font-size:13px;color:#713f12;line-height:1.6}.sum-danger{margin-top:10px;padding:10px 14px;background:#fff1f2;border-radius:var(--r,8px);border:1px solid #fecaca;font-size:13px;color:#991b1b;line-height:1.6}@media(max-width:560px){.sum-row{grid-template-columns:1fr;gap:2px}}
 /* ── FULL REVIEW DRAWER ── */
 .review-btn{flex-shrink:0;padding:5px 12px;background:var(--accent);color:#fff;border:none;border-radius:var(--r,8px);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;margin-left:6px}[dir="rtl"] .review-btn{margin-left:0;margin-right:6px}.review-btn:hover{opacity:.85}.review-overlay{display:none;position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.45);backdrop-filter:blur(2px)}.review-overlay.open{display:block}.review-drawer{position:fixed;top:0;left:0;right:0;z-index:910;background:var(--bg,#fff);border-bottom:2px solid var(--accent);box-shadow:0 4px 16px rgba(0,0,0,.15);transform:translateY(-100%);transition:transform .3s cubic-bezier(.4,0,.2,1);max-height:90vh;display:flex;flex-direction:column}.review-drawer.open{transform:translateY(0)}.review-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--border);flex-shrink:0;gap:12px;background:var(--bg,#fff)}.review-header-title{font-size:15px;font-weight:800;color:var(--text,#111)}.review-header-sub{font-size:12px;color:var(--text3,#888);font-weight:500}.review-close{width:32px;height:32px;border-radius:50%;background:var(--bg2,#f8f9fa);border:1px solid var(--border);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--text2,#666);line-height:1;transition:all .15s}.review-close:hover{background:#fff1f2;border-color:#dc2626;color:#dc2626}.review-body{overflow-y:auto;padding:24px 20px 40px;flex:1}.review-body::-webkit-scrollbar{width:6px}.review-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}.review-chapter-block{margin-bottom:36px;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}.review-chapter-title{background:var(--accentbg,rgba(22,163,74,.06));border-bottom:1px solid var(--border);padding:12px 18px;display:flex;align-items:center;gap:10px}.review-chapter-num{font-family:var(--mono);font-size:11px;font-weight:800;color:var(--accent);background:var(--bg,#fff);border:1px solid var(--accent);border-radius:6px;padding:2px 8px;flex-shrink:0}.review-chapter-name{font-size:14px;font-weight:800;color:var(--text,#111)}.review-chapter-body{padding:18px;background:var(--bg,#fff)}.review-chapter-body .sum-block{margin-bottom:20px}.review-chapter-body .sum-block:last-child{margin-bottom:0}.review-chapter-body .sum-row{grid-template-columns:170px 1fr;padding:7px 0}.review-chapter-body .sum-v{font-size:12.5px}.review-chapter-body .sum-k{font-size:11.5px}@media(max-width:680px){.review-drawer{max-height:95vh}.review-body{padding:16px 14px 32px}.review-chapter-body .sum-row{grid-template-columns:1fr}}
+
+/* ── CODE BLOCKS — ALWAYS LTR ── */
+pre.code-block,.code-block,.code-block code,pre.code-block code{direction:ltr!important;text-align:left!important;unicode-bidi:embed!important;}
+/* ── Enhancements ── */
+.ch-hero-banner{background:linear-gradient(135deg,#0f2027 0%,#1a3a2a 50%,#16a34a 100%);border-radius:18px;padding:36px 32px 32px;margin-bottom:32px;position:relative;overflow:hidden;color:#fff;}
+.ch-hero-banner::after{content:'';position:absolute;top:-40px;left:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(22,163,74,.3) 0%,transparent 70%);border-radius:50%;}
+.ch-hero-banner .hero-emoji{font-size:2.8rem;margin-bottom:12px;display:block;}
+.ch-hero-banner h2{font-size:1.65rem;font-weight:800;margin:0 0 8px;color:#fff;}
+.ch-hero-banner p{font-size:.95rem;color:rgba(255,255,255,.72);margin:0;line-height:1.6;}
+.fact-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);border:2px solid #fcd34d;border-radius:14px;padding:18px 22px;margin:20px 0;font-size:.9rem;line-height:1.75;}
+.fact-box strong{color:#92400e;}
+.story-box{background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:2px solid #86efac;border-radius:14px;padding:20px 24px;margin:20px 0;line-height:1.8;}
+.story-box .story-icon{font-size:1.8rem;margin-bottom:8px;display:block;}
+.story-box p{margin:0 0 6px;color:#14532d;font-size:.92rem;}
+.story-box strong{color:#166534;}
+.steps{display:flex;flex-direction:column;gap:12px;margin:18px 0 24px;}
+.step{display:flex;gap:14px;align-items:flex-start;background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:14px 16px;}
+.step-num{background:var(--accent);color:#fff;border-radius:50%;width:28px;height:28px;min-width:28px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;}
+.step-body{flex:1;}
+.step-body strong{display:block;font-size:.92rem;color:var(--text);margin-bottom:3px;}
+.step-body span{font-size:.86rem;color:var(--text2);line-height:1.6;}
+.concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0 22px;}
+.concept-card{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:16px 14px;}
+.concept-card .cc-icon{font-size:1.5rem;margin-bottom:7px;}
+.concept-card .cc-title{font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:5px;}
+.concept-card .cc-desc{font-size:.82rem;color:var(--text2);line-height:1.6;}
+.concept-card.green{border-color:#86efac;background:#f0fdf4;}
+.concept-card.blue{border-color:#93c5fd;background:#eff6ff;}
+.concept-card.red{border-color:#fca5a5;background:#fff1f2;}
+.concept-card.yellow{border-color:#fcd34d;background:#fffbeb;}
+.highlight-quote{border-right:4px solid var(--accent);background:var(--accentbg);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:.92rem;color:var(--text);line-height:1.7;}
+.sec-label{display:inline-block;background:var(--accentbg);color:var(--accent2);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:6px;}
+@media(max-width:640px){.ch-hero-banner{padding:24px 18px;}.concept-grid{grid-template-columns:1fr 1fr;}}
+
+/* ── NG UPGRADE SUITE CSS ── */
+.ng-esc-hdr-btn {
+  flex-shrink: 0; padding: 6px 13px;
+  background: linear-gradient(135deg, #16a34a, #059669) !important;
+  color: #ffffff !important; border: 2px solid #047857 !important;
+  border-bottom: 3px solid #065f46 !important; border-radius: 10px;
+  font-size: 12px; font-weight: 800; cursor: pointer; transition: all .15s;
+  display: inline-flex; align-items: center; gap: 5px;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25); font-family: inherit;
+}
+.ng-esc-hdr-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.ng-sim-dock {
+  max-width: 840px; margin: 16px auto 22px; padding: 0 18px;
+}
+.ng-sim-card {
+  background: var(--bg2, #1e293b); border: 2px solid #0891b2;
+  border-bottom: 4px solid #0e7490; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 4px 16px rgba(8, 145, 178, 0.12);
+}
+.ng-sim-top {
+  background: linear-gradient(135deg, rgba(8, 145, 178, 0.14), rgba(16, 185, 129, 0.08));
+  padding: 11px 16px; border-bottom: 1px solid var(--border, #334155);
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+}
+.ng-sim-title { font-size: 13.5px; font-weight: 900; color: #06b6d4; }
+.ng-sim-pills { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 16px 8px; }
+.ng-sim-pill {
+  padding: 6px 12px; border-radius: 99px; font-size: 12px; font-weight: 800;
+  border: 1.5px solid var(--border, #334155); background: var(--bg3, #0f172a);
+  color: var(--text, #e2e8f0); cursor: pointer; transition: all .12s; font-family: inherit;
+}
+.ng-sim-pill.active, .ng-sim-pill:hover {
+  background: #0891b2 !important; color: #ffffff !important; border-color: #06b6d4 !important;
+}
+.ng-sim-out {
+  margin: 4px 16px 14px; padding: 12px 14px; border-radius: 10px;
+  background: var(--bg3, #0f172a); border: 1px solid var(--border, #334155);
+  font-size: 13px; line-height: 1.65; color: var(--text, #e2e8f0);
+}
+.ng-esc-overlay {
+  display: none; position: fixed; inset: 0; z-index: 950;
+  background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(4px);
+  overflow-y: auto; padding: 28px 16px 60px;
+}
+.ng-esc-overlay.open { display: block; }
+.ng-esc-modal {
+  max-width: 780px; margin: 0 auto; background: var(--bg2, #1e293b);
+  color: var(--text, #f1f5f9); border: 2px solid #16a34a;
+  border-bottom: 6px solid #15803d; border-radius: 18px; padding: 24px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.45);
+}
+.ng-esc-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border, #334155); }
+.ng-esc-close { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border, #334155); background: var(--bg3, #0f172a); color: var(--text, #f1f5f9); font-size: 18px; cursor: pointer; font-weight: 900; }
+.ng-esc-stepper { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 16px; }
+.ng-esc-step { padding: 7px 4px; border-radius: 8px; text-align: center; font-size: 11.5px; font-weight: 800; background: var(--bg3, #0f172a); border: 1.5px solid var(--border, #334155); cursor: pointer; }
+.ng-esc-step.done { border-color: #16a34a; color: #4ade80; background: rgba(22, 163, 74, 0.15); }
+.ng-esc-step.active { background: #0891b2; color: #fff; border-color: #06b6d4; }
+.ng-esc-story { padding: 14px 16px; border-radius: 10px; background: var(--bg3, #0f172a); border-inline-start: 4px solid #06b6d4; font-size: 14px; line-height: 1.7; margin-bottom: 14px; }
+.ng-esc-opts { display: flex; flex-direction: column; gap: 9px; }
+.ng-esc-opt { padding: 12px 14px; border-radius: 10px; border: 2px solid var(--border, #334155); background: var(--bg2, #1e293b); color: var(--text, #f1f5f9); text-align: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer; transition: all .12s; font-family: inherit; }
+.ng-esc-opt:hover:not(:disabled) { border-color: #06b6d4; transform: translateY(-1px); }
+.ng-esc-opt.correct { border-color: #16a34a !important; background: rgba(22, 163, 74, 0.18) !important; }
+.ng-esc-opt.wrong { border-color: #ef4444 !important; background: rgba(239, 68, 68, 0.16) !important; }
+.ng-esc-fb { margin-top: 12px; padding: 12px 14px; border-radius: 10px; font-size: 13.5px; font-weight: 700; line-height: 1.6; }
+
 </style>
 </head>
 <body>
@@ -537,6 +637,7 @@ code, .inline-code {
     <span>Linux</span>
   </div>
   <span class="site-chapter-name" id="headerChName"></span>
+  <button class="ng-esc-hdr-btn" id="ngHeaderEscapeBtn" onclick="openNgEscapeRoom()">🎯 משימת הצלת שרת</button>
   <button class="review-btn" id="reviewBtn" onclick="openReview()">📚 סיכום מלא</button><button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
 </header>
 
@@ -767,8 +868,10 @@ he:{
   optLetters:['א','ב','ג','ד'],
   question:'שאלה',of:'מתוך',correct:'נכון',
   learn:[
-`<div class="did-you-know">💡 <strong>ידעת?</strong> ב-1991, Linus Torvalds היה סטודנט בן 21 בהלסינקי שרצה מערכת הפעלה שתרוץ על המחשב הביתי שלו. הוא כתב הודעה קצרה לפורום: "אני עושה מערכת הפעלה חינמית (כבדרך אגב, רק תחביב)." כיום, 96% מהשרתים בעולם, כל מכשיר Android, ו-100% מהמחשבים העל-יכולת בעולם — מריצים את ה-kernel שלו.</div>
+`<div class="ch-hero-banner"><span class="hero-emoji">🐧</span><h2>מבוא ל-Linux</h2><p>Linux מריץ 96% משרתי האינטרנט, כל טלפון Android, ורוב הענן. להבין Linux = להבין את עמוד השדרה של הטכנולוגיה המודרנית.</p></div>
+<div class="fact-box"><strong>💡 ידעת?</strong> ב-1991, Linus Torvalds היה סטודנט בן 21 בהלסינקי שרצה מערכת הפעלה שתרוץ על המחשב הביתי שלו. הוא כתב הודעה קצרה לפורום: "אני עושה מערכת הפעלה חינמית (כבדרך אגב, רק תחביב)." כיום, 96% מהשרתים בעולם, כל מכשיר Android, ו-100% מהמחשבים העל-יכולת בעולם — מריצים את ה-kernel שלו.</div>
 
+<div class="sec-label">📌</div>
 <div class="section-title">מה זה Linux ולמה כולם משתמשים בו?</div>
 <p class="prose">Linux הוא לא מערכת הפעלה שלמה — הוא <em>kernel</em>. ה-kernel הוא הליבה שמנהלת את החומרה: מי מקבל זמן מעבד, מי יכול לגשת לדיסק, איך הזיכרון מחולק. Linux לבדו לא עושה כלום. מה שאנחנו מכירים כ-"Linux" הוא שילוב של Linux kernel עם אלפי תוכניות שפותחו על ידי מפתחים ברחבי העולם תחת רישיון GPL — חינמי לשימוש, שינוי, והפצה.</p>
 <p class="prose">למה Linux ניצח? כי הוא חינמי, יציב, ניתן להתאמה, ורץ על כל דבר — מהגלקסי בכיסך ועד לשרתי Google שמשרתים מיליארדי משתמשים. כשתפתחי שרת cloud, תכתבי Docker container, תבני CI/CD pipeline — את עובדת על Linux. אין בחירה אחרת. זו השפה שהאינטרנט כתוב בה.</p>
@@ -779,6 +882,7 @@ he:{
 <div class="card"><div class="card-icon">📦</div><div class="card-title">Distribution</div><div class="card-body">Kernel + כלים + package manager + הגדרות. Ubuntu, Debian, Fedora, Arch — הפצות שונות, אותו kernel.</div></div>
 </div>
 
+<div class="sec-label">📌</div>
 <div class="section-title">ארכיטקטורה — כיצד Linux בנוי</div>
 <p class="prose">חשבי על Linux כעוגה בשכבות. בתחתית — החומרה: CPU, RAM, דיסק, כרטיס רשת. מעליה — ה-kernel שמדבר עם החומרה דרך drivers. מעליו — System Libraries (כמו glibc) שמספקות API נוח לתוכנות. ומעל הכל — תוכנות המשתמש: shell, editors, servers, כל מה שמריצים.</p>
 <div class="table-wrap"><table class="data-table">
@@ -792,6 +896,7 @@ he:{
   </tbody>
 </table></div>
 
+<div class="sec-label">📌</div>
 <div class="section-title">הפצות — איזו לבחור ולמה?</div>
 <p class="prose">ההפצה היא "הטעם" של Linux שאת בוחרת. כולן מריצות את אותו kernel, אבל שונות בpackage manager, בתדירות עדכונים, ובקהל היעד. אם את עובדת בענן — כמעט בטוח Ubuntu או Amazon Linux. אם enterprise — Red Hat. אם אהבת ניסויים — Arch.</p>
 <div class="table-wrap"><table class="data-table"><thead><tr><th>הפצה</th><th>Package Manager</th><th>מי משתמש</th><th>מאפיין</th></tr></thead><tbody>
@@ -812,6 +917,7 @@ he:{
 </div>
 
 <div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+<div class="sec-label">📌</div>
 <div class="section-title">להריץ Linux ללא התקנה</div>
 <p class="prose">הדרך המהירה ביותר להתחיל: WSL2 ב-Windows (הפעל ב-PowerShell: <code>wsl --install</code>), או כל אחד מהterminals הבאים בdirect בdrowser.</p>
 <pre class="code-block"><code><span class="comment"># WSL2 — Ubuntu ב-Windows תוך 5 דקות</span>
@@ -832,8 +938,12 @@ uname -a             <span class="comment"># כל פרטי kernel</span>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button>
 </div>`,
-`<div class="did-you-know">💡 <strong>ידעת?</strong> ב-Linux, "הכל הוא קובץ" — זה לא מטאפורה. הדיסק הקשיח שלך? קובץ ב-/dev/sda. כרטיס הרשת? קובץ ב-/dev/eth0. רשימת התהליכים הרצים? קובץ ב-/proc. המדפסת? /dev/lp0. הרעיון הזה מ-1969 עדיין בלב Linux כיום, ומה שהופך אותו לגמיש בצורה שאין לה מקבילה.</div>
+`<div class="ch-hero-banner"><span class="hero-emoji">📁</span><h2>Filesystem ו-Permissions</h2><p>"הכל הוא קובץ" — דיסקים, מכשירים, תהליכים. הבנת הרשאות ו-inode תחסוך שעות של דיבוג.</p></div>
+<div class="fact-box"><strong>💡 ידעת?</strong> ב-Linux, "הכל הוא קובץ" — זה לא מטאפורה. הדיסק הקשיח שלך? קובץ ב-/dev/sda. כרטיס הרשת? קובץ ב-/dev/eth0. רשימת התהליכים הרצים? קובץ ב-/proc. המדפסת? /dev/lp0. הרעיון הזה מ-1969 עדיין בלב Linux כיום, ומה שהופך אותו לגמיש בצורה שאין לה מקבילה.</div>
 
+<div class="story-box"><span class="story-icon">🗺️</span><p><strong>למה Linux נראה כך?</strong></p><p>ב-Windows כל דיסק מקבל אות (C:, D:). ב-Linux הכל עץ אחד שמתחיל מ-/ — שורש. כמו עץ אמיתי: גזע אחד, ענפים שמסתעפים. כל תיקייה יש לה תפקיד קבוע — זה לא שרירותי, זה תקן.</p></div>
+<div class="story-box"><span class="story-icon">🗺️</span><p><strong>למה Linux נראה כך?</strong></p><p>ב-Windows כל דיסק מקבל אות (C:, D:). ב-Linux הכל עץ אחד שמתחיל מ-/ — שורש. כמו עץ אמיתי: גזע אחד, ענפים שמסתעפים. לכל תיקייה תפקיד קבוע — זה לא שרירותי, זה תקן.</p></div>
+<div class="sec-label">📌</div>
 <div class="section-title">מבנה תיקיות Linux — מפה לשטח</div>
 <p class="prose">בניגוד ל-Windows שבו כל דיסק מקבל אות משלו (C:, D:), Linux הוא עץ אחד שמתחיל מ-root — הנקודה "/" בראש הכל. מתחת ל-"/" מסתעפות תיקיות שלכל אחת תפקיד מוגדר. זה לא שרירותי — זה תקן FHS (Filesystem Hierarchy Standard) שמגדיר מה שייך לאן.</p>
 <div class="table-wrap"><table class="data-table"><thead><tr><th>תיקייה</th><th>מה יש שם</th><th>דוגמה</th></tr></thead><tbody>
@@ -847,7 +957,13 @@ uname -a             <span class="comment"># כל פרטי kernel</span>
 <tr><td><code>/dev</code></td><td>Device files — כל חומרה</td><td>/dev/sda, /dev/null</td></tr>
 </tbody></table></div>
 
+<div class="sec-label">📌</div>
 <div class="section-title">הרשאות קבצים — rwx ומה שמאחוריהם</div>
+<div class="concept-grid">
+  <div class="concept-card green"><div class="cc-icon">👁️</div><div class="cc-title">r — קריאה (4)</div><div class="cc-desc">לקרוא קובץ או לראות תוכן תיקייה</div></div>
+  <div class="concept-card blue"><div class="cc-icon">✏️</div><div class="cc-title">w — כתיבה (2)</div><div class="cc-desc">לשנות, למחוק, ליצור קבצים</div></div>
+  <div class="concept-card yellow"><div class="cc-icon">▶️</div><div class="cc-title">x — הרצה (1)</div><div class="cc-desc">להריץ קובץ / להיכנס לתיקייה</div></div>
+</div>
 <p class="prose">כשמריצים <code>ls -l</code> ורואים <code>-rwxr-xr--</code> — זה לא אקראי. כל תו מספר סיפור. בואי נפרק את זה לחלקים:</p>
 <pre class="code-block"><code>-rwxr-xr--  2  alice  devs  4096  Jan 15 10:30  script.sh
 │││││││││└─ others: r-- = קריאה בלבד
@@ -866,6 +982,7 @@ chmod u+x,g-w file    <span class="comment"># symbolic: הוסף x לowner, הס
 chown alice:devs file     <span class="comment"># owner=alice, group=devs</span>
 chown -R www-data /var/www <span class="comment"># recursive — לכל מה שבתיקייה</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">Inodes — מה Linux באמת שומר על קבצים</div>
 <p class="prose">ב-Linux, שם הקובץ והנתונים שלו הם שני דברים נפרדים. ה-inode הוא הרשומה הפנימית שמכילה את כל המידע על קובץ: גודל, הרשאות, timestamps, ואיפה הנתונים בדיסק — אבל לא את השם. השם הוא רק pointer ל-inode. זה מאפשר דברים מרתקים:</p>
 <pre class="code-block"><code><span class="comment"># Hard link — שני שמות לאותו inode</span>
@@ -889,6 +1006,7 @@ ls -li file.txt backup.txt
 </div>
 
 <div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+<div class="sec-label">📌</div>
 <div class="section-title">ניווט וחקירה של filesystem</div>
 <pre class="code-block"><code><span class="comment"># מיפוי מהיר של מה יש</span>
 tree -L 2 /etc      <span class="comment"># עץ עומק 2 של /etc</span>
@@ -910,8 +1028,10 @@ ls -li file hardlink                    <span class="comment"># אם inode זה�
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button>
 </div>`,
-`<div class="did-you-know">💡 <strong>ידעת?</strong> Doug McIlroy המציא את pipe ( | ) ב-1973 ואמר שזה "הרעיון הכי טוב שיצא מ-Unix." כל pipeline שאת כותבת היום — cat file | grep error | sort | uniq -c — הוא ירושה ישירה ממנו. במקום תוכנות ענקיות שעושות הכל, Unix בנה כלים קטנים שכל אחד עושה דבר אחד מצוין — ומחבר אותם יחד.</div>
+`<div class="ch-hero-banner"><span class="hero-emoji">⌨️</span><h2>פקודות טקסט וקבצים</h2><p>grep, pipe, redirect — שלוש הפקודות שמאחדות כלי Linux לכוח-על. תוך שעה תעבדי על קבצים כמו מתכנתת ותיקה.</p></div>
+<div class="fact-box"><strong>💡 ידעת?</strong> Doug McIlroy המציא את pipe ( | ) ב-1973 ואמר שזה "הרעיון הכי טוב שיצא מ-Unix." כל pipeline שאת כותבת היום — cat file | grep error | sort | uniq -c — הוא ירושה ישירה ממנו. במקום תוכנות ענקיות שעושות הכל, Unix בנה כלים קטנים שכל אחד עושה דבר אחד מצוין — ומחבר אותם יחד.</div>
 
+<div class="sec-label">📌</div>
 <div class="section-title">ניווט וצפייה בקבצים — הבסיס שחוזרים אליו</div>
 <p class="prose">לפני שרצים ל-vim ו-docker — צריך לדעת לנוע. הפקודות האלה הן כמו ללכת ברחוב: pwd אומרת "איפה אני", cd מזיזה, ls מראה מה סביבי. נשמע פשוט — אבל flags הנכונים חוסכים דקות של scroll.</p>
 <pre class="code-block"><code><span class="comment"># ls — הרשמה האמיתית</span>
@@ -926,6 +1046,8 @@ find /home -size +100M -type f           <span class="comment"># קבצים גד
 find . -perm /222 -type f               <span class="comment"># קבצים שניתן לכתוב אליהם</span>
 find /tmp -name "*.tmp" -delete          <span class="comment"># מצא ומחק</span></code></pre>
 
+<div class="story-box"><span class="story-icon">🔎</span><p><strong>grep — הכלי שמוצא מחט בערמת שחת</strong></p><p>grep סורקת קבצים ומחזירה שורות שמתאימות לתבנית. בלוגים של אלפי שורות, קבצי קונפיגורציה ענקיים — grep מוצאת בשנייה מה שהיה לוקח דקות לחפש ידנית.</p></div>
+<div class="sec-label">📌</div>
 <div class="section-title">grep — אמנות החיפוש בטקסט</div>
 <p class="prose">grep הוא אחד הכלים הכי חזקים שיש לך. הוא קורא שורות, בודק אם הן תואמות pattern, ומחזיר את אלה שכן. מה שהופך אותו לחזק הם ה-flags — כל אחד מוסיף יכולת.</p>
 <pre class="code-block"><code><span class="comment"># grep — חיפוש בסיסי ומתקדם</span>
@@ -948,6 +1070,8 @@ sed 's/old/new/g' file.txt         <span class="comment"># החלף כל "old" �
 sed -i 's/localhost/prod.db/g' config.env  <span class="comment"># ישירות בקובץ (-i = in-place)</span>
 sed -n '10,20p' file.txt           <span class="comment"># הדפס שורות 10 עד 20</span></code></pre>
 
+<div class="highlight-quote">💡 <strong>הרעיון הגדול:</strong> במקום לבנות כלי אחד שעושה הכל — בנו כלים קטנים שכל אחד עושה דבר אחד טוב, וחברו ביניהם עם pipe. זה הפילוסופיה של Unix.</div>
+<div class="sec-label">📌</div>
 <div class="section-title">Pipes ו-Redirects — הדבק שמחבר הכל</div>
 <p class="prose">Pipe ( | ) לוקח את ה-output של פקודה אחת ומזין אותו כ-input לפקודה הבאה. זה הרעיון שבנה את Unix. כל כלי עושה דבר אחד מצוין — ו-pipe מחבר אותם לpipeline חזק.</p>
 <pre class="code-block"><code><span class="comment"># Redirects — ניתוב output</span>
@@ -968,6 +1092,7 @@ ps aux | grep nginx | grep -v grep | awk '{print $2}'
 df -h | awk 'NR>1 {print $5, $6}' | sort -rn
 <span class="comment"># ← מוצאת partition-ים עם אחוז שימוש גבוה</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">כלי טקסט חיוניים</div>
 <pre class="code-block"><code><span class="comment"># צפייה בקבצים</span>
 cat file.txt          <span class="comment"># הדפס כל הקובץ</span>
@@ -992,6 +1117,7 @@ uniq -c sorted.txt        <span class="comment"># ספור כפילויות (ח�
 </div>
 
 <div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+<div class="sec-label">📌</div>
 <div class="section-title">One-liners שימושיים לכל יום</div>
 <pre class="code-block"><code><span class="comment"># Top 10 IPs מ-access log</span>
 awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head -10
@@ -1015,8 +1141,10 @@ awk '$9==404 {print $1}' access.log | sort | uniq -c | sort -rn | head -5</code>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button>
 </div>`,
-`<div class="did-you-know">💡 <strong>ידעת?</strong> ה-permission model של Linux מבוסס על Unix משנות ה-70 — ועדיין מהווה ברית ברזל של אבטחה. כשגוגל, אמזון ומיקרוסופט מריצות containers בשרתים שלהן, כל container רץ כ-user עם UID ייחודי, permissions מינימליות, ומבודד מה-host. Principle of Least Privilege — העיקרון שכל משתמש וכל תהליך מקבלים בדיוק מה שהם צריכים ולא יותר — הוא עמוד השדרה של כל מערכת לינוקס מאובטחת.</div>
+`<div class="ch-hero-banner"><span class="hero-emoji">👥</span><h2>משתמשים, קבוצות והרשאות</h2><p>כל מתקפת אבטחה מנצלת הרשאות לא נכונות. ניהול נכון של משתמשים ו-sudo הוא קו ההגנה הראשון.</p></div>
+<div class="fact-box"><strong>💡 ידעת?</strong> ה-permission model של Linux מבוסס על Unix משנות ה-70 — ועדיין מהווה ברית ברזל של אבטחה. כשגוגל, אמזון ומיקרוסופט מריצות containers בשרתים שלהן, כל container רץ כ-user עם UID ייחודי, permissions מינימליות, ומבודד מה-host. Principle of Least Privilege — העיקרון שכל משתמש וכל תהליך מקבלים בדיוק מה שהם צריכים ולא יותר — הוא עמוד השדרה של כל מערכת לינוקס מאובטחת.</div>
 
+<div class="sec-label">📌</div>
 <div class="section-title">משתמשים וקבוצות — מי הם ומה הם עושים</div>
 <p class="prose">בLinux, כל תהליך שרץ, כל קובץ שנשמר, כל פעולה שמבוצעת — שייכת למשתמש. root הוא המשתמש הכי-עוצמתי — הוא יכול הכל, לגעת בכל קובץ, להרוג כל תהליך, למחוק את עצמו. לכן עובדים עם users רגילים ומשתמשים ב-sudo רק כשצריך, ולא יותר.</p>
 <pre class="code-block"><code><span class="comment"># ניהול משתמשים</span>
@@ -1038,6 +1166,8 @@ groupadd devteam                   <span class="comment"># צור קבוצה</sp
 gpasswd -a alice devteam           <span class="comment"># הוסף משתמש לקבוצה</span>
 groups alice                       <span class="comment"># אילו קבוצות יש לalice</span></code></pre>
 
+<div class="story-box"><span class="story-icon">🦸</span><p><strong>sudo — כוח גדול, אחריות גדולה</strong></p><p>root יכול לעשות הכל — כולל למחוק את כל המערכת בטעות. sudo נותן כוח root לפקודה ספציפית בלבד, ומתעד כל שימוש בלוג. כשמשהו משתבש — יודעים בדיוק מה קרה ומי עשה את זה.</p></div>
+<div class="sec-label">📌</div>
 <div class="section-title">sudo — הדרך הנכונה לבצע פעולות root</div>
 <p class="prose">sudo (Super User DO) מאפשר למשתמש רגיל לבצע פקודות ספציפיות כ-root — עם log של כל פעולה, עם דרישת סיסמה, ועם שליטה מדויקת על מה מותר. זו הדרך הנכונה לתת הרשאות — לא "פשוט תיכנסו כroot".</p>
 <pre class="code-block"><code><span class="comment"># שימוש ב-sudo</span>
@@ -1055,6 +1185,7 @@ alice ALL=(ALL:ALL) ALL            <span class="comment"># alice יכולה הכ
 bob ALL=(ALL) NOPASSWD: /bin/systemctl restart nginx  <span class="comment"># בלי סיסמה לפקודה ספציפית</span>
 %devteam ALL=(ALL) /usr/bin/apt    <span class="comment"># כל קבוצת devteam יכולה apt</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">chmod ו-chown — שליטה מלאה בהרשאות</div>
 <p class="prose">chmod ו-chown הן שתי הפקודות הכי חשובות לניהול הרשאות. chmod משנה <em>מה מותר לעשות</em> עם קובץ. chown משנה <em>למי שייך</em> הקובץ.</p>
 <pre class="code-block"><code><span class="comment"># chmod — שינוי הרשאות (numeric)</span>
@@ -1087,6 +1218,7 @@ umask 077              <span class="comment"># קבצים חדשים יוצאי�
 </div>
 
 <div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+<div class="sec-label">📌</div>
 <div class="section-title">הגדרת משתמש חדש לשרת production</div>
 <pre class="code-block"><code><span class="comment"># 1. צור משתמש deploy ללא login password</span>
 sudo useradd -m -s /bin/bash deploy
@@ -1113,8 +1245,10 @@ sudo -u deploy sudo systemctl restart myapp</code></pre>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button>
 </div>`,
-`<div class="did-you-know">💡 <strong>ידעת?</strong> כל תוכנית שרצה ב-Linux היא תהליך (process) עם PID ייחודי. גם ה-shell שאת עובדת בו הוא תהליך. גם הbrowser שפתח את הקורס הזה. systemd עם PID 1 הוא ה-"אב" של כל התהליכים — הדבר הראשון שה-kernel מריץ, שמריץ כל השאר.</div>
+`<div class="ch-hero-banner"><span class="hero-emoji">⚙️</span><h2>תהליכים ו-Jobs</h2><p>מה קורה כשמריצים פקודה? Linux מתזמן, מנהל ומתקשר עם תהליכים כל הזמן. הפרק שמסביר מה קורה מאחורי הקלעים.</p></div>
+<div class="fact-box"><strong>💡 ידעת?</strong> כל תוכנית שרצה ב-Linux היא תהליך (process) עם PID ייחודי. גם ה-shell שאת עובדת בו הוא תהליך. גם הbrowser שפתח את הקורס הזה. systemd עם PID 1 הוא ה-"אב" של כל התהליכים — הדבר הראשון שה-kernel מריץ, שמריץ כל השאר.</div>
 
+<div class="sec-label">📌</div>
 <div class="section-title">מה קורה כשמריצים פקודה?</div>
 <p class="prose">כשמקלידים <code>python3 server.py</code> ולוחצים Enter, הshell קורא ל-fork() — יוצר עותק של עצמו — ואחר כך קורא ל-exec() שמחליף את העותק בתוכנית החדשה. ה-process החדש מקבל PID משלו, יורש environment variables, ו-file descriptors מהshell, ומתחיל לרוץ.</p>
 <pre class="code-block"><code><span class="comment"># ps — Process Status</span>
@@ -1136,6 +1270,13 @@ ls /proc/1234/           <span class="comment"># כל המידע על PID 1234</
 cat /proc/1234/status    <span class="comment"># state, memory, uid</span>
 lsof -p 1234             <span class="comment"># קבצים שפתוחים על ידי process</span></code></pre>
 
+<div class="concept-grid">
+  <div class="concept-card green"><div class="cc-icon">⚡</div><div class="cc-title">SIGTERM (15)</div><div class="cc-desc">בקשה מנומסת לסגור. התהליך יכול להתנקות לפני.</div></div>
+  <div class="concept-card red"><div class="cc-icon">💀</div><div class="cc-title">SIGKILL (9)</div><div class="cc-desc">סגירה מיידית — לא ניתן לחסום. ברירת המחדל האחרונה.</div></div>
+  <div class="concept-card blue"><div class="cc-icon">⏸️</div><div class="cc-title">SIGSTOP (19)</div><div class="cc-desc">השהיה זמנית של תהליך. SIGCONT ממשיך אותו.</div></div>
+  <div class="concept-card yellow"><div class="cc-icon">🔄</div><div class="cc-title">SIGHUP (1)</div><div class="cc-desc">Reload קונפיגורציה — nginx ו-apache מאזינים לזה.</div></div>
+</div>
+<div class="sec-label">📌</div>
 <div class="section-title">Signals — שפת התקשורת עם תהליכים</div>
 <p class="prose">הדרך לדבר עם תהליכים היא דרך signals. Signal הוא הודעה קצרה שה-kernel שולח לתהליך. לכל signal יש מספר ושם. חלקם אפשר לתפוס ולטפל בהם, חלקם אי אפשר.</p>
 <pre class="code-block"><code><span class="comment"># Signals חשובים</span>
@@ -1152,6 +1293,7 @@ pkill -HUP nginx        <span class="comment"># reload nginx</span>
 <span class="comment"># תמיד נסי SIGTERM לפני SIGKILL</span>
 <span class="comment"># SIGKILL לא מאפשר cleanup — נתונים עלולים לאבד</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">Background Jobs ו-nohup</div>
 <p class="prose">כשרצים תהליך בשרת, לא רוצים שהוא יפסיק כשסוגרים את הsession. יש כמה דרכים להשאיר תהליכים חיים:</p>
 <pre class="code-block"><code><span class="comment"># & — הרץ ב-background</span>
@@ -1172,6 +1314,7 @@ screen -S mysession    <span class="comment"># פתח session חדשה</span>
 <span class="comment"># Ctrl+A D לנתק (הsession ממשיכה)</span>
 screen -r mysession    <span class="comment"># חזור לsession</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">Cron — תזמון משימות</div>
 <p class="prose">Cron הוא scheduler שמריץ פקודות בזמנים מוגדרים. כל user יכול להגדיר cron jobs משלו. הsyntax נראה מפחיד בהתחלה אבל יש pattern פשוט.</p>
 <pre class="code-block"><code><span class="comment"># crontab -e — ערוך cron jobs</span>
@@ -1204,6 +1347,7 @@ journalctl -u cron          <span class="comment"># systemd</span></code></pre>
 </div>
 
 <div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+<div class="sec-label">📌</div>
 <div class="section-title">Process Management בscenarios אמיתיים</div>
 <pre class="code-block"><code><span class="comment"># מצא ותרוג process שתופס port</span>
 lsof -i :8080              <span class="comment"># מי על port 8080?</span>
@@ -1232,8 +1376,10 @@ kill -9 PID     <span class="comment"># רק אם צריך</span></code></pre>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button>
 </div>`,
-`<div class="did-you-know">💡 <strong>ידעת?</strong> כשמריצים פינג לשרת שנמצא ביפן מישראל, הpackets עוברים דרך עשרות routers ב-4 יבשות — ומחזירים תשובה בפחות מ-200ms. כל ה-routing, ה-NAT, ה-DNS — עובד שקוף מאחורי הקלעים. הפקודות שנלמד כאן חושפות בדיוק מה קורה.</div>
+`<div class="ch-hero-banner"><span class="hero-emoji">🌐</span><h2>רשת ו-SSH</h2><p>SSH הוא כלי שכל DevOps ומפתח Backend חייב להכיר לעומק. הפרק שיהפוך אותך למומחית בניהול שרתים מרחוק.</p></div>
+<div class="fact-box"><strong>💡 ידעת?</strong> כשמריצים פינג לשרת שנמצא ביפן מישראל, הpackets עוברים דרך עשרות routers ב-4 יבשות — ומחזירים תשובה בפחות מ-200ms. כל ה-routing, ה-NAT, ה-DNS — עובד שקוף מאחורי הקלעים. הפקודות שנלמד כאן חושפות בדיוק מה קורה.</div>
 
+<div class="sec-label">📌</div>
 <div class="section-title">כלי אבחון רשת — הסיפור מאחורי הפקודות</div>
 <p class="prose">לפני שנלמד את הפקודות, חשוב להבין מה הן בודקות. רשת Linux פועלת בשכבות: physical (כרטיס רשת), network (IP), transport (TCP/UDP), application. כל כלי בודק שכבה שונה — וביחד הם נותנים תמונה מלאה.</p>
 <pre class="code-block"><code><span class="comment"># ip — הכלי המודרני (מחליף ifconfig)</span>
@@ -1261,7 +1407,9 @@ dig +short google.com      <span class="comment"># רק ה-IPs</span>
 cat /etc/resolv.conf       <span class="comment"># DNS servers שמוגדרים</span>
 cat /etc/hosts             <span class="comment"># local overrides</span></code></pre>
 
-<div class="section-title">SSH — יותר מסתם Remote Shell</div>
+<div class="sec-label">📌</div>
+<div class="story-box"><span class="story-icon">🔐</span><p><strong>SSH — יותר מסתם Remote Shell</strong></p><p>SSH מאפשר גישה מוצפנת לשרת מרחוק. אבל זה רק ההתחלה — SSH tunnels, port forwarding, ו-key-based auth הופכים אותו לכלי אבטחה שלם.</p></div>
+<div class="section-title" style="display:none">SSH</div>
 <p class="prose">SSH (Secure Shell) הוא פרוטוקול מוצפן שמאפשר remote access לשרתים. אבל SSH הוא הרבה יותר מ-"shell מרחוק" — הוא tunnel מוצפן שאפשר להעביר דרכו קבצים, tunnels, port forwarding, ואפילו GUI applications.</p>
 <pre class="code-block"><code><span class="comment"># SSH בסיסי</span>
 ssh alice@server.com           <span class="comment"># התחבר כ-alice</span>
@@ -1292,6 +1440,7 @@ ssh -L 8080:localhost:80 alice@server.com
 <span class="comment"># ← local:8080 מועבר לserver:80</span>
 <span class="comment"># ← גישה לservicess פנימיים דרך SSH tunnel</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">Firewall — iptables ו-ufw</div>
 <p class="prose">iptables הוא ה-firewall המובנה בLinux. הוא חזק מאוד — ומסובך מאוד. ufw (Uncomplicated Firewall) הוא wrapper שהופך את זה לניהול פשוט. בשרתי production, השניים נמצאים — iptables עובד מאחורי הקלעים, ufw נותן interface נוח.</p>
 <pre class="code-block"><code><span class="comment"># ufw — פשוט ויעיל לשרתי Ubuntu</span>
@@ -1313,6 +1462,8 @@ sudo ufw delete allow 8080 <span class="comment"># מחק rule</span></code></pr
 </div>
 
 <div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+<div class="highlight-quote">🎯 <strong>סדר האבחון:</strong> ping (האם מגיעים?) → traceroute (איפה נתקעים?) → ss (פורטים פתוחים?) → curl (HTTP עובד?) → tcpdump (מה עובר בפועל?)</div>
+<div class="sec-label">📌</div>
 <div class="section-title">Network Debug Playbook</div>
 <pre class="code-block"><code><span class="comment"># שלב 1: בדיקת connectivity מלמטה למעלה</span>
 ip addr show             <span class="comment"># יש IP?</span>
@@ -1341,8 +1492,10 @@ sudo ufw enable</code></pre>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button>
 </div>`,
-`<div class="did-you-know">💡 <strong>ידעת?</strong> ה-Package Manager של Linux פתר ב-1998 בעיה שWindows עדיין לא פתרה לגמרי ב-2025: dependency hell. כשמתקינים תוכנה, apt/dnf מחשבים אוטומטית את כל ה-dependencies, מורידים הכל לפי הסדר הנכון, ומתקינים בצורה אטומית. להסרה — אותו הדבר. זה נשמע פשוט. זה לא.</div>
+`<div class="ch-hero-banner"><span class="hero-emoji">📦</span><h2>Packages ו-Services</h2><p>apt, dnf, systemd — כלי ניהול החבילות והשירותים שמריצים כל שרת Linux. ידע שחוסך שעות.</p></div>
+<div class="fact-box"><strong>💡 ידעת?</strong> ה-Package Manager של Linux פתר ב-1998 בעיה שWindows עדיין לא פתרה לגמרי ב-2025: dependency hell. כשמתקינים תוכנה, apt/dnf מחשבים אוטומטית את כל ה-dependencies, מורידים הכל לפי הסדר הנכון, ומתקינים בצורה אטומית. להסרה — אותו הדבר. זה נשמע פשוט. זה לא.</div>
 
+<div class="sec-label">📌</div>
 <div class="section-title">apt — Package Manager של Debian/Ubuntu</div>
 <p class="prose">apt (Advanced Package Tool) הוא ה-package manager שמנהל תוכנות בUbuntu ובDebian. הוא מחזיק registry של עשרות אלפי packages, יודע מה תלוי במה, ומבצע התקנה/עדכון/הסרה בצורה אמינה. apt עובד עם repositories — שרתים שמחזיקים packages. כשמריצים apt update, הוא מוריד את הרשימה העדכנית מהrepositories.</p>
 <pre class="code-block"><code><span class="comment"># עדכון ראשוני — תמיד לפני התקנה</span>
@@ -1371,6 +1524,7 @@ cat /etc/apt/sources.list
 ls /etc/apt/sources.list.d/  <span class="comment"># repos נוספים (PPA)</span>
 sudo add-apt-repository ppa:deadsnakes/python  <span class="comment"># הוסף PPA</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">dnf/yum — Package Manager של RHEL/Fedora</div>
 <p class="prose">dnf (Dandified YUM) הוא ה-package manager של Red Hat Enterprise Linux, Fedora, וCentOS Stream. הsyntax דומה מאוד לapt אבל יש הבדלים. ב-RHEL-based systems, ה-repositories נקראים repos ומנוהלים קצת שונה.</p>
 <pre class="code-block"><code><span class="comment"># dnf — מקביל ל-apt</span>
@@ -1385,6 +1539,7 @@ sudo dnf info nginx         <span class="comment"># מידע</span>
 sudo dnf repolist           <span class="comment"># repos פעילים</span>
 sudo dnf config-manager --enable epel  <span class="comment"># הפעל EPEL repo</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">systemd — ניהול שירותים</div>
 <p class="prose">systemd הוא ה-init system של רוב הDistributions המודרניות. הוא מריץ services, מנהל אותם, מפקח עליהם, ומאפשר לראות logs שלהם. כשמתקינים nginx, הוא לא מופעל אוטומטית — צריך לנהל אותו דרך systemctl.</p>
 <pre class="code-block"><code><span class="comment"># systemctl — ניהול שירותים</span>
@@ -1412,6 +1567,8 @@ journalctl -p err             <span class="comment"># רק errors</span></code><
 </div>
 
 <div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+<div class="highlight-quote">💡 <strong>כלל הזהב:</strong> <code>apt update</code> תמיד לפני <code>apt install</code>. <code>apt upgrade</code> רק אחרי בדיקה. <code>apt autoremove</code> לניקוי תקופתי.</div>
+<div class="sec-label">📌</div>
 <div class="section-title">Package Management Best Practices</div>
 <pre class="code-block"><code><span class="comment"># שגרת עדכונים (automation)</span>
 sudo apt update && sudo apt upgrade -y
@@ -1439,8 +1596,11 @@ apt list --upgradable 2>/dev/null | grep security</code></pre>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button>
 </div>`,
-`<div class="did-you-know">💡 <strong>ידעת?</strong> Shell scripting הוא ה-"דבק" של DevOps. כל CI/CD pipeline, כל deployment script, כל monitoring check — תחת הקישוט היפה של YAML ו-JSON — מריץ bash scripts. לא צריך להיות מומחה ב-bash, אבל להבין את הבסיס חוסך שעות של debugging וגם מאפשר לקרוא ולהבין scripts שאחרים כתבו.</div>
+`<div class="ch-hero-banner"><span class="hero-emoji">📜</span><h2>Bash Scripting</h2><p>Bash scripting הוא ה-"דבק" של DevOps. אוטומציה של משימות חוזרות, CI/CD pipelines, ואבחון שרתים.</p></div>
+<div class="fact-box"><strong>💡 ידעת?</strong> Shell scripting הוא ה-"דבק" של DevOps. כל CI/CD pipeline, כל deployment script, כל monitoring check — תחת הקישוט היפה של YAML ו-JSON — מריץ bash scripts. לא צריך להיות מומחה ב-bash, אבל להבין את הבסיס חוסך שעות של debugging וגם מאפשר לקרוא ולהבין scripts שאחרים כתבו.</div>
 
+<div class="story-box"><span class="story-icon">🤖</span><p><strong>למה ללמוד Bash Scripting?</strong></p><p>כל משימה שעושים יותר מפעם אחת — כדאי לאוטומט. גיבוי יומי, בדיקת שרתים, פריסת קוד, ניקוי לוגים. script של 20 שורות חוסך שעות עבודה שבועיות. זה ה-ROI הגבוה ביותר שיש ב-Linux.</p></div>
+<div class="sec-label">📌</div>
 <div class="section-title">Bash Script — מהתחלה</div>
 <p class="prose">Script הוא קובץ טקסט שמכיל פקודות. כשמריצים אותו, bash מבצע כל שורה בסדר. הכוח: אפשר לאוטומט כל דבר. הסיכון: script שרץ אוטומטית בלי בדיקות יכול לגרום נזק אמיתי. לכן נלמד לכתוב scripts נכון מההתחלה.</p>
 <pre class="code-block"><code><span class="comment">#!/bin/bash</span>
@@ -1466,6 +1626,7 @@ echo "First arg: $1"         <span class="comment"># argument ראשון</span>
 echo "All args: $@"          <span class="comment"># כל ה-arguments</span>
 echo "Count: $#"             <span class="comment"># כמה arguments</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">Conditionals ו-Loops — ה-logic של Scripts</div>
 <pre class="code-block"><code><span class="comment"># if — בדיקות</span>
 if [ -f "/etc/nginx/nginx.conf" ]; then
@@ -1501,6 +1662,7 @@ while true; do
     sleep 30
 done</code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">Functions ו-Error Handling</div>
 <pre class="code-block"><code><span class="comment">#!/bin/bash</span>
 set -euo pipefail
@@ -1563,6 +1725,7 @@ echo "Deployment successful"</pre>
 </div>
 
 <div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+<div class="sec-label">📌</div>
 <div class="section-title">Scripts שכדאי לכתוב כבר עכשיו</div>
 <pre class="code-block"><code><span class="comment">#!/bin/bash</span>
 <span class="comment"># health_check.sh — שלח ל-cron כל 5 דקות</span>
@@ -1600,8 +1763,11 @@ log "Backup complete"</code></pre>
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button>
 </div>`,
-`<div class="did-you-know">💡 <strong>ידעת?</strong> Vim נוצר ב-1991 כשיפור על vi משנת 1976. StackOverflow שאל ב-2017 "כיצד יוצאים מ-Vim?" — 1.4 מיליון צפיות. זה לא בדיחה — המעבר בין מצבים הוא ה-mental model שמבלבל כולם בהתחלה. ברגע שמבינים את הלוגיקה, Vim הופך לכלי העריכה המהיר ביותר שיש.</div>
+`<div class="ch-hero-banner"><span class="hero-emoji">✏️</span><h2>Vim ועורכי טקסט</h2><p>Vim קיים 50+ שנה כי הוא פועל בכל שרת Linux בעולם. חמש דקות השקעה = עשרות שעות חסכון.</p></div>
+<div class="fact-box"><strong>💡 ידעת?</strong> Vim נוצר ב-1991 כשיפור על vi משנת 1976. StackOverflow שאל ב-2017 "כיצד יוצאים מ-Vim?" — 1.4 מיליון צפיות. זה לא בדיחה — המעבר בין מצבים הוא ה-mental model שמבלבל כולם בהתחלה. ברגע שמבינים את הלוגיקה, Vim הופך לכלי העריכה המהיר ביותר שיש.</div>
 
+<div class="story-box"><span class="story-icon">✏️</span><p><strong>למה Vim קיים 50+ שנה?</strong></p><p>Vim מותקן על כל שרת Linux בעולם — ללא יוצא מן הכלל. כשמתחברים לשרת חדש ואין GUI, Vim הוא הכלי שתמיד שם. 5 דקות למידה = עשרות שעות חסכון לאורך קריירה.</p></div>
+<div class="sec-label">📌</div>
 <div class="section-title">Modal Editing — הרעיון שמאחורי Vim</div>
 <p class="prose">Vim הוא editor "modal" — יש לו מצבים שונים, וכל מצב מפרש את לחיצות המקלדת בצורה שונה. Normal Mode הוא ברירת המחדל: כל אות היא פקודה, לא תו לכתיבה. Insert Mode הוא לכתיבה. Visual Mode לסימון. Command Mode לפקודות מתקדמות. ה-confusion תמיד מגיע מלחוץ אותיות ב-Normal Mode ולתהות "מה קרה לקובץ שלי?"</p>
 <p class="prose">הכלל הראשון: ESC תמיד מחזיר ל-Normal Mode. תמיד. גם אם לא יודעים איפה נמצאים — ESC מחזיר לבסיס.</p>
@@ -1613,6 +1779,7 @@ log "Backup complete"</code></pre>
 <div class="card"><div class="card-icon">⌨️</div><div class="card-title">Command Mode — פקודות</div><div class="card-body">: מ-Normal Mode. :w = שמור. :q = צא. :wq = שמור וצא. :q! = צא בלי לשמור. :set nu = מספרי שורות.</div></div>
 </div>
 
+<div class="sec-label">📌</div>
 <div class="section-title">Vim — פקודות חיוניות</div>
 <pre class="code-block"><code><span class="comment"># ניווט ב-Normal Mode</span>
 h j k l        <span class="comment"># שמאל, מטה, מעלה, ימין</span>
@@ -1646,6 +1813,7 @@ ciw            <span class="comment"># change inner word — מחק מילה ו�
 </div>
 
 <div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+<div class="sec-label">📌</div>
 <div class="section-title">Vim Workflow אמיתי</div>
 <pre class="code-block"><code><span class="comment"># פתיחה ועריכת config file</span>
 sudo vim /etc/nginx/nginx.conf
@@ -1674,12 +1842,16 @@ syntax on           <span class="comment"># syntax highlighting</span></code></p
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button>
 </div>`,
-`<div class="did-you-know">💡 <strong>ידעת?</strong> systemd החליף את SysV init ב-2010 ויצר מחלוקת עצומה בקהילת Linux — חלק טענו שהוא "too complex" ו"does too much". כיום systemd רץ ב-Ubuntu, Fedora, Debian, CentOS, Arch, ו-כמעט כל distribution מודרנית. להבין systemd = להבין איך Linux מנהל services, dependencies, ו-boot sequence.</div>
+`<div class="ch-hero-banner"><span class="hero-emoji">🔧</span><h2>systemd ו-Services</h2><p>systemd הוא מנהל התהליכים הראשי של Linux המודרני. כאן מגדירים שירותים, לוגים, ואתחול אוטומטי.</p></div>
+<div class="fact-box"><strong>💡 ידעת?</strong> systemd החליף את SysV init ב-2010 ויצר מחלוקת עצומה בקהילת Linux — חלק טענו שהוא "too complex" ו"does too much". כיום systemd רץ ב-Ubuntu, Fedora, Debian, CentOS, Arch, ו-כמעט כל distribution מודרנית. להבין systemd = להבין איך Linux מנהל services, dependencies, ו-boot sequence.</div>
 
+<div class="story-box"><span class="story-icon">🔧</span><p><strong>systemd — המנהל הראשי של Linux</strong></p><p>כשהמחשב עולה, תהליך אחד מתחיל ראשון ואחראי על כל השאר — זה PID 1. ב-Linux המודרני, זה systemd. הוא מאתחל שירותים, מנהל לוגים, מטפל בכשלים, ומתאם תלויות בין תהליכים.</p></div>
+<div class="sec-label">📌</div>
 <div class="section-title">systemd — מה זה ואיך עובד</div>
 <p class="prose">systemd הוא ה-init system של Linux המודרני — ה-process הראשון שרץ אחרי הkernel (PID 1), שמריץ הכל אחר כך. systemd מנהל services (daemon processes), מגדיר סדר הפעלה עם dependencies, מאזין ל-sockets, מנטר processes, ו-מציג logs. כשמריצים <code>systemctl start nginx</code> — systemd יוצר את ה-process, מנטר אותו, ומפעיל מחדש אם מת.</p>
 <p class="prose">systemd עובד עם "units" — קבצי configuration שמתארים מה להריץ ואיך. כל service, socket, timer, ו-mount point הוא unit. Unit files נמצאים ב-/lib/systemd/system (system) ו-/etc/systemd/system (user overrides).</p>
 
+<div class="sec-label">📌</div>
 <div class="section-title">systemctl — ניהול Services</div>
 <pre class="code-block"><code><span class="comment"># פעולות בסיסיות</span>
 sudo systemctl start nginx      <span class="comment"># הפעל</span>
@@ -1696,6 +1868,7 @@ systemctl list-units --type=service          <span class="comment"># כל servic
 systemctl list-units --type=service --all    <span class="comment"># כולל stopped</span>
 systemctl list-unit-files                    <span class="comment"># כל unit files</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">כתיבת Service Unit</div>
 <pre class="code-block"><code><span class="comment"># /etc/systemd/system/myapp.service</span>
 [Unit]
@@ -1720,6 +1893,7 @@ sudo systemctl daemon-reload        <span class="comment"># טען unit חדש</
 sudo systemctl enable --now myapp  <span class="comment"># הפעל + enable בboot</span>
 sudo systemctl status myapp</code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">journalctl — לוגים</div>
 <pre class="code-block"><code>journalctl -u nginx                 <span class="comment"># לוגים של nginx</span>
 journalctl -u nginx -f              <span class="comment"># live (כמו tail -f)</span>
@@ -1736,6 +1910,7 @@ journalctl --vacuum-time=7d         <span class="comment"># מחק לוגים מ
 </div>
 
 <div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+<div class="sec-label">📌</div>
 <div class="section-title">Service לאפליקציה שלך — Checklist</div>
 <pre class="code-block"><code><span class="comment"># 1. בדוק שהappיקציה רצה ידנית</span>
 /usr/bin/python3 /opt/myapp/server.py
@@ -1759,8 +1934,11 @@ systemctl is-active myapp   <span class="comment"># active = הצלחה</span></
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button>
 </div>`,
-`<div class="did-you-know">💡 <strong>ידעת?</strong> "/" שפוסלת disk space ב-Linux היא אחת הסיבות הנפוצות ביותר ל-downtime ב-production. שרתים שמריצים לוגים ללא rotation, containers שמצטברים, ו-temp files שלא נמחקים — כולם גורמים ל-100% disk usage שגורם לapplications לקרוס. <code>df -h</code> ו-<code>du</code> הם ה-first responders לבעיות כאלה.</div>
+`<div class="ch-hero-banner"><span class="hero-emoji">💾</span><h2>דיסקים ו-Storage</h2><p>דיסק מלא = שרת מת. הבנת מבנה הדיסקים ב-Linux תמנע קריסות ותעזור לאבחן בעיות ביצועים.</p></div>
+<div class="fact-box"><strong>💡 ידעת?</strong> "/" שפוסלת disk space ב-Linux היא אחת הסיבות הנפוצות ביותר ל-downtime ב-production. שרתים שמריצים לוגים ללא rotation, containers שמצטברים, ו-temp files שלא נמחקים — כולם גורמים ל-100% disk usage שגורם לapplications לקרוס. <code>df -h</code> ו-<code>du</code> הם ה-first responders לבעיות כאלה.</div>
 
+<div class="story-box"><span class="story-icon">💾</span><p><strong>דיסק מלא = שרת מת</strong></p><p>אחת הבעיות הנפוצות ביותר בשרתי production: "השרת לא מגיב". הסיבה? דיסק מלא. לוגים שגדלו, קבצי temp שלא נמחקו, database שהתנפח. הפרק הזה מלמד לזהות ולפתור לפני שהאסון קורה.</p></div>
+<div class="sec-label">📌</div>
 <div class="section-title">Disk Structure — כיצד Linux רואה דיסקים</div>
 <p class="prose">ב-Linux, כל דיסק פיזי מיוצג כ-device file ב-/dev. דיסק SATA ראשון = /dev/sda, שני = /dev/sdb. Partitions של /dev/sda = /dev/sda1, /dev/sda2. NVMe SSD = /dev/nvme0n1, partitions = /dev/nvme0n1p1. Virtual disks ב-VMs ובcloud לרוב = /dev/vda. הבנת השמות האלה קריטית לניהול storage.</p>
 <pre class="code-block"><code><span class="comment"># בדיקת מצב דיסקים</span>
@@ -1771,6 +1949,7 @@ lsblk -f               <span class="comment"># + filesystem type ו-UUID</span>
 fdisk -l               <span class="comment"># partition table מפורטת (root)</span>
 blkid                  <span class="comment"># UUID וtype לכל device</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">מציאת מה אוכל disk space</div>
 <pre class="code-block"><code><span class="comment"># du — disk usage</span>
 du -sh /var/log/         <span class="comment"># כמה לוגים תופסים</span>
@@ -1786,6 +1965,7 @@ find / -size +500M -type f 2>/dev/null | sort -k5 -rn
 <span class="comment"># מצא קבצים ישנים</span>
 find /var/log -name "*.log" -mtime +30 -delete   <span class="comment"># מחק logs מעל 30 ימים</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">Mount ו-fstab</div>
 <p class="prose">Mount הוא החיבור של filesystem לנקודה בעץ הקבצים. כל partition, network share, ו-device חייב להיות "mounted" לפני שניתן לגשת לתוכנו. fstab (/etc/fstab) הוא קובץ שמגדיר מה mount אוטומטית בboot.</p>
 <pre class="code-block"><code><span class="comment"># mount ידני</span>
@@ -1821,11 +2001,21 @@ docker system prune -f             <span class="comment"># נקה docker garbage
   <button class="ch-end-btn primary" onclick="showNextChapter(CHID)"><span class="ch-end-btn-icon">◀</span><span class="ch-end-btn-label">פרק הבא</span></button>
   <button class="ch-end-btn" onclick="showTab(CHID,'cheat')"><span class="ch-end-btn-icon">📋</span><span class="ch-end-btn-label">סיכום</span></button>
 </div>`,
-`<div class="did-you-know">💡 <strong>ידעת?</strong> 80% מבעיות Linux נפתרות עם 5 כלים: <code>dmesg</code>, <code>journalctl</code>, <code>strace</code>, <code>netstat/ss</code>, ו-<code>top/htop</code>. הבעיה היא לא שהכלים חסרים — הבעיה היא לדעת לאיזה כלי לפנות קודם. הmethodology קובעת: לא מנחש, לא מאתחל ומקווה — אוסף data, מצמצם אפשרויות, מוצא root cause.</div>
+`<div class="ch-hero-banner"><span class="hero-emoji">🔍</span><h2>Troubleshooting ואבחון</h2><p>80% מבעיות Linux נפתרות עם 5 כלים. הפרק שמלמד מתודולוגיה — איך לחשוב, לא רק מה לרוץ.</p></div>
+<div class="fact-box"><strong>💡 ידעת?</strong> 80% מבעיות Linux נפתרות עם 5 כלים: <code>dmesg</code>, <code>journalctl</code>, <code>strace</code>, <code>netstat/ss</code>, ו-<code>top/htop</code>. הבעיה היא לא שהכלים חסרים — הבעיה היא לדעת לאיזה כלי לפנות קודם. הmethodology קובעת: לא מנחש, לא מאתחל ומקווה — אוסף data, מצמצם אפשרויות, מוצא root cause.</div>
 
+<div class="story-box"><span class="story-icon">🔍</span><p><strong>איך מומחים מאבחנים בעיות</strong></p><p>מומחה Linux לא מנחש — הוא עוקב אחרי מתודולוגיה קבועה: תסמינים → מידע → השערה → בדיקה → פתרון. הפרק הזה מלמד לחשוב כמו מומחה.</p></div>
+<div class="sec-label">📌</div>
 <div class="section-title">Troubleshooting Methodology — לא מנחשים</div>
 <p class="prose">הגישה הנכונה לבעיות Linux: (1) Define — מה בדיוק לא עובד? מה השגיאה המדויקת? (2) Collect — אסוף data לפני שנוגעים בכלום. (3) Narrow — מצמצם את האפשרויות. (4) Fix — מתקן דבר אחד בכל פעם. (5) Verify — מאמת שהתיקון פתר את הבעיה. לדלג על שלבים = לפספס root cause ולפתור symptom במקום הבעיה.</p>
 
+<div class="concept-grid">
+  <div class="concept-card blue"><div class="cc-icon">📊</div><div class="cc-title">top / htop</div><div class="cc-desc">מי אוכל CPU וזיכרון בזמן אמת. htop עם ממשק נוח יותר.</div></div>
+  <div class="concept-card green"><div class="cc-icon">💾</div><div class="cc-title">df / du</div><div class="cc-desc">df = כמה מקום בדיסק. du = מי אוכל אותו. תמיד ביחד.</div></div>
+  <div class="concept-card yellow"><div class="cc-icon">📋</div><div class="cc-title">journalctl</div><div class="cc-desc">לוגי systemd. -f לעקוב בזמן אמת, -u לשירות ספציפי.</div></div>
+  <div class="concept-card red"><div class="cc-icon">🌐</div><div class="cc-title">ss / netstat</div><div class="cc-desc">פורטים פתוחים, חיבורים פעילים. ss מהיר יותר מnetstat.</div></div>
+</div>
+<div class="sec-label">📌</div>
 <div class="section-title">כלי Debugging מרכזיים</div>
 <pre class="code-block"><code><span class="comment"># dmesg — kernel messages</span>
 dmesg | tail -20           <span class="comment"># הודעות kernel אחרונות</span>
@@ -1849,6 +2039,7 @@ lsof -i :8080              <span class="comment"># מי מאזין על port 808
 lsof -p 1234               <span class="comment"># קבצים פתוחים על ידי PID</span>
 lsof | grep deleted        <span class="comment"># קבצים "נמחקים" שעדיין פתוחים</span></code></pre>
 
+<div class="sec-label">📌</div>
 <div class="section-title">בעיות נפוצות ו-First Response</div>
 <div class="table-wrap"><table class="data-table"><thead><tr><th>תסמין</th><th>First Check</th><th>כלי</th></tr></thead><tbody>
 <tr><td>שרת לא מגיב</td><td>SSH עובד? ping עובד?</td><td>ping, ssh, console</td></tr>
@@ -1860,6 +2051,7 @@ lsof | grep deleted        <span class="comment"># קבצים "נמחקים" ש�
 <tr><td>CPU גבוה</td><td>מי אוכל CPU?</td><td>top, ps aux --sort=-%cpu</td></tr>
 </tbody></table></div>
 
+<div class="sec-label">📌</div>
 <div class="section-title">Performance Analysis</div>
 <pre class="code-block"><code><span class="comment"># CPU</span>
 top                        <span class="comment"># real-time</span>
@@ -1889,6 +2081,7 @@ iotop                      <span class="comment"># top לdisk I/O</span></code><
 </div>
 
 <div class="callout callout-info" style="margin-top:32px"><strong>🔧 בפועל</strong></div>
+<div class="sec-label">📌</div>
 <div class="section-title">Troubleshooting Script — First 5 Minutes</div>
 <pre class="code-block"><code><span class="comment">#!/bin/bash</span>
 <span class="comment"># first5.sh — הרץ כשמשהו לא עובד</span>
@@ -3294,5 +3487,179 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape')closeReview(
 
 <div class="review-overlay" id="reviewOverlay" onclick="closeReview()"></div>
 <div class="review-drawer" id="reviewDrawer"><div class="review-header"><div><div class="review-header-title" id="reviewTitle">📚 סיכום מלא</div><div class="review-header-sub" id="reviewSub">כל 12 הפרקים בעמוד אחד</div></div><button class="review-close" onclick="closeReview()">×</button></div><div class="review-body" id="reviewBody"></div></div>
+
+<div class="ng-esc-overlay" id="ngEscapeOverlay" onclick="if(event.target===this)closeNgEscapeRoom()">
+  <div class="ng-esc-modal" id="ngEscapeModal"></div>
+</div>
+<script>
+(function(){
+  var CFG = {"id":"linux","btnHe":"🎯 משימת הצלת שרת","btnEn":"🎯 Server Rescue","titleHe":"🐧 חדר בריחה: הצל את שרת ה-Production בלינוקס ב-03:00 לפנות בוקר!","titleEn":"🐧 Linux SysAdmin Escape Room: 3:00 AM Production Server Rescue!","subHe":"שרת הלינוקס המרכזי של החברה קורס: הדיסק ב-100%, תהליך סורר שורף את ה-CPU, הרשאות SSH נפרצו ושירות ה-Nginx מסרב לעלות. הצילו את השרת ב-5 תחנות טרמינל!","subEn":"Production is down at 3:00 AM: disk at 100%, runaway CPU process, broken SSH permissions, and Nginx failing to start. Rescue the server in 5 stations!","simTitleHe":"💻 סימולטור טרמינל Linux חי: הרשאות, תהליכים, רשת ו-Systemd","simTitleEn":"💻 Live Linux Terminal Simulator: Permissions, Processes & Systemd","simPills":[["perm","🔐 מחשבון הרשאות chmod (755 / 600)","<code>$ chmod 600 ~/.ssh/id_ed25519</code> → <code>-rw-------</code> (רק הבעלים קורא וכותב — חובה למפתחות SSH!).<br><code>$ chmod 755 deploy.sh</code> → <code>-rwxr-xr-x</code> (בעלים: קריאה/כתיבה/הרצה <code>4+2+1=7</code>; קבוצה ואחרים: קריאה והרצה <code>4+1=5</code>)."],["proc","⚙️ ציד תהליכים וזיכרון (ps / top / kill)","<code>$ ps aux --sort=-%cpu | head -n 5</code> → מאתר את התהליך שצורך הכי הרבה CPU.<br><code>$ kill -15 PID</code> (<code>SIGTERM</code>) מבקש מהתהליך להיסגר בצורה נקייה; <code>$ kill -9 PID</code> (<code>SIGKILL</code>) מחסל אותו מיידית ברמת ה-Kernel!"],["disk","💾 ניתוח דיסק ולוגים (df -h / du / lsof)","<code>$ df -h</code> מציג ניצולת מחיצות; <code>$ df -i</code> בודק אם נגמרו ה-Inodes!<br>אם מחקתם קובץ לוג ענק אבל המקום בדיסק לא התפנה — תהליך פתוח עדיין מחזיק אותו! מאתרים עם <code>$ lsof +L1</code> ומבצעים reload לשירות או <code>truncate -s 0 file.log</code>."],["net","🌐 אבחון פורטים ושירותים (ss / journalctl)","<code>$ sudo ss -tulpn | grep :443</code> → מציג בדיוק איזה תהליך (PID) מאזין על פורט 443.<br><code>$ sudo journalctl -u nginx -n 50 --no-pager</code> → מציג את שורות הלוג האחרונות של שירות ה-Systemd כדי לגלות למה הוא נכשל."]],"stations":[{"titleHe":"תחנה 1/5 · הדיסק מלא ב-100% — אבל איפה הקבצים?!","titleEn":"Station 1/5 · Disk at 100% — The Deleted Open File Trap","storyHe":"פקודת <code>df -h</code> מראה שמחיצת <code>/var</code> מלאה ב-100%. מחקתם קובץ לוג של 40GB עם <code>rm /var/log/app.log</code>, אבל <code>df -h</code> עדיין מראה 100% תפוסה! למה זה קרה ואיך משחררים את המקום בלי להפיל את השרת?","storyEn":"<code>df -h</code> shows <code>/var</code> is 100% full. You ran <code>rm /var/log/app.log</code> (40GB), yet <code>df -h</code> still shows 100% full! Why, and how do you fix it cleanly?","optsHe":["תהליך האפליקציה עדיין מחזיק File Descriptor פתוח לקובץ שנמחק (נראה ב-lsof +L1). הפתרון: לאפס קובץ חי עם truncate -s 0 או לשלוח SIGHUP/reload לתהליך כדי שישחרר את הקובץ","לכבות את השרת מהחשמל","להריץ chmod 777 על כל הדיסק","למחוק את התיקייה /bin"],"optsEn":["A running process still holds an open File Descriptor to the unlinked inode (visible via lsof +L1). Reload the service or use truncate -s 0 instead of rm","Pull the power cable","Run chmod 777 /","Delete /bin"],"ans":0,"expHe":"קלאסיקת לינוקס! מחיקת קובץ עם rm בזמן שתהליך כותב אליו משאירה את ה-Inode חי ב-Kernel עד שהתהליך סוגר את ה-File Descriptor."},{"titleHe":"תחנה 2/5 · מפתח SSH נדחה (Permissions 0777 are too open)","titleEn":"Station 2/5 · Fixing SSH Key Permissions","storyHe":"אתם מנסים להתחבר לשרת הגיבוי ולקוח ה-SSH מסרב עם השגיאה: <code>Permissions 0644 for id_ed25519 are too open</code>. איזו פקודה מתקנת את ההרשאות של המפתח הפרטי והתיקייה <code>~/.ssh</code>?","storyEn":"SSH refuses to use your private key with: <code>Permissions 0644 for id_ed25519 are too open</code>. Which commands fix this?","optsHe":["chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_ed25519","chmod 777 ~/.ssh/id_ed25519","chown nobody ~/.ssh","rm -rf ~/.ssh"],"optsEn":["chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_ed25519","chmod 777 ~/.ssh/id_ed25519","chown nobody ~/.ssh","rm -rf ~/.ssh"],"ans":0,"expHe":"מדויק! OpenSSH דורש שהתיקייה ~/.ssh תהיה ב-700 והמפתח הפרטי ב-600 (קריאה וכתיבה לבעלים בלבד)."},{"titleHe":"תחנה 3/5 · חיסול תהליך כורה קריפטו סורר","titleEn":"Station 3/5 · Hunting & Killing a Runaway Process","storyHe":"המעבד ב-100%. הרצתם <code>ps aux --sort=-%cpu</code> וגיליתם תהליך זדוני בשם <code>kworker_mine</code> עם <code>PID 4812</code> שמתעלם מאות סגירה רגיל (<code>SIGTERM / kill -15</code>). איזו פקודה תחסל אותו מיידית ברמת ה-Kernel?","storyEn":"A rogue process (PID 4812) is pegging CPU at 100% and ignoring SIGTERM (kill -15). What command forces the Linux kernel to terminate it immediately?","optsHe":["sudo kill -9 4812 (שליחת אות SIGKILL שאינו ניתן לתפיסה או התעלמות ע\"י התהליך)","kill -0 4812","echo stop > /proc/cpuinfo","ls -la 4812"],"optsEn":["sudo kill -9 4812 (sends SIGKILL directly from the kernel, which the process cannot catch or ignore)","kill -0 4812","echo stop > /proc","ls -la 4812"],"ans":0,"expHe":"בול! אות SIGKILL (-9) מבוצע ישירות על ידי ה-Kernel ומפסיק את התהליך באופן מיידי."},{"titleHe":"תחנה 4/5 · שירות ה-Nginx מסרב לעלות (Address already in use)","titleEn":"Station 4/5 · Resolving Port 80 Conflict","storyHe":"הרצתם <code>sudo systemctl restart nginx</code> והשירות נכשל. ב-<code>journalctl -u nginx</code> מופיעה השגיאה: <code>bind() to 0.0.0.0:80 failed (98: Address already in use)</code>. איך תגלו איזה תהליך תופס את פורט 80?","storyEn":"Nginx fails to start with <code>bind() to 0.0.0.0:80 failed (Address already in use)</code>. Which command reveals the exact process holding port 80?","optsHe":["sudo ss -tulpn | grep :80 (או sudo lsof -i :80)","ping localhost","cat /etc/hostname","df -h"],"optsEn":["sudo ss -tulpn | grep :80 (or sudo lsof -i :80)","ping localhost","cat /etc/hostname","df -h"],"ans":0,"expHe":"מצוין! הדגלים -tulpn בפקודת ss מציגים שקעי TCP/UDP מאזינים יחד עם שם התהליך וה-PID שלו."},{"titleHe":"תחנה 5/5 · שלב הבוס 🔥 · אוטומציה והקשחת הרשאות Sudo / Cron","titleEn":"Station 5/5 · Boss Stage 🔥 · Hardening & Systemd Persistence","storyHe":"השרת חזר לאוויר! כדי שהשירות יעלה אוטומטית בכל אתחול (Boot) וירוץ תחת משתמש ייעודי חסר הרשאות שורש, מה תגדירו?","storyEn":"Server is back online! How do you ensure the service starts automatically on boot and runs safely without root privileges?","optsHe":["להגדיר User=www-data בקובץ ה-Unit של Systemd ולהריץ sudo systemctl enable --now nginx","להריץ הכל כ-root מתוך /tmp","לתת הרשאת SUID (chmod +s) ל-bash","למחוק את ה-Firewall"],"optsEn":["Set User=www-data in the systemd unit file and run sudo systemctl enable --now nginx","Run everything as root from /tmp","Add SUID bit to /bin/bash","Disable firewall"],"ans":0,"expHe":"ניצחון מלא! השרת ניצל, מוקשח ופועל לפי מיטב הפרקטיקות של Linux Production."}]};
+  var ngEscState = { step: 0, solved: {}, wrong: null, mistakes: 0 };
+
+  function getLang() {
+    return (document.documentElement.lang === 'en' || (typeof currentLang !== 'undefined' && currentLang === 'en')) ? 'en' : 'he';
+  }
+
+  function awardNgXP(amt) {
+    try {
+      if (typeof window.ngXP === 'function') window.ngXP(amt);
+      else if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'ng_xp', amount: amt }, '*');
+    } catch(e) {}
+  }
+
+  window.selectNgSimPill = function(idx) {
+    var pill = CFG.simPills[idx];
+    if (!pill) return;
+    var out = document.getElementById('ngSimOut');
+    if (out) out.innerHTML = pill[2];
+    document.querySelectorAll('.ng-sim-pill').forEach(function(b, i) {
+      b.classList.toggle('active', i === idx);
+    });
+  };
+
+  function mountSimDock() {
+    if (document.getElementById('ngSimDock')) return;
+    var mainEl = document.querySelector('main, .main, .site-main, .content');
+    if (!mainEl) return;
+    var dock = document.createElement('div');
+    dock.className = 'ng-sim-dock';
+    dock.id = 'ngSimDock';
+    var isEn = getLang() === 'en';
+    dock.innerHTML = '<div class="ng-sim-card">' +
+      '<div class="ng-sim-top">' +
+        '<span class="ng-sim-title" id="ngSimTitle">' + (isEn ? CFG.simTitleEn : CFG.simTitleHe) + '</span>' +
+        '<button class="ng-esc-hdr-btn" onclick="openNgEscapeRoom()" id="ngDockEscBtn">' + (isEn ? CFG.btnEn : CFG.btnHe) + ' · +150 XP</button>' +
+      '</div>' +
+      '<div class="ng-sim-pills">' +
+        CFG.simPills.map(function(p, i) {
+          return '<button class="ng-sim-pill' + (i === 0 ? ' active' : '') + '" onclick="selectNgSimPill(' + i + ')">' + p[1] + '</button>';
+        }).join('') +
+      '</div>' +
+      '<div class="ng-sim-out" id="ngSimOut">' + CFG.simPills[0][2] + '</div>' +
+    '</div>';
+    mainEl.insertBefore(dock, mainEl.firstChild);
+  }
+
+  window.openNgEscapeRoom = function() {
+    var ov = document.getElementById('ngEscapeOverlay');
+    if (ov) ov.classList.add('open');
+    renderNgEscapeModal();
+  };
+
+  window.closeNgEscapeRoom = function() {
+    var ov = document.getElementById('ngEscapeOverlay');
+    if (ov) ov.classList.remove('open');
+  };
+
+  window.pickNgEscOpt = function(oi) {
+    var st = CFG.stations[ngEscState.step];
+    if (!st || ngEscState.solved[ngEscState.step]) return;
+    if (oi === st.ans) {
+      ngEscState.solved[ngEscState.step] = true;
+      ngEscState.wrong = null;
+      awardNgXP(25);
+    } else {
+      ngEscState.wrong = oi;
+      ngEscState.mistakes++;
+    }
+    renderNgEscapeModal();
+  };
+
+  window.nextNgEscStep = function() {
+    for (var i = 0; i < CFG.stations.length; i++) {
+      if (!ngEscState.solved[i]) {
+        ngEscState.step = i;
+        ngEscState.wrong = null;
+        renderNgEscapeModal();
+        return;
+      }
+    }
+    renderNgEscapeModal();
+  };
+
+  window.jumpNgEscStep = function(idx) {
+    ngEscState.step = idx;
+    ngEscState.wrong = null;
+    renderNgEscapeModal();
+  };
+
+  window.resetNgEscapeRoom = function() {
+    ngEscState = { step: 0, solved: {}, wrong: null, mistakes: 0 };
+    renderNgEscapeModal();
+  };
+
+  function renderNgEscapeModal() {
+    var modal = document.getElementById('ngEscapeModal');
+    if (!modal) return;
+    var isEn = getLang() === 'en';
+    var total = CFG.stations.length;
+    var solvedCount = Object.keys(ngEscState.solved).length;
+
+    if (solvedCount === total) {
+      var xpKey = 'ng_esc_xp_' + CFG.id;
+      try {
+        if (!localStorage.getItem(xpKey)) {
+          localStorage.setItem(xpKey, '1');
+          awardNgXP(150);
+        }
+      } catch(e) {}
+      modal.innerHTML = '<div class="ng-esc-top">' +
+        '<div style="font-weight:900;font-size:18px;color:#4ade80">' + (isEn ? CFG.titleEn : CFG.titleHe) + '</div>' +
+        '<button class="ng-esc-close" onclick="closeNgEscapeRoom()">×</button>' +
+      '</div>' +
+      '<div style="text-align:center;padding:24px 12px">' +
+        '<div style="font-size:54px;margin-bottom:10px">🏆🎯🚀</div>' +
+        '<h2 style="font-size:24px;font-weight:900;margin-bottom:8px">' + (isEn ? 'Mission Accomplished! +150 XP' : 'המשימה הושלמה בהצלחה! +150 XP') + '</h2>' +
+        '<p style="opacity:.85;margin-bottom:20px">' + (isEn ? ('All ' + total + ' stations solved! Mistakes: ' + ngEscState.mistakes) : ('פתרת את כל ' + total + ' התחנות בהצלחה! טעויות בדרך: ' + ngEscState.mistakes)) + '</p>' +
+        '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">' +
+          '<button class="ng-esc-hdr-btn" onclick="resetNgEscapeRoom()">' + (isEn ? '↺ Play Again' : '↺ שחק שוב') + '</button>' +
+          '<button class="ng-esc-hdr-btn" style="background:#0891b2!important;border-color:#06b6d4!important" onclick="closeNgEscapeRoom()">' + (isEn ? '✓ Back to Course' : '✓ חזרה לקורס') + '</button>' +
+        '</div>' +
+      '</div>';
+      return;
+    }
+
+    var st = CFG.stations[ngEscState.step];
+    var isSolved = !!ngEscState.solved[ngEscState.step];
+    var opts = isEn ? st.optsEn : st.optsHe;
+
+    var stepper = CFG.stations.map(function(_, idx) {
+      var cls = 'ng-esc-step' + (ngEscState.solved[idx] ? ' done' : '') + (idx === ngEscState.step ? ' active' : '');
+      return '<div class="' + cls + '" onclick="jumpNgEscStep(' + idx + ')">#' + (idx + 1) + ' ' + (ngEscState.solved[idx] ? '✓' : '') + '</div>';
+    }).join('');
+
+    var optsHtml = opts.map(function(txt, oi) {
+      var cls = 'ng-esc-opt';
+      if (isSolved && oi === st.ans) cls += ' correct';
+      else if (ngEscState.wrong === oi) cls += ' wrong';
+      return '<button class="' + cls + '" ' + (isSolved ? 'disabled' : '') + ' onclick="pickNgEscOpt(' + oi + ')">' + txt + '</button>';
+    }).join('');
+
+    var fbHtml = isSolved
+      ? '<div class="ng-esc-fb" style="background:rgba(22,163,74,0.16);border:1.5px solid #16a34a">✅ ' + st.expHe + '</div>'
+      : (ngEscState.wrong !== null ? '<div class="ng-esc-fb" style="background:rgba(239,68,68,0.15);border:1.5px solid #ef4444">' + (isEn ? '❌ Not quite — analyze the scenario and try again!' : '❌ לא מדויק — נתחו את התרחיש ונסו שוב!') + '</div>' : '');
+
+    var nextBtn = isSolved
+      ? '<div style="margin-top:14px;text-align:end"><button class="ng-esc-hdr-btn" onclick="nextNgEscStep()">' + (solvedCount === total ? (isEn ? 'Finish 🏆' : 'למסך הניצחון 🏆') : (isEn ? 'Next Station →' : '← לתחנה הבאה')) + '</button></div>'
+      : '';
+
+    modal.innerHTML = '<div class="ng-esc-top">' +
+      '<div><div style="font-weight:900;font-size:17px">' + (isEn ? CFG.titleEn : CFG.titleHe) + '</div><div style="font-size:12px;opacity:.75">' + (isEn ? CFG.subEn : CFG.subHe) + '</div></div>' +
+      '<button class="ng-esc-close" onclick="closeNgEscapeRoom()">×</button>' +
+    '</div>' +
+    '<div class="ng-esc-stepper">' + stepper + '</div>' +
+    '<div style="font-weight:900;font-size:16px;margin-bottom:8px;color:#38bdf8">' + (isEn ? st.titleEn : st.titleHe) + '</div>' +
+    '<div class="ng-esc-story">' + (isEn ? st.storyEn : st.storyHe) + '</div>' +
+    '<div class="ng-esc-opts">' + optsHtml + '</div>' +
+    fbHtml + nextBtn;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    mountSimDock();
+  });
+  setTimeout(mountSimDock, 200);
+})();
+</script>
+
 </body>
 </html>

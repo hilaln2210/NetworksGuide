@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { getQuizForChapter, getAllQuizQuestions } from '../data/quizBank'
 import { contentEn } from '../data/content_en'
-import { addXP, XP_QUIZ_CORRECT, XP_QUIZ_BONUS, getLevel } from '../utils/xp'
+import { addXP, XP_QUIZ_CORRECT, XP_QUIZ_BONUS } from '../utils/xp'
 import { saveQuizScore, getQuizScore } from '../utils/progress'
 import { renderBidiText, processHtmlBidi } from '../utils/bidi.jsx'
 import { useLang } from '../utils/language.jsx'
@@ -260,7 +260,7 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
     ]
 
     const pool = isEn ? PERFECT_EN : (gender === 'male' ? PERFECT_HE_M : PERFECT_HE_F)
-    const challengeMsg = pool[Math.floor(Math.random() * pool.length)]
+    const challengeMsg = pool[(score + total + streak) % pool.length]
 
     const doneMsg = isPerfect
       ? challengeMsg
@@ -362,7 +362,6 @@ export function Quiz({ chapters, onXPGain, gender, onGoToChapter, autoStartChapt
   if (!q) return null
 
   // Get the right text based on language
-  const qText = isEn && q.qEn ? q.qEn : q.q
   const hintExpl = isEn && q.explanationEn ? q.explanationEn : q.explanation
   // Build display choices: English text if available, Hebrew otherwise
   // We keep a map from display text back to original choice for comparison

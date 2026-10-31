@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+<script src="/_bridge.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light">
@@ -89,13 +90,33 @@ em{color:#1e40af;font-style:normal;font-weight:600}
 
 .rules .note,.rules .warn,.rules .danger,.rules .success{color:#334155}
 .rules .note strong,.rules .warn strong,.rules .danger strong,.rules .success strong{color:#0f172a !important}
+
+html[data-theme="dark"] body { background:#0f172a !important; color:#e2e8f0 !important; }
+html[data-theme="dark"] .m-title, html[data-theme="dark"] h2, html[data-theme="dark"] strong { color:#f8fafc !important; }
+html[data-theme="dark"] p, html[data-theme="dark"] .m-hook { color:#cbd5e1 !important; }
+html[data-theme="dark"] .ex, html[data-theme="dark"] .stat, html[data-theme="dark"] .chart { background:#1e293b !important; border-color:#334155 !important; }
+.tm-sim { max-width:660px; margin:18px auto 0; padding:0 18px; }
+.tm-sim-card { background:#ffffff; border:2px solid #1e40af; border-bottom:5px solid #1e3a8a; border-radius:14px; padding:16px; box-shadow:0 4px 14px rgba(30,64,175,.12); }
+html[data-theme="dark"] .tm-sim-card { background:#1e293b !important; border-color:#3b82f6 !important; color:#f1f5f9 !important; }
+.tm-sim-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(135px,1fr)); gap:10px; margin-top:10px; }
+.tm-ctrl { background:#f8fafc; border:1px solid #cbd5e1; border-radius:9px; padding:8px 10px; font-size:.8rem; font-weight:700; }
+html[data-theme="dark"] .tm-ctrl { background:#0f172a !important; border-color:#334155 !important; }
+.tm-ctrl input { width:100%; accent-color:#1e40af; }
+.tm-kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:12px; text-align:center; }
+.tm-kpi { background:#eff6ff; border:1.5px solid #93c5fd; border-radius:9px; padding:8px; }
+html[data-theme="dark"] .tm-kpi { background:#0f172a !important; border-color:#3b82f6 !important; }
+.tm-kpi-v { font-family:monospace; font-size:1.05rem; font-weight:900; color:#1e40af; display:block; direction:ltr; }
+html[data-theme="dark"] .tm-kpi-v { color:#60a5fa !important; }
+.tm-kpi-l { font-size:.68rem; color:#475569; }
+.tm-esc-btn { background:linear-gradient(135deg,#16a34a,#059669); color:#fff; border:none; padding:6px 13px; border-radius:8px; font-size:.78rem; font-weight:800; cursor:pointer; float:left; }
+
 </style>
 </head>
 <body>
 
 <div class="hdr">
   <div class="hdr-top">
-    <h1>📈 שיטות מסחר</h1>
+    <h1>📈 שיטות מסחר</h1><button class="tm-esc-btn" onclick="openTmChallenge()">🎯 אתגר מנהל הסיכונים · +100 XP</button>
   </div>
   <span class="hdr-sub">הסבר פשוט + דוגמה אמיתית לכל שיטה</span>
   <div class="tabs" id="tabs">
@@ -114,6 +135,86 @@ em{color:#1e40af;font-style:normal;font-weight:600}
 </div>
 
 <!-- ═══ 1 ═══ -->
+
+<div class="tm-sim" id="tmSimBox">
+  <div class="tm-sim-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+      <strong style="color:#1e40af;font-size:.95rem">🧮 מחשבון גודל פוזיציה ויחס סיכוי/סיכון חי (Risk & Position Sizer)</strong>
+      <span style="font-size:.72rem;background:#dbeafe;color:#1e40af;padding:2px 8px;border-radius:99px;font-weight:800">Interactive Tool</span>
+    </div>
+    <div class="tm-sim-grid">
+      <div class="tm-ctrl"><div>גודל תיק: <span id="tm-v-acc">$25,000</span></div><input type="range" id="tm-acc" min="5000" max="100000" step="5000" value="25000" oninput="calcTmSim()"></div>
+      <div class="tm-ctrl"><div>סיכון לעסקה: <span id="tm-v-risk">1.0%</span></div><input type="range" id="tm-risk" min="0.5" max="5" step="0.5" value="1" oninput="calcTmSim()"></div>
+      <div class="tm-ctrl"><div>מרחק ל-Stop ($): <span id="tm-v-stop">$0.50</span></div><input type="range" id="tm-stop" min="0.1" max="5" step="0.1" value="0.5" oninput="calcTmSim()"></div>
+      <div class="tm-ctrl"><div>יעד רווח ($): <span id="tm-v-tp">$1.50</span></div><input type="range" id="tm-tp" min="0.2" max="10" step="0.2" value="1.5" oninput="calcTmSim()"></div>
+    </div>
+    <div class="tm-kpis">
+      <div class="tm-kpi"><span class="tm-kpi-v" id="tm-k-shares">500 מניות</span><span class="tm-kpi-l">כמות מניות מדויקת לקנייה</span></div>
+      <div class="tm-kpi"><span class="tm-kpi-v" id="tm-k-maxloss">-$250</span><span class="tm-kpi-l">סיכון דולרי מקסימלי (1R)</span></div>
+      <div class="tm-kpi"><span class="tm-kpi-v" id="tm-k-rr">1 : 3.0 (+$750)</span><span class="tm-kpi-l">יחס סיכוי/סיכון (R:R)</span></div>
+    </div>
+    <div id="tmChallengeArea" style="display:none;margin-top:14px;padding-top:14px;border-top:1.5px solid #cbd5e1"></div>
+  </div>
+</div>
+<script>
+function calcTmSim() {
+  var acc = parseFloat(document.getElementById('tm-acc').value);
+  var riskPct = parseFloat(document.getElementById('tm-risk').value);
+  var stopDist = parseFloat(document.getElementById('tm-stop').value);
+  var tpDist = parseFloat(document.getElementById('tm-tp').value);
+  document.getElementById('tm-v-acc').textContent = '$' + acc.toLocaleString();
+  document.getElementById('tm-v-risk').textContent = riskPct.toFixed(1) + '%';
+  document.getElementById('tm-v-stop').textContent = '$' + stopDist.toFixed(2);
+  document.getElementById('tm-v-tp').textContent = '$' + tpDist.toFixed(2);
+  var riskDollars = acc * (riskPct / 100);
+  var shares = Math.floor(riskDollars / stopDist);
+  var rr = tpDist / stopDist;
+  var profitDollars = shares * tpDist;
+  document.getElementById('tm-k-shares').textContent = shares.toLocaleString() + ' מניות';
+  document.getElementById('tm-k-maxloss').textContent = '-$' + Math.round(riskDollars).toLocaleString();
+  document.getElementById('tm-k-rr').textContent = '1 : ' + rr.toFixed(1) + ' (+$' + Math.round(profitDollars).toLocaleString() + ')';
+}
+var tmQIdx = 0;
+var TM_QS = [
+  { q: '1/3 · תיק של $20,000, סיכון מקסימלי 1% לעסקה ($200). מחיר כניסה $50 ו-Stop-Loss ב-$48 (מרחק $2 למניה). כמה מניות מותר לקנות?', opts: ['1,000 מניות', '100 מניות בדיוק ($200 סיכון חלקי $2 מרחק סטופ)', '400 מניות'], ans: 1 },
+  { q: '2/3 · ביחס סיכוי/סיכון (Risk:Reward) של 1:3 (מרוויחים $300 בעסקה מנצחת ומפסידים $100 בעסקה מפסידה), מהו אחוז הפגיעה (Win Rate) המינימלי הנדרש כדי לא להפסיד כסף?', opts: ['90%', '25% בלבד! (ניצחון אחד מ-4 עסקאות מכסה 3 הפסדים)', '75%'], ans: 1 },
+  { q: '3/3 · מניה פורצת רמת התנגדות על מחזור מסחר (Volume) נמוך ב-70% מהממוצע ומיד חוזרת מתחת לרמה. איך נקרא המצב הזה ב-Price Action?', opts: ['פריצת שווא (False Breakout / Bull Trap)', 'טרנד מוסדי חזק', 'Arbitrage'], ans: 0 }
+];
+function openTmChallenge() {
+  var area = document.getElementById('tmChallengeArea');
+  area.style.display = 'block';
+  renderTmQ();
+  area.scrollIntoView({ behavior: 'smooth' });
+}
+function renderTmQ() {
+  var area = document.getElementById('tmChallengeArea');
+  if (tmQIdx >= TM_QS.length) {
+    try {
+      if (!localStorage.getItem('ng_tm_xp')) {
+        localStorage.setItem('ng_tm_xp', '1');
+        if (typeof window.ngXP === 'function') window.ngXP(100);
+        else if (window.parent) window.parent.postMessage({ type: 'ng_xp', amount: 100 }, '*');
+      }
+    } catch(e) {}
+    area.innerHTML = '<div class="success">🏆 <strong>כל הכבוד! השלמת את אתגר מנהל הסיכונים וזכית ב-+100 XP!</strong> <button onclick="tmQIdx=0;renderTmQ()" style="margin-right:10px;padding:4px 10px;border-radius:6px;border:none;background:#16a34a;color:#fff;cursor:pointer;font-weight:700">שחק שוב</button></div>';
+    return;
+  }
+  var item = TM_QS[tmQIdx];
+  area.innerHTML = '<div style="font-weight:800;margin-bottom:8px">🎯 ' + item.q + '</div>' +
+    item.opts.map(function(o, i) {
+      return '<button onclick="pickTmAns(' + i + ')" style="display:block;width:100%;text-align:right;margin-bottom:6px;padding:9px 12px;border-radius:8px;border:1.5px solid #93c5fd;background:#eff6ff;color:#0f172a;font-weight:700;cursor:pointer">' + o + '</button>';
+    }).join('');
+}
+function pickTmAns(i) {
+  if (i === TM_QS[tmQIdx].ans) {
+    tmQIdx++;
+    renderTmQ();
+  } else {
+    alert('לא מדויק — בדוק את נוסחת גודל הפוזיציה ונסה שוב!');
+  }
+}
+</script>
+
 <div class="pg on" id="p0">
 <div class="m-num">שיטה 1 מתוך 6</div>
 <div class="m-title">ניתוח טכני בלבד</div>

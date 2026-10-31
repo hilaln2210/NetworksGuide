@@ -55,8 +55,9 @@ export function ChapterNotes({ trackId, chapterId, lang = 'he' }) {
   const labels = LABELS[lang] || LABELS.en
 
   const [open, setOpen] = useState(false)
-  const [text, setText] = useState('')
-  const [updatedAt, setUpdatedAt] = useState(null)
+  const [prevKey, setPrevKey] = useState(noteKey)
+  const [text, setText] = useState(() => loadNotes()[noteKey]?.text || '')
+  const [updatedAt, setUpdatedAt] = useState(() => loadNotes()[noteKey]?.updatedAt || null)
   const [showSaved, setShowSaved] = useState(false)
   const [fadingOut, setFadingOut] = useState(false)
 
@@ -64,15 +65,14 @@ export function ChapterNotes({ trackId, chapterId, lang = 'he' }) {
   const savedTimerRef = useRef(null)
   const fadeTimerRef = useRef(null)
 
-  // Load note when key changes
-  useEffect(() => {
-    const all = loadNotes()
-    const entry = all[noteKey]
+  if (prevKey !== noteKey) {
+    const entry = loadNotes()[noteKey]
+    setPrevKey(noteKey)
     setText(entry?.text || '')
     setUpdatedAt(entry?.updatedAt || null)
     setShowSaved(false)
     setFadingOut(false)
-  }, [noteKey])
+  }
 
   const flashSaved = useCallback(() => {
     setShowSaved(true)

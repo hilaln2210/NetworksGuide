@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { getAllQuizQuestions } from '../data/quizBank'
 import { addXP } from '../utils/xp'
 import './ExamMode.css'
@@ -108,7 +108,6 @@ export function ExamMode({ lang = 'he', onClose, onXP }) {
   const [timeLeft, setTimeLeft] = useState(0)
   const [results, setResults] = useState(null)
   const timerRef = useRef(null)
-  const canvasRef = useRef(null)
 
   // Start exam
   const startExam = useCallback(() => {
@@ -343,7 +342,6 @@ export function ExamMode({ lang = 'he', onClose, onXP }) {
     const q = questions[current]
     const qText = isEn ? (q.qEn || q.q) : q.q
     const choices = isEn ? (q.choicesEn || q.choices) : q.choices
-    const correctAns = isEn ? (q.correctEn || q.correct) : q.correct
     const userAns = answers[current]
     const isLowTime = timeLeft <= 60
 

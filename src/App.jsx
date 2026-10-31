@@ -33,10 +33,10 @@ const FirewallSim = lazy(() => import('./components/FirewallSim').then(m => ({ d
 const HTTPRequestSim = lazy(() => import('./components/HTTPRequestSim').then(m => ({ default: m.HTTPRequestSim })))
 const PingSim = lazy(() => import('./components/PingSim').then(m => ({ default: m.PingSim })))
 import { getXP, addXP, getLevel, getLevelProgress, getNextLevel, getStreak, updateStreak, XP_PAGE_READ, getLevelName, resetXP, LEVELS } from './utils/xp'
-import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll, getTodayMinutes, addSessionMinutes, formatMinutes, getCompletedChapters, getTotalQuizCorrect, getLearningPace, getReadPages, getQuizScore, QUIZ_KEY } from './utils/progress'
+import { markPageRead, isPageRead, getChapterProgress, getTotalRead, saveLastPosition, getLastPosition, trackChapterId, resetProgress, resetQuizScores, resetAll, getTodayMinutes, addSessionMinutes, formatMinutes, getCompletedChapters, getTotalQuizCorrect, getLearningPace, getReadPages, QUIZ_KEY } from './utils/progress'
 import { getGender, setGender } from './utils/gender'
 import { processHtmlBidi, renderBidiText } from './utils/bidi.jsx'
-import { notifyVisit, notifyLogin } from './utils/tgNotify.js'
+import { notifyVisit, notifyLogin, notifyCourseSelect, notifySessionEnd, updateNotifyContext, recordActiveHalfMinute } from './utils/tgNotify.js'
 import { onAuthChange } from './utils/auth.js'
 import { pullProgress, pushProgress, startAutoSync, stopAutoSync } from './utils/cloudSync.js'
 import { UserMenu } from './components/UserMenu.jsx'
@@ -79,7 +79,7 @@ function GenderPicker({ onSelect }) {
 }
 
 // ===== Track i18n helper =====
-const trackI18n = (track, field, t, lang) => {
+const trackI18n = (track, field, t) => {
   const key = `track_${track.id}_${field}`
   const val = t(key)
   return val !== key ? val : track[field]
@@ -314,6 +314,12 @@ function TrackPicker({ tracks, onSelect, onShowTroubleshooter }) {
           {enrichUnlocked && (
             <div className="track-grid">
               {enrichmentTracks.map(track => {
+                const totalPages = track.chapters.reduce((s, c) => s + c.pages.length, 0)
+                const totalRead = track.chapters.reduce((s, c) =>
+                  s + Object.keys(JSON.parse(localStorage.getItem('networks_read_pages') || '{}')[trackChapterId(track.id, c.id)] || {}).length
+                , 0)
+                const pct = totalPages > 0 ? Math.round((totalRead / totalPages) * 100) : 0
+                const hasProgress = pct > 0
                 const isEmpty = track.chapters.length === 0
                 return (
                   <button
@@ -327,12 +333,29 @@ function TrackPicker({ tracks, onSelect, onShowTroubleshooter }) {
                     <div className="track-card-body">
                       <div className="track-card-title">{trackI18n(track, 'title', t, lang)}</div>
                       <div className="track-card-subtitle">{trackI18n(track, 'subtitle', t, lang)}</div>
+                      {(track.syllabus || track.syllabusEn) && (
+                        <div className="track-card-syllabus">
+                          {(isEn && track.syllabusEn ? track.syllabusEn : track.syllabus).map((item, i) => (
+                            <span key={i} className="syllabus-chip">{item}</span>
+                          ))}
+                        </div>
+                      )}
                       <div className="track-card-meta">
                         <span className="track-card-level">{trackI18n(track, 'level', t, lang)}</span>
                         <span className="track-card-chapters">{track.chapterCount || track.chapters.length} {t('chapters_count')}</span>
+                        {track.lastUpdated && <span className="track-card-updated">{isEn ? 'Updated' : 'עודכן'} {track.lastUpdated.slice(8,10)}/{track.lastUpdated.slice(5,7)}{track.lastUpdated.length > 10 ? ' ' + track.lastUpdated.slice(11,16) : ''}</span>}
                       </div>
-                      <div className="track-card-start">{t('start')}</div>
+                      {hasProgress && (
+                        <div className="track-card-progress">
+                          <div className="track-card-prog-bar">
+                            <div className="track-card-prog-fill" style={{ width: `${pct}%` }} />
+                          </div>
+                          <span className="track-card-pct">{pct}%</span>
+                        </div>
+                      )}
                     </div>
+                    {hasProgress && <div className="track-card-continue">{t('continue')}</div>}
+                    {!hasProgress && !isEmpty && <div className="track-card-start">{t('start')}</div>}
                   </button>
                 )
               })}
@@ -355,7 +378,7 @@ function getEnChapterTitle(chapterId) {
   return contentEn[chapterId]?.titleEn || null
 }
 
-function usePageContent(page, lang, chapterId, pageIdx) {
+function getPageContent(page, lang, chapterId, pageIdx) {
   if (!page) return { title: '', content: '' }
   if (lang === 'en') {
     const en = getEnPage(chapterId, pageIdx)
@@ -366,11 +389,27 @@ function usePageContent(page, lang, chapterId, pageIdx) {
   return { title: page.title, content: page.content }
 }
 
+const CONTENT_VERSION = 'v20240324-e'
+function checkContentVersionReset() {
+  try {
+    const stored = localStorage.getItem('ng_content_version')
+    if (stored !== CONTENT_VERSION) {
+      resetAll()
+      resetXP()
+      localStorage.setItem('ng_content_version', CONTENT_VERSION)
+      sessionStorage.setItem('ng_just_reset', '1')
+      return true
+    }
+  } catch {}
+  return false
+}
+
 // ===== Main App =====
 function App() {
+  const [resetBanner, setResetBanner] = useState(checkContentVersionReset)
   const [activeTrack, setActiveTrack] = useState(() => {
     const pos = getLastPosition()
-    if (pos?.trackId) return tracks.find(t => t.id === pos.trackId) || null
+    if (pos?.trackId) return [...tracks, ...enrichmentTracks].find(t => t.id === pos.trackId) || null
     return null
   })
   const [activeTab, setActiveTab] = useState(() => {
@@ -418,31 +457,8 @@ function App() {
   const [showShortcuts, setShowShortcuts] = useState(false)
   const [showTroubleshooter, setShowTroubleshooter] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
-  const [resetBanner, setResetBanner] = useState(false)
 
   const [authUser, setAuthUser] = useState(null)
-
-  // ── Content version reset ─────────────────────────────────────────────────
-  const CONTENT_VERSION = 'v20240324-e'
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem('ng_content_version')
-      if (stored !== CONTENT_VERSION) {
-        resetAll()
-        resetXP()
-        // Reset React state too — localStorage reset alone doesn't update UI
-        setXp(0)
-        setStreak(0)
-        setCurrentChapter(0)
-        setCurrentPage(0)
-        setActiveTrack(null)
-        localStorage.setItem('ng_content_version', CONTENT_VERSION)
-        // Flag for auth callback: skip pull so cloud doesn't overwrite the reset
-        sessionStorage.setItem('ng_just_reset', '1')
-        setResetBanner(true)
-      }
-    } catch {}
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Auth: listen for sign-in / sign-out ──────────────────────────────────
   useEffect(() => {
@@ -497,7 +513,7 @@ function App() {
     }
     window.addEventListener('message', onIframeMessage)
     return () => window.removeEventListener('message', onIframeMessage)
-  }, [authUser, xp]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [authUser, xp])
 
   // Push progress on important actions (page read, quiz, etc.)
   const syncToCloud = useCallback(() => {
@@ -505,7 +521,7 @@ function App() {
   }, [authUser])
 
   // ── Visitor notification — every visit ───────────────────────────────────
-  useEffect(() => { notifyVisit() }, [])
+  useEffect(() => { notifyVisit(activeTrack) }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const FONT_SIZES = ['small', 'normal', 'large']
   const cycleFontSize = (dir) => {
@@ -539,7 +555,8 @@ function App() {
     if (exists) {
       saveBookmarks(bookmarks.filter(b => !(b.trackId === trackId && b.chapterId === chapterId && b.pageIdx === pageIdx)))
     } else {
-      saveBookmarks([...bookmarks, { trackId, chapterId, pageIdx, title, timestamp: Date.now() }])
+      const ts = new Date().getTime()
+      saveBookmarks([...bookmarks, { trackId, chapterId, pageIdx, title, timestamp: ts }])
     }
   }
 
@@ -548,7 +565,7 @@ function App() {
   }
 
   const goToBookmark = (bm) => {
-    const track = tracks.find(t => t.id === bm.trackId)
+    const track = [...tracks, ...enrichmentTracks].find(t => t.id === bm.trackId)
     if (!track) return
     if (activeTrack?.id !== track.id) setActiveTrack(track)
     const chIdx = track.chapters.findIndex(c => c.id === bm.chapterId)
@@ -630,7 +647,6 @@ function App() {
       }, 0)
     : getTotalRead()
   const overallPct = totalPagesAllChapters > 0 ? Math.round((totalRead / totalPagesAllChapters) * 100) : 0
-  const completedChapters = activeTrack ? getCompletedChapters(trackChapters, activeTrack.id) : 0
   const totalQuizCorrect = getTotalQuizCorrect()
   const pace = getLearningPace(totalRead, streak)
   const DAILY_GOAL_MIN = 15
@@ -734,6 +750,7 @@ function App() {
 
   const handleSelectTrack = (track) => {
     setActiveTrack(track)
+    notifyCourseSelect(track)
     // Restore last position within this track
     const pos = getLastPosition()
     if (pos?.trackId === track.id) {
@@ -749,6 +766,7 @@ function App() {
   const handleBackToTracks = () => {
     setActiveTrack(null)
     setActiveTab('learn')
+    updateNotifyContext({ track: null, chapterTitle: '' })
   }
 
   const canGoNext = currentPage < totalPages - 1 || currentChapter < trackChapters.length - 1
@@ -806,18 +824,41 @@ function App() {
     return () => { clearTimeout(t1); clearTimeout(t2) }
   }, [currentChapter, currentPage, scrollToTop])
 
+  // Keep Telegram notification context synced with current user, course, tab, and chapter
+  useEffect(() => {
+    updateNotifyContext({
+      user: authUser,
+      track: activeTrack,
+      tab: activeTab,
+      chapterTitle: chapter?.title || '',
+    })
+  }, [authUser, activeTrack, activeTab, chapter])
+
   // Session time tracker — ticks every 30s, pauses when tab is hidden
   useEffect(() => {
     const tick = () => {
       if (!document.hidden) {
         addSessionMinutes(0.5)
+        recordActiveHalfMinute()
         setTodayMinutes(getTodayMinutes())
       }
     }
     const id = setInterval(tick, 30000)
-    const onVisible = () => setTodayMinutes(getTodayMinutes())
+    const onVisible = () => {
+      if (document.hidden) {
+        notifySessionEnd()
+      } else {
+        setTodayMinutes(getTodayMinutes())
+      }
+    }
+    const onPageHide = () => notifySessionEnd()
     document.addEventListener('visibilitychange', onVisible)
-    return () => { clearInterval(id); document.removeEventListener('visibilitychange', onVisible) }
+    window.addEventListener('pagehide', onPageHide)
+    return () => {
+      clearInterval(id)
+      document.removeEventListener('visibilitychange', onVisible)
+      window.removeEventListener('pagehide', onPageHide)
+    }
   }, [])
 
   const ResetBanner = resetBanner && (
@@ -1005,7 +1046,7 @@ function App() {
               lang={lang}
               t={t}
               onGoToResult={(trackId, chapterIdx, pageIdx) => {
-                const track = tracks.find(tr => tr.id === trackId)
+                const track = [...tracks, ...enrichmentTracks].find(tr => tr.id === trackId)
                 if (!track) return
                 if (activeTrack?.id !== track.id) setActiveTrack(track)
                 setCurrentChapter(chapterIdx)
@@ -1070,8 +1111,7 @@ function App() {
 
       {/* ===== LEARN ===== */}
       {activeTab === 'learn' && (() => {
-        const pc = usePageContent(page, lang, chapter?.id, currentPage)
-        const chTitle = isEn ? (getEnChapterTitle(chapter?.id) || chapter?.title) : chapter?.title
+        const pc = getPageContent(page, lang, chapter?.id, currentPage)
         return (
         <div className={`layout${activeTrack?.fullPage ? ' layout--fullpage' : ''}`}>
           <nav className={`sidebar${mobileShowContent ? ' sidebar--mobile-hidden' : ''}${activeTrack?.fullPage ? ' sidebar--hidden' : ''}`}>
@@ -1326,7 +1366,7 @@ function App() {
             }, { id: '', pct: 2 })
           : null
         const findChapterTitle = (id) => {
-          for (const track of tracks) {
+          for (const track of [...tracks, ...enrichmentTracks]) {
             const ch = track.chapters.find(c => String(c.id) === String(id) || `${track.id}__${c.id}` === id)
             if (ch) return isEn ? (getEnChapterTitle(ch.id) || ch.title) : ch.title
           }
@@ -1526,7 +1566,8 @@ function App() {
       {showExamMode && (
         <Suspense fallback={null}>
           <ExamMode lang={lang} onClose={() => setShowExamMode(false)} onXP={(amount) => {
-            addXP(amount)
+            setXp(getXP())
+            syncToCloud()
             setXpFloat(`+${amount} XP`)
             setTimeout(() => setXpFloat(null), 2000)
           }} />
@@ -1571,7 +1612,7 @@ function getPageTypeLabel(type, t) {
   return labels[type] || '📖 הסבר'
 }
 
-function SimulationPage({ simId, content, t, lang }) {
+function SimulationPage({ simId, content, t }) {
   const sims = {
     tcpHandshake: TCPHandshakeSim,
     encapsulation: EncapsulationSim,

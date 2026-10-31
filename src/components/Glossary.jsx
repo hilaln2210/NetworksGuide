@@ -18,14 +18,15 @@ export function Glossary({ isOpen, onClose, lang: langProp }) {
 
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState('all')
+  const [prevOpen, setPrevOpen] = useState(isOpen)
 
-  // Reset state when modal opens
-  useEffect(() => {
+  if (prevOpen !== isOpen) {
+    setPrevOpen(isOpen)
     if (isOpen) {
       setSearch('')
       setActiveCategory('all')
     }
-  }, [isOpen])
+  }
 
   // Close on Escape
   useEffect(() => {

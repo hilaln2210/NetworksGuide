@@ -56,25 +56,20 @@ const QUICK_CHIPS = [
 
 export function AskQuestion() {
   const [query, setQuery] = useState('')
-  const [results, setResults] = useState([])
-  const [showResults, setShowResults] = useState(false)
+  const [debouncedQuery, setDebouncedQuery] = useState('')
 
-  const index = useMemo(buildSearchIndex, [])
+  const index = useMemo(() => buildSearchIndex(), [])
   const qWords = useMemo(() => query.trim() ? tokenize(query.trim()) : [], [query])
 
   useEffect(() => {
-    if (!query.trim() || query.trim().length < 2) {
-      setResults([])
-      setShowResults(false)
-      return
-    }
     const t = setTimeout(() => {
-      const found = doSearch(query, index)
-      setResults(found)
-      setShowResults(true)
+      setDebouncedQuery(query.trim())
     }, 280)
     return () => clearTimeout(t)
-  }, [query, index])
+  }, [query])
+
+  const showResults = debouncedQuery.length >= 2
+  const results = useMemo(() => showResults ? doSearch(debouncedQuery, index) : [], [debouncedQuery, showResults, index])
 
   const highlight = (html, words) => {
     if (!words.length) return html
@@ -83,7 +78,7 @@ export function AskQuestion() {
       try {
         const re = new RegExp(`(${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')
         out = out.replace(re, '<mark>$1</mark>')
-      } catch (_) {}
+      } catch {}
     })
     return out
   }

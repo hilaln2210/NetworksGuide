@@ -27,6 +27,15 @@ function randomIP() {
   return `${Math.floor(Math.random() * 223) + 1}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 254) + 1}`
 }
 
+function randomPacket() {
+  const template = PACKET_OPTIONS[Math.floor(Math.random() * PACKET_OPTIONS.length)]
+  return {
+    protocol: template.protocol,
+    port: template.port,
+    srcIP: randomIP(),
+  }
+}
+
 function matchRule(packet, rules) {
   for (const rule of rules) {
     if (rule.port === '*' && rule.protocol === '*') {
@@ -49,12 +58,7 @@ export function FirewallSim() {
   const [matchedRuleId, setMatchedRuleId] = useState(null)
 
   const sendPacket = () => {
-    const template = PACKET_OPTIONS[Math.floor(Math.random() * PACKET_OPTIONS.length)]
-    const pkt = {
-      protocol: template.protocol,
-      port: template.port,
-      srcIP: randomIP(),
-    }
+    const pkt = randomPacket()
     setPacket(pkt)
     setPhase('flying')
     setResult(null)

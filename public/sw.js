@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ng-v18';
+const CACHE_NAME = 'ng-v21';
 const PRECACHE = ['/', '/index.html'];
 
 self.addEventListener('install', (e) => {
@@ -17,8 +17,8 @@ self.addEventListener('activate', (e) => {
 
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
-  // Cache-first for learn content and static assets
-  if (url.pathname.startsWith('/learn/') || url.pathname.startsWith('/assets/')) {
+  // Cache-first only for hashed build assets
+  if (url.pathname.startsWith('/assets/')) {
     e.respondWith(
       caches.match(e.request).then(cached => {
         if (cached) return cached;
@@ -33,8 +33,14 @@ self.addEventListener('fetch', (e) => {
     );
     return;
   }
-  // Network-first for everything else
+  // Network-first for learn content and everything else (with cache fallback)
   e.respondWith(
-    fetch(e.request).catch(() => caches.match(e.request))
+    fetch(e.request).then(resp => {
+      if (resp.ok && url.pathname.startsWith('/learn/')) {
+        const clone = resp.clone();
+        caches.open(CACHE_NAME).then(c => c.put(e.request, clone));
+      }
+      return resp;
+    }).catch(() => caches.match(e.request))
   );
 });

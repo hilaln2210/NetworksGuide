@@ -24,7 +24,7 @@
     // Default: dark = false (light mode) unless explicitly set to '1'
     applyTheme(darkPref === '1');
     applyFont(localStorage.getItem('ng_font_size') || 'normal');
-  } catch (e) {}
+  } catch {}
 
   // ── Listen for messages from App.jsx ───────────────────────
   window.addEventListener('message', function (e) {
@@ -36,7 +36,7 @@
   // ── XP helper — call window.ngXP(10) from any HTML file ───
   window.ngXP = function (amount) {
     if (amount > 0) {
-      try { window.parent.postMessage({ type: 'ng_xp', amount: amount }, '*'); } catch (e) {}
+      try { window.parent.postMessage({ type: 'ng_xp', amount: amount }, '*'); } catch {}
     }
   };
 })();

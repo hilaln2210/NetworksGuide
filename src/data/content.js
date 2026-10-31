@@ -7,14 +7,14 @@ export const tracks = [
   {
     id: 'networking',
     title: 'רשתות מחשבים',
-    subtitle: 'איך עובד האינטרנט, Sockets, Wireshark, TCP/IP, Scapy ועוד — 13 פרקים',
+    subtitle: 'איך עובד האינטרנט, IP ו-DNS, TCP/UDP, HTTP/HTTPS, WiFi, רכיבי רשת, Wireshark וחדר בריחה — 8 פרקים',
     icon: '🌐',
     color: '#0891b2',
     level: 'מתחיל–מתקדם',
     fullPage: true,
-    chapterCount: 13,
-    lastUpdated: '2026-04-06 22:42',
-    syllabus: ['יסודות האינטרנט', 'תכנות Sockets', 'Wireshark ומודל שכבות', 'שכבת האפליקציה', 'Scapy', 'שכבת התעבורה', 'שכבת הרשת', 'שכבת הקו', 'רכיבי רשת', 'השכבה הפיזית', 'איך הכל מתחבר', 'Sockets מתקדם', 'רשתות מודרניות 2025'],
+    chapterCount: 8,
+    lastUpdated: '2026-04-08 21:30',
+    syllabus: ['כיצד האינטרנט עובד', 'IP, DNS ו-Routing', 'TCP — חיבור אמין', 'HTTP ו-HTTPS', 'WiFi, כבלים ואותות', 'רכיבי הרשת', 'Wireshark וניתוח חבילות', 'המסע המלא + חדר בריחה'],
     chapters: [
       { id: 1, title: "רשתות מחשבים — קורס מלא", pages: [{ type: "html_page", title: "Networks Course", src: "/learn/networks/networks_course.html" }] },
     ]
@@ -169,6 +169,22 @@ export const enrichmentTracks = [
     chapterCount: 11,
     chapters: [
       { id: 700, title: "שיטות מסחר — קורס מלא", pages: [{ type: "html_page", title: "Trading Methods", src: "/learn/enrichment/trading_methods.html" }] },
+    ]
+  },
+  {
+    id: 'short-sellers',
+    title: 'שורטיסטים ומלכודות שורט',
+    subtitle: 'קו הכאב, עמלות השאלה (CTB), המרות ודילול, Margin Call, Short & Gamma Squeeze — 10 פרקים',
+    icon: '🩳',
+    color: '#ef4444',
+    level: 'בינוני–מתקדם',
+    fullPage: true,
+    chapterCount: 10,
+    lastUpdated: '2026-04-08 22:00',
+    syllabus: ['מכונת השורט ואסימטריה', 'CTB, Rebate ודיבידנדים', 'קו הכאב ו-Margin Call', 'אג"ח להמרה, וורנטים ודילול', 'Float, SI% ו-Days to Cover', 'Short & Gamma Squeeze', 'מלכודות שורט במיקרו-קאפ', 'מתי שורטיסטים מרוויחים בגדול', 'SSR, אופציות וניהול סיכונים', 'צ\'קליסט קרב וזירת הגמר 🎯'],
+    syllabusEn: ['Short Mechanics & Asymmetry', 'CTB, Rebates & Dividends', 'Pain Line & Margin Calls', 'Convertibles, Warrants & Dilution', 'Float, SI% & Days to Cover', 'Short & Gamma Squeeze', 'Micro-Cap Short Traps', 'When Shorts Profit Big', 'SSR, Options & Sizing', 'Battle Checklist & Boss Arena 🎯'],
+    chapters: [
+      { id: 710, title: "שורטיסטים ומלכודות שורט — קורס מלא", pages: [{ type: "html_page", title: "Short Sellers & Traps", src: "/learn/enrichment/short_sellers_course.html" }] },
     ]
   },
 ]

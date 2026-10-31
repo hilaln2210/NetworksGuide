@@ -1061,8 +1061,8 @@ Get-ScheduledTask | Where-Object {$_.State -eq 'Ready'} |
 Get-WinEvent -FilterHashtable @{LogName='Security'; ID=4624} -MaxEvents 50
 
 # Registry Run Keys — persistence
-Get-ItemProperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run"
-Get-ItemProperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"</code></pre></div>
+Get-ItemProperty "HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"
+Get-ItemProperty "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run"</code></pre></div>
 
 <p><strong>Memory Forensics עם <code>Volatility</code>:</strong></p>
 
@@ -1454,16 +1454,16 @@ for entry in pe.DIRECTORY_ENTRY_IMPORT:
 <p><strong><code>Windows</code> — מנגנונים נפוצים (מהקל לגילוי לקשה):</strong></p>
 
 <div class="code-preview"><pre><code># 1. Registry Run Keys (הנפוצות ביותר — קל לגילוי)
-HKCU\Software\Microsoft\Windows\CurrentVersion\Run
-HKLM\Software\Microsoft\Windows\CurrentVersion\Run
+HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run
+HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run
 # Malware מוסיף ערך → רץ בכל login
 
 # 2. Scheduled Tasks (נפוץ, קצת קשה יותר לגילוי)
-schtasks /create /tn "WindowsUpdate" /tr "C:\backdoor.exe" /sc onlogon
+schtasks /create /tn "WindowsUpdate" /tr "C:\\backdoor.exe" /sc onlogon
 # מתחזה לשם לגיטימי
 
 # 3. Services (דורש admin)
-sc create "WinHelper" binpath= "C:\malware.exe" start= auto
+sc create "WinHelper" binpath= "C:\\malware.exe" start= auto
 # שירות שרץ אוטומטית עם המערכת
 
 # 4. DLL Hijacking (מתוחכם)
@@ -1471,7 +1471,7 @@ sc create "WinHelper" binpath= "C:\malware.exe" start= auto
 # תוקף שם DLL זדוני באותו שם → נטען אוטומטית
 
 # 5. Startup Folder (הכי פשוט)
-C:\Users\{user}\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\
+C:\\Users\\{user}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\
 
 # 6. WMI Event Subscription (מתקדם — קשה לגילוי)
 # "כשהמחשב עולה, הפעל את הקוד הזה"

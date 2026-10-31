@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+<script src="/_bridge.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Crypto Forensics — חקירת מטבעות דיגיטליים</title>
@@ -712,6 +713,72 @@ ul.prose li strong:first-child {
 .concept-card.purple{border-color:#c4b5fd;background:#f5f3ff;}
 .highlight-quote{border-right:4px solid var(--accent);background:rgba(14,116,144,.06);border-radius:0 12px 12px 0;padding:14px 18px;margin:16px 0;font-size:.92rem;color:var(--text);line-height:1.7;}
 @media(max-width:640px){.ch-hero-banner{padding:24px 18px;}.concept-grid{grid-template-columns:1fr 1fr;}}
+
+/* ── NG UPGRADE SUITE CSS ── */
+.ng-esc-hdr-btn {
+  flex-shrink: 0; padding: 6px 13px;
+  background: linear-gradient(135deg, #16a34a, #059669) !important;
+  color: #ffffff !important; border: 2px solid #047857 !important;
+  border-bottom: 3px solid #065f46 !important; border-radius: 10px;
+  font-size: 12px; font-weight: 800; cursor: pointer; transition: all .15s;
+  display: inline-flex; align-items: center; gap: 5px;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.25); font-family: inherit;
+}
+.ng-esc-hdr-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.ng-sim-dock {
+  max-width: 840px; margin: 16px auto 22px; padding: 0 18px;
+}
+.ng-sim-card {
+  background: var(--bg2, #1e293b); border: 2px solid #0891b2;
+  border-bottom: 4px solid #0e7490; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 4px 16px rgba(8, 145, 178, 0.12);
+}
+.ng-sim-top {
+  background: linear-gradient(135deg, rgba(8, 145, 178, 0.14), rgba(16, 185, 129, 0.08));
+  padding: 11px 16px; border-bottom: 1px solid var(--border, #334155);
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+}
+.ng-sim-title { font-size: 13.5px; font-weight: 900; color: #06b6d4; }
+.ng-sim-pills { display: flex; gap: 6px; flex-wrap: wrap; padding: 12px 16px 8px; }
+.ng-sim-pill {
+  padding: 6px 12px; border-radius: 99px; font-size: 12px; font-weight: 800;
+  border: 1.5px solid var(--border, #334155); background: var(--bg3, #0f172a);
+  color: var(--text, #e2e8f0); cursor: pointer; transition: all .12s; font-family: inherit;
+}
+.ng-sim-pill.active, .ng-sim-pill:hover {
+  background: #0891b2 !important; color: #ffffff !important; border-color: #06b6d4 !important;
+}
+.ng-sim-out {
+  margin: 4px 16px 14px; padding: 12px 14px; border-radius: 10px;
+  background: var(--bg3, #0f172a); border: 1px solid var(--border, #334155);
+  font-size: 13px; line-height: 1.65; color: var(--text, #e2e8f0);
+}
+.ng-esc-overlay {
+  display: none; position: fixed; inset: 0; z-index: 950;
+  background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(4px);
+  overflow-y: auto; padding: 28px 16px 60px;
+}
+.ng-esc-overlay.open { display: block; }
+.ng-esc-modal {
+  max-width: 780px; margin: 0 auto; background: var(--bg2, #1e293b);
+  color: var(--text, #f1f5f9); border: 2px solid #16a34a;
+  border-bottom: 6px solid #15803d; border-radius: 18px; padding: 24px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.45);
+}
+.ng-esc-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border, #334155); }
+.ng-esc-close { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border, #334155); background: var(--bg3, #0f172a); color: var(--text, #f1f5f9); font-size: 18px; cursor: pointer; font-weight: 900; }
+.ng-esc-stepper { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 16px; }
+.ng-esc-step { padding: 7px 4px; border-radius: 8px; text-align: center; font-size: 11.5px; font-weight: 800; background: var(--bg3, #0f172a); border: 1.5px solid var(--border, #334155); cursor: pointer; }
+.ng-esc-step.done { border-color: #16a34a; color: #4ade80; background: rgba(22, 163, 74, 0.15); }
+.ng-esc-step.active { background: #0891b2; color: #fff; border-color: #06b6d4; }
+.ng-esc-story { padding: 14px 16px; border-radius: 10px; background: var(--bg3, #0f172a); border-inline-start: 4px solid #06b6d4; font-size: 14px; line-height: 1.7; margin-bottom: 14px; }
+.ng-esc-opts { display: flex; flex-direction: column; gap: 9px; }
+.ng-esc-opt { padding: 12px 14px; border-radius: 10px; border: 2px solid var(--border, #334155); background: var(--bg2, #1e293b); color: var(--text, #f1f5f9); text-align: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer; transition: all .12s; font-family: inherit; }
+.ng-esc-opt:hover:not(:disabled) { border-color: #06b6d4; transform: translateY(-1px); }
+.ng-esc-opt.correct { border-color: #16a34a !important; background: rgba(22, 163, 74, 0.18) !important; }
+.ng-esc-opt.wrong { border-color: #ef4444 !important; background: rgba(239, 68, 68, 0.16) !important; }
+.ng-esc-fb { margin-top: 12px; padding: 12px 14px; border-radius: 10px; font-size: 13.5px; font-weight: 700; line-height: 1.6; }
+
 </style>
 </head>
 <body>
@@ -721,6 +788,7 @@ ul.prose li strong:first-child {
     <span>⛓ Crypto</span>
   </div>
   <span class="header-chname" id="headerChName"></span>
+  <button class="ng-esc-hdr-btn" id="ngHeaderEscapeBtn" onclick="openNgEscapeRoom()">🎯 חדר חקירות On-Chain</button>
   <button class="review-btn" id="reviewBtn" onclick="openReview()">📚 סיכום מלא</button>
   <button class="lang-btn" id="langBtn" onclick="toggleLang()">🇬🇧 EN</button>
 </header>
@@ -935,6 +1003,180 @@ ul.prose li strong:first-child {
   </div>
   <div class="review-body" id="reviewBody"></div>
 </div>
+
+<div class="ng-esc-overlay" id="ngEscapeOverlay" onclick="if(event.target===this)closeNgEscapeRoom()">
+  <div class="ng-esc-modal" id="ngEscapeModal"></div>
+</div>
+<script>
+(function(){
+  var CFG = {"id":"crypto","btnHe":"🎯 חדר חקירות On-Chain","btnEn":"🎯 On-Chain Case","titleHe":"⛓️ חדר בריחה: התחקות אחר שוד של $50M בבלוקצ'יין (On-Chain Forensics)!","titleEn":"⛓️ Crypto Forensics Escape Room: Trace the $50M DeFi Exploit!","subHe":"פרוטוקול DeFi נפרץ ו-$50M ב-ETH וב-USDT נגנבו. עקבו אחרי העקבות על גבי הבלוקצ'יין דרך ארנקים, מיקסרים וגשרי Cross-Chain עד לתפיסת התוקף בבורסה!","subEn":"A DeFi protocol was exploited for $50M. Trace the stolen funds across wallets, mixers, and cross-chain bridges to freeze them at the CEX!","simTitleHe":"🔬 סימולטור On-Chain Forensics חי: Etherscan, UTXO, מיקסרים וגשרים","simTitleEn":"🔬 Live On-Chain Forensics Analyzer: UTXO, Etherscan & Bridge Tracer","simPills":[["utxo","🪙 מודל UTXO (Bitcoin) מול Account (Ethereum)","<strong>הבדל קריטי בחקירה:</strong><br>• בביטקוין (<strong>UTXO</strong>), כל עסקה שורפת שטרות ישנים ומייצרת פלט לקורבן ופלט <strong>עודף (Change Address)</strong> שחוזר לתוקף! זיהוי כתובת העודף חושף את הארנק האמיתי.<br>• באת'ריום (<strong>Account Model</strong>), יש יתרה רציפה ו-<code>Nonce</code> עולה, וכל אינטראקציה עם חוזה חכם משאירה <code>Internal Transactions</code> ו-<code>Event Logs</code>."],["cluster","🕸️ אשכול ארנקים (Common Input Ownership)","<strong>איך מקשרים 50 כתובות לאותו האקר?</strong><br>• <strong>Common Input Heuristic:</strong> אם כתובת A וכתובת B חתמו יחד כקלטים באותה טרנזקציה — שתיהן נשלטות ע\"י אותו מפתח/ארנק!<br>• <strong>Gas Funding Wallet:</strong> ארנק חדש שקיבל 0.02 ETH לתשלום עמלת Gas מארנק מוכר בורסאי חושף את זהות המממן."],["mixer","🌪️ פיצוח מיקסרים (Tornado Cash) וגשרים","<strong>איך תופסים כספים שעברו במיקסר או ב-Cross-Chain Bridge?</strong><br>• מתאם כמות וזמן (<strong>Time & Amount Correlation</strong>): הפקדת 100 ETH ומשיכתם דקות לאחר מכן.<br>• התאמת <strong>Gas Price / RPC Fingerprint</strong> ושימוש חוזר בכתובת ENS או אינטראקציה עם כתובת Dusting."],["scam","🚨 זיהוי HoneyPot, Rug Pull ו-Approval Drainer","<strong>דגלים אדומים בחוזה חכם:</strong><br>• פונקציית <code>approve(spender, MAX_UINT256)</code> שמעניקה לנוכל הרשאה לרוקן את הארנק.<br>• פונקציית <code>transfer</code> בחוזה Token שחוסמת מכירה (HoneyPot) לכל מי שאינו ברשימת ה-Whitelist של היוצר."]],"stations":[{"titleHe":"תחנה 1/5 · ניתוח עסקת הפריצה הראשונית (Tx Hash & Internal Tx)","titleEn":"Station 1/5 · Dissecting the Exploit Transaction","storyHe":"אתם פותחים את ה-Tx Hash של הפריצה ב-Etherscan. שדה ה-<code>Value</code> בכותרת הטרנזקציה מראה <code>0 ETH</code>, אבל מהחוזה נעלמו 20,000,000 USDT! איפה תראו את העברת הטוקנים והקריאות הפנימיות בין החוזים?","storyEn":"In Etherscan, the top-level <code>Value</code> shows <code>0 ETH</code>, yet 20,000,000 USDT vanished from the pool! Where do you look to see the actual movement?","optsHe":["בטאבים ERC-20 Token Txns, Internal Transactions ו-Event Logs (נושא Transfer)","רק בשדה ה-Gas Limit","בכתובת ה-IP של הבלוקצ'יין","אי אפשר לראות העברות של USDT בבלוקצ'יין"],"optsEn":["Inspect the ERC-20 Token Txns tab, Internal Transactions (Traces), and Transfer Event Logs","Only look at Gas Limit","Check the blockchain IP address","USDT transfers are invisible on-chain"],"ans":0,"expHe":"מדויק! העברות של טוקנים (ERC-20) וקריאות מחוזה לחוזה אינן מופיעות ב-Value הראשי של ETH אלא ב-Event Logs וב-Internal Transactions."},{"titleHe":"תחנה 2/5 · זיהוי ארנק המימון (Gas Funding Deanonymization)","titleEn":"Station 2/5 · Tracing the Gas Funding Wallet","storyHe":"התוקף יצר כתובת ארנק חדשה לחלוטין (<code>0xDead...Beef</code>) כדי להריץ את חוזה הפריצה. אבל כדי לשלם עמלת Gas על הפריצה, הכתובת הייתה חייבת לקבל ETH התחלתי! בבדיקת הטרנזקציה הראשונה של הארנק (<code>Nonce 0</code>), מה תחפשו?","storyEn":"The attacker used a fresh wallet (<code>0xDead...Beef</code>) to deploy the exploit contract, but needed ETH to pay gas. What do you look for at Nonce 0?","optsHe":["את כתובת המקור ששלחה לו את ה-ETH הראשון ל-Gas — ואם היא יצאה מכתובת Hot Wallet של בורסה מרכזית (CEX עם KYC), ניתן להוציא צו לחשיפת זהות החשבון!","את שם המשתמש שלו בטוויטר בתוך ה-Nonce","את מספר הבלוק חלקי 2","אין צורך ב-ETH כדי להריץ חוזה באת'ריום"],"optsEn":["Trace the source address that funded the initial Gas ETH — if it came from a KYC Centralized Exchange (CEX) withdrawal, law enforcement can subpoena the account identity!","Look at block timestamp only","Divide Nonce by 2","Gas is free on Ethereum"],"ans":0,"expHe":"בינגו! טעות \"מימון ה-Gas\" מהארנק האישי או מבורסת KYC היא הסיבה מספר 1 לחשיפת האקרים בעולם הקריפטו."},{"titleHe":"תחנה 3/5 · מעקב אחרי כספים במיקסר (Mixer Heuristics)","titleEn":"Station 3/5 · De-mixing Heuristics","storyHe":"התוקף הפקיד 10 פעמים 100 ETH לתוך מיקסר בשעה 04:00, ובשעה 04:12 ארנק חדש משך בדיוק 10 פעמים 100 ETH באותו סדר ואותו Gas Price, והעביר אותם לארנק שהחזיק דומיין <code>hackervault.eth</code> (ENS). איך קישרתם בין ההפקדה למשיכה?","storyEn":"The attacker deposited 10×100 ETH into a mixer at 04:00, and at 04:12 a wallet withdrew 10×100 ETH with identical gas settings and linked to an ENS domain. Which heuristic broke their anonymity?","optsHe":["Time & Volume Correlation (מתאם זמן וכמות) + טביעת אצבע של הגדרות ה-Gas וחשיפת OSINT דרך רשומות היסטוריית ENS","שבירת ההצפנה של SHA-256","ניחוש ה-Seed Phrase של 12 המילים","ביטול הבלוק בביטקוין"],"optsEn":["Time & Volume Correlation + Gas fingerprint + OSINT linkage via ENS registration history","Cracking SHA-256","Guessing the 12-word seed phrase","Reversing the blockchain"],"ans":0,"expHe":"עבודת חקירה מבריקה! משיכה מיידית של אותו נפח מדויק וחיבור לזהות ENS/Web3 שוברים את האנונימיות של המיקסר."},{"titleHe":"תחנה 4/5 · מעקב חוצה-רשתות (Cross-Chain Bridge Hop)","titleEn":"Station 4/5 · Cross-Chain Bridge Tracing","storyHe":"התוקף המיר את הכספים והעביר אותם מרשת Ethereum לרשת Arbitrum דרך גשר (Bridge Contract). איך חוקר On-Chain מוצא את כתובת היעד ברשת השנייה?","storyEn":"The attacker bridged funds from Ethereum to Arbitrum. How do you find the destination wallet on the target chain?","optsHe":["קריאת ה-Event Log של חוזה הגשר ב-Ethereum (שמכיל את שדה recipient / destinationAddress ו-destinationChainId) והתאמת הסכום והזמן ב-Arbiscan","אי אפשר לעקוב אחרי כסף שעובר גשר","בדיקת כבל הרשת של השרת","שליחת הודעה למפתחי ביטקוין"],"optsEn":["Inspect the Bridge contract Deposit Event Log on Ethereum (which records the destination recipient address & chain ID) and match the mint/release tx on Arbiscan","Cross-chain hops are untraceable","Check physical cables","Ask Bitcoin miners"],"ans":0,"expHe":"מדויק! חוזי גשרים פולטים Event Logs מפורטים עם כתובת המקבל ברשת היעד."},{"titleHe":"תחנה 5/5 · שלב הבוס 🔥 · הקפאת הכספים (Freeze & Seizure)","titleEn":"Station 5/5 · Boss Stage 🔥 · Asset Freeze & Recovery","storyHe":"איתרתם שהתוקף מחזיק $35M ב-USDT בארנק פרטי, ועוד $15M ב-ETH הופקדו הרגע לכתובת הפקדה (Deposit Address) של בורסת Binance! אילו שתי פעולות מיידיות יקפיאו את כל $50M?","storyEn":"The attacker holds $35M in USDT in an unhosted wallet and just deposited $15M ETH into a Binance Deposit Address. How do you freeze all $50M?","optsHe":["פנייה לחברת Tether להפעלת פונקציית ה-Blacklist בחוזה החכם של USDT להקפאת ה-$35M על הבלוקצ'יין + פנייה לצוות ה-Compliance של Binance עם גרף הטרנזקציות להקפאת חשבון ההפקדה!","לשלוח לתוקף בקשת החזר","לכבות את האינטרנט","למכור ביטקוין בשורט"],"optsEn":["Request Tether to trigger the smart contract Blacklist/Freeze function on the $35M USDT + send the provenance trace to Binance Compliance to freeze the $15M deposit!","Politely ask the hacker","Shut down the internet","Short Bitcoin"],"ans":0,"expHe":"תיק החקירה פוצח במלואו! לחוזי Stablecoins מרכזיים (USDT/USDC) יש פונקציית הקפאה בחוזה החכם, ובורסות מרכזיות מקפיאות הפקדות גנובות בזמן אמת."}]};
+  var ngEscState = { step: 0, solved: {}, wrong: null, mistakes: 0 };
+
+  function getLang() {
+    return (document.documentElement.lang === 'en' || (typeof currentLang !== 'undefined' && currentLang === 'en')) ? 'en' : 'he';
+  }
+
+  function awardNgXP(amt) {
+    try {
+      if (typeof window.ngXP === 'function') window.ngXP(amt);
+      else if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'ng_xp', amount: amt }, '*');
+    } catch(e) {}
+  }
+
+  window.selectNgSimPill = function(idx) {
+    var pill = CFG.simPills[idx];
+    if (!pill) return;
+    var out = document.getElementById('ngSimOut');
+    if (out) out.innerHTML = pill[2];
+    document.querySelectorAll('.ng-sim-pill').forEach(function(b, i) {
+      b.classList.toggle('active', i === idx);
+    });
+  };
+
+  function mountSimDock() {
+    if (document.getElementById('ngSimDock')) return;
+    var mainEl = document.querySelector('main, .main, .site-main, .content');
+    if (!mainEl) return;
+    var dock = document.createElement('div');
+    dock.className = 'ng-sim-dock';
+    dock.id = 'ngSimDock';
+    var isEn = getLang() === 'en';
+    dock.innerHTML = '<div class="ng-sim-card">' +
+      '<div class="ng-sim-top">' +
+        '<span class="ng-sim-title" id="ngSimTitle">' + (isEn ? CFG.simTitleEn : CFG.simTitleHe) + '</span>' +
+        '<button class="ng-esc-hdr-btn" onclick="openNgEscapeRoom()" id="ngDockEscBtn">' + (isEn ? CFG.btnEn : CFG.btnHe) + ' · +150 XP</button>' +
+      '</div>' +
+      '<div class="ng-sim-pills">' +
+        CFG.simPills.map(function(p, i) {
+          return '<button class="ng-sim-pill' + (i === 0 ? ' active' : '') + '" onclick="selectNgSimPill(' + i + ')">' + p[1] + '</button>';
+        }).join('') +
+      '</div>' +
+      '<div class="ng-sim-out" id="ngSimOut">' + CFG.simPills[0][2] + '</div>' +
+    '</div>';
+    mainEl.insertBefore(dock, mainEl.firstChild);
+  }
+
+  window.openNgEscapeRoom = function() {
+    var ov = document.getElementById('ngEscapeOverlay');
+    if (ov) ov.classList.add('open');
+    renderNgEscapeModal();
+  };
+
+  window.closeNgEscapeRoom = function() {
+    var ov = document.getElementById('ngEscapeOverlay');
+    if (ov) ov.classList.remove('open');
+  };
+
+  window.pickNgEscOpt = function(oi) {
+    var st = CFG.stations[ngEscState.step];
+    if (!st || ngEscState.solved[ngEscState.step]) return;
+    if (oi === st.ans) {
+      ngEscState.solved[ngEscState.step] = true;
+      ngEscState.wrong = null;
+      awardNgXP(25);
+    } else {
+      ngEscState.wrong = oi;
+      ngEscState.mistakes++;
+    }
+    renderNgEscapeModal();
+  };
+
+  window.nextNgEscStep = function() {
+    for (var i = 0; i < CFG.stations.length; i++) {
+      if (!ngEscState.solved[i]) {
+        ngEscState.step = i;
+        ngEscState.wrong = null;
+        renderNgEscapeModal();
+        return;
+      }
+    }
+    renderNgEscapeModal();
+  };
+
+  window.jumpNgEscStep = function(idx) {
+    ngEscState.step = idx;
+    ngEscState.wrong = null;
+    renderNgEscapeModal();
+  };
+
+  window.resetNgEscapeRoom = function() {
+    ngEscState = { step: 0, solved: {}, wrong: null, mistakes: 0 };
+    renderNgEscapeModal();
+  };
+
+  function renderNgEscapeModal() {
+    var modal = document.getElementById('ngEscapeModal');
+    if (!modal) return;
+    var isEn = getLang() === 'en';
+    var total = CFG.stations.length;
+    var solvedCount = Object.keys(ngEscState.solved).length;
+
+    if (solvedCount === total) {
+      var xpKey = 'ng_esc_xp_' + CFG.id;
+      try {
+        if (!localStorage.getItem(xpKey)) {
+          localStorage.setItem(xpKey, '1');
+          awardNgXP(150);
+        }
+      } catch(e) {}
+      modal.innerHTML = '<div class="ng-esc-top">' +
+        '<div style="font-weight:900;font-size:18px;color:#4ade80">' + (isEn ? CFG.titleEn : CFG.titleHe) + '</div>' +
+        '<button class="ng-esc-close" onclick="closeNgEscapeRoom()">×</button>' +
+      '</div>' +
+      '<div style="text-align:center;padding:24px 12px">' +
+        '<div style="font-size:54px;margin-bottom:10px">🏆🎯🚀</div>' +
+        '<h2 style="font-size:24px;font-weight:900;margin-bottom:8px">' + (isEn ? 'Mission Accomplished! +150 XP' : 'המשימה הושלמה בהצלחה! +150 XP') + '</h2>' +
+        '<p style="opacity:.85;margin-bottom:20px">' + (isEn ? ('All ' + total + ' stations solved! Mistakes: ' + ngEscState.mistakes) : ('פתרת את כל ' + total + ' התחנות בהצלחה! טעויות בדרך: ' + ngEscState.mistakes)) + '</p>' +
+        '<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">' +
+          '<button class="ng-esc-hdr-btn" onclick="resetNgEscapeRoom()">' + (isEn ? '↺ Play Again' : '↺ שחק שוב') + '</button>' +
+          '<button class="ng-esc-hdr-btn" style="background:#0891b2!important;border-color:#06b6d4!important" onclick="closeNgEscapeRoom()">' + (isEn ? '✓ Back to Course' : '✓ חזרה לקורס') + '</button>' +
+        '</div>' +
+      '</div>';
+      return;
+    }
+
+    var st = CFG.stations[ngEscState.step];
+    var isSolved = !!ngEscState.solved[ngEscState.step];
+    var opts = isEn ? st.optsEn : st.optsHe;
+
+    var stepper = CFG.stations.map(function(_, idx) {
+      var cls = 'ng-esc-step' + (ngEscState.solved[idx] ? ' done' : '') + (idx === ngEscState.step ? ' active' : '');
+      return '<div class="' + cls + '" onclick="jumpNgEscStep(' + idx + ')">#' + (idx + 1) + ' ' + (ngEscState.solved[idx] ? '✓' : '') + '</div>';
+    }).join('');
+
+    var optsHtml = opts.map(function(txt, oi) {
+      var cls = 'ng-esc-opt';
+      if (isSolved && oi === st.ans) cls += ' correct';
+      else if (ngEscState.wrong === oi) cls += ' wrong';
+      return '<button class="' + cls + '" ' + (isSolved ? 'disabled' : '') + ' onclick="pickNgEscOpt(' + oi + ')">' + txt + '</button>';
+    }).join('');
+
+    var fbHtml = isSolved
+      ? '<div class="ng-esc-fb" style="background:rgba(22,163,74,0.16);border:1.5px solid #16a34a">✅ ' + st.expHe + '</div>'
+      : (ngEscState.wrong !== null ? '<div class="ng-esc-fb" style="background:rgba(239,68,68,0.15);border:1.5px solid #ef4444">' + (isEn ? '❌ Not quite — analyze the scenario and try again!' : '❌ לא מדויק — נתחו את התרחיש ונסו שוב!') + '</div>' : '');
+
+    var nextBtn = isSolved
+      ? '<div style="margin-top:14px;text-align:end"><button class="ng-esc-hdr-btn" onclick="nextNgEscStep()">' + (solvedCount === total ? (isEn ? 'Finish 🏆' : 'למסך הניצחון 🏆') : (isEn ? 'Next Station →' : '← לתחנה הבאה')) + '</button></div>'
+      : '';
+
+    modal.innerHTML = '<div class="ng-esc-top">' +
+      '<div><div style="font-weight:900;font-size:17px">' + (isEn ? CFG.titleEn : CFG.titleHe) + '</div><div style="font-size:12px;opacity:.75">' + (isEn ? CFG.subEn : CFG.subHe) + '</div></div>' +
+      '<button class="ng-esc-close" onclick="closeNgEscapeRoom()">×</button>' +
+    '</div>' +
+    '<div class="ng-esc-stepper">' + stepper + '</div>' +
+    '<div style="font-weight:900;font-size:16px;margin-bottom:8px;color:#38bdf8">' + (isEn ? st.titleEn : st.titleHe) + '</div>' +
+    '<div class="ng-esc-story">' + (isEn ? st.storyEn : st.storyHe) + '</div>' +
+    '<div class="ng-esc-opts">' + optsHtml + '</div>' +
+    fbHtml + nextBtn;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    mountSimDock();
+  });
+  setTimeout(mountSimDock, 200);
+})();
+</script>
+
 </body>
 </html>
 <script>
