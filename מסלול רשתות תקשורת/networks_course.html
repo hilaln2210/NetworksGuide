@@ -1164,6 +1164,7 @@ pre code {
   color: var(--text3);
   text-align: center;
   transition: all .2s;
+  cursor: pointer;
 }
 .er-step.done {
   background: rgba(88, 204, 2, 0.12);
@@ -3315,8 +3316,7 @@ function renderEscapeRoom() {
     var cls = 'er-step';
     if(erState.solved[idx]) cls += ' done';
     if(idx === stIdx) cls += ' active';
-    var clickAttr = (erState.solved[idx] || idx <= stIdx) ? ' onclick="jumpEscapeStation(' + idx + ')"' : '';
-    return '<div class="' + cls + '"' + clickAttr + '>'
+    return '<div class="' + cls + '" onclick="jumpEscapeStation(' + idx + ')">'
       + '<span class="er-step-num">' + (erState.solved[idx] ? '✓' : '0' + (idx + 1)) + '</span>'
       + '<span class="er-step-name">' + name + '</span>'
       + '</div>';
@@ -3345,9 +3345,10 @@ function renderEscapeRoom() {
     var slotsHtml = [0, 1, 2, 3].map(function(i) {
       var pickedId = erState.dnsChain[i];
       var pickedObj = pickedId ? st.pool.find(function(p) { return p.id === pickedId; }) : null;
-      return '<div class="er-dns-slot' + (pickedObj ? ' filled' : '') + '">'
-        + '<span style="font-size:10px;color:var(--accent);font-family:var(--mono)">Hop #' + (i + 1) + '</span>'
-        + '<span>' + (pickedObj ? pickedObj.text : '—') + '</span>'
+      var slotClick = (!isSolved && pickedObj) ? ' onclick="removeDnsNode(' + i + ')" style="cursor:pointer" title="לחצו להסרה"' : '';
+      return '<div class="er-dns-slot' + (pickedObj ? ' filled' : '') + '"' + slotClick + '>'
+        + '<span style="font-size:10px;color:var(--accent);font-family:var(--mono)">Hop #' + (i + 1) + (pickedObj && !isSolved ? ' ✕' : '') + '</span>'
+        + '<span>' + (pickedObj ? pickedObj.text : (currentLang === 'en' ? 'Click a server below' : 'לחצו על שרת למטה')) + '</span>'
         + '</div>';
     }).join('');
 
@@ -3397,12 +3398,12 @@ function renderEscapeRoom() {
     }
   }
 
-  var html = '<div class="ch-hero">'
+  var html = '<div class="ch-hero" style="padding:14px 0 12px;margin-bottom:14px">'
     + '<div class="ch-tag">' + d.tag + '</div>'
-    + '<h1 class="ch-title">' + d.title + '</h1>'
-    + '<p class="ch-desc">' + d.desc + '</p>'
+    + '<h1 class="ch-title" style="font-size:22px;margin-bottom:4px">' + d.title + '</h1>'
+    + '<p class="ch-desc" style="margin-bottom:0;font-size:13.5px">' + d.desc + '</p>'
     + '</div>'
-    + '<div class="er-wrap">'
+    + '<div class="er-wrap" style="padding-bottom:160px">'
     + '<div class="er-hud">'
     + '<div class="er-hud-top">'
     + '<div class="er-mission-tag">🌐 <code>https://www.google.com</code></div>'
@@ -3413,11 +3414,11 @@ function renderEscapeRoom() {
     + '<div class="er-stepper">' + stepperHtml + '</div>'
     + packetBarHtml
     + '</div>'
-    + '<div class="er-station-card">'
+    + '<div class="er-station-card" id="er-station-card">'
     + '<div class="er-st-header"><div><div class="er-st-badge">' + st.badge + '</div><h2 class="er-st-title">' + st.title + '</h2></div></div>'
     + '<div class="er-st-story">' + st.story + '</div>'
     + puzzleHtml
-    + '<div class="' + fbClass + '">' + fbText + '</div>'
+    + '<div class="' + fbClass + '" id="er-feedback-box">' + fbText + (nextBtnHtml ? '<div style="margin-top:12px">' + nextBtnHtml + '</div>' : '') + '</div>'
     + '<div class="er-hint-box' + (erState.hintShown ? ' show' : '') + '">💡 ' + st.hint + '</div>'
     + '<div class="er-actions-bar">'
     + '<button class="btn btn-ghost" onclick="toggleEscapeHint()">' + d.hintBtn + '</button>'
@@ -3446,6 +3447,17 @@ function pickDnsNode(id) {
   if(erState.dnsChain.indexOf(id) >= 0) return;
   erState.dnsChain.push(id);
   erState.feedback = null;
+  if(erState.dnsChain.length === 4) {
+    verifyDnsOrder();
+    return;
+  }
+  renderEscapeRoom();
+}
+
+function removeDnsNode(slotIdx) {
+  if(erState.solved[0]) return;
+  erState.dnsChain.splice(slotIdx, 1);
+  erState.feedback = null;
   renderEscapeRoom();
 }
 
@@ -3455,18 +3467,29 @@ function resetDnsOrder() {
   renderEscapeRoom();
 }
 
+function scrollEscapeFeedback() {
+  setTimeout(function() {
+    var fb = document.getElementById('er-feedback-box');
+    if(fb) {
+      try { fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch(e) {}
+    }
+  }, 60);
+}
+
 function verifyDnsOrder() {
   var st = (ER_DATA[currentLang] || ER_DATA.he).stations[0];
   var ok = erState.dnsChain.length === 4 && erState.dnsChain.every(function(val, i) { return val === st.correctOrder[i]; });
   if(ok) {
     erState.solved[0] = true;
     erState.feedback = 'ok';
+    try { if(typeof window.ngXP === 'function') window.ngXP(20); } catch(e) {}
   } else {
     erState.mistakes++;
     erState.feedback = 'err';
     erState.dnsChain = [];
   }
   renderEscapeRoom();
+  scrollEscapeFeedback();
 }
 
 function selectEscapeOption(idx) {
@@ -3478,11 +3501,13 @@ function selectEscapeOption(idx) {
   if(opt && opt.correct) {
     erState.solved[stIdx] = true;
     erState.feedback = 'ok';
+    try { if(typeof window.ngXP === 'function') window.ngXP(20); } catch(e) {}
   } else {
     erState.mistakes++;
     erState.feedback = 'err';
   }
   renderEscapeRoom();
+  scrollEscapeFeedback();
 }
 
 function toggleEscapeHint() {
@@ -3496,8 +3521,11 @@ function nextEscapeStation() {
     erState.selectedChoice = null;
     erState.feedback = null;
     erState.hintShown = false;
-    window.scrollTo(0, 0);
     renderEscapeRoom();
+    setTimeout(function() {
+      var card = document.getElementById('er-station-card');
+      if(card) { try { card.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(e) {} }
+    }, 50);
   }
 }
 
@@ -3507,10 +3535,15 @@ function jumpEscapeStation(idx) {
   erState.feedback = null;
   erState.hintShown = false;
   renderEscapeRoom();
+  setTimeout(function() {
+    var card = document.getElementById('er-station-card');
+    if(card) { try { card.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch(e) {} }
+  }, 50);
 }
 
 function finishEscapeRoom() {
   erState.station = 6;
+  markNetChDone(7);
   window.scrollTo(0, 0);
   renderEscapeRoom();
 }
@@ -3674,6 +3707,8 @@ function updateCourseProgress() {
   var fill = document.getElementById('courseProgFill');
   if(txt) txt.textContent = doneCount + '/' + TOTAL_CHAPTERS + ' (' + pct + '%)';
   if(fill) fill.style.width = pct + '%';
+  var escStars = document.getElementById('chstars-escape');
+  if(escStars) escStars.textContent = localStorage.getItem('ng_networks_escape_room_xp') === '1' ? '🏆' : '';
   for(var i = 0; i < TOTAL_CHAPTERS; i++) {
     var btn = document.getElementById('nav-' + i);
     var st = document.getElementById('chstars-' + i);
