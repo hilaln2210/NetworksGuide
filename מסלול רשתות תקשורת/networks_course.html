@@ -1190,53 +1190,149 @@ pre code {
   line-height: 1.15;
 }
 
-/* Visual Packet Encapsulation Inspector */
-.er-packet-bar {
-  background: #0f172a;
-  border: 2px solid #1e293b;
+/* Live packet journey map */
+.er-journey {
+  background: linear-gradient(180deg, #f4fbfc 0%, #eef6f8 100%);
+  border: 2px solid #c5e4ea;
   border-radius: var(--r);
-  padding: 10px 14px;
-  color: #e2e8f0;
-  font-family: var(--mono);
-  font-size: 11.5px;
-  direction: ltr;
-  text-align: left;
+  padding: 12px 14px 10px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
-.er-packet-label {
-  font-size: 10px;
-  color: #94a3b8;
-  text-transform: uppercase;
-  letter-spacing: .08em;
+.er-journey-head {
   display: flex;
   justify-content: space-between;
-}
-.er-headers-row {
-  display: flex;
-  gap: 6px;
+  align-items: center;
+  gap: 10px;
   flex-wrap: wrap;
-}
-.er-hdr-chip {
-  padding: 4px 9px;
-  border-radius: 6px;
   font-size: 11px;
+  font-weight: 800;
+  color: var(--accent2);
+}
+.er-journey-ips {
+  direction: ltr;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--accent);
+  background: #fff;
+  border: 1px solid #c5e4ea;
+  border-radius: 99px;
+  padding: 3px 10px;
+}
+.er-path {
+  direction: ltr;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0;
+  overflow-x: auto;
+  padding: 4px 2px 2px;
+  scrollbar-width: none;
+}
+.er-path::-webkit-scrollbar { display: none; }
+.er-hop {
+  flex: 0 0 auto;
+  width: 68px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+.er-hop[disabled] { cursor: default; }
+.er-hop-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: #fff;
+  border: 2px solid var(--border2);
+  box-shadow: 0 2px 0 var(--border);
+  transition: all .2s;
+}
+.er-hop.done .er-hop-icon {
+  background: #dcfce7;
+  border-color: var(--green);
+  box-shadow: 0 2px 0 var(--green2);
+}
+.er-hop.active .er-hop-icon {
+  background: #cffafe;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(14, 116, 144, 0.16);
+  animation: hopPulse 1.5s ease-in-out infinite;
+}
+@keyframes hopPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.er-hop-name {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text2);
+  line-height: 1.15;
+  text-align: center;
+}
+.er-hop.done .er-hop-name,
+.er-hop.active .er-hop-name { color: var(--text); }
+.er-hop-meta {
+  font-size: 9px;
   font-weight: 700;
-  border: 1px solid #334155;
-  background: #1e293b;
-  color: #64748b;
-  transition: all .25s;
+  color: var(--text3);
+  font-family: var(--mono);
+  text-align: center;
+  line-height: 1.2;
 }
-.er-hdr-chip.ready {
-  background: rgba(14, 116, 144, 0.25);
-  border-color: #38bdf8;
-  color: #e0f2fe;
+.er-hop.done .er-hop-meta { color: var(--green2); }
+.er-hop.active .er-hop-meta { color: var(--accent); }
+.er-wire {
+  flex: 1 1 14px;
+  min-width: 12px;
+  height: 4px;
+  margin-top: 18px;
+  border-radius: 99px;
+  background: #d7e3e6;
+  position: relative;
+  overflow: visible;
 }
-.er-hdr-chip.locked {
-  background: rgba(22, 163, 74, 0.25);
-  border-color: #4ade80;
-  color: #bbf7d0;
+.er-wire.lit {
+  background: linear-gradient(90deg, #58cc02, #0e7490);
+}
+.er-wire.now {
+  background: linear-gradient(90deg, #0e7490, #22d3ee);
+}
+.er-packet {
+  position: absolute;
+  top: -13px;
+  inset-inline-start: 0;
+  font-size: 16px;
+  line-height: 1;
+  animation: packetRun 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 2px rgba(15, 23, 42, 0.2));
+}
+@keyframes packetRun {
+  0% { inset-inline-start: 0; transform: translateY(0); }
+  50% { inset-inline-start: calc(100% - 16px); transform: translateY(-3px); }
+  100% { inset-inline-start: 0; transform: translateY(0); }
+}
+.er-journey-status {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  background: #fff;
+  border: 1px dashed #b7d4da;
+  border-radius: 10px;
+  padding: 7px 10px;
+  text-align: center;
 }
 
 /* Station Card */
@@ -1531,6 +1627,9 @@ pre code {
   .er-dns-slots { grid-template-columns: 1fr 1fr; }
   .er-stats-grid { grid-template-columns: 1fr; }
   .er-summary-list { grid-template-columns: 1fr; }
+  .er-hop { width: 56px; }
+  .er-hop-icon { width: 36px; height: 36px; font-size: 16px; }
+  .er-hop-meta { display: none; }
 }
 
 </style>
@@ -2960,7 +3059,35 @@ var ER_DATA = {
     tag: '🎯 משימת גמר אינטראקטיבית · 0ms → 150ms',
     title: 'חדר בריחה: לווה את החבילה ל-google.com',
     desc: 'לחצתם Enter בדפדפן על https://www.google.com. יש לכם 150 מילישניות להעביר את החבילה דרך כל 6 תחנות הרשת בלי לאבד חיבור!',
-    packetInspector: 'מבנה החבילה בזמן אמת (Encapsulation)',
+    packetInspector: 'מסלול החבילה בדרך ל-Google',
+    journeyFrom: 'המחשב · 192.168.1.5',
+    journeyTo: 'Google · 142.250.185.78',
+    journeyHops: [
+      { icon: '💻', name: 'המחשב', meta: 'אתה' },
+      { icon: '🔍', name: 'DNS', meta: 'פענוח שם' },
+      { icon: '📡', name: 'נתב', meta: 'Gateway' },
+      { icon: '🤝', name: 'TCP', meta: 'Handshake' },
+      { icon: '🔒', name: 'TLS', meta: 'הצפנה' },
+      { icon: '📄', name: 'HTTP', meta: '200 OK' },
+      { icon: '📶', name: 'QUIC', meta: '5G' },
+      { icon: '🌐', name: 'Google', meta: 'יעד' }
+    ],
+    journeyStatus: [
+      'החבילה ממתינה לפענוח השם…',
+      'יש IP. עכשיו צריך את ה-MAC של השער.',
+      'יצאה מהבית. לחיצת יד TCP בתהליך…',
+      'החיבור פתוח, אבל הערוץ עדיין לא מוצפן.',
+      'הערוץ מאובטח. ממתינים לתשובת השרת…',
+      'Wi-Fi מתנתק — צריך לנדוד ל-5G בלי לאבד את הדף.'
+    ],
+    journeyStatusDone: [
+      'התקבל IP: 142.250.185.78',
+      'יצאה דרך הנתב aa:bb:cc:11:22:33',
+      'חיבור ESTABLISHED לפורט 443',
+      'TLS 1.3 פעיל · AES-GCM 🔒',
+      'התקבל 200 OK · ה-HTML בדרך',
+      'QUIC שרד את המעבר · google.com נטען!'
+    ],
     hintBtn: '💡 רמז לתחנה זו',
     nextBtn: 'המשך לתחנה הבאה ◀',
     finishBtn: 'סיים מסע וטען את הדף! 🚀',
@@ -3097,7 +3224,35 @@ var ER_DATA = {
     tag: '🎯 Interactive Finale Mission · 0ms → 150ms',
     title: 'Packet Escape Room: Escort the Packet to google.com',
     desc: 'You just typed https://www.google.com and hit Enter. You have 150 milliseconds to escort your packet across all 6 networking stations without timing out!',
-    packetInspector: 'Live Packet Encapsulation Inspector',
+    packetInspector: 'Packet path to Google',
+    journeyFrom: 'You · 192.168.1.5',
+    journeyTo: 'Google · 142.250.185.78',
+    journeyHops: [
+      { icon: '💻', name: 'You', meta: 'Host' },
+      { icon: '🔍', name: 'DNS', meta: 'Resolve' },
+      { icon: '📡', name: 'Router', meta: 'Gateway' },
+      { icon: '🤝', name: 'TCP', meta: 'Handshake' },
+      { icon: '🔒', name: 'TLS', meta: 'Encrypt' },
+      { icon: '📄', name: 'HTTP', meta: '200 OK' },
+      { icon: '📶', name: 'QUIC', meta: '5G' },
+      { icon: '🌐', name: 'Google', meta: 'Target' }
+    ],
+    journeyStatus: [
+      'The packet is waiting for a name lookup…',
+      'IP is known. Next: find the gateway MAC.',
+      'Left the LAN. TCP handshake in progress…',
+      'Socket is open, but the channel is still cleartext.',
+      'Channel is secure. Waiting for the server reply…',
+      'Wi-Fi dropped — roam to 5G without losing the page.'
+    ],
+    journeyStatusDone: [
+      'Resolved IP: 142.250.185.78',
+      'Left via gateway aa:bb:cc:11:22:33',
+      'TCP ESTABLISHED on port 443',
+      'TLS 1.3 live · AES-GCM 🔒',
+      'Got 200 OK · HTML is arriving',
+      'QUIC survived the roam · google.com loaded!'
+    ],
     hintBtn: '💡 Station Hint',
     nextBtn: 'Next Station ▶',
     finishBtn: 'Complete Journey & Render Page! 🚀',
@@ -3322,22 +3477,36 @@ function renderEscapeRoom() {
       + '</div>';
   }).join('');
 
-  // Packet Encapsulation Headers status
-  var hdrs = [
-    { label: 'L2 Ethernet: ' + (erState.solved[1] ? 'GW aa:bb:cc:11:22:33' : '???'), done: erState.solved[1], active: stIdx === 1 },
-    { label: 'L3 IP: ' + (erState.solved[0] ? '142.250.185.78' : 'google.com?'), done: erState.solved[0], active: stIdx === 0 },
-    { label: 'L4 ' + (erState.solved[5] ? 'QUIC/UDP (CID)' : (erState.solved[2] ? 'TCP :443 (EST)' : 'TCP SYN?')), done: erState.solved[2], active: stIdx === 2 || stIdx === 5 },
-    { label: 'L6 ' + (erState.solved[3] ? 'TLS 1.3 🔒' : 'Unencrypted'), done: erState.solved[3], active: stIdx === 3 },
-    { label: 'L7 ' + (erState.solved[4] ? 'HTTP/2 200 OK' : 'GET /'), done: erState.solved[4], active: stIdx === 4 }
-  ];
-  var packetBarHtml = '<div class="er-packet-bar">'
-    + '<div class="er-packet-label"><span>📦 ' + d.packetInspector + '</span><span>192.168.1.5 ➔ google.com</span></div>'
-    + '<div class="er-headers-row">'
-    + hdrs.map(function(h) {
-        var c = 'er-hdr-chip' + (h.done ? ' locked' : (h.active ? ' ready' : ''));
-        return '<span class="' + c + '">' + h.label + '</span>';
-      }).join('')
-    + '</div></div>';
+  var hops = d.journeyHops || [];
+  var pathParts = [];
+  hops.forEach(function(hop, i) {
+    var hopDone = (i === 0) || (i === hops.length - 1 ? erState.solved.every(Boolean) : !!erState.solved[i - 1]);
+    var hopActive = (i > 0 && i < hops.length - 1 && stIdx === i - 1 && !hopDone);
+    if (i === hops.length - 1) hopActive = false;
+    var hopCls = 'er-hop' + (hopDone ? ' done' : '') + (hopActive ? ' active' : '');
+    var hopClick = (i > 0 && i < hops.length - 1) ? ' onclick="jumpEscapeStation(' + (i - 1) + ')"' : ' disabled';
+    if (i > 0) {
+      var prevDone = (i === 1) || !!erState.solved[i - 2];
+      var wireCls = 'er-wire' + (hopDone ? ' lit' : (hopActive ? ' now' : ''));
+      var showPacket = hopActive || (i - 1 === stIdx && !erState.solved[stIdx]);
+      pathParts.push('<div class="' + wireCls + '">' + (showPacket && prevDone ? '<span class="er-packet">📦</span>' : '') + '</div>');
+    }
+    pathParts.push(
+      '<button type="button" class="' + hopCls + '"' + hopClick + '>'
+      + '<span class="er-hop-icon">' + hop.icon + '</span>'
+      + '<span class="er-hop-name">' + hop.name + '</span>'
+      + '<span class="er-hop-meta">' + hop.meta + '</span>'
+      + '</button>'
+    );
+  });
+  var statusText = erState.solved[stIdx]
+    ? (d.journeyStatusDone && d.journeyStatusDone[stIdx]) || st.okMsg
+    : (d.journeyStatus && d.journeyStatus[stIdx]) || '';
+  var packetBarHtml = '<div class="er-journey">'
+    + '<div class="er-journey-head"><span>📦 ' + d.packetInspector + '</span><span class="er-journey-ips">192.168.1.5 → 142.250.185.78</span></div>'
+    + '<div class="er-path">' + pathParts.join('') + '</div>'
+    + '<div class="er-journey-status">' + statusText + '</div>'
+    + '</div>';
 
   // Puzzle body HTML
   var puzzleHtml = '';
